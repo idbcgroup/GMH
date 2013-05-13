@@ -1,0 +1,2 @@
+mvn install:install-file -Dfile=yo../lib/smartgwt.jar -DpomFile=pom.xml -DgroupId=com.smartgwt -DartifactId=smartgwt -Dversion=3.1 -Dpackaging=jar
+

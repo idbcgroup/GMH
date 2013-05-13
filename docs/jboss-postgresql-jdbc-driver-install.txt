@@ -1,0 +1,24 @@
+1.Download the Postgres Driver which you need as .jar-file (http://jdbc.postgresql.org/download.html)
+2.Go to JBoss directory and find modules\org folder. Create two new folders, so you get modules\org\postgresql\main and insert the .jar file there.
+3.Create in the same folder a file named module.xml with the content (set in <resource-root path="" > the name of your .jar-file):
+
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.0" name="org.postgresql">
+ <resources>
+ <resource-root path="postgresql-Y.X-Z.jdbcV.jar"/>
+ </resources>
+ <dependencies>
+ <module name="javax.api"/>
+ <module name="javax.transaction.api"/>
+ </dependencies>
+</module>
+
+4.Edit your standalone.xml and add the following code between the tags <datasources><drivers>
+
+ <driver name=”postgresql” module=”org.postgresql”>
+ <xa-datasource-class>
+ org.postgresql.xa.PGXADataSource
+ </xa-datasource-class>
+ </driver>
+
+Now start the server and check wether he is loading the driver. The console should show something like: INFO [org.jboss.as.connector.subsystems.datasources] JBAS010404: Deploying non-JDBC-compliant driver class org.postgresql.Driver (version 8.4). If it nothing showing about your Postgres Driver, check the spelling and the coding (e.g. the quotation marks can be in different code and dont work, can happen if you just copy and paste). Fix this before going on.

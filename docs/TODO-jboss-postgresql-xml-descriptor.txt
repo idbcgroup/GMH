@@ -1,0 +1,3 @@
+info:
+
+http://docs.jboss.org/ironjacamar/userguide/1.0/en-US/html/deployment.html#deployingds_descriptor

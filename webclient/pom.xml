@@ -1,0 +1,159 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>gha</groupId>
+    <artifactId>gha</artifactId>
+    <version>1</version>
+  </parent>
+  	
+	<artifactId>webclient</artifactId>
+	<packaging>war</packaging>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<gwtVersion>2.5.1</gwtVersion>
+<!-- 		<core.source>../buenosaires/core</core.source> -->
+<!-- 		<common.source>../buenosaires/common</common.source> -->
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-servlet</artifactId>
+			<version>${gwtVersion}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-user</artifactId>
+			<version>${gwtVersion}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.7</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>1.0.0.GA</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>1.0.0.GA</version>
+			<classifier>sources</classifier>
+			<scope>test</scope>
+		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>jboss</groupId> -->
+<!-- 			<artifactId>jboss-ejb3x</artifactId> -->
+<!-- 			<version>4.2.2.GA</version> -->
+<!-- 			<scope>provided</scope> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.fourgeeks.buenosaires</groupId> -->
+<!-- 			<artifactId>buenosaires-common</artifactId> -->
+<!-- 			<version>1.0</version> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>gha</groupId> -->
+<!-- 			<artifactId>ejb</artifactId> -->
+<!-- 			<version>1</version> -->
+<!-- 			<type>ejb-client</type> -->
+<!-- 		</dependency> -->
+	    
+<!-- 	    <dependency> -->
+<!-- 			<groupId>gha</groupId> -->
+<!-- 			<artifactId>domain</artifactId> -->
+<!-- 			<version>1</version> -->
+<!-- 	        <classifier>sources</classifier> -->
+<!-- 	    </dependency> -->
+	    		
+		<dependency>
+			<groupId>com.smartgwt</groupId>
+			<artifactId>smartgwt</artifactId>
+			<version>3.1</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<!-- Generate compiled stuff in the folder used for developing mode -->
+		<!-- <outputDirectory>${webappDirectory}/WEB-INF/classes</outputDirectory> -->
+<!-- <resources> -->
+<!-- 	<resource> -->
+<!-- 	    <directory>${core.source}/src/main/java</directory> -->
+<!-- 	</resource> -->
+<!-- 	<resource> -->
+<!-- 	    <directory>${core.source}/src/main/resources</directory> -->
+<!-- 	</resource> -->
+<!-- 	<resource> -->
+<!-- 	    <directory>${common.source}/src/main/java</directory> -->
+<!-- 	</resource> -->
+<!-- 	<resource> -->
+<!-- 	    <directory>${common.source}/src/main/resources</directory> -->
+<!-- 	</resource> -->
+<!-- 	<resource>     -->
+<!-- 		<directory>/home/alacret/workspace/ba/buenosaires-fe/src/main/resources</directory> -->
+<!-- 	</resource> -->
+<!-- </resources>		 -->
+		<plugins>
+			<!-- GWT Maven Plugin -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>gwt-maven-plugin</artifactId>
+				<version>2.5.1</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+							<goal>test</goal>
+<!-- 							<goal>i18n</goal> -->
+							<goal>generateAsync</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+<!-- 					<compileSourcesArtifacts> -->
+<!-- 						<compileSourcesArtifact>org.fourgeeks.buenosaires:buenosaires-core</compileSourcesArtifact> -->
+<!-- 						<compileSourcesArtifact>org.fourgeeks.buenosaires:buenosaires-common</compileSourcesArtifact> -->
+<!-- 					</compileSourcesArtifacts> -->
+				</configuration>
+			</plugin>
+			<!-- Copy static web files before executing gwt:run -->
+			<!-- <plugin> -->
+			<!-- <groupId>org.apache.maven.plugins</groupId> -->
+			<!-- <artifactId>maven-war-plugin</artifactId> -->
+			<!-- <version>2.1.1</version> -->
+			<!-- Include GWT compiler output in the war -->
+			<!-- <configuration> -->
+			<!-- <webappDirectory>${webappDirectory}</webappDirectory> -->
+			<!-- <webResources> -->
+			<!-- <resource> -->
+			<!-- This is relative to the pom.xml directory, it's the GWT compiler 
+				output -->
+			<!-- <directory>${webappDirectory}</directory> -->
+			<!-- Override the destination directory (WEB-INF/classes) for this resource -->
+			<!-- <targetPath>${gwt.module.alias}</targetPath> -->
+			<!-- </resource> -->
+			<!-- </webResources> -->
+			<!-- </configuration> -->
+			<!-- </plugin> -->
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</build>
+
+</project>
