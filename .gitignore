@@ -7,3 +7,4 @@
 ejb/target/**
 webclient/target/**
 domain/target/**
+ear/target/**

@@ -4,6 +4,7 @@
 package org.fourgeeks.gha.ejb.mix;
 
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
@@ -13,11 +14,12 @@ import javax.persistence.PersistenceContext;
 @Stateless(name = "mix.UserService")
 public class UserService implements UserServiceRemote {
 
-	@PersistenceContext(name = "gha")
-	PersistenceContext persistenceUnit;
+	@PersistenceContext
+	// (name = "gha")
+	EntityManager em;
 
 	public boolean test() {
-		System.out.println(persistenceUnit.name());
+		System.out.println(em.toString());
 		return true;
 	}
 
