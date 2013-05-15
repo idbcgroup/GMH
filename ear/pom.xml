@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>ear</artifactId>
+	<packaging>ear</packaging>
+
+	<parent>
+		<groupId>gha</groupId>
+		<artifactId>gha</artifactId>
+		<version>1</version>
+	</parent>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>maven.java.net</id>
+			<name>Java.net Maven2 Repository</name>
+			<url>http://download.java.net/maven/2</url>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-ear-plugin</artifactId>
+				<version>2.4.1</version>
+				<configuration>
+					<defaultLibBundleDir>/lib</defaultLibBundleDir>
+					<modules>
+						<!-- <ejbModule> -->
+						<!-- <groupId>gha</groupId> -->
+						<!-- <artifactId>ejb</artifactId> -->
+						<!-- <bundleFileName>ejb-1.jar</bundleFileName> -->
+						<!-- </ejbModule> -->
+						<!-- <webModule> -->
+						<!-- <groupId>ve.org.petrociencia.ssgti</groupId> -->
+						<!-- <artifactId>ssgti-usuario</artifactId> -->
+						<!-- <contextRoot>/ssgti-usuario</contextRoot> -->
+						<!-- <bundleFileName>ssgti-usuario.war</bundleFileName> -->
+						<!-- </webModule> -->
+						<!-- <webModule> -->
+						<!-- <groupId>ve.org.petrociencia.ssgti</groupId> -->
+						<!-- <artifactId>ssgti-analista</artifactId> -->
+						<!-- <contextRoot>/ssgti-analista</contextRoot> -->
+						<!-- <bundleFileName>ssgti-analista.war</bundleFileName> -->
+						<!-- </webModule> -->
+						<!-- <webModule> -->
+						<!-- <groupId>ve.org.petrociencia.ssgti</groupId> -->
+						<!-- <artifactId>ssgti-admin</artifactId> -->
+						<!-- <contextRoot>/ssgti-admin</contextRoot> -->
+						<!-- <bundleFileName>ssgti-admin.war</bundleFileName> -->
+						<!-- </webModule> -->
+						<!-- <jarModule> -->
+						<!-- <groupId>com.google.gwt</groupId> -->
+						<!-- <artifactId>gwt-servlet</artifactId> -->
+						<!-- <bundleDir>lib</bundleDir> -->
+						<!-- </jarModule> -->
+						<!-- <jarModule> -->
+						<!-- <groupId>ve.org.petrociencia.ssgti</groupId> -->
+						<!-- <artifactId>ssgti-bootstrap</artifactId> -->
+						<!-- <bundleDir>lib</bundleDir> -->
+						<!-- </jarModule> -->
+						<!-- <jarModule> -->
+						<!-- <groupId>org.freemarker</groupId> -->
+						<!-- <artifactId>freemarker</artifactId> -->
+						<!-- <bundleDir>lib</bundleDir> -->
+						<!-- </jarModule> -->
+						<!-- <jarModule> -->
+						<!-- <groupId>commons-io</groupId> -->
+						<!-- <artifactId>commons-io</artifactId> -->
+						<!-- <bundleDir>lib</bundleDir> -->
+						<!-- </jarModule> -->
+						<!-- <jarModule> -->
+						<!-- <groupId>commons-fileupload</groupId> -->
+						<!-- <artifactId>commons-fileupload</artifactId> -->
+						<!-- <bundleDir>lib</bundleDir> -->
+						<!-- </jarModule> -->
+					</modules>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>gha</groupId>
+			<artifactId>ejb</artifactId>
+			<version>1</version>
+			<type>ejb</type>
+		</dependency>
+		<dependency>
+			<groupId>gha</groupId>
+			<artifactId>webclient</artifactId>
+			<version>1</version>
+			<type>war</type>
+		</dependency>
+		<dependency>
+			<groupId>gha</groupId>
+			<artifactId>domain</artifactId>
+			<version>1</version>
+			<!-- <type>war</type> -->
+		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>ve.org.petrociencia.ssgti</groupId> -->
+		<!-- <artifactId>ssgti-admin</artifactId> -->
+		<!-- <version>1.0-SNAPSHOT</version> -->
+		<!-- <type>war</type> -->
+		<!-- </dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>com.google.gwt</groupId> -->
+		<!-- <artifactId>gwt-servlet</artifactId> -->
+		<!-- </dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>ve.org.petrociencia.ssgti</groupId> -->
+		<!-- <artifactId>ssgti-bootstrap</artifactId> -->
+		<!-- <version>1.0-SNAPSHOT</version> -->
+		<!-- </dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.freemarker</groupId> -->
+		<!-- <artifactId>freemarker</artifactId> -->
+		<!-- </dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>commons-io</groupId> -->
+		<!-- <artifactId>commons-io</artifactId> -->
+		<!-- </dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>commons-fileupload</groupId> -->
+		<!-- <artifactId>commons-fileupload</artifactId> -->
+		<!-- </dependency> -->
+	</dependencies>
+</project>

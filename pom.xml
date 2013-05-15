@@ -1,13 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>gha</groupId>
-  <artifactId>gha</artifactId>
-  <version>1</version>
-  <packaging>pom</packaging>
-  <modules>
-  	<module>domain</module>
-    <module>ejb</module>
-    <module>webclient</module>
-  </modules>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>gha</groupId>
+	<artifactId>gha</artifactId>
+	<version>1</version>
+	<packaging>pom</packaging>
+	<modules>
+		<module>domain</module>
+		<module>ejb</module>
+		<module>webclient</module>
+		<module>ear</module>
+	</modules>
+	<dependencies>
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>6.0</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-ear-plugin</artifactId>
+				<version>2.4.1</version>
+				<configuration>
+					<defaultLibBundleDir>/lib</defaultLibBundleDir>
+					<modules>
+						<ejbModule>
+							<groupId>gha</groupId>
+							<artifactId>ejb</artifactId>
+							<bundleFileName>ejb-1.jar</bundleFileName>
+						</ejbModule>
+						<webModule>
+							<groupId>gha</groupId>
+							<artifactId>webclient</artifactId>
+							<contextRoot>/gha</contextRoot>
+							<bundleFileName>webclient-1.war</bundleFileName>
+						</webModule>
+						<jarModule>
+							<groupId>gha</groupId>
+							<artifactId>domain</artifactId>
+							<bundleFileName>domain-1.jar</bundleFileName>
+						</jarModule>
+						<!-- <jarModule> -->
+						<!-- <groupId>org.freemarker</groupId> -->
+						<!-- <artifactId>freemarker</artifactId> -->
+						<!-- <bundleDir>lib</bundleDir> -->
+						<!-- </jarModule> -->
+						<!-- <jarModule> -->
+						<!-- <groupId>commons-io</groupId> -->
+						<!-- <artifactId>commons-io</artifactId> -->
+						<!-- <bundleDir>lib</bundleDir> -->
+						<!-- </jarModule> -->
+						<!-- <jarModule> -->
+						<!-- <groupId>commons-fileupload</groupId> -->
+						<!-- <artifactId>commons-fileupload</artifactId> -->
+						<!-- <bundleDir>lib</bundleDir> -->
+						<!-- </jarModule> -->
+					</modules>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
 </project>

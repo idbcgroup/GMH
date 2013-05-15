@@ -8,17 +8,17 @@
   <!-- Servlets -->
   <servlet>
     <servlet-name>GWTUserService</servlet-name>
-    <servlet-class>org.fourgeeks.buenosairesfe.server.GWTUserServiceImpl</servlet-class>
+    <servlet-class>org.fourgeeks.gha.webclient.server.GWTUserServiceImpl</servlet-class>
   </servlet>
 
   <servlet-mapping>
     <servlet-name>GWTUserService</servlet-name>
-    <url-pattern>/buenosairesfe/user</url-pattern>
+    <url-pattern>/webclient/user</url-pattern>
   </servlet-mapping>
 
   <!-- Default page to serve -->
   <welcome-file-list>
-    <welcome-file>buenosairesfe.html</welcome-file>
+    <welcome-file>gha.html</welcome-file>
   </welcome-file-list>
 
 </web-app>

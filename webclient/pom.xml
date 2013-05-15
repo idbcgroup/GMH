@@ -1,20 +1,21 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <groupId>gha</groupId>
-    <artifactId>gha</artifactId>
-    <version>1</version>
-  </parent>
-  	
+	<parent>
+		<groupId>gha</groupId>
+		<artifactId>gha</artifactId>
+		<version>1</version>
+	</parent>
+
 	<artifactId>webclient</artifactId>
 	<packaging>war</packaging>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<gwtVersion>2.5.1</gwtVersion>
-<!-- 		<core.source>../buenosaires/core</core.source> -->
-<!-- 		<common.source>../buenosaires/common</common.source> -->
+		<!-- <core.source>../buenosaires/core</core.source> -->
+		<!-- <common.source>../buenosaires/common</common.source> -->
 	</properties>
 	<dependencies>
 		<dependency>
@@ -48,31 +49,31 @@
 			<classifier>sources</classifier>
 			<scope>test</scope>
 		</dependency>
-<!-- 		<dependency> -->
-<!-- 			<groupId>jboss</groupId> -->
-<!-- 			<artifactId>jboss-ejb3x</artifactId> -->
-<!-- 			<version>4.2.2.GA</version> -->
-<!-- 			<scope>provided</scope> -->
-<!-- 		</dependency> -->
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.fourgeeks.buenosaires</groupId> -->
-<!-- 			<artifactId>buenosaires-common</artifactId> -->
-<!-- 			<version>1.0</version> -->
-<!-- 		</dependency> -->
-<!-- 		<dependency> -->
-<!-- 			<groupId>gha</groupId> -->
-<!-- 			<artifactId>ejb</artifactId> -->
-<!-- 			<version>1</version> -->
-<!-- 			<type>ejb-client</type> -->
-<!-- 		</dependency> -->
-	    
-<!-- 	    <dependency> -->
-<!-- 			<groupId>gha</groupId> -->
-<!-- 			<artifactId>domain</artifactId> -->
-<!-- 			<version>1</version> -->
-<!-- 	        <classifier>sources</classifier> -->
-<!-- 	    </dependency> -->
-	    		
+		<!-- <dependency> -->
+		<!-- <groupId>jboss</groupId> -->
+		<!-- <artifactId>jboss-ejb3x</artifactId> -->
+		<!-- <version>4.2.2.GA</version> -->
+		<!-- <scope>provided</scope> -->
+		<!-- </dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.fourgeeks.buenosaires</groupId> -->
+		<!-- <artifactId>buenosaires-common</artifactId> -->
+		<!-- <version>1.0</version> -->
+		<!-- </dependency> -->
+		<dependency>
+			<groupId>gha</groupId>
+			<artifactId>ejb</artifactId>
+			<version>1</version>
+			<type>ejb-client</type>
+		</dependency>
+
+		<!-- <dependency> -->
+		<!-- <groupId>gha</groupId> -->
+		<!-- <artifactId>domain</artifactId> -->
+		<!-- <version>1</version> -->
+		<!-- <classifier>sources</classifier> -->
+		<!-- </dependency> -->
+
 		<dependency>
 			<groupId>com.smartgwt</groupId>
 			<artifactId>smartgwt</artifactId>
@@ -83,23 +84,23 @@
 	<build>
 		<!-- Generate compiled stuff in the folder used for developing mode -->
 		<!-- <outputDirectory>${webappDirectory}/WEB-INF/classes</outputDirectory> -->
-<!-- <resources> -->
-<!-- 	<resource> -->
-<!-- 	    <directory>${core.source}/src/main/java</directory> -->
-<!-- 	</resource> -->
-<!-- 	<resource> -->
-<!-- 	    <directory>${core.source}/src/main/resources</directory> -->
-<!-- 	</resource> -->
-<!-- 	<resource> -->
-<!-- 	    <directory>${common.source}/src/main/java</directory> -->
-<!-- 	</resource> -->
-<!-- 	<resource> -->
-<!-- 	    <directory>${common.source}/src/main/resources</directory> -->
-<!-- 	</resource> -->
-<!-- 	<resource>     -->
-<!-- 		<directory>/home/alacret/workspace/ba/buenosaires-fe/src/main/resources</directory> -->
-<!-- 	</resource> -->
-<!-- </resources>		 -->
+		<!-- <resources> -->
+		<!-- <resource> -->
+		<!-- <directory>${core.source}/src/main/java</directory> -->
+		<!-- </resource> -->
+		<!-- <resource> -->
+		<!-- <directory>${core.source}/src/main/resources</directory> -->
+		<!-- </resource> -->
+		<!-- <resource> -->
+		<!-- <directory>${common.source}/src/main/java</directory> -->
+		<!-- </resource> -->
+		<!-- <resource> -->
+		<!-- <directory>${common.source}/src/main/resources</directory> -->
+		<!-- </resource> -->
+		<!-- <resource> -->
+		<!-- <directory>/home/alacret/workspace/ba/buenosaires-fe/src/main/resources</directory> -->
+		<!-- </resource> -->
+		<!-- </resources> -->
 		<plugins>
 			<!-- GWT Maven Plugin -->
 			<plugin>
@@ -111,16 +112,16 @@
 						<goals>
 							<goal>compile</goal>
 							<goal>test</goal>
-<!-- 							<goal>i18n</goal> -->
+							<!-- <goal>i18n</goal> -->
 							<goal>generateAsync</goal>
 						</goals>
 					</execution>
 				</executions>
 				<configuration>
-<!-- 					<compileSourcesArtifacts> -->
-<!-- 						<compileSourcesArtifact>org.fourgeeks.buenosaires:buenosaires-core</compileSourcesArtifact> -->
-<!-- 						<compileSourcesArtifact>org.fourgeeks.buenosaires:buenosaires-common</compileSourcesArtifact> -->
-<!-- 					</compileSourcesArtifacts> -->
+					<!-- <compileSourcesArtifacts> -->
+					<!-- <compileSourcesArtifact>org.fourgeeks.buenosaires:buenosaires-core</compileSourcesArtifact> -->
+					<!-- <compileSourcesArtifact>org.fourgeeks.buenosaires:buenosaires-common</compileSourcesArtifact> -->
+					<!-- </compileSourcesArtifacts> -->
 				</configuration>
 			</plugin>
 			<!-- Copy static web files before executing gwt:run -->
