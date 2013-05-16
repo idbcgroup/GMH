@@ -1,5 +1,7 @@
 package org.fourgeeks.gha.domain.mix;
 
-public class PhysicalCharacteristics {
+import java.io.Serializable;
+
+public class PhysicalCharacteristics{
 
 }
