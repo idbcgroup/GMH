@@ -3,7 +3,7 @@
 	
 <!-- 	<inherits name="com.smartgwt.SmartGwt"/> -->
 <!-- 	<inherits name="org.fourgeeks.buenosaires.buenosaires-common"/> -->
-<!-- 	<inherits name="org.fourgeeks.buenosaires.buenosaires-core"/> -->
+	<inherits name="org.fourgeeks.gha.domain"/>
 	
 	<inherits name="com.google.gwt.useragent.UserAgent" />
 	<set-property name="user.agent" value="gecko1_8" />

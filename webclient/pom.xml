@@ -67,12 +67,12 @@
 			<type>ejb-client</type>
 		</dependency>
 
-		<!-- <dependency> -->
-		<!-- <groupId>gha</groupId> -->
-		<!-- <artifactId>domain</artifactId> -->
-		<!-- <version>1</version> -->
-		<!-- <classifier>sources</classifier> -->
-		<!-- </dependency> -->
+		<dependency>
+			<groupId>gha</groupId>
+			<artifactId>domain</artifactId>
+			<version>1</version>
+			<classifier>sources</classifier>
+		</dependency>
 
 		<dependency>
 			<groupId>com.smartgwt</groupId>

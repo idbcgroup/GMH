@@ -14,7 +14,6 @@ public class Gha implements EntryPoint {
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
-		Window.alert("gfhfgh");
 		GWTUserServiceAsync service = GWT.create(GWTUserService.class);
 		service.test(new AsyncCallback<Boolean>() {
 
