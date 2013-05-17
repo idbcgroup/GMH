@@ -4,8 +4,8 @@
 package org.fourgeeks.gha.ejb.mix;
 
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+
+import org.fourgeeks.gha.domain.mix.LegalEntity;
 
 /**
  * @author alacret
@@ -14,13 +14,15 @@ import javax.persistence.PersistenceContext;
 @Stateless(name = "mix.UserService")
 public class UserService implements UserServiceRemote {
 
-	@PersistenceContext
-	// (name = "gha")
-	EntityManager em;
+	// @PersistenceContext(name = "gha")
+	// EntityManager em;
 
 	public boolean test() {
-		System.out.println(em.toString());
 		return true;
+	}
+
+	public LegalEntity test2() {
+		return new LegalEntity();
 	}
 
 }

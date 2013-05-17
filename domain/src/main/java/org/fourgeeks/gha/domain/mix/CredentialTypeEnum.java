@@ -1,5 +1,7 @@
 package org.fourgeeks.gha.domain.mix;
 
-public enum CredentialTypeEnum {
+import java.io.Serializable;
+
+public enum CredentialTypeEnum implements Serializable {
 
 }

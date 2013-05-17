@@ -1,24 +1,23 @@
 package org.fourgeeks.gha.domain.mix;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-
-@Entity
-public class LegalEntityCredentials {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//@Entity
+public class LegalEntityCredentials implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	// @Id
+	// @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private CredentialTypeEnum primaryRoleCode;
 	private String primaryIdentifier;
 	private String secondaryIdentifier;
 	private Timestamp createdDate;
 	private Long portalUser;
-	@OneToOne
+	// @OneToOne
 	private LegalEntity legalEntity;
 	// TODO: SYSTEM_INSTANCE_FK
 	private boolean userhasSingleSignOn;
