@@ -44,6 +44,7 @@
 					</excludes>
 					<clientExcludes>
 						<clientExclude>**/*Service.class</clientExclude>
+						<clientExclude>**/TestData.class</clientExclude>
 					</clientExcludes>
 				</configuration>
 			</plugin>

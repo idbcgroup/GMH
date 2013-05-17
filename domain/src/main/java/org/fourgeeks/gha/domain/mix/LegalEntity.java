@@ -1,25 +1,20 @@
 package org.fourgeeks.gha.domain.mix;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+
+import org.fourgeeks.gha.domain.AbstractEntity;
 
 @Entity
-public class LegalEntity implements Serializable {
+public class LegalEntity extends AbstractEntity {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+
 	private Timestamp createdDate;
-	
+
 	public long getId() {
 		return id;
 	}

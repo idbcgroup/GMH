@@ -1,27 +1,36 @@
 package org.fourgeeks.gha.domain.mix;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
 
-import javax.persistence.OneToOne;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
-//@Entity
-public class LegalEntityCredential implements Serializable {
+import org.fourgeeks.gha.domain.AbstractEntity;
+import org.fourgeeks.gha.domain.vcf.SingleSignOnUser;
+
+@Entity
+public class LegalEntityCredential extends AbstractEntity {
 	/**
 	 * 
 	 */
-	
 	private static final long serialVersionUID = 1L;
-	// @Id
-	// @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	/**
+	 * 
+	 */
+
 	private CredentialTypeEnum primaryRoleCode;
+	@ManyToOne
+	@JoinColumn(name = "singleSignOnUserFk")
+	private SingleSignOnUser singleSignOnUser;
+	@ManyToOne
+	@JoinColumn(name = "systemInstanceFk")
+	private SystemInstance systemInstance;
+	//
 	private String primaryIdentifier;
 	private String secondaryIdentifier;
 	private Timestamp createdDate;
 	private Long portalUser;
-	@OneToOne
-	private LegalEntity legalEntity;
 	// TODO: SYSTEM_INSTANCE_FK
 	private boolean userhasSingleSignOn;
 	private CredentialTypeEnum secundaryRoleCode;
@@ -72,14 +81,6 @@ public class LegalEntityCredential implements Serializable {
 
 	public void setPortalUser(Long portalUser) {
 		this.portalUser = portalUser;
-	}
-
-	public LegalEntity getLegalEntity() {
-		return legalEntity;
-	}
-
-	public void setLegalEntity(LegalEntity legalEntity) {
-		this.legalEntity = legalEntity;
 	}
 
 	public boolean isUserhasSingleSignOn() {

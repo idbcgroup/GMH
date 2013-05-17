@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class BPO implements Serializable{
+public class Bpo implements Serializable{
 	/**
 	 * 
 	 */
@@ -22,7 +22,7 @@ public class BPO implements Serializable{
 	/**
 	 * 
 	 */
-	public BPO() {
+	public Bpo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
