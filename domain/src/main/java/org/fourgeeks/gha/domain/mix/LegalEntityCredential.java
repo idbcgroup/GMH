@@ -3,11 +3,14 @@ package org.fourgeeks.gha.domain.mix;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import javax.persistence.OneToOne;
+
 //@Entity
-public class LegalEntityCredentials implements Serializable {
+public class LegalEntityCredential implements Serializable {
 	/**
 	 * 
 	 */
+	
 	private static final long serialVersionUID = 1L;
 	// @Id
 	// @GeneratedValue(strategy = GenerationType.IDENTITY)
