@@ -17,7 +17,7 @@ public class LegalEntityCredentials implements Serializable {
 	private String secondaryIdentifier;
 	private Timestamp createdDate;
 	private Long portalUser;
-	// @OneToOne
+	@OneToOne
 	private LegalEntity legalEntity;
 	// TODO: SYSTEM_INSTANCE_FK
 	private boolean userhasSingleSignOn;
