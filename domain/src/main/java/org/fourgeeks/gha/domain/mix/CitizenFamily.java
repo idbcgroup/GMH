@@ -2,22 +2,25 @@ package org.fourgeeks.gha.domain.mix;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.Collection;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+
+import org.fourgeeks.gha.domain.AbstractEntity;
 
 @Entity
-public class CitizenFamily implements Serializable{
+public class CitizenFamily extends AbstractEntity{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	@ManyToMany(mappedBy="citizenFamily")
+	private Collection <Citizen> citizens;
 	
 	private String areaCode;
 	private Date birthDate;

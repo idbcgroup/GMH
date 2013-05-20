@@ -1,32 +1,33 @@
 package org.fourgeeks.gha.domain.mix;
 
-import java.io.Serializable;
 import java.sql.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import org.fourgeeks.gha.domain.AbstractEntity;
 
 @Entity
-public class CitizenPictures implements Serializable{
+public class CitizenPicture extends AbstractEntity{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-	
 	private byte[] imageData;
 	private Date imageDate;
 	private int imageOrder;
 	private boolean current;
+	
+	@ManyToOne
+	@JoinColumn(name = "citizenFk")
+	private Citizen citizen;
+	
 	/**
 	 * 
 	 */
-	public CitizenPictures() {
+	public CitizenPicture() {
 		super();
 		// TODO Auto-generated constructor stub
 	}

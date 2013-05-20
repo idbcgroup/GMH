@@ -1,23 +1,19 @@
 package org.fourgeeks.gha.domain.mix;
 
-import java.io.Serializable;
 import java.sql.Time;
+import java.util.Collection;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+
+import org.fourgeeks.gha.domain.AbstractEntity;
 
 @Entity
-public class CitizenContacts implements Serializable{
+public class CitizenContact extends AbstractEntity {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
 	
 	private String areaCode;
 	private Time availableTime; //Time?
@@ -30,10 +26,14 @@ public class CitizenContacts implements Serializable{
 	private String countryCode; //String?
 	private String telephoneNumber;
 	private String telephoneType; //String?
+	
+	@ManyToMany(mappedBy="citizenContacts")
+	private Collection <Citizen> citizens;
+	
 	/**
 	 * 
 	 */
-	public CitizenContacts() {
+	public CitizenContact() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
