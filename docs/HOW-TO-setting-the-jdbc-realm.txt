@@ -1,0 +1,42 @@
+
+1. In standalone.xml, add the security domain:
+
+                <security-domain name="gha-auth-security-domain">
+                    <authentication>
+                        <login-module code="org.jboss.security.auth.spi.DatabaseServerLoginModule" flag="required">
+                            <module-option name="dsJndiName" value="java:/jdbc/gha"/>
+                            <module-option name="principalsQuery" value="select pass from public.USER where username=?"/>
+                        </login-module>
+                    </authentication>
+                </security-domain>
+
+2. in web.xml:
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>All resources</web-resource-name>
+			<description>Protects all resources</description>
+			<url-pattern>/NeverGonnaBeCall/*</url-pattern>
+		</web-resource-collection>
+<!-- 		<auth-constraint> -->
+<!-- 			<role-name>myrole</role-name> -->
+<!-- 		</auth-constraint> -->
+	</security-constraint>
+
+<!-- 	<security-role> -->
+<!-- 		<role-name>myrole</role-name> -->
+<!-- 	</security-role> -->
+
+	<login-config>
+		<auth-method>BASIC</auth-method>
+		<realm-name>gha-auth-security-domain</realm-name>
+	</login-config>
+
+3. in jboss.xml
+
+<jboss-web>
+    <context-root>gha</context-root>
+    <security-domain>gha-auth-security-domain</security-domain>
+</jboss-web>
+
+DONE!

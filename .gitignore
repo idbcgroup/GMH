@@ -1,5 +1,6 @@
 .project
 .settings
+.classpath
 *.class
 *.ear
 *.war
@@ -8,3 +9,13 @@ ejb/target/**
 webclient/target/**
 domain/target/**
 ear/target/**
+
+ejb/.classpath
+webclient/.classpath
+domain/.classpath
+ear/.classpath
+
+ejb/.project
+webclient/.project
+domain/.project
+ear/.project
