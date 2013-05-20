@@ -24,6 +24,10 @@ public class GWTUserServiceImpl extends RemoteServiceServlet implements
 		return userService.test();
 	}
 
+	public boolean isLogged(){
+		return false;
+	}
+	
 	@Override
 	public LegalEntity test2() {
 		return userService.test2();
