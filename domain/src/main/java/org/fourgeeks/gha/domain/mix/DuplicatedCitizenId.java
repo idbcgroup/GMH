@@ -7,15 +7,19 @@ import javax.persistence.ManyToOne;
 import org.fourgeeks.gha.domain.AbstractEntity;
 
 @Entity
-public class DuplicatedCitizenId extends AbstractEntity{
+public class DuplicatedCitizenId extends AbstractEntity {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@ManyToOne
-	@JoinColumn(name = "citizenFk")
-	private Citizen citizen;
+	@JoinColumn(name = "citizenToFk")
+	private Citizen citizenTo;
+
+	@ManyToOne
+	@JoinColumn(name = "citizenFromFk")
+	private Citizen citizenFrom;
 
 }

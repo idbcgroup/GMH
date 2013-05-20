@@ -3,39 +3,40 @@ package org.fourgeeks.gha.domain.oru;
 import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.Collection;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+
+import org.fourgeeks.gha.domain.mix.Bpi;
 
 @Entity
-public class BPU implements Serializable{
+public class Bpu implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	
+
 	private String credential;
-	private String roleId; //String???
+	private String roleId; // String???
 	private String fullName;
-	
-	//TODO: relacion
-	private long citizenId;
-	
-	private String credentialType; //String?
+
+	private String credentialType; // String?
 	private String speciality;
 	private boolean hasToSign;
 	private String reportTo;
 	private String scalateTo;
 	private String shiftOnDuty;
 	private String waRestricted;
-	private String horaryRestricted; //String?
+	private String horaryRestricted; // String?
 	private String email;
 	private String notifEmail;
 	private String officePhone;
@@ -44,26 +45,29 @@ public class BPU implements Serializable{
 	private String escalation;
 	private boolean freedActivity;
 	private boolean delegateActivity;
-	private String rolIdReportTo; //String???
-	private String rolIdEscalateTo; //String??
-	private String status; //String
-	private String ownActivityType; //String
+	private String rolIdReportTo; // String???
+	private String rolIdEscalateTo; // String??
+	private String status; // String
+	private String ownActivityType; // String
 	private Timestamp lastLogonDate;
-	private String lastLogonTerm; //String?
-	private long onDutyIn; //number(19,0)?
+	private String lastLogonTerm; // String?
+	private long onDutyIn; // number(19,0)?
 	private String statusCurrentDay;
 	private Date currentDayStatus;
-	private Date horaryAbsence; //Date?
+	private Date horaryAbsence; // Date?
 	private String motiveAbsence;
-	private long absenceTime; //long???
-	
-	//TODO: Relationship fk
+	private long absenceTime; // long???
+
+	// TODO: Relationship fk
 	private long shiftAssigned;
+
+	@ManyToMany
+	private Collection<Bpi> bpis;
 
 	/**
 	 * 
 	 */
-	public BPU() {
+	public Bpu() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -86,10 +90,6 @@ public class BPU implements Serializable{
 
 	public String getFullName() {
 		return fullName;
-	}
-
-	public long getCitizenId() {
-		return citizenId;
 	}
 
 	public String getCredentialType() {
@@ -224,10 +224,6 @@ public class BPU implements Serializable{
 		this.fullName = fullName;
 	}
 
-	public void setCitizenId(long citizenId) {
-		this.citizenId = citizenId;
-	}
-
 	public void setCredentialType(String credentialType) {
 		this.credentialType = credentialType;
 	}
@@ -343,7 +339,5 @@ public class BPU implements Serializable{
 	public void setShiftAssigned(long shiftAssigned) {
 		this.shiftAssigned = shiftAssigned;
 	}
-	
-	
-	
+
 }

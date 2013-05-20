@@ -13,7 +13,9 @@ public class WorkingHoliday extends AbstractEntity {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	//TODO: relacion con institucion
+
+	@ManyToOne
+	@JoinColumn(name = "institutionFk")
+	private Institution institution;
 
 }
