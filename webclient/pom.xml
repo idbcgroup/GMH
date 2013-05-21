@@ -28,8 +28,9 @@
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-user</artifactId>
-			<version>${gwtVersion}</version>
-			<scope>provided</scope>
+			<version>2.5.1</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/../lib/gwt-user-2.5.1.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -79,6 +80,8 @@
 			<groupId>com.smartgwt</groupId>
 			<artifactId>smartgwt</artifactId>
 			<version>3.1</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/../lib/smartgwt-3.1.jar</systemPath>
 		</dependency>
 
 		<dependency>
