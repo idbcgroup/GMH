@@ -1,4 +1,0 @@
-<jboss-web>
-    <context-root>gha</context-root>
-    <security-domain>gha-auth-security-domain</security-domain>
-</jboss-web>
