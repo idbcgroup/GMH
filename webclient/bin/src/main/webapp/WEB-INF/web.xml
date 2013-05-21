@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app>
+
+	<!-- Servlets -->
+	<servlet>
+		<servlet-name>GWTUserService</servlet-name>
+		<servlet-class>org.fourgeeks.gha.webclient.server.GWTUserServiceImpl</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>GWTUserService</servlet-name>
+		<url-pattern>/webclient/user</url-pattern>
+	</servlet-mapping>
+
+	<!-- Servlets -->
+	<servlet>
+		<servlet-name>LoginService</servlet-name>
+		<servlet-class>org.fourgeeks.gha.webclient.server.LoginService</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>LoginService</servlet-name>
+		<url-pattern>/webclient/login</url-pattern>
+	</servlet-mapping>
+
+	<!-- Default page to serve -->
+	<welcome-file-list>
+		<welcome-file>gha.html</welcome-file>
+	</welcome-file-list>
+	
+	
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>All resources</web-resource-name>
+			<description>Protects all resources</description>
+			<url-pattern>/NeverGonnaBeCall/*</url-pattern>
+		</web-resource-collection>
+<!-- 		<auth-constraint> -->
+<!-- 			<role-name>myrole</role-name> -->
+<!-- 		</auth-constraint> -->
+	</security-constraint>
+
+<!-- 	<security-role> -->
+<!-- 		<role-name>myrole</role-name> -->
+<!-- 	</security-role> -->
+
+	<login-config>
+		<auth-method>BASIC</auth-method>
+		<realm-name>gha-auth-security-domain</realm-name>
+	</login-config>
+	
+</web-app>
