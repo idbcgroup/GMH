@@ -9,9 +9,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import org.fourgeeks.gha.domain.mix.Bpi;
+import org.fourgeeks.gha.domain.mix.Citizen;
+import org.fourgeeks.gha.domain.rwa.RoleIt;
 
 @Entity
 public class Bpu implements Serializable {
@@ -63,6 +69,29 @@ public class Bpu implements Serializable {
 
 	@ManyToMany
 	private Collection<Bpi> bpis;
+	
+	@OneToOne(mappedBy = "bpu")
+	private Citizen citizen;
+	
+	@OneToMany(mappedBy = "bpu")
+	private Collection <Shift> shifts;
+	
+	@OneToOne(mappedBy = "bpu")
+	private JobPosition jobPosition;
+	
+	@ManyToMany
+	private Collection <RoleIt> itRoles;
+	
+	@ManyToOne
+	@JoinColumn(name = "roleItFk")
+	private RoleIt primaryRole;
+	
+	@ManyToMany
+	private Collection <BpuWorkingGroup> bpuWorkingGroups;
+	
+	@OneToOne
+	@JoinColumn(name = "bpuDelegateFk")
+	private BpuDelegate bpuDelegate;
 
 	/**
 	 * 

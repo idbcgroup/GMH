@@ -4,10 +4,13 @@ import java.sql.Date;
 import java.util.Collection;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
+import org.fourgeeks.gha.domain.oru.Bpu;
 
 @Entity
 public class Citizen extends AbstractEntity {
@@ -77,6 +80,10 @@ public class Citizen extends AbstractEntity {
 
 	@OneToMany(mappedBy = "citizen")
 	private Collection<PhysicalCharacteristicsCode> physicalCharacteristicsCodes;
+	
+	@OneToOne
+	@JoinColumn(name = "bpuFk")
+	private Bpu bpu;
 
 	/**
 	 * Constructor
