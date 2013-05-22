@@ -1,7 +1,7 @@
 package org.fourgeeks.gha.webclient.client.UI;
 
-import org.fourgeeks.gha.webclient.client.UI.places.LoginPlace;
-import org.fourgeeks.gha.webclient.client.UI.places.UIPlace;
+import org.fourgeeks.gha.webclient.client.home.HomePlace;
+import org.fourgeeks.gha.webclient.client.login.LoginPlace;
 
 public class UIPlacesFactory{
 	/*
@@ -12,6 +12,8 @@ public class UIPlacesFactory{
 	public static UIPlace createPlace(String token){
 		if(token.equals("login"))
 			return new LoginPlace();
+		else if(token.equals("home"))
+			return new HomePlace();
 		/*
 		switch (token) {
 			case "login":
