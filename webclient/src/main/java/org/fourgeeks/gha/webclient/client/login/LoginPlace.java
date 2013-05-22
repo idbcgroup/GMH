@@ -4,10 +4,13 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.UIPlace;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.InputElement;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.EventListener;
+import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -19,7 +22,8 @@ public class LoginPlace implements UIPlace {
 
 	@Override
 	public void show() {
-		Window.alert("login}");
+		RootPanel.get("main-content").clear();
+		//Window.alert("login}");
 		StringBuilder html = new StringBuilder();
 		html.append("<div class='login-panel'>");
 		html.append("<div class='logo login-logo'></div>");
@@ -34,25 +38,33 @@ public class LoginPlace implements UIPlace {
 
 		Element element = RootPanel.get("login-button").getElement();
 		DOM.sinkEvents(element, Event.ONCLICK);
-		DOM.setEventListener(element, new EventListener() {
+		DOM.setEventListener(element, new EventListener(){
 
 			@Override
 			public void onBrowserEvent(Event event) {
-				String username = RootPanel.get("username").getElement()
-						.getAttribute("value");
-				String password = RootPanel.get("password").getElement()
-						.getAttribute("value");
-
-				Window.alert(username);
+				InputElement userTextbox = (InputElement) Document.get().getElementById("username");
+				InputElement passTextbox = (InputElement) Document.get().getElementById("password");
+				String username = userTextbox.getValue();
+				String password = passTextbox.getValue();
+				
+				Window.alert(username+"-"+password);
 
 				final GWTLoginServiceAsync service = GWT
 						.create(GWTLoginService.class);
 				service.login(username, password,
 						new GHAAsyncCallback<Boolean>() {
-
 							@Override
 							public void onSuccess(Boolean result) {
-								Window.alert("" + result);
+								Window.alert("Button Clicked. Result:" + result);
+								if (!result) {
+									String token = History.getToken();
+									Window.alert("Token:" + token);
+									if (token.equals("home"))
+										History.fireCurrentHistoryState();
+									else
+										History.newItem("home");
+								} else
+									History.fireCurrentHistoryState();
 							}
 						});
 

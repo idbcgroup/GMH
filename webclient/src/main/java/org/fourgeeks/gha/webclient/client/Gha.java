@@ -28,7 +28,7 @@ public class Gha implements EntryPoint {
 				String historyToken = event.getValue();
 				if (historyToken == null)
 					return;
-
+				Window.alert("Showing place:"+historyToken);
 				UIPlace place = UIPlacesFactory.createPlace(historyToken);
 				place.show();
 			}
@@ -38,10 +38,10 @@ public class Gha implements EntryPoint {
 		service.isLogged(new GHAAsyncCallback<Boolean>() {
 			@Override
 			public void onSuccess(Boolean result) {
-				Window.alert("" + result);
+				Window.alert("Success. Result:" + result);
 				if (!result) {
 					String token = History.getToken();
-					Window.alert(token);
+					Window.alert("Token:" + token);
 					if (token.equals("login"))
 						History.fireCurrentHistoryState();
 					else
