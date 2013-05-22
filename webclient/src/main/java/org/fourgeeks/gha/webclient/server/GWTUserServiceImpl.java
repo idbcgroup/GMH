@@ -1,10 +1,11 @@
 package org.fourgeeks.gha.webclient.server;
 
 import javax.ejb.EJB;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
-import org.fourgeeks.gha.domain.mix.LegalEntity;
 import org.fourgeeks.gha.ejb.mix.UserServiceRemote;
-import org.fourgeeks.gha.webclient.client.GWTUserService;
+import org.fourgeeks.gha.webclient.client.services.GWTUserService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -19,18 +20,24 @@ public class GWTUserServiceImpl extends RemoteServiceServlet implements
 
 	private static final long serialVersionUID = 1L;
 
-	@Override
-	public boolean test() {
-		return userService.test();
-	}
-
-	public boolean isLogged(){
+	public boolean isLogged() {
 		return false;
 	}
-	
-	@Override
-	public LegalEntity test2() {
-		return userService.test2();
-	}
 
+	@Override
+	public boolean login(String user, String password) {
+		HttpServletRequest request = this.perThreadRequest.get();
+		HttpSession session = request.getSession();
+		if (session != null)
+			session.invalidate();
+
+		try {
+			request.login(user, password);
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+		return false;
+	}
 }

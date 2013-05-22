@@ -2,6 +2,7 @@ package org.fourgeeks.gha.webclient.client;
 
 import org.fourgeeks.gha.webclient.client.UI.UIPlacesFactory;
 import org.fourgeeks.gha.webclient.client.UI.places.UIPlace;
+import org.fourgeeks.gha.webclient.client.services.GWTUserService;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
