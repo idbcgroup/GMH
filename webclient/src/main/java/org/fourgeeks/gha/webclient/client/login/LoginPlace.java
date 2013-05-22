@@ -1,5 +1,9 @@
-package org.fourgeeks.gha.webclient.client.UI.places;
+package org.fourgeeks.gha.webclient.client.login;
 
+import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
+import org.fourgeeks.gha.webclient.client.UI.UIPlace;
+
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Event;
@@ -21,7 +25,8 @@ public class LoginPlace implements UIPlace {
 		html.append("<div class='logo login-logo'></div>");
 		html.append("<h1 class='login-titulo'>Iniciar Sesion</h1>");
 		html.append("<div class='smallfont full'>Ubicado en:<span id='ubicacion'>Sotano enfermeria</span></div>");
-		html.append("<form class='centered'><input type='text' placeholder='Nombre de usuario'><br/><input type='password' placeholder='Contraseña'> <br/>");
+		html.append("<form class='centered'>");
+		html.append("<input id='username' type='text' placeholder='Nombre de usuario'><br/><input id='password' type='password' placeholder='Contraseña'> <br/>");
 		html.append("<input id='login-button' type='button' value='Iniciar Sesion' class='GHAButton'>");
 		html.append("<div class='smallfont'><input type='checkbox'>Recordar mis datos</div><br/><a href='' class='smallfont'>¿Olvidaste tu contraseña?</a></form></div>");
 		HTML content = new HTML(html.toString());
@@ -33,7 +38,23 @@ public class LoginPlace implements UIPlace {
 
 			@Override
 			public void onBrowserEvent(Event event) {
-				Window.alert("click");
+				String username = RootPanel.get("username").getElement()
+						.getAttribute("value");
+				String password = RootPanel.get("password").getElement()
+						.getAttribute("value");
+
+				Window.alert(username);
+
+				final GWTLoginServiceAsync service = GWT
+						.create(GWTLoginService.class);
+				service.login(username, password,
+						new GHAAsyncCallback<Boolean>() {
+
+							@Override
+							public void onSuccess(Boolean result) {
+								Window.alert("" + result);
+							}
+						});
 
 			}
 		});

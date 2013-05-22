@@ -1,7 +1,6 @@
 package org.fourgeeks.gha.webclient.client.UI;
 
-import org.fourgeeks.gha.webclient.client.UI.places.LoginPlace;
-import org.fourgeeks.gha.webclient.client.UI.places.UIPlace;
+import org.fourgeeks.gha.webclient.client.login.LoginPlace;
 
 public class UIPlacesFactory{
 	/*

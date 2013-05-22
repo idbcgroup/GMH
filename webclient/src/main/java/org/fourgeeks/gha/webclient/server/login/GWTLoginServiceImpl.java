@@ -1,22 +1,20 @@
-package org.fourgeeks.gha.webclient.server;
+package org.fourgeeks.gha.webclient.server.login;
 
-import javax.ejb.EJB;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.fourgeeks.gha.ejb.mix.UserServiceRemote;
-import org.fourgeeks.gha.webclient.client.services.GWTUserService;
+import org.fourgeeks.gha.webclient.client.login.GWTLoginService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
-public class GWTUserServiceImpl extends RemoteServiceServlet implements
-		GWTUserService {
+public class GWTLoginServiceImpl extends RemoteServiceServlet implements
+		GWTLoginService {
 
 	// @Resource(name = "java:/jdbc/gha")
 	// DataSource service;
 	//
-	@EJB(name = "mix.UserService")
-	UserServiceRemote userService;
+	// @EJB(name = "mix.UserService")
+	// UserServiceRemote userService;
 
 	private static final long serialVersionUID = 1L;
 
@@ -25,8 +23,14 @@ public class GWTUserServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public boolean login(String user, String password) {
+	public boolean login(String user, String password)
+			throws IllegalArgumentException {
 		HttpServletRequest request = this.perThreadRequest.get();
+
+		if (user.equals("") || password.equals(""))
+			throw new IllegalArgumentException(
+					"Debe indicar usuario y contraseña");
+
 		HttpSession session = request.getSession();
 		if (session != null)
 			session.invalidate();

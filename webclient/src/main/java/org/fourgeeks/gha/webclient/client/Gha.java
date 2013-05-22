@@ -1,9 +1,10 @@
 package org.fourgeeks.gha.webclient.client;
 
+import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
+import org.fourgeeks.gha.webclient.client.UI.UIPlace;
 import org.fourgeeks.gha.webclient.client.UI.UIPlacesFactory;
-import org.fourgeeks.gha.webclient.client.UI.places.UIPlace;
-import org.fourgeeks.gha.webclient.client.services.GWTUserService;
-import org.fourgeeks.gha.webclient.client.services.GWTUserServiceAsync;
+import org.fourgeeks.gha.webclient.client.login.GWTLoginService;
+import org.fourgeeks.gha.webclient.client.login.GWTLoginServiceAsync;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
@@ -11,7 +12,6 @@ import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -34,24 +34,20 @@ public class Gha implements EntryPoint {
 			}
 		});
 
-		final GWTUserServiceAsync service = GWT.create(GWTUserService.class);
-		service.isLogged(new AsyncCallback<Boolean>() {
+		final GWTLoginServiceAsync service = GWT.create(GWTLoginService.class);
+		service.isLogged(new GHAAsyncCallback<Boolean>() {
 			@Override
 			public void onSuccess(Boolean result) {
+				Window.alert("" + result);
 				if (!result) {
 					String token = History.getToken();
+					Window.alert(token);
 					if (token.equals("login"))
 						History.fireCurrentHistoryState();
 					else
 						History.newItem("login");
 				} else
 					History.fireCurrentHistoryState();
-			}
-
-			@Override
-			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
-
 			}
 		});
 

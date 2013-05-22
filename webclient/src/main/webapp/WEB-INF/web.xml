@@ -7,23 +7,12 @@
 
 	<!-- Servlets -->
 	<servlet>
-		<servlet-name>GWTUserService</servlet-name>
-		<servlet-class>org.fourgeeks.gha.webclient.server.GWTUserServiceImpl</servlet-class>
+		<servlet-name>GWTLoginService</servlet-name>
+		<servlet-class>org.fourgeeks.gha.webclient.server.login.GWTLoginServiceImpl</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
-		<servlet-name>GWTUserService</servlet-name>
-		<url-pattern>/webclient/user</url-pattern>
-	</servlet-mapping>
-
-	<!-- Servlets -->
-	<servlet>
-		<servlet-name>LoginService</servlet-name>
-		<servlet-class>org.fourgeeks.gha.webclient.server.LoginService</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>LoginService</servlet-name>
+		<servlet-name>GWTLoginService</servlet-name>
 		<url-pattern>/webclient/login</url-pattern>
 	</servlet-mapping>
 
