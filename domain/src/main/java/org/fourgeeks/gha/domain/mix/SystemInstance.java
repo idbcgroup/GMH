@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import org.fourgeeks.gha.domain.vcf.ItSystem;
+import org.fourgeeks.gha.domain.ess.ItSystem;
 
 @Entity
 public class SystemInstance implements Serializable {

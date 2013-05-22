@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.domain.vcf;
+package org.fourgeeks.gha.domain.ess;
 
 import javax.persistence.Entity;
 

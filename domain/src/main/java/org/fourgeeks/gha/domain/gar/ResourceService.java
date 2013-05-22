@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.domain.oru;
+package org.fourgeeks.gha.domain.gar;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
@@ -6,13 +6,15 @@ import javax.persistence.OneToOne;
 import org.fourgeeks.gha.domain.AbstractEntity;
 
 @Entity
-public class BpuDelegate extends AbstractEntity{
+public class ResourceService extends AbstractEntity{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	@OneToOne(mappedBy = "bpuDelegate")
-	private Bpu bpu;
+	@OneToOne(mappedBy = "resourceService")
+	private Facility facility;
+	
+
 }

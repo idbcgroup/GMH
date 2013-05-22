@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.domain.oru;
+package org.fourgeeks.gha.domain.gar;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -8,23 +8,24 @@ import javax.persistence.OneToOne;
 import org.fourgeeks.gha.domain.AbstractEntity;
 
 @Entity
-public class JobPosition extends AbstractEntity{
+public class ObuChild extends AbstractEntity{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	@OneToOne
-	@JoinColumn(name = "bpuFk")
-	private Bpu bpu;
-	
+	/**
+	 * this is the parent obu
+	 */
 	@ManyToOne
+	@JoinColumn(name = "parentObuFk")
+	private Obu parentObu;
+	
+	/**
+	 * this is the obu associated with this child obu
+	 */
+	@OneToOne
 	@JoinColumn(name = "obuFk")
 	private Obu obu;
-	
-	@ManyToOne
-	@JoinColumn(name = "jobPositionDefinitionFk")
-	private JobPositionDefinition jobPositionDef;
-
 }

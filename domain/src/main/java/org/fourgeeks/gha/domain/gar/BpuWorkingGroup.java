@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.domain.rwa;
+package org.fourgeeks.gha.domain.gar;
 
 import java.util.Collection;
 
@@ -6,17 +6,15 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
-import org.fourgeeks.gha.domain.oru.Bpu;
 
 @Entity
-public class RoleIt extends AbstractEntity{
+public class BpuWorkingGroup extends AbstractEntity {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	@ManyToMany(mappedBy = "itRoles")
+	@ManyToMany(mappedBy = "bpuWorkingGroups")
 	private Collection <Bpu> bpus;
-	
 }

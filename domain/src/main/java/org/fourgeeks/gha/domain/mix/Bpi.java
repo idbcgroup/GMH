@@ -7,13 +7,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
-import org.fourgeeks.gha.domain.oru.Bpu;
-import org.fourgeeks.gha.domain.oru.BuildingLocations;
-import org.fourgeeks.gha.domain.oru.Obu;
-import org.fourgeeks.gha.domain.oru.Waio;
-import org.fourgeeks.gha.domain.srp.ServiceProvider;
+import org.fourgeeks.gha.domain.gar.Bpu;
+import org.fourgeeks.gha.domain.gar.BuildingLocation;
+import org.fourgeeks.gha.domain.gar.Obu;
+import org.fourgeeks.gha.domain.gar.ServiceProvider;
+import org.fourgeeks.gha.domain.gar.Waio;
 
 @Entity
 public class Bpi extends AbstractEntity {
@@ -30,7 +31,7 @@ public class Bpi extends AbstractEntity {
 	private Collection<Bpu> bpus;
 	
 	@OneToMany(mappedBy = "bpi")
-	private Collection<BuildingLocations> buildingLocations;
+	private Collection<BuildingLocation> buildingLocations;
 	
 	@OneToMany(mappedBy = "bpi")
 	private Collection<Waio> waios;
@@ -40,4 +41,17 @@ public class Bpi extends AbstractEntity {
 	
 	@OneToMany(mappedBy = "bpi")
 	private Collection<ServiceProvider> serviceProviders;
+	
+	/**
+	 * This represents the children collection of this bpi
+	 */
+	@OneToMany(mappedBy = "parentBpi")
+	private Collection<BpiChild> bpiChildren;
+	
+	/**
+	 * This represents the link relation to my parent (if any),
+	 * semantically it says who is my bpiChild to refer to my bpi parent
+	 */
+	@OneToOne(mappedBy = "bpi")
+	private BpiChild bpiChild;
 }

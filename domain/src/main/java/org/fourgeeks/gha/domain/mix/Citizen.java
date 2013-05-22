@@ -10,7 +10,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
-import org.fourgeeks.gha.domain.oru.Bpu;
+import org.fourgeeks.gha.domain.gar.Bpu;
 
 @Entity
 public class Citizen extends AbstractEntity {

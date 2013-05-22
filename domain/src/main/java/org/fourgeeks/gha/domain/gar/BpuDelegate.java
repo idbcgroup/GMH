@@ -1,17 +1,18 @@
-package org.fourgeeks.gha.domain.vcf;
+package org.fourgeeks.gha.domain.gar;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
-import org.fourgeeks.gha.domain.mix.LegalEntity;
 
 @Entity
-public class SingleSignOnUser extends AbstractEntity {
+public class BpuDelegate extends AbstractEntity{
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@OneToOne
-	private LegalEntity legalEntity;
+	
+	@OneToOne(mappedBy = "bpuDelegate")
+	private Bpu bpu;
 }

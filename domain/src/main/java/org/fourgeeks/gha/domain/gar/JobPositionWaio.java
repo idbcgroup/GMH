@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.domain.oru;
+package org.fourgeeks.gha.domain.gar;
 
 import javax.persistence.Entity;
 

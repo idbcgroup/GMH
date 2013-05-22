@@ -7,7 +7,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
-import org.fourgeeks.gha.domain.vcf.SingleSignOnUser;
+import org.fourgeeks.gha.domain.ess.SingleSignOnUser;
 
 @Entity
 public class LegalEntityCredential extends AbstractEntity {
