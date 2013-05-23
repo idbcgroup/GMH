@@ -1,7 +1,5 @@
 package org.fourgeeks.gha.domain.mix;
 
-import java.sql.Timestamp;
-
 import javax.persistence.Entity;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
@@ -12,22 +10,14 @@ public class LegalEntity extends AbstractEntity {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	// TODO: relaciones con legalEntityAddress, institution y citizen
 
-	private Timestamp createdDate;
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public Timestamp getCreatedDate() {
-		return createdDate;
-	}
-
-	public void setCreatedDate(Timestamp createdDate) {
-		this.createdDate = createdDate;
+	/**
+	 * 
+	 */
+	public LegalEntity() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 }

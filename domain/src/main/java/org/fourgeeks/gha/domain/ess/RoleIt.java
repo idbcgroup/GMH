@@ -24,4 +24,7 @@ public class RoleIt extends AbstractEntity{
 	@OneToMany(mappedBy = "roleIt")
 	private Collection <JobPosition> jobPositions;
 	
+	@ManyToMany(mappedBy = "itRoles")
+	private Collection <ViewFunction> viewFunctions;
+	
 }

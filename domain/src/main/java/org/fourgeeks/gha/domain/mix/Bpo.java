@@ -1,59 +1,20 @@
 package org.fourgeeks.gha.domain.mix;
 
-import java.io.Serializable;
-import java.sql.Date;
-
 import javax.persistence.Entity;
-import javax.persistence.Id;
+
+import org.fourgeeks.gha.domain.AbstractEntity;
 
 @Entity
-public class Bpo implements Serializable{
+public class Bpo extends AbstractEntity{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-	@Id
-	private String bpoNumber;
-	
-	private String bpoType; //String?
-	private String legalEntityCredential; //String???
-	private Date legalEntityCredentialDate; //Date???
 	/**
 	 * 
 	 */
 	public Bpo() {
 		super();
 		// TODO Auto-generated constructor stub
-	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-	public String getBpoNumber() {
-		return bpoNumber;
-	}
-	public String getBpoType() {
-		return bpoType;
-	}
-	public String getLegalEntityCredential() {
-		return legalEntityCredential;
-	}
-	public Date getLegalEntityCredentialDate() {
-		return legalEntityCredentialDate;
-	}
-	public void setBpoNumber(String bpoNumber) {
-		this.bpoNumber = bpoNumber;
-	}
-	public void setBpoType(String bpoType) {
-		this.bpoType = bpoType;
-	}
-	public void setLegalEntityCredential(String legalEntityCredential) {
-		this.legalEntityCredential = legalEntityCredential;
-	}
-	public void setLegalEntityCredentialDate(Date legalEntityCredentialDate) {
-		this.legalEntityCredentialDate = legalEntityCredentialDate;
-	}
-	
-	
-	
+	}	
 }

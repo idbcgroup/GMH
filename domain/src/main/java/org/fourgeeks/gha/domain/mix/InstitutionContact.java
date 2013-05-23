@@ -7,20 +7,20 @@ import javax.persistence.ManyToOne;
 import org.fourgeeks.gha.domain.AbstractEntity;
 
 @Entity
-public class CitizenNotification extends AbstractEntity{
+public class InstitutionContact extends AbstractEntity {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@ManyToOne
-	@JoinColumn(name = "citizenFk")
-	private Citizen citizen;
-	
+	@JoinColumn(name = "institutionFk")
+	private Institution institution;
+
 	/**
 	 * 
 	 */
-	public CitizenNotification() {
+	public InstitutionContact() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
