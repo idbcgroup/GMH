@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.domain.mix;
+package org.fourgeeks.gha.domain.enu;
 
 import java.io.Serializable;
 

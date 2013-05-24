@@ -1,26 +1,21 @@
 package org.fourgeeks.gha.domain.mix;
 
-import java.io.Serializable;
+import java.util.Collection;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
+import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.ess.ItSystem;
 
 @Entity
-public class SystemInstance implements Serializable {
+public class SystemInstance extends AbstractEntity {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
 
 	@ManyToOne
 	@JoinColumn(name = "itSystemFk")
@@ -29,9 +24,9 @@ public class SystemInstance implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "institutionFk")
 	private Institution institution;
-
-	// TODO: customPidGenerator
-	// TODO: pidGenerationCriteria
+	
+	@OneToMany(mappedBy = "systemInstance")
+	private Collection <LegalEntityCredential> legalEntityCredentials;
 
 	/**
 	 * 

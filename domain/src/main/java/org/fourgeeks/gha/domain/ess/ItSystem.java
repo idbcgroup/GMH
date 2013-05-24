@@ -1,8 +1,12 @@
 package org.fourgeeks.gha.domain.ess;
 
+import java.util.Collection;
+
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
+import org.fourgeeks.gha.domain.mix.SystemInstance;
 
 @Entity
 public class ItSystem extends AbstractEntity {
@@ -11,12 +15,7 @@ public class ItSystem extends AbstractEntity {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String name;
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-
+	
+	@OneToMany(mappedBy = "itSystem")
+	private Collection <SystemInstance> systemInstances;
 }
