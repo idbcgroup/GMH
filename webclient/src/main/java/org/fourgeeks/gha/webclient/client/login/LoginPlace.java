@@ -23,6 +23,7 @@ public class LoginPlace implements UIPlace {
 	@Override
 	public void show() {
 		RootPanel.get("main-content").clear();
+		RootPanel.get("user-info").clear();
 		//Window.alert("login}");
 		StringBuilder html = new StringBuilder();
 		html.append("<div class='login-panel'>");

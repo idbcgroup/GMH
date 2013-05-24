@@ -50,45 +50,43 @@ public class Gha implements EntryPoint {
 					History.fireCurrentHistoryState();
 			}
 		});
-
 	}
 
+	
+	
 	public void showLoginUI(boolean logged) {
 		/*
-		 * VLayout layout = new VLayout();
-		 * 
-		 * if(!logged){ DynamicForm loginForm = new DynamicForm();
-		 * 
-		 * Img logo = new Img(); Label title = new Label();
-		 * title.setContents("<h3>Iniciar Sesion</h3>"); Label ubicacion = new
-		 * Label(); ubicacion.setTitle("Ubicado en:");
-		 * 
-		 * TextItem username = new TextItem("username", "Nombre De Usuario");
-		 * PasswordItem password = new PasswordItem("password", "Contraseña");
-		 * SubmitItem submitButton = new
-		 * SubmitItem("submitButton","Iniciar Sesion"); CheckboxItem
-		 * rememberData = new CheckboxItem("rememberData",
-		 * "Recordar mis Datos"); LinkItem forgotData = new
-		 * LinkItem("¿Olvido su Contraseña?");
-		 * 
-		 * loginForm.setFields(username, password, submitButton,
-		 * rememberData,forgotData); layout.addMember(logo);
-		 * layout.addMember(title); layout.addMember(ubicacion);
-		 * layout.addMember(loginForm);
-		 * 
-		 * }else{ layout.clear(); Label loggedText = new Label();
-		 * loggedText.setContents
-		 * ("<b>Ya existe un usuario loggeado en el sistema.</b>");
-		 * 
-		 * layout.addMember(loggedText); }
-		 * 
-		 * RootPanel.get("main-content").add(layout); layout.draw();
+		  VLayout layout = new VLayout();
+		  
+		  if(!logged){ DynamicForm loginForm = new DynamicForm();
+		  
+		  Img logo = new Img(); Label title = new Label();
+		  title.setContents("<h3>Iniciar Sesion</h3>"); Label ubicacion = new
+		  Label(); ubicacion.setTitle("Ubicado en:");
+		  
+		  TextItem username = new TextItem("username", "Nombre De Usuario");
+		  PasswordItem password = new PasswordItem("password", "Contraseña");
+		  SubmitItem submitButton = new
+		  SubmitItem("submitButton","Iniciar Sesion"); CheckboxItem
+		  rememberData = new CheckboxItem("rememberData",
+		  "Recordar mis Datos"); LinkItem forgotData = new
+		  LinkItem("¿Olvido su Contraseña?");
+		  
+		  loginForm.setFields(username, password, submitButton,
+		  rememberData,forgotData); layout.addMember(logo);
+		  layout.addMember(title); layout.addMember(ubicacion);
+		  layout.addMember(loginForm);
+		  
+		  }else{ layout.clear(); Label loggedText = new Label();
+		  loggedText.setContents
+		  ("<b>Ya existe un usuario loggeado en el sistema.</b>");
+		  
+		  layout.addMember(loggedText); }
+		  
+		  RootPanel.get("main-content").add(layout); layout.draw();
 		 */
-		if (!logged) {
-			Window.alert("No esta loggeado.");
-		} else {
-			Window.alert("esta loggeado.");
-		}
+		
+		//RootPanel.get("main-content").clear();
 	}
 
 }
