@@ -11,7 +11,6 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.History;
-import com.google.gwt.user.client.Window;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -28,7 +27,7 @@ public class Gha implements EntryPoint {
 				String historyToken = event.getValue();
 				if (historyToken == null)
 					return;
-				Window.alert("Showing place:"+historyToken);
+				//Window.alert("Showing place:"+historyToken);
 				UIPlace place = UIPlacesFactory.createPlace(historyToken);
 				place.show();
 			}
@@ -38,10 +37,10 @@ public class Gha implements EntryPoint {
 		service.isLogged(new GHAAsyncCallback<Boolean>() {
 			@Override
 			public void onSuccess(Boolean result) {
-				Window.alert("Success. Result:" + result);
+				//Window.alert("Success. Result:" + result);
 				if (!result) {
 					String token = History.getToken();
-					Window.alert("Token:" + token);
+					//Window.alert("Token:" + token);
 					if (token.equals("login"))
 						History.fireCurrentHistoryState();
 					else

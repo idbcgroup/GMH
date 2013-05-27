@@ -91,7 +91,7 @@ public class HomePlace implements UIPlace{
 		menu.setItems(addTab);
 		
 		IMenuButton menuButton = new IMenuButton("Aplicaciones", menu);  
-		menuButton.setWidth(100); 
+		//menuButton.setWidth(100); 
 		
 		HLayout menulayout = new HLayout();
 		menulayout.addMember(menuButton);

@@ -11,7 +11,6 @@ import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.EventListener;
 import com.google.gwt.user.client.History;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
 
@@ -24,7 +23,7 @@ public class LoginPlace implements UIPlace {
 	public void show() {
 		RootPanel.get("main-content").clear();
 		RootPanel.get("user-info").clear();
-		//Window.alert("login}");
+		
 		StringBuilder html = new StringBuilder();
 		html.append("<div class='login-panel'>");
 		html.append("<div class='logo login-logo'></div>");
@@ -38,6 +37,9 @@ public class LoginPlace implements UIPlace {
 		RootPanel.get("main-content").add(content);
 
 		Element element = RootPanel.get("login-button").getElement();
+		InputElement userTextbox = (InputElement) Document.get().getElementById("username");
+		userTextbox.focus();
+		
 		DOM.sinkEvents(element, Event.ONCLICK);
 		DOM.setEventListener(element, new EventListener(){
 
@@ -48,7 +50,7 @@ public class LoginPlace implements UIPlace {
 				String username = userTextbox.getValue();
 				String password = passTextbox.getValue();
 				
-				Window.alert(username+"-"+password);
+				//Window.alert(username+"-"+password);
 
 				final GWTLoginServiceAsync service = GWT
 						.create(GWTLoginService.class);
@@ -56,10 +58,10 @@ public class LoginPlace implements UIPlace {
 						new GHAAsyncCallback<Boolean>() {
 							@Override
 							public void onSuccess(Boolean result) {
-								Window.alert("Button Clicked. Result:" + result);
+								//Window.alert("Button Clicked. Result:" + result);
 								if (!result) {
 									String token = History.getToken();
-									Window.alert("Token:" + token);
+									//Window.alert("Token:" + token);
 									if (token.equals("home"))
 										History.fireCurrentHistoryState();
 									else
