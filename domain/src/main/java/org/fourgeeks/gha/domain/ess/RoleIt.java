@@ -27,4 +27,10 @@ public class RoleIt extends AbstractEntity{
 	@ManyToMany(mappedBy = "itRoles")
 	private Collection <ViewFunction> viewFunctions;
 	
+	@ManyToMany(mappedBy = "itRoles")
+	private Collection <WorkingArea> workingAreas;
+	
+	@ManyToMany(mappedBy = "itRoles")
+	private Collection <AuthorizationGroup> authGroups;
+	
 }
