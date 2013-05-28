@@ -15,6 +15,7 @@ public final class GHATabSet {
 		container = RootPanel.get("tab-list");
 		tabs = new HashMap<String, GHATab>();
 		tabset = new TabSet();
+		tabset.setStyleName("main-tab-set");
 	}
 
 	private GHATabSet() {

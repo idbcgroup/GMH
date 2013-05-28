@@ -5,17 +5,16 @@ import org.fourgeeks.gha.webclient.client.UI.GHATab;
 import org.fourgeeks.gha.webclient.client.UI.GHATabSet;
 
 public class EIAPlace implements GHAPlace {
-	public static final String ID = "eia-tab";
 	private GHATab tab;
 
 	public EIAPlace() {
-		tab = GHATabSet.getById(ID);
+		tab = GHATabSet.getById(EIATab.ID);
 		if (tab == null)
 			tab = new EIATab();
 	}
 
 	@Override
 	public void show() {
-		GHATabSet.addTab(ID, tab);
+		GHATabSet.addTab(EIATab.ID, tab);
 	}
 }

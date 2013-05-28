@@ -7,9 +7,11 @@ import com.smartgwt.client.widgets.form.fields.CheckboxItem;
 
 public class EIATab extends GHATab {
 
+	public static final String ID = "eia-tab";
+
 	public EIATab() {
 		super();
-		setID(EIAPlace.ID);
+		setID(ID);
 		CheckboxItem checkboxItem = new CheckboxItem();
 		checkboxItem.setTitle("TEST");
 		DynamicForm form = new DynamicForm();
@@ -25,7 +27,7 @@ public class EIATab extends GHATab {
 
 	@Override
 	public String getId() {
-		return EIAPlace.ID;
+		return ID;
 	}
 
 	@Override

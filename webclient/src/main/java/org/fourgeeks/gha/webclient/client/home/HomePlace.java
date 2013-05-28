@@ -22,6 +22,7 @@ public class HomePlace implements GHAPlace {
 		// User box
 		RootPanel.get("main-content").clear();
 		RootPanel.get("user-info").clear();
+		RootPanel.get("menu").clear();
 
 		StringBuilder html = new StringBuilder();
 		html.append("<div class='username-text'>Jose Pereira Martinez</div>");
@@ -79,6 +80,7 @@ public class HomePlace implements GHAPlace {
 			}
 		});
 		Menu menu = new Menu();
+		menu.setStyleName("menu");
 		menu.setItems(addTab);
 
 		IMenuButton menuButton = new IMenuButton("Aplicaciones", menu);
