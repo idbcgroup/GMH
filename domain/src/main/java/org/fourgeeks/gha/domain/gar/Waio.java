@@ -10,6 +10,7 @@ import javax.persistence.OneToMany;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.ess.ViewFunction;
+import org.fourgeeks.gha.domain.ess.WorkingArea;
 import org.fourgeeks.gha.domain.gmh.Equipment;
 import org.fourgeeks.gha.domain.gmh.SystemPeripheral;
 import org.fourgeeks.gha.domain.gmh.Terminal;
@@ -58,4 +59,8 @@ public class Waio extends AbstractEntity{
 	
 	@ManyToMany(mappedBy = "waios")
 	private Collection <SystemPeripheral> systemPeriferals;
+	
+	@ManyToOne
+	@JoinColumn(name = "workingAreaFk")
+	private WorkingArea workingArea;
 }

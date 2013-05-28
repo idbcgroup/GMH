@@ -27,5 +27,8 @@ public class ViewFunction extends AbstractEntity{
 	@ManyToOne
 	@JoinColumn(name = "viewFk")
 	private View view;
+	
+	@ManyToMany
+	private Collection <WorkingArea> workingAreas;
 
 }
