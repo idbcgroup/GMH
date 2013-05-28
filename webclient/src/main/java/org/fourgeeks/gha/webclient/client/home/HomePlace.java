@@ -22,7 +22,7 @@ public class HomePlace implements GHAPlace {
 		// User box
 		RootPanel.get("main-content").clear();
 		RootPanel.get("user-info").clear();
-		RootPanel.get("menu").clear();
+		RootPanel.get("menu-bar").clear();
 
 		StringBuilder html = new StringBuilder();
 		html.append("<div class='username-text'>Jose Pereira Martinez</div>");
@@ -71,19 +71,24 @@ public class HomePlace implements GHAPlace {
 		// layout.addMember(mainTabPanel);
 
 		// /////////////////Menu
-		MenuItem addTab = new MenuItem("Equipos (EIA)");
+		MenuItem addTabMenuItem = new MenuItem("Equipos (EIA)");
 
-		addTab.addClickHandler(new ClickHandler() {
+		addTabMenuItem.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(MenuItemClickEvent event) {
 				History.newItem("eia");
 			}
 		});
 		Menu menu = new Menu();
-		menu.setStyleName("menu");
-		menu.setItems(addTab);
+		menu.setItems(addTabMenuItem);
+//		menu.setStyleName("gha-main-menu");
+//		menu.setStylePrimaryName("gha-main-menu");
 
 		IMenuButton menuButton = new IMenuButton("Aplicaciones", menu);
+		menuButton.setWidth(150);
+		menuButton.setHeight(24);
+//		menuButton.setStyleName("gha-main-menu2");
+		menuButton.setStylePrimaryName("gha-main-menu");
 		// menuButton.setWidth(100);
 
 		// HLayout menulayout = new HLayout();
@@ -126,8 +131,11 @@ public class HomePlace implements GHAPlace {
 
 		// RootPanel.get("main-content").add(layout);
 		// layout.draw();
-		RootPanel.get("menu").add(menuButton);
+		menuButton.setZIndex(33333333);
+		GHATabSet.addMenu(menuButton);
 		GHATabSet.draw();
+//		
 		// menulayout.draw();
+
 	}
 }
