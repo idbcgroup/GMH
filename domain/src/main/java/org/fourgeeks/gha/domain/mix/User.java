@@ -6,7 +6,7 @@ import javax.persistence.Table;
 import org.fourgeeks.gha.domain.AbstractEntity;
 
 @Entity
-@Table(schema = "public", name = "\"User\"")
+@Table(schema = "public", name = "\"user\"")
 public class User extends AbstractEntity {
 
 	/**
