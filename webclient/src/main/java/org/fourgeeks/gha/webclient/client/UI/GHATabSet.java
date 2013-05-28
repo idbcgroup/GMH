@@ -33,6 +33,10 @@ public final class GHATabSet {
 		tabset.selectTab(tab.getId());
 	}
 
+	public static void draw() {
+		RootPanel.get("main-content").add(tabset);
+	}
+
 	public static void addTab(String id, GHATab tab) {
 		addTab(tab, true);
 	}

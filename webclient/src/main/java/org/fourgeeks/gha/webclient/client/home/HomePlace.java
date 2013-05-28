@@ -1,6 +1,7 @@
 package org.fourgeeks.gha.webclient.client.home;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAPlace;
+import org.fourgeeks.gha.webclient.client.UI.GHATabSet;
 
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.HTML;
@@ -124,6 +125,7 @@ public class HomePlace implements GHAPlace {
 		// RootPanel.get("main-content").add(layout);
 		// layout.draw();
 		RootPanel.get("menu").add(menuButton);
+		GHATabSet.draw();
 		// menulayout.draw();
 	}
 }

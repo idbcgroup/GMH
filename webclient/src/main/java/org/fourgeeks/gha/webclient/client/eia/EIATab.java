@@ -9,6 +9,7 @@ public class EIATab extends GHATab {
 
 	public EIATab() {
 		super();
+		setID(EIAPlace.ID);
 		CheckboxItem checkboxItem = new CheckboxItem();
 		checkboxItem.setTitle("TEST");
 		DynamicForm form = new DynamicForm();
