@@ -10,6 +10,11 @@ webclient/target/**
 domain/target/**
 ear/target/**
 
+ejb/.settings/**
+webclient/.settings/**
+domain/.settings/**
+ear/.settings/**
+
 ejb/.classpath
 webclient/.classpath
 domain/.classpath

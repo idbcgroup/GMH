@@ -1,8 +1,8 @@
 package org.fourgeeks.gha.webclient.client;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
-import org.fourgeeks.gha.webclient.client.UI.UIPlace;
-import org.fourgeeks.gha.webclient.client.UI.UIPlacesFactory;
+import org.fourgeeks.gha.webclient.client.UI.GHAPlace;
+import org.fourgeeks.gha.webclient.client.UI.GHAPlacesFactory;
 import org.fourgeeks.gha.webclient.client.login.GWTLoginService;
 import org.fourgeeks.gha.webclient.client.login.GWTLoginServiceAsync;
 
@@ -28,7 +28,7 @@ public class Gha implements EntryPoint {
 				if (historyToken == null)
 					return;
 				//Window.alert("Showing place:"+historyToken);
-				UIPlace place = UIPlacesFactory.createPlace(historyToken);
+				GHAPlace place = GHAPlacesFactory.createPlace(historyToken);
 				place.show();
 			}
 		});
