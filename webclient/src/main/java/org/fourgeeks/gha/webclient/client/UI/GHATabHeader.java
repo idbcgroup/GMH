@@ -6,21 +6,30 @@ import com.smartgwt.client.widgets.layout.HLayout;
 
 public class GHATabHeader extends HLayout {
 
-	public GHATabHeader(GHATab tab) {
-		HTML titulo = new HTML(tab.getTitle());
-		titulo.setHeight("24px");
-		titulo.setStylePrimaryName("tab-title");
+	private HTML titulo;
+	private HTML cerrar;
+
+	public GHATabHeader() {
+		setStylePrimaryName("tab-header");
+		setWidth(170);
 		setHeight(24);
-		addMember(titulo);
-		
-		HTML cerrar = new HTML("X");
-		cerrar.setHeight("24px");
-		cerrar.setWidth("10px");
-		cerrar.setStylePrimaryName("tab-close-button");
-		setHeight(24);
-		addMember(cerrar);
-		
 		setDefaultLayoutAlign(VerticalAlignment.CENTER);
+
+		titulo = new HTML();
+		titulo.setWidth("160px");
+		titulo.setHeight("24px");
+		titulo.setStylePrimaryName("tab-header-title");
+		addMember(titulo);
+
+		cerrar = new HTML("X");
+		cerrar.setWidth("10px");
+		cerrar.setHeight("24px");
+		cerrar.setStylePrimaryName("tab-header-close-button");
+		addMember(cerrar);
+	}
+
+	public void setTitle(String title) {
+		titulo.setHTML(title);
 	}
 
 }

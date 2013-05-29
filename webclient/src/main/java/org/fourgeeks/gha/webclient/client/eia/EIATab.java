@@ -1,14 +1,20 @@
 package org.fourgeeks.gha.webclient.client.eia;
 
 import org.fourgeeks.gha.webclient.client.UI.GHATab;
-
+import org.fourgeeks.gha.webclient.client.UI.GHATabHeader;
 public class EIATab extends GHATab {
 
 	public static final String ID = "eia-tab";
 
+	private static final String TITLE = "Tipos de equipo";
+
+	private GHATabHeader header;
+
 	public EIATab() {
 		super();
 		setID(ID);
+		header = new GHATabHeader();
+		header.setTitle(TITLE);
 		
 		EIASearchForm topformLayout = new EIASearchForm();
 		
@@ -27,8 +33,8 @@ public class EIATab extends GHATab {
 	}
 
 	@Override
-	public String getTitle() {
-		return "Tipos de equipo";
+	public GHATabHeader getHeader() {
+		return header;
 	}
 
 }
