@@ -2,9 +2,6 @@ package org.fourgeeks.gha.webclient.client.eia;
 
 import org.fourgeeks.gha.webclient.client.UI.GHATab;
 
-import com.smartgwt.client.widgets.form.DynamicForm;
-import com.smartgwt.client.widgets.form.fields.CheckboxItem;
-
 public class EIATab extends GHATab {
 
 	public static final String ID = "eia-tab";
@@ -12,11 +9,10 @@ public class EIATab extends GHATab {
 	public EIATab() {
 		super();
 		setID(ID);
-		CheckboxItem checkboxItem = new CheckboxItem();
-		checkboxItem.setTitle("TEST");
-		DynamicForm form = new DynamicForm();
-		form.setItems(checkboxItem);
-		setPane(form);
+		
+		EIASearchForm topformLayout = new EIASearchForm();
+		
+		setPane(topformLayout);
 	}
 
 	@Override
