@@ -3,9 +3,13 @@ package org.fourgeeks.gha.webclient.client.eia;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.BackgroundRepeat;
 import com.smartgwt.client.types.TitleOrientation;
+import com.smartgwt.client.util.SC;
 import com.smartgwt.client.widgets.Img;
 import com.smartgwt.client.widgets.form.DynamicForm;
+import com.smartgwt.client.widgets.form.fields.PickerIcon;
 import com.smartgwt.client.widgets.form.fields.TextItem;
+import com.smartgwt.client.widgets.form.fields.events.FormItemClickHandler;
+import com.smartgwt.client.widgets.form.fields.events.FormItemIconClickEvent;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
@@ -16,30 +20,43 @@ public class EIASearchForm extends HLayout {
 		
 		TextItem codigoEIA = new TextItem();  
         codigoEIA.setTitle("Código EIA");  
-        codigoEIA.setRequired(true);
+        //codigoEIA.setRequired(true);
 		
+        PickerIcon searchPicker = new PickerIcon(PickerIcon.SEARCH, new FormItemClickHandler() {  
+           	@Override
+			public void onFormItemClick(FormItemIconClickEvent event) {
+				// TODO Auto-generated method stub
+				SC.say("Search icon clicked");
+			}  
+        }); 
+        searchPicker.setSrc("../resources/icons/boton4.png");
+        searchPicker.setWidth(18);
+        searchPicker.setHeight(18);
+        
         TextItem nombreEIA = new TextItem();  
-        nombreEIA.setTitle("Nombre EIA");  
-        nombreEIA.setRequired(true);
+        nombreEIA.setTitle("Nombre EIA");
+        nombreEIA.setIcons(searchPicker);
+        //nombreEIA.setRequired(true);
         
         TextItem marcaEIA = new TextItem();  
         marcaEIA.setTitle("Marca EIA");  
-        marcaEIA.setRequired(true);
+        marcaEIA.setIcons(searchPicker);
+        //marcaEIA.setRequired(true);
         
         TextItem modeloEIA = new TextItem();  
         modeloEIA.setTitle("Modelo EIA");  
-        modeloEIA.setRequired(true);
+        //modeloEIA.setRequired(true);
         
         TextItem fabricante = new TextItem();  
         fabricante.setTitle("Fabricante");  
-        fabricante.setRequired(true);
+        //fabricante.setRequired(true);
 		
 		DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(5);
 		form.setItems(codigoEIA,nombreEIA,marcaEIA,modeloEIA,fabricante);
-		form.setPadding(10);
-		form.setLeft(40);		
+		form.setCellPadding(10);
+		form.setPadding(13);		
 		
 		HLayout formLayout = new HLayout();
 		formLayout.setWidth("92%");
