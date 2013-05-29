@@ -17,7 +17,7 @@ public final class GHATabSet {
 	static {
 		hPanel = new HorizontalPanel();
 		hPanel.setHeight("24px");
-		hPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);		
+		hPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		RootPanel.get("menu-bar").add(hPanel);
 		tabs = new HashMap<String, GHATab>();
 		tabset = new TabSet();
@@ -32,9 +32,8 @@ public final class GHATabSet {
 	}
 
 	public static void addTab(GHATab tab, boolean show) {
-		GHATabHeader ghaTabHeader = new GHATabHeader(tab);
-		hPanel.add(ghaTabHeader);
-		hPanel.setCellHeight(ghaTabHeader, "24px");
+		hPanel.add(tab.getHeader());
+		hPanel.setCellHeight(tab.getHeader(), "24px");
 		tabset.addTab(tab);
 		tabs.put(tab.getId(), tab);
 		if (show)
