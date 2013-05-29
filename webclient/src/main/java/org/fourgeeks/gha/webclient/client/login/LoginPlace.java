@@ -30,7 +30,8 @@ public class LoginPlace implements GHAPlace {
 		html.append("<h1 class='login-titulo'>Iniciar Sesion</h1>");
 		html.append("<div class='smallfont full'>Ubicado en:<span id='ubicacion'>Sotano enfermeria</span></div>");
 		html.append("<form class='centered'>");
-		html.append("<input id='username' type='text' placeholder='Nombre de usuario'><br/><input id='password' type='password' placeholder='Contraseña'> <br/>");
+		html.append("<input class='round' id='username' type='text' placeholder='Nombre de usuario'><br/>");
+		html.append("<input class='round' id='password' type='password' placeholder='Contraseña'> <br/>");
 		html.append("<input id='login-button' type='button' value='Iniciar Sesion' class='GHAButton'>");
 		html.append("<div class='smallfont'><input type='checkbox'>Recordar mis datos</div><br/><a href='' class='smallfont'>¿Olvidaste tu contraseña?</a></form></div>");
 		HTML content = new HTML(html.toString());
