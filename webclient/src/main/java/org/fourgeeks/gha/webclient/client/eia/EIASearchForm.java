@@ -14,15 +14,14 @@ public class EIASearchForm extends HLayout {
 
 	public EIASearchForm() {
 		super();
-		setHeight("68px");
+		setHeight("50px");
 		setWidth100();
-		// setStylePrimaryName("eia-search-form");
-		// setStyleName("eia-search-form2");
+		setStyleName("sides-padding");
 		setWidth100();
 		setHeight("68px");
 		// setBackgroundImage("../resources/img/tab1.jpg");
 		setBackgroundColor("#E0E0E0");
-		setBackgroundRepeat(BackgroundRepeat.REPEAT_Y);
+		// setBackgroundRepeat(BackgroundRepeat.REPEAT_Y);
 
 		GHATextItem codigoEIA = new GHATextItem("Código");
 		// codigoEIA.setRequired(true);
@@ -65,7 +64,7 @@ public class EIASearchForm extends HLayout {
 		botones1.setHeight("68px");
 		botones1.setWidth(20);
 		botones1.setLayoutMargin(5);
-		botones1.setBackgroundImage("../resources/img/botonBox.jpg");
+		// botones1.setBackgroundImage("../resources/img/botonBox.jpg");
 		botones1.setBackgroundColor("#E0E0E0");
 		botones1.setBackgroundRepeat(BackgroundRepeat.REPEAT_Y);
 		botones1.setMembersMargin(10);
@@ -81,7 +80,7 @@ public class EIASearchForm extends HLayout {
 		botones2.setHeight("68px");
 		botones2.setWidth(20);
 		botones2.setLayoutMargin(5);
-		botones2.setBackgroundImage("../resources/img/botonBox.jpg");
+		// botones2.setBackgroundImage("../resources/img/botonBox.jpg");
 		botones2.setBackgroundColor("#E0E0E0");
 		botones2.setBackgroundRepeat(BackgroundRepeat.REPEAT_Y);
 		botones2.setMembersMargin(10);
@@ -89,9 +88,9 @@ public class EIASearchForm extends HLayout {
 
 		Img helpImg = new Img("../resources/icons/boton6.png");
 		helpImg.setSize("20px", "20px");
-		Img reloadImg = new Img("../resources/icons/boton7.png");
-		reloadImg.setSize("20px", "20px");
-		botones2.addMembers(helpImg, reloadImg);
+		// Img reloadImg = new Img("../resources/icons/boton7.png");
+		// reloadImg.setSize("20px", "20px");
+		// botones2.addMembers(helpImg, reloadImg);
 
 		// Agregando los 3 layouts al principal layout de arriba
 

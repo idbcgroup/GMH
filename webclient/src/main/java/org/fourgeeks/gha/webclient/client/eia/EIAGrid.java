@@ -11,24 +11,29 @@ import com.smartgwt.client.widgets.grid.ListGridRecord;
 public class EIAGrid extends ListGrid {
 
 	public EIAGrid() {
-		setWidth(570);
-		setHeight(224);
-		setShowAllRecords(true);
+		setWidth100();
+		setHeight100();
+		setMargin(20);
+		setStylePrimaryName("gha-grid");
+		// setHeaderBarStyle("gha-grid-header-bar");
+		// setHeaderBaseStyle("gha-grid-header-base");
+		// setStyleName("top-margin");
+		// setStyleName("sides-padding");
+		// setShowAllRecords(true);
 		setAlternateRecordStyles(false);
-		setCanResizeFields(true);
+		setCanResizeFields(false);
 
 		ListGridField numSolicCambioNuevas = new ListGridField("numSolicitud",
-				"N°", 53);
+				"N°");
 		numSolicCambioNuevas.setAlign(Alignment.CENTER);
 		numSolicCambioNuevas.setPrompt("Solicitud");
 
-		ListGridField tituloCambioNuevas = new ListGridField("titulo",
-				"Titulo", 158);
+		ListGridField tituloCambioNuevas = new ListGridField("titulo", "Titulo");
 		tituloCambioNuevas.setAlign(Alignment.CENTER);
 		tituloCambioNuevas.setPrompt("Titulo de la solicitud de cambio");
 
 		ListGridField prioridadCambioNuevas = new ListGridField("prioridad",
-				"Prioridad", 72);
+				"Prioridad");
 		prioridadCambioNuevas.setAlign(Alignment.CENTER);
 		prioridadCambioNuevas.setPrompt("Prioridad de la solicitud de cambio");
 		prioridadCambioNuevas.setCellFormatter(new CellFormatter() {

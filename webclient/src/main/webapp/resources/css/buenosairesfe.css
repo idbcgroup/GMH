@@ -173,6 +173,57 @@ input[type=text].round,input[type=password].round{
 	margin-right: auto;
 }
 
+/*GRID*/
+
+.gha-grid{
+	background-color: yelow;
+	color:green;
+}
+.gha-grid-header-base2{
+	background-color: yelow;
+	color:green;
+}
+.gha-grid-header-base{
+	background-color: yelow;
+	color:green;
+}
+.gha-grid-header-title{
+	background-color: yelow;
+	color:green;
+}
+
+/*UTIL*/
+.sides-padding{
+	padding-left: 20px;
+	padding-right: 20xpx;
+}
+.top-margin{
+	margin-top: 10px;
+}
+.vertical-gray-separator{
+	width:100%;
+	height:20px;
+	background-color: #666666;
+}
+
+/*OVERRIDES*/
+
+.headerButton{
+	background: none !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* TO ERASE */
 .full{
 	width: 100%;
 }
