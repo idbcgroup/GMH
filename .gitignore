@@ -5,6 +5,11 @@
 *.ear
 *.war
 
+ejb/bin/**
+webclient/bin/**
+domain/bin/**
+ear/bin/**
+
 ejb/target/**
 webclient/target/**
 domain/target/**
