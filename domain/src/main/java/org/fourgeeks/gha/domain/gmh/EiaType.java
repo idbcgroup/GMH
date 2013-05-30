@@ -20,11 +20,11 @@ public class EiaType extends AbstractEntity{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private String eiaTypeName;
-	private String eiaTypeCode;
-	private String eiaTypeBrand;
-	private String eiaTypeManufacturer;
-	private String eiaTypeModel;
+	private String name;
+	private String code;
+	private String brand;
+	private String manufacturer;
+	private String model;
 	/**
 	 * 
 	 */
@@ -35,35 +35,35 @@ public class EiaType extends AbstractEntity{
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	public String getEiaTypeName() {
-		return eiaTypeName;
+	public String getName() {
+		return name;
 	}
-	public String getEiaTypeCode() {
-		return eiaTypeCode;
+	public String getCode() {
+		return code;
 	}
-	public String getEiaTypeBrand() {
-		return eiaTypeBrand;
+	public String getBrand() {
+		return brand;
 	}
-	public String getEiaTypeManufacturer() {
-		return eiaTypeManufacturer;
+	public String getManufacturer() {
+		return manufacturer;
 	}
-	public String getEiaTypeModel() {
-		return eiaTypeModel;
+	public String getModel() {
+		return model;
 	}
-	public void setEiaTypeName(String eiaTypeName) {
-		this.eiaTypeName = eiaTypeName;
+	public void setName(String name) {
+		this.name = name;
 	}
-	public void setEiaTypeCode(String eiaTypeCode) {
-		this.eiaTypeCode = eiaTypeCode;
+	public void setCode(String code) {
+		this.code = code;
 	}
-	public void setEiaTypeBrand(String eiaTypeBrand) {
-		this.eiaTypeBrand = eiaTypeBrand;
+	public void setBrand(String brand) {
+		this.brand = brand;
 	}
-	public void setEiaTypeManufacturer(String eiaTypeManufacturer) {
-		this.eiaTypeManufacturer = eiaTypeManufacturer;
+	public void setManufacturer(String manufacturer) {
+		this.manufacturer = manufacturer;
 	}
-	public void setEiaTypeModel(String eiaTypeModel) {
-		this.eiaTypeModel = eiaTypeModel;
+	public void setModel(String model) {
+		this.model = model;
 	}
 	
 }
