@@ -22,27 +22,37 @@
 		float: left;
 		margin-left: 10px;
 	}
+	
+	.footer-logo{
+		width: 37px;
+		height: 16px;
+		background-image: url(../icons/footLogo.jpg);
+		float: right;
+		margin-left: 10px;
+	}
+	
 	.user-info{		
 		float: right;	
-		margin-right: 10px;	
+		margin: 14px 30px 0 0;
 	}
 		.username-text{
 			float: left;
-			margin-left: 3px;
+			margin: 3px 0 0 10px;
+			font-size: medium;
 		}
 		.user-notifications{
 			float: left;
-			width: 25px;
+			width: 28px;
 			height: 25px;
-			background-color:#FF0814;
-			margin-left: 3px;
+			background-image: url(../icons/boton1.png);
+			margin-left:10px;
 		}
 		.user-menu{
 			float: left;
-			width: 25px;
+			width: 21px;
 			height: 25px;
-			background-color:#00A2EC;
-			margin-left: 3px;
+			background-image: url(../icons/boton2.png);
+			margin-left:10px;
 		}
 		
 		
