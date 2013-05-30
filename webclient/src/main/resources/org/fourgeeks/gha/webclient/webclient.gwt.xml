@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module rename-to='webclient'>
 	
-	<inherits name="com.smartgwt.SmartGwt"/>
-<!-- 	<inherits name="org.fourgeeks.buenosaires.buenosaires-common"/> -->
+	<inherits name="com.smartgwt.SmartGwtNoTheme"/>
+	<inherits name="com.smartclient.theme.gha.gha"/>
+
 	<inherits name="org.fourgeeks.gha.domain"/>
 	
 	<inherits name="com.google.gwt.useragent.UserAgent" />

@@ -219,7 +219,7 @@ input[type=text].round,input[type=password].round{
 /*OVERRIDES*/
 
 .headerButton{
-	background: none !important;
+	/*background: none !important;*/
 }
 
 

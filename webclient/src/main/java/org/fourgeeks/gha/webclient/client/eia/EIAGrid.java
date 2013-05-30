@@ -14,11 +14,26 @@ public class EIAGrid extends ListGrid {
 		setWidth100();
 		setHeight100();
 		setMargin(20);
-		setStylePrimaryName("gha-grid");
+		setStyleName("gha-grid");
+		// setAlternateRecordStyles("");
+		// setAlternateBodyStyleName("");
+		// setBodyStyleName("");
+		// setEmptyMessageStyle("");
 		// setHeaderBarStyle("gha-grid-header-bar");
 		// setHeaderBaseStyle("gha-grid-header-base");
+		// setHeaderTitleStyle("");
+		// setHoverStyle("");
 		// setStyleName("top-margin");
-		// setStyleName("sides-padding");
+		// setFrozenBaseStyle("")
+		// setFrozenHeaderBaseStyle("")
+		// setFrozenHeaderTitleStyle("");
+		// setLoadingDataMessageStyle("");
+		// setNormalBaseStyle("");
+		// setOfflineMessageStyle("");
+		// setOriginBaseStyle("");
+		// setRecordBaseStyleProperty("");
+		// setSortNumeralStyle("");
+
 		// setShowAllRecords(true);
 		setAlternateRecordStyles(false);
 		setCanResizeFields(false);
@@ -27,9 +42,9 @@ public class EIAGrid extends ListGrid {
 				"N°");
 		numSolicCambioNuevas.setAlign(Alignment.CENTER);
 		numSolicCambioNuevas.setPrompt("Solicitud");
-		numSolicCambioNuevas.setHeaderBaseStyle("gha-grid-header-base2");
-		numSolicCambioNuevas.setBaseStyle("gha-grid-header-base");
-		numSolicCambioNuevas.setHeaderTitleStyle("gha-grid-header-title");
+		// numSolicCambioNuevas.setHeaderBaseStyle("gha-grid-header-base2");
+		// numSolicCambioNuevas.setBaseStyle("gha-grid-header-base");
+		// numSolicCambioNuevas.setHeaderTitleStyle("gha-grid-header-title");
 
 		ListGridField tituloCambioNuevas = new ListGridField("titulo", "Titulo");
 		tituloCambioNuevas.setAlign(Alignment.CENTER);
