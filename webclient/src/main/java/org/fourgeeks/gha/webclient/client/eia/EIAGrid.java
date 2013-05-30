@@ -27,6 +27,9 @@ public class EIAGrid extends ListGrid {
 				"N°");
 		numSolicCambioNuevas.setAlign(Alignment.CENTER);
 		numSolicCambioNuevas.setPrompt("Solicitud");
+		numSolicCambioNuevas.setHeaderBaseStyle("gha-grid-header-base2");
+		numSolicCambioNuevas.setBaseStyle("gha-grid-header-base");
+		numSolicCambioNuevas.setHeaderTitleStyle("gha-grid-header-title");
 
 		ListGridField tituloCambioNuevas = new ListGridField("titulo", "Titulo");
 		tituloCambioNuevas.setAlign(Alignment.CENTER);
@@ -62,7 +65,7 @@ public class EIAGrid extends ListGrid {
 		});
 
 		ListGridField estadoCambioNuevas = new ListGridField("idEstadoSDC",
-				"Estado", 80);
+				"Estado");
 		estadoCambioNuevas.setAlign(Alignment.CENTER);
 		estadoCambioNuevas.setPrompt("Estado de la solicitud de cambio");
 		estadoCambioNuevas.setCellFormatter(new CellFormatter() {
