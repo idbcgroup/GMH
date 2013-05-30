@@ -8,7 +8,7 @@ public class GHATextItem extends TextItem {
 		super();
 		setTextBoxStyle("input");
 		setHeight(15);
-		setWidth(50);
+		setWidth(100);
 		setTitleStyle("input-title");
 	}
 
