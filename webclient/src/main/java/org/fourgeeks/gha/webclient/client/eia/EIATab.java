@@ -1,18 +1,28 @@
 package org.fourgeeks.gha.webclient.client.eia;
 
 import org.fourgeeks.gha.webclient.client.UI.GHATab;
+import org.fourgeeks.gha.webclient.client.UI.GHATabHeader;
+
+import com.smartgwt.client.widgets.layout.VLayout;
 
 public class EIATab extends GHATab {
 
 	public static final String ID = "eia-tab";
 
+	private static final String TITLE = "Tipos de equipo";
+
+	private GHATabHeader header;
+
 	public EIATab() {
 		super();
 		setID(ID);
-		
-		EIASearchForm topformLayout = new EIASearchForm();
-		
-		setPane(topformLayout);
+		header = new GHATabHeader();
+		header.setTitle(TITLE);
+		setPaneMargin(0);
+		VLayout verticalPanel = new VLayout();
+		verticalPanel.addMember(new EIASearchForm());
+		verticalPanel.addMember(new EIAGrid());
+		setPane(verticalPanel);
 	}
 
 	@Override
@@ -27,8 +37,8 @@ public class EIATab extends GHATab {
 	}
 
 	@Override
-	public String getTitle() {
-		return "Tipos de equipo";
+	public GHATabHeader getHeader() {
+		return header;
 	}
 
 }

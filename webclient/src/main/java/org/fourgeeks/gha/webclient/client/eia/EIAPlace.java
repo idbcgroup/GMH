@@ -16,6 +16,5 @@ public class EIAPlace implements GHAPlace {
 	@Override
 	public void show() {
 		GHATabSet.addTab(tab);
-		GHATabSet.addTab(new EIATab());
 	}
 }

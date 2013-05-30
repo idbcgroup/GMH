@@ -30,8 +30,8 @@ public class HomePlace implements GHAPlace {
 		html.append("<div class='user-menu'></div>");
 
 		HTML content = new HTML(html.toString());
-
 		RootPanel.get("user-info").add(content);
+		
 
 		// /////////////////Tabset
 
