@@ -23,6 +23,7 @@ public class LoginPlace implements GHAPlace {
 	public void show() {
 		RootPanel.get("main-content").clear();
 		RootPanel.get("user-info").clear();
+		RootPanel.get("menu-bar").clear();
 
 		StringBuilder html = new StringBuilder();
 		html.append("<div class='login-panel'>");
@@ -37,18 +38,21 @@ public class LoginPlace implements GHAPlace {
 		HTML content = new HTML(html.toString());
 		RootPanel.get("main-content").add(content);
 
+		//for Events
 		Element element = RootPanel.get("login-button").getElement();
-		final InputElement userTextbox = (InputElement) Document.get()
-				.getElementById("username");
-		userTextbox.focus();
+		Element uTextbox = RootPanel.get("username").getElement();
+		Element pTextbox = RootPanel.get("password").getElement();;
+		
 
+		final InputElement userTextbox = (InputElement) Document.get().getElementById("username");
+		final InputElement passTextbox = (InputElement) Document.get().getElementById("password");
+		userTextbox.focus();
+		
 		DOM.sinkEvents(element, Event.ONCLICK);
 		DOM.setEventListener(element, new EventListener() {
 
 			@Override
 			public void onBrowserEvent(Event event) {
-				InputElement passTextbox = (InputElement) Document.get()
-						.getElementById("password");
 				String username = userTextbox.getValue();
 				String password = passTextbox.getValue();
 
@@ -76,6 +80,41 @@ public class LoginPlace implements GHAPlace {
 
 			}
 		});
-
+		
+		DOM.sinkEvents(pTextbox, Event.ONKEYUP);
+		DOM.setEventListener(pTextbox, new EventListener() {
+			
+			@Override
+			public void onBrowserEvent(Event event) {
+				// TODO Auto-generated method stub
+				
+				if(event.getKeyCode() == 13){
+					String username = userTextbox.getValue();
+					String password = passTextbox.getValue();
+	
+					// Window.alert(username+"-"+password);
+	
+					final GWTLoginServiceAsync service = GWT
+							.create(GWTLoginService.class);
+					service.login(username, password,
+							new GHAAsyncCallback<Boolean>() {
+								@Override
+								public void onSuccess(Boolean result) {
+									// Window.alert("Button Clicked. Result:" +
+									// result);
+									if (!result) {
+										String token = History.getToken();
+										// Window.alert("Token:" + token);
+										if (token.equals("home"))
+											History.fireCurrentHistoryState();
+										else
+											History.newItem("home");
+									} else
+										History.fireCurrentHistoryState();
+								}
+							});
+				}
+			}
+		});		
 	}
 }
