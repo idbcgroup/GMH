@@ -13,7 +13,6 @@ public class EIAGrid extends ListGrid {
 	public EIAGrid() {
 		setWidth100();
 		setHeight100();
-		setMargin(20);
 		setStyleName("gha-grid");
 		// setAlternateRecordStyles("");
 		// setAlternateBodyStyleName("");
