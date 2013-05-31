@@ -45,6 +45,10 @@
 			width: 28px;
 			height: 25px;
 			background-image: url(../icons/boton1.png);
+			color:white;
+			font-weight:bold;
+			font-size: medium;
+			text-align: center;
 			margin-left:10px;
 		}
 		.user-menu{
@@ -188,6 +192,9 @@ input[type=text].round,input[type=password].round{
 .gha-grid{
 	background-color: yelow;
 	color:green;
+	margin-left: 20px;
+	margin-right: 3px;
+	margin-top: 3px;
 }
 .gha-grid-header-base2{
 	background-color: yelow;
@@ -205,7 +212,11 @@ input[type=text].round,input[type=password].round{
 /*UTIL*/
 .sides-padding{
 	padding-left: 20px;
-	padding-right: 20xpx;
+	padding-right: 20px;
+}
+.margin-paginator{
+	margin-top: 10px;
+	margin-right: 55px;
 }
 .top-margin{
 	margin-top: 10px;
