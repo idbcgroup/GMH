@@ -51,6 +51,8 @@ public class Gha implements EntryPoint {
 					History.fireCurrentHistoryState();
 			}
 		});
+		
+//		final GWTEiaTypeServiceAsync eiaService = GWT.create(GWTEiaTypeService.class);
 	}
 
 	public void showLoginUI(boolean logged) {
