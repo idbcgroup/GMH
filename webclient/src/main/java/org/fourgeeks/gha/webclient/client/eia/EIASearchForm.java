@@ -16,7 +16,7 @@ public class EIASearchForm extends HLayout {
 		super();
 		setHeight("50px");
 		setWidth100();
-		setStyleName("sides-padding");
+		//setStyleName("sides-padding");
 		setWidth100();
 		setHeight("68px");
 		// setBackgroundImage("../resources/img/tab1.jpg");
