@@ -62,9 +62,9 @@ public class EIASearchForm extends HLayout {
 
 		VLayout botones1 = new VLayout();
 		botones1.setHeight("68px");
-		botones1.setWidth(20);
+		botones1.setWidth(30);
 		botones1.setLayoutMargin(5);
-		// botones1.setBackgroundImage("../resources/img/botonBox.jpg");
+		//botones1.setBackgroundImage("../resources/img/botonBox.jpg");
 		botones1.setBackgroundColor("#E0E0E0");
 		botones1.setBackgroundRepeat(BackgroundRepeat.REPEAT_Y);
 		botones1.setMembersMargin(10);

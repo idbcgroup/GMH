@@ -23,7 +23,7 @@ public final class GHATabSet {
 		tabset = new TabSet();
 		tabset.setBorder("none");
 		tabset.setWidth100();
-		tabset.setHeight100();
+		tabset.setHeight("510px");
 		tabset.setStyleName("main-tab-set");
 	}
 

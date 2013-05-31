@@ -26,7 +26,7 @@ public class HomePlace implements GHAPlace {
 
 		StringBuilder html = new StringBuilder();
 		html.append("<div class='username-text'>Jose Pereira Martinez</div>");
-		html.append("<div class='user-notifications'></div>");
+		html.append("<div class='user-notifications'>1</div>");
 		html.append("<div class='user-menu'></div>");
 
 		HTML content = new HTML(html.toString());

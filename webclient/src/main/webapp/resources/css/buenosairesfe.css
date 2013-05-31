@@ -45,6 +45,10 @@
 			width: 28px;
 			height: 25px;
 			background-image: url(../icons/boton1.png);
+			color:white;
+			font-weight:bold;
+			font-size: medium;
+			text-align: center;
 			margin-left:10px;
 		}
 		.user-menu{
@@ -211,6 +215,7 @@ input[type=text].round,input[type=password].round{
 	padding-right: 20px;
 }
 .margin-paginator{
+	margin-top: 10px;
 	margin-right: 55px;
 }
 .top-margin{

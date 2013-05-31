@@ -2,17 +2,23 @@ package org.fourgeeks.gha.webclient.client.eia;
 
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.BackgroundRepeat;
+import com.smartgwt.client.types.VisibilityMode;
 import com.smartgwt.client.widgets.Img;
 import com.smartgwt.client.widgets.layout.HLayout;
+import com.smartgwt.client.widgets.layout.SectionStack;
+import com.smartgwt.client.widgets.layout.SectionStackSection;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class EIAGridPanel extends VLayout {
 
 	public EIAGridPanel() {
 		super();
+		setWidth100();
+		setHeight100();
 		
+////////Botones laterales
 		VLayout botones1 = new VLayout();
-		botones1.setWidth(20);
+		botones1.setWidth(30);
 		botones1.setLayoutMargin(5);
 		//botones1.setBackgroundImage("../resources/img/botonBox.jpg");
 		botones1.setBackgroundColor("#E0E0E0");
@@ -39,11 +45,38 @@ public class EIAGridPanel extends VLayout {
 		VLayout spacer = new VLayout();
 		spacer.setHeight(10);
 		spacer.setWidth(20);
+
+////////Acordeon de secciones
+		SectionStack gridStack = new SectionStack();
+		gridStack.setVisibilityMode(VisibilityMode.MULTIPLE);
+		gridStack.setCanDragResize(false);
+		gridStack.setWidth100();
+		gridStack.setHeight100();
+		SectionStackSection gridSection = new SectionStackSection("Registros EIA");
+		gridSection.setExpanded(true);
+		gridSection.setCanCollapse(false);
+		gridSection.addItem(new EIAGrid());
+		gridStack.addSection(gridSection);
 		
+////////Seccion para el grid
+		SectionStackSection elementSection = new SectionStackSection("Elemento Seleccionado");
+		elementSection.setExpanded(false);
+		
+////////Seccion inferior
+		VLayout elementContent = new VLayout();
+		elementContent.setBackgroundColor("#E0E0E0");
+		elementContent.setWidth100();
+		elementContent.setHeight(100);
+		elementSection.addItem(elementContent);
+		gridStack.addSection(elementSection);
+				
+////////Panel que tiene el grid+botones
 		HLayout gridPanel = new HLayout();
-		gridPanel.addMembers(new EIAGrid(),botones1,spacer);
 		gridPanel.setWidth100();
-		
+		gridPanel.setHeight("380px");
+		gridPanel.addMembers(gridStack,botones1,spacer);
+				
+////////Footer con paginator
 		HLayout paginatorPanel = new HLayout();
 		paginatorPanel.setWidth100();
 		paginatorPanel.setHeight("20px");
@@ -62,8 +95,7 @@ public class EIAGridPanel extends VLayout {
 		allFwdImg.setSize("14px", "10px");
 		paginatorPanel.addMembers(allBackImg,backImg,fwdImg,allFwdImg);
 		
-		setWidth100();
-		setHeight(300);
+////////Inicializacion de la pagina
 		addMembers(gridPanel,paginatorPanel);
 
 	}	
