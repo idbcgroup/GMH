@@ -187,32 +187,18 @@ input[type=text].round,input[type=password].round{
 	margin-right: auto;
 }
 
-/*GRID*/
-
-.gha-grid{
-	background-color: yelow;
-	color:green;
-	margin-left: 20px;
-	margin-right: 3px;
-	margin-top: 3px;
-}
-.gha-grid-header-base2{
-	background-color: yelow;
-	color:green;
-}
-.gha-grid-header-base{
-	background-color: yelow;
-	color:green;
-}
-.gha-grid-header-title{
-	background-color: yelow;
-	color:green;
-}
 
 /*UTIL*/
 .sides-padding{
 	padding-left: 20px;
 	padding-right: 20px;
+}
+.sides-padding{
+	padding-top: 10px;
+}
+
+.boxed{
+	borde:1px solid black;
 }
 .margin-paginator{
 	margin-top: 10px;

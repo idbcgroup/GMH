@@ -1,0 +1,23 @@
+1. Los nombres de variables se escriben con la convencion de Java, tomando como nombres un identificador, seguido por el tipo, ejemplo:
+	
+	ListGridField codeGridField = new ListGridField();
+	DynamicForm userForm = new DynamicForm();
+
+Esto se hace para poder identifcar la variable en cualquier lugar donde se use.
+
+2. Es de suma importancia la lectura de las dos ediciones del libro effective Java, para usar las mejores practicas en cuanto a la programacion en JAva
+3. Mientras sea posible utilizar una estrategia Lazy a la hora de crear variables (effective java)
+4. En la medida de lo posible y razonable, nos conviene hacer subclases de los componentes del framework para evitar codigo boilerplate, ejemplp
+	
+		ListGridField brandGridField = new ListGridField();
+		brandGridField.setName("brand");
+		brandGridField.setTitle("Marca");
+		brandGridField.setAlign(Alignment.CENTER);
+		brandGridField.setPrompt("Marca del equipo");
+
+	En caso de identificarse que estos metodos se usan mucho, esta clase puede reemplazarse por una subclase con un constructor que nos ayude a reducir codigo, 
+	y mejore la sinergia del grupo de trabajo
+	
+		GHAGridField brandGridField = new GHAGridField("brand", "Marca",Alignment.CENTER,"Marca del equipo");
+
+	Recuerden que estas practicas estan destinadas a reducir el tiempo de compresion del codigo, mejoran nuestra comunicacion y hacen mas transparente el trabajo en conjunto

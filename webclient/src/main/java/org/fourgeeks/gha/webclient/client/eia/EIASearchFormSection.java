@@ -10,13 +10,11 @@ import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIASearchForm extends HLayout {
+public class EIASearchFormSection extends HLayout {
 
-	public EIASearchForm() {
+	public EIASearchFormSection() {
 		super();
-		setHeight("50px");
-		setWidth100();
-		//setStyleName("sides-padding");
+		setStyleName("sides-padding");// Esto es VUDU!
 		setWidth100();
 		setHeight("68px");
 		// setBackgroundImage("../resources/img/tab1.jpg");
@@ -57,24 +55,27 @@ public class EIASearchForm extends HLayout {
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(10);
 		form.setItems(codigoEIA, nombreEIA, marcaEIA, modeloEIA, fabricante);
-		form.setCellPadding(20);
-		form.setPadding(10);
+		// form.setCellPadding(20);
+		// form.setPadding(10);
 
-		VLayout botones1 = new VLayout();
-		botones1.setHeight("68px");
-		botones1.setWidth(30);
-		botones1.setLayoutMargin(5);
-		//botones1.setBackgroundImage("../resources/img/botonBox.jpg");
-		botones1.setBackgroundColor("#E0E0E0");
-		botones1.setBackgroundRepeat(BackgroundRepeat.REPEAT_Y);
-		botones1.setMembersMargin(10);
-		botones1.setDefaultLayoutAlign(Alignment.CENTER);
-
+		VLayout panelBotones = new VLayout();
+		panelBotones.setHeight("68px");
+		panelBotones.setWidth(30);
+		panelBotones.setLayoutMargin(5);
+		// botones1.setBackgroundImage("../resources/img/botonBox.jpg");
+		panelBotones.setBackgroundColor("#E0E0E0");
+		panelBotones.setBackgroundRepeat(BackgroundRepeat.REPEAT_Y);
+		panelBotones.setMembersMargin(10);
+		panelBotones.setDefaultLayoutAlign(Alignment.CENTER);
 		Img cleanImg = new Img("../resources/icons/boton3.png");
 		cleanImg.setSize("20px", "20px");
+		cleanImg.setHoverStyle("boxed");
 		Img searchImg = new Img("../resources/icons/boton4.png");
+		searchImg.setHoverStyle("boxed");
+		searchImg.setCanHover(true);
+		searchImg.setShowHover(true);
 		searchImg.setSize("20px", "20px");
-		botones1.addMembers(cleanImg, searchImg);
+		panelBotones.addMembers(searchImg, cleanImg);
 
 		VLayout botones2 = new VLayout();
 		botones2.setHeight("68px");
@@ -94,7 +95,7 @@ public class EIASearchForm extends HLayout {
 
 		// Agregando los 3 layouts al principal layout de arriba
 
-		addMembers(form, botones1, botones2);
+		addMembers(form, panelBotones);
 	}
 
 }
