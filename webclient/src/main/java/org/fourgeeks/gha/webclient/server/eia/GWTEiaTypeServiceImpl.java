@@ -76,4 +76,20 @@ public class GWTEiaTypeServiceImpl extends RemoteServiceServlet implements GWTEi
 	public List<EiaType> getAll(int offset, int size) {
 		return eiaTypeServiceRemote.getAll(offset, size);
 	}
+
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.webclient.client.eia.GWTEiaTypeService#find(org.fourgeeks.gha.domain.gmh.EiaType)
+	 */
+	@Override
+	public List<EiaType> find(EiaType eiaType) {
+		return eiaTypeServiceRemote.find(eiaType);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.webclient.client.eia.GWTEiaTypeService#find(org.fourgeeks.gha.domain.gmh.EiaType, int, int)
+	 */
+	@Override
+	public List<EiaType> find(EiaType eiaType, int offset, int size) {
+		return eiaTypeServiceRemote.find(eiaType, offset, size);
+	}
 }

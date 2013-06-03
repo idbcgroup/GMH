@@ -11,7 +11,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
+import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.domain.gmh.Manufacturer;
 
 /**
  * @author emiliot
@@ -35,6 +37,7 @@ public class EiaTypeService implements EiaTypeServiceRemote{
 		}catch(Exception e){
 			logger.info("ERROR: saving object " + eiaType.toString());
 			e.printStackTrace();
+			//TODO: send exception to webClient
 		}
 	}
 
@@ -43,7 +46,12 @@ public class EiaTypeService implements EiaTypeServiceRemote{
 	 */
 	@Override
 	public EiaType find(long Id) {
-		return em.find(EiaType.class, Id);
+		try{
+			return em.find(EiaType.class, Id);
+		}catch(Exception e){
+			//TODO: send exception to webClient
+			return null;
+		}
 	}
 
 	/* (non-Javadoc)
@@ -59,6 +67,7 @@ public class EiaTypeService implements EiaTypeServiceRemote{
 		}catch(Exception e){
 			e.printStackTrace();
 			logger.info("ERROR: unable to delete object with id="+Long.toString(Id));
+			//TODO: send exception to webClient
 		}
 	}
 	
@@ -72,6 +81,7 @@ public class EiaTypeService implements EiaTypeServiceRemote{
 		}catch(Exception e){
 			logger.info("ERROR: unable to update object "+eiaType.toString());
 			e.printStackTrace();
+			//TODO: send exception to webClient
 		}
 	}
 
@@ -87,9 +97,11 @@ public class EiaTypeService implements EiaTypeServiceRemote{
 		} catch (NoResultException e) {
 			System.out.println("No results");
 			res = null;
+			//TODO: send exception to webClient
 		} catch (Exception ex){
 			ex.printStackTrace();
 			res = null;
+			//TODO: send exception to webClient
 		} finally {
 			return res;
 		}
@@ -113,6 +125,146 @@ public class EiaTypeService implements EiaTypeServiceRemote{
 			ex.printStackTrace();
 			res = null;
 		}finally {
+			return res;
+		}
+	}
+
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypeServiceRemote#find(org.fourgeeks.gha.domain.gmh.EiaType)
+	 */
+	@Override
+	public List<EiaType> find(EiaType eiaType, int offset, int size) {
+		List <EiaType> res = null;
+		
+		Brand brand = eiaType.getBrand();
+		Manufacturer manufacturer = eiaType.getManufacturer();
+		
+		int varsAdded = 0;		
+		String query = "SELECT e from EiaType e WHERE ";
+		
+		if(brand != null && brand.getId() > 0){
+			if(varsAdded > 0){
+				query += " OR ";
+			}
+			++varsAdded;
+			query += "brand='"+Long.toString(eiaType.getBrand().getId())+"' ";
+		}
+		
+		if(manufacturer != null && manufacturer.getId() > 0){
+			if(varsAdded > 0){
+				query += " OR ";
+			}
+			++varsAdded;
+			query += "manufacturer='" + Long.toString(eiaType.getManufacturer().getId()) + "' ";
+		}
+		
+		if(eiaType.getModel() != null){
+			if(varsAdded > 0){
+				query += " OR ";
+			}
+			++varsAdded;
+			query += " model like '%" + eiaType.getModel() + "%' ";
+		}
+		
+		if(eiaType.getName() != null){
+			if(varsAdded > 0){
+				query += " OR "; 
+			}
+			varsAdded++;
+			query += "name like '%" + eiaType.getName() + "%' ";
+		}
+		
+		if(eiaType.getCode() != null){
+			if(varsAdded > 0){
+				query += " OR ";
+			}
+			varsAdded++;
+			query += "code like '%" + eiaType.getCode() + "%' ";
+		}
+		
+		query += " order by id";
+		
+		try{
+			res = em.createQuery(query, EiaType.class)
+					.setFirstResult(offset)
+					.setMaxResults(size)
+					.getResultList();
+		}catch (NoResultException e){
+			logger.info("Find by EiaType: no results");
+			res = null;
+		}catch (Exception ex){
+			ex.printStackTrace();
+			res = null;
+		}finally{
+			return res;
+		}
+	}
+
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypeServiceRemote#find(org.fourgeeks.gha.domain.gmh.EiaType)
+	 */
+	@Override
+	public List<EiaType> find(EiaType eiaType) {
+List <EiaType> res = null;
+		
+		Brand brand = eiaType.getBrand();
+		Manufacturer manufacturer = eiaType.getManufacturer();
+		
+		int varsAdded = 0;		
+		String query = "SELECT e from EiaType e WHERE ";
+		
+		if(brand != null && brand.getId() > 0){
+			if(varsAdded > 0){
+				query += " OR ";
+			}
+			++varsAdded;
+			query += "brand='"+Long.toString(eiaType.getBrand().getId())+"' ";
+		}
+		
+		if(manufacturer != null && manufacturer.getId() > 0){
+			if(varsAdded > 0){
+				query += " OR ";
+			}
+			++varsAdded;
+			query += "manufacturer='" + Long.toString(eiaType.getManufacturer().getId()) + "' ";
+		}
+		
+		if(eiaType.getModel() != null){
+			if(varsAdded > 0){
+				query += " OR ";
+			}
+			++varsAdded;
+			query += " model like '%" + eiaType.getModel() + "%' ";
+		}
+		
+		if(eiaType.getName() != null){
+			if(varsAdded > 0){
+				query += " OR "; 
+			}
+			varsAdded++;
+			query += "name like '%" + eiaType.getName() + "%' ";
+		}
+		
+		if(eiaType.getCode() != null){
+			if(varsAdded > 0){
+				query += " OR ";
+			}
+			varsAdded++;
+			query += "code like '%" + eiaType.getCode() + "%' ";
+		}
+		
+		query += " order by id";
+		
+		try{
+			res = em.createQuery(query, EiaType.class)
+					.getResultList();
+		}catch (NoResultException e){
+			logger.info("Find by EiaType: no results");
+			res = null;
+		}catch (Exception ex){
+			ex.printStackTrace();
+			res = null;
+		}finally{
 			return res;
 		}
 	}

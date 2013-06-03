@@ -28,6 +28,19 @@ public interface GWTEiaTypeService extends RemoteService{
 	 * @return the EiaType with this Id
 	 */
 	public EiaType find(long Id);
+	
+	/**
+	 * @param eiaType
+	 * @return a list with possible matches to the eiaType passed by param
+	 */
+	public List<EiaType> find(EiaType eiaType);
+	/**
+	 * @param eiaType
+	 * @param offset
+	 * @param size
+	 * @return a list with possible matches to the eiaType passed by param
+	 */
+	public List <EiaType> find(EiaType eiaType, int offset, int size);
 	/**
 	 * @param EiaType the EiaType to be updated
 	 */

@@ -12,8 +12,8 @@ public class EIARecord extends ListGridRecord {
 	public EIARecord(EiaType eiaType) {
 		setName(eiaType.getName());
 		setCode(eiaType.getCode());
-		setBrand(eiaType.getBrand());
-		setManufacturer(eiaType.getManufacturer());
+		setBrand(eiaType.getBrand().getName());
+		setManufacturer(eiaType.getManufacturer().getName());
 		setModel(eiaType.getModel());
 	}
 

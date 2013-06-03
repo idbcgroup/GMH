@@ -16,8 +16,6 @@ public class GWTLoginServiceImpl extends RemoteServiceServlet implements
 //	@EJB(name = "mix.UserService")
 //	UserServiceRemote userService;
 	
-//	@EJB(name = "gmh.EiaTypeService")
-//	EiaTypeServiceRemote eiaTypeService;
 
 	private static final long serialVersionUID = 1L;
 
