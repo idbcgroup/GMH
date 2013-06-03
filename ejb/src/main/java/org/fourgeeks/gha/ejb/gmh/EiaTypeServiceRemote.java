@@ -14,6 +14,10 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
  *
  */
 
+/**
+ * @author emiliot
+ *
+ */
 @Remote
 public interface EiaTypeServiceRemote {
 	
@@ -27,6 +31,13 @@ public interface EiaTypeServiceRemote {
 	 * @return the EiaType with this Id
 	 */
 	public EiaType find(long Id);
+	/**
+	 * @param eiaType
+	 * @param offset
+	 * @param size
+	 * @return a list with possible matches to the eiaType passed by param
+	 */
+	public List <EiaType> find(EiaType eiaType, int offset, int size);
 	/**
 	 * @param EiaType the EiaType to be updated
 	 */

@@ -3,7 +3,12 @@
  */
 package org.fourgeeks.gha.domain.gmh;
 
+import java.util.Map;
+import java.util.TreeMap;
+
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 
@@ -20,11 +25,18 @@ public class EiaType extends AbstractEntity{
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	@ManyToOne
+	@JoinColumn(name = "brandFk")
+	private Brand brand;
+	
+	@ManyToOne
+	@JoinColumn(name = "manufacturerFk")
+	private  Manufacturer manufacturer;
+	
 	private String name;
 	private String code;
-	private String brand;
-	private String manufacturer;
 	private String model;
+	
 	/**
 	 * 
 	 */
@@ -41,12 +53,6 @@ public class EiaType extends AbstractEntity{
 	public String getCode() {
 		return code;
 	}
-	public String getBrand() {
-		return brand;
-	}
-	public String getManufacturer() {
-		return manufacturer;
-	}
 	public String getModel() {
 		return model;
 	}
@@ -55,15 +61,30 @@ public class EiaType extends AbstractEntity{
 	}
 	public void setCode(String code) {
 		this.code = code;
-	}
-	public void setBrand(String brand) {
-		this.brand = brand;
-	}
-	public void setManufacturer(String manufacturer) {
-		this.manufacturer = manufacturer;
-	}
+	}	
 	public void setModel(String model) {
 		this.model = model;
 	}
+	public Brand getBrand() {
+		return brand;
+	}
+	public Manufacturer getManufacturer() {
+		return manufacturer;
+	}
+	public void setBrand(Brand brand) {
+		this.brand = brand;
+	}
+	public void setManufacturer(Manufacturer manufacturer) {
+		this.manufacturer = manufacturer;
+	}
 	
+	public Map<String, Object> getAttributes(){
+		Map <String, Object> res = new TreeMap<String, Object>();
+		res.put("name", this.name);
+		res.put("code", this.code);
+		res.put("model", this.model);
+		res.put("manufacturer", this.manufacturer);
+		res.put("brand", this.brand);
+		return res;
+	}
 }
