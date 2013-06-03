@@ -1,19 +1,26 @@
 package org.fourgeeks.gha.webclient.client.eiatype;
 
+import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.BackgroundRepeat;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.Img;
+import com.smartgwt.client.widgets.ImgButton;
+import com.smartgwt.client.widgets.events.ClickEvent;
+import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class EIATypeSearchFormSection extends HLayout {
 
-	public EIATypeSearchFormSection() {
+	private EIATypeGridPanel grid;
+
+	public EIATypeSearchFormSection(EIATypeGridPanel grid) {
 		super();
+		this.grid = grid;
 		setStyleName("sides-padding");// Esto es VUDU!
 		setWidth100();
 		setHeight("68px");
@@ -70,7 +77,17 @@ public class EIATypeSearchFormSection extends HLayout {
 		Img cleanImg = new Img("../resources/icons/boton3.png");
 		cleanImg.setSize("20px", "20px");
 		cleanImg.setHoverStyle("boxed");
-		Img searchImg = new Img("../resources/icons/boton4.png");
+		ImgButton searchImg = new ImgButton();
+		searchImg.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				EiaType eiaType = new EiaType();
+				// TODO create an object to pass
+
+			}
+		});
+		searchImg.setSrc("../resources/icons/boton4.png");
 		searchImg.setHoverStyle("boxed");
 		searchImg.setCanHover(true);
 		searchImg.setShowHover(true);
@@ -87,8 +104,9 @@ public class EIATypeSearchFormSection extends HLayout {
 		botones2.setMembersMargin(10);
 		botones2.setDefaultLayoutAlign(Alignment.CENTER);
 
-		Img helpImg = new Img("../resources/icons/boton6.png");
-		helpImg.setSize("20px", "20px");
+		// ImgButton helpImg = new ImgButton();
+		// helpImg.setSrc("../resources/icons/boton6.png");
+		// helpImg.setSize("20px", "20px");
 		// Img reloadImg = new Img("../resources/icons/boton7.png");
 		// reloadImg.setSize("20px", "20px");
 		// botones2.addMembers(helpImg, reloadImg);

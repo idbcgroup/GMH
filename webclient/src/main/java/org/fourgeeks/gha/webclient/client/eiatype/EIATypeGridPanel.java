@@ -14,6 +14,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class EIATypeGridPanel extends HLayout {
 
 	private EIATypeForm form;
+	private EIATypeGrid eiaTypeGrid = new EIATypeGrid();;
 
 	public EIATypeGridPanel() {
 		super();
@@ -52,7 +53,14 @@ public class EIATypeGridPanel extends HLayout {
 		deleteButton.setSize("20px", "20px");
 
 		sideButtons.addMembers(addButton, editButton, deleteButton);
-		addMembers(new EIATypeGrid(), sideButtons);
+		addMembers(eiaTypeGrid, sideButtons);
 
+	}
+
+	/**
+	 * @return the eiaTypeGrid
+	 */
+	public EIATypeGrid getEiaTypeGrid() {
+		return eiaTypeGrid;
 	}
 }
