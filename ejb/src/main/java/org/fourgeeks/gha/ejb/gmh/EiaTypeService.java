@@ -199,5 +199,74 @@ public class EiaTypeService implements EiaTypeServiceRemote{
 			return res;
 		}
 	}
+
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypeServiceRemote#find(org.fourgeeks.gha.domain.gmh.EiaType)
+	 */
+	@Override
+	public List<EiaType> find(EiaType eiaType) {
+List <EiaType> res = null;
+		
+		Brand brand = eiaType.getBrand();
+		Manufacturer manufacturer = eiaType.getManufacturer();
+		
+		int varsAdded = 0;		
+		String query = "SELECT e from EiaType e WHERE ";
+		
+		if(brand != null && brand.getId() > 0){
+			if(varsAdded > 0){
+				query += " OR ";
+			}
+			++varsAdded;
+			query += "brand='"+Long.toString(eiaType.getBrand().getId())+"' ";
+		}
+		
+		if(manufacturer != null && manufacturer.getId() > 0){
+			if(varsAdded > 0){
+				query += " OR ";
+			}
+			++varsAdded;
+			query += "manufacturer='" + Long.toString(eiaType.getManufacturer().getId()) + "' ";
+		}
+		
+		if(eiaType.getModel() != null){
+			if(varsAdded > 0){
+				query += " OR ";
+			}
+			++varsAdded;
+			query += " model like '%" + eiaType.getModel() + "%' ";
+		}
+		
+		if(eiaType.getName() != null){
+			if(varsAdded > 0){
+				query += " OR "; 
+			}
+			varsAdded++;
+			query += "name like '%" + eiaType.getName() + "%' ";
+		}
+		
+		if(eiaType.getCode() != null){
+			if(varsAdded > 0){
+				query += " OR ";
+			}
+			varsAdded++;
+			query += "code like '%" + eiaType.getCode() + "%' ";
+		}
+		
+		query += " order by id";
+		
+		try{
+			res = em.createQuery(query, EiaType.class)
+					.getResultList();
+		}catch (NoResultException e){
+			logger.info("Find by EiaType: no results");
+			res = null;
+		}catch (Exception ex){
+			ex.printStackTrace();
+			res = null;
+		}finally{
+			return res;
+		}
+	}
 	
 }

@@ -31,6 +31,12 @@ public interface EiaTypeServiceRemote {
 	 * @return the EiaType with this Id
 	 */
 	public EiaType find(long Id);
+	
+	/**
+	 * @param eiaType
+	 * @return a list with possible matches to the eiaType passed by param
+	 */
+	public List<EiaType> find(EiaType eiaType);
 	/**
 	 * @param eiaType
 	 * @param offset
