@@ -31,7 +31,6 @@ public class HomePlace implements GHAPlace {
 
 		HTML content = new HTML(html.toString());
 		RootPanel.get("user-info").add(content);
-		
 
 		// /////////////////Tabset
 
@@ -81,13 +80,13 @@ public class HomePlace implements GHAPlace {
 		});
 		Menu menu = new Menu();
 		menu.setItems(addTabMenuItem);
-//		menu.setStyleName("gha-main-menu");
-//		menu.setStylePrimaryName("gha-main-menu");
+		// menu.setStyleName("gha-main-menu");
+		// menu.setStylePrimaryName("gha-main-menu");
 
 		IMenuButton menuButton = new IMenuButton("Aplicaciones", menu);
 		menuButton.setWidth(150);
 		menuButton.setHeight(24);
-//		menuButton.setStyleName("gha-main-menu2");
+		// menuButton.setStyleName("gha-main-menu2");
 		menuButton.setStylePrimaryName("gha-main-menu");
 		// menuButton.setWidth(100);
 
@@ -133,8 +132,8 @@ public class HomePlace implements GHAPlace {
 		// layout.draw();
 		menuButton.setZIndex(33333333);
 		GHATabSet.addMenu(menuButton);
-		GHATabSet.draw();
-//		
+		// GHATabSet.draw();
+		//
 		// menulayout.draw();
 
 	}

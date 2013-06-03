@@ -1,16 +1,16 @@
-package org.fourgeeks.gha.webclient.client.eia;
+package org.fourgeeks.gha.webclient.client.eiatype;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAPlace;
 import org.fourgeeks.gha.webclient.client.UI.GHATab;
 import org.fourgeeks.gha.webclient.client.UI.GHATabSet;
 
-public class EIAPlace implements GHAPlace {
+public class EIATypePlace implements GHAPlace {
 	private GHATab tab;
 
-	public EIAPlace() {
-		tab = GHATabSet.getById(EIATab.ID);
+	public EIATypePlace() {
+		tab = GHATabSet.getById(EIATypeTab.ID);
 		if (tab == null)
-			tab = new EIATab();
+			tab = new EIATypeTab();
 	}
 
 	@Override

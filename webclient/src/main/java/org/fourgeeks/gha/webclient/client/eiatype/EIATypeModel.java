@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eia;
+package org.fourgeeks.gha.webclient.client.eiatype;
 
 import java.util.List;
 
@@ -7,12 +7,12 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 
 import com.google.gwt.core.client.GWT;
 
-public class EIAModel {
+public class EIATypeModel {
 
 	private static final GWTEiaTypeServiceAsync eiaService = GWT
 			.create(GWTEiaTypeService.class);
 
-	private EIAModel() {
+	private EIATypeModel() {
 		throw new UnsupportedOperationException(
 				"Esta clase no debe ser instanciada");
 	}

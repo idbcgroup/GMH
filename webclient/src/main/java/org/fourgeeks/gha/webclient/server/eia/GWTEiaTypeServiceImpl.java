@@ -9,7 +9,7 @@ import javax.ejb.EJB;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.ejb.gmh.EiaTypeServiceRemote;
-import org.fourgeeks.gha.webclient.client.eia.GWTEiaTypeService;
+import org.fourgeeks.gha.webclient.client.eiatype.GWTEiaTypeService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 

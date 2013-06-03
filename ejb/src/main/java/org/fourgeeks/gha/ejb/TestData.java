@@ -25,7 +25,7 @@ public class TestData {
 	@PostConstruct
 	public void inicializar() {
 		userTestData();
-		// eiaTypeTestData();
+		eiaTypeTestData();
 
 		// EiaType entity = new EiaType();
 		// entity.setName("testName");

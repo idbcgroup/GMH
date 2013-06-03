@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eia;
+package org.fourgeeks.gha.webclient.client.eiatype;
 
 import java.util.ArrayList;
 import java.util.List;

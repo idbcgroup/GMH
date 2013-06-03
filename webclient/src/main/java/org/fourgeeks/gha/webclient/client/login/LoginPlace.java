@@ -38,16 +38,17 @@ public class LoginPlace implements GHAPlace {
 		HTML content = new HTML(html.toString());
 		RootPanel.get("main-content").add(content);
 
-		//for Events
+		// for Events
 		Element element = RootPanel.get("login-button").getElement();
-		Element uTextbox = RootPanel.get("username").getElement();
-		Element pTextbox = RootPanel.get("password").getElement();;
-		
+		Element pTextbox = RootPanel.get("password").getElement();
+		;
 
-		final InputElement userTextbox = (InputElement) Document.get().getElementById("username");
-		final InputElement passTextbox = (InputElement) Document.get().getElementById("password");
+		final InputElement userTextbox = (InputElement) Document.get()
+				.getElementById("username");
+		final InputElement passTextbox = (InputElement) Document.get()
+				.getElementById("password");
 		userTextbox.focus();
-		
+
 		DOM.sinkEvents(element, Event.ONCLICK);
 		DOM.setEventListener(element, new EventListener() {
 
@@ -80,20 +81,20 @@ public class LoginPlace implements GHAPlace {
 
 			}
 		});
-		
+
 		DOM.sinkEvents(pTextbox, Event.ONKEYUP);
 		DOM.setEventListener(pTextbox, new EventListener() {
-			
+
 			@Override
 			public void onBrowserEvent(Event event) {
 				// TODO Auto-generated method stub
-				
-				if(event.getKeyCode() == 13){
+
+				if (event.getKeyCode() == 13) {
 					String username = userTextbox.getValue();
 					String password = passTextbox.getValue();
-	
+
 					// Window.alert(username+"-"+password);
-	
+
 					final GWTLoginServiceAsync service = GWT
 							.create(GWTLoginService.class);
 					service.login(username, password,
@@ -115,6 +116,6 @@ public class LoginPlace implements GHAPlace {
 							});
 				}
 			}
-		});		
+		});
 	}
 }

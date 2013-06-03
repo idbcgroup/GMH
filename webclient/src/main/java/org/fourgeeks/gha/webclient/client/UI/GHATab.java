@@ -1,8 +1,11 @@
 package org.fourgeeks.gha.webclient.client.UI;
 
-import com.smartgwt.client.widgets.tab.Tab;
+import com.smartgwt.client.widgets.layout.VLayout;
 
-public abstract class GHATab extends Tab {
+public abstract class GHATab extends VLayout {
+	public GHATab() {
+		setWidth100();
+	}
 
 	public abstract void onClose();
 

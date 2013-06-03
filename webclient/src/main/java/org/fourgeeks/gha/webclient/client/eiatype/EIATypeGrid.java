@@ -1,19 +1,18 @@
-package org.fourgeeks.gha.webclient.client.eia;
+package org.fourgeeks.gha.webclient.client.eiatype;
 
 import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 
-import com.google.gwt.user.client.Window;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.widgets.grid.ListGrid;
 import com.smartgwt.client.widgets.grid.ListGridField;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
 
-public class EIAGrid extends ListGrid {
+public class EIATypeGrid extends ListGrid {
 
-	public EIAGrid() {
+	public EIATypeGrid() {
 		setWidth100();
 		setHeight100();
 		setEmptyMessage("No existen tipos de equipo para mostrar");
@@ -142,15 +141,13 @@ public class EIAGrid extends ListGrid {
 	}
 
 	private void loadData() {
-		EIAModel.getAll(new GHAAsyncCallback<List<EiaType>>() {
+		EIATypeModel.getAll(new GHAAsyncCallback<List<EiaType>>() {
 
 			@Override
 			public void onSuccess(List<EiaType> eiaTypes) {
 				ListGridRecord[] array = (ListGridRecord[]) EIAUtil
 						.toGridRecords(eiaTypes).toArray(new EIARecord[] {});
-				Window.alert("2");
 				setData(array);
-				Window.alert("2");
 			}
 		});
 

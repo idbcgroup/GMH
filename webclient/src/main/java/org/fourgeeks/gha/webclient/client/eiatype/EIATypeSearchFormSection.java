@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eia;
+package org.fourgeeks.gha.webclient.client.eiatype;
 
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 
@@ -10,9 +10,9 @@ import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIASearchFormSection extends HLayout {
+public class EIATypeSearchFormSection extends HLayout {
 
-	public EIASearchFormSection() {
+	public EIATypeSearchFormSection() {
 		super();
 		setStyleName("sides-padding");// Esto es VUDU!
 		setWidth100();
