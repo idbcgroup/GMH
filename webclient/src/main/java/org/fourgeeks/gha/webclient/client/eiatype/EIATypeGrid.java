@@ -1,8 +1,14 @@
 package org.fourgeeks.gha.webclient.client.eiatype;
 
+import java.util.List;
+
+import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
+
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.widgets.grid.ListGrid;
 import com.smartgwt.client.widgets.grid.ListGridField;
+import com.smartgwt.client.widgets.grid.ListGridRecord;
 
 public class EIATypeGrid extends ListGrid {
 
@@ -36,19 +42,19 @@ public class EIATypeGrid extends ListGrid {
 		setFields(idGridField, codeGridField, nameGridField, brandGridField,
 				modelGridField, makeGridField);
 
-		// loadData();
+		loadData();
 	}
 
-	// private void loadData() {
-	// EIATypeModel.getAll(new GHAAsyncCallback<List<EiaType>>() {
-	//
-	// @Override
-	// public void onSuccess(List<EiaType> eiaTypes) {
-	// ListGridRecord[] array = (ListGridRecord[]) EIAUtil
-	// .toGridRecords(eiaTypes).toArray(new EIARecord[] {});
-	// setData(array);
-	// }
-	// });
-	//
-	// }
+	private void loadData() {
+		EIATypeModel.getAll(new GHAAsyncCallback<List<EiaType>>() {
+
+			@Override
+			public void onSuccess(List<EiaType> eiaTypes) {
+				ListGridRecord[] array = (ListGridRecord[]) EIAUtil
+						.toGridRecords(eiaTypes).toArray(new EIARecord[] {});
+				setData(array);
+			}
+		});
+
+	}
 }
