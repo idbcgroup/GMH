@@ -8,6 +8,7 @@ import org.fourgeeks.gha.webclient.client.login.GWTLoginServiceAsync;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.RunAsyncCallback;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.History;
@@ -24,14 +25,28 @@ public class Gha implements EntryPoint {
 		History.addValueChangeHandler(new ValueChangeHandler<String>() {
 			@Override
 			public void onValueChange(ValueChangeEvent<String> event) {
-				String historyToken = event.getValue();
+				final String historyToken = event.getValue();
 				if (historyToken == null)
 					return;
 				// Window.alert("Showing place:"+historyToken);
 				// UIPlace place = UIPlacesFactory.createPlace(historyToken);
 				// place.show();
-				GHAPlace place = GHAPlacesFactory.createPlace(historyToken);
-				place.show();
+				GWT.runAsync(new RunAsyncCallback() {
+
+					@Override
+					public void onSuccess() {
+						GHAPlace place = GHAPlacesFactory
+								.createPlace(historyToken);
+						place.show();
+					}
+
+					@Override
+					public void onFailure(Throwable arg0) {
+						// TODO Auto-generated method stub
+
+					}
+				});
+
 			}
 		});
 
@@ -51,41 +66,9 @@ public class Gha implements EntryPoint {
 					History.fireCurrentHistoryState();
 			}
 		});
-	}
 
-	public void showLoginUI(boolean logged) {
-		/*
-		 * VLayout layout = new VLayout();
-		 * 
-		 * if(!logged){ DynamicForm loginForm = new DynamicForm();
-		 * 
-		 * Img logo = new Img(); Label title = new Label();
-		 * title.setContents("<h3>Iniciar Sesion</h3>"); Label ubicacion = new
-		 * Label(); ubicacion.setTitle("Ubicado en:");
-		 * 
-		 * TextItem username = new TextItem("username", "Nombre De Usuario");
-		 * PasswordItem password = new PasswordItem("password", "Contraseña");
-		 * SubmitItem submitButton = new
-		 * SubmitItem("submitButton","Iniciar Sesion"); CheckboxItem
-		 * rememberData = new CheckboxItem("rememberData",
-		 * "Recordar mis Datos"); LinkItem forgotData = new
-		 * LinkItem("¿Olvido su Contraseña?");
-		 * 
-		 * loginForm.setFields(username, password, submitButton,
-		 * rememberData,forgotData); layout.addMember(logo);
-		 * layout.addMember(title); layout.addMember(ubicacion);
-		 * layout.addMember(loginForm);
-		 * 
-		 * }else{ layout.clear(); Label loggedText = new Label();
-		 * loggedText.setContents
-		 * ("<b>Ya existe un usuario loggeado en el sistema.</b>");
-		 * 
-		 * layout.addMember(loggedText); }
-		 * 
-		 * RootPanel.get("main-content").add(layout); layout.draw();
-		 */
-
-		// RootPanel.get("main-content").clear();
+		// final GWTEiaTypeServiceAsync eiaService =
+		// GWT.create(GWTEiaTypeService.class);
 	}
 
 }

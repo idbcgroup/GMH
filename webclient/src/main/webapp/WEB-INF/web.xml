@@ -15,6 +15,16 @@
 		<servlet-name>GWTLoginService</servlet-name>
 		<url-pattern>/webclient/login</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>GWTEiaTypeService</servlet-name>
+		<servlet-class>org.fourgeeks.gha.webclient.server.eia.GWTEiaTypeServiceImpl</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>GWTEiaTypeService</servlet-name>
+		<url-pattern>/webclient/eiaType</url-pattern>
+	</servlet-mapping>
 
 	<!-- Default page to serve -->
 	<welcome-file-list>

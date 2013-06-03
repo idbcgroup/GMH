@@ -1,0 +1,3 @@
+GWT.runasync
+eiatype.manufacturer debe ser un foreign key
+revisar la tabla por nulos, indices, etc

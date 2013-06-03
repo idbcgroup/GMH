@@ -1,22 +1,23 @@
 /**
  * 
  */
-package org.fourgeeks.gha.ejb.gmh;
+package org.fourgeeks.gha.webclient.client.eia;
 
 import java.util.List;
 
-import javax.ejb.Remote;
-
 import org.fourgeeks.gha.domain.gmh.EiaType;
+
+import com.google.gwt.user.client.rpc.RemoteService;
+import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 /**
  * @author emiliot
  *
  */
-
-@Remote
-public interface EiaTypeServiceRemote {
+@RemoteServiceRelativePath("eiaType")
+public interface GWTEiaTypeService extends RemoteService{
 	
+
 	/**
 	 * @param eiaType
 	 * Persist an EiaType to database
@@ -46,5 +47,4 @@ public interface EiaTypeServiceRemote {
 	 * @return List of EiaType beginning in offset up to size
 	 */
 	public List <EiaType> getAll(int offset, int size);
-
 }
