@@ -2,10 +2,17 @@ package org.fourgeeks.gha.webclient.client.home;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAPlace;
 import org.fourgeeks.gha.webclient.client.UI.GHATabSet;
+import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
 import com.google.gwt.user.client.History;
-import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.smartgwt.client.types.Alignment;
+import com.smartgwt.client.types.Positioning;
+import com.smartgwt.client.widgets.Img;
+import com.smartgwt.client.widgets.Label;
+import com.smartgwt.client.widgets.events.ClickEvent;
+import com.smartgwt.client.widgets.layout.HLayout;
+import com.smartgwt.client.widgets.layout.VLayout;
 import com.smartgwt.client.widgets.menu.IMenuButton;
 import com.smartgwt.client.widgets.menu.Menu;
 import com.smartgwt.client.widgets.menu.MenuItem;
@@ -23,14 +30,57 @@ public class HomePlace implements GHAPlace {
 		RootPanel.get("main-content").clear();
 		RootPanel.get("user-info").clear();
 		RootPanel.get("menu-bar").clear();
-
+		
+		final VLayout userMenu = new VLayout();
+		userMenu.setPosition(Positioning.ABSOLUTE);
+		userMenu.setTop(70);
+		userMenu.setLeft("73%");
+		userMenu.setSize("280px", "*");
+		userMenu.setBackgroundColor("#FFFFFF");
+		userMenu.setBorder("1px solid #E0E0E0");
+		userMenu.setVisible(false);
+		
+		userMenu.addMember(GHAUiHelper.verticalGraySeparator("25px"));
+		userMenu.draw();
+		
+		HLayout userInfo = new HLayout();
+		userInfo.setMembersMargin(10);
+		userInfo.setStyleName("user-info");
+		userInfo.setHeight("50px");
+		userInfo.setDefaultLayoutAlign(Alignment.CENTER);
+		
+		Label usernameLabel = new Label("Jose Pereira Martinez");
+		usernameLabel.setStyleName("username-text");
+		usernameLabel.setSize("300	px", "25px");
+		Label notificationsButton = new Label("1");
+		notificationsButton.setStyleName("user-notifications-button");
+		notificationsButton.setBackgroundImage("../resources/icons/boton1.png");
+		notificationsButton.setSize("28px", "25px");
+		Img userButton = new Img("../resources/icons/boton2.png");
+		userButton.setSize("21px", "25px");
+		userButton.addClickHandler(new com.smartgwt.client.widgets.events.ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				// TODO Auto-generated method stub
+				if(userMenu.isVisible())
+					userMenu.setVisible(false);
+				else 
+					userMenu.setVisible(true);
+			}
+		});
+		
+		userInfo.addMembers(usernameLabel,notificationsButton,userButton);
+		
+		
+		/*
 		StringBuilder html = new StringBuilder();
 		html.append("<div class='username-text'>Jose Pereira Martinez</div>");
 		html.append("<div class='user-notifications'>1</div>");
 		html.append("<div class='user-menu'></div>");
 
-		HTML content = new HTML(html.toString());
-		RootPanel.get("user-info").add(content);
+		HTML content = new HTML(html.toString());*/
+		RootPanel.get("user-info").add(userInfo);
 
 		// /////////////////Tabset
 
