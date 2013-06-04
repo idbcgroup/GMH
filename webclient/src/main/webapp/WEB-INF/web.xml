@@ -18,7 +18,7 @@
 	
 	<servlet>
 		<servlet-name>GWTEiaTypeService</servlet-name>
-		<servlet-class>org.fourgeeks.gha.webclient.server.eia.GWTEiaTypeServiceImpl</servlet-class>
+		<servlet-class>org.fourgeeks.gha.webclient.server.eiatype.GWTEiaTypeServiceImpl</servlet-class>
 	</servlet>
 	
 	<servlet-mapping>

@@ -12,14 +12,14 @@ public class EIAUtil {
 				"Esta clase no debe ser instanciada");
 	}
 
-	public static EIARecord toGridRecord(EiaType eiaType) {
-		return new EIARecord(eiaType);
+	public static EIATypeRecord toGridRecord(EiaType eiaType) {
+		return new EIATypeRecord(eiaType);
 	}
 
-	public static List<EIARecord> toGridRecords(List<EiaType> eiaTypes) {
-		List<EIARecord> list = new ArrayList<EIARecord>();
+	public static List<EIATypeRecord> toGridRecords(List<EiaType> eiaTypes) {
+		List<EIATypeRecord> list = new ArrayList<EIATypeRecord>();
 		for (EiaType eiaType : eiaTypes)
-			list.add(new EIARecord(eiaType));
+			list.add(new EIATypeRecord(eiaType));
 		return list;
 	}
 }

@@ -1,6 +1,9 @@
 package org.fourgeeks.gha.webclient.client.eiatype;
 
+import java.util.List;
+
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 
 import com.smartgwt.client.types.Alignment;
@@ -11,16 +14,18 @@ import com.smartgwt.client.widgets.ImgButton;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
+import com.smartgwt.client.widgets.grid.ListGridRecord;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class EIATypeSearchFormSection extends HLayout {
 
-	private EIATypeGridPanel grid;
+	private EIATypeGrid eiaTypeGrid;
+	private GHATextItem nameField;
 
-	public EIATypeSearchFormSection(EIATypeGridPanel grid) {
+	public EIATypeSearchFormSection(EIATypeGrid eiaTypeGrid) {
 		super();
-		this.grid = grid;
+		this.eiaTypeGrid = eiaTypeGrid;
 		setStyleName("sides-padding");// Esto es VUDU!
 		setWidth100();
 		setHeight("68px");
@@ -29,39 +34,16 @@ public class EIATypeSearchFormSection extends HLayout {
 		// setBackgroundRepeat(BackgroundRepeat.REPEAT_Y);
 
 		GHATextItem codigoEIA = new GHATextItem("Código");
-		// codigoEIA.setRequired(true);
-
-		// PickerIcon searchPicker = new PickerIcon(PickerIcon.SEARCH,
-		// new FormItemClickHandler() {
-		// @Override
-		// public void onFormItemClick(FormItemIconClickEvent event) {
-		// // TODO Auto-generated method stub
-		// SC.say("Search icon clicked");
-		// }
-		// });
-		// searchPicker.setSrc("../resources/icons/boton4.png");
-		// searchPicker.setWidth(18);
-		// searchPicker.setHeight(18);
-
-		GHATextItem nombreEIA = new GHATextItem("Nombre");
-		// nombreEIA.setIcons(searchPicker);
-		// nombreEIA.setRequired(true);
-
+		nameField = new GHATextItem("Nombre");
 		GHATextItem marcaEIA = new GHATextItem("Marca");
-		// marcaEIA.setIcons(searchPicker);
-		// marcaEIA.setRequired(true);
-
 		GHATextItem modeloEIA = new GHATextItem("Modelo");
-		// modeloEIA.setRequired(true);
-
 		GHATextItem fabricante = new GHATextItem("Fabricante");
-		// fabricante.setRequired(true);
 
 		DynamicForm form = new DynamicForm();
 		form.setWidth("*");
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(10);
-		form.setItems(codigoEIA, nombreEIA, marcaEIA, modeloEIA, fabricante);
+		form.setItems(codigoEIA, nameField, marcaEIA, modeloEIA, fabricante);
 		// form.setCellPadding(20);
 		// form.setPadding(10);
 
@@ -82,12 +64,11 @@ public class EIATypeSearchFormSection extends HLayout {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				EiaType eiaType = new EiaType();
-				// TODO create an object to pass
+				search();
 
 			}
 		});
-		searchImg.setSrc("../resources/icons/boton4.png");
+		searchImg.setSrc("../resources/icons/search.png");
 		searchImg.setHoverStyle("boxed");
 		searchImg.setCanHover(true);
 		searchImg.setShowHover(true);
@@ -114,6 +95,22 @@ public class EIATypeSearchFormSection extends HLayout {
 		// Agregando los 3 layouts al principal layout de arriba
 
 		addMembers(form, panelBotones);
+	}
+
+	private void search() {
+		EiaType eiaType = new EiaType();
+		eiaType.setName(nameField.getValueAsString());
+		EIATypeModel.find(eiaType, new GHAAsyncCallback<List<EiaType>>() {
+
+			@Override
+			public void onSuccess(List<EiaType> eiaTypes) {
+				ListGridRecord[] array = (ListGridRecord[]) EIAUtil
+						.toGridRecords(eiaTypes)
+						.toArray(new EIATypeRecord[] {});
+				eiaTypeGrid.setData(array);
+			}
+
+		});
 	}
 
 }

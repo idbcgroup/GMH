@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.fourgeeks.gha.webclient.server.eia;
+package org.fourgeeks.gha.webclient.server.eiatype;
 
 import java.util.List;
 

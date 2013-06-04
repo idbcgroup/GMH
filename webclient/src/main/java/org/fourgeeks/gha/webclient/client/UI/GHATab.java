@@ -7,9 +7,10 @@ public abstract class GHATab extends VLayout {
 		setWidth100();
 	}
 
-	public abstract void onClose();
+	public abstract void close();
 
 	public abstract String getId();
 
 	public abstract GHATabHeader getHeader();
+
 }
