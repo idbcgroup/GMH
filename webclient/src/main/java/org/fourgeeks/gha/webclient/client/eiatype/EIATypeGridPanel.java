@@ -21,7 +21,6 @@ public class EIATypeGridPanel extends HLayout {
 		form = new EIATypeForm();
 		setStyleName("sides-padding top-padding");// Esto es VUDU!
 		setWidth100();
-		setHeight("320px");
 		// setBackgroundImage("../resources/img/tab1.jpg");
 		setBackgroundColor("#E0E0E0");
 

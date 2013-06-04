@@ -7,6 +7,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.smartgwt.client.types.Alignment;
+import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.Positioning;
 import com.smartgwt.client.widgets.Img;
 import com.smartgwt.client.widgets.Label;
@@ -30,18 +31,22 @@ public class HomePlace implements GHAPlace {
 		RootPanel.get("main-content").clear();
 		RootPanel.get("user-info").clear();
 		RootPanel.get("menu-bar").clear();
+		RootPanel.get("main-content").removeStyleName("white-background");
 		
 		final VLayout userMenu = new VLayout();
 		userMenu.setPosition(Positioning.ABSOLUTE);
 		userMenu.setTop(70);
-		userMenu.setLeft("73%");
 		userMenu.setSize("280px", "*");
 		userMenu.setBackgroundColor("#FFFFFF");
 		userMenu.setBorder("1px solid #E0E0E0");
 		userMenu.setVisible(false);
 		
+		HLayout topUserLayout = new HLayout();
+		topUserLayout.setSize("100%","25px");
+		topUserLayout.setBackgroundColor("#666666");
+		
 		userMenu.addMember(GHAUiHelper.verticalGraySeparator("25px"));
-		userMenu.draw();
+//		userMenu.draw();
 		
 		HLayout userInfo = new HLayout();
 		userInfo.setMembersMargin(10);
@@ -59,14 +64,30 @@ public class HomePlace implements GHAPlace {
 		Img userButton = new Img("../resources/icons/boton2.png");
 		userButton.setSize("21px", "25px");
 		userButton.addClickHandler(new com.smartgwt.client.widgets.events.ClickHandler() {
+		
+		final int h = userMenu.getHeight();
 			
 			@Override
 			public void onClick(ClickEvent event) {
+				int posx = event.getX() - 270;
+				int posy = event.getY();
+				if(event.getY() < 50)
+					posy += 20;
+				else
+					posy += 10;
+				
 				// TODO Auto-generated method stub
-				if(userMenu.isVisible())
+				if(userMenu.isVisible()){
+					userMenu.animateHide(AnimationEffect.FADE);
 					userMenu.setVisible(false);
-				else 
+					userMenu.setLeft(0);
+					userMenu.setTop(0);
+				}else{
+					userMenu.animateShow(AnimationEffect.FADE);
+					userMenu.setLeft(posx);
+					userMenu.setTop(posy);
 					userMenu.setVisible(true);
+				}
 			}
 		});
 		
@@ -81,7 +102,6 @@ public class HomePlace implements GHAPlace {
 
 		HTML content = new HTML(html.toString());*/
 		RootPanel.get("user-info").add(userInfo);
-
 		// /////////////////Tabset
 
 		// VLayout layout = new VLayout();

@@ -17,6 +17,7 @@ public class EIATypeTab extends GHATab {
 	public EIATypeTab() {
 		super();
 		setID(ID);
+
 		header = new GHATabHeader();
 		header.setTitle(TITLE);
 		// setPaneMargin(0);

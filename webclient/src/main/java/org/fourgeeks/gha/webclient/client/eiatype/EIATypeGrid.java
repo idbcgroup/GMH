@@ -14,7 +14,7 @@ public class EIATypeGrid extends ListGrid {
 
 	public EIATypeGrid() {
 		setWidth100();
-		setHeight100();
+		setHeight("300px");
 		setEmptyMessage("No existen tipos de equipo para mostrar");
 
 		setAlternateRecordStyles(false);
