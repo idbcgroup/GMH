@@ -1,14 +1,13 @@
 package org.fourgeeks.gha.webclient.client.home;
 
+import org.fourgeeks.gha.webclient.client.UI.GHAMenus;
 import org.fourgeeks.gha.webclient.client.UI.GHAPlace;
 import org.fourgeeks.gha.webclient.client.UI.GHATabSet;
-import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
-import com.smartgwt.client.types.Positioning;
 import com.smartgwt.client.widgets.Img;
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -38,19 +37,8 @@ public class HomePlace extends GHAPlace {
 		RootPanel.get("menu-bar").clear();
 		RootPanel.get("main-content").removeStyleName("white-background");
 
-		final VLayout userMenu = new VLayout();
-		userMenu.setPosition(Positioning.ABSOLUTE);
-		userMenu.setTop(70);
-		userMenu.setSize("280px", "*");
-		userMenu.setBackgroundColor("#FFFFFF");
-		userMenu.setBorder("1px solid #E0E0E0");
-		userMenu.setVisible(false);
-
-		HLayout topUserLayout = new HLayout();
-		topUserLayout.setSize("100%", "25px");
-		topUserLayout.setBackgroundColor("#666666");
-
-		userMenu.addMember(GHAUiHelper.verticalGraySeparator("25px"));
+		final VLayout userMenu = GHAMenus.userMenu();
+		final VLayout notificationsMenu = GHAMenus.notificationsMenu();
 		// userMenu.draw();
 
 		HLayout userInfo = new HLayout();
@@ -68,34 +56,55 @@ public class HomePlace extends GHAPlace {
 		notificationsButton.setSize("28px", "25px");
 		Img userButton = new Img("../resources/icons/boton2.png");
 		userButton.setSize("21px", "25px");
-		userButton
-				.addClickHandler(new com.smartgwt.client.widgets.events.ClickHandler() {
-
-					// final int h = userMenu.getHeight();
-
-					@Override
-					public void onClick(ClickEvent event) {
-						int posx = event.getX() - 270;
-						int posy = event.getY();
-						if (event.getY() < 50)
-							posy += 20;
-						else
-							posy += 10;
-
-						// TODO Auto-generated method stub
-						if (userMenu.isVisible()) {
-							userMenu.animateHide(AnimationEffect.FADE);
-							userMenu.setVisible(false);
-							userMenu.setLeft(0);
-							userMenu.setTop(0);
-						} else {
-							userMenu.animateShow(AnimationEffect.FADE);
-							userMenu.setLeft(posx);
-							userMenu.setTop(posy);
-							userMenu.setVisible(true);
-						}
-					}
-				});
+		
+		userButton.addClickHandler(new com.smartgwt.client.widgets.events.ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				int posx = event.getX() - 270;
+				int posy = event.getY();
+				if (event.getY() < 50)
+					posy += 20;
+				else
+					posy += 10;
+	
+				// TODO Auto-generated method stub
+				if (userMenu.isVisible()) {
+					userMenu.animateHide(AnimationEffect.FADE);
+					userMenu.setVisible(false);
+					userMenu.setLeft(0);
+					userMenu.setTop(0);
+				} else {
+					userMenu.animateShow(AnimationEffect.FADE);
+					userMenu.setLeft(posx);
+					userMenu.setTop(posy);
+					userMenu.setVisible(true);
+				}
+			}
+		});
+		
+		notificationsButton.addClickHandler(new com.smartgwt.client.widgets.events.ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				int posx = event.getX() - 270;
+				int posy = event.getY();
+				if (event.getY() < 50)
+					posy += 20;
+				else
+					posy += 10;
+	
+				if (notificationsMenu.isVisible()) {
+					notificationsMenu.animateHide(AnimationEffect.FADE);
+					notificationsMenu.setVisible(false);
+					notificationsMenu.setLeft(0);
+					notificationsMenu.setTop(0);
+				} else {
+					notificationsMenu.animateShow(AnimationEffect.FADE);
+					notificationsMenu.setLeft(posx);
+					notificationsMenu.setTop(posy);
+					notificationsMenu.setVisible(true);
+				}
+			}
+		});
 
 		userInfo.addMembers(usernameLabel, notificationsButton, userButton);
 
@@ -108,6 +117,9 @@ public class HomePlace extends GHAPlace {
 		 * HTML content = new HTML(html.toString());
 		 */
 		RootPanel.get("user-info").add(userInfo);
+		RootPanel.get("main-content").setHeight("460px");
+		//TODO: calculo de la altura del main content. para el homeplace y para el resize
+		
 		// /////////////////Menu
 		MenuItem eiaTypeMenuItem = new MenuItem("Tipos de EIA");
 		eiaTypeMenuItem.addClickHandler(new ClickHandler() {
