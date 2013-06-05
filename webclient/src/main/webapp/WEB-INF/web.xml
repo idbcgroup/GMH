@@ -25,6 +25,16 @@
 		<servlet-name>GWTEiaTypeService</servlet-name>
 		<url-pattern>/webclient/eiaType</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>GWTEiaService</servlet-name>
+		<servlet-class>org.fourgeeks.gha.webclient.server.eia.GWTEiaServiceImpl</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>GWTEiaService</servlet-name>
+		<url-pattern>/webclient/eia</url-pattern>
+	</servlet-mapping>
 
 	<!-- Default page to serve -->
 	<welcome-file-list>

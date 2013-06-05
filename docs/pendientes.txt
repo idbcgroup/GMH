@@ -1,0 +1,23 @@
+1)generar indices
+añadir constraints unicos a las tablas many to many
+ en particular citizenFamily, associatedCitizen
+
+2)La tabla physicalCharacteristicsCode deberia tener otro nombre
+
+3)Revisar las tablas associatedCitizen, DuplicatedCitizenUEID, citizenFamily
+pareciera que alguna esta de mas
+
+4)Pendientes: Mix-citizenNameIndex Mix-IndexByCitizen
+
+5)Colocar las dependencias de smartgwt y gwt 2.5 con un path relativo al proyecto
+y no con los repositorios maven
+
+6)Revisar las restricciones de los campos en el modelo (null, not null, etc)
+
+7)Documentar los atributos de las relaciones en la bd
+
+8)Actualizar el diagrama para manejar de manera acorde las relaciones many to many
+
+
+Agregar indice a la columna type en la tabla eiaType
+en las relaciones brand y manufacturer, colocar unique, not null las columnas name

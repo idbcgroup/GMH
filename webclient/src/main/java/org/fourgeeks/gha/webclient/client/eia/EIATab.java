@@ -2,8 +2,8 @@ package org.fourgeeks.gha.webclient.client.eia;
 
 import org.fourgeeks.gha.webclient.client.UI.GHATab;
 import org.fourgeeks.gha.webclient.client.UI.GHATabHeader;
+import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
-import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class EIATab extends GHATab {
@@ -20,7 +20,14 @@ public class EIATab extends GHATab {
 		header = new GHATabHeader(this);
 		header.setTitle(TITLE);
 		VLayout verticalPanel = new VLayout();
-		verticalPanel.addMember(new Label("EIA"));
+		EIAGridPanel grid = new EIAGridPanel();
+
+		verticalPanel.setBackgroundColor("#E0E0E0");
+		verticalPanel
+				.addMember(new EIASearchFormSection(grid.getEiaTypeGrid()));
+		verticalPanel.addMember(GHAUiHelper.verticalGraySeparator("10px"));
+		verticalPanel.addMember(grid);
+
 		addMember(verticalPanel);
 	}
 

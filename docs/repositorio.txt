@@ -1,0 +1,18 @@
+Para acceder al repositorio local
+ip 192.168.1.101
+usuario git
+password 123456
+
+Para acceder via ssh
+ssh git@192.168.1.101
+
+Para registrar una clave publica en el servidor
+-acceder via ssh
+-cat <yourKey.pub> >> /home/git/.ssh/authorized_keys
+
+Para clonar el repositorio
+git clone git@192.168.1.101:/home/git/gha.git
+
+Usuario inicial del servidor
+usuario pruebas
+password 123456
