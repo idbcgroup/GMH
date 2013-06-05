@@ -51,16 +51,14 @@ public final class GHATabSet {
 			return;
 
 		if (currentTab != null)
-			removeTab(tab);
+			currentTab.removeFromParent();
 
 		RootPanel.get("main-content").add(tab);
 		currentTab = tab;
-
 	}
 
 	public static GHATab getById(String id) {
-		GHATab tab = tabs.get(id);
-		return tab;
+		return tabs.get(id);
 	}
 
 	public static void addMenu(IMenuButton menuButton) {

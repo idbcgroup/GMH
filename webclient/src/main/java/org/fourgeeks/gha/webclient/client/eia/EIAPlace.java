@@ -11,11 +11,11 @@ public class EIAPlace extends GHAPlace {
 		tab = GHATabSet.getById(EIATab.ID);
 		if (tab == null)
 			tab = new EIATab();
-		tab.setToken(getToken());
 	}
 
 	@Override
 	public void show() {
+		tab.setToken(getToken());
 		GHATabSet.addTab(tab);
 	}
 }

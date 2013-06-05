@@ -48,7 +48,7 @@ public class GHATabHeader extends HLayout {
 	}
 
 	private void showTab() {
-		History.newItem(tab.getId());
+		History.newItem(tab.getToken());
 	}
 
 	private void close() {
