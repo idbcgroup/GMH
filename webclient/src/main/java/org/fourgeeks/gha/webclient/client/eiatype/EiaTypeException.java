@@ -9,14 +9,14 @@ import java.io.Serializable;
  * @author emiliot
  *
  */
-public class EIATypeException extends Exception implements Serializable{
+public class EiaTypeException extends Exception implements Serializable{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	public EIATypeException() {
+	public EiaTypeException() {
 		// TODO Auto-generated constructor stub
 	}
 

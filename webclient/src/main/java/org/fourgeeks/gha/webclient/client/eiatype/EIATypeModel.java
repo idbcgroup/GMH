@@ -20,4 +20,10 @@ public class EIATypeModel {
 	public static void getAll(GHAAsyncCallback<List<EiaType>> callback) {
 		eiaService.getAll(callback);
 	}
+
+	public static void find(EiaType eiaType,
+			GHAAsyncCallback<List<EiaType>> ghaAsyncCallback) {
+		eiaService.find(eiaType, ghaAsyncCallback);
+
+	}
 }

@@ -1,20 +1,14 @@
 package org.fourgeeks.gha.webclient.client.eiatype;
 
-import java.util.List;
-
-import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
-
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.widgets.grid.ListGrid;
 import com.smartgwt.client.widgets.grid.ListGridField;
-import com.smartgwt.client.widgets.grid.ListGridRecord;
 
 public class EIATypeGrid extends ListGrid {
 
 	public EIATypeGrid() {
 		setWidth100();
-		setHeight100();
+		setHeight("300px");
 		setEmptyMessage("No existen tipos de equipo para mostrar");
 
 		setAlternateRecordStyles(false);
@@ -23,7 +17,7 @@ public class EIATypeGrid extends ListGrid {
 		ListGridField idGridField = new ListGridField("id", "No");
 		idGridField.setAlign(Alignment.CENTER);
 
-		ListGridField codeGridField = new ListGridField("code", "Codigo");
+		ListGridField codeGridField = new ListGridField("id", "Codigo");
 		codeGridField.setAlign(Alignment.CENTER);
 
 		ListGridField nameGridField = new ListGridField("name", "Nombre");
@@ -42,19 +36,20 @@ public class EIATypeGrid extends ListGrid {
 		setFields(idGridField, codeGridField, nameGridField, brandGridField,
 				modelGridField, makeGridField);
 
-		loadData();
+		// loadData();
 	}
 
-	private void loadData() {
-		EIATypeModel.getAll(new GHAAsyncCallback<List<EiaType>>() {
-
-			@Override
-			public void onSuccess(List<EiaType> eiaTypes) {
-				ListGridRecord[] array = (ListGridRecord[]) EIAUtil
-						.toGridRecords(eiaTypes).toArray(new EIARecord[] {});
-				setData(array);
-			}
-		});
-
-	}
+	// private void loadData() {
+	// EIATypeModel.getAll(new GHAAsyncCallback<List<EiaType>>() {
+	//
+	// @Override
+	// public void onSuccess(List<EiaType> eiaTypes) {
+	// ListGridRecord[] array = (ListGridRecord[]) EIAUtil
+	// .toGridRecords(eiaTypes)
+	// .toArray(new EIATypeRecord[] {});
+	// setData(array);
+	// }
+	// });
+	//
+	// }
 }

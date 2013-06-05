@@ -1,0 +1,6 @@
+Olvidar contraseña
+3 intentos de login
+single sign on user implementation
+traer info de la institucion
+el repuesto con serial es un EIA, que tiene tildado el campo de repuesto
+El EIA puede ser repuesto, parte, componente, y se representa con una tilde en la base de datos

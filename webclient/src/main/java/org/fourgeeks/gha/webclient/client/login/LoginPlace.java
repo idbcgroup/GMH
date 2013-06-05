@@ -14,7 +14,7 @@ import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
 
-public class LoginPlace implements GHAPlace {
+public class LoginPlace extends GHAPlace {
 
 	public LoginPlace() {
 	}
@@ -24,6 +24,8 @@ public class LoginPlace implements GHAPlace {
 		RootPanel.get("main-content").clear();
 		RootPanel.get("user-info").clear();
 		RootPanel.get("menu-bar").clear();
+
+		RootPanel.get("main-content").addStyleName("white-background");
 
 		StringBuilder html = new StringBuilder();
 		html.append("<div class='login-panel'>");

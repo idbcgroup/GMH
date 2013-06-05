@@ -3,6 +3,7 @@ package org.fourgeeks.gha.webclient.client.UI;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -12,6 +13,7 @@ public final class GHATabSet {
 
 	private static Map<String, GHATab> tabs;
 	private static HorizontalPanel hPanel;
+	private static GHATab currentTab;
 	static {
 		hPanel = new HorizontalPanel();
 		hPanel.setHeight("24px");
@@ -29,25 +31,31 @@ public final class GHATabSet {
 		throw new UnsupportedOperationException("Esta clase no es instanciable");
 	}
 
-	public static void addTab(GHATab tab, boolean show) {
+	public static void addTab(final GHATab tab) {
 		hPanel.add(tab.getHeader());
 		hPanel.setCellHeight(tab.getHeader(), "24px");
-		RootPanel.get("main-content").add(tab);
+
+		if (currentTab != null)
+			if (currentTab != tab)
+				currentTab.removeFromParent();
+
 		tabs.put(tab.getId(), tab);
-		// if (show)
-		// showTab(tab);
+
+		RootPanel.get("main-content").add(tab);
+		currentTab = tab;
+
 	}
 
-	// private static void showTab(GHATab tab) {
-	// tabset.selectTab(tab.getId());
-	// }
+	public static void showTab(GHATab tab) {
+		if (tab == currentTab)
+			return;
 
-	// public static void draw() {
-	// RootPanel.get("main-content").add(tabset);
-	// }
+		if (currentTab != null)
+			removeTab(tab);
 
-	public static void addTab(GHATab tab) {
-		addTab(tab, true);
+		RootPanel.get("main-content").add(tab);
+		currentTab = tab;
+
 	}
 
 	public static GHATab getById(String id) {
@@ -60,4 +68,13 @@ public final class GHATabSet {
 		hPanel.setCellHeight(menuButton, "24px");
 	}
 
+	public static void removeTab(final GHATab tab) {
+		tab.close();
+		tabs.remove(tab.getId());
+		tab.getHeader().removeFromParent();
+		tab.removeFromParent();
+		// TODO: Go to previous tab, if there is not previous tab, go home
+		History.newItem("home");
+		currentTab = null;
+	}
 }

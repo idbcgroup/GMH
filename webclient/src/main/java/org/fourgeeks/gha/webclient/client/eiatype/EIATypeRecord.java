@@ -1,15 +1,15 @@
 package org.fourgeeks.gha.webclient.client.eiatype;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.webclient.client.UI.GHAGridRecord;
 
-import com.smartgwt.client.widgets.grid.ListGridRecord;
+public class EIATypeRecord extends GHAGridRecord {
 
-public class EIARecord extends ListGridRecord {
-
-	public EIARecord() {
+	public EIATypeRecord() {
 	}
 
-	public EIARecord(EiaType eiaType) {
+	public EIATypeRecord(EiaType eiaType) {
+		setId(eiaType.getId());
 		setName(eiaType.getName());
 		setCode(eiaType.getCode());
 		setBrand(eiaType.getBrand().getName());

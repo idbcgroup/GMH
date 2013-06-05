@@ -1,6 +1,7 @@
 package org.fourgeeks.gha.webclient.client.eiatype;
 
 import com.google.gwt.user.client.Event;
+import com.google.gwt.user.client.History;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.BackgroundRepeat;
@@ -14,14 +15,13 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class EIATypeGridPanel extends HLayout {
 
 	private EIATypeForm form;
-	private EIATypeGrid eiaTypeGrid = new EIATypeGrid();;
+	private EIATypeGrid eiaTypeGrid = new EIATypeGrid();
 
 	public EIATypeGridPanel() {
 		super();
 		form = new EIATypeForm();
 		setStyleName("sides-padding top-padding");// Esto es VUDU!
 		setWidth100();
-		setHeight("320px");
 		// setBackgroundImage("../resources/img/tab1.jpg");
 		setBackgroundColor("#E0E0E0");
 
@@ -36,7 +36,7 @@ public class EIATypeGridPanel extends HLayout {
 		sideButtons.setDefaultLayoutAlign(Alignment.CENTER);
 
 		ImgButton addButton = new ImgButton();
-		addButton.sinkEvents(Event.MOUSEEVENTS);
+		// addButton.sinkEvents(Event.MOUSEEVENTS);
 		addButton.setSrc("../resources/icons/new.png");
 		addButton.setShowRollOver(false);
 		addButton.setSize("20px", "20px");
@@ -52,7 +52,22 @@ public class EIATypeGridPanel extends HLayout {
 		Img deleteButton = new Img("../resources/icons/delete.png");
 		deleteButton.setSize("20px", "20px");
 
-		sideButtons.addMembers(addButton, editButton, deleteButton);
+		ImgButton setsButton = new ImgButton();
+		setsButton.sinkEvents(Event.MOUSEEVENTS);
+		setsButton.setSrc("../resources/icons/set.png");
+		setsButton.setShowRollOver(false);
+		setsButton.setSize("20px", "20px");
+		setsButton.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				EIATypeRecord selectedRecord = (EIATypeRecord) eiaTypeGrid
+						.getSelectedRecord();
+				History.newItem("eia/" + selectedRecord.getCode());
+			}
+		});
+
+		sideButtons.addMembers(addButton, editButton, deleteButton, setsButton);
 		addMembers(eiaTypeGrid, sideButtons);
 
 	}

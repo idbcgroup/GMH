@@ -25,7 +25,7 @@ public class EIATypeForm extends HLayout {
 		setWidth100();
 		setTop(197);
 		setLeft(0);
-		setHeight("320px");
+		setHeight("75%");
 		setBackgroundColor("#E0E0E0");
 		setVisibility(Visibility.HIDDEN);
 		setAlign(Alignment.CENTER);
