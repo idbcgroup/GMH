@@ -4,7 +4,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAPlace;
 import org.fourgeeks.gha.webclient.client.UI.GHATab;
 import org.fourgeeks.gha.webclient.client.UI.GHATabSet;
 
-public class EIATypePlace implements GHAPlace {
+public class EIATypePlace extends GHAPlace {
 	private GHATab tab;
 
 	public EIATypePlace() {

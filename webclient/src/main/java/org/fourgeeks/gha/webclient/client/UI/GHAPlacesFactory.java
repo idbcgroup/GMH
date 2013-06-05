@@ -20,7 +20,7 @@ public class GHAPlacesFactory {
 		else if (token.equals("eiatype"))
 			return new EIATypePlace();
 		else if (token.startsWith("eia"))
-			return new EIAPlace(token);
+			return new EIAPlace();
 		/*
 		 * switch (token) { case "login": }
 		 */

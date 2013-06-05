@@ -73,6 +73,7 @@ public final class GHATabSet {
 		tabs.remove(tab.getId());
 		tab.getHeader().removeFromParent();
 		tab.removeFromParent();
+		// TODO: Go to previous tab, if there is not previous tab, go home
 		History.newItem("home");
 		currentTab = null;
 	}

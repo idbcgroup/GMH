@@ -2,7 +2,7 @@ package org.fourgeeks.gha.webclient.client.UI;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.HTML;
 import com.smartgwt.client.types.VerticalAlignment;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -28,7 +28,6 @@ public class GHATabHeader extends HLayout {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				Window.alert("show");
 				showTab();
 			}
 		});
@@ -42,7 +41,6 @@ public class GHATabHeader extends HLayout {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				Window.alert("close");
 				close();
 			}
 		});
@@ -50,7 +48,7 @@ public class GHATabHeader extends HLayout {
 	}
 
 	private void showTab() {
-		GHATabSet.showTab(tab);
+		History.newItem(tab.getId());
 	}
 
 	private void close() {

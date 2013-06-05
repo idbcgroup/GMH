@@ -8,21 +8,21 @@ import com.smartgwt.client.widgets.layout.VLayout;
 
 public class EIATypeTab extends GHATab {
 
-	public static final String ID = "eiatype-tab";
+	public static final String ID = "eiatype";
 	private static final String TITLE = "Tipos de equipo";
 	private GHATabHeader header;
 
 	public EIATypeTab() {
 		super();
 		header = new GHATabHeader(this);
+
 		header.setTitle(TITLE);
 		VLayout verticalPanel = new VLayout();
 		EIATypeGridPanel grid = new EIATypeGridPanel();
 		verticalPanel.setBackgroundColor("#E0E0E0");
 		verticalPanel.addMember(new EIATypeSearchFormSection(grid
 				.getEiaTypeGrid()));
-		verticalPanel.addMember(GHAUiHelper.verticalGraySeparator());
-
+		verticalPanel.addMember(GHAUiHelper.verticalGraySeparator("20px"));
 		verticalPanel.addMember(grid);
 		addMember(verticalPanel);
 	}

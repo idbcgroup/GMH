@@ -4,14 +4,14 @@ import org.fourgeeks.gha.webclient.client.UI.GHAPlace;
 import org.fourgeeks.gha.webclient.client.UI.GHATab;
 import org.fourgeeks.gha.webclient.client.UI.GHATabSet;
 
-public class EIAPlace implements GHAPlace {
+public class EIAPlace extends GHAPlace {
 	private GHATab tab;
 
-	public EIAPlace(String token) {
+	public EIAPlace() {
 		tab = GHATabSet.getById(EIATab.ID);
 		if (tab == null)
 			tab = new EIATab();
-		((EIATab) tab).setToken(token);
+		tab.setToken(getToken());
 	}
 
 	@Override

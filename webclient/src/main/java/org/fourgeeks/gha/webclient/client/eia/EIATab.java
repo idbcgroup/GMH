@@ -8,7 +8,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
 
 public class EIATab extends GHATab {
 
-	public static final String ID = "eia-tab";
+	public static final String ID = "eia";
 	private static final String TITLE = "Equipos";
 	private GHATabHeader header;
 	{
@@ -19,7 +19,6 @@ public class EIATab extends GHATab {
 		super();
 		header = new GHATabHeader(this);
 		header.setTitle(TITLE);
-		// setPaneMargin(0);
 		VLayout verticalPanel = new VLayout();
 		verticalPanel.addMember(new Label("EIA"));
 		addMember(verticalPanel);
@@ -40,8 +39,4 @@ public class EIATab extends GHATab {
 		removeFromParent();
 	}
 
-	public void setToken(String token) {
-		// TODO Auto-generated method stub
-
-	}
 }
