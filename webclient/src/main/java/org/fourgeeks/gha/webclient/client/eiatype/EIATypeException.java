@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.fourgeeks.gha.webclient.client.eia;
+package org.fourgeeks.gha.webclient.client.eiatype;
 
 import java.io.Serializable;
 
@@ -9,14 +9,14 @@ import java.io.Serializable;
  * @author emiliot
  *
  */
-public class EiaTypeException extends Exception implements Serializable{
+public class EIATypeException extends Exception implements Serializable{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	public EiaTypeException() {
+	public EIATypeException() {
 		// TODO Auto-generated constructor stub
 	}
 
