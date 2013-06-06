@@ -17,24 +17,22 @@ public class EIAGrid extends ListGrid {
 		ListGridField idGridField = new ListGridField("id", "No");
 		idGridField.setAlign(Alignment.CENTER);
 
-		ListGridField codeGridField = new ListGridField("id", "Codigo");
+		ListGridField codeGridField = new ListGridField("code", "Código");
 		codeGridField.setAlign(Alignment.CENTER);
-
+		
+		ListGridField serialGridField = new ListGridField("serial", "Serial");
+		serialGridField.setAlign(Alignment.CENTER);
+		
 		ListGridField nameGridField = new ListGridField("name", "Nombre");
 		nameGridField.setAlign(Alignment.CENTER);
+		
+		ListGridField facilityGridField = new ListGridField("facility", "Ubicación");
+		facilityGridField.setAlign(Alignment.CENTER);
 
-		ListGridField brandGridField = new ListGridField("brand", "Marca");
-		brandGridField.setAlign(Alignment.CENTER);
+		ListGridField statusGridField = new ListGridField("status", "Status");
+		statusGridField.setAlign(Alignment.CENTER);
 
-		ListGridField modelGridField = new ListGridField("model", "Modelo");
-		modelGridField.setAlign(Alignment.CENTER);
-
-		ListGridField makeGridField = new ListGridField("manufacturer",
-				"Fabricante");
-		makeGridField.setAlign(Alignment.CENTER);
-
-		setFields(idGridField, codeGridField, nameGridField, brandGridField,
-				modelGridField, makeGridField);
+		setFields(idGridField, codeGridField, serialGridField, facilityGridField, statusGridField);
 
 		// loadData();
 	}

@@ -1,5 +1,6 @@
 package org.fourgeeks.gha.webclient.client.eia;
 
+import org.fourgeeks.gha.domain.gar.Facility;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.Equipment;
 import org.fourgeeks.gha.webclient.client.UI.GHAGridRecord;
@@ -9,58 +10,84 @@ public class EIARecord extends GHAGridRecord<Equipment> {
 	public EIARecord() {
 	}
 
-	public EIARecord(EiaType eiaType) {
-		setId(eiaType.getId());
-		setName(eiaType.getName());
-		setCode(eiaType.getCode());
-		setBrand(eiaType.getBrand().getName());
-		setManufacturer(eiaType.getManufacturer().getName());
-		setModel(eiaType.getModel());
-	}
-
-	public String getName() {
-		return getAttributeAsString("name");
+	public EIARecord(Equipment eia) {
+		setId(eia.getId());
+		setCode(eia.getEiatype().getCode());
+		setSerial(eia.getSerial());
+		setName(eia.getEiatype().getName());
+//		setFacility(eia.getFacility().getName());
+//		setStatus(eia.getStatus()); 
 	}
 
 	public String getCode() {
 		return getAttributeAsString("code");
 	}
 
-	public String getBrand() {
-		return getAttributeAsString("brand");
+	public String getSerial() {
+		return getAttributeAsString("serial");
+	}
+	
+	public String getName() {
+		return getAttributeAsString("name");
 	}
 
-	public String getManufacturer() {
-		return getAttributeAsString("manufacturer");
+	public String getFacility() {
+		return getAttributeAsString("facility");
+	}
+	
+	public String getFacilityId() {
+		return getAttributeAsString("facilityId");
 	}
 
-	public String getModel() {
-		return getAttributeAsString("model");
-	}
-
-	public void setName(String name) {
-		setAttribute("name", name);
+	public String getStatus() {
+		return getAttributeAsString("status");
 	}
 
 	public void setCode(String code) {
 		setAttribute("code", code);
 	}
-
-	public void setBrand(String brand) {
-		setAttribute("brand", brand);
+	
+	public void setSerial(String serial) {
+		setAttribute("serial", serial);
 	}
 
-	public void setManufacturer(String manufacturer) {
-		setAttribute("manufacturer", manufacturer);
+	public void setName(String name) {
+		setAttribute("name", name);
+	}
+	
+	public void setFacility(String facility) {
+		setAttribute("facility", facility);
+	}
+	
+	public void setFacilityId(String facilityId) {
+		setAttribute("facilityId", facilityId);
 	}
 
-	public void setModel(String model) {
-		setAttribute("model", model);
+	public void setStatus(String status) {
+		setAttribute("status", status);
 	}
 
 	@Override
 	public Equipment toEntity() {
-		// TODO Auto-generated method stub
-		return null;
+		Equipment eia = new Equipment();
+		eia.setId(getId());
+		eia.setSerial(getSerial());
+		
+		String eiaName = getName();
+		if(eiaName != null){
+			EiaType eiaType = new EiaType();
+			eiaType.setCode(getCode());
+			eiaType.setName(getName());
+			eia.setEiatype(eiaType);
+		}
+		String facilityName = getFacility();
+		if (facilityName != null) {
+			Facility facility = new Facility();
+//			facility.setName(facilityName);
+			eia.setFacility(facility);
+		}
+//		eia.setStatus(getStatus());
+		
+		return eia;
 	}
 }
