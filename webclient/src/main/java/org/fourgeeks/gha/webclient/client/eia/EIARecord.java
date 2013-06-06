@@ -1,9 +1,10 @@
 package org.fourgeeks.gha.webclient.client.eia;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.domain.gmh.Equipment;
 import org.fourgeeks.gha.webclient.client.UI.GHAGridRecord;
 
-public class EIARecord extends GHAGridRecord {
+public class EIARecord extends GHAGridRecord<Equipment> {
 
 	public EIARecord() {
 	}
@@ -55,5 +56,11 @@ public class EIARecord extends GHAGridRecord {
 
 	public void setModel(String model) {
 		setAttribute("model", model);
+	}
+
+	@Override
+	public Equipment toEntity() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

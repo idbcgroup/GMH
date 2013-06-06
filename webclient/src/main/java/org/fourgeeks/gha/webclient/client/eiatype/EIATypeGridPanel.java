@@ -4,7 +4,6 @@ import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.History;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
-import com.smartgwt.client.types.BackgroundRepeat;
 import com.smartgwt.client.widgets.Img;
 import com.smartgwt.client.widgets.ImgButton;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -31,7 +30,6 @@ public class EIATypeGridPanel extends HLayout {
 		sideButtons.setLayoutMargin(5);
 		// botones1.setBackgroundImage("../resources/img/botonBox.jpg");
 		sideButtons.setBackgroundColor("#E0E0E0");
-		sideButtons.setBackgroundRepeat(BackgroundRepeat.REPEAT_Y);
 		sideButtons.setMembersMargin(10);
 		sideButtons.setDefaultLayoutAlign(Alignment.CENTER);
 

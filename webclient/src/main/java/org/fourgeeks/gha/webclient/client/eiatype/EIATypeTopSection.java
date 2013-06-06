@@ -104,7 +104,7 @@ public class EIATypeTopSection extends HLayout {
 
 			@Override
 			public void onSuccess(List<EiaType> eiaTypes) {
-				ListGridRecord[] array = (ListGridRecord[]) EIAUtil
+				ListGridRecord[] array = (ListGridRecord[]) EIATypeUtil
 						.toGridRecords(eiaTypes)
 						.toArray(new EIATypeRecord[] {});
 				eiaTypeGrid.setData(array);
