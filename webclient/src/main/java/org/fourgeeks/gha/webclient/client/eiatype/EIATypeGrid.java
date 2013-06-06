@@ -17,7 +17,7 @@ public class EIATypeGrid extends ListGrid {
 		ListGridField idGridField = new ListGridField("id", "No");
 		idGridField.setAlign(Alignment.CENTER);
 
-		ListGridField codeGridField = new ListGridField("id", "Codigo");
+		ListGridField codeGridField = new ListGridField("code", "Codigo");
 		codeGridField.setAlign(Alignment.CENTER);
 
 		ListGridField nameGridField = new ListGridField("name", "Nombre");

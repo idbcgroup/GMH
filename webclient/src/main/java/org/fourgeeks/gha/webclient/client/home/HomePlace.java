@@ -56,55 +56,57 @@ public class HomePlace extends GHAPlace {
 		notificationsButton.setSize("28px", "25px");
 		Img userButton = new Img("../resources/icons/boton2.png");
 		userButton.setSize("21px", "25px");
-		
-		userButton.addClickHandler(new com.smartgwt.client.widgets.events.ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				int posx = event.getX() - 270;
-				int posy = event.getY();
-				if (event.getY() < 50)
-					posy += 20;
-				else
-					posy += 10;
-	
-				// TODO Auto-generated method stub
-				if (userMenu.isVisible()) {
-					userMenu.animateHide(AnimationEffect.FADE);
-					userMenu.setVisible(false);
-					userMenu.setLeft(0);
-					userMenu.setTop(0);
-				} else {
-					userMenu.animateShow(AnimationEffect.FADE);
-					userMenu.setLeft(posx);
-					userMenu.setTop(posy);
-					userMenu.setVisible(true);
-				}
-			}
-		});
-		
-		notificationsButton.addClickHandler(new com.smartgwt.client.widgets.events.ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				int posx = event.getX() - 270;
-				int posy = event.getY();
-				if (event.getY() < 50)
-					posy += 20;
-				else
-					posy += 10;
-	
-				if (notificationsMenu.isVisible()) {
-					notificationsMenu.animateHide(AnimationEffect.FADE);
-					notificationsMenu.setVisible(false);
-					notificationsMenu.setLeft(0);
-					notificationsMenu.setTop(0);
-				} else {
-					notificationsMenu.animateShow(AnimationEffect.FADE);
-					notificationsMenu.setLeft(posx);
-					notificationsMenu.setTop(posy);
-					notificationsMenu.setVisible(true);
-				}
-			}
-		});
+
+		userButton
+				.addClickHandler(new com.smartgwt.client.widgets.events.ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						int posx = event.getX() - 270;
+						int posy = event.getY();
+						if (event.getY() < 50)
+							posy += 20;
+						else
+							posy += 10;
+
+						// TODO Auto-generated method stub
+						if (userMenu.isVisible()) {
+							userMenu.animateHide(AnimationEffect.FADE);
+							userMenu.setVisible(false);
+							userMenu.setLeft(0);
+							userMenu.setTop(0);
+						} else {
+							userMenu.animateShow(AnimationEffect.FADE);
+							userMenu.setLeft(posx);
+							userMenu.setTop(posy);
+							userMenu.setVisible(true);
+						}
+					}
+				});
+
+		notificationsButton
+				.addClickHandler(new com.smartgwt.client.widgets.events.ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						int posx = event.getX() - 270;
+						int posy = event.getY();
+						if (event.getY() < 50)
+							posy += 20;
+						else
+							posy += 10;
+
+						if (notificationsMenu.isVisible()) {
+							notificationsMenu.animateHide(AnimationEffect.FADE);
+							notificationsMenu.setVisible(false);
+							notificationsMenu.setLeft(0);
+							notificationsMenu.setTop(0);
+						} else {
+							notificationsMenu.animateShow(AnimationEffect.FADE);
+							notificationsMenu.setLeft(posx);
+							notificationsMenu.setTop(posy);
+							notificationsMenu.setVisible(true);
+						}
+					}
+				});
 
 		userInfo.addMembers(usernameLabel, notificationsButton, userButton);
 
@@ -118,8 +120,9 @@ public class HomePlace extends GHAPlace {
 		 */
 		RootPanel.get("user-info").add(userInfo);
 		RootPanel.get("main-content").setHeight("460px");
-		//TODO: calculo de la altura del main content. para el homeplace y para el resize
-		
+		// TODO: calculo de la altura del main content. para el homeplace y para
+		// el resize
+
 		// /////////////////Menu
 		MenuItem eiaTypeMenuItem = new MenuItem("Tipos de EIA");
 		eiaTypeMenuItem.addClickHandler(new ClickHandler() {
@@ -128,8 +131,15 @@ public class HomePlace extends GHAPlace {
 				History.newItem("eiatype");
 			}
 		});
+		MenuItem eiaMenuItem = new MenuItem("Equipos");
+		eiaMenuItem.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(MenuItemClickEvent event) {
+				History.newItem("eia");
+			}
+		});
 		Menu menu = new Menu();
-		menu.setItems(eiaTypeMenuItem);
+		menu.setItems(eiaTypeMenuItem, eiaMenuItem);
 
 		IMenuButton menuButton = new IMenuButton("Aplicaciones", menu);
 		menuButton.setWidth(150);

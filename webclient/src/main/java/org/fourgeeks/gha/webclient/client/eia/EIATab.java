@@ -24,7 +24,7 @@ public class EIATab extends GHATab {
 
 		verticalPanel.setBackgroundColor("#E0E0E0");
 		verticalPanel
-				.addMember(new EIASearchFormSection(grid.getEiaTypeGrid()));
+				.addMember(new EIATopSection(grid.getEiaTypeGrid()));
 		verticalPanel.addMember(GHAUiHelper.verticalGraySeparator("10px"));
 		verticalPanel.addMember(grid);
 

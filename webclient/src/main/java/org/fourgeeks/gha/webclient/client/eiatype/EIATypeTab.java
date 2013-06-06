@@ -20,7 +20,7 @@ public class EIATypeTab extends GHATab {
 		VLayout verticalPanel = new VLayout();
 		EIATypeGridPanel grid = new EIATypeGridPanel();
 		verticalPanel.setBackgroundColor("#E0E0E0");
-		verticalPanel.addMember(new EIATypeSearchFormSection(grid
+		verticalPanel.addMember(new EIATypeTopSection(grid
 				.getEiaTypeGrid()));
 		verticalPanel.addMember(GHAUiHelper.verticalGraySeparator("10px"));
 		verticalPanel.addMember(grid);
