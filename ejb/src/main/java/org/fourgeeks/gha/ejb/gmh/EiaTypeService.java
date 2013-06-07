@@ -120,7 +120,7 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 			// TODO: send exception to webClient
 		}
 		// if (res != null)
-		// em.detach(res);
+		//em.detach(res);
 		return res;
 	}
 

@@ -20,8 +20,8 @@ public class Brand extends AbstractEntity {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	// @OneToMany(mappedBy = "brand")
-	// private Collection <EiaType> eiaTypes;
+//	 @OneToMany(mappedBy = "brand", fetch=FetchType.EAGER)
+//	 private ArrayList<EiaType> eiaTypes;
 
 	private String name;
 

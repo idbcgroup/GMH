@@ -1,7 +1,5 @@
 package org.fourgeeks.gha.ejb;
 
-import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
@@ -28,8 +26,8 @@ public class TestData {
 
 	@PostConstruct
 	public void inicializar() {
-		userTestData();
-		// eiaTypeTestData();
+//		userTestData();
+		eiaTypeTestData();
 
 		// EiaType entity = new EiaType();
 		// entity.setName("testName");
@@ -83,22 +81,22 @@ public class TestData {
 		}
 
 		// search
-		EiaType entity = new EiaType();
+//		EiaType entity = new EiaType();
 		// entity.setCode("code");
 		// entity.setModel("Deskjet");
 		// entity.setName("Impresora HP");
-		entity.setManufacturer(manufacturer);
+//		entity.setManufacturer(manufacturer);
 		// entity.setBrand(brand);
-		List<EiaType> result = eiaTypeService.find(entity, 0, 100);
-
-		if (result != null) {
-			System.out.println("Results " + Integer.toString(result.size()));
-			for (EiaType et : result) {
-				System.out.println(et.getName());
-			}
-		} else {
-			System.out.println("Error result=null");
-		}
+//		List<EiaType> result = eiaTypeService.find(entity, 0, 100);
+//
+//		if (result != null) {
+//			System.out.println("Results " + Integer.toString(result.size()));
+//			for (EiaType et : result) {
+//				System.out.println(et.getName());
+//			}
+//		} else {
+//			System.out.println("Error result=null");
+//		}
 	}
 
 	private void userTestData() {

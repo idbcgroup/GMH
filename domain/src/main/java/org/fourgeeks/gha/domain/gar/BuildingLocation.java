@@ -9,6 +9,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
+import org.fourgeeks.gha.domain.gmh.Equipment;
 import org.fourgeeks.gha.domain.gmh.Terminal;
 import org.fourgeeks.gha.domain.mix.Bpi;
 
@@ -43,4 +44,7 @@ public class BuildingLocation extends AbstractEntity{
 	
 	@OneToMany(mappedBy = "buildingLocation")
 	private Collection <Terminal> terminals;
+	
+	@OneToMany(mappedBy = "buildingLocation")
+	private Collection <Equipment> equipments;
 }

@@ -1,12 +1,24 @@
 package org.fourgeeks.gha.domain.gmh;
 
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.util.Collection;
+
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
+import org.fourgeeks.gha.domain.enu.CurrencyTypeEnum;
+import org.fourgeeks.gha.domain.enu.EquipmentStateEnum;
+import org.fourgeeks.gha.domain.enu.EquipmentTypeEnum;
+import org.fourgeeks.gha.domain.enu.WarrantyStateEnum;
+import org.fourgeeks.gha.domain.enu.WarrantyTimePotEnum;
+import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Facility;
+import org.fourgeeks.gha.domain.gar.Waio;
 
 @Entity
 public class Equipment extends AbstractEntity {
@@ -21,20 +33,72 @@ public class Equipment extends AbstractEntity {
 	private Facility facility;
 
 	@ManyToOne
-	@JoinColumn(name = "eiatypeFk")
-	private EiaType eiatype;
+	@JoinColumn(name = "eiaTypeFk")
+	private EiaType eiaType;
 
-//	@ManyToMany
-//	private Collection<Waio> waios;
+	@ManyToMany
+	private Collection<Waio> waios;
 
 	@ManyToOne
-	@JoinColumn(name = "facilityFk")
-	private Facility buildingLocation;
+	@JoinColumn(name = "buildingFk")
+	private BuildingLocation buildingLocation;
 	
 	@OneToOne(mappedBy = "equipment")
 	private SystemPeripheral systemPeripheral;
 	
-	private String serial;
+	/**Attributes*/
+	private String code; /** Código asignado al Equipo o Instalación length =20 */
+	private String serialNumber; /** Número de Serial del Equipo length =60 */
+	private String fixeAssetIdentifier; /** Identificación de Activo Fijo length =60 */
+	private Date warrantySince; /** Desde que fecha se considera la garantía del fabricante length =60 */
+	private String warrantyTime; /** Tiempo de duración de la garantía length =4 */
+	private WarrantyTimePotEnum warrantyTimePot; /** Periodo de Tiempo (PDT) para la duración de la garantía length =60 */
+	private Date purchaseDate; /** Fecha de Compra del Equipo length =22 */
+	private Date receptionDate; /** Fecha de Recepción del Equipo length =22 */
+	private Date installationDate; /** Fecha de Instalación del Equipo length =22 */
+	private Date acceptationDate; /** Fecha de Aceptación del Equipo length =22 */
+	private Date intermediateWarrantyStartDate; /** Fecha inicio de garantía Intermedia length =22 */
+	private String locationCode; /** Código de Ubicación del Equipo length =20 */
+	private String locationName; /** Nombre de Ubicación del Equipo length =255 */
+	private String obuResponsibleCode; /** Código Departamento donde esta adjudicado el equipo length =20 */
+	private String obuResponsibleName; /** Nombre Departamento donde esta adjudicado el equipo length =255 */
+	private  EquipmentStateEnum state; /** Estado del Equipo length =60 */
+	private WarrantyStateEnum warrantyState; /** Estado de la garantía - Tiempo remanente de garantía sobre el Equipo o Instalacion length =6 */
+	private String bpuResponsibleCredential; /** Credencial Persona Responsable del equipo length =255 */
+	private String bpuResponsibleName; /** Nombre Completo Persona Responsable del equipo length =255 */
+	private String areasAttended; /** Áreas Atendidas por el equipo length =6 */
+	private String primaryAreaAttendedCode; /** Código de Ubicación del Equipo length =20 */
+	private String primaryAreaAttendedName; /** Nombre de Ubicación del Equipo length =255 */
+	private String purchaseOrderNumber; /** Número de la Orden de Compra length =30 */
+	private Date purchaseOrderDate; /** Fecha de la Orden de Compra length =22 */
+	private String vendorCode; /** Código Proveedor del Equipo (O/Compra) length =255 */
+	private String vendorName; /** Nombre Proveedor del Equipo (O/Compra) length =255 */
+	private String purchaseInvoiceNumber; /** Número de la Factura de Compra length =30 */
+	private Date purchaseInvoiceDate; /** Fecha de la Factura de Compra length =22 */
+	private String installationProvider; /** Nombre del proveedor de la instalación length =255 */
+	private String installationProviderCode; /** Código del Proveedor de Instalación solo si es un proveedor regular length =255 */
+	private String maintenanceLocationCode; /** Código de Ubicación del Equipo mientras está en Mantenimiento length =20 */
+	private String maintenanceLocationName; /** Nombre de Ubicación del Equipo mientras está en Mantenimiento length =255 */
+	private String maintenanceProviderCode; /** Código Proveedor de Mantenimiento del Equipo length =255 */
+	private String maintenanceProviderName; /** Nombre Proveedor de Mantenimiento del Equipo length =255 */
+	private BigDecimal adquisitionCost; /** Costo Adquisición moneda Indicada length =16dec =5 */
+	private CurrencyTypeEnum adquisitionCostCurrency; /** Denominación Moneda del Costo de Adquisición del equipo length =60 */
+	private Date contabilizationDate; /** Fecha de Contabilización length =22 */
+	private BigDecimal adquisitionCostLocal; /** Costo Adquisición moneda Local length =16dec =5 */
+	private CurrencyTypeEnum adquisitionCostCurrencyLocal; /** Denominación Moneda Local para Costo Contabilizado del equipo length =60 */
+	private String depreciationMethod; /** Método de Depreciación length =60 */
+	private int depreciationTime; /** Tiempo de Depreciación length =4 */
+	private String depreciationTimePot; /** Periodo de Tiempo (PDT) para el Tiempo de Depreciación length =60 */
+	private int lifeTime; /** Tiempo de Vida Equipo length =4 */
+	private String lifeTimePot; /** Periodo de Tiempo (PDT) para el Tiempo de Vida Equipo length =60 */
+	private BigDecimal actualCost; /** Costo Actual en Libros length =16dec =5 */
+	private String actualCostCurrency; /** Denominación Moneda Local para Costo Contabilizado del equipo length =60 */
+	private EquipmentTypeEnum type; /** Tipo Equipo IT length =60 */
+	private Date desincorporatedDate; /** Fecha de Desincorporación length =22 */
+	private String desincorporateReason; /** Motivo de Desincorporación length =255 */
+	private Date dateLastDepreciation; /** Fecha de última Depreciación length =22 */
+
+
 
 	/**
 	 * 
@@ -61,19 +125,11 @@ public class Equipment extends AbstractEntity {
 	}
 
 	public EiaType getEiatype() {
-		return eiatype;
+		return eiaType;
 	}
 
-	public void setEiatype(EiaType eiatype) {
-		this.eiatype = eiatype;
-	}
-
-	public Facility getBuildingLocation() {
-		return buildingLocation;
-	}
-
-	public void setBuildingLocation(Facility buildingLocation) {
-		this.buildingLocation = buildingLocation;
+	public void setEiatype(EiaType eiaType) {
+		this.eiaType = eiaType;
 	}
 
 	public SystemPeripheral getSystemPeripheral() {
@@ -84,16 +140,24 @@ public class Equipment extends AbstractEntity {
 		this.systemPeripheral = systemPeripheral;
 	}
 
-	public String getSerial() {
-		return serial;
-	}
-
-	public void setSerial(String serial) {
-		this.serial = serial;
-	}
-
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public Collection<Waio> getWaios() {
+		return waios;
+	}
+
+	public BuildingLocation getBuildingLocation() {
+		return buildingLocation;
+	}
+
+	public void setWaios(Collection<Waio> waios) {
+		this.waios = waios;
+	}
+
+	public void setBuildingLocation(BuildingLocation buildingLocation) {
+		this.buildingLocation = buildingLocation;
 	}
 	
 }

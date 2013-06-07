@@ -3,7 +3,6 @@ waio - viewFunction
 waio - systemPeripheral
 waio - jobPosition
 waio - bpu
-waio - equipment
 
 roleIt - viewFunction
 roleIt - bpu
