@@ -32,7 +32,7 @@ public class WorkingArea extends AbstractEntity{
 	private Collection <RoleIt> itRoles;
 	
 	//TODO: Pendiente por consulta
-	@ManyToMany(mappedBy = "workingAreas")
+	@ManyToMany
 	private Collection <ViewFunction> viewFunctions;
 	
 	@ManyToOne

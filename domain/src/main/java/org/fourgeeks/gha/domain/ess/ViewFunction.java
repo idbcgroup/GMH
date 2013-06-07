@@ -8,7 +8,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
-import org.fourgeeks.gha.domain.gar.Waio;
 
 @Entity
 public class ViewFunction extends AbstractEntity{
@@ -19,16 +18,13 @@ public class ViewFunction extends AbstractEntity{
 	private static final long serialVersionUID = 1L;
 	
 	@ManyToMany
-	private Collection<Waio> waios;
-	
-	@ManyToMany
 	private Collection<RoleIt> itRoles;
 	
 	@ManyToOne
 	@JoinColumn(name = "viewFk")
 	private View view;
 	
-	@ManyToMany
+	@ManyToMany(mappedBy = "viewFunctions")
 	private Collection <WorkingArea> workingAreas;
 
 }
