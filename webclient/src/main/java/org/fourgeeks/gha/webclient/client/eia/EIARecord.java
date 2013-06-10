@@ -13,7 +13,7 @@ public class EIARecord extends GHAGridRecord<Equipment> {
 	public EIARecord(Equipment eia) {
 		setId(eia.getId());
 		setCode(eia.getEiatype().getCode());
-		setSerial(eia.getSerial());
+//		setSerial(eia.getSerial());
 		setName(eia.getEiatype().getName());
 //		setFacility(eia.getFacility().getName());
 //		setStatus(eia.getStatus()); 
@@ -71,7 +71,7 @@ public class EIARecord extends GHAGridRecord<Equipment> {
 	public Equipment toEntity() {
 		Equipment eia = new Equipment();
 		eia.setId(getId());
-		eia.setSerial(getSerial());
+//		eia.setSerial(getSerial());
 		
 		String eiaName = getName();
 		if(eiaName != null){
