@@ -53,7 +53,7 @@ public class EIATopSection extends HLayout {
 		// "Material Especial");
 
 		DynamicForm form = new DynamicForm();
-		form.setWidth("*");
+		form.setWidth("100px");
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(6);
 		form.setItems(codigoEIA, nameField, marcaEIA, modeloEIA, fabricante,
@@ -81,7 +81,10 @@ public class EIATopSection extends HLayout {
 		panelBotones.setDefaultLayoutAlign(Alignment.CENTER);
 		panelBotones.addMembers(searchImg, cleanImg);
 
-		addMembers(form, panelBotones);
+		VLayout fill = new VLayout();
+		fill.setWidth("*");
+
+		addMembers(form, fill, panelBotones);
 	}
 
 	private void search() {
