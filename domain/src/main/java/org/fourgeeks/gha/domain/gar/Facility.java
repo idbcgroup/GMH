@@ -9,7 +9,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
-import org.fourgeeks.gha.domain.gmh.Equipment;
+import org.fourgeeks.gha.domain.gmh.Eia;
 
 @Entity
 public class Facility extends AbstractEntity{
@@ -24,7 +24,7 @@ public class Facility extends AbstractEntity{
 	private Waio waio;
 	
 	@OneToMany(mappedBy = "facility")
-	private Collection <Equipment> equipments;
+	private Collection <Eia> equipments;
 	
 	@OneToOne
 	@JoinColumn(name = "resourceServiceFk")
@@ -48,7 +48,7 @@ public class Facility extends AbstractEntity{
 		return waio;
 	}
 
-	public Collection<Equipment> getEquipments() {
+	public Collection<Eia> getEquipments() {
 		return equipments;
 	}
 
@@ -64,7 +64,7 @@ public class Facility extends AbstractEntity{
 		this.waio = waio;
 	}
 
-	public void setEquipments(Collection<Equipment> equipments) {
+	public void setEquipments(Collection<Eia> equipments) {
 		this.equipments = equipments;
 	}
 

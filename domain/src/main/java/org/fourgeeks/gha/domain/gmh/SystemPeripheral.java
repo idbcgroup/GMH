@@ -19,8 +19,8 @@ public class SystemPeripheral extends AbstractEntity{
 	private static final long serialVersionUID = 1L;
 	
 	@OneToOne
-	@JoinColumn(name = "equipmentFk")
-	private Equipment equipment;
+	@JoinColumn(name = "eiaFk")
+	private Eia eia;
 	
 	@ManyToMany
 	private Collection <Waio> waios;
