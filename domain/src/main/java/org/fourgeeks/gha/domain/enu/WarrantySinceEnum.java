@@ -7,7 +7,10 @@ package org.fourgeeks.gha.domain.enu;
  * @author emiliot
  *
  */
-public enum WarrantyStateEnum {
-	VALID,
-	OVERDUE
+public enum WarrantySinceEnum {
+	PURCHASE,
+	RECEPTION,
+	INSTALATION,
+	ACCEPTATION
+
 }
