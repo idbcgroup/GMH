@@ -4,18 +4,19 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.Collection;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.CurrencyTypeEnum;
-import org.fourgeeks.gha.domain.enu.EquipmentStateEnum;
+import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.enu.EquipmentTypeEnum;
+import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
+import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
 import org.fourgeeks.gha.domain.enu.WarrantyStateEnum;
-import org.fourgeeks.gha.domain.enu.WarrantyTimePotEnum;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Facility;
 import org.fourgeeks.gha.domain.gar.Waio;
@@ -25,8 +26,8 @@ public class Eia extends AbstractEntity {
 
 	private static final long serialVersionUID = 1L;
 
-	@OneToOne(mappedBy = "eia")
-	private Terminal terminal;
+//	@OneToOne(mappedBy = "eia")
+//	private Terminal terminal;
 
 	@ManyToOne
 	@JoinColumn(name = "facilityFk")
@@ -43,16 +44,22 @@ public class Eia extends AbstractEntity {
 	@JoinColumn(name = "buildingFk")
 	private BuildingLocation buildingLocation;
 	
-	@OneToOne(mappedBy = "eia")
-	private SystemPeripheral systemPeripheral;
+//	@OneToOne(mappedBy = "eia")
+//	private SystemPeripheral systemPeripheral;
 	
 	/**Attributes*/
 	private String code; /** Código asignado al Equipo o Instalación length =20 */
 	private String serialNumber; /** Número de Serial del Equipo length =60 */
 	private String fixeAssetIdentifier; /** Identificación de Activo Fijo length =60 */
-	private Date warrantySince; /** Desde que fecha se considera la garantía del fabricante length =60 */
-	private String warrantyTime; /** Tiempo de duración de la garantía length =4 */
-	private WarrantyTimePotEnum warrantyTimePot; /** Periodo de Tiempo (PDT) para la duración de la garantía length =60 */
+	
+	@Column(nullable=false)
+	private WarrantySinceEnum warrantySince; /** Desde que fecha se considera la garantía del fabricante length =60 */
+	
+	@Column(nullable=true)
+	private int warrantyTime; /** Tiempo de duración de la garantía length =4 */
+	
+	private TimePeriodEnum warrantyTimePot; /** Periodo de Tiempo (PDT) para la duración de la garantía length =60 */
+	
 	private Date purchaseDate; /** Fecha de Compra del Equipo length =22 */
 	private Date receptionDate; /** Fecha de Recepción del Equipo length =22 */
 	private Date installationDate; /** Fecha de Instalación del Equipo length =22 */
@@ -62,11 +69,15 @@ public class Eia extends AbstractEntity {
 	private String locationName; /** Nombre de Ubicación del Equipo length =255 */
 	private String obuResponsibleCode; /** Código Departamento donde esta adjudicado el equipo length =20 */
 	private String obuResponsibleName; /** Nombre Departamento donde esta adjudicado el equipo length =255 */
-	private  EquipmentStateEnum state; /** Estado del Equipo length =60 */
+	
+	@Column(nullable=false)
+	private  EiaStateEnum state; /** Estado del Equipo length =60 */
+	
+	@Column(nullable=false)
 	private WarrantyStateEnum warrantyState; /** Estado de la garantía - Tiempo remanente de garantía sobre el Equipo o Instalacion length =6 */
 	private String bpuResponsibleCredential; /** Credencial Persona Responsable del equipo length =255 */
 	private String bpuResponsibleName; /** Nombre Completo Persona Responsable del equipo length =255 */
-	private String areasAttended; /** Áreas Atendidas por el equipo length =6 */
+	
 	private String primaryAreaAttendedCode; /** Código de Ubicación del Equipo length =20 */
 	private String primaryAreaAttendedName; /** Nombre de Ubicación del Equipo length =255 */
 	private String purchaseOrderNumber; /** Número de la Orden de Compra length =30 */
@@ -82,18 +93,28 @@ public class Eia extends AbstractEntity {
 	private String maintenanceProviderCode; /** Código Proveedor de Mantenimiento del Equipo length =255 */
 	private String maintenanceProviderName; /** Nombre Proveedor de Mantenimiento del Equipo length =255 */
 	private BigDecimal adquisitionCost; /** Costo Adquisición moneda Indicada length =16dec =5 */
+	
 	private CurrencyTypeEnum adquisitionCostCurrency; /** Denominación Moneda del Costo de Adquisición del equipo length =60 */
+	
 	private Date contabilizationDate; /** Fecha de Contabilización length =22 */
 	private BigDecimal adquisitionCostLocal; /** Costo Adquisición moneda Local length =16dec =5 */
+	
 	private CurrencyTypeEnum adquisitionCostCurrencyLocal; /** Denominación Moneda Local para Costo Contabilizado del equipo length =60 */
+	
 	private String depreciationMethod; /** Método de Depreciación length =60 */
+	
+	@Column(nullable=true)
 	private int depreciationTime; /** Tiempo de Depreciación length =4 */
-	private String depreciationTimePot; /** Periodo de Tiempo (PDT) para el Tiempo de Depreciación length =60 */
+	private TimePeriodEnum depreciationTimePot; /** Periodo de Tiempo (PDT) para el Tiempo de Depreciación length =60 */
+	
+	@Column(nullable=true)
 	private int lifeTime; /** Tiempo de Vida Equipo length =4 */
-	private String lifeTimePot; /** Periodo de Tiempo (PDT) para el Tiempo de Vida Equipo length =60 */
+	private TimePeriodEnum lifeTimePot; /** Periodo de Tiempo (PDT) para el Tiempo de Vida Equipo length =60 */
 	private BigDecimal actualCost; /** Costo Actual en Libros length =16dec =5 */
-	private String actualCostCurrency; /** Denominación Moneda Local para Costo Contabilizado del equipo length =60 */
+	private CurrencyTypeEnum actualCostCurrency; /** Denominación Moneda Local para Costo Contabilizado del equipo length =60 */
+	
 	private EquipmentTypeEnum type; /** Tipo Equipo IT length =60 */
+	
 	private Date desincorporatedDate; /** Fecha de Desincorporación length =22 */
 	private String desincorporateReason; /** Motivo de Desincorporación length =255 */
 	private Date dateLastDepreciation; /** Fecha de última Depreciación length =22 */
@@ -106,14 +127,6 @@ public class Eia extends AbstractEntity {
 	public Eia() {
 		super();
 		// TODO Auto-generated constructor stub
-	}
-
-	public Terminal getTerminal() {
-		return terminal;
-	}
-
-	public void setTerminal(Terminal terminal) {
-		this.terminal = terminal;
 	}
 
 	public Facility getFacility() {
@@ -130,14 +143,6 @@ public class Eia extends AbstractEntity {
 
 	public void setEiatype(EiaType eiaType) {
 		this.eiaType = eiaType;
-	}
-
-	public SystemPeripheral getSystemPeripheral() {
-		return systemPeripheral;
-	}
-
-	public void setSystemPeripheral(SystemPeripheral systemPeripheral) {
-		this.systemPeripheral = systemPeripheral;
 	}
 
 	public static long getSerialversionuid() {

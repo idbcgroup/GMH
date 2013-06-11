@@ -8,5 +8,5 @@ package org.fourgeeks.gha.domain.enu;
  *
  */
 public enum CurrencyTypeEnum {
-
+	//TODO: faltan los valores
 }

@@ -7,7 +7,6 @@ package org.fourgeeks.gha.domain.enu;
  * @author emiliot
  *
  */
-public enum WarrantyStateEnum {
-	VALID,
-	OVERDUE
+public enum EiaStateEnum {
+	//TODO: faltan los valores
 }
