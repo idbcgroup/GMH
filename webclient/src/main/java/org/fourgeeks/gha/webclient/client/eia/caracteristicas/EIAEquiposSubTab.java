@@ -7,14 +7,13 @@ import com.smartgwt.client.widgets.tab.Tab;
 
 public class EIAEquiposSubTab extends Tab implements EIATypeSelectionListener {
 	
-	private EIAGridPanel eiaGridPanel = new EIAGridPanel();	
+	private EIAEquiposGridPanel eiaEquiposGridPanel = new EIAEquiposGridPanel();	
 	
 	public EIAEquiposSubTab() {
-		
 		setTitle("Caracteristicas");
 		setPaneMargin(0);
 			
-		setPane(eiaGridPanel);
+		setPane(eiaEquiposGridPanel);
 	}
 
 	@Override

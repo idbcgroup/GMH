@@ -4,15 +4,16 @@ import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.widgets.grid.ListGrid;
 import com.smartgwt.client.widgets.grid.ListGridField;
 
-public class EIAGrid extends ListGrid {
+public class EIAEquiposGrid extends ListGrid {
 
-	public EIAGrid() {
+	public EIAEquiposGrid() {
 		setWidth100();
 		setHeight("300px");
 		setEmptyMessage("No existen tipos de equipo para mostrar");
 
 		setAlternateRecordStyles(false);
 		setCanResizeFields(false);
+		setShowFilterEditor(true);
 
 		ListGridField idGridField = new ListGridField("id", "No");
 		idGridField.setAlign(Alignment.CENTER);
