@@ -9,6 +9,6 @@ import java.io.Serializable;
  * @author emiliot
  *
  */
-public enum LegalEntityTypeEnum implements Serializable {
+public enum _LegalEntityTypeEnum implements Serializable {
 
 }

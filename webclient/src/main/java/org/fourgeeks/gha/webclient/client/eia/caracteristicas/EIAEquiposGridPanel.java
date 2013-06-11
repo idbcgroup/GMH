@@ -10,38 +10,39 @@ import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.BackgroundRepeat;
 import com.smartgwt.client.widgets.Img;
 import com.smartgwt.client.widgets.ImgButton;
+import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIAGridPanel extends VLayout {
+public class EIAEquiposGridPanel extends HLayout {
 
 	private EIAForm form;
-	private EIAGrid eiaTypeGrid = new EIAGrid();
+	private EIAEquiposGrid eiaTypeGrid = new EIAEquiposGrid();
 
-	public EIAGridPanel() {
+	public EIAEquiposGridPanel() {
 		super();
 		form = new EIAForm();
 		
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
-		//setStyleName("sides-padding top-padding");// Esto es VUDU!
-		setWidth100();
-		// setBackgroundImage("../resources/img/tab1.jpg");
-		setBackgroundColor("#E0E0E0");
-
-		
+		setStyleName("sides-padding top-padding");// Esto es VUDU!
+				
 		HLayout filterPanel = new HLayout();
-		filterPanel.setHeight(30);
-		filterPanel.setWidth100();
+		filterPanel.setHeight(35);
+		Label title = new Label("<h3>Lista de Equipos por Tipo EIA</h3>");
+		title.setWidth(200);
+
 //		filterPanel.setMembersMargin(15);
-//		FilterBuilder filterBuilder = new FilterBuilder();
+//		//FilterBuilder filterBuilder = new FilterBuilder();
 //		IButton filterButton = new IButton("Filtrar");
 		
-//		filterPanel.addMembers(filterBuilder,filterButton);
+		filterPanel.addMembers(title/*filterButton*/);
 		
-		HLayout mainPanel = new HLayout();
+		VLayout mainPanel = new VLayout();
+		
+		mainPanel.addMembers(filterPanel,eiaTypeGrid);
 
 		// //////Botones laterales
 		VLayout sideButtons = new VLayout();
@@ -58,8 +59,8 @@ public class EIAGridPanel extends VLayout {
 		addButton.setSrc("../resources/icons/new.png");
 		addButton.setShowRollOver(false);
 		addButton.setSize("20px", "20px");
+		
 		addButton.addClickHandler(new ClickHandler() {
-
 			@Override
 			public void onClick(ClickEvent event) {
 				form.animateShow(AnimationEffect.FLY);
@@ -76,7 +77,6 @@ public class EIAGridPanel extends VLayout {
 		setsButton.setShowRollOver(false);
 		setsButton.setSize("20px", "20px");
 		setsButton.addClickHandler(new ClickHandler() {
-
 			@Override
 			public void onClick(ClickEvent event) {
 				EIARecord selectedRecord = (EIARecord) eiaTypeGrid
@@ -87,9 +87,7 @@ public class EIAGridPanel extends VLayout {
 
 		sideButtons.addMembers(addButton, editButton, deleteButton, setsButton);
 		
-		mainPanel.addMembers(eiaTypeGrid, sideButtons);
-		
-		addMembers(filterPanel,mainPanel);
+		addMembers(mainPanel, sideButtons);
 
 	}
 }
