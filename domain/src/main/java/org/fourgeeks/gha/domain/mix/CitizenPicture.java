@@ -28,7 +28,7 @@ public class CitizenPicture extends AbstractEntity{
 	private int pictureNumber; /** Número de Foto tomada length =4 */
 //	private int totalPictures; /** Total fotos para el Ciudadano length =4 */
 	
-	private Blob picture; /** Foto del Ciudadano length = */
+//	private Blob picture; /** Foto del Ciudadano length = */
 	
 	private String pictureDescription; /** Descripción de la FOTO del Ciudadano - OPCIONAL length =255 */
 	private Date pictureDate; /** Fecha en que se tomo la foto length =22 */

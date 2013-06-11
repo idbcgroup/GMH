@@ -76,7 +76,7 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 			logger.info("Deleted: " + entity.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.info("ERROR: unable to delete object with id="
+			logger.info("ERROR: unable to delete object="+EiaType.class.getName() +" with id="
 					+ Long.toString(Id));
 			// TODO: send exception to webClient
 		}
@@ -119,8 +119,6 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 
 			// TODO: send exception to webClient
 		}
-		// if (res != null)
-		//em.detach(res);
 		return res;
 	}
 
@@ -163,50 +161,52 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 		Manufacturer manufacturer = eiaType.getManufacturer();
 
 		int varsAdded = 0;
-		String query = "SELECT e from EiaType e WHERE ";
+		String query = "SELECT e from EiaType e ";
+		String filters = "";
 
 		if (brand != null && brand.getId() > 0) {
 			if (varsAdded > 0) {
-				query += " OR ";
+				filters += " OR ";
 			}
 			++varsAdded;
-			query += "brand='" + Long.toString(eiaType.getBrand().getId())
+			filters += "brand='" + Long.toString(eiaType.getBrand().getId())
 					+ "' ";
 		}
 
 		if (manufacturer != null && manufacturer.getId() > 0) {
 			if (varsAdded > 0) {
-				query += " OR ";
+				filters += " OR ";
 			}
 			++varsAdded;
-			query += "manufacturer='"
+			filters += "manufacturer='"
 					+ Long.toString(eiaType.getManufacturer().getId()) + "' ";
 		}
 
 		if (eiaType.getModel() != null) {
 			if (varsAdded > 0) {
-				query += " OR ";
+				filters += " OR ";
 			}
 			++varsAdded;
-			query += " model like '%" + eiaType.getModel() + "%' ";
+			filters += " model like '%" + eiaType.getModel() + "%' ";
 		}
 
 		if (eiaType.getName() != null) {
 			if (varsAdded > 0) {
-				query += " OR ";
+				filters += " OR ";
 			}
 			varsAdded++;
-			query += "name like '%" + eiaType.getName() + "%' ";
+			filters += "name like '%" + eiaType.getName() + "%' ";
 		}
 
 		if (eiaType.getCode() != null) {
 			if (varsAdded > 0) {
-				query += " OR ";
+				filters += " OR ";
 			}
 			varsAdded++;
-			query += "code like '%" + eiaType.getCode() + "%' ";
+			filters += "code like '%" + eiaType.getCode() + "%' ";
 		}
-
+		
+		if(varsAdded > 0)query += " WHERE " +filters;
 		query += " order by id";
 
 		try {
@@ -238,50 +238,52 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 		Manufacturer manufacturer = eiaType.getManufacturer();
 
 		int varsAdded = 0;
-		String query = "SELECT e from EiaType e WHERE ";
+		String query = "SELECT e from EiaType e ";
+		String filters = "";
 
 		if (brand != null && brand.getId() > 0) {
 			if (varsAdded > 0) {
-				query += " OR ";
+				filters += " OR ";
 			}
 			++varsAdded;
-			query += "brand='" + Long.toString(eiaType.getBrand().getId())
+			filters += "brand='" + Long.toString(eiaType.getBrand().getId())
 					+ "' ";
 		}
 
 		if (manufacturer != null && manufacturer.getId() > 0) {
 			if (varsAdded > 0) {
-				query += " OR ";
+				filters += " OR ";
 			}
 			++varsAdded;
-			query += "manufacturer='"
+			filters += "manufacturer='"
 					+ Long.toString(eiaType.getManufacturer().getId()) + "' ";
 		}
 
 		if (eiaType.getModel() != null) {
 			if (varsAdded > 0) {
-				query += " OR ";
+				filters += " OR ";
 			}
 			++varsAdded;
-			query += " model like '%" + eiaType.getModel() + "%' ";
+			filters += " model like '%" + eiaType.getModel() + "%' ";
 		}
 
 		if (eiaType.getName() != null) {
 			if (varsAdded > 0) {
-				query += " OR ";
+				filters += " OR ";
 			}
 			varsAdded++;
-			query += "name like '%" + eiaType.getName() + "%' ";
+			filters += "name like '%" + eiaType.getName() + "%' ";
 		}
 
 		if (eiaType.getCode() != null) {
 			if (varsAdded > 0) {
-				query += " OR ";
+				filters += " OR ";
 			}
 			varsAdded++;
-			query += "code like '%" + eiaType.getCode() + "%' ";
+			filters += "code like '%" + eiaType.getCode() + "%' ";
 		}
-
+		
+		if(varsAdded > 0)query += " WHERE " +filters;
 		query += " order by id";
 
 		try {

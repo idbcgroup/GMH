@@ -2,15 +2,15 @@ package org.fourgeeks.gha.webclient.client.eia;
 
 import org.fourgeeks.gha.domain.gar.Facility;
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.domain.gmh.Equipment;
+import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.webclient.client.UI.GHAGridRecord;
 
-public class EIARecord extends GHAGridRecord<Equipment> {
+public class EIARecord extends GHAGridRecord<Eia> {
 
 	public EIARecord() {
 	}
 
-	public EIARecord(Equipment eia) {
+	public EIARecord(Eia eia) {
 		setId(eia.getId());
 		setCode(eia.getEiatype().getCode());
 //		setSerial(eia.getSerial());
@@ -68,8 +68,8 @@ public class EIARecord extends GHAGridRecord<Equipment> {
 	}
 
 	@Override
-	public Equipment toEntity() {
-		Equipment eia = new Equipment();
+	public Eia toEntity() {
+		Eia eia = new Eia();
 		eia.setId(getId());
 //		eia.setSerial(getSerial());
 		

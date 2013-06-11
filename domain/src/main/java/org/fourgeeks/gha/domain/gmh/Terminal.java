@@ -26,7 +26,7 @@ public class Terminal extends AbstractEntity {
 	private Waio waio;
 	
 	@OneToOne
-	@JoinColumn(name = "equipmentFk")
-	private Equipment equipment;
+	@JoinColumn(name = "eiaFk")
+	private Eia eia;
 
 }

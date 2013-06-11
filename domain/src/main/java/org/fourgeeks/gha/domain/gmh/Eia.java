@@ -21,11 +21,11 @@ import org.fourgeeks.gha.domain.gar.Facility;
 import org.fourgeeks.gha.domain.gar.Waio;
 
 @Entity
-public class Equipment extends AbstractEntity {
+public class Eia extends AbstractEntity {
 
 	private static final long serialVersionUID = 1L;
 
-	@OneToOne(mappedBy = "equipment")
+	@OneToOne(mappedBy = "eia")
 	private Terminal terminal;
 
 	@ManyToOne
@@ -43,7 +43,7 @@ public class Equipment extends AbstractEntity {
 	@JoinColumn(name = "buildingFk")
 	private BuildingLocation buildingLocation;
 	
-	@OneToOne(mappedBy = "equipment")
+	@OneToOne(mappedBy = "eia")
 	private SystemPeripheral systemPeripheral;
 	
 	/**Attributes*/
@@ -103,7 +103,7 @@ public class Equipment extends AbstractEntity {
 	/**
 	 * 
 	 */
-	public Equipment() {
+	public Eia() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -158,6 +158,20 @@ public class Equipment extends AbstractEntity {
 
 	public void setBuildingLocation(BuildingLocation buildingLocation) {
 		this.buildingLocation = buildingLocation;
+	}
+
+	/**
+	 * @return the code
+	 */
+	public String getCode() {
+		return code;
+	}
+
+	/**
+	 * @param code the code to set
+	 */
+	public void setCode(String code) {
+		this.code = code;
 	}
 	
 }
