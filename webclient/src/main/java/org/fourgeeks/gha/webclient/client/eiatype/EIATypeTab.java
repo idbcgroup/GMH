@@ -39,6 +39,6 @@ public class EIATypeTab extends GHATab {
 
 	@Override
 	public void close() {
-		// Operaciones antes de remover
+		removeFromParent();
 	}
 }

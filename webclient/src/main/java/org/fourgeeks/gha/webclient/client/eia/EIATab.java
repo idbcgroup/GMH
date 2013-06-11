@@ -20,11 +20,19 @@ public class EIATab extends GHATab {
 		header = new GHATabHeader(this);
 		header.setTitle(TITLE);
 		VLayout verticalPanel = new VLayout();
+		verticalPanel.setBackgroundColor("#E0E0E0");
+		
+		
+		//Top Section: Search form
+		EIATopSection topSection = new EIATopSection();
+		
+		//Bottom Section: SubTabs de Info 
 		EIAInternalTabset bottomTabset = new EIAInternalTabset();
 
-		verticalPanel.setBackgroundColor("#E0E0E0");
-		verticalPanel
-				.addMember(new EIATopSection(bottomTabset.getEiaCaracteristicasTab().getEiaGridPanel().getEiaTypeGrid()));
+		topSection.AddEIATypeSelectionListener(bottomTabset);
+		
+		//Creacion de la tab de EIA
+		verticalPanel.addMember(topSection);
 		verticalPanel.addMember(GHAUiHelper.verticalGraySeparator("10px"));
 		verticalPanel.addMember(bottomTabset);
 
