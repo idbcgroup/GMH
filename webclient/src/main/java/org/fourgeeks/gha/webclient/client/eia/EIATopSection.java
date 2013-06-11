@@ -1,9 +1,14 @@
 package org.fourgeeks.gha.webclient.client.eia;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAButton;
 import org.fourgeeks.gha.webclient.client.UI.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSearchForm;
+import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
@@ -14,15 +19,16 @@ import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIATopSection extends HLayout {
+public class EIATopSection extends HLayout implements EIATypeSelectionListener {
 
-	private EIAGrid eiaGrid;
+	private List<EIATypeSelectionListener> selectionListeners = new LinkedList<EIATypeSelectionListener>();
+
 	private GHATextItem nameField;
 	private EIATypeSearchForm eiaTypeSearchForm = new EIATypeSearchForm();
 
-	public EIATopSection(EIAGrid eiaTypeGrid) {
+	public EIATopSection() {
 		super();
-		this.eiaGrid = eiaTypeGrid;
+		eiaTypeSearchForm.AddEIATypeSelectionListener(this);
 		setStyleName("sides-padding");// Esto es VUDU!
 		setWidth100();
 		setHeight("68px");
@@ -100,5 +106,22 @@ public class EIATopSection extends HLayout {
 		//
 		// });
 	}
+
+	@Override
+	public void select(EiaType eiaType) {
+		selectEiaType(eiaType);
+		
+	}
+	
+	public void AddEIATypeSelectionListener(
+			EIATypeSelectionListener selecionListener) {
+		selectionListeners.add(selecionListener);
+	}
+
+	private void selectEiaType(EiaType eiaType) {
+		for (EIATypeSelectionListener listener : selectionListeners)
+			listener.select(eiaType);
+
+	}	
 
 }
