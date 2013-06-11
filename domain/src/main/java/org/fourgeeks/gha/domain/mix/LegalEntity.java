@@ -34,7 +34,7 @@ public class LegalEntity extends AbstractEntity {
 
 	/** Atributes */
 
-	private String Ueid;
+	// private String Ueid;
 	/**
 	 * <PKEY> Universal Entity ID. Identificación Universal de Entidad Legal
 	 * length =16
@@ -57,20 +57,20 @@ public class LegalEntity extends AbstractEntity {
 		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @return the ueid
-	 */
-	public String getUeid() {
-		return Ueid;
-	}
+	// /**
+	// * @return the ueid
+	// */
+	// public String getUeid() {
+	// return Ueid;
+	// }
 
-	/**
-	 * @param ueid
-	 *            the ueid to set
-	 */
-	public void setUeid(String ueid) {
-		Ueid = ueid;
-	}
+	// /**
+	// * @param ueid
+	// * the ueid to set
+	// */
+	// public void setUeid(String ueid) {
+	// Ueid = ueid;
+	// }
 
 	/**
 	 * @return the dateCreated

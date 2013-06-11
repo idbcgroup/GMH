@@ -1,18 +1,21 @@
 package org.fourgeeks.gha.ejb;
 
-import java.util.List;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.sql.DataSource;
 
 import org.fourgeeks.gha.domain.ess.SingleSignOnUser;
 import org.fourgeeks.gha.domain.gmh.Brand;
-import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.domain.mix.LegalEntity;
@@ -28,54 +31,78 @@ public class TestData {
 	@EJB(name = "gmh.EquipmentService")
 	EiaServiceRemote remote;
 
+	@Resource(mappedName = "java:/jdbc/gha")
+	DataSource dataSource;
+
 	@PostConstruct
 	public void inicializar() {
 		userTestData();
-		// eiaTypeTestData();
+		createIndexs();
 		// eiaTestData();
+	}
+
+	private void createIndexs() {
+
+		System.out.println("Creating indexes...");
+		Connection con;
+		try {
+			con = dataSource.getConnection();
+		} catch (SQLException e2) {
+			return;
+		}
+		PreparedStatement ps;
+		try {
+			ps = con.prepareStatement("CREATE INDEX username_index ON singlesignonuser (username)");
+			ps.execute();
+		} catch (SQLException e1) {
+			return;
+		}
+
+		System.out.println("...done creating indexes!");
+
 	}
 
 	/**
 	 * 
 	 */
-	private void eiaTestData() {
-
-		Brand brand = new Brand();
-		Manufacturer manufacturer = new Manufacturer();
-
-		manufacturer.setName("Epson");
-		em.persist(manufacturer);
-
-		brand.setName("Stylus");
-		em.persist(brand);
-
-		EiaType eiaType = new EiaType();
-		eiaType.setName("Impresora Epson multifuncional");
-		eiaType.setModel("Stylus123");
-		eiaType.setManufacturer(manufacturer);
-		eiaType.setBrand(brand);
-		eiaType.setCode("IMPHP9523");
-		em.persist(eiaType);
-
-		Eia eia = new Eia();
-		eia.setEiatype(eiaType);
-		eia.setCode("Impresora");
-		em.persist(eia);
-
-		Eia equipment2 = new Eia();
-		equipment2.setEiatype(eiaType);
-		equipment2.setCode("Impresora");
-		em.persist(equipment2);
-
-		List<Eia> equipments = remote.find(eiaType);
-		if (equipments == null)
-			System.out.println("NULL");
-		else {
-			for (Eia e : equipments) {
-				System.out.println(e.getCode());
-			}
-		}
-	}
+	// private void eiaTestData() {
+	//
+	// Brand brand = new Brand();
+	// Manufacturer manufacturer = new Manufacturer();
+	//
+	// manufacturer.setName("Epson");
+	// em.persist(manufacturer);
+	//
+	// brand.setName("Stylus");
+	// em.persist(brand);
+	//
+	// EiaType eiaType = new EiaType();
+	// eiaType.setName("Impresora Epson multifuncional");
+	// eiaType.setModel("Stylus123");
+	// eiaType.setManufacturer(manufacturer);
+	// eiaType.setBrand(brand);
+	// eiaType.setCode("IMPHP9523");
+	// em.persist(eiaType);
+	//
+	// Eia eia = new Eia();
+	// eia.setEiatype(eiaType);
+	// eia.setCode("Impresora");
+	// em.persist(eia);
+	//
+	// Eia equipment2 = new Eia();
+	// equipment2.setEiatype(eiaType);
+	// equipment2.setCode("Impresora");
+	// em.persist(equipment2);
+	//
+	// List<Eia> equipments = remote.find(eiaType);
+	// if (equipments == null)
+	// System.out.println("NULL");
+	// else {
+	// for (Eia e : equipments) {
+	// System.out.println(e.getCode());
+	// }
+	// }
+	// }
 
 	private void eiaTypeTestData() {
 		Manufacturer manufacturer = new Manufacturer();
