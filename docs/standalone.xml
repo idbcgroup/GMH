@@ -267,7 +267,7 @@
                     <authentication>
                         <login-module code="org.jboss.security.auth.spi.DatabaseServerLoginModule" flag="required">
                             <module-option name="dsJndiName" value="java:/jdbc/gha"/>
-                            <module-option name="principalsQuery" value="select pass from public.USER where username=?"/>
+                            <module-option name="principalsQuery" value="select password from public.singlesignonuser where username=?"/>
                         </login-module>
                     </authentication>
                 </security-domain>
@@ -333,7 +333,7 @@
 
     <deployments>
         <deployment name="ear-1.ear" runtime-name="ear-1.ear">
-            <content sha1="7e1f16849cf5fd48ae3c6c86bd6202aef646b3cb"/>
+            <content sha1="a1c3bef05f690dad6cdfc5df3f6ce8e65056b533"/>
         </deployment>
     </deployments>
 </server>
