@@ -12,8 +12,8 @@ import javax.persistence.ManyToOne;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.CurrencyTypeEnum;
+import org.fourgeeks.gha.domain.enu.DepreciationMethodEnum;
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
-import org.fourgeeks.gha.domain.enu.EquipmentTypeEnum;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
 import org.fourgeeks.gha.domain.enu.WarrantyStateEnum;
@@ -101,7 +101,7 @@ public class Eia extends AbstractEntity {
 	
 	private CurrencyTypeEnum adquisitionCostCurrencyLocal; /** Denominación Moneda Local para Costo Contabilizado del equipo length =60 */
 	
-	private String depreciationMethod; /** Método de Depreciación length =60 */
+	private DepreciationMethodEnum depreciationMethod; /** Método de Depreciación length =60 */
 	
 	@Column(nullable=true)
 	private int depreciationTime; /** Tiempo de Depreciación length =4 */
@@ -113,7 +113,7 @@ public class Eia extends AbstractEntity {
 	private BigDecimal actualCost; /** Costo Actual en Libros length =16dec =5 */
 	private CurrencyTypeEnum actualCostCurrency; /** Denominación Moneda Local para Costo Contabilizado del equipo length =60 */
 	
-	private EquipmentTypeEnum type; /** Tipo Equipo IT length =60 */
+//	private EquipmentTypeEnum type; /** Tipo Equipo IT length =60 */
 	
 	private Date desincorporatedDate; /** Fecha de Desincorporación length =22 */
 	private String desincorporateReason; /** Motivo de Desincorporación length =255 */

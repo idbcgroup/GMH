@@ -7,6 +7,8 @@ package org.fourgeeks.gha.domain.enu;
  * @author emiliot
  *
  */
-public enum EquipmentTypeEnum {
-
+public enum EiaMovilityEnum {
+	FIXED,
+	MOVABLE,
+	PORTABLE
 }
