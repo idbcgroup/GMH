@@ -4,6 +4,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHATab;
 import org.fourgeeks.gha.webclient.client.UI.GHATabHeader;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
+import com.google.gwt.user.client.Window;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class EIATab extends GHATab {
@@ -33,6 +34,12 @@ public class EIATab extends GHATab {
 
 		// if (eia == null)
 		// topSection.search();
+	}
+
+	@Override
+	protected void onDraw() {
+		Window.alert("draw");
+
 	}
 
 	@Override
