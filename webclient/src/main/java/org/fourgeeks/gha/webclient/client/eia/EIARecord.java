@@ -18,12 +18,12 @@ public class EIARecord extends GHAGridRecord<Eia> {
 		// setBuildingLocationName(eia.getBuildingLocation().getName());
 		// }
 		//
-		// if (eia.getEiaType() != null) {
-		// setEiaType(eia.getEiaType().getId());
-		// setEiaTypeName(eia.getEiaType().getName());
-		// }
+		if (eia.getEiaType() != null) {
+			// setEiaType(eia.getEiaType().getId());
+			// setEiaTypeName(eia.getEiaType().getName());
+			setCode(eia.getEiaType().getCode());
+		}
 
-		setCode(eia.getEiaType().getCode());
 		// setSerial(eia.getSerial());
 		setName(eia.getEiaType().getName());
 		// setFacility(eia.getFacility().getName());
