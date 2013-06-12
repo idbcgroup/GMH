@@ -91,9 +91,10 @@ public class EIATopSection extends HLayout implements EIATypeSelectionListener {
 		fill.setWidth("*");
 
 		addMembers(form, fill, panelBotones);
+
 	}
 
-	private void search() {
+	public void search() {
 
 		eiaTypeSearchForm.animateShow(AnimationEffect.FLY);
 		// EiaType eiaType = new EiaType();
@@ -113,9 +114,9 @@ public class EIATopSection extends HLayout implements EIATypeSelectionListener {
 	@Override
 	public void select(EiaType eiaType) {
 		selectEiaType(eiaType);
-		
+
 	}
-	
+
 	public void AddEIATypeSelectionListener(
 			EIATypeSelectionListener selecionListener) {
 		selectionListeners.add(selecionListener);
@@ -125,6 +126,6 @@ public class EIATopSection extends HLayout implements EIATypeSelectionListener {
 		for (EIATypeSelectionListener listener : selectionListeners)
 			listener.select(eiaType);
 
-	}	
+	}
 
 }

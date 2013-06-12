@@ -330,10 +330,4 @@
             <remote-destination host="localhost" port="25"/>
         </outbound-socket-binding>
     </socket-binding-group>
-
-    <deployments>
-        <deployment name="ear-1.ear" runtime-name="ear-1.ear">
-            <content sha1="a1c3bef05f690dad6cdfc5df3f6ce8e65056b533"/>
-        </deployment>
-    </deployments>
 </server>

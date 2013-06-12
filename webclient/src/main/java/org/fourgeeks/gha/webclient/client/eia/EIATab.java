@@ -11,9 +11,8 @@ public class EIATab extends GHATab {
 	public static final String ID = "eia";
 	private static final String TITLE = "Equipos";
 	private GHATabHeader header;
-	{
 
-	}
+	// private Eia eia;
 
 	public EIATab() {
 		super();
@@ -21,22 +20,19 @@ public class EIATab extends GHATab {
 		header.setTitle(TITLE);
 		VLayout verticalPanel = new VLayout();
 		verticalPanel.setBackgroundColor("#E0E0E0");
-		
-		
-		//Top Section: Search form
+		// Top Section: Search form
 		EIATopSection topSection = new EIATopSection();
-		
-		//Bottom Section: SubTabs de Info 
+		// Bottom Section: SubTabs de Info
 		EIAInternalTabset bottomTabset = new EIAInternalTabset();
-
 		topSection.AddEIATypeSelectionListener(bottomTabset);
-		
-		//Creacion de la tab de EIA
+		// Creacion de la tab de EIA
 		verticalPanel.addMember(topSection);
 		verticalPanel.addMember(GHAUiHelper.verticalGraySeparator("10px"));
 		verticalPanel.addMember(bottomTabset);
-
 		addMember(verticalPanel);
+
+		// if (eia == null)
+		// topSection.search();
 	}
 
 	@Override
