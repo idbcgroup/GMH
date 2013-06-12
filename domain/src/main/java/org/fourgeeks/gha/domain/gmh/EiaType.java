@@ -9,7 +9,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
+import org.fourgeeks.gha.domain.enu.EiaMovilityEnum;
 import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
+import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 
 /**
  * @author emiliot
@@ -45,10 +47,12 @@ public class EiaType extends AbstractEntity {
 	private String useDescription; /** Descripción del Uso en el área de utilización length =255 */
 //	private String eiaSerialized; /** Equipo es serializado (Si/NO) length =6 */
 	private String eiaUmdns; /** Código UMDNS length =16 */
-	private String movility; /** Equipo es movilizable length =60 */
-	private String type; /** Tipo de Equipo length =60 */
 	
 	@Column(nullable=false)
+	private EiaMovilityEnum movility; /** Equipo es movilizable length =60 */
+	
+	@Column(nullable=false)
+	private EiaTypeEnum type; /** Tipo de Equipo length =60 */
 	private EiaSubTypeEnum subtype; /** Subtipo de Equipo length =60 */
 
 	/**
@@ -91,11 +95,11 @@ public class EiaType extends AbstractEntity {
 		return eiaUmdns;
 	}
 
-	public String getMovility() {
+	public EiaMovilityEnum getMovility() {
 		return movility;
 	}
 
-	public String getType() {
+	public EiaTypeEnum getType() {
 		return type;
 	}
 
@@ -135,11 +139,11 @@ public class EiaType extends AbstractEntity {
 		this.eiaUmdns = eiaUmdns;
 	}
 
-	public void setMovility(String movility) {
+	public void setMovility(EiaMovilityEnum movility) {
 		this.movility = movility;
 	}
 
-	public void setType(String type) {
+	public void setType(EiaTypeEnum type) {
 		this.type = type;
 	}
 

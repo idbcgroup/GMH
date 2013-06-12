@@ -57,6 +57,13 @@ public class TestData {
 		} catch (SQLException e1) {
 			return;
 		}
+		
+		try{
+			ps = con.prepareStatement("CREATE INDEX eiaType_index ON eiatype (type)");
+			ps.execute();
+		}catch(SQLException e){
+			return;
+		}
 
 		System.out.println("...done creating indexes!");
 
