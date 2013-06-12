@@ -14,6 +14,9 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
 
+import org.fourgeeks.gha.domain.enu.EiaMovilityEnum;
+import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
+import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.ess.SingleSignOnUser;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.EiaType;
@@ -38,7 +41,7 @@ public class TestData {
 	public void inicializar() {
 		userTestData();
 		createIndexs();
-		// eiaTestData();
+		// eiaTypeTestData();
 	}
 
 	private void createIndexs() {
@@ -57,11 +60,11 @@ public class TestData {
 		} catch (SQLException e1) {
 			return;
 		}
-		
-		try{
+
+		try {
 			ps = con.prepareStatement("CREATE INDEX eiaType_index ON eiatype (type)");
 			ps.execute();
-		}catch(SQLException e){
+		} catch (SQLException e) {
 			return;
 		}
 
@@ -112,16 +115,13 @@ public class TestData {
 	// }
 
 	private void eiaTypeTestData() {
-		Manufacturer manufacturer = new Manufacturer();
-		Brand brand = new Brand();
-
-		manufacturer.setName("Epson");
-		em.persist(manufacturer);
 
 		try {
+			Manufacturer manufacturer = new Manufacturer();
 			manufacturer.setName("Epson");
 			em.persist(manufacturer);
 
+			Brand brand = new Brand();
 			brand.setName("Stylus");
 			em.persist(brand);
 
@@ -130,6 +130,9 @@ public class TestData {
 			eiaType.setModel("Deskjet 9510");
 			eiaType.setManufacturer(manufacturer);
 			eiaType.setBrand(brand);
+			eiaType.setMovility(EiaMovilityEnum.FIXED);
+			eiaType.setType(EiaTypeEnum.EQUIPMENT);
+			eiaType.setSubtype(EiaSubTypeEnum.IT_SYSTEM);
 			eiaType.setCode("IMPHP9523");
 			em.persist(eiaType);
 
@@ -137,24 +140,6 @@ public class TestData {
 			System.out.println("ERROR: No se puede cargar la data de prueba:"
 					+ e.getMessage());
 		}
-
-		// search
-		// EiaType entity = new EiaType();
-		// entity.setCode("code");
-		// entity.setModel("Deskjet");
-		// entity.setName("Impresora HP");
-		// entity.setManufacturer(manufacturer);
-		// entity.setBrand(brand);
-		// List<EiaType> result = eiaTypeService.find(entity, 0, 100);
-		//
-		// if (result != null) {
-		// System.out.println("Results " + Integer.toString(result.size()));
-		// for (EiaType et : result) {
-		// System.out.println(et.getName());
-		// }
-		// } else {
-		// System.out.println("Error result=null");
-		// }
 	}
 
 	private void userTestData() {

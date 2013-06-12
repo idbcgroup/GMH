@@ -8,7 +8,6 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAButton;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.eia.EIARecord;
 
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
@@ -136,8 +135,8 @@ public class EIATypeSearchForm extends VLayout {
 
 			@Override
 			public void onSuccess(List<EiaType> eiaTypes) {
-				ListGridRecord[] array = (ListGridRecord[]) EIATypeUtil
-						.toGridRecords(eiaTypes).toArray(new EIARecord[] {});
+				ListGridRecord[] array = EIATypeUtil.toGridRecords(eiaTypes)
+						.toArray(new EIATypeRecord[] {});
 				eiaTypeGrid.setData(array);
 			}
 

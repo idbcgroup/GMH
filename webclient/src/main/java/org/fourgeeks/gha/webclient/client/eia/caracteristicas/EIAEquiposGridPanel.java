@@ -13,36 +13,37 @@ import com.smartgwt.client.widgets.ImgButton;
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
+import com.smartgwt.client.widgets.grid.ListGridRecord;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class EIAEquiposGridPanel extends HLayout {
 
 	private EIAForm form;
-	private EIAEquiposGrid eiaTypeGrid = new EIAEquiposGrid();
+	private EIAEquiposGrid eiaGrid = new EIAEquiposGrid();
 
 	public EIAEquiposGridPanel() {
 		super();
 		form = new EIAForm();
-		
+
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding top-padding");// Esto es VUDU!
-				
+
 		HLayout filterPanel = new HLayout();
 		filterPanel.setHeight(35);
 		Label title = new Label("<h3>Lista de Equipos por Tipo EIA</h3>");
 		title.setWidth(200);
 
-//		filterPanel.setMembersMargin(15);
-//		//FilterBuilder filterBuilder = new FilterBuilder();
-//		IButton filterButton = new IButton("Filtrar");
-		
-		filterPanel.addMembers(title/*filterButton*/);
-		
+		// filterPanel.setMembersMargin(15);
+		// //FilterBuilder filterBuilder = new FilterBuilder();
+		// IButton filterButton = new IButton("Filtrar");
+
+		filterPanel.addMembers(title/* filterButton */);
+
 		VLayout mainPanel = new VLayout();
-		
-		mainPanel.addMembers(filterPanel,eiaTypeGrid);
+
+		mainPanel.addMembers(filterPanel, eiaGrid);
 
 		// //////Botones laterales
 		VLayout sideButtons = new VLayout();
@@ -59,7 +60,7 @@ public class EIAEquiposGridPanel extends HLayout {
 		addButton.setSrc("../resources/icons/new.png");
 		addButton.setShowRollOver(false);
 		addButton.setSize("20px", "20px");
-		
+
 		addButton.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -79,15 +80,19 @@ public class EIAEquiposGridPanel extends HLayout {
 		setsButton.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				EIARecord selectedRecord = (EIARecord) eiaTypeGrid
+				EIARecord selectedRecord = (EIARecord) eiaGrid
 						.getSelectedRecord();
 				History.newItem("eia/" + selectedRecord.getCode());
 			}
 		});
 
 		sideButtons.addMembers(addButton, editButton, deleteButton, setsButton);
-		
+
 		addMembers(mainPanel, sideButtons);
 
+	}
+
+	public void setData(ListGridRecord[] array) {
+		eiaGrid.setData(array);
 	}
 }
