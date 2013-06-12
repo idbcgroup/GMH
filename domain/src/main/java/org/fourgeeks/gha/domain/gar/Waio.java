@@ -10,7 +10,6 @@ import javax.persistence.OneToMany;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
-import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.SystemPeripheral;
 import org.fourgeeks.gha.domain.gmh.Terminal;
 import org.fourgeeks.gha.domain.mix.Bpi;
@@ -50,8 +49,8 @@ public class Waio extends AbstractEntity{
 	@OneToMany(mappedBy = "waio")
 	private Collection <Terminal> terminals;
 	
-	@ManyToMany(mappedBy = "waios")
-	private Collection <Eia> equipments;
+//	@ManyToMany(mappedBy = "waios")
+//	private Collection <Eia> eias;
 	
 	@ManyToMany(mappedBy = "waios")
 	private Collection <SystemPeripheral> systemPeriferals;
