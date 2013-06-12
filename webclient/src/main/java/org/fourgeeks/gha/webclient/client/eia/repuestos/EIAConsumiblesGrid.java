@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eia.partes;
+package org.fourgeeks.gha.webclient.client.eia.repuestos;
 
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 
@@ -12,7 +12,7 @@ import com.smartgwt.client.widgets.grid.ListGrid;
 import com.smartgwt.client.widgets.grid.ListGridField;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
 
-public class EIAPartesEIAtypeGrid extends ListGrid {
+public class EIAConsumiblesGrid extends ListGrid {
 
 	@Override
 	protected Canvas createRecordComponent(final ListGridRecord record, Integer colNum) {  
@@ -38,10 +38,10 @@ public class EIAPartesEIAtypeGrid extends ListGrid {
 
     }
 	
-	public EIAPartesEIAtypeGrid() {
+	public EIAConsumiblesGrid() {
 		setWidth100();
 		setHeight("300px");
-		setEmptyMessage("No existen partes de EIAtype para mostrar.");
+		setEmptyMessage("No existe material para mostrar.");
 
 		setAlternateRecordStyles(false);
 		setCanResizeFields(false);
@@ -50,28 +50,35 @@ public class EIAPartesEIAtypeGrid extends ListGrid {
 		ListGridField idGridField = new ListGridField("id", "No");
 		idGridField.setAlign(Alignment.CENTER);
 
-		ListGridField partnumGridField = new ListGridField("nParte", "No Parte EIA");
-		partnumGridField.setAlign(Alignment.CENTER);
+		ListGridField codMatGridField = new ListGridField("codMat", "Cód. Material");
+		codMatGridField.setAlign(Alignment.CENTER);
 		
-		ListGridField nameGridField = new ListGridField("nameParte", "Nombre Parte");
+		ListGridField nameGridField = new ListGridField("nameMaterial", "Nombre Material");
 		nameGridField.setAlign(Alignment.CENTER);
 		
-		ListGridField usoparteGridField = new ListGridField("usoParte", "Uso Parte");
-		usoparteGridField.setAlign(Alignment.CENTER);
+		ListGridField usoMaterialGridField = new ListGridField("usoMaterial", "Uso del Material");
+		usoMaterialGridField.setAlign(Alignment.CENTER);
 		
 		ListGridField typeGridField = new ListGridField("type", "Tipo");
 		typeGridField.setAlign(Alignment.CENTER);
-
-		ListGridField requiredGridField = new ListGridField("req", "Requerido");
-		requiredGridField.setAlign(Alignment.CENTER);
-		
-		ListGridField sustGridField = new ListGridField("sust", "Sustituible");
-		sustGridField.setAlign(Alignment.CENTER);
 		
 		ListGridField cantGridField = new ListGridField("cant", "Cantidad");
 		cantGridField.setAlign(Alignment.CENTER);
 
-		setFields(idGridField, partnumGridField, nameGridField, usoparteGridField, typeGridField, requiredGridField, sustGridField, cantGridField);
+		ListGridField facilityGridField = new ListGridField("facility", "Ubicación");
+		facilityGridField.setAlign(Alignment.CENTER);
+		
+		ListGridField freqGridField = new ListGridField("freq", "Frecuencia");
+		freqGridField.setAlign(Alignment.CENTER);
+		
+		ListGridField usesGridField = new ListGridField("uses", "Cant. Usos");
+		usesGridField.setAlign(Alignment.CENTER);
+		
+		ListGridField availableGridField = new ListGridField("available", "Disponibles");
+		availableGridField.setAlign(Alignment.CENTER);
+			
+
+		setFields(idGridField, codMatGridField, nameGridField, usoMaterialGridField, typeGridField, cantGridField, facilityGridField,freqGridField, usesGridField, availableGridField);
 	}
 
 }

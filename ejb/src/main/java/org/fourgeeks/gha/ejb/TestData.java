@@ -18,7 +18,9 @@ import org.fourgeeks.gha.domain.enu.EiaMovilityEnum;
 import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
 import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.ess.SingleSignOnUser;
+import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gmh.Brand;
+import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.domain.mix.LegalEntity;
@@ -83,7 +85,10 @@ public class TestData {
 
 	private void eiaTypeTestData() {
 
+		String query = "SELECT t from EiaType t WHERE id = 1 ";
 		try {
+			em.createQuery(query).getSingleResult();
+		} catch (NoResultException e) {
 			Manufacturer manufacturer = new Manufacturer();
 			manufacturer.setName("Epson");
 			em.persist(manufacturer);
@@ -103,15 +108,21 @@ public class TestData {
 			eiaType.setCode("IMPHP9523");
 			em.persist(eiaType);
 
-		} catch (Exception e) {
-			System.out.println("ERROR: No se puede cargar la data de prueba:"
-					+ e.getMessage());
+			BuildingLocation buildingLocation = new BuildingLocation();
+			em.persist(buildingLocation);
+
+			Eia eia = new Eia();
+			eia.setBuildingLocation(buildingLocation);
+			eia.setCode("TESTCODE");
+			eia.setEiatype(eiaType);
+			eia.setSerialNumber("SERIALNUMBER");
+			em.persist(eia);
 		}
 	}
 
 	private void userTestData() {
 		try {
-			String query = "SELECT t from TestData t WHERE id = 1 ";
+			String query = "SELECT t from LegalEntity t WHERE id = 1 ";
 			try {
 				em.createQuery(query).getSingleResult();
 			} catch (NoResultException e) {

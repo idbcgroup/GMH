@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eia.partes;
+package org.fourgeeks.gha.webclient.client.eia.repuestos;
 
 import com.google.gwt.user.client.Event;
 import com.smartgwt.client.types.Alignment;
@@ -15,44 +15,50 @@ import com.smartgwt.client.widgets.form.fields.events.ChangeHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIAPartesGridPanel extends HLayout {
+public class EIARepuestosGridPanel extends HLayout {
 
-	private EIAPartesEIAtypeGrid eiaPartesEIAtypeGrid = new EIAPartesEIAtypeGrid();
-	private EIAPartesEquiposGrid eiaPartesEquiposGrid = new EIAPartesEquiposGrid();
+	private EIARepuestosGrid eiaRepuestosGrid = new EIARepuestosGrid();
+	private EIAConsumiblesGrid eiaConsumiblesGrid = new EIAConsumiblesGrid();
 	
-	public EIAPartesGridPanel() {
+	public EIARepuestosGridPanel() {
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding top-padding");// Esto es VUDU!
 		
 		VLayout mainPanel = new VLayout();
-		Label title = new Label("<h3>Partes/Componentes de EIA</h3>");
+		Label title = new Label("<h3>Repuestos/Consumibles/Servicios de EIA/Materiales Especiales</h3>");
 		title.setHeight(35);
 		
 		DynamicForm options = new DynamicForm();
-		options.setWidth("300px");
+		options.setWidth("500px");
 		
 		RadioGroupItem optionsRB = new RadioGroupItem();
-		optionsRB.setTitle("Partes de");
-		optionsRB.setValueMap("EIAtype","Equipos");
-		optionsRB.setValue("EIAtype");
+		optionsRB.setTitle("Tipo");
+		optionsRB.setValueMap("Repuesto","Consumible", "Servicios", "Material Especial");
+		optionsRB.setValue("Repuesto");
 		optionsRB.setVertical(false);
 		options.setItems(optionsRB);
 		
 		final VLayout gridContainer = new VLayout();
-        gridContainer.addMembers(eiaPartesEIAtypeGrid,eiaPartesEquiposGrid);
-        eiaPartesEquiposGrid.hide();
+        gridContainer.addMembers(eiaRepuestosGrid,eiaConsumiblesGrid);
+        eiaConsumiblesGrid.hide();
         
         optionsRB.addChangeHandler(new ChangeHandler() {
 			@Override
 			public void onChange(ChangeEvent event) {
 				String type= (String) event.getValue();
-				if (type.equals("EIAtype")){
-					eiaPartesEquiposGrid.hide();
-					eiaPartesEIAtypeGrid.show();
-				}else if(type.equals("Equipos")){
-					eiaPartesEIAtypeGrid.hide();
-					eiaPartesEquiposGrid.show();
+				if (type.equals("Repuesto")){
+					eiaRepuestosGrid.show();
+					eiaConsumiblesGrid.hide();
+				}else if(type.equals("Consumible")){
+					eiaRepuestosGrid.hide();
+					eiaConsumiblesGrid.show();
+				}else if(type.equals("Servicios")){
+					eiaRepuestosGrid.hide();
+					eiaConsumiblesGrid.hide();
+				}else if(type.equals("Material Especial")){
+					eiaRepuestosGrid.hide();
+					eiaConsumiblesGrid.hide();
 				}				
 			}
 		});
