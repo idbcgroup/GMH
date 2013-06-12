@@ -30,14 +30,14 @@ public class EiaService implements EiaServiceRemote {
 	private final Logger logger = Logger.getLogger(EiaService.class.getName());
 
 	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.EquipmentServiceRemote#save(org.fourgeeks.gha.domain.gmh.Equipment)
+	 * @see org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#save(org.fourgeeks.gha.domain.gmh.Eia)
 	 */
 	@Override
-	public void save(Eia equipment) {
+	public void save(Eia eia) {
 		try{
-			em.persist(equipment);
+			em.persist(eia);
 		}catch(Exception e){
-			logger.info("ERROR: saving object "+equipment.toString());
+			logger.info("ERROR: saving object "+eia.toString());
 			e.printStackTrace();
 			
 			//TODO: send exception to webclient
@@ -45,7 +45,7 @@ public class EiaService implements EiaServiceRemote {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.EquipmentServiceRemote#find(long)
+	 * @see org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#find(long)
 	 */
 	@Override
 	public Eia find(long Id) {
@@ -59,21 +59,21 @@ public class EiaService implements EiaServiceRemote {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.EquipmentServiceRemote#find(org.fourgeeks.gha.domain.gmh.Equipment)
+	 * @see org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#find(org.fourgeeks.gha.domain.gmh.Eia)
 	 */
 	@Override
-	public List<Eia> find(Eia equipment) {
+	public List<Eia> find(Eia eia) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.EquipmentServiceRemote#find(org.fourgeeks.gha.domain.gmh.EiaType)
+	 * @see org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#find(org.fourgeeks.gha.domain.gmh.EiaType)
 	 */
 	@Override
 	public List<Eia> find(EiaType eiaType) {
 		List <Eia> res = null;
-		String query = "SELECT e from Equipment e JOIN e.eiaType t ";
+		String query = "SELECT e from Eia e JOIN e.eiaType t ";
 		
 		int varsAdded = 0;
 		String filters = "";
@@ -137,15 +137,15 @@ public class EiaService implements EiaServiceRemote {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.EquipmentServiceRemote#getAll()
+	 * @see org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#getAll()
 	 */
 	@Override
 	public List<Eia> getAll() {
-		String query = "SELECT e from Equipment e";
+		String query = "SELECT e from Eia e";
 		List<Eia> res = null;
 		try{
 			res = em.createQuery(query, Eia.class).getResultList();
-			logger.info("Get all Equipments");
+			logger.info("Get all Eias");
 		}catch(NoResultException ex){
 			logger.info("No results");
 			//TODO: send exception to webclient
@@ -157,16 +157,16 @@ public class EiaService implements EiaServiceRemote {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.EquipmentServiceRemote#getAll(int, int)
+	 * @see org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#getAll(int, int)
 	 */
 	@Override
 	public List<Eia> getAll(int offset, int size) {
-		String query = "SELECT e from Equipment e order by id";
+		String query = "SELECT e from Eia e order by id";
 		List<Eia> res = null;
 		try{
 			res = em.createQuery(query, Eia.class).setFirstResult(offset)
 					.setMaxResults(size).getResultList();
-			logger.info("Get all Equipments");
+			logger.info("Get all Eias");
 		}catch(NoResultException ex){
 			logger.info("No results");
 			//TODO: send exception to webclient
@@ -178,7 +178,7 @@ public class EiaService implements EiaServiceRemote {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.EquipmentServiceRemote#delete(long)
+	 * @see org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#delete(long)
 	 */
 	@Override
 	public void delete(long Id) {

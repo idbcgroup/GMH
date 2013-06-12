@@ -41,7 +41,16 @@ public class TestData {
 	public void inicializar() {
 		userTestData();
 		createIndexs();
-		// eiaTypeTestData();
+		eiaTypeTestData();
+		//eiaTestData();
+	}
+
+	/**
+	 * 
+	 */
+	private void eiaTestData() {
+		//TODO: probar los servicios ejb para el eia
+		
 	}
 
 	private void createIndexs() {
@@ -71,48 +80,6 @@ public class TestData {
 		System.out.println("...done creating indexes!");
 
 	}
-
-	/**
-	 * 
-	 */
-	// private void eiaTestData() {
-	//
-	// Brand brand = new Brand();
-	// Manufacturer manufacturer = new Manufacturer();
-	//
-	// manufacturer.setName("Epson");
-	// em.persist(manufacturer);
-	//
-	// brand.setName("Stylus");
-	// em.persist(brand);
-	//
-	// EiaType eiaType = new EiaType();
-	// eiaType.setName("Impresora Epson multifuncional");
-	// eiaType.setModel("Stylus123");
-	// eiaType.setManufacturer(manufacturer);
-	// eiaType.setBrand(brand);
-	// eiaType.setCode("IMPHP9523");
-	// em.persist(eiaType);
-	//
-	// Eia eia = new Eia();
-	// eia.setEiatype(eiaType);
-	// eia.setCode("Impresora");
-	// em.persist(eia);
-	//
-	// Eia equipment2 = new Eia();
-	// equipment2.setEiatype(eiaType);
-	// equipment2.setCode("Impresora");
-	// em.persist(equipment2);
-	//
-	// List<Eia> equipments = remote.find(eiaType);
-	// if (equipments == null)
-	// System.out.println("NULL");
-	// else {
-	// for (Eia e : equipments) {
-	// System.out.println(e.getCode());
-	// }
-	// }
-	// }
 
 	private void eiaTypeTestData() {
 
