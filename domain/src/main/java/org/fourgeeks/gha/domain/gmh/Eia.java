@@ -137,7 +137,7 @@ public class Eia extends AbstractEntity {
 		this.facility = facility;
 	}
 
-	public EiaType getEiatype() {
+	public EiaType getEiaType() {
 		return eiaType;
 	}
 

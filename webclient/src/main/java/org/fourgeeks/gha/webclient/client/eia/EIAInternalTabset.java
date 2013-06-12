@@ -12,7 +12,8 @@ import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.smartgwt.client.widgets.tab.TabSet;
 
-public class EIAInternalTabset extends TabSet implements EIATypeSelectionListener {
+public class EIAInternalTabset extends TabSet implements
+		EIATypeSelectionListener {
 
 	private EIAEquiposSubTab eiaEquiposSubTab = new EIAEquiposSubTab();
 	private EIAPartesSubTab eiaPartesSubTab = new EIAPartesSubTab();
@@ -21,13 +22,13 @@ public class EIAInternalTabset extends TabSet implements EIATypeSelectionListene
 	private EIAPlanSubTab eiaPlanSubTab = new EIAPlanSubTab();
 	private EIACostosSubTab eiaCostosSubTab = new EIACostosSubTab();
 	private EIAMovimientosSubTab eiaMovimientosSubTab = new EIAMovimientosSubTab();
-	
+
 	public EIAInternalTabset() {
-		super();		
+		super();
 		setWidth100();
 		setHeight100();
-		
-		//Agregando las Subtabs
+
+		// Agregando las Subtabs
 		addTab(eiaEquiposSubTab);
 		addTab(eiaPartesSubTab);
 		addTab(eiaRepuestosSubTab);
@@ -35,7 +36,7 @@ public class EIAInternalTabset extends TabSet implements EIATypeSelectionListene
 		addTab(eiaPlanSubTab);
 		addTab(eiaCostosSubTab);
 		addTab(eiaMovimientosSubTab);
-		
+
 	}
 
 	@Override

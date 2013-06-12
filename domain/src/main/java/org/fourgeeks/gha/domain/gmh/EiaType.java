@@ -33,27 +33,39 @@ public class EiaType extends AbstractEntity {
 	@ManyToOne
 	@JoinColumn(name = "manufacturerFk")
 	private Manufacturer manufacturer;
-	
-	/**Attributes*/
-	
-	private String code; /** Código asignado al EIA length =20 */
-	
-	@Column(nullable=false)
-	private String name; /** Nombre del Equipo o Instalación length =255 */
-	private String description; /** Descripción detallada Equipo o Instalación length =255 */
-	
-	private String model; /** Modelo del Equipo o Instalación length =255 */
-//	private String eiaUseInArea; /** Área de utilización del equipo length =60 */
-	private String useDescription; /** Descripción del Uso en el área de utilización length =255 */
-//	private String eiaSerialized; /** Equipo es serializado (Si/NO) length =6 */
-	private String eiaUmdns; /** Código UMDNS length =16 */
-	
-	@Column(nullable=false)
-	private EiaMovilityEnum movility; /** Equipo es movilizable length =60 */
-	
-	@Column(nullable=false)
-	private EiaTypeEnum type; /** Tipo de Equipo length =60 */
-	private EiaSubTypeEnum subtype; /** Subtipo de Equipo length =60 */
+
+	/** Attributes */
+
+	private String code;
+	/** Código asignado al EIA length =20 */
+
+	@Column(nullable = false)
+	private String name;
+	/** Nombre del Equipo o Instalación length =255 */
+	private String description;
+	/** Descripción detallada Equipo o Instalación length =255 */
+
+	private String model;
+	/** Modelo del Equipo o Instalación length =255 */
+	// private String eiaUseInArea; /** Área de utilización del equipo length
+	// =60 */
+	private String useDescription;
+	/** Descripción del Uso en el área de utilización length =255 */
+	// private String eiaSerialized; /** Equipo es serializado (Si/NO) length =6
+	// */
+	private String eiaUmdns;
+	/** Código UMDNS length =16 */
+
+	@Column(nullable = false)
+	private EiaMovilityEnum movility;
+	/** Equipo es movilizable length =60 */
+
+	@Column(nullable = false)
+	private EiaTypeEnum type;
+	/** Tipo de Equipo length =60 */
+	private EiaSubTypeEnum subtype;
+
+	/** Subtipo de Equipo length =60 */
 
 	/**
 	 * 
@@ -150,6 +162,5 @@ public class EiaType extends AbstractEntity {
 	public void setSubtype(EiaSubTypeEnum subtype) {
 		this.subtype = subtype;
 	}
-	
-	
+
 }
