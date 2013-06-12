@@ -2,12 +2,10 @@ package org.fourgeeks.gha.domain.gmh;
 
 import java.math.BigDecimal;
 import java.sql.Date;
-import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
@@ -19,7 +17,6 @@ import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
 import org.fourgeeks.gha.domain.enu.WarrantyStateEnum;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Facility;
-import org.fourgeeks.gha.domain.gar.Waio;
 
 @Entity
 public class Eia extends AbstractEntity {
@@ -37,8 +34,8 @@ public class Eia extends AbstractEntity {
 	@JoinColumn(name = "eiaTypeFk")
 	private EiaType eiaType;
 
-	@ManyToMany
-	private Collection<Waio> waios;
+//	@ManyToMany
+//	private Collection<Waio> waios;
 
 	@ManyToOne
 	@JoinColumn(name = "buildingFk")
@@ -147,18 +144,6 @@ public class Eia extends AbstractEntity {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
-	}
-
-	public Collection<Waio> getWaios() {
-		return waios;
-	}
-
-	public BuildingLocation getBuildingLocation() {
-		return buildingLocation;
-	}
-
-	public void setWaios(Collection<Waio> waios) {
-		this.waios = waios;
 	}
 
 	public void setBuildingLocation(BuildingLocation buildingLocation) {
