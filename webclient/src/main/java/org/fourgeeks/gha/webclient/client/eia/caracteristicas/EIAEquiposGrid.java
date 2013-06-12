@@ -9,7 +9,7 @@ public class EIAEquiposGrid extends ListGrid {
 	public EIAEquiposGrid() {
 		setWidth100();
 		setHeight("300px");
-		setEmptyMessage("No existen tipos de equipo para mostrar");
+		setEmptyMessage("No existen equipos para mostrar.");
 
 		setAlternateRecordStyles(false);
 		setCanResizeFields(false);
