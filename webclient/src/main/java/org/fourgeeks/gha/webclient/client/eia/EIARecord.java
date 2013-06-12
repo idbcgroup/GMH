@@ -24,7 +24,7 @@ public class EIARecord extends GHAGridRecord<Eia> {
 			setCode(eia.getEiaType().getCode());
 		}
 
-		// setSerial(eia.getSerial());
+		setSerialNumber(eia.getSerialNumber());
 		setName(eia.getEiaType().getName());
 		// setFacility(eia.getFacility().getName());
 		// setStatus(eia.getStatus());
@@ -35,7 +35,7 @@ public class EIARecord extends GHAGridRecord<Eia> {
 	}
 
 	public String getSerial() {
-		return getAttributeAsString("serial");
+		return getAttributeAsString("serialNumber");
 	}
 
 	public String getName() {
@@ -58,7 +58,7 @@ public class EIARecord extends GHAGridRecord<Eia> {
 		setAttribute("code", code);
 	}
 
-	public void setSerial(String serial) {
+	public void setSerialNumber(String serial) {
 		setAttribute("serial", serial);
 	}
 
