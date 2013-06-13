@@ -7,8 +7,8 @@ import java.util.List;
 
 import javax.ejb.Remote;
 
-import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.Eia;
+import org.fourgeeks.gha.domain.gmh.EiaType;
 
 /**
  * @author emiliot
@@ -19,34 +19,34 @@ import org.fourgeeks.gha.domain.gmh.Eia;
 public interface EiaServiceRemote {
 	
 	/**
-	 * @param equipment
-	 * Persist an Equipment to database
+	 * @param eia
+	 * Persist an eia to database
 	 */
-	public void save(Eia equipment);
+	public void save(Eia eia);
 	/**
 	 * @param Id
-	 * @return Find an Equipment By Id
+	 * @return Find an eia By Id
 	 */
 	public Eia find(long Id);
 	/**
-	 * @param equipment
-	 * @return a List with Equipments using an Equipment as a filter
+	 * @param eia
+	 * @return a List with eias using an eia as a filter
 	 */
-	public List<Eia> find(Eia equipment);
+	public List<Eia> find(Eia eia);
 	/**
 	 * @param eiaType
-	 * @return a List with Equipments searching by EiaType
+	 * @return a List with eias searching by EiaType
 	 */
 	public List<Eia> find(EiaType eiaType);
 	/**
 	 * @return
-	 * a List with all the Equipments
+	 * a List with all the eias
 	 */
 	public List<Eia> getAll();
 	/**
 	 * @param offset
 	 * @param size
-	 * @return a List with size Equipments starting from offset
+	 * @return a List with size eias starting from offset
 	 */
 	public List<Eia> getAll(int offset, int size);
 	/**

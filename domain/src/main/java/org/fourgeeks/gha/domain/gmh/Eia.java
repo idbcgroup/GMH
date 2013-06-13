@@ -181,6 +181,29 @@ public class Eia extends AbstractEntity {
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * @param facility
+	 * @param eiaType
+	 * @param buildingLocation
+	 * @param warrantySince
+	 * @param warrantyTimePot
+	 * @param state
+	 * @param warrantyState
+	 */
+	public Eia(Facility facility, EiaType eiaType,
+			BuildingLocation buildingLocation, WarrantySinceEnum warrantySince,
+			TimePeriodEnum warrantyTimePot, EiaStateEnum state,
+			WarrantyStateEnum warrantyState) {
+		super();
+		this.facility = facility;
+		this.eiaType = eiaType;
+		this.buildingLocation = buildingLocation;
+		this.warrantySince = warrantySince;
+		this.warrantyTimePot = warrantyTimePot;
+		this.state = state;
+		this.warrantyState = warrantyState;
+	}
+
 	public Facility getFacility() {
 		return facility;
 	}
@@ -233,6 +256,30 @@ public class Eia extends AbstractEntity {
 	 */
 	public void setSerialNumber(String serialNumber) {
 		this.serialNumber = serialNumber;
+	}
+
+	public TimePeriodEnum getWarrantyTimePot() {
+		return warrantyTimePot;
+	}
+
+	public EiaStateEnum getState() {
+		return state;
+	}
+
+	public WarrantyStateEnum getWarrantyState() {
+		return warrantyState;
+	}
+
+	public void setWarrantyTimePot(TimePeriodEnum warrantyTimePot) {
+		this.warrantyTimePot = warrantyTimePot;
+	}
+
+	public void setState(EiaStateEnum state) {
+		this.state = state;
+	}
+
+	public void setWarrantyState(WarrantyStateEnum warrantyState) {
+		this.warrantyState = warrantyState;
 	}
 
 }

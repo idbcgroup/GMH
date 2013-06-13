@@ -22,15 +22,15 @@ public class GWTEiaServiceImpl extends RemoteServiceServlet implements GWTEiaSer
 	EiaServiceRemote eServiceRemote;
 
 	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.equipment.GWTEquipmentService#save(org.fourgeeks.gha.domain.gmh.Equipment)
+	 * @see org.fourgeeks.gha.webclient.client.eia.GWTEiaService#save(org.fourgeeks.gha.domain.gmh.Eia)
 	 */
 	@Override
-	public void save(Eia equipment) {
-		eServiceRemote.save(equipment);
+	public void save(Eia eia) {
+		eServiceRemote.save(eia);
 	}
 
 	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.equipment.GWTEquipmentService#find(long)
+	 * @see org.fourgeeks.gha.webclient.client.eia.GWTEiaService#find(long)
 	 */
 	@Override
 	public Eia find(long Id) {
@@ -38,16 +38,16 @@ public class GWTEiaServiceImpl extends RemoteServiceServlet implements GWTEiaSer
 	}
 
 	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.equipment.GWTEquipmentService#find(org.fourgeeks.gha.domain.gmh.Equipment)
+	 * @see org.fourgeeks.gha.webclient.client.eia.GWTEiaService#find(org.fourgeeks.gha.domain.gmh.Eia)
 	 */
 	@Override
-	public List<Eia> find(Eia equipment) {
-		// TODO Auto-generated method stub
+	public List<Eia> find(Eia eia) {
+		//TODO: implementar en el ejb primero
 		return null;
 	}
 
 	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.equipment.GWTEquipmentService#find(org.fourgeeks.gha.domain.gmh.EiaType)
+	 * @see org.fourgeeks.gha.webclient.client.eia.GWTEiaService#find(org.fourgeeks.gha.domain.gmh.EiaType)
 	 */
 	@Override
 	public List<Eia> find(EiaType eiaType) {
@@ -55,7 +55,7 @@ public class GWTEiaServiceImpl extends RemoteServiceServlet implements GWTEiaSer
 	}
 
 	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.equipment.GWTEquipmentService#getAll()
+	 * @see org.fourgeeks.gha.webclient.client.eia.GWTEiaService#getAll()
 	 */
 	@Override
 	public List<Eia> getAll() {
@@ -63,7 +63,7 @@ public class GWTEiaServiceImpl extends RemoteServiceServlet implements GWTEiaSer
 	}
 
 	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.equipment.GWTEquipmentService#getAll(int, int)
+	 * @see org.fourgeeks.gha.webclient.client.eia.GWTEiaService#getAll(int, int)
 	 */
 	@Override
 	public List<Eia> getAll(int offset, int size) {
@@ -71,11 +71,11 @@ public class GWTEiaServiceImpl extends RemoteServiceServlet implements GWTEiaSer
 	}
 
 	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.equipment.GWTEquipmentService#delete(long)
+	 * @see org.fourgeeks.gha.webclient.client.eia.GWTEiaService#delete(long)
 	 */
 	@Override
 	public void delete(long Id) {
-		eServiceRemote.delete(Id);		
+		eServiceRemote.delete(Id);
 	}
 
 }
