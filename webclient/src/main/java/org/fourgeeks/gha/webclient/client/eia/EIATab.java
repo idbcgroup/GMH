@@ -12,7 +12,7 @@ public class EIATab extends GHATab {
 	public static final String ID = "eia";
 	private static final String TITLE = "Equipos";
 	private GHATabHeader header;
-	private EIATopSection topSection;
+	private EIATabTopSection topSection;
 
 	private EiaType eiaType;
 
@@ -22,7 +22,7 @@ public class EIATab extends GHATab {
 		header.setTitle(TITLE);
 		VLayout verticalPanel = new VLayout();
 		verticalPanel.setBackgroundColor("#E0E0E0");
-		topSection = new EIATopSection();
+		topSection = new EIATabTopSection();
 		// Bottom Section: SubTabs de Info
 		EIAInternalTabset bottomTabset = new EIAInternalTabset();
 		topSection.AddEIATypeSelectionListener(bottomTabset);

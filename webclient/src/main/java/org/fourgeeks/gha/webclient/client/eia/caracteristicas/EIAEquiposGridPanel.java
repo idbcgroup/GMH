@@ -1,10 +1,7 @@
 package org.fourgeeks.gha.webclient.client.eia.caracteristicas;
 
 import org.fourgeeks.gha.webclient.client.eia.EIAForm;
-import org.fourgeeks.gha.webclient.client.eia.EIARecord;
 
-import com.google.gwt.user.client.Event;
-import com.google.gwt.user.client.History;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.BackgroundRepeat;
@@ -17,33 +14,23 @@ import com.smartgwt.client.widgets.grid.ListGridRecord;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIAEquiposGridPanel extends HLayout {
+public class EIAEquiposGridPanel extends VLayout {
 
 	private EIAForm form;
-	private EIAEquiposGrid eiaGrid = new EIAEquiposGrid();
+	private EIAEquiposGrid eiaGrid;
+	{
+		form = new EIAForm();
+		eiaGrid = new EIAEquiposGrid();
+	}
 
 	public EIAEquiposGridPanel() {
 		super();
-		form = new EIAForm();
-
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding top-padding");// Esto es VUDU!
-
-		HLayout filterPanel = new HLayout();
-		filterPanel.setHeight(35);
 		Label title = new Label("<h3>Lista de Equipos por Tipo EIA</h3>");
-		title.setWidth(200);
-
-		// filterPanel.setMembersMargin(15);
-		// //FilterBuilder filterBuilder = new FilterBuilder();
-		// IButton filterButton = new IButton("Filtrar");
-
-		filterPanel.addMembers(title/* filterButton */);
-
-		VLayout mainPanel = new VLayout();
-
-		mainPanel.addMembers(filterPanel, eiaGrid);
+		title.setHeight(30);
+		addMember(title);
 
 		// //////Botones laterales
 		VLayout sideButtons = new VLayout();
@@ -72,23 +59,12 @@ public class EIAEquiposGridPanel extends HLayout {
 		Img deleteButton = new Img("../resources/icons/delete.png");
 		deleteButton.setSize("20px", "20px");
 
-		ImgButton setsButton = new ImgButton();
-		setsButton.sinkEvents(Event.MOUSEEVENTS);
-		setsButton.setSrc("../resources/icons/set.png");
-		setsButton.setShowRollOver(false);
-		setsButton.setSize("20px", "20px");
-		setsButton.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				EIARecord selectedRecord = (EIARecord) eiaGrid
-						.getSelectedRecord();
-				History.newItem("eia/" + selectedRecord.getCode());
-			}
-		});
+		sideButtons.addMembers(addButton, editButton, deleteButton);
 
-		sideButtons.addMembers(addButton, editButton, deleteButton, setsButton);
+		HLayout gridPanel = new HLayout();
+		gridPanel.addMembers(eiaGrid, sideButtons);
 
-		addMembers(mainPanel, sideButtons);
+		addMembers(gridPanel);
 
 	}
 

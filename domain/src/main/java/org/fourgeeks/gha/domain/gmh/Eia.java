@@ -235,4 +235,19 @@ public class Eia extends AbstractEntity {
 		this.serialNumber = serialNumber;
 	}
 
+	/**
+	 * @return the warrantySince
+	 */
+	public WarrantySinceEnum getWarrantySince() {
+		return warrantySince;
+	}
+
+	/**
+	 * @param warrantySince
+	 *            the warrantySince to set
+	 */
+	public void setWarrantySince(WarrantySinceEnum warrantySince) {
+		this.warrantySince = warrantySince;
+	}
+
 }

@@ -19,14 +19,19 @@ import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIATopSection extends HLayout implements EIATypeSelectionListener {
+public class EIATabTopSection extends HLayout implements
+		EIATypeSelectionListener {
 
 	private List<EIATypeSelectionListener> selectionListeners = new LinkedList<EIATypeSelectionListener>();
 
 	private GHATextItem nameField;
 	private EIATypeSearchForm eiaTypeSearchForm = new EIATypeSearchForm();
 
-	public EIATopSection() {
+	private GHATextItem codigoEIA;
+
+	private GHATextItem marcaEIA;
+
+	public EIATabTopSection() {
 		super();
 		eiaTypeSearchForm.AddEIATypeSelectionListener(this);
 		setStyleName("sides-padding");// Esto es VUDU!
@@ -36,9 +41,9 @@ public class EIATopSection extends HLayout implements EIATypeSelectionListener {
 		setBackgroundColor("#E0E0E0");
 		// setBackgroundRepeat(BackgroundRepeat.REPEAT_Y);
 
-		GHATextItem codigoEIA = new GHATextItem("Código");
-		nameField = new GHATextItem("Nombre");
-		GHATextItem marcaEIA = new GHATextItem("Marca");
+		codigoEIA = new GHATextItem("Código", false);
+		nameField = new GHATextItem("Nombre", false);
+		marcaEIA = new GHATextItem("Marca", false);
 		GHATextItem modeloEIA = new GHATextItem("Modelo");
 		GHATextItem fabricante = new GHATextItem("Fabricante");
 		GHASelectItem typeField = new GHASelectItem("Tipo");
@@ -68,7 +73,7 @@ public class EIATopSection extends HLayout implements EIATypeSelectionListener {
 		// form.setCellPadding(20);
 		// form.setPadding(10);
 
-		GHAButton cleanImg = new GHAButton("../resources/icons/boton3.png");
+		GHAButton cleanImg = new GHAButton("../resources/icons/clean.png");
 		GHAButton searchImg = new GHAButton("../resources/icons/search.png");
 		searchImg.addClickHandler(new ClickHandler() {
 
@@ -114,6 +119,10 @@ public class EIATopSection extends HLayout implements EIATypeSelectionListener {
 	@Override
 	public void select(EiaType eiaType) {
 		selectEiaType(eiaType);
+		codigoEIA.setValue(eiaType.getCode());
+		nameField.setValue(eiaType.getName());
+		if (eiaType.getBrand() != null)
+			marcaEIA.setValue(eiaType.getBrand().getName());
 
 	}
 

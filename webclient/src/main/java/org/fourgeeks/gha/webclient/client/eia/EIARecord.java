@@ -22,12 +22,32 @@ public class EIARecord extends GHAGridRecord<Eia> {
 			// setEiaType(eia.getEiaType().getId());
 			// setEiaTypeName(eia.getEiaType().getName());
 			setCode(eia.getEiaType().getCode());
+			if (eia.getEiaType().getBrand() != null) {
+				setBrandName(eia.getEiaType().getBrand().getName());
+				setBrandId(eia.getEiaType().getBrand().getId());
+			}
 		}
 
 		setSerialNumber(eia.getSerialNumber());
 		setName(eia.getEiaType().getName());
 		// setFacility(eia.getFacility().getName());
 		// setStatus(eia.getStatus());
+	}
+
+	private void setBrandId(long id) {
+		setAttribute("brandId", id);
+	}
+
+	private void setBrandName(String name) {
+		setAttribute("brandName", name);
+	}
+
+	public String getBrandName() {
+		return getAttributeAsString("brandName");
+	}
+
+	public String getBrandId() {
+		return getAttributeAsString("brandId");
 	}
 
 	public String getCode() {
@@ -79,7 +99,7 @@ public class EIARecord extends GHAGridRecord<Eia> {
 	}
 
 	@Override
-	public Eia toEntity() {
+	public Eia toEntity() {// TODO TOFIX
 		Eia eia = new Eia();
 		eia.setId(getId());
 		// eia.setSerial(getSerial());

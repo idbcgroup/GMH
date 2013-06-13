@@ -17,6 +17,7 @@ import javax.sql.DataSource;
 import org.fourgeeks.gha.domain.enu.EiaMovilityEnum;
 import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
 import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
+import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
 import org.fourgeeks.gha.domain.ess.SingleSignOnUser;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gmh.Brand;
@@ -43,7 +44,7 @@ public class TestData {
 	public void inicializar() {
 		userTestData();
 		createIndexs();
-		// eiaTypeTestData();
+		eiaTypeTestData();
 	}
 
 	private void createIndexs() {
@@ -53,6 +54,7 @@ public class TestData {
 		try {
 			con = dataSource.getConnection();
 		} catch (SQLException e2) {
+			e2.printStackTrace();
 			return;
 		}
 		PreparedStatement ps;
@@ -60,6 +62,7 @@ public class TestData {
 			ps = con.prepareStatement("CREATE INDEX username_index ON singlesignonuser (username)");
 			ps.execute();
 		} catch (SQLException e1) {
+			e1.printStackTrace();
 			return;
 		}
 
@@ -67,6 +70,7 @@ public class TestData {
 			ps = con.prepareStatement("CREATE INDEX eiaType_index ON eiatype (type)");
 			ps.execute();
 		} catch (SQLException e) {
+			e.printStackTrace();
 			return;
 		}
 
@@ -122,34 +126,39 @@ public class TestData {
 		try {
 			em.createQuery(query).getSingleResult();
 		} catch (NoResultException e) {
-			Manufacturer manufacturer = new Manufacturer();
-			manufacturer.setName("Epson");
-			em.persist(manufacturer);
+			try {
+				Manufacturer manufacturer = new Manufacturer();
+				manufacturer.setName("Epson");
+				em.persist(manufacturer);
 
-			Brand brand = new Brand();
-			brand.setName("Stylus");
-			em.persist(brand);
+				Brand brand = new Brand();
+				brand.setName("Stylus");
+				em.persist(brand);
 
-			EiaType eiaType = new EiaType();
-			eiaType.setName("Impresora Epson multifuncional");
-			eiaType.setModel("Deskjet 9510");
-			eiaType.setManufacturer(manufacturer);
-			eiaType.setBrand(brand);
-			eiaType.setMovility(EiaMovilityEnum.FIXED);
-			eiaType.setType(EiaTypeEnum.EQUIPMENT);
-			eiaType.setSubtype(EiaSubTypeEnum.IT_SYSTEM);
-			eiaType.setCode("IMPHP9523");
-			em.persist(eiaType);
+				EiaType eiaType = new EiaType();
+				eiaType.setName("Impresora Epson multifuncional");
+				eiaType.setModel("Deskjet 9510");
+				eiaType.setManufacturer(manufacturer);
+				eiaType.setBrand(brand);
+				eiaType.setMovility(EiaMovilityEnum.FIXED);
+				eiaType.setType(EiaTypeEnum.EQUIPMENT);
+				eiaType.setSubtype(EiaSubTypeEnum.IT_SYSTEM);
+				eiaType.setCode("IMPHP9523");
+				em.persist(eiaType);
 
-			BuildingLocation buildingLocation = new BuildingLocation();
-			em.persist(buildingLocation);
+				BuildingLocation buildingLocation = new BuildingLocation();
+				em.persist(buildingLocation);
 
-			Eia eia = new Eia();
-			eia.setBuildingLocation(buildingLocation);
-			eia.setCode("TESTCODE");
-			eia.setEiatype(eiaType);
-			eia.setSerialNumber("SERIALNUMBER");
-			em.persist(eia);
+				Eia eia = new Eia();
+				eia.setWarrantySince(WarrantySinceEnum.ACCEPTATION);
+				eia.setBuildingLocation(buildingLocation);
+				eia.setCode("TESTCODE");
+				eia.setEiatype(eiaType);
+				eia.setSerialNumber("SERIALNUMBER");
+				em.persist(eia);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
 		}
 	}
 

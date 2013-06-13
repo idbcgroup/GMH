@@ -16,4 +16,9 @@ public class GHATextItem extends TextItem {
 		this();
 		setTitle(title);
 	}
+
+	public GHATextItem(String title, boolean active) {
+		this(title);
+		setDisabled(!active);
+	}
 }
