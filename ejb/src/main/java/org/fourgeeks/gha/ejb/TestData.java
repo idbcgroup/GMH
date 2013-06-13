@@ -49,15 +49,15 @@ public class TestData {
 		userTestData();
 		createIndexs();
 		eiaTypeTestData();
-		//eiaTestData();
+		// eiaTestData();
 	}
 
 	/**
 	 * 
 	 */
 	private void eiaTestData() {
-		//TODO: probar los servicios ejb para el eia
-		
+		// TODO: probar los servicios ejb para el eia
+
 	}
 
 	private void createIndexs() {
@@ -102,20 +102,24 @@ public class TestData {
 			brand.setName("Stylus");
 			em.persist(brand);
 
-			EiaType eiaType = new EiaType(brand, manufacturer, "Epson", EiaMobilityEnum.FIXED, EiaTypeEnum.EQUIPMENT, EiaSubTypeEnum.IT_SYSTEM);
+			EiaType eiaType = new EiaType(brand, manufacturer, "Epson",
+					EiaMobilityEnum.FIXED, EiaTypeEnum.EQUIPMENT,
+					EiaSubTypeEnum.IT_SYSTEM);
 			em.persist(eiaType);
 
 			BuildingLocation buildingLocation = new BuildingLocation();
 			em.persist(buildingLocation);
-			
+
 			Facility facility = new Facility();
 			em.persist(facility);
 
-			Eia eia = new Eia(facility, eiaType, buildingLocation, WarrantySinceEnum.ACCEPTATION, TimePeriodEnum.DAYS, EiaStateEnum.TEST, WarrantyStateEnum.VALID);
+			Eia eia = new Eia(facility, eiaType, buildingLocation,
+					WarrantySinceEnum.ACCEPTATION, TimePeriodEnum.DAYS,
+					EiaStateEnum.TEST, WarrantyStateEnum.VALID);
 			eia.setCode("TESTCODE");
 			eia.setEiatype(eiaType);
 			eia.setSerialNumber("SERIALNUMBER");
-			
+
 			em.persist(eia);
 		}
 	}
