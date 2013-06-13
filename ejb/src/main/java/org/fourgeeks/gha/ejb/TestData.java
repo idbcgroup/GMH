@@ -18,6 +18,7 @@ import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
 import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
+import org.fourgeeks.gha.domain.enu.LocationLevelEnum;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
 import org.fourgeeks.gha.domain.enu.WarrantyStateEnum;
@@ -28,6 +29,7 @@ import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
+import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.domain.mix.LegalEntity;
 import org.fourgeeks.gha.ejb.gmh.EiaServiceRemote;
 
@@ -49,15 +51,6 @@ public class TestData {
 		userTestData();
 		createIndexs();
 		eiaTypeTestData();
-		//eiaTestData();
-	}
-
-	/**
-	 * 
-	 */
-	private void eiaTestData() {
-		//TODO: probar los servicios ejb para el eia
-		
 	}
 
 	private void createIndexs() {
@@ -73,14 +66,10 @@ public class TestData {
 		try {
 			ps = con.prepareStatement("CREATE INDEX username_index ON singlesignonuser (username)");
 			ps.execute();
-		} catch (SQLException e1) {
-			return;
-		}
-
-		try {
 			ps = con.prepareStatement("CREATE INDEX eiaType_index ON eiatype (type)");
 			ps.execute();
-		} catch (SQLException e) {
+			con.close();
+		} catch (SQLException e1) {
 			return;
 		}
 
@@ -104,8 +93,11 @@ public class TestData {
 
 			EiaType eiaType = new EiaType(brand, manufacturer, "Epson", EiaMobilityEnum.FIXED, EiaTypeEnum.EQUIPMENT, EiaSubTypeEnum.IT_SYSTEM);
 			em.persist(eiaType);
-
-			BuildingLocation buildingLocation = new BuildingLocation();
+			
+			Bpi bpi = new Bpi();
+			em.persist(bpi);
+			
+			BuildingLocation buildingLocation = new BuildingLocation(bpi, "Building001", LocationLevelEnum.AREA_HALL, 2);
 			em.persist(buildingLocation);
 			
 			Facility facility = new Facility();

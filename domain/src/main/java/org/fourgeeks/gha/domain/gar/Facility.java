@@ -1,15 +1,11 @@
 package org.fourgeeks.gha.domain.gar;
 
-import java.util.Collection;
-
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
-import org.fourgeeks.gha.domain.gmh.Eia;
 
 @Entity
 public class Facility extends AbstractEntity{
@@ -23,8 +19,8 @@ public class Facility extends AbstractEntity{
 	@JoinColumn(name = "waioFk")
 	private Waio waio;
 	
-	@OneToMany(mappedBy = "facility")
-	private Collection <Eia> equipments;
+//	@OneToMany(mappedBy = "facility")
+//	private Collection <Eia> equipments;
 	
 	@OneToOne
 	@JoinColumn(name = "resourceServiceFk")
@@ -48,9 +44,9 @@ public class Facility extends AbstractEntity{
 		return waio;
 	}
 
-	public Collection<Eia> getEquipments() {
-		return equipments;
-	}
+//	public Collection<Eia> getEquipments() {
+//		return equipments;
+//	}
 
 	public ResourceService getResourceService() {
 		return resourceService;
@@ -64,9 +60,9 @@ public class Facility extends AbstractEntity{
 		this.waio = waio;
 	}
 
-	public void setEquipments(Collection<Eia> equipments) {
-		this.equipments = equipments;
-	}
+//	public void setEquipments(Collection<Eia> equipments) {
+//		this.equipments = equipments;
+//	}
 
 	public void setResourceService(ResourceService resourceService) {
 		this.resourceService = resourceService;
