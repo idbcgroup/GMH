@@ -9,7 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
-import org.fourgeeks.gha.domain.enu.EiaMovilityEnum;
+import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
 import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
 import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 
@@ -57,7 +57,7 @@ public class EiaType extends AbstractEntity {
 	/** Código UMDNS length =16 */
 
 	@Column(nullable = false)
-	private EiaMovilityEnum movility;
+	private EiaMobilityEnum mobility;
 	/** Equipo es movilizable length =60 */
 
 	@Column(nullable = false)
@@ -73,6 +73,25 @@ public class EiaType extends AbstractEntity {
 	public EiaType() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	
+	/**
+	 * @param brand
+	 * @param manufacturer
+	 * @param name
+	 * @param movility
+	 * @param type
+	 * @param subtype
+	 */
+	public EiaType(Brand brand, Manufacturer manufacturer, String name,
+			EiaMobilityEnum mobility, EiaTypeEnum type, EiaSubTypeEnum subtype) {
+		super();
+		this.brand = brand;
+		this.manufacturer = manufacturer;
+		this.name = name;
+		this.mobility = mobility;
+		this.type = type;
+		this.subtype = subtype;
 	}
 
 	public Brand getBrand() {
@@ -107,8 +126,8 @@ public class EiaType extends AbstractEntity {
 		return eiaUmdns;
 	}
 
-	public EiaMovilityEnum getMovility() {
-		return movility;
+	public EiaMobilityEnum getMobility() {
+		return mobility;
 	}
 
 	public EiaTypeEnum getType() {
@@ -151,8 +170,8 @@ public class EiaType extends AbstractEntity {
 		this.eiaUmdns = eiaUmdns;
 	}
 
-	public void setMovility(EiaMovilityEnum movility) {
-		this.movility = movility;
+	public void setMobility(EiaMobilityEnum mobility) {
+		this.mobility = mobility;
 	}
 
 	public void setType(EiaTypeEnum type) {

@@ -14,11 +14,16 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
 
-import org.fourgeeks.gha.domain.enu.EiaMovilityEnum;
+import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
+import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
 import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
+import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
+import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
+import org.fourgeeks.gha.domain.enu.WarrantyStateEnum;
 import org.fourgeeks.gha.domain.ess.SingleSignOnUser;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
+import org.fourgeeks.gha.domain.gar.Facility;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
@@ -97,25 +102,20 @@ public class TestData {
 			brand.setName("Stylus");
 			em.persist(brand);
 
-			EiaType eiaType = new EiaType();
-			eiaType.setName("Impresora Epson multifuncional");
-			eiaType.setModel("Deskjet 9510");
-			eiaType.setManufacturer(manufacturer);
-			eiaType.setBrand(brand);
-			eiaType.setMovility(EiaMovilityEnum.FIXED);
-			eiaType.setType(EiaTypeEnum.EQUIPMENT);
-			eiaType.setSubtype(EiaSubTypeEnum.IT_SYSTEM);
-			eiaType.setCode("IMPHP9523");
+			EiaType eiaType = new EiaType(brand, manufacturer, "Epson", EiaMobilityEnum.FIXED, EiaTypeEnum.EQUIPMENT, EiaSubTypeEnum.IT_SYSTEM);
 			em.persist(eiaType);
 
 			BuildingLocation buildingLocation = new BuildingLocation();
 			em.persist(buildingLocation);
+			
+			Facility facility = new Facility();
+			em.persist(facility);
 
-			Eia eia = new Eia();
-			eia.setBuildingLocation(buildingLocation);
+			Eia eia = new Eia(facility, eiaType, buildingLocation, WarrantySinceEnum.ACCEPTATION, TimePeriodEnum.DAYS, EiaStateEnum.TEST, WarrantyStateEnum.VALID);
 			eia.setCode("TESTCODE");
 			eia.setEiatype(eiaType);
 			eia.setSerialNumber("SERIALNUMBER");
+			
 			em.persist(eia);
 		}
 	}

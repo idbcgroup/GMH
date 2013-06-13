@@ -9,4 +9,5 @@ package org.fourgeeks.gha.domain.enu;
  */
 public enum EiaStateEnum {
 	//TODO: faltan los valores
+	TEST
 }
