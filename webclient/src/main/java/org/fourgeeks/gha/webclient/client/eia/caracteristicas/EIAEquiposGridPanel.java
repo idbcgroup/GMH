@@ -1,6 +1,5 @@
 package org.fourgeeks.gha.webclient.client.eia.caracteristicas;
 
-import org.fourgeeks.gha.webclient.client.eia.EIAForm;
 import org.fourgeeks.gha.webclient.client.eia.EIARecord;
 
 import com.google.gwt.user.client.Event;
@@ -19,12 +18,12 @@ import com.smartgwt.client.widgets.layout.VLayout;
 
 public class EIAEquiposGridPanel extends HLayout {
 
-	private EIAForm form;
+	private EIAEquiposCreateForm form;
 	private EIAEquiposGrid eiaGrid = new EIAEquiposGrid();
 
 	public EIAEquiposGridPanel() {
 		super();
-		form = new EIAForm();
+		form = new EIAEquiposCreateForm();
 
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
