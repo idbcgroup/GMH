@@ -258,6 +258,21 @@ public class Eia extends AbstractEntity {
 		this.serialNumber = serialNumber;
 	}
 
+<<<<<<< HEAD
+	/**
+	 * @return the warrantySince
+	 */
+	public WarrantySinceEnum getWarrantySince() {
+		return warrantySince;
+	}
+
+	/**
+	 * @param warrantySince
+	 *            the warrantySince to set
+	 */
+	public void setWarrantySince(WarrantySinceEnum warrantySince) {
+		this.warrantySince = warrantySince;
+=======
 	public TimePeriodEnum getWarrantyTimePot() {
 		return warrantyTimePot;
 	}
@@ -280,21 +295,7 @@ public class Eia extends AbstractEntity {
 
 	public void setWarrantyState(WarrantyStateEnum warrantyState) {
 		this.warrantyState = warrantyState;
-	}
-
-	/**
-	 * @return the warrantySince
-	 */
-	public WarrantySinceEnum getWarrantySince() {
-		return warrantySince;
-	}
-
-	/**
-	 * @param warrantySince
-	 *            the warrantySince to set
-	 */
-	public void setWarrantySince(WarrantySinceEnum warrantySince) {
-		this.warrantySince = warrantySince;
+>>>>>>> 119653ebee18f62c795ca2de9694732cc25685a8
 	}
 
 }

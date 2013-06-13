@@ -19,7 +19,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 public interface GWTEiaService extends RemoteService {
 	/**
 	 * @param eia
-	 * Persist an Equipment to database
+	 * Persist an Eia to database
 	 */
 	public void save(Eia eia);
 	/**
