@@ -101,9 +101,10 @@ public class TestData {
 			em.persist(buildingLocation);
 			
 			Facility facility = new Facility();
+			facility.setBuildingLocation(buildingLocation);
 			em.persist(facility);
 
-			Eia eia = new Eia(facility, eiaType, buildingLocation, WarrantySinceEnum.ACCEPTATION, TimePeriodEnum.DAYS, EiaStateEnum.TEST, WarrantyStateEnum.VALID);
+			Eia eia = new Eia(facility, eiaType, WarrantySinceEnum.ACCEPTATION, TimePeriodEnum.DAYS, EiaStateEnum.TEST, WarrantyStateEnum.VALID);
 			eia.setCode("TESTCODE");
 			eia.setEiatype(eiaType);
 			eia.setSerialNumber("SERIALNUMBER");

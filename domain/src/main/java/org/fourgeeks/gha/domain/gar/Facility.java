@@ -27,7 +27,7 @@ public class Facility extends AbstractEntity{
 	private ResourceService resourceService;
 	
 	@ManyToOne
-	@JoinColumn(name = "buildingLocationFk")
+	@JoinColumn(name = "buildingLocationFk", nullable=false)
 	private BuildingLocation buildingLocation;
 
 	/**
