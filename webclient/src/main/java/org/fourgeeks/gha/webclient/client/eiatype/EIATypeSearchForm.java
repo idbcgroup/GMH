@@ -30,7 +30,7 @@ public class EIATypeSearchForm extends VLayout {
 
 	public EIATypeSearchForm() {
 		// setShowEdges(true);
-		setWidth100();
+		setWidth("100%");
 		setTop(110);
 		setLeft(0);
 		setHeight("75%");
@@ -38,6 +38,7 @@ public class EIATypeSearchForm extends VLayout {
 		setVisibility(Visibility.HIDDEN);
 		setAlign(Alignment.CENTER);
 		setAnimateTime(800);
+		setBorder("2px solid #484848");
 
 		codeEIAItem = new GHATextItem("Código");
 		nameEIAItem = new GHATextItem("Nombre");
