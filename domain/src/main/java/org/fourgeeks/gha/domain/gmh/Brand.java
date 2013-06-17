@@ -28,6 +28,9 @@ public class Brand extends AbstractEntity {
 
 	private String name;
 
+	public Brand() {
+	}
+
 	public Brand(int id, String name) {
 		this.id = id;
 		this.name = name;

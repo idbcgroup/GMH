@@ -93,7 +93,8 @@ public class TestData {
 
 			EiaType eiaType = new EiaType(brand, manufacturer, "Epson",
 					EiaMobilityEnum.FIXED, EiaTypeEnum.EQUIPMENT,
-					EiaSubTypeEnum.IT_SYSTEM);
+					EiaSubTypeEnum.IT_SYSTEM, "90001");
+			eiaType.set
 			em.persist(eiaType);
 
 			Bpi bpi = new Bpi();

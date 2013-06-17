@@ -26,25 +26,14 @@ public class EIATabTopSection extends HLayout implements
 
 	private GHATextItem nameItem;
 	private EIATypeSearchForm eiaTypeSearchForm = new EIATypeSearchForm();
-
-	private GHATextItem codeItem;
-
-	private GHATextItem brandItem;
-
+	private GHATextItem codeItem, brandItem;
 	private GHATextItem modelItem;
-
 	private GHATextItem manItem;
-
 	private GHASelectItem typeItem;
-
 	private GHASelectItem subTypeItem;
-
 	private GHATextItem useAreaItem;
-
 	private GHASelectItem useItem;
-
 	private GHATextItem refactorItem;
-
 	private GHATextItem codigoUMDNSItem;
 
 	public EIATabTopSection() {
