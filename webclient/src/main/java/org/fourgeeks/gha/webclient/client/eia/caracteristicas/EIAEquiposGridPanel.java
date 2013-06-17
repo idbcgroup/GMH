@@ -28,6 +28,8 @@ public class EIAEquiposGridPanel extends VLayout {
 		setStyleName("sides-padding top-padding");// Esto es VUDU!
 		Label title = new Label("<h3>Lista de Equipos por Tipo EIA</h3>");
 		title.setHeight(30);
+		title.setWidth100();
+		title.setStyleName("title-label");
 		addMember(title);
 
 		// //////Botones laterales

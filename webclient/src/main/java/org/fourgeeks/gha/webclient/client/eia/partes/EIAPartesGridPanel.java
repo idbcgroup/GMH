@@ -28,6 +28,8 @@ public class EIAPartesGridPanel extends HLayout {
 		VLayout mainPanel = new VLayout();
 		Label title = new Label("<h3>Partes/Componentes de EIA</h3>");
 		title.setHeight(35);
+		title.setWidth100();
+		title.setStyleName("title-label");
 		
 		DynamicForm options = new DynamicForm();
 		options.setWidth("300px");

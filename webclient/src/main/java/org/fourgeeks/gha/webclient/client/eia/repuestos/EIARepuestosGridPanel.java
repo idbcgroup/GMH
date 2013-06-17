@@ -30,6 +30,8 @@ public class EIARepuestosGridPanel extends HLayout {
 		VLayout mainPanel = new VLayout();
 		Label title = new Label("<h3>Repuestos/Consumibles/Servicios de EIA/Materiales Especiales</h3>");
 		title.setHeight(35);
+		title.setWidth100();
+		title.setStyleName("title-label");
 		
 		DynamicForm options = new DynamicForm();
 		options.setWidth("500px");
