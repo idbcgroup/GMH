@@ -14,7 +14,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
  * @author emiliot
  * 
  */
-@RemoteServiceRelativePath("brand")
+@RemoteServiceRelativePath("manufacturer")
 public interface GWTManufacturerService extends RemoteService {
 	/**
 	 * @return a List with all the Manufacturers

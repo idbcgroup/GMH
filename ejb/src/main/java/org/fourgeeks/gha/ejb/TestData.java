@@ -3,6 +3,7 @@ package org.fourgeeks.gha.ejb;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -31,7 +32,8 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.domain.mix.LegalEntity;
-import org.fourgeeks.gha.ejb.gmh.EiaServiceRemote;
+import org.fourgeeks.gha.ejb.gmh.BrandServiceRemote;
+import org.fourgeeks.gha.ejb.gmh.ManufacturerServiceRemote;
 
 @Startup
 @Singleton
@@ -40,8 +42,11 @@ public class TestData {
 	@PersistenceContext
 	EntityManager em;
 
-	@EJB(name = "gmh.EquipmentService")
-	EiaServiceRemote remote;
+	@EJB(name = "gmh.BrandSErvice")
+	BrandServiceRemote bServiceRemote;
+
+	@EJB(name = "gmh.ManufacturerService")
+	ManufacturerServiceRemote mServiceRemote;
 
 	@Resource(mappedName = "java:/jdbc/gha")
 	DataSource dataSource;
@@ -51,6 +56,69 @@ public class TestData {
 		userTestData();
 		createIndexs();
 		eiaTypeTestData();
+		// brandTestData();
+		// manufacturerTestData();
+	}
+
+	/**
+	 * 
+	 */
+	private void manufacturerTestData() {
+		Manufacturer manufacturer = new Manufacturer();
+		manufacturer.setName("TEST Manufacturer 1");
+		mServiceRemote.save(manufacturer);
+
+		manufacturer.setName("TEST Manufacturer 2");
+		mServiceRemote.save(manufacturer);
+
+		System.out.println("MANUFACTURER: testing find");
+		manufacturer.setName("TEST");
+		List<Manufacturer> findResult = mServiceRemote.find(manufacturer);
+		for (Manufacturer man : findResult) {
+			System.out.println("manufacturer id=" + Long.toString(man.getId())
+					+ " name=" + man.getName());
+		}
+
+		// System.out.println("MANUFACTURER: testing delete");
+		// mServiceRemote.delete(1L);
+
+		System.out.println("MANUFACTURER: testing getAll");
+		List<Manufacturer> getAllResult = mServiceRemote.getAll();
+		for (Manufacturer man : getAllResult) {
+			System.out.println("manufacturer id=" + Long.toString(man.getId())
+					+ " name=" + man.getName());
+		}
+	}
+
+	/**
+	 * 
+	 */
+	private void brandTestData() {
+		Brand brand = new Brand();
+		brand.setName("TEST Brand 1");
+		bServiceRemote.save(brand);
+
+		brand.setName("TEST Brand 2");
+		bServiceRemote.save(brand);
+
+		System.out.println("BRAND: testing find");
+		brand.setName("TEST");
+		List<Brand> findResult = bServiceRemote.find(brand);
+		for (Brand br : findResult) {
+			System.out.println("brand id=" + Long.toString(br.getId())
+					+ " name=" + br.getName());
+		}
+
+		// System.out.println("BRAND: testing delete");
+		// bServiceRemote.delete(1L);
+
+		System.out.println("BRAND: testing getAll");
+		List<Brand> getAllResult = bServiceRemote.getAll();
+		for (Brand br : getAllResult) {
+			System.out.println("manufacturer id=" + Long.toString(br.getId())
+					+ " name=" + br.getName());
+		}
+
 	}
 
 	private void createIndexs() {
@@ -68,8 +136,13 @@ public class TestData {
 			ps.execute();
 			ps = con.prepareStatement("CREATE INDEX eiaType_index ON eiatype (type)");
 			ps.execute();
-			con.close();
 		} catch (SQLException e1) {
+			return;
+		}
+
+		try {
+			con.close();
+		} catch (SQLException e) {
 			return;
 		}
 

@@ -35,6 +35,26 @@
 		<servlet-name>GWTEiaService</servlet-name>
 		<url-pattern>/webclient/eia</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>GWTBrandService</servlet-name>
+		<servlet-class>org.fourgeeks.gha.webclient.server.brand.GWTBrandServiceImpl</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>GWTBrandService</servlet-name>
+		<url-pattern>/webclient/brand</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>GWTManufacturerService</servlet-name>
+		<servlet-class>org.fourgeeks.gha.webclient.server.manufacturer.GWTManufacturerServiceImpl</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>GWTManufacturerService</servlet-name>
+		<url-pattern>/webclient/manufacturer</url-pattern>
+	</servlet-mapping>
 
 	<!-- Default page to serve -->
 	<welcome-file-list>

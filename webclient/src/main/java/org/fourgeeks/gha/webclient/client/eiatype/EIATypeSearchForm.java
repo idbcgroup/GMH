@@ -1,5 +1,6 @@
 package org.fourgeeks.gha.webclient.client.eiatype;
 
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,6 +12,8 @@ import org.fourgeeks.gha.webclient.client.UI.GHAButton;
 import org.fourgeeks.gha.webclient.client.UI.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.brand.BrandModel;
+import org.fourgeeks.gha.webclient.client.manufacturer.ManufacturerModel;
 
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
@@ -29,14 +32,14 @@ public class EIATypeSearchForm extends VLayout {
 	private List<EIATypeSelectionListener> selectionListeners;
 	private GHATextItem codeEIAItem, nameEIAItem, modelItem;
 	private EIATypeGrid eiaTypeGrid;
-	private GHASelectItem brandItem, manField;
+	private GHASelectItem brandItem, manItem;
 	{
 		selectionListeners = new LinkedList<EIATypeSelectionListener>();
 		codeEIAItem = new GHATextItem("Código");
 		nameEIAItem = new GHATextItem("Nombre");
 		brandItem = new GHASelectItem("Marca");
 		modelItem = new GHATextItem("Modelo");
-		manField = new GHASelectItem("Fabricante");
+		manItem = new GHASelectItem("Fabricante");
 	}
 
 	public EIATypeSearchForm() {
@@ -54,7 +57,7 @@ public class EIATypeSearchForm extends VLayout {
 		form.setWidth("*");
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(10);
-		form.setItems(codeEIAItem, nameEIAItem, brandItem, modelItem, manField);
+		form.setItems(codeEIAItem, nameEIAItem, brandItem, modelItem, manItem);
 
 		GHAButton searchButton = new GHAButton("../resources/icons/search.png");
 		searchButton.addClickHandler(new ClickHandler() {
@@ -125,12 +128,33 @@ public class EIATypeSearchForm extends VLayout {
 	}
 
 	private void searchForMans() {
-		// TODO Auto-generated method stub
+		ManufacturerModel.getAll(new GHAAsyncCallback<List<Manufacturer>>() {
+
+			@Override
+			public void onSuccess(List<Manufacturer> result) {
+				LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+				for (Manufacturer manufacturer : result)
+					valueMap.put(manufacturer.getId() + "",
+							manufacturer.getName());
+				manItem.setValueMap(valueMap);
+
+			}
+		});
 
 	}
 
 	private void searchForBrands() {
-		// TODO Auto-generated method stub
+		BrandModel.getAll(new GHAAsyncCallback<List<Brand>>() {
+
+			@Override
+			public void onSuccess(List<Brand> result) {
+				LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+				for (Brand brand : result)
+					valueMap.put(brand.getId() + "", brand.getName());
+				brandItem.setValueMap(valueMap);
+
+			}
+		});
 
 	}
 
@@ -142,17 +166,18 @@ public class EIATypeSearchForm extends VLayout {
 	private void selectEiaType(EiaType eiaType) {
 		for (EIATypeSelectionListener listener : selectionListeners)
 			listener.select(eiaType);
-
 	}
 
 	private void search() {
 		EiaType eiaType = new EiaType();
 		eiaType.setCode(codeEIAItem.getValueAsString());
 		eiaType.setName(nameEIAItem.getValueAsString());
-		eiaType.setBrand(new Brand(0, brandItem.getValueAsString()));
+		if (brandItem.getValue() != null)
+			eiaType.setBrand(new Brand((Integer) brandItem.getValue(), null));
 		eiaType.setModel(modelItem.getValueAsString());
-		eiaType.setManufacturer(new Manufacturer(0, nameEIAItem
-				.getValueAsString()));
+		if (manItem.getValue() != null)
+			eiaType.setManufacturer(new Manufacturer((Integer) manItem
+					.getValue(), null));
 		EIATypeModel.find(eiaType, new GHAAsyncCallback<List<EiaType>>() {
 
 			@Override

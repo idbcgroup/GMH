@@ -11,6 +11,8 @@ public class GHASelectItem extends SelectItem {
 		setHeight(15);
 		setWidth(100);
 		setTitleStyle("input-title");
+		setShowFocused(false);
+		setTextBoxStyle("input");
 	}
 
 	public GHASelectItem(String title) {
