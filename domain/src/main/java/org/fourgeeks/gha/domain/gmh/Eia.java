@@ -15,7 +15,6 @@ import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
 import org.fourgeeks.gha.domain.enu.WarrantyStateEnum;
-import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Facility;
 
 @Entity
@@ -34,12 +33,9 @@ public class Eia extends AbstractEntity {
 	@JoinColumn(name = "eiaTypeFk")
 	private EiaType eiaType;
 
-	// @ManyToMany
-	// private Collection<Waio> waios;
-
-	@ManyToOne
-	@JoinColumn(name = "buildingFk", nullable = false)
-	private BuildingLocation buildingLocation;
+//	@ManyToOne
+//	@JoinColumn(name = "buildingFk", nullable = false)
+//	private BuildingLocation buildingLocation;
 
 	// @OneToOne(mappedBy = "eia")
 	// private SystemPeripheral systemPeripheral;
@@ -184,20 +180,18 @@ public class Eia extends AbstractEntity {
 	/**
 	 * @param facility
 	 * @param eiaType
-	 * @param buildingLocation
 	 * @param warrantySince
 	 * @param warrantyTimePot
 	 * @param state
 	 * @param warrantyState
 	 */
 	public Eia(Facility facility, EiaType eiaType,
-			BuildingLocation buildingLocation, WarrantySinceEnum warrantySince,
+			WarrantySinceEnum warrantySince,
 			TimePeriodEnum warrantyTimePot, EiaStateEnum state,
 			WarrantyStateEnum warrantyState) {
 		super();
 		this.facility = facility;
 		this.eiaType = eiaType;
-		this.buildingLocation = buildingLocation;
 		this.warrantySince = warrantySince;
 		this.warrantyTimePot = warrantyTimePot;
 		this.state = state;
@@ -222,10 +216,6 @@ public class Eia extends AbstractEntity {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
-	}
-
-	public void setBuildingLocation(BuildingLocation buildingLocation) {
-		this.buildingLocation = buildingLocation;
 	}
 
 	/**

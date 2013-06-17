@@ -19,6 +19,8 @@ public class EIARepuestosGridPanel extends HLayout {
 
 	private EIARepuestosGrid eiaRepuestosGrid = new EIARepuestosGrid();
 	private EIAConsumiblesGrid eiaConsumiblesGrid = new EIAConsumiblesGrid();
+	private EIAServiciosGrid eiaServiciosGrid = new EIAServiciosGrid();
+	private EIAMaterialEspecialGrid eiaMaterialEspecialGrid= new EIAMaterialEspecialGrid();
 	
 	public EIARepuestosGridPanel() {
 		setWidth100();
@@ -40,8 +42,10 @@ public class EIARepuestosGridPanel extends HLayout {
 		options.setItems(optionsRB);
 		
 		final VLayout gridContainer = new VLayout();
-        gridContainer.addMembers(eiaRepuestosGrid,eiaConsumiblesGrid);
+        gridContainer.addMembers(eiaRepuestosGrid,eiaConsumiblesGrid, eiaServiciosGrid, eiaMaterialEspecialGrid);
         eiaConsumiblesGrid.hide();
+        eiaServiciosGrid.hide();
+        eiaMaterialEspecialGrid.hide();
         
         optionsRB.addChangeHandler(new ChangeHandler() {
 			@Override
@@ -50,15 +54,23 @@ public class EIARepuestosGridPanel extends HLayout {
 				if (type.equals("Repuesto")){
 					eiaRepuestosGrid.show();
 					eiaConsumiblesGrid.hide();
+					eiaServiciosGrid.hide();
+					eiaMaterialEspecialGrid.hide();
 				}else if(type.equals("Consumible")){
 					eiaRepuestosGrid.hide();
 					eiaConsumiblesGrid.show();
+					eiaServiciosGrid.hide();
+					eiaMaterialEspecialGrid.hide();
 				}else if(type.equals("Servicios")){
 					eiaRepuestosGrid.hide();
 					eiaConsumiblesGrid.hide();
+					eiaServiciosGrid.show();
+					eiaMaterialEspecialGrid.hide();
 				}else if(type.equals("Material Especial")){
 					eiaRepuestosGrid.hide();
 					eiaConsumiblesGrid.hide();
+					eiaServiciosGrid.hide();
+					eiaMaterialEspecialGrid.show();
 				}				
 			}
 		});

@@ -1,5 +1,13 @@
 package org.fourgeeks.gha.domain.gar;
 
+<<<<<<< HEAD
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+
+import org.fourgeeks.gha.domain.AbstractEntity;
+=======
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -7,6 +15,7 @@ import javax.persistence.ManyToOne;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.LocationLevelEnum;
+>>>>>>> 3a69a72106e3e40a94f38d1eca1692c64cecc9a3
 import org.fourgeeks.gha.domain.mix.Bpi;
 
 @Entity
@@ -24,17 +33,36 @@ public class BuildingLocation extends AbstractEntity {
 	/**
 	 * This represents the children of this building location
 	 */
+<<<<<<< HEAD
+	// @OneToMany(mappedBy = "parentBuildingLoc")
+	// private Collection <BuildingLocationChild> buildingLocationChildren;
+
+=======
 //	@OneToMany(mappedBy = "parentBuildingLoc")
 //	private Collection <BuildingLocationChild> buildingLocationChildren;
-
+	
+>>>>>>> 3a69a72106e3e40a94f38d1eca1692c64cecc9a3
 	/**
 	 * This represents the link relation to my parent (if any), semantically it
 	 * says who is my buildingLocationChild to refer to my buildingLocation
 	 * Parent
 	 */
+<<<<<<< HEAD
+	@OneToOne(mappedBy = "buildingLocation")
+	private BuildingLocationChild buildingLocationChild;
+
+	// @OneToMany(mappedBy = "buildingLocation")
+	// private Collection <Waio> waios;
+
+	// @OneToMany(mappedBy = "buildingLocation")
+	// private Collection <Terminal> terminals;
+
+	// @OneToMany(mappedBy = "buildingLocation")
+	// private Collection <Eia> equipments;
+=======
 //	@OneToOne(mappedBy = "buildingLocation")
 //	private BuildingLocationChild buildingLocationChild;
-
+	
 //	@OneToMany(mappedBy = "buildingLocation")
 //	private Collection <Waio> waios;
 	
@@ -128,5 +156,6 @@ public class BuildingLocation extends AbstractEntity {
 		this.units = units;
 	}
 
-
+	
+>>>>>>> 3a69a72106e3e40a94f38d1eca1692c64cecc9a3
 }

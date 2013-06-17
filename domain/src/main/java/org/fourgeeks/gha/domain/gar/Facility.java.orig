@@ -18,10 +18,17 @@ public class Facility extends AbstractEntity {
 	@ManyToOne
 	@JoinColumn(name = "waioFk")
 	private Waio waio;
+<<<<<<< HEAD
 
+	// @OneToMany(mappedBy = "facility")
+	// private Collection <Eia> equipments;
+
+=======
+	
 //	@OneToMany(mappedBy = "facility")
 //	private Collection <Eia> equipments;
-
+	
+>>>>>>> 3a69a72106e3e40a94f38d1eca1692c64cecc9a3
 	@OneToOne
 	@JoinColumn(name = "resourceServiceFk")
 	private ResourceService resourceService;

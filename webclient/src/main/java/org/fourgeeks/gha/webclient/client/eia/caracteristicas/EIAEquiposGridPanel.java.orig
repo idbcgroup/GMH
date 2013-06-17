@@ -1,5 +1,10 @@
 package org.fourgeeks.gha.webclient.client.eia.caracteristicas;
 
+<<<<<<< HEAD
+import org.fourgeeks.gha.webclient.client.eia.EIAForm;
+=======
+import org.fourgeeks.gha.webclient.client.eia.EIARecord;
+>>>>>>> 3a69a72106e3e40a94f38d1eca1692c64cecc9a3
 
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
@@ -15,7 +20,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
 
 public class EIAEquiposGridPanel extends VLayout {
 
-	private EIAEquiposCreateForm form;
+<<<<<<< HEAD
+	private EIAForm form;
 	private EIAEquiposGrid eiaGrid;
 	{
 		form = new EIAForm();
@@ -24,7 +30,15 @@ public class EIAEquiposGridPanel extends VLayout {
 
 	public EIAEquiposGridPanel() {
 		super();
+=======
+	private EIAEquiposCreateForm form;
+	private EIAEquiposGrid eiaGrid = new EIAEquiposGrid();
+
+	public EIAEquiposGridPanel() {
+		super();
 		form = new EIAEquiposCreateForm();
+
+>>>>>>> 3a69a72106e3e40a94f38d1eca1692c64cecc9a3
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding top-padding");// Esto es VUDU!

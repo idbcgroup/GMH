@@ -51,6 +51,18 @@ public class TestData {
 		userTestData();
 		createIndexs();
 		eiaTypeTestData();
+<<<<<<< HEAD
+		// eiaTestData();
+	}
+
+	/**
+	 * 
+	 */
+	private void eiaTestData() {
+		// TODO: probar los servicios ejb para el eia
+
+=======
+>>>>>>> 3a69a72106e3e40a94f38d1eca1692c64cecc9a3
 	}
 
 	private void createIndexs() {
@@ -106,9 +118,13 @@ public class TestData {
 			facility.setBuildingLocation(buildingLocation);
 			em.persist(facility);
 
-			Eia eia = new Eia(facility, eiaType, WarrantySinceEnum.ACCEPTATION, TimePeriodEnum.DAYS, EiaStateEnum.TEST, WarrantyStateEnum.VALID);
+<<<<<<< HEAD
+			Eia eia = new Eia(facility, eiaType, buildingLocation,
 					WarrantySinceEnum.ACCEPTATION, TimePeriodEnum.DAYS,
 					EiaStateEnum.TEST, WarrantyStateEnum.VALID);
+=======
+			Eia eia = new Eia(facility, eiaType, WarrantySinceEnum.ACCEPTATION, TimePeriodEnum.DAYS, EiaStateEnum.TEST, WarrantyStateEnum.VALID);
+>>>>>>> 3a69a72106e3e40a94f38d1eca1692c64cecc9a3
 			eia.setCode("TESTCODE");
 			eia.setEiatype(eiaType);
 			eia.setSerialNumber("SERIALNUMBER");
