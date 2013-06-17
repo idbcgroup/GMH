@@ -27,6 +27,7 @@ public class EIATab extends GHATab {
 		EIAInternalTabset bottomTabset = new EIAInternalTabset();
 		topSection.AddEIATypeSelectionListener(bottomTabset);
 		// Creacion de la tab de EIA
+		
 		verticalPanel.addMember(topSection);
 		verticalPanel.addMember(GHAUiHelper.verticalGraySeparator("10px"));
 		verticalPanel.addMember(bottomTabset);

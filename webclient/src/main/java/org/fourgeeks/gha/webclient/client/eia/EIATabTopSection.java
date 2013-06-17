@@ -7,6 +7,7 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAButton;
 import org.fourgeeks.gha.webclient.client.UI.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
+import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSearchForm;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
@@ -41,7 +42,7 @@ public class EIATabTopSection extends HLayout implements
 		eiaTypeSearchForm.AddEIATypeSelectionListener(this);
 		setStyleName("sides-padding");// Esto es VUDU!
 		setWidth100();
-		setHeight("68px");
+		setHeight(GHAUiHelper.V_SEPARATOR_HEIGHT+"px");
 		// setBackgroundImage("../resources/img/tab1.jpg");
 		setBackgroundColor("#E0E0E0");
 		// setBackgroundRepeat(BackgroundRepeat.REPEAT_Y);
@@ -79,7 +80,7 @@ public class EIATabTopSection extends HLayout implements
 			}
 		});
 		VLayout panelBotones = new VLayout();
-		panelBotones.setHeight("68px");
+		panelBotones.setHeight(GHAUiHelper.V_SEPARATOR_HEIGHT+"px");
 		panelBotones.setWidth(30);
 		panelBotones.setLayoutMargin(5);
 		panelBotones.setBackgroundColor("#E0E0E0");

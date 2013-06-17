@@ -1,6 +1,7 @@
 package org.fourgeeks.gha.webclient.client.eia;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.eia.caracteristicas.EIAEquiposSubTab;
 import org.fourgeeks.gha.webclient.client.eia.costos.EIACostosSubTab;
 import org.fourgeeks.gha.webclient.client.eia.mantenimiento.EIAMantenimientoSubTab;
@@ -10,6 +11,10 @@ import org.fourgeeks.gha.webclient.client.eia.plan_mantenimiento.EIAPlanSubTab;
 import org.fourgeeks.gha.webclient.client.eia.repuestos.EIARepuestosSubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
+import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.event.logical.shared.ResizeHandler;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.smartgwt.client.widgets.tab.TabSet;
 
 public class EIAInternalTabset extends TabSet implements
@@ -26,7 +31,14 @@ public class EIAInternalTabset extends TabSet implements
 	public EIAInternalTabset() {
 		super();
 		setWidth100();
-		setHeight100();
+		setHeight(GHAUiHelper.calculateBottomSectionHeight());
+		Window.addResizeHandler(new ResizeHandler() {
+			@Override
+			public void onResize(ResizeEvent event) {
+				RootPanel.get("main-content").setHeight(GHAUiHelper.calculateTabHeight()+"px");
+				setHeight(GHAUiHelper.calculateBottomSectionHeight());
+			}
+		});
 
 		// Agregando las Subtabs
 		addTab(eiaEquiposSubTab);

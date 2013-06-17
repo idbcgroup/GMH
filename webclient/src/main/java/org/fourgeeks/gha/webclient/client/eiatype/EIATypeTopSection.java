@@ -5,6 +5,7 @@ import java.util.List;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
+import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.BackgroundRepeat;
@@ -28,7 +29,7 @@ public class EIATypeTopSection extends HLayout {
 		this.eiaTypeGrid = eiaTypeGrid;
 		setStyleName("sides-padding");// Esto es VUDU!
 		setWidth100();
-		setHeight("68px");
+		setHeight(GHAUiHelper.V_SEPARATOR_HEIGHT+"px");
 		// setBackgroundImage("../resources/img/tab1.jpg");
 		setBackgroundColor("#E0E0E0");
 		// setBackgroundRepeat(BackgroundRepeat.REPEAT_Y);
@@ -48,7 +49,7 @@ public class EIATypeTopSection extends HLayout {
 		// form.setPadding(10);
 
 		VLayout panelBotones = new VLayout();
-		panelBotones.setHeight("68px");
+		panelBotones.setHeight(GHAUiHelper.V_SEPARATOR_HEIGHT+"px");
 		panelBotones.setWidth(30);
 		panelBotones.setLayoutMargin(5);
 		// botones1.setBackgroundImage("../resources/img/botonBox.jpg");
@@ -76,7 +77,7 @@ public class EIATypeTopSection extends HLayout {
 		panelBotones.addMembers(searchImg, cleanImg);
 
 		VLayout botones2 = new VLayout();
-		botones2.setHeight("68px");
+		botones2.setHeight(GHAUiHelper.V_SEPARATOR_HEIGHT+"px");
 		botones2.setWidth(20);
 		botones2.setLayoutMargin(5);
 		// botones2.setBackgroundImage("../resources/img/botonBox.jpg");

@@ -3,8 +3,12 @@ package org.fourgeeks.gha.webclient.client.home;
 import org.fourgeeks.gha.webclient.client.UI.GHAMenus;
 import org.fourgeeks.gha.webclient.client.UI.GHAPlace;
 import org.fourgeeks.gha.webclient.client.UI.GHATabSet;
+import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
+import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
@@ -36,7 +40,7 @@ public class HomePlace extends GHAPlace {
 		RootPanel.get("user-info").clear();
 		RootPanel.get("menu-bar").clear();
 		RootPanel.get("main-content").removeStyleName("white-background");
-
+		
 		final VLayout userMenu = GHAMenus.userMenu();
 		final VLayout notificationsMenu = GHAMenus.notificationsMenu();
 		// userMenu.draw();
@@ -119,7 +123,14 @@ public class HomePlace extends GHAPlace {
 		 * HTML content = new HTML(html.toString());
 		 */
 		RootPanel.get("user-info").add(userInfo);
-		RootPanel.get("main-content").setHeight("460px");
+		RootPanel.get("main-content").setHeight(GHAUiHelper.calculateTabHeight()+"px");
+		Window.addResizeHandler(new ResizeHandler() {
+			@Override
+			public void onResize(ResizeEvent event) {
+				// TODO Auto-generated method stub
+				RootPanel.get("main-content").setHeight(GHAUiHelper.calculateTabHeight()+"px");
+			}
+		});
 		// TODO: calculo de la altura del main content. para el homeplace y para
 		// el resize
 
@@ -147,6 +158,12 @@ public class HomePlace extends GHAPlace {
 		menuButton.setStylePrimaryName("gha-main-menu");
 		menuButton.setZIndex(33333333);
 		GHATabSet.addMenu(menuButton);
+		
+		int tabHeight = GHAUiHelper.calculateTabHeight();
+		
+//		SC.say("total height:"+Window.getClientHeight()+"\n" +
+//			   "tab height:"+GHAUiHelper.calculateTabHeight()+"\n" +
+//			   "innerPanel height:"+GHAUiHelper.calculateBottomSectionHeight());
 
 	}
 }
