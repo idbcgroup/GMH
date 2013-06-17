@@ -107,8 +107,6 @@ public class TestData {
 			em.persist(facility);
 
 			Eia eia = new Eia(facility, eiaType, WarrantySinceEnum.ACCEPTATION, TimePeriodEnum.DAYS, EiaStateEnum.TEST, WarrantyStateEnum.VALID);
-					WarrantySinceEnum.ACCEPTATION, TimePeriodEnum.DAYS,
-					EiaStateEnum.TEST, WarrantyStateEnum.VALID);
 			eia.setCode("TESTCODE");
 			eia.setEiatype(eiaType);
 			eia.setSerialNumber("SERIALNUMBER");
