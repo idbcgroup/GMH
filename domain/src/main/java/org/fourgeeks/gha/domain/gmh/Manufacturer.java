@@ -27,6 +27,10 @@ public class Manufacturer extends AbstractEntity {
 	// private Collection <EiaType> eiaTypes;
 
 	private String name;
+	
+	public Manufacturer(){
+		
+	}
 
 	public Manufacturer() {
 	}

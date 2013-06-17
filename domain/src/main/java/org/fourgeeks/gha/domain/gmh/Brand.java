@@ -27,6 +27,10 @@ public class Brand extends AbstractEntity {
 	// private ArrayList<EiaType> eiaTypes;
 
 	private String name;
+	
+	public Brand(){
+		
+	}
 
 	public Brand() {
 	}
