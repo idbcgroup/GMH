@@ -95,20 +95,21 @@ public class TestData {
 					EiaMobilityEnum.FIXED, EiaTypeEnum.EQUIPMENT,
 					EiaSubTypeEnum.IT_SYSTEM);
 			em.persist(eiaType);
-			
+
 			Bpi bpi = new Bpi();
 			em.persist(bpi);
-			
-			BuildingLocation buildingLocation = new BuildingLocation(bpi, "Building001", LocationLevelEnum.AREA_HALL, 2);
+
+			BuildingLocation buildingLocation = new BuildingLocation(bpi,
+					"Building001", LocationLevelEnum.AREA_HALL, 2);
 			em.persist(buildingLocation);
 
 			Facility facility = new Facility();
 			facility.setBuildingLocation(buildingLocation);
 			em.persist(facility);
 
-			Eia eia = new Eia(facility, eiaType, WarrantySinceEnum.ACCEPTATION, TimePeriodEnum.DAYS, EiaStateEnum.TEST, WarrantyStateEnum.VALID);
-					WarrantySinceEnum.ACCEPTATION, TimePeriodEnum.DAYS,
-					EiaStateEnum.TEST, WarrantyStateEnum.VALID);
+			Eia eia = new Eia(facility, eiaType, WarrantySinceEnum.ACCEPTATION,
+					TimePeriodEnum.DAYS, EiaStateEnum.TEST,
+					WarrantyStateEnum.VALID);
 			eia.setCode("TESTCODE");
 			eia.setEiatype(eiaType);
 			eia.setSerialNumber("SERIALNUMBER");

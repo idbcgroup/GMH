@@ -17,4 +17,9 @@ public class GHASelectItem extends SelectItem {
 		this();
 		setTitle(title);
 	}
+
+	public GHASelectItem(String title, boolean enabled) {
+		this(title);
+		setDisabled(!enabled);
+	}
 }

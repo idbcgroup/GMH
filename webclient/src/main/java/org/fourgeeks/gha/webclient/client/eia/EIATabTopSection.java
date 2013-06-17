@@ -24,12 +24,28 @@ public class EIATabTopSection extends HLayout implements
 
 	private List<EIATypeSelectionListener> selectionListeners = new LinkedList<EIATypeSelectionListener>();
 
-	private GHATextItem nameField;
+	private GHATextItem nameItem;
 	private EIATypeSearchForm eiaTypeSearchForm = new EIATypeSearchForm();
 
-	private GHATextItem codigoEIA;
+	private GHATextItem codeItem;
 
-	private GHATextItem marcaEIA;
+	private GHATextItem brandItem;
+
+	private GHATextItem modelItem;
+
+	private GHATextItem manItem;
+
+	private GHASelectItem typeItem;
+
+	private GHASelectItem subTypeItem;
+
+	private GHATextItem useAreaItem;
+
+	private GHASelectItem useItem;
+
+	private GHATextItem refactorItem;
+
+	private GHATextItem codigoUMDNSItem;
 
 	public EIATabTopSection() {
 		super();
@@ -41,35 +57,25 @@ public class EIATabTopSection extends HLayout implements
 		setBackgroundColor("#E0E0E0");
 		// setBackgroundRepeat(BackgroundRepeat.REPEAT_Y);
 
-		codigoEIA = new GHATextItem("Código", false);
-		nameField = new GHATextItem("Nombre", false);
-		marcaEIA = new GHATextItem("Marca", false);
-		GHATextItem modeloEIA = new GHATextItem("Modelo");
-		GHATextItem fabricante = new GHATextItem("Fabricante");
-		GHASelectItem typeField = new GHASelectItem("Tipo");
-		GHASelectItem subTypeField = new GHASelectItem("Sub-Tipo");
-		GHASelectItem useAreaField = new GHASelectItem("Se usa en area");
-		GHASelectItem useField = new GHASelectItem("para");
-		// CheckboxItem isServiceCheckField = new CheckboxItem("Es servicio");
-		GHATextItem descriptionField = new GHATextItem("Descripción");
-		GHATextItem codigoUMDNSField = new GHATextItem("Código UMDNS");
-		// GHATextItem unidsFields = new GHATextItem("Unidades");
-		// GHATextItem mField = new GHATextItem("En mantenimiento");
-		// GHATextItem desincorporatedField = new
-		// GHATextItem("Desincorporadas");
-		// GHATextItem availableField = new GHATextItem("Disponibles");
-		// CheckboxItem useServiceField = new CheckboxItem("Usa servicios");
-		// CheckboxItem isMovilField = new CheckboxItem("Móvil");
-		// CheckboxItem isSpecialMaterialField = new CheckboxItem(
-		// "Material Especial");
+		codeItem = new GHATextItem("Código", false);
+		nameItem = new GHATextItem("Nombre", false);
+		brandItem = new GHATextItem("Marca", false);
+		modelItem = new GHATextItem("Modelo", false);
+		manItem = new GHATextItem("Fabricante", false);
+		typeItem = new GHASelectItem("Tipo", false);
+		subTypeItem = new GHASelectItem("Sub-Tipo", false);
+		useAreaItem = new GHATextItem("Se usa en area", false);
+		useItem = new GHASelectItem("para", false);
+		refactorItem = new GHATextItem("Descripción", false);
+		codigoUMDNSItem = new GHATextItem("Código UMDNS", false);
 
 		DynamicForm form = new DynamicForm();
 		form.setWidth("100px");
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(6);
-		form.setItems(codigoEIA, nameField, marcaEIA, modeloEIA, fabricante,
-				typeField, subTypeField, useAreaField, useField,
-				descriptionField, codigoUMDNSField);
+		form.setItems(codeItem, nameItem, brandItem, modelItem, manItem,
+				typeItem, subTypeItem, useAreaItem, useItem, refactorItem,
+				codigoUMDNSItem);
 		// form.setCellPadding(20);
 		// form.setPadding(10);
 
@@ -119,10 +125,31 @@ public class EIATabTopSection extends HLayout implements
 	@Override
 	public void select(EiaType eiaType) {
 		selectEiaType(eiaType);
-		codigoEIA.setValue(eiaType.getCode());
-		nameField.setValue(eiaType.getName());
+		codeItem.setValue(eiaType.getCode());
+		nameItem.setValue(eiaType.getName());
+
 		if (eiaType.getBrand() != null)
-			marcaEIA.setValue(eiaType.getBrand().getName());
+			brandItem.setValue(eiaType.getBrand().getName());
+
+		modelItem.setValue(eiaType.getModel());
+
+		if (eiaType.getManufacturer() != null)
+			manItem.setValue(eiaType.getManufacturer().getName());
+
+		if (eiaType.getType() != null)
+			typeItem.setValue(eiaType.getType().name());
+
+		if (eiaType.getSubtype() != null)
+			subTypeItem.setValue(eiaType.getSubtype().name());
+
+		if (eiaType.getSubtype() != null)
+			subTypeItem.setValue(eiaType.getSubtype().name());
+
+		useAreaItem.setValue(eiaType.getUseDescription());
+
+		useItem = new GHASelectItem("para", false);
+		refactorItem = new GHATextItem("Descripción", false);
+		codigoUMDNSItem = new GHATextItem("Código UMDNS", false);
 
 	}
 

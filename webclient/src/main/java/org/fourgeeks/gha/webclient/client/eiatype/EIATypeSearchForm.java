@@ -3,7 +3,9 @@ package org.fourgeeks.gha.webclient.client.eiatype;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAButton;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
@@ -27,6 +29,9 @@ public class EIATypeSearchForm extends VLayout {
 	private GHATextItem codeEIAItem;
 	private GHATextItem nameEIAItem;
 	private EIATypeGrid eiaTypeGrid;
+	private GHATextItem brandItem;
+	private GHATextItem modelItem;
+	private GHATextItem manField;
 
 	public EIATypeSearchForm() {
 		// setShowEdges(true);
@@ -42,15 +47,15 @@ public class EIATypeSearchForm extends VLayout {
 
 		codeEIAItem = new GHATextItem("Código");
 		nameEIAItem = new GHATextItem("Nombre");
-		GHATextItem marcaEIA = new GHATextItem("Marca");
-		GHATextItem modeloEIA = new GHATextItem("Modelo");
-		GHATextItem fabricante = new GHATextItem("Fabricante");
+		brandItem = new GHATextItem("Marca");
+		modelItem = new GHATextItem("Modelo");
+		manField = new GHATextItem("Fabricante");
 
 		DynamicForm form = new DynamicForm();
 		form.setWidth("*");
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(10);
-		form.setItems(codeEIAItem, nameEIAItem, marcaEIA, modeloEIA, fabricante);
+		form.setItems(codeEIAItem, nameEIAItem, brandItem, modelItem, manField);
 
 		GHAButton searchButton = new GHAButton("../resources/icons/search.png");
 		searchButton.addClickHandler(new ClickHandler() {
@@ -131,7 +136,12 @@ public class EIATypeSearchForm extends VLayout {
 
 	private void search() {
 		EiaType eiaType = new EiaType();
+		eiaType.setCode(codeEIAItem.getValueAsString());
 		eiaType.setName(nameEIAItem.getValueAsString());
+		eiaType.setBrand(new Brand(0, brandItem.getValueAsString()));
+		eiaType.setModel(modelItem.getValueAsString());
+		eiaType.setManufacturer(new Manufacturer(0, nameEIAItem
+				.getValueAsString()));
 		EIATypeModel.find(eiaType, new GHAAsyncCallback<List<EiaType>>() {
 
 			@Override
