@@ -95,11 +95,12 @@ public class TestData {
 					EiaMobilityEnum.FIXED, EiaTypeEnum.EQUIPMENT,
 					EiaSubTypeEnum.IT_SYSTEM);
 			em.persist(eiaType);
-			
+
 			Bpi bpi = new Bpi();
 			em.persist(bpi);
-			
-			BuildingLocation buildingLocation = new BuildingLocation(bpi, "Building001", LocationLevelEnum.AREA_HALL, 2);
+
+			BuildingLocation buildingLocation = new BuildingLocation(bpi,
+					"Building001", LocationLevelEnum.AREA_HALL, 2);
 			em.persist(buildingLocation);
 
 			Facility facility = new Facility();

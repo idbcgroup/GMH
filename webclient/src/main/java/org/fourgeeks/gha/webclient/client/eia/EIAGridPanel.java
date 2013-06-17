@@ -1,5 +1,7 @@
 package org.fourgeeks.gha.webclient.client.eia;
 
+import org.fourgeeks.gha.webclient.client.eia.caracteristicas.EIAEquiposCreateForm;
+
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.History;
 import com.smartgwt.client.types.Alignment;
@@ -14,12 +16,12 @@ import com.smartgwt.client.widgets.layout.VLayout;
 
 public class EIAGridPanel extends HLayout {
 
-	private EIAForm form;
+	private EIAEquiposCreateForm form;
 	private EIAGrid eiaTypeGrid = new EIAGrid();
 
 	public EIAGridPanel() {
 		super();
-		form = new EIAForm();
+		form = new EIAEquiposCreateForm();
 		setStyleName("sides-padding top-padding");// Esto es VUDU!
 		setWidth100();
 		// setBackgroundImage("../resources/img/tab1.jpg");

@@ -1,6 +1,5 @@
 package org.fourgeeks.gha.webclient.client.eia.caracteristicas;
 
-
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.BackgroundRepeat;
@@ -18,7 +17,6 @@ public class EIAEquiposGridPanel extends VLayout {
 	private EIAEquiposCreateForm form;
 	private EIAEquiposGrid eiaGrid;
 	{
-		form = new EIAForm();
 		eiaGrid = new EIAEquiposGrid();
 	}
 

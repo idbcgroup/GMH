@@ -15,7 +15,7 @@ import org.fourgeeks.gha.domain.AbstractEntity;
  */
 
 @Entity
-@Table(name = "manufacturer", uniqueConstraints=@UniqueConstraint(columnNames={"name"}))
+@Table(name = "manufacturer", uniqueConstraints = @UniqueConstraint(columnNames = { "name" }))
 public class Manufacturer extends AbstractEntity {
 
 	/**
@@ -27,6 +27,15 @@ public class Manufacturer extends AbstractEntity {
 	// private Collection <EiaType> eiaTypes;
 
 	private String name;
+	
+	public Manufacturer(){
+		
+	}
+
+	public Manufacturer(int id, String name) {
+		this.id = id;
+		this.name = name;
+	}
 
 	public String getName() {
 		return name;
