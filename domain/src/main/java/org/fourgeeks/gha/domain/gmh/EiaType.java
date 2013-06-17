@@ -74,7 +74,7 @@ public class EiaType extends AbstractEntity {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	/**
 	 * @param brand
 	 * @param manufacturer
@@ -84,7 +84,8 @@ public class EiaType extends AbstractEntity {
 	 * @param subtype
 	 */
 	public EiaType(Brand brand, Manufacturer manufacturer, String name,
-			EiaMobilityEnum mobility, EiaTypeEnum type, EiaSubTypeEnum subtype) {
+			EiaMobilityEnum mobility, EiaTypeEnum type, EiaSubTypeEnum subtype,
+			String model) {
 		super();
 		this.brand = brand;
 		this.manufacturer = manufacturer;
@@ -92,6 +93,7 @@ public class EiaType extends AbstractEntity {
 		this.mobility = mobility;
 		this.type = type;
 		this.subtype = subtype;
+		setModel(model);
 	}
 
 	public Brand getBrand() {
