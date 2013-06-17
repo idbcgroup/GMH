@@ -5,7 +5,10 @@ package org.fourgeeks.gha.webclient.server.manufacturer;
 
 import java.util.List;
 
+import javax.ejb.EJB;
+
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
+import org.fourgeeks.gha.ejb.gmh.ManufacturerServiceRemote;
 import org.fourgeeks.gha.webclient.client.manufacturer.GWTManufacturerService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -17,6 +20,9 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class GWTManufacturerServiceImpl extends RemoteServiceServlet implements
 		GWTManufacturerService {
 
+	@EJB(name = "gmh.ManufacturerService")
+	ManufacturerServiceRemote service;
+
 	/**
 	 * 
 	 */
@@ -24,14 +30,12 @@ public class GWTManufacturerServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public List<Manufacturer> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return service.getAll();
 	}
 
 	@Override
 	public List<Manufacturer> getAll(int offset, int size) {
 		// TODO Auto-generated method stub
-		return null;
+		return service.getAll();
 	}
-
 }

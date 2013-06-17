@@ -24,17 +24,10 @@ public class EIATabTopSection extends HLayout implements
 
 	private List<EIATypeSelectionListener> selectionListeners = new LinkedList<EIATypeSelectionListener>();
 
-	private GHATextItem nameItem;
 	private EIATypeSearchForm eiaTypeSearchForm = new EIATypeSearchForm();
-	private GHATextItem codeItem, brandItem;
-	private GHATextItem modelItem;
-	private GHATextItem manItem;
-	private GHASelectItem typeItem;
-	private GHASelectItem subTypeItem;
-	private GHATextItem useAreaItem;
-	private GHASelectItem useItem;
-	private GHATextItem refactorItem;
-	private GHATextItem codigoUMDNSItem;
+	private GHATextItem codeItem, brandItem, modelItem, manItem, nameItem;
+	private GHASelectItem typeItem, subTypeItem, useItem;
+	private GHATextItem useAreaItem, refactorItem, codigoUMDNSItem;
 
 	public EIATabTopSection() {
 		super();
@@ -47,7 +40,7 @@ public class EIATabTopSection extends HLayout implements
 		// setBackgroundRepeat(BackgroundRepeat.REPEAT_Y);
 
 		codeItem = new GHATextItem("Código", false);
-		nameItem = new GHATextItem("Nombre", false);
+		nameItem = new GHATextItem("Nombre", true);
 		brandItem = new GHATextItem("Marca", false);
 		modelItem = new GHATextItem("Modelo", false);
 		manItem = new GHATextItem("Fabricante", false);
