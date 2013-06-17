@@ -8,6 +8,7 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAButton;
+import org.fourgeeks.gha.webclient.client.UI.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
@@ -25,17 +26,21 @@ import com.smartgwt.client.widgets.layout.VLayout;
 
 public class EIATypeSearchForm extends VLayout {
 
-	private List<EIATypeSelectionListener> selectionListeners = new LinkedList<EIATypeSelectionListener>();
-	private GHATextItem codeEIAItem;
-	private GHATextItem nameEIAItem;
+	private List<EIATypeSelectionListener> selectionListeners;
+	private GHATextItem codeEIAItem, nameEIAItem, modelItem;
 	private EIATypeGrid eiaTypeGrid;
-	private GHATextItem brandItem;
-	private GHATextItem modelItem;
-	private GHATextItem manField;
+	private GHASelectItem brandItem, manField;
+	{
+		selectionListeners = new LinkedList<EIATypeSelectionListener>();
+		codeEIAItem = new GHATextItem("Código");
+		nameEIAItem = new GHATextItem("Nombre");
+		brandItem = new GHASelectItem("Marca");
+		modelItem = new GHATextItem("Modelo");
+		manField = new GHASelectItem("Fabricante");
+	}
 
 	public EIATypeSearchForm() {
-		// setShowEdges(true);
-		setWidth("100%");
+		setWidth100();
 		setTop(110);
 		setLeft(0);
 		setHeight("75%");
@@ -44,12 +49,6 @@ public class EIATypeSearchForm extends VLayout {
 		setAlign(Alignment.CENTER);
 		setAnimateTime(800);
 		setBorder("2px solid #484848");
-
-		codeEIAItem = new GHATextItem("Código");
-		nameEIAItem = new GHATextItem("Nombre");
-		brandItem = new GHATextItem("Marca");
-		modelItem = new GHATextItem("Modelo");
-		manField = new GHATextItem("Fabricante");
 
 		DynamicForm form = new DynamicForm();
 		form.setWidth("*");
@@ -121,6 +120,18 @@ public class EIATypeSearchForm extends VLayout {
 		gridLayout.addMember(sideGridButtons);
 
 		addMember(gridLayout);
+		searchForBrands();
+		searchForMans();
+	}
+
+	private void searchForMans() {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void searchForBrands() {
+		// TODO Auto-generated method stub
+
 	}
 
 	public void AddEIATypeSelectionListener(

@@ -94,7 +94,6 @@ public class TestData {
 			EiaType eiaType = new EiaType(brand, manufacturer, "Epson",
 					EiaMobilityEnum.FIXED, EiaTypeEnum.EQUIPMENT,
 					EiaSubTypeEnum.IT_SYSTEM, "90001");
-			eiaType.set
 			em.persist(eiaType);
 
 			Bpi bpi = new Bpi();
@@ -108,7 +107,9 @@ public class TestData {
 			facility.setBuildingLocation(buildingLocation);
 			em.persist(facility);
 
-			Eia eia = new Eia(facility, eiaType, WarrantySinceEnum.ACCEPTATION, TimePeriodEnum.DAYS, EiaStateEnum.TEST, WarrantyStateEnum.VALID);
+			Eia eia = new Eia(facility, eiaType, WarrantySinceEnum.ACCEPTATION,
+					TimePeriodEnum.DAYS, EiaStateEnum.TEST,
+					WarrantyStateEnum.VALID);
 			eia.setCode("TESTCODE");
 			eia.setEiatype(eiaType);
 			eia.setSerialNumber("SERIALNUMBER");

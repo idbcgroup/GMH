@@ -27,10 +27,6 @@ public class Manufacturer extends AbstractEntity {
 	// private Collection <EiaType> eiaTypes;
 
 	private String name;
-	
-	public Manufacturer(){
-		
-	}
 
 	public Manufacturer(int id, String name) {
 		this.id = id;
