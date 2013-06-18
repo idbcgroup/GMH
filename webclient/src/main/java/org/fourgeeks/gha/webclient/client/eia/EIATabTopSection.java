@@ -3,6 +3,7 @@ package org.fourgeeks.gha.webclient.client.eia;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAButton;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
@@ -105,11 +106,25 @@ public class EIATabTopSection extends HLayout implements
 		if (eiaType.getManufacturer() != null)
 			manItem.setValue(eiaType.getManufacturer().getName());
 
-		if (eiaType.getType() != null) {
-			Window.alert("type no es nulo");
-			Window.alert(eiaType.getType().toString());
-			typeItem.setValue(eiaType.getType().toString());
+		try {
+			EiaTypeEnum type = eiaType.getType();
+			Window.alert(type == null ? "type es null" : "type no es null");
+			try {
+				Window.alert(type.name());
+			} catch (Exception e) {
+				Window.alert("error en name");
+			}
+			try {
+				Window.alert(type.toString());
+			} catch (Exception e) {
+				Window.alert("error en tostring");
+			}
+		} catch (Exception e) {
+			Window.alert("error en getType");
 		}
+
+		if (eiaType.getType() != null)
+			typeItem.setValue(eiaType.getType().toString());
 
 		if (eiaType.getSubtype() != null)
 			subTypeItem.setValue(eiaType.getSubtype().toString());

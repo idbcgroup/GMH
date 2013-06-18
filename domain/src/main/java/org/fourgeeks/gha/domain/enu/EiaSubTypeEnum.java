@@ -20,4 +20,15 @@ public enum EiaSubTypeEnum {
 	public String toString() {
 		return this.name;
 	}
+
+	public static EiaSubTypeEnum getByString(String string) {
+		if (string == null)
+			return null;
+
+		for (EiaSubTypeEnum e : EiaSubTypeEnum.values())
+			if (string.equals(e.toString()))
+				return e;
+
+		return null;
+	}
 }

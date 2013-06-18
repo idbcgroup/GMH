@@ -19,4 +19,15 @@ public enum EiaMobilityEnum {
 	public String toString() {
 		return this.name;
 	}
+
+	public static EiaMobilityEnum getByString(String string) {
+		if (string == null)
+			return null;
+
+		for (EiaMobilityEnum e : EiaMobilityEnum.values())
+			if (string.equals(e.toString()))
+				return e;
+
+		return null;
+	}
 }
