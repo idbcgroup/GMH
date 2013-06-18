@@ -13,8 +13,8 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.gmh.Brand;
-import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.Eia;
+import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 
 /**
@@ -74,56 +74,9 @@ public class EiaService implements EiaServiceRemote {
 	public List<Eia> find(EiaType eiaType) {
 		List <Eia> res = null;
 		String query = "SELECT e from Eia e JOIN e.eiaType t ";
+		String filters = buildFilters(eiaType);
 		
-		int varsAdded = 0;
-		String filters = "";
-		
-		Brand brand = eiaType.getBrand();
-		Manufacturer manufacturer = eiaType.getManufacturer();
-
-		if (brand != null && brand.getId() > 0) {
-			if (varsAdded > 0) {
-				filters += " OR ";
-			}
-			++varsAdded;
-			filters += "t.brand='" + Long.toString(eiaType.getBrand().getId())
-					+ "' ";
-		}
-
-		if (manufacturer != null && manufacturer.getId() > 0) {
-			if (varsAdded > 0) {
-				filters += " OR ";
-			}
-			++varsAdded;
-			filters += "t.manufacturer='"
-					+ Long.toString(eiaType.getManufacturer().getId()) + "' ";
-		}
-
-		if (eiaType.getModel() != null) {
-			if (varsAdded > 0) {
-				filters += " OR ";
-			}
-			++varsAdded;
-			filters += " t.model like '%" + eiaType.getModel() + "%' ";
-		}
-
-		if (eiaType.getName() != null) {
-			if (varsAdded > 0) {
-				filters += " OR ";
-			}
-			varsAdded++;
-			filters += "t.name like '%" + eiaType.getName() + "%' ";
-		}
-
-		if (eiaType.getCode() != null) {
-			if (varsAdded > 0) {
-				filters += " OR ";
-			}
-			varsAdded++;
-			filters += "t.code like '%" + eiaType.getCode() + "%' ";
-		}
-		
-		if(varsAdded > 0)query += " WHERE " +filters;
+		if(filters != "")query += " WHERE " +filters;
 		query += " order by e.id";
 		
 		try{
@@ -194,5 +147,61 @@ public class EiaService implements EiaServiceRemote {
 			// TODO: send exception to webClient
 		}
 		
+	}
+
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#buildFilters(org.fourgeeks.gha.domain.gmh.EiaType)
+	 */
+	@Override
+	public String buildFilters(EiaType eiaType) {
+		Brand brand = eiaType.getBrand();
+		Manufacturer manufacturer = eiaType.getManufacturer();
+		
+		String filters = "";
+		int varsAdded = 0;
+		
+		if (brand != null && brand.getId() > 0) {
+			if (varsAdded > 0) {
+				filters += " OR ";
+			}
+			++varsAdded;
+			filters += "t.brand='" + Long.toString(eiaType.getBrand().getId())
+					+ "' ";
+		}
+
+		if (manufacturer != null && manufacturer.getId() > 0) {
+			if (varsAdded > 0) {
+				filters += " OR ";
+			}
+			++varsAdded;
+			filters += "t.manufacturer='"
+					+ Long.toString(eiaType.getManufacturer().getId()) + "' ";
+		}
+
+		if (eiaType.getModel() != null && eiaType.getModel() != "") {
+			if (varsAdded > 0) {
+				filters += " OR ";
+			}
+			++varsAdded;
+			filters += " lower(t.model) like '%" + eiaType.getModel().toLowerCase() + "%' ";
+		}
+
+		if (eiaType.getName() != null && eiaType.getName() != "") {
+			if (varsAdded > 0) {
+				filters += " OR ";
+			}
+			varsAdded++;
+			filters += "lower(t.name) like '%" + eiaType.getName().toLowerCase() + "%' ";
+		}
+
+		if (eiaType.getCode() != null && eiaType.getCode() != "") {
+			if (varsAdded > 0) {
+				filters += " OR ";
+			}
+			varsAdded++;
+			filters += "t.code like '%" + eiaType.getCode() + "%' ";
+		}
+		
+		return filters;
 	}
 }

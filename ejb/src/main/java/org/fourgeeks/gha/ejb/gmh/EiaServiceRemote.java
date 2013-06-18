@@ -54,5 +54,11 @@ public interface EiaServiceRemote {
 	 * Delete an entity from database using its id
 	 */
 	public void delete(long Id);
+	
+	/**
+	 * @param eiaType
+	 * @return a string with the filters to the sql query
+	 */
+	public String buildFilters(EiaType eiaType);
 
 }

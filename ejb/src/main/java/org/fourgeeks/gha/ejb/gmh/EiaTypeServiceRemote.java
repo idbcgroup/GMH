@@ -63,5 +63,11 @@ public interface EiaTypeServiceRemote {
 	 * @return List of EiaType beginning in offset up to size
 	 */
 	public List <EiaType> getAll(int offset, int size);
+	
+	/**
+	 * @param eiaType
+	 * @return a string with the filters to the sql query
+	 */
+	public String buildFilters(EiaType eiaType);
 
 }
