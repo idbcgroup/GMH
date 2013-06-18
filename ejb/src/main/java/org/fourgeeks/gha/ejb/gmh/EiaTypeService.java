@@ -157,56 +157,10 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 	public List<EiaType> find(EiaType eiaType, int offset, int size) {
 		List<EiaType> res = null;
 
-		Brand brand = eiaType.getBrand();
-		Manufacturer manufacturer = eiaType.getManufacturer();
-
-		int varsAdded = 0;
 		String query = "SELECT e from EiaType e ";
-		String filters = "";
-
-		if (brand != null && brand.getId() > 0) {
-			if (varsAdded > 0) {
-				filters += " OR ";
-			}
-			++varsAdded;
-			filters += "brand='" + Long.toString(eiaType.getBrand().getId())
-					+ "' ";
-		}
-
-		if (manufacturer != null && manufacturer.getId() > 0) {
-			if (varsAdded > 0) {
-				filters += " OR ";
-			}
-			++varsAdded;
-			filters += "manufacturer='"
-					+ Long.toString(eiaType.getManufacturer().getId()) + "' ";
-		}
-
-		if (eiaType.getModel() != null) {
-			if (varsAdded > 0) {
-				filters += " OR ";
-			}
-			++varsAdded;
-			filters += " model like '%" + eiaType.getModel() + "%' ";
-		}
-
-		if (eiaType.getName() != null) {
-			if (varsAdded > 0) {
-				filters += " OR ";
-			}
-			varsAdded++;
-			filters += "name like '%" + eiaType.getName() + "%' ";
-		}
-
-		if (eiaType.getCode() != null) {
-			if (varsAdded > 0) {
-				filters += " OR ";
-			}
-			varsAdded++;
-			filters += "code like '%" + eiaType.getCode() + "%' ";
-		}
+		String filters = buildFilters(eiaType);
 		
-		if(varsAdded > 0)query += " WHERE " +filters;
+		if(filters != "")query += " WHERE " +filters;
 		query += " order by id";
 
 		try {
@@ -237,10 +191,44 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 		Brand brand = eiaType.getBrand();
 		Manufacturer manufacturer = eiaType.getManufacturer();
 
-		int varsAdded = 0;
 		String query = "SELECT e from EiaType e ";
-		String filters = "";
+		String filters = buildFilters(eiaType);
+		
+		if(brand != null){
+			//TODO: join brand
+		}
+		
+		if(manufacturer != null){
+			//TODO: join manufacturer
+		}
+		
+		if(filters != "")query += " WHERE " +filters;
+		query += " order by id";
 
+		try {
+			res = em.createQuery(query, EiaType.class).getResultList();
+		} catch (NoResultException e) {
+			logger.info("Find by EiaType: no results");
+			res = null;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			res = null;
+		}
+		return res;
+
+	}
+
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypeServiceRemote#buildFilters(org.fourgeeks.gha.domain.gmh.EiaType)
+	 */
+	@Override
+	public String buildFilters(EiaType eiaType) {
+		Brand brand = eiaType.getBrand();
+		Manufacturer manufacturer = eiaType.getManufacturer();
+		
+		String filters = "";
+		int varsAdded = 0;
+		
 		if (brand != null && brand.getId() > 0) {
 			if (varsAdded > 0) {
 				filters += " OR ";
@@ -259,23 +247,23 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 					+ Long.toString(eiaType.getManufacturer().getId()) + "' ";
 		}
 
-		if (eiaType.getModel() != null) {
+		if (eiaType.getModel() != null && eiaType.getModel() != "") {
 			if (varsAdded > 0) {
 				filters += " OR ";
 			}
 			++varsAdded;
-			filters += " model like '%" + eiaType.getModel() + "%' ";
+			filters += " lower(model) like '%" + eiaType.getModel().toLowerCase() + "%' ";
 		}
 
-		if (eiaType.getName() != null) {
+		if (eiaType.getName() != null && eiaType.getName() != "") {
 			if (varsAdded > 0) {
 				filters += " OR ";
 			}
 			varsAdded++;
-			filters += "name like '%" + eiaType.getName() + "%' ";
+			filters += "lower(name) like '%" + eiaType.getName().toLowerCase() + "%' ";
 		}
 
-		if (eiaType.getCode() != null) {
+		if (eiaType.getCode() != null && eiaType.getCode() != "") {
 			if (varsAdded > 0) {
 				filters += " OR ";
 			}
@@ -283,20 +271,7 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 			filters += "code like '%" + eiaType.getCode() + "%' ";
 		}
 		
-		if(varsAdded > 0)query += " WHERE " +filters;
-		query += " order by id";
-
-		try {
-			res = em.createQuery(query, EiaType.class).getResultList();
-		} catch (NoResultException e) {
-			logger.info("Find by EiaType: no results");
-			res = null;
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			res = null;
-		}
-		return res;
-
+		return filters;
 	}
 
 }
