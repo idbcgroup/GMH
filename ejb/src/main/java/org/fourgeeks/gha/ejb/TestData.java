@@ -176,13 +176,13 @@ public class TestData {
 			brand.setName("Deskjet");
 			em.persist(brand2);
 
-			EiaType eiaType = new EiaType(brand, manufacturer, "Epson",
+			EiaType eiaType = new EiaType(brand, manufacturer, "Impresora Tinta",
 					EiaMobilityEnum.FIXED, EiaTypeEnum.EQUIPMENT,
 					EiaSubTypeEnum.IT_SYSTEM, "90001");
 			eiaType.setCode("Stylus");
 			em.persist(eiaType);
 			
-			EiaType eiaType2 = new EiaType(brand2, manufacturer, "Epson",
+			EiaType eiaType2 = new EiaType(brand2, manufacturer, "Impresora Laser",
 					EiaMobilityEnum.FIXED, EiaTypeEnum.EQUIPMENT,
 					EiaSubTypeEnum.IT_SYSTEM, "90002");
 			eiaType2.setCode("Deskjet");

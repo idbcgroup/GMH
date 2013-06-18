@@ -188,19 +188,8 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 	public List<EiaType> find(EiaType eiaType) {
 		List<EiaType> res = null;
 
-		Brand brand = eiaType.getBrand();
-		Manufacturer manufacturer = eiaType.getManufacturer();
-
 		String query = "SELECT e from EiaType e ";
 		String filters = buildFilters(eiaType);
-		
-		if(brand != null){
-			//TODO: join brand
-		}
-		
-		if(manufacturer != null){
-			//TODO: join manufacturer
-		}
 		
 		if(filters != "")query += " WHERE " +filters;
 		query += " order by id";
