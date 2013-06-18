@@ -23,25 +23,16 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class EIATabTopSection extends HLayout implements
 		EIATypeSelectionListener {
 
-	private List<EIATypeSelectionListener> selectionListeners = new LinkedList<EIATypeSelectionListener>();
-
-	private EIATypeSearchForm eiaTypeSearchForm = new EIATypeSearchForm();
-	private GHATextItem codeItem, brandItem, modelItem, manItem, nameItem;
+	private List<EIATypeSelectionListener> selectionListeners;
+	private EIATypeSearchForm eiaTypeSearchForm;
+	private GHATextItem codeItem, brandItem, modelItem, manItem, nameItem,
+			useAreaItem, refactorItem, codigoUMDNSItem;
 	private GHASelectItem typeItem, subTypeItem, useItem;
-	private GHATextItem useAreaItem, refactorItem, codigoUMDNSItem;
-
-	public EIATabTopSection() {
-		super();
-		eiaTypeSearchForm.AddEIATypeSelectionListener(this);
-		setStyleName("sides-padding");// Esto es VUDU!
-		setWidth100();
-		setHeight(GHAUiHelper.V_SEPARATOR_HEIGHT+"px");
-		// setBackgroundImage("../resources/img/tab1.jpg");
-		setBackgroundColor("#E0E0E0");
-		// setBackgroundRepeat(BackgroundRepeat.REPEAT_Y);
-
+	{
+		selectionListeners = new LinkedList<EIATypeSelectionListener>();
+		eiaTypeSearchForm = new EIATypeSearchForm();
 		codeItem = new GHATextItem("Código", false);
-		nameItem = new GHATextItem("Nombre", true);
+		nameItem = new GHATextItem("Nombre", false);
 		brandItem = new GHATextItem("Marca", false);
 		modelItem = new GHATextItem("Modelo", false);
 		manItem = new GHATextItem("Fabricante", false);
@@ -51,6 +42,17 @@ public class EIATabTopSection extends HLayout implements
 		useItem = new GHASelectItem("para", false);
 		refactorItem = new GHATextItem("Descripción", false);
 		codigoUMDNSItem = new GHATextItem("Código UMDNS", false);
+	}
+
+	public EIATabTopSection() {
+		super();
+		eiaTypeSearchForm.AddEIATypeSelectionListener(this);
+		setStyleName("sides-padding");// Esto es VUDU!
+		setWidth100();
+		setHeight(GHAUiHelper.V_SEPARATOR_HEIGHT + "px");
+		// setBackgroundImage("../resources/img/tab1.jpg");
+		setBackgroundColor("#E0E0E0");
+		// setBackgroundRepeat(BackgroundRepeat.REPEAT_Y);
 
 		DynamicForm form = new DynamicForm();
 		form.setWidth("100px");
@@ -73,7 +75,7 @@ public class EIATabTopSection extends HLayout implements
 			}
 		});
 		VLayout panelBotones = new VLayout();
-		panelBotones.setHeight(GHAUiHelper.V_SEPARATOR_HEIGHT+"px");
+		panelBotones.setHeight(GHAUiHelper.V_SEPARATOR_HEIGHT + "px");
 		panelBotones.setWidth(30);
 		panelBotones.setLayoutMargin(5);
 		panelBotones.setBackgroundColor("#E0E0E0");
@@ -130,9 +132,9 @@ public class EIATabTopSection extends HLayout implements
 
 		useAreaItem.setValue(eiaType.getUseDescription());
 
-		useItem = new GHASelectItem("para", false);
-		refactorItem = new GHATextItem("Descripción", false);
-		codigoUMDNSItem = new GHATextItem("Código UMDNS", false);
+		// useItem = new GHASelectItem("para", false);
+		// refactorItem = new GHATextItem("Descripción", false);
+		// codigoUMDNSItem = new GHATextItem("Código UMDNS", false);
 
 	}
 

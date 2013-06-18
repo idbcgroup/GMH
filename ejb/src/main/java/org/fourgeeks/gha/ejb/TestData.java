@@ -49,7 +49,7 @@ public class TestData {
 
 	@EJB(name = "gmh.ManufacturerService")
 	ManufacturerServiceRemote mServiceRemote;
-	
+
 	@EJB(name = "gmh.EiaTypeService")
 	EiaTypeServiceRemote eiaTypeServ;
 	
@@ -132,30 +132,25 @@ public class TestData {
 	private void createIndexs() {
 
 		System.out.println("Creating indexes...");
-		Connection con;
-		try {
-			con = dataSource.getConnection();
-		} catch (SQLException e2) {
-			return;
-		}
+		Connection con = null;
 		PreparedStatement ps;
 		try {
+			con = dataSource.getConnection();
 			ps = con.prepareStatement("CREATE INDEX username_index ON singlesignonuser (username)");
 			ps.execute();
 			ps = con.prepareStatement("CREATE INDEX eiaType_index ON eiatype (type)");
 			ps.execute();
-		} catch (SQLException e1) {
-			return;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+				return;
+			}
 		}
-
-		try {
-			con.close();
-		} catch (SQLException e) {
-			return;
-		}
-
 		System.out.println("...done creating indexes!");
-
 	}
 
 	private void eiaTypeTestData() {
@@ -171,20 +166,18 @@ public class TestData {
 			Brand brand = new Brand();
 			brand.setName("Epson");
 			em.persist(brand);
-			
+
 			Brand brand2 = new Brand();
 			brand2.setName("HP");
 			em.persist(brand2);
-
+			
 			EiaType eiaType = new EiaType(brand, manufacturer, "Impresora Tinta",
 					EiaMobilityEnum.FIXED, EiaTypeEnum.EQUIPMENT,
-					EiaSubTypeEnum.IT_SYSTEM, "Stylus");
-			eiaType.setCode("90001");
-			em.persist(eiaType);
+					EiaSubTypeEnum.IT_SYSTEM, "Stylus", "90001");
 			
 			EiaType eiaType2 = new EiaType(brand2, manufacturer, "Impresora Laser",
 					EiaMobilityEnum.FIXED, EiaTypeEnum.EQUIPMENT,
-					EiaSubTypeEnum.IT_SYSTEM, "Deskjet");
+					EiaSubTypeEnum.IT_SYSTEM, "Deskjet", "90002");
 			eiaType2.setCode("90002");
 			em.persist(eiaType2);
 
@@ -206,15 +199,15 @@ public class TestData {
 			eia.setSerialNumber("001");
 
 			em.persist(eia);
-			
+
 			System.out.println("TESTING find eiatype");
 			EiaType eiaType3 = new EiaType();
 			eiaType3.setBrand(brand);
 			List<EiaType> v = eiaTypeServ.find(eiaType3);
-			for(EiaType next : v){
+			for (EiaType next : v) {
 				System.out.println(next.getCode());
 			}
-			
+
 			System.out.println("TESTING find eia by eiatype");
 			List<Eia> eias = eiaServ.find(eiaType3);
 			for(Eia next : eias){
