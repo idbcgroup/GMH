@@ -31,12 +31,12 @@ public class EIAInternalTabset extends TabSet implements
 	public EIAInternalTabset() {
 		super();
 		setWidth100();
-		setHeight(GHAUiHelper.calculateBottomSectionHeight());
+		setHeight(GHAUiHelper.getBottomSectionHeight());
 		Window.addResizeHandler(new ResizeHandler() {
 			@Override
 			public void onResize(ResizeEvent event) {
 				RootPanel.get("main-content").setHeight(GHAUiHelper.calculateTabHeight()+"px");
-				setHeight(GHAUiHelper.calculateBottomSectionHeight());
+				setHeight(GHAUiHelper.getBottomSectionHeight());
 			}
 		});
 

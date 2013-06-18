@@ -46,7 +46,9 @@ public class EIATypeSearchForm extends VLayout {
 		setWidth100();
 		setTop(110);
 		setLeft(0);
-		setHeight("75%");
+		// setHeight("75%");
+		setHeight(GHAUiHelper.getBottomSectionHeight() + "px");
+		// Window.alert(GHAUiHelper.getBottomSectionHeight() + "");
 		setBackgroundColor("#E0E0E0");
 		setVisibility(Visibility.HIDDEN);
 		setAlign(Alignment.CENTER);
@@ -173,11 +175,13 @@ public class EIATypeSearchForm extends VLayout {
 		eiaType.setCode(codeEIAItem.getValueAsString());
 		eiaType.setName(nameEIAItem.getValueAsString());
 		if (brandItem.getValue() != null)
-			eiaType.setBrand(new Brand((Integer) brandItem.getValue(), null));
+			eiaType.setBrand(new Brand(Integer.valueOf(brandItem
+					.getValueAsString()), null));
 		eiaType.setModel(modelItem.getValueAsString());
 		if (manItem.getValue() != null)
-			eiaType.setManufacturer(new Manufacturer((Integer) manItem
-					.getValue(), null));
+			eiaType.setManufacturer(new Manufacturer(Integer.valueOf(manItem
+					.getValueAsString()), null));
+
 		EIATypeModel.find(eiaType, new GHAAsyncCallback<List<EiaType>>() {
 
 			@Override
@@ -189,5 +193,4 @@ public class EIATypeSearchForm extends VLayout {
 
 		});
 	}
-
 }
