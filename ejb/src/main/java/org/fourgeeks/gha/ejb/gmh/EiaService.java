@@ -204,4 +204,19 @@ public class EiaService implements EiaServiceRemote {
 		
 		return filters;
 	}
+
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#update(org.fourgeeks.gha.domain.gmh.Eia)
+	 */
+	@Override
+	public void update(Eia eia) {
+		try{
+			em.merge(eia);
+		}catch(Exception e){
+			logger.info("ERROR: unable to update object " + eia.toString());
+			e.printStackTrace();
+			// TODO: send exception to webClient
+		}
+		
+	}
 }

@@ -51,10 +51,10 @@ public class TestData {
 	ManufacturerServiceRemote mServiceRemote;
 	
 	@EJB(name = "gmh.EiaTypeService")
-	EiaTypeServiceRemote eiRemote;
+	EiaTypeServiceRemote eiaTypeServ;
 	
 	@EJB(name = "gmh.EiaService")
-	EiaServiceRemote eRemote;
+	EiaServiceRemote eiaServ;
 
 	@Resource(mappedName = "java:/jdbc/gha")
 	DataSource dataSource;
@@ -165,27 +165,27 @@ public class TestData {
 			em.createQuery(query).getSingleResult();
 		} catch (NoResultException e) {
 			Manufacturer manufacturer = new Manufacturer();
-			manufacturer.setName("Epson");
+			manufacturer.setName("ChinaFactory");
 			em.persist(manufacturer);
 
 			Brand brand = new Brand();
-			brand.setName("Stylus");
+			brand.setName("Epson");
 			em.persist(brand);
 			
 			Brand brand2 = new Brand();
-			brand.setName("Deskjet");
+			brand2.setName("HP");
 			em.persist(brand2);
 
 			EiaType eiaType = new EiaType(brand, manufacturer, "Impresora Tinta",
 					EiaMobilityEnum.FIXED, EiaTypeEnum.EQUIPMENT,
-					EiaSubTypeEnum.IT_SYSTEM, "90001");
-			eiaType.setCode("Stylus");
+					EiaSubTypeEnum.IT_SYSTEM, "Stylus");
+			eiaType.setCode("90001");
 			em.persist(eiaType);
 			
 			EiaType eiaType2 = new EiaType(brand2, manufacturer, "Impresora Laser",
 					EiaMobilityEnum.FIXED, EiaTypeEnum.EQUIPMENT,
-					EiaSubTypeEnum.IT_SYSTEM, "90002");
-			eiaType2.setCode("Deskjet");
+					EiaSubTypeEnum.IT_SYSTEM, "Deskjet");
+			eiaType2.setCode("90002");
 			em.persist(eiaType2);
 
 			Bpi bpi = new Bpi();
@@ -202,27 +202,34 @@ public class TestData {
 			Eia eia = new Eia(facility, eiaType, WarrantySinceEnum.ACCEPTATION,
 					TimePeriodEnum.DAYS, EiaStateEnum.TEST,
 					WarrantyStateEnum.VALID);
-			eia.setCode("TESTCODE");
-			eia.setEiatype(eiaType);
-			eia.setSerialNumber("SERIALNUMBER");
+			eia.setCode("Stylus-001");
+			eia.setSerialNumber("001");
 
 			em.persist(eia);
 			
 			System.out.println("TESTING find eiatype");
 			EiaType eiaType3 = new EiaType();
 			eiaType3.setBrand(brand);
-			List<EiaType> v = eiRemote.find(eiaType3);
+			List<EiaType> v = eiaTypeServ.find(eiaType3);
 			for(EiaType next : v){
 				System.out.println(next.getCode());
 			}
 			
 			System.out.println("TESTING find eia by eiatype");
-			List<Eia> eias = eRemote.find(eiaType3);
+			List<Eia> eias = eiaServ.find(eiaType3);
 			for(Eia next : eias){
 				System.out.println(next.getSerialNumber());
 			}
 			
+			System.out.println("Testing eiatype update");
+			EiaType eiaType4 = v.get(0);
+			eiaType4.setName("Ink Printer");
+			eiaTypeServ.update(eiaType4);
 			
+			System.out.println("Testing eia update");
+			Eia eia2 = eias.get(0);
+			eia2.setCode("stylus-001");
+			eiaServ.update(eia2);
 		}
 	}
 

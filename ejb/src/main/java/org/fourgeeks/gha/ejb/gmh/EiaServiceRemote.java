@@ -23,6 +23,12 @@ public interface EiaServiceRemote {
 	 * Persist an eia to database
 	 */
 	public void save(Eia eia);
+	
+	/**
+	 * @param eia
+	 * Update the Eia
+	 */
+	public void update(Eia eia);
 	/**
 	 * @param Id
 	 * @return Find an eia By Id
