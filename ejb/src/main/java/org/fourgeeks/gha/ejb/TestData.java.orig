@@ -168,7 +168,11 @@ public class TestData {
 			em.persist(brand);
 
 			Brand brand2 = new Brand();
+<<<<<<< HEAD
 			brand2.setName("Hewlet Packard");
+=======
+			brand2.setName("HP");
+>>>>>>> e7da71813852e6beb1b3a2aba542ef31b0de1a3c
 			em.persist(brand2);
 			
 			EiaType eiaType = new EiaType(brand, manufacturer, "Impresora Tinta",
