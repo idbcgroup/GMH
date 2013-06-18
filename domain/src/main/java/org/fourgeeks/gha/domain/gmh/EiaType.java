@@ -85,7 +85,7 @@ public class EiaType extends AbstractEntity {
 	 */
 	public EiaType(Brand brand, Manufacturer manufacturer, String name,
 			EiaMobilityEnum mobility, EiaTypeEnum type, EiaSubTypeEnum subtype,
-			String model) {
+			String model, String code) {
 		super();
 		this.brand = brand;
 		this.manufacturer = manufacturer;
@@ -94,6 +94,7 @@ public class EiaType extends AbstractEntity {
 		this.type = type;
 		this.subtype = subtype;
 		setModel(model);
+		setCode(code);
 	}
 
 	public Brand getBrand() {
