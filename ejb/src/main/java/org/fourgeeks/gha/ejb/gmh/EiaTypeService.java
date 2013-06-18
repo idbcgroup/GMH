@@ -257,7 +257,7 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 				filters += " OR ";
 			}
 			varsAdded++;
-			filters += "code like '%" + eiaType.getCode() + "%' ";
+			filters += "lower(code) like '%" + eiaType.getCode().toLowerCase() + "%' ";
 		}
 		
 		return filters;

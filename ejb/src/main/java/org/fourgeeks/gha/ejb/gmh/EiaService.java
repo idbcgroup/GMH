@@ -199,7 +199,7 @@ public class EiaService implements EiaServiceRemote {
 				filters += " OR ";
 			}
 			varsAdded++;
-			filters += "t.code like '%" + eiaType.getCode() + "%' ";
+			filters += "lower(t.code) like '%" + eiaType.getCode().toLowerCase() + "%' ";
 		}
 		
 		return filters;
