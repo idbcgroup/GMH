@@ -161,6 +161,15 @@ input,.input{
 	margin-right: 10px;	
 }
 
+input[type="text"]:disabled,.input-disabled{
+	background-color:white;
+	padding: 2px;
+	border:1px solid;
+	border-color:#BABABA;
+	padding-left: 5px;	
+	margin-right: 10px;	
+}
+
 select,.select{
 	padding: 2px;
 	border:1px solid;
@@ -214,6 +223,14 @@ input[type=text].round,input[type=password].round{
 
 
 /*UTIL*/
+.box{
+	padding-left: 20px;
+	box-shadow:10px 0px 10px -3px #5b5b5b;
+	-moz-box-shadow: 10px 0px 10px -3px #5b5b5b;
+	-webkit-box-shadow: 10px 0px 10px -3px #5b5b5b;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=10, Direction=135, Color='#5b5b5b')";
+	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=10, Direction=135, Color='#5b5b5b');		
+}
 .sides-padding{
 	padding-left: 20px;
 	padding-right: 20px;

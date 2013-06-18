@@ -124,30 +124,25 @@ public class TestData {
 	private void createIndexs() {
 
 		System.out.println("Creating indexes...");
-		Connection con;
-		try {
-			con = dataSource.getConnection();
-		} catch (SQLException e2) {
-			return;
-		}
+		Connection con = null;
 		PreparedStatement ps;
 		try {
+			con = dataSource.getConnection();
 			ps = con.prepareStatement("CREATE INDEX username_index ON singlesignonuser (username)");
 			ps.execute();
 			ps = con.prepareStatement("CREATE INDEX eiaType_index ON eiatype (type)");
 			ps.execute();
-		} catch (SQLException e1) {
-			return;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+				return;
+			}
 		}
-
-		try {
-			con.close();
-		} catch (SQLException e) {
-			return;
-		}
-
 		System.out.println("...done creating indexes!");
-
 	}
 
 	private void eiaTypeTestData() {

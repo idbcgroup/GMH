@@ -43,9 +43,9 @@ public class EIATypeSearchForm extends VLayout {
 	}
 
 	public EIATypeSearchForm() {
-		setWidth100();
+		setWidth100(/* Window.getClientWidth() - 100 */);
 		setTop(110);
-		setLeft(0);
+		setLeft(-10);
 		// setHeight("75%");
 		setHeight(GHAUiHelper.getBottomSectionHeight() + "px");
 		// Window.alert(GHAUiHelper.getBottomSectionHeight() + "");
@@ -53,7 +53,8 @@ public class EIATypeSearchForm extends VLayout {
 		setVisibility(Visibility.HIDDEN);
 		setAlign(Alignment.CENTER);
 		setAnimateTime(800);
-		setBorder("2px solid #484848");
+		// setBorder("2px solid #484848");
+		addStyleName("box");
 
 		DynamicForm form = new DynamicForm();
 		form.setWidth("*");
@@ -89,6 +90,7 @@ public class EIATypeSearchForm extends VLayout {
 
 		HLayout formLayout = new HLayout();
 		formLayout.setPadding(10);
+		formLayout.setHeight(GHAUiHelper.V_SEPARATOR_HEIGHT + "px");
 		formLayout.addMembers(form, sideButtons);
 
 		addMember(formLayout);
