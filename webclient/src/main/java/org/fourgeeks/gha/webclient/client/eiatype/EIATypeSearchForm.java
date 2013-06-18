@@ -19,7 +19,6 @@ import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.types.Visibility;
-import com.smartgwt.client.widgets.Img;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
@@ -118,12 +117,12 @@ public class EIATypeSearchForm extends VLayout {
 				EIATypeSearchForm.this.animateHide(AnimationEffect.FLY);
 			}
 		});
-		Img editButton = new Img("../resources/icons/edit.png");
-		editButton.setSize("20px", "20px");
-		Img deleteButton = new Img("../resources/icons/delete.png");
-		deleteButton.setSize("20px", "20px");
+		// GHAButton editButton = new GHAButton("../resources/icons/edit.png");
+		// GHAButton deleteButton = new
+		// GHAButton("../resources/icons/delete.png");
 
-		sideGridButtons.addMembers(acceptButton, editButton, deleteButton);
+		sideGridButtons
+				.addMembers(acceptButton/* , editButton, deleteButton */);
 		gridLayout.addMember(sideGridButtons);
 
 		addMember(gridLayout);

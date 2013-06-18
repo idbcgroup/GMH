@@ -5,12 +5,12 @@ import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAButton;
-import org.fourgeeks.gha.webclient.client.UI.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSearchForm;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
+import com.google.gwt.user.client.Window;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.TitleOrientation;
@@ -26,8 +26,8 @@ public class EIATabTopSection extends HLayout implements
 	private List<EIATypeSelectionListener> selectionListeners;
 	private EIATypeSearchForm eiaTypeSearchForm;
 	private GHATextItem codeItem, brandItem, modelItem, manItem, nameItem,
-			useAreaItem, refactorItem, codigoUMDNSItem;
-	private GHASelectItem typeItem, subTypeItem, useItem;
+			useAreaItem, refactorItem, codigoUMDNSItem, typeItem, subTypeItem,
+			useItem;
 	{
 		selectionListeners = new LinkedList<EIATypeSelectionListener>();
 		eiaTypeSearchForm = new EIATypeSearchForm();
@@ -36,10 +36,10 @@ public class EIATabTopSection extends HLayout implements
 		brandItem = new GHATextItem("Marca", false);
 		modelItem = new GHATextItem("Modelo", false);
 		manItem = new GHATextItem("Fabricante", false);
-		typeItem = new GHASelectItem("Tipo", false);
-		subTypeItem = new GHASelectItem("Sub-Tipo", false);
+		typeItem = new GHATextItem("Tipo", false);
+		subTypeItem = new GHATextItem("Sub-Tipo", false);
 		useAreaItem = new GHATextItem("Se usa en area", false);
-		useItem = new GHASelectItem("para", false);
+		useItem = new GHATextItem("para", false);
 		refactorItem = new GHATextItem("Descripción", false);
 		codigoUMDNSItem = new GHATextItem("Código UMDNS", false);
 	}
@@ -50,9 +50,7 @@ public class EIATabTopSection extends HLayout implements
 		setStyleName("sides-padding");// Esto es VUDU!
 		setWidth100();
 		setHeight(GHAUiHelper.V_SEPARATOR_HEIGHT + "px");
-		// setBackgroundImage("../resources/img/tab1.jpg");
 		setBackgroundColor("#E0E0E0");
-		// setBackgroundRepeat(BackgroundRepeat.REPEAT_Y);
 
 		DynamicForm form = new DynamicForm();
 		form.setWidth("100px");
@@ -61,19 +59,18 @@ public class EIATabTopSection extends HLayout implements
 		form.setItems(codeItem, nameItem, brandItem, modelItem, manItem,
 				typeItem, subTypeItem, useAreaItem, useItem, refactorItem,
 				codigoUMDNSItem);
-		// form.setCellPadding(20);
-		// form.setPadding(10);
 
 		GHAButton cleanImg = new GHAButton("../resources/icons/clean.png");
+		GHAButton canelButton = new GHAButton("../resources/icons/cancel.png");
 		GHAButton searchImg = new GHAButton("../resources/icons/search.png");
 		searchImg.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
 				search();
-
 			}
 		});
+
 		VLayout panelBotones = new VLayout();
 		panelBotones.setHeight(GHAUiHelper.V_SEPARATOR_HEIGHT + "px");
 		panelBotones.setWidth(30);
@@ -81,7 +78,7 @@ public class EIATabTopSection extends HLayout implements
 		panelBotones.setBackgroundColor("#E0E0E0");
 		panelBotones.setMembersMargin(10);
 		panelBotones.setDefaultLayoutAlign(Alignment.CENTER);
-		panelBotones.addMembers(searchImg, cleanImg);
+		panelBotones.addMembers(searchImg, cleanImg, canelButton);
 
 		VLayout fill = new VLayout();
 		fill.setWidth("*");
@@ -91,20 +88,7 @@ public class EIATabTopSection extends HLayout implements
 	}
 
 	public void search() {
-
 		eiaTypeSearchForm.animateShow(AnimationEffect.FLY);
-		// EiaType eiaType = new EiaType();
-		// eiaType.setName(nameField.getValueAsString());
-		// EIAModel.find(eiaType, new GHAAsyncCallback<List<EiaType>>() {
-		//
-		// @Override
-		// public void onSuccess(List<EiaType> eiaTypes) {
-		// ListGridRecord[] array = (ListGridRecord[]) EIAUtil
-		// .toGridRecords(eiaTypes).toArray(new EIARecord[] {});
-		// eiaTypeGrid.setData(array);
-		// }
-		//
-		// });
 	}
 
 	@Override
@@ -121,14 +105,17 @@ public class EIATabTopSection extends HLayout implements
 		if (eiaType.getManufacturer() != null)
 			manItem.setValue(eiaType.getManufacturer().getName());
 
-		if (eiaType.getType() != null)
-			typeItem.setValue(eiaType.getType().name());
+		if (eiaType.getType() != null) {
+			Window.alert("type no es nulo");
+			Window.alert(eiaType.getType().toString());
+			typeItem.setValue(eiaType.getType().toString());
+		}
 
 		if (eiaType.getSubtype() != null)
-			subTypeItem.setValue(eiaType.getSubtype().name());
+			subTypeItem.setValue(eiaType.getSubtype().toString());
 
 		if (eiaType.getSubtype() != null)
-			subTypeItem.setValue(eiaType.getSubtype().name());
+			subTypeItem.setValue(eiaType.getSubtype().toString());
 
 		useAreaItem.setValue(eiaType.getUseDescription());
 

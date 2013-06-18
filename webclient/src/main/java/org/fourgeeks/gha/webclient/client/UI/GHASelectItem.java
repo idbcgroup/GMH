@@ -24,4 +24,10 @@ public class GHASelectItem extends SelectItem {
 		this(title);
 		setDisabled(!enabled);
 	}
+
+	@Override
+	public void setDisabled(Boolean disabled) {
+		super.setDisabled(disabled);
+		setTextBoxStyle("input-disabled");
+	}
 }

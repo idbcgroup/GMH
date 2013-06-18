@@ -164,11 +164,11 @@ public class TestData {
 			em.persist(manufacturer);
 
 			Brand brand = new Brand();
-			brand.setName("Stylus");
+			brand.setName("Epson");
 			em.persist(brand);
 
 			Brand brand2 = new Brand();
-			brand.setName("Deskjet");
+			brand2.setName("Hewlet Packard");
 			em.persist(brand2);
 
 			EiaType eiaType = new EiaType(brand, manufacturer,
