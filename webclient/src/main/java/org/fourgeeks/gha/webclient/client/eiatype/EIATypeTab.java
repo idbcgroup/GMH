@@ -18,12 +18,12 @@ public class EIATypeTab extends GHATab {
 
 		header.setTitle(TITLE);
 		VLayout verticalPanel = new VLayout();
-		EIATypeGridPanel grid = new EIATypeGridPanel();
+		EIATypeGridPanel gridPanel = new EIATypeGridPanel();
 		verticalPanel.setBackgroundColor("#E0E0E0");
-		verticalPanel.addMember(new EIATypeTopSection(grid
+		verticalPanel.addMember(new EIATypeTopSection(gridPanel
 				.getEiaTypeGrid()));
-		verticalPanel.addMember(GHAUiHelper.verticalGraySeparator("10px"));
-		verticalPanel.addMember(grid);
+		verticalPanel.addMember(GHAUiHelper.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT+"px"));
+		verticalPanel.addMember(gridPanel);
 		addMember(verticalPanel);
 	}
 
