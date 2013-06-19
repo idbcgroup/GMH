@@ -89,11 +89,11 @@ public class EIATypeSearchForm extends VLayout {
 
 		HLayout formLayout = new HLayout();
 		formLayout.setPadding(10);
-		formLayout.setHeight(GHAUiHelper.V_SEPARATOR_HEIGHT + "px");
+		formLayout.setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT + "px");
 		formLayout.addMembers(form, sideButtons);
 
 		addMember(formLayout);
-		addMember(GHAUiHelper.verticalGraySeparator("10px"));
+		addMember(GHAUiHelper.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT+"px"));
 
 		eiaTypeGrid = new EIATypeGrid();
 		HLayout gridLayout = new HLayout();

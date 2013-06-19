@@ -158,12 +158,6 @@ public class HomePlace extends GHAPlace {
 		menuButton.setStylePrimaryName("gha-main-menu");
 		menuButton.setZIndex(33333333);
 		GHATabSet.addMenu(menuButton);
-		
-		int tabHeight = GHAUiHelper.calculateTabHeight();
-		
-//		SC.say("total height:"+Window.getClientHeight()+"\n" +
-//			   "tab height:"+GHAUiHelper.calculateTabHeight()+"\n" +
-//			   "innerPanel height:"+GHAUiHelper.calculateBottomSectionHeight());
 
 	}
 }

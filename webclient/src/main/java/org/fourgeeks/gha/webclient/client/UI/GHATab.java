@@ -9,7 +9,7 @@ public abstract class GHATab extends VLayout {
 
 	public GHATab() {
 		setWidth100();
-		setHeight("75%");
+		
 		setBackgroundColor("#E0E0E0");
 	}
 

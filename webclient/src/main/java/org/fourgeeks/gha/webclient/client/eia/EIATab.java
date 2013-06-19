@@ -29,7 +29,7 @@ public class EIATab extends GHATab {
 		// Creacion de la tab de EIA
 		
 		verticalPanel.addMember(topSection);
-		verticalPanel.addMember(GHAUiHelper.verticalGraySeparator("10px"));
+		verticalPanel.addMember(GHAUiHelper.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT+"px"));
 		verticalPanel.addMember(bottomTabset);
 		addMember(verticalPanel);
 

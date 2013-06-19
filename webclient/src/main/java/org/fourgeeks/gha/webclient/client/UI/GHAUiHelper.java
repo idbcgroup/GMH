@@ -28,7 +28,7 @@ public class GHAUiHelper {
 
 	public static int getBottomSectionHeight() {
 		int biggerTabHeight = calculateTabHeight();
-		int innerTopSection = INNER_TOP_SECTION_HEIGHT + V_SEPARATOR_HEIGHT;
+		int innerTopSection = INNER_TOP_SECTION_HEIGHT + V_SEPARATOR_HEIGHT + 34;
 
 		return biggerTabHeight - innerTopSection;
 	}

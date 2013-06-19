@@ -50,7 +50,7 @@ public class EIATabTopSection extends HLayout implements
 		eiaTypeSearchForm.AddEIATypeSelectionListener(this);
 		setStyleName("sides-padding");// Esto es VUDU!
 		setWidth100();
-		setHeight(GHAUiHelper.V_SEPARATOR_HEIGHT + "px");
+		setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT + "px");
 		setBackgroundColor("#E0E0E0");
 
 		DynamicForm form = new DynamicForm();
