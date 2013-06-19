@@ -14,27 +14,29 @@ public class EIATab extends GHATab {
 	private GHATabHeader header;
 	private EIATopSection topSection;
 	private EIAInternalTabset bottomTabset;
-	
+
 	private EiaType eiaType;
 
-	public EIATab() {
+	public EIATab(EiaType eiaType) {
 		super();
+		this.eiaType = eiaType;
 		header = new GHATabHeader(this);
 		header.setTitle(TITLE);
-		
+
 		// Top Section: form de muestra de la info del EIA
 		topSection = new EIATopSection();
 		// Bottom Section: SubTabs de Info
 		bottomTabset = new EIAInternalTabset();
-		
+
 		topSection.AddEIATypeSelectionListener(bottomTabset);
-		
+
 		// Creacion de la tab de EIA
 		VLayout verticalPanel = new VLayout();
 		verticalPanel.setBackgroundColor("#E0E0E0");
-		
+
 		verticalPanel.addMember(topSection);
-		verticalPanel.addMember(GHAUiHelper.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT+"px"));
+		verticalPanel.addMember(GHAUiHelper
+				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
 		verticalPanel.addMember(bottomTabset);
 		addMember(verticalPanel);
 

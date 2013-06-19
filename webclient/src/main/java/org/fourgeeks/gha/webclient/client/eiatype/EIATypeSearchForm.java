@@ -46,14 +46,11 @@ public class EIATypeSearchForm extends VLayout {
 		setWidth100(/* Window.getClientWidth() - 100 */);
 		setTop(110);
 		setLeft(-10);
-		// setHeight("75%");
 		setHeight(GHAUiHelper.getBottomSectionHeight() + "px");
-		// Window.alert(GHAUiHelper.getBottomSectionHeight() + "");
 		setBackgroundColor("#E0E0E0");
 		setVisibility(Visibility.HIDDEN);
 		setAlign(Alignment.CENTER);
 		setAnimateTime(800);
-		// setBorder("2px solid #484848");
 		addStyleName("box");
 
 		DynamicForm form = new DynamicForm();
@@ -94,7 +91,8 @@ public class EIATypeSearchForm extends VLayout {
 		formLayout.addMembers(form, sideButtons);
 
 		addMember(formLayout);
-		addMember(GHAUiHelper.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT+"px"));
+		addMember(GHAUiHelper
+				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
 
 		eiaTypeGrid = new EIATypeEquiposGrid();
 		HLayout gridLayout = new HLayout();
@@ -118,10 +116,6 @@ public class EIATypeSearchForm extends VLayout {
 				EIATypeSearchForm.this.animateHide(AnimationEffect.FLY);
 			}
 		});
-		// GHAButton editButton = new GHAButton("../resources/icons/edit.png");
-		// GHAButton deleteButton = new
-		// GHAButton("../resources/icons/delete.png");
-
 		sideGridButtons
 				.addMembers(acceptButton/* , editButton, deleteButton */);
 		gridLayout.addMember(sideGridButtons);

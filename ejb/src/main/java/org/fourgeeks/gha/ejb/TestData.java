@@ -52,7 +52,7 @@ public class TestData {
 
 	@EJB(name = "gmh.EiaTypeService")
 	EiaTypeServiceRemote eiaTypeServ;
-	
+
 	@EJB(name = "gmh.EiaService")
 	EiaServiceRemote eiaServ;
 
@@ -170,14 +170,16 @@ public class TestData {
 			Brand brand2 = new Brand();
 			brand2.setName("Hewlet Packard");
 			em.persist(brand2);
-			
-			EiaType eiaType = new EiaType(brand, manufacturer, "Impresora Tinta",
-					EiaMobilityEnum.FIXED, EiaTypeEnum.EQUIPMENT,
-					EiaSubTypeEnum.IT_SYSTEM, "Stylus", "90001");
-			
-			EiaType eiaType2 = new EiaType(brand2, manufacturer, "Impresora Laser",
-					EiaMobilityEnum.FIXED, EiaTypeEnum.EQUIPMENT,
-					EiaSubTypeEnum.IT_SYSTEM, "Deskjet", "90002");
+
+			EiaType eiaType = new EiaType(brand, manufacturer,
+					"Impresora Tinta", EiaMobilityEnum.FIXED,
+					EiaTypeEnum.EQUIPMENT, EiaSubTypeEnum.IT_SYSTEM, "Stylus",
+					"90001");
+
+			EiaType eiaType2 = new EiaType(brand2, manufacturer,
+					"Impresora Laser", EiaMobilityEnum.FIXED,
+					EiaTypeEnum.EQUIPMENT, EiaSubTypeEnum.IT_SYSTEM, "Deskjet",
+					"90002");
 			eiaType2.setCode("90002");
 			em.persist(eiaType2);
 
@@ -210,15 +212,15 @@ public class TestData {
 
 			System.out.println("TESTING find eia by eiatype");
 			List<Eia> eias = eiaServ.find(eiaType3);
-			for(Eia next : eias){
+			for (Eia next : eias) {
 				System.out.println(next.getSerialNumber());
 			}
-			
+
 			System.out.println("Testing eiatype update");
 			EiaType eiaType4 = v.get(0);
 			eiaType4.setName("Ink Printer");
 			eiaTypeServ.update(eiaType4);
-			
+
 			System.out.println("Testing eia update");
 			Eia eia2 = eias.get(0);
 			eia2.setCode("stylus-001");

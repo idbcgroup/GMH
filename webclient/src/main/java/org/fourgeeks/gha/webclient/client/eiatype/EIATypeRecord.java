@@ -8,8 +8,6 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.webclient.client.UI.GHAGridRecord;
 
-import com.google.gwt.user.client.Window;
-
 public class EIATypeRecord extends GHAGridRecord<EiaType> {
 
 	public EIATypeRecord() {
@@ -41,7 +39,6 @@ public class EIATypeRecord extends GHAGridRecord<EiaType> {
 	}
 
 	public EiaTypeEnum getType() {
-		Window.alert(getAttributeAsString("type"));
 		return EiaTypeEnum.getByString(getAttributeAsString("type"));
 	}
 
