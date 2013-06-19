@@ -8,6 +8,8 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.webclient.client.UI.GHAGridRecord;
 
+import com.google.gwt.user.client.Window;
+
 public class EIATypeRecord extends GHAGridRecord<EiaType> {
 
 	public EIATypeRecord() {
@@ -34,12 +36,13 @@ public class EIATypeRecord extends GHAGridRecord<EiaType> {
 		setUseDescription(eiaType.getUseDescription());
 	}
 
-	public String getUseDescription(String useDescription) {
+	public String getUseDescription() {
 		return getAttributeAsString("useDescription");
 	}
 
-	public EiaTypeEnum getType(EiaTypeEnum type) {
-		return EiaTypeEnum.getByString(getAttribute("type"));
+	public EiaTypeEnum getType() {
+		Window.alert(getAttributeAsString("type"));
+		return EiaTypeEnum.getByString(getAttributeAsString("type"));
 	}
 
 	public String getDescription() {
@@ -47,11 +50,11 @@ public class EIATypeRecord extends GHAGridRecord<EiaType> {
 	}
 
 	public EiaSubTypeEnum getSubtype() {
-		return EiaSubTypeEnum.getByString(getAttribute("subtype"));
+		return EiaSubTypeEnum.getByString(getAttributeAsString("subtype"));
 	}
 
 	public EiaMobilityEnum getMobility() {
-		return EiaMobilityEnum.getByString(getAttribute("mobility"));
+		return EiaMobilityEnum.getByString(getAttributeAsString("mobility"));
 	}
 
 	public String getEiaUmdns() {
@@ -144,22 +147,33 @@ public class EIATypeRecord extends GHAGridRecord<EiaType> {
 	@Override
 	public EiaType toEntity() {
 		EiaType eiaType = new EiaType();
-		eiaType.setCode(getCode());
 		eiaType.setId(getId());
+
 		String brandName = getBrand();
 		if (brandName != null) {
 			Brand brand = new Brand();
+			brand.setId(Integer.valueOf(getBrandId()));
 			brand.setName(brandName);
 			eiaType.setBrand(brand);
 		}
+
 		String manName = getManufacturer();
 		if (manName != null) {
 			Manufacturer man = new Manufacturer();
+			man.setId(Integer.valueOf(getManufacturerId()));
 			man.setName(manName);
 			eiaType.setManufacturer(man);
 		}
-		eiaType.setModel(getModel());
+
+		eiaType.setCode(getCode());
 		eiaType.setName(getName());
+		eiaType.setDescription(getDescription());
+		eiaType.setModel(getModel());
+		eiaType.setUseDescription(getUseDescription());
+		eiaType.setEiaUmdns(getEiaUmdns());
+		eiaType.setMobility(getMobility());
+		eiaType.setType(getType());
+		eiaType.setSubtype(getSubtype());
 		return eiaType;
 	}
 }
