@@ -6,8 +6,10 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.eiatype.equipos.EIATypeEquiposGrid;
 
 import com.smartgwt.client.types.Alignment;
+import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.BackgroundRepeat;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.Img;
@@ -21,12 +23,15 @@ import com.smartgwt.client.widgets.layout.VLayout;
 
 public class EIATypeTopSection extends HLayout {
 
-	private EIATypeGrid eiaTypeGrid;
+	private EIATypeSearchForm searchForm;
+	private EIATypeEquiposGrid eiaTypeGrid;
 	private GHATextItem nameField;
 
-	public EIATypeTopSection(EIATypeGrid eiaTypeGrid) {
+	public EIATypeTopSection(EIATypeEquiposGrid eiaTypeGrid) {
 		super();
+		searchForm = new EIATypeSearchForm();
 		this.eiaTypeGrid = eiaTypeGrid;
+		
 		setStyleName("sides-padding");// Esto es VUDU!
 		setWidth100();
 		setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT+"px");
@@ -65,8 +70,8 @@ public class EIATypeTopSection extends HLayout {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				search();
-
+				searchForm.animateShow(AnimationEffect.FLY);
+//				search();
 			}
 		});
 		searchImg.setSrc("../resources/icons/search.png");

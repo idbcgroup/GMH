@@ -21,7 +21,7 @@ import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIATabTopSection extends HLayout implements
+public class EIATopSection extends HLayout implements
 		EIATypeSelectionListener {
 
 	private List<EIATypeSelectionListener> selectionListeners;
@@ -45,7 +45,7 @@ public class EIATabTopSection extends HLayout implements
 		codigoUMDNSItem = new GHATextItem("Código UMDNS", false);
 	}
 
-	public EIATabTopSection() {
+	public EIATopSection() {
 		super();
 		eiaTypeSearchForm.AddEIATypeSelectionListener(this);
 		setStyleName("sides-padding");// Esto es VUDU!

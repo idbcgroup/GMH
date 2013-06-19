@@ -1,28 +1,33 @@
-package org.fourgeeks.gha.webclient.client.eiatype;
+package org.fourgeeks.gha.webclient.client.eiatype.equipos;
+
+import org.fourgeeks.gha.webclient.client.eiatype.EIATypeRecord;
 
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.History;
 import com.smartgwt.client.types.Alignment;
-import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.widgets.Img;
 import com.smartgwt.client.widgets.ImgButton;
+import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIATypeGridPanel extends HLayout {
+public class EIATypeEquiposGridPanel extends VLayout {
 
-	private EIATypeForm form;
-	private EIATypeGrid eiaTypeGrid = new EIATypeGrid();
+	private EIATypeEquiposGrid eiaTypeEquiposGrid = new EIATypeEquiposGrid();
 
-	public EIATypeGridPanel() {
+	public EIATypeEquiposGridPanel() {
 		super();
-		form = new EIATypeForm();
 		setStyleName("sides-padding top-padding");// Esto es VUDU!
 		setWidth100();
-		// setBackgroundImage("../resources/img/tab1.jpg");
 		setBackgroundColor("#E0E0E0");
+		
+		Label title = new Label("<h3>Equipos pertenecientes al EIA Type</h3>");
+		title.setHeight(30);
+		title.setWidth100();
+		title.setStyleName("title-label");
+		addMember(title);
 
 		// //////Botones laterales
 		VLayout sideButtons = new VLayout();
@@ -42,7 +47,7 @@ public class EIATypeGridPanel extends HLayout {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				form.animateShow(AnimationEffect.FLY);
+				
 			}
 		});
 		Img editButton = new Img("../resources/icons/edit.png");
@@ -59,21 +64,24 @@ public class EIATypeGridPanel extends HLayout {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				EIATypeRecord selectedRecord = (EIATypeRecord) eiaTypeGrid
+				EIATypeRecord selectedRecord = (EIATypeRecord) eiaTypeEquiposGrid
 						.getSelectedRecord();
 				History.newItem("eia/" + selectedRecord.getCode());
 			}
 		});
 
 		sideButtons.addMembers(addButton, editButton, deleteButton, setsButton);
-		addMembers(eiaTypeGrid, sideButtons);
+		
+		HLayout mainLayout = new HLayout();
+		mainLayout.addMembers(eiaTypeEquiposGrid, sideButtons);
+		addMember(mainLayout);
 
 	}
 
 	/**
 	 * @return the eiaTypeGrid
 	 */
-	public EIATypeGrid getEiaTypeGrid() {
-		return eiaTypeGrid;
+	public EIATypeEquiposGrid getEiaTypeGrid() {
+		return eiaTypeEquiposGrid;
 	}
 }

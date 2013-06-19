@@ -13,6 +13,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.brand.BrandModel;
+import org.fourgeeks.gha.webclient.client.eiatype.equipos.EIATypeEquiposGrid;
 import org.fourgeeks.gha.webclient.client.manufacturer.ManufacturerModel;
 
 import com.smartgwt.client.types.Alignment;
@@ -30,7 +31,7 @@ public class EIATypeSearchForm extends VLayout {
 
 	private List<EIATypeSelectionListener> selectionListeners;
 	private GHATextItem codeEIAItem, nameEIAItem, modelItem;
-	private EIATypeGrid eiaTypeGrid;
+	private EIATypeEquiposGrid eiaTypeGrid;
 	private GHASelectItem brandItem, manItem;
 	{
 		selectionListeners = new LinkedList<EIATypeSelectionListener>();
@@ -95,7 +96,7 @@ public class EIATypeSearchForm extends VLayout {
 		addMember(formLayout);
 		addMember(GHAUiHelper.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT+"px"));
 
-		eiaTypeGrid = new EIATypeGrid();
+		eiaTypeGrid = new EIATypeEquiposGrid();
 		HLayout gridLayout = new HLayout();
 		gridLayout.setPadding(10);
 		gridLayout.addMembers(eiaTypeGrid);

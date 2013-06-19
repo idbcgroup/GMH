@@ -11,19 +11,26 @@ public class EIATypeTab extends GHATab {
 	public static final String ID = "eiatype";
 	private static final String TITLE = "Tipos de equipo";
 	private GHATabHeader header;
+	private EIATypeTopSection topSection;
+	private EIATypeInternalTabset bottomTabset;
 
 	public EIATypeTab() {
 		super();
 		header = new GHATabHeader(this);
-
 		header.setTitle(TITLE);
+
+		// Bottom Section: SubTabs de Info
+		bottomTabset = new EIATypeInternalTabset();
+		// Top Section: form de muestra de la info del EIA
+		topSection = new EIATypeTopSection(bottomTabset.getEquiposSubTab().getEquiposGrid());
+		
+		// Creacion de la tab de EIA
 		VLayout verticalPanel = new VLayout();
-		EIATypeGridPanel gridPanel = new EIATypeGridPanel();
 		verticalPanel.setBackgroundColor("#E0E0E0");
-		verticalPanel.addMember(new EIATypeTopSection(gridPanel
-				.getEiaTypeGrid()));
+		
+		verticalPanel.addMember(topSection);
 		verticalPanel.addMember(GHAUiHelper.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT+"px"));
-		verticalPanel.addMember(gridPanel);
+		verticalPanel.addMember(bottomTabset);
 		addMember(verticalPanel);
 	}
 

@@ -1,35 +1,37 @@
-package org.fourgeeks.gha.webclient.client.eiatype;
+package org.fourgeeks.gha.webclient.client.eiatype.caracteristicas;
 
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 
 import com.google.gwt.user.client.Event;
 import com.smartgwt.client.types.Alignment;
-import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.BackgroundRepeat;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.types.Visibility;
 import com.smartgwt.client.widgets.Img;
 import com.smartgwt.client.widgets.ImgButton;
+import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIATypeForm extends HLayout {
+public class EIATypeCaracteristicasGridPanel extends VLayout {
 
-	public EIATypeForm() {
+	public EIATypeCaracteristicasGridPanel() {
 		// setShowEdges(true);
-		setStyleName("exampleTitle");
-		setPadding(10);
+//		setStyleName("exampleTitle");
 		setWidth100();
-		setTop(197);
-		setLeft(0);
-		setHeight("75%");
 		setBackgroundColor("#E0E0E0");
+		setStyleName("sides-padding top-padding");// Esto es VUDU!
 		setVisibility(Visibility.HIDDEN);
 		setAlign(Alignment.CENTER);
-		setAnimateTime(800);
+		
+		Label title = new Label("<h3>Caracteristicas del EIA Type</h3>");
+		title.setHeight(30);
+		title.setWidth100();
+		title.setStyleName("title-label");
+		addMember(title);
 
 		GHATextItem codigoEIA = new GHATextItem("Código");
 
@@ -42,9 +44,8 @@ public class EIATypeForm extends HLayout {
 		GHATextItem fabricante = new GHATextItem("Fabricante");
 
 		DynamicForm form = new DynamicForm();
-		form.setWidth("*");
 		form.setTitleOrientation(TitleOrientation.TOP);
-		form.setNumCols(1);
+		form.setNumCols(5);
 		form.setItems(codigoEIA, nombreEIA, marcaEIA, modeloEIA, fabricante);
 
 		VLayout sideButtons = new VLayout();
@@ -70,15 +71,17 @@ public class EIATypeForm extends HLayout {
 		cancelButton.setSize("20px", "20px");
 		cancelButton.setShowRollOver(false);
 		cancelButton.addClickHandler(new ClickHandler() {
-
 			@Override
 			public void onClick(ClickEvent event) {
-				EIATypeForm.this.animateHide(AnimationEffect.FLY);
+			
 			}
 		});
 
 		sideButtons.addMembers(addButton, editButton, cancelButton);
 
-		addMembers(form, sideButtons);
+		HLayout gridPanel = new HLayout();
+		gridPanel.addMembers(form, sideButtons);
+		
+		addMember(gridPanel);
 	}
 }
