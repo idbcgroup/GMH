@@ -13,6 +13,7 @@ import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAButton;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
+import org.fourgeeks.gha.webclient.client.UI.GHACheckboxItem;
 import org.fourgeeks.gha.webclient.client.UI.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
@@ -36,7 +37,7 @@ public class EIATypeSearchForm extends VLayout {
 	private GHATextItem codeEIAItem, nameEIAItem, modelItem, descriptionItem, useDescriptionItem, umdnsCodeItem;
 	private EIATypeEquiposGrid eiaTypeGrid;
 	private GHASelectItem brandItem, manItem, mobilityItem, typeItem, subTypeItem;
-//	private GHACheckboxItem isServiceItem, hasPartsItem, hasComponentsItem; 
+	private GHACheckboxItem isServiceItem; 
 	{
 		selectionListeners = new LinkedList<EIATypeSelectionListener>();
 		codeEIAItem = new GHATextItem("Código");
@@ -48,13 +49,13 @@ public class EIATypeSearchForm extends VLayout {
 		descriptionItem.setWidth(200);
 		descriptionItem.setColSpan(2);
 		useDescriptionItem = new GHATextItem("Uso");
+		useDescriptionItem.setWidth(200);
+		useDescriptionItem.setColSpan(2);
 		umdnsCodeItem = new GHATextItem("EIAUMDNS");
 		mobilityItem = new GHASelectItem("Movilidad");
 		typeItem = new GHASelectItem("Tipo de Equipo");
 		subTypeItem = new GHASelectItem("Subtipo");
-//		isServiceItem = new GHACheckboxItem("Es servicio");
-//		hasPartsItem = new GHACheckboxItem("Tiene partes");
-//		hasComponentsItem = new GHACheckboxItem("Tiene componentes");
+		isServiceItem = new GHACheckboxItem("Es servicio");
 	}
 
 	public EIATypeSearchForm() {
@@ -69,11 +70,11 @@ public class EIATypeSearchForm extends VLayout {
 		addStyleName("box");
 
 		DynamicForm form = new DynamicForm();
-		form.setWidth("*");
 		form.setTitleOrientation(TitleOrientation.TOP);
-		form.setNumCols(6);
+		form.setNumCols(5);
 		form.setItems(codeEIAItem, nameEIAItem, descriptionItem, brandItem, modelItem, 
-					  manItem, useDescriptionItem, umdnsCodeItem, mobilityItem, typeItem, subTypeItem);
+					  manItem, useDescriptionItem, umdnsCodeItem, mobilityItem, typeItem,
+					  subTypeItem, isServiceItem);
 
 		GHAButton searchButton = new GHAButton("../resources/icons/search.png");
 		searchButton.addClickHandler(new ClickHandler() {
