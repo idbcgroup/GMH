@@ -4,6 +4,9 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
+import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
+import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
@@ -32,7 +35,7 @@ public class EIATypeSearchForm extends VLayout {
 	private List<EIATypeSelectionListener> selectionListeners;
 	private GHATextItem codeEIAItem, nameEIAItem, modelItem, descriptionItem, useDescriptionItem, umdnsCodeItem;
 	private EIATypeEquiposGrid eiaTypeGrid;
-	private GHASelectItem brandItem, manItem, mobilityItem, typeItem, subtypeItem;
+	private GHASelectItem brandItem, manItem, mobilityItem, typeItem, subTypeItem;
 //	private GHACheckboxItem isServiceItem, hasPartsItem, hasComponentsItem; 
 	{
 		selectionListeners = new LinkedList<EIATypeSelectionListener>();
@@ -45,10 +48,10 @@ public class EIATypeSearchForm extends VLayout {
 		descriptionItem.setWidth(200);
 		descriptionItem.setColSpan(2);
 		useDescriptionItem = new GHATextItem("Uso");
-		umdnsCodeItem = new GHATextItem("Código UMDNS");
-		mobilityItem = new GHASelectItem("Movilizable");
+		umdnsCodeItem = new GHATextItem("EIAUMDNS");
+		mobilityItem = new GHASelectItem("Movilidad");
 		typeItem = new GHASelectItem("Tipo de Equipo");
-		subtypeItem = new GHASelectItem("Subtipo");
+		subTypeItem = new GHASelectItem("Subtipo");
 //		isServiceItem = new GHACheckboxItem("Es servicio");
 //		hasPartsItem = new GHACheckboxItem("Tiene partes");
 //		hasComponentsItem = new GHACheckboxItem("Tiene componentes");
@@ -70,7 +73,7 @@ public class EIATypeSearchForm extends VLayout {
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(6);
 		form.setItems(codeEIAItem, nameEIAItem, descriptionItem, brandItem, modelItem, 
-					  manItem, useDescriptionItem, umdnsCodeItem, mobilityItem, typeItem, subtypeItem);
+					  manItem, useDescriptionItem, umdnsCodeItem, mobilityItem, typeItem, subTypeItem);
 
 		GHAButton searchButton = new GHAButton("../resources/icons/search.png");
 		searchButton.addClickHandler(new ClickHandler() {
@@ -137,8 +140,27 @@ public class EIATypeSearchForm extends VLayout {
 		addMember(gridLayout);
 		searchForBrands();
 		searchForMans();
+		fillExtras();
 	}
-
+	
+	private void fillExtras() {
+		// types
+		LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+		for (EiaTypeEnum eiaTypeEnum : EiaTypeEnum.values())
+			valueMap.put(eiaTypeEnum.ordinal() + "", eiaTypeEnum.toString());
+		typeItem.setValueMap(valueMap);
+		// subtypes
+		valueMap = new LinkedHashMap<String, String>();
+		for (EiaSubTypeEnum subtype : EiaSubTypeEnum.values())
+			valueMap.put(subtype.ordinal() + "", subtype.toString());
+		subTypeItem.setValueMap(valueMap);
+		// mobility
+		valueMap = new LinkedHashMap<String, String>();
+		for (EiaMobilityEnum mobility : EiaMobilityEnum.values())
+			valueMap.put(mobility.ordinal() + "", mobility.toString());
+		mobilityItem.setValueMap(valueMap);
+	}
+	
 	private void searchForMans() {
 		GHACache.INSTANCE
 				.getManufacturesrs(new GHAAsyncCallback<List<Manufacturer>>() {

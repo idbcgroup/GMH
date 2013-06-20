@@ -46,7 +46,6 @@ public class EIATypeCaracteristicasForm extends VLayout implements
 		mobilityItem = new GHASelectItem("Movilidad");
 		typeItem = new GHASelectItem("Tipo");
 		subTypeItem = new GHASelectItem("Subtipo");
-		subtypeItem = new GHASelectItem("Subtipo");
 	}
 
 	public EIATypeCaracteristicasForm() {
