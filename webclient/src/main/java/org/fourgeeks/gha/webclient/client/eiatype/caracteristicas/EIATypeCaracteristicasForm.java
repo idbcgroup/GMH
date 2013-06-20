@@ -33,20 +33,19 @@ public class EIATypeCaracteristicasForm extends VLayout implements
 			subTypeItem;
 
 	{
-		codeItem = new GHATextItem("Código");
-		nameItem = new GHATextItem("Nombre");
-		modelItem = new GHATextItem("Modelo");
-		descriptionItem = new GHATextItem("Descripción");
-		descriptionItem.setColSpan(2);
-		descriptionItem.setWidth(200);
-		useDescriptionItem = new GHATextItem("Uso");
-		eiaUmdnsItem = new GHATextItem("EIAUMDNS");
-		manItem = new GHASelectItem("Fabricante");
-		brandItem = new GHASelectItem("Marca");
-		mobilityItem = new GHASelectItem("Movilidad");
-		typeItem = new GHASelectItem("Tipo");
-		subTypeItem = new GHASelectItem("Subtipo");
-		subtypeItem = new GHASelectItem("Subtipo");
+		codeItem = new GHATextItem("Código", 150);
+		nameItem = new GHATextItem("Nombre", 150);
+		modelItem = new GHATextItem("Modelo", 150);
+		descriptionItem = new GHATextItem("Descripción", 480);
+		descriptionItem.setColSpan(3);
+		useDescriptionItem = new GHATextItem("Uso", 480);
+		useDescriptionItem.setColSpan(3);
+		eiaUmdnsItem = new GHATextItem("EIAUMDNS", 150);
+		manItem = new GHASelectItem("Fabricante", 150);
+		brandItem = new GHASelectItem("Marca", 150);
+		mobilityItem = new GHASelectItem("Movilidad", 150);
+		typeItem = new GHASelectItem("Tipo", 150);
+		subTypeItem = new GHASelectItem("Subtipo", 150);
 	}
 
 	public EIATypeCaracteristicasForm() {
@@ -63,10 +62,10 @@ public class EIATypeCaracteristicasForm extends VLayout implements
 
 		DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
-		form.setNumCols(6);
-		form.setItems(brandItem, manItem, codeItem, nameItem, descriptionItem,
-				modelItem, useDescriptionItem, eiaUmdnsItem, mobilityItem,
-				typeItem, subTypeItem);
+		form.setNumCols(4);
+		form.setItems(brandItem, manItem, typeItem, subTypeItem,
+				descriptionItem, mobilityItem, useDescriptionItem, codeItem,
+				nameItem, modelItem, eiaUmdnsItem);
 
 		VLayout sideButtons = new VLayout();
 		sideButtons.setWidth(30);

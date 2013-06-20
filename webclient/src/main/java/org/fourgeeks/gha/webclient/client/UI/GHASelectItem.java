@@ -15,6 +15,11 @@ public class GHASelectItem extends SelectItem {
 		setTextBoxStyle("input");
 	}
 
+	public GHASelectItem(String title, int width) {
+		this(title);
+		setWidth(width);
+	}
+
 	public GHASelectItem(String title) {
 		this();
 		setTitle(title);
