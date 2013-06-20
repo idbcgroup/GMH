@@ -19,17 +19,7 @@ public class EIATypeCaracteristicasSubTab extends Tab implements
 
 	@Override
 	public void select(EiaType eiaType) {
-		// EIAModel.find(eiaType, new GHAAsyncCallback<List<Eia>>() {
-		//
-		// @Override
-		// public void onSuccess(List<Eia> eias) {
-		//
-		// ListGridRecord[] array = EIAUtil.toGridRecords(eias).toArray(
-		// new EIATypeRecord[] {});
-		// caracteristicasGridPanel.setData(array);
-		//
-		// }
-		// });
+		form.select(eiaType);
 	}
 
 }

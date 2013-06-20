@@ -9,10 +9,10 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAButton;
+import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.brand.BrandModel;
 import org.fourgeeks.gha.webclient.client.eiatype.equipos.EIATypeEquiposGrid;
 import org.fourgeeks.gha.webclient.client.manufacturer.ManufacturerModel;
 
@@ -142,7 +142,7 @@ public class EIATypeSearchForm extends VLayout {
 	}
 
 	private void searchForBrands() {
-		BrandModel.getAll(new GHAAsyncCallback<List<Brand>>() {
+		GHACache.INSTANCE.getBrands(new GHAAsyncCallback<List<Brand>>() {
 
 			@Override
 			public void onSuccess(List<Brand> result) {

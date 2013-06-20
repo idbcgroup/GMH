@@ -2,6 +2,7 @@ package org.fourgeeks.gha.webclient.client.eiatype.caracteristicas;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAButton;
+import org.fourgeeks.gha.webclient.client.UI.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
@@ -15,14 +16,23 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class EIATypeCaracteristicasForm extends VLayout implements
 		EIATypeSelectionListener {
 
-	private GHATextItem codeItem, nameItem, brandItem, modelItem, manItem;
+	private GHATextItem codeItem, nameItem, modelItem, descriptionItem,
+			useDescriptionItem, eiaUmdnsItem;
+	private GHASelectItem brandItem, manItem, mobilityItem, typeItem,
+			subTypeItem;
 
 	{
 		codeItem = new GHATextItem("Código");
 		nameItem = new GHATextItem("Nombre");
-		brandItem = new GHATextItem("Marca");
 		modelItem = new GHATextItem("Modelo");
-		manItem = new GHATextItem("Fabricante");
+		descriptionItem = new GHATextItem("Descripción");
+		useDescriptionItem = new GHATextItem("Descripción de uso");
+		eiaUmdnsItem = new GHATextItem("EIAUMDNS");
+		manItem = new GHASelectItem("Fabricante");
+		brandItem = new GHASelectItem("Marca");
+		mobilityItem = new GHASelectItem("Movilidad");
+		typeItem = new GHASelectItem("Tipo");
+		subTypeItem = new GHASelectItem("Subtipo");
 	}
 
 	public EIATypeCaracteristicasForm() {
@@ -40,7 +50,9 @@ public class EIATypeCaracteristicasForm extends VLayout implements
 		DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(5);
-		form.setItems(codeItem, nameItem, brandItem, modelItem, manItem);
+		form.setItems(brandItem, manItem, codeItem, nameItem, descriptionItem,
+				modelItem, useDescriptionItem, eiaUmdnsItem, mobilityItem,
+				typeItem, subTypeItem);
 
 		VLayout sideButtons = new VLayout();
 		sideButtons.setWidth(30);

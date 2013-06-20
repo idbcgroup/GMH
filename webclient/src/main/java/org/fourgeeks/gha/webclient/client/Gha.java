@@ -23,6 +23,7 @@ public class Gha implements EntryPoint {
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
+
 		History.addValueChangeHandler(new ValueChangeHandler<String>() {
 			@Override
 			public void onValueChange(ValueChangeEvent<String> event) {
@@ -71,10 +72,9 @@ public class Gha implements EntryPoint {
 
 		// final GWTEiaTypeServiceAsync eiaService =
 		// GWT.create(GWTEiaTypeService.class);
-		
+
 		final GWTEiaService equipmentService = GWT.create(GWTEiaService.class);
-		
-		
+
 	}
 
 }
