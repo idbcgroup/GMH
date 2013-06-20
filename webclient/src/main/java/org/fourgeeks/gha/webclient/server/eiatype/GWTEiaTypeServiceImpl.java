@@ -15,27 +15,39 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 /**
  * @author emiliot
- *
+ * 
  */
-public class GWTEiaTypeServiceImpl extends RemoteServiceServlet implements GWTEiaTypeService{
-	
+public class GWTEiaTypeServiceImpl extends RemoteServiceServlet implements
+		GWTEiaTypeService {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@EJB(name = "gmh.EiaTypeService")
 	EiaTypeServiceRemote eiaTypeServiceRemote;
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.eia.GWTEiaTypeService#save(org.fourgeeks.gha.domain.gmh.EiaType)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.eia.GWTEiaTypeService#save(org.fourgeeks
+	 * .gha.domain.gmh.EiaType)
 	 */
 	@Override
-	public void save(EiaType eiaType) {
-		eiaTypeServiceRemote.save(eiaType);	
+	public boolean save(EiaType eiaType) {
+		try {
+			eiaTypeServiceRemote.save(eiaType);
+		} catch (Exception e) { // TODO Entity save exception
+			return false;
+		}
+		return true;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.webclient.client.eia.GWTEiaTypeService#find(long)
 	 */
 	@Override
@@ -43,25 +55,34 @@ public class GWTEiaTypeServiceImpl extends RemoteServiceServlet implements GWTEi
 		return eiaTypeServiceRemote.find(Id);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.eia.GWTEiaTypeService#update(org.fourgeeks.gha.domain.gmh.EiaType)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.eia.GWTEiaTypeService#update(org.fourgeeks
+	 * .gha.domain.gmh.EiaType)
 	 */
 	@Override
 	public void update(EiaType eiaType) {
 		eiaTypeServiceRemote.update(eiaType);
-		
+
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.eia.GWTEiaTypeService#delete(long)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.eia.GWTEiaTypeService#delete(long)
 	 */
 	@Override
 	public void delete(long Id) {
 		eiaTypeServiceRemote.delete(Id);
-		
+
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.webclient.client.eia.GWTEiaTypeService#getAll()
 	 */
 	@Override
@@ -69,24 +90,35 @@ public class GWTEiaTypeServiceImpl extends RemoteServiceServlet implements GWTEi
 		return eiaTypeServiceRemote.getAll();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.eia.GWTEiaTypeService#getAll(int, int)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.eia.GWTEiaTypeService#getAll(int,
+	 * int)
 	 */
 	@Override
 	public List<EiaType> getAll(int offset, int size) {
 		return eiaTypeServiceRemote.getAll(offset, size);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.eia.GWTEiaTypeService#find(org.fourgeeks.gha.domain.gmh.EiaType)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.eia.GWTEiaTypeService#find(org.fourgeeks
+	 * .gha.domain.gmh.EiaType)
 	 */
 	@Override
 	public List<EiaType> find(EiaType eiaType) {
 		return eiaTypeServiceRemote.find(eiaType);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.eia.GWTEiaTypeService#find(org.fourgeeks.gha.domain.gmh.EiaType, int, int)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.eia.GWTEiaTypeService#find(org.fourgeeks
+	 * .gha.domain.gmh.EiaType, int, int)
 	 */
 	@Override
 	public List<EiaType> find(EiaType eiaType, int offset, int size) {
