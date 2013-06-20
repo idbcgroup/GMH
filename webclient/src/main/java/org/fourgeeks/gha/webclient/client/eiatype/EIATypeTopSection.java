@@ -39,8 +39,8 @@ public class EIATypeTopSection extends HLayout implements
 		descriptionItem.setWidth(210);
 		descriptionItem.setColSpan(2);
 		useDescriptionItem = new GHATextItem("Uso", false);
-		umdnsCodeItem = new GHATextItem("Código UMDNS", false);
-		mobilityItem = new GHATextItem("Movilizable", false);
+		umdnsCodeItem = new GHATextItem("EIAUMDNS", false);
+		mobilityItem = new GHATextItem("Movilidad", false);
 		typeItem = new GHATextItem("Tipo de Equipo", false);
 		subtypeItem = new GHATextItem("Subtipo", false);
 	}
