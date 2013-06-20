@@ -63,7 +63,11 @@ public class EIATypeCaracteristicasForm extends VLayout implements
 
 		DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
+<<<<<<< HEAD
+		form.setNumCols(4);
+=======
 		form.setNumCols(6);
+>>>>>>> 8f7e3f5916cc605c792fd1280e1bbfdc771abe66
 		form.setItems(brandItem, manItem, codeItem, nameItem, descriptionItem,
 				modelItem, useDescriptionItem, eiaUmdnsItem, mobilityItem,
 				typeItem, subTypeItem);
