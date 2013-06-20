@@ -1,7 +1,17 @@
 package org.fourgeeks.gha.webclient.client.eiatype.caracteristicas;
 
+import java.util.LinkedHashMap;
+import java.util.List;
+
+import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
+import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
+import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
+import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.domain.gmh.Manufacturer;
+import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAButton;
+import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
@@ -26,7 +36,9 @@ public class EIATypeCaracteristicasForm extends VLayout implements
 		nameItem = new GHATextItem("Nombre");
 		modelItem = new GHATextItem("Modelo");
 		descriptionItem = new GHATextItem("Descripción");
-		useDescriptionItem = new GHATextItem("Descripción de uso");
+		descriptionItem.setColSpan(2);
+		descriptionItem.setWidth(200);
+		useDescriptionItem = new GHATextItem("Uso");
 		eiaUmdnsItem = new GHATextItem("EIAUMDNS");
 		manItem = new GHASelectItem("Fabricante");
 		brandItem = new GHASelectItem("Marca");
@@ -49,7 +61,7 @@ public class EIATypeCaracteristicasForm extends VLayout implements
 
 		DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
-		form.setNumCols(5);
+		form.setNumCols(4);
 		form.setItems(brandItem, manItem, codeItem, nameItem, descriptionItem,
 				modelItem, useDescriptionItem, eiaUmdnsItem, mobilityItem,
 				typeItem, subTypeItem);
@@ -61,11 +73,10 @@ public class EIATypeCaracteristicasForm extends VLayout implements
 		sideButtons.setMembersMargin(10);
 		sideButtons.setDefaultLayoutAlign(Alignment.CENTER);
 
-		GHAButton addButton = new GHAButton("../resources/icons/new.png");
-		GHAButton editButton = new GHAButton("../resources/icons/edit.png");
-		GHAButton cancelButton = new GHAButton("../resources/icons/delete.png");
+		GHAButton saveButton = new GHAButton("../resources/icons/save.png");
+		GHAButton undoButton = new GHAButton("../resources/icons/undo.png");
 
-		sideButtons.addMembers(addButton, editButton, cancelButton);
+		sideButtons.addMembers(saveButton, undoButton);
 
 		HLayout fill = new HLayout();
 		fill.setWidth("*");
@@ -74,20 +85,75 @@ public class EIATypeCaracteristicasForm extends VLayout implements
 		gridPanel.addMembers(form, fill, sideButtons);
 
 		addMember(gridPanel);
+		fillBrands();
+		fillMans();
+		fillExtras();
+	}
+
+	private void fillExtras() {
+		// types
+		LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+		for (EiaTypeEnum eiaTypeEnum : EiaTypeEnum.values())
+			valueMap.put(eiaTypeEnum.ordinal() + "", eiaTypeEnum.toString());
+		typeItem.setValueMap(valueMap);
+		// subtypes
+		valueMap = new LinkedHashMap<String, String>();
+		for (EiaSubTypeEnum subtype : EiaSubTypeEnum.values())
+			valueMap.put(subtype.ordinal() + "", subtype.toString());
+		subTypeItem.setValueMap(valueMap);
+		// mobility
+		valueMap = new LinkedHashMap<String, String>();
+		for (EiaMobilityEnum mobility : EiaMobilityEnum.values())
+			valueMap.put(mobility.ordinal() + "", mobility.toString());
+		mobilityItem.setValueMap(valueMap);
+	}
+
+	private void fillMans() {
+		GHACache.INSTANCE
+				.getManufacturesrs(new GHAAsyncCallback<List<Manufacturer>>() {
+
+					@Override
+					public void onSuccess(List<Manufacturer> result) {
+						LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+						for (Manufacturer manufacturer : result)
+							valueMap.put(manufacturer.getId() + "",
+									manufacturer.getName());
+						manItem.setValueMap(valueMap);
+
+					}
+				});
+
+	}
+
+	private void fillBrands() {
+		GHACache.INSTANCE.getBrands(new GHAAsyncCallback<List<Brand>>() {
+
+			@Override
+			public void onSuccess(List<Brand> result) {
+				LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+				for (Brand brand : result)
+					valueMap.put(brand.getId() + "", brand.getName());
+				brandItem.setValueMap(valueMap);
+
+			}
+		});
+
 	}
 
 	@Override
 	public void select(EiaType eiaType) {
+		if (eiaType.getBrand() != null)
+			brandItem.setValue(eiaType.getBrand().getId());
+		if (eiaType.getManufacturer() != null)
+			manItem.setValue(eiaType.getManufacturer().getId());
 		codeItem.setValue(eiaType.getCode());
 		nameItem.setValue(eiaType.getName());
-
-		if (eiaType.getBrand() != null)
-			brandItem.setValue(eiaType.getBrand().getName());
-
+		descriptionItem.setValue(eiaType.getDescription());
 		modelItem.setValue(eiaType.getModel());
-
-		if (eiaType.getManufacturer() != null)
-			manItem.setValue(eiaType.getManufacturer().getName());
-
+		useDescriptionItem.setValue(eiaType.getDescription());
+		eiaUmdnsItem.setValue(eiaType.getEiaUmdns());
+		mobilityItem.setValue(eiaType.getMobility().ordinal());
+		typeItem.setValue(eiaType.getType().ordinal());
+		subTypeItem.setValue(eiaType.getSubtype().ordinal());
 	}
 }

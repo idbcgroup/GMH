@@ -3,7 +3,9 @@ package org.fourgeeks.gha.webclient.client.UI;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.Brand;
+import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.webclient.client.brand.BrandModel;
+import org.fourgeeks.gha.webclient.client.manufacturer.ManufacturerModel;
 
 import com.google.gwt.user.client.Timer;
 
@@ -15,6 +17,7 @@ public enum GHACache {
 	 */
 	private static final int CACHE_TIME = 50000;
 	private List<Brand> brands;
+	private List<Manufacturer> manufacturers;
 
 	{
 		// Inititalization of the invalidation policy
@@ -29,6 +32,7 @@ public enum GHACache {
 
 	protected void invalidateCache() {
 		brands = null;
+		manufacturers = null;
 	}
 
 	public void getBrands(GHAAsyncCallback<List<Brand>> callback) {
@@ -49,6 +53,30 @@ public enum GHACache {
 					@Override
 					public void onSuccess(List<Brand> result) {
 						brands = result;
+						// Avoiding synchronization problems
+						callback.onSuccess(result);
+					}
+				});
+	}
+
+	public void getManufacturesrs(GHAAsyncCallback<List<Manufacturer>> callback) {
+		// Avoiding synchronization problems
+		List<Manufacturer> localManufacturers = manufacturers;
+		if (localManufacturers == null)
+			getManufacturersFromServer(callback);
+		else {
+			callback.onSuccess(localManufacturers);
+		}
+	}
+
+	private void getManufacturersFromServer(
+			final GHAAsyncCallback<List<Manufacturer>> callback) {
+		ManufacturerModel.getAll(new GHAAsyncCallback<List<Manufacturer>>() { // AyncCallback
+					// subclass
+
+					@Override
+					public void onSuccess(List<Manufacturer> result) {
+						manufacturers = result;
 						// Avoiding synchronization problems
 						callback.onSuccess(result);
 					}

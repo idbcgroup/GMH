@@ -14,7 +14,6 @@ import org.fourgeeks.gha.webclient.client.UI.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.eiatype.equipos.EIATypeEquiposGrid;
-import org.fourgeeks.gha.webclient.client.manufacturer.ManufacturerModel;
 
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
@@ -126,18 +125,19 @@ public class EIATypeSearchForm extends VLayout {
 	}
 
 	private void searchForMans() {
-		ManufacturerModel.getAll(new GHAAsyncCallback<List<Manufacturer>>() {
+		GHACache.INSTANCE
+				.getManufacturesrs(new GHAAsyncCallback<List<Manufacturer>>() {
 
-			@Override
-			public void onSuccess(List<Manufacturer> result) {
-				LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-				for (Manufacturer manufacturer : result)
-					valueMap.put(manufacturer.getId() + "",
-							manufacturer.getName());
-				manItem.setValueMap(valueMap);
+					@Override
+					public void onSuccess(List<Manufacturer> result) {
+						LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+						for (Manufacturer manufacturer : result)
+							valueMap.put(manufacturer.getId() + "",
+									manufacturer.getName());
+						manItem.setValueMap(valueMap);
 
-			}
-		});
+					}
+				});
 
 	}
 
