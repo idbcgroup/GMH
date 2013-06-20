@@ -15,6 +15,7 @@ import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.layout.HLayout;
+import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class EIATypeTopSection extends HLayout implements
@@ -22,7 +23,9 @@ public class EIATypeTopSection extends HLayout implements
 
 	private List<EIATypeSelectionListener> selectionListeners;
 	private EIATypeSearchForm eiaTypeSearchForm;
-	private GHATextItem nameItem, codeItem, brandItem, modelItem, manItem;
+	private GHATextItem nameItem, codeItem, brandItem, modelItem, manItem, 
+						descriptionItem, useDescriptionItem, umdnsCodeItem,
+						mobilityItem, typeItem, subtypeItem;
 
 	{
 		selectionListeners = new LinkedList<EIATypeSelectionListener>();
@@ -32,6 +35,14 @@ public class EIATypeTopSection extends HLayout implements
 		brandItem = new GHATextItem("Marca", false);
 		modelItem = new GHATextItem("Modelo", false);
 		manItem = new GHATextItem("Fabricante", false);
+		descriptionItem = new GHATextItem("Descripción", false);
+		descriptionItem.setWidth(210);
+		descriptionItem.setColSpan(2);
+		useDescriptionItem = new GHATextItem("Uso", false);
+		umdnsCodeItem = new GHATextItem("Código UMDNS", false);
+		mobilityItem = new GHATextItem("Movilizable", false);
+		typeItem = new GHATextItem("Tipo de Equipo", false);
+		subtypeItem = new GHATextItem("Subtipo", false);
 	}
 
 	public EIATypeTopSection() {
@@ -43,10 +54,10 @@ public class EIATypeTopSection extends HLayout implements
 		setBackgroundColor("#E0E0E0");
 
 		DynamicForm form = new DynamicForm();
-		form.setWidth("*");
 		form.setTitleOrientation(TitleOrientation.TOP);
-		form.setNumCols(10);
-		form.setItems(codeItem, nameItem, brandItem, modelItem, manItem);
+		form.setNumCols(6);
+		form.setItems(codeItem, nameItem, descriptionItem, brandItem, modelItem, 
+					  manItem, useDescriptionItem, umdnsCodeItem, mobilityItem, typeItem, subtypeItem);
 
 		VLayout panelBotones = new VLayout();
 		panelBotones.setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT + "px");
@@ -70,7 +81,7 @@ public class EIATypeTopSection extends HLayout implements
 		GHAButton cancelButton = new GHAButton("../resources/icons/cancel.png");
 		panelBotones.addMembers(searchImg, cleanImg, cancelButton);
 
-		addMembers(form, panelBotones);
+		addMembers(form,new LayoutSpacer(),panelBotones);
 	}
 
 	@Override

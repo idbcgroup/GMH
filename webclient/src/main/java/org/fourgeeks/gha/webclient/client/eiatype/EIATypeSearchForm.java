@@ -25,14 +25,16 @@ import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
 import com.smartgwt.client.widgets.layout.HLayout;
+import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class EIATypeSearchForm extends VLayout {
 
 	private List<EIATypeSelectionListener> selectionListeners;
-	private GHATextItem codeEIAItem, nameEIAItem, modelItem;
+	private GHATextItem codeEIAItem, nameEIAItem, modelItem, descriptionItem, useDescriptionItem, umdnsCodeItem;
 	private EIATypeEquiposGrid eiaTypeGrid;
-	private GHASelectItem brandItem, manItem;
+	private GHASelectItem brandItem, manItem, mobilityItem, typeItem, subtypeItem;
+//	private GHACheckboxItem isServiceItem, hasPartsItem, hasComponentsItem; 
 	{
 		selectionListeners = new LinkedList<EIATypeSelectionListener>();
 		codeEIAItem = new GHATextItem("Código");
@@ -40,13 +42,24 @@ public class EIATypeSearchForm extends VLayout {
 		brandItem = new GHASelectItem("Marca");
 		modelItem = new GHATextItem("Modelo");
 		manItem = new GHASelectItem("Fabricante");
+		descriptionItem = new GHATextItem("Descripción");
+		descriptionItem.setWidth(200);
+		descriptionItem.setColSpan(2);
+		useDescriptionItem = new GHATextItem("Uso");
+		umdnsCodeItem = new GHATextItem("Código UMDNS");
+		mobilityItem = new GHASelectItem("Movilizable");
+		typeItem = new GHASelectItem("Tipo de Equipo");
+		subtypeItem = new GHASelectItem("Subtipo");
+//		isServiceItem = new GHACheckboxItem("Es servicio");
+//		hasPartsItem = new GHACheckboxItem("Tiene partes");
+//		hasComponentsItem = new GHACheckboxItem("Tiene componentes");
 	}
 
 	public EIATypeSearchForm() {
 		setWidth100(/* Window.getClientWidth() - 100 */);
 		setTop(110);
 		setLeft(-10);
-		setHeight(GHAUiHelper.getBottomSectionHeight() + "px");
+		setHeight(GHAUiHelper.calculateTabHeight() + "px");
 		setBackgroundColor("#E0E0E0");
 		setVisibility(Visibility.HIDDEN);
 		setAlign(Alignment.CENTER);
@@ -56,8 +69,9 @@ public class EIATypeSearchForm extends VLayout {
 		DynamicForm form = new DynamicForm();
 		form.setWidth("*");
 		form.setTitleOrientation(TitleOrientation.TOP);
-		form.setNumCols(10);
-		form.setItems(codeEIAItem, nameEIAItem, brandItem, modelItem, manItem);
+		form.setNumCols(6);
+		form.setItems(codeEIAItem, nameEIAItem, descriptionItem, brandItem, modelItem, 
+					  manItem, useDescriptionItem, umdnsCodeItem, mobilityItem, typeItem, subtypeItem);
 
 		GHAButton searchButton = new GHAButton("../resources/icons/search.png");
 		searchButton.addClickHandler(new ClickHandler() {
@@ -85,10 +99,11 @@ public class EIATypeSearchForm extends VLayout {
 		sideButtons.setDefaultLayoutAlign(Alignment.CENTER);
 		sideButtons.addMembers(searchButton, cleanButton, cancelButton);
 
+		
 		HLayout formLayout = new HLayout();
 		formLayout.setPadding(10);
 		formLayout.setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT + "px");
-		formLayout.addMembers(form, sideButtons);
+		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
 
 		addMember(formLayout);
 		addMember(GHAUiHelper

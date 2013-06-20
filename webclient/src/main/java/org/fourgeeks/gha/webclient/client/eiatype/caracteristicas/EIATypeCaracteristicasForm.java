@@ -2,6 +2,7 @@ package org.fourgeeks.gha.webclient.client.eiatype.caracteristicas;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAButton;
+import org.fourgeeks.gha.webclient.client.UI.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
@@ -10,19 +11,29 @@ import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.layout.HLayout;
+import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class EIATypeCaracteristicasForm extends VLayout implements
 		EIATypeSelectionListener {
 
-	private GHATextItem codeItem, nameItem, brandItem, modelItem, manItem;
+	private GHATextItem codeItem, nameItem, modelItem, descriptionItem, useDescriptionItem, umdnsCodeItem;
+	private GHASelectItem brandItem, manItem, mobilityItem, typeItem, subtypeItem;
 
 	{
 		codeItem = new GHATextItem("Código");
 		nameItem = new GHATextItem("Nombre");
-		brandItem = new GHATextItem("Marca");
+		brandItem = new GHASelectItem("Marca");
 		modelItem = new GHATextItem("Modelo");
-		manItem = new GHATextItem("Fabricante");
+		manItem = new GHASelectItem("Fabricante");
+		descriptionItem = new GHATextItem("Descripción");
+		descriptionItem.setWidth(200);
+		descriptionItem.setColSpan(2);
+		useDescriptionItem = new GHATextItem("Uso");
+		umdnsCodeItem = new GHATextItem("Código UMDNS");
+		mobilityItem = new GHASelectItem("Movilizable");
+		typeItem = new GHASelectItem("Tipo de Equipo");
+		subtypeItem = new GHASelectItem("Subtipo");
 	}
 
 	public EIATypeCaracteristicasForm() {
@@ -39,8 +50,9 @@ public class EIATypeCaracteristicasForm extends VLayout implements
 
 		DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
-		form.setNumCols(5);
-		form.setItems(codeItem, nameItem, brandItem, modelItem, manItem);
+		form.setNumCols(6);
+		form.setItems(codeItem, nameItem, descriptionItem, brandItem, modelItem, 
+				  	  manItem, useDescriptionItem, umdnsCodeItem, mobilityItem, typeItem, subtypeItem);
 
 		VLayout sideButtons = new VLayout();
 		sideButtons.setWidth(30);
@@ -55,11 +67,8 @@ public class EIATypeCaracteristicasForm extends VLayout implements
 
 		sideButtons.addMembers(addButton, editButton, cancelButton);
 
-		HLayout fill = new HLayout();
-		fill.setWidth("*");
-
 		HLayout gridPanel = new HLayout();
-		gridPanel.addMembers(form, fill, sideButtons);
+		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
 
 		addMember(gridPanel);
 	}
