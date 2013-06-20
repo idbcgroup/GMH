@@ -9,7 +9,7 @@ import com.google.gwt.core.client.GWT;
 
 public class EIATypeModel {
 
-	private static final GWTEiaTypeServiceAsync eiaService = GWT
+	private static final GWTEiaTypeServiceAsync service = GWT
 			.create(GWTEiaTypeService.class);
 
 	private EIATypeModel() {
@@ -18,12 +18,17 @@ public class EIATypeModel {
 	}
 
 	public static void getAll(GHAAsyncCallback<List<EiaType>> callback) {
-		eiaService.getAll(callback);
+		service.getAll(callback);
 	}
 
 	public static void find(EiaType eiaType,
 			GHAAsyncCallback<List<EiaType>> ghaAsyncCallback) {
-		eiaService.find(eiaType, ghaAsyncCallback);
+		service.find(eiaType, ghaAsyncCallback);
+
+	}
+
+	public static void save(EiaType eiaType, GHAAsyncCallback<Boolean> callback) {
+		service.save(eiaType, callback);
 
 	}
 }
