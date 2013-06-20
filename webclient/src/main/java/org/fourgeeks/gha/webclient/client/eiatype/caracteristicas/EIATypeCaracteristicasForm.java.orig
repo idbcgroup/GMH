@@ -17,14 +17,32 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class EIATypeCaracteristicasForm extends VLayout implements
 		EIATypeSelectionListener {
 
+<<<<<<< HEAD
+	private GHATextItem codeItem, nameItem, modelItem, descriptionItem, useDescriptionItem, umdnsCodeItem;
+	private GHASelectItem brandItem, manItem, mobilityItem, typeItem, subtypeItem;
+=======
 	private GHATextItem codeItem, nameItem, modelItem, descriptionItem,
 			useDescriptionItem, eiaUmdnsItem;
 	private GHASelectItem brandItem, manItem, mobilityItem, typeItem,
 			subTypeItem;
+>>>>>>> 9c54bc47180c2295c6cc3e2ef093a8f2e7cb729c
 
 	{
 		codeItem = new GHATextItem("Código");
 		nameItem = new GHATextItem("Nombre");
+<<<<<<< HEAD
+		brandItem = new GHASelectItem("Marca");
+		modelItem = new GHATextItem("Modelo");
+		manItem = new GHASelectItem("Fabricante");
+		descriptionItem = new GHATextItem("Descripción");
+		descriptionItem.setWidth(200);
+		descriptionItem.setColSpan(2);
+		useDescriptionItem = new GHATextItem("Uso");
+		umdnsCodeItem = new GHATextItem("Código UMDNS");
+		mobilityItem = new GHASelectItem("Movilizable");
+		typeItem = new GHASelectItem("Tipo de Equipo");
+		subtypeItem = new GHASelectItem("Subtipo");
+=======
 		modelItem = new GHATextItem("Modelo");
 		descriptionItem = new GHATextItem("Descripción");
 		useDescriptionItem = new GHATextItem("Descripción de uso");
@@ -34,7 +52,7 @@ public class EIATypeCaracteristicasForm extends VLayout implements
 		mobilityItem = new GHASelectItem("Movilidad");
 		typeItem = new GHASelectItem("Tipo");
 		subTypeItem = new GHASelectItem("Subtipo");
-		subtypeItem = new GHASelectItem("Subtipo");
+>>>>>>> 9c54bc47180c2295c6cc3e2ef093a8f2e7cb729c
 	}
 
 	public EIATypeCaracteristicasForm() {
@@ -51,10 +69,16 @@ public class EIATypeCaracteristicasForm extends VLayout implements
 
 		DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
+<<<<<<< HEAD
 		form.setNumCols(6);
+		form.setItems(codeItem, nameItem, descriptionItem, brandItem, modelItem, 
+				  	  manItem, useDescriptionItem, umdnsCodeItem, mobilityItem, typeItem, subtypeItem);
+=======
+		form.setNumCols(5);
 		form.setItems(brandItem, manItem, codeItem, nameItem, descriptionItem,
 				modelItem, useDescriptionItem, eiaUmdnsItem, mobilityItem,
 				typeItem, subTypeItem);
+>>>>>>> 9c54bc47180c2295c6cc3e2ef093a8f2e7cb729c
 
 		VLayout sideButtons = new VLayout();
 		sideButtons.setWidth(30);
