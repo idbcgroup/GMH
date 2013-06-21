@@ -220,7 +220,7 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 		
 		if (brand != null && brand.getId() > 0) {
 			if (varsAdded > 0) {
-				filters += " OR ";
+				filters += " AND ";
 			}
 			++varsAdded;
 			filters += "brand='" + Long.toString(eiaType.getBrand().getId())
@@ -229,7 +229,7 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 
 		if (manufacturer != null && manufacturer.getId() > 0) {
 			if (varsAdded > 0) {
-				filters += " OR ";
+				filters += " AND ";
 			}
 			++varsAdded;
 			filters += "manufacturer='"
@@ -238,7 +238,7 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 
 		if (eiaType.getModel() != null && eiaType.getModel() != "") {
 			if (varsAdded > 0) {
-				filters += " OR ";
+				filters += " AND ";
 			}
 			++varsAdded;
 			filters += " lower(model) like '%" + eiaType.getModel().toLowerCase() + "%' ";
@@ -246,7 +246,7 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 
 		if (eiaType.getName() != null && eiaType.getName() != "") {
 			if (varsAdded > 0) {
-				filters += " OR ";
+				filters += " AND ";
 			}
 			varsAdded++;
 			filters += "lower(name) like '%" + eiaType.getName().toLowerCase() + "%' ";
@@ -254,7 +254,7 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 
 		if (eiaType.getCode() != null && eiaType.getCode() != "") {
 			if (varsAdded > 0) {
-				filters += " OR ";
+				filters += " AND ";
 			}
 			varsAdded++;
 			filters += "lower(code) like '%" + eiaType.getCode().toLowerCase() + "%' ";
