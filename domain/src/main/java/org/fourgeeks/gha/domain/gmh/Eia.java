@@ -20,154 +20,110 @@ import org.fourgeeks.gha.domain.gar.Facility;
 @Entity
 public class Eia extends AbstractEntity {
 
-	private static final long serialVersionUID = 1L;
-
-	// @OneToOne(mappedBy = "eia")
-	// private Terminal terminal;
-
-	@ManyToOne
-	@JoinColumn(name = "facilityFk")
-	private Facility facility;
-
-	@ManyToOne
-	@JoinColumn(name = "eiaTypeFk")
-	private EiaType eiaType;
-
-//	@ManyToOne
-//	@JoinColumn(name = "buildingFk", nullable = false)
-//	private BuildingLocation buildingLocation;
-
-	// @OneToOne(mappedBy = "eia")
-	// private SystemPeripheral systemPeripheral;
-
-	/** Attributes */
-	private String code;
-	/** Código asignado al Equipo o Instalación length =20 */
-	private String serialNumber;
-	/** Número de Serial del Equipo length =60 */
-	private String fixeAssetIdentifier;
-	/** Identificación de Activo Fijo length =60 */
-
-	@Column(nullable = false)
-	private WarrantySinceEnum warrantySince;
-	/** Desde que fecha se considera la garantía del fabricante length =60 */
-
-	@Column(nullable = true)
-	private int warrantyTime;
-	/** Tiempo de duración de la garantía length =4 */
-
-	private TimePeriodEnum warrantyTimePot;
-	/** Periodo de Tiempo (PDT) para la duración de la garantía length =60 */
-
-	private Date purchaseDate;
-	/** Fecha de Compra del Equipo length =22 */
-	private Date receptionDate;
-	/** Fecha de Recepción del Equipo length =22 */
-	private Date installationDate;
 	/** Fecha de Instalación del Equipo length =22 */
 	private Date acceptationDate;
-	/** Fecha de Aceptación del Equipo length =22 */
-	private Date intermediateWarrantyStartDate;
-	/** Fecha inicio de garantía Intermedia length =22 */
-	private String locationCode;
-	/** Código de Ubicación del Equipo length =20 */
-	private String locationName;
-	/** Nombre de Ubicación del Equipo length =255 */
-	private String obuResponsibleCode;
-	/** Código Departamento donde esta adjudicado el equipo length =20 */
-	private String obuResponsibleName;
-	/** Nombre Departamento donde esta adjudicado el equipo length =255 */
-
-	@Column(nullable = false)
-	private EiaStateEnum state;
-	/** Estado del Equipo length =60 */
-
-	@Column(nullable = false)
-	private WarrantyStateEnum warrantyState;
-	/**
-	 * Estado de la garantía - Tiempo remanente de garantía sobre el Equipo o
-	 * Instalacion length =6
-	 */
-	private String bpuResponsibleCredential;
-	/** Credencial Persona Responsable del equipo length =255 */
-	private String bpuResponsibleName;
-	/** Nombre Completo Persona Responsable del equipo length =255 */
-
-	private String primaryAreaAttendedCode;
-	/** Código de Ubicación del Equipo length =20 */
-	private String primaryAreaAttendedName;
-	/** Nombre de Ubicación del Equipo length =255 */
-	private String purchaseOrderNumber;
-	/** Número de la Orden de Compra length =30 */
-	private Date purchaseOrderDate;
-	/** Fecha de la Orden de Compra length =22 */
-	private String vendorCode;
-	/** Código Proveedor del Equipo (O/Compra) length =255 */
-	private String vendorName;
-	/** Nombre Proveedor del Equipo (O/Compra) length =255 */
-	private String purchaseInvoiceNumber;
-	/** Número de la Factura de Compra length =30 */
-	private Date purchaseInvoiceDate;
-	/** Fecha de la Factura de Compra length =22 */
-	private String installationProvider;
-	/** Nombre del proveedor de la instalación length =255 */
-	private String installationProviderCode;
-	/**
-	 * Código del Proveedor de Instalación solo si es un proveedor regular
-	 * length =255
-	 */
-	private String maintenanceLocationCode;
-	/** Código de Ubicación del Equipo mientras está en Mantenimiento length =20 */
-	private String maintenanceLocationName;
-	/**
-	 * Nombre de Ubicación del Equipo mientras está en Mantenimiento length =255
-	 */
-	private String maintenanceProviderCode;
-	/** Código Proveedor de Mantenimiento del Equipo length =255 */
-	private String maintenanceProviderName;
+	/** Periodo de Tiempo (PDT) para el Tiempo de Vida Equipo length =60 */
+	private BigDecimal actualCost;
+	/** Costo Actual en Libros length =16dec =5 */
+	private CurrencyTypeEnum actualCostCurrency;
 	/** Nombre Proveedor de Mantenimiento del Equipo length =255 */
 	private BigDecimal adquisitionCost;
 	/** Costo Adquisición moneda Indicada length =16dec =5 */
-
 	private CurrencyTypeEnum adquisitionCostCurrency;
-	/** Denominación Moneda del Costo de Adquisición del equipo length =60 */
-
-	private Date contabilizationDate;
+	/** Costo Adquisición moneda Local length =16dec =5 */
+	private CurrencyTypeEnum adquisitionCostCurrencyLocal;
 	/** Fecha de Contabilización length =22 */
 	private BigDecimal adquisitionCostLocal;
-	/** Costo Adquisición moneda Local length =16dec =5 */
+	/* Credencial de la persona responsable */
+	// TODO Foreign key con BPU
+	private String bpu;
 
-	private CurrencyTypeEnum adquisitionCostCurrencyLocal;
+	private String code;
+	/** Denominación Moneda del Costo de Adquisición del equipo length =60 */
+	private Date contabilizationDate;
+	/** Motivo de Desincorporación length =255 */
+	private Date dateLastDepreciation;
 	/** Denominación Moneda Local para Costo Contabilizado del equipo length =60 */
-
 	private DepreciationMethodEnum depreciationMethod;
 	/** Método de Depreciación length =60 */
-
 	@Column(nullable = true)
 	private int depreciationTime;
 	/** Tiempo de Depreciación length =4 */
 	private TimePeriodEnum depreciationTimePot;
-	/** Periodo de Tiempo (PDT) para el Tiempo de Depreciación length =60 */
+	/** Denominación Moneda Local para Costo Contabilizado del equipo length =60 */
+	// private EquipmentTypeEnum type; /** Tipo Equipo IT length =60 */
+	private Date desincorporatedDate;
+	/** Fecha de Desincorporación length =22 */
+	private String desincorporateReason;
+	@ManyToOne
+	@JoinColumn(name = "eiaTypeFk")
+	private EiaType eiaType;
+	@ManyToOne
+	@JoinColumn(name = "facilityFk")
+	private Facility facility;
+	/** Número de Serial del Equipo length =60 */
+	private String fixeAssetIdentifier;
+	/** Fecha de Recepción del Equipo length =22 */
+	private Date installationDate;
+	/** Fecha de la Factura de Compra length =22 */
+
+	// TODO Foreign key con un proveedor?
+	private String installationProvider;
 
 	@Column(nullable = true)
 	private int lifeTime;
 	/** Tiempo de Vida Equipo length =4 */
 	private TimePeriodEnum lifeTimePot;
-	/** Periodo de Tiempo (PDT) para el Tiempo de Vida Equipo length =60 */
-	private BigDecimal actualCost;
-	/** Costo Actual en Libros length =16dec =5 */
-	private CurrencyTypeEnum actualCostCurrency;
-	/** Denominación Moneda Local para Costo Contabilizado del equipo length =60 */
+	/**
+	 * Código del Proveedor de Instalación solo si es un proveedor regular
+	 * length =255
+	 */
+	// TODO Foreign Key con Facility?
+	private String maintenanceLocation;
+	// TODO Foreign key con un proveedor?
+	private String maintenanceProvider;
 
-	// private EquipmentTypeEnum type; /** Tipo Equipo IT length =60 */
+	// TODO Foreign key con un OBU?, esto no viene del BPI?
+	private String obu;
+	/** Nombre Completo Persona Responsable del equipo length =255 */
 
-	private Date desincorporatedDate;
-	/** Fecha de Desincorporación length =22 */
-	private String desincorporateReason;
-	/** Motivo de Desincorporación length =255 */
-	private Date dateLastDepreciation;
+	private Date purchaseDate;
+	/** Número de la Factura de Compra length =30 */
+	private Date purchaseInvoiceDate;
+	/** Nombre Proveedor del Equipo (O/Compra) length =255 */
+	private String purchaseInvoiceNumber;
+	/** Número de la Orden de Compra length =30 */
+	private Date purchaseOrderDate;
+	/** Nombre de Ubicación del Equipo length =255 */
+	private String purchaseOrderNumber;
+	/** Fecha de Compra del Equipo length =22 */
+	private Date receptionDate;
+	/** Código asignado al Equipo o Instalación length =20 */
+	private String serialNumber;
+	/** Nombre Departamento donde esta adjudicado el equipo length =255 */
+
+	@Column(nullable = false)
+	private EiaStateEnum state;
+
+	// TODO Foreign key con un vendor?
+	private String vendor;
+
+	@Column(nullable = false)
+	private WarrantySinceEnum warrantySince;
+	/** Estado del Equipo length =60 */
+
+	@Column(nullable = false)
+	private WarrantyStateEnum warrantyState;
+	/** Desde que fecha se considera la garantía del fabricante length =60 */
+
+	@Column(nullable = true)
+	private int warrantyTime;
 
 	/** Fecha de última Depreciación length =22 */
+
+	/** Tiempo de duración de la garantía length =4 */
+
+	private TimePeriodEnum warrantyTimePot;
 
 	/**
 	 * 
@@ -186,9 +142,8 @@ public class Eia extends AbstractEntity {
 	 * @param warrantyState
 	 */
 	public Eia(Facility facility, EiaType eiaType,
-			WarrantySinceEnum warrantySince,
-			TimePeriodEnum warrantyTimePot, EiaStateEnum state,
-			WarrantyStateEnum warrantyState) {
+			WarrantySinceEnum warrantySince, TimePeriodEnum warrantyTimePot,
+			EiaStateEnum state, WarrantyStateEnum warrantyState) {
 		super();
 		this.facility = facility;
 		this.eiaType = eiaType;
@@ -198,31 +153,45 @@ public class Eia extends AbstractEntity {
 		this.warrantyState = warrantyState;
 	}
 
-	public Facility getFacility() {
-		return facility;
-	}
-
-	public void setFacility(Facility facility) {
-		this.facility = facility;
+	/**
+	 * @return the code
+	 */
+	public String getCode() {
+		return code;
 	}
 
 	public EiaType getEiaType() {
 		return eiaType;
 	}
 
-	public void setEiatype(EiaType eiaType) {
-		this.eiaType = eiaType;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public Facility getFacility() {
+		return facility;
 	}
 
 	/**
-	 * @return the code
+	 * @return the serialNumber
 	 */
-	public String getCode() {
-		return code;
+	public String getSerialNumber() {
+		return serialNumber;
+	}
+
+	public EiaStateEnum getState() {
+		return state;
+	}
+
+	/**
+	 * @return the warrantySince
+	 */
+	public WarrantySinceEnum getWarrantySince() {
+		return warrantySince;
+	}
+
+	public WarrantyStateEnum getWarrantyState() {
+		return warrantyState;
+	}
+
+	public TimePeriodEnum getWarrantyTimePot() {
+		return warrantyTimePot;
 	}
 
 	/**
@@ -233,11 +202,12 @@ public class Eia extends AbstractEntity {
 		this.code = code;
 	}
 
-	/**
-	 * @return the serialNumber
-	 */
-	public String getSerialNumber() {
-		return serialNumber;
+	public void setEiatype(EiaType eiaType) {
+		this.eiaType = eiaType;
+	}
+
+	public void setFacility(Facility facility) {
+		this.facility = facility;
 	}
 
 	/**
@@ -248,35 +218,8 @@ public class Eia extends AbstractEntity {
 		this.serialNumber = serialNumber;
 	}
 
-	public TimePeriodEnum getWarrantyTimePot() {
-		return warrantyTimePot;
-	}
-
-	public EiaStateEnum getState() {
-		return state;
-	}
-
-	public WarrantyStateEnum getWarrantyState() {
-		return warrantyState;
-	}
-
-	public void setWarrantyTimePot(TimePeriodEnum warrantyTimePot) {
-		this.warrantyTimePot = warrantyTimePot;
-	}
-
 	public void setState(EiaStateEnum state) {
 		this.state = state;
-	}
-
-	public void setWarrantyState(WarrantyStateEnum warrantyState) {
-		this.warrantyState = warrantyState;
-	}
-
-	/**
-	 * @return the warrantySince
-	 */
-	public WarrantySinceEnum getWarrantySince() {
-		return warrantySince;
 	}
 
 	/**
@@ -285,6 +228,14 @@ public class Eia extends AbstractEntity {
 	 */
 	public void setWarrantySince(WarrantySinceEnum warrantySince) {
 		this.warrantySince = warrantySince;
+	}
+
+	public void setWarrantyState(WarrantyStateEnum warrantyState) {
+		this.warrantyState = warrantyState;
+	}
+
+	public void setWarrantyTimePot(TimePeriodEnum warrantyTimePot) {
+		this.warrantyTimePot = warrantyTimePot;
 	}
 
 }

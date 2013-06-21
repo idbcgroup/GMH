@@ -1,42 +1,55 @@
 package org.fourgeeks.gha.webclient.client.eiatype.equipos;
 
-import com.smartgwt.client.types.Alignment;
-import com.smartgwt.client.widgets.grid.ListGrid;
-import com.smartgwt.client.widgets.grid.ListGridField;
+import java.util.List;
 
-public class EIATypeEquiposGrid extends ListGrid {
+import org.fourgeeks.gha.domain.gmh.Eia;
+import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
+import org.fourgeeks.gha.webclient.client.UI.GHAGridField;
+import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.eia.EIAModel;
+import org.fourgeeks.gha.webclient.client.eia.EIAUtil;
+import org.fourgeeks.gha.webclient.client.eiatype.EIATypeRecord;
+import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
+
+import com.smartgwt.client.widgets.grid.ListGrid;
+import com.smartgwt.client.widgets.grid.ListGridRecord;
+
+public class EIATypeEquiposGrid extends ListGrid implements
+		EIATypeSelectionListener {
 
 	public EIATypeEquiposGrid() {
 		setWidth100();
-		setHeight("300px");
+		setHeight(GHAUiHelper.getBottomSectionHeight());
 		setEmptyMessage("No existen tipos de equipo para mostrar");
-
 		setAlternateRecordStyles(false);
 		setCanResizeFields(false);
 
-		ListGridField idGridField = new ListGridField("id", "No");
-		idGridField.setAlign(Alignment.CENTER);
-
-		ListGridField codeGridField = new ListGridField("code", "Codigo");
-		codeGridField.setAlign(Alignment.CENTER);
-
-		ListGridField nameGridField = new ListGridField("name", "Nombre");
-		nameGridField.setAlign(Alignment.CENTER);
-
-		ListGridField brandGridField = new ListGridField("brand", "Marca");
-		brandGridField.setAlign(Alignment.CENTER);
-
-		ListGridField modelGridField = new ListGridField("model", "Modelo");
-		modelGridField.setAlign(Alignment.CENTER);
-
-		ListGridField makeGridField = new ListGridField("manufacturer",
+		GHAGridField idGridField = new GHAGridField("id", "No");
+		GHAGridField codeGridField = new GHAGridField("code", "Codigo");
+		GHAGridField nameGridField = new GHAGridField("name", "Nombre");
+		GHAGridField brandGridField = new GHAGridField("brand", "Marca");
+		GHAGridField modelGridField = new GHAGridField("model", "Modelo");
+		GHAGridField makeGridField = new GHAGridField("manufacturer",
 				"Fabricante");
-		makeGridField.setAlign(Alignment.CENTER);
 
 		setFields(idGridField, codeGridField, nameGridField, brandGridField,
 				modelGridField, makeGridField);
+	}
 
-		// loadData();
+	@Override
+	public void select(EiaType eiaType) {
+		EIAModel.find(eiaType, new GHAAsyncCallback<List<Eia>>() {
+
+			@Override
+			public void onSuccess(List<Eia> result) {
+				ListGridRecord[] array = (ListGridRecord[]) EIAUtil
+						.toGridRecords(result).toArray(new EIATypeRecord[] {});
+				setData(array);
+
+			}
+		});
+
 	}
 
 	// private void loadData() {
