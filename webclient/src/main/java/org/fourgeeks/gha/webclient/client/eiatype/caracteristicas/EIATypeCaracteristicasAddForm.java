@@ -1,5 +1,6 @@
 package org.fourgeeks.gha.webclient.client.eiatype.caracteristicas;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -30,16 +31,16 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIATypeCaracteristicasAddForm extends VLayout implements
-		EIATypeSelectionListener {
+public class EIATypeCaracteristicasAddForm extends VLayout {
 
+	private List<EIATypeSelectionListener> listeners;
 	private GHATextItem codeItem, nameItem, modelItem, descriptionItem,
 			useDescriptionItem, eiaUmdnsItem;
 	private GHASelectItem brandItem, manItem, mobilityItem, typeItem,
 			subTypeItem;
-	private EiaType eiaType, orginalEiaType;
 
 	{
+		listeners = new ArrayList<EIATypeSelectionListener>();
 		codeItem = new GHATextItem("Código", 150);
 		nameItem = new GHATextItem("Nombre", 150);
 		modelItem = new GHATextItem("Modelo", 150);
@@ -58,7 +59,7 @@ public class EIATypeCaracteristicasAddForm extends VLayout implements
 	public EIATypeCaracteristicasAddForm() {
 		setWidth100();
 		setHeight(GHAUiHelper.getBottomSectionHeight());
-		setTop(250);
+		setTop(240);
 		setLeft(-10);
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding top-padding");// Esto es VUDU!
@@ -92,24 +93,24 @@ public class EIATypeCaracteristicasAddForm extends VLayout implements
 
 			@Override
 			public void onClick(ClickEvent event) {
-				EIATypeCaracteristicasAddForm.this.animateHide(AnimationEffect.FLY);
-//				save();
+				save();
 			}
 		});
-		
-		/*
-		GHAButton undoButton = new GHAButton("../resources/icons/undo.png");
-		undoButton.addClickHandler(new ClickHandler() {
+
+		GHAButton cancelButton = new GHAButton("../resources/icons/cancel.png");
+		cancelButton.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				undo();
+				EIATypeCaracteristicasAddForm.this
+						.animateHide(AnimationEffect.FLY);
+				cancel();
+				;
 
 			}
 		});
-		*/
-		
-		sideButtons.addMembers(saveButton /*, undoButton*/);
+
+		sideButtons.addMembers(saveButton, cancelButton);
 
 		HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
@@ -120,9 +121,24 @@ public class EIATypeCaracteristicasAddForm extends VLayout implements
 		fillExtras();
 	}
 
-	protected void undo() {
-		select(this.orginalEiaType);
-		save();
+	// protected void undo() {
+	// select(this.orginalEiaType);
+	// save();
+	// }
+
+	protected void cancel() {
+		brandItem.clearValue();
+		manItem.setValue("");
+		codeItem.clearValue();
+		nameItem.clearValue();
+		descriptionItem.clearValue();
+		modelItem.clearValue();
+		useDescriptionItem.clearValue();
+		eiaUmdnsItem.clearValue();
+		mobilityItem.clearValue();
+		typeItem.clearValue();
+		subTypeItem.clearValue();
+		EIATypeCaracteristicasAddForm.this.animateHide(AnimationEffect.FLY);
 	}
 
 	private void fillExtras() {
@@ -175,29 +191,26 @@ public class EIATypeCaracteristicasAddForm extends VLayout implements
 
 	}
 
-	@Override
-	public void select(EiaType eiaType) {
-		this.eiaType = this.orginalEiaType = eiaType;
-		if (eiaType.getBrand() != null)
-			brandItem.setValue(eiaType.getBrand().getId());
-		if (eiaType.getManufacturer() != null)
-			manItem.setValue(eiaType.getManufacturer().getId());
-		codeItem.setValue(eiaType.getCode());
-		nameItem.setValue(eiaType.getName());
-		descriptionItem.setValue(eiaType.getDescription());
-		modelItem.setValue(eiaType.getModel());
-		useDescriptionItem.setValue(eiaType.getUseDescription());
-		eiaUmdnsItem.setValue(eiaType.getEiaUmdns());
-		mobilityItem.setValue(eiaType.getMobility().name());
-		typeItem.setValue(eiaType.getType().name());
-		subTypeItem.setValue(eiaType.getSubtype().name());
-	}
+	// @Override
+	// public void select(EiaType eiaType) {
+	// this.eiaType = this.orginalEiaType = eiaType;
+	// if (eiaType.getBrand() != null)
+	// brandItem.setValue(eiaType.getBrand().getId());
+	// if (eiaType.getManufacturer() != null)
+	// manItem.setValue(eiaType.getManufacturer().getId());
+	// codeItem.setValue(eiaType.getCode());
+	// nameItem.setValue(eiaType.getName());
+	// descriptionItem.setValue(eiaType.getDescription());
+	// modelItem.setValue(eiaType.getModel());
+	// useDescriptionItem.setValue(eiaType.getUseDescription());
+	// eiaUmdnsItem.setValue(eiaType.getEiaUmdns());
+	// mobilityItem.setValue(eiaType.getMobility().name());
+	// typeItem.setValue(eiaType.getType().name());
+	// subTypeItem.setValue(eiaType.getSubtype().name());
+	// }
 
 	private void save() {
-		if (this.eiaType == null)
-			return;
-		EiaType eiaType = new EiaType();
-		eiaType.setId(this.eiaType.getId());
+		final EiaType eiaType = new EiaType();
 		if (brandItem.getValue() != null)
 			eiaType.setBrand(new Brand(Integer.valueOf(brandItem
 					.getValueAsString()), null));
@@ -219,13 +232,23 @@ public class EIATypeCaracteristicasAddForm extends VLayout implements
 			eiaType.setSubtype(EiaSubTypeEnum.valueOf(subTypeItem
 					.getValueAsString()));
 
-		EIATypeModel.update(eiaType, new GHAAsyncCallback<Boolean>() {
+		EIATypeModel.save(eiaType, new GHAAsyncCallback<Boolean>() {
 
 			@Override
 			public void onSuccess(Boolean result) {
-				// TODO
+				select(eiaType);
+				cancel();
 			}
 		});
 
+	}
+
+	protected void select(EiaType eiaType) {
+		for (EIATypeSelectionListener listener : listeners)
+			listener.select(eiaType);
+	}
+
+	public void addEiaTypeSelectionListener(EIATypeSelectionListener listener) {
+		listeners.add(listener);
 	}
 }

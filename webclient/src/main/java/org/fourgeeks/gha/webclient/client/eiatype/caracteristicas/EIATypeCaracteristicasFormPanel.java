@@ -56,7 +56,9 @@ public class EIATypeCaracteristicasFormPanel extends VLayout implements
 		subTypeItem = new GHASelectItem("Subtipo", 150);
 	}
 
-	public EIATypeCaracteristicasFormPanel() {
+	public EIATypeCaracteristicasFormPanel(
+			EIATypeCaracteristicasSubTab eiaTypeCaracteristicasSubTab) {
+		addForm.addEiaTypeSelectionListener(eiaTypeCaracteristicasSubTab);
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding top-padding");// Esto es VUDU!
@@ -89,7 +91,7 @@ public class EIATypeCaracteristicasFormPanel extends VLayout implements
 				addForm.animateShow(AnimationEffect.FLY);
 			}
 		});
-		
+
 		GHAButton saveButton = new GHAButton("../resources/icons/save.png");
 		saveButton.addClickHandler(new ClickHandler() {
 

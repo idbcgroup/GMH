@@ -3,6 +3,7 @@ package org.fourgeeks.gha.webclient.client.eiatype.caracteristicas;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
+import com.google.gwt.user.client.Window;
 import com.smartgwt.client.widgets.tab.Tab;
 
 public class EIATypeCaracteristicasSubTab extends Tab implements
@@ -13,12 +14,13 @@ public class EIATypeCaracteristicasSubTab extends Tab implements
 	public EIATypeCaracteristicasSubTab() {
 		setTitle("Caracteristicas");
 		setPaneMargin(0);
-		form = new EIATypeCaracteristicasFormPanel();
+		form = new EIATypeCaracteristicasFormPanel(this);
 		setPane(form);
 	}
 
 	@Override
 	public void select(EiaType eiaType) {
+		Window.alert(eiaType.getCode());
 		form.select(eiaType);
 	}
 
