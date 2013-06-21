@@ -31,4 +31,9 @@ public class EIATypeModel {
 		service.save(eiaType, callback);
 
 	}
+
+	public static void update(EiaType eiaType,
+			GHAAsyncCallback<Boolean> callback) {
+		service.update(eiaType, callback);
+	}
 }

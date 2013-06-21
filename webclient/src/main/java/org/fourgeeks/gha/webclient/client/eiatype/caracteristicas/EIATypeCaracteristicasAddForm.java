@@ -14,11 +14,14 @@ import org.fourgeeks.gha.webclient.client.UI.GHAButton;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
+import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeModel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.smartgwt.client.types.Alignment;
+import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.TitleOrientation;
+import com.smartgwt.client.types.Visibility;
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -27,14 +30,14 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIATypeCaracteristicasForm extends VLayout implements
+public class EIATypeCaracteristicasAddForm extends VLayout implements
 		EIATypeSelectionListener {
 
 	private GHATextItem codeItem, nameItem, modelItem, descriptionItem,
 			useDescriptionItem, eiaUmdnsItem;
 	private GHASelectItem brandItem, manItem, mobilityItem, typeItem,
 			subTypeItem;
-	private EiaType eiaType;
+	private EiaType eiaType, orginalEiaType;
 
 	{
 		codeItem = new GHATextItem("Código", 150);
@@ -52,13 +55,19 @@ public class EIATypeCaracteristicasForm extends VLayout implements
 		subTypeItem = new GHASelectItem("Subtipo", 150);
 	}
 
-	public EIATypeCaracteristicasForm() {
+	public EIATypeCaracteristicasAddForm() {
 		setWidth100();
+		setHeight(GHAUiHelper.getBottomSectionHeight());
+		setTop(250);
+		setLeft(-10);
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding top-padding");// Esto es VUDU!
 		setAlign(Alignment.CENTER);
+		setVisibility(Visibility.HIDDEN);
+		setAnimateTime(800);
+		addStyleName("box");
 
-		Label title = new Label("<h3>Caracteristicas del EIA Type</h3>");
+		Label title = new Label("<h3>Agregar un EIA Type</h3>");
 		title.setHeight(30);
 		title.setWidth100();
 		title.setStyleName("title-label");
@@ -78,6 +87,14 @@ public class EIATypeCaracteristicasForm extends VLayout implements
 		sideButtons.setMembersMargin(10);
 		sideButtons.setDefaultLayoutAlign(Alignment.CENTER);
 
+		GHAButton acceptButton = new GHAButton("../resources/icons/check.png");
+		acceptButton.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				EIATypeCaracteristicasAddForm.this.animateHide(AnimationEffect.FLY);
+			}
+		});
+		/*
 		GHAButton saveButton = new GHAButton("../resources/icons/save.png");
 		saveButton.addClickHandler(new ClickHandler() {
 
@@ -87,8 +104,17 @@ public class EIATypeCaracteristicasForm extends VLayout implements
 			}
 		});
 		GHAButton undoButton = new GHAButton("../resources/icons/undo.png");
+		undoButton.addClickHandler(new ClickHandler() {
 
-		sideButtons.addMembers(saveButton, undoButton);
+			@Override
+			public void onClick(ClickEvent event) {
+				undo();
+
+			}
+		});
+		*/
+		
+		sideButtons.addMembers(acceptButton/*,saveButton, undoButton*/);
 
 		HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
@@ -99,12 +125,16 @@ public class EIATypeCaracteristicasForm extends VLayout implements
 		fillExtras();
 	}
 
+	protected void undo() {
+		select(this.orginalEiaType);
+		save();
+	}
+
 	private void fillExtras() {
 		// types
 		LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-		for (EiaTypeEnum eiaTypeEnum : EiaTypeEnum.values()) {
+		for (EiaTypeEnum eiaTypeEnum : EiaTypeEnum.values())
 			valueMap.put(eiaTypeEnum.name() + "", eiaTypeEnum.toString());
-		}
 		typeItem.setValueMap(valueMap);
 		// subtypes
 		valueMap = new LinkedHashMap<String, String>();
@@ -152,7 +182,7 @@ public class EIATypeCaracteristicasForm extends VLayout implements
 
 	@Override
 	public void select(EiaType eiaType) {
-		this.eiaType = eiaType;
+		this.eiaType = this.orginalEiaType = eiaType;
 		if (eiaType.getBrand() != null)
 			brandItem.setValue(eiaType.getBrand().getId());
 		if (eiaType.getManufacturer() != null)
@@ -161,49 +191,44 @@ public class EIATypeCaracteristicasForm extends VLayout implements
 		nameItem.setValue(eiaType.getName());
 		descriptionItem.setValue(eiaType.getDescription());
 		modelItem.setValue(eiaType.getModel());
-		useDescriptionItem.setValue(eiaType.getDescription());
+		useDescriptionItem.setValue(eiaType.getUseDescription());
 		eiaUmdnsItem.setValue(eiaType.getEiaUmdns());
-		mobilityItem.setValue(eiaType.getMobility().ordinal());
-		typeItem.setValue(eiaType.getType().ordinal());
-		subTypeItem.setValue(eiaType.getSubtype().ordinal());
+		mobilityItem.setValue(eiaType.getMobility().name());
+		typeItem.setValue(eiaType.getType().name());
+		subTypeItem.setValue(eiaType.getSubtype().name());
 	}
 
-	public void save() {
+	private void save() {
+		if (this.eiaType == null)
+			return;
 		EiaType eiaType = new EiaType();
-		eiaType.setId(eiaType.getId());
-
+		eiaType.setId(this.eiaType.getId());
 		if (brandItem.getValue() != null)
 			eiaType.setBrand(new Brand(Integer.valueOf(brandItem
 					.getValueAsString()), null));
-
 		if (manItem.getValue() != null)
 			eiaType.setManufacturer(new Manufacturer(Integer.valueOf(manItem
 					.getValueAsString()), null));
-
 		eiaType.setCode(codeItem.getValueAsString());
 		eiaType.setName(nameItem.getValueAsString());
 		eiaType.setDescription(descriptionItem.getValueAsString());
 		eiaType.setModel(modelItem.getValueAsString());
 		eiaType.setUseDescription(useDescriptionItem.getValueAsString());
 		eiaType.setEiaUmdns(eiaUmdnsItem.getValueAsString());
-
 		if (mobilityItem.getValue() != null)
 			eiaType.setMobility(EiaMobilityEnum.valueOf(mobilityItem
 					.getValueAsString()));
-
 		if (typeItem.getValue() != null)
 			eiaType.setType(EiaTypeEnum.valueOf(typeItem.getValueAsString()));
-
 		if (subTypeItem.getValue() != null)
 			eiaType.setSubtype(EiaSubTypeEnum.valueOf(subTypeItem
 					.getValueAsString()));
 
-		EIATypeModel.save(eiaType, new GHAAsyncCallback<Boolean>() {
+		EIATypeModel.update(eiaType, new GHAAsyncCallback<Boolean>() {
 
 			@Override
 			public void onSuccess(Boolean result) {
-				// TODO Auto-generated method stub
-
+				// TODO
 			}
 		});
 

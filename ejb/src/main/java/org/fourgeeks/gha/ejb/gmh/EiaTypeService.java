@@ -39,6 +39,9 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 	@Override
 	public void save(EiaType eiaType) {
 		try {
+			// TODO:
+			em.merge(eiaType.getBrand());
+			em.merge(eiaType.getManufacturer());
 			em.persist(eiaType);
 		} catch (Exception e) {
 			logger.info("ERROR: saving object " + eiaType.toString());
@@ -76,8 +79,8 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 			logger.info("Deleted: " + entity.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.info("ERROR: unable to delete object="+EiaType.class.getName() +" with id="
-					+ Long.toString(Id));
+			logger.info("ERROR: unable to delete object="
+					+ EiaType.class.getName() + " with id=" + Long.toString(Id));
 			// TODO: send exception to webClient
 		}
 	}
@@ -159,8 +162,9 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 
 		String query = "SELECT e from EiaType e ";
 		String filters = buildFilters(eiaType);
-		
-		if(filters != "")query += " WHERE " +filters;
+
+		if (filters != "")
+			query += " WHERE " + filters;
 		query += " order by id";
 
 		try {
@@ -190,8 +194,9 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 
 		String query = "SELECT e from EiaType e ";
 		String filters = buildFilters(eiaType);
-		
-		if(filters != "")query += " WHERE " +filters;
+
+		if (filters != "")
+			query += " WHERE " + filters;
 		query += " order by id";
 
 		try {
@@ -207,17 +212,21 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypeServiceRemote#buildFilters(org.fourgeeks.gha.domain.gmh.EiaType)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.EiaTypeServiceRemote#buildFilters(org.fourgeeks
+	 * .gha.domain.gmh.EiaType)
 	 */
 	@Override
 	public String buildFilters(EiaType eiaType) {
 		Brand brand = eiaType.getBrand();
 		Manufacturer manufacturer = eiaType.getManufacturer();
-		
+
 		String filters = "";
 		int varsAdded = 0;
-		
+
 		if (brand != null && brand.getId() > 0) {
 			if (varsAdded > 0) {
 				filters += " AND ";
@@ -241,7 +250,8 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 				filters += " AND ";
 			}
 			++varsAdded;
-			filters += " lower(model) like '%" + eiaType.getModel().toLowerCase() + "%' ";
+			filters += " lower(model) like '%"
+					+ eiaType.getModel().toLowerCase() + "%' ";
 		}
 
 		if (eiaType.getName() != null && eiaType.getName() != "") {
@@ -249,7 +259,8 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 				filters += " AND ";
 			}
 			varsAdded++;
-			filters += "lower(name) like '%" + eiaType.getName().toLowerCase() + "%' ";
+			filters += "lower(name) like '%" + eiaType.getName().toLowerCase()
+					+ "%' ";
 		}
 
 		if (eiaType.getCode() != null && eiaType.getCode() != "") {
@@ -257,9 +268,10 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 				filters += " AND ";
 			}
 			varsAdded++;
-			filters += "lower(code) like '%" + eiaType.getCode().toLowerCase() + "%' ";
+			filters += "lower(code) like '%" + eiaType.getCode().toLowerCase()
+					+ "%' ";
 		}
-		
+
 		return filters;
 	}
 

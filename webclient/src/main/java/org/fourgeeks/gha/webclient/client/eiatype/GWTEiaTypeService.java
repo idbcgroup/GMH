@@ -47,7 +47,7 @@ public interface GWTEiaTypeService extends RemoteService {
 	 * @param EiaType
 	 *            the EiaType to be updated
 	 */
-	public void update(EiaType eiaType);
+	public boolean update(EiaType eiaType);
 
 	/**
 	 * Delete an EiaType from database by Id

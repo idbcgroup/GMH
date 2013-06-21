@@ -63,8 +63,13 @@ public class GWTEiaTypeServiceImpl extends RemoteServiceServlet implements
 	 * .gha.domain.gmh.EiaType)
 	 */
 	@Override
-	public void update(EiaType eiaType) {
-		eiaTypeServiceRemote.update(eiaType);
+	public boolean update(EiaType eiaType) {
+		try {
+			eiaTypeServiceRemote.update(eiaType);
+		} catch (Exception e) { // TODO Entity save exception
+			return false;
+		}
+		return true;
 
 	}
 
