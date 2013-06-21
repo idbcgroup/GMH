@@ -61,7 +61,7 @@ public class EIATypeSearchForm extends VLayout {
 	public EIATypeSearchForm() {
 		setWidth100(/* Window.getClientWidth() - 100 */);
 		setTop(110);
-		setLeft(-10);
+		//setLeft(-10);
 		setHeight(GHAUiHelper.calculateTabHeight() + "px");
 		setBackgroundColor("#E0E0E0");
 		setVisibility(Visibility.HIDDEN);

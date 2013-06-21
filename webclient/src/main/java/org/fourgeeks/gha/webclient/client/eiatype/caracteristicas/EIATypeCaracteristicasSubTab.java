@@ -8,12 +8,12 @@ import com.smartgwt.client.widgets.tab.Tab;
 public class EIATypeCaracteristicasSubTab extends Tab implements
 		EIATypeSelectionListener {
 
-	private EIATypeCaracteristicasForm form;
+	private EIATypeCaracteristicasFormPanel form;
 
 	public EIATypeCaracteristicasSubTab() {
 		setTitle("Caracteristicas");
 		setPaneMargin(0);
-		form = new EIATypeCaracteristicasForm();
+		form = new EIATypeCaracteristicasFormPanel();
 		setPane(form);
 	}
 

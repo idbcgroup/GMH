@@ -14,11 +14,14 @@ import org.fourgeeks.gha.webclient.client.UI.GHAButton;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
+import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeModel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.smartgwt.client.types.Alignment;
+import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.TitleOrientation;
+import com.smartgwt.client.types.Visibility;
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -27,7 +30,7 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIATypeCaracteristicasForm extends VLayout implements
+public class EIATypeCaracteristicasAddForm extends VLayout implements
 		EIATypeSelectionListener {
 
 	private GHATextItem codeItem, nameItem, modelItem, descriptionItem,
@@ -52,13 +55,19 @@ public class EIATypeCaracteristicasForm extends VLayout implements
 		subTypeItem = new GHASelectItem("Subtipo", 150);
 	}
 
-	public EIATypeCaracteristicasForm() {
+	public EIATypeCaracteristicasAddForm() {
 		setWidth100();
+		setHeight(GHAUiHelper.getBottomSectionHeight());
+		setTop(250);
+		setLeft(-10);
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding top-padding");// Esto es VUDU!
 		setAlign(Alignment.CENTER);
+		setVisibility(Visibility.HIDDEN);
+		setAnimateTime(800);
+		addStyleName("box");
 
-		Label title = new Label("<h3>Caracteristicas del EIA Type</h3>");
+		Label title = new Label("<h3>Agregar un EIA Type</h3>");
 		title.setHeight(30);
 		title.setWidth100();
 		title.setStyleName("title-label");
@@ -78,6 +87,14 @@ public class EIATypeCaracteristicasForm extends VLayout implements
 		sideButtons.setMembersMargin(10);
 		sideButtons.setDefaultLayoutAlign(Alignment.CENTER);
 
+		GHAButton acceptButton = new GHAButton("../resources/icons/check.png");
+		acceptButton.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				EIATypeCaracteristicasAddForm.this.animateHide(AnimationEffect.FLY);
+			}
+		});
+		/*
 		GHAButton saveButton = new GHAButton("../resources/icons/save.png");
 		saveButton.addClickHandler(new ClickHandler() {
 
@@ -95,8 +112,9 @@ public class EIATypeCaracteristicasForm extends VLayout implements
 
 			}
 		});
-
-		sideButtons.addMembers(saveButton, undoButton);
+		*/
+		
+		sideButtons.addMembers(acceptButton/*,saveButton, undoButton*/);
 
 		HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
