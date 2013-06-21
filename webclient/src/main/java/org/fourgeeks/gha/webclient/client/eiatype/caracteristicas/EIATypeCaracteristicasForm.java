@@ -34,7 +34,7 @@ public class EIATypeCaracteristicasForm extends VLayout implements
 			useDescriptionItem, eiaUmdnsItem;
 	private GHASelectItem brandItem, manItem, mobilityItem, typeItem,
 			subTypeItem;
-	private EiaType eiaType;
+	private EiaType eiaType, orginalEiaType;
 
 	{
 		codeItem = new GHATextItem("Código", 150);
@@ -87,6 +87,14 @@ public class EIATypeCaracteristicasForm extends VLayout implements
 			}
 		});
 		GHAButton undoButton = new GHAButton("../resources/icons/undo.png");
+		undoButton.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				undo();
+
+			}
+		});
 
 		sideButtons.addMembers(saveButton, undoButton);
 
@@ -99,12 +107,15 @@ public class EIATypeCaracteristicasForm extends VLayout implements
 		fillExtras();
 	}
 
+	protected void undo() {
+		select(this.orginalEiaType);
+	}
+
 	private void fillExtras() {
 		// types
 		LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-		for (EiaTypeEnum eiaTypeEnum : EiaTypeEnum.values()) {
+		for (EiaTypeEnum eiaTypeEnum : EiaTypeEnum.values())
 			valueMap.put(eiaTypeEnum.name() + "", eiaTypeEnum.toString());
-		}
 		typeItem.setValueMap(valueMap);
 		// subtypes
 		valueMap = new LinkedHashMap<String, String>();
@@ -152,7 +163,7 @@ public class EIATypeCaracteristicasForm extends VLayout implements
 
 	@Override
 	public void select(EiaType eiaType) {
-		this.eiaType = eiaType;
+		this.eiaType = this.orginalEiaType = eiaType;
 		if (eiaType.getBrand() != null)
 			brandItem.setValue(eiaType.getBrand().getId());
 		if (eiaType.getManufacturer() != null)
@@ -161,49 +172,44 @@ public class EIATypeCaracteristicasForm extends VLayout implements
 		nameItem.setValue(eiaType.getName());
 		descriptionItem.setValue(eiaType.getDescription());
 		modelItem.setValue(eiaType.getModel());
-		useDescriptionItem.setValue(eiaType.getDescription());
+		useDescriptionItem.setValue(eiaType.getUseDescription());
 		eiaUmdnsItem.setValue(eiaType.getEiaUmdns());
-		mobilityItem.setValue(eiaType.getMobility().ordinal());
-		typeItem.setValue(eiaType.getType().ordinal());
-		subTypeItem.setValue(eiaType.getSubtype().ordinal());
+		mobilityItem.setValue(eiaType.getMobility().name());
+		typeItem.setValue(eiaType.getType().name());
+		subTypeItem.setValue(eiaType.getSubtype().name());
 	}
 
-	public void save() {
+	private void save() {
+		if (this.eiaType == null)
+			return;
 		EiaType eiaType = new EiaType();
-		eiaType.setId(eiaType.getId());
-
+		eiaType.setId(this.eiaType.getId());
 		if (brandItem.getValue() != null)
 			eiaType.setBrand(new Brand(Integer.valueOf(brandItem
 					.getValueAsString()), null));
-
 		if (manItem.getValue() != null)
 			eiaType.setManufacturer(new Manufacturer(Integer.valueOf(manItem
 					.getValueAsString()), null));
-
 		eiaType.setCode(codeItem.getValueAsString());
 		eiaType.setName(nameItem.getValueAsString());
 		eiaType.setDescription(descriptionItem.getValueAsString());
 		eiaType.setModel(modelItem.getValueAsString());
 		eiaType.setUseDescription(useDescriptionItem.getValueAsString());
 		eiaType.setEiaUmdns(eiaUmdnsItem.getValueAsString());
-
 		if (mobilityItem.getValue() != null)
 			eiaType.setMobility(EiaMobilityEnum.valueOf(mobilityItem
 					.getValueAsString()));
-
 		if (typeItem.getValue() != null)
 			eiaType.setType(EiaTypeEnum.valueOf(typeItem.getValueAsString()));
-
 		if (subTypeItem.getValue() != null)
 			eiaType.setSubtype(EiaSubTypeEnum.valueOf(subTypeItem
 					.getValueAsString()));
 
-		EIATypeModel.save(eiaType, new GHAAsyncCallback<Boolean>() {
+		EIATypeModel.update(eiaType, new GHAAsyncCallback<Boolean>() {
 
 			@Override
 			public void onSuccess(Boolean result) {
-				// TODO Auto-generated method stub
-
+				// TODO
 			}
 		});
 
