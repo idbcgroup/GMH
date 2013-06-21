@@ -12,7 +12,7 @@ public class EIATypePlace extends GHAPlace {
 	public void show() {
 		GHATab tab = GHATabSet.getById(EIATypeTab.ID);
 		if (tab == null) {
-			tab = new EIATypeTab();
+			tab = new EIATypeTab(null);
 			tab.setToken(getToken());
 			GHATabSet.addTab(tab);
 		} else {

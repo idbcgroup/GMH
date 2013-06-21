@@ -28,12 +28,16 @@ import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Facility;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Eia;
+import org.fourgeeks.gha.domain.gmh.EiaComponent;
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.domain.gmh.EiaTypeComponent;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.domain.mix.LegalEntity;
 import org.fourgeeks.gha.ejb.gmh.BrandServiceRemote;
+import org.fourgeeks.gha.ejb.gmh.EiaComponentServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.EiaServiceRemote;
+import org.fourgeeks.gha.ejb.gmh.EiaTypeComponentServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.EiaTypeServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.ManufacturerServiceRemote;
 
@@ -52,9 +56,15 @@ public class TestData {
 
 	@EJB(name = "gmh.EiaTypeService")
 	EiaTypeServiceRemote eiaTypeServ;
-	
+
 	@EJB(name = "gmh.EiaService")
 	EiaServiceRemote eiaServ;
+	
+	@EJB(name = "gmh.EiaTypeComponentService")
+	EiaTypeComponentServiceRemote etcService;
+	
+	@EJB(name = "gmh.EiaComponentService")
+	EiaComponentServiceRemote ecService;
 
 	@Resource(mappedName = "java:/jdbc/gha")
 	DataSource dataSource;
@@ -168,21 +178,31 @@ public class TestData {
 			em.persist(brand);
 
 			Brand brand2 = new Brand();
-<<<<<<< HEAD
 			brand2.setName("Hewlet Packard");
-=======
-			brand2.setName("HP");
->>>>>>> e7da71813852e6beb1b3a2aba542ef31b0de1a3c
 			em.persist(brand2);
+<<<<<<< HEAD
 			
 			EiaType eiaType = new EiaType(brand, manufacturer, "Impresora Tinta",
 					EiaMobilityEnum.FIXED, EiaTypeEnum.EQUIPMENT,
 					EiaSubTypeEnum.IT_SYSTEM, "Stylus", "90001");
+			em.persist(eiaType);
 			
 			EiaType eiaType2 = new EiaType(brand2, manufacturer, "Impresora Laser",
 					EiaMobilityEnum.FIXED, EiaTypeEnum.EQUIPMENT,
 					EiaSubTypeEnum.IT_SYSTEM, "Deskjet", "90002");
+=======
+
+			EiaType eiaType = new EiaType(brand, manufacturer,
+					"Impresora Tinta", EiaMobilityEnum.FIXED,
+					EiaTypeEnum.EQUIPMENT, EiaSubTypeEnum.IT_SYSTEM, "Stylus",
+					"90001");
+
+			EiaType eiaType2 = new EiaType(brand2, manufacturer,
+					"Impresora Laser", EiaMobilityEnum.FIXED,
+					EiaTypeEnum.EQUIPMENT, EiaSubTypeEnum.IT_SYSTEM, "Deskjet",
+					"90002");
 			eiaType2.setCode("90002");
+>>>>>>> 50286715c25f2edc2fca0ef4bcd6cb0e103e1148
 			em.persist(eiaType2);
 
 			Bpi bpi = new Bpi();
@@ -203,30 +223,140 @@ public class TestData {
 			eia.setSerialNumber("001");
 
 			em.persist(eia);
-
-			System.out.println("TESTING find eiatype");
-			EiaType eiaType3 = new EiaType();
-			eiaType3.setBrand(brand);
-			List<EiaType> v = eiaTypeServ.find(eiaType3);
-			for (EiaType next : v) {
-				System.out.println(next.getCode());
+			
+			System.out.println("Testing EiaTypeComponent");
+			EiaType eiaType3 = new EiaType(brand, manufacturer, 
+					"Cartucho Tricolor", EiaMobilityEnum.FIXED,
+					EiaTypeEnum.PART, EiaSubTypeEnum.IT_SYSTEM,
+					"EP60", "90003");
+			em.persist(eiaType3);
+			
+			EiaType eiaType4 = new EiaType(brand2, manufacturer,
+					"Toner Laser", EiaMobilityEnum.FIXED, 
+					EiaTypeEnum.PART, EiaSubTypeEnum.IT_SYSTEM, 
+					"HP60", "90004");
+			em.persist(eiaType4);
+			
+			EiaType eiaType5 = new EiaType(brand, manufacturer,
+					"Cartucho Negro", EiaMobilityEnum.FIXED,
+					EiaTypeEnum.PART, EiaSubTypeEnum.IT_SYSTEM,
+					"EPN60", "90005");
+			em.persist(eiaType5);
+			
+			eiaType = em.find(EiaType.class, 1L);
+			eiaType2 = em.find(EiaType.class, 2L);
+			eiaType3 = em.find(EiaType.class, 3L);
+			eiaType4 = em.find(EiaType.class, 4L);
+			eiaType5 = em.find(EiaType.class, 5L);
+			
+			EiaTypeComponent eiaTypeComponent = new EiaTypeComponent(eiaType, eiaType3, true, true);
+			EiaTypeComponent eiaTypeComponent2 = new EiaTypeComponent(eiaType2, eiaType4, true, true);
+			EiaTypeComponent eiaTypeComponent3 = new EiaTypeComponent(eiaType, eiaType5, true, true);
+			
+			
+			etcService.save(eiaTypeComponent);
+			etcService.save(eiaTypeComponent2);
+			etcService.save(eiaTypeComponent3);
+			System.out.println("EiaTypeComponent Guardados");
+			
+			System.out.println("Testing EiaTypeComponents getAll/find");
+			List<EiaTypeComponent> eiaTypeComponents = etcService.getAll();
+			for(EiaTypeComponent next : eiaTypeComponents){
+				System.out.println("ID = "+Long.toString(next.getId()));
+				System.out.println("Parent = "+next.getParentEiaType().getName());
+				System.out.println("EiaType = "+next.getEiaType().getName());
 			}
+<<<<<<< HEAD
+			
+			System.out.println("Testing EiaTypeComponents findByEiaTypeId");
+			eiaTypeComponents = etcService.findByEiaTypeId(1L);
+			for(EiaTypeComponent next : eiaTypeComponents){
+				System.out.println("ID = "+Long.toString(next.getId()));
+				System.out.println("Parent = "+next.getParentEiaType().getName());
+				System.out.println("EiaType = "+next.getEiaType().getName());
+			}
+			
+			System.out.println("Testing EiaComponents");
+			
+			Eia eia2 = new Eia(facility, eiaType3, 
+					WarrantySinceEnum.ACCEPTATION,
+					TimePeriodEnum.YEARS, EiaStateEnum.TEST, 
+					WarrantyStateEnum.VALID);
+			
+			Eia eia3 = new Eia(facility, eiaType5,
+					WarrantySinceEnum.ACCEPTATION,
+					TimePeriodEnum.YEARS, EiaStateEnum.TEST,
+					WarrantyStateEnum.VALID);
+			
+			Eia eia4 = new Eia(facility, eiaType4,
+					WarrantySinceEnum.ACCEPTATION,
+					TimePeriodEnum.DAYS, EiaStateEnum.TEST,
+					WarrantyStateEnum.VALID);
+			
+			Eia eia5 = new Eia(facility, eiaType2,
+					WarrantySinceEnum.ACCEPTATION,
+					TimePeriodEnum.DAYS, EiaStateEnum.TEST,
+					WarrantyStateEnum.VALID);
+			
+			em.persist(eia2);
+			em.persist(eia3);
+			em.persist(eia4);
+			em.persist(eia5);
+			
+			eia = em.find(Eia.class, 1L); //parent Impresora Epson
+			eia2 = em.find(Eia.class, 2L); //cartucho tricolor
+			eia3 = em.find(Eia.class, 3L); //cartucho negro
+			eia4 = em.find(Eia.class, 4L); //toner
+			eia5 = em.find(Eia.class, 5L); //parent Impresora Hp
+			
+			EiaComponent eiaComponent = new EiaComponent(eia, eia2, 
+					"Cartucho Tricolor Impresora Epson Stylus-001");
+			EiaComponent eiaComponent2 = new EiaComponent(eia, eia3,
+					"Cartucho Negro Impresora Epson Stylus-001");
+			EiaComponent eiaComponent3 = new EiaComponent(eia5, eia4, "Toner de Tinta para la Impresora Laser HP60");
+			
+			System.out.println("TESTING: save eiacomponent");
+			ecService.save(eiaComponent);
+			ecService.save(eiaComponent2);
+			ecService.save(eiaComponent3);
+			
+			System.out.println("TESTING: eiacomponent listing");
+			List<EiaComponent> eiaComponents = ecService.getAll();
+			for(EiaComponent next : eiaComponents){
+				System.out.println(next.getComponentObs());
+			}
+			
+			System.out.println("TESTING: eiacomponent find by eia");
+			List<EiaComponent> eiaComponents2 = ecService.findByEiaId(1L);
+			for(EiaComponent next : eiaComponents2){
+				System.out.println(next.getComponentObs());
+			}
+			
+			System.out.println("TESTING: update eiacomponent");
+			EiaComponent eiaCompUpd = eiaComponents2.get(0);
+			eiaCompUpd.setComponentObs("Update: Cartucho Tricolor Impresora Epson Stylus-001");
+			ecService.update(eiaCompUpd);
+			
+			/*System.out.println("TESTING: delete eiacomponent");
+			ecService.delete(1L);*/
+=======
 
 			System.out.println("TESTING find eia by eiatype");
 			List<Eia> eias = eiaServ.find(eiaType3);
-			for(Eia next : eias){
+			for (Eia next : eias) {
 				System.out.println(next.getSerialNumber());
 			}
-			
+
 			System.out.println("Testing eiatype update");
 			EiaType eiaType4 = v.get(0);
 			eiaType4.setName("Ink Printer");
 			eiaTypeServ.update(eiaType4);
-			
+
 			System.out.println("Testing eia update");
 			Eia eia2 = eias.get(0);
 			eia2.setCode("stylus-001");
 			eiaServ.update(eia2);
+>>>>>>> 50286715c25f2edc2fca0ef4bcd6cb0e103e1148
 		}
 	}
 

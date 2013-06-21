@@ -1,7 +1,7 @@
 *{
 	padding: 0px;
 	margin: 0px;
-	font-size: 11px;
+	font-size: 10px;
 }
 .top-bar{
 	width: 100%;
@@ -184,11 +184,11 @@ select,.select{
 
 .title-label{
 	font-weight: bold;
-	background-color: #B9CDE5;
+	color: black;
 }
 
 span.input-title label,span.input-title{
-	color:#828282;
+	color:black;
 	font-size:10px;	
 }
 

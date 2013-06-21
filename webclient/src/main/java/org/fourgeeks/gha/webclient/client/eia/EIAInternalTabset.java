@@ -2,8 +2,8 @@ package org.fourgeeks.gha.webclient.client.eia;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.eia.caracteristicas.EIAEquiposSubTab;
 import org.fourgeeks.gha.webclient.client.eia.costos.EIACostosSubTab;
+import org.fourgeeks.gha.webclient.client.eia.equipos.EIAEquiposSubTab;
 import org.fourgeeks.gha.webclient.client.eia.mantenimiento.EIAMantenimientoSubTab;
 import org.fourgeeks.gha.webclient.client.eia.movimientos.EIAMovimientosSubTab;
 import org.fourgeeks.gha.webclient.client.eia.partes.EIAPartesSubTab;
@@ -35,8 +35,8 @@ public class EIAInternalTabset extends TabSet implements
 		Window.addResizeHandler(new ResizeHandler() {
 			@Override
 			public void onResize(ResizeEvent event) {
-				RootPanel.get("main-content").setHeight(GHAUiHelper.calculateTabHeight()+"px");
 				setHeight(GHAUiHelper.getBottomSectionHeight());
+				RootPanel.get("main-content").setHeight(GHAUiHelper.calculateTabHeight()+"px");
 			}
 		});
 

@@ -189,6 +189,7 @@ public class TestData {
 			EiaType eiaType2 = new EiaType(brand2, manufacturer, "Impresora Laser",
 					EiaMobilityEnum.FIXED, EiaTypeEnum.EQUIPMENT,
 					EiaSubTypeEnum.IT_SYSTEM, "Deskjet", "90002");
+			eiaType2.setCode("90002");
 			em.persist(eiaType2);
 
 			Bpi bpi = new Bpi();

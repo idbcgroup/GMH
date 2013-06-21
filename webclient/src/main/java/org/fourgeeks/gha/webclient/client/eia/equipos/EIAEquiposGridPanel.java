@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eia.caracteristicas;
+package org.fourgeeks.gha.webclient.client.eia.equipos;
 
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;

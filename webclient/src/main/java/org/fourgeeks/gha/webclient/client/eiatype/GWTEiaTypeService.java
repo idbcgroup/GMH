@@ -12,52 +12,58 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 /**
  * @author emiliot
- *
+ * 
  */
 @RemoteServiceRelativePath("eiaType")
-public interface GWTEiaTypeService extends RemoteService{
-	
+public interface GWTEiaTypeService extends RemoteService {
 
 	/**
 	 * @param eiaType
-	 * Persist an EiaType to database
+	 *            Persist an EiaType to database
 	 */
-	public void save (EiaType eiaType);
+	public boolean save(EiaType eiaType);
+
 	/**
 	 * @param Id
 	 * @return the EiaType with this Id
 	 */
 	public EiaType find(long Id);
-	
+
 	/**
 	 * @param eiaType
 	 * @return a list with possible matches to the eiaType passed by param
 	 */
 	public List<EiaType> find(EiaType eiaType);
+
 	/**
 	 * @param eiaType
 	 * @param offset
 	 * @param size
 	 * @return a list with possible matches to the eiaType passed by param
 	 */
-	public List <EiaType> find(EiaType eiaType, int offset, int size);
+	public List<EiaType> find(EiaType eiaType, int offset, int size);
+
 	/**
-	 * @param EiaType the EiaType to be updated
+	 * @param EiaType
+	 *            the EiaType to be updated
 	 */
 	public void update(EiaType eiaType);
+
 	/**
 	 * Delete an EiaType from database by Id
 	 * 
 	 */
 	public void delete(long Id);
+
 	/**
 	 * @return the list with all EiaType objects
 	 */
-	public List <EiaType> getAll();
+	public List<EiaType> getAll();
+
 	/**
 	 * @param offset
 	 * @param size
 	 * @return List of EiaType beginning in offset up to size
 	 */
-	public List <EiaType> getAll(int offset, int size);
+	public List<EiaType> getAll(int offset, int size);
 }

@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eia.caracteristicas;
+package org.fourgeeks.gha.webclient.client.eia.equipos;
 
 import org.fourgeeks.gha.webclient.client.UI.GHACheckboxItem;
 import org.fourgeeks.gha.webclient.client.UI.GHADateItem;

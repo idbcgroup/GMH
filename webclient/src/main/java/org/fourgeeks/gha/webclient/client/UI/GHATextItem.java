@@ -12,6 +12,11 @@ public class GHATextItem extends TextItem {
 		setTitleStyle("input-title");
 	}
 
+	public GHATextItem(String title, int width) {
+		this(title);
+		setWidth(width);
+	}
+
 	public GHATextItem(String title) {
 		this();
 		setTitle(title);
@@ -25,6 +30,7 @@ public class GHATextItem extends TextItem {
 	@Override
 	public void setDisabled(Boolean disabled) {
 		super.setDisabled(disabled);
-		setTextBoxStyle("input-disabled");
+		setTextBoxStyle("input input-disabled");
+		setTitleStyle("input-title");
 	}
 }

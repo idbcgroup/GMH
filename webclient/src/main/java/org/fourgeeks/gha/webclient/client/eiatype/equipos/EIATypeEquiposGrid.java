@@ -1,12 +1,12 @@
-package org.fourgeeks.gha.webclient.client.eia;
+package org.fourgeeks.gha.webclient.client.eiatype.equipos;
 
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.widgets.grid.ListGrid;
 import com.smartgwt.client.widgets.grid.ListGridField;
 
-public class EIAGrid extends ListGrid {
+public class EIATypeEquiposGrid extends ListGrid {
 
-	public EIAGrid() {
+	public EIATypeEquiposGrid() {
 		setWidth100();
 		setHeight("300px");
 		setEmptyMessage("No existen tipos de equipo para mostrar");
@@ -17,22 +17,24 @@ public class EIAGrid extends ListGrid {
 		ListGridField idGridField = new ListGridField("id", "No");
 		idGridField.setAlign(Alignment.CENTER);
 
-		ListGridField codeGridField = new ListGridField("code", "Código");
+		ListGridField codeGridField = new ListGridField("code", "Codigo");
 		codeGridField.setAlign(Alignment.CENTER);
-		
-		ListGridField serialGridField = new ListGridField("serial", "Serial");
-		serialGridField.setAlign(Alignment.CENTER);
-		
+
 		ListGridField nameGridField = new ListGridField("name", "Nombre");
 		nameGridField.setAlign(Alignment.CENTER);
-		
-		ListGridField facilityGridField = new ListGridField("facility", "Ubicación");
-		facilityGridField.setAlign(Alignment.CENTER);
 
-		ListGridField statusGridField = new ListGridField("status", "Status");
-		statusGridField.setAlign(Alignment.CENTER);
+		ListGridField brandGridField = new ListGridField("brand", "Marca");
+		brandGridField.setAlign(Alignment.CENTER);
 
-		setFields(idGridField, codeGridField, serialGridField, facilityGridField, statusGridField);
+		ListGridField modelGridField = new ListGridField("model", "Modelo");
+		modelGridField.setAlign(Alignment.CENTER);
+
+		ListGridField makeGridField = new ListGridField("manufacturer",
+				"Fabricante");
+		makeGridField.setAlign(Alignment.CENTER);
+
+		setFields(idGridField, codeGridField, nameGridField, brandGridField,
+				modelGridField, makeGridField);
 
 		// loadData();
 	}
