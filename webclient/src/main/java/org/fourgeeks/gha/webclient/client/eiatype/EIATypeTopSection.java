@@ -25,8 +25,7 @@ public class EIATypeTopSection extends HLayout implements
 	private EIATypeSearchForm eiaTypeSearchForm;
 	private GHATextItem nameItem, codeItem, brandItem, modelItem, manItem, 
 						descriptionItem, useDescriptionItem, umdnsCodeItem,
-						mobilityItem, typeItem, subtypeItem;
-
+						mobilityItem, typeItem, subTypeItem, isServiceItem;
 	{
 		selectionListeners = new LinkedList<EIATypeSelectionListener>();
 		eiaTypeSearchForm = new EIATypeSearchForm();
@@ -39,10 +38,13 @@ public class EIATypeTopSection extends HLayout implements
 		descriptionItem.setWidth(210);
 		descriptionItem.setColSpan(2);
 		useDescriptionItem = new GHATextItem("Uso", false);
+		useDescriptionItem.setWidth(210);
+		useDescriptionItem.setColSpan(2);
 		umdnsCodeItem = new GHATextItem("EIAUMDNS", false);
 		mobilityItem = new GHATextItem("Movilidad", false);
 		typeItem = new GHATextItem("Tipo de Equipo", false);
-		subtypeItem = new GHATextItem("Subtipo", false);
+		subTypeItem = new GHATextItem("Subtipo", false);
+		isServiceItem = new GHATextItem("Es servicio", false);
 	}
 
 	public EIATypeTopSection() {
@@ -55,12 +57,12 @@ public class EIATypeTopSection extends HLayout implements
 
 		DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
-		form.setNumCols(6);
+		form.setNumCols(5);
 		form.setItems(codeItem, nameItem, descriptionItem, brandItem, modelItem, 
-					  manItem, useDescriptionItem, umdnsCodeItem, mobilityItem, typeItem, subtypeItem);
+					  manItem, useDescriptionItem, umdnsCodeItem, mobilityItem, typeItem, 
+					  subTypeItem, isServiceItem);
 
 		VLayout panelBotones = new VLayout();
-		panelBotones.setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT + "px");
 		panelBotones.setWidth(30);
 		panelBotones.setLayoutMargin(5);
 		panelBotones.setBackgroundColor("#E0E0E0");
@@ -80,7 +82,7 @@ public class EIATypeTopSection extends HLayout implements
 		});
 		GHAButton cancelButton = new GHAButton("../resources/icons/cancel.png");
 		panelBotones.addMembers(searchImg, cleanImg, cancelButton);
-
+		
 		addMembers(form,new LayoutSpacer(),panelBotones);
 	}
 
@@ -89,7 +91,7 @@ public class EIATypeTopSection extends HLayout implements
 		selectEiaType(eiaType);
 		codeItem.setValue(eiaType.getCode());
 		nameItem.setValue(eiaType.getName());
-
+		
 		if (eiaType.getBrand() != null)
 			brandItem.setValue(eiaType.getBrand().getName());
 
@@ -97,13 +99,20 @@ public class EIATypeTopSection extends HLayout implements
 
 		if (eiaType.getManufacturer() != null)
 			manItem.setValue(eiaType.getManufacturer().getName());
-
-		// if (eiaType.getType() != null)
-		// typeItem.setValue(eiaType.getType().toString());
-		//
-		// if (eiaType.getSubtype() != null)
-		// subTypeItem.setValue(eiaType.getSubtype().toString());
-		//
+		
+		descriptionItem.setValue(eiaType.getDescription());
+		useDescriptionItem.setValue(eiaType.getUseDescription());
+		umdnsCodeItem.setValue(eiaType.getEiaUmdns());
+		
+		if(eiaType.getMobility() != null)
+			mobilityItem.setValue(eiaType.getMobility().toString());
+			
+		if (eiaType.getType() != null)
+			typeItem.setValue(eiaType.getType().toString());
+		
+		if (eiaType.getSubtype() != null)
+			subTypeItem.setValue(eiaType.getSubtype().toString());
+		
 		// if (eiaType.getSubtype() != null)
 		// subTypeItem.setValue(eiaType.getSubtype().toString());
 		//

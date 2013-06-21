@@ -6,7 +6,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 
 public class GHAUiHelper {
 
-	public static final int INNER_TOP_SECTION_HEIGHT = 68;
+	public static final int INNER_TOP_SECTION_HEIGHT = 120	;
 	public static final int V_SEPARATOR_HEIGHT = 10;
 
 	public static HTML verticalGraySeparator(String height) {
