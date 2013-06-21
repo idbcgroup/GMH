@@ -109,6 +109,7 @@ public class EIATypeCaracteristicasForm extends VLayout implements
 
 	protected void undo() {
 		select(this.orginalEiaType);
+		save();
 	}
 
 	private void fillExtras() {
