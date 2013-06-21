@@ -1,14 +1,14 @@
 /**
  * 
  */
-package org.fourgeeks.gha.ejb.gmh;
+package org.fourgeeks.gha.domain.gmh;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
-import org.fourgeeks.gha.domain.gmh.Eia;
 
 /**
  * @author emiliot
@@ -24,6 +24,10 @@ public class EiaComponent extends AbstractEntity{
 	private static final long serialVersionUID = 1L;
 	
 	@ManyToOne
+	@JoinColumn(name = "parentEiaFk", nullable=false)
+	private Eia parentEia;
+	
+	@OneToOne
 	@JoinColumn(name = "eiaFk", nullable=false)
 	private Eia eia;
 	
@@ -40,11 +44,13 @@ public class EiaComponent extends AbstractEntity{
 	}
 
 	/**
+	 * @param parentEia
 	 * @param eia
 	 * @param componentObs
 	 */
-	public EiaComponent(Eia eia, String componentObs) {
+	public EiaComponent(Eia parentEia, Eia eia, String componentObs) {
 		super();
+		this.parentEia = parentEia;
 		this.eia = eia;
 		this.componentObs = componentObs;
 	}
@@ -63,6 +69,14 @@ public class EiaComponent extends AbstractEntity{
 
 	public void setComponentObs(String componentObs) {
 		this.componentObs = componentObs;
+	}
+
+	public Eia getParentEia() {
+		return parentEia;
+	}
+
+	public void setParentEia(Eia parentEia) {
+		this.parentEia = parentEia;
 	}
 	
 	
