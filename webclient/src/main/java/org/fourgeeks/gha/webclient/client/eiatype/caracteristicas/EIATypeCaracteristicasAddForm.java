@@ -87,22 +87,17 @@ public class EIATypeCaracteristicasAddForm extends VLayout implements
 		sideButtons.setMembersMargin(10);
 		sideButtons.setDefaultLayoutAlign(Alignment.CENTER);
 
-		GHAButton acceptButton = new GHAButton("../resources/icons/check.png");
-		acceptButton.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				EIATypeCaracteristicasAddForm.this.animateHide(AnimationEffect.FLY);
-			}
-		});
-		/*
 		GHAButton saveButton = new GHAButton("../resources/icons/save.png");
 		saveButton.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				save();
+				EIATypeCaracteristicasAddForm.this.animateHide(AnimationEffect.FLY);
+//				save();
 			}
 		});
+		
+		/*
 		GHAButton undoButton = new GHAButton("../resources/icons/undo.png");
 		undoButton.addClickHandler(new ClickHandler() {
 
@@ -114,7 +109,7 @@ public class EIATypeCaracteristicasAddForm extends VLayout implements
 		});
 		*/
 		
-		sideButtons.addMembers(acceptButton/*,saveButton, undoButton*/);
+		sideButtons.addMembers(saveButton /*, undoButton*/);
 
 		HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);

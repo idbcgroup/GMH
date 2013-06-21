@@ -14,6 +14,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAButton;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
+import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeModel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
@@ -107,7 +108,9 @@ public class EIATypeCaracteristicasFormPanel extends VLayout implements
 			}
 		});
 
-		sideButtons.addMembers(addButton, saveButton, undoButton);
+		sideButtons.addMembers(saveButton, undoButton);
+		sideButtons.addMember(GHAUiHelper.verticalGraySeparator("2px"));
+		sideButtons.addMember(addButton);
 
 		HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
