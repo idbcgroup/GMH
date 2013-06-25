@@ -1,6 +1,10 @@
 package org.fourgeeks.gha.webclient.client.eiatype;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.GHATab;
 import org.fourgeeks.gha.webclient.client.UI.GHATabHeader;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
@@ -15,6 +19,10 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener {
 	private EIATypeTopSection topSection;
 	private EiaType eiaType;
 	private EIATypeInternalTabset bottomTabset;
+	private List<GHAClosable> closables;
+	{
+		closables = new ArrayList<GHAClosable>();
+	}
 
 	public EIATypeTab(EiaType eiaType) {
 		super();
@@ -52,8 +60,14 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener {
 		return header;
 	}
 
+	public void addClosableHandler(GHAClosable closable) {
+		closables.add(closable);
+	}
+
 	@Override
 	public void close() {
+		for (GHAClosable closable : closables)
+			closable.close();
 		removeFromParent();
 	}
 

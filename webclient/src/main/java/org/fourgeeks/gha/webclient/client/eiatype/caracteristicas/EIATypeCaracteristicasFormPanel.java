@@ -12,6 +12,7 @@ import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAButton;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
+import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
@@ -31,7 +32,7 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class EIATypeCaracteristicasFormPanel extends VLayout implements
-		EIATypeSelectionListener {
+		EIATypeSelectionListener, GHAClosable {
 
 	private EIATypeCaracteristicasAddForm addForm;
 	private GHATextItem codeItem, nameItem, modelItem, descriptionItem,
@@ -58,6 +59,7 @@ public class EIATypeCaracteristicasFormPanel extends VLayout implements
 	}
 
 	public EIATypeCaracteristicasFormPanel(EIATypeTab tab) {
+		tab.addClosableHandler(this);
 		addForm.addEiaTypeSelectionListener(tab);
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
@@ -230,5 +232,11 @@ public class EIATypeCaracteristicasFormPanel extends VLayout implements
 			}
 		});
 
+	}
+
+	@Override
+	public void close() {
+		addForm.animateHide(AnimationEffect.SLIDE);
+		addForm.destroy();
 	}
 }

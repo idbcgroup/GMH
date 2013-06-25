@@ -19,14 +19,6 @@ public class EIATypeInternalTabset extends TabSet implements
 		setHeight(GHAUiHelper.getBottomSectionHeight());
 		equiposSubTab = new EIATypeEquiposSubTab(tab);
 		caracteristicasSubTab = new EIATypeCaracteristicasSubTab(tab);
-		// Window.addResizeHandler(new ResizeHandler() {
-		// @Override
-		// public void onResize(ResizeEvent event) {
-		// setHeight(GHAUiHelper.getBottomSectionHeight());
-		// RootPanel.get("main-content").setHeight(
-		// GHAUiHelper.calculateTabHeight() + "px");
-		// }
-		// });
 
 		// Agregando las Subtabs
 		addTab(caracteristicasSubTab);
@@ -38,5 +30,4 @@ public class EIATypeInternalTabset extends TabSet implements
 		caracteristicasSubTab.select(eiaType);
 		equiposSubTab.select(eiaType);
 	}
-
 }

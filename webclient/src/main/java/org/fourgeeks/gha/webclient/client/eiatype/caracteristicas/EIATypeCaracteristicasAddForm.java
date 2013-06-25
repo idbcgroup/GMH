@@ -20,6 +20,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeModel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
+import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.user.client.Window;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
@@ -60,7 +61,7 @@ public class EIATypeCaracteristicasAddForm extends GHASlideInWindow {
 	public EIATypeCaracteristicasAddForm() {
 		setHeight(GHAUiHelper.getBottomSectionHeight());
 		setTop(240);
-		
+
 		Label title = new Label("<h3>Agregar un EIA Type</h3>");
 		title.setHeight(30);
 		title.setWidth100();
@@ -252,6 +253,6 @@ public class EIATypeCaracteristicasAddForm extends GHASlideInWindow {
 	@Override
 	public void onResize(ResizeEvent event) {
 		setHeight(GHAUiHelper.getBottomSectionHeight());
-		
+
 	}
 }

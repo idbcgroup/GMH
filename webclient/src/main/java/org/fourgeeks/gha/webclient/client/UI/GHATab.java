@@ -3,17 +3,15 @@ package org.fourgeeks.gha.webclient.client.UI;
 import com.smartgwt.client.util.SC;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public abstract class GHATab extends VLayout {
+public abstract class GHATab extends VLayout implements GHAClosable {
 
 	private String token = null;
 
 	public GHATab() {
 		setWidth100();
-		
+
 		setBackgroundColor("#E0E0E0");
 	}
-
-	public abstract void close();
 
 	public abstract String getId();
 
