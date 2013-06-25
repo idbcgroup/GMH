@@ -233,10 +233,11 @@ public class EIATypeCaracteristicasAddForm extends VLayout {
 			eiaType.setSubtype(EiaSubTypeEnum.valueOf(subTypeItem
 					.getValueAsString()));
 
-		EIATypeModel.save(eiaType, new GHAAsyncCallback<Boolean>() {
+		EIATypeModel.save(eiaType, new GHAAsyncCallback<Long>() {
 
 			@Override
-			public void onSuccess(Boolean result) {
+			public void onSuccess(Long result) {
+				eiaType.setId(result.longValue());
 				Window.alert("a");
 				select(eiaType);
 				Window.alert("b");

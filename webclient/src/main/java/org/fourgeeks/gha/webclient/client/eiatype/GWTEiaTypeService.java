@@ -20,10 +20,10 @@ public interface GWTEiaTypeService extends RemoteService {
 
 	/**
 	 * @param eiaType
-	 * @return Persist an EiaType to database
+	 * @return long the saved entity id
 	 * @throws EJBException
 	 */
-	public boolean save(EiaType eiaType) throws EJBException;
+	public long save(EiaType eiaType) throws EJBException;
 
 	/**
 	 * @param Id
@@ -43,7 +43,8 @@ public interface GWTEiaTypeService extends RemoteService {
 	 * @param size
 	 * @return a list with possible matches to the eiaType passed by param
 	 */
-	public List<EiaType> find(EiaType eiaType, int offset, int size) throws EJBException;
+	public List<EiaType> find(EiaType eiaType, int offset, int size)
+			throws EJBException;
 
 	/**
 	 * @param EiaType
