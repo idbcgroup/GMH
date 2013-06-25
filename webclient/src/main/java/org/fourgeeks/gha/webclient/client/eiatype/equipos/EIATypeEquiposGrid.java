@@ -20,7 +20,7 @@ public class EIATypeEquiposGrid extends ListGrid implements
 
 	public EIATypeEquiposGrid() {
 		setWidth100();
-		setHeight(GHAUiHelper.getBottomSectionHeight());
+		setHeight(GHAUiHelper.MIN_GRID_SIZE);
 		setEmptyMessage("No existen tipos de equipo para mostrar");
 		setAlternateRecordStyles(false);
 		setCanResizeFields(false);

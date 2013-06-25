@@ -2,6 +2,7 @@ package org.fourgeeks.gha.webclient.client.eiatype.equipos;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAButton;
+import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.smartgwt.client.types.Alignment;
@@ -12,7 +13,7 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class EIATypeEquiposGridPanel extends VLayout implements
-		EIATypeSelectionListener {
+		EIATypeSelectionListener, GHAClosable {
 
 	private EIATypeEquiposGrid eiaTypeEquiposGrid = new EIATypeEquiposGrid();
 	private EiaType eiaType;
@@ -72,5 +73,11 @@ public class EIATypeEquiposGridPanel extends VLayout implements
 		this.eiaType = eiaType;
 		eiaTypeEquiposGrid.select(eiaType);
 
+	}
+
+	@Override
+	public void close() {
+		// TODO Auto-generated method stub
+		
 	}
 }
