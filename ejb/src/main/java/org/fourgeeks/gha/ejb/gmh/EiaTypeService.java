@@ -38,18 +38,14 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 	 * .domain.gmh.EiaType)
 	 */
 	@Override
-	public void save(EiaType eiaType) throws EJBException{
+	public long save(EiaType eiaType) throws EJBException{
 		try {
-			// TODO:
-			em.merge(eiaType.getBrand());
-			em.merge(eiaType.getManufacturer());
 			em.persist(eiaType);
+			em.flush();
+			return eiaType.getId();
 		} catch (Exception e) {
-			logger.info("ERROR: saving object " + eiaType.toString());
-			e.printStackTrace();
-			
-
-			throw new EJBException("Error guardando EiaType");
+			logger.log(Level.INFO, "ERROR: saving object " + eiaType.toString(), e);		
+			throw new EJBException("Error guardando EiaType: "+e.getCause().getMessage());
 		}
 	}
 
@@ -63,7 +59,7 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 		try {
 			return em.find(EiaType.class, Id);
 		} catch (Exception e) {
-			throw new EJBException("Error buscando Eiatype por Id");
+			throw new EJBException("Error buscando Eiatype por Id " + e.getCause().getMessage());
 		}
 	}
 
@@ -83,7 +79,7 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 			e.printStackTrace();
 			logger.info("ERROR: unable to delete object="
 					+ EiaType.class.getName() + " with id=" + Long.toString(Id));
-			throw new EJBException("Error eliminando EiaType por id");
+			throw new EJBException("Error eliminando EiaType por id " + e.getCause().getMessage());
 		}
 	}
 
@@ -101,7 +97,8 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 		} catch (Exception e) {
 			logger.info("ERROR: unable to update object " + eiaType.toString());
 			e.printStackTrace();
-			throw new EJBException("Error actualizando EiaType id="+Long.toString(eiaType.getId()));
+			throw new EJBException("Error actualizando EiaType id="+Long.toString(eiaType.getId())+ " " 
+					+e.getCause().getMessage());
 		}
 	}
 
