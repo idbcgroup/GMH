@@ -7,13 +7,14 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIATypeTab extends GHATab {
+public class EIATypeTab extends GHATab implements EIATypeSelectionListener {
 
 	public static final String ID = "eiatype";
 	private static final String TITLE = "Tipos de equipo";
 	private GHATabHeader header;
 	private EIATypeTopSection topSection;
 	private EiaType eiaType;
+	private EIATypeInternalTabset bottomTabset;
 
 	public EIATypeTab(EiaType eiaType) {
 		super();
@@ -21,10 +22,8 @@ public class EIATypeTab extends GHATab {
 		header = new GHATabHeader(this);
 		header.setTitle(TITLE);
 
-		// Bottom Section: SubTabs de Info
-		EIATypeInternalTabset bottomTabset = new EIATypeInternalTabset();
-		topSection = new EIATypeTopSection();
-		topSection.AddEIATypeSelectionListener(bottomTabset);
+		bottomTabset = new EIATypeInternalTabset(this);
+		topSection = new EIATypeTopSection(this);
 
 		// Creacion de la tab de EIA
 		VLayout verticalPanel = new VLayout();
@@ -56,5 +55,11 @@ public class EIATypeTab extends GHATab {
 	@Override
 	public void close() {
 		removeFromParent();
+	}
+
+	@Override
+	public void select(EiaType eiaType) {
+		topSection.select(eiaType);
+		bottomTabset.select(eiaType);
 	}
 }

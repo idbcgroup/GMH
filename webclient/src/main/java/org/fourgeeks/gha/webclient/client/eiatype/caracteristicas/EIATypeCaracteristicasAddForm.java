@@ -20,7 +20,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeModel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
-import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.user.client.Window;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.TitleOrientation;
@@ -131,7 +131,7 @@ public class EIATypeCaracteristicasAddForm extends GHASlideInWindow {
 		mobilityItem.clearValue();
 		typeItem.clearValue();
 		subTypeItem.clearValue();
-		EIATypeCaracteristicasAddForm.this.animateHide(AnimationEffect.FLY);
+		EIATypeCaracteristicasAddForm.this.animateHide(AnimationEffect.SLIDE);
 	}
 
 	private void fillExtras() {
@@ -225,12 +225,16 @@ public class EIATypeCaracteristicasAddForm extends GHASlideInWindow {
 			eiaType.setSubtype(EiaSubTypeEnum.valueOf(subTypeItem
 					.getValueAsString()));
 
-		EIATypeModel.save(eiaType, new GHAAsyncCallback<Boolean>() {
+		EIATypeModel.save(eiaType, new GHAAsyncCallback<Long>() {
 
 			@Override
-			public void onSuccess(Boolean result) {
+			public void onSuccess(Long result) {
+				eiaType.setId(result.longValue());
+				Window.alert("a");
 				select(eiaType);
+				Window.alert("b");
 				cancel();
+				Window.alert("c");
 			}
 		});
 

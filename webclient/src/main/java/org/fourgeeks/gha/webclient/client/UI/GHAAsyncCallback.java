@@ -7,6 +7,6 @@ public abstract class GHAAsyncCallback<T> implements AsyncCallback<T> {
 
 	@Override
 	public void onFailure(Throwable caught) {
-		Window.alert(caught.toString());
+		Window.alert(caught.getMessage());
 	}
 }
