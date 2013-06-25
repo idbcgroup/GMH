@@ -25,8 +25,15 @@ public abstract class GHAUiHelper{
 		});
 	}
 
-	public static final int INNER_TOP_SECTION_HEIGHT = 120	;
+//	NOT TESTED
+	private static final int MIN_TAB_HEIGHT = 400;
+	private static final int MIN_TOP_SECTION_HEIGHT = 120;
+	private static final int MIN_BOTTOM_SECTION_HEIGHT = 260;
+//	NOT TESTED
+	
+	public static final int INNER_TOP_SECTION_HEIGHT = 120;
 	public static final int V_SEPARATOR_HEIGHT = 10;
+	
 
 	public static HTML verticalGraySeparator(String height) {
 		HTML separator = new HTML();
@@ -42,14 +49,22 @@ public abstract class GHAUiHelper{
 				+ RootPanel.get("menu-bar").getOffsetHeight();
 		int footerHeight = RootPanel.get("footer-bar").getOffsetHeight();
 
-		return rootPanelHeight - topPartHeight - footerHeight;
+		int ret = rootPanelHeight - topPartHeight - footerHeight;
+		if(ret < MIN_TAB_HEIGHT)
+			return MIN_TAB_HEIGHT;
+		else
+			return ret;
 	}
 
 	public static int getBottomSectionHeight() {
 		int biggerTabHeight = calculateTabHeight();
 		int innerTopSection = INNER_TOP_SECTION_HEIGHT + V_SEPARATOR_HEIGHT + 34;
 
-		return biggerTabHeight - innerTopSection;
+		int ret = biggerTabHeight - innerTopSection;
+		if(ret < MIN_BOTTOM_SECTION_HEIGHT)
+			return MIN_BOTTOM_SECTION_HEIGHT;
+		else
+			return ret;
 	}
 	
 	private static List<ResizeHandler> handlers = new ArrayList<ResizeHandler>();

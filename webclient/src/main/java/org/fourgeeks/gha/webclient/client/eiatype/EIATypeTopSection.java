@@ -69,6 +69,7 @@ public class EIATypeTopSection extends HLayout implements
 
 		HLayout photoPanel = new HLayout();
 		photoPanel.setMembersMargin(10);
+		photoPanel.setWidth(130);
 		photoPanel.setBackgroundColor("#E0E0E0");
 		// photoPanel.setDefaultLayoutAlign(Alignment.CENTER);
 		GHAImg photo = new GHAImg("../resources/img/Foto.jpg", 80, 80);
@@ -111,7 +112,7 @@ public class EIATypeTopSection extends HLayout implements
 		GHAButton cancelButton = new GHAButton("../resources/icons/cancel.png");
 		panelBotones.addMembers(searchImg, cleanImg, cancelButton);
 
-		addMembers(form, new LayoutSpacer(), photoPanel, panelBotones);
+		addMembers(form, photoPanel, new LayoutSpacer(), panelBotones);
 	}
 
 	@Override
