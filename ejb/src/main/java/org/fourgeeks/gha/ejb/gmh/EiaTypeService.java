@@ -59,6 +59,7 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 		try {
 			return em.find(EiaType.class, Id);
 		} catch (Exception e) {
+			logger.log(Level.INFO, "Error buscando Eiatype por Id ", e);
 			throw new EJBException("Error buscando Eiatype por Id " + e.getCause().getMessage());
 		}
 	}
@@ -73,12 +74,9 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 		try {
 			EiaType entity = em.find(EiaType.class, Id);
 			em.remove(entity);
-
-			logger.info("Deleted: " + entity.toString());
 		} catch (Exception e) {
-			e.printStackTrace();
-			logger.info("ERROR: unable to delete object="
-					+ EiaType.class.getName() + " with id=" + Long.toString(Id));
+			logger.log(Level.INFO, "ERROR: unable to delete object="
+					+ EiaType.class.getName() + " with id=" + Long.toString(Id), e);
 			throw new EJBException("Error eliminando EiaType por id " + e.getCause().getMessage());
 		}
 	}
@@ -95,8 +93,7 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 		try {
 			em.merge(eiaType);
 		} catch (Exception e) {
-			logger.info("ERROR: unable to update object " + eiaType.toString());
-			e.printStackTrace();
+			logger.log(Level.INFO, "ERROR: unable to update object " + eiaType.toString(), e);
 			throw new EJBException("Error actualizando EiaType id="+Long.toString(eiaType.getId())+ " " 
 					+e.getCause().getMessage());
 		}
@@ -114,12 +111,10 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 		List<EiaType> res = null;
 		try {
 			res = em.createQuery(query, EiaType.class).getResultList();
-			logger.info("Get all eiatypes");
 		} catch (NoResultException e) {
-			logger.info("No results");
+			logger.log(Level.INFO, "No results", e);
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all eiatypes", ex);
-
 			throw new EJBException("Error obteniendo todos los eiaTypes");
 		}
 		return res;
@@ -138,8 +133,7 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 			res = em.createQuery(query, EiaType.class).setFirstResult(offset)
 					.setMaxResults(size).getResultList();
 		} catch (NoResultException e) {
-			logger.info("Get All: no results");
-			res = null;
+			logger.log(Level.INFO, "Get All: no results", e);
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retriving all EitaTypes", ex);
 			throw new EJBException("Error obteniendo todos los eiaTypes paginado");
@@ -171,10 +165,11 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 			res = em.createQuery(query, EiaType.class).setFirstResult(offset)
 					.setMaxResults(size).getResultList();
 		} catch (NoResultException e) {
-			logger.info("Find by EiaType: no results");
+			logger.log(Level.INFO, "Find by EiaType: no results", e);
 			res = null;
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			logger.log(Level.SEVERE, "Error obteniendo buscando los eiaTypes por eiatype id="
+					+Long.toString(eiaType.getId()), ex);
 			throw new EJBException("Error obteniendo buscando los eiaTypes por eiatype id="
 					+Long.toString(eiaType.getId()) + " paginado");
 		}
@@ -203,10 +198,11 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 		try {
 			res = em.createQuery(query, EiaType.class).getResultList();
 		} catch (NoResultException e) {
-			logger.info("Find by EiaType: no results");
+			logger.log(Level.INFO, "Find by EiaType: no results", e);
 			res = null;
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			logger.log(Level.SEVERE, "Error obteniendo buscando los eiaTypes por eiatype id="
+					+Long.toString(eiaType.getId()), ex);
 			throw new EJBException("Error obteniendo buscando los eiaTypes por eiatype id="
 					+Long.toString(eiaType.getId()));
 		}
