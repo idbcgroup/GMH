@@ -15,14 +15,15 @@ import org.fourgeeks.gha.webclient.client.UI.GHAButton;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHACheckboxItem;
 import org.fourgeeks.gha.webclient.client.UI.GHASelectItem;
+import org.fourgeeks.gha.webclient.client.UI.GHASlideInWindow;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.eiatype.equipos.EIATypeEquiposGrid;
 
+import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.TitleOrientation;
-import com.smartgwt.client.types.Visibility;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
@@ -33,7 +34,7 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIATypeSearchForm extends VLayout {
+public class EIATypeSearchForm extends GHASlideInWindow {
 
 	private List<EIATypeSelectionListener> selectionListeners;
 	private GHATextItem codeEIAItem, nameEIAItem, modelItem, descriptionItem, useDescriptionItem, umdnsCodeItem;
@@ -61,16 +62,9 @@ public class EIATypeSearchForm extends VLayout {
 	}
 
 	public EIATypeSearchForm() {
-		setWidth100(/* Window.getClientWidth() - 100 */);
 		setTop(110);
-		//setLeft(-10);
 		setHeight(GHAUiHelper.calculateTabHeight() + "px");
-		setBackgroundColor("#E0E0E0");
-		setVisibility(Visibility.HIDDEN);
-		setAlign(Alignment.CENTER);
-		setAnimateTime(800);
-		addStyleName("box");
-
+		
 		DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(5);
@@ -250,5 +244,10 @@ public class EIATypeSearchForm extends VLayout {
 			}
 
 		});
+	}
+
+	@Override
+	public void onResize(ResizeEvent event) {
+		setHeight(GHAUiHelper.calculateTabHeight() + "px");		
 	}
 }
