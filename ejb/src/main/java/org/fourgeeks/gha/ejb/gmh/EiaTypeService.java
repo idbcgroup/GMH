@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
+import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
@@ -37,7 +38,7 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 	 * .domain.gmh.EiaType)
 	 */
 	@Override
-	public void save(EiaType eiaType) {
+	public void save(EiaType eiaType) throws EJBException{
 		try {
 			// TODO:
 			em.merge(eiaType.getBrand());
@@ -46,7 +47,9 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 		} catch (Exception e) {
 			logger.info("ERROR: saving object " + eiaType.toString());
 			e.printStackTrace();
-			// TODO: send exception to webClient
+			
+
+			throw new EJBException("Error guardando EiaType");
 		}
 	}
 
@@ -56,12 +59,11 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypeService#getEiaType(long)
 	 */
 	@Override
-	public EiaType find(long Id) {
+	public EiaType find(long Id) throws EJBException {
 		try {
 			return em.find(EiaType.class, Id);
 		} catch (Exception e) {
-			// TODO: send exception to webClient
-			return null;
+			throw new EJBException("Error buscando Eiatype por Id");
 		}
 	}
 
@@ -71,7 +73,7 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypeService#deleteEiaType(long)
 	 */
 	@Override
-	public void delete(long Id) {
+	public void delete(long Id) throws EJBException{
 		try {
 			EiaType entity = em.find(EiaType.class, Id);
 			em.remove(entity);
@@ -81,7 +83,7 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 			e.printStackTrace();
 			logger.info("ERROR: unable to delete object="
 					+ EiaType.class.getName() + " with id=" + Long.toString(Id));
-			// TODO: send exception to webClient
+			throw new EJBException("Error eliminando EiaType por id");
 		}
 	}
 
@@ -93,13 +95,13 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 	 * gha.domain.gmh.EiaType)
 	 */
 	@Override
-	public void update(EiaType eiaType) {
+	public void update(EiaType eiaType) throws EJBException{
 		try {
 			em.merge(eiaType);
 		} catch (Exception e) {
 			logger.info("ERROR: unable to update object " + eiaType.toString());
 			e.printStackTrace();
-			// TODO: send exception to webClient
+			throw new EJBException("Error actualizando EiaType id="+Long.toString(eiaType.getId()));
 		}
 	}
 
@@ -109,7 +111,8 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypeService#getAllEiaType()
 	 */
 	@Override
-	public List<EiaType> getAll() {
+	public List<EiaType> getAll() throws EJBException{
+		
 		String query = "SELECT e from EiaType e order by id";
 		List<EiaType> res = null;
 		try {
@@ -120,7 +123,7 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all eiatypes", ex);
 
-			// TODO: send exception to webClient
+			throw new EJBException("Error obteniendo todos los eiaTypes");
 		}
 		return res;
 	}
@@ -131,7 +134,7 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypeService#getAll(long, long)
 	 */
 	@Override
-	public List<EiaType> getAll(int offset, int size) {
+	public List<EiaType> getAll(int offset, int size) throws EJBException{
 		List<EiaType> res = null;
 		String query = "SELECT e from EiaType e order by id";
 		try {
@@ -142,7 +145,7 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 			res = null;
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retriving all EitaTypes", ex);
-			res = null;
+			throw new EJBException("Error obteniendo todos los eiaTypes paginado");
 		}
 
 		return res;
@@ -157,7 +160,7 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 	 * .domain.gmh.EiaType)
 	 */
 	@Override
-	public List<EiaType> find(EiaType eiaType, int offset, int size) {
+	public List<EiaType> find(EiaType eiaType, int offset, int size) throws EJBException{
 		List<EiaType> res = null;
 
 		String query = "SELECT e from EiaType e ";
@@ -175,7 +178,8 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 			res = null;
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			res = null;
+			throw new EJBException("Error obteniendo buscando los eiaTypes por eiatype id="
+					+Long.toString(eiaType.getId()) + " paginado");
 		}
 		return res;
 
@@ -189,7 +193,7 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 	 * .domain.gmh.EiaType)
 	 */
 	@Override
-	public List<EiaType> find(EiaType eiaType) {
+	public List<EiaType> find(EiaType eiaType) throws EJBException {
 		List<EiaType> res = null;
 
 		String query = "SELECT e from EiaType e ";
@@ -206,7 +210,8 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 			res = null;
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			res = null;
+			throw new EJBException("Error obteniendo buscando los eiaTypes por eiatype id="
+					+Long.toString(eiaType.getId()));
 		}
 		return res;
 
@@ -220,7 +225,7 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 	 * .gha.domain.gmh.EiaType)
 	 */
 	@Override
-	public String buildFilters(EiaType eiaType) {
+	public String buildFilters(EiaType eiaType){
 		Brand brand = eiaType.getBrand();
 		Manufacturer manufacturer = eiaType.getManufacturer();
 

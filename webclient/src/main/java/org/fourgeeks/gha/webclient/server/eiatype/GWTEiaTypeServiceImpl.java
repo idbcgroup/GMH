@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.ejb.EJB;
 
+import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.ejb.gmh.EiaTypeServiceRemote;
 import org.fourgeeks.gha.webclient.client.eiatype.GWTEiaTypeService;
@@ -36,7 +37,7 @@ public class GWTEiaTypeServiceImpl extends RemoteServiceServlet implements
 	 * .gha.domain.gmh.EiaType)
 	 */
 	@Override
-	public boolean save(EiaType eiaType) {
+	public boolean save(EiaType eiaType) throws EJBException{
 		try {
 			eiaTypeServiceRemote.save(eiaType);
 		} catch (Exception e) { // TODO Entity save exception
@@ -51,7 +52,7 @@ public class GWTEiaTypeServiceImpl extends RemoteServiceServlet implements
 	 * @see org.fourgeeks.gha.webclient.client.eia.GWTEiaTypeService#find(long)
 	 */
 	@Override
-	public EiaType find(long Id) {
+	public EiaType find(long Id) throws EJBException{
 		return eiaTypeServiceRemote.find(Id);
 	}
 
@@ -63,7 +64,7 @@ public class GWTEiaTypeServiceImpl extends RemoteServiceServlet implements
 	 * .gha.domain.gmh.EiaType)
 	 */
 	@Override
-	public boolean update(EiaType eiaType) {
+	public boolean update(EiaType eiaType) throws EJBException{
 		try {
 			eiaTypeServiceRemote.update(eiaType);
 		} catch (Exception e) { // TODO Entity save exception
@@ -80,7 +81,7 @@ public class GWTEiaTypeServiceImpl extends RemoteServiceServlet implements
 	 * org.fourgeeks.gha.webclient.client.eia.GWTEiaTypeService#delete(long)
 	 */
 	@Override
-	public void delete(long Id) {
+	public void delete(long Id) throws EJBException{
 		eiaTypeServiceRemote.delete(Id);
 
 	}
@@ -91,7 +92,7 @@ public class GWTEiaTypeServiceImpl extends RemoteServiceServlet implements
 	 * @see org.fourgeeks.gha.webclient.client.eia.GWTEiaTypeService#getAll()
 	 */
 	@Override
-	public List<EiaType> getAll() {
+	public List<EiaType> getAll() throws EJBException{
 		return eiaTypeServiceRemote.getAll();
 	}
 
@@ -102,7 +103,7 @@ public class GWTEiaTypeServiceImpl extends RemoteServiceServlet implements
 	 * int)
 	 */
 	@Override
-	public List<EiaType> getAll(int offset, int size) {
+	public List<EiaType> getAll(int offset, int size) throws EJBException{
 		return eiaTypeServiceRemote.getAll(offset, size);
 	}
 
@@ -114,7 +115,7 @@ public class GWTEiaTypeServiceImpl extends RemoteServiceServlet implements
 	 * .gha.domain.gmh.EiaType)
 	 */
 	@Override
-	public List<EiaType> find(EiaType eiaType) {
+	public List<EiaType> find(EiaType eiaType) throws EJBException{
 		return eiaTypeServiceRemote.find(eiaType);
 	}
 
@@ -126,7 +127,7 @@ public class GWTEiaTypeServiceImpl extends RemoteServiceServlet implements
 	 * .gha.domain.gmh.EiaType, int, int)
 	 */
 	@Override
-	public List<EiaType> find(EiaType eiaType, int offset, int size) {
+	public List<EiaType> find(EiaType eiaType, int offset, int size) throws EJBException{
 		return eiaTypeServiceRemote.find(eiaType, offset, size);
 	}
 }
