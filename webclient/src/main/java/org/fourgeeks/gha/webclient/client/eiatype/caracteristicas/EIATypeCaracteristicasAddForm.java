@@ -19,6 +19,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeModel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
+import com.google.gwt.user.client.Window;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.TitleOrientation;
@@ -62,7 +63,7 @@ public class EIATypeCaracteristicasAddForm extends VLayout {
 		setTop(240);
 		setLeft(-10);
 		setBackgroundColor("#E0E0E0");
-		setStyleName("sides-padding top-padding");// Esto es VUDU!
+		// setStyleName("sides-padding top-padding");// Esto es VUDU!
 		setAlign(Alignment.CENTER);
 		setVisibility(Visibility.HIDDEN);
 		setAnimateTime(800);
@@ -138,7 +139,7 @@ public class EIATypeCaracteristicasAddForm extends VLayout {
 		mobilityItem.clearValue();
 		typeItem.clearValue();
 		subTypeItem.clearValue();
-		EIATypeCaracteristicasAddForm.this.animateHide(AnimationEffect.FLY);
+		EIATypeCaracteristicasAddForm.this.animateHide(AnimationEffect.SLIDE);
 	}
 
 	private void fillExtras() {
@@ -236,8 +237,11 @@ public class EIATypeCaracteristicasAddForm extends VLayout {
 
 			@Override
 			public void onSuccess(Boolean result) {
+				Window.alert("a");
 				select(eiaType);
+				Window.alert("b");
 				cancel();
+				Window.alert("c");
 			}
 		});
 

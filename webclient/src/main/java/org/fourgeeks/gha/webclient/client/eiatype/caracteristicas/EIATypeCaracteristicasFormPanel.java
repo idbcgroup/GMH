@@ -17,6 +17,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeModel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
+import org.fourgeeks.gha.webclient.client.eiatype.EIATypeTab;
 
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
@@ -56,9 +57,8 @@ public class EIATypeCaracteristicasFormPanel extends VLayout implements
 		subTypeItem = new GHASelectItem("Subtipo", 150);
 	}
 
-	public EIATypeCaracteristicasFormPanel(
-			EIATypeCaracteristicasSubTab eiaTypeCaracteristicasSubTab) {
-		addForm.addEiaTypeSelectionListener(eiaTypeCaracteristicasSubTab);
+	public EIATypeCaracteristicasFormPanel(EIATypeTab tab) {
+		addForm.addEiaTypeSelectionListener(tab);
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding top-padding");// Esto es VUDU!
