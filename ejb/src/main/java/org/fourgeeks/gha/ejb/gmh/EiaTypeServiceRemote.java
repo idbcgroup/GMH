@@ -52,15 +52,17 @@ public interface EiaTypeServiceRemote {
 	public List <EiaType> find(EiaType eiaType, int offset, int size)throws EJBException;
 	/**
 	 * @param EiaType the EiaType to be updated
+	 * @return a boolean with the result of the operation
 	 * @throws EJBException
 	 */
-	public void update(EiaType eiaType) throws EJBException;
+	public boolean update(EiaType eiaType) throws EJBException;
 	/**
 	 * Delete an EiaType from database by Id
+	 * @return a boolean with the result of the operation
 	 * @throws EJBException
 	 * 
 	 */
-	public void delete(long Id)throws EJBException;
+	public boolean delete(long Id)throws EJBException;
 	/**
 	 * @return the list with all EiaType objects
 	 * @throws EJBException

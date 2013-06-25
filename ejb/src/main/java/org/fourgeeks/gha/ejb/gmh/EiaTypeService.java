@@ -70,10 +70,11 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypeService#deleteEiaType(long)
 	 */
 	@Override
-	public void delete(long Id) throws EJBException{
+	public boolean delete(long Id) throws EJBException{
 		try {
 			EiaType entity = em.find(EiaType.class, Id);
 			em.remove(entity);
+			return true;
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete object="
 					+ EiaType.class.getName() + " with id=" + Long.toString(Id), e);
@@ -89,9 +90,10 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 	 * gha.domain.gmh.EiaType)
 	 */
 	@Override
-	public void update(EiaType eiaType) throws EJBException{
+	public boolean update(EiaType eiaType) throws EJBException{
 		try {
 			em.merge(eiaType);
+			return true;
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to update object " + eiaType.toString(), e);
 			throw new EJBException("Error actualizando EiaType id="+Long.toString(eiaType.getId())+ " " 
