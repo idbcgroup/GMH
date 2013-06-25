@@ -323,8 +323,20 @@ public class TestData {
 			eiaCompUpd.setComponentObs("Update: Cartucho Tricolor Impresora Epson Stylus-001");
 			ecService.update(eiaCompUpd);
 			
-			/*System.out.println("TESTING: delete eiacomponent");
-			ecService.delete(1L);*/
+			/*System.out.println("TESTING: create eiatype with brand id an manufacturer id only");
+			Brand brand3 = new Brand();
+			brand3.setId(1L);
+			
+			Manufacturer manufacturer2 = new Manufacturer();
+			manufacturer2.setId(1L);
+			
+			EiaType eiaType6 = new EiaType(brand3, manufacturer2, "Test EiaType", EiaMobilityEnum.FIXED, EiaTypeEnum.EQUIPMENT, EiaSubTypeEnum.DIAGNOSE, "model", "code");
+			try{
+				eiaTypeServ.save(eiaType6);
+				System.out.println("Succeeded");
+			}catch(Exception ex){
+				System.out.println("Failed Test "+ex.getMessage());
+			}*/
 		}
 	}
 

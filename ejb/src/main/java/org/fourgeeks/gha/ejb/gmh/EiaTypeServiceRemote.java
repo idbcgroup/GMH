@@ -26,8 +26,9 @@ public interface EiaTypeServiceRemote {
 	 * @param eiaType
 	 * Persist an EiaType to database
 	 * @throws EJBException
+	 * @return the id of the persisted entity
 	 */
-	public void save (EiaType eiaType) throws EJBException;
+	public long save (EiaType eiaType) throws EJBException;
 	/**
 	 * @param Id
 	 * @return the EiaType with this Id
