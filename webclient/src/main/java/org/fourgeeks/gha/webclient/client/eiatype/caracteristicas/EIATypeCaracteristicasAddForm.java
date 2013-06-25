@@ -14,15 +14,16 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAButton;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHASelectItem;
+import org.fourgeeks.gha.webclient.client.UI.GHASlideInWindow;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeModel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
+import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.TitleOrientation;
-import com.smartgwt.client.types.Visibility;
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -31,7 +32,7 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIATypeCaracteristicasAddForm extends VLayout {
+public class EIATypeCaracteristicasAddForm extends GHASlideInWindow {
 
 	private List<EIATypeSelectionListener> listeners;
 	private GHATextItem codeItem, nameItem, modelItem, descriptionItem,
@@ -57,17 +58,9 @@ public class EIATypeCaracteristicasAddForm extends VLayout {
 	}
 
 	public EIATypeCaracteristicasAddForm() {
-		setWidth100();
 		setHeight(GHAUiHelper.getBottomSectionHeight());
 		setTop(240);
-		setLeft(-10);
-		setBackgroundColor("#E0E0E0");
-		setStyleName("sides-padding top-padding");// Esto es VUDU!
-		setAlign(Alignment.CENTER);
-		setVisibility(Visibility.HIDDEN);
-		setAnimateTime(800);
-		addStyleName("box");
-
+		
 		Label title = new Label("<h3>Agregar un EIA Type</h3>");
 		title.setHeight(30);
 		title.setWidth100();
@@ -250,5 +243,11 @@ public class EIATypeCaracteristicasAddForm extends VLayout {
 
 	public void addEiaTypeSelectionListener(EIATypeSelectionListener listener) {
 		listeners.add(listener);
+	}
+
+	@Override
+	public void onResize(ResizeEvent event) {
+		setHeight(GHAUiHelper.getBottomSectionHeight());
+		
 	}
 }

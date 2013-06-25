@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAButton;
+import org.fourgeeks.gha.webclient.client.UI.GHAImg;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
@@ -62,6 +63,31 @@ public class EIATypeTopSection extends HLayout implements
 					  manItem, useDescriptionItem, umdnsCodeItem, mobilityItem, typeItem, 
 					  subTypeItem, isServiceItem);
 
+//		Panel de la Fotografia
+		
+		HLayout photoPanel = new HLayout();
+		photoPanel.setMembersMargin(10);
+		photoPanel.setBackgroundColor("#E0E0E0");
+		//photoPanel.setDefaultLayoutAlign(Alignment.CENTER);
+		GHAImg photo = new GHAImg("../resources/img/Foto.jpg", 80, 80);
+		//photo.setTop(8);
+		photo.setStyleName("top-8");
+				
+		VLayout photoBotones = new VLayout();
+		photoBotones.setWidth(30);
+		photoBotones.setLayoutMargin(5);
+		photoBotones.setBackgroundColor("#E0E0E0");
+		photoBotones.setMembersMargin(10);
+		photoBotones.setDefaultLayoutAlign(Alignment.CENTER);
+		
+		GHAButton searchPhoto = new GHAButton("../resources/icons/search.png");
+		GHAButton cleanPhoto = new GHAButton("../resources/icons/clean.png");
+		photoBotones.addMembers(searchPhoto);
+		
+		photoPanel.addMembers(photo,photoBotones);
+
+//		Botones laterales del Panel
+
 		VLayout panelBotones = new VLayout();
 		panelBotones.setWidth(30);
 		panelBotones.setLayoutMargin(5);
@@ -83,7 +109,7 @@ public class EIATypeTopSection extends HLayout implements
 		GHAButton cancelButton = new GHAButton("../resources/icons/cancel.png");
 		panelBotones.addMembers(searchImg, cleanImg, cancelButton);
 		
-		addMembers(form,new LayoutSpacer(),panelBotones);
+		addMembers(form,new LayoutSpacer(), photoPanel ,panelBotones);
 	}
 
 	@Override

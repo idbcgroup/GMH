@@ -26,6 +26,8 @@ import com.smartgwt.client.types.Visibility;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
+import com.smartgwt.client.widgets.form.fields.events.KeyUpEvent;
+import com.smartgwt.client.widgets.form.fields.events.KeyUpHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
@@ -77,14 +79,36 @@ public class EIATypeSearchForm extends VLayout {
 					  subTypeItem, isServiceItem);
 
 		GHAButton searchButton = new GHAButton("../resources/icons/search.png");
-		searchButton.addClickHandler(new ClickHandler() {
-
+		//Event Handlers
+		ClickHandler searchClickHandler = new ClickHandler() {			
 			@Override
 			public void onClick(ClickEvent event) {
 				search();
-
 			}
-		});
+		};
+		KeyUpHandler searchKeyUpHandler = new KeyUpHandler() {
+			@Override
+			public void onKeyUp(KeyUpEvent event) {
+				if (event.getKeyName().equals("Enter")){
+					search();
+				}		
+			}
+		};
+		
+		searchButton.addClickHandler(searchClickHandler);
+		codeEIAItem.addKeyUpHandler(searchKeyUpHandler);
+		nameEIAItem.addKeyUpHandler(searchKeyUpHandler);
+		descriptionItem.addKeyUpHandler(searchKeyUpHandler);
+		brandItem.addKeyUpHandler(searchKeyUpHandler);
+		modelItem.addKeyUpHandler(searchKeyUpHandler);
+		manItem.addKeyUpHandler(searchKeyUpHandler);
+		useDescriptionItem.addKeyUpHandler(searchKeyUpHandler);
+		umdnsCodeItem.addKeyUpHandler(searchKeyUpHandler);
+		mobilityItem.addKeyUpHandler(searchKeyUpHandler);
+		typeItem.addKeyUpHandler(searchKeyUpHandler);
+		subTypeItem.addKeyUpHandler(searchKeyUpHandler);		
+		//////////////////////////////
+		
 		GHAButton cleanButton = new GHAButton("../resources/icons/clean.png");
 		GHAButton cancelButton = new GHAButton("../resources/icons/cancel.png");
 		cancelButton.addClickHandler(new ClickHandler() {
