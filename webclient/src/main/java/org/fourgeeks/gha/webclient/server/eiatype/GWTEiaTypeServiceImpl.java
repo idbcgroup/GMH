@@ -38,11 +38,7 @@ public class GWTEiaTypeServiceImpl extends RemoteServiceServlet implements
 	 */
 	@Override
 	public long save(EiaType eiaType) throws EJBException {
-		try {
-			return eiaTypeServiceRemote.save(eiaType);
-		} catch (EJBException e) { // TODO Entity save exception
-			throw e;
-		}
+		return eiaTypeServiceRemote.save(eiaType);
 	}
 
 	/*
@@ -66,7 +62,7 @@ public class GWTEiaTypeServiceImpl extends RemoteServiceServlet implements
 	public boolean update(EiaType eiaType) throws EJBException {
 		try {
 			eiaTypeServiceRemote.update(eiaType);
-		} catch (Exception e) { // TODO Entity save exception
+		} catch (Exception e) {
 			return false;
 		}
 		return true;
