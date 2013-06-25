@@ -1,10 +1,29 @@
 package org.fourgeeks.gha.webclient.client.UI;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
 
-public class GHAUiHelper {
+public abstract class GHAUiHelper{
+	
+	static{
+		Window.addResizeHandler(new ResizeHandler() {
+			
+			@Override
+			public void onResize(ResizeEvent event) {
+				for (ResizeHandler handler : handlers) {
+					if(handler != null)
+						handler.onResize(event);
+				}
+				
+			}
+		});
+	}
 
 	public static final int INNER_TOP_SECTION_HEIGHT = 120	;
 	public static final int V_SEPARATOR_HEIGHT = 10;
@@ -32,5 +51,12 @@ public class GHAUiHelper {
 
 		return biggerTabHeight - innerTopSection;
 	}
+	
+	private static List<ResizeHandler> handlers = new ArrayList<ResizeHandler>();
+	
+	public static void addResizeHandler(ResizeHandler handler){
+		handlers.add(handler);
+	}
 
+	
 }

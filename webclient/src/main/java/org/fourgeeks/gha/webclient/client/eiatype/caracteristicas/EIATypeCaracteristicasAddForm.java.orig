@@ -20,7 +20,11 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeModel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
+<<<<<<< HEAD
+import com.google.gwt.event.logical.shared.ResizeEvent;
+=======
 import com.google.gwt.user.client.Window;
+>>>>>>> 7efa1313fd2e26978b4fbc33a27129e51458ae31
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.TitleOrientation;
@@ -60,7 +64,18 @@ public class EIATypeCaracteristicasAddForm extends GHASlideInWindow {
 	public EIATypeCaracteristicasAddForm() {
 		setHeight(GHAUiHelper.getBottomSectionHeight());
 		setTop(240);
+<<<<<<< HEAD
 		
+=======
+		setLeft(-10);
+		setBackgroundColor("#E0E0E0");
+		// setStyleName("sides-padding top-padding");// Esto es VUDU!
+		setAlign(Alignment.CENTER);
+		setVisibility(Visibility.HIDDEN);
+		setAnimateTime(800);
+		addStyleName("box");
+
+>>>>>>> 7efa1313fd2e26978b4fbc33a27129e51458ae31
 		Label title = new Label("<h3>Agregar un EIA Type</h3>");
 		title.setHeight(30);
 		title.setWidth100();

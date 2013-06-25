@@ -9,4 +9,10 @@ public class GHAButton extends ImgButton {
 		setSize("20px", "20px");
 		setShowDown(false);
 	}
+	
+	public GHAButton(String src, String width, String height) {
+		setSrc(src);
+		setShowRollOver(false);
+		setSize(width, height);
+	}
 }

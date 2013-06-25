@@ -108,8 +108,13 @@ public class EIATypeTopSection extends HLayout implements
 		});
 		GHAButton cancelButton = new GHAButton("../resources/icons/cancel.png");
 		panelBotones.addMembers(searchImg, cleanImg, cancelButton);
-
+<<<<<<< HEAD
+		
 		addMembers(form,new LayoutSpacer(), photoPanel ,panelBotones);
+=======
+
+		addMembers(form, new LayoutSpacer(), panelBotones);
+>>>>>>> 7efa1313fd2e26978b4fbc33a27129e51458ae31
 	}
 
 	@Override
