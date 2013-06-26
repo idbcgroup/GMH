@@ -35,7 +35,7 @@ public interface EiaTypeServiceRemote {
 	 * @throws EJBException
 	 * 
 	 */
-	public boolean delete(long Id) throws EJBException;
+	public void delete(long Id) throws EJBException;
 
 	/**
 	 * @param eiaType

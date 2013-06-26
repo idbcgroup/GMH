@@ -75,37 +75,44 @@ public class TestData {
 		userTestData();
 		createIndexs();
 		eiaTypeTestData();
-		// brandTestData();
-		// manufacturerTestData();
+		brandTestData();
+		manufacturerTestData();
 	}
 
 	/**
 	 * 
 	 */
 	private void manufacturerTestData() {
-		Manufacturer manufacturer = new Manufacturer();
-		manufacturer.setName("TEST Manufacturer 1");
-		mServiceRemote.save(manufacturer);
+		try {
+			Manufacturer manufacturer = new Manufacturer();
+			manufacturer.setName("TEST Manufacturer 1");
+			manufacturer = mServiceRemote.save(manufacturer);
+			
+			Manufacturer manufacturer2 = new Manufacturer();
+			manufacturer2.setName("TEST Manufacturer 2");
+			mServiceRemote.save(manufacturer2);
 
-		manufacturer.setName("TEST Manufacturer 2");
-		mServiceRemote.save(manufacturer);
+			System.out.println("MANUFACTURER: testing find");
+			Manufacturer search = new Manufacturer();
+			search.setName("TEST");
+			List<Manufacturer> findResult = mServiceRemote.find(search);
+			for (Manufacturer man : findResult) {
+				System.out.println("manufacturer id=" + Long.toString(man.getId())
+						+ " name=" + man.getName());
+			}
 
-		System.out.println("MANUFACTURER: testing find");
-		manufacturer.setName("TEST");
-		List<Manufacturer> findResult = mServiceRemote.find(manufacturer);
-		for (Manufacturer man : findResult) {
-			System.out.println("manufacturer id=" + Long.toString(man.getId())
-					+ " name=" + man.getName());
-		}
+			// System.out.println("MANUFACTURER: testing delete");
+			// mServiceRemote.delete(1L);
 
-		// System.out.println("MANUFACTURER: testing delete");
-		// mServiceRemote.delete(1L);
-
-		System.out.println("MANUFACTURER: testing getAll");
-		List<Manufacturer> getAllResult = mServiceRemote.getAll();
-		for (Manufacturer man : getAllResult) {
-			System.out.println("manufacturer id=" + Long.toString(man.getId())
-					+ " name=" + man.getName());
+			System.out.println("MANUFACTURER: testing getAll");
+			List<Manufacturer> getAllResult = mServiceRemote.getAll();
+			for (Manufacturer man : getAllResult) {
+				System.out.println("manufacturer id=" + Long.toString(man.getId())
+						+ " name=" + man.getName());
+			}
+		} catch (EJBException e) {
+			System.out.println("Test data failed for manufacturer");
+			System.out.println(e.getCause().getMessage());
 		}
 	}
 
@@ -180,9 +187,7 @@ public class TestData {
 			try {
 				Manufacturer manufacturer = new Manufacturer();
 				manufacturer.setName("ChinaFactory");
-				// mServiceRemote.save(manufacturer);
-				em.persist(manufacturer);
-				em.flush();
+				manufacturer = mServiceRemote.save(manufacturer);
 
 				Brand brand = new Brand();
 				brand.setName("Epson");

@@ -28,5 +28,9 @@ Esto se hace para poder identifcar la variable en cualquier lugar donde se use.
 
 
 6. Los metodos update y save en los servicios EJB deben retornar una instancia de la entidad salvada o actualizada respectivamente
+	Para lograr esto revisar EiaTypeService.java y EiaTypeServiceRemote.java (si tienen una mejor forma de hacerlo es bienvenida para discutirla)
+
+7. Eclipse trae una funcionalidad que permite ordenar los miembros de las clases "sort members", es recomendable trabajar con las funciones ordenadas
+alfabeticamente dentro del codigo para facilitar las busquedas y contribuir al orden general
 
 Recuerden que estas practicas estan destinadas a reducir el tiempo de compresion del codigo, mejoran nuestra comunicacion y hacen mas transparente el trabajo en conjunto

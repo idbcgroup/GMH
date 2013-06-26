@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.ejb.Remote;
 
+import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 
 /**
@@ -16,10 +17,11 @@ import org.fourgeeks.gha.domain.gmh.Manufacturer;
 
 @Remote
 public interface ManufacturerServiceRemote {
-	public void save(Manufacturer manufacturer);
-	public Manufacturer find(long Id);
-	public void delete(long Id);
+	public void delete(long Id) throws EJBException;
+	public Manufacturer find(long Id) throws EJBException;
+	public List<Manufacturer> find(Manufacturer manufacturer) throws EJBException;
 	
-	public List<Manufacturer> getAll();
-	public List<Manufacturer> find(Manufacturer manufacturer);
+	public List<Manufacturer> getAll() throws EJBException;
+	public Manufacturer save(Manufacturer manufacturer) throws EJBException;
+	public Manufacturer update(Manufacturer manufacturer) throws EJBException;
 }

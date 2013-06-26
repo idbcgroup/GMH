@@ -99,15 +99,12 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypeService#deleteEiaType(long)
 	 */
 	@Override
-	public boolean delete(long Id) throws EJBException {
+	public void delete(long Id) throws EJBException {
 		try {
 			EiaType entity = em.find(EiaType.class, Id);
 			em.remove(entity);
-			return true;
 		} catch (Exception e) {
-			logger.log(Level.INFO,
-					"ERROR: unable to delete object=" + EiaType.class.getName()
-							+ " with id=" + Long.toString(Id), e);
+			logger.log(Level.INFO, "ERROR: unable to delete eiatype", e);
 			throw new EJBException("Error eliminando EiaType por id "
 					+ e.getCause().getMessage());
 		}
@@ -175,11 +172,10 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 			res = null;
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE,
-					"Error obteniendo buscando los eiaTypes por eiatype id="
-							+ Long.toString(eiaType.getId()), ex);
+					"Error obteniendo buscando los eiaTypes por eiatype" , ex);
 			throw new EJBException(
-					"Error obteniendo buscando los eiaTypes por eiatype id="
-							+ Long.toString(eiaType.getId()) + " paginado");
+					"Error obteniendo buscando los eiaTypes por eiatype "
+							+ ex.getCause().getMessage());
 		}
 		return res;
 
@@ -260,8 +256,7 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 			em.flush();
 			return em.find(EiaType.class, eiaType.getId());
 		} catch (Exception e) {
-			logger.log(Level.INFO,
-					"ERROR: saving object " + eiaType.toString(), e);
+			logger.log(Level.INFO, "ERROR: saving eiatype", e);
 			throw new EJBException("Error guardando EiaType: "
 					+ e.getCause().getMessage());
 		}
@@ -277,15 +272,12 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 	@Override
 	public EiaType update(EiaType eiaType) throws EJBException {
 		try {
-			EiaType newEiaType = em.merge(eiaType);
+			EiaType res = em.merge(eiaType);
 			em.flush();
-			return newEiaType;
+			return res;
 		} catch (Exception e) {
-			logger.log(Level.INFO,
-					"ERROR: unable to update object " + eiaType.toString(), e);
-			throw new EJBException("Error actualizando EiaType id="
-					+ Long.toString(eiaType.getId()) + " "
-					+ e.getCause().getMessage());
+			logger.log(Level.INFO, "ERROR: unable to update eiatype", e);
+			throw new EJBException("Error actualizando EiaType " +e.getCause().getMessage());
 		}
 	}
 
