@@ -1,6 +1,7 @@
 package org.fourgeeks.gha.webclient.client.UI;
 
 import com.smartgwt.client.widgets.ImgButton;
+import com.smartgwt.client.widgets.events.ClickHandler;
 
 public class GHAButton extends ImgButton {
 	public GHAButton(String src) {
@@ -9,10 +10,9 @@ public class GHAButton extends ImgButton {
 		setSize("20px", "20px");
 		setShowDown(false);
 	}
-	
-	public GHAButton(String src, String width, String height) {
-		setSrc(src);
-		setShowRollOver(false);
-		setSize(width, height);
+
+	public GHAButton(String src, ClickHandler clickHandler) {
+		this(src);
+		addClickHandler(clickHandler);
 	}
 }

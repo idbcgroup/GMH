@@ -7,6 +7,7 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAButton;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
+import org.fourgeeks.gha.webclient.client.eia.EIAAddForm;
 import org.fourgeeks.gha.webclient.client.eia.EIAGrid;
 import org.fourgeeks.gha.webclient.client.eia.EIAModel;
 import org.fourgeeks.gha.webclient.client.eia.EIARecord;
@@ -14,6 +15,7 @@ import org.fourgeeks.gha.webclient.client.eia.EIAUtil;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.smartgwt.client.types.Alignment;
+import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -24,8 +26,13 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class EIATypeEquiposGridPanel extends VLayout implements
 		EIATypeSelectionListener, GHAClosable {
 
-	private EIAGrid grid = new EIAGrid();
+	private EIAGrid grid;
 	private EiaType eiaType;
+	private EIAAddForm addForm;
+	{
+		grid = new EIAGrid();
+		addForm = new EIAAddForm();
+	}
 
 	public EIATypeEquiposGridPanel() {
 		super();
@@ -52,7 +59,7 @@ public class EIATypeEquiposGridPanel extends VLayout implements
 
 			@Override
 			public void onClick(ClickEvent event) {
-
+				addForm.animateShow(AnimationEffect.FLY);
 			}
 		});
 		GHAButton editButton = new GHAButton("../resources/icons/edit.png");
