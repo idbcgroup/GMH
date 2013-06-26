@@ -19,7 +19,6 @@ import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
-import com.google.gwt.user.client.Window;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.TitleOrientation;
@@ -94,8 +93,7 @@ public class EIATypeAddForm extends GHASlideInWindow {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				EIATypeAddForm.this
-						.animateHide(AnimationEffect.FLY);
+				EIATypeAddForm.this.animateHide(AnimationEffect.FLY);
 				cancel();
 				;
 
@@ -224,16 +222,12 @@ public class EIATypeAddForm extends GHASlideInWindow {
 			eiaType.setSubtype(EiaSubTypeEnum.valueOf(subTypeItem
 					.getValueAsString()));
 
-		EIATypeModel.save(eiaType, new GHAAsyncCallback<Long>() {
+		EIATypeModel.save(eiaType, new GHAAsyncCallback<EiaType>() {
 
 			@Override
-			public void onSuccess(Long result) {
-				eiaType.setId(result.longValue());
-				Window.alert("a");
-				select(eiaType);
-				Window.alert("b");
+			public void onSuccess(EiaType result) {
+				select(result);
 				cancel();
-				Window.alert("c");
 			}
 		});
 

@@ -20,8 +20,13 @@ Esto se hace para poder identifcar la variable en cualquier lugar donde se use.
 	
 		GHAGridField brandGridField = new GHAGridField("brand", "Marca",Alignment.CENTER,"Marca del equipo");
 		
-	Para los logs de excepciones en los servicios EJB a menos que sea necesario, a fin de mantener la uniformidad seria recomendable utilizar la siguiente estructura para los logs
+5. Para los logs de excepciones en los servicios EJB a menos que sea necesario, a fin de mantener la uniformidad seria recomendable utilizar la siguiente estructura:
+
 		logger.log(Level, message, exception)
+
 	y luego arrojar una excepcion de tipo EJBException, especificando en el mensaje la causa del error (esto ultimo sera solo para el desarrollo), para presentarla en el cliente.
 
-	Recuerden que estas practicas estan destinadas a reducir el tiempo de compresion del codigo, mejoran nuestra comunicacion y hacen mas transparente el trabajo en conjunto
+
+6. Los metodos update y save en los servicios EJB deben retornar una instancia de la entidad salvada o actualizada respectivamente
+
+Recuerden que estas practicas estan destinadas a reducir el tiempo de compresion del codigo, mejoran nuestra comunicacion y hacen mas transparente el trabajo en conjunto

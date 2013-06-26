@@ -227,11 +227,11 @@ public class EIATypeCaracteristicasFormPanel extends VLayout implements
 			eiaType.setSubtype(EiaSubTypeEnum.valueOf(subTypeItem
 					.getValueAsString()));
 
-		EIATypeModel.update(eiaType, new GHAAsyncCallback<Boolean>() {
+		EIATypeModel.update(eiaType, new GHAAsyncCallback<EiaType>() {
 
 			@Override
-			public void onSuccess(Boolean result) {
-				tab.select(eiaType);
+			public void onSuccess(EiaType result) {
+				tab.select(result);
 			}
 		});
 

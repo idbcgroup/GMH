@@ -27,13 +27,13 @@ public class EIATypeModel {
 
 	}
 
-	public static void save(EiaType eiaType, GHAAsyncCallback<Long> callback) {
+	public static void save(EiaType eiaType, GHAAsyncCallback<EiaType> callback) {
 		service.save(eiaType, callback);
 
 	}
 
 	public static void update(EiaType eiaType,
-			GHAAsyncCallback<Boolean> callback) {
+			GHAAsyncCallback<EiaType> callback) {
 		service.update(eiaType, callback);
 	}
 }

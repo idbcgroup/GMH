@@ -20,10 +20,10 @@ public interface GWTEiaTypeService extends RemoteService {
 
 	/**
 	 * @param eiaType
-	 * @return long the saved entity id
+	 * @return EiaType saved
 	 * @throws EJBException
 	 */
-	public long save(EiaType eiaType) throws EJBException;
+	public EiaType save(EiaType eiaType) throws EJBException;
 
 	/**
 	 * @param Id
@@ -50,14 +50,16 @@ public interface GWTEiaTypeService extends RemoteService {
 			throws EJBException;
 
 	/**
-	 * @param EiaType the EiaType to be updated
-	 * @return a boolean with the result of the operation
+	 * @param EiaType
+	 *            the EiaType to be updated
+	 * @return a EiaType updated
 	 * @throws EJBException
 	 */
-	public boolean update(EiaType eiaType) throws EJBException;
+	public EiaType update(EiaType eiaType) throws EJBException;
 
 	/**
 	 * Delete an EiaType from database by Id
+	 * 
 	 * @return a boolean with the result of the operation
 	 * @throws EJBException
 	 */

@@ -37,7 +37,7 @@ public class GWTEiaTypeServiceImpl extends RemoteServiceServlet implements
 	 * .gha.domain.gmh.EiaType)
 	 */
 	@Override
-	public long save(EiaType eiaType) throws EJBException {
+	public EiaType save(EiaType eiaType) throws EJBException {
 		return eiaTypeServiceRemote.save(eiaType);
 	}
 
@@ -59,7 +59,7 @@ public class GWTEiaTypeServiceImpl extends RemoteServiceServlet implements
 	 * .gha.domain.gmh.EiaType)
 	 */
 	@Override
-	public boolean update(EiaType eiaType) throws EJBException {
+	public EiaType update(EiaType eiaType) throws EJBException {
 		return eiaTypeServiceRemote.update(eiaType);
 	}
 
