@@ -32,6 +32,7 @@ public class BrandService implements BrandServiceRemote {
 	public void save(Brand brand) {
 		try{
 			em.persist(brand);
+			em.flush();
 		}catch(Exception e){
 			logger.info("ERROR: saving object "+brand.toString());
 			e.printStackTrace();

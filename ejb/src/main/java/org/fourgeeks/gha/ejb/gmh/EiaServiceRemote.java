@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.ejb.Remote;
 
+import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 
@@ -20,46 +21,56 @@ public interface EiaServiceRemote {
 	
 	/**
 	 * @param eia
+	 * @Return the id of the persisted entity
+	 * @throws EJBException
 	 * Persist an eia to database
 	 */
-	public void save(Eia eia);
+	public long save(Eia eia) throws EJBException;
 	
 	/**
 	 * @param eia
+	 * @return a boolean with the result of the operation
+	 * @throws EJBException
 	 * Update the Eia
 	 */
-	public void update(Eia eia);
+	public boolean update(Eia eia) throws EJBException;
 	/**
 	 * @param Id
 	 * @return Find an eia By Id
+	 * @throws EJBException
 	 */
-	public Eia find(long Id);
+	public Eia find(long Id) throws EJBException;
 	/**
 	 * @param eia
 	 * @return a List with eias using an eia as a filter
+	 * @throws EJBExceptions
 	 */
-	public List<Eia> find(Eia eia);
+	public List<Eia> find(Eia eia) throws EJBException;
 	/**
 	 * @param eiaType
 	 * @return a List with eias searching by EiaType
+	 * @throws EJBException
 	 */
-	public List<Eia> find(EiaType eiaType);
+	public List<Eia> find(EiaType eiaType) throws EJBException;
 	/**
-	 * @return
-	 * a List with all the eias
+	 * @return a List with all the eias
+	 * @throws EJBException
 	 */
-	public List<Eia> getAll();
+	public List<Eia> getAll() throws EJBException;
 	/**
 	 * @param offset
 	 * @param size
 	 * @return a List with size eias starting from offset
+	 * @throws EJBException
 	 */
-	public List<Eia> getAll(int offset, int size);
+	public List<Eia> getAll(int offset, int size) throws EJBException;
 	/**
 	 * @param Id
+	 * @return a boolean with the result of the operation
+	 * @throws EJBException
 	 * Delete an entity from database using its id
 	 */
-	public void delete(long Id);
+	public boolean delete(long Id) throws EJBException;
 	
 	/**
 	 * @param eiaType

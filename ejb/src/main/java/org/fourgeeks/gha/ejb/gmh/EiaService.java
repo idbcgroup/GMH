@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
+import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
@@ -33,14 +34,15 @@ public class EiaService implements EiaServiceRemote {
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#save(org.fourgeeks.gha.domain.gmh.Eia)
 	 */
 	@Override
-	public void save(Eia eia) {
+	public long save(Eia eia) throws EJBException {
 		try{
 			em.persist(eia);
+			em.flush();
+			return eia.getId();
 		}catch(Exception e){
-			logger.info("ERROR: saving object "+eia.toString());
-			e.printStackTrace();
-			
-			//TODO: send exception to webclient
+			logger.log(Level.INFO, "ERROR: saving object "+eia.toString(), e);
+			throw new EJBException("ERROR: guardando eia "+eia.toString()
+					+ " " +e.getCause().getMessage());
 		}
 	}
 
@@ -48,13 +50,12 @@ public class EiaService implements EiaServiceRemote {
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#find(long)
 	 */
 	@Override
-	public Eia find(long Id) {
+	public Eia find(long Id) throws EJBException{
 		try{
 			return em.find(Eia.class, Id);
 		}catch(Exception e){
-			e.printStackTrace();
-			//TODO: send exception to webclient
-			return null;
+			logger.log(Level.INFO, "ERROR: finding eia by id", e);
+			throw new EJBException("Error buscando eia por id "+e.getCause().getMessage()); 
 		}
 	}
 
@@ -62,7 +63,7 @@ public class EiaService implements EiaServiceRemote {
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#find(org.fourgeeks.gha.domain.gmh.Eia)
 	 */
 	@Override
-	public List<Eia> find(Eia eia) {
+	public List<Eia> find(Eia eia) throws EJBException{
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -71,7 +72,7 @@ public class EiaService implements EiaServiceRemote {
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#find(org.fourgeeks.gha.domain.gmh.EiaType)
 	 */
 	@Override
-	public List<Eia> find(EiaType eiaType) {
+	public List<Eia> find(EiaType eiaType) throws EJBException{
 		List <Eia> res = null;
 		String query = "SELECT e from Eia e JOIN e.eiaType t ";
 		String filters = buildFilters(eiaType);
@@ -81,30 +82,29 @@ public class EiaService implements EiaServiceRemote {
 		
 		try{
 			res = em.createQuery(query, Eia.class).getResultList();
+			return res;
 		}catch(Exception e){
-			//TODO: Send exception to webclient
-			e.printStackTrace();
+			logger.log(Level.INFO, "Error: finding eia by eiatype", e);
+			throw new EJBException("Error buscando eia por eiatype "+
+					e.getCause().getMessage());
 		}
-		
-		return res;
 	}
 
 	/* (non-Javadoc)
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#getAll()
 	 */
 	@Override
-	public List<Eia> getAll() {
+	public List<Eia> getAll() throws EJBException {
 		String query = "SELECT e from Eia e";
 		List<Eia> res = null;
 		try{
 			res = em.createQuery(query, Eia.class).getResultList();
-			logger.info("Get all Eias");
 		}catch(NoResultException ex){
-			logger.info("No results");
-			//TODO: send exception to webclient
+			logger.log(Level.INFO, "Get all eias, No results", ex);
 		}catch(Exception ex){
-			logger.log(Level.SEVERE, "Error retrieving all objects", ex);
-			//TODO: Send exception to webclient
+			logger.log(Level.SEVERE, "Error retrieving all eias", ex);
+			throw new EJBException("Error obteniendo todos los eias" +
+					ex.getCause().getMessage());
 		}
 		return res;
 	}
@@ -113,7 +113,7 @@ public class EiaService implements EiaServiceRemote {
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#getAll(int, int)
 	 */
 	@Override
-	public List<Eia> getAll(int offset, int size) {
+	public List<Eia> getAll(int offset, int size) throws EJBException {
 		String query = "SELECT e from Eia e order by id";
 		List<Eia> res = null;
 		try{
@@ -121,11 +121,11 @@ public class EiaService implements EiaServiceRemote {
 					.setMaxResults(size).getResultList();
 			logger.info("Get all Eias");
 		}catch(NoResultException ex){
-			logger.info("No results");
-			//TODO: send exception to webclient
+			logger.log(Level.INFO, "Get all eias, No results", ex);
 		}catch(Exception ex){
-			logger.log(Level.SEVERE, "Error retrieving all objects", ex);
-			//TODO: Send exception to webclient
+			logger.log(Level.SEVERE, "Error retrieving all eias", ex);
+			throw new EJBException("Error obteniendo todos los eias" +
+					ex.getCause().getMessage());
 		}
 		return res;
 	}
@@ -134,17 +134,17 @@ public class EiaService implements EiaServiceRemote {
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#delete(long)
 	 */
 	@Override
-	public void delete(long Id) {
+	public boolean delete(long Id) throws EJBException {
 		try {
 			Eia entity = em.find(Eia.class, Id);
 			em.remove(entity);
-
-			logger.info("Deleted: " + entity.toString());
+			return true;
+			
 		} catch (Exception e) {
-			e.printStackTrace();
-			logger.info("ERROR: unable to delete object="+Eia.class.getName() +" with id="
-					+ Long.toString(Id));
-			// TODO: send exception to webClient
+			logger.log(Level.INFO, "ERROR: unable to delete object="+Eia.class.getName() +" with id="
+					+ Long.toString(Id), e);
+			throw new EJBException("ERROR: eliminando un eia por id "+
+					e.getCause().getMessage());
 		}
 		
 	}
@@ -209,13 +209,15 @@ public class EiaService implements EiaServiceRemote {
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#update(org.fourgeeks.gha.domain.gmh.Eia)
 	 */
 	@Override
-	public void update(Eia eia) {
+	public boolean update(Eia eia) throws EJBException {
 		try{
 			em.merge(eia);
+			return true;
 		}catch(Exception e){
-			logger.info("ERROR: unable to update object " + eia.toString());
-			e.printStackTrace();
-			// TODO: send exception to webClient
+			logger.log(Level.INFO, "ERROR: unable to update object " 
+					+ eia.toString(), e);
+			throw new EJBException("ERROR: no se puede eliminar el eia "+
+					e.getCause().getMessage());
 		}
 		
 	}

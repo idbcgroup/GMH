@@ -33,6 +33,7 @@ public class ManufacturerService implements ManufacturerServiceRemote {
 	public void save(Manufacturer manufacturer) {
 		try{
 			em.persist(manufacturer);
+			em.flush();
 		}catch(Exception e){
 			logger.info("ERROR: saving object "+manufacturer.toString());
 			e.printStackTrace();
