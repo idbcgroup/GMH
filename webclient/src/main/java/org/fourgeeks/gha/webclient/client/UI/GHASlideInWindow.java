@@ -5,7 +5,7 @@ import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.Visibility;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public abstract class GHASlideInWindow extends VLayout implements ResizeHandler{
+public abstract class GHASlideInWindow extends VLayout implements ResizeHandler {
 
 	public GHASlideInWindow() {
 		setWidth100();
@@ -14,8 +14,8 @@ public abstract class GHASlideInWindow extends VLayout implements ResizeHandler{
 		setStyleName("sides-padding top-padding");
 		setAlign(Alignment.CENTER);
 		setVisibility(Visibility.HIDDEN);
-		setAnimateTime(800);
-		addStyleName("box");	
+		setAnimateTime(600);
+		addStyleName("box");
 		GHAUiHelper.addResizeHandler(this);
 	}
 }

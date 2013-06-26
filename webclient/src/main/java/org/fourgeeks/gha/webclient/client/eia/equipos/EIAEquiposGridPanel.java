@@ -1,5 +1,7 @@
 package org.fourgeeks.gha.webclient.client.eia.equipos;
 
+import org.fourgeeks.gha.webclient.client.eia.EIAAddForm;
+
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.BackgroundRepeat;
@@ -14,7 +16,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
 
 public class EIAEquiposGridPanel extends VLayout {
 
-	private EIAEquiposCreateForm form;
+	private EIAAddForm form;
 	private EIAEquiposGrid eiaGrid;
 	{
 		eiaGrid = new EIAEquiposGrid();
@@ -22,7 +24,7 @@ public class EIAEquiposGridPanel extends VLayout {
 
 	public EIAEquiposGridPanel() {
 		super();
-		form = new EIAEquiposCreateForm();
+		form = new EIAAddForm();
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding top-padding");// Esto es VUDU!

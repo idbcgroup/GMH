@@ -262,42 +262,12 @@ input[type=text].round,input[type=password].round{
 	top: 8px;
 }
 
+.side-option{
+	background-color: yellow;
+}
+
 /*OVERRIDES*/
 
 .headerButton{
 	/*background: none !important;*/
-}
-
-
-
-
-
-
-
-
-
-
-
-
-/* TO ERASE */
-.full{
-	width: 100%;
-}
-.half{
-	width: 45%;
-}
-.smallfont{
-	text-align: center;
-	font-size: x-small;
-}
-.nofloat{
-	float:none;
-}
-
-.main-tab-set div div.tabBarTop {
-    visibility: hidden;
-}
-
-.main-tab-set {
-    margin-top: -24px;
 }
