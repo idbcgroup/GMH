@@ -30,7 +30,11 @@ public class GHATextItem extends TextItem {
 	@Override
 	public void setDisabled(Boolean disabled) {
 		super.setDisabled(disabled);
-		setTextBoxStyle("input input-disabled");
-		setTitleStyle("input-title");
+		if(disabled)
+			setTextBoxStyle("input input-disabled");
+		else
+			setTextBoxStyle("input");
 	}
+	
+	
 }

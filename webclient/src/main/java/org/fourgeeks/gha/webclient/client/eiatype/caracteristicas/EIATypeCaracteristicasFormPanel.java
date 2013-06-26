@@ -61,6 +61,8 @@ public class EIATypeCaracteristicasFormPanel extends VLayout implements
 	}
 
 	public EIATypeCaracteristicasFormPanel(EIATypeTab tab) {
+		activateForm(false);
+		
 		this.tab = tab;
 		tab.addClosableHandler(this);
 		addForm.addEiaTypeSelectionListener(tab);
@@ -121,11 +123,27 @@ public class EIATypeCaracteristicasFormPanel extends VLayout implements
 
 		HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
-
+		
 		addMember(gridPanel);
 		fillBrands();
 		fillMans();
 		fillExtras();
+	}
+	
+	public void activateForm(boolean activate){
+		codeItem.setDisabled(!activate);
+		nameItem.setDisabled(!activate);
+		modelItem.setDisabled(!activate);
+		descriptionItem.setDisabled(!activate);
+		descriptionItem.setDisabled(!activate);
+		useDescriptionItem.setDisabled(!activate);
+		useDescriptionItem.setDisabled(!activate);
+		eiaUmdnsItem.setDisabled(!activate);
+		manItem.setDisabled(!activate);
+		brandItem.setDisabled(!activate);
+		mobilityItem.setDisabled(!activate);
+		typeItem.setDisabled(!activate);
+		subTypeItem .setDisabled(!activate);
 	}
 
 	protected void undo() {
@@ -185,6 +203,8 @@ public class EIATypeCaracteristicasFormPanel extends VLayout implements
 
 	@Override
 	public void select(EiaType eiaType) {
+		activateForm(true);
+		
 		this.eiaType = this.orginalEiaType = eiaType;
 		if (eiaType.getBrand() != null)
 			brandItem.setValue(eiaType.getBrand().getId());

@@ -63,11 +63,11 @@ public abstract class GHAUiHelper{
 		int innerTopSection = INNER_TOP_SECTION_HEIGHT + V_SEPARATOR_HEIGHT;
 
 		int ret = biggerTabHeight - innerTopSection;
-//		if(ret < MIN_BOTTOM_SECTION_HEIGHT){
-//			return MIN_BOTTOM_SECTION_HEIGHT;
-//		}else{
+		if(ret < MIN_BOTTOM_SECTION_HEIGHT){
+			return MIN_BOTTOM_SECTION_HEIGHT;
+		}else{
 			return ret;
-//		}
+		}
 	}
 	
 	private static List<ResizeHandler> handlers = new ArrayList<ResizeHandler>();
