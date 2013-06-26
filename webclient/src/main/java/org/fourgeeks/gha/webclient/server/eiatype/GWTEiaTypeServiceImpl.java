@@ -60,13 +60,7 @@ public class GWTEiaTypeServiceImpl extends RemoteServiceServlet implements
 	 */
 	@Override
 	public boolean update(EiaType eiaType) throws EJBException {
-		try {
-			eiaTypeServiceRemote.update(eiaType);
-		} catch (Exception e) {
-			return false;
-		}
-		return true;
-
+		return eiaTypeServiceRemote.update(eiaType);
 	}
 
 	/*
@@ -76,9 +70,8 @@ public class GWTEiaTypeServiceImpl extends RemoteServiceServlet implements
 	 * org.fourgeeks.gha.webclient.client.eia.GWTEiaTypeService#delete(long)
 	 */
 	@Override
-	public void delete(long Id) throws EJBException {
-		eiaTypeServiceRemote.delete(Id);
-
+	public boolean delete(long Id) throws EJBException {
+		return eiaTypeServiceRemote.delete(Id);
 	}
 
 	/*

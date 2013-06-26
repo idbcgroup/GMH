@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eiatype.caracteristicas;
+package org.fourgeeks.gha.webclient.client.eiatype;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -17,8 +17,6 @@ import org.fourgeeks.gha.webclient.client.UI.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.GHASlideInWindow;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.eiatype.EIATypeModel;
-import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.user.client.Window;
@@ -33,7 +31,7 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIATypeCaracteristicasAddForm extends GHASlideInWindow {
+public class EIATypeAddForm extends GHASlideInWindow {
 
 	private List<EIATypeSelectionListener> listeners;
 	private GHATextItem codeItem, nameItem, modelItem, descriptionItem,
@@ -58,7 +56,7 @@ public class EIATypeCaracteristicasAddForm extends GHASlideInWindow {
 		subTypeItem = new GHASelectItem("Subtipo", 150);
 	}
 
-	public EIATypeCaracteristicasAddForm() {
+	public EIATypeAddForm() {
 		setHeight(GHAUiHelper.getBottomSectionHeight());
 		setTop(240);
 
@@ -96,7 +94,7 @@ public class EIATypeCaracteristicasAddForm extends GHASlideInWindow {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				EIATypeCaracteristicasAddForm.this
+				EIATypeAddForm.this
 						.animateHide(AnimationEffect.FLY);
 				cancel();
 				;
@@ -132,7 +130,7 @@ public class EIATypeCaracteristicasAddForm extends GHASlideInWindow {
 		mobilityItem.clearValue();
 		typeItem.clearValue();
 		subTypeItem.clearValue();
-		EIATypeCaracteristicasAddForm.this.animateHide(AnimationEffect.SLIDE);
+		EIATypeAddForm.this.animateHide(AnimationEffect.SLIDE);
 	}
 
 	private void fillExtras() {

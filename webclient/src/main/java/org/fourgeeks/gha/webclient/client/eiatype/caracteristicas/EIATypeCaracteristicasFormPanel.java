@@ -16,6 +16,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.eiatype.EIATypeAddForm;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeModel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeTab;
@@ -34,15 +35,16 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class EIATypeCaracteristicasFormPanel extends VLayout implements
 		EIATypeSelectionListener, GHAClosable {
 
-	private EIATypeCaracteristicasAddForm addForm;
+	private EIATypeAddForm addForm;
 	private GHATextItem codeItem, nameItem, modelItem, descriptionItem,
 			useDescriptionItem, eiaUmdnsItem;
 	private GHASelectItem brandItem, manItem, mobilityItem, typeItem,
 			subTypeItem;
 	private EiaType eiaType, orginalEiaType;
+	private EIATypeTab tab;
 
 	{
-		addForm = new EIATypeCaracteristicasAddForm();
+		addForm = new EIATypeAddForm();
 		codeItem = new GHATextItem("Código", 150);
 		nameItem = new GHATextItem("Nombre", 150);
 		modelItem = new GHATextItem("Modelo", 150);
@@ -59,6 +61,7 @@ public class EIATypeCaracteristicasFormPanel extends VLayout implements
 	}
 
 	public EIATypeCaracteristicasFormPanel(EIATypeTab tab) {
+		this.tab = tab;
 		tab.addClosableHandler(this);
 		addForm.addEiaTypeSelectionListener(tab);
 		setWidth100();
@@ -201,7 +204,7 @@ public class EIATypeCaracteristicasFormPanel extends VLayout implements
 	private void save() {
 		if (this.eiaType == null)
 			return;
-		EiaType eiaType = new EiaType();
+		final EiaType eiaType = new EiaType();
 		eiaType.setId(this.eiaType.getId());
 		if (brandItem.getValue() != null)
 			eiaType.setBrand(new Brand(Integer.valueOf(brandItem
@@ -228,7 +231,7 @@ public class EIATypeCaracteristicasFormPanel extends VLayout implements
 
 			@Override
 			public void onSuccess(Boolean result) {
-				// TODO
+				tab.select(eiaType);
 			}
 		});
 

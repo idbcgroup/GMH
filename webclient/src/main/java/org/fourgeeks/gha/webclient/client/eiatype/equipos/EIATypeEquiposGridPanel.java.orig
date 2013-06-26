@@ -6,11 +6,14 @@ import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAButton;
-import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
+<<<<<<< HEAD
 import org.fourgeeks.gha.webclient.client.eia.EIAGrid;
 import org.fourgeeks.gha.webclient.client.eia.EIAModel;
 import org.fourgeeks.gha.webclient.client.eia.EIARecord;
 import org.fourgeeks.gha.webclient.client.eia.EIAUtil;
+=======
+import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
+>>>>>>> 7aa732d6006411fe1033f0e236f3b93c7d4665d6
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.smartgwt.client.types.Alignment;
@@ -96,6 +99,6 @@ public class EIATypeEquiposGridPanel extends VLayout implements
 	@Override
 	public void close() {
 		// TODO Auto-generated method stub
-
+		
 	}
 }

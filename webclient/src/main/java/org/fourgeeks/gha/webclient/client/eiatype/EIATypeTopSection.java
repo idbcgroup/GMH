@@ -10,6 +10,8 @@ import org.fourgeeks.gha.webclient.client.UI.GHAImg;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
+import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.TitleOrientation;
@@ -21,7 +23,7 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class EIATypeTopSection extends HLayout implements
-		EIATypeSelectionListener, GHAClosable {
+		EIATypeSelectionListener, GHAClosable, ResizeHandler {
 
 	private List<EIATypeSelectionListener> selectionListeners;
 	private EIATypeSearchForm eiaTypeSearchForm;
@@ -51,8 +53,10 @@ public class EIATypeTopSection extends HLayout implements
 
 	public EIATypeTopSection(EIATypeTab eiaTypeTab) {
 		super();
+		GHAUiHelper.addResizeHandler(this);
 		eiaTypeTab.addClosableHandler(this);
 		eiaTypeSearchForm.AddEIATypeSelectionListener(eiaTypeTab);
+		
 		setStyleName("sides-padding");// Esto es VUDU!
 		setWidth100();
 		setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT + "px");
@@ -163,5 +167,10 @@ public class EIATypeTopSection extends HLayout implements
 	public void close() {
 		eiaTypeSearchForm.animateHide(AnimationEffect.FLY);
 		eiaTypeSearchForm.destroy();
+	}
+
+	@Override
+	public void onResize(ResizeEvent event) {
+		setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT + "px");		
 	}
 }
