@@ -24,7 +24,7 @@ public class Eia extends AbstractEntity {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	/** Fecha de Instalación del Equipo length =22 */
 	private Date acceptationDate;
 	/** Periodo de Tiempo (PDT) para el Tiempo de Vida Equipo length =60 */
@@ -241,6 +241,481 @@ public class Eia extends AbstractEntity {
 
 	public void setWarrantyTimePot(TimePeriodEnum warrantyTimePot) {
 		this.warrantyTimePot = warrantyTimePot;
+	}
+
+	/**
+	 * @return the acceptationDate
+	 */
+	public Date getAcceptationDate() {
+		return acceptationDate;
+	}
+
+	/**
+	 * @param acceptationDate
+	 *            the acceptationDate to set
+	 */
+	public void setAcceptationDate(Date acceptationDate) {
+		this.acceptationDate = acceptationDate;
+	}
+
+	/**
+	 * @return the actualCost
+	 */
+	public BigDecimal getActualCost() {
+		return actualCost;
+	}
+
+	/**
+	 * @param actualCost
+	 *            the actualCost to set
+	 */
+	public void setActualCost(BigDecimal actualCost) {
+		this.actualCost = actualCost;
+	}
+
+	/**
+	 * @return the actualCostCurrency
+	 */
+	public CurrencyTypeEnum getActualCostCurrency() {
+		return actualCostCurrency;
+	}
+
+	/**
+	 * @param actualCostCurrency
+	 *            the actualCostCurrency to set
+	 */
+	public void setActualCostCurrency(CurrencyTypeEnum actualCostCurrency) {
+		this.actualCostCurrency = actualCostCurrency;
+	}
+
+	/**
+	 * @return the adquisitionCost
+	 */
+	public BigDecimal getAdquisitionCost() {
+		return adquisitionCost;
+	}
+
+	/**
+	 * @param adquisitionCost
+	 *            the adquisitionCost to set
+	 */
+	public void setAdquisitionCost(BigDecimal adquisitionCost) {
+		this.adquisitionCost = adquisitionCost;
+	}
+
+	/**
+	 * @return the adquisitionCostCurrency
+	 */
+	public CurrencyTypeEnum getAdquisitionCostCurrency() {
+		return adquisitionCostCurrency;
+	}
+
+	/**
+	 * @param adquisitionCostCurrency
+	 *            the adquisitionCostCurrency to set
+	 */
+	public void setAdquisitionCostCurrency(
+			CurrencyTypeEnum adquisitionCostCurrency) {
+		this.adquisitionCostCurrency = adquisitionCostCurrency;
+	}
+
+	/**
+	 * @return the adquisitionCostCurrencyLocal
+	 */
+	public CurrencyTypeEnum getAdquisitionCostCurrencyLocal() {
+		return adquisitionCostCurrencyLocal;
+	}
+
+	/**
+	 * @param adquisitionCostCurrencyLocal
+	 *            the adquisitionCostCurrencyLocal to set
+	 */
+	public void setAdquisitionCostCurrencyLocal(
+			CurrencyTypeEnum adquisitionCostCurrencyLocal) {
+		this.adquisitionCostCurrencyLocal = adquisitionCostCurrencyLocal;
+	}
+
+	/**
+	 * @return the adquisitionCostLocal
+	 */
+	public BigDecimal getAdquisitionCostLocal() {
+		return adquisitionCostLocal;
+	}
+
+	/**
+	 * @param adquisitionCostLocal
+	 *            the adquisitionCostLocal to set
+	 */
+	public void setAdquisitionCostLocal(BigDecimal adquisitionCostLocal) {
+		this.adquisitionCostLocal = adquisitionCostLocal;
+	}
+
+	/**
+	 * @return the bpu
+	 */
+	public String getBpu() {
+		return bpu;
+	}
+
+	/**
+	 * @param bpu
+	 *            the bpu to set
+	 */
+	public void setBpu(String bpu) {
+		this.bpu = bpu;
+	}
+
+	/**
+	 * @return the contabilizationDate
+	 */
+	public Date getContabilizationDate() {
+		return contabilizationDate;
+	}
+
+	/**
+	 * @param contabilizationDate
+	 *            the contabilizationDate to set
+	 */
+	public void setContabilizationDate(Date contabilizationDate) {
+		this.contabilizationDate = contabilizationDate;
+	}
+
+	/**
+	 * @return the dateLastDepreciation
+	 */
+	public Date getDateLastDepreciation() {
+		return dateLastDepreciation;
+	}
+
+	/**
+	 * @param dateLastDepreciation
+	 *            the dateLastDepreciation to set
+	 */
+	public void setDateLastDepreciation(Date dateLastDepreciation) {
+		this.dateLastDepreciation = dateLastDepreciation;
+	}
+
+	/**
+	 * @return the depreciationMethod
+	 */
+	public DepreciationMethodEnum getDepreciationMethod() {
+		return depreciationMethod;
+	}
+
+	/**
+	 * @param depreciationMethod
+	 *            the depreciationMethod to set
+	 */
+	public void setDepreciationMethod(DepreciationMethodEnum depreciationMethod) {
+		this.depreciationMethod = depreciationMethod;
+	}
+
+	/**
+	 * @return the depreciationTime
+	 */
+	public int getDepreciationTime() {
+		return depreciationTime;
+	}
+
+	/**
+	 * @param depreciationTime
+	 *            the depreciationTime to set
+	 */
+	public void setDepreciationTime(int depreciationTime) {
+		this.depreciationTime = depreciationTime;
+	}
+
+	/**
+	 * @return the depreciationTimePot
+	 */
+	public TimePeriodEnum getDepreciationTimePot() {
+		return depreciationTimePot;
+	}
+
+	/**
+	 * @param depreciationTimePot
+	 *            the depreciationTimePot to set
+	 */
+	public void setDepreciationTimePot(TimePeriodEnum depreciationTimePot) {
+		this.depreciationTimePot = depreciationTimePot;
+	}
+
+	/**
+	 * @return the desincorporatedDate
+	 */
+	public Date getDesincorporatedDate() {
+		return desincorporatedDate;
+	}
+
+	/**
+	 * @param desincorporatedDate
+	 *            the desincorporatedDate to set
+	 */
+	public void setDesincorporatedDate(Date desincorporatedDate) {
+		this.desincorporatedDate = desincorporatedDate;
+	}
+
+	/**
+	 * @return the desincorporateReason
+	 */
+	public String getDesincorporateReason() {
+		return desincorporateReason;
+	}
+
+	/**
+	 * @param desincorporateReason
+	 *            the desincorporateReason to set
+	 */
+	public void setDesincorporateReason(String desincorporateReason) {
+		this.desincorporateReason = desincorporateReason;
+	}
+
+	/**
+	 * @return the fixeAssetIdentifier
+	 */
+	public String getFixeAssetIdentifier() {
+		return fixeAssetIdentifier;
+	}
+
+	/**
+	 * @param fixeAssetIdentifier
+	 *            the fixeAssetIdentifier to set
+	 */
+	public void setFixeAssetIdentifier(String fixeAssetIdentifier) {
+		this.fixeAssetIdentifier = fixeAssetIdentifier;
+	}
+
+	/**
+	 * @return the installationDate
+	 */
+	public Date getInstallationDate() {
+		return installationDate;
+	}
+
+	/**
+	 * @param installationDate
+	 *            the installationDate to set
+	 */
+	public void setInstallationDate(Date installationDate) {
+		this.installationDate = installationDate;
+	}
+
+	/**
+	 * @return the installationProvider
+	 */
+	public String getInstallationProvider() {
+		return installationProvider;
+	}
+
+	/**
+	 * @param installationProvider
+	 *            the installationProvider to set
+	 */
+	public void setInstallationProvider(String installationProvider) {
+		this.installationProvider = installationProvider;
+	}
+
+	/**
+	 * @return the lifeTime
+	 */
+	public int getLifeTime() {
+		return lifeTime;
+	}
+
+	/**
+	 * @param lifeTime
+	 *            the lifeTime to set
+	 */
+	public void setLifeTime(int lifeTime) {
+		this.lifeTime = lifeTime;
+	}
+
+	/**
+	 * @return the lifeTimePot
+	 */
+	public TimePeriodEnum getLifeTimePot() {
+		return lifeTimePot;
+	}
+
+	/**
+	 * @param lifeTimePot
+	 *            the lifeTimePot to set
+	 */
+	public void setLifeTimePot(TimePeriodEnum lifeTimePot) {
+		this.lifeTimePot = lifeTimePot;
+	}
+
+	/**
+	 * @return the maintenanceLocation
+	 */
+	public String getMaintenanceLocation() {
+		return maintenanceLocation;
+	}
+
+	/**
+	 * @param maintenanceLocation
+	 *            the maintenanceLocation to set
+	 */
+	public void setMaintenanceLocation(String maintenanceLocation) {
+		this.maintenanceLocation = maintenanceLocation;
+	}
+
+	/**
+	 * @return the maintenanceProvider
+	 */
+	public String getMaintenanceProvider() {
+		return maintenanceProvider;
+	}
+
+	/**
+	 * @param maintenanceProvider
+	 *            the maintenanceProvider to set
+	 */
+	public void setMaintenanceProvider(String maintenanceProvider) {
+		this.maintenanceProvider = maintenanceProvider;
+	}
+
+	/**
+	 * @return the obu
+	 */
+	public String getObu() {
+		return obu;
+	}
+
+	/**
+	 * @param obu
+	 *            the obu to set
+	 */
+	public void setObu(String obu) {
+		this.obu = obu;
+	}
+
+	/**
+	 * @return the purchaseDate
+	 */
+	public Date getPurchaseDate() {
+		return purchaseDate;
+	}
+
+	/**
+	 * @param purchaseDate
+	 *            the purchaseDate to set
+	 */
+	public void setPurchaseDate(Date purchaseDate) {
+		this.purchaseDate = purchaseDate;
+	}
+
+	/**
+	 * @return the purchaseInvoiceDate
+	 */
+	public Date getPurchaseInvoiceDate() {
+		return purchaseInvoiceDate;
+	}
+
+	/**
+	 * @param purchaseInvoiceDate
+	 *            the purchaseInvoiceDate to set
+	 */
+	public void setPurchaseInvoiceDate(Date purchaseInvoiceDate) {
+		this.purchaseInvoiceDate = purchaseInvoiceDate;
+	}
+
+	/**
+	 * @return the purchaseInvoiceNumber
+	 */
+	public String getPurchaseInvoiceNumber() {
+		return purchaseInvoiceNumber;
+	}
+
+	/**
+	 * @param purchaseInvoiceNumber
+	 *            the purchaseInvoiceNumber to set
+	 */
+	public void setPurchaseInvoiceNumber(String purchaseInvoiceNumber) {
+		this.purchaseInvoiceNumber = purchaseInvoiceNumber;
+	}
+
+	/**
+	 * @return the purchaseOrderDate
+	 */
+	public Date getPurchaseOrderDate() {
+		return purchaseOrderDate;
+	}
+
+	/**
+	 * @param purchaseOrderDate
+	 *            the purchaseOrderDate to set
+	 */
+	public void setPurchaseOrderDate(Date purchaseOrderDate) {
+		this.purchaseOrderDate = purchaseOrderDate;
+	}
+
+	/**
+	 * @return the purchaseOrderNumber
+	 */
+	public String getPurchaseOrderNumber() {
+		return purchaseOrderNumber;
+	}
+
+	/**
+	 * @param purchaseOrderNumber
+	 *            the purchaseOrderNumber to set
+	 */
+	public void setPurchaseOrderNumber(String purchaseOrderNumber) {
+		this.purchaseOrderNumber = purchaseOrderNumber;
+	}
+
+	/**
+	 * @return the receptionDate
+	 */
+	public Date getReceptionDate() {
+		return receptionDate;
+	}
+
+	/**
+	 * @param receptionDate
+	 *            the receptionDate to set
+	 */
+	public void setReceptionDate(Date receptionDate) {
+		this.receptionDate = receptionDate;
+	}
+
+	/**
+	 * @return the vendor
+	 */
+	public String getVendor() {
+		return vendor;
+	}
+
+	/**
+	 * @param vendor
+	 *            the vendor to set
+	 */
+	public void setVendor(String vendor) {
+		this.vendor = vendor;
+	}
+
+	/**
+	 * @return the warrantyTime
+	 */
+	public int getWarrantyTime() {
+		return warrantyTime;
+	}
+
+	/**
+	 * @param warrantyTime
+	 *            the warrantyTime to set
+	 */
+	public void setWarrantyTime(int warrantyTime) {
+		this.warrantyTime = warrantyTime;
+	}
+
+	/**
+	 * @param eiaType
+	 *            the eiaType to set
+	 */
+	public void setEiaType(EiaType eiaType) {
+		this.eiaType = eiaType;
 	}
 
 }

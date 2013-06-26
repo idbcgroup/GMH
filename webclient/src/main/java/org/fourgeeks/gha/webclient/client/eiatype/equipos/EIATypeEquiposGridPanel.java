@@ -1,20 +1,29 @@
 package org.fourgeeks.gha.webclient.client.eiatype.equipos;
 
+import java.util.List;
+
+import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAButton;
+import org.fourgeeks.gha.webclient.client.eia.EIAGrid;
+import org.fourgeeks.gha.webclient.client.eia.EIAModel;
+import org.fourgeeks.gha.webclient.client.eia.EIARecord;
+import org.fourgeeks.gha.webclient.client.eia.EIAUtil;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
+import com.smartgwt.client.widgets.grid.ListGridRecord;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class EIATypeEquiposGridPanel extends VLayout implements
 		EIATypeSelectionListener {
 
-	private EIATypeEquiposGrid eiaTypeEquiposGrid = new EIATypeEquiposGrid();
+	private EIAGrid grid = new EIAGrid();
 	private EiaType eiaType;
 
 	public EIATypeEquiposGridPanel() {
@@ -62,7 +71,7 @@ public class EIATypeEquiposGridPanel extends VLayout implements
 		sideButtons.addMembers(addButton, editButton, deleteButton, setsButton);
 
 		HLayout mainLayout = new HLayout();
-		mainLayout.addMembers(eiaTypeEquiposGrid, sideButtons);
+		mainLayout.addMembers(grid, sideButtons);
 		addMember(mainLayout);
 
 	}
@@ -70,7 +79,16 @@ public class EIATypeEquiposGridPanel extends VLayout implements
 	@Override
 	public void select(EiaType eiaType) {
 		this.eiaType = eiaType;
-		eiaTypeEquiposGrid.select(eiaType);
+		EIAModel.find(eiaType, new GHAAsyncCallback<List<Eia>>() {
+
+			@Override
+			public void onSuccess(List<Eia> result) {
+				ListGridRecord[] array = (ListGridRecord[]) EIAUtil
+						.toGridRecords(result).toArray(new EIARecord[] {});
+				grid.setData(array);
+
+			}
+		});
 
 	}
 }

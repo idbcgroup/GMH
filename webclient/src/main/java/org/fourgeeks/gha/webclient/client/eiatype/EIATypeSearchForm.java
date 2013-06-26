@@ -18,7 +18,6 @@ import org.fourgeeks.gha.webclient.client.UI.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.GHASlideInWindow;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.eiatype.equipos.EIATypeEquiposGrid;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.types.Alignment;
@@ -38,7 +37,7 @@ public class EIATypeSearchForm extends GHASlideInWindow {
 
 	private List<EIATypeSelectionListener> selectionListeners;
 	private GHATextItem codeEIAItem, nameEIAItem, modelItem, descriptionItem, useDescriptionItem, umdnsCodeItem;
-	private EIATypeEquiposGrid eiaTypeGrid;
+	private EIATypeGrid eiaTypeGrid;
 	private GHASelectItem brandItem, manItem, mobilityItem, typeItem, subTypeItem;
 	private GHACheckboxItem isServiceItem; 
 	{
@@ -130,7 +129,7 @@ public class EIATypeSearchForm extends GHASlideInWindow {
 		addMember(GHAUiHelper
 				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
 
-		eiaTypeGrid = new EIATypeEquiposGrid();
+		eiaTypeGrid = new EIATypeGrid();
 		HLayout gridLayout = new HLayout();
 		gridLayout.setPadding(10);
 		gridLayout.addMembers(eiaTypeGrid);
