@@ -129,8 +129,12 @@ public class EIATypeSearchForm extends GHASlideInWindow {
 		addMember(GHAUiHelper
 				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
 
+<<<<<<< HEAD
 		eiaTypeGrid = new EIATypeGrid();
+=======
+		eiaTypeGrid = new EIATypeEquiposGrid();
 		eiaTypeGrid.setHeight(GHAUiHelper.MIN_GRID_SIZE+50);
+>>>>>>> 7aa732d6006411fe1033f0e236f3b93c7d4665d6
 		HLayout gridLayout = new HLayout();
 		gridLayout.setPadding(10);
 		gridLayout.addMembers(eiaTypeGrid);

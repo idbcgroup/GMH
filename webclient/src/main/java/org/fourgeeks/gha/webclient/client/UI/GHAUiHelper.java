@@ -30,6 +30,7 @@ public abstract class GHAUiHelper{
 	private static final int MIN_TOP_SECTION_HEIGHT = 120;
 	private static final int MIN_BOTTOM_SECTION_HEIGHT = 260;
 //	NOT TESTED
+	public static final int MIN_GRID_SIZE = 220;
 	
 	public static final int INNER_TOP_SECTION_HEIGHT = 120;
 	public static final int V_SEPARATOR_HEIGHT = 10;
@@ -50,21 +51,23 @@ public abstract class GHAUiHelper{
 		int footerHeight = RootPanel.get("footer-bar").getOffsetHeight();
 
 		int ret = rootPanelHeight - topPartHeight - footerHeight;
-		if(ret < MIN_TAB_HEIGHT)
+		if(ret < MIN_TAB_HEIGHT){
 			return MIN_TAB_HEIGHT;
-		else
+		}else{
 			return ret;
+		}
 	}
 
 	public static int getBottomSectionHeight() {
 		int biggerTabHeight = calculateTabHeight();
-		int innerTopSection = INNER_TOP_SECTION_HEIGHT + V_SEPARATOR_HEIGHT + 34;
+		int innerTopSection = INNER_TOP_SECTION_HEIGHT + V_SEPARATOR_HEIGHT;
 
 		int ret = biggerTabHeight - innerTopSection;
-		if(ret < MIN_BOTTOM_SECTION_HEIGHT)
-			return MIN_BOTTOM_SECTION_HEIGHT;
-		else
+//		if(ret < MIN_BOTTOM_SECTION_HEIGHT){
+//			return MIN_BOTTOM_SECTION_HEIGHT;
+//		}else{
 			return ret;
+//		}
 	}
 	
 	private static List<ResizeHandler> handlers = new ArrayList<ResizeHandler>();

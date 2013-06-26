@@ -26,7 +26,6 @@ public class EIATypeEquiposSubTab extends Tab implements
 
 	@Override
 	public void close() {
-		// TODO Auto-generated method stub
-
+		equiposGridPanel.close();
 	}
 }
