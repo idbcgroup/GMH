@@ -23,19 +23,11 @@ public class GWTEiaServiceImpl extends RemoteServiceServlet implements GWTEiaSer
 	EiaServiceRemote eServiceRemote;
 
 	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.eia.GWTEiaService#save(org.fourgeeks.gha.domain.gmh.Eia)
+	 * @see org.fourgeeks.gha.webclient.client.eia.GWTEiaService#delete(long)
 	 */
 	@Override
-	public long save(Eia eia) throws EJBException{
-		return eServiceRemote.save(eia);
-	}
-
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.eia.GWTEiaService#find(long)
-	 */
-	@Override
-	public Eia find(long Id) throws EJBException{
-		return eServiceRemote.find(Id);
+	public boolean delete(long Id) throws EJBException {
+		return eServiceRemote.delete(Id);
 	}
 
 	/* (non-Javadoc)
@@ -56,6 +48,14 @@ public class GWTEiaServiceImpl extends RemoteServiceServlet implements GWTEiaSer
 	}
 
 	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.webclient.client.eia.GWTEiaService#find(long)
+	 */
+	@Override
+	public Eia find(long Id) throws EJBException{
+		return eServiceRemote.find(Id);
+	}
+
+	/* (non-Javadoc)
 	 * @see org.fourgeeks.gha.webclient.client.eia.GWTEiaService#getAll()
 	 */
 	@Override
@@ -72,18 +72,18 @@ public class GWTEiaServiceImpl extends RemoteServiceServlet implements GWTEiaSer
 	}
 
 	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.eia.GWTEiaService#delete(long)
+	 * @see org.fourgeeks.gha.webclient.client.eia.GWTEiaService#save(org.fourgeeks.gha.domain.gmh.Eia)
 	 */
 	@Override
-	public boolean delete(long Id) throws EJBException {
-		return eServiceRemote.delete(Id);
+	public Eia save(Eia eia) throws EJBException{
+		return eServiceRemote.save(eia);
 	}
 
 	/* (non-Javadoc)
 	 * @see org.fourgeeks.gha.webclient.client.eia.GWTEiaService#update(long)
 	 */
 	@Override
-	public boolean update(Eia eia) throws EJBException {
+	public Eia update(Eia eia) throws EJBException {
 		return eServiceRemote.update(eia);
 	}
 

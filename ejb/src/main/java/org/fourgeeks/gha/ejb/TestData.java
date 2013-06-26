@@ -113,29 +113,36 @@ public class TestData {
 	 * 
 	 */
 	private void brandTestData() {
-		Brand brand = new Brand();
-		brand.setName("TEST Brand 1");
-		bServiceRemote.save(brand);
+		try {
+			Brand brand = new Brand();
+			brand.setName("TEST Brand 1");
+			brand = bServiceRemote.save(brand);
+			
+			Brand brand2 = new Brand();
+			brand2.setName("TEST Brand 2");
+			brand2 = bServiceRemote.save(brand2);
 
-		brand.setName("TEST Brand 2");
-		bServiceRemote.save(brand);
+			System.out.println("BRAND: testing find");
+			Brand search = new Brand();
+			search.setName("TEST");
+			List<Brand> findResult = bServiceRemote.find(search);
+			for (Brand br : findResult) {
+				System.out.println("brand id=" + Long.toString(br.getId())
+						+ " name=" + br.getName());
+			}
 
-		System.out.println("BRAND: testing find");
-		brand.setName("TEST");
-		List<Brand> findResult = bServiceRemote.find(brand);
-		for (Brand br : findResult) {
-			System.out.println("brand id=" + Long.toString(br.getId())
-					+ " name=" + br.getName());
-		}
+			// System.out.println("BRAND: testing delete");
+			// bServiceRemote.delete(1L);
 
-		// System.out.println("BRAND: testing delete");
-		// bServiceRemote.delete(1L);
-
-		System.out.println("BRAND: testing getAll");
-		List<Brand> getAllResult = bServiceRemote.getAll();
-		for (Brand br : getAllResult) {
-			System.out.println("manufacturer id=" + Long.toString(br.getId())
-					+ " name=" + br.getName());
+			System.out.println("BRAND: testing getAll");
+			List<Brand> getAllResult = bServiceRemote.getAll();
+			for (Brand br : getAllResult) {
+				System.out.println("manufacturer id=" + Long.toString(br.getId())
+						+ " name=" + br.getName());
+			}
+		} catch (EJBException e) {
+			System.out.println("Test data failed for brand");
+			System.out.println(e.getCause().getMessage());
 		}
 
 	}
@@ -179,15 +186,11 @@ public class TestData {
 
 				Brand brand = new Brand();
 				brand.setName("Epson");
-				// bServiceRemote.save(brand);
-				em.persist(brand);
-				em.flush();
+				brand = bServiceRemote.save(brand);
 
 				Brand brand2 = new Brand();
 				brand2.setName("Hewlet Packard");
-				// bServiceRemote.save(brand2);
-				em.persist(brand2);
-				em.flush();
+				brand2 = bServiceRemote.save(brand2);
 
 				EiaType eiaType = new EiaType(brand, manufacturer,
 						"Impresora Tinta", EiaMobilityEnum.FIXED,
@@ -220,7 +223,7 @@ public class TestData {
 						EiaStateEnum.TEST, WarrantyStateEnum.VALID);
 				eia.setCode("Stylus-001");
 				eia.setSerialNumber("001");
-				eia.setId(eiaServ.save(eia));
+				eia = eiaServ.save(eia);
 
 				System.out.println("Testing EiaTypeComponent");
 				EiaType eiaType3 = new EiaType(brand, manufacturer,
@@ -298,10 +301,10 @@ public class TestData {
 						EiaStateEnum.TEST, WarrantyStateEnum.VALID);
 
 				System.out.println("Testing part 1: eia services");
-				eia2.setId(eiaServ.save(eia2));
-				eia3.setId(eiaServ.save(eia3));
-				eia4.setId(eiaServ.save(eia4));
-				eia5.setId(eiaServ.save(eia5));
+				eia2 = eiaServ.save(eia2);
+				eia3 = eiaServ.save(eia3);
+				eia4 = eiaServ.save(eia4);
+				eia5 = eiaServ.save(eia5);
 
 				eia = eiaServ.find(1L); // parent Impresora Epson
 				eia2 = eiaServ.find(2L); // cartucho tricolor
@@ -339,21 +342,6 @@ public class TestData {
 						.setComponentObs("Update: Cartucho Tricolor Impresora Epson Stylus-001");
 				ecService.update(eiaCompUpd);
 
-				/*
-				 * System.out.println(
-				 * "TESTING: create eiatype with brand id an manufacturer id only"
-				 * ); Brand brand3 = new Brand(); brand3.setId(1L);
-				 * 
-				 * Manufacturer manufacturer2 = new Manufacturer();
-				 * manufacturer2.setId(1L);
-				 * 
-				 * EiaType eiaType6 = new EiaType(brand3, manufacturer2,
-				 * "Test EiaType", EiaMobilityEnum.FIXED, EiaTypeEnum.EQUIPMENT,
-				 * EiaSubTypeEnum.DIAGNOSE, "model", "code"); try{
-				 * eiaTypeServ.save(eiaType6); System.out.println("Succeeded");
-				 * }catch(Exception ex){
-				 * System.out.println("Failed Test "+ex.getMessage()); }
-				 */
 			} catch (EJBException e1) {
 				System.out.println("Failed to initialize test data");
 				e1.printStackTrace();

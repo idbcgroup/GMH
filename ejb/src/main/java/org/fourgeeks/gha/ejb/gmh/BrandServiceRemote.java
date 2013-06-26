@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.ejb.Remote;
 
+import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gmh.Brand;
 
 /**
@@ -16,9 +17,10 @@ import org.fourgeeks.gha.domain.gmh.Brand;
 
 @Remote
 public interface BrandServiceRemote {
-	public void save(Brand brand);
-	public Brand find(long Id);
-	public void delete(long Id);
-	public List<Brand> getAll();
-	public List<Brand>	find(Brand brand);
+	public void delete(long Id) throws EJBException;
+	public List<Brand>	find(Brand brand) throws EJBException;
+	public Brand find(long Id) throws EJBException;
+	public List<Brand> getAll() throws EJBException;
+	public Brand save(Brand brand) throws EJBException;
+	public Brand update(Brand brand)throws EJBException;
 }

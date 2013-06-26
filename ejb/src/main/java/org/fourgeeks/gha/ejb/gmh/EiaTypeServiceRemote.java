@@ -24,18 +24,18 @@ public interface EiaTypeServiceRemote {
 
 	/**
 	 * @param eiaType
-	 *            Persist an EiaType to database
-	 * @throws EJBException
-	 * @return EiaType saved
+	 * @return a string with the filters to the sql query
 	 */
-	public EiaType save(EiaType eiaType) throws EJBException;
+	public String buildFilters(EiaType eiaType);
 
 	/**
-	 * @param Id
-	 * @return the EiaType with this Id
+	 * Delete an EiaType from database by Id
+	 * 
+	 * @return a boolean with the result of the operation
 	 * @throws EJBException
+	 * 
 	 */
-	public EiaType find(long Id) throws EJBException;
+	public boolean delete(long Id) throws EJBException;
 
 	/**
 	 * @param eiaType
@@ -55,21 +55,11 @@ public interface EiaTypeServiceRemote {
 			throws EJBException;
 
 	/**
-	 * @param EiaType
-	 *            the EiaType to be updated
-	 * @return EiaType updated
+	 * @param Id
+	 * @return the EiaType with this Id
 	 * @throws EJBException
 	 */
-	public EiaType update(EiaType eiaType) throws EJBException;
-
-	/**
-	 * Delete an EiaType from database by Id
-	 * 
-	 * @return a boolean with the result of the operation
-	 * @throws EJBException
-	 * 
-	 */
-	public boolean delete(long Id) throws EJBException;
+	public EiaType find(long Id) throws EJBException;
 
 	/**
 	 * @return the list with all EiaType objects
@@ -87,8 +77,18 @@ public interface EiaTypeServiceRemote {
 
 	/**
 	 * @param eiaType
-	 * @return a string with the filters to the sql query
+	 *            Persist an EiaType to database
+	 * @throws EJBException
+	 * @return EiaType saved
 	 */
-	public String buildFilters(EiaType eiaType);
+	public EiaType save(EiaType eiaType) throws EJBException;
+
+	/**
+	 * @param EiaType
+	 *            the EiaType to be updated
+	 * @return EiaType updated
+	 * @throws EJBException
+	 */
+	public EiaType update(EiaType eiaType) throws EJBException;
 
 }

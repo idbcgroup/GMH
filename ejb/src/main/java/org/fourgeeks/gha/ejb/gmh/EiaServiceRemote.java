@@ -20,26 +20,18 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 public interface EiaServiceRemote {
 	
 	/**
-	 * @param eia
-	 * @Return the id of the persisted entity
-	 * @throws EJBException
-	 * Persist an eia to database
+	 * @param eiaType
+	 * @return a string with the filters to the sql query
 	 */
-	public long save(Eia eia) throws EJBException;
+	public String buildFilters(EiaType eiaType);
 	
 	/**
-	 * @param eia
+	 * @param Id
 	 * @return a boolean with the result of the operation
 	 * @throws EJBException
-	 * Update the Eia
+	 * Delete an entity from database using its id
 	 */
-	public boolean update(Eia eia) throws EJBException;
-	/**
-	 * @param Id
-	 * @return Find an eia By Id
-	 * @throws EJBException
-	 */
-	public Eia find(long Id) throws EJBException;
+	public boolean delete(long Id) throws EJBException;
 	/**
 	 * @param eia
 	 * @return a List with eias using an eia as a filter
@@ -53,6 +45,12 @@ public interface EiaServiceRemote {
 	 */
 	public List<Eia> find(EiaType eiaType) throws EJBException;
 	/**
+	 * @param Id
+	 * @return Find an eia By Id
+	 * @throws EJBException
+	 */
+	public Eia find(long Id) throws EJBException;
+	/**
 	 * @return a List with all the eias
 	 * @throws EJBException
 	 */
@@ -65,17 +63,19 @@ public interface EiaServiceRemote {
 	 */
 	public List<Eia> getAll(int offset, int size) throws EJBException;
 	/**
-	 * @param Id
-	 * @return a boolean with the result of the operation
+	 * @param eia
+	 * @Return the persisted entity
 	 * @throws EJBException
-	 * Delete an entity from database using its id
+	 * Persist an eia to database
 	 */
-	public boolean delete(long Id) throws EJBException;
+	public Eia save(Eia eia) throws EJBException;
 	
 	/**
-	 * @param eiaType
-	 * @return a string with the filters to the sql query
+	 * @param eia
+	 * @return the updated entity
+	 * @throws EJBException
+	 * Update the Eia
 	 */
-	public String buildFilters(EiaType eiaType);
+	public Eia update(Eia eia) throws EJBException;
 
 }

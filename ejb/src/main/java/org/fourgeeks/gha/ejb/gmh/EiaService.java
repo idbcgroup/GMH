@@ -31,125 +31,6 @@ public class EiaService implements EiaServiceRemote {
 	private final Logger logger = Logger.getLogger(EiaService.class.getName());
 
 	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#save(org.fourgeeks.gha.domain.gmh.Eia)
-	 */
-	@Override
-	public long save(Eia eia) throws EJBException {
-		try{
-			em.persist(eia);
-			em.flush();
-			return eia.getId();
-		}catch(Exception e){
-			logger.log(Level.INFO, "ERROR: saving object "+eia.toString(), e);
-			throw new EJBException("ERROR: guardando eia "+eia.toString()
-					+ " " +e.getCause().getMessage());
-		}
-	}
-
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#find(long)
-	 */
-	@Override
-	public Eia find(long Id) throws EJBException{
-		try{
-			return em.find(Eia.class, Id);
-		}catch(Exception e){
-			logger.log(Level.INFO, "ERROR: finding eia by id", e);
-			throw new EJBException("Error buscando eia por id "+e.getCause().getMessage()); 
-		}
-	}
-
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#find(org.fourgeeks.gha.domain.gmh.Eia)
-	 */
-	@Override
-	public List<Eia> find(Eia eia) throws EJBException{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#find(org.fourgeeks.gha.domain.gmh.EiaType)
-	 */
-	@Override
-	public List<Eia> find(EiaType eiaType) throws EJBException{
-		List <Eia> res = null;
-		String query = "SELECT e from Eia e JOIN e.eiaType t ";
-		String filters = buildFilters(eiaType);
-		
-		if(filters != "")query += " WHERE " +filters;
-		query += " order by e.id";
-		
-		try{
-			res = em.createQuery(query, Eia.class).getResultList();
-			return res;
-		}catch(Exception e){
-			logger.log(Level.INFO, "Error: finding eia by eiatype", e);
-			throw new EJBException("Error buscando eia por eiatype "+
-					e.getCause().getMessage());
-		}
-	}
-
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#getAll()
-	 */
-	@Override
-	public List<Eia> getAll() throws EJBException {
-		String query = "SELECT e from Eia e";
-		List<Eia> res = null;
-		try{
-			res = em.createQuery(query, Eia.class).getResultList();
-		}catch(NoResultException ex){
-			logger.log(Level.INFO, "Get all eias, No results", ex);
-		}catch(Exception ex){
-			logger.log(Level.SEVERE, "Error retrieving all eias", ex);
-			throw new EJBException("Error obteniendo todos los eias" +
-					ex.getCause().getMessage());
-		}
-		return res;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#getAll(int, int)
-	 */
-	@Override
-	public List<Eia> getAll(int offset, int size) throws EJBException {
-		String query = "SELECT e from Eia e order by id";
-		List<Eia> res = null;
-		try{
-			res = em.createQuery(query, Eia.class).setFirstResult(offset)
-					.setMaxResults(size).getResultList();
-			logger.info("Get all Eias");
-		}catch(NoResultException ex){
-			logger.log(Level.INFO, "Get all eias, No results", ex);
-		}catch(Exception ex){
-			logger.log(Level.SEVERE, "Error retrieving all eias", ex);
-			throw new EJBException("Error obteniendo todos los eias" +
-					ex.getCause().getMessage());
-		}
-		return res;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#delete(long)
-	 */
-	@Override
-	public boolean delete(long Id) throws EJBException {
-		try {
-			Eia entity = em.find(Eia.class, Id);
-			em.remove(entity);
-			return true;
-			
-		} catch (Exception e) {
-			logger.log(Level.INFO, "ERROR: unable to delete object="+Eia.class.getName() +" with id="
-					+ Long.toString(Id), e);
-			throw new EJBException("ERROR: eliminando un eia por id "+
-					e.getCause().getMessage());
-		}
-		
-	}
-
-	/* (non-Javadoc)
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#buildFilters(org.fourgeeks.gha.domain.gmh.EiaType)
 	 */
 	@Override
@@ -206,15 +87,135 @@ public class EiaService implements EiaServiceRemote {
 	}
 
 	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#delete(long)
+	 */
+	@Override
+	public boolean delete(long Id) throws EJBException {
+		try {
+			Eia entity = em.find(Eia.class, Id);
+			em.remove(entity);
+			return true;
+			
+		} catch (Exception e) {
+			logger.log(Level.INFO, "ERROR: unable to delete eia="+Eia.class.getName() +" with id="
+					+ Long.toString(Id), e);
+			throw new EJBException("ERROR: eliminando un eia por id "+
+					e.getCause().getMessage());
+		}
+		
+	}
+
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#find(org.fourgeeks.gha.domain.gmh.Eia)
+	 */
+	@Override
+	public List<Eia> find(Eia eia) throws EJBException{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#find(org.fourgeeks.gha.domain.gmh.EiaType)
+	 */
+	@Override
+	public List<Eia> find(EiaType eiaType) throws EJBException{
+		List <Eia> res = null;
+		String query = "SELECT e from Eia e JOIN e.eiaType t ";
+		String filters = buildFilters(eiaType);
+		
+		if(filters != "")query += " WHERE " +filters;
+		query += " order by e.id";
+		
+		try{
+			res = em.createQuery(query, Eia.class).getResultList();
+			return res;
+		}catch(Exception e){
+			logger.log(Level.INFO, "Error: finding eia by eiatype", e);
+			throw new EJBException("Error buscando eia por eiatype "+
+					e.getCause().getMessage());
+		}
+	}
+
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#find(long)
+	 */
+	@Override
+	public Eia find(long Id) throws EJBException{
+		try{
+			return em.find(Eia.class, Id);
+		}catch(Exception e){
+			logger.log(Level.INFO, "ERROR: finding eia by id", e);
+			throw new EJBException("Error buscando eia por id "+e.getCause().getMessage()); 
+		}
+	}
+
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#getAll()
+	 */
+	@Override
+	public List<Eia> getAll() throws EJBException {
+		String query = "SELECT e from Eia e";
+		List<Eia> res = null;
+		try{
+			res = em.createQuery(query, Eia.class).getResultList();
+		}catch(NoResultException ex){
+			logger.log(Level.INFO, "Get all eias, No results", ex);
+		}catch(Exception ex){
+			logger.log(Level.SEVERE, "Error retrieving all eias", ex);
+			throw new EJBException("Error obteniendo todos los eias" +
+					ex.getCause().getMessage());
+		}
+		return res;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#getAll(int, int)
+	 */
+	@Override
+	public List<Eia> getAll(int offset, int size) throws EJBException {
+		String query = "SELECT e from Eia e order by id";
+		List<Eia> res = null;
+		try{
+			res = em.createQuery(query, Eia.class).setFirstResult(offset)
+					.setMaxResults(size).getResultList();
+			logger.info("Get all Eias");
+		}catch(NoResultException ex){
+			logger.log(Level.INFO, "Get all eias, No results", ex);
+		}catch(Exception ex){
+			logger.log(Level.SEVERE, "Error retrieving all eias", ex);
+			throw new EJBException("Error obteniendo todos los eias" +
+					ex.getCause().getMessage());
+		}
+		return res;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#save(org.fourgeeks.gha.domain.gmh.Eia)
+	 */
+	@Override
+	public Eia save(Eia eia) throws EJBException {
+		try{
+			em.persist(eia);
+			em.flush();
+			return em.find(Eia.class, eia.getId());
+		}catch(Exception e){
+			logger.log(Level.INFO, "ERROR: saving eia "+eia.toString(), e);
+			throw new EJBException("ERROR: guardando eia "+eia.toString()
+					+ " " +e.getCause().getMessage());
+		}
+	}
+
+	/* (non-Javadoc)
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#update(org.fourgeeks.gha.domain.gmh.Eia)
 	 */
 	@Override
-	public boolean update(Eia eia) throws EJBException {
+	public Eia update(Eia eia) throws EJBException {
 		try{
-			em.merge(eia);
-			return true;
+			Eia res = em.merge(eia);
+			em.flush();
+			return res;
 		}catch(Exception e){
-			logger.log(Level.INFO, "ERROR: unable to update object " 
+			logger.log(Level.INFO, "ERROR: unable to update eia " 
 					+ eia.toString(), e);
 			throw new EJBException("ERROR: no se puede eliminar el eia "+
 					e.getCause().getMessage());

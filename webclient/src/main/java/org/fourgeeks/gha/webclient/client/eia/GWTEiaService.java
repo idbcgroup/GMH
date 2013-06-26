@@ -19,15 +19,10 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("eia")
 public interface GWTEiaService extends RemoteService {
 	/**
-	 * @param eia
-	 * Persist an Eia to database
-	 */
-	public long save(Eia eia) throws EJBException;
-	/**
 	 * @param Id
-	 * @return Find an Eia By Id
+	 * @return a boolean with the result of the operation
 	 */
-	public Eia find(long Id)throws EJBException;
+	public boolean delete(long Id)throws EJBException;
 	/**
 	 * @param eia
 	 * @return a List with Eia using an Eia as a filter
@@ -38,6 +33,11 @@ public interface GWTEiaService extends RemoteService {
 	 * @return a List with Eia searching by EiaType
 	 */
 	public List<Eia> find(EiaType eiaType)throws EJBException;
+	/**
+	 * @param Id
+	 * @return Find an Eia By Id
+	 */
+	public Eia find(long Id)throws EJBException;
 	/**
 	 * @return
 	 * a List with all the Eia
@@ -50,14 +50,14 @@ public interface GWTEiaService extends RemoteService {
 	 */
 	public List<Eia> getAll(int offset, int size)throws EJBException;
 	/**
-	 * @param Id
-	 * @return a boolean with the result of the operation
+	 * @param eia
+	 * Persist an Eia to database
 	 */
-	public boolean delete(long Id)throws EJBException;
+	public Eia save(Eia eia) throws EJBException;
 	/**
 	 * @param Eia eia
 	 * @return a boolean with the result of the operation
 	 * 
 	 */
-	public boolean update(Eia eia)throws EJBException;
+	public Eia update(Eia eia)throws EJBException;
 }

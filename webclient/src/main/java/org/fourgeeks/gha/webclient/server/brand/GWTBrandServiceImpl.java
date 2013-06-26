@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.ejb.EJB;
 
+import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.ejb.gmh.BrandServiceRemote;
 import org.fourgeeks.gha.webclient.client.brand.GWTBrandService;
@@ -29,12 +30,12 @@ public class GWTBrandServiceImpl extends RemoteServiceServlet implements
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	public List<Brand> getAll() {
+	public List<Brand> getAll() throws EJBException {
 		return service.getAll();
 	}
 
 	@Override
-	public List<Brand> getAll(int offset, int size) {
+	public List<Brand> getAll(int offset, int size) throws EJBException {
 		// TODO Auto-generated method stub
 		return service.getAll();
 	}
