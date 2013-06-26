@@ -97,9 +97,9 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 	@Override
 	public EiaType update(EiaType eiaType) throws EJBException {
 		try {
-			em.merge(eiaType);
+			EiaType newEiaType = em.merge(eiaType);
 			em.flush();
-			return em.find(EiaType.class, eiaType.getId());
+			return newEiaType;
 		} catch (Exception e) {
 			logger.log(Level.INFO,
 					"ERROR: unable to update object " + eiaType.toString(), e);
