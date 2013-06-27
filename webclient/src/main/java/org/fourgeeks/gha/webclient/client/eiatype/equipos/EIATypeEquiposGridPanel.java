@@ -39,7 +39,7 @@ public class EIATypeEquiposGridPanel extends VLayout implements
 		setStyleName("sides-padding top-padding");// Esto es VUDU!
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
-
+		
 		Label title = new Label("<h3>Equipos pertenecientes al EIA Type</h3>");
 		title.setHeight(30);
 		title.setWidth100();

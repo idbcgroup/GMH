@@ -36,7 +36,7 @@ public class EIAInternalTabset extends TabSet implements
 			@Override
 			public void onResize(ResizeEvent event) {
 				setHeight(GHAUiHelper.getBottomSectionHeight());
-				RootPanel.get("main-content").setHeight(GHAUiHelper.calculateTabHeight()+"px");
+				RootPanel.get("main-content").setHeight(GHAUiHelper.getTabHeight()+"px");
 			}
 		});
 

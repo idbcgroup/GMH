@@ -123,12 +123,12 @@ public class HomePlace extends GHAPlace {
 		 * HTML content = new HTML(html.toString());
 		 */
 		RootPanel.get("user-info").add(userInfo);
-		RootPanel.get("main-content").setHeight(GHAUiHelper.calculateTabHeight()+"px");
+		RootPanel.get("main-content").setHeight(GHAUiHelper.getTabHeight()+"px");
 		Window.addResizeHandler(new ResizeHandler() {
 			@Override
 			public void onResize(ResizeEvent event) {
 				// TODO Auto-generated method stub
-				RootPanel.get("main-content").setHeight(GHAUiHelper.calculateTabHeight()+"px");
+				RootPanel.get("main-content").setHeight(GHAUiHelper.getTabHeight()+"px");
 			}
 		});
 		// TODO: calculo de la altura del main content. para el homeplace y para

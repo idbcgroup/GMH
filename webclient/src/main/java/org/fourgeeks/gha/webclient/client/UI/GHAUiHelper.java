@@ -32,7 +32,7 @@ public abstract class GHAUiHelper {
 	private static final int MIN_TOP_SECTION_HEIGHT = 120;
 	private static final int MIN_BOTTOM_SECTION_HEIGHT = 260;
 	// NOT TESTED
-	public static final int MIN_GRID_SIZE = 220;
+	public static final int MIN_GRID_SIZE = 180;
 
 	public static final int INNER_TOP_SECTION_HEIGHT = 120;
 	public static final int V_SEPARATOR_HEIGHT = 10;
@@ -44,7 +44,7 @@ public abstract class GHAUiHelper {
 		return separator;
 	}
 
-	public static int calculateTabHeight() {
+	public static int getTabHeight() {
 		int rootPanelHeight = Window.getClientHeight();
 		int topPartHeight = RootPanel.get("top-bar").getOffsetHeight()
 				+ RootPanel.get("header-bar").getOffsetHeight()
@@ -60,13 +60,25 @@ public abstract class GHAUiHelper {
 	}
 
 	public static int getBottomSectionHeight() {
-		int biggerTabHeight = calculateTabHeight();
+		int biggerTabHeight = getTabHeight();
 		int innerTopSection = INNER_TOP_SECTION_HEIGHT + V_SEPARATOR_HEIGHT;
 
 		int ret = biggerTabHeight - innerTopSection;
 		if (ret < MIN_BOTTOM_SECTION_HEIGHT) {
 			return MIN_BOTTOM_SECTION_HEIGHT;
 		} else {
+			return ret;
+		}
+	}
+	public static int getGridSize(int extrasHeight){
+		int bottomSectionHeight = getBottomSectionHeight();
+		int titleHeight = 30;
+		int topExtras = extrasHeight + titleHeight + 35;
+		
+		int ret= bottomSectionHeight-topExtras;
+		if(ret < MIN_GRID_SIZE){
+			return MIN_GRID_SIZE;
+		}else{
 			return ret;
 		}
 	}
