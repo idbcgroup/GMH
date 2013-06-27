@@ -70,8 +70,8 @@ public class GWTEiaTypeServiceImpl extends RemoteServiceServlet implements
 	 * org.fourgeeks.gha.webclient.client.eia.GWTEiaTypeService#delete(long)
 	 */
 	@Override
-	public boolean delete(long Id) throws EJBException {
-		return eiaTypeServiceRemote.delete(Id);
+	public void delete(long Id) throws EJBException {
+		eiaTypeServiceRemote.delete(Id);
 	}
 
 	/*

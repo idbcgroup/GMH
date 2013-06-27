@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.ejb.EJB;
 
+import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.ejb.gmh.ManufacturerServiceRemote;
 import org.fourgeeks.gha.webclient.client.manufacturer.GWTManufacturerService;
@@ -29,12 +30,12 @@ public class GWTManufacturerServiceImpl extends RemoteServiceServlet implements
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	public List<Manufacturer> getAll() {
+	public List<Manufacturer> getAll() throws EJBException {
 		return service.getAll();
 	}
 
 	@Override
-	public List<Manufacturer> getAll(int offset, int size) {
+	public List<Manufacturer> getAll(int offset, int size) throws EJBException {
 		// TODO Auto-generated method stub
 		return service.getAll();
 	}
