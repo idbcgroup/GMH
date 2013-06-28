@@ -1,28 +1,23 @@
 /**
  * 
  */
-package org.fourgeeks.gha.ejb.gmh;
+package org.fourgeeks.gha.webclient.client.eiatype.component;
 
 import java.util.List;
-
-import javax.ejb.Remote;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeComponent;
 
+import com.google.gwt.user.client.rpc.RemoteService;
+import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
+
 /**
  * @author emiliot
  *
  */
-
-@Remote
-public interface EiaTypeComponentServiceRemote {
-	/**
-	 * @param eiaType
-	 * @return
-	 */
-	public String buildFilters(EiaType eiaType);
+@RemoteServiceRelativePath("eiaTypeComponent")
+public interface GWTEiaTypeComponentService extends RemoteService{
 	/**
 	 * @param Id
 	 * @throws EJBException

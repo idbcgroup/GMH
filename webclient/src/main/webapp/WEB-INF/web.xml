@@ -55,6 +55,16 @@
 		<servlet-name>GWTManufacturerService</servlet-name>
 		<url-pattern>/webclient/manufacturer</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>GWTEiaTypeComponentService</servlet-name>
+		<servlet-class>org.fourgeeks.gha.webclient.server.eiatype.component.GWTEiaTypeComponentServiceImpl</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>GWTEiaTypeComponentService</servlet-name>
+		<url-pattern>/webclient/eiaTypeComponent</url-pattern>
+	</servlet-mapping>
 
 	<!-- Default page to serve -->
 	<welcome-file-list>

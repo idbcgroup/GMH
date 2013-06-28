@@ -5,6 +5,8 @@ package org.fourgeeks.gha.ejb.gmh;
 
 import java.util.List;
 
+import javax.ejb.Remote;
+
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaComponent;
@@ -13,6 +15,7 @@ import org.fourgeeks.gha.domain.gmh.EiaComponent;
  * @author emiliot
  *
  */
+@Remote
 public interface EiaComponentServiceRemote {
 	public void delete(long Id) throws EJBException;
 	public List<EiaComponent> find(Eia eia) throws EJBException;
