@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eiatype.partes;
+package org.fourgeeks.gha.webclient.client.eiatype.component;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
