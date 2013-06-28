@@ -25,5 +25,4 @@ public class EIATypeGrid extends ListGrid {
 		setFields(idGridField, codeGridField, nameGridField, brandGridField,
 				modelGridField, makeGridField);
 	}
-
 }

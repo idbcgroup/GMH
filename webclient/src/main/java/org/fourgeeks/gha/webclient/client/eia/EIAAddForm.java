@@ -5,16 +5,20 @@ import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.webclient.client.UI.GHAButton;
+import org.fourgeeks.gha.webclient.client.UI.GHACheckboxItem;
+import org.fourgeeks.gha.webclient.client.UI.GHASectionForm;
 import org.fourgeeks.gha.webclient.client.UI.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.GHASlideInWindow;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
+import org.fourgeeks.gha.webclient.client.UI.GHATitleTextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
-import com.google.gwt.user.client.ui.HTML;
 import com.smartgwt.client.types.AnimationEffect;
+import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
+import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
@@ -41,14 +45,11 @@ public class EIAAddForm extends GHASlideInWindow {
 		setHeight(GHAUiHelper.getBottomSectionHeight());
 		setTop(240);
 
-		VLayout options = new VLayout();
-		options.setWidth(100);
-		HTML firstOption = new HTML("something");
-		firstOption.setStylePrimaryName("side-option");
-		options.addMember(firstOption);
-		HTML secondOption = new HTML("something else");
-		secondOption.setStylePrimaryName("side-option");
-		options.addMember(secondOption);
+		GHASectionForm sectionForm = new GHASectionForm();
+
+		// layout = new VLayout();
+		// layout.addMember(new HTML("SECOND"));
+		// sectionForm.addSection("second", layout);
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAButton(
 				"../resources/icons/new.png"), new GHAButton(
@@ -63,48 +64,50 @@ public class EIAAddForm extends GHASlideInWindow {
 				}));
 
 		HLayout mainLayout = new HLayout();
-		mainLayout.addMember(options);
+		mainLayout.addMember(sectionForm);
 		mainLayout.addMembers(new LayoutSpacer(), sideButtons);
 
 		addMember(mainLayout);
 
-		//
-		// GHATextItem depResponsable = new
-		// GHATextItem("Departamento Responsable");
-		// depResponsable.setColSpan(2);
-		// depResponsable.setWidth("250px");
-		//
-		// GHATextItem dirResponsable = new GHATextItem("Responsable Directo");
-		// dirResponsable.setColSpan(2);
-		// dirResponsable.setWidth("250px");
-		//
-		// DynamicForm equipoForm = new DynamicForm();
-		// equipoForm.setWidth("*");
-		// // equipoForm.setIsGroup(true);
-		// // equipoForm.setGroupTitle("Equipo (EIA)");
-		// equipoForm.setTitleOrientation(TitleOrientation.TOP);
-		// equipoForm.setNumCols(7);
-		//
-		// equipoForm.setItems(codeItem, serialItem, activeIdItem, facilityItem,
-		// nameFac, garantiaEstadoText, garantiaEstadoSelect,
-		// depResponsable, dirResponsable);
-		//
+		GHATextItem depResponsable = new GHATextItem("Departamento Responsable");
+		depResponsable.setColSpan(2);
+		depResponsable.setWidth("250px");
+
+		GHATextItem dirResponsable = new GHATextItem("Responsable Directo");
+		dirResponsable.setColSpan(2);
+		dirResponsable.setWidth("250px");
+
+		DynamicForm equipoForm = new DynamicForm();
+		equipoForm.setWidth("*");
+		// equipoForm.setIsGroup(true);
+		// equipoForm.setGroupTitle("Equipo (EIA)");
+		equipoForm.setTitleOrientation(TitleOrientation.TOP);
+		equipoForm.setNumCols(4);
+
+		equipoForm.setItems(codeItem, serialItem, activeIdItem, facilityItem,
+				nameFac, garantiaEstadoText, garantiaEstadoSelect,
+				depResponsable, dirResponsable);
+
+		sectionForm.addSection("Equipos", equipoForm);
+
 		// // //////Areas de trabajo Atendidas form
-		// GHATitleTextItem workingAreaTitle = new GHATitleTextItem(
-		// "Areas de Trabajo Atendidas:");
-		// GHACheckboxItem variasAreas = new GHACheckboxItem(
-		// "Con el Equipo se atienden varias Áreas de trabajo");
-		// GHATextItem codeArea = new GHATextItem("Código");
-		// GHATextItem nameArea = new GHATextItem("Nombre");
-		//
-		// DynamicForm areaForm = new DynamicForm();
-		// areaForm.setWidth("*");
-		// // areaForm.setIsGroup(true);
-		// // areaForm.setGroupTitle("Areas de Trabajo Atendidas");
-		// areaForm.setTitleOrientation(TitleOrientation.TOP);
-		// areaForm.setNumCols(4);
-		//
-		// areaForm.setItems(workingAreaTitle, variasAreas, codeArea, nameArea);
+		GHATitleTextItem workingAreaTitle = new GHATitleTextItem(
+				"Areas de Trabajo Atendidas:");
+		GHACheckboxItem variasAreas = new GHACheckboxItem(
+				"Con el Equipo se atienden varias Áreas de trabajo");
+		GHATextItem codeArea = new GHATextItem("Código");
+		GHATextItem nameArea = new GHATextItem("Nombre");
+
+		DynamicForm areaForm = new DynamicForm();
+		areaForm.setWidth("*");
+		// areaForm.setIsGroup(true);
+		// areaForm.setGroupTitle("Areas de Trabajo Atendidas");
+		areaForm.setTitleOrientation(TitleOrientation.TOP);
+		areaForm.setNumCols(4);
+
+		areaForm.setItems(workingAreaTitle, variasAreas, codeArea, nameArea);
+
+		sectionForm.addSection("Areas", areaForm);
 		//
 		// // //////Adquisicion Form
 		// GHATitleTextItem adqisicionTitle = new

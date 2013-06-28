@@ -238,6 +238,9 @@ input[type=text].round,input[type=password].round{
 .sides-padding{
 	padding-top: 10px;
 }
+.padding-top{
+	padding-top: 10px;
+}
 
 .boxed{
 	borde:1px solid black;
@@ -263,9 +266,27 @@ input[type=text].round,input[type=password].round{
 }
 
 .side-option{
-	background-color: yellow;
+height: 10px;
+text-align: left;
+cursor:pointer;
+margin-right: 5px;
 }
-
+.side-option-over{
+height: 10px;
+text-align: left;
+font-weight: bolder;
+cursor:pointer;
+background-color: #CECECE;
+}
+.side-option-selected{
+height: 10px;
+text-align: left;
+font-weight: bolder;
+cursor:pointer;
+background-image: url(../icons/arrow.png);
+background-position: right center;
+background-repeat: no-repeat;
+}
 /*OVERRIDES*/
 
 .headerButton{
