@@ -59,11 +59,9 @@ public interface GWTEiaTypeService extends RemoteService {
 
 	/**
 	 * Delete an EiaType from database by Id
-	 * 
-	 * @return a boolean with the result of the operation
 	 * @throws EJBException
 	 */
-	public boolean delete(long Id) throws EJBException;
+	public void delete(long Id) throws EJBException;
 
 	/**
 	 * @return the list with all EiaType objects

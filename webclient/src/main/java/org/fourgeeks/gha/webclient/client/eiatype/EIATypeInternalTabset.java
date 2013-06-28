@@ -5,6 +5,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.eiatype.caracteristicas.EIATypeCaracteristicasSubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.equipos.EIATypeEquiposSubTab;
+import org.fourgeeks.gha.webclient.client.eiatype.partes.EIATypePartesSubTab;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
@@ -15,6 +16,7 @@ public class EIATypeInternalTabset extends TabSet implements
 
 	private EIATypeCaracteristicasSubTab caracteristicasSubTab;
 	private EIATypeEquiposSubTab equiposSubTab;
+	private EIATypePartesSubTab partesSubTab;
 
 	public EIATypeInternalTabset(EIATypeTab tab) {
 		super();
@@ -24,22 +26,26 @@ public class EIATypeInternalTabset extends TabSet implements
 		setHeight(GHAUiHelper.getBottomSectionHeight());
 		equiposSubTab = new EIATypeEquiposSubTab(tab);
 		caracteristicasSubTab = new EIATypeCaracteristicasSubTab(tab);
+		partesSubTab = new EIATypePartesSubTab();
 
 		// Agregando las Subtabs
 		addTab(caracteristicasSubTab);
 		addTab(equiposSubTab);
+		addTab(partesSubTab);
 	}
 
 	@Override
 	public void select(EiaType eiaType) {
 		caracteristicasSubTab.select(eiaType);
 		equiposSubTab.select(eiaType);
+		partesSubTab.select(eiaType);
 	}
 
 	@Override
 	public void close() {
 		equiposSubTab.close();
-		caracteristicasSubTab.close();		
+		caracteristicasSubTab.close();	
+		partesSubTab.close();
 	}
 
 	@Override
