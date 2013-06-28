@@ -5,12 +5,9 @@ package org.fourgeeks.gha.domain.gmh;
 
 import java.sql.Date;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
@@ -36,9 +33,8 @@ public class EiaPicture extends AbstractEntity{
 	/**Attributes*/
 	private int number; /** Número de Foto tomada length =4 */
 	
-	@Basic(fetch=FetchType.LAZY)
-	@Lob @Column(nullable = false)
-	private byte[] picture; /** Foto del Equipo o Instalación length = */
+	@Column(nullable = false)
+	private String picture; /** URL de la Foto del Equipo o Instalación length = */
 	
 	private String description; /** Descripción del Equipo o Instalación length =255 */
 	
@@ -62,7 +58,7 @@ public class EiaPicture extends AbstractEntity{
 	 * @param date
 	 * @param pictureState
 	 */
-	public EiaPicture(Eia eia, int number, byte[] picture, String description,
+	public EiaPicture(Eia eia, int number, String picture, String description,
 			Date date, EiaPictureStateEnum pictureState) {
 		this.eia = eia;
 		this.number = number;
@@ -80,7 +76,7 @@ public class EiaPicture extends AbstractEntity{
 		return number;
 	}
 
-	public byte[] getPicture() {
+	public String getPicture() {
 		return picture;
 	}
 
@@ -104,7 +100,7 @@ public class EiaPicture extends AbstractEntity{
 		this.number = number;
 	}
 
-	public void setPicture(byte[] picture) {
+	public void setPicture(String picture) {
 		this.picture = picture;
 	}
 
