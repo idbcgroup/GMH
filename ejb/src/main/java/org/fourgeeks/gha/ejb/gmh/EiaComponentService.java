@@ -48,7 +48,7 @@ public class EiaComponentService implements EiaComponentServiceRemote {
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaComponentServiceRemote#find(org.fourgeeks.gha.domain.gmh.Eia)
 	 */
 	@Override
-	public List<EiaComponent> find(Eia eia) {
+	public List<EiaComponent> find(Eia eia) throws EJBException{
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -57,7 +57,7 @@ public class EiaComponentService implements EiaComponentServiceRemote {
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaComponentServiceRemote#find(org.fourgeeks.gha.domain.gmh.Eia, int, int)
 	 */
 	@Override
-	public List<EiaComponent> find(Eia eia, int offset, int size) {
+	public List<EiaComponent> find(Eia eia, int offset, int size) throws EJBException{
 		// TODO Auto-generated method stub
 		return null;
 	}

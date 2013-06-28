@@ -15,8 +15,8 @@ import org.fourgeeks.gha.domain.gmh.EiaComponent;
  */
 public interface EiaComponentServiceRemote {
 	public void delete(long Id) throws EJBException;
-	public List<EiaComponent> find(Eia eia);
-	public List<EiaComponent> find(Eia eia, int offset, int size);
+	public List<EiaComponent> find(Eia eia) throws EJBException;
+	public List<EiaComponent> find(Eia eia, int offset, int size)throws EJBException;
 	public EiaComponent find(long Id) throws EJBException;
 	public List<EiaComponent> findByEiaId(long Id) throws EJBException;
 	public List<EiaComponent> getAll() throws EJBException;
