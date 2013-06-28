@@ -51,9 +51,13 @@ public class EIAAddForm extends GHASlideInWindow {
 		final GHASectionForm sectionForm = new GHASectionForm();
 		sectionForm.addSection("Equipos", getEquiposForm());
 		sectionForm.addSection("Areas", getAreasForm());
-		sectionForm.addSection("Areas", getAdquisicionForm());
-		sectionForm.addSection("Areas", getMantenimientoForm());
-
+		sectionForm.addSection("Adquisicion", getAdquisicionForm());
+		sectionForm.addSection("Mantenimiento", getMantenimientoForm());
+		sectionForm.addSection("Garantias", getGarantiaInmForm());
+		sectionForm.addSection("Costo", getCostoAdqTab());
+		sectionForm.addSection("Areas", getCostoActual());
+		sectionForm.addSection("EquiposIT", getEquiposForm());		
+		
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAButton(
 				"../resources/icons/new.png"), new GHAButton(
 				"../resources/icons/edit.png"), new GHAButton(
@@ -76,60 +80,32 @@ public class EIAAddForm extends GHASlideInWindow {
 		addMember(title);
 		addMember(mainLayout);
 
-		// //////Garantía inmediata form
-		GHATitleTextItem garantiaInmTitle = new GHATitleTextItem(
-				"Garantía Inmediata:");
-		GHASelectItem garantiaInmDesde = new GHASelectItem(
-				"Garantia inmediata desde");
-		garantiaInmDesde.setWidth(150);
-		GHATextItem garantiaInm = new GHATextItem("Garantia");
-		GHATextItem tiempoGarantiaInm = new GHATextItem("Tiempo");
-		GHADateItem fechaInic = new GHADateItem("Fecha Inicio Grarantia");
-		fechaInic.setWidth(150);
-		GHATextItem intermediateGarantia = new GHATextItem(
-				"En Garantía Intermedia");
-		intermediateGarantia.setWidth(150);
-		GHATextItem mesesGarantia = new GHATextItem("Meses");
-		GHADateItem fechaAceptacion = new GHADateItem("Fecha Aceptación");
+	}
 
-		DynamicForm garantiaInmForm = new DynamicForm();
-		garantiaInmForm.setWidth("*");
-		// garantiaInmForm.setIsGroup(true);
-		// garantiaInmForm.setGroupTitle("Garantía intermedia");
-		garantiaInmForm.setTitleOrientation(TitleOrientation.TOP);
-		garantiaInmForm.setNumCols(8);
+	private DynamicForm getEquiposIT(){
+		// //////EQUIPOS IT Form
+		GHATitleTextItem itTitle = new GHATitleTextItem(
+				"EQUIPOS IT (Sistemas):");
+		GHASelectItem typeIT = new GHASelectItem("Tipo Equipo IT");
+		typeIT.setWidth(150);
+		GHASelectItem nombreMaquina = new GHASelectItem("Nombre Máquina");
+		GHATextItem dirIP = new GHATextItem("Direccion IP");
+		GHATextItem macAddress = new GHATextItem("MAC Address");
 
-		garantiaInmForm.setItems(garantiaInmTitle, garantiaInmDesde,
-				garantiaInm, tiempoGarantiaInm, fechaInic,
-				intermediateGarantia, mesesGarantia, fechaAceptacion);
+		DynamicForm equiposITForm = new DynamicForm();
+		equiposITForm.setWidth("*");
+		// equiposITForm.setIsGroup(true);
+		// equiposITForm.setGroupTitle("EQUIPOS IT (Sistemas)");
+		equiposITForm.setTitleOrientation(TitleOrientation.TOP);
+		equiposITForm.setNumCols(6);
 
-		sectionForm.addSection("Areas", garantiaInmForm);
-
-		// //////Costo Adquisición form
-		GHATitleTextItem adqCostTitle = new GHATitleTextItem(
-				"Costo Adquisición:");
-		GHATextItem costoAdq = new GHATextItem(
-				"Costo de Adquisición del equipo");
-		costoAdq.setWidth(180);
-		GHASelectItem currencyAdq = new GHASelectItem("Moneda");
-		GHATextItem fechaContab = new GHATextItem("Fecha de Contabilización");
-		fechaContab.setWidth(180);
-		GHATextItem costoAdqLoc = new GHATextItem("Costo de Adquisicion");
-		costoAdqLoc.setWidth(150);
-		GHASelectItem monedaLocal = new GHASelectItem("Moneda Local");
-
-		DynamicForm costoAdqForm = new DynamicForm();
-		costoAdqForm.setWidth("*");
-		// costoAdqForm.setIsGroup(true);
-		// costoAdqForm.setGroupTitle("Costo Adquisición");
-		costoAdqForm.setTitleOrientation(TitleOrientation.TOP);
-		costoAdqForm.setNumCols(6);
-
-		costoAdqForm.setItems(adqCostTitle, costoAdq, currencyAdq, fechaContab,
-				costoAdqLoc, monedaLocal);
-
-		sectionForm.addSection("Areas", costoAdqForm);
-
+		equiposITForm.setItems(itTitle, typeIT, nombreMaquina, dirIP,
+				macAddress);
+		
+		return equiposITForm;
+	}
+	
+	private DynamicForm getCostoActual(){
 		// //////Costo Actual form
 		GHATitleTextItem actualCostTitle = new GHATitleTextItem("Costo Actual:");
 		GHASelectItem metodoDepreciacion = new GHASelectItem(
@@ -158,32 +134,67 @@ public class EIAAddForm extends GHASlideInWindow {
 		costoActForm.setItems(actualCostTitle, metodoDepreciacion, timeDep,
 				timeDepSel, timeVida, timeVidaSel, costoAct, monedaCosto,
 				spacer, fechaDesinc, motivoDesinc);
+		
+		return costoActForm;
+	}
+	
+	private DynamicForm getCostoAdqTab() {
+		// //////Costo Adquisición form
+		GHATitleTextItem adqCostTitle = new GHATitleTextItem(
+				"Costo Adquisición:");
+		GHATextItem costoAdq = new GHATextItem(
+				"Costo de Adquisición del equipo");
+		costoAdq.setWidth(180);
+		GHASelectItem currencyAdq = new GHASelectItem("Moneda");
+		GHATextItem fechaContab = new GHATextItem("Fecha de Contabilización");
+		fechaContab.setWidth(180);
+		GHATextItem costoAdqLoc = new GHATextItem("Costo de Adquisicion");
+		costoAdqLoc.setWidth(150);
+		GHASelectItem monedaLocal = new GHASelectItem("Moneda Local");
 
-		sectionForm.addSection("Areas", costoActForm);
+		DynamicForm costoAdqForm = new DynamicForm();
+		costoAdqForm.setWidth("*");
+		// costoAdqForm.setIsGroup(true);
+		// costoAdqForm.setGroupTitle("Costo Adquisición");
+		costoAdqForm.setTitleOrientation(TitleOrientation.TOP);
+		costoAdqForm.setNumCols(6);
 
-		// //////EQUIPOS IT Form
-		GHATitleTextItem itTitle = new GHATitleTextItem(
-				"EQUIPOS IT (Sistemas):");
-		GHASelectItem typeIT = new GHASelectItem("Tipo Equipo IT");
-		typeIT.setWidth(150);
-		GHASelectItem nombreMaquina = new GHASelectItem("Nombre Máquina");
-		GHATextItem dirIP = new GHATextItem("Direccion IP");
-		GHATextItem macAddress = new GHATextItem("MAC Address");
+		costoAdqForm.setItems(adqCostTitle, costoAdq, currencyAdq, fechaContab,
+				costoAdqLoc, monedaLocal);
 
-		DynamicForm equiposITForm = new DynamicForm();
-		equiposITForm.setWidth("*");
-		// equiposITForm.setIsGroup(true);
-		// equiposITForm.setGroupTitle("EQUIPOS IT (Sistemas)");
-		equiposITForm.setTitleOrientation(TitleOrientation.TOP);
-		equiposITForm.setNumCols(6);
-
-		equiposITForm.setItems(itTitle, typeIT, nombreMaquina, dirIP,
-				macAddress);
-
-		sectionForm.addSection("Areas", equiposITForm);
-
+			return costoAdqForm;
 	}
 
+	private DynamicForm getGarantiaInmForm(){
+		GHATitleTextItem garantiaInmTitle = new GHATitleTextItem(
+				"Garantía Inmediata:");
+		GHASelectItem garantiaInmDesde = new GHASelectItem(
+				"Garantia inmediata desde");
+		garantiaInmDesde.setWidth(150);
+		GHATextItem garantiaInm = new GHATextItem("Garantia");
+		GHATextItem tiempoGarantiaInm = new GHATextItem("Tiempo");
+		GHADateItem fechaInic = new GHADateItem("Fecha Inicio Grarantia");
+		fechaInic.setWidth(150);
+		GHATextItem intermediateGarantia = new GHATextItem(
+				"En Garantía Intermedia");
+		intermediateGarantia.setWidth(150);
+		GHATextItem mesesGarantia = new GHATextItem("Meses");
+		GHADateItem fechaAceptacion = new GHADateItem("Fecha Aceptación");
+
+		DynamicForm garantiaInmForm = new DynamicForm();
+		garantiaInmForm.setWidth("*");
+		// garantiaInmForm.setIsGroup(true);
+		// garantiaInmForm.setGroupTitle("Garantía intermedia");
+		garantiaInmForm.setTitleOrientation(TitleOrientation.TOP);
+		garantiaInmForm.setNumCols(8);
+
+		garantiaInmForm.setItems(garantiaInmTitle, garantiaInmDesde,
+				garantiaInm, tiempoGarantiaInm, fechaInic,
+				intermediateGarantia, mesesGarantia, fechaAceptacion);
+		
+		return garantiaInmForm;
+	}
+	
 	/**
 	 * @return
 	 */
@@ -213,6 +224,7 @@ public class EIAAddForm extends GHASlideInWindow {
 		return mantenimientoForm;
 	}
 
+	
 	/**
 	 * @return
 	 */
