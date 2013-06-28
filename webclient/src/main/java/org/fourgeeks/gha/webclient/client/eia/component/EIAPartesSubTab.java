@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eia.partes;
+package org.fourgeeks.gha.webclient.client.eia.component;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;

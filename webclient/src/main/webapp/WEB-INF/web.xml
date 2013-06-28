@@ -65,6 +65,16 @@
 		<servlet-name>GWTEiaTypeComponentService</servlet-name>
 		<url-pattern>/webclient/eiaTypeComponent</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>GWTEiaComponentService</servlet-name>
+		<servlet-class>org.fourgeeks.gha.webclient.server.eia.component.GWTEiaComponentServiceImpl</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>GWTEiaComponentService</servlet-name>
+		<url-pattern>/webclient/eiaComponent</url-pattern>
+	</servlet-mapping>
 
 	<!-- Default page to serve -->
 	<welcome-file-list>

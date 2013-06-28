@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eia.partes;
+package org.fourgeeks.gha.webclient.client.eia.component;
 
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.widgets.grid.ListGrid;

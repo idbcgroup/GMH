@@ -4,6 +4,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAPlace;
 import org.fourgeeks.gha.webclient.client.UI.GHAPlacesFactory;
 import org.fourgeeks.gha.webclient.client.eia.GWTEiaService;
+import org.fourgeeks.gha.webclient.client.eia.component.GWTEiaComponentService;
 import org.fourgeeks.gha.webclient.client.eiatype.component.GWTEiaTypeComponentService;
 import org.fourgeeks.gha.webclient.client.login.GWTLoginService;
 import org.fourgeeks.gha.webclient.client.login.GWTLoginServiceAsync;
@@ -76,6 +77,7 @@ public class Gha implements EntryPoint {
 
 		final GWTEiaService equipmentService = GWT.create(GWTEiaService.class);
 		final GWTEiaTypeComponentService etcService = GWT.create(GWTEiaTypeComponentService.class);
+		final GWTEiaComponentService ecService = GWT.create(GWTEiaComponentService.class);
 	}
 
 }

@@ -2,11 +2,11 @@ package org.fourgeeks.gha.webclient.client.eia;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.eia.component.EIAPartesSubTab;
 import org.fourgeeks.gha.webclient.client.eia.costos.EIACostosSubTab;
 import org.fourgeeks.gha.webclient.client.eia.equipos.EIAEquiposSubTab;
 import org.fourgeeks.gha.webclient.client.eia.mantenimiento.EIAMantenimientoSubTab;
 import org.fourgeeks.gha.webclient.client.eia.movimientos.EIAMovimientosSubTab;
-import org.fourgeeks.gha.webclient.client.eia.partes.EIAPartesSubTab;
 import org.fourgeeks.gha.webclient.client.eia.plan_mantenimiento.EIAPlanSubTab;
 import org.fourgeeks.gha.webclient.client.eia.repuestos.EIARepuestosSubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
