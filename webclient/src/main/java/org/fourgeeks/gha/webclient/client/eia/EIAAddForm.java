@@ -48,7 +48,7 @@ public class EIAAddForm extends GHASlideInWindow {
 		setHeight(GHAUiHelper.getBottomSectionHeight());
 		setTop(240);
 
-		GHASectionForm sectionForm = new GHASectionForm();
+		final GHASectionForm sectionForm = new GHASectionForm();
 		sectionForm.addSection("Equipos", getEquiposForm());
 		sectionForm.addSection("Areas", getAreasForm());
 		sectionForm.addSection("Areas", getAdquisicionForm());
@@ -62,6 +62,7 @@ public class EIAAddForm extends GHASlideInWindow {
 					@Override
 					public void onClick(ClickEvent event) {
 						EIAAddForm.this.animateHide(AnimationEffect.FLY);
+						sectionForm.deactivate();
 
 					}
 				}));

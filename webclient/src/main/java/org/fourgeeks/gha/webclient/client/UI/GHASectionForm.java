@@ -59,6 +59,11 @@ public class GHASectionForm extends HLayout {
 		// sectionList.add(section);
 	}
 
+	public void deactivate() {
+		for (Option option : optionList)
+			option.deactivate();
+	}
+
 	static class Option extends HTML {
 		private Canvas section;
 
