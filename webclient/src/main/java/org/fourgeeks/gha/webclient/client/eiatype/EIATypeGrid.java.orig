@@ -28,10 +28,15 @@ public class EIATypeGrid extends ListGrid implements ResizeHandler{
 		setFields(idGridField, codeGridField, nameGridField, brandGridField,
 				modelGridField, makeGridField);
 	}
+<<<<<<< HEAD
+}
+=======
 
 	@Override
 	public void onResize(ResizeEvent event) {
 		setHeight(GHAUiHelper.getGridSize(30));
 		
 	}
+
 }
+>>>>>>> 618fb214c16b72834eaf61de3d7ef47a32f606af

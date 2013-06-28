@@ -62,7 +62,7 @@ public class EIATypeSearchForm extends GHASlideInWindow {
 
 	public EIATypeSearchForm() {
 		setTop(110);
-		setHeight(GHAUiHelper.calculateTabHeight() + "px");
+		setHeight(GHAUiHelper.getTabHeight() + "px");
 		
 		DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
@@ -130,7 +130,7 @@ public class EIATypeSearchForm extends GHASlideInWindow {
 				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
 
 		eiaTypeGrid = new EIATypeGrid();
-		eiaTypeGrid.setHeight(GHAUiHelper.MIN_GRID_SIZE+50);
+		eiaTypeGrid.setHeight(GHAUiHelper.getGridSize(30));
 		HLayout gridLayout = new HLayout();
 		gridLayout.setPadding(10);
 		gridLayout.addMembers(eiaTypeGrid);
@@ -248,6 +248,6 @@ public class EIATypeSearchForm extends GHASlideInWindow {
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.calculateTabHeight() + "px");		
+		setHeight(GHAUiHelper.getTabHeight() + "px");		
 	}
 }
