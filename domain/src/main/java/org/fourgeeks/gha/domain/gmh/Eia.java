@@ -16,6 +16,7 @@ import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
 import org.fourgeeks.gha.domain.enu.WarrantyStateEnum;
 import org.fourgeeks.gha.domain.gar.Facility;
+import org.fourgeeks.gha.domain.glm.ExternalProvider;
 
 @Entity
 public class Eia extends AbstractEntity {
@@ -110,8 +111,9 @@ public class Eia extends AbstractEntity {
 	@Column(nullable = false)
 	private EiaStateEnum state;
 
-	// TODO Foreign key con un vendor?
-	private String vendor;
+	@ManyToOne
+	@JoinColumn(name = "externalProviderFk")
+	private ExternalProvider provider;
 
 	@Column(nullable = false)
 	private WarrantySinceEnum warrantySince;
@@ -681,21 +683,6 @@ public class Eia extends AbstractEntity {
 	}
 
 	/**
-	 * @return the vendor
-	 */
-	public String getVendor() {
-		return vendor;
-	}
-
-	/**
-	 * @param vendor
-	 *            the vendor to set
-	 */
-	public void setVendor(String vendor) {
-		this.vendor = vendor;
-	}
-
-	/**
 	 * @return the warrantyTime
 	 */
 	public int getWarrantyTime() {
@@ -716,6 +703,14 @@ public class Eia extends AbstractEntity {
 	 */
 	public void setEiaType(EiaType eiaType) {
 		this.eiaType = eiaType;
+	}
+
+	public ExternalProvider getProvider() {
+		return provider;
+	}
+
+	public void setProvider(ExternalProvider provider) {
+		this.provider = provider;
 	}
 
 }
