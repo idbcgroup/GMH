@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.ejb.Remote;
 
+import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypePicture;
 
@@ -19,26 +20,31 @@ import org.fourgeeks.gha.domain.gmh.EiaTypePicture;
 public interface EiaTypePictureServiceRemote {
 	/**
 	 * @param eiaTypePicture
+	 * @throws EJBException 
 	 */
-	public void save(EiaTypePicture eiaTypePicture);
+	public void save(EiaTypePicture eiaTypePicture) throws EJBException;
 	/**
 	 * @param Id
 	 * @return true if the object was deleted
+	 * @throws EJBException 
 	 */
-	public boolean delete(long Id);
+	public boolean delete(long Id) throws EJBException;
 	/**
 	 * @param eiaTypePicture
 	 * @return true if the object was updated
+	 * @throws EJBException 
 	 */
-	public boolean update(EiaTypePicture eiaTypePicture);
+	public boolean update(EiaTypePicture eiaTypePicture) throws EJBException;
 	/**
 	 * @param Id
 	 * @return the EiaTypePicture with this id
+	 * @throws EJBException 
 	 */
-	public EiaTypePicture find(long Id);
+	public EiaTypePicture find(long Id) throws EJBException;
 	/**
 	 * @param eiaType
 	 * @return the list of EiaTypePicture pictures 
+	 * @throws EJBException 
 	 */
-	public List<EiaTypePicture> find(EiaType eiaType);
+	public List<EiaTypePicture> find(EiaType eiaType) throws EJBException;
 }

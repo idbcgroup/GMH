@@ -107,7 +107,7 @@ public class ManufacturerService implements ManufacturerServiceRemote {
 			return em.find(Manufacturer.class, manufacturer.getId());
 		}catch(Exception e){
 			logger.log(Level.INFO, "ERROR: saving manufacturer", e);
-			throw new EJBException("Error guardando EiaType: "
+			throw new EJBException("Error guardando manufacturer: "
 					+ e.getCause().getMessage());
 		}
 
