@@ -6,14 +6,13 @@ import java.util.List;
 import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAButton;
+import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSearchForm;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.google.gwt.user.client.Window;
 import com.smartgwt.client.types.Alignment;
-import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -21,17 +20,15 @@ import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIATopSection extends HLayout implements
-		EIATypeSelectionListener {
+public class EIATopSection extends HLayout implements EIATypeSelectionListener,
+		GHAClosable {
 
 	private List<EIATypeSelectionListener> selectionListeners;
-	private EIATypeSearchForm eiaTypeSearchForm;
 	private GHATextItem codeItem, brandItem, modelItem, manItem, nameItem,
 			useAreaItem, refactorItem, codigoUMDNSItem, typeItem, subTypeItem,
 			useItem;
 	{
 		selectionListeners = new LinkedList<EIATypeSelectionListener>();
-		eiaTypeSearchForm = new EIATypeSearchForm();
 		codeItem = new GHATextItem("Código", false);
 		nameItem = new GHATextItem("Nombre", false);
 		brandItem = new GHATextItem("Marca", false);
@@ -45,9 +42,9 @@ public class EIATopSection extends HLayout implements
 		codigoUMDNSItem = new GHATextItem("Código UMDNS", false);
 	}
 
-	public EIATopSection() {
+	public EIATopSection(EIATab eiaTab) {
 		super();
-		eiaTypeSearchForm.AddEIATypeSelectionListener(this);
+		eiaTab.addClosableHandler(this);
 		setStyleName("sides-padding");// Esto es VUDU!
 		setWidth100();
 		setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT + "px");
@@ -89,7 +86,6 @@ public class EIATopSection extends HLayout implements
 	}
 
 	public void search() {
-		eiaTypeSearchForm.animateShow(AnimationEffect.FLY);
 	}
 
 	@Override
@@ -151,4 +147,7 @@ public class EIATopSection extends HLayout implements
 
 	}
 
+	@Override
+	public void close() {
+	}
 }

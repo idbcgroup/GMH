@@ -7,36 +7,43 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 
 /**
  * @author emiliot
- *
+ * 
  */
 @Entity
-public class EiaTypeComponent extends AbstractEntity{
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "eiaTypeFk",
+		"parentEiaTypeFk" }))
+public class EiaTypeComponent extends AbstractEntity {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	@ManyToOne
-	@JoinColumn(name = "parentEiaTypeFk", nullable = false)
-	private EiaType parentEiaType;
-	
+
 	@OneToOne
 	@JoinColumn(name = "eiaTypeFk", nullable = false)
 	private EiaType eiaType;
-	
-	/**Attributes*/
+
+	@ManyToOne
+	@JoinColumn(name = "parentEiaTypeFk", nullable = false)
+	private EiaType parentEiaType;
+
+	/** Attributes */
 	private boolean componentRequired;
 	/** Componente requerido u opcional */
 	private boolean componentReplaceable;
-	/** Componente se puede sustituir, 
-	 * NO = se debe usar exactamente el componente indicado por el fabricante */
-	
+
+	/**
+	 * Componente se puede sustituir, NO = se debe usar exactamente el
+	 * componente indicado por el fabricante
+	 */
+
 	/**
 	 * 
 	 */
@@ -91,5 +98,5 @@ public class EiaTypeComponent extends AbstractEntity{
 	public void setParentEiaType(EiaType parentEiaType) {
 		this.parentEiaType = parentEiaType;
 	}
-	
+
 }
