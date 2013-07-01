@@ -13,12 +13,11 @@ import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.smartgwt.client.widgets.tab.TabSet;
 
 public class EIAInternalTabset extends TabSet implements
-		EIATypeSelectionListener {
+		EIATypeSelectionListener, ResizeHandler {
 
 	private EIAEquiposSubTab eiaEquiposSubTab = new EIAEquiposSubTab();
 	private EIAPartesSubTab eiaPartesSubTab = new EIAPartesSubTab();
@@ -28,17 +27,15 @@ public class EIAInternalTabset extends TabSet implements
 	private EIACostosSubTab eiaCostosSubTab = new EIACostosSubTab();
 	private EIAMovimientosSubTab eiaMovimientosSubTab = new EIAMovimientosSubTab();
 
-	public EIAInternalTabset() {
+	public EIAInternalTabset(EIATab eiaTab) {
 		super();
 		setWidth100();
 		setHeight(GHAUiHelper.getBottomSectionHeight());
-		Window.addResizeHandler(new ResizeHandler() {
-			@Override
-			public void onResize(ResizeEvent event) {
-				setHeight(GHAUiHelper.getBottomSectionHeight());
-				RootPanel.get("main-content").setHeight(GHAUiHelper.getTabHeight()+"px");
-			}
-		});
+
+		GHAUiHelper.addResizeHandler(this);
+
+		// TODO : pasar la referencia del eiaTab a los constructores de los
+		// subtabs
 
 		// Agregando las Subtabs
 		addTab(eiaEquiposSubTab);
@@ -60,6 +57,13 @@ public class EIAInternalTabset extends TabSet implements
 		eiaPlanSubTab.select(eiaType);
 		eiaCostosSubTab.select(eiaType);
 		eiaMovimientosSubTab.select(eiaType);
+	}
+
+	@Override
+	public void onResize(ResizeEvent event) {
+		setHeight(GHAUiHelper.getBottomSectionHeight());
+		RootPanel.get("main-content").setHeight(
+				GHAUiHelper.getTabHeight() + "px");
 	}
 
 }

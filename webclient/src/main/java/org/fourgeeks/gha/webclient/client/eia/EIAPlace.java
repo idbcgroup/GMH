@@ -8,9 +8,9 @@ public class EIAPlace extends GHAPlace {
 	private GHATab tab;
 
 	public EIAPlace() {
-		tab = GHATabSet.getById(EIATab.ID);
-		if (tab == null)
-			tab = new EIATab(null);
+		// tab = GHATabSet.getById(EIATab.ID);
+		// if (tab == null)
+		tab = new EIATab(null);
 	}
 
 	@Override

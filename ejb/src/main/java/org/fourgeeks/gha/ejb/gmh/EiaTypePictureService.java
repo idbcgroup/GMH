@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
+import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypePicture;
 
@@ -28,68 +29,19 @@ public class EiaTypePictureService implements EiaTypePictureServiceRemote {
 	private final Logger logger = Logger.getLogger(EiaTypePictureService.class.getName());
 	
 	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypePictureServiceRemote#save(org.fourgeeks.gha.domain.gmh.EiaTypePicture)
-	 */
-	@Override
-	public void save(EiaTypePicture eiaTypePicture) {
-		try{
-			em.persist(eiaTypePicture);
-		}catch(Exception e){
-			logger.info("ERROR: saving object "+eiaTypePicture.toString());
-			e.printStackTrace();
-			
-			//TODO: send exception to webclient
-		}
-		
-	}
-
-	/* (non-Javadoc)
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypePictureServiceRemote#delete(long)
 	 */
 	@Override
-	public boolean delete(long Id) {
+	public boolean delete(long Id)  throws EJBException{
 		try {
 			EiaTypePicture entity = em.find(EiaTypePicture.class, Id);
 			em.remove(entity);
 			return true;
 			
 		} catch (Exception e) {
-			e.printStackTrace();
-			logger.info("ERROR: unable to delete object="+EiaTypePicture.class.getName() +" with id="
-					+ Long.toString(Id));
-			// TODO: send exception to webClient
-			return false;
-		}
-	}
-
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypePictureServiceRemote#update(org.fourgeeks.gha.domain.gmh.EiaTypePicture)
-	 */
-	@Override
-	public boolean update(EiaTypePicture eiaTypePicture) {
-		try{
-			em.merge(eiaTypePicture);
-			return true;
-		}catch(Exception e){
-			logger.info("ERROR: unable to update object " + 
-					eiaTypePicture.toString());
-			e.printStackTrace();
-			// TODO: send exception to webClient
-			return false;
-		}
-	}
-
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypePictureServiceRemote#find(long)
-	 */
-	@Override
-	public EiaTypePicture find(long Id) {
-		try{
-			return em.find(EiaTypePicture.class, Id);
-		}catch(Exception e){
-			e.printStackTrace();
-			//TODO: send exception to webclient
-			return null;
+			logger.log(Level.INFO, "ERROR: unable to delete EiaTypePicture", e);
+			throw new EJBException("Error eliminando EiaTypePicture por id "
+					+ e.getCause().getMessage());
 		}
 	}
 
@@ -97,7 +49,7 @@ public class EiaTypePictureService implements EiaTypePictureServiceRemote {
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypePictureServiceRemote#find(org.fourgeeks.gha.domain.gmh.EiaType)
 	 */
 	@Override
-	public List<EiaTypePicture> find(EiaType eiaType) {
+	public List<EiaTypePicture> find(EiaType eiaType)  throws EJBException{
 		List <EiaTypePicture> res = null;
 		String query = "SELECT e from EiaTypePicture e WHERE eiaTypeFk=:eiaTypeId order by id";
 		
@@ -106,14 +58,57 @@ public class EiaTypePictureService implements EiaTypePictureServiceRemote {
 					.setParameter("eiaTypeId", eiaType.getId())
 					.getResultList();
 		}catch(NoResultException ex){
-			logger.info("No results");
-			//TODO: send exception to webclient
+			logger.log(Level.INFO, "No results", ex);
 		}catch(Exception ex){
-			logger.log(Level.SEVERE, "Error retrieving all objects", ex);
-			//TODO: Send exception to webclient
+			logger.log(Level.INFO, "Error buscando EiaTypePicture por EiaType ", ex);
+			throw new EJBException("Error buscando EiaTypePicture por EiaType "
+					+ ex.getCause().getMessage());
 		}
 		
 		return res;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypePictureServiceRemote#find(long)
+	 */
+	@Override
+	public EiaTypePicture find(long Id) throws EJBException {
+		try{
+			return em.find(EiaTypePicture.class, Id);
+		}catch(Exception e){
+			logger.log(Level.INFO, "Error buscando EiaTypePicture por Id ", e);
+			throw new EJBException("Error buscando EiaTypePicture por Id "
+					+ e.getCause().getMessage());
+		}
+	}
+
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypePictureServiceRemote#save(org.fourgeeks.gha.domain.gmh.EiaTypePicture)
+	 */
+	@Override
+	public void save(EiaTypePicture eiaTypePicture) throws EJBException {
+		try{
+			em.persist(eiaTypePicture);
+		}catch(Exception e){
+			logger.log(Level.INFO, "ERROR: saving EiaTypePicture", e);
+			throw new EJBException("Error guardando EiaTypePicture: "
+					+ e.getCause().getMessage());
+		}
+		
+	}
+
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypePictureServiceRemote#update(org.fourgeeks.gha.domain.gmh.EiaTypePicture)
+	 */
+	@Override
+	public boolean update(EiaTypePicture eiaTypePicture)  throws EJBException{
+		try{
+			em.merge(eiaTypePicture);
+			return true;
+		}catch(Exception e){
+			logger.log(Level.INFO, "ERROR: unable to update eiaTypePicture", e);
+			throw new EJBException("Error actualizando eiaTypePicture " +e.getCause().getMessage());
+		}
 	}
 
 }

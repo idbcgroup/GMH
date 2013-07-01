@@ -23,11 +23,8 @@ public class EIATab extends GHATab {
 		header = new GHATabHeader(this);
 		header.setTitle(TITLE);
 
-		// Top Section: form de muestra de la info del EIA
-		topSection = new EIATopSection();
-		// Bottom Section: SubTabs de Info
-		bottomTabset = new EIAInternalTabset();
-
+		topSection = new EIATopSection(this);
+		bottomTabset = new EIAInternalTabset(this);
 		topSection.AddEIATypeSelectionListener(bottomTabset);
 
 		// Creacion de la tab de EIA
@@ -56,11 +53,6 @@ public class EIATab extends GHATab {
 	@Override
 	public GHATabHeader getHeader() {
 		return header;
-	}
-
-	@Override
-	public void close() {
-		removeFromParent();
 	}
 
 }

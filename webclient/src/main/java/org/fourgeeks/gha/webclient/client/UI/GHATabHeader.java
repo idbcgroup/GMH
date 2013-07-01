@@ -52,7 +52,7 @@ public class GHATabHeader extends HLayout {
 	}
 
 	private void close() {
-		GHATabSet.removeTab(tab);
+		GHATabSet.closeTab(tab);
 	}
 
 	public void setTitle(String title) {
