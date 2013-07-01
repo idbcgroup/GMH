@@ -83,7 +83,6 @@ public class BrandService implements BrandServiceRemote {
 		List<Brand> res = null;
 		try{
 			res = em.createQuery(query, Brand.class).getResultList();
-			logger.info("Get all Brands");
 		}catch(NoResultException ex){
 			logger.log(Level.INFO, "Get all brands, No results", ex);
 		}catch(Exception ex){
