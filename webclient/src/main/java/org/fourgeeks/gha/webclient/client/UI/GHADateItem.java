@@ -6,7 +6,7 @@ public class GHADateItem extends DateItem {
 
 	public GHADateItem() {
 		super();
-		setTextBoxStyle("input");
+		setTextBoxStyle("input-dateItem");
 		setHeight(20);
 		setWidth(100);
 		setTitleStyle("input-title");

@@ -43,6 +43,13 @@ public abstract class GHAUiHelper {
 		separator.setHeight(height);
 		return separator;
 	}
+	
+	public static HTML horizontalGraySeparator(String width) {
+		HTML separator = new HTML();
+		separator.setStylePrimaryName("horizontal-gray-separator");
+		separator.setWidth(width);
+		return separator;
+	}
 
 	public static int getTabHeight() {
 		int rootPanelHeight = Window.getClientHeight();
