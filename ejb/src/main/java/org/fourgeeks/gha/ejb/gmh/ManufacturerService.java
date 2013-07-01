@@ -62,11 +62,12 @@ public class ManufacturerService implements ManufacturerServiceRemote {
 	@Override
 	public List<Manufacturer> find(Manufacturer manufacturer) throws EJBException {
 		List <Manufacturer> res = null;
-		String query = "SELECT e from Manufacturer e where name like '%"
-				+manufacturer.getName()+"%' ";
+		String query = "SELECT e from Manufacturer e where name like :manufacturerName";
 		
 		try{
-			res = em.createQuery(query, Manufacturer.class).getResultList();
+			res = em.createQuery(query, Manufacturer.class)
+					.setParameter("manufacturerName", manufacturer.getName())
+					.getResultList();
 		}catch(Exception ex){
 			logger.log(Level.SEVERE,
 					"Error obteniendo buscando los manufacturer por manufacturer", ex);
