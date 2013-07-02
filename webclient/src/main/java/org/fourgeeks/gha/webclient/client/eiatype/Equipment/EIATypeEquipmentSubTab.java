@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eiatype.equipos;
+package org.fourgeeks.gha.webclient.client.eiatype.Equipment;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
@@ -7,12 +7,12 @@ import org.fourgeeks.gha.webclient.client.eiatype.EIATypeTab;
 
 import com.smartgwt.client.widgets.tab.Tab;
 
-public class EIATypeEquiposSubTab extends Tab implements
+public class EIATypeEquipmentSubTab extends Tab implements
 		EIATypeSelectionListener, GHAClosable {
 
-	private EIATypeEquiposGridPanel equiposGridPanel = new EIATypeEquiposGridPanel();
+	private EIATypeEquipmentGridPanel equiposGridPanel = new EIATypeEquipmentGridPanel();
 
-	public EIATypeEquiposSubTab(EIATypeTab tab) {
+	public EIATypeEquipmentSubTab(EIATypeTab tab) {
 		tab.addClosableHandler(this);
 		setTitle("Equipos");
 		setPaneMargin(0);

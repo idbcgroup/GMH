@@ -2,13 +2,13 @@ package org.fourgeeks.gha.webclient.client.eia;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.eia.component.EIAPartesSubTab;
-import org.fourgeeks.gha.webclient.client.eia.costos.EIACostosSubTab;
-import org.fourgeeks.gha.webclient.client.eia.equipos.EIAEquiposSubTab;
-import org.fourgeeks.gha.webclient.client.eia.mantenimiento.EIAMantenimientoSubTab;
-import org.fourgeeks.gha.webclient.client.eia.movimientos.EIAMovimientosSubTab;
-import org.fourgeeks.gha.webclient.client.eia.plan_mantenimiento.EIAPlanSubTab;
-import org.fourgeeks.gha.webclient.client.eia.repuestos.EIARepuestosSubTab;
+import org.fourgeeks.gha.webclient.client.eia.component.EIAComponentSubTab;
+import org.fourgeeks.gha.webclient.client.eia.cost.EIACostSubTab;
+import org.fourgeeks.gha.webclient.client.eia.equipment.EIAEquipmentSubTab;
+import org.fourgeeks.gha.webclient.client.eia.maintenance.EIAMaintenanceSubTab;
+import org.fourgeeks.gha.webclient.client.eia.maintenance_plan.EIAPlanSubTab;
+import org.fourgeeks.gha.webclient.client.eia.movements.EIAMovementsSubTab;
+import org.fourgeeks.gha.webclient.client.eia.replacements.EIAReplacementsSubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -19,13 +19,13 @@ import com.smartgwt.client.widgets.tab.TabSet;
 public class EIAInternalTabset extends TabSet implements
 		EIATypeSelectionListener, ResizeHandler {
 
-	private EIAEquiposSubTab eiaEquiposSubTab = new EIAEquiposSubTab();
-	private EIAPartesSubTab eiaPartesSubTab = new EIAPartesSubTab();
-	private EIARepuestosSubTab eiaRepuestosSubTab = new EIARepuestosSubTab();
-	private EIAMantenimientoSubTab eiaMantenimientoSubTab = new EIAMantenimientoSubTab();
+	private EIAEquipmentSubTab eiaEquiposSubTab = new EIAEquipmentSubTab();
+	private EIAComponentSubTab eiaPartesSubTab = new EIAComponentSubTab();
+	private EIAReplacementsSubTab eiaRepuestosSubTab = new EIAReplacementsSubTab();
+	private EIAMaintenanceSubTab eiaMantenimientoSubTab = new EIAMaintenanceSubTab();
 	private EIAPlanSubTab eiaPlanSubTab = new EIAPlanSubTab();
-	private EIACostosSubTab eiaCostosSubTab = new EIACostosSubTab();
-	private EIAMovimientosSubTab eiaMovimientosSubTab = new EIAMovimientosSubTab();
+	private EIACostSubTab eiaCostosSubTab = new EIACostSubTab();
+	private EIAMovementsSubTab eiaMovimientosSubTab = new EIAMovementsSubTab();
 
 	public EIAInternalTabset(EIATab eiaTab) {
 		super();

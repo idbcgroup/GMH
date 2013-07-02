@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eia.repuestos;
+package org.fourgeeks.gha.webclient.client.eia.replacements;
 
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 
@@ -12,7 +12,7 @@ import com.smartgwt.client.widgets.grid.ListGrid;
 import com.smartgwt.client.widgets.grid.ListGridField;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
 
-public class EIAMaterialEspecialGrid extends ListGrid {
+public class EIAConsumablesGrid extends ListGrid {
 
 	@Override
 	protected Canvas createRecordComponent(final ListGridRecord record, Integer colNum) {  
@@ -38,7 +38,7 @@ public class EIAMaterialEspecialGrid extends ListGrid {
 
     }
 	
-	public EIAMaterialEspecialGrid() {
+	public EIAConsumablesGrid() {
 		setWidth100();
 		setHeight("300px");
 		setEmptyMessage("No existe material para mostrar.");
@@ -53,10 +53,10 @@ public class EIAMaterialEspecialGrid extends ListGrid {
 		ListGridField codMatGridField = new ListGridField("codMat", "Cód. Material");
 		codMatGridField.setAlign(Alignment.CENTER);
 		
-		ListGridField nameGridField = new ListGridField("nameMaterial", "Nombre Material Especial");
+		ListGridField nameGridField = new ListGridField("nameMaterial", "Nombre Material");
 		nameGridField.setAlign(Alignment.CENTER);
 		
-		ListGridField usoMaterialGridField = new ListGridField("usoMaterial", "Uso y Precauciones");
+		ListGridField usoMaterialGridField = new ListGridField("usoMaterial", "Uso del Material");
 		usoMaterialGridField.setAlign(Alignment.CENTER);
 		
 		ListGridField typeGridField = new ListGridField("type", "Tipo");
@@ -76,6 +76,7 @@ public class EIAMaterialEspecialGrid extends ListGrid {
 		
 		ListGridField availableGridField = new ListGridField("available", "Disponibles");
 		availableGridField.setAlign(Alignment.CENTER);
+			
 
 		setFields(idGridField, codMatGridField, nameGridField, usoMaterialGridField, typeGridField, cantGridField, facilityGridField,freqGridField, usesGridField, availableGridField);
 	}

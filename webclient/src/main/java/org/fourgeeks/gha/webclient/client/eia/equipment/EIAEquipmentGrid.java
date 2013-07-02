@@ -1,12 +1,12 @@
-package org.fourgeeks.gha.webclient.client.eia.equipos;
+package org.fourgeeks.gha.webclient.client.eia.equipment;
 
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.widgets.grid.ListGrid;
 import com.smartgwt.client.widgets.grid.ListGridField;
 
-public class EIAEquiposGrid extends ListGrid {
+public class EIAEquipmentGrid extends ListGrid {
 
-	public EIAEquiposGrid() {
+	public EIAEquipmentGrid() {
 		setWidth100();
 		setHeight("300px");
 		setEmptyMessage("No existen equipos para mostrar.");

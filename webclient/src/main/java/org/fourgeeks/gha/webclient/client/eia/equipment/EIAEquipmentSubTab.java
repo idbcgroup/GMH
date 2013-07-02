@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eia.equipos;
+package org.fourgeeks.gha.webclient.client.eia.equipment;
 
 import java.util.List;
 
@@ -13,11 +13,11 @@ import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
 import com.smartgwt.client.widgets.tab.Tab;
 
-public class EIAEquiposSubTab extends Tab implements EIATypeSelectionListener {
+public class EIAEquipmentSubTab extends Tab implements EIATypeSelectionListener {
 
-	private EIAEquiposGridPanel eiaEquiposGridPanel = new EIAEquiposGridPanel();
+	private EIAEquipmentGridPanel eiaEquiposGridPanel = new EIAEquipmentGridPanel();
 
-	public EIAEquiposSubTab() {
+	public EIAEquipmentSubTab() {
 		setTitle("Equipos");
 		setPaneMargin(0);
 		setPane(eiaEquiposGridPanel);

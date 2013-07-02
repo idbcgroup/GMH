@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eiatype.caracteristicas;
+package org.fourgeeks.gha.webclient.client.eiatype.Information;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -32,7 +32,7 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIATypeCaracteristicasFormPanel extends VLayout implements
+public class EIATypeInformationFormPanel extends VLayout implements
 		EIATypeSelectionListener, GHAClosable {
 
 	private EIATypeAddForm addForm;
@@ -60,7 +60,7 @@ public class EIATypeCaracteristicasFormPanel extends VLayout implements
 		subTypeItem = new GHASelectItem("Subtipo", 150);
 	}
 
-	public EIATypeCaracteristicasFormPanel(EIATypeTab tab) {
+	public EIATypeInformationFormPanel(EIATypeTab tab) {
 		activateForm(false);
 		
 		this.tab = tab;

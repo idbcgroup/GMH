@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eia.equipos;
+package org.fourgeeks.gha.webclient.client.eia.equipment;
 
 import org.fourgeeks.gha.webclient.client.eia.EIAAddForm;
 
@@ -14,15 +14,15 @@ import com.smartgwt.client.widgets.grid.ListGridRecord;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIAEquiposGridPanel extends VLayout {
+public class EIAEquipmentGridPanel extends VLayout {
 
 	private EIAAddForm form;
-	private EIAEquiposGrid eiaGrid;
+	private EIAEquipmentGrid eiaGrid;
 	{
-		eiaGrid = new EIAEquiposGrid();
+		eiaGrid = new EIAEquipmentGrid();
 	}
 
-	public EIAEquiposGridPanel() {
+	public EIAEquipmentGridPanel() {
 		super();
 		form = new EIAAddForm();
 		setWidth100();

@@ -15,12 +15,12 @@ import com.smartgwt.client.widgets.form.fields.events.ChangeHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIAPartesGridPanel extends HLayout {
+public class EIAComponentGridPanel extends HLayout {
 
-	private EIAPartesEIAtypeGrid eiaPartesEIAtypeGrid = new EIAPartesEIAtypeGrid();
-	private EIAPartesEquiposGrid eiaPartesEquiposGrid = new EIAPartesEquiposGrid();
+	private EIAComponentEIAtypeGrid eiaPartesEIAtypeGrid = new EIAComponentEIAtypeGrid();
+	private EIAComponentEquiposGrid eiaPartesEquiposGrid = new EIAComponentEquiposGrid();
 	
-	public EIAPartesGridPanel() {
+	public EIAComponentGridPanel() {
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding top-padding");// Esto es VUDU!

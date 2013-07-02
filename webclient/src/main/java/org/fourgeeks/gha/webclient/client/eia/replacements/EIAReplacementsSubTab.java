@@ -1,15 +1,15 @@
-package org.fourgeeks.gha.webclient.client.eia.repuestos;
+package org.fourgeeks.gha.webclient.client.eia.replacements;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.smartgwt.client.widgets.tab.Tab;
 
-public class EIARepuestosSubTab extends Tab implements EIATypeSelectionListener{
+public class EIAReplacementsSubTab extends Tab implements EIATypeSelectionListener{
 	
-	private EIARepuestosGridPanel eiaRepuestosGridPanel = new EIARepuestosGridPanel();
+	private EIAReplacementsGridPanel eiaRepuestosGridPanel = new EIAReplacementsGridPanel();
 	
-	public EIARepuestosSubTab() {
+	public EIAReplacementsSubTab() {
 		setTitle("Repuestos/Consumibles");
 		setPaneMargin(0);
 		

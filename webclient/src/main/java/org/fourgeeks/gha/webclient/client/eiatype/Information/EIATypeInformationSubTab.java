@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eiatype.caracteristicas;
+package org.fourgeeks.gha.webclient.client.eiatype.Information;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
@@ -7,15 +7,15 @@ import org.fourgeeks.gha.webclient.client.eiatype.EIATypeTab;
 
 import com.smartgwt.client.widgets.tab.Tab;
 
-public class EIATypeCaracteristicasSubTab extends Tab implements
+public class EIATypeInformationSubTab extends Tab implements
 		EIATypeSelectionListener, GHAClosable {
 
-	private EIATypeCaracteristicasFormPanel form;
+	private EIATypeInformationFormPanel form;
 
-	public EIATypeCaracteristicasSubTab(EIATypeTab tab) {
+	public EIATypeInformationSubTab(EIATypeTab tab) {
 		setTitle("Caracteristicas");
 		setPaneMargin(0);
-		form = new EIATypeCaracteristicasFormPanel(tab);
+		form = new EIATypeInformationFormPanel(tab);
 		setPane(form);
 	}
 

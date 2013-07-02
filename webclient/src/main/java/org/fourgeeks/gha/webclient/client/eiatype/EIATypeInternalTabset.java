@@ -3,9 +3,9 @@ package org.fourgeeks.gha.webclient.client.eiatype;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.eiatype.caracteristicas.EIATypeCaracteristicasSubTab;
-import org.fourgeeks.gha.webclient.client.eiatype.component.EIATypePartesSubTab;
-import org.fourgeeks.gha.webclient.client.eiatype.equipos.EIATypeEquiposSubTab;
+import org.fourgeeks.gha.webclient.client.eiatype.Equipment.EIATypeEquipmentSubTab;
+import org.fourgeeks.gha.webclient.client.eiatype.Information.EIATypeInformationSubTab;
+import org.fourgeeks.gha.webclient.client.eiatype.component.EIATypeComponentSubTab;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
@@ -14,9 +14,9 @@ import com.smartgwt.client.widgets.tab.TabSet;
 public class EIATypeInternalTabset extends TabSet implements
 		EIATypeSelectionListener, GHAClosable, ResizeHandler {
 
-	private EIATypeCaracteristicasSubTab caracteristicasSubTab;
-	private EIATypeEquiposSubTab equiposSubTab;
-	private EIATypePartesSubTab partesSubTab;
+	private EIATypeInformationSubTab caracteristicasSubTab;
+	private EIATypeEquipmentSubTab equiposSubTab;
+	private EIATypeComponentSubTab partesSubTab;
 
 	public EIATypeInternalTabset(EIATypeTab tab) {
 		super();
@@ -24,9 +24,9 @@ public class EIATypeInternalTabset extends TabSet implements
 		
 		setWidth100();
 		setHeight(GHAUiHelper.getBottomSectionHeight());
-		equiposSubTab = new EIATypeEquiposSubTab(tab);
-		caracteristicasSubTab = new EIATypeCaracteristicasSubTab(tab);
-		partesSubTab = new EIATypePartesSubTab();
+		equiposSubTab = new EIATypeEquipmentSubTab(tab);
+		caracteristicasSubTab = new EIATypeInformationSubTab(tab);
+		partesSubTab = new EIATypeComponentSubTab();
 
 		// Agregando las Subtabs
 		addTab(caracteristicasSubTab);
