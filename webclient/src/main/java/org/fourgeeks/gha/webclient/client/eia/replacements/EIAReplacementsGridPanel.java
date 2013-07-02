@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eia.repuestos;
+package org.fourgeeks.gha.webclient.client.eia.replacements;
 
 import com.google.gwt.user.client.Event;
 import com.smartgwt.client.types.Alignment;
@@ -15,14 +15,14 @@ import com.smartgwt.client.widgets.form.fields.events.ChangeHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIARepuestosGridPanel extends HLayout {
+public class EIAReplacementsGridPanel extends HLayout {
 
-	private EIARepuestosGrid eiaRepuestosGrid = new EIARepuestosGrid();
-	private EIAConsumiblesGrid eiaConsumiblesGrid = new EIAConsumiblesGrid();
-	private EIAServiciosGrid eiaServiciosGrid = new EIAServiciosGrid();
-	private EIAMaterialEspecialGrid eiaMaterialEspecialGrid= new EIAMaterialEspecialGrid();
+	private EIAReplacementsGrid eiaRepuestosGrid = new EIAReplacementsGrid();
+	private EIAConsumablesGrid eiaConsumiblesGrid = new EIAConsumablesGrid();
+	private EIAServicesGrid eiaServiciosGrid = new EIAServicesGrid();
+	private EIASpecialMaterialGrid eiaMaterialEspecialGrid= new EIASpecialMaterialGrid();
 	
-	public EIARepuestosGridPanel() {
+	public EIAReplacementsGridPanel() {
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding top-padding");// Esto es VUDU!

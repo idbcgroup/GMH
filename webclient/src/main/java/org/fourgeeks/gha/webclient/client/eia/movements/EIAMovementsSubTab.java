@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eia.mantenimiento;
+package org.fourgeeks.gha.webclient.client.eia.movements;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
@@ -6,11 +6,10 @@ import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import com.smartgwt.client.widgets.layout.VLayout;
 import com.smartgwt.client.widgets.tab.Tab;
 
-public class EIAMantenimientoSubTab extends Tab implements EIATypeSelectionListener{
+public class EIAMovementsSubTab extends Tab implements EIATypeSelectionListener{
 	
-	public EIAMantenimientoSubTab() {
-		
-		setTitle("Mantenimiento y Protocolos");
+	public EIAMovementsSubTab() {
+		setTitle("Movimientos");
 		setPaneMargin(0);
 		
 		setPane(new VLayout());

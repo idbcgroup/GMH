@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eiatype.equipos;
+package org.fourgeeks.gha.webclient.client.eiatype.information;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
@@ -7,25 +7,26 @@ import org.fourgeeks.gha.webclient.client.eiatype.EIATypeTab;
 
 import com.smartgwt.client.widgets.tab.Tab;
 
-public class EIATypeEquiposSubTab extends Tab implements
+public class EIATypeInformationSubTab extends Tab implements
 		EIATypeSelectionListener, GHAClosable {
 
-	private EIATypeEquiposGridPanel equiposGridPanel = new EIATypeEquiposGridPanel();
+	private EIATypeInformationFormPanel form;
 
-	public EIATypeEquiposSubTab(EIATypeTab tab) {
-		tab.addClosableHandler(this);
-		setTitle("Equipos");
+	public EIATypeInformationSubTab(EIATypeTab tab) {
+		setTitle("Caracteristicas");
 		setPaneMargin(0);
-		setPane(equiposGridPanel);
+		form = new EIATypeInformationFormPanel(tab);
+		setPane(form);
 	}
 
 	@Override
 	public void select(EiaType eiaType) {
-		equiposGridPanel.select(eiaType);
+		form.select(eiaType);
 	}
 
 	@Override
 	public void close() {
-		equiposGridPanel.close();
+		form.close();		
 	}
+
 }

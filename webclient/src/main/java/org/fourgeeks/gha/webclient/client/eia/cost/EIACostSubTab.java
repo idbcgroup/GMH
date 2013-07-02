@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eia.movimientos;
+package org.fourgeeks.gha.webclient.client.eia.cost;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
@@ -6,10 +6,10 @@ import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import com.smartgwt.client.widgets.layout.VLayout;
 import com.smartgwt.client.widgets.tab.Tab;
 
-public class EIAMovimientosSubTab extends Tab implements EIATypeSelectionListener{
+public class EIACostSubTab extends Tab implements EIATypeSelectionListener{
 	
-	public EIAMovimientosSubTab() {
-		setTitle("Movimientos");
+	public EIACostSubTab() {
+		setTitle("Costos y Depreciación");
 		setPaneMargin(0);
 		
 		setPane(new VLayout());

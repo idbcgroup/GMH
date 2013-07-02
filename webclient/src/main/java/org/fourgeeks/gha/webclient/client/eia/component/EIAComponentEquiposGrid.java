@@ -4,9 +4,9 @@ import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.widgets.grid.ListGrid;
 import com.smartgwt.client.widgets.grid.ListGridField;
 
-public class EIAPartesEquiposGrid extends ListGrid{
+public class EIAComponentEquiposGrid extends ListGrid{
 
-	public EIAPartesEquiposGrid() {
+	public EIAComponentEquiposGrid() {
 		setWidth100();
 		setHeight("300px");
 		setEmptyMessage("No existen partes de equipos para mostrar.");

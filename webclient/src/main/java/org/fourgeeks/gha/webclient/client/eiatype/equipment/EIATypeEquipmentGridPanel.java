@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eiatype.equipos;
+package org.fourgeeks.gha.webclient.client.eiatype.equipment;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ import com.smartgwt.client.widgets.grid.ListGridRecord;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIATypeEquiposGridPanel extends VLayout implements
+public class EIATypeEquipmentGridPanel extends VLayout implements
 		EIATypeSelectionListener, GHAClosable {
 
 	private EIAGrid grid;
@@ -34,7 +34,7 @@ public class EIATypeEquiposGridPanel extends VLayout implements
 		addForm = new EIAAddForm();
 	}
 
-	public EIATypeEquiposGridPanel() {
+	public EIATypeEquipmentGridPanel() {
 		super();
 		setStyleName("sides-padding top-padding");// Esto es VUDU!
 		setWidth100();
@@ -102,7 +102,7 @@ public class EIATypeEquiposGridPanel extends VLayout implements
 
 	@Override
 	public void close() {
-		// TODO Auto-generated method stub
-
+		addForm.animateHide(AnimationEffect.FLY);
+		addForm.destroy();
 	}
 }

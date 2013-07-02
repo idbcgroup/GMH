@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eia.plan_mantenimiento;
+package org.fourgeeks.gha.webclient.client.eia.maintenance;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
@@ -6,10 +6,11 @@ import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import com.smartgwt.client.widgets.layout.VLayout;
 import com.smartgwt.client.widgets.tab.Tab;
 
-public class EIAPlanSubTab extends Tab implements EIATypeSelectionListener {
+public class EIAMaintenanceSubTab extends Tab implements EIATypeSelectionListener{
 	
-	public EIAPlanSubTab() {
-		setTitle("Plan Mantenimiento");
+	public EIAMaintenanceSubTab() {
+		
+		setTitle("Mantenimiento y Protocolos");
 		setPaneMargin(0);
 		
 		setPane(new VLayout());

@@ -27,11 +27,11 @@ public abstract class GHAUiHelper {
 		});
 	}
 
-	// NOT TESTED
+	// NO ESTAN TOTALMENTE MEDIDAS CON LA INTERFAZ
 	private static final int MIN_TAB_HEIGHT = 400;
 	private static final int MIN_TOP_SECTION_HEIGHT = 120;
 	private static final int MIN_BOTTOM_SECTION_HEIGHT = 260;
-	// NOT TESTED
+	// NO ESTAN TOTALMENTE MEDIDAS CON LA INTERFAZ
 	public static final int MIN_GRID_SIZE = 180;
 
 	public static final int INNER_TOP_SECTION_HEIGHT = 120;
@@ -41,6 +41,13 @@ public abstract class GHAUiHelper {
 		HTML separator = new HTML();
 		separator.setStylePrimaryName("vertical-gray-separator");
 		separator.setHeight(height);
+		return separator;
+	}
+	
+	public static HTML horizontalGraySeparator(String width) {
+		HTML separator = new HTML();
+		separator.setStylePrimaryName("horizontal-gray-separator");
+		separator.setWidth(width);
 		return separator;
 	}
 

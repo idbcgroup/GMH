@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eia.costos;
+package org.fourgeeks.gha.webclient.client.eia.maintenance_plan;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
@@ -6,10 +6,10 @@ import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import com.smartgwt.client.widgets.layout.VLayout;
 import com.smartgwt.client.widgets.tab.Tab;
 
-public class EIACostosSubTab extends Tab implements EIATypeSelectionListener{
+public class EIAPlanSubTab extends Tab implements EIATypeSelectionListener {
 	
-	public EIACostosSubTab() {
-		setTitle("Costos y Depreciación");
+	public EIAPlanSubTab() {
+		setTitle("Plan Mantenimiento");
 		setPaneMargin(0);
 		
 		setPane(new VLayout());

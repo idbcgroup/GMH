@@ -8,9 +8,8 @@ public class GHASpacerItem extends SpacerItem {
 		super();
 	}
 
-	public GHASpacerItem(int width) {
+	public GHASpacerItem(int colspan) {
 		this();
-		setWidth(width);
-		setHeight(15);
+		setColSpan(colspan);
 	}
 }

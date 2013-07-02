@@ -16,12 +16,12 @@ import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIATypePartesGridPanel extends VLayout implements
+public class EIATypeComponentGridPanel extends VLayout implements
 		EIATypeSelectionListener, GHAClosable{
 
 	private EIATypeGrid partesGrid = new EIATypeGrid();
 	
-	public EIATypePartesGridPanel() {
+	public EIATypeComponentGridPanel() {
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding top-padding");// Esto es VUDU!

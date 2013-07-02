@@ -8,7 +8,7 @@ public class GHATitleTextItem extends StaticTextItem {
 
 	public GHATitleTextItem() {
 		super();
-		setAlign(Alignment.RIGHT);
+		setAlign(Alignment.LEFT);
 		setVAlign(VerticalAlignment.BOTTOM);
 		setHeight(20);
 		setWidth(150);

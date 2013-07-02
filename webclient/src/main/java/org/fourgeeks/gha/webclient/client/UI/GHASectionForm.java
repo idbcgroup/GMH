@@ -11,6 +11,7 @@ import com.google.gwt.user.client.ui.HTML;
 import com.smartgwt.client.types.Visibility;
 import com.smartgwt.client.widgets.Canvas;
 import com.smartgwt.client.widgets.layout.HLayout;
+import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class GHASectionForm extends HLayout {
@@ -23,7 +24,8 @@ public class GHASectionForm extends HLayout {
 		optionList = new ArrayList<Option>();
 		// sectionList = new ArrayList<Layout>();
 		options = new VLayout();
-		options.setWidth(100);
+		options.setWidth(150);
+		options.setMembersMargin(3);
 		options.addStyleName("margin-right");
 		mainSection = new VLayout();
 	}
@@ -32,12 +34,17 @@ public class GHASectionForm extends HLayout {
 		addStyleName("padding-top");
 		setWidth100();
 		addMember(options);
+		addMember(GHAUiHelper.horizontalGraySeparator("10px"));
 		addMember(mainSection);
 	}
 
-	public void addSection(String name, final Canvas section) {
-		mainSection.addMember(section);
+	public void addSection(String name, final Canvas sect, boolean open) {
+		HLayout section = new HLayout();
+		section.addMembers(sect,new LayoutSpacer());
+		
+		mainSection.addMembers(section);
 		section.setVisibility(Visibility.HIDDEN);
+		
 		final Option option = new Option(name, section);
 		option.setStylePrimaryName("side-option");
 		option.addClickHandler(new com.google.gwt.event.dom.client.ClickHandler() {
@@ -55,14 +62,25 @@ public class GHASectionForm extends HLayout {
 		});
 		options.addMember(option);
 
+		if(open)
+			option.activate();
+		
 		optionList.add(option);
 		// sectionList.add(section);
+	}
+	
+	public void addSectionSeparator() {
+		options.addMember(GHAUiHelper.verticalGraySeparator("2px"));
 	}
 
 	public void deactivate() {
 		for (Option option : optionList)
 			option.deactivate();
 	}
+	
+//	public void activateById(int id) {
+//			optionList.get(id).activate();
+//	}
 
 	static class Option extends HTML {
 		private Canvas section;

@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eia.repuestos;
+package org.fourgeeks.gha.webclient.client.eia.replacements;
 
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 
@@ -12,7 +12,7 @@ import com.smartgwt.client.widgets.grid.ListGrid;
 import com.smartgwt.client.widgets.grid.ListGridField;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
 
-public class EIAConsumiblesGrid extends ListGrid {
+public class EIAReplacementsGrid extends ListGrid {
 
 	@Override
 	protected Canvas createRecordComponent(final ListGridRecord record, Integer colNum) {  
@@ -38,10 +38,10 @@ public class EIAConsumiblesGrid extends ListGrid {
 
     }
 	
-	public EIAConsumiblesGrid() {
+	public EIAReplacementsGrid() {
 		setWidth100();
 		setHeight("300px");
-		setEmptyMessage("No existe material para mostrar.");
+		setEmptyMessage("No existen repuestos para mostrar.");
 
 		setAlternateRecordStyles(false);
 		setCanResizeFields(false);
@@ -50,14 +50,14 @@ public class EIAConsumiblesGrid extends ListGrid {
 		ListGridField idGridField = new ListGridField("id", "No");
 		idGridField.setAlign(Alignment.CENTER);
 
-		ListGridField codMatGridField = new ListGridField("codMat", "Cód. Material");
-		codMatGridField.setAlign(Alignment.CENTER);
+		ListGridField codRepGridField = new ListGridField("codRep", "Cód. Repuesto");
+		codRepGridField.setAlign(Alignment.CENTER);
 		
-		ListGridField nameGridField = new ListGridField("nameMaterial", "Nombre Material");
+		ListGridField nameGridField = new ListGridField("nameRepuesto", "Nombre Repuesto");
 		nameGridField.setAlign(Alignment.CENTER);
 		
-		ListGridField usoMaterialGridField = new ListGridField("usoMaterial", "Uso del Material");
-		usoMaterialGridField.setAlign(Alignment.CENTER);
+		ListGridField usoRepuestoGridField = new ListGridField("usoRepuesto", "Uso del Repuesto");
+		usoRepuestoGridField.setAlign(Alignment.CENTER);
 		
 		ListGridField typeGridField = new ListGridField("type", "Tipo");
 		typeGridField.setAlign(Alignment.CENTER);
@@ -68,17 +68,11 @@ public class EIAConsumiblesGrid extends ListGrid {
 		ListGridField facilityGridField = new ListGridField("facility", "Ubicación");
 		facilityGridField.setAlign(Alignment.CENTER);
 		
-		ListGridField freqGridField = new ListGridField("freq", "Frecuencia");
-		freqGridField.setAlign(Alignment.CENTER);
-		
-		ListGridField usesGridField = new ListGridField("uses", "Cant. Usos");
-		usesGridField.setAlign(Alignment.CENTER);
-		
 		ListGridField availableGridField = new ListGridField("available", "Disponibles");
 		availableGridField.setAlign(Alignment.CENTER);
 			
 
-		setFields(idGridField, codMatGridField, nameGridField, usoMaterialGridField, typeGridField, cantGridField, facilityGridField,freqGridField, usesGridField, availableGridField);
+		setFields(idGridField, codRepGridField, nameGridField, usoRepuestoGridField, typeGridField, cantGridField, facilityGridField, availableGridField);
 	}
 
 }

@@ -5,11 +5,11 @@ import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.smartgwt.client.widgets.tab.Tab;
 
-public class EIAPartesSubTab extends Tab implements EIATypeSelectionListener{
+public class EIAComponentSubTab extends Tab implements EIATypeSelectionListener{
 	
-	private EIAPartesGridPanel eiaPartesGridPanel = new EIAPartesGridPanel();
+	private EIAComponentGridPanel eiaPartesGridPanel = new EIAComponentGridPanel();
 	
-	public EIAPartesSubTab() {
+	public EIAComponentSubTab() {
 		setTitle("Partes/Componentes");
 		setPaneMargin(0);
 		
