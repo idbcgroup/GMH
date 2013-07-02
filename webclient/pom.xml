@@ -6,7 +6,7 @@
 		<groupId>gha</groupId>
 		<artifactId>gha</artifactId>
 		<version>1</version>
-		<relativePath>../gha</relativePath>
+		<relativePath>../pom.xml</relativePath>
 	</parent>
 
 	<artifactId>webclient</artifactId>

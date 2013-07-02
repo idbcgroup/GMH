@@ -28,7 +28,7 @@ public class EiaService implements EiaServiceRemote {
 	@PersistenceContext
 	EntityManager em;
 	
-	private final Logger logger = Logger.getLogger(EiaService.class.getName());
+	private final static Logger logger = Logger.getLogger(EiaService.class.getName());
 
 	/* (non-Javadoc)
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#buildFilters(org.fourgeeks.gha.domain.gmh.EiaType)

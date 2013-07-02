@@ -152,7 +152,7 @@ public class EIARecord extends GHAGridRecord<Eia> {
 
 		EiaType eiaType = getEiaType();
 		if (eiaType != null)
-			eia.setEiatype(eiaType);
+			eia.setEiaType(eiaType);
 
 		return eia;
 	}

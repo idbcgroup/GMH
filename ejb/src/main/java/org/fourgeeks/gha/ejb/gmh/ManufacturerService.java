@@ -25,7 +25,7 @@ public class ManufacturerService implements ManufacturerServiceRemote {
 	@PersistenceContext
 	EntityManager em;
 	
-	private final Logger logger = Logger.getLogger(Manufacturer.class.getName());
+	private final static Logger logger = Logger.getLogger(Manufacturer.class.getName());
 	
 	/* (non-Javadoc)
 	 * @see org.fourgeeks.gha.ejb.gmh.ManufacturerServiceRemote#delete(long)

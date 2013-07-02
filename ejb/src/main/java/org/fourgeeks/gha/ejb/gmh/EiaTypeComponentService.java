@@ -26,7 +26,7 @@ public class EiaTypeComponentService implements EiaTypeComponentServiceRemote {
 	@PersistenceContext
 	EntityManager em;
 	
-	private final Logger logger = Logger.getLogger(EiaTypeComponentService.class
+	private final static Logger logger = Logger.getLogger(EiaTypeComponentService.class
 			.getName());
 	
 	/* (non-Javadoc)

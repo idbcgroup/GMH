@@ -27,7 +27,7 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 	@PersistenceContext
 	EntityManager em;
 
-	private final Logger logger = Logger.getLogger(EiaTypeService.class
+	private final static Logger logger = Logger.getLogger(EiaTypeService.class
 			.getName());
 
 	/*

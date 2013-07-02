@@ -24,7 +24,7 @@ public class BrandService implements BrandServiceRemote {
 	@PersistenceContext
 	EntityManager em;
 	
-	private final Logger logger = Logger.getLogger(BrandService.class.getName());
+	private final static Logger logger = Logger.getLogger(BrandService.class.getName());
 
 	/* (non-Javadoc)
 	 * @see org.fourgeeks.gha.ejb.gmh.BrandServiceRemote#delete(long)

@@ -26,7 +26,7 @@ public class EiaPictureService implements EiaPictureServiceRemote{
 	@PersistenceContext
 	EntityManager em;
 	
-	private final Logger logger = Logger.getLogger(EiaTypePictureService.class.getName());
+	private final static Logger logger = Logger.getLogger(EiaTypePictureService.class.getName());
 	/* (non-Javadoc)
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaPictureServiceRemote#delete(long)
 	 */
