@@ -3,9 +3,9 @@ package org.fourgeeks.gha.webclient.client.eiatype;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.eiatype.Equipment.EIATypeEquipmentSubTab;
-import org.fourgeeks.gha.webclient.client.eiatype.Information.EIATypeInformationSubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.component.EIATypeComponentSubTab;
+import org.fourgeeks.gha.webclient.client.eiatype.equipment.EIATypeEquipmentSubTab;
+import org.fourgeeks.gha.webclient.client.eiatype.information.EIATypeInformationSubTab;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;

@@ -16,6 +16,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHATitleTextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.TitleOrientation;
@@ -27,7 +28,7 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIAAddForm extends GHASlideInWindow {
+public class EIAAddForm extends GHASlideInWindow implements ResizeHandler{
 
 	private List<EIASelectionListener> listeners;
 	private GHATextItem codeItem, serialItem, activeIdItem, facilityItem,
@@ -47,6 +48,7 @@ public class EIAAddForm extends GHASlideInWindow {
 	}
 
 	public EIAAddForm() {
+		GHAUiHelper.addResizeHandler(this);
 		setHeight(GHAUiHelper.getBottomSectionHeight());
 		setTop(240);
 
@@ -100,10 +102,11 @@ public class EIAAddForm extends GHASlideInWindow {
 
 		DynamicForm equiposITForm = new DynamicForm();	
 		equiposITForm.setTitleOrientation(TitleOrientation.TOP);
-		equiposITForm.setNumCols(4);
+		equiposITForm.setNumCols(2);
 
-		equiposITForm.setItems(itTitle, new GHASpacerItem(), new GHASpacerItem(), new GHASpacerItem(),
-							   typeIT, nombreMaquina, dirIP, macAddress);
+		equiposITForm.setItems(itTitle, new GHASpacerItem(), 
+							   typeIT, nombreMaquina,
+							   dirIP, macAddress);
 		
 		return equiposITForm;
 	}
@@ -156,13 +159,13 @@ public class EIAAddForm extends GHASlideInWindow {
 		garantiasMamtenimientoForm.setNumCols(4);
 
 		garantiasMamtenimientoForm.setItems(
-			garantiaRealTitle, new GHASpacerItem(), new GHASpacerItem(), new GHASpacerItem(),
+			garantiaRealTitle, new GHASpacerItem(3),
 			garantiaDesde, garantiaReal, tiempoGarantiaReal, fechaInic,
-			garantiaIntTitle, new GHASpacerItem(), new GHASpacerItem(), new GHASpacerItem(),
+			garantiaIntTitle, new GHASpacerItem(3),
 			garantiaIntDesde, garantiaInt, tiempoGarantiaInt, fechaInicInt,
-			intermediateGarantia, mesesGarantia, new GHASpacerItem(), new GHASpacerItem(),
-			new GHASpacerItem(), new GHASpacerItem(), new GHASpacerItem(), new GHASpacerItem(),
-			mantenimientoTitle, new GHASpacerItem(), new GHASpacerItem(), new GHASpacerItem(),
+			intermediateGarantia, mesesGarantia, new GHASpacerItem(2), 
+			new GHASpacerItem(4),
+			mantenimientoTitle, new GHASpacerItem(3),
 			isMant, codeMant, nameMant, providerMant, 
 			retired,numMant, fechaInicMant, fechaFinMant				
 			);
@@ -215,16 +218,15 @@ public class EIAAddForm extends GHASlideInWindow {
 		costosForm.setTitleOrientation(TitleOrientation.TOP);
 		costosForm.setNumCols(3);
 		
-		costosForm.setItems(adqCostTitle, new GHASpacerItem(), new GHASpacerItem(), 
+		costosForm.setItems(adqCostTitle, new GHASpacerItem(2),  
 							costoAdq, currencyAdq, fechaContab,
 							costoAdqLoc, monedaLocal, new GHASpacerItem(),
-	            			new GHASpacerItem(), new GHASpacerItem(), new GHASpacerItem(),
-							actualCostTitle, new GHASpacerItem(), new GHASpacerItem(),
+	            			new GHASpacerItem(3),
+							actualCostTitle, new GHASpacerItem(2),
 							metodoDepreciacion, fechaUltDeprec,  new GHASpacerItem(),
 							tiempoDepTitle,timeDep, timeDepSel,
 							tiempoVidaTitle, timeVida, timeVidaSel,
-							costoAct, monedaCosto
-							);
+							costoAct, monedaCosto);
 
 		return costosForm;
 	}
@@ -282,7 +284,7 @@ public class EIAAddForm extends GHASlideInWindow {
 		adquisicionForm.setTitleOrientation(TitleOrientation.TOP);
 		adquisicionForm.setNumCols(3);
 
-		adquisicionForm.setItems(adqisicionTitle, new GHASpacerItem(), new GHASpacerItem(),
+		adquisicionForm.setItems(adqisicionTitle, new GHASpacerItem(2), 
 								 buyDate, recepcionDate, instalacionDate,
 								 provider, noOrden,	noFactura);
 		return adquisicionForm;
@@ -307,10 +309,10 @@ public class EIAAddForm extends GHASlideInWindow {
 		equipoForm.setTitleOrientation(TitleOrientation.TOP);
 		equipoForm.setNumCols(4);
 
-		equipoForm.setItems(equiposTitle, new GHASpacerItem(), new GHASpacerItem(), new GHASpacerItem(),
+		equipoForm.setItems(equiposTitle, new GHASpacerItem(3), 
 							codeItem, serialItem, activeIdItem, new GHASpacerItem(),
 							depResponsable, dirResponsable,
-							garantiasTitle, new GHASpacerItem(), new GHASpacerItem(), new GHASpacerItem(),
+							garantiasTitle, new GHASpacerItem(3), 
 							garantiaEstadoText, garantiaEstadoSelect);
 		return equipoForm;
 	}
@@ -326,7 +328,7 @@ public class EIAAddForm extends GHASlideInWindow {
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		// TODO Auto-generated method stub
-
+		setHeight(GHAUiHelper.getBottomSectionHeight());
 	}
+
 }

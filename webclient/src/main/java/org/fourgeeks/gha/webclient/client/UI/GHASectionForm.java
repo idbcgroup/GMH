@@ -34,7 +34,7 @@ public class GHASectionForm extends HLayout {
 		addStyleName("padding-top");
 		setWidth100();
 		addMember(options);
-		addMember(GHAUiHelper.horizontalGraySeparator("50px"));
+		addMember(GHAUiHelper.horizontalGraySeparator("10px"));
 		addMember(mainSection);
 	}
 

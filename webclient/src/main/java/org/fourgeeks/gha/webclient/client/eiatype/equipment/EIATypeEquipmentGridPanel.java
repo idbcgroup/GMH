@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eiatype.Equipment;
+package org.fourgeeks.gha.webclient.client.eiatype.equipment;
 
 import java.util.List;
 
@@ -102,7 +102,7 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 
 	@Override
 	public void close() {
-		// TODO Auto-generated method stub
-
+		addForm.animateHide(AnimationEffect.FLY);
+		addForm.destroy();
 	}
 }

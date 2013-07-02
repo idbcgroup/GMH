@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eiatype.Information;
+package org.fourgeeks.gha.webclient.client.eiatype.information;
 
 import java.util.LinkedHashMap;
 import java.util.List;
