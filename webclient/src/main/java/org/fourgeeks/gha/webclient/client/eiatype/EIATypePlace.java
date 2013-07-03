@@ -8,14 +8,14 @@ public class EIATypePlace extends GHAPlace {
 	private GHATab tab;
 
 	public EIATypePlace() {
-		// tab = GHATabSet.getById(EIATypeTab.ID);
-		// if (tab == null)
-		tab = new EIATypeTab(null);
+		tab = GHATabSet.getById(EIATypeTab.ID);
+		if (tab == null)
+			tab = new EIATypeTab(null);
 	}
 
 	@Override
 	public void show() {
 		tab.setToken(getToken());
-		GHATabSet.addTab(tab);
+		GHATabSet.showTab(tab);
 	}
 }

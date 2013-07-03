@@ -1,5 +1,9 @@
 package org.fourgeeks.gha.webclient.client.UI;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -7,7 +11,7 @@ import com.smartgwt.client.widgets.menu.IMenuButton;
 
 public final class GHATabSet {
 
-	// private static Map<String, GHATab> tabs;
+	private static Map<String, GHATab> tabs;
 	private static HorizontalPanel hPanel;
 	private static GHATab currentTab;
 	static {
@@ -15,22 +19,22 @@ public final class GHATabSet {
 		hPanel.setHeight("24px");
 		hPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		RootPanel.get("menu-bar").add(hPanel);
-		// tabs = new HashMap<String, GHATab>();
+		tabs = new HashMap<String, GHATab>();
 	}
 
 	private GHATabSet() {
 		throw new UnsupportedOperationException("Esta clase no es instanciable");
 	}
 
-	public static void addTab(final GHATab tab) {
-		hPanel.add(tab.getHeader());
-		hPanel.setCellHeight(tab.getHeader(), "24px");
+	private static void addTab(final GHATab tab) {
+		GHATabHeader header = tab.getHeader();
+		hPanel.add(header);
+		hPanel.setCellHeight(header, "24px");
 
 		if (currentTab != null)
-			if (currentTab != tab)
-				currentTab.close();// TODO
+			currentTab.hide();// TODO
 
-		// tabs.put(tab.getId(), tab);
+		tabs.put(tab.getId(), tab);
 
 		RootPanel.get("main-content").add(tab);
 		currentTab = tab;
@@ -40,22 +44,24 @@ public final class GHATabSet {
 		if (tab == null)
 			return;
 
+		if (tabs.get(tab.getId()) == null) {
+			addTab(tab);
+			return;
+		}
+
 		if (tab == currentTab)
 			return;
 
-		// if (tabs.get(tab.getId()) == null)
-		// return;
-
 		if (currentTab != null)
-			currentTab.close();// TODO
+			currentTab.hide();// TODO
 
 		tab.show();
 		currentTab = tab;
 	}
 
-	// public static GHATab getById(String id) {
-	// return tabs.get(id);
-	// }
+	public static GHATab getById(String id) {
+		return tabs.get(id);
+	}
 
 	public static void addMenu(IMenuButton menuButton) {
 		hPanel.add(menuButton);
@@ -70,8 +76,8 @@ public final class GHATabSet {
 		// return;
 
 		tab.close();
-		// tabs.remove(tab.getId());
+		tabs.remove(tab.getId());
 
-		// History.back();
+		History.back();
 	}
 }

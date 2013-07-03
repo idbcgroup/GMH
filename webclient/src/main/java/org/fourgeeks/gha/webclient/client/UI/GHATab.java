@@ -46,6 +46,23 @@ public abstract class GHATab extends VLayout implements GHAClosable {
 		removeFromParent();
 	}
 
+	@Override
+	public void hide() {
+		// TODO Auto-generated method stub
+		// super.hide();
+		// setVisible(false);
+		// setVisibility(Visibility.HIDDEN);
+		// setZIndex(-1);
+		getElement().addClassName("hidden");
+
+	}
+
+	@Override
+	public void show() {
+		super.show();
+		getElement().removeClassName("hidden");
+	}
+
 	public void addClosableHandler(GHAClosable closable) {
 		closables.add(closable);
 	}

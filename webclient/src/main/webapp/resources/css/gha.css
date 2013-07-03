@@ -273,6 +273,16 @@ input[type=text].round,input[type=password].round{
 .top-8{
 	top: 8px;
 }
+.hidden{
+	visibility: hidden;
+	z-index: -1;
+	display: none;
+}
+.visible{
+	visibility:visible;
+	z-index: 1;
+	display: block;
+}
 
 .side-option{
 height: 10px;
