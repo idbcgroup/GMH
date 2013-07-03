@@ -10,17 +10,21 @@ public abstract class GHATab extends VLayout implements GHAClosable,
 		GHAHideable {
 
 	private String token = null;
+	private GHATabHeader header;
 	private List<GHAClosable> closables = new ArrayList<GHAClosable>();
 	private List<GHAHideable> hideables = new ArrayList<GHAHideable>();
 
 	public GHATab() {
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
+		header = new GHATabHeader(this);
 	}
 
 	public abstract String getId();
 
-	public abstract GHATabHeader getHeader();
+	public GHATabHeader getHeader() {
+		return header;
+	}
 
 	public void setToken(String token) {
 		this.token = token;
@@ -43,6 +47,7 @@ public abstract class GHATab extends VLayout implements GHAClosable,
 
 	@Override
 	public void hide() {
+
 		for (GHAHideable hideable : hideables)
 			hideable.hide();
 		super.hide();

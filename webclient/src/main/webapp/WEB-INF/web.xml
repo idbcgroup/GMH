@@ -5,7 +5,6 @@
 
 <web-app>
 
-	<!-- Servlets -->
 	<servlet>
 		<servlet-name>GWTLoginService</servlet-name>
 		<servlet-class>org.fourgeeks.gha.webclient.server.login.GWTLoginServiceImpl</servlet-class>

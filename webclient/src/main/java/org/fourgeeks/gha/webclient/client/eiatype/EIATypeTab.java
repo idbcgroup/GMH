@@ -2,7 +2,6 @@ package org.fourgeeks.gha.webclient.client.eiatype;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHATab;
-import org.fourgeeks.gha.webclient.client.UI.GHATabHeader;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
 import com.smartgwt.client.widgets.layout.VLayout;
@@ -11,7 +10,6 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener {
 
 	public static final String ID = "eiatype";
 	private static final String TITLE = "Tipos de equipo";
-	private GHATabHeader header;
 	private EIATypeTopSection topSection;
 	private EiaType eiaType;
 	private EIATypeInternalTabset bottomTabset;
@@ -19,8 +17,7 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener {
 	public EIATypeTab(EiaType eiaType) {
 		super();
 		this.eiaType = eiaType;
-		header = new GHATabHeader(this);
-		header.setTitle(TITLE);
+		getHeader().setTitle(TITLE);
 
 		bottomTabset = new EIATypeInternalTabset(this);
 		topSection = new EIATypeTopSection(this);
@@ -45,11 +42,6 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener {
 	@Override
 	public String getId() {
 		return ID;
-	}
-
-	@Override
-	public GHATabHeader getHeader() {
-		return header;
 	}
 
 	@Override
