@@ -6,10 +6,12 @@ import java.util.List;
 import com.smartgwt.client.util.SC;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public abstract class GHATab extends VLayout implements GHAClosable {
+public abstract class GHATab extends VLayout implements GHAClosable,
+		GHAHideable {
 
 	private String token = null;
 	private List<GHAClosable> closables = new ArrayList<GHAClosable>();
+	private List<GHAHideable> hideables = new ArrayList<GHAHideable>();
 
 	public GHATab() {
 		setWidth100();
@@ -30,13 +32,6 @@ public abstract class GHATab extends VLayout implements GHAClosable {
 		return token;
 	};
 
-	// @Override
-	// public void hide() {//TODO
-	// for (GHAClosable closable : closables)
-	// closable.close();
-	// removeFromParent();
-	// }
-
 	@Override
 	public void close() {
 		for (GHAClosable closable : closables)
@@ -48,13 +43,10 @@ public abstract class GHATab extends VLayout implements GHAClosable {
 
 	@Override
 	public void hide() {
-		// TODO Auto-generated method stub
-		// super.hide();
-		// setVisible(false);
-		// setVisibility(Visibility.HIDDEN);
-		// setZIndex(-1);
+		for (GHAHideable hideable : hideables)
+			hideable.hide();
+		super.hide();
 		getElement().addClassName("hidden");
-
 	}
 
 	@Override
@@ -65,5 +57,9 @@ public abstract class GHATab extends VLayout implements GHAClosable {
 
 	public void addClosableHandler(GHAClosable closable) {
 		closables.add(closable);
+	}
+
+	public void addHideableHandler(GHAHideable hideable) {
+		hideables.add(hideable);
 	}
 }

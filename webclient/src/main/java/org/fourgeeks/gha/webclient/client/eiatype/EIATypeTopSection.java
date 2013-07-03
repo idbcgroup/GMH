@@ -6,12 +6,14 @@ import java.util.List;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAButton;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
+import org.fourgeeks.gha.webclient.client.UI.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.GHAImg;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
+import com.google.gwt.user.client.Window;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.TitleOrientation;
@@ -23,7 +25,7 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class EIATypeTopSection extends HLayout implements
-		EIATypeSelectionListener, GHAClosable, ResizeHandler {
+		EIATypeSelectionListener, ResizeHandler {
 
 	private List<EIATypeSelectionListener> selectionListeners;
 	private EIATypeSearchForm eiaTypeSearchForm;
@@ -53,10 +55,23 @@ public class EIATypeTopSection extends HLayout implements
 
 	public EIATypeTopSection(EIATypeTab eiaTypeTab) {
 		super();
+		eiaTypeTab.addHideableHandler(new GHAHideable() {
+
+			@Override
+			public void hide() {
+				eiaTypeSearchForm.animateHide(AnimationEffect.FLY);
+			}
+		});
+		eiaTypeTab.addClosableHandler(new GHAClosable() {
+
+			@Override
+			public void close() {
+				eiaTypeSearchForm.destroy();
+			}
+		});
 		GHAUiHelper.addResizeHandler(this);
-		eiaTypeTab.addClosableHandler(this);
 		eiaTypeSearchForm.AddEIATypeSelectionListener(eiaTypeTab);
-		
+
 		setStyleName("sides-padding");// Esto es VUDU!
 		setWidth100();
 		setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT + "px");
@@ -110,7 +125,8 @@ public class EIATypeTopSection extends HLayout implements
 
 			@Override
 			public void onClick(ClickEvent event) {
-				eiaTypeSearchForm.animateShow(AnimationEffect.FLY);
+				Window.alert("search");
+				search();
 			}
 		});
 		GHAButton cancelButton = new GHAButton("../resources/icons/cancel.png");
@@ -164,13 +180,7 @@ public class EIATypeTopSection extends HLayout implements
 	}
 
 	@Override
-	public void close() {
-		eiaTypeSearchForm.animateHide(AnimationEffect.FLY);
-		eiaTypeSearchForm.destroy();
-	}
-
-	@Override
 	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT + "px");		
+		setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT + "px");
 	}
 }

@@ -245,6 +245,10 @@ public class EIATypeAddForm extends GHASlideInWindow {
 	@Override
 	public void onResize(ResizeEvent event) {
 		setHeight(GHAUiHelper.getBottomSectionHeight());
+	}
 
+	@Override
+	public void close() {
+		destroy();
 	}
 }

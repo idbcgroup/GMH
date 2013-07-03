@@ -36,10 +36,12 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class EIATypeSearchForm extends GHASlideInWindow {
 
 	private List<EIATypeSelectionListener> selectionListeners;
-	private GHATextItem codeEIAItem, nameEIAItem, modelItem, descriptionItem, useDescriptionItem, umdnsCodeItem;
+	private GHATextItem codeEIAItem, nameEIAItem, modelItem, descriptionItem,
+			useDescriptionItem, umdnsCodeItem;
 	private EIATypeGrid eiaTypeGrid;
-	private GHASelectItem brandItem, manItem, mobilityItem, typeItem, subTypeItem;
-	private GHACheckboxItem isServiceItem; 
+	private GHASelectItem brandItem, manItem, mobilityItem, typeItem,
+			subTypeItem;
+	private GHACheckboxItem isServiceItem;
 	{
 		selectionListeners = new LinkedList<EIATypeSelectionListener>();
 		codeEIAItem = new GHATextItem("Código");
@@ -63,17 +65,17 @@ public class EIATypeSearchForm extends GHASlideInWindow {
 	public EIATypeSearchForm() {
 		setTop(110);
 		setHeight(GHAUiHelper.getTabHeight() + "px");
-		
+
 		DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(5);
-		form.setItems(codeEIAItem, nameEIAItem, descriptionItem, brandItem, modelItem, 
-					  manItem, useDescriptionItem, umdnsCodeItem, mobilityItem, typeItem,
-					  subTypeItem, isServiceItem);
+		form.setItems(codeEIAItem, nameEIAItem, descriptionItem, brandItem,
+				modelItem, manItem, useDescriptionItem, umdnsCodeItem,
+				mobilityItem, typeItem, subTypeItem, isServiceItem);
 
 		GHAButton searchButton = new GHAButton("../resources/icons/search.png");
-		//Event Handlers
-		ClickHandler searchClickHandler = new ClickHandler() {			
+		// Event Handlers
+		ClickHandler searchClickHandler = new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				search();
@@ -82,12 +84,12 @@ public class EIATypeSearchForm extends GHASlideInWindow {
 		KeyUpHandler searchKeyUpHandler = new KeyUpHandler() {
 			@Override
 			public void onKeyUp(KeyUpEvent event) {
-				if (event.getKeyName().equals("Enter")){
+				if (event.getKeyName().equals("Enter")) {
 					search();
-				}		
+				}
 			}
 		};
-		
+
 		searchButton.addClickHandler(searchClickHandler);
 		codeEIAItem.addKeyUpHandler(searchKeyUpHandler);
 		nameEIAItem.addKeyUpHandler(searchKeyUpHandler);
@@ -99,16 +101,16 @@ public class EIATypeSearchForm extends GHASlideInWindow {
 		umdnsCodeItem.addKeyUpHandler(searchKeyUpHandler);
 		mobilityItem.addKeyUpHandler(searchKeyUpHandler);
 		typeItem.addKeyUpHandler(searchKeyUpHandler);
-		subTypeItem.addKeyUpHandler(searchKeyUpHandler);		
-		//////////////////////////////
-		
+		subTypeItem.addKeyUpHandler(searchKeyUpHandler);
+		// ////////////////////////////
+
 		GHAButton cleanButton = new GHAButton("../resources/icons/clean.png");
 		GHAButton cancelButton = new GHAButton("../resources/icons/cancel.png");
 		cancelButton.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				EIATypeSearchForm.this.animateHide(AnimationEffect.FLY);
+				hide();
 			}
 		});
 		VLayout sideButtons = new VLayout();
@@ -119,7 +121,6 @@ public class EIATypeSearchForm extends GHASlideInWindow {
 		sideButtons.setDefaultLayoutAlign(Alignment.CENTER);
 		sideButtons.addMembers(searchButton, cleanButton, cancelButton);
 
-		
 		HLayout formLayout = new HLayout();
 		formLayout.setPadding(10);
 		formLayout.setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT + "px");
@@ -161,7 +162,7 @@ public class EIATypeSearchForm extends GHASlideInWindow {
 		searchForMans();
 		fillExtras();
 	}
-	
+
 	private void fillExtras() {
 		// types
 		LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
@@ -179,7 +180,7 @@ public class EIATypeSearchForm extends GHASlideInWindow {
 			valueMap.put(mobility.ordinal() + "", mobility.toString());
 		mobilityItem.setValueMap(valueMap);
 	}
-	
+
 	private void searchForMans() {
 		GHACache.INSTANCE
 				.getManufacturesrs(new GHAAsyncCallback<List<Manufacturer>>() {
@@ -248,6 +249,16 @@ public class EIATypeSearchForm extends GHASlideInWindow {
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getTabHeight() + "px");		
+		setHeight(GHAUiHelper.getTabHeight() + "px");
+	}
+
+	@Override
+	public void close() {
+		destroy();
+	}
+
+	@Override
+	public void hide() {
+		EIATypeSearchForm.this.animateHide(AnimationEffect.FLY);
 	}
 }

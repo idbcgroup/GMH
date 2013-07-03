@@ -32,7 +32,7 @@ public final class GHATabSet {
 		hPanel.setCellHeight(header, "24px");
 
 		if (currentTab != null)
-			currentTab.hide();// TODO
+			currentTab.hide();
 
 		tabs.put(tab.getId(), tab);
 
@@ -53,7 +53,7 @@ public final class GHATabSet {
 			return;
 
 		if (currentTab != null)
-			currentTab.hide();// TODO
+			currentTab.hide();
 
 		tab.show();
 		currentTab = tab;
