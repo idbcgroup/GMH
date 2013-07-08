@@ -89,7 +89,6 @@ public class EIATypeSearchForm extends GHASlideInWindow {
 				}
 			}
 		};
-
 		searchButton.addClickHandler(searchClickHandler);
 		codeEIAItem.addKeyUpHandler(searchKeyUpHandler);
 		nameEIAItem.addKeyUpHandler(searchKeyUpHandler);

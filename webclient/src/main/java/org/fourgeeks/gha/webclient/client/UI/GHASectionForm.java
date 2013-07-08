@@ -46,7 +46,6 @@ public class GHASectionForm extends HLayout {
 		section.setVisibility(Visibility.HIDDEN);
 		
 		final Option option = new Option(name, section);
-		option.setStylePrimaryName("side-option");
 		option.addClickHandler(new com.google.gwt.event.dom.client.ClickHandler() {
 
 			@Override
@@ -94,15 +93,14 @@ public class GHASectionForm extends HLayout {
 
 				@Override
 				public void onMouseOver(MouseOverEvent event) {
-					setStylePrimaryName("side-option-over");
-
+					addStyleName("side-option-over");
 				}
 			});
 			addMouseOutHandler(new MouseOutHandler() {
 
 				@Override
 				public void onMouseOut(MouseOutEvent event) {
-					setStylePrimaryName("side-option");
+					removeStyleName("side-option-over");					
 				}
 			});
 		}

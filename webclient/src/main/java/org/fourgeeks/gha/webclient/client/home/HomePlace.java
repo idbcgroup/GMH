@@ -1,6 +1,6 @@
 package org.fourgeeks.gha.webclient.client.home;
 
-import org.fourgeeks.gha.webclient.client.UI.GHAMenus;
+import org.fourgeeks.gha.webclient.client.UI.GHADropdownMenus;
 import org.fourgeeks.gha.webclient.client.UI.GHAPlace;
 import org.fourgeeks.gha.webclient.client.UI.GHATabSet;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
@@ -41,8 +41,8 @@ public class HomePlace extends GHAPlace {
 		RootPanel.get("menu-bar").clear();
 		RootPanel.get("main-content").removeStyleName("white-background");
 		
-		final VLayout userMenu = GHAMenus.userMenu();
-		final VLayout notificationsMenu = GHAMenus.notificationsMenu();
+		final VLayout userMenu = GHADropdownMenus.userMenu();
+		final VLayout notificationsMenu = GHADropdownMenus.notificationsMenu();
 		// userMenu.draw();
 
 		HLayout userInfo = new HLayout();

@@ -44,12 +44,14 @@ public abstract class GHAUiHelper {
 		return separator;
 	}
 	
+//	TO-DO: No se muestra, si agrega el elemento pero no se muestra de color
 	public static HTML horizontalGraySeparator(String width) {
 		HTML separator = new HTML();
 		separator.setStylePrimaryName("horizontal-gray-separator");
 		separator.setWidth(width);
 		return separator;
 	}
+//	//////////////////////////////
 
 	public static int getTabHeight() {
 		int rootPanelHeight = Window.getClientHeight();

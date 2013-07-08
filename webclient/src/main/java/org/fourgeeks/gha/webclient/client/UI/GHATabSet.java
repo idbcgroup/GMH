@@ -30,7 +30,7 @@ public final class GHATabSet {
 		GHATabHeader header = tab.getHeader();
 		hPanel.add(header);
 		hPanel.setCellHeight(header, "24px");
-
+		
 		if (currentTab != null)
 			currentTab.hide();
 
@@ -38,6 +38,7 @@ public final class GHATabSet {
 
 		RootPanel.get("main-content").add(tab);
 		currentTab = tab;
+		header.selectTab();
 	}
 
 	public static void showTab(GHATab tab) {

@@ -46,8 +46,8 @@
 			/*float: left;
 			width: 28px;
 			height: 25px;
-			background-image: url(../icons/boton1.png);
 			*/
+			background-image: url(../icons/boton1.png);
 			color:white;
 			font-weight:bold;
 			font-size: medium;
@@ -93,6 +93,15 @@
 		text-transform: uppercase;
 		font-weight: bold;
 		cursor:pointer
+	}
+	
+	.tab-header-selected{
+		font-weight: bolder;
+		background-color: #CECECE;
+	}
+	
+	.tab-header-over{
+		background-color: #CECECE;
 	}
 	
 	.tab-header-title{
@@ -280,26 +289,20 @@ input[type=text].round,input[type=password].round{
 }
 
 .side-option{
-height: 10px;
-text-align: left;
-cursor:pointer;
-margin-right: 5px;
+	height: 10px;
+	text-align: left;
+	cursor:pointer;
+	margin-right: 5px;
 }
 .side-option-over{
-height: 10px;
-text-align: left;
-font-weight: bolder;
-cursor:pointer;
-background-color: #CECECE;
+	font-weight: bolder;
+	background-color: #CECECE;
 }
 .side-option-selected{
-height: 10px;
-text-align: left;
-font-weight: bolder;
-cursor:pointer;
-background-image: url(../icons/arrow.png);
-background-position: right center;
-background-repeat: no-repeat;
+	font-weight: bolder;
+	background-image: url(../icons/arrow.png);
+	background-position: right center;
+	background-repeat: no-repeat;
 }
 /*OVERRIDES*/
 
