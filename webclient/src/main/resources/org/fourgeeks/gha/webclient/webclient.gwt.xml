@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module rename-to='webclient'>
+	 <!-- Include GWTUpload library -->
+  	<inherits name="gwtupload.GWTUpload"/>
+  	<!-- Load dinamically predefined styles in the library when the application starts -->
+  	<stylesheet src="Upload.css"/>
+   
+  	<!-- Change this line with your project's entry-point -->
+  	<!--<entry-point class="package.Xxx"/>-->
 	
 	<inherits name="com.smartgwt.SmartGwtNoTheme"/>
 	<inherits name="com.smartclient.theme.gha.gha"/>
