@@ -61,7 +61,7 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 		sectionForm.addSection("EquiposIT", getEquiposIT(), false);
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAButton(
-				"../resources/icons/new.png"), new GHAButton(
+				"../resources/icons/save.png"), new GHAButton(
 				"../resources/icons/set.png"), new GHAButton(
 				"../resources/icons/cancel.png", new ClickHandler() {
 
