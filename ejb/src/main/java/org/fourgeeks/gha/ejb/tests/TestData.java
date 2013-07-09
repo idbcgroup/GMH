@@ -223,26 +223,26 @@ public class TestData {
 
 				Eia eia = new Eia(facility, eiaTypeServ.find(1),
 						WarrantySinceEnum.ACCEPTATION, TimePeriodEnum.DAYS,
-						EiaStateEnum.TEST, WarrantyStateEnum.VALID);
+						EiaStateEnum.NUEVO, WarrantyStateEnum.VALID);
 				eia.setCode("Stylus-001");
 				eia.setSerialNumber("001");
 				em.persist(eia);
 
 				Eia eia2 = new Eia(facility, eiaTypeServ.find(2),
 						WarrantySinceEnum.ACCEPTATION, TimePeriodEnum.YEARS,
-						EiaStateEnum.TEST, WarrantyStateEnum.VALID);
+						EiaStateEnum.NUEVO, WarrantyStateEnum.VALID);
 
 				Eia eia3 = new Eia(facility, eiaTypeServ.find(3),
 						WarrantySinceEnum.ACCEPTATION, TimePeriodEnum.YEARS,
-						EiaStateEnum.TEST, WarrantyStateEnum.VALID);
+						EiaStateEnum.NUEVO, WarrantyStateEnum.VALID);
 
 				Eia eia4 = new Eia(facility, eiaTypeServ.find(4),
 						WarrantySinceEnum.ACCEPTATION, TimePeriodEnum.DAYS,
-						EiaStateEnum.TEST, WarrantyStateEnum.VALID);
+						EiaStateEnum.NUEVO, WarrantyStateEnum.VALID);
 
 				Eia eia5 = new Eia(facility, eiaTypeServ.find(5),
 						WarrantySinceEnum.ACCEPTATION, TimePeriodEnum.DAYS,
-						EiaStateEnum.TEST, WarrantyStateEnum.VALID);
+						EiaStateEnum.NUEVO, WarrantyStateEnum.VALID);
 
 				em.persist(eia2);
 				em.persist(eia3);

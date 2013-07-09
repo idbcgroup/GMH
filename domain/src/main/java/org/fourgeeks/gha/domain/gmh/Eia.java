@@ -41,7 +41,7 @@ public class Eia extends AbstractEntity {
 	private CurrencyTypeEnum adquisitionCostCurrencyLocal;
 	/** Fecha de Contabilización length =22 */
 	private BigDecimal adquisitionCostLocal;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "roleItFk")
 	private RoleIt responsibleRole;
@@ -62,15 +62,15 @@ public class Eia extends AbstractEntity {
 	private Date desincorporatedDate;
 	/** Fecha de Desincorporación length =22 */
 	private String desincorporateReason;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "eiaTypeFk")
 	private EiaType eiaType;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "facilityFk")
 	private Facility facility;
-	
+
 	/** Número de Serial del Equipo length =60 */
 	private String fixeAssetIdentifier;
 	/** Fecha de Recepción del Equipo length =22 */
@@ -88,11 +88,11 @@ public class Eia extends AbstractEntity {
 	 * Código del Proveedor de Instalación solo si es un proveedor regular
 	 * length =255
 	 */
-	
+
 	@ManyToOne
 	@JoinColumn(name = "maintenanceLocationFk")
 	private BuildingLocation maintenanceLocation;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "maintenanceProviderFk")
 	private ExternalProvider maintenanceProvider;
@@ -113,7 +113,7 @@ public class Eia extends AbstractEntity {
 	/** Nombre Departamento donde esta adjudicado el equipo length =255 */
 
 	@Column(nullable = false)
-	private EiaStateEnum state;
+	private EiaStateEnum state = EiaStateEnum.NUEVO;
 
 	@ManyToOne
 	@JoinColumn(name = "externalProviderFk")
@@ -332,7 +332,8 @@ public class Eia extends AbstractEntity {
 		this.adquisitionCost = adquisitionCost;
 	}
 
-	public void setAdquisitionCostCurrency(CurrencyTypeEnum adquisitionCostCurrency) {
+	public void setAdquisitionCostCurrency(
+			CurrencyTypeEnum adquisitionCostCurrency) {
 		this.adquisitionCostCurrency = adquisitionCostCurrency;
 	}
 
