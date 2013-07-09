@@ -30,7 +30,6 @@ public class EIAForm extends HLayout {
 		setVisibility(Visibility.HIDDEN);
 		setAlign(Alignment.CENTER);
 		setAnimateTime(800);
-
 		GHATextItem codigoEIA = new GHATextItem("Código");
 
 		GHATextItem nombreEIA = new GHATextItem("Nombre");
@@ -60,7 +59,6 @@ public class EIAForm extends HLayout {
 		addButton.sinkEvents(Event.MOUSEEVENTS);
 		addButton.setSrc("../resources/icons/new.png");
 		addButton.setShowRollOver(false);
-
 		addButton.setSize("20px", "20px");
 		Img editButton = new Img("../resources/icons/edit.png");
 		editButton.setSize("20px", "20px");
@@ -76,9 +74,8 @@ public class EIAForm extends HLayout {
 				EIAForm.this.animateHide(AnimationEffect.FLY);
 			}
 		});
-
 		sideButtons.addMembers(addButton, editButton, cancelButton);
 
-		addMembers(form, sideButtons);
+		addMembers(form, sideButtons);	
 	}
 }
