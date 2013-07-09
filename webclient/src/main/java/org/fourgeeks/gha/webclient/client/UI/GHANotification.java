@@ -1,25 +1,25 @@
 package org.fourgeeks.gha.webclient.client.UI;
 
-public class GHANotification implements GHAHideable, GHAClosable {
+import com.smartgwt.client.util.SC;
 
-	public GHANotification() {
-		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public void hide() {
-		// TODO Auto-generated method stub
-		
-	}
+public class GHANotification {
 	
-	public void show(){
-		
-	}
+	/*public GHANotification() {
+		setPosition(Positioning.ABSOLUTE);
+		setBottom(Window.getClientHeight()-20);
+		setSize("280px", "*");
+		setBackgroundColor("#FFFFFF");
+		setBorder("1px solid #E0E0E0");
+		setVisibility(Visibility.HIDDEN);
 
-	@Override
-	public void close() {
-		// TODO Auto-generated method stub
-		
-	}
+		HLayout topUserLayout = new HLayout();
+		topUserLayout.setSize("100%", "25px");
+		topUserLayout.setBackgroundColor("#666666");
 
+		addMember(GHAUiHelper.verticalGraySeparator("25px"));
+	}*/
+
+	public static void alert(String message){
+		SC.say(message);
+	}
 }

@@ -142,6 +142,7 @@ public class HomePlace extends GHAPlace {
 				History.newItem("eiatype");
 			}
 		});
+	
 		MenuItem eiaMenuItem = new MenuItem("Equipos");
 		eiaMenuItem.addClickHandler(new ClickHandler() {
 			@Override
@@ -149,6 +150,8 @@ public class HomePlace extends GHAPlace {
 				History.newItem("eia");
 			}
 		});
+	
+		
 		Menu menu = new Menu();
 		menu.setItems(eiaTypeMenuItem, eiaMenuItem);
 
