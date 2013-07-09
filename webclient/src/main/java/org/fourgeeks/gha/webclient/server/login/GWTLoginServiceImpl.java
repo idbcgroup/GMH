@@ -13,9 +13,8 @@ public class GWTLoginServiceImpl extends RemoteServiceServlet implements
 	// @Resource(name = "java:/jdbc/gha")
 	// DataSource service;
 	//
-//	@EJB(name = "mix.UserService")
-//	UserServiceRemote userService;
-	
+	// @EJB(name = "mix.UserService")
+	// UserServiceRemote userService;
 
 	private static final long serialVersionUID = 1L;
 
@@ -38,7 +37,6 @@ public class GWTLoginServiceImpl extends RemoteServiceServlet implements
 
 		try {
 			request.login(user, password);
-
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
