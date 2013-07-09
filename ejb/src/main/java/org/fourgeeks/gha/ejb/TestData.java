@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.ejb.tests;
+package org.fourgeeks.gha.ejb;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,6 +29,7 @@ import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.domain.mix.Bpi;
+import org.fourgeeks.gha.domain.mix.Institution;
 import org.fourgeeks.gha.domain.mix.LegalEntity;
 import org.fourgeeks.gha.ejb.gmh.BrandServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.EiaComponentServiceRemote;
@@ -70,11 +71,120 @@ public class TestData {
 
 	@PostConstruct
 	public void loadTestData() {
+		legalEntityTestData();
+		institutionTestData();
+		bpiTestData();
+		buildingLocationsTestData();
+		// TODO
 		userTestData();
 		brandTestData();
 		manufacturerTestData();
 		eiaTypeTestData();
 		eiaTestData();
+	}
+
+	private void legalEntityTestData() {
+		String query = "SELECT t from LegalEntity t WHERE id = 1 ";
+		try {
+			em.createQuery(query).getSingleResult();
+		} catch (NoResultException e) {
+			try {
+				logger.info("creating test data : legal entity ");
+				LegalEntity legalEntity = new LegalEntity();
+				em.persist(legalEntity);
+				legalEntity = new LegalEntity();
+				em.persist(legalEntity);
+				legalEntity = new LegalEntity();
+				em.persist(legalEntity);
+
+				em.flush();
+			} catch (Exception e1) {
+				logger.log(Level.INFO, "error creating test data legal entity",
+						e);
+			}
+		}
+	}
+
+	private void institutionTestData() {
+		String query = "SELECT t from Institution t WHERE id = 1 ";
+		try {
+			em.createQuery(query).getSingleResult();
+		} catch (NoResultException e) {
+			try {
+				logger.info("creating test data : institution");
+				Institution institution = new Institution();
+				institution.setLegalEntity(em.find(LegalEntity.class, 1L));
+				em.persist(institution);
+				institution = new Institution();
+				institution.setLegalEntity(em.find(LegalEntity.class, 1L));
+				em.persist(institution);
+
+				em.flush();
+			} catch (Exception e1) {
+				logger.log(Level.INFO, "error creating test data institution",
+						e1);
+			}
+		}
+	}
+
+	private void bpiTestData() {
+		String query = "SELECT t from Bpi t WHERE id = 1 ";
+		try {
+			em.createQuery(query).getSingleResult();
+		} catch (NoResultException e) {
+			try {
+				logger.info("creating test data : bpi");
+				Bpi bpi = new Bpi();
+				bpi.setInstitution(em.find(Institution.class, 1L));
+				em.persist(bpi);
+
+				bpi = new Bpi();
+				bpi.setInstitution(em.find(Institution.class, 2L));
+				em.persist(bpi);
+
+				em.flush();
+			} catch (Exception e1) {
+				logger.log(Level.INFO, "error creating test data bpi", e);
+			}
+		}
+	}
+
+	private void buildingLocationsTestData() {
+		String query = "SELECT t from BuildingLocation t WHERE id = 1 ";
+		try {
+			em.createQuery(query).getSingleResult();
+		} catch (NoResultException e) {
+			try {
+				logger.info("creating eia building locations");
+
+				BuildingLocation buildingLocation = new BuildingLocation(
+						em.find(Bpi.class, 1L), "Edificio",
+						LocationLevelEnum.BUILDING, 2);
+				em.persist(buildingLocation);
+
+				buildingLocation = new BuildingLocation(em.find(Bpi.class, 2L),
+						"Building001", LocationLevelEnum.AREA_HALL, 2);
+				em.persist(buildingLocation);
+
+				buildingLocation = new BuildingLocation(em.find(Bpi.class, 2L),
+						"Building002", LocationLevelEnum.AREA_HALL, 2);
+				em.persist(buildingLocation);
+
+				buildingLocation = new BuildingLocation(em.find(Bpi.class, 2L),
+						"Building003", LocationLevelEnum.AREA_HALL, 2);
+				em.persist(buildingLocation);
+
+				buildingLocation = new BuildingLocation(em.find(Bpi.class, 2L),
+						"Building004", LocationLevelEnum.AREA_HALL, 2);
+				em.persist(buildingLocation);
+
+				em.flush();
+
+			} catch (Exception e1) {
+				logger.log(Level.INFO, "error creating test building location",
+						e);
+			}
+		}
 	}
 
 	/**
@@ -207,17 +317,9 @@ public class TestData {
 			try {
 				logger.info("creating test eia");
 
-				Bpi bpi = new Bpi();
-				em.persist(bpi);
-				em.flush();
-
-				BuildingLocation buildingLocation = new BuildingLocation(bpi,
-						"Building001", LocationLevelEnum.AREA_HALL, 2);
-				em.persist(buildingLocation);
-				em.flush();
-
 				Facility facility = new Facility();
-				facility.setBuildingLocation(buildingLocation);
+				facility.setBuildingLocation(em
+						.find(BuildingLocation.class, 2L));
 				em.persist(facility);
 				em.flush();
 
@@ -257,23 +359,19 @@ public class TestData {
 
 	private void userTestData() {
 		try {
-			String query = "SELECT t from LegalEntity t WHERE id = 1 ";
+			String query = "SELECT t from SingleSignOnUser t WHERE id = 1 ";
 			try {
 				em.createQuery(query).getSingleResult();
 			} catch (NoResultException e) {
-				logger.info("creating test users");
-				LegalEntity legalEntity = new LegalEntity();
-				em.persist(legalEntity);
+				logger.info("creating test data: users");
 				SingleSignOnUser signOnUser = new SingleSignOnUser();
-				signOnUser.setLegalEntity(legalEntity);
+				signOnUser.setLegalEntity(em.find(LegalEntity.class, 2L));
 				signOnUser.setPassword("admin");
 				signOnUser.setUserName("admin");
 				em.persist(signOnUser);
 
-				legalEntity = new LegalEntity();
-				em.persist(legalEntity);
 				signOnUser = new SingleSignOnUser();
-				signOnUser.setLegalEntity(legalEntity);
+				signOnUser.setLegalEntity(em.find(LegalEntity.class, 3L));
 				signOnUser.setPassword("asanchez");
 				signOnUser.setUserName("asanchez");
 				em.persist(signOnUser);
@@ -282,7 +380,7 @@ public class TestData {
 				logger.info("done creating test users");
 			}
 		} catch (Exception e) {
-			logger.log(Level.INFO, "error creating test users", e);
+			logger.log(Level.INFO, "error creating test data:  users", e);
 		}
 	}
 
