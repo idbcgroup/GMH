@@ -6,6 +6,8 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.eiatype.component.EIATypeComponentSubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.equipment.EIATypeEquipmentSubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.information.EIATypeInformationSubTab;
+import org.fourgeeks.gha.webclient.client.eiatype.maintenance.EIATypeMaintenanceSubTab;
+import org.fourgeeks.gha.webclient.client.eiatype.replacements.EIATypeReplacementsSubTab;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
@@ -14,9 +16,11 @@ import com.smartgwt.client.widgets.tab.TabSet;
 public class EIATypeInternalTabset extends TabSet implements
 		EIATypeSelectionListener, GHAClosable, ResizeHandler {
 
-	private EIATypeInformationSubTab caracteristicasSubTab;
-	private EIATypeEquipmentSubTab equiposSubTab;
-	private EIATypeComponentSubTab partesSubTab;
+	private EIATypeInformationSubTab infoSubTab;
+	private EIATypeEquipmentSubTab equipementsSubTab;
+	private EIATypeComponentSubTab partsSubTab;
+	private EIATypeReplacementsSubTab replacementsSubTab;
+	private EIATypeMaintenanceSubTab maintenanceSubTab;
 
 	public EIATypeInternalTabset(EIATypeTab tab) {
 		super();
@@ -24,28 +28,36 @@ public class EIATypeInternalTabset extends TabSet implements
 		
 		setWidth100();
 		setHeight(GHAUiHelper.getBottomSectionHeight());
-		equiposSubTab = new EIATypeEquipmentSubTab(tab);
-		caracteristicasSubTab = new EIATypeInformationSubTab(tab);
-		partesSubTab = new EIATypeComponentSubTab();
-
+		equipementsSubTab = new EIATypeEquipmentSubTab(tab);
+		infoSubTab = new EIATypeInformationSubTab(tab);
+		partsSubTab = new EIATypeComponentSubTab();
+		replacementsSubTab = new EIATypeReplacementsSubTab();
+		maintenanceSubTab = new EIATypeMaintenanceSubTab();
+		
 		// Agregando las Subtabs
-		addTab(caracteristicasSubTab);
-		addTab(equiposSubTab);
-		addTab(partesSubTab);
+		addTab(infoSubTab);
+		addTab(equipementsSubTab);
+		addTab(partsSubTab);
+		addTab(replacementsSubTab);
+		addTab(maintenanceSubTab);
 	}
 
 	@Override
 	public void select(EiaType eiaType) {
-		caracteristicasSubTab.select(eiaType);
-		equiposSubTab.select(eiaType);
-		partesSubTab.select(eiaType);
+		infoSubTab.select(eiaType);
+		equipementsSubTab.select(eiaType);
+		partsSubTab.select(eiaType);
+		replacementsSubTab.select(eiaType);
+		maintenanceSubTab.select(eiaType);
 	}
 
 	@Override
 	public void close() {
-		equiposSubTab.close();
-		caracteristicasSubTab.close();	
-		partesSubTab.close();
+		infoSubTab.close();	
+		equipementsSubTab.close();
+		partsSubTab.close();
+		replacementsSubTab.close();
+		maintenanceSubTab.close();
 	}
 
 	@Override
