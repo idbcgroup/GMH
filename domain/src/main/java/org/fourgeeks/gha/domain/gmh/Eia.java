@@ -15,163 +15,126 @@ import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
 import org.fourgeeks.gha.domain.enu.WarrantyStateEnum;
+import org.fourgeeks.gha.domain.ess.RoleIt;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Facility;
+import org.fourgeeks.gha.domain.glm.ExternalProvider;
 
 @Entity
 public class Eia extends AbstractEntity {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
-
-	// @OneToOne(mappedBy = "eia")
-	// private Terminal terminal;
+	/** Fecha de Instalación del Equipo length =22 */
+	private Date acceptationDate;
+	/** Periodo de Tiempo (PDT) para el Tiempo de Vida Equipo length =60 */
+	private BigDecimal actualCost;
+	/** Costo Actual en Libros length =16dec =5 */
+	private CurrencyTypeEnum actualCostCurrency;
+	/** Nombre Proveedor de Mantenimiento del Equipo length =255 */
+	private BigDecimal adquisitionCost;
+	/** Costo Adquisición moneda Indicada length =16dec =5 */
+	private CurrencyTypeEnum adquisitionCostCurrency;
+	/** Costo Adquisición moneda Local length =16dec =5 */
+	private CurrencyTypeEnum adquisitionCostCurrencyLocal;
+	/** Fecha de Contabilización length =22 */
+	private BigDecimal adquisitionCostLocal;
 
 	@ManyToOne
-	@JoinColumn(name = "facilityFk")
-	private Facility facility;
+	@JoinColumn(name = "roleItFk")
+	private RoleIt responsibleRole;
+
+	private String code;
+	/** Denominación Moneda del Costo de Adquisición del equipo length =60 */
+	private Date contabilizationDate;
+	/** Motivo de Desincorporación length =255 */
+	private Date dateLastDepreciation;
+	/** Denominación Moneda Local para Costo Contabilizado del equipo length =60 */
+	private DepreciationMethodEnum depreciationMethod;
+	/** Método de Depreciación length =60 */
+	@Column(nullable = true)
+	private int depreciationTime;
+	/** Tiempo de Depreciación length =4 */
+	private TimePeriodEnum depreciationTimePot;
+	/** Denominación Moneda Local para Costo Contabilizado del equipo length =60 */
+	private Date desincorporatedDate;
+	/** Fecha de Desincorporación length =22 */
+	private String desincorporateReason;
 
 	@ManyToOne
 	@JoinColumn(name = "eiaTypeFk")
 	private EiaType eiaType;
 
-	// @ManyToMany
-	// private Collection<Waio> waios;
-
 	@ManyToOne
-	@JoinColumn(name = "buildingFk", nullable = false)
-	private BuildingLocation buildingLocation;
+	@JoinColumn(name = "facilityFk")
+	private Facility facility;
 
-	// @OneToOne(mappedBy = "eia")
-	// private SystemPeripheral systemPeripheral;
-
-	/** Attributes */
-	private String code;
-	/** Código asignado al Equipo o Instalación length =20 */
-	private String serialNumber;
 	/** Número de Serial del Equipo length =60 */
 	private String fixeAssetIdentifier;
-	/** Identificación de Activo Fijo length =60 */
-
-	@Column(nullable = false)
-	private WarrantySinceEnum warrantySince;
-	/** Desde que fecha se considera la garantía del fabricante length =60 */
-
-	@Column(nullable = true)
-	private int warrantyTime;
-	/** Tiempo de duración de la garantía length =4 */
-
-	private TimePeriodEnum warrantyTimePot;
-	/** Periodo de Tiempo (PDT) para la duración de la garantía length =60 */
-
-	private Date purchaseDate;
-	/** Fecha de Compra del Equipo length =22 */
-	private Date receptionDate;
 	/** Fecha de Recepción del Equipo length =22 */
 	private Date installationDate;
-	/** Fecha de Instalación del Equipo length =22 */
-	private Date acceptationDate;
-	/** Fecha de Aceptación del Equipo length =22 */
-	private Date intermediateWarrantyStartDate;
-	/** Fecha inicio de garantía Intermedia length =22 */
-	private String locationCode;
-	/** Código de Ubicación del Equipo length =20 */
-	private String locationName;
-	/** Nombre de Ubicación del Equipo length =255 */
-	private String obuResponsibleCode;
-	/** Código Departamento donde esta adjudicado el equipo length =20 */
-	private String obuResponsibleName;
-	/** Nombre Departamento donde esta adjudicado el equipo length =255 */
-
-	@Column(nullable = false)
-	private EiaStateEnum state;
-	/** Estado del Equipo length =60 */
-
-	@Column(nullable = false)
-	private WarrantyStateEnum warrantyState;
-	/**
-	 * Estado de la garantía - Tiempo remanente de garantía sobre el Equipo o
-	 * Instalacion length =6
-	 */
-	private String bpuResponsibleCredential;
-	/** Credencial Persona Responsable del equipo length =255 */
-	private String bpuResponsibleName;
-	/** Nombre Completo Persona Responsable del equipo length =255 */
-
-	private String primaryAreaAttendedCode;
-	/** Código de Ubicación del Equipo length =20 */
-	private String primaryAreaAttendedName;
-	/** Nombre de Ubicación del Equipo length =255 */
-	private String purchaseOrderNumber;
-	/** Número de la Orden de Compra length =30 */
-	private Date purchaseOrderDate;
-	/** Fecha de la Orden de Compra length =22 */
-	private String vendorCode;
-	/** Código Proveedor del Equipo (O/Compra) length =255 */
-	private String vendorName;
-	/** Nombre Proveedor del Equipo (O/Compra) length =255 */
-	private String purchaseInvoiceNumber;
-	/** Número de la Factura de Compra length =30 */
-	private Date purchaseInvoiceDate;
 	/** Fecha de la Factura de Compra length =22 */
+
+	// TODO Foreign key con un proveedor?
 	private String installationProvider;
-	/** Nombre del proveedor de la instalación length =255 */
-	private String installationProviderCode;
-	/**
-	 * Código del Proveedor de Instalación solo si es un proveedor regular
-	 * length =255
-	 */
-	private String maintenanceLocationCode;
-	/** Código de Ubicación del Equipo mientras está en Mantenimiento length =20 */
-	private String maintenanceLocationName;
-	/**
-	 * Nombre de Ubicación del Equipo mientras está en Mantenimiento length =255
-	 */
-	private String maintenanceProviderCode;
-	/** Código Proveedor de Mantenimiento del Equipo length =255 */
-	private String maintenanceProviderName;
-	/** Nombre Proveedor de Mantenimiento del Equipo length =255 */
-	private BigDecimal adquisitionCost;
-	/** Costo Adquisición moneda Indicada length =16dec =5 */
-
-	private CurrencyTypeEnum adquisitionCostCurrency;
-	/** Denominación Moneda del Costo de Adquisición del equipo length =60 */
-
-	private Date contabilizationDate;
-	/** Fecha de Contabilización length =22 */
-	private BigDecimal adquisitionCostLocal;
-	/** Costo Adquisición moneda Local length =16dec =5 */
-
-	private CurrencyTypeEnum adquisitionCostCurrencyLocal;
-	/** Denominación Moneda Local para Costo Contabilizado del equipo length =60 */
-
-	private DepreciationMethodEnum depreciationMethod;
-	/** Método de Depreciación length =60 */
-
-	@Column(nullable = true)
-	private int depreciationTime;
-	/** Tiempo de Depreciación length =4 */
-	private TimePeriodEnum depreciationTimePot;
-	/** Periodo de Tiempo (PDT) para el Tiempo de Depreciación length =60 */
 
 	@Column(nullable = true)
 	private int lifeTime;
 	/** Tiempo de Vida Equipo length =4 */
 	private TimePeriodEnum lifeTimePot;
-	/** Periodo de Tiempo (PDT) para el Tiempo de Vida Equipo length =60 */
-	private BigDecimal actualCost;
-	/** Costo Actual en Libros length =16dec =5 */
-	private CurrencyTypeEnum actualCostCurrency;
-	/** Denominación Moneda Local para Costo Contabilizado del equipo length =60 */
+	/**
+	 * Código del Proveedor de Instalación solo si es un proveedor regular
+	 * length =255
+	 */
 
-	// private EquipmentTypeEnum type; /** Tipo Equipo IT length =60 */
+	@ManyToOne
+	@JoinColumn(name = "maintenanceLocationFk")
+	private BuildingLocation maintenanceLocation;
 
-	private Date desincorporatedDate;
-	/** Fecha de Desincorporación length =22 */
-	private String desincorporateReason;
-	/** Motivo de Desincorporación length =255 */
-	private Date dateLastDepreciation;
+	@ManyToOne
+	@JoinColumn(name = "maintenanceProviderFk")
+	private ExternalProvider maintenanceProvider;
+
+	private Date purchaseDate;
+	/** Número de la Factura de Compra length =30 */
+	private Date purchaseInvoiceDate;
+	/** Nombre Proveedor del Equipo (O/Compra) length =255 */
+	private String purchaseInvoiceNumber;
+	/** Número de la Orden de Compra length =30 */
+	private Date purchaseOrderDate;
+	/** Nombre de Ubicación del Equipo length =255 */
+	private String purchaseOrderNumber;
+	/** Fecha de Compra del Equipo length =22 */
+	private Date receptionDate;
+	/** Código asignado al Equipo o Instalación length =20 */
+	private String serialNumber;
+	/** Nombre Departamento donde esta adjudicado el equipo length =255 */
+
+	@Column(nullable = false)
+	private EiaStateEnum state = EiaStateEnum.NUEVO;
+
+	@ManyToOne
+	@JoinColumn(name = "externalProviderFk")
+	private ExternalProvider provider;
+
+	@Column(nullable = false)
+	private WarrantySinceEnum warrantySince;
+	/** Estado del Equipo length =60 */
+
+	@Column(nullable = false)
+	private WarrantyStateEnum warrantyState;
+	/** Desde que fecha se considera la garantía del fabricante length =60 */
+
+	@Column(nullable = true)
+	private int warrantyTime;
 
 	/** Fecha de última Depreciación length =22 */
+
+	/** Tiempo de duración de la garantía length =4 */
+
+	private TimePeriodEnum warrantyTimePot;
 
 	/**
 	 * 
@@ -181,58 +144,330 @@ public class Eia extends AbstractEntity {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Facility getFacility() {
-		return facility;
+	/**
+	 * @param facility
+	 * @param eiaType
+	 * @param warrantySince
+	 * @param warrantyTimePot
+	 * @param state
+	 * @param warrantyState
+	 */
+	public Eia(Facility facility, EiaType eiaType,
+			WarrantySinceEnum warrantySince, TimePeriodEnum warrantyTimePot,
+			EiaStateEnum state, WarrantyStateEnum warrantyState) {
+		super();
+		this.facility = facility;
+		this.eiaType = eiaType;
+		this.warrantySince = warrantySince;
+		this.warrantyTimePot = warrantyTimePot;
+		this.state = state;
+		this.warrantyState = warrantyState;
 	}
 
-	public void setFacility(Facility facility) {
-		this.facility = facility;
+	public Date getAcceptationDate() {
+		return acceptationDate;
+	}
+
+	public BigDecimal getActualCost() {
+		return actualCost;
+	}
+
+	public CurrencyTypeEnum getActualCostCurrency() {
+		return actualCostCurrency;
+	}
+
+	public BigDecimal getAdquisitionCost() {
+		return adquisitionCost;
+	}
+
+	public CurrencyTypeEnum getAdquisitionCostCurrency() {
+		return adquisitionCostCurrency;
+	}
+
+	public CurrencyTypeEnum getAdquisitionCostCurrencyLocal() {
+		return adquisitionCostCurrencyLocal;
+	}
+
+	public BigDecimal getAdquisitionCostLocal() {
+		return adquisitionCostLocal;
+	}
+
+	public RoleIt getResponsibleRole() {
+		return responsibleRole;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public Date getContabilizationDate() {
+		return contabilizationDate;
+	}
+
+	public Date getDateLastDepreciation() {
+		return dateLastDepreciation;
+	}
+
+	public DepreciationMethodEnum getDepreciationMethod() {
+		return depreciationMethod;
+	}
+
+	public int getDepreciationTime() {
+		return depreciationTime;
+	}
+
+	public TimePeriodEnum getDepreciationTimePot() {
+		return depreciationTimePot;
+	}
+
+	public Date getDesincorporatedDate() {
+		return desincorporatedDate;
+	}
+
+	public String getDesincorporateReason() {
+		return desincorporateReason;
 	}
 
 	public EiaType getEiaType() {
 		return eiaType;
 	}
 
-	public void setEiatype(EiaType eiaType) {
-		this.eiaType = eiaType;
+	public Facility getFacility() {
+		return facility;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public String getFixeAssetIdentifier() {
+		return fixeAssetIdentifier;
 	}
 
-	public void setBuildingLocation(BuildingLocation buildingLocation) {
-		this.buildingLocation = buildingLocation;
+	public Date getInstallationDate() {
+		return installationDate;
 	}
 
-	/**
-	 * @return the code
-	 */
-	public String getCode() {
-		return code;
+	public String getInstallationProvider() {
+		return installationProvider;
 	}
 
-	/**
-	 * @param code
-	 *            the code to set
-	 */
-	public void setCode(String code) {
-		this.code = code;
+	public int getLifeTime() {
+		return lifeTime;
 	}
 
-	/**
-	 * @return the serialNumber
-	 */
+	public TimePeriodEnum getLifeTimePot() {
+		return lifeTimePot;
+	}
+
+	public BuildingLocation getMaintenanceLocation() {
+		return maintenanceLocation;
+	}
+
+	public ExternalProvider getMaintenanceProvider() {
+		return maintenanceProvider;
+	}
+
+	public Date getPurchaseDate() {
+		return purchaseDate;
+	}
+
+	public Date getPurchaseInvoiceDate() {
+		return purchaseInvoiceDate;
+	}
+
+	public String getPurchaseInvoiceNumber() {
+		return purchaseInvoiceNumber;
+	}
+
+	public Date getPurchaseOrderDate() {
+		return purchaseOrderDate;
+	}
+
+	public String getPurchaseOrderNumber() {
+		return purchaseOrderNumber;
+	}
+
+	public Date getReceptionDate() {
+		return receptionDate;
+	}
+
 	public String getSerialNumber() {
 		return serialNumber;
 	}
 
-	/**
-	 * @param serialNumber
-	 *            the serialNumber to set
-	 */
+	public EiaStateEnum getState() {
+		return state;
+	}
+
+	public ExternalProvider getProvider() {
+		return provider;
+	}
+
+	public WarrantySinceEnum getWarrantySince() {
+		return warrantySince;
+	}
+
+	public WarrantyStateEnum getWarrantyState() {
+		return warrantyState;
+	}
+
+	public int getWarrantyTime() {
+		return warrantyTime;
+	}
+
+	public TimePeriodEnum getWarrantyTimePot() {
+		return warrantyTimePot;
+	}
+
+	public void setAcceptationDate(Date acceptationDate) {
+		this.acceptationDate = acceptationDate;
+	}
+
+	public void setActualCost(BigDecimal actualCost) {
+		this.actualCost = actualCost;
+	}
+
+	public void setActualCostCurrency(CurrencyTypeEnum actualCostCurrency) {
+		this.actualCostCurrency = actualCostCurrency;
+	}
+
+	public void setAdquisitionCost(BigDecimal adquisitionCost) {
+		this.adquisitionCost = adquisitionCost;
+	}
+
+	public void setAdquisitionCostCurrency(
+			CurrencyTypeEnum adquisitionCostCurrency) {
+		this.adquisitionCostCurrency = adquisitionCostCurrency;
+	}
+
+	public void setAdquisitionCostCurrencyLocal(
+			CurrencyTypeEnum adquisitionCostCurrencyLocal) {
+		this.adquisitionCostCurrencyLocal = adquisitionCostCurrencyLocal;
+	}
+
+	public void setAdquisitionCostLocal(BigDecimal adquisitionCostLocal) {
+		this.adquisitionCostLocal = adquisitionCostLocal;
+	}
+
+	public void setResponsibleRole(RoleIt responsibleRole) {
+		this.responsibleRole = responsibleRole;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public void setContabilizationDate(Date contabilizationDate) {
+		this.contabilizationDate = contabilizationDate;
+	}
+
+	public void setDateLastDepreciation(Date dateLastDepreciation) {
+		this.dateLastDepreciation = dateLastDepreciation;
+	}
+
+	public void setDepreciationMethod(DepreciationMethodEnum depreciationMethod) {
+		this.depreciationMethod = depreciationMethod;
+	}
+
+	public void setDepreciationTime(int depreciationTime) {
+		this.depreciationTime = depreciationTime;
+	}
+
+	public void setDepreciationTimePot(TimePeriodEnum depreciationTimePot) {
+		this.depreciationTimePot = depreciationTimePot;
+	}
+
+	public void setDesincorporatedDate(Date desincorporatedDate) {
+		this.desincorporatedDate = desincorporatedDate;
+	}
+
+	public void setDesincorporateReason(String desincorporateReason) {
+		this.desincorporateReason = desincorporateReason;
+	}
+
+	public void setEiaType(EiaType eiaType) {
+		this.eiaType = eiaType;
+	}
+
+	public void setFacility(Facility facility) {
+		this.facility = facility;
+	}
+
+	public void setFixeAssetIdentifier(String fixeAssetIdentifier) {
+		this.fixeAssetIdentifier = fixeAssetIdentifier;
+	}
+
+	public void setInstallationDate(Date installationDate) {
+		this.installationDate = installationDate;
+	}
+
+	public void setInstallationProvider(String installationProvider) {
+		this.installationProvider = installationProvider;
+	}
+
+	public void setLifeTime(int lifeTime) {
+		this.lifeTime = lifeTime;
+	}
+
+	public void setLifeTimePot(TimePeriodEnum lifeTimePot) {
+		this.lifeTimePot = lifeTimePot;
+	}
+
+	public void setMaintenanceLocation(BuildingLocation maintenanceLocation) {
+		this.maintenanceLocation = maintenanceLocation;
+	}
+
+	public void setMaintenanceProvider(ExternalProvider maintenanceProvider) {
+		this.maintenanceProvider = maintenanceProvider;
+	}
+
+	public void setPurchaseDate(Date purchaseDate) {
+		this.purchaseDate = purchaseDate;
+	}
+
+	public void setPurchaseInvoiceDate(Date purchaseInvoiceDate) {
+		this.purchaseInvoiceDate = purchaseInvoiceDate;
+	}
+
+	public void setPurchaseInvoiceNumber(String purchaseInvoiceNumber) {
+		this.purchaseInvoiceNumber = purchaseInvoiceNumber;
+	}
+
+	public void setPurchaseOrderDate(Date purchaseOrderDate) {
+		this.purchaseOrderDate = purchaseOrderDate;
+	}
+
+	public void setPurchaseOrderNumber(String purchaseOrderNumber) {
+		this.purchaseOrderNumber = purchaseOrderNumber;
+	}
+
+	public void setReceptionDate(Date receptionDate) {
+		this.receptionDate = receptionDate;
+	}
+
 	public void setSerialNumber(String serialNumber) {
 		this.serialNumber = serialNumber;
+	}
+
+	public void setState(EiaStateEnum state) {
+		this.state = state;
+	}
+
+	public void setProvider(ExternalProvider provider) {
+		this.provider = provider;
+	}
+
+	public void setWarrantySince(WarrantySinceEnum warrantySince) {
+		this.warrantySince = warrantySince;
+	}
+
+	public void setWarrantyState(WarrantyStateEnum warrantyState) {
+		this.warrantyState = warrantyState;
+	}
+
+	public void setWarrantyTime(int warrantyTime) {
+		this.warrantyTime = warrantyTime;
+	}
+
+	public void setWarrantyTimePot(TimePeriodEnum warrantyTimePot) {
+		this.warrantyTimePot = warrantyTimePot;
 	}
 
 }

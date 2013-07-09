@@ -1,14 +1,112 @@
 package org.fourgeeks.gha.webclient.client.UI;
 
-import com.google.gwt.user.client.ui.HTML;
+import java.util.ArrayList;
+import java.util.List;
 
-public class GHAUiHelper {
+import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.event.logical.shared.ResizeHandler;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.RootPanel;
+import com.smartgwt.client.types.Alignment;
+import com.smartgwt.client.widgets.layout.VLayout;
+
+public abstract class GHAUiHelper {
+
+	static {
+		Window.addResizeHandler(new ResizeHandler() {
+
+			@Override
+			public void onResize(ResizeEvent event) {
+				for (ResizeHandler handler : handlers) {
+					if (handler != null)
+						handler.onResize(event);
+				}
+
+			}
+		});
+	}
+
+	// NO ESTAN TOTALMENTE MEDIDAS CON LA INTERFAZ
+	private static final int MIN_TAB_HEIGHT = 400;
+	private static final int MIN_TOP_SECTION_HEIGHT = 120;
+	private static final int MIN_BOTTOM_SECTION_HEIGHT = 260;
+	// NO ESTAN TOTALMENTE MEDIDAS CON LA INTERFAZ
+	public static final int MIN_GRID_SIZE = 180;
+
+	public static final int INNER_TOP_SECTION_HEIGHT = 120;
+	public static final int V_SEPARATOR_HEIGHT = 10;
 
 	public static HTML verticalGraySeparator(String height) {
 		HTML separator = new HTML();
 		separator.setStylePrimaryName("vertical-gray-separator");
 		separator.setHeight(height);
 		return separator;
+	}
+	
+//	TO-DO: No se muestra, si agrega el elemento pero no se muestra de color
+	public static HTML horizontalGraySeparator(String width) {
+		HTML separator = new HTML();
+		separator.setStylePrimaryName("horizontal-gray-separator");
+		separator.setWidth(width);
+		return separator;
+	}
+//	//////////////////////////////
+
+	public static int getTabHeight() {
+		int rootPanelHeight = Window.getClientHeight();
+		int topPartHeight = RootPanel.get("top-bar").getOffsetHeight()
+				+ RootPanel.get("header-bar").getOffsetHeight()
+				+ RootPanel.get("menu-bar").getOffsetHeight();
+		int footerHeight = RootPanel.get("footer-bar").getOffsetHeight();
+
+		int ret = rootPanelHeight - topPartHeight - footerHeight;
+		if (ret < MIN_TAB_HEIGHT) {
+			return MIN_TAB_HEIGHT;
+		} else {
+			return ret;
+		}
+	}
+
+	public static int getBottomSectionHeight() {
+		int biggerTabHeight = getTabHeight();
+		int innerTopSection = INNER_TOP_SECTION_HEIGHT + V_SEPARATOR_HEIGHT;
+
+		int ret = biggerTabHeight - innerTopSection;
+		if (ret < MIN_BOTTOM_SECTION_HEIGHT) {
+			return MIN_BOTTOM_SECTION_HEIGHT;
+		} else {
+			return ret;
+		}
+	}
+	public static int getGridSize(int extrasHeight){
+		int bottomSectionHeight = getBottomSectionHeight();
+		int titleHeight = 30;
+		int topExtras = extrasHeight + titleHeight + 35;
+		
+		int ret= bottomSectionHeight-topExtras;
+		if(ret < MIN_GRID_SIZE){
+			return MIN_GRID_SIZE;
+		}else{
+			return ret;
+		}
+	}
+
+	public static VLayout createBar(GHAButton... buttons) {
+		VLayout sideButtons = new VLayout();
+		sideButtons.setWidth(30);
+		sideButtons.setLayoutMargin(5);
+		sideButtons.setBackgroundColor("#E0E0E0");
+		sideButtons.setMembersMargin(10);
+		sideButtons.setDefaultLayoutAlign(Alignment.CENTER);
+		sideButtons.addMembers(buttons);
+		return sideButtons;
+	}
+
+	private static List<ResizeHandler> handlers = new ArrayList<ResizeHandler>();
+
+	public static void addResizeHandler(ResizeHandler handler) {
+		handlers.add(handler);
 	}
 
 }

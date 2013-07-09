@@ -19,41 +19,44 @@ public final class GHATabSet {
 		hPanel.setHeight("24px");
 		hPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		RootPanel.get("menu-bar").add(hPanel);
-
 		tabs = new HashMap<String, GHATab>();
-		// tabset.setBorder("none");
-		// tabset.setWidth100();
-		// tabset.setHeight("400px");
-		// tabset.setStyleName("main-tab-set");///TODO: Borrar del css
 	}
 
 	private GHATabSet() {
 		throw new UnsupportedOperationException("Esta clase no es instanciable");
 	}
 
-	public static void addTab(final GHATab tab) {
-		hPanel.add(tab.getHeader());
-		hPanel.setCellHeight(tab.getHeader(), "24px");
-
+	private static void addTab(final GHATab tab) {
+		GHATabHeader header = tab.getHeader();
+		hPanel.add(header);
+		hPanel.setCellHeight(header, "24px");
+		
 		if (currentTab != null)
-			if (currentTab != tab)
-				currentTab.removeFromParent();
+			currentTab.hide();
 
 		tabs.put(tab.getId(), tab);
 
 		RootPanel.get("main-content").add(tab);
 		currentTab = tab;
-
+		header.selectTab();
 	}
 
 	public static void showTab(GHATab tab) {
+		if (tab == null)
+			return;
+
+		if (tabs.get(tab.getId()) == null) {
+			addTab(tab);
+			return;
+		}
+
 		if (tab == currentTab)
 			return;
 
 		if (currentTab != null)
-			currentTab.removeFromParent();
+			currentTab.hide();
 
-		RootPanel.get("main-content").add(tab);
+		tab.show();
 		currentTab = tab;
 	}
 
@@ -66,13 +69,16 @@ public final class GHATabSet {
 		hPanel.setCellHeight(menuButton, "24px");
 	}
 
-	public static void removeTab(final GHATab tab) {
+	public static void closeTab(final GHATab tab) {
+		if (tab == null)
+			return;
+
+		// if (tabs.get(tab.getId()) == null)
+		// return;
+
 		tab.close();
 		tabs.remove(tab.getId());
-		tab.getHeader().removeFromParent();
-		tab.removeFromParent();
-		// TODO: Go to previous tab, if there is not previous tab, go home
-		History.newItem("home");
-		currentTab = null;
+
+		History.back();
 	}
 }

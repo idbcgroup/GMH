@@ -1,2 +1,8 @@
 LegalEntity
 SingleSignOnUser
+EiaType
+Eia
+EiaComponent
+EiaTypeComponent
+Brand
+Manufacturer

@@ -6,7 +6,11 @@
 		<groupId>gha</groupId>
 		<artifactId>gha</artifactId>
 		<version>1</version>
+<<<<<<< HEAD
 <!-- 		<relativePath>../gha</relativePath> -->
+=======
+		<relativePath>../pom.xml</relativePath>
+>>>>>>> 9f98eb5bf8d892490cc120b772f94dad3546d3af
 	</parent>
 
 	<artifactId>webclient</artifactId>
@@ -105,12 +109,12 @@
 			<systemPath>${basedir}/../lib/smartgwt-3.1.jar</systemPath>
 		</dependency>
 
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>3.0.1</version>
-			<scope>provided</scope>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>javax.servlet</groupId> -->
+<!-- 			<artifactId>javax.servlet-api</artifactId> -->
+<!-- 			<version>3.0.1</version> -->
+<!-- 			<scope>provided</scope> -->
+<!-- 		</dependency> -->
 	</dependencies>
 
 	<build>

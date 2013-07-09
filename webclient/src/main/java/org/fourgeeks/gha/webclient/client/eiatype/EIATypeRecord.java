@@ -1,5 +1,8 @@
 package org.fourgeeks.gha.webclient.client.eiatype;
 
+import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
+import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
+import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
@@ -23,6 +26,63 @@ public class EIATypeRecord extends GHAGridRecord<EiaType> {
 			setManufacturerId(eiaType.getManufacturer().getId());
 		}
 		setModel(eiaType.getModel());
+		setDescription(eiaType.getDescription());
+		setEiaUmdns(eiaType.getEiaUmdns());
+		setMobility(eiaType.getMobility());
+		setSubtype(eiaType.getSubtype());
+		setType(eiaType.getType());
+		setUseDescription(eiaType.getUseDescription());
+	}
+
+	public String getUseDescription() {
+		return getAttributeAsString("useDescription");
+	}
+
+	public EiaTypeEnum getType() {
+		return EiaTypeEnum.getByString(getAttributeAsString("type"));
+	}
+
+	public String getDescription() {
+		return getAttributeAsString("description");
+	}
+
+	public EiaSubTypeEnum getSubtype() {
+		return EiaSubTypeEnum.getByString(getAttributeAsString("subtype"));
+	}
+
+	public EiaMobilityEnum getMobility() {
+		return EiaMobilityEnum.getByString(getAttributeAsString("mobility"));
+	}
+
+	public String getEiaUmdns() {
+		return getAttributeAsString("eiaUmdns");
+	}
+
+	private void setUseDescription(String useDescription) {
+		setAttribute("useDescription", useDescription);
+	}
+
+	private void setType(EiaTypeEnum type) {
+		if (type != null)
+			setAttribute("type", type.toString());
+	}
+
+	private void setDescription(String description) {
+		setAttribute("description", description);
+	}
+
+	private void setSubtype(EiaSubTypeEnum subtype) {
+		if (subtype != null)
+			setAttribute("subtype", subtype.toString());
+	}
+
+	private void setMobility(EiaMobilityEnum mobility) {
+		if (mobility != null)
+			setAttribute("mobility", mobility.toString());
+	}
+
+	private void setEiaUmdns(String eiaUmdns) {
+		setAttribute("eiaUmdns", eiaUmdns);
 	}
 
 	public String getName() {
@@ -84,22 +144,33 @@ public class EIATypeRecord extends GHAGridRecord<EiaType> {
 	@Override
 	public EiaType toEntity() {
 		EiaType eiaType = new EiaType();
-		eiaType.setCode(getCode());
 		eiaType.setId(getId());
+
 		String brandName = getBrand();
 		if (brandName != null) {
 			Brand brand = new Brand();
+			brand.setId(Integer.valueOf(getBrandId()));
 			brand.setName(brandName);
 			eiaType.setBrand(brand);
 		}
+
 		String manName = getManufacturer();
 		if (manName != null) {
 			Manufacturer man = new Manufacturer();
+			man.setId(Integer.valueOf(getManufacturerId()));
 			man.setName(manName);
 			eiaType.setManufacturer(man);
 		}
-		eiaType.setModel(getModel());
+
+		eiaType.setCode(getCode());
 		eiaType.setName(getName());
+		eiaType.setDescription(getDescription());
+		eiaType.setModel(getModel());
+		eiaType.setUseDescription(getUseDescription());
+		eiaType.setEiaUmdns(getEiaUmdns());
+		eiaType.setMobility(getMobility());
+		eiaType.setType(getType());
+		eiaType.setSubtype(getSubtype());
 		return eiaType;
 	}
 }
