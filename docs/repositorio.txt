@@ -16,3 +16,12 @@ git clone git@192.168.1.101:/home/git/gha.git
 Usuario inicial del servidor
 usuario pruebas
 password 123456
+
+para arrancar el servidor de pruebas
+jboss/bin/> ./standalone.sh -b 0.0.0.0 &
+
+para reiniciar la bd en el servidor de pruebas
+pruebas> sudo su postgres
+postgres> psql
+postgres# drop database gha;
+postgres# create database gha with owner = postgres encoding = 'UTF8' tablespace = pg_default lc_collate = 'es_VE.UTF-8' lc_ctype = 'es_VE.UTF-8' connection limit = -1;

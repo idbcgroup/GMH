@@ -1,55 +1,37 @@
 package org.fourgeeks.gha.webclient.client.eiatype;
 
-import com.smartgwt.client.types.Alignment;
+import org.fourgeeks.gha.webclient.client.UI.GHAGridField;
+import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+
+import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.widgets.grid.ListGrid;
-import com.smartgwt.client.widgets.grid.ListGridField;
 
-public class EIATypeGrid extends ListGrid {
-
+public class EIATypeGrid extends ListGrid implements ResizeHandler{
+	
 	public EIATypeGrid() {
+		GHAUiHelper.addResizeHandler(this);
 		setWidth100();
-		setHeight("300px");
+		setHeight(GHAUiHelper.getGridSize(30));
 		setEmptyMessage("No existen tipos de equipo para mostrar");
-
 		setAlternateRecordStyles(false);
 		setCanResizeFields(false);
 
-		ListGridField idGridField = new ListGridField("id", "No");
-		idGridField.setAlign(Alignment.CENTER);
-
-		ListGridField codeGridField = new ListGridField("code", "Codigo");
-		codeGridField.setAlign(Alignment.CENTER);
-
-		ListGridField nameGridField = new ListGridField("name", "Nombre");
-		nameGridField.setAlign(Alignment.CENTER);
-
-		ListGridField brandGridField = new ListGridField("brand", "Marca");
-		brandGridField.setAlign(Alignment.CENTER);
-
-		ListGridField modelGridField = new ListGridField("model", "Modelo");
-		modelGridField.setAlign(Alignment.CENTER);
-
-		ListGridField makeGridField = new ListGridField("manufacturer",
+		GHAGridField idGridField = new GHAGridField("id", "No");
+		GHAGridField codeGridField = new GHAGridField("code", "Codigo");
+		GHAGridField nameGridField = new GHAGridField("name", "Nombre");
+		GHAGridField brandGridField = new GHAGridField("brand", "Marca");
+		GHAGridField modelGridField = new GHAGridField("model", "Modelo");
+		GHAGridField makeGridField = new GHAGridField("manufacturer",
 				"Fabricante");
-		makeGridField.setAlign(Alignment.CENTER);
 
 		setFields(idGridField, codeGridField, nameGridField, brandGridField,
 				modelGridField, makeGridField);
-
-		// loadData();
 	}
 
-	// private void loadData() {
-	// EIATypeModel.getAll(new GHAAsyncCallback<List<EiaType>>() {
-	//
-	// @Override
-	// public void onSuccess(List<EiaType> eiaTypes) {
-	// ListGridRecord[] array = (ListGridRecord[]) EIAUtil
-	// .toGridRecords(eiaTypes)
-	// .toArray(new EIATypeRecord[] {});
-	// setData(array);
-	// }
-	// });
-	//
-	// }
+	@Override
+	public void onResize(ResizeEvent event) {
+		setHeight(GHAUiHelper.getGridSize(30));
+		
+	}
 }

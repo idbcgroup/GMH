@@ -1,53 +1,37 @@
 package org.fourgeeks.gha.webclient.client.eia;
 
-import com.smartgwt.client.types.Alignment;
-import com.smartgwt.client.widgets.grid.ListGrid;
-import com.smartgwt.client.widgets.grid.ListGridField;
+import org.fourgeeks.gha.webclient.client.UI.GHAGridField;
+import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
-public class EIAGrid extends ListGrid {
+import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.event.logical.shared.ResizeHandler;
+import com.smartgwt.client.widgets.grid.ListGrid;
+
+public class EIAGrid extends ListGrid implements ResizeHandler{
 
 	public EIAGrid() {
 		setWidth100();
-		setHeight("300px");
+		setHeight(GHAUiHelper.getGridSize(30));
 		setEmptyMessage("No existen tipos de equipo para mostrar");
-
 		setAlternateRecordStyles(false);
 		setCanResizeFields(false);
 
-		ListGridField idGridField = new ListGridField("id", "No");
-		idGridField.setAlign(Alignment.CENTER);
+		GHAGridField idGridField = new GHAGridField("id", "No");
+		GHAGridField codeGridField = new GHAGridField("code", "Codigo");
+		GHAGridField serialGridField = new GHAGridField("serialNumber",
+				"Serial");
+		GHAGridField nameGridField = new GHAGridField("eiaTypeName", "Nombre");
+		GHAGridField brandGridField = new GHAGridField("brandName", "Marca");
+		GHAGridField modelGridField = new GHAGridField("eiaTypeModel", "Modelo");
+		GHAGridField makeGridField = new GHAGridField("manufacturerName",
+				"Fabricante");
 
-		ListGridField codeGridField = new ListGridField("code", "Código");
-		codeGridField.setAlign(Alignment.CENTER);
-		
-		ListGridField serialGridField = new ListGridField("serial", "Serial");
-		serialGridField.setAlign(Alignment.CENTER);
-		
-		ListGridField nameGridField = new ListGridField("name", "Nombre");
-		nameGridField.setAlign(Alignment.CENTER);
-		
-		ListGridField facilityGridField = new ListGridField("facility", "Ubicación");
-		facilityGridField.setAlign(Alignment.CENTER);
-
-		ListGridField statusGridField = new ListGridField("status", "Status");
-		statusGridField.setAlign(Alignment.CENTER);
-
-		setFields(idGridField, codeGridField, serialGridField, facilityGridField, statusGridField);
-
-		// loadData();
+		setFields(idGridField, codeGridField, serialGridField, nameGridField,
+				brandGridField, modelGridField, makeGridField);
 	}
 
-	// private void loadData() {
-	// EIATypeModel.getAll(new GHAAsyncCallback<List<EiaType>>() {
-	//
-	// @Override
-	// public void onSuccess(List<EiaType> eiaTypes) {
-	// ListGridRecord[] array = (ListGridRecord[]) EIAUtil
-	// .toGridRecords(eiaTypes)
-	// .toArray(new EIATypeRecord[] {});
-	// setData(array);
-	// }
-	// });
-	//
-	// }
+	@Override
+	public void onResize(ResizeEvent event) {
+		setHeight(GHAUiHelper.getGridSize(30));		
+	}
 }

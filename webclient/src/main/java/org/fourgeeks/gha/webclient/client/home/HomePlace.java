@@ -1,10 +1,14 @@
 package org.fourgeeks.gha.webclient.client.home;
 
-import org.fourgeeks.gha.webclient.client.UI.GHAMenus;
+import org.fourgeeks.gha.webclient.client.UI.GHADropdownMenus;
 import org.fourgeeks.gha.webclient.client.UI.GHAPlace;
 import org.fourgeeks.gha.webclient.client.UI.GHATabSet;
+import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
+import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
@@ -36,9 +40,9 @@ public class HomePlace extends GHAPlace {
 		RootPanel.get("user-info").clear();
 		RootPanel.get("menu-bar").clear();
 		RootPanel.get("main-content").removeStyleName("white-background");
-
-		final VLayout userMenu = GHAMenus.userMenu();
-		final VLayout notificationsMenu = GHAMenus.notificationsMenu();
+		
+		final VLayout userMenu = GHADropdownMenus.userMenu();
+		final VLayout notificationsMenu = GHADropdownMenus.notificationsMenu();
 		// userMenu.draw();
 
 		HLayout userInfo = new HLayout();
@@ -119,7 +123,14 @@ public class HomePlace extends GHAPlace {
 		 * HTML content = new HTML(html.toString());
 		 */
 		RootPanel.get("user-info").add(userInfo);
-		RootPanel.get("main-content").setHeight("460px");
+		RootPanel.get("main-content").setHeight(GHAUiHelper.getTabHeight()+"px");
+		Window.addResizeHandler(new ResizeHandler() {
+			@Override
+			public void onResize(ResizeEvent event) {
+				// TODO Auto-generated method stub
+				RootPanel.get("main-content").setHeight(GHAUiHelper.getTabHeight()+"px");
+			}
+		});
 		// TODO: calculo de la altura del main content. para el homeplace y para
 		// el resize
 
@@ -131,6 +142,7 @@ public class HomePlace extends GHAPlace {
 				History.newItem("eiatype");
 			}
 		});
+	
 		MenuItem eiaMenuItem = new MenuItem("Equipos");
 		eiaMenuItem.addClickHandler(new ClickHandler() {
 			@Override
@@ -138,6 +150,8 @@ public class HomePlace extends GHAPlace {
 				History.newItem("eia");
 			}
 		});
+	
+		
 		Menu menu = new Menu();
 		menu.setItems(eiaTypeMenuItem, eiaMenuItem);
 

@@ -11,10 +11,30 @@ public class GHASelectItem extends SelectItem {
 		setHeight(15);
 		setWidth(100);
 		setTitleStyle("input-title");
+		setShowFocused(false);
+	}
+
+	public GHASelectItem(String title, int width) {
+		this(title);
+		setWidth(width);
 	}
 
 	public GHASelectItem(String title) {
 		this();
 		setTitle(title);
+	}
+
+	public GHASelectItem(String title, boolean enabled) {
+		this(title);
+		setDisabled(!enabled);
+	}
+
+	@Override
+	public void setDisabled(Boolean disabled) {
+		super.setDisabled(disabled);
+		if(disabled)
+			setTextBoxStyle("select input-disabled");
+		else
+			setTextBoxStyle("select");
 	}
 }
