@@ -17,6 +17,17 @@
     	<param-value>0</param-value>
   	</context-param>
 
+	<!-- Servlets -->
+	<servlet>
+    	<servlet-name>UploadPhotographs</servlet-name>
+    	<servlet-class>org.fourgeeks.gha.webclient.server.eia.UploadPhotographsHttpServlet</servlet-class>
+  	</servlet>
+  	
+  	<servlet-mapping>
+    	<servlet-name>UploadPhotographs</servlet-name>
+    	<url-pattern>*.gupld</url-pattern>
+  	</servlet-mapping>
+  
 	<servlet>
     	<servlet-name>UploadPhotographs</servlet-name>
     	<servlet-class>org.fourgeeks.gha.webclient.server.eia.UploadPhotographsHttpServlet</servlet-class>
