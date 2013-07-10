@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eiatype.replacements;
+package org.fourgeeks.gha.webclient.client.eiatype.maintenance;
 
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
@@ -15,7 +15,7 @@ import com.smartgwt.client.widgets.grid.ListGrid;
 import com.smartgwt.client.widgets.grid.ListGridField;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
 
-public class EIATypeConsumablesGrid extends ListGrid implements ResizeHandler{
+public class EIATypeMaintenanceProtocolGrid extends ListGrid implements ResizeHandler{
 
 	@Override
 	protected Canvas createRecordComponent(final ListGridRecord record, Integer colNum) {  
@@ -41,53 +41,41 @@ public class EIATypeConsumablesGrid extends ListGrid implements ResizeHandler{
 
     }
 	
-	public EIATypeConsumablesGrid() {
+	public EIATypeMaintenanceProtocolGrid() {
 		GHAUiHelper.addResizeHandler(this);
 		setWidth100();
-		setHeight(GHAUiHelper.getGridSize(50));
+		setHeight(GHAUiHelper.getGridSize(30));
 		setEmptyMessage("No existe material para mostrar.");
 
 		setAlternateRecordStyles(false);
 		setCanResizeFields(false);
 		setShowFilterEditor(true);
 
-		ListGridField idGridField = new ListGridField("id", "No");
+		ListGridField idGridField = new ListGridField("id", "No. Sec.");
 		idGridField.setAlign(Alignment.CENTER);
 
-		ListGridField codMatGridField = new ListGridField("codMat", "Cód. Material");
-		codMatGridField.setAlign(Alignment.CENTER);
+		ListGridField descriptionGridField = new ListGridField("description", "Descripción paso Protocolo");
+		descriptionGridField.setAlign(Alignment.CENTER);
 		
-		ListGridField nameGridField = new ListGridField("nameMaterial", "Nombre Material");
-		nameGridField.setAlign(Alignment.CENTER);
+		ListGridField materialsField = new ListGridField("mats", "Materiales");
+		materialsField.setAlign(Alignment.CENTER);
 		
-		ListGridField usoMaterialGridField = new ListGridField("usoMaterial", "Uso del Material");
-		usoMaterialGridField.setAlign(Alignment.CENTER);
+		ListGridField toolsGridField = new ListGridField("tools", "Herramientas");
+		toolsGridField.setAlign(Alignment.CENTER);
 		
-		ListGridField typeGridField = new ListGridField("type", "Tipo");
-		typeGridField.setAlign(Alignment.CENTER);
+		ListGridField obsGridField = new ListGridField("obs", "Observaciones/Notas");
+		obsGridField.setAlign(Alignment.CENTER);
 		
-		ListGridField cantGridField = new ListGridField("cant", "Cantidad");
-		cantGridField.setAlign(Alignment.CENTER);
-
-		ListGridField facilityGridField = new ListGridField("facility", "Ubicación");
-		facilityGridField.setAlign(Alignment.CENTER);
+		ListGridField subProtocolGridField = new ListGridField("suPat", "Sub-protocolo");
+		obsGridField.setAlign(Alignment.CENTER);
 		
-		ListGridField freqGridField = new ListGridField("freq", "Frecuencia");
-		freqGridField.setAlign(Alignment.CENTER);
-		
-		ListGridField usesGridField = new ListGridField("uses", "Cant. Usos");
-		usesGridField.setAlign(Alignment.CENTER);
-		
-		ListGridField availableGridField = new ListGridField("available", "Disponibles");
-		availableGridField.setAlign(Alignment.CENTER);
-			
-
-		setFields(idGridField, codMatGridField, nameGridField, usoMaterialGridField, typeGridField, cantGridField, facilityGridField,freqGridField, usesGridField, availableGridField);
+		setFields(idGridField, descriptionGridField, materialsField, toolsGridField, obsGridField, subProtocolGridField);
 	}
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getGridSize(50));	
+		// TODO Auto-generated method stub
+		setHeight(GHAUiHelper.getGridSize(30));
 	}
 
 }
