@@ -6,11 +6,8 @@
 		<groupId>gha</groupId>
 		<artifactId>gha</artifactId>
 		<version>1</version>
-<<<<<<< HEAD
 <!-- 		<relativePath>../gha</relativePath> -->
-=======
 		<relativePath>../pom.xml</relativePath>
->>>>>>> 9f98eb5bf8d892490cc120b772f94dad3546d3af
 	</parent>
 
 	<artifactId>webclient</artifactId>

@@ -4,8 +4,6 @@
     "http://java.sun.com/dtd/web-app_2_3.dtd">
 
 <web-app>
-
-<<<<<<< HEAD
 	<context-param>
     <!-- max size of the upload request -->
     	<param-name>maxSize</param-name>
@@ -20,8 +18,6 @@
   	</context-param>
 
 	<!-- Servlets -->
-=======
->>>>>>> 9f98eb5bf8d892490cc120b772f94dad3546d3af
 	<servlet>
     	<servlet-name>UploadPhotographs</servlet-name>
     	<servlet-class>org.fourgeeks.gha.webclient.server.eia.UploadPhotographsHttpServlet</servlet-class>
