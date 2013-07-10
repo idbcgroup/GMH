@@ -13,7 +13,6 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
-import com.google.gwt.user.client.Window;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.TitleOrientation;
@@ -125,7 +124,6 @@ public class EIATypeTopSection extends HLayout implements
 
 			@Override
 			public void onClick(ClickEvent event) {
-				Window.alert("search");
 				search();
 			}
 		});
