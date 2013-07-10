@@ -20,7 +20,7 @@
 
 	<servlet>
     	<servlet-name>UploadPhotographs</servlet-name>
-    	<servlet-class>org.fourgeeks.gha.webclient.server.eia.UploadPhotographsHttpServlet</servlet-class>
+    	<servlet-class>org.fourgeeks.gha.webclient.server.UploadPhotographsHttpServlet</servlet-class>
   	</servlet>
   	
   	<servlet-mapping>
