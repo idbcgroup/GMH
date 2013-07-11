@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import org.fourgeeks.gha.domain.ess.BaseRole;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.gmh.Eia;
@@ -337,6 +338,16 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 				for(Obu entity: result)
 					valueMap.put(entity.getId()+"", entity.getName()+"");
 				depResponsableSelectItem.setValueMap(valueMap);
+			}
+		});
+		
+		GHACache.INSTANCE.getBaseRoles(new GHAAsyncCallback<List<BaseRole>>() {
+			@Override
+			public void onSuccess(List<BaseRole> result) {
+				LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+				for(BaseRole entity: result)
+					valueMap.put(entity.getId()+"", entity.getName()+"");
+				dirResponsable.setValueMap(valueMap);				
 			}
 		});
 	}
