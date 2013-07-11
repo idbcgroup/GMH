@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
+import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAButton;
@@ -40,7 +41,7 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 						tiempoGarantiaReal,garantiaInt,tiempoGarantiaInt,
 						intermediateGarantia,mesesGarantia,codeMant,nameMant,
 						providerMant,numMant,dirIPTextItem,macAddressTextItem;
-	private GHASelectItem garantiaEstadoSelect, depResponsable,dirResponsable,
+	private GHASelectItem garantiaEstadoSelect, depResponsableSelectItem,dirResponsable,
 						  provider,nameAreaActual,nameAreaAtendida,currencyAdq,
 						  monedaLocal,metodoDepreciacion,timeDepSel,timeVidaSel,
 						  monedaCosto,garantiaDesde,garantiaIntDesde,typeITSelectItem,
@@ -64,9 +65,9 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 		codeItem = new GHATextItem("Código");
 		serialItem = new GHATextItem("Serial");
 		activeIdItem = new GHATextItem("Id. Activo Fijo");
-		depResponsable = new GHASelectItem("Departamento Responsable");
-		depResponsable.setColSpan(2);
-		depResponsable.setWidth(200);
+		depResponsableSelectItem = new GHASelectItem("Departamento Responsable");
+		depResponsableSelectItem.setColSpan(2);
+		depResponsableSelectItem.setWidth(200);
 		dirResponsable = new GHASelectItem("Rol Responsable");
 		dirResponsable.setColSpan(2);
 		dirResponsable.setWidth(200);
@@ -196,7 +197,8 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 		addMember(mainLayout);
 		
 		//Fillers 
-		fillBuildinglocations();
+		fillBuildinglocationsSelects();
+		fillInformationSelects();
 	}
 
 ////Form Creating Functions
@@ -297,7 +299,7 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 
 		equipoForm.setItems(equiposTitle, new GHASpacerItem(3), 
 							codeItem,serialItem,activeIdItem, new GHASpacerItem(), 
-							depResponsable,dirResponsable, 
+							depResponsableSelectItem,dirResponsable, 
 							garantiasTitle, new GHASpacerItem(3),
 							garantiaEstadoText, garantiaEstadoSelect);
 		return equipoForm;
@@ -305,7 +307,7 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 	
 ////Fillers
 	
-	private void fillBuildinglocations() {
+	private void fillBuildinglocationsSelects() {
 		GHACache.INSTANCE
 				.getBuildingLocations(new GHAAsyncCallback<List<BuildingLocation>>() {
 					@Override
@@ -325,6 +327,18 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 
 					}
 				});
+	}
+	
+	private void fillInformationSelects(){
+		GHACache.INSTANCE.getObus(new GHAAsyncCallback<List<Obu>>() {
+			@Override
+			public void onSuccess(List<Obu> result) {				
+				LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+				for(Obu entity: result)
+					valueMap.put(entity.getId()+"", entity.getName()+"");
+				depResponsableSelectItem.setValueMap(valueMap);
+			}
+		});
 	}
 	
 ////Implementations
