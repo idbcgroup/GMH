@@ -13,7 +13,8 @@ import org.fourgeeks.gha.webclient.client.obu.GWTObuService;
  * @author alacret
  * 
  */
-public class GwtObuServiceImpl implements GWTObuService {
+public class GWTObuServiceImpl implements GWTObuService {
+	
 
 	@EJB(name = "gmh.ObuService")
 	ObuServiceRemote service;
