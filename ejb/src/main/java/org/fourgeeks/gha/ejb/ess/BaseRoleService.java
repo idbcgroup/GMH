@@ -19,7 +19,7 @@ import org.fourgeeks.gha.domain.exceptions.EJBException;
  * @author alacret
  * 
  */
-@Stateless(name = "mix.BaseRoleService")
+@Stateless(name = "ess.BaseRoleService")
 public class BaseRoleService implements BaseRoleServiceRemote {
 	@PersistenceContext
 	EntityManager em;

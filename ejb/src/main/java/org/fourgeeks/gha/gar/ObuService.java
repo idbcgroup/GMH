@@ -19,7 +19,7 @@ import org.fourgeeks.gha.domain.gar.Obu;
  * @author alacret
  * 
  */
-@Stateless(name = "mix.ObuService")
+@Stateless(name = "gar.ObuService")
 public class ObuService implements ObuServiceRemote {
 	@PersistenceContext
 	EntityManager em;

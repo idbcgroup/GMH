@@ -2,10 +2,12 @@ package org.fourgeeks.gha.webclient.client.UI;
 
 import java.util.List;
 
+import org.fourgeeks.gha.domain.ess.BaseRole;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
+import org.fourgeeks.gha.webclient.client.baserole.BaseRoleModel;
 import org.fourgeeks.gha.webclient.client.brand.BrandModel;
 import org.fourgeeks.gha.webclient.client.buildinglocation.BuildingLocationModel;
 import org.fourgeeks.gha.webclient.client.manufacturer.ManufacturerModel;
@@ -31,6 +33,7 @@ public enum GHACache {
 	private List<Manufacturer> manufacturers;
 	private List<BuildingLocation> buildingLocations;
 	private List<Obu> obus;
+	private List<BaseRole> roles;
 
 	{
 		// Inititalization of the invalidation policy
@@ -48,6 +51,34 @@ public enum GHACache {
 		manufacturers = null;
 		buildingLocations = null;
 		obus = null;
+		roles = null;
+	}
+
+	/**
+	 * @param callback
+	 */
+	public void getBaseRoles(GHAAsyncCallback<List<BaseRole>> callback) {
+		// Avoiding synchronization problems
+		List<BaseRole> localCopy = roles;
+		if (localCopy == null)
+			getBaseRolesFromServer(callback);
+		else
+			callback.onSuccess(localCopy);
+
+	}
+
+	private void getBaseRolesFromServer(
+			final GHAAsyncCallback<List<BaseRole>> callback) {
+		BaseRoleModel.getAll(new GHAAsyncCallback<List<BaseRole>>() { // AyncCallback
+					// subclass
+
+					@Override
+					public void onSuccess(List<BaseRole> result) {
+						roles = result;
+						// Avoiding synchronization problems
+						callback.onSuccess(result);
+					}
+				});
 	}
 
 	/**

@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 import org.fourgeeks.gha.domain.AbstractEntity;
 
 /**
- * @author emiliot
+ * @author alacret
  * 
  */
 

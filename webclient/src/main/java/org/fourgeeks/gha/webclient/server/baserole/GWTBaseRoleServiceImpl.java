@@ -15,7 +15,7 @@ import org.fourgeeks.gha.webclient.client.baserole.GWTBaseRoleService;
  */
 public class GWTBaseRoleServiceImpl implements GWTBaseRoleService {
 
-	@EJB(name = "gmh.BaseRoleService")
+	@EJB(name = "ess.BaseRoleService")
 	BaseRoleServiceRemote service;
 
 	@Override
