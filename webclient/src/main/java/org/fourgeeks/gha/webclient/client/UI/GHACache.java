@@ -3,15 +3,24 @@ package org.fourgeeks.gha.webclient.client.UI;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
+import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.webclient.client.brand.BrandModel;
 import org.fourgeeks.gha.webclient.client.buildinglocation.BuildingLocationModel;
 import org.fourgeeks.gha.webclient.client.manufacturer.ManufacturerModel;
+import org.fourgeeks.gha.webclient.client.obu.ObuModel;
 
 import com.google.gwt.user.client.Timer;
 
+/**
+ * @author alacret
+ * 
+ */
 public enum GHACache {
+	/**
+	 * 
+	 */
 	INSTANCE; // Single value
 
 	/*
@@ -21,6 +30,7 @@ public enum GHACache {
 	private List<Brand> brands;
 	private List<Manufacturer> manufacturers;
 	private List<BuildingLocation> buildingLocations;
+	private List<Obu> obus;
 
 	{
 		// Inititalization of the invalidation policy
@@ -37,8 +47,38 @@ public enum GHACache {
 		brands = null;
 		manufacturers = null;
 		buildingLocations = null;
+		obus = null;
 	}
 
+	/**
+	 * @param callback
+	 */
+	public void getObus(GHAAsyncCallback<List<Obu>> callback) {
+		// Avoiding synchronization problems
+		List<Obu> localCopy = obus;
+		if (localCopy == null)
+			getObusFromServer(callback);
+		else
+			callback.onSuccess(localCopy);
+
+	}
+
+	private void getObusFromServer(final GHAAsyncCallback<List<Obu>> callback) {
+		ObuModel.getAll(new GHAAsyncCallback<List<Obu>>() { // AyncCallback
+			// subclass
+
+			@Override
+			public void onSuccess(List<Obu> result) {
+				obus = result;
+				// Avoiding synchronization problems
+				callback.onSuccess(result);
+			}
+		});
+	}
+
+	/**
+	 * @param callback
+	 */
 	public void getBuildingLocations(
 			GHAAsyncCallback<List<BuildingLocation>> callback) {
 		// Avoiding synchronization problems
@@ -65,6 +105,9 @@ public enum GHACache {
 				});
 	}
 
+	/**
+	 * @param callback
+	 */
 	public void getBrands(GHAAsyncCallback<List<Brand>> callback) {
 		// Avoiding synchronization problems
 		List<Brand> localBrands = brands;
@@ -89,6 +132,9 @@ public enum GHACache {
 				});
 	}
 
+	/**
+	 * @param callback
+	 */
 	public void getManufacturesrs(GHAAsyncCallback<List<Manufacturer>> callback) {
 		// Avoiding synchronization problems
 		List<Manufacturer> localManufacturers = manufacturers;
