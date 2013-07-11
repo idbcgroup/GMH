@@ -79,6 +79,23 @@
 	</servlet-mapping>
 	
 	
+	
+	
+	
+	<servlet>
+		<servlet-name>GWTBaseRolService</servlet-name>
+		<servlet-class>org.fourgeeks.gha.webclient.server.baserole.GWTBaseRoleServiceImpl</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>GWTBaseRolService</servlet-name>
+		<url-pattern>/webclient/baseRol</url-pattern>
+	</servlet-mapping>
+	
+	
+	
+	
+	
 	<servlet>
 		<servlet-name>GWTBuildingLocationService</servlet-name>
 		<servlet-class>org.fourgeeks.gha.webclient.server.buildinglocation.GWTBuildingLocationServiceImpl</servlet-class>
