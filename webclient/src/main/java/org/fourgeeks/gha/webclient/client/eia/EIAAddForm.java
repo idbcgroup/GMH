@@ -1,10 +1,14 @@
 package org.fourgeeks.gha.webclient.client.eia;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
+import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gmh.Eia;
+import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAButton;
+import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHACheckboxItem;
 import org.fourgeeks.gha.webclient.client.UI.GHADateItem;
 import org.fourgeeks.gha.webclient.client.UI.GHASectionForm;
@@ -31,8 +35,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 
 	private List<EIASelectionListener> listeners;
-	private GHATextItem codeItem, serialItem, activeIdItem, facilityItem,
-			nameFac, garantiaEstadoText;
+	private GHATextItem codeItem, serialItem, activeIdItem, nameFac,
+			garantiaEstadoText;
 	private GHASelectItem garantiaEstadoSelect;
 	private GHASectionForm sectionForm;
 	{
@@ -41,7 +45,6 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 		codeItem = new GHATextItem("Código");
 		serialItem = new GHATextItem("Serial");
 		activeIdItem = new GHATextItem("Id. Activo Fijo");
-		facilityItem = new GHATextItem("Ubicación");
 		nameFac = new GHATextItem("Nombre");
 		garantiaEstadoText = new GHATextItem("En Garantía");
 		garantiaEstadoSelect = new GHASelectItem("Estado Equipo");
@@ -81,6 +84,24 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 		title.setHeight("35px");
 		addMember(title);
 		addMember(mainLayout);
+		fillBuildinglocations();
+
+	}
+
+	private void fillBuildinglocations() {
+		GHACache.INSTANCE
+				.getBuildingLocations(new GHAAsyncCallback<List<BuildingLocation>>() {
+
+					@Override
+					public void onSuccess(List<BuildingLocation> result) {
+						LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+						for (BuildingLocation entity : result)
+							valueMap.put(entity.getId() + "",
+									entity.getLocationName());
+						// brandItem.setValueMap(valueMap);//TODO
+
+					}
+				});
 
 	}
 

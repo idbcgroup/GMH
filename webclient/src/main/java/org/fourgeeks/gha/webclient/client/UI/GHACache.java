@@ -2,9 +2,11 @@ package org.fourgeeks.gha.webclient.client.UI;
 
 import java.util.List;
 
+import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.webclient.client.brand.BrandModel;
+import org.fourgeeks.gha.webclient.client.buildinglocation.BuildingLocationModel;
 import org.fourgeeks.gha.webclient.client.manufacturer.ManufacturerModel;
 
 import com.google.gwt.user.client.Timer;
@@ -18,6 +20,7 @@ public enum GHACache {
 	private static final int CACHE_TIME = 50000;
 	private List<Brand> brands;
 	private List<Manufacturer> manufacturers;
+	private List<BuildingLocation> buildingLocations;
 
 	{
 		// Inititalization of the invalidation policy
@@ -33,6 +36,33 @@ public enum GHACache {
 	protected void invalidateCache() {
 		brands = null;
 		manufacturers = null;
+		buildingLocations = null;
+	}
+
+	public void getBuildingLocations(
+			GHAAsyncCallback<List<BuildingLocation>> callback) {
+		// Avoiding synchronization problems
+		List<BuildingLocation> localCopy = buildingLocations;
+		if (localCopy == null)
+			getBuildingLocationsFromServer(callback);
+		else
+			callback.onSuccess(localCopy);
+
+	}
+
+	private void getBuildingLocationsFromServer(
+			final GHAAsyncCallback<List<BuildingLocation>> callback) {
+		BuildingLocationModel
+				.getAll(new GHAAsyncCallback<List<BuildingLocation>>() { // AyncCallback
+					// subclass
+
+					@Override
+					public void onSuccess(List<BuildingLocation> result) {
+						buildingLocations = result;
+						// Avoiding synchronization problems
+						callback.onSuccess(result);
+					}
+				});
 	}
 
 	public void getBrands(GHAAsyncCallback<List<Brand>> callback) {
