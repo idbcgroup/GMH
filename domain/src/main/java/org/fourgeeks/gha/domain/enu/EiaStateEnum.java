@@ -8,7 +8,46 @@ package org.fourgeeks.gha.domain.enu;
  * 
  */
 public enum EiaStateEnum {
-	NUEVO("Nuevo"), USADO("Usado"), DAÑADO("Dañado");
+	/**
+	 * 
+	 */
+	CREATED("Nuevo"), /**
+	 * 
+	 */
+	ACQUIRED("Adquirido"), /**
+	 * 
+	 */
+	RECIBIDO("Recibido"), /**
+	 * 
+	 */
+	DELIVERED("Entregado"), /**
+			 * 
+			 */
+	TO_INSTALL("Por instalar"), /**
+			 * 
+			 */
+	INSTALLED("Instalado"), /**
+			 * 
+			 */
+	LOST("Perdido"), /**
+			 * 
+			 */
+	IN_OPERATION("En operación"), /**
+			 * 
+			 */
+	DAMAGED("Dañado"), /**
+			 * 
+			 */
+	MAINTENANCE("En mantenimiento"), /**
+			 * 
+			 */
+	IN_ACCEPTANCE("En esperapor aceptaci'on en mantenimiento"), /**
+	 * 
+	 */
+	DISINCORPORATED("Desincorporado"), /**
+			 * 
+			 */
+	MAYOR_DAMAGED("Dañado severamente");
 
 	private String name;
 
@@ -20,6 +59,11 @@ public enum EiaStateEnum {
 		return this.name;
 	}
 
+	/**
+	 * @param string
+	 * @return the EiaStateEnum representated by this value, or null if it does
+	 *         not exist
+	 */
 	public static EiaStateEnum getByString(String string) {
 		if (string == null)
 			return null;

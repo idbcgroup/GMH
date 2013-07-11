@@ -89,7 +89,7 @@
 	
 	<servlet-mapping>
 		<servlet-name>GWTBaseRolService</servlet-name>
-		<url-pattern>/webclient/baseRol</url-pattern>
+		<url-pattern>/webclient/baseRole</url-pattern>
 	</servlet-mapping>
 	
 	
