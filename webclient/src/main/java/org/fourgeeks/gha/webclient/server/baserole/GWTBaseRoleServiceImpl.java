@@ -9,12 +9,19 @@ import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.ejb.ess.BaseRoleServiceRemote;
 import org.fourgeeks.gha.webclient.client.baserole.GWTBaseRoleService;
 
+import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+
 /**
  * @author alacret
  * 
  */
-public class GWTBaseRoleServiceImpl implements GWTBaseRoleService {
+public class GWTBaseRoleServiceImpl extends RemoteServiceServlet implements
+		GWTBaseRoleService {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@EJB(name = "ess.BaseRoleService")
 	BaseRoleServiceRemote service;
 

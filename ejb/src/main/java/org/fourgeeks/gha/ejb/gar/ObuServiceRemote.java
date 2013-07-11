@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.fourgeeks.gha.gar;
+package org.fourgeeks.gha.ejb.gar;
 
 import java.util.List;
 
