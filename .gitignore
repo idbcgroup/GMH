@@ -4,6 +4,7 @@
 *.class
 *.ear
 *.war
+*.orig
 
 ejb/bin/**
 webclient/bin/**
