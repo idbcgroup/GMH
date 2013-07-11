@@ -239,13 +239,13 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 				"Area Atendida:");
 		areaAtendidaTitle.setAlign(Alignment.CENTER);
 
-		GHATextItem codeAreaActual = new GHATextItem("Código Area Actual");
-		codeAreaActual.setWidth(150);
-		GHATextItem nameAreaActual = new GHATextItem("Nombre Area Actual");
+		GHATextItem codeAreaActual = new GHATextItem("Código",false);
+		codeAreaActual.setWidth(120);
+		GHASelectItem nameAreaActual = new GHASelectItem("Nombre");
 		nameAreaActual.setWidth(150);
-		GHATextItem codeAreaAtendida = new GHATextItem("Código Area Atendida");
-		codeAreaAtendida.setWidth(150);
-		GHATextItem nameAreaAtendida = new GHATextItem("Nombre Area Atendida");
+		GHATextItem codeAreaAtendida = new GHATextItem("Código",false);
+		codeAreaAtendida.setWidth(120);
+		GHASelectItem nameAreaAtendida = new GHASelectItem("Nombre");
 		nameAreaAtendida.setWidth(150);
 
 		GHACheckboxItem mismaArea = new GHACheckboxItem(
