@@ -19,6 +19,7 @@ import org.fourgeeks.gha.domain.enu.LocationLevelEnum;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
 import org.fourgeeks.gha.domain.enu.WarrantyStateEnum;
+import org.fourgeeks.gha.domain.ess.BaseRole;
 import org.fourgeeks.gha.domain.ess.SingleSignOnUser;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Facility;
@@ -78,6 +79,7 @@ public class TestData {
 		institutionTestData();
 		bpiTestData();
 		obuTestData();
+		baseRoleTestData();
 		buildingLocationsTestData();
 		// TODO
 		userTestData();
@@ -172,6 +174,30 @@ public class TestData {
 				obu.setName("Test Obu 3");
 				obu.setBpi(em.find(Bpi.class, 1L));
 				em.persist(obu);
+
+				em.flush();
+			} catch (Exception e1) {
+				logger.log(Level.INFO, "error creating test data obu", e);
+			}
+		}
+	}
+
+	private void baseRoleTestData() {
+		String query = "SELECT t from BaseRole t WHERE id = 1 ";
+		try {
+			em.createQuery(query).getSingleResult();
+		} catch (NoResultException e) {
+			try {
+				logger.info("creating test data : baserole");
+				BaseRole baseRole = new BaseRole();
+				baseRole.setName("Test Base Role 1");
+				em.persist(baseRole);
+				baseRole = new BaseRole();
+				baseRole.setName("Test Base Role 2");
+				em.persist(baseRole);
+				baseRole = new BaseRole();
+				baseRole.setName("Test Base Role 3");
+				em.persist(baseRole);
 
 				em.flush();
 			} catch (Exception e1) {
