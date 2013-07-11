@@ -12,6 +12,10 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.sql.DataSource;
 
+/**
+ * @author alacret
+ * 
+ */
 @Startup
 @Singleton
 public class InitialData {
@@ -22,6 +26,9 @@ public class InitialData {
 	@Resource(mappedName = "java:/jdbc/gha")
 	DataSource dataSource;
 
+	/**
+	 * 
+	 */
 	@PostConstruct
 	public void inicializar() {
 		createIndexs();

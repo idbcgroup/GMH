@@ -9,7 +9,7 @@ import javax.ejb.EJB;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
-import org.fourgeeks.gha.ejb.gmh.BrandServiceRemote;
+import org.fourgeeks.gha.ejb.gmh.BuildingLocationServiceRemote;
 import org.fourgeeks.gha.webclient.client.buildinglocation.GWTBuildingLocationService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -22,8 +22,7 @@ public class GWTBuildingLocationServiceImpl extends RemoteServiceServlet
 		implements GWTBuildingLocationService {
 
 	@EJB(name = "gmh.BuildingLocationService")
-	// TODO
-	BrandServiceRemote service;
+	BuildingLocationServiceRemote service;
 
 	/**
 	 * 
@@ -32,12 +31,12 @@ public class GWTBuildingLocationServiceImpl extends RemoteServiceServlet
 
 	@Override
 	public List<BuildingLocation> getAll() throws EJBException {
-		return null;// service.getAll(); //TODO
+		return service.getAll();
 	}
 
 	@Override
 	public List<BuildingLocation> getAll(int offset, int size)
 			throws EJBException {
-		return null; // service.getAll(); //TODO
+		return service.getAll(); // TODO
 	}
 }

@@ -67,6 +67,18 @@
 		<servlet-name>GWTBrandService</servlet-name>
 		<url-pattern>/webclient/brand</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>GWTObuService</servlet-name>
+		<servlet-class>org.fourgeeks.gha.webclient.server.obu.GWTObuServiceImpl</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>GWTObuService</servlet-name>
+		<url-pattern>/webclient/obu</url-pattern>
+	</servlet-mapping>
+	
+	
 	<servlet>
 		<servlet-name>GWTBuildingLocationService</servlet-name>
 		<servlet-class>org.fourgeeks.gha.webclient.server.buildinglocation.GWTBuildingLocationServiceImpl</servlet-class>

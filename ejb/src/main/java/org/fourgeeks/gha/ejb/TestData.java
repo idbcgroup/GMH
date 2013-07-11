@@ -4,14 +4,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import javax.sql.DataSource;
 
 import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
@@ -24,6 +22,7 @@ import org.fourgeeks.gha.domain.enu.WarrantyStateEnum;
 import org.fourgeeks.gha.domain.ess.SingleSignOnUser;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Facility;
+import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
@@ -38,6 +37,10 @@ import org.fourgeeks.gha.ejb.gmh.EiaTypeComponentServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.EiaTypeServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.ManufacturerServiceRemote;
 
+/**
+ * @author alacret
+ * 
+ */
 @Startup
 @Singleton
 public class TestData {
@@ -66,14 +69,15 @@ public class TestData {
 	@EJB(name = "gmh.EiaComponentService")
 	EiaComponentServiceRemote ecService;
 
-	@Resource(mappedName = "java:/jdbc/gha")
-	DataSource dataSource;
-
+	/**
+	 * 
+	 */
 	@PostConstruct
 	public void loadTestData() {
 		legalEntityTestData();
 		institutionTestData();
 		bpiTestData();
+		obuTestData();
 		buildingLocationsTestData();
 		// TODO
 		userTestData();
@@ -145,6 +149,33 @@ public class TestData {
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error creating test data bpi", e);
+			}
+		}
+	}
+
+	private void obuTestData() {
+		String query = "SELECT t from Obu t WHERE id = 1 ";
+		try {
+			em.createQuery(query).getSingleResult();
+		} catch (NoResultException e) {
+			try {
+				logger.info("creating test data : opu");
+				Obu obu = new Obu();
+				obu.setName("Test Obu 1");
+				obu.setBpi(em.find(Bpi.class, 1L));
+				em.persist(obu);
+				obu = new Obu();
+				obu.setName("Test Obu 2");
+				obu.setBpi(em.find(Bpi.class, 1L));
+				em.persist(obu);
+				obu = new Obu();
+				obu.setName("Test Obu 3");
+				obu.setBpi(em.find(Bpi.class, 1L));
+				em.persist(obu);
+
+				em.flush();
+			} catch (Exception e1) {
+				logger.log(Level.INFO, "error creating test data obu", e);
 			}
 		}
 	}
