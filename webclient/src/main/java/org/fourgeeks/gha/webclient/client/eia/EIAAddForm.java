@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.ess.BaseRole;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Obu;
@@ -36,13 +37,14 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 
 	private List<EIASelectionListener> listeners;
-	private GHATextItem codeItem, serialItem, activeIdItem,	garantiaEstadoText,
+	private GHATextItem codeItem, serialItem, activeIdItem,	enGarantiaTextItem,
 						noOrden,noFactura,codeAreaActual,codeAreaAtendida,costoAdq,
 						costoAdqLoc,timeDep,timeVida,costoAct,garantiaReal,
 						tiempoGarantiaReal,garantiaInt,tiempoGarantiaInt,
 						intermediateGarantia,mesesGarantia,codeMant,nameMant,
-						providerMant,numMant,dirIPTextItem,macAddressTextItem;
-	private GHASelectItem garantiaEstadoSelect, depResponsableSelectItem,dirResponsable,
+						providerMant,numMant,dirIPTextItem,macAddressTextItem,
+						garantiaEstadoTextItem;
+	private GHASelectItem depResponsableSelectItem,dirResponsable,
 						  provider,nameAreaActual,nameAreaAtendida,currencyAdq,
 						  monedaLocal,metodoDepreciacion,timeDepSel,timeVidaSel,
 						  monedaCosto,garantiaDesde,garantiaIntDesde,typeITSelectItem,
@@ -72,8 +74,8 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 		dirResponsable = new GHASelectItem("Rol Responsable");
 		dirResponsable.setColSpan(2);
 		dirResponsable.setWidth(200);
-		garantiaEstadoText = new GHATextItem("En Garantía");
-		garantiaEstadoSelect = new GHASelectItem("Estado Equipo");
+		enGarantiaTextItem = new GHATextItem("En Garantía");
+		garantiaEstadoTextItem = new GHATextItem("Estado Equipo",false);
 		//Adquisicion Form Items
 		adqisicionTitle = new GHATitleTextItem("Adquisición:");
 		buyDate = new GHADateItem("Fecha de Compra");
@@ -302,7 +304,7 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 							codeItem,serialItem,activeIdItem, new GHASpacerItem(), 
 							depResponsableSelectItem,dirResponsable, 
 							garantiasTitle, new GHASpacerItem(3),
-							garantiaEstadoText, garantiaEstadoSelect);
+							enGarantiaTextItem, garantiaEstadoTextItem);
 		return equipoForm;
 	}
 	
@@ -350,6 +352,7 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 				dirResponsable.setValueMap(valueMap);				
 			}
 		});
+		garantiaEstadoTextItem.setValue(EiaStateEnum.CREATED); 
 	}
 	
 ////Implementations
