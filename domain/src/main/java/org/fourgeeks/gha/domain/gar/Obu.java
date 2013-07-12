@@ -1,5 +1,6 @@
 package org.fourgeeks.gha.domain.gar;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -25,7 +26,10 @@ public class Obu extends AbstractEntity {
 	@JoinColumn(name = "bpiFk")
 	private Bpi bpi;
 
+	@Column(nullable = false)
 	private String name;
+
+	@Column(nullable = false)
 	private String code;
 
 	// @OneToMany(mappedBy = "obu")

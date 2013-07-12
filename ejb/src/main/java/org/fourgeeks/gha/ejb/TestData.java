@@ -24,6 +24,7 @@ import org.fourgeeks.gha.domain.ess.SingleSignOnUser;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Facility;
 import org.fourgeeks.gha.domain.gar.Obu;
+import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
@@ -81,12 +82,36 @@ public class TestData {
 		obuTestData();
 		baseRoleTestData();
 		buildingLocationsTestData();
-		// TODO
 		userTestData();
 		brandTestData();
 		manufacturerTestData();
+		externalProviderTestData();
+		// // TODO
 		eiaTypeTestData();
 		eiaTestData();
+	}
+
+	private void externalProviderTestData() {
+		String query = "SELECT t from ExternalProvider t WHERE id = 1 ";
+		try {
+			em.createQuery(query).getSingleResult();
+		} catch (NoResultException e) {
+			try {
+				logger.info("creating test data : external provider");
+				ExternalProvider eP = null;
+
+				for (int j = 0; j < 3; j++) {
+					eP = new ExternalProvider();
+					eP.setInstitution(em.find(Institution.class,
+							Long.valueOf(j + 3)));
+					em.persist(eP);
+				}
+				em.flush();
+			} catch (Exception e1) {
+				logger.log(Level.INFO,
+						"error creating test data: external provider", e);
+			}
+		}
 	}
 
 	private void legalEntityTestData() {
@@ -96,13 +121,8 @@ public class TestData {
 		} catch (NoResultException e) {
 			try {
 				logger.info("creating test data : legal entity ");
-				LegalEntity legalEntity = new LegalEntity();
-				em.persist(legalEntity);
-				legalEntity = new LegalEntity();
-				em.persist(legalEntity);
-				legalEntity = new LegalEntity();
-				em.persist(legalEntity);
-
+				for (int i = 0; i < 5; i++)
+					em.persist(new LegalEntity());
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error creating test data legal entity",
@@ -118,13 +138,14 @@ public class TestData {
 		} catch (NoResultException e) {
 			try {
 				logger.info("creating test data : institution");
-				Institution institution = new Institution();
-				institution.setLegalEntity(em.find(LegalEntity.class, 1L));
-				em.persist(institution);
-				institution = new Institution();
-				institution.setLegalEntity(em.find(LegalEntity.class, 1L));
-				em.persist(institution);
-
+				Institution institution = null;
+				for (int i = 0; i < 5; i++) {
+					institution = new Institution();
+					institution.setName("Test Institution " + i);
+					institution.setLegalEntity(em.find(LegalEntity.class,
+							Long.valueOf(i)));
+					em.persist(institution);
+				}
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error creating test data institution",
@@ -161,20 +182,15 @@ public class TestData {
 			em.createQuery(query).getSingleResult();
 		} catch (NoResultException e) {
 			try {
-				logger.info("creating test data : opu");
-				Obu obu = new Obu();
-				obu.setName("Test Obu 1");
-				obu.setBpi(em.find(Bpi.class, 1L));
-				em.persist(obu);
-				obu = new Obu();
-				obu.setName("Test Obu 2");
-				obu.setBpi(em.find(Bpi.class, 1L));
-				em.persist(obu);
-				obu = new Obu();
-				obu.setName("Test Obu 3");
-				obu.setBpi(em.find(Bpi.class, 1L));
-				em.persist(obu);
-
+				logger.info("creating test data : obu");
+				Obu obu = null;
+				for (int i = 0; i < 3; i++) {
+					obu = new Obu();
+					obu.setName("Test Obu " + i);
+					obu.setCode("Test code " + i);
+					obu.setBpi(em.find(Bpi.class, 1L));
+					em.persist(obu);
+				}
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error creating test data obu", e);

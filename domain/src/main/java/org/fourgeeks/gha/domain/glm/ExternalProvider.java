@@ -5,6 +5,7 @@ package org.fourgeeks.gha.domain.glm;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
@@ -17,41 +18,48 @@ import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.domain.mix.Institution;
 
 /**
- * @author emiliot
- *
+ * @author alacret
+ * 
  */
 
 @Entity
-public class ExternalProvider extends AbstractEntity{
+public class ExternalProvider extends AbstractEntity {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@OneToOne
-	@JoinColumn(name = "institutionFk")
+	@JoinColumn(name = "institutionFk", nullable = false)
 	private Institution institution;
-	
-	@OneToOne
+
+	@ManyToOne
 	@JoinColumn(name = "manufacturerFk")
 	private Manufacturer primaryManufacturer;
-	
-	@OneToOne
+
+	@ManyToOne
 	@JoinColumn(name = "brandFk")
 	private Brand primaryBrand;
-	
-	/**ATTRIBUTES*/
-	
-	private String code; /** Código de CREDENCIAL proveedor Externo length =255 */
-	private String name; /** Nombre Proveedor Externo length =255 */
-	private ProviderResourceTypeEnum resourceType; /** Tipo de Recurso que suministra el Proveedor length =60 */
-	private ProviderTypeEnum type; /** Tipo de Proveedor length =60 */
-	private ProviderServicesEnum services; /** Servicios que ofrece sobre lo que suministra length =60 */
-	private ProviderPreferenceEnum preference; /** Preferencia sobre el proveedor length =60 */
-	private ProviderQualEnum qualification; /** Calificacion sobre el Proveedor en base a su cumplimiento length =60 */
-	private ProviderRepresentEnum whoRepresent; /** Proveedor Representa a un FABRICANTE o a una o varias MARCAS length =60 */
-	
+
+	/** ATTRIBUTES */
+
+	private String code;
+	/** Nombre Proveedor Externo length =255 */
+	private ProviderResourceTypeEnum resourceType;
+	/** Tipo de Recurso que suministra el Proveedor length =60 */
+	private ProviderTypeEnum type;
+	/** Tipo de Proveedor length =60 */
+	private ProviderServicesEnum services;
+	/** Servicios que ofrece sobre lo que suministra length =60 */
+	private ProviderPreferenceEnum preference;
+	/** Preferencia sobre el proveedor length =60 */
+	private ProviderQualEnum qualification;
+	/** Calificacion sobre el Proveedor en base a su cumplimiento length =60 */
+	private ProviderRepresentEnum whoRepresent;
+
+	/** Proveedor Representa a un FABRICANTE o a una o varias MARCAS length =60 */
+
 	/**
 	 * 
 	 */
@@ -82,7 +90,6 @@ public class ExternalProvider extends AbstractEntity{
 		this.primaryManufacturer = primaryManufacturer;
 		this.primaryBrand = primaryBrand;
 		this.code = code;
-		this.name = name;
 		this.resourceType = resourceType;
 		this.type = type;
 		this.services = services;
@@ -91,26 +98,39 @@ public class ExternalProvider extends AbstractEntity{
 		this.whoRepresent = whoRepresent;
 	}
 
+	/**
+	 * @return
+	 */
 	public Institution getInstitution() {
 		return institution;
 	}
 
+	/**
+	 * @return
+	 */
 	public Manufacturer getPrimaryManufacturer() {
 		return primaryManufacturer;
 	}
 
+	/**
+	 * @return
+	 */
 	public Brand getPrimaryBrand() {
 		return primaryBrand;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public String getCode() {
 		return code;
 	}
 
-	public String getName() {
-		return name;
-	}
-
+	/**
+	 * 
+	 * @return
+	 */
 	public ProviderResourceTypeEnum getResourceType() {
 		return resourceType;
 	}
@@ -149,10 +169,6 @@ public class ExternalProvider extends AbstractEntity{
 
 	public void setCode(String code) {
 		this.code = code;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public void setResourceType(ProviderResourceTypeEnum resourceType) {
