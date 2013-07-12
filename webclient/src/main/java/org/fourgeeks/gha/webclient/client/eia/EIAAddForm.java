@@ -41,14 +41,17 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 
 	private List<EIASelectionListener> listeners;
-	private GHATextItem codeItem, serialItem, activeIdItem,	enGarantiaTextItem,
-			codeAreaActual, codeAreaAtendida, costoAdq, costoAdqLoc, timeDep,
-			timeVida, costoAct, garantiaReal, tiempoGarantiaReal, garantiaInt,
-			tiempoGarantiaInt, intermediateGarantia, mesesGarantia, codeMant,
-			nameMant, providerMant, numMant, dirIPTextItem, macAddressTextItem;
-						providerMant,numMant,dirIPTextItem,macAddressTextItem,
-						garantiaEstadoTextItem;
-	private GHASelectItem depResponsableSelectItem,dirResponsable,
+	private GHATextItem codeItem, serialItem, activeIdItem,	
+			noOrden,noFactura,
+			codeAreaActual,codeAreaAtendida, 
+			costoAdq, costoAdqLoc, timeDep, timeVida, costoAct, garantiaReal, 
+			tiempoGarantiaReal, garantiaInt,tiempoGarantiaInt, 
+			intermediateGarantia, mesesGarantia, codeMant,
+			nameMant, providerMant, numMant, dirIPTextItem, macAddressTextItem,
+			garantiaEstadoTextItem;
+	private GHASelectItem depResponsableSelectItem,dirResponsable,eqStateSelect,
+			provider,nameAreaActual,nameAreaAtendida, currencyAdq,monedaLocal,
+			metodoDepreciacion,timeDepSel,
 			timeVidaSel, monedaCosto, garantiaDesde, garantiaIntDesde,
 			typeITSelectItem, nombreMaquinaSelectItem;
 	private GHATitleTextItem equiposTitle, garantiasTitle, adqisicionTitle,
@@ -285,9 +288,9 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 		adquisicionForm.setTitleOrientation(TitleOrientation.TOP);
 		adquisicionForm.setNumCols(3);
 
-		adquisicionForm.setItems(adqisicionTitle, new GHASpacerItem(2),
-				buyDate, recepcionDate, instalacionDate, provider, noOrden,
-				noFactura);
+		adquisicionForm.setItems(adqisicionTitle, new GHASpacerItem(2), 
+								 buyDate, recepcionDate, instalacionDate, 
+								 provider, noOrden,	noFactura);
 		return adquisicionForm;
 	}
 
@@ -299,10 +302,11 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 		equipoForm.setTitleOrientation(TitleOrientation.TOP);
 		equipoForm.setNumCols(4);
 
-		equipoForm.setItems(equiposTitle, new GHASpacerItem(3), codeItem,
-				serialItem, activeIdItem, new GHASpacerItem(),
-				depResponsableSelectItem, dirResponsable, garantiasTitle,
-				new GHASpacerItem(3), eqStateSelect);
+		equipoForm.setItems(equiposTitle, new GHASpacerItem(3), 
+							codeItem,serialItem, activeIdItem, new GHASpacerItem(),
+							depResponsableSelectItem, dirResponsable, 
+							garantiasTitle,new GHASpacerItem(3), 
+							garantiasTitle, eqStateSelect);
 		return equipoForm;
 	}
 
