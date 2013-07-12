@@ -305,7 +305,6 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 		equipoForm.setItems(equiposTitle, new GHASpacerItem(3), 
 							codeItem,serialItem, activeIdItem, new GHASpacerItem(),
 							depResponsableSelectItem, dirResponsable, 
-							garantiasTitle,new GHASpacerItem(3), 
 							garantiasTitle, eqStateSelect);
 		return equipoForm;
 	}
