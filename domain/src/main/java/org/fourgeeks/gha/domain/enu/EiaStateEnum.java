@@ -3,6 +3,8 @@
  */
 package org.fourgeeks.gha.domain.enu;
 
+import java.util.LinkedHashMap;
+
 /**
  * @author emiliot
  * 
@@ -73,5 +75,15 @@ public enum EiaStateEnum {
 				return e;
 
 		return null;
+	}
+
+	/**
+	 * @return a valueMap with this Enum values
+	 */
+	public static LinkedHashMap<String, String> toValueMap() {
+		LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+		for (EiaStateEnum mobility : EiaStateEnum.values())
+			valueMap.put(mobility.name() + "", mobility.toString());
+		return valueMap;
 	}
 }

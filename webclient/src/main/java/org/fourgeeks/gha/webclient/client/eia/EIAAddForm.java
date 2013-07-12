@@ -34,35 +34,37 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
+/**
+ * @author alacret Add Eia Form
+ * 
+ */
 public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 
 	private List<EIASelectionListener> listeners;
 	private GHATextItem codeItem, serialItem, activeIdItem,	enGarantiaTextItem,
-						noOrden,noFactura,codeAreaActual,codeAreaAtendida,costoAdq,
-						costoAdqLoc,timeDep,timeVida,costoAct,garantiaReal,
-						tiempoGarantiaReal,garantiaInt,tiempoGarantiaInt,
-						intermediateGarantia,mesesGarantia,codeMant,nameMant,
+			codeAreaActual, codeAreaAtendida, costoAdq, costoAdqLoc, timeDep,
+			timeVida, costoAct, garantiaReal, tiempoGarantiaReal, garantiaInt,
+			tiempoGarantiaInt, intermediateGarantia, mesesGarantia, codeMant,
+			nameMant, providerMant, numMant, dirIPTextItem, macAddressTextItem;
 						providerMant,numMant,dirIPTextItem,macAddressTextItem,
 						garantiaEstadoTextItem;
 	private GHASelectItem depResponsableSelectItem,dirResponsable,
-						  provider,nameAreaActual,nameAreaAtendida,currencyAdq,
-						  monedaLocal,metodoDepreciacion,timeDepSel,timeVidaSel,
-						  monedaCosto,garantiaDesde,garantiaIntDesde,typeITSelectItem,
-						  nombreMaquinaSelectItem;							
-	private GHATitleTextItem equiposTitle,garantiasTitle,adqisicionTitle,
-						     areaActualTitle,areaAtendidaTitle,adqCostTitle,
-						     actualCostTitle,tiempoDepTitle,tiempoVidaTitle,
-						     garantiaRealTitle,garantiaIntTitle,mantenimientoTitle,
-						     itTitleTextItem;
-	private GHADateItem buyDate,recepcionDate,instalacionDate,fechaContab,fechaUltDeprec,
-						fechaInic,fechaInicInt,fechaInicMant,fechaFinMant;
-	private GHACheckboxItem mismaArea,isMant,retired;
+			timeVidaSel, monedaCosto, garantiaDesde, garantiaIntDesde,
+			typeITSelectItem, nombreMaquinaSelectItem;
+	private GHATitleTextItem equiposTitle, garantiasTitle, adqisicionTitle,
+			areaActualTitle, areaAtendidaTitle, adqCostTitle, actualCostTitle,
+			tiempoDepTitle, tiempoVidaTitle, garantiaRealTitle,
+			garantiaIntTitle, mantenimientoTitle, itTitleTextItem;
+	private GHADateItem buyDate, recepcionDate, instalacionDate, fechaContab,
+			fechaUltDeprec, fechaInic, fechaInicInt, fechaInicMant,
+			fechaFinMant;
+	private GHACheckboxItem mismaArea, isMant, retired;
 	private GHASectionForm sectionForm;
 	{
-		//Global
+		// Global
 		sectionForm = new GHASectionForm();
 		listeners = new ArrayList<EIASelectionListener>();
-		//Information Form Items
+		// Information Form Items
 		equiposTitle = new GHATitleTextItem("Información:");
 		garantiasTitle = new GHATitleTextItem("Estado:");
 		codeItem = new GHATextItem("Código");
@@ -74,9 +76,8 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 		dirResponsable = new GHASelectItem("Rol Responsable");
 		dirResponsable.setColSpan(2);
 		dirResponsable.setWidth(200);
-		enGarantiaTextItem = new GHATextItem("En Garantía");
-		garantiaEstadoTextItem = new GHATextItem("Estado Equipo",false);
-		//Adquisicion Form Items
+		eqStateSelect = new GHASelectItem("Estado Equipo");
+		// Adquisicion Form Items
 		adqisicionTitle = new GHATitleTextItem("Adquisición:");
 		buyDate = new GHADateItem("Fecha de Compra");
 		provider = new GHASelectItem("Proveedor");
@@ -85,20 +86,21 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 		noFactura = new GHATextItem("No. Factura");
 		recepcionDate = new GHADateItem("Recepción");
 		instalacionDate = new GHADateItem("Instalación");
-		//Ubicacion Form Items
+		// Ubicacion Form Items
 		areaActualTitle = new GHATitleTextItem("Area Actual:");
 		areaAtendidaTitle = new GHATitleTextItem("Area Atendida:");
-		codeAreaActual = new GHATextItem("Código",false);
+		codeAreaActual = new GHATextItem("Código", false);
 		codeAreaActual.setWidth(120);
 		nameAreaActual = new GHASelectItem("Nombre");
 		nameAreaActual.setWidth(150);
-		codeAreaAtendida = new GHATextItem("Código",false);
+		codeAreaAtendida = new GHATextItem("Código", false);
 		codeAreaAtendida.setWidth(120);
 		nameAreaAtendida = new GHASelectItem("Nombre");
 		nameAreaAtendida.setWidth(150);
-		mismaArea = new GHACheckboxItem("Atiende a la misma area donde esta Ubicado");
+		mismaArea = new GHACheckboxItem(
+				"Atiende a la misma area donde esta Ubicado");
 		mismaArea.setColSpan(2);
-		//Costos Form Items
+		// Costos Form Items
 		adqCostTitle = new GHATitleTextItem("Costo Adquisición:");
 		costoAdq = new GHATextItem("Costo de Adquisición del equipo");
 		costoAdq.setWidth(180);
@@ -124,7 +126,7 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 		monedaCosto = new GHASelectItem("Moneda");
 		fechaUltDeprec = new GHADateItem("Fecha Ult. Depreciación");
 		fechaUltDeprec.setWidth(150);
-		//Garantias Form Items
+		// Garantias Form Items
 		garantiaRealTitle = new GHATitleTextItem("Garantía Real:");
 		garantiaIntTitle = new GHATitleTextItem("Garantía Intermedia:");
 		mantenimientoTitle = new GHATitleTextItem("Mantenimiento:");
@@ -155,7 +157,7 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 		fechaInicMant.setWidth(130);
 		fechaFinMant = new GHADateItem("Fecha Fin. Mant.");
 		fechaFinMant.setWidth(130);
-		//Equipos IT Form Items
+		// Equipos IT Form Items
 		itTitleTextItem = new GHATitleTextItem("EQUIPOS IT (Sistemas):");
 		typeITSelectItem = new GHASelectItem("Tipo Equipo IT");
 		typeITSelectItem.setWidth(150);
@@ -164,6 +166,9 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 		macAddressTextItem = new GHATextItem("MAC Address");
 	}
 
+	/**
+	 * 
+	 */
 	public EIAAddForm() {
 		GHAUiHelper.addResizeHandler(this);
 		setHeight(GHAUiHelper.getBottomSectionHeight());
@@ -198,22 +203,22 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 		title.setHeight("35px");
 		addMember(title);
 		addMember(mainLayout);
-		
-		//Fillers 
+
+		// Fillers
 		fillBuildinglocationsSelects();
 		fillInformationSelects();
 	}
 
-////Form Creating Functions
-	
+	// //Form Creating Functions
+
 	private DynamicForm getEquiposIT() {
 		DynamicForm equiposITForm = new DynamicForm();
 		equiposITForm.setTitleOrientation(TitleOrientation.TOP);
 		equiposITForm.setNumCols(2);
 
-		equiposITForm.setItems(itTitleTextItem, new GHASpacerItem(), 
-							   typeITSelectItem,nombreMaquinaSelectItem, 
-							   dirIPTextItem, macAddressTextItem);
+		equiposITForm.setItems(itTitleTextItem, new GHASpacerItem(),
+				typeITSelectItem, nombreMaquinaSelectItem, dirIPTextItem,
+				macAddressTextItem);
 
 		return equiposITForm;
 	}
@@ -226,16 +231,15 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 		garantiasMamtenimientoForm.setTitleOrientation(TitleOrientation.TOP);
 		garantiasMamtenimientoForm.setNumCols(4);
 
-		garantiasMamtenimientoForm.setItems(
-				garantiaRealTitle,new GHASpacerItem(3), 
-				garantiaDesde, garantiaReal,tiempoGarantiaReal, fechaInic, 
-				garantiaIntTitle,new GHASpacerItem(3), 
-				garantiaIntDesde, garantiaInt,tiempoGarantiaInt, fechaInicInt, 
-				intermediateGarantia,mesesGarantia, new GHASpacerItem(2), 
-				new GHASpacerItem(4),
-				mantenimientoTitle, new GHASpacerItem(3), 
-				isMant, codeMant,nameMant, providerMant,
-				retired, numMant, fechaInicMant,fechaFinMant);
+		garantiasMamtenimientoForm.setItems(garantiaRealTitle,
+				new GHASpacerItem(3), garantiaDesde, garantiaReal,
+				tiempoGarantiaReal, fechaInic, garantiaIntTitle,
+				new GHASpacerItem(3), garantiaIntDesde, garantiaInt,
+				tiempoGarantiaInt, fechaInicInt, intermediateGarantia,
+				mesesGarantia, new GHASpacerItem(2), new GHASpacerItem(4),
+				mantenimientoTitle, new GHASpacerItem(3), isMant, codeMant,
+				nameMant, providerMant, retired, numMant, fechaInicMant,
+				fechaFinMant);
 
 		return garantiasMamtenimientoForm;
 	}
@@ -248,15 +252,12 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 		costosForm.setTitleOrientation(TitleOrientation.TOP);
 		costosForm.setNumCols(3);
 
-		costosForm.setItems(adqCostTitle, new GHASpacerItem(2), 
-							costoAdq, currencyAdq, fechaContab, 
-							costoAdqLoc,monedaLocal,new GHASpacerItem(), 
-							new GHASpacerItem(3), 
-							actualCostTitle,new GHASpacerItem(2), 
-							metodoDepreciacion, fechaUltDeprec,new GHASpacerItem(), 
-							tiempoDepTitle, timeDep, timeDepSel,
-							tiempoVidaTitle, timeVida, timeVidaSel, 
-							costoAct, monedaCosto);
+		costosForm.setItems(adqCostTitle, new GHASpacerItem(2), costoAdq,
+				currencyAdq, fechaContab, costoAdqLoc, monedaLocal,
+				new GHASpacerItem(), new GHASpacerItem(3), actualCostTitle,
+				new GHASpacerItem(2), metodoDepreciacion, fechaUltDeprec,
+				new GHASpacerItem(), tiempoDepTitle, timeDep, timeDepSel,
+				tiempoVidaTitle, timeVida, timeVidaSel, costoAct, monedaCosto);
 
 		return costosForm;
 	}
@@ -269,11 +270,9 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 		areaForm.setTitleOrientation(TitleOrientation.TOP);
 		areaForm.setNumCols(2);
 
-		areaForm.setItems(areaActualTitle, new GHASpacerItem(), 
-						  codeAreaActual,nameAreaActual, 
-						  mismaArea, 
-						  areaAtendidaTitle, new GHASpacerItem(), 
-						  codeAreaAtendida, nameAreaAtendida);
+		areaForm.setItems(areaActualTitle, new GHASpacerItem(), codeAreaActual,
+				nameAreaActual, mismaArea, areaAtendidaTitle,
+				new GHASpacerItem(), codeAreaAtendida, nameAreaAtendida);
 		return areaForm;
 	}
 
@@ -287,8 +286,8 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 		adquisicionForm.setNumCols(3);
 
 		adquisicionForm.setItems(adqisicionTitle, new GHASpacerItem(2),
-								 buyDate, recepcionDate, instalacionDate, 
-								 provider, noOrden, noFactura);
+				buyDate, recepcionDate, instalacionDate, provider, noOrden,
+				noFactura);
 		return adquisicionForm;
 	}
 
@@ -300,16 +299,15 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 		equipoForm.setTitleOrientation(TitleOrientation.TOP);
 		equipoForm.setNumCols(4);
 
-		equipoForm.setItems(equiposTitle, new GHASpacerItem(3), 
-							codeItem,serialItem,activeIdItem, new GHASpacerItem(), 
-							depResponsableSelectItem,dirResponsable, 
-							garantiasTitle, new GHASpacerItem(3),
-							enGarantiaTextItem, garantiaEstadoTextItem);
+		equipoForm.setItems(equiposTitle, new GHASpacerItem(3), codeItem,
+				serialItem, activeIdItem, new GHASpacerItem(),
+				depResponsableSelectItem, dirResponsable, garantiasTitle,
+				new GHASpacerItem(3), eqStateSelect);
 		return equipoForm;
 	}
-	
-////Fillers
-	
+
+	// //Fillers
+
 	private void fillBuildinglocationsSelects() {
 		GHACache.INSTANCE
 				.getBuildingLocations(new GHAAsyncCallback<List<BuildingLocation>>() {
@@ -317,51 +315,56 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 					public void onSuccess(List<BuildingLocation> result) {
 						LinkedHashMap<String, String> valueMapActual = new LinkedHashMap<String, String>();
 						LinkedHashMap<String, String> valueMapAtendida = new LinkedHashMap<String, String>();
-						
-						for (BuildingLocation entity : result){
+
+						for (BuildingLocation entity : result) {
 							valueMapActual.put(entity.getId() + "",
 									entity.getLocationName());
 							valueMapAtendida.put(entity.getId() + "",
 									entity.getLocationName());
 						}
-						
+
 						nameAreaActual.setValueMap(valueMapActual);
 						nameAreaAtendida.setValueMap(valueMapAtendida);
 
 					}
 				});
 	}
-	
-	private void fillInformationSelects(){
+
+	private void fillInformationSelects() {
 		GHACache.INSTANCE.getObus(new GHAAsyncCallback<List<Obu>>() {
 			@Override
-			public void onSuccess(List<Obu> result) {				
+			public void onSuccess(List<Obu> result) {
 				LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-				for(Obu entity: result)
-					valueMap.put(entity.getId()+"", entity.getName()+"");
+				for (Obu entity : result)
+					valueMap.put(entity.getId() + "", entity.getName() + "");
 				depResponsableSelectItem.setValueMap(valueMap);
 			}
 		});
-		
+
 		GHACache.INSTANCE.getBaseRoles(new GHAAsyncCallback<List<BaseRole>>() {
 			@Override
 			public void onSuccess(List<BaseRole> result) {
 				LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-				for(BaseRole entity: result)
-					valueMap.put(entity.getId()+"", entity.getName()+"");
-				dirResponsable.setValueMap(valueMap);				
+				for (BaseRole entity : result)
+					valueMap.put(entity.getId() + "", entity.getName() + "");
+				dirResponsable.setValueMap(valueMap);
 			}
 		});
-		garantiaEstadoTextItem.setValue(EiaStateEnum.CREATED); 
+
+		eqStateSelect.setValueMap(EiaStateEnum.toValueMap());
+
 	}
-	
-////Implementations
-	
+
+	// //Implementations
+
 	protected void select(Eia eia) {
 		for (EIASelectionListener listener : listeners)
 			listener.select(eia);
 	}
 
+	/**
+	 * @param listener
+	 */
 	public void addEiaSelectionListener(EIASelectionListener listener) {
 		listeners.add(listener);
 	}

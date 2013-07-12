@@ -3,6 +3,7 @@
  */
 package org.fourgeeks.gha.domain.ess;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
@@ -20,6 +21,7 @@ public class BaseRole extends AbstractEntity {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@Column(nullable = false)
 	private String name;
 
 	/**
