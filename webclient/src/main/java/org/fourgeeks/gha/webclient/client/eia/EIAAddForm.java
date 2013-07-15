@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import org.fourgeeks.gha.domain.enu.CurrencyTypeEnum;
+import org.fourgeeks.gha.domain.enu.DepreciationMethodEnum;
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
+import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
+import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
 import org.fourgeeks.gha.domain.ess.BaseRole;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Obu;
@@ -207,8 +211,12 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 		addMember(mainLayout);
 
 		// Fillers
-		fillBuildinglocationsSelects();
 		fillInformationSelects();
+		fillAdquisitionSelects();
+		fillBuildinglocationsSelects();
+		fillCostsSelects();
+		fillWarrantySelects();
+		fillITEquipmentsSelects();
 	}
 
 	// //Form Creating Functions
@@ -309,29 +317,6 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 	}
 
 	// //Fillers
-
-	private void fillBuildinglocationsSelects() {
-		GHACache.INSTANCE
-				.getBuildingLocations(new GHAAsyncCallback<List<BuildingLocation>>() {
-					@Override
-					public void onSuccess(List<BuildingLocation> result) {
-						LinkedHashMap<String, String> valueMapActual = new LinkedHashMap<String, String>();
-						LinkedHashMap<String, String> valueMapAtendida = new LinkedHashMap<String, String>();
-
-						for (BuildingLocation entity : result) {
-							valueMapActual.put(entity.getId() + "",
-									entity.getLocationName());
-							valueMapAtendida.put(entity.getId() + "",
-									entity.getLocationName());
-						}
-
-						nameAreaActual.setValueMap(valueMapActual);
-						nameAreaAtendida.setValueMap(valueMapAtendida);
-
-					}
-				});
-	}
-
 	private void fillInformationSelects() {
 		GHACache.INSTANCE.getObus(new GHAAsyncCallback<List<Obu>>() {
 			@Override
@@ -353,6 +338,11 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 			}
 		});
 
+		eqStateSelect.setValueMap(EiaStateEnum.toValueMap());
+		eqStateSelect.setValue(EiaStateEnum.CREATED.toString());
+	}
+	
+	private void fillAdquisitionSelects(){
 		GHACache.INSTANCE
 				.getExternalProviders(new GHAAsyncCallback<List<ExternalProvider>>() {
 					@Override
@@ -364,8 +354,49 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 						providerSelect.setValueMap(valueMap);
 					}
 				});
+	}
+	
 
-		eqStateSelect.setValueMap(EiaStateEnum.toValueMap());
+	private void fillBuildinglocationsSelects() {
+		GHACache.INSTANCE
+				.getBuildingLocations(new GHAAsyncCallback<List<BuildingLocation>>() {
+					@Override
+					public void onSuccess(List<BuildingLocation> result) {
+						LinkedHashMap<String, String> valueMapActual = new LinkedHashMap<String, String>();
+						LinkedHashMap<String, String> valueMapAtendida = new LinkedHashMap<String, String>();
+
+						for (BuildingLocation entity : result) {
+							valueMapActual.put(entity.getId() + "",
+									entity.getLocationName());
+							valueMapAtendida.put(entity.getId() + "",
+									entity.getLocationName());
+						}
+
+						nameAreaActual.setValueMap(valueMapActual);
+						nameAreaAtendida.setValueMap(valueMapAtendida);
+					}
+				});
+	}
+	
+	private void fillCostsSelects(){
+		currencyAdq.setValueMap(CurrencyTypeEnum.toValueMap());
+		monedaLocal.setValueMap(CurrencyTypeEnum.toValueMap());
+		
+		metodoDepreciacion.setValueMap(DepreciationMethodEnum.toValueMap());
+		
+		timeDepSel.setValueMap(TimePeriodEnum.toValueMap());
+		timeVidaSel.setValueMap(TimePeriodEnum.toValueMap());
+		
+		monedaCosto.setValueMap(CurrencyTypeEnum.toValueMap());
+	}
+	
+	private void fillWarrantySelects(){
+		garantiaDesde.setValueMap(WarrantySinceEnum.toValueMap());
+		garantiaIntDesde.setValueMap(WarrantySinceEnum.toValueMap());
+	}
+	
+	private void fillITEquipmentsSelects(){
+		
 	}
 
 	// //Implementations
