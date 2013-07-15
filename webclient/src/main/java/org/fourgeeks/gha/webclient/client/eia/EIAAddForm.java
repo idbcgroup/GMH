@@ -8,6 +8,7 @@ import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.ess.BaseRole;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Obu;
+import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAButton;
@@ -41,17 +42,15 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 
 	private List<EIASelectionListener> listeners;
-	private GHATextItem codeItem, serialItem, activeIdItem,	
-			noOrden,noFactura,
-			codeAreaActual,codeAreaAtendida, 
-			costoAdq, costoAdqLoc, timeDep, timeVida, costoAct, garantiaReal, 
-			tiempoGarantiaReal, garantiaInt,tiempoGarantiaInt, 
-			intermediateGarantia, mesesGarantia, codeMant,
+	private GHATextItem codeItem, serialItem, activeIdItem, noOrden, noFactura,
+			codeAreaActual, codeAreaAtendida, costoAdq, costoAdqLoc, timeDep,
+			timeVida, costoAct, garantiaReal, tiempoGarantiaReal, garantiaInt,
+			tiempoGarantiaInt, intermediateGarantia, mesesGarantia, codeMant,
 			nameMant, providerMant, numMant, dirIPTextItem, macAddressTextItem,
 			garantiaEstadoTextItem;
-	private GHASelectItem depResponsableSelectItem,dirResponsable,eqStateSelect,
-			provider,nameAreaActual,nameAreaAtendida, currencyAdq,monedaLocal,
-			metodoDepreciacion,timeDepSel,
+	private GHASelectItem depResponsableSelectItem, dirResponsable,
+			eqStateSelect, providerSelect, nameAreaActual, nameAreaAtendida,
+			currencyAdq, monedaLocal, metodoDepreciacion, timeDepSel,
 			timeVidaSel, monedaCosto, garantiaDesde, garantiaIntDesde,
 			typeITSelectItem, nombreMaquinaSelectItem;
 	private GHATitleTextItem equiposTitle, garantiasTitle, adqisicionTitle,
@@ -83,7 +82,7 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 		// Adquisicion Form Items
 		adqisicionTitle = new GHATitleTextItem("Adquisición:");
 		buyDate = new GHADateItem("Fecha de Compra");
-		provider = new GHASelectItem("Proveedor");
+		providerSelect = new GHASelectItem("Proveedor");
 		noOrden = new GHATextItem("No. Orden Compra");
 		noOrden.setWidth(130);
 		noFactura = new GHATextItem("No. Factura");
@@ -288,9 +287,9 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 		adquisicionForm.setTitleOrientation(TitleOrientation.TOP);
 		adquisicionForm.setNumCols(3);
 
-		adquisicionForm.setItems(adqisicionTitle, new GHASpacerItem(2), 
-								 buyDate, recepcionDate, instalacionDate, 
-								 provider, noOrden,	noFactura);
+		adquisicionForm.setItems(adqisicionTitle, new GHASpacerItem(2),
+				buyDate, recepcionDate, instalacionDate, providerSelect,
+				noOrden, noFactura);
 		return adquisicionForm;
 	}
 
@@ -302,10 +301,10 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 		equipoForm.setTitleOrientation(TitleOrientation.TOP);
 		equipoForm.setNumCols(4);
 
-		equipoForm.setItems(equiposTitle, new GHASpacerItem(3), 
-							codeItem,serialItem, activeIdItem, new GHASpacerItem(),
-							depResponsableSelectItem, dirResponsable, 
-							garantiasTitle, eqStateSelect);
+		equipoForm.setItems(equiposTitle, new GHASpacerItem(3), codeItem,
+				serialItem, activeIdItem, new GHASpacerItem(),
+				depResponsableSelectItem, dirResponsable, garantiasTitle,
+				eqStateSelect);
 		return equipoForm;
 	}
 
@@ -354,8 +353,19 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 			}
 		});
 
-		eqStateSelect.setValueMap(EiaStateEnum.toValueMap());
+		GHACache.INSTANCE
+				.getExternalProviders(new GHAAsyncCallback<List<ExternalProvider>>() {
+					@Override
+					public void onSuccess(List<ExternalProvider> result) {
+						LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+						for (ExternalProvider entity : result)
+							valueMap.put(entity.getId() + "", entity
+									.getInstitution().getName() + "");
+						providerSelect.setValueMap(valueMap);
+					}
+				});
 
+		eqStateSelect.setValueMap(EiaStateEnum.toValueMap());
 	}
 
 	// //Implementations

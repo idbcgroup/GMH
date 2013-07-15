@@ -5,11 +5,13 @@ import java.util.List;
 import org.fourgeeks.gha.domain.ess.BaseRole;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Obu;
+import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.webclient.client.baserole.BaseRoleModel;
 import org.fourgeeks.gha.webclient.client.brand.BrandModel;
 import org.fourgeeks.gha.webclient.client.buildinglocation.BuildingLocationModel;
+import org.fourgeeks.gha.webclient.client.externalprovider.ExternalProviderModel;
 import org.fourgeeks.gha.webclient.client.manufacturer.ManufacturerModel;
 import org.fourgeeks.gha.webclient.client.obu.ObuModel;
 
@@ -34,6 +36,7 @@ public enum GHACache {
 	private List<BuildingLocation> buildingLocations;
 	private List<Obu> obus;
 	private List<BaseRole> roles;
+	private List<ExternalProvider> externalProviders;
 
 	{
 		// Inititalization of the invalidation policy
@@ -52,6 +55,36 @@ public enum GHACache {
 		buildingLocations = null;
 		obus = null;
 		roles = null;
+		externalProviders = null;
+	}
+
+	/**
+	 * @param callback
+	 */
+	public void getExternalProviders(
+			GHAAsyncCallback<List<ExternalProvider>> callback) {
+		// Avoiding synchronization problems
+		List<ExternalProvider> localCopy = externalProviders;
+		if (localCopy == null)
+			getExternalProvidersFromServer(callback);
+		else
+			callback.onSuccess(localCopy);
+
+	}
+
+	private void getExternalProvidersFromServer(
+			final GHAAsyncCallback<List<ExternalProvider>> callback) {
+		ExternalProviderModel
+				.getAll(new GHAAsyncCallback<List<ExternalProvider>>() { // AyncCallback
+					// subclass
+
+					@Override
+					public void onSuccess(List<ExternalProvider> result) {
+						externalProviders = result;
+						// Avoiding synchronization problems
+						callback.onSuccess(result);
+					}
+				});
 	}
 
 	/**

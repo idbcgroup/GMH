@@ -143,7 +143,7 @@ public class TestData {
 					institution = new Institution();
 					institution.setName("Test Institution " + i);
 					institution.setLegalEntity(em.find(LegalEntity.class,
-							Long.valueOf(i)));
+							Long.valueOf(i + 1L)));
 					em.persist(institution);
 				}
 				em.flush();

@@ -78,6 +78,16 @@
 		<url-pattern>/webclient/obu</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>GWTExternalProvider</servlet-name>
+		<servlet-class>org.fourgeeks.gha.webclient.server.externalprovider.GWTExternalProviderServiceImpl</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>GWTExternalProvider</servlet-name>
+		<url-pattern>/webclient/externalProvider</url-pattern>
+	</servlet-mapping>
+	
 	
 	
 	
