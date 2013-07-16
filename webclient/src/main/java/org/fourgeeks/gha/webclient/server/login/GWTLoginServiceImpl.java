@@ -1,5 +1,6 @@
 package org.fourgeeks.gha.webclient.server.login;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -38,6 +39,9 @@ public class GWTLoginServiceImpl extends RemoteServiceServlet implements
 		try {
 			request.login(user, password);
 			return true;
+		} catch (ServletException e) {
+			System.out.println("Error iniciando sesión " + e.getMessage());
+			return false;
 		} catch (Exception e) {
 			System.out.println("aca se deberia capturar el error"
 					+ e.getMessage());
