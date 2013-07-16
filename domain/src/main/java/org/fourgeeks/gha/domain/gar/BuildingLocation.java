@@ -18,44 +18,53 @@ public class BuildingLocation extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 
 	@ManyToOne
-	@JoinColumn(name = "bpiFk", nullable=false)
+	@JoinColumn(name = "bpiFk", nullable = false)
 	private Bpi bpi;
 
 	/**
 	 * This represents the children of this building location
 	 */
-//	@OneToMany(mappedBy = "parentBuildingLoc")
-//	private Collection <BuildingLocationChild> buildingLocationChildren;
+	// @OneToMany(mappedBy = "parentBuildingLoc")
+	// private Collection <BuildingLocationChild> buildingLocationChildren;
 
 	/**
 	 * This represents the link relation to my parent (if any), semantically it
 	 * says who is my buildingLocationChild to refer to my buildingLocation
 	 * Parent
 	 */
-//	@OneToOne(mappedBy = "buildingLocation")
-//	private BuildingLocationChild buildingLocationChild;
+	// @OneToOne(mappedBy = "buildingLocation")
+	// private BuildingLocationChild buildingLocationChild;
 
-//	@OneToMany(mappedBy = "buildingLocation")
-//	private Collection <Waio> waios;
-	
-//	@OneToMany(mappedBy = "buildingLocation")
-//	private Collection <Terminal> terminals;
-	
-//	@OneToMany(mappedBy = "buildingLocation")
-//	private Collection <Eia> equipments;
-	
-	/**Attributes*/
-	
-	@Column(nullable=false)
-	private String code; /** Código Ubicación en Edificio length =20 */
-	
-	@Column(nullable=false)
-	private LocationLevelEnum locationLevel; /** Nivel de la Ubicación en Edificio definida length =60 */
-	private String locationName; /** Nombre de Ubicación en Edificio length =255 */
-	private String description; /** Descripción de Ubicación en Edificio length =255 */
-	
-	@Column(nullable=false)
-	private int units; /** Unidades disponibles en Ubicación en Edificio (Pisos, Habitaciones, etc) length =4 */
+	// @OneToMany(mappedBy = "buildingLocation")
+	// private Collection <Waio> waios;
+
+	// @OneToMany(mappedBy = "buildingLocation")
+	// private Collection <Terminal> terminals;
+
+	// @OneToMany(mappedBy = "buildingLocation")
+	// private Collection <Eia> equipments;
+
+	/** Attributes */
+
+	@Column(nullable = false)
+	private String code;
+	/** Código Ubicación en Edificio length =20 */
+
+	@Column(nullable = false)
+	private LocationLevelEnum locationLevel;
+	/** Nivel de la Ubicación en Edificio definida length =60 */
+	private String name;
+	/** Nombre de Ubicación en Edificio length =255 */
+	private String description;
+	/** Descripción de Ubicación en Edificio length =255 */
+
+	@Column(nullable = false)
+	private int units;
+
+	/**
+	 * Unidades disponibles en Ubicación en Edificio (Pisos, Habitaciones, etc)
+	 * length =4
+	 */
 
 	/**
 	 * 
@@ -72,12 +81,12 @@ public class BuildingLocation extends AbstractEntity {
 	 * @param units
 	 */
 	public BuildingLocation(Bpi bpi, String code,
-			LocationLevelEnum locationLevel, int units) {
+			LocationLevelEnum locationLevel, String name) {
 		super();
 		this.bpi = bpi;
 		this.code = code;
 		this.locationLevel = locationLevel;
-		this.units = units;
+		this.name = name;
 	}
 
 	public Bpi getBpi() {
@@ -92,8 +101,8 @@ public class BuildingLocation extends AbstractEntity {
 		return locationLevel;
 	}
 
-	public String getLocationName() {
-		return locationName;
+	public String getName() {
+		return name;
 	}
 
 	public String getDescription() {
@@ -116,8 +125,8 @@ public class BuildingLocation extends AbstractEntity {
 		this.locationLevel = locationLevel;
 	}
 
-	public void setLocationName(String locationName) {
-		this.locationName = locationName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public void setDescription(String description) {
@@ -127,6 +136,5 @@ public class BuildingLocation extends AbstractEntity {
 	public void setUnits(int units) {
 		this.units = units;
 	}
-
 
 }

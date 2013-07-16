@@ -50,8 +50,7 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 			codeAreaActual, codeAreaAtendida, costoAdq, costoAdqLoc, timeDep,
 			timeVida, costoAct, garantiaReal, tiempoGarantiaReal, garantiaInt,
 			tiempoGarantiaInt, intermediateGarantia, mesesGarantia, codeMant,
-			nameMant, providerMant, numMant, dirIPTextItem, macAddressTextItem,
-			garantiaEstadoTextItem;
+			nameMant, providerMant, numMant, dirIPTextItem, macAddressTextItem;
 	private GHASelectItem depResponsableSelectItem, dirResponsable,
 			eqStateSelect, providerSelect, nameAreaActual, nameAreaAtendida,
 			currencyAdq, monedaLocal, metodoDepreciacion, timeDepSel,
@@ -339,10 +338,10 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 		});
 
 		eqStateSelect.setValueMap(EiaStateEnum.toValueMap());
-		eqStateSelect.setValue(EiaStateEnum.CREATED.toString());
+		eqStateSelect.setValue(EiaStateEnum.CREATED.name());
 	}
-	
-	private void fillAdquisitionSelects(){
+
+	private void fillAdquisitionSelects() {
 		GHACache.INSTANCE
 				.getExternalProviders(new GHAAsyncCallback<List<ExternalProvider>>() {
 					@Override
@@ -355,7 +354,6 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 					}
 				});
 	}
-	
 
 	private void fillBuildinglocationsSelects() {
 		GHACache.INSTANCE
@@ -367,9 +365,9 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 
 						for (BuildingLocation entity : result) {
 							valueMapActual.put(entity.getId() + "",
-									entity.getLocationName());
+									entity.getName());
 							valueMapAtendida.put(entity.getId() + "",
-									entity.getLocationName());
+									entity.getName());
 						}
 
 						nameAreaActual.setValueMap(valueMapActual);
@@ -377,26 +375,26 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 					}
 				});
 	}
-	
-	private void fillCostsSelects(){
+
+	private void fillCostsSelects() {
 		currencyAdq.setValueMap(CurrencyTypeEnum.toValueMap());
 		monedaLocal.setValueMap(CurrencyTypeEnum.toValueMap());
-		
+
 		metodoDepreciacion.setValueMap(DepreciationMethodEnum.toValueMap());
-		
+
 		timeDepSel.setValueMap(TimePeriodEnum.toValueMap());
 		timeVidaSel.setValueMap(TimePeriodEnum.toValueMap());
-		
+
 		monedaCosto.setValueMap(CurrencyTypeEnum.toValueMap());
 	}
-	
-	private void fillWarrantySelects(){
+
+	private void fillWarrantySelects() {
 		garantiaDesde.setValueMap(WarrantySinceEnum.toValueMap());
 		garantiaIntDesde.setValueMap(WarrantySinceEnum.toValueMap());
 	}
-	
-	private void fillITEquipmentsSelects(){
-		
+
+	private void fillITEquipmentsSelects() {
+
 	}
 
 	// //Implementations

@@ -42,12 +42,11 @@ public class BuildingLocationService implements BuildingLocationServiceRemote {
 			throws EJBException {
 		// TODO : busqueda por cada campo
 		List<BuildingLocation> res = null;
-		String query = "SELECT e from BuildingLocation e where locationName like :buildingLocationName ";
+		String query = "SELECT e from BuildingLocation e where name like :name ";
 
 		try {
 			res = em.createQuery(query, BuildingLocation.class)
-					.setParameter("buildingLocationName",
-							entity.getLocationName()).getResultList();
+					.setParameter("name", entity.getName()).getResultList();
 			return res;
 		} catch (Exception e) {
 			logger.log(Level.INFO,
@@ -71,7 +70,7 @@ public class BuildingLocationService implements BuildingLocationServiceRemote {
 
 	@Override
 	public List<BuildingLocation> getAll() throws EJBException {
-		String query = "SELECT e from BuildingLocation e order by locationName";
+		String query = "SELECT e from BuildingLocation e order by name";
 		List<BuildingLocation> res = null;
 		try {
 			res = em.createQuery(query, BuildingLocation.class).getResultList();

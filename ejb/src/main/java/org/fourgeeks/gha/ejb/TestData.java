@@ -230,29 +230,14 @@ public class TestData {
 			try {
 				logger.info("creating eia building locations");
 
-				BuildingLocation buildingLocation = new BuildingLocation(
-						em.find(Bpi.class, 1L), "Edificio",
-						LocationLevelEnum.BUILDING, 2);
-				em.persist(buildingLocation);
-
-				buildingLocation = new BuildingLocation(em.find(Bpi.class, 2L),
-						"Building001", LocationLevelEnum.AREA_HALL, 2);
-				em.persist(buildingLocation);
-
-				buildingLocation = new BuildingLocation(em.find(Bpi.class, 2L),
-						"Building002", LocationLevelEnum.AREA_HALL, 2);
-				em.persist(buildingLocation);
-
-				buildingLocation = new BuildingLocation(em.find(Bpi.class, 2L),
-						"Building003", LocationLevelEnum.AREA_HALL, 2);
-				em.persist(buildingLocation);
-
-				buildingLocation = new BuildingLocation(em.find(Bpi.class, 2L),
-						"Building004", LocationLevelEnum.AREA_HALL, 2);
-				em.persist(buildingLocation);
-
+				for (int i = 0; i < 5; i++) {
+					BuildingLocation buildingLocation = new BuildingLocation(
+							em.find(Bpi.class, 1L), "Building 00" + i,
+							LocationLevelEnum.BUILDING,
+							"Building Location Name " + i);
+					em.persist(buildingLocation);
+				}
 				em.flush();
-
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error creating test building location",
 						e);
