@@ -170,7 +170,7 @@ input,.input{
 	margin-right: 10px;	
 }
 
-.input-dateItem{
+input, .input-dateItem{
 	padding: 2px;
 	border:1px solid;
 	border-color:#BABABA;

@@ -12,13 +12,12 @@ public class GHADateItem extends DateItem {
 	 */
 	public GHADateItem() {
 		super();
+		setUseTextField(true);
 		setTextBoxStyle("input-dateItem");
 		setHeight(20);
 		setWidth(100);
 		setTitleStyle("input-title");
-		setUseTextField(true);
 	}
-
 	/**
 	 * TODO
 	 * 
@@ -28,4 +27,21 @@ public class GHADateItem extends DateItem {
 		this();
 		setTitle(title);
 	}
+	
+	public GHADateItem(String title, int width) {
+		this(title);
+		setWidth(width);
+	}
+	
+	public GHADateItem(String title, int width, boolean active) {
+		this(title);
+		setWidth(width);
+		setDisabled(!active);
+	}
+
+	public GHADateItem(String title, boolean active) {
+		this(title);
+		setDisabled(!active);
+	}
+	
 }
