@@ -7,6 +7,7 @@ import java.util.List;
 import org.fourgeeks.gha.domain.enu.CurrencyTypeEnum;
 import org.fourgeeks.gha.domain.enu.DepreciationMethodEnum;
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
+import org.fourgeeks.gha.domain.enu.ItSystemEnum;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
 import org.fourgeeks.gha.domain.ess.BaseRole;
@@ -394,7 +395,8 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 	}
 
 	private void fillITEquipmentsSelects() {
-
+		typeITSelectItem.setValueMap(ItSystemEnum.toValueMap());
+		typeITSelectItem.setValue(ItSystemEnum.COMPUTER.name());
 	}
 
 	// //Implementations
@@ -402,6 +404,13 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 	protected void select(Eia eia) {
 		for (EIASelectionListener listener : listeners)
 			listener.select(eia);
+	}
+	
+	/**
+	 * Save the new element to database
+	 */
+	private void save(){
+		
 	}
 
 	/**
