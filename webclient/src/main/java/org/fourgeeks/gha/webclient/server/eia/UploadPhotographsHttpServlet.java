@@ -43,7 +43,8 @@ public class UploadPhotographsHttpServlet extends UploadAction {
 	@Override
 	public String executeAction(HttpServletRequest request, List<FileItem> sessionFiles) throws UploadActionException {
 		HttpSession session = request.getSession(true);
-
+		String response = "";
+		LOG.debug("Ejecutando servlet de subida de fotos");
 		if (session.getAttribute(ATTR_ARCHIVOS) == null)
 			session.setAttribute(ATTR_ARCHIVOS, archRecibidos);
 
@@ -57,7 +58,8 @@ public class UploadPhotographsHttpServlet extends UploadAction {
 					int posPunto = name.lastIndexOf(".");
 					String ext = name.substring(posPunto + 1);
 				
-					File arch = File.createTempFile("gha", "." + ext, new File("/tmp"));
+			//		File arch = File.createTempFile("gha", "." + ext, new File("/tmp/gha"));
+					File arch = File.createTempFile("gha", "." + ext);
 					item.write(arch);
 
 					// Save a list with the received files
@@ -65,14 +67,17 @@ public class UploadPhotographsHttpServlet extends UploadAction {
 					tipoContenidoRecibido.put(item.getFieldName(), item.getContentType());
 					//listaArchivos.add(new ItemSimpleStr(name, arch.getName()));
 					LOG.debug("La foto "+name+" se ha subido correctamente");
+					/// Send a customized message to the client.
+			          response += "Foto guardada como " + arch.getAbsolutePath();
+
 				} catch (Exception e) {
 					LOG.error("Error en la subida de multiples archivos fotos: " + e);
 				}
 			}
 		}
-		removeSessionFileItems(request);
+		//removeSessionFileItems(request);
 
-		return "";
+		return response;
 	}
 
 	/*

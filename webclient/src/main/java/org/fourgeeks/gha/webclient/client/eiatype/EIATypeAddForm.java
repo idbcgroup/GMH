@@ -1,5 +1,12 @@
 package org.fourgeeks.gha.webclient.client.eiatype;
 
+import gwtupload.client.IUploadStatus.Status;
+import gwtupload.client.IUploader;
+import gwtupload.client.IUploader.OnFinishUploaderHandler;
+import gwtupload.client.IUploader.UploadedInfo;
+import gwtupload.client.PreloadedImage;
+import gwtupload.client.PreloadedImage.OnLoadPreloadedImageHandler;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -17,8 +24,10 @@ import org.fourgeeks.gha.webclient.client.UI.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.GHASlideInWindow;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.GHAUploadPhotographs;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.TitleOrientation;
@@ -37,7 +46,7 @@ public class EIATypeAddForm extends GHASlideInWindow {
 			useDescriptionItem, eiaUmdnsItem;
 	private GHASelectItem brandItem, manItem, mobilityItem, typeItem,
 			subTypeItem;
-
+	
 	{
 		listeners = new ArrayList<EIATypeSelectionListener>();
 		codeItem = new GHATextItem("Código", 150);
@@ -53,6 +62,7 @@ public class EIATypeAddForm extends GHASlideInWindow {
 		mobilityItem = new GHASelectItem("Movilidad", 150);
 		typeItem = new GHASelectItem("Tipo", 150);
 		subTypeItem = new GHASelectItem("Subtipo", 150);
+		
 	}
 
 	public EIATypeAddForm() {
@@ -101,10 +111,9 @@ public class EIATypeAddForm extends GHASlideInWindow {
 		});
 
 		sideButtons.addMembers(saveButton, cancelButton);
-
+		
 		HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
-
 		addMember(gridPanel);
 		fillBrands();
 		fillMans();
