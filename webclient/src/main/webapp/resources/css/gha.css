@@ -171,7 +171,6 @@ input, .input{
 }
 
 input, .input-dateItem{
-	padding: 2px;
 	border:1px solid;
 	border-color:#BABABA;
 	text-align: left;

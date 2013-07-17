@@ -1,5 +1,6 @@
 package org.fourgeeks.gha.webclient.client.UI;
 
+import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.widgets.form.fields.DateItem;
 
 /**
@@ -7,6 +8,7 @@ import com.smartgwt.client.widgets.form.fields.DateItem;
  */
 public class GHADateItem extends DateItem {
 
+	
 	/**
 	 * TODO
 	 */
@@ -14,7 +16,8 @@ public class GHADateItem extends DateItem {
 		super();
 		setUseTextField(true);
 		setTextBoxStyle("input-dateItem");
-		setHeight(20);
+		setTextAlign(Alignment.LEFT);
+		setHeight(18);
 		setWidth(100);
 		setTitleStyle("input-title");
 	}
@@ -42,6 +45,15 @@ public class GHADateItem extends DateItem {
 	public GHADateItem(String title, boolean active) {
 		this(title);
 		setDisabled(!active);
+	}
+	
+	@Override
+	public void setDisabled(Boolean disabled) {
+		super.setDisabled(disabled);
+		if(disabled)
+			setTextBoxStyle("input-dateItem input-disabled");
+		else
+			setTextBoxStyle("input-dateItem");
 	}
 	
 }
