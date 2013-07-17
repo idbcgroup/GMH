@@ -18,6 +18,7 @@ import org.fourgeeks.gha.domain.enu.WarrantyStateEnum;
 import org.fourgeeks.gha.domain.ess.RoleIt;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Facility;
+import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
 
 @Entity
@@ -72,7 +73,7 @@ public class Eia extends AbstractEntity {
 	private Facility facility;
 
 	/** Número de Serial del Equipo length =60 */
-	private String fixeAssetIdentifier;
+	private String fixedAssetIdentifier;
 	/** Fecha de Recepción del Equipo length =22 */
 	private Date installationDate;
 	/** Fecha de la Factura de Compra length =22 */
@@ -96,6 +97,10 @@ public class Eia extends AbstractEntity {
 	@ManyToOne
 	@JoinColumn(name = "maintenanceProviderFk")
 	private ExternalProvider maintenanceProvider;
+	
+	@ManyToOne
+	@JoinColumn(name = "obuFk", nullable = false)
+	private Obu obu;
 
 	private Date purchaseDate;
 	/** Número de la Factura de Compra length =30 */
@@ -234,10 +239,6 @@ public class Eia extends AbstractEntity {
 
 	public Facility getFacility() {
 		return facility;
-	}
-
-	public String getFixeAssetIdentifier() {
-		return fixeAssetIdentifier;
 	}
 
 	public Date getInstallationDate() {
@@ -390,10 +391,6 @@ public class Eia extends AbstractEntity {
 		this.facility = facility;
 	}
 
-	public void setFixeAssetIdentifier(String fixeAssetIdentifier) {
-		this.fixeAssetIdentifier = fixeAssetIdentifier;
-	}
-
 	public void setInstallationDate(Date installationDate) {
 		this.installationDate = installationDate;
 	}
@@ -468,6 +465,22 @@ public class Eia extends AbstractEntity {
 
 	public void setWarrantyTimePot(TimePeriodEnum warrantyTimePot) {
 		this.warrantyTimePot = warrantyTimePot;
+	}
+
+	public String getFixedAssetIdentifier() {
+		return fixedAssetIdentifier;
+	}
+
+	public Obu getObu() {
+		return obu;
+	}
+
+	public void setFixedAssetIdentifier(String fixedAssetIdentifier) {
+		this.fixedAssetIdentifier = fixedAssetIdentifier;
+	}
+
+	public void setObu(Obu obu) {
+		this.obu = obu;
 	}
 
 }

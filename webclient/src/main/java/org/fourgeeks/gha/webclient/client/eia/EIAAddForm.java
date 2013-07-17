@@ -418,6 +418,16 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 	 * Save the new element to database
 	 */
 	private void save(){
+		final Eia eia = new Eia();
+		
+		eia.setCode(codeItem.getValueAsString());
+		eia.setSerialNumber(serialItem.getValueAsString());
+		eia.setFixedAssetIdentifier(activeIdItem.getValueAsString());
+		if(depResponsableSelectItem.getValue() != null){
+			Obu obu = new Obu();
+			obu.setId(Integer.valueOf(depResponsableSelectItem.getValueAsString()));
+			eia.setObu(obu);
+		}
 		
 	}
 
