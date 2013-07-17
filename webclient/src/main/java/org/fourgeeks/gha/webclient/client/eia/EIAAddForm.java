@@ -101,7 +101,7 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 		actualCostTitle = new GHATitleTextItem("Costo Actual:");
 		tiempoDepTitle = new GHATitleTextItem("Tiempo de Depreciacion:");
 		tiempoVidaTitle = new GHATitleTextItem("Tiempo de Vida:");
-		costoAdq = new GHATextItem("Costo de Adquisición del equipo",GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		costoAdq = new GHATextItem("Costo de Adq. del equipo",GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		currencyAdq = new GHASelectItem("Moneda",GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		fechaContab = new GHADateItem("Fecha de Contabilización",GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		costoAdqLoc = new GHATextItem("Costo de Adquisicion",GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
@@ -298,8 +298,9 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 			@Override
 			public void onSuccess(List<Obu> result) {
 				LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-				for (Obu entity : result)
+				for (Obu entity : result){
 					valueMap.put(entity.getId() + "", entity.getName() + "");
+				}
 				depResponsableSelectItem.setValueMap(valueMap);
 			}
 		});
@@ -355,19 +356,38 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 
 	private void fillCostsSelects() {
 		currencyAdq.setValueMap(CurrencyTypeEnum.toValueMap());
+		currencyAdq.setValue(CurrencyTypeEnum.BS.name());
 		monedaLocal.setValueMap(CurrencyTypeEnum.toValueMap());
+		monedaLocal.setValue(CurrencyTypeEnum.BS.name());
 
 		metodoDepreciacion.setValueMap(DepreciationMethodEnum.toValueMap());
+		metodoDepreciacion.setValue(DepreciationMethodEnum.METHOD_1.name());
 
 		timeDepSel.setValueMap(TimePeriodEnum.toValueMap());
+		timeDepSel.setValue(TimePeriodEnum.HOURS.name());
 		timeVidaSel.setValueMap(TimePeriodEnum.toValueMap());
+		timeVidaSel.setValue(TimePeriodEnum.HOURS.name());
 
 		monedaCosto.setValueMap(CurrencyTypeEnum.toValueMap());
+		monedaCosto.setValue(CurrencyTypeEnum.BS.name());
 	}
 
 	private void fillWarrantySelects() {
 		garantiaDesde.setValueMap(WarrantySinceEnum.toValueMap());
+		garantiaDesde.setValue(WarrantySinceEnum.PURCHASE.name());
 		garantiaIntDesde.setValueMap(WarrantySinceEnum.toValueMap());
+		garantiaIntDesde.setValue(WarrantySinceEnum.PURCHASE.name());
+		
+		GHACache.INSTANCE
+		.getBuildingLocations(new GHAAsyncCallback<List<BuildingLocation>>() {
+			@Override
+			public void onSuccess(List<BuildingLocation> result) {
+				LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+				for (BuildingLocation entity : result)
+					valueMap.put(entity.getId() + "",entity.getName());
+				nameMant.setValueMap(valueMap);
+			}
+		});
 		
 		GHACache.INSTANCE
 		.getExternalProviders(new GHAAsyncCallback<List<ExternalProvider>>() {
