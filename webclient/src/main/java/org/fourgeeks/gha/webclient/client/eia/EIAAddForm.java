@@ -36,6 +36,8 @@ import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
+import com.smartgwt.client.widgets.form.fields.events.ChangeEvent;
+import com.smartgwt.client.widgets.form.fields.events.ChangeHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
@@ -189,6 +191,9 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 		fillCostsSelects();
 		fillWarrantySelects();
 		fillITEquipmentsSelects();
+		
+		//Funcionalities
+		buildingLocFuncionalities();
 	}
 
 	// //Form Creating Functions
@@ -216,8 +221,8 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 		adquisicionForm.setNumCols(3);
 
 		adquisicionForm.setItems(adqisicionTitle, new GHASpacerItem(2),
-				buyDate, recepcionDate, instalacionDate, providerSelect,
-				noOrden, noFactura);
+								 buyDate, recepcionDate, instalacionDate, providerSelect,
+								 noOrden, noFactura);
 		return adquisicionForm;
 	}
 	
@@ -407,6 +412,43 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 		typeITSelectItem.setValue(ItSystemEnum.COMPUTER.name());
 	}
 
+	/////Funcionalities
+	private void buildingLocFuncionalities(){
+		nameAreaActual.addChangeHandler(new ChangeHandler() {
+			@Override
+			public void onChange(ChangeEvent event) {
+				//TODO: 
+//				codeAreaActual.setValue(value);
+			}
+		});
+		
+		nameAreaAtendida.addChangeHandler(new ChangeHandler() {
+			@Override
+			public void onChange(ChangeEvent event) {
+				//TODO: 
+//				codeAreaActual.setValue(value);
+			}
+		});
+		
+		mismaArea.addChangeHandler(new ChangeHandler() {
+			
+
+			@Override
+			public void onChange(ChangeEvent event) {
+				// TODO Auto-generated method stub
+				if(event.getValue().equals(true)){
+					nameAreaAtendida.setDisabled(true);
+					nameAreaAtendida.setValue(nameAreaActual.getValue());
+					codeAreaAtendida.setValue(codeAreaActual.getValue());
+				}else{
+					nameAreaAtendida.setDisabled(false);
+					nameAreaAtendida.clearValue();
+					codeAreaAtendida.clearValue();
+				}
+			}
+		});
+	}
+	
 	// //Implementations
 
 	protected void select(Eia eia) {
