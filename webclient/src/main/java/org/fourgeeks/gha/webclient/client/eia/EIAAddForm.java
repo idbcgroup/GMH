@@ -429,6 +429,14 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 			eia.setObu(obu);
 		}
 		
+		if(dirResponsable.getValue() != null){
+			BaseRole baseRole = new BaseRole();
+			baseRole.setId(Integer.valueOf(dirResponsable.getValueAsString()));
+			eia.setResponsibleRole(baseRole);
+		}
+		eia.setState(EiaStateEnum.getByString(eqStateSelect.getValueAsString()));
+		//eia.setEiaType();
+		//TODO: UNDER CONSTRUCTION
 	}
 
 	/**

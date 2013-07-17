@@ -15,7 +15,7 @@ import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
 import org.fourgeeks.gha.domain.enu.WarrantyStateEnum;
-import org.fourgeeks.gha.domain.ess.RoleIt;
+import org.fourgeeks.gha.domain.ess.BaseRole;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Facility;
 import org.fourgeeks.gha.domain.gar.Obu;
@@ -44,8 +44,8 @@ public class Eia extends AbstractEntity {
 	private BigDecimal adquisitionCostLocal;
 
 	@ManyToOne
-	@JoinColumn(name = "roleItFk")
-	private RoleIt responsibleRole;
+	@JoinColumn(name = "baseRoleFk")
+	private BaseRole responsibleRole;
 
 	private String code;
 	/** Denominación Moneda del Costo de Adquisición del equipo length =60 */
@@ -67,10 +67,6 @@ public class Eia extends AbstractEntity {
 	@ManyToOne
 	@JoinColumn(name = "eiaTypeFk")
 	private EiaType eiaType;
-
-	@ManyToOne
-	@JoinColumn(name = "facilityFk")
-	private Facility facility;
 
 	/** Número de Serial del Equipo length =60 */
 	private String fixedAssetIdentifier;
@@ -161,7 +157,6 @@ public class Eia extends AbstractEntity {
 			WarrantySinceEnum warrantySince, TimePeriodEnum warrantyTimePot,
 			EiaStateEnum state, WarrantyStateEnum warrantyState) {
 		super();
-		this.facility = facility;
 		this.eiaType = eiaType;
 		this.warrantySince = warrantySince;
 		this.warrantyTimePot = warrantyTimePot;
@@ -197,7 +192,7 @@ public class Eia extends AbstractEntity {
 		return adquisitionCostLocal;
 	}
 
-	public RoleIt getResponsibleRole() {
+	public BaseRole getResponsibleRole() {
 		return responsibleRole;
 	}
 
@@ -235,10 +230,6 @@ public class Eia extends AbstractEntity {
 
 	public EiaType getEiaType() {
 		return eiaType;
-	}
-
-	public Facility getFacility() {
-		return facility;
 	}
 
 	public Date getInstallationDate() {
@@ -347,7 +338,7 @@ public class Eia extends AbstractEntity {
 		this.adquisitionCostLocal = adquisitionCostLocal;
 	}
 
-	public void setResponsibleRole(RoleIt responsibleRole) {
+	public void setResponsibleRole(BaseRole responsibleRole) {
 		this.responsibleRole = responsibleRole;
 	}
 
@@ -385,10 +376,6 @@ public class Eia extends AbstractEntity {
 
 	public void setEiaType(EiaType eiaType) {
 		this.eiaType = eiaType;
-	}
-
-	public void setFacility(Facility facility) {
-		this.facility = facility;
 	}
 
 	public void setInstallationDate(Date installationDate) {
