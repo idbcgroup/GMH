@@ -6,15 +6,21 @@ package org.fourgeeks.gha.domain.enu;
 import java.util.LinkedHashMap;
 
 /**
- * @author emiliot
+ * @author alacret
  * 
  */
-public enum CurrencyTypeEnum {
-	BS("Bolivares fuertes"), DOLLARS("Dólares");
+public enum ItSystemEnum {
+	/**
+	 * 
+	 */
+	PERIPHERAL("Periférico"), /**
+	 * 
+	 */
+	COMPUTER("Computadora");
 
 	private String name;
 
-	CurrencyTypeEnum(String name) {
+	ItSystemEnum(String name) {
 		this.name = name;
 	}
 
@@ -24,14 +30,13 @@ public enum CurrencyTypeEnum {
 
 	/**
 	 * @param string
-	 * @return the TimePeriodEnum representated by this value, or null if it
-	 *         does not exist
+	 * @return return the enum represented by this string or null
 	 */
-	public static CurrencyTypeEnum getByString(String string) {
+	public static ItSystemEnum getByString(String string) {
 		if (string == null)
 			return null;
 
-		for (CurrencyTypeEnum e : CurrencyTypeEnum.values())
+		for (ItSystemEnum e : ItSystemEnum.values())
 			if (string.equals(e.toString()))
 				return e;
 
@@ -43,8 +48,8 @@ public enum CurrencyTypeEnum {
 	 */
 	public static LinkedHashMap<String, String> toValueMap() {
 		LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-		for (CurrencyTypeEnum currency : CurrencyTypeEnum.values())
-			valueMap.put(currency.name() + "", currency.toString());
+		for (ItSystemEnum mobility : ItSystemEnum.values())
+			valueMap.put(mobility.name() + "", mobility.toString());
 		return valueMap;
 	}
 }
