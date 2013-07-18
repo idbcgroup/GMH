@@ -346,9 +346,9 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler, EIATy
 						LinkedHashMap<String, String> valueMapAtendida = new LinkedHashMap<String, String>();
 
 						for (BuildingLocation entity : result) {
-							valueMapActual.put(entity.getId() + "",
+							valueMapActual.put(entity.getCode() + "",
 									entity.getName());
-							valueMapAtendida.put(entity.getId() + "",
+							valueMapAtendida.put(entity.getCode() + "",
 									entity.getName());
 						}
 
@@ -394,7 +394,7 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler, EIATy
 			public void onSuccess(List<BuildingLocation> result) {
 				LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
 				for (BuildingLocation entity : result)
-					valueMap.put(entity.getId() + "",entity.getName());
+					valueMap.put(entity.getCode() + "",entity.getName());
 				nameMant.setValueMap(valueMap);
 			}
 		});
@@ -423,7 +423,11 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler, EIATy
 			@Override
 			public void onChange(ChangeEvent event) {
 				//TODO: 
-//				codeAreaActual.setValue(value);
+//				codeAreaActual.setValue(event.getValue());
+				if(mismaArea.getValue().equals(true)){
+					nameAreaAtendida.setValue(event.getValue());
+//					codeAreaAtendida.setValue(codeAreaActual.getValue());
+				}
 			}
 		});
 		
