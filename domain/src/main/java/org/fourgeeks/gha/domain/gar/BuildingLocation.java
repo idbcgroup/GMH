@@ -89,6 +89,13 @@ public class BuildingLocation extends AbstractEntity {
 		this.name = name;
 	}
 
+	/**
+	 * @param valueOf
+	 */
+	public BuildingLocation(long id) {
+		this.id = id;
+	}
+
 	public Bpi getBpi() {
 		return bpi;
 	}

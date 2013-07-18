@@ -1,5 +1,7 @@
 package org.fourgeeks.gha.webclient.client.eia;
 
+import java.math.BigDecimal;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -102,7 +104,7 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler, EIATy
 		// Costos Form Items
 		adqCostTitle = new GHATitleTextItem("Costo Adquisición:");
 		actualCostTitle = new GHATitleTextItem("Costo Actual:");
-		tiempoDepTitle = new GHATitleTextItem("Tiempo de Depreciacion:");
+		tiempoDepTitle = new GHATitleTextItem("Tiempo de Depreciación:");
 		tiempoVidaTitle = new GHATitleTextItem("Tiempo de Vida:");
 		costoAdq = new GHATextItem("Costo de Adq. del equipo",GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		currencyAdq = new GHASelectItem("Moneda",GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
@@ -119,7 +121,7 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler, EIATy
 		fechaUltDeprec = new GHADateItem("Fecha Ult. Depreciación",GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		// Garantias Form Items
 		garantiaRealTitle = new GHATitleTextItem("Garantía Real:");
-		garantiaIntTitle = new GHATitleTextItem("Garantía Intermediaria:");
+		garantiaIntTitle = new GHATitleTextItem("Garantía del Intermediario:");
 		mantenimientoTitle = new GHATitleTextItem("Mantenimiento:");
 		garantiaDesde = new GHASelectItem("Desde",GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
 		timeGarantiaReal = new GHATextItem("Duración",GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
@@ -505,17 +507,43 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler, EIATy
 		eia.setState(EiaStateEnum.getByString(eqStateSelect.getValueAsString()));
 		
 		//adquisition
-		/*eia.setPurchaseDate(purchaseDate);
-		eia.setReceptionDate(receptionDate);
-		eia.setInstallationDate(installationDate);
-		eia.setProvider(provider);
-		eia.setPurchaseOrderNumber(purchaseOrderNumber);
-		eia.setPurchaseInvoiceNumber(purchaseInvoiceNumber);*/
+		eia.setPurchaseDate(new Date(buyDate.getValueAsDate().getTime()));
+		eia.setReceptionDate(new Date(recepcionDate.getValueAsDate().getTime()));
+		eia.setInstallationDate(new Date(instalacionDate.getValueAsDate().getTime()));
+		eia.setProvider(new ExternalProvider(Integer.valueOf(providerSelect.getValueAsString())));
+		eia.setPurchaseOrderNumber(noOrden.getValueAsString());
+		eia.setPurchaseInvoiceNumber(noFactura.getValueAsString());
 		
 		//ubication
+		eia.setBuildingLocation(new BuildingLocation(Integer.valueOf(nameAreaActual.getValueAsString())));
+		if(mismaArea.getValueAsBoolean()){
+			eia.setAttendedLocation(new BuildingLocation(Integer.valueOf(nameAreaActual.getValueAsString())));
+		}else{
+			eia.setAttendedLocation(new BuildingLocation(Integer.valueOf(nameAreaAtendida.getValueAsString())));
+		}
 		
 		//costs
+		eia.setAdquisitionCost(BigDecimal.valueOf(Double.valueOf(costoAdq.getValueAsString())));
+		eia.setAdquisitionCostCurrency(CurrencyTypeEnum.getByString(currencyAdq.getValueAsString()));
+		eia.setContabilizationDate(new Date(fechaContab.getValueAsDate().getTime()));
+		
+		eia.setAdquisitionCostLocal(BigDecimal.valueOf(Double.valueOf(costoAdqLoc.getValueAsString())));
+		eia.setAdquisitionCostCurrencyLocal(CurrencyTypeEnum.getByString(monedaLocal.getValueAsString()));
+		
+		eia.setDepreciationMethod(DepreciationMethodEnum.getByString(metodoDepreciacion.getValueAsString()));
+		eia.setDateLastDepreciation(new Date(fechaUltDeprec.getValueAsDate().getTime()));
+		eia.setActualCost(BigDecimal.valueOf(Double.valueOf(costoAct.getValueAsString())));
+		eia.setActualCostCurrency(CurrencyTypeEnum.getByString(monedaCosto.getValueAsString()));
+		
+		eia.setDepreciationTime(Integer.valueOf(timeDep.getValueAsString()));
+		eia.setDepreciationTimePot(TimePeriodEnum.getByString(timeDepSel.getValueAsString()));
+		
+		eia.setLifeTime(Integer.valueOf(timeVida.getValueAsString()));
+		eia.setLifeTimePot(TimePeriodEnum.getByString(timeVidaSel.getValueAsString()));
+		
 		//guarantees
+		//eia.setWarrantySince(warrantySince);
+		
 		//itEquipments
 		
 	}
