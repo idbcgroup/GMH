@@ -3,6 +3,8 @@
  */
 package org.fourgeeks.gha.domain.enu;
 
+import java.util.LinkedHashMap;
+
 /**
  * @author emiliot
  * 
@@ -21,6 +23,10 @@ public enum EiaTypeEnum {
 		return this.name;
 	}
 
+	/**
+	 * @param string
+	 * @return
+	 */
 	public static EiaTypeEnum getByString(String string) {
 		if (string == null)
 			return null;
@@ -30,5 +36,15 @@ public enum EiaTypeEnum {
 				return e;
 
 		return null;
+	}
+
+	/**
+	 * @return a valueMap with this Enum values
+	 */
+	public static LinkedHashMap<String, String> toValueMap() {
+		LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+		for (EiaTypeEnum e : EiaTypeEnum.values())
+			valueMap.put(e.name() + "", e.toString());
+		return valueMap;
 	}
 }

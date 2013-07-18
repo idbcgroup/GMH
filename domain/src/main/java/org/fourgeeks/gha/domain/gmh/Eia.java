@@ -113,7 +113,7 @@ public class Eia extends AbstractEntity {
 	/** Nombre Departamento donde esta adjudicado el equipo length =255 */
 
 	@Column(nullable = false)
-	private EiaStateEnum state = EiaStateEnum.NUEVO;
+	private EiaStateEnum state = EiaStateEnum.CREATED;
 
 	@ManyToOne
 	@JoinColumn(name = "externalProviderFk")

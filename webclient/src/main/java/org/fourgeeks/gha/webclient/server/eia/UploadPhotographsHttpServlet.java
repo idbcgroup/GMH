@@ -75,7 +75,7 @@ public class UploadPhotographsHttpServlet extends UploadAction {
 				}
 			}
 		}
-		//removeSessionFileItems(request);
+		removeSessionFileItems(request);
 
 		return response;
 	}

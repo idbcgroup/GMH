@@ -142,20 +142,11 @@ public class EIATypeAddForm extends GHASlideInWindow {
 
 	private void fillExtras() {
 		// types
-		LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-		for (EiaTypeEnum eiaTypeEnum : EiaTypeEnum.values())
-			valueMap.put(eiaTypeEnum.name() + "", eiaTypeEnum.toString());
-		typeItem.setValueMap(valueMap);
+		typeItem.setValueMap(EiaTypeEnum.toValueMap());
 		// subtypes
-		valueMap = new LinkedHashMap<String, String>();
-		for (EiaSubTypeEnum subtype : EiaSubTypeEnum.values())
-			valueMap.put(subtype.name() + "", subtype.toString());
-		subTypeItem.setValueMap(valueMap);
+		subTypeItem.setValueMap(EiaSubTypeEnum.toValueMap());
 		// mobility
-		valueMap = new LinkedHashMap<String, String>();
-		for (EiaMobilityEnum mobility : EiaMobilityEnum.values())
-			valueMap.put(mobility.name() + "", mobility.toString());
-		mobilityItem.setValueMap(valueMap);
+		mobilityItem.setValueMap(EiaMobilityEnum.toValueMap());
 	}
 
 	private void fillMans() {

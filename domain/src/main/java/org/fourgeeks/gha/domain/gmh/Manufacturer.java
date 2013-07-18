@@ -3,6 +3,7 @@
  */
 package org.fourgeeks.gha.domain.gmh;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -26,10 +27,11 @@ public class Manufacturer extends AbstractEntity {
 	// @OneToMany(mappedBy = "manufacturer")
 	// private Collection <EiaType> eiaTypes;
 
+	@Column(nullable = false)
 	private String name;
-	
-	public Manufacturer(){
-		
+
+	public Manufacturer() {
+
 	}
 
 	public Manufacturer(int id, String name) {

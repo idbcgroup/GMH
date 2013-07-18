@@ -34,6 +34,7 @@ import org.fourgeeks.gha.webclient.client.eiatype.EIATypeModel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeTab;
 import com.google.gwt.user.client.DOM;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.dom.client.HasMouseOverHandlers;
@@ -70,9 +71,8 @@ public class EIATypeInformationFormPanel extends VLayout implements
 	private EiaType eiaType, orginalEiaType;
 	private EIATypeTab tab;
 	private GHAUploadPhotographs uploadPhoto1;
-	private OnFinishUploaderHandler onFinishUploaderHandler;
-	private OnLoadPreloadedImageHandler showImage;
-	private FlowPanel panelImages;
+	private OnFinishUploaderHandler onFinishUploaderHandler1, onFinishUploaderHandler2, onFinishUploaderHandler3;
+	private OnLoadPreloadedImageHandler showImage1, showImage2, showImage3;
 	private Img img1, img2, img3;
 	{
 		addForm = new EIATypeAddForm();
@@ -91,14 +91,97 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		subTypeItem = new GHASelectItem("Subtipo", 150);
 		//uploadPhoto1 = new GHAUploadPhotographs(3, "20px", "subir");
 		//URL url = EIATypeInformationFormPanel.class.getResource("/default.png");
-//		img1 = new Img("/default.png", 100, 100);  
-//		img1.setImageType(ImageStyle.STRETCH);  
-//		img1.setBorder("1px solid gray");  
-//		img1.setLeft(240); 
+		img1 = new Img("../resources/img/default.png", 150, 100);  
+		img1.setImageType(ImageStyle.STRETCH);  
+		img1.setBorder("1px solid gray");  
+		img1.setSize("150px", "130px");
+		img1.setLeft(240); 
 		
+		img2 = new Img("../resources/img/default.png", 150, 100);  
+		img2.setImageType(ImageStyle.STRETCH);  
+		img2.setBorder("1px solid gray");  
+		img2.setSize("150px", "130px");
+		img2.setLeft(240); 
+		
+		img3 = new Img("../resources/img/default.png", 150, 100);  
+		img3.setImageType(ImageStyle.STRETCH);  
+		img3.setBorder("1px solid gray");  
+		img3.setSize("150px", "130px");
+		img3.setLeft(240); 
+	}
+	private void setOnFinishUploaderHandler()
+	{
+		onFinishUploaderHandler1 = new OnFinishUploaderHandler() {
+			@Override
+			public void onFinish(IUploader uploader) {
+				 if (uploader.getStatus() == Status.SUCCESS) {
+				        new PreloadedImage(uploader.fileUrl(), showImage1);
+				        // The server sends useful information to the client by default
+				        UploadedInfo info = uploader.getServerInfo();
+				        System.out.println("File name " + info.name);
+				        System.out.println("File content-type " + info.ctype);
+				        System.out.println("File size " + info.size);
+				        // You can send any customized message and parse it 
+				        System.out.println("Server message " + info.message);
+				      }
+				    }
+			};
+			showImage1 = new OnLoadPreloadedImageHandler() {
+			    public void onLoad(PreloadedImage image) {
+			     image.setWidth("150px");
+			     image.setHeight("100px");
+			     img1.addChild(image);
+			    }
+			  };
+			  
+		onFinishUploaderHandler2 = new OnFinishUploaderHandler() {
+					@Override
+					public void onFinish(IUploader uploader) {
+						 if (uploader.getStatus() == Status.SUCCESS) {
+						        new PreloadedImage(uploader.fileUrl(), showImage2);
+						        // The server sends useful information to the client by default
+						        UploadedInfo info = uploader.getServerInfo();
+						        System.out.println("File name " + info.name);
+						        System.out.println("File content-type " + info.ctype);
+						        System.out.println("File size " + info.size);
+						        // You can send any customized message and parse it 
+						        System.out.println("Server message " + info.message);
+						      }
+						    }
+					};
+					showImage2 = new OnLoadPreloadedImageHandler() {
+					    public void onLoad(PreloadedImage image) {
+					     image.setWidth("150px");
+					     image.setHeight("100px");
+					     img2.addChild(image);
+					    }
+					  };
+			
+		onFinishUploaderHandler3 = new OnFinishUploaderHandler() {
+							@Override
+							public void onFinish(IUploader uploader) {
+								 if (uploader.getStatus() == Status.SUCCESS) {
+								        new PreloadedImage(uploader.fileUrl(), showImage3);
+								        // The server sends useful information to the client by default
+								        UploadedInfo info = uploader.getServerInfo();
+								        System.out.println("File name " + info.name);
+								        System.out.println("File content-type " + info.ctype);
+								        System.out.println("File size " + info.size);
+								        // You can send any customized message and parse it 
+								        System.out.println("Server message " + info.message);
+								      }
+								    }
+							};
+							showImage3 = new OnLoadPreloadedImageHandler() {
+							    public void onLoad(PreloadedImage image) {
+							     image.setWidth("150px");
+							     image.setHeight("100px");
+							     img3.addChild(image);
+							    }
+							  };
 	}
 	
-	private class ButtonCustom extends Composite implements HasClickHandlers, HasMouseOverHandlers{
+	private class ButtonCustom extends Composite implements HasClickHandlers{
 	    
 	    public ButtonCustom() {
 	      DecoratorPanel widget = new DecoratorPanel();
@@ -111,55 +194,28 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		public HandlerRegistration addClickHandler(
 				com.google.gwt.event.dom.client.ClickHandler handler) {
 			return addDomHandler(handler, com.google.gwt.event.dom.client.ClickEvent.getType());
-		}
-
-		@Override
-		public HandlerRegistration addMouseOverHandler(MouseOverHandler handler) {
-			return addDomHandler(handler, com.google.gwt.event.dom.client.MouseOverEvent.getType());
-		}
-
-		
+		}	
 	  }
 
 	public EIATypeInformationFormPanel(EIATypeTab tab) {
 		activateForm(false);
-		ButtonCustom buttonAddImage = new ButtonCustom(); 
-		MultiUploader uploadPhoto1 = new MultiUploader(FileInputType.CUSTOM.with(buttonAddImage));
-		uploadPhoto1.setMaximumFiles(1);
+		ButtonCustom buttonAddImage1= new ButtonCustom();
+		ButtonCustom buttonAddImage2= new ButtonCustom(); 
+		ButtonCustom buttonAddImage3= new ButtonCustom(); 
+		
+		SingleUploader uploadPhoto1 = new SingleUploader(FileInputType.CUSTOM.with(buttonAddImage1));
 		uploadPhoto1.setValidExtensions("jpg", "jpeg", "png", "gif");
-		panelImages = new FlowPanel();
-		onFinishUploaderHandler = new OnFinishUploaderHandler() {
-			@Override
-			public void onFinish(IUploader uploader) {
-				 if (uploader.getStatus() == Status.SUCCESS) {
-
-				        new PreloadedImage(uploader.fileUrl(), showImage);
-			  
-				        // The server sends useful information to the client by default
-				        UploadedInfo info = uploader.getServerInfo();
-				        System.out.println("File name " + info.name);
-				        System.out.println("File content-type " + info.ctype);
-				        System.out.println("File size " + info.size);
-
-				        // You can send any customized message and parse it 
-				        System.out.println("Server message " + info.message);
-				        SC.say("File name " + info.name);
-				        SC.say("File content-type " + info.ctype);
-				        SC.say("File size " + info.size);
-				        SC.say("Server message " + info.message);
-				      }
-				    }
-			};
-			showImage = new OnLoadPreloadedImageHandler() {
-			    public void onLoad(PreloadedImage image) {
-			      image.setWidth("150px");
-			      image.setHeight("100px");
-			    			    	
-			    //  img1.setImage(image.getName(), image.getUrl());
-			      panelImages.add(image);
-			    }
-			  };
-			  
+		uploadPhoto1.setAutoSubmit(true);
+		
+		SingleUploader uploadPhoto2 = new SingleUploader(FileInputType.CUSTOM.with(buttonAddImage2));
+		uploadPhoto2.setValidExtensions("jpg", "jpeg", "png", "gif");
+		uploadPhoto2.setAutoSubmit(true);
+		
+		SingleUploader uploadPhoto3 = new SingleUploader(FileInputType.CUSTOM.with(buttonAddImage3));
+		uploadPhoto3.setValidExtensions("jpg", "jpeg", "png", "gif");
+		uploadPhoto3.setAutoSubmit(true);
+		
+		setOnFinishUploaderHandler();	  
 		this.tab = tab;
 		tab.addClosableHandler(this);
 		addForm.addEiaTypeSelectionListener(tab);
@@ -168,11 +224,11 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		setStyleName("sides-padding top-padding");// Esto es VUDU!
 		setAlign(Alignment.CENTER);
 
-		Label title = new Label("<h3>Caracteristicas del EIA Type</h3>");
-		title.setHeight(30);
-		title.setWidth100();
-		title.setStyleName("title-label");
-		addMember(title);
+		// Label title = new Label("<h3>Caracteristicas del EIA Type</h3>");
+		// title.setHeight(30);
+		// title.setWidth100();
+		// title.setStyleName("title-label");
+		// addMember(title);
 
 		DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
@@ -220,20 +276,27 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		sideButtons.addMember(addButton);
 		HLayout uploadImagenes = new HLayout();
 		
-		uploadImagenes.addMember(panelImages);
+		uploadImagenes.addMember(img1);
 		uploadImagenes.addMember(uploadPhoto1);
-		uploadPhoto1.addOnFinishUploadHandler(onFinishUploaderHandler);
+		uploadImagenes.addMember(img2);
+		uploadImagenes.addMember(uploadPhoto2);
+		uploadImagenes.addMember(img3);
+		uploadImagenes.addMember(uploadPhoto3);
+		
+		uploadPhoto1.addOnFinishUploadHandler(onFinishUploaderHandler1);
+		uploadPhoto2.addOnFinishUploadHandler(onFinishUploaderHandler2);
+		uploadPhoto3.addOnFinishUploadHandler(onFinishUploaderHandler3);
 		HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
-		
+
 		addMember(gridPanel);
 		addMember(uploadImagenes);
 		fillBrands();
 		fillMans();
 		fillExtras();
 	}
-	
-	public void activateForm(boolean activate){
+
+	public void activateForm(boolean activate) {
 		codeItem.setDisabled(!activate);
 		nameItem.setDisabled(!activate);
 		modelItem.setDisabled(!activate);
@@ -246,7 +309,7 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		brandItem.setDisabled(!activate);
 		mobilityItem.setDisabled(!activate);
 		typeItem.setDisabled(!activate);
-		subTypeItem .setDisabled(!activate);
+		subTypeItem.setDisabled(!activate);
 	}
 
 	protected void undo() {
@@ -307,7 +370,7 @@ public class EIATypeInformationFormPanel extends VLayout implements
 	@Override
 	public void select(EiaType eiaType) {
 		activateForm(true);
-		
+
 		this.eiaType = this.orginalEiaType = eiaType;
 		if (eiaType.getBrand() != null)
 			brandItem.setValue(eiaType.getBrand().getId());

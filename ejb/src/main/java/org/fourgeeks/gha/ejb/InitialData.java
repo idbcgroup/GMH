@@ -12,6 +12,10 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.sql.DataSource;
 
+/**
+ * @author alacret
+ * 
+ */
 @Startup
 @Singleton
 public class InitialData {
@@ -22,6 +26,9 @@ public class InitialData {
 	@Resource(mappedName = "java:/jdbc/gha")
 	DataSource dataSource;
 
+	/**
+	 * 
+	 */
 	@PostConstruct
 	public void inicializar() {
 		createIndexs();
@@ -31,19 +38,44 @@ public class InitialData {
 
 		logger.info("Creating indexes...");
 		Connection con = null;
-		PreparedStatement ps;
 		try {
 			con = dataSource.getConnection();
-			ps = con.prepareStatement("CREATE INDEX username_index ON singlesignonuser (username)");
-			ps.execute();
-			ps = con.prepareStatement("CREATE INDEX eiaType_index ON eiatype (type)");
-			ps.execute();
+			PreparedStatement ps;
+			try {
+				ps = con.prepareStatement("CREATE INDEX username_index ON singlesignonuser (username)");
+				ps.execute();
+			} catch (SQLException e) {
+				if (e.getSQLState().equals("42P07"))
+					logger.info("username_index already created... skipping");
+				else
+					logger.log(Level.INFO,
+							"ERROR: unable to create username_index", e);
+			}
+			try {
+				ps = con.prepareStatement("CREATE INDEX eiaType_index ON eiatype (type)");
+				ps.execute();
+			} catch (SQLException e) {
+				if (e.getSQLState().equals("42P07"))
+					logger.info("eiaType_index  already created... skipping");
+				else
+					logger.log(Level.INFO,
+							"ERROR: unable to create eiaType_index ", e);
+			}
+
+			try {
+				ps = con.prepareStatement("CREATE INDEX eia_state_index ON eia (state)");
+				ps.execute();
+			} catch (SQLException e) {
+				if (e.getSQLState().equals("42P07"))
+					logger.info("eia_state_index  already created... skipping");
+				else
+					logger.log(Level.INFO,
+							"ERROR: unable to create eia_state_index ", e);
+			}
+
 		} catch (SQLException e) {
-			if (e.getSQLState().equals("42P07"))
-				logger.info("username_index already created... skipping");
-			else
-				logger.log(Level.INFO,
-						"ERROR: unable to create username_index", e);
+			logger.log(Level.INFO,
+					"Error getting the connection to create the indexes", e);
 		} finally {
 			try {
 				con.close();
@@ -53,6 +85,7 @@ public class InitialData {
 						e1);
 			}
 		}
+
 		logger.info("...done creating indexes!");
 	}
 }
