@@ -380,29 +380,36 @@ public class TestData {
 						.find(BuildingLocation.class, 2L));
 				em.persist(facility);
 				em.flush();
+				
+				Obu obu = em.find(Obu.class, 1L);
 
-				Eia eia = new Eia(facility, eiaTypeServ.find(1),
+				Eia eia = new Eia(eiaTypeServ.find(1),
 						WarrantySinceEnum.ACCEPTATION, TimePeriodEnum.DAYS,
 						EiaStateEnum.CREATED, WarrantyStateEnum.VALID);
 				eia.setCode("Stylus-001");
 				eia.setSerialNumber("001");
+				eia.setObu(obu);
 				em.persist(eia);
 
-				Eia eia2 = new Eia(facility, eiaTypeServ.find(2),
+				Eia eia2 = new Eia(eiaTypeServ.find(2),
 						WarrantySinceEnum.ACCEPTATION, TimePeriodEnum.YEARS,
 						EiaStateEnum.CREATED, WarrantyStateEnum.VALID);
+				eia2.setObu(obu);
 
-				Eia eia3 = new Eia(facility, eiaTypeServ.find(3),
+				Eia eia3 = new Eia(eiaTypeServ.find(3),
 						WarrantySinceEnum.ACCEPTATION, TimePeriodEnum.YEARS,
 						EiaStateEnum.CREATED, WarrantyStateEnum.VALID);
+				eia3.setObu(obu);
 
-				Eia eia4 = new Eia(facility, eiaTypeServ.find(4),
+				Eia eia4 = new Eia(eiaTypeServ.find(4),
 						WarrantySinceEnum.ACCEPTATION, TimePeriodEnum.DAYS,
 						EiaStateEnum.CREATED, WarrantyStateEnum.VALID);
+				eia4.setObu(obu);
 
-				Eia eia5 = new Eia(facility, eiaTypeServ.find(5),
+				Eia eia5 = new Eia(eiaTypeServ.find(5),
 						WarrantySinceEnum.ACCEPTATION, TimePeriodEnum.DAYS,
 						EiaStateEnum.CREATED, WarrantyStateEnum.VALID);
+				eia5.setObu(obu);
 
 				em.persist(eia2);
 				em.persist(eia3);

@@ -17,7 +17,6 @@ import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
 import org.fourgeeks.gha.domain.enu.WarrantyStateEnum;
 import org.fourgeeks.gha.domain.ess.BaseRole;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
-import org.fourgeeks.gha.domain.gar.Facility;
 import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
 
@@ -44,7 +43,7 @@ public class Eia extends AbstractEntity {
 	private BigDecimal adquisitionCostLocal;
 
 	@ManyToOne
-	@JoinColumn(name = "baseRoleFk")
+	@JoinColumn(name = "baseRoleFk", nullable = false)
 	private BaseRole responsibleRole;
 
 	private String code;
@@ -81,10 +80,20 @@ public class Eia extends AbstractEntity {
 	private int lifeTime;
 	/** Tiempo de Vida Equipo length =4 */
 	private TimePeriodEnum lifeTimePot;
+	
 	/**
-	 * Código del Proveedor de Instalación solo si es un proveedor regular
-	 * length =255
+	 * Building location where the EIA is located
 	 */
+	@ManyToOne
+	@JoinColumn(name = "buildingLocationFk", nullable = false)
+	private BuildingLocation buildingLocation;
+	
+	/**
+	 * Building location attended by the EIA
+	 */
+	@ManyToOne
+	@JoinColumn(name = "attendedLocationFk", nullable = false)
+	private BuildingLocation attendedLocation;
 
 	@ManyToOne
 	@JoinColumn(name = "maintenanceLocationFk")
@@ -117,7 +126,7 @@ public class Eia extends AbstractEntity {
 	private EiaStateEnum state = EiaStateEnum.CREATED;
 
 	@ManyToOne
-	@JoinColumn(name = "externalProviderFk")
+	@JoinColumn(name = "externalProviderFk", nullable = false)
 	private ExternalProvider provider;
 
 	@Column(nullable = false)
@@ -146,14 +155,13 @@ public class Eia extends AbstractEntity {
 	}
 
 	/**
-	 * @param facility
 	 * @param eiaType
 	 * @param warrantySince
 	 * @param warrantyTimePot
 	 * @param state
 	 * @param warrantyState
 	 */
-	public Eia(Facility facility, EiaType eiaType,
+	public Eia(EiaType eiaType,
 			WarrantySinceEnum warrantySince, TimePeriodEnum warrantyTimePot,
 			EiaStateEnum state, WarrantyStateEnum warrantyState) {
 		super();
@@ -468,6 +476,22 @@ public class Eia extends AbstractEntity {
 
 	public void setObu(Obu obu) {
 		this.obu = obu;
+	}
+
+	public BuildingLocation getBuildingLocation() {
+		return buildingLocation;
+	}
+
+	public void setBuildingLocation(BuildingLocation buildingLocation) {
+		this.buildingLocation = buildingLocation;
+	}
+
+	public BuildingLocation getAttendedLocation() {
+		return attendedLocation;
+	}
+
+	public void setAttendedLocation(BuildingLocation attendedLocation) {
+		this.attendedLocation = attendedLocation;
 	}
 
 }
