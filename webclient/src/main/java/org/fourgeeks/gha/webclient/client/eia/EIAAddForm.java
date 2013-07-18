@@ -542,6 +542,8 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler, EIATy
 		eia.setLifeTimePot(TimePeriodEnum.getByString(timeVidaSel.getValueAsString()));
 		
 		//guarantees
+		//eia.setWarrantySince(warrantySince);
+		
 		//itEquipments
 		
 	}

@@ -381,7 +381,10 @@ public class TestData {
 				em.persist(facility);
 				em.flush();
 				
-				Obu obu = em.find(Obu.class, 1L);
+				Obu obu = em.find(Obu.class, 2L);
+				BuildingLocation bLocation = em.find(BuildingLocation.class, 1L);
+				ExternalProvider eProvider = em.find(ExternalProvider.class, 1L);
+				BaseRole bRole = em.find(BaseRole.class, 1L);
 
 				Eia eia = new Eia(eiaTypeServ.find(1),
 						WarrantySinceEnum.ACCEPTATION, TimePeriodEnum.DAYS,
@@ -389,27 +392,47 @@ public class TestData {
 				eia.setCode("Stylus-001");
 				eia.setSerialNumber("001");
 				eia.setObu(obu);
+				eia.setAttendedLocation(bLocation);
+				eia.setBuildingLocation(bLocation);
+				eia.setProvider(eProvider);
+				eia.setResponsibleRole(bRole);
 				em.persist(eia);
 
 				Eia eia2 = new Eia(eiaTypeServ.find(2),
 						WarrantySinceEnum.ACCEPTATION, TimePeriodEnum.YEARS,
 						EiaStateEnum.CREATED, WarrantyStateEnum.VALID);
 				eia2.setObu(obu);
+				eia2.setAttendedLocation(bLocation);
+				eia2.setBuildingLocation(bLocation);
+				eia2.setProvider(eProvider);
+				eia2.setResponsibleRole(bRole);
 
 				Eia eia3 = new Eia(eiaTypeServ.find(3),
 						WarrantySinceEnum.ACCEPTATION, TimePeriodEnum.YEARS,
 						EiaStateEnum.CREATED, WarrantyStateEnum.VALID);
 				eia3.setObu(obu);
+				eia3.setAttendedLocation(bLocation);
+				eia3.setBuildingLocation(bLocation);
+				eia3.setProvider(eProvider);
+				eia3.setResponsibleRole(bRole);
 
 				Eia eia4 = new Eia(eiaTypeServ.find(4),
 						WarrantySinceEnum.ACCEPTATION, TimePeriodEnum.DAYS,
 						EiaStateEnum.CREATED, WarrantyStateEnum.VALID);
 				eia4.setObu(obu);
+				eia4.setAttendedLocation(bLocation);
+				eia4.setBuildingLocation(bLocation);
+				eia4.setProvider(eProvider);
+				eia4.setResponsibleRole(bRole);
 
 				Eia eia5 = new Eia(eiaTypeServ.find(5),
 						WarrantySinceEnum.ACCEPTATION, TimePeriodEnum.DAYS,
 						EiaStateEnum.CREATED, WarrantyStateEnum.VALID);
 				eia5.setObu(obu);
+				eia5.setAttendedLocation(bLocation);
+				eia5.setBuildingLocation(bLocation);
+				eia5.setProvider(eProvider);
+				eia5.setResponsibleRole(bRole);
 
 				em.persist(eia2);
 				em.persist(eia3);
