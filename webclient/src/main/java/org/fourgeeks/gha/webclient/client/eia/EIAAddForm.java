@@ -53,22 +53,21 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler, EIATy
 	private List<EIASelectionListener> listeners;
 	private GHATextItem codeItem, serialItem, activeIdItem, noOrden, noFactura,
 			codeAreaActual, codeAreaAtendida, costoAdq, costoAdqLoc, timeDep,
-			timeVida, costoAct, garantiaReal, tiempoGarantiaReal, garantiaInt,
-			tiempoGarantiaInt, intermediateGarantia, mesesGarantia, codeMant,
-			numMant, dirIPTextItem, macAddressTextItem, nombreMaquinaTextItem;
+			timeVida, costoAct, timeGarantiaReal, timeGarantiaInt, codeMant,
+			dirIPTextItem, macAddressTextItem, nombreMaquinaTextItem;
 	private GHASelectItem depResponsableSelectItem, dirResponsable,
 			eqStateSelect, providerSelect, nameAreaActual, nameAreaAtendida,
 			currencyAdq, monedaLocal, metodoDepreciacion, timeDepSel,
-			timeVidaSel, monedaCosto, garantiaDesde, garantiaIntDesde,
-			nameMant,providerMant,typeITSelectItem;
-	private GHATitleTextItem equiposTitle, garantiasTitle, adqisicionTitle,
+			timeVidaSel, monedaCosto, garantiaDesde, timePeriodGarantiaReal,
+			timePeriodGarantiaInt, garantiaIntDesde,nameMant,providerMant,
+			typeITSelectItem;
+	private GHATitleTextItem equiposTitle, adqisicionTitle,
 			areaActualTitle, areaAtendidaTitle, adqCostTitle, actualCostTitle,
 			tiempoDepTitle, tiempoVidaTitle, garantiaRealTitle,
 			garantiaIntTitle, mantenimientoTitle, itTitleTextItem;
 	private GHADateItem buyDate, recepcionDate, instalacionDate, fechaContab,
-			fechaUltDeprec, fechaInic, fechaInicInt, fechaInicMant,
-			fechaFinMant;
-	private GHACheckboxItem mismaArea, isMant, retired;
+			fechaUltDeprec, fechaInic, fechaInicInt;
+	private GHACheckboxItem mismaArea, isMant;
 	private GHASectionForm sectionForm;
 	private EiaType eiaType;
 	{
@@ -77,7 +76,6 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler, EIATy
 		listeners = new ArrayList<EIASelectionListener>();
 		// Information Form Items
 		equiposTitle = new GHATitleTextItem("Información:");
-		garantiasTitle = new GHATitleTextItem("Estado:");
 		codeItem = new GHATextItem("Código",GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		serialItem = new GHATextItem("Serial",GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		activeIdItem = new GHATextItem("Id. Activo Fijo",GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
@@ -109,38 +107,32 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler, EIATy
 		costoAdq = new GHATextItem("Costo de Adq. del equipo",GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		currencyAdq = new GHASelectItem("Moneda",GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		fechaContab = new GHADateItem("Fecha de Contabilización",GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
-		costoAdqLoc = new GHATextItem("Costo de Adquisicion",GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		costoAdqLoc = new GHATextItem("Costo de Adq. Local",GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		monedaLocal = new GHASelectItem("Moneda Local",GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		metodoDepreciacion = new GHASelectItem("Metodo Depreciación",GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
-		timeDep = new GHATextItem("Cantidad",GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
-		timeDepSel = new GHASelectItem("Unidad",GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
-		timeVida = new GHATextItem("Cantidad",GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
-		timeVidaSel = new GHASelectItem("Unidad",GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		timeDep = new GHATextItem("Duración",GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		timeDepSel = new GHASelectItem("Periodo de Tiempo",GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		timeVida = new GHATextItem("Duración",GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		timeVidaSel = new GHASelectItem("Periodo de Tiempo",GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		costoAct = new GHATextItem("Costo Actual en libros",GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		monedaCosto = new GHASelectItem("Moneda",GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		fechaUltDeprec = new GHADateItem("Fecha Ult. Depreciación",GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		// Garantias Form Items
 		garantiaRealTitle = new GHATitleTextItem("Garantía Real:");
-		garantiaIntTitle = new GHATitleTextItem("Garantía Intermedia:");
+		garantiaIntTitle = new GHATitleTextItem("Garantía Intermediaria:");
 		mantenimientoTitle = new GHATitleTextItem("Mantenimiento:");
-		garantiaDesde = new GHASelectItem("Garantía Real desde la",GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
-		garantiaReal = new GHATextItem("Garantía",GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
-		tiempoGarantiaReal = new GHATextItem("Tiempo",GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
+		garantiaDesde = new GHASelectItem("Desde",GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
+		timeGarantiaReal = new GHATextItem("Duración",GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
+		timePeriodGarantiaReal = new GHASelectItem("Periodo de Tiempo",GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
 		fechaInic = new GHADateItem("Fecha Inicio",GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
-		garantiaIntDesde = new GHASelectItem("Garantía Real desde la",GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
-		garantiaInt = new GHATextItem("Garantía",GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
-		tiempoGarantiaInt = new GHATextItem("Tiempo",GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
+		garantiaIntDesde = new GHASelectItem("Desde",GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
+		timeGarantiaInt = new GHATextItem("Duración",GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
+		timePeriodGarantiaInt = new GHASelectItem("Periodo de Tiempo",GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
 		fechaInicInt = new GHADateItem("Fecha Inicio",GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
-		intermediateGarantia = new GHATextItem("En Garantía Intermedia",GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
-		mesesGarantia = new GHATextItem("Meses",GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
 		isMant = new GHACheckboxItem("Equipo en Mantenimiento");
-		codeMant = new GHATextItem("Cod. Ubicación Mant.",GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
-		nameMant = new GHASelectItem("Nombre Ubicación Mant.",GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
-		providerMant = new GHASelectItem("Proveedor de Mant.",GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
-		retired = new GHACheckboxItem("Prov. Retiró Equipo en Mant.");
-		numMant = new GHATextItem("Mant. Efectuados",GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
-		fechaInicMant = new GHADateItem("Fecha Inic. Mant.",GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
-		fechaFinMant = new GHADateItem("Fecha Fin. Mant.",GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
+		codeMant = new GHATextItem("Cod. Ubicación Mant.",GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE, false);
+		nameMant = new GHASelectItem("Nombre Ubicación Mant.",GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE, false);
+		providerMant = new GHASelectItem("Proveedor de Mant.",GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE, false);
 		// Equipos IT Form Items
 		itTitleTextItem = new GHATitleTextItem("EQUIPOS IT (Sistemas):");
 		typeITSelectItem = new GHASelectItem("Tipo Equipo IT",GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
@@ -197,6 +189,7 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler, EIATy
 		
 		//Funcionalities
 		buildingLocFuncionalities();
+		warrantyFunctionalities();
 	}
 
 	// //Form Creating Functions
@@ -273,17 +266,18 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler, EIATy
 	private DynamicForm getGarantiasMantForm() {
 		DynamicForm garantiasMamtenimientoForm = new DynamicForm();
 		garantiasMamtenimientoForm.setTitleOrientation(TitleOrientation.TOP);
-		garantiasMamtenimientoForm.setNumCols(4);
+		garantiasMamtenimientoForm.setNumCols(3);
 
-		garantiasMamtenimientoForm.setItems(garantiaRealTitle,new GHASpacerItem(3), 
-											garantiaDesde, garantiaReal,tiempoGarantiaReal, fechaInic, 
-											garantiaIntTitle,new GHASpacerItem(3), 
-											garantiaIntDesde, garantiaInt,tiempoGarantiaInt, fechaInicInt, 
-											intermediateGarantia,mesesGarantia, new GHASpacerItem(2), 
-											new GHASpacerItem(4),
-											mantenimientoTitle, new GHASpacerItem(3), 
-											isMant, codeMant,nameMant, providerMant, 
-											retired, numMant, fechaInicMant,fechaFinMant);
+		garantiasMamtenimientoForm.setItems(garantiaRealTitle,new GHASpacerItem(2), 
+											garantiaDesde, fechaInic, new GHASpacerItem(),
+											timeGarantiaReal,timePeriodGarantiaReal, new GHASpacerItem(),
+											garantiaIntTitle,new GHASpacerItem(2), 
+											garantiaIntDesde, fechaInicInt, new GHASpacerItem(),
+											timeGarantiaInt,timePeriodGarantiaInt, new GHASpacerItem(),
+											new GHASpacerItem(3),
+											mantenimientoTitle, new GHASpacerItem(2), 
+											isMant, new GHASpacerItem(2),
+											nameMant, codeMant, providerMant);
 
 		return garantiasMamtenimientoForm;
 	}
@@ -386,6 +380,12 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler, EIATy
 		garantiaIntDesde.setValueMap(WarrantySinceEnum.toValueMap());
 		garantiaIntDesde.setValue(WarrantySinceEnum.PURCHASE.name());
 		
+		timePeriodGarantiaReal.setValueMap(TimePeriodEnum.toValueMap());
+		timePeriodGarantiaReal.setValue(TimePeriodEnum.HOURS.name());
+		timePeriodGarantiaInt.setValueMap(TimePeriodEnum.toValueMap());
+		timePeriodGarantiaInt.setValue(TimePeriodEnum.HOURS.name());
+		
+		
 		GHACache.INSTANCE
 		.getBuildingLocations(new GHAAsyncCallback<List<BuildingLocation>>() {
 			@Override
@@ -434,8 +434,6 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler, EIATy
 		});
 		
 		mismaArea.addChangeHandler(new ChangeHandler() {
-			
-
 			@Override
 			public void onChange(ChangeEvent event) {
 				// TODO Auto-generated method stub
@@ -447,6 +445,25 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler, EIATy
 					nameAreaAtendida.setDisabled(false);
 					nameAreaAtendida.clearValue();
 					codeAreaAtendida.clearValue();
+				}
+			}
+		});
+	}
+	
+	private void warrantyFunctionalities(){
+		isMant.addChangeHandler(new ChangeHandler() {
+			@Override
+			public void onChange(ChangeEvent event) {
+				// TODO Auto-generated method stub
+				if(event.getValue().equals(true)){
+					nameMant.setDisabled(false);
+					providerMant.setDisabled(false);
+				}else{
+					nameMant.setDisabled(true);
+					providerMant.setDisabled(true);
+					nameMant.clearValue();
+					codeMant.clearValue();
+					providerMant.clearValue();
 				}
 			}
 		});
