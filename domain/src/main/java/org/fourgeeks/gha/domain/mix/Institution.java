@@ -1,5 +1,6 @@
 package org.fourgeeks.gha.domain.mix;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -9,6 +10,10 @@ import javax.persistence.OneToOne;
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.InstitutionTypeEnum;
 
+/**
+ * @author alacret
+ * 
+ */
 @Entity
 public class Institution extends AbstractEntity {
 	/**
@@ -17,7 +22,7 @@ public class Institution extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 
 	@OneToOne
-	@JoinColumn(name = "legalEntityFk")
+	@JoinColumn(name = "legalEntityFk", nullable = false)
 	private LegalEntity legalEntity;
 
 	// @OneToMany(mappedBy = "institution")
@@ -48,7 +53,8 @@ public class Institution extends AbstractEntity {
 
 	/** Attributes */
 
-	private String institutionName;
+	@Column(nullable = false)
+	private String name;
 	/** length =255 */
 
 	@Enumerated(EnumType.STRING)
@@ -96,5 +102,20 @@ public class Institution extends AbstractEntity {
 	 */
 	public void setLegalEntity(LegalEntity legalEntity) {
 		this.legalEntity = legalEntity;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name
+	 *            the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
 	}
 }

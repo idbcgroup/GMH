@@ -37,10 +37,11 @@ public class GWTLoginServiceImpl extends RemoteServiceServlet implements
 
 		try {
 			request.login(user, password);
+			return true;
 		} catch (Exception e) {
-			// TODO: handle exception
+			System.out.println("aca se deberia capturar el error"
+					+ e.getMessage());
+			return false;
 		}
-
-		return false;
 	}
 }

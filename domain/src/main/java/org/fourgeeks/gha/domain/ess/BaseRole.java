@@ -3,38 +3,47 @@
  */
 package org.fourgeeks.gha.domain.ess;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 
 /**
- * @author emiliot
- *
+ * @author alacret
+ * 
  */
 
 @Entity
-public class BaseRole extends AbstractEntity{
+public class BaseRole extends AbstractEntity {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
+	@Column(nullable = false)
 	private String name;
 
 	/**
 	 * 
 	 */
 	public BaseRole() {
-		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * @return te name of the role
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * 
+	 * @param name
+	 *            The name of the Role
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 }

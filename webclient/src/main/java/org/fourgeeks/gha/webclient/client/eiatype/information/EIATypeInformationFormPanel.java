@@ -24,7 +24,6 @@ import org.fourgeeks.gha.webclient.client.eiatype.EIATypeTab;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.TitleOrientation;
-import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
@@ -62,7 +61,7 @@ public class EIATypeInformationFormPanel extends VLayout implements
 
 	public EIATypeInformationFormPanel(EIATypeTab tab) {
 		activateForm(false);
-		
+
 		this.tab = tab;
 		tab.addClosableHandler(this);
 		addForm.addEiaTypeSelectionListener(tab);
@@ -71,11 +70,11 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		setStyleName("sides-padding top-padding");// Esto es VUDU!
 		setAlign(Alignment.CENTER);
 
-		Label title = new Label("<h3>Caracteristicas del EIA Type</h3>");
-		title.setHeight(30);
-		title.setWidth100();
-		title.setStyleName("title-label");
-		addMember(title);
+		// Label title = new Label("<h3>Caracteristicas del EIA Type</h3>");
+		// title.setHeight(30);
+		// title.setWidth100();
+		// title.setStyleName("title-label");
+		// addMember(title);
 
 		DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
@@ -123,14 +122,14 @@ public class EIATypeInformationFormPanel extends VLayout implements
 
 		HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
-		
+
 		addMember(gridPanel);
 		fillBrands();
 		fillMans();
 		fillExtras();
 	}
-	
-	public void activateForm(boolean activate){
+
+	public void activateForm(boolean activate) {
 		codeItem.setDisabled(!activate);
 		nameItem.setDisabled(!activate);
 		modelItem.setDisabled(!activate);
@@ -143,7 +142,7 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		brandItem.setDisabled(!activate);
 		mobilityItem.setDisabled(!activate);
 		typeItem.setDisabled(!activate);
-		subTypeItem .setDisabled(!activate);
+		subTypeItem.setDisabled(!activate);
 	}
 
 	protected void undo() {
@@ -204,7 +203,7 @@ public class EIATypeInformationFormPanel extends VLayout implements
 	@Override
 	public void select(EiaType eiaType) {
 		activateForm(true);
-		
+
 		this.eiaType = this.orginalEiaType = eiaType;
 		if (eiaType.getBrand() != null)
 			brandItem.setValue(eiaType.getBrand().getId());

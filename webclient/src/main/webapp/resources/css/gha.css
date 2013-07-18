@@ -162,7 +162,7 @@
 	margin:15px auto 15px auto;
 }
 
-input,.input{
+input, .input{
 	padding: 2px;
 	border:1px solid;
 	border-color:#BABABA;
@@ -170,8 +170,7 @@ input,.input{
 	margin-right: 10px;	
 }
 
-.input-dateItem{
-	padding: 2px;
+input, .input-dateItem{
 	border:1px solid;
 	border-color:#BABABA;
 	text-align: left;

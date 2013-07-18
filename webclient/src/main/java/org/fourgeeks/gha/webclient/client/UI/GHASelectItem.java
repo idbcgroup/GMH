@@ -18,6 +18,12 @@ public class GHASelectItem extends SelectItem {
 		this(title);
 		setWidth(width);
 	}
+	
+	public GHASelectItem(String title, int width, boolean active) {
+		this(title);
+		setWidth(width);
+		setDisabled(!active);
+	}
 
 	public GHASelectItem(String title) {
 		this();

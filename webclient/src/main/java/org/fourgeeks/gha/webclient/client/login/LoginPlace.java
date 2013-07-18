@@ -11,6 +11,7 @@ import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.EventListener;
 import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
 
@@ -69,15 +70,17 @@ public class LoginPlace extends GHAPlace {
 							public void onSuccess(Boolean result) {
 								// Window.alert("Button Clicked. Result:" +
 								// result);
-								if (!result) {
+								if (result) {
 									String token = History.getToken();
 									// Window.alert("Token:" + token);
 									if (token.equals("home"))
 										History.fireCurrentHistoryState();
 									else
 										History.newItem("home");
-								} else
+								} else {
+									Window.alert("Error iniciando sesión. Credenciales inválidas");
 									History.fireCurrentHistoryState();
+								}
 							}
 						});
 
@@ -105,15 +108,17 @@ public class LoginPlace extends GHAPlace {
 								public void onSuccess(Boolean result) {
 									// Window.alert("Button Clicked. Result:" +
 									// result);
-									if (!result) {
+									if (result) {
 										String token = History.getToken();
 										// Window.alert("Token:" + token);
 										if (token.equals("home"))
 											History.fireCurrentHistoryState();
 										else
 											History.newItem("home");
-									} else
+									} else {
+										Window.alert("Error iniciando sesión. Credenciales inválidas");
 										History.fireCurrentHistoryState();
+									}
 								}
 							});
 				}

@@ -3,12 +3,53 @@
  */
 package org.fourgeeks.gha.domain.enu;
 
+import java.util.LinkedHashMap;
+
 /**
  * @author emiliot
  * 
  */
 public enum EiaStateEnum {
-	NUEVO("Nuevo"), USADO("Usado"), DAÑADO("Dañado");
+	/**
+	 * 
+	 */
+	CREATED("Nuevo"), /**
+	 * 
+	 */
+	ACQUIRED("Adquirido"), /**
+	 * 
+	 */
+	RECIBIDO("Recibido"), /**
+	 * 
+	 */
+	DELIVERED("Entregado"), /**
+			 * 
+			 */
+	TO_INSTALL("Por instalar"), /**
+			 * 
+			 */
+	INSTALLED("Instalado"), /**
+			 * 
+			 */
+	LOST("Perdido"), /**
+			 * 
+			 */
+	IN_OPERATION("En operación"), /**
+			 * 
+			 */
+	DAMAGED("Dañado"), /**
+			 * 
+			 */
+	MAINTENANCE("En mantenimiento"), /**
+			 * 
+			 */
+	IN_ACCEPTANCE("En esperapor aceptaci'on en mantenimiento"), /**
+	 * 
+	 */
+	DISINCORPORATED("Desincorporado"), /**
+			 * 
+			 */
+	MAYOR_DAMAGED("Dañado severamente");
 
 	private String name;
 
@@ -20,6 +61,11 @@ public enum EiaStateEnum {
 		return this.name;
 	}
 
+	/**
+	 * @param string
+	 * @return the EiaStateEnum representated by this value, or null if it does
+	 *         not exist
+	 */
 	public static EiaStateEnum getByString(String string) {
 		if (string == null)
 			return null;
@@ -29,5 +75,15 @@ public enum EiaStateEnum {
 				return e;
 
 		return null;
+	}
+
+	/**
+	 * @return a valueMap with this Enum values
+	 */
+	public static LinkedHashMap<String, String> toValueMap() {
+		LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+		for (EiaStateEnum mobility : EiaStateEnum.values())
+			valueMap.put(mobility.name() + "", mobility.toString());
+		return valueMap;
 	}
 }
