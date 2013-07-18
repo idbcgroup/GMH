@@ -488,8 +488,15 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler, EIATy
 		eia.setState(EiaStateEnum.getByString(eqStateSelect.getValueAsString()));
 		
 		//adquisition
+		/*eia.setPurchaseDate(purchaseDate);
+		eia.setReceptionDate(receptionDate);
+		eia.setInstallationDate(installationDate);
+		eia.setProvider(provider);
+		eia.setPurchaseOrderNumber(purchaseOrderNumber);
+		eia.setPurchaseInvoiceNumber(purchaseInvoiceNumber);*/
 		
 		//ubication
+		
 		//costs
 		//guarantees
 		//itEquipments
