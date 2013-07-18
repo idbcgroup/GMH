@@ -1,8 +1,10 @@
 package org.fourgeeks.gha.webclient.client.eia.equipment;
 
+import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAButton;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.eia.EIAAddForm;
+import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.widgets.Label;
@@ -16,7 +18,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class EIAEquipmentGridPanel extends VLayout {
+public class EIAEquipmentGridPanel extends VLayout implements EIATypeSelectionListener{
 
 	private EIAAddForm form;
 	private EIAEquipmentGrid eiaGrid;
@@ -62,5 +64,14 @@ public class EIAEquipmentGridPanel extends VLayout {
 	 */
 	public void setData(ListGridRecord[] array) {
 		eiaGrid.setData(array);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener#select(org.fourgeeks.gha.domain.gmh.EiaType)
+	 */
+	@Override
+	public void select(EiaType eiaType) {
+		form.select(eiaType);
+		
 	}
 }

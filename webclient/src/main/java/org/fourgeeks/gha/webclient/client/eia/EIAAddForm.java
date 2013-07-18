@@ -15,6 +15,7 @@ import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.gmh.Eia;
+import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAButton;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
@@ -27,6 +28,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHATitleTextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
@@ -46,7 +48,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret Add Eia Form
  * 
  */
-public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
+public class EIAAddForm extends GHASlideInWindow implements ResizeHandler, EIATypeSelectionListener {
 
 	private List<EIASelectionListener> listeners;
 	private GHATextItem codeItem, serialItem, activeIdItem, noOrden, noFactura,
@@ -68,6 +70,7 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 			fechaFinMant;
 	private GHACheckboxItem mismaArea, isMant, retired;
 	private GHASectionForm sectionForm;
+	private EiaType eiaType;
 	{
 		// Global
 		sectionForm = new GHASectionForm();
@@ -460,8 +463,14 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 	 * Save the new element to database
 	 */
 	private void save(){
+		//TODO: validar eiatype seleccionado antes de todo
+		
+		
 		final Eia eia = new Eia();
 		
+		eia.setEiaType(this.eiaType);
+		
+		//basic information
 		eia.setCode(codeItem.getValueAsString());
 		eia.setSerialNumber(serialItem.getValueAsString());
 		eia.setFixedAssetIdentifier(activeIdItem.getValueAsString());
@@ -477,8 +486,14 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 			eia.setResponsibleRole(baseRole);
 		}
 		eia.setState(EiaStateEnum.getByString(eqStateSelect.getValueAsString()));
-		//eia.setEiaType();
-		//TODO: UNDER CONSTRUCTION
+		
+		//adquisition
+		
+		//ubication
+		//costs
+		//guarantees
+		//itEquipments
+		
 	}
 
 	/**
@@ -491,6 +506,14 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler {
 	@Override
 	public void onResize(ResizeEvent event) {
 		setHeight(GHAUiHelper.getBottomSectionHeight());
+	}
+
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener#select(org.fourgeeks.gha.domain.gmh.EiaType)
+	 */
+	@Override
+	public void select(EiaType eiaType) {
+		this.eiaType = eiaType;
 	}
 
 }

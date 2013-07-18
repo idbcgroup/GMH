@@ -65,7 +65,7 @@ public class Eia extends AbstractEntity {
 	private String desincorporateReason;
 
 	@ManyToOne
-	@JoinColumn(name = "eiaTypeFk")
+	@JoinColumn(name = "eiaTypeFk", nullable=false)
 	private EiaType eiaType;
 
 	/** Número de Serial del Equipo length =60 */
