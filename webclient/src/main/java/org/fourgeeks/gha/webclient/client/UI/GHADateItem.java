@@ -7,7 +7,6 @@ import com.smartgwt.client.widgets.form.fields.DateItem;
  * @author alacret TODO
  */
 public class GHADateItem extends DateItem {
-
 	
 	/**
 	 * TODO
@@ -15,9 +14,10 @@ public class GHADateItem extends DateItem {
 	public GHADateItem() {
 		super();
 		setUseTextField(true);
-		setTextBoxStyle("input-dateItem");
+		setTextBoxStyle("dateItem");
 		setTextAlign(Alignment.LEFT);
 		setHeight(18);
+		setCellStyle("gha-form-cell");
 		setWidth(100);
 		setTitleStyle("input-title");
 	}
@@ -50,10 +50,6 @@ public class GHADateItem extends DateItem {
 	@Override
 	public void setDisabled(Boolean disabled) {
 		super.setDisabled(disabled);
-		if(disabled)
-			setTextBoxStyle("input-dateItem input-disabled");
-		else
-			setTextBoxStyle("input-dateItem");
 	}
 	
 }

@@ -8,6 +8,7 @@ public class GHATextItem extends TextItem {
 		super();
 		setTextBoxStyle("input");
 		setHeight(15);
+		setCellStyle("gha-form-cell");
 		setWidth(100);
 		setTitleStyle("input-title");
 	}
@@ -36,10 +37,6 @@ public class GHATextItem extends TextItem {
 	@Override
 	public void setDisabled(Boolean disabled) {
 		super.setDisabled(disabled);
-		if(disabled)
-			setTextBoxStyle("input input-disabled");
-		else
-			setTextBoxStyle("input");
 	}
 	
 	
