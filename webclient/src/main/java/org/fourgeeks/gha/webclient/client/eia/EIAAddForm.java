@@ -483,6 +483,7 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler, EIATy
 	 */
 	private void save(){
 		//TODO: validar eiatype seleccionado antes de todo
+		//TODO: VALIDAR SELECT BOXES
 		
 		
 		final Eia eia = new Eia();
@@ -542,9 +543,28 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler, EIATy
 		eia.setLifeTimePot(TimePeriodEnum.getByString(timeVidaSel.getValueAsString()));
 		
 		//guarantees
-		//eia.setWarrantySince(warrantySince);
+		eia.setRealWarrantyBegin(new Date(fechaInic.getValueAsDate().getTime()));
+		eia.setRealWarrantyPDT(TimePeriodEnum.getByString(timePeriodGarantiaReal.getValueAsString()));
+		eia.setRealWarrantySince(WarrantySinceEnum.getByString(garantiaDesde.getValueAsString()));
+		eia.setRealWarrantyTime(Integer.valueOf(timeGarantiaReal.getValueAsString()));
+		
+		eia.setIntWarrantyBegin(new Date(fechaInicInt.getValueAsDate().getTime()));
+		eia.setIntWarrantyPDT(TimePeriodEnum.getByString(timePeriodGarantiaInt.getValueAsString()));
+		eia.setIntWarrantySince(WarrantySinceEnum.getByString(garantiaIntDesde.getValueAsString()));
+		eia.setIntWarrantyTime(Integer.valueOf(timeGarantiaInt.getValueAsString()));
+		
+		if(isMant.getValueAsBoolean()){
+			eia.setMaintenanceLocation(new BuildingLocation(Integer.valueOf(nameMant.getValueAsString())));
+			eia.setMaintenanceProvider(new ExternalProvider(Integer.valueOf(providerMant.getValueAsString())));
+		}
 		
 		//itEquipments
+		eia.setItType(ItSystemEnum.getByString(typeITSelectItem.getValueAsString()));
+		eia.setMachineName(nombreMaquinaTextItem.getValueAsString());
+		eia.setIpAddress(dirIPTextItem.getValueAsString());
+		eia.setMacAddress(macAddressTextItem.getValueAsString());
+		
+		//TODO: call the GWT service to save the EIA
 		
 	}
 

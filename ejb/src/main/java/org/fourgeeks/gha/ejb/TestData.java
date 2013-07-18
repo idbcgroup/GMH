@@ -16,9 +16,6 @@ import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
 import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.enu.LocationLevelEnum;
-import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
-import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
-import org.fourgeeks.gha.domain.enu.WarrantyStateEnum;
 import org.fourgeeks.gha.domain.ess.BaseRole;
 import org.fourgeeks.gha.domain.ess.SingleSignOnUser;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
@@ -386,53 +383,34 @@ public class TestData {
 				ExternalProvider eProvider = em.find(ExternalProvider.class, 1L);
 				BaseRole bRole = em.find(BaseRole.class, 1L);
 
-				Eia eia = new Eia(eiaTypeServ.find(1),
-						WarrantySinceEnum.ACCEPTATION, TimePeriodEnum.DAYS,
-						EiaStateEnum.CREATED, WarrantyStateEnum.VALID);
+				Eia eia = new Eia(bRole, eiaTypeServ.find(1), bLocation,
+						bLocation, obu, EiaStateEnum.CREATED);
 				eia.setCode("Stylus-001");
 				eia.setSerialNumber("001");
-				eia.setObu(obu);
-				eia.setAttendedLocation(bLocation);
-				eia.setBuildingLocation(bLocation);
 				eia.setProvider(eProvider);
-				eia.setResponsibleRole(bRole);
 				em.persist(eia);
 
-				Eia eia2 = new Eia(eiaTypeServ.find(2),
-						WarrantySinceEnum.ACCEPTATION, TimePeriodEnum.YEARS,
-						EiaStateEnum.CREATED, WarrantyStateEnum.VALID);
-				eia2.setObu(obu);
-				eia2.setAttendedLocation(bLocation);
-				eia2.setBuildingLocation(bLocation);
+				Eia eia2 = new Eia(bRole, eiaTypeServ.find(2),
+						bLocation, bLocation, obu,
+						EiaStateEnum.CREATED);
 				eia2.setProvider(eProvider);
-				eia2.setResponsibleRole(bRole);
 
-				Eia eia3 = new Eia(eiaTypeServ.find(3),
-						WarrantySinceEnum.ACCEPTATION, TimePeriodEnum.YEARS,
-						EiaStateEnum.CREATED, WarrantyStateEnum.VALID);
-				eia3.setObu(obu);
-				eia3.setAttendedLocation(bLocation);
-				eia3.setBuildingLocation(bLocation);
+				Eia eia3 = new Eia(bRole, eiaTypeServ.find(3),
+						bLocation, bLocation, obu,
+						EiaStateEnum.CREATED);
 				eia3.setProvider(eProvider);
-				eia3.setResponsibleRole(bRole);
 
-				Eia eia4 = new Eia(eiaTypeServ.find(4),
-						WarrantySinceEnum.ACCEPTATION, TimePeriodEnum.DAYS,
-						EiaStateEnum.CREATED, WarrantyStateEnum.VALID);
+				Eia eia4 = new Eia(bRole, eiaTypeServ.find(4),
+						bLocation, bLocation, obu,
+						EiaStateEnum.CREATED);
 				eia4.setObu(obu);
-				eia4.setAttendedLocation(bLocation);
-				eia4.setBuildingLocation(bLocation);
 				eia4.setProvider(eProvider);
-				eia4.setResponsibleRole(bRole);
 
-				Eia eia5 = new Eia(eiaTypeServ.find(5),
-						WarrantySinceEnum.ACCEPTATION, TimePeriodEnum.DAYS,
-						EiaStateEnum.CREATED, WarrantyStateEnum.VALID);
+				Eia eia5 = new Eia(bRole, eiaTypeServ.find(5),
+						bLocation, bLocation, obu,
+						EiaStateEnum.CREATED);
 				eia5.setObu(obu);
-				eia5.setAttendedLocation(bLocation);
-				eia5.setBuildingLocation(bLocation);
 				eia5.setProvider(eProvider);
-				eia5.setResponsibleRole(bRole);
 
 				em.persist(eia2);
 				em.persist(eia3);
