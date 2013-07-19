@@ -30,19 +30,19 @@
 			<version>1</version>
 		</dependency>
 
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.7</version>
-			<scope>test</scope>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>junit</groupId> -->
+<!-- 			<artifactId>junit</artifactId> -->
+<!-- 			<version>4.7</version> -->
+<!-- 			<scope>test</scope> -->
+<!-- 		</dependency> -->
 
-		<dependency>
-			<groupId>com.bm</groupId>
-			<artifactId>ejb3unit</artifactId>
-			<version>1.1.1</version>
-			<scope>compile</scope>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.bm</groupId> -->
+<!-- 			<artifactId>ejb3unit</artifactId> -->
+<!-- 			<version>1.1.1</version> -->
+<!-- 			<scope>compile</scope> -->
+<!-- 		</dependency> -->
 
 		<dependency>
 			<groupId>postgresql</groupId>
