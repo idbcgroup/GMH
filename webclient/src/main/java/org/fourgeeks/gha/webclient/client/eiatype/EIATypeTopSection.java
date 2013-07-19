@@ -135,6 +135,7 @@ public class EIATypeTopSection extends HLayout implements
 
 	@Override
 	public void select(EiaType eiaType) {
+		//Window.alert("top section select");
 		selectEiaType(eiaType);
 		codeItem.setValue(eiaType.getCode());
 		nameItem.setValue(eiaType.getName());

@@ -1,7 +1,5 @@
 package org.fourgeeks.gha.webclient.client.eia;
 
-import java.math.BigDecimal;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -34,6 +32,7 @@ import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
+import com.google.gwt.user.client.Window;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.Label;
@@ -160,7 +159,14 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler, EIATy
 		sectionForm.addSection("EquiposIT", getEquiposIT(), false);
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAButton(
-				"../resources/icons/save.png"), new GHAButton(
+				"../resources/icons/save.png", new ClickHandler() {
+					
+					@Override
+					public void onClick(ClickEvent event) {
+						save();
+						
+					}
+				}), new GHAButton(
 				"../resources/icons/set.png"), new GHAButton(
 				"../resources/icons/cancel.png", new ClickHandler() {
 
@@ -486,13 +492,15 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler, EIATy
 	 * Save the new element to database
 	 */
 	private void save(){
-		//TODO: validar eiatype seleccionado antes de todo
-		//TODO: VALIDAR SELECT BOXES
-		
+		if(this.eiaType == null){
+			Window.alert("Select EiaType First");
+			return;
+		}		
 		
 		final Eia eia = new Eia();
 		
 		eia.setEiaType(this.eiaType);
+		//Window.alert("setting eiatype");
 		
 		//basic information
 		eia.setCode(codeItem.getValueAsString());
@@ -502,33 +510,69 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler, EIATy
 			Obu obu = new Obu();
 			obu.setId(Integer.valueOf(depResponsableSelectItem.getValueAsString()));
 			eia.setObu(obu);
+			//Window.alert("setting obu");
+		}else{
+			Window.alert("Select Obu First");
+			return;
 		}
 		
 		if(dirResponsable.getValue() != null){
 			BaseRole baseRole = new BaseRole();
 			baseRole.setId(Integer.valueOf(dirResponsable.getValueAsString()));
 			eia.setResponsibleRole(baseRole);
+			//Window.alert("setting brole");
+		}else{
+			Window.alert("Select BaseRole First");
+			return;
 		}
-		eia.setState(EiaStateEnum.getByString(eqStateSelect.getValueAsString()));
+		
+		if(eqStateSelect.getValue() != null){
+			eia.setState(EiaStateEnum.ACQUIRED);//TODO: eia.setState(EiaStateEnum.getByString(eqStateSelect.getValueAsString()));
+			//Window.alert("setting state");
+		}else{
+			Window.alert("Select EiaState First");
+			return;
+		}
 		
 		//adquisition
-		eia.setPurchaseDate(new Date(buyDate.getValueAsDate().getTime()));
+		/*eia.setPurchaseDate(new Date(buyDate.getValueAsDate().getTime()));
 		eia.setReceptionDate(new Date(recepcionDate.getValueAsDate().getTime()));
-		eia.setInstallationDate(new Date(instalacionDate.getValueAsDate().getTime()));
-		eia.setProvider(new ExternalProvider(Integer.valueOf(providerSelect.getValueAsString())));
-		eia.setPurchaseOrderNumber(noOrden.getValueAsString());
-		eia.setPurchaseInvoiceNumber(noFactura.getValueAsString());
+		eia.setInstallationDate(new Date(instalacionDate.getValueAsDate().getTime()));*/
+		
+		if(providerSelect.getValue() != null){
+			eia.setProvider(new ExternalProvider(Integer.valueOf(providerSelect.getValueAsString())));
+			//Window.alert("setting provider");
+		}else{
+			Window.alert("Select Provider First");
+			return;
+		}
+		
+		/*eia.setPurchaseOrderNumber(noOrden.getValueAsString());
+		eia.setPurchaseInvoiceNumber(noFactura.getValueAsString());*/
 		
 		//ubication
-		eia.setBuildingLocation(new BuildingLocation(Integer.valueOf(nameAreaActual.getValueAsString())));
-		if(mismaArea.getValueAsBoolean()){
-			eia.setAttendedLocation(new BuildingLocation(Integer.valueOf(nameAreaActual.getValueAsString())));
+		if(nameAreaActual.getValue() != null){
+			eia.setBuildingLocation(new BuildingLocation(nameAreaActual.getValueAsString()));
+			//Window.alert("setting blocation");
+			if(mismaArea.getValueAsBoolean()){
+				eia.setAttendedLocation(new BuildingLocation(nameAreaActual.getValueAsString()));
+				//Window.alert("setting attended location");
+			}else{
+				if(nameAreaAtendida.getValue() != null){
+					eia.setAttendedLocation(new BuildingLocation(nameAreaAtendida.getValueAsString()));
+					//Window.alert("setting attended location");
+				}else{
+					Window.alert("Select Attended Building Location First");
+					return;
+				}
+			}
 		}else{
-			eia.setAttendedLocation(new BuildingLocation(Integer.valueOf(nameAreaAtendida.getValueAsString())));
+			Window.alert("Select Building Location first");
+			return;
 		}
 		
 		//costs
-		eia.setAdquisitionCost(BigDecimal.valueOf(Double.valueOf(costoAdq.getValueAsString())));
+		/*eia.setAdquisitionCost(BigDecimal.valueOf(Double.valueOf(costoAdq.getValueAsString())));
 		eia.setAdquisitionCostCurrency(CurrencyTypeEnum.getByString(currencyAdq.getValueAsString()));
 		eia.setContabilizationDate(new Date(fechaContab.getValueAsDate().getTime()));
 		
@@ -558,7 +602,7 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler, EIATy
 		eia.setIntWarrantyTime(Integer.valueOf(timeGarantiaInt.getValueAsString()));
 		
 		if(isMant.getValueAsBoolean()){
-			eia.setMaintenanceLocation(new BuildingLocation(Integer.valueOf(nameMant.getValueAsString())));
+			eia.setMaintenanceLocation(new BuildingLocation(nameMant.getValueAsString()));
 			eia.setMaintenanceProvider(new ExternalProvider(Integer.valueOf(providerMant.getValueAsString())));
 		}
 		
@@ -566,10 +610,18 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler, EIATy
 		eia.setItType(ItSystemEnum.getByString(typeITSelectItem.getValueAsString()));
 		eia.setMachineName(nombreMaquinaTextItem.getValueAsString());
 		eia.setIpAddress(dirIPTextItem.getValueAsString());
-		eia.setMacAddress(macAddressTextItem.getValueAsString());
+		eia.setMacAddress(macAddressTextItem.getValueAsString());*/
 		
-		//TODO: call the GWT service to save the EIA
+		//Window.alert("Save");
 		
+		EIAModel.save(eia, new GHAAsyncCallback<Eia>() {
+			@Override
+			public void onSuccess(Eia result) {
+				select(result);
+				Window.alert(result.toString());
+				//TODO: cancel();
+			}
+		});
 	}
 
 	/**
