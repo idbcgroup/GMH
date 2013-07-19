@@ -434,10 +434,10 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler, EIATy
 			@Override
 			public void onChange(ChangeEvent event) {
 				//TODO: 
-//				codeAreaActual.setValue(event.getValue());
-				if(sameArea_Loc_CheckboxItem.getValue().equals(true)){
+				codeActualArea_Loc_TextItem.setValue(event.getValue());
+				if(sameArea_Loc_CheckboxItem.getValueAsBoolean()){
 					nameAttendedArea_Loc_SelectItem.setValue(event.getValue());
-//					codeAreaAtendida.setValue(codeAreaActual.getValue());
+					codeAttendedArea_Loc_TextItem.setValue(event.getValue());
 				}
 			}
 		});
@@ -446,7 +446,7 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler, EIATy
 			@Override
 			public void onChange(ChangeEvent event) {
 				//TODO: 
-//				codeAreaActual.setValue(value);
+				codeAttendedArea_Loc_TextItem.setValue(event.getValue());
 			}
 		});
 		
@@ -482,6 +482,13 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler, EIATy
 					codeMant_WarrMant_TextItem.clearValue();
 					providerMant_WarrMant_SelectItem.clearValue();
 				}
+			}
+		});
+		
+		nameMant_WarrMant_SelectItem.addChangeHandler(new ChangeHandler() {
+			@Override
+			public void onChange(ChangeEvent event) {
+				codeMant_WarrMant_TextItem.setValue(event.getValue());
 			}
 		});
 	}
