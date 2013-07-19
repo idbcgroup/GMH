@@ -13,8 +13,7 @@ import com.bm.testsuite.PoJoFixture;
 public class BrandServiceEJB3UnitTest extends PoJoFixture {
 	// TODO configurar EJB3Unit con test persistence usar BrandServiceRemote en
 	// las pruebas
-	private static final Class<?>[] USED_ENTITIES = { Brand.class,
-			BrandService.class, BrandServiceRemote.class };
+	private static final Class<?>[] USED_ENTITIES = { Brand.class };
 
 	public BrandServiceEJB3UnitTest() {
 		super(USED_ENTITIES);
