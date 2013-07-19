@@ -220,7 +220,7 @@ public class TestData {
 	}
 
 	private void buildingLocationsTestData() {
-		String query = "SELECT t from BuildingLocation t WHERE id = 1 ";
+		String query = "SELECT t from BuildingLocation t WHERE code='Building 000'";
 		try {
 			em.createQuery(query).getSingleResult();
 		} catch (NoResultException e) {
@@ -374,12 +374,12 @@ public class TestData {
 
 				Facility facility = new Facility();
 				facility.setBuildingLocation(em
-						.find(BuildingLocation.class, 2L));
+						.find(BuildingLocation.class, "Building 000"));
 				em.persist(facility);
 				em.flush();
 				
 				Obu obu = em.find(Obu.class, 2L);
-				BuildingLocation bLocation = em.find(BuildingLocation.class, 1L);
+				BuildingLocation bLocation = em.find(BuildingLocation.class, "Building 000");
 				ExternalProvider eProvider = em.find(ExternalProvider.class, 1L);
 				BaseRole bRole = em.find(BaseRole.class, 1L);
 

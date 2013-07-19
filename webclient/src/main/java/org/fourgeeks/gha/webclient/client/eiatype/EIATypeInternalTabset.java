@@ -44,6 +44,7 @@ public class EIATypeInternalTabset extends TabSet implements
 
 	@Override
 	public void select(EiaType eiaType) {
+		//Window.alalert("internatl select tab set");
 		infoSubTab.select(eiaType);
 		equipementsSubTab.select(eiaType);
 		partsSubTab.select(eiaType);

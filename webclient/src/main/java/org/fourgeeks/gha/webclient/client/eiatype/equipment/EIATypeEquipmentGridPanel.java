@@ -87,6 +87,7 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 	@Override
 	public void select(EiaType eiaType) {
 		this.eiaType = eiaType;
+		addForm.select(eiaType);
 		EIAModel.find(eiaType, new GHAAsyncCallback<List<Eia>>() {
 
 			@Override

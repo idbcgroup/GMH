@@ -90,7 +90,7 @@ public class BuildingLocationService implements BuildingLocationServiceRemote {
 		try {
 			em.persist(entity);
 			em.flush();
-			return em.find(BuildingLocation.class, entity.getId());
+			return em.find(BuildingLocation.class, entity.getCode());
 		} catch (Exception e) {
 			logger.log(Level.INFO,
 					"ERROR: saving BuildingLocation " + entity.toString(), e);
