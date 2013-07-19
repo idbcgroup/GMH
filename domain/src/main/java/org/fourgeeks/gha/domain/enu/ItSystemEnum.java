@@ -6,50 +6,50 @@ package org.fourgeeks.gha.domain.enu;
 import java.util.LinkedHashMap;
 
 /**
- * @author emiliot
- *
+ * @author alacret
+ * 
  */
-public enum TimePeriodEnum {
-	HOURS("Horas"),
-	DAYS("Días"),
-	WEEKS("Semanas"),
-	MONTHS("Meses"),
-	SEMESTERS("Semestres"),
-	YEARS("Años");
-	
+public enum ItSystemEnum {
+	/**
+	 * 
+	 */
+	PERIPHERAL("Periférico"), /**
+	 * 
+	 */
+	COMPUTER("Computadora");
+
 	private String name;
-	
-	TimePeriodEnum(String name) {
+
+	ItSystemEnum(String name) {
 		this.name = name;
 	}
-	
+
 	public String toString() {
 		return this.name;
 	}
-	
+
 	/**
 	 * @param string
-	 * @return the TimePeriodEnum representated by this value, or null if it does
-	 *         not exist
+	 * @return return the enum represented by this string or null
 	 */
-	public static TimePeriodEnum getByString(String string) {
+	public static ItSystemEnum getByString(String string) {
 		if (string == null)
 			return null;
 
-		for (TimePeriodEnum e : TimePeriodEnum.values())
+		for (ItSystemEnum e : ItSystemEnum.values())
 			if (string.equals(e.toString()))
 				return e;
 
 		return null;
 	}
-	
+
 	/**
 	 * @return a valueMap with this Enum values
 	 */
 	public static LinkedHashMap<String, String> toValueMap() {
 		LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-		for (TimePeriodEnum timePeriod : TimePeriodEnum.values())
-			valueMap.put(timePeriod.name() + "", timePeriod.toString());
+		for (ItSystemEnum mobility : ItSystemEnum.values())
+			valueMap.put(mobility.name() + "", mobility.toString());
 		return valueMap;
 	}
 }

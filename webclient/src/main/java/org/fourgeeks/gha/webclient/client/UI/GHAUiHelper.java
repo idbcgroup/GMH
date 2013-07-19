@@ -26,12 +26,16 @@ public abstract class GHAUiHelper {
 			}
 		});
 	}
-
+	//TextItem Sizes
+	public static final int THREE_COLUMN_FORMITEM_SIZE = 150;
+	public static final int FOUR_COLUMN_FORMITEM_SIZE = 135;
+	
 	// NO ESTAN TOTALMENTE MEDIDAS CON LA INTERFAZ
 	private static final int MIN_TAB_HEIGHT = 400;
 	private static final int MIN_TOP_SECTION_HEIGHT = 120;
 	private static final int MIN_BOTTOM_SECTION_HEIGHT = 260;
 	// NO ESTAN TOTALMENTE MEDIDAS CON LA INTERFAZ
+	
 	public static final int MIN_GRID_SIZE = 180;
 
 	public static final int INNER_TOP_SECTION_HEIGHT = 120;

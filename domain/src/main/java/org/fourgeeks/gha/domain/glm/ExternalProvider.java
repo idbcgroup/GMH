@@ -99,6 +99,13 @@ public class ExternalProvider extends AbstractEntity {
 	}
 
 	/**
+	 * @param valueOf
+	 */
+	public ExternalProvider(long id) {
+		this.id = id;
+	}
+
+	/**
 	 * @return
 	 */
 	public Institution getInstitution() {

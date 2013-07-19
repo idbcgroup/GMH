@@ -7,26 +7,25 @@ import java.util.LinkedHashMap;
 
 /**
  * @author emiliot
- *
+ * 
  */
 public enum CurrencyTypeEnum {
-	BSF("BsF."),
-	DOLLARS("Dollars($)");
-	
+	BS("Bolivares fuertes"), DOLLARS("Dólares");
+
 	private String name;
-	
+
 	CurrencyTypeEnum(String name) {
 		this.name = name;
 	}
-	
+
 	public String toString() {
 		return this.name;
 	}
-	
+
 	/**
 	 * @param string
-	 * @return the TimePeriodEnum representated by this value, or null if it does
-	 *         not exist
+	 * @return the TimePeriodEnum representated by this value, or null if it
+	 *         does not exist
 	 */
 	public static CurrencyTypeEnum getByString(String string) {
 		if (string == null)
@@ -38,7 +37,7 @@ public enum CurrencyTypeEnum {
 
 		return null;
 	}
-	
+
 	/**
 	 * @return a valueMap with this Enum values
 	 */

@@ -8,6 +8,7 @@ public class GHATextItem extends TextItem {
 		super();
 		setTextBoxStyle("input");
 		setHeight(15);
+		setCellStyle("gha-form-cell");
 		setWidth(100);
 		setTitleStyle("input-title");
 	}
@@ -15,6 +16,12 @@ public class GHATextItem extends TextItem {
 	public GHATextItem(String title, int width) {
 		this(title);
 		setWidth(width);
+	}
+	
+	public GHATextItem(String title, int width, boolean active) {
+		this(title);
+		setWidth(width);
+		setDisabled(!active);
 	}
 
 	public GHATextItem(String title) {
@@ -30,10 +37,6 @@ public class GHATextItem extends TextItem {
 	@Override
 	public void setDisabled(Boolean disabled) {
 		super.setDisabled(disabled);
-		if(disabled)
-			setTextBoxStyle("input input-disabled");
-		else
-			setTextBoxStyle("input");
 	}
 	
 	

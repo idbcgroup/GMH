@@ -16,9 +16,6 @@ import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
 import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.enu.LocationLevelEnum;
-import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
-import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
-import org.fourgeeks.gha.domain.enu.WarrantyStateEnum;
 import org.fourgeeks.gha.domain.ess.BaseRole;
 import org.fourgeeks.gha.domain.ess.SingleSignOnUser;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
@@ -230,29 +227,14 @@ public class TestData {
 			try {
 				logger.info("creating eia building locations");
 
-				BuildingLocation buildingLocation = new BuildingLocation(
-						em.find(Bpi.class, 1L), "Edificio",
-						LocationLevelEnum.BUILDING, 2);
-				em.persist(buildingLocation);
-
-				buildingLocation = new BuildingLocation(em.find(Bpi.class, 2L),
-						"Building001", LocationLevelEnum.AREA_HALL, 2);
-				em.persist(buildingLocation);
-
-				buildingLocation = new BuildingLocation(em.find(Bpi.class, 2L),
-						"Building002", LocationLevelEnum.AREA_HALL, 2);
-				em.persist(buildingLocation);
-
-				buildingLocation = new BuildingLocation(em.find(Bpi.class, 2L),
-						"Building003", LocationLevelEnum.AREA_HALL, 2);
-				em.persist(buildingLocation);
-
-				buildingLocation = new BuildingLocation(em.find(Bpi.class, 2L),
-						"Building004", LocationLevelEnum.AREA_HALL, 2);
-				em.persist(buildingLocation);
-
+				for (int i = 0; i < 5; i++) {
+					BuildingLocation buildingLocation = new BuildingLocation(
+							em.find(Bpi.class, 1L), "Building 00" + i,
+							LocationLevelEnum.BUILDING,
+							"Building Location Name " + i);
+					em.persist(buildingLocation);
+				}
 				em.flush();
-
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error creating test building location",
 						e);
@@ -395,29 +377,40 @@ public class TestData {
 						.find(BuildingLocation.class, 2L));
 				em.persist(facility);
 				em.flush();
+				
+				Obu obu = em.find(Obu.class, 2L);
+				BuildingLocation bLocation = em.find(BuildingLocation.class, 1L);
+				ExternalProvider eProvider = em.find(ExternalProvider.class, 1L);
+				BaseRole bRole = em.find(BaseRole.class, 1L);
 
-				Eia eia = new Eia(facility, eiaTypeServ.find(1),
-						WarrantySinceEnum.ACCEPTATION, TimePeriodEnum.DAYS,
-						EiaStateEnum.CREATED, WarrantyStateEnum.VALID);
+				Eia eia = new Eia(bRole, eiaTypeServ.find(1), bLocation,
+						bLocation, obu, EiaStateEnum.CREATED);
 				eia.setCode("Stylus-001");
 				eia.setSerialNumber("001");
+				eia.setProvider(eProvider);
 				em.persist(eia);
 
-				Eia eia2 = new Eia(facility, eiaTypeServ.find(2),
-						WarrantySinceEnum.ACCEPTATION, TimePeriodEnum.YEARS,
-						EiaStateEnum.CREATED, WarrantyStateEnum.VALID);
+				Eia eia2 = new Eia(bRole, eiaTypeServ.find(2),
+						bLocation, bLocation, obu,
+						EiaStateEnum.CREATED);
+				eia2.setProvider(eProvider);
 
-				Eia eia3 = new Eia(facility, eiaTypeServ.find(3),
-						WarrantySinceEnum.ACCEPTATION, TimePeriodEnum.YEARS,
-						EiaStateEnum.CREATED, WarrantyStateEnum.VALID);
+				Eia eia3 = new Eia(bRole, eiaTypeServ.find(3),
+						bLocation, bLocation, obu,
+						EiaStateEnum.CREATED);
+				eia3.setProvider(eProvider);
 
-				Eia eia4 = new Eia(facility, eiaTypeServ.find(4),
-						WarrantySinceEnum.ACCEPTATION, TimePeriodEnum.DAYS,
-						EiaStateEnum.CREATED, WarrantyStateEnum.VALID);
+				Eia eia4 = new Eia(bRole, eiaTypeServ.find(4),
+						bLocation, bLocation, obu,
+						EiaStateEnum.CREATED);
+				eia4.setObu(obu);
+				eia4.setProvider(eProvider);
 
-				Eia eia5 = new Eia(facility, eiaTypeServ.find(5),
-						WarrantySinceEnum.ACCEPTATION, TimePeriodEnum.DAYS,
-						EiaStateEnum.CREATED, WarrantyStateEnum.VALID);
+				Eia eia5 = new Eia(bRole, eiaTypeServ.find(5),
+						bLocation, bLocation, obu,
+						EiaStateEnum.CREATED);
+				eia5.setObu(obu);
+				eia5.setProvider(eProvider);
 
 				em.persist(eia2);
 				em.persist(eia3);
