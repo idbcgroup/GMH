@@ -144,7 +144,7 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler, EIATy
 		typeIT_IT_SelectItem = new GHASelectItem("Tipo Equipo IT",GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		machineName_IT_TextItem = new GHATextItem("Nombre Máquina",GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		ipDir_IT_TextItem = new GHATextItem("Direccion IP",GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
-		macAddress	_IT_TextItem = new GHATextItem("MAC Address",GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		macAddress_IT_TextItem = new GHATextItem("MAC Address",GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 	}
 
 	/**
