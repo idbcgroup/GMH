@@ -14,9 +14,9 @@
          Put the number of milliseconds to sleep in each block received in the server.
          false or 0, means don't use slow uploads  -->
     	<param-name>slowUploads</param-name>
-    	<param-value>0</param-value>
+    	<param-value>200</param-value>
   	</context-param>
-
+  	
 	<servlet>
     	<servlet-name>UploadPhotographs</servlet-name>
     	<servlet-class>org.fourgeeks.gha.webclient.server.UploadPhotographsHttpServlet</servlet-class>
@@ -45,6 +45,16 @@
 	<servlet-mapping>
 		<servlet-name>GWTEiaTypeService</servlet-name>
 		<url-pattern>/webclient/eiaType</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>GWTEiaTypePictureService</servlet-name>
+		<servlet-class>org.fourgeeks.gha.webclient.server.eiatype.GWTEiaTypePictureServiceImpl</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>GWTEiaTypePictureService</servlet-name>
+		<url-pattern>/webclient/eiaTypePicture</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
