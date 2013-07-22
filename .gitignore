@@ -5,6 +5,7 @@
 *.ear
 *.war
 *.orig
+*.log
 
 ejb/bin/**
 webclient/bin/**
