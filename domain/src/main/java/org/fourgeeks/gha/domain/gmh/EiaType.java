@@ -41,7 +41,7 @@ public class EiaType extends AbstractEntity {
 	private String code;
 	/** Código asignado al EIA length =20 */
 
-	@NotNull(message = "El nombre no puede estar vacío")
+	@NotNull(message = "El Nombre no puede estar vacío")
 	@Size(min = 1, max = 255, message = "El Nombre debe tener entre 1 y 255 caracteres")
 	@Column(nullable = false)
 	private String name;
