@@ -162,6 +162,12 @@
 	margin:15px auto 15px auto;
 }
 
+.gha-form-cell ,
+.gha-form-cellDisabled,
+.gha-form-cellFocused{
+	padding-bottom: 3px;
+}
+
 input, .input{
 	padding: 2px;
 	border:1px solid;
@@ -170,14 +176,15 @@ input, .input{
 	margin-right: 10px;	
 }
 
-input, .input-dateItem{
+input, .dateItem{
 	border:1px solid;
 	border-color:#BABABA;
 	text-align: left;
 }
 
-input[type="text"]:disabled,.input-disabled{
-	background-color:white;
+input[type="text"]:disabled,
+.inputDisabled{
+	background-color:#F6F6F6;
 	padding: 2px;
 	border:1px solid;
 	border-color:#BABABA;
@@ -185,11 +192,19 @@ input[type="text"]:disabled,.input-disabled{
 	margin-right: 10px;	
 }
 
-select,.select{
+.selectDisabled,
+.dateItemDisabled{
+	background-color:#F6F6F6;
 	padding: 2px;
 	border:1px solid;
 	border-color:#BABABA;
 	padding-left: 5px;	
+}
+
+select,.select{
+	padding: 2px;
+	border:1px solid #BABABA;
+	background-color: #FFFFFF;
 }
 
 .titletext{

@@ -11,7 +11,7 @@ import java.util.LinkedHashMap;
  */
 public enum TimePeriodEnum {
 	HOURS("Horas"),
-	DAYS("Dias"),
+	DAYS("Días"),
 	WEEKS("Semanas"),
 	MONTHS("Meses"),
 	SEMESTERS("Semestres"),

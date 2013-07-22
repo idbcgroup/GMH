@@ -21,6 +21,7 @@ public class EIATypeEquipmentSubTab extends Tab implements
 
 	@Override
 	public void select(EiaType eiaType) {
+		//Window.alert("equipments select");
 		equiposGridPanel.select(eiaType);
 	}
 

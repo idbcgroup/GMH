@@ -43,7 +43,7 @@ public enum EiaStateEnum {
 	MAINTENANCE("En mantenimiento"), /**
 			 * 
 			 */
-	IN_ACCEPTANCE("En esperapor aceptaci'on en mantenimiento"), /**
+	IN_ACCEPTANCE("En espera por aceptaci'on en mantenimiento"), /**
 	 * 
 	 */
 	DISINCORPORATED("Desincorporado"), /**

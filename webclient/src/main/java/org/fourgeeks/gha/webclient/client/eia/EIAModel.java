@@ -16,5 +16,10 @@ public class EIAModel {
 	public static void find(EiaType eiaType, GHAAsyncCallback<List<Eia>> eias) {
 		eiaService.find(eiaType, eias);
 	}
+	
+	public static void save(Eia eia, GHAAsyncCallback<Eia> callback) {
+		eiaService.save(eia, callback);
+
+	}
 
 }

@@ -65,6 +65,7 @@ public class EIAEquipmentSubTab extends Tab implements
 	@Override
 	public void select(Eia eia) {
 		loadData();
+		eiaEquiposGridPanel.select(eiaType);
 	}
 
 }
