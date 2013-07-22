@@ -184,7 +184,7 @@ input, .dateItem{
 
 input[type="text"]:disabled,
 .inputDisabled{
-	background-color:#EEEEEE;
+	background-color:#F6F6F6;
 	padding: 2px;
 	border:1px solid;
 	border-color:#BABABA;
@@ -194,7 +194,7 @@ input[type="text"]:disabled,
 
 .selectDisabled,
 .dateItemDisabled{
-	background-color:#EEEEEE;
+	background-color:#F6F6F6;
 	padding: 2px;
 	border:1px solid;
 	border-color:#BABABA;
@@ -318,6 +318,7 @@ input[type=text].round,input[type=password].round{
 	background-position: right center;
 	background-repeat: no-repeat;
 }
+ 
 /*OVERRIDES*/
 
 .headerButton{

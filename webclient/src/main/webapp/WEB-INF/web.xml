@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE web-app
-    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
-    "http://java.sun.com/dtd/web-app_2_3.dtd">
-
-<web-app>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+      version="3.0"> 
 
 	<context-param>
     <!-- max size of the upload request -->
@@ -15,9 +14,9 @@
          Put the number of milliseconds to sleep in each block received in the server.
          false or 0, means don't use slow uploads  -->
     	<param-name>slowUploads</param-name>
-    	<param-value>0</param-value>
+    	<param-value>200</param-value>
   	</context-param>
-
+  	
 	<servlet>
     	<servlet-name>UploadPhotographs</servlet-name>
     	<servlet-class>org.fourgeeks.gha.webclient.server.UploadPhotographsHttpServlet</servlet-class>
@@ -49,6 +48,16 @@
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>GWTEiaTypePictureService</servlet-name>
+		<servlet-class>org.fourgeeks.gha.webclient.server.eiatype.GWTEiaTypePictureServiceImpl</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>GWTEiaTypePictureService</servlet-name>
+		<url-pattern>/webclient/eiaTypePicture</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>GWTEiaService</servlet-name>
 		<servlet-class>org.fourgeeks.gha.webclient.server.eia.GWTEiaServiceImpl</servlet-class>
 	</servlet>
@@ -58,15 +67,15 @@
 		<url-pattern>/webclient/eia</url-pattern>
 	</servlet-mapping>
 	
-	<servlet>
-		<servlet-name>GWTBrandService</servlet-name>
-		<servlet-class>org.fourgeeks.gha.webclient.server.brand.GWTBrandServiceImpl</servlet-class>
-	</servlet>
+<!-- 	<servlet> -->
+<!-- 		<servlet-name>GWTBrandService</servlet-name> -->
+<!-- 		<servlet-class>org.fourgeeks.gha.webclient.server.brand.GWTBrandServiceImpl</servlet-class> -->
+<!-- 	</servlet> -->
 	
-	<servlet-mapping>
-		<servlet-name>GWTBrandService</servlet-name>
-		<url-pattern>/webclient/brand</url-pattern>
-	</servlet-mapping>
+<!-- 	<servlet-mapping> -->
+<!-- 		<servlet-name>GWTBrandService</servlet-name> -->
+<!-- 		<url-pattern>/webclient/brand</url-pattern> -->
+<!-- 	</servlet-mapping> -->
 	
 	<servlet>
 		<servlet-name>GWTObuService</servlet-name>

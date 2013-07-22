@@ -1,24 +1,27 @@
 package org.fourgeeks.gha.domain.gar;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
-import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.LocationLevelEnum;
 import org.fourgeeks.gha.domain.mix.Bpi;
 
 @Entity
-@Table(name = "buildinglocation", uniqueConstraints = @UniqueConstraint(columnNames = { "code" }))
-public class BuildingLocation extends AbstractEntity {
+//@Table(name = "buildinglocation", uniqueConstraints = @UniqueConstraint(columnNames = { "code" }))
+public class BuildingLocation implements Serializable{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Id
+	private String code;
 
 	@ManyToOne
 	@JoinColumn(name = "bpiFk", nullable = false)
@@ -49,7 +52,7 @@ public class BuildingLocation extends AbstractEntity {
 
 	/** Attributes */
 
-	@Column(nullable = false)
+	/*@Column(nullable = false)
 	private String code;
 	/** Código Ubicación en Edificio length =20 */
 
@@ -76,6 +79,17 @@ public class BuildingLocation extends AbstractEntity {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+
+	/**
+	 * @param code
+	 */
+	public BuildingLocation(String code) {
+		this.code = code;
+	}
+
+
 
 	/**
 	 * @param bpi
@@ -95,10 +109,6 @@ public class BuildingLocation extends AbstractEntity {
 	/**
 	 * @param valueOf
 	 */
-	public BuildingLocation(long id) {
-		this.id = id;
-	}
-
 	public Bpi getBpi() {
 		return bpi;
 	}
