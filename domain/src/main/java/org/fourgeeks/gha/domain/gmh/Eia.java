@@ -57,7 +57,7 @@ public class Eia extends AbstractEntity {
 	@Column(nullable = true)
 	private int depreciationTime;
 	/** Tiempo de Depreciación length =4 */
-	private TimePeriodEnum depreciationTimePot;
+	private TimePeriodEnum depreciationTimePoT;
 	/** Denominación Moneda Local para Costo Contabilizado del equipo length =60 */
 	private Date desincorporatedDate;
 	/** Fecha de Desincorporación length =22 */
@@ -79,7 +79,7 @@ public class Eia extends AbstractEntity {
 	@Column(nullable = true)
 	private int lifeTime;
 	/** Tiempo de Vida Equipo length =4 */
-	private TimePeriodEnum lifeTimePot;
+	private TimePeriodEnum lifeTimePoT;
 	
 	/**
 	 * Building location where the EIA is located
@@ -153,7 +153,7 @@ public class Eia extends AbstractEntity {
 	private int realWarrantyTime;
 	
 	@Column(nullable = true)//false)
-	private TimePeriodEnum realWarrantyPDT;
+	private TimePeriodEnum realWarrantyPoT;
 	
 	@Column(nullable = true)//false)
 	private Date realWarrantyBegin;
@@ -166,7 +166,7 @@ public class Eia extends AbstractEntity {
 	private int intWarrantyTime;
 	
 	@Column(nullable = true)//false)
-	private TimePeriodEnum intWarrantyPDT;
+	private TimePeriodEnum intWarrantyPoT;
 	
 	@Column(nullable = true)//false)
 	private Date intWarrantyBegin;
@@ -250,8 +250,8 @@ public class Eia extends AbstractEntity {
 		return depreciationTime;
 	}
 
-	public TimePeriodEnum getDepreciationTimePot() {
-		return depreciationTimePot;
+	public TimePeriodEnum getDepreciationTimePoT() {
+		return depreciationTimePoT;
 	}
 
 	public Date getDesincorporatedDate() {
@@ -282,8 +282,8 @@ public class Eia extends AbstractEntity {
 		return lifeTime;
 	}
 
-	public TimePeriodEnum getLifeTimePot() {
-		return lifeTimePot;
+	public TimePeriodEnum getLifeTimePoT() {
+		return lifeTimePoT;
 	}
 
 	public BuildingLocation getBuildingLocation() {
@@ -342,6 +342,22 @@ public class Eia extends AbstractEntity {
 		return provider;
 	}
 
+	public ItSystemEnum getItType() {
+		return itType;
+	}
+
+	public String getMachineName() {
+		return machineName;
+	}
+
+	public String getIpAddress() {
+		return ipAddress;
+	}
+
+	public String getMacAddress() {
+		return macAddress;
+	}
+
 	public WarrantySinceEnum getRealWarrantySince() {
 		return realWarrantySince;
 	}
@@ -350,8 +366,8 @@ public class Eia extends AbstractEntity {
 		return realWarrantyTime;
 	}
 
-	public TimePeriodEnum getRealWarrantyPDT() {
-		return realWarrantyPDT;
+	public TimePeriodEnum getRealWarrantyPoT() {
+		return realWarrantyPoT;
 	}
 
 	public Date getRealWarrantyBegin() {
@@ -366,8 +382,8 @@ public class Eia extends AbstractEntity {
 		return intWarrantyTime;
 	}
 
-	public TimePeriodEnum getIntWarrantyPDT() {
-		return intWarrantyPDT;
+	public TimePeriodEnum getIntWarrantyPoT() {
+		return intWarrantyPoT;
 	}
 
 	public Date getIntWarrantyBegin() {
@@ -427,8 +443,8 @@ public class Eia extends AbstractEntity {
 		this.depreciationTime = depreciationTime;
 	}
 
-	public void setDepreciationTimePot(TimePeriodEnum depreciationTimePot) {
-		this.depreciationTimePot = depreciationTimePot;
+	public void setDepreciationTimePoT(TimePeriodEnum depreciationTimePoT) {
+		this.depreciationTimePoT = depreciationTimePoT;
 	}
 
 	public void setDesincorporatedDate(Date desincorporatedDate) {
@@ -459,8 +475,8 @@ public class Eia extends AbstractEntity {
 		this.lifeTime = lifeTime;
 	}
 
-	public void setLifeTimePot(TimePeriodEnum lifeTimePot) {
-		this.lifeTimePot = lifeTimePot;
+	public void setLifeTimePoT(TimePeriodEnum lifeTimePoT) {
+		this.lifeTimePoT = lifeTimePoT;
 	}
 
 	public void setBuildingLocation(BuildingLocation buildingLocation) {
@@ -519,56 +535,8 @@ public class Eia extends AbstractEntity {
 		this.provider = provider;
 	}
 
-	public void setRealWarrantySince(WarrantySinceEnum realWarrantySince) {
-		this.realWarrantySince = realWarrantySince;
-	}
-
-	public void setRealWarrantyTime(int realWarrantyTime) {
-		this.realWarrantyTime = realWarrantyTime;
-	}
-
-	public void setRealWarrantyPDT(TimePeriodEnum realWarrantyPDT) {
-		this.realWarrantyPDT = realWarrantyPDT;
-	}
-
-	public void setRealWarrantyBegin(Date realWarrantyBegin) {
-		this.realWarrantyBegin = realWarrantyBegin;
-	}
-
-	public void setIntWarrantySince(WarrantySinceEnum intWarrantySince) {
-		this.intWarrantySince = intWarrantySince;
-	}
-
-	public void setIntWarrantyTime(int intWarrantyTime) {
-		this.intWarrantyTime = intWarrantyTime;
-	}
-
-	public void setIntWarrantyPDT(TimePeriodEnum intWarrantyPDT) {
-		this.intWarrantyPDT = intWarrantyPDT;
-	}
-
-	public void setIntWarrantyBegin(Date intWarrantyBegin) {
-		this.intWarrantyBegin = intWarrantyBegin;
-	}
-
-	public ItSystemEnum getItType() {
-		return itType;
-	}
-
 	public void setItType(ItSystemEnum itType) {
 		this.itType = itType;
-	}
-
-	public String getMachineName() {
-		return machineName;
-	}
-
-	public String getIpAddress() {
-		return ipAddress;
-	}
-
-	public String getMacAddress() {
-		return macAddress;
 	}
 
 	public void setMachineName(String machineName) {
@@ -583,4 +551,37 @@ public class Eia extends AbstractEntity {
 		this.macAddress = macAddress;
 	}
 
+	public void setRealWarrantySince(WarrantySinceEnum realWarrantySince) {
+		this.realWarrantySince = realWarrantySince;
+	}
+
+	public void setRealWarrantyTime(int realWarrantyTime) {
+		this.realWarrantyTime = realWarrantyTime;
+	}
+
+	public void setRealWarrantyPoT(TimePeriodEnum realWarrantyPoT) {
+		this.realWarrantyPoT = realWarrantyPoT;
+	}
+
+	public void setRealWarrantyBegin(Date realWarrantyBegin) {
+		this.realWarrantyBegin = realWarrantyBegin;
+	}
+
+	public void setIntWarrantySince(WarrantySinceEnum intWarrantySince) {
+		this.intWarrantySince = intWarrantySince;
+	}
+
+	public void setIntWarrantyTime(int intWarrantyTime) {
+		this.intWarrantyTime = intWarrantyTime;
+	}
+
+	public void setIntWarrantyPoT(TimePeriodEnum intWarrantyPoT) {
+		this.intWarrantyPoT = intWarrantyPoT;
+	}
+
+	public void setIntWarrantyBegin(Date intWarrantyBegin) {
+		this.intWarrantyBegin = intWarrantyBegin;
+	}
+
+	
 }
