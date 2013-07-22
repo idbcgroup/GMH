@@ -208,7 +208,7 @@ public class EIATypeAddForm extends GHASlideInWindow {
 		title.setStyleName("title-label");
 		addMember(title);
 
-		DynamicForm form = new DynamicForm();
+		final DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(4);
 		form.setItems(brandItem, manItem, typeItem, subTypeItem,
