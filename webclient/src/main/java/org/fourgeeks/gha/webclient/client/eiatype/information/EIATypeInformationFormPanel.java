@@ -5,13 +5,10 @@ import gwtupload.client.IUploadStatus.Status;
 import gwtupload.client.IUploader;
 import gwtupload.client.IUploader.OnFinishUploaderHandler;
 import gwtupload.client.IUploader.UploadedInfo;
-import gwtupload.client.MultiUploader;
 import gwtupload.client.PreloadedImage;
 import gwtupload.client.PreloadedImage.OnLoadPreloadedImageHandler;
 import gwtupload.client.SingleUploader;
 
-import java.io.InputStream;
-import java.net.URL;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -20,39 +17,35 @@ import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
 import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.domain.gmh.EiaTypePicture;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAButton;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
+import org.fourgeeks.gha.webclient.client.UI.GHACustomButton;
 import org.fourgeeks.gha.webclient.client.UI.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.GHAUploadPhotographs;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeAddForm;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeModel;
+import org.fourgeeks.gha.webclient.client.eiatype.EIATypePictureModel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeTab;
-import com.google.gwt.user.client.DOM;
-import com.google.gwt.dom.client.Element;
-import com.google.gwt.dom.client.Style;
+import org.fourgeeks.gha.webclient.client.eiatype.GWTEiaTypeService;
+
+
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.event.dom.client.HasMouseOverHandlers;
-import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.CustomButton;
 import com.google.gwt.user.client.ui.DecoratorPanel;
-import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.HTML;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.ImageStyle;
 import com.smartgwt.client.types.TitleOrientation;
-import com.smartgwt.client.util.SC;
 import com.smartgwt.client.widgets.Img;
-import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
@@ -62,7 +55,6 @@ import com.smartgwt.client.widgets.layout.VLayout;
 
 public class EIATypeInformationFormPanel extends VLayout implements
 		EIATypeSelectionListener, GHAClosable {
-
 	private EIATypeAddForm addForm;
 	private GHATextItem codeItem, nameItem, modelItem, descriptionItem,
 			useDescriptionItem, eiaUmdnsItem;
@@ -89,8 +81,7 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		mobilityItem = new GHASelectItem("Movilidad", 150);
 		typeItem = new GHASelectItem("Tipo", 150);
 		subTypeItem = new GHASelectItem("Subtipo", 150);
-		//uploadPhoto1 = new GHAUploadPhotographs(3, "20px", "subir");
-		//URL url = EIATypeInformationFormPanel.class.getResource("/default.png");
+		
 		img1 = new Img("../resources/img/default.png", 150, 100);  
 		img1.setImageType(ImageStyle.STRETCH);  
 		img1.setBorder("1px solid gray");  
@@ -180,28 +171,12 @@ public class EIATypeInformationFormPanel extends VLayout implements
 							    }
 							  };
 	}
-	
-	private class ButtonCustom extends Composite implements HasClickHandlers{
-	    
-	    public ButtonCustom() {
-	      DecoratorPanel widget = new DecoratorPanel();
-	      initWidget(widget);
-	      widget.setWidget(new GHAButton("../resources/icons/new.png"));
-	     // widget.setSize("15px","15px");
-	    }
-	   
-		@Override
-		public HandlerRegistration addClickHandler(
-				com.google.gwt.event.dom.client.ClickHandler handler) {
-			return addDomHandler(handler, com.google.gwt.event.dom.client.ClickEvent.getType());
-		}	
-	  }
 
 	public EIATypeInformationFormPanel(EIATypeTab tab) {
 		activateForm(false);
-		ButtonCustom buttonAddImage1= new ButtonCustom();
-		ButtonCustom buttonAddImage2= new ButtonCustom(); 
-		ButtonCustom buttonAddImage3= new ButtonCustom(); 
+		GHACustomButton buttonAddImage1= new GHACustomButton();
+		GHACustomButton buttonAddImage2= new GHACustomButton(); 
+		GHACustomButton buttonAddImage3= new GHACustomButton(); 
 		
 		SingleUploader uploadPhoto1 = new SingleUploader(FileInputType.CUSTOM.with(buttonAddImage1));
 		uploadPhoto1.setValidExtensions("jpg", "jpeg", "png", "gif");
@@ -235,8 +210,7 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		form.setNumCols(4);
 		form.setItems(brandItem, manItem, typeItem, subTypeItem,
 				descriptionItem, mobilityItem, useDescriptionItem, codeItem,
-				nameItem, modelItem, eiaUmdnsItem);
-//		img1.setImageType(ImageStyle.STRETCH);  
+				nameItem, modelItem, eiaUmdnsItem); 
 
 		VLayout sideButtons = new VLayout();
 		sideButtons.setWidth(30);
@@ -274,8 +248,8 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		sideButtons.addMembers(saveButton, undoButton);
 		sideButtons.addMember(GHAUiHelper.verticalGraySeparator("2px"));
 		sideButtons.addMember(addButton);
-		HLayout uploadImagenes = new HLayout();
 		
+		HLayout uploadImagenes = new HLayout();
 		uploadImagenes.addMember(img1);
 		uploadImagenes.addMember(uploadPhoto1);
 		uploadImagenes.addMember(img2);
@@ -385,8 +359,36 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		mobilityItem.setValue(eiaType.getMobility().name());
 		typeItem.setValue(eiaType.getType().name());
 		subTypeItem.setValue(eiaType.getSubtype().name());
+		showPhotographics(eiaType);
 	}
 
+	private void showPhotographics(EiaType eiaType)
+	{
+		EIATypePictureModel.find(eiaType, new GHAAsyncCallback<List<EiaTypePicture>>(){
+
+			@Override
+			public void onSuccess(List<EiaTypePicture> result) {
+				
+				if(result.get(0) != null)
+				{
+					EiaTypePicture picture1 = result.get(0);
+					img1.setImage("1", picture1.getDescription()+picture1.getPicture());
+				}
+				if(result.get(1) != null)
+				{
+					EiaTypePicture picture2 = result.get(1);
+					img2.setImage("2", picture2.getDescription()+picture2.getPicture());
+				}
+				if(result.get(2) != null)
+				{
+					EiaTypePicture picture3 = result.get(3);
+					img3.setImage("3", picture3.getDescription()+picture3.getPicture());
+				}
+			}
+			
+		});
+		
+	}
 	private void save() {
 		if (this.eiaType == null)
 			return;

@@ -7,6 +7,7 @@ import gwtupload.server.exceptions.UploadActionException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class UploadPhotographsHttpServlet extends UploadAction {
 
 	Hashtable<String, String> tipoContenidoRecibido = new Hashtable<String, String>();
 	Hashtable<String, File> archRecibidos = new Hashtable<String, File>();
-
+	Hashtable<String, String> photos = new Hashtable<String, String>();
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -42,13 +43,23 @@ public class UploadPhotographsHttpServlet extends UploadAction {
 	public String executeAction(HttpServletRequest request,
 			List<FileItem> sessionFiles) throws UploadActionException {
 		HttpSession session = request.getSession(true);
-
+		//String msg1, msg2, msg3, msg4, msg5, msg6 = null;
+		String response = "";
 		if (session.getAttribute(ATTR_ARCHIVOS) == null)
-			session.setAttribute(ATTR_ARCHIVOS, archRecibidos);
+			 {
+				session.setAttribute(ATTR_ARCHIVOS, photos);
+				//response += "ingresado en la session el hastable photos,\n";
+				LOG.info("ingresado en la session el hastable photos");
+			 } else
+				 {
+				 //response += "no ingreso en la session el hastable photos";
+				 	LOG.info("no ingreso en la session el hastable photos,\n");
+				 }
 
-		// @SuppressWarnings("unchecked")
-		// List<ItemSimpleStr> listaArchivos = (ArrayList<ItemSimpleStr>)
-		// session.getAttribute(ATTR_ARCHIVOS);
+		//Hashtable<String, String> photos = (Hashtable<String, String>)session.getAttribute(ATTR_ARCHIVOS);
+		//msg3= "Clase en session: "+session.getAttribute(ATTR_ARCHIVOS).getClass()+"\n";
+		 //@SuppressWarnings("unchecked")
+		// List<Photo> listaArchivos = (ArrayList<Photo>)session.getAttribute(ATTR_ARCHIVOS);
 
 		for (FileItem item : sessionFiles) {
 			if (false == item.isFormField()) {
@@ -57,26 +68,32 @@ public class UploadPhotographsHttpServlet extends UploadAction {
 					int posPunto = name.lastIndexOf(".");
 					String ext = name.substring(posPunto + 1);
 
-					File arch = File.createTempFile("gha", "." + ext, new File(
-							"/tmp"));
+					File arch = File.createTempFile("gha", "." + ext/*, new File(
+							"/tmp")*/);
 					item.write(arch);
 
 					// Save a list with the received files
-					archRecibidos.put(item.getFieldName(), arch);
+					archRecibidos.put(name, arch);
 					tipoContenidoRecibido.put(item.getFieldName(),
 							item.getContentType());
-					// listaArchivos.add(new ItemSimpleStr(name,
-					// arch.getName()));
-					LOG.debug("La foto " + name + " se ha subido correctamente");
+					photos.put(name, arch.getName());
+					LOG.info("Nombre original: "+name);
+					//msg4="Nombre original: "+name+",\n";
+					LOG.info("Nombre temporal: "+arch.getName());
+					//msg5 = "Nombre temporal: "+arch.getName()+",\n";
+					//listaArchivos.add(new Photo(name, arch.getName(), arch.getAbsolutePath()));
+					LOG.info("La foto " + name + " se ha subido correctamente");
+					//msg6 = "La foto " + name + " se ha subido correctamente,\n";
+					response = "El archivo se ha guardado en " + arch.getAbsolutePath();
 				} catch (Exception e) {
-					LOG.error("Error en la subida de multiples archivos fotos: "
+					LOG.error("Error en la subida de fotos: "
 							+ e);
 				}
 			}
 		}
 		removeSessionFileItems(request);
-
-		return "";
+		/// Send a customized message to the client.
+		return response;
 	}
 
 	/*
