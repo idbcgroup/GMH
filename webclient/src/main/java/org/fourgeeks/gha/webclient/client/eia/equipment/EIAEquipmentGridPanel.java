@@ -20,10 +20,12 @@ import com.smartgwt.client.widgets.layout.VLayout;
  */
 public class EIAEquipmentGridPanel extends VLayout implements EIATypeSelectionListener{
 
-	private EIAAddForm form;
+	private EIAAddForm eiaAddForm;
 	private EIAEquipmentGrid eiaGrid;
 	{
 		eiaGrid = new EIAEquipmentGrid();
+		eiaAddForm = new EIAAddForm();
+
 	}
 
 	/**
@@ -32,8 +34,7 @@ public class EIAEquipmentGridPanel extends VLayout implements EIATypeSelectionLi
 	 */
 	public EIAEquipmentGridPanel(EIAEquipmentSubTab eiaEquipmentSubTab) {
 		super();
-		form = new EIAAddForm();
-		form.addEiaSelectionListener(eiaEquipmentSubTab);
+		eiaAddForm.addEiaSelectionListener(eiaEquipmentSubTab);
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding top-padding");// Esto es VUDU!
@@ -47,7 +48,7 @@ public class EIAEquipmentGridPanel extends VLayout implements EIATypeSelectionLi
 				"../resources/icons/new.png", new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						form.animateShow(AnimationEffect.FLY);
+						eiaAddForm.animateShow(AnimationEffect.FLY);
 					}
 				}), new GHAButton("../resources/icons/edit.png"),
 				new GHAButton("../resources/icons/delete.png"));
@@ -71,7 +72,7 @@ public class EIAEquipmentGridPanel extends VLayout implements EIATypeSelectionLi
 	 */
 	@Override
 	public void select(EiaType eiaType) {
-		form.select(eiaType);
+		eiaAddForm.select(eiaType);
 		
 	}
 }
