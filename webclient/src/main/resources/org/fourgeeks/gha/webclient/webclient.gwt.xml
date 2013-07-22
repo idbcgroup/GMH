@@ -34,6 +34,12 @@
 	<!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/> -->
 
 	<!-- Other module inherits -->
+	
+	<!-- Inherit Hibernate validator -->
+	<inherits name="org.hibernate.validator.HibernateValidator" />
+	<replace-with class="org.fourgeeks.gha.webclient.client.GhaValidatorFactory">
+	  <when-type-is class="javax.validation.ValidatorFactory" />
+	</replace-with>
 
 	<!-- Specify the app entry point class. -->
 	<entry-point class='org.fourgeeks.gha.webclient.client.Gha' />

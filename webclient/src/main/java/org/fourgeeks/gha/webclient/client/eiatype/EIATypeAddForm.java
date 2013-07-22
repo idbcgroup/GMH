@@ -12,6 +12,10 @@ import gwtupload.client.PreloadedImage.OnLoadPreloadedImageHandler;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
 
 import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
 import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
@@ -31,6 +35,8 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUploadPhotographs;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.validation.client.impl.Validation;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.ImageStyle;
@@ -56,6 +62,7 @@ public class EIATypeAddForm extends GHASlideInWindow {
 	private Img img1, img2, img3;
 	private GHASelectItem brandItem, manItem, mobilityItem, typeItem,
 			subTypeItem;
+	private Validator validator;
 	
 	{
 		listeners = new ArrayList<EIATypeSelectionListener>();
@@ -89,7 +96,9 @@ public class EIATypeAddForm extends GHASlideInWindow {
 		img3.setImageType(ImageStyle.STRETCH);  
 		img3.setBorder("1px solid gray");  
 		img3.setSize("150px", "130px");
-		img3.setLeft(240); 
+		img3.setLeft(240);
+		
+		validator = Validation.buildDefaultValidatorFactory().getValidator();
 	}
 
 	private void setOnFinishUploaderHandler()
@@ -358,16 +367,19 @@ public class EIATypeAddForm extends GHASlideInWindow {
 		if (subTypeItem.getValue() != null)
 			eiaType.setSubtype(EiaSubTypeEnum.valueOf(subTypeItem
 					.getValueAsString()));
-
-		EIATypeModel.save(eiaType, new GHAAsyncCallback<EiaType>() {
-
-			@Override
-			public void onSuccess(EiaType result) {
-				select(result);
-				cancel();
-			}
-		});
-
+		Set<ConstraintViolation<EiaType>> violations = validator.validate(eiaType);
+		if (violations.isEmpty())
+			EIATypeModel.save(eiaType, new GHAAsyncCallback<EiaType>() {
+	
+				@Override
+				public void onSuccess(EiaType result) {
+					select(result);
+					cancel();
+				}
+			});
+		else
+			// Mostrar solo la primera violación para evitar que salgan muchos pop-ups sucesivos
+			Window.alert(violations.iterator().next().getMessage());
 	}
 
 	protected void select(EiaType eiaType) {
