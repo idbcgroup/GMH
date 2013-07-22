@@ -71,21 +71,16 @@
 			</plugin>
 		</plugins>
 	</build>
-	<profiles>
-		<profile>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<repositories>
-				<repository>
-					<snapshots>
-						<enabled>false</enabled>
-					</snapshots>
-					<id>ejb3unit</id>
-					<name>ejb3unit repository</name>
-					<url>http://ejb3unit.sourceforge.net/maven2</url>
-				</repository>
-			</repositories>
-		</profile>
-	</profiles>
+	<repositories>
+		<repository>
+			<id>maven-repo</id>
+			<name>Maven repository</name>
+			<url>http://repo2.maven.org/maven2/</url>
+		</repository>
+		<repository>
+			<id>ejb3unit</id>
+			<name>Wicket repository</name>
+			<url>http://ejb3unit.sourceforge.net/maven2</url>
+		</repository>
+	</repositories>
 </project>
