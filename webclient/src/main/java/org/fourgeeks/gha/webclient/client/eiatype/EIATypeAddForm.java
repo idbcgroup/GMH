@@ -3,6 +3,10 @@ package org.fourgeeks.gha.webclient.client.eiatype;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
 
 import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
 import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
@@ -19,6 +23,8 @@ import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.validation.client.impl.Validation;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.TitleOrientation;
@@ -37,6 +43,7 @@ public class EIATypeAddForm extends GHASlideInWindow {
 			useDescriptionItem, eiaUmdnsItem;
 	private GHASelectItem brandItem, manItem, mobilityItem, typeItem,
 			subTypeItem;
+	private Validator validator;
 
 	{
 		listeners = new ArrayList<EIATypeSelectionListener>();
@@ -53,6 +60,7 @@ public class EIATypeAddForm extends GHASlideInWindow {
 		mobilityItem = new GHASelectItem("Movilidad", 150);
 		typeItem = new GHASelectItem("Tipo", 150);
 		subTypeItem = new GHASelectItem("Subtipo", 150);
+		validator = Validation.buildDefaultValidatorFactory().getValidator();
 	}
 
 	public EIATypeAddForm() {
@@ -65,7 +73,7 @@ public class EIATypeAddForm extends GHASlideInWindow {
 		title.setStyleName("title-label");
 		addMember(title);
 
-		DynamicForm form = new DynamicForm();
+		final DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(4);
 		form.setItems(brandItem, manItem, typeItem, subTypeItem,
@@ -212,16 +220,19 @@ public class EIATypeAddForm extends GHASlideInWindow {
 		if (subTypeItem.getValue() != null)
 			eiaType.setSubtype(EiaSubTypeEnum.valueOf(subTypeItem
 					.getValueAsString()));
-
-		EIATypeModel.save(eiaType, new GHAAsyncCallback<EiaType>() {
-
-			@Override
-			public void onSuccess(EiaType result) {
-				select(result);
-				cancel();
-			}
-		});
-
+		Set<ConstraintViolation<EiaType>> violations = validator.validate(eiaType);
+		if (violations.isEmpty())
+			EIATypeModel.save(eiaType, new GHAAsyncCallback<EiaType>() {
+	
+				@Override
+				public void onSuccess(EiaType result) {
+					select(result);
+					cancel();
+				}
+			});
+		else
+			// Mostrar solo la primera violación para evitar que salgan muchos pop-ups sucesivos
+			Window.alert(violations.iterator().next().getMessage());
 	}
 
 	protected void select(EiaType eiaType) {
