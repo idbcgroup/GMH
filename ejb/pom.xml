@@ -17,9 +17,28 @@
 			<artifactId>domain</artifactId>
 			<version>1</version>
 		</dependency>
+		<dependency>
+			<groupId>com.bm</groupId>
+			<artifactId>ejb3unit</artifactId>
+			<version>2.0.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.1-901.jdbc4</version>
+		</dependency>
 	</dependencies>
 
 	<build>
+		<sourceDirectory>src/main/java</sourceDirectory>
+		<testSourceDirectory>src/test/java</testSourceDirectory>
 		<plugins>
 			<plugin>
 				<artifactId>maven-ejb-plugin</artifactId>
@@ -52,5 +71,21 @@
 			</plugin>
 		</plugins>
 	</build>
-
+	<profiles>
+		<profile>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<repositories>
+				<repository>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+					<id>ejb3unit</id>
+					<name>ejb3unit repository</name>
+					<url>http://ejb3unit.sourceforge.net/maven2</url>
+				</repository>
+			</repositories>
+		</profile>
+	</profiles>
 </project>
