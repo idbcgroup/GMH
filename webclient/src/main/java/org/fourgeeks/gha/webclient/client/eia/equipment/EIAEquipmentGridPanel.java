@@ -1,7 +1,7 @@
 package org.fourgeeks.gha.webclient.client.eia.equipment;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.webclient.client.UI.GHAButton;
+import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.eia.EIAAddForm;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
@@ -44,14 +44,14 @@ public class EIAEquipmentGridPanel extends VLayout implements EIATypeSelectionLi
 		title.setStyleName("title-label");
 		addMember(title);
 
-		VLayout sideButtons = GHAUiHelper.createBar(new GHAButton(
+		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
 				"../resources/icons/new.png", new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
 						eiaAddForm.animateShow(AnimationEffect.FLY);
 					}
-				}), new GHAButton("../resources/icons/edit.png"),
-				new GHAButton("../resources/icons/delete.png"));
+				}), new GHAImgButton("../resources/icons/edit.png"),
+				new GHAImgButton("../resources/icons/delete.png"));
 
 		HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(eiaGrid, sideButtons);

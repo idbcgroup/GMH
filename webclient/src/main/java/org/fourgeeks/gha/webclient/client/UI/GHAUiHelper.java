@@ -6,9 +6,10 @@ import java.util.List;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.smartgwt.client.types.Alignment;
+import com.smartgwt.client.widgets.Canvas;
+import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public abstract class GHAUiHelper {
@@ -41,18 +42,20 @@ public abstract class GHAUiHelper {
 	public static final int INNER_TOP_SECTION_HEIGHT = 120;
 	public static final int V_SEPARATOR_HEIGHT = 10;
 
-	public static HTML verticalGraySeparator(String height) {
-		HTML separator = new HTML();
-		separator.setStylePrimaryName("vertical-gray-separator");
+	public static VLayout verticalGraySeparator(String height) {
+		VLayout separator = new VLayout();
+		separator.setWidth100();
+		separator.setBackgroundColor("#666666");
 		separator.setHeight(height);
 		return separator;
 	}
 	
 //	TO-DO: No se muestra, si agrega el elemento pero no se muestra de color
-	public static HTML horizontalGraySeparator(String width) {
-		HTML separator = new HTML();
-		separator.setStylePrimaryName("horizontal-gray-separator");
+	public static HLayout horizontalGraySeparator(String width) {
+		HLayout separator = new HLayout();
+		separator.setHeight100();
 		separator.setWidth(width);
+		separator.setBackgroundColor("#666666");
 		return separator;
 	}
 //	//////////////////////////////
@@ -83,6 +86,7 @@ public abstract class GHAUiHelper {
 			return ret;
 		}
 	}
+	
 	public static int getGridSize(int extrasHeight){
 		int bottomSectionHeight = getBottomSectionHeight();
 		int titleHeight = 30;
@@ -95,8 +99,20 @@ public abstract class GHAUiHelper {
 			return ret;
 		}
 	}
+	
+	public static int getEDTGridSize(int extrasHeight){
+		int tabHeight = getTabHeight();
+		int topExtras = extrasHeight + 30 ;
+		
+		int ret = (tabHeight-topExtras)/2;
+		if(ret < MIN_GRID_SIZE){
+			return MIN_GRID_SIZE;
+		}else{
+			return ret;
+		}
+	}
 
-	public static VLayout createBar(GHAButton... buttons) {
+	public static VLayout createBar(Canvas... buttons) {
 		VLayout sideButtons = new VLayout();
 		sideButtons.setWidth(30);
 		sideButtons.setLayoutMargin(5);

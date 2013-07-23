@@ -5,7 +5,7 @@ import java.util.List;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
-import org.fourgeeks.gha.webclient.client.UI.GHAButton;
+import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
 import org.fourgeeks.gha.webclient.client.eia.EIAAddForm;
 import org.fourgeeks.gha.webclient.client.eia.EIAGrid;
@@ -56,7 +56,7 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 		sideButtons.setMembersMargin(10);
 		sideButtons.setDefaultLayoutAlign(Alignment.CENTER);
 
-		GHAButton addButton = new GHAButton("../resources/icons/new.png");
+		GHAImgButton addButton = new GHAImgButton("../resources/icons/new.png");
 		addButton.addClickHandler(new ClickHandler() {
 
 			@Override
@@ -64,9 +64,9 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 				eiaAddForm.animateShow(AnimationEffect.FLY);
 			}
 		});
-		GHAButton editButton = new GHAButton("../resources/icons/edit.png");
-		GHAButton deleteButton = new GHAButton("../resources/icons/delete.png");
-		GHAButton setsButton = new GHAButton("../resources/icons/set.png");
+		GHAImgButton editButton = new GHAImgButton("../resources/icons/edit.png");
+		GHAImgButton deleteButton = new GHAImgButton("../resources/icons/delete.png");
+		GHAImgButton setsButton = new GHAImgButton("../resources/icons/set.png");
 		setsButton.addClickHandler(new ClickHandler() {
 
 			@Override

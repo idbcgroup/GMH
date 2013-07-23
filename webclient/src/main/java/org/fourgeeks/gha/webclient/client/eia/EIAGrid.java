@@ -21,12 +21,13 @@ public class EIAGrid extends ListGrid implements ResizeHandler{
 		GHAGridField codeGridField = new GHAGridField("code", "Codigo");
 		GHAGridField serialGridField = new GHAGridField("serialNumber",
 				"Serial");
+		
 		GHAGridField nameGridField = new GHAGridField("eiaTypeName", "Nombre");
 		GHAGridField brandGridField = new GHAGridField("brandName", "Marca");
 		GHAGridField modelGridField = new GHAGridField("eiaTypeModel", "Modelo");
 		GHAGridField makeGridField = new GHAGridField("manufacturerName",
 				"Fabricante");
-
+		
 		setFields(idGridField, codeGridField, serialGridField, nameGridField,
 				brandGridField, modelGridField, makeGridField);
 	}
