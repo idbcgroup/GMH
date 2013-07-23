@@ -2,6 +2,7 @@ package org.fourgeeks.gha.webclient.client.UI;
 
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.types.Alignment;
+import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.Visibility;
 import com.smartgwt.client.widgets.layout.VLayout;
 
@@ -22,5 +23,13 @@ public abstract class GHASlideInWindow extends VLayout implements
 
 	public void close() {
 		destroy();
+	}
+
+	public void open() {
+		animateShow(AnimationEffect.FLY);
+	}
+
+	public void hide() {
+		animateHide(AnimationEffect.FLY);
 	}
 }

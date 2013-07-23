@@ -6,6 +6,7 @@ package org.fourgeeks.gha.webclient.server.brand;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.servlet.annotation.WebServlet;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gmh.Brand;
@@ -18,6 +19,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  * @author emiliot
  * 
  */
+@WebServlet(urlPatterns = { "/webclient/brand" })
 public class GWTBrandServiceImpl extends RemoteServiceServlet implements
 		GWTBrandService {
 

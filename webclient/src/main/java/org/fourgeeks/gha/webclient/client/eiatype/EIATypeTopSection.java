@@ -14,7 +14,6 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.types.Alignment;
-import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -58,7 +57,7 @@ public class EIATypeTopSection extends HLayout implements
 
 			@Override
 			public void hide() {
-				eiaTypeSearchForm.animateHide(AnimationEffect.FLY);
+				eiaTypeSearchForm.hide();
 			}
 		});
 		eiaTypeTab.addClosableHandler(new GHAClosable() {
@@ -135,7 +134,7 @@ public class EIATypeTopSection extends HLayout implements
 
 	@Override
 	public void select(EiaType eiaType) {
-		//Window.alert("top section select");
+		// Window.alert("top section select");
 		selectEiaType(eiaType);
 		codeItem.setValue(eiaType.getCode());
 		nameItem.setValue(eiaType.getName());
@@ -164,7 +163,7 @@ public class EIATypeTopSection extends HLayout implements
 	}
 
 	public void search() {
-		eiaTypeSearchForm.animateShow(AnimationEffect.FLY);
+		eiaTypeSearchForm.open();
 	}
 
 	public void AddEIATypeSelectionListener(

@@ -11,6 +11,7 @@ import org.fourgeeks.gha.webclient.client.eia.EIAAddForm;
 import org.fourgeeks.gha.webclient.client.eia.EIAGrid;
 import org.fourgeeks.gha.webclient.client.eia.EIAModel;
 import org.fourgeeks.gha.webclient.client.eia.EIARecord;
+import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 import org.fourgeeks.gha.webclient.client.eia.EIAUtil;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
@@ -24,18 +25,19 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class EIATypeEquipmentGridPanel extends VLayout implements
-		EIATypeSelectionListener, GHAClosable {
+		EIATypeSelectionListener, EIASelectionListener, GHAClosable {
 
 	private EIAGrid grid;
 	private EiaType eiaType;
-	private EIAAddForm addForm;
+	private EIAAddForm eiaAddForm;
 	{
 		grid = new EIAGrid();
-		addForm = new EIAAddForm();
+		eiaAddForm = new EIAAddForm();
 	}
 
-	public EIATypeEquipmentGridPanel() {
+	public EIATypeEquipmentGridPanel(EIATypeEquipmentSubTab eIATypeEquipmentSubTab) {
 		super();
+		eiaAddForm.addEiaSelectionListener(eIATypeEquipmentSubTab);
 		setStyleName("sides-padding top-padding");// Esto es VUDU!
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
@@ -59,7 +61,7 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 
 			@Override
 			public void onClick(ClickEvent event) {
-				addForm.animateShow(AnimationEffect.FLY);
+				eiaAddForm.animateShow(AnimationEffect.FLY);
 			}
 		});
 		GHAButton editButton = new GHAButton("../resources/icons/edit.png");
@@ -87,7 +89,15 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 	@Override
 	public void select(EiaType eiaType) {
 		this.eiaType = eiaType;
-		addForm.select(eiaType);
+		eiaAddForm.select(eiaType);
+		loadData(eiaType);
+
+	}
+
+	/**
+	 * @param eiaType
+	 */
+	private void loadData(EiaType eiaType) {
 		EIAModel.find(eiaType, new GHAAsyncCallback<List<Eia>>() {
 
 			@Override
@@ -98,12 +108,19 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 
 			}
 		});
-
 	}
 
 	@Override
 	public void close() {
-		addForm.animateHide(AnimationEffect.FLY);
-		addForm.destroy();
+		eiaAddForm.animateHide(AnimationEffect.FLY);
+		eiaAddForm.destroy();
+	}
+
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.webclient.client.eia.EIASelectionListener#select(org.fourgeeks.gha.domain.gmh.Eia)
+	 */
+	@Override
+	public void select(Eia eia) {
+		loadData(eiaType);
 	}
 }
