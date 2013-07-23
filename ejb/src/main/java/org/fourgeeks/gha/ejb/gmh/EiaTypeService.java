@@ -11,11 +11,16 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.ParameterExpression;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.domain.gmh.Manufacturer;
 
 /**
  * @author emiliot
@@ -38,8 +43,8 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 	 * .gha.domain.gmh.EiaType)
 	 */
 	@Override
-	public String buildFilters(EiaType eiaType) {
-		Brand brand = eiaType.getBrand();
+	public Predicate buildFilters(EiaType eiaType, CriteriaBuilder cb, Root<EiaType> etype) {
+		/*Brand brand = eiaType.getBrand();
 		Manufacturer manufacturer = eiaType.getManufacturer();
 
 		String filters = "";
@@ -90,7 +95,57 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 					+ "%' ";
 		}
 
-		return filters;
+		return filters;*/
+		Predicate criteria = cb.conjunction();
+		
+		if(eiaType.getBrand() != null){
+			ParameterExpression<Brand> p = cb.parameter(Brand.class, "brand");
+			criteria = cb.and(criteria, cb.equal(etype.get("brand"), p));
+		}
+		
+		if(eiaType.getCode() != null){
+			
+		}
+		
+		if(eiaType.getDescription() != null){
+			
+		}
+		
+		if(eiaType.getEiaUmdns() != null){
+			
+		}
+		
+		if(eiaType.getManufacturer() != null){
+			
+		}
+		
+		if(eiaType.getMobility() != null){
+			
+		}
+		
+		if(eiaType.getModel() != null){
+			
+		}
+		
+		if(eiaType.getName() != null){
+			ParameterExpression<String> p = cb.parameter(String.class, "name");
+			criteria = cb.and(criteria, cb.like(cb.lower(etype.<String>get("name")), p));
+		}
+		
+		if(eiaType.getSubtype() != null){
+			
+		}
+		
+		if(eiaType.getType() != null){
+			
+		}
+		
+		if(eiaType.getUseDescription() != null){
+			
+		}
+		
+		return criteria;
+		
 	}
 
 	/*
@@ -119,9 +174,8 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 	 */
 	@Override
 	public List<EiaType> find(EiaType eiaType) throws EJBException {
-		List<EiaType> res = null;
 
-		String query = "SELECT e from EiaType e ";
+		/*String query = "SELECT e from EiaType e ";
 		String filters = buildFilters(eiaType);
 
 		if (filters != "")
@@ -140,8 +194,61 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 			throw new EJBException(
 					"Error obteniendo buscando los eiaTypes por eiatype id="
 							+ Long.toString(eiaType.getId()));
+		}*/
+		
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<EiaType> c = cb.createQuery(EiaType.class);
+		Root<EiaType> eType = c.from(EiaType.class);
+		c.select(eType);
+		
+		Predicate criteria = buildFilters(eiaType, cb, eType);
+		c.where(criteria);
+		
+		TypedQuery<EiaType> q;
+		
+		if (criteria.getExpressions().size() <= 0) {
+			q = em.createQuery(c);
+		}else{
+			c.where(criteria);
+			q = em.createQuery(c);
+			
+			if (eiaType.getBrand() != null) {
+				q.setParameter("brand", eiaType.getBrand());
+			}
+
+			if (eiaType.getCode() != null) {
+			}
+
+			if (eiaType.getDescription() != null) {
+			}
+
+			if (eiaType.getEiaUmdns() != null) {
+			}
+
+			if (eiaType.getManufacturer() != null) {
+			}
+
+			if (eiaType.getMobility() != null) {
+			}
+
+			if (eiaType.getModel() != null) {
+			}
+
+			if (eiaType.getName() != null) {
+				q.setParameter("name", "%"+eiaType.getName()+"%");
+			}
+
+			if (eiaType.getSubtype() != null) {
+			}
+
+			if (eiaType.getType() != null) {
+			}
+
+			if (eiaType.getUseDescription() != null) {
+			}
 		}
-		return res;
+		
+		return q.getResultList();
 
 	}
 
@@ -157,8 +264,8 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 			throws EJBException {
 		List<EiaType> res = null;
 
-		String query = "SELECT e from EiaType e ";
-		String filters = buildFilters(eiaType);
+		/*String query = "SELECT e from EiaType e ";
+		String filters = buildFilters(eiaType, null, null);
 
 		if (filters != "")
 			query += " WHERE " + filters;
@@ -176,7 +283,7 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 			throw new EJBException(
 					"Error obteniendo buscando los eiaTypes por eiatype "
 							+ ex.getCause().getMessage());
-		}
+		}*/
 		return res;
 
 	}
