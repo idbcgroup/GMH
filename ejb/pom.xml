@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>gha</artifactId>
+		<groupId>gha</groupId>
+		<version>1</version>
+	</parent>
+	<artifactId>ejb</artifactId>
+	<packaging>ejb</packaging>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<version.jboss.maven.plugin>7.3.Final</version.jboss.maven.plugin>
+		<version.jboss.bom>1.0.4.Final</version.jboss.bom>
+		<version.jboss.as>7.1.1.Final</version.jboss.as>
+		<version.compiler.plugin>2.3.2</version.compiler.plugin>
+		<version.surefire.plugin>2.10</version.surefire.plugin>
+		<version.war.plugin>2.1.1</version.war.plugin>
+		<maven.compiler.target>1.6</maven.compiler.target>
+		<maven.compiler.source>1.6</maven.compiler.source>
+	</properties>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>gha</groupId>
+			<artifactId>domain</artifactId>
+			<version>1</version>
+		</dependency>
+
+<!-- 		<dependency> -->
+<!-- 			<groupId>junit</groupId> -->
+<!-- 			<artifactId>junit</artifactId> -->
+<!-- 			<version>4.7</version> -->
+<!-- 			<scope>test</scope> -->
+<!-- 		</dependency> -->
+
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.bm</groupId> -->
+<!-- 			<artifactId>ejb3unit</artifactId> -->
+<!-- 			<version>1.1.1</version> -->
+<!-- 			<scope>compile</scope> -->
+<!-- 		</dependency> -->
+
+		<dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.1-901.jdbc4</version>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<finalName>${project.artifactId}</finalName>
+		<sourceDirectory>src/main/java</sourceDirectory>
+		<testSourceDirectory>src/test/java</testSourceDirectory>
+		<plugins>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>${version.war.plugin}</version>
+				<configuration>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${version.compiler.plugin}</version>
+				<configuration>
+					<source>${maven.compiler.source}</source>
+					<target>${maven.compiler.target}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${version.surefire.plugin}</version>
+			</plugin>
+
+			<plugin>
+				<groupId>org.jboss.as.plugins</groupId>
+				<artifactId>jboss-as-maven-plugin</artifactId>
+				<version>${version.jboss.maven.plugin}</version>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-ejb-plugin</artifactId>
+				<version>2.3</version>
+
+				<configuration>
+					<ejbVersion>3.1</ejbVersion>
+
+					<archive>
+
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<useUniqueVersions>false</useUniqueVersions>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+						</manifest>
+
+						<manifestEntries>
+							<Implementation-Build>${maven.build.timestamp}</Implementation-Build>
+							<url>${project.url}</url>
+						</manifestEntries>
+					</archive>
+					<generateClient>true</generateClient>
+
+					<excludes>
+						<exclude>**/*.ref</exclude>
+					</excludes>
+
+					<clientExcludes>
+						<clientExclude>**/*Service.class</clientExclude>
+						<clientExclude>**/InitialData.class</clientExclude>
+						<clientExclude>**/*Test.class</clientExclude>
+						<clientExclude>**/TestData.class</clientExclude>
+					</clientExcludes>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<repositories>
+		<repository>
+			<id>maven-repo</id>
+			<name>Maven repository</name>
+			<url>http://repo1.maven.org/maven2/</url>
+		</repository>
+		<repository>
+			<id>ejb3unit</id>
+			<name>Wicket repository</name>
+			<url>http://ejb3unit.sourceforge.net/maven2</url>
+		</repository>
+	</repositories>
+</project>
