@@ -12,7 +12,7 @@ public class GHAUploadPhotographs extends MultiUploader{
 	{
 		super();
 		setMaximumFiles(cantidadMaximaArchivos);
-		//setHeight(tamano);
-		//setTitle(titulo);
+		setHeight(tamano);
+		setTitle(titulo);
 	}
 }
