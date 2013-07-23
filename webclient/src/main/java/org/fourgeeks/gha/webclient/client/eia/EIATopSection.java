@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.webclient.client.UI.GHAButton;
+import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
@@ -58,9 +58,9 @@ public class EIATopSection extends HLayout implements EIATypeSelectionListener,
 				typeItem, subTypeItem, useAreaItem, useItem, refactorItem,
 				codigoUMDNSItem);
 
-		GHAButton cleanImg = new GHAButton("../resources/icons/clean.png");
-		GHAButton canelButton = new GHAButton("../resources/icons/cancel.png");
-		GHAButton searchImg = new GHAButton("../resources/icons/search.png");
+		GHAImgButton cleanImg = new GHAImgButton("../resources/icons/clean.png");
+		GHAImgButton canelButton = new GHAImgButton("../resources/icons/cancel.png");
+		GHAImgButton searchImg = new GHAImgButton("../resources/icons/search.png");
 		searchImg.addClickHandler(new ClickHandler() {
 
 			@Override

@@ -11,7 +11,7 @@ import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
-import org.fourgeeks.gha.webclient.client.UI.GHAButton;
+import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHACheckboxItem;
 import org.fourgeeks.gha.webclient.client.UI.GHASelectItem;
@@ -73,7 +73,7 @@ public class EIATypeSearchForm extends GHASlideInWindow {
 				modelItem, manItem, useDescriptionItem, umdnsCodeItem,
 				mobilityItem, typeItem, subTypeItem, isServiceItem);
 
-		GHAButton searchButton = new GHAButton("../resources/icons/search.png");
+		GHAImgButton searchButton = new GHAImgButton("../resources/icons/search.png");
 		// Event Handlers
 		ClickHandler searchClickHandler = new ClickHandler() {
 			@Override
@@ -103,8 +103,8 @@ public class EIATypeSearchForm extends GHASlideInWindow {
 		subTypeItem.addKeyUpHandler(searchKeyUpHandler);
 		// ////////////////////////////
 
-		GHAButton cleanButton = new GHAButton("../resources/icons/clean.png");
-		GHAButton cancelButton = new GHAButton("../resources/icons/cancel.png");
+		GHAImgButton cleanButton = new GHAImgButton("../resources/icons/clean.png");
+		GHAImgButton cancelButton = new GHAImgButton("../resources/icons/cancel.png");
 		cancelButton.addClickHandler(new ClickHandler() {
 
 			@Override
@@ -142,7 +142,7 @@ public class EIATypeSearchForm extends GHASlideInWindow {
 		sideGridButtons.setMembersMargin(10);
 		sideGridButtons.setDefaultLayoutAlign(Alignment.CENTER);
 
-		GHAButton acceptButton = new GHAButton("../resources/icons/check.png");
+		GHAImgButton acceptButton = new GHAImgButton("../resources/icons/check.png");
 		acceptButton.addClickHandler(new ClickHandler() {
 
 			@Override

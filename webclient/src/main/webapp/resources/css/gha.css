@@ -215,6 +215,7 @@ select,.select{
 .title-label{
 	font-weight: bold;
 	color: black;
+	font-size: 14px;
 }
 
 span.input-title label,span.input-title{
@@ -265,9 +266,7 @@ input[type=text].round,input[type=password].round{
 	padding-left: 20px;
 	padding-right: 20px;
 }
-.sides-padding{
-	padding-top: 10px;
-}
+
 .padding-top{
 	padding-top: 10px;
 }
@@ -284,14 +283,6 @@ input[type=text].round,input[type=password].round{
 }
 .margin-right{
 	margin-right: 10px;
-}
-.vertical-gray-separator{
-	width:100%;
-	background-color: #666666;
-}
-.horizontal-gray-separator{
-	height:100%;
-	background-color: #666666;
 }
 .top-8{
 	top: 8px;

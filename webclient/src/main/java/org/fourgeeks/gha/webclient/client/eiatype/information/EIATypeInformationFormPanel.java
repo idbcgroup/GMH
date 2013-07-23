@@ -20,7 +20,7 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypePicture;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
-import org.fourgeeks.gha.webclient.client.UI.GHAButton;
+import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.GHACustomButton;
@@ -33,14 +33,7 @@ import org.fourgeeks.gha.webclient.client.eiatype.EIATypeModel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypePictureModel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeTab;
-import org.fourgeeks.gha.webclient.client.eiatype.GWTEiaTypeService;
 
-
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.DecoratorPanel;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.ImageStyle;
@@ -219,7 +212,7 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		sideButtons.setMembersMargin(10);
 		sideButtons.setDefaultLayoutAlign(Alignment.CENTER);
 
-		GHAButton addButton = new GHAButton("../resources/icons/new.png");
+		GHAImgButton addButton = new GHAImgButton("../resources/icons/new.png");
 		addButton.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -227,7 +220,7 @@ public class EIATypeInformationFormPanel extends VLayout implements
 			}
 		});
 
-		GHAButton saveButton = new GHAButton("../resources/icons/save.png");
+		GHAImgButton saveButton = new GHAImgButton("../resources/icons/save.png");
 		saveButton.addClickHandler(new ClickHandler() {
 
 			@Override
@@ -235,7 +228,7 @@ public class EIATypeInformationFormPanel extends VLayout implements
 				save();
 			}
 		});
-		GHAButton undoButton = new GHAButton("../resources/icons/undo.png");
+		GHAImgButton undoButton = new GHAImgButton("../resources/icons/undo.png");
 		undoButton.addClickHandler(new ClickHandler() {
 
 			@Override
@@ -245,9 +238,9 @@ public class EIATypeInformationFormPanel extends VLayout implements
 			}
 		});
 
-		sideButtons.addMembers(saveButton, undoButton);
-		sideButtons.addMember(GHAUiHelper.verticalGraySeparator("2px"));
-		sideButtons.addMember(addButton);
+		sideButtons.addMembers(saveButton, undoButton,
+							   GHAUiHelper.verticalGraySeparator("2px"),
+							   addButton);
 		
 		HLayout uploadImagenes = new HLayout();
 		uploadImagenes.addMember(img1);

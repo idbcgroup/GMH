@@ -150,10 +150,17 @@ public class HomePlace extends GHAPlace {
 				History.newItem("eia");
 			}
 		});
-	
+		
+		MenuItem edtMenuItem = new MenuItem("Estacion de Trabajo");
+		edtMenuItem.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(MenuItemClickEvent event) {
+				History.newItem("edt");
+			}
+		});	
 		
 		Menu menu = new Menu();
-		menu.setItems(eiaTypeMenuItem, eiaMenuItem);
+		menu.setItems(eiaTypeMenuItem,eiaMenuItem,edtMenuItem);
 
 		IMenuButton menuButton = new IMenuButton("Aplicaciones", menu);
 		menuButton.setWidth(150);
@@ -161,6 +168,5 @@ public class HomePlace extends GHAPlace {
 		menuButton.setStylePrimaryName("gha-main-menu");
 		menuButton.setZIndex(33333333);
 		GHATabSet.addMenu(menuButton);
-
 	}
 }

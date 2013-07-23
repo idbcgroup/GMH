@@ -9,7 +9,7 @@ public class GHACustomButton extends Composite implements HasClickHandlers{
 	public GHACustomButton() {
 	      DecoratorPanel widget = new DecoratorPanel();
 	      initWidget(widget);
-	      widget.setWidget(new GHAButton("../resources/icons/new.png"));
+	      widget.setWidget(new GHAImgButton("../resources/icons/new.png"));
 	     // widget.setSize("15px","15px");
 	    }
 	   

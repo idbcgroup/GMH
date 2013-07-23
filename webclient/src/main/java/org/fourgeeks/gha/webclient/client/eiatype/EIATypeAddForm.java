@@ -20,7 +20,7 @@ import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
-import org.fourgeeks.gha.webclient.client.UI.GHAButton;
+import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHACustomButton;
 import org.fourgeeks.gha.webclient.client.UI.GHASelectItem;
@@ -213,7 +213,7 @@ public class EIATypeAddForm extends GHASlideInWindow {
 		sideButtons.setMembersMargin(10);
 		sideButtons.setDefaultLayoutAlign(Alignment.CENTER);
 
-		GHAButton saveButton = new GHAButton("../resources/icons/save.png");
+		GHAImgButton saveButton = new GHAImgButton("../resources/icons/save.png");
 		saveButton.addClickHandler(new ClickHandler() {
 
 			@Override
@@ -222,7 +222,7 @@ public class EIATypeAddForm extends GHASlideInWindow {
 			}
 		});
 
-		GHAButton cancelButton = new GHAButton("../resources/icons/cancel.png");
+		GHAImgButton cancelButton = new GHAImgButton("../resources/icons/cancel.png");
 		cancelButton.addClickHandler(new ClickHandler() {
 
 			@Override

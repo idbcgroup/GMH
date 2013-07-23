@@ -1,5 +1,6 @@
 package org.fourgeeks.gha.webclient.client.UI;
 
+import org.fourgeeks.gha.webclient.client.edt.EDTPlace;
 import org.fourgeeks.gha.webclient.client.eia.EIAPlace;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypePlace;
 import org.fourgeeks.gha.webclient.client.home.HomePlace;
@@ -21,6 +22,8 @@ public class GHAPlacesFactory {
 			return new EIATypePlace();
 		else if (token.startsWith("eia"))
 			return new EIAPlace();
+		else if (token.startsWith("edt"))
+			return new EDTPlace();
 		/*
 		 * switch (token) { case "login": }
 		 */

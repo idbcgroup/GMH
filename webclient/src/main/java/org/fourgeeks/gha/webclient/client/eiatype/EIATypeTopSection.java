@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.webclient.client.UI.GHAButton;
+import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.GHAImg;
@@ -100,7 +100,7 @@ public class EIATypeTopSection extends HLayout implements
 		photoBotones.setMembersMargin(10);
 		photoBotones.setDefaultLayoutAlign(Alignment.CENTER);
 
-		GHAButton searchPhoto = new GHAButton("../resources/icons/search.png");
+		GHAImgButton searchPhoto = new GHAImgButton("../resources/icons/search.png");
 		// GHAButton cleanPhoto = new GHAButton("../resources/icons/clean.png");
 		photoBotones.addMembers(searchPhoto);
 
@@ -115,10 +115,10 @@ public class EIATypeTopSection extends HLayout implements
 		panelBotones.setMembersMargin(10);
 		panelBotones.setDefaultLayoutAlign(Alignment.CENTER);
 
-		GHAButton cleanImg = new GHAButton("../resources/icons/clean.png");
+		GHAImgButton cleanImg = new GHAImgButton("../resources/icons/clean.png");
 		cleanImg.setSize("20px", "20px");
 		cleanImg.setHoverStyle("boxed");
-		GHAButton searchImg = new GHAButton("../resources/icons/search.png");
+		GHAImgButton searchImg = new GHAImgButton("../resources/icons/search.png");
 		searchImg.addClickHandler(new ClickHandler() {
 
 			@Override
@@ -126,7 +126,7 @@ public class EIATypeTopSection extends HLayout implements
 				search();
 			}
 		});
-		GHAButton cancelButton = new GHAButton("../resources/icons/cancel.png");
+		GHAImgButton cancelButton = new GHAImgButton("../resources/icons/cancel.png");
 		panelBotones.addMembers(searchImg, cleanImg, cancelButton);
 
 		addMembers(form, photoPanel, new LayoutSpacer(), panelBotones);

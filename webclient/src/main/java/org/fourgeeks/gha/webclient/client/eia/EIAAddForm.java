@@ -19,7 +19,7 @@ import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
-import org.fourgeeks.gha.webclient.client.UI.GHAButton;
+import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHACheckboxItem;
 import org.fourgeeks.gha.webclient.client.UI.GHADateItem;
@@ -223,7 +223,7 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler,
 		sectionForm.addSection("Garantias", getGarantiasMantForm(), false);
 		sectionForm.addSection("EquiposIT", getEquiposIT(), false);
 
-		VLayout sideButtons = GHAUiHelper.createBar(new GHAButton(
+		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
 				"../resources/icons/save.png", new ClickHandler() {
 
 					@Override
@@ -231,7 +231,7 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler,
 						save();
 
 					}
-				}), new GHAButton("../resources/icons/set.png"), new GHAButton(
+				}), new GHAImgButton("../resources/icons/set.png"), new GHAImgButton(
 				"../resources/icons/cancel.png", new ClickHandler() {
 
 					@Override
