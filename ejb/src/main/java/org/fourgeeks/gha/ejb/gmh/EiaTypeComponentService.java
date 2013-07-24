@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gmh.EiaType;
@@ -58,9 +59,11 @@ public class EiaTypeComponentService implements EiaTypeComponentServiceRemote {
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypeComponentServiceRemote#find(org.fourgeeks.gha.domain.gmh.EiaType)
 	 */
 	@Override
-	public List<EiaTypeComponent> find(EiaType eiaType) throws EJBException{
-		// TODO Auto-generated method stub
-		return null;
+	public List<EiaTypeComponent> find(EiaType eiaType) throws EJBException {
+		TypedQuery<EiaTypeComponent> query =
+				em.createNamedQuery("EiaTypeComponent.findByEiaType", EiaTypeComponent.class);
+		query.setParameter("eiaType", eiaType);
+		return query.getResultList();
 	}
 
 	/* (non-Javadoc)
