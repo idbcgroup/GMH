@@ -4,12 +4,12 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeComponent;
 import org.fourgeeks.gha.webclient.client.UI.GHAGridRecord;
 
-public class EiaTypeComponentRecord
+public class EIATypeComponentRecord
 		extends GHAGridRecord<EiaTypeComponent> {
 
 	private EiaTypeComponent eiaTypeComponent;
 	
-	public EiaTypeComponentRecord(EiaTypeComponent eiaTypeComponent) {
+	public EIATypeComponentRecord(EiaTypeComponent eiaTypeComponent) {
 		setEiaTypeComponent(eiaTypeComponent);
 	}
 	
