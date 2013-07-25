@@ -150,7 +150,7 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 	 * .domain.gmh.EiaType)
 	 */
 	@Override
-	public List<EiaType> find(EiaType eiaType) throws EJBException {
+	public List<EiaType> find(EiaType entity) throws EJBException {
 
 		try {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -158,7 +158,7 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 			Root<EiaType> root = c.from(EiaType.class);
 			c.select(root);
 
-			Predicate criteria = buildFilters(eiaType, cb, root);
+			Predicate criteria = buildFilters(entity, cb, root);
 			c.where(criteria);
 
 			TypedQuery<EiaType> q;
@@ -169,53 +169,53 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 				c.where(criteria);
 				q = em.createQuery(c);
 
-				if (eiaType.getBrand() != null) {
-					q.setParameter("brand", eiaType.getBrand());
+				if (entity.getBrand() != null) {
+					q.setParameter("brand", entity.getBrand());
 				}
 
-				if (eiaType.getCode() != null) {
-					q.setParameter("code", eiaType.getCode());
+				if (entity.getCode() != null) {
+					q.setParameter("code", entity.getCode());
 				}
 
-				if (eiaType.getDescription() != null) {
+				if (entity.getDescription() != null) {
 					q.setParameter("description", "%"
-							+ eiaType.getDescription().toLowerCase() + "%");
+							+ entity.getDescription().toLowerCase() + "%");
 				}
 
-				if (eiaType.getEiaUmdns() != null) {
+				if (entity.getEiaUmdns() != null) {
 					q.setParameter("eiaumdns", "%"
-							+ eiaType.getEiaUmdns().toLowerCase() + "%");
+							+ entity.getEiaUmdns().toLowerCase() + "%");
 				}
 
-				if (eiaType.getManufacturer() != null) {
-					q.setParameter("manufacturer", eiaType.getManufacturer());
+				if (entity.getManufacturer() != null) {
+					q.setParameter("manufacturer", entity.getManufacturer());
 				}
 
-				if (eiaType.getMobility() != null) {
-					q.setParameter("mobility", eiaType.getMobility());
+				if (entity.getMobility() != null) {
+					q.setParameter("mobility", entity.getMobility());
 				}
 
-				if (eiaType.getModel() != null) {
+				if (entity.getModel() != null) {
 					q.setParameter("model", "%"
-							+ eiaType.getModel().toLowerCase() + "%");
+							+ entity.getModel().toLowerCase() + "%");
 				}
 
-				if (eiaType.getName() != null) {
+				if (entity.getName() != null) {
 					q.setParameter("name", "%"
-							+ eiaType.getName().toLowerCase() + "%");
+							+ entity.getName().toLowerCase() + "%");
 				}
 
-				if (eiaType.getSubtype() != null) {
-					q.setParameter("subtype", eiaType.getSubtype());
+				if (entity.getSubtype() != null) {
+					q.setParameter("subtype", entity.getSubtype());
 				}
 
-				if (eiaType.getType() != null) {
-					q.setParameter("type", eiaType.getType());
+				if (entity.getType() != null) {
+					q.setParameter("type", entity.getType());
 				}
 
-				if (eiaType.getUseDescription() != null) {
+				if (entity.getUseDescription() != null) {
 					q.setParameter("usedescription", "%"
-							+ eiaType.getUseDescription().toLowerCase() + "%");
+							+ entity.getUseDescription().toLowerCase() + "%");
 				}
 			}
 
