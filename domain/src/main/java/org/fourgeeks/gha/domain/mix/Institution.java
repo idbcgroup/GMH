@@ -2,8 +2,6 @@ package org.fourgeeks.gha.domain.mix;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
@@ -57,7 +55,6 @@ public class Institution extends AbstractEntity {
 	private String name;
 	/** length =255 */
 
-	@Enumerated(EnumType.STRING)
 	private InstitutionTypeEnum institutionType;
 	/** length =20 */
 

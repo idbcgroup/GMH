@@ -48,8 +48,8 @@ public class InitialData {
 				if (e.getSQLState().equals("42P07"))
 					logger.info("username_index already created... skipping");
 				else
-					logger.log(Level.INFO,
-							"ERROR: unable to create username_index", e);
+					logger.info("ERROR: unable to create username_index : "
+							+ e.getMessage());
 			}
 			try {
 				ps = con.prepareStatement("CREATE INDEX eiaType_index ON eiatype (type)");
@@ -58,8 +58,8 @@ public class InitialData {
 				if (e.getSQLState().equals("42P07"))
 					logger.info("eiaType_index  already created... skipping");
 				else
-					logger.log(Level.INFO,
-							"ERROR: unable to create eiaType_index ", e);
+					logger.info("ERROR: unable to create eiaType_index :"
+							+ e.getMessage());
 			}
 
 			try {
@@ -69,8 +69,8 @@ public class InitialData {
 				if (e.getSQLState().equals("42P07"))
 					logger.info("eia_state_index  already created... skipping");
 				else
-					logger.log(Level.INFO,
-							"ERROR: unable to create eia_state_index ", e);
+					logger.info("ERROR: unable to create eia_state_index :"
+							+ e.getMessage());
 			}
 
 		} catch (SQLException e) {

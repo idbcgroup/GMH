@@ -1,8 +1,6 @@
 package org.fourgeeks.gha.domain.mix;
 
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
@@ -58,18 +56,15 @@ public class Bpi extends AbstractEntity {
 	private String bpiLogoNameRoute;
 	/** Ruta y Nombre del Logo de la institución length =255 */
 
-	@Enumerated(EnumType.STRING)
 	private BpiTypeEnum bpiType;
 	/** Tipo de Institución length =20 */
 
 	private String bpiDescription;
 	/** Información descriptiva de la institución (Opcional) length =255 */
 
-	@Enumerated(EnumType.STRING)
 	private BpiInstitutionRelationTypeEnum bpiInstitutionRelationship;
 	/** Relacion entre las Instituciones length =20 */
 
-	@Enumerated(EnumType.STRING)
 	private BpiOriginEnum bpiOrigin;
 	/** Origen de la Institución length =20 */
 	private String healthCode;
@@ -90,7 +85,6 @@ public class Bpi extends AbstractEntity {
 	 * GomPARAMET_DEFINITION length =1
 	 */
 
-	@Enumerated(EnumType.STRING)
 	private BpiRiskEnum bpiRisk;
 	/** Riesgo Institución length =60 */
 	private Long institutionId;

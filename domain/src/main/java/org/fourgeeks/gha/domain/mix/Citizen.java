@@ -4,8 +4,6 @@ import java.sql.Timestamp;
 import java.util.Collection;
 
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
@@ -34,7 +32,7 @@ public class Citizen extends AbstractEntity {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@OneToOne
 	@JoinColumn(name = "legalEntityFk")
 	private LegalEntity legalEntity;
@@ -53,90 +51,112 @@ public class Citizen extends AbstractEntity {
 
 	@OneToMany(mappedBy = "citizen")
 	private Collection<PhysicalCharacteristicsCode> physicalCharacteristicsCodes;
-	
-	//TODO: confirmar esta relacion
+
+	// TODO: confirmar esta relacion
 	@OneToOne
 	@JoinColumn(name = "bpuFk")
 	private Bpu bpu;
-	
-	/**Attributes*/
-	
-	private String firstName; /** length =255 */
-	
-	@Enumerated(EnumType.STRING)
-	private IdDocumentTypeEnum idDocumentType; /** length =60 */
-	
-	@Enumerated(EnumType.STRING)
-	private MixStatusEnum mixStatus; /** length =60 */
-	
-	@Enumerated(EnumType.STRING)
-	private GenderTypeEnum gender; /** length =60 */
-	
-	@Enumerated(EnumType.STRING)
-	private LateralityTypeEnum laterality; /** length =60 */
-	
-	private String timeUnit; /** length =20 */
-	
-	@Enumerated(EnumType.STRING)
-	private BloodTypeEnum bloodGroup; /** length =60 */
-	
-	private String nationalityType; /** length =60 */
-	
-	
-	private String firstLastName; /** length =255 */
-	private String secondName; /** length =255 */
-	private String secondLastName; /** length =255 */
-	private String idDocumentNumber; /** length =30 */
-	private Timestamp birthDate; /** length =22 */
-	
-	@Enumerated(EnumType.STRING)
-	private MaritalStatusEnum maritalStatus; /** length =60 */
-	
-	
-	private String religion; /** length =60 */
-	private String nationality; /** length =60 */
-	private String birthCountry; /** length =60 */
-	private String birthState; /** length =60 */
-	private String birthCity; /** length =60 */
-	private String birthMunicipality; /** length =255 */
-	private String birthParish; /** length =255 */
-	private String primaryEmail; /** length =255 */
-	private String alternativeEmail; /** length =255 */
-	
-	@Enumerated(EnumType.STRING)
-	private RaceTypeEnum race; /** length =60 */
-	
-	@Enumerated(EnumType.STRING)
-	private EthnicGroupEnum ethnicGroup; /** length =60 */
-	
-	@Enumerated(EnumType.STRING)
-	private MigratoryStatusEnum migratoryStatus; /** length =60 */
-	
-	private Long timeInCountry; /** length =10 */
-	private String socialSecurityNumber; /** length =16 */
-	private String fiscalRegistrationNumber; /** length =16 */
-	private Boolean illiterate; /** length =1 */
-	
-	@Enumerated(EnumType.STRING)
-	private InstructionDegreeEnum instructionDegree; /** length =60 */
-	
-	
-	private String jobTypeDescription; /** length =255 */
-	
-	@Enumerated(EnumType.STRING)
-	private OccupationEnum occupation; /** length =60 */
-	private Boolean vehicleOwner; /** length =1 */
-	
-	@Enumerated(EnumType.STRING)
-	private VehicleTypeEnum vehicleType; /** length =60 */
-	
-	@Enumerated(EnumType.STRING)
-	private TransportationTypeEnum transportationType; /** length =60 */
-	
-	private Short studyReadingWriting; /** length =1 */
-	
-	@Enumerated(EnumType.STRING)
-	private RhFactorEnum rhFactor; /** length =60 */
+
+	/** Attributes */
+
+	private String firstName;
+	/** length =255 */
+
+	private IdDocumentTypeEnum idDocumentType;
+	/** length =60 */
+
+	private MixStatusEnum mixStatus;
+	/** length =60 */
+
+	private GenderTypeEnum gender;
+	/** length =60 */
+
+	private LateralityTypeEnum laterality;
+	/** length =60 */
+
+	private String timeUnit;
+	/** length =20 */
+
+	private BloodTypeEnum bloodGroup;
+	/** length =60 */
+
+	private String nationalityType;
+	/** length =60 */
+
+	private String firstLastName;
+	/** length =255 */
+	private String secondName;
+	/** length =255 */
+	private String secondLastName;
+	/** length =255 */
+	private String idDocumentNumber;
+	/** length =30 */
+	private Timestamp birthDate;
+	/** length =22 */
+
+	private MaritalStatusEnum maritalStatus;
+	/** length =60 */
+
+	private String religion;
+	/** length =60 */
+	private String nationality;
+	/** length =60 */
+	private String birthCountry;
+	/** length =60 */
+	private String birthState;
+	/** length =60 */
+	private String birthCity;
+	/** length =60 */
+	private String birthMunicipality;
+	/** length =255 */
+	private String birthParish;
+	/** length =255 */
+	private String primaryEmail;
+	/** length =255 */
+	private String alternativeEmail;
+	/** length =255 */
+
+	private RaceTypeEnum race;
+	/** length =60 */
+
+	private EthnicGroupEnum ethnicGroup;
+	/** length =60 */
+
+	private MigratoryStatusEnum migratoryStatus;
+	/** length =60 */
+
+	private Long timeInCountry;
+	/** length =10 */
+	private String socialSecurityNumber;
+	/** length =16 */
+	private String fiscalRegistrationNumber;
+	/** length =16 */
+	private Boolean illiterate;
+	/** length =1 */
+
+	private InstructionDegreeEnum instructionDegree;
+	/** length =60 */
+
+	private String jobTypeDescription;
+	/** length =255 */
+
+	private OccupationEnum occupation;
+	/** length =60 */
+	private Boolean vehicleOwner;
+	/** length =1 */
+
+	private VehicleTypeEnum vehicleType;
+	/** length =60 */
+
+	private TransportationTypeEnum transportationType;
+	/** length =60 */
+
+	private Short studyReadingWriting;
+	/** length =1 */
+
+	private RhFactorEnum rhFactor;
+
+	/** length =60 */
 
 	/**
 	 * Constructor
