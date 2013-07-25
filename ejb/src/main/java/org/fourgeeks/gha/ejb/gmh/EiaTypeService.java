@@ -18,9 +18,13 @@ import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
+import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
+import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.domain.gmh.Manufacturer;
 
 /**
  * @author emiliot
@@ -43,109 +47,85 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 	 * .gha.domain.gmh.EiaType)
 	 */
 	@Override
-	public Predicate buildFilters(EiaType eiaType, CriteriaBuilder cb, Root<EiaType> etype) {
-		/*Brand brand = eiaType.getBrand();
-		Manufacturer manufacturer = eiaType.getManufacturer();
-
-		String filters = "";
-		int varsAdded = 0;
-
-		if (brand != null && brand.getId() > 0) {
-			if (varsAdded > 0) {
-				filters += " AND ";
-			}
-			++varsAdded;
-			filters += "brand='" + Long.toString(eiaType.getBrand().getId())
-					+ "' ";
-		}
-
-		if (manufacturer != null && manufacturer.getId() > 0) {
-			if (varsAdded > 0) {
-				filters += " AND ";
-			}
-			++varsAdded;
-			filters += "manufacturer='"
-					+ Long.toString(eiaType.getManufacturer().getId()) + "' ";
-		}
-
-		if (eiaType.getModel() != null && eiaType.getModel() != "") {
-			if (varsAdded > 0) {
-				filters += " AND ";
-			}
-			++varsAdded;
-			filters += " lower(model) like '%"
-					+ eiaType.getModel().toLowerCase() + "%' ";
-		}
-
-		if (eiaType.getName() != null && eiaType.getName() != "") {
-			if (varsAdded > 0) {
-				filters += " AND ";
-			}
-			varsAdded++;
-			filters += "lower(name) like '%" + eiaType.getName().toLowerCase()
-					+ "%' ";
-		}
-
-		if (eiaType.getCode() != null && eiaType.getCode() != "") {
-			if (varsAdded > 0) {
-				filters += " AND ";
-			}
-			varsAdded++;
-			filters += "lower(code) like '%" + eiaType.getCode().toLowerCase()
-					+ "%' ";
-		}
-
-		return filters;*/
+	public Predicate buildFilters(EiaType entity, CriteriaBuilder cb,
+			Root<EiaType> root) {
 		Predicate criteria = cb.conjunction();
-		
-		if(eiaType.getBrand() != null){
+
+		if (entity.getBrand() != null) {
 			ParameterExpression<Brand> p = cb.parameter(Brand.class, "brand");
-			criteria = cb.and(criteria, cb.equal(etype.get("brand"), p));
+			criteria = cb
+					.and(criteria, cb.equal(root.<Brand> get("brand"), p));
 		}
-		
-		if(eiaType.getCode() != null){
-			
+
+		if (entity.getCode() != null) {
+			ParameterExpression<String> p = cb.parameter(String.class, "code");
+			criteria = cb
+					.and(criteria, cb.equal(root.<String> get("code"), p));
 		}
-		
-		if(eiaType.getDescription() != null){
-			
+
+		if (entity.getDescription() != null) {
+			ParameterExpression<String> p = cb.parameter(String.class,
+					"description");
+			criteria = cb.and(criteria,
+					cb.like(cb.lower(root.<String> get("description")), p));
 		}
-		
-		if(eiaType.getEiaUmdns() != null){
-			
+
+		if (entity.getEiaUmdns() != null) {
+			ParameterExpression<String> p = cb.parameter(String.class,
+					"eiaumdns");
+			criteria = cb.and(criteria,
+					cb.like(cb.lower(root.<String> get("eiaumdns")), p));
 		}
-		
-		if(eiaType.getManufacturer() != null){
-			
+
+		if (entity.getManufacturer() != null) {
+			ParameterExpression<Manufacturer> p = cb.parameter(
+					Manufacturer.class, "manufacturer");
+			criteria = cb.and(criteria,
+					cb.equal(root.<Manufacturer> get("manufacturer"), p));
 		}
-		
-		if(eiaType.getMobility() != null){
-			
+
+		if (entity.getMobility() != null) {
+			ParameterExpression<EiaMobilityEnum> p = cb.parameter(
+					EiaMobilityEnum.class, "mobility");
+			criteria = cb.and(criteria,
+					cb.equal(root.<EiaMobilityEnum> get("mobility"), p));
 		}
-		
-		if(eiaType.getModel() != null){
-			
+
+		if (entity.getModel() != null) {
+			ParameterExpression<String> p = cb.parameter(String.class, "model");
+			criteria = cb.and(criteria,
+					cb.like(cb.lower(root.<String> get("model")), p));
 		}
-		
-		if(eiaType.getName() != null){
+
+		if (entity.getName() != null) {
 			ParameterExpression<String> p = cb.parameter(String.class, "name");
-			criteria = cb.and(criteria, cb.like(cb.lower(etype.<String>get("name")), p));
+			criteria = cb.and(criteria,
+					cb.like(cb.lower(root.<String> get("name")), p));
 		}
-		
-		if(eiaType.getSubtype() != null){
-			
+
+		if (entity.getSubtype() != null) {
+			ParameterExpression<EiaSubTypeEnum> p = cb.parameter(
+					EiaSubTypeEnum.class, "subtype");
+			criteria = cb.and(criteria,
+					cb.equal(root.<EiaSubTypeEnum> get("subtype"), p));
 		}
-		
-		if(eiaType.getType() != null){
-			
+
+		if (entity.getType() != null) {
+			ParameterExpression<EiaTypeEnum> p = cb.parameter(
+					EiaTypeEnum.class, "type");
+			criteria = cb.and(criteria,
+					cb.equal(root.<EiaTypeEnum> get("type"), p));
 		}
-		
-		if(eiaType.getUseDescription() != null){
-			
+
+		if (entity.getUseDescription() != null) {
+			ParameterExpression<String> p = cb.parameter(String.class,
+					"usedescription");
+			criteria = cb.and(criteria,
+					cb.like(cb.lower(root.<String> get("usedescription")), p));
 		}
-		
+
 		return criteria;
-		
+
 	}
 
 	/*
@@ -175,80 +155,81 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 	@Override
 	public List<EiaType> find(EiaType eiaType) throws EJBException {
 
-		/*String query = "SELECT e from EiaType e ";
-		String filters = buildFilters(eiaType);
-
-		if (filters != "")
-			query += " WHERE " + filters;
-		query += " order by id";
-
 		try {
-			res = em.createQuery(query, EiaType.class).getResultList();
-		} catch (NoResultException e) {
-			logger.log(Level.INFO, "Find by EiaType: no results", e);
-			res = null;
-		} catch (Exception ex) {
-			logger.log(Level.SEVERE,
-					"Error obteniendo buscando los eiaTypes por eiatype id="
-							+ Long.toString(eiaType.getId()), ex);
-			throw new EJBException(
-					"Error obteniendo buscando los eiaTypes por eiatype id="
-							+ Long.toString(eiaType.getId()));
-		}*/
-		
-		CriteriaBuilder cb = em.getCriteriaBuilder();
-		CriteriaQuery<EiaType> c = cb.createQuery(EiaType.class);
-		Root<EiaType> eType = c.from(EiaType.class);
-		c.select(eType);
-		
-		Predicate criteria = buildFilters(eiaType, cb, eType);
-		c.where(criteria);
-		
-		TypedQuery<EiaType> q;
-		
-		if (criteria.getExpressions().size() <= 0) {
-			q = em.createQuery(c);
-		}else{
+			CriteriaBuilder cb = em.getCriteriaBuilder();
+			CriteriaQuery<EiaType> c = cb.createQuery(EiaType.class);
+			Root<EiaType> eType = c.from(EiaType.class);
+			c.select(eType);
+
+			Predicate criteria = buildFilters(eiaType, cb, eType);
 			c.where(criteria);
-			q = em.createQuery(c);
-			
-			if (eiaType.getBrand() != null) {
-				q.setParameter("brand", eiaType.getBrand());
+
+			TypedQuery<EiaType> q;
+
+			if (criteria.getExpressions().size() <= 0) {
+				q = em.createQuery(c);
+			} else {
+				c.where(criteria);
+				q = em.createQuery(c);
+
+				if (eiaType.getBrand() != null) {
+					q.setParameter("brand", eiaType.getBrand());
+				}
+
+				if (eiaType.getCode() != null) {
+					q.setParameter("code", eiaType.getCode());
+				}
+
+				if (eiaType.getDescription() != null) {
+					q.setParameter("description", "%"
+							+ eiaType.getDescription().toLowerCase() + "%");
+				}
+
+				if (eiaType.getEiaUmdns() != null) {
+					q.setParameter("eiaumdns", "%"
+							+ eiaType.getEiaUmdns().toLowerCase() + "%");
+				}
+
+				if (eiaType.getManufacturer() != null) {
+					q.setParameter("manufacturer", eiaType.getManufacturer());
+				}
+
+				if (eiaType.getMobility() != null) {
+					q.setParameter("mobility", eiaType.getMobility());
+				}
+
+				if (eiaType.getModel() != null) {
+					q.setParameter("model", "%"
+							+ eiaType.getModel().toLowerCase() + "%");
+				}
+
+				if (eiaType.getName() != null) {
+					q.setParameter("name", "%"
+							+ eiaType.getName().toLowerCase() + "%");
+				}
+
+				if (eiaType.getSubtype() != null) {
+					q.setParameter("subtype", eiaType.getSubtype());
+				}
+
+				if (eiaType.getType() != null) {
+					q.setParameter("type", eiaType.getType());
+				}
+
+				if (eiaType.getUseDescription() != null) {
+					q.setParameter("usedescription", "%"
+							+ eiaType.getUseDescription().toLowerCase() + "%");
+				}
 			}
 
-			if (eiaType.getCode() != null) {
-			}
-
-			if (eiaType.getDescription() != null) {
-			}
-
-			if (eiaType.getEiaUmdns() != null) {
-			}
-
-			if (eiaType.getManufacturer() != null) {
-			}
-
-			if (eiaType.getMobility() != null) {
-			}
-
-			if (eiaType.getModel() != null) {
-			}
-
-			if (eiaType.getName() != null) {
-				q.setParameter("name", "%"+eiaType.getName()+"%");
-			}
-
-			if (eiaType.getSubtype() != null) {
-			}
-
-			if (eiaType.getType() != null) {
-			}
-
-			if (eiaType.getUseDescription() != null) {
-			}
+			return q.getResultList();
+		} catch (Exception e) {
+			logger.log(Level.SEVERE,
+					"Error obteniendo buscando los eiaTypes por eiatype", e);
+			throw new EJBException(
+					"Error obteniendo buscando los eiaTypes por eiatype "
+							+ e.getCause().getMessage());
 		}
-		
-		return q.getResultList();
 
 	}
 
@@ -262,29 +243,84 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 	@Override
 	public List<EiaType> find(EiaType eiaType, int offset, int size)
 			throws EJBException {
-		List<EiaType> res = null;
-
-		/*String query = "SELECT e from EiaType e ";
-		String filters = buildFilters(eiaType, null, null);
-
-		if (filters != "")
-			query += " WHERE " + filters;
-		query += " order by id";
-
 		try {
-			res = em.createQuery(query, EiaType.class).setFirstResult(offset)
-					.setMaxResults(size).getResultList();
-		} catch (NoResultException e) {
-			logger.log(Level.INFO, "Find by EiaType: no results", e);
-			res = null;
-		} catch (Exception ex) {
+			CriteriaBuilder cb = em.getCriteriaBuilder();
+			CriteriaQuery<EiaType> c = cb.createQuery(EiaType.class);
+			Root<EiaType> eType = c.from(EiaType.class);
+			c.select(eType);
+
+			Predicate criteria = buildFilters(eiaType, cb, eType);
+			c.where(criteria);
+
+			TypedQuery<EiaType> q;
+
+			if (criteria.getExpressions().size() <= 0) {
+				q = em.createQuery(c);
+			} else {
+				c.where(criteria);
+				q = em.createQuery(c);
+
+				if (eiaType.getBrand() != null) {
+					q.setParameter("brand", eiaType.getBrand());
+				}
+
+				if (eiaType.getCode() != null) {
+					q.setParameter("code", eiaType.getCode());
+				}
+
+				if (eiaType.getDescription() != null) {
+					q.setParameter("description", "%"
+							+ eiaType.getDescription().toLowerCase() + "%");
+				}
+
+				if (eiaType.getEiaUmdns() != null) {
+					q.setParameter("eiaumdns", "%"
+							+ eiaType.getEiaUmdns().toLowerCase() + "%");
+				}
+
+				if (eiaType.getManufacturer() != null) {
+					q.setParameter("manufacturer", eiaType.getManufacturer());
+				}
+
+				if (eiaType.getMobility() != null) {
+					q.setParameter("mobility", eiaType.getMobility());
+				}
+
+				if (eiaType.getModel() != null) {
+					q.setParameter("model", "%"
+							+ eiaType.getModel().toLowerCase() + "%");
+				}
+
+				if (eiaType.getName() != null) {
+					q.setParameter("name", "%"
+							+ eiaType.getName().toLowerCase() + "%");
+				}
+
+				if (eiaType.getSubtype() != null) {
+					q.setParameter("subtype", eiaType.getSubtype());
+				}
+
+				if (eiaType.getType() != null) {
+					q.setParameter("type", eiaType.getType());
+				}
+
+				if (eiaType.getUseDescription() != null) {
+					q.setParameter("usedescription", "%"
+							+ eiaType.getUseDescription().toLowerCase() + "%");
+				}
+			}
+			
+			q.setFirstResult(offset);
+			q.setMaxResults(size);
+			
+			return q.getResultList();
+		} catch (Exception e) {
 			logger.log(Level.SEVERE,
-					"Error obteniendo buscando los eiaTypes por eiatype" , ex);
+					"Error obteniendo buscando los eiaTypes por eiatype", e);
 			throw new EJBException(
 					"Error obteniendo buscando los eiaTypes por eiatype "
-							+ ex.getCause().getMessage());
-		}*/
-		return res;
+							+ e.getCause().getMessage());
+		}
 
 	}
 
@@ -311,11 +347,10 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 	 */
 	@Override
 	public List<EiaType> getAll() throws EJBException {
-
-		String query = "SELECT e from EiaType e order by id";
 		List<EiaType> res = null;
 		try {
-			res = em.createQuery(query, EiaType.class).getResultList();
+			res = em.createNamedQuery("EiaType.getAll", EiaType.class)
+					.getResultList();
 		} catch (NoResultException e) {
 			logger.log(Level.INFO, "No results", e);
 		} catch (Exception ex) {
@@ -333,9 +368,8 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 	@Override
 	public List<EiaType> getAll(int offset, int size) throws EJBException {
 		List<EiaType> res = null;
-		String query = "SELECT e from EiaType e order by id";
 		try {
-			res = em.createQuery(query, EiaType.class).setFirstResult(offset)
+			res = em.createNamedQuery("EiaType.getAll", EiaType.class).setFirstResult(offset)
 					.setMaxResults(size).getResultList();
 		} catch (NoResultException e) {
 			logger.log(Level.INFO, "Get All: no results", e);
@@ -384,7 +418,8 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 			return res;
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to update eiatype", e);
-			throw new EJBException("Error actualizando EiaType " +e.getCause().getMessage());
+			throw new EJBException("Error actualizando EiaType "
+					+ e.getCause().getMessage());
 		}
 	}
 
