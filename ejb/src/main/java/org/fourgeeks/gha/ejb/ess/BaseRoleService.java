@@ -42,7 +42,7 @@ public class BaseRoleService implements BaseRoleServiceRemote {
 	public List<BaseRole> find(BaseRole baseRole) throws EJBException {
 		try {
 			return em.createNamedQuery("BaseRole.findByName", BaseRole.class)
-					.setParameter("name", baseRole.getName()).getResultList();
+					.setParameter("name", baseRole.getName().toLowerCase()).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding BaseRole by BaseRole", e);
 			throw new EJBException("Error buscando BaseRole por BaseRole "

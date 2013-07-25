@@ -5,6 +5,8 @@ package org.fourgeeks.gha.domain.gmh;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -17,6 +19,12 @@ import org.fourgeeks.gha.domain.AbstractEntity;
 
 @Entity
 @Table(name = "brand", uniqueConstraints = @UniqueConstraint(columnNames = { "name" }))
+@NamedQueries(value = { 
+		@NamedQuery(name = "Brand.getAll", 
+				query = "SELECT e from Brand e order by e.name"),
+		@NamedQuery(name = "Brand.findByName",
+				query = "SELECT e from Brand e where lower(e.name) like :name")
+})
 public class Brand extends AbstractEntity {
 
 	/**
