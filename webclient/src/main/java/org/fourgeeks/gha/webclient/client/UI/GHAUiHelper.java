@@ -37,7 +37,7 @@ public abstract class GHAUiHelper {
 	private static final int MIN_BOTTOM_SECTION_HEIGHT = 260;
 	// NO ESTAN TOTALMENTE MEDIDAS CON LA INTERFAZ
 	
-	public static final int MIN_GRID_SIZE = 180;
+	public static final int MIN_GRID_SIZE = 170;
 
 	public static final int INNER_TOP_SECTION_HEIGHT = 120;
 	public static final int V_SEPARATOR_HEIGHT = 10;
@@ -50,7 +50,6 @@ public abstract class GHAUiHelper {
 		return separator;
 	}
 	
-//	TO-DO: No se muestra, si agrega el elemento pero no se muestra de color
 	public static HLayout horizontalGraySeparator(String width) {
 		HLayout separator = new HLayout();
 		separator.setHeight100();
@@ -58,7 +57,6 @@ public abstract class GHAUiHelper {
 		separator.setBackgroundColor("#666666");
 		return separator;
 	}
-//	//////////////////////////////
 
 	public static int getTabHeight() {
 		int rootPanelHeight = Window.getClientHeight();

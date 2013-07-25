@@ -168,5 +168,6 @@ public class HomePlace extends GHAPlace {
 		menuButton.setStylePrimaryName("gha-main-menu");
 		menuButton.setZIndex(33333333);
 		GHATabSet.addMenu(menuButton);
+		History.newItem("edt");
 	}
 }
