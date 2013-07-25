@@ -9,7 +9,6 @@ import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -53,14 +52,12 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 
 		if (entity.getBrand() != null) {
 			ParameterExpression<Brand> p = cb.parameter(Brand.class, "brand");
-			criteria = cb
-					.and(criteria, cb.equal(root.<Brand> get("brand"), p));
+			criteria = cb.and(criteria, cb.equal(root.<Brand> get("brand"), p));
 		}
 
 		if (entity.getCode() != null) {
 			ParameterExpression<String> p = cb.parameter(String.class, "code");
-			criteria = cb
-					.and(criteria, cb.equal(root.<String> get("code"), p));
+			criteria = cb.and(criteria, cb.equal(root.<String> get("code"), p));
 		}
 
 		if (entity.getDescription() != null) {
@@ -309,10 +306,10 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 							+ eiaType.getUseDescription().toLowerCase() + "%");
 				}
 			}
-			
+
 			q.setFirstResult(offset);
 			q.setMaxResults(size);
-			
+
 			return q.getResultList();
 		} catch (Exception e) {
 			logger.log(Level.SEVERE,
@@ -347,17 +344,13 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 	 */
 	@Override
 	public List<EiaType> getAll() throws EJBException {
-		List<EiaType> res = null;
 		try {
-			res = em.createNamedQuery("EiaType.getAll", EiaType.class)
+			return em.createNamedQuery("EiaType.getAll", EiaType.class)
 					.getResultList();
-		} catch (NoResultException e) {
-			logger.log(Level.INFO, "No results", e);
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all eiatypes", ex);
 			throw new EJBException("Error obteniendo todos los eiaTypes");
 		}
-		return res;
 	}
 
 	/*
@@ -367,19 +360,14 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 	 */
 	@Override
 	public List<EiaType> getAll(int offset, int size) throws EJBException {
-		List<EiaType> res = null;
 		try {
-			res = em.createNamedQuery("EiaType.getAll", EiaType.class).setFirstResult(offset)
-					.setMaxResults(size).getResultList();
-		} catch (NoResultException e) {
-			logger.log(Level.INFO, "Get All: no results", e);
+			return em.createNamedQuery("EiaType.getAll", EiaType.class)
+					.setFirstResult(offset).setMaxResults(size).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retriving all EitaTypes", ex);
 			throw new EJBException(
 					"Error obteniendo todos los eiaTypes paginado");
 		}
-
-		return res;
 
 	}
 
