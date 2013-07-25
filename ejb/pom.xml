@@ -12,29 +12,34 @@
 	<packaging>ejb</packaging>
 
 	<dependencies>
-
 		<dependency>
 			<groupId>gha</groupId>
 			<artifactId>domain</artifactId>
 			<version>1</version>
 		</dependency>
-
 		<dependency>
-			<groupId>com.bm</groupId>
-			<artifactId>ejb3unit</artifactId>
-			<version>1.1.1</version>
-			<scope>compile</scope>
+			<groupId>org.apache.openejb</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>6.0-4</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.11</version>
-			<scope>compile</scope>
+			<version>4.10</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.openejb</groupId>
+			<artifactId>openejb-core</artifactId>
+			<version>4.6.0-SNAPSHOT</version>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>9.1-901.jdbc4</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
@@ -71,18 +76,22 @@
 					</clientExcludes>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.0</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 	<repositories>
 		<repository>
-			<id>maven-repo</id>
-			<name>Maven repository</name>
-			<url>http://repo1.maven.org/maven2/</url>
-		</repository>
-		<repository>
-			<id>ejb3unit</id>
-			<name>Wicket repository</name>
-			<url>http://ejb3unit.sourceforge.net/maven2</url>
+			<id>apache-m2-snapshot</id>
+			<name>Apache Snapshot Repository</name>
+			<url>http://repository.apache.org/snapshots</url>
 		</repository>
 	</repositories>
 </project>
