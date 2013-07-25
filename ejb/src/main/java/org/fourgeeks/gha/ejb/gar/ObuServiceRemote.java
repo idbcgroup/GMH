@@ -6,6 +6,9 @@ package org.fourgeeks.gha.ejb.gar;
 import java.util.List;
 
 import javax.ejb.Remote;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gar.Obu;
@@ -16,6 +19,16 @@ import org.fourgeeks.gha.domain.gar.Obu;
  */
 @Remote
 public interface ObuServiceRemote {
+	
+	/**
+	 * @param entity
+	 * @param cb
+	 * @param root
+	 * @return
+	 */
+	public Predicate buildFilters(Obu entity, CriteriaBuilder cb,
+			Root<Obu> root);
+	
 	/**
 	 * @param Id
 	 * @throws EJBException

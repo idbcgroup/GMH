@@ -155,10 +155,10 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 		try {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<EiaType> c = cb.createQuery(EiaType.class);
-			Root<EiaType> eType = c.from(EiaType.class);
-			c.select(eType);
+			Root<EiaType> root = c.from(EiaType.class);
+			c.select(root);
 
-			Predicate criteria = buildFilters(eiaType, cb, eType);
+			Predicate criteria = buildFilters(eiaType, cb, root);
 			c.where(criteria);
 
 			TypedQuery<EiaType> q;
