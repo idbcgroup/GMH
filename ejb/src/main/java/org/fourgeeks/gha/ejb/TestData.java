@@ -1,5 +1,6 @@
 package org.fourgeeks.gha.ejb;
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -87,7 +88,7 @@ public class TestData {
 		eiaTypeTestData();
 		eiaTestData();
 	}
-
+	
 	private void externalProviderTestData() {
 		String query = "SELECT t from ExternalProvider t WHERE id = 1 ";
 		try {
@@ -373,49 +374,90 @@ public class TestData {
 				logger.info("creating test eia");
 
 				Facility facility = new Facility();
-				facility.setBuildingLocation(em
-						.find(BuildingLocation.class, "Building 000"));
+				facility.setBuildingLocation(em.find(BuildingLocation.class,
+						"Building 000"));
 				em.persist(facility);
 				em.flush();
-				
-				Obu obu = em.find(Obu.class, 2L);
-				BuildingLocation bLocation = em.find(BuildingLocation.class, "Building 000");
-				ExternalProvider eProvider = em.find(ExternalProvider.class, 1L);
-				BaseRole bRole = em.find(BaseRole.class, 1L);
 
-				Eia eia = new Eia(bRole, eiaTypeServ.find(1), bLocation,
-						bLocation, obu, EiaStateEnum.CREATED);
+				Obu obu0 = em.find(Obu.class, 2L);
+				BuildingLocation bLocation0 = em.find(BuildingLocation.class,
+						"Building 000");
+				ExternalProvider eProvider = em
+						.find(ExternalProvider.class, 1L);
+				BaseRole bRole1 = em.find(BaseRole.class, 1L);
+
+				Eia eia = new Eia(bRole1, eiaTypeServ.find(1), bLocation0,
+						bLocation0, obu0, EiaStateEnum.CREATED);
 				eia.setCode("Stylus-001");
 				eia.setSerialNumber("001");
 				eia.setProvider(eProvider);
+				eia.setCode("p-001");
 				em.persist(eia);
 
-				Eia eia2 = new Eia(bRole, eiaTypeServ.find(2),
-						bLocation, bLocation, obu,
-						EiaStateEnum.CREATED);
+				Eia eia2 = new Eia(bRole1, eiaTypeServ.find(2), bLocation0,
+						bLocation0, obu0, EiaStateEnum.CREATED);
 				eia2.setProvider(eProvider);
+				eia2.setCode("p-002");
 
-				Eia eia3 = new Eia(bRole, eiaTypeServ.find(3),
-						bLocation, bLocation, obu,
-						EiaStateEnum.CREATED);
+				Eia eia3 = new Eia(bRole1, eiaTypeServ.find(3), bLocation0,
+						bLocation0, obu0, EiaStateEnum.CREATED);
 				eia3.setProvider(eProvider);
+				eia3.setCode("p-003");
 
-				Eia eia4 = new Eia(bRole, eiaTypeServ.find(4),
-						bLocation, bLocation, obu,
-						EiaStateEnum.CREATED);
-				eia4.setObu(obu);
+				Eia eia4 = new Eia(bRole1, eiaTypeServ.find(4), bLocation0,
+						bLocation0, obu0, EiaStateEnum.CREATED);
 				eia4.setProvider(eProvider);
+				eia4.setCode("p-004");
 
-				Eia eia5 = new Eia(bRole, eiaTypeServ.find(5),
-						bLocation, bLocation, obu,
-						EiaStateEnum.CREATED);
-				eia5.setObu(obu);
+				Eia eia5 = new Eia(bRole1, eiaTypeServ.find(5), bLocation0,
+						bLocation0, obu0, EiaStateEnum.CREATED);
 				eia5.setProvider(eProvider);
+				eia5.setCode("p-005");
 
 				em.persist(eia2);
 				em.persist(eia3);
 				em.persist(eia4);
 				em.persist(eia5);
+				em.flush();
+
+				Obu obu1 = em.find(Obu.class, 1L);
+				BuildingLocation bLocation1 = em.find(BuildingLocation.class, "Building 001");
+				Eia eia6 = new Eia(bRole1, eiaTypeServ.find(1L), bLocation1,
+						bLocation0, obu1,
+						EiaStateEnum.CREATED);
+				eia6.setProvider(eProvider);
+				eia6.setCode("p-006");
+				em.persist(eia6);
+				em.flush();
+				
+				Eia eia7 = new Eia(bRole1, eiaTypeServ.find(1L), bLocation0,
+						bLocation0, obu1, EiaStateEnum.ACQUIRED);
+				eia7.setProvider(eProvider);
+				eia7.setCode("p-007");
+				em.persist(eia7);
+				em.flush();
+				
+				Eia eia8 = new Eia(bRole1, eiaTypeServ.find(1L), bLocation0,
+						bLocation0, obu1, EiaStateEnum.ACQUIRED);
+				eia8.setProvider(eProvider);
+				eia8.setCode("p-008");
+				em.persist(eia8);
+				em.flush();
+				
+				System.out.println("BLOCATION 1");
+				Eia searchEia = new Eia();
+				searchEia.setBuildingLocation(bLocation1);
+				List<Eia> res = eiaServ.find(searchEia);
+				for (Eia next : res) {
+					System.out.println(next.getCode());
+				}
+				
+				System.out.println("BLOCATION 0");
+				searchEia.setBuildingLocation(bLocation0);
+				res = eiaServ.find(searchEia);
+				for (Eia next : res) {
+					System.out.println(next.getCode());
+				}
 
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error creating test eia", e);

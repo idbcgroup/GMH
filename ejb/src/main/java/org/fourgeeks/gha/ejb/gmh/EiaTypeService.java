@@ -154,20 +154,18 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 
 		try {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
-			CriteriaQuery<EiaType> c = cb.createQuery(EiaType.class);
-			Root<EiaType> root = c.from(EiaType.class);
-			c.select(root);
+			CriteriaQuery<EiaType> cQuery = cb.createQuery(EiaType.class);
+			Root<EiaType> root = cQuery.from(EiaType.class);
+			cQuery.select(root);
 
 			Predicate criteria = buildFilters(entity, cb, root);
-			c.where(criteria);
-
 			TypedQuery<EiaType> q;
 
 			if (criteria.getExpressions().size() <= 0) {
-				q = em.createQuery(c);
+				q = em.createQuery(cQuery);
 			} else {
-				c.where(criteria);
-				q = em.createQuery(c);
+				cQuery.where(criteria);
+				q = em.createQuery(cQuery);
 
 				if (entity.getBrand() != null) {
 					q.setParameter("brand", entity.getBrand());
@@ -222,9 +220,9 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 			return q.getResultList();
 		} catch (Exception e) {
 			logger.log(Level.SEVERE,
-					"Error obteniendo buscando los eiaTypes por eiatype", e);
+					"Error obteniendo los eiaTypes por eiatype", e);
 			throw new EJBException(
-					"Error obteniendo buscando los eiaTypes por eiatype "
+					"Error obteniendo los eiaTypes por eiatype "
 							+ e.getCause().getMessage());
 		}
 

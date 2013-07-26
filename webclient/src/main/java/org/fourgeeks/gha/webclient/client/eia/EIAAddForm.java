@@ -34,7 +34,6 @@ import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
-import com.google.gwt.user.client.Window;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.Label;
@@ -579,7 +578,7 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler,
 
 		eia.setEiaType(this.eiaType);
 		if (this.eiaType == null) {
-			Window.alert("Select EiaType First");
+			//TODO: Use gha info Window.alert("Select EiaType First");
 			return;
 		}
 
@@ -592,7 +591,7 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler,
 			obu.setId(Integer.valueOf(obuSelectItem.getValueAsString()));
 			eia.setObu(obu);
 		} else {
-			Window.alert("Select Obu First");
+			//TODO Use gha info Window.alert("Select Obu First");
 			return;
 		}
 
@@ -602,7 +601,7 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler,
 					.getValueAsString()));
 			eia.setResponsibleRole(baseRole);
 		} else {
-			Window.alert("Select BaseRole First");
+			//TODO Use gha info Window.alert("Select BaseRole First");
 			return;
 		}
 
@@ -610,7 +609,7 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler,
 			eia.setState(EiaStateEnum.valueOf(stateSelectItem
 					.getValueAsString()));
 		} else {
-			Window.alert("Select EiaState First");
+			//TODO Use gha info Window.alert("Select EiaState First");
 			return;
 		}
 
@@ -631,7 +630,7 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler,
 			eia.setProvider(new ExternalProvider(Integer
 					.valueOf(providerSelectItem.getValueAsString())));
 		} else {
-			Window.alert("Select Provider First");
+			//TODO Use gha info Window.alert("Select Provider First");
 			return;
 		}
 
@@ -651,12 +650,12 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler,
 					eia.setAttendedLocation(new BuildingLocation(
 							attendedLocationSelectItem.getValueAsString()));
 				} else {
-					Window.alert("Select Attended Building Location First");
+					//TODO Use gha info Window.alert("Select Attended Building Location First");
 					return;
 				}
 			}
 		} else {
-			Window.alert("Select Building Location first");
+			//TODO Use gha info Window.alert("Select Building Location first");
 			return;
 		}
 

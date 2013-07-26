@@ -26,7 +26,7 @@ import org.fourgeeks.gha.domain.glm.ExternalProvider;
 @NamedQueries(value = { 
 		@NamedQuery(name = "Eia.getAll", 
 				query = "SELECT e from Eia e order by e.id"),
-		@NamedQuery(name = "Eia.findByEiaTypeId",
+		@NamedQuery(name = "Eia.findByEiaType",
 				query = "SELECT e from Eia e WHERE e.eiaType = :eiaType")
 })
 public class Eia extends AbstractEntity {
