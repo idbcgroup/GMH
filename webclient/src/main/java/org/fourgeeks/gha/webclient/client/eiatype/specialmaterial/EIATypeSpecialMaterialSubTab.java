@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eiatype.replacements;
+package org.fourgeeks.gha.webclient.client.eiatype.specialmaterial;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
@@ -6,16 +6,16 @@ import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.smartgwt.client.widgets.tab.Tab;
 
-public class EIATypeReplacementsSubTab extends Tab 
+public class EIATypeSpecialMaterialSubTab extends Tab 
 		implements EIATypeSelectionListener, GHAClosable{
 	
-	private EIATypeReplacementsGridPanel eiaTypeRepuestosGridPanel = new EIATypeReplacementsGridPanel();
+	private EIATypeSpecialMaterialGridPanel eiaTypeSpecialMaterialGridPanel = new EIATypeSpecialMaterialGridPanel();
 	
-	public EIATypeReplacementsSubTab() {
-		setTitle("Repuestos");
+	public EIATypeSpecialMaterialSubTab() {
+		setTitle("Materiales Especiales");
 		setPaneMargin(0);
 		
-		setPane(eiaTypeRepuestosGridPanel);
+		setPane(eiaTypeSpecialMaterialGridPanel);
 	}
 
 	@Override

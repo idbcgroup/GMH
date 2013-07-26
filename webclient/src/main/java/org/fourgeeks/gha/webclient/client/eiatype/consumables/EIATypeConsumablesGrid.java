@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eiatype.replacements;
+package org.fourgeeks.gha.webclient.client.eiatype.consumables;
 
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
@@ -15,7 +15,7 @@ import com.smartgwt.client.widgets.grid.ListGrid;
 import com.smartgwt.client.widgets.grid.ListGridField;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
 
-public class EIATypeSpecialMaterialGrid extends ListGrid implements ResizeHandler {
+public class EIATypeConsumablesGrid extends ListGrid implements ResizeHandler{
 
 	@Override
 	protected Canvas createRecordComponent(final ListGridRecord record, Integer colNum) {  
@@ -41,15 +41,15 @@ public class EIATypeSpecialMaterialGrid extends ListGrid implements ResizeHandle
 
     }
 	
-	public EIATypeSpecialMaterialGrid() {
+	public EIATypeConsumablesGrid() {
 		GHAUiHelper.addResizeHandler(this);
 		setWidth100();
-		setHeight(GHAUiHelper.getGridSize(50));
+		setHeight(GHAUiHelper.getGridSize(30));	
 		setEmptyMessage("No existe material para mostrar.");
 
 		setAlternateRecordStyles(false);
 		setCanResizeFields(false);
-		setShowFilterEditor(true);
+//		setShowFilterEditor(true);
 
 		ListGridField idGridField = new ListGridField("id", "No");
 		idGridField.setAlign(Alignment.CENTER);
@@ -57,10 +57,10 @@ public class EIATypeSpecialMaterialGrid extends ListGrid implements ResizeHandle
 		ListGridField codMatGridField = new ListGridField("codMat", "Cód. Material");
 		codMatGridField.setAlign(Alignment.CENTER);
 		
-		ListGridField nameGridField = new ListGridField("nameMaterial", "Nombre Material Especial");
+		ListGridField nameGridField = new ListGridField("nameMaterial", "Nombre Material");
 		nameGridField.setAlign(Alignment.CENTER);
 		
-		ListGridField usoMaterialGridField = new ListGridField("usoMaterial", "Uso y Precauciones");
+		ListGridField usoMaterialGridField = new ListGridField("usoMaterial", "Uso del Material");
 		usoMaterialGridField.setAlign(Alignment.CENTER);
 		
 		ListGridField typeGridField = new ListGridField("type", "Tipo");
@@ -80,13 +80,14 @@ public class EIATypeSpecialMaterialGrid extends ListGrid implements ResizeHandle
 		
 		ListGridField availableGridField = new ListGridField("available", "Disponibles");
 		availableGridField.setAlign(Alignment.CENTER);
+			
 
 		setFields(idGridField, codMatGridField, nameGridField, usoMaterialGridField, typeGridField, cantGridField, facilityGridField,freqGridField, usesGridField, availableGridField);
 	}
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getGridSize(50));	
+		setHeight(GHAUiHelper.getGridSize(30));	
 	}
 
 }

@@ -45,7 +45,7 @@ public class EIASpecialMaterialGrid extends ListGrid {
 
 		setAlternateRecordStyles(false);
 		setCanResizeFields(false);
-		setShowFilterEditor(true);
+//		setShowFilterEditor(true);
 
 		ListGridField idGridField = new ListGridField("id", "No");
 		idGridField.setAlign(Alignment.CENTER);

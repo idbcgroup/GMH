@@ -49,7 +49,7 @@ public class EIATypeMaintenanceProtocolGrid extends ListGrid implements ResizeHa
 
 		setAlternateRecordStyles(false);
 		setCanResizeFields(false);
-		setShowFilterEditor(true);
+//		setShowFilterEditor(true);
 
 		ListGridField idGridField = new ListGridField("id", "No. Sec.");
 		idGridField.setAlign(Alignment.CENTER);

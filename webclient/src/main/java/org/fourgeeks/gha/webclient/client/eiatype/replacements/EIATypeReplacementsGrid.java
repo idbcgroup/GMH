@@ -44,12 +44,12 @@ public class EIATypeReplacementsGrid extends ListGrid implements ResizeHandler{
 	public EIATypeReplacementsGrid() {
 		GHAUiHelper.addResizeHandler(this);
 		setWidth100();
-		setHeight(GHAUiHelper.getGridSize(50));
+		setHeight(GHAUiHelper.getGridSize(30));	
 		setEmptyMessage("No existen repuestos para mostrar.");
 
 		setAlternateRecordStyles(false);
 		setCanResizeFields(false);
-		setShowFilterEditor(true);
+//		setShowFilterEditor(true);
 
 		ListGridField idGridField = new ListGridField("id", "No");
 		idGridField.setAlign(Alignment.CENTER);
@@ -81,7 +81,7 @@ public class EIATypeReplacementsGrid extends ListGrid implements ResizeHandler{
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getGridSize(50));	
+		setHeight(GHAUiHelper.getGridSize(30));	
 	}
 
 }

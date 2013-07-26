@@ -4,10 +4,13 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.eiatype.component.EIATypeComponentSubTab;
+import org.fourgeeks.gha.webclient.client.eiatype.consumables.EIATypeConsumablesSubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.equipment.EIATypeEquipmentSubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.information.EIATypeInformationSubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.maintenance.EIATypeMaintenanceSubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.replacements.EIATypeReplacementsSubTab;
+import org.fourgeeks.gha.webclient.client.eiatype.services.EIATypeServicesSubTab;
+import org.fourgeeks.gha.webclient.client.eiatype.specialmaterial.EIATypeSpecialMaterialSubTab;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
@@ -20,6 +23,9 @@ public class EIATypeInternalTabset extends TabSet implements
 	private EIATypeEquipmentSubTab equipementsSubTab;
 	private EIATypeComponentSubTab partsSubTab;
 	private EIATypeReplacementsSubTab replacementsSubTab;
+	private EIATypeConsumablesSubTab consumablesSubTab;
+	private EIATypeServicesSubTab servicesSubTab;
+	private EIATypeSpecialMaterialSubTab specialMaterialSubTab;
 	private EIATypeMaintenanceSubTab maintenanceSubTab;
 
 	public EIATypeInternalTabset(EIATypeTab tab) {
@@ -32,6 +38,9 @@ public class EIATypeInternalTabset extends TabSet implements
 		infoSubTab = new EIATypeInformationSubTab(tab);
 		partsSubTab = new EIATypeComponentSubTab();
 		replacementsSubTab = new EIATypeReplacementsSubTab();
+		consumablesSubTab = new EIATypeConsumablesSubTab();
+		servicesSubTab = new EIATypeServicesSubTab();
+		specialMaterialSubTab = new EIATypeSpecialMaterialSubTab();
 		maintenanceSubTab = new EIATypeMaintenanceSubTab();
 		
 		// Agregando las Subtabs
@@ -39,6 +48,9 @@ public class EIATypeInternalTabset extends TabSet implements
 		addTab(equipementsSubTab);
 		addTab(partsSubTab);
 		addTab(replacementsSubTab);
+		addTab(consumablesSubTab);
+		addTab(servicesSubTab);
+		addTab(specialMaterialSubTab);
 		addTab(maintenanceSubTab);
 	}
 
@@ -49,6 +61,9 @@ public class EIATypeInternalTabset extends TabSet implements
 		equipementsSubTab.select(eiaType);
 		partsSubTab.select(eiaType);
 		replacementsSubTab.select(eiaType);
+		consumablesSubTab.select(eiaType);
+		servicesSubTab.select(eiaType);
+		specialMaterialSubTab.select(eiaType);
 		maintenanceSubTab.select(eiaType);
 	}
 
@@ -58,6 +73,9 @@ public class EIATypeInternalTabset extends TabSet implements
 		equipementsSubTab.close();
 		partsSubTab.close();
 		replacementsSubTab.close();
+		consumablesSubTab.close();
+		servicesSubTab.close();
+		specialMaterialSubTab.close();
 		maintenanceSubTab.close();
 	}
 

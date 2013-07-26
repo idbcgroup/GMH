@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eiatype.replacements;
+package org.fourgeeks.gha.webclient.client.eiatype.services;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
@@ -6,16 +6,16 @@ import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.smartgwt.client.widgets.tab.Tab;
 
-public class EIATypeReplacementsSubTab extends Tab 
+public class EIATypeServicesSubTab extends Tab 
 		implements EIATypeSelectionListener, GHAClosable{
 	
-	private EIATypeReplacementsGridPanel eiaTypeRepuestosGridPanel = new EIATypeReplacementsGridPanel();
+	private EIATypeServicesGridPanel eiaTypeServicesGridPanel = new EIATypeServicesGridPanel();
 	
-	public EIATypeReplacementsSubTab() {
-		setTitle("Repuestos");
+	public EIATypeServicesSubTab() {
+		setTitle("Servicios");
 		setPaneMargin(0);
 		
-		setPane(eiaTypeRepuestosGridPanel);
+		setPane(eiaTypeServicesGridPanel);
 	}
 
 	@Override

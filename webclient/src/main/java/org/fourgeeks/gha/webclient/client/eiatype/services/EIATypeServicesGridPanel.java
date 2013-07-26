@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eiatype.replacements;
+package org.fourgeeks.gha.webclient.client.eiatype.services;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
@@ -11,17 +11,16 @@ import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIATypeReplacementsGridPanel extends VLayout implements EIATypeSelectionListener{
+public class EIATypeServicesGridPanel extends VLayout implements EIATypeSelectionListener{
 
-	private EIATypeReplacementsGrid eiaTypeRepuestosGrid = new EIATypeReplacementsGrid();
+	private EIATypeServicesGrid eiaTypeServicesGrid = new EIATypeServicesGrid();
 	
-	public EIATypeReplacementsGridPanel() {
+	public EIATypeServicesGridPanel() {
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding top-padding");// Esto es VUDU!
 		
-		
-		Label title = new Label("<h3>Repuestos</h3>");
+		Label title = new Label("<h3>Servicios de EIA</h3>");
 		title.setHeight(35);
 		title.setWidth100();
 		title.setStyleName("title-label");
@@ -46,9 +45,9 @@ public class EIATypeReplacementsGridPanel extends VLayout implements EIATypeSele
 //						History.newItem("eia/" + selectedRecord.getCode());
 					}
 				}));
-	    
+
 	    HLayout mainPanel = new HLayout();
-		mainPanel.addMembers(eiaTypeRepuestosGrid, sideButtons);
+		mainPanel.addMembers(eiaTypeServicesGrid, sideButtons);
 		
 		addMembers(title, mainPanel);
 	}
