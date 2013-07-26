@@ -9,7 +9,6 @@ import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
@@ -154,18 +153,13 @@ public class EiaService implements EiaServiceRemote {
 	 */
 	@Override
 	public List<Eia> getAll() throws EJBException {
-		String query = "SELECT e from Eia e";
-		List<Eia> res = null;
 		try{
-			res = em.createQuery(query, Eia.class).getResultList();
-		}catch(NoResultException ex){
-			logger.log(Level.INFO, "Get all eias, No results", ex);
+			return em.createNamedQuery("Eia.getAll", Eia.class).getResultList();
 		}catch(Exception ex){
 			logger.log(Level.SEVERE, "Error retrieving all eias", ex);
 			throw new EJBException("Error obteniendo todos los eias" +
 					ex.getCause().getMessage());
 		}
-		return res;
 	}
 
 	/* (non-Javadoc)
@@ -173,20 +167,14 @@ public class EiaService implements EiaServiceRemote {
 	 */
 	@Override
 	public List<Eia> getAll(int offset, int size) throws EJBException {
-		String query = "SELECT e from Eia e order by id";
-		List<Eia> res = null;
 		try{
-			res = em.createQuery(query, Eia.class).setFirstResult(offset)
+			return em.createNamedQuery("Eia.getAll", Eia.class).setFirstResult(offset)
 					.setMaxResults(size).getResultList();
-			logger.info("Get all Eias");
-		}catch(NoResultException ex){
-			logger.log(Level.INFO, "Get all eias, No results", ex);
 		}catch(Exception ex){
 			logger.log(Level.SEVERE, "Error retrieving all eias", ex);
 			throw new EJBException("Error obteniendo todos los eias" +
 					ex.getCause().getMessage());
 		}
-		return res;
 	}
 
 	/* (non-Javadoc)

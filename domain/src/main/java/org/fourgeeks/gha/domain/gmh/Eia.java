@@ -7,6 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.CurrencyTypeEnum;
@@ -21,6 +23,12 @@ import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
 
 @Entity
+@NamedQueries(value = { 
+		@NamedQuery(name = "Eia.getAll", 
+				query = "SELECT e from Eia e order by e.id"),
+		@NamedQuery(name = "Eia.findByEiaTypeId",
+				query = "SELECT e from Eia e WHERE e.eiaType = :eiaType")
+})
 public class Eia extends AbstractEntity {
 
 	/**
