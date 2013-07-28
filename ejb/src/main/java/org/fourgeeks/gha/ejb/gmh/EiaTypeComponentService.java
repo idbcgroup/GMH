@@ -61,7 +61,7 @@ public class EiaTypeComponentService implements EiaTypeComponentServiceRemote {
 	@Override
 	public List<EiaTypeComponent> find(EiaType eiaType) throws EJBException {
 		TypedQuery<EiaTypeComponent> query =
-				em.createNamedQuery("EiaTypeComponent.findByEiaType", EiaTypeComponent.class);
+				em.createNamedQuery("EiaTypeComponent.findByParentEiaType", EiaTypeComponent.class);
 		query.setParameter("eiaType", eiaType);
 		return query.getResultList();
 	}

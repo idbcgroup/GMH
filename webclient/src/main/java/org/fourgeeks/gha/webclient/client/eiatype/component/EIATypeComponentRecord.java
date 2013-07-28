@@ -16,6 +16,7 @@ public class EIATypeComponentRecord
 	public void setEiaTypeComponent(EiaTypeComponent eiaTypeComponent) {
 		this.eiaTypeComponent = eiaTypeComponent;
 		EiaType eiaType = this.eiaTypeComponent.getEiaType();
+		setId(this.eiaTypeComponent.getId());
 		setCode(eiaType.getCode());
 		setName(eiaType.getName());
 		if (eiaType.getBrand() != null)
@@ -23,8 +24,8 @@ public class EIATypeComponentRecord
 		setModel(eiaType.getModel());
 		if (eiaType.getManufacturer() != null)
 			setManufacturer(eiaType.getManufacturer().getName());
-		setRequired(String.valueOf(this.eiaTypeComponent.isComponentRequired()));
-		setReplaceable(String.valueOf(this.eiaTypeComponent.isComponentReplaceable()));
+		setRequired(this.eiaTypeComponent.isComponentRequired());
+		setReplaceable(this.eiaTypeComponent.isComponentReplaceable());
 	}
 	public void setName(String name) {
 		setAttribute("name", name);
@@ -66,7 +67,7 @@ public class EIATypeComponentRecord
 		return getAttributeAsString("manufacturer");
 	}
 
-	public void setRequired(String required) {
+	public void setRequired(boolean required) {
 		setAttribute("required", required);
 	}
 	
@@ -74,7 +75,7 @@ public class EIATypeComponentRecord
 		return getAttributeAsString("required");
 	}
 
-	public void setReplaceable(String replaceable) {
+	public void setReplaceable(boolean replaceable) {
 		setAttribute("replaceable", replaceable);
 	}
 	

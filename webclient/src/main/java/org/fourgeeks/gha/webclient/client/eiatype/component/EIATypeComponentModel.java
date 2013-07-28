@@ -18,6 +18,11 @@ public class EIATypeComponentModel {
 				"Esta clase no debe ser instanciada");
 	}
 	
+	public static void delete(long id,
+			GHAAsyncCallback<Void> callback) {
+		service.delete(id, callback);
+	}
+	
 	public static void find(EiaType eiaType,
 			GHAAsyncCallback<List<EiaTypeComponent>> callback) {
 		service.find(eiaType, callback);
@@ -26,6 +31,11 @@ public class EIATypeComponentModel {
 	public static void save(EiaTypeComponent eiaTypeComponent,
 			GHAAsyncCallback<EiaTypeComponent> callback) {
 		service.save(eiaTypeComponent, callback);
+	}
+	
+	public static void update(EiaTypeComponent eiaTypeComponent,
+			GHAAsyncCallback<EiaTypeComponent> callback) {
+		service.update(eiaTypeComponent, callback);
 	}
 	
 }
