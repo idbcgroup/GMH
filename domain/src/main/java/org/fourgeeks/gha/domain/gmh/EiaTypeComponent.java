@@ -20,8 +20,8 @@ import org.fourgeeks.gha.domain.AbstractEntity;
  */
 @Entity
 @NamedQueries({
-	@NamedQuery(name = "EiaTypeComponent.findBy",
-			query = "select etc from EiaTypeComponent etc where etc.eiaType = :eiaType")
+	@NamedQuery(name = "EiaTypeComponent.findByParentEiaType",
+			query = "select etc from EiaTypeComponent etc where etc.parentEiaType = :eiaType order by etc.id")
 })
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "eiaTypeFk",
 		"parentEiaTypeFk" }))
