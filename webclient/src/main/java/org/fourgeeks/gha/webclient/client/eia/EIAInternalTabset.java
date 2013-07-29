@@ -3,27 +3,32 @@ package org.fourgeeks.gha.webclient.client.eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.eia.component.EIAComponentSubTab;
+import org.fourgeeks.gha.webclient.client.eia.consumables.EIAConsumablesSubTab;
 import org.fourgeeks.gha.webclient.client.eia.cost.EIACostSubTab;
-import org.fourgeeks.gha.webclient.client.eia.equipment.EIAEquipmentSubTab;
+import org.fourgeeks.gha.webclient.client.eia.information.EIAInformationSubTab;
 import org.fourgeeks.gha.webclient.client.eia.maintenance.EIAMaintenanceSubTab;
-import org.fourgeeks.gha.webclient.client.eia.maintenance_plan.EIAPlanSubTab;
+import org.fourgeeks.gha.webclient.client.eia.maintenance_plan.EIAMantPlanSubTab;
 import org.fourgeeks.gha.webclient.client.eia.movements.EIAMovementsSubTab;
 import org.fourgeeks.gha.webclient.client.eia.replacements.EIAReplacementsSubTab;
+import org.fourgeeks.gha.webclient.client.eia.services.EIAServicesSubTab;
+import org.fourgeeks.gha.webclient.client.eia.specialmaterial.EIASpecialMaterialSubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
-import com.google.gwt.user.client.ui.RootPanel;
 import com.smartgwt.client.widgets.tab.TabSet;
 
 public class EIAInternalTabset extends TabSet implements
 		EIATypeSelectionListener, ResizeHandler {
 
-	private EIAEquipmentSubTab eiaEquiposSubTab = new EIAEquipmentSubTab();
+	private EIAInformationSubTab eiaInformationSubTab = new EIAInformationSubTab();
 	private EIAComponentSubTab eiaPartesSubTab = new EIAComponentSubTab();
 	private EIAReplacementsSubTab eiaRepuestosSubTab = new EIAReplacementsSubTab();
+	private EIAConsumablesSubTab eiaConsumablesSubTab = new EIAConsumablesSubTab();
+	private EIAServicesSubTab eiaServicesSubTab = new EIAServicesSubTab();
+	private EIASpecialMaterialSubTab eiaSpecialMaterialSubTab = new EIASpecialMaterialSubTab();
 	private EIAMaintenanceSubTab eiaMantenimientoSubTab = new EIAMaintenanceSubTab();
-	private EIAPlanSubTab eiaPlanSubTab = new EIAPlanSubTab();
+	private EIAMantPlanSubTab eiaPlanSubTab = new EIAMantPlanSubTab();
 	private EIACostSubTab eiaCostosSubTab = new EIACostSubTab();
 	private EIAMovementsSubTab eiaMovimientosSubTab = new EIAMovementsSubTab();
 
@@ -38,9 +43,12 @@ public class EIAInternalTabset extends TabSet implements
 		// subtabs
 
 		// Agregando las Subtabs
-		addTab(eiaEquiposSubTab);
+		addTab(eiaInformationSubTab);
 		addTab(eiaPartesSubTab);
 		addTab(eiaRepuestosSubTab);
+		addTab(eiaConsumablesSubTab);
+		addTab(eiaServicesSubTab);
+		addTab(eiaSpecialMaterialSubTab);
 		addTab(eiaMantenimientoSubTab);
 		addTab(eiaPlanSubTab);
 		addTab(eiaCostosSubTab);
@@ -50,9 +58,12 @@ public class EIAInternalTabset extends TabSet implements
 
 	@Override
 	public void select(EiaType eiaType) {
-		eiaEquiposSubTab.select(eiaType);
+		eiaInformationSubTab.select(eiaType);
 		eiaPartesSubTab.select(eiaType);
 		eiaRepuestosSubTab.select(eiaType);
+		eiaConsumablesSubTab.select(eiaType);
+		eiaServicesSubTab.select(eiaType);
+		eiaSpecialMaterialSubTab.select(eiaType);
 		eiaMantenimientoSubTab.select(eiaType);
 		eiaPlanSubTab.select(eiaType);
 		eiaCostosSubTab.select(eiaType);
@@ -62,8 +73,6 @@ public class EIAInternalTabset extends TabSet implements
 	@Override
 	public void onResize(ResizeEvent event) {
 		setHeight(GHAUiHelper.getBottomSectionHeight());
-		RootPanel.get("main-content").setHeight(
-				GHAUiHelper.getTabHeight() + "px");
 	}
 
 }

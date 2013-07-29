@@ -1,14 +1,20 @@
 package org.fourgeeks.gha.webclient.client.eia.component;
 
+import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+
+import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.widgets.grid.ListGrid;
 import com.smartgwt.client.widgets.grid.ListGridField;
 
-public class EIAComponentEquiposGrid extends ListGrid{
+public class EIAComponentGrid extends ListGrid implements ResizeHandler{
 
-	public EIAComponentEquiposGrid() {
+	public EIAComponentGrid() {
+		GHAUiHelper.addResizeHandler(this);
+		
 		setWidth100();
-		setHeight("300px");
+		setHeight(GHAUiHelper.getGridSize(30));
 		setEmptyMessage("No existen partes de equipos para mostrar.");
 
 		setAlternateRecordStyles(false);
@@ -49,6 +55,11 @@ public class EIAComponentEquiposGrid extends ListGrid{
 		statusGridField.setAlign(Alignment.CENTER);
 
 		setFields(idGridField, partnumGridField, nameGridField, usoparteGridField, typeGridField, requiredGridField, sustGridField, eiaCodeGridField, eiaSerialGridField, facilityGridField);
+	}
+
+	@Override
+	public void onResize(ResizeEvent event) {
+		setHeight(GHAUiHelper.getGridSize(30));
 	}
 
 }

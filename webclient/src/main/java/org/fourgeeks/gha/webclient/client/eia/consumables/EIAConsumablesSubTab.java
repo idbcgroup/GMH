@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eia.maintenance;
+package org.fourgeeks.gha.webclient.client.eia.consumables;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
@@ -6,16 +6,15 @@ import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.smartgwt.client.widgets.tab.Tab;
 
-public class EIAMaintenanceSubTab extends Tab implements EIATypeSelectionListener, GHAClosable{
+public class EIAConsumablesSubTab extends Tab implements EIATypeSelectionListener, GHAClosable{
 	
-	private EIAMaintenanceGridPanel maintenanceGridPanel = new EIAMaintenanceGridPanel();
+	private EIAConsumablesGridPanel consumablesGridPanel = new EIAConsumablesGridPanel();
 	
-	public EIAMaintenanceSubTab() {
-		
-		setTitle("Mantenimiento y Protocolos");
+	public EIAConsumablesSubTab() {
+		setTitle("Consumibles");
 		setPaneMargin(0);
 		
-		setPane(maintenanceGridPanel);
+		setPane(consumablesGridPanel);
 	}
 
 	@Override
@@ -27,6 +26,6 @@ public class EIAMaintenanceSubTab extends Tab implements EIATypeSelectionListene
 	@Override
 	public void close() {
 		// TODO Auto-generated method stub
-		maintenanceGridPanel.close();
+		consumablesGridPanel.close();
 	}
 }
