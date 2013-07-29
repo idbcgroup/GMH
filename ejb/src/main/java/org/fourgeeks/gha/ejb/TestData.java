@@ -373,14 +373,16 @@ public class TestData {
 				logger.info("creating test eia");
 
 				Facility facility = new Facility();
-				facility.setBuildingLocation(em
-						.find(BuildingLocation.class, "Building 000"));
+				facility.setBuildingLocation(em.find(BuildingLocation.class,
+						"Building 000"));
 				em.persist(facility);
 				em.flush();
-				
+
 				Obu obu = em.find(Obu.class, 2L);
-				BuildingLocation bLocation = em.find(BuildingLocation.class, "Building 000");
-				ExternalProvider eProvider = em.find(ExternalProvider.class, 1L);
+				BuildingLocation bLocation = em.find(BuildingLocation.class,
+						"Building 000");
+				ExternalProvider eProvider = em
+						.find(ExternalProvider.class, 1L);
 				BaseRole bRole = em.find(BaseRole.class, 1L);
 
 				Eia eia = new Eia(bRole, eiaTypeServ.find(1), bLocation,
@@ -390,25 +392,21 @@ public class TestData {
 				eia.setProvider(eProvider);
 				em.persist(eia);
 
-				Eia eia2 = new Eia(bRole, eiaTypeServ.find(2),
-						bLocation, bLocation, obu,
-						EiaStateEnum.CREATED);
+				Eia eia2 = new Eia(bRole, eiaTypeServ.find(2), bLocation,
+						bLocation, obu, EiaStateEnum.CREATED);
 				eia2.setProvider(eProvider);
 
-				Eia eia3 = new Eia(bRole, eiaTypeServ.find(3),
-						bLocation, bLocation, obu,
-						EiaStateEnum.CREATED);
+				Eia eia3 = new Eia(bRole, eiaTypeServ.find(3), bLocation,
+						bLocation, obu, EiaStateEnum.CREATED);
 				eia3.setProvider(eProvider);
 
-				Eia eia4 = new Eia(bRole, eiaTypeServ.find(4),
-						bLocation, bLocation, obu,
-						EiaStateEnum.CREATED);
+				Eia eia4 = new Eia(bRole, eiaTypeServ.find(4), bLocation,
+						bLocation, obu, EiaStateEnum.CREATED);
 				eia4.setObu(obu);
 				eia4.setProvider(eProvider);
 
-				Eia eia5 = new Eia(bRole, eiaTypeServ.find(5),
-						bLocation, bLocation, obu,
-						EiaStateEnum.CREATED);
+				Eia eia5 = new Eia(bRole, eiaTypeServ.find(5), bLocation,
+						bLocation, obu, EiaStateEnum.CREATED);
 				eia5.setObu(obu);
 				eia5.setProvider(eProvider);
 
