@@ -70,7 +70,7 @@ public class GWTEiaTypeComponentServiceImpl extends RemoteServiceServlet impleme
 	 */
 	@Override
 	public List<EiaTypeComponent> findByEiaTypeId(long Id) throws EJBException {
-		return serviceRemote.findByEiaTypeId(Id);
+		return serviceRemote.findByParentEiaTypeId(Id);
 	}
 
 	/* (non-Javadoc)

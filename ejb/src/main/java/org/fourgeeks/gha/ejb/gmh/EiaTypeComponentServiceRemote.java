@@ -8,7 +8,6 @@ import java.util.List;
 import javax.ejb.Remote;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
-import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeComponent;
 
 /**
@@ -19,29 +18,10 @@ import org.fourgeeks.gha.domain.gmh.EiaTypeComponent;
 @Remote
 public interface EiaTypeComponentServiceRemote {
 	/**
-	 * @param eiaType
-	 * @return
-	 */
-	public String buildFilters(EiaType eiaType);
-	/**
 	 * @param Id
 	 * @throws EJBException
 	 */
 	public void delete(long Id) throws EJBException;
-	/**
-	 * @param eiaType
-	 * @return
-	 * @throws EJBException
-	 */
-	public List<EiaTypeComponent> find(EiaType eiaType) throws EJBException;
-	/**
-	 * @param eiaType
-	 * @param offset
-	 * @param size
-	 * @return
-	 * @throws EJBException
-	 */
-	public List<EiaTypeComponent> find(EiaType eiaType, int offset, int size) throws EJBException;
 	/**
 	 * @param Id
 	 * @return
@@ -53,7 +33,7 @@ public interface EiaTypeComponentServiceRemote {
 	 * @return
 	 * @throws EJBException
 	 */
-	public List<EiaTypeComponent> findByEiaTypeId(long Id) throws EJBException;
+	public List<EiaTypeComponent> findByParentEiaTypeId(long Id) throws EJBException;
 	/**
 	 * @return
 	 * @throws EJBException

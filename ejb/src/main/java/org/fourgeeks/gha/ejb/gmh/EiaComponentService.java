@@ -13,7 +13,6 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
-import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaComponent;
 
 /**
@@ -26,8 +25,7 @@ public class EiaComponentService implements EiaComponentServiceRemote {
 	EntityManager em;
 	
 	private final static Logger logger = Logger.getLogger(EiaComponentService.class.getName());
-	
-	
+
 	/* (non-Javadoc)
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaComponentServiceRemote#delete(long)
 	 */
@@ -42,24 +40,6 @@ public class EiaComponentService implements EiaComponentServiceRemote {
 					+ e.getCause().getMessage());
 		}
 
-	}
-
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.EiaComponentServiceRemote#find(org.fourgeeks.gha.domain.gmh.Eia)
-	 */
-	@Override
-	public List<EiaComponent> find(Eia eia) throws EJBException{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.EiaComponentServiceRemote#find(org.fourgeeks.gha.domain.gmh.Eia, int, int)
-	 */
-	@Override
-	public List<EiaComponent> find(Eia eia, int offset, int size) throws EJBException{
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	/* (non-Javadoc)
@@ -80,23 +60,16 @@ public class EiaComponentService implements EiaComponentServiceRemote {
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaComponentServiceRemote#findByEiaId(long)
 	 */
 	@Override
-	public List<EiaComponent> findByEiaId(long Id) throws EJBException {
-		List <EiaComponent> res = null;
-		String query = "SELECT e from EiaComponent e " +
-				"WHERE parentEiaFk = :eiaId";
+	public List<EiaComponent> findByParentEiaId(long Id) throws EJBException {
 		try{
-			res = em.createQuery(query, EiaComponent.class)
-					.setParameter("eiaId", Id)
+			return em.createQuery("EiaComponent.findByParentEiaId", EiaComponent.class)
+					.setParameter("parentEiaId", Id)
 					.getResultList();
-		}catch(NoResultException e){
-			logger.log(Level.INFO, "No results", e);
 		}catch(Exception ex){
 			logger.log(Level.SEVERE, "Error retrieving all EiaComponents", ex);
 			throw new EJBException("Error obteniendo todos los eiaComponents "
 					+ ex.getCause().getMessage());
 		}
-		
-		return res;
 	}
 
 	/* (non-Javadoc)
@@ -104,18 +77,13 @@ public class EiaComponentService implements EiaComponentServiceRemote {
 	 */
 	@Override
 	public List<EiaComponent> getAll() throws EJBException {
-		String query = "SELECT e from EiaComponent e order by eia";
-		List<EiaComponent> res = null;
 		try{
-			res = em.createQuery(query, EiaComponent.class).getResultList();
-		}catch(NoResultException e){
-			logger.log(Level.INFO, "Get All: no results", e);
+			return em.createNamedQuery("EiaComponent.getAll", EiaComponent.class).getResultList();
 		}catch(Exception ex){
 			logger.log(Level.SEVERE, "Error retriving all EiaComponents", ex);
 			throw new EJBException("Error obteniendo todos los eiaComponents"
 					+ex.getCause().getMessage());
 		}
-		return res;
 		
 	}
 

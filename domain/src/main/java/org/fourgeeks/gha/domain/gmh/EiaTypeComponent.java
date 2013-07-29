@@ -6,6 +6,8 @@ package org.fourgeeks.gha.domain.gmh;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -19,6 +21,12 @@ import org.fourgeeks.gha.domain.AbstractEntity;
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "eiaTypeFk",
 		"parentEiaTypeFk" }))
+@NamedQueries(value = { 
+		@NamedQuery(name = "EiaTypeComponent.getAll", 
+				query = "SELECT e from EiaTypeComponent e group by e.parentEiaType order by e.id"),
+		@NamedQuery(name = "EiaTypeComponent.findByParentEiaId",
+				query = "SELECT e from EiaTypeComponent e WHERE e.parentEiaType = :parentEiaType order by e.id")
+})
 public class EiaTypeComponent extends AbstractEntity {
 
 	/**
