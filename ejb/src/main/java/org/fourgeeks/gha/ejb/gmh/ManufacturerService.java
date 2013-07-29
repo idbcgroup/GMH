@@ -9,7 +9,6 @@ import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
@@ -61,21 +60,14 @@ public class ManufacturerService implements ManufacturerServiceRemote {
 	 */
 	@Override
 	public List<Manufacturer> find(Manufacturer manufacturer) throws EJBException {
-		List <Manufacturer> res = null;
-		String query = "SELECT e from Manufacturer e where name like :manufacturerName";
-		
-		try{
-			res = em.createQuery(query, Manufacturer.class)
-					.setParameter("manufacturerName", manufacturer.getName())
-					.getResultList();
-		}catch(Exception ex){
-			logger.log(Level.SEVERE,
-					"Error obteniendo buscando los manufacturer por manufacturer", ex);
-			throw new EJBException("Error obteniendo buscando los manufacturer por manufacturer "
-					+ ex.getCause().getMessage());
+		try {
+			return em.createNamedQuery("Manufacturer.findByName", Manufacturer.class)
+					.setParameter("name", manufacturer.getName()).getResultList();
+		} catch (Exception e) {
+			logger.log(Level.INFO, "Error: finding manufacturer by manufacturer", e);
+			throw new EJBException("Error buscando manufacturer por manufacturer "
+					+ e.getCause().getMessage());
 		}
-		
-		return res;
 	}
 
 	/* (non-Javadoc)
@@ -83,17 +75,13 @@ public class ManufacturerService implements ManufacturerServiceRemote {
 	 */
 	@Override
 	public List<Manufacturer> getAll() throws EJBException {
-		String query = "SELECT e from Manufacturer e order by name";
-		List<Manufacturer> res = null;
-		try{
-			res = em.createQuery(query, Manufacturer.class).getResultList();
-		}catch(NoResultException ex){
-			logger.log(Level.INFO, "No results", ex);
-		}catch(Exception ex){
+		try {
+			return em.createNamedQuery("Manufacturer.getAll", Manufacturer.class).getResultList();
+		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all manufacturers", ex);
-			throw new EJBException("Error obteniendo todos los manufacturers");
+			throw new EJBException("Error obteniendo todos los manufacturers"
+					+ ex.getCause().getMessage());
 		}
-		return res;
 	}
 
 	/* (non-Javadoc)

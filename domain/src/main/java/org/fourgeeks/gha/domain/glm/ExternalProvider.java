@@ -6,6 +6,8 @@ package org.fourgeeks.gha.domain.glm;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
@@ -23,6 +25,10 @@ import org.fourgeeks.gha.domain.mix.Institution;
  */
 
 @Entity
+@NamedQueries(value = { 
+		@NamedQuery(name = "ExternalProvider.getAll", 
+				query = "SELECT e from ExternalProvider e order by e.id")
+})
 public class ExternalProvider extends AbstractEntity {
 
 	/**

@@ -6,6 +6,9 @@ package org.fourgeeks.gha.ejb.glm;
 import java.util.List;
 
 import javax.ejb.Remote;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
@@ -16,6 +19,16 @@ import org.fourgeeks.gha.domain.glm.ExternalProvider;
  */
 @Remote
 public interface ExternalProviderServiceRemote {
+	
+	/**
+	 * @param entity
+	 * @param cb
+	 * @param root
+	 * @return
+	 */
+	public Predicate buildFilters(ExternalProvider entity, CriteriaBuilder cb,
+			Root<ExternalProvider> root);
+	
 	/**
 	 * @param Id
 	 * @throws EJBException

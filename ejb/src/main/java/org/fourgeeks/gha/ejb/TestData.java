@@ -87,7 +87,7 @@ public class TestData {
 		eiaTypeTestData();
 		eiaTestData();
 	}
-
+	
 	private void externalProviderTestData() {
 		String query = "SELECT t from ExternalProvider t WHERE id = 1 ";
 		try {
@@ -373,49 +373,51 @@ public class TestData {
 				logger.info("creating test eia");
 
 				Facility facility = new Facility();
-				facility.setBuildingLocation(em
-						.find(BuildingLocation.class, "Building 000"));
+				facility.setBuildingLocation(em.find(BuildingLocation.class,
+						"Building 000"));
 				em.persist(facility);
 				em.flush();
-				
-				Obu obu = em.find(Obu.class, 2L);
-				BuildingLocation bLocation = em.find(BuildingLocation.class, "Building 000");
-				ExternalProvider eProvider = em.find(ExternalProvider.class, 1L);
-				BaseRole bRole = em.find(BaseRole.class, 1L);
 
-				Eia eia = new Eia(bRole, eiaTypeServ.find(1), bLocation,
-						bLocation, obu, EiaStateEnum.CREATED);
+				Obu obu0 = em.find(Obu.class, 2L);
+				BuildingLocation bLocation0 = em.find(BuildingLocation.class,
+						"Building 000");
+				ExternalProvider eProvider = em
+						.find(ExternalProvider.class, 1L);
+				BaseRole bRole1 = em.find(BaseRole.class, 1L);
+
+				Eia eia = new Eia(bRole1, eiaTypeServ.find(1), bLocation0,
+						bLocation0, obu0, EiaStateEnum.CREATED);
 				eia.setCode("Stylus-001");
 				eia.setSerialNumber("001");
 				eia.setProvider(eProvider);
+				eia.setCode("p-001");
 				em.persist(eia);
 
-				Eia eia2 = new Eia(bRole, eiaTypeServ.find(2),
-						bLocation, bLocation, obu,
-						EiaStateEnum.CREATED);
+				Eia eia2 = new Eia(bRole1, eiaTypeServ.find(2), bLocation0,
+						bLocation0, obu0, EiaStateEnum.CREATED);
 				eia2.setProvider(eProvider);
+				eia2.setCode("p-002");
 
-				Eia eia3 = new Eia(bRole, eiaTypeServ.find(3),
-						bLocation, bLocation, obu,
-						EiaStateEnum.CREATED);
+				Eia eia3 = new Eia(bRole1, eiaTypeServ.find(3), bLocation0,
+						bLocation0, obu0, EiaStateEnum.CREATED);
 				eia3.setProvider(eProvider);
+				eia3.setCode("p-003");
 
-				Eia eia4 = new Eia(bRole, eiaTypeServ.find(4),
-						bLocation, bLocation, obu,
-						EiaStateEnum.CREATED);
-				eia4.setObu(obu);
+				Eia eia4 = new Eia(bRole1, eiaTypeServ.find(4), bLocation0,
+						bLocation0, obu0, EiaStateEnum.CREATED);
 				eia4.setProvider(eProvider);
+				eia4.setCode("p-004");
 
-				Eia eia5 = new Eia(bRole, eiaTypeServ.find(5),
-						bLocation, bLocation, obu,
-						EiaStateEnum.CREATED);
-				eia5.setObu(obu);
+				Eia eia5 = new Eia(bRole1, eiaTypeServ.find(5), bLocation0,
+						bLocation0, obu0, EiaStateEnum.CREATED);
 				eia5.setProvider(eProvider);
+				eia5.setCode("p-005");
 
 				em.persist(eia2);
 				em.persist(eia3);
 				em.persist(eia4);
 				em.persist(eia5);
+				em.flush();
 
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error creating test eia", e);

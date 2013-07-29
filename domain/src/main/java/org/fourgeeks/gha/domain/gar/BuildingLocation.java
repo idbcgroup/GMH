@@ -7,12 +7,14 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import org.fourgeeks.gha.domain.enu.LocationLevelEnum;
 import org.fourgeeks.gha.domain.mix.Bpi;
 
 @Entity
-//@Table(name = "buildinglocation", uniqueConstraints = @UniqueConstraint(columnNames = { "code" }))
+@Table(name = "buildinglocation", uniqueConstraints = @UniqueConstraint(columnNames = { "code" }))
 public class BuildingLocation implements Serializable{
 
 	/**
