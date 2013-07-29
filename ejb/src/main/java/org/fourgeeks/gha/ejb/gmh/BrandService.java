@@ -54,7 +54,7 @@ public class BrandService implements BrandServiceRemote {
 	@Override
 	public List<Brand> find(Brand brand) throws EJBException {
 		List<Brand> res = null;
-		String query = "SELECT e from Brand e where name like :brandName ";
+		String query = "SELECT e from Brand e where e.name like :brandName ";
 
 		try {
 			res = em.createQuery(query, Brand.class)

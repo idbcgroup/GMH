@@ -30,7 +30,7 @@ public interface BuildingLocationServiceRemote {
 	 * @return
 	 * @throws EJBException
 	 */
-	public List<BuildingLocation> find(BuildingLocation brand)
+	public List<BuildingLocation> find(BuildingLocation buildingLocation)
 			throws EJBException;
 
 	/**
@@ -39,7 +39,7 @@ public interface BuildingLocationServiceRemote {
 	 * @return
 	 * @throws EJBException
 	 */
-	public BuildingLocation find(long Id) throws EJBException;
+	public BuildingLocation find(String Id) throws EJBException;
 
 	/**
 	 * 
@@ -54,7 +54,8 @@ public interface BuildingLocationServiceRemote {
 	 * @return
 	 * @throws EJBException
 	 */
-	public BuildingLocation save(BuildingLocation brand) throws EJBException;
+	public BuildingLocation save(BuildingLocation buildingLocation)
+			throws EJBException;
 
 	/**
 	 * 
@@ -62,5 +63,6 @@ public interface BuildingLocationServiceRemote {
 	 * @return
 	 * @throws EJBException
 	 */
-	public BuildingLocation update(BuildingLocation brand) throws EJBException;
+	public BuildingLocation update(BuildingLocation buildingLocation)
+			throws EJBException;
 }

@@ -42,7 +42,7 @@ public class BuildingLocationService implements BuildingLocationServiceRemote {
 			throws EJBException {
 		// TODO : busqueda por cada campo
 		List<BuildingLocation> res = null;
-		String query = "SELECT e from BuildingLocation e where name like :name ";
+		String query = "SELECT e from BuildingLocation e where e.name like :name ";
 
 		try {
 			res = em.createQuery(query, BuildingLocation.class)
@@ -58,7 +58,7 @@ public class BuildingLocationService implements BuildingLocationServiceRemote {
 	}
 
 	@Override
-	public BuildingLocation find(long Id) throws EJBException {
+	public BuildingLocation find(String Id) throws EJBException {
 		try {
 			return em.find(BuildingLocation.class, Id);
 		} catch (Exception e) {
@@ -70,7 +70,7 @@ public class BuildingLocationService implements BuildingLocationServiceRemote {
 
 	@Override
 	public List<BuildingLocation> getAll() throws EJBException {
-		String query = "SELECT e from BuildingLocation e order by name";
+		String query = "SELECT e from BuildingLocation e order by e.name";
 		List<BuildingLocation> res = null;
 		try {
 			res = em.createQuery(query, BuildingLocation.class).getResultList();

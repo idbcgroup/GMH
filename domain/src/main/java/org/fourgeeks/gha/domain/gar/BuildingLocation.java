@@ -4,22 +4,24 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.UniqueConstraint;
 
 import org.fourgeeks.gha.domain.enu.LocationLevelEnum;
 import org.fourgeeks.gha.domain.mix.Bpi;
 
 @Entity
-//@Table(name = "buildinglocation", uniqueConstraints = @UniqueConstraint(columnNames = { "code" }))
-public class BuildingLocation implements Serializable{
+@Table(name = "buildinglocation", uniqueConstraints = @UniqueConstraint(columnNames = { "code" }))
+public class BuildingLocation implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	private String code;
 
@@ -52,9 +54,10 @@ public class BuildingLocation implements Serializable{
 
 	/** Attributes */
 
-	/*@Column(nullable = false)
-	private String code;
-	/** Código Ubicación en Edificio length =20 */
+	/*
+	 * @Column(nullable = false) private String code; /** Código Ubicación en
+	 * Edificio length =20
+	 */
 
 	@Column(nullable = false)
 	private LocationLevelEnum locationLevel;
@@ -79,8 +82,6 @@ public class BuildingLocation implements Serializable{
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	
 
 	/**
 	 * @param code
@@ -88,8 +89,6 @@ public class BuildingLocation implements Serializable{
 	public BuildingLocation(String code) {
 		this.code = code;
 	}
-
-
 
 	/**
 	 * @param bpi

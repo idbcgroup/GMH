@@ -62,7 +62,7 @@ public class ManufacturerService implements ManufacturerServiceRemote {
 	@Override
 	public List<Manufacturer> find(Manufacturer manufacturer) throws EJBException {
 		List <Manufacturer> res = null;
-		String query = "SELECT e from Manufacturer e where name like :manufacturerName";
+		String query = "SELECT e from Manufacturer e where e.name like :manufacturerName";
 		
 		try{
 			res = em.createQuery(query, Manufacturer.class)
@@ -83,7 +83,7 @@ public class ManufacturerService implements ManufacturerServiceRemote {
 	 */
 	@Override
 	public List<Manufacturer> getAll() throws EJBException {
-		String query = "SELECT e from Manufacturer e order by name";
+		String query = "SELECT e from Manufacturer e order by e.name";
 		List<Manufacturer> res = null;
 		try{
 			res = em.createQuery(query, Manufacturer.class).getResultList();
