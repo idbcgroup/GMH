@@ -38,7 +38,7 @@ public class GHATabHeader extends HLayout {
 		addMember(titulo);
 
 		cerrar = new HTML("X");
-		cerrar.setWidth("10px");
+		cerrar.setWidth("20px");
 		cerrar.setHeight("24px");
 		cerrar.setStylePrimaryName("tab-header-close-button");
 		cerrar.addClickHandler(new ClickHandler() {

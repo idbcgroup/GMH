@@ -89,19 +89,23 @@
 	}
 	
 	.tab-header{
-		margin-left:5px;
-		text-transform: uppercase;
-		font-weight: bold;
-		cursor:pointer
+		background-color: #CECECE;
+	    border-left: 1px solid #CECECE;
+	    border-right: 1px solid #CECECE;
+	    border-top: 1px solid #CECECE;
+	    cursor: pointer;
+	    font-weight: bold;
+	    margin-left: 3px;
+	    text-transform: uppercase;
 	}
 	
 	.tab-header-selected{
-		font-weight: bolder;
-		background-color: #CECECE;
+		background-color: #EAEAEA;
+    	font-weight: bolder;
 	}
 	
 	.tab-header-over{
-		background-color: #CECECE;
+		background-color: #EAEAEA;
 	}
 	
 	.tab-header-title{
@@ -303,7 +307,7 @@ input[type=text].round,input[type=password].round{
 	font-weight: bolder;
 	background-color: #CECECE;
 }
-.side-option-selected{
+.side-o	ption-selected{
 	font-weight: bolder;
 	background-image: url(../icons/arrow.png);
 	background-position: right center;
