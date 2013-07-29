@@ -136,21 +136,22 @@ public class ExternalProviderService implements ExternalProviderServiceRemote {
 			throws EJBException {
 		try {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
-			CriteriaQuery<ExternalProvider> c = cb
+			CriteriaQuery<ExternalProvider> cQuery = cb
 					.createQuery(ExternalProvider.class);
-			Root<ExternalProvider> root = c.from(ExternalProvider.class);
-			c.select(root);
-
+			Root<ExternalProvider> root = cQuery.from(ExternalProvider.class);
+			cQuery.select(root);
+			cQuery.orderBy(cb.asc(root.get("id")));
+			
 			Predicate criteria = buildFilters(entity, cb, root);
-			c.where(criteria);
+			cQuery.where(criteria);
 
 			TypedQuery<ExternalProvider> q;
 
 			if (criteria.getExpressions().size() <= 0) {
-				q = em.createQuery(c);
+				q = em.createQuery(cQuery);
 			} else {
-				c.where(criteria);
-				q = em.createQuery(c);
+				cQuery.where(criteria);
+				q = em.createQuery(cQuery);
 
 				if (entity.getCode() != null) {
 					q.setParameter("code", entity.getCode());

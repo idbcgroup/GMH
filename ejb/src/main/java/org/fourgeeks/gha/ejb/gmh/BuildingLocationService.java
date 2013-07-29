@@ -6,11 +6,18 @@ import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.ParameterExpression;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
+import org.fourgeeks.gha.domain.enu.LocationLevelEnum;
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
+import org.fourgeeks.gha.domain.mix.Bpi;
 
 /**
  * @author alacret
@@ -23,6 +30,38 @@ public class BuildingLocationService implements BuildingLocationServiceRemote {
 
 	private final static Logger logger = Logger
 			.getLogger(BuildingLocationService.class.getName());
+
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.ejb.gmh.BuildingLocationServiceRemote#buildFilters(org.fourgeeks.gha.domain.gar.BuildingLocation, javax.persistence.criteria.CriteriaBuilder, javax.persistence.criteria.Root)
+	 */
+	@Override
+	public Predicate buildFilters(BuildingLocation entity, CriteriaBuilder cb,
+			Root<BuildingLocation> root) {
+Predicate criteria = cb.conjunction();
+		
+		if (entity.getCode() != null) {
+			ParameterExpression<String> p = cb.parameter(String.class, "code");
+			criteria = cb.and(criteria, cb.equal(root.<String> get("code"), p));
+		}
+		if (entity.getBpi() != null) {
+			ParameterExpression<Bpi> p = cb.parameter(Bpi.class, "bpi");
+			criteria = cb.and(criteria, cb.equal(root.<Bpi>get("bpi"), p));
+		}
+		if (entity.getLocationLevel() != null) {
+			ParameterExpression<LocationLevelEnum> p = cb.parameter(LocationLevelEnum.class, "locationLevel");
+			criteria = cb.and(criteria, cb.equal(root.<LocationLevelEnum>get("locationLevel"), p));
+		}
+		if (entity.getName() != null) {
+			ParameterExpression<String> p = cb.parameter(String.class, "name");
+			criteria = cb.and(criteria, cb.like(cb.lower(root.<String>get("name")), p));
+		}
+		if (entity.getDescription() != null) {
+			ParameterExpression<String> p = cb.parameter(String.class, "description");
+			criteria = cb.and(criteria, cb.like(cb.lower(root.<String>get("description")), p));
+		}
+		
+		return criteria;
+	}
 
 	@Override
 	public void delete(long Id) throws EJBException {
@@ -40,14 +79,41 @@ public class BuildingLocationService implements BuildingLocationServiceRemote {
 	@Override
 	public List<BuildingLocation> find(BuildingLocation entity)
 			throws EJBException {
-		// TODO : busqueda por cada campo
-		List<BuildingLocation> res = null;
-		String query = "SELECT e from BuildingLocation e where name like :name ";
-
 		try {
-			res = em.createQuery(query, BuildingLocation.class)
-					.setParameter("name", entity.getName()).getResultList();
-			return res;
+			CriteriaBuilder cb = em.getCriteriaBuilder();
+			CriteriaQuery<BuildingLocation> cQuery = cb.createQuery(BuildingLocation.class);
+			Root<BuildingLocation> root = cQuery.from(BuildingLocation.class);
+			cQuery.select(root); 
+			cQuery.orderBy(cb.asc(root.get("name")));
+			
+			Predicate criteria = buildFilters(entity, cb, root);
+			TypedQuery<BuildingLocation> q;
+			if (criteria.getExpressions().size() <= 0) {
+				q = em.createQuery(cQuery);
+			} else {
+				cQuery.where(criteria);
+				q = em.createQuery(cQuery);
+
+				if (entity.getCode() != null) {
+					q.setParameter("code", entity.getCode());
+				}
+				if (entity.getBpi() != null) {
+					q.setParameter("bpi", entity.getBpi());
+				}
+				if (entity.getLocationLevel() != null) {
+					q.setParameter("locationLevel",
+							entity.getLocationLevel());
+				}
+				if (entity.getName() != null) {
+					q.setParameter("name",
+							entity.getName());
+				}
+				if (entity.getDescription() != null) {
+					q.setParameter("description", entity.getDescription());
+				}
+			}
+			return q.getResultList();
+			
 		} catch (Exception e) {
 			logger.log(Level.INFO,
 					"Error: finding BuildingLocation by BuildingLocation", e);
@@ -70,19 +136,15 @@ public class BuildingLocationService implements BuildingLocationServiceRemote {
 
 	@Override
 	public List<BuildingLocation> getAll() throws EJBException {
-		String query = "SELECT e from BuildingLocation e order by name";
-		List<BuildingLocation> res = null;
 		try {
-			res = em.createQuery(query, BuildingLocation.class).getResultList();
-		} catch (NoResultException ex) {
-			logger.log(Level.INFO, "Get all BuildingLocations, No results", ex);
+			return em.createNamedQuery("BuildingLocation.getAll",
+					BuildingLocation.class).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all BuildingLocation",
 					ex);
 			throw new EJBException("Error obteniendo todas las brands"
 					+ ex.getCause().getMessage());
 		}
-		return res;
 	}
 
 	@Override

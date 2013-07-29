@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -15,6 +17,12 @@ import org.fourgeeks.gha.domain.mix.Bpi;
 
 @Entity
 @Table(name = "buildinglocation", uniqueConstraints = @UniqueConstraint(columnNames = { "code" }))
+@NamedQueries(value = { 
+		@NamedQuery(name = "BuildingLocation.getAll", 
+				query = "SELECT e from BuildingLocation e order by e.name"),
+		@NamedQuery(name = "BuildingLocation.findByName",
+				query = "SELECT e from BuildingLocation e WHERE lower(e.name) like :name order by e.name")
+})
 public class BuildingLocation implements Serializable{
 
 	/**

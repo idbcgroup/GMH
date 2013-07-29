@@ -91,20 +91,21 @@ public class ObuService implements ObuServiceRemote {
 	public List<Obu> find(Obu obu) throws EJBException {
 		try {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
-			CriteriaQuery<Obu> c = cb.createQuery(Obu.class);
-			Root<Obu> root = c.from(Obu.class);
-			c.select(root);
+			CriteriaQuery<Obu> cQuery = cb.createQuery(Obu.class);
+			Root<Obu> root = cQuery.from(Obu.class);
+			cQuery.select(root);
+			cQuery.orderBy(cb.asc(root.get("id")));
 			
 			Predicate criteria = buildFilters(obu, cb, root);
-			c.where(criteria);
+			cQuery.where(criteria);
 			
 			TypedQuery<Obu> q;
 
 			if (criteria.getExpressions().size() <= 0) {
-				q = em.createQuery(c);
+				q = em.createQuery(cQuery);
 			} else {
-				c.where(criteria);
-				q = em.createQuery(c);
+				cQuery.where(criteria);
+				q = em.createQuery(cQuery);
 				
 				if(obu.getBpi() != null){
 					q.setParameter("bpi", obu.getBpi());
