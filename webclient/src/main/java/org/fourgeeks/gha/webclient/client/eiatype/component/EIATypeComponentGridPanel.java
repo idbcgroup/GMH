@@ -26,6 +26,7 @@ public class EIATypeComponentGridPanel extends VLayout implements
 
 	private EIATypeComponentGrid eiaTypeComponentGrid;
 	private EiaType eiaType;
+	private EIATypeSearchForm eiaTypeSearchForm;
 	
 	{
 		eiaTypeComponentGrid = new EIATypeComponentGrid();
@@ -53,6 +54,26 @@ public class EIATypeComponentGridPanel extends VLayout implements
 
 					@Override
 					public void onSuccess(EiaTypeComponent result) {
+					}
+				});
+			}
+		});
+		
+		eiaTypeSearchForm = new EIATypeSearchForm();
+		eiaTypeSearchForm.AddEIATypeSelectionListener(new EIATypeSelectionListener() {
+			
+			@Override
+			public void select(EiaType eiaType) {
+				final EiaTypeComponent eiaTypeComponent = new EiaTypeComponent();
+				eiaTypeComponent.setParentEiaType(EIATypeComponentGridPanel.this.eiaType);
+				eiaTypeComponent.setEiaType(eiaType);
+				eiaTypeComponent.setComponentReplaceable(false);
+				eiaTypeComponent.setComponentRequired(false);
+				EIATypeComponentModel.save(eiaTypeComponent, new GHAAsyncCallback<EiaTypeComponent>() {
+
+					@Override
+					public void onSuccess(EiaTypeComponent result) {
+						loadData();
 					}
 				});
 			}
@@ -89,25 +110,6 @@ public class EIATypeComponentGridPanel extends VLayout implements
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				EIATypeSearchForm eiaTypeSearchForm = new EIATypeSearchForm();
-				eiaTypeSearchForm.AddEIATypeSelectionListener(new EIATypeSelectionListener() {
-					
-					@Override
-					public void select(EiaType eiaType) {
-						final EiaTypeComponent eiaTypeComponent = new EiaTypeComponent();
-						eiaTypeComponent.setParentEiaType(EIATypeComponentGridPanel.this.eiaType);
-						eiaTypeComponent.setEiaType(eiaType);
-						eiaTypeComponent.setComponentReplaceable(false);
-						eiaTypeComponent.setComponentRequired(false);
-						EIATypeComponentModel.save(eiaTypeComponent, new GHAAsyncCallback<EiaTypeComponent>() {
-
-							@Override
-							public void onSuccess(EiaTypeComponent result) {
-								loadData();
-							}
-						});
-					}
-				});
 				eiaTypeSearchForm.open();
 			}
 		});
