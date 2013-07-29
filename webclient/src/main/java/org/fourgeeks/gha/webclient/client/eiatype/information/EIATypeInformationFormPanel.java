@@ -11,6 +11,10 @@ import gwtupload.client.SingleUploader;
 
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
 
 import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
 import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
@@ -24,6 +28,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.GHACustomButton;
+import org.fourgeeks.gha.webclient.client.UI.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
@@ -33,7 +38,7 @@ import org.fourgeeks.gha.webclient.client.eiatype.EIATypeModel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypePictureModel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeTab;
-
+import com.google.gwt.validation.client.impl.Validation;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.ImageStyle;
@@ -56,9 +61,12 @@ public class EIATypeInformationFormPanel extends VLayout implements
 	private EiaType eiaType, orginalEiaType;
 	private EIATypeTab tab;
 	private GHAUploadPhotographs uploadPhoto1;
-	private OnFinishUploaderHandler onFinishUploaderHandler1, onFinishUploaderHandler2, onFinishUploaderHandler3;
+	private OnFinishUploaderHandler onFinishUploaderHandler1,
+			onFinishUploaderHandler2, onFinishUploaderHandler3;
 	private OnLoadPreloadedImageHandler showImage1, showImage2, showImage3;
 	private Img img1, img2, img3;
+	private Validator validator;
+
 	{
 		addForm = new EIATypeAddForm();
 		codeItem = new GHATextItem("Código", 150);
@@ -74,116 +82,124 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		mobilityItem = new GHASelectItem("Movilidad", 150);
 		typeItem = new GHASelectItem("Tipo", 150);
 		subTypeItem = new GHASelectItem("Subtipo", 150);
-		
-		img1 = new Img("../resources/img/default.png", 150, 100);  
-		img1.setImageType(ImageStyle.STRETCH);  
-		img1.setBorder("1px solid gray");  
+
+		img1 = new Img("../resources/img/default.png", 150, 100);
+		img1.setImageType(ImageStyle.STRETCH);
+		img1.setBorder("1px solid gray");
 		img1.setSize("150px", "130px");
-		img1.setLeft(240); 
-		
-		img2 = new Img("../resources/img/default.png", 150, 100);  
-		img2.setImageType(ImageStyle.STRETCH);  
-		img2.setBorder("1px solid gray");  
+		img1.setLeft(240);
+
+		img2 = new Img("../resources/img/default.png", 150, 100);
+		img2.setImageType(ImageStyle.STRETCH);
+		img2.setBorder("1px solid gray");
 		img2.setSize("150px", "130px");
-		img2.setLeft(240); 
-		
-		img3 = new Img("../resources/img/default.png", 150, 100);  
-		img3.setImageType(ImageStyle.STRETCH);  
-		img3.setBorder("1px solid gray");  
+		img2.setLeft(240);
+
+		img3 = new Img("../resources/img/default.png", 150, 100);
+		img3.setImageType(ImageStyle.STRETCH);
+		img3.setBorder("1px solid gray");
 		img3.setSize("150px", "130px");
-		img3.setLeft(240); 
+		img3.setLeft(240);
+
+		validator = Validation.buildDefaultValidatorFactory().getValidator();
 	}
-	private void setOnFinishUploaderHandler()
-	{
+
+	private void setOnFinishUploaderHandler() {
 		onFinishUploaderHandler1 = new OnFinishUploaderHandler() {
 			@Override
 			public void onFinish(IUploader uploader) {
-				 if (uploader.getStatus() == Status.SUCCESS) {
-				        new PreloadedImage(uploader.fileUrl(), showImage1);
-				        // The server sends useful information to the client by default
-				        UploadedInfo info = uploader.getServerInfo();
-				        System.out.println("File name " + info.name);
-				        System.out.println("File content-type " + info.ctype);
-				        System.out.println("File size " + info.size);
-				        // You can send any customized message and parse it 
-				        System.out.println("Server message " + info.message);
-				      }
-				    }
-			};
-			showImage1 = new OnLoadPreloadedImageHandler() {
-			    public void onLoad(PreloadedImage image) {
-			     image.setWidth("150px");
-			     image.setHeight("100px");
-			     img1.addChild(image);
-			    }
-			  };
-			  
+				if (uploader.getStatus() == Status.SUCCESS) {
+					new PreloadedImage(uploader.fileUrl(), showImage1);
+					// The server sends useful information to the client by
+					// default
+					UploadedInfo info = uploader.getServerInfo();
+					System.out.println("File name " + info.name);
+					System.out.println("File content-type " + info.ctype);
+					System.out.println("File size " + info.size);
+					// You can send any customized message and parse it
+					System.out.println("Server message " + info.message);
+				}
+			}
+		};
+		showImage1 = new OnLoadPreloadedImageHandler() {
+			public void onLoad(PreloadedImage image) {
+				image.setWidth("150px");
+				image.setHeight("100px");
+				img1.addChild(image);
+			}
+		};
+
 		onFinishUploaderHandler2 = new OnFinishUploaderHandler() {
-					@Override
-					public void onFinish(IUploader uploader) {
-						 if (uploader.getStatus() == Status.SUCCESS) {
-						        new PreloadedImage(uploader.fileUrl(), showImage2);
-						        // The server sends useful information to the client by default
-						        UploadedInfo info = uploader.getServerInfo();
-						        System.out.println("File name " + info.name);
-						        System.out.println("File content-type " + info.ctype);
-						        System.out.println("File size " + info.size);
-						        // You can send any customized message and parse it 
-						        System.out.println("Server message " + info.message);
-						      }
-						    }
-					};
-					showImage2 = new OnLoadPreloadedImageHandler() {
-					    public void onLoad(PreloadedImage image) {
-					     image.setWidth("150px");
-					     image.setHeight("100px");
-					     img2.addChild(image);
-					    }
-					  };
-			
+			@Override
+			public void onFinish(IUploader uploader) {
+				if (uploader.getStatus() == Status.SUCCESS) {
+					new PreloadedImage(uploader.fileUrl(), showImage2);
+					// The server sends useful information to the client by
+					// default
+					UploadedInfo info = uploader.getServerInfo();
+					System.out.println("File name " + info.name);
+					System.out.println("File content-type " + info.ctype);
+					System.out.println("File size " + info.size);
+					// You can send any customized message and parse it
+					System.out.println("Server message " + info.message);
+				}
+			}
+		};
+		showImage2 = new OnLoadPreloadedImageHandler() {
+			public void onLoad(PreloadedImage image) {
+				image.setWidth("150px");
+				image.setHeight("100px");
+				img2.addChild(image);
+			}
+		};
+
 		onFinishUploaderHandler3 = new OnFinishUploaderHandler() {
-							@Override
-							public void onFinish(IUploader uploader) {
-								 if (uploader.getStatus() == Status.SUCCESS) {
-								        new PreloadedImage(uploader.fileUrl(), showImage3);
-								        // The server sends useful information to the client by default
-								        UploadedInfo info = uploader.getServerInfo();
-								        System.out.println("File name " + info.name);
-								        System.out.println("File content-type " + info.ctype);
-								        System.out.println("File size " + info.size);
-								        // You can send any customized message and parse it 
-								        System.out.println("Server message " + info.message);
-								      }
-								    }
-							};
-							showImage3 = new OnLoadPreloadedImageHandler() {
-							    public void onLoad(PreloadedImage image) {
-							     image.setWidth("150px");
-							     image.setHeight("100px");
-							     img3.addChild(image);
-							    }
-							  };
+			@Override
+			public void onFinish(IUploader uploader) {
+				if (uploader.getStatus() == Status.SUCCESS) {
+					new PreloadedImage(uploader.fileUrl(), showImage3);
+					// The server sends useful information to the client by
+					// default
+					UploadedInfo info = uploader.getServerInfo();
+					System.out.println("File name " + info.name);
+					System.out.println("File content-type " + info.ctype);
+					System.out.println("File size " + info.size);
+					// You can send any customized message and parse it
+					System.out.println("Server message " + info.message);
+				}
+			}
+		};
+		showImage3 = new OnLoadPreloadedImageHandler() {
+			public void onLoad(PreloadedImage image) {
+				image.setWidth("150px");
+				image.setHeight("100px");
+				img3.addChild(image);
+			}
+		};
 	}
 
 	public EIATypeInformationFormPanel(EIATypeTab tab) {
 		activateForm(false);
-		GHACustomButton buttonAddImage1= new GHACustomButton();
-		GHACustomButton buttonAddImage2= new GHACustomButton(); 
-		GHACustomButton buttonAddImage3= new GHACustomButton(); 
-		
-		SingleUploader uploadPhoto1 = new SingleUploader(FileInputType.CUSTOM.with(buttonAddImage1));
+		GHACustomButton buttonAddImage1 = new GHACustomButton();
+		GHACustomButton buttonAddImage2 = new GHACustomButton();
+		GHACustomButton buttonAddImage3 = new GHACustomButton();
+
+		SingleUploader uploadPhoto1 = new SingleUploader(
+				FileInputType.CUSTOM.with(buttonAddImage1));
 		uploadPhoto1.setValidExtensions("jpg", "jpeg", "png", "gif");
 		uploadPhoto1.setAutoSubmit(true);
-		
-		SingleUploader uploadPhoto2 = new SingleUploader(FileInputType.CUSTOM.with(buttonAddImage2));
+
+		SingleUploader uploadPhoto2 = new SingleUploader(
+				FileInputType.CUSTOM.with(buttonAddImage2));
 		uploadPhoto2.setValidExtensions("jpg", "jpeg", "png", "gif");
 		uploadPhoto2.setAutoSubmit(true);
-		
-		SingleUploader uploadPhoto3 = new SingleUploader(FileInputType.CUSTOM.with(buttonAddImage3));
+
+		SingleUploader uploadPhoto3 = new SingleUploader(
+				FileInputType.CUSTOM.with(buttonAddImage3));
 		uploadPhoto3.setValidExtensions("jpg", "jpeg", "png", "gif");
 		uploadPhoto3.setAutoSubmit(true);
-		
-		setOnFinishUploaderHandler();	  
+
+		setOnFinishUploaderHandler();
 		this.tab = tab;
 		tab.addClosableHandler(this);
 		addForm.addEiaTypeSelectionListener(tab);
@@ -203,7 +219,7 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		form.setNumCols(4);
 		form.setItems(brandItem, manItem, typeItem, subTypeItem,
 				descriptionItem, mobilityItem, useDescriptionItem, codeItem,
-				nameItem, modelItem, eiaUmdnsItem); 
+				nameItem, modelItem, eiaUmdnsItem);
 
 		VLayout sideButtons = new VLayout();
 		sideButtons.setWidth(30);
@@ -241,7 +257,7 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		sideButtons.addMembers(saveButton, undoButton,
 							   GHAUiHelper.verticalGraySeparator("2px"),
 							   addButton);
-		
+
 		HLayout uploadImagenes = new HLayout();
 		uploadImagenes.addMember(img1);
 		uploadImagenes.addMember(uploadPhoto1);
@@ -249,7 +265,7 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		uploadImagenes.addMember(uploadPhoto2);
 		uploadImagenes.addMember(img3);
 		uploadImagenes.addMember(uploadPhoto3);
-		
+
 		uploadPhoto1.addOnFinishUploadHandler(onFinishUploaderHandler1);
 		uploadPhoto2.addOnFinishUploadHandler(onFinishUploaderHandler2);
 		uploadPhoto3.addOnFinishUploadHandler(onFinishUploaderHandler3);
@@ -355,33 +371,34 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		showPhotographics(eiaType);
 	}
 
-	private void showPhotographics(EiaType eiaType)
-	{
-		EIATypePictureModel.find(eiaType, new GHAAsyncCallback<List<EiaTypePicture>>(){
+	private void showPhotographics(EiaType eiaType) {
+		EIATypePictureModel.find(eiaType,
+				new GHAAsyncCallback<List<EiaTypePicture>>() {
 
-			@Override
-			public void onSuccess(List<EiaTypePicture> result) {
-				
-				if(result.get(0) != null)
-				{
-					EiaTypePicture picture1 = result.get(0);
-					img1.setImage("1", picture1.getDescription()+picture1.getPicture());
-				}
-				if(result.get(1) != null)
-				{
-					EiaTypePicture picture2 = result.get(1);
-					img2.setImage("2", picture2.getDescription()+picture2.getPicture());
-				}
-				if(result.get(2) != null)
-				{
-					EiaTypePicture picture3 = result.get(3);
-					img3.setImage("3", picture3.getDescription()+picture3.getPicture());
-				}
-			}
-			
-		});
-		
+					@Override
+					public void onSuccess(List<EiaTypePicture> result) {
+
+						if (result.get(0) != null) {
+							EiaTypePicture picture1 = result.get(0);
+							img1.setImage("1", picture1.getDescription()
+									+ picture1.getPicture());
+						}
+						if (result.get(1) != null) {
+							EiaTypePicture picture2 = result.get(1);
+							img2.setImage("2", picture2.getDescription()
+									+ picture2.getPicture());
+						}
+						if (result.get(2) != null) {
+							EiaTypePicture picture3 = result.get(3);
+							img3.setImage("3", picture3.getDescription()
+									+ picture3.getPicture());
+						}
+					}
+
+				});
+
 	}
+
 	private void save() {
 		if (this.eiaType == null)
 			return;
@@ -408,13 +425,20 @@ public class EIATypeInformationFormPanel extends VLayout implements
 			eiaType.setSubtype(EiaSubTypeEnum.valueOf(subTypeItem
 					.getValueAsString()));
 
-		EIATypeModel.update(eiaType, new GHAAsyncCallback<EiaType>() {
+		Set<ConstraintViolation<EiaType>> violations = validator
+				.validate(eiaType);
+		if (violations.isEmpty())
+			EIATypeModel.update(eiaType, new GHAAsyncCallback<EiaType>() {
 
-			@Override
-			public void onSuccess(EiaType result) {
-				tab.select(result);
-			}
-		});
+				@Override
+				public void onSuccess(EiaType result) {
+					tab.select(result);
+				}
+			});
+		else
+			// Mostrar solo la primera violación para evitar que salgan muchos
+			// pop-ups sucesivos
+			GHANotification.alert(violations.iterator().next().getMessage());
 
 	}
 
