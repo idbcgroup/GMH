@@ -1,6 +1,7 @@
 package org.fourgeeks.gha.webclient.client.edt;
 
 import org.fourgeeks.gha.webclient.client.UI.GHATab;
+import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
 import com.smartgwt.client.widgets.layout.VLayout;
 
@@ -22,8 +23,8 @@ public class EDTTab extends GHATab{
 		verticalPanel.setBackgroundColor("#E0E0E0");
 		
 		verticalPanel.addMember(topMenu);
+		verticalPanel.addMember(GHAUiHelper.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
 		verticalPanel.addMember(topGridPanel);
-//		verticalPanel.addMember(GHAUiHelper.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
 		verticalPanel.addMember(botGridPanel);
 		
 		addMember(verticalPanel);

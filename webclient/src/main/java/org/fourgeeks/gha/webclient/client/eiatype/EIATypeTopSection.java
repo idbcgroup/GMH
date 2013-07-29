@@ -4,10 +4,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.GHAImg;
+import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
@@ -15,6 +15,7 @@ import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.TitleOrientation;
+import com.smartgwt.client.types.VerticalAlignment;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
@@ -70,10 +71,11 @@ public class EIATypeTopSection extends HLayout implements
 		GHAUiHelper.addResizeHandler(this);
 		eiaTypeSearchForm.AddEIATypeSelectionListener(eiaTypeTab);
 
-		setStyleName("sides-padding");// Esto es VUDU!
+		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		setWidth100();
 		setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT + "px");
-		setBackgroundColor("#E0E0E0");
+		setBackgroundColor("#EAEAEA");
+		setDefaultLayoutAlign(VerticalAlignment.CENTER);
 
 		DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
@@ -87,7 +89,6 @@ public class EIATypeTopSection extends HLayout implements
 		HLayout photoPanel = new HLayout();
 		photoPanel.setMembersMargin(10);
 		photoPanel.setWidth(130);
-		photoPanel.setBackgroundColor("#E0E0E0");
 		// photoPanel.setDefaultLayoutAlign(Alignment.CENTER);
 		GHAImg photo = new GHAImg("../resources/img/Foto.jpg", 80, 80);
 		// photo.setTop(8);
@@ -96,7 +97,6 @@ public class EIATypeTopSection extends HLayout implements
 		VLayout photoBotones = new VLayout();
 		photoBotones.setWidth(30);
 		photoBotones.setLayoutMargin(5);
-		photoBotones.setBackgroundColor("#E0E0E0");
 		photoBotones.setMembersMargin(10);
 		photoBotones.setDefaultLayoutAlign(Alignment.CENTER);
 
@@ -111,7 +111,6 @@ public class EIATypeTopSection extends HLayout implements
 		VLayout panelBotones = new VLayout();
 		panelBotones.setWidth(30);
 		panelBotones.setLayoutMargin(5);
-		panelBotones.setBackgroundColor("#E0E0E0");
 		panelBotones.setMembersMargin(10);
 		panelBotones.setDefaultLayoutAlign(Alignment.CENTER);
 

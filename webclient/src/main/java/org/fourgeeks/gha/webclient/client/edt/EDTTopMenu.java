@@ -13,7 +13,7 @@ public class EDTTopMenu extends HLayout{
 		setHeight("40px");
 		setMembersMargin(8);
 		setStyleName("sides-padding");
-		setBackgroundColor("#FFFFFF");
+		setBackgroundColor("#EAEAEA");
 		setDefaultLayoutAlign(Alignment.CENTER);
 		
 		IButton reassignBut = new IButton("Reasignar");

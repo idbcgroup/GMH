@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
+import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
@@ -14,10 +14,12 @@ import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import com.google.gwt.user.client.Window;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.TitleOrientation;
+import com.smartgwt.client.types.VerticalAlignment;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.layout.HLayout;
+import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class EIATopSection extends HLayout implements EIATypeSelectionListener,
@@ -45,13 +47,14 @@ public class EIATopSection extends HLayout implements EIATypeSelectionListener,
 	public EIATopSection(EIATab eiaTab) {
 		super();
 		eiaTab.addClosableHandler(this);
-		setStyleName("sides-padding");// Esto es VUDU!
+		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		setWidth100();
 		setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT + "px");
-		setBackgroundColor("#E0E0E0");
+		setDefaultLayoutAlign(VerticalAlignment.CENTER);
+		setBackgroundColor("#EAEAEA");
 
 		DynamicForm form = new DynamicForm();
-		form.setWidth("100px");
+		//form.setWidth("100px");
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(6);
 		form.setItems(codeItem, nameItem, brandItem, modelItem, manItem,
@@ -70,18 +73,13 @@ public class EIATopSection extends HLayout implements EIATypeSelectionListener,
 		});
 
 		VLayout panelBotones = new VLayout();
-		panelBotones.setHeight(GHAUiHelper.V_SEPARATOR_HEIGHT + "px");
 		panelBotones.setWidth(30);
 		panelBotones.setLayoutMargin(5);
-		panelBotones.setBackgroundColor("#E0E0E0");
 		panelBotones.setMembersMargin(10);
 		panelBotones.setDefaultLayoutAlign(Alignment.CENTER);
 		panelBotones.addMembers(searchImg, cleanImg, canelButton);
 
-		VLayout fill = new VLayout();
-		fill.setWidth("*");
-
-		addMembers(form, fill, panelBotones);
+		addMembers(form, new LayoutSpacer(), panelBotones);
 
 	}
 

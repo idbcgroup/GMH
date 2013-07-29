@@ -1,7 +1,7 @@
 package org.fourgeeks.gha.webclient.client.edt;
 
-import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
+import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
 import com.smartgwt.client.widgets.Label;
@@ -45,7 +45,7 @@ public class EDTBotGridPanel extends VLayout implements GHAClosable{
 						
 					}
 				}),
-				GHAUiHelper.verticalGraySeparator("3px"),
+				GHAUiHelper.verticalGraySeparator("2px"),
 				new GHAImgButton("../resources/icons/new.png", new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
