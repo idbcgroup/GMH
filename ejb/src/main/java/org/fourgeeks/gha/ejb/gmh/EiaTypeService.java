@@ -157,6 +157,7 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 			CriteriaQuery<EiaType> cQuery = cb.createQuery(EiaType.class);
 			Root<EiaType> root = cQuery.from(EiaType.class);
 			cQuery.select(root);
+			cQuery.orderBy(cb.asc(root.<String>get("name")));
 
 			Predicate criteria = buildFilters(entity, cb, root);
 			TypedQuery<EiaType> q;
@@ -240,20 +241,21 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 			throws EJBException {
 		try {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
-			CriteriaQuery<EiaType> c = cb.createQuery(EiaType.class);
-			Root<EiaType> eType = c.from(EiaType.class);
-			c.select(eType);
+			CriteriaQuery<EiaType> cQuery = cb.createQuery(EiaType.class);
+			Root<EiaType> root = cQuery.from(EiaType.class);
+			cQuery.select(root);
+			cQuery.orderBy(cb.asc(root.<String>get("name")));
 
-			Predicate criteria = buildFilters(eiaType, cb, eType);
-			c.where(criteria);
+			Predicate criteria = buildFilters(eiaType, cb, root);
+			cQuery.where(criteria);
 
 			TypedQuery<EiaType> q;
 
 			if (criteria.getExpressions().size() <= 0) {
-				q = em.createQuery(c);
+				q = em.createQuery(cQuery);
 			} else {
-				c.where(criteria);
-				q = em.createQuery(c);
+				cQuery.where(criteria);
+				q = em.createQuery(cQuery);
 
 				if (eiaType.getBrand() != null) {
 					q.setParameter("brand", eiaType.getBrand());

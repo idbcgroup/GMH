@@ -21,7 +21,7 @@ import org.fourgeeks.gha.domain.mix.Bpi;
 		@NamedQuery(name = "BuildingLocation.getAll", 
 				query = "SELECT e from BuildingLocation e order by e.name"),
 		@NamedQuery(name = "BuildingLocation.findByName",
-				query = "SELECT e from BuildingLocation e WHERE lower(e.name) like :name order by e.name")
+				query = "SELECT e from BuildingLocation e WHERE lower(e.name) like :name order by e.code")
 })
 public class BuildingLocation implements Serializable{
 
