@@ -23,12 +23,6 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 public interface EiaServiceRemote {
 
 	/**
-	 * @param eiaType
-	 * @return a string with the filters to the sql query
-	 */
-	public String buildFilters(EiaType eiaType);
-
-	/**
 	 * @param entity
 	 * @param cb
 	 * @param root

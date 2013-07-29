@@ -89,18 +89,6 @@ public class EiaService implements EiaServiceRemote {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#buildFilters(org.fourgeeks
-	 * .gha.domain.gmh.EiaType)
-	 */
-	@Override
-	public String buildFilters(EiaType eiaType) {
-		return null;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#delete(long)
 	 */
 	@Override
@@ -133,7 +121,8 @@ public class EiaService implements EiaServiceRemote {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<Eia> cQuery = cb.createQuery(Eia.class);
 			Root<Eia> root = cQuery.from(Eia.class);
-			cQuery.select(root);
+			cQuery.select(root); 
+			cQuery.orderBy(cb.asc(root.get("id")));
 			Predicate criteria = buildFilters(entity, cb, root);
 			TypedQuery<Eia> q;
 			if (criteria.getExpressions().size() <= 0) {
