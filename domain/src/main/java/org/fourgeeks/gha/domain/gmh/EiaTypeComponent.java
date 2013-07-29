@@ -19,18 +19,12 @@ import org.fourgeeks.gha.domain.AbstractEntity;
  * 
  */
 @Entity
-@NamedQueries({
-	@NamedQuery(name = "EiaTypeComponent.findByParentEiaType",
-			query = "select etc from EiaTypeComponent etc where etc.parentEiaType = :eiaType order by etc.id")
-})
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "eiaTypeFk",
 		"parentEiaTypeFk" }))
-@NamedQueries(value = { 
-		@NamedQuery(name = "EiaTypeComponent.getAll", 
-				query = "SELECT e from EiaTypeComponent e group by e.parentEiaType order by e.id"),
-		@NamedQuery(name = "EiaTypeComponent.findByParentEiaId",
-				query = "SELECT e from EiaTypeComponent e WHERE e.parentEiaType = :parentEiaType order by e.id")
-})
+@NamedQueries(value = {
+		@NamedQuery(name = "EiaTypeComponent.getAll", query = "SELECT e from EiaTypeComponent e group by e.parentEiaType order by e.id"),
+		@NamedQuery(name = "EiaTypeComponent.findByParentEiaId", query = "SELECT e from EiaTypeComponent e WHERE e.parentEiaType = :parentEiaType order by e.id"),
+		@NamedQuery(name = "EiaTypeComponent.findByParentEiaType", query = "select etc from EiaTypeComponent etc where etc.parentEiaType = :eiaType order by etc.id") })
 public class EiaTypeComponent extends AbstractEntity {
 
 	/**
