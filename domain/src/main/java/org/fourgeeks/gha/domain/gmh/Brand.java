@@ -23,7 +23,7 @@ import org.fourgeeks.gha.domain.AbstractEntity;
 		@NamedQuery(name = "Brand.getAll", 
 				query = "SELECT e from Brand e order by e.name"),
 		@NamedQuery(name = "Brand.findByName",
-				query = "SELECT e from Brand e where lower(e.name) like :name order by e.name")
+				query = "SELECT e from Brand e where lower(e.name) like :name order by e.id")
 })
 public class Brand extends AbstractEntity {
 

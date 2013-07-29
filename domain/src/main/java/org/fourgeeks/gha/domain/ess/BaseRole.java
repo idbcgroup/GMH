@@ -20,7 +20,7 @@ import org.fourgeeks.gha.domain.AbstractEntity;
 		@NamedQuery(name = "BaseRole.getAll", 
 				query = "SELECT e from BaseRole e order by e.name"),
 		@NamedQuery(name = "BaseRole.findByName",
-				query = "SELECT e from BaseRole e where lower(e.name) like :name order by e.name")
+				query = "SELECT e from BaseRole e where lower(e.name) like :name order by e.id")
 })
 public class BaseRole extends AbstractEntity {
 
