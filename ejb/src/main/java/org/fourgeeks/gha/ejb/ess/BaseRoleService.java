@@ -9,7 +9,6 @@ import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.ess.BaseRole;
@@ -40,14 +39,10 @@ public class BaseRoleService implements BaseRoleServiceRemote {
 	}
 
 	@Override
-	public List<BaseRole> find(BaseRole brand) throws EJBException {
-		List<BaseRole> res = null;
-		String query = "SELECT e from BaseRole e where name like :name ";
-
+	public List<BaseRole> find(BaseRole baseRole) throws EJBException {
 		try {
-			res = em.createQuery(query, BaseRole.class)
-					.setParameter("name", brand.getName()).getResultList();
-			return res;
+			return em.createNamedQuery("BaseRole.findByName", BaseRole.class)
+					.setParameter("name", baseRole.getName().toLowerCase()).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding BaseRole by BaseRole", e);
 			throw new EJBException("Error buscando BaseRole por BaseRole "
@@ -68,18 +63,14 @@ public class BaseRoleService implements BaseRoleServiceRemote {
 
 	@Override
 	public List<BaseRole> getAll() throws EJBException {
-		String query = "SELECT e from BaseRole e order by name";
-		List<BaseRole> res = null;
 		try {
-			res = em.createQuery(query, BaseRole.class).getResultList();
-		} catch (NoResultException ex) {
-			logger.log(Level.INFO, "Get all BaseRoles, No results", ex);
+			return em.createNamedQuery("BaseRole.getAll", BaseRole.class)
+					.getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all BaseRole", ex);
 			throw new EJBException("Error obteniendo todas las BaseRoles"
 					+ ex.getCause().getMessage());
 		}
-		return res;
 	}
 
 	@Override

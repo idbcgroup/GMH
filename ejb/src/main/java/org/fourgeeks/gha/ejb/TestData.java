@@ -87,7 +87,7 @@ public class TestData {
 		eiaTypeTestData();
 		eiaTestData();
 	}
-
+	
 	private void externalProviderTestData() {
 		String query = "SELECT t from ExternalProvider t WHERE id = 1 ";
 		try {
@@ -373,8 +373,8 @@ public class TestData {
 				logger.info("creating test eia");
 
 				Facility facility = new Facility();
-				facility.setBuildingLocation(em.find(BuildingLocation.class,
-						"Building 000"));
+				facility.setBuildingLocation(em
+						.find(BuildingLocation.class, "Building 000"));
 				em.persist(facility);
 				em.flush();
 
@@ -390,30 +390,36 @@ public class TestData {
 				eia.setCode("Stylus-001");
 				eia.setSerialNumber("001");
 				eia.setProvider(eProvider);
+				eia.setCode("p-001");
 				em.persist(eia);
 
 				Eia eia2 = new Eia(bRole, eiaTypeServ.find(2), bLocation,
 						bLocation, obu, EiaStateEnum.CREATED);
 				eia2.setProvider(eProvider);
+				eia2.setCode("p-002");
 
 				Eia eia3 = new Eia(bRole, eiaTypeServ.find(3), bLocation,
 						bLocation, obu, EiaStateEnum.CREATED);
 				eia3.setProvider(eProvider);
+				eia3.setCode("p-003");
 
 				Eia eia4 = new Eia(bRole, eiaTypeServ.find(4), bLocation,
 						bLocation, obu, EiaStateEnum.CREATED);
 				eia4.setObu(obu);
 				eia4.setProvider(eProvider);
+				eia4.setCode("p-004");
 
 				Eia eia5 = new Eia(bRole, eiaTypeServ.find(5), bLocation,
 						bLocation, obu, EiaStateEnum.CREATED);
 				eia5.setObu(obu);
 				eia5.setProvider(eProvider);
+				eia5.setCode("p-005");
 
 				em.persist(eia2);
 				em.persist(eia3);
 				em.persist(eia4);
 				em.persist(eia5);
+				em.flush();
 
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error creating test eia", e);

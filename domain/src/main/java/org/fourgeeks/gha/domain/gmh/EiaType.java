@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
@@ -21,6 +23,10 @@ import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
  */
 
 @Entity
+@NamedQueries(value = { 
+		@NamedQuery(name = "EiaType.getAll", 
+				query = "SELECT e from EiaType e order by e.id")
+})
 public class EiaType extends AbstractEntity {
 
 	/**
@@ -80,6 +86,7 @@ public class EiaType extends AbstractEntity {
 	/** Tipo de Equipo length =60 */
 	
 	private EiaSubTypeEnum subtype;
+
 	/** Subtipo de Equipo length =60 */
 
 	/**

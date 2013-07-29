@@ -4,7 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.mix.Bpi;
@@ -15,6 +16,10 @@ import org.fourgeeks.gha.domain.mix.Bpi;
  *         Organization Bussiness unit
  */
 @Entity
+@NamedQueries(value = { 
+		@NamedQuery(name = "Obu.getAll", 
+				query = "SELECT e from Obu e order by e.name")
+})
 public class Obu extends AbstractEntity {
 
 	/**
@@ -54,7 +59,6 @@ public class Obu extends AbstractEntity {
 	 * This represents the link relation to my parent (if any), semantically it
 	 * says who is my obuChild to refer to my obu parent
 	 */
-	@OneToOne(mappedBy = "obu")
 	private ObuChild obuChild;
 
 	/**

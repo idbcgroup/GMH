@@ -9,84 +9,86 @@ import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.ParameterExpression;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
+import org.fourgeeks.gha.domain.enu.EiaStateEnum;
+import org.fourgeeks.gha.domain.ess.BaseRole;
 import org.fourgeeks.gha.domain.exceptions.EJBException;
-import org.fourgeeks.gha.domain.gmh.Brand;
+import org.fourgeeks.gha.domain.gar.BuildingLocation;
+import org.fourgeeks.gha.domain.gar.Obu;
+import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.domain.gmh.Manufacturer;
 
 /**
  * @author emiliot
- *
+ * 
  */
 
 @Stateless(name = "gmh.EiaService")
 public class EiaService implements EiaServiceRemote {
 	@PersistenceContext
 	EntityManager em;
-	
-	private final static Logger logger = Logger.getLogger(EiaService.class.getName());
+
+	private final static Logger logger = Logger.getLogger(EiaService.class
+			.getName());
 
 	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#buildFilters(org.fourgeeks.gha.domain.gmh.EiaType)
+	 * @see org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#buildFilters(org.fourgeeks.gha.domain.gmh.Eia, javax.persistence.criteria.CriteriaBuilder, javax.persistence.criteria.Root)
 	 */
 	@Override
-	public String buildFilters(EiaType eiaType) {
-		Brand brand = eiaType.getBrand();
-		Manufacturer manufacturer = eiaType.getManufacturer();
+	public Predicate buildFilters(Eia entity, CriteriaBuilder cb, Root<Eia> root) {
+		Predicate criteria = cb.conjunction();
 		
-		String filters = "";
-		int varsAdded = 0;
-		
-		if (brand != null && brand.getId() > 0) {
-			if (varsAdded > 0) {
-				filters += " AND ";
-			}
-			++varsAdded;
-			filters += "t.brand='" + Long.toString(eiaType.getBrand().getId())
-					+ "' ";
+		if (entity.getResponsibleRole() != null) {
+			ParameterExpression<BaseRole> p = cb.parameter(BaseRole.class, "baseRole");
+			criteria = cb.and(criteria, cb.equal(root.<BaseRole>get("responsibleRole"), p));
 		}
-
-		if (manufacturer != null && manufacturer.getId() > 0) {
-			if (varsAdded > 0) {
-				filters += " AND ";
-			}
-			++varsAdded;
-			filters += "t.manufacturer='"
-					+ Long.toString(eiaType.getManufacturer().getId()) + "' ";
+		if (entity.getCode() != null) {
+			ParameterExpression<String> p = cb.parameter(String.class, "code");
+			criteria = cb.and(criteria, cb.equal(root.<String> get("code"), p));
 		}
-
-		if (eiaType.getModel() != null && eiaType.getModel() != "") {
-			if (varsAdded > 0) {
-				filters += " AND ";
-			}
-			++varsAdded;
-			filters += " lower(t.model) like '%" + eiaType.getModel().toLowerCase() + "%' ";
+		if (entity.getEiaType() != null) {
+			ParameterExpression<EiaType> p = cb.parameter(EiaType.class, "eiaType");
+			criteria = cb.and(criteria, cb.equal(root.<EiaType>get("eiaType"), p));
 		}
-
-		if (eiaType.getName() != null && eiaType.getName() != "") {
-			if (varsAdded > 0) {
-				filters += " AND ";
-			}
-			varsAdded++;
-			filters += "lower(t.name) like '%" + eiaType.getName().toLowerCase() + "%' ";
+		if (entity.getBuildingLocation() != null) {
+			ParameterExpression<BuildingLocation> p = cb.parameter(BuildingLocation.class, "buildingLocation");
+			criteria = cb.and(criteria, cb.equal(root.<BuildingLocation>get("buildingLocation"), p));
 		}
-
-		if (eiaType.getCode() != null && eiaType.getCode() != "") {
-			if (varsAdded > 0) {
-				filters += " AND ";
-			}
-			varsAdded++;
-			filters += "lower(t.code) like '%" + eiaType.getCode().toLowerCase() + "%' ";
+		if (entity.getAttendedLocation() != null) {
+			ParameterExpression<BuildingLocation> p = cb.parameter(BuildingLocation.class, "attendedLocation");
+			criteria = cb.and(criteria, cb.equal(root.<BuildingLocation>get("attendedLocation"), p));
+		}
+		if (entity.getObu() != null) {
+			ParameterExpression<Obu> p = cb.parameter(Obu.class, "obu");
+			criteria = cb.and(criteria, cb.equal(root.<Obu>get("obu"), p));
+		}
+		if (entity.getSerialNumber() != null) {
+			ParameterExpression<String> p = cb.parameter(String.class, "serialNumber");
+			criteria = cb.and(criteria, cb.equal(root.<String> get("serialNumber"), p));
+		}
+		if (entity.getState() != null) {
+			ParameterExpression<EiaStateEnum> p = cb.parameter(EiaStateEnum.class, "state");
+			criteria = cb.and(criteria, cb.equal(root.<EiaStateEnum>get("state"), p));
+		}
+		if (entity.getProvider() != null) {
+			ParameterExpression<ExternalProvider> p = cb.parameter(ExternalProvider.class, "provider");
+			criteria = cb.and(criteria, cb.equal(root.<ExternalProvider>get("provider"), p));
 		}
 		
-		return filters;
+		return criteria;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#delete(long)
 	 */
 	@Override
@@ -95,131 +97,187 @@ public class EiaService implements EiaServiceRemote {
 			Eia entity = em.find(Eia.class, Id);
 			em.remove(entity);
 			return true;
-			
+
 		} catch (Exception e) {
-			logger.log(Level.INFO, "ERROR: unable to delete eia="+Eia.class.getName() +" with id="
-					+ Long.toString(Id), e);
-			throw new EJBException("ERROR: eliminando un eia por id "+
+			logger.log(Level.INFO,
+					"ERROR: unable to delete eia=" + Eia.class.getName()
+							+ " with id=" + Long.toString(Id), e);
+			throw new EJBException("ERROR: eliminando un eia por id "
+					+ e.getCause().getMessage());
+		}
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#find(org.fourgeeks.gha.domain
+	 * .gmh.Eia)
+	 */
+	@Override
+	public List<Eia> find(Eia entity) throws EJBException {
+		try {
+			CriteriaBuilder cb = em.getCriteriaBuilder();
+			CriteriaQuery<Eia> cQuery = cb.createQuery(Eia.class);
+			Root<Eia> root = cQuery.from(Eia.class);
+			cQuery.select(root); 
+			cQuery.orderBy(cb.asc(root.get("id")));
+			Predicate criteria = buildFilters(entity, cb, root);
+			TypedQuery<Eia> q;
+			if (criteria.getExpressions().size() <= 0) {
+				q = em.createQuery(cQuery);
+			} else {
+				cQuery.where(criteria);
+				q = em.createQuery(cQuery);
+
+				if (entity.getResponsibleRole() != null) {
+					q.setParameter("baseRole", entity.getResponsibleRole());
+				}
+				if (entity.getCode() != null) {
+					q.setParameter("code", entity.getCode());
+				}
+				if (entity.getEiaType() != null) {
+					q.setParameter("eiaType", entity.getEiaType());
+				}
+				if (entity.getBuildingLocation() != null) {
+					q.setParameter("buildingLocation",
+							entity.getBuildingLocation());
+				}
+				if (entity.getAttendedLocation() != null) {
+					q.setParameter("attendedLocation",
+							entity.getAttendedLocation());
+				}
+				if (entity.getObu() != null) {
+					q.setParameter("obu", entity.getObu());
+				}
+				if (entity.getSerialNumber() != null) {
+					q.setParameter("serialNumber", entity.getSerialNumber());
+				}
+				if (entity.getState() != null) {
+					q.setParameter("state", entity.getState());
+				}
+				if (entity.getProvider() != null) {
+					q.setParameter("provider", entity.getProvider());
+				}
+			}
+			return q.getResultList();
+		} catch (Exception e) {
+			logger.log(Level.SEVERE,
+					"Error obteniendo los Eia utilizando otro Eia", e);
+			throw new EJBException(
+					"Error obteniendo los Eia utilizando otro Eia " +
 					e.getCause().getMessage());
 		}
-		
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#find(org.fourgeeks.gha.domain.gmh.Eia)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#find(org.fourgeeks.gha.domain
+	 * .gmh.EiaType)
 	 */
 	@Override
-	public List<Eia> find(Eia eia) throws EJBException{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#find(org.fourgeeks.gha.domain.gmh.EiaType)
-	 */
-	@Override
-	public List<Eia> find(EiaType eiaType) throws EJBException{
-		List <Eia> res = null;
-		String query = "SELECT e from Eia e JOIN e.eiaType t ";
-		String filters = buildFilters(eiaType);
-		
-		if(filters != "")query += " WHERE " +filters;
-		query += " order by e.id";
-		
-		try{
-			res = em.createQuery(query, Eia.class).getResultList();
-			return res;
-		}catch(Exception e){
+	public List<Eia> find(EiaType eiaType) throws EJBException {
+		try {
+			return em.createNamedQuery("Eia.findByEiaType", Eia.class)
+					.setParameter("eiaType", eiaType).getResultList();
+		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding eia by eiatype", e);
-			throw new EJBException("Error buscando eia por eiatype "+
-					e.getCause().getMessage());
+			throw new EJBException("Error buscando eia por eiatype "
+					+ e.getCause().getMessage());
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#find(long)
 	 */
 	@Override
-	public Eia find(long Id) throws EJBException{
-		try{
+	public Eia find(long Id) throws EJBException {
+		try {
 			return em.find(Eia.class, Id);
-		}catch(Exception e){
+		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: finding eia by id", e);
-			throw new EJBException("Error buscando eia por id "+e.getCause().getMessage()); 
+			throw new EJBException("Error buscando eia por id "
+					+ e.getCause().getMessage());
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#getAll()
 	 */
 	@Override
 	public List<Eia> getAll() throws EJBException {
-		String query = "SELECT e from Eia e";
-		List<Eia> res = null;
-		try{
-			res = em.createQuery(query, Eia.class).getResultList();
-		}catch(NoResultException ex){
-			logger.log(Level.INFO, "Get all eias, No results", ex);
-		}catch(Exception ex){
+		try {
+			return em.createNamedQuery("Eia.getAll", Eia.class).getResultList();
+		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all eias", ex);
-			throw new EJBException("Error obteniendo todos los eias" +
-					ex.getCause().getMessage());
+			throw new EJBException("Error obteniendo todos los eias"
+					+ ex.getCause().getMessage());
 		}
-		return res;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#getAll(int, int)
 	 */
 	@Override
 	public List<Eia> getAll(int offset, int size) throws EJBException {
-		String query = "SELECT e from Eia e order by id";
-		List<Eia> res = null;
-		try{
-			res = em.createQuery(query, Eia.class).setFirstResult(offset)
-					.setMaxResults(size).getResultList();
-			logger.info("Get all Eias");
-		}catch(NoResultException ex){
-			logger.log(Level.INFO, "Get all eias, No results", ex);
-		}catch(Exception ex){
+		try {
+			return em.createNamedQuery("Eia.getAll", Eia.class)
+					.setFirstResult(offset).setMaxResults(size).getResultList();
+		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all eias", ex);
-			throw new EJBException("Error obteniendo todos los eias" +
-					ex.getCause().getMessage());
+			throw new EJBException("Error obteniendo todos los eias"
+					+ ex.getCause().getMessage());
 		}
-		return res;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#save(org.fourgeeks.gha.domain.gmh.Eia)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#save(org.fourgeeks.gha.domain
+	 * .gmh.Eia)
 	 */
 	@Override
 	public Eia save(Eia eia) throws EJBException {
-		try{
+		try {
 			em.persist(eia);
 			em.flush();
 			return em.find(Eia.class, eia.getId());
-		}catch(Exception e){
-			logger.log(Level.INFO, "ERROR: saving eia "+eia.toString(), e);
-			throw new EJBException("ERROR: guardando eia "+eia.toString()
-					+ " " +e.getCause().getMessage());
+		} catch (Exception e) {
+			logger.log(Level.INFO, "ERROR: saving eia " + eia.toString(), e);
+			throw new EJBException("ERROR: guardando eia " + eia.toString()
+					+ " " + e.getCause().getMessage());
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#update(org.fourgeeks.gha.domain.gmh.Eia)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#update(org.fourgeeks.gha.domain
+	 * .gmh.Eia)
 	 */
 	@Override
 	public Eia update(Eia eia) throws EJBException {
-		try{
+		try {
 			Eia res = em.merge(eia);
 			em.flush();
 			return res;
-		}catch(Exception e){
-			logger.log(Level.INFO, "ERROR: unable to update eia " 
-					+ eia.toString(), e);
-			throw new EJBException("ERROR: no se puede eliminar el eia "+
-					e.getCause().getMessage());
+		} catch (Exception e) {
+			logger.log(Level.INFO,
+					"ERROR: unable to update eia " + eia.toString(), e);
+			throw new EJBException("ERROR: no se puede eliminar el eia "
+					+ e.getCause().getMessage());
 		}
-		
+
 	}
 }

@@ -9,7 +9,6 @@ import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
@@ -53,13 +52,9 @@ public class BrandService implements BrandServiceRemote {
 	 */
 	@Override
 	public List<Brand> find(Brand brand) throws EJBException {
-		List<Brand> res = null;
-		String query = "SELECT e from Brand e where name like :brandName ";
-
 		try {
-			res = em.createQuery(query, Brand.class)
-					.setParameter("brandName", brand.getName()).getResultList();
-			return res;
+			return em.createNamedQuery("Brand.findByName", Brand.class)
+					.setParameter("name", brand.getName()).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding by brand brand", e);
 			throw new EJBException("Error buscando brand por brand "
@@ -90,18 +85,13 @@ public class BrandService implements BrandServiceRemote {
 	 */
 	@Override
 	public List<Brand> getAll() throws EJBException {
-		String query = "SELECT e from Brand e order by name";
-		List<Brand> res = null;
 		try {
-			res = em.createQuery(query, Brand.class).getResultList();
-		} catch (NoResultException ex) {
-			logger.log(Level.INFO, "Get all brands, No results", ex);
+			return em.createNamedQuery("Brand.getAll", Brand.class).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all brands", ex);
 			throw new EJBException("Error obteniendo todas las brands"
 					+ ex.getCause().getMessage());
 		}
-		return res;
 	}
 
 	/*
