@@ -1,6 +1,5 @@
 package org.fourgeeks.gha.ejb;
 
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -419,45 +418,6 @@ public class TestData {
 				em.persist(eia4);
 				em.persist(eia5);
 				em.flush();
-
-				Obu obu1 = em.find(Obu.class, 1L);
-				BuildingLocation bLocation1 = em.find(BuildingLocation.class, "Building 001");
-				Eia eia6 = new Eia(bRole1, eiaTypeServ.find(1L), bLocation1,
-						bLocation0, obu1,
-						EiaStateEnum.CREATED);
-				eia6.setProvider(eProvider);
-				eia6.setCode("p-006");
-				em.persist(eia6);
-				em.flush();
-				
-				Eia eia7 = new Eia(bRole1, eiaTypeServ.find(1L), bLocation0,
-						bLocation0, obu1, EiaStateEnum.ACQUIRED);
-				eia7.setProvider(eProvider);
-				eia7.setCode("p-007");
-				em.persist(eia7);
-				em.flush();
-				
-				Eia eia8 = new Eia(bRole1, eiaTypeServ.find(1L), bLocation0,
-						bLocation0, obu1, EiaStateEnum.ACQUIRED);
-				eia8.setProvider(eProvider);
-				eia8.setCode("p-008");
-				em.persist(eia8);
-				em.flush();
-				
-				System.out.println("BLOCATION 1");
-				Eia searchEia = new Eia();
-				searchEia.setBuildingLocation(bLocation1);
-				List<Eia> res = eiaServ.find(searchEia);
-				for (Eia next : res) {
-					System.out.println(next.getCode());
-				}
-				
-				System.out.println("BLOCATION 0");
-				searchEia.setBuildingLocation(bLocation0);
-				res = eiaServ.find(searchEia);
-				for (Eia next : res) {
-					System.out.println(next.getCode());
-				}
 
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error creating test eia", e);
