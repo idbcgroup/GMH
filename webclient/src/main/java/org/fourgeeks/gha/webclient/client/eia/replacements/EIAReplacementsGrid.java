@@ -1,7 +1,10 @@
 package org.fourgeeks.gha.webclient.client.eia.replacements;
 
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
+import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
+import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.util.SC;
 import com.smartgwt.client.widgets.Canvas;
@@ -12,7 +15,7 @@ import com.smartgwt.client.widgets.grid.ListGrid;
 import com.smartgwt.client.widgets.grid.ListGridField;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
 
-public class EIAReplacementsGrid extends ListGrid {
+public class EIAReplacementsGrid extends ListGrid implements ResizeHandler {
 
 	@Override
 	protected Canvas createRecordComponent(final ListGridRecord record, Integer colNum) {  
@@ -39,8 +42,10 @@ public class EIAReplacementsGrid extends ListGrid {
     }
 	
 	public EIAReplacementsGrid() {
+		GHAUiHelper.addResizeHandler(this);
+		
 		setWidth100();
-		setHeight("300px");
+		setHeight(GHAUiHelper.getGridSize(30));
 		setEmptyMessage("No existen repuestos para mostrar.");
 
 		setAlternateRecordStyles(false);
@@ -73,6 +78,11 @@ public class EIAReplacementsGrid extends ListGrid {
 			
 
 		setFields(idGridField, codRepGridField, nameGridField, usoRepuestoGridField, typeGridField, cantGridField, facilityGridField, availableGridField);
+	}
+
+	@Override
+	public void onResize(ResizeEvent event) {
+		setHeight(GHAUiHelper.getGridSize(30));			
 	}
 
 }

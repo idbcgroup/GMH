@@ -54,6 +54,9 @@ public class EIATypeTopSection extends HLayout implements
 
 	public EIATypeTopSection(EIATypeTab eiaTypeTab) {
 		super();
+		GHAUiHelper.addResizeHandler(this);
+		eiaTypeSearchForm.AddEIATypeSelectionListener(eiaTypeTab);
+
 		eiaTypeTab.addHideableHandler(new GHAHideable() {
 
 			@Override
@@ -68,8 +71,6 @@ public class EIATypeTopSection extends HLayout implements
 				eiaTypeSearchForm.destroy();
 			}
 		});
-		GHAUiHelper.addResizeHandler(this);
-		eiaTypeSearchForm.AddEIATypeSelectionListener(eiaTypeTab);
 
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		setWidth100();

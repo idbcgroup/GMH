@@ -7,7 +7,7 @@ public class GHATextItem extends TextItem {
 	public GHATextItem() {
 		super();
 		setTextBoxStyle("input");
-		setHeight(15);
+		setHeight(18);
 		setCellStyle("gha-form-cell");
 		setWidth(100);
 		setTitleStyle("input-title");
