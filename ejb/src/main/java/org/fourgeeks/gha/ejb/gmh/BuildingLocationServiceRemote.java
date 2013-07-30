@@ -30,10 +30,10 @@ public interface BuildingLocationServiceRemote {
 	
 	/**
 	 * 
-	 * @param Id
+	 * @param id
 	 * @throws EJBException
 	 */
-	public void delete(long Id) throws EJBException;
+	public void delete(String id) throws EJBException;
 
 	/**
 	 * 
@@ -46,11 +46,11 @@ public interface BuildingLocationServiceRemote {
 
 	/**
 	 * 
-	 * @param Id
+	 * @param id
 	 * @return
 	 * @throws EJBException
 	 */
-	public BuildingLocation find(long Id) throws EJBException;
+	public BuildingLocation find(String id) throws EJBException;
 
 	/**
 	 * 

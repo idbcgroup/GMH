@@ -11,9 +11,12 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeComponent;
+import org.hibernate.exception.ConstraintViolationException;
 
 /**
  * @author emiliot
@@ -45,6 +48,20 @@ public class EiaTypeComponentService implements EiaTypeComponentServiceRemote {
 					+ e.getCause().getMessage());
 		}
 
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.EiaTypeComponentServiceRemote#find(EiaType)
+	 */
+	@Override
+	public List<EiaTypeComponent> find(EiaType eiaType) throws EJBException {
+		TypedQuery<EiaTypeComponent> query = em.createNamedQuery(
+				"EiaTypeComponent.findByParentEiaType", EiaTypeComponent.class);
+		query.setParameter("eiaType", eiaType);
+		return query.getResultList();
 	}
 
 	/*
@@ -151,8 +168,14 @@ public class EiaTypeComponentService implements EiaTypeComponentServiceRemote {
 			return em.find(EiaTypeComponent.class, eiaTypeComponent.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving eiaTypeComponent", e);
-			throw new EJBException("Error guardando EiaTypeComponent: "
-					+ e.getCause().getMessage());
+			String message = null;
+			if (e.getCause() instanceof ConstraintViolationException) {
+				message = "Error: Ya se ha agregado ese Componente a este Tipo de Equipo";
+			}
+			if (message == null)
+				message = "Error guardando EiaTypeComponent: "
+						+ e.getCause().getMessage();
+			throw new EJBException(message);
 		}
 
 	}

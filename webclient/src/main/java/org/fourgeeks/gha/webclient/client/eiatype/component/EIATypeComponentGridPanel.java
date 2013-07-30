@@ -1,25 +1,84 @@
 package org.fourgeeks.gha.webclient.client.eiatype.component;
 
+import java.util.List;
+
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.domain.gmh.EiaTypeComponent;
+import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
-import org.fourgeeks.gha.webclient.client.eiatype.EIATypeGrid;
+import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSearchForm;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
-import com.google.gwt.user.client.Event;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.BackgroundRepeat;
-import com.smartgwt.client.widgets.Img;
 import com.smartgwt.client.widgets.ImgButton;
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
+import com.smartgwt.client.widgets.grid.ListGridRecord;
+import com.smartgwt.client.widgets.grid.events.CellSavedEvent;
+import com.smartgwt.client.widgets.grid.events.CellSavedHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class EIATypeComponentGridPanel extends VLayout implements
-		EIATypeSelectionListener, GHAClosable{
+		EIATypeSelectionListener, GHAClosable {
 
-	private EIATypeGrid partesGrid = new EIATypeGrid();
+	private EIATypeComponentGrid eiaTypeComponentGrid;
+	private EiaType eiaType;
+	private EIATypeSearchForm eiaTypeSearchForm;
+	
+	{
+		eiaTypeComponentGrid = new EIATypeComponentGrid();
+		eiaTypeComponentGrid.getRequiredField().addCellSavedHandler(new CellSavedHandler() {
+			
+			@Override
+			public void onCellSaved(CellSavedEvent event) {
+				EiaTypeComponent eiaTypeComponent = ((EIATypeComponentRecord) event.getRecord()).toEntity();
+				eiaTypeComponent.setComponentRequired((Boolean) event.getNewValue());
+				EIATypeComponentModel.update(eiaTypeComponent, new GHAAsyncCallback<EiaTypeComponent>() {
+
+					@Override
+					public void onSuccess(EiaTypeComponent result) {
+					}
+				});
+			}
+		});
+		eiaTypeComponentGrid.getReplaceableField().addCellSavedHandler(new CellSavedHandler() {
+			
+			@Override
+			public void onCellSaved(CellSavedEvent event) {
+				EiaTypeComponent eiaTypeComponent = ((EIATypeComponentRecord) event.getRecord()).toEntity();
+				eiaTypeComponent.setComponentReplaceable((Boolean) event.getNewValue());
+				EIATypeComponentModel.update(eiaTypeComponent, new GHAAsyncCallback<EiaTypeComponent>() {
+
+					@Override
+					public void onSuccess(EiaTypeComponent result) {
+					}
+				});
+			}
+		});
+		
+		eiaTypeSearchForm = new EIATypeSearchForm();
+		eiaTypeSearchForm.AddEIATypeSelectionListener(new EIATypeSelectionListener() {
+			
+			@Override
+			public void select(EiaType eiaType) {
+				final EiaTypeComponent eiaTypeComponent = new EiaTypeComponent();
+				eiaTypeComponent.setParentEiaType(EIATypeComponentGridPanel.this.eiaType);
+				eiaTypeComponent.setEiaType(eiaType);
+				eiaTypeComponent.setComponentReplaceable(false);
+				eiaTypeComponent.setComponentRequired(false);
+				EIATypeComponentModel.save(eiaTypeComponent, new GHAAsyncCallback<EiaTypeComponent>() {
+
+					@Override
+					public void onSuccess(EiaTypeComponent result) {
+						loadData();
+					}
+				});
+			}
+		});
+	}
 	
 	public EIATypeComponentGridPanel() {
 		setWidth100();
@@ -48,40 +107,57 @@ public class EIATypeComponentGridPanel extends VLayout implements
 		addButton.setSize("20px", "20px");
 		
 		addButton.addClickHandler(new ClickHandler() {
+			
 			@Override
 			public void onClick(ClickEvent event) {
-//				form.animateShow(AnimationEffect.FLY);
+				eiaTypeSearchForm.open();
 			}
 		});
 		
-		Img deleteButton = new Img("../resources/icons/delete.png");
+		ImgButton deleteButton = new ImgButton();
+		deleteButton.setSrc("../resources/icons/delete.png");
+		deleteButton.setShowRollOver(false);
 		deleteButton.setSize("20px", "20px");
-
-		ImgButton setsButton = new ImgButton();
-		setsButton.sinkEvents(Event.MOUSEEVENTS);
-		setsButton.setSrc("../resources/icons/set.png");
-		setsButton.setShowRollOver(false);
-		setsButton.setSize("20px", "20px");
-		setsButton.addClickHandler(new ClickHandler() {
+		deleteButton.addClickHandler(new ClickHandler() {
+			
 			@Override
 			public void onClick(ClickEvent event) {
-//				EIARecord selectedRecord = (EIARecord) eiaTypeGrid.getSelectedRecord();
-//				History.newItem("eia/" + selectedRecord.getCode());
+				EiaTypeComponent eiaTypeComponent = ((EIATypeComponentRecord) eiaTypeComponentGrid.getSelectedRecord()).toEntity();
+				EIATypeComponentModel.delete(eiaTypeComponent.getId(), new GHAAsyncCallback<Void>() {
+
+					@Override
+					public void onSuccess(Void result) {
+						loadData();
+					}
+				});
 			}
 		});
 
-		sideButtons.addMembers(addButton, deleteButton, setsButton);
+		sideButtons.addMembers(addButton, deleteButton);
 		
 		final HLayout gridContainer = new HLayout();
-        gridContainer.addMembers(partesGrid, sideButtons);
+        gridContainer.addMembers(eiaTypeComponentGrid, sideButtons);
 		
 		addMembers(title, gridContainer);		
+	}
+	
+	private void loadData() {
+		EIATypeComponentModel.find(eiaType, new GHAAsyncCallback<List<EiaTypeComponent>>() {
+
+			@Override
+			public void onSuccess(List<EiaTypeComponent> eiaTypeComponents) {
+				ListGridRecord[] array = EIATypeComponentUtil.toGridRecords(eiaTypeComponents)
+						.toArray(new EIATypeComponentRecord[] {});
+				eiaTypeComponentGrid.setData(array);
+			}
+
+		});
 	}
 
 	@Override
 	public void select(EiaType eiaType) {
-		// TODO Auto-generated method stub
-		
+		this.eiaType = eiaType;
+		loadData();
 	}
 	
 	@Override
@@ -89,4 +165,5 @@ public class EIATypeComponentGridPanel extends VLayout implements
 		// TODO Auto-generated method stub
 		
 	}
+	
 }

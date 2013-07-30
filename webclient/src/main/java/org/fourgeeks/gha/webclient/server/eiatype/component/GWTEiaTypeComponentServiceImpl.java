@@ -43,8 +43,7 @@ public class GWTEiaTypeComponentServiceImpl extends RemoteServiceServlet impleme
 	 */
 	@Override
 	public List<EiaTypeComponent> find(EiaType eiaType) throws EJBException {
-		// TODO Auto-generated method stub
-		return null;
+		return serviceRemote.find(eiaType);
 	}
 
 	/* (non-Javadoc)
