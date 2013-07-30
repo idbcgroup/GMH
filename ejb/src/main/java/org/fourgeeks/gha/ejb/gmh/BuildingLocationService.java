@@ -75,9 +75,9 @@ public class BuildingLocationService implements BuildingLocationServiceRemote {
 	}
 
 	@Override
-	public void delete(long Id) throws EJBException {
+	public void delete(String id) throws EJBException {
 		try {
-			BuildingLocation entity = em.find(BuildingLocation.class, Id);
+			BuildingLocation entity = em.find(BuildingLocation.class, id);
 			em.remove(entity);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete BuildingLocation",
@@ -134,9 +134,9 @@ public class BuildingLocationService implements BuildingLocationServiceRemote {
 	}
 
 	@Override
-	public BuildingLocation find(String Id) throws EJBException {
+	public BuildingLocation find(String id) throws EJBException {
 		try {
-			return em.find(BuildingLocation.class, Id);
+			return em.find(BuildingLocation.class, id);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: finding BuildingLocation", e);
 			throw new EJBException("ERROR: finding BuildingLocation "

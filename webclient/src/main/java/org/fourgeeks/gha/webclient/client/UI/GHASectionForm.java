@@ -41,11 +41,11 @@ public class GHASectionForm extends HLayout {
 
 	public void addSection(String name, final Canvas sect, boolean open) {
 		HLayout section = new HLayout();
-		section.addMembers(sect,new LayoutSpacer());
-		
+		section.addMembers(sect, new LayoutSpacer());
+
 		mainSection.addMembers(section);
 		section.setVisibility(Visibility.HIDDEN);
-		
+
 		final Option option = new Option(name, section);
 		option.addClickHandler(new com.google.gwt.event.dom.client.ClickHandler() {
 
@@ -62,13 +62,13 @@ public class GHASectionForm extends HLayout {
 		});
 		options.addMember(option);
 
-		if(open)
+		if (open)
 			option.activate();
-		
+
 		optionList.add(option);
 		// sectionList.add(section);
 	}
-	
+
 	public void addSectionSeparator() {
 		options.addMember(GHAUiHelper.verticalGraySeparator("2px"));
 	}
@@ -77,10 +77,10 @@ public class GHASectionForm extends HLayout {
 		for (Option option : optionList)
 			option.deactivate();
 	}
-	
-//	public void activateById(int id) {
-//			optionList.get(id).activate();
-//	}
+
+	// public void activateById(int id) {
+	// optionList.get(id).activate();
+	// }
 
 	static class Option extends HTML {
 		private Canvas section;
@@ -101,7 +101,7 @@ public class GHASectionForm extends HLayout {
 
 				@Override
 				public void onMouseOut(MouseOutEvent event) {
-					removeStyleName("side-option-over");					
+					removeStyleName("side-option-over");
 				}
 			});
 		}
