@@ -168,14 +168,7 @@ public class GWTEiaTypeServiceImpl extends RemoteServiceServlet implements GWTEi
 	 */
 	@Override
 	public EiaType save(EiaType eiaType) throws EJBException {
-		
-		EiaType eiaTypeIn = eiaTypeServiceRemote.save(eiaType);
-		LOG.info("ID EIATYPE: "+eiaTypeIn);
-		locatePhotographs(eiaTypeIn);
-		for (EiaTypePicture picture : pictures) {
-			eiaTypePictureServiceRemote.save(picture);
-		}	
-		return eiaType;
+		return eiaTypeServiceRemote.save(eiaType);
 	}
 
 	/*
