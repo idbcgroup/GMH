@@ -21,7 +21,7 @@ import org.fourgeeks.gha.domain.gmh.Brand;
 @Stateless(name = "gmh.BrandService")
 public class BrandService implements BrandServiceRemote {
 	@PersistenceContext
-	EntityManager em;
+	private EntityManager em;
 
 	private final static Logger logger = Logger.getLogger(BrandService.class
 			.getName());
@@ -52,6 +52,7 @@ public class BrandService implements BrandServiceRemote {
 	 */
 	@Override
 	public List<Brand> find(Brand brand) throws EJBException {
+		String query = "SELECT e from Brand e where e.name like :brandName ";
 		try {
 			return em.createNamedQuery("Brand.findByName", Brand.class)
 					.setParameter("name", brand.getName()).getResultList();
@@ -85,6 +86,7 @@ public class BrandService implements BrandServiceRemote {
 	 */
 	@Override
 	public List<Brand> getAll() throws EJBException {
+		String query = "SELECT e from Brand e order by e.name";
 		try {
 			return em.createNamedQuery("Brand.getAll", Brand.class).getResultList();
 		} catch (Exception ex) {

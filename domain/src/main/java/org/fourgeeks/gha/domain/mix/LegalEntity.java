@@ -40,7 +40,6 @@ public class LegalEntity extends AbstractEntity {
 	 * length =16
 	 */
 
-	// @Enumerated(EnumType.STRING)
 	// private LegalEntityTypeEnum legalEntityType;
 	// /** Tipo de Entidad Legal length =60 */
 	@Column(/* nullable = false, */columnDefinition = "timestamp without time zone NOT NULL DEFAULT NOW()")

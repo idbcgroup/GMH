@@ -1,8 +1,6 @@
 package org.fourgeeks.gha.domain.mix;
 
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
@@ -20,26 +18,35 @@ public class InstitutionContact extends AbstractEntity {
 	@ManyToOne
 	@JoinColumn(name = "institutionFk")
 	private Institution institution;
-	
-	/**Attributes*/
-	private String firstName; /** FIRST_NAME length =255 */
-	private String availableTime; /** AVAILABLE_TIME length =20 */
-	
-	@Enumerated(EnumType.STRING)
-	private TelephoneTypeEnum telephoneType; /** TELEPHONE_TYPE length =20 */
-	
-	private String countryCode; /** COUNTRY_CODE length =10 */
-	private String areaCode; /** AREA_CODE length =10 */
-	private String telephoneNumber; /** TELEPHONE_NUMBER length =16 */
-	private String firstLastName; /** FIRST_LAST_NAME length =255 */
-	private String primaryEmail; /** PRIMARY_EMAIL length =255 */
-	private String alternativeEmail; /** ALTERNATIVE_EMAIL length =255 */
-	
-	@Enumerated(EnumType.STRING)
-	private ContactTypeEnum contactType; /** CONTACTS_TYPE length =255 */
-	
-	private String jobPosition; /** JOB_POSITION length =255 */
 
+	/** Attributes */
+	private String firstName;
+	/** FIRST_NAME length =255 */
+	private String availableTime;
+	/** AVAILABLE_TIME length =20 */
+
+	private TelephoneTypeEnum telephoneType;
+	/** TELEPHONE_TYPE length =20 */
+
+	private String countryCode;
+	/** COUNTRY_CODE length =10 */
+	private String areaCode;
+	/** AREA_CODE length =10 */
+	private String telephoneNumber;
+	/** TELEPHONE_NUMBER length =16 */
+	private String firstLastName;
+	/** FIRST_LAST_NAME length =255 */
+	private String primaryEmail;
+	/** PRIMARY_EMAIL length =255 */
+	private String alternativeEmail;
+	/** ALTERNATIVE_EMAIL length =255 */
+
+	private ContactTypeEnum contactType;
+	/** CONTACTS_TYPE length =255 */
+
+	private String jobPosition;
+
+	/** JOB_POSITION length =255 */
 
 	/**
 	 * 

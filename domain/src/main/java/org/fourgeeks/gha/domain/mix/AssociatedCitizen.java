@@ -1,8 +1,6 @@
 package org.fourgeeks.gha.domain.mix;
 
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
@@ -24,12 +22,12 @@ public class AssociatedCitizen extends AbstractEntity {
 	@ManyToOne
 	@JoinColumn(name = "citizenFromFk")
 	private Citizen citizenFrom;
-	
-	/**Attributes*/
-	
-	@Enumerated(EnumType.STRING)
-	private CitizenRelationshipTypeEnum citizensRelarionship; /** length =60 */
-	private Boolean legalRepresentative; /** length =1 */
-	
+
+	/** Attributes */
+
+	private CitizenRelationshipTypeEnum citizensRelarionship;
+	/** length =60 */
+	private Boolean legalRepresentative;
+	/** length =1 */
 
 }

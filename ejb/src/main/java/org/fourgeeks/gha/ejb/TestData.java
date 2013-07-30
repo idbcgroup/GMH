@@ -89,7 +89,7 @@ public class TestData {
 	}
 	
 	private void externalProviderTestData() {
-		String query = "SELECT t from ExternalProvider t WHERE id = 1 ";
+		String query = "SELECT t from ExternalProvider t WHERE t.id = 1 ";
 		try {
 			em.createQuery(query).getSingleResult();
 		} catch (NoResultException e) {
@@ -112,7 +112,7 @@ public class TestData {
 	}
 
 	private void legalEntityTestData() {
-		String query = "SELECT t from LegalEntity t WHERE id = 1 ";
+		String query = "SELECT t from LegalEntity t WHERE t.id = 1 ";
 		try {
 			em.createQuery(query).getSingleResult();
 		} catch (NoResultException e) {
@@ -129,7 +129,7 @@ public class TestData {
 	}
 
 	private void institutionTestData() {
-		String query = "SELECT t from Institution t WHERE id = 1 ";
+		String query = "SELECT t from Institution t WHERE t.id = 1 ";
 		try {
 			em.createQuery(query).getSingleResult();
 		} catch (NoResultException e) {
@@ -152,7 +152,7 @@ public class TestData {
 	}
 
 	private void bpiTestData() {
-		String query = "SELECT t from Bpi t WHERE id = 1 ";
+		String query = "SELECT t from Bpi t WHERE t.id = 1 ";
 		try {
 			em.createQuery(query).getSingleResult();
 		} catch (NoResultException e) {
@@ -174,7 +174,7 @@ public class TestData {
 	}
 
 	private void obuTestData() {
-		String query = "SELECT t from Obu t WHERE id = 1 ";
+		String query = "SELECT t from Obu t WHERE t.id = 1 ";
 		try {
 			em.createQuery(query).getSingleResult();
 		} catch (NoResultException e) {
@@ -196,7 +196,7 @@ public class TestData {
 	}
 
 	private void baseRoleTestData() {
-		String query = "SELECT t from BaseRole t WHERE id = 1 ";
+		String query = "SELECT t from BaseRole t WHERE t.id = 1 ";
 		try {
 			em.createQuery(query).getSingleResult();
 		} catch (NoResultException e) {
@@ -220,7 +220,7 @@ public class TestData {
 	}
 
 	private void buildingLocationsTestData() {
-		String query = "SELECT t from BuildingLocation t WHERE code='Building 000'";
+		String query = "SELECT t from BuildingLocation t WHERE t.code='Building 000'";
 		try {
 			em.createQuery(query).getSingleResult();
 		} catch (NoResultException e) {
@@ -248,7 +248,7 @@ public class TestData {
 	private void manufacturerTestData() {
 
 		try {
-			String query = "SELECT e from Manufacturer e WHERE id = 1 ";
+			String query = "SELECT e from Manufacturer e WHERE e.id = 1 ";
 			try {
 				em.createQuery(query).getSingleResult();
 			} catch (NoResultException e) {
@@ -286,7 +286,7 @@ public class TestData {
 	 */
 	private void brandTestData() {
 		try {
-			String query = "SELECT e from Brand e WHERE id = 1 ";
+			String query = "SELECT e from Brand e WHERE e.id = 1 ";
 			try {
 				em.createQuery(query).getSingleResult();
 			} catch (NoResultException e) {
@@ -320,7 +320,7 @@ public class TestData {
 	}
 
 	private void eiaTypeTestData() {
-		String query = "SELECT t from EiaType t WHERE id = 1 ";
+		String query = "SELECT t from EiaType t WHERE t.id = 1 ";
 		try {
 			em.createQuery(query).getSingleResult();
 		} catch (NoResultException e) {
@@ -365,7 +365,7 @@ public class TestData {
 	}
 
 	private void eiaTestData() {
-		String query = "SELECT t from Eia t WHERE id = 1 ";
+		String query = "SELECT t from Eia t WHERE t.id = 1 ";
 		try {
 			em.createQuery(query).getSingleResult();
 		} catch (NoResultException e) {
@@ -373,8 +373,8 @@ public class TestData {
 				logger.info("creating test eia");
 
 				Facility facility = new Facility();
-				facility.setBuildingLocation(em
-						.find(BuildingLocation.class, "Building 000"));
+				facility.setBuildingLocation(em.find(BuildingLocation.class,
+						"Building 000"));
 				em.persist(facility);
 				em.flush();
 
@@ -429,7 +429,7 @@ public class TestData {
 
 	private void userTestData() {
 		try {
-			String query = "SELECT t from SingleSignOnUser t WHERE id = 1 ";
+			String query = "SELECT t from SingleSignOnUser t WHERE t.id = 1 ";
 			try {
 				em.createQuery(query).getSingleResult();
 			} catch (NoResultException e) {

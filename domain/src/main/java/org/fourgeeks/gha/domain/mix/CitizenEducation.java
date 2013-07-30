@@ -1,8 +1,6 @@
 package org.fourgeeks.gha.domain.mix;
 
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
@@ -20,24 +18,29 @@ public class CitizenEducation extends AbstractEntity {
 	@ManyToOne
 	@JoinColumn(name = "citizenFk")
 	private Citizen citizen;
-	
-	/**Attributes*/
-	private Long startYear; /** length =10 */
-	private Long endYear; /** length =10 */
-	
-	@Enumerated(EnumType.STRING)
-	private EducationTypeEnum educationType; /** length =60 */
-	
-	private String educationalInstitutionName; /** length =255 */
-	
-	@Enumerated(EnumType.STRING)
-	private EducationalInstitutionTypeEnum educationalInstitutionType; /** length =60 */
-	
-	private String studyName; /** length =255 */
-	private String educationalInstitution; /** length =255 */
-	private String study; /** length =255 */
 
+	/** Attributes */
+	private Long startYear;
+	/** length =10 */
+	private Long endYear;
+	/** length =10 */
 
+	private EducationTypeEnum educationType;
+	/** length =60 */
+
+	private String educationalInstitutionName;
+	/** length =255 */
+
+	private EducationalInstitutionTypeEnum educationalInstitutionType;
+	/** length =60 */
+
+	private String studyName;
+	/** length =255 */
+	private String educationalInstitution;
+	/** length =255 */
+	private String study;
+
+	/** length =255 */
 
 	/**
 	 * 
