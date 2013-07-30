@@ -31,16 +31,13 @@ import org.fourgeeks.gha.webclient.client.UI.GHACustomButton;
 import org.fourgeeks.gha.webclient.client.UI.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
-import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.GHAUploadPhotographs;
-import org.fourgeeks.gha.webclient.client.eiatype.EIATypeAddForm;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeModel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypePictureModel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeTab;
 import com.google.gwt.validation.client.impl.Validation;
 import com.smartgwt.client.types.Alignment;
-import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.ImageStyle;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.Img;
@@ -53,7 +50,6 @@ import com.smartgwt.client.widgets.layout.VLayout;
 
 public class EIATypeInformationFormPanel extends VLayout implements
 		EIATypeSelectionListener, GHAClosable {
-	private EIATypeAddForm addForm;
 	private GHATextItem codeItem, nameItem, modelItem, descriptionItem,
 			useDescriptionItem, eiaUmdnsItem;
 	private GHASelectItem brandItem, manItem, mobilityItem, typeItem,
@@ -68,7 +64,6 @@ public class EIATypeInformationFormPanel extends VLayout implements
 	private Validator validator;
 
 	{
-		addForm = new EIATypeAddForm();
 		codeItem = new GHATextItem("Código", 150);
 		nameItem = new GHATextItem("Nombre", 150);
 		modelItem = new GHATextItem("Modelo", 150);
@@ -202,7 +197,6 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		setOnFinishUploaderHandler();
 		this.tab = tab;
 		tab.addClosableHandler(this);
-		addForm.addEiaTypeSelectionListener(tab);
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding top-padding");// Esto es VUDU!
@@ -228,14 +222,6 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		sideButtons.setMembersMargin(10);
 		sideButtons.setDefaultLayoutAlign(Alignment.CENTER);
 
-		GHAImgButton addButton = new GHAImgButton("../resources/icons/new.png");
-		addButton.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				addForm.animateShow(AnimationEffect.FLY);
-			}
-		});
-
 		GHAImgButton saveButton = new GHAImgButton("../resources/icons/save.png");
 		saveButton.addClickHandler(new ClickHandler() {
 
@@ -254,9 +240,7 @@ public class EIATypeInformationFormPanel extends VLayout implements
 			}
 		});
 
-		sideButtons.addMembers(saveButton, undoButton,
-							   GHAUiHelper.verticalGraySeparator("2px"),
-							   addButton);
+		sideButtons.addMembers(saveButton, undoButton);
 
 		HLayout uploadImagenes = new HLayout();
 		uploadImagenes.addMember(img1);
@@ -353,7 +337,7 @@ public class EIATypeInformationFormPanel extends VLayout implements
 	@Override
 	public void select(EiaType eiaType) {
 		activateForm(true);
-
+		
 		this.eiaType = this.orginalEiaType = eiaType;
 		if (eiaType.getBrand() != null)
 			brandItem.setValue(eiaType.getBrand().getId());
@@ -367,7 +351,8 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		eiaUmdnsItem.setValue(eiaType.getEiaUmdns());
 		mobilityItem.setValue(eiaType.getMobility().name());
 		typeItem.setValue(eiaType.getType().name());
-		subTypeItem.setValue(eiaType.getSubtype().name());
+		if (eiaType.getSubtype() != null)
+			subTypeItem.setValue(eiaType.getSubtype().name());
 		showPhotographics(eiaType);
 	}
 
@@ -444,7 +429,5 @@ public class EIATypeInformationFormPanel extends VLayout implements
 
 	@Override
 	public void close() {
-		addForm.animateHide(AnimationEffect.SLIDE);
-		addForm.destroy();
 	}
 }

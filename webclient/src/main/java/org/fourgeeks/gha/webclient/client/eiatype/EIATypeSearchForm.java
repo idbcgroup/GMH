@@ -33,7 +33,7 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIATypeSearchForm extends GHASlideInWindow {
+public class EIATypeSearchForm extends GHASlideInWindow implements EIATypeSelectionListener {
 
 	private List<EIATypeSelectionListener> selectionListeners;
 	private GHATextItem codeEIAItem, nameEIAItem, modelItem, descriptionItem,
@@ -42,6 +42,8 @@ public class EIATypeSearchForm extends GHASlideInWindow {
 	private GHASelectItem brandItem, manItem, mobilityItem, typeItem,
 			subTypeItem;
 	private GHACheckboxItem isServiceItem;
+	private EIATypeAddForm addForm;
+	
 	{
 		selectionListeners = new LinkedList<EIATypeSelectionListener>();
 		codeEIAItem = new GHATextItem("Código");
@@ -60,6 +62,9 @@ public class EIATypeSearchForm extends GHASlideInWindow {
 		typeItem = new GHASelectItem("Tipo de Equipo");
 		subTypeItem = new GHASelectItem("Subtipo");
 		isServiceItem = new GHACheckboxItem("Es servicio");
+		
+		addForm = new EIATypeAddForm();
+		addForm.addEiaTypeSelectionListener(this);
 	}
 
 	public EIATypeSearchForm() {
@@ -78,14 +83,14 @@ public class EIATypeSearchForm extends GHASlideInWindow {
 		ClickHandler searchClickHandler = new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				search();
+				search(null);
 			}
 		};
 		KeyUpHandler searchKeyUpHandler = new KeyUpHandler() {
 			@Override
 			public void onKeyUp(KeyUpEvent event) {
 				if (event.getKeyName().equals("Enter")) {
-					search();
+					search(null);
 				}
 			}
 		};
@@ -149,11 +154,22 @@ public class EIATypeSearchForm extends GHASlideInWindow {
 			public void onClick(ClickEvent event) {
 				selectEiaType(((EIATypeRecord) eiaTypeGrid.getSelectedRecord())
 						.toEntity());
-				EIATypeSearchForm.this.animateHide(AnimationEffect.FLY);
+				hide();
 			}
 		});
+		
+		GHAImgButton addButton = new GHAImgButton("../resources/icons/new.png");
+		addButton.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				addForm.open();
+			}
+		});
+		
 		sideGridButtons
-				.addMembers(acceptButton/* , editButton, deleteButton */);
+				.addMembers(acceptButton,
+						GHAUiHelper.verticalGraySeparator("2px"),
+						addButton);
 		gridLayout.addMember(sideGridButtons);
 
 		addMember(gridLayout);
@@ -212,17 +228,22 @@ public class EIATypeSearchForm extends GHASlideInWindow {
 
 	}
 
+	private void selectEiaType(EiaType eiaType) {
+		for (EIATypeSelectionListener listener : selectionListeners)
+			listener.select(eiaType);
+	}
+	
 	public void AddEIATypeSelectionListener(
 			EIATypeSelectionListener selecionListener) {
 		selectionListeners.add(selecionListener);
 	}
 
-	private void selectEiaType(EiaType eiaType) {
-		for (EIATypeSelectionListener listener : selectionListeners)
-			listener.select(eiaType);
+	@Override
+	public void select(EiaType eiaType) {
+		search(eiaType);
 	}
 
-	private void search() {
+	private void search(final EiaType selectedEiaType) {
 		EiaType eiaType = new EiaType();
 		eiaType.setCode(codeEIAItem.getValueAsString());
 		eiaType.setName(nameEIAItem.getValueAsString());
@@ -241,6 +262,10 @@ public class EIATypeSearchForm extends GHASlideInWindow {
 				ListGridRecord[] array = EIATypeUtil.toGridRecords(eiaTypes)
 						.toArray(new EIATypeRecord[] {});
 				eiaTypeGrid.setData(array);
+				if (selectedEiaType != null)
+					for (ListGridRecord listGridRecord : eiaTypeGrid.getRecords()) 
+						if (((EIATypeRecord)listGridRecord).toEntity().getId() == selectedEiaType.getId())
+							eiaTypeGrid.selectRecord(listGridRecord);
 			}
 
 		});

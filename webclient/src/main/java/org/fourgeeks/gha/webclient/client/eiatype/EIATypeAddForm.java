@@ -36,7 +36,6 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.validation.client.impl.Validation;
 import com.smartgwt.client.types.Alignment;
-import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.ImageStyle;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.util.SC;
@@ -240,10 +239,7 @@ public class EIATypeAddForm extends GHASlideInWindow {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				EIATypeAddForm.this.animateHide(AnimationEffect.FLY);
 				cancel();
-				;
-
 			}
 		});
 
@@ -276,8 +272,9 @@ public class EIATypeAddForm extends GHASlideInWindow {
 	// }
 
 	protected void cancel() {
+		hide();
 		brandItem.clearValue();
-		manItem.setValue("");
+		manItem.clearValue();
 		codeItem.clearValue();
 		nameItem.clearValue();
 		descriptionItem.clearValue();
@@ -287,7 +284,6 @@ public class EIATypeAddForm extends GHASlideInWindow {
 		mobilityItem.clearValue();
 		typeItem.clearValue();
 		subTypeItem.clearValue();
-		EIATypeAddForm.this.animateHide(AnimationEffect.SLIDE);
 	}
 
 	private void fillExtras() {
