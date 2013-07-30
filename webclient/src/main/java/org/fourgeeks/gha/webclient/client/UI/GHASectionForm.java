@@ -14,7 +14,7 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class GHASectionForm extends HLayout {
+public class GHASectionForm extends HLayout implements GHAHideable,GHAClosable{
 
 	private VLayout options;
 	private VLayout mainSection;
@@ -35,7 +35,7 @@ public class GHASectionForm extends HLayout {
 		setWidth100();
 		setMembersMargin(10);
 		addMember(options);
-		addMember(GHAUiHelper.horizontalGraySeparator("6px"));
+		addMember(GHAUiHelper.horizontalGraySeparator("3px"));
 		addMember(mainSection);
 	}
 
@@ -115,7 +115,6 @@ public class GHASectionForm extends HLayout {
 		public void deactivate() {
 			removeStyleName("side-option-selected");
 			section.setVisibility(Visibility.HIDDEN);
-
 		}
 
 		/**
@@ -125,5 +124,18 @@ public class GHASectionForm extends HLayout {
 			return section;
 		}
 
+	}
+
+	@Override
+	public void close() {
+		// TODO Auto-generated method stub
+		deactivate();
+	}
+	
+	@Override
+	public void hide() {
+		// TODO Auto-generated method stub
+		super.hide();
+		deactivate();
 	}
 }

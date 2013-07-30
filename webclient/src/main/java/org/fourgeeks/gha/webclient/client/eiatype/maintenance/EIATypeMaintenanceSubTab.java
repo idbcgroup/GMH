@@ -27,6 +27,6 @@ public class EIATypeMaintenanceSubTab extends Tab implements EIATypeSelectionLis
 	@Override
 	public void close() {
 		// TODO Auto-generated method stub
-		
+		maintenanceGridPanel.close();
 	}
 }

@@ -27,6 +27,6 @@ public class EIATypeConsumablesSubTab extends Tab
 	@Override
 	public void close() {
 		// TODO Auto-generated method stub
-		
+		eiaTypeConsumablesGridPanel.close();
 	}
 }

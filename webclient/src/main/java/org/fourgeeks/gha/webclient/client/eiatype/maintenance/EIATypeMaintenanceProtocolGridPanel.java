@@ -1,7 +1,8 @@
-package org.fourgeeks.gha.webclient.client.eiatype.specialmaterial;
+package org.fourgeeks.gha.webclient.client.eiatype.maintenance;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
+import org.fourgeeks.gha.webclient.client.UI.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
@@ -12,20 +13,19 @@ import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIATypeSpecialMaterialGridPanel extends VLayout implements EIATypeSelectionListener,GHAClosable{
+public class EIATypeMaintenanceProtocolGridPanel extends VLayout 
+					implements EIATypeSelectionListener, GHAClosable, GHAHideable{
 
-	private EIATypeSpecialMaterialGrid eiaTypeSpecialMaterialGrid = new EIATypeSpecialMaterialGrid();
+	private EIATypeMaintenanceProtocolGrid eiaTypeMaintenanceProtocolGrid = new EIATypeMaintenanceProtocolGrid();
 	
-	public EIATypeSpecialMaterialGridPanel() {
+	public EIATypeMaintenanceProtocolGridPanel() {
 		setWidth100();
-		setBackgroundColor("#E0E0E0");
-		setStyleName("sides-padding top-padding");// Esto es VUDU!
-		
-		Label title = new Label("<h3>Materiales Especiales</h3>");
+				
+		Label title = new Label("<h3>Protocolos</h3>");
 		title.setHeight(35);
 		title.setWidth100();
 		title.setStyleName("title-label");
-
+		
 // //////Botones laterales
 		
 	    VLayout sideButtons = GHAUiHelper.createBar(
@@ -46,17 +46,16 @@ public class EIATypeSpecialMaterialGridPanel extends VLayout implements EIATypeS
 //						History.newItem("eia/" + selectedRecord.getCode());
 					}
 				}));
-
+		
 	    HLayout mainPanel = new HLayout();
-		mainPanel.addMembers(eiaTypeSpecialMaterialGrid, sideButtons);
+		mainPanel.addMembers(eiaTypeMaintenanceProtocolGrid, sideButtons);
 	    
-		addMembers(title, mainPanel);
+		addMembers(title,mainPanel);
 	}
 
 	@Override
 	public void select(EiaType eiaType) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

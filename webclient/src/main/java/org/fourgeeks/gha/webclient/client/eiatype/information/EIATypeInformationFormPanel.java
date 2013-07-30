@@ -24,10 +24,10 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypePicture;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
-import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.GHACustomButton;
+import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
@@ -38,6 +38,7 @@ import org.fourgeeks.gha.webclient.client.eiatype.EIATypeModel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypePictureModel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeTab;
+
 import com.google.gwt.validation.client.impl.Validation;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
@@ -200,6 +201,7 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		uploadPhoto3.setAutoSubmit(true);
 
 		setOnFinishUploaderHandler();
+		
 		this.tab = tab;
 		tab.addClosableHandler(this);
 		addForm.addEiaTypeSelectionListener(tab);
