@@ -30,6 +30,7 @@ public abstract class GHASlideInWindow extends VLayout implements
 	}
 
 	public void hide() {
+		super.hide();
 		animateHide(AnimationEffect.FLY);
 	}
 }

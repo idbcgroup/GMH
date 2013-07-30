@@ -1,7 +1,6 @@
 package org.fourgeeks.gha.webclient.client.eiatype;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.eiatype.component.EIATypeComponentSubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.consumables.EIATypeConsumablesSubTab;
@@ -17,7 +16,7 @@ import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.widgets.tab.TabSet;
 
 public class EIATypeInternalTabset extends TabSet implements
-		EIATypeSelectionListener, GHAClosable, ResizeHandler {
+		EIATypeSelectionListener, ResizeHandler {
 
 	private EIATypeInformationSubTab infoSubTab;
 	private EIATypeEquipmentSubTab equipementsSubTab;
@@ -31,7 +30,7 @@ public class EIATypeInternalTabset extends TabSet implements
 	public EIATypeInternalTabset(EIATypeTab tab) {
 		super();
 		GHAUiHelper.addResizeHandler(this);
-		
+
 		setWidth100();
 		setHeight(GHAUiHelper.getBottomSectionHeight());
 		equipementsSubTab = new EIATypeEquipmentSubTab(tab);
@@ -42,7 +41,7 @@ public class EIATypeInternalTabset extends TabSet implements
 		servicesSubTab = new EIATypeServicesSubTab();
 		specialMaterialSubTab = new EIATypeSpecialMaterialSubTab();
 		maintenanceSubTab = new EIATypeMaintenanceSubTab();
-		
+
 		// Agregando las Subtabs
 		addTab(infoSubTab);
 		addTab(equipementsSubTab);
@@ -56,7 +55,7 @@ public class EIATypeInternalTabset extends TabSet implements
 
 	@Override
 	public void select(EiaType eiaType) {
-		//Window.alalert("internatl select tab set");
+		// Window.alalert("internatl select tab set");
 		infoSubTab.select(eiaType);
 		equipementsSubTab.select(eiaType);
 		partsSubTab.select(eiaType);
@@ -67,20 +66,20 @@ public class EIATypeInternalTabset extends TabSet implements
 		maintenanceSubTab.select(eiaType);
 	}
 
-	@Override
-	public void close() {
-		infoSubTab.close();	
-		equipementsSubTab.close();
-		partsSubTab.close();
-		replacementsSubTab.close();
-		consumablesSubTab.close();
-		servicesSubTab.close();
-		specialMaterialSubTab.close();
-		maintenanceSubTab.close();
-	}
+	// @Override
+	// public void close() {
+	// infoSubTab.close();
+	// equipementsSubTab.close();
+	// partsSubTab.close();
+	// replacementsSubTab.close();
+	// consumablesSubTab.close();
+	// servicesSubTab.close();
+	// specialMaterialSubTab.close();
+	// maintenanceSubTab.close();
+	// }
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getBottomSectionHeight());		
+		setHeight(GHAUiHelper.getBottomSectionHeight());
 	}
 }

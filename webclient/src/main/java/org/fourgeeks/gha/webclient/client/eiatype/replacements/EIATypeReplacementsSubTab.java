@@ -27,6 +27,6 @@ public class EIATypeReplacementsSubTab extends Tab
 	@Override
 	public void close() {
 		// TODO Auto-generated method stub
-		
+		eiaTypeRepuestosGridPanel.close();
 	}
 }

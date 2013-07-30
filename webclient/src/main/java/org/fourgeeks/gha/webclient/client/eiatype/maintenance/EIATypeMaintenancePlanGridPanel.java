@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eiatype.specialmaterial;
+package org.fourgeeks.gha.webclient.client.eiatype.maintenance;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
@@ -12,20 +12,18 @@ import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIATypeSpecialMaterialGridPanel extends VLayout implements EIATypeSelectionListener,GHAClosable{
+public class EIATypeMaintenancePlanGridPanel extends VLayout implements EIATypeSelectionListener,GHAClosable{
 
-	private EIATypeSpecialMaterialGrid eiaTypeSpecialMaterialGrid = new EIATypeSpecialMaterialGrid();
+	private EIATypeMaintenancePlanGrid eiaTypeMaintenancePlanGrid = new EIATypeMaintenancePlanGrid();
 	
-	public EIATypeSpecialMaterialGridPanel() {
+	public EIATypeMaintenancePlanGridPanel() {
 		setWidth100();
-		setBackgroundColor("#E0E0E0");
-		setStyleName("sides-padding top-padding");// Esto es VUDU!
 		
-		Label title = new Label("<h3>Materiales Especiales</h3>");
+		Label title = new Label("<h3>Planes</h3>");
 		title.setHeight(35);
 		title.setWidth100();
 		title.setStyleName("title-label");
-
+		
 // //////Botones laterales
 		
 	    VLayout sideButtons = GHAUiHelper.createBar(
@@ -33,7 +31,6 @@ public class EIATypeSpecialMaterialGridPanel extends VLayout implements EIATypeS
 					@Override
 					public void onClick(ClickEvent event) {
 						// TODO Auto-generated method stub
-//						form.animateShow(AnimationEffect.FLY);
 					}
 				}),
 	    		new GHAImgButton("../resources/icons/edit.png"),
@@ -42,15 +39,13 @@ public class EIATypeSpecialMaterialGridPanel extends VLayout implements EIATypeS
 					@Override
 					public void onClick(ClickEvent event) {
 						// TODO Auto-generated method stub
-//						EIARecord selectedRecord = (EIARecord) eiaTypeGrid.getSelectedRecord();
-//						History.newItem("eia/" + selectedRecord.getCode());
 					}
 				}));
-
+		
 	    HLayout mainPanel = new HLayout();
-		mainPanel.addMembers(eiaTypeSpecialMaterialGrid, sideButtons);
+		mainPanel.addMembers(eiaTypeMaintenancePlanGrid, sideButtons);
 	    
-		addMembers(title, mainPanel);
+		addMembers(title,mainPanel);
 	}
 
 	@Override
@@ -62,7 +57,6 @@ public class EIATypeSpecialMaterialGridPanel extends VLayout implements EIATypeS
 	@Override
 	public void close() {
 		// TODO Auto-generated method stub
-		
 	}
 
 }

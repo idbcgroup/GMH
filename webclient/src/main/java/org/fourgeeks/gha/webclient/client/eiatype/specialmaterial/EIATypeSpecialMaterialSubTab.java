@@ -27,6 +27,6 @@ public class EIATypeSpecialMaterialSubTab extends Tab
 	@Override
 	public void close() {
 		// TODO Auto-generated method stub
-		
+		eiaTypeSpecialMaterialGridPanel.close();
 	}
 }

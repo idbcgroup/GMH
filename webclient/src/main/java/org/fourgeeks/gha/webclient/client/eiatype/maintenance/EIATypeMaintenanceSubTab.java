@@ -1,7 +1,6 @@
 package org.fourgeeks.gha.webclient.client.eiatype.maintenance;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.smartgwt.client.widgets.tab.Tab;
@@ -9,7 +8,7 @@ import com.smartgwt.client.widgets.tab.events.TabDeselectedEvent;
 import com.smartgwt.client.widgets.tab.events.TabDeselectedHandler;
 
 public class EIATypeMaintenanceSubTab extends Tab implements
-		EIATypeSelectionListener, GHAClosable {
+		EIATypeSelectionListener {
 
 	private EIATypeMaintenanceGridPanel maintenanceGridPanel = new EIATypeMaintenanceGridPanel();
 
@@ -33,8 +32,4 @@ public class EIATypeMaintenanceSubTab extends Tab implements
 		maintenanceGridPanel.select(eiaType);
 	}
 
-	@Override
-	public void close() {
-		// TODO Auto-generated method stub
-	}
 }

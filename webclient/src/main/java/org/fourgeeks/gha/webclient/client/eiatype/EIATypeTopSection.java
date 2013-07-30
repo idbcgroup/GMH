@@ -58,7 +58,6 @@ public class EIATypeTopSection extends HLayout implements
 		eiaTypeSearchForm.AddEIATypeSelectionListener(eiaTypeTab);
 
 		eiaTypeTab.addHideableHandler(new GHAHideable() {
-
 			@Override
 			public void hide() {
 				eiaTypeSearchForm.hide();
