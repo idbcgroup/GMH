@@ -31,35 +31,46 @@ public class BuildingLocationService implements BuildingLocationServiceRemote {
 	private final static Logger logger = Logger
 			.getLogger(BuildingLocationService.class.getName());
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.BuildingLocationServiceRemote#buildFilters(org.fourgeeks.gha.domain.gar.BuildingLocation, javax.persistence.criteria.CriteriaBuilder, javax.persistence.criteria.Root)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.BuildingLocationServiceRemote#buildFilters(
+	 * org.fourgeeks.gha.domain.gar.BuildingLocation,
+	 * javax.persistence.criteria.CriteriaBuilder,
+	 * javax.persistence.criteria.Root)
 	 */
 	@Override
 	public Predicate buildFilters(BuildingLocation entity, CriteriaBuilder cb,
 			Root<BuildingLocation> root) {
-Predicate criteria = cb.conjunction();
-		
+		Predicate criteria = cb.conjunction();
+
 		if (entity.getCode() != null) {
 			ParameterExpression<String> p = cb.parameter(String.class, "code");
 			criteria = cb.and(criteria, cb.equal(root.<String> get("code"), p));
 		}
 		if (entity.getBpi() != null) {
 			ParameterExpression<Bpi> p = cb.parameter(Bpi.class, "bpi");
-			criteria = cb.and(criteria, cb.equal(root.<Bpi>get("bpi"), p));
+			criteria = cb.and(criteria, cb.equal(root.<Bpi> get("bpi"), p));
 		}
 		if (entity.getLocationLevel() != null) {
-			ParameterExpression<LocationLevelEnum> p = cb.parameter(LocationLevelEnum.class, "locationLevel");
-			criteria = cb.and(criteria, cb.equal(root.<LocationLevelEnum>get("locationLevel"), p));
+			ParameterExpression<LocationLevelEnum> p = cb.parameter(
+					LocationLevelEnum.class, "locationLevel");
+			criteria = cb.and(criteria,
+					cb.equal(root.<LocationLevelEnum> get("locationLevel"), p));
 		}
 		if (entity.getName() != null) {
 			ParameterExpression<String> p = cb.parameter(String.class, "name");
-			criteria = cb.and(criteria, cb.like(cb.lower(root.<String>get("name")), p));
+			criteria = cb.and(criteria,
+					cb.like(cb.lower(root.<String> get("name")), p));
 		}
 		if (entity.getDescription() != null) {
-			ParameterExpression<String> p = cb.parameter(String.class, "description");
-			criteria = cb.and(criteria, cb.like(cb.lower(root.<String>get("description")), p));
+			ParameterExpression<String> p = cb.parameter(String.class,
+					"description");
+			criteria = cb.and(criteria,
+					cb.like(cb.lower(root.<String> get("description")), p));
 		}
-		
+
 		return criteria;
 	}
 
@@ -81,11 +92,12 @@ Predicate criteria = cb.conjunction();
 			throws EJBException {
 		try {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
-			CriteriaQuery<BuildingLocation> cQuery = cb.createQuery(BuildingLocation.class);
+			CriteriaQuery<BuildingLocation> cQuery = cb
+					.createQuery(BuildingLocation.class);
 			Root<BuildingLocation> root = cQuery.from(BuildingLocation.class);
-			cQuery.select(root); 
+			cQuery.select(root);
 			cQuery.orderBy(cb.asc(root.get("name")));
-			
+
 			Predicate criteria = buildFilters(entity, cb, root);
 			TypedQuery<BuildingLocation> q;
 			if (criteria.getExpressions().size() <= 0) {
@@ -101,19 +113,17 @@ Predicate criteria = cb.conjunction();
 					q.setParameter("bpi", entity.getBpi());
 				}
 				if (entity.getLocationLevel() != null) {
-					q.setParameter("locationLevel",
-							entity.getLocationLevel());
+					q.setParameter("locationLevel", entity.getLocationLevel());
 				}
 				if (entity.getName() != null) {
-					q.setParameter("name",
-							entity.getName());
+					q.setParameter("name", entity.getName());
 				}
 				if (entity.getDescription() != null) {
 					q.setParameter("description", entity.getDescription());
 				}
 			}
 			return q.getResultList();
-			
+
 		} catch (Exception e) {
 			logger.log(Level.INFO,
 					"Error: finding BuildingLocation by BuildingLocation", e);
@@ -124,7 +134,7 @@ Predicate criteria = cb.conjunction();
 	}
 
 	@Override
-	public BuildingLocation find(long Id) throws EJBException {
+	public BuildingLocation find(String Id) throws EJBException {
 		try {
 			return em.find(BuildingLocation.class, Id);
 		} catch (Exception e) {

@@ -5,6 +5,7 @@ import java.util.List;
 import junit.framework.TestCase;
 
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
+import org.fourgeeks.gha.ejb.ContextDeployment;
 
 /**
  * @author vivi.torressg

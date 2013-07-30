@@ -19,15 +19,12 @@ public class Facility extends AbstractEntity {
 	@JoinColumn(name = "waioFk")
 	private Waio waio;
 
-//	@OneToMany(mappedBy = "facility")
-//	private Collection <Eia> equipments;
-
 	@OneToOne
 	@JoinColumn(name = "resourceServiceFk")
 	private ResourceService resourceService;
 
 	@ManyToOne
-	@JoinColumn(name = "buildingLocationFk", nullable=false)
+	@JoinColumn(name = "buildingLocationFk", nullable = false)
 	private BuildingLocation buildingLocation;
 
 	/**
@@ -44,9 +41,9 @@ public class Facility extends AbstractEntity {
 		return waio;
 	}
 
-//	public Collection<Eia> getEquipments() {
-//		return equipments;
-//	}
+	// public Collection<Eia> getEquipments() {
+	// return equipments;
+	// }
 
 	public ResourceService getResourceService() {
 		return resourceService;
@@ -60,9 +57,9 @@ public class Facility extends AbstractEntity {
 		this.waio = waio;
 	}
 
-//	public void setEquipments(Collection<Eia> equipments) {
-//		this.equipments = equipments;
-//	}
+	// public void setEquipments(Collection<Eia> equipments) {
+	// this.equipments = equipments;
+	// }
 
 	public void setResourceService(ResourceService resourceService) {
 		this.resourceService = resourceService;

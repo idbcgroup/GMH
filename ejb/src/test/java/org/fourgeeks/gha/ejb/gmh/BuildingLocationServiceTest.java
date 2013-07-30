@@ -5,6 +5,7 @@ import java.util.List;
 import junit.framework.TestCase;
 
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
+import org.fourgeeks.gha.ejb.ContextDeployment;
 
 /**
  * @author vivi.torressg

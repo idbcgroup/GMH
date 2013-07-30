@@ -1,4 +1,5 @@
-package org.fourgeeks.gha.ejb.gmh;
+package org.fourgeeks.gha.ejb;
+
 
 import java.util.Properties;
 
