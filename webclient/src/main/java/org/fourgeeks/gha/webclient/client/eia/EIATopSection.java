@@ -11,6 +11,8 @@ import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
+import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.user.client.Window;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.TitleOrientation;
@@ -23,7 +25,7 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class EIATopSection extends HLayout implements EIATypeSelectionListener,
-		GHAClosable {
+		GHAClosable, ResizeHandler {
 
 	private List<EIATypeSelectionListener> selectionListeners;
 	private GHATextItem codeItem, brandItem, modelItem, manItem, nameItem,
@@ -47,6 +49,7 @@ public class EIATopSection extends HLayout implements EIATypeSelectionListener,
 	public EIATopSection(EIATab eiaTab) {
 		super();
 		eiaTab.addClosableHandler(this);
+		GHAUiHelper.addResizeHandler(this);
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		setWidth100();
 		setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT + "px");
@@ -147,5 +150,10 @@ public class EIATopSection extends HLayout implements EIATypeSelectionListener,
 
 	@Override
 	public void close() {
+	}
+
+	@Override
+	public void onResize(ResizeEvent event) {
+		setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT + "px");		
 	}
 }

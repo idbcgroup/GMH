@@ -1,10 +1,11 @@
-package org.fourgeeks.gha.webclient.client.eia.equipment;
+package org.fourgeeks.gha.webclient.client.eia.information;
 
 import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
+import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.GHANotification;
 import org.fourgeeks.gha.webclient.client.eia.EIAModel;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
@@ -18,26 +19,26 @@ import com.smartgwt.client.widgets.tab.Tab;
 /**
  * @author alacret Equipments sub tab
  */
-public class EIAEquipmentSubTab extends Tab implements
-		EIATypeSelectionListener, EIASelectionListener {
+public class EIAInformationSubTab extends Tab implements
+		EIATypeSelectionListener, EIASelectionListener, GHAClosable {
 
-	private EIAEquipmentGridPanel eiaEquiposGridPanel = null;
+	private EIAInformationFormPanel eiaInformationFormPanel = null;
 	private EiaType eiaType;
 
 	/**
 	 * 
 	 */
-	public EIAEquipmentSubTab() {
+	public EIAInformationSubTab() {
 		setTitle("Equipos");
 		setPaneMargin(0);
-		eiaEquiposGridPanel = new EIAEquipmentGridPanel(this);
-		setPane(eiaEquiposGridPanel);
+		eiaInformationFormPanel = new EIAInformationFormPanel(this);
+		setPane(eiaInformationFormPanel);
 	}
 
 	@Override
 	public void select(EiaType eiaType) {
 		this.eiaType = eiaType;
-		loadData();
+		//loadData();
 
 	}
 
@@ -56,7 +57,7 @@ public class EIAEquipmentSubTab extends Tab implements
 
 				ListGridRecord[] array = EIAUtil.toGridRecords(eias).toArray(
 						new EIATypeRecord[] {});
-				eiaEquiposGridPanel.setData(array);
+				eiaInformationFormPanel.setData(array);
 
 			}
 		});
@@ -64,8 +65,13 @@ public class EIAEquipmentSubTab extends Tab implements
 
 	@Override
 	public void select(Eia eia) {
-		loadData();
+		//loadData();
 		//eiaEquiposGridPanel.select(eiaType);
+	}
+
+	@Override
+	public void close() {
+		eiaInformationFormPanel.close();		
 	}
 
 }

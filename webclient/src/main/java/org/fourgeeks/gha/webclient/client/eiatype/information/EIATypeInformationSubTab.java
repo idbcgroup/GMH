@@ -13,7 +13,7 @@ public class EIATypeInformationSubTab extends Tab implements
 	private EIATypeInformationFormPanel form;
 
 	public EIATypeInformationSubTab(EIATypeTab tab) {
-		setTitle("Caracteristicas");
+		setTitle("Información");
 		setPaneMargin(0);
 		form = new EIATypeInformationFormPanel(tab);
 		setPane(form);

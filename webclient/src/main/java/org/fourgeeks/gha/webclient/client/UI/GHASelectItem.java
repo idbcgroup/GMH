@@ -8,7 +8,7 @@ public class GHASelectItem extends SelectItem {
 		super();
 		setControlStyle("margin-right");
 		setTextBoxStyle("select");
-		setHeight(15);
+		setHeight(18);
 		setCellStyle("gha-form-cell");
 		setWidth(100);
 		setTitleStyle("input-title");
