@@ -3,8 +3,7 @@ package org.fourgeeks.gha.webclient.client.eia;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
-import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
@@ -13,7 +12,6 @@ import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
-import com.google.gwt.user.client.Window;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.types.VerticalAlignment;
@@ -24,26 +22,72 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIATopSection extends HLayout implements EIATypeSelectionListener,
-		GHAClosable, ResizeHandler {
+public class EIATopSection extends HLayout implements EIASelectionListener, GHAClosable, ResizeHandler {
 
-	private List<EIATypeSelectionListener> selectionListeners;
-	private GHATextItem codeItem, brandItem, modelItem, manItem, nameItem,
-			useAreaItem, refactorItem, codigoUMDNSItem, typeItem, subTypeItem,
-			useItem;
+	private List<EIASelectionListener> selectionListeners;
+	private GHATextItem acceptationDate, actualCost, actualCostCurrency, adquisitionCost, adquisitionCostCurrency,
+	adquisitionCostCurrencyLocal, adquisitionCostLocal, responsibleRole, code, contabilizationDate, dateLastDepreciation,
+	depreciationMethod, depreciationTime, depreciationTimePoT, desincorporatedDate, desincorporateReason, eiaType, fixedAssetIdentifier,
+	installationDate, installationProvider, lifeTime, lifeTimePoT, buildingLocation, attendedLocation, maintenanceLocation, maintenanceProvider,
+	obu, purchaseDate, purchaseInvoiceDate, purchaseInvoiceNumber, purchaseOrderDate, purchaseOrderNumber, receptionDate, serialNumber, state, 
+	provider, itType, machineName, ipAddress, macAddress, realWarrantySince, realWarrantyTime, realWarrantyPoT, realWarrantyBegin, intWarrantySince, 
+	intWarrantyTime, intWarrantyPoT, intWarrantyBegin;
+	
 	{
-		selectionListeners = new LinkedList<EIATypeSelectionListener>();
-		codeItem = new GHATextItem("Código", false);
-		nameItem = new GHATextItem("Nombre", false);
-		brandItem = new GHATextItem("Marca", false);
-		modelItem = new GHATextItem("Modelo", false);
-		manItem = new GHATextItem("Fabricante", false);
-		typeItem = new GHATextItem("Tipo", false);
-		subTypeItem = new GHATextItem("Sub-Tipo", false);
-		useAreaItem = new GHATextItem("Se usa en area", false);
-		useItem = new GHATextItem("para", false);
-		refactorItem = new GHATextItem("Descripción", false);
-		codigoUMDNSItem = new GHATextItem("Código UMDNS", false);
+		selectionListeners = new LinkedList<EIASelectionListener>();
+		acceptationDate = new GHATextItem("Fecha de Instalación", false);
+		actualCost = new GHATextItem("Costo actual", false);
+		actualCostCurrency = new GHATextItem("Costo actual moneda indicada", false);
+		adquisitionCost = new GHATextItem("Costo de adquisición", false);
+		adquisitionCostCurrency = new GHATextItem("Costo de adquisición moneda indicada", false);
+		adquisitionCostCurrencyLocal = new GHATextItem("Costo de adquisición moneda local", false);
+		adquisitionCostLocal = new GHATextItem("--", false);
+		responsibleRole = new GHATextItem("Responsable", false);
+		code = new GHATextItem("Código del equipo", false);
+		contabilizationDate = new GHATextItem("Fecha de Contabilización", false);
+		dateLastDepreciation = new GHATextItem("Fecha última depresiación", false);
+		
+		depreciationMethod = new GHATextItem("Método de depresiación", false);
+		depreciationTime = new GHATextItem("Período de depresiación", false);
+		depreciationTimePoT = new GHATextItem("Período de depresiación PoT", false);
+		desincorporatedDate = new GHATextItem("Fecha de desincorporación", false);
+		desincorporateReason = new GHATextItem("Razón de desincorporación", false);
+		eiaType = new GHATextItem("Tipo de equipo", false);
+		fixedAssetIdentifier = new GHATextItem("Identificador de activo fijo", false);
+		installationDate = new GHATextItem("Fecha de instalación", false);
+		installationProvider = new GHATextItem("Proveedor de instalación", false);
+		lifeTime = new GHATextItem("Tiempo de vida", false);
+		lifeTimePoT = new GHATextItem("Tiempo de vida PoT", false);
+		buildingLocation = new GHATextItem("Ubicación de construccion", false);
+		attendedLocation = new GHATextItem("Ubicación de atención", false);
+		maintenanceLocation = new GHATextItem("Ubicación de mantenimiento", false);
+		maintenanceProvider = new GHATextItem("Proveedor de mantenimiento", false);
+		
+		obu = new GHATextItem("obu", false);
+		
+		purchaseDate = new GHATextItem("Fecha de compra", false);
+		purchaseInvoiceDate = new GHATextItem("Fecha de compra de la factura", false);
+		purchaseInvoiceNumber = new GHATextItem("Número de compra de la factura", false);
+		purchaseOrderDate = new GHATextItem("Fecha de la orden de compra", false);
+		purchaseOrderNumber = new GHATextItem("Número de la orden de compra", false);
+		receptionDate = new GHATextItem("Fecha de recepción", false);
+		serialNumber = new GHATextItem("Número de serial", false);
+		state = new GHATextItem("EstadoS", false);
+		provider = new GHATextItem("Proveedor", false);
+		
+		itType = new GHATextItem("Tipo it", false);
+		machineName = new GHATextItem("Nombre de la máquina", false);
+		ipAddress = new GHATextItem("Dirección IP", false);
+		macAddress = new GHATextItem("Dirección MAC", false);
+		realWarrantySince = new GHATextItem("Garantía desde", false);
+		realWarrantyTime = new GHATextItem("Período de garantía", false);
+		realWarrantyPoT = new GHATextItem("realWarrantyPoT", false);
+		realWarrantyBegin = new GHATextItem("Garantía comienza", false);
+		intWarrantySince = new GHATextItem("Garantía desde", false);
+		intWarrantyTime = new GHATextItem("Período de garantía", false);
+		intWarrantyPoT = new GHATextItem("intWarrantyPoT", false);
+		intWarrantyBegin = new GHATextItem("Garantía comienza", false);
+		
 	}
 
 	public EIATopSection(EIATab eiaTab) {
@@ -59,10 +103,17 @@ public class EIATopSection extends HLayout implements EIATypeSelectionListener,
 		DynamicForm form = new DynamicForm();
 		//form.setWidth("100px");
 		form.setTitleOrientation(TitleOrientation.TOP);
-		form.setNumCols(6);
-		form.setItems(codeItem, nameItem, brandItem, modelItem, manItem,
-				typeItem, subTypeItem, useAreaItem, useItem, refactorItem,
-				codigoUMDNSItem);
+		form.setNumCols(12);
+		form.setItems(
+			
+				acceptationDate, actualCost, actualCostCurrency, adquisitionCost, adquisitionCostCurrency,
+				adquisitionCostCurrencyLocal, adquisitionCostLocal, responsibleRole, code, contabilizationDate, dateLastDepreciation,
+				depreciationMethod, depreciationTime, depreciationTimePoT, desincorporatedDate, desincorporateReason, eiaType, fixedAssetIdentifier,
+				installationDate, installationProvider, lifeTime, lifeTimePoT, buildingLocation, attendedLocation, maintenanceLocation, maintenanceProvider,
+				obu, purchaseDate, purchaseInvoiceDate, purchaseInvoiceNumber, purchaseOrderDate, purchaseOrderNumber, receptionDate, serialNumber, state, 
+				provider, itType, machineName, ipAddress, macAddress, realWarrantySince, realWarrantyTime, realWarrantyPoT, realWarrantyBegin, intWarrantySince, 
+				intWarrantyTime, intWarrantyPoT, intWarrantyBegin		
+		);
 
 		GHAImgButton cleanImg = new GHAImgButton("../resources/icons/clean.png");
 		GHAImgButton canelButton = new GHAImgButton("../resources/icons/cancel.png");
@@ -89,63 +140,10 @@ public class EIATopSection extends HLayout implements EIATypeSelectionListener,
 	public void search() {
 	}
 
-	@Override
-	public void select(EiaType eiaType) {
-		selectEiaType(eiaType);
-		codeItem.setValue(eiaType.getCode());
-		nameItem.setValue(eiaType.getName());
 
-		if (eiaType.getBrand() != null)
-			brandItem.setValue(eiaType.getBrand().getName());
 
-		modelItem.setValue(eiaType.getModel());
-
-		if (eiaType.getManufacturer() != null)
-			manItem.setValue(eiaType.getManufacturer().getName());
-
-		try {
-			EiaTypeEnum type = eiaType.getType();
-			Window.alert(type == null ? "type es null" : "type no es null");
-			try {
-				Window.alert(type.name());
-			} catch (Exception e) {
-				Window.alert("error en name");
-			}
-			try {
-				Window.alert(type.toString());
-			} catch (Exception e) {
-				Window.alert("error en tostring");
-			}
-		} catch (Exception e) {
-			Window.alert("error en getType");
-		}
-
-		if (eiaType.getType() != null)
-			typeItem.setValue(eiaType.getType().toString());
-
-		if (eiaType.getSubtype() != null)
-			subTypeItem.setValue(eiaType.getSubtype().toString());
-
-		if (eiaType.getSubtype() != null)
-			subTypeItem.setValue(eiaType.getSubtype().toString());
-
-		useAreaItem.setValue(eiaType.getUseDescription());
-
-		// useItem = new GHASelectItem("para", false);
-		// refactorItem = new GHATextItem("Descripción", false);
-		// codigoUMDNSItem = new GHATextItem("Código UMDNS", false);
-
-	}
-
-	public void AddEIATypeSelectionListener(
-			EIATypeSelectionListener selecionListener) {
-		selectionListeners.add(selecionListener);
-	}
-
-	private void selectEiaType(EiaType eiaType) {
-		for (EIATypeSelectionListener listener : selectionListeners)
-			listener.select(eiaType);
-
+	public void AddEIATypeSelectionListener(EIATypeSelectionListener selecionListener) {
+		//selectionListeners.add(selecionListener);
 	}
 
 	@Override
@@ -155,5 +153,14 @@ public class EIATopSection extends HLayout implements EIATypeSelectionListener,
 	@Override
 	public void onResize(ResizeEvent event) {
 		setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT + "px");		
+	}
+
+	@Override
+	public void select(Eia eia) {
+		// TODO Auto-generated method stub
+		for (EIASelectionListener listener : selectionListeners)
+			listener.select(eia);
+
+		
 	}
 }
