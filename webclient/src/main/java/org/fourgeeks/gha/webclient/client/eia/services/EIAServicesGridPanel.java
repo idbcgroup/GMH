@@ -1,6 +1,7 @@
 package org.fourgeeks.gha.webclient.client.eia.services;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
+import org.fourgeeks.gha.webclient.client.UI.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
@@ -10,7 +11,7 @@ import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIAServicesGridPanel extends VLayout implements GHAClosable {
+public class EIAServicesGridPanel extends VLayout implements GHAClosable, GHAHideable{
 
 	private EIAServicesGrid eiaServicesGrid = new EIAServicesGrid();
 	
@@ -53,6 +54,12 @@ public class EIAServicesGridPanel extends VLayout implements GHAClosable {
 
 	@Override
 	public void close() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void hide() {
 		// TODO Auto-generated method stub
 		
 	}

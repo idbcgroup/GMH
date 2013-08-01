@@ -27,6 +27,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.GHACustomButton;
+import org.fourgeeks.gha.webclient.client.UI.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.GHASelectItem;
@@ -50,7 +51,7 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class EIATypeInformationFormPanel extends VLayout implements
-		EIATypeSelectionListener, GHAClosable {
+		EIATypeSelectionListener, GHAClosable, GHAHideable {
 	private GHATextItem codeItem, nameItem, modelItem, descriptionItem,
 			useDescriptionItem, eiaUmdnsItem;
 	private GHASelectItem brandItem, manItem, mobilityItem, typeItem,
@@ -198,7 +199,7 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		setOnFinishUploaderHandler();
 		
 		this.tab = tab;
-		tab.addClosableHandler(this);
+		tab.addGHAClosableHandler(this);
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding top-padding");// Esto es VUDU!
@@ -431,5 +432,11 @@ public class EIATypeInformationFormPanel extends VLayout implements
 
 	@Override
 	public void close() {
+		
+	}
+	
+	@Override
+	public void hide(){
+		
 	}
 }

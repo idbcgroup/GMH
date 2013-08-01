@@ -18,7 +18,7 @@ public abstract class GHASlideInWindow extends VLayout implements
 		setVisibility(Visibility.HIDDEN);
 		setAnimateTime(600);
 		addStyleName("box");
-		GHAUiHelper.addResizeHandler(this);
+		GHAUiHelper.addGHAResizeHandler(this);
 	}
 
 	public void close() {

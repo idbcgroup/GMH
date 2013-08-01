@@ -42,7 +42,7 @@ public class EIATypeMaintenanceProtocolGrid extends ListGrid implements ResizeHa
     }
 	
 	public EIATypeMaintenanceProtocolGrid() {
-		GHAUiHelper.addResizeHandler(this);
+		GHAUiHelper.addGHAResizeHandler(this);
 		setWidth100();
 		setHeight(GHAUiHelper.getGridSize(60));
 		setEmptyMessage("No existe material para mostrar.");

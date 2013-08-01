@@ -1,27 +1,32 @@
 package org.fourgeeks.gha.webclient.client.eiatype.maintenance;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.webclient.client.UI.GHASubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
+import org.fourgeeks.gha.webclient.client.eiatype.EIATypeTab;
 
-import com.smartgwt.client.widgets.tab.Tab;
 import com.smartgwt.client.widgets.tab.events.TabDeselectedEvent;
 import com.smartgwt.client.widgets.tab.events.TabDeselectedHandler;
 
-public class EIATypeMaintenanceSubTab extends Tab implements
-		EIATypeSelectionListener {
+public class EIATypeMaintenanceSubTab extends GHASubTab implements
+		EIATypeSelectionListener{
 
-	private EIATypeMaintenanceGridPanel maintenanceGridPanel = new EIATypeMaintenanceGridPanel();
+	private EIATypeMaintenanceGridPanel eiaTypeMaintenanceGridPanel;
 
-	public EIATypeMaintenanceSubTab() {
-
-		setTitle("Mantenimiento y Protocolos");
-		setPaneMargin(0);
-		setPane(maintenanceGridPanel);
+	public EIATypeMaintenanceSubTab(EIATypeTab tab) {
+		super("Mantenimiento y Protocolos",tab);
+		
+		eiaTypeMaintenanceGridPanel = new EIATypeMaintenanceGridPanel();
+		
+		addGHAClosableHandler(eiaTypeMaintenanceGridPanel);
+		addGHAHideableHandler(eiaTypeMaintenanceGridPanel);
+		
+		setPane(eiaTypeMaintenanceGridPanel);
+		
 		addTabDeselectedHandler(new TabDeselectedHandler() {
-
 			@Override
 			public void onTabDeselected(TabDeselectedEvent event) {
-				maintenanceGridPanel.hide();
+				eiaTypeMaintenanceGridPanel.hide();
 			}
 		});
 	}
@@ -29,7 +34,7 @@ public class EIATypeMaintenanceSubTab extends Tab implements
 	@Override
 	public void select(EiaType eiaType) {
 		// TODO Auto-generated method stub
-		maintenanceGridPanel.select(eiaType);
+		eiaTypeMaintenanceGridPanel.select(eiaType);
 	}
 
 }

@@ -5,22 +5,22 @@ import java.util.List;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
-import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.GHASubTab;
 import org.fourgeeks.gha.webclient.client.eia.EIAModel;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
+import org.fourgeeks.gha.webclient.client.eia.EIATab;
 import org.fourgeeks.gha.webclient.client.eia.EIAUtil;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeRecord;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.smartgwt.client.widgets.grid.ListGridRecord;
-import com.smartgwt.client.widgets.tab.Tab;
 
 /**
  * @author alacret Equipments sub tab
  */
-public class EIAInformationSubTab extends Tab implements
-		EIATypeSelectionListener, EIASelectionListener, GHAClosable {
+public class EIAInformationSubTab extends GHASubTab implements
+		EIATypeSelectionListener, EIASelectionListener{
 
 	private EIAInformationFormPanel eiaInformationFormPanel = null;
 	private EiaType eiaType;
@@ -28,10 +28,13 @@ public class EIAInformationSubTab extends Tab implements
 	/**
 	 * 
 	 */
-	public EIAInformationSubTab() {
-		setTitle("Equipos");
-		setPaneMargin(0);
+	public EIAInformationSubTab(EIATab tab) {
+		super("Información", tab);
+		
 		eiaInformationFormPanel = new EIAInformationFormPanel(this);
+		addGHAClosableHandler(eiaInformationFormPanel);
+		addGHAHideableHandler(eiaInformationFormPanel);
+		
 		setPane(eiaInformationFormPanel);
 	}
 
@@ -67,11 +70,6 @@ public class EIAInformationSubTab extends Tab implements
 	public void select(Eia eia) {
 		//loadData();
 		//eiaEquiposGridPanel.select(eiaType);
-	}
-
-	@Override
-	public void close() {
-		eiaInformationFormPanel.close();		
 	}
 
 }

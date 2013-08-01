@@ -42,7 +42,7 @@ public class EIATypeReplacementsGrid extends ListGrid implements ResizeHandler{
     }
 	
 	public EIATypeReplacementsGrid() {
-		GHAUiHelper.addResizeHandler(this);
+		GHAUiHelper.addGHAResizeHandler(this);
 		setWidth100();
 		setHeight(GHAUiHelper.getGridSize(30));	
 		setEmptyMessage("No existen repuestos para mostrar.");

@@ -2,12 +2,13 @@ package org.fourgeeks.gha.webclient.client.eia.maintenance_plan;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
+import org.fourgeeks.gha.webclient.client.UI.GHAHideable;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIAMantPlanGridPanel extends VLayout implements EIATypeSelectionListener, GHAClosable{
+public class EIAMantPlanGridPanel extends VLayout implements EIATypeSelectionListener, GHAClosable, GHAHideable{
 	
 	public EIAMantPlanGridPanel() {
 		setWidth100();
@@ -36,4 +37,9 @@ public class EIAMantPlanGridPanel extends VLayout implements EIATypeSelectionLis
 		
 	}
 
+	@Override
+	public void hide() {
+		// TODO Auto-generated method stub
+		
+	}
 }

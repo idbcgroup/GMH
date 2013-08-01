@@ -11,7 +11,7 @@ import com.smartgwt.client.widgets.grid.ListGridField;
 public class EIAComponentGrid extends ListGrid implements ResizeHandler{
 
 	public EIAComponentGrid() {
-		GHAUiHelper.addResizeHandler(this);
+		GHAUiHelper.addGHAResizeHandler(this);
 		
 		setWidth100();
 		setHeight(GHAUiHelper.getGridSize(30));

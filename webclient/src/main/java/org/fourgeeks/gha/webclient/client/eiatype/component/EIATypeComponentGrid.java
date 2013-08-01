@@ -24,7 +24,7 @@ public class EIATypeComponentGrid extends ListGrid implements ResizeHandler {
 	}
 	
 	public EIATypeComponentGrid() {
-		GHAUiHelper.addResizeHandler(this);
+		GHAUiHelper.addGHAResizeHandler(this);
 		setWidth100();
 		setHeight(GRID_SIZE);
 		setEmptyMessage("No existen componentes para mostrar");

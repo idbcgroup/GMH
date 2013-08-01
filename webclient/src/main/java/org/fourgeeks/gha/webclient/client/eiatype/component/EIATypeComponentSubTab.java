@@ -1,18 +1,20 @@
 package org.fourgeeks.gha.webclient.client.eiatype.component;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
+import org.fourgeeks.gha.webclient.client.UI.GHASubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
+import org.fourgeeks.gha.webclient.client.eiatype.EIATypeTab;
 
-import com.smartgwt.client.widgets.tab.Tab;
-
-public class EIATypeComponentSubTab extends Tab implements EIATypeSelectionListener, GHAClosable{
+public class EIATypeComponentSubTab extends GHASubTab implements EIATypeSelectionListener{
 	
-	private EIATypeComponentGridPanel partesGridPanel = new EIATypeComponentGridPanel();
+	private EIATypeComponentGridPanel partesGridPanel;
 	
-	public EIATypeComponentSubTab() {
-		setTitle("Partes/Componentes");
-		setPaneMargin(0);
+	public EIATypeComponentSubTab(EIATypeTab tab) {
+		super("Componentes",tab);
+		
+		partesGridPanel = new EIATypeComponentGridPanel();
+		addGHAClosableHandler(partesGridPanel);
+		addGHAHideableHandler(partesGridPanel);		
 		
 		setPane(partesGridPanel);
 	}
@@ -20,10 +22,5 @@ public class EIATypeComponentSubTab extends Tab implements EIATypeSelectionListe
 	@Override
 	public void select(EiaType eiaType) {
 		partesGridPanel.select(eiaType);
-	}
-
-	@Override
-	public void close() {
-		partesGridPanel.close();
 	}
 }

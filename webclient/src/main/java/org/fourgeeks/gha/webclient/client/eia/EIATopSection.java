@@ -48,8 +48,8 @@ public class EIATopSection extends HLayout implements EIATypeSelectionListener,
 
 	public EIATopSection(EIATab eiaTab) {
 		super();
-		eiaTab.addClosableHandler(this);
-		GHAUiHelper.addResizeHandler(this);
+		eiaTab.addGHAClosableHandler(this);
+		GHAUiHelper.addGHAResizeHandler(this);
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		setWidth100();
 		setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT + "px");

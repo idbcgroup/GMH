@@ -42,7 +42,7 @@ public class EIATypeServicesGrid extends ListGrid implements ResizeHandler {
     }
 	
 	public EIATypeServicesGrid() {
-		GHAUiHelper.addResizeHandler(this);
+		GHAUiHelper.addGHAResizeHandler(this);
 		setWidth100();
 		setHeight(GHAUiHelper.getGridSize(30));	
 		setEmptyMessage("No existen servicios para mostrar.");

@@ -123,7 +123,7 @@ public abstract class GHAUiHelper {
 
 	private static List<ResizeHandler> handlers = new ArrayList<ResizeHandler>();
 
-	public static void addResizeHandler(ResizeHandler handler) {
+	public static void addGHAResizeHandler(ResizeHandler handler) {
 		handlers.add(handler);
 	}
 
