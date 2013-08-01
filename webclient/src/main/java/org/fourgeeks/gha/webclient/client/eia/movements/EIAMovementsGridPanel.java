@@ -2,12 +2,13 @@ package org.fourgeeks.gha.webclient.client.eia.movements;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
+import org.fourgeeks.gha.webclient.client.UI.GHAHideable;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIAMovementsGridPanel extends VLayout implements EIATypeSelectionListener, GHAClosable{
+public class EIAMovementsGridPanel extends VLayout implements EIATypeSelectionListener, GHAClosable, GHAHideable{
 	
 	public EIAMovementsGridPanel() {
 		setWidth100();
@@ -32,6 +33,12 @@ public class EIAMovementsGridPanel extends VLayout implements EIATypeSelectionLi
 
 	@Override
 	public void close() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void hide() {
 		// TODO Auto-generated method stub
 		
 	}

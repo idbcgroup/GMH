@@ -10,7 +10,7 @@ import com.smartgwt.client.widgets.grid.ListGrid;
 public class EIAGrid extends ListGrid implements ResizeHandler{
 
 	public EIAGrid() {
-		GHAUiHelper.addResizeHandler(this);
+		GHAUiHelper.addGHAResizeHandler(this);
 		setWidth100();
 		setHeight(GHAUiHelper.getGridSize(30));
 		setEmptyMessage("No existen tipos de equipo para mostrar");

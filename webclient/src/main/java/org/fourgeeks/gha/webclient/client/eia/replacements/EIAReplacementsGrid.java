@@ -42,7 +42,7 @@ public class EIAReplacementsGrid extends ListGrid implements ResizeHandler {
     }
 	
 	public EIAReplacementsGrid() {
-		GHAUiHelper.addResizeHandler(this);
+		GHAUiHelper.addGHAResizeHandler(this);
 		
 		setWidth100();
 		setHeight(GHAUiHelper.getGridSize(30));

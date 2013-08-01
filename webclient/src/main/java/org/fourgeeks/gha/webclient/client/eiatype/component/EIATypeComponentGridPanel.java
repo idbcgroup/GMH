@@ -6,6 +6,7 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeComponent;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
+import org.fourgeeks.gha.webclient.client.UI.GHAHideable;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSearchForm;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
@@ -22,7 +23,7 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class EIATypeComponentGridPanel extends VLayout implements
-		EIATypeSelectionListener, GHAClosable {
+		EIATypeSelectionListener, GHAClosable, GHAHideable {
 
 	private EIATypeComponentGrid eiaTypeComponentGrid;
 	private EiaType eiaType;
@@ -85,7 +86,7 @@ public class EIATypeComponentGridPanel extends VLayout implements
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding top-padding");// Esto es VUDU!
 		
-		Label title = new Label("<h3>Partes/Componentes de EIAType</h3>");
+		Label title = new Label("<h3>Componentes de EIAType</h3>");
 		title.setHeight(35);
 		title.setWidth100();
 		title.setStyleName("title-label");
@@ -162,6 +163,12 @@ public class EIATypeComponentGridPanel extends VLayout implements
 	
 	@Override
 	public void close() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void hide() {
 		// TODO Auto-generated method stub
 		
 	}

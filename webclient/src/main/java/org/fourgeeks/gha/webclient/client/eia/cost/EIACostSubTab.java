@@ -1,31 +1,27 @@
 package org.fourgeeks.gha.webclient.client.eia.cost;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
+import org.fourgeeks.gha.webclient.client.UI.GHASubTab;
+import org.fourgeeks.gha.webclient.client.eia.EIATab;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
-import com.smartgwt.client.widgets.tab.Tab;
-
-public class EIACostSubTab extends Tab implements EIATypeSelectionListener, GHAClosable {
+public class EIACostSubTab extends GHASubTab implements EIATypeSelectionListener {
 	
-	private EIACostGridPanel costGridPanel = new EIACostGridPanel();
+	private EIACostGridPanel eiaCostGridPanel = null;
 	
-	public EIACostSubTab() {
-		setTitle("Costos y Depreciación");
-		setPaneMargin(0);
+	public EIACostSubTab(EIATab tab) {
+		super("Costos y Depreciación", tab);
 		
-		setPane(costGridPanel);
+		eiaCostGridPanel = new EIACostGridPanel();
+		addGHAClosableHandler(eiaCostGridPanel);
+		addGHAHideableHandler(eiaCostGridPanel);
+		
+		setPane(eiaCostGridPanel);
 	}
 
 	@Override
 	public void select(EiaType eiaType) {
 		// TODO Auto-generated method stub
 		
-	}
-
-	@Override
-	public void close() {
-		// TODO Auto-generated method stub
-		costGridPanel.close();
 	}
 }

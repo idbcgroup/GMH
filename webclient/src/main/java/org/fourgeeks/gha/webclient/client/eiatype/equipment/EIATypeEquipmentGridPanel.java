@@ -5,8 +5,9 @@ import java.util.List;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
-import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
+import org.fourgeeks.gha.webclient.client.UI.GHAHideable;
+import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.eia.EIAAddForm;
 import org.fourgeeks.gha.webclient.client.eia.EIAGrid;
 import org.fourgeeks.gha.webclient.client.eia.EIAModel;
@@ -25,7 +26,7 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class EIATypeEquipmentGridPanel extends VLayout implements
-		EIATypeSelectionListener, EIASelectionListener, GHAClosable {
+		EIATypeSelectionListener, EIASelectionListener, GHAClosable, GHAHideable{
 
 	private EIAGrid grid;
 	private EiaType eiaType;
@@ -114,6 +115,11 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 	public void close() {
 		eiaAddForm.animateHide(AnimationEffect.FLY);
 		eiaAddForm.destroy();
+	}
+
+	@Override
+	public void hide(){
+		eiaAddForm.animateHide(AnimationEffect.FLY);
 	}
 
 	/* (non-Javadoc)

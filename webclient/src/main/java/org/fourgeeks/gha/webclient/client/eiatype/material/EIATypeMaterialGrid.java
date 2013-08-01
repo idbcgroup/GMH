@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eia.consumables;
+package org.fourgeeks.gha.webclient.client.eiatype.material;
 
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
@@ -15,7 +15,7 @@ import com.smartgwt.client.widgets.grid.ListGrid;
 import com.smartgwt.client.widgets.grid.ListGridField;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
 
-public class EIAConsumablesGrid extends ListGrid implements ResizeHandler {
+public class EIATypeMaterialGrid extends ListGrid implements ResizeHandler{
 
 	@Override
 	protected Canvas createRecordComponent(final ListGridRecord record, Integer colNum) {  
@@ -41,11 +41,10 @@ public class EIAConsumablesGrid extends ListGrid implements ResizeHandler {
 
     }
 	
-	public EIAConsumablesGrid() {
-		GHAUiHelper.addResizeHandler(this);
-		
+	public EIATypeMaterialGrid() {
+		GHAUiHelper.addGHAResizeHandler(this);
 		setWidth100();
-		setHeight(GHAUiHelper.getGridSize(30));
+		setHeight(GHAUiHelper.getGridSize(30));	
 		setEmptyMessage("No existe material para mostrar.");
 
 		setAlternateRecordStyles(false);
@@ -88,7 +87,7 @@ public class EIAConsumablesGrid extends ListGrid implements ResizeHandler {
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getGridSize(30));			
+		setHeight(GHAUiHelper.getGridSize(30));	
 	}
 
 }

@@ -2,6 +2,7 @@ package org.fourgeeks.gha.webclient.client.eiatype.services;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
+import org.fourgeeks.gha.webclient.client.UI.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
@@ -12,7 +13,7 @@ import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIATypeServicesGridPanel extends VLayout implements EIATypeSelectionListener,GHAClosable{
+public class EIATypeServicesGridPanel extends VLayout implements EIATypeSelectionListener,GHAClosable,GHAHideable{
 
 	private EIATypeServicesGrid eiaTypeServicesGrid = new EIATypeServicesGrid();
 	
@@ -61,6 +62,12 @@ public class EIATypeServicesGridPanel extends VLayout implements EIATypeSelectio
 
 	@Override
 	public void close() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void hide() {
 		// TODO Auto-generated method stub
 		
 	}

@@ -1,6 +1,7 @@
-package org.fourgeeks.gha.webclient.client.eia.specialmaterial;
+package org.fourgeeks.gha.webclient.client.eia.material;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
+import org.fourgeeks.gha.webclient.client.UI.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
@@ -10,17 +11,17 @@ import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIASpecialMaterialGridPanel extends VLayout implements GHAClosable {
+public class EIAMaterialGridPanel extends VLayout implements GHAClosable,GHAHideable {
 
-	private EIASpecialMaterialGrid eiaSpecialMaterialGrid = new EIASpecialMaterialGrid();
+	private EIAMaterialGrid eiaMaterialsGrid = new EIAMaterialGrid();
 	
-	public EIASpecialMaterialGridPanel() {
+	public EIAMaterialGridPanel() {
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding top-padding");// Esto es VUDU!
 		
 		
-		Label title = new Label("<h3>Materiales Especiales</h3>");
+		Label title = new Label("<h3>Materiales</h3>");
 		title.setHeight(35);
 		title.setWidth100();
 		title.setStyleName("title-label");
@@ -46,13 +47,19 @@ public class EIASpecialMaterialGridPanel extends VLayout implements GHAClosable 
 				}));
 		
         HLayout mainPanel = new HLayout();
-        mainPanel.addMembers(eiaSpecialMaterialGrid,sideButtons);
+        mainPanel.addMembers(eiaMaterialsGrid,sideButtons);
         
 		addMembers(title, mainPanel);
 	}
 
 	@Override
 	public void close() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void hide() {
 		// TODO Auto-generated method stub
 		
 	}

@@ -1,6 +1,7 @@
 package org.fourgeeks.gha.webclient.client.eiatype.maintenance;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.GHASectionForm;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
@@ -9,7 +10,7 @@ import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class EIATypeMaintenanceGridPanel extends VLayout implements
-		EIATypeSelectionListener, GHAHideable {
+		EIATypeSelectionListener,GHAClosable, GHAHideable {
 
 	private EIATypeMaintenancePlanGridPanel maintenancePlanGridPanel = new EIATypeMaintenancePlanGridPanel();
 	private EIATypeMaintenanceProtocolGridPanel maintenanceProtocolGridPanel = new EIATypeMaintenanceProtocolGridPanel();
@@ -47,6 +48,12 @@ public class EIATypeMaintenanceGridPanel extends VLayout implements
 	@Override
 	public void hide() {
 		super.hide();
+		sectionForm.deactivate();
+	}
+
+	@Override
+	public void close() {
+		// TODO Auto-generated method stub
 		sectionForm.deactivate();
 	}
 }

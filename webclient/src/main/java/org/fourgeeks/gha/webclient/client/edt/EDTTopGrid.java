@@ -10,7 +10,7 @@ import com.smartgwt.client.widgets.grid.ListGrid;
 public class EDTTopGrid extends ListGrid implements ResizeHandler{
 
 	public EDTTopGrid() {
-		GHAUiHelper.addResizeHandler(this);
+		GHAUiHelper.addGHAResizeHandler(this);
 		setWidth100();
 		setHeight(GHAUiHelper.getEDTGridSize(115));
 		setEmptyMessage("No existen actividades para mostrar");

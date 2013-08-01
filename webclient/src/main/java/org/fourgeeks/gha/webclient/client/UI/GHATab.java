@@ -63,11 +63,11 @@ public abstract class GHATab extends VLayout implements GHAClosable,
 		getHeader().selectTab();
 	}
 
-	public void addClosableHandler(GHAClosable closable) {
+	public void addGHAClosableHandler(GHAClosable closable) {
 		closables.add(closable);
 	}
 
-	public void addHideableHandler(GHAHideable hideable) {
+	public void addGHAHideableHandler(GHAHideable hideable) {
 		hideables.add(hideable);
 	}
 }

@@ -2,6 +2,7 @@ package org.fourgeeks.gha.webclient.client.eia.information;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
+import org.fourgeeks.gha.webclient.client.UI.GHAHideable;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.smartgwt.client.widgets.Label;
@@ -13,7 +14,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class EIAInformationFormPanel extends VLayout implements EIATypeSelectionListener,GHAClosable{
+public class EIAInformationFormPanel extends VLayout implements EIATypeSelectionListener,GHAClosable,GHAHideable{
 
 	/**
 	 * @param eiaEquipmentSubTab
@@ -54,6 +55,12 @@ public class EIAInformationFormPanel extends VLayout implements EIATypeSelection
 
 	@Override
 	public void close() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void hide() {
 		// TODO Auto-generated method stub
 		
 	}

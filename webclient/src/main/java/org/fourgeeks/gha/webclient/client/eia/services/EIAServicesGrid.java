@@ -42,7 +42,7 @@ public class EIAServicesGrid extends ListGrid implements ResizeHandler{
     }
 	
 	public EIAServicesGrid() {
-		GHAUiHelper.addResizeHandler(this);
+		GHAUiHelper.addGHAResizeHandler(this);
 		
 		setWidth100();
 		setHeight(GHAUiHelper.getGridSize(30));

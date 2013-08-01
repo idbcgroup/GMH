@@ -1,31 +1,27 @@
 package org.fourgeeks.gha.webclient.client.eia.services;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
+import org.fourgeeks.gha.webclient.client.UI.GHASubTab;
+import org.fourgeeks.gha.webclient.client.eia.EIATab;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
-import com.smartgwt.client.widgets.tab.Tab;
-
-public class EIAServicesSubTab extends Tab implements EIATypeSelectionListener, GHAClosable {
+public class EIAServicesSubTab extends GHASubTab implements EIATypeSelectionListener {
 	
-	private EIAServicesGridPanel servicesGridPanel = new EIAServicesGridPanel();
+	private EIAServicesGridPanel eiaServicesGridPanel = null;
 	
-	public EIAServicesSubTab() {
-		setTitle("Servicios");
-		setPaneMargin(0);
+	public EIAServicesSubTab(EIATab tab) {
+		super("Servicios", tab);
 		
-		setPane(servicesGridPanel);
+		eiaServicesGridPanel = new EIAServicesGridPanel();
+		addGHAClosableHandler(eiaServicesGridPanel);
+		addGHAHideableHandler(eiaServicesGridPanel);
+		
+		setPane(eiaServicesGridPanel);
 	}
 
 	@Override
 	public void select(EiaType eiaType) {
 		// TODO Auto-generated method stub
 		
-	}
-
-	@Override
-	public void close() {
-		// TODO Auto-generated method stub
-		servicesGridPanel.close();
 	}
 }

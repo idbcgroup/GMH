@@ -210,7 +210,7 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler,
 	 * 
 	 */
 	public EIAAddForm() {
-		GHAUiHelper.addResizeHandler(this);
+		GHAUiHelper.addGHAResizeHandler(this);
 		setHeight(GHAUiHelper.getBottomSectionHeight());
 		setTop(240);
 

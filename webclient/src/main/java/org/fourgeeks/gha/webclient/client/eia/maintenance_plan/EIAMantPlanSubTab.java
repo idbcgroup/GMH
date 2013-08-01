@@ -1,31 +1,27 @@
 package org.fourgeeks.gha.webclient.client.eia.maintenance_plan;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
+import org.fourgeeks.gha.webclient.client.UI.GHASubTab;
+import org.fourgeeks.gha.webclient.client.eia.EIATab;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
-import com.smartgwt.client.widgets.tab.Tab;
-
-public class EIAMantPlanSubTab extends Tab implements EIATypeSelectionListener, GHAClosable{
+public class EIAMantPlanSubTab extends GHASubTab implements EIATypeSelectionListener{
 	
-	private EIAMantPlanGridPanel mantPlanGridPanel = new EIAMantPlanGridPanel();
+	private EIAMantPlanGridPanel eiaMantPlanGridPanel = null;
 	
-	public EIAMantPlanSubTab() {
-		setTitle("Plan Mantenimiento");
-		setPaneMargin(0);
+	public EIAMantPlanSubTab(EIATab tab) {
+		super("Planes Mantenimiento", tab);
 		
-		setPane(mantPlanGridPanel);
+		eiaMantPlanGridPanel = new EIAMantPlanGridPanel();
+		addGHAClosableHandler(eiaMantPlanGridPanel);
+		addGHAHideableHandler(eiaMantPlanGridPanel);
+		
+		setPane(eiaMantPlanGridPanel);
 	}
 
 	@Override
 	public void select(EiaType eiaType) {
 		// TODO Auto-generated method stub
 		
-	}
-
-	@Override
-	public void close() {
-		// TODO Auto-generated method stub
-		mantPlanGridPanel.close();
 	}
 }

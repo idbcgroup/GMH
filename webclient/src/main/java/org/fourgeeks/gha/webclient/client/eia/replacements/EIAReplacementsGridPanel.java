@@ -1,6 +1,7 @@
 package org.fourgeeks.gha.webclient.client.eia.replacements;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
+import org.fourgeeks.gha.webclient.client.UI.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
@@ -10,7 +11,7 @@ import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIAReplacementsGridPanel extends VLayout implements GHAClosable{
+public class EIAReplacementsGridPanel extends VLayout implements GHAClosable,GHAHideable{
 
 	private EIAReplacementsGrid eiaRepuestosGrid = new EIAReplacementsGrid();
 	
@@ -56,5 +57,12 @@ public class EIAReplacementsGridPanel extends VLayout implements GHAClosable{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	@Override
+	public void hide() {
+		// TODO Auto-generated method stub
+		
+	}
+	
 
 }

@@ -54,16 +54,16 @@ public class EIATypeTopSection extends HLayout implements
 
 	public EIATypeTopSection(EIATypeTab eiaTypeTab) {
 		super();
-		GHAUiHelper.addResizeHandler(this);
+		GHAUiHelper.addGHAResizeHandler(this);
 		eiaTypeSearchForm.AddEIATypeSelectionListener(eiaTypeTab);
 
-		eiaTypeTab.addHideableHandler(new GHAHideable() {
+		eiaTypeTab.addGHAHideableHandler(new GHAHideable() {
 			@Override
 			public void hide() {
 				eiaTypeSearchForm.hide();
 			}
 		});
-		eiaTypeTab.addClosableHandler(new GHAClosable() {
+		eiaTypeTab.addGHAClosableHandler(new GHAClosable() {
 
 			@Override
 			public void close() {

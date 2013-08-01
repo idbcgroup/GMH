@@ -1,7 +1,8 @@
-package org.fourgeeks.gha.webclient.client.eiatype.specialmaterial;
+package org.fourgeeks.gha.webclient.client.eiatype.material;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
+import org.fourgeeks.gha.webclient.client.UI.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
@@ -12,20 +13,21 @@ import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIATypeSpecialMaterialGridPanel extends VLayout implements EIATypeSelectionListener,GHAClosable{
+public class EIATypeMaterialGridPanel extends VLayout implements EIATypeSelectionListener,GHAClosable, GHAHideable{
 
-	private EIATypeSpecialMaterialGrid eiaTypeSpecialMaterialGrid = new EIATypeSpecialMaterialGrid();
+	private EIATypeMaterialGrid eiaTypeMaterialGrid = new EIATypeMaterialGrid();
 	
-	public EIATypeSpecialMaterialGridPanel() {
+	public EIATypeMaterialGridPanel() {
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding top-padding");// Esto es VUDU!
 		
-		Label title = new Label("<h3>Materiales Especiales</h3>");
+		
+		Label title = new Label("<h3>Materiales</h3>");
 		title.setHeight(35);
 		title.setWidth100();
 		title.setStyleName("title-label");
-
+		
 // //////Botones laterales
 		
 	    VLayout sideButtons = GHAUiHelper.createBar(
@@ -46,11 +48,11 @@ public class EIATypeSpecialMaterialGridPanel extends VLayout implements EIATypeS
 //						History.newItem("eia/" + selectedRecord.getCode());
 					}
 				}));
-
+		
 	    HLayout mainPanel = new HLayout();
-		mainPanel.addMembers(eiaTypeSpecialMaterialGrid, sideButtons);
+		mainPanel.addMembers(eiaTypeMaterialGrid, sideButtons);
 	    
-		addMembers(title, mainPanel);
+		addMembers(title,mainPanel);
 	}
 
 	@Override
@@ -62,7 +64,11 @@ public class EIATypeSpecialMaterialGridPanel extends VLayout implements EIATypeS
 	@Override
 	public void close() {
 		// TODO Auto-generated method stub
-		
+	}
+	
+	@Override
+	public void hide() {
+		// TODO Auto-generated method stub
 	}
 
 }
