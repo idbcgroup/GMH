@@ -30,13 +30,23 @@ public class EIATypePictureModel {
 
 	}
 	
-	public static void save(EiaTypePicture eiaTypePicture, GHAAsyncCallback<Void> callback) {
-		service.save(eiaTypePicture, callback);
+	public static void save(EiaType eiaType, GHAAsyncCallback<Void> callback) {
+		service.save(eiaType, callback);
 
 	}
 
 	public static void update(EiaTypePicture eiaTypePicture,
 			GHAAsyncCallback<Boolean> callback) {
 		service.update(eiaTypePicture, callback);
+	}
+	
+	public static void update(EiaType eiaType, int[] noDeletePicture,
+			GHAAsyncCallback<Boolean> callback) {
+		service.update(eiaType, noDeletePicture, callback);
+	}
+	
+	public static void deletePictureFromSession(String pictureName, 
+			GHAAsyncCallback<Void> callback){ 
+		service.deletePictureFromSession(pictureName, callback);
 	}
 }

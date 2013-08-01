@@ -11,7 +11,8 @@ import java.io.OutputStream;
 import java.io.RandomAccessFile;
 
 import javax.activation.MimetypesFileTypeMap;
-import javax.servlet.ServletConfig;
+import javax.naming.Context;
+import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
@@ -26,127 +27,59 @@ public class CaptureImageHttpServlet extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOG = Logger.getLogger(CaptureImageHttpServlet.class);
-
-	@Override
-	public void init(ServletConfig config) throws ServletException {
-		super.init(config);
+	private static final String USER_NAME = System.getProperty("user.name");
+	private String getURLPhotograph() {
+		String url = null;
+		try {
+			javax.naming.Context ctx = new javax.naming.InitialContext();
+			javax.naming.Context env = (Context) ctx.lookup("java:comp/env");
+			url = (String) env.lookup("EIATYPE_IMAGES")+USER_NAME+"/GHA/Imagenes";
+		} catch (NamingException e) {
+			LOG.error("Imposible obtener variables de contexto ", e);
+			return null;
+		}
+		return url;
 	}
-
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		super.doGet(req, resp);
-		String url = req.getParameter("url");
-		String name = req.getParameter("name");
-		getImageVer3(resp, url, name);		
-	}
+		getURLPhotograph();
+		LOG.info(req.getPathInfo());
+		String pictureName = req.getPathInfo().substring(req.getPathInfo().lastIndexOf("/"));
+		String fileName = getURLPhotograph() + req.getPathInfo();	
+		File file = new File(fileName);
+		LOG.info("comenzando a descargar imagen");
+		LOG.info("url: " + fileName);
+		resp.setHeader("Content-Disposition", "inline, filename=" + pictureName);
+		LOG.info("Content-Disposition:" + "inline, filename=" + pictureName);
+		resp.setContentType(new MimetypesFileTypeMap().getContentType(file));
+		LOG.info("content-type: " + new MimetypesFileTypeMap().getContentType(file));
+		resp.setContentLength((int) file.length());
+		LOG.info("content-length" + file.length());
 
-	/**
-	 * @param resp
-	 * @param url
-	 * @param name
-	 * @throws FileNotFoundException
-	 * @throws IOException
-	 */
-	private void getImageVer1(HttpServletResponse resp, String url, String name)
-			throws FileNotFoundException, IOException {
-		BufferedInputStream bInputStream = null;
-		BufferedOutputStream bOutputStream = null;
-		LOG.info("url: " + url + name);
-		File file = new File(url + name);
-		RandomAccessFile raf = new RandomAccessFile(file, "r");
-		FileInputStream inputStream = new FileInputStream(file);
-
-		FileReader fr = new FileReader(file);
-		bInputStream = new BufferedInputStream(inputStream);
-		int i;
-		byte[] bytes = new byte[(int)file.length()];
-		raf.read(bytes);
-		LOG.info("Nombre: "+file.getName());
-		//cabecera
-
-        resp.setHeader("Content-Type","img/jpeg");
-        resp.setIntHeader("Content-Length", (int) file.length());
-		// inputStream.close();
-        OutputStream out = resp.getOutputStream();
-
-        out.write(bytes); 
-
-        out.close();                     
-
-        raf.close();
-
-        inputStream.close();
-
-        fr.close();
-	}
-
-
-	private void getImageVer2(HttpServletResponse resp, String url, String name) throws IOException
-	{
-		BufferedInputStream bInputStream = null;
-		BufferedOutputStream bOutputStream = null;
-		LOG.info("url: " + url + name);
-		File file = new File(url + name);
-		FileInputStream inputStream = new FileInputStream(url + name);
-
-		bInputStream = new BufferedInputStream(inputStream);
-		byte[] bytes = new byte[inputStream.available()];
-		// inputStream.close();
-
-		ServletOutputStream outStream = resp.getOutputStream();
+		BufferedInputStream i = null;
+		BufferedOutputStream o = null;
+		int l = 0;
 		try {
-			resp.setContentType(new MimetypesFileTypeMap().getContentType(file));
-			LOG.info("ContentType: "+new MimetypesFileTypeMap().getContentType(file));
-			resp.setContentLength((int) file.length());
-			resp.setHeader("Content-Disposition", "attachment;filename=\"" + name + "\"");
-			bOutputStream = new BufferedOutputStream(outStream);//
-			int leidos = bInputStream.read(bytes);//
-			while (leidos > 0) {
-				bOutputStream.write(bytes, 0, leidos);
-				leidos = bInputStream.read(bytes);
+			i = new BufferedInputStream(new FileInputStream(file));
+			o = new BufferedOutputStream(resp.getOutputStream());
+			byte[] buffer = new byte[8192];
+
+			while ((l = i.read(buffer)) > 0) {
+				LOG.info("buffer at " + l);
+				o.write(buffer, 0, l);
 			}
-			if (LOG.isInfoEnabled())
-				LOG.info("imagen descargada");
-		} catch (Exception ex) {
-			LOG.error("Error al escribir la imagen", ex);
 		} finally {
-			if (bInputStream != null) {
-				bInputStream.close();
-			}
-			if (bOutputStream != null) {
-				bOutputStream.close();
-			}
-			if (bOutputStream != null) {
-				bOutputStream.flush();
-				bOutputStream.close();
-			}
+			i.close();
+			o.close();
 		}
-	}
+
+		LOG.info("Done.... flushing");
+		resp.flushBuffer();
 	
-	private void getImageVer3(HttpServletResponse resp, String url, String name) throws IOException
-	{
-		LOG.info("url: "+url+name);
-		 		File file = new File(url+name);
-		 		FileInputStream inputStream = new FileInputStream(file);
-		 		byte[] bytes = new byte[inputStream.available()];
-		 		inputStream.close();
-		 		
-		 		OutputStream outStream= resp.getOutputStream();
-		 		 try {
-		 	            resp.setHeader("Content-Disposition", "inline, filename="+name);
-		 	            resp.setContentType(new MimetypesFileTypeMap().getContentType(file));
-		 	            resp.setContentLength((int) file.length());
-		 	            outStream.write(bytes);
-		 	            LOG.info("respuesta procesada");
-		 	        } catch (Exception ex) {
-		 	            LOG.error("Error al escribir la imagen", ex);
-		 	        }
 	}
-	
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(req, resp);
 	}
 }

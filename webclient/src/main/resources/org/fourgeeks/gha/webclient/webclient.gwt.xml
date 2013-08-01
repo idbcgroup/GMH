@@ -4,7 +4,11 @@
   	<inherits name="gwtupload.GWTUpload"/>
   	<!-- Load dinamically predefined styles in the library when the application starts -->
   	<stylesheet src="Upload.css"/>
-   
+   	
+   	<inherits name="com.googlecode.gwtx.Java">
+
+</inherits>
+	
   	<!-- Change this line with your project's entry-point -->
   	<!--<entry-point class="package.Xxx"/>-->
 	
@@ -25,6 +29,7 @@
 	<!-- We need the JUnit module in the main module, -->
 	<!-- otherwise eclipse complains (Google plugin bug?) -->
 	<inherits name='com.google.gwt.junit.JUnit' />
+
 
 	<!-- Inherit the default GWT style sheet. You can change -->
 	<!-- the theme of your GWT application by uncommenting -->

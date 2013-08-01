@@ -1,9 +1,5 @@
 package org.fourgeeks.gha.webclient.server;
 
-import static gwtupload.shared.UConsts.PARAM_SHOW;
-import gwtupload.server.UploadAction;
-import gwtupload.server.exceptions.UploadActionException;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -18,120 +14,109 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.log4j.Logger;
 
-/**
- * Servlet encargado de la subida de fotografias al servidor con gwtupload
- * 
- * @author lcampo
- */
+import gwtupload.server.UploadAction;
+import gwtupload.server.exceptions.UploadActionException;
+import gwtupload.shared.UConsts;
+
 public class UploadPhotographsHttpServlet extends UploadAction {
+	public static final String ATTR_ARCHIVOS = "picture";
+	  private static final long serialVersionUID = 1L;
+	  private static final Logger LOG = Logger.getLogger(UploadPhotographsHttpServlet.class);
+	  Hashtable<String, String> receivedContentTypes = new Hashtable<String, String>();
+	  /**
+	   * Maintain a list with received files and their content types. 
+	   */
+	  Hashtable<String, File> receivedFiles = new Hashtable<String, File>();
 
-	public static final String ATTR_ARCHIVOS = "listaFotos";
-	private static final long serialVersionUID = 1L;
-	private static final Logger LOG = Logger
-			.getLogger(UploadPhotographsHttpServlet.class);
+	  /**
+	   * Override executeAction to save the received files in a custom place
+	   * and delete this items from session.  
+	   */
+	  @Override
+	  public String executeAction(HttpServletRequest request, List<FileItem> sessionFiles) throws UploadActionException {
+	    String response = "";
+	    HttpSession session = request.getSession(true);
+	    if(sessionFiles.size() == 0)
+    	{
+	    	LOG.info("No hay imagenes en la session");
+    		return "No hay imagenes en la session";
+    	}
+	    if (session.getAttribute(ATTR_ARCHIVOS) == null)
+	    		session.setAttribute(ATTR_ARCHIVOS, new ArrayList<String>());
+	    int cont = 0;
+	   // Hashtable<String, String> photos = (Hashtable<String, String>)session.getAttribute(ATTR_ARCHIVOS);
+	    List<String> photos = (List<String>) session.getAttribute(ATTR_ARCHIVOS);
+	    
+	    for (FileItem item : sessionFiles) {
+	      if (false == item.isFormField()) {
+	        cont ++;
+	        try {
+	          /// Create a new file based on the remote file name in the client
+	          // String saveName = item.getName().replaceAll("[\\\\/><\\|\\s\"'{}()\\[\\]]+", "_");
+	          // File file =new File("/tmp/" + saveName);
+	          
+	          /// Create a temporary file placed in /tmp (only works in unix)
+	          // File file = File.createTempFile("upload-", ".bin", new File("/tmp"));
+	          
+	          /// Create a temporary file placed in the default system temp folder
+	        	
+	        	String name = item.getName();
+				int posPunto = name.lastIndexOf(".");
+				String ext = name.substring(posPunto + 1);
 
-	Hashtable<String, String> tipoContenidoRecibido = new Hashtable<String, String>();
-	Hashtable<String, File> archRecibidos = new Hashtable<String, File>();
-	Hashtable<String, String> photos = new Hashtable<String, String>();
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see gwtupload.server.UploadAction#executeAction(javax.servlet.http.
-	 * HttpServletRequest, java.util.List)
-	 */
-	@Override
-	public String executeAction(HttpServletRequest request,
-			List<FileItem> sessionFiles) throws UploadActionException {
-		HttpSession session = request.getSession(true);
-		//String msg1, msg2, msg3, msg4, msg5, msg6 = null;
-		String response = "";
-		if (session.getAttribute(ATTR_ARCHIVOS) == null)
-			 {
-				session.setAttribute(ATTR_ARCHIVOS, photos);
-				//response += "ingresado en la session el hastable photos,\n";
-				LOG.info("ingresado en la session el hastable photos");
-			 } else
-				 {
-				 //response += "no ingreso en la session el hastable photos";
-				 	LOG.info("no ingreso en la session el hastable photos,\n");
-				 }
+				File file = File.createTempFile("gha", "." + ext/*, new File(
+						"/tmp")*/);
+	          //File file = File.createTempFile("upload-", ".bin");
+	          item.write(file);
+	          
+	          /// Save a list with the received files
+	          receivedFiles.put(item.getFieldName(), file);
+	          receivedContentTypes.put(item.getFieldName(), item.getContentType());
+	          photos.add(file.getName());
+	         // photos.put(name, file.getName());
+	          /// Send a customized message to the client.
+	          response += file.getName();
 
-		//Hashtable<String, String> photos = (Hashtable<String, String>)session.getAttribute(ATTR_ARCHIVOS);
-		//msg3= "Clase en session: "+session.getAttribute(ATTR_ARCHIVOS).getClass()+"\n";
-		 //@SuppressWarnings("unchecked")
-		// List<Photo> listaArchivos = (ArrayList<Photo>)session.getAttribute(ATTR_ARCHIVOS);
-
-		for (FileItem item : sessionFiles) {
-			if (false == item.isFormField()) {
-				try {
-					String name = item.getName();
-					int posPunto = name.lastIndexOf(".");
-					String ext = name.substring(posPunto + 1);
-
-					File arch = File.createTempFile("gha", "." + ext/*, new File(
-							"/tmp")*/);
-					item.write(arch);
-
-					// Save a list with the received files
-					archRecibidos.put(name, arch);
-					tipoContenidoRecibido.put(item.getFieldName(),
-							item.getContentType());
-					photos.put(name, arch.getName());
-					LOG.info("Nombre original: "+name);
-					//msg4="Nombre original: "+name+",\n";
-					LOG.info("Nombre temporal: "+arch.getName());
-					//msg5 = "Nombre temporal: "+arch.getName()+",\n";
-					//listaArchivos.add(new Photo(name, arch.getName(), arch.getAbsolutePath()));
-					LOG.info("La foto " + name + " se ha subido correctamente");
-					//msg6 = "La foto " + name + " se ha subido correctamente,\n";
-					response = "El archivo se ha guardado en " + arch.getAbsolutePath();
-				} catch (Exception e) {
-					LOG.error("Error en la subida de fotos: "
-							+ e);
-				}
-			}
-		}
-		removeSessionFileItems(request);
-		/// Send a customized message to the client.
-		return response;
+	        } catch (Exception e) {
+	          throw new UploadActionException(e);
+	        }
+	      }
+	    }
+	    
+	    /// Remove files from session because we have a copy of them
+	    removeSessionFileItems(request);
+	    
+	    /// Send your customized message to the client.
+	    return response;
+	  }
+	  
+	  /**
+	   * Get the content of an uploaded file.
+	   */
+	  @Override
+	  public void getUploadedFile(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	    String fieldName = request.getParameter(UConsts.PARAM_SHOW);
+	    File f = receivedFiles.get(fieldName);
+	    if (f != null) {
+	      response.setContentType(receivedContentTypes.get(fieldName));
+	      FileInputStream is = new FileInputStream(f);
+	      copyFromInputStreamToOutputStream(is, response.getOutputStream());
+	    } else {
+	      renderXmlResponse(request, response, XML_ERROR_ITEM_NOT_FOUND);
+	   }
+	  }
+	  
+	  /**
+	   * Remove a file when the user sends a delete request.
+	   */
+	  @Override
+	  public void removeItem(HttpServletRequest request, String fieldName)  throws UploadActionException {
+	    File file = receivedFiles.get(fieldName);
+	    receivedFiles.remove(fieldName);
+	    receivedContentTypes.remove(fieldName);
+	    if (file != null) {
+	      file.delete();
+	    }
+	  }
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see gwtupload.server.UploadServlet#getUploadedFile(javax.servlet.http.
-	 * HttpServletRequest, javax.servlet.http.HttpServletResponse)
-	 */
-	@Override
-	public void getUploadedFile(HttpServletRequest request,
-			HttpServletResponse response) throws IOException {
-		String nombreCampo = request.getParameter(PARAM_SHOW);
-		File arch = archRecibidos.get(nombreCampo);
-		if (arch != null) {
-			response.setContentType(tipoContenidoRecibido.get(nombreCampo));
-			FileInputStream imputStream = new FileInputStream(arch);
-			copyFromInputStreamToOutputStream(imputStream,
-					response.getOutputStream());
-		} else {
-			renderXmlResponse(request, response, XML_ERROR_ITEM_NOT_FOUND);
-		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see gwtupload.server.UploadAction#removeItem(javax.servlet.http.
-	 * HttpServletRequest, java.lang.String)
-	 */
-	@Override
-	public void removeItem(HttpServletRequest request, String fieldName)
-			throws UploadActionException {
-		File file = archRecibidos.get(fieldName);
-		archRecibidos.remove(fieldName);
-		tipoContenidoRecibido.remove(fieldName);
-
-		if (file != null) {
-			file.delete();
-		}
-	}
-}

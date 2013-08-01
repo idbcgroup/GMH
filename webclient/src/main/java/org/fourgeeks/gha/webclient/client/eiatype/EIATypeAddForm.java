@@ -1,13 +1,6 @@
 package org.fourgeeks.gha.webclient.client.eiatype;
 
-import gwtupload.client.IFileInput.FileInputType;
-import gwtupload.client.IUploadStatus.Status;
-import gwtupload.client.IUploader;
 import gwtupload.client.IUploader.OnFinishUploaderHandler;
-import gwtupload.client.IUploader.UploadedInfo;
-import gwtupload.client.PreloadedImage;
-import gwtupload.client.PreloadedImage.OnLoadPreloadedImageHandler;
-import gwtupload.client.SingleUploader;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -24,9 +17,8 @@ import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
-import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
-import org.fourgeeks.gha.webclient.client.UI.GHACustomButton;
+import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.GHASlideInWindow;
@@ -36,10 +28,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.validation.client.impl.Validation;
 import com.smartgwt.client.types.Alignment;
-import com.smartgwt.client.types.ImageStyle;
 import com.smartgwt.client.types.TitleOrientation;
-import com.smartgwt.client.util.SC;
-import com.smartgwt.client.widgets.Img;
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -56,8 +45,6 @@ public class EIATypeAddForm extends GHASlideInWindow {
 
 	private OnFinishUploaderHandler onFinishUploaderHandler1,
 			onFinishUploaderHandler2, onFinishUploaderHandler3;
-	private OnLoadPreloadedImageHandler showImage1, showImage2, showImage3;
-	private Img img1, img2, img3;
 	private GHASelectItem brandItem, manItem, mobilityItem, typeItem,
 			subTypeItem;
 	private Validator validator;
@@ -78,132 +65,15 @@ public class EIATypeAddForm extends GHASlideInWindow {
 		typeItem = new GHASelectItem("Tipo", 150);
 		subTypeItem = new GHASelectItem("Subtipo", 150);
 
-		img1 = new Img("../resources/img/default.png", 150, 100);
-		img1.setImageType(ImageStyle.STRETCH);
-		img1.setBorder("1px solid gray");
-		img1.setSize("150px", "130px");
-		img1.setLeft(240);
-
-		img2 = new Img("../resources/img/default.png", 150, 100);
-		img2.setImageType(ImageStyle.STRETCH);
-		img2.setBorder("1px solid gray");
-		img2.setSize("150px", "130px");
-		img2.setLeft(240);
-
-		img3 = new Img("../resources/img/default.png", 150, 100);
-		img3.setImageType(ImageStyle.STRETCH);
-		img3.setBorder("1px solid gray");
-		img3.setSize("150px", "130px");
-		img3.setLeft(240);
-
 		validator = Validation.buildDefaultValidatorFactory().getValidator();
-	}
-
-	private void setOnFinishUploaderHandler() {
-		onFinishUploaderHandler1 = new OnFinishUploaderHandler() {
-			@Override
-			public void onFinish(IUploader uploader) {
-				if (uploader.getStatus() == Status.SUCCESS) {
-					new PreloadedImage(uploader.fileUrl(), showImage1);
-					// The server sends useful information to the client by
-					// default
-					UploadedInfo info = uploader.getServerInfo();
-					System.out.println("File name " + info.name);
-					System.out.println("File content-type " + info.ctype);
-					System.out.println("File size " + info.size);
-					// You can send any customized message and parse it
-					System.out.println("Server message " + info.message);
-					SC.say("Server message " + info.message);
-					SC.say("File name " + info.name);
-				} else {
-					UploadedInfo info = uploader.getServerInfo();
-					SC.say("No se carga la foto");
-				}
-			}
-		};
-		showImage1 = new OnLoadPreloadedImageHandler() {
-			public void onLoad(PreloadedImage image) {
-				image.setWidth("150px");
-				image.setHeight("100px");
-				img1.addChild(image);
-			}
-		};
-
-		onFinishUploaderHandler2 = new OnFinishUploaderHandler() {
-			@Override
-			public void onFinish(IUploader uploader) {
-				if (uploader.getStatus() == Status.SUCCESS) {
-					new PreloadedImage(uploader.fileUrl(), showImage2);
-					// The server sends useful information to the client by
-					// default
-					UploadedInfo info = uploader.getServerInfo();
-					System.out.println("File name " + info.name);
-					SC.say("File name " + info.name);
-					System.out.println("File content-type " + info.ctype);
-					System.out.println("File size " + info.size);
-					// You can send any customized message and parse it
-					System.out.println("Server message " + info.message);
-				}
-			}
-		};
-		showImage2 = new OnLoadPreloadedImageHandler() {
-			public void onLoad(PreloadedImage image) {
-				image.setWidth("150px");
-				image.setHeight("100px");
-				img2.addChild(image);
-			}
-		};
-
-		onFinishUploaderHandler3 = new OnFinishUploaderHandler() {
-			@Override
-			public void onFinish(IUploader uploader) {
-				if (uploader.getStatus() == Status.SUCCESS) {
-					new PreloadedImage(uploader.fileUrl(), showImage3);
-					// The server sends useful information to the client by
-					// default
-					UploadedInfo info = uploader.getServerInfo();
-
-					System.out.println("File name " + info.name);
-					System.out.println("File content-type " + info.ctype);
-					System.out.println("File size " + info.size);
-					// You can send any customized message and parse it
-					System.out.println("Server message " + info.message);
-				}
-			}
-		};
-		showImage3 = new OnLoadPreloadedImageHandler() {
-			public void onLoad(PreloadedImage image) {
-				image.setWidth("150px");
-				image.setHeight("100px");
-				img3.addChild(image);
-			}
-		};
+		// default
+		// default
+		// default
 	}
 
 	public EIATypeAddForm() {
 		setHeight(GHAUiHelper.getBottomSectionHeight());
 		setTop(240);
-
-		GHACustomButton buttonAddImage1 = new GHACustomButton();
-		GHACustomButton buttonAddImage2 = new GHACustomButton();
-		GHACustomButton buttonAddImage3 = new GHACustomButton();
-
-		SingleUploader uploadPhoto1 = new SingleUploader(
-				FileInputType.CUSTOM.with(buttonAddImage1));
-		uploadPhoto1.setValidExtensions("jpg", "jpeg", "png", "gif");
-		uploadPhoto1.setAutoSubmit(true);
-
-		SingleUploader uploadPhoto2 = new SingleUploader(
-				FileInputType.CUSTOM.with(buttonAddImage2));
-		uploadPhoto2.setValidExtensions("jpg", "jpeg", "png", "gif");
-		uploadPhoto2.setAutoSubmit(true);
-
-		SingleUploader uploadPhoto3 = new SingleUploader(
-				FileInputType.CUSTOM.with(buttonAddImage3));
-		uploadPhoto3.setValidExtensions("jpg", "jpeg", "png", "gif");
-		uploadPhoto3.setAutoSubmit(true);
-
-		setOnFinishUploaderHandler();
 
 		Label title = new Label("<h3>Agregar un EIA Type</h3>");
 		title.setHeight(30);
@@ -225,7 +95,8 @@ public class EIATypeAddForm extends GHASlideInWindow {
 		sideButtons.setMembersMargin(10);
 		sideButtons.setDefaultLayoutAlign(Alignment.CENTER);
 
-		GHAImgButton saveButton = new GHAImgButton("../resources/icons/save.png");
+		GHAImgButton saveButton = new GHAImgButton(
+				"../resources/icons/save.png");
 		saveButton.addClickHandler(new ClickHandler() {
 
 			@Override
@@ -234,7 +105,8 @@ public class EIATypeAddForm extends GHASlideInWindow {
 			}
 		});
 
-		GHAImgButton cancelButton = new GHAImgButton("../resources/icons/cancel.png");
+		GHAImgButton cancelButton = new GHAImgButton(
+				"../resources/icons/cancel.png");
 		cancelButton.addClickHandler(new ClickHandler() {
 
 			@Override
@@ -245,22 +117,9 @@ public class EIATypeAddForm extends GHASlideInWindow {
 
 		sideButtons.addMembers(saveButton, cancelButton);
 
-		HLayout uploadImagenes = new HLayout();
-		uploadImagenes.addMember(img1);
-		uploadImagenes.addMember(uploadPhoto1);
-		uploadImagenes.addMember(img2);
-		uploadImagenes.addMember(uploadPhoto2);
-		uploadImagenes.addMember(img3);
-		uploadImagenes.addMember(uploadPhoto3);
-
-		uploadPhoto1.addOnFinishUploadHandler(onFinishUploaderHandler1);
-		uploadPhoto2.addOnFinishUploadHandler(onFinishUploaderHandler2);
-		uploadPhoto3.addOnFinishUploadHandler(onFinishUploaderHandler3);
-
 		HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
 		addMember(gridPanel);
-		addMember(uploadImagenes);
 		fillBrands();
 		fillMans();
 		fillExtras();

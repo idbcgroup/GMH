@@ -3,10 +3,9 @@ package org.fourgeeks.gha.webclient.client.eiatype.information;
 import gwtupload.client.IFileInput.FileInputType;
 import gwtupload.client.IUploadStatus.Status;
 import gwtupload.client.IUploader;
+import gwtupload.client.IUploader.OnChangeUploaderHandler;
 import gwtupload.client.IUploader.OnFinishUploaderHandler;
 import gwtupload.client.IUploader.UploadedInfo;
-import gwtupload.client.PreloadedImage;
-import gwtupload.client.PreloadedImage.OnLoadPreloadedImageHandler;
 import gwtupload.client.SingleUploader;
 
 import java.util.LinkedHashMap;
@@ -31,12 +30,12 @@ import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
-import org.fourgeeks.gha.webclient.client.UI.GHAUploadPhotographs;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeModel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypePictureModel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeTab;
 
+import com.google.gwt.user.client.Window;
 import com.google.gwt.validation.client.impl.Validation;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.ImageStyle;
@@ -57,13 +56,17 @@ public class EIATypeInformationFormPanel extends VLayout implements
 			subTypeItem;
 	private EiaType eiaType, orginalEiaType;
 	private EIATypeTab tab;
-	private GHAUploadPhotographs uploadPhoto1;
+
 	private OnFinishUploaderHandler onFinishUploaderHandler1,
 			onFinishUploaderHandler2, onFinishUploaderHandler3;
-	private OnLoadPreloadedImageHandler showImage1, showImage2, showImage3;
+	private OnChangeUploaderHandler onChangeUploaderHandler1,
+			onChangeUploaderHandler2, onChangeUploaderHandler3;
 	private Img img1, img2, img3;
+	private int idImg1, idImg2, idImg3;
+	private String imgName1, imgName2, imgName3;
 	private Validator validator;
 
+	private int imageCount;
 	{
 		codeItem = new GHATextItem("Código", 150);
 		nameItem = new GHATextItem("Nombre", 150);
@@ -78,7 +81,9 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		mobilityItem = new GHASelectItem("Movilidad", 150);
 		typeItem = new GHASelectItem("Tipo", 150);
 		subTypeItem = new GHASelectItem("Subtipo", 150);
+	}
 
+	private void inicializarComponentesImg() {
 		img1 = new Img("../resources/img/default.png", 150, 100);
 		img1.setImageType(ImageStyle.STRETCH);
 		img1.setBorder("1px solid gray");
@@ -105,47 +110,80 @@ public class EIATypeInformationFormPanel extends VLayout implements
 			@Override
 			public void onFinish(IUploader uploader) {
 				if (uploader.getStatus() == Status.SUCCESS) {
-					new PreloadedImage(uploader.fileUrl(), showImage1);
+					// new PreloadedImage( uploader.fileUrl(), showImage1);
 					// The server sends useful information to the client by
 					// default
+					// Borra la imagen anterior de la session
+					EIATypePictureModel.deletePictureFromSession(imgName1,
+							new GHAAsyncCallback<Void>() {
+								@Override
+								public void onSuccess(Void result) {
+
+								}
+							});
 					UploadedInfo info = uploader.getServerInfo();
-					System.out.println("File name " + info.name);
-					System.out.println("File content-type " + info.ctype);
-					System.out.println("File size " + info.size);
-					// You can send any customized message and parse it
-					System.out.println("Server message " + info.message);
+					// System.out.println("File name " + info.name);
+					// Window.alert("url: "+uploader.fileUrl());
+					img1.setSrc(uploader.fileUrl());
+					idImg1 = -1;
+					imgName1 = info.message;
+					// Window.alert("1: "+uploader.getFileName());
+					// Window.alert("2: "+uploader.getFileInput().getFilename());
+					// Window.alert("3: "+uploader.getInputName());
+					// Window.alert("4: "+info.message);
+					// img1.setID(null);
+					// Window.alert("id: "+img1.getID());
+					// System.out.println("File content-type " + info.ctype);
+					// System.out.println("File size " + info.size);
+					// // You can send any customized message and parse it
+					// System.out.println("Server message " + info.message);
 				}
 			}
 		};
-		showImage1 = new OnLoadPreloadedImageHandler() {
-			public void onLoad(PreloadedImage image) {
-				image.setWidth("150px");
-				image.setHeight("100px");
-				img1.addChild(image);
-			}
-		};
+		// showImage1 = new OnLoadPreloadedImageHandler() {
+		// public void onLoad(PreloadedImage image) {
+		// image.setWidth("150px");
+		// image.setHeight("100px");
+		// Window.alert("remover "+image.getName());
+		//
+		// img1.removeFromParent();
+		// Window.alert("img1 removido");
+		// img1.addChild(image);
+		// child = image;
+		// Window.alert("img1 iingresado");
+		// img1.setSrc("../resources/img/default.png");
+		// img1.setID(image.getName());
+		// }
+		// };
 
 		onFinishUploaderHandler2 = new OnFinishUploaderHandler() {
 			@Override
 			public void onFinish(IUploader uploader) {
 				if (uploader.getStatus() == Status.SUCCESS) {
-					new PreloadedImage(uploader.fileUrl(), showImage2);
+					// new PreloadedImage(uploader.fileUrl(), showImage2);
 					// The server sends useful information to the client by
 					// default
+					// Borra la imagen anterior de la session
+					EIATypePictureModel.deletePictureFromSession(imgName2,
+							new GHAAsyncCallback<Void>() {
+								@Override
+								public void onSuccess(Void result) {
+
+								}
+							});
 					UploadedInfo info = uploader.getServerInfo();
-					System.out.println("File name " + info.name);
-					System.out.println("File content-type " + info.ctype);
-					System.out.println("File size " + info.size);
-					// You can send any customized message and parse it
-					System.out.println("Server message " + info.message);
+					img2.setSrc(uploader.fileUrl());
+					idImg2 = -1;
+					imgName2 = info.message;
+
+					// img2.setID(null);
+					// Window.alert("id: "+img2.getID());
+					// System.out.println("File name " + info.name);
+					// System.out.println("File content-type " + info.ctype);
+					// System.out.println("File size " + info.size);
+					// // You can send any customized message and parse it
+					// System.out.println("Server message " + info.message);
 				}
-			}
-		};
-		showImage2 = new OnLoadPreloadedImageHandler() {
-			public void onLoad(PreloadedImage image) {
-				image.setWidth("150px");
-				image.setHeight("100px");
-				img2.addChild(image);
 			}
 		};
 
@@ -153,29 +191,91 @@ public class EIATypeInformationFormPanel extends VLayout implements
 			@Override
 			public void onFinish(IUploader uploader) {
 				if (uploader.getStatus() == Status.SUCCESS) {
-					new PreloadedImage(uploader.fileUrl(), showImage3);
+					// new PreloadedImage(uploader.fileUrl(), showImage3);
 					// The server sends useful information to the client by
 					// default
+					// Borra la imagen anterior de la session
+					EIATypePictureModel.deletePictureFromSession(imgName3,
+							new GHAAsyncCallback<Void>() {
+								@Override
+								public void onSuccess(Void result) {
+
+								}
+							});
 					UploadedInfo info = uploader.getServerInfo();
-					System.out.println("File name " + info.name);
-					System.out.println("File content-type " + info.ctype);
-					System.out.println("File size " + info.size);
+					img3.setSrc(uploader.fileUrl());
+					idImg3 = -1;
+					imgName3 = info.message;
+					// img3.setID(null);
+					// //Window.alert("id: "+img3.getID());
+					// System.out.println("File name " + info.name);
+					// System.out.println("File content-type " + info.ctype);
+					// System.out.println("File size " + info.size);
 					// You can send any customized message and parse it
-					System.out.println("Server message " + info.message);
+					// System.out.println("Server message " + info.message);
 				}
 			}
 		};
-		showImage3 = new OnLoadPreloadedImageHandler() {
-			public void onLoad(PreloadedImage image) {
-				image.setWidth("150px");
-				image.setHeight("100px");
-				img3.addChild(image);
+	}
+
+	private void setOnChangeUploaderHandler() {
+		onChangeUploaderHandler1 = new OnChangeUploaderHandler() {
+
+			@Override
+			public void onChange(IUploader uploader) {
+				// Window.alert("cambio imagen a borrar la anterior: "+imgName1);
+				EIATypePictureModel.deletePictureFromSession(imgName1,
+						new GHAAsyncCallback<Void>() {
+
+							@Override
+							public void onSuccess(Void result) {
+								Window.alert("Imagen borrada exitosamente: "
+										+ imgName1);
+							}
+
+						});
+				// imgName1 = uploader.getFileName();
+				// Window.alert("nueva imagen a agregada : "+imgName1);
 			}
+
+		};
+
+		onChangeUploaderHandler2 = new OnChangeUploaderHandler() {
+
+			@Override
+			public void onChange(IUploader uploader) {
+				EIATypePictureModel.deletePictureFromSession(imgName2,
+						new GHAAsyncCallback<Void>() {
+							@Override
+							public void onSuccess(Void result) {
+								Window.alert("Imagen borrada exitosamente: "
+										+ imgName1);
+							}
+						});
+			}
+		};
+
+		onChangeUploaderHandler3 = new OnChangeUploaderHandler() {
+
+			@Override
+			public void onChange(IUploader uploader) {
+				EIATypePictureModel.deletePictureFromSession(imgName3,
+						new GHAAsyncCallback<Void>() {
+							@Override
+							public void onSuccess(Void result) {
+								Window.alert("Imagen borrada exitosamente: "
+										+ imgName1);
+							}
+
+						});
+			}
+
 		};
 	}
 
 	public EIATypeInformationFormPanel(EIATypeTab tab) {
 		activateForm(false);
+		inicializarComponentesImg();
 		GHACustomButton buttonAddImage1 = new GHACustomButton();
 		GHACustomButton buttonAddImage2 = new GHACustomButton();
 		GHACustomButton buttonAddImage3 = new GHACustomButton();
@@ -196,7 +296,7 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		uploadPhoto3.setAutoSubmit(true);
 
 		setOnFinishUploaderHandler();
-		
+		setOnChangeUploaderHandler();
 		this.tab = tab;
 		tab.addClosableHandler(this);
 		setWidth100();
@@ -224,7 +324,8 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		sideButtons.setMembersMargin(10);
 		sideButtons.setDefaultLayoutAlign(Alignment.CENTER);
 
-		GHAImgButton saveButton = new GHAImgButton("../resources/icons/save.png");
+		GHAImgButton saveButton = new GHAImgButton(
+				"../resources/icons/save.png");
 		saveButton.addClickHandler(new ClickHandler() {
 
 			@Override
@@ -232,7 +333,8 @@ public class EIATypeInformationFormPanel extends VLayout implements
 				save();
 			}
 		});
-		GHAImgButton undoButton = new GHAImgButton("../resources/icons/undo.png");
+		GHAImgButton undoButton = new GHAImgButton(
+				"../resources/icons/undo.png");
 		undoButton.addClickHandler(new ClickHandler() {
 
 			@Override
@@ -242,19 +344,137 @@ public class EIATypeInformationFormPanel extends VLayout implements
 			}
 		});
 
+		GHAImgButton deleteButton1 = new GHAImgButton(
+				"../resources/icons/delete.png");
+		deleteButton1.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+
+				img1.setSrc("../resources/img/default.png");
+				idImg1 = -1;
+				EIATypePictureModel.deletePictureFromSession(imgName1,
+						new GHAAsyncCallback<Void>() {
+
+							@Override
+							public void onSuccess(Void result) {
+								Window.alert("Imagen borrada exitosamente: "
+										+ imgName1);
+								imgName1 = "nothing";
+							}
+
+						});
+				// img1.setID(null);
+				// Window.alert("id: "+img1.getID());
+				// img1.setID("borrada");
+				// com.google.gwt.user.client.Window.open("realizarReporteFichas?pozos="
+				// + pozoPrincipal.getNombre()
+				// + "&formato=pdf", "_this", "");
+				// <servlet>
+				// <servlet-name>ServicioRealizarReporteHttpServlet</servlet-name>
+				// <servlet-class>ve.org.petrociencia.fichapozo.servicios.reportefichas.ServicioRealizarReporteHttpServlet</servlet-class>
+				// </servlet>
+				// <servlet-mapping>
+				// <servlet-name>ServicioRealizarReporteHttpServlet</servlet-name>
+				// <url-pattern>/realizarReporteFichas</url-pattern>
+				// </servlet-mapping>
+				// <url-pattern>/removeImageSessionHttpServlet</url-pattern>
+
+			}
+		});
+		GHAImgButton deleteButton2 = new GHAImgButton(
+				"../resources/icons/delete.png");
+		deleteButton2.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+
+				img2.setSrc("../resources/img/default.png");
+				idImg2 = -1;
+
+				EIATypePictureModel.deletePictureFromSession(imgName2,
+						new GHAAsyncCallback<Void>() {
+
+							@Override
+							public void onSuccess(Void result) {
+								Window.alert("Imagen borrada exitosamente: "
+										+ imgName2);
+								imgName2 = "nothing";
+							}
+
+						});
+			}
+		});
+		GHAImgButton deleteButton3 = new GHAImgButton(
+				"../resources/icons/delete.png");
+		deleteButton3.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				img3.setSrc("../resources/img/default.png");
+				idImg3 = -1;
+				EIATypePictureModel.deletePictureFromSession(imgName3,
+						new GHAAsyncCallback<Void>() {
+
+							@Override
+							public void onSuccess(Void result) {
+								Window.alert("Imagen borrada exitosamente: "
+										+ imgName3);
+								imgName3 = "nothing";
+							}
+
+						});
+
+			}
+		});
+
 		sideButtons.addMembers(saveButton, undoButton);
 
 		HLayout uploadImagenes = new HLayout();
+		VLayout buttons1 = new VLayout();
+		// buttons1.setWidth(30);
+		// buttons1.setHeight(10);
+
+		buttons1.setLayoutMargin(2);
+		buttons1.setBackgroundColor("#E0E0E0");
+		buttons1.setMembersMargin(2);
+		// buttons1.setDefaultLayoutAlign(Alignment.CENTER);
+		buttons1.setAutoWidth();
+		VLayout buttons2 = new VLayout();
+		buttons2.setLayoutMargin(2);
+		buttons2.setBackgroundColor("#E0E0E0");
+		buttons2.setMembersMargin(2);
+		buttons2.setAutoWidth();
+
+		VLayout buttons3 = new VLayout();
+		buttons3.setLayoutMargin(2);
+		buttons3.setBackgroundColor("#E0E0E0");
+		buttons3.setMembersMargin(2);
+		buttons3.setAutoWidth();
+
 		uploadImagenes.addMember(img1);
-		uploadImagenes.addMember(uploadPhoto1);
+		buttons1.addMember(uploadPhoto1);
+		buttons1.addMember(deleteButton1);
+
+		uploadImagenes.addMember(buttons1);
 		uploadImagenes.addMember(img2);
-		uploadImagenes.addMember(uploadPhoto2);
+		buttons2.addMember(uploadPhoto2);
+		buttons2.addMember(deleteButton2);
+		uploadImagenes.addMember(buttons2);
 		uploadImagenes.addMember(img3);
-		uploadImagenes.addMember(uploadPhoto3);
+		buttons3.addMember(uploadPhoto3);
+		buttons3.addMember(deleteButton3);
+		uploadImagenes.addMember(buttons3);
 
 		uploadPhoto1.addOnFinishUploadHandler(onFinishUploaderHandler1);
+		// uploadPhoto1.addOnChangeUploadHandler(onChangeUploaderHandler1);
+
 		uploadPhoto2.addOnFinishUploadHandler(onFinishUploaderHandler2);
+		// uploadPhoto2.addOnChangeUploadHandler(onChangeUploaderHandler2);
+
 		uploadPhoto3.addOnFinishUploadHandler(onFinishUploaderHandler3);
+		// uploadPhoto3.addOnChangeUploadHandler(onChangeUploaderHandler3);
+
 		HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
 
@@ -339,7 +559,7 @@ public class EIATypeInformationFormPanel extends VLayout implements
 	@Override
 	public void select(EiaType eiaType) {
 		activateForm(true);
-		
+
 		this.eiaType = this.orginalEiaType = eiaType;
 		if (eiaType.getBrand() != null)
 			brandItem.setValue(eiaType.getBrand().getId());
@@ -358,30 +578,58 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		showPhotographics(eiaType);
 	}
 
+	/**
+	 * Muestra las fotografias que tiene un EiaType
+	 * 
+	 * @param eiaType
+	 */
 	private void showPhotographics(EiaType eiaType) {
+
 		EIATypePictureModel.find(eiaType,
 				new GHAAsyncCallback<List<EiaTypePicture>>() {
 
 					@Override
 					public void onSuccess(List<EiaTypePicture> result) {
+						Window.alert("Num. Imagenes: " + result.size());
+						img1.setSrc("../resources/img/default.png");
+						img2.setSrc("../resources/img/default.png");
+						img3.setSrc("../resources/img/default.png");
+						imageCount = result.size();
+						if (imageCount != 0) {
+							if (result.get(0) != null) {
+								EiaTypePicture picture1 = result.get(0);
+								img1.setSrc("../webclient/picture/eiaType/"
+										+ picture1.getPicture());
+								idImg1 = (int) picture1.getId();
+								imgName1 = picture1.getPicture();
+							}
+							if (result.get(1) != null) {
+								EiaTypePicture picture2 = result.get(1);
+								img2.setSrc("../webclient/picture/eiaType/"
+										+ picture2.getPicture());
+								idImg2 = (int) picture2.getId();
+								imgName2 = picture2.getPicture();
+							}
+							if (result.get(2) != null) {
+								EiaTypePicture picture3 = result.get(2);
+								img3.setSrc("../webclient/picture/eiaType/"
+										+ picture3.getPicture());
+								idImg3 = (int) picture3.getId();
+								imgName3 = picture3.getPicture();
+							}
 
-						if (result.get(0) != null) {
-							EiaTypePicture picture1 = result.get(0);
-							img1.setImage("1", picture1.getDescription()
-									+ picture1.getPicture());
-						}
-						if (result.get(1) != null) {
-							EiaTypePicture picture2 = result.get(1);
-							img2.setImage("2", picture2.getDescription()
-									+ picture2.getPicture());
-						}
-						if (result.get(2) != null) {
-							EiaTypePicture picture3 = result.get(3);
-							img3.setImage("3", picture3.getDescription()
-									+ picture3.getPicture());
+						} else {
+							img1.setSrc("../resources/img/default.png");
+							img2.setSrc("../resources/img/default.png");
+							img3.setSrc("../resources/img/default.png");
+							idImg1 = -1;
+							idImg2 = -1;
+							idImg3 = -1;
+							imgName1 = "nothing ";
+							imgName2 = "nothing";
+							imgName3 = "nothing";
 						}
 					}
-
 				});
 
 	}
@@ -411,15 +659,60 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		if (subTypeItem.getValue() != null)
 			eiaType.setSubtype(EiaSubTypeEnum.valueOf(subTypeItem
 					.getValueAsString()));
-
 		Set<ConstraintViolation<EiaType>> violations = validator
 				.validate(eiaType);
 		if (violations.isEmpty())
 			EIATypeModel.update(eiaType, new GHAAsyncCallback<EiaType>() {
+				@Override
+				public void onSuccess(EiaType eiaTyp) {
+					if (imageCount == 0) {
+						EIATypePictureModel.save(eiaTyp,
+								new GHAAsyncCallback<Void>() {
+
+									@Override
+									public void onSuccess(Void result) {
+										Window.alert("Imagenes almacenadas satisfactoriamente");
+										showPhotographics(eiaType);
+									}
+
+									@Override
+									public void onFailure(Throwable caught) {
+										Window.alert("Error actualizando el eiaTypePicture: "
+												+ caught.getMessage());
+									};
+								});
+					} else {
+						int noDeletePicture[] = new int[3];
+						noDeletePicture[0] = idImg1;
+						noDeletePicture[1] = idImg2;
+						noDeletePicture[2] = idImg3;
+						Window.alert("noDeletePicture[0] = " + idImg1
+								+ "\n noDeletePicture[1] = " + idImg2
+								+ "\n noDeletePicture[2] = " + idImg3);
+						EIATypePictureModel.update(eiaType, noDeletePicture,
+								new GHAAsyncCallback<Boolean>() {
+
+									@Override
+									public void onSuccess(Boolean result) {
+										Window.alert("EiaTypePictures actualizados correctamente");
+										showPhotographics(eiaType);
+									}
+
+									public void onFailure(Throwable caught) {
+										Window.alert("Error actualizando el eiaTypePicture: "
+												+ caught.getMessage());
+									};
+
+								});
+
+					}
+					// tab.select(result)
+				}
 
 				@Override
-				public void onSuccess(EiaType result) {
-					tab.select(result);
+				public void onFailure(Throwable caught) {
+					Window.alert("Error actualizando el eiaType: "
+							+ caught.getMessage());
 				}
 			});
 		else

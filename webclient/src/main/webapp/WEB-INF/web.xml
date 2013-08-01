@@ -17,7 +17,7 @@
     	<param-value>200</param-value>
   	</context-param>
   	
-	<servlet>
+  	<servlet>
     	<servlet-name>UploadPhotographs</servlet-name>
     	<servlet-class>org.fourgeeks.gha.webclient.server.UploadPhotographsHttpServlet</servlet-class>
   	</servlet>
@@ -26,7 +26,27 @@
     	<servlet-name>UploadPhotographs</servlet-name>
     	<url-pattern>*.gupld</url-pattern>
   	</servlet-mapping>
+  	
+	<servlet>
+    	<servlet-name>CaptureImageHttpServlet</servlet-name>
+    	<servlet-class>org.fourgeeks.gha.webclient.server.CaptureImageHttpServlet</servlet-class>
+  	</servlet>
+  	
+  	<servlet-mapping>
+    	<servlet-name>CaptureImageHttpServlet</servlet-name>
+    	<url-pattern>/webclient/picture/*</url-pattern>
+  	</servlet-mapping>
   
+  	<servlet>
+    	<servlet-name>RemoveImageSessionHttpServlet</servlet-name>
+    	<servlet-class>org.fourgeeks.gha.webclient.server.RemoveImageSessionHttpServlet</servlet-class>
+  	</servlet>
+  	
+  	<servlet-mapping>
+    	<servlet-name>RemoveImageSessionHttpServlet</servlet-name>
+    	<url-pattern>/removeImageSessionHttpServlet</url-pattern>
+  	</servlet-mapping>
+  	
 	<servlet>
 		<servlet-name>GWTLoginService</servlet-name>
 		<servlet-class>org.fourgeeks.gha.webclient.server.login.GWTLoginServiceImpl</servlet-class>
@@ -160,6 +180,7 @@
 	</welcome-file-list>
 	
 	
+	
 	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>All resources</web-resource-name>
@@ -179,5 +200,12 @@
 		<auth-method>BASIC</auth-method>
 		<realm-name>gha-auth-security-domain</realm-name>
 	</login-config>
+	
+	<env-entry>
+		<description>Ruta de imagenes</description>
+		<env-entry-name>EIATYPE_IMAGES</env-entry-name>
+		<env-entry-type>java.lang.String</env-entry-type>
+		<env-entry-value>/home/</env-entry-value>
+	</env-entry>
 	
 </web-app>

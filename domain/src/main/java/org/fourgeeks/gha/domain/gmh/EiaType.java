@@ -87,7 +87,8 @@ public class EiaType extends AbstractEntity {
 	
 	private EiaSubTypeEnum subtype;
 
-	/** Subtipo de Equipo length =60 */
+	// @Transient
+	// private List<EiaTypePicture> listEiaTypePicture;
 
 	/**
 	 * 
@@ -120,6 +121,15 @@ public class EiaType extends AbstractEntity {
 		this.model = model;
 		this.code = code;
 	}
+
+	// public List<EiaTypePicture> getListEiaTypePicture() {
+	// return listEiaTypePicture;
+	// }
+	//
+	// public void setListEiaTypePicture(List<EiaTypePicture>
+	// listEiaTypePicture) {
+	// this.listEiaTypePicture = listEiaTypePicture;
+	// }
 
 	public Brand getBrand() {
 		return brand;

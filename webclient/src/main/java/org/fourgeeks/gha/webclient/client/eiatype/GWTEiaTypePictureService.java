@@ -24,7 +24,7 @@ public interface GWTEiaTypePictureService extends RemoteService {
 	 * @return EiaTypePicture saved
 	 * @throws EJBException
 	 */
-	public void save(EiaTypePicture eiaTypePicture) throws EJBException;
+	public void save(EiaType eiaType) throws EJBException;
 
 	/**
 	 * @param Id
@@ -42,6 +42,14 @@ public interface GWTEiaTypePictureService extends RemoteService {
 
 	
 	/**
+	 * @param EiaType
+	 *            the EiaType to be update eiaTypePicture
+	 * @return a EiaType updated
+	 * @throws EJBException
+	 */
+	public boolean update(EiaType eiaType, int noDeletePicture[]) throws EJBException;
+	
+	/**
 	 * @param EiaTypePicture
 	 *            the EiaTypePicture to be updated
 	 * @return a EiaTypePicture updated
@@ -54,4 +62,11 @@ public interface GWTEiaTypePictureService extends RemoteService {
 	 * @throws EJBException
 	 */
 	public void delete(long Id) throws EJBException;
+	/**
+	 * 
+	 * Delete an Picture from session by name
+	 * @param namePicture
+	 * @throws Exception
+	 */
+	public void deletePictureFromSession(String namePicture) throws Exception;
 }
