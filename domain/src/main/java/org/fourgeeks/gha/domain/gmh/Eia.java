@@ -35,6 +35,11 @@ public class Eia extends AbstractEntity {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private EiaMaintenancePlan eMaintenancePlan;
+	
+	
+	
 	/** Fecha de Instalación del Equipo length =22 */
 	private Date acceptationDate;
 	/** Periodo de Tiempo (PDT) para el Tiempo de Vida Equipo length =60 */
