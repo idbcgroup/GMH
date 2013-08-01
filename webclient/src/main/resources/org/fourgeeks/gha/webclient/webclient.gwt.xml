@@ -14,6 +14,7 @@
 	
 	<inherits name="com.smartgwt.SmartGwtNoTheme"/>
 	<inherits name="com.smartclient.theme.gha.gha"/>
+<!-- 	<inherits name="com.smartclient.theme.simplicity.Simplicity"/> -->
 
 	<inherits name="org.fourgeeks.gha.domain"/>
 	

@@ -125,9 +125,10 @@
 		<dependency>
 			<groupId>com.smartgwt</groupId>
 			<artifactId>smartgwt</artifactId>
-			<version>3.1</version>
+			<version>4</version>
 			<scope>system</scope>
-			<systemPath>${basedir}/../lib/smartgwt-3.1.jar</systemPath>
+			<systemPath>${basedir}/../lib/smartgwt.jar</systemPath>
+<!-- 			<systemPath>${basedir}/../lib/smartgwt-3.1.jar</systemPath> -->
 		</dependency>
 
 <!-- 		<dependency> -->
