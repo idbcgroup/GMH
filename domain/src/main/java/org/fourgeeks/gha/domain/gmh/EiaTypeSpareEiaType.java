@@ -13,9 +13,8 @@ import org.fourgeeks.gha.domain.AbstractEntity;
  * @author emiliot
  *
  */
-
 @Entity
-public class EiaSpare extends AbstractEntity {
+public class EiaTypeSpareEiaType extends AbstractEntity {
 
 	/**
 	 * 
@@ -23,6 +22,10 @@ public class EiaSpare extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 	
 	@ManyToOne
-	@JoinColumn(name = "parentEiaFk")
-	private Eia parentEia;
+	@JoinColumn(name = "eiaTypeFk")
+	EiaType eiaType;
+	
+	@ManyToOne
+	@JoinColumn(name = "eSpareFk")
+	EiaTypeSpare eSpare;
 }
