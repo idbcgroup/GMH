@@ -3,7 +3,6 @@ package org.fourgeeks.gha.webclient.server.eiatype;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Hashtable;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -23,7 +22,7 @@ import org.fourgeeks.gha.webclient.server.UploadPhotographsHttpServlet;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 /**
- * 
+ * Se encarga de administrar el EiaTypePicture (insert, update, delete, find)
  * @author lcampo
  *
  */
@@ -34,9 +33,7 @@ public class GWTEiaTypePictureServiceImpl extends RemoteServiceServlet implement
 	private static final Logger LOG = Logger.getLogger(GWTEiaTypeServiceImpl.class);
 	private static final String SEPARATOR = System.getProperty("file.separator");
 	private static final String TMP_DIR = System.getProperty("java.io.tmpdir");
-	private static final String HOME_DIR = System.getProperty("user.home");
 	private static final String USER_NAME = System.getProperty("user.name");
-	private static final String USER_DIR = System.getProperty("user.dir");
 	
 	private List<EiaTypePicture> pictures = null;
 
@@ -95,7 +92,7 @@ public class GWTEiaTypePictureServiceImpl extends RemoteServiceServlet implement
 	}
 
 	/**
-	 * 
+	 * Obtiene la fotografia de la carpeta temporal y la mueve a su ubicacion definitiva
 	 * @param eiaType
 	 */
 	private void locatePhotographs(EiaType eiaType) {
@@ -114,7 +111,6 @@ public class GWTEiaTypePictureServiceImpl extends RemoteServiceServlet implement
 		LOG.info("objeto recibido de la sesion: "+attribute.getClass());
 		@SuppressWarnings("unchecked")
 		List<String> fotos = (List<String>) attribute;
-	//	getURLPhotograph() ;
 		LOG.info("Si llego aqui hizo bien la conversion");
 		File dirPhotograph = getDirPhotograph();
 		createDir(dirPhotograph);
@@ -154,7 +150,9 @@ public class GWTEiaTypePictureServiceImpl extends RemoteServiceServlet implement
 		}
 		
 	}
-
+/**
+ * Almacena las imagenes del eia type
+ */
 	@Override
 	public void save(EiaType eiaType)
 			throws EJBException {
@@ -179,6 +177,9 @@ public class GWTEiaTypePictureServiceImpl extends RemoteServiceServlet implement
 		return eiaTypePictureServiceRemote.find(eiaType);
 	}
 
+	/**
+	 * actualiza las imagenes del eia type especificado
+	 */
 	@Override
 	public boolean update(EiaType eiaType, int noDeletePicture[]) throws EJBException {
 		LOG.info("actualizando las imagenes de un eia type");
@@ -187,6 +188,9 @@ public class GWTEiaTypePictureServiceImpl extends RemoteServiceServlet implement
 		for(EiaTypePicture eiaTypePicture: listEiaTypePictures)
 		{
 			boolean deleteEiaTyPict = false;
+			/**
+			 * busca las imagenes que se van a eliminar
+			 */
 			for(int i = 0; i< noDeletePicture.length; i++){	
 				LOG.info("buscando las imagenes a eliminar");
 				
@@ -240,7 +244,9 @@ public class GWTEiaTypePictureServiceImpl extends RemoteServiceServlet implement
 	public boolean update(EiaTypePicture eiaTypePicture) throws EJBException {
 		return eiaTypePictureServiceRemote.update(eiaTypePicture);
 	}
-
+/**
+ * Elimina la fotografia de la session del usuario
+ */
 	@Override
 	public void deletePictureFromSession(String namePicture) throws Exception {
 		HttpServletRequest threadLocalRequest = this.getThreadLocalRequest();

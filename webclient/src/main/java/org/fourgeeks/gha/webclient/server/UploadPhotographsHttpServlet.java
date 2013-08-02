@@ -18,6 +18,11 @@ import gwtupload.server.UploadAction;
 import gwtupload.server.exceptions.UploadActionException;
 import gwtupload.shared.UConsts;
 
+/**
+ * Sube la fotografia en un carpeta temporal y en la seccion del usuario
+ * @author lcampo
+ *
+ */
 public class UploadPhotographsHttpServlet extends UploadAction {
 	public static final String ATTR_ARCHIVOS = "picture";
 	  private static final long serialVersionUID = 1L;
@@ -43,13 +48,11 @@ public class UploadPhotographsHttpServlet extends UploadAction {
     	}
 	    if (session.getAttribute(ATTR_ARCHIVOS) == null)
 	    		session.setAttribute(ATTR_ARCHIVOS, new ArrayList<String>());
-	    int cont = 0;
-	   // Hashtable<String, String> photos = (Hashtable<String, String>)session.getAttribute(ATTR_ARCHIVOS);
+	  
 	    List<String> photos = (List<String>) session.getAttribute(ATTR_ARCHIVOS);
 	    
 	    for (FileItem item : sessionFiles) {
 	      if (false == item.isFormField()) {
-	        cont ++;
 	        try {
 	          /// Create a new file based on the remote file name in the client
 	          // String saveName = item.getName().replaceAll("[\\\\/><\\|\\s\"'{}()\\[\\]]+", "_");
@@ -64,16 +67,15 @@ public class UploadPhotographsHttpServlet extends UploadAction {
 				int posPunto = name.lastIndexOf(".");
 				String ext = name.substring(posPunto + 1);
 
-				File file = File.createTempFile("gha", "." + ext/*, new File(
-						"/tmp")*/);
-	          //File file = File.createTempFile("upload-", ".bin");
+				File file = File.createTempFile("gha", "." + ext);
+	          
 	          item.write(file);
 	          
 	          /// Save a list with the received files
 	          receivedFiles.put(item.getFieldName(), file);
 	          receivedContentTypes.put(item.getFieldName(), item.getContentType());
 	          photos.add(file.getName());
-	         // photos.put(name, file.getName());
+	        
 	          /// Send a customized message to the client.
 	          response += file.getName();
 

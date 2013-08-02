@@ -60,8 +60,6 @@ public class EIATypeInformationFormPanel extends VLayout implements
 
 	private OnFinishUploaderHandler onFinishUploaderHandler1,
 			onFinishUploaderHandler2, onFinishUploaderHandler3;
-	private OnChangeUploaderHandler onChangeUploaderHandler1,
-			onChangeUploaderHandler2, onChangeUploaderHandler3;
 	private Img img1, img2, img3;
 	private int idImg1, idImg2, idImg3;
 	private String imgName1, imgName2, imgName3;
@@ -84,6 +82,9 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		subTypeItem = new GHASelectItem("Subtipo", 150);
 	}
 
+	/**
+	 * inicializa los componentes para imagenes
+	 */
 	private void inicializarComponentesImg() {
 		img1 = new Img("../resources/img/default.png", 150, 100);
 		img1.setImageType(ImageStyle.STRETCH);
@@ -106,12 +107,14 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		validator = Validation.buildDefaultValidatorFactory().getValidator();
 	}
 
+	/**
+	 * crea los eventos OnFinishUploaderHandler que se ejecutan cuando termina la subida de la imagen
+	 */
 	private void setOnFinishUploaderHandler() {
 		onFinishUploaderHandler1 = new OnFinishUploaderHandler() {
 			@Override
 			public void onFinish(IUploader uploader) {
 				if (uploader.getStatus() == Status.SUCCESS) {
-					// new PreloadedImage( uploader.fileUrl(), showImage1);
 					// The server sends useful information to the client by
 					// default
 					// Borra la imagen anterior de la session
@@ -123,45 +126,17 @@ public class EIATypeInformationFormPanel extends VLayout implements
 								}
 							});
 					UploadedInfo info = uploader.getServerInfo();
-					// System.out.println("File name " + info.name);
-					// Window.alert("url: "+uploader.fileUrl());
 					img1.setSrc(uploader.fileUrl());
 					idImg1 = -1;
 					imgName1 = info.message;
-					// Window.alert("1: "+uploader.getFileName());
-					// Window.alert("2: "+uploader.getFileInput().getFilename());
-					// Window.alert("3: "+uploader.getInputName());
-					// Window.alert("4: "+info.message);
-					// img1.setID(null);
-					// Window.alert("id: "+img1.getID());
-					// System.out.println("File content-type " + info.ctype);
-					// System.out.println("File size " + info.size);
-					// // You can send any customized message and parse it
-					// System.out.println("Server message " + info.message);
 				}
 			}
 		};
-		// showImage1 = new OnLoadPreloadedImageHandler() {
-		// public void onLoad(PreloadedImage image) {
-		// image.setWidth("150px");
-		// image.setHeight("100px");
-		// Window.alert("remover "+image.getName());
-		//
-		// img1.removeFromParent();
-		// Window.alert("img1 removido");
-		// img1.addChild(image);
-		// child = image;
-		// Window.alert("img1 iingresado");
-		// img1.setSrc("../resources/img/default.png");
-		// img1.setID(image.getName());
-		// }
-		// };
 
 		onFinishUploaderHandler2 = new OnFinishUploaderHandler() {
 			@Override
 			public void onFinish(IUploader uploader) {
 				if (uploader.getStatus() == Status.SUCCESS) {
-					// new PreloadedImage(uploader.fileUrl(), showImage2);
 					// The server sends useful information to the client by
 					// default
 					// Borra la imagen anterior de la session
@@ -176,14 +151,6 @@ public class EIATypeInformationFormPanel extends VLayout implements
 					img2.setSrc(uploader.fileUrl());
 					idImg2 = -1;
 					imgName2 = info.message;
-
-					// img2.setID(null);
-					// Window.alert("id: "+img2.getID());
-					// System.out.println("File name " + info.name);
-					// System.out.println("File content-type " + info.ctype);
-					// System.out.println("File size " + info.size);
-					// // You can send any customized message and parse it
-					// System.out.println("Server message " + info.message);
 				}
 			}
 		};
@@ -192,7 +159,6 @@ public class EIATypeInformationFormPanel extends VLayout implements
 			@Override
 			public void onFinish(IUploader uploader) {
 				if (uploader.getStatus() == Status.SUCCESS) {
-					// new PreloadedImage(uploader.fileUrl(), showImage3);
 					// The server sends useful information to the client by
 					// default
 					// Borra la imagen anterior de la session
@@ -207,70 +173,8 @@ public class EIATypeInformationFormPanel extends VLayout implements
 					img3.setSrc(uploader.fileUrl());
 					idImg3 = -1;
 					imgName3 = info.message;
-					// img3.setID(null);
-					// //Window.alert("id: "+img3.getID());
-					// System.out.println("File name " + info.name);
-					// System.out.println("File content-type " + info.ctype);
-					// System.out.println("File size " + info.size);
-					// You can send any customized message and parse it
-					// System.out.println("Server message " + info.message);
 				}
 			}
-		};
-	}
-
-	private void setOnChangeUploaderHandler() {
-		onChangeUploaderHandler1 = new OnChangeUploaderHandler() {
-
-			@Override
-			public void onChange(IUploader uploader) {
-				// Window.alert("cambio imagen a borrar la anterior: "+imgName1);
-				EIATypePictureModel.deletePictureFromSession(imgName1,
-						new GHAAsyncCallback<Void>() {
-
-							@Override
-							public void onSuccess(Void result) {
-								Window.alert("Imagen borrada exitosamente: "
-										+ imgName1);
-							}
-
-						});
-				// imgName1 = uploader.getFileName();
-				// Window.alert("nueva imagen a agregada : "+imgName1);
-			}
-
-		};
-
-		onChangeUploaderHandler2 = new OnChangeUploaderHandler() {
-
-			@Override
-			public void onChange(IUploader uploader) {
-				EIATypePictureModel.deletePictureFromSession(imgName2,
-						new GHAAsyncCallback<Void>() {
-							@Override
-							public void onSuccess(Void result) {
-								Window.alert("Imagen borrada exitosamente: "
-										+ imgName1);
-							}
-						});
-			}
-		};
-
-		onChangeUploaderHandler3 = new OnChangeUploaderHandler() {
-
-			@Override
-			public void onChange(IUploader uploader) {
-				EIATypePictureModel.deletePictureFromSession(imgName3,
-						new GHAAsyncCallback<Void>() {
-							@Override
-							public void onSuccess(Void result) {
-								Window.alert("Imagen borrada exitosamente: "
-										+ imgName1);
-							}
-
-						});
-			}
-
 		};
 	}
 
@@ -280,7 +184,7 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		GHACustomButton buttonAddImage1 = new GHACustomButton();
 		GHACustomButton buttonAddImage2 = new GHACustomButton();
 		GHACustomButton buttonAddImage3 = new GHACustomButton();
-
+/****************COMPONENTE PARA SUBIDA DE IMAGEN****************************************/
 		SingleUploader uploadPhoto1 = new SingleUploader(
 				FileInputType.CUSTOM.with(buttonAddImage1));
 		uploadPhoto1.setValidExtensions("jpg", "jpeg", "png", "gif");
@@ -297,7 +201,7 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		uploadPhoto3.setAutoSubmit(true);
 
 		setOnFinishUploaderHandler();
-		setOnChangeUploaderHandler();
+/****************************************************************************************/
 		this.tab = tab;
 		tab.addGHAClosableHandler(this);
 		setWidth100();
@@ -359,28 +263,10 @@ public class EIATypeInformationFormPanel extends VLayout implements
 
 							@Override
 							public void onSuccess(Void result) {
-								Window.alert("Imagen borrada exitosamente: "
-										+ imgName1);
 								imgName1 = "nothing";
 							}
 
 						});
-				// img1.setID(null);
-				// Window.alert("id: "+img1.getID());
-				// img1.setID("borrada");
-				// com.google.gwt.user.client.Window.open("realizarReporteFichas?pozos="
-				// + pozoPrincipal.getNombre()
-				// + "&formato=pdf", "_this", "");
-				// <servlet>
-				// <servlet-name>ServicioRealizarReporteHttpServlet</servlet-name>
-				// <servlet-class>ve.org.petrociencia.fichapozo.servicios.reportefichas.ServicioRealizarReporteHttpServlet</servlet-class>
-				// </servlet>
-				// <servlet-mapping>
-				// <servlet-name>ServicioRealizarReporteHttpServlet</servlet-name>
-				// <url-pattern>/realizarReporteFichas</url-pattern>
-				// </servlet-mapping>
-				// <url-pattern>/removeImageSessionHttpServlet</url-pattern>
-
 			}
 		});
 		GHAImgButton deleteButton2 = new GHAImgButton(
@@ -398,8 +284,6 @@ public class EIATypeInformationFormPanel extends VLayout implements
 
 							@Override
 							public void onSuccess(Void result) {
-								Window.alert("Imagen borrada exitosamente: "
-										+ imgName2);
 								imgName2 = "nothing";
 							}
 
@@ -419,13 +303,9 @@ public class EIATypeInformationFormPanel extends VLayout implements
 
 							@Override
 							public void onSuccess(Void result) {
-								Window.alert("Imagen borrada exitosamente: "
-										+ imgName3);
 								imgName3 = "nothing";
 							}
-
 						});
-
 			}
 		});
 
@@ -433,13 +313,9 @@ public class EIATypeInformationFormPanel extends VLayout implements
 
 		HLayout uploadImagenes = new HLayout();
 		VLayout buttons1 = new VLayout();
-		// buttons1.setWidth(30);
-		// buttons1.setHeight(10);
-
 		buttons1.setLayoutMargin(2);
 		buttons1.setBackgroundColor("#E0E0E0");
 		buttons1.setMembersMargin(2);
-		// buttons1.setDefaultLayoutAlign(Alignment.CENTER);
 		buttons1.setAutoWidth();
 		VLayout buttons2 = new VLayout();
 		buttons2.setLayoutMargin(2);
@@ -468,13 +344,8 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		uploadImagenes.addMember(buttons3);
 
 		uploadPhoto1.addOnFinishUploadHandler(onFinishUploaderHandler1);
-		// uploadPhoto1.addOnChangeUploadHandler(onChangeUploaderHandler1);
-
 		uploadPhoto2.addOnFinishUploadHandler(onFinishUploaderHandler2);
-		// uploadPhoto2.addOnChangeUploadHandler(onChangeUploaderHandler2);
-
 		uploadPhoto3.addOnFinishUploadHandler(onFinishUploaderHandler3);
-		// uploadPhoto3.addOnChangeUploadHandler(onChangeUploaderHandler3);
 
 		HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
@@ -591,7 +462,6 @@ public class EIATypeInformationFormPanel extends VLayout implements
 
 					@Override
 					public void onSuccess(List<EiaTypePicture> result) {
-						Window.alert("Num. Imagenes: " + result.size());
 						img1.setSrc("../resources/img/default.png");
 						img2.setSrc("../resources/img/default.png");
 						img3.setSrc("../resources/img/default.png");
@@ -672,7 +542,6 @@ public class EIATypeInformationFormPanel extends VLayout implements
 
 									@Override
 									public void onSuccess(Void result) {
-										Window.alert("Imagenes almacenadas satisfactoriamente");
 										showPhotographics(eiaType);
 									}
 
@@ -683,19 +552,19 @@ public class EIATypeInformationFormPanel extends VLayout implements
 									};
 								});
 					} else {
+						/**
+						 * En el arreglo noDeletePicture se guardan los id de las imagenes que no se desean borrar 
+						 */
 						int noDeletePicture[] = new int[3];
 						noDeletePicture[0] = idImg1;
 						noDeletePicture[1] = idImg2;
 						noDeletePicture[2] = idImg3;
-						Window.alert("noDeletePicture[0] = " + idImg1
-								+ "\n noDeletePicture[1] = " + idImg2
-								+ "\n noDeletePicture[2] = " + idImg3);
+		
 						EIATypePictureModel.update(eiaType, noDeletePicture,
 								new GHAAsyncCallback<Boolean>() {
 
 									@Override
 									public void onSuccess(Boolean result) {
-										Window.alert("EiaTypePictures actualizados correctamente");
 										showPhotographics(eiaType);
 									}
 
@@ -707,7 +576,7 @@ public class EIATypeInformationFormPanel extends VLayout implements
 								});
 
 					}
-					// tab.select(result)
+					tab.select(eiaTyp);
 				}
 
 				@Override
