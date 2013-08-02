@@ -64,11 +64,10 @@ public enum GHACache {
 	public void getExternalProviders(
 			GHAAsyncCallback<List<ExternalProvider>> callback) {
 		// Avoiding synchronization problems
-		List<ExternalProvider> localCopy = externalProviders;
-		if (localCopy == null)
+		if (externalProviders == null)
 			getExternalProvidersFromServer(callback);
 		else
-			callback.onSuccess(localCopy);
+			callback.onSuccess(externalProviders);
 
 	}
 
@@ -92,11 +91,10 @@ public enum GHACache {
 	 */
 	public void getBaseRoles(GHAAsyncCallback<List<BaseRole>> callback) {
 		// Avoiding synchronization problems
-		List<BaseRole> localCopy = roles;
-		if (localCopy == null)
+		if (roles == null)
 			getBaseRolesFromServer(callback);
 		else
-			callback.onSuccess(localCopy);
+			callback.onSuccess(roles);
 
 	}
 
@@ -119,11 +117,10 @@ public enum GHACache {
 	 */
 	public void getObus(GHAAsyncCallback<List<Obu>> callback) {
 		// Avoiding synchronization problems
-		List<Obu> localCopy = obus;
-		if (localCopy == null)
+		if (obus == null)
 			getObusFromServer(callback);
 		else
-			callback.onSuccess(localCopy);
+			callback.onSuccess(obus);
 
 	}
 
@@ -146,11 +143,10 @@ public enum GHACache {
 	public void getBuildingLocations(
 			GHAAsyncCallback<List<BuildingLocation>> callback) {
 		// Avoiding synchronization problems
-		List<BuildingLocation> localCopy = buildingLocations;
-		if (localCopy == null)
+		if (buildingLocations == null)
 			getBuildingLocationsFromServer(callback);
 		else
-			callback.onSuccess(localCopy);
+			callback.onSuccess(buildingLocations);
 
 	}
 
@@ -174,11 +170,10 @@ public enum GHACache {
 	 */
 	public void getBrands(GHAAsyncCallback<List<Brand>> callback) {
 		// Avoiding synchronization problems
-		List<Brand> localBrands = brands;
-		if (localBrands == null)
+		if (brands == null)
 			getBrandsFromServer(callback);
 		else {
-			callback.onSuccess(localBrands);
+			callback.onSuccess(brands);
 		}
 	}
 
@@ -190,7 +185,6 @@ public enum GHACache {
 					@Override
 					public void onSuccess(List<Brand> result) {
 						brands = result;
-						// Avoiding synchronization problems
 						callback.onSuccess(result);
 					}
 				});
@@ -201,11 +195,10 @@ public enum GHACache {
 	 */
 	public void getManufacturesrs(GHAAsyncCallback<List<Manufacturer>> callback) {
 		// Avoiding synchronization problems
-		List<Manufacturer> localManufacturers = manufacturers;
-		if (localManufacturers == null)
+		if (manufacturers == null)
 			getManufacturersFromServer(callback);
 		else {
-			callback.onSuccess(localManufacturers);
+			callback.onSuccess(manufacturers);
 		}
 	}
 
