@@ -5,15 +5,20 @@ import java.util.List;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
-import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
+import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.GHANotification;
 import org.fourgeeks.gha.webclient.client.eia.EIAAddForm;
 import org.fourgeeks.gha.webclient.client.eia.EIAGrid;
 import org.fourgeeks.gha.webclient.client.eia.EIAModel;
 import org.fourgeeks.gha.webclient.client.eia.EIARecord;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 import org.fourgeeks.gha.webclient.client.eia.EIAUtil;
+import org.fourgeeks.gha.webclient.client.eiatype.EIATypeGrid;
+import org.fourgeeks.gha.webclient.client.eiatype.EIATypeModel;
+import org.fourgeeks.gha.webclient.client.eiatype.EIATypeRecord;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
+
 
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
@@ -23,6 +28,8 @@ import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
+
+
 
 public class EIATypeEquipmentGridPanel extends VLayout implements
 		EIATypeSelectionListener, EIASelectionListener, GHAClosable {
@@ -35,6 +42,8 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 		eiaAddForm = new EIAAddForm();
 	}
 
+	private EIATypeGrid eiaTypeEquipmentGrid;
+	
 	public EIATypeEquipmentGridPanel(EIATypeEquipmentSubTab eIATypeEquipmentSubTab) {
 		super();
 		eiaAddForm.addEiaSelectionListener(eIATypeEquipmentSubTab);
@@ -65,7 +74,37 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 			}
 		});
 		GHAImgButton editButton = new GHAImgButton("../resources/icons/edit.png");
+		
 		GHAImgButton deleteButton = new GHAImgButton("../resources/icons/delete.png");
+		
+		deleteButton.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				
+				EiaType eiaTypeEquipment = ((EIATypeRecord) eiaTypeEquipmentGrid.getSelectedRecord()).toEntity();				
+
+				//GHANotification.alert("entro");
+				
+				EIATypeModel.delete(eiaTypeEquipment.getId(), new GHAAsyncCallback<Void>() {
+
+					@Override
+					public void onSuccess(Void result) {
+						
+						GHANotification.alert("El equipo se ha eliminado satisfactoriamente");
+						
+						
+					}
+
+				});
+
+			}
+		
+		});		
+		
+		
+		
+		
 		GHAImgButton setsButton = new GHAImgButton("../resources/icons/set.png");
 		setsButton.addClickHandler(new ClickHandler() {
 
@@ -123,4 +162,7 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 	public void select(Eia eia) {
 		loadData(eiaType);
 	}
+
+	
+	
 }
