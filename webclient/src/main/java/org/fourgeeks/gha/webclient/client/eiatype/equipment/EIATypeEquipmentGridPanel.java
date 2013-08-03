@@ -85,9 +85,7 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 				EIATypeRecord eiaTypeRecordEquipment = (EIATypeRecord) eiaTypeEquipmentGrid.getSelectedRecord();				
 				EiaType eiaTypeEquipment = eiaTypeRecordEquipment.toEntity();
 				
-				GHANotification.alert(eiaTypeEquipment.getCode());
-				
-				/*EIATypeModel.delete(eiaTypeEquipment.getId(), new GHAAsyncCallback<Void>() {
+				EIATypeModel.delete(eiaTypeEquipment.getId(), new GHAAsyncCallback<Void>() {
 
 					@Override
 					public void onSuccess(Void result) {
@@ -97,7 +95,7 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 						
 					}
 
-				});*/
+				});
 
 			}
 		
