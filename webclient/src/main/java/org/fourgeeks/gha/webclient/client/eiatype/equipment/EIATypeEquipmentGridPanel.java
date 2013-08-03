@@ -82,11 +82,12 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 			@Override
 			public void onClick(ClickEvent event) {
 				
-				EiaType eiaTypeEquipment = ((EIATypeRecord) eiaTypeEquipmentGrid.getSelectedRecord()).toEntity();				
-
-				//GHANotification.alert("entro");
+				EIATypeRecord eiaTypeRecordEquipment = (EIATypeRecord) eiaTypeEquipmentGrid.getSelectedRecord();				
+				EiaType eiaTypeEquipment = eiaTypeRecordEquipment.toEntity();
 				
-				EIATypeModel.delete(eiaTypeEquipment.getId(), new GHAAsyncCallback<Void>() {
+				GHANotification.alert(eiaTypeEquipment.getCode());
+				
+				/*EIATypeModel.delete(eiaTypeEquipment.getId(), new GHAAsyncCallback<Void>() {
 
 					@Override
 					public void onSuccess(Void result) {
@@ -96,7 +97,7 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 						
 					}
 
-				});
+				});*/
 
 			}
 		
