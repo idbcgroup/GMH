@@ -19,9 +19,9 @@ import org.fourgeeks.gha.webclient.client.eiatype.EIATypeModel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeRecord;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
-
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
+import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -34,15 +34,17 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class EIATypeEquipmentGridPanel extends VLayout implements
 		EIATypeSelectionListener, EIASelectionListener, GHAClosable {
 
+
 	private EIAGrid grid;
 	private EiaType eiaType;
+	
 	private EIAAddForm eiaAddForm;
 	{
 		grid = new EIAGrid();
 		eiaAddForm = new EIAAddForm();
 	}
 
-	private EIATypeGrid eiaTypeEquipmentGrid;
+	private EIAGrid eiaEquipmentGrid = new EIAGrid();
 	
 	public EIATypeEquipmentGridPanel(EIATypeEquipmentSubTab eIATypeEquipmentSubTab) {
 		super();
@@ -82,20 +84,35 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 			@Override
 			public void onClick(ClickEvent event) {
 				
-				EIATypeRecord eiaTypeRecordEquipment = (EIATypeRecord) eiaTypeEquipmentGrid.getSelectedRecord();				
-				EiaType eiaTypeEquipment = eiaTypeRecordEquipment.toEntity();
-				
-				EIATypeModel.delete(eiaTypeEquipment.getId(), new GHAAsyncCallback<Void>() {
-
+				GHANotification.confirm("Equipo","Confirme si desea eliminar el equipo seleccionado", new BooleanCallback() {
+					
 					@Override
-					public void onSuccess(Void result) {
-						
-						GHANotification.alert("El equipo se ha eliminado satisfactoriamente");
-						
-						
-					}
+					public void execute(Boolean resultAsc) {
+						if(resultAsc){
+							Eia eiaEquipment = ((EIARecord) eiaEquipmentGrid.getSelectedRecord()).toEntity();
+							
+							EIAModel.delete(eiaEquipment.getId(), new GHAAsyncCallback<Boolean>() {
+								
+								@Override
+								public void onSuccess(Boolean result) {
+									loadDataEquipment();
+									
+								}
+								@Override
+								public void onFailure(Throwable caught){
+									GHANotification.alert(caught.getMessage());
+								}
 
+							});
+							
+							
+						}else {
+							loadDataEquipment();
+						}
+					}
 				});
+				
+
 
 			}
 		
@@ -162,6 +179,18 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 		loadData(eiaType);
 	}
 
-	
+
+	private void loadDataEquipment() {
+		EIAModel.find(eiaType, new GHAAsyncCallback<List<Eia>>() {
+
+			@Override
+			public void onSuccess(List<Eia> result) {
+				ListGridRecord[] array = (ListGridRecord[]) EIAUtil
+						.toGridRecords(result).toArray(new EIARecord[] {});
+				grid.setData(array);
+
+			}
+		});
+	}	
 	
 }

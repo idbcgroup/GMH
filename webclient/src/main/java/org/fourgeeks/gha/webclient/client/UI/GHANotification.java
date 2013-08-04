@@ -24,7 +24,7 @@ public class GHANotification {
 		SC.say(message);
 	}
 	
-	public static void confirm(String message, BooleanCallback callback){
-		SC.ask(message, callback);
+	public static void confirm(String title, String message, BooleanCallback callback){
+		SC.ask(title, message, callback);
 	}
 }
