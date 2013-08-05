@@ -2,13 +2,14 @@ package org.fourgeeks.gha.webclient.client.UI;
 
 import com.smartgwt.client.widgets.grid.ListGrid;
 
-public class GHAGrid<T extends GHAGridRecord> extends ListGrid {
+public class GHAGrid<E extends GHAGridRecord<?>> extends ListGrid {
 
 	public GHAGrid() {
-
+		super();
 	}
 
-	public T getSelectedRecord() {
+	@Override
+	public E getSelectedRecord() {
 		return getSelectedRecord();
 	}
 }
