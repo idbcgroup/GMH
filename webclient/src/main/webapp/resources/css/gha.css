@@ -73,20 +73,14 @@
 	div#menu-bar.menu-bar table tbody tr td div#isc_IMenuButton_0_wrapper.gha-main-menu div#isc_8 table tbody tr td.menuButtonOver,
 	div#menu-bar.menu-bar table tbody tr td div#isc_IMenuButton_0_wrapper.gha-main-menu div#isc_8 table tbody tr td.menuButtonDown {
 		background: none;
-		color:#939496;
 		background-color: white;
 		border:none;
-		font-size: 14px;
-		font-weight:bold;
 		padding-left: 20px;
 	}
-	.gha-main-menu div {
-		height:24px;
-	}
-	.gha-main-menu {
-		width:150px;
-	}
 	.gha-main-menu .buttonTitle {
+		font-size: 14px;
+		font-weight:bold;
+		color:#939496;
 		width:45px;
 	}
 	
