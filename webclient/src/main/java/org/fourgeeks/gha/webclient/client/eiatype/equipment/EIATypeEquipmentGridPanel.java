@@ -14,11 +14,9 @@ import org.fourgeeks.gha.webclient.client.eia.EIAModel;
 import org.fourgeeks.gha.webclient.client.eia.EIARecord;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 import org.fourgeeks.gha.webclient.client.eia.EIAUtil;
-import org.fourgeeks.gha.webclient.client.eiatype.EIATypeGrid;
-import org.fourgeeks.gha.webclient.client.eiatype.EIATypeModel;
-import org.fourgeeks.gha.webclient.client.eiatype.EIATypeRecord;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
+import com.google.gwt.user.client.Window;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.util.BooleanCallback;
@@ -29,30 +27,26 @@ import com.smartgwt.client.widgets.grid.ListGridRecord;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-
-
 public class EIATypeEquipmentGridPanel extends VLayout implements
 		EIATypeSelectionListener, EIASelectionListener, GHAClosable {
 
-
 	private EIAGrid grid;
 	private EiaType eiaType;
-	
+
 	private EIAAddForm eiaAddForm;
 	{
 		grid = new EIAGrid();
 		eiaAddForm = new EIAAddForm();
 	}
 
-	private EIAGrid eiaEquipmentGrid = new EIAGrid();
-	
-	public EIATypeEquipmentGridPanel(EIATypeEquipmentSubTab eIATypeEquipmentSubTab) {
+	public EIATypeEquipmentGridPanel(
+			EIATypeEquipmentSubTab eIATypeEquipmentSubTab) {
 		super();
 		eiaAddForm.addEiaSelectionListener(eIATypeEquipmentSubTab);
 		setStyleName("sides-padding top-padding");// Esto es VUDU!
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
-		
+
 		Label title = new Label("<h3>Equipos pertenecientes al EIA Type</h3>");
 		title.setHeight(30);
 		title.setWidth100();
@@ -75,53 +69,64 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 				eiaAddForm.animateShow(AnimationEffect.FLY);
 			}
 		});
-		GHAImgButton editButton = new GHAImgButton("../resources/icons/edit.png");
-		
-		GHAImgButton deleteButton = new GHAImgButton("../resources/icons/delete.png");
-		
+		GHAImgButton editButton = new GHAImgButton(
+				"../resources/icons/edit.png");
+
+		GHAImgButton deleteButton = new GHAImgButton(
+				"../resources/icons/delete.png");
+
 		deleteButton.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				
-				GHANotification.confirm("Equipo","Confirme si desea eliminar el equipo seleccionado", new BooleanCallback() {
-					
-					@Override
-					public void execute(Boolean resultAsc) {
-						if(resultAsc){
-							
-							Eia eiaEquipment = ((EIARecord) eiaEquipmentGrid.getSelectedRecord()).toEntity();
-													
-							EIAModel.delete(eiaEquipment.getId(), new GHAAsyncCallback<Boolean>() {
-								
-								@Override
-								public void onSuccess(Boolean result) {
+				Window.alert("1");
+				final ListGridRecord selectedRecord = grid.getSelectedRecord();
+				Window.alert("2");
+				Window.alert(selectedRecord == null ? "true" : "false");
+				if (selectedRecord == null)
+					return;// No record selected
+				Window.alert("3");
+
+				GHANotification.confirm("Equipo",
+						"Confirme si desea eliminar el equipo seleccionado",
+						new BooleanCallback() {
+
+							@Override
+							public void execute(Boolean resultAsc) {
+								if (resultAsc) {
+
+									Eia eiaEquipment = ((EIARecord) selectedRecord)
+											.toEntity();
+
+									EIAModel.delete(eiaEquipment.getId(),
+											new GHAAsyncCallback<Boolean>() {
+
+												@Override
+												public void onSuccess(
+														Boolean result) {
+													loadDataEquipment();
+
+												}
+
+												@Override
+												public void onFailure(
+														Throwable caught) {
+													GHANotification.alert(caught
+															.getMessage());
+												}
+
+											});
+
+								} else {
 									loadDataEquipment();
-									
 								}
-								@Override
-								public void onFailure(Throwable caught){
-									GHANotification.alert(caught.getMessage());
-								}
-
-							});
-							
-							
-						}else {
-							loadDataEquipment();
-						}
-					}
-				});
-				
-
+							}
+						});
 
 			}
-		
-		});		
-		
-		
-		
-		
+
+		});
+
 		GHAImgButton setsButton = new GHAImgButton("../resources/icons/set.png");
 		setsButton.addClickHandler(new ClickHandler() {
 
@@ -172,14 +177,17 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 		eiaAddForm.destroy();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.eia.EIASelectionListener#select(org.fourgeeks.gha.domain.gmh.Eia)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.eia.EIASelectionListener#select(org
+	 * .fourgeeks.gha.domain.gmh.Eia)
 	 */
 	@Override
 	public void select(Eia eia) {
 		loadData(eiaType);
 	}
-
 
 	private void loadDataEquipment() {
 		EIAModel.find(eiaType, new GHAAsyncCallback<List<Eia>>() {
@@ -192,6 +200,6 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 
 			}
 		});
-	}	
-	
+	}
+
 }
