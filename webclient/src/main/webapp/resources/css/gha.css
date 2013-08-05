@@ -69,7 +69,9 @@
 	background-image: url(../img/fondo-menu.jpeg);
 	background-repeat: repeat-x;	
 }
-	.gha-main-menu div div table tbody tr td {
+	div#menu-bar.menu-bar table tbody tr td div#isc_IMenuButton_0_wrapper.gha-main-menu div#isc_8 table tbody tr td.menuButton,
+	div#menu-bar.menu-bar table tbody tr td div#isc_IMenuButton_0_wrapper.gha-main-menu div#isc_8 table tbody tr td.menuButtonOver,
+	div#menu-bar.menu-bar table tbody tr td div#isc_IMenuButton_0_wrapper.gha-main-menu div#isc_8 table tbody tr td.menuButtonDown {
 		background: none;
 		color:#939496;
 		background-color: white;
