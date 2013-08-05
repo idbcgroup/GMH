@@ -79,13 +79,10 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 
 			@Override
 			public void onClick(ClickEvent event) {
-				Window.alert("1");
 				final ListGridRecord selectedRecord = grid.getSelectedRecord();
-				Window.alert("2");
-				Window.alert(selectedRecord == null ? "true" : "false");
+
 				if (selectedRecord == null)
 					return;// No record selected
-				Window.alert("3");
 
 				GHANotification.confirm("Equipo",
 						"Confirme si desea eliminar el equipo seleccionado",
@@ -95,16 +92,19 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 							public void execute(Boolean resultAsc) {
 								if (resultAsc) {
 
-									Eia eiaEquipment = ((EIARecord) selectedRecord)
+									Eia eiaEquipment = ((EIARecord) grid.getSelectedRecord())
 											.toEntity();
-
+								
+									if (eiaEquipment == null)
+										return;// No record selected
+									
 									EIAModel.delete(eiaEquipment.getId(),
 											new GHAAsyncCallback<Boolean>() {
 
 												@Override
 												public void onSuccess(
 														Boolean result) {
-													loadDataEquipment();
+													loadData(eiaType);
 
 												}
 
@@ -118,7 +118,7 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 											});
 
 								} else {
-									loadDataEquipment();
+									loadData(eiaType);
 								}
 							}
 						});
@@ -189,17 +189,5 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 		loadData(eiaType);
 	}
 
-	private void loadDataEquipment() {
-		EIAModel.find(eiaType, new GHAAsyncCallback<List<Eia>>() {
-
-			@Override
-			public void onSuccess(List<Eia> result) {
-				ListGridRecord[] array = (ListGridRecord[]) EIAUtil
-						.toGridRecords(result).toArray(new EIARecord[] {});
-				grid.setData(array);
-
-			}
-		});
-	}
 
 }

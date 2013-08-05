@@ -146,7 +146,7 @@ public class EIARecord extends GHAGridRecord<Eia> {
 		return getAttributeAsString("manufacturerName");
 	}
 
-/*	@Override
+	@Override
 	public Eia toEntity() {// TODO : Faltan campos
 		Eia eia = new Eia();
 		eia.setId(getId());
@@ -158,11 +158,6 @@ public class EIARecord extends GHAGridRecord<Eia> {
 			eia.setEiaType(eiaType);
 
 		return eia;
-	}*/
-	
-	
-	@Override
-	public Eia toEntity() {
-		return eiaEntity;
 	}
+
 }
