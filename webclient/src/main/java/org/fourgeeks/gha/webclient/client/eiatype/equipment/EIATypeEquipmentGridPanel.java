@@ -89,8 +89,9 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 					@Override
 					public void execute(Boolean resultAsc) {
 						if(resultAsc){
-							Eia eiaEquipment = ((EIARecord) eiaEquipmentGrid.getSelectedRecord()).toEntity();
 							
+							Eia eiaEquipment = ((EIARecord) eiaEquipmentGrid.getSelectedRecord()).toEntity();
+													
 							EIAModel.delete(eiaEquipment.getId(), new GHAAsyncCallback<Boolean>() {
 								
 								@Override
