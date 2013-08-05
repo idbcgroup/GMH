@@ -1,15 +1,12 @@
 package org.fourgeeks.gha.webclient.client.UI;
 
+import java.util.List;
+
 import com.smartgwt.client.widgets.grid.ListGrid;
 
-public class GHAGrid<E extends GHAGridRecord<?>> extends ListGrid {
+public abstract class GHAGrid<E> extends ListGrid {
 
-	public GHAGrid() {
-		super();
-	}
+	public abstract E getSelectedEntity();
 
-	@Override
-	public E getSelectedRecord() {
-		return getSelectedRecord();
-	}
+	public abstract void load(List<E> list);
 }
