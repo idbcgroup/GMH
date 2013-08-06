@@ -37,15 +37,15 @@
     	<url-pattern>/webclient/picture/*</url-pattern>
   	</servlet-mapping>
   
-  	<servlet>
-    	<servlet-name>RemoveImageSessionHttpServlet</servlet-name>
-    	<servlet-class>org.fourgeeks.gha.webclient.server.RemoveImageSessionHttpServlet</servlet-class>
-  	</servlet>
+<!--   	<servlet> -->
+<!--     	<servlet-name>RemoveImageSessionHttpServlet</servlet-name> -->
+<!--     	<servlet-class>org.fourgeeks.gha.webclient.server.RemoveImageSessionHttpServlet</servlet-class> -->
+<!--   	</servlet> -->
   	
-  	<servlet-mapping>
-    	<servlet-name>RemoveImageSessionHttpServlet</servlet-name>
-    	<url-pattern>/removeImageSessionHttpServlet</url-pattern>
-  	</servlet-mapping>
+<!--   	<servlet-mapping> -->
+<!--     	<servlet-name>RemoveImageSessionHttpServlet</servlet-name> -->
+<!--     	<url-pattern>/removeImageSessionHttpServlet</url-pattern> -->
+<!--   	</servlet-mapping> -->
   	
 	<servlet>
 		<servlet-name>GWTLoginService</servlet-name>
