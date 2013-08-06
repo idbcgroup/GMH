@@ -1,13 +1,14 @@
 package org.fourgeeks.gha.webclient.client.eia;
 
+import org.fourgeeks.gha.domain.gmh.Eia;
+import org.fourgeeks.gha.webclient.client.UI.GHAGrid;
 import org.fourgeeks.gha.webclient.client.UI.GHAGridField;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
-import com.smartgwt.client.widgets.grid.ListGrid;
 
-public class EIAGrid extends ListGrid implements ResizeHandler{
+public class EIAGrid extends GHAGrid<Eia> implements ResizeHandler {
 
 	public EIAGrid() {
 		GHAUiHelper.addGHAResizeHandler(this);
@@ -21,19 +22,19 @@ public class EIAGrid extends ListGrid implements ResizeHandler{
 		GHAGridField codeGridField = new GHAGridField("code", "Codigo");
 		GHAGridField serialGridField = new GHAGridField("serialNumber",
 				"Serial");
-		
+
 		GHAGridField nameGridField = new GHAGridField("eiaTypeName", "Nombre");
 		GHAGridField brandGridField = new GHAGridField("brandName", "Marca");
 		GHAGridField modelGridField = new GHAGridField("eiaTypeModel", "Modelo");
 		GHAGridField makeGridField = new GHAGridField("manufacturerName",
 				"Fabricante");
-		
+
 		setFields(idGridField, codeGridField, serialGridField, nameGridField,
 				brandGridField, modelGridField, makeGridField);
 	}
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getGridSize(30));		
+		setHeight(GHAUiHelper.getGridSize(30));
 	}
 }

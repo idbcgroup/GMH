@@ -26,7 +26,8 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class EIATypeEquipmentGridPanel extends VLayout implements
-		EIATypeSelectionListener, EIASelectionListener, GHAClosable, GHAHideable{
+		EIATypeSelectionListener, EIASelectionListener, GHAClosable,
+		GHAHideable {
 
 	private EIAGrid grid;
 	private EiaType eiaType;
@@ -36,13 +37,14 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 		eiaAddForm = new EIAAddForm();
 	}
 
-	public EIATypeEquipmentGridPanel(EIATypeEquipmentSubTab eIATypeEquipmentSubTab) {
+	public EIATypeEquipmentGridPanel(
+			EIATypeEquipmentSubTab eIATypeEquipmentSubTab) {
 		super();
 		eiaAddForm.addEiaSelectionListener(eIATypeEquipmentSubTab);
 		setStyleName("sides-padding top-padding");// Esto es VUDU!
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
-		
+
 		Label title = new Label("<h3>Equipos pertenecientes al EIA Type</h3>");
 		title.setHeight(30);
 		title.setWidth100();
@@ -65,8 +67,10 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 				eiaAddForm.animateShow(AnimationEffect.FLY);
 			}
 		});
-		GHAImgButton editButton = new GHAImgButton("../resources/icons/edit.png");
-		GHAImgButton deleteButton = new GHAImgButton("../resources/icons/delete.png");
+		GHAImgButton editButton = new GHAImgButton(
+				"../resources/icons/edit.png");
+		GHAImgButton deleteButton = new GHAImgButton(
+				"../resources/icons/delete.png");
 		GHAImgButton setsButton = new GHAImgButton("../resources/icons/set.png");
 		setsButton.addClickHandler(new ClickHandler() {
 
@@ -118,12 +122,16 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 	}
 
 	@Override
-	public void hide(){
+	public void hide() {
 		eiaAddForm.animateHide(AnimationEffect.FLY);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.eia.EIASelectionListener#select(org.fourgeeks.gha.domain.gmh.Eia)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.eia.EIASelectionListener#select(org
+	 * .fourgeeks.gha.domain.gmh.Eia)
 	 */
 	@Override
 	public void select(Eia eia) {
