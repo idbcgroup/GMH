@@ -7,6 +7,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.GHAImg;
 import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
+import org.fourgeeks.gha.webclient.client.UI.GHATitleTextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
@@ -30,6 +31,8 @@ public class EIATopSection extends HLayout implements EIASelectionListener, GHAC
 	installationDate, buildingLocation,	obu, purchaseDate, serialNumber, state, 
 	realWarrantySince, realWarrantyTime, intWarrantySince, intWarrantyTime;
 	
+	private GHATitleTextItem garantia, intermediario;
+	
 	{
 		
 		acceptationDate = new GHATextItem("Recibido", false);
@@ -47,11 +50,15 @@ public class EIATopSection extends HLayout implements EIASelectionListener, GHAC
 		serialNumber = new GHATextItem("Serial", false);
 		state = new GHATextItem("Estado", false);
 		
-		realWarrantySince = new GHATextItem("Garantía desde", false);
-		realWarrantyTime = new GHATextItem("Período de garantía", false);
+		garantia = new GHATitleTextItem("Garantía:");
 		
-		intWarrantySince = new GHATextItem("Garantía intermedia desde", false);
-		intWarrantyTime = new GHATextItem("Período de garantía intermedia desde", false);
+		realWarrantySince = new GHATextItem("Desde", false);
+		realWarrantyTime = new GHATextItem("Período", false);
+		
+		intermediario = new GHATitleTextItem("Intermediario:");
+		
+		intWarrantySince = new GHATextItem("Desde", false);
+		intWarrantyTime = new GHATextItem("Período", false);
 
 	}
 
@@ -70,11 +77,11 @@ public class EIATopSection extends HLayout implements EIASelectionListener, GHAC
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(6);
 		form.setItems(
-				acceptationDate, actualCost,  
+				acceptationDate,actualCost,  
 				responsibleRole, code, eiaType, fixedAssetIdentifier,
 				installationDate, buildingLocation, 
-				obu, purchaseDate, serialNumber, state, 
-				realWarrantySince, realWarrantyTime, intWarrantySince, 
+				obu, purchaseDate, serialNumber, state, garantia,
+				realWarrantySince, realWarrantyTime, intermediario, intWarrantySince, 
 				intWarrantyTime
 		);
 		
