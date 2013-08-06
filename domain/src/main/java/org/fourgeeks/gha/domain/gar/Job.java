@@ -9,16 +9,16 @@ import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
 
 @Entity
-public class Facility extends AbstractEntity {
+public class Job extends AbstractEntity {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	
 	@OneToOne
-	@JoinColumn(name = "buildingLocationFk", nullable = false)
-	private BuildingLocation buildingLocation;
+	@JoinColumn(name = "jobBaseFk")
+	private JobBase jobBase;
 	
 	@ManyToOne
 	@JoinColumn(name = "workingAreaFk")
@@ -27,20 +27,20 @@ public class Facility extends AbstractEntity {
 	/**
 	 * 
 	 */
-	public Facility() {
+	public Job() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public BuildingLocation getBuildingLocation() {
-		return buildingLocation;
+	public JobBase getJobBase() {
+		return jobBase;
 	}
 
 	public WorkingArea getWorkingArea() {
 		return workingArea;
 	}
 
-	public void setBuildingLocation(BuildingLocation buildingLocation) {
-		this.buildingLocation = buildingLocation;
+	public void setJobBase(JobBase jobBase) {
+		this.jobBase = jobBase;
 	}
 
 	public void setWorkingArea(WorkingArea workingArea) {

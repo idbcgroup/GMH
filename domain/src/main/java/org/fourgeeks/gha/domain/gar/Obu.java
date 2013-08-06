@@ -6,6 +6,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.mix.Bpi;
@@ -26,7 +27,11 @@ public class Obu extends AbstractEntity {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	
+	@OneToOne
+	@JoinColumn(name = "obuBaseFk")
+	private ObuBase obuBase;
+	
 	@ManyToOne
 	@JoinColumn(name = "bpiFk")
 	private Bpi bpi;
@@ -36,30 +41,6 @@ public class Obu extends AbstractEntity {
 
 	@Column(nullable = false)
 	private String code;
-
-	// @OneToMany(mappedBy = "obu")
-	// private Collection <ExternalObu> externalObus;
-
-	// @OneToMany(mappedBy = "obu")
-	// private Collection <CobeAccount> cobeAccounts;
-
-	// @OneToMany(mappedBy = "obu")
-	// private Collection <JobPosition> jobPositions;
-
-	// @OneToMany(mappedBy = "obu")
-	// private Collection <Waio> waios;
-
-	/**
-	 * This represents the children collection of this obu
-	 */
-	// @OneToMany(mappedBy = "parentObu")
-	// private Collection <ObuChild> obuChildren;
-
-	/**
-	 * This represents the link relation to my parent (if any), semantically it
-	 * says who is my obuChild to refer to my obu parent
-	 */
-	private ObuChild obuChild;
 
 	/**
 	 * @return the bpi

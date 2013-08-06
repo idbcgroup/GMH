@@ -12,6 +12,8 @@ import javax.persistence.OneToOne;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.ProviderPreferenceEnum;
+import org.fourgeeks.gha.domain.enu.ProviderQualEnum;
+import org.fourgeeks.gha.domain.enu.ProviderRepresentEnum;
 import org.fourgeeks.gha.domain.enu.ProviderResourceTypeEnum;
 import org.fourgeeks.gha.domain.enu.ProviderServicesEnum;
 import org.fourgeeks.gha.domain.enu.ProviderTypeEnum;

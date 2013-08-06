@@ -23,32 +23,6 @@ public class Institution extends AbstractEntity {
 	@JoinColumn(name = "legalEntityFk", nullable = false)
 	private LegalEntity legalEntity;
 
-	// @OneToMany(mappedBy = "institution")
-	// private Collection<InstitutionContact> institutionContacts;
-	//
-	// @OneToMany(mappedBy = "institution")
-	// private Collection<SystemInstance> systemInstances;
-	//
-	// @OneToMany(mappedBy = "institution")
-	// private Collection<Bpi> bpis;
-	//
-	// @OneToMany(mappedBy = "institution")
-	// private Collection<WorkingHoliday> workingHolidays;
-	//
-	// /**
-	// * This represents the children collection of this institution
-	// */
-	// @OneToMany(mappedBy = "parentInstitution")
-	// private Collection<InstitutionChild> institutionChildren;
-	//
-	/**
-	 * 
-	 * This represents the link relation to my parent (if any), semantically it
-	 * says who is my institutionChild to refer to my institution parent
-	 */
-	@OneToOne(mappedBy = "institution")
-	private InstitutionChild institutionChild;
-
 	/** Attributes */
 
 	@Column(nullable = false)

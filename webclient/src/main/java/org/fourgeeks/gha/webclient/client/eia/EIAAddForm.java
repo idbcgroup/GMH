@@ -12,7 +12,7 @@ import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.enu.ItSystemEnum;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
-import org.fourgeeks.gha.domain.ess.BaseRole;
+import org.fourgeeks.gha.domain.ess.RoleBase;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
@@ -382,11 +382,11 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler,
 			}
 		});
 
-		GHACache.INSTANCE.getBaseRoles(new GHAAsyncCallback<List<BaseRole>>() {
+		GHACache.INSTANCE.getBaseRoles(new GHAAsyncCallback<List<RoleBase>>() {
 			@Override
-			public void onSuccess(List<BaseRole> result) {
+			public void onSuccess(List<RoleBase> result) {
 				LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-				for (BaseRole entity : result)
+				for (RoleBase entity : result)
 					valueMap.put(entity.getId() + "", entity.getName() + "");
 				baseRoleSelectItem.setValueMap(valueMap);
 			}
@@ -596,7 +596,7 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler,
 		}
 
 		if (baseRoleSelectItem.getValue() != null) {
-			BaseRole baseRole = new BaseRole();
+			RoleBase baseRole = new RoleBase();
 			baseRole.setId(Integer.valueOf(baseRoleSelectItem
 					.getValueAsString()));
 			eia.setResponsibleRole(baseRole);

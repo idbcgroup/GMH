@@ -1,12 +1,9 @@
 package org.fourgeeks.gha.domain.mix;
 
 import java.sql.Timestamp;
-import java.util.Collection;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
@@ -24,7 +21,6 @@ import org.fourgeeks.gha.domain.enu.RaceTypeEnum;
 import org.fourgeeks.gha.domain.enu.RhFactorEnum;
 import org.fourgeeks.gha.domain.enu.TransportationTypeEnum;
 import org.fourgeeks.gha.domain.enu.VehicleTypeEnum;
-import org.fourgeeks.gha.domain.gar.Bpu;
 
 @Entity
 public class Citizen extends AbstractEntity {
@@ -36,26 +32,6 @@ public class Citizen extends AbstractEntity {
 	@OneToOne
 	@JoinColumn(name = "legalEntityFk")
 	private LegalEntity legalEntity;
-
-	@OneToMany(mappedBy = "citizen")
-	private Collection<CitizenEducation> citizenEducation;
-
-	@OneToMany(mappedBy = "citizen")
-	private Collection<CitizenPicture> citizenPictures;
-
-	@ManyToMany
-	private Collection<CitizenContact> citizenContacts;
-
-	@OneToMany(mappedBy = "citizen")
-	private Collection<CitizenNotification> citizenNotifications;
-
-	@OneToMany(mappedBy = "citizen")
-	private Collection<PhysicalCharacteristicsCode> physicalCharacteristicsCodes;
-
-	// TODO: confirmar esta relacion
-	@OneToOne
-	@JoinColumn(name = "bpuFk")
-	private Bpu bpu;
 
 	/** Attributes */
 

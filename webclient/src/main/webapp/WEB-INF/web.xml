@@ -123,12 +123,12 @@
 	
 	<servlet>
 		<servlet-name>GWTBaseRolService</servlet-name>
-		<servlet-class>org.fourgeeks.gha.webclient.server.baserole.GWTBaseRoleServiceImpl</servlet-class>
+		<servlet-class>org.fourgeeks.gha.webclient.server.rolebase.GWTRoleBaseServiceImpl</servlet-class>
 	</servlet>
 	
 	<servlet-mapping>
-		<servlet-name>GWTBaseRolService</servlet-name>
-		<url-pattern>/webclient/baseRole</url-pattern>
+		<servlet-name>GWTRolBaseService</servlet-name>
+		<url-pattern>/webclient/roleBase</url-pattern>
 	</servlet-mapping>
 	
 	

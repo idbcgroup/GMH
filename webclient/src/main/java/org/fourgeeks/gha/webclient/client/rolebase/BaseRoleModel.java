@@ -1,8 +1,8 @@
-package org.fourgeeks.gha.webclient.client.baserole;
+package org.fourgeeks.gha.webclient.client.rolebase;
 
 import java.util.List;
 
-import org.fourgeeks.gha.domain.ess.BaseRole;
+import org.fourgeeks.gha.domain.ess.RoleBase;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 
 import com.google.gwt.core.client.GWT;
@@ -12,8 +12,8 @@ import com.google.gwt.core.client.GWT;
  * 
  */
 public class BaseRoleModel {
-	private static final GWTBaseRoleServiceAsync service = GWT
-			.create(GWTBaseRoleService.class);
+	private static final GWTRoleBaseServiceAsync service = GWT
+			.create(GWTRoleBaseService.class);
 
 	private BaseRoleModel() {
 		throw new UnsupportedOperationException(
@@ -23,7 +23,7 @@ public class BaseRoleModel {
 	/**
 	 * @param callback
 	 */
-	public static void getAll(GHAAsyncCallback<List<BaseRole>> callback) {
+	public static void getAll(GHAAsyncCallback<List<RoleBase>> callback) {
 		service.getAll(callback);
 	}
 }

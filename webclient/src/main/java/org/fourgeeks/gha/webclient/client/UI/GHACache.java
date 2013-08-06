@@ -2,18 +2,18 @@ package org.fourgeeks.gha.webclient.client.UI;
 
 import java.util.List;
 
-import org.fourgeeks.gha.domain.ess.BaseRole;
+import org.fourgeeks.gha.domain.ess.RoleBase;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
-import org.fourgeeks.gha.webclient.client.baserole.BaseRoleModel;
 import org.fourgeeks.gha.webclient.client.brand.BrandModel;
 import org.fourgeeks.gha.webclient.client.buildinglocation.BuildingLocationModel;
 import org.fourgeeks.gha.webclient.client.externalprovider.ExternalProviderModel;
 import org.fourgeeks.gha.webclient.client.manufacturer.ManufacturerModel;
 import org.fourgeeks.gha.webclient.client.obu.ObuModel;
+import org.fourgeeks.gha.webclient.client.rolebase.BaseRoleModel;
 
 import com.google.gwt.user.client.Timer;
 
@@ -35,7 +35,7 @@ public enum GHACache {
 	private List<Manufacturer> manufacturers;
 	private List<BuildingLocation> buildingLocations;
 	private List<Obu> obus;
-	private List<BaseRole> roles;
+	private List<RoleBase> roles;
 	private List<ExternalProvider> externalProviders;
 
 	{
@@ -89,7 +89,7 @@ public enum GHACache {
 	/**
 	 * @param callback
 	 */
-	public void getBaseRoles(GHAAsyncCallback<List<BaseRole>> callback) {
+	public void getBaseRoles(GHAAsyncCallback<List<RoleBase>> callback) {
 		// Avoiding synchronization problems
 		if (roles == null)
 			getBaseRolesFromServer(callback);
@@ -99,12 +99,12 @@ public enum GHACache {
 	}
 
 	private void getBaseRolesFromServer(
-			final GHAAsyncCallback<List<BaseRole>> callback) {
-		BaseRoleModel.getAll(new GHAAsyncCallback<List<BaseRole>>() { // AyncCallback
+			final GHAAsyncCallback<List<RoleBase>> callback) {
+		BaseRoleModel.getAll(new GHAAsyncCallback<List<RoleBase>>() { // AyncCallback
 					// subclass
 
 					@Override
-					public void onSuccess(List<BaseRole> result) {
+					public void onSuccess(List<RoleBase> result) {
 						roles = result;
 						// Avoiding synchronization problems
 						callback.onSuccess(result);

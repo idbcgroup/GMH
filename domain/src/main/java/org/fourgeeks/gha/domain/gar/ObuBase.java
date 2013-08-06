@@ -1,9 +1,11 @@
 /**
  * 
  */
-package org.fourgeeks.gha.domain.ess;
+package org.fourgeeks.gha.domain.gar;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 
@@ -13,20 +15,23 @@ import org.fourgeeks.gha.domain.AbstractEntity;
  */
 
 @Entity
-public class LocationType extends AbstractEntity{
+public class ObuBase extends AbstractEntity {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	
+	@ManyToOne
+	@JoinColumn(name = "parentObuBaseFk")
+	private ObuBase parentObuBase;
+	
 	private String name;
-
+	
 	/**
 	 * 
 	 */
-	public LocationType() {
-		// TODO Auto-generated constructor stub
+	public ObuBase() {
 	}
 
 	public String getName() {
@@ -36,4 +41,5 @@ public class LocationType extends AbstractEntity{
 	public void setName(String name) {
 		this.name = name;
 	}
+
 }

@@ -18,13 +18,13 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.fourgeeks.gha.domain.enu.ProviderPreferenceEnum;
+import org.fourgeeks.gha.domain.enu.ProviderQualEnum;
+import org.fourgeeks.gha.domain.enu.ProviderRepresentEnum;
 import org.fourgeeks.gha.domain.enu.ProviderResourceTypeEnum;
 import org.fourgeeks.gha.domain.enu.ProviderServicesEnum;
 import org.fourgeeks.gha.domain.enu.ProviderTypeEnum;
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
-import org.fourgeeks.gha.domain.glm.ProviderQualEnum;
-import org.fourgeeks.gha.domain.glm.ProviderRepresentEnum;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.domain.mix.Institution;

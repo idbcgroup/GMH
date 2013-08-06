@@ -4,12 +4,10 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Table;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
-import javax.persistence.UniqueConstraint;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -38,36 +36,6 @@ public class BuildingLocation implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "bpiFk", nullable = false)
 	private Bpi bpi;
-
-	/**
-	 * This represents the children of this building location
-	 */
-	// @OneToMany(mappedBy = "parentBuildingLoc")
-	// private Collection <BuildingLocationChild> buildingLocationChildren;
-
-	/**
-	 * This represents the link relation to my parent (if any), semantically it
-	 * says who is my buildingLocationChild to refer to my buildingLocation
-	 * Parent
-	 */
-	// @OneToOne(mappedBy = "buildingLocation")
-	// private BuildingLocationChild buildingLocationChild;
-
-	// @OneToMany(mappedBy = "buildingLocation")
-	// private Collection <Waio> waios;
-
-	// @OneToMany(mappedBy = "buildingLocation")
-	// private Collection <Terminal> terminals;
-
-	// @OneToMany(mappedBy = "buildingLocation")
-	// private Collection <Eia> equipments;
-
-	/** Attributes */
-
-	/*
-	 * @Column(nullable = false) private String code; /** Código Ubicación en
-	 * Edificio length =20
-	 */
 
 	@Column(nullable = false)
 	private LocationLevelEnum locationLevel;

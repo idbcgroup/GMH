@@ -16,7 +16,7 @@ import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
 import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.enu.LocationLevelEnum;
-import org.fourgeeks.gha.domain.ess.BaseRole;
+import org.fourgeeks.gha.domain.ess.RoleBase;
 import org.fourgeeks.gha.domain.ess.SingleSignOnUser;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Facility;
@@ -77,7 +77,7 @@ public class TestData {
 		institutionTestData();
 		bpiTestData();
 		obuTestData();
-		baseRoleTestData();
+		roleBaseTestData();
 		buildingLocationsTestData();
 		userTestData();
 		brandTestData();
@@ -195,21 +195,21 @@ public class TestData {
 		}
 	}
 
-	private void baseRoleTestData() {
-		String query = "SELECT t from BaseRole t WHERE t.id = 1 ";
+	private void roleBaseTestData() {
+		String query = "SELECT t from RoleBase t WHERE t.id = 1 ";
 		try {
 			em.createQuery(query).getSingleResult();
 		} catch (NoResultException e) {
 			try {
-				logger.info("creating test data : baserole");
-				BaseRole baseRole = new BaseRole();
-				baseRole.setName("Test Base Role 1");
+				logger.info("creating test data : RoleBase");
+				RoleBase baseRole = new RoleBase();
+				baseRole.setName("Test Role Base 1");
 				em.persist(baseRole);
-				baseRole = new BaseRole();
-				baseRole.setName("Test Base Role 2");
+				baseRole = new RoleBase();
+				baseRole.setName("Test Role Base 2");
 				em.persist(baseRole);
-				baseRole = new BaseRole();
-				baseRole.setName("Test Base Role 3");
+				baseRole = new RoleBase();
+				baseRole.setName("Test Role Base 3");
 				em.persist(baseRole);
 
 				em.flush();
@@ -383,7 +383,7 @@ public class TestData {
 						"Building 000");
 				ExternalProvider eProvider = em
 						.find(ExternalProvider.class, 1L);
-				BaseRole bRole = em.find(BaseRole.class, 1L);
+				RoleBase bRole = em.find(RoleBase.class, 1L);
 
 				Eia eia = new Eia(bRole, eiaTypeServ.find(1), bLocation,
 						bLocation, obu, EiaStateEnum.CREATED);
