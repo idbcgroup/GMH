@@ -1,14 +1,13 @@
 package org.fourgeeks.gha.webclient.client.eia;
 
-import org.fourgeeks.gha.domain.gmh.Eia;
-import org.fourgeeks.gha.webclient.client.UI.GHAGrid;
 import org.fourgeeks.gha.webclient.client.UI.GHAGridField;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
+import com.smartgwt.client.widgets.grid.ListGrid;
 
-public class EIAGrid extends GHAGrid<Eia> implements ResizeHandler {
+public class EIAGrid extends ListGrid implements ResizeHandler {
 
 	public EIAGrid() {
 		GHAUiHelper.addGHAResizeHandler(this);
