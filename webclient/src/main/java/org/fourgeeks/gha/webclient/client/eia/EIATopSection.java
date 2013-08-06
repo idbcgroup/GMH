@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
+import org.fourgeeks.gha.webclient.client.UI.GHAImg;
 import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
@@ -24,16 +25,15 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class EIATopSection extends HLayout implements EIASelectionListener, GHAClosable, ResizeHandler {
 
 	private List<EIASelectionListener> selectionListeners;
-	private GHATextItem acceptationDate, actualCost, adquisitionCost, 
+	private GHATextItem acceptationDate, actualCost,  
 	responsibleRole, code, 	eiaType, fixedAssetIdentifier,
 	installationDate, buildingLocation,	obu, purchaseDate, serialNumber, state, 
-	itType, realWarrantySince, realWarrantyTime, intWarrantySince, intWarrantyTime;
+	realWarrantySince, realWarrantyTime, intWarrantySince, intWarrantyTime;
 	
 	{
 		
 		acceptationDate = new GHATextItem("Recibido", false);
 		actualCost = new GHATextItem("Costo actual", false);
-		adquisitionCost = new GHATextItem("Costo", false);
 		responsibleRole = new GHATextItem("Responsable", false);
 		code = new GHATextItem("Código", false);
 		eiaType = new GHATextItem("Tipo de equipo", false);
@@ -46,14 +46,13 @@ public class EIATopSection extends HLayout implements EIASelectionListener, GHAC
 		purchaseDate = new GHATextItem("Fecha de compra", false);
 		serialNumber = new GHATextItem("Serial", false);
 		state = new GHATextItem("Estado", false);
-		itType = new GHATextItem("Tipo it", false);
 		
 		realWarrantySince = new GHATextItem("Garantía desde", false);
 		realWarrantyTime = new GHATextItem("Período de garantía", false);
 		
 		intWarrantySince = new GHATextItem("Garantía intermedia desde", false);
 		intWarrantyTime = new GHATextItem("Período de garantía intermedia desde", false);
-		
+
 	}
 
 	public EIATopSection(EIATab eiaTab) {
@@ -69,15 +68,37 @@ public class EIATopSection extends HLayout implements EIASelectionListener, GHAC
 		DynamicForm form = new DynamicForm();
 		//form.setWidth("100px");
 		form.setTitleOrientation(TitleOrientation.TOP);
-		form.setNumCols(9);
+		form.setNumCols(6);
 		form.setItems(
-				acceptationDate, actualCost, adquisitionCost, 
+				acceptationDate, actualCost,  
 				responsibleRole, code, eiaType, fixedAssetIdentifier,
 				installationDate, buildingLocation, 
 				obu, purchaseDate, serialNumber, state, 
-				itType, realWarrantySince, realWarrantyTime, intWarrantySince, 
+				realWarrantySince, realWarrantyTime, intWarrantySince, 
 				intWarrantyTime
 		);
+		
+		// Panel de la Fotografia Equipos
+
+		HLayout photoPanel = new HLayout();
+		photoPanel.setMembersMargin(10);
+		photoPanel.setWidth(130);
+		// photoPanel.setDefaultLayoutAlign(Alignment.CENTER);
+		GHAImg photo = new GHAImg("../resources/img/Foto.jpg", 80, 80);
+		// photo.setTop(8);
+		photo.setStyleName("top-8");
+
+		VLayout photoBotones = new VLayout();
+		photoBotones.setWidth(30);
+		photoBotones.setLayoutMargin(5);
+		photoBotones.setMembersMargin(10);
+		photoBotones.setDefaultLayoutAlign(Alignment.CENTER);
+
+		GHAImgButton searchPhoto = new GHAImgButton("../resources/icons/search.png");
+		// GHAButton cleanPhoto = new GHAButton("../resources/icons/clean.png");
+		photoBotones.addMembers(searchPhoto);
+
+		photoPanel.addMembers(photo, photoBotones);
 
 		GHAImgButton cleanImg = new GHAImgButton("../resources/icons/clean.png");
 		GHAImgButton canelButton = new GHAImgButton("../resources/icons/cancel.png");
@@ -97,7 +118,7 @@ public class EIATopSection extends HLayout implements EIASelectionListener, GHAC
 		panelBotones.setDefaultLayoutAlign(Alignment.CENTER);
 		panelBotones.addMembers(searchImg, cleanImg, canelButton);
 
-		addMembers(form, new LayoutSpacer(), panelBotones);
+		addMembers(form, photoPanel, new LayoutSpacer(), panelBotones);
 
 	}
 
