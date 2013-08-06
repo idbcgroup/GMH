@@ -13,7 +13,7 @@ import org.fourgeeks.gha.webclient.client.buildinglocation.BuildingLocationModel
 import org.fourgeeks.gha.webclient.client.externalprovider.ExternalProviderModel;
 import org.fourgeeks.gha.webclient.client.manufacturer.ManufacturerModel;
 import org.fourgeeks.gha.webclient.client.obu.ObuModel;
-import org.fourgeeks.gha.webclient.client.rolebase.BaseRoleModel;
+import org.fourgeeks.gha.webclient.client.rolebase.RoleBaseModel;
 
 import com.google.gwt.user.client.Timer;
 
@@ -100,7 +100,7 @@ public enum GHACache {
 
 	private void getBaseRolesFromServer(
 			final GHAAsyncCallback<List<RoleBase>> callback) {
-		BaseRoleModel.getAll(new GHAAsyncCallback<List<RoleBase>>() { // AyncCallback
+		RoleBaseModel.getAll(new GHAAsyncCallback<List<RoleBase>>() { // AyncCallback
 					// subclass
 
 					@Override

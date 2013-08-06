@@ -11,11 +11,11 @@ import com.google.gwt.core.client.GWT;
  * @author alacret
  * 
  */
-public class BaseRoleModel {
+public class RoleBaseModel {
 	private static final GWTRoleBaseServiceAsync service = GWT
 			.create(GWTRoleBaseService.class);
 
-	private BaseRoleModel() {
+	private RoleBaseModel() {
 		throw new UnsupportedOperationException(
 				"Esta clase no debe ser instanciada");
 	}
