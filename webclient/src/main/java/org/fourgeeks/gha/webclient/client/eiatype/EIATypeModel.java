@@ -36,4 +36,11 @@ public class EIATypeModel {
 			GHAAsyncCallback<EiaType> callback) {
 		service.update(eiaType, callback);
 	}
+	
+	
+	public static void delete(Long id,
+			GHAAsyncCallback<Void> callback) {
+		service.delete(id, callback);
+	}
+	
 }

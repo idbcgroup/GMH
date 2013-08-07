@@ -1,5 +1,6 @@
 package org.fourgeeks.gha.webclient.client.UI;
 
+import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.util.SC;
 
 public class GHANotification {
@@ -21,5 +22,9 @@ public class GHANotification {
 
 	public static void alert(String message){
 		SC.say(message);
+	}
+	
+	public static void confirm(String title, String message, BooleanCallback callback){
+		SC.ask(title, message, callback);
 	}
 }
