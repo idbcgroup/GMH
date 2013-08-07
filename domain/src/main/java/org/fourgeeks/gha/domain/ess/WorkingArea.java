@@ -6,6 +6,7 @@ package org.fourgeeks.gha.domain.ess;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
@@ -23,7 +24,7 @@ public class WorkingArea extends AbstractEntity{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name = "workingAreaBaseFk")
 	private WorkingAreaBase wAreaBase;
 	
