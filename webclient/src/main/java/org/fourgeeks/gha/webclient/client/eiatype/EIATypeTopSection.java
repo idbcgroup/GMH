@@ -29,8 +29,7 @@ public class EIATypeTopSection extends HLayout implements
 	private List<EIATypeSelectionListener> selectionListeners;
 	private EIATypeSearchForm eiaTypeSearchForm;
 	private GHATextItem nameItem, codeItem, brandItem, modelItem, manItem,
-			descriptionItem, useDescriptionItem, umdnsCodeItem, mobilityItem,
-			typeItem, subTypeItem, isServiceItem;
+						umdnsCodeItem, mobilityItem,typeItem, subTypeItem;
 	{
 		selectionListeners = new LinkedList<EIATypeSelectionListener>();
 		eiaTypeSearchForm = new EIATypeSearchForm();
@@ -39,17 +38,11 @@ public class EIATypeTopSection extends HLayout implements
 		brandItem = new GHATextItem("Marca", false);
 		modelItem = new GHATextItem("Modelo", false);
 		manItem = new GHATextItem("Fabricante", false);
-		descriptionItem = new GHATextItem("Descripción", false);
-		descriptionItem.setWidth(210);
-		descriptionItem.setColSpan(2);
-		useDescriptionItem = new GHATextItem("Uso", false);
-		useDescriptionItem.setWidth(210);
-		useDescriptionItem.setColSpan(2);
 		umdnsCodeItem = new GHATextItem("EIAUMDNS", false);
 		mobilityItem = new GHATextItem("Movilidad", false);
 		typeItem = new GHATextItem("Tipo de Equipo", false);
 		subTypeItem = new GHATextItem("Subtipo", false);
-		isServiceItem = new GHATextItem("Es servicio", false);
+
 	}
 
 	public EIATypeTopSection(EIATypeTab eiaTypeTab) {
@@ -80,9 +73,8 @@ public class EIATypeTopSection extends HLayout implements
 		DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(5);
-		form.setItems(codeItem, nameItem, descriptionItem, brandItem,
-				modelItem, manItem, useDescriptionItem, umdnsCodeItem,
-				mobilityItem, typeItem, subTypeItem, isServiceItem);
+		form.setItems(codeItem, nameItem,  brandItem, modelItem, manItem,
+					  umdnsCodeItem, mobilityItem, typeItem, subTypeItem);
 
 		// Panel de la Fotografia
 
@@ -128,7 +120,7 @@ public class EIATypeTopSection extends HLayout implements
 		GHAImgButton cancelButton = new GHAImgButton("../resources/icons/cancel.png");
 		panelBotones.addMembers(searchImg, cleanImg, cancelButton);
 
-		addMembers(form, photoPanel, new LayoutSpacer(), panelBotones);
+		addMembers(form, new LayoutSpacer(), photoPanel, new LayoutSpacer(), panelBotones);
 	}
 
 	@Override
@@ -146,8 +138,6 @@ public class EIATypeTopSection extends HLayout implements
 		if (eiaType.getManufacturer() != null)
 			manItem.setValue(eiaType.getManufacturer().getName());
 
-		descriptionItem.setValue(eiaType.getDescription());
-		useDescriptionItem.setValue(eiaType.getUseDescription());
 		umdnsCodeItem.setValue(eiaType.getEiaUmdns());
 
 		if (eiaType.getMobility() != null)

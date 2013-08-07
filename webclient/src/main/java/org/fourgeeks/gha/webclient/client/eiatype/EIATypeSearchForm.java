@@ -12,7 +12,6 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
-import org.fourgeeks.gha.webclient.client.UI.GHACheckboxItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.GHASlideInWindow;
@@ -36,12 +35,10 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class EIATypeSearchForm extends GHASlideInWindow implements EIATypeSelectionListener {
 
 	private List<EIATypeSelectionListener> selectionListeners;
-	private GHATextItem codeEIAItem, nameEIAItem, modelItem, descriptionItem,
-			useDescriptionItem, umdnsCodeItem;
+	private GHATextItem codeEIAItem, nameEIAItem, modelItem, umdnsCodeItem;
 	private EIATypeGrid eiaTypeGrid;
 	private GHASelectItem brandItem, manItem, mobilityItem, typeItem,
-			subTypeItem;
-	private GHACheckboxItem isServiceItem;
+						  subTypeItem;
 	private EIATypeAddForm addForm;
 	
 	{
@@ -51,17 +48,10 @@ public class EIATypeSearchForm extends GHASlideInWindow implements EIATypeSelect
 		brandItem = new GHASelectItem("Marca");
 		modelItem = new GHATextItem("Modelo");
 		manItem = new GHASelectItem("Fabricante");
-		descriptionItem = new GHATextItem("Descripción");
-		descriptionItem.setWidth(200);
-		descriptionItem.setColSpan(2);
-		useDescriptionItem = new GHATextItem("Uso");
-		useDescriptionItem.setWidth(200);
-		useDescriptionItem.setColSpan(2);
 		umdnsCodeItem = new GHATextItem("EIAUMDNS");
 		mobilityItem = new GHASelectItem("Movilidad");
 		typeItem = new GHASelectItem("Tipo de Equipo");
 		subTypeItem = new GHASelectItem("Subtipo");
-		isServiceItem = new GHACheckboxItem("Es servicio");
 		
 		addForm = new EIATypeAddForm();
 		addForm.addEiaTypeSelectionListener(this);
@@ -74,9 +64,8 @@ public class EIATypeSearchForm extends GHASlideInWindow implements EIATypeSelect
 		DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(5);
-		form.setItems(codeEIAItem, nameEIAItem, descriptionItem, brandItem,
-				modelItem, manItem, useDescriptionItem, umdnsCodeItem,
-				mobilityItem, typeItem, subTypeItem, isServiceItem);
+		form.setItems(codeEIAItem, nameEIAItem, brandItem, modelItem, manItem, 
+					  umdnsCodeItem, mobilityItem, typeItem, subTypeItem);
 
 		GHAImgButton searchButton = new GHAImgButton("../resources/icons/search.png");
 		// Event Handlers
@@ -97,11 +86,9 @@ public class EIATypeSearchForm extends GHASlideInWindow implements EIATypeSelect
 		searchButton.addClickHandler(searchClickHandler);
 		codeEIAItem.addKeyUpHandler(searchKeyUpHandler);
 		nameEIAItem.addKeyUpHandler(searchKeyUpHandler);
-		descriptionItem.addKeyUpHandler(searchKeyUpHandler);
 		brandItem.addKeyUpHandler(searchKeyUpHandler);
 		modelItem.addKeyUpHandler(searchKeyUpHandler);
 		manItem.addKeyUpHandler(searchKeyUpHandler);
-		useDescriptionItem.addKeyUpHandler(searchKeyUpHandler);
 		umdnsCodeItem.addKeyUpHandler(searchKeyUpHandler);
 		mobilityItem.addKeyUpHandler(searchKeyUpHandler);
 		typeItem.addKeyUpHandler(searchKeyUpHandler);
