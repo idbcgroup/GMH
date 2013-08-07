@@ -3,7 +3,6 @@ package org.fourgeeks.gha.webclient.client.eiatype.information;
 import gwtupload.client.IFileInput.FileInputType;
 import gwtupload.client.IUploadStatus.Status;
 import gwtupload.client.IUploader;
-import gwtupload.client.IUploader.OnChangeUploaderHandler;
 import gwtupload.client.IUploader.OnFinishUploaderHandler;
 import gwtupload.client.IUploader.UploadedInfo;
 import gwtupload.client.SingleUploader;
@@ -80,12 +79,8 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		mobilityItem = new GHASelectItem("Movilidad", 150);
 		typeItem = new GHASelectItem("Tipo", 150);
 		subTypeItem = new GHASelectItem("Subtipo", 150);
-	}
 
-	/**
-	 * inicializa los componentes para imagenes
-	 */
-	private void inicializarComponentesImg() {
+		// inicializando componentes de las imagenes
 		img1 = new Img("../resources/img/default.png", 150, 100);
 		img1.setImageType(ImageStyle.STRETCH);
 		img1.setBorder("1px solid gray");
@@ -108,7 +103,8 @@ public class EIATypeInformationFormPanel extends VLayout implements
 	}
 
 	/**
-	 * crea los eventos OnFinishUploaderHandler que se ejecutan cuando termina la subida de la imagen
+	 * crea los eventos OnFinishUploaderHandler que se ejecutan cuando termina
+	 * la subida de la imagen
 	 */
 	private void setOnFinishUploaderHandler() {
 		onFinishUploaderHandler1 = new OnFinishUploaderHandler() {
@@ -180,13 +176,13 @@ public class EIATypeInformationFormPanel extends VLayout implements
 
 	public EIATypeInformationFormPanel(EIATypeTab tab) {
 		activateForm(false);
-		inicializarComponentesImg();
-		GHACustomButton buttonAddImage1 = new GHACustomButton();
+		// GHACustomButton buttonAddImage1 = new GHACustomButton();
 		GHACustomButton buttonAddImage2 = new GHACustomButton();
 		GHACustomButton buttonAddImage3 = new GHACustomButton();
-/****************COMPONENTE PARA SUBIDA DE IMAGEN****************************************/
+		/**************** COMPONENTE PARA SUBIDA DE IMAGEN ****************************************/
 		SingleUploader uploadPhoto1 = new SingleUploader(
-				FileInputType.CUSTOM.with(buttonAddImage1));
+				FileInputType.CUSTOM.with(new GHAImgButton(
+						"../resources/icons/new.png")));
 		uploadPhoto1.setValidExtensions("jpg", "jpeg", "png", "gif");
 		uploadPhoto1.setAutoSubmit(true);
 
@@ -201,7 +197,7 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		uploadPhoto3.setAutoSubmit(true);
 
 		setOnFinishUploaderHandler();
-/****************************************************************************************/
+		/****************************************************************************************/
 		this.tab = tab;
 		tab.addGHAClosableHandler(this);
 		setWidth100();
@@ -553,13 +549,14 @@ public class EIATypeInformationFormPanel extends VLayout implements
 								});
 					} else {
 						/**
-						 * En el arreglo noDeletePicture se guardan los id de las imagenes que no se desean borrar 
+						 * En el arreglo noDeletePicture se guardan los id de
+						 * las imagenes que no se desean borrar
 						 */
 						int noDeletePicture[] = new int[3];
 						noDeletePicture[0] = idImg1;
 						noDeletePicture[1] = idImg2;
 						noDeletePicture[2] = idImg3;
-		
+
 						EIATypePictureModel.update(eiaType, noDeletePicture,
 								new GHAAsyncCallback<Boolean>() {
 
@@ -594,11 +591,11 @@ public class EIATypeInformationFormPanel extends VLayout implements
 
 	@Override
 	public void close() {
-		
+
 	}
-	
+
 	@Override
-	public void hide(){
-		
+	public void hide() {
+
 	}
 }
