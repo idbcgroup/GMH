@@ -1,15 +1,13 @@
 package org.fourgeeks.gha.webclient.client.eia;
 
+import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
+import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
-import com.google.gwt.user.client.Event;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
-import com.smartgwt.client.types.BackgroundRepeat;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.types.Visibility;
-import com.smartgwt.client.widgets.Img;
-import com.smartgwt.client.widgets.ImgButton;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
@@ -46,35 +44,23 @@ public class EIAForm extends HLayout {
 		form.setNumCols(1);
 		form.setItems(codigoEIA, nombreEIA, marcaEIA, modeloEIA, fabricante);
 
-		VLayout sideButtons = new VLayout();
-		sideButtons.setWidth(30);
-		sideButtons.setLayoutMargin(5);
-		// botones1.setBackgroundImage("../resources/img/botonBox.jpg");
-		sideButtons.setBackgroundColor("#E0E0E0");
-		sideButtons.setBackgroundRepeat(BackgroundRepeat.REPEAT_Y);
-		sideButtons.setMembersMargin(10);
-		sideButtons.setDefaultLayoutAlign(Alignment.CENTER);
+		VLayout sideButtons = GHAUiHelper.createBar(
+				new GHAImgButton("../resources/icons/new.png", new ClickHandler() {
 
-		ImgButton addButton = new ImgButton();
-		addButton.sinkEvents(Event.MOUSEEVENTS);
-		addButton.setSrc("../resources/icons/new.png");
-		addButton.setShowRollOver(false);
-		addButton.setSize("20px", "20px");
-		Img editButton = new Img("../resources/icons/edit.png");
-		editButton.setSize("20px", "20px");
+					@Override
+					public void onClick(ClickEvent event) {
+						//TODO
 
-		ImgButton cancelButton = new ImgButton();
-		cancelButton.setSrc("../resources/icons/delete.png");
-		cancelButton.setSize("20px", "20px");
-		cancelButton.setShowRollOver(false);
-		cancelButton.addClickHandler(new ClickHandler() {
+					}
+				}),
+				new GHAImgButton("../resources/icons/edit.png"), 
+				new GHAImgButton("../resources/icons/delete.png", new ClickHandler() {
 
-			@Override
-			public void onClick(ClickEvent event) {
-				EIAForm.this.animateHide(AnimationEffect.FLY);
-			}
-		});
-		sideButtons.addMembers(addButton, editButton, cancelButton);
+					@Override
+					public void onClick(ClickEvent event) {
+						EIAForm.this.animateHide(AnimationEffect.FLY);
+					}
+				}));
 
 		addMembers(form, sideButtons);	
 	}

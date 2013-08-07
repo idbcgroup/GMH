@@ -7,12 +7,11 @@ import org.fourgeeks.gha.domain.gmh.EiaTypeComponent;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.GHAHideable;
+import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSearchForm;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
-import com.smartgwt.client.types.Alignment;
-import com.smartgwt.client.types.BackgroundRepeat;
-import com.smartgwt.client.widgets.ImgButton;
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -92,49 +91,29 @@ public class EIATypeComponentGridPanel extends VLayout implements
 		title.setStyleName("title-label");
 		
 // //////Botones laterales
-		VLayout sideButtons = new VLayout();
-		sideButtons.setWidth(30);
-		sideButtons.setLayoutMargin(5);
-		// botones1.setBackgroundImage("../resources/img/botonBox.jpg");
-		sideButtons.setBackgroundColor("#E0E0E0");
-		sideButtons.setBackgroundRepeat(BackgroundRepeat.REPEAT_Y);
-		sideButtons.setMembersMargin(10);
-		sideButtons.setDefaultLayoutAlign(Alignment.CENTER);
-
-		ImgButton addButton = new ImgButton();
-		// addButton.sinkEvents(Event.MOUSEEVENTS);
-		addButton.setSrc("../resources/icons/new.png");
-		addButton.setShowRollOver(false);
-		addButton.setSize("20px", "20px");
-		
-		addButton.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
-				eiaTypeSearchForm.open();
-			}
-		});
-		
-		ImgButton deleteButton = new ImgButton();
-		deleteButton.setSrc("../resources/icons/delete.png");
-		deleteButton.setShowRollOver(false);
-		deleteButton.setSize("20px", "20px");
-		deleteButton.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
-				EiaTypeComponent eiaTypeComponent = ((EIATypeComponentRecord) eiaTypeComponentGrid.getSelectedRecord()).toEntity();
-				EIATypeComponentModel.delete(eiaTypeComponent.getId(), new GHAAsyncCallback<Void>() {
+		VLayout sideButtons = GHAUiHelper.createBar(
+				new GHAImgButton("../resources/icons/new.png", new ClickHandler() {
 
 					@Override
-					public void onSuccess(Void result) {
-						loadData();
-					}
-				});
-			}
-		});
+					public void onClick(ClickEvent event) {
+						eiaTypeSearchForm.open();
 
-		sideButtons.addMembers(addButton, deleteButton);
+					}
+				}),
+				new GHAImgButton("../resources/icons/delete.png", new ClickHandler() {
+
+					@Override
+					public void onClick(ClickEvent event) {
+						EiaTypeComponent eiaTypeComponent = ((EIATypeComponentRecord) eiaTypeComponentGrid.getSelectedRecord()).toEntity();
+						EIATypeComponentModel.delete(eiaTypeComponent.getId(), new GHAAsyncCallback<Void>() {
+
+							@Override
+							public void onSuccess(Void result) {
+								loadData();
+							}
+						});
+					}
+				}));
 		
 		final HLayout gridContainer = new HLayout();
         gridContainer.addMembers(eiaTypeComponentGrid, sideButtons);

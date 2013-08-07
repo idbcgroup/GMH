@@ -8,6 +8,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.eia.EIAAddForm;
 import org.fourgeeks.gha.webclient.client.eia.EIAGrid;
 import org.fourgeeks.gha.webclient.client.eia.EIAModel;
@@ -16,7 +17,6 @@ import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 import org.fourgeeks.gha.webclient.client.eia.EIAUtil;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
-import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -52,43 +52,30 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 		addMember(title);
 
 		// //////Botones laterales
-		VLayout sideButtons = new VLayout();
-		sideButtons.setWidth(30);
-		sideButtons.setLayoutMargin(5);
-		sideButtons.setBackgroundColor("#E0E0E0");
-		sideButtons.setMembersMargin(10);
-		sideButtons.setDefaultLayoutAlign(Alignment.CENTER);
+		VLayout sideButtons = GHAUiHelper.createBar(
+				new GHAImgButton("../resources/icons/new.png", new ClickHandler() {
 
-		GHAImgButton addButton = new GHAImgButton("../resources/icons/new.png");
-		addButton.addClickHandler(new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						eiaAddForm.animateShow(AnimationEffect.FLY);
+					}
+				}),
+				new GHAImgButton("../resources/icons/edit.png"),
+				new GHAImgButton("../resources/icons/delete.png"),
+				new GHAImgButton("../resources/icons/set.png",new ClickHandler() {
 
-			@Override
-			public void onClick(ClickEvent event) {
-				eiaAddForm.animateShow(AnimationEffect.FLY);
-			}
-		});
-		GHAImgButton editButton = new GHAImgButton(
-				"../resources/icons/edit.png");
-		GHAImgButton deleteButton = new GHAImgButton(
-				"../resources/icons/delete.png");
-		GHAImgButton setsButton = new GHAImgButton("../resources/icons/set.png");
-		setsButton.addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				// EIATypeRecord selectedRecord = (EIATypeRecord)
-				// eiaTypeEquiposGrid
-				// .getSelectedRecord();
-				// History.newItem("eia/" + selectedRecord.getCode());
-			}
-		});
-
-		sideButtons.addMembers(addButton, editButton, deleteButton, setsButton);
+					@Override
+					public void onClick(ClickEvent event) {
+						// EIATypeRecord selectedRecord = (EIATypeRecord)
+						// eiaTypeEquiposGrid
+						// .getSelectedRecord();
+						// History.newItem("eia/" + selectedRecord.getCode());
+					}
+				}));
 
 		HLayout mainLayout = new HLayout();
 		mainLayout.addMembers(grid, sideButtons);
 		addMember(mainLayout);
-
 	}
 
 	@Override

@@ -88,34 +88,21 @@ public class EIATypeAddForm extends GHASlideInWindow {
 				descriptionItem, mobilityItem, useDescriptionItem, codeItem,
 				nameItem, modelItem, eiaUmdnsItem);
 
-		VLayout sideButtons = new VLayout();
-		sideButtons.setWidth(30);
-		sideButtons.setLayoutMargin(5);
-		sideButtons.setBackgroundColor("#E0E0E0");
-		sideButtons.setMembersMargin(10);
-		sideButtons.setDefaultLayoutAlign(Alignment.CENTER);
+		VLayout sideButtons = GHAUiHelper.createBar(
+				new GHAImgButton("../resources/icons/save.png", new ClickHandler() {
 
-		GHAImgButton saveButton = new GHAImgButton(
-				"../resources/icons/save.png");
-		saveButton.addClickHandler(new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						save();
+					}
+				}),
+				new GHAImgButton("../resources/icons/cancel.png",new ClickHandler() {
 
-			@Override
-			public void onClick(ClickEvent event) {
-				save();
-			}
-		});
-
-		GHAImgButton cancelButton = new GHAImgButton(
-				"../resources/icons/cancel.png");
-		cancelButton.addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				cancel();
-			}
-		});
-
-		sideButtons.addMembers(saveButton, cancelButton);
+					@Override
+					public void onClick(ClickEvent event) {
+						cancel();
+					}
+				}));
 
 		HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
