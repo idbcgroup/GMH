@@ -8,6 +8,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.GHANotification;
 import org.fourgeeks.gha.webclient.client.eia.EIAAddForm;
 import org.fourgeeks.gha.webclient.client.eia.EIAGrid;
 import org.fourgeeks.gha.webclient.client.eia.EIAModel;
@@ -16,7 +17,6 @@ import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 import org.fourgeeks.gha.webclient.client.eia.EIAUtil;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
-import com.google.gwt.user.client.Window;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.util.BooleanCallback;
@@ -93,12 +93,12 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 							public void execute(Boolean resultAsc) {
 								if (resultAsc) {
 
-									Eia eiaEquipment = ((EIARecord) grid.getSelectedRecord())
-											.toEntity();
-								
+									Eia eiaEquipment = ((EIARecord) grid
+											.getSelectedRecord()).toEntity();
+
 									if (eiaEquipment == null)
 										return;// No record selected
-									
+
 									EIAModel.delete(eiaEquipment.getId(),
 											new GHAAsyncCallback<Boolean>() {
 
@@ -184,13 +184,11 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 	 * @see
 	 * org.fourgeeks.gha.webclient.client.eia.EIASelectionListener#select(org
 	 * .fourgeeks.gha.domain.gmh.Eia)
-	@Override
-	public void hide() {
-		eiaAddForm.animateHide(AnimationEffect.FLY);
-	}
-
-	/*
-	 * (non-Javadoc)
+	 * 
+	 * @Override public void hide() {
+	 * eiaAddForm.animateHide(AnimationEffect.FLY); }
+	 * 
+	 * /* (non-Javadoc)
 	 * 
 	 * @see
 	 * org.fourgeeks.gha.webclient.client.eia.EIASelectionListener#select(org
@@ -200,6 +198,5 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 	public void select(Eia eia) {
 		loadData(eiaType);
 	}
-
 
 }

@@ -24,7 +24,6 @@ import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.GHACustomButton;
 import org.fourgeeks.gha.webclient.client.UI.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.GHANotification;
@@ -176,23 +175,21 @@ public class EIATypeInformationFormPanel extends VLayout implements
 
 	public EIATypeInformationFormPanel(EIATypeTab tab) {
 		activateForm(false);
-		// GHACustomButton buttonAddImage1 = new GHACustomButton();
-		GHACustomButton buttonAddImage2 = new GHACustomButton();
-		GHACustomButton buttonAddImage3 = new GHACustomButton();
 		/**************** COMPONENTE PARA SUBIDA DE IMAGEN ****************************************/
-		SingleUploader uploadPhoto1 = new SingleUploader(
-				FileInputType.CUSTOM.with(new GHAImgButton(
-						"../resources/icons/new.png")));
+		// http://code.google.com/p/gwtupload/wiki/CustomWidgets
+		SingleUploader uploadPhoto1 = new SingleUploader(FileInputType.LABEL);
+		uploadPhoto1.getWidget().setStyleName("upload-button");
 		uploadPhoto1.setValidExtensions("jpg", "jpeg", "png", "gif");
 		uploadPhoto1.setAutoSubmit(true);
+		uploadPhoto1.setAutoSubmit(true);
 
-		SingleUploader uploadPhoto2 = new SingleUploader(
-				FileInputType.CUSTOM.with(buttonAddImage2));
+		SingleUploader uploadPhoto2 = new SingleUploader(FileInputType.LABEL);
+		uploadPhoto2.getWidget().setStyleName("upload-button");
 		uploadPhoto2.setValidExtensions("jpg", "jpeg", "png", "gif");
 		uploadPhoto2.setAutoSubmit(true);
 
-		SingleUploader uploadPhoto3 = new SingleUploader(
-				FileInputType.CUSTOM.with(buttonAddImage3));
+		SingleUploader uploadPhoto3 = new SingleUploader(FileInputType.LABEL);
+		uploadPhoto3.getWidget().setStyleName("upload-button");
 		uploadPhoto3.setValidExtensions("jpg", "jpeg", "png", "gif");
 		uploadPhoto3.setAutoSubmit(true);
 
