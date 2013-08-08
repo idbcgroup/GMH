@@ -136,7 +136,7 @@ public class EIATypeTopSection extends HLayout implements
 			@Override
 			public void onClick(ClickEvent event) {
 				// TODO Auto-generated method stub
-				_eiaTypeTab.close();
+				GHATabSet.closeTab(_eiaTypeTab);
 				
 			}
 		});

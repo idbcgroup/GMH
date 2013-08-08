@@ -119,8 +119,7 @@ public class EIATopSection extends HLayout implements EIASelectionListener, GHAC
 			@Override
 			public void onClick(ClickEvent event) {
 				// TODO Auto-generated method stub
-				_eIATab.close();
-				
+				GHATabSet.closeTab(_eIATab);
 			}
 		});
 		GHAImgButton searchImg = new GHAImgButton("../resources/icons/search.png");
