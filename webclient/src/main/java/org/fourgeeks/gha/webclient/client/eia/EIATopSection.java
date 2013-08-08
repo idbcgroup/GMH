@@ -6,13 +6,16 @@ import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.GHAImg;
 import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.GHATabSet;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHATitleTextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
+import org.fourgeeks.gha.webclient.client.eiatype.EIATypeTab;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
+import com.google.gwt.user.client.History;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.types.VerticalAlignment;
@@ -25,6 +28,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
 
 public class EIATopSection extends HLayout implements EIASelectionListener, GHAClosable, ResizeHandler {
 
+	private final EIATab _eIATab;
 	private List<EIASelectionListener> selectionListeners;
 	private GHATextItem acceptationDate, actualCost,  
 	responsibleRole, code, 	eiaType, fixedAssetIdentifier,
@@ -64,6 +68,7 @@ public class EIATopSection extends HLayout implements EIASelectionListener, GHAC
 
 	public EIATopSection(EIATab eiaTab) {
 		super();
+		_eIATab = eiaTab;
 		eiaTab.addClosableHandler(this);
 		GHAUiHelper.addResizeHandler(this);
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
@@ -108,7 +113,16 @@ public class EIATopSection extends HLayout implements EIASelectionListener, GHAC
 		photoPanel.addMembers(photo, photoBotones);
 
 		GHAImgButton cleanImg = new GHAImgButton("../resources/icons/clean.png");
-		GHAImgButton canelButton = new GHAImgButton("../resources/icons/cancel.png");
+		GHAImgButton cancelButton = new GHAImgButton("../resources/icons/cancel.png");
+		cancelButton.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				// TODO Auto-generated method stub
+				_eIATab.close();
+				
+			}
+		});
 		GHAImgButton searchImg = new GHAImgButton("../resources/icons/search.png");
 		searchImg.addClickHandler(new ClickHandler() {
 
@@ -123,7 +137,7 @@ public class EIATopSection extends HLayout implements EIASelectionListener, GHAC
 		panelBotones.setLayoutMargin(5);
 		panelBotones.setMembersMargin(10);
 		panelBotones.setDefaultLayoutAlign(Alignment.CENTER);
-		panelBotones.addMembers(searchImg, cleanImg, canelButton);
+		panelBotones.addMembers(searchImg, cleanImg, cancelButton);
 
 		addMembers(form, photoPanel, new LayoutSpacer(), panelBotones);
 
@@ -140,6 +154,7 @@ public class EIATopSection extends HLayout implements EIASelectionListener, GHAC
 
 	@Override
 	public void close() {
+		
 	}
 
 	@Override
