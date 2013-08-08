@@ -27,10 +27,7 @@ import org.fourgeeks.gha.domain.mix.Institution;
  */
 
 @Entity
-@NamedQueries(value = { 
-		@NamedQuery(name = "ExternalProvider.getAll", 
-				query = "SELECT e from ExternalProvider e order by e.id")
-})
+@NamedQueries(value = { @NamedQuery(name = "ExternalProvider.getAll", query = "SELECT e from ExternalProvider e order by e.id") })
 public class ExternalProvider extends AbstractEntity {
 
 	/**
@@ -107,7 +104,9 @@ public class ExternalProvider extends AbstractEntity {
 	}
 
 	/**
-	 * @param valueOf
+	 * @param id
+	 * 
+	 *            This is just for front end use
 	 */
 	public ExternalProvider(long id) {
 		this.id = id;

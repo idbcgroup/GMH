@@ -7,8 +7,8 @@ import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.widgets.grid.ListGrid;
 
-public class EIATypeGrid extends ListGrid implements ResizeHandler{
-	
+public class EIATypeGrid extends ListGrid implements ResizeHandler {
+
 	public EIATypeGrid() {
 		GHAUiHelper.addGHAResizeHandler(this);
 		setWidth100();
@@ -32,6 +32,5 @@ public class EIATypeGrid extends ListGrid implements ResizeHandler{
 	@Override
 	public void onResize(ResizeEvent event) {
 		setHeight(GHAUiHelper.getGridSize(30));
-		
 	}
 }

@@ -1,14 +1,21 @@
 package org.fourgeeks.gha.webclient.client.UI;
 
+import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.Visibility;
 import com.smartgwt.client.widgets.layout.VLayout;
 
+/**
+ * @author alacret a window that slide in
+ */
 public abstract class GHASlideInWindow extends VLayout implements
 		ResizeHandler, GHAClosable, GHAHideable {
 
+	/**
+	 * 
+	 */
 	public GHASlideInWindow() {
 		setWidth100();
 		setLeft(-10);
@@ -21,16 +28,25 @@ public abstract class GHASlideInWindow extends VLayout implements
 		GHAUiHelper.addGHAResizeHandler(this);
 	}
 
+	@Override
 	public void close() {
 		destroy();
 	}
 
+	/**
+	 * 
+	 */
 	public void open() {
 		animateShow(AnimationEffect.FLY);
 	}
 
+	@Override
 	public void hide() {
-		super.hide();
 		animateHide(AnimationEffect.FLY);
+	}
+
+	@Override
+	public void onResize(ResizeEvent event) {
+		setHeight(GHAUiHelper.getTabHeight() + "px");
 	}
 }

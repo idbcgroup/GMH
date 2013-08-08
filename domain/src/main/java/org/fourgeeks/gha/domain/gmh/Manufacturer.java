@@ -19,12 +19,9 @@ import org.fourgeeks.gha.domain.AbstractEntity;
 
 @Entity
 @Table(name = "manufacturer", uniqueConstraints = @UniqueConstraint(columnNames = { "name" }))
-@NamedQueries(value = { 
-		@NamedQuery(name = "Manufacturer.getAll", 
-				query = "SELECT e from Manufacturer e order by e.name"),
-		@NamedQuery(name = "Manufacturer.findByName",
-				query = "SELECT e from Manufacturer e where lower(e.name) like :name order by e.id")
-})
+@NamedQueries(value = {
+		@NamedQuery(name = "Manufacturer.getAll", query = "SELECT e from Manufacturer e order by e.name"),
+		@NamedQuery(name = "Manufacturer.findByName", query = "SELECT e from Manufacturer e where lower(e.name) like :name order by e.id") })
 public class Manufacturer extends AbstractEntity {
 
 	/**

@@ -1,11 +1,9 @@
 package org.fourgeeks.gha.webclient.client.eiatype.material;
 
-import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
+import org.fourgeeks.gha.webclient.client.material.MaterialGrid;
+import org.fourgeeks.gha.webclient.client.material.MaterialSearchForm;
 
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -13,62 +11,44 @@ import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIATypeMaterialGridPanel extends VLayout implements EIATypeSelectionListener,GHAClosable, GHAHideable{
+/**
+ * @author alacret
+ * 
+ */
+public class EIATypeMaterialGridPanel extends VLayout {
 
-	private EIATypeMaterialGrid eiaTypeMaterialGrid = new EIATypeMaterialGrid();
-	
+	private MaterialGrid grid = new MaterialGrid();
+
 	public EIATypeMaterialGridPanel() {
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding top-padding");// Esto es VUDU!
-		
-		
+
 		Label title = new Label("<h3>Materiales</h3>");
 		title.setHeight(35);
 		title.setWidth100();
 		title.setStyleName("title-label");
-		
-// //////Botones laterales
-		
-	    VLayout sideButtons = GHAUiHelper.createBar(
-	    		new GHAImgButton("../resources/icons/new.png", new ClickHandler() {
+
+		// //////Botones laterales
+
+		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
+				"../resources/icons/new.png", new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						// TODO Auto-generated method stub
-//						form.animateShow(AnimationEffect.FLY);
+						new MaterialSearchForm().open();
 					}
-				}),
-	    		new GHAImgButton("../resources/icons/edit.png"),
-	    		new GHAImgButton("../resources/icons/delete.png"),
-	    		new GHAImgButton("../resources/icons/set.png", new ClickHandler() {
-					@Override
-					public void onClick(ClickEvent event) {
-						// TODO Auto-generated method stub
-//						EIARecord selectedRecord = (EIARecord) eiaTypeGrid.getSelectedRecord();
-//						History.newItem("eia/" + selectedRecord.getCode());
-					}
-				}));
-		
-	    HLayout mainPanel = new HLayout();
-		mainPanel.addMembers(eiaTypeMaterialGrid, sideButtons);
-	    
-		addMembers(title,mainPanel);
-	}
+				}), new GHAImgButton("../resources/icons/edit.png"),
+				new GHAImgButton("../resources/icons/delete.png"),
+				new GHAImgButton("../resources/icons/set.png",
+						new ClickHandler() {
+							@Override
+							public void onClick(ClickEvent event) {
+							}
+						}));
 
-	@Override
-	public void select(EiaType eiaType) {
-		// TODO Auto-generated method stub
-		
-	}
+		HLayout mainPanel = new HLayout();
+		mainPanel.addMembers(grid, sideButtons);
 
-	@Override
-	public void close() {
-		// TODO Auto-generated method stub
+		addMembers(title, mainPanel);
 	}
-	
-	@Override
-	public void hide() {
-		// TODO Auto-generated method stub
-	}
-
 }
