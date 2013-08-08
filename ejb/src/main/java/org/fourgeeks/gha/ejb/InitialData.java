@@ -32,6 +32,7 @@ public class InitialData {
 	@PostConstruct
 	public void inicializar() {
 		createIndexs();
+		createChecks();
 	}
 
 	private void createIndexs() {
@@ -44,6 +45,7 @@ public class InitialData {
 			try {
 				ps = con.prepareStatement("CREATE INDEX username_index ON singlesignonuser (username)");
 				ps.execute();
+				logger.info("username_index created...");
 			} catch (SQLException e) {
 				if (e.getSQLState().equals("42P07"))
 					logger.info("username_index already created... skipping");
@@ -54,6 +56,7 @@ public class InitialData {
 			try {
 				ps = con.prepareStatement("CREATE INDEX eiaType_index ON eiatype (type)");
 				ps.execute();
+				logger.info("eiaType_index created...");
 			} catch (SQLException e) {
 				if (e.getSQLState().equals("42P07"))
 					logger.info("eiaType_index  already created... skipping");
@@ -65,6 +68,7 @@ public class InitialData {
 			try {
 				ps = con.prepareStatement("CREATE INDEX eia_state_index ON eia (state)");
 				ps.execute();
+				logger.info("eia_state_index created...");
 			} catch (SQLException e) {
 				if (e.getSQLState().equals("42P07"))
 					logger.info("eia_state_index  already created... skipping");
@@ -87,5 +91,40 @@ public class InitialData {
 		}
 
 		logger.info("...done creating indexes!");
+	}
+
+	private void createChecks() {
+
+		logger.info("Creating checks...");
+		Connection con = null;
+		try {
+			con = dataSource.getConnection();
+			PreparedStatement ps;
+			try {
+				ps = con.prepareStatement("ALTER TABLE eiatypespare ADD CONSTRAINT myself_spare_check CHECK (eiaTypeFk != spareFk)");
+				ps.execute();
+				logger.info("myself_spare_check created...");
+			} catch (SQLException e) {
+				if (e.getSQLState().equals("42P07"))
+					logger.info("myself_spare_check already created... skipping");
+				else
+					logger.info("ERROR: unable to create myself_spare_check : "
+							+ e.getMessage());
+			}
+
+		} catch (SQLException e) {
+			logger.log(Level.INFO,
+					"Error getting the connection to create the checks", e);
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e1) {
+				logger.log(Level.INFO,
+						"ERROR: unable to close manual datasource connection",
+						e1);
+			}
+		}
+
+		logger.info("...done creating checks!");
 	}
 }
