@@ -24,7 +24,6 @@ import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.GHACustomButton;
 import org.fourgeeks.gha.webclient.client.UI.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.GHANotification;
@@ -80,12 +79,8 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		mobilityItem = new GHASelectItem("Movilidad", 150);
 		typeItem = new GHASelectItem("Tipo", 150);
 		subTypeItem = new GHASelectItem("Subtipo", 150);
-	}
 
-	/**
-	 * inicializa los componentes para imagenes
-	 */
-	private void inicializarComponentesImg() {
+		// inicializando componentes de las imagenes
 		img1 = new Img("../resources/img/default.png", 150, 100);
 		img1.setImageType(ImageStyle.STRETCH);
 		img1.setBorder("1px solid gray");
@@ -108,7 +103,8 @@ public class EIATypeInformationFormPanel extends VLayout implements
 	}
 
 	/**
-	 * crea los eventos OnFinishUploaderHandler que se ejecutan cuando termina la subida de la imagen
+	 * crea los eventos OnFinishUploaderHandler que se ejecutan cuando termina
+	 * la subida de la imagen
 	 */
 	private void setOnFinishUploaderHandler() {
 		onFinishUploaderHandler1 = new OnFinishUploaderHandler() {
@@ -180,28 +176,26 @@ public class EIATypeInformationFormPanel extends VLayout implements
 
 	public EIATypeInformationFormPanel(EIATypeTab tab) {
 		activateForm(false);
-		inicializarComponentesImg();
-		GHACustomButton buttonAddImage1 = new GHACustomButton();
-		GHACustomButton buttonAddImage2 = new GHACustomButton();
-		GHACustomButton buttonAddImage3 = new GHACustomButton();
-/****************COMPONENTE PARA SUBIDA DE IMAGEN****************************************/
-		SingleUploader uploadPhoto1 = new SingleUploader(
-				FileInputType.CUSTOM.with(buttonAddImage1));
+		/**************** COMPONENTE PARA SUBIDA DE IMAGEN ****************************************/
+		// http://code.google.com/p/gwtupload/wiki/CustomWidgets
+		SingleUploader uploadPhoto1 = new SingleUploader(FileInputType.LABEL);
+		uploadPhoto1.getWidget().setStyleName("upload-button");
 		uploadPhoto1.setValidExtensions("jpg", "jpeg", "png", "gif");
 		uploadPhoto1.setAutoSubmit(true);
+		uploadPhoto1.setAutoSubmit(true);
 
-		SingleUploader uploadPhoto2 = new SingleUploader(
-				FileInputType.CUSTOM.with(buttonAddImage2));
+		SingleUploader uploadPhoto2 = new SingleUploader(FileInputType.LABEL);
+		uploadPhoto2.getWidget().setStyleName("upload-button");
 		uploadPhoto2.setValidExtensions("jpg", "jpeg", "png", "gif");
 		uploadPhoto2.setAutoSubmit(true);
 
-		SingleUploader uploadPhoto3 = new SingleUploader(
-				FileInputType.CUSTOM.with(buttonAddImage3));
+		SingleUploader uploadPhoto3 = new SingleUploader(FileInputType.LABEL);
+		uploadPhoto3.getWidget().setStyleName("upload-button");
 		uploadPhoto3.setValidExtensions("jpg", "jpeg", "png", "gif");
 		uploadPhoto3.setAutoSubmit(true);
 
 		setOnFinishUploaderHandler();
-/****************************************************************************************/
+		/****************************************************************************************/
 		this.tab = tab;
 		tab.addGHAClosableHandler(this);
 		setWidth100();
@@ -540,13 +534,14 @@ public class EIATypeInformationFormPanel extends VLayout implements
 								});
 					} else {
 						/**
-						 * En el arreglo noDeletePicture se guardan los id de las imagenes que no se desean borrar 
+						 * En el arreglo noDeletePicture se guardan los id de
+						 * las imagenes que no se desean borrar
 						 */
 						int noDeletePicture[] = new int[3];
 						noDeletePicture[0] = idImg1;
 						noDeletePicture[1] = idImg2;
 						noDeletePicture[2] = idImg3;
-		
+
 						EIATypePictureModel.update(eiaType, noDeletePicture,
 								new GHAAsyncCallback<Boolean>() {
 
@@ -581,11 +576,11 @@ public class EIATypeInformationFormPanel extends VLayout implements
 
 	@Override
 	public void close() {
-		
+
 	}
-	
+
 	@Override
-	public void hide(){
-		
+	public void hide() {
+
 	}
 }

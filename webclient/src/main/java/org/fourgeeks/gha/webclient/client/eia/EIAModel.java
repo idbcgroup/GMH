@@ -21,5 +21,10 @@ public class EIAModel {
 		eiaService.save(eia, callback);
 
 	}
+	
+	public static void delete(Long id, GHAAsyncCallback<Boolean> callback) {
+		eiaService.delete(id, callback);
+
+	}	
 
 }

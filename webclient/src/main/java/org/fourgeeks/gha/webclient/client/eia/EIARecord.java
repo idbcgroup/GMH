@@ -3,11 +3,14 @@ package org.fourgeeks.gha.webclient.client.eia;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.domain.gmh.EiaTypeComponent;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.webclient.client.UI.GHAGridRecord;
 
 public class EIARecord extends GHAGridRecord<Eia> {
 
+	private Eia eiaEntity;
+	
 	public EIARecord() {
 	}
 
@@ -156,4 +159,5 @@ public class EIARecord extends GHAGridRecord<Eia> {
 
 		return eia;
 	}
+
 }
