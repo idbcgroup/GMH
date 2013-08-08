@@ -1,19 +1,19 @@
-package org.fourgeeks.gha.webclient.client.eiatype.replacements;
+package org.fourgeeks.gha.webclient.client.eiatype.spare;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHASubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeTab;
 
-public class EIATypeReplacementsSubTab extends GHASubTab 
+public class EIATypeSpareSubTab extends GHASubTab 
 		implements EIATypeSelectionListener{
 	
-	private EIATypeReplacementsGridPanel eiaTypeRepuestosGridPanel;
+	private EIATypeSpareGridPanel eiaTypeRepuestosGridPanel;
 	
-	public EIATypeReplacementsSubTab(EIATypeTab tab) {
+	public EIATypeSpareSubTab(EIATypeTab tab) {
 		super("Repuestos", tab);
 		
-		eiaTypeRepuestosGridPanel = new EIATypeReplacementsGridPanel();
+		eiaTypeRepuestosGridPanel = new EIATypeSpareGridPanel();
 		addGHAClosableHandler(eiaTypeRepuestosGridPanel);
 		addGHAHideableHandler(eiaTypeRepuestosGridPanel);
 		
@@ -22,7 +22,6 @@ public class EIATypeReplacementsSubTab extends GHASubTab
 
 	@Override
 	public void select(EiaType eiaType) {
-		// TODO Auto-generated method stub
-		
+		eiaTypeRepuestosGridPanel.select(eiaType);
 	}
 }
