@@ -8,7 +8,11 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
+<<<<<<< HEAD
+import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+=======
 import org.fourgeeks.gha.webclient.client.UI.GHANotification;
+>>>>>>> 943ecf95a554823da6709e635746dbb93995497b
 import org.fourgeeks.gha.webclient.client.eia.EIAAddForm;
 import org.fourgeeks.gha.webclient.client.eia.EIAGrid;
 import org.fourgeeks.gha.webclient.client.eia.EIAModel;
@@ -17,7 +21,6 @@ import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 import org.fourgeeks.gha.webclient.client.eia.EIAUtil;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
-import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.Label;
@@ -55,6 +58,28 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 		addMember(title);
 
 		// //////Botones laterales
+<<<<<<< HEAD
+		VLayout sideButtons = GHAUiHelper.createBar(
+				new GHAImgButton("../resources/icons/new.png", new ClickHandler() {
+
+					@Override
+					public void onClick(ClickEvent event) {
+						eiaAddForm.animateShow(AnimationEffect.FLY);
+					}
+				}),
+				new GHAImgButton("../resources/icons/edit.png"),
+				new GHAImgButton("../resources/icons/delete.png"),
+				new GHAImgButton("../resources/icons/set.png",new ClickHandler() {
+
+					@Override
+					public void onClick(ClickEvent event) {
+						// EIATypeRecord selectedRecord = (EIATypeRecord)
+						// eiaTypeEquiposGrid
+						// .getSelectedRecord();
+						// History.newItem("eia/" + selectedRecord.getCode());
+					}
+				}));
+=======
 		VLayout sideButtons = new VLayout();
 		sideButtons.setWidth(30);
 		sideButtons.setLayoutMargin(5);
@@ -141,11 +166,11 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 		});
 
 		sideButtons.addMembers(addButton, editButton, deleteButton, setsButton);
+>>>>>>> 943ecf95a554823da6709e635746dbb93995497b
 
 		HLayout mainLayout = new HLayout();
 		mainLayout.addMembers(grid, sideButtons);
 		addMember(mainLayout);
-
 	}
 
 	@Override

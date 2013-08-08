@@ -19,7 +19,6 @@ import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
-import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -67,7 +66,6 @@ public class EIATypeSearchForm extends GHASlideInWindow implements EIATypeSelect
 		form.setItems(codeEIAItem, nameEIAItem, brandItem, modelItem, manItem, 
 					  umdnsCodeItem, mobilityItem, typeItem, subTypeItem);
 
-		GHAImgButton searchButton = new GHAImgButton("../resources/icons/search.png");
 		// Event Handlers
 		ClickHandler searchClickHandler = new ClickHandler() {
 			@Override
@@ -83,7 +81,7 @@ public class EIATypeSearchForm extends GHASlideInWindow implements EIATypeSelect
 				}
 			}
 		};
-		searchButton.addClickHandler(searchClickHandler);
+		
 		codeEIAItem.addKeyUpHandler(searchKeyUpHandler);
 		nameEIAItem.addKeyUpHandler(searchKeyUpHandler);
 		brandItem.addKeyUpHandler(searchKeyUpHandler);
@@ -95,22 +93,16 @@ public class EIATypeSearchForm extends GHASlideInWindow implements EIATypeSelect
 		subTypeItem.addKeyUpHandler(searchKeyUpHandler);
 		// ////////////////////////////
 
-		GHAImgButton cleanButton = new GHAImgButton("../resources/icons/clean.png");
-		GHAImgButton cancelButton = new GHAImgButton("../resources/icons/cancel.png");
-		cancelButton.addClickHandler(new ClickHandler() {
+		VLayout sideButtons = GHAUiHelper.createBar(
+				new GHAImgButton("../resources/icons/search.png", searchClickHandler),
+				new GHAImgButton("../resources/icons/clean.png"),
+				new GHAImgButton("../resources/icons/cancel.png",new ClickHandler() {
 
-			@Override
-			public void onClick(ClickEvent event) {
-				hide();
-			}
-		});
-		VLayout sideButtons = new VLayout();
-		sideButtons.setWidth(30);
-		sideButtons.setLayoutMargin(5);
-		sideButtons.setBackgroundColor("#E0E0E0");
-		sideButtons.setMembersMargin(10);
-		sideButtons.setDefaultLayoutAlign(Alignment.CENTER);
-		sideButtons.addMembers(searchButton, cleanButton, cancelButton);
+					@Override
+					public void onClick(ClickEvent event) {
+						hide();
+					}
+				}));
 
 		HLayout formLayout = new HLayout();
 		formLayout.setPadding(10);
@@ -125,39 +117,28 @@ public class EIATypeSearchForm extends GHASlideInWindow implements EIATypeSelect
 		eiaTypeGrid.setHeight(GHAUiHelper.getGridSize(30));
 		HLayout gridLayout = new HLayout();
 		gridLayout.setPadding(10);
-		gridLayout.addMembers(eiaTypeGrid);
-
-		VLayout sideGridButtons = new VLayout();
-		sideGridButtons.setWidth(30);
-		sideGridButtons.setLayoutMargin(5);
-		sideGridButtons.setBackgroundColor("#E0E0E0");
-		sideGridButtons.setMembersMargin(10);
-		sideGridButtons.setDefaultLayoutAlign(Alignment.CENTER);
-
-		GHAImgButton acceptButton = new GHAImgButton("../resources/icons/check.png");
-		acceptButton.addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				selectEiaType(((EIATypeRecord) eiaTypeGrid.getSelectedRecord())
-						.toEntity());
-				hide();
-			}
-		});
 		
-		GHAImgButton addButton = new GHAImgButton("../resources/icons/new.png");
-		addButton.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				addForm.open();
-			}
-		});
-		
-		sideGridButtons
-				.addMembers(acceptButton,
-						GHAUiHelper.verticalGraySeparator("2px"),
-						addButton);
-		gridLayout.addMember(sideGridButtons);
+
+		VLayout sideGridButtons = GHAUiHelper.createBar(
+				new GHAImgButton("../resources/icons/check.png", new ClickHandler() {
+
+					@Override
+					public void onClick(ClickEvent event) {
+						selectEiaType(((EIATypeRecord) eiaTypeGrid.getSelectedRecord())
+								.toEntity());
+						hide();
+					}
+				}),
+				GHAUiHelper.verticalGraySeparator("2px"),
+				new GHAImgButton("../resources/icons/new.png",new ClickHandler() {
+
+					@Override
+					public void onClick(ClickEvent event) {
+						addForm.open();
+					}
+				}));
+				
+		gridLayout.addMembers(eiaTypeGrid,sideGridButtons);
 
 		addMember(gridLayout);
 		searchForBrands();

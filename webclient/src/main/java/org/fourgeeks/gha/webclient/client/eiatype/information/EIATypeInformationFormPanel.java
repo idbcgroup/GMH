@@ -29,6 +29,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
+import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeModel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypePictureModel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
@@ -215,32 +216,21 @@ public class EIATypeInformationFormPanel extends VLayout implements
 				descriptionItem, mobilityItem, useDescriptionItem, codeItem,
 				nameItem, modelItem, eiaUmdnsItem);
 
-		VLayout sideButtons = new VLayout();
-		sideButtons.setWidth(30);
-		sideButtons.setLayoutMargin(5);
-		sideButtons.setBackgroundColor("#E0E0E0");
-		sideButtons.setMembersMargin(10);
-		sideButtons.setDefaultLayoutAlign(Alignment.CENTER);
+		VLayout sideButtons = GHAUiHelper.createBar(
+				new GHAImgButton("../resources/icons/save.png", new ClickHandler() {
 
-		GHAImgButton saveButton = new GHAImgButton(
-				"../resources/icons/save.png");
-		saveButton.addClickHandler(new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						save();
+					}
+				}),
+				new GHAImgButton("../resources/icons/undo.png",new ClickHandler() {
 
-			@Override
-			public void onClick(ClickEvent event) {
-				save();
-			}
-		});
-		GHAImgButton undoButton = new GHAImgButton(
-				"../resources/icons/undo.png");
-		undoButton.addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				undo();
-
-			}
-		});
+					@Override
+					public void onClick(ClickEvent event) {
+						undo();
+					}
+				}));
 
 		GHAImgButton deleteButton1 = new GHAImgButton(
 				"../resources/icons/delete.png");
@@ -301,8 +291,6 @@ public class EIATypeInformationFormPanel extends VLayout implements
 						});
 			}
 		});
-
-		sideButtons.addMembers(saveButton, undoButton);
 
 		HLayout uploadImagenes = new HLayout();
 		VLayout buttons1 = new VLayout();
