@@ -1,3 +1,3 @@
 #!/bin/bash
-mvn install
+mvn install -o
 notify-send 'Maven' 'Deploy done!!!'

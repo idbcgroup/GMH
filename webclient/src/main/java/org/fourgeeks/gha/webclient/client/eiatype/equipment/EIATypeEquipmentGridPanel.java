@@ -8,11 +8,8 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
-<<<<<<< HEAD
-import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-=======
 import org.fourgeeks.gha.webclient.client.UI.GHANotification;
->>>>>>> 943ecf95a554823da6709e635746dbb93995497b
+import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.eia.EIAAddForm;
 import org.fourgeeks.gha.webclient.client.eia.EIAGrid;
 import org.fourgeeks.gha.webclient.client.eia.EIAModel;
@@ -58,115 +55,88 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 		addMember(title);
 
 		// //////Botones laterales
-<<<<<<< HEAD
-		VLayout sideButtons = GHAUiHelper.createBar(
-				new GHAImgButton("../resources/icons/new.png", new ClickHandler() {
+		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
+				"../resources/icons/new.png", new ClickHandler() {
 
 					@Override
 					public void onClick(ClickEvent event) {
-						eiaAddForm.animateShow(AnimationEffect.FLY);
+						eiaAddForm.open();
 					}
-				}),
-				new GHAImgButton("../resources/icons/edit.png"),
-				new GHAImgButton("../resources/icons/delete.png"),
-				new GHAImgButton("../resources/icons/set.png",new ClickHandler() {
-
-					@Override
-					public void onClick(ClickEvent event) {
-						// EIATypeRecord selectedRecord = (EIATypeRecord)
-						// eiaTypeEquiposGrid
-						// .getSelectedRecord();
-						// History.newItem("eia/" + selectedRecord.getCode());
-					}
-				}));
-=======
-		VLayout sideButtons = new VLayout();
-		sideButtons.setWidth(30);
-		sideButtons.setLayoutMargin(5);
-		sideButtons.setBackgroundColor("#E0E0E0");
-		sideButtons.setMembersMargin(10);
-		sideButtons.setDefaultLayoutAlign(Alignment.CENTER);
-
-		GHAImgButton addButton = new GHAImgButton("../resources/icons/new.png");
-		addButton.addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				eiaAddForm.animateShow(AnimationEffect.FLY);
-			}
-		});
-		GHAImgButton editButton = new GHAImgButton(
-				"../resources/icons/edit.png");
-
-		GHAImgButton deleteButton = new GHAImgButton(
-				"../resources/icons/delete.png");
-
-		deleteButton.addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				final ListGridRecord selectedRecord = grid.getSelectedRecord();
-
-				if (selectedRecord == null)
-					return;// No record selected
-
-				GHANotification.confirm("Equipo",
-						"Confirme si desea eliminar el equipo seleccionado",
-						new BooleanCallback() {
+				}), new GHAImgButton("../resources/icons/edit.png"),
+				new GHAImgButton("../resources/icons/delete.png",
+						new ClickHandler() {
 
 							@Override
-							public void execute(Boolean resultAsc) {
-								if (resultAsc) {
+							public void onClick(ClickEvent event) {
+								final ListGridRecord selectedRecord = grid
+										.getSelectedRecord();
 
-									Eia eiaEquipment = ((EIARecord) grid
-											.getSelectedRecord()).toEntity();
+								if (selectedRecord == null)
+									return;// No record selected
 
-									if (eiaEquipment == null)
-										return;// No record selected
+								GHANotification
+										.confirm(
+												"Equipo",
+												"Confirme si desea eliminar el equipo seleccionado",
+												new BooleanCallback() {
 
-									EIAModel.delete(eiaEquipment.getId(),
-											new GHAAsyncCallback<Boolean>() {
+													@Override
+													public void execute(
+															Boolean resultAsc) {
+														if (resultAsc) {
 
-												@Override
-												public void onSuccess(
-														Boolean result) {
-													loadData(eiaType);
+															Eia eiaEquipment = ((EIARecord) grid
+																	.getSelectedRecord())
+																	.toEntity();
 
-												}
+															if (eiaEquipment == null)
+																return;// No
+																		// record
+																		// selected
 
-												@Override
-												public void onFailure(
-														Throwable caught) {
-													GHANotification.alert(caught
-															.getMessage());
-												}
+															EIAModel.delete(
+																	eiaEquipment
+																			.getId(),
+																	new GHAAsyncCallback<Boolean>() {
 
-											});
+																		@Override
+																		public void onSuccess(
+																				Boolean result) {
+																			loadData(eiaType);
 
-								} else {
-									loadData(eiaType);
-								}
+																		}
+
+																		@Override
+																		public void onFailure(
+																				Throwable caught) {
+																			GHANotification
+																					.alert(caught
+																							.getMessage());
+																		}
+
+																	});
+
+														} else {
+															loadData(eiaType);
+														}
+													}
+												});
+
 							}
-						});
 
-			}
+						}), new GHAImgButton("../resources/icons/set.png",
+						new ClickHandler() {
 
-		});
-
-		GHAImgButton setsButton = new GHAImgButton("../resources/icons/set.png");
-		setsButton.addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				// EIATypeRecord selectedRecord = (EIATypeRecord)
-				// eiaTypeEquiposGrid
-				// .getSelectedRecord();
-				// History.newItem("eia/" + selectedRecord.getCode());
-			}
-		});
-
-		sideButtons.addMembers(addButton, editButton, deleteButton, setsButton);
->>>>>>> 943ecf95a554823da6709e635746dbb93995497b
+							@Override
+							public void onClick(ClickEvent event) {
+								// EIATypeRecord selectedRecord =
+								// (EIATypeRecord)
+								// eiaTypeEquiposGrid
+								// .getSelectedRecord();
+								// History.newItem("eia/" +
+								// selectedRecord.getCode());
+							}
+						}));
 
 		HLayout mainLayout = new HLayout();
 		mainLayout.addMembers(grid, sideButtons);
