@@ -9,7 +9,7 @@ import javax.persistence.ManyToOne;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaterial;
-import org.fourgeeks.gha.domain.gmh.EiatypeUtility;
+import org.fourgeeks.gha.domain.gmh.EiaTypeUtility;
 
 /**
  * @author emiliot
@@ -29,7 +29,7 @@ public class Material extends AbstractEntity {
 	
 	@ManyToOne
 	@JoinColumn(name = "eUtilityFk")
-	private EiatypeUtility eUtility;
+	private EiaTypeUtility eUtility;
 	
 	@ManyToOne
 	@JoinColumn(name = "eMaterialFk")

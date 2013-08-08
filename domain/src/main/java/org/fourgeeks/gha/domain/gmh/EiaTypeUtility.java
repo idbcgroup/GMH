@@ -15,7 +15,7 @@ import org.fourgeeks.gha.domain.glm.Material;
  *
  */
 @Entity
-public class EiatypeUtility extends AbstractEntity {
+public class EiaTypeUtility extends AbstractEntity {
 
 	/**
 	 * 
