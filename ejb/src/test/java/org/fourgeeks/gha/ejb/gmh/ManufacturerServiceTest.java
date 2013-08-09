@@ -2,6 +2,8 @@ package org.fourgeeks.gha.ejb.gmh;
 
 import java.util.List;
 
+import javax.naming.Context;
+
 import junit.framework.TestCase;
 
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
@@ -13,15 +15,14 @@ import org.fourgeeks.gha.ejb.ContextDeployment;
  */
 public class ManufacturerServiceTest extends TestCase {
 
-	private ContextDeployment contextDeployment;
 	private ManufacturerServiceRemote ejbService;
 	private Manufacturer entity;
 	List<Manufacturer> manufacturersBefore;
 
 	@Override
 	protected void setUp() throws Exception {
-		contextDeployment = new ContextDeployment();
-		ejbService = (ManufacturerServiceRemote) contextDeployment.getContext()
+		Context context = ContextDeployment.getContext();
+		ejbService = (ManufacturerServiceRemote) context
 				.lookup("java:global/ejb/gmh.ManufacturerService");
 		entity = new Manufacturer();
 		entity.setName("Manufacturer Test");

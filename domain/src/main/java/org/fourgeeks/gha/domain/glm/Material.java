@@ -6,14 +6,17 @@ package org.fourgeeks.gha.domain.glm;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 
 /**
- * @author emiliot
+ * @author alacret
  * 
  */
 @Entity
+@NamedQueries(value = { @NamedQuery(name = "Material.getAll", query = "SELECT e from Material e order by e.name") })
 public class Material extends AbstractEntity {
 
 	/**

@@ -1,20 +1,19 @@
 package org.fourgeeks.gha.ejb;
 
-
 import java.util.Properties;
 
 import javax.ejb.embeddable.EJBContainer;
 import javax.naming.Context;
 
 /**
- * @author vivi.torresg
+ * @author alacret
  * 
  */
 public class ContextDeployment {
 
-	private Context context;
+	private static Context context;
 
-	public ContextDeployment() {
+	static {
 		final Properties p = new Properties();
 		p.put(Context.INITIAL_CONTEXT_FACTORY,
 				"org.apache.openejb.client.LocalInitialContextFactory");
@@ -27,7 +26,10 @@ public class ContextDeployment {
 		context = EJBContainer.createEJBContainer(p).getContext();
 	}
 
-	public Context getContext() {
+	private ContextDeployment() {
+	}
+
+	public static Context getContext() {
 		return context;
 	}
 }

@@ -2,6 +2,8 @@ package org.fourgeeks.gha.ejb.gmh;
 
 import java.util.List;
 
+import javax.naming.Context;
+
 import junit.framework.TestCase;
 
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
@@ -13,15 +15,13 @@ import org.fourgeeks.gha.ejb.ContextDeployment;
  */
 public class BuildingLocationServiceTest extends TestCase {
 
-	private ContextDeployment contextDeployment;
 	private BuildingLocationServiceRemote ejbService;
 
 	@Override
 	protected void setUp() throws Exception {
-		contextDeployment = new ContextDeployment();
-		ejbService = (BuildingLocationServiceRemote) contextDeployment
-				.getContext().lookup(
-						"java:global/ejb/gmh.BuildingLocationService");
+		Context context = ContextDeployment.getContext();
+		ejbService = (BuildingLocationServiceRemote) context
+				.lookup("java:global/ejb/gmh.BuildingLocationService");
 	}
 
 	public void testNotNull() throws Exception {

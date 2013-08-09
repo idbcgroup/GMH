@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.ejb.EJB;
 
-import org.apache.log4j.Logger;
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.ejb.gmh.EiaTypeServiceRemote;
@@ -19,17 +18,16 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  * @author emiliot
  * 
  */
-public class GWTEiaTypeServiceImpl extends RemoteServiceServlet implements GWTEiaTypeService {
+public class GWTEiaTypeServiceImpl extends RemoteServiceServlet implements
+		GWTEiaTypeService {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private static final Logger LOG = Logger.getLogger(GWTEiaTypeServiceImpl.class);
 	@EJB(name = "gmh.EiaTypeService")
 	EiaTypeServiceRemote eiaTypeServiceRemote;
-	
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -116,7 +114,8 @@ public class GWTEiaTypeServiceImpl extends RemoteServiceServlet implements GWTEi
 	 * .gha.domain.gmh.EiaType, int, int)
 	 */
 	@Override
-	public List<EiaType> find(EiaType eiaType, int offset, int size) throws EJBException {
+	public List<EiaType> find(EiaType eiaType, int offset, int size)
+			throws EJBException {
 		return eiaTypeServiceRemote.find(eiaType, offset, size);
 	}
 }

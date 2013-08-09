@@ -8,6 +8,11 @@
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
 			<property name="hibernate.id.new_generator_mappings" value="true" />
+			<!-- OPENJPA ONLY TEST PURPOSE -->
+			<property name="openjpa.ConnectionDriverName" value="org.postgresql.Driver" />
+			<property name="openjpa.ConnectionURL" value="jdbc:postgresql://localhost:5432/gha" />
+			<property name="openjpa.ConnectionUserName" value="postgres" />
+			<property name="openjpa.ConnectionPassword" value="postgres" />
 		</properties>
 	</persistence-unit>
 </persistence>

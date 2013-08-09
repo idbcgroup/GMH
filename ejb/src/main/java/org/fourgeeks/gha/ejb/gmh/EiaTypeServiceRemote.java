@@ -6,9 +6,6 @@ package org.fourgeeks.gha.ejb.gmh;
 import java.util.List;
 
 import javax.ejb.Remote;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gmh.EiaType;
@@ -24,14 +21,6 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
  */
 @Remote
 public interface EiaTypeServiceRemote {
-
-	/**
-	 * @param eiaType
-	 * @param cb CriteriaBuilder
-	 * @param etype CriteriaQuery
-	 * @return a predicate with the filters to the sql query
-	 */
-	public Predicate buildFilters(EiaType eiaType, CriteriaBuilder cb, Root<EiaType> etype);
 
 	/**
 	 * Delete an EiaType from database by Id

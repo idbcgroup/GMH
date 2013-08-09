@@ -5,10 +5,15 @@ import java.util.List;
 import org.fourgeeks.gha.domain.glm.Material;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 
+import com.google.gwt.core.client.GWT;
+
 /**
  * @author alacret Model with the RPC Services for Materials
  */
 public class MaterialModel {
+
+	private static final GWTMaterialServiceAsync service = GWT
+			.create(GWTMaterialService.class);
 
 	private MaterialModel() {
 		throw new UnsupportedOperationException(
@@ -19,26 +24,26 @@ public class MaterialModel {
 	 * @param material
 	 * @param callback
 	 */
-	public static void save(Material material,
-			GHAAsyncCallback<Material> callback) {
-		// TODO
-	}
-
-	/**
-	 * @param material
-	 * @param callback
-	 */
 	public static void find(Material material,
 			GHAAsyncCallback<List<Material>> callback) {
-		// TODO
+		service.find(material, callback);
 	}
 
 	/**
-	 * @param id
 	 * @param callback
 	 */
-	public static void delete(long id, GHAAsyncCallback<Void> callback) {
-		// TODO
+	public static void getAll(GHAAsyncCallback<List<Material>> callback) {
+		service.getAll(callback);
+	}
+
+	/**
+	 * @param offset
+	 * @param size
+	 * @param callback
+	 */
+	public static void getAll(int offset, int size,
+			GHAAsyncCallback<List<Material>> callback) {
+		service.getAll(offset, size, callback);
 	}
 
 }

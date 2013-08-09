@@ -21,6 +21,11 @@ public class EIATypeModel {
 		service.getAll(callback);
 	}
 
+	public static void getAll(int offset, int size,
+			GHAAsyncCallback<List<EiaType>> callback) {
+		service.getAll(offset, size, callback);
+	}
+
 	public static void find(EiaType eiaType,
 			GHAAsyncCallback<List<EiaType>> ghaAsyncCallback) {
 		service.find(eiaType, ghaAsyncCallback);
@@ -36,11 +41,9 @@ public class EIATypeModel {
 			GHAAsyncCallback<EiaType> callback) {
 		service.update(eiaType, callback);
 	}
-	
-	
-	public static void delete(Long id,
-			GHAAsyncCallback<Void> callback) {
+
+	public static void delete(Long id, GHAAsyncCallback<Void> callback) {
 		service.delete(id, callback);
 	}
-	
+
 }
