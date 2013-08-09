@@ -31,3 +31,4 @@ ejb/.project
 webclient/.project
 domain/.project
 ear/.project
+/build
