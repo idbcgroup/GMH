@@ -33,11 +33,13 @@ public class EiaTypeSpareService implements EiaTypeSpareServiceRemote {
 			logger.log(Level.INFO, "ERROR: saving eiaTypeSpare", e);
 			String message = null;
 			if (e.getCause() instanceof ConstraintViolationException) {
-				message = "Error: Ya se ha agregado ese Repuesto a este Tipo de Equipo";
+				if (e.getCause().getMessage().contains("myself_spare_check"))
+					message = "Error: No puede agregar un Tipo de Equipo como respuesto de si mismo";
+				else
+					message = "Error: Ya se ha agregado ese Repuesto a este Tipo de Equipo";
 			}
 			if (message == null)
 				message = "Error guardando EiaTypeSpare: "
-						//+ e.getCause().getMessage();
 						+ e.getMessage();
 			throw new EJBException(message);
 		}
