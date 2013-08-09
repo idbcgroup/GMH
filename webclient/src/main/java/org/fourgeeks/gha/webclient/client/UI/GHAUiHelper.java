@@ -114,7 +114,6 @@ public abstract class GHAUiHelper {
 		VLayout sideButtons = new VLayout();
 		sideButtons.setWidth(30);
 		sideButtons.setLayoutMargin(5);
-		sideButtons.setBackgroundColor("#E0E0E0");
 		sideButtons.setMembersMargin(10);
 		sideButtons.setDefaultLayoutAlign(Alignment.CENTER);
 		sideButtons.addMembers(buttons);
