@@ -3,7 +3,6 @@ package org.fourgeeks.gha.webclient.client.eiatype.information;
 import gwtupload.client.IFileInput.FileInputType;
 import gwtupload.client.IUploadStatus.Status;
 import gwtupload.client.IUploader;
-import gwtupload.client.IUploader.OnChangeUploaderHandler;
 import gwtupload.client.IUploader.OnFinishUploaderHandler;
 import gwtupload.client.IUploader.UploadedInfo;
 import gwtupload.client.SingleUploader;
@@ -55,7 +54,7 @@ public class EIATypeInformationFormPanel extends VLayout implements
 			useDescriptionItem, eiaUmdnsItem;
 	private GHASelectItem brandItem, manItem, mobilityItem, typeItem,
 			subTypeItem;
-	private EiaType eiaType, orginalEiaType;
+	private EiaType currentEiaType, orginalEiaType;
 	private EIATypeTab tab;
 
 	private OnFinishUploaderHandler onFinishUploaderHandler1,
@@ -108,7 +107,8 @@ public class EIATypeInformationFormPanel extends VLayout implements
 	}
 
 	/**
-	 * crea los eventos OnFinishUploaderHandler que se ejecutan cuando termina la subida de la imagen
+	 * crea los eventos OnFinishUploaderHandler que se ejecutan cuando termina
+	 * la subida de la imagen
 	 */
 	private void setOnFinishUploaderHandler() {
 		onFinishUploaderHandler1 = new OnFinishUploaderHandler() {
@@ -184,7 +184,7 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		GHACustomButton buttonAddImage1 = new GHACustomButton();
 		GHACustomButton buttonAddImage2 = new GHACustomButton();
 		GHACustomButton buttonAddImage3 = new GHACustomButton();
-/****************COMPONENTE PARA SUBIDA DE IMAGEN****************************************/
+		/**************** COMPONENTE PARA SUBIDA DE IMAGEN ****************************************/
 		SingleUploader uploadPhoto1 = new SingleUploader(
 				FileInputType.CUSTOM.with(buttonAddImage1));
 		uploadPhoto1.setValidExtensions("jpg", "jpeg", "png", "gif");
@@ -201,7 +201,7 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		uploadPhoto3.setAutoSubmit(true);
 
 		setOnFinishUploaderHandler();
-/****************************************************************************************/
+		/****************************************************************************************/
 		this.tab = tab;
 		tab.addGHAClosableHandler(this);
 		setWidth100();
@@ -432,7 +432,7 @@ public class EIATypeInformationFormPanel extends VLayout implements
 	public void select(EiaType eiaType) {
 		activateForm(true);
 
-		this.eiaType = this.orginalEiaType = eiaType;
+		this.currentEiaType = this.orginalEiaType = eiaType;
 		if (eiaType.getBrand() != null)
 			brandItem.setValue(eiaType.getBrand().getId());
 		if (eiaType.getManufacturer() != null)
@@ -506,10 +506,10 @@ public class EIATypeInformationFormPanel extends VLayout implements
 	}
 
 	private void save() {
-		if (this.eiaType == null)
+		if (this.currentEiaType == null)
 			return;
 		final EiaType eiaType = new EiaType();
-		eiaType.setId(this.eiaType.getId());
+		eiaType.setId(this.currentEiaType.getId());
 		if (brandItem.getValue() != null)
 			eiaType.setBrand(new Brand(Integer.valueOf(brandItem
 					.getValueAsString()), null));
@@ -547,19 +547,21 @@ public class EIATypeInformationFormPanel extends VLayout implements
 
 									@Override
 									public void onFailure(Throwable caught) {
-										Window.alert("Error actualizando el eiaTypePicture: "
-												+ caught.getMessage());
+										GHANotification
+												.alert("Error actualizando el eiaTypePicture: "
+														+ caught.getMessage());
 									};
 								});
 					} else {
 						/**
-						 * En el arreglo noDeletePicture se guardan los id de las imagenes que no se desean borrar 
+						 * En el arreglo noDeletePicture se guardan los id de
+						 * las imagenes que no se desean borrar
 						 */
 						int noDeletePicture[] = new int[3];
 						noDeletePicture[0] = idImg1;
 						noDeletePicture[1] = idImg2;
 						noDeletePicture[2] = idImg3;
-		
+
 						EIATypePictureModel.update(eiaType, noDeletePicture,
 								new GHAAsyncCallback<Boolean>() {
 
@@ -569,8 +571,9 @@ public class EIATypeInformationFormPanel extends VLayout implements
 									}
 
 									public void onFailure(Throwable caught) {
-										Window.alert("Error actualizando el eiaTypePicture: "
-												+ caught.getMessage());
+										GHANotification
+												.alert("Error actualizando el eiaTypePicture: "
+														+ caught.getMessage());
 									};
 
 								});
@@ -581,24 +584,26 @@ public class EIATypeInformationFormPanel extends VLayout implements
 
 				@Override
 				public void onFailure(Throwable caught) {
-					Window.alert("Error actualizando el eiaType: "
+					GHANotification.alert("Error actualizando el eiaType: "
 							+ caught.getMessage());
 				}
 			});
-		else
+		else {
 			// Mostrar solo la primera violación para evitar que salgan muchos
 			// pop-ups sucesivos
+			Window.alert("error de consistencia");
 			GHANotification.alert(violations.iterator().next().getMessage());
+		}
 
 	}
 
 	@Override
 	public void close() {
-		
+
 	}
-	
+
 	@Override
-	public void hide(){
-		
+	public void hide() {
+
 	}
 }

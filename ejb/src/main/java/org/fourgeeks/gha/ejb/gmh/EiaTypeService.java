@@ -157,7 +157,7 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 			CriteriaQuery<EiaType> cQuery = cb.createQuery(EiaType.class);
 			Root<EiaType> root = cQuery.from(EiaType.class);
 			cQuery.select(root);
-			cQuery.orderBy(cb.asc(root.<String>get("name")));
+			cQuery.orderBy(cb.asc(root.<String> get("name")));
 
 			Predicate criteria = buildFilters(entity, cb, root);
 			TypedQuery<EiaType> q;
@@ -200,8 +200,8 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 				}
 
 				if (entity.getName() != null) {
-					q.setParameter("name", "%"
-							+ entity.getName().toLowerCase() + "%");
+					q.setParameter("name", "%" + entity.getName().toLowerCase()
+							+ "%");
 				}
 
 				if (entity.getSubtype() != null) {
@@ -222,9 +222,8 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 		} catch (Exception e) {
 			logger.log(Level.SEVERE,
 					"Error obteniendo los eiaTypes por eiatype", e);
-			throw new EJBException(
-					"Error obteniendo los eiaTypes por eiatype "
-							+ e.getCause().getMessage());
+			throw new EJBException("Error obteniendo los eiaTypes por eiatype "
+					+ e.getCause().getMessage());
 		}
 
 	}
@@ -244,7 +243,7 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 			CriteriaQuery<EiaType> cQuery = cb.createQuery(EiaType.class);
 			Root<EiaType> root = cQuery.from(EiaType.class);
 			cQuery.select(root);
-			cQuery.orderBy(cb.asc(root.<String>get("name")));
+			cQuery.orderBy(cb.asc(root.<String> get("name")));
 
 			Predicate criteria = buildFilters(eiaType, cb, root);
 			cQuery.where(criteria);
