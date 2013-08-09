@@ -8,11 +8,13 @@ import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.GHAImg;
 import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.GHATabSet;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
+import com.google.gwt.user.client.History;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.types.VerticalAlignment;
@@ -26,6 +28,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class EIATypeTopSection extends HLayout implements
 		EIATypeSelectionListener, ResizeHandler {
 
+	private final EIATypeTab _eiaTypeTab;
 	private List<EIATypeSelectionListener> selectionListeners;
 	private EIATypeSearchForm eiaTypeSearchForm;
 	private GHATextItem nameItem, codeItem, brandItem, modelItem, manItem,
@@ -48,6 +51,8 @@ public class EIATypeTopSection extends HLayout implements
 	public EIATypeTopSection(EIATypeTab eiaTypeTab) {
 		super();
 		GHAUiHelper.addGHAResizeHandler(this);
+		_eiaTypeTab = eiaTypeTab;
+		
 		eiaTypeSearchForm.AddEIATypeSelectionListener(eiaTypeTab);
 
 		eiaTypeTab.addGHAHideableHandler(new GHAHideable() {
@@ -118,6 +123,16 @@ public class EIATypeTopSection extends HLayout implements
 			}
 		});
 		GHAImgButton cancelButton = new GHAImgButton("../resources/icons/cancel.png");
+		cancelButton.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				// TODO Auto-generated method stub
+				GHATabSet.closeTab(_eiaTypeTab);
+				
+			}
+		});
+		
 		panelBotones.addMembers(searchImg, cleanImg, cancelButton);
 
 		addMembers(form, new LayoutSpacer(), photoPanel, new LayoutSpacer(), panelBotones);
@@ -170,4 +185,5 @@ public class EIATypeTopSection extends HLayout implements
 	public void onResize(ResizeEvent event) {
 		setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT + "px");
 	}
+	
 }

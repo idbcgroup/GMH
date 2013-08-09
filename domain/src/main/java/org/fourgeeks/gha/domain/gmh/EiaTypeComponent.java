@@ -14,6 +14,7 @@ import javax.persistence.UniqueConstraint;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 
+
 /**
  * @author emiliot
  * 

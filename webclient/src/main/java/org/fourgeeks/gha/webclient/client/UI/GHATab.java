@@ -36,6 +36,9 @@ public abstract class GHATab extends VLayout implements GHAClosable,
 		return token;
 	};
 
+	/**
+	 * This method is call by the GHATAbSet to notyfy the close action
+	 */
 	@Override
 	public void close() {
 		for (GHAClosable closable : closables)
@@ -51,7 +54,7 @@ public abstract class GHATab extends VLayout implements GHAClosable,
 			hideable.hide();
 		super.hide();
 		getElement().addClassName("hidden");
-		//Tab
+		// Tab
 		getHeader().deselectTab();
 	}
 
@@ -59,7 +62,7 @@ public abstract class GHATab extends VLayout implements GHAClosable,
 	public void show() {
 		super.show();
 		getElement().removeClassName("hidden");
-		//Tab
+		// Tab
 		getHeader().selectTab();
 	}
 
