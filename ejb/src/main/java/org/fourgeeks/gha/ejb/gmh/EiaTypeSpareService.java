@@ -37,7 +37,8 @@ public class EiaTypeSpareService implements EiaTypeSpareServiceRemote {
 			}
 			if (message == null)
 				message = "Error guardando EiaTypeSpare: "
-						+ e.getCause().getMessage();
+						//+ e.getCause().getMessage();
+						+ e.getMessage();
 			throw new EJBException(message);
 		}
 	}
@@ -51,6 +52,17 @@ public class EiaTypeSpareService implements EiaTypeSpareServiceRemote {
 	}
 
 	@Override
+	public EiaTypeSpare find(long id) throws EJBException {
+		try {
+			return em.find(EiaTypeSpare.class, id);
+		} catch (Exception e) {
+			logger.log(Level.INFO, "Error buscando EiaTypeSpare por id ", e);
+			throw new EJBException("Error buscando EiaTypeSpare por id "
+					+ e.getCause().getMessage());
+		}
+	}
+
+	@Override
 	public void delete(long id) throws EJBException {
 		try {
 			EiaTypeSpare entity = em.find(EiaTypeSpare.class, id);
@@ -59,6 +71,30 @@ public class EiaTypeSpareService implements EiaTypeSpareServiceRemote {
 			logger.log(Level.INFO, "ERROR: unable to delete eiatypespare",
 					e);
 			throw new EJBException("Error eliminando EiaTypeSpare por id "
+					+ e.getCause().getMessage());
+		}
+	}
+	
+	@Override
+	public List<EiaTypeSpare> getAll() throws EJBException {
+		try {
+			return em.createNamedQuery("EiaTypeSpare.getAll", EiaTypeSpare.class)
+					.getResultList();
+		} catch (Exception ex) {
+			logger.log(Level.SEVERE, "Error retrieving all eiatypespares", ex);
+			throw new EJBException("Error obteniendo todos los eiaTypeSpares");
+		}
+	}
+	
+	@Override
+	public EiaTypeSpare update(EiaTypeSpare eiaTypeSpare) throws EJBException {
+		try {
+			EiaTypeSpare res = em.merge(eiaTypeSpare);
+			em.flush();
+			return res;
+		} catch (Exception e) {
+			logger.log(Level.INFO, "ERROR: unable to update eiatypespare", e);
+			throw new EJBException("Error actualizando EiaTypeSpare "
 					+ e.getCause().getMessage());
 		}
 	}
