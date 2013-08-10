@@ -14,7 +14,6 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
-import com.google.gwt.user.client.History;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.types.VerticalAlignment;
@@ -28,7 +27,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class EIATypeTopSection extends HLayout implements
 		EIATypeSelectionListener, ResizeHandler {
 
-	private final EIATypeTab _eiaTypeTab;
+	private final EIATypeTab eIATypeTab;
 	private List<EIATypeSelectionListener> selectionListeners;
 	private EIATypeSearchForm eiaTypeSearchForm;
 	private GHATextItem nameItem, codeItem, brandItem, modelItem, manItem,
@@ -51,7 +50,7 @@ public class EIATypeTopSection extends HLayout implements
 	public EIATypeTopSection(EIATypeTab eiaTypeTab) {
 		super();
 		GHAUiHelper.addGHAResizeHandler(this);
-		_eiaTypeTab = eiaTypeTab;
+		eIATypeTab = eiaTypeTab;
 		
 		eiaTypeSearchForm.AddEIATypeSelectionListener(eiaTypeTab);
 
@@ -128,7 +127,7 @@ public class EIATypeTopSection extends HLayout implements
 			@Override
 			public void onClick(ClickEvent event) {
 				// TODO Auto-generated method stub
-				GHATabSet.closeTab(_eiaTypeTab);
+				GHATabSet.closeTab(eIATypeTab);
 				
 			}
 		});

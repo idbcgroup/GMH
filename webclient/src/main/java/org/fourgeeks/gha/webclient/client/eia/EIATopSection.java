@@ -11,11 +11,9 @@ import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHATitleTextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
-import org.fourgeeks.gha.webclient.client.eiatype.EIATypeTab;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
-import com.google.gwt.user.client.History;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.types.VerticalAlignment;
@@ -28,7 +26,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
 
 public class EIATopSection extends HLayout implements EIASelectionListener, GHAClosable, ResizeHandler {
 
-	private final EIATab _eIATab;
+	private final EIATab eIATab;
 	private List<EIASelectionListener> selectionListeners;
 	private GHATextItem acceptationDate, actualCost,  
 	responsibleRole, code, 	eiaType, fixedAssetIdentifier,
@@ -69,7 +67,7 @@ public class EIATopSection extends HLayout implements EIASelectionListener, GHAC
 	public EIATopSection(EIATab eiaTab) {
 		super();
 		eiaTab.addGHAClosableHandler(this);
-		_eIATab = eiaTab;
+		eIATab = eiaTab;
 		GHAUiHelper.addGHAResizeHandler(this);
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		setWidth100();
@@ -119,7 +117,7 @@ public class EIATopSection extends HLayout implements EIASelectionListener, GHAC
 			@Override
 			public void onClick(ClickEvent event) {
 				// TODO Auto-generated method stub
-				GHATabSet.closeTab(_eIATab);
+				GHATabSet.closeTab(eIATab);
 			}
 		});
 		GHAImgButton searchImg = new GHAImgButton("../resources/icons/search.png");
