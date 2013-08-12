@@ -1,5 +1,7 @@
 package org.fourgeeks.gha.ejb.gmh;
 
+import javax.naming.Context;
+
 import junit.framework.TestCase;
 
 import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
@@ -10,20 +12,20 @@ import org.junit.Test;
 
 public class EiaTypeSpareServiceTest extends TestCase {
 
-	private ContextDeployment contextDeployment;
+	private Context context;
 	private EiaTypeSpareServiceRemote eiaTypeSpareService;
 	private EiaTypeServiceRemote eiaTypeService;
 
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
-		contextDeployment = new ContextDeployment();
+		context = ContextDeployment.getContext();
 
-		eiaTypeSpareService = (EiaTypeSpareServiceRemote) contextDeployment
-				.getContext().lookup("java:global/ejb/gmh.EiaTypeSpareService");
+		eiaTypeSpareService = (EiaTypeSpareServiceRemote) context
+				.lookup("java:global/ejb/gmh.EiaTypeSpareService");
 
 		// Esta variable debe ser de instancia
-		eiaTypeService = (EiaTypeServiceRemote) contextDeployment.getContext()
+		eiaTypeService = (EiaTypeServiceRemote) context
 				.lookup("java:global/ejb/gmh.EiaTypeService");
 
 	}
