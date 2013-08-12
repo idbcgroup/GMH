@@ -84,17 +84,17 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		img1 = new Img("../resources/img/default.png", 130, 130);
 		img1.setImageType(ImageStyle.STRETCH);
 		img1.setBorder("1px solid gray");
-//		img1.setLeft(240);
+		// img1.setLeft(240);
 
 		img2 = new Img("../resources/img/default.png", 130, 130);
 		img2.setImageType(ImageStyle.STRETCH);
 		img2.setBorder("1px solid gray");
-//		img2.setLeft(240);
+		// img2.setLeft(240);
 
 		img3 = new Img("../resources/img/default.png", 130, 130);
 		img3.setImageType(ImageStyle.STRETCH);
 		img3.setBorder("1px solid gray");
-//		img3.setLeft(240);
+		// img3.setLeft(240);
 
 		validator = Validation.buildDefaultValidatorFactory().getValidator();
 	}
@@ -193,15 +193,15 @@ public class EIATypeInformationFormPanel extends VLayout implements
 				descriptionItem, mobilityItem, useDescriptionItem, codeItem,
 				nameItem, modelItem, eiaUmdnsItem);
 
-		VLayout sideButtons = GHAUiHelper.createBar(
-				new GHAImgButton("../resources/icons/save.png", new ClickHandler() {
+		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
+				"../resources/icons/save.png", new ClickHandler() {
 
 					@Override
 					public void onClick(ClickEvent event) {
 						save();
 					}
-				}),
-				new GHAImgButton("../resources/icons/undo.png",new ClickHandler() {
+				}), new GHAImgButton("../resources/icons/undo.png",
+				new ClickHandler() {
 
 					@Override
 					public void onClick(ClickEvent event) {
@@ -214,124 +214,124 @@ public class EIATypeInformationFormPanel extends VLayout implements
 
 		/**************** COMPONENTE PARA SUBIDA DE IMAGEN ****************************************/
 		// http://code.google.com/p/gwtupload/wiki/CustomWidgets
-		SingleUploader uploadPhoto1 = new SingleUploader(FileInputType.LABEL);
-//		uploadPhoto1.setStyleName("GHAupload-button");
+		SingleUploader uploadPhoto1 = new SingleUploader(
+				FileInputType.BROWSER_INPUT);
+		// uploadPhoto1.setStyleName("GHAupload-button");
 		uploadPhoto1.getWidget().setStylePrimaryName("GHAupload-button");
 		uploadPhoto1.getWidget().setSize("20px", "20px");
 		uploadPhoto1.setValidExtensions("jpg", "jpeg", "png", "gif");
 		uploadPhoto1.setAutoSubmit(true);
 
-		SingleUploader uploadPhoto2 = new SingleUploader(FileInputType.LABEL);
-//		uploadPhoto2.setStyleName("GHAupload-button");
+		SingleUploader uploadPhoto2 = new SingleUploader(FileInputType.BUTTON);
+		// uploadPhoto2.setStyleName("GHAupload-button");
 		uploadPhoto2.getWidget().setStylePrimaryName("GHAupload-button");
 		uploadPhoto2.getWidget().setSize("20px", "20px");
 		uploadPhoto2.setValidExtensions("jpg", "jpeg", "png", "gif");
 		uploadPhoto2.setAutoSubmit(true);
 
 		SingleUploader uploadPhoto3 = new SingleUploader(FileInputType.LABEL);
-//		uploadPhoto3.setStyleName("GHAupload-button");
+		// uploadPhoto3.setStyleName("GHAupload-button");
 		uploadPhoto3.getWidget().setStylePrimaryName("GHAupload-button");
 		uploadPhoto3.getWidget().setSize("20px", "20px");
 		uploadPhoto3.setValidExtensions("jpg", "jpeg", "png", "gif");
 		uploadPhoto3.setAutoSubmit(true);
 
 		setOnFinishUploaderHandler();
-		
+
 		GHAImgButton deleteButton1 = new GHAImgButton(
-				"../resources/icons/delete.png",new ClickHandler() {
+				"../resources/icons/delete.png", new ClickHandler() {
 
-			@Override
-			public void onClick(ClickEvent event) {
+					@Override
+					public void onClick(ClickEvent event) {
 
-				img1.setSrc("../resources/img/default.png");
-				idImg1 = -1;
-				EIATypePictureModel.deletePictureFromSession(imgName1,
-						new GHAAsyncCallback<Void>() {
+						img1.setSrc("../resources/img/default.png");
+						idImg1 = -1;
+						EIATypePictureModel.deletePictureFromSession(imgName1,
+								new GHAAsyncCallback<Void>() {
 
-							@Override
-							public void onSuccess(Void result) {
-								imgName1 = "nothing";
-							}
+									@Override
+									public void onSuccess(Void result) {
+										imgName1 = "nothing";
+									}
 
-						});
-			}
-		});
+								});
+					}
+				});
 		GHAImgButton deleteButton2 = new GHAImgButton(
-				"../resources/icons/delete.png",new ClickHandler() {
+				"../resources/icons/delete.png", new ClickHandler() {
 
-			@Override
-			public void onClick(ClickEvent event) {
+					@Override
+					public void onClick(ClickEvent event) {
 
-				img2.setSrc("../resources/img/default.png");
-				idImg2 = -1;
+						img2.setSrc("../resources/img/default.png");
+						idImg2 = -1;
 
-				EIATypePictureModel.deletePictureFromSession(imgName2,
-						new GHAAsyncCallback<Void>() {
+						EIATypePictureModel.deletePictureFromSession(imgName2,
+								new GHAAsyncCallback<Void>() {
 
-							@Override
-							public void onSuccess(Void result) {
-								imgName2 = "nothing";
-							}
+									@Override
+									public void onSuccess(Void result) {
+										imgName2 = "nothing";
+									}
 
-						});
-			}
-		});
+								});
+					}
+				});
 		GHAImgButton deleteButton3 = new GHAImgButton(
-			"../resources/icons/delete.png",new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				img3.setSrc("../resources/img/default.png");
-				idImg3 = -1;
-				EIATypePictureModel.deletePictureFromSession(imgName3,
-						new GHAAsyncCallback<Void>() {
+				"../resources/icons/delete.png", new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						img3.setSrc("../resources/img/default.png");
+						idImg3 = -1;
+						EIATypePictureModel.deletePictureFromSession(imgName3,
+								new GHAAsyncCallback<Void>() {
 
-							@Override
-							public void onSuccess(Void result) {
-								imgName3 = "nothing";
-							}
-						});
-			}
-		});
-		
+									@Override
+									public void onSuccess(Void result) {
+										imgName3 = "nothing";
+									}
+								});
+					}
+				});
+
 		HLayout uploadImagenes = new HLayout();
-		
-			VLayout buttons1 = new VLayout();
-			buttons1.setWidth(30);
-			buttons1.setLayoutMargin(5);
-			buttons1.setMembersMargin(10);
-//			buttons1.setDefaultLayoutAlign(Alignment.CENTER);
-			buttons1.addMember(uploadPhoto1);
-			buttons1.addMember(deleteButton1);
-			
-			VLayout buttons2 = new VLayout();
-			buttons2.setWidth(30);
-			buttons2.setLayoutMargin(3);
-			buttons2.setMembersMargin(10);
-//			buttons2.setDefaultLayoutAlign(Alignment.CENTER);
-			buttons2.addMember(uploadPhoto2);
-			buttons2.addMember(deleteButton2);
-			
-			VLayout buttons3 = new VLayout();
-			buttons3.setWidth(30);
-			buttons3.setLayoutMargin(5);
-			buttons3.setMembersMargin(10);
-//			buttons3.setDefaultLayoutAlign(Alignment.CENTER);
-			buttons3.addMember(uploadPhoto3);
-			buttons3.addMember(deleteButton3);
 
-		uploadImagenes.addMembers(img1,buttons1,
-								  img2,buttons2,
-								  img3,buttons3,new LayoutSpacer());
-		
+		VLayout buttons1 = new VLayout();
+		buttons1.setWidth(30);
+		buttons1.setLayoutMargin(5);
+		buttons1.setMembersMargin(10);
+		// buttons1.setDefaultLayoutAlign(Alignment.CENTER);
+		buttons1.addMember(uploadPhoto1);
+		buttons1.addMember(deleteButton1);
+
+		VLayout buttons2 = new VLayout();
+		buttons2.setWidth(30);
+		buttons2.setLayoutMargin(3);
+		buttons2.setMembersMargin(10);
+		// buttons2.setDefaultLayoutAlign(Alignment.CENTER);
+		buttons2.addMember(uploadPhoto2);
+		buttons2.addMember(deleteButton2);
+
+		VLayout buttons3 = new VLayout();
+		buttons3.setWidth(30);
+		buttons3.setLayoutMargin(5);
+		buttons3.setMembersMargin(10);
+		// buttons3.setDefaultLayoutAlign(Alignment.CENTER);
+		buttons3.addMember(uploadPhoto3);
+		buttons3.addMember(deleteButton3);
+
+		uploadImagenes.addMembers(img1, buttons1, img2, buttons2, img3,
+				buttons3, new LayoutSpacer());
+
 		uploadPhoto1.addOnFinishUploadHandler(onFinishUploaderHandler1);
 		uploadPhoto2.addOnFinishUploadHandler(onFinishUploaderHandler2);
 		uploadPhoto3.addOnFinishUploadHandler(onFinishUploaderHandler3);
-		
+
 		/****************************************************************************************/
-		
+
 		addMember(gridPanel);
 		addMember(uploadImagenes);
-		
+
 		fillBrands();
 		fillMans();
 		fillExtras();
