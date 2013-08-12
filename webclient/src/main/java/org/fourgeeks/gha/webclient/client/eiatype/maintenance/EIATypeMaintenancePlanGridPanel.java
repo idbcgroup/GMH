@@ -27,15 +27,16 @@ public class EIATypeMaintenancePlanGridPanel extends VLayout implements EIATypeS
 	    		new GHAImgButton("../resources/icons/new.png", new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						mainenanceProtocolForm.animateShow(AnimationEffect.FLY);
+						
 					}
 				}),
 	    		new GHAImgButton("../resources/icons/edit.png"),
 	    		new GHAImgButton("../resources/icons/delete.png"),
+	    		GHAUiHelper.verticalGraySeparator("2px"),
 	    		new GHAImgButton("../resources/icons/set.png", new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						// TODO Auto-generated method stub
+						mainenanceProtocolForm.animateShow(AnimationEffect.FLY);
 					}
 				}));
 		
