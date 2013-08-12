@@ -54,7 +54,7 @@ public class EIATypeInformationFormPanel extends VLayout implements
 			useDescriptionItem, eiaUmdnsItem;
 	private GHASelectItem brandItem, manItem, mobilityItem, typeItem,
 			subTypeItem;
-	private EiaType currentEiaType, orginalEiaType;
+	private EiaType eiaType, orginalEiaType;
 	private EIATypeTab tab;
 
 	private OnFinishUploaderHandler onFinishUploaderHandler1,
@@ -173,8 +173,6 @@ public class EIATypeInformationFormPanel extends VLayout implements
 
 	public EIATypeInformationFormPanel(EIATypeTab tab) {
 		activateForm(false);
-/****************COMPONENTE PARA SUBIDA DE IMAGEN****************************************/
-/****************************************************************************************/
 		this.tab = tab;
 		tab.addGHAClosableHandler(this);
 		setWidth100();
@@ -217,7 +215,6 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		/**************** COMPONENTE PARA SUBIDA DE IMAGEN ****************************************/
 		// http://code.google.com/p/gwtupload/wiki/CustomWidgets
 		SingleUploader uploadPhoto1 = new SingleUploader(FileInputType.BUTTON);
-				FileInputType.BROWSER_INPUT);
 		// uploadPhoto1.setStyleName("GHAupload-button");
 		uploadPhoto1.getWidget().setStylePrimaryName("GHAupload-button");
 		uploadPhoto1.getWidget().setSize("20px", "20px");
@@ -414,7 +411,7 @@ public class EIATypeInformationFormPanel extends VLayout implements
 	public void select(EiaType eiaType) {
 		activateForm(true);
 
-		this.currentEiaType = this.orginalEiaType = eiaType;
+		this.eiaType = this.orginalEiaType = eiaType;
 		if (eiaType.getBrand() != null)
 			brandItem.setValue(eiaType.getBrand().getId());
 		if (eiaType.getManufacturer() != null)
@@ -488,10 +485,10 @@ public class EIATypeInformationFormPanel extends VLayout implements
 	}
 
 	private void save() {
-		if (this.currentEiaType == null)
+		if (this.eiaType == null)
 			return;
 		final EiaType eiaType = new EiaType();
-		eiaType.setId(this.currentEiaType.getId());
+		eiaType.setId(this.eiaType.getId());
 		if (brandItem.getValue() != null)
 			eiaType.setBrand(new Brand(Integer.valueOf(brandItem
 					.getValueAsString()), null));
@@ -529,9 +526,8 @@ public class EIATypeInformationFormPanel extends VLayout implements
 
 									@Override
 									public void onFailure(Throwable caught) {
-										GHANotification
-												.alert("Error actualizando el eiaTypePicture: "
-														+ caught.getMessage());
+										Window.alert("Error actualizando el eiaTypePicture: "
+												+ caught.getMessage());
 									};
 								});
 					} else {
@@ -553,9 +549,8 @@ public class EIATypeInformationFormPanel extends VLayout implements
 									}
 
 									public void onFailure(Throwable caught) {
-										GHANotification
-												.alert("Error actualizando el eiaTypePicture: "
-														+ caught.getMessage());
+										Window.alert("Error actualizando el eiaTypePicture: "
+												+ caught.getMessage());
 									};
 
 								});
@@ -566,16 +561,14 @@ public class EIATypeInformationFormPanel extends VLayout implements
 
 				@Override
 				public void onFailure(Throwable caught) {
-					GHANotification.alert("Error actualizando el eiaType: "
+					Window.alert("Error actualizando el eiaType: "
 							+ caught.getMessage());
 				}
 			});
-		else {
+		else
 			// Mostrar solo la primera violación para evitar que salgan muchos
 			// pop-ups sucesivos
-			Window.alert("error de consistencia");
 			GHANotification.alert(violations.iterator().next().getMessage());
-		}
 
 	}
 
