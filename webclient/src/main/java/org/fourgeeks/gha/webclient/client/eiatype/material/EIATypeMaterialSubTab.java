@@ -19,7 +19,6 @@ public class EIATypeMaterialSubTab extends GHASubTab implements
 
 	@Override
 	public void select(EiaType eiaType) {
-		// TODO Auto-generated method stub
-
+		eiaTypeMaterialGridPanel.select(eiaType);
 	}
 }
