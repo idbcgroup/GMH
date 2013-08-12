@@ -44,7 +44,7 @@ public class EIATypeMaintenancePlanGrid extends ListGrid implements ResizeHandle
 	public EIATypeMaintenancePlanGrid() {
 		GHAUiHelper.addGHAResizeHandler(this);
 		setWidth100();
-		setHeight(GHAUiHelper.getGridSize(60));
+		setHeight(GHAUiHelper.getGridSize(30));
 		setEmptyMessage("No existe material para mostrar.");
 
 		setAlternateRecordStyles(false);
@@ -74,7 +74,7 @@ public class EIATypeMaintenancePlanGrid extends ListGrid implements ResizeHandle
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getGridSize(60));
+		setHeight(GHAUiHelper.getGridSize(30));
 	}
 
 }
