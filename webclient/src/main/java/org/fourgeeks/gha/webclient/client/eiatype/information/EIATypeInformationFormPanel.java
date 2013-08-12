@@ -81,23 +81,20 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		subTypeItem = new GHASelectItem("Subtipo", 150);
 
 		// inicializando componentes de las imagenes
-		img1 = new Img("../resources/img/default.png", 150, 100);
+		img1 = new Img("../resources/img/default.png", 130, 130);
 		img1.setImageType(ImageStyle.STRETCH);
 		img1.setBorder("1px solid gray");
-		img1.setSize("150px", "130px");
-		img1.setLeft(240);
+//		img1.setLeft(240);
 
-		img2 = new Img("../resources/img/default.png", 150, 100);
+		img2 = new Img("../resources/img/default.png", 130, 130);
 		img2.setImageType(ImageStyle.STRETCH);
 		img2.setBorder("1px solid gray");
-		img2.setSize("150px", "130px");
-		img2.setLeft(240);
+//		img2.setLeft(240);
 
-		img3 = new Img("../resources/img/default.png", 150, 100);
+		img3 = new Img("../resources/img/default.png", 130, 130);
 		img3.setImageType(ImageStyle.STRETCH);
 		img3.setBorder("1px solid gray");
-		img3.setSize("150px", "130px");
-		img3.setLeft(240);
+//		img3.setLeft(240);
 
 		validator = Validation.buildDefaultValidatorFactory().getValidator();
 	}
@@ -176,26 +173,6 @@ public class EIATypeInformationFormPanel extends VLayout implements
 
 	public EIATypeInformationFormPanel(EIATypeTab tab) {
 		activateForm(false);
-		/**************** COMPONENTE PARA SUBIDA DE IMAGEN ****************************************/
-		// http://code.google.com/p/gwtupload/wiki/CustomWidgets
-		SingleUploader uploadPhoto1 = new SingleUploader(FileInputType.LABEL);
-		uploadPhoto1.getWidget().setStyleName("upload-button");
-		uploadPhoto1.setValidExtensions("jpg", "jpeg", "png", "gif");
-		uploadPhoto1.setAutoSubmit(true);
-		uploadPhoto1.setAutoSubmit(true);
-
-		SingleUploader uploadPhoto2 = new SingleUploader(FileInputType.LABEL);
-		uploadPhoto2.getWidget().setStyleName("upload-button");
-		uploadPhoto2.setValidExtensions("jpg", "jpeg", "png", "gif");
-		uploadPhoto2.setAutoSubmit(true);
-
-		SingleUploader uploadPhoto3 = new SingleUploader(FileInputType.LABEL);
-		uploadPhoto3.getWidget().setStyleName("upload-button");
-		uploadPhoto3.setValidExtensions("jpg", "jpeg", "png", "gif");
-		uploadPhoto3.setAutoSubmit(true);
-
-		setOnFinishUploaderHandler();
-		/****************************************************************************************/
 		this.tab = tab;
 		tab.addGHAClosableHandler(this);
 		setWidth100();
@@ -232,9 +209,36 @@ public class EIATypeInformationFormPanel extends VLayout implements
 					}
 				}));
 
+		HLayout gridPanel = new HLayout();
+		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
+
+		/**************** COMPONENTE PARA SUBIDA DE IMAGEN ****************************************/
+		// http://code.google.com/p/gwtupload/wiki/CustomWidgets
+		SingleUploader uploadPhoto1 = new SingleUploader(FileInputType.LABEL);
+//		uploadPhoto1.setStyleName("GHAupload-button");
+		uploadPhoto1.getWidget().setStylePrimaryName("GHAupload-button");
+		uploadPhoto1.getWidget().setSize("20px", "20px");
+		uploadPhoto1.setValidExtensions("jpg", "jpeg", "png", "gif");
+		uploadPhoto1.setAutoSubmit(true);
+
+		SingleUploader uploadPhoto2 = new SingleUploader(FileInputType.LABEL);
+//		uploadPhoto2.setStyleName("GHAupload-button");
+		uploadPhoto2.getWidget().setStylePrimaryName("GHAupload-button");
+		uploadPhoto2.getWidget().setSize("20px", "20px");
+		uploadPhoto2.setValidExtensions("jpg", "jpeg", "png", "gif");
+		uploadPhoto2.setAutoSubmit(true);
+
+		SingleUploader uploadPhoto3 = new SingleUploader(FileInputType.LABEL);
+//		uploadPhoto3.setStyleName("GHAupload-button");
+		uploadPhoto3.getWidget().setStylePrimaryName("GHAupload-button");
+		uploadPhoto3.getWidget().setSize("20px", "20px");
+		uploadPhoto3.setValidExtensions("jpg", "jpeg", "png", "gif");
+		uploadPhoto3.setAutoSubmit(true);
+
+		setOnFinishUploaderHandler();
+		
 		GHAImgButton deleteButton1 = new GHAImgButton(
-				"../resources/icons/delete.png");
-		deleteButton1.addClickHandler(new ClickHandler() {
+				"../resources/icons/delete.png",new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
@@ -253,8 +257,7 @@ public class EIATypeInformationFormPanel extends VLayout implements
 			}
 		});
 		GHAImgButton deleteButton2 = new GHAImgButton(
-				"../resources/icons/delete.png");
-		deleteButton2.addClickHandler(new ClickHandler() {
+				"../resources/icons/delete.png",new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
@@ -274,9 +277,7 @@ public class EIATypeInformationFormPanel extends VLayout implements
 			}
 		});
 		GHAImgButton deleteButton3 = new GHAImgButton(
-				"../resources/icons/delete.png");
-		deleteButton3.addClickHandler(new ClickHandler() {
-
+			"../resources/icons/delete.png",new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				img3.setSrc("../resources/img/default.png");
@@ -291,48 +292,46 @@ public class EIATypeInformationFormPanel extends VLayout implements
 						});
 			}
 		});
-
+		
 		HLayout uploadImagenes = new HLayout();
-		VLayout buttons1 = new VLayout();
-		buttons1.setLayoutMargin(2);
-		buttons1.setBackgroundColor("#E0E0E0");
-		buttons1.setMembersMargin(2);
-		buttons1.setAutoWidth();
-		VLayout buttons2 = new VLayout();
-		buttons2.setLayoutMargin(2);
-		buttons2.setBackgroundColor("#E0E0E0");
-		buttons2.setMembersMargin(2);
-		buttons2.setAutoWidth();
+		
+			VLayout buttons1 = new VLayout();
+			buttons1.setWidth(30);
+			buttons1.setLayoutMargin(5);
+			buttons1.setMembersMargin(10);
+//			buttons1.setDefaultLayoutAlign(Alignment.CENTER);
+			buttons1.addMember(uploadPhoto1);
+			buttons1.addMember(deleteButton1);
+			
+			VLayout buttons2 = new VLayout();
+			buttons2.setWidth(30);
+			buttons2.setLayoutMargin(3);
+			buttons2.setMembersMargin(10);
+//			buttons2.setDefaultLayoutAlign(Alignment.CENTER);
+			buttons2.addMember(uploadPhoto2);
+			buttons2.addMember(deleteButton2);
+			
+			VLayout buttons3 = new VLayout();
+			buttons3.setWidth(30);
+			buttons3.setLayoutMargin(5);
+			buttons3.setMembersMargin(10);
+//			buttons3.setDefaultLayoutAlign(Alignment.CENTER);
+			buttons3.addMember(uploadPhoto3);
+			buttons3.addMember(deleteButton3);
 
-		VLayout buttons3 = new VLayout();
-		buttons3.setLayoutMargin(2);
-		buttons3.setBackgroundColor("#E0E0E0");
-		buttons3.setMembersMargin(2);
-		buttons3.setAutoWidth();
-
-		uploadImagenes.addMember(img1);
-		buttons1.addMember(uploadPhoto1);
-		buttons1.addMember(deleteButton1);
-
-		uploadImagenes.addMember(buttons1);
-		uploadImagenes.addMember(img2);
-		buttons2.addMember(uploadPhoto2);
-		buttons2.addMember(deleteButton2);
-		uploadImagenes.addMember(buttons2);
-		uploadImagenes.addMember(img3);
-		buttons3.addMember(uploadPhoto3);
-		buttons3.addMember(deleteButton3);
-		uploadImagenes.addMember(buttons3);
-
+		uploadImagenes.addMembers(img1,buttons1,
+								  img2,buttons2,
+								  img3,buttons3,new LayoutSpacer());
+		
 		uploadPhoto1.addOnFinishUploadHandler(onFinishUploaderHandler1);
 		uploadPhoto2.addOnFinishUploadHandler(onFinishUploaderHandler2);
 		uploadPhoto3.addOnFinishUploadHandler(onFinishUploaderHandler3);
-
-		HLayout gridPanel = new HLayout();
-		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
-
+		
+		/****************************************************************************************/
+		
 		addMember(gridPanel);
 		addMember(uploadImagenes);
+		
 		fillBrands();
 		fillMans();
 		fillExtras();
