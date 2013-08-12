@@ -15,6 +15,12 @@ public interface EiaTypeSpareServiceRemote {
 
 	public List<EiaTypeSpare> find(EiaType eiaType) throws EJBException;
 
+	public EiaTypeSpare find(long id) throws EJBException;
+
 	public void delete(long id) throws EJBException;
+
+	public List<EiaTypeSpare> getAll() throws EJBException;
+
+	public EiaTypeSpare update(EiaTypeSpare entity) throws EJBException;
 
 }

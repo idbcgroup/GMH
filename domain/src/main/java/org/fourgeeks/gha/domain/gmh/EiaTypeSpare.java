@@ -23,8 +23,10 @@ import org.fourgeeks.gha.domain.AbstractEntity;
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "eiaTypeFk",
 		"spareFk" }))
 @NamedQueries(value = {
+		@NamedQuery(name = "EiaTypeSpare.getAll",
+				query = "SELECT ets FROM EiaTypeSpare ets ORDER BY ets.id"),
 		@NamedQuery(name = "EiaTypeSpare.findByEiaType",
-				query = "SELECT ets from EiaTypeSpare ets WHERE ets.eiaType = :eiaType order by ets.id"),
+				query = "SELECT ets FROM EiaTypeSpare ets WHERE ets.eiaType = :eiaType ORDER BY ets.id")
 		})
 public class EiaTypeSpare extends AbstractEntity {
 
