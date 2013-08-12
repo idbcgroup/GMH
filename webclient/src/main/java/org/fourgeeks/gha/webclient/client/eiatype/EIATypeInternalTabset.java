@@ -7,8 +7,8 @@ import org.fourgeeks.gha.webclient.client.eiatype.equipment.EIATypeEquipmentSubT
 import org.fourgeeks.gha.webclient.client.eiatype.information.EIATypeInformationSubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.maintenance.EIATypeMaintenanceSubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.material.EIATypeMaterialSubTab;
-import org.fourgeeks.gha.webclient.client.eiatype.services.EIATypeServicesSubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.spare.EIATypeSpareSubTab;
+import org.fourgeeks.gha.webclient.client.eiatype.utility.EIATypeUtilitySubTab;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
@@ -22,7 +22,7 @@ public class EIATypeInternalTabset extends TabSet implements
 	private EIATypeComponentSubTab partsSubTab;
 	private EIATypeSpareSubTab replacementsSubTab;
 	private EIATypeMaterialSubTab materialSubTab;
-	private EIATypeServicesSubTab servicesSubTab;
+	private EIATypeUtilitySubTab servicesSubTab;
 	private EIATypeMaintenanceSubTab maintenanceSubTab;
 
 	public EIATypeInternalTabset(EIATypeTab tab) {
@@ -36,7 +36,7 @@ public class EIATypeInternalTabset extends TabSet implements
 		partsSubTab = new EIATypeComponentSubTab(tab);
 		replacementsSubTab = new EIATypeSpareSubTab(tab);
 		materialSubTab = new EIATypeMaterialSubTab(tab);
-		servicesSubTab = new EIATypeServicesSubTab(tab);
+		servicesSubTab = new EIATypeUtilitySubTab(tab);
 		maintenanceSubTab = new EIATypeMaintenanceSubTab(tab);
 
 		// Agregando las Subtabs

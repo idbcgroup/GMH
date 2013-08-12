@@ -20,6 +20,7 @@ import javax.persistence.criteria.Root;
 import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.glm.Material;
+import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 
 /**
@@ -174,7 +175,7 @@ public class MaterialService implements MaterialServiceRemote {
 					.setFirstResult(offset).setMaxResults(size).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all Materials", ex);
-			throw new EJBException("Error obteniendo todas las Materials"
+			throw new EJBException("Error obteniendo todos los Materials"
 					+ ex.getCause().getMessage());
 		}
 	}
@@ -220,6 +221,41 @@ public class MaterialService implements MaterialServiceRemote {
 			throw new EJBException("ERROR: no se puede eliminar el Material "
 					+ e.getCause().getMessage());
 		}
+	}
+
+	@Override
+	public List<Material> getAllUtilities() throws EJBException {
+		try {
+			return em
+					.createNamedQuery("Material.getByType", Material.class)
+					.setParameter("materialTypeId", MaterialTypeEnum.UTILITARIO)
+					.getResultList();
+		} catch (Exception ex) {
+			logger.log(Level.SEVERE,
+					"Error retrieving all Materials who are Utilities", ex);
+			throw new EJBException(
+					"Error obteniendo todos los Materials que son utilitarios"
+							+ ex.getCause().getMessage());
+		}
+
+	}
+
+	@Override
+	public List<Material> getAllUtilities(int offset, int size)
+			throws EJBException {
+		try {
+			return em
+					.createNamedQuery("Material.getByType", Material.class)
+					.setParameter("materialTypeId", MaterialTypeEnum.UTILITARIO)
+					.setFirstResult(offset).setMaxResults(size).getResultList();
+		} catch (Exception ex) {
+			logger.log(Level.SEVERE,
+					"Error retrieving all Materials who are Utilities", ex);
+			throw new EJBException(
+					"Error obteniendo todos los Materials que son utilitarios"
+							+ ex.getCause().getMessage());
+		}
+
 	}
 
 }

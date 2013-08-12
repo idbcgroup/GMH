@@ -64,4 +64,20 @@ public interface MaterialServiceRemote {
 	 * @throws EJBException
 	 */
 	public Material update(Material Material) throws EJBException;
+
+	/**
+	 * @return the list of Materials who are Utilities
+	 * @throws EJBException
+	 */
+	public List<Material> getAllUtilities() throws EJBException;
+
+	/**
+	 * @param offset
+	 * @param size
+	 * @return the list of Materials who are Utilities
+	 * @throws EJBException
+	 */
+	public List<Material> getAllUtilities(int offset, int size)
+			throws EJBException;
+
 }
