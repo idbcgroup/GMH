@@ -215,7 +215,6 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		/**************** COMPONENTE PARA SUBIDA DE IMAGEN ****************************************/
 		// http://code.google.com/p/gwtupload/wiki/CustomWidgets
 		SingleUploader uploadPhoto1 = new SingleUploader(FileInputType.BUTTON);
-				FileInputType.BROWSER_INPUT);
 		// uploadPhoto1.setStyleName("GHAupload-button");
 		uploadPhoto1.getWidget().setStylePrimaryName("GHAupload-button");
 		uploadPhoto1.getWidget().setSize("20px", "20px");
