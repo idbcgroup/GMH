@@ -121,7 +121,7 @@ public class MaterialService implements MaterialServiceRemote {
 
 		try {
 			return em.createNamedQuery("Material.findByName", Material.class)
-					.setParameter("name", entity.getName()).getResultList();
+					.setParameter("name", entity.getName() + "%").getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding by Material Material", e);
 			throw new EJBException("Error buscando Material por Material "

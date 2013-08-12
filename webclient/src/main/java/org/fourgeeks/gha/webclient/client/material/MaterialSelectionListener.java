@@ -8,8 +8,8 @@ import org.fourgeeks.gha.domain.glm.Material;
  */
 public interface MaterialSelectionListener {
 	/**
-	 * @param eiaType
+	 * @param material
 	 *            triggers when a material is selected
 	 */
-	public void select(Material eiaType);
+	public void select(Material material);
 }
