@@ -4,9 +4,7 @@ import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.webclient.client.UI.GHAGridField;
 import org.fourgeeks.gha.webclient.client.UI.GhaGrid;
 
-import com.google.gwt.event.logical.shared.ResizeHandler;
-
-public class EIAComponentGrid extends GhaGrid<Eia> implements ResizeHandler {
+public class EIAComponentGrid extends GhaGrid<Eia> {
 
 	public EIAComponentGrid() {
 	///////init
