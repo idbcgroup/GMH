@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eiatype.maintenance;
+package org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol;
 
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;

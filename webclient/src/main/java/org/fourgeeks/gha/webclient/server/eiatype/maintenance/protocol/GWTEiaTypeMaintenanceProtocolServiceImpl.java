@@ -12,7 +12,7 @@ import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenanceProtocol;
 import org.fourgeeks.gha.ejb.gmh.EiaTypeMaintenanceProtocolServiceRemote;
-import org.fourgeeks.gha.webclient.client.eiatype.maintenance.GWTEiaTypeMaintenanceProtocolService;
+import org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.GWTEiaTypeMaintenanceProtocolService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 

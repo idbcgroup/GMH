@@ -11,7 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.ejb.gmh.EiaTypeMaintenancePlanServiceRemote;
-import org.fourgeeks.gha.webclient.client.eiatype.maintenance.GWTEiaTypeMaintenancePlanService;
+import org.fourgeeks.gha.webclient.client.eiatype.maintenance.plan.GWTEiaTypeMaintenancePlanService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
