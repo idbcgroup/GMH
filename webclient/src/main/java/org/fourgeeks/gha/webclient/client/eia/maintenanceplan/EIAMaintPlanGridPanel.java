@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eia.maintenance_plan;
+package org.fourgeeks.gha.webclient.client.eia.maintenanceplan;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;

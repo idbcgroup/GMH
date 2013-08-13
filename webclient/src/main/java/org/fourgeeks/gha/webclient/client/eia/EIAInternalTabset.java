@@ -5,7 +5,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.eia.component.EIAComponentSubTab;
 import org.fourgeeks.gha.webclient.client.eia.cost.EIACostSubTab;
 import org.fourgeeks.gha.webclient.client.eia.information.EIAInformationSubTab;
-import org.fourgeeks.gha.webclient.client.eia.maintenance_plan.EIAMaintPlanSubTab;
+import org.fourgeeks.gha.webclient.client.eia.maintenanceplan.EIAMaintPlanSubTab;
 import org.fourgeeks.gha.webclient.client.eia.movements.EIAMovementsSubTab;
 import org.fourgeeks.gha.webclient.client.eia.spares.EIASpareSubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
