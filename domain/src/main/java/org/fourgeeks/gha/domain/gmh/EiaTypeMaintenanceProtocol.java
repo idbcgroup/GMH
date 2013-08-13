@@ -45,7 +45,7 @@ public class EiaTypeMaintenanceProtocol extends AbstractEntity {
 	@OneToMany(mappedBy = "parentProtocol")
 	private List<EiaTypeMaintenanceProtocol> childrenProtocols;
 	
-	@Column(nullable=false)
+	@Column
 	private int ordinal = 0;
 
 	private String description;

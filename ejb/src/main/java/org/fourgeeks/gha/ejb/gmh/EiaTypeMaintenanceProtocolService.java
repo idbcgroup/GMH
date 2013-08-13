@@ -70,8 +70,6 @@ public class EiaTypeMaintenanceProtocolService implements
 					.setParameter("eiaTypeMaintenancePlan",
 							eiaTypeMaintenancePlan).getResultList();
 			
-			//TODO: Armar el arbol de los protocolos de mantenimientos
-			
 			return res;
 		} catch (Exception ex) {
 			logger.log(

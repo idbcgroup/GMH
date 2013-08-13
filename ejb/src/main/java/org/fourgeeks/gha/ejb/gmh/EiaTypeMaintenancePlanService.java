@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 
 /**
@@ -62,8 +63,10 @@ public class EiaTypeMaintenancePlanService implements
 	public List<EiaTypeMaintenancePlan> findByEiaType(long eiaTypeId)
 			throws EJBException {
 		try {
+			EiaType eiaType = new EiaType();
+			eiaType.setId(eiaTypeId);
 			return em.createNamedQuery("EiaTypeMaintenancePlan.findByEiaType",
-					EiaTypeMaintenancePlan.class).setParameter("eiaType", eiaTypeId).getResultList();
+					EiaTypeMaintenancePlan.class).setParameter("eiaType", eiaType).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving EiaTypeMaintenancePlan by EiaType", ex);
 			throw new EJBException("Error obteniendo todos los EiaTypeMaintenancePlan"

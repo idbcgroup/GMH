@@ -9,6 +9,7 @@ import javax.naming.Context;
 
 import junit.framework.TestCase;
 
+import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.ejb.ContextDeployment;
 
@@ -18,6 +19,7 @@ import org.fourgeeks.gha.ejb.ContextDeployment;
  */
 public class EiaTypeMaintenancePlanServiceTest extends TestCase {
 	private EiaTypeMaintenancePlanServiceRemote ejbService;
+	private EiaTypeServiceRemote eiaTypeService;
 	private List<EiaTypeMaintenancePlan> maintenancePlans;
 	
 	@Override
@@ -25,6 +27,8 @@ public class EiaTypeMaintenancePlanServiceTest extends TestCase {
 		 Context context = ContextDeployment.getContext();
 		 ejbService = (EiaTypeMaintenancePlanServiceRemote) context
 				 .lookup("java:global/ejb/gmh.EiaTypeMaintenancePlanService");
+		 eiaTypeService = (EiaTypeServiceRemote) context.lookup("java:global/ejb/gmh.EiaTypeService");
+		 
 	}
 
 	public void test() throws Exception {
@@ -35,6 +39,17 @@ public class EiaTypeMaintenancePlanServiceTest extends TestCase {
 		
 		for(EiaTypeMaintenancePlan plan : maintenancePlans){
 			System.out.println("Maintenance Plan: "+ plan.getDescription());
+		}
+		
+		EiaType eiaType = eiaTypeService.find(1L);
+		EiaTypeMaintenancePlan eiaTypeMaintenancePlan = maintenancePlans.get(0);
+		eiaTypeMaintenancePlan.setEiaType(eiaType);
+		ejbService.update(eiaTypeMaintenancePlan);
+		
+		List<EiaTypeMaintenancePlan> mantPlansByEiaType = ejbService.findByEiaType(1L);
+		assertNotNull(mantPlansByEiaType);
+		for(EiaTypeMaintenancePlan etmp : mantPlansByEiaType){
+			System.out.println(etmp.getDescription());
 		}
 		
 	}

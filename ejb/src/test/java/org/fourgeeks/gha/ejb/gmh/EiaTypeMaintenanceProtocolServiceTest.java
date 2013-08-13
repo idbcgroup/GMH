@@ -40,15 +40,7 @@ public class EiaTypeMaintenanceProtocolServiceTest extends TestCase {
 
 		maintenanceProtocols = ejbService.findByEiaTypeMaintenancePlan(maintenancePlans.get(0));
 		for(EiaTypeMaintenanceProtocol protocol : maintenanceProtocols){
-//			System.out.println(protocol.getDescription() + "ordinal #" + protocol.getOrdinal());
-			
-//			System.out.println("children");
-			List <EiaTypeMaintenanceProtocol> childrenProtocols = protocol.getChildrenProtocols();
-			assertNotNull(childrenProtocols);
-			
-			for(EiaTypeMaintenanceProtocol childProtocol : childrenProtocols){
-//				System.out.println(childProtocol.getDescription());
-			}
+			System.out.println(protocol.getDescription() + "ordinal #" + protocol.getOrdinal());
 		}
 
 	}

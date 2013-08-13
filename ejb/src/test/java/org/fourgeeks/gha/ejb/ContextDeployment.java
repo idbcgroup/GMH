@@ -5,7 +5,6 @@ import java.util.Properties;
 import javax.ejb.embeddable.EJBContainer;
 import javax.naming.Context;
 import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
 
 
 /**
@@ -29,7 +28,7 @@ public class ContextDeployment {
 		p.put("gha.password", "postgres");
 		context = EJBContainer.createEJBContainer(p).getContext();
 
-		em = Persistence.createEntityManagerFactory("gha").createEntityManager();
+//		em = Persistence.createEntityManagerFactory("gha").createEntityManager();
 
 	}
 
@@ -45,8 +44,8 @@ public class ContextDeployment {
 		p.put("gha.password", "postgres");
 		context = EJBContainer.createEJBContainer(p).getContext();
 
-		em = Persistence.createEntityManagerFactory("gha")
-				.createEntityManager();
+//		em = Persistence.createEntityManagerFactory("gha")
+//				.createEntityManager();
 
 	}
 
