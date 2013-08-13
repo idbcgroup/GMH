@@ -5,18 +5,18 @@ import org.fourgeeks.gha.webclient.client.UI.GHASubTab;
 import org.fourgeeks.gha.webclient.client.eia.EIATab;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
-public class EIAMantPlanSubTab extends GHASubTab implements EIATypeSelectionListener{
+public class EIAMaintPlanSubTab extends GHASubTab implements EIATypeSelectionListener{
 	
-	private EIAMantPlanGridPanel eiaMantPlanGridPanel = null;
+	private EIAMaintPlanGridPanel eiaMaintPlanGridPanel = null;
 	
-	public EIAMantPlanSubTab(EIATab tab) {
+	public EIAMaintPlanSubTab(EIATab tab) {
 		super("Planes Mantenimiento", tab);
 		
-		eiaMantPlanGridPanel = new EIAMantPlanGridPanel();
-		addGHAClosableHandler(eiaMantPlanGridPanel);
-		addGHAHideableHandler(eiaMantPlanGridPanel);
+		eiaMaintPlanGridPanel = new EIAMaintPlanGridPanel();
+		addGHAClosableHandler(eiaMaintPlanGridPanel);
+		addGHAHideableHandler(eiaMaintPlanGridPanel);
 		
-		setPane(eiaMantPlanGridPanel);
+		setPane(eiaMaintPlanGridPanel);
 	}
 
 	@Override
