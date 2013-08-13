@@ -1,9 +1,12 @@
 package org.fourgeeks.gha.webclient.client.eiatype;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.domain.gmh.EiaTypePicture;
+import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.GHAImg;
@@ -14,6 +17,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
+import com.google.gwt.user.client.Window;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.types.VerticalAlignment;
@@ -32,7 +36,12 @@ public class EIATypeTopSection extends HLayout implements
 	private EIATypeSearchForm eiaTypeSearchForm;
 	private GHATextItem nameItem, codeItem, brandItem, modelItem, manItem,
 						umdnsCodeItem, mobilityItem,typeItem, subTypeItem;
+	private List<EiaTypePicture> listEiaTypePictures;
+	int index;
+	private GHAImg photo;
 	{
+		index = 0;
+		listEiaTypePictures = new ArrayList<EiaTypePicture>();
 		selectionListeners = new LinkedList<EIATypeSelectionListener>();
 		eiaTypeSearchForm = new EIATypeSearchForm();
 		codeItem = new GHATextItem("Código", false);
@@ -86,7 +95,7 @@ public class EIATypeTopSection extends HLayout implements
 		photoPanel.setMembersMargin(10);
 		photoPanel.setWidth(130);
 		// photoPanel.setDefaultLayoutAlign(Alignment.CENTER);
-		GHAImg photo = new GHAImg("../resources/img/Foto.jpg", 80, 80);
+		photo = new GHAImg("../resources/img/Foto.jpg", 80, 80);
 		// photo.setTop(8);
 		photo.setStyleName("top-8");
 
@@ -97,9 +106,16 @@ public class EIATypeTopSection extends HLayout implements
 		photoBotones.setDefaultLayoutAlign(Alignment.CENTER);
 
 		GHAImgButton searchPhoto = new GHAImgButton("../resources/icons/search.png");
-		// GHAButton cleanPhoto = new GHAButton("../resources/icons/clean.png");
+		GHAImgButton nextPhoto = new GHAImgButton("../resources/icons/arrow.png");
+		nextPhoto.addClickHandler(new ClickHandler() {		
+			@Override
+			public void onClick(ClickEvent event) {		
+				next();			
+			}
+		});
+		
 		photoBotones.addMembers(searchPhoto);
-
+		photoBotones.addMembers(nextPhoto);
 		photoPanel.addMembers(photo, photoBotones);
 
 		// Botones laterales del Panel
@@ -136,11 +152,50 @@ public class EIATypeTopSection extends HLayout implements
 
 		addMembers(form, new LayoutSpacer(), photoPanel, new LayoutSpacer(), panelBotones);
 	}
+	
+	private void next()
+	{
+		if(index < listEiaTypePictures.size()){
+			index++;
+			EiaTypePicture picture = listEiaTypePictures.get(index);
+			photo.setSrc("../webclient/picture/eiaType/"
+					+ picture.getPicture());
+			Window.alert("Imagen1: "+picture.getPicture());
+		} else
+			{
+				index = 0;
+				EiaTypePicture picture = listEiaTypePictures.get(index);
+				photo.setSrc("../webclient/picture/eiaType/"
+						+ picture.getPicture());
+				Window.alert("Imagen2: "+picture.getPicture());
+			}
+				
+	}
+/**
+ * Obtiene las fotografias de un EiaType
+ * @param eiaType
+ */
+	private void getEiaTypePicture(EiaType eiaType){
+		EIATypePictureModel.find(eiaType,
+				new GHAAsyncCallback<List<EiaTypePicture>>() {
 
+					@Override
+					public void onSuccess(List<EiaTypePicture> result) {
+						Window.alert("imagenes obtenidas con exito: "+result.size());
+						listEiaTypePictures = result;
+						EiaTypePicture picture1 = result.get(0);
+						photo.setSrc("../webclient/picture/eiaType/"
+								+ picture1.getPicture());
+						Window.alert("imagen desplegada en el componente");
+					}
+				});
+	}
 	@Override
 	public void select(EiaType eiaType) {
 		// Window.alert("top section select");
+		
 		selectEiaType(eiaType);
+		getEiaTypePicture(eiaType);
 		codeItem.setValue(eiaType.getCode());
 		nameItem.setValue(eiaType.getName());
 
