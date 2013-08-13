@@ -22,12 +22,9 @@ import org.fourgeeks.gha.domain.AbstractEntity;
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "eiaFk",
 		"parentEiaFk" }))
-@NamedQueries(value = { 
-		@NamedQuery(name = "EiaComponent.getAll", 
-				query = "SELECT e from EiaComponent e group by e.parentEia order by e.id"),
-		@NamedQuery(name = "EiaComponent.findByParentEiaId",
-				query = "SELECT e from EiaComponent e WHERE e.parentEia = :parentEia order by e.id")
-})
+@NamedQueries(value = {
+		@NamedQuery(name = "EiaComponent.getAll", query = "SELECT e from EiaComponent e group by e.parentEia order by e.id"),
+		@NamedQuery(name = "EiaComponent.findByParentEiaId", query = "SELECT e from EiaComponent e WHERE e.parentEia = :parentEia order by e.id") })
 public class EiaComponent extends AbstractEntity {
 
 	/**
@@ -37,11 +34,11 @@ public class EiaComponent extends AbstractEntity {
 
 	@OneToOne
 	@JoinColumn(name = "eiaFk", nullable = false)
-	private Eia eia;
+	private Eia eia; // Yo mismo
 
 	@ManyToOne
 	@JoinColumn(name = "parentEiaFk", nullable = false)
-	private Eia parentEia;
+	private Eia parentEia; // De quien soy componente
 
 	/** Attributes */
 	private String componentObs;
