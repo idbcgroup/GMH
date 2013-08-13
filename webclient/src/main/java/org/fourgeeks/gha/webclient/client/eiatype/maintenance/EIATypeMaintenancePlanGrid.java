@@ -18,7 +18,7 @@ public class EIATypeMaintenancePlanGrid extends GhaGrid<EiaTypeMaintenancePlan>{
 		GHAGridField periodOfTimeGridField = new GHAGridField("pod", "Periodo de Tiempo");
 		GHAGridField protocolGridField = new GHAGridField("protocol", "Protocolo");
 		
-		setFields(idGridField, typeMantGridField, descriptionGridField, freqGridField, usesGridField, protocolGridField);
+		setFields(idGridField, typeMantGridField, descriptionGridField, freqGridField, usesGridField, periodOfTimeGridField, protocolGridField);
 	}
 
 }
