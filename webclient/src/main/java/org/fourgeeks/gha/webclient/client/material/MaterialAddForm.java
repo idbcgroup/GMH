@@ -40,7 +40,7 @@ public class MaterialAddForm extends GHASlideInWindow {
 		descriptionItem = new GHATextItem("Descripción", 480);
 		descriptionItem.setColSpan(3);
 		typeItem = new GHASelectItem("Tipo", 150);
-		modelItem = new GHATextItem("Modelo, 150");
+		modelItem = new GHATextItem("Modelo", 150);
 		externalProviderItem = new GHASelectItem("Proveedor externo", 150);
 	}
 	
