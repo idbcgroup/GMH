@@ -94,6 +94,10 @@ public class EiaType extends AbstractEntity {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	public EiaType(long id) {
+		setId(id);
+	}
 
 	/**
 	 * @param brand
