@@ -9,7 +9,6 @@ import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.validation.ConstraintViolationException;
@@ -134,14 +133,10 @@ public class EiaTypeComponentService implements EiaTypeComponentServiceRemote {
 	@Override
 	public List<EiaTypeComponent> getAll(int offset, int size)
 			throws EJBException {
-		String query = "SELECT e from EiaTypeComponent e order by parenteiatypefk";
-		List<EiaTypeComponent> res = null;
-
 		try {
-			res = em.createQuery(query, EiaTypeComponent.class)
-					.setFirstResult(offset).setMaxResults(size).getResultList();
-		} catch (NoResultException e) {
-			logger.log(Level.INFO, "Get All: no results", e);
+			return em.createNamedQuery("EiaTypeComponent.getAll",
+					EiaTypeComponent.class).setFirstResult(offset)
+					.setMaxResults(size).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retriving all EiaTypeComponents",
 					ex);
@@ -149,8 +144,6 @@ public class EiaTypeComponentService implements EiaTypeComponentServiceRemote {
 					"Error obteniendo todos los eiaTypeComponents "
 							+ ex.getCause().getMessage());
 		}
-
-		return res;
 	}
 
 	/*
