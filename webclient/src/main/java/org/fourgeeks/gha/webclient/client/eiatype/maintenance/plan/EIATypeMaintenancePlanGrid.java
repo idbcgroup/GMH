@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eiatype.maintenance;
+package org.fourgeeks.gha.webclient.client.eiatype.maintenance.plan;
 
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAGridField;

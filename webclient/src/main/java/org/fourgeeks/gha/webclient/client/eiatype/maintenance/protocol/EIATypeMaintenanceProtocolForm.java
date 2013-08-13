@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eiatype.maintenance;
+package org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.GHAHideable;
@@ -18,11 +18,11 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class EIATypeMainenanceProtocolForm extends GHASlideInWindow implements GHAClosable,GHAHideable, ResizeHandler{
+public class EIATypeMaintenanceProtocolForm extends GHASlideInWindow implements GHAClosable,GHAHideable, ResizeHandler{
 
 	private EIATypeMaintenanceProtocolGrid eiaTypeMaintenanceProtocolGrid = new EIATypeMaintenanceProtocolGrid();
 		
-	public EIATypeMainenanceProtocolForm() {
+	public EIATypeMaintenanceProtocolForm() {
 		GHAUiHelper.addGHAResizeHandler(this);
 		setWidth100();
 		setHeight(GHAUiHelper.getBottomSectionHeight()-20);
