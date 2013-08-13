@@ -86,7 +86,8 @@ public class BrandService implements BrandServiceRemote {
 	@Override
 	public List<Brand> getAll() throws EJBException {
 		try {
-			return em.createNamedQuery("Brand.getAll", Brand.class).getResultList();
+			return em.createNamedQuery("Brand.getAll", Brand.class)
+					.getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all brands", ex);
 			throw new EJBException("Error obteniendo todas las brands"

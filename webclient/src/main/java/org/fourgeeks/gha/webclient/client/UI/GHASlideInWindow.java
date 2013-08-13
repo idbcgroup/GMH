@@ -1,6 +1,5 @@
 package org.fourgeeks.gha.webclient.client.UI;
 
-import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
@@ -43,10 +42,5 @@ public abstract class GHASlideInWindow extends VLayout implements
 	@Override
 	public void hide() {
 		animateHide(AnimationEffect.FLY);
-	}
-
-	@Override
-	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getTabHeight() + "px");
 	}
 }

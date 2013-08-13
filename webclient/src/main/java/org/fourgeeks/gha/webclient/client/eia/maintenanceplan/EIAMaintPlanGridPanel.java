@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eiatype.maintenance;
+package org.fourgeeks.gha.webclient.client.eia.maintenanceplan;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
@@ -13,49 +13,47 @@ import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIATypeMaintenanceProtocolGridPanel extends VLayout 
-					implements EIATypeSelectionListener, GHAClosable, GHAHideable{
-
-	private EIATypeMaintenanceProtocolGrid eiaTypeMaintenanceProtocolGrid = new EIATypeMaintenanceProtocolGrid();
+public class EIAMaintPlanGridPanel extends VLayout implements EIATypeSelectionListener, GHAClosable, GHAHideable{
 	
-	public EIATypeMaintenanceProtocolGridPanel() {
+	private EIAMaintPlanGrid eiaTypeMaintenancePlanGrid = new EIAMaintPlanGrid();
+	
+	public EIAMaintPlanGridPanel() {
 		setWidth100();
-				
-		Label title = new Label("<h3>Protocolos</h3>");
+		setBackgroundColor("#E0E0E0");
+		setStyleName("sides-padding top-padding");// Esto es VUDU!
+		
+		Label title = new Label("<h3>Planes de Mantenimiento</h3>");
 		title.setHeight(35);
 		title.setWidth100();
 		title.setStyleName("title-label");
-		
-// //////Botones laterales
-		
-	    VLayout sideButtons = GHAUiHelper.createBar(
+	
+		VLayout sideButtons = GHAUiHelper.createBar(
 	    		new GHAImgButton("../resources/icons/new.png", new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						// TODO Auto-generated method stub
-//						form.animateShow(AnimationEffect.FLY);
+						
 					}
 				}),
 	    		new GHAImgButton("../resources/icons/edit.png"),
 	    		new GHAImgButton("../resources/icons/delete.png"),
+	    		GHAUiHelper.verticalGraySeparator("2px"),
 	    		new GHAImgButton("../resources/icons/set.png", new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						// TODO Auto-generated method stub
-//						EIARecord selectedRecord = (EIARecord) eiaTypeGrid.getSelectedRecord();
-//						History.newItem("eia/" + selectedRecord.getCode());
+						
 					}
 				}));
 		
 	    HLayout mainPanel = new HLayout();
-		mainPanel.addMembers(eiaTypeMaintenanceProtocolGrid, sideButtons);
-	    
-		addMembers(title,mainPanel);
+		mainPanel.addMembers(eiaTypeMaintenancePlanGrid, sideButtons);
+		
+	    addMembers(title,mainPanel);
 	}
 
 	@Override
 	public void select(EiaType eiaType) {
 		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
@@ -64,4 +62,9 @@ public class EIATypeMaintenanceProtocolGridPanel extends VLayout
 		
 	}
 
+	@Override
+	public void hide() {
+		// TODO Auto-generated method stub
+		
+	}
 }

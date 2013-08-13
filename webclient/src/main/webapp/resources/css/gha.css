@@ -247,23 +247,30 @@ input[type=text].round,input[type=password].round{
 	background-color: #00A0F6;
 }
 
-.GHAupload-button{
-   background: url(../icons/search.png);
-   background-repeat: no-repeat;
-}	
+/* .GHAupload-button{ */
+/*    background: url(../icons/search.png); */
+/*    background-repeat: no-repeat; */
+/* }	 */
 
-table.GHAupload-button tbody tr td form div.upld-form-elements div.DecoratedFileUpload
+table.GHAupload-button tbody tr td form div.upld-form-elements div.DecoratedFileUpload button.gwt-Button
 {	
-	font-size: 0px;
-	color: white;
-	height: 25px;
-	width: 25px;
+	background: none;
+	border: none;
+	font-weight: bold;
+	padding-left:0px;
+/* 	font-size: 0px; */
 }
 
-.GHAupload-button-over {
-   background: url(../icons/search_Over.png);
-   background-repeat: no-repeat;
- }
+table.GHAupload-button tbody tr td form div.upld-form-elements div.DecoratedFileUpload button.gwt-Button-over
+{	
+	color:#37A0F7;
+/* 	font-size: 0px; */
+}
+
+/* .GHAupload-button-over { */
+/*    background: url(../icons/search_Over.png); */
+/*    background-repeat: no-repeat; */
+/*  } */
 
 .centered{	
 	margin-left: auto;   

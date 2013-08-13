@@ -14,7 +14,7 @@ public class EIATypeMaintenanceSubTab extends GHASubTab implements
 	private EIATypeMaintenanceGridPanel eiaTypeMaintenanceGridPanel;
 
 	public EIATypeMaintenanceSubTab(EIATypeTab tab) {
-		super("Mantenimiento y Protocolos",tab);
+		super("Mantenimiento",tab);
 		
 		eiaTypeMaintenanceGridPanel = new EIATypeMaintenanceGridPanel();
 		

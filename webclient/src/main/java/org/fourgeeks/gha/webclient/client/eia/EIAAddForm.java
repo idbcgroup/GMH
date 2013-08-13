@@ -33,7 +33,6 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
-import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.Label;
@@ -50,7 +49,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret Add Eia Form
  * 
  */
-public class EIAAddForm extends GHASlideInWindow implements ResizeHandler,
+public class EIAAddForm extends GHASlideInWindow implements
 		EIATypeSelectionListener {
 
 	private List<EIASelectionListener> listeners;
@@ -230,14 +229,15 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler,
 						save();
 
 					}
-				}), new GHAImgButton("../resources/icons/set.png"), new GHAImgButton(
-				"../resources/icons/cancel.png", new ClickHandler() {
+				}), new GHAImgButton("../resources/icons/set.png"),
+				new GHAImgButton("../resources/icons/cancel.png",
+						new ClickHandler() {
 
-					@Override
-					public void onClick(ClickEvent event) {
-						cancel();
-					}
-				}));
+							@Override
+							public void onClick(ClickEvent event) {
+								cancel();
+							}
+						}));
 
 		HLayout mainLayout = new HLayout();
 		mainLayout.addMember(sectionForm);
@@ -578,7 +578,7 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler,
 
 		eia.setEiaType(this.eiaType);
 		if (this.eiaType == null) {
-			//TODO: Use gha info Window.alert("Select EiaType First");
+			// TODO: Use gha info Window.alert("Select EiaType First");
 			return;
 		}
 
@@ -591,7 +591,7 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler,
 			obu.setId(Integer.valueOf(obuSelectItem.getValueAsString()));
 			eia.setObu(obu);
 		} else {
-			//TODO Use gha info Window.alert("Select Obu First");
+			// TODO Use gha info Window.alert("Select Obu First");
 			return;
 		}
 
@@ -601,7 +601,7 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler,
 					.getValueAsString()));
 			eia.setResponsibleRole(baseRole);
 		} else {
-			//TODO Use gha info Window.alert("Select BaseRole First");
+			// TODO Use gha info Window.alert("Select BaseRole First");
 			return;
 		}
 
@@ -609,7 +609,7 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler,
 			eia.setState(EiaStateEnum.valueOf(stateSelectItem
 					.getValueAsString()));
 		} else {
-			//TODO Use gha info Window.alert("Select EiaState First");
+			// TODO Use gha info Window.alert("Select EiaState First");
 			return;
 		}
 
@@ -630,7 +630,7 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler,
 			eia.setProvider(new ExternalProvider(Integer
 					.valueOf(providerSelectItem.getValueAsString())));
 		} else {
-			//TODO Use gha info Window.alert("Select Provider First");
+			// TODO Use gha info Window.alert("Select Provider First");
 			return;
 		}
 
@@ -650,12 +650,13 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler,
 					eia.setAttendedLocation(new BuildingLocation(
 							attendedLocationSelectItem.getValueAsString()));
 				} else {
-					//TODO Use gha info Window.alert("Select Attended Building Location First");
+					// TODO Use gha info
+					// Window.alert("Select Attended Building Location First");
 					return;
 				}
 			}
 		} else {
-			//TODO Use gha info Window.alert("Select Building Location first");
+			// TODO Use gha info Window.alert("Select Building Location first");
 			return;
 		}
 
@@ -827,7 +828,7 @@ public class EIAAddForm extends GHASlideInWindow implements ResizeHandler,
 		lastDepreciationDate.setValue("");
 		realWarrantyBeginDate.setValue("");
 		intWarrantyBeginDate.setValue("");
-		
+
 		sameLocationAttendedItem.setValue(false);
 		isInMaintenanceItem.setValue(false);
 
