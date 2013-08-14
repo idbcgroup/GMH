@@ -1,13 +1,11 @@
 package org.fourgeeks.gha.webclient.client.eia;
 
 import java.math.BigDecimal;
-import java.sql.Date;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
-import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
 import org.fourgeeks.gha.domain.ess.RoleBase;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Obu;
@@ -15,12 +13,10 @@ import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
-import org.fourgeeks.gha.webclient.client.UI.GHADateItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.GHASlideInWindow;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
-import org.fourgeeks.gha.webclient.client.UI.GHATitleTextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -40,40 +36,24 @@ public class EIASearchForm extends GHASlideInWindow {
 	private List<EIASelectionListener> listeners;
 	private EIAGrid grid;
 	private GHATextItem actualCostItem, codeItem, fixedAssetIdentifierItem,
-			serialNumberItem, realWarrantyTimeItem,
-			intWarrantySinceItem, intWarrantyTimeItem;
-	private GHADateItem acceptationDateItem, installationDateItem, purchaseDateItem;
+			serialNumberItem;
 	private GHASelectItem responsibleRoleItem, eiaTypeItem, buildingLocationItem, obuItem,
-			stateItem, realWarrantySinceItem;
-	private GHATitleTextItem garantia, intermediario;
+			stateItem;
 	
 	{
 		listeners = new LinkedList<EIASelectionListener>();
 		
-		acceptationDateItem = new GHADateItem("Recibido");
 		actualCostItem = new GHATextItem("Costo actual");
 		responsibleRoleItem = new GHASelectItem("Responsable");
 		codeItem = new GHATextItem("Código");
 		eiaTypeItem = new GHASelectItem("Tipo de equipo");
 		fixedAssetIdentifierItem = new GHATextItem("Identificador");
-		installationDateItem = new GHADateItem("Instalación");
 		
 		buildingLocationItem = new GHASelectItem("Ubicación");
 		
 		obuItem = new GHASelectItem("Organización");
-		purchaseDateItem = new GHADateItem("Fecha de compra");
 		serialNumberItem = new GHATextItem("Serial");
 		stateItem = new GHASelectItem("Estado");
-		
-		garantia = new GHATitleTextItem("Garantía:");
-		
-		realWarrantySinceItem = new GHASelectItem("Desde");
-		realWarrantyTimeItem = new GHATextItem("Período");
-		
-		intermediario = new GHATitleTextItem("Intermediario:");
-		
-		intWarrantySinceItem = new GHATextItem("Desde");
-		intWarrantyTimeItem = new GHATextItem("Período");
 		
 		grid = new EIAGrid();
 		grid.setHeight(GHAUiHelper.getGridSize(30));
@@ -88,12 +68,8 @@ public class EIASearchForm extends GHASlideInWindow {
 		form.setNumCols(5);
 		
 		form.setItems(
-				acceptationDateItem,actualCostItem,  
-				responsibleRoleItem, codeItem, eiaTypeItem, fixedAssetIdentifierItem,
-				installationDateItem, buildingLocationItem, 
-				obuItem, purchaseDateItem, serialNumberItem, stateItem, garantia,
-				realWarrantySinceItem, realWarrantyTimeItem, intermediario, intWarrantySinceItem, 
-				intWarrantyTimeItem
+				actualCostItem, responsibleRoleItem, codeItem, eiaTypeItem, fixedAssetIdentifierItem,
+				buildingLocationItem, obuItem, serialNumberItem, stateItem
 		);
 		
 		// Event Handlers
@@ -113,24 +89,15 @@ public class EIASearchForm extends GHASlideInWindow {
 				}
 			}
 		};
-		acceptationDateItem.addKeyUpHandler(searchKeyUpHandler);
 		actualCostItem.addKeyUpHandler(searchKeyUpHandler);
 		responsibleRoleItem.addKeyUpHandler(searchKeyUpHandler);
 		codeItem.addKeyUpHandler(searchKeyUpHandler);
 		eiaTypeItem.addKeyUpHandler(searchKeyUpHandler);
 		fixedAssetIdentifierItem.addKeyUpHandler(searchKeyUpHandler);
-		installationDateItem.addKeyUpHandler(searchKeyUpHandler);
 		buildingLocationItem.addKeyUpHandler(searchKeyUpHandler);
 		obuItem.addKeyUpHandler(searchKeyUpHandler);
-		purchaseDateItem.addKeyUpHandler(searchKeyUpHandler);
 		serialNumberItem.addKeyUpHandler(searchKeyUpHandler);
 		stateItem.addKeyUpHandler(searchKeyUpHandler);
-		garantia.addKeyUpHandler(searchKeyUpHandler);
-		realWarrantySinceItem.addKeyUpHandler(searchKeyUpHandler);
-		realWarrantyTimeItem.addKeyUpHandler(searchKeyUpHandler);
-		intermediario.addKeyUpHandler(searchKeyUpHandler);
-		intWarrantySinceItem.addKeyUpHandler(searchKeyUpHandler);
-		intWarrantyTimeItem.addKeyUpHandler(searchKeyUpHandler);
 		
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
 				"../resources/icons/search.png", searchClickHandler),
@@ -179,8 +146,6 @@ public class EIASearchForm extends GHASlideInWindow {
 	private void fillExtras() {
 		// state
 		stateItem.setValueMap(EiaStateEnum.toValueMap());
-		// real warranty since
-		realWarrantySinceItem.setValueMap(WarrantySinceEnum.toValueMap());
 	}
 	
 	private void searchForEiaTypes() {
@@ -250,8 +215,6 @@ public class EIASearchForm extends GHASlideInWindow {
 
 	private void search() {
 		Eia eia = new Eia();
-		if (acceptationDateItem.getValue() != null)
-			eia.setAcceptationDate(new Date(acceptationDateItem.getValueAsDate().getTime()));
 		if (actualCostItem.getValue() != null)
 			eia.setActualCost(new BigDecimal(actualCostItem.getValueAsString()));
 		if (responsibleRoleItem.getValue() != null)
@@ -264,27 +227,13 @@ public class EIASearchForm extends GHASlideInWindow {
 					Long.parseLong(eiaTypeItem.getValueAsString()))
 			);
 		eia.setFixedAssetIdentifier(fixedAssetIdentifierItem.getValueAsString());
-		if (installationDateItem.getValue() != null)
-			eia.setInstallationDate(new Date(installationDateItem.getValueAsDate().getTime()));
 		if (buildingLocationItem.getValue() != null)
 			eia.setBuildingLocation(new BuildingLocation(buildingLocationItem.getValueAsString()));
 		if (obuItem.getValue() != null)
 			eia.setObu(new Obu(Long.parseLong(obuItem.getValueAsString())));
-		if (purchaseDateItem.getValue() != null)
-			eia.setPurchaseDate(new Date(purchaseDateItem.getValueAsDate().getTime()));
 		eia.setSerialNumber(serialNumberItem.getValueAsString());
 		if (stateItem.getValue() != null)
 			eia.setState(EiaStateEnum.valueOf(stateItem.getValueAsString()));
-		if (realWarrantySinceItem.getValue() != null)
-			eia.setRealWarrantySince(
-					WarrantySinceEnum.valueOf(realWarrantySinceItem.getValueAsString()));
-		if (realWarrantyTimeItem.getValue() != null)
-			eia.setRealWarrantyTime(Integer.parseInt(realWarrantyTimeItem.getValueAsString()));
-		if (intWarrantySinceItem.getValue() != null)
-			eia.setIntWarrantySince(
-				WarrantySinceEnum.valueOf(intWarrantySinceItem.getValueAsString()));
-		if (intWarrantyTimeItem.getValue() != null)
-			eia.setIntWarrantyTime(Integer.parseInt(intWarrantyTimeItem.getValueAsString()));
 		search(eia);
 	}
 	
