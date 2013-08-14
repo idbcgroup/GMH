@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eiatype.maintenance;
+package org.fourgeeks.gha.webclient.client.eia.maintenanceplan;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
@@ -7,23 +7,27 @@ import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
-import com.smartgwt.client.types.AnimationEffect;
+import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIATypeMaintenancePlanGridPanel extends VLayout implements EIATypeSelectionListener,GHAClosable,GHAHideable{
-
-	private EIATypeMaintenancePlanGrid eiaTypeMaintenancePlanGrid = new EIATypeMaintenancePlanGrid();
-	private EIATypeMainenanceProtocolForm mainenanceProtocolForm = new EIATypeMainenanceProtocolForm();
+public class EIAMaintPlanGridPanel extends VLayout implements EIATypeSelectionListener, GHAClosable, GHAHideable{
 	
-	public EIATypeMaintenancePlanGridPanel() {
+	private EIAMaintPlanGrid eiaTypeMaintenancePlanGrid = new EIAMaintPlanGrid();
+	
+	public EIAMaintPlanGridPanel() {
 		setWidth100();
+		setBackgroundColor("#E0E0E0");
+		setStyleName("sides-padding top-padding");// Esto es VUDU!
 		
-// //////Botones laterales
-		
-	    VLayout sideButtons = GHAUiHelper.createBar(
+		Label title = new Label("<h3>Planes de Mantenimiento</h3>");
+		title.setHeight(35);
+		title.setWidth100();
+		title.setStyleName("title-label");
+	
+		VLayout sideButtons = GHAUiHelper.createBar(
 	    		new GHAImgButton("../resources/icons/new.png", new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
@@ -36,14 +40,14 @@ public class EIATypeMaintenancePlanGridPanel extends VLayout implements EIATypeS
 	    		new GHAImgButton("../resources/icons/set.png", new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						mainenanceProtocolForm.animateShow(AnimationEffect.FLY);
+						
 					}
 				}));
 		
 	    HLayout mainPanel = new HLayout();
 		mainPanel.addMembers(eiaTypeMaintenancePlanGrid, sideButtons);
-	    
-		addMembers(mainPanel);
+		
+	    addMembers(title,mainPanel);
 	}
 
 	@Override
@@ -54,12 +58,13 @@ public class EIATypeMaintenancePlanGridPanel extends VLayout implements EIATypeS
 
 	@Override
 	public void close() {
-		mainenanceProtocolForm.close();
-	}
-	
-	@Override
-	public void hide() {
-		mainenanceProtocolForm.hide();
+		// TODO Auto-generated method stub
+		
 	}
 
+	@Override
+	public void hide() {
+		// TODO Auto-generated method stub
+		
+	}
 }

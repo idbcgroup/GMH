@@ -43,6 +43,20 @@ public class Obu extends AbstractEntity {
 	private String code;
 
 	/**
+	 * 
+	 */
+	public Obu() {
+		
+	}
+	
+	/**
+	 * @param id
+	 */
+	public Obu(long id) {
+		setId(id);
+	}
+	
+	/**
 	 * @return the bpi
 	 */
 	public Bpi getBpi() {
