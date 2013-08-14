@@ -158,6 +158,12 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 		eiaAddForm.destroy();
 	}
 
+	@Override
+	public void hide() {
+		eiaAddForm.hide();
+		// super.hide();
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -179,18 +185,18 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 		loadData(eiaType);
 	}
 
-//	@Override
-//	public void addEiaSelectionListener(
-//			EIASelectionListener eiaSelectionListener) {
-//		// TODO Auto-generated method stub
-//
-//	}
-//
-//	@Override
-//	public void removeEiaSelectionListener(
-//			EIASelectionListener eiaSelectionListener) {
-//		// TODO Auto-generated method stub
-//
-//	}
+	// @Override
+	// public void addEiaSelectionListener(
+	// EIASelectionListener eiaSelectionListener) {
+	// // TODO Auto-generated method stub
+	//
+	// }
+	//
+	// @Override
+	// public void removeEiaSelectionListener(
+	// EIASelectionListener eiaSelectionListener) {
+	// // TODO Auto-generated method stub
+	//
+	// }
 
 }

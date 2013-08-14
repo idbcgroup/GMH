@@ -36,7 +36,7 @@ public class MaterialSearchForm extends GHASlideInWindow {
 	private List<MaterialSelectionListener> selectionListeners;
 	private GHATextItem codeTextItem, nameTextItem, descriptionTextItem,
 			modelTextItem, extCodeTextItem;
-	private GHASelectItem typeSelectItem, externalProviderSelectItem;
+	protected GHASelectItem typeSelectItem, externalProviderSelectItem;
 
 	private MaterialGrid grid;
 
@@ -183,6 +183,13 @@ public class MaterialSearchForm extends GHASlideInWindow {
 			material.setExternalProvider(new ExternalProvider(Long
 					.valueOf(externalProviderSelectItem.getValueAsString())));
 
+		search(material);
+	}
+
+	/**
+	 * @param material
+	 */
+	private void search(Material material) {
 		MaterialModel.find(material, new GHAAsyncCallback<List<Material>>() {
 
 			@Override

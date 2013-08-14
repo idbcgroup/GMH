@@ -46,4 +46,11 @@ public class MaterialModel {
 		service.getAll(offset, size, callback);
 	}
 
+	/**
+	 * @param callback
+	 */
+	public static void getAllUtilities(GHAAsyncCallback<List<Material>> callback) {
+		service.getAllUtilities(callback);
+	}
+
 }

@@ -241,7 +241,6 @@ public class EiaForm extends VLayout implements EIATypeSelectionListener,
 
 					@Override
 					public void onClick(ClickEvent event) {
-						Window.alert("saving");
 						save();
 
 					}
@@ -592,7 +591,6 @@ public class EiaForm extends VLayout implements EIATypeSelectionListener,
 	private void save() {
 		final Eia eia = extract();
 		if (eia != null)
-
 			EIAModel.save(eia, new GHAAsyncCallback<Eia>() {
 				@Override
 				public void onSuccess(Eia result) {
@@ -755,13 +753,15 @@ public class EiaForm extends VLayout implements EIATypeSelectionListener,
 		eia.setMachineName(machineNameTextItem.getValueAsString());
 		eia.setIpAddress(ipAddresTextItem.getValueAsString());
 		eia.setMacAddress(macAddressTextItem.getValueAsString());
-
+		Window.alert("1");
 		Set<ConstraintViolation<Eia>> violations = validator.validate(eia);
+		Window.alert("2");
 		if (violations.isEmpty())
 			return eia;
-
+		Window.alert("3");
 		GHANotification.alert(violations.iterator().next().getMessage());
-		return eia;
+		Window.alert("4");
+		return null;
 	}
 
 	/**
@@ -843,13 +843,16 @@ public class EiaForm extends VLayout implements EIATypeSelectionListener,
 			eiaTypeSelectItem.setValue(eiaType.getId());
 			eiaTypeSelectItem.disable();
 		}
-
 	}
 
 	@Override
 	public void removeEiaSelectionListener(
 			EIASelectionListener eiaSelectionListener) {
 		listeners.remove(eiaSelectionListener);
+	}
 
+	@Override
+	public void hide() {
+		sectionForm.deactivate();
 	}
 }

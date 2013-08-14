@@ -77,4 +77,10 @@ public class EIAAddForm extends GHASlideInWindow implements
 			EIASelectionListener eiaSelectionListener) {
 		eiaForm.removeEiaSelectionListener(eiaSelectionListener);
 	}
+
+	@Override
+	public void hide() {
+		super.hide();
+		eiaForm.hide();
+	}
 }
