@@ -37,6 +37,6 @@ public class EIADeprecationGrid extends GhaGrid<Object>{
 	@Override
 	public void onResize(ResizeEvent event) {
 		// TODO Auto-generated method stub
-		setHeight(GHAUiHelper.getGridSize(110));
+		setHeight(GHAUiHelper.getGridSize(100));
 	}
 }

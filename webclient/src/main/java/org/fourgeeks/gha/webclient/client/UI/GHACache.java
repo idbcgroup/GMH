@@ -61,7 +61,7 @@ public enum GHACache {
 		externalProviders = null;
 		eiaTypes = null;
 	}
-	
+
 	/**
 	 * @param callback
 	 */
@@ -72,11 +72,11 @@ public enum GHACache {
 		else
 			callback.onSuccess(eiaTypes);
 	}
-	
 
-	private void getEiaTypesFromServer(final GHAAsyncCallback<List<EiaType>> callback) {
+	private void getEiaTypesFromServer(
+			final GHAAsyncCallback<List<EiaType>> callback) {
 		EIATypeModel.getAll(new GHAAsyncCallback<List<EiaType>>() {
-			
+
 			@Override
 			public void onSuccess(List<EiaType> result) {
 				eiaTypes = result;
@@ -242,4 +242,5 @@ public enum GHACache {
 					}
 				});
 	}
+
 }
