@@ -89,7 +89,6 @@
 	    border-left: 1px solid #CECECE;
 	    border-right: 1px solid #CECECE;
 	    border-top: 1px solid #CECECE;
-	    cursor: pointer;
 	    font-weight: bold;
 	    margin-left: 3px;
 	    text-transform: uppercase;
@@ -102,6 +101,7 @@
 	
 	.tab-header-over{
 		background-color: #EAEAEA;
+		cursor: pointer;
 	}
 	
 	.tab-header-title{
@@ -264,6 +264,7 @@ table.GHAupload-button tbody tr td form div.upld-form-elements div.DecoratedFile
 table.GHAupload-button tbody tr td form div.upld-form-elements div.DecoratedFileUpload button.gwt-Button-over
 {	
 	color:#37A0F7;
+	cursor:pointer;
 /* 	font-size: 0px; */
 }
 

@@ -1,7 +1,5 @@
 package org.fourgeeks.gha.ejb.gmh;
 
-import javax.persistence.EntityManager;
-
 import junit.framework.TestCase;
 
 /**
@@ -10,8 +8,8 @@ import junit.framework.TestCase;
  */
 public class MaterialServiceTest extends TestCase {
 
-	private MaterialServiceRemote service;
-	private EntityManager em;
+	// private MaterialServiceRemote service;
+	// private EntityManager em;
 
 	@Override
 	protected void setUp() throws Exception {

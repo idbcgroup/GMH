@@ -9,7 +9,6 @@ import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
@@ -92,21 +91,15 @@ public class EiaComponentService implements EiaComponentServiceRemote {
 	 */
 	@Override
 	public List<EiaComponent> getAll(int offset, int size) throws EJBException {
-		String query = "SELECT e from EiaComponent e order by eiaparentfk";
-		List<EiaComponent> res = null;
 		try{
-			res = em.createQuery(query, EiaComponent.class)
+			return em.createNamedQuery("EiaComponent.getAll", EiaComponent.class)
 					.setFirstResult(offset).setMaxResults(size)
 					.getResultList();
-		}catch(NoResultException e){
-			logger.log(Level.INFO, "Get All: no results", e);
 		}catch(Exception ex){
 			logger.log(Level.SEVERE, "Error retriving all EiaComponents", ex);
 			throw new EJBException("Error obteniendo todos los eiaComponents "
 					+ex.getCause().getMessage());
 		}
-		
-		return res;
 	}
 
 	/* (non-Javadoc)
