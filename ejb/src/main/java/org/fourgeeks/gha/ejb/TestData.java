@@ -22,6 +22,7 @@ import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Facility;
 import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
+import org.fourgeeks.gha.domain.glm.Material;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
@@ -83,11 +84,32 @@ public class TestData {
 		brandTestData();
 		manufacturerTestData();
 		externalProviderTestData();
+		materialTestData();
 		// // TODO
 		eiaTypeTestData();
 		eiaTestData();
 	}
-	
+
+	private void materialTestData() {
+		String query = "SELECT t from Material t WHERE t.id = 1 ";
+		try {
+			em.createQuery(query).getSingleResult();
+		} catch (NoResultException e) {
+			try {
+				logger.info("creating test data : material");
+				// Material m = null;
+
+				for (int j = 0; j < 3; j++) {
+					em.persist(new Material());
+				}
+				em.flush();
+			} catch (Exception e1) {
+				logger.log(Level.INFO,
+						"error creating test data: external provider", e);
+			}
+		}
+	}
+
 	private void externalProviderTestData() {
 		String query = "SELECT t from ExternalProvider t WHERE t.id = 1 ";
 		try {
