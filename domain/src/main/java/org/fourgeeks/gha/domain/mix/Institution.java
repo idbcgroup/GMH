@@ -22,10 +22,6 @@ public class Institution extends AbstractEntity {
 	@OneToOne
 	@JoinColumn(name = "legalEntityFk", nullable = false)
 	private LegalEntity legalEntity;
-	
-	@OneToOne
-	@JoinColumn(name = "bpiFk")
-	private Bpi bpi;
 
 	/** Attributes */
 

@@ -34,6 +34,8 @@ public class GhaGrid<T> extends ListGrid implements ResizeHandler {
 		@SuppressWarnings("unchecked")
 		GHAGridRecord<T> selectedRecord = (GHAGridRecord<T>) super
 				.getSelectedRecord();
+		if (selectedRecord == null)
+			return null;
 		return selectedRecord.toEntity();
 	}
 

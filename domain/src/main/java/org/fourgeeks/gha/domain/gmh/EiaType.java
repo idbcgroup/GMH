@@ -92,7 +92,14 @@ public class EiaType extends AbstractEntity {
 	 */
 	public EiaType() {
 		super();
-		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * 
+	 */
+	public EiaType(long id) {
+		this();
+		this.id = id;
 	}
 
 	/**

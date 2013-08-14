@@ -27,9 +27,13 @@ import com.smartgwt.client.widgets.grid.ListGridRecord;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
+/**
+ * @author alacret
+ * 
+ */
 public class EIATypeEquipmentGridPanel extends VLayout implements
-		EIATypeSelectionListener, EIASelectionListener, GHAClosable,
-		GHAHideable {
+		EIATypeSelectionListener,/* EiaSelectionProducer, */
+		EIASelectionListener, GHAClosable, GHAHideable {
 
 	private EIAGrid grid;
 	private EiaType eiaType;
@@ -40,6 +44,9 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 		eiaAddForm = new EIAAddForm();
 	}
 
+	/**
+	 * @param eIATypeEquipmentSubTab
+	 */
 	public EIATypeEquipmentGridPanel(
 			EIATypeEquipmentSubTab eIATypeEquipmentSubTab) {
 		super();
@@ -68,8 +75,8 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 
 							@Override
 							public void onClick(ClickEvent event) {
-								final ListGridRecord selectedRecord = grid
-										.getSelectedRecord();
+								final Eia selectedRecord = grid
+										.getSelectedEntity();
 
 								if (selectedRecord == null)
 									return;// No record selected
@@ -83,19 +90,9 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 													@Override
 													public void execute(
 															Boolean resultAsc) {
-														if (resultAsc) {
-
-															Eia eiaEquipment = ((EIARecord) grid
-																	.getSelectedRecord())
-																	.toEntity();
-
-															if (eiaEquipment == null)
-																return;// No
-																		// record
-																		// selected
-
+														if (resultAsc)
 															EIAModel.delete(
-																	eiaEquipment
+																	selectedRecord
 																			.getId(),
 																	new GHAAsyncCallback<Boolean>() {
 
@@ -106,19 +103,7 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 
 																		}
 
-																		@Override
-																		public void onFailure(
-																				Throwable caught) {
-																			GHANotification
-																					.alert(caught
-																							.getMessage());
-																		}
-
 																	});
-
-														} else {
-															loadData(eiaType);
-														}
 													}
 												});
 
@@ -193,5 +178,19 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 	public void select(Eia eia) {
 		loadData(eiaType);
 	}
+
+//	@Override
+//	public void addEiaSelectionListener(
+//			EIASelectionListener eiaSelectionListener) {
+//		// TODO Auto-generated method stub
+//
+//	}
+//
+//	@Override
+//	public void removeEiaSelectionListener(
+//			EIASelectionListener eiaSelectionListener) {
+//		// TODO Auto-generated method stub
+//
+//	}
 
 }

@@ -7,6 +7,7 @@ import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.gmh.Brand;
+import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.webclient.client.brand.BrandModel;
 import org.fourgeeks.gha.webclient.client.buildinglocation.BuildingLocationModel;
@@ -214,5 +215,13 @@ public enum GHACache {
 						callback.onSuccess(result);
 					}
 				});
+	}
+
+	/**
+	 * @param ghaAsyncCallback
+	 */
+	public void getEiaTypes(GHAAsyncCallback<List<EiaType>> ghaAsyncCallback) {
+		// TODO Auto-generated method stub
+
 	}
 }
