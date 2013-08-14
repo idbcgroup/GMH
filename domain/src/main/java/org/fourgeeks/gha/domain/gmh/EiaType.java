@@ -101,10 +101,6 @@ public class EiaType extends AbstractEntity {
 		this();
 		this.id = id;
 	}
-	
-	public EiaType(long id) {
-		setId(id);
-	}
 
 	/**
 	 * @param brand

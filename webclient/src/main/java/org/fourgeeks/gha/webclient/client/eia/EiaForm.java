@@ -36,6 +36,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHATitleTextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
+import com.google.gwt.user.client.Window;
 import com.google.gwt.validation.client.impl.Validation;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.Label;
@@ -240,6 +241,7 @@ public class EiaForm extends VLayout implements EIATypeSelectionListener,
 
 					@Override
 					public void onClick(ClickEvent event) {
+						Window.alert("saving");
 						save();
 
 					}
