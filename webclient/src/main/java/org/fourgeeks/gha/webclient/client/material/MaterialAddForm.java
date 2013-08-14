@@ -56,7 +56,7 @@ public class MaterialAddForm extends GHASlideInWindow {
 		
 		final DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
-		form.setNumCols(4);
+		form.setNumCols(3);
 		form.setItems(codeItem, extCodeItem, nameItem, descriptionItem,
 				typeItem, modelItem, externalProviderItem);
 		
