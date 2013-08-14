@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
+import org.fourgeeks.gha.webclient.client.UI.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.GHAImg;
 import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.GHATabSet;
@@ -24,10 +25,12 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIATopSection extends HLayout implements EIASelectionListener, GHAClosable, ResizeHandler {
+public class EIATopSection extends HLayout
+		implements EIASelectionListener, GHAClosable, ResizeHandler {
 
 	private final EIATab eIATab;
 	private List<EIASelectionListener> selectionListeners;
+	private EIASearchForm eiaSearchForm;
 	private GHATextItem acceptationDate, actualCost,  
 	responsibleRole, code, 	eiaType, fixedAssetIdentifier,
 	installationDate, buildingLocation,	obu, purchaseDate, serialNumber, state, 
@@ -36,6 +39,7 @@ public class EIATopSection extends HLayout implements EIASelectionListener, GHAC
 	private GHATitleTextItem garantia, intermediario;
 	
 	{
+		eiaSearchForm = new EIASearchForm();
 		
 		acceptationDate = new GHATextItem("Recibido", false);
 		actualCost = new GHATextItem("Costo actual", false);
@@ -66,9 +70,27 @@ public class EIATopSection extends HLayout implements EIASelectionListener, GHAC
 
 	public EIATopSection(EIATab eiaTab) {
 		super();
+		GHAUiHelper.addGHAResizeHandler(this);
+		
 		eiaTab.addGHAClosableHandler(this);
 		eIATab = eiaTab;
-		GHAUiHelper.addGHAResizeHandler(this);
+		eiaSearchForm.addEIASelectionListener(eIATab);
+		
+		eIATab.addGHAHideableHandler(new GHAHideable() {
+			
+			@Override
+			public void hide() {
+				eiaSearchForm.hide();
+			}
+		});
+		eIATab.addGHAClosableHandler(new GHAClosable() {
+			
+			@Override
+			public void close() {
+				eiaSearchForm.destroy();
+			}
+		});
+		
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		setWidth100();
 		setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT + "px");
@@ -141,6 +163,7 @@ public class EIATopSection extends HLayout implements EIASelectionListener, GHAC
 	}
 
 	public void search() {
+		eiaSearchForm.open();
 	}
 
 
@@ -162,9 +185,7 @@ public class EIATopSection extends HLayout implements EIASelectionListener, GHAC
 	@Override
 	public void select(Eia eia) {
 		// TODO Auto-generated method stub
-		for (EIASelectionListener listener : selectionListeners)
-			listener.select(eia);
-
-		
+		//for (EIASelectionListener listener : selectionListeners)
+		//	listener.select(eia);
 	}
 }

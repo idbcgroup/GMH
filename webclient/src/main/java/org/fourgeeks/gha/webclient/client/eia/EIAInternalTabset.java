@@ -1,5 +1,6 @@
 package org.fourgeeks.gha.webclient.client.eia;
 
+import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.eia.component.EIAComponentSubTab;
@@ -15,7 +16,7 @@ import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.widgets.tab.TabSet;
 
 public class EIAInternalTabset extends TabSet implements
-		EIATypeSelectionListener, ResizeHandler {
+		EIATypeSelectionListener, EIASelectionListener, ResizeHandler {
 
 	private EIAInformationSubTab eiaInformationSubTab;
 	private EIAComponentSubTab eiaPartesSubTab;
@@ -48,6 +49,20 @@ public class EIAInternalTabset extends TabSet implements
 
 	}
 
+	@Override
+	public void select(Eia eia) {
+		// TODO Implement select(eia) on each tab
+//		eiaInformationSubTab.select(eia);
+//		eiaPartesSubTab.select(eia);
+//		eiaRepuestosSubTab.select(eia);
+//		eiaMaterialSubTab.select(eia);
+//		eiaServicesSubTab.select(eia);
+//		eiaMantenimientoSubTab.select(eia);
+//		eiaPlanSubTab.select(eia);
+//		eiaCostosSubTab.select(eia);
+//		eiaMovimientosSubTab.select(eia);
+	}
+	
 	@Override
 	public void select(EiaType eiaType) {
 		eiaInformationSubTab.select(eiaType);
