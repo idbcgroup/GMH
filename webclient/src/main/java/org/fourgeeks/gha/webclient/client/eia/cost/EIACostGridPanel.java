@@ -23,7 +23,7 @@ public class EIACostGridPanel extends VLayout implements EIATypeSelectionListene
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding top-padding");// Esto es VUDU!
 		
-		Label title = new Label("<h3>Costos/Depreciación</h3>");
+		Label title = new Label("<h3>Costos/Depreciación (Pospuesta)</h3>");
 		title.setHeight(35);
 		title.setWidth100();
 		title.setStyleName("title-label");
@@ -53,7 +53,7 @@ public class EIACostGridPanel extends VLayout implements EIATypeSelectionListene
         HLayout mainPanel = new HLayout();
         mainPanel.addMembers(eiaDeprecationGrid,sideButtons);
         
-	    addMembers(title,new LayoutSpacer(), GHAUiHelper.verticalGraySeparator("10px"),titleDep,mainPanel);
+	    addMembers(title,new LayoutSpacer(), GHAUiHelper.verticalGraySeparator("10px"),titleDep,mainPanel,new LayoutSpacer());
 	}
 
 	@Override

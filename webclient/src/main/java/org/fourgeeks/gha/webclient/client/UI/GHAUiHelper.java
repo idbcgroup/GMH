@@ -37,7 +37,7 @@ public abstract class GHAUiHelper {
 	private static final int MIN_BOTTOM_SECTION_HEIGHT = 260;
 	// NO ESTAN TOTALMENTE MEDIDAS CON LA INTERFAZ
 	
-	public static final int MIN_GRID_SIZE = 170;
+	public static final int MIN_GRID_SIZE = 120;
 
 	public static final int INNER_TOP_SECTION_HEIGHT = 120;
 	public static final int V_SEPARATOR_HEIGHT = 10;
