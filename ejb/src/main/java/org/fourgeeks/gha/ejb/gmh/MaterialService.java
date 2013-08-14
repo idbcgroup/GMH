@@ -10,9 +10,7 @@ import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
@@ -21,7 +19,6 @@ import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.glm.Material;
 import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
-import org.fourgeeks.gha.domain.gmh.EiaType;
 
 /**
  * @author alacret
@@ -100,25 +97,25 @@ public class MaterialService implements MaterialServiceRemote {
 	 */
 	@Override
 	public List<Material> find(Material entity) throws EJBException {
-		try {
-			CriteriaBuilder cb = em.getCriteriaBuilder();
-
-			CriteriaQuery<Material> cQuery = cb.createQuery(Material.class);
-
-			Root<Material> root = cQuery.from(Material.class);
-
-			cQuery.select(root);
-
-			cQuery.orderBy(cb.asc(root.<String> get("name")));
-
-			Predicate criteria = buildFilters(entity, cb, root);
-			TypedQuery<EiaType> q;
-		} catch (Exception e) {
-			logger.log(Level.SEVERE,
-					"Error obteniendo los eiaTypes por eiatype", e);
-			throw new EJBException("Error obteniendo los eiaTypes por eiatype "
-					+ e.getCause().getMessage());
-		}
+//		try {
+//			CriteriaBuilder cb = em.getCriteriaBuilder();
+//
+//			CriteriaQuery<Material> cQuery = cb.createQuery(Material.class);
+//
+//			Root<Material> root = cQuery.from(Material.class);
+//
+//			cQuery.select(root);
+//
+//			cQuery.orderBy(cb.asc(root.<String> get("name")));
+//
+//			Predicate criteria = buildFilters(entity, cb, root);
+//			TypedQuery<EiaType> q;
+//		} catch (Exception e) {
+//			logger.log(Level.SEVERE,
+//					"Error obteniendo los eiaTypes por eiatype", e);
+//			throw new EJBException("Error obteniendo los eiaTypes por eiatype "
+//					+ e.getCause().getMessage());
+//		}
 
 		try {
 			return em.createNamedQuery("Material.findByName", Material.class)
