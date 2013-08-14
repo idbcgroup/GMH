@@ -13,6 +13,16 @@ import com.smartgwt.client.widgets.grid.ListGridRecord;
  */
 public class GhaGrid<T> extends ListGrid implements ResizeHandler {
 
+	public GhaGrid() {
+		super();
+		GHAUiHelper.addGHAResizeHandler(this);
+		setWidth100();
+		setHeight(GHAUiHelper.getGridSize(30));
+		setAlternateRecordStyles(false);
+		setCanResizeFields(false);
+		// setShowFilterEditor(true);
+
+	}
 	/**
 	 * @param entities
 	 */
@@ -42,6 +52,5 @@ public class GhaGrid<T> extends ListGrid implements ResizeHandler {
 	@Override
 	public void onResize(ResizeEvent event) {
 		setHeight(GHAUiHelper.getGridSize(30));
-
 	}
 }

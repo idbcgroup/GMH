@@ -11,6 +11,7 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.webclient.client.brand.BrandModel;
 import org.fourgeeks.gha.webclient.client.buildinglocation.BuildingLocationModel;
+import org.fourgeeks.gha.webclient.client.eiatype.EIATypeModel;
 import org.fourgeeks.gha.webclient.client.externalprovider.ExternalProviderModel;
 import org.fourgeeks.gha.webclient.client.manufacturer.ManufacturerModel;
 import org.fourgeeks.gha.webclient.client.obu.ObuModel;
@@ -38,6 +39,7 @@ public enum GHACache {
 	private List<Obu> obus;
 	private List<RoleBase> roles;
 	private List<ExternalProvider> externalProviders;
+	private List<EiaType> eiaTypes;
 
 	{
 		// Inititalization of the invalidation policy
@@ -57,6 +59,30 @@ public enum GHACache {
 		obus = null;
 		roles = null;
 		externalProviders = null;
+		eiaTypes = null;
+	}
+	
+	/**
+	 * @param callback
+	 */
+	public void getEiaTypes(GHAAsyncCallback<List<EiaType>> callback) {
+		// Avoiding synchronization problems
+		if (eiaTypes == null)
+			getEiaTypesFromServer(callback);
+		else
+			callback.onSuccess(eiaTypes);
+	}
+	
+
+	private void getEiaTypesFromServer(final GHAAsyncCallback<List<EiaType>> callback) {
+		EIATypeModel.getAll(new GHAAsyncCallback<List<EiaType>>() {
+			
+			@Override
+			public void onSuccess(List<EiaType> result) {
+				eiaTypes = result;
+				callback.onSuccess(eiaTypes);
+			}
+		});
 	}
 
 	/**

@@ -35,8 +35,7 @@ public class GWTEiaServiceImpl extends RemoteServiceServlet implements GWTEiaSer
 	 */
 	@Override
 	public List<Eia> find(Eia eia) throws EJBException{
-		//TODO: implementar en el ejb primero
-		return null;
+		return eServiceRemote.find(eia);
 	}
 
 	/* (non-Javadoc)
