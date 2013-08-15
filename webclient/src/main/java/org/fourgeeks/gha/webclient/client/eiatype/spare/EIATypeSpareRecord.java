@@ -16,7 +16,6 @@ public class EIATypeSpareRecord
 	public void setEiaTypeSpare(EiaTypeSpare eiaTypeSpare) {
 		this.eiaTypeSpare = eiaTypeSpare;
 		EiaType spare = this.eiaTypeSpare.getSpare();
-		setId(this.eiaTypeSpare.getId());
 		setCode(spare.getCode());
 		setName(spare.getName());
 		if (spare.getBrand() != null)
