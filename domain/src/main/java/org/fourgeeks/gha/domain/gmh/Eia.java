@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.CurrencyTypeEnum;
@@ -67,10 +68,10 @@ public class Eia extends AbstractEntity {
 	private int depreciationTime;
 	/** Tiempo de Depreciación length =4 */
 	private TimePeriodEnum depreciationTimePoT;
-	/** Denominación Moneda Local para Costo Contabilizado del equipo length =60 */
-	private Date desincorporatedDate;
-	/** Fecha de Desincorporación length =22 */
-	private String desincorporateReason;
+	// private Date desincorporatedDate;
+
+	// @Size(max = 30, message = "El campo debe ser menor a 30 caracteres")
+	// private String desincorporateReason;
 
 	@ManyToOne
 	@JoinColumn(name = "eiaTypeFk", nullable = false)
@@ -123,7 +124,7 @@ public class Eia extends AbstractEntity {
 	private Date purchaseDate;
 	/** Número de la Factura de Compra length =30 */
 	private Date purchaseInvoiceDate;
-	/** Nombre Proveedor del Equipo (O/Compra) length =255 */
+	@Size(max = 30, message = "El número de la factura no debe ser mayor de 30 caracteres")
 	private String purchaseInvoiceNumber;
 	/** Número de la Orden de Compra length =30 */
 	private Date purchaseOrderDate;
@@ -271,13 +272,13 @@ public class Eia extends AbstractEntity {
 		return depreciationTimePoT;
 	}
 
-	public Date getDesincorporatedDate() {
-		return desincorporatedDate;
-	}
-
-	public String getDesincorporateReason() {
-		return desincorporateReason;
-	}
+	// public Date getDesincorporatedDate() {
+	// return desincorporatedDate;
+	// }
+	//
+	// public String getDesincorporateReason() {
+	// return desincorporateReason;
+	// }
 
 	public EiaType getEiaType() {
 		return eiaType;
@@ -465,13 +466,13 @@ public class Eia extends AbstractEntity {
 		this.depreciationTimePoT = depreciationTimePoT;
 	}
 
-	public void setDesincorporatedDate(Date desincorporatedDate) {
-		this.desincorporatedDate = desincorporatedDate;
-	}
-
-	public void setDesincorporateReason(String desincorporateReason) {
-		this.desincorporateReason = desincorporateReason;
-	}
+	// public void setDesincorporatedDate(Date desincorporatedDate) {
+	// this.desincorporatedDate = desincorporatedDate;
+	// }
+	//
+	// public void setDesincorporateReason(String desincorporateReason) {
+	// this.desincorporateReason = desincorporateReason;
+	// }
 
 	public void setEiaType(EiaType eiaType) {
 		this.eiaType = eiaType;
