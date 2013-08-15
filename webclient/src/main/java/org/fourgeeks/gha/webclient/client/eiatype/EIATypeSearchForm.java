@@ -248,11 +248,11 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 				ListGridRecord[] array = EIATypeUtil.toGridRecords(eiaTypes)
 						.toArray(new EIATypeRecord[] {});
 				eiaTypeGrid.setData(array);
-				if (eiaType != null && eiaType.getId() != 0l)
+				if (eiaType != null && eiaType.getCode() != "")
 					for (ListGridRecord listGridRecord : eiaTypeGrid
 							.getRecords())
-						if (((EIATypeRecord) listGridRecord).toEntity().getId() == eiaType
-								.getId())
+						if (((EIATypeRecord) listGridRecord).toEntity().getCode() == eiaType
+								.getCode())
 							eiaTypeGrid.selectRecord(listGridRecord);
 			}
 

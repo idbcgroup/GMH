@@ -41,12 +41,12 @@ public class EiaTypeMaintenancePlanServiceTest extends TestCase {
 			System.out.println("Maintenance Plan: "+ plan.getDescription());
 		}
 		
-		EiaType eiaType = eiaTypeService.find(1L);
+		EiaType eiaType = eiaTypeService.find("90001");
 		EiaTypeMaintenancePlan eiaTypeMaintenancePlan = maintenancePlans.get(0);
 		eiaTypeMaintenancePlan.setEiaType(eiaType);
 		ejbService.update(eiaTypeMaintenancePlan);
 		
-		List<EiaTypeMaintenancePlan> mantPlansByEiaType = ejbService.findByEiaType(1L);
+		List<EiaTypeMaintenancePlan> mantPlansByEiaType = ejbService.findByEiaType("90001");
 		assertNotNull(mantPlansByEiaType);
 		for(EiaTypeMaintenancePlan etmp : mantPlansByEiaType){
 			System.out.println(etmp.getDescription());

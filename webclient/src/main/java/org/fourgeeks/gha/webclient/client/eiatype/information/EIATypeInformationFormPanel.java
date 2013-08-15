@@ -476,14 +476,15 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		if (this.eiaType == null)
 			return;
 		final EiaType eiaType = new EiaType();
-		eiaType.setId(this.eiaType.getId());
+		eiaType.setCode(codeItem.getValueAsString());
+		
 		if (brandItem.getValue() != null)
 			eiaType.setBrand(new Brand(Integer.valueOf(brandItem
 					.getValueAsString()), null));
 		if (manItem.getValue() != null)
 			eiaType.setManufacturer(new Manufacturer(Integer.valueOf(manItem
 					.getValueAsString()), null));
-		eiaType.setCode(codeItem.getValueAsString());
+		
 		eiaType.setName(nameItem.getValueAsString());
 		eiaType.setDescription(descriptionItem.getValueAsString());
 		eiaType.setModel(modelItem.getValueAsString());

@@ -3,8 +3,11 @@
  */
 package org.fourgeeks.gha.domain.gmh;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -12,7 +15,6 @@ import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
 import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
 import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
@@ -23,13 +25,17 @@ import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
  */
 
 @Entity
-@NamedQueries(value = { @NamedQuery(name = "EiaType.getAll", query = "SELECT e from EiaType e order by e.id") })
-public class EiaType extends AbstractEntity {
+@NamedQueries(value = { @NamedQuery(name = "EiaType.getAll", query = "SELECT e from EiaType e order by e.code") })
+public class EiaType implements Serializable{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Id
+	private String code;
+	/** Código asignado al EIA length =20 */
 
 	@ManyToOne
 	@JoinColumn(name = "brandFk")
@@ -38,11 +44,6 @@ public class EiaType extends AbstractEntity {
 	@ManyToOne
 	@JoinColumn(name = "manufacturerFk")
 	private Manufacturer manufacturer;
-
-	/** Attributes */
-
-	private String code;
-	/** Código asignado al EIA length =20 */
 
 	@NotNull(message = "El Nombre no puede estar vacío")
 	@Size(min = 1, max = 255, message = "El Nombre debe tener entre 1 y 255 caracteres")
@@ -93,16 +94,16 @@ public class EiaType extends AbstractEntity {
 	public EiaType() {
 		super();
 	}
-
+	
 	/**
-	 * 
+	 * @param code
 	 */
-	public EiaType(long id) {
-		this();
-		this.id = id;
+	public EiaType(String code) {
+		this.code = code;
 	}
 
 	/**
+	 * @param code
 	 * @param brand
 	 * @param manufacturer
 	 * @param name
@@ -110,11 +111,10 @@ public class EiaType extends AbstractEntity {
 	 * @param type
 	 * @param subtype
 	 * @param model
-	 * @param code
 	 */
-	public EiaType(Brand brand, Manufacturer manufacturer, String name,
-			EiaMobilityEnum mobility, EiaTypeEnum type, EiaSubTypeEnum subtype,
-			String model, String code) {
+	public EiaType(String code, Brand brand, Manufacturer manufacturer,
+			String name, EiaMobilityEnum mobility, EiaTypeEnum type,
+			EiaSubTypeEnum subtype, String model) {
 		super();
 		this.brand = brand;
 		this.manufacturer = manufacturer;

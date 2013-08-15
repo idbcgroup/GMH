@@ -9,7 +9,6 @@ import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
@@ -51,20 +50,20 @@ public class EiaTypePictureService implements EiaTypePictureServiceRemote {
 	@Override
 	public List<EiaTypePicture> find(EiaType eiaType)  throws EJBException{
 		List <EiaTypePicture> res = null;
-		String query = "SELECT e from EiaTypePicture e WHERE eiaTypeFk=:eiaTypeId order by id";
-		logger.info("ejecutando el query");
-		try{
-			res = em.createQuery(query, EiaTypePicture.class)
-					.setParameter("eiaTypeId", eiaType.getId())
-					.getResultList();
-			logger.info("Consulta ejecutada con exito: "+res.size()+" fotos");
-		}catch(NoResultException ex){
-			logger.log(Level.INFO, "No results", ex);
-		}catch(Exception ex){
-			logger.log(Level.INFO, "Error buscando EiaTypePicture por EiaType ", ex);
-			throw new EJBException("Error buscando EiaTypePicture por EiaType "
-					+ ex.getCause().getMessage());
-		}
+//		String query = "SELECT e from EiaTypePicture e WHERE eiaTypeFk=:eiaTypeId order by id";
+//		logger.info("ejecutando el query");
+//		try{
+//			res = em.createQuery(query, EiaTypePicture.class)
+//					.setParameter("eiaTypeId", eiaType.getId())
+//					.getResultList();
+//			logger.info("Consulta ejecutada con exito: "+res.size()+" fotos");
+//		}catch(NoResultException ex){
+//			logger.log(Level.INFO, "No results", ex);
+//		}catch(Exception ex){
+//			logger.log(Level.INFO, "Error buscando EiaTypePicture por EiaType ", ex);
+//			throw new EJBException("Error buscando EiaTypePicture por EiaType "
+//					+ ex.getCause().getMessage());
+//		}
 		
 		return res;
 	}

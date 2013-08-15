@@ -3,9 +3,14 @@ package org.fourgeeks.gha.webclient.client.eia.information;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.GHAHideable;
+import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.eia.EIAForm;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.smartgwt.client.widgets.Label;
+import com.smartgwt.client.widgets.events.ClickEvent;
+import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
@@ -20,6 +25,9 @@ public class EIAInformationFormPanel extends VLayout implements EIATypeSelection
 	 * @param eiaEquipmentSubTab
 	 * 
 	 */
+	private EIAForm eiaForm = new EIAForm();
+	
+	
 	public EIAInformationFormPanel(EIAInformationSubTab eiaEquipmentSubTab) {
 		super();
 		setWidth100();
@@ -29,12 +37,26 @@ public class EIAInformationFormPanel extends VLayout implements EIATypeSelection
 		title.setHeight(30);
 		title.setWidth100();
 		title.setStyleName("title-label");
-		addMember(title);
+		
+		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
+				"../resources/icons/save.png", new ClickHandler() {
+
+					@Override
+					public void onClick(ClickEvent event) {
+//						save();
+					}
+				}), new GHAImgButton("../resources/icons/undo.png",
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+//						undo();
+					}
+				}));
 		
 		HLayout formPanel = new HLayout();
-		/*gridPanel.addMembers(formulario, sideButtons);*/
+		formPanel.addMembers(eiaForm, sideButtons);
 
-		addMembers(formPanel);
+		addMembers(title,formPanel);
 
 	}
 
