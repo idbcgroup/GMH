@@ -318,9 +318,9 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypeService#getEiaType(long)
 	 */
 	@Override
-	public EiaType find(long Id) throws EJBException {
+	public EiaType find(String code) throws EJBException {
 		try {
-			return em.find(EiaType.class, Id);
+			return em.find(EiaType.class, code);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error buscando Eiatype por Id ", e);
 			throw new EJBException("Error buscando Eiatype por Id "
@@ -374,7 +374,7 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 		try {
 			em.persist(eiaType);
 			em.flush();
-			return em.find(EiaType.class, eiaType.getId());
+			return em.find(EiaType.class, eiaType.getCode());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving eiatype", e);
 			throw new EJBException("Error guardando EiaType: "

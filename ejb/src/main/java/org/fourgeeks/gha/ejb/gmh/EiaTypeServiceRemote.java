@@ -49,11 +49,11 @@ public interface EiaTypeServiceRemote {
 			throws EJBException;
 
 	/**
-	 * @param Id
+	 * @param code
 	 * @return the EiaType with this Id
 	 * @throws EJBException
 	 */
-	public EiaType find(long Id) throws EJBException;
+	public EiaType find(String code) throws EJBException;
 
 	/**
 	 * @return the list with all EiaType objects

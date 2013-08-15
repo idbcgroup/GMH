@@ -155,7 +155,7 @@ public class EIASearchForm extends GHASlideInWindow {
 			public void onSuccess(List<EiaType> result) {
 				LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
 				for (EiaType eiaType : result)
-					valueMap.put(String.valueOf(eiaType.getId()), eiaType.getName());
+					valueMap.put(eiaType.getCode(), eiaType.getName());
 				eiaTypeItem.setValueMap(valueMap);
 			}
 		});
@@ -223,9 +223,7 @@ public class EIASearchForm extends GHASlideInWindow {
 			);
 		eia.setCode(codeItem.getValueAsString());
 		if (eiaTypeItem.getValue() != null)
-			eia.setEiaType(new EiaType(
-					Long.parseLong(eiaTypeItem.getValueAsString()))
-			);
+			eia.setEiaType(new EiaType(eiaTypeItem.getValueAsString()));
 		eia.setFixedAssetIdentifier(fixedAssetIdentifierItem.getValueAsString());
 		if (buildingLocationItem.getValue() != null)
 			eia.setBuildingLocation(new BuildingLocation(buildingLocationItem.getValueAsString()));

@@ -60,11 +60,11 @@ public class EiaTypeMaintenancePlanService implements
 	 * .fourgeeks.gha.domain.gmh.EiaType)
 	 */
 	@Override
-	public List<EiaTypeMaintenancePlan> findByEiaType(long eiaTypeId)
+	public List<EiaTypeMaintenancePlan> findByEiaType(String code)
 			throws EJBException {
 		try {
 			EiaType eiaType = new EiaType();
-			eiaType.setId(eiaTypeId);
+			eiaType.setCode(code);
 			return em.createNamedQuery("EiaTypeMaintenancePlan.findByEiaType",
 					EiaTypeMaintenancePlan.class).setParameter("eiaType", eiaType).getResultList();
 		} catch (Exception ex) {

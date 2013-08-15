@@ -42,9 +42,9 @@ public class GWTEiaTypeMaintenancePlanImpl extends RemoteServiceServlet implemen
 	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.GWTEiaTypeMaintenancePlanService#findByEiaType(long)
 	 */
 	@Override
-	public List<EiaTypeMaintenancePlan> findByEiaType(long eiaTypeId)
+	public List<EiaTypeMaintenancePlan> findByEiaType(String eiaTypeCode)
 			throws EJBException {
-		return eiaTypeMantPlanService.findByEiaType(eiaTypeId);
+		return eiaTypeMantPlanService.findByEiaType(eiaTypeCode);
 	}
 
 	/* (non-Javadoc)
