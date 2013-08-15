@@ -17,10 +17,17 @@ import org.fourgeeks.gha.domain.AbstractEntity;
  */
 @Entity
 @NamedQueries(value = {
+<<<<<<< HEAD
 		@NamedQuery(name = "Material.getAll", query = "SELECT m FROM Material m ORDER BY m.name"),
 		@NamedQuery(name = "Material.getByType", query = "SELECT m FROM Material m WHERE m.type = :materialTypeId ORDER BY m.name"),
 		@NamedQuery(name = "Material.findByName", query = "SELECT m FROM Material m WHERE LOWER(m.name) LIKE :name ORDER BY m.id")
 		})
+=======
+		@NamedQuery(name = "Material.getAll", query = "SELECT e from Material e order by e.name"),
+		@NamedQuery(name = "Material.getByType", query = "SELECT e from Material e WHERE e.type = :materialTypeId order by e.name"),
+		@NamedQuery(name = "Material.findByName", query = "SELECT e from Material e WHERE lower(e.name) like :name order by e.name")
+})
+>>>>>>> refs/heads/material-add-form
 public class Material extends AbstractEntity {
 
 	/**

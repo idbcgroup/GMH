@@ -37,4 +37,11 @@ public interface GWTMaterialService extends RemoteService {
 	 * @throws EJBException
 	 */
 	public List<Material> find(Material material) throws EJBException;
+	
+	/**
+	 * @param material
+	 * @return Material saved
+	 * @throws EJBException
+	 */
+	public Material save(Material material) throws EJBException;
 }

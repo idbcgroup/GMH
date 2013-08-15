@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eia.services;
+package org.fourgeeks.gha.webclient.client.eia.spares;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.GHAHideable;
@@ -11,17 +11,17 @@ import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIAServicesGridPanel extends VLayout implements GHAClosable, GHAHideable{
+public class EIASpareGridPanel extends VLayout implements GHAClosable,GHAHideable{
 
-	private EIAServicesGrid eiaServicesGrid = new EIAServicesGrid();
+	private EIASpareGrid eiaSpareGrid = new EIASpareGrid();
 	
-	public EIAServicesGridPanel() {
+	public EIASpareGridPanel() {
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding top-padding");// Esto es VUDU!
 		
 		
-		Label title = new Label("<h3>Servicios de EIA</h3>");
+		Label title = new Label("<h3>Repuestos</h3>");
 		title.setHeight(35);
 		title.setWidth100();
 		title.setStyleName("title-label");
@@ -47,7 +47,7 @@ public class EIAServicesGridPanel extends VLayout implements GHAClosable, GHAHid
 				}));
 		
         HLayout mainPanel = new HLayout();
-        mainPanel.addMembers(eiaServicesGrid,sideButtons);
+        mainPanel.addMembers(eiaSpareGrid,sideButtons);
         
 		addMembers(title, mainPanel);
 	}
@@ -63,5 +63,6 @@ public class EIAServicesGridPanel extends VLayout implements GHAClosable, GHAHid
 		// TODO Auto-generated method stub
 		
 	}
+	
 
 }

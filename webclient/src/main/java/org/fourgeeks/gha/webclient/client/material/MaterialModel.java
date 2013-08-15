@@ -46,4 +46,9 @@ public class MaterialModel {
 		service.getAll(offset, size, callback);
 	}
 
+	public static void save(Material material,
+			GHAAsyncCallback<Material> callback) {
+		service.save(material, callback);
+	}
+
 }

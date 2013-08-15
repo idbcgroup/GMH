@@ -37,6 +37,10 @@ public class RoleBase extends AbstractEntity {
 	 */
 	public RoleBase() {
 	}
+	
+	public RoleBase(long id) {
+		setId(id);
+	}
 
 	/**
 	 * @return the name of the role
