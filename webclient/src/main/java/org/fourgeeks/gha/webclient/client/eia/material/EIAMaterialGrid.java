@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.material;
+package org.fourgeeks.gha.webclient.client.eia.material;
 
 import org.fourgeeks.gha.domain.glm.Material;
 import org.fourgeeks.gha.webclient.client.UI.GHAGridField;
@@ -8,12 +8,12 @@ import org.fourgeeks.gha.webclient.client.UI.GhaGrid;
  * @author alacret
  * 
  */
-public class MaterialGrid extends GhaGrid<Material> {
+public class EIAMaterialGrid extends GhaGrid<Material> {
 
 	/**
 	 * 
 	 */
-	public MaterialGrid() {
+	public EIAMaterialGrid() {
 		setEmptyMessage("No existen Materiales para mostrar");
 		
 		GHAGridField idGridField = new GHAGridField("id", "No");
@@ -27,10 +27,11 @@ public class MaterialGrid extends GhaGrid<Material> {
 		GHAGridField typeGridField = new GHAGridField("type", "Tipo");
 		GHAGridField extProviderGridField = new GHAGridField(
 				"externalProvider", "Proveedor");
+		GHAGridField quantityGridField = new GHAGridField("cant", "Cantidad");
 
 		setFields(idGridField, codeGridField, nameGridField,
 				descriptionGridField, modelGridField, extCodeGridField,
-				typeGridField,extProviderGridField);
+				typeGridField,extProviderGridField, quantityGridField);
 	}
 
 }

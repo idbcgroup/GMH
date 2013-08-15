@@ -18,6 +18,7 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
+import org.fourgeeks.gha.webclient.client.UI.GHAComboboxItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.GHASelectItem;
@@ -27,7 +28,6 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.validation.client.impl.Validation;
-import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -45,8 +45,8 @@ public class EIATypeAddForm extends GHASlideInWindow {
 
 	private OnFinishUploaderHandler onFinishUploaderHandler1,
 			onFinishUploaderHandler2, onFinishUploaderHandler3;
-	private GHASelectItem brandItem, manItem, mobilityItem, typeItem,
-			subTypeItem;
+	private GHASelectItem mobilityItem, typeItem,subTypeItem;
+	private GHAComboboxItem brandItem, manItem;
 	private Validator validator;
 
 	{
@@ -59,8 +59,8 @@ public class EIATypeAddForm extends GHASlideInWindow {
 		useDescriptionItem = new GHATextItem("Uso", 480);
 		useDescriptionItem.setColSpan(3);
 		eiaUmdnsItem = new GHATextItem("EIAUMDNS", 150);
-		manItem = new GHASelectItem("Fabricante", 150);
-		brandItem = new GHASelectItem("Marca", 150);
+		manItem = new GHAComboboxItem("Fabricante", 150);
+		brandItem = new GHAComboboxItem("Marca", 150);
 		mobilityItem = new GHASelectItem("Movilidad", 150);
 		typeItem = new GHASelectItem("Tipo", 150);
 		subTypeItem = new GHASelectItem("Subtipo", 150);

@@ -48,6 +48,10 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
+/**
+ * @author alacret
+ * 
+ */
 public class EIATypeInformationFormPanel extends VLayout implements
 		EIATypeSelectionListener, GHAClosable, GHAHideable {
 	private GHATextItem codeItem, nameItem, modelItem, descriptionItem,
@@ -152,9 +156,6 @@ public class EIATypeInformationFormPanel extends VLayout implements
 			@Override
 			public void onFinish(IUploader uploader) {
 				if (uploader.getStatus() == Status.SUCCESS) {
-					// The server sends useful information to the client by
-					// default
-					// Borra la imagen anterior de la session
 					EIATypePictureModel.deletePictureFromSession(imgName3,
 							new GHAAsyncCallback<Void>() {
 								@Override
@@ -179,12 +180,6 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding top-padding");// Esto es VUDU!
 		setAlign(Alignment.CENTER);
-
-		// Label title = new Label("<h3>Caracteristicas del EIA Type</h3>");
-		// title.setHeight(30);
-		// title.setWidth100();
-		// title.setStyleName("title-label");
-		// addMember(title);
 
 		DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
