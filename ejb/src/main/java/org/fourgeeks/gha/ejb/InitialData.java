@@ -112,6 +112,18 @@ public class InitialData {
 							+ e.getMessage());
 			}
 
+			try {
+				ps = con.prepareStatement("ALTER TABLE eiatypecomponent ADD CONSTRAINT myself_component_check CHECK (eiaTypeFk != parentEiaTypeFk)");
+				ps.execute();
+				logger.info("myself_component_check created...");
+			} catch (SQLException e) {
+				if (e.getSQLState().equals("42P07"))
+					logger.info("myself_component_check already created... skipping");
+				else
+					logger.info("ERROR: unable to create myself_component_check : "
+							+ e.getMessage());
+			}
+
 		} catch (SQLException e) {
 			logger.log(Level.INFO,
 					"Error getting the connection to create the checks", e);

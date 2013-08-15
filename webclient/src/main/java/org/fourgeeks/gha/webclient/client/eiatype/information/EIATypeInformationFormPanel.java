@@ -112,9 +112,6 @@ public class EIATypeInformationFormPanel extends VLayout implements
 			@Override
 			public void onFinish(IUploader uploader) {
 				if (uploader.getStatus() == Status.SUCCESS) {
-					// The server sends useful information to the client by
-					// default
-					// Borra la imagen anterior de la session
 					EIATypePictureModel.deletePictureFromSession(imgName1,
 							new GHAAsyncCallback<Void>() {
 								@Override
@@ -134,9 +131,6 @@ public class EIATypeInformationFormPanel extends VLayout implements
 			@Override
 			public void onFinish(IUploader uploader) {
 				if (uploader.getStatus() == Status.SUCCESS) {
-					// The server sends useful information to the client by
-					// default
-					// Borra la imagen anterior de la session
 					EIATypePictureModel.deletePictureFromSession(imgName2,
 							new GHAAsyncCallback<Void>() {
 								@Override
@@ -208,7 +202,6 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
 
 		/**************** COMPONENTE PARA SUBIDA DE IMAGEN ****************************************/
-		// http://code.google.com/p/gwtupload/wiki/CustomWidgets
 		SingleUploader uploadPhoto1 = new SingleUploader(FileInputType.BUTTON);
 		// uploadPhoto1.setStyleName("GHAupload-button");
 		uploadPhoto1.getWidget().setStylePrimaryName("GHAupload-button");
