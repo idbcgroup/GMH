@@ -24,11 +24,11 @@ public interface EiaTypeMaintenancePlanServiceRemote {
 	public void delete(long Id) throws EJBException;
 
 	/**
-	 * @param eiaTypeId
+	 * @param code
 	 * @return a list with the maintenance plans associated with this eiatype
 	 * @throws EJBException
 	 */
-	public List<EiaTypeMaintenancePlan> findByEiaType(long eiaTypeId)
+	public List<EiaTypeMaintenancePlan> findByEiaType(String code)
 			throws EJBException;
 
 	/**

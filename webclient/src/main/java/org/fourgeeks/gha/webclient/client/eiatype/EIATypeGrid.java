@@ -10,7 +10,6 @@ public class EIATypeGrid extends GhaGrid<EiaType> {
 		
 		setEmptyMessage("No existen tipos de equipo para mostrar");
 		
-		GHAGridField idGridField = new GHAGridField("id", "No");
 		GHAGridField codeGridField = new GHAGridField("code", "Codigo");
 		GHAGridField nameGridField = new GHAGridField("name", "Nombre");
 		GHAGridField brandGridField = new GHAGridField("brand", "Marca");
@@ -18,7 +17,7 @@ public class EIATypeGrid extends GhaGrid<EiaType> {
 		GHAGridField makeGridField = new GHAGridField("manufacturer",
 				"Fabricante");
 
-		setFields(idGridField, codeGridField, nameGridField, brandGridField,
+		setFields(codeGridField, nameGridField, brandGridField,
 				modelGridField, makeGridField);
 	}
 

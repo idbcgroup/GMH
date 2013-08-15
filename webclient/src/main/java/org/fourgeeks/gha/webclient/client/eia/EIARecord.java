@@ -3,25 +3,25 @@ package org.fourgeeks.gha.webclient.client.eia;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.domain.gmh.EiaTypeComponent;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.webclient.client.UI.GHAGridRecord;
 
 public class EIARecord extends GHAGridRecord<Eia> {
 
-	private Eia eiaEntity;
+	private Eia eia;
 	
 	public EIARecord() {
 	}
 
 	public EIARecord(Eia eia) {
-		setId(eia.getId());
+		this.eia = eia;
+		
 		setAttribute("code", eia.getCode());
 		setAttribute("serialNumber", eia.getSerialNumber());
 
 		EiaType eiaType = eia.getEiaType();
 		if (eiaType != null) {
-			setAttribute("eiaTypeId", eiaType.getId());
+			setAttribute("eiaTypeCode", eiaType.getCode());
 			setAttribute("eiaTypeName", eiaType.getName());
 			setAttribute("eiaTypeModel", eiaType.getModel());
 			Brand brand = eiaType.getBrand();
@@ -101,13 +101,11 @@ public class EIARecord extends GHAGridRecord<Eia> {
 	}
 
 	public EiaType getEiaType() {
-		Long eiaTypeId = getEiaTypeId();
-		if (eiaTypeId != null) {
-			EiaType eiaType = new EiaType();
-			eiaType.setId(getEiaTypeId());
+		String eiaTypeCode = getEiaTypeCode();
+		if (eiaTypeCode != null) {
+			EiaType eiaType = new EiaType(eiaTypeCode);
 			eiaType.setName(getEiaTypeName());
 			eiaType.setBrand(getBrand());
-			eiaType.setCode(getCode());
 			eiaType.setManufacturer(getManufacturer());
 			// eiaType.setDescription()
 			// eiaType.setEiaUmdns()
@@ -116,10 +114,10 @@ public class EIARecord extends GHAGridRecord<Eia> {
 		return null;
 	}
 
-	public Long getEiaTypeId() {
-		String id = getAttributeAsString("eiaTypeId");
-		if (id != null)
-			return Long.valueOf(id);
+	public String getEiaTypeCode() {
+		String code = getAttributeAsString("eiaTypeCode");
+		if (code != null)
+			return code;
 		return null;
 	}
 
@@ -148,16 +146,7 @@ public class EIARecord extends GHAGridRecord<Eia> {
 
 	@Override
 	public Eia toEntity() {// TODO : Faltan campos
-		Eia eia = new Eia();
-		eia.setId(getId());
-		eia.setCode(getCode());
-		eia.setSerialNumber(getSerialNumber());
-
-		EiaType eiaType = getEiaType();
-		if (eiaType != null)
-			eia.setEiaType(eiaType);
-
-		return eia;
+		return this.eia;
 	}
 
 }

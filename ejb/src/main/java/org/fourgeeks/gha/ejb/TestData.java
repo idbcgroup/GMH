@@ -388,40 +388,40 @@ public class TestData {
 	}
 
 	private void eiaTypeTestData() {
-		String query = "SELECT t from EiaType t WHERE t.id = 1 ";
+		String query = "SELECT t from EiaType t WHERE t.code = '90001'";
 		try {
 			em.createQuery(query).getSingleResult();
 		} catch (NoResultException e) {
 			try {
 				logger.info("creating test eiaType");
-				EiaType eiaType = new EiaType(brandService.find(1),
-						manufacturerService.find(1), "Impresora Tinta",
-						EiaMobilityEnum.FIXED, EiaTypeEnum.EQUIPMENT,
-						EiaSubTypeEnum.IT_SYSTEM, "Stylus", "90001");
+				EiaType eiaType = new EiaType("90001",
+						brandService.find(1), manufacturerService.find(1),
+						"Impresora Tinta", EiaMobilityEnum.FIXED,
+						EiaTypeEnum.EQUIPMENT, EiaSubTypeEnum.IT_SYSTEM, "Stylus");
 				em.persist(eiaType);
 
-				eiaType = new EiaType(brandService.find(2),
-						manufacturerService.find(2), "Impresora Laser",
-						EiaMobilityEnum.FIXED, EiaTypeEnum.EQUIPMENT,
-						EiaSubTypeEnum.IT_SYSTEM, "Deskjet", "90002");
+				eiaType = new EiaType("90002",
+						brandService.find(2), manufacturerService.find(2),
+						"Impresora Laser", EiaMobilityEnum.FIXED,
+						EiaTypeEnum.EQUIPMENT, EiaSubTypeEnum.IT_SYSTEM, "Deskjet");
 				em.persist(eiaType);
 
-				eiaType = new EiaType(brandService.find(3),
-						manufacturerService.find(3), "Cartucho Tricolor",
-						EiaMobilityEnum.FIXED, EiaTypeEnum.PART,
-						EiaSubTypeEnum.IT_SYSTEM, "EP60", "90003");
+				eiaType = new EiaType("90003",
+						brandService.find(3), manufacturerService.find(3),
+						"Cartucho Tricolor", EiaMobilityEnum.FIXED,
+						EiaTypeEnum.PART, EiaSubTypeEnum.IT_SYSTEM, "EP60");
 				em.persist(eiaType);
 
-				eiaType = new EiaType(brandService.find(4),
-						manufacturerService.find(4), "Toner Laser",
-						EiaMobilityEnum.FIXED, EiaTypeEnum.PART,
-						EiaSubTypeEnum.IT_SYSTEM, "HP60", "90004");
+				eiaType = new EiaType("90004",
+						brandService.find(4), manufacturerService.find(4),
+						"Toner Laser", EiaMobilityEnum.FIXED,
+						EiaTypeEnum.PART, EiaSubTypeEnum.IT_SYSTEM, "HP60");
 				em.persist(eiaType);
 
-				eiaType = new EiaType(brandService.find(5),
-						manufacturerService.find(5), "Cartucho Negro",
-						EiaMobilityEnum.FIXED, EiaTypeEnum.PART,
-						EiaSubTypeEnum.IT_SYSTEM, "EPN60", "90005");
+				eiaType = new EiaType("90005",
+						brandService.find(5), manufacturerService.find(5),
+						"Cartucho Negro", EiaMobilityEnum.FIXED,
+						EiaTypeEnum.PART, EiaSubTypeEnum.IT_SYSTEM, "EPN60");
 				em.persist(eiaType);
 
 				em.flush();
@@ -453,7 +453,7 @@ public class TestData {
 						.find(ExternalProvider.class, 1L);
 				RoleBase bRole = em.find(RoleBase.class, 1L);
 
-				Eia eia = new Eia(bRole, eiaTypeServ.find(1), bLocation,
+				Eia eia = new Eia(bRole, em.find(EiaType.class, "90001"), bLocation,
 						bLocation, obu, EiaStateEnum.CREATED);
 				eia.setCode("Stylus-001");
 				eia.setSerialNumber("001");
@@ -461,23 +461,23 @@ public class TestData {
 				eia.setCode("p-001");
 				em.persist(eia);
 
-				Eia eia2 = new Eia(bRole, eiaTypeServ.find(2), bLocation,
+				Eia eia2 = new Eia(bRole, em.find(EiaType.class, "90002"), bLocation,
 						bLocation, obu, EiaStateEnum.CREATED);
 				eia2.setProvider(eProvider);
 				eia2.setCode("p-002");
 
-				Eia eia3 = new Eia(bRole, eiaTypeServ.find(3), bLocation,
+				Eia eia3 = new Eia(bRole, em.find(EiaType.class, "90003"), bLocation,
 						bLocation, obu, EiaStateEnum.CREATED);
 				eia3.setProvider(eProvider);
 				eia3.setCode("p-003");
 
-				Eia eia4 = new Eia(bRole, eiaTypeServ.find(4), bLocation,
+				Eia eia4 = new Eia(bRole, em.find(EiaType.class, "90004"), bLocation,
 						bLocation, obu, EiaStateEnum.CREATED);
 				eia4.setObu(obu);
 				eia4.setProvider(eProvider);
 				eia4.setCode("p-004");
 
-				Eia eia5 = new Eia(bRole, eiaTypeServ.find(5), bLocation,
+				Eia eia5 = new Eia(bRole, em.find(EiaType.class, "90005"), bLocation,
 						bLocation, obu, EiaStateEnum.CREATED);
 				eia5.setObu(obu);
 				eia5.setProvider(eProvider);

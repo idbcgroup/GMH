@@ -360,7 +360,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 			public void onSuccess(List<EiaType> result) {
 				LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
 				for (EiaType entity : result) {
-					valueMap.put(entity.getId() + "", entity.getName() + "");
+					valueMap.put(entity.getCode() + "", entity.getName() + "");
 				}
 				eiaTypeSelectItem.setValueMap(valueMap);
 			}
@@ -578,8 +578,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		if (eiaType != null)
 			eia.setEiaType(this.eiaType);
 		else {
-			String eiaTypeValue = eiaTypeSelectItem.getValueAsString();
-			eia.setEiaType(new EiaType(Long.valueOf(eiaTypeValue)));
+			eia.setEiaType(new EiaType(eiaTypeSelectItem.getValueAsString()));
 		}
 		// basic information
 		eia.setCode(codeTextItem.getValueAsString());
@@ -810,7 +809,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 	public void select(EiaType eiaType) {
 		this.eiaType = eiaType;
 		if (eiaType != null) {
-			eiaTypeSelectItem.setValue(eiaType.getId());
+			eiaTypeSelectItem.setValue(eiaType.getCode());
 			eiaTypeSelectItem.disable();
 		}
 	}
