@@ -50,6 +50,7 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 	public EIATypeEquipmentGridPanel(
 			EIATypeEquipmentSubTab eIATypeEquipmentSubTab) {
 		super();
+		eIATypeEquipmentSubTab.addGHAHideableHandler(eiaAddForm);
 		eiaAddForm.addEiaSelectionListener(eIATypeEquipmentSubTab);
 		setStyleName("sides-padding top-padding");// Esto es VUDU!
 		setWidth100();
@@ -158,6 +159,12 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 		eiaAddForm.destroy();
 	}
 
+	@Override
+	public void hide() {
+		eiaAddForm.hide();
+		// super.hide();
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -179,18 +186,18 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 		loadData(eiaType);
 	}
 
-//	@Override
-//	public void addEiaSelectionListener(
-//			EIASelectionListener eiaSelectionListener) {
-//		// TODO Auto-generated method stub
-//
-//	}
-//
-//	@Override
-//	public void removeEiaSelectionListener(
-//			EIASelectionListener eiaSelectionListener) {
-//		// TODO Auto-generated method stub
-//
-//	}
+	// @Override
+	// public void addEiaSelectionListener(
+	// EIASelectionListener eiaSelectionListener) {
+	// // TODO Auto-generated method stub
+	//
+	// }
+	//
+	// @Override
+	// public void removeEiaSelectionListener(
+	// EIASelectionListener eiaSelectionListener) {
+	// // TODO Auto-generated method stub
+	//
+	// }
 
 }

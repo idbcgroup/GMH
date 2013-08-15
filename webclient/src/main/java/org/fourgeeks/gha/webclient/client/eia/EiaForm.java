@@ -26,7 +26,6 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHACheckboxItem;
 import org.fourgeeks.gha.webclient.client.UI.GHADateItem;
-import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.GHASectionForm;
 import org.fourgeeks.gha.webclient.client.UI.GHASelectItem;
@@ -36,17 +35,11 @@ import org.fourgeeks.gha.webclient.client.UI.GHATitleTextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
-import com.google.gwt.user.client.Window;
 import com.google.gwt.validation.client.impl.Validation;
 import com.smartgwt.client.types.TitleOrientation;
-import com.smartgwt.client.widgets.Label;
-import com.smartgwt.client.widgets.events.ClickEvent;
-import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.form.fields.events.ChangeEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangeHandler;
-import com.smartgwt.client.widgets.layout.HLayout;
-import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
@@ -236,33 +229,8 @@ public class EiaForm extends VLayout implements EIATypeSelectionListener,
 		sectionForm.addSection("Garantias", getGarantiasMantForm(), false);
 		sectionForm.addSection("EquiposIT", getEquiposIT(), false);
 
-		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
-				"../resources/icons/save.png", new ClickHandler() {
+		addMember(sectionForm);
 
-					@Override
-					public void onClick(ClickEvent event) {
-						Window.alert("saving");
-						save();
-
-					}
-				}), new GHAImgButton("../resources/icons/set.png"),
-				new GHAImgButton("../resources/icons/cancel.png",
-						new ClickHandler() {
-
-							@Override
-							public void onClick(ClickEvent event) {
-								cancel();
-							}
-						}));
-
-		HLayout mainLayout = new HLayout();
-		mainLayout.addMember(sectionForm);
-		mainLayout.addMembers(new LayoutSpacer(), sideButtons);
-		Label title = new Label("<h3>Nuevo equipo</h3>");
-		title.setWidth(400);
-		title.setHeight("35px");
-		addMember(title);
-		addMember(mainLayout);
 		// Fillers
 		fillInformationSelects();
 		fillAdquisitionSelects();
@@ -589,10 +557,9 @@ public class EiaForm extends VLayout implements EIATypeSelectionListener,
 	/**
 	 * Save the new element to database
 	 */
-	private void save() {
+	public void save() {
 		final Eia eia = extract();
 		if (eia != null)
-
 			EIAModel.save(eia, new GHAAsyncCallback<Eia>() {
 				@Override
 				public void onSuccess(Eia result) {
@@ -755,13 +722,16 @@ public class EiaForm extends VLayout implements EIATypeSelectionListener,
 		eia.setMachineName(machineNameTextItem.getValueAsString());
 		eia.setIpAddress(ipAddresTextItem.getValueAsString());
 		eia.setMacAddress(macAddressTextItem.getValueAsString());
-
+		// Window.alert("1");
 		Set<ConstraintViolation<Eia>> violations = validator.validate(eia);
+		// Window.alert("2");
+		// Window.alert(violations.isEmpty() == true ? "vacio" : "novacio");
 		if (violations.isEmpty())
 			return eia;
-
+		// Window.alert("3");
 		GHANotification.alert(violations.iterator().next().getMessage());
-		return eia;
+		// Window.alert("4");
+		return null;
 	}
 
 	/**
@@ -770,24 +740,24 @@ public class EiaForm extends VLayout implements EIATypeSelectionListener,
 	private void cancel() {
 
 		// clean text fields
-		codeTextItem.setValue("");
-		serialTextItem.setValue("");
-		fixedAssetIdTextItem.setValue("");
-		purchaseOrderNumTextItem.setValue("");
-		purchaseInvoiceNumTextItem.setValue("");
-		buildingLocationCodeTextItem.setValue("");
-		attendedLocationCodeTextItem.setValue("");
-		adquisitionCostTextItem.setValue("");
-		adquisitionCostLocalTextItem.setValue("");
-		depreciationTimeTextItem.setValue("");
-		lifeTimeTextItem.setValue("");
-		actualCostTextItem.setValue("");
-		realWarrantyTimeTextItem.setValue("");
-		intWarrantyTimeTextItem.setValue("");
-		codeMant_WarrMant_TextItem.setValue("");
-		ipAddresTextItem.setValue("");
-		macAddressTextItem.setValue("");
-		machineNameTextItem.setValue("");
+		codeTextItem.clearValue();
+		serialTextItem.clearValue();
+		fixedAssetIdTextItem.clearValue();
+		purchaseOrderNumTextItem.clearValue();
+		purchaseInvoiceNumTextItem.clearValue();
+		buildingLocationCodeTextItem.clearValue();
+		attendedLocationCodeTextItem.clearValue();
+		adquisitionCostTextItem.clearValue();
+		adquisitionCostLocalTextItem.clearValue();
+		depreciationTimeTextItem.clearValue();
+		lifeTimeTextItem.clearValue();
+		actualCostTextItem.clearValue();
+		realWarrantyTimeTextItem.clearValue();
+		intWarrantyTimeTextItem.clearValue();
+		codeMant_WarrMant_TextItem.clearValue();
+		ipAddresTextItem.clearValue();
+		macAddressTextItem.clearValue();
+		machineNameTextItem.clearValue();
 
 		// clean select fields
 		obuSelectItem.clearValue();
@@ -810,13 +780,13 @@ public class EiaForm extends VLayout implements EIATypeSelectionListener,
 		maintenanceProviderSelectItem.clearValue();
 		itTypeSelectItem.clearValue();
 
-		purchaseDateItem.setValue("");
-		receptionDateItem.setValue("");
-		installationDateItem.setValue("");
-		contabilizationDateItem.setValue("");
-		lastDepreciationDate.setValue("");
-		realWarrantyBeginDate.setValue("");
-		intWarrantyBeginDate.setValue("");
+		purchaseDateItem.clearValue();
+		receptionDateItem.clearValue();
+		installationDateItem.clearValue();
+		contabilizationDateItem.clearValue();
+		lastDepreciationDate.clearValue();
+		realWarrantyBeginDate.clearValue();
+		intWarrantyBeginDate.clearValue();
 
 		sameLocationAttendedItem.setValue(false);
 		isInMaintenanceItem.setValue(false);
@@ -843,13 +813,16 @@ public class EiaForm extends VLayout implements EIATypeSelectionListener,
 			eiaTypeSelectItem.setValue(eiaType.getId());
 			eiaTypeSelectItem.disable();
 		}
-
 	}
 
 	@Override
 	public void removeEiaSelectionListener(
 			EIASelectionListener eiaSelectionListener) {
 		listeners.remove(eiaSelectionListener);
+	}
 
+	@Override
+	public void hide() {
+		sectionForm.deactivate();
 	}
 }

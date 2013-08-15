@@ -63,4 +63,9 @@ public class GWTMaterialServiceImpl extends RemoteServiceServlet implements
 	public List<Material> find(Material Material) throws EJBException {
 		return materialServiceRemote.find(Material);
 	}
+
+	@Override
+	public List<Material> getAllUtilities() throws EJBException {
+		return materialServiceRemote.getAllUtilities();
+	}
 }

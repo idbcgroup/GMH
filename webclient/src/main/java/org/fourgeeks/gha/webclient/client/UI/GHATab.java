@@ -3,7 +3,6 @@ package org.fourgeeks.gha.webclient.client.UI;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.smartgwt.client.util.SC;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public abstract class GHATab extends VLayout implements GHAClosable,
@@ -32,7 +31,7 @@ public abstract class GHATab extends VLayout implements GHAClosable,
 
 	public String getToken() {
 		if (token == null)
-			SC.say("No token set for this tab");
+			GHANotification.alert("No token set for this tab");
 		return token;
 	};
 
