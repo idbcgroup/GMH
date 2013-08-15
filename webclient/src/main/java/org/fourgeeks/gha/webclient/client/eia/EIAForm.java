@@ -46,7 +46,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class EiaForm extends VLayout implements EIATypeSelectionListener,
+public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		EiaSelectionProducer {
 	private GHATextItem codeTextItem, serialTextItem, fixedAssetIdTextItem,
 			purchaseOrderNumTextItem, purchaseInvoiceNumTextItem,
@@ -209,7 +209,7 @@ public class EiaForm extends VLayout implements EIATypeSelectionListener,
 	/**
 	 * Creates a EiaForm with a eiatype select
 	 */
-	public EiaForm() {
+	public EIAForm() {
 		this(null);
 	}
 
@@ -218,7 +218,7 @@ public class EiaForm extends VLayout implements EIATypeSelectionListener,
 	 * @param canChooseEiaType
 	 * 
 	 */
-	public EiaForm(EiaType eiaType) {
+	public EIAForm(EiaType eiaType) {
 		this.eiaType = eiaType;
 
 		sectionForm.addSection("Información Básica", getInfoBasicaForm(), true);

@@ -20,16 +20,13 @@ import com.smartgwt.client.widgets.layout.VLayout;
  */
 public class EIAAddForm extends GHASlideInWindow implements
 		EIATypeSelectionListener, EiaSelectionProducer {
-	EiaForm eiaForm;
-	{
-
-	}
+	EIAForm eiaForm;
 
 	/**
 	 * 
 	 */
 	public EIAAddForm() {
-		eiaForm = new EiaForm();
+		eiaForm = new EIAForm();
 		initComponent();
 	}
 
@@ -75,7 +72,7 @@ public class EIAAddForm extends GHASlideInWindow implements
 	 * 
 	 */
 	public EIAAddForm(EiaType eiaType) {
-		eiaForm = new EiaForm(eiaType);
+		eiaForm = new EIAForm(eiaType);
 		initComponent();
 	}
 
