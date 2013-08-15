@@ -22,7 +22,6 @@ public class MaterialGrid extends GhaGrid<Material> {
 		setAlternateRecordStyles(false);
 		setCanResizeFields(false);
 
-		GHAGridField idGridField = new GHAGridField("id", "No");
 		GHAGridField codeGridField = new GHAGridField("code", "Código");
 		GHAGridField nameGridField = new GHAGridField("name", "Nombre");
 		GHAGridField descriptionGridField = new GHAGridField("description",
@@ -34,8 +33,8 @@ public class MaterialGrid extends GhaGrid<Material> {
 		GHAGridField extProviderGridField = new GHAGridField(
 				"externalProvider", "Proveedor");
 
-		setFields(idGridField, codeGridField, nameGridField,
-				descriptionGridField, modelGridField, extCodeGridField);
+		setFields(codeGridField, nameGridField, descriptionGridField,
+				modelGridField, extCodeGridField);
 	}
 
 }

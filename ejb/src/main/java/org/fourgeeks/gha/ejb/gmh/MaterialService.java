@@ -10,13 +10,16 @@ import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.glm.Material;
 import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 
@@ -32,42 +35,57 @@ public class MaterialService implements MaterialServiceRemote {
 	private final static Logger logger = Logger.getLogger(MaterialService.class
 			.getName());
 
-	private static Predicate buildFilters(Material entity, CriteriaBuilder cb,
-			Root<Material> root) {
-		Predicate criteria = cb.conjunction();
+	private static Predicate buildFilters(Material material,
+			CriteriaBuilder cb, Root<Material> root) {
+		Predicate predicate = cb.conjunction();
 
-		if (entity.getCode() != null) {
-			ParameterExpression<String> p = cb.parameter(String.class, "code");
-			criteria = cb.and(criteria, cb.equal(root.<String> get("code"), p));
-		}
-
-		if (entity.getDescription() != null) {
-			ParameterExpression<String> p = cb.parameter(String.class,
-					"description");
-			criteria = cb.and(criteria,
-					cb.like(cb.lower(root.<String> get("description")), p));
-		}
-
-		if (entity.getModel() != null) {
-			ParameterExpression<String> p = cb.parameter(String.class, "model");
-			criteria = cb.and(criteria,
-					cb.like(cb.lower(root.<String> get("model")), p));
-		}
-
-		if (entity.getName() != null) {
-			ParameterExpression<String> p = cb.parameter(String.class, "name");
-			criteria = cb.and(criteria,
-					cb.like(cb.lower(root.<String> get("name")), p));
-		}
-
-		if (entity.getType() != null) {
+		if (material.getType() != null) {
 			ParameterExpression<EiaTypeEnum> p = cb.parameter(
 					EiaTypeEnum.class, "type");
-			criteria = cb.and(criteria,
+			predicate = cb.and(predicate,
 					cb.equal(root.<EiaTypeEnum> get("type"), p));
 		}
 
-		return criteria;
+		if (material.getDescription() != null) {
+			ParameterExpression<String> p = cb.parameter(String.class,
+					"description");
+			predicate = cb.and(predicate,
+					cb.like(cb.lower(root.<String> get("description")), p));
+		}
+
+		if (material.getExternalProvider() != null) {
+			ParameterExpression<ExternalProvider> p = cb.parameter(
+					ExternalProvider.class, "provider");
+			predicate = cb.and(predicate,
+					cb.equal(root.<ExternalProvider> get("provider"), p));
+		}
+
+		if (material.getName() != null) {
+			ParameterExpression<String> p = cb.parameter(String.class, "name");
+			predicate = cb.and(predicate,
+					cb.like(cb.lower(root.<String> get("name")), p));
+		}
+
+		if (material.getCode() != null) {
+			ParameterExpression<String> p = cb.parameter(String.class, "code");
+			predicate = cb.and(predicate,
+					cb.equal(root.<String> get("code"), p));
+		}
+
+		if (material.getExtCode() != null) {
+			ParameterExpression<String> p = cb.parameter(String.class,
+					"extCode");
+			predicate = cb.and(predicate,
+					cb.equal(root.<String> get("extCode"), p));
+		}
+
+		if (material.getModel() != null) {
+			ParameterExpression<String> p = cb.parameter(String.class, "model");
+			predicate = cb.and(predicate,
+					cb.like(cb.lower(root.<String> get("model")), p));
+		}
+
+		return predicate;
 
 	}
 
@@ -97,34 +115,52 @@ public class MaterialService implements MaterialServiceRemote {
 	 */
 	@Override
 	public List<Material> find(Material entity) throws EJBException {
-//		try {
-//			CriteriaBuilder cb = em.getCriteriaBuilder();
-//
-//			CriteriaQuery<Material> cQuery = cb.createQuery(Material.class);
-//
-//			Root<Material> root = cQuery.from(Material.class);
-//
-//			cQuery.select(root);
-//
-//			cQuery.orderBy(cb.asc(root.<String> get("name")));
-//
-//			Predicate criteria = buildFilters(entity, cb, root);
-//			TypedQuery<EiaType> q;
-//		} catch (Exception e) {
-//			logger.log(Level.SEVERE,
-//					"Error obteniendo los eiaTypes por eiatype", e);
-//			throw new EJBException("Error obteniendo los eiaTypes por eiatype "
-//					+ e.getCause().getMessage());
-//		}
-
 		try {
-			return em.createNamedQuery("Material.findByName", Material.class)
-					.setParameter("name", entity.getName() + "%").getResultList();
+			CriteriaBuilder cb = em.getCriteriaBuilder();
+			CriteriaQuery<Material> cQuery = cb.createQuery(Material.class);
+			Root<Material> root = cQuery.from(Material.class);
+			cQuery.select(root);
+			cQuery.orderBy(cb.asc(root.<String> get("code")));
+			Predicate criteria = buildFilters(entity, cb, root);
+
+			if (criteria.getExpressions().size() == 0)
+				return getAll();
+
+			cQuery.where(criteria);
+			TypedQuery<Material> q = em.createQuery(cQuery);
+
+			if (entity.getType() != null)
+				q.setParameter("type", entity.getType());
+
+			if (entity.getDescription() != null)
+				q.setParameter("description", "%" + entity.getDescription()
+						+ "%");
+
+			if (entity.getExternalProvider() != null)
+				q.setParameter("provider", entity.getExternalProvider());
+
+			if (entity.getName() != null)
+				q.setParameter("name", "%" + entity.getName() + "%");
+
+			if (entity.getCode() != null)
+				q.setParameter("code", entity.getCode());
+
+			if (entity.getExtCode() != null)
+				q.setParameter("extCode", entity.getExtCode());
+
+			if (entity.getModel() != null)
+				q.setParameter("name", "%" + entity.getModel() + "%");
+
+			return q.getResultList();
+
 		} catch (Exception e) {
-			logger.log(Level.INFO, "Error: finding by Material Material", e);
-			throw new EJBException("Error buscando Material por Material "
-					+ e.getCause().getMessage());
+			logger.log(Level.SEVERE,
+					"Error obteniendo los materials por materials", e);
+			throw new EJBException(
+					"Error obteniendo los materials por materials "
+							+ e.getCause().getMessage());
 		}
+
 	}
 
 	/*

@@ -51,7 +51,7 @@ public class MaterialSearchForm extends GHASlideInWindow implements
 		// selects
 		externalProviderSelectItem = new GHASelectItem("Proveedor");
 		typeSelectItem = new GHASelectItem("Tipo");
-		
+
 		addForm = new MaterialAddForm();
 		addForm.addMaterialSelectionListener(this);
 	}
@@ -128,16 +128,14 @@ public class MaterialSearchForm extends GHASlideInWindow implements
 						selectMaterial(grid.getSelectedEntity());
 						hide();
 					}
-				}),
-				GHAUiHelper.verticalGraySeparator("2px"),
-				new GHAImgButton("../resources/icons/new.png", new ClickHandler() {
+				}), GHAUiHelper.verticalGraySeparator("2px"), new GHAImgButton(
+				"../resources/icons/new.png", new ClickHandler() {
 
 					@Override
 					public void onClick(ClickEvent event) {
 						addForm.open();
 					}
-				})
-		);
+				}));
 
 		gridLayout.addMembers(grid, sideGridButtons);
 
@@ -179,7 +177,7 @@ public class MaterialSearchForm extends GHASlideInWindow implements
 			MaterialSelectionListener selecionListener) {
 		selectionListeners.add(selecionListener);
 	}
-	
+
 	@Override
 	public void select(Material material) {
 		search(material);
@@ -200,10 +198,10 @@ public class MaterialSearchForm extends GHASlideInWindow implements
 		if (externalProviderSelectItem.getValue() != null)
 			material.setExternalProvider(new ExternalProvider(Long
 					.valueOf(externalProviderSelectItem.getValueAsString())));
-		
+
 		search(material);
 	}
-	
+
 	private void search(final Material material) {
 		MaterialModel.find(material, new GHAAsyncCallback<List<Material>>() {
 
@@ -212,10 +210,10 @@ public class MaterialSearchForm extends GHASlideInWindow implements
 				ListGridRecord[] array = MaterialUtil.toGridRecords(materials)
 						.toArray(new MaterialRecord[] {});
 				grid.setData(array);
-				
 				if (material != null && material.getId() != 0l)
 					for (ListGridRecord listGridRecord : grid.getRecords())
-						if (((MaterialRecord) listGridRecord).toEntity().getId() == material.getId())
+						if (((MaterialRecord) listGridRecord).toEntity()
+								.getId() == material.getId())
 							grid.selectRecord(listGridRecord);
 			}
 		});
