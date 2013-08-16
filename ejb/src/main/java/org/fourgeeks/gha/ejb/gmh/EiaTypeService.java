@@ -370,12 +370,9 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 	 */
 	@Override
 	public EiaType save(EiaType eiaType) throws EJBException {
-		try {
+		try {		
 			em.persist(eiaType);
 			em.flush();
-			
-			System.out.println("Luego de salvar el eiaType, antes de hacer el find");
-			
 			return em.find(EiaType.class, eiaType.getCode());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving eiatype", e);

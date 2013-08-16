@@ -39,6 +39,13 @@ public class Manufacturer extends AbstractEntity {
 
 	}
 
+	/**
+	 * @param name
+	 */
+	public Manufacturer(String name) {
+		this.name = name;
+	}
+
 	public Manufacturer(int id, String name) {
 		this.id = id;
 		this.name = name;
