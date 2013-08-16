@@ -197,7 +197,7 @@ public class MaterialSearchForm extends GHASlideInWindow implements
 	/**
 	 * @param material
 	 */
-	private void search(final Material material) {
+	protected void search(final Material material) {
 		MaterialModel.find(material, new GHAAsyncCallback<List<Material>>() {
 
 			@Override
