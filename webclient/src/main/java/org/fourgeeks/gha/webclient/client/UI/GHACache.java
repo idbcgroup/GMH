@@ -52,7 +52,7 @@ public enum GHACache {
 		t.scheduleRepeating(CACHE_TIME);
 	}
 
-	protected void invalidateCache() {
+	private void invalidateCache() {
 		brands = null;
 		manufacturers = null;
 		buildingLocations = null;
