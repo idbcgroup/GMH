@@ -48,6 +48,10 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
+/**
+ * @author alacret
+ * 
+ */
 public class EIATypeInformationFormPanel extends VLayout implements
 		EIATypeSelectionListener, GHAClosable, GHAHideable {
 	private GHATextItem codeItem, nameItem, modelItem, descriptionItem,
@@ -108,9 +112,6 @@ public class EIATypeInformationFormPanel extends VLayout implements
 			@Override
 			public void onFinish(IUploader uploader) {
 				if (uploader.getStatus() == Status.SUCCESS) {
-					// The server sends useful information to the client by
-					// default
-					// Borra la imagen anterior de la session
 					EIATypePictureModel.deletePictureFromSession(imgName1,
 							new GHAAsyncCallback<Void>() {
 								@Override
@@ -130,9 +131,6 @@ public class EIATypeInformationFormPanel extends VLayout implements
 			@Override
 			public void onFinish(IUploader uploader) {
 				if (uploader.getStatus() == Status.SUCCESS) {
-					// The server sends useful information to the client by
-					// default
-					// Borra la imagen anterior de la session
 					EIATypePictureModel.deletePictureFromSession(imgName2,
 							new GHAAsyncCallback<Void>() {
 								@Override
@@ -152,9 +150,6 @@ public class EIATypeInformationFormPanel extends VLayout implements
 			@Override
 			public void onFinish(IUploader uploader) {
 				if (uploader.getStatus() == Status.SUCCESS) {
-					// The server sends useful information to the client by
-					// default
-					// Borra la imagen anterior de la session
 					EIATypePictureModel.deletePictureFromSession(imgName3,
 							new GHAAsyncCallback<Void>() {
 								@Override
@@ -179,12 +174,6 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding top-padding");// Esto es VUDU!
 		setAlign(Alignment.CENTER);
-
-		// Label title = new Label("<h3>Caracteristicas del EIA Type</h3>");
-		// title.setHeight(30);
-		// title.setWidth100();
-		// title.setStyleName("title-label");
-		// addMember(title);
 
 		DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
@@ -213,7 +202,6 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
 
 		/**************** COMPONENTE PARA SUBIDA DE IMAGEN ****************************************/
-		// http://code.google.com/p/gwtupload/wiki/CustomWidgets
 		SingleUploader uploadPhoto1 = new SingleUploader(FileInputType.BUTTON);
 		// uploadPhoto1.setStyleName("GHAupload-button");
 		uploadPhoto1.getWidget().setStylePrimaryName("GHAupload-button");
@@ -488,14 +476,15 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		if (this.eiaType == null)
 			return;
 		final EiaType eiaType = new EiaType();
-		eiaType.setId(this.eiaType.getId());
+		eiaType.setCode(codeItem.getValueAsString());
+		
 		if (brandItem.getValue() != null)
 			eiaType.setBrand(new Brand(Integer.valueOf(brandItem
 					.getValueAsString()), null));
 		if (manItem.getValue() != null)
 			eiaType.setManufacturer(new Manufacturer(Integer.valueOf(manItem
 					.getValueAsString()), null));
-		eiaType.setCode(codeItem.getValueAsString());
+		
 		eiaType.setName(nameItem.getValueAsString());
 		eiaType.setDescription(descriptionItem.getValueAsString());
 		eiaType.setModel(modelItem.getValueAsString());

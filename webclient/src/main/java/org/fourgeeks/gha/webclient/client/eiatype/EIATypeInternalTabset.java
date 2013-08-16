@@ -7,7 +7,6 @@ import org.fourgeeks.gha.webclient.client.eiatype.equipment.EIATypeEquipmentSubT
 import org.fourgeeks.gha.webclient.client.eiatype.information.EIATypeInformationSubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.maintenance.EIATypeMaintenanceSubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.material.EIATypeMaterialSubTab;
-import org.fourgeeks.gha.webclient.client.eiatype.spare.EIATypeSpareSubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.utility.EIATypeUtilitySubTab;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -20,7 +19,7 @@ public class EIATypeInternalTabset extends TabSet implements
 	private EIATypeInformationSubTab infoSubTab;
 	private EIATypeEquipmentSubTab equipementsSubTab;
 	private EIATypeComponentSubTab partsSubTab;
-	private EIATypeSpareSubTab replacementsSubTab;
+	// private EIATypeSpareSubTab replacementsSubTab;
 	private EIATypeMaterialSubTab materialSubTab;
 	private EIATypeUtilitySubTab servicesSubTab;
 	private EIATypeMaintenanceSubTab maintenanceSubTab;
@@ -34,7 +33,7 @@ public class EIATypeInternalTabset extends TabSet implements
 		equipementsSubTab = new EIATypeEquipmentSubTab(tab);
 		infoSubTab = new EIATypeInformationSubTab(tab);
 		partsSubTab = new EIATypeComponentSubTab(tab);
-		replacementsSubTab = new EIATypeSpareSubTab(tab);
+		// replacementsSubTab = new EIATypeSpareSubTab(tab);
 		materialSubTab = new EIATypeMaterialSubTab(tab);
 		servicesSubTab = new EIATypeUtilitySubTab(tab);
 		maintenanceSubTab = new EIATypeMaintenanceSubTab(tab);
@@ -43,7 +42,7 @@ public class EIATypeInternalTabset extends TabSet implements
 		addTab(infoSubTab);
 		addTab(equipementsSubTab);
 		addTab(partsSubTab);
-		addTab(replacementsSubTab);
+		// addTab(replacementsSubTab);
 		addTab(materialSubTab);
 		addTab(servicesSubTab);
 		addTab(maintenanceSubTab);
@@ -55,7 +54,7 @@ public class EIATypeInternalTabset extends TabSet implements
 		infoSubTab.select(eiaType);
 		equipementsSubTab.select(eiaType);
 		partsSubTab.select(eiaType);
-		replacementsSubTab.select(eiaType);
+		// replacementsSubTab.select(eiaType);
 		materialSubTab.select(eiaType);
 		servicesSubTab.select(eiaType);
 		maintenanceSubTab.select(eiaType);

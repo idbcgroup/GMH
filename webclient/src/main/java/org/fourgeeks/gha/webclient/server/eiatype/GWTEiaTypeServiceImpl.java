@@ -46,8 +46,8 @@ public class GWTEiaTypeServiceImpl extends RemoteServiceServlet implements
 	 * @see org.fourgeeks.gha.webclient.client.eia.GWTEiaTypeService#find(long)
 	 */
 	@Override
-	public EiaType find(long Id) throws EJBException {
-		return eiaTypeServiceRemote.find(Id);
+	public EiaType find(String code) throws EJBException {
+		return eiaTypeServiceRemote.find(code);
 	}
 
 	/*

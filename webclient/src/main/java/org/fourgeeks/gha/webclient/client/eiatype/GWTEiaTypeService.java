@@ -26,11 +26,11 @@ public interface GWTEiaTypeService extends RemoteService {
 	public EiaType save(EiaType eiaType) throws EJBException;
 
 	/**
-	 * @param Id
+	 * @param code
 	 * @return the EiaType with this Id
 	 * @throws EJBException
 	 */
-	public EiaType find(long Id) throws EJBException;
+	public EiaType find(String code) throws EJBException;
 
 	/**
 	 * @param eiaType

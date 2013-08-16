@@ -63,7 +63,7 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 			ParameterExpression<String> p = cb.parameter(String.class,
 					"eiaumdns");
 			criteria = cb.and(criteria,
-					cb.like(cb.lower(root.<String> get("eiaumdns")), p));
+					cb.like(cb.lower(root.<String> get("eiaUmdns")), p));
 		}
 
 		if (entity.getManufacturer() != null) {
@@ -101,7 +101,7 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 
 		if (entity.getType() != null) {
 			ParameterExpression<EiaTypeEnum> p = cb.parameter(
-					EiaTypeEnum.class, "type");
+					EiaTypeEnum.class, "etype");
 			criteria = cb.and(criteria,
 					cb.equal(root.<EiaTypeEnum> get("type"), p));
 		}
@@ -110,7 +110,7 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 			ParameterExpression<String> p = cb.parameter(String.class,
 					"usedescription");
 			criteria = cb.and(criteria,
-					cb.like(cb.lower(root.<String> get("usedescription")), p));
+					cb.like(cb.lower(root.<String> get("useDescription")), p));
 		}
 
 		return criteria;
@@ -201,7 +201,7 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 				}
 
 				if (entity.getType() != null) {
-					q.setParameter("type", entity.getType());
+					q.setParameter("etype", entity.getType());
 				}
 
 				if (entity.getUseDescription() != null) {
@@ -209,7 +209,6 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 							+ entity.getUseDescription().toLowerCase() + "%");
 				}
 			}
-
 			return q.getResultList();
 		} catch (Exception e) {
 			logger.log(Level.SEVERE,
@@ -289,7 +288,7 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 				}
 
 				if (eiaType.getType() != null) {
-					q.setParameter("type", eiaType.getType());
+					q.setParameter("etype", eiaType.getType());
 				}
 
 				if (eiaType.getUseDescription() != null) {
@@ -318,9 +317,9 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypeService#getEiaType(long)
 	 */
 	@Override
-	public EiaType find(long Id) throws EJBException {
+	public EiaType find(String code) throws EJBException {
 		try {
-			return em.find(EiaType.class, Id);
+			return em.find(EiaType.class, code);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error buscando Eiatype por Id ", e);
 			throw new EJBException("Error buscando Eiatype por Id "
@@ -374,7 +373,10 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 		try {
 			em.persist(eiaType);
 			em.flush();
-			return em.find(EiaType.class, eiaType.getId());
+			
+			System.out.println("Luego de salvar el eiaType, antes de hacer el find");
+			
+			return em.find(EiaType.class, eiaType.getCode());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving eiatype", e);
 			throw new EJBException("Error guardando EiaType: "

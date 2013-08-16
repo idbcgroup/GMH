@@ -16,7 +16,6 @@ public class EIATypeComponentRecord
 	public void setEiaTypeComponent(EiaTypeComponent eiaTypeComponent) {
 		this.eiaTypeComponent = eiaTypeComponent;
 		EiaType eiaType = this.eiaTypeComponent.getEiaType();
-		setId(this.eiaTypeComponent.getId());
 		setCode(eiaType.getCode());
 		setName(eiaType.getName());
 		if (eiaType.getBrand() != null)

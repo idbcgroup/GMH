@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.CurrencyTypeEnum;
@@ -23,23 +25,18 @@ import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
 
 @Entity
-@NamedQueries(value = { 
-		@NamedQuery(name = "Eia.getAll", 
-				query = "SELECT e from Eia e order by e.id"),
-		@NamedQuery(name = "Eia.findByEiaType",
-				query = "SELECT e from Eia e WHERE e.eiaType = :eiaType order by e.id")
-})
+@NamedQueries(value = {
+		@NamedQuery(name = "Eia.getAll", query = "SELECT e from Eia e order by e.id"),
+		@NamedQuery(name = "Eia.findByEiaType", query = "SELECT e from Eia e WHERE e.eiaType = :eiaType order by e.id") })
 public class Eia extends AbstractEntity {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	private EiaMaintenancePlan eMaintenancePlan;
-	
-	
-	
+
 	/** Fecha de Instalación del Equipo length =22 */
 	private Date acceptationDate;
 	/** Periodo de Tiempo (PDT) para el Tiempo de Vida Equipo length =60 */
@@ -71,13 +68,13 @@ public class Eia extends AbstractEntity {
 	private int depreciationTime;
 	/** Tiempo de Depreciación length =4 */
 	private TimePeriodEnum depreciationTimePoT;
-	/** Denominación Moneda Local para Costo Contabilizado del equipo length =60 */
-	private Date desincorporatedDate;
-	/** Fecha de Desincorporación length =22 */
-	private String desincorporateReason;
+	// private Date desincorporatedDate;
+
+	// @Size(max = 30, message = "El campo debe ser menor a 30 caracteres")
+	// private String desincorporateReason;
 
 	@ManyToOne
-	@JoinColumn(name = "eiaTypeFk", nullable=false)
+	@JoinColumn(name = "eiaTypeFk", nullable = false)
 	private EiaType eiaType;
 
 	/** Número de Serial del Equipo length =60 */
@@ -93,17 +90,18 @@ public class Eia extends AbstractEntity {
 	private int lifeTime;
 	/** Tiempo de Vida Equipo length =4 */
 	private TimePeriodEnum lifeTimePoT;
-	
+
 	/**
 	 * Building location where the EIA is located
 	 */
 	@ManyToOne
 	@JoinColumn(name = "buildingLocationFk", nullable = false)
 	private BuildingLocation buildingLocation;
-	
+
 	/**
 	 * Building location attended by the EIA
 	 */
+	@NotNull(message = "La ubicación que atiende el equipo no puede estar vacia")
 	@ManyToOne
 	@JoinColumn(name = "attendedLocationFk", nullable = false)
 	private BuildingLocation attendedLocation;
@@ -115,7 +113,7 @@ public class Eia extends AbstractEntity {
 	@ManyToOne
 	@JoinColumn(name = "maintenanceProviderFk")
 	private ExternalProvider maintenanceProvider;
-	
+
 	/**
 	 * Responsible Obu for the EIA
 	 */
@@ -126,7 +124,7 @@ public class Eia extends AbstractEntity {
 	private Date purchaseDate;
 	/** Número de la Factura de Compra length =30 */
 	private Date purchaseInvoiceDate;
-	/** Nombre Proveedor del Equipo (O/Compra) length =255 */
+	@Size(max = 30, message = "El número de la factura no debe ser mayor de 30 caracteres")
 	private String purchaseInvoiceNumber;
 	/** Número de la Orden de Compra length =30 */
 	private Date purchaseOrderDate;
@@ -144,9 +142,8 @@ public class Eia extends AbstractEntity {
 	@ManyToOne
 	@JoinColumn(name = "externalProviderFk", nullable = false)
 	private ExternalProvider provider;
-	
-	
-	//IT EIA SECTION
+
+	// IT EIA SECTION
 	/**
 	 * If this is a IT Eia, this is its type
 	 */
@@ -155,35 +152,43 @@ public class Eia extends AbstractEntity {
 	private String ipAddress;
 	private String macAddress;
 
-	//WARRANTIES Section
-	//TODO: CHECK FOR NULL VALUES FROM HERE
-	
-	@Column(nullable = true)//false)
+	// WARRANTIES Section
+	// TODO: CHECK FOR NULL VALUES FROM HERE
+
+	@Column(nullable = true)
+	// false)
 	private WarrantySinceEnum realWarrantySince;
 	/** Estado del Equipo length =60 */
 
-	@Column(nullable = true)//false)
+	@Column(nullable = true)
+	// false)
 	private int realWarrantyTime;
-	
-	@Column(nullable = true)//false)
+
+	@Column(nullable = true)
+	// false)
 	private TimePeriodEnum realWarrantyPoT;
-	
-	@Column(nullable = true)//false)
+
+	@Column(nullable = true)
+	// false)
 	private Date realWarrantyBegin;
-	
-	@Column(nullable = true)//false)
+
+	@Column(nullable = true)
+	// false)
 	private WarrantySinceEnum intWarrantySince;
 	/** Estado del Equipo length =60 */
 
-	@Column(nullable = true)//false)
+	@Column(nullable = true)
+	// false)
 	private int intWarrantyTime;
-	
-	@Column(nullable = true)//false)
+
+	@Column(nullable = true)
+	// false)
 	private TimePeriodEnum intWarrantyPoT;
-	
-	@Column(nullable = true)//false)
+
+	@Column(nullable = true)
+	// false)
 	private Date intWarrantyBegin;
-	
+
 	/**
 	 * @param responsibleRole
 	 * @param eiaType
@@ -267,13 +272,13 @@ public class Eia extends AbstractEntity {
 		return depreciationTimePoT;
 	}
 
-	public Date getDesincorporatedDate() {
-		return desincorporatedDate;
-	}
-
-	public String getDesincorporateReason() {
-		return desincorporateReason;
-	}
+	// public Date getDesincorporatedDate() {
+	// return desincorporatedDate;
+	// }
+	//
+	// public String getDesincorporateReason() {
+	// return desincorporateReason;
+	// }
 
 	public EiaType getEiaType() {
 		return eiaType;
@@ -419,7 +424,8 @@ public class Eia extends AbstractEntity {
 		this.adquisitionCost = adquisitionCost;
 	}
 
-	public void setAdquisitionCostCurrency(CurrencyTypeEnum adquisitionCostCurrency) {
+	public void setAdquisitionCostCurrency(
+			CurrencyTypeEnum adquisitionCostCurrency) {
 		this.adquisitionCostCurrency = adquisitionCostCurrency;
 	}
 
@@ -460,13 +466,13 @@ public class Eia extends AbstractEntity {
 		this.depreciationTimePoT = depreciationTimePoT;
 	}
 
-	public void setDesincorporatedDate(Date desincorporatedDate) {
-		this.desincorporatedDate = desincorporatedDate;
-	}
-
-	public void setDesincorporateReason(String desincorporateReason) {
-		this.desincorporateReason = desincorporateReason;
-	}
+	// public void setDesincorporatedDate(Date desincorporatedDate) {
+	// this.desincorporatedDate = desincorporatedDate;
+	// }
+	//
+	// public void setDesincorporateReason(String desincorporateReason) {
+	// this.desincorporateReason = desincorporateReason;
+	// }
 
 	public void setEiaType(EiaType eiaType) {
 		this.eiaType = eiaType;
@@ -596,5 +602,4 @@ public class Eia extends AbstractEntity {
 		this.intWarrantyBegin = intWarrantyBegin;
 	}
 
-	
 }

@@ -7,8 +7,8 @@ import org.fourgeeks.gha.webclient.client.eia.component.EIAComponentSubTab;
 import org.fourgeeks.gha.webclient.client.eia.cost.EIACostSubTab;
 import org.fourgeeks.gha.webclient.client.eia.information.EIAInformationSubTab;
 import org.fourgeeks.gha.webclient.client.eia.maintenanceplan.EIAMaintPlanSubTab;
+import org.fourgeeks.gha.webclient.client.eia.material.EIAMaterialSubTab;
 import org.fourgeeks.gha.webclient.client.eia.movements.EIAMovementsSubTab;
-import org.fourgeeks.gha.webclient.client.eia.spares.EIASpareSubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -19,11 +19,11 @@ public class EIAInternalTabset extends TabSet implements
 		EIATypeSelectionListener, EIASelectionListener, ResizeHandler {
 
 	private EIAInformationSubTab eiaInformationSubTab;
-	private EIAComponentSubTab eiaPartesSubTab;
-	private EIASpareSubTab eiaRepuestosSubTab;
+	private EIAComponentSubTab eiaPartsSubTab;
+	private EIAMaterialSubTab eiaMaterialsSubTab;
 	private EIAMaintPlanSubTab eiaPlanSubTab;
-	private EIACostSubTab eiaCostosSubTab;
-	private EIAMovementsSubTab eiaMovimientosSubTab;
+	private EIACostSubTab eiaCostsSubTab;
+	private EIAMovementsSubTab eiaMovementsSubTab;
 		
 	public EIAInternalTabset(EIATab eiaTab) {
 		super();
@@ -33,19 +33,19 @@ public class EIAInternalTabset extends TabSet implements
 		GHAUiHelper.addGHAResizeHandler(this);
 
 		eiaInformationSubTab = new EIAInformationSubTab(eiaTab);
-		eiaPartesSubTab = new EIAComponentSubTab(eiaTab);
-		eiaRepuestosSubTab = new EIASpareSubTab(eiaTab);
+		eiaPartsSubTab = new EIAComponentSubTab(eiaTab);
+		eiaMaterialsSubTab = new EIAMaterialSubTab(eiaTab);
 		eiaPlanSubTab = new EIAMaintPlanSubTab(eiaTab);
-		eiaCostosSubTab = new EIACostSubTab(eiaTab);
-		eiaMovimientosSubTab = new EIAMovementsSubTab(eiaTab);
+		eiaCostsSubTab = new EIACostSubTab(eiaTab);
+		eiaMovementsSubTab = new EIAMovementsSubTab(eiaTab);
 		
 		// Agregando las Subtabs
 		addTab(eiaInformationSubTab);
-		addTab(eiaPartesSubTab);
-		addTab(eiaRepuestosSubTab);
+		addTab(eiaPartsSubTab);
+		addTab(eiaMaterialsSubTab);
 		addTab(eiaPlanSubTab);
-		addTab(eiaCostosSubTab);
-		addTab(eiaMovimientosSubTab);
+		addTab(eiaCostsSubTab);
+		addTab(eiaMovementsSubTab);
 
 	}
 
@@ -54,10 +54,7 @@ public class EIAInternalTabset extends TabSet implements
 		// TODO Implement select(eia) on each tab
 //		eiaInformationSubTab.select(eia);
 //		eiaPartesSubTab.select(eia);
-//		eiaRepuestosSubTab.select(eia);
 //		eiaMaterialSubTab.select(eia);
-//		eiaServicesSubTab.select(eia);
-//		eiaMantenimientoSubTab.select(eia);
 //		eiaPlanSubTab.select(eia);
 //		eiaCostosSubTab.select(eia);
 //		eiaMovimientosSubTab.select(eia);
@@ -66,11 +63,11 @@ public class EIAInternalTabset extends TabSet implements
 	@Override
 	public void select(EiaType eiaType) {
 		eiaInformationSubTab.select(eiaType);
-		eiaPartesSubTab.select(eiaType);
-		eiaRepuestosSubTab.select(eiaType);
+		eiaPartsSubTab.select(eiaType);
+		eiaMaterialsSubTab.select(eiaType);
 		eiaPlanSubTab.select(eiaType);
-		eiaCostosSubTab.select(eiaType);
-		eiaMovimientosSubTab.select(eiaType);
+		eiaCostsSubTab.select(eiaType);
+		eiaMovementsSubTab.select(eiaType);
 	}
 
 	@Override

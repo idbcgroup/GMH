@@ -23,11 +23,11 @@ public interface GWTEiaTypeMaintenancePlanService {
 	public void delete(long Id) throws EJBException;
 
 	/**
-	 * @param eiaTypeId
+	 * @param eiaTypeCode
 	 * @return a list with the maintenance plans associated with this eiatype
 	 * @throws EJBException
 	 */
-	public List<EiaTypeMaintenancePlan> findByEiaType(long eiaTypeId)
+	public List<EiaTypeMaintenancePlan> findByEiaType(String eiaTypeCode)
 			throws EJBException;
 
 	/**

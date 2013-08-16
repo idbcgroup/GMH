@@ -3,18 +3,19 @@ package org.fourgeeks.gha.webclient.client.eiatype;
 import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
 import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
 import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
-import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.webclient.client.UI.GHAGridRecord;
 
 public class EIATypeRecord extends GHAGridRecord<EiaType> {
-
+	
+	private EiaType eiaType;
+	
 	public EIATypeRecord() {
 	}
 
 	public EIATypeRecord(EiaType eiaType) {
-		setId(eiaType.getId());
+		this.eiaType = eiaType;
+		
 		setName(eiaType.getName());
 		setCode(eiaType.getCode());
 		if (eiaType.getBrand() != null) {
@@ -143,34 +144,6 @@ public class EIATypeRecord extends GHAGridRecord<EiaType> {
 
 	@Override
 	public EiaType toEntity() {
-		EiaType eiaType = new EiaType();
-		eiaType.setId(getId());
-
-		String brandName = getBrand();
-		if (brandName != null) {
-			Brand brand = new Brand();
-			brand.setId(Integer.valueOf(getBrandId()));
-			brand.setName(brandName);
-			eiaType.setBrand(brand);
-		}
-
-		String manName = getManufacturer();
-		if (manName != null) {
-			Manufacturer man = new Manufacturer();
-			man.setId(Integer.valueOf(getManufacturerId()));
-			man.setName(manName);
-			eiaType.setManufacturer(man);
-		}
-
-		eiaType.setCode(getCode());
-		eiaType.setName(getName());
-		eiaType.setDescription(getDescription());
-		eiaType.setModel(getModel());
-		eiaType.setUseDescription(getUseDescription());
-		eiaType.setEiaUmdns(getEiaUmdns());
-		eiaType.setMobility(getMobility());
-		eiaType.setType(getType());
-		eiaType.setSubtype(getSubtype());
-		return eiaType;
+		return this.eiaType;
 	}
 }
