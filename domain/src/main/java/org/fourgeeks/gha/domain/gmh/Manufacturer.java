@@ -11,6 +11,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
+import org.fourgeeks.gha.domain.HasKey;
 
 /**
  * @author emiliot
@@ -22,7 +23,7 @@ import org.fourgeeks.gha.domain.AbstractEntity;
 @NamedQueries(value = {
 		@NamedQuery(name = "Manufacturer.getAll", query = "SELECT e from Manufacturer e order by e.name"),
 		@NamedQuery(name = "Manufacturer.findByName", query = "SELECT e from Manufacturer e where lower(e.name) like :name order by e.id") })
-public class Manufacturer extends AbstractEntity {
+public class Manufacturer extends AbstractEntity implements HasKey {
 
 	/**
 	 * 
@@ -35,20 +36,38 @@ public class Manufacturer extends AbstractEntity {
 	@Column(nullable = false)
 	private String name;
 
+	/**
+	 * 
+	 */
 	public Manufacturer() {
 
 	}
 
+	/**
+	 * @param id
+	 * @param name
+	 */
 	public Manufacturer(int id, String name) {
 		this.id = id;
 		this.name = name;
 	}
 
+	/**
+	 * @return the name of the manufacturer
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * @param name
+	 */
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	@Override
+	public String getKey() {
+		return String.valueOf(getId());
 	}
 }
