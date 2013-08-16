@@ -39,8 +39,8 @@ public class EIATypeUtilityGridPanel extends VLayout implements
 	
 	{
 		utilitySearchForm = new UtilitySearchForm();
-		utilitySearchForm.AddMaterialSelectionListener(new MaterialSelectionListener() {
-			
+		utilitySearchForm.addMaterialSelectionListener(new MaterialSelectionListener(){
+
 			@Override
 			public void select(Material material) {
 				// TODO Auto-generated method stub
@@ -56,9 +56,8 @@ public class EIATypeUtilityGridPanel extends VLayout implements
 				
 				search(materialObj);
 
-			}
-
-		});
+				
+			}} );
 
 	}
 	
