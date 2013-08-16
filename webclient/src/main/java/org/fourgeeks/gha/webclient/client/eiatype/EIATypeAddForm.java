@@ -1,7 +1,5 @@
 package org.fourgeeks.gha.webclient.client.eiatype;
 
-import gwtupload.client.IUploader.OnFinishUploaderHandler;
-
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -37,16 +35,16 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIATypeAddForm extends GHASlideInWindow {
+public class EIATypeAddForm extends GHASlideInWindow implements
+		EiaTypeSelectionProducer {
 
 	private List<EIATypeSelectionListener> listeners;
 	private GHATextItem codeItem, nameItem, modelItem, descriptionItem,
 			useDescriptionItem, eiaUmdnsItem;
 
-	private OnFinishUploaderHandler onFinishUploaderHandler1,
-			onFinishUploaderHandler2, onFinishUploaderHandler3;
-	private GHASelectItem mobilityItem, typeItem,subTypeItem;
-	private GHAComboboxItem brandItem, manItem;
+	private GHASelectItem mobilityItem, typeItem, subTypeItem;
+	private GHAComboboxItem<Brand> brandItem;
+	private GHAComboboxItem<Manufacturer> manItem;
 	private Validator validator;
 
 	{
@@ -59,8 +57,8 @@ public class EIATypeAddForm extends GHASlideInWindow {
 		useDescriptionItem = new GHATextItem("Uso", 480);
 		useDescriptionItem.setColSpan(3);
 		eiaUmdnsItem = new GHATextItem("EIAUMDNS", 150);
-		manItem = new GHAComboboxItem("Fabricante", 150);
-		brandItem = new GHAComboboxItem("Marca", 150);
+		manItem = new GHAComboboxItem<Manufacturer>("Fabricante", 150);
+		brandItem = new GHAComboboxItem<Brand>("Marca", 150);
 		mobilityItem = new GHASelectItem("Movilidad", 150);
 		typeItem = new GHASelectItem("Tipo", 150);
 		subTypeItem = new GHASelectItem("Subtipo", 150);
@@ -88,15 +86,15 @@ public class EIATypeAddForm extends GHASlideInWindow {
 				descriptionItem, mobilityItem, useDescriptionItem, codeItem,
 				nameItem, modelItem, eiaUmdnsItem);
 
-		VLayout sideButtons = GHAUiHelper.createBar(
-				new GHAImgButton("../resources/icons/save.png", new ClickHandler() {
+		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
+				"../resources/icons/save.png", new ClickHandler() {
 
 					@Override
 					public void onClick(ClickEvent event) {
 						save();
 					}
-				}),
-				new GHAImgButton("../resources/icons/cancel.png",new ClickHandler() {
+				}), new GHAImgButton("../resources/icons/cancel.png",
+				new ClickHandler() {
 
 					@Override
 					public void onClick(ClickEvent event) {
@@ -142,8 +140,8 @@ public class EIATypeAddForm extends GHASlideInWindow {
 	}
 
 	private void fillMans() {
-		GHACache.INSTANCE
-				.getManufacturesrs(new GHAAsyncCallback<List<Manufacturer>>() {
+		GHACache.INSTANCE.getManufacturesrs(
+				new GHAAsyncCallback<List<Manufacturer>>() {
 
 					@Override
 					public void onSuccess(List<Manufacturer> result) {
@@ -154,7 +152,7 @@ public class EIATypeAddForm extends GHASlideInWindow {
 						manItem.setValueMap(valueMap);
 
 					}
-				});
+				}, false);
 
 	}
 
@@ -169,7 +167,7 @@ public class EIATypeAddForm extends GHASlideInWindow {
 				brandItem.setValueMap(valueMap);
 
 			}
-		});
+		}, false);
 
 	}
 
@@ -246,8 +244,10 @@ public class EIATypeAddForm extends GHASlideInWindow {
 			listener.select(eiaType);
 	}
 
-	public void addEiaTypeSelectionListener(EIATypeSelectionListener listener) {
-		listeners.add(listener);
+	@Override
+	public void addEiaTypeSelectionListener(
+			EIATypeSelectionListener eIATypeSelectionListener) {
+		listeners.add(eIATypeSelectionListener);
 	}
 
 	@Override
@@ -258,5 +258,12 @@ public class EIATypeAddForm extends GHASlideInWindow {
 	@Override
 	public void close() {
 		destroy();
+	}
+
+	@Override
+	public void removeEiaTypeSelectionListener(
+			EIATypeSelectionListener eIATypeSelectionListener) {
+		listeners.remove(eIATypeSelectionListener);
+
 	}
 }

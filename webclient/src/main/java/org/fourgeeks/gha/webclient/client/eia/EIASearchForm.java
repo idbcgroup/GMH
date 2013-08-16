@@ -37,24 +37,24 @@ public class EIASearchForm extends GHASlideInWindow {
 	private EIAGrid grid;
 	private GHATextItem actualCostItem, codeItem, fixedAssetIdentifierItem,
 			serialNumberItem;
-	private GHASelectItem responsibleRoleItem, eiaTypeItem, buildingLocationItem, obuItem,
-			stateItem;
-	
+	private GHASelectItem responsibleRoleItem, eiaTypeItem,
+			buildingLocationItem, obuItem, stateItem;
+
 	{
 		listeners = new LinkedList<EIASelectionListener>();
-		
+
 		actualCostItem = new GHATextItem("Costo actual");
 		responsibleRoleItem = new GHASelectItem("Responsable");
 		codeItem = new GHATextItem("Código");
 		eiaTypeItem = new GHASelectItem("Tipo de equipo");
 		fixedAssetIdentifierItem = new GHATextItem("Identificador");
-		
+
 		buildingLocationItem = new GHASelectItem("Ubicación");
-		
+
 		obuItem = new GHASelectItem("Organización");
 		serialNumberItem = new GHATextItem("Serial");
 		stateItem = new GHASelectItem("Estado");
-		
+
 		grid = new EIAGrid();
 		grid.setHeight(GHAUiHelper.getGridSize(30));
 	}
@@ -62,26 +62,25 @@ public class EIASearchForm extends GHASlideInWindow {
 	public EIASearchForm() {
 		setTop(110);
 		setHeight(GHAUiHelper.getTabHeight() + "px");
-		
+
 		DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(5);
-		
-		form.setItems(
-				actualCostItem, responsibleRoleItem, codeItem, eiaTypeItem, fixedAssetIdentifierItem,
-				buildingLocationItem, obuItem, serialNumberItem, stateItem
-		);
-		
+
+		form.setItems(actualCostItem, responsibleRoleItem, codeItem,
+				eiaTypeItem, fixedAssetIdentifierItem, buildingLocationItem,
+				obuItem, serialNumberItem, stateItem);
+
 		// Event Handlers
 		ClickHandler searchClickHandler = new ClickHandler() {
-			
+
 			@Override
 			public void onClick(ClickEvent event) {
 				search();
 			}
 		};
 		KeyUpHandler searchKeyUpHandler = new KeyUpHandler() {
-			
+
 			@Override
 			public void onKeyUp(KeyUpEvent event) {
 				if (event.getKeyName().equals("Enter")) {
@@ -98,7 +97,7 @@ public class EIASearchForm extends GHASlideInWindow {
 		obuItem.addKeyUpHandler(searchKeyUpHandler);
 		serialNumberItem.addKeyUpHandler(searchKeyUpHandler);
 		stateItem.addKeyUpHandler(searchKeyUpHandler);
-		
+
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
 				"../resources/icons/search.png", searchClickHandler),
 				new GHAImgButton("../resources/icons/clean.png"),
@@ -119,7 +118,7 @@ public class EIASearchForm extends GHASlideInWindow {
 		addMember(formLayout);
 		addMember(GHAUiHelper
 				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
-		
+
 		HLayout gridLayout = new HLayout();
 		gridLayout.setPadding(10);
 
@@ -128,11 +127,12 @@ public class EIASearchForm extends GHASlideInWindow {
 
 					@Override
 					public void onClick(ClickEvent event) {
-						selectEia(((EIARecord) grid.getSelectedRecord()).toEntity());
+						selectEia(((EIARecord) grid.getSelectedRecord())
+								.toEntity());
 						hide();
 					}
 				}), GHAUiHelper.verticalGraySeparator("2px"));
-		
+
 		gridLayout.addMembers(grid, sideGridButtons);
 
 		addMember(gridLayout);
@@ -142,12 +142,12 @@ public class EIASearchForm extends GHASlideInWindow {
 		searchForObus();
 		fillExtras();
 	}
-	
+
 	private void fillExtras() {
 		// state
 		stateItem.setValueMap(EiaStateEnum.toValueMap());
 	}
-	
+
 	private void searchForEiaTypes() {
 		GHACache.INSTANCE.getEiaTypes(new GHAAsyncCallback<List<EiaType>>() {
 
@@ -158,25 +158,27 @@ public class EIASearchForm extends GHASlideInWindow {
 					valueMap.put(eiaType.getCode(), eiaType.getName());
 				eiaTypeItem.setValueMap(valueMap);
 			}
-		});
+		}, false);
 	}
-	
+
 	private void searchForBuildingLocations() {
-		GHACache.INSTANCE.getBuildingLocations(new GHAAsyncCallback<List<BuildingLocation>>() {
-			
-			@Override
-			public void onSuccess(List<BuildingLocation> result) {
-				LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-				for (BuildingLocation buildingLocation : result)
-					valueMap.put(buildingLocation.getCode(), buildingLocation.getName());
-				buildingLocationItem.setValueMap(valueMap);
-			}
-		});
+		GHACache.INSTANCE
+				.getBuildingLocations(new GHAAsyncCallback<List<BuildingLocation>>() {
+
+					@Override
+					public void onSuccess(List<BuildingLocation> result) {
+						LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+						for (BuildingLocation buildingLocation : result)
+							valueMap.put(buildingLocation.getCode(),
+									buildingLocation.getName());
+						buildingLocationItem.setValueMap(valueMap);
+					}
+				});
 	}
-	
+
 	private void searchForObus() {
 		GHACache.INSTANCE.getObus(new GHAAsyncCallback<List<Obu>>() {
-			
+
 			@Override
 			public void onSuccess(List<Obu> result) {
 				LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
@@ -186,25 +188,27 @@ public class EIASearchForm extends GHASlideInWindow {
 			}
 		});
 	}
-	
+
 	private void searchForRoleBases() {
 		GHACache.INSTANCE.getBaseRoles(new GHAAsyncCallback<List<RoleBase>>() {
-			
+
 			@Override
 			public void onSuccess(List<RoleBase> result) {
 				LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
 				for (RoleBase roleBase : result)
-					valueMap.put(String.valueOf(roleBase.getId()), roleBase.getName());
+					valueMap.put(String.valueOf(roleBase.getId()),
+							roleBase.getName());
 				responsibleRoleItem.setValueMap(valueMap);
 			}
 		});
 	}
-	
+
 	/**
 	 * 
 	 * @param eiaSelectionListener
 	 */
-	public void addEIASelectionListener(EIASelectionListener eiaSelectionListener) {
+	public void addEIASelectionListener(
+			EIASelectionListener eiaSelectionListener) {
 		listeners.add(eiaSelectionListener);
 	}
 
@@ -218,15 +222,15 @@ public class EIASearchForm extends GHASlideInWindow {
 		if (actualCostItem.getValue() != null)
 			eia.setActualCost(new BigDecimal(actualCostItem.getValueAsString()));
 		if (responsibleRoleItem.getValue() != null)
-			eia.setResponsibleRole(new RoleBase(
-					Long.parseLong(responsibleRoleItem.getValueAsString()))
-			);
+			eia.setResponsibleRole(new RoleBase(Long
+					.parseLong(responsibleRoleItem.getValueAsString())));
 		eia.setCode(codeItem.getValueAsString());
 		if (eiaTypeItem.getValue() != null)
 			eia.setEiaType(new EiaType(eiaTypeItem.getValueAsString()));
 		eia.setFixedAssetIdentifier(fixedAssetIdentifierItem.getValueAsString());
 		if (buildingLocationItem.getValue() != null)
-			eia.setBuildingLocation(new BuildingLocation(buildingLocationItem.getValueAsString()));
+			eia.setBuildingLocation(new BuildingLocation(buildingLocationItem
+					.getValueAsString()));
 		if (obuItem.getValue() != null)
 			eia.setObu(new Obu(Long.parseLong(obuItem.getValueAsString())));
 		eia.setSerialNumber(serialNumberItem.getValueAsString());
@@ -234,18 +238,19 @@ public class EIASearchForm extends GHASlideInWindow {
 			eia.setState(EiaStateEnum.valueOf(stateItem.getValueAsString()));
 		search(eia);
 	}
-	
+
 	private void search(final Eia eia) {
 		EIAModel.find(eia, new GHAAsyncCallback<List<Eia>>() {
 
 			@Override
 			public void onSuccess(List<Eia> result) {
-				ListGridRecord[] array = EIAUtil.toGridRecords(result)
-						.toArray(new EIARecord[]{});
+				ListGridRecord[] array = EIAUtil.toGridRecords(result).toArray(
+						new EIARecord[] {});
 				grid.setData(array);
 				if (eia != null && eia.getId() != 0l)
 					for (ListGridRecord listGridRecord : grid.getRecords())
-						if (((EIARecord) listGridRecord).toEntity().getId() == eia.getId())
+						if (((EIARecord) listGridRecord).toEntity().getId() == eia
+								.getId())
 							grid.selectRecord(listGridRecord);
 			}
 		});
@@ -265,5 +270,5 @@ public class EIASearchForm extends GHASlideInWindow {
 	public void onResize(ResizeEvent event) {
 		setHeight(GHAUiHelper.getTabHeight() + "px");
 	}
-	
+
 }
