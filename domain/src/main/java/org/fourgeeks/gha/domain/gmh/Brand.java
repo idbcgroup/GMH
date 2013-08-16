@@ -39,6 +39,13 @@ public class Brand extends AbstractEntity {
 
 	}
 
+	/**
+	 * @param name
+	 */
+	public Brand(String name) {
+		this.name = name;
+	}
+
 	public Brand(int id, String name) {
 		this.id = id;
 		this.name = name;

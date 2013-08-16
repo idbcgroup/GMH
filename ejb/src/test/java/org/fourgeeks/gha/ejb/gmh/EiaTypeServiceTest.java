@@ -9,7 +9,9 @@ import junit.framework.TestCase;
 
 import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
 import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
+import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.ejb.ContextDeployment;
 import org.junit.Test;
 
@@ -36,6 +38,8 @@ public class EiaTypeServiceTest extends TestCase {
 		eiaType.setMobility(EiaMobilityEnum.FIXED);
 		eiaType.setType(EiaTypeEnum.EQUIPMENT);
 		eiaType.setEiaUmdns("prueba");
+		eiaType.setBrand(new Brand("brand-Test"));
+		eiaType.setManufacturer(new Manufacturer( "manufacturer-test"));
 		eiaType = service.save(eiaType);
 		
 		System.out.println("Testing find eiatypes by eiatype");
