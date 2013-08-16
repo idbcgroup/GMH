@@ -253,9 +253,8 @@ public class EiaService implements EiaServiceRemote {
 			em.flush();
 			return em.find(Eia.class, eia.getId());
 		} catch (Exception e) {
-			logger.log(Level.INFO, "ERROR: saving eia " + eia.toString(), e);
-			throw new EJBException("ERROR: guardando eia " + eia.toString()
-					+ " " + e.getCause().getMessage());
+			logger.log(Level.INFO, "ERROR: saving eia ", e);
+			throw new EJBException("ERROR: guardando eia " + e.getCause().getMessage());
 		}
 	}
 
@@ -274,7 +273,7 @@ public class EiaService implements EiaServiceRemote {
 			return res;
 		} catch (Exception e) {
 			logger.log(Level.INFO,
-					"ERROR: unable to update eia " + eia.toString(), e);
+					"ERROR: unable to update eia ", e);
 			throw new EJBException("ERROR: no se puede eliminar el eia "
 					+ e.getCause().getMessage());
 		}
