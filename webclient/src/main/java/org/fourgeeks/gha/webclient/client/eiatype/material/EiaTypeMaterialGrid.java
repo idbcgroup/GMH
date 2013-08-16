@@ -1,6 +1,6 @@
-package org.fourgeeks.gha.webclient.client.material;
+package org.fourgeeks.gha.webclient.client.eiatype.material;
 
-import org.fourgeeks.gha.domain.glm.Material;
+import org.fourgeeks.gha.domain.gmh.EiaTypeMaterial;
 import org.fourgeeks.gha.webclient.client.UI.GHAGridField;
 import org.fourgeeks.gha.webclient.client.UI.GhaGrid;
 
@@ -8,12 +8,9 @@ import org.fourgeeks.gha.webclient.client.UI.GhaGrid;
  * @author alacret
  * 
  */
-public class MaterialGrid extends GhaGrid<Material> {
+public class EiaTypeMaterialGrid extends GhaGrid<EiaTypeMaterial> {
 
-	/**
-	 * 
-	 */
-	public MaterialGrid() {
+	public EiaTypeMaterialGrid() {
 		setEmptyMessage("No existen Materiales para mostrar");
 
 		GHAGridField codeGridField = new GHAGridField("code", "Código");

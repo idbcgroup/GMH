@@ -68,4 +68,8 @@ public class GWTMaterialServiceImpl extends RemoteServiceServlet implements
 	public List<Material> getAllUtilities() throws EJBException {
 		return materialServiceRemote.getAllUtilities();
 	}
+	
+	public Material save(Material material) throws EJBException {
+		return materialServiceRemote.save(material);
+}
 }

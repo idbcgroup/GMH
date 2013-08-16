@@ -10,8 +10,7 @@ import java.util.LinkedHashMap;
  * 
  */
 public enum MaterialTypeEnum {
-	MATERIAL("Bolivares fuertes"), SERVICIO("Servicio"), UTILITARIO(
-			"Utilitario");
+	MATERIAL("Material"), SERVICIO("Servicio"), UTILITARIO("Utilitario");
 
 	private String name;
 

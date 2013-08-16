@@ -51,6 +51,13 @@ public class MaterialModel {
 	 */
 	public static void getAllUtilities(GHAAsyncCallback<List<Material>> callback) {
 		service.getAllUtilities(callback);
+
+
 	}
+		public static void save(Material material,
+			GHAAsyncCallback<Material> callback) {
+		service.save(material, callback);
+	}
+
 
 }
