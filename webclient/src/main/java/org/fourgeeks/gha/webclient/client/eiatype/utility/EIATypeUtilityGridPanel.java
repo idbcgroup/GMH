@@ -6,6 +6,7 @@ import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.glm.Material;
 import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.domain.gmh.EiaTypeComponent;
 import org.fourgeeks.gha.domain.gmh.EiaTypeUtility;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
@@ -37,6 +38,7 @@ public class EIATypeUtilityGridPanel extends VLayout implements
 	private UtilitySearchForm utilitySearchForm;
 	
 	
+	
 	{
 		utilitySearchForm = new UtilitySearchForm();
 		utilitySearchForm.addMaterialSelectionListener(new MaterialSelectionListener(){
@@ -54,6 +56,14 @@ public class EIATypeUtilityGridPanel extends VLayout implements
 				if (material.getExternalProvider() != null)
 					materialObj.setExternalProvider(material.getExternalProvider());
 				
+//				EIATypeUtilityModel.save(materialObj, new GHAAsyncCallback<EiaTypeComponent>(){
+//
+//					@Override
+//					public void onSuccess(EiaTypeComponent result) {
+//						// TODO Auto-generated method stub
+//						
+//					}});
+//				
 				search(materialObj);
 
 				
