@@ -20,6 +20,7 @@ import org.fourgeeks.gha.webclient.client.material.MaterialRecord;
 import org.fourgeeks.gha.webclient.client.material.MaterialSelectionListener;
 import org.fourgeeks.gha.webclient.client.material.MaterialUtil;
 
+import com.google.gwt.user.client.Window;
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -55,7 +56,10 @@ public class EIATypeUtilityGridPanel extends VLayout implements
 
 				if (material.getExternalProvider() != null)
 					materialObj.setExternalProvider(material.getExternalProvider());
-				
+
+				if (material.getType() != null)
+					materialObj.setType(material.getType());
+
 //				EIATypeUtilityModel.save(materialObj, new GHAAsyncCallback<EiaTypeComponent>(){
 //
 //					@Override
@@ -64,7 +68,9 @@ public class EIATypeUtilityGridPanel extends VLayout implements
 //						
 //					}});
 //				
+				Window.alert("En el select de EIATypeUtilityGridPanel 1");
 				search(materialObj);
+				Window.alert("En el select de EIATypeUtilityGridPanel 2");
 
 				
 			}} );
@@ -73,16 +79,32 @@ public class EIATypeUtilityGridPanel extends VLayout implements
 	
 	private void search(Material materialObj) {
 		// TODO Auto-generated method stub
-		MaterialModel.find(materialObj, new GHAAsyncCallback<List<Material>>() {
+		Window.alert("En el search de EIATypeUtilityGridPanel");
+		MaterialModel.getAllUtilities(new GHAAsyncCallback<List<Material>>() {
 
 			@Override
 			public void onSuccess(List<Material> materials) {
+				Window.alert("materials list: "+materials.toString());
+				// TODO Auto-generated method stub
 				ListGridRecord[] array = MaterialUtil.toGridRecords(materials)
 						.toArray(new MaterialRecord[] {});
+				Window.alert("materials array: "+array[0].toString()+" - "+array[1].toString());
 				grid.setData(array);
-			}
 
+				
+			}
 		});
+		Window.alert("En el search de EIATypeUtilityGridPanel 2");
+//		MaterialModel.find(materialObj, new GHAAsyncCallback<List<Material>>() {
+//
+//			@Override
+//			public void onSuccess(List<Material> materials) {
+//				ListGridRecord[] array = MaterialUtil.toGridRecords(materials)
+//						.toArray(new MaterialRecord[] {});
+//				grid.setData(array);
+//			}
+//
+//		});
 
 	}
 

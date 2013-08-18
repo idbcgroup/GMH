@@ -16,6 +16,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.user.client.Window;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -198,20 +199,25 @@ public class MaterialSearchForm extends GHASlideInWindow implements
 	 * @param material
 	 */
 	protected void search(final Material material) {
+		Window.alert("En el search de MaterialSearchForm");
 		MaterialModel.find(material, new GHAAsyncCallback<List<Material>>() {
 
 			@Override
 			public void onSuccess(List<Material> materials) {
+				Window.alert("materials list: "+materials.toString());
 				ListGridRecord[] array = MaterialUtil.toGridRecords(materials)
 						.toArray(new MaterialRecord[] {});
+				Window.alert("materials array: "+array[0]+" - "+array[1]);
 				grid.setData(array);
 				if (material != null && material.getId() != 0l)
 					for (ListGridRecord listGridRecord : grid.getRecords())
 						if (((MaterialRecord) listGridRecord).toEntity()
 								.getId() == material.getId())
 							grid.selectRecord(listGridRecord);
+				Window.alert("En el search de MaterialSearchForm 2");
 			}
 		});
+		Window.alert("En el search de MaterialSearchForm 3");
 	}
 
 	@Override

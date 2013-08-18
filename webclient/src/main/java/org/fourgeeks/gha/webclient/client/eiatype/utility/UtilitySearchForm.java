@@ -11,7 +11,7 @@ public class UtilitySearchForm extends MaterialSearchForm {
 
 	public UtilitySearchForm() {
 		super();
-		typeSelectItem.setValue(MaterialTypeEnum.UTILITARIO.ordinal());
-		typeSelectItem.setDisabled(true);
+//		typeSelectItem.setValue(MaterialTypeEnum.UTILITARIO.ordinal());
+//		typeSelectItem.setDisabled(true);
 	}
 }
