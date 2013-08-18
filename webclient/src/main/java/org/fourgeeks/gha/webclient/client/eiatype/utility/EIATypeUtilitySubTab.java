@@ -6,6 +6,8 @@ import org.fourgeeks.gha.webclient.client.UI.GHASubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeTab;
 
+import com.google.gwt.user.client.Window;
+
 /**
  * @author alacret
  * 
@@ -31,6 +33,8 @@ public class EIATypeUtilitySubTab extends GHASubTab implements
 	@Override
 	public void select(EiaType eiaType) {
 		// TODO Auto-generated method stub
+		Window.alert("En el select de EIATypeUtilitySubTab ");
+		eiaTypeServicesGridPanel.select(eiaType);
 
 	}
 }

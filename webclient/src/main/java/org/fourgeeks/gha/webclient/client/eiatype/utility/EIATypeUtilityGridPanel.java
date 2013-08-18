@@ -2,11 +2,8 @@ package org.fourgeeks.gha.webclient.client.eiatype.utility;
 
 import java.util.List;
 
-import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.glm.Material;
-import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.domain.gmh.EiaTypeComponent;
 import org.fourgeeks.gha.domain.gmh.EiaTypeUtility;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
@@ -20,7 +17,6 @@ import org.fourgeeks.gha.webclient.client.material.MaterialRecord;
 import org.fourgeeks.gha.webclient.client.material.MaterialSelectionListener;
 import org.fourgeeks.gha.webclient.client.material.MaterialUtil;
 
-import com.google.gwt.user.client.Window;
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -37,7 +33,7 @@ public class EIATypeUtilityGridPanel extends VLayout implements
 
 	private MaterialGrid grid = new MaterialGrid();
 	private UtilitySearchForm utilitySearchForm;
-	
+	private EiaType eiaType;
 	
 	
 	{
@@ -47,69 +43,21 @@ public class EIATypeUtilityGridPanel extends VLayout implements
 			@Override
 			public void select(Material material) {
 				// TODO Auto-generated method stub
-				Material materialObj = new Material();
-				materialObj.setCode(material.getCode());
-				materialObj.setName(material.getName());
-				materialObj.setDescription(material.getDescription());
-				materialObj.setModel(material.getModel());
-				materialObj.setExtCode(material.getExtCode());
-
-				if (material.getExternalProvider() != null)
-					materialObj.setExternalProvider(material.getExternalProvider());
-
-				if (material.getType() != null)
-					materialObj.setType(material.getType());
-
-//				EIATypeUtilityModel.save(materialObj, new GHAAsyncCallback<EiaTypeComponent>(){
-//
-//					@Override
-//					public void onSuccess(EiaTypeComponent result) {
-//						// TODO Auto-generated method stub
-//						
-//					}});
-//				
-				Window.alert("En el select de EIATypeUtilityGridPanel 1");
-				search(materialObj);
-				Window.alert("En el select de EIATypeUtilityGridPanel 2");
-
+				EiaTypeUtility eiaTypeUtility = new EiaTypeUtility();
+				eiaTypeUtility.setEiaType(EIATypeUtilityGridPanel.this.eiaType);
+				eiaTypeUtility.setMaterial(material);
 				
+				EIATypeUtilityModel.save(eiaTypeUtility, new GHAAsyncCallback<EiaTypeUtility>(){
+
+					@Override
+					public void onSuccess(EiaTypeUtility result) {
+						// TODO Auto-generated method stub
+						loadData();
+					}});
 			}} );
 
 	}
 	
-	private void search(Material materialObj) {
-		// TODO Auto-generated method stub
-		Window.alert("En el search de EIATypeUtilityGridPanel");
-		MaterialModel.getAllUtilities(new GHAAsyncCallback<List<Material>>() {
-
-			@Override
-			public void onSuccess(List<Material> materials) {
-				Window.alert("materials list: "+materials.toString());
-				// TODO Auto-generated method stub
-				ListGridRecord[] array = MaterialUtil.toGridRecords(materials)
-						.toArray(new MaterialRecord[] {});
-				Window.alert("materials array: "+array[0].toString()+" - "+array[1].toString());
-				grid.setData(array);
-
-				
-			}
-		});
-		Window.alert("En el search de EIATypeUtilityGridPanel 2");
-//		MaterialModel.find(materialObj, new GHAAsyncCallback<List<Material>>() {
-//
-//			@Override
-//			public void onSuccess(List<Material> materials) {
-//				ListGridRecord[] array = MaterialUtil.toGridRecords(materials)
-//						.toArray(new MaterialRecord[] {});
-//				grid.setData(array);
-//			}
-//
-//		});
-
-	}
-
-		
-
 	/**
 	 * 
 	 */
@@ -133,8 +81,25 @@ public class EIATypeUtilityGridPanel extends VLayout implements
 						// form.animateShow(AnimationEffect.FLY);
 						utilitySearchForm.open();
 					}
-				}), new GHAImgButton("../resources/icons/edit.png"),
-				new GHAImgButton("../resources/icons/delete.png"),
+				}), 
+				new GHAImgButton("../resources/icons/edit.png"),
+				new GHAImgButton("../resources/icons/delete.png", new ClickHandler() {
+					
+					@Override
+					public void onClick(ClickEvent event) {
+						// TODO Auto-generated method stub
+						Material material =  grid.getSelectedRecord().toEntity();
+						EIATypeUtilityModel.delete(material.getId(), new GHAAsyncCallback<Void>(){
+
+							@Override
+							public void onSuccess(Void result) {
+								// TODO Auto-generated method stub
+								loadData();
+							}});
+
+						
+					}
+				}),
 				new GHAImgButton("../resources/icons/set.png",
 						new ClickHandler() {
 							@Override
@@ -170,5 +135,19 @@ public class EIATypeUtilityGridPanel extends VLayout implements
 		// TODO Auto-generated method stub
 
 	}
+	
+	private void loadData() {
+		MaterialModel.getAllUtilities(new GHAAsyncCallback<List<Material>>() {
+
+			@Override
+			public void onSuccess(List<Material> materials) {
+				// TODO Auto-generated method stub
+				ListGridRecord[] array = MaterialUtil.toGridRecords(materials)
+						.toArray(new MaterialRecord[] {});
+				grid.setData(array);
+			}
+		});
+	}
+
 
 }
