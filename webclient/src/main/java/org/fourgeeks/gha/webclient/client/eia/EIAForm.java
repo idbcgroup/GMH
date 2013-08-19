@@ -359,7 +359,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 				}
 				eiaTypeSelectItem.setValueMap(valueMap);
 			}
-		});
+		}, false);
 
 		GHACache.INSTANCE.getObus(new GHAAsyncCallback<List<Obu>>() {
 			@Override

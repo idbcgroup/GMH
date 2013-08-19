@@ -112,9 +112,6 @@ public class EIATypeInformationFormPanel extends VLayout implements
 			@Override
 			public void onFinish(IUploader uploader) {
 				if (uploader.getStatus() == Status.SUCCESS) {
-					// The server sends useful information to the client by
-					// default
-					// Borra la imagen anterior de la session
 					EIATypePictureModel.deletePictureFromSession(imgName1,
 							new GHAAsyncCallback<Void>() {
 								@Override
@@ -134,9 +131,6 @@ public class EIATypeInformationFormPanel extends VLayout implements
 			@Override
 			public void onFinish(IUploader uploader) {
 				if (uploader.getStatus() == Status.SUCCESS) {
-					// The server sends useful information to the client by
-					// default
-					// Borra la imagen anterior de la session
 					EIATypePictureModel.deletePictureFromSession(imgName2,
 							new GHAAsyncCallback<Void>() {
 								@Override
@@ -208,7 +202,6 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
 
 		/**************** COMPONENTE PARA SUBIDA DE IMAGEN ****************************************/
-		// http://code.google.com/p/gwtupload/wiki/CustomWidgets
 		SingleUploader uploadPhoto1 = new SingleUploader(FileInputType.BUTTON);
 		// uploadPhoto1.setStyleName("GHAupload-button");
 		uploadPhoto1.getWidget().setStylePrimaryName("GHAupload-button");
@@ -371,8 +364,8 @@ public class EIATypeInformationFormPanel extends VLayout implements
 	}
 
 	private void fillMans() {
-		GHACache.INSTANCE
-				.getManufacturesrs(new GHAAsyncCallback<List<Manufacturer>>() {
+		GHACache.INSTANCE.getManufacturesrs(
+				new GHAAsyncCallback<List<Manufacturer>>() {
 
 					@Override
 					public void onSuccess(List<Manufacturer> result) {
@@ -383,7 +376,7 @@ public class EIATypeInformationFormPanel extends VLayout implements
 						manItem.setValueMap(valueMap);
 
 					}
-				});
+				}, false);
 
 	}
 
@@ -398,7 +391,7 @@ public class EIATypeInformationFormPanel extends VLayout implements
 				brandItem.setValueMap(valueMap);
 
 			}
-		});
+		}, false);
 
 	}
 
@@ -484,14 +477,14 @@ public class EIATypeInformationFormPanel extends VLayout implements
 			return;
 		final EiaType eiaType = new EiaType();
 		eiaType.setCode(codeItem.getValueAsString());
-		
+
 		if (brandItem.getValue() != null)
 			eiaType.setBrand(new Brand(Integer.valueOf(brandItem
 					.getValueAsString()), null));
 		if (manItem.getValue() != null)
 			eiaType.setManufacturer(new Manufacturer(Integer.valueOf(manItem
 					.getValueAsString()), null));
-		
+
 		eiaType.setName(nameItem.getValueAsString());
 		eiaType.setDescription(descriptionItem.getValueAsString());
 		eiaType.setModel(modelItem.getValueAsString());

@@ -31,14 +31,15 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret Material search form
  * 
  */
-public class MaterialSearchForm extends GHASlideInWindow {
+public class MaterialSearchForm extends GHASlideInWindow implements
+		MaterialSelectionListener, MaterialSelectionProducer {
 
 	private List<MaterialSelectionListener> selectionListeners;
 	private GHATextItem codeTextItem, nameTextItem, descriptionTextItem,
 			modelTextItem, extCodeTextItem;
 	protected GHASelectItem typeSelectItem, externalProviderSelectItem;
-
 	private MaterialGrid grid;
+	private MaterialAddForm addForm;
 
 	{
 		selectionListeners = new LinkedList<MaterialSelectionListener>();
@@ -50,6 +51,9 @@ public class MaterialSearchForm extends GHASlideInWindow {
 		// selects
 		externalProviderSelectItem = new GHASelectItem("Proveedor");
 		typeSelectItem = new GHASelectItem("Tipo");
+
+		addForm = new MaterialAddForm();
+		addForm.addMaterialSelectionListener(this);
 	}
 
 	/**
@@ -124,7 +128,14 @@ public class MaterialSearchForm extends GHASlideInWindow {
 						selectMaterial(grid.getSelectedEntity());
 						hide();
 					}
-				}), GHAUiHelper.verticalGraySeparator("2px"));
+				}), GHAUiHelper.verticalGraySeparator("2px"), new GHAImgButton(
+				"../resources/icons/new.png", new ClickHandler() {
+
+					@Override
+					public void onClick(ClickEvent event) {
+						addForm.open();
+					}
+				}));
 
 		gridLayout.addMembers(grid, sideGridButtons);
 
@@ -159,12 +170,9 @@ public class MaterialSearchForm extends GHASlideInWindow {
 			listener.select(material);
 	}
 
-	/**
-	 * @param selecionListener
-	 */
-	public void AddMaterialSelectionListener(
-			MaterialSelectionListener selecionListener) {
-		selectionListeners.add(selecionListener);
+	@Override
+	public void select(Material material) {
+		search(material);
 	}
 
 	private void search() {
@@ -189,7 +197,7 @@ public class MaterialSearchForm extends GHASlideInWindow {
 	/**
 	 * @param material
 	 */
-	private void search(Material material) {
+	protected void search(final Material material) {
 		MaterialModel.find(material, new GHAAsyncCallback<List<Material>>() {
 
 			@Override
@@ -197,8 +205,12 @@ public class MaterialSearchForm extends GHASlideInWindow {
 				ListGridRecord[] array = MaterialUtil.toGridRecords(materials)
 						.toArray(new MaterialRecord[] {});
 				grid.setData(array);
+				if (material != null && material.getId() != 0l)
+					for (ListGridRecord listGridRecord : grid.getRecords())
+						if (((MaterialRecord) listGridRecord).toEntity()
+								.getId() == material.getId())
+							grid.selectRecord(listGridRecord);
 			}
-
 		});
 	}
 
@@ -215,5 +227,17 @@ public class MaterialSearchForm extends GHASlideInWindow {
 	@Override
 	public void onResize(ResizeEvent event) {
 		setHeight(GHAUiHelper.getTabHeight() + "px");
+	}
+
+	@Override
+	public void addMaterialSelectionListener(
+			MaterialSelectionListener materialSelectionListener) {
+		selectionListeners.add(materialSelectionListener);
+	}
+
+	@Override
+	public void removeMaterialSelectionListener(
+			MaterialSelectionListener materialSelectionListener) {
+		selectionListeners.remove(materialSelectionListener);
 	}
 }

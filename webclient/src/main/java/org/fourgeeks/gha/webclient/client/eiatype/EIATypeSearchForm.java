@@ -168,8 +168,8 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 	}
 
 	private void searchForMans() {
-		GHACache.INSTANCE
-				.getManufacturesrs(new GHAAsyncCallback<List<Manufacturer>>() {
+		GHACache.INSTANCE.getManufacturesrs(
+				new GHAAsyncCallback<List<Manufacturer>>() {
 
 					@Override
 					public void onSuccess(List<Manufacturer> result) {
@@ -180,7 +180,7 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 						manItem.setValueMap(valueMap);
 
 					}
-				});
+				}, false);
 
 	}
 
@@ -195,7 +195,7 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 				brandItem.setValueMap(valueMap);
 
 			}
-		});
+		}, false);
 
 	}
 
@@ -251,8 +251,8 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 				if (eiaType != null && eiaType.getCode() != "")
 					for (ListGridRecord listGridRecord : eiaTypeGrid
 							.getRecords())
-						if (((EIATypeRecord) listGridRecord).toEntity().getCode() == eiaType
-								.getCode())
+						if (((EIATypeRecord) listGridRecord).toEntity()
+								.getCode() == eiaType.getCode())
 							eiaTypeGrid.selectRecord(listGridRecord);
 			}
 

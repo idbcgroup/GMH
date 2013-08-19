@@ -52,7 +52,7 @@ public enum GHACache {
 		t.scheduleRepeating(CACHE_TIME);
 	}
 
-	protected void invalidateCache() {
+	private void invalidateCache() {
 		brands = null;
 		manufacturers = null;
 		buildingLocations = null;
@@ -64,10 +64,11 @@ public enum GHACache {
 
 	/**
 	 * @param callback
+	 * @param forceFromServer
 	 */
-	public void getEiaTypes(GHAAsyncCallback<List<EiaType>> callback) {
-		// Avoiding synchronization problems
-		if (eiaTypes == null)
+	public void getEiaTypes(GHAAsyncCallback<List<EiaType>> callback,
+			boolean forceFromServer) {
+		if (forceFromServer || eiaTypes == null)
 			getEiaTypesFromServer(callback);
 		else
 			callback.onSuccess(eiaTypes);
@@ -194,14 +195,14 @@ public enum GHACache {
 
 	/**
 	 * @param callback
+	 * @param forceFromServer
 	 */
-	public void getBrands(GHAAsyncCallback<List<Brand>> callback) {
-		// Avoiding synchronization problems
-		if (brands == null)
+	public void getBrands(GHAAsyncCallback<List<Brand>> callback,
+			boolean forceFromServer) {
+		if (forceFromServer || brands == null)
 			getBrandsFromServer(callback);
-		else {
+		else
 			callback.onSuccess(brands);
-		}
 	}
 
 	private void getBrandsFromServer(
@@ -220,9 +221,10 @@ public enum GHACache {
 	/**
 	 * @param callback
 	 */
-	public void getManufacturesrs(GHAAsyncCallback<List<Manufacturer>> callback) {
-		// Avoiding synchronization problems
-		if (manufacturers == null)
+	public void getManufacturesrs(
+			GHAAsyncCallback<List<Manufacturer>> callback,
+			boolean forceFromServer) {
+		if (forceFromServer || manufacturers == null)
 			getManufacturersFromServer(callback);
 		else {
 			callback.onSuccess(manufacturers);
