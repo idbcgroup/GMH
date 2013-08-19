@@ -301,17 +301,13 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		costosForm.setNumCols(3);
 
 		costosForm.setItems(adqCost_TitleItem, new GHASpacerItem(2),
-				adquisitionCostTextItem, adquisitionCostCurrencySelectItem,
-				contabilizationDateItem, adquisitionCostLocalTextItem,
-				adquisitionCostCurrencyLocalSelectItem, new GHASpacerItem(),
-				actualCost_TitleItem, new GHASpacerItem(2),
-				depreciationMethodSelectItem, lastDepreciationDate,
-				new GHASpacerItem(), actualCostTextItem,
-				actualCostCurrencySelectItem, new GHASpacerItem(),
-				depTime_TitleItem, new GHASpacerItem(2),
-				depreciationTimeTextItem, depreciationTimePotSelectItem,
-				new GHASpacerItem(), lifeTime_TitleItem, new GHASpacerItem(2),
-				lifeTimeTextItem, lifeTimePotSelectItem);
+							adquisitionCostTextItem, adquisitionCostCurrencySelectItem,contabilizationDateItem, 
+							adquisitionCostLocalTextItem,adquisitionCostCurrencyLocalSelectItem, new GHASpacerItem(),
+							actualCost_TitleItem, new GHASpacerItem(2),
+							depreciationMethodSelectItem, lastDepreciationDate,new GHASpacerItem(), 
+							actualCostTextItem,actualCostCurrencySelectItem, new GHASpacerItem(),
+							depTime_TitleItem, depreciationTimeTextItem, depreciationTimePotSelectItem, 
+							lifeTime_TitleItem,lifeTimeTextItem, lifeTimePotSelectItem);
 
 		return costosForm;
 	}
@@ -333,8 +329,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 				intWarrantyBeginDate, new GHASpacerItem(),
 				intWarrantyTimeTextItem, intWarrantyPotSelectItem,
 				new GHASpacerItem(), new GHASpacerItem(3),
-				maintenance_TitleItem, new GHASpacerItem(2),
-				isInMaintenanceItem, new GHASpacerItem(2),
+				maintenance_TitleItem,isInMaintenanceItem, new GHASpacerItem(),
 				maintenanceLocationSelectItem, codeMant_WarrMant_TextItem,
 				maintenanceProviderSelectItem);
 
