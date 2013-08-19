@@ -7,7 +7,6 @@ import org.fourgeeks.gha.webclient.client.eia.component.EIAComponentSubTab;
 import org.fourgeeks.gha.webclient.client.eia.cost.EIACostSubTab;
 import org.fourgeeks.gha.webclient.client.eia.information.EIAInformationSubTab;
 import org.fourgeeks.gha.webclient.client.eia.maintenanceplan.EIAMaintPlanSubTab;
-import org.fourgeeks.gha.webclient.client.eia.material.EIAMaterialSubTab;
 import org.fourgeeks.gha.webclient.client.eia.movements.EIAMovementsSubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
@@ -20,7 +19,7 @@ public class EIAInternalTabset extends TabSet implements
 
 	private EIAInformationSubTab eiaInformationSubTab;
 	private EIAComponentSubTab eiaPartsSubTab;
-	private EIAMaterialSubTab eiaMaterialsSubTab;
+//	private EIAMaterialSubTab eiaMaterialsSubTab;
 	private EIAMaintPlanSubTab eiaPlanSubTab;
 	private EIACostSubTab eiaCostsSubTab;
 	private EIAMovementsSubTab eiaMovementsSubTab;
@@ -34,7 +33,7 @@ public class EIAInternalTabset extends TabSet implements
 
 		eiaInformationSubTab = new EIAInformationSubTab(eiaTab);
 		eiaPartsSubTab = new EIAComponentSubTab(eiaTab);
-		eiaMaterialsSubTab = new EIAMaterialSubTab(eiaTab);
+//		eiaMaterialsSubTab = new EIAMaterialSubTab(eiaTab);
 		eiaPlanSubTab = new EIAMaintPlanSubTab(eiaTab);
 		eiaCostsSubTab = new EIACostSubTab(eiaTab);
 		eiaMovementsSubTab = new EIAMovementsSubTab(eiaTab);
@@ -42,7 +41,7 @@ public class EIAInternalTabset extends TabSet implements
 		// Agregando las Subtabs
 		addTab(eiaInformationSubTab);
 		addTab(eiaPartsSubTab);
-		addTab(eiaMaterialsSubTab);
+//		addTab(eiaMaterialsSubTab);
 		addTab(eiaPlanSubTab);
 		addTab(eiaCostsSubTab);
 		addTab(eiaMovementsSubTab);
@@ -64,7 +63,7 @@ public class EIAInternalTabset extends TabSet implements
 	public void select(EiaType eiaType) {
 		eiaInformationSubTab.select(eiaType);
 		eiaPartsSubTab.select(eiaType);
-		eiaMaterialsSubTab.select(eiaType);
+//		eiaMaterialsSubTab.select(eiaType);
 		eiaPlanSubTab.select(eiaType);
 		eiaCostsSubTab.select(eiaType);
 		eiaMovementsSubTab.select(eiaType);
