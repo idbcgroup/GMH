@@ -44,6 +44,7 @@ public class MaterialAddForm extends GHASlideInWindow implements
 					@Override
 					public void onClick(ClickEvent event) {
 						materialForm.save();
+						hide();
 					}
 				}), new GHAImgButton("../resources/icons/cancel.png",
 				new ClickHandler() {

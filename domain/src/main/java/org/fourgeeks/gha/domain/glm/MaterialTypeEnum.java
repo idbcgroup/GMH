@@ -22,21 +22,21 @@ public enum MaterialTypeEnum {
 		return this.name;
 	}
 
-	/**
-	 * @param string
-	 * @return the MaterialTypeEnum representated by this value, or null if it
-	 *         does not exist
-	 */
-	public static MaterialTypeEnum getByString(String string) {
-		if (string == null)
-			return null;
-
-		for (MaterialTypeEnum e : MaterialTypeEnum.values())
-			if (string.equals(e.toString()))
-				return e;
-
-		return null;
-	}
+	// /**
+	// * @param string
+	// * @return the MaterialTypeEnum representated by this value, or null if it
+	// * does not exist
+	// */
+	// public static MaterialTypeEnum getByString(String string) {
+	// if (string == null)
+	// return null;
+	//
+	// for (MaterialTypeEnum e : MaterialTypeEnum.values())
+	// if (string.equals(e.name()))
+	// return e;
+	//
+	// return null;
+	// }
 
 	/**
 	 * @return a valueMap with this Enum values

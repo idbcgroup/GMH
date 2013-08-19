@@ -28,7 +28,7 @@ public class EIATypeSpareGridPanel extends VLayout implements
 	
 	{
 		eiaTypeSearchForm = new EIATypeSearchForm();
-		eiaTypeSearchForm.AddEIATypeSelectionListener(new EIATypeSelectionListener() {
+		eiaTypeSearchForm.addEiaTypeSelectionListener(new EIATypeSelectionListener() {
 			
 			@Override
 			public void select(EiaType eiaType) {

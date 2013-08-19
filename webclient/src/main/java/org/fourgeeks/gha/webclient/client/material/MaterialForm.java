@@ -83,14 +83,15 @@ public class MaterialForm extends VLayout implements MaterialSelectionProducer {
 
 	void save() {
 		final Material material = extract();
-		MaterialModel.save(material, new GHAAsyncCallback<Material>() {
+		if (material != null)
+			MaterialModel.save(material, new GHAAsyncCallback<Material>() {
 
-			@Override
-			public void onSuccess(Material result) {
-				select(result);
-				cancel();
-			}
-		});
+				@Override
+				public void onSuccess(Material result) {
+					select(result);
+					cancel();
+				}
+			});
 
 	}
 
@@ -123,7 +124,6 @@ public class MaterialForm extends VLayout implements MaterialSelectionProducer {
 	}
 
 	protected void cancel() {
-		hide();
 		codeItem.clearValue();
 		extCodeItem.clearValue();
 		nameItem.clearValue();
