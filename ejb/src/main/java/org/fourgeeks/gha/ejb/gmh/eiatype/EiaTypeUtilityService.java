@@ -11,6 +11,7 @@ import javax.persistence.TypedQuery;
 import javax.validation.ConstraintViolationException;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeUtility;
 
 /**
@@ -47,11 +48,11 @@ public class EiaTypeUtilityService implements EiaTypeUtilityServiceRemote {
 	}
 
 	@Override
-	public List<EiaTypeUtility> findByEiaTypeId(long eiaTypeId)
+	public List<EiaTypeUtility> findByEiaType(String code)
 			throws EJBException {
 		TypedQuery<EiaTypeUtility> query = em.createNamedQuery(
 				"EiaTypeUtility.findByEiaTypeId", EiaTypeUtility.class);
-		query.setParameter("eiaTypeId", eiaTypeId);
+		query.setParameter("eiaType", new EiaType(code));
 		return query.getResultList();
 	}
 

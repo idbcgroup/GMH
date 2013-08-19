@@ -44,9 +44,12 @@ public class Manufacturer extends AbstractEntity implements HasKey {
 	}
 
 	/**
-	 * @param id
 	 * @param name
 	 */
+	public Manufacturer(String name) {
+		this.name = name;
+	}
+
 	public Manufacturer(int id, String name) {
 		this.id = id;
 		this.name = name;

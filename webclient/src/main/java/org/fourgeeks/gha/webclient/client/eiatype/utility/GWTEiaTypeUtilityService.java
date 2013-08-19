@@ -31,11 +31,11 @@ public interface GWTEiaTypeUtilityService extends RemoteService {
 	/**
 	 * REtrieve a list of EiaTypeUtility of the eiatype
 	 * 
-	 * @param eiaTypeId
+	 * @param code
 	 * @return a list of EiaTypeUtility
 	 * @throws EJBException
 	 */
-	public List<EiaTypeUtility> findByEiaTypeId(long eiaTypeId)
+	public List<EiaTypeUtility> findByEiaType(String code)
 			throws EJBException;
 
 	/**

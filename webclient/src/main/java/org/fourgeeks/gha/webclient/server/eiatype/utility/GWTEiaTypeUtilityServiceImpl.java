@@ -37,9 +37,9 @@ public class GWTEiaTypeUtilityServiceImpl extends RemoteServiceServlet
 	}
 
 	@Override
-	public List<EiaTypeUtility> findByEiaTypeId(long eiaTypeId)
+	public List<EiaTypeUtility> findByEiaType(String code)
 			throws EJBException {
-		return serviceRemote.findByEiaTypeId(eiaTypeId);
+		return serviceRemote.findByEiaType(code);
 	}
 
 }

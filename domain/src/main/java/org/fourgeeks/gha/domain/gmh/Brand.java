@@ -44,9 +44,12 @@ public class Brand extends AbstractEntity implements HasKey {
 	}
 
 	/**
-	 * @param id
 	 * @param name
 	 */
+	public Brand(String name) {
+		this.name = name;
+	}
+
 	public Brand(int id, String name) {
 		this.id = id;
 		this.name = name;
