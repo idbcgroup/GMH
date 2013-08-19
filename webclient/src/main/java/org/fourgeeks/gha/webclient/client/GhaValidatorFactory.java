@@ -2,6 +2,7 @@ package org.fourgeeks.gha.webclient.client;
 
 import javax.validation.Validator;
 
+import org.fourgeeks.gha.domain.glm.Material;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 
@@ -10,13 +11,17 @@ import com.google.gwt.validation.client.AbstractGwtValidatorFactory;
 import com.google.gwt.validation.client.GwtValidation;
 import com.google.gwt.validation.client.impl.AbstractGwtValidator;
 
+/**
+ * @author alacret
+ * 
+ */
 public final class GhaValidatorFactory extends AbstractGwtValidatorFactory {
 
 	/**
 	 * Only the classes and groups listed in the GwtValidation annotation can be
 	 * validated.
 	 */
-	@GwtValidation({ EiaType.class, Eia.class })
+	@GwtValidation({ EiaType.class, Eia.class, Material.class })
 	public interface GwtValidator extends Validator {
 	}
 

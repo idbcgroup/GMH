@@ -3,6 +3,7 @@
  */
 package org.fourgeeks.gha.domain.glm;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,8 +20,7 @@ import org.fourgeeks.gha.domain.AbstractEntity;
 @NamedQueries(value = {
 		@NamedQuery(name = "Material.getAll", query = "SELECT m FROM Material m ORDER BY m.name"),
 		@NamedQuery(name = "Material.getByType", query = "SELECT m FROM Material m WHERE m.type = :materialTypeId ORDER BY m.name"),
-		@NamedQuery(name = "Material.findByName", query = "SELECT m FROM Material m WHERE LOWER(m.name) LIKE :name ORDER BY m.id")
-})
+		@NamedQuery(name = "Material.findByName", query = "SELECT m FROM Material m WHERE LOWER(m.name) LIKE :name ORDER BY m.id") })
 public class Material extends AbstractEntity {
 
 	/**
@@ -28,6 +28,7 @@ public class Material extends AbstractEntity {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@Column(nullable = false)
 	private MaterialTypeEnum type;
 
 	// private BigDecimal length;
