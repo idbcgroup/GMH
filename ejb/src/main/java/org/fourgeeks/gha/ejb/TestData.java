@@ -25,6 +25,7 @@ import org.fourgeeks.gha.domain.gar.Facility;
 import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.glm.Material;
+import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
@@ -55,7 +56,7 @@ public class TestData {
 	@PersistenceContext
 	EntityManager em;
 
-	@EJB(name = "gmh.BrandSErvice")
+	@EJB(name = "gmh.BrandService")
 	BrandServiceRemote brandService;
 
 	@EJB(name = "gmh.ManufacturerService")
@@ -103,10 +104,8 @@ public class TestData {
 		} catch (NoResultException e) {
 			try {
 				logger.info("creating test data : material");
-				// Material m = null;
-
 				for (int j = 0; j < 3; j++) {
-					em.persist(new Material());
+					em.persist(new Material("mat-00"+j, "material-00"+j, MaterialTypeEnum.values()[j%3]));
 				}
 				em.flush();
 			} catch (Exception e1) {
@@ -417,31 +416,31 @@ public class TestData {
 			try {
 				logger.info("creating test eiaType");
 				EiaType eiaType = new EiaType("90001",
-						brandService.find(1), manufacturerService.find(1),
+						em.find(Brand.class, 1L), em.find(Manufacturer.class, 1L),
 						"Impresora Tinta", EiaMobilityEnum.FIXED,
 						EiaTypeEnum.EQUIPMENT, EiaSubTypeEnum.IT_SYSTEM, "Stylus");
 				em.persist(eiaType);
 
 				eiaType = new EiaType("90002",
-						brandService.find(2), manufacturerService.find(2),
+						em.find(Brand.class, 2L), em.find(Manufacturer.class, 2L),
 						"Impresora Laser", EiaMobilityEnum.FIXED,
 						EiaTypeEnum.EQUIPMENT, EiaSubTypeEnum.IT_SYSTEM, "Deskjet");
 				em.persist(eiaType);
 
 				eiaType = new EiaType("90003",
-						brandService.find(3), manufacturerService.find(3),
+						em.find(Brand.class, 3L), em.find(Manufacturer.class, 3L),
 						"Cartucho Tricolor", EiaMobilityEnum.FIXED,
 						EiaTypeEnum.PART, EiaSubTypeEnum.IT_SYSTEM, "EP60");
 				em.persist(eiaType);
 
 				eiaType = new EiaType("90004",
-						brandService.find(4), manufacturerService.find(4),
+						em.find(Brand.class, 4L), em.find(Manufacturer.class, 4L),
 						"Toner Laser", EiaMobilityEnum.FIXED,
 						EiaTypeEnum.PART, EiaSubTypeEnum.IT_SYSTEM, "HP60");
 				em.persist(eiaType);
 
 				eiaType = new EiaType("90005",
-						brandService.find(5), manufacturerService.find(5),
+						em.find(Brand.class, 5L), em.find(Manufacturer.class, 5L),
 						"Cartucho Negro", EiaMobilityEnum.FIXED,
 						EiaTypeEnum.PART, EiaSubTypeEnum.IT_SYSTEM, "EPN60");
 				em.persist(eiaType);

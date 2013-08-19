@@ -208,6 +208,26 @@ public class Material extends AbstractEntity {
 	// /** ext_material_code2 length =30 */
 	// private String ext_material_code3;
 	// /** EXT_MATERIAL_CODE3 length =30 */
+	
+	/**
+	 * 
+	 */
+	public Material() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	/**
+	 * @param code
+	 * @param name
+	 * @param type
+	 */
+	public Material(String code, String name, MaterialTypeEnum type) {
+		this.code = code;
+		this.name = name;
+		this.type = type;
+	}
+
+
 	/**
 	 * @return the type
 	 */
