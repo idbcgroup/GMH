@@ -15,6 +15,7 @@ import org.fourgeeks.gha.webclient.client.eia.EIAGrid;
 import org.fourgeeks.gha.webclient.client.eia.EIAModel;
 import org.fourgeeks.gha.webclient.client.eia.EIARecord;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
+import org.fourgeeks.gha.webclient.client.eia.EIAUpdateForm;
 import org.fourgeeks.gha.webclient.client.eia.EIAUtil;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
@@ -37,11 +38,13 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 
 	private EIAGrid grid;
 	private EiaType eiaType;
+	private EIAUpdateForm eiaUpdateForm;
 
 	private EIAAddForm eiaAddForm;
 	{
 		grid = new EIAGrid();
 		eiaAddForm = new EIAAddForm();
+		eiaUpdateForm = new EIAUpdateForm();
 	}
 
 	/**
@@ -70,59 +73,72 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 					public void onClick(ClickEvent event) {
 						eiaAddForm.open();
 					}
-				}), new GHAImgButton("../resources/icons/edit.png"),
-				new GHAImgButton("../resources/icons/delete.png",
-						new ClickHandler() {
+				}), new GHAImgButton("../resources/icons/edit.png",
+				new ClickHandler() {
 
-							@Override
-							public void onClick(ClickEvent event) {
-								final Eia selectedRecord = grid
-										.getSelectedEntity();
+					@Override
+					public void onClick(ClickEvent event) {
+						if (grid.getSelectedRecord() != null) {
+							Eia eia = ((EIARecord) grid.getSelectedRecord())
+									.toEntity();
+							eiaUpdateForm.setEia(eia);
+							eiaUpdateForm.animateShow(AnimationEffect.FLY);
+						} else {
+							GHANotification
+									.alert("Debe seleccionar un equipo del grid");
+						}
+					}
+				}), new GHAImgButton("../resources/icons/delete.png",
+				new ClickHandler() {
 
-								if (selectedRecord == null)
-									return;// No record selected
+					@Override
+					public void onClick(ClickEvent event) {
+						final Eia selectedRecord = grid.getSelectedEntity();
 
-								GHANotification
-										.confirm(
-												"Equipo",
-												"Confirme si desea eliminar el equipo seleccionado",
-												new BooleanCallback() {
+						if (selectedRecord == null)
+							return;// No record selected
 
-													@Override
-													public void execute(
-															Boolean resultAsc) {
-														if (resultAsc)
-															EIAModel.delete(
-																	selectedRecord
-																			.getId(),
-																	new GHAAsyncCallback<Boolean>() {
+						GHANotification
+								.confirm(
+										"Equipo",
+										"Confirme si desea eliminar el equipo seleccionado",
+										new BooleanCallback() {
 
-																		@Override
-																		public void onSuccess(
-																				Boolean result) {
-																			loadData(eiaType);
+											@Override
+											public void execute(
+													Boolean resultAsc) {
+												if (resultAsc)
+													EIAModel.delete(
+															selectedRecord
+																	.getId(),
+															new GHAAsyncCallback<Boolean>() {
 
-																		}
+																@Override
+																public void onSuccess(
+																		Boolean result) {
+																	loadData(eiaType);
 
-																	});
-													}
-												});
+																}
 
-							}
+															});
+											}
+										});
 
-						}), new GHAImgButton("../resources/icons/set.png",
-						new ClickHandler() {
+					}
 
-							@Override
-							public void onClick(ClickEvent event) {
-								// EIATypeRecord selectedRecord =
-								// (EIATypeRecord)
-								// eiaTypeEquiposGrid
-								// .getSelectedRecord();
-								// History.newItem("eia/" +
-								// selectedRecord.getCode());
-							}
-						}));
+				}), new GHAImgButton("../resources/icons/set.png",
+				new ClickHandler() {
+
+					@Override
+					public void onClick(ClickEvent event) {
+						// EIATypeRecord selectedRecord =
+						// (EIATypeRecord)
+						// eiaTypeEquiposGrid
+						// .getSelectedRecord();
+						// History.newItem("eia/" +
+						// selectedRecord.getCode());
+					}
+				}));
 
 		HLayout mainLayout = new HLayout();
 		mainLayout.addMembers(grid, sideButtons);
