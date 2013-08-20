@@ -5,7 +5,6 @@ package org.fourgeeks.gha.domain.gmh;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -38,11 +37,11 @@ public class EiaType implements Serializable{
 	private String code;
 	/** Código asignado al EIA length =20 */
 
-	@ManyToOne(cascade=CascadeType.PERSIST)
+	@ManyToOne
 	@JoinColumn(name = "brandFk")
 	private Brand brand;
 
-	@ManyToOne(cascade=CascadeType.PERSIST)
+	@ManyToOne
 	@JoinColumn(name = "manufacturerFk")
 	private Manufacturer manufacturer;
 
