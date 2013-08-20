@@ -20,7 +20,6 @@ import javax.persistence.criteria.Root;
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.ess.RoleBase;
 import org.fourgeeks.gha.domain.exceptions.EJBException;
-import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.gmh.Eia;
@@ -66,18 +65,6 @@ public class EiaService implements EiaServiceRemote {
 					"eiaType");
 			criteria = cb.and(criteria,
 					cb.equal(root.<EiaType> get("eiaType"), p));
-		}
-		if (entity.getBuildingLocation() != null) {
-			ParameterExpression<BuildingLocation> p = cb.parameter(
-					BuildingLocation.class, "buildingLocation");
-			criteria = cb.and(criteria, cb.equal(
-					root.<BuildingLocation> get("buildingLocation"), p));
-		}
-		if (entity.getAttendedLocation() != null) {
-			ParameterExpression<BuildingLocation> p = cb.parameter(
-					BuildingLocation.class, "attendedLocation");
-			criteria = cb.and(criteria, cb.equal(
-					root.<BuildingLocation> get("attendedLocation"), p));
 		}
 		if (entity.getObu() != null) {
 			ParameterExpression<Obu> p = cb.parameter(Obu.class, "obu");
@@ -158,14 +145,6 @@ public class EiaService implements EiaServiceRemote {
 				}
 				if (entity.getEiaType() != null) {
 					q.setParameter("eiaType", entity.getEiaType());
-				}
-				if (entity.getBuildingLocation() != null) {
-					q.setParameter("buildingLocation",
-							entity.getBuildingLocation());
-				}
-				if (entity.getAttendedLocation() != null) {
-					q.setParameter("attendedLocation",
-							entity.getAttendedLocation());
 				}
 				if (entity.getObu() != null) {
 					q.setParameter("obu", entity.getObu());

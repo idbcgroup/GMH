@@ -630,19 +630,19 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 				.getValueAsString());
 
 		// ubication
-		if (buildingLocationSelectItem.getValue() != null) {
-			eia.setBuildingLocation(new BuildingLocation(
-					buildingLocationSelectItem.getValueAsString()));
-			if (sameLocationAttendedItem.getValueAsBoolean()) {
-				eia.setAttendedLocation(new BuildingLocation(
-						buildingLocationSelectItem.getValueAsString()));
-			} else {
-				if (attendedLocationSelectItem.getValue() != null) {
-					eia.setAttendedLocation(new BuildingLocation(
-							attendedLocationSelectItem.getValueAsString()));
-				}
-			}
-		}
+//		if (buildingLocationSelectItem.getValue() != null) {
+//			eia.setBuildingLocation(new BuildingLocation(
+//					buildingLocationSelectItem.getValueAsString()));
+//			if (sameLocationAttendedItem.getValueAsBoolean()) {
+//				eia.setAttendedLocation(new BuildingLocation(
+//						buildingLocationSelectItem.getValueAsString()));
+//			} else {
+//				if (attendedLocationSelectItem.getValue() != null) {
+//					eia.setAttendedLocation(new BuildingLocation(
+//							attendedLocationSelectItem.getValueAsString()));
+//				}
+//			}
+//		}
 
 		// costs
 		if (adquisitionCostTextItem.getValue() != null)

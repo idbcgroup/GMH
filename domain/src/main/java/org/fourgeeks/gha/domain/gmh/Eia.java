@@ -9,18 +9,18 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.CurrencyTypeEnum;
 import org.fourgeeks.gha.domain.enu.DepreciationMethodEnum;
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
-import org.fourgeeks.gha.domain.enu.ItSystemEnum;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
 import org.fourgeeks.gha.domain.ess.RoleBase;
+import org.fourgeeks.gha.domain.ess.WorkingArea;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
+import org.fourgeeks.gha.domain.gar.Facility;
 import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
 
@@ -92,19 +92,15 @@ public class Eia extends AbstractEntity {
 	private TimePeriodEnum lifeTimePoT;
 
 	/**
-	 * Building location where the EIA is located
-	 */
+	 * Working Area and Facility where the EIA is located
+	 */	
 	@ManyToOne
-	@JoinColumn(name = "buildingLocationFk", nullable = false)
-	private BuildingLocation buildingLocation;
-
-	/**
-	 * Building location attended by the EIA
-	 */
-	@NotNull(message = "La ubicación que atiende el equipo no puede estar vacia")
+	@JoinColumn(name = "workingAreaFk")
+	private WorkingArea workingArea;
+	
 	@ManyToOne
-	@JoinColumn(name = "attendedLocationFk", nullable = false)
-	private BuildingLocation attendedLocation;
+	@JoinColumn(name = "facilityFk")
+	private Facility facility;
 
 	@ManyToOne
 	@JoinColumn(name = "maintenanceLocationFk")
@@ -142,15 +138,6 @@ public class Eia extends AbstractEntity {
 	@ManyToOne
 	@JoinColumn(name = "externalProviderFk", nullable = false)
 	private ExternalProvider provider;
-
-	// IT EIA SECTION
-	/**
-	 * If this is a IT Eia, this is its type
-	 */
-	private ItSystemEnum itType;
-	private String machineName;
-	private String ipAddress;
-	private String macAddress;
 
 	// WARRANTIES Section
 	// TODO: CHECK FOR NULL VALUES FROM HERE
@@ -192,18 +179,14 @@ public class Eia extends AbstractEntity {
 	/**
 	 * @param responsibleRole
 	 * @param eiaType
-	 * @param buildingLocation
-	 * @param attendedLocation
 	 * @param obu
 	 * @param state
 	 */
 	public Eia(RoleBase responsibleRole, EiaType eiaType,
-			BuildingLocation buildingLocation,
-			BuildingLocation attendedLocation, Obu obu, EiaStateEnum state) {
+			Obu obu,
+			EiaStateEnum state) {
 		this.responsibleRole = responsibleRole;
 		this.eiaType = eiaType;
-		this.buildingLocation = buildingLocation;
-		this.attendedLocation = attendedLocation;
 		this.obu = obu;
 		this.state = state;
 	}
@@ -304,14 +287,6 @@ public class Eia extends AbstractEntity {
 		return lifeTimePoT;
 	}
 
-	public BuildingLocation getBuildingLocation() {
-		return buildingLocation;
-	}
-
-	public BuildingLocation getAttendedLocation() {
-		return attendedLocation;
-	}
-
 	public BuildingLocation getMaintenanceLocation() {
 		return maintenanceLocation;
 	}
@@ -358,22 +333,6 @@ public class Eia extends AbstractEntity {
 
 	public ExternalProvider getProvider() {
 		return provider;
-	}
-
-	public ItSystemEnum getItType() {
-		return itType;
-	}
-
-	public String getMachineName() {
-		return machineName;
-	}
-
-	public String getIpAddress() {
-		return ipAddress;
-	}
-
-	public String getMacAddress() {
-		return macAddress;
 	}
 
 	public WarrantySinceEnum getRealWarrantySince() {
@@ -498,14 +457,6 @@ public class Eia extends AbstractEntity {
 		this.lifeTimePoT = lifeTimePoT;
 	}
 
-	public void setBuildingLocation(BuildingLocation buildingLocation) {
-		this.buildingLocation = buildingLocation;
-	}
-
-	public void setAttendedLocation(BuildingLocation attendedLocation) {
-		this.attendedLocation = attendedLocation;
-	}
-
 	public void setMaintenanceLocation(BuildingLocation maintenanceLocation) {
 		this.maintenanceLocation = maintenanceLocation;
 	}
@@ -554,22 +505,6 @@ public class Eia extends AbstractEntity {
 		this.provider = provider;
 	}
 
-	public void setItType(ItSystemEnum itType) {
-		this.itType = itType;
-	}
-
-	public void setMachineName(String machineName) {
-		this.machineName = machineName;
-	}
-
-	public void setIpAddress(String ipAddress) {
-		this.ipAddress = ipAddress;
-	}
-
-	public void setMacAddress(String macAddress) {
-		this.macAddress = macAddress;
-	}
-
 	public void setRealWarrantySince(WarrantySinceEnum realWarrantySince) {
 		this.realWarrantySince = realWarrantySince;
 	}
@@ -600,6 +535,30 @@ public class Eia extends AbstractEntity {
 
 	public void setIntWarrantyBegin(Date intWarrantyBegin) {
 		this.intWarrantyBegin = intWarrantyBegin;
+	}
+
+	public EiaMaintenancePlan geteMaintenancePlan() {
+		return eMaintenancePlan;
+	}
+
+	public WorkingArea getWorkingArea() {
+		return workingArea;
+	}
+
+	public Facility getFacility() {
+		return facility;
+	}
+
+	public void seteMaintenancePlan(EiaMaintenancePlan eMaintenancePlan) {
+		this.eMaintenancePlan = eMaintenancePlan;
+	}
+
+	public void setWorkingArea(WorkingArea workingArea) {
+		this.workingArea = workingArea;
+	}
+
+	public void setFacility(Facility facility) {
+		this.facility = facility;
 	}
 
 }
