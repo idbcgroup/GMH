@@ -4,6 +4,8 @@ import org.fourgeeks.gha.webclient.client.UI.GHADropdownMenus;
 import org.fourgeeks.gha.webclient.client.UI.GHAPlace;
 import org.fourgeeks.gha.webclient.client.UI.GHATabSet;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.eia.eiadispatchment.EIADispatchmentForm;
+import org.fourgeeks.gha.webclient.client.eia.installationcertificate.EIAInstallationCertificateForm;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
@@ -26,6 +28,8 @@ import com.smartgwt.client.widgets.menu.events.MenuItemClickEvent;
 public class HomePlace extends GHAPlace {
 
 	private static boolean HOME_HAS_BEEN_BUILT = false;
+	private EIADispatchmentForm dispatchmentForm = new EIADispatchmentForm();
+	private EIAInstallationCertificateForm installationCertificateForm = new EIAInstallationCertificateForm();
 
 	public HomePlace() {
 	}
@@ -159,8 +163,30 @@ public class HomePlace extends GHAPlace {
 			}
 		});	
 		
+////////External EIA Forms
+		MenuItem dispatchMenuItem = new MenuItem("Despacho de Equipos");
+		dispatchMenuItem.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(MenuItemClickEvent event) {
+				dispatchmentForm.open();
+			}
+		});	
+		
+		MenuItem installationMenuItem = new MenuItem("Acta de Instalación");
+		installationMenuItem.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(MenuItemClickEvent event) {
+				installationCertificateForm.open();
+			}
+		});	
+////////7/////////////////////
+		
 		Menu menu = new Menu();
-		menu.setItems(eiaTypeMenuItem,eiaMenuItem,edtMenuItem);
+		menu.setItems(edtMenuItem,
+					  eiaTypeMenuItem,
+					  eiaMenuItem,
+					  dispatchMenuItem,
+					  installationMenuItem);
 
 		IMenuButton menuButton = new IMenuButton("Aplicaciones", menu);
 		menuButton.setWidth(150);

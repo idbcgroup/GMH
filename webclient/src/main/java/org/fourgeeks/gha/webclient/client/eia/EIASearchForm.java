@@ -56,7 +56,6 @@ public class EIASearchForm extends GHASlideInWindow {
 		stateItem = new GHASelectItem("Estado");
 
 		grid = new EIAGrid();
-		grid.setHeight(GHAUiHelper.getGridSize(30));
 	}
 
 	public EIASearchForm() {

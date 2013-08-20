@@ -86,6 +86,19 @@ public abstract class GHAUiHelper {
 	}
 	
 	public static int getGridSize(int extrasHeight){
+		int tabHeight = getTabHeight();
+		int titleHeight = 30;
+		int topExtras = extrasHeight + titleHeight + 35;
+		
+		int ret= tabHeight-topExtras;
+		if(ret < MIN_GRID_SIZE){
+			return MIN_GRID_SIZE;
+		}else{
+			return ret;
+		}
+	}
+	
+	public static int getSubtabGridSize(int extrasHeight){
 		int bottomSectionHeight = getBottomSectionHeight();
 		int titleHeight = 30;
 		int topExtras = extrasHeight + titleHeight + 35;

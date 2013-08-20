@@ -119,7 +119,7 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
 
 		eiaTypeGrid = new EIATypeGrid();
-		eiaTypeGrid.setHeight(GHAUiHelper.getGridSize(30));
+		eiaTypeGrid.setHeight(GHAUiHelper.getSubtabGridSize(30));
 		HLayout gridLayout = new HLayout();
 		gridLayout.setPadding(10);
 

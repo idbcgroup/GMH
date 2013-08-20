@@ -17,7 +17,7 @@ public class GhaGrid<T> extends ListGrid implements ResizeHandler {
 		super();
 		GHAUiHelper.addGHAResizeHandler(this);
 		setWidth100();
-		setHeight(GHAUiHelper.getGridSize(30));
+		setHeight(GHAUiHelper.getSubtabGridSize(30));
 		setAlternateRecordStyles(false);
 		setCanResizeFields(false);
 		// setShowFilterEditor(true);
@@ -51,6 +51,6 @@ public class GhaGrid<T> extends ListGrid implements ResizeHandler {
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getGridSize(30));
+		setHeight(GHAUiHelper.getSubtabGridSize(30));
 	}
 }
