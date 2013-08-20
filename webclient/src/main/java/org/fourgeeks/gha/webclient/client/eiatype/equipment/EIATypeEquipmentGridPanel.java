@@ -55,6 +55,8 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 		super();
 		eIATypeEquipmentSubTab.addGHAHideableHandler(eiaAddForm);
 		eiaAddForm.addEiaSelectionListener(eIATypeEquipmentSubTab);
+		eIATypeEquipmentSubTab.addGHAHideableHandler(eiaUpdateForm);
+		eiaUpdateForm.addEiaSelectionListener(eIATypeEquipmentSubTab);
 		setStyleName("sides-padding top-padding");// Esto es VUDU!
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
@@ -82,7 +84,7 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 							Eia eia = ((EIARecord) grid.getSelectedRecord())
 									.toEntity();
 							eiaUpdateForm.setEia(eia);
-							eiaUpdateForm.animateShow(AnimationEffect.FLY);
+							eiaUpdateForm.open();
 						} else {
 							GHANotification
 									.alert("Debe seleccionar un equipo del grid");
@@ -149,6 +151,7 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 	public void select(EiaType eiaType) {
 		this.eiaType = eiaType;
 		eiaAddForm.select(eiaType);
+		eiaUpdateForm.select(eiaType);
 		loadData(eiaType);
 
 	}
@@ -173,11 +176,14 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 	public void close() {
 		eiaAddForm.animateHide(AnimationEffect.FLY);
 		eiaAddForm.destroy();
+		eiaUpdateForm.animateHide(AnimationEffect.FLY);
+		eiaUpdateForm.destroy();
 	}
 
 	@Override
 	public void hide() {
 		eiaAddForm.hide();
+		eiaUpdateForm.hide();
 		// super.hide();
 	}
 

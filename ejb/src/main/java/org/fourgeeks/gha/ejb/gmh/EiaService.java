@@ -39,50 +39,69 @@ public class EiaService implements EiaServiceRemote {
 	private final static Logger logger = Logger.getLogger(EiaService.class
 			.getName());
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#buildFilters(org.fourgeeks.gha.domain.gmh.Eia, javax.persistence.criteria.CriteriaBuilder, javax.persistence.criteria.Root)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.EiaServiceRemote#buildFilters(org.fourgeeks
+	 * .gha.domain.gmh.Eia, javax.persistence.criteria.CriteriaBuilder,
+	 * javax.persistence.criteria.Root)
 	 */
 	@Override
 	public Predicate buildFilters(Eia entity, CriteriaBuilder cb, Root<Eia> root) {
 		Predicate criteria = cb.conjunction();
-		
+
 		if (entity.getResponsibleRole() != null) {
-			ParameterExpression<RoleBase> p = cb.parameter(RoleBase.class, "baseRole");
-			criteria = cb.and(criteria, cb.equal(root.<RoleBase>get("responsibleRole"), p));
+			ParameterExpression<RoleBase> p = cb.parameter(RoleBase.class,
+					"baseRole");
+			criteria = cb.and(criteria,
+					cb.equal(root.<RoleBase> get("responsibleRole"), p));
 		}
 		if (entity.getCode() != null) {
 			ParameterExpression<String> p = cb.parameter(String.class, "code");
 			criteria = cb.and(criteria, cb.equal(root.<String> get("code"), p));
 		}
 		if (entity.getEiaType() != null) {
-			ParameterExpression<EiaType> p = cb.parameter(EiaType.class, "eiaType");
-			criteria = cb.and(criteria, cb.equal(root.<EiaType>get("eiaType"), p));
+			ParameterExpression<EiaType> p = cb.parameter(EiaType.class,
+					"eiaType");
+			criteria = cb.and(criteria,
+					cb.equal(root.<EiaType> get("eiaType"), p));
 		}
 		if (entity.getBuildingLocation() != null) {
-			ParameterExpression<BuildingLocation> p = cb.parameter(BuildingLocation.class, "buildingLocation");
-			criteria = cb.and(criteria, cb.equal(root.<BuildingLocation>get("buildingLocation"), p));
+			ParameterExpression<BuildingLocation> p = cb.parameter(
+					BuildingLocation.class, "buildingLocation");
+			criteria = cb.and(criteria, cb.equal(
+					root.<BuildingLocation> get("buildingLocation"), p));
 		}
 		if (entity.getAttendedLocation() != null) {
-			ParameterExpression<BuildingLocation> p = cb.parameter(BuildingLocation.class, "attendedLocation");
-			criteria = cb.and(criteria, cb.equal(root.<BuildingLocation>get("attendedLocation"), p));
+			ParameterExpression<BuildingLocation> p = cb.parameter(
+					BuildingLocation.class, "attendedLocation");
+			criteria = cb.and(criteria, cb.equal(
+					root.<BuildingLocation> get("attendedLocation"), p));
 		}
 		if (entity.getObu() != null) {
 			ParameterExpression<Obu> p = cb.parameter(Obu.class, "obu");
-			criteria = cb.and(criteria, cb.equal(root.<Obu>get("obu"), p));
+			criteria = cb.and(criteria, cb.equal(root.<Obu> get("obu"), p));
 		}
 		if (entity.getSerialNumber() != null) {
-			ParameterExpression<String> p = cb.parameter(String.class, "serialNumber");
-			criteria = cb.and(criteria, cb.equal(root.<String> get("serialNumber"), p));
+			ParameterExpression<String> p = cb.parameter(String.class,
+					"serialNumber");
+			criteria = cb.and(criteria,
+					cb.equal(root.<String> get("serialNumber"), p));
 		}
 		if (entity.getState() != null) {
-			ParameterExpression<EiaStateEnum> p = cb.parameter(EiaStateEnum.class, "state");
-			criteria = cb.and(criteria, cb.equal(root.<EiaStateEnum>get("state"), p));
+			ParameterExpression<EiaStateEnum> p = cb.parameter(
+					EiaStateEnum.class, "state");
+			criteria = cb.and(criteria,
+					cb.equal(root.<EiaStateEnum> get("state"), p));
 		}
 		if (entity.getProvider() != null) {
-			ParameterExpression<ExternalProvider> p = cb.parameter(ExternalProvider.class, "provider");
-			criteria = cb.and(criteria, cb.equal(root.<ExternalProvider>get("provider"), p));
+			ParameterExpression<ExternalProvider> p = cb.parameter(
+					ExternalProvider.class, "provider");
+			criteria = cb.and(criteria,
+					cb.equal(root.<ExternalProvider> get("provider"), p));
 		}
-		
+
 		return criteria;
 	}
 
@@ -121,7 +140,7 @@ public class EiaService implements EiaServiceRemote {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<Eia> cQuery = cb.createQuery(Eia.class);
 			Root<Eia> root = cQuery.from(Eia.class);
-			cQuery.select(root); 
+			cQuery.select(root);
 			cQuery.orderBy(cb.asc(root.get("id")));
 			Predicate criteria = buildFilters(entity, cb, root);
 			TypedQuery<Eia> q;
@@ -166,8 +185,8 @@ public class EiaService implements EiaServiceRemote {
 			logger.log(Level.SEVERE,
 					"Error obteniendo los Eia utilizando otro Eia", e);
 			throw new EJBException(
-					"Error obteniendo los Eia utilizando otro Eia " +
-					e.getCause().getMessage());
+					"Error obteniendo los Eia utilizando otro Eia "
+							+ e.getCause().getMessage());
 		}
 	}
 
@@ -254,7 +273,8 @@ public class EiaService implements EiaServiceRemote {
 			return em.find(Eia.class, eia.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving eia ", e);
-			throw new EJBException("ERROR: guardando eia " + e.getCause().getMessage());
+			throw new EJBException("ERROR: guardando eia "
+					+ e.getCause().getMessage());
 		}
 	}
 
@@ -272,10 +292,10 @@ public class EiaService implements EiaServiceRemote {
 			em.flush();
 			return res;
 		} catch (Exception e) {
-			logger.log(Level.INFO,
-					"ERROR: unable to update eia ", e);
-			throw new EJBException("ERROR: no se puede eliminar el eia "
+			logger.log(Level.INFO, "ERROR: unable to update eia ", e);
+			throw new EJBException("ERROR: no se puede actualizar el eia "
 					+ e.getCause().getMessage());
+
 		}
 
 	}
