@@ -566,6 +566,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 				public void onSuccess(Eia result) {
 					select(result);
 					cancel();
+					hide();
 				}
 			});
 	}
