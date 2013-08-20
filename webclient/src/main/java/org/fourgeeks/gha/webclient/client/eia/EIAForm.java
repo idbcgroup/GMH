@@ -13,7 +13,6 @@ import javax.validation.Validator;
 import org.fourgeeks.gha.domain.enu.CurrencyTypeEnum;
 import org.fourgeeks.gha.domain.enu.DepreciationMethodEnum;
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
-import org.fourgeeks.gha.domain.enu.ItSystemEnum;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
 import org.fourgeeks.gha.domain.ess.RoleBase;
@@ -41,6 +40,7 @@ import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.form.fields.events.ChangeEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangeHandler;
 import com.smartgwt.client.widgets.layout.VLayout;
+//import org.fourgeeks.gha.domain.enu.ItSystemEnum;
 
 /**
  * @author alacret
@@ -54,8 +54,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 			adquisitionCostTextItem, adquisitionCostLocalTextItem,
 			depreciationTimeTextItem, lifeTimeTextItem, actualCostTextItem,
 			realWarrantyTimeTextItem, intWarrantyTimeTextItem,
-			codeMant_WarrMant_TextItem, ipAddresTextItem, macAddressTextItem,
-			machineNameTextItem;
+			codeMant_WarrMant_TextItem;
 	private GHASelectItem obuSelectItem, baseRoleSelectItem, stateSelectItem,
 			providerSelectItem, buildingLocationSelectItem,
 			attendedLocationSelectItem, adquisitionCostCurrencySelectItem,
@@ -65,12 +64,12 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 			realWarrantySinceSelectItem, realWarrantyPotSelectItem,
 			intWarrantyPotSelectItem, intWarrantySinceSelectItem,
 			maintenanceLocationSelectItem, maintenanceProviderSelectItem,
-			itTypeSelectItem, eiaTypeSelectItem;
+			eiaTypeSelectItem;
 	private GHATitleTextItem information_TitleItem, adqisition_TitleItem,
 			actualArea_TitleItem, attendedArea_TitleItem, adqCost_TitleItem,
 			actualCost_TitleItem, depTime_TitleItem, lifeTime_TitleItem,
 			realWarranty_TitleItem, intermedWarranty_TitleItem,
-			maintenance_TitleItem, it_TitleItem;
+			maintenance_TitleItem;
 	private GHADateItem purchaseDateItem, receptionDateItem,
 			installationDateItem, contabilizationDateItem,
 			lastDepreciationDate, realWarrantyBeginDate, intWarrantyBeginDate;
@@ -80,13 +79,14 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 	private List<EIASelectionListener> listeners;
 	private EiaType eiaType;
 
-	{
-		// Global
+	{	// Global
 		sectionForm = new GHASectionForm();
 		listeners = new ArrayList<EIASelectionListener>();
 		validator = Validation.buildDefaultValidatorFactory().getValidator();
 
 		// Information Form Items
+		eiaTypeSelectItem = new GHASelectItem("Tipo",
+				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		information_TitleItem = new GHATitleTextItem("Información:");
 		codeTextItem = new GHATextItem("Código",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
@@ -192,18 +192,6 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE, false);
 		maintenanceProviderSelectItem = new GHASelectItem("Proveedor de Mant.",
 				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE, false);
-		// Equipos IT Form Items
-		it_TitleItem = new GHATitleTextItem("EQUIPOS IT (Sistemas):");
-		itTypeSelectItem = new GHASelectItem("Tipo Equipo IT",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
-		machineNameTextItem = new GHATextItem("Nombre Máquina",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
-		ipAddresTextItem = new GHATextItem("Direccion IP",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
-		macAddressTextItem = new GHATextItem("MAC Address",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
-		eiaTypeSelectItem = new GHASelectItem("Tipo",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 	}
 
 	/**
@@ -227,7 +215,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		sectionForm.addSection("Ubicación", getUbicacionForm(), false);
 		sectionForm.addSection("Costos", getCostosTab(), false);
 		sectionForm.addSection("Garantias", getGarantiasMantForm(), false);
-		sectionForm.addSection("EquiposIT", getEquiposIT(), false);
+//		sectionForm.addSection("EquiposIT", getEquiposIT(), false);
 
 		addMember(sectionForm);
 
@@ -237,7 +225,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		fillBuildinglocationsSelects();
 		fillCostsSelects();
 		fillWarrantySelects();
-		fillITEquipmentsSelects();
+//		fillITEquipmentsSelects();
 
 		// Funcionalities
 		buildingLocFuncionalities();
@@ -336,17 +324,17 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		return garantiasMamtenimientoForm;
 	}
 
-	private DynamicForm getEquiposIT() {
-		DynamicForm equiposITForm = new DynamicForm();
-		equiposITForm.setTitleOrientation(TitleOrientation.TOP);
-		equiposITForm.setNumCols(2);
-
-		equiposITForm.setItems(it_TitleItem, new GHASpacerItem(),
-				itTypeSelectItem, machineNameTextItem, ipAddresTextItem,
-				macAddressTextItem);
-
-		return equiposITForm;
-	}
+//	private DynamicForm getEquiposIT() {
+//		DynamicForm equiposITForm = new DynamicForm();
+//		equiposITForm.setTitleOrientation(TitleOrientation.TOP);
+//		equiposITForm.setNumCols(2);
+//
+//		equiposITForm.setItems(it_TitleItem, new GHASpacerItem(),
+//				itTypeSelectItem, machineNameTextItem, ipAddresTextItem,
+//				macAddressTextItem);
+//
+//		return equiposITForm;
+//	}
 
 	// //Fillers
 	private void fillInformationSelects() {
@@ -481,10 +469,10 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 				});
 	}
 
-	private void fillITEquipmentsSelects() {
-		itTypeSelectItem.setValueMap(ItSystemEnum.toValueMap());
-		itTypeSelectItem.setValue(ItSystemEnum.COMPUTER.name());
-	}
+//	private void fillITEquipmentsSelects() {
+//		itTypeSelectItem.setValueMap(ItSystemEnum.toValueMap());
+//		itTypeSelectItem.setValue(ItSystemEnum.COMPUTER.name());
+//	}
 
 	// ///Funcionalities
 	private void buildingLocFuncionalities() {
@@ -749,9 +737,9 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		realWarrantyTimeTextItem.clearValue();
 		intWarrantyTimeTextItem.clearValue();
 		codeMant_WarrMant_TextItem.clearValue();
-		ipAddresTextItem.clearValue();
-		macAddressTextItem.clearValue();
-		machineNameTextItem.clearValue();
+//		ipAddresTextItem.clearValue();
+//		macAddressTextItem.clearValue();
+//		machineNameTextItem.clearValue();
 
 		// clean select fields
 		obuSelectItem.clearValue();
@@ -772,7 +760,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		intWarrantySinceSelectItem.clearValue();
 		maintenanceLocationSelectItem.clearValue();
 		maintenanceProviderSelectItem.clearValue();
-		itTypeSelectItem.clearValue();
+//		itTypeSelectItem.clearValue();
 
 		purchaseDateItem.clearValue();
 		receptionDateItem.clearValue();
