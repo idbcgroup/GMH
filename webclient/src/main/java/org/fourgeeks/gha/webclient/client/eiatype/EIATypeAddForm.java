@@ -57,9 +57,7 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 		useDescriptionItem = new GHATextItem("Uso", 480);
 		useDescriptionItem.setColSpan(3);
 		eiaUmdnsItem = new GHATextItem("EIAUMDNS", 150);
-		manItem = new GHAComboboxItem<Manufacturer>("Fabricante", 150) {
-
-		};
+		manItem = new GHAComboboxItem<Manufacturer>("Fabricante", 150);
 		brandItem = new GHAComboboxItem<Brand>("Marca", 150);
 		mobilityItem = new GHASelectItem("Movilidad", 150);
 		typeItem = new GHASelectItem("Tipo", 150);

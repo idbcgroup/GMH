@@ -11,7 +11,7 @@ import com.smartgwt.client.widgets.form.fields.ComboBoxItem;
  * 
  * @param <T>
  */
-public abstract class GHAComboboxItem<T extends HasKey> extends ComboBoxItem {
+public class GHAComboboxItem<T extends HasKey> extends ComboBoxItem {
 
 	/**
 	 * 
