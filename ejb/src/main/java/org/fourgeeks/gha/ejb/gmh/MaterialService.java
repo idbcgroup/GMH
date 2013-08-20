@@ -17,7 +17,6 @@ import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.glm.Material;
@@ -40,10 +39,10 @@ public class MaterialService implements MaterialServiceRemote {
 		Predicate predicate = cb.conjunction();
 
 		if (material.getType() != null) {
-			ParameterExpression<EiaTypeEnum> p = cb.parameter(
-					EiaTypeEnum.class, "type");
+			ParameterExpression<MaterialTypeEnum> p = cb.parameter(
+					MaterialTypeEnum.class, "type");
 			predicate = cb.and(predicate,
-					cb.equal(root.<EiaTypeEnum> get("type"), p));
+					cb.equal(root.<MaterialTypeEnum> get("type"), p));
 		}
 
 		if (material.getDescription() != null) {
@@ -55,9 +54,9 @@ public class MaterialService implements MaterialServiceRemote {
 
 		if (material.getExternalProvider() != null) {
 			ParameterExpression<ExternalProvider> p = cb.parameter(
-					ExternalProvider.class, "provider");
-			predicate = cb.and(predicate,
-					cb.equal(root.<ExternalProvider> get("provider"), p));
+					ExternalProvider.class, "externalProvider");
+			predicate = cb.and(predicate, cb.equal(
+					root.<ExternalProvider> get("externalProvider"), p));
 		}
 
 		if (material.getName() != null) {
@@ -137,7 +136,7 @@ public class MaterialService implements MaterialServiceRemote {
 						+ "%");
 
 			if (entity.getExternalProvider() != null)
-				q.setParameter("provider", entity.getExternalProvider());
+				q.setParameter("externalProvider", entity.getExternalProvider());
 
 			if (entity.getName() != null)
 				q.setParameter("name", "%" + entity.getName() + "%");
@@ -221,14 +220,13 @@ public class MaterialService implements MaterialServiceRemote {
 	 * .domain .gmh.Material)
 	 */
 	@Override
-	public Material save(Material Material) throws EJBException {
+	public Material save(Material material) throws EJBException {
 		try {
-			em.persist(Material);
+			em.persist(material);
 			em.flush();
-			return em.find(Material.class, Material.getId());
+			return em.find(Material.class, material.getId());
 		} catch (Exception e) {
-			logger.log(Level.INFO,
-					"ERROR: saving Material " + Material.toString(), e);
+			logger.log(Level.INFO, "ERROR: saving Material ", e);
 			throw new EJBException("ERROR: saving Material "
 					+ e.getCause().getMessage());
 		}
@@ -243,14 +241,13 @@ public class MaterialService implements MaterialServiceRemote {
 	 * .domain.gmh.Material)
 	 */
 	@Override
-	public Material update(Material Material) throws EJBException {
+	public Material update(Material material) throws EJBException {
 		try {
-			Material res = em.merge(Material);
+			Material res = em.merge(material);
 			em.flush();
 			return res;
 		} catch (Exception e) {
-			logger.log(Level.INFO, "ERROR: unable to update Material "
-					+ Material.toString(), e);
+			logger.log(Level.INFO, "ERROR: unable to update Material ", e);
 			throw new EJBException("ERROR: no se puede eliminar el Material "
 					+ e.getCause().getMessage());
 		}

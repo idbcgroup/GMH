@@ -76,7 +76,7 @@ public class EIATypeComponentGridPanel extends VLayout implements
 
 		eiaTypeSearchForm = new EIATypeSearchForm();
 		eiaTypeSearchForm
-				.AddEIATypeSelectionListener(new EIATypeSelectionListener() {
+				.addEiaTypeSelectionListener(new EIATypeSelectionListener() {
 
 					@Override
 					public void select(EiaType eiaType) {

@@ -9,9 +9,12 @@ import org.fourgeeks.gha.webclient.client.material.MaterialSearchForm;
  */
 public class UtilitySearchForm extends MaterialSearchForm {
 
+	/**
+	 * 
+	 */
 	public UtilitySearchForm() {
 		super();
-		typeSelectItem.setValue(MaterialTypeEnum.UTILITARIO.ordinal());
+		typeSelectItem.setValue(MaterialTypeEnum.UTILITARIO.name());
 		typeSelectItem.setDisabled(true);
 	}
 }

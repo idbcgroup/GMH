@@ -64,9 +64,6 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 		subTypeItem = new GHASelectItem("Subtipo", 150);
 
 		validator = Validation.buildDefaultValidatorFactory().getValidator();
-		// default
-		// default
-		// default
 	}
 
 	public EIATypeAddForm() {
@@ -234,8 +231,6 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 				}
 			});
 		else
-			// Mostrar solo la primera violación para evitar que salgan muchos
-			// pop-ups sucesivos
 			GHANotification.alert(violations.iterator().next().getMessage());
 	}
 

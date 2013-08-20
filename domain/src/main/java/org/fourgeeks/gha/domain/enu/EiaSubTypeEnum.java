@@ -23,6 +23,10 @@ public enum EiaSubTypeEnum {
 		return this.name;
 	}
 
+	/**
+	 * @param string
+	 * @return
+	 */
 	public static EiaSubTypeEnum getByString(String string) {
 		if (string == null)
 			return null;
