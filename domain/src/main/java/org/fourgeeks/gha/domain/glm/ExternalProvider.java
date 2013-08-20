@@ -5,7 +5,6 @@ package org.fourgeeks.gha.domain.glm;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
@@ -39,13 +38,13 @@ public class ExternalProvider extends AbstractEntity {
 	@JoinColumn(name = "institutionFk", nullable = false)
 	private Institution institution;
 
-	@ManyToOne
-	@JoinColumn(name = "manufacturerFk")
-	private Manufacturer primaryManufacturer;
-
-	@ManyToOne
-	@JoinColumn(name = "brandFk")
-	private Brand primaryBrand;
+//	@ManyToOne
+//	@JoinColumn(name = "manufacturerFk")
+//	private Manufacturer primaryManufacturer;
+//
+//	@ManyToOne
+//	@JoinColumn(name = "brandFk")
+//	private Brand primaryBrand;
 
 	/** ATTRIBUTES */
 
@@ -92,8 +91,8 @@ public class ExternalProvider extends AbstractEntity {
 			ProviderPreferenceEnum preference, ProviderQualEnum qualification,
 			ProviderRepresentEnum whoRepresent) {
 		this.institution = institution;
-		this.primaryManufacturer = primaryManufacturer;
-		this.primaryBrand = primaryBrand;
+//		this.primaryManufacturer = primaryManufacturer;
+//		this.primaryBrand = primaryBrand;
 		this.code = code;
 		this.resourceType = resourceType;
 		this.type = type;
@@ -122,16 +121,16 @@ public class ExternalProvider extends AbstractEntity {
 	/**
 	 * @return
 	 */
-	public Manufacturer getPrimaryManufacturer() {
-		return primaryManufacturer;
-	}
-
-	/**
-	 * @return
-	 */
-	public Brand getPrimaryBrand() {
-		return primaryBrand;
-	}
+//	public Manufacturer getPrimaryManufacturer() {
+//		return primaryManufacturer;
+//	}
+//
+//	/**
+//	 * @return
+//	 */
+//	public Brand getPrimaryBrand() {
+//		return primaryBrand;
+//	}
 
 	/**
 	 * 
@@ -173,13 +172,13 @@ public class ExternalProvider extends AbstractEntity {
 		this.institution = institution;
 	}
 
-	public void setPrimaryManufacturer(Manufacturer primaryManufacturer) {
-		this.primaryManufacturer = primaryManufacturer;
-	}
-
-	public void setPrimaryBrand(Brand primaryBrand) {
-		this.primaryBrand = primaryBrand;
-	}
+//	public void setPrimaryManufacturer(Manufacturer primaryManufacturer) {
+//		this.primaryManufacturer = primaryManufacturer;
+//	}
+//
+//	public void setPrimaryBrand(Brand primaryBrand) {
+//		this.primaryBrand = primaryBrand;
+//	}
 
 	public void setCode(String code) {
 		this.code = code;

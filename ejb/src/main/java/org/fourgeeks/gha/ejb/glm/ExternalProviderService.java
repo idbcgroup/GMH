@@ -25,8 +25,6 @@ import org.fourgeeks.gha.domain.enu.ProviderServicesEnum;
 import org.fourgeeks.gha.domain.enu.ProviderTypeEnum;
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
-import org.fourgeeks.gha.domain.gmh.Brand;
-import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.domain.mix.Institution;
 
 /**
@@ -72,19 +70,19 @@ public class ExternalProviderService implements ExternalProviderServiceRemote {
 					root.<ProviderPreferenceEnum> get("preference"), p));
 
 		}
-		if (entity.getPrimaryBrand() != null) {
-			ParameterExpression<Brand> p = cb.parameter(Brand.class,
-					"primaryBrand");
-			criteria = cb.and(criteria,
-					cb.equal(root.<Brand> get("primaryBrand"), p));
-		}
-		if (entity.getPrimaryManufacturer() != null) {
-			ParameterExpression<Manufacturer> p = cb.parameter(
-					Manufacturer.class, "primaryManufacturer");
-			criteria = cb
-					.and(criteria, cb.equal(
-							root.<Manufacturer> get("primaryManufacturer"), p));
-		}
+//		if (entity.getPrimaryBrand() != null) {
+//			ParameterExpression<Brand> p = cb.parameter(Brand.class,
+//					"primaryBrand");
+//			criteria = cb.and(criteria,
+//					cb.equal(root.<Brand> get("primaryBrand"), p));
+//		}
+//		if (entity.getPrimaryManufacturer() != null) {
+//			ParameterExpression<Manufacturer> p = cb.parameter(
+//					Manufacturer.class, "primaryManufacturer");
+//			criteria = cb
+//					.and(criteria, cb.equal(
+//							root.<Manufacturer> get("primaryManufacturer"), p));
+//		}
 		if (entity.getQualification() != null) {
 			ParameterExpression<ProviderQualEnum> p = cb.parameter(
 					ProviderQualEnum.class, "qualification");
@@ -162,13 +160,13 @@ public class ExternalProviderService implements ExternalProviderServiceRemote {
 				if (entity.getPreference() != null) {
 					q.setParameter("preference", entity.getPreference());
 				}
-				if (entity.getPrimaryBrand() != null) {
-					q.setParameter("primaryBrand", entity.getPrimaryBrand());
-				}
-				if (entity.getPrimaryManufacturer() != null) {
-					q.setParameter("primaryManufacturer",
-							entity.getPrimaryManufacturer());
-				}
+//				if (entity.getPrimaryBrand() != null) {
+//					q.setParameter("primaryBrand", entity.getPrimaryBrand());
+//				}
+//				if (entity.getPrimaryManufacturer() != null) {
+//					q.setParameter("primaryManufacturer",
+//							entity.getPrimaryManufacturer());
+//				}
 				if (entity.getQualification() != null) {
 					q.setParameter("qualification", entity.getQualification());
 				}
