@@ -90,11 +90,29 @@ public class TestData {
 		manufacturerTestData();
 		externalProviderTestData();
 		materialTestData();
+		facilityTestData();
 		// // TODO
 		eiaTypeTestData();
 		eiaTestData();
 		eiaTypeMaintenancePlanTestData();
 		eiaTypeMaintenanceProtocolTestData();
+	}
+
+	/**
+	 * 
+	 */
+	private void facilityTestData() {
+		String query = "SELECT t from Facility t WHERE t.id = 1";
+		try{
+			em.createQuery(query).getSingleResult();
+		}catch(NoResultException e){
+			logger.info("Creating test data : facility");
+			Facility facility = new Facility();
+			facility.setBuildingLocation(em.find(BuildingLocation.class,
+					"Building 000"));
+			em.persist(facility);
+		}
+		
 	}
 
 	private void materialTestData() {
@@ -461,57 +479,23 @@ public class TestData {
 			try {
 				logger.info("creating test eia");
 
-				Facility facility = new Facility();
-				facility.setBuildingLocation(em.find(BuildingLocation.class,
-						"Building 000"));
-				em.persist(facility);
-				em.flush();
-
-				Obu obu = em.find(Obu.class, 2L);
-				BuildingLocation bLocation = em.find(BuildingLocation.class,
-						"Building 000");
+				Facility facility = em.find(Facility.class, 1L);
+				Obu obu = em.find(Obu.class, 1L);
 				ExternalProvider eProvider = em
 						.find(ExternalProvider.class, 1L);
 				RoleBase bRole = em.find(RoleBase.class, 1L);
-
-				Eia eia = new Eia(bRole, em.find(EiaType.class, "90001"), bLocation,
-						bLocation, obu, EiaStateEnum.CREATED);
-				eia.setCode("Stylus-001");
-				eia.setSerialNumber("001");
-				eia.setProvider(eProvider);
-				eia.setCode("p-001");
-				em.persist(eia);
-
-				Eia eia2 = new Eia(bRole, em.find(EiaType.class, "90002"), bLocation,
-						bLocation, obu, EiaStateEnum.CREATED);
-				eia2.setProvider(eProvider);
-				eia2.setCode("p-002");
-
-				Eia eia3 = new Eia(bRole, em.find(EiaType.class, "90003"), bLocation,
-						bLocation, obu, EiaStateEnum.CREATED);
-				eia3.setProvider(eProvider);
-				eia3.setCode("p-003");
-
-				Eia eia4 = new Eia(bRole, em.find(EiaType.class, "90004"), bLocation,
-						bLocation, obu, EiaStateEnum.CREATED);
-				eia4.setObu(obu);
-				eia4.setProvider(eProvider);
-				eia4.setCode("p-004");
-
-				Eia eia5 = new Eia(bRole, em.find(EiaType.class, "90005"), bLocation,
-						bLocation, obu, EiaStateEnum.CREATED);
-				eia5.setObu(obu);
-				eia5.setProvider(eProvider);
-				eia5.setCode("p-005");
-
-				em.persist(eia2);
-				em.persist(eia3);
-				em.persist(eia4);
-				em.persist(eia5);
-				em.flush();
+				
+				for(int i = 1; i<4; ++i){
+					Eia eia = new Eia(bRole, em.find(EiaType.class, "9000"+Long.toString(i)), obu, EiaStateEnum.values()[i%3]);
+					eia.setCode("eia-00"+i);
+					eia.setFacility(facility);
+					eia.setProvider(eProvider);
+					em.persist(eia);
+					em.flush();
+				}
 
 			} catch (Exception e1) {
-				logger.log(Level.INFO, "error creating test eia", e);
+				logger.log(Level.INFO, "error creating test eia", e1);
 			}
 		}
 	}
