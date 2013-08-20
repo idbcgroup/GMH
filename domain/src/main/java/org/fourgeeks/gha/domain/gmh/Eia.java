@@ -19,7 +19,6 @@ import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
 import org.fourgeeks.gha.domain.ess.RoleBase;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
-import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Facility;
 import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
@@ -93,22 +92,22 @@ public class Eia extends AbstractEntity {
 
 	/**
 	 * Working Area and Facility where the EIA is located
-	 */	
+	 */
 	@ManyToOne
 	@JoinColumn(name = "workingAreaFk")
 	private WorkingArea workingArea;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "facilityFk")
 	private Facility facility;
 
-	@ManyToOne
-	@JoinColumn(name = "maintenanceLocationFk")
-	private BuildingLocation maintenanceLocation;
-
-	@ManyToOne
-	@JoinColumn(name = "maintenanceProviderFk")
-	private ExternalProvider maintenanceProvider;
+	// @ManyToOne
+	// @JoinColumn(name = "maintenanceLocationFk")
+	// private BuildingLocation maintenanceLocation;
+	//
+	// @ManyToOne
+	// @JoinColumn(name = "maintenanceProviderFk")
+	// private ExternalProvider maintenanceProvider;
 
 	/**
 	 * Responsible Obu for the EIA
@@ -182,8 +181,7 @@ public class Eia extends AbstractEntity {
 	 * @param obu
 	 * @param state
 	 */
-	public Eia(RoleBase responsibleRole, EiaType eiaType,
-			Obu obu,
+	public Eia(RoleBase responsibleRole, EiaType eiaType, Obu obu,
 			EiaStateEnum state) {
 		this.responsibleRole = responsibleRole;
 		this.eiaType = eiaType;
@@ -287,13 +285,13 @@ public class Eia extends AbstractEntity {
 		return lifeTimePoT;
 	}
 
-	public BuildingLocation getMaintenanceLocation() {
-		return maintenanceLocation;
-	}
-
-	public ExternalProvider getMaintenanceProvider() {
-		return maintenanceProvider;
-	}
+	// public BuildingLocation getMaintenanceLocation() {
+	// return maintenanceLocation;
+	// }
+	//
+	// public ExternalProvider getMaintenanceProvider() {
+	// return maintenanceProvider;
+	// }
 
 	public Obu getObu() {
 		return obu;
@@ -457,13 +455,15 @@ public class Eia extends AbstractEntity {
 		this.lifeTimePoT = lifeTimePoT;
 	}
 
-	public void setMaintenanceLocation(BuildingLocation maintenanceLocation) {
-		this.maintenanceLocation = maintenanceLocation;
-	}
-
-	public void setMaintenanceProvider(ExternalProvider maintenanceProvider) {
-		this.maintenanceProvider = maintenanceProvider;
-	}
+	// public void setMaintenanceLocation(BuildingLocation maintenanceLocation)
+	// {
+	// this.maintenanceLocation = maintenanceLocation;
+	// }
+	//
+	// public void setMaintenanceProvider(ExternalProvider maintenanceProvider)
+	// {
+	// this.maintenanceProvider = maintenanceProvider;
+	// }
 
 	public void setObu(Obu obu) {
 		this.obu = obu;

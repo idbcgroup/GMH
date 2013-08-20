@@ -57,7 +57,9 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 		useDescriptionItem = new GHATextItem("Uso", 480);
 		useDescriptionItem.setColSpan(3);
 		eiaUmdnsItem = new GHATextItem("EIAUMDNS", 150);
-		manItem = new GHAComboboxItem<Manufacturer>("Fabricante", 150);
+		manItem = new GHAComboboxItem<Manufacturer>("Fabricante", 150) {
+
+		};
 		brandItem = new GHAComboboxItem<Brand>("Marca", 150);
 		mobilityItem = new GHASelectItem("Movilidad", 150);
 		typeItem = new GHASelectItem("Tipo", 150);
@@ -188,20 +190,21 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 
 	private void save() {
 		final EiaType eiaType = new EiaType();
-		if (brandItem.getValue() != null){
-			if(brandItem.getValueAsString().matches("[1-9]+\\d*")){
+		if (brandItem.getValue() != null) {
+			if (brandItem.getValueAsString().matches("[1-9]+\\d*")) {
 				eiaType.setBrand(new Brand(Integer.valueOf(brandItem
 						.getValueAsString()), null));
-			}else{
+			} else {
 				eiaType.setBrand(new Brand(brandItem.getValueAsString()));
 			}
 		}
-		if (manItem.getValue() != null){
-			if(manItem.getValueAsString().matches("[1-9]+\\d*")){
-				eiaType.setManufacturer(new Manufacturer(Integer.valueOf(manItem
-						.getValueAsString()), null));
-			}else{
-				eiaType.setManufacturer(new Manufacturer(manItem.getValueAsString()));
+		if (manItem.getValue() != null) {
+			if (manItem.getValueAsString().matches("[1-9]+\\d*")) {
+				eiaType.setManufacturer(new Manufacturer(Integer
+						.valueOf(manItem.getValueAsString()), null));
+			} else {
+				eiaType.setManufacturer(new Manufacturer(manItem
+						.getValueAsString()));
 			}
 		}
 		eiaType.setCode(codeItem.getValueAsString());

@@ -1,6 +1,5 @@
 package org.fourgeeks.gha.webclient.client.UI;
 
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.fourgeeks.gha.domain.HasKey;
@@ -12,7 +11,7 @@ import com.smartgwt.client.widgets.form.fields.ComboBoxItem;
  * 
  * @param <T>
  */
-public class GHAComboboxItem<T extends HasKey> extends ComboBoxItem {
+public abstract class GHAComboboxItem<T extends HasKey> extends ComboBoxItem {
 
 	/**
 	 * 
@@ -32,18 +31,30 @@ public class GHAComboboxItem<T extends HasKey> extends ComboBoxItem {
 	 * @param width
 	 * @param active
 	 */
+	public GHAComboboxItem(String title) {
+		this();
+		setTitle(title);
+	}
+
+	/**
+	 * @param title
+	 * @param width
+	 * @param callback
+	 * @param active
+	 */
 	public GHAComboboxItem(String title, int width) {
-		this(title, width, true);
+		this(title);
+		setWidth(width);
 	}
 
 	/**
 	 * @param title
 	 * @param width
 	 * @param active
+	 * @param callback
 	 */
 	public GHAComboboxItem(String title, int width, boolean active) {
-		super(title);
-		setWidth(width);
+		this(title, width);
 		setDisabled(!active);
 	}
 
@@ -55,7 +66,7 @@ public class GHAComboboxItem<T extends HasKey> extends ComboBoxItem {
 		Map<String, String> newMap = null;
 
 		try {
-			newMap = (LinkedHashMap) getAttributeAsMap("valueMap");
+			newMap = (Map<String, String>) getAttributeAsMap("valueMap");
 		} catch (Exception e) {
 			throw new IllegalStateException("Value Map has not been set");
 		}
@@ -63,5 +74,7 @@ public class GHAComboboxItem<T extends HasKey> extends ComboBoxItem {
 		if (newMap.containsKey(entity.getKey()))
 			setValue(entity.getKey());
 
+		throw new IllegalStateException("Values is not in map");
 	}
+
 }
