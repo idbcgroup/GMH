@@ -10,7 +10,7 @@ import javax.servlet.annotation.WebServlet;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
-import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenanceProtocol;
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.ejb.gmh.EiaTypeMaintenanceProtocolServiceRemote;
 import org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.GWTEiaTypeMaintenanceProtocolService;
 
@@ -43,7 +43,7 @@ public class GWTEiaTypeMaintenanceProtocolServiceImpl extends RemoteServiceServl
 	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.GWTEiaTypeMaintenanceProtocolService#findByEiaTypeMaintenancePlan(org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan)
 	 */
 	@Override
-	public List<EiaTypeMaintenanceProtocol> findByEiaTypeMaintenancePlan(
+	public List<MaintenanceProtocol> findByEiaTypeMaintenancePlan(
 			EiaTypeMaintenancePlan eiaTypeMaintenancePlan) throws EJBException {
 		return eiaTypeMantProtocolService.findByEiaTypeMaintenancePlan(eiaTypeMaintenancePlan);
 	}
@@ -52,7 +52,7 @@ public class GWTEiaTypeMaintenanceProtocolServiceImpl extends RemoteServiceServl
 	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.GWTEiaTypeMaintenanceProtocolService#find(long)
 	 */
 	@Override
-	public EiaTypeMaintenanceProtocol find(long Id) throws EJBException {
+	public MaintenanceProtocol find(long Id) throws EJBException {
 		return eiaTypeMantProtocolService.find(Id);
 	}
 
@@ -60,7 +60,7 @@ public class GWTEiaTypeMaintenanceProtocolServiceImpl extends RemoteServiceServl
 	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.GWTEiaTypeMaintenanceProtocolService#getAll()
 	 */
 	@Override
-	public List<EiaTypeMaintenanceProtocol> getAll() throws EJBException {
+	public List<MaintenanceProtocol> getAll() throws EJBException {
 		return eiaTypeMantProtocolService.getAll();
 	}
 
@@ -68,8 +68,8 @@ public class GWTEiaTypeMaintenanceProtocolServiceImpl extends RemoteServiceServl
 	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.GWTEiaTypeMaintenanceProtocolService#save(org.fourgeeks.gha.domain.gmh.EiaTypeMaintenanceProtocol)
 	 */
 	@Override
-	public EiaTypeMaintenanceProtocol save(
-			EiaTypeMaintenanceProtocol eiaTypeMaintenanceProtocol)
+	public MaintenanceProtocol save(
+			MaintenanceProtocol eiaTypeMaintenanceProtocol)
 			throws EJBException {
 		return eiaTypeMantProtocolService.save(eiaTypeMaintenanceProtocol);
 	}
@@ -78,8 +78,8 @@ public class GWTEiaTypeMaintenanceProtocolServiceImpl extends RemoteServiceServl
 	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.GWTEiaTypeMaintenanceProtocolService#update(org.fourgeeks.gha.domain.gmh.EiaTypeMaintenanceProtocol)
 	 */
 	@Override
-	public EiaTypeMaintenanceProtocol update(
-			EiaTypeMaintenanceProtocol eiaTypeMaintenanceProtocol)
+	public MaintenanceProtocol update(
+			MaintenanceProtocol eiaTypeMaintenanceProtocol)
 			throws EJBException {
 		return eiaTypeMantProtocolService.update(eiaTypeMaintenanceProtocol);
 	}

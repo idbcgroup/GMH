@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
-import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenanceProtocol;
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
@@ -29,7 +29,7 @@ public interface GWTEiaTypeMaintenanceProtocolService {
 	 *         Plan
 	 * @throws EJBException
 	 */
-	public List<EiaTypeMaintenanceProtocol> findByEiaTypeMaintenancePlan(
+	public List<MaintenanceProtocol> findByEiaTypeMaintenancePlan(
 			EiaTypeMaintenancePlan eiaTypeMaintenancePlan) throws EJBException;
 
 	/**
@@ -37,21 +37,21 @@ public interface GWTEiaTypeMaintenanceProtocolService {
 	 * @return the EiaTypeMaintenanceProtocol
 	 * @throws EJBException
 	 */
-	public EiaTypeMaintenanceProtocol find(long Id) throws EJBException;
+	public MaintenanceProtocol find(long Id) throws EJBException;
 
 	/**
 	 * @return the list of EiaTypeMaintenanceProtocols
 	 * @throws EJBException
 	 */
-	public List<EiaTypeMaintenanceProtocol> getAll() throws EJBException;
+	public List<MaintenanceProtocol> getAll() throws EJBException;
 
 	/**
 	 * @param EiaTypeMaintenanceProtocolServiceTest
 	 * @return the saved EiaTypeMaintenanceProtocol
 	 * @throws EJBException
 	 */
-	public EiaTypeMaintenanceProtocol save(
-			EiaTypeMaintenanceProtocol eiaTypeMaintenanceProtocol)
+	public MaintenanceProtocol save(
+			MaintenanceProtocol eiaTypeMaintenanceProtocol)
 			throws EJBException;
 
 	/**
@@ -59,7 +59,7 @@ public interface GWTEiaTypeMaintenanceProtocolService {
 	 * @return the updated EiaTypeMaintenanceProtocol
 	 * @throws EJBException
 	 */
-	public EiaTypeMaintenanceProtocol update(
-			EiaTypeMaintenanceProtocol eiaTypeMaintenanceProtocol)
+	public MaintenanceProtocol update(
+			MaintenanceProtocol eiaTypeMaintenanceProtocol)
 			throws EJBException;
 }

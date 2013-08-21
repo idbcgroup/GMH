@@ -10,7 +10,7 @@ import javax.naming.Context;
 import junit.framework.TestCase;
 
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
-import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenanceProtocol;
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.ejb.ContextDeployment;
 
 /**
@@ -21,7 +21,7 @@ public class EiaTypeMaintenanceProtocolServiceTest extends TestCase {
 	private EiaTypeMaintenancePlanServiceRemote ejbMantPlan;
 	private EiaTypeMaintenanceProtocolServiceRemote ejbService;
 	private List<EiaTypeMaintenancePlan> maintenancePlans;
-	private List<EiaTypeMaintenanceProtocol> maintenanceProtocols;
+	private List<MaintenanceProtocol> maintenanceProtocols;
 
 	@Override
 	protected void setUp() throws Exception {
@@ -39,7 +39,7 @@ public class EiaTypeMaintenanceProtocolServiceTest extends TestCase {
 		assertNotNull(maintenancePlans);
 
 		maintenanceProtocols = ejbService.findByEiaTypeMaintenancePlan(maintenancePlans.get(0));
-		for(EiaTypeMaintenanceProtocol protocol : maintenanceProtocols){
+		for(MaintenanceProtocol protocol : maintenanceProtocols){
 			System.out.println(protocol.getDescription() + "ordinal #" + protocol.getOrdinal());
 		}
 

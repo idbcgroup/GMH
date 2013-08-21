@@ -30,7 +30,7 @@ import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
-import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenanceProtocol;
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.domain.mix.Institution;
@@ -149,24 +149,24 @@ public class TestData {
 			
 			for(int i = 0, serial = 1; i<2; ++i){
 				for(int j = 0, ordinal = 1; j<1; ++j, ordinal = 1){
-					EiaTypeMaintenanceProtocol parentProtocol = new EiaTypeMaintenanceProtocol();
+					MaintenanceProtocol parentProtocol = new MaintenanceProtocol();
 					parentProtocol.setEiaTypeMaintenancePlan(plans[i]);
 //					parentProtocol.setOrdinal(ordinal++);
 					parentProtocol.setDescription("Protocol #"+Integer.toString(serial));
 					em.persist(parentProtocol);
 					
-					parentProtocol = em.find(EiaTypeMaintenanceProtocol.class, (long) serial++);
-					List<EiaTypeMaintenanceProtocol> childrenProtocols = new ArrayList <EiaTypeMaintenanceProtocol>();
+					parentProtocol = em.find(MaintenanceProtocol.class, (long) serial++);
+					List<MaintenanceProtocol> childrenProtocols = new ArrayList <MaintenanceProtocol>();
 					
 					for(int k = 0; k<2; ++k, ++serial, ++ordinal){
-						EiaTypeMaintenanceProtocol childProtocol = new EiaTypeMaintenanceProtocol();
+						MaintenanceProtocol childProtocol = new MaintenanceProtocol();
 						childProtocol.setEiaTypeMaintenancePlan(plans[i]);
 						childProtocol.setOrdinal(ordinal);
 						childProtocol.setParentProtocol(parentProtocol);
 						childProtocol.setDescription("Protocol #"+serial+" (CHILD OF "+parentProtocol.getDescription() +")");
 						em.persist(childProtocol);
 						
-						childProtocol = em.find(EiaTypeMaintenanceProtocol.class, (long)(serial));
+						childProtocol = em.find(MaintenanceProtocol.class, (long)(serial));
 						childrenProtocols.add(childProtocol);
 					}
 					parentProtocol.setChildrenProtocols(childrenProtocols);
