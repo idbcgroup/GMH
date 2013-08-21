@@ -103,16 +103,16 @@ public class TestData {
 	 */
 	private void facilityTestData() {
 		String query = "SELECT t from Facility t WHERE t.id = 1";
-		try{
+		try {
 			em.createQuery(query).getSingleResult();
-		}catch(NoResultException e){
+		} catch (NoResultException e) {
 			logger.info("Creating test data : facility");
 			Facility facility = new Facility();
 			facility.setBuildingLocation(em.find(BuildingLocation.class,
 					"Building 000"));
 			em.persist(facility);
 		}
-		
+
 	}
 
 	private void materialTestData() {
@@ -123,7 +123,8 @@ public class TestData {
 			try {
 				logger.info("creating test data : material");
 				for (int j = 0; j < 3; j++) {
-					em.persist(new Material("mat-00"+j, "material-00"+j, MaterialTypeEnum.values()[j%3]));
+					em.persist(new Material("mat-00" + j, "material-00" + j,
+							MaterialTypeEnum.values()[j % 3]));
 				}
 				em.flush();
 			} catch (Exception e1) {
@@ -138,38 +139,44 @@ public class TestData {
 	 */
 	private void eiaTypeMaintenanceProtocolTestData() {
 		String query = "SELECT t from EiaTypeMaintenanceProtocol t WHERE t.id = 1 ";
-		try{
+		try {
 			em.createQuery(query).getSingleResult();
-		}catch(NoResultException e){
-			System.out.println("Creating test data for EiaTypeMaintenanceProtocols");
+		} catch (NoResultException e) {
+			System.out
+					.println("Creating test data for EiaTypeMaintenanceProtocols");
 			EiaTypeMaintenancePlan plans[] = new EiaTypeMaintenancePlan[2];
-			
+
 			plans[0] = em.find(EiaTypeMaintenancePlan.class, 1L);
 			plans[1] = em.find(EiaTypeMaintenancePlan.class, 2L);
-			
-			for(int i = 0, serial = 1; i<2; ++i){
-				for(int j = 0, ordinal = 1; j<1; ++j, ordinal = 1){
+
+			for (int i = 0, serial = 1; i < 2; ++i) {
+				for (int j = 0, ordinal = 1; j < 1; ++j, ordinal = 1) {
 					MaintenanceProtocol parentProtocol = new MaintenanceProtocol();
 					parentProtocol.setEiaTypeMaintenancePlan(plans[i]);
-//					parentProtocol.setOrdinal(ordinal++);
-					parentProtocol.setDescription("Protocol #"+Integer.toString(serial));
+					// parentProtocol.setOrdinal(ordinal++);
+					parentProtocol.setDescription("Protocol #"
+							+ Integer.toString(serial));
 					em.persist(parentProtocol);
-					
-					parentProtocol = em.find(MaintenanceProtocol.class, (long) serial++);
-					List<MaintenanceProtocol> childrenProtocols = new ArrayList <MaintenanceProtocol>();
-					
-					for(int k = 0; k<2; ++k, ++serial, ++ordinal){
+
+					parentProtocol = em.find(MaintenanceProtocol.class,
+							(long) serial++);
+					List<MaintenanceProtocol> childrenProtocols = new ArrayList<MaintenanceProtocol>();
+
+					for (int k = 0; k < 2; ++k, ++serial, ++ordinal) {
 						MaintenanceProtocol childProtocol = new MaintenanceProtocol();
 						childProtocol.setEiaTypeMaintenancePlan(plans[i]);
 						childProtocol.setOrdinal(ordinal);
 						childProtocol.setParentProtocol(parentProtocol);
-						childProtocol.setDescription("Protocol #"+serial+" (CHILD OF "+parentProtocol.getDescription() +")");
+						childProtocol.setDescription("Protocol #" + serial
+								+ " (CHILD OF "
+								+ parentProtocol.getDescription() + ")");
 						em.persist(childProtocol);
-						
-						childProtocol = em.find(MaintenanceProtocol.class, (long)(serial));
+
+						childProtocol = em.find(MaintenanceProtocol.class,
+								(long) (serial));
 						childrenProtocols.add(childProtocol);
 					}
-					parentProtocol.setChildrenProtocols(childrenProtocols);
+					// parentProtocol.setChildrenProtocols(childrenProtocols);
 					em.merge(parentProtocol);
 				}
 			}
@@ -185,14 +192,17 @@ public class TestData {
 		try {
 			em.createQuery(query).getSingleResult();
 		} catch (NoResultException e) {
-			for(int i=1; i <= 5; ++i){
+			for (int i = 1; i <= 5; ++i) {
 				EiaTypeMaintenancePlan eiaTypeMaintenancePlan = new EiaTypeMaintenancePlan();
-				eiaTypeMaintenancePlan.setDescription("EiaTypeMaintenancePlan #" + Integer.toString(i));
+				eiaTypeMaintenancePlan
+						.setDescription("EiaTypeMaintenancePlan #"
+								+ Integer.toString(i));
 				em.persist(eiaTypeMaintenancePlan);
 			}
 		}
-		System.out.println("Finished loading test data for EiaTypeMaintenancePlans");
-		
+		System.out
+				.println("Finished loading test data for EiaTypeMaintenancePlans");
+
 	}
 
 	private void externalProviderTestData() {
@@ -434,33 +444,34 @@ public class TestData {
 			try {
 				logger.info("creating test eiaType");
 				EiaType eiaType = new EiaType("90001",
-						em.find(Brand.class, 1L), em.find(Manufacturer.class, 1L),
-						"Impresora Tinta", EiaMobilityEnum.FIXED,
-						EiaTypeEnum.EQUIPMENT, EiaSubTypeEnum.IT_SYSTEM, "Stylus");
+						em.find(Brand.class, 1L), em.find(Manufacturer.class,
+								1L), "Impresora Tinta", EiaMobilityEnum.FIXED,
+						EiaTypeEnum.EQUIPMENT, EiaSubTypeEnum.IT_SYSTEM,
+						"Stylus");
 				em.persist(eiaType);
 
-				eiaType = new EiaType("90002",
-						em.find(Brand.class, 2L), em.find(Manufacturer.class, 2L),
-						"Impresora Laser", EiaMobilityEnum.FIXED,
-						EiaTypeEnum.EQUIPMENT, EiaSubTypeEnum.IT_SYSTEM, "Deskjet");
+				eiaType = new EiaType("90002", em.find(Brand.class, 2L),
+						em.find(Manufacturer.class, 2L), "Impresora Laser",
+						EiaMobilityEnum.FIXED, EiaTypeEnum.EQUIPMENT,
+						EiaSubTypeEnum.IT_SYSTEM, "Deskjet");
 				em.persist(eiaType);
 
-				eiaType = new EiaType("90003",
-						em.find(Brand.class, 3L), em.find(Manufacturer.class, 3L),
-						"Cartucho Tricolor", EiaMobilityEnum.FIXED,
-						EiaTypeEnum.PART, EiaSubTypeEnum.IT_SYSTEM, "EP60");
+				eiaType = new EiaType("90003", em.find(Brand.class, 3L),
+						em.find(Manufacturer.class, 3L), "Cartucho Tricolor",
+						EiaMobilityEnum.FIXED, EiaTypeEnum.PART,
+						EiaSubTypeEnum.IT_SYSTEM, "EP60");
 				em.persist(eiaType);
 
-				eiaType = new EiaType("90004",
-						em.find(Brand.class, 4L), em.find(Manufacturer.class, 4L),
-						"Toner Laser", EiaMobilityEnum.FIXED,
-						EiaTypeEnum.PART, EiaSubTypeEnum.IT_SYSTEM, "HP60");
+				eiaType = new EiaType("90004", em.find(Brand.class, 4L),
+						em.find(Manufacturer.class, 4L), "Toner Laser",
+						EiaMobilityEnum.FIXED, EiaTypeEnum.PART,
+						EiaSubTypeEnum.IT_SYSTEM, "HP60");
 				em.persist(eiaType);
 
-				eiaType = new EiaType("90005",
-						em.find(Brand.class, 5L), em.find(Manufacturer.class, 5L),
-						"Cartucho Negro", EiaMobilityEnum.FIXED,
-						EiaTypeEnum.PART, EiaSubTypeEnum.IT_SYSTEM, "EPN60");
+				eiaType = new EiaType("90005", em.find(Brand.class, 5L),
+						em.find(Manufacturer.class, 5L), "Cartucho Negro",
+						EiaMobilityEnum.FIXED, EiaTypeEnum.PART,
+						EiaSubTypeEnum.IT_SYSTEM, "EPN60");
 				em.persist(eiaType);
 
 				em.flush();
@@ -484,10 +495,12 @@ public class TestData {
 				ExternalProvider eProvider = em
 						.find(ExternalProvider.class, 1L);
 				RoleBase bRole = em.find(RoleBase.class, 1L);
-				
-				for(int i = 1; i<4; ++i){
-					Eia eia = new Eia(bRole, em.find(EiaType.class, "9000"+Long.toString(i)), obu, EiaStateEnum.values()[i%3]);
-					eia.setCode("eia-00"+i);
+
+				for (int i = 1; i < 4; ++i) {
+					Eia eia = new Eia(bRole, em.find(EiaType.class, "9000"
+							+ Long.toString(i)), obu,
+							EiaStateEnum.values()[i % 3]);
+					eia.setCode("eia-00" + i);
 					eia.setFacility(facility);
 					eia.setProvider(eProvider);
 					em.persist(eia);
