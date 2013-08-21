@@ -1,7 +1,5 @@
 package org.fourgeeks.gha.ejb;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -29,8 +27,6 @@ import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
-import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.domain.mix.Institution;
@@ -94,8 +90,6 @@ public class TestData {
 		// // TODO
 		eiaTypeTestData();
 		eiaTestData();
-		eiaTypeMaintenancePlanTestData();
-		eiaTypeMaintenanceProtocolTestData();
 	}
 
 	/**
@@ -134,76 +128,6 @@ public class TestData {
 		}
 	}
 
-	/**
-	 * 
-	 */
-	private void eiaTypeMaintenanceProtocolTestData() {
-		String query = "SELECT t from EiaTypeMaintenanceProtocol t WHERE t.id = 1 ";
-		try {
-			em.createQuery(query).getSingleResult();
-		} catch (NoResultException e) {
-			System.out
-					.println("Creating test data for EiaTypeMaintenanceProtocols");
-			EiaTypeMaintenancePlan plans[] = new EiaTypeMaintenancePlan[2];
-
-			plans[0] = em.find(EiaTypeMaintenancePlan.class, 1L);
-			plans[1] = em.find(EiaTypeMaintenancePlan.class, 2L);
-
-			for (int i = 0, serial = 1; i < 2; ++i) {
-				for (int j = 0, ordinal = 1; j < 1; ++j, ordinal = 1) {
-					MaintenanceProtocol parentProtocol = new MaintenanceProtocol();
-					parentProtocol.setEiaTypeMaintenancePlan(plans[i]);
-					// parentProtocol.setOrdinal(ordinal++);
-					parentProtocol.setDescription("Protocol #"
-							+ Integer.toString(serial));
-					em.persist(parentProtocol);
-
-					parentProtocol = em.find(MaintenanceProtocol.class,
-							(long) serial++);
-					List<MaintenanceProtocol> childrenProtocols = new ArrayList<MaintenanceProtocol>();
-
-					for (int k = 0; k < 2; ++k, ++serial, ++ordinal) {
-						MaintenanceProtocol childProtocol = new MaintenanceProtocol();
-						childProtocol.setEiaTypeMaintenancePlan(plans[i]);
-						childProtocol.setOrdinal(ordinal);
-						childProtocol.setParentProtocol(parentProtocol);
-						childProtocol.setDescription("Protocol #" + serial
-								+ " (CHILD OF "
-								+ parentProtocol.getDescription() + ")");
-						em.persist(childProtocol);
-
-						childProtocol = em.find(MaintenanceProtocol.class,
-								(long) (serial));
-						childrenProtocols.add(childProtocol);
-					}
-					// parentProtocol.setChildrenProtocols(childrenProtocols);
-					em.merge(parentProtocol);
-				}
-			}
-		}
-	}
-
-	/**
-	 * 
-	 */
-	private void eiaTypeMaintenancePlanTestData() {
-		System.out.println("Creating test data for EiaTypeMaintenancePlans");
-		String query = "SELECT t from EiaTypeMaintenancePlan t WHERE t.id = 1 ";
-		try {
-			em.createQuery(query).getSingleResult();
-		} catch (NoResultException e) {
-			for (int i = 1; i <= 5; ++i) {
-				EiaTypeMaintenancePlan eiaTypeMaintenancePlan = new EiaTypeMaintenancePlan();
-				eiaTypeMaintenancePlan
-						.setDescription("EiaTypeMaintenancePlan #"
-								+ Integer.toString(i));
-				em.persist(eiaTypeMaintenancePlan);
-			}
-		}
-		System.out
-				.println("Finished loading test data for EiaTypeMaintenancePlans");
-
-	}
 
 	private void externalProviderTestData() {
 		String query = "SELECT t from ExternalProvider t WHERE t.id = 1 ";

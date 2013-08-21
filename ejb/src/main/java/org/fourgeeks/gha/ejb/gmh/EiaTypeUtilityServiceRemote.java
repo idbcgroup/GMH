@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.ejb.gmh.eiatype;
+package org.fourgeeks.gha.ejb.gmh;
 
 import java.util.List;
 
