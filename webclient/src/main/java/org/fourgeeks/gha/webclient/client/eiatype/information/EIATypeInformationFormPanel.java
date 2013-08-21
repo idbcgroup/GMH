@@ -319,8 +319,8 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		addMember(gridPanel);
 		addMember(uploadImagenes);
 
-		fillBrands();
-		fillMans();
+		fillBrands(false);
+		fillMans(false);
 		fillExtras();
 	}
 
@@ -363,7 +363,7 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		mobilityItem.setValueMap(valueMap);
 	}
 
-	private void fillMans() {
+	private void fillMans(boolean forceFromServer) {
 		GHACache.INSTANCE.getManufacturesrs(
 				new GHAAsyncCallback<List<Manufacturer>>() {
 
@@ -376,11 +376,11 @@ public class EIATypeInformationFormPanel extends VLayout implements
 						manItem.setValueMap(valueMap);
 
 					}
-				}, false);
+				}, forceFromServer);
 
 	}
 
-	private void fillBrands() {
+	private void fillBrands(boolean forceFromServer) {
 		GHACache.INSTANCE.getBrands(new GHAAsyncCallback<List<Brand>>() {
 
 			@Override
@@ -391,13 +391,17 @@ public class EIATypeInformationFormPanel extends VLayout implements
 				brandItem.setValueMap(valueMap);
 
 			}
-		}, false);
+		}, forceFromServer);
 
 	}
 
 	@Override
 	public void select(EiaType eiaType) {
 		activateForm(true);
+		
+		//reload brand and manufacturer forms, in order to avoid issues with new brands or manufacturers
+		fillBrands(true);
+		fillMans(true);
 
 		this.eiaType = this.orginalEiaType = eiaType;
 		if (eiaType.getBrand() != null)
