@@ -77,8 +77,7 @@ public class EIATypeUtilityGridPanel extends VLayout implements
 				"../resources/icons/new.png", new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						// TODO Auto-generated method stub
-						// form.animateShow(AnimationEffect.FLY);
+						new UtilitySearchForm().open();
 						utilitySearchForm.open();
 					}
 				}), 

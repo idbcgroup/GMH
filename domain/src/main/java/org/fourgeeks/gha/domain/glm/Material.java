@@ -3,11 +3,13 @@
  */
 package org.fourgeeks.gha.domain.glm;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.validation.constraints.NotNull;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 
@@ -19,8 +21,7 @@ import org.fourgeeks.gha.domain.AbstractEntity;
 @NamedQueries(value = {
 		@NamedQuery(name = "Material.getAll", query = "SELECT m FROM Material m ORDER BY m.name"),
 		@NamedQuery(name = "Material.getByType", query = "SELECT m FROM Material m WHERE m.type = :materialTypeId ORDER BY m.name"),
-		@NamedQuery(name = "Material.findByName", query = "SELECT m FROM Material m WHERE LOWER(m.name) LIKE :name ORDER BY m.id")
-})
+		@NamedQuery(name = "Material.findByName", query = "SELECT m FROM Material m WHERE LOWER(m.name) LIKE :name ORDER BY m.id") })
 public class Material extends AbstractEntity {
 
 	/**
@@ -28,6 +29,8 @@ public class Material extends AbstractEntity {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@NotNull(message = "El tipo de material no puede ser nulo")
+	@Column(nullable = false)
 	private MaterialTypeEnum type;
 
 	// private BigDecimal length;
@@ -208,6 +211,25 @@ public class Material extends AbstractEntity {
 	// /** ext_material_code2 length =30 */
 	// private String ext_material_code3;
 	// /** EXT_MATERIAL_CODE3 length =30 */
+
+	/**
+	 * 
+	 */
+	public Material() {
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @param code
+	 * @param name
+	 * @param type
+	 */
+	public Material(String code, String name, MaterialTypeEnum type) {
+		this.code = code;
+		this.name = name;
+		this.type = type;
+	}
+
 	/**
 	 * @return the type
 	 */

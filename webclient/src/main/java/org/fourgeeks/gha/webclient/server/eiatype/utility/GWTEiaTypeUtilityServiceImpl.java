@@ -7,7 +7,7 @@ import javax.servlet.annotation.WebServlet;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gmh.EiaTypeUtility;
-import org.fourgeeks.gha.ejb.gmh.eiatype.EiaTypeUtilityServiceRemote;
+import org.fourgeeks.gha.ejb.gmh.EiaTypeUtilityServiceRemote;
 import org.fourgeeks.gha.webclient.client.eiatype.utility.GWTEiaTypeUtilityService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;

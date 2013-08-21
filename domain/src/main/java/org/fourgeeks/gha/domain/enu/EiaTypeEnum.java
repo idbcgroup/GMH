@@ -23,20 +23,20 @@ public enum EiaTypeEnum {
 		return this.name;
 	}
 
-	/**
-	 * @param string
-	 * @return
-	 */
-	public static EiaTypeEnum getByString(String string) {
-		if (string == null)
-			return null;
-
-		for (EiaTypeEnum e : EiaTypeEnum.values())
-			if (string.equals(e.toString()))
-				return e;
-
-		return null;
-	}
+	// /**
+	// * @param string
+	// * @return
+	// */
+	// public static EiaTypeEnum getByString(String string) {
+	// if (string == null)
+	// return null;
+	//
+	// for (EiaTypeEnum e : EiaTypeEnum.values())
+	// if (string.equals(e.toString()))
+	// return e;
+	//
+	// return null;
+	// }
 
 	/**
 	 * @return a valueMap with this Enum values

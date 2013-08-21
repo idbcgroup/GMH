@@ -1,7 +1,5 @@
 package org.fourgeeks.gha.ejb;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -25,11 +23,10 @@ import org.fourgeeks.gha.domain.gar.Facility;
 import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.glm.Material;
+import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
-import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.domain.mix.Institution;
@@ -55,7 +52,7 @@ public class TestData {
 	@PersistenceContext
 	EntityManager em;
 
-	@EJB(name = "gmh.BrandSErvice")
+	@EJB(name = "gmh.BrandService")
 	BrandServiceRemote brandService;
 
 	@EJB(name = "gmh.ManufacturerService")
@@ -89,11 +86,27 @@ public class TestData {
 		manufacturerTestData();
 		externalProviderTestData();
 		materialTestData();
+		facilityTestData();
 		// // TODO
 		eiaTypeTestData();
 		eiaTestData();
-		eiaTypeMaintenancePlanTestData();
-		eiaTypeMaintenanceProtocolTestData();
+	}
+
+	/**
+	 * 
+	 */
+	private void facilityTestData() {
+		String query = "SELECT t from Facility t WHERE t.id = 1";
+		try {
+			em.createQuery(query).getSingleResult();
+		} catch (NoResultException e) {
+			logger.info("Creating test data : facility");
+			Facility facility = new Facility();
+			facility.setBuildingLocation(em.find(BuildingLocation.class,
+					"Building 000"));
+			em.persist(facility);
+		}
+
 	}
 
 	private void materialTestData() {
@@ -103,10 +116,9 @@ public class TestData {
 		} catch (NoResultException e) {
 			try {
 				logger.info("creating test data : material");
-				// Material m = null;
-
 				for (int j = 0; j < 3; j++) {
-					em.persist(new Material());
+					em.persist(new Material("mat-00" + j, "material-00" + j,
+							MaterialTypeEnum.values()[j % 3]));
 				}
 				em.flush();
 			} catch (Exception e1) {
@@ -116,67 +128,6 @@ public class TestData {
 		}
 	}
 
-	/**
-	 * 
-	 */
-	private void eiaTypeMaintenanceProtocolTestData() {
-		String query = "SELECT t from EiaTypeMaintenanceProtocol t WHERE t.id = 1 ";
-		try{
-			em.createQuery(query).getSingleResult();
-		}catch(NoResultException e){
-			System.out.println("Creating test data for EiaTypeMaintenanceProtocols");
-			EiaTypeMaintenancePlan plans[] = new EiaTypeMaintenancePlan[2];
-			
-			plans[0] = em.find(EiaTypeMaintenancePlan.class, 1L);
-			plans[1] = em.find(EiaTypeMaintenancePlan.class, 2L);
-			
-			for(int i = 0, serial = 1; i<2; ++i){
-				for(int j = 0, ordinal = 1; j<1; ++j, ordinal = 1){
-					EiaTypeMaintenanceProtocol parentProtocol = new EiaTypeMaintenanceProtocol();
-					parentProtocol.setEiaTypeMaintenancePlan(plans[i]);
-//					parentProtocol.setOrdinal(ordinal++);
-					parentProtocol.setDescription("Protocol #"+Integer.toString(serial));
-					em.persist(parentProtocol);
-					
-					parentProtocol = em.find(EiaTypeMaintenanceProtocol.class, (long) serial++);
-					List<EiaTypeMaintenanceProtocol> childrenProtocols = new ArrayList <EiaTypeMaintenanceProtocol>();
-					
-					for(int k = 0; k<2; ++k, ++serial, ++ordinal){
-						EiaTypeMaintenanceProtocol childProtocol = new EiaTypeMaintenanceProtocol();
-						childProtocol.setEiaTypeMaintenancePlan(plans[i]);
-						childProtocol.setOrdinal(ordinal);
-						childProtocol.setParentProtocol(parentProtocol);
-						childProtocol.setDescription("Protocol #"+serial+" (CHILD OF "+parentProtocol.getDescription() +")");
-						em.persist(childProtocol);
-						
-						childProtocol = em.find(EiaTypeMaintenanceProtocol.class, (long)(serial));
-						childrenProtocols.add(childProtocol);
-					}
-					parentProtocol.setChildrenProtocols(childrenProtocols);
-					em.merge(parentProtocol);
-				}
-			}
-		}
-	}
-
-	/**
-	 * 
-	 */
-	private void eiaTypeMaintenancePlanTestData() {
-		System.out.println("Creating test data for EiaTypeMaintenancePlans");
-		String query = "SELECT t from EiaTypeMaintenancePlan t WHERE t.id = 1 ";
-		try {
-			em.createQuery(query).getSingleResult();
-		} catch (NoResultException e) {
-			for(int i=1; i <= 5; ++i){
-				EiaTypeMaintenancePlan eiaTypeMaintenancePlan = new EiaTypeMaintenancePlan();
-				eiaTypeMaintenancePlan.setDescription("EiaTypeMaintenancePlan #" + Integer.toString(i));
-				em.persist(eiaTypeMaintenancePlan);
-			}
-		}
-		System.out.println("Finished loading test data for EiaTypeMaintenancePlans");
-		
-	}
 
 	private void externalProviderTestData() {
 		String query = "SELECT t from ExternalProvider t WHERE t.id = 1 ";
@@ -417,33 +368,34 @@ public class TestData {
 			try {
 				logger.info("creating test eiaType");
 				EiaType eiaType = new EiaType("90001",
-						brandService.find(1), manufacturerService.find(1),
-						"Impresora Tinta", EiaMobilityEnum.FIXED,
-						EiaTypeEnum.EQUIPMENT, EiaSubTypeEnum.IT_SYSTEM, "Stylus");
+						em.find(Brand.class, 1L), em.find(Manufacturer.class,
+								1L), "Impresora Tinta", EiaMobilityEnum.FIXED,
+						EiaTypeEnum.EQUIPMENT, EiaSubTypeEnum.IT_SYSTEM,
+						"Stylus");
 				em.persist(eiaType);
 
-				eiaType = new EiaType("90002",
-						brandService.find(2), manufacturerService.find(2),
-						"Impresora Laser", EiaMobilityEnum.FIXED,
-						EiaTypeEnum.EQUIPMENT, EiaSubTypeEnum.IT_SYSTEM, "Deskjet");
+				eiaType = new EiaType("90002", em.find(Brand.class, 2L),
+						em.find(Manufacturer.class, 2L), "Impresora Laser",
+						EiaMobilityEnum.FIXED, EiaTypeEnum.EQUIPMENT,
+						EiaSubTypeEnum.IT_SYSTEM, "Deskjet");
 				em.persist(eiaType);
 
-				eiaType = new EiaType("90003",
-						brandService.find(3), manufacturerService.find(3),
-						"Cartucho Tricolor", EiaMobilityEnum.FIXED,
-						EiaTypeEnum.PART, EiaSubTypeEnum.IT_SYSTEM, "EP60");
+				eiaType = new EiaType("90003", em.find(Brand.class, 3L),
+						em.find(Manufacturer.class, 3L), "Cartucho Tricolor",
+						EiaMobilityEnum.FIXED, EiaTypeEnum.PART,
+						EiaSubTypeEnum.IT_SYSTEM, "EP60");
 				em.persist(eiaType);
 
-				eiaType = new EiaType("90004",
-						brandService.find(4), manufacturerService.find(4),
-						"Toner Laser", EiaMobilityEnum.FIXED,
-						EiaTypeEnum.PART, EiaSubTypeEnum.IT_SYSTEM, "HP60");
+				eiaType = new EiaType("90004", em.find(Brand.class, 4L),
+						em.find(Manufacturer.class, 4L), "Toner Laser",
+						EiaMobilityEnum.FIXED, EiaTypeEnum.PART,
+						EiaSubTypeEnum.IT_SYSTEM, "HP60");
 				em.persist(eiaType);
 
-				eiaType = new EiaType("90005",
-						brandService.find(5), manufacturerService.find(5),
-						"Cartucho Negro", EiaMobilityEnum.FIXED,
-						EiaTypeEnum.PART, EiaSubTypeEnum.IT_SYSTEM, "EPN60");
+				eiaType = new EiaType("90005", em.find(Brand.class, 5L),
+						em.find(Manufacturer.class, 5L), "Cartucho Negro",
+						EiaMobilityEnum.FIXED, EiaTypeEnum.PART,
+						EiaSubTypeEnum.IT_SYSTEM, "EPN60");
 				em.persist(eiaType);
 
 				em.flush();
@@ -462,57 +414,25 @@ public class TestData {
 			try {
 				logger.info("creating test eia");
 
-				Facility facility = new Facility();
-				facility.setBuildingLocation(em.find(BuildingLocation.class,
-						"Building 000"));
-				em.persist(facility);
-				em.flush();
-
-				Obu obu = em.find(Obu.class, 2L);
-				BuildingLocation bLocation = em.find(BuildingLocation.class,
-						"Building 000");
+				Facility facility = em.find(Facility.class, 1L);
+				Obu obu = em.find(Obu.class, 1L);
 				ExternalProvider eProvider = em
 						.find(ExternalProvider.class, 1L);
 				RoleBase bRole = em.find(RoleBase.class, 1L);
 
-				Eia eia = new Eia(bRole, em.find(EiaType.class, "90001"), bLocation,
-						bLocation, obu, EiaStateEnum.CREATED);
-				eia.setCode("Stylus-001");
-				eia.setSerialNumber("001");
-				eia.setProvider(eProvider);
-				eia.setCode("p-001");
-				em.persist(eia);
-
-				Eia eia2 = new Eia(bRole, em.find(EiaType.class, "90002"), bLocation,
-						bLocation, obu, EiaStateEnum.CREATED);
-				eia2.setProvider(eProvider);
-				eia2.setCode("p-002");
-
-				Eia eia3 = new Eia(bRole, em.find(EiaType.class, "90003"), bLocation,
-						bLocation, obu, EiaStateEnum.CREATED);
-				eia3.setProvider(eProvider);
-				eia3.setCode("p-003");
-
-				Eia eia4 = new Eia(bRole, em.find(EiaType.class, "90004"), bLocation,
-						bLocation, obu, EiaStateEnum.CREATED);
-				eia4.setObu(obu);
-				eia4.setProvider(eProvider);
-				eia4.setCode("p-004");
-
-				Eia eia5 = new Eia(bRole, em.find(EiaType.class, "90005"), bLocation,
-						bLocation, obu, EiaStateEnum.CREATED);
-				eia5.setObu(obu);
-				eia5.setProvider(eProvider);
-				eia5.setCode("p-005");
-
-				em.persist(eia2);
-				em.persist(eia3);
-				em.persist(eia4);
-				em.persist(eia5);
-				em.flush();
+				for (int i = 1; i < 4; ++i) {
+					Eia eia = new Eia(bRole, em.find(EiaType.class, "9000"
+							+ Long.toString(i)), obu,
+							EiaStateEnum.values()[i % 3]);
+					eia.setCode("eia-00" + i);
+					eia.setFacility(facility);
+					eia.setProvider(eProvider);
+					em.persist(eia);
+					em.flush();
+				}
 
 			} catch (Exception e1) {
-				logger.log(Level.INFO, "error creating test eia", e);
+				logger.log(Level.INFO, "error creating test eia", e1);
 			}
 		}
 	}

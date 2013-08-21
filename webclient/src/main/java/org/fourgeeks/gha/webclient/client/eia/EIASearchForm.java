@@ -56,7 +56,6 @@ public class EIASearchForm extends GHASlideInWindow {
 		stateItem = new GHASelectItem("Estado");
 
 		grid = new EIAGrid();
-		grid.setHeight(GHAUiHelper.getGridSize(30));
 	}
 
 	public EIASearchForm() {
@@ -228,9 +227,9 @@ public class EIASearchForm extends GHASlideInWindow {
 		if (eiaTypeItem.getValue() != null)
 			eia.setEiaType(new EiaType(eiaTypeItem.getValueAsString()));
 		eia.setFixedAssetIdentifier(fixedAssetIdentifierItem.getValueAsString());
-		if (buildingLocationItem.getValue() != null)
-			eia.setBuildingLocation(new BuildingLocation(buildingLocationItem
-					.getValueAsString()));
+//		if (buildingLocationItem.getValue() != null)
+//			eia.setBuildingLocation(new BuildingLocation(buildingLocationItem
+//					.getValueAsString()));
 		if (obuItem.getValue() != null)
 			eia.setObu(new Obu(Long.parseLong(obuItem.getValueAsString())));
 		eia.setSerialNumber(serialNumberItem.getValueAsString());

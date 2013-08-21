@@ -14,15 +14,13 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class GHASectionForm extends HLayout implements GHAHideable,GHAClosable{
+public class GHASectionForm extends HLayout implements GHAHideable, GHAClosable {
 
 	private VLayout options;
 	private VLayout mainSection;
 	private List<Option> optionList;
-	// private List<Layout> sectionList;
 	{
 		optionList = new ArrayList<Option>();
-		// sectionList = new ArrayList<Layout>();
 		options = new VLayout();
 		options.setWidth(150);
 		options.setMembersMargin(3);
@@ -39,6 +37,12 @@ public class GHASectionForm extends HLayout implements GHAHideable,GHAClosable{
 		addMember(mainSection);
 	}
 
+	/**
+	 * @param name
+	 * @param sect
+	 * @param open
+	 */
+	@Deprecated
 	public void addSection(String name, final Canvas sect, boolean open) {
 		HLayout section = new HLayout();
 		section.addMembers(sect, new LayoutSpacer());
@@ -54,10 +58,6 @@ public class GHASectionForm extends HLayout implements GHAHideable,GHAClosable{
 				for (Option option : optionList)
 					option.deactivate();
 				option.activate();
-				// for (Layout section : sectionList)
-				// section.setVisibility(Visibility.HIDDEN);
-				// section.setVisibility(Visibility.VISIBLE);
-
 			}
 		});
 		options.addMember(option);
@@ -66,21 +66,58 @@ public class GHASectionForm extends HLayout implements GHAHideable,GHAClosable{
 			option.activate();
 
 		optionList.add(option);
-		// sectionList.add(section);
 	}
 
+	/**
+	 * Adds a new section
+	 * 
+	 * @param name
+	 * @param sect
+	 */
+	public void addSection(String name, final Canvas sect) {
+		HLayout section = new HLayout();
+		section.addMembers(sect, new LayoutSpacer());
+
+		mainSection.addMembers(section);
+		section.setVisibility(Visibility.HIDDEN);
+
+		final Option option = new Option(name, section);
+		option.addClickHandler(new com.google.gwt.event.dom.client.ClickHandler() {
+
+			@Override
+			public void onClick(com.google.gwt.event.dom.client.ClickEvent event) {
+				for (Option option : optionList)
+					option.deactivate();
+				option.activate();
+			}
+		});
+		options.addMember(option);
+		optionList.add(option);
+	}
+
+	/**
+	 * Open the first section
+	 */
+	public void openFirst() {
+		Option option = optionList.get(0);
+		if (option != null)
+			option.activate();
+	}
+
+	/**
+	 * 
+	 */
 	public void addSectionSeparator() {
 		options.addMember(GHAUiHelper.verticalGraySeparator("2px"));
 	}
 
+	/**
+	 * 
+	 */
 	public void deactivate() {
 		for (Option option : optionList)
 			option.deactivate();
 	}
-
-	// public void activateById(int id) {
-	// optionList.get(id).activate();
-	// }
 
 	static class Option extends HTML {
 		private Canvas section;
@@ -128,13 +165,11 @@ public class GHASectionForm extends HLayout implements GHAHideable,GHAClosable{
 
 	@Override
 	public void close() {
-		// TODO Auto-generated method stub
 		deactivate();
 	}
-	
+
 	@Override
 	public void hide() {
-		// TODO Auto-generated method stub
 		super.hide();
 		deactivate();
 	}

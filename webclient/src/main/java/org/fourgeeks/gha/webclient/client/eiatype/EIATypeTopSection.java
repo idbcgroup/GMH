@@ -58,7 +58,7 @@ public class EIATypeTopSection extends HLayout implements
 		GHAUiHelper.addGHAResizeHandler(this);
 		eIATypeTab = eiaTypeTab;
 		
-		eiaTypeSearchForm.AddEIATypeSelectionListener(eiaTypeTab);
+		eiaTypeSearchForm.addEiaTypeSelectionListener(eiaTypeTab);
 
 		eiaTypeTab.addGHAHideableHandler(new GHAHideable() {
 			@Override

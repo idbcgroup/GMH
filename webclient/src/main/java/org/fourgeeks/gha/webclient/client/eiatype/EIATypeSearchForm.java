@@ -35,7 +35,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class EIATypeSearchForm extends GHASlideInWindow implements
-		EIATypeSelectionListener {
+		EIATypeSelectionListener, EiaTypeSelectionProducer {
 
 	private List<EIATypeSelectionListener> selectionListeners;
 	private GHATextItem codeEIAItem, nameEIAItem, modelItem, umdnsCodeItem;
@@ -60,6 +60,9 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 		addForm.addEiaTypeSelectionListener(this);
 	}
 
+	/**
+	 * 
+	 */
 	public EIATypeSearchForm() {
 		setTop(110);
 		setHeight(GHAUiHelper.getTabHeight() + "px");
@@ -119,7 +122,7 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
 
 		eiaTypeGrid = new EIATypeGrid();
-		eiaTypeGrid.setHeight(GHAUiHelper.getGridSize(30));
+		eiaTypeGrid.setHeight(GHAUiHelper.getSubtabGridSize(30));
 		HLayout gridLayout = new HLayout();
 		gridLayout.setPadding(10);
 
@@ -144,30 +147,13 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 		gridLayout.addMembers(eiaTypeGrid, sideGridButtons);
 
 		addMember(gridLayout);
-		searchForBrands();
-		searchForMans();
-		fillExtras();
+		fill();
 	}
 
-	private void fillExtras() {
-		// types
-		LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-		for (EiaTypeEnum eiaTypeEnum : EiaTypeEnum.values())
-			valueMap.put(eiaTypeEnum.ordinal() + "", eiaTypeEnum.toString());
-		typeItem.setValueMap(valueMap);
-		// subtypes
-		valueMap = new LinkedHashMap<String, String>();
-		for (EiaSubTypeEnum subtype : EiaSubTypeEnum.values())
-			valueMap.put(subtype.ordinal() + "", subtype.toString());
-		subTypeItem.setValueMap(valueMap);
-		// mobility
-		valueMap = new LinkedHashMap<String, String>();
-		for (EiaMobilityEnum mobility : EiaMobilityEnum.values())
-			valueMap.put(mobility.ordinal() + "", mobility.toString());
-		mobilityItem.setValueMap(valueMap);
-	}
-
-	private void searchForMans() {
+	private void fill() {
+		typeItem.setValueMap(EiaTypeEnum.toValueMap());
+		subTypeItem.setValueMap(EiaSubTypeEnum.toValueMap());
+		mobilityItem.setValueMap(EiaMobilityEnum.toValueMap());
 		GHACache.INSTANCE.getManufacturesrs(
 				new GHAAsyncCallback<List<Manufacturer>>() {
 
@@ -182,9 +168,6 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 					}
 				}, false);
 
-	}
-
-	private void searchForBrands() {
 		GHACache.INSTANCE.getBrands(new GHAAsyncCallback<List<Brand>>() {
 
 			@Override
@@ -202,14 +185,6 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 	private void selectEiaType(EiaType eiaType) {
 		for (EIATypeSelectionListener listener : selectionListeners)
 			listener.select(eiaType);
-	}
-
-	/**
-	 * @param selecionListener
-	 */
-	public void AddEIATypeSelectionListener(
-			EIATypeSelectionListener selecionListener) {
-		selectionListeners.add(selecionListener);
 	}
 
 	@Override
@@ -272,5 +247,19 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 	@Override
 	public void onResize(ResizeEvent event) {
 		setHeight(GHAUiHelper.getTabHeight() + "px");
+	}
+
+	@Override
+	public void addEiaTypeSelectionListener(
+			EIATypeSelectionListener eIATypeSelectionListener) {
+		selectionListeners.add(eIATypeSelectionListener);
+
+	}
+
+	@Override
+	public void removeEiaTypeSelectionListener(
+			EIATypeSelectionListener eIATypeSelectionListener) {
+		selectionListeners.remove(eIATypeSelectionListener);
+
 	}
 }

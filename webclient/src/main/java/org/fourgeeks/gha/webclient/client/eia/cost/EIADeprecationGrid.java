@@ -11,7 +11,7 @@ public class EIADeprecationGrid extends GhaGrid<Object>{
 	public EIADeprecationGrid() {
 	////init
 		super();
-		setHeight(GHAUiHelper.getGridSize(100));
+		setHeight(GHAUiHelper.getSubtabGridSize(100));
 		setEmptyMessage("No existen registros para mostrar.");
 	/////////
 		
@@ -37,6 +37,6 @@ public class EIADeprecationGrid extends GhaGrid<Object>{
 	@Override
 	public void onResize(ResizeEvent event) {
 		// TODO Auto-generated method stub
-		setHeight(GHAUiHelper.getGridSize(100));
+		setHeight(GHAUiHelper.getSubtabGridSize(100));
 	}
 }

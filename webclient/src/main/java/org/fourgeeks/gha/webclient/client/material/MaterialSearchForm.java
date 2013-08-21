@@ -145,12 +145,7 @@ public class MaterialSearchForm extends GHASlideInWindow implements
 	}
 
 	private void fillSelects() {
-		// types
-		LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-		for (MaterialTypeEnum e : MaterialTypeEnum.values())
-			valueMap.put(e.ordinal() + "", e.toString());
-		typeSelectItem.setValueMap(valueMap);
-
+		typeSelectItem.setValueMap(MaterialTypeEnum.toValueMap());
 		GHACache.INSTANCE
 				.getExternalProviders(new GHAAsyncCallback<List<ExternalProvider>>() {
 
@@ -183,7 +178,6 @@ public class MaterialSearchForm extends GHASlideInWindow implements
 		material.setDescription(descriptionTextItem.getValueAsString());
 		material.setModel(modelTextItem.getValueAsString());
 		material.setExtCode(extCodeTextItem.getValueAsString());
-
 		if (typeSelectItem.getValue() != null)
 			material.setType(MaterialTypeEnum.valueOf(typeSelectItem
 					.getValueAsString()));
