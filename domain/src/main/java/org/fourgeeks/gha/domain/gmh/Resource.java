@@ -11,4 +11,9 @@ import org.fourgeeks.gha.domain.AbstractEntity;
 @Entity
 public class Resource extends AbstractEntity {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 }
