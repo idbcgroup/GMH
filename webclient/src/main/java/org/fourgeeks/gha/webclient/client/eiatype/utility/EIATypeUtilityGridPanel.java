@@ -17,6 +17,9 @@ import org.fourgeeks.gha.webclient.client.material.MaterialRecord;
 import org.fourgeeks.gha.webclient.client.material.MaterialSelectionListener;
 import org.fourgeeks.gha.webclient.client.material.MaterialUtil;
 
+
+
+
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -77,7 +80,6 @@ public class EIATypeUtilityGridPanel extends VLayout implements
 				"../resources/icons/new.png", new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						new UtilitySearchForm().open();
 						utilitySearchForm.open();
 					}
 				}), 
@@ -89,7 +91,7 @@ public class EIATypeUtilityGridPanel extends VLayout implements
 						// TODO Auto-generated method stub
 						Material material =  grid.getSelectedRecord().toEntity();
 						EIATypeUtilityModel.delete(material.getId(), new GHAAsyncCallback<Void>(){
-
+							
 							@Override
 							public void onSuccess(Void result) {
 								// TODO Auto-generated method stub

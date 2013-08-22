@@ -33,7 +33,6 @@ public class EIATypeUtilitySubTab extends GHASubTab implements
 	@Override
 	public void select(EiaType eiaType) {
 		// TODO Auto-generated method stub
-		Window.alert("En el select de EIATypeUtilitySubTab ");
 		eiaTypeServicesGridPanel.select(eiaType);
 
 	}
