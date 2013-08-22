@@ -18,7 +18,7 @@ public class EIAComponentGridPanel extends VLayout implements GHAClosable, GHAHi
 	public EIAComponentGridPanel() {
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
-		setStyleName("sides-padding top-padding");// Esto es VUDU!
+		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		
 		
 		Label title = new Label("<h3>Componentes de EIA</h3>");

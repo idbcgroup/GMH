@@ -22,10 +22,9 @@ public class EIADispatchmentForm extends GHASlideInWindow {
 	
 	
 	public EIADispatchmentForm() {
-		super();
+		super(1);
 		setTop(110);
 		setHeight(GHAUiHelper.getTabHeight());
-		setStyleName("sides-padding top-padding box");
 		
 ////////Botones laterales
 		VLayout sideButtons = GHAUiHelper.createBar(
@@ -44,20 +43,21 @@ public class EIADispatchmentForm extends GHASlideInWindow {
 				}));
 		
 		HLayout topPanel = new HLayout();
-		topPanel.setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT);
-//		topPanel.setStyleName("sides-padding top-padding");
+		topPanel.setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT -30);
+		topPanel.setStyleName("sides-padding");
 		
 		topPanel.addMembers(new LayoutSpacer(), sideButtons);
 		
-		Label title = new Label("<h3>Acta de Instalación</h3>");
+		Label title = new Label("<h3>Despacho de equipos</h3>");
 		title.setHeight(35);
 		title.setWidth100();
 		title.setStyleName("title-label");
 		
 		HLayout botPanel = new HLayout();
+		botPanel.setStyleName("sides-padding padding-top");
 		botPanel.addMembers(dispatchmentGrid);
 		
-		addMembers(topPanel,GHAUiHelper.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT+"px"),title, botPanel);
+		addMembers(title,topPanel,GHAUiHelper.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT+"px"), botPanel);
 	}
 
 	@Override

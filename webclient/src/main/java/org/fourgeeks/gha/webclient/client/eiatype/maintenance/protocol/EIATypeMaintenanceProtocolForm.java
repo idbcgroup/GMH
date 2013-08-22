@@ -23,6 +23,7 @@ public class EIATypeMaintenanceProtocolForm extends GHASlideInWindow implements 
 	private EIATypeMaintenanceProtocolGrid eiaTypeMaintenanceProtocolGrid = new EIATypeMaintenanceProtocolGrid();
 		
 	public EIATypeMaintenanceProtocolForm() {
+		super(1);
 		GHAUiHelper.addGHAResizeHandler(this);
 		setWidth100();
 		setHeight(GHAUiHelper.getBottomSectionHeight()-20);

@@ -20,10 +20,9 @@ public class EIAInstallationCertificateForm extends GHASlideInWindow {
 		installationGrid = new EIAGrid();
 	}
 	public EIAInstallationCertificateForm() {
-		super();
+		super(1);
 		setTop(110);
 		setHeight(GHAUiHelper.getTabHeight());
-		setStyleName("sides-padding top-padding box");
 		
 ////////Botones laterales
 		VLayout sideButtons = GHAUiHelper.createBar(
@@ -42,8 +41,8 @@ public class EIAInstallationCertificateForm extends GHASlideInWindow {
 				}));
 		
 		HLayout topPanel = new HLayout();
-		topPanel.setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT);
-//		topPanel.setStyleName("sides-padding top-padding");
+		topPanel.setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT-30);
+		topPanel.setStyleName("sides-padding");
 		
 		topPanel.addMembers(new LayoutSpacer(), sideButtons);
 		
@@ -53,9 +52,10 @@ public class EIAInstallationCertificateForm extends GHASlideInWindow {
 		title.setStyleName("title-label");
 		
 		HLayout botPanel = new HLayout();
+		botPanel.setStyleName("sides-padding padding-top");
 		botPanel.addMembers(installationGrid);
 		
-		addMembers(topPanel,GHAUiHelper.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT+"px"),title, botPanel);
+		addMembers(title,topPanel,GHAUiHelper.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT+"px"), botPanel);
 	}
 
 	@Override

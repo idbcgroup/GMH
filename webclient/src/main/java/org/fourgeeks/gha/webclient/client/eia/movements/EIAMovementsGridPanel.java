@@ -20,7 +20,7 @@ public class EIAMovementsGridPanel extends VLayout implements EIATypeSelectionLi
 	public EIAMovementsGridPanel() {
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
-		setStyleName("sides-padding top-padding");// Esto es VUDU!
+		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		
 		Label title = new Label("<h3>Movimientos</h3>");
 		title.setHeight(35);
