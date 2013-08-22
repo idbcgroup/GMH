@@ -20,6 +20,7 @@ import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
 import org.fourgeeks.gha.domain.ess.RoleBase;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
 import org.fourgeeks.gha.domain.gar.Facility;
+import org.fourgeeks.gha.domain.gar.Job;
 import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
 
@@ -101,13 +102,13 @@ public class Eia extends AbstractEntity {
 	@JoinColumn(name = "facilityFk")
 	private Facility facility;
 
-	// @ManyToOne
-	// @JoinColumn(name = "maintenanceLocationFk")
-	// private BuildingLocation maintenanceLocation;
+	@ManyToOne
+	@JoinColumn(name = "jobFk")
+	private Job job;
 	//
-	// @ManyToOne
-	// @JoinColumn(name = "maintenanceProviderFk")
-	// private ExternalProvider maintenanceProvider;
+	@ManyToOne
+	@JoinColumn(name = "maintenanceProviderFk")
+	private ExternalProvider maintenanceProvider;
 
 	/**
 	 * Responsible Obu for the EIA
