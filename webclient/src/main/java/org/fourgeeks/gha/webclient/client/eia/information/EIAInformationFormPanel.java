@@ -32,7 +32,7 @@ public class EIAInformationFormPanel extends VLayout implements EIATypeSelection
 		super();
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
-		setStyleName("sides-padding top-padding");// Esto es VUDU!
+		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		Label title = new Label("<h3>Caracteristicas del EIA</h3>");
 		title.setHeight(30);
 		title.setWidth100();

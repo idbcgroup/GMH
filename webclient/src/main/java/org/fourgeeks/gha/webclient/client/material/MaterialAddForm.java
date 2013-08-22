@@ -28,7 +28,7 @@ public class MaterialAddForm extends GHASlideInWindow implements
 	 * 
 	 */
 	public MaterialAddForm() {
-		super();
+		super(2);
 		setHeight(GHAUiHelper.getBottomSectionHeight());
 		setTop(240);
 

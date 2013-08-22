@@ -172,7 +172,7 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		tab.addGHAClosableHandler(this);
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
-		setStyleName("sides-padding top-padding");// Esto es VUDU!
+		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		setAlign(Alignment.CENTER);
 
 		DynamicForm form = new DynamicForm();
