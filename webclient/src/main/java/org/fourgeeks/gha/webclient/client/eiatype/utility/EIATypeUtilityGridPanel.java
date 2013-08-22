@@ -89,7 +89,7 @@ public class EIATypeUtilityGridPanel extends VLayout implements
 					@Override
 					public void onClick(ClickEvent event) {
 						// TODO Auto-generated method stub
-						Material material =  grid.getSelectedRecord().toEntity();
+						Material material =  grid. getSelectedRecord().toEntity();
 						EIATypeUtilityModel.delete(material.getId(), new GHAAsyncCallback<Void>(){
 							
 							@Override
@@ -122,7 +122,7 @@ public class EIATypeUtilityGridPanel extends VLayout implements
 	@Override
 	public void select(EiaType eiaType) {
 		// TODO Auto-generated method stub
-
+		this.eiaType = eiaType;
 	}
 
 	@Override
