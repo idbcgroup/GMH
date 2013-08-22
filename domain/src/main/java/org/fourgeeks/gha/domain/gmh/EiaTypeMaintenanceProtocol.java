@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 
@@ -16,8 +17,13 @@ import org.fourgeeks.gha.domain.AbstractEntity;
  */
 
 @Entity
-@NamedQueries(value = { })
-public class MaintenanceProtocol extends AbstractEntity {
+@NamedQueries(value = {
+		@NamedQuery(name = "EiaTypeMaintenanceProtocol.findByEiaTypeMaintenancePlan", 
+				query = "SELECT e from EiaTypeMaintenanceProtocol e WHERE e.eiaTypeMaintenancePlan = :eiaTypeMaintenancePlan ORDER BY e.id"),
+		@NamedQuery(name = "EiaTypeMaintenanceProtocol.getAll",
+				query = "SELECT e from EiaTypeMaintenanceProtocol e GROUP BY e.eiaTypeMaintenancePlan ORDER BY e.id")
+})
+public class EiaTypeMaintenanceProtocol extends AbstractEntity {
 
 	/**
 	 * 
@@ -33,7 +39,7 @@ public class MaintenanceProtocol extends AbstractEntity {
 	/**
 	 * 
 	 */
-	public MaintenanceProtocol() {
+	public EiaTypeMaintenanceProtocol() {
 		// TODO Auto-generated constructor stub
 	}
 

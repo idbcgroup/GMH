@@ -9,6 +9,7 @@ import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.ejb.gmh.EiaTypeMaintenancePlanServiceRemote;
 import org.fourgeeks.gha.webclient.client.eiatype.maintenance.plan.GWTEiaTypeMaintenancePlanService;
@@ -42,9 +43,18 @@ public class GWTEiaTypeMaintenancePlanImpl extends RemoteServiceServlet implemen
 	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.GWTEiaTypeMaintenancePlanService#findByEiaType(long)
 	 */
 	@Override
-	public List<EiaTypeMaintenancePlan> findByEiaType(String eiaTypeCode)
+	public List<EiaTypeMaintenancePlan> findByEiaType(EiaType eiaType)
 			throws EJBException {
-		return eiaTypeMantPlanService.findByEiaType(eiaTypeCode);
+		return eiaTypeMantPlanService.findByEiaType(eiaType);
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.plan.GWTEiaTypeMaintenancePlanService#findByEiaType(org.fourgeeks.gha.domain.gmh.EiaType, int, int)
+	 */
+	@Override
+	public List<EiaTypeMaintenancePlan> findByEiaType(EiaType eiaType,
+			int offset, int size) throws EJBException {
+		return eiaTypeMantPlanService.findByEiaType(eiaType, offset, size);
 	}
 
 	/* (non-Javadoc)
@@ -61,6 +71,15 @@ public class GWTEiaTypeMaintenancePlanImpl extends RemoteServiceServlet implemen
 	@Override
 	public List<EiaTypeMaintenancePlan> getAll() throws EJBException {
 		return eiaTypeMantPlanService.getAll();
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.plan.GWTEiaTypeMaintenancePlanService#getAll(int, int)
+	 */
+	@Override
+	public List<EiaTypeMaintenancePlan> getAll(int offset, int size)
+			throws EJBException {
+		return eiaTypeMantPlanService.getAll(offset, size);
 	}
 
 	/* (non-Javadoc)

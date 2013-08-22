@@ -8,55 +8,72 @@ import java.util.List;
 import javax.ejb.Remote;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 
 /**
  * @author emiliot
- * 
+ *
  */
 
 @Remote
 public interface EiaTypeMaintenancePlanServiceRemote {
 	/**
-	 * @param Id
+	 * Delete a Maintenance Plan from database by Id
 	 * @throws EJBException
 	 */
 	public void delete(long Id) throws EJBException;
 
 	/**
-	 * @param code
-	 * @return a list with the maintenance plans associated with this eiatype
+	 * @param eiaType
+	 * @return a list with the maintenance plan related to the eiaType
 	 * @throws EJBException
 	 */
-	public List<EiaTypeMaintenancePlan> findByEiaType(String code)
+	public List<EiaTypeMaintenancePlan> findByEiaType(EiaType eiaType) throws EJBException;
+
+	/**
+	 * @param eiaType
+	 * @param offset
+	 * @param size
+	 * @return a list with the maintenance plans related to eiaType
+	 * @throws EJBException
+	 */
+	public List<EiaTypeMaintenancePlan> findByEiaType(EiaType eiaType, int offset, int size)
 			throws EJBException;
 
 	/**
-	 * @param Id
-	 * @return the EiaTypeMaintenancePlan by id
+	 * @param code
+	 * @return the MaintenancePlan with this Id
 	 * @throws EJBException
 	 */
 	public EiaTypeMaintenancePlan find(long Id) throws EJBException;
 
 	/**
-	 * @return the list of EiaTypeMaintenancePlan
+	 * @return the list with all MaintenancePlan Objects
 	 * @throws EJBException
 	 */
 	public List<EiaTypeMaintenancePlan> getAll() throws EJBException;
 
 	/**
-	 * @param EiaTypeMaintenancePlan
-	 * @return the saved EiaTypeMaintenancePlan
+	 * @param offset
+	 * @param size
+	 * @return List of MaintenancePlans beginning in offset up to size
 	 * @throws EJBException
 	 */
-	public EiaTypeMaintenancePlan save(
-			EiaTypeMaintenancePlan eiaTypeMaintenancePlan) throws EJBException;
+	public List<EiaTypeMaintenancePlan> getAll(int offset, int size) throws EJBException;
+
+	/**
+	 * @param EiaTypeMaintenancePlan the plan to be saved on database
+	 * @throws EJBException
+	 * @return MaintenancePlan saved
+	 */
+	public EiaTypeMaintenancePlan save(EiaTypeMaintenancePlan maintenancePlan) throws EJBException;
 
 	/**
 	 * @param EiaTypeMaintenancePlan
-	 * @return the updated EiaTypeMaintenancePlan
+	 *            the MaintenancePlan to be updated
+	 * @return MaintenancePlan updated
 	 * @throws EJBException
 	 */
-	public EiaTypeMaintenancePlan update(
-			EiaTypeMaintenancePlan eiaTypeMaintenancePlan) throws EJBException;
+	public EiaTypeMaintenancePlan update(EiaTypeMaintenancePlan maintenancePlan) throws EJBException;
 }

@@ -40,4 +40,30 @@ public class ProtocolActivityComponent extends AbstractEntity {
 	 */
 	public ProtocolActivityComponent() {
 	}
+
+	public ProtocolActivity getProtocolActivity() {
+		return protocolActivity;
+	}
+
+	public ProtocolActivity getParentProtocolActivity() {
+		return parentProtocolActivity;
+	}
+
+	public int getOrdinal() {
+		return ordinal;
+	}
+
+	public void setProtocolActivity(ProtocolActivity protocolActivity) {
+		this.protocolActivity = protocolActivity;
+	}
+
+	public void setParentProtocolActivity(ProtocolActivity parentProtocolActivity) {
+		this.parentProtocolActivity = parentProtocolActivity;
+	}
+
+	public void setOrdinal(int ordinal) {
+		this.ordinal = ordinal;
+	}
+	
+	
 }

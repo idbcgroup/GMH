@@ -22,7 +22,7 @@ public class ProtocolActivity extends AbstractEntity {
 
 	@ManyToOne
 	@JoinColumn(name = "maintenanceProtocolFk")
-	MaintenanceProtocol maintenanceProtocol;
+	EiaTypeMaintenanceProtocol maintenanceProtocol;
 
 	@NotNull(message = "El nombre de la actividad no puede ser nulo")
 	@Column(nullable = false)
@@ -39,7 +39,7 @@ public class ProtocolActivity extends AbstractEntity {
 	/**
 	 * @return the maintenanceProtocol
 	 */
-	public MaintenanceProtocol getMaintenanceProtocol() {
+	public EiaTypeMaintenanceProtocol getMaintenanceProtocol() {
 		return maintenanceProtocol;
 	}
 
@@ -47,7 +47,7 @@ public class ProtocolActivity extends AbstractEntity {
 	 * @param maintenanceProtocol
 	 *            the maintenanceProtocol to set
 	 */
-	public void setMaintenanceProtocol(MaintenanceProtocol maintenanceProtocol) {
+	public void setMaintenanceProtocol(EiaTypeMaintenanceProtocol maintenanceProtocol) {
 		this.maintenanceProtocol = maintenanceProtocol;
 	}
 
