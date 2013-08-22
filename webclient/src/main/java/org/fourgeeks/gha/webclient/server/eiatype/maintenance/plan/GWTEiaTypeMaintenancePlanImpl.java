@@ -20,7 +20,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  * @author emiliot
  *
  */
-@WebServlet(urlPatterns = {"/webclient/eiaTypeMaintenancePlan"})
+@WebServlet(urlPatterns = {"/webclient/eiaTypeMaintenancePlanService"})
 public class GWTEiaTypeMaintenancePlanImpl extends RemoteServiceServlet implements
 		GWTEiaTypeMaintenancePlanService {
 
@@ -29,14 +29,14 @@ public class GWTEiaTypeMaintenancePlanImpl extends RemoteServiceServlet implemen
 	 */
 	private static final long serialVersionUID = 1L;
 	@EJB(name = "gmh.eiaTypeMaintenancePlanService")
-	EiaTypeMaintenancePlanServiceRemote eiaTypeMantPlanService;
+	EiaTypeMaintenancePlanServiceRemote ejbService;
 
 	/* (non-Javadoc)
 	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.GWTEiaTypeMaintenancePlanService#delete(long)
 	 */
 	@Override
 	public void delete(long Id) throws EJBException {
-		eiaTypeMantPlanService.delete(Id);
+		ejbService.delete(Id);
 	}
 
 	/* (non-Javadoc)
@@ -45,7 +45,7 @@ public class GWTEiaTypeMaintenancePlanImpl extends RemoteServiceServlet implemen
 	@Override
 	public List<EiaTypeMaintenancePlan> findByEiaType(EiaType eiaType)
 			throws EJBException {
-		return eiaTypeMantPlanService.findByEiaType(eiaType);
+		return ejbService.findByEiaType(eiaType);
 	}
 	
 	/* (non-Javadoc)
@@ -54,7 +54,7 @@ public class GWTEiaTypeMaintenancePlanImpl extends RemoteServiceServlet implemen
 	@Override
 	public List<EiaTypeMaintenancePlan> findByEiaType(EiaType eiaType,
 			int offset, int size) throws EJBException {
-		return eiaTypeMantPlanService.findByEiaType(eiaType, offset, size);
+		return ejbService.findByEiaType(eiaType, offset, size);
 	}
 
 	/* (non-Javadoc)
@@ -62,7 +62,7 @@ public class GWTEiaTypeMaintenancePlanImpl extends RemoteServiceServlet implemen
 	 */
 	@Override
 	public EiaTypeMaintenancePlan find(long Id) throws EJBException {
-		return eiaTypeMantPlanService.find(Id);
+		return ejbService.find(Id);
 	}
 
 	/* (non-Javadoc)
@@ -70,7 +70,7 @@ public class GWTEiaTypeMaintenancePlanImpl extends RemoteServiceServlet implemen
 	 */
 	@Override
 	public List<EiaTypeMaintenancePlan> getAll() throws EJBException {
-		return eiaTypeMantPlanService.getAll();
+		return ejbService.getAll();
 	}
 	
 	/* (non-Javadoc)
@@ -79,7 +79,7 @@ public class GWTEiaTypeMaintenancePlanImpl extends RemoteServiceServlet implemen
 	@Override
 	public List<EiaTypeMaintenancePlan> getAll(int offset, int size)
 			throws EJBException {
-		return eiaTypeMantPlanService.getAll(offset, size);
+		return ejbService.getAll(offset, size);
 	}
 
 	/* (non-Javadoc)
@@ -88,7 +88,7 @@ public class GWTEiaTypeMaintenancePlanImpl extends RemoteServiceServlet implemen
 	@Override
 	public EiaTypeMaintenancePlan save(
 			EiaTypeMaintenancePlan eiaTypeMaintenancePlan) throws EJBException {
-		return eiaTypeMantPlanService.save(eiaTypeMaintenancePlan);
+		return ejbService.save(eiaTypeMaintenancePlan);
 	}
 
 	/* (non-Javadoc)
@@ -97,7 +97,7 @@ public class GWTEiaTypeMaintenancePlanImpl extends RemoteServiceServlet implemen
 	@Override
 	public EiaTypeMaintenancePlan update(
 			EiaTypeMaintenancePlan eiaTypeMaintenancePlan) throws EJBException {
-		return eiaTypeMantPlanService.update(eiaTypeMaintenancePlan);
+		return ejbService.update(eiaTypeMaintenancePlan);
 	}
 
 }

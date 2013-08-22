@@ -20,7 +20,7 @@ import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
  *
  */
 
-@Stateless(name = "gmh.MaintenancePlanService")
+@Stateless(name = "gmh.eiaTypeMaintenancePlanService")
 public class EiaTypeMaintenancePlanService implements EiaTypeMaintenancePlanServiceRemote {
 	@PersistenceContext
 	EntityManager em;

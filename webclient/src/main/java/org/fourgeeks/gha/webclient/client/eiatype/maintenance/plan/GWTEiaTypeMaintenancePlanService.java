@@ -15,7 +15,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
  * @author emiliot
  *
  */
-@RemoteServiceRelativePath("eiaTypeMaintenancePlan")
+@RemoteServiceRelativePath("eiaTypeMaintenancePlanService")
 public interface GWTEiaTypeMaintenancePlanService {
 	/**
 	 * @param Id

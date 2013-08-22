@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
@@ -13,6 +15,9 @@ import org.fourgeeks.gha.domain.AbstractEntity;
  * 
  */
 @Entity
+@NamedQueries(value = {
+		@NamedQuery(name = "ProtocolActivity.getAll", query = "SELECT e from ProtocolActivity e order by e.id"),
+		@NamedQuery(name = "ProtocolActivity.findByEiaTypeMaintenanceProtocol", query = "SELECT e from ProtocolActivity e where e.maintenanceProtocol = :maintenanceProtocol order by e.id") })
 public class ProtocolActivity extends AbstractEntity {
 
 	/**

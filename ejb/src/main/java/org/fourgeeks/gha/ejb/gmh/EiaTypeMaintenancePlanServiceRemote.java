@@ -42,7 +42,7 @@ public interface EiaTypeMaintenancePlanServiceRemote {
 			throws EJBException;
 
 	/**
-	 * @param code
+	 * @param Id
 	 * @return the MaintenancePlan with this Id
 	 * @throws EJBException
 	 */
