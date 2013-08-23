@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.fourgeeks.gha.ejb.gmh;
+package org.fourgeeks.gha.domain.gmh;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -10,8 +10,6 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
-import org.fourgeeks.gha.domain.gmh.ProtocolActivity;
-import org.fourgeeks.gha.domain.gmh.Resource;
 
 /**
  * @author emiliot
