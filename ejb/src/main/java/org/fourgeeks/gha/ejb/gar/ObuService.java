@@ -146,7 +146,7 @@ public class ObuService implements ObuServiceRemote {
 			em.flush();
 			return em.find(Obu.class, entity.getId());
 		} catch (Exception e) {
-			logger.log(Level.INFO, "ERROR: saving Obu " + entity.toString(), e);
+			logger.log(Level.INFO, "ERROR: saving Obu ", e);
 			throw new EJBException("ERROR: saving Obu "
 					+ e.getCause().getMessage());
 		}
@@ -161,8 +161,8 @@ public class ObuService implements ObuServiceRemote {
 			return res;
 		} catch (Exception e) {
 			logger.log(Level.INFO,
-					"ERROR: unable to update Obu " + entity.toString(), e);
-			throw new EJBException("ERROR: no se puede eliminar el Obu "
+					"ERROR: unable to update Obu ", e);
+			throw new EJBException("ERROR: no se puede actualizar el Obu "
 					+ e.getCause().getMessage());
 		}
 	}

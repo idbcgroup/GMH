@@ -13,6 +13,8 @@ import javax.persistence.UniqueConstraint;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.glm.Material;
+import org.fourgeeks.gha.domain.gmh.EiaType;
+
 
 /**
  * @author emiliot
@@ -35,4 +37,20 @@ public class EiaTypeUtility extends AbstractEntity {
 	@ManyToOne
 	@JoinColumn(name = "eiaTypeFk")
 	private EiaType eiaType;
+
+	public Material getMaterial() {
+		return material;
+	}
+
+	public void setMaterial(Material material) {
+		this.material = material;
+	}
+
+	public EiaType getEiaType() {
+		return eiaType;
+	}
+
+	public void setEiaType(EiaType eiaType) {
+		this.eiaType = eiaType;
+	}
 }

@@ -148,7 +148,7 @@ public class MaterialService implements MaterialServiceRemote {
 				q.setParameter("extCode", entity.getExtCode());
 
 			if (entity.getModel() != null)
-				q.setParameter("name", "%" + entity.getModel() + "%");
+				q.setParameter("model", "%" + entity.getModel() + "%");
 
 			return q.getResultList();
 
