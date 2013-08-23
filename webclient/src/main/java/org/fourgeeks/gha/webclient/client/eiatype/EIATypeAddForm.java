@@ -67,7 +67,7 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 	}
 
 	public EIATypeAddForm() {
-		super(1);
+		super(2);
 		setHeight(GHAUiHelper.getBottomSectionHeight());
 		setTop(240);
 
