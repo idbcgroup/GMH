@@ -33,7 +33,7 @@ public class ProtocolActivityResource extends AbstractEntity {
 	
 	@ManyToOne
 	@JoinColumn(name = "resourceFk", nullable = false)
-	private Resource resource; //recurso
+	private Resource resource;
 
 	/**
 	 * 
