@@ -14,7 +14,8 @@ public class EIATypeUtilityRecord  extends GHAGridRecord<EiaTypeUtility>{
 	
 	public EIATypeUtilityRecord(EiaTypeUtility eiaTypeUtility){
 		//setEiaTypeComponent(eiaTypeUtility);
-		Material material = eiaTypeUtility.getMaterial();
+		this.eiaTypeUtility = eiaTypeUtility;
+		Material material = this.eiaTypeUtility.getMaterial();
 		setAttribute("code", material.getCode());
 		setAttribute("name", material.getName());
 		setAttribute("description", material.getDescription());

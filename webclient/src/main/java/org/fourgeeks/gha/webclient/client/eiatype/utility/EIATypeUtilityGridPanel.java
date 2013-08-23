@@ -11,15 +11,9 @@ import org.fourgeeks.gha.webclient.client.UI.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
-import org.fourgeeks.gha.webclient.client.material.MaterialGrid;
-import org.fourgeeks.gha.webclient.client.material.MaterialModel;
-import org.fourgeeks.gha.webclient.client.material.MaterialRecord;
 import org.fourgeeks.gha.webclient.client.material.MaterialSelectionListener;
-import org.fourgeeks.gha.webclient.client.material.MaterialUtil;
 
-
-
-
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -34,7 +28,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class EIATypeUtilityGridPanel extends VLayout implements
 		EIATypeSelectionListener, GHAClosable, GHAHideable {
 
-	private MaterialGrid grid = new MaterialGrid();
+	//private MaterialGrid grid = new MaterialGrid();
+	private EiaTypeUtilityGrid grid = new EiaTypeUtilityGrid(); 
 	private UtilitySearchForm utilitySearchForm;
 	private EiaType eiaType;
 	
@@ -49,7 +44,6 @@ public class EIATypeUtilityGridPanel extends VLayout implements
 				EiaTypeUtility eiaTypeUtility = new EiaTypeUtility();
 				eiaTypeUtility.setEiaType(EIATypeUtilityGridPanel.this.eiaType);
 				eiaTypeUtility.setMaterial(material);
-				
 				EIATypeUtilityModel.save(eiaTypeUtility, new GHAAsyncCallback<EiaTypeUtility>(){
 
 					@Override
@@ -89,8 +83,9 @@ public class EIATypeUtilityGridPanel extends VLayout implements
 					@Override
 					public void onClick(ClickEvent event) {
 						// TODO Auto-generated method stub
-						Material material =  grid. getSelectedRecord().toEntity();
-						EIATypeUtilityModel.delete(material.getId(), new GHAAsyncCallback<Void>(){
+						//EiaTypeUtility eiaTypeUtility = ((EIATypeUtilityRecord) grid.getSelectedRecord()).toEntity();
+						EiaTypeUtility eiaTypeUtility = grid.getSelectedEntity();
+						EIATypeUtilityModel.delete(eiaTypeUtility.getId(), new GHAAsyncCallback<Void>(){
 							
 							@Override
 							public void onSuccess(Void result) {
@@ -138,16 +133,21 @@ public class EIATypeUtilityGridPanel extends VLayout implements
 	}
 	
 	private void loadData() {
-		MaterialModel.getAllUtilities(new GHAAsyncCallback<List<Material>>() {
+		EIATypeUtilityModel.findByEiaTypeId(eiaType, new AsyncCallback<List<EiaTypeUtility>>(){
 
 			@Override
-			public void onSuccess(List<Material> materials) {
+			public void onFailure(Throwable caught) {
 				// TODO Auto-generated method stub
-				ListGridRecord[] array = MaterialUtil.toGridRecords(materials)
-						.toArray(new MaterialRecord[] {});
-				grid.setData(array);
 			}
-		});
+
+			@Override
+			public void onSuccess(List<EiaTypeUtility> result) {
+				// TODO Auto-generated method stub
+				ListGridRecord[] array = EIATypeUtilityUtil.toGridRecords(result)
+						.toArray(new EIATypeUtilityRecord[] {});
+				grid.setData(array);
+
+			}});
 	}
 
 

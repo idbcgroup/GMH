@@ -6,8 +6,6 @@ import org.fourgeeks.gha.webclient.client.UI.GHASubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeTab;
 
-import com.google.gwt.user.client.Window;
-
 /**
  * @author alacret
  * 

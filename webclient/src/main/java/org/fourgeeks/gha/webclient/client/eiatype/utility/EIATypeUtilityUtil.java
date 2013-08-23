@@ -3,9 +3,7 @@ package org.fourgeeks.gha.webclient.client.eiatype.utility;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.fourgeeks.gha.domain.gmh.EiaTypeComponent;
 import org.fourgeeks.gha.domain.gmh.EiaTypeUtility;
-import org.fourgeeks.gha.webclient.client.eiatype.component.EIATypeComponentRecord;
 
 /**
  * @author sizturriaga
