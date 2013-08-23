@@ -17,7 +17,7 @@ public class EIATypeMaintenanceGridPanel extends VLayout implements
 	public EIATypeMaintenanceGridPanel() {
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
-		setStyleName("sides-padding top-padding");// Esto es VUDU!
+		setStyleName("sides-padding padding-top");// Esto es VUDU!
 
 		Label title = new Label("<h3>Planes de Mantenimiento</h3>");
 		title.setHeight(35);

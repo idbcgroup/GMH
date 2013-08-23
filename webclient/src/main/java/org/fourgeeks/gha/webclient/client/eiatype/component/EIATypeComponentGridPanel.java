@@ -102,7 +102,7 @@ public class EIATypeComponentGridPanel extends VLayout implements
 	public EIATypeComponentGridPanel() {
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
-		setStyleName("sides-padding top-padding");// Esto es VUDU!
+		setStyleName("sides-padding padding-top");// Esto es VUDU!
 
 		Label title = new Label("<h3>Componentes de EIAType</h3>");
 		title.setHeight(35);

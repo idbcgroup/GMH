@@ -26,6 +26,7 @@ public class EIAAddForm extends GHASlideInWindow implements
 	 * 
 	 */
 	public EIAAddForm() {
+		super(1);
 		eiaForm = new EIAForm();
 		initComponent();
 	}
@@ -72,6 +73,7 @@ public class EIAAddForm extends GHASlideInWindow implements
 	 * 
 	 */
 	public EIAAddForm(EiaType eiaType) {
+		super(1);
 		eiaForm = new EIAForm(eiaType);
 		initComponent();
 	}
