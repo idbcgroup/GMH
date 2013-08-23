@@ -20,7 +20,7 @@ import org.fourgeeks.gha.domain.gmh.Resource;
  */
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "protocolActivityFk", "resourceFk" }))
-public class ProtocolActivityResources extends AbstractEntity {
+public class ProtocolActivityResource extends AbstractEntity {
 
 	/**
 	 * 
@@ -33,12 +33,12 @@ public class ProtocolActivityResources extends AbstractEntity {
 	
 	@ManyToOne
 	@JoinColumn(name = "resourceFk", nullable = false)
-	private Resource resource;
+	private Resource resource; //recurso
 
 	/**
 	 * 
 	 */
-	public ProtocolActivityResources() {
+	public ProtocolActivityResource() {
 		// TODO Auto-generated constructor stub
 	}
 
