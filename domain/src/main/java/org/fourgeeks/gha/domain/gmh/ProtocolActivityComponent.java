@@ -24,11 +24,11 @@ public class ProtocolActivityComponent extends AbstractEntity {
 
 	@ManyToOne
 	@JoinColumn(name = "protocolActivityFk")
-	ProtocolActivity protocolActivity;
+	private ProtocolActivity protocolActivity;
 
 	@ManyToOne
 	@JoinColumn(name = "parentProtocolActivityFk")
-	ProtocolActivity parentProtocolActivity;
+	private ProtocolActivity parentProtocolActivity;
 	
 	/**
 	 * Number of order for activity
