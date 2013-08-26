@@ -16,6 +16,7 @@ import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
 import org.fourgeeks.gha.domain.ess.RoleBase;
+import org.fourgeeks.gha.domain.ess.WorkingArea;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
@@ -51,14 +52,15 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		EiaSelectionProducer {
 	private GHATextItem codeTextItem, serialTextItem, fixedAssetIdTextItem,
 			purchaseOrderNumTextItem, purchaseInvoiceNumTextItem,
-			buildingLocationCodeTextItem, attendedLocationCodeTextItem,
+			workingAreaLocationCodeTextItem, facilityLocationCodeTextItem,
 			adquisitionCostTextItem, adquisitionCostLocalTextItem,
 			depreciationTimeTextItem, lifeTimeTextItem, actualCostTextItem,
 			realWarrantyTimeTextItem, intWarrantyTimeTextItem,
 			codeMant_WarrMant_TextItem;
 	private GHASelectItem obuSelectItem, baseRoleSelectItem, stateSelectItem,
-			providerSelectItem, buildingLocationSelectItem,
-			attendedLocationSelectItem, adquisitionCostCurrencySelectItem,
+			providerSelectItem, locationTypeSelectItem,
+			workingAreaLocationSelectItem, facilityLocationSelectItem,
+			adquisitionCostCurrencySelectItem,
 			adquisitionCostCurrencyLocalSelectItem,
 			depreciationMethodSelectItem, depreciationTimePotSelectItem,
 			lifeTimePotSelectItem, actualCostCurrencySelectItem,
@@ -66,15 +68,16 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 			intWarrantyPotSelectItem, intWarrantySinceSelectItem,
 			maintenanceLocationSelectItem, maintenanceProviderSelectItem,
 			eiaTypeSelectItem;
-	private GHATitleTextItem information_TitleItem, adqisition_TitleItem,
-			actualArea_TitleItem, attendedArea_TitleItem, adqCost_TitleItem,
-			actualCost_TitleItem, depTime_TitleItem, lifeTime_TitleItem,
-			realWarranty_TitleItem, intermedWarranty_TitleItem,
-			maintenance_TitleItem;
-	private GHADateItem purchaseDateItem, receptionDateItem,
+	private GHATitleTextItem information_TitleItem, adquisition_TitleItem,
+			location_TitleItem, workingArea_TitleItem, facility_TitleItem,
+			adqCost_TitleItem, actualCost_TitleItem, depTime_TitleItem,
+			lifeTime_TitleItem, realWarranty_TitleItem,
+			intermedWarranty_TitleItem, maintenance_TitleItem;
+	private GHADateItem acceptationDateItem, purchaseDateItem,
+			purchaseInvoiceDateItem, purchaseOrderDateItem, receptionDateItem,
 			installationDateItem, contabilizationDateItem,
 			lastDepreciationDate, realWarrantyBeginDate, intWarrantyBeginDate;
-	private GHACheckboxItem sameLocationAttendedItem, isInMaintenanceItem;
+	// private GHACheckboxItem sameLocationAttendedItem, isInMaintenanceItem;
 	private GHASectionForm sectionForm;
 	private Validator validator;
 	private List<EIASelectionListener> listeners;
@@ -102,9 +105,11 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		stateSelectItem = new GHASelectItem("Estado Equipo",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		acceptationDateItem = new GHADateItem("Fecha de Aceptación",
+				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 
 		// Adquisicion Form Itemsxt
-		adqisition_TitleItem = new GHATitleTextItem("Adquisición:");
+		adquisition_TitleItem = new GHATitleTextItem("Adquisición:");
 		purchaseDateItem = new GHADateItem("Fecha de Compra",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		providerSelectItem = new GHASelectItem("Proveedor",
@@ -117,17 +122,24 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		installationDateItem = new GHADateItem("Instalación",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		purchaseInvoiceDateItem = new GHADateItem("Fecha de Factura",
+				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		purchaseOrderDateItem = new GHADateItem("Fecha de Orden de Compra",
+				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 
 		// Ubicacion Form Items
-		actualArea_TitleItem = new GHATitleTextItem("Area Actual:");
-		attendedArea_TitleItem = new GHATitleTextItem("Area Atendida:");
-		buildingLocationCodeTextItem = new GHATextItem("Código",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false);
-		buildingLocationSelectItem = new GHASelectItem("Nombre",
+		location_TitleItem = new GHATitleTextItem("Ubicación:");
+		locationTypeSelectItem = new GHASelectItem("Tipo de Ubicación",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
-		attendedLocationCodeTextItem = new GHATextItem("Código",
+		workingArea_TitleItem = new GHATitleTextItem("Área de Trabajo:");
+		facility_TitleItem = new GHATitleTextItem("Servicio/Instalación:");
+		workingAreaLocationCodeTextItem = new GHATextItem("Código",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false);
-		attendedLocationSelectItem = new GHASelectItem("Nombre",
+		workingAreaLocationSelectItem = new GHASelectItem("Nombre",
+				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		facilityLocationCodeTextItem = new GHATextItem("Código",
+				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false);
+		facilityLocationSelectItem = new GHASelectItem("Nombre",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		sameLocationAttendedItem = new GHACheckboxItem(
 				"Atiende a la misma area donde esta Ubicado");
@@ -224,6 +236,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		// Fillers
 		fillInformationSelects();
 		fillAdquisitionSelects();
+		fillLocationTypeSelect();
 		fillBuildinglocationsSelects();
 		fillCostsSelects();
 		fillWarrantySelects();
@@ -246,7 +259,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		equipoForm.setItems(eiaTypeSelectItem, new GHASpacerItem(2),
 				information_TitleItem, new GHASpacerItem(2), codeTextItem,
 				serialTextItem, fixedAssetIdTextItem, obuSelectItem,
-				baseRoleSelectItem, stateSelectItem);
+				baseRoleSelectItem, stateSelectItem, acceptationDateItem);
 		return equipoForm;
 	}
 
@@ -259,10 +272,11 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		adquisicionForm.setTitleOrientation(TitleOrientation.TOP);
 		adquisicionForm.setNumCols(3);
 
-		adquisicionForm.setItems(adqisition_TitleItem, new GHASpacerItem(2),
+		adquisicionForm.setItems(adquisition_TitleItem, new GHASpacerItem(2),
 				purchaseDateItem, receptionDateItem, installationDateItem,
 				providerSelectItem, purchaseOrderNumTextItem,
-				purchaseInvoiceNumTextItem);
+				purchaseInvoiceNumTextItem, purchaseInvoiceDateItem,
+				purchaseOrderDateItem);
 		return adquisicionForm;
 	}
 
@@ -274,11 +288,12 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		areaForm.setTitleOrientation(TitleOrientation.TOP);
 		areaForm.setNumCols(2);
 
-		areaForm.setItems(actualArea_TitleItem, new GHASpacerItem(),
-				buildingLocationSelectItem, buildingLocationCodeTextItem,
-				attendedArea_TitleItem, new GHASpacerItem(),
-				sameLocationAttendedItem, attendedLocationSelectItem,
-				attendedLocationCodeTextItem);
+		areaForm.setItems(location_TitleItem, new GHASpacerItem(),
+				locationTypeSelectItem, new GHASpacerItem(),
+				workingArea_TitleItem, new GHASpacerItem(),
+				workingAreaLocationSelectItem, workingAreaLocationCodeTextItem,
+				facility_TitleItem, new GHASpacerItem(),
+				facilityLocationSelectItem, facilityLocationCodeTextItem);
 		return areaForm;
 	}
 
@@ -393,24 +408,32 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 				});
 	}
 
+	private void fillLocationTypeSelect() {
+		LinkedHashMap<String, String> valueMapLocationType = new LinkedHashMap<String, String>();
+		valueMapLocationType.put("0", "Área de Trabajo");
+		valueMapLocationType.put("1", "Servicio/Instalación");
+		locationTypeSelectItem.setValueMap(valueMapLocationType);
+	}
+
 	private void fillBuildinglocationsSelects() {
 		GHACache.INSTANCE
 				.getBuildingLocations(new GHAAsyncCallback<List<BuildingLocation>>() {
 					@Override
 					public void onSuccess(List<BuildingLocation> result) {
-						LinkedHashMap<String, String> valueMapActual = new LinkedHashMap<String, String>();
-						LinkedHashMap<String, String> valueMapAtendida = new LinkedHashMap<String, String>();
+						LinkedHashMap<String, String> valueMapWorkingArea = new LinkedHashMap<String, String>();
+						LinkedHashMap<String, String> valueMapFacility = new LinkedHashMap<String, String>();
 
 						for (BuildingLocation entity : result) {
-							valueMapActual.put(entity.getCode() + "",
+							valueMapWorkingArea.put(entity.getCode() + "",
 									entity.getName());
-							valueMapAtendida.put(entity.getCode() + "",
+							valueMapFacility.put(entity.getCode() + "",
 									entity.getName());
 						}
 
-						buildingLocationSelectItem.setValueMap(valueMapActual);
-						attendedLocationSelectItem
-								.setValueMap(valueMapAtendida);
+						workingAreaLocationSelectItem
+								.setValueMap(valueMapWorkingArea);
+						facilityLocationSelectItem
+								.setValueMap(valueMapFacility);
 					}
 				});
 	}
@@ -481,37 +504,35 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 
 	// ///Funcionalities
 	private void buildingLocFuncionalities() {
-		buildingLocationSelectItem.addChangeHandler(new ChangeHandler() {
+		workingAreaLocationSelectItem.addChangeHandler(new ChangeHandler() {
 			@Override
 			public void onChange(ChangeEvent event) {
-				buildingLocationCodeTextItem.setValue(event.getValue());
-				if (sameLocationAttendedItem.getValueAsBoolean()) {
-					attendedLocationSelectItem.setValue(event.getValue());
-					attendedLocationCodeTextItem.setValue(event.getValue());
-				}
+				workingAreaLocationCodeTextItem.setValue(event.getValue());
 			}
 		});
 
-		attendedLocationSelectItem.addChangeHandler(new ChangeHandler() {
+		facilityLocationSelectItem.addChangeHandler(new ChangeHandler() {
 			@Override
 			public void onChange(ChangeEvent event) {
-				attendedLocationCodeTextItem.setValue(event.getValue());
+				facilityLocationCodeTextItem.setValue(event.getValue());
 			}
 		});
 
-		sameLocationAttendedItem.addChangeHandler(new ChangeHandler() {
+		locationTypeSelectItem.addChangeHandler(new ChangeHandler() {
 			@Override
 			public void onChange(ChangeEvent event) {
-				if (event.getValue().equals(true)) {
-					attendedLocationSelectItem.setDisabled(true);
-					attendedLocationSelectItem
-							.setValue(buildingLocationSelectItem.getValue());
-					attendedLocationCodeTextItem
-							.setValue(buildingLocationCodeTextItem.getValue());
-				} else {
-					attendedLocationSelectItem.setDisabled(false);
-					attendedLocationSelectItem.clearValue();
-					attendedLocationCodeTextItem.clearValue();
+				// value == 0 WorkingArea type selected, value == 1 Facility
+				// type selected
+				if (event.getValue().equals("0")) {
+					workingAreaLocationSelectItem.setDisabled(false);
+					facilityLocationSelectItem.setDisabled(true);
+					facilityLocationSelectItem.clearValue();
+					facilityLocationCodeTextItem.clearValue();
+				} else if (event.getValue().equals("1")) {
+					facilityLocationSelectItem.setDisabled(false);
+					workingAreaLocationSelectItem.setDisabled(true);
+					workingAreaLocationSelectItem.clearValue();
+					workingAreaLocationCodeTextItem.clearValue();
 				}
 			}
 		});
@@ -608,6 +629,10 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 					.getValueAsString()));
 		}
 
+		if (acceptationDateItem.getValue() != null)
+			eia.setAcceptationDate(new Date(acceptationDateItem
+					.getValueAsDate().getTime()));
+
 		// adquisition
 		if (purchaseDateItem.getValue() != null)
 			eia.setPurchaseDate(new Date(purchaseDateItem.getValueAsDate()
@@ -629,7 +654,22 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		eia.setPurchaseInvoiceNumber(purchaseInvoiceNumTextItem
 				.getValueAsString());
 
+		if (purchaseInvoiceDateItem.getValue() != null)
+			eia.setPurchaseInvoiceDate(new Date(purchaseInvoiceDateItem
+					.getValueAsDate().getTime()));
+
+		if (purchaseOrderDateItem.getValue() != null)
+			eia.setPurchaseOrderDate(new Date(purchaseOrderDateItem
+					.getValueAsDate().getTime()));
+
 		// ubication
+		if (locationTypeSelectItem.getValue() != null) {
+			if (locationTypeSelectItem.getValue().equals("0")) {
+				if (workingAreaLocationSelectItem.getValue() != null)
+					System.out.println("VIVIVIVIVI");
+				// TODO eia.setWorkingArea(new WorkingArea().);
+			}
+		}
 		// if (buildingLocationSelectItem.getValue() != null) {
 		// eia.setBuildingLocation(new BuildingLocation(
 		// buildingLocationSelectItem.getValueAsString()));
@@ -751,8 +791,8 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		fixedAssetIdTextItem.clearValue();
 		purchaseOrderNumTextItem.clearValue();
 		purchaseInvoiceNumTextItem.clearValue();
-		buildingLocationCodeTextItem.clearValue();
-		attendedLocationCodeTextItem.clearValue();
+		workingAreaLocationCodeTextItem.clearValue();
+		facilityLocationCodeTextItem.clearValue();
 		adquisitionCostTextItem.clearValue();
 		adquisitionCostLocalTextItem.clearValue();
 		depreciationTimeTextItem.clearValue();
@@ -770,8 +810,8 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		baseRoleSelectItem.clearValue();
 		stateSelectItem.clearValue();
 		providerSelectItem.clearValue();
-		buildingLocationSelectItem.clearValue();
-		attendedLocationSelectItem.clearValue();
+		workingAreaLocationSelectItem.clearValue();
+		facilityLocationSelectItem.clearValue();
 		adquisitionCostCurrencySelectItem.clearValue();
 		adquisitionCostCurrencyLocalSelectItem.clearValue();
 		depreciationMethodSelectItem.clearValue();
@@ -793,6 +833,9 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		lastDepreciationDate.clearValue();
 		realWarrantyBeginDate.clearValue();
 		intWarrantyBeginDate.clearValue();
+		purchaseInvoiceDateItem.clearValue();
+		purchaseOrderDateItem.clearValue();
+		acceptationDateItem.clearValue();
 
 		sameLocationAttendedItem.setValue(false);
 		isInMaintenanceItem.setValue(false);
@@ -851,6 +894,8 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 			baseRoleSelectItem.setValue(eia.getResponsibleRole().getId());
 		if (eia.getState() != null)
 			stateSelectItem.setValue(eia.getState().name());
+		if (eia.getAcceptationDate() != null)
+			acceptationDateItem.setValue(eia.getAcceptationDate());
 
 		// adquisition
 		if (eia.getPurchaseDate() != null)
@@ -865,7 +910,10 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 			purchaseOrderNumTextItem.setValue(eia.getPurchaseOrderNumber());
 		if (eia.getPurchaseInvoiceNumber() != null)
 			purchaseInvoiceNumTextItem.setValue(eia.getPurchaseInvoiceNumber());
-
+		if (eia.getPurchaseInvoiceDate() != null)
+			purchaseInvoiceDateItem.setValue(eia.getPurchaseInvoiceDate());
+		if (eia.getPurchaseOrderDate() != null)
+			purchaseOrderDateItem.setValue(eia.getPurchaseOrderDate());
 		// // ubication
 		// boolean flag = true;
 		// if (eia.getBuildingLocation() != null)
