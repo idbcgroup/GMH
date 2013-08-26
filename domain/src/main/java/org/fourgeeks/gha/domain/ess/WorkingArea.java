@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.fourgeeks.gha.domain.ess;
 
 import javax.persistence.Entity;
@@ -15,29 +12,25 @@ import org.fourgeeks.gha.domain.gar.BuildingLocation;
 
 /**
  * @author emiliot
- *
+ * 
  */
 
 @Entity
-@NamedQueries(value = { 
-		@NamedQuery(name = "WorkingArea.getAll", 
-				query = "SELECT e from WorkingArea e order by e.name")
-})
-public class WorkingArea extends AbstractEntity{
-
+@NamedQueries(value = { @NamedQuery(name = "WorkingArea.getAll", query = "SELECT e from WorkingArea e order by e.name") })
+public class WorkingArea extends AbstractEntity {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@OneToOne
 	@JoinColumn(name = "workingAreaBaseFk")
 	private WorkingAreaBase wAreaBase;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "buildingLocationFk")
 	private BuildingLocation buildingLocation;
-	
+
 	private String name;
 
 	/**
@@ -82,5 +75,4 @@ public class WorkingArea extends AbstractEntity{
 	public void setName(String name) {
 		this.name = name;
 	}
-	
 }

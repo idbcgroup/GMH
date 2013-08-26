@@ -11,10 +11,7 @@ import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
 
 @Entity
-@NamedQueries(value = { 
-		@NamedQuery(name = "Facility.getAll", 
-				query = "SELECT e from Facility e order by e.name")
-})
+@NamedQueries(value = { @NamedQuery(name = "Facility.getAll", query = "SELECT e from Facility e order by e.name") })
 public class Facility extends AbstractEntity {
 
 	/**
@@ -25,11 +22,11 @@ public class Facility extends AbstractEntity {
 	@OneToOne
 	@JoinColumn(name = "buildingLocationFk", nullable = false)
 	private BuildingLocation buildingLocation;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "workingAreaFk")
 	private WorkingArea workingArea;
-	
+
 	private String name;
 
 	/**
@@ -62,7 +59,4 @@ public class Facility extends AbstractEntity {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	
-
 }
