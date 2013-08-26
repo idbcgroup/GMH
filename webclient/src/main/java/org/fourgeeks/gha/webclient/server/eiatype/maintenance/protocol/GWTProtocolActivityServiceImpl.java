@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.ProtocolActivity;
+import org.fourgeeks.gha.domain.gmh.Resource;
 import org.fourgeeks.gha.ejb.gmh.ProtocolActivityServiceRemote;
 import org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.GWTProtocolActivityService;
 
@@ -57,6 +58,15 @@ public class GWTProtocolActivityServiceImpl extends RemoteServiceServlet
 			EiaTypeMaintenanceProtocol eiaTypeMaintenanceProtocol, int offset,
 			int size) throws EJBException {
 		return ejbService.findByEiaTypeMaintenanceProtocol(eiaTypeMaintenanceProtocol, offset, size);
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.GWTProtocolActivityService#findByResource(org.fourgeeks.gha.domain.gmh.Resource)
+	 */
+	@Override
+	public List<ProtocolActivity> findByResource(Resource resource)
+			throws EJBException {
+		return ejbService.findByResource(resource);
 	}
 
 	/* (non-Javadoc)

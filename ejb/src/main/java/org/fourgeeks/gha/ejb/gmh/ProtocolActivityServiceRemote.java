@@ -10,6 +10,7 @@ import javax.ejb.Remote;
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.ProtocolActivity;
+import org.fourgeeks.gha.domain.gmh.Resource;
 
 /**
  * @author emiliot
@@ -44,6 +45,13 @@ public interface ProtocolActivityServiceRemote {
 	public List<ProtocolActivity> findByEiaTypeMaintenanceProtocol(
 			EiaTypeMaintenanceProtocol eiaTypeMaintenanceProtocol, int offset,
 			int size) throws EJBException;
+	
+	/**
+	 * @param resource
+	 * @return the list of ProtocolActivities that use the resource given
+	 * @throws EJBException
+	 */
+	public List<ProtocolActivity> findByResource(Resource resource) throws EJBException;
 
 	/**
 	 * @param Id

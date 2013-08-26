@@ -14,6 +14,7 @@ import javax.persistence.PersistenceContext;
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.ProtocolActivity;
+import org.fourgeeks.gha.domain.gmh.Resource;
 
 /**
  * @author emiliot
@@ -64,9 +65,31 @@ public class ProtocolActivityService implements ProtocolActivityServiceRemote {
 					.setParameter("maintenanceProtocol",
 							eiaTypeMaintenanceProtocol).getResultList();
 		} catch (Exception e) {
-			logger.log(Level.INFO, "Error: finding by ProtocolActivity", e);
+			logger.log(Level.INFO, "Error: finding ProtocolActivity by EiaTypeMaintenanceProtocol", e);
 			throw new EJBException(
 					"Error buscando ProtocolActivity por EiaTypeMaintenanceProtocol"
+							+ e.getCause().getMessage());
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.ProtocolActivityServiceRemote#findByResource
+	 * (org.fourgeeks.gha.domain.gmh.Resource)
+	 */
+	@Override
+	public List<ProtocolActivity> findByResource(Resource resource)
+			throws EJBException {
+		try {
+			return em.createNamedQuery("ProtocolActivity.findByResource",
+							ProtocolActivity.class)
+					.setParameter("resource", resource).getResultList();
+		} catch (Exception e) {
+			logger.log(Level.INFO, "Error: finding by Resource", e);
+			throw new EJBException(
+					"Error buscando ProtocolActivity por Resource"
 							+ e.getCause().getMessage());
 		}
 	}
@@ -188,11 +211,11 @@ public class ProtocolActivityService implements ProtocolActivityServiceRemote {
 			em.flush();
 			return res;
 		} catch (Exception e) {
-			logger.log(Level.INFO,
-					"ERROR: unable to update ProtocolActivity ", e);
-			throw new EJBException("ERROR: no se puede actualizar el ProtocolActivity "
-					+ e.getCause().getMessage());
+			logger.log(Level.INFO, "ERROR: unable to update ProtocolActivity ",
+					e);
+			throw new EJBException(
+					"ERROR: no se puede actualizar el ProtocolActivity "
+							+ e.getCause().getMessage());
 		}
 	}
-
 }
