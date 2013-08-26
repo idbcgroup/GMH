@@ -3,7 +3,9 @@ package org.fourgeeks.gha.webclient.client.UI;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.ess.RoleBase;
+import org.fourgeeks.gha.domain.ess.WorkingArea;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
+import org.fourgeeks.gha.domain.gar.Facility;
 import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.gmh.Brand;
@@ -13,9 +15,11 @@ import org.fourgeeks.gha.webclient.client.brand.BrandModel;
 import org.fourgeeks.gha.webclient.client.buildinglocation.BuildingLocationModel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeModel;
 import org.fourgeeks.gha.webclient.client.externalprovider.ExternalProviderModel;
+import org.fourgeeks.gha.webclient.client.facility.FacilityModel;
 import org.fourgeeks.gha.webclient.client.manufacturer.ManufacturerModel;
 import org.fourgeeks.gha.webclient.client.obu.ObuModel;
 import org.fourgeeks.gha.webclient.client.rolebase.RoleBaseModel;
+import org.fourgeeks.gha.webclient.client.workingarea.WorkingAreaModel;
 
 import com.google.gwt.user.client.Timer;
 
@@ -40,6 +44,8 @@ public enum GHACache {
 	private List<RoleBase> roles;
 	private List<ExternalProvider> externalProviders;
 	private List<EiaType> eiaTypes;
+	private List<WorkingArea> workingAreas;
+	private List<Facility> facilities;
 
 	{
 		// Inititalization of the invalidation policy
@@ -60,6 +66,48 @@ public enum GHACache {
 		roles = null;
 		externalProviders = null;
 		eiaTypes = null;
+		workingAreas = null;
+		facilities = null;
+	}
+
+	public void getFacilities(GHAAsyncCallback<List<Facility>> callback) {
+		if (facilities == null)
+			getFacilitiesFromServer(callback);
+		else
+			callback.onSuccess(facilities);
+
+	}
+
+	private void getFacilitiesFromServer(
+			final GHAAsyncCallback<List<Facility>> callback) {
+		FacilityModel.getAll(new GHAAsyncCallback<List<Facility>>() {
+
+			@Override
+			public void onSuccess(List<Facility> result) {
+				facilities = result;
+				callback.onSuccess(result);
+			}
+		});
+	}
+
+	public void getWorkingAreas(GHAAsyncCallback<List<WorkingArea>> callback) {
+		if (workingAreas == null)
+			getWorkingAreasFromServer(callback);
+		else
+			callback.onSuccess(workingAreas);
+
+	}
+
+	private void getWorkingAreasFromServer(
+			final GHAAsyncCallback<List<WorkingArea>> callback) {
+		WorkingAreaModel.getAll(new GHAAsyncCallback<List<WorkingArea>>() {
+
+			@Override
+			public void onSuccess(List<WorkingArea> result) {
+				workingAreas = result;
+				callback.onSuccess(result);
+			}
+		});
 	}
 
 	/**
