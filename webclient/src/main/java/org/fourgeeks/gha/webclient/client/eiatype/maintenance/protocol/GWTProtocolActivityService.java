@@ -10,6 +10,7 @@ import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.ProtocolActivity;
 import org.fourgeeks.gha.domain.gmh.Resource;
 
+import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 /**
@@ -18,7 +19,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
  */
 
 @RemoteServiceRelativePath("protocolActivityService")
-public interface GWTProtocolActivityService {
+public interface GWTProtocolActivityService extends RemoteService{
 	/**
 	 * Delete a ProtocolActivity from database by Id
 	 * 

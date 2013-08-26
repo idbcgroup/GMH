@@ -8,6 +8,7 @@ import java.util.List;
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gar.Facility;
 
+import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 /**
@@ -15,7 +16,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
  *
  */
 @RemoteServiceRelativePath("facility")
-public interface GWTFacilityService {
+public interface GWTFacilityService extends RemoteService{
 	/**
 	 * @param Id
 	 * @throws EJBException
