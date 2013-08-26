@@ -18,6 +18,7 @@ import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
 import org.fourgeeks.gha.domain.ess.RoleBase;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
+import org.fourgeeks.gha.domain.gar.Facility;
 import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.gmh.Eia;
@@ -141,9 +142,6 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false);
 		facilityLocationSelectItem = new GHASelectItem("Nombre",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
-		sameLocationAttendedItem = new GHACheckboxItem(
-				"Atiende a la misma area donde esta Ubicado");
-		sameLocationAttendedItem.setColSpan(2);
 
 		// Costos Form Items
 		adqCost_TitleItem = new GHATitleTextItem("Costo Adquisición:");
@@ -198,7 +196,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
 		intWarrantyBeginDate = new GHADateItem("Fecha Inicio",
 				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
-		isInMaintenanceItem = new GHACheckboxItem("Equipo en Mantenimiento");
+		// isInMaintenanceItem = new GHACheckboxItem("Equipo en Mantenimiento");
 		codeMant_WarrMant_TextItem = new GHATextItem("Cod. Ubicación Mant.",
 				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE, false);
 		maintenanceLocationSelectItem = new GHASelectItem(
@@ -237,14 +235,14 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		fillInformationSelects();
 		fillAdquisitionSelects();
 		fillLocationTypeSelect();
-		fillBuildinglocationsSelects();
+		fillLocationsSelects();
 		fillCostsSelects();
 		fillWarrantySelects();
 		// fillITEquipmentsSelects();
 
 		// Funcionalities
 		buildingLocFuncionalities();
-		warrantyFunctionalities();
+		//warrantyFunctionalities();
 	}
 
 	// //Form Creating Functions
@@ -336,8 +334,9 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 				new GHASpacerItem(2), intWarrantySinceSelectItem,
 				intWarrantyBeginDate, new GHASpacerItem(),
 				intWarrantyTimeTextItem, intWarrantyPotSelectItem,
-				new GHASpacerItem(), new GHASpacerItem(3),
-				maintenance_TitleItem, isInMaintenanceItem,
+				new GHASpacerItem(),
+				new GHASpacerItem(3),
+				maintenance_TitleItem, // isInMaintenanceItem,
 				new GHASpacerItem(), maintenanceLocationSelectItem,
 				codeMant_WarrMant_TextItem, maintenanceProviderSelectItem);
 
@@ -415,27 +414,36 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		locationTypeSelectItem.setValueMap(valueMapLocationType);
 	}
 
-	private void fillBuildinglocationsSelects() {
+	private void fillLocationsSelects() {
 		GHACache.INSTANCE
-				.getBuildingLocations(new GHAAsyncCallback<List<BuildingLocation>>() {
+				.getWorkingAreas(new GHAAsyncCallback<List<WorkingArea>>() {
 					@Override
-					public void onSuccess(List<BuildingLocation> result) {
+					public void onSuccess(List<WorkingArea> result) {
 						LinkedHashMap<String, String> valueMapWorkingArea = new LinkedHashMap<String, String>();
-						LinkedHashMap<String, String> valueMapFacility = new LinkedHashMap<String, String>();
 
-						for (BuildingLocation entity : result) {
-							valueMapWorkingArea.put(entity.getCode() + "",
-									entity.getName());
-							valueMapFacility.put(entity.getCode() + "",
+						for (WorkingArea entity : result) {
+							valueMapWorkingArea.put(entity.getName() + "",
 									entity.getName());
 						}
 
 						workingAreaLocationSelectItem
 								.setValueMap(valueMapWorkingArea);
-						facilityLocationSelectItem
-								.setValueMap(valueMapFacility);
 					}
 				});
+		GHACache.INSTANCE.getFacilities(new GHAAsyncCallback<List<Facility>>() {
+			@Override
+			public void onSuccess(List<Facility> result) {
+				LinkedHashMap<String, String> valueMapFacility = new LinkedHashMap<String, String>();
+
+				for (Facility entity : result) {
+					valueMapFacility.put(entity.getName() + "",
+							entity.getName());
+				}
+
+				facilityLocationSelectItem.setValueMap(valueMapFacility);
+			}
+		});
+
 	}
 
 	private void fillCostsSelects() {
@@ -538,30 +546,25 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		});
 	}
 
-	private void warrantyFunctionalities() {
-		isInMaintenanceItem.addChangeHandler(new ChangeHandler() {
-			@Override
-			public void onChange(ChangeEvent event) {
-				if (event.getValue().equals(true)) {
-					maintenanceLocationSelectItem.setDisabled(false);
-					maintenanceProviderSelectItem.setDisabled(false);
-				} else {
-					maintenanceLocationSelectItem.setDisabled(true);
-					maintenanceProviderSelectItem.setDisabled(true);
-					maintenanceLocationSelectItem.clearValue();
-					codeMant_WarrMant_TextItem.clearValue();
-					maintenanceProviderSelectItem.clearValue();
-				}
-			}
-		});
-
-		maintenanceLocationSelectItem.addChangeHandler(new ChangeHandler() {
-			@Override
-			public void onChange(ChangeEvent event) {
-				codeMant_WarrMant_TextItem.setValue(event.getValue());
-			}
-		});
-	}
+	/*
+	 * private void warrantyFunctionalities() {
+	 * isInMaintenanceItem.addChangeHandler(new ChangeHandler() {
+	 * 
+	 * @Override public void onChange(ChangeEvent event) { if
+	 * (event.getValue().equals(true)) {
+	 * maintenanceLocationSelectItem.setDisabled(false);
+	 * maintenanceProviderSelectItem.setDisabled(false); } else {
+	 * maintenanceLocationSelectItem.setDisabled(true);
+	 * maintenanceProviderSelectItem.setDisabled(true);
+	 * maintenanceLocationSelectItem.clearValue();
+	 * codeMant_WarrMant_TextItem.clearValue();
+	 * maintenanceProviderSelectItem.clearValue(); } } });
+	 * 
+	 * maintenanceLocationSelectItem.addChangeHandler(new ChangeHandler() {
+	 * 
+	 * @Override public void onChange(ChangeEvent event) {
+	 * codeMant_WarrMant_TextItem.setValue(event.getValue()); } }); }
+	 */
 
 	/**
 	 * Save the new element to database
@@ -837,8 +840,8 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		purchaseOrderDateItem.clearValue();
 		acceptationDateItem.clearValue();
 
-		sameLocationAttendedItem.setValue(false);
-		isInMaintenanceItem.setValue(false);
+		// sameLocationAttendedItem.setValue(false);
+		// isInMaintenanceItem.setValue(false);
 
 	}
 
