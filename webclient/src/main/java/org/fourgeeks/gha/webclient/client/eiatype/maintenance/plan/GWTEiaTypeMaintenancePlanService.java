@@ -9,6 +9,7 @@ import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 
+import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 /**
@@ -16,7 +17,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
  *
  */
 @RemoteServiceRelativePath("eiaTypeMaintenancePlanService")
-public interface GWTEiaTypeMaintenancePlanService {
+public interface GWTEiaTypeMaintenancePlanService extends RemoteService{
 	/**
 	 * @param Id
 	 * @throws EJBException

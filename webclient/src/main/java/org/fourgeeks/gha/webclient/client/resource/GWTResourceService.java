@@ -9,6 +9,7 @@ import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gmh.ProtocolActivity;
 import org.fourgeeks.gha.domain.gmh.Resource;
 
+import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 /**
@@ -17,7 +18,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
  */
 
 @RemoteServiceRelativePath("resourceService")
-public interface GWTResourceService {
+public interface GWTResourceService extends RemoteService{
 	/**
 	 * Delete a Resource from database by Id
 	 * @throws EJBException

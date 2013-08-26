@@ -9,6 +9,7 @@ import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenanceProtocol;
 
+import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 /**
@@ -17,7 +18,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
  */
 
 @RemoteServiceRelativePath("eiaTypeMaintenanceProtocolService")
-public interface GWTEiaTypeMaintenanceProtocolService {
+public interface GWTEiaTypeMaintenanceProtocolService extends RemoteService{
 	/**
 	 * Delete a Maintenance Protocol from database by Id
 	 * 
