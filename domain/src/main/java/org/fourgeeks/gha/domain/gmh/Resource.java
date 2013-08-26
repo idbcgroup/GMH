@@ -30,6 +30,13 @@ public class Resource extends AbstractEntity {
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * @param name
+	 */
+	public Resource(String name) {
+		this.name = name;
+	}
+
 	public String getName() {
 		return name;
 	}

@@ -21,7 +21,7 @@ import org.fourgeeks.gha.domain.AbstractEntity;
 		@NamedQuery(name = "EiaTypeMaintenanceProtocol.findByEiaTypeMaintenancePlan", 
 				query = "SELECT e from EiaTypeMaintenanceProtocol e WHERE e.eiaTypeMaintenancePlan = :eiaTypeMaintenancePlan ORDER BY e.id"),
 		@NamedQuery(name = "EiaTypeMaintenanceProtocol.getAll",
-				query = "SELECT e from EiaTypeMaintenanceProtocol e GROUP BY e.eiaTypeMaintenancePlan ORDER BY e.id")
+				query = "SELECT e from EiaTypeMaintenanceProtocol e ORDER BY e.id")
 })
 public class EiaTypeMaintenanceProtocol extends AbstractEntity {
 
@@ -41,6 +41,23 @@ public class EiaTypeMaintenanceProtocol extends AbstractEntity {
 	 */
 	public EiaTypeMaintenanceProtocol() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public EiaTypeMaintenancePlan getEiaTypeMaintenancePlan() {
+		return eiaTypeMaintenancePlan;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setEiaTypeMaintenancePlan(
+			EiaTypeMaintenancePlan eiaTypeMaintenancePlan) {
+		this.eiaTypeMaintenancePlan = eiaTypeMaintenancePlan;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 }

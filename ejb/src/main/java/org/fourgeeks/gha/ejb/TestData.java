@@ -1,5 +1,6 @@
 package org.fourgeeks.gha.ejb;
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,7 +28,12 @@ import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
+import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
+import org.fourgeeks.gha.domain.gmh.ProtocolActivity;
+import org.fourgeeks.gha.domain.gmh.ProtocolActivityResource;
+import org.fourgeeks.gha.domain.gmh.Resource;
 import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.domain.mix.Institution;
 import org.fourgeeks.gha.domain.mix.LegalEntity;
@@ -90,6 +96,128 @@ public class TestData {
 		// // TODO
 		eiaTypeTestData();
 		eiaTestData();
+		eiaTypeMaintenancePlanTestData();
+		eiaTypeMaintenanceProtocolTestData();
+		protocolActivitiesTestData();
+		resourcesTestData();
+		protocolActivityResourceTestData();
+	}
+
+	/**
+	 * 
+	 */
+	private void protocolActivityResourceTestData() {
+		String query = "SELECT t from Resource t WHERE t.id = 1";
+		try {
+			em.createQuery(query).getSingleResult();
+		} catch (NoResultException e) {
+			logger.info("Creating test data : ProtocolActivityResource");
+
+			List<Resource> resources = em.createNamedQuery("Resource.getAll",
+					Resource.class).getResultList();
+			List<ProtocolActivity> activities = em.createNamedQuery(
+					"ProtocolActivity.getAll", ProtocolActivity.class)
+					.getResultList();
+			
+			for(int i = 0; i<activities.size(); i+=2){
+				ProtocolActivity activity = activities.get(i);
+				for(Resource resource : resources){
+					em.persist(new ProtocolActivityResource(activity, resource));
+				}
+			}
+		}
+	}
+
+	/**
+	 * 
+	 */
+	private void resourcesTestData() {
+		String query = "SELECT t from Resource t WHERE t.id = 1";
+		try {
+			em.createQuery(query).getSingleResult();
+		} catch (NoResultException e) {
+			logger.info("Creating test data : Resource");
+
+			for (int i = 0; i < 4; ++i) {
+				em.persist(new Resource("resource #00" + i));
+			}
+		}
+
+	}
+
+	/**
+	 * 
+	 */
+	private void protocolActivitiesTestData() {
+		String query = "SELECT t from ProtocolActivity t WHERE t.id = 1";
+		try {
+			em.createQuery(query).getSingleResult();
+		} catch (NoResultException e) {
+			logger.info("Creating test data : ProtocolActivity");
+
+			List<EiaTypeMaintenanceProtocol> protocols = em.createNamedQuery(
+					"EiaTypeMaintenanceProtocol.getAll",
+					EiaTypeMaintenanceProtocol.class).getResultList();
+
+			for (EiaTypeMaintenanceProtocol protocol : protocols) {
+				for (int i = 0; i < 3; ++i) {
+					ProtocolActivity entity = new ProtocolActivity();
+					entity.setMaintenanceProtocol(protocol);
+					entity.setName("Activity 00" + (i + 1));
+					entity.setDescription("Activity of protocol 00"
+							+ protocol.getId());
+					em.persist(entity);
+				}
+			}
+		}
+	}
+
+	/**
+	 * 
+	 */
+	private void eiaTypeMaintenanceProtocolTestData() {
+		String query = "SELECT t from EiaTypeMaintenanceProtocol t WHERE t.id = 1";
+		try {
+			em.createQuery(query).getSingleResult();
+		} catch (NoResultException e) {
+			logger.info("Creating test data : EiaTypeMaintenanceProtocol");
+
+			for (int i = 1; i <= 4; ++i) {
+				EiaTypeMaintenancePlan plan = em.find(
+						EiaTypeMaintenancePlan.class, (long) i);
+
+				for (int j = 0; j < 2; ++j) {
+					EiaTypeMaintenanceProtocol entity = new EiaTypeMaintenanceProtocol();
+					entity.setEiaTypeMaintenancePlan(plan);
+					entity.setDescription("EiaType Maintenance Protocol 00"
+							+ Integer.toString(j + 1) + " of Plan 00"
+							+ (plan.getId()));
+					em.persist(entity);
+				}
+			}
+		}
+	}
+
+	/**
+	 * 
+	 */
+	private void eiaTypeMaintenancePlanTestData() {
+		String query = "SELECT t from EiaTypeMaintenancePlan t WHERE t.id = 1";
+		try {
+			em.createQuery(query).getSingleResult();
+		} catch (NoResultException e) {
+			logger.info("Creating test data : EiaTypeMaintenancePlan");
+
+			EiaType eiaType = em.find(EiaType.class, "90001");
+			for (int i = 0; i < 4; ++i) {
+				EiaTypeMaintenancePlan entity = new EiaTypeMaintenancePlan();
+				entity.setDescription("EiaType Maintenance Plan 00" + (i + 1));
+				if (i % 2 == 0) {
+					entity.setEiaType(eiaType);
+				}
+				em.persist(entity);
+			}
+		}
 	}
 
 	/**
@@ -127,7 +255,6 @@ public class TestData {
 			}
 		}
 	}
-
 
 	private void externalProviderTestData() {
 		String query = "SELECT t from ExternalProvider t WHERE t.id = 1 ";
