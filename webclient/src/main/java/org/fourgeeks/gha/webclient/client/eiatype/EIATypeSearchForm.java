@@ -243,11 +243,13 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 	@Override
 	public void close() {
 		destroy();
+		addForm.close();
 	}
 
 	@Override
 	public void hide() {
 		super.hide();
+		addForm.hide();
 	}
 
 	@Override

@@ -1,7 +1,5 @@
 package org.fourgeeks.gha.webclient.client.eia;
 
-import java.util.List;
-
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.GHAHideable;
@@ -28,9 +26,9 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class EIATopSection extends HLayout
 		implements EIASelectionListener, GHAClosable, ResizeHandler {
 
-	private final EIATab eIATab;
-	private List<EIASelectionListener> selectionListeners;
-	private EIASearchForm eiaSearchForm;
+	private final EIATab eiaTab;
+//	private List<EIASelectionListener> selectionListeners;
+	private EIASearchForm searchForm;
 	private GHATextItem acceptationDate, actualCost,  
 	responsibleRole, code, 	eiaType, fixedAssetIdentifier,
 	installationDate, buildingLocation,	obu, purchaseDate, serialNumber, state, 
@@ -39,7 +37,7 @@ public class EIATopSection extends HLayout
 	private GHATitleTextItem garantia, intermediario;
 	
 	{
-		eiaSearchForm = new EIASearchForm();
+		searchForm = new EIASearchForm();
 		
 		acceptationDate = new GHATextItem("Recibido", false);
 		actualCost = new GHATextItem("Costo actual", false);
@@ -68,26 +66,26 @@ public class EIATopSection extends HLayout
 
 	}
 
-	public EIATopSection(EIATab eiaTab) {
+	public EIATopSection(EIATab tab) {
 		super();
 		GHAUiHelper.addGHAResizeHandler(this);
 		
-		eiaTab.addGHAClosableHandler(this);
-		eIATab = eiaTab;
-		eiaSearchForm.addEIASelectionListener(eIATab);
+		tab.addGHAClosableHandler(this);
+		eiaTab = tab;
+		searchForm.addEIASelectionListener(eiaTab);
 		
-		eIATab.addGHAHideableHandler(new GHAHideable() {
+		eiaTab.addGHAHideableHandler(new GHAHideable() {
 			
 			@Override
 			public void hide() {
-				eiaSearchForm.hide();
+				searchForm.hide();
 			}
 		});
-		eIATab.addGHAClosableHandler(new GHAClosable() {
+		eiaTab.addGHAClosableHandler(new GHAClosable() {
 			
 			@Override
 			public void close() {
-				eiaSearchForm.destroy();
+				searchForm.destroy();
 			}
 		});
 		
@@ -139,7 +137,7 @@ public class EIATopSection extends HLayout
 			@Override
 			public void onClick(ClickEvent event) {
 				// TODO Auto-generated method stub
-				GHATabSet.closeTab(eIATab);
+				GHATabSet.closeTab(eiaTab);
 			}
 		});
 		GHAImgButton searchImg = new GHAImgButton("../resources/icons/search.png");
@@ -163,7 +161,7 @@ public class EIATopSection extends HLayout
 	}
 
 	public void search() {
-		eiaSearchForm.open();
+		searchForm.open();
 	}
 
 

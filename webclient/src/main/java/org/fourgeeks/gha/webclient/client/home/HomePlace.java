@@ -163,6 +163,14 @@ public class HomePlace extends GHAPlace {
 			}
 		});	
 		
+		MenuItem pdmMenuItem = new MenuItem("Planes de Mantenimiento");
+		pdmMenuItem.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(MenuItemClickEvent event) {
+				History.newItem("pdm");
+			}
+		});	
+		
 ////////External EIA Forms
 		MenuItem dispatchMenuItem = new MenuItem("Despacho de Equipos");
 		dispatchMenuItem.addClickHandler(new ClickHandler() {
@@ -185,6 +193,7 @@ public class HomePlace extends GHAPlace {
 		menu.setItems(edtMenuItem,
 					  eiaTypeMenuItem,
 					  eiaMenuItem,
+					  pdmMenuItem,
 					  dispatchMenuItem,
 					  installationMenuItem);
 

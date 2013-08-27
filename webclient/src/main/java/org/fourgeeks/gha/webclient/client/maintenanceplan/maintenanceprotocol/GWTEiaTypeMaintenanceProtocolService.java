@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol;
+package org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol;
 
 import java.util.List;
 
