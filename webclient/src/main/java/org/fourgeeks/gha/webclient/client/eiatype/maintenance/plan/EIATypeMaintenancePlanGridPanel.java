@@ -6,7 +6,8 @@ import org.fourgeeks.gha.webclient.client.UI.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
-import org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.EIATypeMaintenanceProtocolForm;
+import org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.MaintenanceProtocolForm;
+import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanGrid;
 
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -16,8 +17,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
 
 public class EIATypeMaintenancePlanGridPanel extends VLayout implements EIATypeSelectionListener,GHAClosable,GHAHideable{
 
-	private EIATypeMaintenancePlanGrid eiaTypeMaintenancePlanGrid = new EIATypeMaintenancePlanGrid();
-	private EIATypeMaintenanceProtocolForm mainenanceProtocolForm = new EIATypeMaintenanceProtocolForm();
+	private MaintenancePlanGrid eiaTypeMaintenancePlanGrid = new MaintenancePlanGrid();
+	private MaintenanceProtocolForm mainenanceProtocolForm = new MaintenanceProtocolForm();
 	
 	public EIATypeMaintenancePlanGridPanel() {
 		setWidth100();
