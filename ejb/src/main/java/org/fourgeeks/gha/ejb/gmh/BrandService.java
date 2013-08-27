@@ -109,7 +109,7 @@ public class BrandService implements BrandServiceRemote {
 			em.flush();
 			return em.find(Brand.class, brand.getId());
 		} catch (Exception e) {
-			logger.log(Level.INFO, "ERROR: saving brand " + brand.toString(), e);
+			logger.log(Level.INFO, "ERROR: saving brand ", e);
 			throw new EJBException("ERROR: saving brand "
 					+ e.getCause().getMessage());
 		}
@@ -131,8 +131,8 @@ public class BrandService implements BrandServiceRemote {
 			return res;
 		} catch (Exception e) {
 			logger.log(Level.INFO,
-					"ERROR: unable to update brand " + brand.toString(), e);
-			throw new EJBException("ERROR: no se puede eliminar el brand "
+					"ERROR: unable to update brand ", e);
+			throw new EJBException("ERROR: no se puede actualizar el brand "
 					+ e.getCause().getMessage());
 		}
 	}

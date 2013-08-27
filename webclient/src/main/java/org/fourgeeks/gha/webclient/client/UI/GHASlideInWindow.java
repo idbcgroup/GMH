@@ -18,13 +18,28 @@ public abstract class GHASlideInWindow extends VLayout implements
 	 */
 	public GHASlideInWindow() {
 		setWidth100();
-		setLeft(-10);
+		setLeft(-5);
 		setBackgroundColor("#E0E0E0");
-		setStyleName("sides-padding top-padding");
+		setStyleName("sides-padding-second padding-top box");
+		setAlign(Alignment.CENTER);
+		setVisibility(Visibility.HIDDEN);
+		setAnimateTime(600);  
+		GHAUiHelper.addGHAResizeHandler(this);
+	}
+	
+	public GHASlideInWindow(int level) {
+		setWidth100();
+		if (level <= 1)
+			setLeft(-5);
+		else if (level == 2)
+			setLeft(-10);
+		else if (level > 2)
+			setLeft(-15);
+		setBackgroundColor("#E0E0E0");
+		setStyleName("sides-padding padding-top box");
 		setAlign(Alignment.CENTER);
 		setVisibility(Visibility.HIDDEN);
 		setAnimateTime(600);
-		addStyleName("box");
 		GHAUiHelper.addGHAResizeHandler(this);
 	}
 

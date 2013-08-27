@@ -21,6 +21,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.types.TitleOrientation;
+import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
@@ -59,9 +60,15 @@ public class EIASearchForm extends GHASlideInWindow {
 	}
 
 	public EIASearchForm() {
+		super(1);
 		setTop(110);
 		setHeight(GHAUiHelper.getTabHeight() + "px");
 
+		Label title = new Label("<h3>Busqueda de Equipos</h3>");
+		title.setWidth(400);
+		title.setHeight("35px");
+		addMember(title);
+		
 		DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(5);
@@ -114,9 +121,9 @@ public class EIASearchForm extends GHASlideInWindow {
 		formLayout.setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT + "px");
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
 
-		addMember(formLayout);
-		addMember(GHAUiHelper
-				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
+		addMembers(title,
+				   formLayout,
+				   GHAUiHelper.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
 
 		HLayout gridLayout = new HLayout();
 		gridLayout.setPadding(10);

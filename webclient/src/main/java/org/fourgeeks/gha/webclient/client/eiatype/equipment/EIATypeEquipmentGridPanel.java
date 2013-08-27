@@ -57,7 +57,7 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 		eiaAddForm.addEiaSelectionListener(eIATypeEquipmentSubTab);
 		eIATypeEquipmentSubTab.addGHAHideableHandler(eiaUpdateForm);
 		eiaUpdateForm.addEiaSelectionListener(eIATypeEquipmentSubTab);
-		setStyleName("sides-padding top-padding");// Esto es VUDU!
+		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 

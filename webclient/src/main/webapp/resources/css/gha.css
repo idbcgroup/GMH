@@ -293,6 +293,11 @@ table.GHAupload-button tbody tr td form div.upld-form-elements div.DecoratedFile
 	padding-right: 20px;
 }
 
+.sides-padding-second{
+	padding-left: 40px;
+	padding-right: 20px;
+}
+
 .padding-top{
 	padding-top: 10px;
 }

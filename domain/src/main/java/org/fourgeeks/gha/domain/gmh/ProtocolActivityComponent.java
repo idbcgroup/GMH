@@ -24,11 +24,11 @@ public class ProtocolActivityComponent extends AbstractEntity {
 
 	@ManyToOne
 	@JoinColumn(name = "protocolActivityFk")
-	ProtocolActivity protocolActivity;
+	private ProtocolActivity protocolActivity;
 
 	@ManyToOne
 	@JoinColumn(name = "parentProtocolActivityFk")
-	ProtocolActivity parentProtocolActivity;
+	private ProtocolActivity parentProtocolActivity;
 	
 	/**
 	 * Number of order for activity
@@ -40,4 +40,30 @@ public class ProtocolActivityComponent extends AbstractEntity {
 	 */
 	public ProtocolActivityComponent() {
 	}
+
+	public ProtocolActivity getProtocolActivity() {
+		return protocolActivity;
+	}
+
+	public ProtocolActivity getParentProtocolActivity() {
+		return parentProtocolActivity;
+	}
+
+	public int getOrdinal() {
+		return ordinal;
+	}
+
+	public void setProtocolActivity(ProtocolActivity protocolActivity) {
+		this.protocolActivity = protocolActivity;
+	}
+
+	public void setParentProtocolActivity(ProtocolActivity parentProtocolActivity) {
+		this.parentProtocolActivity = parentProtocolActivity;
+	}
+
+	public void setOrdinal(int ordinal) {
+		this.ordinal = ordinal;
+	}
+	
+	
 }
