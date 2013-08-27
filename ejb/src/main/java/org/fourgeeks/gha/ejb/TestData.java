@@ -32,6 +32,8 @@ import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.domain.gmh.ProtocolActivity;
+import org.fourgeeks.gha.domain.gmh.ProtocolActivityComponent;
+import org.fourgeeks.gha.domain.gmh.ProtocolActivityMaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.ProtocolActivityResource;
 import org.fourgeeks.gha.domain.gmh.Resource;
 import org.fourgeeks.gha.domain.mix.Bpi;
@@ -99,15 +101,40 @@ public class TestData {
 		eiaTypeMaintenancePlanTestData();
 		eiaTypeMaintenanceProtocolTestData();
 		protocolActivitiesTestData();
+		protocolActivitiesMaintenanceProtocolTestData();
 		resourcesTestData();
 		protocolActivityResourceTestData();
+		protocolActivityComponent();
+	}
+
+	/**
+	 * 
+	 */
+	private void protocolActivityComponent() {
+		String query = "SELECT t FROM ProtocolActivityComponent t WHERE t.id = 1";
+		try{
+			em.createQuery(query).getSingleResult();
+		}catch(NoResultException e){
+			logger.info("Creating test data: ProtocolActivityComponent");
+			List<ProtocolActivity> activities = em.createNamedQuery(
+					"ProtocolActivity.getAll", ProtocolActivity.class)
+					.getResultList();
+			ProtocolActivity parent = activities.get(0);
+			for(int i=1; i<activities.size(); ++i){
+				ProtocolActivityComponent component = new ProtocolActivityComponent();
+				component.setParentProtocolActivity(parent);
+				component.setProtocolActivity(activities.get(i));
+				component.setOrdinal(i);
+				em.persist(component);
+			}
+		}
 	}
 
 	/**
 	 * 
 	 */
 	private void protocolActivityResourceTestData() {
-		String query = "SELECT t from Resource t WHERE t.id = 1";
+		String query = "SELECT t from ProtocolActivityResource t WHERE t.id = 1";
 		try {
 			em.createQuery(query).getSingleResult();
 		} catch (NoResultException e) {
@@ -144,6 +171,31 @@ public class TestData {
 		}
 
 	}
+	/**
+	 * 
+	 */
+	private void protocolActivitiesMaintenanceProtocolTestData() {
+		String query = "SELECT t from ProtocolActivityMaintenanceProtocol t WHERE t.id = 1";
+		try {
+			em.createQuery(query).getSingleResult();
+		} catch (NoResultException e) {
+			logger.info("Creating test data : ProtocolActivityMaintenanceProtocol");
+
+			List<EiaTypeMaintenanceProtocol> protocols = em.createNamedQuery("EiaTypeMaintenanceProtocol.getAll",
+					EiaTypeMaintenanceProtocol.class).getResultList();
+			List<ProtocolActivity> activities = em.createNamedQuery(
+					"ProtocolActivity.getAll", ProtocolActivity.class)
+					.getResultList();
+			
+			for(int i = 0; i<activities.size(); i++){
+				ProtocolActivity activity = activities.get(i);
+				int k = 1;
+				for(EiaTypeMaintenanceProtocol maintenanceProtocol : protocols){
+					em.persist(new ProtocolActivityMaintenanceProtocol(maintenanceProtocol, activity,k++));
+				}
+			}
+		}
+	}
 
 	/**
 	 * 
@@ -155,19 +207,11 @@ public class TestData {
 		} catch (NoResultException e) {
 			logger.info("Creating test data : ProtocolActivity");
 
-			List<EiaTypeMaintenanceProtocol> protocols = em.createNamedQuery(
-					"EiaTypeMaintenanceProtocol.getAll",
-					EiaTypeMaintenanceProtocol.class).getResultList();
-
-			for (EiaTypeMaintenanceProtocol protocol : protocols) {
-				for (int i = 0; i < 3; ++i) {
-					ProtocolActivity entity = new ProtocolActivity();
-					entity.setMaintenanceProtocol(protocol);
-					entity.setName("Activity 00" + (i + 1));
-					entity.setDescription("Activity of protocol 00"
-							+ protocol.getId());
-					em.persist(entity);
-				}
+			for (int i = 0; i < 3; ++i) {
+				ProtocolActivity entity = new ProtocolActivity();
+				entity.setName("Activity 00" + (i + 1));
+				entity.setDescription("Activity 00" + (i+1));
+				em.persist(entity);
 			}
 		}
 	}

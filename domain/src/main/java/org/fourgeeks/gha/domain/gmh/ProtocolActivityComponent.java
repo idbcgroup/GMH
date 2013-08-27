@@ -3,6 +3,8 @@ package org.fourgeeks.gha.domain.gmh;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -15,6 +17,9 @@ import org.fourgeeks.gha.domain.AbstractEntity;
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {
 		"protocolActivityFk", "parentProtocolActivityFk" }))
+@NamedQueries(value = {
+		@NamedQuery(name = "ProtocolActivityComponent.getAll", query = "SELECT e from ProtocolActivityComponent e order by e.id"),
+		@NamedQuery(name = "ProtocolActivityComponent.findByProtocolActivity", query = "SELECT e FROM  ProtocolActivityComponent e WHERE e.parentProtocolActivity = :parentProtocolActivity ORDER BY e.ordinal")})
 public class ProtocolActivityComponent extends AbstractEntity {
 
 	/**
