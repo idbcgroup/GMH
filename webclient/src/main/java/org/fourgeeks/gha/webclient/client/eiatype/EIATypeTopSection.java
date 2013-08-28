@@ -1,14 +1,11 @@
 package org.fourgeeks.gha.webclient.client.eiatype;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypePicture;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
-import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.GHAImg;
 import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.GHATabSet;
@@ -27,19 +24,21 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
+/**
+ * @author alacret
+ * 
+ */
 public class EIATypeTopSection extends HLayout implements
 		EIATypeSelectionListener, ResizeHandler {
 
-	private final EIATypeTab eIATypeTab;
-	private List<EIATypeSelectionListener> selectionListeners;
+	private final EIATypeTab eiaTypeTab;
 	private EIATypeSearchForm eiaTypeSearchForm;
 	private GHATextItem nameItem, codeItem, brandItem, modelItem, manItem,
-						umdnsCodeItem, mobilityItem,typeItem, subTypeItem;
+			umdnsCodeItem, mobilityItem, typeItem, subTypeItem;
 	private List<EiaTypePicture> listEiaTypePictures;
 	int index;
 	private GHAImg photo;
 	{
-		selectionListeners = new LinkedList<EIATypeSelectionListener>();
 		eiaTypeSearchForm = new EIATypeSearchForm();
 		codeItem = new GHATextItem("Código", false);
 		nameItem = new GHATextItem("Nombre", false);
@@ -50,29 +49,19 @@ public class EIATypeTopSection extends HLayout implements
 		mobilityItem = new GHATextItem("Movilidad", false);
 		typeItem = new GHATextItem("Tipo de Equipo", false);
 		subTypeItem = new GHATextItem("Subtipo", false);
-
 	}
 
+	/**
+	 * @param eiaTypeTab
+	 */
 	public EIATypeTopSection(EIATypeTab eiaTypeTab) {
 		super();
-		GHAUiHelper.addGHAResizeHandler(this);
-		eIATypeTab = eiaTypeTab;
-		
+		this.eiaTypeTab = eiaTypeTab;
 		eiaTypeSearchForm.addEiaTypeSelectionListener(eiaTypeTab);
-
-		eiaTypeTab.addGHAHideableHandler(new GHAHideable() {
-			@Override
-			public void hide() {
-				eiaTypeSearchForm.hide();
-			}
-		});
-		eiaTypeTab.addGHAClosableHandler(new GHAClosable() {
-
-			@Override
-			public void close() {
-				eiaTypeSearchForm.destroy();
-			}
-		});
+		// eiaTypeTab.addEiaTypeSelectionListener(this);
+		eiaTypeTab.addGHAHideableHandler(eiaTypeSearchForm);
+		eiaTypeTab.addGHAClosableHandler(eiaTypeSearchForm);
+		GHAUiHelper.addGHAResizeHandler(this);
 
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		setWidth100();
@@ -83,8 +72,8 @@ public class EIATypeTopSection extends HLayout implements
 		DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(5);
-		form.setItems(codeItem, nameItem,  brandItem, modelItem, manItem,
-					  umdnsCodeItem, mobilityItem, typeItem, subTypeItem);
+		form.setItems(codeItem, nameItem, brandItem, modelItem, manItem,
+				umdnsCodeItem, mobilityItem, typeItem, subTypeItem);
 
 		// Panel de la Fotografia
 
@@ -102,23 +91,26 @@ public class EIATypeTopSection extends HLayout implements
 		photoBotones.setMembersMargin(10);
 		photoBotones.setDefaultLayoutAlign(Alignment.CENTER);
 
-		GHAImgButton searchPhoto = new GHAImgButton("../resources/icons/search.png");
+		GHAImgButton searchPhoto = new GHAImgButton(
+				"../resources/icons/search.png");
 		searchPhoto.addClickHandler(new ClickHandler() {
-			
+
 			@Override
 			public void onClick(ClickEvent event) {
 				EiaTypePicture picture = listEiaTypePictures.get(index);
-				new PopupShowPicture("../webclient/picture/eiaType/"+ picture.getPicture());
+				new PopupShowPicture("../webclient/picture/eiaType/"
+						+ picture.getPicture());
 			}
 		});
-		GHAImgButton nextPhoto = new GHAImgButton("../resources/icons/arrow.png");
-		nextPhoto.addClickHandler(new ClickHandler() {		
+		GHAImgButton nextPhoto = new GHAImgButton(
+				"../resources/icons/arrow.png");
+		nextPhoto.addClickHandler(new ClickHandler() {
 			@Override
-			public void onClick(ClickEvent event) {		
-				next();			
+			public void onClick(ClickEvent event) {
+				next();
 			}
 		});
-		
+
 		photoBotones.addMembers(searchPhoto);
 		photoBotones.addMembers(nextPhoto);
 		photoPanel.addMembers(photo, photoBotones);
@@ -133,7 +125,8 @@ public class EIATypeTopSection extends HLayout implements
 		GHAImgButton cleanImg = new GHAImgButton("../resources/icons/clean.png");
 		cleanImg.setSize("20px", "20px");
 		cleanImg.setHoverStyle("boxed");
-		GHAImgButton searchImg = new GHAImgButton("../resources/icons/search.png");
+		GHAImgButton searchImg = new GHAImgButton(
+				"../resources/icons/search.png");
 		searchImg.addClickHandler(new ClickHandler() {
 
 			@Override
@@ -141,43 +134,42 @@ public class EIATypeTopSection extends HLayout implements
 				search();
 			}
 		});
-		GHAImgButton cancelButton = new GHAImgButton("../resources/icons/cancel.png");
+		GHAImgButton cancelButton = new GHAImgButton(
+				"../resources/icons/cancel.png");
 		cancelButton.addClickHandler(new ClickHandler() {
-			
+
 			@Override
 			public void onClick(ClickEvent event) {
-				// TODO Auto-generated method stub
-				GHATabSet.closeTab(eIATypeTab);
-				
+				GHATabSet.closeTab(EIATypeTopSection.this.eiaTypeTab);
+
 			}
 		});
-		
+
 		panelBotones.addMembers(searchImg, cleanImg, cancelButton);
 
-		addMembers(form, new LayoutSpacer(), photoPanel, new LayoutSpacer(), panelBotones);
+		addMembers(form, new LayoutSpacer(), photoPanel, new LayoutSpacer(),
+				panelBotones);
 	}
-	
-	private void next()
-	{
-		if(index < listEiaTypePictures.size()){
+
+	private void next() {
+		if (index < listEiaTypePictures.size()) {
 			index++;
 			EiaTypePicture picture = listEiaTypePictures.get(index);
-			photo.setSrc("../webclient/picture/eiaType/"
-					+ picture.getPicture());
-		} else
-			{
-				index = 0;
-				EiaTypePicture picture = listEiaTypePictures.get(index);
-				photo.setSrc("../webclient/picture/eiaType/"
-						+ picture.getPicture());
-			}
-				
+			photo.setSrc("../webclient/picture/eiaType/" + picture.getPicture());
+		} else {
+			index = 0;
+			EiaTypePicture picture = listEiaTypePictures.get(index);
+			photo.setSrc("../webclient/picture/eiaType/" + picture.getPicture());
+		}
+
 	}
-/**
- * Obtiene las fotografias de un EiaType
- * @param eiaType
- */
-	private void getEiaTypePicture(EiaType eiaType){
+
+	/**
+	 * Obtiene las fotografias de un EiaType
+	 * 
+	 * @param eiaType
+	 */
+	private void getEiaTypePicture(EiaType eiaType) {
 		index = 0;
 		listEiaTypePictures = new ArrayList<EiaTypePicture>();
 		EIATypePictureModel.findByEiaType(eiaType,
@@ -192,11 +184,9 @@ public class EIATypeTopSection extends HLayout implements
 					}
 				});
 	}
+
 	@Override
 	public void select(EiaType eiaType) {
-		// Window.alert("top section select");
-	
-		selectEiaType(eiaType);
 		getEiaTypePicture(eiaType);
 		codeItem.setValue(eiaType.getCode());
 		nameItem.setValue(eiaType.getName());
@@ -219,27 +209,31 @@ public class EIATypeTopSection extends HLayout implements
 
 		if (eiaType.getSubtype() != null)
 			subTypeItem.setValue(eiaType.getSubtype().toString());
-
 	}
 
+	/**
+	 * Opens the search form
+	 */
 	public void search() {
 		eiaTypeSearchForm.open();
 	}
 
-	public void AddEIATypeSelectionListener(
-			EIATypeSelectionListener selecionListener) {
-		selectionListeners.add(selecionListener);
-	}
-
-	private void selectEiaType(EiaType eiaType) {
-		for (EIATypeSelectionListener listener : selectionListeners)
-			listener.select(eiaType);
-
-	}
+	// @Override
+	// public void addEiaTypeSelectionListener(
+	// EIATypeSelectionListener selecionListener) {
+	// selectionListeners.add(selecionListener);
+	// }
 
 	@Override
 	public void onResize(ResizeEvent event) {
 		setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT + "px");
 	}
-	
+
+	// @Override
+	// public void removeEiaTypeSelectionListener(
+	// EIATypeSelectionListener eIATypeSelectionListener) {
+	// selectionListeners.remove(eIATypeSelectionListener);
+	//
+	// }
+
 }

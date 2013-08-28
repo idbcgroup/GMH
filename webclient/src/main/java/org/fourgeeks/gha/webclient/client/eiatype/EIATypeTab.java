@@ -1,35 +1,48 @@
 package org.fourgeeks.gha.webclient.client.eiatype;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHATab;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIATypeTab extends GHATab implements EIATypeSelectionListener {
+/**
+ * @author alacret
+ * 
+ */
+public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
+		EiaTypeSelectionProducer {
 
+	/**
+	 * The ID of the Tab
+	 */
 	public static final String ID = "eiatype";
 	private static final String TITLE = "Tipos de equipo";
+	private List<EIATypeSelectionListener> listeners = new ArrayList<EIATypeSelectionListener>();
 	private EIATypeTopSection topSection;
 	private EiaType eiaType;
-	private EIATypeInternalTabset bottomTabset;
+	private EIATypeInternalTabset internatlTabSet;
 
+	/**
+	 * @param eiaType
+	 */
 	public EIATypeTab(EiaType eiaType) {
 		super();
 		this.eiaType = eiaType;
 		getHeader().setTitle(TITLE);
 
-		bottomTabset = new EIATypeInternalTabset(this);
 		topSection = new EIATypeTopSection(this);
+		internatlTabSet = new EIATypeInternalTabset(this);
 
-		// Creacion de la tab de EIA
 		VLayout verticalPanel = new VLayout();
 		verticalPanel.setBackgroundColor("#E0E0E0");
-
 		verticalPanel.addMember(topSection);
 		verticalPanel.addMember(GHAUiHelper
 				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
-		verticalPanel.addMember(bottomTabset);
+		verticalPanel.addMember(internatlTabSet);
 		addMember(verticalPanel);
 	}
 
@@ -46,7 +59,19 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener {
 
 	@Override
 	public void select(EiaType eiaType) {
-		topSection.select(eiaType);
-		bottomTabset.select(eiaType);
+		for (EIATypeSelectionListener listener : listeners)
+			listener.select(eiaType);
+	}
+
+	@Override
+	public void addEiaTypeSelectionListener(
+			EIATypeSelectionListener eIATypeSelectionListener) {
+		listeners.add(eIATypeSelectionListener);
+	}
+
+	@Override
+	public void removeEiaTypeSelectionListener(
+			EIATypeSelectionListener eIATypeSelectionListener) {
+		listeners.remove(eIATypeSelectionListener);
 	}
 }

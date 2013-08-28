@@ -32,7 +32,12 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIASearchForm extends GHASlideInWindow {
+/**
+ * @author alacret
+ * 
+ */
+public class EIASearchForm extends GHASlideInWindow implements
+		EiaSelectionProducer {
 
 	private List<EIASelectionListener> listeners;
 	private EIAGrid grid;
@@ -43,22 +48,21 @@ public class EIASearchForm extends GHASlideInWindow {
 
 	{
 		listeners = new LinkedList<EIASelectionListener>();
-
 		actualCostItem = new GHATextItem("Costo actual");
 		responsibleRoleItem = new GHASelectItem("Responsable");
 		codeItem = new GHATextItem("Código");
 		eiaTypeItem = new GHASelectItem("Tipo de equipo");
 		fixedAssetIdentifierItem = new GHATextItem("Identificador");
-
 		buildingLocationItem = new GHASelectItem("Ubicación");
-
 		obuItem = new GHASelectItem("Organización");
 		serialNumberItem = new GHATextItem("Serial");
 		stateItem = new GHASelectItem("Estado");
-
 		grid = new EIAGrid();
 	}
 
+	/**
+	 * 
+	 */
 	public EIASearchForm() {
 		super(1);
 		setTop(110);
@@ -68,7 +72,7 @@ public class EIASearchForm extends GHASlideInWindow {
 		title.setWidth(400);
 		title.setHeight("35px");
 		addMember(title);
-		
+
 		DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(5);
@@ -121,9 +125,10 @@ public class EIASearchForm extends GHASlideInWindow {
 		formLayout.setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT + "px");
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
 
-		addMembers(title,
-				   formLayout,
-				   GHAUiHelper.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
+		addMembers(title, formLayout,
+				GHAUiHelper
+						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
+								+ "px"));
 
 		HLayout gridLayout = new HLayout();
 		gridLayout.setPadding(10);
@@ -209,11 +214,8 @@ public class EIASearchForm extends GHASlideInWindow {
 		});
 	}
 
-	/**
-	 * 
-	 * @param eiaSelectionListener
-	 */
-	public void addEIASelectionListener(
+	@Override
+	public void addEiaSelectionListener(
 			EIASelectionListener eiaSelectionListener) {
 		listeners.add(eiaSelectionListener);
 	}
@@ -234,9 +236,9 @@ public class EIASearchForm extends GHASlideInWindow {
 		if (eiaTypeItem.getValue() != null)
 			eia.setEiaType(new EiaType(eiaTypeItem.getValueAsString()));
 		eia.setFixedAssetIdentifier(fixedAssetIdentifierItem.getValueAsString());
-//		if (buildingLocationItem.getValue() != null)
-//			eia.setBuildingLocation(new BuildingLocation(buildingLocationItem
-//					.getValueAsString()));
+		// if (buildingLocationItem.getValue() != null)
+		// eia.setBuildingLocation(new BuildingLocation(buildingLocationItem
+		// .getValueAsString()));
 		if (obuItem.getValue() != null)
 			eia.setObu(new Obu(Long.parseLong(obuItem.getValueAsString())));
 		eia.setSerialNumber(serialNumberItem.getValueAsString());
@@ -267,14 +269,19 @@ public class EIASearchForm extends GHASlideInWindow {
 		destroy();
 	}
 
-	@Override
-	public void hide() {
-		super.hide();
-	}
+	// @Override
+	// public void hide() {
+	// super.hide();
+	// }
 
 	@Override
 	public void onResize(ResizeEvent event) {
 		setHeight(GHAUiHelper.getTabHeight() + "px");
 	}
 
+	@Override
+	public void removeEiaSelectionListener(
+			EIASelectionListener eiaSelectionListener) {
+		listeners.remove(eiaSelectionListener);
+	}
 }

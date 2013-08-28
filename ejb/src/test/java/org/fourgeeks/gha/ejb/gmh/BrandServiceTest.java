@@ -2,9 +2,16 @@ package org.fourgeeks.gha.ejb.gmh;
 
 import java.util.List;
 
+import javax.naming.Context;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 import junit.framework.TestCase;
 
 import org.fourgeeks.gha.domain.gmh.Brand;
+import org.fourgeeks.gha.ejb.ContextDeployment;
+import org.junit.Before;
 
 /**
  * @author vivi.torressg
@@ -13,17 +20,24 @@ import org.fourgeeks.gha.domain.gmh.Brand;
 public class BrandServiceTest extends TestCase {
 
 	private BrandServiceRemote ejbService;
-	private Brand entity;
+	// private Brand entity;
 	List<Brand> brandsBefore;
+	private EntityManager em;
+	private EntityManagerFactory emf;
 
-	@Override
+	@Before
 	protected void setUp() throws Exception {
-		// Context context = ContextDeployment.getContext();
-		// ejbService = (BrandServiceRemote) context
-		// .lookup("java:global/ejb/gmh.BrandService");
-		// entity = new Brand();
-		// entity.setName("Brand Test");
-		// brandsBefore = ejbService.getAll();
+		Context context = ContextDeployment.getContext();
+		ejbService = (BrandServiceRemote) context
+				.lookup("java:global/ejb/gmh.BrandService");
+		emf = Persistence.createEntityManagerFactory("gha");
+		em = emf.createEntityManager();
+		Brand brand = new Brand();
+		brand.setName("testbrand");
+		em.persist(brand);
+		em.close();
+		emf.close();
+
 	}
 
 	public void test() throws Exception {
