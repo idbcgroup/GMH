@@ -12,8 +12,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
-import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
-import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenanceProtocol;
+import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 
 /**
  * @author emiliot
@@ -34,7 +34,7 @@ public class EiaTypeMaintenanceProtocolService implements
 	@Override
 	public void delete(long Id) throws EJBException {
 		try {
-			EiaTypeMaintenanceProtocol entity = em.find(EiaTypeMaintenanceProtocol.class, Id);
+			MaintenanceProtocol entity = em.find(MaintenanceProtocol.class, Id);
 			em.remove(entity);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete EiaTypeMaintenanceProtocol", e);
@@ -47,10 +47,10 @@ public class EiaTypeMaintenanceProtocolService implements
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypeMaintenanceProtocolServiceRemote#findByEiaTypeMaintenancePlan(org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan)
 	 */
 	@Override
-	public List<EiaTypeMaintenanceProtocol> findByEiaTypeMaintenancePlan(
-			EiaTypeMaintenancePlan maintenancePlan) throws EJBException {
+	public List<MaintenanceProtocol> findByEiaTypeMaintenancePlan(
+			MaintenancePlan maintenancePlan) throws EJBException {
 		try {
-			return em.createNamedQuery("EiaTypeMaintenanceProtocol.findByEiaTypeMaintenancePlan", EiaTypeMaintenanceProtocol.class)
+			return em.createNamedQuery("EiaTypeMaintenanceProtocol.findByEiaTypeMaintenancePlan", MaintenanceProtocol.class)
 					.setParameter("eiaTypeMaintenancePlan", maintenancePlan).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding EiaTypeMaintenanceProtocol by MaintenancePlan", e);
@@ -63,11 +63,11 @@ public class EiaTypeMaintenanceProtocolService implements
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypeMaintenanceProtocolServiceRemote#findByEiaTypeMaintenancePlan(org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan, int, int)
 	 */
 	@Override
-	public List<EiaTypeMaintenanceProtocol> findByEiaTypeMaintenancePlan(
-			EiaTypeMaintenancePlan maintenancePlan, int offset, int size)
+	public List<MaintenanceProtocol> findByEiaTypeMaintenancePlan(
+			MaintenancePlan maintenancePlan, int offset, int size)
 			throws EJBException {
 		try {
-			return em.createNamedQuery("EiaTypeMaintenanceProtocol.findByEiaTypeMaintenancePlan", EiaTypeMaintenanceProtocol.class)
+			return em.createNamedQuery("EiaTypeMaintenanceProtocol.findByEiaTypeMaintenancePlan", MaintenanceProtocol.class)
 					.setParameter("eiaTypeMaintenancePlan", maintenancePlan).setFirstResult(offset).setMaxResults(size).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding EiaTypeMaintenanceProtocol by MaintenancePlan", e);
@@ -80,9 +80,9 @@ public class EiaTypeMaintenanceProtocolService implements
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypeMaintenanceProtocolServiceRemote#find(long)
 	 */
 	@Override
-	public EiaTypeMaintenanceProtocol find(long Id) throws EJBException {
+	public MaintenanceProtocol find(long Id) throws EJBException {
 		try {
-			return em.find(EiaTypeMaintenanceProtocol.class, Id);
+			return em.find(MaintenanceProtocol.class, Id);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: finding EiaTypeMaintenanceProtocol", e);
 			throw new EJBException("ERROR: finding EiaTypeMaintenanceProtocol "
@@ -94,9 +94,9 @@ public class EiaTypeMaintenanceProtocolService implements
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypeMaintenanceProtocolServiceRemote#getAll()
 	 */
 	@Override
-	public List<EiaTypeMaintenanceProtocol> getAll() throws EJBException {
+	public List<MaintenanceProtocol> getAll() throws EJBException {
 		try {
-			return em.createNamedQuery("EiaTypeMaintenanceProtocol.getAll", EiaTypeMaintenanceProtocol.class).getResultList();
+			return em.createNamedQuery("EiaTypeMaintenanceProtocol.getAll", MaintenanceProtocol.class).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding all EiaTypeMaintenanceProtocol", e);
 			throw new EJBException("Error buscando todos los EiaTypeMaintenanceProtocol"
@@ -108,10 +108,10 @@ public class EiaTypeMaintenanceProtocolService implements
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypeMaintenanceProtocolServiceRemote#getAll(int, int)
 	 */
 	@Override
-	public List<EiaTypeMaintenanceProtocol> getAll(int offset, int size)
+	public List<MaintenanceProtocol> getAll(int offset, int size)
 			throws EJBException {
 		try {
-			return em.createNamedQuery("EiaTypeMaintenanceProtocol.getAll", EiaTypeMaintenanceProtocol.class)
+			return em.createNamedQuery("EiaTypeMaintenanceProtocol.getAll", MaintenanceProtocol.class)
 					.setFirstResult(offset).setMaxResults(size).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding all EiaTypeMaintenanceProtocol", e);
@@ -124,12 +124,12 @@ public class EiaTypeMaintenanceProtocolService implements
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypeMaintenanceProtocolServiceRemote#save(org.fourgeeks.gha.domain.gmh.EiaTypeMaintenanceProtocol)
 	 */
 	@Override
-	public EiaTypeMaintenanceProtocol save(
-			EiaTypeMaintenanceProtocol maintenanceProtocol) throws EJBException {
+	public MaintenanceProtocol save(
+			MaintenanceProtocol maintenanceProtocol) throws EJBException {
 		try {
 			em.persist(maintenanceProtocol);
 			em.flush();
-			return em.find(EiaTypeMaintenanceProtocol.class, maintenanceProtocol.getId());
+			return em.find(MaintenanceProtocol.class, maintenanceProtocol.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving EiaTypeMaintenanceProtocol ", e);
 			throw new EJBException("ERROR: saving EiaTypeMaintenanceProtocol "
@@ -141,10 +141,10 @@ public class EiaTypeMaintenanceProtocolService implements
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypeMaintenanceProtocolServiceRemote#update(org.fourgeeks.gha.domain.gmh.EiaTypeMaintenanceProtocol)
 	 */
 	@Override
-	public EiaTypeMaintenanceProtocol update(
-			EiaTypeMaintenanceProtocol maintenanceProtocol) throws EJBException {
+	public MaintenanceProtocol update(
+			MaintenanceProtocol maintenanceProtocol) throws EJBException {
 		try {
-			EiaTypeMaintenanceProtocol res = em.merge(maintenanceProtocol);
+			MaintenanceProtocol res = em.merge(maintenanceProtocol);
 			em.flush();
 			return res;
 		} catch (Exception e) {

@@ -1,24 +1,22 @@
 /**
  * 
  */
-package org.fourgeeks.gha.webclient.client.resource;
+package org.fourgeeks.gha.ejb.gmh;
 
 import java.util.List;
+
+import javax.ejb.Remote;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gmh.ProtocolActivity;
 import org.fourgeeks.gha.domain.gmh.RaS;
 
-import com.google.gwt.user.client.rpc.RemoteService;
-import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
-
 /**
  * @author emiliot
  *
  */
-
-@RemoteServiceRelativePath("resourceService")
-public interface GWTResourceService extends RemoteService{
+@Remote
+public interface RaSServiceRemote {
 	/**
 	 * Delete a Resource/Service from database by Id
 	 * @throws EJBException

@@ -27,7 +27,7 @@ public class ProtocolActivityMaintenanceProtocol extends AbstractEntity {
 	
 	@ManyToOne
 	@JoinColumn(name = "protocolFk")
-	private EiaTypeMaintenanceProtocol protocol;
+	private MaintenanceProtocol protocol;
 	
 	@ManyToOne
 	@JoinColumn(name = "activityFk")
@@ -48,14 +48,14 @@ public class ProtocolActivityMaintenanceProtocol extends AbstractEntity {
 	 * @param ordinal
 	 */
 	public ProtocolActivityMaintenanceProtocol(
-			EiaTypeMaintenanceProtocol protocol, ProtocolActivity activity,
+			MaintenanceProtocol protocol, ProtocolActivity activity,
 			int ordinal) {
 		this.protocol = protocol;
 		this.activity = activity;
 		this.ordinal = ordinal;
 	}
 
-	public EiaTypeMaintenanceProtocol getProtocol() {
+	public MaintenanceProtocol getProtocol() {
 		return protocol;
 	}
 
@@ -67,7 +67,7 @@ public class ProtocolActivityMaintenanceProtocol extends AbstractEntity {
 		return ordinal;
 	}
 
-	public void setProtocol(EiaTypeMaintenanceProtocol protocol) {
+	public void setProtocol(MaintenanceProtocol protocol) {
 		this.protocol = protocol;
 	}
 

@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
+import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -16,8 +16,8 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
  * @author emiliot
  *
  */
-@RemoteServiceRelativePath("eiaTypeMaintenancePlanService")
-public interface GWTEiaTypeMaintenancePlanService extends RemoteService{
+@RemoteServiceRelativePath("maintenancePlanService")
+public interface GWTMaintenancePlanService extends RemoteService{
 	/**
 	 * @param Id
 	 * @throws EJBException
@@ -29,7 +29,7 @@ public interface GWTEiaTypeMaintenancePlanService extends RemoteService{
 	 * @return a list with the maintenance plans associated with this eiatype
 	 * @throws EJBException
 	 */
-	public List<EiaTypeMaintenancePlan> findByEiaType(EiaType eiaType)
+	public List<MaintenancePlan> findByEiaType(EiaType eiaType)
 			throws EJBException;
 	
 	/**
@@ -37,7 +37,7 @@ public interface GWTEiaTypeMaintenancePlanService extends RemoteService{
 	 * @return a list with size maintenance plans starting on offset associated with this eiatype
 	 * @throws EJBException
 	 */
-	public List<EiaTypeMaintenancePlan> findByEiaType(EiaType eiaType, int offset, int size)
+	public List<MaintenancePlan> findByEiaType(EiaType eiaType, int offset, int size)
 			throws EJBException;
 
 	/**
@@ -45,13 +45,13 @@ public interface GWTEiaTypeMaintenancePlanService extends RemoteService{
 	 * @return the EiaTypeMaintenancePlan by id
 	 * @throws EJBException
 	 */
-	public EiaTypeMaintenancePlan find(long Id) throws EJBException;
+	public MaintenancePlan find(long Id) throws EJBException;
 
 	/**
 	 * @return the list of EiaTypeMaintenancePlan
 	 * @throws EJBException
 	 */
-	public List<EiaTypeMaintenancePlan> getAll() throws EJBException;
+	public List<MaintenancePlan> getAll() throws EJBException;
 	
 	/**
 	 * @param offset
@@ -59,21 +59,21 @@ public interface GWTEiaTypeMaintenancePlanService extends RemoteService{
 	 * @return the list of size EiaTypeMaintenancePlan starting on offset
 	 * @throws EJBException
 	 */
-	public List<EiaTypeMaintenancePlan> getAll(int offset, int size) throws EJBException;
+	public List<MaintenancePlan> getAll(int offset, int size) throws EJBException;
 
 	/**
-	 * @param EiaTypeMaintenancePlan
-	 * @return the saved EiaTypeMaintenancePlan
+	 * @param MaintenancePlan
+	 * @return the saved maintenancePlan
 	 * @throws EJBException
 	 */
-	public EiaTypeMaintenancePlan save(
-			EiaTypeMaintenancePlan eiaTypeMaintenancePlan) throws EJBException;
+	public MaintenancePlan save(
+			MaintenancePlan maintenancePlan) throws EJBException;
 
 	/**
-	 * @param EiaTypeMaintenancePlan
-	 * @return the updated EiaTypeMaintenancePlan
+	 * @param MaintenancePlan
+	 * @return the updated maintenancePlan
 	 * @throws EJBException
 	 */
-	public EiaTypeMaintenancePlan update(
-			EiaTypeMaintenancePlan eiaTypeMaintenancePlan) throws EJBException;
+	public MaintenancePlan update(
+			MaintenancePlan maintenancePlan) throws EJBException;
 }

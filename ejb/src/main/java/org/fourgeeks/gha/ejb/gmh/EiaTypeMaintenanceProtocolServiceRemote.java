@@ -8,8 +8,8 @@ import java.util.List;
 import javax.ejb.Remote;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
-import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
-import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenanceProtocol;
+import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 
 /**
  * @author emiliot
@@ -26,13 +26,13 @@ public interface EiaTypeMaintenanceProtocolServiceRemote {
 	public void delete(long Id) throws EJBException;
 
 	/**
-	 * @param EiaTypeMaintenancePlan
+	 * @param MaintenancePlan
 	 * @return a list with the maintenance protocols related to the maintenance
 	 *         plan
 	 * @throws EJBException
 	 */
-	public List<EiaTypeMaintenanceProtocol> findByEiaTypeMaintenancePlan(
-			EiaTypeMaintenancePlan maintenancePlan) throws EJBException;
+	public List<MaintenanceProtocol> findByEiaTypeMaintenancePlan(
+			MaintenancePlan maintenancePlan) throws EJBException;
 
 	/**
 	 * @param maintenancePlan
@@ -42,8 +42,8 @@ public interface EiaTypeMaintenanceProtocolServiceRemote {
 	 *         plan starting at offset
 	 * @throws EJBException
 	 */
-	public List<EiaTypeMaintenanceProtocol> findByEiaTypeMaintenancePlan(
-			EiaTypeMaintenancePlan maintenancePlan, int offset, int size)
+	public List<MaintenanceProtocol> findByEiaTypeMaintenancePlan(
+			MaintenancePlan maintenancePlan, int offset, int size)
 			throws EJBException;
 
 	/**
@@ -51,13 +51,13 @@ public interface EiaTypeMaintenanceProtocolServiceRemote {
 	 * @return the EiaTypeMaintenanceProtocol with this Id
 	 * @throws EJBException
 	 */
-	public EiaTypeMaintenanceProtocol find(long Id) throws EJBException;
+	public MaintenanceProtocol find(long Id) throws EJBException;
 
 	/**
 	 * @return the list with all EiaTypeMaintenanceProtocol Objects
 	 * @throws EJBException
 	 */
-	public List<EiaTypeMaintenanceProtocol> getAll() throws EJBException;
+	public List<MaintenanceProtocol> getAll() throws EJBException;
 
 	/**
 	 * @param offset
@@ -65,24 +65,24 @@ public interface EiaTypeMaintenanceProtocolServiceRemote {
 	 * @return List of EiaTypeMaintenanceProtocol beginning in offset up to size elements
 	 * @throws EJBException
 	 */
-	public List<EiaTypeMaintenanceProtocol> getAll(int offset, int size)
+	public List<MaintenanceProtocol> getAll(int offset, int size)
 			throws EJBException;
 
 	/**
-	 * @param EiaTypeMaintenanceProtocol
+	 * @param MaintenanceProtocol
 	 *            the plan to be saved on database
 	 * @throws EJBException
 	 * @return EiaTypeMaintenanceProtocol saved
 	 */
-	public EiaTypeMaintenanceProtocol save(EiaTypeMaintenanceProtocol maintenanceProtocol)
+	public MaintenanceProtocol save(MaintenanceProtocol maintenanceProtocol)
 			throws EJBException;
 
 	/**
-	 * @param EiaTypeMaintenanceProtocol
+	 * @param MaintenanceProtocol
 	 *            the EiaTypeMaintenanceProtocol to be updated
 	 * @return EiaTypeMaintenanceProtocol updated
 	 * @throws EJBException
 	 */
-	public EiaTypeMaintenanceProtocol update(EiaTypeMaintenanceProtocol maintenanceProtocol)
+	public MaintenanceProtocol update(MaintenanceProtocol maintenanceProtocol)
 			throws EJBException;
 }

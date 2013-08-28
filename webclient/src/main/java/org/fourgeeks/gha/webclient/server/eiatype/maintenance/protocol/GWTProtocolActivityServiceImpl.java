@@ -9,9 +9,9 @@ import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
-import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenanceProtocol;
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.ProtocolActivity;
-import org.fourgeeks.gha.domain.gmh.Resource;
+import org.fourgeeks.gha.domain.gmh.RaS;
 import org.fourgeeks.gha.ejb.gmh.ProtocolActivityServiceRemote;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol.GWTProtocolActivityService;
 
@@ -41,40 +41,38 @@ public class GWTProtocolActivityServiceImpl extends RemoteServiceServlet
 	}
 
 	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.GWTProtocolActivityService#findByEiaTypeMaintenanceProtocol(org.fourgeeks.gha.domain.gmh.EiaTypeMaintenanceProtocol)
-	 */
-	@Override
-	public List<ProtocolActivity> findByEiaTypeMaintenanceProtocol(
-			EiaTypeMaintenanceProtocol eiaTypeMaintenanceProtocol)
-			throws EJBException {
-		return ejbService.findByEiaTypeMaintenanceProtocol(eiaTypeMaintenanceProtocol);
-	}
-
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.GWTProtocolActivityService#findByEiaTypeMaintenanceProtocol(org.fourgeeks.gha.domain.gmh.EiaTypeMaintenanceProtocol, int, int)
-	 */
-	@Override
-	public List<ProtocolActivity> findByEiaTypeMaintenanceProtocol(
-			EiaTypeMaintenanceProtocol eiaTypeMaintenanceProtocol, int offset,
-			int size) throws EJBException {
-		return ejbService.findByEiaTypeMaintenanceProtocol(eiaTypeMaintenanceProtocol, offset, size);
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.GWTProtocolActivityService#findByResource(org.fourgeeks.gha.domain.gmh.Resource)
-	 */
-	@Override
-	public List<ProtocolActivity> findByResource(Resource resource)
-			throws EJBException {
-		return ejbService.findByResource(resource);
-	}
-
-	/* (non-Javadoc)
 	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.GWTProtocolActivityService#find(long)
 	 */
 	@Override
 	public ProtocolActivity find(long Id) throws EJBException {
 		return ejbService.find(Id);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol.GWTProtocolActivityService#findByMaintenanceProtocol(org.fourgeeks.gha.domain.gmh.MaintenanceProtocol)
+	 */
+	@Override
+	public List<ProtocolActivity> findByMaintenanceProtocol(
+			MaintenanceProtocol maintenanceProtocol) throws EJBException {
+		return ejbService.findByMaintenanceProtocol(maintenanceProtocol);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol.GWTProtocolActivityService#findByMaintenanceProtocol(org.fourgeeks.gha.domain.gmh.MaintenanceProtocol, int, int)
+	 */
+	@Override
+	public List<ProtocolActivity> findByMaintenanceProtocol(
+			MaintenanceProtocol maintenanceProtocol, int offset, int size)
+			throws EJBException {
+		return ejbService.findByMaintenanceProtocol(maintenanceProtocol, offset, size);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol.GWTProtocolActivityService#findByRaS(org.fourgeeks.gha.domain.gmh.RaS)
+	 */
+	@Override
+	public List<ProtocolActivity> findByRaS(RaS ras) throws EJBException {
+		return ejbService.findByRaS(ras);
 	}
 
 	/* (non-Javadoc)

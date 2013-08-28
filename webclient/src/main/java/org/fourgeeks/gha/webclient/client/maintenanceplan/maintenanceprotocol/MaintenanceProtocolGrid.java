@@ -1,6 +1,6 @@
 package org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol;
 
-import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenanceProtocol;
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.webclient.client.UI.GHAGridField;
 import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.GhaGrid;
@@ -12,7 +12,7 @@ import com.smartgwt.client.widgets.form.fields.events.ChangeEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangeHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
 
-public class MaintenanceProtocolGrid extends GhaGrid<EiaTypeMaintenanceProtocol> {
+public class MaintenanceProtocolGrid extends GhaGrid<MaintenanceProtocol> {
 
 	@Override
 	protected Canvas createRecordComponent(final ListGridRecord record, Integer colNum) {  

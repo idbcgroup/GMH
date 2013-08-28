@@ -13,19 +13,19 @@ import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
+import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 
 /**
  * @author emiliot
  *
  */
 
-@Stateless(name = "gmh.eiaTypeMaintenancePlanService")
-public class EiaTypeMaintenancePlanService implements EiaTypeMaintenancePlanServiceRemote {
+@Stateless(name = "gmh.maintenancePlanService")
+public class MaintenancePlanService implements MaintenancePlanServiceRemote {
 	@PersistenceContext
 	EntityManager em;
 
-	private final static Logger logger = Logger.getLogger(EiaTypeMaintenancePlanService.class
+	private final static Logger logger = Logger.getLogger(MaintenancePlanService.class
 			.getName());
 
 	/* (non-Javadoc)
@@ -34,7 +34,7 @@ public class EiaTypeMaintenancePlanService implements EiaTypeMaintenancePlanServ
 	@Override
 	public void delete(long Id) throws EJBException {
 		try {
-			EiaTypeMaintenancePlan entity = em.find(EiaTypeMaintenancePlan.class, Id);
+			MaintenancePlan entity = em.find(MaintenancePlan.class, Id);
 			em.remove(entity);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete MaintenancePlan", e);
@@ -47,9 +47,9 @@ public class EiaTypeMaintenancePlanService implements EiaTypeMaintenancePlanServ
 	 * @see org.fourgeeks.gha.ejb.gmh.MaintenancePlanServiceRemote#find(org.fourgeeks.gha.domain.gmh.EiaType)
 	 */
 	@Override
-	public List<EiaTypeMaintenancePlan> findByEiaType(EiaType eiaType) throws EJBException {
+	public List<MaintenancePlan> findByEiaType(EiaType eiaType) throws EJBException {
 		try {
-			return em.createNamedQuery("EiaTypeMaintenancePlan.findByEiaType", EiaTypeMaintenancePlan.class)
+			return em.createNamedQuery("MaintenancePlan.findByEiaType", MaintenancePlan.class)
 					.setParameter("eiaType", eiaType).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding by MaintenancePlan", e);
@@ -62,10 +62,10 @@ public class EiaTypeMaintenancePlanService implements EiaTypeMaintenancePlanServ
 	 * @see org.fourgeeks.gha.ejb.gmh.MaintenancePlanServiceRemote#find(org.fourgeeks.gha.domain.gmh.EiaType, int, int)
 	 */
 	@Override
-	public List<EiaTypeMaintenancePlan> findByEiaType(EiaType eiaType, int offset, int size)
+	public List<MaintenancePlan> findByEiaType(EiaType eiaType, int offset, int size)
 			throws EJBException {
 		try {
-			return em.createNamedQuery("EiaTypeMaintenancePlan.findByEiaType", EiaTypeMaintenancePlan.class)
+			return em.createNamedQuery("MaintenancePlan.findByEiaType", MaintenancePlan.class)
 					.setParameter("eiaType", eiaType).setFirstResult(offset).setMaxResults(size)
 					.getResultList();
 		} catch (Exception e) {
@@ -79,9 +79,9 @@ public class EiaTypeMaintenancePlanService implements EiaTypeMaintenancePlanServ
 	 * @see org.fourgeeks.gha.ejb.gmh.MaintenancePlanServiceRemote#find(long)
 	 */
 	@Override
-	public EiaTypeMaintenancePlan find(long Id) throws EJBException {
+	public MaintenancePlan find(long Id) throws EJBException {
 		try {
-			return em.find(EiaTypeMaintenancePlan.class, Id);
+			return em.find(MaintenancePlan.class, Id);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: finding MaintenancePlan", e);
 			throw new EJBException("ERROR: finding MaintenancePlan "
@@ -93,9 +93,9 @@ public class EiaTypeMaintenancePlanService implements EiaTypeMaintenancePlanServ
 	 * @see org.fourgeeks.gha.ejb.gmh.MaintenancePlanServiceRemote#getAll()
 	 */
 	@Override
-	public List<EiaTypeMaintenancePlan> getAll() throws EJBException {
+	public List<MaintenancePlan> getAll() throws EJBException {
 		try {
-			return em.createNamedQuery("EiaTypeMaintenancePlan.getAll", EiaTypeMaintenancePlan.class).getResultList();
+			return em.createNamedQuery("MaintenancePlan.getAll", MaintenancePlan.class).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding all MaintenancePlan", e);
 			throw new EJBException("Error buscando todos los MaintenancePlan"
@@ -107,9 +107,9 @@ public class EiaTypeMaintenancePlanService implements EiaTypeMaintenancePlanServ
 	 * @see org.fourgeeks.gha.ejb.gmh.MaintenancePlanServiceRemote#getAll(int, int)
 	 */
 	@Override
-	public List<EiaTypeMaintenancePlan> getAll(int offset, int size) throws EJBException {
+	public List<MaintenancePlan> getAll(int offset, int size) throws EJBException {
 		try {
-			return em.createNamedQuery("EiaTypeMaintenancePlan.getAll", EiaTypeMaintenancePlan.class)
+			return em.createNamedQuery("MaintenancePlan.getAll", MaintenancePlan.class)
 					.setFirstResult(offset).setMaxResults(size).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding all MaintenancePlan", e);
@@ -122,12 +122,12 @@ public class EiaTypeMaintenancePlanService implements EiaTypeMaintenancePlanServ
 	 * @see org.fourgeeks.gha.ejb.gmh.MaintenancePlanServiceRemote#save(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
 	 */
 	@Override
-	public EiaTypeMaintenancePlan save(EiaTypeMaintenancePlan maintenancePlan)
+	public MaintenancePlan save(MaintenancePlan maintenancePlan)
 			throws EJBException {
 		try {
 			em.persist(maintenancePlan);
 			em.flush();
-			return em.find(EiaTypeMaintenancePlan.class, maintenancePlan.getId());
+			return em.find(MaintenancePlan.class, maintenancePlan.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving MaintenancePlan ", e);
 			throw new EJBException("ERROR: saving MaintenancePlan "
@@ -139,10 +139,10 @@ public class EiaTypeMaintenancePlanService implements EiaTypeMaintenancePlanServ
 	 * @see org.fourgeeks.gha.ejb.gmh.MaintenancePlanServiceRemote#update(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
 	 */
 	@Override
-	public EiaTypeMaintenancePlan update(EiaTypeMaintenancePlan maintenancePlan)
+	public MaintenancePlan update(MaintenancePlan maintenancePlan)
 			throws EJBException {
 		try {
-			EiaTypeMaintenancePlan res = em.merge(maintenancePlan);
+			MaintenancePlan res = em.merge(maintenancePlan);
 			em.flush();
 			return res;
 		} catch (Exception e) {

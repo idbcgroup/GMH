@@ -8,9 +8,9 @@ import java.util.List;
 import javax.ejb.Remote;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
-import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenanceProtocol;
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.ProtocolActivity;
-import org.fourgeeks.gha.domain.gmh.Resource;
+import org.fourgeeks.gha.domain.gmh.RaS;
 
 /**
  * @author emiliot
@@ -27,31 +27,31 @@ public interface ProtocolActivityServiceRemote {
 	public void delete(long Id) throws EJBException;
 
 	/**
-	 * @param eiaTypeMaintenanceProtocol
+	 * @param maintenanceProtocol
 	 * @return a list with the activities associated with the protocol
 	 * @throws EJBException
 	 */
-	public List<ProtocolActivity> findByEiaTypeMaintenanceProtocol(
-			EiaTypeMaintenanceProtocol eiaTypeMaintenanceProtocol)
+	public List<ProtocolActivity> findByMaintenanceProtocol(
+			MaintenanceProtocol maintenanceProtocol)
 			throws EJBException;
 
 	/**
-	 * @param eiaTypeMaintenanceProtocol
+	 * @param maintenanceProtocol
 	 * @param offset
 	 * @param size
 	 * @return a list with the activities associated with the protocol
 	 * @throws EJBException
 	 */
-	public List<ProtocolActivity> findByEiaTypeMaintenanceProtocol(
-			EiaTypeMaintenanceProtocol eiaTypeMaintenanceProtocol, int offset,
+	public List<ProtocolActivity> findByMaintenanceProtocol(
+			MaintenanceProtocol maintenanceProtocol, int offset,
 			int size) throws EJBException;
 	
 	/**
-	 * @param resource
-	 * @return the list of ProtocolActivities that use the resource given
+	 * @param ras
+	 * @return the list of ProtocolActivities that use the resource/service given
 	 * @throws EJBException
 	 */
-	public List<ProtocolActivity> findByResource(Resource resource) throws EJBException;
+	public List<ProtocolActivity> findByRaS(RaS ras) throws EJBException;
 
 	/**
 	 * @param Id

@@ -12,9 +12,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
-import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenanceProtocol;
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.ProtocolActivity;
-import org.fourgeeks.gha.domain.gmh.Resource;
+import org.fourgeeks.gha.domain.gmh.RaS;
 
 /**
  * @author emiliot
@@ -51,23 +51,23 @@ public class ProtocolActivityService implements ProtocolActivityServiceRemote {
 	 * 
 	 * @see org.fourgeeks.gha.ejb.gmh.ProtocolActivityServiceRemote#
 	 * findByEiaTypeMaintenanceProtocol
-	 * (org.fourgeeks.gha.domain.gmh.EiaTypeMaintenanceProtocol)
+	 * (org.fourgeeks.gha.domain.gmh.MaintenanceProtocol)
 	 */
 	@Override
-	public List<ProtocolActivity> findByEiaTypeMaintenanceProtocol(
-			EiaTypeMaintenanceProtocol eiaTypeMaintenanceProtocol)
+	public List<ProtocolActivity> findByMaintenanceProtocol(
+			MaintenanceProtocol maintenanceProtocol)
 			throws EJBException {
 		try {
 			return em
 					.createNamedQuery(
-							"ProtocolActivity.findByEiaTypeMaintenanceProtocol",
+							"ProtocolActivity.findByMaintenanceProtocol",
 							ProtocolActivity.class)
 					.setParameter("maintenanceProtocol",
-							eiaTypeMaintenanceProtocol).getResultList();
+							maintenanceProtocol).getResultList();
 		} catch (Exception e) {
-			logger.log(Level.INFO, "Error: finding ProtocolActivity by EiaTypeMaintenanceProtocol", e);
+			logger.log(Level.INFO, "Error: finding ProtocolActivity by MaintenanceProtocol", e);
 			throw new EJBException(
-					"Error buscando ProtocolActivity por EiaTypeMaintenanceProtocol"
+					"Error buscando ProtocolActivity por MaintenanceProtocol"
 							+ e.getCause().getMessage());
 		}
 	}
@@ -77,24 +77,24 @@ public class ProtocolActivityService implements ProtocolActivityServiceRemote {
 	 * 
 	 * @see org.fourgeeks.gha.ejb.gmh.ProtocolActivityServiceRemote#
 	 * findByEiaTypeMaintenanceProtocol
-	 * (org.fourgeeks.gha.domain.gmh.EiaTypeMaintenanceProtocol, int, int)
+	 * (org.fourgeeks.gha.domain.gmh.MaintenanceProtocol, int, int)
 	 */
 	@Override
-	public List<ProtocolActivity> findByEiaTypeMaintenanceProtocol(
-			EiaTypeMaintenanceProtocol eiaTypeMaintenanceProtocol, int offset,
+	public List<ProtocolActivity> findByMaintenanceProtocol(
+			MaintenanceProtocol maintenanceProtocol, int offset,
 			int size) throws EJBException {
 		try {
 			return em
 					.createNamedQuery(
-							"ProtocolActivity.findByEiaTypeMaintenanceProtocol",
+							"ProtocolActivity.findByMaintenanceProtocol",
 							ProtocolActivity.class)
 					.setParameter("maintenanceProtocol",
-							eiaTypeMaintenanceProtocol).setFirstResult(offset)
+							maintenanceProtocol).setFirstResult(offset)
 					.setMaxResults(size).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding by ProtocolActivity", e);
 			throw new EJBException(
-					"Error buscando ProtocolActivity por EiaTypeMaintenanceProtocol"
+					"Error buscando ProtocolActivity por MaintenanceProtocol"
 							+ e.getCause().getMessage());
 		}
 	}
@@ -107,16 +107,16 @@ public class ProtocolActivityService implements ProtocolActivityServiceRemote {
 	 * (org.fourgeeks.gha.domain.gmh.Resource)
 	 */
 	@Override
-	public List<ProtocolActivity> findByResource(Resource resource)
+	public List<ProtocolActivity> findByRaS(RaS ras)
 			throws EJBException {
 		try {
 			return em.createNamedQuery("ProtocolActivity.findByResource",
 							ProtocolActivity.class)
-					.setParameter("resource", resource).getResultList();
+					.setParameter("ras", ras).getResultList();
 		} catch (Exception e) {
-			logger.log(Level.INFO, "Error: finding by Resource", e);
+			logger.log(Level.INFO, "Error: finding by Resource/Service", e);
 			throw new EJBException(
-					"Error buscando ProtocolActivity por Resource"
+					"Error buscando ProtocolActivity por Resource/Service"
 							+ e.getCause().getMessage());
 		}
 	}

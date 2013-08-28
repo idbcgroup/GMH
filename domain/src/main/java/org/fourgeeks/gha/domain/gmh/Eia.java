@@ -35,7 +35,7 @@ public class Eia extends AbstractEntity {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private EiaMaintenancePlan eMaintenancePlan;
+	private EiaMaintenancePlanification eMaintenancePlan;
 
 	/** Fecha de Instalación del Equipo length =22 */
 	private Date acceptationDate;
@@ -538,7 +538,7 @@ public class Eia extends AbstractEntity {
 		this.intWarrantyBegin = intWarrantyBegin;
 	}
 
-	public EiaMaintenancePlan geteMaintenancePlan() {
+	public EiaMaintenancePlanification geteMaintenancePlan() {
 		return eMaintenancePlan;
 	}
 
@@ -550,7 +550,7 @@ public class Eia extends AbstractEntity {
 		return facility;
 	}
 
-	public void seteMaintenancePlan(EiaMaintenancePlan eMaintenancePlan) {
+	public void seteMaintenancePlan(EiaMaintenancePlanification eMaintenancePlan) {
 		this.eMaintenancePlan = eMaintenancePlan;
 	}
 

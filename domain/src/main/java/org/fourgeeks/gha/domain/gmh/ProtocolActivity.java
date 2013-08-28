@@ -15,8 +15,8 @@ import org.fourgeeks.gha.domain.AbstractEntity;
 @Entity
 @NamedQueries(value = {
 		@NamedQuery(name = "ProtocolActivity.getAll", query = "SELECT e from ProtocolActivity e order by e.id"),
-		@NamedQuery(name = "ProtocolActivity.findByEiaTypeMaintenanceProtocol", query = "SELECT a FROM ProtocolActivityMaintenanceProtocol e JOIN e.activity a WHERE e.protocol = :maintenanceProtocol order by e.ordinal"),
-		@NamedQuery(name = "ProtocolActivity.findByResource", query = "SELECT p FROM  ProtocolActivityResource e JOIN e.protocolActivity p WHERE e.resource = :resource")})
+		@NamedQuery(name = "ProtocolActivity.findByMaintenanceProtocol", query = "SELECT a FROM ProtocolActivityMaintenanceProtocol e JOIN e.activity a WHERE e.protocol = :maintenanceProtocol order by e.ordinal"),
+		@NamedQuery(name = "ProtocolActivity.findByRaS", query = "SELECT p FROM  ProtocolActivityRaS e JOIN e.protocolActivity p WHERE e.ras = :ras")})
 public class ProtocolActivity extends AbstractEntity {
 
 	/**

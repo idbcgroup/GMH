@@ -1,10 +1,10 @@
 package org.fourgeeks.gha.webclient.client.maintenanceplan;
 
-import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
+import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAGridField;
 import org.fourgeeks.gha.webclient.client.UI.GhaGrid;
 
-public class MaintenancePlanGrid extends GhaGrid<EiaTypeMaintenancePlan>{
+public class MaintenancePlanGrid extends GhaGrid<MaintenancePlan>{
 
 	public MaintenancePlanGrid() {
 		super();
