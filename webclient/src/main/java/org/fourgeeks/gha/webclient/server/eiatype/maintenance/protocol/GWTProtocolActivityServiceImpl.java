@@ -13,7 +13,7 @@ import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.ProtocolActivity;
 import org.fourgeeks.gha.domain.gmh.Resource;
 import org.fourgeeks.gha.ejb.gmh.ProtocolActivityServiceRemote;
-import org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.GWTProtocolActivityService;
+import org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol.GWTProtocolActivityService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 

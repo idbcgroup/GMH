@@ -1,0 +1,226 @@
+package org.fourgeeks.gha.webclient.client.maintenanceplan.equipments;
+
+import java.util.List;
+
+import org.fourgeeks.gha.domain.gmh.Eia;
+import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
+import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
+import org.fourgeeks.gha.webclient.client.UI.GHAHideable;
+import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.eia.EIAAddForm;
+import org.fourgeeks.gha.webclient.client.eia.EIAGrid;
+import org.fourgeeks.gha.webclient.client.eia.EIAModel;
+import org.fourgeeks.gha.webclient.client.eia.EIARecord;
+import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
+import org.fourgeeks.gha.webclient.client.eia.EIAUpdateForm;
+import org.fourgeeks.gha.webclient.client.eia.EIAUtil;
+import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
+
+import com.smartgwt.client.types.AnimationEffect;
+import com.smartgwt.client.util.BooleanCallback;
+import com.smartgwt.client.widgets.Label;
+import com.smartgwt.client.widgets.events.ClickEvent;
+import com.smartgwt.client.widgets.events.ClickHandler;
+import com.smartgwt.client.widgets.grid.ListGridRecord;
+import com.smartgwt.client.widgets.layout.HLayout;
+import com.smartgwt.client.widgets.layout.VLayout;
+
+/**
+ * @author alacret
+ * 
+ */
+public class MaintenancePlanEquipmentGridPanel extends VLayout implements
+		EIATypeSelectionListener,/* EiaSelectionProducer, */
+		EIASelectionListener, GHAClosable, GHAHideable {
+
+	private EIAGrid grid;
+	private EiaType eiaType;
+	private EIAUpdateForm eiaUpdateForm;
+	private EIAAddForm eiaAddForm;
+	{
+		grid = new EIAGrid();
+		eiaAddForm = new EIAAddForm();
+		eiaUpdateForm = new EIAUpdateForm();
+	}
+
+	/**
+	 * @param eIATypeEquipmentSubTab
+	 */
+	public MaintenancePlanEquipmentGridPanel(
+			MaintenancePlanEquipmentSubTab eIATypeEquipmentSubTab) {
+		super();
+		
+		eIATypeEquipmentSubTab.addGHAHideableHandler(eiaAddForm);
+		eiaAddForm.addEiaSelectionListener(eIATypeEquipmentSubTab);
+		eIATypeEquipmentSubTab.addGHAHideableHandler(eiaUpdateForm);
+		eiaUpdateForm.addEiaSelectionListener(eIATypeEquipmentSubTab);
+		
+		setStyleName("sides-padding padding-top");// Esto es VUDU!
+		setWidth100();
+		setBackgroundColor("#E0E0E0");
+
+		Label title = new Label("<h3>Equipos que estan asociados al Plan de Mantenimiento</h3>");
+		title.setHeight(30);
+		title.setWidth100();
+		title.setStyleName("title-label");
+		addMember(title);
+
+		// //////Botones laterales
+		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
+				"../resources/icons/new.png", new ClickHandler() {
+
+					@Override
+					public void onClick(ClickEvent event) {
+						eiaAddForm.open();
+					}
+				}), new GHAImgButton("../resources/icons/edit.png",
+				new ClickHandler() {
+
+					@Override
+					public void onClick(ClickEvent event) {
+						if (grid.getSelectedRecord() != null) {
+							Eia eia = ((EIARecord) grid.getSelectedRecord())
+									.toEntity();
+							eiaUpdateForm.setEia(eia);
+							eiaUpdateForm.open();
+						} else {
+							GHANotification
+									.alert("Debe seleccionar un equipo del grid");
+						}
+					}
+				}), new GHAImgButton("../resources/icons/delete.png",
+				new ClickHandler() {
+
+					@Override
+					public void onClick(ClickEvent event) {
+						final Eia selectedRecord = grid.getSelectedEntity();
+
+						if (selectedRecord == null)
+							return;// No record selected
+
+						GHANotification
+								.confirm(
+										"Equipo",
+										"Confirme si desea eliminar el equipo seleccionado",
+										new BooleanCallback() {
+
+											@Override
+											public void execute(
+													Boolean resultAsc) {
+												if (resultAsc)
+													EIAModel.delete(
+															selectedRecord
+																	.getId(),
+															new GHAAsyncCallback<Boolean>() {
+
+																@Override
+																public void onSuccess(
+																		Boolean result) {
+																	loadData(eiaType);
+
+																}
+
+															});
+											}
+										});
+
+					}
+
+				}), new GHAImgButton("../resources/icons/set.png",
+				new ClickHandler() {
+
+					@Override
+					public void onClick(ClickEvent event) {
+						// EIATypeRecord selectedRecord =
+						// (EIATypeRecord)
+						// eiaTypeEquiposGrid
+						// .getSelectedRecord();
+						// History.newItem("eia/" +
+						// selectedRecord.getCode());
+					}
+				}));
+
+		HLayout mainLayout = new HLayout();
+		mainLayout.addMembers(grid, sideButtons);
+		addMember(mainLayout);
+	}
+
+	@Override
+	public void select(EiaType eiaType) {
+		this.eiaType = eiaType;
+		eiaAddForm.select(eiaType);
+		eiaUpdateForm.select(eiaType);
+		loadData(eiaType);
+
+	}
+
+	/**
+	 * @param eiaType
+	 */
+	private void loadData(EiaType eiaType) {
+		EIAModel.find(eiaType, new GHAAsyncCallback<List<Eia>>() {
+
+			@Override
+			public void onSuccess(List<Eia> result) {
+				ListGridRecord[] array = (ListGridRecord[]) EIAUtil
+						.toGridRecords(result).toArray(new EIARecord[] {});
+				grid.setData(array);
+
+			}
+		});
+	}
+
+	@Override
+	public void close() {
+		eiaAddForm.animateHide(AnimationEffect.FLY);
+		eiaAddForm.destroy();
+		eiaUpdateForm.animateHide(AnimationEffect.FLY);
+		eiaUpdateForm.destroy();
+	}
+
+	@Override
+	public void hide() {
+		eiaAddForm.hide();
+		eiaUpdateForm.hide();
+		// super.hide();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.eia.EIASelectionListener#select(org
+	 * .fourgeeks.gha.domain.gmh.Eia)
+	 * 
+	 * @Override public void hide() {
+	 * eiaAddForm.animateHide(AnimationEffect.FLY); }
+	 * 
+	 * /* (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.eia.EIASelectionListener#select(org
+	 * .fourgeeks.gha.domain.gmh.Eia)
+	 */
+	@Override
+	public void select(Eia eia) {
+		loadData(eiaType);
+	}
+
+	// @Override
+	// public void addEiaSelectionListener(
+	// EIASelectionListener eiaSelectionListener) {
+	// // TODO Auto-generated method stub
+	//
+	// }
+	//
+	// @Override
+	// public void removeEiaSelectionListener(
+	// EIASelectionListener eiaSelectionListener) {
+	// // TODO Auto-generated method stub
+	//
+	// }
+
+}

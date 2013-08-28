@@ -20,7 +20,7 @@ public abstract class GHASlideInWindow extends VLayout implements
 		setWidth100();
 		setLeft(-5);
 		setBackgroundColor("#E0E0E0");
-		setStyleName("sides-padding-second padding-top box");
+		setStyleName("sides-padding padding-top box");
 		setAlign(Alignment.CENTER);
 		setVisibility(Visibility.HIDDEN);
 		setAnimateTime(600);  

@@ -1,23 +1,24 @@
 /**
  * 
  */
-package org.fourgeeks.gha.ejb.gmh;
+package org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol;
 
 import java.util.List;
-
-import javax.ejb.Remote;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gmh.ProtocolActivity;
 import org.fourgeeks.gha.domain.gmh.ProtocolActivityComponent;
+
+import com.google.gwt.user.client.rpc.RemoteService;
+import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 /**
  * @author emiliot
  *
  */
 
-@Remote
-public interface ProtocolActivityComponentServiceRemote {
+@RemoteServiceRelativePath("protocolActivityComponent")
+public interface GWTProtocolActivityComponentService extends RemoteService {
 	/**
 	 * Delete a ProtocolActivityComponent from database by Id
 	 * @throws EJBException

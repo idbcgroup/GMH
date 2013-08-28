@@ -5,6 +5,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.GHASlideInWindow;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol.MaintenanceProtocolGrid;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
@@ -18,17 +19,17 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class EIATypeMaintenanceProtocolForm extends GHASlideInWindow implements GHAClosable,GHAHideable, ResizeHandler{
+public class MaintenanceProtocolForm extends GHASlideInWindow implements GHAClosable,GHAHideable, ResizeHandler{
 
-	private EIATypeMaintenanceProtocolGrid eiaTypeMaintenanceProtocolGrid = new EIATypeMaintenanceProtocolGrid();
+	private MaintenanceProtocolGrid maintenanceProtocolGrid = new MaintenanceProtocolGrid();
 		
-	public EIATypeMaintenanceProtocolForm() {
+	public MaintenanceProtocolForm() {
 		super(1);
 		GHAUiHelper.addGHAResizeHandler(this);
 		setWidth100();
 		setHeight(GHAUiHelper.getBottomSectionHeight()-20);
 		setTop(260);
-		
+		    
 		Label title = new Label("<h3>Protocolos del Plan</h3>");
 		title.setHeight(35);
 		title.setWidth100();
@@ -47,7 +48,7 @@ public class EIATypeMaintenanceProtocolForm extends GHASlideInWindow implements 
 				}));
 		
 		HLayout mainPanel = new HLayout();
-		mainPanel.addMembers(eiaTypeMaintenanceProtocolGrid, sideButtons);
+		mainPanel.addMembers(maintenanceProtocolGrid, sideButtons);
 	    
 		addMembers(title,mainPanel);
 	}

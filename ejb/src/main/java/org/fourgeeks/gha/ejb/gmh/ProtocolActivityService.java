@@ -75,28 +75,6 @@ public class ProtocolActivityService implements ProtocolActivityServiceRemote {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.fourgeeks.gha.ejb.gmh.ProtocolActivityServiceRemote#findByResource
-	 * (org.fourgeeks.gha.domain.gmh.Resource)
-	 */
-	@Override
-	public List<ProtocolActivity> findByResource(Resource resource)
-			throws EJBException {
-		try {
-			return em.createNamedQuery("ProtocolActivity.findByResource",
-							ProtocolActivity.class)
-					.setParameter("resource", resource).getResultList();
-		} catch (Exception e) {
-			logger.log(Level.INFO, "Error: finding by Resource", e);
-			throw new EJBException(
-					"Error buscando ProtocolActivity por Resource"
-							+ e.getCause().getMessage());
-		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see org.fourgeeks.gha.ejb.gmh.ProtocolActivityServiceRemote#
 	 * findByEiaTypeMaintenanceProtocol
 	 * (org.fourgeeks.gha.domain.gmh.EiaTypeMaintenanceProtocol, int, int)
@@ -117,6 +95,28 @@ public class ProtocolActivityService implements ProtocolActivityServiceRemote {
 			logger.log(Level.INFO, "Error: finding by ProtocolActivity", e);
 			throw new EJBException(
 					"Error buscando ProtocolActivity por EiaTypeMaintenanceProtocol"
+							+ e.getCause().getMessage());
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.ProtocolActivityServiceRemote#findByResource
+	 * (org.fourgeeks.gha.domain.gmh.Resource)
+	 */
+	@Override
+	public List<ProtocolActivity> findByResource(Resource resource)
+			throws EJBException {
+		try {
+			return em.createNamedQuery("ProtocolActivity.findByResource",
+							ProtocolActivity.class)
+					.setParameter("resource", resource).getResultList();
+		} catch (Exception e) {
+			logger.log(Level.INFO, "Error: finding by Resource", e);
+			throw new EJBException(
+					"Error buscando ProtocolActivity por Resource"
 							+ e.getCause().getMessage());
 		}
 	}

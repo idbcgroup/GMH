@@ -5,6 +5,7 @@ import org.fourgeeks.gha.webclient.client.eia.EIAPlace;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypePlace;
 import org.fourgeeks.gha.webclient.client.home.HomePlace;
 import org.fourgeeks.gha.webclient.client.login.LoginPlace;
+import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanPlace;
 
 public class GHAPlacesFactory {
 	/*
@@ -24,6 +25,8 @@ public class GHAPlacesFactory {
 			return new EIAPlace();
 		else if (token.startsWith("edt"))
 			return new EDTPlace();
+		else if (token.startsWith("pdm"))
+			return new MaintenancePlanPlace();
 		/*
 		 * switch (token) { case "login": }
 		 */

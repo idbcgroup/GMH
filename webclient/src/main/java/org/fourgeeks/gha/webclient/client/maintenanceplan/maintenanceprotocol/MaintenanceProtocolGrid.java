@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol;
+package org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol;
 
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenanceProtocol;
 import org.fourgeeks.gha.webclient.client.UI.GHAGridField;
@@ -12,7 +12,7 @@ import com.smartgwt.client.widgets.form.fields.events.ChangeEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangeHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
 
-public class EIATypeMaintenanceProtocolGrid extends GhaGrid<EiaTypeMaintenanceProtocol> {
+public class MaintenanceProtocolGrid extends GhaGrid<EiaTypeMaintenanceProtocol> {
 
 	@Override
 	protected Canvas createRecordComponent(final ListGridRecord record, Integer colNum) {  
@@ -38,7 +38,7 @@ public class EIATypeMaintenanceProtocolGrid extends GhaGrid<EiaTypeMaintenancePr
 
     }
 	
-	public EIATypeMaintenanceProtocolGrid() {
+	public MaintenanceProtocolGrid() {
 		setEmptyMessage("No existen protocolos de mantenimiento asociados al plan.");
 
 		GHAGridField idGridField = new GHAGridField("id", "No. Sec.");

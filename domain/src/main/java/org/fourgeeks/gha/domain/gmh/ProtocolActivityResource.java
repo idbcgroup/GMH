@@ -40,6 +40,16 @@ public class ProtocolActivityResource extends AbstractEntity {
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * @param activity
+	 * @param resource2
+	 */
+	public ProtocolActivityResource(ProtocolActivity activity,
+			Resource resource) {
+		this.protocolActivity = activity;
+		this.resource = resource;
+	}
+
 	public ProtocolActivity getProtocolActivity() {
 		return protocolActivity;
 	}
