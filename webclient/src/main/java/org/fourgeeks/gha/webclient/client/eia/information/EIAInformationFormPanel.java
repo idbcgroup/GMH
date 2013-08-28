@@ -19,16 +19,16 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class EIAInformationFormPanel extends VLayout implements EIATypeSelectionListener,GHAClosable,GHAHideable{
+public class EIAInformationFormPanel extends VLayout implements
+		EIATypeSelectionListener, GHAClosable, GHAHideable {
 
 	/**
 	 * @param eiaEquipmentSubTab
 	 * 
 	 */
 	private EIAForm eiaForm = new EIAForm();
-	
-	
-	public EIAInformationFormPanel(EIAInformationSubTab eiaEquipmentSubTab) {
+
+	public EIAInformationFormPanel() {
 		super();
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
@@ -37,26 +37,26 @@ public class EIAInformationFormPanel extends VLayout implements EIATypeSelection
 		title.setHeight(30);
 		title.setWidth100();
 		title.setStyleName("title-label");
-		
+
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
 				"../resources/icons/save.png", new ClickHandler() {
 
 					@Override
 					public void onClick(ClickEvent event) {
-//						save();
+						// save();
 					}
 				}), new GHAImgButton("../resources/icons/undo.png",
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-//						undo();
+						// undo();
 					}
 				}));
-		
+
 		HLayout formPanel = new HLayout();
 		formPanel.addMembers(eiaForm, sideButtons);
 
-		addMembers(title,formPanel);
+		addMembers(title, formPanel);
 
 	}
 
@@ -64,26 +64,30 @@ public class EIAInformationFormPanel extends VLayout implements EIATypeSelection
 	 * @param array
 	 */
 	public void setData(ListGridRecord[] array) {
-		//eiaGrid.setData(array);
+		// eiaGrid.setData(array);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener#select(org.fourgeeks.gha.domain.gmh.EiaType)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener#select
+	 * (org.fourgeeks.gha.domain.gmh.EiaType)
 	 */
 	@Override
 	public void select(EiaType eiaType) {
-		
+
 	}
 
 	@Override
 	public void close() {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	@Override
 	public void hide() {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

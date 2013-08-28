@@ -8,17 +8,17 @@ import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeTab;
 
 public class EIATypeEquipmentSubTab extends GHASubTab implements
-		EIATypeSelectionListener, EIASelectionListener{
+		EIATypeSelectionListener, EIASelectionListener {
 
 	private EIATypeEquipmentGridPanel equiposGridPanel;
 
 	public EIATypeEquipmentSubTab(EIATypeTab tab) {
 		super("Equipos", tab);
-		
+		tab.addEiaTypeSelectionListener(this);
 		equiposGridPanel = new EIATypeEquipmentGridPanel(this);
 		addGHAClosableHandler(equiposGridPanel);
 		addGHAHideableHandler(equiposGridPanel);
-		
+
 		setPane(equiposGridPanel);
 	}
 
@@ -27,12 +27,16 @@ public class EIATypeEquipmentSubTab extends GHASubTab implements
 		equiposGridPanel.select(eiaType);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.eia.EIASelectionListener#select(org.fourgeeks.gha.domain.gmh.Eia)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.eia.EIASelectionListener#select(org
+	 * .fourgeeks.gha.domain.gmh.Eia)
 	 */
 	@Override
 	public void select(Eia eia) {
 		equiposGridPanel.select(eia);
-		
+
 	}
 }

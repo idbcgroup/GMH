@@ -8,21 +8,25 @@ import org.fourgeeks.gha.webclient.client.eiatype.EIATypeTab;
 import com.smartgwt.client.widgets.tab.events.TabDeselectedEvent;
 import com.smartgwt.client.widgets.tab.events.TabDeselectedHandler;
 
+/**
+ * @author alacret
+ * 
+ */
 public class EIATypeMaintenanceSubTab extends GHASubTab implements
-		EIATypeSelectionListener{
+		EIATypeSelectionListener {
 
 	private EIATypeMaintenanceGridPanel eiaTypeMaintenanceGridPanel;
 
+	/**
+	 * @param tab
+	 */
 	public EIATypeMaintenanceSubTab(EIATypeTab tab) {
-		super("Mantenimiento",tab);
-		
+		super("Mantenimiento", tab);
+		tab.addEiaTypeSelectionListener(this);
 		eiaTypeMaintenanceGridPanel = new EIATypeMaintenanceGridPanel();
-		
 		addGHAClosableHandler(eiaTypeMaintenanceGridPanel);
 		addGHAHideableHandler(eiaTypeMaintenanceGridPanel);
-		
 		setPane(eiaTypeMaintenanceGridPanel);
-		
 		addTabDeselectedHandler(new TabDeselectedHandler() {
 			@Override
 			public void onTabDeselected(TabDeselectedEvent event) {
@@ -33,7 +37,6 @@ public class EIATypeMaintenanceSubTab extends GHASubTab implements
 
 	@Override
 	public void select(EiaType eiaType) {
-		// TODO Auto-generated method stub
 		eiaTypeMaintenanceGridPanel.select(eiaType);
 	}
 

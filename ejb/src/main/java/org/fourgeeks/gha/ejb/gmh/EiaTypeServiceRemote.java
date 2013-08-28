@@ -24,10 +24,7 @@ public interface EiaTypeServiceRemote {
 
 	/**
 	 * Delete an EiaType from database by Id
-	 * 
-	 * @return a boolean with the result of the operation
 	 * @throws EJBException
-	 * 
 	 */
 	public void delete(long Id) throws EJBException;
 

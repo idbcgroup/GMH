@@ -1,27 +1,37 @@
 package org.fourgeeks.gha.webclient.client.eia.maintenanceplan;
 
-import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.webclient.client.UI.GHASubTab;
+import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 import org.fourgeeks.gha.webclient.client.eia.EIATab;
-import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
-public class EIAMaintPlanSubTab extends GHASubTab implements EIATypeSelectionListener{
-	
-	private EIAMaintPlanGridPanel eiaMaintPlanGridPanel = null;
-	
+/**
+ * @author alacret
+ * 
+ */
+public class EIAMaintPlanSubTab extends GHASubTab implements
+		EIASelectionListener {
+
+	private EIAMaintPlanGridPanel eiaMaintPlanGridPanel;
+
+	{
+		eiaMaintPlanGridPanel = new EIAMaintPlanGridPanel();
+	}
+
+	/**
+	 * @param tab
+	 */
 	public EIAMaintPlanSubTab(EIATab tab) {
 		super("Planes Mantenimiento", tab);
-		
-		eiaMaintPlanGridPanel = new EIAMaintPlanGridPanel();
+		tab.addEiaSelectionListener(this);
 		addGHAClosableHandler(eiaMaintPlanGridPanel);
 		addGHAHideableHandler(eiaMaintPlanGridPanel);
-		
 		setPane(eiaMaintPlanGridPanel);
 	}
 
 	@Override
-	public void select(EiaType eiaType) {
+	public void select(Eia eia) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

@@ -6,16 +6,18 @@ package org.fourgeeks.gha.webclient.client.eiatype.maintenance.plan;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 
+import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 /**
  * @author emiliot
  *
  */
-@RemoteServiceRelativePath("eiaTypeMaintenancePlan")
-public interface GWTEiaTypeMaintenancePlanService {
+@RemoteServiceRelativePath("eiaTypeMaintenancePlanService")
+public interface GWTEiaTypeMaintenancePlanService extends RemoteService{
 	/**
 	 * @param Id
 	 * @throws EJBException
@@ -23,11 +25,19 @@ public interface GWTEiaTypeMaintenancePlanService {
 	public void delete(long Id) throws EJBException;
 
 	/**
-	 * @param eiaTypeCode
+	 * @param eiaType
 	 * @return a list with the maintenance plans associated with this eiatype
 	 * @throws EJBException
 	 */
-	public List<EiaTypeMaintenancePlan> findByEiaType(String eiaTypeCode)
+	public List<EiaTypeMaintenancePlan> findByEiaType(EiaType eiaType)
+			throws EJBException;
+	
+	/**
+	 * @param eiaType
+	 * @return a list with size maintenance plans starting on offset associated with this eiatype
+	 * @throws EJBException
+	 */
+	public List<EiaTypeMaintenancePlan> findByEiaType(EiaType eiaType, int offset, int size)
 			throws EJBException;
 
 	/**
@@ -42,6 +52,14 @@ public interface GWTEiaTypeMaintenancePlanService {
 	 * @throws EJBException
 	 */
 	public List<EiaTypeMaintenancePlan> getAll() throws EJBException;
+	
+	/**
+	 * @param offset
+	 * @param size
+	 * @return the list of size EiaTypeMaintenancePlan starting on offset
+	 * @throws EJBException
+	 */
+	public List<EiaTypeMaintenancePlan> getAll(int offset, int size) throws EJBException;
 
 	/**
 	 * @param EiaTypeMaintenancePlan

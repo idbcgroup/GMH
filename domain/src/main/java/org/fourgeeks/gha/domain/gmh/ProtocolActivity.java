@@ -2,8 +2,8 @@ package org.fourgeeks.gha.domain.gmh;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
@@ -13,16 +13,16 @@ import org.fourgeeks.gha.domain.AbstractEntity;
  * 
  */
 @Entity
+@NamedQueries(value = {
+		@NamedQuery(name = "ProtocolActivity.getAll", query = "SELECT e from ProtocolActivity e order by e.id"),
+		@NamedQuery(name = "ProtocolActivity.findByEiaTypeMaintenanceProtocol", query = "SELECT a FROM ProtocolActivityMaintenanceProtocol e JOIN e.activity a WHERE e.protocol = :maintenanceProtocol order by e.ordinal"),
+		@NamedQuery(name = "ProtocolActivity.findByResource", query = "SELECT p FROM  ProtocolActivityResource e JOIN e.protocolActivity p WHERE e.resource = :resource")})
 public class ProtocolActivity extends AbstractEntity {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-	@ManyToOne
-	@JoinColumn(name = "maintenanceProtocolFk")
-	MaintenanceProtocol maintenanceProtocol;
 
 	@NotNull(message = "El nombre de la actividad no puede ser nulo")
 	@Column(nullable = false)
@@ -34,21 +34,6 @@ public class ProtocolActivity extends AbstractEntity {
 	 * 
 	 */
 	public ProtocolActivity() {
-	}
-
-	/**
-	 * @return the maintenanceProtocol
-	 */
-	public MaintenanceProtocol getMaintenanceProtocol() {
-		return maintenanceProtocol;
-	}
-
-	/**
-	 * @param maintenanceProtocol
-	 *            the maintenanceProtocol to set
-	 */
-	public void setMaintenanceProtocol(MaintenanceProtocol maintenanceProtocol) {
-		this.maintenanceProtocol = maintenanceProtocol;
 	}
 
 	/**
