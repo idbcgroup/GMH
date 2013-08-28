@@ -1,33 +1,44 @@
 package org.fourgeeks.gha.webclient.client.eia;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.fourgeeks.gha.domain.gmh.Eia;
-import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHATab;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIATab extends GHATab implements EIATypeSelectionListener,
-		EIASelectionListener {
+/**
+ * @author alacret
+ * 
+ */
+public class EIATab extends GHATab implements EIASelectionListener,
+		EiaSelectionProducer {
 
+	/**
+	 * The ID of the Tab in the app managers
+	 */
 	public static final String ID = "eia";
 	private static final String TITLE = "Equipos";
 	private EIATopSection topSection;
 	private EIAInternalTabset internalTabset;
+	private List<EIASelectionListener> selectionListeners;
+	private Eia eia;
+	{
+		selectionListeners = new ArrayList<EIASelectionListener>();
+	}
 
-	private EiaType eiaType;
-
+	/**
+	 * 
+	 */
 	public EIATab() {
 		super();
 		getHeader().setTitle(TITLE);
 
 		topSection = new EIATopSection(this);
-		topSection.AddEIATypeSelectionListener(this);
-		
 		internalTabset = new EIAInternalTabset(this);
 
-		// Creacion de la tab de EIA
 		VLayout verticalPanel = new VLayout();
 		verticalPanel.setBackgroundColor("#E0E0E0");
 
@@ -41,7 +52,7 @@ public class EIATab extends GHATab implements EIATypeSelectionListener,
 
 	@Override
 	protected void onDraw() {
-		if (eiaType == null)
+		if (eia == null)
 			topSection.search();
 	}
 
@@ -52,17 +63,20 @@ public class EIATab extends GHATab implements EIATypeSelectionListener,
 
 	@Override
 	public void select(Eia eia) {
-		topSection.select(eia);
-		internalTabset.select(eia);
+		for (EIASelectionListener listener : selectionListeners)
+			listener.select(eia);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener#select(org.fourgeeks.gha.domain.gmh.EiaType)
-	 */
 	@Override
-	public void select(EiaType eiaType) {
-		this.eiaType = eiaType;
-		internalTabset.select(eiaType);
+	public void addEiaSelectionListener(
+			EIASelectionListener eiaSelectionListener) {
+		selectionListeners.add(eiaSelectionListener);
+	}
+
+	@Override
+	public void removeEiaSelectionListener(
+			EIASelectionListener eiaSelectionListener) {
+		selectionListeners.remove(eiaSelectionListener);
 	}
 
 }

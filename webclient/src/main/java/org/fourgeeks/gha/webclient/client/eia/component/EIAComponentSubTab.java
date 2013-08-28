@@ -1,26 +1,38 @@
 package org.fourgeeks.gha.webclient.client.eia.component;
 
-import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.webclient.client.UI.GHASubTab;
+import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 import org.fourgeeks.gha.webclient.client.eia.EIATab;
-import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
-public class EIAComponentSubTab extends GHASubTab implements EIATypeSelectionListener{
-	
-	private EIAComponentGridPanel eiaComponentGridPanel = null;
-	
+/**
+ * @author alacret
+ * 
+ */
+public class EIAComponentSubTab extends GHASubTab implements
+		EIASelectionListener {
+
+	private EIAComponentGridPanel eiaComponentGridPanel;
+
+	{
+		eiaComponentGridPanel = new EIAComponentGridPanel();
+	}
+
+	/**
+	 * @param tab
+	 */
 	public EIAComponentSubTab(EIATab tab) {
 		super("Componentes", tab);
-		
-		eiaComponentGridPanel = new EIAComponentGridPanel();
+		tab.addEiaSelectionListener(this);
 		addGHAClosableHandler(eiaComponentGridPanel);
 		addGHAHideableHandler(eiaComponentGridPanel);
-		
+
 		setPane(eiaComponentGridPanel);
 	}
 
 	@Override
-	public void select(EiaType eiaType) {
+	public void select(Eia eia) {
 		// TODO Auto-generated method stub
+
 	}
 }
