@@ -18,9 +18,9 @@ public class EIATypePictureModel {
 				"Esta clase no debe ser instanciada");
 	}
 
-	public static void find(EiaType eiaType,
+	public static void findByEiaType(EiaType eiaType,
 			GHAAsyncCallback<List<EiaTypePicture>> ghaAsyncCallback) {
-		service.find(eiaType, ghaAsyncCallback);
+		service.findByEiaType(eiaType, ghaAsyncCallback);
 
 	}
 

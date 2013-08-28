@@ -6,6 +6,7 @@ import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeUtility;
 import org.fourgeeks.gha.ejb.gmh.EiaTypeUtilityServiceRemote;
 import org.fourgeeks.gha.webclient.client.eiatype.utility.GWTEiaTypeUtilityService;
@@ -36,10 +37,13 @@ public class GWTEiaTypeUtilityServiceImpl extends RemoteServiceServlet
 		return serviceRemote.save(eiaTypeUtility);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.webclient.client.eiatype.utility.GWTEiaTypeUtilityService#findByEiaType(org.fourgeeks.gha.domain.gmh.EiaType)
+	 */
 	@Override
-	public List<EiaTypeUtility> findByEiaType(String code)
+	public List<EiaTypeUtility> findByEiaType(EiaType eiaType)
 			throws EJBException {
-		return serviceRemote.findByEiaType(code);
+		return serviceRemote.findByEiaType(eiaType);
 	}
 
 }

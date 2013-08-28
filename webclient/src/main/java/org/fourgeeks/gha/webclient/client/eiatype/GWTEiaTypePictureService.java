@@ -38,7 +38,7 @@ public interface GWTEiaTypePictureService extends RemoteService {
 	 * @return a list with possible matches to the eiaType passed by param
 	 * @throws EJBException
 	 */
-	public List<EiaTypePicture> find(EiaType eiaType) throws EJBException;
+	public List<EiaTypePicture> findByEiaType(EiaType eiaType) throws EJBException;
 
 	
 	/**

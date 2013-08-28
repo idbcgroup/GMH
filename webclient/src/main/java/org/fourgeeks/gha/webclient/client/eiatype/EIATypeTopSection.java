@@ -180,7 +180,7 @@ public class EIATypeTopSection extends HLayout implements
 	private void getEiaTypePicture(EiaType eiaType){
 		index = 0;
 		listEiaTypePictures = new ArrayList<EiaTypePicture>();
-		EIATypePictureModel.find(eiaType,
+		EIATypePictureModel.findByEiaType(eiaType,
 				new GHAAsyncCallback<List<EiaTypePicture>>() {
 
 					@Override

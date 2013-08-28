@@ -143,7 +143,7 @@ public class EIATypeComponentGridPanel extends VLayout implements
 	}
 
 	private void loadData() {
-		EIATypeComponentModel.find(eiaType,
+		EIATypeComponentModel.findByParentEiaType(eiaType,
 				new GHAAsyncCallback<List<EiaTypeComponent>>() {
 
 					@Override

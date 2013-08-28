@@ -9,6 +9,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.EiaPictureStateEnum;
@@ -19,6 +21,9 @@ import org.fourgeeks.gha.domain.enu.EiaPictureStateEnum;
  */
 
 @Entity
+@NamedQueries(value = {
+		@NamedQuery(name = "EiaPicture.findByEia", query = "SELECT e from EiaPicture e WHERE e.eia = :eia order by id")
+})
 public class EiaPicture extends AbstractEntity{
 
 	/**

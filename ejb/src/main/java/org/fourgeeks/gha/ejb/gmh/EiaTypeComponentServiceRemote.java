@@ -33,17 +33,10 @@ public interface EiaTypeComponentServiceRemote {
 
 	/**
 	 * @param eiaType
-	 * @return a list of eiatypes
-	 * @throws EJBException
-	 */
-	public List<EiaTypeComponent> find(EiaType eiaType) throws EJBException;
-
-	/**
-	 * @param Id
 	 * @return
 	 * @throws EJBException
 	 */
-	public List<EiaTypeComponent> findByParentEiaTypeId(long Id)
+	public List<EiaTypeComponent> findByParentEiaType(EiaType eiaType)
 			throws EJBException;
 
 	/**

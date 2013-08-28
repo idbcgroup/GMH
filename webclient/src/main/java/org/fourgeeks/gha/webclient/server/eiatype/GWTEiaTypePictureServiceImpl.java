@@ -173,7 +173,7 @@ public class GWTEiaTypePictureServiceImpl extends RemoteServiceServlet implement
 	}
 
 	@Override
-	public List<EiaTypePicture> find(EiaType eiaType) throws EJBException {
+	public List<EiaTypePicture> findByEiaType(EiaType eiaType) throws EJBException {
 		return eiaTypePictureServiceRemote.find(eiaType);
 	}
 

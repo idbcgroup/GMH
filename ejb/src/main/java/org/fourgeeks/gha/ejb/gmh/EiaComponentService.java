@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaComponent;
 
 /**
@@ -55,14 +56,16 @@ public class EiaComponentService implements EiaComponentServiceRemote {
 		}
 	}
 
+
+
 	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.EiaComponentServiceRemote#findByEiaId(long)
+	 * @see org.fourgeeks.gha.ejb.gmh.EiaComponentServiceRemote#findByParentEia(org.fourgeeks.gha.domain.gmh.Eia)
 	 */
 	@Override
-	public List<EiaComponent> findByParentEiaId(long Id) throws EJBException {
+	public List<EiaComponent> findByParentEia(Eia eia) throws EJBException {
 		try{
-			return em.createQuery("EiaComponent.findByParentEiaId", EiaComponent.class)
-					.setParameter("parentEiaId", Id)
+			return em.createQuery("EiaComponent.findByParentEia", EiaComponent.class)
+					.setParameter("parentEia", eia)
 					.getResultList();
 		}catch(Exception ex){
 			logger.log(Level.SEVERE, "Error retrieving all EiaComponents", ex);

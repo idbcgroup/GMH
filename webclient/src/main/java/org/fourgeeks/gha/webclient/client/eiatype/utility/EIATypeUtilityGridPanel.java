@@ -133,7 +133,7 @@ public class EIATypeUtilityGridPanel extends VLayout implements
 	}
 	
 	private void loadData() {
-		EIATypeUtilityModel.findByEiaTypeId(eiaType, new AsyncCallback<List<EiaTypeUtility>>(){
+		EIATypeUtilityModel.findByEiaType(eiaType, new AsyncCallback<List<EiaTypeUtility>>(){
 
 			@Override
 			public void onFailure(Throwable caught) {
