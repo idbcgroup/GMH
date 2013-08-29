@@ -10,7 +10,7 @@ import javax.ejb.Remote;
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.ProtocolActivity;
-import org.fourgeeks.gha.domain.gmh.RaS;
+import org.fourgeeks.gha.domain.gmh.ServiceResource;
 
 /**
  * @author emiliot
@@ -51,7 +51,7 @@ public interface ProtocolActivityServiceRemote {
 	 * @return the list of ProtocolActivities that use the resource/service given
 	 * @throws EJBException
 	 */
-	public List<ProtocolActivity> findByRaS(RaS ras) throws EJBException;
+	public List<ProtocolActivity> findByRaS(ServiceResource ras) throws EJBException;
 
 	/**
 	 * @param Id

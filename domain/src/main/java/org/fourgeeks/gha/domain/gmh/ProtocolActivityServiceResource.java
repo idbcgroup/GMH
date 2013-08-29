@@ -17,8 +17,8 @@ import org.fourgeeks.gha.domain.AbstractEntity;
  *
  */
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "protocolActivityFk", "rasFk" }))
-public class ProtocolActivityRaS extends AbstractEntity {
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "protocolActivityFk", "serviceResourceFk" }))
+public class ProtocolActivityServiceResource extends AbstractEntity {
 
 	/**
 	 * 
@@ -30,13 +30,13 @@ public class ProtocolActivityRaS extends AbstractEntity {
 	private ProtocolActivity protocolActivity;
 	
 	@ManyToOne
-	@JoinColumn(name = "rasFk", nullable = false)
-	private RaS ras;
+	@JoinColumn(name = "serviceResourceFk", nullable = false)
+	private ServiceResource serviceResource;
 
 	/**
 	 * 
 	 */
-	public ProtocolActivityRaS() {
+	public ProtocolActivityServiceResource() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -44,26 +44,26 @@ public class ProtocolActivityRaS extends AbstractEntity {
 	 * @param activity
 	 * @param resource2
 	 */
-	public ProtocolActivityRaS(ProtocolActivity activity,
-			RaS ras) {
+	public ProtocolActivityServiceResource(ProtocolActivity activity,
+			ServiceResource serviceResource) {
 		this.protocolActivity = activity;
-		this.ras = ras;
+		this.serviceResource = serviceResource;
 	}
 
 	public ProtocolActivity getProtocolActivity() {
 		return protocolActivity;
 	}
 
-	public RaS getRaS() {
-		return ras;
+	public ServiceResource getServiceResource() {
+		return serviceResource;
 	}
 
 	public void setProtocolActivity(ProtocolActivity protocolActivity) {
 		this.protocolActivity = protocolActivity;
 	}
 
-	public void setRaS(RaS resource) {
-		this.ras = resource;
+	public void setServiceResource(ServiceResource resource) {
+		this.serviceResource = resource;
 	}
 	
 	

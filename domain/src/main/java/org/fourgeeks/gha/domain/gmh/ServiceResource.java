@@ -12,9 +12,9 @@ import org.fourgeeks.gha.domain.AbstractEntity;
  */
 @Entity
 @NamedQueries(value = {
-		@NamedQuery(name = "RaS.getAll", query = "SELECT e from RaS e order by e.name"),
-		@NamedQuery(name = "RaS.findByProtocolActivity", query = "SELECT r FROM  ProtocolActivityRaS e JOIN e.ras r WHERE e.protocolActivity = :protocolActivity")})
-public class RaS extends AbstractEntity {
+		@NamedQuery(name = "ServiceResource.getAll", query = "SELECT e from ServiceResource e order by e.name"),
+		@NamedQuery(name = "ServiceResource.findByProtocolActivity", query = "SELECT r FROM  ProtocolActivityServiceResource e JOIN e.serviceResource r WHERE e.protocolActivity = :protocolActivity")})
+public class ServiceResource extends AbstractEntity {
 
 	/**
 	 * 
@@ -26,14 +26,14 @@ public class RaS extends AbstractEntity {
 	/**
 	 * 
 	 */
-	public RaS() {
+	public ServiceResource() {
 		// TODO Auto-generated constructor stub
 	}
 
 	/**
 	 * @param name
 	 */
-	public RaS(String name) {
+	public ServiceResource(String name) {
 		this.name = name;
 	}
 

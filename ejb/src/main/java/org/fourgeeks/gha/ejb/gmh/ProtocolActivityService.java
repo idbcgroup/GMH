@@ -14,7 +14,7 @@ import javax.persistence.PersistenceContext;
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.ProtocolActivity;
-import org.fourgeeks.gha.domain.gmh.RaS;
+import org.fourgeeks.gha.domain.gmh.ServiceResource;
 
 /**
  * @author emiliot
@@ -107,7 +107,7 @@ public class ProtocolActivityService implements ProtocolActivityServiceRemote {
 	 * (org.fourgeeks.gha.domain.gmh.Resource)
 	 */
 	@Override
-	public List<ProtocolActivity> findByRaS(RaS ras)
+	public List<ProtocolActivity> findByRaS(ServiceResource ras)
 			throws EJBException {
 		try {
 			return em.createNamedQuery("ProtocolActivity.findByResource",

@@ -8,7 +8,7 @@ import java.util.List;
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.ProtocolActivity;
-import org.fourgeeks.gha.domain.gmh.RaS;
+import org.fourgeeks.gha.domain.gmh.ServiceResource;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -52,7 +52,7 @@ public interface GWTProtocolActivityService extends RemoteService{
 	 * @return the list of ProtocolActivities that use the resource/service given
 	 * @throws EJBException
 	 */
-	public List<ProtocolActivity> findByRaS(RaS ras) throws EJBException;
+	public List<ProtocolActivity> findByRaS(ServiceResource ras) throws EJBException;
 
 	/**
 	 * @param Id

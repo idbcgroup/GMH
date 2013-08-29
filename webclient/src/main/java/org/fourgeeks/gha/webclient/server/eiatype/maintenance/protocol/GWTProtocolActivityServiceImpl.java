@@ -11,7 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.ProtocolActivity;
-import org.fourgeeks.gha.domain.gmh.RaS;
+import org.fourgeeks.gha.domain.gmh.ServiceResource;
 import org.fourgeeks.gha.ejb.gmh.ProtocolActivityServiceRemote;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol.GWTProtocolActivityService;
 
@@ -71,7 +71,7 @@ public class GWTProtocolActivityServiceImpl extends RemoteServiceServlet
 	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol.GWTProtocolActivityService#findByRaS(org.fourgeeks.gha.domain.gmh.RaS)
 	 */
 	@Override
-	public List<ProtocolActivity> findByRaS(RaS ras) throws EJBException {
+	public List<ProtocolActivity> findByRaS(ServiceResource ras) throws EJBException {
 		return ejbService.findByRaS(ras);
 	}
 
