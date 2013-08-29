@@ -39,6 +39,10 @@ public class WorkingArea extends AbstractEntity {
 	public WorkingArea() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	public WorkingArea(long id) {
+		this.id = id;
+	}
 
 	/**
 	 * @param wAreaBase

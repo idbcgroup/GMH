@@ -29,6 +29,7 @@ public class EIAUpdateForm extends GHASlideInWindow implements
 	public EIAUpdateForm() {
 		super(1);
 		eiaForm = new EIAForm();
+		eiaForm.setEiaUpdateForm(this);
 		initComponent();
 	}
 
@@ -100,7 +101,6 @@ public class EIAUpdateForm extends GHASlideInWindow implements
 	public void addEiaSelectionListener(
 			EIASelectionListener eiaSelectionListener) {
 		eiaForm.addEiaSelectionListener(eiaSelectionListener);
-
 	}
 
 	@Override
@@ -111,7 +111,6 @@ public class EIAUpdateForm extends GHASlideInWindow implements
 
 	@Override
 	public void hide() {
-		eiaForm.hide();
 		super.hide();
 	}
 

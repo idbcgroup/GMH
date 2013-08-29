@@ -35,7 +35,7 @@ public class Eia extends AbstractEntity {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private EiaMaintenancePlan eMaintenancePlan;
+	// private EiaMaintenancePlan eMaintenancePlan;
 
 	/** Fecha de Instalación del Equipo length =22 */
 	private Date acceptationDate;
@@ -83,8 +83,9 @@ public class Eia extends AbstractEntity {
 	private Date installationDate;
 	/** Fecha de la Factura de Compra length =22 */
 
-	// TODO Foreign key con un proveedor?
-	private String installationProvider;
+	@ManyToOne
+	@JoinColumn(name = "installationProviderFk")
+	private ExternalProvider installationProvider;
 
 	@Column(nullable = true)
 	private int lifeTime;
@@ -102,9 +103,9 @@ public class Eia extends AbstractEntity {
 	@JoinColumn(name = "facilityFk")
 	private Facility facility;
 
-	@ManyToOne
-	@JoinColumn(name = "jobFk")
-	private Job job;
+	// @ManyToOne
+	// @JoinColumn(name = "jobFk")
+	// private Job job;
 	//
 	@ManyToOne
 	@JoinColumn(name = "maintenanceProviderFk")
@@ -274,7 +275,7 @@ public class Eia extends AbstractEntity {
 		return installationDate;
 	}
 
-	public String getInstallationProvider() {
+	public ExternalProvider getInstallationProvider() {
 		return installationProvider;
 	}
 
@@ -290,9 +291,9 @@ public class Eia extends AbstractEntity {
 	// return maintenanceLocation;
 	// }
 	//
-	// public ExternalProvider getMaintenanceProvider() {
-	// return maintenanceProvider;
-	// }
+	public ExternalProvider getMaintenanceProvider() {
+		return maintenanceProvider;
+	}
 
 	public Obu getObu() {
 		return obu;
@@ -444,7 +445,7 @@ public class Eia extends AbstractEntity {
 		this.installationDate = installationDate;
 	}
 
-	public void setInstallationProvider(String installationProvider) {
+	public void setInstallationProvider(ExternalProvider installationProvider) {
 		this.installationProvider = installationProvider;
 	}
 
@@ -460,11 +461,10 @@ public class Eia extends AbstractEntity {
 	// {
 	// this.maintenanceLocation = maintenanceLocation;
 	// }
-	//
-	// public void setMaintenanceProvider(ExternalProvider maintenanceProvider)
-	// {
-	// this.maintenanceProvider = maintenanceProvider;
-	// }
+
+	public void setMaintenanceProvider(ExternalProvider maintenanceProvider) {
+		this.maintenanceProvider = maintenanceProvider;
+	}
 
 	public void setObu(Obu obu) {
 		this.obu = obu;
@@ -538,9 +538,9 @@ public class Eia extends AbstractEntity {
 		this.intWarrantyBegin = intWarrantyBegin;
 	}
 
-	public EiaMaintenancePlan geteMaintenancePlan() {
-		return eMaintenancePlan;
-	}
+	// public EiaMaintenancePlan geteMaintenancePlan() {
+	// return eMaintenancePlan;
+	// }
 
 	public WorkingArea getWorkingArea() {
 		return workingArea;
@@ -550,9 +550,9 @@ public class Eia extends AbstractEntity {
 		return facility;
 	}
 
-	public void seteMaintenancePlan(EiaMaintenancePlan eMaintenancePlan) {
-		this.eMaintenancePlan = eMaintenancePlan;
-	}
+	// public void seteMaintenancePlan(EiaMaintenancePlan eMaintenancePlan) {
+	// this.eMaintenancePlan = eMaintenancePlan;
+	// }
 
 	public void setWorkingArea(WorkingArea workingArea) {
 		this.workingArea = workingArea;

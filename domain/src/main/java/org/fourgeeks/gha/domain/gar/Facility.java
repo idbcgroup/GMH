@@ -36,6 +36,10 @@ public class Facility extends AbstractEntity {
 		// TODO Auto-generated constructor stub
 	}
 
+	public Facility(long id) {
+		this.id = id;
+	}
+
 	public BuildingLocation getBuildingLocation() {
 		return buildingLocation;
 	}
