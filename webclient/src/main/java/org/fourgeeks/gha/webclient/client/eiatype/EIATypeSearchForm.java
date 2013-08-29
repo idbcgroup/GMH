@@ -35,7 +35,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class EIATypeSearchForm extends GHASlideInWindow implements
+public class EIATypeSearchForm extends GHASlideInWindow implements 
 		EIATypeSelectionListener, EiaTypeSelectionProducer {
 
 	private List<EIATypeSelectionListener> selectionListeners;
@@ -44,6 +44,7 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 	private GHASelectItem brandItem, manItem, mobilityItem, typeItem,
 			subTypeItem;
 	private EIATypeAddForm addForm;
+	
 
 	{
 		selectionListeners = new LinkedList<EIATypeSelectionListener>();
@@ -56,6 +57,8 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 		mobilityItem = new GHASelectItem("Movilidad");
 		typeItem = new GHASelectItem("Tipo de Equipo");
 		subTypeItem = new GHASelectItem("Subtipo");
+		
+		eiaTypeGrid = new EIATypeGrid();
 
 		addForm = new EIATypeAddForm();
 		addForm.addEiaTypeSelectionListener(this);
@@ -74,7 +77,7 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 		title.setHeight("35px");
 		addMember(title);
 
-		DynamicForm form = new DynamicForm();
+		final DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(5);
 		form.setItems(codeEIAItem, nameEIAItem, brandItem, modelItem, manItem,
@@ -109,7 +112,14 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
 				"../resources/icons/search.png", searchClickHandler),
-				new GHAImgButton("../resources/icons/clean.png"),
+				new GHAImgButton("../resources/icons/clean.png", new ClickHandler() {
+					
+					@Override
+					public void onClick(ClickEvent event) {
+						form.clearValues();
+						eiaTypeGrid.setData(new ListGridRecord[0]);
+					}
+				}),
 				new GHAImgButton("../resources/icons/cancel.png",
 						new ClickHandler() {
 
@@ -129,7 +139,7 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
 								+ "px"));
 
-		eiaTypeGrid = new EIATypeGrid();
+		
 		eiaTypeGrid.setHeight(GHAUiHelper.getSubtabGridSize(30));
 		HLayout gridLayout = new HLayout();
 		gridLayout.setPadding(10);

@@ -16,6 +16,7 @@ import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.form.fields.events.KeyUpEvent;
 import com.smartgwt.client.widgets.form.fields.events.KeyUpHandler;
+import com.smartgwt.client.widgets.grid.ListGridRecord;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
@@ -53,7 +54,7 @@ public class MaintenancePlanSearchForm extends GHASlideInWindow {
 		title.setHeight("35px");
 		addMember(title);
 		
-		DynamicForm form = new DynamicForm();
+		final DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(4);
 
@@ -84,7 +85,14 @@ public class MaintenancePlanSearchForm extends GHASlideInWindow {
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
 				"../resources/icons/search.png", searchClickHandler),
-				new GHAImgButton("../resources/icons/clean.png"),
+				new GHAImgButton("../resources/icons/clean.png",new ClickHandler() {
+					
+					@Override
+					public void onClick(ClickEvent event) {
+						form.clearValues();
+						grid.setData(new ListGridRecord[0]);
+					}
+				}),
 				new GHAImgButton("../resources/icons/cancel.png",
 						new ClickHandler() {
 
