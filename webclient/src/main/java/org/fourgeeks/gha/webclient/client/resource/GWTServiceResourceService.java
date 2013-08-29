@@ -6,7 +6,7 @@ package org.fourgeeks.gha.webclient.client.resource;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
-import org.fourgeeks.gha.domain.gmh.ProtocolActivity;
+import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.ServiceResource;
 
 import com.google.gwt.user.client.rpc.RemoteService;
@@ -30,7 +30,7 @@ public interface GWTServiceResourceService extends RemoteService{
 	 * @return the list of Resource/Service that used by the ProtocolActivity given
 	 * @throws EJBException
 	 */
-	public List<ServiceResource> findByProtocolActivity(ProtocolActivity protocolActivity) throws EJBException;
+	public List<ServiceResource> findByProtocolActivity(MaintenanceActivity protocolActivity) throws EJBException;
 
 	/**
 	 * @param Id

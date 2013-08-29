@@ -14,10 +14,10 @@ import org.fourgeeks.gha.domain.AbstractEntity;
  */
 @Entity
 @NamedQueries(value = {
-		@NamedQuery(name = "ProtocolActivity.getAll", query = "SELECT e from ProtocolActivity e order by e.id"),
-		@NamedQuery(name = "ProtocolActivity.findByMaintenanceProtocol", query = "SELECT a FROM ProtocolActivityMaintenanceProtocol e JOIN e.activity a WHERE e.protocol = :maintenanceProtocol order by e.ordinal"),
-		@NamedQuery(name = "ProtocolActivity.findByServiceResource", query = "SELECT p FROM  ProtocolActivityServiceResource e JOIN e.protocolActivity p WHERE e.serviceResource = :serviceResource")})
-public class ProtocolActivity extends AbstractEntity {
+		@NamedQuery(name = "MaintenanceActivity.getAll", query = "SELECT e from MaintenanceActivity e order by e.id"),
+		@NamedQuery(name = "MaintenanceActivity.findByMaintenanceProtocol", query = "SELECT a FROM MaintenanceActivityMaintenanceProtocol e JOIN e.activity a WHERE e.protocol = :maintenanceProtocol order by e.ordinal"),
+		@NamedQuery(name = "MaintenanceActivity.findByServiceResource", query = "SELECT p FROM  MaintenanceActivityServiceResource e JOIN e.maintenanceActivity p WHERE e.serviceResource = :serviceResource")})
+public class MaintenanceActivity extends AbstractEntity {
 
 	/**
 	 * 
@@ -33,7 +33,7 @@ public class ProtocolActivity extends AbstractEntity {
 	/**
 	 * 
 	 */
-	public ProtocolActivity() {
+	public MaintenanceActivity() {
 	}
 
 	/**

@@ -17,8 +17,8 @@ import org.fourgeeks.gha.domain.AbstractEntity;
  *
  */
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "protocolActivityFk", "serviceResourceFk" }))
-public class ProtocolActivityServiceResource extends AbstractEntity {
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "maintenanceActivityFk", "serviceResourceFk" }))
+public class MaintenanceActivityServiceResource extends AbstractEntity {
 
 	/**
 	 * 
@@ -26,8 +26,8 @@ public class ProtocolActivityServiceResource extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 	
 	@ManyToOne
-	@JoinColumn(name = "protocolActivityFk", nullable = false)
-	private ProtocolActivity protocolActivity;
+	@JoinColumn(name = "maintenanceActivityFk", nullable = false)
+	private MaintenanceActivity maintenanceActivity;
 	
 	@ManyToOne
 	@JoinColumn(name = "serviceResourceFk", nullable = false)
@@ -36,7 +36,7 @@ public class ProtocolActivityServiceResource extends AbstractEntity {
 	/**
 	 * 
 	 */
-	public ProtocolActivityServiceResource() {
+	public MaintenanceActivityServiceResource() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -44,26 +44,26 @@ public class ProtocolActivityServiceResource extends AbstractEntity {
 	 * @param activity
 	 * @param resource2
 	 */
-	public ProtocolActivityServiceResource(ProtocolActivity activity,
+	public MaintenanceActivityServiceResource(MaintenanceActivity activity,
 			ServiceResource serviceResource) {
-		this.protocolActivity = activity;
+		this.maintenanceActivity = activity;
 		this.serviceResource = serviceResource;
 	}
 
-	public ProtocolActivity getProtocolActivity() {
-		return protocolActivity;
+	public MaintenanceActivity getProtocolActivity() {
+		return maintenanceActivity;
 	}
 
 	public ServiceResource getServiceResource() {
 		return serviceResource;
 	}
 
-	public void setProtocolActivity(ProtocolActivity protocolActivity) {
-		this.protocolActivity = protocolActivity;
+	public void setProtocolActivity(MaintenanceActivity activity) {
+		this.maintenanceActivity = activity;
 	}
 
-	public void setServiceResource(ServiceResource resource) {
-		this.serviceResource = resource;
+	public void setServiceResource(ServiceResource serviceResource) {
+		this.serviceResource = serviceResource;
 	}
 	
 	

@@ -18,7 +18,7 @@ import org.fourgeeks.gha.domain.AbstractEntity;
 
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "protocolFk", "activityFk", "ordinal" }))
-public class ProtocolActivityMaintenanceProtocol extends AbstractEntity {
+public class MaintenanceActivityMaintenanceProtocol extends AbstractEntity {
 
 	/**
 	 * 
@@ -31,14 +31,14 @@ public class ProtocolActivityMaintenanceProtocol extends AbstractEntity {
 	
 	@ManyToOne
 	@JoinColumn(name = "activityFk")
-	private ProtocolActivity activity;
+	private MaintenanceActivity activity;
 	
 	private int ordinal;
 
 	/**
 	 * 
 	 */
-	public ProtocolActivityMaintenanceProtocol() {
+	public MaintenanceActivityMaintenanceProtocol() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -47,8 +47,8 @@ public class ProtocolActivityMaintenanceProtocol extends AbstractEntity {
 	 * @param activity
 	 * @param ordinal
 	 */
-	public ProtocolActivityMaintenanceProtocol(
-			MaintenanceProtocol protocol, ProtocolActivity activity,
+	public MaintenanceActivityMaintenanceProtocol(
+			MaintenanceProtocol protocol, MaintenanceActivity activity,
 			int ordinal) {
 		this.protocol = protocol;
 		this.activity = activity;
@@ -59,7 +59,7 @@ public class ProtocolActivityMaintenanceProtocol extends AbstractEntity {
 		return protocol;
 	}
 
-	public ProtocolActivity getActivity() {
+	public MaintenanceActivity getActivity() {
 		return activity;
 	}
 
@@ -71,7 +71,7 @@ public class ProtocolActivityMaintenanceProtocol extends AbstractEntity {
 		this.protocol = protocol;
 	}
 
-	public void setActivity(ProtocolActivity activity) {
+	public void setActivity(MaintenanceActivity activity) {
 		this.activity = activity;
 	}
 

@@ -18,13 +18,13 @@ import org.fourgeeks.gha.ejb.ContextDeployment;
  *
  */
 public class EiaTypeMaintenanceProtocolServiceTest extends TestCase{
-	private EiaTypeMaintenanceProtocolServiceRemote ejbService;
+	private MaintenanceProtocolServiceRemote ejbService;
 	private MaintenancePlanServiceRemote planService;
 	
 	@Override
 	protected void setUp() throws Exception {
 		 Context context = ContextDeployment.getContext();
-		 ejbService = (EiaTypeMaintenanceProtocolServiceRemote) context
+		 ejbService = (MaintenanceProtocolServiceRemote) context
 				 .lookup("java:global/ejb/gmh.EiaTypeMaintenanceProtocolService");
 		 planService = (MaintenancePlanServiceRemote) context.lookup("java:global/ejb/gmh.EiaTypeMaintenancePlanService");
 		 

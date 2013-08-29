@@ -9,7 +9,7 @@ import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
-import org.fourgeeks.gha.domain.gmh.ProtocolActivity;
+import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.ServiceResource;
 import org.fourgeeks.gha.ejb.gmh.ServiceResourceServiceRemote;
 import org.fourgeeks.gha.webclient.client.resource.GWTServiceResourceService;
@@ -43,7 +43,7 @@ public class GWTServiceResourceServiceImpl extends RemoteServiceServlet implemen
 	 */
 	@Override
 	public List<ServiceResource> findByProtocolActivity(
-			ProtocolActivity protocolActivity) throws EJBException {
+			MaintenanceActivity protocolActivity) throws EJBException {
 		return ejbService.findByProtocolActivity(protocolActivity);
 	}
 

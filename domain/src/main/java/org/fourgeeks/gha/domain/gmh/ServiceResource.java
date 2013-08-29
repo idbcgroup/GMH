@@ -13,7 +13,7 @@ import org.fourgeeks.gha.domain.AbstractEntity;
 @Entity
 @NamedQueries(value = {
 		@NamedQuery(name = "ServiceResource.getAll", query = "SELECT e from ServiceResource e order by e.name"),
-		@NamedQuery(name = "ServiceResource.findByProtocolActivity", query = "SELECT r FROM  ProtocolActivityServiceResource e JOIN e.serviceResource r WHERE e.protocolActivity = :protocolActivity")})
+		@NamedQuery(name = "ServiceResource.findByMaintenanceActivity", query = "SELECT r FROM  MaintenanceActivityServiceResource e JOIN e.serviceResource r WHERE e.maintenanceActivity = :maintenanceActivity")})
 public class ServiceResource extends AbstractEntity {
 
 	/**

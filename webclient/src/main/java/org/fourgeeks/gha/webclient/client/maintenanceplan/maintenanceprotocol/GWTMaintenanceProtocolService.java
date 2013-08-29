@@ -1,23 +1,24 @@
 /**
  * 
  */
-package org.fourgeeks.gha.ejb.gmh;
+package org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol;
 
 import java.util.List;
-
-import javax.ejb.Remote;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 
+import com.google.gwt.user.client.rpc.RemoteService;
+import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
+
 /**
  * @author emiliot
- * 
+ *
  */
 
-@Remote
-public interface EiaTypeMaintenanceProtocolServiceRemote {
+@RemoteServiceRelativePath("maintenanceProtocolService")
+public interface GWTMaintenanceProtocolService extends RemoteService{
 	/**
 	 * Delete a Maintenance Protocol from database by Id
 	 * 

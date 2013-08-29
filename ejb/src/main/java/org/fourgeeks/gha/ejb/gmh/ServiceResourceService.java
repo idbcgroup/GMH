@@ -12,7 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
-import org.fourgeeks.gha.domain.gmh.ProtocolActivity;
+import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.ServiceResource;
 
 /**
@@ -49,7 +49,7 @@ public class ServiceResourceService implements ServiceResourceServiceRemote {
 	 */
 	@Override
 	public List<ServiceResource> findByProtocolActivity(
-			ProtocolActivity protocolActivity) throws EJBException {
+			MaintenanceActivity protocolActivity) throws EJBException {
 		try {
 			return em.createNamedQuery("ServiceResource.findByProtocolActivity",
 							ServiceResource.class)
