@@ -112,36 +112,23 @@ public class EIATopSection extends HLayout implements EIASelectionListener,
 		photoBotones.addMembers(searchPhoto);
 
 		photoPanel.addMembers(photo, photoBotones);
+		
+		VLayout sideButtons = GHAUiHelper.createBar(
+				new GHAImgButton("../resources/icons/search.png", new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						search();
+					}
+				}),
+				new GHAImgButton("../resources/icons/clean.png"),
+				new GHAImgButton("../resources/icons/cancel.png",new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						GHATabSet.closeTab(eIATab);						
+					}
+				}));
 
-		GHAImgButton cleanImg = new GHAImgButton("../resources/icons/clean.png");
-		GHAImgButton cancelButton = new GHAImgButton(
-				"../resources/icons/cancel.png");
-		cancelButton.addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				// TODO Auto-generated method stub
-				GHATabSet.closeTab(eIATab);
-			}
-		});
-		GHAImgButton searchImg = new GHAImgButton(
-				"../resources/icons/search.png");
-		searchImg.addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				search();
-			}
-		});
-
-		VLayout panelBotones = new VLayout();
-		panelBotones.setWidth(30);
-		panelBotones.setLayoutMargin(5);
-		panelBotones.setMembersMargin(10);
-		panelBotones.setDefaultLayoutAlign(Alignment.CENTER);
-		panelBotones.addMembers(searchImg, cleanImg, cancelButton);
-
-		addMembers(form, photoPanel, new LayoutSpacer(), panelBotones);
+		addMembers(form, photoPanel, new LayoutSpacer(), sideButtons);
 
 	}
 
