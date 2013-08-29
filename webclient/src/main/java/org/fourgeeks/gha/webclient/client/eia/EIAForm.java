@@ -87,7 +87,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 	private EiaType eiaType;
 	private Eia entity;
 	private EIAUpdateForm eiaUpdateForm;
-	
+
 	public void setEiaUpdateForm(EIAUpdateForm eiaUpdateForm) {
 		this.eiaUpdateForm = eiaUpdateForm;
 	}
@@ -679,6 +679,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 					.valueOf(installationProviderSelectItem.getValueAsString())));
 		}
 
+
 		// ubication
 		if (locationTypeSelectItem.getValue() != null) {
 			if (locationTypeSelectItem.getValue().equals("0")) {
@@ -866,6 +867,9 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		lastDepreciationDate.clearValue();
 		realWarrantyBeginDate.clearValue();
 		intWarrantyBeginDate.clearValue();
+		purchaseInvoiceDateItem.clearValue();
+		purchaseOrderDateItem.clearValue();
+		acceptationDateItem.clearValue();
 
 		// sameLocationAttendedItem.setValue(false);
 		// isInMaintenanceItem.setValue(false);
