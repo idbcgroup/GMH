@@ -74,7 +74,7 @@ public class MaintenancePlanEquipmentGridPanel extends VLayout implements
 
 					@Override
 					public void onClick(ClickEvent event) {
-						eiaAddForm.open();
+//						eiaAddForm.open();
 					}
 				}), new GHAImgButton("../resources/icons/edit.png",
 				new ClickHandler() {
@@ -82,13 +82,13 @@ public class MaintenancePlanEquipmentGridPanel extends VLayout implements
 					@Override
 					public void onClick(ClickEvent event) {
 						if (grid.getSelectedRecord() != null) {
-							Eia eia = ((EIARecord) grid.getSelectedRecord())
-									.toEntity();
-							eiaUpdateForm.setEia(eia);
-							eiaUpdateForm.open();
+//							Eia eia = ((EIARecord) grid.getSelectedRecord())
+//									.toEntity();
+//							eiaUpdateForm.setEia(eia);
+//							eiaUpdateForm.open();
 						} else {
-							GHANotification
-									.alert("Debe seleccionar un equipo del grid");
+//							GHANotification
+//									.alert("Debe seleccionar un equipo del grid");
 						}
 					}
 				}), new GHAImgButton("../resources/icons/delete.png",
@@ -129,18 +129,6 @@ public class MaintenancePlanEquipmentGridPanel extends VLayout implements
 
 					}
 
-				}), new GHAImgButton("../resources/icons/set.png",
-				new ClickHandler() {
-
-					@Override
-					public void onClick(ClickEvent event) {
-						// EIATypeRecord selectedRecord =
-						// (EIATypeRecord)
-						// eiaTypeEquiposGrid
-						// .getSelectedRecord();
-						// History.newItem("eia/" +
-						// selectedRecord.getCode());
-					}
 				}));
 
 		HLayout mainLayout = new HLayout();

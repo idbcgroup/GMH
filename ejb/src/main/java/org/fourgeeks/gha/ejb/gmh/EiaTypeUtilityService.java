@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import javax.validation.ConstraintViolationException;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
@@ -48,12 +47,20 @@ public class EiaTypeUtilityService implements EiaTypeUtilityServiceRemote {
 	}
 
 	@Override
-	public List<EiaTypeUtility> findByEiaType(String code)
+	public List<EiaTypeUtility> findByEiaType(EiaType eiaType)
 			throws EJBException {
-		TypedQuery<EiaTypeUtility> query = em.createNamedQuery(
-				"EiaTypeUtility.findByEiaTypeId", EiaTypeUtility.class);
-		query.setParameter("eiaType", new EiaType(code));
-		return query.getResultList();
+		try {
+			return em
+					.createNamedQuery("EiaTypeUtility.findByEiaType",
+							EiaTypeUtility.class)
+					.setParameter("eiaType", eiaType).getResultList();
+		} catch (Exception ex) {
+			logger.log(Level.SEVERE, "Error retrieving all EiaTypeUtility",
+					ex);
+			throw new EJBException(
+					"Error obteniendo todos los EiaTypeUtility "
+							+ ex.getCause().getMessage());
+		}
 	}
 
 	@Override

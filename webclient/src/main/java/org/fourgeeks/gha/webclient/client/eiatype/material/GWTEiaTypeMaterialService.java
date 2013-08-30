@@ -12,7 +12,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("eiaTypeMaterial")
 public interface GWTEiaTypeMaterialService extends RemoteService {
 
-	public List<EiaTypeMaterial> find(EiaType eiaType) throws EJBException;
+	public List<EiaTypeMaterial> findByEiaType(EiaType eiaType) throws EJBException;
 	
 	public EiaTypeMaterial save(EiaTypeMaterial eiaTypeMaterial) throws EJBException;
 	

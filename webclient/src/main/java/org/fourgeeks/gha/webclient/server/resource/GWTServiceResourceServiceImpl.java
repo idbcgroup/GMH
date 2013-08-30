@@ -9,10 +9,10 @@ import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
-import org.fourgeeks.gha.domain.gmh.ProtocolActivity;
-import org.fourgeeks.gha.domain.gmh.Resource;
-import org.fourgeeks.gha.ejb.gmh.ResourceServiceRemote;
-import org.fourgeeks.gha.webclient.client.resource.GWTResourceService;
+import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
+import org.fourgeeks.gha.domain.gmh.ServiceResource;
+import org.fourgeeks.gha.ejb.gmh.ServiceResourceServiceRemote;
+import org.fourgeeks.gha.webclient.client.resource.GWTServiceResourceService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -20,15 +20,15 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  * @author emiliot
  *
  */
-@WebServlet(urlPatterns = {"/webclient/resourceService"})
-public class GWTResourceServiceImpl extends RemoteServiceServlet implements GWTResourceService {
+@WebServlet(urlPatterns = {"/webclient/serviceResource"})
+public class GWTServiceResourceServiceImpl extends RemoteServiceServlet implements GWTServiceResourceService {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@EJB(name = "gmh.ResourceService")
-	ResourceServiceRemote ejbService;
+	@EJB(name = "gmh.serviceResourceService")
+	ServiceResourceServiceRemote ejbService;
 
 	/* (non-Javadoc)
 	 * @see org.fourgeeks.gha.webclient.client.resource.GWTResourceService#delete(long)
@@ -42,8 +42,8 @@ public class GWTResourceServiceImpl extends RemoteServiceServlet implements GWTR
 	 * @see org.fourgeeks.gha.webclient.client.resource.GWTResourceService#findByProtocolActivity(org.fourgeeks.gha.domain.gmh.ProtocolActivity)
 	 */
 	@Override
-	public List<Resource> findByProtocolActivity(
-			ProtocolActivity protocolActivity) throws EJBException {
+	public List<ServiceResource> findByProtocolActivity(
+			MaintenanceActivity protocolActivity) throws EJBException {
 		return ejbService.findByProtocolActivity(protocolActivity);
 	}
 
@@ -51,7 +51,7 @@ public class GWTResourceServiceImpl extends RemoteServiceServlet implements GWTR
 	 * @see org.fourgeeks.gha.webclient.client.resource.GWTResourceService#find(long)
 	 */
 	@Override
-	public Resource find(long Id) throws EJBException {
+	public ServiceResource find(long Id) throws EJBException {
 		return ejbService.find(Id);
 	}
 
@@ -59,7 +59,7 @@ public class GWTResourceServiceImpl extends RemoteServiceServlet implements GWTR
 	 * @see org.fourgeeks.gha.webclient.client.resource.GWTResourceService#getAll()
 	 */
 	@Override
-	public List<Resource> getAll() throws EJBException {
+	public List<ServiceResource> getAll() throws EJBException {
 		return ejbService.getAll();
 	}
 
@@ -67,24 +67,24 @@ public class GWTResourceServiceImpl extends RemoteServiceServlet implements GWTR
 	 * @see org.fourgeeks.gha.webclient.client.resource.GWTResourceService#getAll(int, int)
 	 */
 	@Override
-	public List<Resource> getAll(int offset, int size) throws EJBException {
+	public List<ServiceResource> getAll(int offset, int size) throws EJBException {
 		return ejbService.getAll(offset, size);
 	}
 
 	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.resource.GWTResourceService#save(org.fourgeeks.gha.domain.gmh.Resource)
+	 * @see org.fourgeeks.gha.webclient.client.resource.GWTResourceService#save(org.fourgeeks.gha.domain.gmh.RaS)
 	 */
 	@Override
-	public Resource save(Resource resource) throws EJBException {
-		return ejbService.save(resource);
+	public ServiceResource save(ServiceResource ras) throws EJBException {
+		return ejbService.save(ras);
 	}
 
 	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.resource.GWTResourceService#update(org.fourgeeks.gha.domain.gmh.Resource)
+	 * @see org.fourgeeks.gha.webclient.client.resource.GWTResourceService#update(org.fourgeeks.gha.domain.gmh.RaS)
 	 */
 	@Override
-	public Resource update(Resource resource) throws EJBException {
-		return ejbService.update(resource);
+	public ServiceResource update(ServiceResource ras) throws EJBException {
+		return ejbService.update(ras);
 	}
 
 }

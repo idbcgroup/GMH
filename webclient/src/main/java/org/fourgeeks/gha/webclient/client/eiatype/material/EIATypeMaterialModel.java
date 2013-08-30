@@ -20,7 +20,7 @@ public class EIATypeMaterialModel {
 	
 	public static void find(EiaType eiaType,
 			GHAAsyncCallback<List<EiaTypeMaterial>> callback) {
-		service.find(eiaType, callback);
+		service.findByEiaType(eiaType, callback);
 	}
 
 	public static void save(EiaTypeMaterial eiaTypeMaterial,

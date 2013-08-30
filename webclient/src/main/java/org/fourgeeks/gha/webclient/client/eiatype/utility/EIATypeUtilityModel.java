@@ -3,7 +3,6 @@ package org.fourgeeks.gha.webclient.client.eiatype.utility;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.domain.gmh.EiaTypeComponent;
 import org.fourgeeks.gha.domain.gmh.EiaTypeUtility;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 
@@ -28,9 +27,9 @@ public class EIATypeUtilityModel {
 		service.delete(id, callback);
 	}
 
-	public static void findByEiaTypeId(EiaType eiaType,
+	public static void findByEiaType(EiaType eiaType,
 			AsyncCallback<List<EiaTypeUtility>> callback) {
-		service.findByEiaType(eiaType.getCode(), callback);
+		service.findByEiaType(eiaType, callback);
 	}
 
 	public static void save(EiaTypeUtility eiaTypeUtility,GHAAsyncCallback<EiaTypeUtility> callback) {

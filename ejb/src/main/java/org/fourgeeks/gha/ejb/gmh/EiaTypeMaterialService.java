@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gmh.EiaType;
@@ -24,11 +23,19 @@ public class EiaTypeMaterialService implements EiaTypeMaterialServiceRemote {
 			.getName());
 	
 	@Override
-	public List<EiaTypeMaterial> find(EiaType eiaType) throws EJBException {
-		TypedQuery<EiaTypeMaterial> query = em.createNamedQuery(
-				"EiaTypeMaterial.findByEiaType", EiaTypeMaterial.class);
-		query.setParameter("eiaType", eiaType);
-		return query.getResultList();
+	public List<EiaTypeMaterial> findByEiaType(EiaType eiaType) throws EJBException {
+		try {
+			return em
+					.createNamedQuery("EiaTypeMaterial.findByEiaType",
+							EiaTypeMaterial.class)
+					.setParameter("eiaType", eiaType).getResultList();
+		} catch (Exception ex) {
+			logger.log(Level.SEVERE, "Error retrieving all EiaTypeMaterial",
+					ex);
+			throw new EJBException(
+					"Error obteniendo todos los EiaTypeMaterial "
+							+ ex.getCause().getMessage());
+		}
 	}
 
 	@Override

@@ -428,7 +428,7 @@ public class EIATypeInformationFormPanel extends VLayout implements
 	 */
 	private void showPhotographics(EiaType eiaType) {
 
-		EIATypePictureModel.find(eiaType,
+		EIATypePictureModel.findByEiaType(eiaType,
 				new GHAAsyncCallback<List<EiaTypePicture>>() {
 
 					@Override

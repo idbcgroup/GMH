@@ -25,8 +25,8 @@ public class GWTEiaTypeMaterialServiceImpl extends RemoteServiceServlet
 	private EiaTypeMaterialServiceRemote serviceRemote;
 	
 	@Override
-	public List<EiaTypeMaterial> find(EiaType eiaType) throws EJBException {
-		return serviceRemote.find(eiaType);
+	public List<EiaTypeMaterial> findByEiaType(EiaType eiaType) throws EJBException {
+		return serviceRemote.findByEiaType(eiaType);
 	}
 
 	@Override

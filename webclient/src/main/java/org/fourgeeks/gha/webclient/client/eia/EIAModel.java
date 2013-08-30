@@ -14,7 +14,11 @@ public class EIAModel {
 			.create(GWTEiaService.class);
 
 	public static void find(EiaType eiaType, GHAAsyncCallback<List<Eia>> eias) {
-		eiaService.find(eiaType, eias);
+		eiaService.findByEiaType(eiaType, eias);
+	}
+	
+	public static void find(Eia eia, GHAAsyncCallback<List <Eia>> eias){
+		eiaService.find(eia, eias);
 	}
 
 	public static void save(Eia eia, GHAAsyncCallback<Eia> callback) {
@@ -25,10 +29,6 @@ public class EIAModel {
 	public static void delete(Long id, GHAAsyncCallback<Boolean> callback) {
 		eiaService.delete(id, callback);
 
-	}
-
-	public static void find(Eia eia, GHAAsyncCallback<List<Eia>> callback) {
-		eiaService.find(eia, callback);
 	}
 
 	public static void update(Eia eia, GHAAsyncCallback<Eia> callback) {

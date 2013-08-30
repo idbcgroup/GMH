@@ -7,14 +7,14 @@ import javax.persistence.NamedQuery;
 import org.fourgeeks.gha.domain.AbstractEntity;
 
 /**
- * @author alacret
- * 
+ * @author emiliot
+ * Entity to represent resources and services
  */
 @Entity
 @NamedQueries(value = {
-		@NamedQuery(name = "Resource.getAll", query = "SELECT e from Resource e order by e.name"),
-		@NamedQuery(name = "Resource.findByProtocolActivity", query = "SELECT r FROM  ProtocolActivityResource e JOIN e.resource r WHERE e.protocolActivity = :protocolActivity")})
-public class Resource extends AbstractEntity {
+		@NamedQuery(name = "ServiceResource.getAll", query = "SELECT e from ServiceResource e order by e.name"),
+		@NamedQuery(name = "ServiceResource.findByMaintenanceActivity", query = "SELECT r FROM  MaintenanceActivityServiceResource e JOIN e.serviceResource r WHERE e.maintenanceActivity = :maintenanceActivity")})
+public class ServiceResource extends AbstractEntity {
 
 	/**
 	 * 
@@ -26,14 +26,14 @@ public class Resource extends AbstractEntity {
 	/**
 	 * 
 	 */
-	public Resource() {
+	public ServiceResource() {
 		// TODO Auto-generated constructor stub
 	}
 
 	/**
 	 * @param name
 	 */
-	public Resource(String name) {
+	public ServiceResource(String name) {
 		this.name = name;
 	}
 

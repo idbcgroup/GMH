@@ -39,37 +39,11 @@ public class GWTEiaTypeComponentServiceImpl extends RemoteServiceServlet impleme
 	}
 
 	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.eiatype.component.GWTEiaTypeComponentService#find(org.fourgeeks.gha.domain.gmh.EiaType)
-	 */
-	@Override
-	public List<EiaTypeComponent> find(EiaType eiaType) throws EJBException {
-		return serviceRemote.find(eiaType);
-	}
-
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.eiatype.component.GWTEiaTypeComponentService#find(org.fourgeeks.gha.domain.gmh.EiaType, int, int)
-	 */
-	@Override
-	public List<EiaTypeComponent> find(EiaType eiaType, int offset, int size)
-			throws EJBException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/* (non-Javadoc)
 	 * @see org.fourgeeks.gha.webclient.client.eiatype.component.GWTEiaTypeComponentService#find(long)
 	 */
 	@Override
 	public EiaTypeComponent find(long Id) throws EJBException {
 		return serviceRemote.find(Id);
-	}
-
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.eiatype.component.GWTEiaTypeComponentService#findByEiaTypeId(long)
-	 */
-	@Override
-	public List<EiaTypeComponent> findByEiaTypeId(long Id) throws EJBException {
-		return serviceRemote.findByParentEiaTypeId(Id);
 	}
 
 	/* (non-Javadoc)
@@ -105,6 +79,15 @@ public class GWTEiaTypeComponentServiceImpl extends RemoteServiceServlet impleme
 	public EiaTypeComponent update(EiaTypeComponent eiaTypeComponent)
 			throws EJBException {
 		return serviceRemote.update(eiaTypeComponent);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.webclient.client.eiatype.component.GWTEiaTypeComponentService#findByParentEiaType(org.fourgeeks.gha.domain.gmh.EiaType)
+	 */
+	@Override
+	public List<EiaTypeComponent> findByParentEiaType(EiaType eiaType)
+			throws EJBException {
+		return serviceRemote.findByParentEiaType(eiaType);
 	}
 
 }

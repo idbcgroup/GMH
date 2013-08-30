@@ -122,33 +122,23 @@ public class EIATypeTopSection extends HLayout implements
 		panelBotones.setMembersMargin(10);
 		panelBotones.setDefaultLayoutAlign(Alignment.CENTER);
 
-		GHAImgButton cleanImg = new GHAImgButton("../resources/icons/clean.png");
-		cleanImg.setSize("20px", "20px");
-		cleanImg.setHoverStyle("boxed");
-		GHAImgButton searchImg = new GHAImgButton(
-				"../resources/icons/search.png");
-		searchImg.addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				search();
-			}
-		});
-		GHAImgButton cancelButton = new GHAImgButton(
-				"../resources/icons/cancel.png");
-		cancelButton.addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				GHATabSet.closeTab(EIATypeTopSection.this.eiaTypeTab);
-
-			}
-		});
-
-		panelBotones.addMembers(searchImg, cleanImg, cancelButton);
+		VLayout sideButtons = GHAUiHelper.createBar(
+				new GHAImgButton("../resources/icons/search.png", new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						search();
+					}
+				}),
+				new GHAImgButton("../resources/icons/clean.png"),
+				new GHAImgButton("../resources/icons/cancel.png",new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						GHATabSet.closeTab(EIATypeTopSection.this.eiaTypeTab);					
+					}
+				}));
 
 		addMembers(form, new LayoutSpacer(), photoPanel, new LayoutSpacer(),
-				panelBotones);
+				sideButtons);
 	}
 
 	private void next() {
@@ -172,7 +162,7 @@ public class EIATypeTopSection extends HLayout implements
 	private void getEiaTypePicture(EiaType eiaType) {
 		index = 0;
 		listEiaTypePictures = new ArrayList<EiaTypePicture>();
-		EIATypePictureModel.find(eiaType,
+		EIATypePictureModel.findByEiaType(eiaType,
 				new GHAAsyncCallback<List<EiaTypePicture>>() {
 
 					@Override

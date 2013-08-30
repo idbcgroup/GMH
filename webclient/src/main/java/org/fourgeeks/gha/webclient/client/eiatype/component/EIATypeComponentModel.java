@@ -23,9 +23,9 @@ public class EIATypeComponentModel {
 		service.delete(id, callback);
 	}
 	
-	public static void find(EiaType eiaType,
+	public static void findByParentEiaType(EiaType eiaType,
 			GHAAsyncCallback<List<EiaTypeComponent>> callback) {
-		service.find(eiaType, callback);
+		service.findByParentEiaType(eiaType, callback);
 	}
 	
 	public static void save(EiaTypeComponent eiaTypeComponent,
