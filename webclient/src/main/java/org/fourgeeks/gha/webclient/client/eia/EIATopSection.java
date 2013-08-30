@@ -151,6 +151,6 @@ public class EIATopSection extends HLayout implements EIASelectionListener,
 
 	@Override
 	public void select(Eia eia) {
-		Window.alert("TopSection dice: ha sido seleccionado un Eia");
+		
 	}
 }

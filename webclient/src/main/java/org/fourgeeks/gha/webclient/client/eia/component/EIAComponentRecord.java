@@ -34,19 +34,19 @@ public class EIAComponentRecord extends GHAGridRecord<EiaComponent> {
 	}
 	
 	public void setName(String name) {
-		setAttribute("name", name);
+		setAttribute("nameParte", name);
 	}
 
 	public String getName() {
-		return getAttributeAsString("name");
+		return getAttributeAsString("nameParte");
 	}
 
 	public void setCode(String code) {
-		setAttribute("code", code);
+		setAttribute("eiaCode", code);
 	}
 
 	public String getCode() {
-		return getAttributeAsString("code");
+		return getAttributeAsString("eiaCode");
 	}
 
 	public void setBrand(String brand) {

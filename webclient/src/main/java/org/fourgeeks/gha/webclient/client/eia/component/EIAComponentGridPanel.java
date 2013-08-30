@@ -40,16 +40,13 @@ public class EIAComponentGridPanel extends VLayout implements GHAClosable, GHAHi
 			@Override
 			public void onCellSaved(CellSavedEvent event) {
 				// TODO Auto-generated method stub
-				Window.alert("onCellSaved 1");
 				EiaComponent eiaComponent = ((EIAComponentRecord) event.getRecord()).toEntity();
 				eiaComponent.setComponentObs((String) event.getNewValue());
-				Window.alert("valor nuevo: "+ eiaComponent.getComponentObs());
 				EIAComponentModel.update(eiaComponent,
 						new GHAAsyncCallback<EiaComponent>() {
 
 							@Override
 							public void onSuccess(EiaComponent result) {
-								Window.alert("onCellSaved 1--onSuccess");
 							}
 						});
 				
@@ -62,23 +59,17 @@ public class EIAComponentGridPanel extends VLayout implements GHAClosable, GHAHi
 			@Override
 			public void select(Eia eia) {
 				// TODO Auto-generated method stub
-				Window.alert("select EIASelectionListener 1");
 				final EiaComponent eiaComponent = new EiaComponent();
 				eiaComponent.setParentEia(EIAComponentGridPanel.this.eia);
-				if(EIAComponentGridPanel.this.eia!=null)Window.alert("EIAComponentGridPanel.this.eia: "+EIAComponentGridPanel.this.eia.getCode());
 				eiaComponent.setEia(eia);
-				if(eia!=null)Window.alert("eia: "+eia.getCode());
 				eiaComponent.setComponentObs("");
-				Window.alert("select EIASelectionListener 2");
 				EIAComponentModel.save(eiaComponent,
 						new GHAAsyncCallback<EiaComponent>() {
 
 							@Override
 							public void onSuccess(EiaComponent result) {
 								// TODO Auto-generated method stub
-								Window.alert("onSuccess 1");
 								loadData();
-								Window.alert("onSuccess 2");
 								
 							}
 						});
@@ -124,9 +115,7 @@ public class EIAComponentGridPanel extends VLayout implements GHAClosable, GHAHi
 
 									@Override
 									public void onSuccess(Void result) {
-										Window.alert("onSuccess delete 1");
 										loadData();
-										Window.alert("onSuccess delete 2");
 									}
 								});
 
@@ -163,15 +152,13 @@ public class EIAComponentGridPanel extends VLayout implements GHAClosable, GHAHi
 	@Override
 	public void select(Eia eia) {
 		// TODO Auto-generated method stub
-		if(eia != null)Window.alert("select EIAComponentGridPanel eia: "+eia.getCode());
 		this.eia = eia;
 		loadData();
 	}
 
 	private void loadData() {
 		// TODO Auto-generated method stub
-		EIAComponentModel.findByEiaId(eia,
-				new GHAAsyncCallback<List<EiaComponent>>() {
+		EIAComponentModel.findByEiaId(eia, new GHAAsyncCallback<List<EiaComponent>>() {
 
 					@Override
 					public void onSuccess(List<EiaComponent> eiaComponents) {

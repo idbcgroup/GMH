@@ -32,10 +32,6 @@ public class EIAComponentSubTab extends GHASubTab implements
 	@Override
 	public void select(Eia eia) {
 		// TODO Auto-generated method stub
-		if(eia != null)Window.alert("select EIAComponentSubTab eia: "+eia.getCode());
-		Window.alert("EIAComponentSubTab dice: ha sido seleccionado un Eia");
 		eiaComponentGridPanel.select(eia);
-
-
 	}
 }

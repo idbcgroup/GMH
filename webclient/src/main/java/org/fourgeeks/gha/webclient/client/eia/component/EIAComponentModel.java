@@ -8,6 +8,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 
 
 /**
@@ -26,32 +27,20 @@ public class EIAComponentModel {
 	
 	public static void delete(long id,
 			GHAAsyncCallback<Void> callback) {
-		Window.alert("delete 1");
 		service.delete(id, callback);
-		Window.alert("delete 2");
 	}
 
-	public static void find(Eia eia,
-			GHAAsyncCallback<List<EiaComponent>> callback) {
-		Window.alert("find 1");
-		service.find(eia, callback);
-		Window.alert("find 2");
+	public static void find(Eia eia, AsyncCallback<EiaComponent> callback){
+		service.find(eia.getId(), callback);
 	}
 	
-	public static void findByEiaId(Eia eia, GHAAsyncCallback<List<EiaComponent>> callback) {
-		
-		Window.alert("en findByEiaId");
-		Window.alert("findByEiaId eia: "+eia.getId());
-		
-		
-		service.findByEiaId(eia.getId(), callback);
+	public static void findByEiaId(Eia eia, AsyncCallback<List<EiaComponent>> callback) {
+		service.findByParentEia(eia, callback);
 	}
 	
 	public static void save(EiaComponent eiaComponent,
 			GHAAsyncCallback<EiaComponent> callback) {
-		Window.alert("save 1");
 		service.save(eiaComponent, callback);
-		Window.alert("save 2");
 	}
 
 	public static void update(EiaComponent eiaComponent,
