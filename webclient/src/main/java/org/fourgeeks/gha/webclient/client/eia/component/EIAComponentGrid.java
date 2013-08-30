@@ -8,16 +8,12 @@ import com.smartgwt.client.types.ListGridFieldType;
 
 public class EIAComponentGrid extends GhaGrid<EiaComponent> {
 	
-	private GHAGridField requiredField;
-	private GHAGridField replaceableField;
+	private GHAGridField componentobsField;
 	
 	{
-		requiredField = new GHAGridField("required", "Requerido");
-		requiredField.setType(ListGridFieldType.BOOLEAN);
-		requiredField.setCanEdit(true);
-		replaceableField = new GHAGridField("replaceable", "Reemplazable");
-		replaceableField.setCanEdit(true);
-		replaceableField.setType(ListGridFieldType.BOOLEAN);
+		componentobsField = new GHAGridField("componentobs", "Observaciones");
+		componentobsField.setType(ListGridFieldType.TEXT);
+		componentobsField.setCanEdit(true);
 	}
 
 
@@ -32,20 +28,19 @@ public class EIAComponentGrid extends GhaGrid<EiaComponent> {
 		GHAGridField nameGridField = new GHAGridField("nameParte","Nombre Parte");
 		GHAGridField brandGridField = new GHAGridField("brand", "Marca");
 		GHAGridField modelGridField = new GHAGridField("model", "Modelo");
-		GHAGridField requiredField = new GHAGridField("req", "Requerido");
-		GHAGridField replaceableField = new GHAGridField("rep", "Reemplazable");
 		 	
 		setFields(idGridField, codeGridField, nameGridField, 
-				  brandGridField,modelGridField, requiredField,
-				  replaceableField);
-	}
-	
-	public GHAGridField getRequiredField() {
-		return requiredField;
-	}
-	
-	public GHAGridField getReplaceableField() {
-		return replaceableField;
+				  brandGridField,modelGridField, componentobsField);
 	}
 
+
+	public GHAGridField getComponentobsField() {
+		return componentobsField;
+	}
+
+
+	public void setComponentobsField(GHAGridField componentobsField) {
+		this.componentobsField = componentobsField;
+	}
+	
 }

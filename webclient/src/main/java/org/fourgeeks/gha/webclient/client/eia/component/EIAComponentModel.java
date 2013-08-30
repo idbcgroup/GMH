@@ -38,8 +38,12 @@ public class EIAComponentModel {
 		Window.alert("find 2");
 	}
 	
-	public static void findByEiaId(Eia eia,
-			GHAAsyncCallback<List<EiaComponent>> callback) {
+	public static void findByEiaId(Eia eia, GHAAsyncCallback<List<EiaComponent>> callback) {
+		
+		Window.alert("en findByEiaId");
+		Window.alert("findByEiaId eia: "+eia.getId());
+		
+		
 		service.findByEiaId(eia.getId(), callback);
 	}
 	

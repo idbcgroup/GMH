@@ -4,6 +4,8 @@ import org.fourgeeks.gha.domain.gmh.EiaComponent;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAGridRecord;
 
+import com.google.gwt.user.client.Window;
+
 
 /**
  * @author sizturriaga
@@ -20,7 +22,7 @@ public class EIAComponentRecord extends GHAGridRecord<EiaComponent> {
 	private void setEIAComponentRecord(EiaComponent eiaComponent) {
 		// TODO Auto-generated method stub
 		this.eiaComponent = eiaComponent;
-		EiaType eiaType = eiaComponent.getEia().getEiaType();
+		EiaType eiaType = this.eiaComponent.getEia().getEiaType();
 		setCode(eiaType.getCode());
 		setName(eiaType.getName());
 		if (eiaType.getBrand() != null)
@@ -28,8 +30,7 @@ public class EIAComponentRecord extends GHAGridRecord<EiaComponent> {
 		setModel(eiaType.getModel());
 		if (eiaType.getManufacturer() != null)
 			setManufacturer(eiaType.getManufacturer().getName());
-//		setRequired(this.eiaComponent.isComponentRequired());
-//		setReplaceable(this.eiaComponent.isComponentReplaceable());
+		setComponentObs(eiaComponent.getComponentObs());
 	}
 	
 	public void setName(String name) {
@@ -72,26 +73,19 @@ public class EIAComponentRecord extends GHAGridRecord<EiaComponent> {
 		return getAttributeAsString("manufacturer");
 	}
 
-	public void setRequired(boolean required) {
-		setAttribute("required", required);
+	public void setComponentObs(String componentObs) {
+		// TODO Auto-generated method stub
+		setAttribute("componentobs", componentObs);
 	}
 	
-	public String getRequired() {
-		return getAttributeAsString("required");
-	}
-
-	public void setReplaceable(boolean replaceable) {
-		setAttribute("replaceable", replaceable);
-	}
-	
-	public String getReplaceable() {
-		return getAttributeAsString("replaceable");
+	public String getComponentObs(){
+		return getAttributeAsString("componentobs");
 	}
 
 	@Override
 	public EiaComponent toEntity() {
 		// TODO Auto-generated method stub
-		return null;
+		return eiaComponent;
 	}
 
 }

@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.EiaComponent;
 
+import com.google.gwt.user.client.Window;
+
 /**
  * @author sizturriaga
  * 
