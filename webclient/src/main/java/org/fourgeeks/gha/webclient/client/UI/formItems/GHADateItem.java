@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.UI;
+package org.fourgeeks.gha.webclient.client.UI.formItems;
 
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.widgets.form.fields.DateItem;

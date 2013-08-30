@@ -1,7 +1,7 @@
 package org.fourgeeks.gha.webclient.client.eia.component;
 
 import org.fourgeeks.gha.domain.gmh.Eia;
-import org.fourgeeks.gha.webclient.client.UI.GHASubTab;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASubTab;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 import org.fourgeeks.gha.webclient.client.eia.EIATab;
 

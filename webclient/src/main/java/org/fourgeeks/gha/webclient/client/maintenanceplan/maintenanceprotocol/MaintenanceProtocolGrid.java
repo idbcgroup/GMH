@@ -1,9 +1,9 @@
 package org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol;
 
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
-import org.fourgeeks.gha.webclient.client.UI.GHAGridField;
-import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
-import org.fourgeeks.gha.webclient.client.UI.GhaGrid;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
+import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridField;
+import org.fourgeeks.gha.webclient.client.UI.grids.GhaGrid;
 
 import com.smartgwt.client.util.SC;
 import com.smartgwt.client.widgets.Canvas;

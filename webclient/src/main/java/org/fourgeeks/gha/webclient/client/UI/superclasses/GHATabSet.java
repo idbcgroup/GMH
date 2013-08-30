@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.UI;
+package org.fourgeeks.gha.webclient.client.UI.superclasses;
 
 import java.util.HashMap;
 import java.util.Map;

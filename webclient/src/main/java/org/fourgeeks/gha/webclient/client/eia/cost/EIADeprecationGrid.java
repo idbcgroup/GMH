@@ -1,8 +1,8 @@
 package org.fourgeeks.gha.webclient.client.eia.cost;
 
-import org.fourgeeks.gha.webclient.client.UI.GHAGridField;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.GhaGrid;
+import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridField;
+import org.fourgeeks.gha.webclient.client.UI.grids.GhaGrid;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 

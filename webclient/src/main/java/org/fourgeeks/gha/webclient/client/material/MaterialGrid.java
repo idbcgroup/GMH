@@ -1,8 +1,8 @@
 package org.fourgeeks.gha.webclient.client.material;
 
 import org.fourgeeks.gha.domain.glm.Material;
-import org.fourgeeks.gha.webclient.client.UI.GHAGridField;
-import org.fourgeeks.gha.webclient.client.UI.GhaGrid;
+import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridField;
+import org.fourgeeks.gha.webclient.client.UI.grids.GhaGrid;
 
 /**
  * @author alacret

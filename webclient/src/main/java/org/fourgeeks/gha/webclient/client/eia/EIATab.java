@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.Eia;
-import org.fourgeeks.gha.webclient.client.UI.GHATab;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATab;
 
 import com.smartgwt.client.widgets.layout.VLayout;
 

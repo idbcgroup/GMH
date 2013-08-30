@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.UI;
+package org.fourgeeks.gha.webclient.client.UI.superclasses;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;

@@ -1,9 +1,11 @@
-package org.fourgeeks.gha.webclient.client.UI;
+package org.fourgeeks.gha.webclient.client.UI.grids.tree;
+
+import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
-import com.smartgwt.client.widgets.grid.ListGrid;
-import com.smartgwt.client.widgets.grid.ListGridRecord;
+import com.smartgwt.client.widgets.tree.TreeGrid;
+import com.smartgwt.client.widgets.tree.TreeNode;
 
 /**
  * @author alacret
@@ -11,9 +13,9 @@ import com.smartgwt.client.widgets.grid.ListGridRecord;
  * @param <T>
  *            The type of entity for the grid
  */
-public class GhaGrid<T> extends ListGrid implements ResizeHandler {
+public class GhaTreeGrid<T> extends TreeGrid implements ResizeHandler {
 
-	public GhaGrid() {
+	public GhaTreeGrid() {
 		super();
 		GHAUiHelper.addGHAResizeHandler(this);
 		setWidth100();
@@ -26,15 +28,15 @@ public class GhaGrid<T> extends ListGrid implements ResizeHandler {
 	/**
 	 * @param entities
 	 */
-	public void setData(GHAGridRecord<T>[] entities) {
+	public void setData(GHATreeGridNode<T>[] entities) {
 		setData(entities);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public GHAGridRecord<T> getSelectedRecord() {
-		ListGridRecord selectedRecord = super.getSelectedRecord();
-		return (GHAGridRecord<T>) selectedRecord;
+	public GHATreeGridNode<T> getSelectedRecord() {
+		TreeNode selectedRecord = super.getSelectedRecord();
+		return (GHATreeGridNode<T>) selectedRecord;
 	}
 
 	/**
@@ -42,7 +44,7 @@ public class GhaGrid<T> extends ListGrid implements ResizeHandler {
 	 */
 	public T getSelectedEntity() {
 		@SuppressWarnings("unchecked")
-		GHAGridRecord<T> selectedRecord = (GHAGridRecord<T>) super
+		GHATreeGridNode<T> selectedRecord = (GHATreeGridNode<T>) super
 				.getSelectedRecord();
 		if (selectedRecord == null)
 			return null;

@@ -1,8 +1,8 @@
 package org.fourgeeks.gha.webclient.client.eia.eiadispatchment;
 
-import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
-import org.fourgeeks.gha.webclient.client.UI.GHASlideInWindow;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
 import org.fourgeeks.gha.webclient.client.eia.EIAGrid;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;

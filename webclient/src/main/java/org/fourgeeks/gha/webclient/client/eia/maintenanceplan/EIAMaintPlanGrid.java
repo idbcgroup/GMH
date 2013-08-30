@@ -1,8 +1,8 @@
 package org.fourgeeks.gha.webclient.client.eia.maintenanceplan;
 
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
-import org.fourgeeks.gha.webclient.client.UI.GHAGridField;
-import org.fourgeeks.gha.webclient.client.UI.GhaGrid;
+import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridField;
+import org.fourgeeks.gha.webclient.client.UI.grids.GhaGrid;
 
 public class EIAMaintPlanGrid extends GhaGrid<EiaMaintenancePlanification>{
 

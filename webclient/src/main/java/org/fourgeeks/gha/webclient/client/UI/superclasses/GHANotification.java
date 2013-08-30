@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.UI;
+package org.fourgeeks.gha.webclient.client.UI.superclasses;
 
 import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.util.SC;

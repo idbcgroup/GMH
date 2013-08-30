@@ -1,4 +1,8 @@
-package org.fourgeeks.gha.webclient.client.UI;
+package org.fourgeeks.gha.webclient.client.UI.superclasses;
+
+import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.types.Alignment;

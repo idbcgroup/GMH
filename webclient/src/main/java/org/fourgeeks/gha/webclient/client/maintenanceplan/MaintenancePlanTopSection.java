@@ -3,12 +3,12 @@ package org.fourgeeks.gha.webclient.client.maintenanceplan;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.Eia;
-import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.GHAHideable;
-import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
-import org.fourgeeks.gha.webclient.client.UI.GHATabSet;
-import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATabSet;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 

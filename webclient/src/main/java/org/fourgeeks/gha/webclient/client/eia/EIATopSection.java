@@ -1,13 +1,13 @@
 package org.fourgeeks.gha.webclient.client.eia;
 
 import org.fourgeeks.gha.domain.gmh.Eia;
-import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.GHAImg;
-import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
-import org.fourgeeks.gha.webclient.client.UI.GHATabSet;
-import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
-import org.fourgeeks.gha.webclient.client.UI.GHATitleTextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHATitleTextItem;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImg;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATabSet;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;

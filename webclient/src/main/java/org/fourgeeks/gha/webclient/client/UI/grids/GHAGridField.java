@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.UI;
+package org.fourgeeks.gha.webclient.client.UI.grids;
 
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.widgets.grid.ListGridField;

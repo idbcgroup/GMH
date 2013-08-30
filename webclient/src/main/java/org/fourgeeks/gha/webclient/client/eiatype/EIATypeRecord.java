@@ -1,7 +1,7 @@
 package org.fourgeeks.gha.webclient.client.eiatype;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.webclient.client.UI.GHAGridRecord;
+import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 
 /**
  * @author alacret

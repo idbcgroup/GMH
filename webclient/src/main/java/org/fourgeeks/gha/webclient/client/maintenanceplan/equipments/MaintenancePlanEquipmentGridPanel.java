@@ -5,22 +5,17 @@ import java.util.List;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
-import org.fourgeeks.gha.webclient.client.UI.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.GHAHideable;
-import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
-import org.fourgeeks.gha.webclient.client.UI.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.eia.EIAAddForm;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.eia.EIAGrid;
 import org.fourgeeks.gha.webclient.client.eia.EIAModel;
 import org.fourgeeks.gha.webclient.client.eia.EIARecord;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
-import org.fourgeeks.gha.webclient.client.eia.EIAUpdateForm;
 import org.fourgeeks.gha.webclient.client.eia.EIAUtil;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
-import com.smartgwt.client.types.AnimationEffect;
-import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -38,12 +33,8 @@ public class MaintenancePlanEquipmentGridPanel extends VLayout implements
 
 	private EIAGrid grid;
 	private EiaType eiaType;
-	private EIAUpdateForm eiaUpdateForm;
-	private EIAAddForm eiaAddForm;
 	{
 		grid = new EIAGrid();
-		eiaAddForm = new EIAAddForm();
-		eiaUpdateForm = new EIAUpdateForm();
 	}
 
 	/**
@@ -53,10 +44,6 @@ public class MaintenancePlanEquipmentGridPanel extends VLayout implements
 			MaintenancePlanEquipmentSubTab eIATypeEquipmentSubTab) {
 		super();
 		
-		eIATypeEquipmentSubTab.addGHAHideableHandler(eiaAddForm);
-		eiaAddForm.addEiaSelectionListener(eIATypeEquipmentSubTab);
-		eIATypeEquipmentSubTab.addGHAHideableHandler(eiaUpdateForm);
-		eiaUpdateForm.addEiaSelectionListener(eIATypeEquipmentSubTab);
 		
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		setWidth100();
@@ -71,62 +58,15 @@ public class MaintenancePlanEquipmentGridPanel extends VLayout implements
 		// //////Botones laterales
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
 				"../resources/icons/new.png", new ClickHandler() {
-
 					@Override
 					public void onClick(ClickEvent event) {
-//						eiaAddForm.open();
-					}
-				}), new GHAImgButton("../resources/icons/edit.png",
-				new ClickHandler() {
-
-					@Override
-					public void onClick(ClickEvent event) {
-						if (grid.getSelectedRecord() != null) {
-//							Eia eia = ((EIARecord) grid.getSelectedRecord())
-//									.toEntity();
-//							eiaUpdateForm.setEia(eia);
-//							eiaUpdateForm.open();
-						} else {
-//							GHANotification
-//									.alert("Debe seleccionar un equipo del grid");
-						}
+						//TODO: EIA Search(select) form
 					}
 				}), new GHAImgButton("../resources/icons/delete.png",
 				new ClickHandler() {
-
 					@Override
 					public void onClick(ClickEvent event) {
-						final Eia selectedRecord = grid.getSelectedEntity();
-
-						if (selectedRecord == null)
-							return;// No record selected
-
-						GHANotification
-								.confirm(
-										"Equipo",
-										"Confirme si desea eliminar el equipo seleccionado",
-										new BooleanCallback() {
-
-											@Override
-											public void execute(
-													Boolean resultAsc) {
-												if (resultAsc)
-													EIAModel.delete(
-															selectedRecord
-																	.getId(),
-															new GHAAsyncCallback<Boolean>() {
-
-																@Override
-																public void onSuccess(
-																		Boolean result) {
-																	loadData(eiaType);
-
-																}
-
-															});
-											}
-										});
-
+						//TODO: Remove this plan for the selected equipment
 					}
 
 				}));
@@ -139,10 +79,7 @@ public class MaintenancePlanEquipmentGridPanel extends VLayout implements
 	@Override
 	public void select(EiaType eiaType) {
 		this.eiaType = eiaType;
-		eiaAddForm.select(eiaType);
-		eiaUpdateForm.select(eiaType);
 		loadData(eiaType);
-
 	}
 
 	/**
@@ -150,7 +87,6 @@ public class MaintenancePlanEquipmentGridPanel extends VLayout implements
 	 */
 	private void loadData(EiaType eiaType) {
 		EIAModel.find(eiaType, new GHAAsyncCallback<List<Eia>>() {
-
 			@Override
 			public void onSuccess(List<Eia> result) {
 				ListGridRecord[] array = (ListGridRecord[]) EIAUtil
@@ -163,16 +99,12 @@ public class MaintenancePlanEquipmentGridPanel extends VLayout implements
 
 	@Override
 	public void close() {
-		eiaAddForm.animateHide(AnimationEffect.FLY);
-		eiaAddForm.destroy();
-		eiaUpdateForm.animateHide(AnimationEffect.FLY);
-		eiaUpdateForm.destroy();
+		//Close the search/select form
 	}
 
 	@Override
 	public void hide() {
-		eiaAddForm.hide();
-		eiaUpdateForm.hide();
+		//Hide the search/select form
 		// super.hide();
 	}
 

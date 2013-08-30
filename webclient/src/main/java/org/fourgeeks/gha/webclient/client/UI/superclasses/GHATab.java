@@ -1,7 +1,10 @@
-package org.fourgeeks.gha.webclient.client.UI;
+package org.fourgeeks.gha.webclient.client.UI.superclasses;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 
 import com.smartgwt.client.widgets.layout.VLayout;
 

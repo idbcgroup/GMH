@@ -13,9 +13,9 @@ import org.fourgeeks.gha.domain.glm.Material;
 import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
-import org.fourgeeks.gha.webclient.client.UI.GHANotification;
-import org.fourgeeks.gha.webclient.client.UI.GHASelectItem;
-import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 
 import com.google.gwt.validation.client.impl.Validation;
 import com.smartgwt.client.types.TitleOrientation;

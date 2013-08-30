@@ -1,8 +1,8 @@
 package org.fourgeeks.gha.webclient.client;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
-import org.fourgeeks.gha.webclient.client.UI.GHAPlace;
 import org.fourgeeks.gha.webclient.client.UI.GHAPlacesFactory;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAPlace;
 import org.fourgeeks.gha.webclient.client.eia.GWTEiaService;
 import org.fourgeeks.gha.webclient.client.eia.component.GWTEiaComponentService;
 import org.fourgeeks.gha.webclient.client.eiatype.component.GWTEiaTypeComponentService;
