@@ -8,21 +8,20 @@ import com.smartgwt.client.widgets.tree.TreeGrid;
 import com.smartgwt.client.widgets.tree.TreeNode;
 
 /**
- * @author alacret
+ * @author jfuentes
  * 
  * @param <T>
  *            The type of entity for the grid
  */
-public class GhaTreeGrid<T> extends TreeGrid implements ResizeHandler {
+public class GHATreeGrid<T> extends TreeGrid implements ResizeHandler {
 
-	public GhaTreeGrid() {
+	public GHATreeGrid() {
 		super();
 		GHAUiHelper.addGHAResizeHandler(this);
 		setWidth100();
 		setHeight(GHAUiHelper.getSubtabGridSize(30));
 		setAlternateRecordStyles(false);
-		setCanResizeFields(false);
-		// setShowFilterEditor(true);
+		setCanResizeFields(false);	
 
 	}
 	/**
