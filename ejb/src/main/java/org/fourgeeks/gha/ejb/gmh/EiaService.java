@@ -3,6 +3,7 @@
  */
 package org.fourgeeks.gha.ejb.gmh;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,14 +20,16 @@ import javax.persistence.criteria.Root;
 
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.ess.RoleBase;
+import org.fourgeeks.gha.domain.ess.WorkingArea;
 import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.gar.Facility;
 import org.fourgeeks.gha.domain.gar.Obu;
-import org.fourgeeks.gha.domain.glm.ExternalProvider;
+//import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 
 /**
- * @author emiliot
+ * @author emiliot, vivi.torresg
  * 
  */
 
@@ -82,11 +85,23 @@ public class EiaService implements EiaServiceRemote {
 			criteria = cb.and(criteria,
 					cb.equal(root.<EiaStateEnum> get("state"), p));
 		}
-		if (entity.getProvider() != null) {
-			ParameterExpression<ExternalProvider> p = cb.parameter(
-					ExternalProvider.class, "provider");
+		if (entity.getActualCost() != null) {
+			ParameterExpression<BigDecimal> p = cb.parameter(BigDecimal.class,
+					"actualCost");
 			criteria = cb.and(criteria,
-					cb.equal(root.<ExternalProvider> get("provider"), p));
+					cb.equal(root.<BigDecimal> get("actualCost"), p));
+		}
+		if (entity.getWorkingArea() != null) {
+			ParameterExpression<WorkingArea> p = cb.parameter(
+					WorkingArea.class, "workingArea");
+			criteria = cb.and(criteria,
+					cb.equal(root.<WorkingArea> get("workingArea"), p));
+		}
+		if (entity.getFacility() != null) {
+			ParameterExpression<Facility> p = cb.parameter(Facility.class,
+					"facility");
+			criteria = cb.and(criteria,
+					cb.equal(root.<Facility> get("facility"), p));
 		}
 
 		return criteria;
@@ -155,8 +170,17 @@ public class EiaService implements EiaServiceRemote {
 				if (entity.getState() != null) {
 					q.setParameter("state", entity.getState());
 				}
-				if (entity.getProvider() != null) {
-					q.setParameter("provider", entity.getProvider());
+				// if (entity.getProvider() != null) {
+				// q.setParameter("provider", entity.getProvider());
+				// }
+				if (entity.getActualCost() != null) {
+					q.setParameter("actualCost", entity.getActualCost());
+				}
+				if (entity.getWorkingArea() != null) {
+					q.setParameter("workingArea", entity.getWorkingArea());
+				}
+				if (entity.getFacility() != null) {
+					q.setParameter("facility", entity.getFacility());
 				}
 			}
 			return q.getResultList();

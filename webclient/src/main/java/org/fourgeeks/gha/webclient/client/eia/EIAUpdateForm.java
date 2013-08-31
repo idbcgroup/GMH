@@ -112,6 +112,7 @@ public class EIAUpdateForm extends GHASlideInWindow implements
 	@Override
 	public void hide() {
 		super.hide();
+		this.close();
 	}
 
 	@Override

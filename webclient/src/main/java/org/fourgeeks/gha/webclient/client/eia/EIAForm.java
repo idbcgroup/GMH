@@ -679,7 +679,6 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 					.valueOf(installationProviderSelectItem.getValueAsString())));
 		}
 
-
 		// ubication
 		if (locationTypeSelectItem.getValue() != null) {
 			if (locationTypeSelectItem.getValue().equals("0")) {
