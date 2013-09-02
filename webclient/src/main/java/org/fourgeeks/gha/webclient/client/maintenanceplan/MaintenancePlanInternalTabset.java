@@ -5,7 +5,7 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
-import org.fourgeeks.gha.webclient.client.maintenanceplan.eiatype.MaintenancePlanEiaTypeSubTab;
+import org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype.AsociatedEiaTypeSubTab;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.information.MaintenancePlanInformationSubTab;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol.MaintenanceProtocolSubTab;
 
@@ -17,7 +17,7 @@ public class MaintenancePlanInternalTabset extends TabSet implements
 		EIATypeSelectionListener, EIASelectionListener, ResizeHandler {
 
 	private MaintenancePlanInformationSubTab maintenancePlanInformationSubTab;
-	private MaintenancePlanEiaTypeSubTab maintenancePlanEquipmentSubTab;
+	private AsociatedEiaTypeSubTab maintenancePlanEquipmentSubTab;
 	private MaintenanceProtocolSubTab maintenanceProtocolSubTab;
 //	private EIAMaintPlanSubTab eiaPlanSubTab;
 //	private EIACostSubTab eiaCostsSubTab;
@@ -31,7 +31,7 @@ public class MaintenancePlanInternalTabset extends TabSet implements
 		GHAUiHelper.addGHAResizeHandler(this);
 
 		maintenancePlanInformationSubTab = new MaintenancePlanInformationSubTab(mpTab);
-		maintenancePlanEquipmentSubTab = new MaintenancePlanEiaTypeSubTab(mpTab);
+		maintenancePlanEquipmentSubTab = new AsociatedEiaTypeSubTab(mpTab);
 		maintenanceProtocolSubTab = new MaintenanceProtocolSubTab(mpTab);
 //		eiaPlanSubTab = new EIAMaintPlanSubTab(mpTab);
 //		eiaCostsSubTab = new EIACostSubTab(mpTab);

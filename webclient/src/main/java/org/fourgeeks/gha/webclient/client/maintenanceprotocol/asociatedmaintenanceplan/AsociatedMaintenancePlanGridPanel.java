@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.maintenanceplan.eiatype;
+package org.fourgeeks.gha.webclient.client.maintenanceprotocol.asociatedmaintenanceplan;
 
 import java.util.List;
 
@@ -13,8 +13,8 @@ import org.fourgeeks.gha.webclient.client.eia.EIAModel;
 import org.fourgeeks.gha.webclient.client.eia.EIARecord;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 import org.fourgeeks.gha.webclient.client.eia.EIAUtil;
-import org.fourgeeks.gha.webclient.client.eiatype.EIATypeGrid;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
+import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanGrid;
 
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -27,21 +27,21 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class MaintenancePlanEiatypeGridPanel extends VLayout implements
+public class AsociatedMaintenancePlanGridPanel extends VLayout implements
 		EIATypeSelectionListener,/* EiaSelectionProducer, */
 		EIASelectionListener, GHAClosable, GHAHideable {
 
-	private EIATypeGrid grid;
+	private MaintenancePlanGrid grid;
 	private EiaType eiaType;
 	{
-		grid = new EIATypeGrid();
+		grid = new MaintenancePlanGrid();
 	}
 
 	/**
-	 * @param eIATypeEquipmentSubTab
+	 * @param subTab
 	 */
-	public MaintenancePlanEiatypeGridPanel(
-			MaintenancePlanEiaTypeSubTab eIATypeEquipmentSubTab) {
+	public AsociatedMaintenancePlanGridPanel(
+			AsociatedMaintenancePlanSubTab subTab) {
 		super();
 		
 		
@@ -49,7 +49,7 @@ public class MaintenancePlanEiatypeGridPanel extends VLayout implements
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 
-		Label title = new Label("<h3>Tipos de Equipo que estan asociados al Plan de Mantenimiento</h3>");
+		Label title = new Label("<h3>Planes de Mantenimiento contienen este Protocolo</h3>");
 		title.setHeight(30);
 		title.setWidth100();
 		title.setStyleName("title-label");

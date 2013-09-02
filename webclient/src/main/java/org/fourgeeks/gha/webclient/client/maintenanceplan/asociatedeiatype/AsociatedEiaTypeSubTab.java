@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.maintenanceplan.eiatype;
+package org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype;
 
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
@@ -7,15 +7,15 @@ import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanTab;
 
-public class MaintenancePlanEiaTypeSubTab extends GHASubTab implements
+public class AsociatedEiaTypeSubTab extends GHASubTab implements
 		EIATypeSelectionListener, EIASelectionListener{
 
-	private MaintenancePlanEiatypeGridPanel eiatypeGridPanel;
+	private AsociatedEiatypeGridPanel eiatypeGridPanel;
 
-	public MaintenancePlanEiaTypeSubTab(MaintenancePlanTab tab) {
+	public AsociatedEiaTypeSubTab(MaintenancePlanTab tab) {
 		super("Tipos de Equipo", tab);
 		
-		eiatypeGridPanel = new MaintenancePlanEiatypeGridPanel(this);
+		eiatypeGridPanel = new AsociatedEiatypeGridPanel(this);
 		addGHAClosableHandler(eiatypeGridPanel);
 		addGHAHideableHandler(eiatypeGridPanel);
 		
