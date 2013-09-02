@@ -18,6 +18,10 @@ public class Job extends AbstractEntity {
 	@ManyToOne
 	@JoinColumn(name = "workingAreaFk")
 	private WorkingArea workingArea;
+	
+	@ManyToOne
+	@JoinColumn(name = "jobCategoryFk")
+	private JobCategory jobCategory;
 
 	/**
 	 * 
@@ -32,6 +36,14 @@ public class Job extends AbstractEntity {
 
 	public void setWorkingArea(WorkingArea workingArea) {
 		this.workingArea = workingArea;
+	}
+
+	public JobCategory getJobCategory() {
+		return jobCategory;
+	}
+
+	public void setJobCategory(JobCategory jobCategory) {
+		this.jobCategory = jobCategory;
 	}
 
 }
