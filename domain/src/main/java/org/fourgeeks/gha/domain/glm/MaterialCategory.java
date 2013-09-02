@@ -27,12 +27,12 @@ public class MaterialCategory extends AbstractEntity {
 	
 	@NotNull(message = "El tipo de material no puede ser nulo")
 	@Column(nullable = false)
+	private MaterialTypeEnum type;
 	
 	@ManyToOne
 	@JoinColumn(name = "serviceResourceCategoryFk")
 	private ServiceResourceCategory sRCategory;
 	
-	private MaterialTypeEnum type;
 	private String description;
 	private String name;
 	private String code;
