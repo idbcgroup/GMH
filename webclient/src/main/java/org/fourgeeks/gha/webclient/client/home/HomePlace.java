@@ -167,7 +167,7 @@ public class HomePlace extends GHAPlace {
 		mplanMenuItem.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(MenuItemClickEvent event) {
-				History.newItem("pdm");
+				History.newItem("mplan");
 			}
 		});	
 		
@@ -175,7 +175,7 @@ public class HomePlace extends GHAPlace {
 		mprotMenuItem.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(MenuItemClickEvent event) {
-				History.newItem("pdm");
+				History.newItem("mprot");
 			}
 		});	
 		
