@@ -6,7 +6,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.mix.Bpi;
@@ -28,9 +27,6 @@ public class Obu extends AbstractEntity {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	@OneToOne
-	@JoinColumn(name = "obuBaseFk")
-	private ObuBase obuBase;
 	
 	@ManyToOne
 	@JoinColumn(name = "bpiFk")
