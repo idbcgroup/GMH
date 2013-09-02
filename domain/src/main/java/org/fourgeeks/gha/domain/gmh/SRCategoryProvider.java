@@ -8,13 +8,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
+import org.fourgeeks.gha.domain.glm.ExternalProvider;
 
 /**
  * @author emiliot
  *
  */
+
 @Entity
-public class EiaTypeCategory extends AbstractEntity {
+public class SRCategoryProvider extends AbstractEntity {
 
 	/**
 	 * 
@@ -24,11 +26,19 @@ public class EiaTypeCategory extends AbstractEntity {
 	@ManyToOne
 	@JoinColumn(name = "serviceResourceCategoryFk")
 	private ServiceResourceCategory sRCategory;
+	
+	@ManyToOne
+	@JoinColumn(name = "brandFk")
+	private Brand brand;
+	
+	@ManyToOne
+	@JoinColumn(name = "externalProviderFk")
+	private ExternalProvider externalProvider;
 
 	/**
 	 * 
 	 */
-	public EiaTypeCategory() {
+	public SRCategoryProvider() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -39,7 +49,21 @@ public class EiaTypeCategory extends AbstractEntity {
 	public void setsRCategory(ServiceResourceCategory sRCategory) {
 		this.sRCategory = sRCategory;
 	}
-	
-	
+
+	public Brand getBrand() {
+		return brand;
+	}
+
+	public void setBrand(Brand brand) {
+		this.brand = brand;
+	}
+
+	public ExternalProvider getExternalProvider() {
+		return externalProvider;
+	}
+
+	public void setExternalProvider(ExternalProvider externalProvider) {
+		this.externalProvider = externalProvider;
+	}
 
 }

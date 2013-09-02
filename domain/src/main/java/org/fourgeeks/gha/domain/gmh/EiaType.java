@@ -85,9 +85,10 @@ public class EiaType implements Serializable{
 
 	private EiaSubTypeEnum subtype;
 
-	// @Transient
-	// private List<EiaTypePicture> listEiaTypePicture;
-
+	@ManyToOne
+	@JoinColumn(name = "eiaTypeCategoryFk")
+	private EiaTypeCategory eiaTypeCategory;
+	
 	/**
 	 * 
 	 */
@@ -221,6 +222,14 @@ public class EiaType implements Serializable{
 
 	public void setSubtype(EiaSubTypeEnum subtype) {
 		this.subtype = subtype;
+	}
+
+	public EiaTypeCategory getEiaTypeCategory() {
+		return eiaTypeCategory;
+	}
+
+	public void setEiaTypeCategory(EiaTypeCategory eiaTypeCategory) {
+		this.eiaTypeCategory = eiaTypeCategory;
 	}
 
 }
