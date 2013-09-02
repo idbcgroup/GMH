@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.maintenanceplan.equipments;
+package org.fourgeeks.gha.webclient.client.maintenanceplan.eiatype;
 
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
@@ -7,24 +7,24 @@ import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanTab;
 
-public class MaintenancePlanEquipmentSubTab extends GHASubTab implements
+public class MaintenancePlanEiaTypeSubTab extends GHASubTab implements
 		EIATypeSelectionListener, EIASelectionListener{
 
-	private MaintenancePlanEquipmentGridPanel equiposGridPanel;
+	private MaintenancePlanEiatypeGridPanel eiatypeGridPanel;
 
-	public MaintenancePlanEquipmentSubTab(MaintenancePlanTab tab) {
-		super("Equipos", tab);
+	public MaintenancePlanEiaTypeSubTab(MaintenancePlanTab tab) {
+		super("Tipos de Equipo", tab);
 		
-		equiposGridPanel = new MaintenancePlanEquipmentGridPanel(this);
-		addGHAClosableHandler(equiposGridPanel);
-		addGHAHideableHandler(equiposGridPanel);
+		eiatypeGridPanel = new MaintenancePlanEiatypeGridPanel(this);
+		addGHAClosableHandler(eiatypeGridPanel);
+		addGHAHideableHandler(eiatypeGridPanel);
 		
-		setPane(equiposGridPanel);
+		setPane(eiatypeGridPanel);
 	}
 
 	@Override
 	public void select(EiaType eiaType) {
-		equiposGridPanel.select(eiaType);
+		eiatypeGridPanel.select(eiaType);
 	}
 
 	/* (non-Javadoc)
@@ -32,7 +32,7 @@ public class MaintenancePlanEquipmentSubTab extends GHASubTab implements
 	 */
 	@Override
 	public void select(Eia eia) {
-		equiposGridPanel.select(eia);
+		eiatypeGridPanel.select(eia);
 		
 	}
 }

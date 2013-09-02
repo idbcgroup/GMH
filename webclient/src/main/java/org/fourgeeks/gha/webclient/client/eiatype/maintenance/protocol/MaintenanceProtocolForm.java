@@ -5,7 +5,7 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
-import org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol.MaintenanceProtocolGrid;
+import org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolGrid;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;

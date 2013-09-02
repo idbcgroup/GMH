@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.maintenanceplan;
+package org.fourgeeks.gha.webclient.client.maintenanceprotocol;
 
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
@@ -9,24 +9,24 @@ import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class MaintenancePlanTab extends GHATab implements EIATypeSelectionListener,
+public class MaintenanceProtocolTab extends GHATab implements EIATypeSelectionListener,
 		EIASelectionListener {
 
-	public static final String ID = "mplan";
-	private static final String TITLE = "Planes De Mantenimiento";
-	private MaintenancePlanTopSection topSection;
-	private MaintenancePlanInternalTabset internalTabset;
+	public static final String ID = "mprot";
+	private static final String TITLE = "Protocolos De Mant.";
+	private MaintenanceProtocolTopSection topSection;
+	private MaintenanceProtocolInternalTabset internalTabset;
 
 	private EiaType eiaType;
 
-	public MaintenancePlanTab() {
+	public MaintenanceProtocolTab() {
 		super();
 		getHeader().setTitle(TITLE);
 
-		topSection = new MaintenancePlanTopSection(this);
+		topSection = new MaintenanceProtocolTopSection(this);
 		topSection.AddEIATypeSelectionListener(this);
 		
-		internalTabset = new MaintenancePlanInternalTabset(this);
+		internalTabset = new MaintenanceProtocolInternalTabset(this);
 
 		// Creacion de la tab de EIA
 		VLayout verticalPanel = new VLayout();

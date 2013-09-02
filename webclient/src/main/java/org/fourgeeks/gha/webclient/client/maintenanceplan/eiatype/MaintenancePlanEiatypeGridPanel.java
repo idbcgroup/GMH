@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.maintenanceplan.equipments;
+package org.fourgeeks.gha.webclient.client.maintenanceplan.eiatype;
 
 import java.util.List;
 
@@ -9,11 +9,11 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
-import org.fourgeeks.gha.webclient.client.eia.EIAGrid;
 import org.fourgeeks.gha.webclient.client.eia.EIAModel;
 import org.fourgeeks.gha.webclient.client.eia.EIARecord;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 import org.fourgeeks.gha.webclient.client.eia.EIAUtil;
+import org.fourgeeks.gha.webclient.client.eiatype.EIATypeGrid;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.smartgwt.client.widgets.Label;
@@ -27,21 +27,21 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class MaintenancePlanEquipmentGridPanel extends VLayout implements
+public class MaintenancePlanEiatypeGridPanel extends VLayout implements
 		EIATypeSelectionListener,/* EiaSelectionProducer, */
 		EIASelectionListener, GHAClosable, GHAHideable {
 
-	private EIAGrid grid;
+	private EIATypeGrid grid;
 	private EiaType eiaType;
 	{
-		grid = new EIAGrid();
+		grid = new EIATypeGrid();
 	}
 
 	/**
 	 * @param eIATypeEquipmentSubTab
 	 */
-	public MaintenancePlanEquipmentGridPanel(
-			MaintenancePlanEquipmentSubTab eIATypeEquipmentSubTab) {
+	public MaintenancePlanEiatypeGridPanel(
+			MaintenancePlanEiaTypeSubTab eIATypeEquipmentSubTab) {
 		super();
 		
 		
@@ -49,7 +49,7 @@ public class MaintenancePlanEquipmentGridPanel extends VLayout implements
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 
-		Label title = new Label("<h3>Equipos que estan asociados al Plan de Mantenimiento</h3>");
+		Label title = new Label("<h3>Tipos de Equipo que estan asociados al Plan de Mantenimiento</h3>");
 		title.setHeight(30);
 		title.setWidth100();
 		title.setStyleName("title-label");
