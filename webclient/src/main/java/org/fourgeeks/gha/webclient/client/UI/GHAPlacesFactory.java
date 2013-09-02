@@ -1,5 +1,6 @@
 package org.fourgeeks.gha.webclient.client.UI;
 
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAPlace;
 import org.fourgeeks.gha.webclient.client.edt.EDTPlace;
 import org.fourgeeks.gha.webclient.client.eia.EIAPlace;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypePlace;

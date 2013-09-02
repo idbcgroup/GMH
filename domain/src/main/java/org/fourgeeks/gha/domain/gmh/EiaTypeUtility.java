@@ -13,7 +13,6 @@ import javax.persistence.UniqueConstraint;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.glm.Material;
-import org.fourgeeks.gha.domain.gmh.EiaType;
 
 
 /**
@@ -22,7 +21,7 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
  */
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "materialFk","eiaTypeFk" }))
-@NamedQueries(value = { @NamedQuery(name = "EiaTypeUtility.findByEiaTypeId", query = "SELECT e from EiaTypeUtility e WHERE e.eiaType = :eiaType order by e.id") })
+@NamedQueries(value = { @NamedQuery(name = "EiaTypeUtility.findByEiaType", query = "SELECT e from EiaTypeUtility e WHERE e.eiaType = :eiaType order by e.id") })
 public class EiaTypeUtility extends AbstractEntity {
 
 	/**

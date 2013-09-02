@@ -177,7 +177,7 @@ public class EiaService implements EiaServiceRemote {
 	 * .gmh.EiaType)
 	 */
 	@Override
-	public List<Eia> find(EiaType eiaType) throws EJBException {
+	public List<Eia> findByEiaType(EiaType eiaType) throws EJBException {
 		try {
 			return em.createNamedQuery("Eia.findByEiaType", Eia.class)
 					.setParameter("eiaType", eiaType).getResultList();

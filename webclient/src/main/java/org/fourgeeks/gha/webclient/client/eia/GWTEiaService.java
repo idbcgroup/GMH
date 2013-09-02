@@ -32,7 +32,7 @@ public interface GWTEiaService extends RemoteService {
 	 * @param eiaType
 	 * @return a List with Eia searching by EiaType
 	 */
-	public List<Eia> find(EiaType eiaType)throws EJBException;
+	public List<Eia> findByEiaType(EiaType eiaType)throws EJBException;
 	/**
 	 * @param Id
 	 * @return Find an Eia By Id

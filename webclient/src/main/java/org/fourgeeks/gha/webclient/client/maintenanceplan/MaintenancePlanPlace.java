@@ -1,8 +1,8 @@
 package org.fourgeeks.gha.webclient.client.maintenanceplan;
 
-import org.fourgeeks.gha.webclient.client.UI.GHAPlace;
-import org.fourgeeks.gha.webclient.client.UI.GHATab;
-import org.fourgeeks.gha.webclient.client.UI.GHATabSet;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAPlace;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATab;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATabSet;
 
 public class MaintenancePlanPlace extends GHAPlace {
 	private GHATab tab;

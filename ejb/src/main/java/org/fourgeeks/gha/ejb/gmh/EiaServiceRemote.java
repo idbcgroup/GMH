@@ -51,7 +51,7 @@ public interface EiaServiceRemote {
 	 * @throws EJBException
 	 *             Find all the eias BASED on the eiaType ID
 	 */
-	public List<Eia> find(EiaType eiaType) throws EJBException;
+	public List<Eia> findByEiaType(EiaType eiaType) throws EJBException;
 
 	/**
 	 * @param Id

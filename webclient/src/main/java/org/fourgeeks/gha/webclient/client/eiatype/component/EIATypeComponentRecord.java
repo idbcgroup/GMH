@@ -2,7 +2,7 @@ package org.fourgeeks.gha.webclient.client.eiatype.component;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeComponent;
-import org.fourgeeks.gha.webclient.client.UI.GHAGridRecord;
+import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 
 public class EIATypeComponentRecord
 		extends GHAGridRecord<EiaTypeComponent> {

@@ -1,9 +1,9 @@
 package org.fourgeeks.gha.webclient.client.home;
 
 import org.fourgeeks.gha.webclient.client.UI.GHADropdownMenus;
-import org.fourgeeks.gha.webclient.client.UI.GHAPlace;
-import org.fourgeeks.gha.webclient.client.UI.GHATabSet;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAPlace;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATabSet;
 import org.fourgeeks.gha.webclient.client.eia.eiadispatchment.EIADispatchmentForm;
 import org.fourgeeks.gha.webclient.client.eia.installationcertificate.EIAInstallationCertificateForm;
 

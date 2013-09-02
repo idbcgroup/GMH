@@ -1,7 +1,7 @@
 package org.fourgeeks.gha.webclient.client.material;
 
 import org.fourgeeks.gha.domain.glm.Material;
-import org.fourgeeks.gha.webclient.client.UI.GHAGridRecord;
+import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 
 /**
  * @author alacret Wrapper class for represent a Material as a Record for grid

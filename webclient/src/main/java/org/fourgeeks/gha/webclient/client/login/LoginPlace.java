@@ -1,7 +1,7 @@
 package org.fourgeeks.gha.webclient.client.login;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
-import org.fourgeeks.gha.webclient.client.UI.GHAPlace;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAPlace;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;

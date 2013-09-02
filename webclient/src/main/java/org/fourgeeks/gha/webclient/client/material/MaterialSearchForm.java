@@ -9,11 +9,11 @@ import org.fourgeeks.gha.domain.glm.Material;
 import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
-import org.fourgeeks.gha.webclient.client.UI.GHAImgButton;
-import org.fourgeeks.gha.webclient.client.UI.GHASelectItem;
-import org.fourgeeks.gha.webclient.client.UI.GHASlideInWindow;
-import org.fourgeeks.gha.webclient.client.UI.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.types.TitleOrientation;
@@ -70,7 +70,7 @@ public class MaterialSearchForm extends GHASlideInWindow implements
 		title.setHeight("35px");
 		addMember(title);
 		
-		DynamicForm form = new DynamicForm();
+		final DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(5);
 		form.setItems(codeTextItem, nameTextItem, modelTextItem,
@@ -104,7 +104,14 @@ public class MaterialSearchForm extends GHASlideInWindow implements
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
 				"../resources/icons/search.png", searchClickHandler),
-				new GHAImgButton("../resources/icons/clean.png"),
+				new GHAImgButton("../resources/icons/clean.png", new ClickHandler() {
+					
+					@Override
+					public void onClick(ClickEvent event) {
+						form.clearValues();
+						grid.setData(new ListGridRecord[0]);
+					}
+				}),
 				new GHAImgButton("../resources/icons/cancel.png",
 						new ClickHandler() {
 

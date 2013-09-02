@@ -4,7 +4,7 @@ import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
-import org.fourgeeks.gha.webclient.client.UI.GHAGridRecord;
+import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 
 /**
  * @author alacret

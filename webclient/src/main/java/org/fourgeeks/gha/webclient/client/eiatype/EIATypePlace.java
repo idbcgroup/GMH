@@ -1,8 +1,8 @@
 package org.fourgeeks.gha.webclient.client.eiatype;
 
-import org.fourgeeks.gha.webclient.client.UI.GHAPlace;
-import org.fourgeeks.gha.webclient.client.UI.GHATab;
-import org.fourgeeks.gha.webclient.client.UI.GHATabSet;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAPlace;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATab;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATabSet;
 
 public class EIATypePlace extends GHAPlace {
 	private GHATab tab;

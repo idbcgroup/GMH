@@ -11,7 +11,7 @@ import org.fourgeeks.gha.domain.gmh.EiaTypeMaterial;
 @Remote
 public interface EiaTypeMaterialServiceRemote {
 
-	public List<EiaTypeMaterial> find(EiaType eiaType) throws EJBException;
+	public List<EiaTypeMaterial> findByEiaType(EiaType eiaType) throws EJBException;
 
 	public EiaTypeMaterial save(EiaTypeMaterial eiaTypeMaterial) throws EJBException;
 

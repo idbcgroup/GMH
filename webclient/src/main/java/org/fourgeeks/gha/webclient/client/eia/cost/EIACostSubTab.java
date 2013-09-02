@@ -1,6 +1,6 @@
 package org.fourgeeks.gha.webclient.client.eia.cost;
 
-import org.fourgeeks.gha.webclient.client.UI.GHASubTab;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASubTab;
 import org.fourgeeks.gha.webclient.client.eia.EIATab;
 
 /**

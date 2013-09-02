@@ -50,11 +50,9 @@ public class EiaPictureService implements EiaPictureServiceRemote{
 	@Override
 	public List<EiaPicture> find(Eia eia) throws EJBException {
 		List <EiaPicture> res = null;
-		String query = "SELECT e from EiaPicture e WHERE eiaFk=:eiaId order by id";
-		
 		try{
-			res = em.createQuery(query, EiaPicture.class)
-					.setParameter("eiaId", eia.getId())
+			res = em.createNamedQuery("EiaPicture.findByEia", EiaPicture.class)
+					.setParameter("eiaId", eia)
 					.getResultList();
 		}catch(NoResultException e){
 			logger.log(Level.INFO, "No results", e);

@@ -1,7 +1,7 @@
 package org.fourgeeks.gha.webclient.client.edt;
 
-import org.fourgeeks.gha.webclient.client.UI.GHAGridField;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridField;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;

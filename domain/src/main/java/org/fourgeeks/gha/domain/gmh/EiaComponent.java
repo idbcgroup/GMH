@@ -24,7 +24,7 @@ import org.fourgeeks.gha.domain.AbstractEntity;
 		"parentEiaFk" }))
 @NamedQueries(value = {
 		@NamedQuery(name = "EiaComponent.getAll", query = "SELECT e from EiaComponent e group by e.parentEia order by e.id"),
-		@NamedQuery(name = "EiaComponent.findByParentEiaId", query = "SELECT e from EiaComponent e WHERE e.parentEia = :parentEia order by e.id") })
+		@NamedQuery(name = "EiaComponent.findByParentEia", query = "SELECT e from EiaComponent e WHERE e.parentEia = :parentEia order by e.id") })
 public class EiaComponent extends AbstractEntity {
 
 	/**

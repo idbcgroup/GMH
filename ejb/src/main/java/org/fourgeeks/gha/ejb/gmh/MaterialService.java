@@ -108,6 +108,22 @@ public class MaterialService implements MaterialServiceRemote {
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see org.fourgeeks.gha.ejb.gmh.MaterialServiceRemote#find(long)
+	 */
+	@Override
+	public Material find(long Id) throws EJBException {
+		try {
+			return em.find(Material.class, Id);
+		} catch (Exception e) {
+			logger.log(Level.INFO, "ERROR: finding Material", e);
+			throw new EJBException("ERROR: finding Material "
+					+ e.getCause().getMessage());
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see
 	 * org.fourgeeks.gha.ejb.gmh.MaterialServiceRemote#find(org.fourgeeks.gha
 	 * .domain .gmh.Material)
@@ -165,22 +181,6 @@ public class MaterialService implements MaterialServiceRemote {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.fourgeeks.gha.ejb.gmh.MaterialServiceRemote#find(long)
-	 */
-	@Override
-	public Material find(long Id) throws EJBException {
-		try {
-			return em.find(Material.class, Id);
-		} catch (Exception e) {
-			logger.log(Level.INFO, "ERROR: finding Material", e);
-			throw new EJBException("ERROR: finding Material "
-					+ e.getCause().getMessage());
-		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see org.fourgeeks.gha.ejb.gmh.MaterialServiceRemote#getAll()
 	 */
 	@Override
@@ -210,6 +210,41 @@ public class MaterialService implements MaterialServiceRemote {
 			throw new EJBException("Error obteniendo todos los Materials"
 					+ ex.getCause().getMessage());
 		}
+	}
+
+	@Override
+	public List<Material> getAllUtilities() throws EJBException {
+		try {
+			return em
+					.createNamedQuery("Material.getByType", Material.class)
+					.setParameter("materialTypeId", MaterialTypeEnum.UTILITARIO)
+					.getResultList();
+		} catch (Exception ex) {
+			logger.log(Level.SEVERE,
+					"Error retrieving all Materials who are Utilities", ex);
+			throw new EJBException(
+					"Error obteniendo todos los Materials que son utilitarios"
+							+ ex.getCause().getMessage());
+		}
+
+	}
+
+	@Override
+	public List<Material> getAllUtilities(int offset, int size)
+			throws EJBException {
+		try {
+			return em
+					.createNamedQuery("Material.getByType", Material.class)
+					.setParameter("materialTypeId", MaterialTypeEnum.UTILITARIO)
+					.setFirstResult(offset).setMaxResults(size).getResultList();
+		} catch (Exception ex) {
+			logger.log(Level.SEVERE,
+					"Error retrieving all Materials who are Utilities", ex);
+			throw new EJBException(
+					"Error obteniendo todos los Materials que son utilitarios"
+							+ ex.getCause().getMessage());
+		}
+
 	}
 
 	/*
@@ -251,41 +286,6 @@ public class MaterialService implements MaterialServiceRemote {
 			throw new EJBException("ERROR: no se puede eliminar el Material "
 					+ e.getCause().getMessage());
 		}
-	}
-
-	@Override
-	public List<Material> getAllUtilities() throws EJBException {
-		try {
-			return em
-					.createNamedQuery("Material.getByType", Material.class)
-					.setParameter("materialTypeId", MaterialTypeEnum.UTILITARIO)
-					.getResultList();
-		} catch (Exception ex) {
-			logger.log(Level.SEVERE,
-					"Error retrieving all Materials who are Utilities", ex);
-			throw new EJBException(
-					"Error obteniendo todos los Materials que son utilitarios"
-							+ ex.getCause().getMessage());
-		}
-
-	}
-
-	@Override
-	public List<Material> getAllUtilities(int offset, int size)
-			throws EJBException {
-		try {
-			return em
-					.createNamedQuery("Material.getByType", Material.class)
-					.setParameter("materialTypeId", MaterialTypeEnum.UTILITARIO)
-					.setFirstResult(offset).setMaxResults(size).getResultList();
-		} catch (Exception ex) {
-			logger.log(Level.SEVERE,
-					"Error retrieving all Materials who are Utilities", ex);
-			throw new EJBException(
-					"Error obteniendo todos los Materials que son utilitarios"
-							+ ex.getCause().getMessage());
-		}
-
 	}
 
 }

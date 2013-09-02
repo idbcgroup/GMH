@@ -1,7 +1,7 @@
 package org.fourgeeks.gha.webclient.client.maintenanceplan.information;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.webclient.client.UI.GHASubTab;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanTab;
 

@@ -10,7 +10,6 @@ import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import javax.validation.ConstraintViolationException;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
@@ -53,20 +52,6 @@ public class EiaTypeComponentService implements EiaTypeComponentServiceRemote {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.fourgeeks.gha.ejb.gmh.EiaTypeComponentServiceRemote#find(EiaType)
-	 */
-	@Override
-	public List<EiaTypeComponent> find(EiaType eiaType) throws EJBException {
-		TypedQuery<EiaTypeComponent> query = em.createNamedQuery(
-				"EiaTypeComponent.findByParentEiaType", EiaTypeComponent.class);
-		query.setParameter("eiaType", eiaType);
-		return query.getResultList();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypeComponentServiceRemote#find(long)
 	 */
 	@Override
@@ -80,22 +65,19 @@ public class EiaTypeComponentService implements EiaTypeComponentServiceRemote {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.fourgeeks.gha.ejb.gmh.EiaTypeComponentServiceRemote#findByEiaTypeId
-	 * (long)
+
+
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypeComponentServiceRemote#findByParentEiaType(org.fourgeeks.gha.domain.gmh.EiaType)
 	 */
 	@Override
-	public List<EiaTypeComponent> findByParentEiaTypeId(long Id)
+	public List<EiaTypeComponent> findByParentEiaType(EiaType eiaType)
 			throws EJBException {
-
 		try {
 			return em
-					.createNamedQuery("EiaTypeComponent.findByParentEiaTypeId",
+					.createNamedQuery("EiaTypeComponent.findByParentEiaType",
 							EiaTypeComponent.class)
-					.setParameter("parentEiaType", Id).getResultList();
+					.setParameter("eiaType", eiaType).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all EiaTypeComponents",
 					ex);

@@ -2,7 +2,7 @@ package org.fourgeeks.gha.webclient.client.eiatype.material;
 
 import org.fourgeeks.gha.domain.glm.Material;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaterial;
-import org.fourgeeks.gha.webclient.client.UI.GHAGridRecord;
+import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 
 /**
  * @author alacret
