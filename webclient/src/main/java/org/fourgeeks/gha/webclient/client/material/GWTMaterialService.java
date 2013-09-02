@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.glm.Material;
+import org.fourgeeks.gha.domain.gmh.Brand;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -37,6 +38,13 @@ public interface GWTMaterialService extends RemoteService {
 	 * @throws EJBException
 	 */
 	public List<Material> find(Material material) throws EJBException;
+	
+	/**
+	 * @param brand
+	 * @return a list of Materials filtered by brand
+	 * @throws EJBException
+	 */
+	public List<Material> findByBrand(Brand brand) throws EJBException;
 
 	/**
 	 * @return a List with all the Materials who are utilities

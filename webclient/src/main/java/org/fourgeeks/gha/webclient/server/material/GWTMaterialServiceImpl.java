@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.glm.Material;
+import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.ejb.gmh.MaterialServiceRemote;
 import org.fourgeeks.gha.webclient.client.material.GWTMaterialService;
 
@@ -72,4 +73,12 @@ public class GWTMaterialServiceImpl extends RemoteServiceServlet implements
 	public Material save(Material material) throws EJBException {
 		return materialServiceRemote.save(material);
 }
+
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.webclient.client.material.GWTMaterialService#findByBrand(org.fourgeeks.gha.domain.gmh.Brand)
+	 */
+	@Override
+	public List<Material> findByBrand(Brand brand) throws EJBException {
+		return materialServiceRemote.findByBrand(brand);
+	}
 }
