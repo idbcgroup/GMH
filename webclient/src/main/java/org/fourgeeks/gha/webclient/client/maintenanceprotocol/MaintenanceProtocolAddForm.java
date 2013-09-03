@@ -29,12 +29,12 @@ public class MaintenanceProtocolAddForm extends GHASlideInWindow implements
 		EiaTypeSelectionProducer {
 
 	private List<EIATypeSelectionListener> listeners;
-	private GHATextItem codeItem, descriptionItem;
+	private GHATextItem nameItem, descriptionItem;
 	private Validator validator;
 
 	{
 		listeners = new ArrayList<EIATypeSelectionListener>();
-		codeItem = new GHATextItem("Código", 150);
+		nameItem = new GHATextItem("Código", 150);
 		descriptionItem = new GHATextItem("Descripción", 620);
 		descriptionItem.setColSpan(4);
 
@@ -55,7 +55,7 @@ public class MaintenanceProtocolAddForm extends GHASlideInWindow implements
 		final DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(4);
-		form.setItems(codeItem, new GHASpacerItem(3),
+		form.setItems(nameItem, new GHASpacerItem(3),
 			          descriptionItem);
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
@@ -88,7 +88,7 @@ public class MaintenanceProtocolAddForm extends GHASlideInWindow implements
 
 	protected void cancel() {
 		hide();
-		codeItem.clearValue();
+		nameItem.clearValue();
 		descriptionItem.clearValue();
 	}
 
