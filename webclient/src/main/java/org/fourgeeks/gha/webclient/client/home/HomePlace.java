@@ -163,11 +163,19 @@ public class HomePlace extends GHAPlace {
 			}
 		});	
 		
-		MenuItem pdmMenuItem = new MenuItem("Planes de Mantenimiento");
-		pdmMenuItem.addClickHandler(new ClickHandler() {
+		MenuItem mplanMenuItem = new MenuItem("Planes de Mantenimiento");
+		mplanMenuItem.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(MenuItemClickEvent event) {
-				History.newItem("pdm");
+				History.newItem("mplan");
+			}
+		});	
+		
+		MenuItem mprotMenuItem = new MenuItem("Protocolos de Mantenimiento");
+		mprotMenuItem.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(MenuItemClickEvent event) {
+				History.newItem("mprot");
 			}
 		});	
 		
@@ -193,7 +201,8 @@ public class HomePlace extends GHAPlace {
 		menu.setItems(edtMenuItem,
 					  eiaTypeMenuItem,
 					  eiaMenuItem,
-					  pdmMenuItem,
+					  mplanMenuItem,
+					  mprotMenuItem,
 					  dispatchMenuItem,
 					  installationMenuItem);
 

@@ -1,46 +1,45 @@
-package org.fourgeeks.gha.webclient.client.maintenanceplan;
+package org.fourgeeks.gha.webclient.client.maintenanceprotocol;
 
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
-import org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype.AsociatedEiaTypeSubTab;
-import org.fourgeeks.gha.webclient.client.maintenanceplan.information.MaintenancePlanInformationSubTab;
-import org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol.MaintenanceProtocolSubTab;
+import org.fourgeeks.gha.webclient.client.maintenanceprotocol.asociatedmaintenanceplan.AsociatedMaintenancePlanSubTab;
+import org.fourgeeks.gha.webclient.client.maintenanceprotocol.information.MaintenanceProtocolInformationSubTab;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.widgets.tab.TabSet;
 
-public class MaintenancePlanInternalTabset extends TabSet implements
+public class MaintenanceProtocolInternalTabset extends TabSet implements
 		EIATypeSelectionListener, EIASelectionListener, ResizeHandler {
 
-	private MaintenancePlanInformationSubTab maintenancePlanInformationSubTab;
-	private AsociatedEiaTypeSubTab maintenancePlanEquipmentSubTab;
-	private MaintenanceProtocolSubTab maintenanceProtocolSubTab;
+	private MaintenanceProtocolInformationSubTab maintenanceProtocolInformationSubTab;
+	private AsociatedMaintenancePlanSubTab asociatedMaintenancePlanSubTab;
+//	private MaintenanceProtocolSubTab maintenanceProtocolSubTab;
 //	private EIAMaintPlanSubTab eiaPlanSubTab;
 //	private EIACostSubTab eiaCostsSubTab;
 //	private EIAMovementsSubTab eiaMovementsSubTab;
 		
-	public MaintenancePlanInternalTabset(MaintenancePlanTab mpTab) {
+	public MaintenanceProtocolInternalTabset(MaintenanceProtocolTab mpTab) {
 		super();
 		setWidth100();
 		setHeight(GHAUiHelper.getBottomSectionHeight());
 
 		GHAUiHelper.addGHAResizeHandler(this);
 
-		maintenancePlanInformationSubTab = new MaintenancePlanInformationSubTab(mpTab);
-		maintenancePlanEquipmentSubTab = new AsociatedEiaTypeSubTab(mpTab);
-		maintenanceProtocolSubTab = new MaintenanceProtocolSubTab(mpTab);
+		maintenanceProtocolInformationSubTab = new MaintenanceProtocolInformationSubTab(mpTab);
+		asociatedMaintenancePlanSubTab = new AsociatedMaintenancePlanSubTab(mpTab);
+//		maintenanceProtocolSubTab = new MaintenanceProtocolSubTab(mpTab);
 //		eiaPlanSubTab = new EIAMaintPlanSubTab(mpTab);
 //		eiaCostsSubTab = new EIACostSubTab(mpTab);
 //		eiaMovementsSubTab = new EIAMovementsSubTab(mpTab);
 		
 		// Agregando las Subtabs
-		addTab(maintenancePlanInformationSubTab);
-		addTab(maintenancePlanEquipmentSubTab);
-		addTab(maintenanceProtocolSubTab);
+		addTab(maintenanceProtocolInformationSubTab);
+		addTab(asociatedMaintenancePlanSubTab);
+//		addTab(maintenanceProtocolSubTab);
 //		addTab(eiaPlanSubTab);
 //		addTab(eiaCostsSubTab);
 //		addTab(eiaMovementsSubTab);
@@ -49,8 +48,7 @@ public class MaintenancePlanInternalTabset extends TabSet implements
 
 	@Override
 	public void select(Eia eia) {
-		// TODO Implement select(eia) on each tab
-//		maintenancePlanInformationSubTab.select(eia);
+//		maintenanceProtocolInformationSubTab.select(eia);
 //		eiaPartesSubTab.select(eia);
 //		eiaMaterialSubTab.select(eia);
 //		eiaPlanSubTab.select(eia);
@@ -60,9 +58,9 @@ public class MaintenancePlanInternalTabset extends TabSet implements
 	
 	@Override
 	public void select(EiaType eiaType) {
-		maintenancePlanInformationSubTab.select(eiaType);
-		maintenancePlanEquipmentSubTab.select(eiaType);
-		maintenanceProtocolSubTab.select(eiaType);
+		maintenanceProtocolInformationSubTab.select(eiaType);
+		asociatedMaintenancePlanSubTab.select(eiaType);
+//		maintenanceProtocolSubTab.select(eiaType);
 //		eiaPlanSubTab.select(eiaType);
 //		eiaCostsSubTab.select(eiaType);
 //		eiaMovementsSubTab.select(eiaType);

@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.maintenanceplan;
+package org.fourgeeks.gha.webclient.client.maintenanceprotocol;
 
 import java.util.List;
 
@@ -23,48 +23,43 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class MaintenancePlanTopSection extends HLayout
+public class MaintenanceProtocolTopSection extends HLayout
 		implements EIASelectionListener, GHAClosable, ResizeHandler {
 
-	private final MaintenancePlanTab maintenancePlanTab;
+	private final MaintenanceProtocolTab maintenanceProtocolTab;
 	private List<EIASelectionListener> selectionListeners;
-	private MaintenancePlanSearchForm maintenancePlanSearchForm;
-	private GHATextItem codeItem, frequencyItem, periodOfTimeItem,  
-	usesItem, descriptionItem;
+	private MaintenanceProtocolSearchForm maintenanceProtocolSearchForm;
+	private GHATextItem codeItem, descriptionItem;
 		
 	{
-		maintenancePlanSearchForm = new MaintenancePlanSearchForm();
+		maintenanceProtocolSearchForm = new MaintenanceProtocolSearchForm();
 		
 		codeItem = new GHATextItem("Código", false);
-		frequencyItem = new GHATextItem("Frecuencia", false);
-		periodOfTimeItem = new GHATextItem("Periodo de Tiempo", false);
-		usesItem = new GHATextItem("Usos", false);
-		
 		descriptionItem = new GHATextItem("Descripcion",420, false);
 		descriptionItem.setColSpan(4);
 
 	}
 
-	public MaintenancePlanTopSection(MaintenancePlanTab tab) {
+	public MaintenanceProtocolTopSection(MaintenanceProtocolTab tab) {
 		super();
 		GHAUiHelper.addGHAResizeHandler(this);
 		
 		tab.addGHAClosableHandler(this);
-		maintenancePlanTab = tab;
-		maintenancePlanSearchForm.addEIASelectionListener(maintenancePlanTab);
+		maintenanceProtocolTab = tab;
+		maintenanceProtocolSearchForm.addEIASelectionListener(maintenanceProtocolTab);
 		
-		maintenancePlanTab.addGHAHideableHandler(new GHAHideable() {
+		maintenanceProtocolTab.addGHAHideableHandler(new GHAHideable() {
 			
 			@Override
 			public void hide() {
-				maintenancePlanSearchForm.hide();
+				maintenanceProtocolSearchForm.hide();
 			}
 		});
-		maintenancePlanTab.addGHAClosableHandler(new GHAClosable() {
+		maintenanceProtocolTab.addGHAClosableHandler(new GHAClosable() {
 			
 			@Override
 			public void close() {
-				maintenancePlanSearchForm.destroy();
+				maintenanceProtocolSearchForm.destroy();
 			}
 		});
 		
@@ -77,9 +72,8 @@ public class MaintenancePlanTopSection extends HLayout
 		DynamicForm form = new DynamicForm();
 		//form.setWidth("100px");
 		form.setTitleOrientation(TitleOrientation.TOP);
-		form.setNumCols(4);
-		form.setItems(codeItem,frequencyItem,periodOfTimeItem, usesItem,
-					  descriptionItem);
+		form.setNumCols(5);
+		form.setItems(codeItem, descriptionItem);
 		
 		VLayout sideButtons = GHAUiHelper.createBar(
 				new GHAImgButton("../resources/icons/search.png", new ClickHandler() {
@@ -93,7 +87,7 @@ public class MaintenancePlanTopSection extends HLayout
 				new GHAImgButton("../resources/icons/cancel.png", new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						GHATabSet.closeTab(maintenancePlanTab);
+						GHATabSet.closeTab(maintenanceProtocolTab);
 					}
 				})
 		);
@@ -103,7 +97,7 @@ public class MaintenancePlanTopSection extends HLayout
 	}
 
 	public void search() {
-		maintenancePlanSearchForm.open();
+		maintenanceProtocolSearchForm.open();
 	}
 
 
@@ -114,7 +108,7 @@ public class MaintenancePlanTopSection extends HLayout
 
 	@Override
 	public void close() {
-		maintenancePlanSearchForm.close();
+		maintenanceProtocolSearchForm.close();
 	}
 
 	@Override

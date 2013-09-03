@@ -33,6 +33,8 @@ public class MaintenanceProtocol extends AbstractEntity {
 	@ManyToOne
 	@JoinColumn(name = "maintenancePlanFk")
 	private MaintenancePlan maintenancePlan;
+	
+	private String name;
 
 	private String description;
 
@@ -60,4 +62,11 @@ public class MaintenanceProtocol extends AbstractEntity {
 		this.description = description;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 }
