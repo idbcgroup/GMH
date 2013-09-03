@@ -27,7 +27,7 @@ import org.fourgeeks.gha.domain.gmh.Brand;
  * @author alacret
  * 
  */
-@Stateless(name = "gmh.MaterialService")
+@Stateless(name = "glm.MaterialService")
 public class MaterialService implements MaterialServiceRemote {
 	@PersistenceContext
 	private EntityManager em;
