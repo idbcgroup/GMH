@@ -1,8 +1,8 @@
 package org.fourgeeks.gha.webclient.client.eia.component;
 
 import org.fourgeeks.gha.domain.gmh.EiaComponent;
-import org.fourgeeks.gha.webclient.client.UI.GHAGridField;
-import org.fourgeeks.gha.webclient.client.UI.GhaGrid;
+import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridField;
+import org.fourgeeks.gha.webclient.client.UI.grids.GhaGrid;
 
 import com.smartgwt.client.types.ListGridFieldType;
 

@@ -2,9 +2,7 @@ package org.fourgeeks.gha.webclient.client.eia.component;
 
 import org.fourgeeks.gha.domain.gmh.EiaComponent;
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.webclient.client.UI.GHAGridRecord;
-
-import com.google.gwt.user.client.Window;
+import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 
 
 /**
