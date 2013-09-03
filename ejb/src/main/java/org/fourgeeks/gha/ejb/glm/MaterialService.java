@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.fourgeeks.gha.ejb.gmh;
+package org.fourgeeks.gha.ejb.glm;
 
 import java.util.List;
 import java.util.logging.Level;

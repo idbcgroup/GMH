@@ -11,7 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.glm.Material;
 import org.fourgeeks.gha.domain.gmh.Brand;
-import org.fourgeeks.gha.ejb.gmh.MaterialServiceRemote;
+import org.fourgeeks.gha.ejb.glm.MaterialServiceRemote;
 import org.fourgeeks.gha.webclient.client.material.GWTMaterialService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
