@@ -1,10 +1,21 @@
 package org.fourgeeks.gha.webclient.client.eia.component;
 
-import org.fourgeeks.gha.domain.gmh.Eia;
-import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridField;
-import org.fourgeeks.gha.webclient.client.UI.grids.GhaGrid;
+import org.fourgeeks.gha.domain.gmh.EiaComponent;
+import org.fourgeeks.gha.webclient.client.UI.GHAGridField;
+import org.fourgeeks.gha.webclient.client.UI.GhaGrid;
 
-public class EIAComponentGrid extends GhaGrid<Eia> {
+import com.smartgwt.client.types.ListGridFieldType;
+
+public class EIAComponentGrid extends GhaGrid<EiaComponent> {
+	
+	private GHAGridField componentobsField;
+	
+	{
+		componentobsField = new GHAGridField("componentobs", "Observaciones");
+		componentobsField.setType(ListGridFieldType.TEXT);
+		componentobsField.setCanEdit(true);
+	}
+
 
 	public EIAComponentGrid() {
 	///////init
@@ -17,11 +28,20 @@ public class EIAComponentGrid extends GhaGrid<Eia> {
 		GHAGridField nameGridField = new GHAGridField("nameParte","Nombre Parte");
 		GHAGridField brandGridField = new GHAGridField("brand", "Marca");
 		GHAGridField modelGridField = new GHAGridField("model", "Modelo");
-		GHAGridField requiredField = new GHAGridField("req", "Requerido");
-		GHAGridField replaceableField = new GHAGridField("rep", "Reemplazable");
+
 		 	
 		setFields(idGridField, codeGridField, nameGridField, 
-				  brandGridField,modelGridField, requiredField,
-				  replaceableField);
+				  brandGridField,modelGridField, componentobsField);
 	}
+
+
+	public GHAGridField getComponentobsField() {
+		return componentobsField;
+	}
+
+
+	public void setComponentobsField(GHAGridField componentobsField) {
+		this.componentobsField = componentobsField;
+	}
+	
 }
