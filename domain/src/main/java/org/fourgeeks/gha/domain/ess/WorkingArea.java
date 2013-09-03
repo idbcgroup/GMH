@@ -12,6 +12,7 @@ import javax.persistence.OneToOne;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
+import org.fourgeeks.gha.domain.gar.Obu;
 
 /**
  * @author emiliot
@@ -31,12 +32,16 @@ public class WorkingArea extends AbstractEntity{
 	private static final long serialVersionUID = 1L;
 	
 	@OneToOne
-	@JoinColumn(name = "workingAreaBaseFk")
-	private WorkingAreaBase wAreaBase;
+	@JoinColumn(name = "obuFk")
+	private Obu obu;
 	
 	@ManyToOne
 	@JoinColumn(name = "buildingLocationFk")
 	private BuildingLocation buildingLocation;
+	
+	@ManyToOne
+	@JoinColumn(name = "locationTypeFk")
+	private LocationType locationType;
 	
 	private String name;
 
@@ -47,40 +52,38 @@ public class WorkingArea extends AbstractEntity{
 		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @param wAreaBase
-	 * @param buildingLocation
-	 * @param name
-	 */
-	public WorkingArea(WorkingAreaBase wAreaBase,
-			BuildingLocation buildingLocation, String name) {
-		this.wAreaBase = wAreaBase;
-		this.buildingLocation = buildingLocation;
-		this.name = name;
+	public Obu getObu() {
+		return obu;
 	}
 
-	public WorkingAreaBase getwAreaBase() {
-		return wAreaBase;
+	public void setObu(Obu obu) {
+		this.obu = obu;
 	}
 
 	public BuildingLocation getBuildingLocation() {
 		return buildingLocation;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setwAreaBase(WorkingAreaBase wAreaBase) {
-		this.wAreaBase = wAreaBase;
-	}
-
 	public void setBuildingLocation(BuildingLocation buildingLocation) {
 		this.buildingLocation = buildingLocation;
+	}
+
+	public LocationType getLocationType() {
+		return locationType;
+	}
+
+	public void setLocationType(LocationType locationType) {
+		this.locationType = locationType;
+	}
+
+	public String getName() {
+		return name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	
 	
 }
