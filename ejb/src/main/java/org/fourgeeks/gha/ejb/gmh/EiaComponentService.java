@@ -64,7 +64,8 @@ public class EiaComponentService implements EiaComponentServiceRemote {
 	@Override
 	public List<EiaComponent> findByParentEia(Eia eia) throws EJBException {
 		try{
-			return em.createQuery("EiaComponent.findByParentEia", EiaComponent.class)
+
+			return em.createNamedQuery("EiaComponent.findByParentEia", EiaComponent.class)
 					.setParameter("parentEia", eia)
 					.getResultList();
 		}catch(Exception ex){

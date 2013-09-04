@@ -10,7 +10,6 @@ import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.validation.ConstraintViolationException;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gmh.EiaType;
@@ -144,13 +143,13 @@ public class EiaTypeComponentService implements EiaTypeComponentServiceRemote {
 			return em.find(EiaTypeComponent.class, eiaTypeComponent.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving eiaTypeComponent", e);
-			String message = null;
-			if (e.getCause() instanceof ConstraintViolationException) {
-				message = "Error: Ya se ha agregado ese Componente a este Tipo de Equipo";
-			}
-			if (message == null)
-				message = "Error guardando EiaTypeComponent: "
-						+ e.getCause().getMessage();
+			String message = e.getMessage();//null;
+//			if (e.getCause() instanceof ConstraintViolationException) {
+//				message = "Error: Ya se ha agregado ese Componente a este Tipo de Equipo";
+//			}
+//			if (message == null)
+//				message = "Error guardando EiaTypeComponent: "
+//						+ e.getCause().getMessage();
 			throw new EJBException(message);
 		}
 

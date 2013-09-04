@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.fourgeeks.gha.ejb.gmh;
+package org.fourgeeks.gha.ejb.glm;
 
 import java.util.List;
 
@@ -9,6 +9,7 @@ import javax.ejb.Remote;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.glm.Material;
+import org.fourgeeks.gha.domain.gmh.Brand;
 
 /**
  * @author alacret
@@ -36,6 +37,13 @@ public interface MaterialServiceRemote {
 	 * @throws EJBException
 	 */
 	public Material find(long Id) throws EJBException;
+	
+	/**
+	 * @param brand
+	 * @return a list of Materials filtered by brand
+	 * @throws EJBException
+	 */
+	public List<Material> findByBrand(Brand brand) throws EJBException;
 
 	/**
 	 * @return the list of Materials

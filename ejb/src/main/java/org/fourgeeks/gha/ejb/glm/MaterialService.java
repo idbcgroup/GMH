@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.fourgeeks.gha.ejb.gmh;
+package org.fourgeeks.gha.ejb.glm;
 
 import java.util.List;
 import java.util.logging.Level;
@@ -21,6 +21,7 @@ import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.glm.Material;
 import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
+import org.fourgeeks.gha.domain.gmh.Brand;
 
 /**
  * @author alacret
@@ -285,6 +286,23 @@ public class MaterialService implements MaterialServiceRemote {
 			logger.log(Level.INFO, "ERROR: unable to update Material ", e);
 			throw new EJBException("ERROR: no se puede eliminar el Material "
 					+ e.getCause().getMessage());
+		}
+	}
+
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.ejb.gmh.MaterialServiceRemote#findByBrand(org.fourgeeks.gha.domain.gmh.Brand)
+	 */
+	@Override
+	public List<Material> findByBrand(Brand brand) throws EJBException {
+		try {
+			return em.createNamedQuery("Material.findByBrand", Material.class)
+					.setParameter("brand", brand).getResultList();
+		} catch (Exception ex) {
+			logger.log(Level.SEVERE,
+					"Error retrieving all Materials filtered by brand", ex);
+			throw new EJBException(
+					"Error obteniendo todos los Materials filtrados por brand"
+							+ ex.getCause().getMessage());
 		}
 	}
 
