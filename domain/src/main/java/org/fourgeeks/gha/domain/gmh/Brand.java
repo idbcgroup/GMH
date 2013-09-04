@@ -42,6 +42,10 @@ public class Brand extends AbstractEntity implements HasKey {
 	public Brand() {
 
 	}
+	
+	public Brand(long id){
+		this.id = id;
+	}
 
 	/**
 	 * @param name
