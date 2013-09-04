@@ -30,16 +30,15 @@ public class MaintenancePlanAddForm extends GHASlideInWindow implements
 		EiaTypeSelectionProducer {
 
 	private List<EIATypeSelectionListener> listeners;
-	private GHATextItem codeItem, frequencyItem, usesItem, descriptionItem;
+	private GHATextItem nameItem, frequencyItem, descriptionItem;
 	private GHASelectItem periodOfTime;
 	private Validator validator;
 
 	{
 		listeners = new ArrayList<EIATypeSelectionListener>();
-		codeItem = new GHATextItem("Código", 150);
+		nameItem = new GHATextItem("Name", 150);
 		frequencyItem = new GHATextItem("Frecuencia", 150);
 		periodOfTime = new GHASelectItem("Periodo de Tiempo", 150);
-		usesItem = new GHATextItem("Usos", 150);
 		descriptionItem = new GHATextItem("Descripción", 620);
 		descriptionItem.setColSpan(4);
 
@@ -60,10 +59,9 @@ public class MaintenancePlanAddForm extends GHASlideInWindow implements
 		final DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(4);
-		form.setItems(codeItem, usesItem,new GHASpacerItem(2),
-			      frequencyItem,periodOfTime,new GHASpacerItem(2), 
-			      descriptionItem);
-
+		form.setItems(nameItem, frequencyItem, periodOfTime,new GHASpacerItem(),
+					  descriptionItem);
+				
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
 				"../resources/icons/save.png", new ClickHandler() {
 
@@ -94,10 +92,9 @@ public class MaintenancePlanAddForm extends GHASlideInWindow implements
 
 	protected void cancel() {
 		hide();
-		codeItem.clearValue();
+		nameItem.clearValue();
 		frequencyItem.clearValue();
 		periodOfTime.clearValue();
-		usesItem.clearValue();
 		descriptionItem.clearValue();
 	}
 
