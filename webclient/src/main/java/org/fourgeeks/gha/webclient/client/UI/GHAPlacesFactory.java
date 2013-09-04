@@ -6,6 +6,7 @@ import org.fourgeeks.gha.webclient.client.eia.EIAPlace;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypePlace;
 import org.fourgeeks.gha.webclient.client.home.HomePlace;
 import org.fourgeeks.gha.webclient.client.login.LoginPlace;
+import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivityPlace;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanPlace;
 import org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolPlace;
 
@@ -31,6 +32,8 @@ public class GHAPlacesFactory {
 			return new MaintenancePlanPlace();
 		else if (token.startsWith("mprot"))
 			return new MaintenanceProtocolPlace();
+		else if (token.startsWith("mact"))
+			return new MaintenanceActivityPlace();
 		/*
 		 * switch (token) { case "login": }
 		 */

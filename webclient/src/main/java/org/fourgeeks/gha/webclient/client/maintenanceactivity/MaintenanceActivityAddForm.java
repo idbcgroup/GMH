@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.maintenanceprotocol;
+package org.fourgeeks.gha.webclient.client.maintenanceactivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +25,7 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class MaintenanceProtocolAddForm extends GHASlideInWindow implements
+public class MaintenanceActivityAddForm extends GHASlideInWindow implements
 		EiaTypeSelectionProducer {
 
 	private List<EIATypeSelectionListener> listeners;
@@ -34,19 +34,19 @@ public class MaintenanceProtocolAddForm extends GHASlideInWindow implements
 
 	{
 		listeners = new ArrayList<EIATypeSelectionListener>();
-		nameItem = new GHATextItem("Nombre del protocolo", 150);
+		nameItem = new GHATextItem("Nombre de la Actividad", 150);
 		descriptionItem = new GHATextItem("Descripción", 620);
 		descriptionItem.setColSpan(4);
 
 		validator = Validation.buildDefaultValidatorFactory().getValidator();
 	}
 
-	public MaintenanceProtocolAddForm() {
+	public MaintenanceActivityAddForm() {
 		super(2);
 		setHeight(GHAUiHelper.getBottomSectionHeight());
 		setTop(240);
 
-		Label title = new Label("<h3>Nuevo Protocolo de Mantenimiento</h3>");
+		Label title = new Label("<h3>Nuevo Actividad</h3>");
 		title.setHeight(30);
 		title.setWidth100();
 		title.setStyleName("title-label");

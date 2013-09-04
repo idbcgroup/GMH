@@ -30,16 +30,16 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class MaintenancePlanInformationFormPanel extends VLayout implements
 		EIATypeSelectionListener, GHAClosable, GHAHideable {
 	
-	private GHATextItem codeItem, frequencyItem, usesItem, descriptionItem;
+	private GHATextItem codeItem, nameItem, frequencyItem, descriptionItem;
 	private GHASelectItem periodOfTime;
 	private EiaType eiaType, orginalEiaType;
 	private MaintenancePlanTab tab;
 
 	{
 		codeItem = new GHATextItem("Código", 150);
+		nameItem = new GHATextItem("Nombre", 150);
 		frequencyItem = new GHATextItem("Frecuencia", 150);
 		periodOfTime = new GHASelectItem("Periodo de Tiempo", 150);
-		usesItem = new GHATextItem("Usos", 150);
 		descriptionItem = new GHATextItem("Descripción", 620);
 		descriptionItem.setColSpan(4);
 	}
@@ -58,7 +58,7 @@ public class MaintenancePlanInformationFormPanel extends VLayout implements
 		DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(4);
-		form.setItems(codeItem, usesItem,new GHASpacerItem(2),
+		form.setItems(codeItem, nameItem, new GHASpacerItem(2),
 				      frequencyItem,periodOfTime,new GHASpacerItem(2), 
 				      descriptionItem);
 
@@ -88,9 +88,9 @@ public class MaintenancePlanInformationFormPanel extends VLayout implements
 
 	public void activateForm(boolean activate) {
 		codeItem.setDisabled(!activate);
+		nameItem.setDisabled(!activate);
 		frequencyItem.setDisabled(!activate);
 		periodOfTime.setDisabled(!activate);
-		usesItem.setDisabled(!activate);
 		descriptionItem.setDisabled(!activate);
 	}
 

@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.maintenanceprotocol.information;
+package org.fourgeeks.gha.webclient.client.maintenanceactivity.information;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
@@ -8,7 +8,7 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
-import org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolTab;
+import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivityTab;
 
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.TitleOrientation;
@@ -23,12 +23,12 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class MaintenanceProtocolInformationFormPanel extends VLayout implements
+public class MaintenanceActivityInformationFormPanel extends VLayout implements
 		EIATypeSelectionListener, GHAClosable, GHAHideable {
 	
 	private GHATextItem codeItem, nameItem, descriptionItem;
 	private EiaType eiaType, orginalEiaType;
-	private MaintenanceProtocolTab tab;
+	private MaintenanceActivityTab tab;
 
 	{
 		codeItem = new GHATextItem("Código", 150);
@@ -37,7 +37,7 @@ public class MaintenanceProtocolInformationFormPanel extends VLayout implements
 		descriptionItem.setColSpan(4);
 	}
 
-	public MaintenanceProtocolInformationFormPanel(MaintenanceProtocolTab tab) {
+	public MaintenanceActivityInformationFormPanel(MaintenanceActivityTab tab) {
 		activateForm(false);
 		this.tab = tab;
 		

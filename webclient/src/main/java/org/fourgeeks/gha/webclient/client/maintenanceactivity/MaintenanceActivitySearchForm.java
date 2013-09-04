@@ -1,8 +1,8 @@
-package org.fourgeeks.gha.webclient.client.maintenanceplan;
+package org.fourgeeks.gha.webclient.client.maintenanceactivity;
 
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
@@ -10,6 +10,7 @@ import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.types.TitleOrientation;
+import com.smartgwt.client.types.VerticalAlignment;
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -21,35 +22,32 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class MaintenancePlanSearchForm extends GHASlideInWindow {
+public class MaintenanceActivitySearchForm extends GHASlideInWindow {
 
 //	private List<EIASelectionListener> listeners;
-	private MaintenancePlanGrid grid;
-	private GHATextItem codeItem, nameItem, descriptionItem, frequencyItem;
-	private GHASelectItem periodOfTimeSelectItem;
+	private MaintenanceActivityGrid grid;
+	private GHATextItem codeItem, nameItem, descriptionItem;
 	
-	private MaintenancePlanAddForm addForm;
+	private MaintenanceActivityAddForm addForm;
 
 	{
 //		listeners = new LinkedList<EIASelectionListener>();
 		codeItem = new GHATextItem("Código");
 		nameItem = new GHATextItem("Nombre");
-		frequencyItem = new GHATextItem("Frecuencia");
-		periodOfTimeSelectItem = new GHASelectItem("Periodo de Tiempo");
 		descriptionItem = new GHATextItem("Descripción",420);
 		descriptionItem.setColSpan(4);
 		
-		grid = new MaintenancePlanGrid();
+		grid = new MaintenanceActivityGrid();
 		
-		addForm = new MaintenancePlanAddForm();
+		addForm = new MaintenanceActivityAddForm();
 	}
 
-	public MaintenancePlanSearchForm() {
+	public MaintenanceActivitySearchForm() {
 		super(1);
 		setTop(110);
 		setHeight(GHAUiHelper.getTabHeight() + "px");
 
-		Label title = new Label("<h3>Busqueda de Planes de Mantenimiento</h3>");
+		Label title = new Label("<h3>Busqueda de Actividades de Mantenimiento</h3>");
 		title.setWidth(400);
 		title.setHeight("35px");
 		addMember(title);
@@ -58,7 +56,7 @@ public class MaintenancePlanSearchForm extends GHASlideInWindow {
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(4);
 
-		form.setItems(codeItem,nameItem,frequencyItem,periodOfTimeSelectItem,
+		form.setItems(codeItem, nameItem, new GHASpacerItem(2),
 					  descriptionItem);
 
 		// Event Handlers
@@ -78,10 +76,9 @@ public class MaintenancePlanSearchForm extends GHASlideInWindow {
 				}
 			}
 		};
-		codeItem.addKeyUpHandler(searchKeyUpHandler);
+		
 		nameItem.addKeyUpHandler(searchKeyUpHandler);
-		frequencyItem.addKeyUpHandler(searchKeyUpHandler);
-		periodOfTimeSelectItem.addKeyUpHandler(searchKeyUpHandler);
+		descriptionItem.addKeyUpHandler(searchKeyUpHandler);
 		
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
 				"../resources/icons/search.png", searchClickHandler),
@@ -105,6 +102,7 @@ public class MaintenancePlanSearchForm extends GHASlideInWindow {
 		HLayout formLayout = new HLayout();
 		formLayout.setPadding(10);
 		formLayout.setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT + "px");
+		formLayout.setDefaultLayoutAlign(VerticalAlignment.CENTER);
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
 
 		addMembers(title,
@@ -136,71 +134,11 @@ public class MaintenancePlanSearchForm extends GHASlideInWindow {
 
 		addMember(gridLayout);
 				
-//		searchForEiaTypes();
-//		searchForRoleBases();
-//		searchForBuildingLocations();
-//		searchForObus();
 //		fillExtras();
 	}
 
 	private void fillExtras() {
-		// state
-//		stateItem.setValueMap(EiaStateEnum.toValueMap());
-	}
-
-	private void searchForEiaTypes() {
-//		GHACache.INSTANCE.getEiaTypes(new GHAAsyncCallback<List<EiaType>>() {
-//
-//			@Override
-//			public void onSuccess(List<EiaType> result) {
-//				LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-//				for (EiaType eiaType : result)
-//					valueMap.put(eiaType.getCode(), eiaType.getName());
-//				eiaTypeItem.setValueMap(valueMap);
-//			}
-//		}, false);
-	}
-
-	private void searchForBuildingLocations() {
-//		GHACache.INSTANCE
-//				.getBuildingLocations(new GHAAsyncCallback<List<BuildingLocation>>() {
-//
-//					@Override
-//					public void onSuccess(List<BuildingLocation> result) {
-//						LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-//						for (BuildingLocation buildingLocation : result)
-//							valueMap.put(buildingLocation.getCode(),
-//									buildingLocation.getName());
-//						buildingLocationItem.setValueMap(valueMap);
-//					}
-//				});
-	}
-
-	private void searchForObus() {
-//		GHACache.INSTANCE.getObus(new GHAAsyncCallback<List<Obu>>() {
-//
-//			@Override
-//			public void onSuccess(List<Obu> result) {
-//				LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-//				for (Obu obu : result)
-//					valueMap.put(String.valueOf(obu.getId()), obu.getName());
-//				obuItem.setValueMap(valueMap);
-//			}
-//		});
-	}
-
-	private void searchForRoleBases() {
-//		GHACache.INSTANCE.getBaseRoles(new GHAAsyncCallback<List<RoleBase>>() {
-//
-//			@Override
-//			public void onSuccess(List<RoleBase> result) {
-//				LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-//				for (RoleBase roleBase : result)
-//					valueMap.put(String.valueOf(roleBase.getId()),
-//							roleBase.getName());
-//				responsibleRoleItem.setValueMap(valueMap);
-//			}
-//		});
+		// TODO:
 	}
 
 	/**

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
@@ -29,12 +30,13 @@ public class MaintenanceProtocolTopSection extends HLayout
 	private final MaintenanceProtocolTab maintenanceProtocolTab;
 	private List<EIASelectionListener> selectionListeners;
 	private MaintenanceProtocolSearchForm maintenanceProtocolSearchForm;
-	private GHATextItem codeItem, descriptionItem;
+	private GHATextItem codeItem, nameItem, descriptionItem;
 		
 	{
 		maintenanceProtocolSearchForm = new MaintenanceProtocolSearchForm();
 		
 		codeItem = new GHATextItem("Código", false);
+		nameItem = new GHATextItem("Nombre", false);
 		descriptionItem = new GHATextItem("Descripcion",420, false);
 		descriptionItem.setColSpan(4);
 
@@ -72,8 +74,9 @@ public class MaintenanceProtocolTopSection extends HLayout
 		DynamicForm form = new DynamicForm();
 		//form.setWidth("100px");
 		form.setTitleOrientation(TitleOrientation.TOP);
-		form.setNumCols(5);
-		form.setItems(codeItem, descriptionItem);
+		form.setNumCols(4);
+		form.setItems(codeItem,nameItem,new GHASpacerItem(2),
+					  descriptionItem);
 		
 		VLayout sideButtons = GHAUiHelper.createBar(
 				new GHAImgButton("../resources/icons/search.png", new ClickHandler() {
