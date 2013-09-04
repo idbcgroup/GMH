@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.fourgeeks.gha.webclient.client.workingarea;
 
 import java.util.List;
@@ -11,17 +8,19 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import com.google.gwt.core.shared.GWT;
 
 /**
- * @author emiliot
- *
+ * @author vivi.torresg
+ * 
  */
+
 public class WorkingAreaModel {
-	private static final GWTWorkingAreaServiceAsync service = GWT.create(GWTWorkingAreaService.class);
-	
-	private WorkingAreaModel(){
+	private static final GWTWorkingAreaServiceAsync service = GWT
+			.create(GWTWorkingAreaService.class);
+
+	private WorkingAreaModel() {
 		throw new UnsupportedOperationException(
 				"Esta clase no debe ser instanciada");
 	}
-	
+
 	/**
 	 * @param callback
 	 */
