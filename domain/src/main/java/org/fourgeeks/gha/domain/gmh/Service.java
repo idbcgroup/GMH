@@ -24,6 +24,10 @@ public class Service extends AbstractEntity {
 	@ManyToOne
 	@JoinColumn(name = "serviceCategoryFk")
 	private ServiceCategory serviceCategory;
+	
+	@ManyToOne
+	@JoinColumn(name = "serviceResourceFk")
+	private ServiceResource serviceResource;
 
 	/**
 	 * 
@@ -39,5 +43,13 @@ public class Service extends AbstractEntity {
 
 	public void setServiceCategory(ServiceCategory serviceCategory) {
 		this.serviceCategory = serviceCategory;
+	}
+
+	public ServiceResource getServiceResource() {
+		return serviceResource;
+	}
+
+	public void setServiceResource(ServiceResource serviceResource) {
+		this.serviceResource = serviceResource;
 	}
 }

@@ -13,6 +13,7 @@ import javax.validation.constraints.NotNull;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.gmh.Brand;
+import org.fourgeeks.gha.domain.gmh.ServiceResource;
 
 /**
  * @author alacret
@@ -38,6 +39,10 @@ public class Material extends AbstractEntity {
 	@ManyToOne
 	@JoinColumn(name = "brandFk")
 	private Brand brand;
+	
+	@ManyToOne
+	@JoinColumn(name = "serviceResourceFk")
+	private ServiceResource serviceResource;
 	
 	private int amount;
 	private String barCode;
@@ -207,6 +212,14 @@ public class Material extends AbstractEntity {
 
 	public void setBrand(Brand brand) {
 		this.brand = brand;
+	}
+
+	public ServiceResource getServiceResource() {
+		return serviceResource;
+	}
+
+	public void setServiceResource(ServiceResource serviceResource) {
+		this.serviceResource = serviceResource;
 	}
 
 }

@@ -9,6 +9,7 @@ import javax.persistence.OneToOne;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
+import org.fourgeeks.gha.domain.gmh.ServiceResource;
 
 @Entity
 @NamedQueries(value = { 
@@ -33,6 +34,10 @@ public class Facility extends AbstractEntity {
 	@ManyToOne
 	@JoinColumn(name = "facilityCategoryFk")
 	private FacilityCategory facilityCategory;
+	
+	@ManyToOne
+	@JoinColumn(name = "serviceResourceFk")
+	private ServiceResource serviceResource;
 	
 	private String name;
 
@@ -77,6 +82,14 @@ public class Facility extends AbstractEntity {
 
 	public void setFacilityCategory(FacilityCategory facilityCategory) {
 		this.facilityCategory = facilityCategory;
+	}
+
+	public ServiceResource getServiceResource() {
+		return serviceResource;
+	}
+
+	public void setServiceResource(ServiceResource serviceResource) {
+		this.serviceResource = serviceResource;
 	}
 	
 	
