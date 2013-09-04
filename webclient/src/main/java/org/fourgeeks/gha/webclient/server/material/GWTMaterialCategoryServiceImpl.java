@@ -10,7 +10,7 @@ import javax.servlet.annotation.WebServlet;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.glm.MaterialCategory;
-import org.fourgeeks.gha.domain.glm.MaterialCategoryServiceRemote;
+import org.fourgeeks.gha.ejb.glm.MaterialCategoryServiceRemote;
 import org.fourgeeks.gha.webclient.client.material.GWTMaterialCategoryService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;

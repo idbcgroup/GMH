@@ -1,13 +1,14 @@
 /**
  * 
  */
-package org.fourgeeks.gha.domain.glm;
+package org.fourgeeks.gha.ejb.glm;
 
 import java.util.List;
 
 import javax.ejb.Remote;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.glm.MaterialCategory;
 
 /**
  * @author emiliot
