@@ -46,6 +46,16 @@ public class MaterialCategory extends AbstractEntity {
 	public MaterialCategory() {
 		// TODO Auto-generated constructor stub
 	}
+	/**
+	 * @param code
+	 * @param name
+	 * @param type
+	 */
+	public MaterialCategory(String code, String name, MaterialTypeEnum type) {
+		this.type = type;
+		this.name = name;
+		this.code = code;
+	}
 	public MaterialTypeEnum getType() {
 		return type;
 	}

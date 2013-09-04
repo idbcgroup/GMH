@@ -23,6 +23,7 @@ import org.fourgeeks.gha.domain.gar.Facility;
 import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.glm.Material;
+import org.fourgeeks.gha.domain.glm.MaterialCategory;
 import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Eia;
@@ -85,11 +86,34 @@ public class TestData {
 		brandTestData();
 		manufacturerTestData();
 		externalProviderTestData();
+		materialCategoryTestData();
 		materialTestData();
 		facilityTestData();
 		// // TODO
 		eiaTypeTestData();
 		eiaTestData();
+	}
+
+	/**
+	 * 
+	 */
+	private void materialCategoryTestData() {
+		String query = "SELECT t from MaterialCategory t WHERE t.id = 1 ";
+		try {
+			em.createQuery(query).getSingleResult();
+		} catch (NoResultException e) {
+			try {
+				logger.info("creating test data : materialCategory");
+				for (int j = 0; j < 3; j++) {
+					em.persist(new MaterialCategory("mat-cat-00" + j, "material-category-00" + j,
+							MaterialTypeEnum.values()[j % 3]));
+				}
+				em.flush();
+			} catch (Exception e1) {
+				logger.log(Level.INFO,
+						"error creating test data: external provider", e);
+			}
+		}
 	}
 
 	/**
@@ -117,8 +141,10 @@ public class TestData {
 			try {
 				logger.info("creating test data : material");
 				for (int j = 0; j < 3; j++) {
-					em.persist(new Material("mat-00" + j, "material-00" + j,
-							MaterialTypeEnum.values()[j % 3]));
+					Material next = new Material("mat-00" + j, "material-00" + j,
+							MaterialTypeEnum.values()[j % 3]);
+					next.setMaterialCategory(em.find(MaterialCategory.class, (long)(j+1)));
+					em.persist(next);
 				}
 				em.flush();
 			} catch (Exception e1) {

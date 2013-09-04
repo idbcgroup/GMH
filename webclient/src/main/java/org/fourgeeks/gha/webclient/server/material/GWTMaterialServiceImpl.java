@@ -28,7 +28,7 @@ public class GWTMaterialServiceImpl extends RemoteServiceServlet implements
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@EJB(name = "gmh.MaterialService")
+	@EJB(name = "glm.MaterialService")
 	MaterialServiceRemote materialServiceRemote;
 
 	/*

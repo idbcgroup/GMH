@@ -13,13 +13,14 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
-import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.glm.Material;
+import org.fourgeeks.gha.domain.glm.MaterialCategory;
 import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.domain.gmh.Brand;
 
@@ -27,7 +28,7 @@ import org.fourgeeks.gha.domain.gmh.Brand;
  * @author alacret
  * 
  */
-@Stateless(name = "gmh.MaterialService")
+@Stateless(name = "glm.MaterialService")
 public class MaterialService implements MaterialServiceRemote {
 	@PersistenceContext
 	private EntityManager em;
@@ -36,53 +37,53 @@ public class MaterialService implements MaterialServiceRemote {
 			.getName());
 
 	private static Predicate buildFilters(Material material,
-			CriteriaBuilder cb, Root<Material> root) {
+			CriteriaBuilder cb, Join<Material, MaterialCategory> category) {
 		Predicate predicate = cb.conjunction();
 
 		if (material.getType() != null) {
 			ParameterExpression<MaterialTypeEnum> p = cb.parameter(
 					MaterialTypeEnum.class, "type");
 			predicate = cb.and(predicate,
-					cb.equal(root.<MaterialTypeEnum> get("type"), p));
+					cb.equal(category.<MaterialTypeEnum> get("type"), p));
 		}
 
 		if (material.getDescription() != null) {
 			ParameterExpression<String> p = cb.parameter(String.class,
 					"description");
 			predicate = cb.and(predicate,
-					cb.like(cb.lower(root.<String> get("description")), p));
+					cb.like(cb.lower(category.<String> get("description")), p));
 		}
 
-		if (material.getExternalProvider() != null) {
-			ParameterExpression<ExternalProvider> p = cb.parameter(
-					ExternalProvider.class, "externalProvider");
+		if (material.getBrand() != null) {
+			ParameterExpression<Brand> p = cb.parameter(
+					Brand.class, "brand");
 			predicate = cb.and(predicate, cb.equal(
-					root.<ExternalProvider> get("externalProvider"), p));
+					category.<Brand> get("brand"), p));
 		}
 
 		if (material.getName() != null) {
 			ParameterExpression<String> p = cb.parameter(String.class, "name");
 			predicate = cb.and(predicate,
-					cb.like(cb.lower(root.<String> get("name")), p));
+					cb.like(cb.lower(category.<String> get("name")), p));
 		}
 
 		if (material.getCode() != null) {
 			ParameterExpression<String> p = cb.parameter(String.class, "code");
 			predicate = cb.and(predicate,
-					cb.equal(root.<String> get("code"), p));
+					cb.equal(category.<String> get("code"), p));
 		}
 
 		if (material.getExtCode() != null) {
 			ParameterExpression<String> p = cb.parameter(String.class,
 					"extCode");
 			predicate = cb.and(predicate,
-					cb.equal(root.<String> get("extCode"), p));
+					cb.equal(category.<String> get("extCode"), p));
 		}
 
 		if (material.getModel() != null) {
 			ParameterExpression<String> p = cb.parameter(String.class, "model");
 			predicate = cb.and(predicate,
-					cb.like(cb.lower(root.<String> get("model")), p));
+					cb.like(cb.lower(category.<String> get("model")), p));
 		}
 
 		return predicate;
@@ -135,9 +136,11 @@ public class MaterialService implements MaterialServiceRemote {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<Material> cQuery = cb.createQuery(Material.class);
 			Root<Material> root = cQuery.from(Material.class);
+			Join<Material, MaterialCategory> category = root.join("materialCategory");
+			
 			cQuery.select(root);
-			cQuery.orderBy(cb.asc(root.<String> get("code")));
-			Predicate criteria = buildFilters(entity, cb, root);
+			cQuery.orderBy(cb.asc(category.<String> get("name")));
+			Predicate criteria = buildFilters(entity, cb, category);
 
 			if (criteria.getExpressions().size() == 0)
 				return getAll();
@@ -152,8 +155,8 @@ public class MaterialService implements MaterialServiceRemote {
 				q.setParameter("description", "%" + entity.getDescription()
 						+ "%");
 
-			if (entity.getExternalProvider() != null)
-				q.setParameter("externalProvider", entity.getExternalProvider());
+			if (entity.getBrand() != null)
+				q.setParameter("brand", entity.getBrand());
 
 			if (entity.getName() != null)
 				q.setParameter("name", "%" + entity.getName() + "%");

@@ -41,6 +41,8 @@ public class Material extends AbstractEntity {
 	
 	private int amount;
 	private String barCode;
+	
+	/*ALL THE FIELDS BELOW SHOULD BE ELIMINATED*/
 
 	@NotNull(message = "El tipo de material no puede ser nulo")
 	@Column(nullable = false)
