@@ -5,6 +5,8 @@ package org.fourgeeks.gha.domain.gmh;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -22,6 +24,7 @@ import org.fourgeeks.gha.domain.HasKey;
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "name" }))
 @NamedQueries(value = {
 		@NamedQuery(name = "Brand.getAll", query = "SELECT e from Brand e order by e.name"),
+		@NamedQuery(name = "Brand.findByManufacturer", query = "SELECT e from Brand e WHERE e.manufacturer = :manufacturer ORDER BY e.name"),
 		@NamedQuery(name = "Brand.findByName", query = "SELECT e from Brand e where lower(e.name) like :name order by e.id") })
 public class Brand extends AbstractEntity implements HasKey {
 
@@ -29,9 +32,10 @@ public class Brand extends AbstractEntity implements HasKey {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-	// @OneToMany(mappedBy = "brand", fetch=FetchType.EAGER)
-	// private ArrayList<EiaType> eiaTypes;
+	
+	@ManyToOne
+	@JoinColumn(name = "manufacturerFk")
+	private Manufacturer manufacturer;
 
 	@Column(nullable = false)
 	private String name;
@@ -80,5 +84,13 @@ public class Brand extends AbstractEntity implements HasKey {
 	@Override
 	public String getKey() {
 		return String.valueOf(getId());
+	}
+
+	public Manufacturer getManufacturer() {
+		return manufacturer;
+	}
+
+	public void setManufacturer(Manufacturer manufacturer) {
+		this.manufacturer = manufacturer;
 	}
 }
