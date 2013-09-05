@@ -6,7 +6,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
-import org.fourgeeks.gha.domain.enu.InstitutionTypeEnum;
 
 /**
  * @author alacret
@@ -27,29 +26,6 @@ public class Institution extends AbstractEntity {
 
 	@Column(nullable = false)
 	private String name;
-	/** length =255 */
-
-	private InstitutionTypeEnum institutionType;
-	/** length =20 */
-
-	private String institutionDescription;
-	/** length =255 */
-	private String institutionLevel;
-	/** length =20 */
-	private String institutionSector;
-	/** length =20 */
-	private String institutionProductiveSector;
-	/** length =255 */
-	private String institutionPrincipalProduct;
-	/** length =255 */
-	private String institutionHealthCode;
-	/** length =255 */
-	private String institutionTaxCode;
-	/** length =255 */
-	private String institutionProductiveSubSector;
-	/** length =255 */
-	private String institutionRisk;
-
 	/** length =255 */
 
 	/**
