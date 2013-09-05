@@ -7,10 +7,10 @@ import org.fourgeeks.gha.webclient.client.UI.grids.tree.GHATreeGridField;
 public class MaintenanceProtocolGrid extends GHATreeGrid<MaintenanceProtocol> {
 
 	public MaintenanceProtocolGrid() {
-		setEmptyMessage("No existen protocolos de mantenimiento asociados al plan.");
+		setEmptyMessage("No existen protocolos de mantenimiento.");
 
 		GHATreeGridField idGridField = new GHATreeGridField("id", "No.");
-		GHATreeGridField nameGridField = new GHATreeGridField("name", "Nombre Prot.");
+		GHATreeGridField nameGridField = new GHATreeGridField("name", "Nombre Protocolo");
 		GHATreeGridField descriptionGridField = new GHATreeGridField("description", "Descripción del Protocolo");
 				
 		setFields(idGridField, nameGridField, descriptionGridField);

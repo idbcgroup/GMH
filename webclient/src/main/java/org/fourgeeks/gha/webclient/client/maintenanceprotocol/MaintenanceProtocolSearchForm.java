@@ -2,6 +2,7 @@ package org.fourgeeks.gha.webclient.client.maintenanceprotocol;
 
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
@@ -25,13 +26,14 @@ public class MaintenanceProtocolSearchForm extends GHASlideInWindow {
 
 //	private List<EIASelectionListener> listeners;
 	private MaintenanceProtocolGrid grid;
-	private GHATextItem nameItem, descriptionItem;
+	private GHATextItem codeItem, nameItem, descriptionItem;
 	
 	private MaintenanceProtocolAddForm addForm;
 
 	{
 //		listeners = new LinkedList<EIASelectionListener>();
-		nameItem = new GHATextItem("Código");
+		codeItem = new GHATextItem("Código");
+		nameItem = new GHATextItem("Nombre");
 		descriptionItem = new GHATextItem("Descripción",420);
 		descriptionItem.setColSpan(4);
 		
@@ -52,9 +54,10 @@ public class MaintenanceProtocolSearchForm extends GHASlideInWindow {
 		
 		final DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
-		form.setNumCols(5);
+		form.setNumCols(4);
 
-		form.setItems(nameItem, descriptionItem);
+		form.setItems(codeItem, nameItem, new GHASpacerItem(2),
+					  descriptionItem);
 
 		// Event Handlers
 		ClickHandler searchClickHandler = new ClickHandler() {

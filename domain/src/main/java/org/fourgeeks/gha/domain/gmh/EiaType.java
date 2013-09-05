@@ -89,6 +89,10 @@ public class EiaType implements Serializable{
 	@JoinColumn(name = "eiaTypeCategoryFk")
 	private EiaTypeCategory eiaTypeCategory;
 	
+	@ManyToOne
+	@JoinColumn(name = "serviceResourceFk")
+	private ServiceResource serviceResource;
+	
 	/**
 	 * 
 	 */
@@ -230,6 +234,14 @@ public class EiaType implements Serializable{
 
 	public void setEiaTypeCategory(EiaTypeCategory eiaTypeCategory) {
 		this.eiaTypeCategory = eiaTypeCategory;
+	}
+
+	public ServiceResource getServiceResource() {
+		return serviceResource;
+	}
+
+	public void setServiceResource(ServiceResource serviceResource) {
+		this.serviceResource = serviceResource;
 	}
 
 }

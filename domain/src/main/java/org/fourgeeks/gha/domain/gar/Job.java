@@ -6,6 +6,7 @@ import javax.persistence.ManyToOne;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
+import org.fourgeeks.gha.domain.gmh.ServiceResource;
 
 @Entity
 public class Job extends AbstractEntity {
@@ -22,6 +23,10 @@ public class Job extends AbstractEntity {
 	@ManyToOne
 	@JoinColumn(name = "jobCategoryFk")
 	private JobCategory jobCategory;
+	
+	@ManyToOne
+	@JoinColumn(name = "serviceResourceFk")
+	private ServiceResource serviceResource;
 
 	/**
 	 * 
@@ -44,6 +49,14 @@ public class Job extends AbstractEntity {
 
 	public void setJobCategory(JobCategory jobCategory) {
 		this.jobCategory = jobCategory;
+	}
+
+	public ServiceResource getServiceResource() {
+		return serviceResource;
+	}
+
+	public void setServiceResource(ServiceResource serviceResource) {
+		this.serviceResource = serviceResource;
 	}
 
 }

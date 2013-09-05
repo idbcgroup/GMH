@@ -1,9 +1,10 @@
-package org.fourgeeks.gha.webclient.client.maintenanceplan;
+package org.fourgeeks.gha.webclient.client.maintenanceactivity;
 
 import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
@@ -23,47 +24,44 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class MaintenancePlanTopSection extends HLayout
+public class MaintenanceActivityTopSection extends HLayout
 		implements EIASelectionListener, GHAClosable, ResizeHandler {
 
-	private final MaintenancePlanTab maintenancePlanTab;
+	private final MaintenanceActivityTab maintenanceActivityTab;
 	private List<EIASelectionListener> selectionListeners;
-	private MaintenancePlanSearchForm maintenancePlanSearchForm;
-	private GHATextItem nameItem,codeItem, frequencyItem, periodOfTimeItem, descriptionItem;
+	private MaintenanceActivitySearchForm maintenanceActivitySearchForm;
+	private GHATextItem codeItem, nameItem, descriptionItem;
 		
 	{
-		maintenancePlanSearchForm = new MaintenancePlanSearchForm();
+		maintenanceActivitySearchForm = new MaintenanceActivitySearchForm();
 		
 		codeItem = new GHATextItem("Código", false);
 		nameItem = new GHATextItem("Nombre", false);
-		frequencyItem = new GHATextItem("Frecuencia", false);
-		periodOfTimeItem = new GHATextItem("Periodo de Tiempo", false);
-		
 		descriptionItem = new GHATextItem("Descripcion",420, false);
 		descriptionItem.setColSpan(4);
 
 	}
 
-	public MaintenancePlanTopSection(MaintenancePlanTab tab) {
+	public MaintenanceActivityTopSection(MaintenanceActivityTab tab) {
 		super();
 		GHAUiHelper.addGHAResizeHandler(this);
 		
 		tab.addGHAClosableHandler(this);
-		maintenancePlanTab = tab;
-		maintenancePlanSearchForm.addEIASelectionListener(maintenancePlanTab);
+		maintenanceActivityTab = tab;
+		maintenanceActivitySearchForm.addEIASelectionListener(maintenanceActivityTab);
 		
-		maintenancePlanTab.addGHAHideableHandler(new GHAHideable() {
+		maintenanceActivityTab.addGHAHideableHandler(new GHAHideable() {
 			
 			@Override
 			public void hide() {
-				maintenancePlanSearchForm.hide();
+				maintenanceActivitySearchForm.hide();
 			}
 		});
-		maintenancePlanTab.addGHAClosableHandler(new GHAClosable() {
+		maintenanceActivityTab.addGHAClosableHandler(new GHAClosable() {
 			
 			@Override
 			public void close() {
-				maintenancePlanSearchForm.destroy();
+				maintenanceActivitySearchForm.destroy();
 			}
 		});
 		
@@ -77,8 +75,8 @@ public class MaintenancePlanTopSection extends HLayout
 		//form.setWidth("100px");
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(4);
-		form.setItems(codeItem, nameItem, frequencyItem,periodOfTimeItem, 
-					  descriptionItem);
+		form.setItems(codeItem,nameItem,new GHASpacerItem(2),
+				      descriptionItem);
 		
 		VLayout sideButtons = GHAUiHelper.createBar(
 				new GHAImgButton("../resources/icons/search.png", new ClickHandler() {
@@ -92,7 +90,7 @@ public class MaintenancePlanTopSection extends HLayout
 				new GHAImgButton("../resources/icons/cancel.png", new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						GHATabSet.closeTab(maintenancePlanTab);
+						GHATabSet.closeTab(maintenanceActivityTab);
 					}
 				})
 		);
@@ -102,7 +100,7 @@ public class MaintenancePlanTopSection extends HLayout
 	}
 
 	public void search() {
-		maintenancePlanSearchForm.open();
+		maintenanceActivitySearchForm.open();
 	}
 
 
@@ -113,7 +111,7 @@ public class MaintenancePlanTopSection extends HLayout
 
 	@Override
 	public void close() {
-		maintenancePlanSearchForm.close();
+		maintenanceActivitySearchForm.close();
 	}
 
 	@Override

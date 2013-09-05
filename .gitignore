@@ -32,3 +32,4 @@ webclient/.project
 domain/.project
 ear/.project
 /build
+/bin
