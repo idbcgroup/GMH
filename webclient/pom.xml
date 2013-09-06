@@ -16,8 +16,6 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<gwtVersion>2.5.1</gwtVersion>
-		<!-- <core.source>../buenosaires/core</core.source> -->
-		<!-- <common.source>../buenosaires/common</common.source> -->
 	</properties>
 	<dependencies>
 		<dependency>

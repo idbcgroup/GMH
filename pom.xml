@@ -75,21 +75,6 @@
 							<artifactId>domain</artifactId>
 							<bundleFileName>domain-1.jar</bundleFileName>
 						</jarModule>
-						<!-- <jarModule> -->
-						<!-- <groupId>org.freemarker</groupId> -->
-						<!-- <artifactId>freemarker</artifactId> -->
-						<!-- <bundleDir>lib</bundleDir> -->
-						<!-- </jarModule> -->
-						<!-- <jarModule> -->
-						<!-- <groupId>commons-io</groupId> -->
-						<!-- <artifactId>commons-io</artifactId> -->
-						<!-- <bundleDir>lib</bundleDir> -->
-						<!-- </jarModule> -->
-						<!-- <jarModule> -->
-						<!-- <groupId>commons-fileupload</groupId> -->
-						<!-- <artifactId>commons-fileupload</artifactId> -->
-						<!-- <bundleDir>lib</bundleDir> -->
-						<!-- </jarModule> -->
 					</modules>
 				</configuration>
 			</plugin>
