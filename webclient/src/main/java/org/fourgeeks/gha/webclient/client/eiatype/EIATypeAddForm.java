@@ -126,7 +126,7 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 		HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
 		addMember(gridPanel);
-		fillMans();
+		fillMans(true);
 		fillExtras();
 	}
 
@@ -156,7 +156,7 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 		mobilityItem.setValueMap(EiaMobilityEnum.toValueMap());
 	}
 
-	private void fillMans() {
+	private void fillMans(boolean forceFromServer) {
 		GHACache.INSTANCE.getManufacturesrs(
 				new GHAAsyncCallback<List<Manufacturer>>() {
 
@@ -169,7 +169,7 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 						manItem.setValueMap(valueMap);
 
 					}
-				}, false);
+				}, forceFromServer);
 
 	}
 
@@ -260,6 +260,7 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 				public void onSuccess(EiaType result) {
 					select(result);
 					cancel();
+					fillMans(true);
 				}
 			});
 		else

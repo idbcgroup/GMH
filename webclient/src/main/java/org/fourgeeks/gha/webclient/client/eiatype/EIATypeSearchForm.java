@@ -170,6 +170,10 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 		subTypeItem.setValueMap(EiaSubTypeEnum.toValueMap());
 		mobilityItem.setValueMap(EiaMobilityEnum.toValueMap());
 
+		fillBrands(false);
+	}
+	
+	private void fillBrands(boolean forceFromServer){
 		GHACache.INSTANCE.getBrands(new GHAAsyncCallback<List<Brand>>() {
 
 			@Override
@@ -180,8 +184,7 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 				brandItem.setValueMap(valueMap);
 
 			}
-		}, false);
-
+		}, forceFromServer);
 	}
 
 	private void selectEiaType(EiaType eiaType) {
@@ -192,6 +195,10 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 	@Override
 	public void select(EiaType eiaType) {
 		search(eiaType);
+		
+		//Reload the Brand Select field, to prevent outdated cached list of brands
+		fillBrands(true);
+		
 	}
 
 	private void search() {
