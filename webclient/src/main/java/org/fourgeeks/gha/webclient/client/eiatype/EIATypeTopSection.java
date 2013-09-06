@@ -186,8 +186,8 @@ public class EIATypeTopSection extends HLayout implements
 
 		modelItem.setValue(eiaType.getModel());
 
-		if (eiaType.getManufacturer() != null)
-			manItem.setValue(eiaType.getManufacturer().getName());
+//		if (eiaType.getManufacturer() != null)
+//			manItem.setValue(eiaType.getManufacturer().getName());
 
 		umdnsCodeItem.setValue(eiaType.getEiaUmdns());
 

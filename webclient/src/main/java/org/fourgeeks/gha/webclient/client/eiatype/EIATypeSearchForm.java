@@ -218,9 +218,9 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 			eiaType.setBrand(new Brand(Integer.valueOf(brandItem
 					.getValueAsString()), null));
 		eiaType.setModel(modelItem.getValueAsString());
-		if (manItem.getValue() != null)
-			eiaType.setManufacturer(new Manufacturer(Integer.valueOf(manItem
-					.getValueAsString()), null));
+//		if (manItem.getValue() != null)
+//			eiaType.setManufacturer(new Manufacturer(Integer.valueOf(manItem
+//					.getValueAsString()), null));
 		if (mobilityItem.getValue() != null)
 			eiaType.setMobility(EiaMobilityEnum.valueOf(mobilityItem
 					.getValueAsString()));

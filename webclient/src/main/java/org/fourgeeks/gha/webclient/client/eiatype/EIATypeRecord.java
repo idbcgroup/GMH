@@ -20,8 +20,8 @@ public class EIATypeRecord extends GHAGridRecord<EiaType> {
 		setAttribute("code", eiaType.getCode());
 		if (eiaType.getBrand() != null)
 			setAttribute("brand", eiaType.getBrand().getName());
-		if (eiaType.getManufacturer() != null)
-			setAttribute("manufacturer", eiaType.getManufacturer().getName());
+//		if (eiaType.getManufacturer() != null)
+//			setAttribute("manufacturer", eiaType.getManufacturer().getName());
 		setAttribute("model", eiaType.getModel());
 	}
 

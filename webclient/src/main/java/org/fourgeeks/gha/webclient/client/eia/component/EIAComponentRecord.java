@@ -26,8 +26,8 @@ public class EIAComponentRecord extends GHAGridRecord<EiaComponent> {
 		if (eiaType.getBrand() != null)
 			setBrand(eiaType.getBrand().getName());
 		setModel(eiaType.getModel());
-		if (eiaType.getManufacturer() != null)
-			setManufacturer(eiaType.getManufacturer().getName());
+//		if (eiaType.getManufacturer() != null)
+//			setManufacturer(eiaType.getManufacturer().getName());
 		setComponentObs(eiaComponent.getComponentObs());
 	}
 	

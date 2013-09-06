@@ -393,34 +393,32 @@ public class TestData {
 			try {
 				logger.info("creating test eiaType");
 				EiaType eiaType = new EiaType("90001",
-						em.find(Brand.class, 1L), em.find(Manufacturer.class,
-								1L), "Impresora Tinta", EiaMobilityEnum.FIXED,
-						EiaTypeEnum.EQUIPMENT, EiaSubTypeEnum.IT_SYSTEM,
-						"Stylus");
+						em.find(Brand.class, 1L), "Impresora Tinta", EiaMobilityEnum.FIXED, EiaTypeEnum.EQUIPMENT,
+						EiaSubTypeEnum.IT_SYSTEM, "Stylus");
 				em.persist(eiaType);
 
 				eiaType = new EiaType("90002", em.find(Brand.class, 2L),
-						em.find(Manufacturer.class, 2L), "Impresora Laser",
-						EiaMobilityEnum.FIXED, EiaTypeEnum.EQUIPMENT,
-						EiaSubTypeEnum.IT_SYSTEM, "Deskjet");
+						"Impresora Laser", EiaMobilityEnum.FIXED,
+						EiaTypeEnum.EQUIPMENT, EiaSubTypeEnum.IT_SYSTEM,
+						"Deskjet");
 				em.persist(eiaType);
 
 				eiaType = new EiaType("90003", em.find(Brand.class, 3L),
-						em.find(Manufacturer.class, 3L), "Cartucho Tricolor",
-						EiaMobilityEnum.FIXED, EiaTypeEnum.PART,
-						EiaSubTypeEnum.IT_SYSTEM, "EP60");
+						"Cartucho Tricolor", EiaMobilityEnum.FIXED,
+						EiaTypeEnum.PART, EiaSubTypeEnum.IT_SYSTEM,
+						"EP60");
 				em.persist(eiaType);
 
 				eiaType = new EiaType("90004", em.find(Brand.class, 4L),
-						em.find(Manufacturer.class, 4L), "Toner Laser",
-						EiaMobilityEnum.FIXED, EiaTypeEnum.PART,
-						EiaSubTypeEnum.IT_SYSTEM, "HP60");
+						"Toner Laser", EiaMobilityEnum.FIXED,
+						EiaTypeEnum.PART, EiaSubTypeEnum.IT_SYSTEM,
+						"HP60");
 				em.persist(eiaType);
 
 				eiaType = new EiaType("90005", em.find(Brand.class, 5L),
-						em.find(Manufacturer.class, 5L), "Cartucho Negro",
-						EiaMobilityEnum.FIXED, EiaTypeEnum.PART,
-						EiaSubTypeEnum.IT_SYSTEM, "EPN60");
+						"Cartucho Negro", EiaMobilityEnum.FIXED,
+						EiaTypeEnum.PART, EiaSubTypeEnum.IT_SYSTEM,
+						"EPN60");
 				em.persist(eiaType);
 
 				em.flush();

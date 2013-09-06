@@ -21,8 +21,8 @@ public class EIATypeComponentRecord
 		if (eiaType.getBrand() != null)
 			setBrand(eiaType.getBrand().getName());
 		setModel(eiaType.getModel());
-		if (eiaType.getManufacturer() != null)
-			setManufacturer(eiaType.getManufacturer().getName());
+//		if (eiaType.getManufacturer() != null)
+//			setManufacturer(eiaType.getManufacturer().getName());
 		setRequired(this.eiaTypeComponent.isComponentRequired());
 		setReplaceable(this.eiaTypeComponent.isComponentReplaceable());
 	}

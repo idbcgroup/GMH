@@ -23,7 +23,6 @@ import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.domain.gmh.Manufacturer;
 
 /**
  * @author emiliot
@@ -64,13 +63,6 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 					"eiaumdns");
 			criteria = cb.and(criteria,
 					cb.like(cb.lower(root.<String> get("eiaUmdns")), p));
-		}
-
-		if (entity.getManufacturer() != null) {
-			ParameterExpression<Manufacturer> p = cb.parameter(
-					Manufacturer.class, "manufacturer");
-			criteria = cb.and(criteria,
-					cb.equal(root.<Manufacturer> get("manufacturer"), p));
 		}
 
 		if (entity.getMobility() != null) {
@@ -178,10 +170,6 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 							+ entity.getEiaUmdns().toLowerCase() + "%");
 				}
 
-				if (entity.getManufacturer() != null) {
-					q.setParameter("manufacturer", entity.getManufacturer());
-				}
-
 				if (entity.getMobility() != null) {
 					q.setParameter("mobility", entity.getMobility());
 				}
@@ -263,10 +251,6 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 				if (eiaType.getEiaUmdns() != null) {
 					q.setParameter("eiaumdns", "%"
 							+ eiaType.getEiaUmdns().toLowerCase() + "%");
-				}
-
-				if (eiaType.getManufacturer() != null) {
-					q.setParameter("manufacturer", eiaType.getManufacturer());
 				}
 
 				if (eiaType.getMobility() != null) {
@@ -372,14 +356,14 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 	public EiaType save(EiaType eiaType) throws EJBException {
 		try {
 			Brand brand = eiaType.getBrand();
-			Manufacturer manufacturer = eiaType.getManufacturer();
+//			Manufacturer manufacturer = eiaType.getManufacturer();
 			
 			if(brand != null && brand.getId() <= 0){
 				em.persist(brand);
 			}
-			if(manufacturer!= null && manufacturer.getId() <= 0){
-				em.persist(manufacturer);
-			}
+//			if(manufacturer!= null && manufacturer.getId() <= 0){
+//				em.persist(manufacturer);
+//			}
 			
 			em.persist(eiaType);
 			em.flush();

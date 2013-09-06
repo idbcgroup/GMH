@@ -3,7 +3,6 @@ package org.fourgeeks.gha.webclient.client.eia;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 
 /**
@@ -33,11 +32,11 @@ public class EIARecord extends GHAGridRecord<Eia> {
 				setAttribute("brandId", brand.getId());
 				setAttribute("brandName", brand.getName());
 			}
-			Manufacturer man = eiaType.getManufacturer();
-			if (man != null) {
-				setAttribute("manufacturerId", man.getId());
-				setAttribute("manufacturerName", man.getName());
-			}
+//			Manufacturer man = eiaType.getManufacturer();
+//			if (man != null) {
+//				setAttribute("manufacturerId", man.getId());
+//				setAttribute("manufacturerName", man.getName());
+//			}
 		}
 
 	}

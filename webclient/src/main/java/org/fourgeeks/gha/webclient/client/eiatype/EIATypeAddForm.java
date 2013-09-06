@@ -197,15 +197,15 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 				eiaType.setBrand(new Brand(brandItem.getValueAsString()));
 			}
 		}
-		if (manItem.getValue() != null) {
-			if (manItem.getValueAsString().matches("[1-9]+\\d*")) {
-				eiaType.setManufacturer(new Manufacturer(Integer
-						.valueOf(manItem.getValueAsString()), null));
-			} else {
-				eiaType.setManufacturer(new Manufacturer(manItem
-						.getValueAsString()));
-			}
-		}
+//		if (manItem.getValue() != null) {
+//			if (manItem.getValueAsString().matches("[1-9]+\\d*")) {
+//				eiaType.setManufacturer(new Manufacturer(Integer
+//						.valueOf(manItem.getValueAsString()), null));
+//			} else {
+//				eiaType.setManufacturer(new Manufacturer(manItem
+//						.getValueAsString()));
+//			}
+//		}
 		eiaType.setCode(codeItem.getValueAsString());
 		eiaType.setName(nameItem.getValueAsString());
 		eiaType.setDescription(descriptionItem.getValueAsString());

@@ -41,9 +41,9 @@ public class EiaType implements Serializable{
 	@JoinColumn(name = "brandFk")
 	private Brand brand;
 
-	@ManyToOne
-	@JoinColumn(name = "manufacturerFk")
-	private Manufacturer manufacturer;
+//	@ManyToOne
+//	@JoinColumn(name = "manufacturerFk")
+//	private Manufacturer manufacturer;
 
 	@NotNull(message = "El Nombre no puede estar vacío")
 	@Size(min = 1, max = 255, message = "El Nombre debe tener entre 1 y 255 caracteres")
@@ -110,19 +110,17 @@ public class EiaType implements Serializable{
 	/**
 	 * @param code
 	 * @param brand
-	 * @param manufacturer
 	 * @param name
 	 * @param mobility
 	 * @param type
 	 * @param subtype
 	 * @param model
 	 */
-	public EiaType(String code, Brand brand, Manufacturer manufacturer,
-			String name, EiaMobilityEnum mobility, EiaTypeEnum type,
-			EiaSubTypeEnum subtype, String model) {
+	public EiaType(String code, Brand brand, String name,
+			EiaMobilityEnum mobility, EiaTypeEnum type, EiaSubTypeEnum subtype,
+			String model) {
 		super();
 		this.brand = brand;
-		this.manufacturer = manufacturer;
 		this.name = name;
 		this.mobility = mobility;
 		this.type = type;
@@ -142,10 +140,6 @@ public class EiaType implements Serializable{
 
 	public Brand getBrand() {
 		return brand;
-	}
-
-	public Manufacturer getManufacturer() {
-		return manufacturer;
 	}
 
 	public String getCode() {
@@ -186,10 +180,6 @@ public class EiaType implements Serializable{
 
 	public void setBrand(Brand brand) {
 		this.brand = brand;
-	}
-
-	public void setManufacturer(Manufacturer manufacturer) {
-		this.manufacturer = manufacturer;
 	}
 
 	public void setCode(String code) {
