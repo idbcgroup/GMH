@@ -1,5 +1,6 @@
 package org.fourgeeks.gha.ejb;
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -83,8 +84,8 @@ public class TestData {
 		roleBaseTestData();
 		buildingLocationsTestData();
 		userTestData();
-		brandTestData();
 		manufacturerTestData();
+		brandTestData();
 		externalProviderTestData();
 		materialCategoryTestData();
 		materialTestData();
@@ -357,27 +358,17 @@ public class TestData {
 				em.createQuery(query).getSingleResult();
 			} catch (NoResultException e) {
 				logger.log(Level.INFO, "creating test brands");
-				Brand brand = new Brand();
-				brand.setName("HP");
-				em.persist(brand);
-
-				brand = new Brand();
-				brand.setName("Epson");
-				em.persist(brand);
-
-				brand = new Brand();
-				brand.setName("Compaq");
-				em.persist(brand);
-
-				brand = new Brand();
-				brand.setName("Dell");
-				em.persist(brand);
-
-				brand = new Brand();
-				brand.setName("Canon");
-				em.persist(brand);
-
-				em.flush();
+				
+				String brandNames [] = new String[] {"HP", "Epson", "Compaq", "Dell", "Canon"};
+				List <Manufacturer> mans = em.createNamedQuery("Manufacturer.getAll", Manufacturer.class).getResultList();
+				int k = 0;
+				for(String brandName : brandNames){
+					Brand next = new Brand();
+					next.setName(brandName);
+					next.setManufacturer(mans.get(k++));
+					em.persist(next);
+					em.flush();
+				}
 			}
 		} catch (Exception e) {
 			logger.log(Level.INFO, "error creating test brands", e);
