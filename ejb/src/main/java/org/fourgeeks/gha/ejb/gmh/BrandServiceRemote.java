@@ -9,6 +9,7 @@ import javax.ejb.Remote;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gmh.Brand;
+import org.fourgeeks.gha.domain.gmh.Manufacturer;
 
 /**
  * @author emiliot
@@ -36,6 +37,13 @@ public interface BrandServiceRemote {
 	 * @throws EJBException
 	 */
 	public Brand find(long Id) throws EJBException;
+	
+	/**
+	 * @param manufacturer
+	 * @return a list of brands filtered by manufacturer
+	 * @throws EJBException
+	 */
+	public List<Brand> findByManufacturer(Manufacturer manufacturer)throws EJBException;
 
 	/**
 	 * @return the list of brands

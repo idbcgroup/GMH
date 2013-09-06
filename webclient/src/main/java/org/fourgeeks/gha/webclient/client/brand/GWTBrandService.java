@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gmh.Brand;
+import org.fourgeeks.gha.domain.gmh.Manufacturer;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -30,4 +31,11 @@ public interface GWTBrandService extends RemoteService {
 	 * @throws EJBException 
 	 */
 	public List<Brand> getAll(int offset, int size) throws EJBException;
+	
+	/**
+	 * @param manufacturer
+	 * @return a list of brands filtered by manufacturer
+	 * @throws EJBException
+	 */
+	public List<Brand> findByManufacturer(Manufacturer manufacturer)throws EJBException;
 }

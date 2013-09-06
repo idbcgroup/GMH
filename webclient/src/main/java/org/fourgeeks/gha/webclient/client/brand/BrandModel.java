@@ -3,6 +3,7 @@ package org.fourgeeks.gha.webclient.client.brand;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.Brand;
+import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 
 import com.google.gwt.core.client.GWT;
@@ -25,6 +26,10 @@ public class BrandModel {
 	 */
 	public static void getAll(GHAAsyncCallback<List<Brand>> callback) {
 		service.getAll(callback);
+	}
+	
+	public static void findByManufacturer(Manufacturer manufacturer, GHAAsyncCallback<List<Brand>> callback){
+		service.findByManufacturer(manufacturer, callback);
 	}
 
 }

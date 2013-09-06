@@ -13,6 +13,7 @@ import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gmh.Brand;
+import org.fourgeeks.gha.domain.gmh.Manufacturer;
 
 /**
  * @author emiliot
@@ -134,6 +135,22 @@ public class BrandService implements BrandServiceRemote {
 					"ERROR: unable to update brand ", e);
 			throw new EJBException("ERROR: no se puede actualizar el brand "
 					+ e.getCause().getMessage());
+		}
+	}
+
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.ejb.gmh.BrandServiceRemote#findByManufacturer(org.fourgeeks.gha.domain.gmh.Manufacturer)
+	 */
+	@Override
+	public List<Brand> findByManufacturer(Manufacturer manufacturer)
+			throws EJBException {
+		try {
+			return em.createNamedQuery("Brand.findByManufacturer", Brand.class)
+					.setParameter("manufacturer", manufacturer).getResultList();
+		} catch (Exception ex) {
+			logger.log(Level.SEVERE, "Error retrieving all brands by manufacturer", ex);
+			throw new EJBException("Error obteniendo todas las brands by manufacturer"
+					+ ex.getCause().getMessage());
 		}
 	}
 

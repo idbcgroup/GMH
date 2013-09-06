@@ -23,6 +23,7 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
+import org.fourgeeks.gha.webclient.client.brand.BrandModel;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.validation.client.impl.Validation;
@@ -31,6 +32,8 @@ import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
+import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
+import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
@@ -80,7 +83,27 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 		final DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(4);
-		form.setItems(brandItem, manItem, typeItem, subTypeItem,
+		
+		//disable the brand select if no manufacturer is selected
+		brandItem.disable();
+		
+		//set the handler for selected manufacturer
+		manItem.addChangedHandler(new ChangedHandler() {
+			
+			@Override
+			public void onChanged(ChangedEvent event) {
+				String manItemValue = event.getValue().toString();
+				if (manItemValue.matches("[1-9]+\\d*")) {
+					fillBrands(new Manufacturer(Integer.valueOf(manItemValue), null));
+				}else{
+					brandItem.clearValue();
+				}
+				brandItem.enable();
+				
+			}
+		});
+		
+		form.setItems(manItem, brandItem, typeItem, subTypeItem,
 				descriptionItem, mobilityItem, useDescriptionItem, codeItem,
 				nameItem, modelItem, eiaUmdnsItem);
 
@@ -103,7 +126,7 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 		HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
 		addMember(gridPanel);
-		fillBrands();
+//		fillBrands();
 		fillMans();
 		fillExtras();
 	}
@@ -154,8 +177,8 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 
 	}
 
-	private void fillBrands() {
-		GHACache.INSTANCE.getBrands(new GHAAsyncCallback<List<Brand>>() {
+	private void fillBrands(Manufacturer manufacturer) {
+		BrandModel.findByManufacturer(manufacturer, new GHAAsyncCallback<List<Brand>>() {
 
 			@Override
 			public void onSuccess(List<Brand> result) {
@@ -163,9 +186,20 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 				for (Brand brand : result)
 					valueMap.put(brand.getId() + "", brand.getName());
 				brandItem.setValueMap(valueMap);
-
 			}
-		}, false);
+		
+		});
+//		GHACache.INSTANCE.getBrands(new GHAAsyncCallback<List<Brand>>() {
+//
+//			@Override
+//			public void onSuccess(List<Brand> result) {
+//				LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+//				for (Brand brand : result)
+//					valueMap.put(brand.getId() + "", brand.getName());
+//				brandItem.setValueMap(valueMap);
+//
+//			}
+//		}, false);
 
 	}
 
