@@ -404,10 +404,11 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		fillMans(true);
 
 		this.eiaType = this.orginalEiaType = eiaType;
-		if (eiaType.getBrand() != null)
+		if (eiaType.getBrand() != null){
 			brandItem.setValue(eiaType.getBrand().getId());
-//		if (eiaType.getManufacturer() != null)
-//			manItem.setValue(eiaType.getManufacturer().getId());
+			if (eiaType.getBrand().getManufacturer() != null)
+				manItem.setValue(eiaType.getBrand().getManufacturer().getId());
+		}
 		codeItem.setValue(eiaType.getCode());
 		nameItem.setValue(eiaType.getName());
 		descriptionItem.setValue(eiaType.getDescription());
