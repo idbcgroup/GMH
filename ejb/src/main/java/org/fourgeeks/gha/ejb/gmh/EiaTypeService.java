@@ -23,6 +23,7 @@ import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.domain.gmh.Manufacturer;
 
 /**
  * @author emiliot
@@ -356,15 +357,14 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 	public EiaType save(EiaType eiaType) throws EJBException {
 		try {
 			Brand brand = eiaType.getBrand();
-//			Manufacturer manufacturer = eiaType.getManufacturer();
 			
 			if(brand != null && brand.getId() <= 0){
+				Manufacturer manufacturer = brand.getManufacturer();
+				if(manufacturer != null && manufacturer.getId() <= 0){
+					em.persist(manufacturer);
+				}
 				em.persist(brand);
 			}
-//			if(manufacturer!= null && manufacturer.getId() <= 0){
-//				em.persist(manufacturer);
-//			}
-			
 			em.persist(eiaType);
 			em.flush();
 			return em.find(EiaType.class, eiaType.getCode());
