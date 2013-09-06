@@ -178,7 +178,7 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(4);
-		form.setItems(brandItem, manItem, typeItem, subTypeItem,
+		form.setItems(manItem, brandItem, typeItem, subTypeItem,
 				descriptionItem, mobilityItem, useDescriptionItem, codeItem,
 				nameItem, modelItem, eiaUmdnsItem);
 
