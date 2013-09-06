@@ -30,6 +30,7 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
+import org.fourgeeks.gha.webclient.client.brand.BrandModel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeModel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypePictureModel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
@@ -44,6 +45,8 @@ import com.smartgwt.client.widgets.Img;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
+import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
+import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
@@ -318,6 +321,16 @@ public class EIATypeInformationFormPanel extends VLayout implements
 
 		addMember(gridPanel);
 		addMember(uploadImagenes);
+		
+		manItem.addChangedHandler(new ChangedHandler() {
+			
+			@Override
+			public void onChanged(ChangedEvent event) {
+				String manItemValue = event.getValue().toString();
+				brandItem.clearValue();
+				fillBrands(new Manufacturer(Integer.valueOf(manItemValue), null));
+			}
+		});
 
 		fillBrands(false);
 		fillMans(false);
@@ -394,20 +407,45 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		}, forceFromServer);
 
 	}
+	
+	/**
+	 * Fill brands filtered by manufacturer
+	 * @param manufacturer
+	 */
+	private void fillBrands(Manufacturer manufacturer){
+		BrandModel.findByManufacturer(manufacturer, new GHAAsyncCallback<List<Brand>>() {
+
+			@Override
+			public void onSuccess(List<Brand> result) {
+				LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+				for (Brand brand : result)
+					valueMap.put(brand.getId() + "", brand.getName());
+				brandItem.setValueMap(valueMap);
+			}
+		
+		});
+	}
 
 	@Override
 	public void select(EiaType eiaType) {
 		activateForm(true);
 		
-		//reload brand and manufacturer forms, in order to avoid issues with new brands or manufacturers
-		fillBrands(true);
+		//reload manufacturer select, in order to avoid issues with new brands or manufacturers
 		fillMans(true);
 
 		this.eiaType = this.orginalEiaType = eiaType;
 		if (eiaType.getBrand() != null){
-			brandItem.setValue(eiaType.getBrand().getId());
-			if (eiaType.getBrand().getManufacturer() != null)
+			if (eiaType.getBrand().getManufacturer() != null){
 				manItem.setValue(eiaType.getBrand().getManufacturer().getId());
+				
+				//fill brands by manufacturer
+				fillBrands(eiaType.getBrand().getManufacturer());
+			}else{
+				//this shouldnt be happening, because if the eiatype has a brand this brand should have manufacturer
+				fillBrands(true);
+			}
+			//set brand value
+			brandItem.setValue(eiaType.getBrand().getId());
 		}
 		codeItem.setValue(eiaType.getCode());
 		nameItem.setValue(eiaType.getName());
