@@ -9,7 +9,6 @@ import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
 import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
@@ -41,7 +40,7 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 	private List<EIATypeSelectionListener> selectionListeners;
 	private GHATextItem codeEIAItem, nameEIAItem, modelItem, umdnsCodeItem;
 	private EIATypeGrid eiaTypeGrid;
-	private GHASelectItem brandItem, manItem, mobilityItem, typeItem,
+	private GHASelectItem brandItem, mobilityItem, typeItem,
 			subTypeItem;
 	private EIATypeAddForm addForm;
 	
@@ -52,7 +51,6 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 		nameEIAItem = new GHATextItem("Nombre");
 		brandItem = new GHASelectItem("Marca");
 		modelItem = new GHATextItem("Modelo");
-		manItem = new GHASelectItem("Fabricante");
 		umdnsCodeItem = new GHATextItem("EIAUMDNS");
 		mobilityItem = new GHASelectItem("Movilidad");
 		typeItem = new GHASelectItem("Tipo de Equipo");
@@ -80,7 +78,7 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 		final DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(5);
-		form.setItems(codeEIAItem, nameEIAItem, brandItem, modelItem, manItem,
+		form.setItems(codeEIAItem, nameEIAItem, brandItem, modelItem,
 				umdnsCodeItem, mobilityItem, typeItem, subTypeItem);
 
 		// Event Handlers
@@ -103,7 +101,6 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 		nameEIAItem.addKeyUpHandler(searchKeyUpHandler);
 		brandItem.addKeyUpHandler(searchKeyUpHandler);
 		modelItem.addKeyUpHandler(searchKeyUpHandler);
-		manItem.addKeyUpHandler(searchKeyUpHandler);
 		umdnsCodeItem.addKeyUpHandler(searchKeyUpHandler);
 		mobilityItem.addKeyUpHandler(searchKeyUpHandler);
 		typeItem.addKeyUpHandler(searchKeyUpHandler);
@@ -172,19 +169,6 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 		typeItem.setValueMap(EiaTypeEnum.toValueMap());
 		subTypeItem.setValueMap(EiaSubTypeEnum.toValueMap());
 		mobilityItem.setValueMap(EiaMobilityEnum.toValueMap());
-		GHACache.INSTANCE.getManufacturesrs(
-				new GHAAsyncCallback<List<Manufacturer>>() {
-
-					@Override
-					public void onSuccess(List<Manufacturer> result) {
-						LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-						for (Manufacturer manufacturer : result)
-							valueMap.put(manufacturer.getId() + "",
-									manufacturer.getName());
-						manItem.setValueMap(valueMap);
-
-					}
-				}, false);
 
 		GHACache.INSTANCE.getBrands(new GHAAsyncCallback<List<Brand>>() {
 
