@@ -139,6 +139,14 @@ public class HomePlace extends GHAPlace {
 		// el resize
 
 		// /////////////////Menu
+		MenuItem userMenuItem = new MenuItem("Usuarios");
+		userMenuItem.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(MenuItemClickEvent event) {
+				History.newItem("user");
+			}
+		});	
+		
 		MenuItem eiaTypeMenuItem = new MenuItem("Tipos de EIA");
 		eiaTypeMenuItem.addClickHandler(new ClickHandler() {
 			@Override
@@ -206,7 +214,8 @@ public class HomePlace extends GHAPlace {
 ////////7/////////////////////
 		
 		Menu menu = new Menu();
-		menu.setItems(edtMenuItem,
+		menu.setItems(userMenuItem,
+					  edtMenuItem,
 					  eiaTypeMenuItem,
 					  eiaMenuItem,
 					  mplanMenuItem,
