@@ -1,6 +1,7 @@
 package org.fourgeeks.gha.webclient.client.user;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHACheckboxItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
@@ -24,15 +25,27 @@ public class UserTopSection extends HLayout
 
 	private final UserTab userTab;
 	private UserSearchForm userSearchForm;
-	private GHATextItem codeItem, nameItem, descriptionItem;
+	private GHATextItem usernameItem, passwordItem,idItem, firstNameItem,secondNameItem,lastNameItem,secondLastNameItem,
+						typeidSelectItem, genderSelectItem, nationalitySelectItem, birthDateItem;
+	private GHACheckboxItem	blockedItem;
 		
 	{
 		userSearchForm = new UserSearchForm();
 		
-		codeItem = new GHATextItem("Código", false);
-		nameItem = new GHATextItem("Nombre", false);
-		descriptionItem = new GHATextItem("Descripcion",420, false);
-		descriptionItem.setColSpan(4);
+		usernameItem = new GHATextItem("Nombre de Usuario", GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE,false);
+		passwordItem = new GHATextItem("Contraseña", GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE,false);
+		blockedItem = new GHACheckboxItem("Usuario bloqueado",false);
+		
+		firstNameItem = new GHATextItem("Primer Nombre", GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE,false);
+		secondNameItem = new GHATextItem("Segundo Nombre", GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE,false);
+		lastNameItem = new GHATextItem("Apellido", GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE,false);
+		secondLastNameItem = new GHATextItem("Segundo Apellido", GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE,false);
+		
+		typeidSelectItem = new GHATextItem("Tipo ID", GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE,false);
+		idItem = new GHATextItem("No. Identificiación", GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE,false);
+		genderSelectItem = new GHATextItem("Género", GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE,false);
+		nationalitySelectItem = new GHATextItem("Nacionalidad", GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE,false);
+		birthDateItem = new GHATextItem("Fecha de Nac.", GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE,false);
 
 	}
 
@@ -67,9 +80,10 @@ public class UserTopSection extends HLayout
 		DynamicForm form = new DynamicForm();
 		//form.setWidth("100px");
 		form.setTitleOrientation(TitleOrientation.TOP);
-		form.setNumCols(4);
-		form.setItems(codeItem,nameItem,new GHASpacerItem(2),
-					  descriptionItem);
+		form.setNumCols(5);
+		form.setItems(usernameItem, passwordItem, blockedItem,new GHASpacerItem(2),
+				  	  firstNameItem,secondNameItem,lastNameItem,secondLastNameItem,new GHASpacerItem(),
+				  	  typeidSelectItem,idItem,genderSelectItem,nationalitySelectItem,birthDateItem);
 		
 		VLayout sideButtons = GHAUiHelper.createBar(
 				new GHAImgButton("../resources/icons/search.png", new ClickHandler() {

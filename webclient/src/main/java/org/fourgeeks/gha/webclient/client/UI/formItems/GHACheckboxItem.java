@@ -16,4 +16,9 @@ public class GHACheckboxItem extends CheckboxItem {
 		this();
 		setTitle(title);
 	}
+	
+	public GHACheckboxItem(String title, boolean active) {
+		this(title);
+		setDisabled(!active);
+	}
 }

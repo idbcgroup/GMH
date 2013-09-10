@@ -1,5 +1,6 @@
 package org.fourgeeks.gha.domain.enu;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 //PHYSICIAN, NURSE, PAYER, PATIENT, ADMISSION_AGENT
@@ -55,5 +56,12 @@ public enum CredentialTypeEnum {
 		for (CredentialTypeEnum credentialType : CredentialTypeEnum.values())
 			valueMap.put(credentialType.name() + "", credentialType.toString());
 		return valueMap;
+	}
+	
+	public static ArrayList<String> getFormItems() {
+		ArrayList<String> list = new ArrayList<String>();
+		for (CredentialTypeEnum credentialType : CredentialTypeEnum.values())
+			list.add(credentialType.toString());
+		return list;
 	}
 }

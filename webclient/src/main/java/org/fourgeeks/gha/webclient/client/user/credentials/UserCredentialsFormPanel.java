@@ -1,9 +1,9 @@
 package org.fourgeeks.gha.webclient.client.user.credentials;
 
+import org.fourgeeks.gha.domain.enu.CredentialTypeEnum;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHACheckboxItem;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
@@ -25,15 +25,16 @@ import com.smartgwt.client.widgets.layout.VLayout;
  */
 public class UserCredentialsFormPanel extends VLayout implements GHAClosable, GHAHideable {
 	
-	private GHATextItem codeItem, nameItem, descriptionItem;
+	private GHACheckboxItem physicianItem, nurseItem, payerItem, patientItem, admisionItem;
 	private EiaType eiaType, orginalEiaType;
 	private UserTab tab;
 
 	{
-		codeItem = new GHATextItem("Código", 150);
-		nameItem = new GHATextItem("Nombre", 150);
-		descriptionItem = new GHATextItem("Descripción", 620);
-		descriptionItem.setColSpan(4);
+		physicianItem = new GHACheckboxItem(CredentialTypeEnum.PHYSICIAN.toString());
+		nurseItem = new GHACheckboxItem(CredentialTypeEnum.NURSE.toString());
+		payerItem = new GHACheckboxItem(CredentialTypeEnum.PAYER.toString());
+		patientItem = new GHACheckboxItem(CredentialTypeEnum.PATIENT.toString());
+		admisionItem = new GHACheckboxItem(CredentialTypeEnum.ADMISSION_AGENT.toString());
 	}
 
 	public UserCredentialsFormPanel(UserTab tab) {
@@ -55,9 +56,8 @@ public class UserCredentialsFormPanel extends VLayout implements GHAClosable, GH
 		
 		DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
-		form.setNumCols(4);
-		form.setItems(codeItem, nameItem, new GHASpacerItem(2),
-				      descriptionItem);
+		form.setNumCols(1);
+		form.setItems(physicianItem, nurseItem,payerItem,patientItem,admisionItem);
 		
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
 				"../resources/icons/save.png", new ClickHandler() {
@@ -79,23 +79,19 @@ public class UserCredentialsFormPanel extends VLayout implements GHAClosable, GH
 		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
 
 		addMember(gridPanel);
-
-		fillExtras();
 	}
 
 	public void activateForm(boolean activate) {
-		codeItem.setDisabled(!activate);
-		nameItem.setDisabled(!activate);
-		descriptionItem.setDisabled(!activate);
+		physicianItem.setDisabled(!activate);
+		nurseItem.setDisabled(!activate);
+		payerItem.setDisabled(!activate);
+		patientItem.setDisabled(!activate);
+		admisionItem.setDisabled(!activate);
 	}
 
 	protected void undo() {
 		//reload the original eiatype
 		save();
-	}
-
-	private void fillExtras() {
-		//TODO:
 	}
 
 	private void save() {

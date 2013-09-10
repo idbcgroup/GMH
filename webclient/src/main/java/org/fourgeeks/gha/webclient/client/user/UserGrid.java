@@ -10,11 +10,21 @@ public class UserGrid extends GhaGrid<SingleSignOnUser> {
 
 		setEmptyMessage("No existen usuarios que mostrar.");
 
-		GHATreeGridField idGridField = new GHATreeGridField("id", "No.");
-		GHATreeGridField nameGridField = new GHATreeGridField("name", "Nombre");
+		GHATreeGridField nameGridField = new GHATreeGridField("user", "Nombre de Usuario");
 		GHATreeGridField passGridField = new GHATreeGridField("pass", "Contraseña");
+		GHATreeGridField blockGridField = new GHATreeGridField("block", "Bloqueado");
+		GHATreeGridField firstNameGridField = new GHATreeGridField("fname", "Primer Nombre");
+		GHATreeGridField secondNameGridField = new GHATreeGridField("sname", "Segundo Nombre");
+		GHATreeGridField lastNameGridField = new GHATreeGridField("lname", "Apellido");
+		GHATreeGridField secondLastNameGridField = new GHATreeGridField("slname", "Segundo Apellido");
+		GHATreeGridField idGridField = new GHATreeGridField("id", "No. Identificacion");
+		GHATreeGridField genderGridField = new GHATreeGridField("gender", "Género");
+		GHATreeGridField nationalityGridField = new GHATreeGridField("nac", "Nacionalidad");
+		GHATreeGridField birthDateGridField = new GHATreeGridField("bday", "Fecha de Nac.");
 				
-		setFields(idGridField, nameGridField, passGridField);
+		setFields(nameGridField, passGridField, blockGridField, firstNameGridField, secondNameGridField,
+				  lastNameGridField, secondLastNameGridField, idGridField, genderGridField,
+				  nationalityGridField, birthDateGridField);
 	}
 
 }
