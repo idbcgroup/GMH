@@ -92,14 +92,17 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 			
 			@Override
 			public void onChanged(ChangedEvent event) {
-				String manItemValue = event.getValue().toString();
-				if (manItemValue.matches("[1-9]+\\d*")) {
-					fillBrands(new Manufacturer(Integer.valueOf(manItemValue), null));
+				String manItemValue = manItem.getValueAsString();
+				if(manItemValue == null || manItemValue.isEmpty()){
+					brandItem.disable();
+					brandItem.setValue("");
 				}else{
-					brandItem.clearValue();
+					if (manItemValue.matches("[1-9]+\\d*")) {
+						fillBrands(new Manufacturer(Integer.valueOf(manItemValue), null));
+					}
+					brandItem.setValue("");
+					brandItem.enable();
 				}
-				brandItem.enable();
-				
 			}
 		});
 		
@@ -260,7 +263,11 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 				public void onSuccess(EiaType result) {
 					select(result);
 					cancel();
+					
+					//reload manufacturers, possibly one new
 					fillMans(true);
+					brandItem.clearValue();
+					brandItem.disable();
 				}
 			});
 		else
