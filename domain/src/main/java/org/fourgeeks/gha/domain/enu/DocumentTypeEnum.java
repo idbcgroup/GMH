@@ -1,30 +1,29 @@
+/**
+ * 
+ */
 package org.fourgeeks.gha.domain.enu;
 
 import java.util.LinkedHashMap;
 
-//PHYSICIAN, NURSE, PAYER, PATIENT, ADMISSION_AGENT
-
-public enum CredentialTypeEnum {
+/**
+ * @author emiliot
+ *
+ */
+public enum DocumentTypeEnum {
 	/**
 	 * 
 	 */
-	PHYSICIAN("Médico"), /**
+	LOCAL("Cédula"), /**
 	 * 
 	 */
-	NURSE("Enfermera"), /**
+	PASSPORT("Pasaporte"), /**
 	 * 
 	 */
-	PAYER("Pagador"), /**
-	 * 
-	 */
-	PATIENT("Paciente"), /**
-	 * 
-	 */
-	ADMISSION_AGENT("Admisión");
+	OTHER("Otro");
 
 	private String name;
 
-	CredentialTypeEnum(String name) {
+	DocumentTypeEnum(String name) {
 		this.name = name;
 	}
 
@@ -36,11 +35,11 @@ public enum CredentialTypeEnum {
 	 * @param string
 	 * @return return the enum represented by this string or null
 	 */
-	public static CredentialTypeEnum getByString(String string) {
+	public static DocumentTypeEnum getByString(String string) {
 		if (string == null)
 			return null;
 
-		for (CredentialTypeEnum e : CredentialTypeEnum.values())
+		for (DocumentTypeEnum e : DocumentTypeEnum.values())
 			if (string.equals(e.toString()))
 				return e;
 
@@ -52,8 +51,8 @@ public enum CredentialTypeEnum {
 	 */
 	public static LinkedHashMap<String, String> toValueMap() {
 		LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-		for (CredentialTypeEnum credentialType : CredentialTypeEnum.values())
-			valueMap.put(credentialType.name() + "", credentialType.toString());
+		for (DocumentTypeEnum documentType : DocumentTypeEnum.values())
+			valueMap.put(documentType.name() + "", documentType.toString());
 		return valueMap;
 	}
 }

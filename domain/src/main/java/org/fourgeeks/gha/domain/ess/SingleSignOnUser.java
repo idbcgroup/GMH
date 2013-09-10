@@ -23,6 +23,7 @@ public class SingleSignOnUser extends AbstractEntity {
 	private String password;
 	private String userName;
 	private UserLogonStatusEnum userLogonStatus;
+	
 	@Column(/* nullable = false, */columnDefinition = "boolean NOT NULL DEFAULT false")
 	private boolean blocked;
 
@@ -100,7 +101,4 @@ public class SingleSignOnUser extends AbstractEntity {
 	public void setBlocked(boolean blocked) {
 		this.blocked = blocked;
 	}
-
-	// @OneToMany(mappedBy = "singleSignOnUser")
-	// private Collection<LegalEntityCredential> legalEntityCredentials;
 }
