@@ -1,6 +1,7 @@
 package org.fourgeeks.gha.webclient.client.user.information;
 
 import org.fourgeeks.gha.domain.enu.DocumentTypeEnum;
+import org.fourgeeks.gha.domain.enu.GenderTypeEnum;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHACheckboxItem;
@@ -28,8 +29,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  */
 public class UserInformationFormPanel extends VLayout implements GHAClosable, GHAHideable {
 	
-	private GHATextItem usernameItem, passwordItem,idItem, firstNameItem,secondNameItem,lastNameItem,secondLastNameItem;
-	private GHASelectItem typeidSelectItem, genderSelectItem, nationalitySelectItem;
+	private GHATextItem usernameItem, passwordItem,idItem, firstNameItem,secondNameItem,lastNameItem,secondLastNameItem, nationalityItem;
+	private GHASelectItem typeidSelectItem, genderSelectItem;
 	private GHACheckboxItem blockedItem;
 	private GHADateItem birthDateItem;
 	
@@ -49,7 +50,7 @@ public class UserInformationFormPanel extends VLayout implements GHAClosable, GH
 		typeidSelectItem = new GHASelectItem("Tipo ID", GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
 		idItem = new GHATextItem("No. Identificiación", GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
 		genderSelectItem = new GHASelectItem("Género", GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
-		nationalitySelectItem = new GHASelectItem("Nacionalidad", GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
+		nationalityItem = new GHATextItem("Nacionalidad", GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
 		birthDateItem = new GHADateItem("Fecha de Nac.", GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
 	}
 
@@ -70,7 +71,7 @@ public class UserInformationFormPanel extends VLayout implements GHAClosable, GH
 		form.setItems(usernameItem, passwordItem, blockedItem,new GHASpacerItem(),
 			  	  firstNameItem,secondNameItem,lastNameItem,secondLastNameItem,
 			  	  typeidSelectItem,idItem,new GHASpacerItem(2),
-			  	  genderSelectItem,nationalitySelectItem,birthDateItem);
+			  	  genderSelectItem,nationalityItem,birthDateItem);
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
 				"../resources/icons/save.png", new ClickHandler() {
@@ -107,7 +108,7 @@ public class UserInformationFormPanel extends VLayout implements GHAClosable, GH
 		typeidSelectItem.setDisabled(!activate);
 		idItem.setDisabled(!activate);
 		genderSelectItem.setDisabled(!activate);
-		nationalitySelectItem.setDisabled(!activate);
+		nationalityItem.setDisabled(!activate);
 		birthDateItem.setDisabled(!activate);
 	}
 
@@ -118,8 +119,7 @@ public class UserInformationFormPanel extends VLayout implements GHAClosable, GH
 
 	private void fillExtras() {
 		typeidSelectItem.setValueMap(DocumentTypeEnum.toValueMap());
-//		genderSelectItem.setValueMap(GenderTypeEnum.toValueMap());
-//		nationalitySelectItem.setValueMap(NationalityEnum.toValueMap());
+		genderSelectItem.setValueMap(GenderTypeEnum.toValueMap());
 	}
 
 	private void save() {
