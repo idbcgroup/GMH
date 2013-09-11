@@ -3,7 +3,6 @@ package org.fourgeeks.gha.domain.enu;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
-//PHYSICIAN, NURSE, PAYER, PATIENT, ADMISSION_AGENT
 
 public enum CredentialTypeEnum {
 	/**

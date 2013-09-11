@@ -8,6 +8,7 @@ import javax.persistence.OneToOne;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.DocumentTypeEnum;
+import org.fourgeeks.gha.domain.enu.GenderTypeEnum;
 
 @Entity
 public class Citizen extends AbstractEntity {
@@ -28,7 +29,7 @@ public class Citizen extends AbstractEntity {
 	private String secondName; /** 2do Nombre del ciudadano length =255 */
 	private String secondLastName; /** 2do Apellido del ciudadano length =255 */
 	
-	private String gender; /** Sexo del ciudadano length =60 */
+	private GenderTypeEnum gender; /** Sexo del ciudadano length =60 */
 	private Date birthDate; /** Fecha Nacimiento del ciudadano length =12 */
 	private String nationality; /** Nacionalidad actual del ciudadano length =60 */
 
@@ -55,7 +56,7 @@ public class Citizen extends AbstractEntity {
 	 */
 	public Citizen(LegalEntity legalEntity, DocumentTypeEnum idType,
 			String idNumber, String firstName, String firstLastName,
-			String secondName, String secondLastName, String gender,
+			String secondName, String secondLastName, GenderTypeEnum gender,
 			Date birthDate, String nationality) {
 		this.legalEntity = legalEntity;
 		this.idType = idType;
@@ -140,12 +141,12 @@ public class Citizen extends AbstractEntity {
 	}
 
 
-	public String getGender() {
+	public GenderTypeEnum getGender() {
 		return gender;
 	}
 
 
-	public void setGender(String gender) {
+	public void setGender(GenderTypeEnum gender) {
 		this.gender = gender;
 	}
 
