@@ -1,11 +1,11 @@
 /**
  * 
  */
-package org.fourgeeks.gha.domain.ess;
+package org.fourgeeks.gha.domain.logs;
 
 import java.sql.Date;
 
-import javax.persistence.Entity;
+import javax.persistence.MappedSuperclass;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 
@@ -14,22 +14,17 @@ import org.fourgeeks.gha.domain.AbstractEntity;
  *
  */
 
-@Entity
-public class UILog extends AbstractEntity {
+@MappedSuperclass
+public abstract class GHALog extends AbstractEntity {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private Date timeStamp;
-	private String message;
-	/**
-	 * 
-	 */
-	public UILog() {
-		// TODO Auto-generated constructor stub
-	}
+	protected Date timeStamp;
+	protected String message;
+	
 	public Date getTimeStamp() {
 		return timeStamp;
 	}
@@ -42,5 +37,4 @@ public class UILog extends AbstractEntity {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	
 }
