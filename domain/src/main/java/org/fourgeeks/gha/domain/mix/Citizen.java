@@ -32,6 +32,9 @@ public class Citizen extends AbstractEntity {
 	private GenderTypeEnum gender; /** Sexo del ciudadano length =60 */
 	private Date birthDate; /** Fecha Nacimiento del ciudadano length =12 */
 	private String nationality; /** Nacionalidad actual del ciudadano length =60 */
+	
+	private String primaryEmail; /** Correo primario del Ciudadano length =255 */
+	private String alternativeEmail; /** Correo alterno del Ciudadano length =255 */
 
 
 	/**
@@ -168,6 +171,26 @@ public class Citizen extends AbstractEntity {
 
 	public void setNationality(String nationality) {
 		this.nationality = nationality;
+	}
+
+
+	public String getPrimaryEmail() {
+		return primaryEmail;
+	}
+
+
+	public void setPrimaryEmail(String primaryEmail) {
+		this.primaryEmail = primaryEmail;
+	}
+
+
+	public String getAlternativeEmail() {
+		return alternativeEmail;
+	}
+
+
+	public void setAlternativeEmail(String alternativeEmail) {
+		this.alternativeEmail = alternativeEmail;
 	}
 
 }
