@@ -41,7 +41,6 @@ public class Bpu extends AbstractEntity {
 	@JoinColumn(name = "institutionFk")
 	private Institution institution;
 	
-	//TODO: CONFIRMAR LA RELACION CON CITIZEN
 	/**
 	 * The citizen associated with this bpu
 	 */

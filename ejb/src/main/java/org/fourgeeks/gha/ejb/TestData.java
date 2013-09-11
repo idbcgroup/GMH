@@ -40,6 +40,8 @@ import org.fourgeeks.gha.ejb.gmh.EiaTypeComponentServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.EiaTypeServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.ManufacturerServiceRemote;
 
+
+
 /**
  * @author alacret
  * 
@@ -459,13 +461,13 @@ public class TestData {
 			} catch (NoResultException e) {
 				logger.info("creating test data: users");
 				SingleSignOnUser signOnUser = new SingleSignOnUser();
-				signOnUser.setLegalEntity(em.find(LegalEntity.class, 2L));
+//				signOnUser.setLegalEntity(em.find(LegalEntity.class, 2L));
 				signOnUser.setPassword("admin");
 				signOnUser.setUserName("admin");
 				em.persist(signOnUser);
 
 				signOnUser = new SingleSignOnUser();
-				signOnUser.setLegalEntity(em.find(LegalEntity.class, 3L));
+//				signOnUser.setLegalEntity(em.find(LegalEntity.class, 3L));
 				signOnUser.setPassword("asanchez");
 				signOnUser.setUserName("asanchez");
 				em.persist(signOnUser);
