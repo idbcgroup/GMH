@@ -1,6 +1,7 @@
 package org.fourgeeks.gha.webclient.client.user;
 
 import org.fourgeeks.gha.domain.enu.DocumentTypeEnum;
+import org.fourgeeks.gha.domain.enu.GenderTypeEnum;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHACheckboxItem;
@@ -30,8 +31,8 @@ public class UserSearchForm extends GHASlideInWindow {
 
 //	private List<EIASelectionListener> listeners;
 	private UserGrid grid;
-	private GHATextItem usernameItem, passwordItem,idItem, firstNameItem,secondNameItem,lastNameItem,secondLastNameItem;
-	private GHASelectItem typeidSelectItem, genderSelectItem, nationalitySelectItem;
+	private GHATextItem usernameItem, passwordItem,idItem, firstNameItem,secondNameItem,lastNameItem,secondLastNameItem, nationalityItem;
+	private GHASelectItem typeidSelectItem, genderSelectItem;
 	private GHACheckboxItem blockedItem;
 	private GHADateItem birthDateItem;
 	
@@ -51,7 +52,7 @@ public class UserSearchForm extends GHASlideInWindow {
 		typeidSelectItem = new GHASelectItem("Tipo ID", GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
 		idItem = new GHATextItem("No. Identificiación", GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
 		genderSelectItem = new GHASelectItem("Género", GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
-		nationalitySelectItem = new GHASelectItem("Nacionalidad", GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
+		nationalityItem = new GHATextItem("Nacionalidad", GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
 		birthDateItem = new GHADateItem("Fecha de Nac.", GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
 		
 		grid = new UserGrid();
@@ -75,7 +76,7 @@ public class UserSearchForm extends GHASlideInWindow {
 
 		form.setItems(usernameItem, passwordItem, blockedItem,new GHASpacerItem(2),
 					  firstNameItem,secondNameItem,lastNameItem,secondLastNameItem,new GHASpacerItem(),
-					  typeidSelectItem,idItem,genderSelectItem,nationalitySelectItem,birthDateItem);
+					  typeidSelectItem,idItem,genderSelectItem,nationalityItem,birthDateItem);
 
 		// Event Handlers
 		ClickHandler searchClickHandler = new ClickHandler() {
@@ -102,7 +103,7 @@ public class UserSearchForm extends GHASlideInWindow {
 		secondLastNameItem.addKeyUpHandler(searchKeyUpHandler);
 		idItem.addKeyUpHandler(searchKeyUpHandler);
 		genderSelectItem.addKeyUpHandler(searchKeyUpHandler);
-		nationalitySelectItem.addKeyUpHandler(searchKeyUpHandler);
+		nationalityItem.addKeyUpHandler(searchKeyUpHandler);
 		birthDateItem.addKeyUpHandler(searchKeyUpHandler);
 		
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
@@ -164,8 +165,7 @@ public class UserSearchForm extends GHASlideInWindow {
 
 	private void fillExtras() {
 		typeidSelectItem.setValueMap(DocumentTypeEnum.toValueMap());
-//		genderSelectItem.setValueMap(GenderTypeEnum.toValueMap());
-//		nationalitySelectItem.setValueMap(NationalityEnum.toValueMap());
+		genderSelectItem.setValueMap(GenderTypeEnum.toValueMap());
 	}
 
 	/**
