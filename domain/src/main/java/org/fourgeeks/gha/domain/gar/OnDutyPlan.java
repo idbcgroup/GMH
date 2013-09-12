@@ -15,7 +15,7 @@ import org.fourgeeks.gha.domain.AbstractEntity;
  */
 
 @Entity
-public class OnDuty extends AbstractEntity {
+public class OnDutyPlan extends AbstractEntity {
 
 	/**
 	 * 
@@ -29,7 +29,7 @@ public class OnDuty extends AbstractEntity {
 	/**
 	 * 
 	 */
-	public OnDuty() {
+	public OnDutyPlan() {
 		// TODO Auto-generated constructor stub
 	}
 

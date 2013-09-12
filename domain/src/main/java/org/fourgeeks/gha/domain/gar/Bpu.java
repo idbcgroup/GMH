@@ -53,8 +53,8 @@ public class Bpu extends AbstractEntity {
 	private Shift shift;
 	
 	@ManyToOne
-	@JoinColumn(name = "onDutyFk")
-	private OnDuty onDuty;
+	@JoinColumn(name = "onDutyPlanFk")
+	private OnDutyPlan onDutyPlan;
 	
 	@ManyToOne
 	@JoinColumn(name = "jobPositionFk")
