@@ -47,6 +47,22 @@ public class Bpu extends AbstractEntity {
 	@OneToOne
 	@JoinColumn(name = "citizenFk")
 	private Citizen citizen;
+	
+	@ManyToOne
+	@JoinColumn(name = "shiftFk")
+	private Shift shift;
+	
+	@ManyToOne
+	@JoinColumn(name = "onDutyFk")
+	private OnDuty onDuty;
+	
+	@ManyToOne
+	@JoinColumn(name = "jobPositionFk")
+	private JobPosition jobPosition;
+	
+	@ManyToOne
+	@JoinColumn(name = "jobFk")
+	private Job job;
 
 
 	/**
@@ -74,6 +90,46 @@ public class Bpu extends AbstractEntity {
 
 	public void setInstitution(Institution institution) {
 		this.institution = institution;
+	}
+
+
+	public Citizen getCitizen() {
+		return citizen;
+	}
+
+
+	public void setCitizen(Citizen citizen) {
+		this.citizen = citizen;
+	}
+
+
+	public Shift getShift() {
+		return shift;
+	}
+
+
+	public void setShift(Shift shift) {
+		this.shift = shift;
+	}
+
+
+	public JobPosition getJobPosition() {
+		return jobPosition;
+	}
+
+
+	public void setJobPosition(JobPosition jobPosition) {
+		this.jobPosition = jobPosition;
+	}
+
+
+	public Job getJob() {
+		return job;
+	}
+
+
+	public void setJob(Job job) {
+		this.job = job;
 	}
 
 }

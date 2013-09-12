@@ -15,7 +15,7 @@ import org.fourgeeks.gha.domain.enu.DepreciationMethodEnum;
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
-import org.fourgeeks.gha.domain.ess.RoleBase;
+import org.fourgeeks.gha.domain.ess.Role;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
 //import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Facility;
@@ -387,11 +387,11 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 			}
 		});
 
-		GHACache.INSTANCE.getBaseRoles(new GHAAsyncCallback<List<RoleBase>>() {
+		GHACache.INSTANCE.getBaseRoles(new GHAAsyncCallback<List<Role>>() {
 			@Override
-			public void onSuccess(List<RoleBase> result) {
+			public void onSuccess(List<Role> result) {
 				LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-				for (RoleBase entity : result)
+				for (Role entity : result)
 					valueMap.put(entity.getId() + "", entity.getName() + "");
 				baseRoleSelectItem.setValueMap(valueMap);
 			}
@@ -631,7 +631,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 			eia.setObu(obu);
 		}
 		if (baseRoleSelectItem.getValue() != null) {
-			RoleBase baseRole = new RoleBase();
+			Role baseRole = new Role();
 			baseRole.setId(Integer.valueOf(baseRoleSelectItem
 					.getValueAsString()));
 			eia.setResponsibleRole(baseRole);

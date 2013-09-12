@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
-import org.fourgeeks.gha.domain.ess.RoleBase;
+import org.fourgeeks.gha.domain.ess.Role;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
 import org.fourgeeks.gha.domain.gar.Facility;
 import org.fourgeeks.gha.domain.gar.Obu;
@@ -230,12 +230,12 @@ public class EIASearchForm extends GHASlideInWindow implements
 	}
 
 	private void searchForRoleBases() {
-		GHACache.INSTANCE.getBaseRoles(new GHAAsyncCallback<List<RoleBase>>() {
+		GHACache.INSTANCE.getBaseRoles(new GHAAsyncCallback<List<Role>>() {
 
 			@Override
-			public void onSuccess(List<RoleBase> result) {
+			public void onSuccess(List<Role> result) {
 				LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-				for (RoleBase roleBase : result)
+				for (Role roleBase : result)
 					valueMap.put(String.valueOf(roleBase.getId()),
 							roleBase.getName());
 				responsibleRoleItem.setValueMap(valueMap);
@@ -259,7 +259,7 @@ public class EIASearchForm extends GHASlideInWindow implements
 		if (actualCostItem.getValue() != null)
 			eia.setActualCost(new BigDecimal(actualCostItem.getValueAsString()));
 		if (responsibleRoleItem.getValue() != null)
-			eia.setResponsibleRole(new RoleBase(Long
+			eia.setResponsibleRole(new Role(Long
 					.parseLong(responsibleRoleItem.getValueAsString())));
 		eia.setCode(codeItem.getValueAsString());
 		if (eiaTypeItem.getValue() != null)

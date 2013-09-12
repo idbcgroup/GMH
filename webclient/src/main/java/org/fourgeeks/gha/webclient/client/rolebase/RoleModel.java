@@ -2,7 +2,7 @@ package org.fourgeeks.gha.webclient.client.rolebase;
 
 import java.util.List;
 
-import org.fourgeeks.gha.domain.ess.RoleBase;
+import org.fourgeeks.gha.domain.ess.Role;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 
 import com.google.gwt.core.client.GWT;
@@ -11,11 +11,11 @@ import com.google.gwt.core.client.GWT;
  * @author alacret
  * 
  */
-public class RoleBaseModel {
-	private static final GWTRoleBaseServiceAsync service = GWT
-			.create(GWTRoleBaseService.class);
+public class RoleModel {
+	private static final GWTRoleServiceAsync service = GWT
+			.create(GWTRoleService.class);
 
-	private RoleBaseModel() {
+	private RoleModel() {
 		throw new UnsupportedOperationException(
 				"Esta clase no debe ser instanciada");
 	}
@@ -23,7 +23,7 @@ public class RoleBaseModel {
 	/**
 	 * @param callback
 	 */
-	public static void getAll(GHAAsyncCallback<List<RoleBase>> callback) {
+	public static void getAll(GHAAsyncCallback<List<Role>> callback) {
 		service.getAll(callback);
 	}
 }
