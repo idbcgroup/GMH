@@ -6,6 +6,7 @@ package org.fourgeeks.gha.domain.logs;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import org.fourgeeks.gha.domain.gar.Bpu;
 
@@ -16,6 +17,7 @@ import org.fourgeeks.gha.domain.gar.Bpu;
  */
 
 @Entity
+@Table(name = "UILog", schema = "GHALog")
 public class UILog extends GHALog {
 
 	/**
