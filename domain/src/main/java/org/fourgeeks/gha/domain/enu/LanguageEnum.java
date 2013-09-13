@@ -6,21 +6,15 @@ package org.fourgeeks.gha.domain.enu;
 import java.util.LinkedHashMap;
 
 /**
- * @author alacret
- * 
+ * @author emiliot
+ *
  */
-public enum ItSystemEnum {
-	/**
-	 * 
-	 */
-	PERIPHERAL("Periférico"), /**
-	 * 
-	 */
-	COMPUTER("Computadora");
+public enum LanguageEnum {
+	ES("Español"), EN("English");
 
 	private String name;
 
-	ItSystemEnum(String name) {
+	LanguageEnum(String name) {
 		this.name = name;
 	}
 
@@ -32,11 +26,11 @@ public enum ItSystemEnum {
 	 * @param string
 	 * @return return the enum represented by this string or null
 	 */
-	public static ItSystemEnum getByString(String string) {
+	public static LanguageEnum getByString(String string) {
 		if (string == null)
 			return null;
 
-		for (ItSystemEnum e : ItSystemEnum.values())
+		for (LanguageEnum e : LanguageEnum.values())
 			if (string.equals(e.toString()))
 				return e;
 
@@ -48,8 +42,8 @@ public enum ItSystemEnum {
 	 */
 	public static LinkedHashMap<String, String> toValueMap() {
 		LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-		for (ItSystemEnum itSystem : ItSystemEnum.values())
-			valueMap.put(itSystem.name() + "", itSystem.toString());
+		for (LanguageEnum language : LanguageEnum.values())
+			valueMap.put(language.name() + "", language.toString());
 		return valueMap;
 	}
 }

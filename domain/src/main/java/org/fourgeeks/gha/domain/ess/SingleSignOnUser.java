@@ -7,7 +7,7 @@ import javax.persistence.OneToOne;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.UserLogonStatusEnum;
-import org.fourgeeks.gha.domain.mix.LegalEntity;
+import org.fourgeeks.gha.domain.gar.Bpu;
 
 @Entity
 public class SingleSignOnUser extends AbstractEntity {
@@ -16,9 +16,13 @@ public class SingleSignOnUser extends AbstractEntity {
 	 */
 	private static final long serialVersionUID = 1L;
 
+//	@OneToOne
+//	@JoinColumn(name = "legalEntityFk")
+//	private LegalEntity legalEntity;
+	
 	@OneToOne
-	@JoinColumn(name = "legalEntityFk")
-	private LegalEntity legalEntity;
+	@JoinColumn(name = "bpuFk")
+	private Bpu bpu;
 
 	private String password;
 	private String userName;
@@ -27,20 +31,20 @@ public class SingleSignOnUser extends AbstractEntity {
 	@Column(/* nullable = false, */columnDefinition = "boolean NOT NULL DEFAULT false")
 	private boolean blocked;
 
-	/**
-	 * @return the legalEntity
-	 */
-	public LegalEntity getLegalEntity() {
-		return legalEntity;
-	}
-
-	/**
-	 * @param legalEntity
-	 *            the legalEntity to set
-	 */
-	public void setLegalEntity(LegalEntity legalEntity) {
-		this.legalEntity = legalEntity;
-	}
+//	/**
+//	 * @return the legalEntity
+//	 */
+//	public LegalEntity getLegalEntity() {
+//		return legalEntity;
+//	}
+//
+//	/**
+//	 * @param legalEntity
+//	 *            the legalEntity to set
+//	 */
+//	public void setLegalEntity(LegalEntity legalEntity) {
+//		this.legalEntity = legalEntity;
+//	}
 
 	/**
 	 * @return the password

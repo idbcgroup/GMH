@@ -17,7 +17,7 @@ import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
 import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.enu.LocationLevelEnum;
-import org.fourgeeks.gha.domain.ess.RoleBase;
+import org.fourgeeks.gha.domain.ess.Role;
 import org.fourgeeks.gha.domain.ess.SingleSignOnUser;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Facility;
@@ -39,6 +39,8 @@ import org.fourgeeks.gha.ejb.gmh.EiaServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.EiaTypeComponentServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.EiaTypeServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.ManufacturerServiceRemote;
+
+
 
 /**
  * @author alacret
@@ -81,7 +83,7 @@ public class TestData {
 		institutionTestData();
 		bpiTestData();
 		obuTestData();
-		roleBaseTestData();
+		roleTestData();
 		buildingLocationsTestData();
 		userTestData();
 		manufacturerTestData();
@@ -262,26 +264,26 @@ public class TestData {
 		}
 	}
 
-	private void roleBaseTestData() {
-		String query = "SELECT t from RoleBase t WHERE t.id = 1 ";
+	private void roleTestData() {
+		String query = "SELECT t from Role t WHERE t.id = 1 ";
 		try {
 			em.createQuery(query).getSingleResult();
 		} catch (NoResultException e) {
 			try {
-				logger.info("creating test data : RoleBase");
-				RoleBase baseRole = new RoleBase();
-				baseRole.setName("Test Role Base 1");
-				em.persist(baseRole);
-				baseRole = new RoleBase();
-				baseRole.setName("Test Role Base 2");
-				em.persist(baseRole);
-				baseRole = new RoleBase();
-				baseRole.setName("Test Role Base 3");
-				em.persist(baseRole);
+				logger.info("creating test data : Role");
+				Role role = new Role();
+				role.setName("Test Role 1");
+				em.persist(role);
+				role = new Role();
+				role.setName("Test Role 2");
+				em.persist(role);
+				role = new Role();
+				role.setName("Test Role 3");
+				em.persist(role);
 
 				em.flush();
 			} catch (Exception e1) {
-				logger.log(Level.INFO, "error creating test data obu", e);
+				logger.log(Level.INFO, "error creating test data role", e);
 			}
 		}
 	}
@@ -432,7 +434,7 @@ public class TestData {
 				Obu obu = em.find(Obu.class, 1L);
 				ExternalProvider eProvider = em
 						.find(ExternalProvider.class, 1L);
-				RoleBase bRole = em.find(RoleBase.class, 1L);
+				Role bRole = em.find(Role.class, 1L);
 
 				for (int i = 1; i < 4; ++i) {
 					Eia eia = new Eia(bRole, em.find(EiaType.class, "9000"
@@ -459,13 +461,13 @@ public class TestData {
 			} catch (NoResultException e) {
 				logger.info("creating test data: users");
 				SingleSignOnUser signOnUser = new SingleSignOnUser();
-				signOnUser.setLegalEntity(em.find(LegalEntity.class, 2L));
+//				signOnUser.setLegalEntity(em.find(LegalEntity.class, 2L));
 				signOnUser.setPassword("admin");
 				signOnUser.setUserName("admin");
 				em.persist(signOnUser);
 
 				signOnUser = new SingleSignOnUser();
-				signOnUser.setLegalEntity(em.find(LegalEntity.class, 3L));
+//				signOnUser.setLegalEntity(em.find(LegalEntity.class, 3L));
 				signOnUser.setPassword("asanchez");
 				signOnUser.setUserName("asanchez");
 				em.persist(signOnUser);

@@ -2,7 +2,7 @@ package org.fourgeeks.gha.webclient.client.UI;
 
 import java.util.List;
 
-import org.fourgeeks.gha.domain.ess.RoleBase;
+import org.fourgeeks.gha.domain.ess.Role;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Facility;
@@ -18,7 +18,7 @@ import org.fourgeeks.gha.webclient.client.externalprovider.ExternalProviderModel
 import org.fourgeeks.gha.webclient.client.facility.FacilityModel;
 import org.fourgeeks.gha.webclient.client.manufacturer.ManufacturerModel;
 import org.fourgeeks.gha.webclient.client.obu.ObuModel;
-import org.fourgeeks.gha.webclient.client.rolebase.RoleBaseModel;
+import org.fourgeeks.gha.webclient.client.rolebase.RoleModel;
 import org.fourgeeks.gha.webclient.client.workingarea.WorkingAreaModel;
 
 import com.google.gwt.user.client.Timer;
@@ -41,7 +41,7 @@ public enum GHACache {
 	private List<Manufacturer> manufacturers;
 	private List<BuildingLocation> buildingLocations;
 	private List<Obu> obus;
-	private List<RoleBase> roles;
+	private List<Role> roles;
 	private List<ExternalProvider> externalProviders;
 	private List<EiaType> eiaTypes;
 	private List<WorkingArea> workingAreas;
@@ -165,7 +165,7 @@ public enum GHACache {
 	/**
 	 * @param callback
 	 */
-	public void getBaseRoles(GHAAsyncCallback<List<RoleBase>> callback) {
+	public void getBaseRoles(GHAAsyncCallback<List<Role>> callback) {
 		// Avoiding synchronization problems
 		if (roles == null)
 			getBaseRolesFromServer(callback);
@@ -175,12 +175,12 @@ public enum GHACache {
 	}
 
 	private void getBaseRolesFromServer(
-			final GHAAsyncCallback<List<RoleBase>> callback) {
-		RoleBaseModel.getAll(new GHAAsyncCallback<List<RoleBase>>() { // AyncCallback
+			final GHAAsyncCallback<List<Role>> callback) {
+		RoleModel.getAll(new GHAAsyncCallback<List<Role>>() { // AyncCallback
 					// subclass
 
 					@Override
-					public void onSuccess(List<RoleBase> result) {
+					public void onSuccess(List<Role> result) {
 						roles = result;
 						// Avoiding synchronization problems
 						callback.onSuccess(result);

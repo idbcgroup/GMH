@@ -17,7 +17,7 @@ import org.fourgeeks.gha.domain.enu.DepreciationMethodEnum;
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
-import org.fourgeeks.gha.domain.ess.RoleBase;
+import org.fourgeeks.gha.domain.ess.Role;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
 import org.fourgeeks.gha.domain.gar.Facility;
 import org.fourgeeks.gha.domain.gar.Job;
@@ -54,7 +54,7 @@ public class Eia extends AbstractEntity {
 
 	@ManyToOne
 	@JoinColumn(name = "baseRoleFk", nullable = false)
-	private RoleBase responsibleRole;
+	private Role responsibleRole;
 
 	private String code;
 	/** Denominación Moneda del Costo de Adquisición del equipo length =60 */
@@ -183,7 +183,7 @@ public class Eia extends AbstractEntity {
 	 * @param obu
 	 * @param state
 	 */
-	public Eia(RoleBase responsibleRole, EiaType eiaType, Obu obu,
+	public Eia(Role responsibleRole, EiaType eiaType, Obu obu,
 			EiaStateEnum state) {
 		this.responsibleRole = responsibleRole;
 		this.eiaType = eiaType;
@@ -227,7 +227,7 @@ public class Eia extends AbstractEntity {
 		return adquisitionCostLocal;
 	}
 
-	public RoleBase getResponsibleRole() {
+	public Role getResponsibleRole() {
 		return responsibleRole;
 	}
 
@@ -397,7 +397,7 @@ public class Eia extends AbstractEntity {
 		this.adquisitionCostLocal = adquisitionCostLocal;
 	}
 
-	public void setResponsibleRole(RoleBase responsibleRole) {
+	public void setResponsibleRole(Role responsibleRole) {
 		this.responsibleRole = responsibleRole;
 	}
 

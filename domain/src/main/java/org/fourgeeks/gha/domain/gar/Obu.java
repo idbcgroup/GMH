@@ -31,6 +31,10 @@ public class Obu extends AbstractEntity {
 	@ManyToOne
 	@JoinColumn(name = "bpiFk")
 	private Bpi bpi;
+	
+	@ManyToOne
+	@JoinColumn(name = "parentObu")
+	private Obu parentObu;
 
 	@Column(nullable = false)
 	private String name;
@@ -95,6 +99,14 @@ public class Obu extends AbstractEntity {
 	 */
 	public void setCode(String code) {
 		this.code = code;
+	}
+
+	public Obu getParentObu() {
+		return parentObu;
+	}
+
+	public void setParentObu(Obu parentObu) {
+		this.parentObu = parentObu;
 	}
 
 }

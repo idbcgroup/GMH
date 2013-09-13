@@ -19,7 +19,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
-import org.fourgeeks.gha.domain.ess.RoleBase;
+import org.fourgeeks.gha.domain.ess.Role;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gar.Facility;
@@ -54,10 +54,10 @@ public class EiaService implements EiaServiceRemote {
 		Predicate criteria = cb.conjunction();
 
 		if (entity.getResponsibleRole() != null) {
-			ParameterExpression<RoleBase> p = cb.parameter(RoleBase.class,
+			ParameterExpression<Role> p = cb.parameter(Role.class,
 					"baseRole");
 			criteria = cb.and(criteria,
-					cb.equal(root.<RoleBase> get("responsibleRole"), p));
+					cb.equal(root.<Role> get("responsibleRole"), p));
 		}
 		if (entity.getCode() != null) {
 			ParameterExpression<String> p = cb.parameter(String.class, "code");

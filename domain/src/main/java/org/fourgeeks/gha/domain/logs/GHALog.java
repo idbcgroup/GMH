@@ -3,7 +3,7 @@
  */
 package org.fourgeeks.gha.domain.logs;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.MappedSuperclass;
 
@@ -22,14 +22,14 @@ public abstract class GHALog extends AbstractEntity {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	protected Date timeStamp;
+	protected Timestamp timestamp;
 	protected String message;
 	
-	public Date getTimeStamp() {
-		return timeStamp;
+	public Timestamp getTimestamp() {
+		return timestamp;
 	}
-	public void setTimeStamp(Date timeStamp) {
-		this.timeStamp = timeStamp;
+	public void setTimestamp(Timestamp timestamp) {
+		this.timestamp = timestamp;
 	}
 	public String getMessage() {
 		return message;

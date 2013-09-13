@@ -4,6 +4,7 @@
 package org.fourgeeks.gha.domain.logs;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * @author emiliot
@@ -11,6 +12,7 @@ import javax.persistence.Entity;
  */
 
 @Entity
+@Table(name = "LogonLog", schema = "GHALog")
 public class LogonLog extends GHALog {
 
 	/**

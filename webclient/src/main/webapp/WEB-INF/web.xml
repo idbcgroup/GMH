@@ -120,15 +120,15 @@
 
 
 
-	<servlet>
-		<servlet-name>GWTRoleBaseService</servlet-name>
-		<servlet-class>org.fourgeeks.gha.webclient.server.rolebase.GWTRoleBaseServiceImpl</servlet-class>
-	</servlet>
+<!-- 	<servlet> -->
+<!-- 		<servlet-name>GWTRoleBaseService</servlet-name> -->
+<!-- 		<servlet-class>org.fourgeeks.gha.webclient.server.rolebase.GWTRoleBaseServiceImpl</servlet-class> -->
+<!-- 	</servlet> -->
 
-	<servlet-mapping>
-		<servlet-name>GWTRoleBaseService</servlet-name>
-		<url-pattern>/webclient/roleBase</url-pattern>
-	</servlet-mapping>
+<!-- 	<servlet-mapping> -->
+<!-- 		<servlet-name>GWTRoleBaseService</servlet-name> -->
+<!-- 		<url-pattern>/webclient/roleBase</url-pattern> -->
+<!-- 	</servlet-mapping> -->
 
 
 
