@@ -87,7 +87,6 @@ public class EIASearchForm extends GHASlideInWindow implements
 				eiaTypeItem, fixedAssetIdentifierItem, workingAreaLocationItem,
 				facilityLocationItem, obuItem, serialNumberItem, stateItem);
 
-		// Event Handlers
 		ClickHandler searchClickHandler = new ClickHandler() {
 
 			@Override
@@ -117,15 +116,15 @@ public class EIASearchForm extends GHASlideInWindow implements
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
 				"../resources/icons/search.png", searchClickHandler),
-				new GHAImgButton("../resources/icons/clean.png", new ClickHandler() {
-					
-					@Override
-					public void onClick(ClickEvent event) {
-						form.clearValues();
-						grid.setData(new ListGridRecord[0]);	
-					}
-				}),
-				new GHAImgButton("../resources/icons/cancel.png",
+				new GHAImgButton("../resources/icons/clean.png",
+						new ClickHandler() {
+
+							@Override
+							public void onClick(ClickEvent event) {
+								form.clearValues();
+								grid.setData(new ListGridRecord[0]);
+							}
+						}), new GHAImgButton("../resources/icons/cancel.png",
 						new ClickHandler() {
 
 							@Override
@@ -259,8 +258,8 @@ public class EIASearchForm extends GHASlideInWindow implements
 		if (actualCostItem.getValue() != null)
 			eia.setActualCost(new BigDecimal(actualCostItem.getValueAsString()));
 		if (responsibleRoleItem.getValue() != null)
-			eia.setResponsibleRole(new Role(Long
-					.parseLong(responsibleRoleItem.getValueAsString())));
+			eia.setResponsibleRole(new Role(Long.parseLong(responsibleRoleItem
+					.getValueAsString())));
 		eia.setCode(codeItem.getValueAsString());
 		if (eiaTypeItem.getValue() != null)
 			eia.setEiaType(new EiaType(eiaTypeItem.getValueAsString()));
