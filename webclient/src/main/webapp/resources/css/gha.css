@@ -302,6 +302,10 @@ table.GHAupload-button tbody tr td form div.upld-form-elements div.DecoratedFile
 	padding-top: 10px;
 }
 
+.padding-top-recovery{
+	padding-top: 100px;
+}
+
 .boxed{
 	borde:1px solid black;
 }

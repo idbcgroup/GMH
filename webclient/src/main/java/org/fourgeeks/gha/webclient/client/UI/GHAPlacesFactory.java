@@ -6,6 +6,7 @@ import org.fourgeeks.gha.webclient.client.eia.EIAPlace;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypePlace;
 import org.fourgeeks.gha.webclient.client.home.HomePlace;
 import org.fourgeeks.gha.webclient.client.login.LoginPlace;
+import org.fourgeeks.gha.webclient.client.login.ForgottenPassword.ForgottenPasswordPlace;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivityPlace;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanPlace;
 import org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolPlace;
@@ -19,8 +20,11 @@ public class GHAPlacesFactory {
 	 */
 
 	public static GHAPlace createPlace(String token) {
+//		Window.alert("createplace"+ token);
 		if (token.equals("login"))
 			return new LoginPlace();
+		if (token.equals("lostpass"))
+			return new ForgottenPasswordPlace();
 		else if (token.equals("home"))
 			return new HomePlace();
 		else if (token.equals("eiatype"))

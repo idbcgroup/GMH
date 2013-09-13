@@ -36,6 +36,12 @@ public class GHADateItem extends DateItem {
 		setWidth(width);
 	}
 	
+	public GHADateItem(int width) {
+		this();
+		setShowTitle(false);
+		setWidth(width);
+	}
+	
 	public GHADateItem(String title, int width, boolean active) {
 		this(title);
 		setWidth(width);

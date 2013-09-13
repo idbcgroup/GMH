@@ -47,6 +47,12 @@ public class GHAComboboxItem<T extends HasKey> extends ComboBoxItem {
 		setWidth(width);
 	}
 
+	public GHAComboboxItem(int width) {
+		this();
+		setShowTitle(false);
+		setWidth(width);
+	}
+	
 	/**
 	 * @param title
 	 * @param width
