@@ -1,11 +1,13 @@
 package org.fourgeeks.gha.webclient.client.login;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAPlace;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.InputElement;
+import com.google.gwt.dom.client.LinkElement;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Event;
@@ -37,20 +39,26 @@ public class LoginPlace extends GHAPlace {
 		html.append("<input class='round' id='username' type='text' placeholder='Nombre de usuario'><br/>");
 		html.append("<input class='round' id='password' type='password' placeholder='Contraseña'> <br/>");
 		html.append("<input id='login-button' type='button' value='Iniciar Sesion' class='GHAButton'>");
-		html.append("<div class='smallfont'><input type='checkbox'>Recordar mis datos</div><br/><a href='' class='smallfont'>¿Olvidaste tu contraseña?</a></form></div>");
+		html.append("<div class='smallfont'><input type='checkbox'>Recordar mis datos</div><br/><div id='recovery'><a  class='smallfont'>¿Olvidaste tu contraseña?</a></div></form></div>");
 		HTML content = new HTML(html.toString());
 		RootPanel.get("main-content").add(content);
 
 		// for Events
 		Element element = RootPanel.get("login-button").getElement();
 		Element pTextbox = RootPanel.get("password").getElement();
-		;
+		Element recovery = RootPanel.get("recovery").getElement();
 
 		final InputElement userTextbox = (InputElement) Document.get()
 				.getElementById("username");
 		final InputElement passTextbox = (InputElement) Document.get()
 				.getElementById("password");
+		final LinkElement recoveryLink = (LinkElement) Document.get()
+				.getElementById("recovery");
+
+		// Dar el foco al campo de user
 		userTextbox.focus();
+
+		// BUtton on click
 
 		DOM.sinkEvents(element, Event.ONCLICK);
 		DOM.setEventListener(element, new EventListener() {
@@ -68,11 +76,8 @@ public class LoginPlace extends GHAPlace {
 						new GHAAsyncCallback<Boolean>() {
 							@Override
 							public void onSuccess(Boolean result) {
-								// Window.alert("Button Clicked. Result:" +
-								// result);
 								if (result) {
 									String token = History.getToken();
-									// Window.alert("Token:" + token);
 									if (token.equals("home"))
 										History.fireCurrentHistoryState();
 									else
@@ -86,6 +91,8 @@ public class LoginPlace extends GHAPlace {
 
 			}
 		});
+
+		// PASS keyup
 
 		DOM.sinkEvents(pTextbox, Event.ONKEYUP);
 		DOM.setEventListener(pTextbox, new EventListener() {
@@ -116,12 +123,24 @@ public class LoginPlace extends GHAPlace {
 										else
 											History.newItem("home");
 									} else {
-										Window.alert("Error iniciando sesión. Credenciales inválidas");
+										GHANotification
+												.alert("Error iniciando sesión. Credenciales inválidas");
 										History.fireCurrentHistoryState();
 									}
 								}
 							});
 				}
+			}
+		});
+
+		// RECOVERY
+
+		DOM.sinkEvents(recovery, Event.ONCLICK);
+		DOM.setEventListener(recovery, new EventListener() {
+
+			@Override
+			public void onBrowserEvent(Event event) {
+				History.newItem("lostpass");
 			}
 		});
 	}

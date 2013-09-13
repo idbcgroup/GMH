@@ -26,6 +26,12 @@ public class GHASelectItem extends SelectItem {
 		setDisabled(!active);
 	}
 
+	public GHASelectItem(int width) {
+		this();
+		setShowTitle(false);
+		setWidth(width);
+	}
+	
 	public GHASelectItem(String title) {
 		this();
 		setTitle(title);

@@ -3,9 +3,6 @@ package org.fourgeeks.gha.webclient.client;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAPlacesFactory;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAPlace;
-import org.fourgeeks.gha.webclient.client.eia.GWTEiaService;
-import org.fourgeeks.gha.webclient.client.eia.component.GWTEiaComponentService;
-import org.fourgeeks.gha.webclient.client.eiatype.component.GWTEiaTypeComponentService;
 import org.fourgeeks.gha.webclient.client.login.GWTLoginService;
 import org.fourgeeks.gha.webclient.client.login.GWTLoginServiceAsync;
 
@@ -32,9 +29,6 @@ public class Gha implements EntryPoint {
 				final String historyToken = event.getValue();
 				if (historyToken == null)
 					return;
-				// Window.alert("Showing place:"+historyToken);
-				// UIPlace place = UIPlacesFactory.createPlace(historyToken);
-				// place.show();
 				GWT.runAsync(new RunAsyncCallback() {
 
 					@Override
@@ -47,7 +41,6 @@ public class Gha implements EntryPoint {
 
 					@Override
 					public void onFailure(Throwable arg0) {
-						// TODO Auto-generated method stub
 
 					}
 				});
@@ -59,25 +52,16 @@ public class Gha implements EntryPoint {
 		service.isLogged(new GHAAsyncCallback<Boolean>() {
 			@Override
 			public void onSuccess(Boolean result) {
-				// Window.alert("Success. Result:" + result);
 				if (!result) {
 					String token = History.getToken();
-					// Window.alert("Token:" + token);
-					if (token.equals("login"))
-						History.fireCurrentHistoryState();
-					else
-						History.newItem("login");
+						if (token.equals("login"))
+							History.fireCurrentHistoryState();
+						else
+							History.newItem("login");
 				} else
 					History.fireCurrentHistoryState();
 			}
 		});
 
-		// final GWTEiaTypeServiceAsync eiaService =
-		// GWT.create(GWTEiaTypeService.class);
-
-		final GWTEiaService equipmentService = GWT.create(GWTEiaService.class);
-		final GWTEiaTypeComponentService etcService = GWT.create(GWTEiaTypeComponentService.class);
-		final GWTEiaComponentService ecService = GWT.create(GWTEiaComponentService.class);
 	}
-
 }

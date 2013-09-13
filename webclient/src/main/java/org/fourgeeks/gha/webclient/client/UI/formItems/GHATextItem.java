@@ -18,6 +18,12 @@ public class GHATextItem extends TextItem {
 		setWidth(width);
 	}
 	
+	public GHATextItem(int width) {
+		this();
+		setShowTitle(false);
+		setWidth(width);
+	}
+	
 	public GHATextItem(String title, int width, boolean active) {
 		this(title);
 		setWidth(width);
@@ -38,6 +44,4 @@ public class GHATextItem extends TextItem {
 	public void setDisabled(Boolean disabled) {
 		super.setDisabled(disabled);
 	}
-	
-	
 }
