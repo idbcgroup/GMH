@@ -12,13 +12,21 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
+import org.fourgeeks.gha.domain.codes.FunctionsCodes;
+import org.fourgeeks.gha.domain.codes.ModulesCodes;
+import org.fourgeeks.gha.domain.codes.ScreenCodes;
+import org.fourgeeks.gha.domain.codes.ViewCodes;
 import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
 import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.enu.LocationLevelEnum;
+import org.fourgeeks.gha.domain.ess.Function;
+import org.fourgeeks.gha.domain.ess.Module;
 import org.fourgeeks.gha.domain.ess.Role;
+import org.fourgeeks.gha.domain.ess.Screen;
 import org.fourgeeks.gha.domain.ess.SingleSignOnUser;
+import org.fourgeeks.gha.domain.ess.View;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Facility;
 import org.fourgeeks.gha.domain.gar.Obu;
@@ -39,8 +47,6 @@ import org.fourgeeks.gha.ejb.gmh.EiaServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.EiaTypeComponentServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.EiaTypeServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.ManufacturerServiceRemote;
-
-
 
 /**
  * @author alacret
@@ -92,9 +98,73 @@ public class TestData {
 		materialCategoryTestData();
 		materialTestData();
 		facilityTestData();
+		modulesTestData();
 		// // TODO
 		eiaTypeTestData();
 		eiaTestData();
+	}
+
+	private void modulesTestData() {
+		String query = "SELECT t from Module t WHERE t.id = 1 ";
+		try {
+			em.createQuery(query).getSingleResult();
+		} catch (NoResultException e) {
+			try {
+				logger.info("creating test data : module, view, screen, functions");
+				Module module = new Module("Usuarios", ModulesCodes.USER_ADMIN);
+				em.persist(module);
+				Screen screen = new Screen(module,
+						"Administración de usuarios", ScreenCodes.USER_ADMIN);
+				em.persist(screen);
+
+				View infoView = new View(screen, "Información",
+						ViewCodes.UADADM_INFO);
+				em.persist(infoView);
+
+				Function function = new Function(infoView, "ver",
+						FunctionsCodes.UADADM_INFO_VIEW);
+				em.persist(function);
+
+				function = new Function(infoView, "editar",
+						FunctionsCodes.UADADM_INFO_EDIT);
+				em.persist(function);
+
+				View credentialsView = new View(screen, "Credenciales",
+						ViewCodes.UADADM_CREDENTIALS);
+				em.persist(credentialsView);
+
+				function = new Function(credentialsView, "ver",
+						FunctionsCodes.UADADM_CREDENTIALS_VIEW);
+				em.persist(function);
+
+				function = new Function(credentialsView, "editar",
+						FunctionsCodes.UADADM_CREDENTIALS_EDIT);
+				em.persist(function);
+
+				View loginLogView = new View(screen, "Login Log",
+						ViewCodes.UADADM_LLOG);
+				em.persist(loginLogView);
+
+				function = new Function(loginLogView, "ver",
+						FunctionsCodes.UADADM_LLOG_VIEW);
+				em.persist(function);
+
+				View uiLogView = new View(screen, "UI Log",
+						ViewCodes.UADADM_ULOG);
+				em.persist(uiLogView);
+
+				function = new Function(uiLogView, "ver",
+						FunctionsCodes.UADADM_ULOG_VIEW);
+				em.persist(function);
+
+				em.flush();
+			} catch (Exception e1) {
+				logger.log(
+						Level.INFO,
+						"error creating test data: module, view, screen, functions",
+						e);
+			}
+		}
 	}
 
 	/**
@@ -108,8 +178,9 @@ public class TestData {
 			try {
 				logger.info("creating test data : materialCategory");
 				for (int j = 0; j < 3; j++) {
-					em.persist(new MaterialCategory("mat-cat-00" + j, "material-category-00" + j,
-							MaterialTypeEnum.values()[j % 3]));
+					em.persist(new MaterialCategory("mat-cat-00" + j,
+							"material-category-00" + j, MaterialTypeEnum
+									.values()[j % 3]));
 				}
 				em.flush();
 			} catch (Exception e1) {
@@ -144,9 +215,10 @@ public class TestData {
 			try {
 				logger.info("creating test data : material");
 				for (int j = 0; j < 3; j++) {
-					Material next = new Material("mat-00" + j, "material-00" + j,
-							MaterialTypeEnum.values()[j % 3]);
-					next.setMaterialCategory(em.find(MaterialCategory.class, (long)(j+1)));
+					Material next = new Material("mat-00" + j, "material-00"
+							+ j, MaterialTypeEnum.values()[j % 3]);
+					next.setMaterialCategory(em.find(MaterialCategory.class,
+							(long) (j + 1)));
 					em.persist(next);
 				}
 				em.flush();
@@ -360,11 +432,14 @@ public class TestData {
 				em.createQuery(query).getSingleResult();
 			} catch (NoResultException e) {
 				logger.log(Level.INFO, "creating test brands");
-				
-				String brandNames [] = new String[] {"HP", "Epson", "Compaq", "Dell", "Canon"};
-				List <Manufacturer> mans = em.createNamedQuery("Manufacturer.getAll", Manufacturer.class).getResultList();
+
+				String brandNames[] = new String[] { "HP", "Epson", "Compaq",
+						"Dell", "Canon" };
+				List<Manufacturer> mans = em.createNamedQuery(
+						"Manufacturer.getAll", Manufacturer.class)
+						.getResultList();
 				int k = 0;
-				for(String brandName : brandNames){
+				for (String brandName : brandNames) {
 					Brand next = new Brand();
 					next.setName(brandName);
 					next.setManufacturer(mans.get(k++));
@@ -386,7 +461,8 @@ public class TestData {
 			try {
 				logger.info("creating test eiaType");
 				EiaType eiaType = new EiaType("90001",
-						em.find(Brand.class, 1L), "Impresora Tinta", EiaMobilityEnum.FIXED, EiaTypeEnum.EQUIPMENT,
+						em.find(Brand.class, 1L), "Impresora Tinta",
+						EiaMobilityEnum.FIXED, EiaTypeEnum.EQUIPMENT,
 						EiaSubTypeEnum.IT_SYSTEM, "Stylus");
 				em.persist(eiaType);
 
@@ -398,20 +474,17 @@ public class TestData {
 
 				eiaType = new EiaType("90003", em.find(Brand.class, 3L),
 						"Cartucho Tricolor", EiaMobilityEnum.FIXED,
-						EiaTypeEnum.PART, EiaSubTypeEnum.IT_SYSTEM,
-						"EP60");
+						EiaTypeEnum.PART, EiaSubTypeEnum.IT_SYSTEM, "EP60");
 				em.persist(eiaType);
 
 				eiaType = new EiaType("90004", em.find(Brand.class, 4L),
-						"Toner Laser", EiaMobilityEnum.FIXED,
-						EiaTypeEnum.PART, EiaSubTypeEnum.IT_SYSTEM,
-						"HP60");
+						"Toner Laser", EiaMobilityEnum.FIXED, EiaTypeEnum.PART,
+						EiaSubTypeEnum.IT_SYSTEM, "HP60");
 				em.persist(eiaType);
 
 				eiaType = new EiaType("90005", em.find(Brand.class, 5L),
 						"Cartucho Negro", EiaMobilityEnum.FIXED,
-						EiaTypeEnum.PART, EiaSubTypeEnum.IT_SYSTEM,
-						"EPN60");
+						EiaTypeEnum.PART, EiaSubTypeEnum.IT_SYSTEM, "EPN60");
 				em.persist(eiaType);
 
 				em.flush();
@@ -461,13 +534,13 @@ public class TestData {
 			} catch (NoResultException e) {
 				logger.info("creating test data: users");
 				SingleSignOnUser signOnUser = new SingleSignOnUser();
-//				signOnUser.setLegalEntity(em.find(LegalEntity.class, 2L));
+				// signOnUser.setLegalEntity(em.find(LegalEntity.class, 2L));
 				signOnUser.setPassword("admin");
 				signOnUser.setUserName("admin");
 				em.persist(signOnUser);
 
 				signOnUser = new SingleSignOnUser();
-//				signOnUser.setLegalEntity(em.find(LegalEntity.class, 3L));
+				// signOnUser.setLegalEntity(em.find(LegalEntity.class, 3L));
 				signOnUser.setPassword("asanchez");
 				signOnUser.setUserName("asanchez");
 				em.persist(signOnUser);
