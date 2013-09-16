@@ -96,7 +96,6 @@ public class EIAComponentGridPanel extends VLayout implements GHAClosable, GHAHi
 						eIASearchForm.open();
 					}
 				}),
-	    		new GHAImgButton("../resources/icons/edit.png"),
 	    		new GHAImgButton("../resources/icons/delete.png", new ClickHandler() {
 					
 					@Override
@@ -113,14 +112,6 @@ public class EIAComponentGridPanel extends VLayout implements GHAClosable, GHAHi
 									}
 								});
 
-					}
-				}),
-	    		new GHAImgButton("../resources/icons/set.png", new ClickHandler() {
-					@Override
-					public void onClick(ClickEvent event) {
-						// TODO Auto-generated method stub
-//						EIARecord selectedRecord = (EIARecord) eiaTypeGrid.getSelectedRecord();
-//						History.newItem("eia/" + selectedRecord.getCode());
 					}
 				}));
 		

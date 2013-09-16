@@ -74,7 +74,7 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 		setHeight(GHAUiHelper.getBottomSectionHeight());
 		setTop(240);
 
-		Label title = new Label("<h3>Nuevo Tipo de Equipo (EIA Type)</h3>");
+		Label title = new Label("<h3>Nuevo Tipo de Equipo</h3>");
 		title.setHeight(30);
 		title.setWidth100();
 		title.setStyleName("title-label");

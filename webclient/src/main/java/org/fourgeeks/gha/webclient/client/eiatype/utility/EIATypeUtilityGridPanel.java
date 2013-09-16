@@ -76,8 +76,7 @@ public class EIATypeUtilityGridPanel extends VLayout implements
 					public void onClick(ClickEvent event) {
 						utilitySearchForm.open();
 					}
-				}), 
-				new GHAImgButton("../resources/icons/edit.png"),
+				}),
 				new GHAImgButton("../resources/icons/delete.png", new ClickHandler() {
 					
 					@Override
@@ -95,18 +94,7 @@ public class EIATypeUtilityGridPanel extends VLayout implements
 
 						
 					}
-				}),
-				new GHAImgButton("../resources/icons/set.png",
-						new ClickHandler() {
-							@Override
-							public void onClick(ClickEvent event) {
-								// TODO Auto-generated method stub
-								// EIARecord selectedRecord = (EIARecord)
-								// eiaTypeGrid.getSelectedRecord();
-								// History.newItem("eia/" +
-								// selectedRecord.getCode());
-							}
-						}));
+				}));
 
 		HLayout mainPanel = new HLayout();
 		mainPanel.addMembers(grid, sideButtons);
