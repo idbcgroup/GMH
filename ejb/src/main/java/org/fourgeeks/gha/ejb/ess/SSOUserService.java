@@ -112,4 +112,19 @@ public class SSOUserService implements SSOUserServiceRemote {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.ejb.ess.SSOUserServiceRemote#findByUsername(java.lang.String)
+	 */
+	@Override
+	public SSOUser findByUsername(String userName) throws EJBException {
+		try {
+			return em.createNamedQuery("SSOUser.findByUserName", SSOUser.class)
+					.setParameter("userName", userName).getSingleResult();
+		} catch (Exception ex) {
+			logger.log(Level.SEVERE, "Error finding SSOUser by username", ex);
+			throw new EJBException("Error obteniendo el SSOUser por username"
+					+ ex.getCause().getMessage());
+		}
+	}
+
 }

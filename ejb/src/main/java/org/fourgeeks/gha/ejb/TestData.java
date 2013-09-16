@@ -16,6 +16,7 @@ import org.fourgeeks.gha.domain.codes.FunctionsCodes;
 import org.fourgeeks.gha.domain.codes.ModulesCodes;
 import org.fourgeeks.gha.domain.codes.ScreenCodes;
 import org.fourgeeks.gha.domain.codes.ViewCodes;
+import org.fourgeeks.gha.domain.enu.DocumentTypeEnum;
 import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
@@ -39,6 +40,7 @@ import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.domain.mix.Bpi;
+import org.fourgeeks.gha.domain.mix.Citizen;
 import org.fourgeeks.gha.domain.mix.Institution;
 import org.fourgeeks.gha.domain.mix.LegalEntity;
 import org.fourgeeks.gha.ejb.gmh.BrandServiceRemote;
@@ -87,6 +89,8 @@ public class TestData {
 	public void loadTestData() {
 		legalEntityTestData();
 		institutionTestData();
+		citizenTestData();
+		itSystemTestData();
 		bpiTestData();
 		obuTestData();
 		roleTestData();
@@ -102,6 +106,57 @@ public class TestData {
 		// // TODO
 		eiaTypeTestData();
 		eiaTestData();
+	}
+
+	/**
+	 * 
+	 */
+	private void itSystemTestData() {
+//		String query = "SELECT t FROM citizen t WHERE t.id = '1'";
+//		try{
+//			em.createQuery(query).getSingleResult();
+//		}catch(NoResultException e){
+//			try {
+//				logger.info("Creating itSystem test data");
+//				for(int i=0; i<5; ++i){
+//					Citizen citizen = new Citizen();
+//					citizen.setFirstName("citizen "+i);
+//					citizen.setLegalEntity(em.find(LegalEntity.class, i+1L));
+//					citizen.setIdType(DocumentTypeEnum.values()[i%DocumentTypeEnum.values().length]);
+//					em.persist(citizen);
+//				}
+//				em.flush();
+//			} catch (Exception e1) {
+//				// TODO Auto-generated catch block
+//				e1.printStackTrace();
+//			}
+//		}
+	}
+
+	/**
+	 * 
+	 */
+	private void citizenTestData() {
+		String query = "SELECT t FROM Citizen t WHERE t.id = '1'";
+		try{
+			em.createQuery(query).getSingleResult();
+		}catch(NoResultException e){
+			try {
+				logger.info("Creating Citizen test data");
+				for(int i=0; i<5; ++i){
+					Citizen citizen = new Citizen();
+					citizen.setFirstName("citizen "+i);
+					citizen.setLegalEntity(em.find(LegalEntity.class, i+1L));
+					citizen.setIdType(DocumentTypeEnum.values()[i%DocumentTypeEnum.values().length]);
+					em.persist(citizen);
+				}
+				em.flush();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		
 	}
 
 	private void modulesTestData() {
@@ -260,8 +315,17 @@ public class TestData {
 		} catch (NoResultException e) {
 			try {
 				logger.info("creating test data : legal entity ");
-				for (int i = 0; i < 5; i++)
-					em.persist(new LegalEntity());
+				for (int i = 0; i < 5; i++){
+					LegalEntity legalEntity = new LegalEntity();
+					legalEntity.setIdentifier("J-000"+i);
+					em.persist(legalEntity);
+				}
+				
+				for (int i = 5; i < 10; i++){
+					LegalEntity legalEntity = new LegalEntity();
+					legalEntity.setIdentifier("N-000"+i);
+					em.persist(legalEntity);
+				}
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error creating test data legal entity",

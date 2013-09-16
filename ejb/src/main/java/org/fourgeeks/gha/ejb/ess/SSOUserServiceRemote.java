@@ -34,6 +34,13 @@ public interface SSOUserServiceRemote {
 	public SSOUser find(long Id) throws EJBException;
 	
 	/**
+	 * @param userName
+	 * @return the SSOUser associated with this username
+	 * @throws EJBException
+	 */
+	public SSOUser findByUsername(String userName)throws EJBException;
+	
+	/**
 	 * @return the list of ssoUsers
 	 * @throws EJBException
 	 */
