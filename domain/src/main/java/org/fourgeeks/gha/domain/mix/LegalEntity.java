@@ -26,6 +26,11 @@ public class LegalEntity extends AbstractEntity {
 	@Column(/* nullable = false, */columnDefinition = "timestamp without time zone NOT NULL DEFAULT NOW()")
 	private Timestamp dateCreated = new Timestamp(
 			new java.util.Date().getTime());
+	
+	/**
+	 * this field should be used as rif in VE
+	 */
+	private String identifier;
 
 	/** Fecha y Hora de Creación length =22 */
 
@@ -50,5 +55,13 @@ public class LegalEntity extends AbstractEntity {
 	 */
 	public void setDateCreated(Timestamp dateCreated) {
 		this.dateCreated = dateCreated;
+	}
+
+	public String getIdentifier() {
+		return identifier;
+	}
+
+	public void setIdentifier(String identifier) {
+		this.identifier = identifier;
 	}
 }

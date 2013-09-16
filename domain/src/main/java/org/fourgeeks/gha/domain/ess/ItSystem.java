@@ -20,4 +20,11 @@ public class ItSystem extends AbstractEntity {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * 
+	 */
+	public ItSystem() {
+		// TODO Auto-generated constructor stub
+	}
+	
 }

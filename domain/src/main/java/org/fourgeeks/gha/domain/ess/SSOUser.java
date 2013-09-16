@@ -6,6 +6,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.UserLogonStatusEnum;
@@ -16,8 +18,10 @@ import org.fourgeeks.gha.domain.gar.Bpu;
  * Single Sign On User Entity
  */
 @Entity
+@Table(name = "SSOUser", uniqueConstraints = @UniqueConstraint(columnNames = { "userName" }))
 @NamedQueries(value = {
-		@NamedQuery(name = "SSOUser.getAll", query = "SELECT e from SSOUser e order by e.userName") })
+		@NamedQuery(name = "SSOUser.getAll", query = "SELECT e from SSOUser e order by e.userName"),
+		@NamedQuery(name = "SSOUser.findByUserName", query = "SELECT e from SSOUser e WHERE e.userName = :userName")})
 public class SSOUser extends AbstractEntity {
 	/**
 	 * 
@@ -112,5 +116,13 @@ public class SSOUser extends AbstractEntity {
 	 */
 	public void setBlocked(boolean blocked) {
 		this.blocked = blocked;
+	}
+
+	public Bpu getBpu() {
+		return bpu;
+	}
+
+	public void setBpu(Bpu bpu) {
+		this.bpu = bpu;
 	}
 }
