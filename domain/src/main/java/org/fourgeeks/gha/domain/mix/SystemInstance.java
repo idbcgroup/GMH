@@ -40,4 +40,27 @@ public class SystemInstance extends AbstractEntity {
 	@JoinColumn(name = "itSystemFk")
 	private ItSystem itSystem;
 
+	/**
+	 * 
+	 */
+	public SystemInstance() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public Institution getInstitution() {
+		return institution;
+	}
+
+	public void setInstitution(Institution institution) {
+		this.institution = institution;
+	}
+
+	public ItSystem getItSystem() {
+		return itSystem;
+	}
+
+	public void setItSystem(ItSystem itSystem) {
+		this.itSystem = itSystem;
+	}
+
 }
