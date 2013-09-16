@@ -43,7 +43,7 @@ public class InitialData {
 			con = dataSource.getConnection();
 			PreparedStatement ps;
 			try {
-				ps = con.prepareStatement("CREATE INDEX username_index ON singlesignonuser (username)");
+				ps = con.prepareStatement("CREATE INDEX username_index ON ssouser (username)");
 				ps.execute();
 				logger.info("username_index created...");
 			} catch (SQLException e) {
