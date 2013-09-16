@@ -18,7 +18,7 @@ import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
 import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.enu.LocationLevelEnum;
 import org.fourgeeks.gha.domain.ess.Role;
-import org.fourgeeks.gha.domain.ess.SingleSignOnUser;
+import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Facility;
 import org.fourgeeks.gha.domain.gar.Obu;
@@ -460,13 +460,13 @@ public class TestData {
 				em.createQuery(query).getSingleResult();
 			} catch (NoResultException e) {
 				logger.info("creating test data: users");
-				SingleSignOnUser signOnUser = new SingleSignOnUser();
+				SSOUser signOnUser = new SSOUser();
 //				signOnUser.setLegalEntity(em.find(LegalEntity.class, 2L));
 				signOnUser.setPassword("admin");
 				signOnUser.setUserName("admin");
 				em.persist(signOnUser);
 
-				signOnUser = new SingleSignOnUser();
+				signOnUser = new SSOUser();
 //				signOnUser.setLegalEntity(em.find(LegalEntity.class, 3L));
 				signOnUser.setPassword("asanchez");
 				signOnUser.setUserName("asanchez");

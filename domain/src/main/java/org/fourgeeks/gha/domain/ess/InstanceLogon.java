@@ -27,7 +27,7 @@ public class InstanceLogon extends AbstractEntity {
 	
 	@ManyToOne
 	@JoinColumn(name = "singleSignOnUserFk")
-	private SingleSignOnUser sso;
+	private SSOUser sso;
 	
 	@ManyToOne
 	@JoinColumn(name = "bpaFk")

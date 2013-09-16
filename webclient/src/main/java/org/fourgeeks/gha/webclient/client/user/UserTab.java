@@ -1,6 +1,6 @@
 package org.fourgeeks.gha.webclient.client.user;
 
-import org.fourgeeks.gha.domain.ess.SingleSignOnUser;
+import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATab;
 
@@ -13,7 +13,7 @@ public class UserTab extends GHATab {
 	private UserTopSection topSection;
 	private UserInternalTabset internalTabset;
 
-	private SingleSignOnUser user;
+	private SSOUser user;
 	
 	public UserTab() {
 		super();

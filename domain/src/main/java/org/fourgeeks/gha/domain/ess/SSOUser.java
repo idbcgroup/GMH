@@ -9,8 +9,12 @@ import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.UserLogonStatusEnum;
 import org.fourgeeks.gha.domain.gar.Bpu;
 
+/**
+ * @author emiliot
+ * Single Sign On User Entity
+ */
 @Entity
-public class SingleSignOnUser extends AbstractEntity {
+public class SSOUser extends AbstractEntity {
 	/**
 	 * 
 	 */
