@@ -4,6 +4,12 @@
 package org.fourgeeks.gha.ejb.ess;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.domain.exceptions.EJBException;
@@ -12,15 +18,27 @@ import org.fourgeeks.gha.domain.exceptions.EJBException;
  * @author emiliot
  *
  */
-public class SSOUserService implements SSOUserServiceRemote {
 
+@Stateless(name = "ess.SSOUserService")
+public class SSOUserService implements SSOUserServiceRemote {
+	@PersistenceContext
+	private EntityManager em;
+
+	private final static Logger logger = Logger.getLogger(SSOUserService.class
+			.getName());
 	/* (non-Javadoc)
 	 * @see org.fourgeeks.gha.ejb.ess.SSOUserServiceRemote#delete(long)
 	 */
 	@Override
 	public void delete(long Id) throws EJBException {
-		// TODO Auto-generated method stub
-		
+		try {
+			SSOUser entity = em.find(SSOUser.class, Id);
+			em.remove(entity);
+		} catch (Exception e) {
+			logger.log(Level.INFO, "ERROR: unable to delete SSOUser", e);
+			throw new EJBException("ERROR: unable to delete SSOUser "
+					+ e.getCause().getMessage());
+		}
 	}
 
 	/* (non-Javadoc)
@@ -37,8 +55,13 @@ public class SSOUserService implements SSOUserServiceRemote {
 	 */
 	@Override
 	public SSOUser find(long Id) throws EJBException {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			return em.find(SSOUser.class, Id);
+		} catch (Exception e) {
+			logger.log(Level.INFO, "ERROR: finding SSOUser", e);
+			throw new EJBException("ERROR: finding SSOUser "
+					+ e.getCause().getMessage());
+		}
 	}
 
 	/* (non-Javadoc)
@@ -46,8 +69,14 @@ public class SSOUserService implements SSOUserServiceRemote {
 	 */
 	@Override
 	public List<SSOUser> getAll() throws EJBException {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			return em.createNamedQuery("SSOUser.getAll", SSOUser.class)
+					.getResultList();
+		} catch (Exception ex) {
+			logger.log(Level.SEVERE, "Error retrieving all SSOUser", ex);
+			throw new EJBException("Error obteniendo todas las SSOUser"
+					+ ex.getCause().getMessage());
+		}
 	}
 
 	/* (non-Javadoc)
@@ -55,8 +84,15 @@ public class SSOUserService implements SSOUserServiceRemote {
 	 */
 	@Override
 	public SSOUser save(SSOUser ssoUser) throws EJBException {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			em.persist(ssoUser);
+			em.flush();
+			return em.find(SSOUser.class, ssoUser.getId());
+		} catch (Exception e) {
+			logger.log(Level.INFO, "ERROR: saving SSOUser ", e);
+			throw new EJBException("ERROR: saving SSOUser "
+					+ e.getCause().getMessage());
+		}
 	}
 
 	/* (non-Javadoc)
@@ -64,8 +100,16 @@ public class SSOUserService implements SSOUserServiceRemote {
 	 */
 	@Override
 	public SSOUser update(SSOUser ssoUser) throws EJBException {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			SSOUser res = em.merge(ssoUser);
+			em.flush();
+			return res;
+		} catch (Exception e) {
+			logger.log(Level.INFO,
+					"ERROR: unable to update SSOUser ", e);
+			throw new EJBException("ERROR: no se puede actualizar el SSOUser "
+					+ e.getCause().getMessage());
+		}
 	}
 
 }

@@ -24,11 +24,11 @@ public interface CitizenServiceRemote {
 	public void delete(long Id) throws EJBException;
 
 	/**
-	 * @param Citizen
+	 * @param citizen
 	 * @return the list of Citizens
 	 * @throws EJBException
 	 */
-	public List<Citizen> find(Citizen Citizen) throws EJBException;
+	public List<Citizen> find(Citizen citizen) throws EJBException;
 
 	/**
 	 * @param Id
@@ -44,16 +44,16 @@ public interface CitizenServiceRemote {
 	public List<Citizen> getAll() throws EJBException;
 
 	/**
-	 * @param Citizen
+	 * @param citizen
 	 * @return the saved Citizen
 	 * @throws EJBException
 	 */
-	public Citizen save(Citizen Citizen) throws EJBException;
+	public Citizen save(Citizen citizen) throws EJBException;
 
 	/**
-	 * @param Citizen
+	 * @param citizen
 	 * @return the updated Citizen
 	 * @throws EJBException
 	 */
-	public Citizen update(Citizen Citizen) throws EJBException;
+	public Citizen update(Citizen citizen) throws EJBException;
 }
