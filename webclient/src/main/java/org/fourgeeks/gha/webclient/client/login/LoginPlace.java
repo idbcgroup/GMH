@@ -1,5 +1,6 @@
 package org.fourgeeks.gha.webclient.client.login;
 
+import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAPlace;
@@ -73,22 +74,21 @@ public class LoginPlace extends GHAPlace {
 
 				final GWTLoginServiceAsync service = GWT
 						.create(GWTLoginService.class);
-				service.login(username, password,
-						new GHAAsyncCallback<Boolean>() {
-							@Override
-							public void onSuccess(Boolean result) {
-								if (result) {
-									String token = History.getToken();
-									if (token.equals("home"))
-										History.fireCurrentHistoryState();
-									else
-										History.newItem("home");
-								} else {
-									Window.alert("Error iniciando sesión. Credenciales inválidas");
-									History.fireCurrentHistoryState();
-								}
-							}
-						});
+				service.login(username, password, new GHAAsyncCallback<Bpu>() {
+					@Override
+					public void onSuccess(Bpu result) {
+						if (result != null) {
+							String token = History.getToken();
+							if (token.equals("home"))
+								History.fireCurrentHistoryState();
+							else
+								History.newItem("home");
+						} else {
+							Window.alert("Error iniciando sesión. Credenciales inválidas");
+							History.fireCurrentHistoryState();
+						}
+					}
+				});
 
 			}
 		});
@@ -111,14 +111,11 @@ public class LoginPlace extends GHAPlace {
 					final GWTLoginServiceAsync service = GWT
 							.create(GWTLoginService.class);
 					service.login(username, password,
-							new GHAAsyncCallback<Boolean>() {
+							new GHAAsyncCallback<Bpu>() {
 								@Override
-								public void onSuccess(Boolean result) {
-									// Window.alert("Button Clicked. Result:" +
-									// result);
-									if (result) {
+								public void onSuccess(Bpu result) {
+									if (result != null) {
 										String token = History.getToken();
-										// Window.alert("Token:" + token);
 										if (token.equals("home"))
 											History.fireCurrentHistoryState();
 										else

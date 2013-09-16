@@ -101,18 +101,6 @@ public class InitialData {
 			con = dataSource.getConnection();
 			PreparedStatement ps;
 			try {
-				ps = con.prepareStatement("ALTER TABLE eiatypespare ADD CONSTRAINT myself_spare_check CHECK (eiaTypeFk != spareFk)");
-				ps.execute();
-				logger.info("myself_spare_check created...");
-			} catch (SQLException e) {
-				if (e.getSQLState().equals("42P07"))
-					logger.info("myself_spare_check already created... skipping");
-				else
-					logger.info("ERROR: unable to create myself_spare_check : "
-							+ e.getMessage());
-			}
-
-			try {
 				ps = con.prepareStatement("ALTER TABLE eiatypecomponent ADD CONSTRAINT myself_component_check CHECK (eiaTypeFk != parentEiaTypeFk)");
 				ps.execute();
 				logger.info("myself_component_check created...");

@@ -2,14 +2,25 @@ package org.fourgeeks.gha.domain.ess;
 
 import javax.persistence.Entity;
 
-import org.fourgeeks.gha.domain.AbstractEntity;
+import org.fourgeeks.gha.domain.AbstractCodeEntity;
 
 @Entity
-public class Module extends AbstractEntity{
+public class Module extends AbstractCodeEntity {
+	public Module() {
+	}
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+	public Module(String name, String code) {
+		this.name = name;
+		setCode(code);
+	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	private String name;
 }
