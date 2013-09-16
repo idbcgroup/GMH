@@ -16,7 +16,7 @@ import org.fourgeeks.gha.domain.mix.SystemInstance;
  */
 
 @Remote
-public interface SystemInstanceRemoteService {
+public interface SystemInstanceServiceRemote {
 	/**
 	 * @param Id
 	 * @throws EJBException

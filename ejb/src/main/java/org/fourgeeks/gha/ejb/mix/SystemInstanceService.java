@@ -19,7 +19,7 @@ import org.fourgeeks.gha.domain.mix.SystemInstance;
  *
  */
 @Stateless(name = "mix.SystemInstanceService")
-public class SystemInstanceService implements SystemInstanceRemoteService {
+public class SystemInstanceService implements SystemInstanceServiceRemote {
 	@PersistenceContext
 	private EntityManager em;
 
