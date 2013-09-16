@@ -70,7 +70,7 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 		setTop(110);
 		setHeight(GHAUiHelper.getTabHeight() + "px");
 
-		Label title = new Label("<h3>Buscar un EIA type</h3>");
+		Label title = new Label("<h3>Buscar un Tipo de Equipo</h3>");
 		title.setWidth(400);
 		title.setHeight("35px");
 		addMember(title);
@@ -198,7 +198,6 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 		
 		//Reload the Brand Select field, to prevent outdated cached list of brands
 		fillBrands(true);
-		
 	}
 
 	private void search() {

@@ -147,7 +147,7 @@ public class HomePlace extends GHAPlace {
 			}
 		});	
 		
-		MenuItem eiaTypeMenuItem = new MenuItem("Tipos de EIA");
+		MenuItem eiaTypeMenuItem = new MenuItem("Tipos de Equipo");
 		eiaTypeMenuItem.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(MenuItemClickEvent event) {
@@ -163,66 +163,67 @@ public class HomePlace extends GHAPlace {
 			}
 		});
 		
-		MenuItem edtMenuItem = new MenuItem("Estacion de Trabajo");
-		edtMenuItem.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(MenuItemClickEvent event) {
-				History.newItem("edt");
-			}
-		});	
-		
-		MenuItem mplanMenuItem = new MenuItem("Planes de Mantenimiento");
-		mplanMenuItem.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(MenuItemClickEvent event) {
-				History.newItem("mplan");
-			}
-		});	
-		
-		MenuItem mprotMenuItem = new MenuItem("Protocolos de Mantenimiento");
-		mprotMenuItem.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(MenuItemClickEvent event) {
-				History.newItem("mprot");
-			}
-		});	
-		
-		MenuItem mactMenuItem = new MenuItem("Actividades de Mantenimiento");
-		mactMenuItem.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(MenuItemClickEvent event) {
-				History.newItem("mact");
-			}
-		});	
-		
-////////External EIA Forms
-		MenuItem dispatchMenuItem = new MenuItem("Despacho de Equipos");
-		dispatchMenuItem.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(MenuItemClickEvent event) {
-				dispatchmentForm.open();
-			}
-		});	
-		
-		MenuItem installationMenuItem = new MenuItem("Acta de Instalación");
-		installationMenuItem.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(MenuItemClickEvent event) {
-				installationCertificateForm.open();
-			}
-		});	
-////////7/////////////////////
+//		MenuItem edtMenuItem = new MenuItem("Estacion de Trabajo");
+//		edtMenuItem.addClickHandler(new ClickHandler() {
+//			@Override
+//			public void onClick(MenuItemClickEvent event) {
+//				History.newItem("edt");
+//			}
+//		});	
+//		
+//		MenuItem mplanMenuItem = new MenuItem("Planes de Mantenimiento");
+//		mplanMenuItem.addClickHandler(new ClickHandler() {
+//			@Override
+//			public void onClick(MenuItemClickEvent event) {
+//				History.newItem("mplan");
+//			}
+//		});	
+//		
+//		MenuItem mprotMenuItem = new MenuItem("Protocolos de Mantenimiento");
+//		mprotMenuItem.addClickHandler(new ClickHandler() {
+//			@Override
+//			public void onClick(MenuItemClickEvent event) {
+//				History.newItem("mprot");
+//			}
+//		});	
+//		
+//		MenuItem mactMenuItem = new MenuItem("Actividades de Mantenimiento");
+//		mactMenuItem.addClickHandler(new ClickHandler() {
+//			@Override
+//			public void onClick(MenuItemClickEvent event) {
+//				History.newItem("mact");
+//			}
+//		});	
+//		
+//////////External EIA Forms
+//		MenuItem dispatchMenuItem = new MenuItem("Despacho de Equipos");
+//		dispatchMenuItem.addClickHandler(new ClickHandler() {
+//			@Override
+//			public void onClick(MenuItemClickEvent event) {
+//				dispatchmentForm.open();
+//			}
+//		});	
+//		
+//		MenuItem installationMenuItem = new MenuItem("Acta de Instalación");
+//		installationMenuItem.addClickHandler(new ClickHandler() {
+//			@Override
+//			public void onClick(MenuItemClickEvent event) {
+//				installationCertificateForm.open();
+//			}
+//		});	
+/////////////////////////////
 		
 		Menu menu = new Menu();
 		menu.setItems(userMenuItem,
-					  edtMenuItem,
+//					  edtMenuItem,
 					  eiaTypeMenuItem,
-					  eiaMenuItem,
+					  eiaMenuItem/*,
 					  mplanMenuItem,
 					  mprotMenuItem,
 					  mactMenuItem,
 					  dispatchMenuItem,
-					  installationMenuItem);
+					  installationMenuItem*/
+					  );
 
 		IMenuButton menuButton = new IMenuButton("Aplicaciones", menu);
 		menuButton.setWidth(150);

@@ -9,5 +9,4 @@ public class GHAGridField extends ListGridField {
 		super(name, title);
 		setAlign(Alignment.CENTER);
 	}
-
 }
