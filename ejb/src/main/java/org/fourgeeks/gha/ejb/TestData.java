@@ -24,8 +24,8 @@ import org.fourgeeks.gha.domain.enu.LocationLevelEnum;
 import org.fourgeeks.gha.domain.ess.Function;
 import org.fourgeeks.gha.domain.ess.Module;
 import org.fourgeeks.gha.domain.ess.Role;
+import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.domain.ess.Screen;
-import org.fourgeeks.gha.domain.ess.SingleSignOnUser;
 import org.fourgeeks.gha.domain.ess.View;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Facility;
@@ -105,7 +105,8 @@ public class TestData {
 	}
 
 	private void modulesTestData() {
-		String query = "SELECT t from Module t WHERE t.id = 1 ";
+		String query = "SELECT t from Module t WHERE t.id ='"
+				+ ModulesCodes.USER_ADMIN + "'";
 		try {
 			em.createQuery(query).getSingleResult();
 		} catch (NoResultException e) {
@@ -528,19 +529,17 @@ public class TestData {
 
 	private void userTestData() {
 		try {
-			String query = "SELECT t from SingleSignOnUser t WHERE t.id = 1 ";
+			String query = "SELECT t from SSOUser t WHERE t.id = 1 ";
 			try {
 				em.createQuery(query).getSingleResult();
 			} catch (NoResultException e) {
 				logger.info("creating test data: users");
-				SingleSignOnUser signOnUser = new SingleSignOnUser();
-				// signOnUser.setLegalEntity(em.find(LegalEntity.class, 2L));
+				SSOUser signOnUser = new SSOUser();
 				signOnUser.setPassword("admin");
 				signOnUser.setUserName("admin");
 				em.persist(signOnUser);
 
-				signOnUser = new SingleSignOnUser();
-				// signOnUser.setLegalEntity(em.find(LegalEntity.class, 3L));
+				signOnUser = new SSOUser();
 				signOnUser.setPassword("asanchez");
 				signOnUser.setUserName("asanchez");
 				em.persist(signOnUser);

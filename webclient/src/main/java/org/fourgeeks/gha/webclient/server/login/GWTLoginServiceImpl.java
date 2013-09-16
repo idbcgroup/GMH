@@ -1,36 +1,46 @@
 package org.fourgeeks.gha.webclient.server.login;
 
+import java.util.logging.Logger;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.webclient.client.login.GWTLoginService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
+/**
+ * @author alacret
+ * 
+ */
 public class GWTLoginServiceImpl extends RemoteServiceServlet implements
 		GWTLoginService {
 
-	// @Resource(name = "java:/jdbc/gha")
-	// DataSource service;
-	//
-	// @EJB(name = "mix.UserService")
-	// UserServiceRemote userService;
-
 	private static final long serialVersionUID = 1L;
+	private final static Logger logger = Logger
+			.getLogger(GWTLoginServiceImpl.class.getName());
 
+	/**
+	 * @return true if there is a user logged in
+	 * 
+	 */
 	public boolean isLogged() {
-		return false;
+		HttpServletRequest request = this.perThreadRequest.get();
+		return !(request.getUserPrincipal() == null);
 	}
 
 	@Override
-	public boolean login(String user, String password)
+	public Bpu login(String user, String password)
 			throws IllegalArgumentException {
 		HttpServletRequest request = this.perThreadRequest.get();
 
-		if (user.equals("") || password.equals(""))
+		if (user.equals("") || password.equals("")) {
+			// TODO : Aqui se debe hookear el guardado del log de login
 			throw new IllegalArgumentException(
 					"Debe indicar usuario y contraseña");
+		}
 
 		HttpSession session = request.getSession();
 		if (session != null)
@@ -38,14 +48,27 @@ public class GWTLoginServiceImpl extends RemoteServiceServlet implements
 
 		try {
 			request.login(user, password);
-			return true;
+			// TODO : Aqui se debe hookear el guardado del log de login
+			return null;
 		} catch (ServletException e) {
 			System.out.println("Error iniciando sesión " + e.getMessage());
-			return false;
+			// TODO : Aqui se debe hookear el guardado del log de login
+			return null;
 		} catch (Exception e) {
 			System.out.println("aca se deberia capturar el error"
 					+ e.getMessage());
-			return false;
+			// TODO : Aqui se debe hookear el guardado del log de login
+			return null;
+		}
+	}
+
+	@Override
+	public void logOut() {
+		HttpServletRequest request = this.perThreadRequest.get();
+		try {
+			request.logout();
+		} catch (ServletException e) {
+			logger.info(e.getMessage());
 		}
 	}
 }

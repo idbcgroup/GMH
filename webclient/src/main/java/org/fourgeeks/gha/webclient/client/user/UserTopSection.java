@@ -20,92 +20,75 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class UserTopSection extends HLayout
-		implements GHAClosable, ResizeHandler {
+/**
+ * @author alacret
+ * 
+ */
+public class UserTopSection extends HLayout implements GHAClosable,
+		ResizeHandler, GHAHideable {
 
-	private final UserTab userTab;
 	private UserSearchForm userSearchForm;
-	private GHATextItem usernameItem, passwordItem,idItem, firstNameItem,secondNameItem,lastNameItem,secondLastNameItem,
-						typeidSelectItem, genderSelectItem, nationalitySelectItem, birthDateItem;
-	private GHACheckboxItem	blockedItem;
-		
+	private GHATextItem usernameItem, idItem, nameItem, lastNameItem,
+			typeidSelectItem;
+	private GHACheckboxItem blockedItem, activeItem;
+
 	{
 		userSearchForm = new UserSearchForm();
-		
-		usernameItem = new GHATextItem("Nombre de Usuario", GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE,false);
-		passwordItem = new GHATextItem("Contraseña", GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE,false);
-		blockedItem = new GHACheckboxItem("Usuario bloqueado",false);
-		
-		firstNameItem = new GHATextItem("Primer Nombre", GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE,false);
-		secondNameItem = new GHATextItem("Segundo Nombre", GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE,false);
-		lastNameItem = new GHATextItem("Apellido", GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE,false);
-		secondLastNameItem = new GHATextItem("Segundo Apellido", GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE,false);
-		
-		typeidSelectItem = new GHATextItem("Tipo ID", GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE,false);
-		idItem = new GHATextItem("No. Identificiación", GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE,false);
-		genderSelectItem = new GHATextItem("Género", GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE,false);
-		nationalitySelectItem = new GHATextItem("Nacionalidad", GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE,false);
-		birthDateItem = new GHATextItem("Fecha de Nac.", GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE,false);
-
+		usernameItem = new GHATextItem("Usuario",
+				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE, false);
+		blockedItem = new GHACheckboxItem("bloqueado ?", false);
+		activeItem = new GHACheckboxItem("activo ? ", false);
+		nameItem = new GHATextItem("Primer Nombre",
+				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE, false);
+		lastNameItem = new GHATextItem("Apellido",
+				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE, false);
+		typeidSelectItem = new GHATextItem("Tipo ID",
+				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE, false);
+		idItem = new GHATextItem("No. Identificiación",
+				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE, false);
 	}
 
-	public UserTopSection(UserTab tab) {
+	/**
+	 * @param tab
+	 */
+	public UserTopSection(final UserTab tab) {
 		super();
 		GHAUiHelper.addGHAResizeHandler(this);
-		
 		tab.addGHAClosableHandler(this);
-		userTab = tab;
-		
-		userTab.addGHAHideableHandler(new GHAHideable() {
-			
-			@Override
-			public void hide() {
-				userSearchForm.hide();
-			}
-		});
-		userTab.addGHAClosableHandler(new GHAClosable() {
-			
-			@Override
-			public void close() {
-				userSearchForm.destroy();
-			}
-		});
-		
+		tab.addGHAHideableHandler(this);
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		setWidth100();
 		setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT + "px");
 		setDefaultLayoutAlign(VerticalAlignment.CENTER);
 		setBackgroundColor("#EAEAEA");
-
 		DynamicForm form = new DynamicForm();
-		//form.setWidth("100px");
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(5);
-		form.setItems(usernameItem, passwordItem, blockedItem,new GHASpacerItem(2),
-				  	  firstNameItem,secondNameItem,lastNameItem,secondLastNameItem,new GHASpacerItem(),
-				  	  typeidSelectItem,idItem,genderSelectItem,nationalitySelectItem,birthDateItem);
-		
-		VLayout sideButtons = GHAUiHelper.createBar(
-				new GHAImgButton("../resources/icons/search.png", new ClickHandler() {
+		form.setItems(usernameItem, blockedItem, activeItem, new GHASpacerItem(
+				2), nameItem, lastNameItem, typeidSelectItem, idItem);
+
+		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
+				"../resources/icons/search.png", new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						// TODO Auto-generated method stub
 						search();
 					}
-				}),
-				new GHAImgButton("../resources/icons/clean.png"),
-				new GHAImgButton("../resources/icons/cancel.png", new ClickHandler() {
-					@Override
-					public void onClick(ClickEvent event) {
-						GHATabSet.closeTab(userTab);
-					}
-				})
-		);
-		
+				}), new GHAImgButton("../resources/icons/clean.png"),
+				new GHAImgButton("../resources/icons/cancel.png",
+						new ClickHandler() {
+							@Override
+							public void onClick(ClickEvent event) {
+								GHATabSet.closeTab(tab);
+							}
+						}));
+
 		addMembers(form, new LayoutSpacer(), sideButtons);
 
 	}
 
+	/**
+	 * 
+	 */
 	public void search() {
 		userSearchForm.open();
 	}
@@ -117,6 +100,6 @@ public class UserTopSection extends HLayout
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT + "px");		
+		setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT + "px");
 	}
 }
