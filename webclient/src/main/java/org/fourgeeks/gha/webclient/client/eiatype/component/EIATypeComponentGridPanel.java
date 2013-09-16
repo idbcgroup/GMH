@@ -104,7 +104,7 @@ public class EIATypeComponentGridPanel extends VLayout implements
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 
-		Label title = new Label("<h3>Componentes de EIAType</h3>");
+		Label title = new Label("<h3>Componentes</h3>");
 		title.setHeight(35);
 		title.setWidth100();
 		title.setStyleName("title-label");

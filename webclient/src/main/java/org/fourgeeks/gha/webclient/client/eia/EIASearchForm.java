@@ -38,7 +38,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class EIASearchForm extends GHASlideInWindow implements
-		EiaSelectionProducer {
+	EIASelectionListener,EiaSelectionProducer {
 
 	private List<EIASelectionListener> listeners;
 	private EIAGrid grid;
@@ -46,7 +46,8 @@ public class EIASearchForm extends GHASlideInWindow implements
 			serialNumberItem;
 	private GHASelectItem responsibleRoleItem, eiaTypeItem,
 			workingAreaLocationItem, facilityLocationItem, obuItem, stateItem;
-
+	
+	private EIAAddForm addForm;
 	{
 		listeners = new LinkedList<EIASelectionListener>();
 
@@ -64,6 +65,9 @@ public class EIASearchForm extends GHASlideInWindow implements
 		stateItem = new GHASelectItem("Estado");
 
 		grid = new EIAGrid();
+		
+		addForm = new EIAAddForm();
+		addForm.addEiaSelectionListener(this);
 	}
 
 	/**
@@ -155,7 +159,14 @@ public class EIASearchForm extends GHASlideInWindow implements
 								.toEntity());
 						hide();
 					}
-				}), GHAUiHelper.verticalGraySeparator("2px"));
+				}), GHAUiHelper.verticalGraySeparator("2px"),
+				new GHAImgButton("../resources/icons/new.png",new ClickHandler() {
+					
+					@Override
+					public void onClick(ClickEvent event) {
+						addForm.open();						
+					}
+				}));
 
 		gridLayout.addMembers(grid, sideGridButtons);
 
@@ -253,6 +264,11 @@ public class EIASearchForm extends GHASlideInWindow implements
 			listener.select(eia);
 	}
 
+	@Override
+	public void select(Eia eia) {
+		search(eia);
+	}
+	
 	private void search() {
 		Eia eia = new Eia();
 		if (actualCostItem.getValue() != null)
@@ -298,11 +314,13 @@ public class EIASearchForm extends GHASlideInWindow implements
 	@Override
 	public void close() {
 		destroy();
+		addForm.close();
 	}
 
 	@Override
 	public void hide() {
 		super.hide();
+		addForm.hide();
 	}
 
 	@Override
