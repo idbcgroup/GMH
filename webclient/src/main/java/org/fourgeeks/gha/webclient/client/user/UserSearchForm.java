@@ -6,7 +6,6 @@ import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHADateItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
@@ -34,7 +33,8 @@ public class UserSearchForm extends GHASlideInWindow {
 
 	private UserGrid grid;
 	private GHATextItem usernameItem, idItem, firstNameItem, secondNameItem,
-			lastNameItem, secondLastNameItem, nationalityItem;
+			lastNameItem, secondLastNameItem, nationalityItem, emailItem,
+			alterEmailItem;
 	private GHASelectItem typeidSelectItem, genderSelectItem;
 	private GHADateItem birthDateItem;
 
@@ -76,7 +76,7 @@ public class UserSearchForm extends GHASlideInWindow {
 		setTop(110);
 		setHeight(GHAUiHelper.getTabHeight() + "px");
 
-		Label title = new Label("<h3>Busqueda de Usuarios</h3>");
+		Label title = new Label("<h3>Búsqueda de Usuarios</h3>");
 		title.setWidth(400);
 		title.setHeight("35px");
 		addMember(title);
@@ -85,9 +85,8 @@ public class UserSearchForm extends GHASlideInWindow {
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(5);
 
-		form.setItems(usernameItem, new GHASpacerItem(2), firstNameItem,
-				secondNameItem, lastNameItem, secondLastNameItem,
-				new GHASpacerItem(), typeidSelectItem, idItem,
+		form.setItems(usernameItem, firstNameItem, secondNameItem,
+				lastNameItem, secondLastNameItem, typeidSelectItem, idItem,
 				genderSelectItem, nationalityItem, birthDateItem);
 
 		// Event Handlers
