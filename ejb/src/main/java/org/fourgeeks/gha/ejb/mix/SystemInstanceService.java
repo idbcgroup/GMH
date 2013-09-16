@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.fourgeeks.gha.domain.mix;
+package org.fourgeeks.gha.ejb.mix;
 
 import java.util.List;
 import java.util.logging.Level;
@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.mix.SystemInstance;
 
 /**
  * @author emiliot

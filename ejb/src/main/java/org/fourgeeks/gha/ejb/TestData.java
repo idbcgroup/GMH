@@ -455,7 +455,7 @@ public class TestData {
 
 	private void userTestData() {
 		try {
-			String query = "SELECT t from SingleSignOnUser t WHERE t.id = 1 ";
+			String query = "SELECT t from SSOUser t WHERE t.id = 1 ";
 			try {
 				em.createQuery(query).getSingleResult();
 			} catch (NoResultException e) {
