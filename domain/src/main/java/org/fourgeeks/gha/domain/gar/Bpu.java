@@ -6,6 +6,8 @@ package org.fourgeeks.gha.domain.gar;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
@@ -19,6 +21,8 @@ import org.fourgeeks.gha.domain.mix.Institution;
  */
 
 @Entity
+@NamedQueries(value = {
+		@NamedQuery(name = "Bpu.getAll", query = "SELECT e from Bpu e order by e.id") })
 public class Bpu extends AbstractEntity {
 
 	/**

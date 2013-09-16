@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 
@@ -13,6 +15,8 @@ import org.fourgeeks.gha.domain.AbstractEntity;
  * 
  */
 @Entity
+@NamedQueries(value = {
+		@NamedQuery(name = "LegalEntity.getAll", query = "SELECT e from LegalEntity e order by e.id") })
 public class LegalEntity extends AbstractEntity {
 	/**
 	 * 

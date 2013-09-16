@@ -3,6 +3,8 @@ package org.fourgeeks.gha.domain.mix;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
@@ -12,6 +14,8 @@ import org.fourgeeks.gha.domain.AbstractEntity;
  * 
  */
 @Entity
+@NamedQueries(value = {
+		@NamedQuery(name = "Institution.getAll", query = "SELECT e from Institution e order by e.name") })
 public class Institution extends AbstractEntity {
 	/**
 	 * 

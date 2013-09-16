@@ -3,6 +3,8 @@ package org.fourgeeks.gha.domain.ess;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
@@ -14,6 +16,8 @@ import org.fourgeeks.gha.domain.gar.Bpu;
  * Single Sign On User Entity
  */
 @Entity
+@NamedQueries(value = {
+		@NamedQuery(name = "SSOUser.getAll", query = "SELECT e from SSOUser e order by e.userName") })
 public class SSOUser extends AbstractEntity {
 	/**
 	 * 
