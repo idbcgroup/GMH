@@ -6,6 +6,8 @@ package org.fourgeeks.gha.domain.mix;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -19,6 +21,8 @@ import org.fourgeeks.gha.domain.ess.ItSystem;
 
 @Entity
 @Table(name = "SystemInstance", uniqueConstraints = @UniqueConstraint(columnNames = { "institutionFk", "itSystemFk" }))
+@NamedQueries(value = {
+		@NamedQuery(name = "SystemInstance.getAll", query = "SELECT e from SystemInstance e order by e.id")})
 public class SystemInstance extends AbstractEntity {
 
 	/**
@@ -39,5 +43,28 @@ public class SystemInstance extends AbstractEntity {
 	@ManyToOne
 	@JoinColumn(name = "itSystemFk")
 	private ItSystem itSystem;
+
+	/**
+	 * 
+	 */
+	public SystemInstance() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public Institution getInstitution() {
+		return institution;
+	}
+
+	public void setInstitution(Institution institution) {
+		this.institution = institution;
+	}
+
+	public ItSystem getItSystem() {
+		return itSystem;
+	}
+
+	public void setItSystem(ItSystem itSystem) {
+		this.itSystem = itSystem;
+	}
 
 }

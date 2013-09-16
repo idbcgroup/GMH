@@ -1,10 +1,10 @@
 package org.fourgeeks.gha.webclient.client.user;
 
-import org.fourgeeks.gha.domain.ess.SingleSignOnUser;
+import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.webclient.client.UI.grids.GhaGrid;
 import org.fourgeeks.gha.webclient.client.UI.grids.tree.GHATreeGridField;
 
-public class UserGrid extends GhaGrid<SingleSignOnUser> {
+public class UserGrid extends GhaGrid<SSOUser> {
 
 	public UserGrid() {
 

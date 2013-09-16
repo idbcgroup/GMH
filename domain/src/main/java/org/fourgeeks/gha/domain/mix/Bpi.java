@@ -3,6 +3,8 @@ package org.fourgeeks.gha.domain.mix;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.BpiInstitutionRelationTypeEnum;
@@ -11,6 +13,8 @@ import org.fourgeeks.gha.domain.enu.BpiRiskEnum;
 import org.fourgeeks.gha.domain.enu.BpiTypeEnum;
 
 @Entity
+@NamedQueries(value = {
+		@NamedQuery(name = "Bpi.getAll", query = "SELECT e from Bpi e order by e.name") })
 public class Bpi extends AbstractEntity {
 
 	/**
@@ -23,15 +27,15 @@ public class Bpi extends AbstractEntity {
 
 	/** Attributes */
 
-	private String bpiName;
+	private String name;
 	/** Nombre de la institución length =255 */
 	private String bpiLogoNameRoute;
 	/** Ruta y Nombre del Logo de la institución length =255 */
 
-	private BpiTypeEnum bpiType;
+	private BpiTypeEnum type;
 	/** Tipo de Institución length =20 */
 
-	private String bpiDescription;
+	private String description;
 	/** Información descriptiva de la institución (Opcional) length =255 */
 
 	private BpiInstitutionRelationTypeEnum bpiInstitutionRelationship;

@@ -6,6 +6,8 @@ package org.fourgeeks.gha.domain.mix;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.CredentialTypeEnum;
@@ -16,6 +18,8 @@ import org.fourgeeks.gha.domain.enu.CredentialTypeEnum;
  */
 
 @Entity
+@NamedQueries(value = {
+		@NamedQuery(name = "Bpa.getAll", query = "SELECT e from Bpa e order by e.credentialType") })
 public class Bpa extends AbstractEntity {
 
 	/**

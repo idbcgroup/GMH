@@ -4,6 +4,8 @@ import java.sql.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
@@ -11,6 +13,8 @@ import org.fourgeeks.gha.domain.enu.DocumentTypeEnum;
 import org.fourgeeks.gha.domain.enu.GenderTypeEnum;
 
 @Entity
+@NamedQueries(value = {
+		@NamedQuery(name = "Citizen.getAll", query = "SELECT e from Citizen e order by e.firstLastName") })
 public class Citizen extends AbstractEntity {
 	/**
 	 * 
