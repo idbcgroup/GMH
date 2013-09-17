@@ -15,8 +15,7 @@ import org.fourgeeks.gha.domain.AbstractEntity;
  * 
  */
 @Entity
-@NamedQueries(value = {
-		@NamedQuery(name = "LegalEntity.getAll", query = "SELECT e from LegalEntity e order by e.id") })
+@NamedQueries(value = { @NamedQuery(name = "LegalEntity.getAll", query = "SELECT e from LegalEntity e order by e.id") })
 public class LegalEntity extends AbstractEntity {
 	/**
 	 * 
@@ -26,7 +25,7 @@ public class LegalEntity extends AbstractEntity {
 	@Column(/* nullable = false, */columnDefinition = "timestamp without time zone NOT NULL DEFAULT NOW()")
 	private Timestamp dateCreated = new Timestamp(
 			new java.util.Date().getTime());
-	
+
 	/**
 	 * this field should be used as rif in VE
 	 */
@@ -35,11 +34,18 @@ public class LegalEntity extends AbstractEntity {
 	/** Fecha y Hora de Creación length =22 */
 
 	/**
+	 * @param identifier
+	 *            the identifier
+	 * 
+	 */
+	public LegalEntity(String identifier) {
+		this.identifier = identifier;
+	}
+
+	/**
 	 * 
 	 */
 	public LegalEntity() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -57,10 +63,17 @@ public class LegalEntity extends AbstractEntity {
 		this.dateCreated = dateCreated;
 	}
 
+	/**
+	 * @return the identifier
+	 */
 	public String getIdentifier() {
 		return identifier;
 	}
 
+	/**
+	 * @param identifier
+	 *            the entity identifier
+	 */
 	public void setIdentifier(String identifier) {
 		this.identifier = identifier;
 	}

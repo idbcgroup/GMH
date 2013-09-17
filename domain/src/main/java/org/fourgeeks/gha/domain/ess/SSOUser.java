@@ -23,6 +23,7 @@ import org.fourgeeks.gha.domain.gar.Bpu;
 		@NamedQuery(name = "SSOUser.getAll", query = "SELECT e from SSOUser e order by e.userName"),
 		@NamedQuery(name = "SSOUser.findByUserName", query = "SELECT e from SSOUser e WHERE e.userName = :userName") })
 public class SSOUser extends AbstractEntity {
+
 	/**
 	 * 
 	 */
@@ -37,27 +38,33 @@ public class SSOUser extends AbstractEntity {
 	@JoinColumn(name = "bpuFk", nullable = false)
 	private Bpu bpu;
 
+	@NotNull
+	@Column(nullable = false)
 	private String password;
+	@NotNull
+	@Column(nullable = false)
 	private String userName;
+
+	@NotNull
+	@Column(nullable = false)
 	private UserLogonStatusEnum userLogonStatus;
 
-	@Column(/* nullable = false, */columnDefinition = "boolean NOT NULL DEFAULT false")
-	private boolean blocked;
+	/**
+	 * @param bpu
+	 * @param password
+	 * @param userName
+	 * @param userLogonStatus
+	 */
+	public SSOUser(Bpu bpu, String password, String userName,
+			UserLogonStatusEnum userLogonStatus) {
+		this.bpu = bpu;
+		this.password = password;
+		this.userName = userName;
+		this.userLogonStatus = userLogonStatus;
+	}
 
-	// /**
-	// * @return the legalEntity
-	// */
-	// public LegalEntity getLegalEntity() {
-	// return legalEntity;
-	// }
-	//
-	// /**
-	// * @param legalEntity
-	// * the legalEntity to set
-	// */
-	// public void setLegalEntity(LegalEntity legalEntity) {
-	// this.legalEntity = legalEntity;
-	// }
+	public SSOUser() {
+	}
 
 	/**
 	 * @return the password
@@ -102,21 +109,6 @@ public class SSOUser extends AbstractEntity {
 	 */
 	public void setUserLogonStatus(UserLogonStatusEnum userLogonStatus) {
 		this.userLogonStatus = userLogonStatus;
-	}
-
-	/**
-	 * @return the blocked
-	 */
-	public boolean isBlocked() {
-		return blocked;
-	}
-
-	/**
-	 * @param blocked
-	 *            the blocked to set
-	 */
-	public void setBlocked(boolean blocked) {
-		this.blocked = blocked;
 	}
 
 	public Bpu getBpu() {

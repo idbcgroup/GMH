@@ -21,13 +21,16 @@ import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
 import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
+import org.fourgeeks.gha.domain.enu.GenderTypeEnum;
 import org.fourgeeks.gha.domain.enu.LocationLevelEnum;
+import org.fourgeeks.gha.domain.enu.UserLogonStatusEnum;
 import org.fourgeeks.gha.domain.ess.Function;
 import org.fourgeeks.gha.domain.ess.Module;
 import org.fourgeeks.gha.domain.ess.Role;
 import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.domain.ess.Screen;
 import org.fourgeeks.gha.domain.ess.View;
+import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Facility;
 import org.fourgeeks.gha.domain.gar.Obu;
@@ -88,14 +91,19 @@ public class TestData {
 	@PostConstruct
 	public void loadTestData() {
 		legalEntityTestData();
+		//
 		institutionTestData();
 		citizenTestData();
-		itSystemTestData();
+		//
 		bpiTestData();
+		bpuTestData();
+		//
 		obuTestData();
 		roleTestData();
 		buildingLocationsTestData();
-		userTestData();
+		//
+		ssoUserTestData();
+
 		manufacturerTestData();
 		brandTestData();
 		externalProviderTestData();
@@ -111,26 +119,23 @@ public class TestData {
 	/**
 	 * 
 	 */
-	private void itSystemTestData() {
-//		String query = "SELECT t FROM citizen t WHERE t.id = '1'";
-//		try{
-//			em.createQuery(query).getSingleResult();
-//		}catch(NoResultException e){
-//			try {
-//				logger.info("Creating itSystem test data");
-//				for(int i=0; i<5; ++i){
-//					Citizen citizen = new Citizen();
-//					citizen.setFirstName("citizen "+i);
-//					citizen.setLegalEntity(em.find(LegalEntity.class, i+1L));
-//					citizen.setIdType(DocumentTypeEnum.values()[i%DocumentTypeEnum.values().length]);
-//					em.persist(citizen);
-//				}
-//				em.flush();
-//			} catch (Exception e1) {
-//				// TODO Auto-generated catch block
-//				e1.printStackTrace();
-//			}
-//		}
+	private void bpuTestData() {
+		String query = "SELECT t FROM Bpu t WHERE t.id = '1'";
+		try {
+			em.createQuery(query).getSingleResult();
+		} catch (NoResultException e) {
+			try {
+				logger.info("Creating bpu test data");
+				for (int i = 0; i < 5; ++i) {
+					logger.info("bpu: " + i + " citizen: " + (i + 5L));
+					em.persist(new Bpu(em.find(Bpi.class, 1L), em.find(
+							Citizen.class, i + 1L)));
+				}
+				em.flush();
+			} catch (Exception e1) {
+				logger.log(Level.INFO, "error Creating bpu test data", e1);
+			}
+		}
 	}
 
 	/**
@@ -138,25 +143,26 @@ public class TestData {
 	 */
 	private void citizenTestData() {
 		String query = "SELECT t FROM Citizen t WHERE t.id = '1'";
-		try{
+		try {
 			em.createQuery(query).getSingleResult();
-		}catch(NoResultException e){
+		} catch (NoResultException e) {
 			try {
 				logger.info("Creating Citizen test data");
-				for(int i=0; i<5; ++i){
-					Citizen citizen = new Citizen();
-					citizen.setFirstName("citizen "+i);
-					citizen.setLegalEntity(em.find(LegalEntity.class, i+1L));
-					citizen.setIdType(DocumentTypeEnum.values()[i%DocumentTypeEnum.values().length]);
+				for (int i = 0; i < 5; ++i) {
+					Citizen citizen = new Citizen(em.find(LegalEntity.class,
+							i + 5L), GenderTypeEnum.MALE);
+					citizen.setFirstName(" Test Citizen : " + i);
+					citizen.setFirstLastName(" Test Citizen : " + i);
+					citizen.setIdType(DocumentTypeEnum.LOCAL);
 					em.persist(citizen);
 				}
 				em.flush();
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				logger.log(Level.INFO, "error creating Citizen test data : ",
+						e1);
 			}
 		}
-		
+
 	}
 
 	private void modulesTestData() {
@@ -315,17 +321,12 @@ public class TestData {
 		} catch (NoResultException e) {
 			try {
 				logger.info("creating test data : legal entity ");
-				for (int i = 0; i < 5; i++){
-					LegalEntity legalEntity = new LegalEntity();
-					legalEntity.setIdentifier("J-000"+i);
-					em.persist(legalEntity);
-				}
-				
-				for (int i = 5; i < 10; i++){
-					LegalEntity legalEntity = new LegalEntity();
-					legalEntity.setIdentifier("N-000"+i);
-					em.persist(legalEntity);
-				}
+				for (int i = 0; i < 5; i++)
+					em.persist(new LegalEntity("J-000" + i));
+
+				for (int i = 5; i < 10; i++)
+					em.persist(new LegalEntity("V-000" + i));
+
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error creating test data legal entity",
@@ -591,22 +592,17 @@ public class TestData {
 		}
 	}
 
-	private void userTestData() {
+	private void ssoUserTestData() {
 		try {
 			String query = "SELECT t from SSOUser t WHERE t.id = 1 ";
 			try {
 				em.createQuery(query).getSingleResult();
 			} catch (NoResultException e) {
 				logger.info("creating test data: users");
-				SSOUser signOnUser = new SSOUser();
-				signOnUser.setPassword("admin");
-				signOnUser.setUserName("admin");
-				em.persist(signOnUser);
-
-				signOnUser = new SSOUser();
-				signOnUser.setPassword("asanchez");
-				signOnUser.setUserName("asanchez");
-				em.persist(signOnUser);
+				em.persist(new SSOUser(em.find(Bpu.class, 1L), "admin",
+						"admin", UserLogonStatusEnum.STAYIN));
+				em.persist(new SSOUser(em.find(Bpu.class, 2L), "admin",
+						"admin", UserLogonStatusEnum.STAYIN));
 
 				em.flush();
 				logger.info("done creating test users");

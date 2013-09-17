@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.fourgeeks.gha.domain.enu.UserLogonStatusEnum;
 import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.ejb.ess.SSOUserServiceRemote;
@@ -60,7 +61,7 @@ public class GWTLoginServiceImpl extends RemoteServiceServlet implements
 
 			// get the bpu for the authenticated user
 			SSOUser ssoUser = ssoUserService.findByUsername(user);
-			if (ssoUser.isBlocked()) {
+			if (ssoUser.getUserLogonStatus() == UserLogonStatusEnum.BLOCKED) {
 				// TODO: Usuario bloqueado intentando acceder a la aplicacion
 			} else {
 				// usuario valido

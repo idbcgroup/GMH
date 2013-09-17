@@ -4,8 +4,6 @@ public enum UserLogonStatusEnum {
 
 	LOGOFF, LOGON, STAYOUT, STAYIN, BLOCKED;
 
-	// UserLogonStatusEnum(String name, int id) {
-	//
-	// }
+	// TODO: ponerle los String
 
 }

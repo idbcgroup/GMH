@@ -66,7 +66,15 @@ public class Bpu extends AbstractEntity {
 	 * 
 	 */
 	public Bpu() {
-		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @param bpi
+	 * @param citizen
+	 */
+	public Bpu(Bpi bpi, Citizen citizen) {
+		this.bpi = bpi;
+		this.citizen = citizen;
 	}
 
 	public Bpi getBpi() {
