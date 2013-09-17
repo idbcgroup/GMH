@@ -217,51 +217,18 @@ public class UserSearchForm extends GHASlideInWindow {
 		ssoUser.setBpu(bpu);
 		search(ssoUser);
 
-		// Eia eia = new Eia();
-		// if (actualCostItem.getValue() != null)
-		// eia.setActualCost(new BigDecimal(actualCostItem.getValueAsString()));
-		// if (responsibleRoleItem.getValue() != null)
-		// eia.setResponsibleRole(new RoleBase(Long
-		// .parseLong(responsibleRoleItem.getValueAsString())));
-		// eia.setCode(codeItem.getValueAsString());
-		// if (eiaTypeItem.getValue() != null)
-		// eia.setEiaType(new EiaType(eiaTypeItem.getValueAsString()));
-		// eia.setFixedAssetIdentifier(fixedAssetIdentifierItem.getValueAsString());
-		// // if (buildingLocationItem.getValue() != null)
-		// // eia.setBuildingLocation(new BuildingLocation(buildingLocationItem
-		// // .getValueAsString()));
-		// if (obuItem.getValue() != null)
-		// eia.setObu(new Obu(Long.parseLong(obuItem.getValueAsString())));
-		// eia.setSerialNumber(serialNumberItem.getValueAsString());
-		// if (stateItem.getValue() != null)
-		// eia.setState(EiaStateEnum.valueOf(stateItem.getValueAsString()));
-		// search(eia);
 	}
 
 	private void search(final SSOUser ssoU) {
 		UserModel.find(ssoU, new GHAAsyncCallback<List<SSOUser>>() {
 
 			@Override
-			public void onSuccess(List<SSOUser> arg0) {
-				// TODO Auto-generated method stub
-
+			public void onSuccess(List<SSOUser> ssoUsers) {
+				ListGridRecord[] array = UserUtil.toGridRecords(ssoUsers).toArray(new UserRecord[]{});
+				grid.setData(array);
+				//TODO: si hay un registro que coincide con el ssoU seleccionarlo.
 			}
 		});
-
-		// EIAModel.find(eia, new GHAAsyncCallback<List<Eia>>() {
-		//
-		// @Override
-		// public void onSuccess(List<Eia> result) {
-		// ListGridRecord[] array = EIAUtil.toGridRecords(result).toArray(
-		// new EIARecord[] {});
-		// grid.setData(array);
-		// if (eia != null && eia.getId() != 0l)
-		// for (ListGridRecord listGridRecord : grid.getRecords())
-		// if (((EIARecord) listGridRecord).toEntity().getId() == eia
-		// .getId())
-		// grid.selectRecord(listGridRecord);
-		// }
-		// });
 	}
 
 	@Override
