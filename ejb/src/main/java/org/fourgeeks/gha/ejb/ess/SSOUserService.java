@@ -10,9 +10,17 @@ import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.ParameterExpression;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.mix.Citizen;
 
 /**
  * @author emiliot
@@ -26,6 +34,24 @@ public class SSOUserService implements SSOUserServiceRemote {
 
 	private final static Logger logger = Logger.getLogger(SSOUserService.class
 			.getName());
+	
+	/**
+	 * @param ssoUser
+	 * @param cb
+	 * @param root
+	 * @return
+	 */
+	private Predicate buildFilters(SSOUser ssoUser, CriteriaBuilder cb,
+			Root<SSOUser> root) {
+		Predicate predicate = cb.conjunction();
+		if(ssoUser.getUserName() != null){
+			ParameterExpression<String> p = cb.parameter(String.class, "userName");
+			predicate = cb.and(predicate, cb.like(cb.lower(root.<String>get("userName")), p));
+		}
+		
+		return predicate;
+	}
+	
 	/* (non-Javadoc)
 	 * @see org.fourgeeks.gha.ejb.ess.SSOUserServiceRemote#delete(long)
 	 */
@@ -46,9 +72,56 @@ public class SSOUserService implements SSOUserServiceRemote {
 	 */
 	@Override
 	public List<SSOUser> find(SSOUser ssoUser) throws EJBException {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			CriteriaBuilder cb = em.getCriteriaBuilder();
+			CriteriaQuery<SSOUser> cQuery = cb.createQuery(SSOUser.class);
+			Root<SSOUser> root = cQuery.from(SSOUser.class);
+			Join<SSOUser, Citizen> category = root.join("bpu").join("citizen");
+			
+			cQuery.select(root);
+			cQuery.orderBy(cb.asc(category.<String> get("userName")));
+			Predicate criteria = buildFilters(ssoUser, cb, root);
+
+			if (criteria.getExpressions().size() == 0)
+				return getAll();
+
+			cQuery.where(criteria);
+			TypedQuery<SSOUser> q = em.createQuery(cQuery);
+
+			if (ssoUser.getUserName() != null)
+				q.setParameter("userName", ssoUser.getUserName());
+
+//			if (entity.getDescription() != null)
+//				q.setParameter("description", "%" + entity.getDescription()
+//						+ "%");
+//
+//			if (entity.getBrand() != null)
+//				q.setParameter("brand", entity.getBrand());
+//
+//			if (entity.getName() != null)
+//				q.setParameter("name", "%" + entity.getName() + "%");
+//
+//			if (entity.getCode() != null)
+//				q.setParameter("code", entity.getCode());
+//
+//			if (entity.getExtCode() != null)
+//				q.setParameter("extCode", entity.getExtCode());
+//
+//			if (entity.getModel() != null)
+//				q.setParameter("model", "%" + entity.getModel() + "%");
+
+			return q.getResultList();
+
+		} catch (Exception e) {
+			logger.log(Level.SEVERE,
+					"Error obteniendo los SSOUsers por SSOUser", e);
+			throw new EJBException(
+					"Error obteniendo los SSOUsers por SSOUser "
+							+ e.getCause().getMessage());
+		}
 	}
+
+
 
 	/* (non-Javadoc)
 	 * @see org.fourgeeks.gha.ejb.ess.SSOUserServiceRemote#find(long)
