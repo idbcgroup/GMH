@@ -112,7 +112,7 @@ public class EIAAddForm extends GHASlideInWindow implements
 	@Override
 	public void hide() {
 		super.hide();
-		// eiaForm.hide();
+		eiaForm.hide();
 	}
 
 	@Override
