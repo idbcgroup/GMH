@@ -1,10 +1,14 @@
 package org.fourgeeks.gha.webclient.client.user;
 
-import org.fourgeeks.gha.domain.enu.DocumentTypeEnum;
+import java.util.List;
+
 import org.fourgeeks.gha.domain.enu.GenderTypeEnum;
+import org.fourgeeks.gha.domain.ess.SSOUser;
+import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.gmh.Eia;
+import org.fourgeeks.gha.domain.mix.Citizen;
+import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHADateItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
@@ -32,39 +36,32 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class UserSearchForm extends GHASlideInWindow {
 
 	private UserGrid grid;
-	private GHATextItem usernameItem, idItem, firstNameItem, secondNameItem,
-			lastNameItem, secondLastNameItem, nationalityItem, emailItem,
-			alterEmailItem;
-	private GHASelectItem typeidSelectItem, genderSelectItem;
-	private GHADateItem birthDateItem;
-
+	private GHATextItem usernameItem, firstNameItem, secondNameItem,
+			firstLastNameItem, secondLastNameItem, emailItem, alterEmailItem,
+			idItem;
+	private GHASelectItem genderSelectItem;
 	private UserAddForm addForm;
 
 	{
-		usernameItem = new GHATextItem("Nombre de Usuario",
+		usernameItem = new GHATextItem("Usuario",
 				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
-		firstNameItem = new GHATextItem("Primer Nombre",
+		firstNameItem = new GHATextItem("Primer nombre",
 				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
-		secondNameItem = new GHATextItem("Segundo Nombre",
+		secondNameItem = new GHATextItem("Segundo nombre",
 				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
-		lastNameItem = new GHATextItem("Apellido",
+		firstLastNameItem = new GHATextItem("Primer apellido",
 				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
-		secondLastNameItem = new GHATextItem("Segundo Apellido",
+		secondLastNameItem = new GHATextItem("Segundo apellido",
 				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
-
-		typeidSelectItem = new GHASelectItem("Tipo ID",
+		emailItem = new GHATextItem("Correo",
+				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
+		alterEmailItem = new GHATextItem("Correo alternativo",
 				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
 		idItem = new GHATextItem("No. Identificiación",
 				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
 		genderSelectItem = new GHASelectItem("Género",
 				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
-		nationalityItem = new GHATextItem("Nacionalidad",
-				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
-		birthDateItem = new GHADateItem("Fecha de Nac.",
-				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
-
 		grid = new UserGrid();
-
 		addForm = new UserAddForm();
 	}
 
@@ -86,8 +83,8 @@ public class UserSearchForm extends GHASlideInWindow {
 		form.setNumCols(5);
 
 		form.setItems(usernameItem, firstNameItem, secondNameItem,
-				lastNameItem, secondLastNameItem, typeidSelectItem, idItem,
-				genderSelectItem, nationalityItem, birthDateItem);
+				firstLastNameItem, secondLastNameItem, idItem, emailItem,
+				alterEmailItem, genderSelectItem);
 
 		// Event Handlers
 		ClickHandler searchClickHandler = new ClickHandler() {
@@ -109,12 +106,11 @@ public class UserSearchForm extends GHASlideInWindow {
 		usernameItem.addKeyUpHandler(searchKeyUpHandler);
 		firstNameItem.addKeyUpHandler(searchKeyUpHandler);
 		secondNameItem.addKeyUpHandler(searchKeyUpHandler);
-		lastNameItem.addKeyUpHandler(searchKeyUpHandler);
+		firstLastNameItem.addKeyUpHandler(searchKeyUpHandler);
 		secondLastNameItem.addKeyUpHandler(searchKeyUpHandler);
-		idItem.addKeyUpHandler(searchKeyUpHandler);
+		emailItem.addKeyUpHandler(searchKeyUpHandler);
 		genderSelectItem.addKeyUpHandler(searchKeyUpHandler);
-		nationalityItem.addKeyUpHandler(searchKeyUpHandler);
-		birthDateItem.addKeyUpHandler(searchKeyUpHandler);
+		alterEmailItem.addKeyUpHandler(searchKeyUpHandler);
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
 				"../resources/icons/search.png", searchClickHandler),
@@ -175,7 +171,6 @@ public class UserSearchForm extends GHASlideInWindow {
 	}
 
 	private void fillExtras() {
-		typeidSelectItem.setValueMap(DocumentTypeEnum.toValueMap());
 		genderSelectItem.setValueMap(GenderTypeEnum.toValueMap());
 	}
 
@@ -194,6 +189,34 @@ public class UserSearchForm extends GHASlideInWindow {
 	}
 
 	private void search() {
+		SSOUser ssoUser = new SSOUser();
+		if (usernameItem.getValue() != null)
+			ssoUser.setUserName(usernameItem.getValueAsString());
+
+		Citizen citizen = new Citizen();
+		if (firstNameItem.getValue() != null)
+			citizen.setFirstName(firstNameItem.getValueAsString());
+		if (secondNameItem.getValue() != null)
+			citizen.setSecondName(secondNameItem.getValueAsString());
+		if (firstLastNameItem.getValue() != null)
+			citizen.setFirstLastName(firstLastNameItem.getValueAsString());
+		if (secondLastNameItem.getValue() != null)
+			citizen.setSecondLastName(secondLastNameItem.getValueAsString());
+		if (idItem.getValue() != null)
+			citizen.setIdNumber(idItem.getValueAsString());
+		if (genderSelectItem.getValue() != null)
+			citizen.setGender(GenderTypeEnum.valueOf(genderSelectItem
+					.getValueAsString()));
+		if (emailItem.getValue() != null)
+			citizen.setPrimaryEmail(emailItem.getValueAsString());
+		if (alterEmailItem.getValue() != null)
+			citizen.setAlternativeEmail(alterEmailItem.getValueAsString());
+
+		Bpu bpu = new Bpu();
+		bpu.setCitizen(citizen);
+		ssoUser.setBpu(bpu);
+		search(ssoUser);
+
 		// Eia eia = new Eia();
 		// if (actualCostItem.getValue() != null)
 		// eia.setActualCost(new BigDecimal(actualCostItem.getValueAsString()));
@@ -215,7 +238,16 @@ public class UserSearchForm extends GHASlideInWindow {
 		// search(eia);
 	}
 
-	private void search(final Eia eia) {
+	private void search(final SSOUser ssoU) {
+		UserModel.find(ssoU, new GHAAsyncCallback<List<SSOUser>>() {
+
+			@Override
+			public void onSuccess(List<SSOUser> arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
 		// EIAModel.find(eia, new GHAAsyncCallback<List<Eia>>() {
 		//
 		// @Override

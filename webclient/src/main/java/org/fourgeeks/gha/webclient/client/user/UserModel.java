@@ -2,10 +2,13 @@ package org.fourgeeks.gha.webclient.client.user;
 
 import java.util.List;
 
+import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.bpu.GWTBpuService;
 import org.fourgeeks.gha.webclient.client.bpu.GWTBpuServiceAsync;
+import org.fourgeeks.gha.webclient.client.ssouser.GWTSSOUserService;
+import org.fourgeeks.gha.webclient.client.ssouser.GWTSSOUserServiceAsync;
 
 import com.google.gwt.core.client.GWT;
 
@@ -16,6 +19,8 @@ import com.google.gwt.core.client.GWT;
 public class UserModel {
 	private static final GWTBpuServiceAsync service = GWT
 			.create(GWTBpuService.class);
+	private static final GWTSSOUserServiceAsync ssoUservice = GWT
+			.create(GWTSSOUserService.class);
 
 	private UserModel() {
 		throw new UnsupportedOperationException(
@@ -30,11 +35,13 @@ public class UserModel {
 	}
 
 	/**
-	 * @param bpu
-	 *            the bpu base to find
+	 * @param ssoUser
+	 *            the ssoUser base to find
 	 * @param callback
 	 */
-	public static void find(Bpu bpu, GHAAsyncCallback<List<Bpu>> callback) {
-		service.find(bpu, callback);
+	public static void find(SSOUser ssoUser,
+			GHAAsyncCallback<List<SSOUser>> callback) {
+		ssoUservice.find(ssoUser, callback);
 	}
+
 }
