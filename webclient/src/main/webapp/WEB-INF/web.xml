@@ -47,16 +47,6 @@
 	<!-- </servlet-mapping> -->
 
 	<servlet>
-		<servlet-name>GWTLoginService</servlet-name>
-		<servlet-class>org.fourgeeks.gha.webclient.server.login.GWTLoginServiceImpl</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>GWTLoginService</servlet-name>
-		<url-pattern>/webclient/login</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
 		<servlet-name>GWTEiaTypeService</servlet-name>
 		<servlet-class>org.fourgeeks.gha.webclient.server.eiatype.GWTEiaTypeServiceImpl</servlet-class>
 	</servlet>
