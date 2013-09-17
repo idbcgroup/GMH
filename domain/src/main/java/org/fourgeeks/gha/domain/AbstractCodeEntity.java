@@ -16,7 +16,7 @@ public abstract class AbstractCodeEntity implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
-	private String code;
+	protected String code;
 
 	/**
 	 * @return the code
@@ -25,6 +25,9 @@ public abstract class AbstractCodeEntity implements Serializable {
 		return code;
 	}
 
+	/**
+	 * @param code
+	 */
 	public void setCode(String code) {
 		this.code = code;
 	}

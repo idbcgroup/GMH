@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.ejb.gar;
+package org.fourgeeks.gha.ejb.gmh;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ import javax.transaction.UserTransaction;
 import junit.framework.Assert;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
-import org.fourgeeks.gha.domain.gar.Bpu;
+import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.ejb.GhaServiceTest;
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Test;
@@ -27,13 +27,13 @@ import org.junit.runner.RunWith;
  * 
  */
 @RunWith(Arquillian.class)
-public class BpuFunctionServiceTest extends GhaServiceTest {
+public class BrandServiceTest extends GhaServiceTest {
 
 	@PersistenceContext
 	EntityManager em;
 
-	@EJB(name = "gar.BpuFunctionService")
-	BpuFunctionServiceRemote service;
+	@EJB(name = "gmh.BrandService")
+	BrandServiceRemote service;
 
 	@Inject
 	UserTransaction ux;
@@ -58,16 +58,18 @@ public class BpuFunctionServiceTest extends GhaServiceTest {
 		ux.begin();
 		em.joinTransaction();
 
-		Bpu find = em.find(Bpu.class, 1L);
+		Brand b = new Brand();
+		b.setName("brand");
+		service.save(b);
 
-		Assert.assertNotNull(find);
+		em.flush();
 
-		List<String> list = service.getFunctionsAsStringListByBpu(find);
+		List<Brand> resultList = em.createQuery("select b from Brand b",
+				Brand.class).getResultList();
 
-		Assert.assertNotNull(list);
+		Assert.assertEquals(resultList.size(), service.getAll().size());
 
 		ux.commit();
 
 	}
-
 }

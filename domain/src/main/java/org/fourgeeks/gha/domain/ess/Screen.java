@@ -5,6 +5,10 @@ import javax.persistence.ManyToOne;
 
 import org.fourgeeks.gha.domain.AbstractCodeEntity;
 
+/**
+ * @author alacret
+ * 
+ */
 @Entity
 public class Screen extends AbstractCodeEntity {
 

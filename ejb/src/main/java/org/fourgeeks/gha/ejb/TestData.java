@@ -98,6 +98,8 @@ public class TestData {
 		//
 		bpiTestData();
 		bpuTestData();
+		//
+		modulesTestData();
 		bpuFunctionTestData();
 		//
 		obuTestData();
@@ -112,7 +114,6 @@ public class TestData {
 		materialCategoryTestData();
 		materialTestData();
 		facilityTestData();
-		modulesTestData();
 		// // TODO
 		eiaTypeTestData();
 		eiaTestData();

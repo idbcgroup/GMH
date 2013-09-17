@@ -12,6 +12,11 @@ import org.fourgeeks.gha.domain.AbstractCodeEntity;
 @Entity
 public class Function extends AbstractCodeEntity {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private String name;
 
 	@ManyToOne
@@ -31,7 +36,7 @@ public class Function extends AbstractCodeEntity {
 	public Function(View view, String name, String code) {
 		this.view = view;
 		this.name = name;
-		setCode(code);
+		this.code = code;
 	}
 
 	/**

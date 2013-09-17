@@ -2,7 +2,6 @@ package org.fourgeeks.gha.domain.mix;
 
 import java.sql.Timestamp;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -22,7 +21,6 @@ public class LegalEntity extends AbstractEntity {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@Column(/* nullable = false, */columnDefinition = "timestamp without time zone NOT NULL DEFAULT NOW()")
 	private Timestamp dateCreated = new Timestamp(
 			new java.util.Date().getTime());
 

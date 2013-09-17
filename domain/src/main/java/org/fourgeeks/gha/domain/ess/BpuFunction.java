@@ -27,11 +27,11 @@ public class BpuFunction extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 
 	@ManyToOne
-	@JoinColumn(name = "bpuFk")
+	@JoinColumn(nullable = false, name = "bpuFk")
 	private Bpu bpu;
 
 	@ManyToOne
-	@JoinColumn(name = "functionFk")
+	@JoinColumn(nullable = false, name = "functionFk")
 	private Function function;
 
 	/**
