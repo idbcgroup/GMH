@@ -2,12 +2,15 @@ package org.fourgeeks.gha.webclient.server.login;
 
 import java.util.logging.Logger;
 
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.domain.gar.Bpu;
+import org.fourgeeks.gha.ejb.ess.SSOUserServiceRemote;
 import org.fourgeeks.gha.webclient.client.login.GWTLoginService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -24,8 +27,8 @@ public class GWTLoginServiceImpl extends RemoteServiceServlet implements
 	private final static Logger logger = Logger
 			.getLogger(GWTLoginServiceImpl.class.getName());
 
-	// @EJB(name = "ess.SSOUserService")
-	// SSOUserServiceRemote ssoUserService;
+	@EJB(name = "ess.SSOUserService")
+	SSOUserServiceRemote ssoUserService;
 
 	/**
 	 * @return true if there is a user logged in
@@ -56,13 +59,13 @@ public class GWTLoginServiceImpl extends RemoteServiceServlet implements
 			// TODO : Aqui se debe hookear el guardado del log de login
 
 			// get the bpu for the authenticated user
-			// SSOUser ssoUser = ssoUserService.findByUsername(user);
-			// if (ssoUser.isBlocked()) {
-			// // TODO: Usuario bloqueado intentando acceder a la aplicacion
-			// } else {
-			// // usuario valido
-			// return ssoUser.getBpu();
-			// }
+			SSOUser ssoUser = ssoUserService.findByUsername(user);
+			if (ssoUser.isBlocked()) {
+				// TODO: Usuario bloqueado intentando acceder a la aplicacion
+			} else {
+				// usuario valido
+				return ssoUser.getBpu();
+			}
 
 			return new Bpu();
 		} catch (ServletException e) {

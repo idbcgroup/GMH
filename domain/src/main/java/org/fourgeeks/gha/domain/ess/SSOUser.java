@@ -8,55 +8,56 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.UserLogonStatusEnum;
 import org.fourgeeks.gha.domain.gar.Bpu;
 
 /**
- * @author emiliot
- * Single Sign On User Entity
+ * @author emiliot Single Sign On User Entity
  */
 @Entity
 @Table(name = "SSOUser", uniqueConstraints = @UniqueConstraint(columnNames = { "userName" }))
 @NamedQueries(value = {
 		@NamedQuery(name = "SSOUser.getAll", query = "SELECT e from SSOUser e order by e.userName"),
-		@NamedQuery(name = "SSOUser.findByUserName", query = "SELECT e from SSOUser e WHERE e.userName = :userName")})
+		@NamedQuery(name = "SSOUser.findByUserName", query = "SELECT e from SSOUser e WHERE e.userName = :userName") })
 public class SSOUser extends AbstractEntity {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-//	@OneToOne
-//	@JoinColumn(name = "legalEntityFk")
-//	private LegalEntity legalEntity;
-	
+	// @OneToOne
+	// @JoinColumn(name = "legalEntityFk")
+	// private LegalEntity legalEntity;
+
+	@NotNull
 	@OneToOne
-	@JoinColumn(name = "bpuFk")
+	@JoinColumn(name = "bpuFk", nullable = false)
 	private Bpu bpu;
 
 	private String password;
 	private String userName;
 	private UserLogonStatusEnum userLogonStatus;
-	
+
 	@Column(/* nullable = false, */columnDefinition = "boolean NOT NULL DEFAULT false")
 	private boolean blocked;
 
-//	/**
-//	 * @return the legalEntity
-//	 */
-//	public LegalEntity getLegalEntity() {
-//		return legalEntity;
-//	}
-//
-//	/**
-//	 * @param legalEntity
-//	 *            the legalEntity to set
-//	 */
-//	public void setLegalEntity(LegalEntity legalEntity) {
-//		this.legalEntity = legalEntity;
-//	}
+	// /**
+	// * @return the legalEntity
+	// */
+	// public LegalEntity getLegalEntity() {
+	// return legalEntity;
+	// }
+	//
+	// /**
+	// * @param legalEntity
+	// * the legalEntity to set
+	// */
+	// public void setLegalEntity(LegalEntity legalEntity) {
+	// this.legalEntity = legalEntity;
+	// }
 
 	/**
 	 * @return the password

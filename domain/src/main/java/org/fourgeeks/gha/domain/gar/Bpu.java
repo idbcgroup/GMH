@@ -9,11 +9,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.domain.mix.Citizen;
-import org.fourgeeks.gha.domain.mix.Institution;
 
 /**
  * @author emiliot
@@ -21,8 +21,7 @@ import org.fourgeeks.gha.domain.mix.Institution;
  */
 
 @Entity
-@NamedQueries(value = {
-		@NamedQuery(name = "Bpu.getAll", query = "SELECT e from Bpu e order by e.id") })
+@NamedQueries(value = { @NamedQuery(name = "Bpu.getAll", query = "SELECT e from Bpu e order by e.id") })
 public class Bpu extends AbstractEntity {
 
 	/**
@@ -33,23 +32,17 @@ public class Bpu extends AbstractEntity {
 	/**
 	 * This is when the bpu belongs to the bpi
 	 */
+	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "bpiFk")
+	@JoinColumn(name = "bpiFk", nullable = false)
 	private Bpi bpi;
-
-	/**
-	 * This is when the bpu comes from an external institution
-	 */
-	@ManyToOne
-	@JoinColumn(name = "institutionFk")
-	private Institution institution; // TODO No debe ir aqui, se debe reemplazar
-										// por una relacion BpiInstitution
 
 	/**
 	 * The citizen associated with this bpu
 	 */
+	@NotNull
 	@OneToOne
-	@JoinColumn(name = "citizenFk")
+	@JoinColumn(name = "citizenFk", nullable = false)
 	private Citizen citizen; // TODO : No debe ir aqui, los citizen son BPA,
 								// debe haber una relacion con BPA
 
@@ -82,14 +75,6 @@ public class Bpu extends AbstractEntity {
 
 	public void setBpi(Bpi bpi) {
 		this.bpi = bpi;
-	}
-
-	public Institution getInstitution() {
-		return institution;
-	}
-
-	public void setInstitution(Institution institution) {
-		this.institution = institution;
 	}
 
 	public Citizen getCitizen() {

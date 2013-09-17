@@ -5,13 +5,16 @@ package org.fourgeeks.gha.ejb.ess;
 
 import java.util.List;
 
+import javax.ejb.Remote;
+
 import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 
 /**
  * @author emiliot
- *
+ * 
  */
+@Remote
 public interface SSOUserServiceRemote {
 	/**
 	 * @param Id
@@ -32,14 +35,14 @@ public interface SSOUserServiceRemote {
 	 * @throws EJBException
 	 */
 	public SSOUser find(long Id) throws EJBException;
-	
+
 	/**
 	 * @param userName
 	 * @return the SSOUser associated with this username
 	 * @throws EJBException
 	 */
-	public SSOUser findByUsername(String userName)throws EJBException;
-	
+	public SSOUser findByUsername(String userName) throws EJBException;
+
 	/**
 	 * @return the list of ssoUsers
 	 * @throws EJBException
