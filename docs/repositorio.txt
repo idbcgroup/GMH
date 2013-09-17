@@ -14,8 +14,12 @@ Para clonar el repositorio
 git clone git@192.168.1.101:/home/git/gha.git
 
 Usuario inicial del servidor
-usuario pruebas
+usuario server
 password 123456
+
+Admin del jboss
+server
+123456
 
 para arrancar el servidor de pruebas
 jboss/bin/> ./standalone.sh -b 0.0.0.0 &
