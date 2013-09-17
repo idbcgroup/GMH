@@ -61,7 +61,8 @@ public class GWTLoginServiceImpl extends RemoteServiceServlet implements
 
 			// get the bpu for the authenticated user
 			SSOUser ssoUser = ssoUserService.findByUsername(user);
-			if (ssoUser.getUserLogonStatus() == UserLogonStatusEnum.BLOCKED) {
+			if (ssoUser.getUserLogonStatus()
+					.equals(UserLogonStatusEnum.BLOCKED)) {
 				// TODO: Usuario bloqueado intentando acceder a la aplicacion
 			} else {
 				// usuario valido
