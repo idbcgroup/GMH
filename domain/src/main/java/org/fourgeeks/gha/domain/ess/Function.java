@@ -5,6 +5,10 @@ import javax.persistence.ManyToOne;
 
 import org.fourgeeks.gha.domain.AbstractCodeEntity;
 
+/**
+ * @author alacret
+ * 
+ */
 @Entity
 public class Function extends AbstractCodeEntity {
 
@@ -13,19 +17,33 @@ public class Function extends AbstractCodeEntity {
 	@ManyToOne
 	private View view;
 
+	/**
+	 * 
+	 */
 	public Function() {
 	}
 
+	/**
+	 * @param view
+	 * @param name
+	 * @param code
+	 */
 	public Function(View view, String name, String code) {
 		this.view = view;
 		this.name = name;
 		setCode(code);
 	}
 
+	/**
+	 * @return the name of the function
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * @param name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
