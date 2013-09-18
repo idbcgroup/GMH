@@ -20,6 +20,7 @@ import javax.persistence.criteria.Root;
 
 import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.mix.Citizen;
 
 /**
@@ -39,14 +40,29 @@ public class SSOUserService implements SSOUserServiceRemote {
 	 * @param ssoUser
 	 * @param cb
 	 * @param root
+	 * @param citiJoin 
 	 * @return
 	 */
 	private Predicate buildFilters(SSOUser ssoUser, CriteriaBuilder cb,
-			Root<SSOUser> root) {
+			Root<SSOUser> root, Join<SSOUser, Citizen> citiJoin) {
 		Predicate predicate = cb.conjunction();
 		if(ssoUser.getUserName() != null){
 			ParameterExpression<String> p = cb.parameter(String.class, "userName");
 			predicate = cb.and(predicate, cb.like(cb.lower(root.<String>get("userName")), p));
+		}
+		
+		if(ssoUser.getBpu() != null){
+			Bpu bpu = ssoUser.getBpu();
+			//add the bpu filters here
+			
+			if(bpu.getCitizen() != null){
+				Citizen citizen = bpu.getCitizen();
+				
+				if(citizen.getFirstName() != null){
+					ParameterExpression<String> p = cb.parameter(String.class, "firstName");
+					predicate = cb.and(predicate, cb.like(cb.lower(citiJoin.<String>get("firstName")), p));
+				}
+			}
 		}
 		
 		return predicate;
@@ -76,11 +92,11 @@ public class SSOUserService implements SSOUserServiceRemote {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<SSOUser> cQuery = cb.createQuery(SSOUser.class);
 			Root<SSOUser> root = cQuery.from(SSOUser.class);
-			Join<SSOUser, Citizen> category = root.join("bpu").join("citizen");
+			Join<SSOUser,Citizen> citiJoin = root.join("bpu").join("citizen");
 			
 			cQuery.select(root);
-			cQuery.orderBy(cb.asc(category.<String> get("userName")));
-			Predicate criteria = buildFilters(ssoUser, cb, root);
+			cQuery.orderBy(cb.asc(root.<String> get("userName")));
+			Predicate criteria = buildFilters(ssoUser, cb, root, citiJoin);
 
 			if (criteria.getExpressions().size() == 0)
 				return getAll();
@@ -89,26 +105,20 @@ public class SSOUserService implements SSOUserServiceRemote {
 			TypedQuery<SSOUser> q = em.createQuery(cQuery);
 
 			if (ssoUser.getUserName() != null)
-				q.setParameter("userName", ssoUser.getUserName());
-
-//			if (entity.getDescription() != null)
-//				q.setParameter("description", "%" + entity.getDescription()
-//						+ "%");
-//
-//			if (entity.getBrand() != null)
-//				q.setParameter("brand", entity.getBrand());
-//
-//			if (entity.getName() != null)
-//				q.setParameter("name", "%" + entity.getName() + "%");
-//
-//			if (entity.getCode() != null)
-//				q.setParameter("code", entity.getCode());
-//
-//			if (entity.getExtCode() != null)
-//				q.setParameter("extCode", entity.getExtCode());
-//
-//			if (entity.getModel() != null)
-//				q.setParameter("model", "%" + entity.getModel() + "%");
+				q.setParameter("userName", "%"+ssoUser.getUserName()+"%");
+			
+			if(ssoUser.getBpu() != null){
+				Bpu bpu = ssoUser.getBpu();
+				//add bpu parameters here
+				
+				if(bpu.getCitizen() != null){
+					Citizen citizen = bpu.getCitizen();
+					
+					if(citizen.getFirstName() != null){
+						q.setParameter("firstName", "%"+citizen.getFirstName()+"%");
+					}
+				}
+			}
 
 			return q.getResultList();
 
