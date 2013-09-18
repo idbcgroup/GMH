@@ -46,10 +46,10 @@ public class HomePlace extends GHAPlace {
 		RootPanel.get("user-info").clear();
 		RootPanel.get("menu-bar").clear();
 		RootPanel.get("main-content").removeStyleName("white-background");
+
+		Bpu user = GHASessionData.getLoggedUser();
 		
-		final VLayout userMenu = GHADropdownMenus.userMenu();
-		
-		
+		final VLayout userMenu = GHADropdownMenus.userMenu(user);
 		
 //		final VLayout notificationsMenu = GHADropdownMenus.notificationsMenu();
 		
@@ -59,7 +59,6 @@ public class HomePlace extends GHAPlace {
 		userInfo.setHeight("50px");
 		userInfo.setDefaultLayoutAlign(Alignment.CENTER);
 		
-		Bpu user = GHASessionData.getLoggedUser();
 		
 		Label usernameLabel = new Label(user.getCitizen().getFirstName()+" "+user.getCitizen().getFirstLastName());
 		usernameLabel.setStyleName("username-text");
