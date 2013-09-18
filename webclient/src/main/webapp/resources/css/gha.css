@@ -69,9 +69,10 @@
 	background-image: url(../img/fondo-menu.jpeg);
 	background-repeat: repeat-x;	
 }
-	div#menu-bar.menu-bar table tbody tr td div#isc_IMenuButton_0_wrapper.gha-main-menu div#isc_8 table tbody tr td.menuButton,
-	div#menu-bar.menu-bar table tbody tr td div#isc_IMenuButton_0_wrapper.gha-main-menu div#isc_8 table tbody tr td.menuButtonOver,
-	div#menu-bar.menu-bar table tbody tr td div#isc_IMenuButton_0_wrapper.gha-main-menu div#isc_8 table tbody tr td.menuButtonDown {
+
+	div#menu-bar.menu-bar table tbody tr td div#isc_IMenuButton_0_wrapper.gha-main-menu div#isc_6 table tbody tr td.menuButton,
+	div#menu-bar.menu-bar table tbody tr td div#isc_IMenuButton_0_wrapper.gha-main-menu div#isc_6 table tbody tr td.menuButtonOver,
+	div#menu-bar.menu-bar table tbody tr td div#isc_IMenuButton_0_wrapper.gha-main-menu div#isc_6 table tbody tr td.menuButtonDown {
 		background: none;
 		background-color: white;
 		border:none;
