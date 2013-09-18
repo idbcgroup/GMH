@@ -222,6 +222,12 @@ select,.select{
 	font-size: 12px;
 }
 
+.separator-title-label{
+	font-weight: bold;
+	color:white;
+	font-size: 12px;
+}
+
 span.input-title label,span.input-title{
 	color:black;
 	font-size:10px;	

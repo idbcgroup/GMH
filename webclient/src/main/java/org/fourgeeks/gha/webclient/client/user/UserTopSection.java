@@ -62,7 +62,7 @@ public class UserTopSection extends HLayout implements GHAClosable,
 		setBackgroundColor("#EAEAEA");
 		DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
-		form.setNumCols(5);
+		form.setNumCols(4);
 		form.setItems(usernameItem, blockedItem, new GHASpacerItem(2),
 				nameItem, lastNameItem, typeidSelectItem, idItem);
 
