@@ -10,9 +10,13 @@ import javax.servlet.http.HttpSession;
 
 import org.fourgeeks.gha.domain.enu.UserLogonStatusEnum;
 import org.fourgeeks.gha.domain.ess.SSOUser;
+import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
+import org.fourgeeks.gha.domain.logs.LogonLog;
+import org.fourgeeks.gha.domain.msg.Message;
 import org.fourgeeks.gha.ejb.ess.SSOUserServiceRemote;
 import org.fourgeeks.gha.ejb.gar.BpuFunctionServiceRemote;
+import org.fourgeeks.gha.ejb.log.LogServiceRemote;
 import org.fourgeeks.gha.webclient.client.login.GWTLoginService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -28,6 +32,9 @@ public class GWTLoginServiceImpl extends RemoteServiceServlet implements
 	private static final long serialVersionUID = 1L;
 	private final static Logger logger = Logger
 			.getLogger(GWTLoginServiceImpl.class.getName());
+
+	@EJB(name = "log.LogService")
+	LogServiceRemote logService;
 
 	@EJB(name = "ess.SSOUserService")
 	SSOUserServiceRemote ssoUserService;
@@ -48,43 +55,46 @@ public class GWTLoginServiceImpl extends RemoteServiceServlet implements
 	public Bpu login(String user, String password)
 			throws IllegalArgumentException {
 		HttpServletRequest request = this.perThreadRequest.get();
+		String ipAdd = request.getRemoteAddr().toString();
 
-		if (user.equals("") || password.equals("")) {
-			// TODO : Aqui se debe hookear el guardado del log de login
+		if (user.equals("") || password.equals(""))
 			throw new IllegalArgumentException(
 					"Debe indicar usuario y contraseña");
-		}
 
 		HttpSession session = request.getSession();
 		if (session != null)
 			session.invalidate();
 
+		SSOUser ssoUser = null;
+		try {
+			ssoUser = ssoUserService.findByUsername(user);
+		} catch (EJBException e1) {
+			logService.log(new LogonLog(null, new Message("LOGIN-002"), ipAdd));
+		}
+
 		try {
 			request.login(user, password);
-			// TODO : Aqui se debe hookear el guardado del log de login
-
-			// get the bpu for the authenticated user
-			SSOUser ssoUser = ssoUserService.findByUsername(user);
 			if (ssoUser.getUserLogonStatus()
 					.equals(UserLogonStatusEnum.BLOCKED)) {
-				// TODO: Usuario bloqueado intentando acceder a la aplicacion
+				logService.log(new LogonLog(ssoUser.getBpu(), new Message(
+						"LOGIN-003"), ipAdd));
 			} else {
-				// usuario valido
+
+				logService.log(new LogonLog(ssoUser.getBpu(), new Message(
+						"LOGIN-001"), ipAdd));
 				Bpu bpu = ssoUser.getBpu();
-				bpu.setPermissions(bpuFunctionService
-						.getFunctionsAsStringListByBpu(bpu));
+				bpu.setPermissions(bpuFunctionService.getFunctionsByBpu(bpu));
 				return bpu;
 			}
 
 			return new Bpu();
 		} catch (ServletException e) {
-			System.out.println("Error iniciando sesión " + e.getMessage());
-			// TODO : Aqui se debe hookear el guardado del log de login
+			logService.log(new LogonLog(ssoUser.getBpu(), new Message(
+					"LOGIN-004"), ipAdd));
 			return null;
 		} catch (Exception e) {
-			System.out.println("aca se deberia capturar el error"
-					+ e.getMessage());
-			// TODO : Aqui se debe hookear el guardado del log de login
+			logService.log(new LogonLog(ssoUser.getBpu(), new Message(
+					"LOGIN-005"), ipAdd));
 			return null;
 		}
 	}

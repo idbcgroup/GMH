@@ -33,4 +33,11 @@ public class View extends AbstractCodeEntity {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	/**
+	 * @return the screen
+	 */
+	public Screen getScreen() {
+		return screen;
+	}
 }

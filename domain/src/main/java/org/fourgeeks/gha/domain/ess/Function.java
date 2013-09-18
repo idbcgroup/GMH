@@ -53,4 +53,11 @@ public class Function extends AbstractCodeEntity {
 		this.name = name;
 	}
 
+	/**
+	 * @return the view
+	 */
+	public View getView() {
+		return view;
+	}
+
 }

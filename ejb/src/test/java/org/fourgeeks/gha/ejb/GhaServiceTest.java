@@ -14,11 +14,14 @@ import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.glm.Material;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.ServiceResource;
+import org.fourgeeks.gha.domain.logs.LogonLog;
 import org.fourgeeks.gha.domain.mix.Bpa;
 import org.fourgeeks.gha.domain.mix.LegalEntity;
+import org.fourgeeks.gha.domain.msg.Message;
 import org.fourgeeks.gha.ejb.gar.BpuFunctionService;
 import org.fourgeeks.gha.ejb.gar.BpuFunctionServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.BrandService;
+import org.fourgeeks.gha.ejb.log.LogServiceRemote;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -48,6 +51,9 @@ public class GhaServiceTest {
 				.addPackage(LegalEntity.class.getPackage())
 				.addPackage(BpuFunction.class.getPackage())
 				.addPackage(EJBException.class.getPackage())
+				.addPackage(LogonLog.class.getPackage())
+				.addPackage(LogServiceRemote.class.getPackage())
+				.addPackage(Message.class.getPackage())
 				.addPackage(ItSystem.class.getPackage())
 				.addPackage(AbstractEntity.class.getPackage())
 				.addPackage(Bpu.class.getPackage())

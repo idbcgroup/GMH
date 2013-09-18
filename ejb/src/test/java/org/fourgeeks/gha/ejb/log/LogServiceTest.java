@@ -1,6 +1,4 @@
-package org.fourgeeks.gha.ejb.gar;
-
-import java.util.List;
+package org.fourgeeks.gha.ejb.log;
 
 import javax.ejb.EJB;
 import javax.inject.Inject;
@@ -15,9 +13,10 @@ import javax.transaction.UserTransaction;
 
 import junit.framework.Assert;
 
-import org.fourgeeks.gha.domain.ess.BpuFunction;
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
+import org.fourgeeks.gha.domain.logs.LogonLog;
+import org.fourgeeks.gha.domain.msg.Message;
 import org.fourgeeks.gha.ejb.GhaServiceTest;
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Test;
@@ -28,13 +27,13 @@ import org.junit.runner.RunWith;
  * 
  */
 @RunWith(Arquillian.class)
-public class BpuFunctionServiceTest extends GhaServiceTest {
+public class LogServiceTest extends GhaServiceTest {
 
 	@PersistenceContext
 	EntityManager em;
 
-	@EJB(name = "gar.BpuFunctionService")
-	BpuFunctionServiceRemote service;
+	@EJB(name = "log.LogService")
+	LogServiceRemote service;
 
 	@Inject
 	UserTransaction ux;
@@ -59,16 +58,15 @@ public class BpuFunctionServiceTest extends GhaServiceTest {
 		ux.begin();
 		em.joinTransaction();
 
-		Bpu find = em.find(Bpu.class, 1L);
-
-		Assert.assertNotNull(find);
-
-		List<BpuFunction> list = service.getFunctionsByBpu(find);
-
-		Assert.assertNotNull(list);
-
-		ux.commit();
-
+		try {
+			Message find = em.find(Message.class, "LOGIN-001");
+			Bpu find2 = em.find(Bpu.class, 1L);
+			service.log(new LogonLog(find2, find, "192.168.1.101"));
+			em.flush();
+			ux.commit();
+		} catch (Exception e) {
+			ux.rollback();
+			e.printStackTrace();
+		}
 	}
-
 }

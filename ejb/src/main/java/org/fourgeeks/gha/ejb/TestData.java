@@ -22,6 +22,7 @@ import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
 import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.enu.GenderTypeEnum;
+import org.fourgeeks.gha.domain.enu.LanguageEnum;
 import org.fourgeeks.gha.domain.enu.LocationLevelEnum;
 import org.fourgeeks.gha.domain.enu.UserLogonStatusEnum;
 import org.fourgeeks.gha.domain.ess.BpuFunction;
@@ -47,6 +48,7 @@ import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.domain.mix.Citizen;
 import org.fourgeeks.gha.domain.mix.Institution;
 import org.fourgeeks.gha.domain.mix.LegalEntity;
+import org.fourgeeks.gha.domain.msg.Message;
 import org.fourgeeks.gha.ejb.gmh.BrandServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.EiaComponentServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.EiaServiceRemote;
@@ -107,7 +109,9 @@ public class TestData {
 		buildingLocationsTestData();
 		//
 		ssoUserTestData();
-
+		//
+		messagesTestData();
+		//
 		manufacturerTestData();
 		brandTestData();
 		externalProviderTestData();
@@ -117,6 +121,30 @@ public class TestData {
 		// // TODO
 		eiaTypeTestData();
 		eiaTestData();
+	}
+
+	private void messagesTestData() {
+		String query = "SELECT t FROM Message t WHERE t.id = 'LOGIN-001'";
+		try {
+			em.createQuery(query).getSingleResult();
+		} catch (NoResultException e) {
+			try {
+				logger.info("Creating bpumessage test data");
+				em.persist(new Message("LOGIN-001", LanguageEnum.ES,
+						"Login exitoso"));
+				em.persist(new Message("LOGIN-002", LanguageEnum.ES,
+						"Usuario desconocido"));
+				em.persist(new Message("LOGIN-003", LanguageEnum.ES,
+						"Usuario bloqueado"));
+				em.persist(new Message("LOGIN-004", LanguageEnum.ES,
+						"Contraseña erronea1"));
+				em.persist(new Message("LOGIN-005", LanguageEnum.ES,
+						"Contraseña erronea2"));
+				em.flush();
+			} catch (Exception e1) {
+				logger.log(Level.INFO, "error Creating message test data", e1);
+			}
+		}
 	}
 
 	/**
@@ -201,7 +229,8 @@ public class TestData {
 				Module module = new Module("Usuarios", ModulesCodes.USER_ADMIN);
 				em.persist(module);
 				Screen screen = new Screen(module,
-						"Administración de usuarios", ScreenCodes.USER_ADMIN);
+						"Administración de usuarios", ScreenCodes.USER_ADMIN,
+						"user");
 				em.persist(screen);
 
 				View infoView = new View(screen, "Información",
