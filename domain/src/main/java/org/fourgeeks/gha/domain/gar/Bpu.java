@@ -3,12 +3,15 @@
  */
 package org.fourgeeks.gha.domain.gar;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
@@ -57,6 +60,9 @@ public class Bpu extends AbstractEntity {
 	@ManyToOne
 	@JoinColumn(name = "jobPositionFk")
 	private JobPosition jobPosition;
+
+	@Transient
+	private List<String> permissions;
 
 	// @ManyToOne
 	// @JoinColumn(name = "jobFk")
@@ -107,5 +113,20 @@ public class Bpu extends AbstractEntity {
 
 	public void setJobPosition(JobPosition jobPosition) {
 		this.jobPosition = jobPosition;
+	}
+
+	/**
+	 * @return the permissions
+	 */
+	public List<String> getPermissions() {
+		return permissions;
+	}
+
+	/**
+	 * @param permissions
+	 *            the permissions to set
+	 */
+	public void setPermissions(List<String> permissions) {
+		this.permissions = permissions;
 	}
 }

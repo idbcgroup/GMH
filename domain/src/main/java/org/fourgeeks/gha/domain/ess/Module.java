@@ -4,6 +4,10 @@ import javax.persistence.Entity;
 
 import org.fourgeeks.gha.domain.AbstractCodeEntity;
 
+/**
+ * @author alacret
+ * 
+ */
 @Entity
 public class Module extends AbstractCodeEntity {
 	public Module() {

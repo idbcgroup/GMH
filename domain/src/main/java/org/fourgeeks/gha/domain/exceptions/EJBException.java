@@ -7,9 +7,9 @@ import java.io.Serializable;
 
 /**
  * @author emiliot
- *
+ * 
  */
-public class EJBException extends Exception implements Serializable{
+public class EJBException extends Exception implements Serializable {
 
 	/**
 	 * 

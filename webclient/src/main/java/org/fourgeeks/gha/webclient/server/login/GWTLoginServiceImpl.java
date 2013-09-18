@@ -12,6 +12,7 @@ import org.fourgeeks.gha.domain.enu.UserLogonStatusEnum;
 import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.ejb.ess.SSOUserServiceRemote;
+import org.fourgeeks.gha.ejb.gar.BpuFunctionServiceRemote;
 import org.fourgeeks.gha.webclient.client.login.GWTLoginService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -30,6 +31,9 @@ public class GWTLoginServiceImpl extends RemoteServiceServlet implements
 
 	@EJB(name = "ess.SSOUserService")
 	SSOUserServiceRemote ssoUserService;
+
+	@EJB(name = "gar.BpuFunctionService")
+	BpuFunctionServiceRemote bpuFunctionService;
 
 	/**
 	 * @return true if there is a user logged in
@@ -61,11 +65,15 @@ public class GWTLoginServiceImpl extends RemoteServiceServlet implements
 
 			// get the bpu for the authenticated user
 			SSOUser ssoUser = ssoUserService.findByUsername(user);
-			if (ssoUser.getUserLogonStatus() == UserLogonStatusEnum.BLOCKED) {
+			if (ssoUser.getUserLogonStatus()
+					.equals(UserLogonStatusEnum.BLOCKED)) {
 				// TODO: Usuario bloqueado intentando acceder a la aplicacion
 			} else {
 				// usuario valido
-				return ssoUser.getBpu();
+				Bpu bpu = ssoUser.getBpu();
+				bpu.setPermissions(bpuFunctionService
+						.getFunctionsAsStringListByBpu(bpu));
+				return bpu;
 			}
 
 			return new Bpu();

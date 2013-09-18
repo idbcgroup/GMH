@@ -10,37 +10,36 @@ import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.widgets.tab.TabSet;
 
+/**
+ * @author alacret
+ * 
+ */
 public class UserInternalTabset extends TabSet implements ResizeHandler {
 
 	private UserInformationSubTab userInformationSubTab;
 	private UserCredentialsSubTab userCredentialsSubTab;
 	private UserLoginLogSubTab userLoginLogSubTab;
 	private UserUILogSubTab userUILogSubTab;
-//	private EIACostSubTab eiaCostsSubTab;
-//	private EIAMovementsSubTab eiaMovementsSubTab;
-		
-	public UserInternalTabset(UserTab mpTab) {
+
+	/**
+	 * @param userTab
+	 */
+	public UserInternalTabset(UserTab userTab) {
 		super();
 		setWidth100();
 		setHeight(GHAUiHelper.getBottomSectionHeight());
 
 		GHAUiHelper.addGHAResizeHandler(this);
 
-		userInformationSubTab = new UserInformationSubTab(mpTab);
-		userCredentialsSubTab = new UserCredentialsSubTab(mpTab);
-		userLoginLogSubTab = new UserLoginLogSubTab(mpTab);
-		userUILogSubTab = new UserUILogSubTab(mpTab);
-//		eiaCostsSubTab = new EIACostSubTab(mpTab);
-//		eiaMovementsSubTab = new EIAMovementsSubTab(mpTab);
-		
-		// Agregando las Subtabs
+		userInformationSubTab = new UserInformationSubTab(userTab);
+		userCredentialsSubTab = new UserCredentialsSubTab(userTab);
+		userLoginLogSubTab = new UserLoginLogSubTab(userTab);
+		userUILogSubTab = new UserUILogSubTab(userTab);
+
 		addTab(userInformationSubTab);
 		addTab(userCredentialsSubTab);
 		addTab(userLoginLogSubTab);
 		addTab(userUILogSubTab);
-//		addTab(eiaCostsSubTab);
-//		addTab(eiaMovementsSubTab);
-
 	}
 
 	@Override

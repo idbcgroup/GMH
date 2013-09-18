@@ -24,6 +24,7 @@ import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.enu.GenderTypeEnum;
 import org.fourgeeks.gha.domain.enu.LocationLevelEnum;
 import org.fourgeeks.gha.domain.enu.UserLogonStatusEnum;
+import org.fourgeeks.gha.domain.ess.BpuFunction;
 import org.fourgeeks.gha.domain.ess.Function;
 import org.fourgeeks.gha.domain.ess.Module;
 import org.fourgeeks.gha.domain.ess.Role;
@@ -98,6 +99,9 @@ public class TestData {
 		bpiTestData();
 		bpuTestData();
 		//
+		modulesTestData();
+		bpuFunctionTestData();
+		//
 		obuTestData();
 		roleTestData();
 		buildingLocationsTestData();
@@ -110,7 +114,6 @@ public class TestData {
 		materialCategoryTestData();
 		materialTestData();
 		facilityTestData();
-		modulesTestData();
 		// // TODO
 		eiaTypeTestData();
 		eiaTestData();
@@ -126,14 +129,36 @@ public class TestData {
 		} catch (NoResultException e) {
 			try {
 				logger.info("Creating bpu test data");
-				for (int i = 0; i < 5; ++i) {
-					logger.info("bpu: " + i + " citizen: " + (i + 5L));
+				for (int i = 0; i < 5; ++i)
 					em.persist(new Bpu(em.find(Bpi.class, 1L), em.find(
 							Citizen.class, i + 1L)));
-				}
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating bpu test data", e1);
+			}
+		}
+	}
+
+	/**
+	 * 
+	 */
+	private void bpuFunctionTestData() {
+		String query = "SELECT t FROM BpuFunction t WHERE t.id = '1'";
+		try {
+			em.createQuery(query).getSingleResult();
+		} catch (NoResultException e) {
+			try {
+				logger.info("Creating bpufunction test data");
+				String[] codes = { "UADADM-INFO-VIEW", "UADADM-INFO-EDIT",
+						"UADADM-CRED-VIEW", "UADADM-CRED-EDIT",
+						"UADADM-LLOG-VIEW", "UADADM-ULOG-VIEW" };
+				for (int i = 0; i < codes.length; ++i)
+					em.persist(new BpuFunction(em.find(Bpu.class, 1L), em.find(
+							Function.class, codes[i])));
+				em.flush();
+			} catch (Exception e1) {
+				logger.log(Level.INFO, "error Creating bpufunction test data",
+						e1);
 			}
 		}
 	}
@@ -601,8 +626,8 @@ public class TestData {
 				logger.info("creating test data: users");
 				em.persist(new SSOUser(em.find(Bpu.class, 1L), "admin",
 						"admin", UserLogonStatusEnum.STAYIN));
-				em.persist(new SSOUser(em.find(Bpu.class, 2L), "alesanchezr",
-						"123456", UserLogonStatusEnum.STAYIN));
+				em.persist(new SSOUser(em.find(Bpu.class, 2L), "asanchez",
+						"asanchez", UserLogonStatusEnum.STAYIN));
 
 				em.flush();
 				logger.info("done creating test users");
