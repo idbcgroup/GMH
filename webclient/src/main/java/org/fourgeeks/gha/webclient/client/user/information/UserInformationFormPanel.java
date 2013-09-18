@@ -27,39 +27,55 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class UserInformationFormPanel extends VLayout implements GHAClosable, GHAHideable {
-	
-	private GHATextItem usernameItem, passwordItem,idItem, firstNameItem,secondNameItem,lastNameItem,secondLastNameItem, nationalityItem;
+public class UserInformationFormPanel extends VLayout implements GHAClosable,
+		GHAHideable {
+
+	private GHATextItem usernameItem, passwordItem, idItem, firstNameItem,
+			secondNameItem, lastNameItem, secondLastNameItem, nationalityItem;
 	private GHASelectItem typeidSelectItem, genderSelectItem;
 	private GHACheckboxItem blockedItem;
 	private GHADateItem birthDateItem;
-	
+
 	private EiaType eiaType, orginalEiaType;
 	private UserTab tab;
 
 	{
-		usernameItem = new GHATextItem("Nombre de Usuario", GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
-		passwordItem = new GHATextItem("Contraseña", GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
+		usernameItem = new GHATextItem("Nombre de Usuario",
+				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
+		passwordItem = new GHATextItem("Contraseña",
+				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
 		blockedItem = new GHACheckboxItem("Usuario bloqueado");
-		
-		firstNameItem = new GHATextItem("Primer Nombre", GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
-		secondNameItem = new GHATextItem("Segundo Nombre", GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
-		lastNameItem = new GHATextItem("Apellido", GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
-		secondLastNameItem = new GHATextItem("Segundo Apellido", GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
-		
-		typeidSelectItem = new GHASelectItem("Tipo ID", GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
-		idItem = new GHATextItem("No. Identificiación", GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
-		genderSelectItem = new GHASelectItem("Género", GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
-		nationalityItem = new GHATextItem("Nacionalidad", GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
-		birthDateItem = new GHADateItem("Fecha de Nac.", GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
+
+		firstNameItem = new GHATextItem("Primer Nombre",
+				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
+		secondNameItem = new GHATextItem("Segundo Nombre",
+				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
+		lastNameItem = new GHATextItem("Apellido",
+				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
+		secondLastNameItem = new GHATextItem("Segundo Apellido",
+				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
+
+		typeidSelectItem = new GHASelectItem("Tipo ID",
+				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
+		idItem = new GHATextItem("No. Identificiación",
+				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
+		genderSelectItem = new GHASelectItem("Género",
+				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
+		nationalityItem = new GHATextItem("Nacionalidad",
+				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
+		birthDateItem = new GHADateItem("Fecha de Nac.",
+				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
 	}
 
+	/**
+	 * @param tab
+	 */
 	public UserInformationFormPanel(UserTab tab) {
 		activateForm(false);
 		this.tab = tab;
-		
+
 		tab.addGHAClosableHandler(this);
-		
+
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
@@ -68,10 +84,11 @@ public class UserInformationFormPanel extends VLayout implements GHAClosable, GH
 		DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(4);
-		form.setItems(usernameItem, passwordItem, blockedItem,new GHASpacerItem(),
-			  	  firstNameItem,secondNameItem,lastNameItem,secondLastNameItem,
-			  	  typeidSelectItem,idItem,new GHASpacerItem(2),
-			  	  genderSelectItem,nationalityItem,birthDateItem);
+		form.setItems(usernameItem, passwordItem, blockedItem,
+				new GHASpacerItem(), firstNameItem, secondNameItem,
+				lastNameItem, secondLastNameItem, typeidSelectItem, idItem,
+				new GHASpacerItem(2), genderSelectItem, nationalityItem,
+				birthDateItem);
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
 				"../resources/icons/save.png", new ClickHandler() {
@@ -113,7 +130,7 @@ public class UserInformationFormPanel extends VLayout implements GHAClosable, GH
 	}
 
 	protected void undo() {
-		//reload the original eiatype
+		// reload the original eiatype
 		save();
 	}
 
@@ -123,7 +140,7 @@ public class UserInformationFormPanel extends VLayout implements GHAClosable, GH
 	}
 
 	private void save() {
-		
+
 	}
 
 	@Override
