@@ -152,14 +152,14 @@ public class MaterialService implements MaterialServiceRemote {
 				q.setParameter("type", entity.getType());
 
 			if (entity.getDescription() != null)
-				q.setParameter("description", "%" + entity.getDescription()
+				q.setParameter("description", "%" + entity.getDescription().toLowerCase()
 						+ "%");
 
 			if (entity.getBrand() != null)
 				q.setParameter("brand", entity.getBrand());
 
 			if (entity.getName() != null)
-				q.setParameter("name", "%" + entity.getName() + "%");
+				q.setParameter("name", "%" + entity.getName().toLowerCase() + "%");
 
 			if (entity.getCode() != null)
 				q.setParameter("code", entity.getCode());
@@ -168,7 +168,7 @@ public class MaterialService implements MaterialServiceRemote {
 				q.setParameter("extCode", entity.getExtCode());
 
 			if (entity.getModel() != null)
-				q.setParameter("model", "%" + entity.getModel() + "%");
+				q.setParameter("model", "%" + entity.getModel().toLowerCase() + "%");
 
 			return q.getResultList();
 
