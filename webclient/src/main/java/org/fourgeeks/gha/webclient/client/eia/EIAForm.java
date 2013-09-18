@@ -905,11 +905,14 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 
 	@Override
 	public void hide() {
-//		this.entity = null;
+		// this.entity = null;
 		sectionForm.deactivate();
-//		eiaUpdateForm.hide();
+		// eiaUpdateForm.hide();
 	}
 
+	/**
+	 * @param eia
+	 */
 	public void setEia(Eia eia) {
 		this.entity = eia;
 		// basic information
