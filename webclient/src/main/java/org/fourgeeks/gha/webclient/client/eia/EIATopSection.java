@@ -5,14 +5,11 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATitleTextItem;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImg;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATabSet;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
-import com.google.gwt.user.client.Window;
-import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.types.VerticalAlignment;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -92,26 +89,26 @@ public class EIATopSection extends HLayout implements EIASelectionListener,
 
 		// Panel de la Fotografia Equipos
 
-		HLayout photoPanel = new HLayout();
-		photoPanel.setMembersMargin(10);
-		photoPanel.setWidth(130);
-		// photoPanel.setDefaultLayoutAlign(Alignment.CENTER);
-		GHAImg photo = new GHAImg("../resources/img/Foto.jpg", 80, 80);
-		// photo.setTop(8);
-		photo.setStyleName("top-8");
-
-		VLayout photoBotones = new VLayout();
-		photoBotones.setWidth(30);
-		photoBotones.setLayoutMargin(5);
-		photoBotones.setMembersMargin(10);
-		photoBotones.setDefaultLayoutAlign(Alignment.CENTER);
-
-		GHAImgButton searchPhoto = new GHAImgButton(
-				"../resources/icons/search.png");
-		// GHAButton cleanPhoto = new GHAButton("../resources/icons/clean.png");
-		photoBotones.addMembers(searchPhoto);
-
-		photoPanel.addMembers(photo, photoBotones);
+//		HLayout photoPanel = new HLayout();
+//		photoPanel.setMembersMargin(10);
+//		photoPanel.setWidth(130);
+//		// photoPanel.setDefaultLayoutAlign(Alignment.CENTER);
+//		GHAImg photo = new GHAImg("../resources/img/Foto.jpg", 80, 80);
+//		// photo.setTop(8);
+//		photo.setStyleName("top-8");
+//
+//		VLayout photoBotones = new VLayout();
+//		photoBotones.setWidth(30);
+//		photoBotones.setLayoutMargin(5);
+//		photoBotones.setMembersMargin(10);
+//		photoBotones.setDefaultLayoutAlign(Alignment.CENTER);
+//
+//		GHAImgButton searchPhoto = new GHAImgButton(
+//				"../resources/icons/search.png");
+//		// GHAButton cleanPhoto = new GHAButton("../resources/icons/clean.png");
+//		photoBotones.addMembers(searchPhoto);
+//
+//		photoPanel.addMembers(photo, photoBotones);
 		
 		VLayout sideButtons = GHAUiHelper.createBar(
 				new GHAImgButton("../resources/icons/search.png", new ClickHandler() {
@@ -128,7 +125,7 @@ public class EIATopSection extends HLayout implements EIASelectionListener,
 					}
 				}));
 
-		addMembers(form, photoPanel, new LayoutSpacer(), sideButtons);
+		addMembers(form, /*photoPanel,*/ new LayoutSpacer(), sideButtons);
 
 	}
 
