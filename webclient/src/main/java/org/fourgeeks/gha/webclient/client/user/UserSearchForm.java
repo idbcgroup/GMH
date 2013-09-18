@@ -33,7 +33,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class UserSearchForm extends GHASlideInWindow {
+public class UserSearchForm extends GHASlideInWindow implements UserSelectionProducer{
 
 	private UserGrid grid;
 	private GHATextItem usernameItem, firstNameItem, secondNameItem,
@@ -244,6 +244,26 @@ public class UserSearchForm extends GHASlideInWindow {
 	@Override
 	public void onResize(ResizeEvent event) {
 		setHeight(GHAUiHelper.getTabHeight() + "px");
+	}
+
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.webclient.client.user.UserSelectionProducer#addUserSelectionListener(org.fourgeeks.gha.webclient.client.user.UserSelectionListener)
+	 */
+	@Override
+	public void addUserSelectionListener(
+			UserSelectionListener userSelectionListener) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.webclient.client.user.UserSelectionProducer#removeUserSelectionListener(org.fourgeeks.gha.webclient.client.user.UserSelectionListener)
+	 */
+	@Override
+	public void removeUserSelectionListener(
+			UserSelectionListener userSelectionListener) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
