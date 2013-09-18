@@ -1,6 +1,8 @@
 package org.fourgeeks.gha.webclient.client.home;
 
+import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.webclient.client.UI.GHADropdownMenus;
+import org.fourgeeks.gha.webclient.client.UI.GHASessionData;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAPlace;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATabSet;
@@ -46,22 +48,26 @@ public class HomePlace extends GHAPlace {
 		RootPanel.get("main-content").removeStyleName("white-background");
 		
 		final VLayout userMenu = GHADropdownMenus.userMenu();
-		final VLayout notificationsMenu = GHADropdownMenus.notificationsMenu();
-		// userMenu.draw();
-
+		
+		
+		
+//		final VLayout notificationsMenu = GHADropdownMenus.notificationsMenu();
+		
 		HLayout userInfo = new HLayout();
 		userInfo.setMembersMargin(10);
 		userInfo.setStyleName("user-info");
 		userInfo.setHeight("50px");
 		userInfo.setDefaultLayoutAlign(Alignment.CENTER);
-
-		Label usernameLabel = new Label("Jose Pereira Martinez");
+		
+		Bpu user = GHASessionData.getLoggedUser();
+		
+		Label usernameLabel = new Label(user.getCitizen().getFirstName()+" "+user.getCitizen().getFirstLastName());
 		usernameLabel.setStyleName("username-text");
 		usernameLabel.setSize("300	px", "25px");
-		Label notificationsButton = new Label("1");
-		notificationsButton.setStyleName("user-notifications-button");
-		notificationsButton.setBackgroundImage("../resources/icons/boton1.png");
-		notificationsButton.setSize("28px", "25px");
+//		Label notificationsButton = new Label("1");
+//		notificationsButton.setStyleName("user-notifications-button");
+//		notificationsButton.setBackgroundImage("../resources/icons/boton1.png");
+//		notificationsButton.setSize("28px", "25px");
 		Img userButton = new Img("../resources/icons/boton2.png");
 		userButton.setSize("21px", "25px");
 
@@ -91,32 +97,32 @@ public class HomePlace extends GHAPlace {
 					}
 				});
 
-		notificationsButton
-				.addClickHandler(new com.smartgwt.client.widgets.events.ClickHandler() {
-					@Override
-					public void onClick(ClickEvent event) {
-						int posx = event.getX() - 270;
-						int posy = event.getY();
-						if (event.getY() < 50)
-							posy += 20;
-						else
-							posy += 10;
+//		notificationsButton
+//				.addClickHandler(new com.smartgwt.client.widgets.events.ClickHandler() {
+//					@Override
+//					public void onClick(ClickEvent event) {
+//						int posx = event.getX() - 270;
+//						int posy = event.getY();
+//						if (event.getY() < 50)
+//							posy += 20;
+//						else
+//							posy += 10;
+//
+//						if (notificationsMenu.isVisible()) {
+//							notificationsMenu.animateHide(AnimationEffect.FADE);
+//							notificationsMenu.setVisible(false);
+//							notificationsMenu.setLeft(0);
+//							notificationsMenu.setTop(0);
+//						} else {
+//							notificationsMenu.animateShow(AnimationEffect.FADE);
+//							notificationsMenu.setLeft(posx);
+//							notificationsMenu.setTop(posy);
+//							notificationsMenu.setVisible(true);
+//						}
+//					}
+//				});
 
-						if (notificationsMenu.isVisible()) {
-							notificationsMenu.animateHide(AnimationEffect.FADE);
-							notificationsMenu.setVisible(false);
-							notificationsMenu.setLeft(0);
-							notificationsMenu.setTop(0);
-						} else {
-							notificationsMenu.animateShow(AnimationEffect.FADE);
-							notificationsMenu.setLeft(posx);
-							notificationsMenu.setTop(posy);
-							notificationsMenu.setVisible(true);
-						}
-					}
-				});
-
-		userInfo.addMembers(usernameLabel, notificationsButton, userButton);
+		userInfo.addMembers(usernameLabel, /*notificationsButton,*/ userButton);
 
 		/*
 		 * StringBuilder html = new StringBuilder();
@@ -231,6 +237,7 @@ public class HomePlace extends GHAPlace {
 		menuButton.setStylePrimaryName("gha-main-menu");
 		menuButton.setZIndex(33333333);
 		GHATabSet.addMenu(menuButton);
-		History.newItem("edt");
+		
+//		History.newItem("edt");
 	}
 }

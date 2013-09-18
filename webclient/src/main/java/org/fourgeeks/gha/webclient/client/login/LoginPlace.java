@@ -2,6 +2,7 @@ package org.fourgeeks.gha.webclient.client.login;
 
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
+import org.fourgeeks.gha.webclient.client.UI.GHASessionData;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAPlace;
 
@@ -41,14 +42,14 @@ public class LoginPlace extends GHAPlace {
 		html.append("<input class='round' id='password' type='password' placeholder='Contraseña'> <br/>");
 		html.append("<input id='login-button' type='button' value='Iniciar Sesion' class='GHAButton'>");
 //		html.append("<div class='smallfont'><input type='checkbox'>Recordar mis datos</div><br/>");
-		html.append("<div id='recovery'><a  class='smallfont'>¿Olvidaste tu contraseña?</a></div></form></div>");
+//		html.append("<div id='recovery'><a  class='smallfont'>¿Olvidaste tu contraseña?</a></div></form></div>");
 		HTML content = new HTML(html.toString());
 		RootPanel.get("main-content").add(content);
 
 		// for Events
 		Element element = RootPanel.get("login-button").getElement();
 		Element pTextbox = RootPanel.get("password").getElement();
-		Element recovery = RootPanel.get("recovery").getElement();
+//		Element recovery = RootPanel.get("recovery").getElement();
 
 		final InputElement userTextbox = (InputElement) Document.get()
 				.getElementById("username");
@@ -78,6 +79,9 @@ public class LoginPlace extends GHAPlace {
 					@Override
 					public void onSuccess(Bpu result) {
 						if (result != null) {
+							//Agregar el usuario loggeado a la session
+							GHASessionData.setLoggedUser(result);
+							
 							String token = History.getToken();
 							if (token.equals("home"))
 								History.fireCurrentHistoryState();
@@ -115,6 +119,8 @@ public class LoginPlace extends GHAPlace {
 								@Override
 								public void onSuccess(Bpu result) {
 									if (result != null) {
+										GHASessionData.setLoggedUser(result);
+										
 										String token = History.getToken();
 										if (token.equals("home"))
 											History.fireCurrentHistoryState();
@@ -133,13 +139,13 @@ public class LoginPlace extends GHAPlace {
 
 		// RECOVERY
 
-		DOM.sinkEvents(recovery, Event.ONCLICK);
-		DOM.setEventListener(recovery, new EventListener() {
-
-			@Override
-			public void onBrowserEvent(Event event) {
-				History.newItem("lostpass");
-			}
-		});
+//		DOM.sinkEvents(recovery, Event.ONCLICK);
+//		DOM.setEventListener(recovery, new EventListener() {
+//
+//			@Override
+//			public void onBrowserEvent(Event event) {
+//				History.newItem("lostpass");
+//			}
+//		});
 	}
 }

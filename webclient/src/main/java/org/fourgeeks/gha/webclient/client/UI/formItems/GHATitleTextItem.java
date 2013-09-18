@@ -13,7 +13,7 @@ public class GHATitleTextItem extends StaticTextItem {
 		setHeight(18);
 		setCellStyle("gha-form-cell");
 		setShowTitle(false);
-		setTextBoxStyle("titletext");
+		setTextBoxStyle("title-label");
 	}
 
 	public GHATitleTextItem(String title) {
