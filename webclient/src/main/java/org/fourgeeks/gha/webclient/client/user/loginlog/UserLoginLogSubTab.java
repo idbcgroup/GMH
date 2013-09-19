@@ -21,16 +21,12 @@ public class UserLoginLogSubTab extends GHASubTab implements
 		super("Login Log", tab);
 		tab.addUserSelectionListener(this);
 		userLoginLogGridPanel = new UserLoginLogGridPanel(this);
-		addGHAClosableHandler(userLoginLogGridPanel);
-		addGHAHideableHandler(userLoginLogGridPanel);
-
 		setPane(userLoginLogGridPanel);
 	}
 
 	@Override
 	public void select(SSOUser ssoUser) {
-		// TODO Auto-generated method stub
-
+		userLoginLogGridPanel.loadData(ssoUser);
 	}
 
 }

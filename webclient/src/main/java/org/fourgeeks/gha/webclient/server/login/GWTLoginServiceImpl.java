@@ -16,7 +16,7 @@ import org.fourgeeks.gha.domain.logs.LogonLog;
 import org.fourgeeks.gha.domain.msg.Message;
 import org.fourgeeks.gha.ejb.ess.SSOUserServiceRemote;
 import org.fourgeeks.gha.ejb.gar.BpuFunctionServiceRemote;
-import org.fourgeeks.gha.ejb.log.LogServiceRemote;
+import org.fourgeeks.gha.ejb.log.LogonLogServiceRemote;
 import org.fourgeeks.gha.webclient.client.login.GWTLoginService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -33,8 +33,8 @@ public class GWTLoginServiceImpl extends RemoteServiceServlet implements
 	private final static Logger logger = Logger
 			.getLogger(GWTLoginServiceImpl.class.getName());
 
-	@EJB(name = "log.LogService")
-	LogServiceRemote logService;
+	@EJB(name = "log.LogonLogService")
+	LogonLogServiceRemote logService;
 
 	@EJB(name = "ess.SSOUserService")
 	SSOUserServiceRemote ssoUserService;
