@@ -36,7 +36,7 @@ public class FunctionGridPanel extends VLayout implements GHAClosable,
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 
-		Label title = new Label("<h3>Log de Connecciones al Sistema</h3>");
+		Label title = new Label("<h3>Permisos</h3>");
 		title.setHeight(30);
 		title.setWidth100();
 		title.setStyleName("title-label");
