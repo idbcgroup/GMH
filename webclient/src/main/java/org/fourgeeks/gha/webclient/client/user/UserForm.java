@@ -23,6 +23,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHADateItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 
 import com.google.gwt.validation.client.impl.Validation;
 import com.smartgwt.client.types.TitleOrientation;
@@ -33,14 +34,14 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret, emiliot
  * 
  */
-public class UserForm extends VLayout implements UserSelectionProducer{
+public class UserForm extends VLayout implements UserSelectionProducer {
 
 	private GHATextItem usernameItem, passwordItem, confirmPasswordItem,
 			idItem, firstNameItem, secondNameItem, lastNameItem,
 			secondLastNameItem, nationalityItem, legalEntityIdentifierItem;
 	private GHASelectItem typeidSelectItem, genderSelectItem, bpiSelectItem;
 	private GHADateItem birthDateItem;
-	
+
 	private List<UserSelectionListener> listeners;
 
 	private Validator validator;
@@ -73,12 +74,12 @@ public class UserForm extends VLayout implements UserSelectionProducer{
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		bpiSelectItem = new GHASelectItem("Tipo ID",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
-		legalEntityIdentifierItem = new GHATextItem("R.I.F.:",
+		legalEntityIdentifierItem = new GHATextItem("R.I.F.",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 
-		 validator = Validation.buildDefaultValidatorFactory().getValidator();
-		 
-		 listeners = new ArrayList<UserSelectionListener>();
+		validator = Validation.buildDefaultValidatorFactory().getValidator();
+
+		listeners = new ArrayList<UserSelectionListener>();
 	}
 
 	/**
@@ -140,14 +141,6 @@ public class UserForm extends VLayout implements UserSelectionProducer{
 	 * 
 	 */
 	public void save() {
-		if (passwordItem.getValue() == null
-				|| confirmPasswordItem.getValue() == null
-				|| passwordItem.getValueAsString() != confirmPasswordItem
-						.getValueAsString()) {
-			// TODO: mensaje de password no coincide
-			return;
-		}
-
 		final SSOUser ssoUser = new SSOUser();
 		final Bpu bpu = new Bpu();
 		final Citizen citizen = new Citizen();
@@ -199,32 +192,34 @@ public class UserForm extends VLayout implements UserSelectionProducer{
 
 		Set<ConstraintViolation<LegalEntity>> violationsLegalEntity = validator
 				.validate(legalEntity);
-		if (violationsLegalEntity.isEmpty()) {
-			Set<ConstraintViolation<Citizen>> violationsCitizen = validator
-					.validate(citizen);
-			if (violationsCitizen.isEmpty()) {
-				bpu.setCitizen(citizen);
-				Set<ConstraintViolation<Bpu>> violationsBpu = validator
-						.validate(bpu);
-				if (violationsBpu.isEmpty()) {
-					ssoUser.setBpu(bpu);
-					Set<ConstraintViolation<SSOUser>> violationsSSOUser = validator
-							.validate(ssoUser);
-					if (violationsSSOUser.isEmpty()) {
-						UserModel.save(ssoUser,
-								new GHAAsyncCallback<SSOUser>() {
+		Set<ConstraintViolation<Citizen>> violationsCitizen = validator
+				.validate(citizen);
+		Set<ConstraintViolation<Bpu>> violationsBpu = validator.validate(bpu);
+		Set<ConstraintViolation<SSOUser>> violationsSSOUser = validator
+				.validate(ssoUser);
 
-									@Override
-									public void onSuccess(SSOUser result) {
-										notifyUser(result);
-										cancel();
-
-									}
-								});
-					}
-				}
+		if (violationsSSOUser.isEmpty() && violationsBpu.isEmpty() &&
+				violationsCitizen.isEmpty() && violationsLegalEntity.isEmpty()) {
+			
+			if (passwordItem.getValue() == null
+					|| confirmPasswordItem.getValue() == null
+					|| passwordItem.getValueAsString() != confirmPasswordItem
+							.getValueAsString()) {
+				GHANotification.alert("Las Constraseñas no coinciden");
+				return;
 			}
-		}
+			
+			UserModel.save(ssoUser, new GHAAsyncCallback<SSOUser>() {
+
+				@Override
+				public void onSuccess(SSOUser result) {
+					notifyUser(result);
+					cancel();
+
+				}
+			});
+		}else
+			GHANotification.alert("Error en los datos de usuario, verifique los campos requeridos");
 
 	}
 
@@ -252,31 +247,39 @@ public class UserForm extends VLayout implements UserSelectionProducer{
 		birthDateItem.setDisabled(!activate);
 		legalEntityIdentifierItem.setDisabled(!activate);
 	}
-	
-	//Producer stuff
-	
+
+	// Producer stuff
+
 	/**
 	 * @param ssoUser
-	 * this method notify the listeners for new ssoUser selected
+	 *            this method notify the listeners for new ssoUser selected
 	 */
-	private void notifyUser(SSOUser ssoUser){
-		for(UserSelectionListener listener : listeners){
+	private void notifyUser(SSOUser ssoUser) {
+		for (UserSelectionListener listener : listeners) {
 			listener.select(ssoUser);
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.user.UserSelectionProducer#addUserSelectionListener(org.fourgeeks.gha.webclient.client.user.UserSelectionListener)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.user.UserSelectionProducer#
+	 * addUserSelectionListener
+	 * (org.fourgeeks.gha.webclient.client.user.UserSelectionListener)
 	 */
 	@Override
 	public void addUserSelectionListener(
 			UserSelectionListener userSelectionListener) {
 		listeners.add(userSelectionListener);
-		
+
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.user.UserSelectionProducer#removeUserSelectionListener(org.fourgeeks.gha.webclient.client.user.UserSelectionListener)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.user.UserSelectionProducer#
+	 * removeUserSelectionListener
+	 * (org.fourgeeks.gha.webclient.client.user.UserSelectionListener)
 	 */
 	@Override
 	public void removeUserSelectionListener(
