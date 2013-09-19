@@ -1,6 +1,7 @@
 package org.fourgeeks.gha.webclient.client.user;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
@@ -23,23 +24,24 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHADateItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 
-import com.google.gwt.user.client.Window;
 import com.google.gwt.validation.client.impl.Validation;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
- * @author alacret
+ * @author alacret, emiliot
  * 
  */
-public class UserForm extends VLayout {
+public class UserForm extends VLayout implements UserSelectionProducer{
 
 	private GHATextItem usernameItem, passwordItem, confirmPasswordItem,
 			idItem, firstNameItem, secondNameItem, lastNameItem,
 			secondLastNameItem, nationalityItem, legalEntityIdentifierItem;
 	private GHASelectItem typeidSelectItem, genderSelectItem, bpiSelectItem;
 	private GHADateItem birthDateItem;
+	
+	private List<UserSelectionListener> listeners;
 
 	private Validator validator;
 
@@ -75,6 +77,8 @@ public class UserForm extends VLayout {
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 
 		 validator = Validation.buildDefaultValidatorFactory().getValidator();
+		 
+		 listeners = new ArrayList<UserSelectionListener>();
 	}
 
 	/**
@@ -98,7 +102,6 @@ public class UserForm extends VLayout {
 		typeidSelectItem.setValueMap(DocumentTypeEnum.toValueMap());
 		genderSelectItem.setValueMap(GenderTypeEnum.toValueMap());
 
-		// TODO: llenar el select del bpi
 		GHACache.INSTANCE.getBpis(new GHAAsyncCallback<List<Bpi>>() {
 
 			@Override
@@ -213,8 +216,7 @@ public class UserForm extends VLayout {
 
 									@Override
 									public void onSuccess(SSOUser result) {
-										select(result);
-										Window.alert("success");
+										notifyUser(result);
 										cancel();
 
 									}
@@ -250,9 +252,36 @@ public class UserForm extends VLayout {
 		birthDateItem.setDisabled(!activate);
 		legalEntityIdentifierItem.setDisabled(!activate);
 	}
+	
+	//Producer stuff
+	
+	/**
+	 * @param ssoUser
+	 * this method notify the listeners for new ssoUser selected
+	 */
+	private void notifyUser(SSOUser ssoUser){
+		for(UserSelectionListener listener : listeners){
+			listener.select(ssoUser);
+		}
+	}
 
-	private void select(SSOUser result) {
-		// TODO: implement action when ssouser is selected
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.webclient.client.user.UserSelectionProducer#addUserSelectionListener(org.fourgeeks.gha.webclient.client.user.UserSelectionListener)
+	 */
+	@Override
+	public void addUserSelectionListener(
+			UserSelectionListener userSelectionListener) {
+		listeners.add(userSelectionListener);
+		
+	}
+
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.webclient.client.user.UserSelectionProducer#removeUserSelectionListener(org.fourgeeks.gha.webclient.client.user.UserSelectionListener)
+	 */
+	@Override
+	public void removeUserSelectionListener(
+			UserSelectionListener userSelectionListener) {
+		listeners.remove(userSelectionListener);
 	}
 
 }

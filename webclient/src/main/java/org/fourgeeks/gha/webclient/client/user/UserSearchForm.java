@@ -160,6 +160,7 @@ public class UserSearchForm extends GHASlideInWindow implements UserSelectionPro
 					@Override
 					public void onClick(ClickEvent event) {
 						addForm.open();
+						addForm.show();
 					}
 				}));
 
