@@ -54,6 +54,7 @@ public class UserTopSection extends HLayout implements GHAClosable,
 		GHAUiHelper.addGHAResizeHandler(this);
 		tab.addGHAClosableHandler(this);
 		tab.addUserSelectionListener(this);
+		userSearchForm.addUserSelectionListener(tab);
 		// tab.addGHAHideableHandler(this);
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		setWidth100();
@@ -62,7 +63,7 @@ public class UserTopSection extends HLayout implements GHAClosable,
 		setBackgroundColor("#EAEAEA");
 		DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
-		form.setNumCols(5);
+		form.setNumCols(4);
 		form.setItems(usernameItem, blockedItem, new GHASpacerItem(2),
 				nameItem, lastNameItem, typeidSelectItem, idItem);
 

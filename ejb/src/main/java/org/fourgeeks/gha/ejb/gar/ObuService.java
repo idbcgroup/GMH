@@ -17,7 +17,7 @@ import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.mix.Bpi;
 
@@ -65,30 +65,30 @@ public class ObuService implements ObuServiceRemote {
 	}
 
 	@Override
-	public void delete(long Id) throws EJBException {
+	public void delete(long Id) throws GHAEJBException {
 		try {
 			Obu entity = em.find(Obu.class, Id);
 			em.remove(entity);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete Obu", e);
-			throw new EJBException("ERROR: unable to delete Obu "
+			throw new GHAEJBException("ERROR: unable to delete Obu "
 					+ e.getCause().getMessage());
 		}
 	}
 
 	@Override
-	public Obu find(long Id) throws EJBException {
+	public Obu find(long Id) throws GHAEJBException {
 		try {
 			return em.find(Obu.class, Id);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: finding Obu", e);
-			throw new EJBException("ERROR: finding Obu "
+			throw new GHAEJBException("ERROR: finding Obu "
 					+ e.getCause().getMessage());
 		}
 	}
 
 	@Override
-	public List<Obu> find(Obu obu) throws EJBException {
+	public List<Obu> find(Obu obu) throws GHAEJBException {
 		try {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<Obu> cQuery = cb.createQuery(Obu.class);
@@ -123,38 +123,38 @@ public class ObuService implements ObuServiceRemote {
 			
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding Obu by Obu", e);
-			throw new EJBException("Error buscando Obu por Obu "
+			throw new GHAEJBException("Error buscando Obu por Obu "
 					+ e.getCause().getMessage());
 		}
 	}
 
 	@Override
-	public List<Obu> getAll() throws EJBException {
+	public List<Obu> getAll() throws GHAEJBException {
 		try {
 			return em.createNamedQuery("Obu.getAll", Obu.class).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all Obu", ex);
-			throw new EJBException("Error obteniendo todas las Obus"
+			throw new GHAEJBException("Error obteniendo todas las Obus"
 					+ ex.getCause().getMessage());
 		}
 	}
 
 	@Override
-	public Obu save(Obu entity) throws EJBException {
+	public Obu save(Obu entity) throws GHAEJBException {
 		try {
 			em.persist(entity);
 			em.flush();
 			return em.find(Obu.class, entity.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving Obu ", e);
-			throw new EJBException("ERROR: saving Obu "
+			throw new GHAEJBException("ERROR: saving Obu "
 					+ e.getCause().getMessage());
 		}
 
 	}
 
 	@Override
-	public Obu update(Obu entity) throws EJBException {
+	public Obu update(Obu entity) throws GHAEJBException {
 		try {
 			Obu res = em.merge(entity);
 			em.flush();
@@ -162,7 +162,7 @@ public class ObuService implements ObuServiceRemote {
 		} catch (Exception e) {
 			logger.log(Level.INFO,
 					"ERROR: unable to update Obu ", e);
-			throw new EJBException("ERROR: no se puede actualizar el Obu "
+			throw new GHAEJBException("ERROR: no se puede actualizar el Obu "
 					+ e.getCause().getMessage());
 		}
 	}

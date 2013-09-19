@@ -1,13 +1,15 @@
 package org.fourgeeks.gha.webclient.client.eia.cost;
 
+import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASubTab;
+import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 import org.fourgeeks.gha.webclient.client.eia.EIATab;
 
 /**
  * @author alacret
  * 
  */
-public class EIACostSubTab extends GHASubTab {
+public class EIACostSubTab extends GHASubTab implements EIASelectionListener{
 
 	private EIACostGridPanel eiaCostGridPanel;
 
@@ -20,8 +22,15 @@ public class EIACostSubTab extends GHASubTab {
 	 */
 	public EIACostSubTab(EIATab tab) {
 		super("Costos y Depreciación", tab);
+		setDisabled(true);
+		tab.addEiaSelectionListener(this);
 		addGHAClosableHandler(eiaCostGridPanel);
 		addGHAHideableHandler(eiaCostGridPanel);
 		setPane(eiaCostGridPanel);
+	}
+
+	@Override
+	public void select(Eia eia) {
+		setDisabled(false);
 	}
 }

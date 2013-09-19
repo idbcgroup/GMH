@@ -12,7 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.ess.WorkingArea;
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 
 /**
  * @author emiliot
@@ -31,13 +31,13 @@ public class WorkingAreaService implements WorkingAreaServiceRemote{
 	 * @see org.fourgeeks.gha.ejb.ess.WorkingAreaServiceRemote#delete(long)
 	 */
 	@Override
-	public void delete(long Id) throws EJBException {
+	public void delete(long Id) throws GHAEJBException {
 		try {
 			WorkingArea entity = em.find(WorkingArea.class, Id);
 			em.remove(entity);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete WorkingArea", e);
-			throw new EJBException("ERROR: unable to delete WorkingArea "
+			throw new GHAEJBException("ERROR: unable to delete WorkingArea "
 					+ e.getCause().getMessage());
 		}
 	}
@@ -46,7 +46,7 @@ public class WorkingAreaService implements WorkingAreaServiceRemote{
 	 * @see org.fourgeeks.gha.ejb.ess.WorkingAreaServiceRemote#find(org.fourgeeks.gha.domain.ess.WorkingArea)
 	 */
 	@Override
-	public List<WorkingArea> find(WorkingArea entity) throws EJBException {
+	public List<WorkingArea> find(WorkingArea entity) throws GHAEJBException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -55,12 +55,12 @@ public class WorkingAreaService implements WorkingAreaServiceRemote{
 	 * @see org.fourgeeks.gha.ejb.ess.WorkingAreaServiceRemote#find(long)
 	 */
 	@Override
-	public WorkingArea find(long Id) throws EJBException {
+	public WorkingArea find(long Id) throws GHAEJBException {
 		try {
 			return em.find(WorkingArea.class, Id);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: finding WorkingArea", e);
-			throw new EJBException("ERROR: finding WorkingArea "
+			throw new GHAEJBException("ERROR: finding WorkingArea "
 					+ e.getCause().getMessage());
 		}
 	}
@@ -69,12 +69,12 @@ public class WorkingAreaService implements WorkingAreaServiceRemote{
 	 * @see org.fourgeeks.gha.ejb.ess.WorkingAreaServiceRemote#getAll()
 	 */
 	@Override
-	public List<WorkingArea> getAll() throws EJBException {
+	public List<WorkingArea> getAll() throws GHAEJBException {
 		try {
 			return em.createNamedQuery("WorkingArea.getAll", WorkingArea.class).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all WorkingArea", ex);
-			throw new EJBException("Error obteniendo todas las WorkingAreas"
+			throw new GHAEJBException("Error obteniendo todas las WorkingAreas"
 					+ ex.getCause().getMessage());
 		}
 	}
@@ -83,14 +83,14 @@ public class WorkingAreaService implements WorkingAreaServiceRemote{
 	 * @see org.fourgeeks.gha.ejb.ess.WorkingAreaServiceRemote#save(org.fourgeeks.gha.domain.ess.WorkingArea)
 	 */
 	@Override
-	public WorkingArea save(WorkingArea entity) throws EJBException {
+	public WorkingArea save(WorkingArea entity) throws GHAEJBException {
 		try {
 			em.persist(entity);
 			em.flush();
 			return em.find(WorkingArea.class, entity.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving WorkingArea ", e);
-			throw new EJBException("ERROR: saving WorkingArea "
+			throw new GHAEJBException("ERROR: saving WorkingArea "
 					+ e.getCause().getMessage());
 		}
 	}
@@ -99,7 +99,7 @@ public class WorkingAreaService implements WorkingAreaServiceRemote{
 	 * @see org.fourgeeks.gha.ejb.ess.WorkingAreaServiceRemote#update(org.fourgeeks.gha.domain.ess.WorkingArea)
 	 */
 	@Override
-	public WorkingArea update(WorkingArea entity) throws EJBException {
+	public WorkingArea update(WorkingArea entity) throws GHAEJBException {
 		try {
 			WorkingArea res = em.merge(entity);
 			em.flush();
@@ -107,7 +107,7 @@ public class WorkingAreaService implements WorkingAreaServiceRemote{
 		} catch (Exception e) {
 			logger.log(Level.INFO,
 					"ERROR: unable to update WorkingArea ", e);
-			throw new EJBException("ERROR: no se puede actualizar el WorkingArea "
+			throw new GHAEJBException("ERROR: no se puede actualizar el WorkingArea "
 					+ e.getCause().getMessage());
 		}
 	}

@@ -86,11 +86,6 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 	private List<EIASelectionListener> listeners;
 	private EiaType eiaType;
 	private Eia entity;
-	private EIAUpdateForm eiaUpdateForm;
-
-	public void setEiaUpdateForm(EIAUpdateForm eiaUpdateForm) {
-		this.eiaUpdateForm = eiaUpdateForm;
-	}
 
 	{ // Global
 		sectionForm = new GHASectionForm();
@@ -585,9 +580,8 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 			EIAModel.save(eia, new GHAAsyncCallback<Eia>() {
 				@Override
 				public void onSuccess(Eia result) {
-					select(result);
+					notifyEia(result);
 					cancel();
-					hide();
 				}
 			});
 	}
@@ -601,10 +595,9 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 			EIAModel.update(eia, new GHAAsyncCallback<Eia>() {
 				@Override
 				public void onSuccess(Eia result) {
-					select(result);
+					notifyEia(result);
 					GHANotification.alert("Edición exitosa");
 					cancel();
-					hide();
 				}
 			});
 	}
@@ -877,7 +870,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 
 	// //Implementations
 
-	private void select(Eia eia) {
+	private void notifyEia(Eia eia) {
 		for (EIASelectionListener listener : listeners)
 			listener.select(eia);
 	}
@@ -905,9 +898,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 
 	@Override
 	public void hide() {
-		// this.entity = null;
 		sectionForm.deactivate();
-		// eiaUpdateForm.hide();
 	}
 
 	/**

@@ -22,6 +22,7 @@ public class EIATypeMaintenanceSubTab extends GHASubTab implements
 	 */
 	public EIATypeMaintenanceSubTab(EIATypeTab tab) {
 		super("Mantenimiento", tab);
+		setDisabled(true);
 		tab.addEiaTypeSelectionListener(this);
 		eiaTypeMaintenanceGridPanel = new EIATypeMaintenanceGridPanel();
 		addGHAClosableHandler(eiaTypeMaintenanceGridPanel);
@@ -38,6 +39,7 @@ public class EIATypeMaintenanceSubTab extends GHASubTab implements
 	@Override
 	public void select(EiaType eiaType) {
 		eiaTypeMaintenanceGridPanel.select(eiaType);
+		setDisabled(false);
 	}
 
 }

@@ -6,7 +6,7 @@ import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 
 import org.fourgeeks.gha.domain.ess.Role;
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.ejb.ess.RoleServiceRemote;
 import org.fourgeeks.gha.webclient.client.rolebase.GWTRoleService;
 
@@ -29,12 +29,12 @@ public class GWTRoleServiceImpl extends RemoteServiceServlet implements
 	RoleServiceRemote service;
 
 	@Override
-	public List<Role> getAll() throws EJBException {
+	public List<Role> getAll() throws GHAEJBException {
 		return service.getAll();
 	}
 
 	@Override
-	public List<Role> getAll(int offset, int size) throws EJBException {
+	public List<Role> getAll(int offset, int size) throws GHAEJBException {
 		// TODO
 		return service.getAll();
 	}

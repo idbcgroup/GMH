@@ -8,7 +8,7 @@ import java.util.List;
 import javax.ejb.Remote;
 
 import org.fourgeeks.gha.domain.ess.Role;
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 
 /**
  * @author alacret
@@ -18,41 +18,41 @@ import org.fourgeeks.gha.domain.exceptions.EJBException;
 public interface RoleServiceRemote {
 	/**
 	 * @param Id
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public void delete(long Id) throws EJBException;
+	public void delete(long Id) throws GHAEJBException;
 
 	/**
 	 * @param entity
 	 * @return the list of the BaseRoles
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<Role> find(Role entity) throws EJBException;
+	public List<Role> find(Role entity) throws GHAEJBException;
 
 	/**
 	 * @param Id
 	 * @return the BaseRole
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public Role find(long Id) throws EJBException;
+	public Role find(long Id) throws GHAEJBException;
 
 	/**
 	 * @return the list of BaseRoles
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<Role> getAll() throws EJBException;
+	public List<Role> getAll() throws GHAEJBException;
 
 	/**
 	 * @param entity
 	 * @return the saved BaseRole
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public Role save(Role entity) throws EJBException;
+	public Role save(Role entity) throws GHAEJBException;
 
 	/**
 	 * @param entity
 	 * @return the updated BaseRole
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public Role update(Role entity) throws EJBException;
+	public Role update(Role entity) throws GHAEJBException;
 }

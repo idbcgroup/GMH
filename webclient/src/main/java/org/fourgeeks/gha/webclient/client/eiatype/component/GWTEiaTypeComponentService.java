@@ -5,7 +5,7 @@ package org.fourgeeks.gha.webclient.client.eiatype.component;
 
 import java.util.List;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeComponent;
 
@@ -20,53 +20,53 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 public interface GWTEiaTypeComponentService extends RemoteService{
 	/**
 	 * @param Id
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public void delete(long Id) throws EJBException;
+	public void delete(long Id) throws GHAEJBException;
 
 	/**
 	 * @param Id
 	 * @return
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public EiaTypeComponent find(long Id) throws EJBException;
+	public EiaTypeComponent find(long Id) throws GHAEJBException;
 
 	/**
 	 * @param eiaType
 	 * @return
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
 	public List<EiaTypeComponent> findByParentEiaType(EiaType eiaType)
-			throws EJBException;
+			throws GHAEJBException;
 
 	/**
 	 * @return
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<EiaTypeComponent> getAll() throws EJBException;
+	public List<EiaTypeComponent> getAll() throws GHAEJBException;
 
 	/**
 	 * @param offset
 	 * @param size
 	 * @return
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
 	public List<EiaTypeComponent> getAll(int offset, int size)
-			throws EJBException;
+			throws GHAEJBException;
 
 	/**
 	 * @param eiaTypeComponent
 	 * @return
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
 	public EiaTypeComponent save(EiaTypeComponent eiaTypeComponent)
-			throws EJBException;
+			throws GHAEJBException;
 
 	/**
 	 * @param eiaTypeComponent
 	 * @return
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
 	public EiaTypeComponent update(EiaTypeComponent eiaTypeComponent)
-			throws EJBException;
+			throws GHAEJBException;
 }

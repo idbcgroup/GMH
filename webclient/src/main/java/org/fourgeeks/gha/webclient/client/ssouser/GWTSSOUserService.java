@@ -6,7 +6,7 @@ package org.fourgeeks.gha.webclient.client.ssouser;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.ess.SSOUser;
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -19,41 +19,41 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 public interface GWTSSOUserService extends RemoteService{
 	/**
 	 * @param Id
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public void delete(long Id) throws EJBException;
+	public void delete(long Id) throws GHAEJBException;
 
 	/**
 	 * @param ssoUser
 	 * @return the list of ssoUsers
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<SSOUser> find(SSOUser ssoUser) throws EJBException;
+	public List<SSOUser> find(SSOUser ssoUser) throws GHAEJBException;
 
 	/**
 	 * @param Id
 	 * @return the ssoUser
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public SSOUser find(long Id) throws EJBException;
+	public SSOUser find(long Id) throws GHAEJBException;
 	
 	/**
 	 * @return the list of ssoUsers
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<SSOUser> getAll() throws EJBException;
+	public List<SSOUser> getAll() throws GHAEJBException;
 
 	/**
 	 * @param ssoUser
 	 * @return the saved ssoUser
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public SSOUser save(SSOUser ssoUser) throws EJBException;
+	public SSOUser save(SSOUser ssoUser) throws GHAEJBException;
 
 	/**
 	 * @param ssoUser
 	 * @return the updated ssoUser
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public SSOUser update(SSOUser ssoUser) throws EJBException;
+	public SSOUser update(SSOUser ssoUser) throws GHAEJBException;
 }

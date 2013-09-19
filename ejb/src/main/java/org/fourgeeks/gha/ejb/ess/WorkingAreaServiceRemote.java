@@ -8,7 +8,7 @@ import java.util.List;
 import javax.ejb.Remote;
 
 import org.fourgeeks.gha.domain.ess.WorkingArea;
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 
 /**
  * @author emiliot
@@ -19,41 +19,41 @@ import org.fourgeeks.gha.domain.exceptions.EJBException;
 public interface WorkingAreaServiceRemote {
 	/**
 	 * @param Id
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public void delete(long Id) throws EJBException;
+	public void delete(long Id) throws GHAEJBException;
 
 	/**
 	 * @param entity
 	 * @return the list of WorkingAreas
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<WorkingArea> find(WorkingArea entity) throws EJBException;
+	public List<WorkingArea> find(WorkingArea entity) throws GHAEJBException;
 
 	/**
 	 * @param Id
 	 * @return the WorkingArea
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public WorkingArea find(long Id) throws EJBException;
+	public WorkingArea find(long Id) throws GHAEJBException;
 
 	/**
 	 * @return the list of WorkingAreas
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<WorkingArea> getAll() throws EJBException;
+	public List<WorkingArea> getAll() throws GHAEJBException;
 
 	/**
 	 * @param entity
 	 * @return the saved WorkingArea
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public WorkingArea save(WorkingArea entity) throws EJBException;
+	public WorkingArea save(WorkingArea entity) throws GHAEJBException;
 
 	/**
 	 * @param entity
 	 * @return the updated WorkingArea
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public WorkingArea update(WorkingArea entity) throws EJBException;
+	public WorkingArea update(WorkingArea entity) throws GHAEJBException;
 }

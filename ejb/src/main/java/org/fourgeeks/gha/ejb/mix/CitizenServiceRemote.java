@@ -7,7 +7,7 @@ import java.util.List;
 
 import javax.ejb.Remote;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.mix.Citizen;
 
 /**
@@ -19,41 +19,41 @@ import org.fourgeeks.gha.domain.mix.Citizen;
 public interface CitizenServiceRemote {
 	/**
 	 * @param Id
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public void delete(long Id) throws EJBException;
+	public void delete(long Id) throws GHAEJBException;
 
 	/**
 	 * @param citizen
 	 * @return the list of Citizens
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<Citizen> find(Citizen citizen) throws EJBException;
+	public List<Citizen> find(Citizen citizen) throws GHAEJBException;
 
 	/**
 	 * @param Id
 	 * @return the Citizen
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public Citizen find(long Id) throws EJBException;
+	public Citizen find(long Id) throws GHAEJBException;
 	
 	/**
 	 * @return the list of Citizens
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<Citizen> getAll() throws EJBException;
+	public List<Citizen> getAll() throws GHAEJBException;
 
 	/**
 	 * @param citizen
 	 * @return the saved Citizen
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public Citizen save(Citizen citizen) throws EJBException;
+	public Citizen save(Citizen citizen) throws GHAEJBException;
 
 	/**
 	 * @param citizen
 	 * @return the updated Citizen
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public Citizen update(Citizen citizen) throws EJBException;
+	public Citizen update(Citizen citizen) throws GHAEJBException;
 }

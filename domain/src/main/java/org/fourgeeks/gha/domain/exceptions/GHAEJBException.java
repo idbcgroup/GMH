@@ -6,10 +6,10 @@ package org.fourgeeks.gha.domain.exceptions;
 import java.io.Serializable;
 
 /**
- * @author emiliot
+ * @author alacret
  * 
  */
-public class EJBException extends Exception implements Serializable {
+public class GHAEJBException extends Exception implements Serializable {
 
 	/**
 	 * 
@@ -19,7 +19,7 @@ public class EJBException extends Exception implements Serializable {
 	/**
 	 * 
 	 */
-	public EJBException() {
+	public GHAEJBException() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -27,7 +27,7 @@ public class EJBException extends Exception implements Serializable {
 	/**
 	 * @param message
 	 */
-	public EJBException(String message) {
+	public GHAEJBException(String message) {
 		super(message);
 		// TODO Auto-generated constructor stub
 	}

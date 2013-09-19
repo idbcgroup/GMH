@@ -11,7 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.ServiceResource;
@@ -34,14 +34,14 @@ public class MaintenanceActivityService implements MaintenanceActivityServiceRem
 	 * @see org.fourgeeks.gha.ejb.gmh.MaintenanceActivityServiceRemote#delete(long)
 	 */
 	@Override
-	public void delete(long Id) throws EJBException {
+	public void delete(long Id) throws GHAEJBException {
 		try {
 			MaintenanceActivity entity = em.find(MaintenanceActivity.class, Id);
 			em.remove(entity);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete MaintenanceActivity",
 					e);
-			throw new EJBException("Error eliminando MaintenanceActivity por id "
+			throw new GHAEJBException("Error eliminando MaintenanceActivity por id "
 					+ e.getCause().getMessage());
 		}
 	}
@@ -56,7 +56,7 @@ public class MaintenanceActivityService implements MaintenanceActivityServiceRem
 	@Override
 	public List<MaintenanceActivity> findByMaintenanceProtocol(
 			MaintenanceProtocol maintenanceProtocol)
-			throws EJBException {
+			throws GHAEJBException {
 		try {
 			return em
 					.createNamedQuery(
@@ -66,7 +66,7 @@ public class MaintenanceActivityService implements MaintenanceActivityServiceRem
 							maintenanceProtocol).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding MaintenanceActivity by MaintenanceProtocol", e);
-			throw new EJBException(
+			throw new GHAEJBException(
 					"Error buscando MaintenanceActivity por MaintenanceProtocol"
 							+ e.getCause().getMessage());
 		}
@@ -82,7 +82,7 @@ public class MaintenanceActivityService implements MaintenanceActivityServiceRem
 	@Override
 	public List<MaintenanceActivity> findByMaintenanceProtocol(
 			MaintenanceProtocol maintenanceProtocol, int offset,
-			int size) throws EJBException {
+			int size) throws GHAEJBException {
 		try {
 			return em
 					.createNamedQuery(
@@ -93,7 +93,7 @@ public class MaintenanceActivityService implements MaintenanceActivityServiceRem
 					.setMaxResults(size).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding by MaintenanceProtocol", e);
-			throw new EJBException(
+			throw new GHAEJBException(
 					"Error buscando MaintenanceActivity por MaintenanceProtocol"
 							+ e.getCause().getMessage());
 		}
@@ -108,14 +108,14 @@ public class MaintenanceActivityService implements MaintenanceActivityServiceRem
 	 */
 	@Override
 	public List<MaintenanceActivity> findByServiceResource(ServiceResource serviceResource)
-			throws EJBException {
+			throws GHAEJBException {
 		try {
 			return em.createNamedQuery("MaintenanceActivity.findByResource",
 							MaintenanceActivity.class)
 					.setParameter("ras", serviceResource).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding by Resource/Service", e);
-			throw new EJBException(
+			throw new GHAEJBException(
 					"Error buscando MaintenanceActivity por Resource/Service"
 							+ e.getCause().getMessage());
 		}
@@ -127,12 +127,12 @@ public class MaintenanceActivityService implements MaintenanceActivityServiceRem
 	 * @see org.fourgeeks.gha.ejb.gmh.MaintenanceActivityServiceRemote#find(long)
 	 */
 	@Override
-	public MaintenanceActivity find(long Id) throws EJBException {
+	public MaintenanceActivity find(long Id) throws GHAEJBException {
 		try {
 			return em.find(MaintenanceActivity.class, Id);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: finding MaintenanceActivity", e);
-			throw new EJBException("ERROR: finding MaintenanceActivity "
+			throw new GHAEJBException("ERROR: finding MaintenanceActivity "
 					+ e.getCause().getMessage());
 		}
 	}
@@ -143,13 +143,13 @@ public class MaintenanceActivityService implements MaintenanceActivityServiceRem
 	 * @see org.fourgeeks.gha.ejb.gmh.MaintenanceActivityServiceRemote#getAll()
 	 */
 	@Override
-	public List<MaintenanceActivity> getAll() throws EJBException {
+	public List<MaintenanceActivity> getAll() throws GHAEJBException {
 		try {
 			return em.createNamedQuery("MaintenanceActivity.getAll",
 					MaintenanceActivity.class).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding all MaintenanceActivity", e);
-			throw new EJBException("Error buscando todos los MaintenanceActivity"
+			throw new GHAEJBException("Error buscando todos los MaintenanceActivity"
 					+ e.getCause().getMessage());
 		}
 	}
@@ -162,7 +162,7 @@ public class MaintenanceActivityService implements MaintenanceActivityServiceRem
 	 */
 	@Override
 	public List<MaintenanceActivity> getAll(int offset, int size)
-			throws EJBException {
+			throws GHAEJBException {
 		try {
 			return em
 					.createNamedQuery("MaintenanceActivity.getAll",
@@ -170,7 +170,7 @@ public class MaintenanceActivityService implements MaintenanceActivityServiceRem
 					.setMaxResults(size).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding all MaintenanceActivity", e);
-			throw new EJBException("Error buscando todos los MaintenanceActivity"
+			throw new GHAEJBException("Error buscando todos los MaintenanceActivity"
 					+ e.getCause().getMessage());
 		}
 	}
@@ -184,14 +184,14 @@ public class MaintenanceActivityService implements MaintenanceActivityServiceRem
 	 */
 	@Override
 	public MaintenanceActivity save(MaintenanceActivity protocolActivity)
-			throws EJBException {
+			throws GHAEJBException {
 		try {
 			em.persist(protocolActivity);
 			em.flush();
 			return em.find(MaintenanceActivity.class, protocolActivity.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving MaintenanceActivity ", e);
-			throw new EJBException("ERROR: saving MaintenanceActivity "
+			throw new GHAEJBException("ERROR: saving MaintenanceActivity "
 					+ e.getCause().getMessage());
 		}
 	}
@@ -205,7 +205,7 @@ public class MaintenanceActivityService implements MaintenanceActivityServiceRem
 	 */
 	@Override
 	public MaintenanceActivity update(MaintenanceActivity protocolActivity)
-			throws EJBException {
+			throws GHAEJBException {
 		try {
 			MaintenanceActivity res = em.merge(protocolActivity);
 			em.flush();
@@ -213,7 +213,7 @@ public class MaintenanceActivityService implements MaintenanceActivityServiceRem
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to update MaintenanceActivity ",
 					e);
-			throw new EJBException(
+			throw new GHAEJBException(
 					"ERROR: no se puede actualizar el MaintenanceActivity "
 							+ e.getCause().getMessage());
 		}

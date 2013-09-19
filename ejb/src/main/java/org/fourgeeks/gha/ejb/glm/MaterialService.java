@@ -18,7 +18,7 @@ import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.glm.Material;
 import org.fourgeeks.gha.domain.glm.MaterialCategory;
 import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
@@ -96,13 +96,13 @@ public class MaterialService implements MaterialServiceRemote {
 	 * @see org.fourgeeks.gha.ejb.gmh.MaterialServiceRemote#delete(long)
 	 */
 	@Override
-	public void delete(long Id) throws EJBException {
+	public void delete(long Id) throws GHAEJBException {
 		try {
 			Material entity = em.find(Material.class, Id);
 			em.remove(entity);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete Material", e);
-			throw new EJBException("ERROR: unable to delete Material "
+			throw new GHAEJBException("ERROR: unable to delete Material "
 					+ e.getCause().getMessage());
 		}
 	}
@@ -113,12 +113,12 @@ public class MaterialService implements MaterialServiceRemote {
 	 * @see org.fourgeeks.gha.ejb.gmh.MaterialServiceRemote#find(long)
 	 */
 	@Override
-	public Material find(long Id) throws EJBException {
+	public Material find(long Id) throws GHAEJBException {
 		try {
 			return em.find(Material.class, Id);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: finding Material", e);
-			throw new EJBException("ERROR: finding Material "
+			throw new GHAEJBException("ERROR: finding Material "
 					+ e.getCause().getMessage());
 		}
 	}
@@ -131,7 +131,7 @@ public class MaterialService implements MaterialServiceRemote {
 	 * .domain .gmh.Material)
 	 */
 	@Override
-	public List<Material> find(Material entity) throws EJBException {
+	public List<Material> find(Material entity) throws GHAEJBException {
 		try {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<Material> cQuery = cb.createQuery(Material.class);
@@ -175,7 +175,7 @@ public class MaterialService implements MaterialServiceRemote {
 		} catch (Exception e) {
 			logger.log(Level.SEVERE,
 					"Error obteniendo los materials por materials", e);
-			throw new EJBException(
+			throw new GHAEJBException(
 					"Error obteniendo los materials por materials "
 							+ e.getCause().getMessage());
 		}
@@ -188,13 +188,13 @@ public class MaterialService implements MaterialServiceRemote {
 	 * @see org.fourgeeks.gha.ejb.gmh.MaterialServiceRemote#getAll()
 	 */
 	@Override
-	public List<Material> getAll() throws EJBException {
+	public List<Material> getAll() throws GHAEJBException {
 		try {
 			return em.createNamedQuery("Material.getAll", Material.class)
 					.getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all Materials", ex);
-			throw new EJBException("Error obteniendo todas las Materials"
+			throw new GHAEJBException("Error obteniendo todas las Materials"
 					+ ex.getCause().getMessage());
 		}
 	}
@@ -205,19 +205,19 @@ public class MaterialService implements MaterialServiceRemote {
 	 * @see org.fourgeeks.gha.ejb.gmh.MaterialServiceRemote#getAll()
 	 */
 	@Override
-	public List<Material> getAll(int offset, int size) throws EJBException {
+	public List<Material> getAll(int offset, int size) throws GHAEJBException {
 		try {
 			return em.createNamedQuery("Material.getAll", Material.class)
 					.setFirstResult(offset).setMaxResults(size).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all Materials", ex);
-			throw new EJBException("Error obteniendo todos los Materials"
+			throw new GHAEJBException("Error obteniendo todos los Materials"
 					+ ex.getCause().getMessage());
 		}
 	}
 
 	@Override
-	public List<Material> getAllUtilities() throws EJBException {
+	public List<Material> getAllUtilities() throws GHAEJBException {
 		try {
 			return em
 					.createNamedQuery("Material.getByType", Material.class)
@@ -226,7 +226,7 @@ public class MaterialService implements MaterialServiceRemote {
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE,
 					"Error retrieving all Materials who are Utilities", ex);
-			throw new EJBException(
+			throw new GHAEJBException(
 					"Error obteniendo todos los Materials que son utilitarios"
 							+ ex.getCause().getMessage());
 		}
@@ -235,7 +235,7 @@ public class MaterialService implements MaterialServiceRemote {
 
 	@Override
 	public List<Material> getAllUtilities(int offset, int size)
-			throws EJBException {
+			throws GHAEJBException {
 		try {
 			return em
 					.createNamedQuery("Material.getByType", Material.class)
@@ -244,7 +244,7 @@ public class MaterialService implements MaterialServiceRemote {
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE,
 					"Error retrieving all Materials who are Utilities", ex);
-			throw new EJBException(
+			throw new GHAEJBException(
 					"Error obteniendo todos los Materials que son utilitarios"
 							+ ex.getCause().getMessage());
 		}
@@ -259,14 +259,14 @@ public class MaterialService implements MaterialServiceRemote {
 	 * .domain .gmh.Material)
 	 */
 	@Override
-	public Material save(Material material) throws EJBException {
+	public Material save(Material material) throws GHAEJBException {
 		try {
 			em.persist(material);
 			em.flush();
 			return em.find(Material.class, material.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving Material ", e);
-			throw new EJBException("ERROR: saving Material "
+			throw new GHAEJBException("ERROR: saving Material "
 					+ e.getCause().getMessage());
 		}
 
@@ -280,14 +280,14 @@ public class MaterialService implements MaterialServiceRemote {
 	 * .domain.gmh.Material)
 	 */
 	@Override
-	public Material update(Material material) throws EJBException {
+	public Material update(Material material) throws GHAEJBException {
 		try {
 			Material res = em.merge(material);
 			em.flush();
 			return res;
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to update Material ", e);
-			throw new EJBException("ERROR: no se puede eliminar el Material "
+			throw new GHAEJBException("ERROR: no se puede eliminar el Material "
 					+ e.getCause().getMessage());
 		}
 	}
@@ -296,14 +296,14 @@ public class MaterialService implements MaterialServiceRemote {
 	 * @see org.fourgeeks.gha.ejb.gmh.MaterialServiceRemote#findByBrand(org.fourgeeks.gha.domain.gmh.Brand)
 	 */
 	@Override
-	public List<Material> findByBrand(Brand brand) throws EJBException {
+	public List<Material> findByBrand(Brand brand) throws GHAEJBException {
 		try {
 			return em.createNamedQuery("Material.findByBrand", Material.class)
 					.setParameter("brand", brand).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE,
 					"Error retrieving all Materials filtered by brand", ex);
-			throw new EJBException(
+			throw new GHAEJBException(
 					"Error obteniendo todos los Materials filtrados por brand"
 							+ ex.getCause().getMessage());
 		}

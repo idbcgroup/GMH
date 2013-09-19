@@ -22,6 +22,7 @@ import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
 import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.enu.GenderTypeEnum;
+import org.fourgeeks.gha.domain.enu.LanguageEnum;
 import org.fourgeeks.gha.domain.enu.LocationLevelEnum;
 import org.fourgeeks.gha.domain.enu.UserLogonStatusEnum;
 import org.fourgeeks.gha.domain.ess.BpuFunction;
@@ -47,6 +48,8 @@ import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.domain.mix.Citizen;
 import org.fourgeeks.gha.domain.mix.Institution;
 import org.fourgeeks.gha.domain.mix.LegalEntity;
+import org.fourgeeks.gha.domain.msg.Message;
+import org.fourgeeks.gha.ejb.ess.FunctionServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.BrandServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.EiaComponentServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.EiaServiceRemote;
@@ -86,19 +89,21 @@ public class TestData {
 	@EJB(name = "gmh.EiaComponentService")
 	EiaComponentServiceRemote ecService;
 
+	@EJB(name = "ess.FunctionService")
+	FunctionServiceRemote functionService;
+
 	/**
 	 * 
 	 */
 	@PostConstruct
 	public void loadTestData() {
 		legalEntityTestData();
-		//
 		institutionTestData();
 		citizenTestData();
 		//
 		bpiTestData();
 		bpuTestData();
-		//
+		// //
 		modulesTestData();
 		bpuFunctionTestData();
 		//
@@ -107,7 +112,9 @@ public class TestData {
 		buildingLocationsTestData();
 		//
 		ssoUserTestData();
-
+		//
+		messagesTestData();
+		//
 		manufacturerTestData();
 		brandTestData();
 		externalProviderTestData();
@@ -117,6 +124,30 @@ public class TestData {
 		// // TODO
 		eiaTypeTestData();
 		eiaTestData();
+	}
+
+	private void messagesTestData() {
+		String query = "SELECT t FROM Message t WHERE t.id = 'LOGIN-001'";
+		try {
+			em.createQuery(query).getSingleResult();
+		} catch (NoResultException e) {
+			try {
+				logger.info("Creating bpumessage test data");
+				em.persist(new Message("LOGIN-001", LanguageEnum.ES,
+						"Login exitoso"));
+				em.persist(new Message("LOGIN-002", LanguageEnum.ES,
+						"Usuario desconocido"));
+				em.persist(new Message("LOGIN-003", LanguageEnum.ES,
+						"Usuario bloqueado"));
+				em.persist(new Message("LOGIN-004", LanguageEnum.ES,
+						"Contraseña erronea1"));
+				em.persist(new Message("LOGIN-005", LanguageEnum.ES,
+						"Contraseña erronea2"));
+				em.flush();
+			} catch (Exception e1) {
+				logger.log(Level.INFO, "error Creating message test data", e1);
+			}
+		}
 	}
 
 	/**
@@ -149,12 +180,10 @@ public class TestData {
 		} catch (NoResultException e) {
 			try {
 				logger.info("Creating bpufunction test data");
-				String[] codes = { "UADADM-INFO-VIEW", "UADADM-INFO-EDIT",
-						"UADADM-CRED-VIEW", "UADADM-CRED-EDIT",
-						"UADADM-LLOG-VIEW", "UADADM-ULOG-VIEW" };
-				for (int i = 0; i < codes.length; ++i)
+				List<Function> all = functionService.getAll();
+				for (Function function : all)
 					em.persist(new BpuFunction(em.find(Bpu.class, 1L), em.find(
-							Function.class, codes[i])));
+							Function.class, function.getCode())));
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating bpufunction test data",
@@ -191,57 +220,116 @@ public class TestData {
 	}
 
 	private void modulesTestData() {
-		String query = "SELECT t from Module t WHERE t.id ='"
-				+ ModulesCodes.USER_ADMIN + "'";
+		String query = "SELECT t from Module t WHERE t.code ='"
+				+ ModulesCodes.USER + "'";
 		try {
 			em.createQuery(query).getSingleResult();
 		} catch (NoResultException e) {
 			try {
 				logger.info("creating test data : module, view, screen, functions");
-				Module module = new Module("Usuarios", ModulesCodes.USER_ADMIN);
-				em.persist(module);
-				Screen screen = new Screen(module,
-						"Administración de usuarios", ScreenCodes.USER_ADMIN);
-				em.persist(screen);
-
-				View infoView = new View(screen, "Información",
-						ViewCodes.UADADM_INFO);
-				em.persist(infoView);
-
-				Function function = new Function(infoView, "ver",
-						FunctionsCodes.UADADM_INFO_VIEW);
+				Module moduleUser = new Module("Usuarios", ModulesCodes.USER);
+				em.persist(moduleUser);
+				Module moduleEiaType = new Module("Tipos de equipo",
+						ModulesCodes.EIATYPE);
+				em.persist(moduleEiaType);
+				Module moduleEia = new Module("Equipos", ModulesCodes.EIA);
+				em.persist(moduleEia);
+				// Screen
+				Screen screenUsuer = new Screen(moduleUser,
+						"Administración de usuarios", ScreenCodes.USER_ADM,
+						"user");
+				em.persist(screenUsuer);
+				Screen screenEiaType = new Screen(moduleEiaType,
+						"Tipos de equipo", ScreenCodes.EIATYPE_ADM, "eiatype");
+				em.persist(screenEiaType);
+				Screen screenEia = new Screen(moduleEia, "Equipos",
+						ScreenCodes.EIA_ADM, "eia");
+				em.persist(screenEia);
+				// View
+				View viewUserInfo = new View(screenUsuer, "Información",
+						ViewCodes.USER_ADM_INFO);
+				em.persist(viewUserInfo);
+				View viewUserCred = new View(screenUsuer, "Credenciales",
+						ViewCodes.USER_ADM_CRED);
+				em.persist(viewUserCred);
+				View viewUserLLog = new View(screenUsuer, "Logon log",
+						ViewCodes.USER_ADM_LLOG);
+				em.persist(viewUserLLog);
+				View viewEiaTypeInfo = new View(screenEiaType, "Información",
+						ViewCodes.EIATYPE_ADM_INFO);
+				em.persist(viewEiaTypeInfo);
+				View viewEiaTypeEquip = new View(screenEiaType, "Equipos",
+						ViewCodes.EIATYPE_ADM_EQUI);
+				em.persist(viewEiaTypeEquip);
+				View viewEiaTypeComp = new View(screenEiaType, "Componentes",
+						ViewCodes.EIATYPE_ADM_COMP);
+				em.persist(viewEiaTypeComp);
+				View viewEiaTypeMate = new View(screenEiaType, "Materiales",
+						ViewCodes.EIATYPE_ADM_MATE);
+				em.persist(viewEiaTypeMate);
+				View viewEiaTypeServ = new View(screenEiaType,
+						"Servicios utilitarios", ViewCodes.EIATYPE_ADM_SERV);
+				em.persist(viewEiaTypeServ);
+				View viewEiaInfo = new View(screenEia, "Información",
+						ViewCodes.EIA_ADM_INFO);
+				em.persist(viewEiaInfo);
+				View viewEiaComp = new View(screenEia, "Componentes",
+						ViewCodes.EIA_ADM_COMP);
+				em.persist(viewEiaComp);
+				// Function
+				Function function = new Function(viewUserInfo, "ver",
+						FunctionsCodes.USER_ADM_INFO_VIEW);
 				em.persist(function);
-
-				function = new Function(infoView, "editar",
-						FunctionsCodes.UADADM_INFO_EDIT);
+				function = new Function(viewUserInfo, "editar",
+						FunctionsCodes.USER_ADM_INFO_EDIT);
 				em.persist(function);
-
-				View credentialsView = new View(screen, "Credenciales",
-						ViewCodes.UADADM_CREDENTIALS);
-				em.persist(credentialsView);
-
-				function = new Function(credentialsView, "ver",
-						FunctionsCodes.UADADM_CREDENTIALS_VIEW);
+				function = new Function(viewUserCred, "ver",
+						FunctionsCodes.USER_ADM_CRED_VIEW);
 				em.persist(function);
-
-				function = new Function(credentialsView, "editar",
-						FunctionsCodes.UADADM_CREDENTIALS_EDIT);
+				function = new Function(viewUserCred, "editar",
+						FunctionsCodes.USER_ADM_CRED_EDIT);
 				em.persist(function);
-
-				View loginLogView = new View(screen, "Login Log",
-						ViewCodes.UADADM_LLOG);
-				em.persist(loginLogView);
-
-				function = new Function(loginLogView, "ver",
-						FunctionsCodes.UADADM_LLOG_VIEW);
+				function = new Function(viewUserLLog, "ver",
+						FunctionsCodes.USER_ADM_LLOG_VIEW);
 				em.persist(function);
-
-				View uiLogView = new View(screen, "UI Log",
-						ViewCodes.UADADM_ULOG);
-				em.persist(uiLogView);
-
-				function = new Function(uiLogView, "ver",
-						FunctionsCodes.UADADM_ULOG_VIEW);
+				function = new Function(viewUserLLog, "editar",
+						FunctionsCodes.USER_ADM_LLOG_EDIT);
+				em.persist(function);
+				function = new Function(viewEiaTypeEquip, "ver",
+						FunctionsCodes.EIATYPE_ADM_EQUI_VIEW);
+				em.persist(function);
+				function = new Function(viewEiaTypeEquip, "editar",
+						FunctionsCodes.EIATYPE_ADM_EQUI_EDIT);
+				em.persist(function);
+				function = new Function(viewEiaTypeComp, "ver",
+						FunctionsCodes.EIATYPE_ADM_COMP_VIEW);
+				em.persist(function);
+				function = new Function(viewEiaTypeComp, "editar",
+						FunctionsCodes.EIATYPE_ADM_COMP_EDIT);
+				em.persist(function);
+				function = new Function(viewEiaTypeMate, "ver",
+						FunctionsCodes.EIATYPE_ADM_MATE_VIEW);
+				em.persist(function);
+				function = new Function(viewEiaTypeMate, "editar",
+						FunctionsCodes.EIATYPE_ADM_MATE_EDIT);
+				em.persist(function);
+				function = new Function(viewEiaTypeServ, "ver",
+						FunctionsCodes.EIATYPE_ADM_SERV_VIEW);
+				em.persist(function);
+				function = new Function(viewEiaTypeServ, "editar",
+						FunctionsCodes.EIATYPE_ADM_SERV_EDIT);
+				em.persist(function);
+				function = new Function(viewEiaInfo, "ver",
+						FunctionsCodes.EIA_ADM_INFO_VIEW);
+				em.persist(function);
+				function = new Function(viewEiaInfo, "editar",
+						FunctionsCodes.EIA_ADM_INFO_EDIT);
+				em.persist(function);
+				function = new Function(viewEiaComp, "ver",
+						FunctionsCodes.EIA_ADM_COMP_VIEW);
+				em.persist(function);
+				function = new Function(viewEiaComp, "editar",
+						FunctionsCodes.EIA_ADM_COMP_EDIT);
 				em.persist(function);
 
 				em.flush();
@@ -249,7 +337,7 @@ public class TestData {
 				logger.log(
 						Level.INFO,
 						"error creating test data: module, view, screen, functions",
-						e);
+						e1);
 			}
 		}
 	}
@@ -618,22 +706,23 @@ public class TestData {
 	}
 
 	private void ssoUserTestData() {
+		String query = "SELECT t from SSOUser t WHERE t.id = 1 ";
 		try {
-			String query = "SELECT t from SSOUser t WHERE t.id = 1 ";
+			em.createQuery(query).getSingleResult();
+		} catch (NoResultException e) {
 			try {
-				em.createQuery(query).getSingleResult();
-			} catch (NoResultException e) {
 				logger.info("creating test data: users");
-				em.persist(new SSOUser(em.find(Bpu.class, 1L), "admin",
-						"admin", UserLogonStatusEnum.STAYIN));
+				em.persist(new SSOUser(em.find(Bpu.class, 1L), "admin", "admin",
+						UserLogonStatusEnum.STAYIN));
 				em.persist(new SSOUser(em.find(Bpu.class, 2L), "asanchez",
 						"asanchez", UserLogonStatusEnum.STAYIN));
 
 				em.flush();
 				logger.info("done creating test users");
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				logger.log(Level.INFO, "error test data ssouser");
 			}
-		} catch (Exception e) {
-			logger.log(Level.INFO, "error creating test data:  users", e);
 		}
 	}
 
