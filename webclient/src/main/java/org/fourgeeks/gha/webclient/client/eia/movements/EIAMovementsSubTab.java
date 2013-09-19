@@ -23,6 +23,7 @@ public class EIAMovementsSubTab extends GHASubTab implements
 	 */
 	public EIAMovementsSubTab(EIATab tab) {
 		super("Movimientos", tab);
+		setDisabled(true);
 		tab.addEiaSelectionListener(this);
 		addGHAClosableHandler(eiaMovementsGridPanel);
 		addGHAHideableHandler(eiaMovementsGridPanel);
@@ -32,6 +33,6 @@ public class EIAMovementsSubTab extends GHASubTab implements
 	@Override
 	public void select(Eia eia) {
 		// TODO Auto-generated method stub
-
+		setDisabled(false);
 	}
 }
