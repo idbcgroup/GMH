@@ -20,6 +20,7 @@ public class EIATypeUtilitySubTab extends GHASubTab implements
 	 */
 	public EIATypeUtilitySubTab(EIATypeTab tab) {
 		super("Servicios utilitarios", tab);
+		setDisabled(true);
 		tab.addEiaTypeSelectionListener(this);
 		eiaTypeServicesGridPanel = new EIATypeUtilityGridPanel();
 		addGHAClosableHandler(eiaTypeServicesGridPanel);
@@ -31,5 +32,6 @@ public class EIATypeUtilitySubTab extends GHASubTab implements
 	@Override
 	public void select(EiaType eiaType) {
 		eiaTypeServicesGridPanel.select(eiaType);
+		setDisabled(false);
 	}
 }
