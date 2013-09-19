@@ -56,10 +56,12 @@ public abstract class GHAUiHelper {
 		separator.setWidth100();
 		separator.setBackgroundColor("#666666");
 		separator.setHeight(height);
+		separator.setStyleName("sides-padding");
 		
 		Label title = new Label(text);
+		title.setHeight(height);
 		title.setWidth100();
-		title.setStyleName("title-label");
+		title.setStyleName("separator-title-label");
 		
 		separator.addMembers(title);
 		

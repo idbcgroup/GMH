@@ -106,4 +106,21 @@ public class UserForm extends VLayout {
 		// TODO
 	}
 
+	/**
+	 * @param activate
+	 */
+	public void activateForm(boolean activate) {
+		usernameItem.setDisabled(!activate);
+		passwordItem.setDisabled(!activate);
+		firstNameItem.setDisabled(!activate);
+		secondNameItem.setDisabled(!activate);
+		lastNameItem.setDisabled(!activate);
+		secondLastNameItem.setDisabled(!activate);
+		typeidSelectItem.setDisabled(!activate);
+		idItem.setDisabled(!activate);
+		genderSelectItem.setDisabled(!activate);
+		nationalityItem.setDisabled(!activate);
+		birthDateItem.setDisabled(!activate);
+	}
+
 }
