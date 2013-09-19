@@ -5,7 +5,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.logs.LogonLog;
 import org.fourgeeks.gha.ejb.log.LogonLogServiceRemote;
@@ -28,7 +28,7 @@ public class GWTLogonLogServiceImpl extends RemoteServiceServlet implements
 	LogonLogServiceRemote logService;
 
 	@Override
-	public List<LogonLog> getLogsByBpu(Bpu bpu) throws EJBException {
+	public List<LogonLog> getLogsByBpu(Bpu bpu) throws GHAEJBException {
 		return logService.getLogsByBpu(bpu);
 	}
 

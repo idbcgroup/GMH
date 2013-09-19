@@ -7,11 +7,18 @@ import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeTab;
 
+/**
+ * @author alacret
+ * 
+ */
 public class EIATypeEquipmentSubTab extends GHASubTab implements
 		EIATypeSelectionListener, EIASelectionListener {
 
 	private EIATypeEquipmentGridPanel equiposGridPanel;
 
+	/**
+	 * @param tab
+	 */
 	public EIATypeEquipmentSubTab(EIATypeTab tab) {
 		super("Equipos", tab);
 		tab.addEiaTypeSelectionListener(this);

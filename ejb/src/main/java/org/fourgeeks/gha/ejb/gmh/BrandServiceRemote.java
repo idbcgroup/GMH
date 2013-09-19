@@ -7,7 +7,7 @@ import java.util.List;
 
 import javax.ejb.Remote;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 
@@ -20,48 +20,48 @@ import org.fourgeeks.gha.domain.gmh.Manufacturer;
 public interface BrandServiceRemote {
 	/**
 	 * @param Id
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public void delete(long Id) throws EJBException;
+	public void delete(long Id) throws GHAEJBException;
 
 	/**
 	 * @param brand
 	 * @return the list of brands
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<Brand> find(Brand brand) throws EJBException;
+	public List<Brand> find(Brand brand) throws GHAEJBException;
 
 	/**
 	 * @param Id
 	 * @return the brand
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public Brand find(long Id) throws EJBException;
+	public Brand find(long Id) throws GHAEJBException;
 	
 	/**
 	 * @param manufacturer
 	 * @return a list of brands filtered by manufacturer
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<Brand> findByManufacturer(Manufacturer manufacturer)throws EJBException;
+	public List<Brand> findByManufacturer(Manufacturer manufacturer)throws GHAEJBException;
 
 	/**
 	 * @return the list of brands
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<Brand> getAll() throws EJBException;
+	public List<Brand> getAll() throws GHAEJBException;
 
 	/**
 	 * @param brand
 	 * @return the saved brand
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public Brand save(Brand brand) throws EJBException;
+	public Brand save(Brand brand) throws GHAEJBException;
 
 	/**
 	 * @param brand
 	 * @return the updated brand
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public Brand update(Brand brand) throws EJBException;
+	public Brand update(Brand brand) throws GHAEJBException;
 }

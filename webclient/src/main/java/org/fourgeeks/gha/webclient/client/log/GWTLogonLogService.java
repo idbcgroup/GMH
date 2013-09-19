@@ -2,7 +2,7 @@ package org.fourgeeks.gha.webclient.client.log;
 
 import java.util.List;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.logs.LogonLog;
 
@@ -19,7 +19,7 @@ public interface GWTLogonLogService extends RemoteService {
 	/**
 	 * @param bpu
 	 * @return a list of logs by bpu
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<LogonLog> getLogsByBpu(Bpu bpu) throws EJBException;
+	public List<LogonLog> getLogsByBpu(Bpu bpu) throws GHAEJBException;
 }

@@ -8,7 +8,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Facility;
 import org.fourgeeks.gha.ejb.gar.FacilityServiceRemote;
 import org.fourgeeks.gha.webclient.client.facility.GWTFacilityService;
@@ -35,7 +35,7 @@ public class GWTFacilityServiceImpl extends RemoteServiceServlet implements
 	 * @see org.fourgeeks.gha.webclient.client.facility.GWTFacilityService#delete(long)
 	 */
 	@Override
-	public void delete(long Id) throws EJBException {
+	public void delete(long Id) throws GHAEJBException {
 		ejbService.delete(Id);
 	}
 
@@ -43,7 +43,7 @@ public class GWTFacilityServiceImpl extends RemoteServiceServlet implements
 	 * @see org.fourgeeks.gha.webclient.client.facility.GWTFacilityService#find(org.fourgeeks.gha.domain.gar.Facility)
 	 */
 	@Override
-	public List<Facility> find(Facility entity) throws EJBException {
+	public List<Facility> find(Facility entity) throws GHAEJBException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -52,7 +52,7 @@ public class GWTFacilityServiceImpl extends RemoteServiceServlet implements
 	 * @see org.fourgeeks.gha.webclient.client.facility.GWTFacilityService#find(long)
 	 */
 	@Override
-	public Facility find(long Id) throws EJBException {
+	public Facility find(long Id) throws GHAEJBException {
 		return ejbService.find(Id);
 	}
 
@@ -60,7 +60,7 @@ public class GWTFacilityServiceImpl extends RemoteServiceServlet implements
 	 * @see org.fourgeeks.gha.webclient.client.facility.GWTFacilityService#getAll()
 	 */
 	@Override
-	public List<Facility> getAll() throws EJBException {
+	public List<Facility> getAll() throws GHAEJBException {
 		return ejbService.getAll();
 	}
 
@@ -68,7 +68,7 @@ public class GWTFacilityServiceImpl extends RemoteServiceServlet implements
 	 * @see org.fourgeeks.gha.webclient.client.facility.GWTFacilityService#save(org.fourgeeks.gha.domain.gar.Facility)
 	 */
 	@Override
-	public Facility save(Facility entity) throws EJBException {
+	public Facility save(Facility entity) throws GHAEJBException {
 		return ejbService.save(entity);
 	}
 
@@ -76,7 +76,7 @@ public class GWTFacilityServiceImpl extends RemoteServiceServlet implements
 	 * @see org.fourgeeks.gha.webclient.client.facility.GWTFacilityService#update(org.fourgeeks.gha.domain.gar.Facility)
 	 */
 	@Override
-	public Facility update(Facility entity) throws EJBException {
+	public Facility update(Facility entity) throws GHAEJBException {
 		return ejbService.update(entity	);
 	}
 

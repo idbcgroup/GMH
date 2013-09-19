@@ -7,7 +7,7 @@ import java.util.List;
 
 import javax.ejb.Remote;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 
 /**
@@ -24,62 +24,62 @@ public interface EiaTypeServiceRemote {
 
 	/**
 	 * Delete an EiaType from database by Id
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public void delete(long Id) throws EJBException;
+	public void delete(long Id) throws GHAEJBException;
 
 	/**
 	 * @param eiaType
 	 * @return a list with possible matches to the eiaType passed by param
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<EiaType> find(EiaType eiaType) throws EJBException;
+	public List<EiaType> find(EiaType eiaType) throws GHAEJBException;
 
 	/**
 	 * @param eiaType
 	 * @param offset
 	 * @param size
 	 * @return a list with possible matches to the eiaType passed by param
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
 	public List<EiaType> find(EiaType eiaType, int offset, int size)
-			throws EJBException;
+			throws GHAEJBException;
 
 	/**
 	 * @param code
 	 * @return the EiaType with this Id
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public EiaType find(String code) throws EJBException;
+	public EiaType find(String code) throws GHAEJBException;
 
 	/**
 	 * @return the list with all EiaType objects
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<EiaType> getAll() throws EJBException;
+	public List<EiaType> getAll() throws GHAEJBException;
 
 	/**
 	 * @param offset
 	 * @param size
 	 * @return List of EiaType beginning in offset up to size
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<EiaType> getAll(int offset, int size) throws EJBException;
+	public List<EiaType> getAll(int offset, int size) throws GHAEJBException;
 
 	/**
 	 * @param eiaType
 	 *            Persist an EiaType to database
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 * @return EiaType saved
 	 */
-	public EiaType save(EiaType eiaType) throws EJBException;
+	public EiaType save(EiaType eiaType) throws GHAEJBException;
 
 	/**
 	 * @param EiaType
 	 *            the EiaType to be updated
 	 * @return EiaType updated
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public EiaType update(EiaType eiaType) throws EJBException;
+	public EiaType update(EiaType eiaType) throws GHAEJBException;
 
 }

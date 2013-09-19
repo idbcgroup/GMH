@@ -10,7 +10,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Obu;
 
 /**
@@ -31,41 +31,41 @@ public interface ObuServiceRemote {
 	
 	/**
 	 * @param Id
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public void delete(long Id) throws EJBException;
+	public void delete(long Id) throws GHAEJBException;
 
 	/**
 	 * @param entity
 	 * @return the list of Obu
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<Obu> find(Obu entity) throws EJBException;
+	public List<Obu> find(Obu entity) throws GHAEJBException;
 
 	/**
 	 * @param Id
 	 * @return the Obu
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public Obu find(long Id) throws EJBException;
+	public Obu find(long Id) throws GHAEJBException;
 
 	/**
 	 * @return the list of obus
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<Obu> getAll() throws EJBException;
+	public List<Obu> getAll() throws GHAEJBException;
 
 	/**
 	 * @param entity
 	 * @return the saved Obu
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public Obu save(Obu entity) throws EJBException;
+	public Obu save(Obu entity) throws GHAEJBException;
 
 	/**
 	 * @param entity
 	 * @return the updated Obu
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public Obu update(Obu entity) throws EJBException;
+	public Obu update(Obu entity) throws GHAEJBException;
 }

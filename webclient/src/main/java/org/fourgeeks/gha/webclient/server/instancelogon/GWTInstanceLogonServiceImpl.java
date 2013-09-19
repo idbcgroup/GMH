@@ -9,7 +9,7 @@ import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 
 import org.fourgeeks.gha.domain.ess.InstanceLogon;
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.ejb.ess.InstanceLogonServiceRemote;
 import org.fourgeeks.gha.webclient.client.instancelogon.GWTInstanceLogonService;
 
@@ -32,7 +32,7 @@ public class GWTInstanceLogonServiceImpl extends RemoteServiceServlet implements
 	 * @see org.fourgeeks.gha.webclient.client.instancelogon.GWTInstanceLogonService#delete(long)
 	 */
 	@Override
-	public void delete(long Id) throws EJBException {
+	public void delete(long Id) throws GHAEJBException {
 		service.delete(Id);
 	}
 
@@ -41,7 +41,7 @@ public class GWTInstanceLogonServiceImpl extends RemoteServiceServlet implements
 	 */
 	@Override
 	public List<InstanceLogon> find(InstanceLogon instanceLogon)
-			throws EJBException {
+			throws GHAEJBException {
 		return service.find(instanceLogon);
 	}
 
@@ -49,7 +49,7 @@ public class GWTInstanceLogonServiceImpl extends RemoteServiceServlet implements
 	 * @see org.fourgeeks.gha.webclient.client.instancelogon.GWTInstanceLogonService#find(long)
 	 */
 	@Override
-	public InstanceLogon find(long Id) throws EJBException {
+	public InstanceLogon find(long Id) throws GHAEJBException {
 		return service.find(Id);
 	}
 
@@ -57,7 +57,7 @@ public class GWTInstanceLogonServiceImpl extends RemoteServiceServlet implements
 	 * @see org.fourgeeks.gha.webclient.client.instancelogon.GWTInstanceLogonService#getAll()
 	 */
 	@Override
-	public List<InstanceLogon> getAll() throws EJBException {
+	public List<InstanceLogon> getAll() throws GHAEJBException {
 		return service.getAll();
 	}
 
@@ -65,7 +65,7 @@ public class GWTInstanceLogonServiceImpl extends RemoteServiceServlet implements
 	 * @see org.fourgeeks.gha.webclient.client.instancelogon.GWTInstanceLogonService#save(org.fourgeeks.gha.domain.ess.InstanceLogon)
 	 */
 	@Override
-	public InstanceLogon save(InstanceLogon instanceLogon) throws EJBException {
+	public InstanceLogon save(InstanceLogon instanceLogon) throws GHAEJBException {
 		return service.save(instanceLogon);
 	}
 
@@ -74,7 +74,7 @@ public class GWTInstanceLogonServiceImpl extends RemoteServiceServlet implements
 	 */
 	@Override
 	public InstanceLogon update(InstanceLogon instanceLogon)
-			throws EJBException {
+			throws GHAEJBException {
 		return service.update(instanceLogon);
 	}
 

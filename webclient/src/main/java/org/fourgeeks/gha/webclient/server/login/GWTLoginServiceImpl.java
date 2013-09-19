@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.fourgeeks.gha.domain.enu.UserLogonStatusEnum;
 import org.fourgeeks.gha.domain.ess.SSOUser;
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.logs.LogonLog;
 import org.fourgeeks.gha.domain.msg.Message;
@@ -68,7 +68,7 @@ public class GWTLoginServiceImpl extends RemoteServiceServlet implements
 		SSOUser ssoUser = null;
 		try {
 			ssoUser = ssoUserService.findByUsername(user);
-		} catch (EJBException e1) {
+		} catch (GHAEJBException e1) {
 			logService.log(new LogonLog(null, new Message("LOGIN-002"), ipAdd));
 		}
 

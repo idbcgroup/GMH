@@ -1,5 +1,6 @@
 package org.fourgeeks.gha.webclient.client.eia;
 
+import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
@@ -19,8 +20,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class EIAAddForm extends GHASlideInWindow implements
-		EIATypeSelectionListener, EiaSelectionProducer {
-	EIAForm eiaForm;
+		EIATypeSelectionListener, EiaSelectionProducer, EIASelectionListener {
+	private EIAForm eiaForm;
 
 	/**
 	 * 
@@ -35,6 +36,7 @@ public class EIAAddForm extends GHASlideInWindow implements
 	 * 
 	 */
 	private void initComponent() {
+		eiaForm.addEiaSelectionListener(this);
 		GHAUiHelper.addGHAResizeHandler(this);
 		setHeight(GHAUiHelper.getBottomSectionHeight());
 		setTop(240);
@@ -49,7 +51,7 @@ public class EIAAddForm extends GHASlideInWindow implements
 
 					@Override
 					public void onClick(ClickEvent event) {
-						eiaForm.save();
+						save();
 
 					}
 				}), new GHAImgButton("../resources/icons/cancel.png",
@@ -93,7 +95,6 @@ public class EIAAddForm extends GHASlideInWindow implements
 	@Override
 	public void select(EiaType eiaType) {
 		eiaForm.select(eiaType);
-
 	}
 
 	@Override
@@ -118,5 +119,17 @@ public class EIAAddForm extends GHASlideInWindow implements
 	@Override
 	public void close() {
 		super.close();
+	}
+
+	/**
+	 * 
+	 */
+	private void save() {
+		eiaForm.save();
+	}
+
+	@Override
+	public void select(Eia eia) {
+		hide();
 	}
 }

@@ -8,7 +8,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.ejb.gar.BpuServiceRemote;
 import org.fourgeeks.gha.webclient.client.bpu.GWTBpuService;
@@ -32,7 +32,7 @@ public class GWTBpuServiceImpl extends RemoteServiceServlet implements GWTBpuSer
 	 * @see org.fourgeeks.gha.webclient.client.bpu.GWTBpuService#delete(long)
 	 */
 	@Override
-	public void delete(long Id) throws EJBException {
+	public void delete(long Id) throws GHAEJBException {
 		service.delete(Id);
 	}
 
@@ -40,7 +40,7 @@ public class GWTBpuServiceImpl extends RemoteServiceServlet implements GWTBpuSer
 	 * @see org.fourgeeks.gha.webclient.client.bpu.GWTBpuService#find(org.fourgeeks.gha.domain.gar.Bpu)
 	 */
 	@Override
-	public List<Bpu> find(Bpu bpu) throws EJBException {
+	public List<Bpu> find(Bpu bpu) throws GHAEJBException {
 		return service.find(bpu);
 	}
 
@@ -48,7 +48,7 @@ public class GWTBpuServiceImpl extends RemoteServiceServlet implements GWTBpuSer
 	 * @see org.fourgeeks.gha.webclient.client.bpu.GWTBpuService#find(long)
 	 */
 	@Override
-	public Bpu find(long Id) throws EJBException {
+	public Bpu find(long Id) throws GHAEJBException {
 		return service.find(Id);
 	}
 
@@ -56,7 +56,7 @@ public class GWTBpuServiceImpl extends RemoteServiceServlet implements GWTBpuSer
 	 * @see org.fourgeeks.gha.webclient.client.bpu.GWTBpuService#getAll()
 	 */
 	@Override
-	public List<Bpu> getAll() throws EJBException {
+	public List<Bpu> getAll() throws GHAEJBException {
 		return service.getAll();
 	}
 
@@ -64,7 +64,7 @@ public class GWTBpuServiceImpl extends RemoteServiceServlet implements GWTBpuSer
 	 * @see org.fourgeeks.gha.webclient.client.bpu.GWTBpuService#save(org.fourgeeks.gha.domain.gar.Bpu)
 	 */
 	@Override
-	public Bpu save(Bpu bpu) throws EJBException {
+	public Bpu save(Bpu bpu) throws GHAEJBException {
 		return service.save(bpu);
 	}
 
@@ -72,7 +72,7 @@ public class GWTBpuServiceImpl extends RemoteServiceServlet implements GWTBpuSer
 	 * @see org.fourgeeks.gha.webclient.client.bpu.GWTBpuService#update(org.fourgeeks.gha.domain.gar.Bpu)
 	 */
 	@Override
-	public Bpu update(Bpu bpu) throws EJBException {
+	public Bpu update(Bpu bpu) throws GHAEJBException {
 		return service.update(bpu);
 	}
 

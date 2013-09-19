@@ -9,7 +9,7 @@ import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 
 import org.fourgeeks.gha.domain.ess.SSOUser;
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.ejb.ess.SSOUserServiceRemote;
 import org.fourgeeks.gha.webclient.client.ssouser.GWTSSOUserService;
 
@@ -32,7 +32,7 @@ public class GWTSSOUserServiceImpl extends RemoteServiceServlet implements GWTSS
 	 * @see org.fourgeeks.gha.webclient.client.ssouser.GWTSSOUserService#delete(long)
 	 */
 	@Override
-	public void delete(long Id) throws EJBException {
+	public void delete(long Id) throws GHAEJBException {
 		service.delete(Id);
 	}
 
@@ -40,7 +40,7 @@ public class GWTSSOUserServiceImpl extends RemoteServiceServlet implements GWTSS
 	 * @see org.fourgeeks.gha.webclient.client.ssouser.GWTSSOUserService#find(org.fourgeeks.gha.domain.ess.SSOUser)
 	 */
 	@Override
-	public List<SSOUser> find(SSOUser ssoUser) throws EJBException {
+	public List<SSOUser> find(SSOUser ssoUser) throws GHAEJBException {
 		return service.find(ssoUser);
 	}
 
@@ -48,7 +48,7 @@ public class GWTSSOUserServiceImpl extends RemoteServiceServlet implements GWTSS
 	 * @see org.fourgeeks.gha.webclient.client.ssouser.GWTSSOUserService#find(long)
 	 */
 	@Override
-	public SSOUser find(long Id) throws EJBException {
+	public SSOUser find(long Id) throws GHAEJBException {
 		return service.find(Id);
 	}
 
@@ -56,7 +56,7 @@ public class GWTSSOUserServiceImpl extends RemoteServiceServlet implements GWTSS
 	 * @see org.fourgeeks.gha.webclient.client.ssouser.GWTSSOUserService#getAll()
 	 */
 	@Override
-	public List<SSOUser> getAll() throws EJBException {
+	public List<SSOUser> getAll() throws GHAEJBException {
 		return service.getAll();
 	}
 
@@ -64,7 +64,7 @@ public class GWTSSOUserServiceImpl extends RemoteServiceServlet implements GWTSS
 	 * @see org.fourgeeks.gha.webclient.client.ssouser.GWTSSOUserService#save(org.fourgeeks.gha.domain.ess.SSOUser)
 	 */
 	@Override
-	public SSOUser save(SSOUser ssoUser) throws EJBException {
+	public SSOUser save(SSOUser ssoUser) throws GHAEJBException {
 		return service.save(ssoUser);
 	}
 
@@ -72,7 +72,7 @@ public class GWTSSOUserServiceImpl extends RemoteServiceServlet implements GWTSS
 	 * @see org.fourgeeks.gha.webclient.client.ssouser.GWTSSOUserService#update(org.fourgeeks.gha.domain.ess.SSOUser)
 	 */
 	@Override
-	public SSOUser update(SSOUser ssoUser) throws EJBException {
+	public SSOUser update(SSOUser ssoUser) throws GHAEJBException {
 		return service.update(ssoUser);
 	}
 

@@ -8,7 +8,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenanceSubProtocol;
 import org.fourgeeks.gha.ejb.gmh.MaintenanceSubProtocolServiceRemote;
@@ -36,7 +36,7 @@ public class GWTMaintenanceSubProtocolImpl extends RemoteServiceServlet implemen
 	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.GWTMaintenanceSubProtocolService#delete(long)
 	 */
 	@Override
-	public void delete(long Id) throws EJBException {
+	public void delete(long Id) throws GHAEJBException {
 		service.delete(Id);
 	}
 
@@ -45,7 +45,7 @@ public class GWTMaintenanceSubProtocolImpl extends RemoteServiceServlet implemen
 	 */
 	@Override
 	public List<MaintenanceSubProtocol> findByMaintenanceActivity(
-			MaintenanceActivity maintenanceActivity) throws EJBException {
+			MaintenanceActivity maintenanceActivity) throws GHAEJBException {
 		return service.findByMaintenanceActivity(maintenanceActivity);
 	}
 
@@ -53,7 +53,7 @@ public class GWTMaintenanceSubProtocolImpl extends RemoteServiceServlet implemen
 	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.GWTMaintenanceSubProtocolService#find(long)
 	 */
 	@Override
-	public MaintenanceSubProtocol find(long Id) throws EJBException {
+	public MaintenanceSubProtocol find(long Id) throws GHAEJBException {
 		return service.find(Id);
 	}
 
@@ -61,7 +61,7 @@ public class GWTMaintenanceSubProtocolImpl extends RemoteServiceServlet implemen
 	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.GWTMaintenanceSubProtocolService#getAll()
 	 */
 	@Override
-	public List<MaintenanceSubProtocol> getAll() throws EJBException {
+	public List<MaintenanceSubProtocol> getAll() throws GHAEJBException {
 		return service.getAll();
 	}
 
@@ -70,7 +70,7 @@ public class GWTMaintenanceSubProtocolImpl extends RemoteServiceServlet implemen
 	 */
 	@Override
 	public List<MaintenanceSubProtocol> getAll(int offset, int size)
-			throws EJBException {
+			throws GHAEJBException {
 		return service.getAll(offset, size);
 	}
 
@@ -80,7 +80,7 @@ public class GWTMaintenanceSubProtocolImpl extends RemoteServiceServlet implemen
 	@Override
 	public MaintenanceSubProtocol save(
 			MaintenanceSubProtocol maintenanceSubProtocol)
-			throws EJBException {
+			throws GHAEJBException {
 		return service.save(maintenanceSubProtocol);
 	}
 
@@ -90,7 +90,7 @@ public class GWTMaintenanceSubProtocolImpl extends RemoteServiceServlet implemen
 	@Override
 	public MaintenanceSubProtocol update(
 			MaintenanceSubProtocol maintenanceSubProtocol)
-			throws EJBException {
+			throws GHAEJBException {
 		return service.update(maintenanceSubProtocol);
 	}
 

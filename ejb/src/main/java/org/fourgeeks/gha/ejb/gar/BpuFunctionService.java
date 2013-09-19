@@ -10,7 +10,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import org.fourgeeks.gha.domain.ess.BpuFunction;
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
 
 /**
@@ -26,7 +26,7 @@ public class BpuFunctionService implements BpuFunctionServiceRemote {
 	private EntityManager em;
 
 	@Override
-	public List<BpuFunction> getFunctionsByBpu(Bpu bpu) throws EJBException {
+	public List<BpuFunction> getFunctionsByBpu(Bpu bpu) throws GHAEJBException {
 
 		TypedQuery<BpuFunction> query;
 		try {

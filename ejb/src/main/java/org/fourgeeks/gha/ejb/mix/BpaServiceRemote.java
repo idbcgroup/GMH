@@ -7,7 +7,7 @@ import java.util.List;
 
 import javax.ejb.Remote;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.mix.Bpa;
 
 /**
@@ -18,41 +18,41 @@ import org.fourgeeks.gha.domain.mix.Bpa;
 public interface BpaServiceRemote {
 	/**
 	 * @param Id
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public void delete(long Id) throws EJBException;
+	public void delete(long Id) throws GHAEJBException;
 
 	/**
 	 * @param bpa
 	 * @return the list of bpas
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<Bpa> find(Bpa bpa) throws EJBException;
+	public List<Bpa> find(Bpa bpa) throws GHAEJBException;
 
 	/**
 	 * @param Id
 	 * @return the bpa
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public Bpa find(long Id) throws EJBException;
+	public Bpa find(long Id) throws GHAEJBException;
 	
 	/**
 	 * @return the list of bpas
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<Bpa> getAll() throws EJBException;
+	public List<Bpa> getAll() throws GHAEJBException;
 
 	/**
 	 * @param bpa
 	 * @return the saved bpa
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public Bpa save(Bpa bpa) throws EJBException;
+	public Bpa save(Bpa bpa) throws GHAEJBException;
 
 	/**
 	 * @param bpa
 	 * @return the updated bpa
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public Bpa update(Bpa bpa) throws EJBException;
+	public Bpa update(Bpa bpa) throws GHAEJBException;
 }

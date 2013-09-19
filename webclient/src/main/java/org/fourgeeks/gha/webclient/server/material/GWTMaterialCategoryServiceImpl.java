@@ -8,7 +8,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.glm.MaterialCategory;
 import org.fourgeeks.gha.ejb.glm.MaterialCategoryServiceRemote;
 import org.fourgeeks.gha.webclient.client.material.GWTMaterialCategoryService;
@@ -35,7 +35,7 @@ public class GWTMaterialCategoryServiceImpl extends RemoteServiceServlet impleme
 	 * @see org.fourgeeks.gha.webclient.client.material.GWTMaterialCategoryService#delete(long)
 	 */
 	@Override
-	public void delete(long Id) throws EJBException {
+	public void delete(long Id) throws GHAEJBException {
 		ejbService.delete(Id);
 	}
 
@@ -44,7 +44,7 @@ public class GWTMaterialCategoryServiceImpl extends RemoteServiceServlet impleme
 	 */
 	@Override
 	public List<MaterialCategory> find(MaterialCategory materialCategory)
-			throws EJBException {
+			throws GHAEJBException {
 		return ejbService.find(materialCategory);
 	}
 
@@ -52,7 +52,7 @@ public class GWTMaterialCategoryServiceImpl extends RemoteServiceServlet impleme
 	 * @see org.fourgeeks.gha.webclient.client.material.GWTMaterialCategoryService#find(long)
 	 */
 	@Override
-	public MaterialCategory find(long Id) throws EJBException {
+	public MaterialCategory find(long Id) throws GHAEJBException {
 		return ejbService.find(Id);
 	}
 
@@ -60,7 +60,7 @@ public class GWTMaterialCategoryServiceImpl extends RemoteServiceServlet impleme
 	 * @see org.fourgeeks.gha.webclient.client.material.GWTMaterialCategoryService#getAll()
 	 */
 	@Override
-	public List<MaterialCategory> getAll() throws EJBException {
+	public List<MaterialCategory> getAll() throws GHAEJBException {
 		return ejbService.getAll();
 	}
 
@@ -69,7 +69,7 @@ public class GWTMaterialCategoryServiceImpl extends RemoteServiceServlet impleme
 	 */
 	@Override
 	public List<MaterialCategory> getAll(int offset, int size)
-			throws EJBException {
+			throws GHAEJBException {
 		return ejbService.getAll(offset, size);
 	}
 
@@ -78,7 +78,7 @@ public class GWTMaterialCategoryServiceImpl extends RemoteServiceServlet impleme
 	 */
 	@Override
 	public MaterialCategory save(MaterialCategory materialCategory)
-			throws EJBException {
+			throws GHAEJBException {
 		return ejbService.save(materialCategory);
 	}
 
@@ -87,7 +87,7 @@ public class GWTMaterialCategoryServiceImpl extends RemoteServiceServlet impleme
 	 */
 	@Override
 	public MaterialCategory update(MaterialCategory materialCategory)
-			throws EJBException {
+			throws GHAEJBException {
 		return ejbService.update(materialCategory);
 	}
 

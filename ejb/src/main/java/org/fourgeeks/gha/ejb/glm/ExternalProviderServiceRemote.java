@@ -10,7 +10,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
 
 /**
@@ -31,42 +31,42 @@ public interface ExternalProviderServiceRemote {
 	
 	/**
 	 * @param Id
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public void delete(long Id) throws EJBException;
+	public void delete(long Id) throws GHAEJBException;
 
 	/**
 	 * @param entity
 	 * @return the list of ExternalProvider
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
 	public List<ExternalProvider> find(ExternalProvider entity)
-			throws EJBException;
+			throws GHAEJBException;
 
 	/**
 	 * @param Id
 	 * @return the ExternalProvider
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public ExternalProvider find(long Id) throws EJBException;
+	public ExternalProvider find(long Id) throws GHAEJBException;
 
 	/**
 	 * @return the list of ExternalProviders
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<ExternalProvider> getAll() throws EJBException;
+	public List<ExternalProvider> getAll() throws GHAEJBException;
 
 	/**
 	 * @param entity
 	 * @return the saved Obu
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public ExternalProvider save(ExternalProvider entity) throws EJBException;
+	public ExternalProvider save(ExternalProvider entity) throws GHAEJBException;
 
 	/**
 	 * @param entity
 	 * @return the updated ExternalProvider
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public ExternalProvider update(ExternalProvider entity) throws EJBException;
+	public ExternalProvider update(ExternalProvider entity) throws GHAEJBException;
 }

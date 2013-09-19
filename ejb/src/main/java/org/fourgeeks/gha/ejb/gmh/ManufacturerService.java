@@ -11,7 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 
 /**
@@ -30,13 +30,13 @@ public class ManufacturerService implements ManufacturerServiceRemote {
 	 * @see org.fourgeeks.gha.ejb.gmh.ManufacturerServiceRemote#delete(long)
 	 */
 	@Override
-	public void delete(long Id) throws EJBException {
+	public void delete(long Id) throws GHAEJBException {
 		try {
 			Manufacturer entity = em.find(Manufacturer.class, Id);
 			em.remove(entity);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete manufacturer", e);
-			throw new EJBException("Error eliminando Manufacturer por id "
+			throw new GHAEJBException("Error eliminando Manufacturer por id "
 					+ e.getCause().getMessage());
 		}
 	}
@@ -45,12 +45,12 @@ public class ManufacturerService implements ManufacturerServiceRemote {
 	 * @see org.fourgeeks.gha.ejb.gmh.ManufacturerServiceRemote#find(long)
 	 */
 	@Override
-	public Manufacturer find(long Id) throws EJBException {
+	public Manufacturer find(long Id) throws GHAEJBException {
 		try{
 			return em.find(Manufacturer.class, Id);
 		}catch(Exception e){
 			logger.log(Level.INFO, "Error buscando Manufacturer por Id ", e);
-			throw new EJBException("Error buscando Manufacturer por Id "
+			throw new GHAEJBException("Error buscando Manufacturer por Id "
 					+ e.getCause().getMessage());
 		}
 	}
@@ -59,13 +59,13 @@ public class ManufacturerService implements ManufacturerServiceRemote {
 	 * @see org.fourgeeks.gha.ejb.gmh.ManufacturerServiceRemote#find(org.fourgeeks.gha.domain.gmh.Manufacturer)
 	 */
 	@Override
-	public List<Manufacturer> find(Manufacturer manufacturer) throws EJBException {
+	public List<Manufacturer> find(Manufacturer manufacturer) throws GHAEJBException {
 		try {
 			return em.createNamedQuery("Manufacturer.findByName", Manufacturer.class)
 					.setParameter("name", manufacturer.getName()).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding manufacturer by manufacturer", e);
-			throw new EJBException("Error buscando manufacturer por manufacturer "
+			throw new GHAEJBException("Error buscando manufacturer por manufacturer "
 					+ e.getCause().getMessage());
 		}
 	}
@@ -74,12 +74,12 @@ public class ManufacturerService implements ManufacturerServiceRemote {
 	 * @see org.fourgeeks.gha.ejb.gmh.ManufacturerServiceRemote#getAll()
 	 */
 	@Override
-	public List<Manufacturer> getAll() throws EJBException {
+	public List<Manufacturer> getAll() throws GHAEJBException {
 		try {
 			return em.createNamedQuery("Manufacturer.getAll", Manufacturer.class).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all manufacturers", ex);
-			throw new EJBException("Error obteniendo todos los manufacturers"
+			throw new GHAEJBException("Error obteniendo todos los manufacturers"
 					+ ex.getCause().getMessage());
 		}
 	}
@@ -88,14 +88,14 @@ public class ManufacturerService implements ManufacturerServiceRemote {
 	 * @see org.fourgeeks.gha.ejb.gmh.ManufacturerServiceRemote#save(org.fourgeeks.gha.domain.gmh.Manufacturer)
 	 */
 	@Override
-	public Manufacturer save(Manufacturer manufacturer) throws EJBException {
+	public Manufacturer save(Manufacturer manufacturer) throws GHAEJBException {
 		try{
 			em.persist(manufacturer);
 			em.flush();
 			return em.find(Manufacturer.class, manufacturer.getId());
 		}catch(Exception e){
 			logger.log(Level.INFO, "ERROR: saving manufacturer", e);
-			throw new EJBException("Error guardando manufacturer: "
+			throw new GHAEJBException("Error guardando manufacturer: "
 					+ e.getCause().getMessage());
 		}
 
@@ -105,14 +105,14 @@ public class ManufacturerService implements ManufacturerServiceRemote {
 	 * @see org.fourgeeks.gha.ejb.gmh.ManufacturerServiceRemote#update(org.fourgeeks.gha.domain.gmh.Manufacturer)
 	 */
 	@Override
-	public Manufacturer update(Manufacturer manufacturer) throws EJBException {
+	public Manufacturer update(Manufacturer manufacturer) throws GHAEJBException {
 		try {
 			Manufacturer res = em.merge(manufacturer);
 			em.flush();
 			return res;
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to update manufacturer", e);
-			throw new EJBException("Error actualizando manufacturer " +e.getCause().getMessage());
+			throw new GHAEJBException("Error actualizando manufacturer " +e.getCause().getMessage());
 		}
 	}
 

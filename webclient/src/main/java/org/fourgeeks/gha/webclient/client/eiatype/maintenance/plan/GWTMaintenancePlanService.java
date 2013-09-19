@@ -5,7 +5,7 @@ package org.fourgeeks.gha.webclient.client.eiatype.maintenance.plan;
 
 import java.util.List;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 
@@ -20,60 +20,60 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 public interface GWTMaintenancePlanService extends RemoteService{
 	/**
 	 * @param Id
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public void delete(long Id) throws EJBException;
+	public void delete(long Id) throws GHAEJBException;
 
 	/**
 	 * @param eiaType
 	 * @return a list with the maintenance plans associated with this eiatype
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
 	public List<MaintenancePlan> findByEiaType(EiaType eiaType)
-			throws EJBException;
+			throws GHAEJBException;
 	
 	/**
 	 * @param eiaType
 	 * @return a list with size maintenance plans starting on offset associated with this eiatype
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
 	public List<MaintenancePlan> findByEiaType(EiaType eiaType, int offset, int size)
-			throws EJBException;
+			throws GHAEJBException;
 
 	/**
 	 * @param Id
 	 * @return the EiaTypeMaintenancePlan by id
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public MaintenancePlan find(long Id) throws EJBException;
+	public MaintenancePlan find(long Id) throws GHAEJBException;
 
 	/**
 	 * @return the list of EiaTypeMaintenancePlan
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<MaintenancePlan> getAll() throws EJBException;
+	public List<MaintenancePlan> getAll() throws GHAEJBException;
 	
 	/**
 	 * @param offset
 	 * @param size
 	 * @return the list of size EiaTypeMaintenancePlan starting on offset
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<MaintenancePlan> getAll(int offset, int size) throws EJBException;
+	public List<MaintenancePlan> getAll(int offset, int size) throws GHAEJBException;
 
 	/**
 	 * @param MaintenancePlan
 	 * @return the saved maintenancePlan
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
 	public MaintenancePlan save(
-			MaintenancePlan maintenancePlan) throws EJBException;
+			MaintenancePlan maintenancePlan) throws GHAEJBException;
 
 	/**
 	 * @param MaintenancePlan
 	 * @return the updated maintenancePlan
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
 	public MaintenancePlan update(
-			MaintenancePlan maintenancePlan) throws EJBException;
+			MaintenancePlan maintenancePlan) throws GHAEJBException;
 }

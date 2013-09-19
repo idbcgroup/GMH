@@ -11,7 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenanceSubProtocol;
 
@@ -33,14 +33,14 @@ public class MaintenanceSubProtocolService implements
 	 * @see org.fourgeeks.gha.ejb.gmh.MaintenanceSubProtocolServiceRemote#delete(long)
 	 */
 	@Override
-	public void delete(long Id) throws EJBException {
+	public void delete(long Id) throws GHAEJBException {
 		try {
 			MaintenanceSubProtocol entity = em.find(MaintenanceSubProtocol.class, Id);
 			em.remove(entity);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete MaintenanceSubProtocol",
 					e);
-			throw new EJBException("Error eliminando MaintenanceSubProtocol por id "
+			throw new GHAEJBException("Error eliminando MaintenanceSubProtocol por id "
 					+ e.getCause().getMessage());
 		}
 	}
@@ -50,7 +50,7 @@ public class MaintenanceSubProtocolService implements
 	 */
 	@Override
 	public List<MaintenanceSubProtocol> findByMaintenanceActivity(
-			MaintenanceActivity maintenanceActivity) throws EJBException {
+			MaintenanceActivity maintenanceActivity) throws GHAEJBException {
 		try {
 			return em
 					.createNamedQuery(
@@ -60,7 +60,7 @@ public class MaintenanceSubProtocolService implements
 							maintenanceActivity).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding ProtocolActivity by MaintenanceSubProtocol", e);
-			throw new EJBException(
+			throw new GHAEJBException(
 					"Error buscando ProtocolActivity por MaintenanceSubProtocol"
 							+ e.getCause().getMessage());
 		}
@@ -70,12 +70,12 @@ public class MaintenanceSubProtocolService implements
 	 * @see org.fourgeeks.gha.ejb.gmh.MaintenanceSubProtocolServiceRemote#find(long)
 	 */
 	@Override
-	public MaintenanceSubProtocol find(long Id) throws EJBException {
+	public MaintenanceSubProtocol find(long Id) throws GHAEJBException {
 		try {
 			return em.find(MaintenanceSubProtocol.class, Id);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: finding MaintenanceSubProtocol", e);
-			throw new EJBException("ERROR: finding MaintenanceSubProtocol "
+			throw new GHAEJBException("ERROR: finding MaintenanceSubProtocol "
 					+ e.getCause().getMessage());
 		}
 	}
@@ -84,13 +84,13 @@ public class MaintenanceSubProtocolService implements
 	 * @see org.fourgeeks.gha.ejb.gmh.MaintenanceSubProtocolServiceRemote#getAll()
 	 */
 	@Override
-	public List<MaintenanceSubProtocol> getAll() throws EJBException {
+	public List<MaintenanceSubProtocol> getAll() throws GHAEJBException {
 		try {
 			return em.createNamedQuery("MaintenanceSubProtocol.getAll",
 					MaintenanceSubProtocol.class).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding all MaintenanceSubProtocol", e);
-			throw new EJBException("Error buscando todos los MaintenanceSubProtocol"
+			throw new GHAEJBException("Error buscando todos los MaintenanceSubProtocol"
 					+ e.getCause().getMessage());
 		}
 	}
@@ -100,7 +100,7 @@ public class MaintenanceSubProtocolService implements
 	 */
 	@Override
 	public List<MaintenanceSubProtocol> getAll(int offset, int size)
-			throws EJBException {
+			throws GHAEJBException {
 		try {
 			return em
 					.createNamedQuery("MaintenanceSubProtocol.getAll",
@@ -108,7 +108,7 @@ public class MaintenanceSubProtocolService implements
 					.setMaxResults(size).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding all MaintenanceSubProtocol", e);
-			throw new EJBException("Error buscando todos los MaintenanceSubProtocol"
+			throw new GHAEJBException("Error buscando todos los MaintenanceSubProtocol"
 					+ e.getCause().getMessage());
 		}
 	}
@@ -119,14 +119,14 @@ public class MaintenanceSubProtocolService implements
 	@Override
 	public MaintenanceSubProtocol save(
 			MaintenanceSubProtocol maintenanceSubProtocol)
-			throws EJBException {
+			throws GHAEJBException {
 		try {
 			em.persist(maintenanceSubProtocol);
 			em.flush();
 			return em.find(MaintenanceSubProtocol.class, maintenanceSubProtocol.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving MaintenanceSubProtocol ", e);
-			throw new EJBException("ERROR: saving MaintenanceSubProtocol "
+			throw new GHAEJBException("ERROR: saving MaintenanceSubProtocol "
 					+ e.getCause().getMessage());
 		}
 	}
@@ -137,14 +137,14 @@ public class MaintenanceSubProtocolService implements
 	@Override
 	public MaintenanceSubProtocol update(
 			MaintenanceSubProtocol maintenanceSubProtocol)
-			throws EJBException {
+			throws GHAEJBException {
 		try {
 			em.persist(maintenanceSubProtocol);
 			em.flush();
 			return em.find(MaintenanceSubProtocol.class, maintenanceSubProtocol.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving MaintenanceSubProtocol ", e);
-			throw new EJBException("ERROR: saving MaintenanceSubProtocol "
+			throw new GHAEJBException("ERROR: saving MaintenanceSubProtocol "
 					+ e.getCause().getMessage());
 		}
 	}

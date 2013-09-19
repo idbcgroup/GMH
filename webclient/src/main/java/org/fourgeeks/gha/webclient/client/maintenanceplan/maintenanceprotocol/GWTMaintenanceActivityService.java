@@ -5,7 +5,7 @@ package org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol;
 
 import java.util.List;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.ServiceResource;
@@ -23,74 +23,74 @@ public interface GWTMaintenanceActivityService extends RemoteService{
 	/**
 	 * Delete a MaintenanceActivity from database by Id
 	 * 
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public void delete(long Id) throws EJBException;
+	public void delete(long Id) throws GHAEJBException;
 
 	/**
 	 * @param maintenanceProtocol
 	 * @return a list with the activities associated with the protocol
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
 	public List<MaintenanceActivity> findByMaintenanceProtocol(
 			MaintenanceProtocol maintenanceProtocol)
-			throws EJBException;
+			throws GHAEJBException;
 
 	/**
 	 * @param maintenanceProtocol
 	 * @param offset
 	 * @param size
 	 * @return a list with the activities associated with the protocol
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
 	public List<MaintenanceActivity> findByMaintenanceProtocol(
 			MaintenanceProtocol maintenanceProtocol, int offset,
-			int size) throws EJBException;
+			int size) throws GHAEJBException;
 	
 	/**
 	 * @param serviceResource
 	 * @return the list of MaintenanceActivities that use the resource/service given
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<MaintenanceActivity> findByServiceResource(ServiceResource serviceResource) throws EJBException;
+	public List<MaintenanceActivity> findByServiceResource(ServiceResource serviceResource) throws GHAEJBException;
 
 	/**
 	 * @param Id
 	 * @return the MaintenanceActivity with this Id
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public MaintenanceActivity find(long Id) throws EJBException;
+	public MaintenanceActivity find(long Id) throws GHAEJBException;
 
 	/**
 	 * @return the list with all MaintenanceActivity Objects
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<MaintenanceActivity> getAll() throws EJBException;
+	public List<MaintenanceActivity> getAll() throws GHAEJBException;
 
 	/**
 	 * @param offset
 	 * @param size
 	 * @return List of MaintenanceActivity beginning in offset up to size
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
 	public List<MaintenanceActivity> getAll(int offset, int size)
-			throws EJBException;
+			throws GHAEJBException;
 
 	/**
 	 * @param MaintenanceActivity
 	 *            the MaintenanceActivity to be saved on database
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 * @return MaintenanceActivity saved
 	 */
 	public MaintenanceActivity save(MaintenanceActivity maintenanceActivity)
-			throws EJBException;
+			throws GHAEJBException;
 
 	/**
 	 * @param MaintenanceActivity
 	 *            the MaintenanceActivity to be updated
 	 * @return MaintenanceActivity updated
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
 	public MaintenanceActivity update(MaintenanceActivity maintenanceActivity)
-			throws EJBException;
+			throws GHAEJBException;
 }

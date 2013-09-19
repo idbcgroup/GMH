@@ -2,6 +2,8 @@ package org.fourgeeks.gha.domain.ess;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 import org.fourgeeks.gha.domain.AbstractCodeEntity;
 
@@ -10,6 +12,7 @@ import org.fourgeeks.gha.domain.AbstractCodeEntity;
  * 
  */
 @Entity
+@NamedQueries(value = { @NamedQuery(name = "Function.getAll", query = "SELECT e from Function e order by e.name") })
 public class Function extends AbstractCodeEntity {
 
 	/**

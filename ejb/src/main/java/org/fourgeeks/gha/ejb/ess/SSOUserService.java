@@ -21,7 +21,7 @@ import javax.persistence.criteria.Root;
 
 import org.fourgeeks.gha.domain.enu.GenderTypeEnum;
 import org.fourgeeks.gha.domain.ess.SSOUser;
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.mix.Citizen;
 
@@ -128,13 +128,13 @@ public class SSOUserService implements SSOUserServiceRemote {
 	 * @see org.fourgeeks.gha.ejb.ess.SSOUserServiceRemote#delete(long)
 	 */
 	@Override
-	public void delete(long Id) throws EJBException {
+	public void delete(long Id) throws GHAEJBException {
 		try {
 			SSOUser entity = em.find(SSOUser.class, Id);
 			em.remove(entity);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete SSOUser", e);
-			throw new EJBException("ERROR: unable to delete SSOUser "
+			throw new GHAEJBException("ERROR: unable to delete SSOUser "
 					+ e.getCause().getMessage());
 		}
 	}
@@ -147,7 +147,7 @@ public class SSOUserService implements SSOUserServiceRemote {
 	 * .domain.ess.SSOUser)
 	 */
 	@Override
-	public List<SSOUser> find(SSOUser ssoUser) throws EJBException {
+	public List<SSOUser> find(SSOUser ssoUser) throws GHAEJBException {
 		try {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<SSOUser> cQuery = cb.createQuery(SSOUser.class);
@@ -209,7 +209,7 @@ public class SSOUserService implements SSOUserServiceRemote {
 		} catch (Exception e) {
 			logger.log(Level.SEVERE,
 					"Error obteniendo los SSOUsers por SSOUser", e);
-			throw new EJBException("Error obteniendo los SSOUsers por SSOUser "
+			throw new GHAEJBException("Error obteniendo los SSOUsers por SSOUser "
 					+ e.getCause().getMessage());
 		}
 	}
@@ -220,12 +220,12 @@ public class SSOUserService implements SSOUserServiceRemote {
 	 * @see org.fourgeeks.gha.ejb.ess.SSOUserServiceRemote#find(long)
 	 */
 	@Override
-	public SSOUser find(long Id) throws EJBException {
+	public SSOUser find(long Id) throws GHAEJBException {
 		try {
 			return em.find(SSOUser.class, Id);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: finding SSOUser", e);
-			throw new EJBException("ERROR: finding SSOUser "
+			throw new GHAEJBException("ERROR: finding SSOUser "
 					+ e.getCause().getMessage());
 		}
 	}
@@ -236,13 +236,13 @@ public class SSOUserService implements SSOUserServiceRemote {
 	 * @see org.fourgeeks.gha.ejb.ess.SSOUserServiceRemote#getAll()
 	 */
 	@Override
-	public List<SSOUser> getAll() throws EJBException {
+	public List<SSOUser> getAll() throws GHAEJBException {
 		try {
 			return em.createNamedQuery("SSOUser.getAll", SSOUser.class)
 					.getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all SSOUser", ex);
-			throw new EJBException("Error obteniendo todas las SSOUser"
+			throw new GHAEJBException("Error obteniendo todas las SSOUser"
 					+ ex.getCause().getMessage());
 		}
 	}
@@ -255,14 +255,14 @@ public class SSOUserService implements SSOUserServiceRemote {
 	 * .domain.ess.SSOUser)
 	 */
 	@Override
-	public SSOUser save(SSOUser ssoUser) throws EJBException {
+	public SSOUser save(SSOUser ssoUser) throws GHAEJBException {
 		try {
 			em.persist(ssoUser);
 			em.flush();
 			return em.find(SSOUser.class, ssoUser.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving SSOUser ", e);
-			throw new EJBException("ERROR: saving SSOUser "
+			throw new GHAEJBException("ERROR: saving SSOUser "
 					+ e.getCause().getMessage());
 		}
 	}
@@ -275,14 +275,14 @@ public class SSOUserService implements SSOUserServiceRemote {
 	 * .domain.ess.SSOUser)
 	 */
 	@Override
-	public SSOUser update(SSOUser ssoUser) throws EJBException {
+	public SSOUser update(SSOUser ssoUser) throws GHAEJBException {
 		try {
 			SSOUser res = em.merge(ssoUser);
 			em.flush();
 			return res;
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to update SSOUser ", e);
-			throw new EJBException("ERROR: no se puede actualizar el SSOUser "
+			throw new GHAEJBException("ERROR: no se puede actualizar el SSOUser "
 					+ e.getCause().getMessage());
 		}
 	}
@@ -295,7 +295,7 @@ public class SSOUserService implements SSOUserServiceRemote {
 	 * .String)
 	 */
 	@Override
-	public SSOUser findByUsername(String userName) throws EJBException {
+	public SSOUser findByUsername(String userName) throws GHAEJBException {
 		try {
 			return em.createNamedQuery("SSOUser.findByUserName", SSOUser.class)
 					.setParameter("userName", userName).getSingleResult();
@@ -304,7 +304,7 @@ public class SSOUserService implements SSOUserServiceRemote {
 			return null;
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error finding SSOUser by username", ex);
-			throw new EJBException("Error obteniendo el SSOUser por username"
+			throw new GHAEJBException("Error obteniendo el SSOUser por username"
 					+ ex.getCause().getMessage());
 		}
 	}

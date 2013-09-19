@@ -11,7 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 
@@ -32,13 +32,13 @@ public class MaintenancePlanService implements MaintenancePlanServiceRemote {
 	 * @see org.fourgeeks.gha.ejb.gmh.MaintenancePlanServiceRemote#delete(long)
 	 */
 	@Override
-	public void delete(long Id) throws EJBException {
+	public void delete(long Id) throws GHAEJBException {
 		try {
 			MaintenancePlan entity = em.find(MaintenancePlan.class, Id);
 			em.remove(entity);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete MaintenancePlan", e);
-			throw new EJBException("Error eliminando MaintenancePlan por id "
+			throw new GHAEJBException("Error eliminando MaintenancePlan por id "
 					+ e.getCause().getMessage());
 		}
 	}
@@ -47,13 +47,13 @@ public class MaintenancePlanService implements MaintenancePlanServiceRemote {
 	 * @see org.fourgeeks.gha.ejb.gmh.MaintenancePlanServiceRemote#find(org.fourgeeks.gha.domain.gmh.EiaType)
 	 */
 	@Override
-	public List<MaintenancePlan> findByEiaType(EiaType eiaType) throws EJBException {
+	public List<MaintenancePlan> findByEiaType(EiaType eiaType) throws GHAEJBException {
 		try {
 			return em.createNamedQuery("MaintenancePlan.findByEiaType", MaintenancePlan.class)
 					.setParameter("eiaType", eiaType).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding by MaintenancePlan", e);
-			throw new EJBException("Error buscando MaintenancePlan por EiaType"
+			throw new GHAEJBException("Error buscando MaintenancePlan por EiaType"
 					+ e.getCause().getMessage());
 		}
 	}
@@ -63,14 +63,14 @@ public class MaintenancePlanService implements MaintenancePlanServiceRemote {
 	 */
 	@Override
 	public List<MaintenancePlan> findByEiaType(EiaType eiaType, int offset, int size)
-			throws EJBException {
+			throws GHAEJBException {
 		try {
 			return em.createNamedQuery("MaintenancePlan.findByEiaType", MaintenancePlan.class)
 					.setParameter("eiaType", eiaType).setFirstResult(offset).setMaxResults(size)
 					.getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding by MaintenancePlan", e);
-			throw new EJBException("Error buscando MaintenancePlan por EiaType"
+			throw new GHAEJBException("Error buscando MaintenancePlan por EiaType"
 					+ e.getCause().getMessage());
 		}
 	}
@@ -79,12 +79,12 @@ public class MaintenancePlanService implements MaintenancePlanServiceRemote {
 	 * @see org.fourgeeks.gha.ejb.gmh.MaintenancePlanServiceRemote#find(long)
 	 */
 	@Override
-	public MaintenancePlan find(long Id) throws EJBException {
+	public MaintenancePlan find(long Id) throws GHAEJBException {
 		try {
 			return em.find(MaintenancePlan.class, Id);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: finding MaintenancePlan", e);
-			throw new EJBException("ERROR: finding MaintenancePlan "
+			throw new GHAEJBException("ERROR: finding MaintenancePlan "
 					+ e.getCause().getMessage());
 		}
 	}
@@ -93,12 +93,12 @@ public class MaintenancePlanService implements MaintenancePlanServiceRemote {
 	 * @see org.fourgeeks.gha.ejb.gmh.MaintenancePlanServiceRemote#getAll()
 	 */
 	@Override
-	public List<MaintenancePlan> getAll() throws EJBException {
+	public List<MaintenancePlan> getAll() throws GHAEJBException {
 		try {
 			return em.createNamedQuery("MaintenancePlan.getAll", MaintenancePlan.class).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding all MaintenancePlan", e);
-			throw new EJBException("Error buscando todos los MaintenancePlan"
+			throw new GHAEJBException("Error buscando todos los MaintenancePlan"
 					+ e.getCause().getMessage());
 		}
 	}
@@ -107,13 +107,13 @@ public class MaintenancePlanService implements MaintenancePlanServiceRemote {
 	 * @see org.fourgeeks.gha.ejb.gmh.MaintenancePlanServiceRemote#getAll(int, int)
 	 */
 	@Override
-	public List<MaintenancePlan> getAll(int offset, int size) throws EJBException {
+	public List<MaintenancePlan> getAll(int offset, int size) throws GHAEJBException {
 		try {
 			return em.createNamedQuery("MaintenancePlan.getAll", MaintenancePlan.class)
 					.setFirstResult(offset).setMaxResults(size).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding all MaintenancePlan", e);
-			throw new EJBException("Error buscando todos los MaintenancePlan"
+			throw new GHAEJBException("Error buscando todos los MaintenancePlan"
 					+ e.getCause().getMessage());
 		}
 	}
@@ -123,14 +123,14 @@ public class MaintenancePlanService implements MaintenancePlanServiceRemote {
 	 */
 	@Override
 	public MaintenancePlan save(MaintenancePlan maintenancePlan)
-			throws EJBException {
+			throws GHAEJBException {
 		try {
 			em.persist(maintenancePlan);
 			em.flush();
 			return em.find(MaintenancePlan.class, maintenancePlan.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving MaintenancePlan ", e);
-			throw new EJBException("ERROR: saving MaintenancePlan "
+			throw new GHAEJBException("ERROR: saving MaintenancePlan "
 					+ e.getCause().getMessage());
 		}
 	}
@@ -140,7 +140,7 @@ public class MaintenancePlanService implements MaintenancePlanServiceRemote {
 	 */
 	@Override
 	public MaintenancePlan update(MaintenancePlan maintenancePlan)
-			throws EJBException {
+			throws GHAEJBException {
 		try {
 			MaintenancePlan res = em.merge(maintenancePlan);
 			em.flush();
@@ -148,7 +148,7 @@ public class MaintenancePlanService implements MaintenancePlanServiceRemote {
 		} catch (Exception e) {
 			logger.log(Level.INFO,
 					"ERROR: unable to update MaintenancePlan ", e);
-			throw new EJBException("ERROR: no se puede actualizar el MaintenancePlan "
+			throw new GHAEJBException("ERROR: no se puede actualizar el MaintenancePlan "
 					+ e.getCause().getMessage());
 		}
 	}

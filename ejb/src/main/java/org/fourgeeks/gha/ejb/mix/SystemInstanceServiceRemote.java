@@ -7,7 +7,7 @@ import java.util.List;
 
 import javax.ejb.Remote;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.mix.SystemInstance;
 
 /**
@@ -19,41 +19,41 @@ import org.fourgeeks.gha.domain.mix.SystemInstance;
 public interface SystemInstanceServiceRemote {
 	/**
 	 * @param Id
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public void delete(long Id) throws EJBException;
+	public void delete(long Id) throws GHAEJBException;
 
 	/**
 	 * @param systemInstance
 	 * @return the list of systemInstances
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<SystemInstance> find(SystemInstance systemInstance) throws EJBException;
+	public List<SystemInstance> find(SystemInstance systemInstance) throws GHAEJBException;
 
 	/**
 	 * @param Id
 	 * @return the systemInstance
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public SystemInstance find(long Id) throws EJBException;
+	public SystemInstance find(long Id) throws GHAEJBException;
 	
 	/**
 	 * @return the list of systemInstances
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<SystemInstance> getAll() throws EJBException;
+	public List<SystemInstance> getAll() throws GHAEJBException;
 
 	/**
 	 * @param systemInstance
 	 * @return the saved systemInstance
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public SystemInstance save(SystemInstance systemInstance) throws EJBException;
+	public SystemInstance save(SystemInstance systemInstance) throws GHAEJBException;
 
 	/**
 	 * @param systemInstance
 	 * @return the updated systemInstance
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public SystemInstance update(SystemInstance systemInstance) throws EJBException;
+	public SystemInstance update(SystemInstance systemInstance) throws GHAEJBException;
 }
