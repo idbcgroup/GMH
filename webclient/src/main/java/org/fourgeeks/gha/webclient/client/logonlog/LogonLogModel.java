@@ -1,10 +1,11 @@
-package org.fourgeeks.gha.webclient.client.log;
+package org.fourgeeks.gha.webclient.client.logonlog;
 
 import java.util.List;
 
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.logs.LogonLog;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
+import org.fourgeeks.gha.webclient.client.log.GWTLogonLogServiceAsync;
 
 import com.google.gwt.core.client.GWT;
 

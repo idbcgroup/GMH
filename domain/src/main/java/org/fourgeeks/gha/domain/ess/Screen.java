@@ -63,4 +63,11 @@ public class Screen extends AbstractCodeEntity {
 		return token;
 	}
 
+	/**
+	 * @return the module
+	 */
+	public Module getModule() {
+		return module;
+	}
+
 }

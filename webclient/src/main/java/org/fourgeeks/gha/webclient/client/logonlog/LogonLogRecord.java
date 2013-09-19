@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.fourgeeks.gha.webclient.client.log;
+package org.fourgeeks.gha.webclient.client.logonlog;
 
 import org.fourgeeks.gha.domain.logs.LogonLog;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;

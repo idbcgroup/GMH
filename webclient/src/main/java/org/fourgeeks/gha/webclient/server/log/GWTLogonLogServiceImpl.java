@@ -9,7 +9,7 @@ import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.logs.LogonLog;
 import org.fourgeeks.gha.ejb.log.LogonLogServiceRemote;
-import org.fourgeeks.gha.webclient.client.log.GWTLogonLogService;
+import org.fourgeeks.gha.webclient.client.logonlog.GWTLogonLogService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 

@@ -12,7 +12,9 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
+import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.types.TitleOrientation;
@@ -32,7 +34,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class UserSearchForm extends GHASlideInWindow implements UserSelectionProducer, UserSelectionListener{
+public class UserSearchForm extends GHASlideInWindow implements
+		UserSelectionProducer {
 
 	private UserGrid grid;
 	private GHATextItem usernameItem, firstNameItem, secondNameItem,
@@ -151,8 +154,7 @@ public class UserSearchForm extends GHASlideInWindow implements UserSelectionPro
 
 					@Override
 					public void onClick(ClickEvent event) {
-						notifyUser(((UserRecord)grid.getSelectedRecord()).toEntity());
-						hide();
+						select();
 					}
 				}), GHAUiHelper.verticalGraySeparator("2px"), new GHAImgButton(
 				"../resources/icons/new.png", new ClickHandler() {
@@ -160,7 +162,6 @@ public class UserSearchForm extends GHASlideInWindow implements UserSelectionPro
 					@Override
 					public void onClick(ClickEvent event) {
 						addForm.open();
-						addForm.show();
 					}
 				}));
 
@@ -169,13 +170,33 @@ public class UserSearchForm extends GHASlideInWindow implements UserSelectionPro
 		addMember(gridLayout);
 
 		fillExtras();
-		
-		//register as listener to the addform producer
-		addForm.addUserSelectionListener(this);
+	}
+
+	protected void select() {
+		SSOUser selectedEntity = grid.getSelectedEntity();
+		if (selectedEntity != null) {
+			select(selectedEntity);
+			hide();
+		} else
+			GHANotification.alert("Debe seleccionar un registro");
 	}
 
 	private void fillExtras() {
 		genderSelectItem.setValueMap(GenderTypeEnum.toValueMap());
+	}
+
+	/**
+	 * 
+	 * @param eiaSelectionListener
+	 */
+	public void addEIASelectionListener(
+			EIASelectionListener eiaSelectionListener) {
+		// listeners.add(eiaSelectionListener);
+	}
+
+	private void select(SSOUser ssoUser) {
+		for (UserSelectionListener listener : listeners)
+			listener.select(ssoUser);
 	}
 
 	private void search() {
@@ -214,10 +235,11 @@ public class UserSearchForm extends GHASlideInWindow implements UserSelectionPro
 
 			@Override
 			public void onSuccess(List<SSOUser> ssoUsers) {
-				ListGridRecord[] array = UserUtil.toGridRecords(ssoUsers).toArray(new UserRecord[]{});
+				ListGridRecord[] array = UserUtil.toGridRecords(ssoUsers)
+						.toArray(new UserRecord[] {});
 				grid.setData(array);
-				
-				//TODO: seleccionar un elemento si coincide con el usuario de la busqueda
+				// TODO: si hay un registro que coincide con el ssoU
+				// seleccionarlo.
 			}
 		});
 	}
@@ -236,40 +258,32 @@ public class UserSearchForm extends GHASlideInWindow implements UserSelectionPro
 	public void onResize(ResizeEvent event) {
 		setHeight(GHAUiHelper.getTabHeight() + "px");
 	}
-	
-	//Producer Consumer stuff
-	protected void notifyUser(SSOUser ssoUser){
-		for(UserSelectionListener listener : listeners)
-			listener.select(ssoUser);
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.user.UserSelectionProducer#addUserSelectionListener(org.fourgeeks.gha.webclient.client.user.UserSelectionListener)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.user.UserSelectionProducer#
+	 * addUserSelectionListener
+	 * (org.fourgeeks.gha.webclient.client.user.UserSelectionListener)
 	 */
 	@Override
 	public void addUserSelectionListener(
 			UserSelectionListener userSelectionListener) {
 		listeners.add(userSelectionListener);
+
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.user.UserSelectionProducer#removeUserSelectionListener(org.fourgeeks.gha.webclient.client.user.UserSelectionListener)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.user.UserSelectionProducer#
+	 * removeUserSelectionListener
+	 * (org.fourgeeks.gha.webclient.client.user.UserSelectionListener)
 	 */
 	@Override
 	public void removeUserSelectionListener(
 			UserSelectionListener userSelectionListener) {
-		listeners.add(userSelectionListener);
-	}
+		listeners.remove(userSelectionListener);
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.user.UserSelectionListener#select(org.fourgeeks.gha.domain.ess.SSOUser)
-	 */
-	@Override
-	public void select(SSOUser ssoUser) {
-		UserRecord gridRecord = UserUtil.toGridRecord(ssoUser);
-		ListGridRecord[] array = {gridRecord};
-		grid.setData(array);
-		grid.selectRecord(gridRecord);
 	}
-
 }

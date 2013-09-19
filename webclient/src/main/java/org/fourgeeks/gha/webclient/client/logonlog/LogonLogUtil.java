@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.fourgeeks.gha.webclient.client.log;
+package org.fourgeeks.gha.webclient.client.logonlog;
 
 import java.util.ArrayList;
 import java.util.List;
