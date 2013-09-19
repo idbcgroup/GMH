@@ -213,6 +213,19 @@ public class SSOUserService implements SSOUserServiceRemote {
 	@Override
 	public SSOUser save(SSOUser ssoUser) throws EJBException {
 		try {
+			if(ssoUser.getBpu() != null && ssoUser.getBpu().getId() <= 0){
+				Bpu bpu = ssoUser.getBpu();
+				if(bpu.getCitizen() != null && bpu.getCitizen().getId() <= 0){
+					Citizen citizen = bpu.getCitizen();
+					if(citizen.getLegalEntity() != null && citizen.getLegalEntity().getId() <= 0){
+						em.persist(citizen.getLegalEntity());
+					}
+					em.persist(citizen);
+				}
+				em.persist(bpu);
+			}
+			
+			
 			em.persist(ssoUser);
 			em.flush();
 			return em.find(SSOUser.class, ssoUser.getId());

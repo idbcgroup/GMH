@@ -17,10 +17,8 @@ import com.google.gwt.core.client.GWT;
  * 
  */
 public class UserModel {
-	private static final GWTBpuServiceAsync service = GWT
-			.create(GWTBpuService.class);
-	private static final GWTSSOUserServiceAsync ssoUservice = GWT
-			.create(GWTSSOUserService.class);
+	private static final GWTBpuServiceAsync service = GWT.create(GWTBpuService.class);
+	private static final GWTSSOUserServiceAsync ssoUservice = GWT.create(GWTSSOUserService.class);
 
 	private UserModel() {
 		throw new UnsupportedOperationException(
@@ -42,6 +40,15 @@ public class UserModel {
 	public static void find(SSOUser ssoUser,
 			GHAAsyncCallback<List<SSOUser>> callback) {
 		ssoUservice.find(ssoUser, callback);
+	}
+
+	/**
+	 * @param ssoUser
+	 * @param ghaAsyncCallback
+	 */
+	public static void save(SSOUser ssoUser,
+			GHAAsyncCallback<SSOUser> callback) {
+		ssoUservice.save(ssoUser, callback);		
 	}
 
 }

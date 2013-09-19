@@ -64,6 +64,20 @@ public class Bpi extends AbstractEntity {
 	private BpiRiskEnum bpiRisk;
 	/** Riesgo Institución length =60 */
 	private Long institutionId;
+	
+	/**
+	 * 
+	 */
+	public Bpi() {
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @param id
+	 */
+	public Bpi(Long id) {
+		this.id = id;
+	}
 
 	/** <FKEY> Id de la institución length =19 */
 	/**
