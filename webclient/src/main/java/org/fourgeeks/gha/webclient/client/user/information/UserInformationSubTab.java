@@ -24,10 +24,13 @@ public class UserInformationSubTab extends GHASubTab implements
 		addGHAClosableHandler(form);
 		addGHAHideableHandler(form);
 		setPane(form);
+		
+		//register to listen for selected user
+		tab.addUserSelectionListener(this);
 	}
 
 	@Override
 	public void select(SSOUser ssoUser) {
-		
+		form.select(ssoUser);
 	}
 }

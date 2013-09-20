@@ -63,4 +63,13 @@ public class UserModel {
 		ssoUservice.delete(bpuFunction, callback);
 	}
 
+	/**
+	 * @param ssoUser
+	 * @param ghaAsyncCallback
+	 */
+	public static void update(SSOUser ssoUser,
+			GHAAsyncCallback<SSOUser> callback) {
+		ssoUservice.update(ssoUser, callback);
+	}
+
 }

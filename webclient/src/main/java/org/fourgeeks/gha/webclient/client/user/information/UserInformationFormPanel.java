@@ -25,9 +25,13 @@ public class UserInformationFormPanel extends VLayout implements GHAClosable,
 
 	private UserTab tab;
 	private UserForm userForm;
+	
+	private SSOUser ssoUser, originalSSOUser;
 
 	{
 		userForm = new UserForm();
+		originalSSOUser = null;
+		ssoUser = null;
 	}
 
 	/**
@@ -64,6 +68,9 @@ public class UserInformationFormPanel extends VLayout implements GHAClosable,
 		gridPanel.addMembers(userForm, new LayoutSpacer(), sideButtons);
 
 		addMember(gridPanel);
+		
+		//register as user selected listener from userForm
+		userForm.addUserSelectionListener(this);
 	}
 
 	public void activateForm(boolean activate) {
@@ -71,11 +78,10 @@ public class UserInformationFormPanel extends VLayout implements GHAClosable,
 	}
 
 	protected void undo() {
-		save();
 	}
 
 	private void save() {
-
+		userForm.update();
 	}
 
 	@Override
@@ -95,7 +101,8 @@ public class UserInformationFormPanel extends VLayout implements GHAClosable,
 	 */
 	@Override
 	public void select(SSOUser ssoUser) {
-		// TODO Auto-generated method stub
-		
+		//puedo venir del tab o del form
+		userForm.setSSOUser(ssoUser);
+		activateForm(true);
 	}
 }
