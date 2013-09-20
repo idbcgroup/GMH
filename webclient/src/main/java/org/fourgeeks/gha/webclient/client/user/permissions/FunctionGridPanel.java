@@ -8,13 +8,17 @@ import org.fourgeeks.gha.domain.ess.Function;
 import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHASessionData;
+import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridField;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.function.FunctionModel;
 import org.fourgeeks.gha.webclient.client.function.FunctionRecord;
 import org.fourgeeks.gha.webclient.client.function.FunctionUtil;
+import org.fourgeeks.gha.webclient.client.user.UserModel;
 
 import com.smartgwt.client.widgets.Label;
+import com.smartgwt.client.widgets.grid.events.CellSavedEvent;
+import com.smartgwt.client.widgets.grid.events.CellSavedHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
@@ -26,6 +30,7 @@ public class FunctionGridPanel extends VLayout implements GHAClosable,
 		GHAHideable {
 
 	private FunctionGrid grid;
+	private SSOUser ssoUser;
 	{
 		grid = new FunctionGrid();
 	}
@@ -48,6 +53,38 @@ public class FunctionGridPanel extends VLayout implements GHAClosable,
 		HLayout mainLayout = new HLayout();
 		mainLayout.addMembers(grid);
 		addMember(mainLayout);
+
+		GHAGridField activeField = grid.getActiveField();
+		activeField.addCellSavedHandler(new CellSavedHandler() {
+
+			@Override
+			public void onCellSaved(CellSavedEvent event) {
+				Function function = ((FunctionRecord) event.getRecord())
+						.toEntity();
+				boolean newValue = (Boolean) event.getNewValue();
+
+				if (newValue)
+					UserModel.save(new BpuFunction(ssoUser.getBpu(), function),
+							new GHAAsyncCallback<BpuFunction>() {
+
+								@Override
+								public void onSuccess(BpuFunction arg0) {
+
+								}
+							});
+				else
+					UserModel.delete(
+							new BpuFunction(ssoUser.getBpu(), function),
+							new GHAAsyncCallback<Void>() {
+
+								@Override
+								public void onSuccess(Void arg0) {
+
+								}
+							});
+
+			}
+		});
 	}
 
 	@Override
@@ -59,6 +96,7 @@ public class FunctionGridPanel extends VLayout implements GHAClosable,
 	 * @param ssoUser
 	 */
 	public void loadData(SSOUser ssoUser) {
+		this.ssoUser = ssoUser;
 		FunctionModel.getAll(new GHAAsyncCallback<List<Function>>() {
 
 			@Override

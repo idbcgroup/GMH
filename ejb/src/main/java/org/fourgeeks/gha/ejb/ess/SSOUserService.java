@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -20,6 +21,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.fourgeeks.gha.domain.enu.GenderTypeEnum;
+import org.fourgeeks.gha.domain.ess.BpuFunction;
 import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
@@ -209,8 +211,9 @@ public class SSOUserService implements SSOUserServiceRemote {
 		} catch (Exception e) {
 			logger.log(Level.SEVERE,
 					"Error obteniendo los SSOUsers por SSOUser", e);
-			throw new GHAEJBException("Error obteniendo los SSOUsers por SSOUser "
-					+ e.getCause().getMessage());
+			throw new GHAEJBException(
+					"Error obteniendo los SSOUsers por SSOUser "
+							+ e.getCause().getMessage());
 		}
 	}
 
@@ -257,19 +260,19 @@ public class SSOUserService implements SSOUserServiceRemote {
 	@Override
 	public SSOUser save(SSOUser ssoUser) throws GHAEJBException {
 		try {
-			if(ssoUser.getBpu() != null && ssoUser.getBpu().getId() <= 0){
+			if (ssoUser.getBpu() != null && ssoUser.getBpu().getId() <= 0) {
 				Bpu bpu = ssoUser.getBpu();
-				if(bpu.getCitizen() != null && bpu.getCitizen().getId() <= 0){
+				if (bpu.getCitizen() != null && bpu.getCitizen().getId() <= 0) {
 					Citizen citizen = bpu.getCitizen();
-					if(citizen.getLegalEntity() != null && citizen.getLegalEntity().getId() <= 0){
+					if (citizen.getLegalEntity() != null
+							&& citizen.getLegalEntity().getId() <= 0) {
 						em.persist(citizen.getLegalEntity());
 					}
 					em.persist(citizen);
 				}
 				em.persist(bpu);
 			}
-			
-			
+
 			em.persist(ssoUser);
 			em.flush();
 			return em.find(SSOUser.class, ssoUser.getId());
@@ -295,8 +298,9 @@ public class SSOUserService implements SSOUserServiceRemote {
 			return res;
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to update SSOUser ", e);
-			throw new GHAEJBException("ERROR: no se puede actualizar el SSOUser "
-					+ e.getCause().getMessage());
+			throw new GHAEJBException(
+					"ERROR: no se puede actualizar el SSOUser "
+							+ e.getCause().getMessage());
 		}
 	}
 
@@ -317,9 +321,36 @@ public class SSOUserService implements SSOUserServiceRemote {
 			return null;
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error finding SSOUser by username", ex);
-			throw new GHAEJBException("Error obteniendo el SSOUser por username"
-					+ ex.getCause().getMessage());
+			throw new GHAEJBException(
+					"Error obteniendo el SSOUser por username"
+							+ ex.getCause().getMessage());
 		}
 	}
 
+	@Override
+	public BpuFunction save(BpuFunction bpuFunction) throws GHAEJBException {
+		try {
+			em.persist(bpuFunction);
+			em.flush();
+			return em.find(BpuFunction.class, bpuFunction.getId());
+		} catch (Exception e) {
+			logger.log(Level.INFO, "ERROR: saving BpuFunction ", e);
+			throw new GHAEJBException("ERROR: saving BpuFunction "
+					+ e.getCause().getMessage());
+		}
+	}
+
+	@Override
+	public void delete(BpuFunction bpuFunction) throws GHAEJBException {
+		try {
+			Query query = em.createNamedQuery("BpuFunction.delete")
+					.setParameter("bpu", bpuFunction.getBpu())
+					.setParameter("function", bpuFunction.getFunction());
+			query.executeUpdate();
+		} catch (Exception e) {
+			logger.log(Level.INFO, "ERROR: delete BpuFunction ", e);
+			throw new GHAEJBException("ERROR: delete BpuFunction "
+					+ e.getCause().getMessage());
+		}
+	}
 }

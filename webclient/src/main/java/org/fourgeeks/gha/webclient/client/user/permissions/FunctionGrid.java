@@ -5,8 +5,6 @@ import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridField;
 import org.fourgeeks.gha.webclient.client.UI.grids.GhaGrid;
 
 import com.smartgwt.client.types.ListGridFieldType;
-import com.smartgwt.client.widgets.grid.events.CellSavedEvent;
-import com.smartgwt.client.widgets.grid.events.CellSavedHandler;
 
 /**
  * @author alacret
@@ -20,14 +18,6 @@ public class FunctionGrid extends GhaGrid<Function> {
 		activeField = new GHAGridField("active", "Activo");
 		activeField.setCanEdit(true);
 		activeField.setType(ListGridFieldType.BOOLEAN);
-		activeField.addCellSavedHandler(new CellSavedHandler() {
-
-			@Override
-			public void onCellSaved(CellSavedEvent event) {
-				// TODO Auto-generated method stub
-
-			}
-		});
 	}
 
 	/**
@@ -36,14 +26,13 @@ public class FunctionGrid extends GhaGrid<Function> {
 	public FunctionGrid() {
 		super();
 		setEmptyMessage("No existen datos que mostrar");
+		setFields(new GHAGridField("module", "Módulo"), new GHAGridField(
+				"screen", "Pantalla"), new GHAGridField("view", "Vista"),
+				new GHAGridField("function", "Función"), activeField);
+	}
 
-		GHAGridField moduleField = new GHAGridField("module", "Módulo");
-		GHAGridField screenField = new GHAGridField("screen", "Pantalla");
-		GHAGridField viewField = new GHAGridField("view", "Vista");
-		GHAGridField functionField = new GHAGridField("function", "Función");
-
-		setFields(moduleField, screenField, viewField, functionField,
-				activeField);
+	public GHAGridField getActiveField() {
+		return activeField;
 	}
 
 }

@@ -2,6 +2,7 @@ package org.fourgeeks.gha.webclient.client.user;
 
 import java.util.List;
 
+import org.fourgeeks.gha.domain.ess.BpuFunction;
 import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
@@ -17,8 +18,10 @@ import com.google.gwt.core.client.GWT;
  * 
  */
 public class UserModel {
-	private static final GWTBpuServiceAsync service = GWT.create(GWTBpuService.class);
-	private static final GWTSSOUserServiceAsync ssoUservice = GWT.create(GWTSSOUserService.class);
+	private static final GWTBpuServiceAsync service = GWT
+			.create(GWTBpuService.class);
+	private static final GWTSSOUserServiceAsync ssoUservice = GWT
+			.create(GWTSSOUserService.class);
 
 	private UserModel() {
 		throw new UnsupportedOperationException(
@@ -46,9 +49,18 @@ public class UserModel {
 	 * @param ssoUser
 	 * @param ghaAsyncCallback
 	 */
-	public static void save(SSOUser ssoUser,
-			GHAAsyncCallback<SSOUser> callback) {
-		ssoUservice.save(ssoUser, callback);		
+	public static void save(SSOUser ssoUser, GHAAsyncCallback<SSOUser> callback) {
+		ssoUservice.save(ssoUser, callback);
+	}
+
+	public static void save(BpuFunction bpuFunction,
+			GHAAsyncCallback<BpuFunction> callback) {
+		ssoUservice.save(bpuFunction, callback);
+	}
+
+	public static void delete(BpuFunction bpuFunction,
+			GHAAsyncCallback<Void> callback) {
+		ssoUservice.delete(bpuFunction, callback);
 	}
 
 }
