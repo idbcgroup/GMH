@@ -12,17 +12,24 @@ import org.fourgeeks.gha.webclient.client.eia.GWTEiaService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
-public class GWTEiaServiceImpl extends RemoteServiceServlet implements GWTEiaService{
+/**
+ * @author alacret
+ * 
+ */
+public class GWTEiaServiceImpl extends RemoteServiceServlet implements
+		GWTEiaService {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@EJB(name = "gmh.EiaService")
 	EiaServiceRemote eServiceRemote;
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.webclient.client.eia.GWTEiaService#delete(long)
 	 */
 	@Override
@@ -30,55 +37,76 @@ public class GWTEiaServiceImpl extends RemoteServiceServlet implements GWTEiaSer
 		return eServiceRemote.delete(Id);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.eia.GWTEiaService#find(org.fourgeeks.gha.domain.gmh.Eia)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.eia.GWTEiaService#find(org.fourgeeks
+	 * .gha.domain.gmh.Eia)
 	 */
 	@Override
-	public List<Eia> find(Eia eia) throws GHAEJBException{
+	public List<Eia> find(Eia eia) throws GHAEJBException {
 		return eServiceRemote.find(eia);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.eia.GWTEiaService#find(org.fourgeeks.gha.domain.gmh.EiaType)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.eia.GWTEiaService#find(org.fourgeeks
+	 * .gha.domain.gmh.EiaType)
 	 */
 	@Override
-	public List<Eia> findByEiaType(EiaType eiaType) throws GHAEJBException{
+	public List<Eia> findByEiaType(EiaType eiaType) throws GHAEJBException {
 		return eServiceRemote.findByEiaType(eiaType);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.webclient.client.eia.GWTEiaService#find(long)
 	 */
 	@Override
-	public Eia find(long Id) throws GHAEJBException{
+	public Eia find(long Id) throws GHAEJBException {
 		return eServiceRemote.find(Id);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.webclient.client.eia.GWTEiaService#getAll()
 	 */
 	@Override
-	public List<Eia> getAll() throws GHAEJBException{
+	public List<Eia> getAll() throws GHAEJBException {
 		return eServiceRemote.getAll();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.eia.GWTEiaService#getAll(int, int)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.eia.GWTEiaService#getAll(int,
+	 * int)
 	 */
 	@Override
-	public List<Eia> getAll(int offset, int size) throws GHAEJBException{
+	public List<Eia> getAll(int offset, int size) throws GHAEJBException {
 		return eServiceRemote.getAll(offset, size);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.eia.GWTEiaService#save(org.fourgeeks.gha.domain.gmh.Eia)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.eia.GWTEiaService#save(org.fourgeeks
+	 * .gha.domain.gmh.Eia)
 	 */
 	@Override
-	public Eia save(Eia eia) throws GHAEJBException{
+	public Eia save(Eia eia) throws GHAEJBException {
 		return eServiceRemote.save(eia);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.webclient.client.eia.GWTEiaService#update(long)
 	 */
 	@Override
