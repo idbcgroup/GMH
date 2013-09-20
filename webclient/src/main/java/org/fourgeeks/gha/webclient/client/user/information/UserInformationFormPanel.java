@@ -13,7 +13,6 @@ import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
-import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
@@ -65,7 +64,7 @@ public class UserInformationFormPanel extends VLayout implements GHAClosable,
 				}));
 
 		HLayout gridPanel = new HLayout();
-		gridPanel.addMembers(userForm, new LayoutSpacer(), sideButtons);
+		gridPanel.addMembers(userForm, sideButtons);
 
 		addMember(gridPanel);
 		
