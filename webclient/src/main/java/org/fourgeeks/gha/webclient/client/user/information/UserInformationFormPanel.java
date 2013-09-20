@@ -78,6 +78,7 @@ public class UserInformationFormPanel extends VLayout implements GHAClosable,
 	}
 
 	protected void undo() {
+		select(this.originalSSOUser);
 	}
 
 	private void save() {
@@ -104,5 +105,6 @@ public class UserInformationFormPanel extends VLayout implements GHAClosable,
 		//puedo venir del tab o del form
 		userForm.setSSOUser(ssoUser);
 		activateForm(true);
+		this.originalSSOUser = this.ssoUser = ssoUser;
 	}
 }

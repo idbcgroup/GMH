@@ -16,7 +16,6 @@ import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.domain.mix.Citizen;
-import org.fourgeeks.gha.domain.mix.Institution;
 import org.fourgeeks.gha.domain.mix.LegalEntity;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
@@ -285,6 +284,7 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 	public void activateForm(boolean activate) {
 		usernameItem.setDisabled(!activate);
 		passwordItem.setDisabled(!activate);
+		confirmPasswordItem.setDisabled(!activate);
 		firstNameItem.setDisabled(!activate);
 		secondNameItem.setDisabled(!activate);
 		lastNameItem.setDisabled(!activate);
@@ -294,6 +294,7 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 		genderSelectItem.setDisabled(!activate);
 		nationalityItem.setDisabled(!activate);
 		birthDateItem.setDisabled(!activate);
+		bpiSelectItem.setDisabled(!activate);
 		legalEntityIdentifierItem.setDisabled(!activate);
 	}
 	
@@ -317,11 +318,7 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 		if(ssoUser.getBpu() != null){
 			Bpu bpu = ssoUser.getBpu();
 			if(bpu.getBpi() != null){
-				Bpi bpi = bpu.getBpi();
-				if(bpi.getInstitution() != null){
-					Institution institution = bpi.getInstitution();
-					bpiSelectItem.setValue(institution.getId());
-				}
+				bpiSelectItem.setValue(bpu.getBpi().getId());
 			}
 			
 			if(bpu.getCitizen() != null){
