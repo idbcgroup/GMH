@@ -5,6 +5,7 @@ package org.fourgeeks.gha.domain.gar;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -45,7 +46,7 @@ public class Bpu extends AbstractEntity {
 	 * The citizen associated with this bpu
 	 */
 	@NotNull
-	@OneToOne
+	@OneToOne(cascade = {CascadeType.MERGE})
 	@JoinColumn(name = "citizenFk", nullable = false)
 	private Citizen citizen; // TODO : No debe ir aqui, los citizen son BPA,
 								// debe haber una relacion con BPA

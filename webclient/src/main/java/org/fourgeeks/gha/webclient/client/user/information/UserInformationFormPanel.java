@@ -1,10 +1,12 @@
 package org.fourgeeks.gha.webclient.client.user.information;
 
+import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.user.UserForm;
+import org.fourgeeks.gha.webclient.client.user.UserSelectionListener;
 import org.fourgeeks.gha.webclient.client.user.UserTab;
 
 import com.smartgwt.client.types.Alignment;
@@ -19,13 +21,17 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class UserInformationFormPanel extends VLayout implements GHAClosable,
-		GHAHideable {
+		GHAHideable, UserSelectionListener {
 
 	private UserTab tab;
 	private UserForm userForm;
+	
+	private SSOUser ssoUser, originalSSOUser;
 
 	{
 		userForm = new UserForm();
+		originalSSOUser = null;
+		ssoUser = null;
 	}
 
 	/**
@@ -62,6 +68,9 @@ public class UserInformationFormPanel extends VLayout implements GHAClosable,
 		gridPanel.addMembers(userForm, new LayoutSpacer(), sideButtons);
 
 		addMember(gridPanel);
+		
+		//register as user selected listener from userForm
+		userForm.addUserSelectionListener(this);
 	}
 
 	public void activateForm(boolean activate) {
@@ -69,12 +78,11 @@ public class UserInformationFormPanel extends VLayout implements GHAClosable,
 	}
 
 	protected void undo() {
-		// reload the original eiatype
-		save();
+		select(this.originalSSOUser);
 	}
 
 	private void save() {
-
+		userForm.update();
 	}
 
 	@Override
@@ -85,5 +93,18 @@ public class UserInformationFormPanel extends VLayout implements GHAClosable,
 	@Override
 	public void hide() {
 
+	}
+
+	//Producer/Consumer stuff
+	
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.webclient.client.user.UserSelectionListener#select(org.fourgeeks.gha.domain.ess.SSOUser)
+	 */
+	@Override
+	public void select(SSOUser ssoUser) {
+		//puedo venir del tab o del form
+		userForm.setSSOUser(ssoUser);
+		activateForm(true);
+		this.originalSSOUser = this.ssoUser = ssoUser;
 	}
 }

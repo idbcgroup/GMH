@@ -205,8 +205,10 @@ public class TestData {
 				for (int i = 0; i < 5; ++i) {
 					Citizen citizen = new Citizen(em.find(LegalEntity.class,
 							i + 5L), GenderTypeEnum.MALE);
-					citizen.setFirstName(" Test Citizen : " + i);
-					citizen.setFirstLastName(" Test Citizen : " + i);
+					citizen.setFirstName(" Rigoberto : " + i);
+					citizen.setSecondName("Alejandro " + i);
+					citizen.setFirstLastName(" Sanchez : " + i);
+					citizen.setSecondLastName("Casado " + i);
 					citizen.setIdType(DocumentTypeEnum.LOCAL);
 					em.persist(citizen);
 				}
