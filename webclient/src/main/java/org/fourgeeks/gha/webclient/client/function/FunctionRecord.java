@@ -23,6 +23,11 @@ public class FunctionRecord extends GHAGridRecord<Function> {
 		setAttribute("screen", function.getView().getScreen().getName());
 		setAttribute("view", function.getView().getName());
 		setAttribute("function", function.getName());
+		setAttribute("active", false);
+	}
+
+	public void setActive(boolean active) {
+		setAttribute("active", active);
 	}
 
 	/*

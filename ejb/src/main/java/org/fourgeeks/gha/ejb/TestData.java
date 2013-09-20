@@ -712,8 +712,8 @@ public class TestData {
 		} catch (NoResultException e) {
 			try {
 				logger.info("creating test data: users");
-				em.persist(new SSOUser(em.find(Bpu.class, 1L), "admin", "admin",
-						UserLogonStatusEnum.STAYIN));
+				em.persist(new SSOUser(em.find(Bpu.class, 1L), "admin",
+						"admin", UserLogonStatusEnum.STAYIN));
 				em.persist(new SSOUser(em.find(Bpu.class, 2L), "asanchez",
 						"asanchez", UserLogonStatusEnum.STAYIN));
 

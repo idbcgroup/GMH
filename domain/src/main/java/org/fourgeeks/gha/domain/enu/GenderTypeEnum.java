@@ -4,18 +4,17 @@
 package org.fourgeeks.gha.domain.enu;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 /**
  * @author emiliot
- *
+ * 
  */
 public enum GenderTypeEnum implements Serializable {
 	/**
 	 * 
 	 */
-	MALE("Masculino"),/**
+	MALE("Masculino"), /**
 	 * 
 	 */
 	FEMALE("Femenino");
@@ -54,11 +53,11 @@ public enum GenderTypeEnum implements Serializable {
 			valueMap.put(genderType.name() + "", genderType.toString());
 		return valueMap;
 	}
-	
-	public static ArrayList<String> getFormItems() {
-		ArrayList<String> list = new ArrayList<String>();
-		for (GenderTypeEnum genderType : GenderTypeEnum.values())
-			list.add(genderType.toString());
-		return list;
-	}
+
+	// public static ArrayList<String> getFormItems() {
+	// ArrayList<String> list = new ArrayList<String>();
+	// for (GenderTypeEnum genderType : GenderTypeEnum.values())
+	// list.add(genderType.toString());
+	// return list;
+	// }
 }

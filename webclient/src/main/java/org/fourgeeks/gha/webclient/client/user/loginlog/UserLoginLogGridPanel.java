@@ -11,7 +11,6 @@ import org.fourgeeks.gha.webclient.client.logonlog.LogonLogModel;
 import org.fourgeeks.gha.webclient.client.logonlog.LogonLogRecord;
 import org.fourgeeks.gha.webclient.client.logonlog.LogonLogUtil;
 
-import com.google.gwt.user.client.Window;
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
@@ -29,9 +28,8 @@ public class UserLoginLogGridPanel extends VLayout implements GHAClosable,
 	}
 
 	/**
-	 * @param eIATypeEquipmentSubTab
 	 */
-	public UserLoginLogGridPanel(UserLoginLogSubTab eIATypeEquipmentSubTab) {
+	public UserLoginLogGridPanel() {
 		super();
 		setStyleName("sides-padding padding-top");
 		setWidth100();
@@ -62,15 +60,11 @@ public class UserLoginLogGridPanel extends VLayout implements GHAClosable,
 
 					@Override
 					public void onSuccess(List<LogonLog> list) {
-						Window.alert("1");
 						List<LogonLogRecord> gridRecords = LogonLogUtil
 								.toGridRecords(list);
-						Window.alert("2");
 						LogonLogRecord[] array = gridRecords
 								.toArray(new LogonLogRecord[] {});
-						Window.alert("3");
 						grid.setData(array);
-						Window.alert("4");
 					}
 				});
 	}

@@ -5,6 +5,8 @@ import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridField;
 import org.fourgeeks.gha.webclient.client.UI.grids.GhaGrid;
 
 import com.smartgwt.client.types.ListGridFieldType;
+import com.smartgwt.client.widgets.grid.events.CellSavedEvent;
+import com.smartgwt.client.widgets.grid.events.CellSavedHandler;
 
 /**
  * @author alacret
@@ -18,6 +20,14 @@ public class FunctionGrid extends GhaGrid<Function> {
 		activeField = new GHAGridField("active", "Activo");
 		activeField.setCanEdit(true);
 		activeField.setType(ListGridFieldType.BOOLEAN);
+		activeField.addCellSavedHandler(new CellSavedHandler() {
+
+			@Override
+			public void onCellSaved(CellSavedEvent event) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 	}
 
 	/**

@@ -3,7 +3,7 @@ package org.fourgeeks.gha.webclient.client.user;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.user.information.UserInformationSubTab;
 import org.fourgeeks.gha.webclient.client.user.loginlog.UserLoginLogSubTab;
-import org.fourgeeks.gha.webclient.client.user.permissions.PermissionSubTab;
+import org.fourgeeks.gha.webclient.client.user.permissions.UserPermissionSubTab;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
@@ -18,7 +18,7 @@ public class UserInternalTabset extends TabSet implements ResizeHandler {
 	private UserInformationSubTab userInformationSubTab;
 	// private UserCredentialsSubTab userCredentialsSubTab;
 	private UserLoginLogSubTab userLoginLogSubTab;
-	private PermissionSubTab permissionSubTab;
+	private UserPermissionSubTab permissionSubTab;
 
 	// private UserUILogSubTab userUILogSubTab;
 
@@ -35,7 +35,7 @@ public class UserInternalTabset extends TabSet implements ResizeHandler {
 		userInformationSubTab = new UserInformationSubTab(userTab);
 		// userCredentialsSubTab = new UserCredentialsSubTab(userTab);
 		userLoginLogSubTab = new UserLoginLogSubTab(userTab);
-		permissionSubTab = new PermissionSubTab(userTab);
+		permissionSubTab = new UserPermissionSubTab(userTab);
 		// userUILogSubTab = new UserUILogSubTab(userTab);
 
 		addTab(userInformationSubTab);

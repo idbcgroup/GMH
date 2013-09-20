@@ -7,10 +7,17 @@ import java.util.LinkedHashMap;
 
 /**
  * @author emiliot
- *
+ * 
  */
 public enum LanguageEnum {
-	ES("Español"), EN("English");
+	/**
+	 * 
+	 */
+	ES("Español"),
+	/**
+	 * 
+	 */
+	EN("English");
 
 	private String name;
 

@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.server.log;
+package org.fourgeeks.gha.webclient.server.logonlog;
 
 import java.util.List;
 
