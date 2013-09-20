@@ -72,7 +72,7 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		birthDateItem = new GHADateItem("Fecha de Nac.",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
-		bpiSelectItem = new GHASelectItem("Tipo ID",
+		bpiSelectItem = new GHASelectItem("Institución",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		legalEntityIdentifierItem = new GHATextItem("R.I.F.",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
