@@ -19,6 +19,7 @@ public class UserPermissionSubTab extends GHASubTab implements
 	 */
 	public UserPermissionSubTab(UserTab tab) {
 		super("Permisos", tab);
+		setDisabled(true);
 		tab.addUserSelectionListener(this);
 		gridPanel = new FunctionGridPanel(this);
 		setPane(gridPanel);
@@ -26,6 +27,7 @@ public class UserPermissionSubTab extends GHASubTab implements
 
 	@Override
 	public void select(SSOUser ssoUser) {
+		setDisabled(false);
 		gridPanel.loadData(ssoUser);
 	}
 
