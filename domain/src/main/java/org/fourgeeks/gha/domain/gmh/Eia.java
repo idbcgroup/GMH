@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
@@ -72,7 +73,7 @@ public class Eia extends AbstractEntity {
 
 	// @Size(max = 30, message = "El campo debe ser menor a 30 caracteres")
 	// private String desincorporateReason;
-
+	@NotNull(message = "Debe seleccionar un tipo de equipo")
 	@ManyToOne
 	@JoinColumn(name = "eiaTypeFk", nullable = false)
 	private EiaType eiaType;

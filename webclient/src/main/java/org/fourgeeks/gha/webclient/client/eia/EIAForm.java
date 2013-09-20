@@ -84,7 +84,6 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 	private GHASectionForm sectionForm;
 	private Validator validator;
 	private List<EIASelectionListener> listeners;
-	private EiaType eiaType;
 	private Eia entity;
 
 	{ // Global
@@ -223,7 +222,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 	 * 
 	 */
 	public EIAForm(EiaType eiaType) {
-		this.eiaType = eiaType;
+		select(eiaType);
 
 		sectionForm.addSection("Información Básica", getInfoBasicaForm(), true);
 		sectionForm.addSectionSeparator();
@@ -575,13 +574,12 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 	 * Save the new element to database
 	 */
 	public void save() {
-		final Eia eia = extract();
+		Eia eia = extract();
 		if (eia != null)
 			EIAModel.save(eia, new GHAAsyncCallback<Eia>() {
 				@Override
 				public void onSuccess(Eia result) {
 					notifyEia(result);
-					cancel();
 				}
 			});
 	}
@@ -596,8 +594,6 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 				@Override
 				public void onSuccess(Eia result) {
 					notifyEia(result);
-					GHANotification.alert("Edición exitosa");
-					cancel();
 				}
 			});
 	}
@@ -614,7 +610,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 
 		// basic information
 		if (eiaTypeSelectItem.getValue() != null)
-			eia.setEiaType(eiaType);
+			eia.setEiaType(new EiaType(eiaTypeSelectItem.getValueAsString()));
 		eia.setCode(codeTextItem.getValueAsString());
 		eia.setSerialNumber(serialTextItem.getValueAsString());
 		eia.setFixedAssetIdentifier(fixedAssetIdTextItem.getValueAsString());
@@ -803,7 +799,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 	/**
 	 * 
 	 */
-	private void cancel() {
+	public void clearValue() {
 		this.entity = null;
 		// clean text fields
 		codeTextItem.clearValue();
@@ -883,7 +879,6 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 
 	@Override
 	public void select(EiaType eiaType) {
-		this.eiaType = eiaType;
 		if (eiaType != null) {
 			eiaTypeSelectItem.setValue(eiaType.getCode());
 			eiaTypeSelectItem.disable();

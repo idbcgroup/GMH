@@ -38,7 +38,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class EIASearchForm extends GHASlideInWindow implements
-	EIASelectionListener,EiaSelectionProducer {
+		EIASelectionListener, EiaSelectionProducer {
 
 	private List<EIASelectionListener> listeners;
 	private EIAGrid grid;
@@ -46,7 +46,7 @@ public class EIASearchForm extends GHASlideInWindow implements
 			serialNumberItem;
 	private GHASelectItem responsibleRoleItem, eiaTypeItem,
 			workingAreaLocationItem, facilityLocationItem, obuItem, stateItem;
-	
+
 	private EIAAddForm addForm;
 	{
 		listeners = new LinkedList<EIASelectionListener>();
@@ -65,7 +65,7 @@ public class EIASearchForm extends GHASlideInWindow implements
 		stateItem = new GHASelectItem("Estado");
 
 		grid = new EIAGrid();
-		
+
 		addForm = new EIAAddForm();
 		addForm.addEiaSelectionListener(this);
 	}
@@ -155,16 +155,16 @@ public class EIASearchForm extends GHASlideInWindow implements
 
 					@Override
 					public void onClick(ClickEvent event) {
-						selectEia(((EIARecord) grid.getSelectedRecord())
+						notifyEia(((EIARecord) grid.getSelectedRecord())
 								.toEntity());
 						hide();
 					}
-				}), GHAUiHelper.verticalGraySeparator("2px"),
-				new GHAImgButton("../resources/icons/new.png",new ClickHandler() {
-					
+				}), GHAUiHelper.verticalGraySeparator("2px"), new GHAImgButton(
+				"../resources/icons/new.png", new ClickHandler() {
+
 					@Override
 					public void onClick(ClickEvent event) {
-						addForm.open();						
+						addForm.open();
 					}
 				}));
 
@@ -176,10 +176,11 @@ public class EIASearchForm extends GHASlideInWindow implements
 		searchForLocations();
 		searchForObus();
 		fillExtras();
+
+		addForm.addEiaSelectionListener(this);
 	}
 
 	private void fillExtras() {
-		// state
 		stateItem.setValueMap(EiaStateEnum.toValueMap());
 	}
 
@@ -259,7 +260,7 @@ public class EIASearchForm extends GHASlideInWindow implements
 		listeners.add(eiaSelectionListener);
 	}
 
-	private void selectEia(Eia eia) {
+	private void notifyEia(Eia eia) {
 		for (EIASelectionListener listener : listeners)
 			listener.select(eia);
 	}
@@ -268,7 +269,7 @@ public class EIASearchForm extends GHASlideInWindow implements
 	public void select(Eia eia) {
 		search(eia);
 	}
-	
+
 	private void search() {
 		Eia eia = new Eia();
 		if (actualCostItem.getValue() != null)
