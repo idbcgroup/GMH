@@ -277,10 +277,13 @@ public class EIASearchForm extends GHASlideInWindow implements
 		if (responsibleRoleItem.getValue() != null)
 			eia.setResponsibleRole(new Role(Long.parseLong(responsibleRoleItem
 					.getValueAsString())));
-		eia.setCode(codeItem.getValueAsString());
+		if (codeItem.getValue() != null)
+			eia.setCode(codeItem.getValueAsString());
 		if (eiaTypeItem.getValue() != null)
 			eia.setEiaType(new EiaType(eiaTypeItem.getValueAsString()));
-		eia.setFixedAssetIdentifier(fixedAssetIdentifierItem.getValueAsString());
+		if (fixedAssetIdentifierItem.getValue() != null)
+			eia.setFixedAssetIdentifier(fixedAssetIdentifierItem
+					.getValueAsString());
 		if (workingAreaLocationItem.getValue() != null)
 			eia.setWorkingArea(new WorkingArea(Integer
 					.valueOf(workingAreaLocationItem.getValueAsString())));
@@ -289,9 +292,12 @@ public class EIASearchForm extends GHASlideInWindow implements
 					.getValueAsString())));
 		if (obuItem.getValue() != null)
 			eia.setObu(new Obu(Long.parseLong(obuItem.getValueAsString())));
-		eia.setSerialNumber(serialNumberItem.getValueAsString());
+		if (serialNumberItem.getValue() != null)
+			eia.setSerialNumber(serialNumberItem.getValueAsString());
 		if (stateItem.getValue() != null)
 			eia.setState(EiaStateEnum.valueOf(stateItem.getValueAsString()));
+		else
+			eia.setState(null);
 		search(eia);
 	}
 
@@ -303,6 +309,8 @@ public class EIASearchForm extends GHASlideInWindow implements
 				ListGridRecord[] array = EIAUtil.toGridRecords(result).toArray(
 						new EIARecord[] {});
 				grid.setData(array);
+				// TODO: arreglar de acuerdo a usersearchform como lo hizo el
+				// señor emilio
 				if (eia != null && eia.getId() != 0l)
 					for (ListGridRecord listGridRecord : grid.getRecords())
 						if (((EIARecord) listGridRecord).toEntity().getId() == eia

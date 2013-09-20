@@ -17,12 +17,14 @@ public class EIAInformationSubTab extends GHASubTab implements
 	}
 
 	/**
+	 * @param tab
 	 * 
 	 */
 	public EIAInformationSubTab(EIATab tab) {
 		super("Información", tab);
 		setDisabled(true);
 		tab.addEiaSelectionListener(this);
+		eiaInformationFormPanel.addEiaSelectionListener(tab);
 		addGHAClosableHandler(eiaInformationFormPanel);
 		addGHAHideableHandler(eiaInformationFormPanel);
 		setPane(eiaInformationFormPanel);
@@ -32,6 +34,10 @@ public class EIAInformationSubTab extends GHASubTab implements
 	public void select(Eia eia) {
 		setDisabled(false);
 		eiaInformationFormPanel.setEia(eia);
+	}
+
+	@Override
+	public void hide() {
 	}
 
 }

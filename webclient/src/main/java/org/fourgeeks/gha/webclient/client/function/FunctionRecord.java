@@ -26,6 +26,9 @@ public class FunctionRecord extends GHAGridRecord<Function> {
 		setAttribute("active", false);
 	}
 
+	/**
+	 * @param active
+	 */
 	public void setActive(boolean active) {
 		setAttribute("active", active);
 	}

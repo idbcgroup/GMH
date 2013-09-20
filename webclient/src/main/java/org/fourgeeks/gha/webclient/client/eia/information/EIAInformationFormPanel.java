@@ -1,16 +1,20 @@
 package org.fourgeeks.gha.webclient.client.eia.information;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.eia.EIAForm;
+import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
+import org.fourgeeks.gha.webclient.client.eia.EiaSelectionProducer;
 
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
-import com.smartgwt.client.widgets.grid.ListGridRecord;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
@@ -19,7 +23,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class EIAInformationFormPanel extends VLayout implements GHAClosable,
-		GHAHideable {
+		GHAHideable, EiaSelectionProducer, EIASelectionListener {
 
 	/**
 	 * @param eiaEquipmentSubTab
@@ -27,12 +31,17 @@ public class EIAInformationFormPanel extends VLayout implements GHAClosable,
 	 */
 	private EIAForm eiaForm = new EIAForm();
 	private Eia firstEia;
+	private List<EIASelectionListener> listeners = new ArrayList<EIASelectionListener>();
 
+	/**
+	 * 
+	 */
 	public EIAInformationFormPanel() {
 		super();
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
+		eiaForm.addEiaSelectionListener(this);
 		Label title = new Label("<h3>Caracteristicas del EIA</h3>");
 		title.setHeight(30);
 		title.setWidth100();
@@ -62,31 +71,38 @@ public class EIAInformationFormPanel extends VLayout implements GHAClosable,
 
 	protected void save() {
 		eiaForm.update();
-
 	}
 
 	/**
-	 * @param array
+	 * @param eia
 	 */
-	public void setData(ListGridRecord[] array) {
-		// eiaGrid.setData(array);
-	}
-
-	@Override
-	public void close() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void hide() {
-		// TODO Auto-generated method stub
-
-	}
-
 	public void setEia(Eia eia) {
 		this.firstEia = eia;
 		eiaForm.setEia(eia);
 
+	}
+
+	@Override
+	public void close() {
+
+	}
+
+	@Override
+	public void addEiaSelectionListener(
+			EIASelectionListener eiaSelectionListener) {
+		listeners.add(eiaSelectionListener);
+
+	}
+
+	@Override
+	public void removeEiaSelectionListener(
+			EIASelectionListener eiaSelectionListener) {
+		listeners.remove(eiaSelectionListener);
+	}
+
+	@Override
+	public void select(Eia eia) {
+		for (EIASelectionListener listener : listeners)
+			listener.select(eia);
 	}
 }

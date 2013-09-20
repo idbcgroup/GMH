@@ -36,6 +36,7 @@ public class Eia extends AbstractEntity {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@ManyToOne
 	private EiaMaintenancePlanification eMaintenancePlan;
 
 	/** Fecha de Instalación del Equipo length =22 */

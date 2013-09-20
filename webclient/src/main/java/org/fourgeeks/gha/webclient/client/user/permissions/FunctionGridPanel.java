@@ -7,7 +7,6 @@ import org.fourgeeks.gha.domain.ess.BpuFunction;
 import org.fourgeeks.gha.domain.ess.Function;
 import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
-import org.fourgeeks.gha.webclient.client.UI.GHASessionData;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridField;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
@@ -95,30 +94,42 @@ public class FunctionGridPanel extends VLayout implements GHAClosable,
 	/**
 	 * @param ssoUser
 	 */
-	public void loadData(SSOUser ssoUser) {
+	public void loadData(final SSOUser ssoUser) {
 		this.ssoUser = ssoUser;
 		FunctionModel.getAll(new GHAAsyncCallback<List<Function>>() {
 
 			@Override
-			public void onSuccess(List<Function> all) {
-				List<FunctionRecord> gridRecords = FunctionUtil
-						.toGridRecords(all);
-				FunctionRecord[] array = gridRecords
-						.toArray(new FunctionRecord[] {});
+			public void onSuccess(final List<Function> allPermissions) {
+				UserModel.getFunctionsByBpu(ssoUser.getBpu(),
+						new GHAAsyncCallback<List<BpuFunction>>() {
 
-				List<BpuFunction> permissions = GHASessionData.getLoggedUser()
-						.getPermissions();
-				List<String> codes = new ArrayList<String>(permissions.size());
-				for (BpuFunction bpuFunction : permissions)
-					codes.add(bpuFunction.getFunction().getCode());
+							@Override
+							public void onSuccess(
+									List<BpuFunction> userPermissions) {
+								// All
+								List<FunctionRecord> gridRecords = FunctionUtil
+										.toGridRecords(allPermissions);
+								FunctionRecord[] array = gridRecords
+										.toArray(new FunctionRecord[] {});
+								// User
+								List<String> codes = new ArrayList<String>(
+										userPermissions.size());
+								for (BpuFunction bpuFunction : userPermissions)
+									codes.add(bpuFunction.getFunction()
+											.getCode());
+								if (!codes.isEmpty())
+									for (int i = 0; i < array.length; i++) {
+										FunctionRecord functionRecord = array[i];
+										String code = functionRecord.toEntity()
+												.getCode();
+										functionRecord.setActive(codes
+												.contains(code));
+									}
 
-				for (int i = 0; i < array.length; i++) {
-					FunctionRecord functionRecord = array[i];
-					String code = functionRecord.toEntity().getCode();
-					functionRecord.setActive(codes.contains(code));
-				}
+								grid.setData(array);
 
-				grid.setData(array);
+							}
+						});
 			}
 		});
 	}
