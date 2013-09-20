@@ -36,4 +36,8 @@ public class EIAInformationSubTab extends GHASubTab implements
 		eiaInformationFormPanel.setEia(eia);
 	}
 
+	@Override
+	public void hide() {
+	}
+
 }
