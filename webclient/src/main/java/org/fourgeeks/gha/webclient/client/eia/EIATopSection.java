@@ -2,8 +2,8 @@ package org.fourgeeks.gha.webclient.client.eia;
 
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHATitleTextItem;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATabSet;
@@ -28,33 +28,25 @@ public class EIATopSection extends HLayout implements EIASelectionListener,
 
 	private final EIATab eIATab;
 	private EIASearchForm eiaSearchForm;
-	private GHATextItem acceptationDate, actualCost, responsibleRole, code,
-			eiaType, fixedAssetIdentifier, installationDate, buildingLocation,
-			obu, purchaseDate, serialNumber, state, realWarrantySince,
-			realWarrantyTime, intWarrantySince, intWarrantyTime;
-
-	private GHATitleTextItem garantia, intermediario;
+	private GHATextItem eiaType, code, serialNumber, state,fixedAssetIdentifier, 
+						workingArea, facility, responsibleRole, obu, 
+						acceptationDate, installationDate;
 
 	{
 		eiaSearchForm = new EIASearchForm();
-		acceptationDate = new GHATextItem("Recibido", false);
-		actualCost = new GHATextItem("Costo actual", false);
-		responsibleRole = new GHATextItem("Responsable", false);
-		code = new GHATextItem("Código", false);
-		eiaType = new GHATextItem("Tipo de equipo", false);
-		fixedAssetIdentifier = new GHATextItem("Identificador", false);
-		installationDate = new GHATextItem("Instalación", false);
-		buildingLocation = new GHATextItem("Ubicación", false);
-		obu = new GHATextItem("Organización", false);
-		purchaseDate = new GHATextItem("Fecha de compra", false);
-		serialNumber = new GHATextItem("Serial", false);
-		state = new GHATextItem("Estado", false);
-		garantia = new GHATitleTextItem("Garantía:");
-		realWarrantySince = new GHATextItem("Desde", false);
-		realWarrantyTime = new GHATextItem("Período", false);
-		intermediario = new GHATitleTextItem("Intermediario:");
-		intWarrantySince = new GHATextItem("Desde", false);
-		intWarrantyTime = new GHATextItem("Período", false);
+		
+		eiaType = new GHATextItem("Tipo de equipo",120, false);
+		code = new GHATextItem("Código",120, false);
+		serialNumber = new GHATextItem("Serial",120, false);
+		fixedAssetIdentifier = new GHATextItem("Identificador",120, false);
+		state = new GHATextItem("Estado",120, false);
+		workingArea = new GHATextItem("Area de trabajo",120, false);
+		facility = new GHATextItem("Facilidad",120, false);
+		obu = new GHATextItem("Organización",120, false);
+		responsibleRole = new GHATextItem("Responsable",120, false);
+		installationDate = new GHATextItem("Instalación",120, false);
+		acceptationDate = new GHATextItem("Recibido en",120, false);
+		
 	}
 
 	/**
@@ -81,11 +73,9 @@ public class EIATopSection extends HLayout implements EIASelectionListener,
 		// form.setWidth("100px");
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(6);
-		form.setItems(acceptationDate, actualCost, responsibleRole, code,
-				eiaType, fixedAssetIdentifier, installationDate,
-				buildingLocation, obu, purchaseDate, serialNumber, state,
-				garantia, realWarrantySince, realWarrantyTime, intermediario,
-				intWarrantySince, intWarrantyTime);
+		form.setItems(eiaType, code, serialNumber, fixedAssetIdentifier, state,new GHASpacerItem(),
+					  workingArea, facility,  obu,  responsibleRole, acceptationDate, installationDate
+					  );
 
 		// Panel de la Fotografia Equipos
 
@@ -148,6 +138,29 @@ public class EIATopSection extends HLayout implements EIASelectionListener,
 
 	@Override
 	public void select(Eia eia) {
+		if(eia.getEiaType() != null){
+			eiaType.setValue(eia.getEiaType().getName());
+		}
 		
+		code.setValue(eia.getCode());
+		serialNumber.setValue(eia.getSerialNumber());
+		fixedAssetIdentifier.setValue(eia.getFixedAssetIdentifier());
+		state.setValue(eia.getState().toString());
+		
+		if(eia.getWorkingArea() != null)
+			workingArea.setValue(eia.getWorkingArea().getName());
+		
+		if(eia.getFacility() != null)
+			facility.setValue(eia.getFacility().getName());
+		
+		if(eia.getObu() != null)
+			obu.setValue(eia.getObu().getName());
+		
+		if(eia.getResponsibleRole() != null)
+			responsibleRole.setValue(eia.getResponsibleRole().getName());
+
+		installationDate.setValue(eia.getInstallationDate());
+		acceptationDate.setValue(eia.getAcceptationDate());
+
 	}
 }
