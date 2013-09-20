@@ -73,7 +73,7 @@ public class UserTopSection extends HLayout implements GHAClosable,
 					public void onClick(ClickEvent event) {
 						search();
 					}
-				}), new GHAImgButton("../resources/icons/clean.png"),
+				}),
 				new GHAImgButton("../resources/icons/cancel.png",
 						new ClickHandler() {
 							@Override
