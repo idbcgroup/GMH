@@ -28,6 +28,5 @@ public class UserInformationSubTab extends GHASubTab implements
 
 	@Override
 	public void select(SSOUser ssoUser) {
-
 	}
 }

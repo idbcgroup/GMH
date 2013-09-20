@@ -12,9 +12,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
-import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.types.TitleOrientation;
@@ -35,7 +33,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class UserSearchForm extends GHASlideInWindow implements
-		UserSelectionProducer {
+		UserSelectionProducer, UserSelectionListener {
 
 	private UserGrid grid;
 	private GHATextItem usernameItem, firstNameItem, secondNameItem,
@@ -70,8 +68,8 @@ public class UserSearchForm extends GHASlideInWindow implements
 	}
 
 	/**
-	 * 
-	 */
+* 
+*/
 	public UserSearchForm() {
 		super(1);
 		setTop(110);
@@ -154,7 +152,9 @@ public class UserSearchForm extends GHASlideInWindow implements
 
 					@Override
 					public void onClick(ClickEvent event) {
-						select();
+						notifyUser(((UserRecord) grid.getSelectedRecord())
+								.toEntity());
+						hide();
 					}
 				}), GHAUiHelper.verticalGraySeparator("2px"), new GHAImgButton(
 				"../resources/icons/new.png", new ClickHandler() {
@@ -162,6 +162,7 @@ public class UserSearchForm extends GHASlideInWindow implements
 					@Override
 					public void onClick(ClickEvent event) {
 						addForm.open();
+						addForm.show();
 					}
 				}));
 
@@ -170,33 +171,12 @@ public class UserSearchForm extends GHASlideInWindow implements
 		addMember(gridLayout);
 
 		fillExtras();
-	}
-
-	protected void select() {
-		SSOUser selectedEntity = grid.getSelectedEntity();
-		if (selectedEntity != null) {
-			select(selectedEntity);
-			hide();
-		} else
-			GHANotification.alert("Debe seleccionar un registro");
+		// register as listener to the addform producer
+		addForm.addUserSelectionListener(this);
 	}
 
 	private void fillExtras() {
 		genderSelectItem.setValueMap(GenderTypeEnum.toValueMap());
-	}
-
-	/**
-	 * 
-	 * @param eiaSelectionListener
-	 */
-	public void addEIASelectionListener(
-			EIASelectionListener eiaSelectionListener) {
-		// listeners.add(eiaSelectionListener);
-	}
-
-	private void select(SSOUser ssoUser) {
-		for (UserSelectionListener listener : listeners)
-			listener.select(ssoUser);
 	}
 
 	private void search() {
@@ -238,8 +218,8 @@ public class UserSearchForm extends GHASlideInWindow implements
 				ListGridRecord[] array = UserUtil.toGridRecords(ssoUsers)
 						.toArray(new UserRecord[] {});
 				grid.setData(array);
-				// TODO: si hay un registro que coincide con el ssoU
-				// seleccionarlo.
+				// TODO: seleccionar un elemento si coincide con el usuario de
+				// la busqueda
 			}
 		});
 	}
@@ -259,6 +239,12 @@ public class UserSearchForm extends GHASlideInWindow implements
 		setHeight(GHAUiHelper.getTabHeight() + "px");
 	}
 
+	// Producer Consumer stuff
+	protected void notifyUser(SSOUser ssoUser) {
+		for (UserSelectionListener listener : listeners)
+			listener.select(ssoUser);
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -270,7 +256,6 @@ public class UserSearchForm extends GHASlideInWindow implements
 	public void addUserSelectionListener(
 			UserSelectionListener userSelectionListener) {
 		listeners.add(userSelectionListener);
-
 	}
 
 	/*
@@ -283,7 +268,22 @@ public class UserSearchForm extends GHASlideInWindow implements
 	@Override
 	public void removeUserSelectionListener(
 			UserSelectionListener userSelectionListener) {
-		listeners.remove(userSelectionListener);
-
+		listeners.add(userSelectionListener);
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.user.UserSelectionListener#select(
+	 * org.fourgeeks.gha.domain.ess.SSOUser)
+	 */
+	@Override
+	public void select(SSOUser ssoUser) {
+		UserRecord gridRecord = UserUtil.toGridRecord(ssoUser);
+		ListGridRecord[] array = { gridRecord };
+		grid.setData(array);
+		grid.selectRecord(gridRecord);
+	}
+
 }

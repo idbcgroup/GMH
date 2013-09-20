@@ -80,6 +80,5 @@ public class UserTab extends GHATab implements UserSelectionListener,
 	public void select(SSOUser ssoUser) {
 		for (UserSelectionListener listener : listeners)
 			listener.select(ssoUser);
-
 	}
 }

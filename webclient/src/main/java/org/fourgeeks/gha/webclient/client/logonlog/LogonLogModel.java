@@ -8,6 +8,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.log.GWTLogonLogServiceAsync;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.Window;
 
 /**
  * @author alacret
@@ -23,6 +24,7 @@ public class LogonLogModel {
 	 */
 	public static void getLogsByBpu(Bpu bpu,
 			GHAAsyncCallback<List<LogonLog>> callback) {
+		Window.alert("antes de llamar");
 		logonLogservice.getLogsByBpu(bpu, callback);
 	}
 
