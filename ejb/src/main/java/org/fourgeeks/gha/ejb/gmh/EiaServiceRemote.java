@@ -6,9 +6,6 @@ package org.fourgeeks.gha.ejb.gmh;
 import java.util.List;
 
 import javax.ejb.Remote;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.Eia;
@@ -23,14 +20,6 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 public interface EiaServiceRemote {
 
 	/**
-	 * @param entity
-	 * @param cb
-	 * @param root
-	 * @return a predicate with the filters used to search by eia
-	 */
-	public Predicate buildFilters(Eia entity, CriteriaBuilder cb, Root<Eia> root);
-
-	/**
 	 * @param Id
 	 * @return a boolean with the result of the operation
 	 * @throws GHAEJBException
@@ -41,7 +30,7 @@ public interface EiaServiceRemote {
 	/**
 	 * @param eia
 	 * @return a List with eias using an eia as a filter
-	 * @throws EJBExceptions
+	 * @throws GHAEJBException
 	 */
 	public List<Eia> find(Eia eia) throws GHAEJBException;
 
@@ -76,7 +65,7 @@ public interface EiaServiceRemote {
 
 	/**
 	 * @param eia
-	 * @Return the persisted entity
+	 * @return the persisted entity
 	 * @throws GHAEJBException
 	 *             Persist an eia to database
 	 */

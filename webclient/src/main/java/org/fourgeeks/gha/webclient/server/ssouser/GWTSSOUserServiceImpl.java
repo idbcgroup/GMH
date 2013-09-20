@@ -11,7 +11,9 @@ import javax.servlet.annotation.WebServlet;
 import org.fourgeeks.gha.domain.ess.BpuFunction;
 import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
+import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.ejb.ess.SSOUserServiceRemote;
+import org.fourgeeks.gha.ejb.gar.BpuFunctionServiceRemote;
 import org.fourgeeks.gha.webclient.client.ssouser.GWTSSOUserService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -25,6 +27,10 @@ public class GWTSSOUserServiceImpl extends RemoteServiceServlet implements
 		GWTSSOUserService {
 	@EJB(name = "ess.SSOUserService")
 	SSOUserServiceRemote service;
+
+	@EJB(name = "gar.BpuFunctionService")
+	BpuFunctionServiceRemote bpuFunctionService;
+
 	/**
 	 * 
 	 */
@@ -107,6 +113,12 @@ public class GWTSSOUserServiceImpl extends RemoteServiceServlet implements
 	@Override
 	public void delete(BpuFunction bpuFunction) throws GHAEJBException {
 		service.delete(bpuFunction);// TODO pasar a GWTBpuFunction
+	}
+
+	@Override
+	public List<BpuFunction> getFunctionsByBpu(Bpu bpu) throws GHAEJBException {
+		return bpuFunctionService.getFunctionsByBpu(bpu); // TODO pasar a
+															// GwtBpuFunction
 	}
 
 }

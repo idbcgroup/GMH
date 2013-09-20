@@ -53,14 +53,22 @@ public class UserModel {
 		ssoUservice.save(ssoUser, callback);
 	}
 
+	// TODO : Pasar a bpuFunctionmodel
 	public static void save(BpuFunction bpuFunction,
 			GHAAsyncCallback<BpuFunction> callback) {
 		ssoUservice.save(bpuFunction, callback);
 	}
 
+	// TODO : Pasar a bpuFunctionmodel
 	public static void delete(BpuFunction bpuFunction,
 			GHAAsyncCallback<Void> callback) {
 		ssoUservice.delete(bpuFunction, callback);
+	}
+
+	// TODO : Pasar a bpuFunctionmodel
+	public static void getFunctionsByBpu(Bpu bpu,
+			GHAAsyncCallback<List<BpuFunction>> callback) {
+		ssoUservice.getFunctionsByBpu(bpu, callback);
 	}
 
 }
