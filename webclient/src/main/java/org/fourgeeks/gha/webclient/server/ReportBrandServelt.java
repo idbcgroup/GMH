@@ -19,14 +19,17 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
+import org.apache.log4j.Logger;
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.ejb.gmh.BrandServiceRemote;
 
-@WebServlet(urlPatterns = { "/webclient/reportBrand" })
+@WebServlet(urlPatterns = { "/webclient/reportbrand" })
 public class ReportBrandServelt extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String REPORT_FILE_DIR = "../reportes/prueba.jasper";
+	private static final Logger LOG = Logger.getLogger(ReportBrandServelt.class);
+
+	private static final String REPORT_FILE_DIR = "/resources/reportes/prueba.jasper";
 
 	@EJB(name = "gmh.BrandService", beanInterface = BrandServiceRemote.class)
 	BrandServiceRemote service;
@@ -48,18 +51,17 @@ public class ReportBrandServelt extends HttpServlet {
 	 * , javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
+			IOException {
 
 		try {
 			Map<String, Object> paramsReport = new HashMap<String, Object>();
 
 			List<Brand> brands = service.getAll();
-			JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(
-					brands);
+			JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(brands);
 
 			JasperPrint fillReport = JasperFillManager.fillReport(
-					REPORT_FILE_DIR, paramsReport, dataSource);
+					getServletContext().getRealPath(REPORT_FILE_DIR), paramsReport, dataSource);
 
 			exportAsPDF(resp, fillReport);
 
@@ -74,10 +76,8 @@ public class ReportBrandServelt extends HttpServlet {
 			throws JRException, IOException {
 
 		response.setContentType("application/pdf");
-		response.addHeader("Content-Disposition",
-				"inline; filename=brandReport.pdf");
+		response.addHeader("Content-Disposition", "inline; filename=brandReport.pdf");
 
-		JasperExportManager.exportReportToPdfStream(impresion,
-				response.getOutputStream());
+		JasperExportManager.exportReportToPdfStream(impresion, response.getOutputStream());
 	}
 }
