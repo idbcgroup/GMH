@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version last-->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="prueba" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="606d8e54-0a0a-4415-92bf-390680ff9945">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
 	<field name="id" class="java.lang.Long"/>
 	<field name="name" class="java.lang.String"/>
-	<field name="manufacturerfk" class="java.lang.Long"/>
+	<field name="manufacturer.name" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
 		<band height="79" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="bda7f829-401c-457a-bab0-6926136cdf6a" x="0" y="24" width="212" height="30"/>
-				<textElement>
+				<reportElement uuid="bda7f829-401c-457a-bab0-6926136cdf6a" x="0" y="0" width="212" height="79"/>
+				<textElement verticalAlignment="Middle">
 					<font size="22" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Reporte de prueba]]></text>
@@ -28,23 +30,23 @@
 	<columnHeader>
 		<band height="29" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="233b9540-1f48-48e3-9f3c-0b201483fb74" style="Column header" x="185" y="7" width="185" height="18" forecolor="#000000"/>
-				<textElement>
-					<font fontName="SansSerif" isBold="true"/>
+				<reportElement uuid="233b9540-1f48-48e3-9f3c-0b201483fb74" x="185" y="0" width="171" height="29" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Nombre]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="601c798b-027d-4a30-a9d3-cd0cde3e6ff2" style="Column header" x="370" y="7" width="185" height="18" forecolor="#000000"/>
-				<textElement>
-					<font fontName="SansSerif" isBold="true"/>
+				<reportElement uuid="601c798b-027d-4a30-a9d3-cd0cde3e6ff2" x="370" y="0" width="183" height="29" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[FK]]></text>
+				<text><![CDATA[Fabricante]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="c8b55f0a-6ffc-495f-a6ad-559e3e7d9ff2" style="Column header" x="0" y="7" width="185" height="18" forecolor="#000000"/>
-				<textElement>
-					<font fontName="SansSerif" isBold="true"/>
+				<reportElement uuid="60d3ab9a-7f4c-4310-8eda-e7562d9e840b" x="2" y="0" width="172" height="29" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="SansSerif" size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Identificador]]></text>
 			</staticText>
@@ -53,25 +55,25 @@
 	<detail>
 		<band height="45" splitType="Stretch">
 			<textField>
-				<reportElement uuid="223d7c29-c14c-4be1-aa44-712b89400f80" x="0" y="0" width="185" height="30"/>
+				<reportElement uuid="223d7c29-c14c-4be1-aa44-712b89400f80" x="2" y="0" width="172" height="30"/>
 				<textElement>
-					<font fontName="SansSerif" size="14"/>
+					<font fontName="SansSerif" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="57b7e276-5306-421e-a958-c7d560d3fc46" x="185" y="0" width="185" height="30"/>
+				<reportElement uuid="57b7e276-5306-421e-a958-c7d560d3fc46" x="185" y="0" width="171" height="30"/>
 				<textElement>
-					<font fontName="SansSerif" size="14"/>
+					<font fontName="SansSerif" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="3c1994ea-7207-44c1-84d3-07337ec3c7de" x="370" y="0" width="185" height="30"/>
+				<reportElement uuid="3c1994ea-7207-44c1-84d3-07337ec3c7de" x="370" y="0" width="183" height="30"/>
 				<textElement>
-					<font fontName="SansSerif" size="14"/>
+					<font fontName="SansSerif" size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{manufacturerfk}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{manufacturer.name}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -81,21 +83,21 @@
 	<pageFooter>
 		<band height="54" splitType="Stretch">
 			<textField evaluationTime="Report">
-				<reportElement uuid="1be28e21-c0e5-4bcb-a201-e8670a35d6d2" style="Column header" x="502" y="0" width="51" height="20" forecolor="#000000"/>
+				<reportElement uuid="1be28e21-c0e5-4bcb-a201-e8670a35d6d2" x="502" y="0" width="51" height="20" forecolor="#000000"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="14" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="2dd98c03-ddd6-40a7-95e7-7490551e1dd0" style="Column header" x="422" y="0" width="80" height="20" forecolor="#000000"/>
+				<reportElement uuid="2dd98c03-ddd6-40a7-95e7-7490551e1dd0" x="420" y="0" width="80" height="20" forecolor="#000000"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="12" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
 			</textField>
 			<textField pattern="EEEEE dd MMMMM yyyy">
-				<reportElement uuid="2360e35e-d6f2-4cff-95f1-c563c158f1ff" style="Column header" x="2" y="1" width="197" height="20" forecolor="#000000"/>
+				<reportElement uuid="2360e35e-d6f2-4cff-95f1-c563c158f1ff" x="2" y="1" width="197" height="20" forecolor="#000000"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="12" isBold="false"/>
 				</textElement>
