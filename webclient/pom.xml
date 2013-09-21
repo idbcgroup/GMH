@@ -113,6 +113,12 @@
             <version>1.2.16</version>
         </dependency>
         
+        <dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<version>5.2.0</version>
+		</dependency>
+        
 		<dependency>
 			<groupId>gha</groupId>
 			<artifactId>domain</artifactId>
