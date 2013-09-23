@@ -50,19 +50,28 @@ public class ReportBrandServelt extends HttpServlet {
 			IOException {
 
 		try {
+			// lista de datos a mostrar en el reporte
 			List<Brand> brands = service.getAll();
-			Image logoImage = new ImageIcon(getServletContext().getRealPath(LOGO_DIR)).getImage();
-			JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(brands);
-			Map<String, Object> paramsReport = new HashMap<String, Object>();
 
+			// logo del sistema que ha de aparecer como parte del reporte
+			Image logoImage = new ImageIcon(getServletContext().getRealPath(LOGO_DIR)).getImage();
+			// la fuente de datos de la que se nutre el reporte (este DataSource
+			// se nutre de la lista "brands")
+			JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(brands);
+
+			// parametros que recibe el reporte
+			Map<String, Object> paramsReport = new HashMap<String, Object>();
 			paramsReport.put("logo", logoImage);
 			paramsReport.put("statusOrLoc", "Estatus");
 			paramsReport.put("statusOrLocVal", "Nuevo");
 
+			// generacion del archivo .jasper (reporte compilado) y el llenado
+			// del reporte (fillReport)
 			String reportFileRealPath = getServletContext().getRealPath(REPORT_FILE_DIR);
 			JasperReport report = JasperCompileManager.compileReport(reportFileRealPath);
 			JasperPrint fillReport = JasperFillManager.fillReport(report, paramsReport, dataSource);
 
+			// exportacion como PDF
 			exportAsPDF(resp, fillReport);
 
 		} catch (EJBException e) {
@@ -73,12 +82,26 @@ public class ReportBrandServelt extends HttpServlet {
 		}
 	}
 
-	private void exportAsPDF(HttpServletResponse response, JasperPrint impresion)
+	/**
+	 * Envia como respuesta al cliente el reporte generado como PDF a traves de
+	 * streaming
+	 * 
+	 * @param response
+	 *            El objeto {@link HttpServletResponse} que permite escribir la
+	 *            respuesta al cliente
+	 * @param fillReport
+	 *            El objeto con el reporte ya lleno con los datos
+	 * @throws JRException
+	 * @throws IOException
+	 */
+	private void exportAsPDF(HttpServletResponse response, JasperPrint fillReport)
 			throws JRException, IOException {
 
 		response.setContentType("application/pdf");
 		response.addHeader("Content-Disposition", "inline; filename=brandReport.pdf");
 
-		JasperExportManager.exportReportToPdfStream(impresion, response.getOutputStream());
+		// se exporta en reporte lleno con los datos como PDF hacia la salida
+		// que ofrece el objeto response
+		JasperExportManager.exportReportToPdfStream(fillReport, response.getOutputStream());
 	}
 }
