@@ -28,6 +28,8 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import com.google.gwt.validation.client.impl.Validation;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.form.DynamicForm;
+import com.smartgwt.client.widgets.layout.HLayout;
+import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
@@ -43,6 +45,13 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 	private GHADateItem birthDateItem;
 
 	private List<UserSelectionListener> listeners;
+	
+	/**
+	 * this is used to keep the id of the internal entities of ssouser
+	 * named bpu, bpi, citizen, legalentity, etc.
+	 * is used only for update purposes
+	 */
+	private SSOUser updateUser;
 
 	private Validator validator;
 
@@ -72,7 +81,7 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		birthDateItem = new GHADateItem("Fecha de Nac.",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
-		bpiSelectItem = new GHASelectItem("Tipo ID",
+		bpiSelectItem = new GHASelectItem("Institución",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		legalEntityIdentifierItem = new GHATextItem("R.I.F.",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
@@ -86,16 +95,20 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 	 * 
 	 */
 	public UserForm() {
+		final HLayout mainPanel = new HLayout();
+		
 		final DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
 		// form.setCellPadding(1);
 		form.setNumCols(3);
 		form.setItems(usernameItem, passwordItem, confirmPasswordItem,
-				typeidSelectItem, idItem, genderSelectItem, firstNameItem,
-				secondNameItem, lastNameItem, secondLastNameItem,
-				nationalityItem, birthDateItem, bpiSelectItem,
-				legalEntityIdentifierItem);
-		addMember(form);
+				typeidSelectItem, idItem, genderSelectItem, 
+				firstNameItem,secondNameItem, lastNameItem, 
+				secondLastNameItem,nationalityItem, birthDateItem, 
+				bpiSelectItem, legalEntityIdentifierItem);
+		
+		mainPanel.addMembers(form, new LayoutSpacer());
+		addMember(mainPanel);
 		fill();
 	}
 
@@ -141,10 +154,62 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 	 * 
 	 */
 	public void save() {
+		SSOUser ssoUser = extract(false);
+		
+		//if the validation fail, return
+		if(ssoUser == null)
+			return;
+		UserModel.save(ssoUser, new GHAAsyncCallback<SSOUser>() {
+
+			@Override
+			public void onSuccess(SSOUser result) {
+				notifyUser(result);
+				cancel();
+
+			}
+		});
+	}
+
+	/**
+	 * 
+	 */
+	public void update() {
+		SSOUser ssoUser = extract(true);
+		//if the validation fail, return
+		if(ssoUser == null)
+			return;
+		UserModel.update(ssoUser, new GHAAsyncCallback<SSOUser>() {
+
+			@Override
+			public void onSuccess(SSOUser result) {
+				notifyUser(result);
+			}
+		});
+	}
+	
+	/**
+	 * This method extract the values from the fields.
+	 * the param is used to decide whether or not, the id values
+	 * from the inner entities should be added in order to update
+	 * or in the case of new ssoUser should not be added because
+	 * is new.
+	 * @param addIdsToUpdate
+	 * @return the SSOUser to save/update
+	 */
+	private SSOUser extract(boolean update){
 		final SSOUser ssoUser = new SSOUser();
-		final Bpu bpu = new Bpu();
-		final Citizen citizen = new Citizen();
+		final Bpu bpu  = new Bpu();
+		final Citizen citizen =  new Citizen();
 		final LegalEntity legalEntity = new LegalEntity();
+		final Bpi bpi = new Bpi();
+		
+		if(update){
+			ssoUser.setId(this.updateUser.getId());
+			bpu.setId(this.updateUser.getBpu().getId());
+			citizen.setId(this.updateUser.getBpu().getCitizen().getId());
+			legalEntity.setId(this.updateUser.getBpu().getCitizen().getLegalEntity().getId());
+			bpi.setId(this.updateUser.getBpu().getBpi().getId());
+		}
 
 		// ssoUser fields
 		ssoUser.setUserName(usernameItem.getValueAsString());
@@ -176,7 +241,7 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 
 		// bpu fields
 		if (bpiSelectItem.getValue() != null) {
-			bpu.setBpi(new Bpi(Long.valueOf(bpiSelectItem.getValueAsString())));
+			bpi.setId(Long.valueOf(bpiSelectItem.getValueAsString()));
 		}
 
 		// legalentity fields
@@ -188,6 +253,7 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 		// build the ssoUser object
 		citizen.setLegalEntity(legalEntity);
 		bpu.setCitizen(citizen);
+		bpu.setBpi(bpi);
 		ssoUser.setBpu(bpu);
 
 		Set<ConstraintViolation<LegalEntity>> violationsLegalEntity = validator
@@ -197,7 +263,7 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 		Set<ConstraintViolation<Bpu>> violationsBpu = validator.validate(bpu);
 		Set<ConstraintViolation<SSOUser>> violationsSSOUser = validator
 				.validate(ssoUser);
-
+		
 		if (violationsSSOUser.isEmpty() && violationsBpu.isEmpty() &&
 				violationsCitizen.isEmpty() && violationsLegalEntity.isEmpty()) {
 			
@@ -206,28 +272,16 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 					|| passwordItem.getValueAsString() != confirmPasswordItem
 							.getValueAsString()) {
 				GHANotification.alert("Las Constraseñas no coinciden");
-				return;
+				return null;
 			}
 			
-			UserModel.save(ssoUser, new GHAAsyncCallback<SSOUser>() {
-
-				@Override
-				public void onSuccess(SSOUser result) {
-					notifyUser(result);
-					cancel();
-
-				}
-			});
-		}else
+			//everything ok, go save/update
+			return ssoUser;
+			
+		}else{
 			GHANotification.alert("Error en los datos de usuario, verifique los campos requeridos");
-
-	}
-
-	/**
-	 * 
-	 */
-	public void update() {
-		// TODO
+			return null;
+		}
 	}
 
 	/**
@@ -236,6 +290,7 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 	public void activateForm(boolean activate) {
 		usernameItem.setDisabled(!activate);
 		passwordItem.setDisabled(!activate);
+		confirmPasswordItem.setDisabled(!activate);
 		firstNameItem.setDisabled(!activate);
 		secondNameItem.setDisabled(!activate);
 		lastNameItem.setDisabled(!activate);
@@ -245,7 +300,68 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 		genderSelectItem.setDisabled(!activate);
 		nationalityItem.setDisabled(!activate);
 		birthDateItem.setDisabled(!activate);
+		bpiSelectItem.setDisabled(!activate);
 		legalEntityIdentifierItem.setDisabled(!activate);
+	}
+	
+	/**
+	 * This method fills the userForm with the SSOUser info
+	 * @param ssoUser
+	 */
+	public void setSSOUser(SSOUser ssoUser){
+		this.updateUser = ssoUser;
+		
+		if(ssoUser.getUserName() != null){
+			usernameItem.setValue(ssoUser.getUserName());
+		}
+		if(ssoUser.getPassword() != null){
+			passwordItem.setValue(ssoUser.getPassword());
+			confirmPasswordItem.setValue(ssoUser.getPassword());
+		}
+		if(ssoUser.getUserLogonStatus() != null){
+			//TODO: when is added to the interface
+		}
+		if(ssoUser.getBpu() != null){
+			Bpu bpu = ssoUser.getBpu();
+			if(bpu.getBpi() != null){
+				bpiSelectItem.setValue(bpu.getBpi().getId());
+			}
+			
+			if(bpu.getCitizen() != null){
+				Citizen citizen = bpu.getCitizen();
+				if(citizen.getFirstName() != null){
+					firstNameItem.setValue(citizen.getFirstName());
+				}
+				if(citizen.getSecondName()!=null){
+					secondNameItem.setValue(citizen.getSecondName());
+				}
+				if(citizen.getFirstLastName() != null){
+					lastNameItem.setValue(citizen.getFirstLastName());
+				}
+				if(citizen.getSecondLastName() != null){
+					secondLastNameItem.setValue(citizen.getSecondLastName());
+				}
+				if(citizen.getBirthDate() != null){
+					birthDateItem.setValue(citizen.getBirthDate());
+				}
+				if(citizen.getIdType() != null){
+					typeidSelectItem.setValue(citizen.getIdType().name());
+				}
+				if(citizen.getIdNumber() != null){
+					idItem.setValue(citizen.getIdNumber());
+				}
+				if(citizen.getNationality() != null){
+					nationalityItem.setValue(citizen.getNationality());
+				}
+				if(citizen.getGender() != null){
+					genderSelectItem.setValue(citizen.getGender().name());
+				}
+				if(citizen.getLegalEntity() != null && citizen.getLegalEntity().getIdentifier() != null){
+					legalEntityIdentifierItem.setValue(citizen.getLegalEntity().getIdentifier());
+				}
+			}
+		}
+		
 	}
 
 	// Producer stuff

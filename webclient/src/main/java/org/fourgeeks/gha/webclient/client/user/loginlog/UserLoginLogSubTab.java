@@ -19,6 +19,7 @@ public class UserLoginLogSubTab extends GHASubTab implements
 	 */
 	public UserLoginLogSubTab(UserTab tab) {
 		super("Login Log", tab);
+		setDisabled(true);
 		tab.addUserSelectionListener(this);
 		userLoginLogGridPanel = new UserLoginLogGridPanel();
 		setPane(userLoginLogGridPanel);
@@ -26,6 +27,7 @@ public class UserLoginLogSubTab extends GHASubTab implements
 
 	@Override
 	public void select(SSOUser ssoUser) {
+		setDisabled(false);
 		userLoginLogGridPanel.loadData(ssoUser);
 	}
 

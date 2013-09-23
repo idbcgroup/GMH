@@ -107,7 +107,6 @@ public class EIATopSection extends HLayout implements EIASelectionListener,
 						search();
 					}
 				}),
-				new GHAImgButton("../resources/icons/clean.png"),
 				new GHAImgButton("../resources/icons/cancel.png",new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
