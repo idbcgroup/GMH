@@ -28,6 +28,8 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import com.google.gwt.validation.client.impl.Validation;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.form.DynamicForm;
+import com.smartgwt.client.widgets.layout.HLayout;
+import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
@@ -93,16 +95,20 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 	 * 
 	 */
 	public UserForm() {
+		final HLayout mainPanel = new HLayout();
+		
 		final DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
 		// form.setCellPadding(1);
 		form.setNumCols(3);
 		form.setItems(usernameItem, passwordItem, confirmPasswordItem,
-				typeidSelectItem, idItem, genderSelectItem, firstNameItem,
-				secondNameItem, lastNameItem, secondLastNameItem,
-				nationalityItem, birthDateItem, bpiSelectItem,
-				legalEntityIdentifierItem);
-		addMember(form);
+				typeidSelectItem, idItem, genderSelectItem, 
+				firstNameItem,secondNameItem, lastNameItem, 
+				secondLastNameItem,nationalityItem, birthDateItem, 
+				bpiSelectItem, legalEntityIdentifierItem);
+		
+		mainPanel.addMembers(form, new LayoutSpacer());
+		addMember(mainPanel);
 		fill();
 	}
 

@@ -19,6 +19,7 @@ public class UserInformationSubTab extends GHASubTab implements
 	 */
 	public UserInformationSubTab(UserTab tab) {
 		super("Información", tab);
+		setDisabled(true);
 		tab.addUserSelectionListener(this);
 		form = new UserInformationFormPanel(tab);
 		addGHAClosableHandler(form);
@@ -31,6 +32,7 @@ public class UserInformationSubTab extends GHASubTab implements
 
 	@Override
 	public void select(SSOUser ssoUser) {
+		setDisabled(false);
 		form.select(ssoUser);
 	}
 }
