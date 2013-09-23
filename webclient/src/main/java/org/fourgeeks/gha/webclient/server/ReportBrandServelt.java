@@ -1,5 +1,6 @@
 package org.fourgeeks.gha.webclient.server;
 
+import java.awt.Image;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -12,11 +13,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.ImageIcon;
 
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import org.apache.log4j.Level;
@@ -29,7 +33,9 @@ import org.fourgeeks.gha.ejb.gmh.BrandServiceRemote;
 public class ReportBrandServelt extends HttpServlet {
 	private static final Logger LOG = Logger.getLogger(ReportBrandServelt.class);
 	private static final long serialVersionUID = 1L;
-	private static final String REPORT_FILE_DIR = "/resources/reportes/prueba.jasper";
+
+	private static final String REPORT_FILE_DIR = "/resources/reportes/prueba.jrxml";
+	private static final String LOGO_DIR = "/resources/img/logoReport.jpg";
 
 	@EJB(name = "gmh.BrandService", beanInterface = BrandServiceRemote.class)
 	BrandServiceRemote service;
@@ -45,11 +51,17 @@ public class ReportBrandServelt extends HttpServlet {
 
 		try {
 			List<Brand> brands = service.getAll();
+			Image logoImage = new ImageIcon(getServletContext().getRealPath(LOGO_DIR)).getImage();
 			JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(brands);
 			Map<String, Object> paramsReport = new HashMap<String, Object>();
 
-			JasperPrint fillReport = JasperFillManager.fillReport(
-					getServletContext().getRealPath(REPORT_FILE_DIR), paramsReport, dataSource);
+			paramsReport.put("logo", logoImage);
+			paramsReport.put("statusOrLoc", "Estatus");
+			paramsReport.put("statusOrLocVal", "Nuevo");
+
+			String reportFileRealPath = getServletContext().getRealPath(REPORT_FILE_DIR);
+			JasperReport report = JasperCompileManager.compileReport(reportFileRealPath);
+			JasperPrint fillReport = JasperFillManager.fillReport(report, paramsReport, dataSource);
 
 			exportAsPDF(resp, fillReport);
 
