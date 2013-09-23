@@ -138,6 +138,7 @@ public class Eia extends AbstractEntity {
 	@Column(nullable = false)
 	private EiaStateEnum state = EiaStateEnum.CREATED;
 
+	@NotNull(message = "VAL001")
 	@ManyToOne
 	@JoinColumn(name = "externalProviderFk", nullable = false)
 	private ExternalProvider provider;
