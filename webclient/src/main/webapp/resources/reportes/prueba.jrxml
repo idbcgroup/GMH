@@ -33,40 +33,58 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="58" splitType="Stretch">
+		<band height="77" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="bda7f829-401c-457a-bab0-6926136cdf6a" x="280" y="0" width="274" height="48"/>
+				<reportElement uuid="bda7f829-401c-457a-bab0-6926136cdf6a" x="296" y="22" width="274" height="48">
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="24" isBold="true"/>
+					<font fontName="Arial" size="24" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Reporte de prueba]]></text>
 			</staticText>
 			<image>
-				<reportElement uuid="857b258b-9ebc-4b56-9cd9-862510d3724f" x="0" y="0" width="108" height="50">
+				<reportElement uuid="857b258b-9ebc-4b56-9cd9-862510d3724f" x="0" y="22" width="100" height="47">
 					<property name="local_mesure_unitwidth" value="pixel"/>
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
 			</image>
 			<line>
-				<reportElement uuid="170da3b4-cd39-4638-8c33-c775a29ddea2" x="0" y="54" width="555" height="1" forecolor="#0080FF">
+				<reportElement uuid="170da3b4-cd39-4638-8c33-c775a29ddea2" positionType="FixRelativeToBottom" x="0" y="73" width="572" height="1" forecolor="#0080FF">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<graphicElement>
 					<pen lineWidth="2.0"/>
 				</graphicElement>
 			</line>
+			<staticText>
+				<reportElement uuid="188dbefe-f24f-4449-989b-1e59b831f073" x="245" y="0" width="325" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Sistema de Gestion Hospitalaria Asistencial GHA - Reporte de equipos]]></text>
+			</staticText>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="23" splitType="Stretch">
+		<band height="20" splitType="Stretch">
+			<printWhenExpression><![CDATA[$V{PAGE_NUMBER}.intValue() > 1? Boolean.TRUE: Boolean.FALSE]]></printWhenExpression>
 			<staticText>
-				<reportElement uuid="bd8d1d65-f5fe-4ae8-84c5-8ea50737290f" x="230" y="0" width="325" height="20"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<reportElement uuid="bd8d1d65-f5fe-4ae8-84c5-8ea50737290f" x="245" y="0" width="325" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
 				<text><![CDATA[Sistema de Gestion Hospitalaria Asistencial GHA - Reporte de equipos]]></text>
 			</staticText>
 		</band>
@@ -74,13 +92,13 @@
 	<columnHeader>
 		<band height="113" splitType="Stretch">
 			<rectangle>
-				<reportElement uuid="f7ed730e-34da-4d2d-9263-5ac2ef821e6a" x="354" y="10" width="200" height="61">
+				<reportElement uuid="f7ed730e-34da-4d2d-9263-5ac2ef821e6a" x="370" y="10" width="200" height="61">
 					<property name="local_mesure_unitwidth" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 			</rectangle>
 			<textField>
-				<reportElement uuid="1c040768-3935-4eca-81c6-5d8bf4477310" x="354" y="10" width="100" height="20">
+				<reportElement uuid="1c040768-3935-4eca-81c6-5d8bf4477310" x="370" y="10" width="100" height="20">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -91,13 +109,13 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement verticalAlignment="Middle">
-					<font isBold="true"/>
+					<font fontName="Arial" isBold="true"/>
 					<paragraph firstLineIndent="0" leftIndent="2"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{statusOrLoc}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="888c463b-abc6-4d7c-bc24-f3124ce09ada" x="454" y="10" width="100" height="20">
+				<reportElement uuid="888c463b-abc6-4d7c-bc24-f3124ce09ada" x="470" y="10" width="100" height="20">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -108,13 +126,13 @@
 					<rightPen lineWidth="0.0"/>
 				</box>
 				<textElement verticalAlignment="Middle">
-					<font isBold="false"/>
+					<font fontName="Arial" isBold="false"/>
 					<paragraph firstLineIndent="0" leftIndent="2"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{statusOrLocVal}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="27735e2d-836c-40ed-a1cc-c1f1da212ccc" x="354" y="30" width="100" height="20"/>
+				<reportElement uuid="27735e2d-836c-40ed-a1cc-c1f1da212ccc" x="370" y="30" width="100" height="20"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -122,13 +140,13 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement verticalAlignment="Middle">
-					<font isBold="true"/>
+					<font fontName="Arial" isBold="true"/>
 					<paragraph firstLineIndent="0" leftIndent="2"/>
 				</textElement>
 				<text><![CDATA[Fecha del reporte]]></text>
 			</staticText>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement uuid="80702d8c-d49c-43f9-be7e-7d858f7080cb" x="454" y="30" width="100" height="20"/>
+				<reportElement uuid="80702d8c-d49c-43f9-be7e-7d858f7080cb" x="470" y="30" width="100" height="20"/>
 				<box>
 					<topPen lineWidth="0.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -136,12 +154,13 @@
 					<rightPen lineWidth="0.0"/>
 				</box>
 				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
 					<paragraph firstLineIndent="0" leftIndent="2"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<textField pattern="HH:mm">
-				<reportElement uuid="63bc0322-6589-4aba-8cc6-9aa48f4f811d" x="454" y="50" width="100" height="20">
+				<reportElement uuid="63bc0322-6589-4aba-8cc6-9aa48f4f811d" x="470" y="50" width="100" height="20">
 					<property name="local_mesure_unitx" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
@@ -152,12 +171,13 @@
 					<rightPen lineWidth="0.0"/>
 				</box>
 				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
 					<paragraph firstLineIndent="0" leftIndent="2"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="8c5ab253-3843-473c-a202-28cddebe4f08" x="354" y="50" width="100" height="20">
+				<reportElement uuid="8c5ab253-3843-473c-a202-28cddebe4f08" x="370" y="50" width="100" height="20">
 					<property name="local_mesure_unitx" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
@@ -168,13 +188,13 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement verticalAlignment="Middle">
-					<font isBold="true"/>
+					<font fontName="Arial" isBold="true"/>
 					<paragraph firstLineIndent="0" leftIndent="2"/>
 				</textElement>
 				<text><![CDATA[Hora del reporte]]></text>
 			</staticText>
 			<rectangle>
-				<reportElement uuid="be89dc75-0fdd-4899-9f6f-3c55c71a6804" x="0" y="92" width="555" height="21" backcolor="#81C9FE">
+				<reportElement uuid="be89dc75-0fdd-4899-9f6f-3c55c71a6804" x="0" y="92" width="570" height="21" backcolor="#81C9FE">
 					<property name="local_mesure_unitx" value="pixel"/>
 				</reportElement>
 			</rectangle>
@@ -190,12 +210,12 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="10" isBold="true"/>
+					<font fontName="Arial" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Nombre]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="601c798b-027d-4a30-a9d3-cd0cde3e6ff2" x="380" y="93" width="175" height="20" forecolor="#000000">
+				<reportElement uuid="601c798b-027d-4a30-a9d3-cd0cde3e6ff2" x="380" y="93" width="190" height="20" forecolor="#000000">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unity" value="pixel"/>
@@ -208,7 +228,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="10" isBold="true"/>
+					<font fontName="Arial" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Fabricante]]></text>
 			</staticText>
@@ -227,14 +247,14 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
-					<font fontName="SansSerif" size="10" isBold="true"/>
+					<font fontName="Arial" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Identificador]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="45" splitType="Stretch">
+		<band height="20" splitType="Stretch">
 			<textField>
 				<reportElement uuid="223d7c29-c14c-4be1-aa44-712b89400f80" x="0" y="0" width="180" height="20">
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -242,8 +262,14 @@
 					<property name="local_mesure_unitx" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="10"/>
+					<font fontName="Arial" size="10"/>
 					<paragraph leftIndent="2"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
@@ -253,31 +279,43 @@
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
 				<textElement verticalAlignment="Middle">
-					<font fontName="SansSerif" size="10"/>
-					<paragraph firstLineIndent="0" leftIndent="2"/>
+					<font fontName="Arial" size="10"/>
+					<paragraph firstLineIndent="0" leftIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="3c1994ea-7207-44c1-84d3-07337ec3c7de" x="380" y="0" width="175" height="20">
+				<reportElement uuid="3c1994ea-7207-44c1-84d3-07337ec3c7de" x="380" y="0" width="190" height="20">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
 				<textElement verticalAlignment="Middle">
-					<font fontName="SansSerif" size="10"/>
-					<paragraph leftIndent="2"/>
+					<font fontName="Arial" size="10"/>
+					<paragraph leftIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{manufacturer.name}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
 	<pageFooter>
-		<band height="54" splitType="Stretch">
+		<band height="20" splitType="Stretch">
 			<textField evaluationTime="Report">
-				<reportElement uuid="1be28e21-c0e5-4bcb-a201-e8670a35d6d2" x="380" y="0" width="173" height="20" forecolor="#000000"/>
+				<reportElement uuid="1be28e21-c0e5-4bcb-a201-e8670a35d6d2" x="397" y="0" width="173" height="20" forecolor="#000000"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="10" isBold="false"/>
+					<font fontName="Arial" size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de "+$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
