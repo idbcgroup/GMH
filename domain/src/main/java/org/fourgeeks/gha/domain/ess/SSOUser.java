@@ -1,5 +1,6 @@
 package org.fourgeeks.gha.domain.ess;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -34,7 +35,7 @@ public class SSOUser extends AbstractEntity {
 	// private LegalEntity legalEntity;
 
 	@NotNull
-	@OneToOne
+	@OneToOne(cascade = {CascadeType.MERGE})
 	@JoinColumn(name = "bpuFk", nullable = false)
 	private Bpu bpu;
 

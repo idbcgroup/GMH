@@ -19,6 +19,7 @@ public class UserCredentialsSubTab extends GHASubTab implements
 	 */
 	public UserCredentialsSubTab(UserTab tab) {
 		super("Credenciales", tab);
+		setDisabled(true);
 		tab.addUserSelectionListener(this);
 		form = new UserCredentialsFormPanel(tab);
 		addGHAClosableHandler(form);
@@ -29,7 +30,7 @@ public class UserCredentialsSubTab extends GHASubTab implements
 
 	@Override
 	public void select(SSOUser ssoUser) {
-		// TODO Auto-generated method stub
+		setDisabled(false);
 
 	}
 }

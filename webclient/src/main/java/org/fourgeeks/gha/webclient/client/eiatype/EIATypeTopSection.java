@@ -116,7 +116,6 @@ public class EIATypeTopSection extends HLayout implements
 						search();
 					}
 				}),
-				new GHAImgButton("../resources/icons/clean.png"),
 				new GHAImgButton("../resources/icons/cancel.png",new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {

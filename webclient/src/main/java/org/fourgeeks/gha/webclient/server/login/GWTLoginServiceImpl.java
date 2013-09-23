@@ -52,14 +52,12 @@ public class GWTLoginServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public Bpu login(String user, String password)
-			throws IllegalArgumentException {
+	public Bpu login(String user, String password) throws GHAEJBException {
 		HttpServletRequest request = this.perThreadRequest.get();
 		String ipAdd = request.getRemoteAddr().toString();
 
 		if (user.equals("") || password.equals(""))
-			throw new IllegalArgumentException(
-					"Debe indicar usuario y contraseña");
+			throw new GHAEJBException("Debe indicar usuario y contraseña");
 
 		HttpSession session = request.getSession();
 		if (session != null)
@@ -70,6 +68,8 @@ public class GWTLoginServiceImpl extends RemoteServiceServlet implements
 			ssoUser = ssoUserService.findByUsername(user);
 		} catch (GHAEJBException e1) {
 			logService.log(new LogonLog(null, new Message("LOGIN-002"), ipAdd));
+			throw new GHAEJBException("El usuario con el identificador " + user
+					+ " no se ecnuentra registrado");
 		}
 
 		try {
@@ -86,16 +86,17 @@ public class GWTLoginServiceImpl extends RemoteServiceServlet implements
 				bpu.setPermissions(bpuFunctionService.getFunctionsByBpu(bpu));
 				return bpu;
 			}
-
 			return new Bpu();
 		} catch (ServletException e) {
 			logService.log(new LogonLog(ssoUser.getBpu(), new Message(
 					"LOGIN-004"), ipAdd));
-			return null;
+			throw new GHAEJBException(
+					"Credenciales inválidas, por favor verifique su nombre de usuario y contraseña");
 		} catch (Exception e) {
 			logService.log(new LogonLog(ssoUser.getBpu(), new Message(
 					"LOGIN-005"), ipAdd));
-			return null;
+			throw new GHAEJBException(
+					"Credenciales inválidas, por favor verifique su nombre de usuario y contraseña");
 		}
 	}
 

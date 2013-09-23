@@ -314,13 +314,18 @@ public class SSOUserService implements SSOUserServiceRemote {
 	@Override
 	public SSOUser findByUsername(String userName) throws GHAEJBException {
 		try {
-			return em.createNamedQuery("SSOUser.findByUserName", SSOUser.class)
+			SSOUser user = em
+					.createNamedQuery("SSOUser.findByUserName", SSOUser.class)
 					.setParameter("userName", userName).getSingleResult();
+			return user;
 		} catch (NoResultException ex) {
-			logger.log(Level.INFO, "username: " + userName + " not found", ex);
-			return null;
+			logger.info("username: " + userName + " not found. Error:"
+					+ ex.getMessage());
+			throw new GHAEJBException("Usuario no existe: " + userName + " "
+					+ ex.getMessage());
 		} catch (Exception ex) {
-			logger.log(Level.SEVERE, "Error finding SSOUser by username", ex);
+			logger.info("Error finding SSOUser by username. Error: "
+					+ ex.getMessage());
 			throw new GHAEJBException(
 					"Error obteniendo el SSOUser por username"
 							+ ex.getCause().getMessage());

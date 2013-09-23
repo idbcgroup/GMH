@@ -783,6 +783,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		// eia.setIpAddress(ipAddresTextItem.getValueAsString());
 		// eia.setMacAddress(macAddressTextItem.getValueAsString());
 		// Window.alert("1 " + eia);
+
 		Set<ConstraintViolation<Eia>> violations = validator.validate(eia);
 		// Window.alert("2 " + violations);
 		// Window.alert(violations.isEmpty() == true ? "vacio" : "novacio");
