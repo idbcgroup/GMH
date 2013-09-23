@@ -32,6 +32,7 @@ import org.fourgeeks.gha.domain.ess.Role;
 import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.domain.ess.Screen;
 import org.fourgeeks.gha.domain.ess.View;
+import org.fourgeeks.gha.domain.ess.WorkingArea;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Facility;
@@ -121,9 +122,31 @@ public class TestData {
 		materialCategoryTestData();
 		materialTestData();
 		facilityTestData();
+		workingAreaTestData();
 		// // TODO
 		eiaTypeTestData();
 		eiaTestData();
+	}
+
+	/**
+	 * 
+	 */
+	private void workingAreaTestData() {
+		String query = "SELECT t from WorkingArea t WHERE t.id = 1";
+		try {
+			em.createQuery(query).getSingleResult();
+		} catch (NoResultException e) {
+			logger.info("Creating test data : WorkingArea");
+			String workingAreaNames [] = {"Enfermería Emergencia", "Enfermería U.C.I", "Enfermería Pediatría"};
+			for(int i=0; i<3; ++i){
+				WorkingArea entity = new WorkingArea();
+				entity.setBuildingLocation(em.find(BuildingLocation.class, "Building 00"+i));
+				entity.setName(workingAreaNames[i]);
+				
+				em.persist(entity);
+			}
+			em.flush();
+		}
 	}
 
 	private void messagesTestData() {
@@ -202,14 +225,17 @@ public class TestData {
 		} catch (NoResultException e) {
 			try {
 				logger.info("Creating Citizen test data");
+				String names [] = {"Rigoberto", "Angel", "Jorge", "Alejandro", "Isaac"};
+				String lastNames[] = {"Sanchez", "Lacret", "Fuentes", "Sanchez", "Casado"};
 				for (int i = 0; i < 5; ++i) {
 					Citizen citizen = new Citizen(em.find(LegalEntity.class,
 							i + 5L), GenderTypeEnum.MALE);
-					citizen.setFirstName(" Rigoberto : " + i);
-					citizen.setSecondName("Alejandro " + i);
-					citizen.setFirstLastName(" Sanchez : " + i);
-					citizen.setSecondLastName("Casado " + i);
+					citizen.setFirstName(names[i]);
+					citizen.setSecondName(names[(i+1)%5]);
+					citizen.setFirstLastName(lastNames[i]);
+					citizen.setSecondLastName(lastNames[(i+1)%5]);
 					citizen.setIdType(DocumentTypeEnum.LOCAL);
+					citizen.setPrimaryEmail(names[i] + "@4geeks.co");
 					em.persist(citizen);
 				}
 				em.flush();
@@ -376,10 +402,15 @@ public class TestData {
 			em.createQuery(query).getSingleResult();
 		} catch (NoResultException e) {
 			logger.info("Creating test data : facility");
-			Facility facility = new Facility();
-			facility.setBuildingLocation(em.find(BuildingLocation.class,
-					"Building 000"));
-			em.persist(facility);
+			String facilityNames [] = {"Sala 1 Rayos X", "Sala 1 Tomografía"};
+			for(int i = 3, j=0; i<5; ++i, ++j){
+				Facility facility = new Facility();
+				facility.setName(facilityNames[j]);
+				facility.setBuildingLocation(em.find(BuildingLocation.class,
+						"Building 00"+i));
+				em.persist(facility);
+			}
+			em.flush();
 		}
 
 	}
@@ -502,10 +533,11 @@ public class TestData {
 		} catch (NoResultException e) {
 			try {
 				logger.info("creating test data : obu");
+				String obuNames [] = {"Administración", "Medicina General", "Dpto. de Nefrologia"};
 				Obu obu = null;
 				for (int i = 0; i < 3; i++) {
 					obu = new Obu();
-					obu.setName("Test Obu " + i);
+					obu.setName(obuNames[i]);
 					obu.setCode("Test code " + i);
 					obu.setBpi(em.find(Bpi.class, 1L));
 					em.persist(obu);
