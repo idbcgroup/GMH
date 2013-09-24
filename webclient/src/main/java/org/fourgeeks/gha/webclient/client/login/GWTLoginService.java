@@ -1,5 +1,6 @@
 package org.fourgeeks.gha.webclient.client.login;
 
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
 
 import com.google.gwt.user.client.rpc.RemoteService;
@@ -24,8 +25,7 @@ public interface GWTLoginService extends RemoteService {
 	 * @param user
 	 * @param password
 	 * @return the Bpu represented by the username
-	 * @throws IllegalArgumentException
+	 * @throws GHAEJBException
 	 */
-	public Bpu login(String user, String password)
-			throws IllegalArgumentException;
+	public Bpu login(String user, String password) throws GHAEJBException;
 }
