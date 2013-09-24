@@ -4,6 +4,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.eiatype.component.EIATypeComponentSubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.equipment.EIATypeEquipmentSubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.information.EIATypeInformationSubTab;
+import org.fourgeeks.gha.webclient.client.eiatype.maintenance.EIATypeMaintenanceSubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.material.EIATypeMaterialSubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.utility.EIATypeUtilitySubTab;
 
@@ -22,7 +23,7 @@ public class EIATypeInternalTabset extends TabSet implements ResizeHandler {
 	private EIATypeComponentSubTab partsSubTab;
 	private EIATypeMaterialSubTab materialSubTab;
 	private EIATypeUtilitySubTab servicesSubTab;
-//	private EIATypeMaintenanceSubTab maintenanceSubTab;
+	private EIATypeMaintenanceSubTab maintenanceSubTab;
 
 	/**
 	 * @param tab
@@ -37,7 +38,7 @@ public class EIATypeInternalTabset extends TabSet implements ResizeHandler {
 		partsSubTab = new EIATypeComponentSubTab(tab);
 		materialSubTab = new EIATypeMaterialSubTab(tab);
 		servicesSubTab = new EIATypeUtilitySubTab(tab);
-//		maintenanceSubTab = new EIATypeMaintenanceSubTab(tab);
+		maintenanceSubTab = new EIATypeMaintenanceSubTab(tab);
 
 		// Agregando las Subtabs
 		addTab(infoSubTab);
@@ -45,7 +46,7 @@ public class EIATypeInternalTabset extends TabSet implements ResizeHandler {
 		addTab(partsSubTab);
 		addTab(materialSubTab);
 		addTab(servicesSubTab);
-//		addTab(maintenanceSubTab);
+		addTab(maintenanceSubTab);
 	}
 
 	@Override
