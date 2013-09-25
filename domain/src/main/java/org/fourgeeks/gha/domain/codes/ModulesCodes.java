@@ -17,4 +17,16 @@ public interface ModulesCodes {
 	 * Code for the eia module
 	 */
 	public final String EIA = "EIA";
+	/**
+	 * Code for the maintenance plan module
+	 */
+	public final String MPLAN = "MPLAN";
+	/**
+	 * Code for the maintenance protocol module
+	 */
+	public final String MPROT = "MPROT";
+	/**
+	 * Code for the maintenance Activities module
+	 */
+	public final String MACT = "MACT";
 }
