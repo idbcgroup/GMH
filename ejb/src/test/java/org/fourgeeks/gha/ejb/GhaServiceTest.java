@@ -28,6 +28,7 @@ import org.fourgeeks.gha.domain.mix.LegalEntity;
 import org.fourgeeks.gha.ejb.ess.InstanceLogonService;
 import org.fourgeeks.gha.ejb.ess.RoleService;
 import org.fourgeeks.gha.ejb.ess.SSOUserService;
+import org.fourgeeks.gha.ejb.ess.WorkingAreaService;
 import org.fourgeeks.gha.ejb.gar.BpuFunctionService;
 import org.fourgeeks.gha.ejb.gar.BpuFunctionServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.BrandService;
@@ -83,6 +84,7 @@ public class GhaServiceTest {
 				.addPackage(SSOUser.class.getPackage())
 				.addPackage(SSOUserService.class.getPackage())
 				.addPackage(WorkingArea.class.getPackage())
+				.addPackage(WorkingAreaService.class.getPackage())
 				.addAsResource("test-persistence.xml",
 						"META-INF/persistence.xml")
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")

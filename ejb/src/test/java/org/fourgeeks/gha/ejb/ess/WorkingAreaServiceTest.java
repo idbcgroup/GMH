@@ -13,8 +13,7 @@ import javax.transaction.UserTransaction;
 
 import junit.framework.Assert;
 
-import org.fourgeeks.gha.domain.enu.UserLogonStatusEnum;
-import org.fourgeeks.gha.domain.ess.SSOUser;
+import org.fourgeeks.gha.domain.ess.WorkingArea;
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.ejb.GhaServiceTest;
 import org.jboss.arquillian.junit.Arquillian;
@@ -26,12 +25,12 @@ import org.junit.runner.RunWith;
  * 
  */
 @RunWith(Arquillian.class)
-public class SSOUserServiceTest extends GhaServiceTest {
+public class WorkingAreaServiceTest extends GhaServiceTest {
 	@PersistenceContext
 	EntityManager em;
 
-	@EJB(name = "ess.SSOUserService")
-	SSOUserServiceRemote service;
+	@EJB(name = "ess.WorkingAreaService")
+	WorkingAreaServiceRemote service;
 
 	@Inject
 	UserTransaction ux;
@@ -46,28 +45,23 @@ public class SSOUserServiceTest extends GhaServiceTest {
 		ux.begin();
 		em.joinTransaction();
 
-		SSOUser entity = new SSOUser();
-		entity.setUserName("vivivivi");
-		entity.setPassword("vivi12345");
-		entity.setUserLogonStatus(UserLogonStatusEnum.STAYIN);
-		entity.setBpu(super.getBpu(em));
+		WorkingArea entity = new WorkingArea();
 		entity = service.save(entity);
 
 		Assert.assertNotNull(entity);
+		// TODO El método find(workingArea) siempre devuelve NULL (línea 50 de
+		// WorkingAreaService)
 		// Assert.assertEquals(1, service.find(entity).size());
-		System.out.println("BEFORE " + entity.getId() + " "
-				+ entity.getUserName() + "\nAFTER "
-				+ service.find(entity.getId()).getId() + " "
-				+ service.find(entity.getId()).getUserName());
+		System.out.println("BEFORE " + entity.getId() + " " + entity.getName()
+				+ "\nAFTER " + service.find(entity.getId()).getId() + " "
+				+ service.find(entity.getId()).getName());
 		// Assert.assertEquals(entity, service.find(entity.getId()));
-		Assert.assertEquals(entity.getId(),
-				service.findByUsername(entity.getUserName()).getId());
 		Assert.assertTrue(service.getAll() != null
 				&& service.getAll().size() >= 1);
-		entity.setPassword("12345vivi");
+		entity.setName("Working area test name");
 		entity = service.update(entity);
-		Assert.assertEquals("12345vivi", service.find(entity.getId())
-				.getPassword());
+		Assert.assertEquals("Working area test name",
+				service.find(entity.getId()).getName());
 
 		long id = entity.getId();
 		service.delete(entity.getId());
