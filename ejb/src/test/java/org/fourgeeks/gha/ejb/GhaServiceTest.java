@@ -1,11 +1,14 @@
 package org.fourgeeks.gha.ejb;
 
+import javax.ejb.EJBException;
+
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.HasKey;
 import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
 import org.fourgeeks.gha.domain.enu.LocationLevelEnum;
 import org.fourgeeks.gha.domain.ess.BpuFunction;
 import org.fourgeeks.gha.domain.ess.Function;
+import org.fourgeeks.gha.domain.ess.InstanceLogon;
 import org.fourgeeks.gha.domain.ess.ItSystem;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
@@ -20,6 +23,7 @@ import org.fourgeeks.gha.domain.mix.Bpa;
 import org.fourgeeks.gha.domain.mix.LegalEntity;
 import org.fourgeeks.gha.domain.msg.Message;
 import org.fourgeeks.gha.ejb.ess.FunctionServiceRemote;
+import org.fourgeeks.gha.ejb.ess.InstanceLogonService;
 import org.fourgeeks.gha.ejb.gar.BpuFunctionService;
 import org.fourgeeks.gha.ejb.gar.BpuFunctionServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.BrandService;
@@ -38,6 +42,9 @@ public class GhaServiceTest {
 	/**
 	 * @return the deployment descriptor
 	 */
+
+	private Bpa bpa = null;
+
 	@Deployment
 	public static Archive<?> createDeployment() {
 		return ShrinkWrap
@@ -71,10 +78,20 @@ public class GhaServiceTest {
 				.addPackage(LegalEntity.class.getPackage())
 				.addPackage(Brand.class.getPackage())
 				.addPackage(BrandService.class.getPackage())
-				.addPackage(GHAEJBException.class.getPackage())
+				.addPackage(InstanceLogon.class.getPackage())
+				.addPackage(InstanceLogonService.class.getPackage())
+				.addPackage(EJBException.class.getPackage())
 				.addAsResource("test-persistence.xml",
 						"META-INF/persistence.xml")
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
 				.addAsWebInfResource("jbossas-ds.xml");
+	}
+
+	public Bpa getBpa() {
+		return bpa;
+	}
+
+	public void setBpa(Bpa bpa) {
+		this.bpa = bpa;
 	}
 }
