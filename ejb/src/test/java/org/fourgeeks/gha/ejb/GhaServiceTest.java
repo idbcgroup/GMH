@@ -18,6 +18,7 @@ import org.fourgeeks.gha.domain.mix.Institution;
 import org.fourgeeks.gha.domain.mix.LegalEntity;
 import org.fourgeeks.gha.ejb.ess.InstanceLogonService;
 import org.fourgeeks.gha.ejb.gar.BpuFunctionService;
+import org.fourgeeks.gha.ejb.glm.ExternalProviderService;
 import org.fourgeeks.gha.ejb.gmh.BrandService;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.shrinkwrap.api.Archive;
@@ -56,6 +57,7 @@ public class GhaServiceTest {
 				.addPackage(EiaMobilityEnum.class.getPackage())
 				.addPackage(EJBException.class.getPackage())
 				.addPackage(ExternalProvider.class.getPackage())
+				.addPackage(ExternalProviderService.class.getPackage())
 				.addPackage(GhaServiceTest.class.getPackage())
 				.addPackage(InstanceLogonService.class.getPackage())
 				.addAsResource("test-persistence.xml",
