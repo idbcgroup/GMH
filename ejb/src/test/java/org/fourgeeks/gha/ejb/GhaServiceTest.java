@@ -5,8 +5,10 @@ import javax.persistence.EntityManager;
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
 import org.fourgeeks.gha.domain.enu.GenderTypeEnum;
+import org.fourgeeks.gha.domain.enu.LocationLevelEnum;
 import org.fourgeeks.gha.domain.ess.BpuFunction;
 import org.fourgeeks.gha.domain.gar.Bpu;
+import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.mix.Bpa;
@@ -32,6 +34,7 @@ public class GhaServiceTest {
 	private Bpa bpa = null;
 	private Bpi bpi = null;
 	private Bpu bpu = null;
+	private BuildingLocation buildingLocation = null;
 	private Citizen citizen = null;
 	private Institution institution = null;
 	private LegalEntity legalEntity = null;
@@ -92,6 +95,20 @@ public class GhaServiceTest {
 			this.bpu = em.find(Bpu.class, bpu.getId());
 		}
 		return bpu;
+	}
+
+	public BuildingLocation getBuildingLocation(EntityManager em) {
+		if (buildingLocation == null) {
+			BuildingLocation buildingLocation = new BuildingLocation();
+			buildingLocation.setCode("BuildingLocation test code");
+			buildingLocation.setLocationLevel(LocationLevelEnum.AREA_HALL);
+			buildingLocation.setBpi(getBpi(em));
+			em.persist(buildingLocation);
+			em.flush();
+			this.buildingLocation = em.find(BuildingLocation.class,
+					buildingLocation.getCode());
+		}
+		return buildingLocation;
 	}
 
 	public Citizen getCitizen(EntityManager em) {
