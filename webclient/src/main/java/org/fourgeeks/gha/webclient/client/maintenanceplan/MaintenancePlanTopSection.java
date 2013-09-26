@@ -1,16 +1,12 @@
 package org.fourgeeks.gha.webclient.client.maintenanceplan;
 
-import java.util.List;
-
-import org.fourgeeks.gha.domain.gmh.Eia;
+import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATabSet;
-import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
-import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
@@ -24,17 +20,15 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class MaintenancePlanTopSection extends HLayout
-		implements EIASelectionListener, GHAClosable, ResizeHandler {
+		implements MaintenancePlanSelectionListener, GHAClosable, ResizeHandler {
 
 	private final MaintenancePlanTab maintenancePlanTab;
-	private List<EIASelectionListener> selectionListeners;
 	private MaintenancePlanSearchForm maintenancePlanSearchForm;
-	private GHATextItem nameItem,codeItem, frequencyItem, periodOfTimeItem, descriptionItem;
+	private GHATextItem nameItem, frequencyItem, periodOfTimeItem, descriptionItem;
 		
 	{
 		maintenancePlanSearchForm = new MaintenancePlanSearchForm();
 		
-		codeItem = new GHATextItem("Código", false);
 		nameItem = new GHATextItem("Nombre", false);
 		frequencyItem = new GHATextItem("Frecuencia", false);
 		periodOfTimeItem = new GHATextItem("Periodo de Tiempo", false);
@@ -50,8 +44,7 @@ public class MaintenancePlanTopSection extends HLayout
 		
 		tab.addGHAClosableHandler(this);
 		maintenancePlanTab = tab;
-		maintenancePlanSearchForm.addEIASelectionListener(maintenancePlanTab);
-		
+		maintenancePlanSearchForm.addMaintenancePlanSelectionListener(tab);
 		maintenancePlanTab.addGHAHideableHandler(new GHAHideable() {
 			
 			@Override
@@ -77,7 +70,7 @@ public class MaintenancePlanTopSection extends HLayout
 		//form.setWidth("100px");
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(4);
-		form.setItems(codeItem, nameItem, frequencyItem,periodOfTimeItem, 
+		form.setItems(nameItem, frequencyItem,periodOfTimeItem, 
 					  descriptionItem);
 		
 		VLayout sideButtons = GHAUiHelper.createBar(
@@ -105,12 +98,6 @@ public class MaintenancePlanTopSection extends HLayout
 		maintenancePlanSearchForm.open();
 	}
 
-
-
-	public void AddEIATypeSelectionListener(EIATypeSelectionListener selecionListener) {
-		//selectionListeners.add(selecionListener);
-	}
-
 	@Override
 	public void close() {
 		maintenancePlanSearchForm.close();
@@ -121,10 +108,12 @@ public class MaintenancePlanTopSection extends HLayout
 		setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT + "px");		
 	}
 
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener#select(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
+	 */
 	@Override
-	public void select(Eia eia) {
+	public void select(MaintenancePlan maintenancePlan) {
 		// TODO Auto-generated method stub
-		//for (EIASelectionListener listener : selectionListeners)
-		//	listener.select(eia);
 	}
+
 }

@@ -1,12 +1,14 @@
 package org.fourgeeks.gha.webclient.client.maintenanceplan;
 
-import org.fourgeeks.gha.domain.gmh.Eia;
+import java.util.LinkedList;
+import java.util.List;
+
+import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
-import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.types.TitleOrientation;
@@ -21,18 +23,17 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class MaintenancePlanSearchForm extends GHASlideInWindow {
+public class MaintenancePlanSearchForm extends GHASlideInWindow implements MaintenancePlanSelectionListener, MaintenancePlanSelectionProducer{
 
-//	private List<EIASelectionListener> listeners;
 	private MaintenancePlanGrid grid;
-	private GHATextItem codeItem, nameItem, descriptionItem, frequencyItem;
+	private GHATextItem nameItem, descriptionItem, frequencyItem;
 	private GHASelectItem periodOfTimeSelectItem;
 	
 	private MaintenancePlanAddForm addForm;
+	private List<MaintenancePlanSelectionListener> listeners;
 
 	{
-//		listeners = new LinkedList<EIASelectionListener>();
-		codeItem = new GHATextItem("Código");
+		listeners = new LinkedList<MaintenancePlanSelectionListener>();
 		nameItem = new GHATextItem("Nombre");
 		frequencyItem = new GHATextItem("Frecuencia");
 		periodOfTimeSelectItem = new GHASelectItem("Periodo de Tiempo");
@@ -58,7 +59,7 @@ public class MaintenancePlanSearchForm extends GHASlideInWindow {
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(4);
 
-		form.setItems(codeItem,nameItem,frequencyItem,periodOfTimeSelectItem,
+		form.setItems(nameItem,frequencyItem,periodOfTimeSelectItem,
 					  descriptionItem);
 
 		// Event Handlers
@@ -78,7 +79,6 @@ public class MaintenancePlanSearchForm extends GHASlideInWindow {
 				}
 			}
 		};
-		codeItem.addKeyUpHandler(searchKeyUpHandler);
 		nameItem.addKeyUpHandler(searchKeyUpHandler);
 		frequencyItem.addKeyUpHandler(searchKeyUpHandler);
 		periodOfTimeSelectItem.addKeyUpHandler(searchKeyUpHandler);
@@ -119,8 +119,6 @@ public class MaintenancePlanSearchForm extends GHASlideInWindow {
 
 					@Override
 					public void onClick(ClickEvent event) {
-//						selectEia(((EIARecord) grid.getSelectedRecord())
-//								.toEntity());
 						hide();
 					}
 				}), GHAUiHelper.verticalGraySeparator("2px"), new GHAImgButton(
@@ -135,125 +133,15 @@ public class MaintenancePlanSearchForm extends GHASlideInWindow {
 		gridLayout.addMembers(grid, sideGridButtons);
 
 		addMember(gridLayout);
-				
-//		searchForEiaTypes();
-//		searchForRoleBases();
-//		searchForBuildingLocations();
-//		searchForObus();
-//		fillExtras();
 	}
 
 	private void fillExtras() {
-		// state
-//		stateItem.setValueMap(EiaStateEnum.toValueMap());
-	}
-
-	private void searchForEiaTypes() {
-//		GHACache.INSTANCE.getEiaTypes(new GHAAsyncCallback<List<EiaType>>() {
-//
-//			@Override
-//			public void onSuccess(List<EiaType> result) {
-//				LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-//				for (EiaType eiaType : result)
-//					valueMap.put(eiaType.getCode(), eiaType.getName());
-//				eiaTypeItem.setValueMap(valueMap);
-//			}
-//		}, false);
-	}
-
-	private void searchForBuildingLocations() {
-//		GHACache.INSTANCE
-//				.getBuildingLocations(new GHAAsyncCallback<List<BuildingLocation>>() {
-//
-//					@Override
-//					public void onSuccess(List<BuildingLocation> result) {
-//						LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-//						for (BuildingLocation buildingLocation : result)
-//							valueMap.put(buildingLocation.getCode(),
-//									buildingLocation.getName());
-//						buildingLocationItem.setValueMap(valueMap);
-//					}
-//				});
-	}
-
-	private void searchForObus() {
-//		GHACache.INSTANCE.getObus(new GHAAsyncCallback<List<Obu>>() {
-//
-//			@Override
-//			public void onSuccess(List<Obu> result) {
-//				LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-//				for (Obu obu : result)
-//					valueMap.put(String.valueOf(obu.getId()), obu.getName());
-//				obuItem.setValueMap(valueMap);
-//			}
-//		});
-	}
-
-	private void searchForRoleBases() {
-//		GHACache.INSTANCE.getBaseRoles(new GHAAsyncCallback<List<RoleBase>>() {
-//
-//			@Override
-//			public void onSuccess(List<RoleBase> result) {
-//				LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-//				for (RoleBase roleBase : result)
-//					valueMap.put(String.valueOf(roleBase.getId()),
-//							roleBase.getName());
-//				responsibleRoleItem.setValueMap(valueMap);
-//			}
-//		});
-	}
-
-	/**
-	 * 
-	 * @param eiaSelectionListener
-	 */
-	public void addEIASelectionListener(
-			EIASelectionListener eiaSelectionListener) {
-//		listeners.add(eiaSelectionListener);
-	}
-
-	private void selectEia(Eia eia) {
-//		for (EIASelectionListener listener : listeners)
-//			listener.select(eia);
 	}
 
 	private void search() {
-//		Eia eia = new Eia();
-//		if (actualCostItem.getValue() != null)
-//			eia.setActualCost(new BigDecimal(actualCostItem.getValueAsString()));
-//		if (responsibleRoleItem.getValue() != null)
-//			eia.setResponsibleRole(new RoleBase(Long
-//					.parseLong(responsibleRoleItem.getValueAsString())));
-//		eia.setCode(codeItem.getValueAsString());
-//		if (eiaTypeItem.getValue() != null)
-//			eia.setEiaType(new EiaType(eiaTypeItem.getValueAsString()));
-//		eia.setFixedAssetIdentifier(fixedAssetIdentifierItem.getValueAsString());
-////		if (buildingLocationItem.getValue() != null)
-////			eia.setBuildingLocation(new BuildingLocation(buildingLocationItem
-////					.getValueAsString()));
-//		if (obuItem.getValue() != null)
-//			eia.setObu(new Obu(Long.parseLong(obuItem.getValueAsString())));
-//		eia.setSerialNumber(serialNumberItem.getValueAsString());
-//		if (stateItem.getValue() != null)
-//			eia.setState(EiaStateEnum.valueOf(stateItem.getValueAsString()));
-//		search(eia);
 	}
 
-	private void search(final Eia eia) {
-//		EIAModel.find(eia, new GHAAsyncCallback<List<Eia>>() {
-//
-//			@Override
-//			public void onSuccess(List<Eia> result) {
-//				ListGridRecord[] array = EIAUtil.toGridRecords(result).toArray(
-//						new EIARecord[] {});
-//				grid.setData(array);
-//				if (eia != null && eia.getId() != 0l)
-//					for (ListGridRecord listGridRecord : grid.getRecords())
-//						if (((EIARecord) listGridRecord).toEntity().getId() == eia
-//								.getId())
-//							grid.selectRecord(listGridRecord);
-//			}
-//		});
+	private void search(final MaintenancePlan plan) {
 	}
 
 	@Override
@@ -270,5 +158,33 @@ public class MaintenancePlanSearchForm extends GHASlideInWindow {
 	public void onResize(ResizeEvent event) {
 		setHeight(GHAUiHelper.getTabHeight() + "px");
 	}
+	
+	//Producer/Consumer Stuff
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionProducer#addMaintenancePlanSelectionListener(org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener)
+	 */
+	@Override
+	public void addMaintenancePlanSelectionListener(
+			MaintenancePlanSelectionListener maintenancePlanSelectionListener) {
+		listeners.add(maintenancePlanSelectionListener);
+		
+	}
 
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionProducer#removeMaintenancePlanSelectionListener(org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener)
+	 */
+	@Override
+	public void removeMaintenancePlanSelectionListener(
+			MaintenancePlanSelectionListener maintenancePlanSelectionListener) {
+		listeners.remove(maintenancePlanSelectionListener);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener#select(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
+	 */
+	@Override
+	public void select(MaintenancePlan maintenancePlan) {
+		// TODO Auto-generated method stub
+		
+	}
 }
