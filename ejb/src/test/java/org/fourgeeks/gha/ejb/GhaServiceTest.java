@@ -7,6 +7,7 @@ import org.fourgeeks.gha.domain.enu.LocationLevelEnum;
 import org.fourgeeks.gha.domain.ess.BpuFunction;
 import org.fourgeeks.gha.domain.ess.InstanceLogon;
 import org.fourgeeks.gha.domain.ess.ItSystem;
+import org.fourgeeks.gha.domain.ess.Role;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
@@ -18,6 +19,7 @@ import org.fourgeeks.gha.domain.gmh.ServiceResource;
 import org.fourgeeks.gha.domain.mix.Bpa;
 import org.fourgeeks.gha.domain.mix.LegalEntity;
 import org.fourgeeks.gha.ejb.ess.InstanceLogonService;
+import org.fourgeeks.gha.ejb.ess.RoleService;
 import org.fourgeeks.gha.ejb.gar.BpuFunctionService;
 import org.fourgeeks.gha.ejb.gar.BpuFunctionServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.BrandService;
@@ -28,7 +30,7 @@ import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 
 /**
- * @author alacret
+ * @author alacret, vivi.torresg
  * 
  */
 public class GhaServiceTest {
@@ -42,32 +44,30 @@ public class GhaServiceTest {
 	public static Archive<?> createDeployment() {
 		return ShrinkWrap
 				.create(WebArchive.class, "test.war")
-				.addPackage(Brand.class.getPackage())
-				.addPackage(GhaServiceTest.class.getPackage())
-				.addPackage(HasKey.class.getPackage())
 				.addPackage(AbstractEntity.class.getPackage())
-				.addPackage(WorkingArea.class.getPackage())
-				.addPackage(EiaMobilityEnum.class.getPackage())
-				.addPackage(ExternalProvider.class.getPackage())
-				.addPackage(Facility.class.getPackage())
-				.addPackage(LegalEntity.class.getPackage())
-				.addPackage(BpuFunction.class.getPackage())
-				.addPackage(EJBException.class.getPackage())
-				.addPackage(ItSystem.class.getPackage())
-				.addPackage(AbstractEntity.class.getPackage())
-				.addPackage(Bpu.class.getPackage())
 				.addPackage(Bpa.class.getPackage())
-				.addPackage(LocationLevelEnum.class.getPackage())
-				.addPackage(ServiceResource.class.getPackage())
-				.addPackage(Material.class.getPackage())
-				.addPackage(BpuFunctionServiceRemote.class.getPackage())
+				.addPackage(Bpu.class.getPackage())
+				.addPackage(BpuFunction.class.getPackage())
 				.addPackage(BpuFunctionService.class.getPackage())
-				.addPackage(LegalEntity.class.getPackage())
+				.addPackage(BpuFunctionServiceRemote.class.getPackage())
 				.addPackage(Brand.class.getPackage())
 				.addPackage(BrandService.class.getPackage())
+				.addPackage(EiaMobilityEnum.class.getPackage())
+				.addPackage(EJBException.class.getPackage())
+				.addPackage(ExternalProvider.class.getPackage())
+				.addPackage(Facility.class.getPackage())
+				.addPackage(GhaServiceTest.class.getPackage())
+				.addPackage(HasKey.class.getPackage())
+				.addPackage(ItSystem.class.getPackage())
 				.addPackage(InstanceLogon.class.getPackage())
 				.addPackage(InstanceLogonService.class.getPackage())
-				.addPackage(EJBException.class.getPackage())
+				.addPackage(LegalEntity.class.getPackage())
+				.addPackage(LocationLevelEnum.class.getPackage())
+				.addPackage(Material.class.getPackage())
+				.addPackage(Role.class.getPackage())
+				.addPackage(RoleService.class.getPackage())
+				.addPackage(ServiceResource.class.getPackage())
+				.addPackage(WorkingArea.class.getPackage())
 				.addAsResource("test-persistence.xml",
 						"META-INF/persistence.xml")
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
