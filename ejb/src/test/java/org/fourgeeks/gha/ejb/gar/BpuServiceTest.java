@@ -1,4 +1,6 @@
-package org.fourgeeks.gha.ejb.ess;
+package org.fourgeeks.gha.ejb.gar;
+
+import java.util.ArrayList;
 
 import javax.ejb.EJB;
 import javax.inject.Inject;
@@ -13,8 +15,8 @@ import javax.transaction.UserTransaction;
 
 import junit.framework.Assert;
 
-import org.fourgeeks.gha.domain.ess.WorkingArea;
-import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
+import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.ejb.GhaServiceTest;
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Test;
@@ -25,12 +27,12 @@ import org.junit.runner.RunWith;
  * 
  */
 @RunWith(Arquillian.class)
-public class WorkingAreaServiceTest extends GhaServiceTest {
+public class BpuServiceTest extends GhaServiceTest {
 	@PersistenceContext
 	EntityManager em;
 
-	@EJB(name = "ess.WorkingAreaService")
-	WorkingAreaServiceRemote service;
+	@EJB(name = "gar.BpuService")
+	BpuServiceRemote service;
 
 	@Inject
 	UserTransaction ux;
@@ -38,32 +40,29 @@ public class WorkingAreaServiceTest extends GhaServiceTest {
 	@Test
 	public void test() throws NotSupportedException, SystemException,
 			SecurityException, IllegalStateException, RollbackException,
-			HeuristicMixedException, HeuristicRollbackException,
-			GHAEJBException {
+			HeuristicMixedException, HeuristicRollbackException, EJBException {
 		Assert.assertNotNull(em);
 		Assert.assertNotNull(service);
 
 		ux.begin();
 		em.joinTransaction();
 
-		WorkingArea entity = new WorkingArea();
+		Bpu entity = new Bpu();
+		entity.setBpi(super.getBpi(em));
+		entity.setCitizen(super.getCitizen(em));
 		entity = service.save(entity);
 
 		Assert.assertNotNull(entity);
-		// TODO El método find(workingArea) siempre devuelve NULL (línea 50 de
-		// WorkingAreaService)
 		// Assert.assertEquals(1, service.find(entity).size());
-		System.out.println("BEFORE " + entity.getId() + " " + entity.getName()
+		System.out.println("BEFORE " + entity.getId() + " " + entity.getBpi()
 				+ "\nAFTER " + service.find(entity.getId()).getId() + " "
-				+ service.find(entity.getId()).getName());
-		// Assert.assertEquals(entity, service.find(entity.getId()));
+				+ service.find(entity.getId()).getBpi());
+		Assert.assertEquals(entity, service.find(entity.getId()));
 		Assert.assertTrue(service.getAll() != null
 				&& service.getAll().size() >= 1);
-		entity.setName("Working area test name");
+		entity.setPermissions(new ArrayList<String>());
 		entity = service.update(entity);
-		Assert.assertEquals("Working area test name",
-				service.find(entity.getId()).getName());
-
+		Assert.assertNotNull(service.find(entity.getId()).getPermissions());
 		long id = entity.getId();
 		service.delete(entity.getId());
 		Assert.assertNull(service.find(id));
