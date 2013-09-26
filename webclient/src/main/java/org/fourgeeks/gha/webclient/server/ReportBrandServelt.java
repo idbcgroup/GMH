@@ -2,9 +2,12 @@ package org.fourgeeks.gha.webclient.server;
 
 import java.awt.Image;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletConfig;
@@ -23,7 +26,7 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.ejb.gmh.BrandServiceRemote;
 
@@ -32,16 +35,11 @@ public class ReportBrandServelt extends HttpServlet {
 	private static final Logger LOG = Logger.getLogger(ReportBrandServelt.class);
 	private static final long serialVersionUID = 1L;
 
-	private static final String REPORT_FILE_DIR = "/resources/reportes/prueba.jasper";
+	private static final String REPORT_FILE_DIR = "/resources/reportes/eiaReport.jasper";
 	private static final String LOGO_DIR = "/resources/img/logoReport.jpg";
 
 	@EJB(name = "gmh.BrandService", beanInterface = BrandServiceRemote.class)
 	BrandServiceRemote service;
-
-	@Override
-	public void init(ServletConfig servletConfig) throws ServletException {
-		super.init(servletConfig);
-	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
@@ -60,6 +58,8 @@ public class ReportBrandServelt extends HttpServlet {
 			// parametros que recibe el reporte
 			Map<String, Object> paramsReport = new HashMap<String, Object>();
 			paramsReport.put("logo", logoImage);
+			paramsReport.put("fechaHoraReporte", genDatetimeTimezoneStrRep());
+			paramsReport.put("nombreOperador", "Nelson Ramirez");
 			paramsReport.put("statusOrLoc", "Estatus");
 			paramsReport.put("statusOrLocVal", "Nuevo");
 
@@ -72,7 +72,7 @@ public class ReportBrandServelt extends HttpServlet {
 			// exportacion como PDF
 			exportAsPDF(resp, fillReport);
 
-		} catch (EJBException e) {
+		} catch (GHAEJBException e) {
 			LOG.log(Level.ERROR, "Problema al obtener los datos para el reporte", e);
 
 		} catch (JRException e) {
@@ -101,5 +101,19 @@ public class ReportBrandServelt extends HttpServlet {
 		// se exporta en reporte lleno con los datos como PDF hacia la salida
 		// que ofrece el objeto response
 		JasperExportManager.exportReportToPdfStream(fillReport, response.getOutputStream());
+	}
+
+	@Override
+	public void init(ServletConfig servletConfig) throws ServletException {
+		super.init(servletConfig);
+	}
+
+	/**
+	 * @return String con la fecha, hora y zona horaria actual para el reporte
+	 */
+	private String genDatetimeTimezoneStrRep() {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("d/M/yy z h:mm a");
+		dateFormat.setTimeZone(TimeZone.getTimeZone("GMT-4:30"));
+		return dateFormat.format(new Date()).toLowerCase();
 	}
 }

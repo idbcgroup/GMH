@@ -16,7 +16,6 @@
 		<skipTests>true</skipTests>
 	</properties>
 	<dependencies>
-
 		<!-- <dependency> -->
 		<!-- <groupId>org.hibernate</groupId> -->
 		<!-- <artifactId>hibernate-entitymanager</artifactId> -->
@@ -28,12 +27,19 @@
 			<artifactId>javaee-api</artifactId>
 			<version>7.0</version>
 		</dependency>
-
-
 	</dependencies>
 
-	<build>
+	<!-- reporitorio local dentro del proyecto para acceder a los fonts del 
+		los reportes y a librerias dentro de la carpeta lib-->
+	<repositories>
+		<repository>
+			<id>gha-local-repository</id>
+			<name>Repositorio local del sistema GHA</name>
+			<url>file://${basedir}/../lib</url>
+		</repository>
+	</repositories>
 
+	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
