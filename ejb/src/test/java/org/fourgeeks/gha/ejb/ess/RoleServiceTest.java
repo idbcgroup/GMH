@@ -13,9 +13,8 @@ import javax.transaction.UserTransaction;
 
 import junit.framework.Assert;
 
-import org.fourgeeks.gha.domain.ess.InstanceLogon;
+import org.fourgeeks.gha.domain.ess.Role;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
-import org.fourgeeks.gha.domain.mix.Bpa;
 import org.fourgeeks.gha.ejb.GhaServiceTest;
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Test;
@@ -26,12 +25,12 @@ import org.junit.runner.RunWith;
  * 
  */
 @RunWith(Arquillian.class)
-public class InstanceLogonServiceTest extends GhaServiceTest {
+public class RoleServiceTest extends GhaServiceTest {
 	@PersistenceContext
 	EntityManager em;
 
-	@EJB(name = "ess.InstanceLogonService")
-	InstanceLogonServiceRemote service;
+	@EJB(name = "ess.RoleService")
+	RoleServiceRemote service;
 
 	@Inject
 	UserTransaction ux;
@@ -47,26 +46,24 @@ public class InstanceLogonServiceTest extends GhaServiceTest {
 		ux.begin();
 		em.joinTransaction();
 
-		InstanceLogon entity = new InstanceLogon();
-
+		Role entity = new Role();
+		entity.setName("Role test name");
 		entity = service.save(entity);
 
 		Assert.assertNotNull(entity);
-		// Assert.assertEquals(entity, service.find(entity)); //TODO el método
-		// del servicio siempre devuelve NULL (línea 50 de InstanceLogonService)
-		Assert.assertEquals(entity, service.find(entity.getId()));
+		Assert.assertEquals(1, service.find(entity).size());
+		Assert.assertEquals("Role test name", service.find(entity.getId())
+				.getName());
+		System.out.println("BEFORE " + entity.getId() + " " + entity.getName()
+				+ "\nAFTER " + service.find(entity.getId()).getId() + " "
+				+ service.find(entity.getId()).getName());
+		// Assert.assertEquals(entity, service.find(entity.getId()));
 		Assert.assertTrue(service.getAll() != null
 				&& service.getAll().size() >= 1);
-		if (super.getBpa() == null) {
-			Bpa bpa = new Bpa();
-			em.persist(bpa);
-			em.flush();
-			super.setBpa(em.find(Bpa.class, bpa.getId()));
-		}
-		entity.setBpa(super.getBpa());
+		entity.setName("Role test name updated");
 		entity = service.update(entity);
-		Assert.assertEquals(super.getBpa(), service.find(entity.getId())
-				.getBpa());
+		Assert.assertEquals("Role test name updated",
+				service.find(entity.getId()).getName());
 		long id = entity.getId();
 		service.delete(entity.getId());
 		Assert.assertNull(service.find(id));
