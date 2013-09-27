@@ -1,6 +1,11 @@
 package org.fourgeeks.gha.ejb;
 
+<<<<<<< HEAD
 import javax.ejb.EJBException;
+=======
+import java.sql.Date;
+
+>>>>>>> EiaPictureServiceTest agregado. No tiene método getAll(), el método
 import javax.persistence.EntityManager;
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
@@ -42,6 +47,7 @@ public class GhaServiceTest {
 	private Bpu bpu = null;
 	private BuildingLocation buildingLocation = null;
 	private Citizen citizen = null;
+	private Date date = null;
 	private Eia eia = null;
 	private EiaType eiaType = null;
 	private ExternalProvider externalProvider = null;
@@ -133,6 +139,13 @@ public class GhaServiceTest {
 			this.citizen = em.find(Citizen.class, citizen.getId());
 		}
 		return citizen;
+	}
+
+	public Date getDate() {
+		if (date == null) {
+			date = new Date(new java.util.Date().getTime());
+		}
+		return date;
 	}
 
 	public Eia getEia(EntityManager em) {

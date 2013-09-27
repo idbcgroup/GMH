@@ -19,7 +19,7 @@ public interface EiaPictureServiceRemote {
 	 * @param eiaPicture
 	 * @throws GHAEJBException
 	 */
-	public void save(EiaPicture eiaPicture) throws GHAEJBException;
+	public EiaPicture save(EiaPicture eiaPicture) throws GHAEJBException;
 
 	/**
 	 * @param Id
@@ -37,15 +37,19 @@ public interface EiaPictureServiceRemote {
 
 	/**
 	 * @param Id
-	 * @return an EiaPicture with this Id
+	 * @return an EiaPicture with this Id <<<<<<< HEAD
 	 * @throws GHAEJBException
 	 */
 	public EiaPicture find(long Id) throws GHAEJBException;
 
 	/**
 	 * @param eia
-	 * @return a List with all the EiaPictres for this eia
+	 * @return a List with all the EiaPictres for this eia <<<<<<< HEAD
 	 * @throws GHAEJBException
+	 *             =======
+	 * @throws EJBException
+	 *             >>>>>>> EiaPictureServiceTest agregado. No tiene método
+	 *             getAll(), el método
 	 */
 	public List<EiaPicture> find(Eia eia) throws GHAEJBException;
 }

@@ -60,7 +60,8 @@ public class EiaPictureService implements EiaPictureServiceRemote {
 		List<EiaPicture> res = null;
 		try {
 			res = em.createNamedQuery("EiaPicture.findByEia", EiaPicture.class)
-					.setParameter("eiaId", eia).getResultList();
+					.setParameter("eia", eia).getResultList();
+
 		} catch (NoResultException e) {
 			logger.log(Level.INFO, "No results", e);
 		} catch (Exception ex) {
@@ -96,9 +97,11 @@ public class EiaPictureService implements EiaPictureServiceRemote {
 	 * gha.domain.gmh.EiaPicture)
 	 */
 	@Override
-	public void save(EiaPicture eiaPicture) throws GHAEJBException {
+	public EiaPicture save(EiaPicture eiaPicture) throws GHAEJBException {
 		try {
 			em.persist(eiaPicture);
+			em.flush();
+			return em.find(EiaPicture.class, eiaPicture.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving EiaPicture", e);
 			throw new GHAEJBException("Error guardando EiaPicture: "
