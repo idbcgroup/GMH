@@ -17,7 +17,7 @@ import org.fourgeeks.gha.domain.gmh.MaintenanceSubProtocol;
 
 /**
  * @author emiliot
- *
+ * 
  */
 
 @Stateless(name = "gmh.maintenanceSubProtocolService")
@@ -28,25 +28,34 @@ public class MaintenanceSubProtocolService implements
 
 	private final static Logger logger = Logger
 			.getLogger(MaintenanceSubProtocolService.class.getName());
-	
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.MaintenanceSubProtocolServiceRemote#delete(long)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.MaintenanceSubProtocolServiceRemote#delete(
+	 * long)
 	 */
 	@Override
 	public void delete(long Id) throws EJBException {
 		try {
-			MaintenanceSubProtocol entity = em.find(MaintenanceSubProtocol.class, Id);
+			MaintenanceSubProtocol entity = em.find(
+					MaintenanceSubProtocol.class, Id);
 			em.remove(entity);
 		} catch (Exception e) {
-			logger.log(Level.INFO, "ERROR: unable to delete MaintenanceSubProtocol",
-					e);
-			throw new EJBException("Error eliminando MaintenanceSubProtocol por id "
-					+ e.getCause().getMessage());
+			logger.log(Level.INFO,
+					"ERROR: unable to delete MaintenanceSubProtocol", e);
+			throw new EJBException(
+					"Error eliminando MaintenanceSubProtocol por id "
+							+ e.getCause().getMessage());
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.MaintenanceSubProtocolServiceRemote#findByProtocolActivity(org.fourgeeks.gha.domain.gmh.ProtocolActivity)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.ejb.gmh.MaintenanceSubProtocolServiceRemote#
+	 * findByProtocolActivity(org.fourgeeks.gha.domain.gmh.ProtocolActivity)
 	 */
 	@Override
 	public List<MaintenanceSubProtocol> findByMaintenanceActivity(
@@ -56,18 +65,24 @@ public class MaintenanceSubProtocolService implements
 					.createNamedQuery(
 							"MaintenanceSubProtocol.findByProtocolActivity",
 							MaintenanceSubProtocol.class)
-					.setParameter("parentProtocolActivity",
+					.setParameter("parentMaintenanceActivity",
 							maintenanceActivity).getResultList();
 		} catch (Exception e) {
-			logger.log(Level.INFO, "Error: finding ProtocolActivity by MaintenanceSubProtocol", e);
+			logger.log(
+					Level.INFO,
+					"Error: finding ProtocolActivity by MaintenanceSubProtocol",
+					e);
 			throw new EJBException(
 					"Error buscando ProtocolActivity por MaintenanceSubProtocol"
 							+ e.getCause().getMessage());
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.MaintenanceSubProtocolServiceRemote#find(long)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.MaintenanceSubProtocolServiceRemote#find(long)
 	 */
 	@Override
 	public MaintenanceSubProtocol find(long Id) throws EJBException {
@@ -80,8 +95,11 @@ public class MaintenanceSubProtocolService implements
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.MaintenanceSubProtocolServiceRemote#getAll()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.MaintenanceSubProtocolServiceRemote#getAll()
 	 */
 	@Override
 	public List<MaintenanceSubProtocol> getAll() throws EJBException {
@@ -89,14 +107,20 @@ public class MaintenanceSubProtocolService implements
 			return em.createNamedQuery("MaintenanceSubProtocol.getAll",
 					MaintenanceSubProtocol.class).getResultList();
 		} catch (Exception e) {
-			logger.log(Level.INFO, "Error: finding all MaintenanceSubProtocol", e);
-			throw new EJBException("Error buscando todos los MaintenanceSubProtocol"
-					+ e.getCause().getMessage());
+			logger.log(Level.INFO, "Error: finding all MaintenanceSubProtocol",
+					e);
+			throw new EJBException(
+					"Error buscando todos los MaintenanceSubProtocol"
+							+ e.getCause().getMessage());
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.MaintenanceSubProtocolServiceRemote#getAll(int, int)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.MaintenanceSubProtocolServiceRemote#getAll(int,
+	 * int)
 	 */
 	@Override
 	public List<MaintenanceSubProtocol> getAll(int offset, int size)
@@ -104,26 +128,32 @@ public class MaintenanceSubProtocolService implements
 		try {
 			return em
 					.createNamedQuery("MaintenanceSubProtocol.getAll",
-							MaintenanceSubProtocol.class).setFirstResult(offset)
-					.setMaxResults(size).getResultList();
+							MaintenanceSubProtocol.class)
+					.setFirstResult(offset).setMaxResults(size).getResultList();
 		} catch (Exception e) {
-			logger.log(Level.INFO, "Error: finding all MaintenanceSubProtocol", e);
-			throw new EJBException("Error buscando todos los MaintenanceSubProtocol"
-					+ e.getCause().getMessage());
+			logger.log(Level.INFO, "Error: finding all MaintenanceSubProtocol",
+					e);
+			throw new EJBException(
+					"Error buscando todos los MaintenanceSubProtocol"
+							+ e.getCause().getMessage());
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.MaintenanceSubProtocolServiceRemote#save(org.fourgeeks.gha.domain.gmh.MaintenanceSubProtocol)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.MaintenanceSubProtocolServiceRemote#save(org
+	 * .fourgeeks.gha.domain.gmh.MaintenanceSubProtocol)
 	 */
 	@Override
 	public MaintenanceSubProtocol save(
-			MaintenanceSubProtocol maintenanceSubProtocol)
-			throws EJBException {
+			MaintenanceSubProtocol maintenanceSubProtocol) throws EJBException {
 		try {
 			em.persist(maintenanceSubProtocol);
 			em.flush();
-			return em.find(MaintenanceSubProtocol.class, maintenanceSubProtocol.getId());
+			return em.find(MaintenanceSubProtocol.class,
+					maintenanceSubProtocol.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving MaintenanceSubProtocol ", e);
 			throw new EJBException("ERROR: saving MaintenanceSubProtocol "
@@ -131,17 +161,21 @@ public class MaintenanceSubProtocolService implements
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.MaintenanceSubProtocolServiceRemote#update(org.fourgeeks.gha.domain.gmh.MaintenanceSubProtocol)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.MaintenanceSubProtocolServiceRemote#update(
+	 * org.fourgeeks.gha.domain.gmh.MaintenanceSubProtocol)
 	 */
 	@Override
 	public MaintenanceSubProtocol update(
-			MaintenanceSubProtocol maintenanceSubProtocol)
-			throws EJBException {
+			MaintenanceSubProtocol maintenanceSubProtocol) throws EJBException {
 		try {
-			em.persist(maintenanceSubProtocol);
+			em.merge(maintenanceSubProtocol);
 			em.flush();
-			return em.find(MaintenanceSubProtocol.class, maintenanceSubProtocol.getId());
+			return em.find(MaintenanceSubProtocol.class,
+					maintenanceSubProtocol.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving MaintenanceSubProtocol ", e);
 			throw new EJBException("ERROR: saving MaintenanceSubProtocol "

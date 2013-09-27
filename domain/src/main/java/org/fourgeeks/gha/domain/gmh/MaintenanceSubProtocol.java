@@ -19,7 +19,7 @@ import org.fourgeeks.gha.domain.AbstractEntity;
 		"maintenanceActivityFk", "parentMaintenanceActivityFk" }))
 @NamedQueries(value = {
 		@NamedQuery(name = "MaintenanceSubProtocol.getAll", query = "SELECT e from MaintenanceSubProtocol e order by e.id"),
-		@NamedQuery(name = "MaintenanceSubProtocol.findByProtocolActivity", query = "SELECT e FROM  MaintenanceSubProtocol e WHERE e.parentMaintenanceActivity = :parentMaintenanceActivity ORDER BY e.ordinal")})
+		@NamedQuery(name = "MaintenanceSubProtocol.findByProtocolActivity", query = "SELECT e FROM  MaintenanceSubProtocol e WHERE e.parentMaintenanceActivity = :parentMaintenanceActivity ORDER BY e.ordinal") })
 public class MaintenanceSubProtocol extends AbstractEntity {
 
 	/**
@@ -34,7 +34,7 @@ public class MaintenanceSubProtocol extends AbstractEntity {
 	@ManyToOne
 	@JoinColumn(name = "parentMaintenanceActivityFk")
 	private MaintenanceActivity parentMaintenanceActivity;
-	
+
 	/**
 	 * Number of order for activity
 	 */
@@ -62,13 +62,13 @@ public class MaintenanceSubProtocol extends AbstractEntity {
 		this.maintenanceActivity = maintenanceActivity;
 	}
 
-	public void setParentProtocolActivity(MaintenanceActivity parentMaintenanceActivity) {
+	public void setParentProtocolActivity(
+			MaintenanceActivity parentMaintenanceActivity) {
 		this.parentMaintenanceActivity = parentMaintenanceActivity;
 	}
 
 	public void setOrdinal(int ordinal) {
 		this.ordinal = ordinal;
 	}
-	
-	
+
 }
