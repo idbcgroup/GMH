@@ -4,14 +4,19 @@ import javax.persistence.EntityManager;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
+import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.enu.GenderTypeEnum;
 import org.fourgeeks.gha.domain.enu.LocationLevelEnum;
 import org.fourgeeks.gha.domain.ess.BpuFunction;
+import org.fourgeeks.gha.domain.ess.Role;
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
+import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.gmh.Brand;
+import org.fourgeeks.gha.domain.gmh.Eia;
+import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.mix.Bpa;
 import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.domain.mix.Citizen;
@@ -38,8 +43,13 @@ public class GhaServiceTest {
 	private Bpu bpu = null;
 	private BuildingLocation buildingLocation = null;
 	private Citizen citizen = null;
+	private Eia eia = null;
+	private EiaType eiaType = null;
+	private ExternalProvider externalProvider = null;
 	private Institution institution = null;
 	private LegalEntity legalEntity = null;
+	private Obu obu = null;
+	private Role role = null;
 
 	/**
 	 * @return the deployment descriptor
@@ -126,6 +136,46 @@ public class GhaServiceTest {
 		return citizen;
 	}
 
+	public Eia getEia(EntityManager em) {
+		if (eia == null) {
+			Eia eia = new Eia();
+			eia.setEiaType(getEiaType(em));
+			eia.setObu(getObu(em));
+			eia.setProvider(getExternalProvider(em));
+			eia.setResponsibleRole(getRole(em));
+			em.persist(eia);
+			em.flush();
+			this.eia = em.find(Eia.class, eia.getId());
+		}
+		return eia;
+	}
+
+	public EiaType getEiaType(EntityManager em) {
+		if (eiaType == null) {
+			EiaType eiaType = new EiaType();
+			eiaType.setCode("EiaType test code");
+			eiaType.setMobility(EiaMobilityEnum.FIXED);
+			eiaType.setName("EiaType test name");
+			eiaType.setType(EiaTypeEnum.EQUIPMENT);
+			em.persist(eiaType);
+			em.flush();
+			this.eiaType = em.find(EiaType.class, eiaType.getCode());
+		}
+		return eiaType;
+	}
+
+	public ExternalProvider getExternalProvider(EntityManager em) {
+		if (externalProvider == null) {
+			ExternalProvider externalProvider = new ExternalProvider();
+			externalProvider.setInstitution(getInstitution(em));
+			em.persist(externalProvider);
+			em.flush();
+			this.externalProvider = em.find(ExternalProvider.class,
+					externalProvider.getId());
+		}
+		return externalProvider;
+	}
+
 	public Institution getInstitution(EntityManager em) {
 		if (institution == null) {
 			Institution institution = new Institution();
@@ -148,4 +198,26 @@ public class GhaServiceTest {
 		return legalEntity;
 	}
 
+	public Obu getObu(EntityManager em) {
+		if (obu == null) {
+			Obu obu = new Obu();
+			obu.setCode("Obu test code");
+			obu.setName("Obu test name");
+			em.persist(obu);
+			em.flush();
+			this.obu = em.find(Obu.class, obu.getId());
+		}
+		return obu;
+	}
+
+	public Role getRole(EntityManager em) {
+		if (role == null) {
+			Role role = new Role();
+			role.setName("Role test name");
+			em.persist(role);
+			em.flush();
+			this.role = em.find(Role.class, role.getId());
+		}
+		return role;
+	}
 }
