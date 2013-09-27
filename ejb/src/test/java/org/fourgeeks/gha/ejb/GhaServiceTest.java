@@ -37,6 +37,7 @@ import org.fourgeeks.gha.ejb.ess.InstanceLogonService;
 import org.fourgeeks.gha.ejb.gar.BpuFunctionService;
 import org.fourgeeks.gha.ejb.glm.ExternalProviderService;
 import org.fourgeeks.gha.ejb.gmh.BrandService;
+import org.fourgeeks.gha.ejb.mix.BpaService;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -79,6 +80,7 @@ public class GhaServiceTest {
 				.create(WebArchive.class, "test.war")
 				.addPackage(AbstractEntity.class.getPackage())
 				.addPackage(Bpa.class.getPackage())
+				.addPackage(BpaService.class.getPackage())
 				.addPackage(Bpu.class.getPackage())
 				.addPackage(BpuFunction.class.getPackage())
 				.addPackage(BpuFunctionService.class.getPackage())
