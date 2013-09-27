@@ -38,9 +38,9 @@ public interface MaintenanceProtocolServiceRemote {
 	 * @param maintenancePlan
 	 * @param offset
 	 * @param size
-	 * @returna list with size maintenance protocols related to the maintenance
-	 *         plan starting at offset
+	 * @return a list with size maintenance protocols related to the maintenance
 	 * @throws GHAEJBException
+	 * 
 	 */
 	public List<MaintenanceProtocol> findByMaintenancePlan(
 			MaintenancePlan maintenancePlan, int offset, int size)
@@ -52,13 +52,14 @@ public interface MaintenanceProtocolServiceRemote {
 	 * @throws GHAEJBException
 	 */
 	public MaintenanceProtocol find(long Id) throws GHAEJBException;
-	
+
 	/**
 	 * @param maintenanceProtocol
 	 * @return the list of Protocols that are alike the parameter
 	 * @throws GHAEJBException
 	 */
-	public List<MaintenanceProtocol> find(MaintenanceProtocol maintenanceProtocol)throws GHAEJBException;
+	public List<MaintenanceProtocol> find(
+			MaintenanceProtocol maintenanceProtocol) throws GHAEJBException;
 
 	/**
 	 * @return the list with all EiaTypeMaintenanceProtocol Objects
@@ -69,8 +70,16 @@ public interface MaintenanceProtocolServiceRemote {
 	/**
 	 * @param offset
 	 * @param size
-	 * @return List of EiaTypeMaintenanceProtocol beginning in offset up to size elements
+	 *            <<<<<<< HEAD
+	 * @return List of EiaTypeMaintenanceProtocol beginning in offset up to size
+	 *         elements
 	 * @throws GHAEJBException
+	 *             =======
+	 * @return List of EiaTypeMaintenanceProtocol beginning in offset up to size
+	 *         elements
+	 * @throws EJBException
+	 *             >>>>>>> MaintenanceProtocolServiceTest agregado. Algunos
+	 *             cambios en el servicio
 	 */
 	public List<MaintenanceProtocol> getAll(int offset, int size)
 			throws GHAEJBException;

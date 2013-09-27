@@ -23,7 +23,7 @@ import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 
 /**
  * @author emiliot
- *
+ * 
  */
 
 @Stateless(name = "gmh.maintenanceProtocolService")
@@ -32,10 +32,14 @@ public class MaintenanceProtocolService implements
 	@PersistenceContext
 	EntityManager em;
 
-	private final static Logger logger = Logger.getLogger(MaintenanceProtocolService.class
-			.getName());
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.MaintenanceProtocolServiceRemote#delete(long)
+	private final static Logger logger = Logger
+			.getLogger(MaintenanceProtocolService.class.getName());
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.MaintenanceProtocolServiceRemote#delete(long)
 	 */
 	@Override
 	public void delete(long Id) throws GHAEJBException {
@@ -43,55 +47,82 @@ public class MaintenanceProtocolService implements
 			MaintenanceProtocol entity = em.find(MaintenanceProtocol.class, Id);
 			em.remove(entity);
 		} catch (Exception e) {
-			logger.log(Level.INFO, "ERROR: unable to delete MaintenanceProtocol", e);
-			throw new GHAEJBException("Error eliminando MaintenanceProtocol por id "
-					+ e.getCause().getMessage());
+			logger.log(Level.INFO,
+					"ERROR: unable to delete MaintenanceProtocol", e);
+			throw new GHAEJBException(
+					"Error eliminando MaintenanceProtocol por id "
+							+ e.getCause().getMessage());
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.MaintenanceProtocolServiceRemote#findByMaintenancePlan(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.ejb.gmh.MaintenanceProtocolServiceRemote#
+	 * findByMaintenancePlan(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
 	 */
 	@Override
 	public List<MaintenanceProtocol> findByMaintenancePlan(
 			MaintenancePlan maintenancePlan) throws GHAEJBException {
 		try {
-			return em.createNamedQuery("MaintenanceProtocol.findByMaintenancePlan", MaintenanceProtocol.class)
-					.setParameter("maintenancePlan", maintenancePlan).getResultList();
+			return em
+					.createNamedQuery(
+							"MaintenanceProtocol.findByMaintenancePlan",
+							MaintenanceProtocol.class)
+					.setParameter("maintenancePlan", maintenancePlan)
+					.getResultList();
 		} catch (Exception e) {
-			logger.log(Level.INFO, "Error: finding MaintenanceProtocol by MaintenancePlan", e);
-			throw new GHAEJBException("Error buscando MaintenanceProtocol por MaintenanceProtocol"
-					+ e.getCause().getMessage());
+			logger.log(Level.INFO,
+					"Error: finding MaintenanceProtocol by MaintenancePlan", e);
+			throw new GHAEJBException(
+					"Error buscando MaintenanceProtocol por MaintenanceProtocol"
+							+ e.getCause().getMessage());
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.MaintenanceProtocolServiceRemote#findByMaintenancePlan(org.fourgeeks.gha.domain.gmh.MaintenancePlan, int, int)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.ejb.gmh.MaintenanceProtocolServiceRemote#
+	 * findByMaintenancePlan(org.fourgeeks.gha.domain.gmh.MaintenancePlan, int,
+	 * int)
 	 */
 	@Override
 	public List<MaintenanceProtocol> findByMaintenancePlan(
 			MaintenancePlan maintenancePlan, int offset, int size)
 			throws GHAEJBException {
 		try {
-			return em.createNamedQuery("MaintenanceProtocol.findByMaintenancePlan", MaintenanceProtocol.class)
-					.setParameter("maintenancePlan", maintenancePlan).setFirstResult(offset).setMaxResults(size).getResultList();
+			return em
+					.createNamedQuery(
+							"MaintenanceProtocol.findByMaintenancePlan",
+							MaintenanceProtocol.class)
+					.setParameter("maintenancePlan", maintenancePlan)
+					.setFirstResult(offset).setMaxResults(size).getResultList();
 		} catch (Exception e) {
-			logger.log(Level.INFO, "Error: finding MaintenanceProtocol by MaintenancePlan", e);
-			throw new GHAEJBException("Error buscando MaintenanceProtocol por MaintenanceProtocol"
-					+ e.getCause().getMessage());
+			logger.log(Level.INFO,
+					"Error: finding MaintenanceProtocol by MaintenancePlan", e);
+			throw new GHAEJBException(
+					"Error buscando MaintenanceProtocol por MaintenanceProtocol"
+							+ e.getCause().getMessage());
 		}
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.MaintenanceProtocolServiceRemote#find(org.fourgeeks.gha.domain.gmh.MaintenanceProtocol)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.MaintenanceProtocolServiceRemote#find(org.fourgeeks
+	 * .gha.domain.gmh.MaintenanceProtocol)
 	 */
 	@Override
 	public List<MaintenanceProtocol> find(
 			MaintenanceProtocol maintenanceProtocol) throws GHAEJBException {
 		try {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
-			CriteriaQuery<MaintenanceProtocol> cQuery = cb.createQuery(MaintenanceProtocol.class);
-			Root<MaintenanceProtocol> root = cQuery.from(MaintenanceProtocol.class);
+			CriteriaQuery<MaintenanceProtocol> cQuery = cb
+					.createQuery(MaintenanceProtocol.class);
+			Root<MaintenanceProtocol> root = cQuery
+					.from(MaintenanceProtocol.class);
 
 			cQuery.select(root);
 			cQuery.orderBy(cb.asc(root.<String> get("name")));
@@ -104,15 +135,19 @@ public class MaintenanceProtocolService implements
 			TypedQuery<MaintenanceProtocol> q = em.createQuery(cQuery);
 
 			if (maintenanceProtocol.getName() != null)
-				q.setParameter("name", "%" + maintenanceProtocol.getName().toLowerCase() + "%");
-			if(maintenanceProtocol.getDescription() != null)
-				q.setParameter("description", "%" + maintenanceProtocol.getDescription().toLowerCase() + "%");
+				q.setParameter("name", "%"
+						+ maintenanceProtocol.getName().toLowerCase() + "%");
+			if (maintenanceProtocol.getDescription() != null)
+				q.setParameter("description", "%"
+						+ maintenanceProtocol.getDescription().toLowerCase()
+						+ "%");
 
 			return q.getResultList();
 
 		} catch (Exception e) {
 			logger.log(Level.SEVERE,
-					"Error obteniendo los maintenancePlan por maintenancePlan", e);
+					"Error obteniendo los maintenancePlan por maintenancePlan",
+					e);
 			throw new GHAEJBException(
 					"Error obteniendo los maintenancePlan por maintenancePlan "
 							+ e.getCause().getMessage());
@@ -129,8 +164,7 @@ public class MaintenanceProtocolService implements
 			CriteriaBuilder cb, Root<MaintenanceProtocol> root) {
 		Predicate predicate = cb.conjunction();
 		if (maintenanceProtocol.getName() != null) {
-			ParameterExpression<String> p = cb.parameter(String.class,
-					"name");
+			ParameterExpression<String> p = cb.parameter(String.class, "name");
 			predicate = cb.and(predicate,
 					cb.like(cb.lower(root.<String> get("name")), p));
 		}
@@ -143,8 +177,11 @@ public class MaintenanceProtocolService implements
 		return predicate;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.MaintenanceProtocolServiceRemote#find(long)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.MaintenanceProtocolServiceRemote#find(long)
 	 */
 	@Override
 	public MaintenanceProtocol find(long Id) throws GHAEJBException {
@@ -157,46 +194,62 @@ public class MaintenanceProtocolService implements
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.ejb.gmh.MaintenanceProtocolServiceRemote#getAll()
 	 */
 	@Override
 	public List<MaintenanceProtocol> getAll() throws GHAEJBException {
 		try {
-			return em.createNamedQuery("MaintenanceProtocol.getAll", MaintenanceProtocol.class).getResultList();
+			return em.createNamedQuery("MaintenanceProtocol.getAll",
+					MaintenanceProtocol.class).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding all MaintenanceProtocol", e);
-			throw new GHAEJBException("Error buscando todos los MaintenanceProtocol"
-					+ e.getCause().getMessage());
+			throw new GHAEJBException(
+					"Error buscando todos los MaintenanceProtocol"
+							+ e.getCause().getMessage());
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.MaintenanceProtocolServiceRemote#getAll(int, int)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.MaintenanceProtocolServiceRemote#getAll(int,
+	 * int)
 	 */
 	@Override
 	public List<MaintenanceProtocol> getAll(int offset, int size)
 			throws GHAEJBException {
 		try {
-			return em.createNamedQuery("MaintenanceProtocol.getAll", MaintenanceProtocol.class)
-					.setFirstResult(offset).setMaxResults(size).getResultList();
+			return em
+					.createNamedQuery("MaintenanceProtocol.getAll",
+							MaintenanceProtocol.class).setFirstResult(offset)
+					.setMaxResults(size).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding all MaintenanceProtocol", e);
-			throw new GHAEJBException("Error buscando todos los MaintenanceProtocol"
-					+ e.getCause().getMessage());
+			throw new GHAEJBException(
+					"Error buscando todos los MaintenanceProtocol"
+							+ e.getCause().getMessage());
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.MaintenanceProtocolServiceRemote#save(org.fourgeeks.gha.domain.gmh.MaintenanceProtocol)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.MaintenanceProtocolServiceRemote#save(org.fourgeeks
+	 * .gha.domain.gmh.MaintenanceProtocol)
 	 */
 	@Override
-	public MaintenanceProtocol save(
-			MaintenanceProtocol maintenanceProtocol) throws GHAEJBException {
+	public MaintenanceProtocol save(MaintenanceProtocol maintenanceProtocol)
+			throws GHAEJBException {
 		try {
 			em.persist(maintenanceProtocol);
 			em.flush();
-			return em.find(MaintenanceProtocol.class, maintenanceProtocol.getId());
+			return em.find(MaintenanceProtocol.class,
+					maintenanceProtocol.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving MaintenanceProtocol ", e);
 			throw new GHAEJBException("ERROR: saving MaintenanceProtocol "
@@ -204,12 +257,16 @@ public class MaintenanceProtocolService implements
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.MaintenanceProtocolServiceRemote#update(org.fourgeeks.gha.domain.gmh.MaintenanceProtocol)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.MaintenanceProtocolServiceRemote#update(org
+	 * .fourgeeks.gha.domain.gmh.MaintenanceProtocol)
 	 */
 	@Override
-	public MaintenanceProtocol update(
-			MaintenanceProtocol maintenanceProtocol) throws GHAEJBException {
+	public MaintenanceProtocol update(MaintenanceProtocol maintenanceProtocol)
+			throws GHAEJBException {
 		try {
 			MaintenanceProtocol res = em.merge(maintenanceProtocol);
 			em.flush();
@@ -217,8 +274,9 @@ public class MaintenanceProtocolService implements
 		} catch (Exception e) {
 			logger.log(Level.INFO,
 					"ERROR: unable to update MaintenanceProtocol ", e);
-			throw new GHAEJBException("ERROR: no se puede actualizar el MaintenanceProtocol "
-					+ e.getCause().getMessage());
+			throw new GHAEJBException(
+					"ERROR: no se puede actualizar el MaintenanceProtocol "
+							+ e.getCause().getMessage());
 		}
 	}
 

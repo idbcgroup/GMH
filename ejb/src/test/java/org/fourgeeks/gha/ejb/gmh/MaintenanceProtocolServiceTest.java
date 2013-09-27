@@ -14,7 +14,7 @@ import javax.transaction.UserTransaction;
 import junit.framework.Assert;
 
 import org.fourgeeks.gha.domain.exceptions.EJBException;
-import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.ejb.GhaServiceTest;
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Test;
@@ -25,12 +25,12 @@ import org.junit.runner.RunWith;
  * 
  */
 @RunWith(Arquillian.class)
-public class MaintenancePlanServiceTest extends GhaServiceTest {
+public class MaintenanceProtocolServiceTest extends GhaServiceTest {
 	@PersistenceContext
 	EntityManager em;
 
-	@EJB(name = "gmh.MaintenancePlanService")
-	MaintenancePlanServiceRemote service;
+	@EJB(name = "gmh.MaintenanceProtocolService")
+	MaintenanceProtocolServiceRemote service;
 
 	@Inject
 	UserTransaction ux;
@@ -45,8 +45,9 @@ public class MaintenancePlanServiceTest extends GhaServiceTest {
 		ux.begin();
 		em.joinTransaction();
 
-		MaintenancePlan entity = new MaintenancePlan();
-		entity.setDescription("MaintenancePlan test description");
+		MaintenanceProtocol entity = new MaintenanceProtocol();
+		entity.setDescription("MaintenanceProtocol test description");
+		entity.setMaintenancePlan(super.getMaintenancePlan(em));
 
 		entity = service.save(entity);
 
@@ -57,42 +58,25 @@ public class MaintenancePlanServiceTest extends GhaServiceTest {
 				+ service.find(entity.getId()).getDescription());
 		// Assert.assertEquals(entity, service.find(entity.getId()));
 
-		Assert.assertTrue(service.findByEiaType(super
-				.getEiaTypeMaintenancePlan(em, super.getEiaType(em), entity)
-				.getEiaType()) != null
-				&& service.findByEiaType(
-						super.getEiaTypeMaintenancePlan(em,
-								super.getEiaType(em), entity).getEiaType())
+		Assert.assertTrue(service.findByMaintenancePlan(super
+				.getMaintenancePlan(em)) != null
+				&& service.findByMaintenancePlan(super.getMaintenancePlan(em))
 						.size() >= 1);
-		Assert.assertTrue(service.findByEiaType(super
-				.getEiaTypeMaintenancePlan(em, super.getEiaType(em), entity)
-				.getEiaType(), 0, 10) != null
-				&& service.findByEiaType(
-						super.getEiaTypeMaintenancePlan(em,
-								super.getEiaType(em), entity).getEiaType(), 0,
-						10).size() >= 1);
-
-		em.remove(super.getEiaTypeMaintenancePlan(em, super.getEiaType(em),
-				entity));
-		em.flush();
-		Assert.assertTrue(service.findByEiaType(super
-				.getEiaTypeMaintenancePlan(em, super.getEiaType(em), entity)
-				.getEiaType()) == null
-				|| service.findByEiaType(
-						super.getEiaTypeMaintenancePlan(em,
-								super.getEiaType(em), entity).getEiaType())
-						.size() == 0);
+		Assert.assertTrue(service.findByMaintenancePlan(
+				super.getMaintenancePlan(em), 0, 10) != null
+				&& service.findByMaintenancePlan(super.getMaintenancePlan(em),
+						0, 10).size() >= 1);
 
 		Assert.assertTrue(service.getAll() != null
 				&& service.getAll().size() >= 1);
 		Assert.assertTrue(service.getAll(0, 10) != null
 				&& service.getAll(0, 10).size() >= 1);
-		entity.setDescription("MaintenancePlan test description updated");
+		entity.setDescription("MaintenanceProtocol test description updated");
 		entity = service.update(entity);
-		Assert.assertEquals("MaintenancePlan test description updated", service
+		Assert.assertEquals("MaintenanceProtocol test description updated",
+				service.find(entity.getId()).getDescription());
+		Assert.assertFalse("MaintenanceProtocol test description" == service
 				.find(entity.getId()).getDescription());
-		Assert.assertFalse("MaintenancePlan test description" == service.find(
-				entity.getId()).getDescription());
 		long id = entity.getId();
 		service.delete(entity.getId());
 		Assert.assertNull(service.find(id));
