@@ -16,17 +16,20 @@ import org.fourgeeks.gha.domain.gmh.Manufacturer;
 
 /**
  * @author emiliot
- *
+ * 
  */
 
 @Stateless(name = "gmh.ManufacturerService")
 public class ManufacturerService implements ManufacturerServiceRemote {
 	@PersistenceContext
 	EntityManager em;
-	
-	private final static Logger logger = Logger.getLogger(Manufacturer.class.getName());
-	
-	/* (non-Javadoc)
+
+	private final static Logger logger = Logger.getLogger(Manufacturer.class
+			.getName());
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.ejb.gmh.ManufacturerServiceRemote#delete(long)
 	 */
 	@Override
@@ -41,42 +44,57 @@ public class ManufacturerService implements ManufacturerServiceRemote {
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.ejb.gmh.ManufacturerServiceRemote#find(long)
 	 */
 	@Override
 	public Manufacturer find(long Id) throws EJBException {
-		try{
+		try {
 			return em.find(Manufacturer.class, Id);
-		}catch(Exception e){
+		} catch (Exception e) {
 			logger.log(Level.INFO, "Error buscando Manufacturer por Id ", e);
 			throw new EJBException("Error buscando Manufacturer por Id "
 					+ e.getCause().getMessage());
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.ManufacturerServiceRemote#find(org.fourgeeks.gha.domain.gmh.Manufacturer)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.ManufacturerServiceRemote#find(org.fourgeeks
+	 * .gha.domain.gmh.Manufacturer)
 	 */
 	@Override
-	public List<Manufacturer> find(Manufacturer manufacturer) throws EJBException {
+	public List<Manufacturer> find(Manufacturer manufacturer)
+			throws EJBException {
 		try {
-			return em.createNamedQuery("Manufacturer.findByName", Manufacturer.class)
-					.setParameter("name", manufacturer.getName()).getResultList();
+			return em
+					.createNamedQuery("Manufacturer.findByName",
+							Manufacturer.class)
+					.setParameter("name", manufacturer.getName())
+					.getResultList();
 		} catch (Exception e) {
-			logger.log(Level.INFO, "Error: finding manufacturer by manufacturer", e);
-			throw new EJBException("Error buscando manufacturer por manufacturer "
-					+ e.getCause().getMessage());
+			logger.log(Level.INFO,
+					"Error: finding manufacturer by manufacturer", e);
+			throw new EJBException(
+					"Error buscando manufacturer por manufacturer "
+							+ e.getCause().getMessage());
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.ejb.gmh.ManufacturerServiceRemote#getAll()
 	 */
 	@Override
 	public List<Manufacturer> getAll() throws EJBException {
 		try {
-			return em.createNamedQuery("Manufacturer.getAll", Manufacturer.class).getResultList();
+			return em.createNamedQuery("Manufacturer.getAll",
+					Manufacturer.class).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all manufacturers", ex);
 			throw new EJBException("Error obteniendo todos los manufacturers"
@@ -84,16 +102,20 @@ public class ManufacturerService implements ManufacturerServiceRemote {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.ManufacturerServiceRemote#save(org.fourgeeks.gha.domain.gmh.Manufacturer)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.ManufacturerServiceRemote#save(org.fourgeeks
+	 * .gha.domain.gmh.Manufacturer)
 	 */
 	@Override
 	public Manufacturer save(Manufacturer manufacturer) throws EJBException {
-		try{
+		try {
 			em.persist(manufacturer);
 			em.flush();
 			return em.find(Manufacturer.class, manufacturer.getId());
-		}catch(Exception e){
+		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving manufacturer", e);
 			throw new EJBException("Error guardando manufacturer: "
 					+ e.getCause().getMessage());
@@ -101,8 +123,12 @@ public class ManufacturerService implements ManufacturerServiceRemote {
 
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.ManufacturerServiceRemote#update(org.fourgeeks.gha.domain.gmh.Manufacturer)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.ManufacturerServiceRemote#update(org.fourgeeks
+	 * .gha.domain.gmh.Manufacturer)
 	 */
 	@Override
 	public Manufacturer update(Manufacturer manufacturer) throws EJBException {
@@ -112,7 +138,8 @@ public class ManufacturerService implements ManufacturerServiceRemote {
 			return res;
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to update manufacturer", e);
-			throw new EJBException("Error actualizando manufacturer " +e.getCause().getMessage());
+			throw new EJBException("Error actualizando manufacturer "
+					+ e.getCause().getMessage());
 		}
 	}
 
