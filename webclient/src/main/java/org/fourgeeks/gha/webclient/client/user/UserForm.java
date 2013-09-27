@@ -193,7 +193,7 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 	 * from the inner entities should be added in order to update
 	 * or in the case of new ssoUser should not be added because
 	 * is new.
-	 * @param addIdsToUpdate
+	 * @param boolean update
 	 * @return the SSOUser to save/update
 	 */
 	private SSOUser extract(boolean update){

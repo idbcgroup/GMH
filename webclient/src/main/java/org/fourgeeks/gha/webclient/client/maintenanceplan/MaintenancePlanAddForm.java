@@ -53,6 +53,9 @@ public class MaintenancePlanAddForm extends GHASlideInWindow implements
 		gridPanel.addMembers(maintenancePlanForm, new LayoutSpacer(), sideButtons);
 		addMember(gridPanel);
 		
+		//register as listener to the maintenancePlanForm
+		maintenancePlanForm.addMaintenancePlanSelectionListener(this);
+		
 		fillExtras();
 	}
 
@@ -62,7 +65,7 @@ public class MaintenancePlanAddForm extends GHASlideInWindow implements
 	}
 	
 	private void save(){
-		//TODO:
+		maintenancePlanForm.save();
 	}
 
 	private void fillExtras() {
@@ -81,6 +84,7 @@ public class MaintenancePlanAddForm extends GHASlideInWindow implements
 
 	@Override
 	public void close() {
+		maintenancePlanForm.destroy();
 		destroy();
 	}
 
@@ -108,7 +112,7 @@ public class MaintenancePlanAddForm extends GHASlideInWindow implements
 	 */
 	@Override
 	public void select(MaintenancePlan maintenancePlan) {
-		// TODO Auto-generated method stub
-		
+		//called when the maintenanceplanform finish saving new entity
+		cancel();
 	}
 }
