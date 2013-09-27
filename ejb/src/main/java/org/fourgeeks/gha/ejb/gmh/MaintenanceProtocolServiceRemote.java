@@ -31,7 +31,7 @@ public interface MaintenanceProtocolServiceRemote {
 	 *         plan
 	 * @throws EJBException
 	 */
-	public List<MaintenanceProtocol> findByEiaTypeMaintenancePlan(
+	public List<MaintenanceProtocol> findByMaintenancePlan(
 			MaintenancePlan maintenancePlan) throws EJBException;
 
 	/**
@@ -39,10 +39,10 @@ public interface MaintenanceProtocolServiceRemote {
 	 * @param offset
 	 * @param size
 	 * @returna list with size maintenance protocols related to the maintenance
-	 *         plan starting at offset
+	 *          plan starting at offset
 	 * @throws EJBException
 	 */
-	public List<MaintenanceProtocol> findByEiaTypeMaintenancePlan(
+	public List<MaintenanceProtocol> findByMaintenancePlan(
 			MaintenancePlan maintenancePlan, int offset, int size)
 			throws EJBException;
 
@@ -62,7 +62,8 @@ public interface MaintenanceProtocolServiceRemote {
 	/**
 	 * @param offset
 	 * @param size
-	 * @return List of EiaTypeMaintenanceProtocol beginning in offset up to size elements
+	 * @return List of EiaTypeMaintenanceProtocol beginning in offset up to size
+	 *         elements
 	 * @throws EJBException
 	 */
 	public List<MaintenanceProtocol> getAll(int offset, int size)
