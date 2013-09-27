@@ -19,6 +19,11 @@ import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
+import org.fourgeeks.gha.domain.gmh.MaintenanceActivityMaintenanceProtocol;
+import org.fourgeeks.gha.domain.gmh.MaintenanceActivityServiceResource;
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
+import org.fourgeeks.gha.domain.gmh.ServiceResource;
 import org.fourgeeks.gha.domain.mix.Bpa;
 import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.domain.mix.Citizen;
@@ -51,8 +56,12 @@ public class GhaServiceTest {
 	private ExternalProvider externalProvider = null;
 	private Institution institution = null;
 	private LegalEntity legalEntity = null;
+	private MaintenanceActivityMaintenanceProtocol maintenanceActivityMaintenanceProtocol = null;
+	private MaintenanceActivityServiceResource maintenanceActivityServiceResource = null;
+	private MaintenanceProtocol maintenanceProtocol = null;
 	private Obu obu = null;
 	private Role role = null;
+	private ServiceResource serviceResource = null;
 
 	/**
 	 * @return the deployment descriptor
@@ -208,6 +217,53 @@ public class GhaServiceTest {
 		return legalEntity;
 	}
 
+	public MaintenanceActivityMaintenanceProtocol getMaintenanceActivityMaintenanceProtocol(
+			EntityManager em, MaintenanceActivity maintenanceActivity,
+			MaintenanceProtocol maintenanceProtocol) {
+		if (maintenanceActivityMaintenanceProtocol == null) {
+			MaintenanceActivityMaintenanceProtocol maintenanceActivityMaintenanceProtocol = new MaintenanceActivityMaintenanceProtocol();
+			maintenanceActivityMaintenanceProtocol
+					.setActivity(maintenanceActivity);
+			maintenanceActivityMaintenanceProtocol
+					.setProtocol(maintenanceProtocol);
+			em.persist(maintenanceActivityMaintenanceProtocol);
+			em.flush();
+			this.maintenanceActivityMaintenanceProtocol = em.find(
+					MaintenanceActivityMaintenanceProtocol.class,
+					maintenanceActivityMaintenanceProtocol.getId());
+		}
+		return maintenanceActivityMaintenanceProtocol;
+	}
+
+	public MaintenanceActivityServiceResource getMaintenanceActivityServiceResource(
+			EntityManager em, MaintenanceActivity maintenanceActivity,
+			ServiceResource serviceResource) {
+		if (maintenanceActivityServiceResource == null) {
+			MaintenanceActivityServiceResource maintenanceActivityServiceResource = new MaintenanceActivityServiceResource();
+			maintenanceActivityServiceResource
+					.setProtocolActivity(maintenanceActivity);
+			maintenanceActivityServiceResource
+					.setServiceResource(serviceResource);
+			em.persist(maintenanceActivityServiceResource);
+			em.flush();
+			this.maintenanceActivityServiceResource = em.find(
+					MaintenanceActivityServiceResource.class,
+					maintenanceActivityServiceResource.getId());
+		}
+		return maintenanceActivityServiceResource;
+	}
+
+	public MaintenanceProtocol getMaintenanceProtocol(EntityManager em) {
+		if (maintenanceProtocol == null) {
+			MaintenanceProtocol maintenanceProtocol = new MaintenanceProtocol();
+			em.persist(maintenanceProtocol);
+			em.flush();
+			this.maintenanceProtocol = em.find(MaintenanceProtocol.class,
+					maintenanceProtocol.getId());
+		}
+		return maintenanceProtocol;
+	}
+
 	public Obu getObu(EntityManager em) {
 		if (obu == null) {
 			Obu obu = new Obu();
@@ -229,5 +285,17 @@ public class GhaServiceTest {
 			this.role = em.find(Role.class, role.getId());
 		}
 		return role;
+	}
+
+	public ServiceResource getServiceResource(EntityManager em) {
+		if (serviceResource == null) {
+			ServiceResource serviceResource = new ServiceResource();
+			serviceResource.setName("ServiceResource test name");
+			em.persist(serviceResource);
+			em.flush();
+			this.serviceResource = em.find(ServiceResource.class,
+					serviceResource.getId());
+		}
+		return serviceResource;
 	}
 }
