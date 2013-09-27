@@ -121,6 +121,7 @@ public class MaintenancePlanSearchForm extends GHASlideInWindow implements Maint
 
 					@Override
 					public void onClick(ClickEvent event) {
+						notifyMaintenancePlan(((MaintenancePlanRecord) grid.getSelectedRecord()).toEntity());
 						hide();
 					}
 				}), GHAUiHelper.verticalGraySeparator("2px"), new GHAImgButton(
@@ -186,6 +187,10 @@ public class MaintenancePlanSearchForm extends GHASlideInWindow implements Maint
 	}
 	
 	//Producer/Consumer Stuff
+	public void notifyMaintenancePlan(MaintenancePlan maintenancePlan){
+		for(MaintenancePlanSelectionListener listener : listeners)
+			listener.select(maintenancePlan);
+	}
 	/* (non-Javadoc)
 	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionProducer#addMaintenancePlanSelectionListener(org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener)
 	 */
