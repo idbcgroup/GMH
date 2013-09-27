@@ -61,6 +61,7 @@ public class GhaServiceTest {
 	private ExternalProvider externalProvider = null;
 	private Institution institution = null;
 	private LegalEntity legalEntity = null;
+	private MaintenanceActivity maintenanceActivity = null;
 	private MaintenanceActivityMaintenanceProtocol maintenanceActivityMaintenanceProtocol = null;
 	private MaintenanceActivityServiceResource maintenanceActivityServiceResource = null;
 	private MaintenancePlan maintenancePlan = null;
@@ -235,6 +236,20 @@ public class GhaServiceTest {
 			this.legalEntity = em.find(LegalEntity.class, legalEntity.getId());
 		}
 		return legalEntity;
+	}
+
+	public MaintenanceActivity getMaintenanceActivity(EntityManager em) {
+		if (maintenanceActivity == null) {
+			MaintenanceActivity maintenanceActivity = new MaintenanceActivity();
+			maintenanceActivity.setName("MaintenanceActivity test name");
+			maintenanceActivity
+					.setDescription("MaintenanceActivity test description");
+			em.persist(maintenanceActivity);
+			em.flush();
+			this.maintenanceActivity = em.find(MaintenanceActivity.class,
+					maintenanceActivity.getId());
+		}
+		return maintenanceActivity;
 	}
 
 	public MaintenanceActivityMaintenanceProtocol getMaintenanceActivityMaintenanceProtocol(
