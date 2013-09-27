@@ -131,8 +131,11 @@ public class MaintenancePlanSearchForm extends GHASlideInWindow implements Maint
 				}));
 
 		gridLayout.addMembers(grid, sideGridButtons);
-
 		addMember(gridLayout);
+		fillExtras();
+		
+		//register as listener to the addForm producer
+		addForm.addMaintenancePlanSelectionListener(this);
 	}
 
 	private void fillExtras() {
@@ -184,7 +187,9 @@ public class MaintenancePlanSearchForm extends GHASlideInWindow implements Maint
 	 */
 	@Override
 	public void select(MaintenancePlan maintenancePlan) {
-		// TODO Auto-generated method stub
-		
+		MaintenancePlanRecord gridRecord = MaintenancePlanUtil.toGridRecord(maintenancePlan);
+		ListGridRecord array[] = {gridRecord};
+		grid.setData(array);
+		grid.selectRecord(gridRecord);
 	}
 }
