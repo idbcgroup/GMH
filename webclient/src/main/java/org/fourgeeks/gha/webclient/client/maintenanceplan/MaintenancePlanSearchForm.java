@@ -3,7 +3,9 @@ package org.fourgeeks.gha.webclient.client.maintenanceplan;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
+import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
@@ -139,12 +141,33 @@ public class MaintenancePlanSearchForm extends GHASlideInWindow implements Maint
 	}
 
 	private void fillExtras() {
+		periodOfTimeSelectItem.setValueMap(TimePeriodEnum.toValueMap());
 	}
 
 	private void search() {
+		MaintenancePlan maintenancePlan = new MaintenancePlan();
+		if(nameItem.getValue() != null)
+			maintenancePlan.setName(nameItem.getValueAsString());
+		if(descriptionItem.getValue() != null)
+			maintenancePlan.setDescription(descriptionItem.getValueAsString());
+		if(frequencyItem.getValue() != null)
+			maintenancePlan.setFrequency(Integer.parseInt(frequencyItem.getValueAsString()));
+		if(periodOfTimeSelectItem.getValue() != null)
+			maintenancePlan.setPot(TimePeriodEnum.valueOf(periodOfTimeSelectItem.getValueAsString()));
+		search(maintenancePlan);
 	}
 
-	private void search(final MaintenancePlan plan) {
+	private void search(final MaintenancePlan maintenancePlan) {
+		MaintenancePlanModel.find(maintenancePlan, new GHAAsyncCallback<List<MaintenancePlan>>() {
+			
+			@Override
+			public void onSuccess(List<MaintenancePlan> result) {
+				ListGridRecord array[] = MaintenancePlanUtil.toGridRecords(result).toArray(new MaintenancePlanRecord[] {});
+				grid.setData(array);
+				
+				//TODO: seleccionar un elemento si coincide exactamente con el de busqueda
+			}
+		});
 	}
 
 	@Override

@@ -109,6 +109,7 @@ public class MaintenancePlanForm extends VLayout implements
 
 		maintenancePlan.setName(nameItem.getValueAsString());
 		maintenancePlan.setDescription(descriptionItem.getValueAsString());
+		//TODO: handle number format exception
 		maintenancePlan.setFrequency(Integer.parseInt(frequencyItem
 				.getValueAsString()));
 		if (periodOfTimeItem.getValue() != null) {

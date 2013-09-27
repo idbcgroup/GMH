@@ -30,4 +30,8 @@ public class MaintenancePlanModel {
 	public static void save(MaintenancePlan maintenancePlan, GHAAsyncCallback<MaintenancePlan> callback){
 		service.save(maintenancePlan, callback);
 	}
+	
+	public static void find(MaintenancePlan maintenancePlan, GHAAsyncCallback<List<MaintenancePlan>> callback){
+		service.find(maintenancePlan, callback);
+	}
 }

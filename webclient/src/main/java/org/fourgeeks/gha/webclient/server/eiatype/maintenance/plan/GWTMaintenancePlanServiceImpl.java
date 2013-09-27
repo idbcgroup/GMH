@@ -21,7 +21,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  *
  */
 @WebServlet(urlPatterns = {"/webclient/maintenancePlanService"})
-public class GWTMaintenancePlanImpl extends RemoteServiceServlet implements
+public class GWTMaintenancePlanServiceImpl extends RemoteServiceServlet implements
 		GWTMaintenancePlanService {
 
 	/**
@@ -90,5 +90,13 @@ public class GWTMaintenancePlanImpl extends RemoteServiceServlet implements
 	public MaintenancePlan update(MaintenancePlan maintenancePlan)
 			throws GHAEJBException {
 		return ejbService.update(maintenancePlan);
+	}
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.plan.GWTMaintenancePlanService#find(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
+	 */
+	@Override
+	public List<MaintenancePlan> find(MaintenancePlan maintenancePlan)
+			throws GHAEJBException {
+		return ejbService.find(maintenancePlan);
 	}
 }

@@ -251,7 +251,7 @@ public class TestData {
 		} catch (NoResultException e) {
 			try {
 				logger.info("Creating test data: maintenance plan");
-
+				String planName[] = {"Plan de Mantenimiento Impresoras Tinta", "Plan de Mantenimiento Impresoras Laser"};
 				String planDesc[] = {
 						"plan de mantenimiento impresoras de tinta",
 						"plan de mantenimiento impresoras laser" };
@@ -260,6 +260,7 @@ public class TestData {
 						TimePeriodEnum.SEMESTERS };
 				for (int i = 0; i < 2; ++i) {
 					MaintenancePlan entity = new MaintenancePlan();
+					entity.setName(planName[i]);
 					entity.setDescription(planDesc[i]);
 					entity.setFrequency(planFrequency[i]);
 					entity.setPot(planTimePeriod[i]);
