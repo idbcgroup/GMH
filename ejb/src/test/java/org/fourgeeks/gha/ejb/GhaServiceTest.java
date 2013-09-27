@@ -19,9 +19,11 @@ import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivityMaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivityServiceResource;
+import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.ServiceResource;
 import org.fourgeeks.gha.domain.mix.Bpa;
@@ -53,6 +55,7 @@ public class GhaServiceTest {
 	private Date date = null;
 	private Eia eia = null;
 	private EiaType eiaType = null;
+	private EiaTypeMaintenancePlan eiaTypeMaintenancePlan = null;
 	private ExternalProvider externalProvider = null;
 	private Institution institution = null;
 	private LegalEntity legalEntity = null;
@@ -181,6 +184,20 @@ public class GhaServiceTest {
 			this.eiaType = em.find(EiaType.class, eiaType.getCode());
 		}
 		return eiaType;
+	}
+
+	public EiaTypeMaintenancePlan getEiaTypeMaintenancePlan(EntityManager em,
+			EiaType eiaType, MaintenancePlan maintenancePlan) {
+		if (eiaTypeMaintenancePlan == null) {
+			EiaTypeMaintenancePlan eiaTypeMaintenancePlan = new EiaTypeMaintenancePlan();
+			eiaTypeMaintenancePlan.setEiaType(eiaType);
+			eiaTypeMaintenancePlan.setMaintenancePlan(maintenancePlan);
+			em.persist(eiaTypeMaintenancePlan);
+			em.flush();
+			this.eiaTypeMaintenancePlan = em.find(EiaTypeMaintenancePlan.class,
+					eiaTypeMaintenancePlan.getId());
+		}
+		return eiaTypeMaintenancePlan;
 	}
 
 	public ExternalProvider getExternalProvider(EntityManager em) {
