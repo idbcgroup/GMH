@@ -96,7 +96,6 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 	 */
 	public UserForm() {
 		final HLayout mainPanel = new HLayout();
-		
 		final DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
 		// form.setCellPadding(1);

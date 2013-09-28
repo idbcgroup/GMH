@@ -43,8 +43,12 @@ public class MaintenancePlanTopSection extends HLayout
 		GHAUiHelper.addGHAResizeHandler(this);
 		
 		tab.addGHAClosableHandler(this);
-		maintenancePlanTab = tab;
+		this.maintenancePlanTab = tab;
+		
+		//register tab as search listener, and topsection as tab listener
 		maintenancePlanSearchForm.addMaintenancePlanSelectionListener(tab);
+		tab.addMaintenancePlanSelectionListener(this);
+		
 		maintenancePlanTab.addGHAHideableHandler(new GHAHideable() {
 			
 			@Override
@@ -113,7 +117,10 @@ public class MaintenancePlanTopSection extends HLayout
 	 */
 	@Override
 	public void select(MaintenancePlan maintenancePlan) {
-		// TODO Auto-generated method stub
+		nameItem.setValue(maintenancePlan.getName());
+		descriptionItem.setValue(maintenancePlan.getDescription());
+		frequencyItem.setValue(maintenancePlan.getFrequency());
+		periodOfTimeItem.setValue(maintenancePlan.getPot());
 	}
 
 }

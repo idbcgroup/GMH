@@ -29,11 +29,18 @@ import com.smartgwt.client.widgets.layout.VLayout;
  */
 public class MaintenancePlanForm extends VLayout implements
 		MaintenancePlanSelectionProducer {
+	
 	private List<MaintenancePlanSelectionListener> listeners;
 
 	private GHATextItem nameItem, frequencyItem, descriptionItem;
 	private GHASelectItem periodOfTimeItem;
 	private Validator validator;
+	
+	/**
+	 * this is used to keep the id of the persistent entity in order to
+	 * update, is only used with that purpose
+	 */
+	private MaintenancePlan updatePlan;
 
 	{
 		nameItem = new GHATextItem("Nombre",
@@ -101,11 +108,12 @@ public class MaintenancePlanForm extends VLayout implements
 	}
 
 	/**
-	 * @param b
 	 * @return
 	 */
 	private MaintenancePlan extract(boolean update) {
 		final MaintenancePlan maintenancePlan = new MaintenancePlan();
+		if(update)
+			maintenancePlan.setId(this.updatePlan.getId());
 
 		maintenancePlan.setName(nameItem.getValueAsString());
 		maintenancePlan.setDescription(descriptionItem.getValueAsString());
@@ -125,7 +133,27 @@ public class MaintenancePlanForm extends VLayout implements
 	 * 
 	 */
 	public void update() {
-		// TODO Auto-generated method stub
+		MaintenancePlan maintenancePlan = extract(true);
+		
+		//if validation fails
+		if(maintenancePlan == null)
+			return;
+		
+		MaintenancePlanModel.update(maintenancePlan, new GHAAsyncCallback<MaintenancePlan>() {
+
+			@Override
+			public void onSuccess(MaintenancePlan result) {
+				notifyMaintenancePlan(result);
+			}
+		});
+	}
+	
+	public void setMaintenancePlan(MaintenancePlan maintenancePlan){
+		this.updatePlan = maintenancePlan;
+		nameItem.setValue(maintenancePlan.getName());
+		descriptionItem.setValue(maintenancePlan.getDescription());
+		frequencyItem.setValue(maintenancePlan.getFrequency());
+		periodOfTimeItem.setValue(maintenancePlan.getPot());
 	}
 
 	/**

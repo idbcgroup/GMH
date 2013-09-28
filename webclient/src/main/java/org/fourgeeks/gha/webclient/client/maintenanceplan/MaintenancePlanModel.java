@@ -34,4 +34,13 @@ public class MaintenancePlanModel {
 	public static void find(MaintenancePlan maintenancePlan, GHAAsyncCallback<List<MaintenancePlan>> callback){
 		service.find(maintenancePlan, callback);
 	}
+
+	/**
+	 * @param maintenancePlan
+	 * @param ghaAsyncCallback
+	 */
+	public static void update(MaintenancePlan maintenancePlan,
+			GHAAsyncCallback<MaintenancePlan> callback) {
+		service.update(maintenancePlan, callback);
+	}
 }
