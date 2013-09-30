@@ -112,14 +112,22 @@ public class MaintenancePlanForm extends VLayout implements
 	 */
 	private MaintenancePlan extract(boolean update) {
 		final MaintenancePlan maintenancePlan = new MaintenancePlan();
-		if(update)
+		if(update){
 			maintenancePlan.setId(this.updatePlan.getId());
-
-		maintenancePlan.setName(nameItem.getValueAsString());
-		maintenancePlan.setDescription(descriptionItem.getValueAsString());
+		}
+		
+		if(nameItem.getValue() != null){
+			maintenancePlan.setName(nameItem.getValueAsString());
+		}
+		if(descriptionItem.getValue() != null){
+			maintenancePlan.setDescription(descriptionItem.getValueAsString());
+		}
+		
 		//TODO: handle number format exception
-		maintenancePlan.setFrequency(Integer.parseInt(frequencyItem
+		if(frequencyItem.getValue() != null){
+			maintenancePlan.setFrequency(Integer.valueOf(frequencyItem
 				.getValueAsString()));
+		}
 		if (periodOfTimeItem.getValue() != null) {
 			maintenancePlan.setPot(TimePeriodEnum.valueOf(periodOfTimeItem
 					.getValueAsString()));
@@ -153,7 +161,7 @@ public class MaintenancePlanForm extends VLayout implements
 		nameItem.setValue(maintenancePlan.getName());
 		descriptionItem.setValue(maintenancePlan.getDescription());
 		frequencyItem.setValue(maintenancePlan.getFrequency());
-		periodOfTimeItem.setValue(maintenancePlan.getPot());
+		periodOfTimeItem.setValue(maintenancePlan.getPot().name());
 	}
 
 	/**
