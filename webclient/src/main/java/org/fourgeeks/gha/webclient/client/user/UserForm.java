@@ -39,7 +39,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class UserForm extends VLayout implements UserSelectionProducer {
 
 	private GHATextItem usernameItem, passwordItem, confirmPasswordItem,
-			idItem, firstNameItem, secondNameItem, lastNameItem,
+			idItem, firstNameItem, secondNameItem, lastNameItem, primaryEmailItem, alternativeEmailItem,
 			secondLastNameItem, nationalityItem, legalEntityIdentifierItem;
 	private GHASelectItem typeidSelectItem, genderSelectItem, bpiSelectItem;
 	private GHADateItem birthDateItem;
@@ -69,6 +69,10 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 		lastNameItem = new GHATextItem("Apellido",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		secondLastNameItem = new GHATextItem("Segundo Apellido",
+				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		primaryEmailItem = new GHATextItem("Email Primario",
+				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		alternativeEmailItem = new GHATextItem("Email Secundario",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 
 		typeidSelectItem = new GHASelectItem("Tipo ID",
@@ -103,7 +107,8 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 		form.setItems(usernameItem, passwordItem, confirmPasswordItem,
 				typeidSelectItem, idItem, genderSelectItem, 
 				firstNameItem,secondNameItem, lastNameItem, 
-				secondLastNameItem,nationalityItem, birthDateItem, 
+				secondLastNameItem,nationalityItem, birthDateItem,
+				primaryEmailItem, alternativeEmailItem,
 				bpiSelectItem, legalEntityIdentifierItem);
 		
 		mainPanel.addMembers(form, new LayoutSpacer());
@@ -147,6 +152,8 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 		birthDateItem.clearValue();
 		bpiSelectItem.clearValue();
 		legalEntityIdentifierItem.clearValue();
+		primaryEmailItem.clearValue();
+		alternativeEmailItem.clearValue();
 	}
 
 	/**
@@ -221,6 +228,8 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 		citizen.setFirstLastName(lastNameItem.getValueAsString());
 		citizen.setSecondLastName(secondLastNameItem.getValueAsString());
 		citizen.setNationality(nationalityItem.getValueAsString());
+		citizen.setPrimaryEmail(primaryEmailItem.getValueAsString());
+		citizen.setAlternativeEmail(alternativeEmailItem.getValueAsString());
 
 		if (birthDateItem.getValue() != null) {
 			citizen.setBirthDate(new Date(birthDateItem.getValueAsDate()
@@ -301,6 +310,8 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 		birthDateItem.setDisabled(!activate);
 		bpiSelectItem.setDisabled(!activate);
 		legalEntityIdentifierItem.setDisabled(!activate);
+		primaryEmailItem.setDisabled(!activate);
+		alternativeEmailItem.setDisabled(!activate);
 	}
 	
 	/**
@@ -354,6 +365,12 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 				}
 				if(citizen.getGender() != null){
 					genderSelectItem.setValue(citizen.getGender().name());
+				}
+				if(citizen.getPrimaryEmail() != null){
+					primaryEmailItem.setValue(citizen.getPrimaryEmail());
+				}
+				if(citizen.getAlternativeEmail() != null){
+					alternativeEmailItem.setValue(citizen.getAlternativeEmail());
 				}
 				if(citizen.getLegalEntity() != null && citizen.getLegalEntity().getIdentifier() != null){
 					legalEntityIdentifierItem.setValue(citizen.getLegalEntity().getIdentifier());
