@@ -58,6 +58,15 @@ public class GWTMaintenanceProtocolServiceImpl extends RemoteServiceServlet impl
 			throws GHAEJBException {
 		return mantProtocolService.findByEiaTypeMaintenancePlan(maintenancePlan);
 	}
+	
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol.GWTMaintenanceProtocolService#find(org.fourgeeks.gha.domain.gmh.MaintenanceProtocol)
+	 */
+	@Override
+	public List<MaintenanceProtocol> find(
+			MaintenanceProtocol maintenanceProtocol) throws GHAEJBException {
+		return mantProtocolService.find(maintenanceProtocol);
+	}
 
 	/* (non-Javadoc)
 	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.GWTMaintenanceProtocolService#find(long)

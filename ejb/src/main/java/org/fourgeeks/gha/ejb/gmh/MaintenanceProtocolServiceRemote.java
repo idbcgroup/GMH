@@ -52,6 +52,13 @@ public interface MaintenanceProtocolServiceRemote {
 	 * @throws GHAEJBException
 	 */
 	public MaintenanceProtocol find(long Id) throws GHAEJBException;
+	
+	/**
+	 * @param maintenanceProtocol
+	 * @return the list of Protocols that are alike the parameter
+	 * @throws GHAEJBException
+	 */
+	public List<MaintenanceProtocol> find(MaintenanceProtocol maintenanceProtocol)throws GHAEJBException;
 
 	/**
 	 * @return the list with all EiaTypeMaintenanceProtocol Objects

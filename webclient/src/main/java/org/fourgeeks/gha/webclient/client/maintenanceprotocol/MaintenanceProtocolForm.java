@@ -9,6 +9,7 @@ import java.util.List;
 import javax.validation.Validator;
 
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
+import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 
@@ -76,7 +77,14 @@ public class MaintenanceProtocolForm extends VLayout implements
 		if(maintenanceProtocol == null)
 			return;
 		
-		//TODO: model and save
+		MaintenanceProtocolModel.save(maintenanceProtocol, new GHAAsyncCallback<MaintenanceProtocol>() {
+			
+			@Override
+			public void onSuccess(MaintenanceProtocol result) {
+				notifyMaintenanceProtocol(result);
+				cancel();
+			}
+		});
 	}
 
 	/**
@@ -107,7 +115,14 @@ public class MaintenanceProtocolForm extends VLayout implements
 		if(maintenanceProtocol == null)
 			return;
 		
-		//TODO: model and update
+		MaintenanceProtocolModel.update(maintenanceProtocol, new GHAAsyncCallback<MaintenanceProtocol>() {
+
+			@Override
+			public void onSuccess(MaintenanceProtocol result) {
+				notifyMaintenanceProtocol(result);
+			}
+		
+		});
 	}
 
 	public void activateForm(boolean activate) {
@@ -122,6 +137,12 @@ public class MaintenanceProtocolForm extends VLayout implements
 	}
 
 	// Producer stuff
+	private void notifyMaintenanceProtocol(MaintenanceProtocol maintenanceProtocol){
+		for(MaintenanceProtocolSelectionListener listener : listeners){
+			listener.select(maintenanceProtocol);
+		}
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * 

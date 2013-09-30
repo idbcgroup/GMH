@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
+import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
@@ -149,7 +150,13 @@ public class MaintenanceProtocolSearchForm extends GHASlideInWindow implements M
 		search(maintenanceProtocol);
 	}
 	private void search(final MaintenanceProtocol protocol){
-		//TODO model and find
+		MaintenanceProtocolModel.find(protocol, new GHAAsyncCallback<List<MaintenanceProtocol>>() {
+			
+			@Override
+			public void onSuccess(List<MaintenanceProtocol> result) {
+				//TODO: put result into the grid
+			}
+		});
 	}
 
 	@Override
