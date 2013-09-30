@@ -51,6 +51,9 @@ public class MaintenanceProtocolAddForm extends GHASlideInWindow implements Main
 		gridPanel.addMembers(maintenanceProtocolForm, new LayoutSpacer(), sideButtons);
 		addMember(gridPanel);
 		
+		//register as listener to the maintenanceProtocolForm
+		maintenanceProtocolForm.addMaintenanceProtocolSelectionListener(this);
+		
 		fillExtras();
 	}
 
@@ -63,7 +66,7 @@ public class MaintenanceProtocolAddForm extends GHASlideInWindow implements Main
 		//TODO: 
 	}
 	private void save() {
-		//TODO:
+		maintenanceProtocolForm.save();
 	}
 	
 	public void show(){
@@ -76,8 +79,13 @@ public class MaintenanceProtocolAddForm extends GHASlideInWindow implements Main
 	 */
 	@Override
 	public void onResize(ResizeEvent event) {
-		// TODO Auto-generated method stub
-		
+		setHeight(GHAUiHelper.getBottomSectionHeight());
+	}
+	
+	@Override
+	public void close(){
+		maintenanceProtocolForm.destroy();
+		destroy();
 	}
 
 	//Producer/Consumer stuff
@@ -104,8 +112,8 @@ public class MaintenanceProtocolAddForm extends GHASlideInWindow implements Main
 	 */
 	@Override
 	public void select(MaintenanceProtocol maintenanceProtocol) {
-		// TODO Auto-generated method stub
-		
+		//called when the maintenanceprotocolform finish saving new entity
+		cancel();
 	}
 
 }

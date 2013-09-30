@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.validation.Validator;
 
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 
@@ -25,17 +26,22 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class MaintenanceProtocolForm extends VLayout implements
 		MaintenanceProtocolSelectionProducer {
 	private GHATextItem nameItem, descriptionItem;
-	// TODO: Definir como se va a seleccionar el plan de mantenimiento
 	private List<MaintenanceProtocolSelectionListener> listeners;
 	private Validator validator;
+	
+	/**
+	 * this is used to keep the id of the persistent entity in order to
+	 * update, is only used with that purpose
+	 */
+	private MaintenanceProtocol updateProtocol;
 
 	{
-		listeners = new ArrayList<MaintenanceProtocolSelectionListener>();
 		nameItem = new GHATextItem("Nombre del Protocolo",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		descriptionItem = new GHATextItem("Descripción", 620);
 		descriptionItem.setColSpan(4);
-
+		
+		listeners = new ArrayList<MaintenanceProtocolSelectionListener>();
 		validator = Validation.buildDefaultValidatorFactory().getValidator();
 	}
 
@@ -60,20 +66,59 @@ public class MaintenanceProtocolForm extends VLayout implements
 	}
 
 	public void cancel() {
-		//TODO
+		nameItem.clearValue();
 	}
 
 	public void save() {
-		//TODO
+		MaintenanceProtocol maintenanceProtocol = extract(false);
+		
+		//if validation fails
+		if(maintenanceProtocol == null)
+			return;
+		
+		//TODO: model and save
+	}
+
+	/**
+	 * @param b
+	 * @return
+	 */
+	private MaintenanceProtocol extract(boolean update) {
+		final MaintenanceProtocol maintenanceProtocol = new MaintenanceProtocol();
+		if(update){
+			maintenanceProtocol.setId(this.updateProtocol.getId());
+		}
+		
+		if(nameItem.getValue() != null){
+			maintenanceProtocol.setName(nameItem.getValueAsString());
+		}
+		if(descriptionItem.getValue() != null){
+			maintenanceProtocol.setDescription(descriptionItem.getValueAsString());
+		}
+		
+		//TODO: validate
+		return maintenanceProtocol;
 	}
 
 	public void update() {
-		//TODO
+		MaintenanceProtocol maintenanceProtocol = extract(true);
+		
+		//if validation fails
+		if(maintenanceProtocol == null)
+			return;
+		
+		//TODO: model and update
 	}
 
 	public void activateForm(boolean activate) {
 		nameItem.setDisabled(!activate);
 		descriptionItem.setDisabled(!activate);
+	}
+	
+	public void setMaintenanceProtocol(MaintenanceProtocol maintenanceProtocol){
+		this.updateProtocol = maintenanceProtocol;
+		nameItem.setValue(maintenanceProtocol.getName());
+		descriptionItem.setValue(maintenanceProtocol.getDescription());
 	}
 
 	// Producer stuff

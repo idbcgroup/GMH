@@ -34,7 +34,7 @@ public class MaintenancePlanInformationFormPanel extends VLayout implements
 	{
 		maintenancePlanForm = new MaintenancePlanForm();
 		listeners = new LinkedList<MaintenancePlanSelectionListener>();
-		originalMaintenancePlan = null;
+		this.originalMaintenancePlan = null;
 	}
 
 	public MaintenancePlanInformationFormPanel(MaintenancePlanTab tab) {
@@ -77,6 +77,7 @@ public class MaintenancePlanInformationFormPanel extends VLayout implements
 
 	protected void undo() {
 		select(this.originalMaintenancePlan);
+//		save();
 	}
 
 	private void save() {

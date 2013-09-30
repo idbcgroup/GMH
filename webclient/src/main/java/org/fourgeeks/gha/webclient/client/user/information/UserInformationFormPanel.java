@@ -80,6 +80,7 @@ public class UserInformationFormPanel extends VLayout implements GHAClosable,
 
 	protected void undo() {
 		select(this.originalSSOUser);
+//		save();
 	}
 
 	private void save() {

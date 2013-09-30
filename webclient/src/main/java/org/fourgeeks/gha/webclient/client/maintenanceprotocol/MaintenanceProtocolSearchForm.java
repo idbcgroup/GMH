@@ -1,6 +1,7 @@
 package org.fourgeeks.gha.webclient.client.maintenanceprotocol;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
@@ -27,10 +28,10 @@ public class MaintenanceProtocolSearchForm extends GHASlideInWindow implements M
 
 	private MaintenanceProtocolGrid grid;
 	private GHATextItem nameItem, descriptionItem;
-	private LinkedList<MaintenanceProtocolSelectionListener> listeners; 
 	
 	private MaintenanceProtocolAddForm addForm;
-
+	private List <MaintenanceProtocolSelectionListener> listeners;
+	
 	{
 		listeners = new LinkedList<MaintenanceProtocolSelectionListener>();
 		nameItem = new GHATextItem("Nombre");
@@ -128,10 +129,11 @@ public class MaintenanceProtocolSearchForm extends GHASlideInWindow implements M
 				}));
 
 		gridLayout.addMembers(grid, sideGridButtons);
-
 		addMember(gridLayout);
-				
 		fillExtras();
+		
+		//register as listener to the addform producer
+		addForm.addMaintenanceProtocolSelectionListener(this);
 	}
 
 	private void fillExtras() {
@@ -139,10 +141,15 @@ public class MaintenanceProtocolSearchForm extends GHASlideInWindow implements M
 	}
 
 	private void search() {
-		//TODO
+		MaintenanceProtocol maintenanceProtocol = new MaintenanceProtocol();
+		if(nameItem.getValue() != null)
+			maintenanceProtocol.setName(nameItem.getValueAsString());
+		if(descriptionItem.getValue() != null)
+			maintenanceProtocol.setDescription(descriptionItem.getValueAsString());
+		search(maintenanceProtocol);
 	}
 	private void search(final MaintenanceProtocol protocol){
-		//TODO
+		//TODO model and find
 	}
 
 	@Override
@@ -185,8 +192,7 @@ public class MaintenanceProtocolSearchForm extends GHASlideInWindow implements M
 	 */
 	@Override
 	public void select(MaintenanceProtocol maintenanceProtocol) {
-		// TODO Auto-generated method stub
-		
+		//TODO: create the grid record and set the selected procotol
 	}
 
 }

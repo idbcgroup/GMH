@@ -81,7 +81,6 @@ public class MaintenancePlanTopSection extends HLayout
 				new GHAImgButton("../resources/icons/search.png", new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						// TODO Auto-generated method stub
 						search();
 					}
 				}),

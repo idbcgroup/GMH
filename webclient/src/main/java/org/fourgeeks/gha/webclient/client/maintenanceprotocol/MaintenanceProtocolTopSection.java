@@ -25,12 +25,11 @@ public class MaintenanceProtocolTopSection extends HLayout
 
 	private final MaintenanceProtocolTab maintenanceProtocolTab;
 	private MaintenanceProtocolSearchForm maintenanceProtocolSearchForm;
-	private GHATextItem codeItem, nameItem, descriptionItem;
+	private GHATextItem nameItem, descriptionItem;
 		
 	{
 		maintenanceProtocolSearchForm = new MaintenanceProtocolSearchForm();
 		
-		codeItem = new GHATextItem("Código", false);
 		nameItem = new GHATextItem("Nombre", false);
 		descriptionItem = new GHATextItem("Descripcion",420, false);
 		descriptionItem.setColSpan(4);
@@ -43,7 +42,11 @@ public class MaintenanceProtocolTopSection extends HLayout
 		
 		tab.addGHAClosableHandler(this);
 		maintenanceProtocolTab = tab;
+		
+		//register tab as search listener, and topsection as listener
 		maintenanceProtocolSearchForm.addMaintenanceProtocolSelectionListener(tab);
+		tab.addMaintenanceProtocolSelectionListener(this);
+		
 		maintenanceProtocolTab.addGHAHideableHandler(new GHAHideable() {
 			
 			@Override
@@ -69,14 +72,13 @@ public class MaintenanceProtocolTopSection extends HLayout
 		//form.setWidth("100px");
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(4);
-		form.setItems(codeItem,nameItem,new GHASpacerItem(2),
+		form.setItems(nameItem,new GHASpacerItem(2),
 					  descriptionItem);
 		
 		VLayout sideButtons = GHAUiHelper.createBar(
 				new GHAImgButton("../resources/icons/search.png", new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						// TODO Auto-generated method stub
 						search();
 					}
 				}),
@@ -112,7 +114,7 @@ public class MaintenanceProtocolTopSection extends HLayout
 	 */
 	@Override
 	public void select(MaintenanceProtocol maintenanceProtocol) {
-		// TODO Auto-generated method stub
-		
+		nameItem.setValue(maintenanceProtocol.getName());
+		descriptionItem.setValue(maintenanceProtocol.getDescription());
 	}
 }
