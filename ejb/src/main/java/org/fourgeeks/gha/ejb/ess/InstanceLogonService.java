@@ -15,8 +15,8 @@ import org.fourgeeks.gha.domain.ess.InstanceLogon;
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 
 /**
- * @author emiliot
- *
+ * @author emiliot, vivi.torresg
+ * 
  */
 
 @Stateless(name = "ess.InstanceLogonService")
@@ -24,9 +24,12 @@ public class InstanceLogonService implements InstanceLogonServiceRemote {
 	@PersistenceContext
 	private EntityManager em;
 
-	private final static Logger logger = Logger.getLogger(InstanceLogonService.class
-			.getName());
-	/* (non-Javadoc)
+	private final static Logger logger = Logger
+			.getLogger(InstanceLogonService.class.getName());
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.ejb.ess.InstanceLogonServiceRemote#delete(long)
 	 */
 	@Override
@@ -41,17 +44,34 @@ public class InstanceLogonService implements InstanceLogonServiceRemote {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.ess.InstanceLogonServiceRemote#find(org.fourgeeks.gha.domain.ess.InstanceLogon)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.ess.InstanceLogonServiceRemote#find(org.fourgeeks
+	 * .gha.domain.ess.InstanceLogon)
 	 */
 	@Override
 	public List<InstanceLogon> find(InstanceLogon instanceLogon)
 			throws EJBException {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			return em
+					.createNamedQuery("InstanceLogon.findByInstanceLogon",
+							InstanceLogon.class)
+					.setParameter("instanceLogon", instanceLogon)
+					.getResultList();
+		} catch (Exception e) {
+			logger.log(Level.INFO,
+					"Error: finding InstanceLogon by InstanceLogon", e);
+			throw new EJBException(
+					"Error buscando InstanceLogon por InstanceLogon "
+							+ e.getCause().getMessage());
+		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.ejb.ess.InstanceLogonServiceRemote#find(long)
 	 */
 	@Override
@@ -65,14 +85,16 @@ public class InstanceLogonService implements InstanceLogonServiceRemote {
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.ejb.ess.InstanceLogonServiceRemote#getAll()
 	 */
 	@Override
 	public List<InstanceLogon> getAll() throws EJBException {
 		try {
-			return em.createNamedQuery("InstanceLogon.getAll", InstanceLogon.class)
-					.getResultList();
+			return em.createNamedQuery("InstanceLogon.getAll",
+					InstanceLogon.class).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all InstanceLogon", ex);
 			throw new EJBException("Error obteniendo todas las InstanceLogon"
@@ -80,8 +102,12 @@ public class InstanceLogonService implements InstanceLogonServiceRemote {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.ess.InstanceLogonServiceRemote#save(org.fourgeeks.gha.domain.ess.InstanceLogon)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.ess.InstanceLogonServiceRemote#save(org.fourgeeks
+	 * .gha.domain.ess.InstanceLogon)
 	 */
 	@Override
 	public InstanceLogon save(InstanceLogon instanceLogon) throws EJBException {
@@ -96,8 +122,12 @@ public class InstanceLogonService implements InstanceLogonServiceRemote {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.ess.InstanceLogonServiceRemote#update(org.fourgeeks.gha.domain.ess.InstanceLogon)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.ess.InstanceLogonServiceRemote#update(org.fourgeeks
+	 * .gha.domain.ess.InstanceLogon)
 	 */
 	@Override
 	public InstanceLogon update(InstanceLogon instanceLogon)
@@ -107,10 +137,10 @@ public class InstanceLogonService implements InstanceLogonServiceRemote {
 			em.flush();
 			return res;
 		} catch (Exception e) {
-			logger.log(Level.INFO,
-					"ERROR: unable to update InstanceLogon ", e);
-			throw new EJBException("ERROR: no se puede actualizar el InstanceLogon "
-					+ e.getCause().getMessage());
+			logger.log(Level.INFO, "ERROR: unable to update InstanceLogon ", e);
+			throw new EJBException(
+					"ERROR: no se puede actualizar el InstanceLogon "
+							+ e.getCause().getMessage());
 		}
 	}
 

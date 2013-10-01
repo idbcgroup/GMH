@@ -49,8 +49,8 @@ public class InstanceLogonServiceTest extends GhaServiceTest {
 		entity = service.save(entity);
 
 		Assert.assertNotNull(entity);
-		// Assert.assertEquals(entity, service.find(entity)); //TODO el método
-		// del servicio siempre devuelve NULL (línea 50 de InstanceLogonService)
+		Assert.assertTrue(service.find(entity) != null
+				&& service.find(entity).size() >= 1);
 		Assert.assertEquals(entity, service.find(entity.getId()));
 		Assert.assertTrue(service.getAll() != null
 				&& service.getAll().size() >= 1);
