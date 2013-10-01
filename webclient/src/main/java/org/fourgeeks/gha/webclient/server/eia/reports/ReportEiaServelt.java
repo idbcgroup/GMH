@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.server;
+package org.fourgeeks.gha.webclient.server.eia.reports;
 
 import java.awt.Image;
 import java.io.IOException;
@@ -30,9 +30,9 @@ import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.ejb.gmh.BrandServiceRemote;
 
-@WebServlet(urlPatterns = { "/webclient/reportbrand" })
-public class ReportBrandServelt extends HttpServlet {
-	private static final Logger LOG = Logger.getLogger(ReportBrandServelt.class);
+@WebServlet(urlPatterns = { "/webclient/reporteia" })
+public class ReportEiaServelt extends HttpServlet {
+	private static final Logger LOG = Logger.getLogger(ReportEiaServelt.class);
 	private static final long serialVersionUID = 1L;
 
 	private static final String REPORT_FILE_DIR = "/resources/reportes/eiaReport.jasper";

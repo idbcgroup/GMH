@@ -22,8 +22,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class EIAInformationFormPanel extends VLayout implements GHAClosable,
-		GHAHideable, EiaSelectionProducer, EIASelectionListener {
+public class EIAInformationFormPanel extends VLayout implements GHAClosable, GHAHideable,
+		EiaSelectionProducer, EIASelectionListener {
 
 	/**
 	 * @param eiaEquipmentSubTab
@@ -47,20 +47,19 @@ public class EIAInformationFormPanel extends VLayout implements GHAClosable,
 		title.setWidth100();
 		title.setStyleName("title-label");
 
-		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
-				"../resources/icons/save.png", new ClickHandler() {
+		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton("../resources/icons/save.png",
+				new ClickHandler() {
 
 					@Override
 					public void onClick(ClickEvent event) {
 						save();
 					}
-				}), new GHAImgButton("../resources/icons/undo.png",
-				new ClickHandler() {
-					@Override
-					public void onClick(ClickEvent event) {
-						// undo();
-					}
-				}));
+				}), new GHAImgButton("../resources/icons/undo.png", new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				// undo();
+			}
+		}));
 
 		HLayout formPanel = new HLayout();
 		formPanel.addMembers(eiaForm, sideButtons);
@@ -88,15 +87,13 @@ public class EIAInformationFormPanel extends VLayout implements GHAClosable,
 	}
 
 	@Override
-	public void addEiaSelectionListener(
-			EIASelectionListener eiaSelectionListener) {
+	public void addEiaSelectionListener(EIASelectionListener eiaSelectionListener) {
 		listeners.add(eiaSelectionListener);
 
 	}
 
 	@Override
-	public void removeEiaSelectionListener(
-			EIASelectionListener eiaSelectionListener) {
+	public void removeEiaSelectionListener(EIASelectionListener eiaSelectionListener) {
 		listeners.remove(eiaSelectionListener);
 	}
 
