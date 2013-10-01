@@ -118,6 +118,7 @@ public class MaintenanceProtocolSearchForm extends GHASlideInWindow implements M
 
 					@Override
 					public void onClick(ClickEvent event) {
+						notifyMaintenanceProtocol(((MaintenanceProtocolRecord)grid.getSelectedRecord()).toEntity());
 						hide();
 					}
 				}), GHAUiHelper.verticalGraySeparator("2px"), new GHAImgButton(
@@ -154,7 +155,10 @@ public class MaintenanceProtocolSearchForm extends GHASlideInWindow implements M
 			
 			@Override
 			public void onSuccess(List<MaintenanceProtocol> result) {
-				//TODO: put result into the grid
+				ListGridRecord array[] = MaintenanceProtocolUtil.toGridRecords(result).toArray(new MaintenanceProtocolRecord[] {});
+				grid.setData(array);
+				
+				//TODO: seleccionar un elemento si coincide exactamente con el de busqueda
 			}
 		});
 	}
@@ -175,6 +179,10 @@ public class MaintenanceProtocolSearchForm extends GHASlideInWindow implements M
 	}
 
 	//Producer/Consumer Stuff
+	private void notifyMaintenanceProtocol(MaintenanceProtocol maintenanceProtocol){
+		for(MaintenanceProtocolSelectionListener listener : listeners)
+			listener.select(maintenanceProtocol);
+	}
 	/* (non-Javadoc)
 	 * @see org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionProducer#addMaintenanceProtocolSelectionListener(org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionListener)
 	 */
@@ -199,7 +207,10 @@ public class MaintenanceProtocolSearchForm extends GHASlideInWindow implements M
 	 */
 	@Override
 	public void select(MaintenanceProtocol maintenanceProtocol) {
-		//TODO: create the grid record and set the selected procotol
+		MaintenanceProtocolRecord gridRecord = MaintenanceProtocolUtil.toGridRecord(maintenanceProtocol);
+		ListGridRecord array[] = {gridRecord};
+		grid.setData(array);
+		grid.selectRecord(gridRecord);
 	}
 
 }

@@ -21,7 +21,7 @@ public class MaintenanceProtocolRecord extends GHAGridRecord<MaintenanceProtocol
 		this.maintenanceProtocol = maintenanceProtocol;
 		setAttribute("id", this.maintenanceProtocol.getId());
 		setAttribute("name", this.maintenanceProtocol.getName());
-		setAttribute("desc", this.maintenanceProtocol.getDescription());
+		setAttribute("description", this.maintenanceProtocol.getDescription());
 	}
 
 
