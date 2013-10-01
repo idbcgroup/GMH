@@ -76,7 +76,6 @@ public class MaintenanceProtocolForm extends VLayout implements
 		//if validation fails
 		if(maintenanceProtocol == null)
 			return;
-		
 		MaintenanceProtocolModel.save(maintenanceProtocol, new GHAAsyncCallback<MaintenanceProtocol>() {
 			
 			@Override

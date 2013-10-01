@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
-import org.fourgeeks.gha.webclient.client.eiatype.maintenance.plan.GWTMaintenancePlanService;
+import org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol.GWTMaintenanceProtocolService;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol.GWTMaintenanceProtocolServiceAsync;
 
 import com.google.gwt.core.shared.GWT;
@@ -17,7 +17,7 @@ import com.google.gwt.core.shared.GWT;
  *
  */
 public class MaintenanceProtocolModel {
-	private static final GWTMaintenanceProtocolServiceAsync service = GWT.create(GWTMaintenancePlanService.class);
+	private static final GWTMaintenanceProtocolServiceAsync service = GWT.create(GWTMaintenanceProtocolService.class);
 
 	/**
 	 * 
