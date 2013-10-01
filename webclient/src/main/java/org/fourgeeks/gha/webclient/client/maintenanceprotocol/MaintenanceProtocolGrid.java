@@ -1,10 +1,10 @@
 package org.fourgeeks.gha.webclient.client.maintenanceprotocol;
 
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
-import org.fourgeeks.gha.webclient.client.UI.grids.tree.GHATreeGrid;
+import org.fourgeeks.gha.webclient.client.UI.grids.GhaGrid;
 import org.fourgeeks.gha.webclient.client.UI.grids.tree.GHATreeGridField;
 
-public class MaintenanceProtocolGrid extends GHATreeGrid<MaintenanceProtocol> {
+public class MaintenanceProtocolGrid extends GhaGrid<MaintenanceProtocol> {
 
 	public MaintenanceProtocolGrid() {
 		setEmptyMessage("No existen protocolos de mantenimiento.");
