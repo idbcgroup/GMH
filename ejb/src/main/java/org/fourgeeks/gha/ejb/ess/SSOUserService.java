@@ -15,8 +15,8 @@ import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.domain.exceptions.EJBException;
 
 /**
- * @author emiliot
- *
+ * @author emiliot, vivi.torresg
+ * 
  */
 
 @Stateless(name = "ess.SSOUserService")
@@ -26,7 +26,10 @@ public class SSOUserService implements SSOUserServiceRemote {
 
 	private final static Logger logger = Logger.getLogger(SSOUserService.class
 			.getName());
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.ejb.ess.SSOUserServiceRemote#delete(long)
 	 */
 	@Override
@@ -41,16 +44,28 @@ public class SSOUserService implements SSOUserServiceRemote {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.ess.SSOUserServiceRemote#find(org.fourgeeks.gha.domain.ess.SSOUser)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.ess.SSOUserServiceRemote#find(org.fourgeeks.gha
+	 * .domain.ess.SSOUser)
 	 */
 	@Override
 	public List<SSOUser> find(SSOUser ssoUser) throws EJBException {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			return em.createNamedQuery("SSOUser.findBySSOUser", SSOUser.class)
+					.setParameter("ssoUser", ssoUser).getResultList();
+		} catch (Exception ex) {
+			logger.log(Level.SEVERE, "Error finding SSOUser by ssoUser", ex);
+			throw new EJBException("Error obteniendo el SSOUser por ssoUser"
+					+ ex.getCause().getMessage());
+		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.ejb.ess.SSOUserServiceRemote#find(long)
 	 */
 	@Override
@@ -64,7 +79,9 @@ public class SSOUserService implements SSOUserServiceRemote {
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.ejb.ess.SSOUserServiceRemote#getAll()
 	 */
 	@Override
@@ -79,8 +96,12 @@ public class SSOUserService implements SSOUserServiceRemote {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.ess.SSOUserServiceRemote#save(org.fourgeeks.gha.domain.ess.SSOUser)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.ess.SSOUserServiceRemote#save(org.fourgeeks.gha
+	 * .domain.ess.SSOUser)
 	 */
 	@Override
 	public SSOUser save(SSOUser ssoUser) throws EJBException {
@@ -95,8 +116,12 @@ public class SSOUserService implements SSOUserServiceRemote {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.ess.SSOUserServiceRemote#update(org.fourgeeks.gha.domain.ess.SSOUser)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.ess.SSOUserServiceRemote#update(org.fourgeeks.gha
+	 * .domain.ess.SSOUser)
 	 */
 	@Override
 	public SSOUser update(SSOUser ssoUser) throws EJBException {
@@ -105,15 +130,18 @@ public class SSOUserService implements SSOUserServiceRemote {
 			em.flush();
 			return res;
 		} catch (Exception e) {
-			logger.log(Level.INFO,
-					"ERROR: unable to update SSOUser ", e);
+			logger.log(Level.INFO, "ERROR: unable to update SSOUser ", e);
 			throw new EJBException("ERROR: no se puede actualizar el SSOUser "
 					+ e.getCause().getMessage());
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.ess.SSOUserServiceRemote#findByUsername(java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.ess.SSOUserServiceRemote#findByUsername(java.lang
+	 * .String)
 	 */
 	@Override
 	public SSOUser findByUsername(String userName) throws EJBException {

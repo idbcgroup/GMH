@@ -48,7 +48,7 @@ public class RoleServiceTest extends GhaServiceTest {
 		Role entity = new Role();
 		entity.setName("Role test name");
 		entity = service.save(entity);
-
+		entity = service.find(entity).get(0);
 		Assert.assertNotNull(entity);
 		Assert.assertEquals(1, service.find(entity).size());
 		Assert.assertEquals("Role test name", service.find(entity.getId())
