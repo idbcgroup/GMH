@@ -12,10 +12,9 @@ import org.fourgeeks.gha.domain.ess.WorkingArea;
 import org.fourgeeks.gha.domain.gmh.ServiceResource;
 
 @Entity
-@NamedQueries(value = { 
-		@NamedQuery(name = "Facility.getAll", 
-				query = "SELECT e from Facility e order by e.name")
-})
+@NamedQueries(value = {
+		@NamedQuery(name = "Facility.getAll", query = "SELECT e from Facility e order by e.name"),
+		@NamedQuery(name = "Facility.findByFacility", query = "SELECT e from Facility e where e like:facility order by e.name") })
 public class Facility extends AbstractEntity {
 
 	/**
@@ -26,19 +25,19 @@ public class Facility extends AbstractEntity {
 	@OneToOne
 	@JoinColumn(name = "buildingLocationFk", nullable = false)
 	private BuildingLocation buildingLocation;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "workingAreaFk")
 	private WorkingArea workingArea;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "facilityCategoryFk")
 	private FacilityCategory facilityCategory;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "serviceResourceFk")
 	private ServiceResource serviceResource;
-	
+
 	private String name;
 
 	/**
@@ -91,7 +90,5 @@ public class Facility extends AbstractEntity {
 	public void setServiceResource(ServiceResource serviceResource) {
 		this.serviceResource = serviceResource;
 	}
-	
-	
 
 }
