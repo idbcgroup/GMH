@@ -15,8 +15,8 @@ import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
 
 /**
- * @author emiliot
- *
+ * @author emiliot, vivi.torresg
+ * 
  */
 @Stateless(name = "gar.BpuService")
 public class BpuService implements BpuServiceRemote {
@@ -25,7 +25,10 @@ public class BpuService implements BpuServiceRemote {
 
 	private final static Logger logger = Logger.getLogger(BpuService.class
 			.getName());
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.ejb.gar.BpuServiceRemote#delete(long)
 	 */
 	@Override
@@ -40,16 +43,28 @@ public class BpuService implements BpuServiceRemote {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gar.BpuServiceRemote#find(org.fourgeeks.gha.domain.gar.Bpu)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gar.BpuServiceRemote#find(org.fourgeeks.gha.domain
+	 * .gar.Bpu)
 	 */
 	@Override
 	public List<Bpu> find(Bpu bpu) throws EJBException {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			return em.createNamedQuery("Bpu.findByBpu", Bpu.class)
+					.setParameter("bpu", bpu).getResultList();
+		} catch (Exception ex) {
+			logger.log(Level.SEVERE, "Error finding Bpu by bpu", ex);
+			throw new EJBException("Error obteniendo Bpu por bpu"
+					+ ex.getCause().getMessage());
+		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.ejb.gar.BpuServiceRemote#find(long)
 	 */
 	@Override
@@ -63,14 +78,15 @@ public class BpuService implements BpuServiceRemote {
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.ejb.gar.BpuServiceRemote#getAll()
 	 */
 	@Override
 	public List<Bpu> getAll() throws EJBException {
 		try {
-			return em.createNamedQuery("Bpu.getAll", Bpu.class)
-					.getResultList();
+			return em.createNamedQuery("Bpu.getAll", Bpu.class).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all Bpu", ex);
 			throw new EJBException("Error obteniendo todas las Bpu"
@@ -78,8 +94,12 @@ public class BpuService implements BpuServiceRemote {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gar.BpuServiceRemote#save(org.fourgeeks.gha.domain.gar.Bpu)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gar.BpuServiceRemote#save(org.fourgeeks.gha.domain
+	 * .gar.Bpu)
 	 */
 	@Override
 	public Bpu save(Bpu bpu) throws EJBException {
@@ -94,8 +114,12 @@ public class BpuService implements BpuServiceRemote {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gar.BpuServiceRemote#update(org.fourgeeks.gha.domain.gar.Bpu)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gar.BpuServiceRemote#update(org.fourgeeks.gha.domain
+	 * .gar.Bpu)
 	 */
 	@Override
 	public Bpu update(Bpu bpu) throws EJBException {
@@ -104,8 +128,7 @@ public class BpuService implements BpuServiceRemote {
 			em.flush();
 			return res;
 		} catch (Exception e) {
-			logger.log(Level.INFO,
-					"ERROR: unable to update Bpu ", e);
+			logger.log(Level.INFO, "ERROR: unable to update Bpu ", e);
 			throw new EJBException("ERROR: no se puede actualizar el Bpu "
 					+ e.getCause().getMessage());
 		}
