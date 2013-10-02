@@ -9,16 +9,19 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.EiaPictureStateEnum;
 
 /**
- * @author emiliot
+ * @author emiliot, vivi.torresg
  * 
  */
 
 @Entity
+@NamedQueries(value = { @NamedQuery(name = "EiaTypePicture.findByEiaType", query = "SELECT e from EiaTypePicture e where e.eiaType = :eiaType order by e.number") })
 public class EiaTypePicture extends AbstractEntity {
 
 	/**

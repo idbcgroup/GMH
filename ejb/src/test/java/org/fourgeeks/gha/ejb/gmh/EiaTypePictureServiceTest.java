@@ -60,8 +60,8 @@ public class EiaTypePictureServiceTest extends GhaServiceTest {
 				+ service.find(entity.getId()).getId() + " "
 				+ service.find(entity.getId()).getDescription());
 		// Assert.assertEquals(entity, service.find(entity.getId()));
-		// Assert.assertTrue(service.find(entity.getEiaType()) != null
-		// && service.find(entity.getEiaType()).size() >= 1);
+		Assert.assertTrue(service.find(entity.getEiaType()) != null
+				&& service.find(entity.getEiaType()).size() >= 1);
 		entity.setDescription("EiaTypePicture test description updated");
 		Assert.assertTrue(service.update(entity));
 		Assert.assertEquals("EiaTypePicture test description updated", service
