@@ -17,13 +17,15 @@ import org.fourgeeks.gha.domain.enu.UserLogonStatusEnum;
 import org.fourgeeks.gha.domain.gar.Bpu;
 
 /**
- * @author emiliot Single Sign On User Entity
+ * @author emiliot, vivi.torresg
+ * 
+ *         Single Sign On User Entity
  */
 @Entity
 @Table(name = "SSOUser", uniqueConstraints = @UniqueConstraint(columnNames = { "userName" }))
 @NamedQueries(value = {
 		@NamedQuery(name = "SSOUser.getAll", query = "SELECT e from SSOUser e order by e.userName"),
-		@NamedQuery(name = "SSOUser.findBySSOUser", query = "SELECT e from SSOUser e WHERE e like :ssoUser"),
+		@NamedQuery(name = "SSOUser.findBySSOUser", query = "SELECT e from SSOUser e WHERE e like :ssoUser order by e.userName"),
 		@NamedQuery(name = "SSOUser.findByUserName", query = "SELECT e from SSOUser e WHERE e.userName = :userName") })
 public class SSOUser extends AbstractEntity {
 
