@@ -28,7 +28,9 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.Brand;
+import org.fourgeeks.gha.domain.mix.Citizen;
 import org.fourgeeks.gha.ejb.gmh.BrandServiceRemote;
+import org.fourgeeks.gha.webclient.client.UI.GHASessionData;
 
 @WebServlet(urlPatterns = { "/webclient/reporteia" })
 public class ReportEiaServelt extends HttpServlet {
@@ -41,42 +43,46 @@ public class ReportEiaServelt extends HttpServlet {
 	@EJB(name = "gmh.BrandService", beanInterface = BrandServiceRemote.class)
 	BrandServiceRemote service;
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest
+	 * , javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
-			IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
 
 		try {
 			// lista de datos a mostrar en el reporte
 			List<Brand> brands = service.getAll();
 
-			// logo del sistema que ha de aparecer como parte del reporte
-			Image logoImage = new ImageIcon(getServletContext().getRealPath(LOGO_DIR)).getImage();
 			// la fuente de datos de la que se nutre el reporte (este DataSource
 			// se nutre de la lista "brands")
-			JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(brands);
+			JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(
+					brands);
 
 			// parametros que recibe el reporte
-			Map<String, Object> paramsReport = new HashMap<String, Object>();
-			paramsReport.put("logo", logoImage);
-			paramsReport.put("fechaHoraReporte", genDatetimeTimezoneStrRep());
-			paramsReport.put("nombreOperador", "Nelson Ramirez");
-			paramsReport.put("statusOrLoc", "Estatus");
-			paramsReport.put("statusOrLocVal", "Nuevo");
+			Map<String, Object> paramsReport = generateParamsMap();
 
 			// generacion del archivo .jasper (reporte compilado) y el llenado
 			// del reporte (fillReport)
-			String reportFileRealPath = getServletContext().getRealPath(REPORT_FILE_DIR);
-			JasperPrint fillReport = JasperFillManager.fillReport(reportFileRealPath, paramsReport,
-					dataSource);
+			String reportFileRealPath = getServletContext().getRealPath(
+					REPORT_FILE_DIR);
+			JasperPrint fillReport = JasperFillManager.fillReport(
+					reportFileRealPath, paramsReport, dataSource);
 
 			// exportacion como PDF
 			exportAsPDF(resp, fillReport);
 
 		} catch (GHAEJBException e) {
-			LOG.log(Level.ERROR, "Problema al obtener los datos para el reporte", e);
+			LOG.log(Level.ERROR,
+					"Problema al obtener los datos para el reporte", e);
 
 		} catch (JRException e) {
-			LOG.log(Level.ERROR, "Problema al generar el reporte de JasperReport", e);
+			LOG.log(Level.ERROR,
+					"Problema al generar el reporte de JasperReport", e);
 		}
 	}
 
@@ -85,35 +91,65 @@ public class ReportEiaServelt extends HttpServlet {
 	 * streaming
 	 * 
 	 * @param response
-	 *            El objeto {@link HttpServletResponse} que permite escribir la
-	 *            respuesta al cliente
+	 *            El objeto que permite escribir la respuesta al cliente
 	 * @param fillReport
 	 *            El objeto con el reporte ya lleno con los datos
 	 * @throws JRException
 	 * @throws IOException
 	 */
-	private void exportAsPDF(HttpServletResponse response, JasperPrint fillReport)
-			throws JRException, IOException {
+	private void exportAsPDF(HttpServletResponse response,
+			JasperPrint fillReport) throws JRException, IOException {
 
 		response.setContentType("application/pdf");
-		response.addHeader("Content-Disposition", "inline; filename=brandReport.pdf");
+		response.addHeader("Content-Disposition",
+				"inline; filename=brandReport.pdf");
 
 		// se exporta en reporte lleno con los datos como PDF hacia la salida
 		// que ofrece el objeto response
-		JasperExportManager.exportReportToPdfStream(fillReport, response.getOutputStream());
-	}
-
-	@Override
-	public void init(ServletConfig servletConfig) throws ServletException {
-		super.init(servletConfig);
+		JasperExportManager.exportReportToPdfStream(fillReport,
+				response.getOutputStream());
 	}
 
 	/**
-	 * @return String con la fecha, hora y zona horaria actual para el reporte
+	 * @return {@link String} con la fecha, hora y zona horaria actual para el
+	 *         reporte
 	 */
 	private String genDatetimeTimezoneStrRep() {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("d/M/yy z h:mm a");
 		dateFormat.setTimeZone(TimeZone.getTimeZone("GMT-4:30"));
 		return dateFormat.format(new Date()).toLowerCase();
+	}
+
+	/**
+	 * @return Mapa con los parametros que recibe el reporte
+	 */
+	private Map<String, Object> generateParamsMap() {
+
+		// logo del sistema que ha de aparecer como parte del reporte
+		Image logoImage = new ImageIcon(getServletContext().getRealPath(
+				LOGO_DIR)).getImage();
+
+		// usuario logeado en el sistema
+		Citizen user = GHASessionData.getLoggedUser().getCitizen();
+		String userName = user.getFirstName() + " " + user.getFirstLastName();
+
+		Map<String, Object> paramsMap = new HashMap<String, Object>();
+		paramsMap.put("logo", logoImage);
+		paramsMap.put("fechaHoraReporte", genDatetimeTimezoneStrRep());
+		paramsMap.put("statusOrLoc", "Estatus");
+		paramsMap.put("statusOrLocVal", "Nuevo");
+		paramsMap.put("nombreOperador", userName);
+
+		return paramsMap;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see javax.servlet.GenericServlet#init(javax.servlet.ServletConfig)
+	 */
+	@Override
+	public void init(ServletConfig servletConfig) throws ServletException {
+		super.init(servletConfig);
 	}
 }
