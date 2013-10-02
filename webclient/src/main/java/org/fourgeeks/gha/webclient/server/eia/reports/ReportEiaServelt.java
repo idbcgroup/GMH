@@ -22,15 +22,15 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.fourgeeks.gha.domain.enu.EiaStateEnum;
+import org.fourgeeks.gha.domain.ess.WorkingArea;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
-import org.fourgeeks.gha.domain.gmh.Brand;
-import org.fourgeeks.gha.domain.mix.Citizen;
-import org.fourgeeks.gha.ejb.gmh.BrandServiceRemote;
-import org.fourgeeks.gha.webclient.client.UI.GHASessionData;
+import org.fourgeeks.gha.domain.gar.Facility;
+import org.fourgeeks.gha.domain.gmh.Eia;
+import org.fourgeeks.gha.ejb.gmh.EiaServiceRemote;
 
 @WebServlet(urlPatterns = { "/webclient/reporteia" })
 public class ReportEiaServelt extends HttpServlet {
@@ -38,10 +38,11 @@ public class ReportEiaServelt extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private static final String REPORT_FILE_DIR = "/resources/reportes/eiaReport.jasper";
+	private static final String REPORT_GROUP_FILE_DIR = "/resources/reportes/eiaReportGroups.jasper";
 	private static final String LOGO_DIR = "/resources/img/logoReport.jpg";
 
-	@EJB(name = "gmh.BrandService", beanInterface = BrandServiceRemote.class)
-	BrandServiceRemote service;
+	@EJB(name = "gmh.EiaService", beanInterface = EiaServiceRemote.class)
+	EiaServiceRemote service;
 
 	/*
 	 * (non-Javadoc)
@@ -55,21 +56,25 @@ public class ReportEiaServelt extends HttpServlet {
 			throws ServletException, IOException {
 
 		try {
+			// genero el EIA que sirve de filtro para traer los datos deseados
+			Eia eiaFilter = generateEiaForReport(req);
 			// lista de datos a mostrar en el reporte
-			List<Brand> brands = service.getAll();
+			List<Eia> eiaList = service.find(eiaFilter);
 
-			// la fuente de datos de la que se nutre el reporte (este DataSource
-			// se nutre de la lista "brands")
-			JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(
-					brands);
+			// la fuente de datos de la que se nutre el reporte
+			String group = req.getParameter("group");
+			EiaDataSource dataSource = new EiaDataSource(eiaList, group);
 
 			// parametros que recibe el reporte
-			Map<String, Object> paramsReport = generateParamsMap();
+			Map<String, Object> paramsReport = generateParamsMap(req);
 
-			// generacion del archivo .jasper (reporte compilado) y el llenado
-			// del reporte (fillReport)
+			// ubicacion de los archivos de reportes compilados (.jasper)
+			String relativePath = group.equals("noAgrup") ? REPORT_FILE_DIR
+					: REPORT_GROUP_FILE_DIR;
 			String reportFileRealPath = getServletContext().getRealPath(
-					REPORT_FILE_DIR);
+					relativePath);
+
+			// generacion del archivo .jasper y llenado del reporte (fillReport)
 			JasperPrint fillReport = JasperFillManager.fillReport(
 					reportFileRealPath, paramsReport, dataSource);
 
@@ -121,24 +126,49 @@ public class ReportEiaServelt extends HttpServlet {
 	}
 
 	/**
+	 * Genera un EIA que servira de filtro para traer la lista de EIAs desada
+	 * 
+	 * @param req
+	 *            Objeto con los parametros que recibe el reporte
+	 * @return Ojeto EIA con los filtros deseados
+	 */
+	private Eia generateEiaForReport(HttpServletRequest req) {
+		String filterVal = req.getParameter("filter");
+		String filterType = req.getParameter("filtertype");
+
+		Eia eia = new Eia();
+		if (filterType.equals("edoEquipo"))
+			eia.setState(EiaStateEnum.valueOf(filterVal));
+		else if (filterType.equals("facility"))
+			eia.setFacility(new Facility(Long.parseLong(filterVal)));
+		else if (filterType.equals("workingArea"))
+			eia.setWorkingArea(new WorkingArea(Long.parseLong(filterVal)));
+
+		return eia;
+	}
+
+	/**
+	 * @param req
+	 *            objeto con los parametros de la peticionO
 	 * @return Mapa con los parametros que recibe el reporte
 	 */
-	private Map<String, Object> generateParamsMap() {
+	private Map<String, Object> generateParamsMap(HttpServletRequest req) {
 
 		// logo del sistema que ha de aparecer como parte del reporte
 		Image logoImage = new ImageIcon(getServletContext().getRealPath(
 				LOGO_DIR)).getImage();
 
-		// usuario logeado en el sistema
-		Citizen user = GHASessionData.getLoggedUser().getCitizen();
-		String userName = user.getFirstName() + " " + user.getFirstLastName();
+		String datetimeReport = genDatetimeTimezoneStrRep();
+		String user = req.getParameter("user");
+		String filterTypeDesc = req.getParameter("filtertypedesc");
+		String filterDesc = req.getParameter("filterdesc");
 
 		Map<String, Object> paramsMap = new HashMap<String, Object>();
 		paramsMap.put("logo", logoImage);
-		paramsMap.put("fechaHoraReporte", genDatetimeTimezoneStrRep());
-		paramsMap.put("statusOrLoc", "Estatus");
-		paramsMap.put("statusOrLocVal", "Nuevo");
-		paramsMap.put("nombreOperador", userName);
+		paramsMap.put("fechaHoraReporte", datetimeReport);
+		paramsMap.put("statusOrLoc", filterTypeDesc);
+		paramsMap.put("statusOrLocVal", filterDesc);
+		paramsMap.put("nombreOperador", user);
 
 		return paramsMap;
 	}

@@ -5,7 +5,9 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
 
+import com.google.gwt.safehtml.shared.UriUtils;
 import com.google.gwt.user.client.Window;
+import com.smartgwt.client.util.SC;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -39,7 +41,14 @@ public class EIAReportsFormPanel extends VLayout implements GHAClosable,
 				PATH_IMG_PRINT_BUTTON, new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						Window.open("webclient/reporteia", "_blank", "");
+						String params = formReports.getURLParameters();
+						if (params == null) {
+							String message = "El filtro seleccionado no tiene un valor asignado";
+							SC.say("Error", message);
+						} else {
+							String uri = "webclient/reporteia" + params;
+							Window.open(UriUtils.sanitizeUri(uri), "_blank", "");
+						}
 					}
 				}), new GHAImgButton(PATH_IMG_CLEAN_BUTTON, new ClickHandler() {
 			@Override

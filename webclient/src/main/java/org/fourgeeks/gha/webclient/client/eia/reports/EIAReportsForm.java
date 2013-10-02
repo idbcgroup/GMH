@@ -6,8 +6,10 @@ import java.util.List;
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
 import org.fourgeeks.gha.domain.gar.Facility;
+import org.fourgeeks.gha.domain.mix.Citizen;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
+import org.fourgeeks.gha.webclient.client.UI.GHASessionData;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHARadioGroupItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
@@ -19,7 +21,7 @@ import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class EIAReportsForm extends VLayout {
-	private GHARadioGroupItem filtroReportRadioGroupItem;
+	private GHARadioGroupItem filterTypeRadioGroupItem;
 	private GHASelectItem estadoSelectItem, facilitySelectItem,
 			workingAreaSelectItem, tipoAgrupSelectItem;
 
@@ -29,7 +31,7 @@ public class EIAReportsForm extends VLayout {
 		form.setNumCols(1);
 
 		// CREANDO LOS ITEMS
-		filtroReportRadioGroupItem = new GHARadioGroupItem(350, false);
+		filterTypeRadioGroupItem = new GHARadioGroupItem(350, false);
 
 		estadoSelectItem = new GHASelectItem("Estado",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
@@ -48,28 +50,23 @@ public class EIAReportsForm extends VLayout {
 		tipoAgrupSelectItem.setDisabled(false);
 
 		// DEFINIENDO LOS EVENTOS DE LOS ITEMS
-		filtroReportRadioGroupItem.addChangedHandler(new ChangedHandler() {
+		filterTypeRadioGroupItem.addChangedHandler(new ChangedHandler() {
 			@Override
 			public void onChanged(ChangedEvent event) {
-				final String filtroReportValue = filtroReportRadioGroupItem
-						.getValueAsString();
+				String filterType = filterTypeRadioGroupItem.getValueAsString();
 
-				if (filtroReportValue.equals("edoEquipo")) {
-					estadoSelectItem.setDisabled(false);
-					facilitySelectItem.setDisabled(true);
-					workingAreaSelectItem.setDisabled(true);
+				if (filterType.equals("edoEquipo"))
+					disableItems(false, true, true);
+				else if (filterType.equals("facility"))
+					disableItems(true, false, true);
+				else if (filterType.equals("workingArea"))
+					disableItems(true, true, false);
+			}
 
-				} else if (filtroReportValue.equals("facility")) {
-					estadoSelectItem.setDisabled(true);
-					facilitySelectItem.setDisabled(true);
-					workingAreaSelectItem.setDisabled(false);
-
-				} else {
-					estadoSelectItem.setDisabled(true);
-					facilitySelectItem.setDisabled(false);
-					workingAreaSelectItem.setDisabled(true);
-
-				}
+			private void disableItems(boolean edoEq, boolean fac, boolean workAr) {
+				estadoSelectItem.setDisabled(edoEq);
+				facilitySelectItem.setDisabled(fac);
+				workingAreaSelectItem.setDisabled(workAr);
 			}
 		});
 
@@ -77,7 +74,7 @@ public class EIAReportsForm extends VLayout {
 		fillItemsWhitData();
 
 		// ASIGNANDO LOS ITEMS AL FORM Y DEVOLVIENDO EL LAYOUT
-		form.setItems(filtroReportRadioGroupItem, estadoSelectItem,
+		form.setItems(filterTypeRadioGroupItem, estadoSelectItem,
 				workingAreaSelectItem, facilitySelectItem, tipoAgrupSelectItem);
 
 		addMember(form);
@@ -91,8 +88,8 @@ public class EIAReportsForm extends VLayout {
 		map.put("edoEquipo", "Estado Equipo");
 		map.put("workingArea", "Area de Trabajo");
 		map.put("facility", "Servicio/Instalación");
-		filtroReportRadioGroupItem.setValueMap(map);
-		filtroReportRadioGroupItem.setDefaultValue("edoEquipo");
+		filterTypeRadioGroupItem.setValueMap(map);
+		filterTypeRadioGroupItem.setDefaultValue("edoEquipo");
 
 		map = new LinkedHashMap<String, String>();
 		map.put("edoEquipo", "Estado Equipo");
@@ -124,6 +121,50 @@ public class EIAReportsForm extends VLayout {
 				facilitySelectItem.setValueMap(map);
 			}
 		});
+	}
+
+	/**
+	 * @return La parte del URL que contiene los parametros del reporte
+	 */
+	public String getURLParameters() {
+		Citizen user = GHASessionData.getLoggedUser().getCitizen();
+		String loggedUser = user.getFirstName() + " " + user.getFirstLastName();
+
+		String group = tipoAgrupSelectItem.getValueAsString();
+
+		String filterType = filterTypeRadioGroupItem.getValueAsString();
+		String filterDesc = null, filterVal = null, filterTypeDesc = null;
+
+		if (filterType.equals("edoEquipo")) {
+			filterDesc = estadoSelectItem.getDisplayValue();
+			filterVal = estadoSelectItem.getValueAsString();
+			filterTypeDesc = "Equipo:";
+
+		} else if (filterType.equals("facility")) {
+			filterDesc = facilitySelectItem.getDisplayValue();
+			filterVal = facilitySelectItem.getValueAsString();
+			filterTypeDesc = "Servicio/Instalación:";
+
+		} else {
+			filterDesc = workingAreaSelectItem.getDisplayValue();
+			filterVal = workingAreaSelectItem.getValueAsString();
+			filterTypeDesc = "Area de trabajo:";
+		}
+
+		if (filterVal == null) {
+			filterDesc = "Todos";
+			filterType = "all";
+		}
+
+		String urlParams = "?";
+		urlParams += "filtertype=" + filterType;
+		urlParams += "&filtertypedesc=" + filterTypeDesc;
+		urlParams += "&filter=" + filterVal;
+		urlParams += "&filterdesc=" + filterDesc;
+		urlParams += "&group=" + group;
+		urlParams += "&user=" + loggedUser;
+
+		return urlParams;
 	}
 
 	/**
