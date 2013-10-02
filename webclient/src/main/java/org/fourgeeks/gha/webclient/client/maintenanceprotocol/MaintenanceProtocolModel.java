@@ -5,6 +5,7 @@ package org.fourgeeks.gha.webclient.client.maintenanceprotocol;
 
 import java.util.List;
 
+import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol.GWTMaintenanceProtocolService;
@@ -37,5 +38,8 @@ public class MaintenanceProtocolModel {
 	}
 	public static void find(MaintenanceProtocol maintenanceProtocol, GHAAsyncCallback<List<MaintenanceProtocol>> callback){
 		service.find(maintenanceProtocol, callback);
+	}
+	public static void findByMaintenancePlan(MaintenancePlan maintenancePlan, GHAAsyncCallback<List<MaintenanceProtocol>> callback){
+		service.findByMaintenancePlan(maintenancePlan, callback);
 	}
 }

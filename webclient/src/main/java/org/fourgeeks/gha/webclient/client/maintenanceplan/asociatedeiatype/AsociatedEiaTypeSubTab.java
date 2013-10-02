@@ -17,6 +17,8 @@ public class AsociatedEiaTypeSubTab extends GHASubTab implements
 	public AsociatedEiaTypeSubTab(MaintenancePlanTab tab) {
 		super("Tipos de Equipo", tab);
 		setDisabled(true);
+		
+		//register as maintenanceplan listener with the tab
 		tab.addMaintenancePlanSelectionListener(this);
 		
 		eiatypeGridPanel = new AsociatedEiatypeGridPanel(this);

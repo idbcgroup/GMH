@@ -34,24 +34,6 @@ public class AsociatedEiatypeGridPanel extends VLayout implements GHAClosable, G
 	{
 		grid = new EiaTypeMaintenancePlanGrid();
 		searchForm = new EIATypeSearchForm();
-		searchForm.addEiaTypeSelectionListener(new EIATypeSelectionListener() {
-			
-			@Override
-			public void select(EiaType eiaType) {
-				final EiaTypeMaintenancePlan eiaTypeMaintenancePlan = new EiaTypeMaintenancePlan();
-				eiaTypeMaintenancePlan.setEiaType(eiaType);
-				eiaTypeMaintenancePlan.setMaintenancePlan(AsociatedEiatypeGridPanel.this.maintenancePlan);
-				
-				//TODO: save the relation
-				EiaTypeMaintenancePlanModel.save(eiaTypeMaintenancePlan, new GHAAsyncCallback<EiaTypeMaintenancePlan>() {
-					
-					@Override
-					public void onSuccess(EiaTypeMaintenancePlan result) {
-						loadData();
-					}
-				});
-			}
-		});
 	}
 
 	/**
@@ -97,6 +79,9 @@ public class AsociatedEiatypeGridPanel extends VLayout implements GHAClosable, G
 		HLayout mainLayout = new HLayout();
 		mainLayout.addMembers(grid, sideButtons);
 		addMember(mainLayout);
+		
+		//register as listener to the eiatype search form
+		this.searchForm.addEiaTypeSelectionListener(this);
 	}
 
 	/**
@@ -121,7 +106,6 @@ public class AsociatedEiatypeGridPanel extends VLayout implements GHAClosable, G
 	@Override
 	public void hide() {
 		//Hide the search/select form
-		// super.hide();
 	}
 
 	//Consumer stuff
@@ -139,7 +123,16 @@ public class AsociatedEiatypeGridPanel extends VLayout implements GHAClosable, G
 	 */
 	@Override
 	public void select(EiaType eiaType) {
-		// TODO Auto-generated method stub
+		final EiaTypeMaintenancePlan eiaTypeMaintenancePlan = new EiaTypeMaintenancePlan();
+		eiaTypeMaintenancePlan.setEiaType(eiaType);
+		eiaTypeMaintenancePlan.setMaintenancePlan(AsociatedEiatypeGridPanel.this.maintenancePlan);
 		
+		EiaTypeMaintenancePlanModel.save(eiaTypeMaintenancePlan, new GHAAsyncCallback<EiaTypeMaintenancePlan>() {
+			
+			@Override
+			public void onSuccess(EiaTypeMaintenancePlan result) {
+				loadData();
+			}
+		});
 	}
 }

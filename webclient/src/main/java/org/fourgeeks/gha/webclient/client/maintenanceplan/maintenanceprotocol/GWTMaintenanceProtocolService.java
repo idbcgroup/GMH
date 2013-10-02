@@ -32,7 +32,7 @@ public interface GWTMaintenanceProtocolService extends RemoteService{
 	 *         plan
 	 * @throws GHAEJBException
 	 */
-	public List<MaintenanceProtocol> findByEiaTypeMaintenancePlan(
+	public List<MaintenanceProtocol> findByMaintenancePlan(
 			MaintenancePlan maintenancePlan) throws GHAEJBException;
 
 	/**
@@ -43,7 +43,7 @@ public interface GWTMaintenanceProtocolService extends RemoteService{
 	 *         plan starting at offset
 	 * @throws GHAEJBException
 	 */
-	public List<MaintenanceProtocol> findByEiaTypeMaintenancePlan(
+	public List<MaintenanceProtocol> findByMaintenancePlan(
 			MaintenancePlan maintenancePlan, int offset, int size)
 			throws GHAEJBException;
 	/**
