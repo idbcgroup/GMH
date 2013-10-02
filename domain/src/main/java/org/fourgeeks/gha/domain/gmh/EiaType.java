@@ -25,7 +25,9 @@ import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
  */
 
 @Entity
-@NamedQueries(value = { @NamedQuery(name = "EiaType.getAll", query = "SELECT e from EiaType e order by e.code") })
+@NamedQueries(value = { 
+		@NamedQuery(name = "EiaType.getAll", query = "SELECT e from EiaType e order by e.code"),
+		@NamedQuery(name = "EiaType.findByMaintenancePlan", query = "SELECT etype from EiaTypeMaintenancePlan e JOIN e.eiaType etype WHERE e.maintenancePlan = :maintenancePlan ORDER BY e.id")})
 public class EiaType implements Serializable{
 
 	/**

@@ -9,6 +9,7 @@ import javax.ejb.Remote;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 
 /**
  * @author emiliot
@@ -44,6 +45,13 @@ public interface EiaTypeServiceRemote {
 	 */
 	public List<EiaType> find(EiaType eiaType, int offset, int size)
 			throws GHAEJBException;
+	
+	/**
+	 * @param maintenancePlan
+	 * @return a list with the EiaTypes associated with this maintenancePlan
+	 * @throws GHAEJBException
+	 */
+	public List<EiaType> findByMaintenancePlan(MaintenancePlan maintenancePlan)throws GHAEJBException;
 
 	/**
 	 * @param code

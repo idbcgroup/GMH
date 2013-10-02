@@ -23,6 +23,7 @@ import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 
 /**
@@ -393,6 +394,22 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 			logger.log(Level.INFO, "ERROR: unable to update eiatype", e);
 			throw new GHAEJBException("Error actualizando EiaType "
 					+ e.getCause().getMessage());
+		}
+	}
+
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypeServiceRemote#findByMaintenancePlan(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
+	 */
+	@Override
+	public List<EiaType> findByMaintenancePlan(MaintenancePlan maintenancePlan)
+			throws GHAEJBException {
+		try {
+			return em.createNamedQuery("EiaType.findByMaintenancePlan", EiaType.class)
+					.setParameter("maintenancePlan", maintenancePlan).getResultList();
+		} catch (Exception ex) {
+			logger.log(Level.SEVERE, "Error retriving all EitaTypes by maintenancePlan", ex);
+			throw new GHAEJBException(
+					"Error obteniendo todos los eiaTypes por plan de mantenimiento");
 		}
 	}
 
