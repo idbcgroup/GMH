@@ -159,12 +159,15 @@ public class TestData {
 		} catch (NoResultException e) {
 			try {
 				logger.info("Creating test data: EiaTypeMaintenancePlan");
-				em.persist(new EiaTypeMaintenancePlan(em.find(EiaType.class, "90001"), em.find(MaintenancePlan.class, 1L)));
-				em.persist(new EiaTypeMaintenancePlan(em.find(EiaType.class, "90002"), em.find(MaintenancePlan.class, 2L)));
+				em.persist(new EiaTypeMaintenancePlan(em.find(EiaType.class,
+						"90001"), em.find(MaintenancePlan.class, 1L)));
+				em.persist(new EiaTypeMaintenancePlan(em.find(EiaType.class,
+						"90002"), em.find(MaintenancePlan.class, 2L)));
 				em.flush();
-				
+
 			} catch (Exception e1) {
-				logger.log(Level.INFO, "error Creating MaintenanceActivity test data", e1);
+				logger.log(Level.INFO,
+						"error Creating MaintenanceActivity test data", e1);
 			}
 		}
 	}
@@ -179,20 +182,29 @@ public class TestData {
 		} catch (NoResultException e) {
 			try {
 				logger.info("Creating test data: MaintenanceActivityMaintenanceProtocol");
-				List <MaintenanceProtocol> protocols = em.createNamedQuery("MaintenanceProtocol.getAll", MaintenanceProtocol.class).getResultList();
-				List <MaintenanceActivity> activities = em.createNamedQuery("MaintenanceActivity.getAll", MaintenanceActivity.class).getResultList();
-				
-				for(int i=0; i<4; ++i){
-					em.persist(new MaintenanceActivityMaintenanceProtocol(protocols.get(0), activities.get(i), i+1));
-					em.persist(new MaintenanceActivityMaintenanceProtocol(protocols.get(1), activities.get(i), i+1));
+				List<MaintenanceProtocol> protocols = em
+						.createNamedQuery("MaintenanceProtocol.getAll",
+								MaintenanceProtocol.class).getResultList();
+				List<MaintenanceActivity> activities = em
+						.createNamedQuery("MaintenanceActivity.getAll",
+								MaintenanceActivity.class).getResultList();
+
+				for (int i = 0; i < 4; ++i) {
+					em.persist(new MaintenanceActivityMaintenanceProtocol(
+							protocols.get(0), activities.get(i), i + 1));
+					em.persist(new MaintenanceActivityMaintenanceProtocol(
+							protocols.get(1), activities.get(i), i + 1));
 				}
-				
-				em.persist(new MaintenanceActivityMaintenanceProtocol(protocols.get(0), activities.get(4), 5));
-				em.persist(new MaintenanceActivityMaintenanceProtocol(protocols.get(1), activities.get(5), 5));
-				
+
+				em.persist(new MaintenanceActivityMaintenanceProtocol(protocols
+						.get(0), activities.get(4), 5));
+				em.persist(new MaintenanceActivityMaintenanceProtocol(protocols
+						.get(1), activities.get(5), 5));
+
 				em.flush();
 			} catch (Exception e1) {
-				logger.log(Level.INFO, "error Creating MaintenanceActivity test data", e1);
+				logger.log(Level.INFO,
+						"error Creating MaintenanceActivity test data", e1);
 			}
 		}
 	}
@@ -212,13 +224,13 @@ public class TestData {
 						"Protocolo para impresoras Laser" };
 				String protocolDesc[] = {
 						"Protocolo para el mantenimiento de impresoras de tinta",
-						"Protocolo para el mantenimiento de impresoras laser"						
-				};
-				for(int i=0; i<2; ++i){
+						"Protocolo para el mantenimiento de impresoras laser" };
+				for (int i = 0; i < 2; ++i) {
 					MaintenanceProtocol protocol = new MaintenanceProtocol();
 					protocol.setDescription(protocolDesc[i]);
 					protocol.setName(protocolNames[i]);
-					protocol.setMaintenancePlan(em.find(MaintenancePlan.class, (long)(i+1)));
+					protocol.setMaintenancePlan(em.find(MaintenancePlan.class,
+							(long) (i + 1)));
 					em.persist(protocol);
 				}
 				em.flush();
@@ -239,14 +251,16 @@ public class TestData {
 		} catch (NoResultException e) {
 			try {
 				logger.info("Creating test data: maintenance plan");
-
-				String planDesc[] = { "plan de mantenimiento impresoras de tinta",
+				String planName[] = {"Plan de Mantenimiento Impresoras Tinta", "Plan de Mantenimiento Impresoras Laser"};
+				String planDesc[] = {
+						"plan de mantenimiento impresoras de tinta",
 						"plan de mantenimiento impresoras laser" };
 				int planFrequency[] = { 1, 3 };
 				TimePeriodEnum planTimePeriod[] = { TimePeriodEnum.MONTHS,
 						TimePeriodEnum.SEMESTERS };
 				for (int i = 0; i < 2; ++i) {
 					MaintenancePlan entity = new MaintenancePlan();
+					entity.setName(planName[i]);
 					entity.setDescription(planDesc[i]);
 					entity.setFrequency(planFrequency[i]);
 					entity.setPot(planTimePeriod[i]);
@@ -278,7 +292,7 @@ public class TestData {
 						"Limpie cuidadosamente el interior del equipo, sin líquidos",
 						"Cierre la tapa del equipo, y coloque los tornillos",
 						"Conecte el equipo a la corriente eléctrica, y verifique su funcionamiento",
-						"Reemplaze el toner del equipo"};
+						"Reemplaze el toner del equipo" };
 				for (int i = 0; i < 6; ++i) {
 					MaintenanceActivity entity = new MaintenanceActivity();
 					entity.setName(activityNames[i]);
@@ -436,6 +450,16 @@ public class TestData {
 				em.persist(moduleEiaType);
 				Module moduleEia = new Module("Equipos", ModulesCodes.EIA);
 				em.persist(moduleEia);
+				Module moduleMainteancePlan = new Module(
+						"Planes de Mantenimiento", ModulesCodes.MPLAN);
+				em.persist(moduleMainteancePlan);
+				Module moduleMaintenanceProtocol = new Module(
+						"Protocolos de Mantenimiento", ModulesCodes.MPROT);
+				em.persist(moduleMaintenanceProtocol);
+				Module maintenanceActivityModule = new Module(
+						"Actividades de Mantenimiento", ModulesCodes.MACT);
+				em.persist(maintenanceActivityModule);
+
 				// Screen
 				Screen screenUsuer = new Screen(moduleUser,
 						"Administración de usuarios", ScreenCodes.USER_ADM,
@@ -447,6 +471,22 @@ public class TestData {
 				Screen screenEia = new Screen(moduleEia, "Equipos",
 						ScreenCodes.EIA_ADM, "eia");
 				em.persist(screenEia);
+				Screen screenMaintenancePlan = new Screen(moduleMainteancePlan,
+						"Planes de Mantenimiento",
+						ScreenCodes.MAINTENANCE_PLAN_ADM, "mplan");
+				em.persist(screenMaintenancePlan);
+				Screen screenMaintenanceProtocol = new Screen(
+						moduleMaintenanceProtocol,
+						"Protocolos de Mantenimiento",
+						ScreenCodes.MAINTENANCE_PROTOCOL_ADM, "mprot");
+				em.persist(screenMaintenanceProtocol);
+
+				Screen maintenanceActivityScreen = new Screen(
+						maintenanceActivityModule,
+						"Actividades de Mantenimiento",
+						ScreenCodes.MAINTENANCE_ACTIVITY_ADM, "mact");
+				em.persist(maintenanceActivityScreen);
+
 				// View
 				View viewUserInfo = new View(screenUsuer, "Información",
 						ViewCodes.USER_ADM_INFO);
@@ -478,6 +518,21 @@ public class TestData {
 				View viewEiaComp = new View(screenEia, "Componentes",
 						ViewCodes.EIA_ADM_COMP);
 				em.persist(viewEiaComp);
+				View viewMaintenancePlanInfo = new View(screenMaintenancePlan,
+						"Información", ViewCodes.MAINTENANCE_PLAN_ADM_INFO);
+				em.persist(viewMaintenancePlanInfo);
+				View viewMaintenanceProtocol = new View(
+						screenMaintenanceProtocol, "Información",
+						ViewCodes.MAINTENANCE_PROTOCOL_ADM_INFO);
+				em.persist(viewMaintenanceProtocol);
+				View viewProtocolActivity = new View(screenMaintenanceProtocol,
+						"Actividades", ViewCodes.MAINTENANCE_PROTOCOL_ADM_ACT);
+				em.persist(viewProtocolActivity);
+				View maintenanceActivityView = new View(
+						maintenanceActivityScreen, "Información",
+						ViewCodes.MAINTENANCE_ACTIVITY_ADM_INFO);
+				em.persist(maintenanceActivityView);
+
 				// Function
 				Function function = new Function(viewUserInfo, "ver",
 						FunctionsCodes.USER_ADM_INFO_VIEW);
@@ -532,6 +587,22 @@ public class TestData {
 				em.persist(function);
 				function = new Function(viewEiaComp, "editar",
 						FunctionsCodes.EIA_ADM_COMP_EDIT);
+				em.persist(function);
+
+				function = new Function(viewMaintenancePlanInfo, "ver",
+						FunctionsCodes.MAINTENANCE_PLAN_ADM_INFO_VIEW);
+				em.persist(function);
+
+				function = new Function(viewMaintenanceProtocol, "ver",
+						FunctionsCodes.MAINTENANCE_PROTOCOL_ADM_INFO_VIEW);
+				em.persist(function);
+
+				function = new Function(viewProtocolActivity, "ver",
+						FunctionsCodes.MAINTENANCE_PROTOCOL_ADM_ACT_VIEW);
+				em.persist(function);
+
+				function = new Function(maintenanceActivityView, "ver",
+						FunctionsCodes.MAINTENANCE_ACTIVITY_ADM_VIEW);
 				em.persist(function);
 
 				em.flush();

@@ -20,7 +20,7 @@ public class UserInformationSubTab extends GHASubTab implements
 	public UserInformationSubTab(UserTab tab) {
 		super("Información", tab);
 		setDisabled(true);
-		tab.addUserSelectionListener(this);
+		
 		form = new UserInformationFormPanel(tab);
 		addGHAClosableHandler(form);
 		addGHAHideableHandler(form);
@@ -28,11 +28,12 @@ public class UserInformationSubTab extends GHASubTab implements
 		
 		//register to listen for selected user
 		tab.addUserSelectionListener(this);
+		form.addUserSelectionListener(tab);
 	}
 
 	@Override
 	public void select(SSOUser ssoUser) {
 		setDisabled(false);
-		form.select(ssoUser);
+		form.setSSOUser(ssoUser);
 	}
 }

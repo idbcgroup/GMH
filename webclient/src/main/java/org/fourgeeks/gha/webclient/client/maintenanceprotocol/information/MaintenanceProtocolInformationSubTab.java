@@ -1,12 +1,12 @@
 package org.fourgeeks.gha.webclient.client.maintenanceprotocol.information;
 
-import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASubTab;
-import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
+import org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionListener;
 import org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolTab;
 
 public class MaintenanceProtocolInformationSubTab extends GHASubTab implements
-		EIATypeSelectionListener{
+	MaintenanceProtocolSelectionListener {
 
 	private MaintenanceProtocolInformationFormPanel form;
 
@@ -18,10 +18,18 @@ public class MaintenanceProtocolInformationSubTab extends GHASubTab implements
 		addGHAHideableHandler(form);
 		
 		setPane(form);
+		
+		//register to listen for a selected maintenanceProtocol
+		tab.addMaintenanceProtocolSelectionListener(this);
+		form.addMaintenanceProtocolSelectionListener(tab);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionListener#select(org.fourgeeks.gha.domain.gmh.MaintenanceProtocol)
+	 */
 	@Override
-	public void select(EiaType eiaType) {
-		form.select(eiaType);
+	public void select(MaintenanceProtocol maintenanceProtocol) {
+		setDisabled(false);
+		form.setMaintenanceProtocol(maintenanceProtocol);
 	}
 }

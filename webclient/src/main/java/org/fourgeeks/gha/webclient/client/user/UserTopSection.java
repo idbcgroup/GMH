@@ -53,8 +53,10 @@ public class UserTopSection extends HLayout implements GHAClosable,
 		super();
 		GHAUiHelper.addGHAResizeHandler(this);
 		tab.addGHAClosableHandler(this);
+		
 		tab.addUserSelectionListener(this);
 		userSearchForm.addUserSelectionListener(tab);
+		
 		// tab.addGHAHideableHandler(this);
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		setWidth100();

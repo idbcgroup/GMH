@@ -1,31 +1,33 @@
 package org.fourgeeks.gha.webclient.client.maintenanceprotocol;
 
-import org.fourgeeks.gha.domain.gmh.Eia;
-import org.fourgeeks.gha.domain.gmh.EiaType;
+import java.util.LinkedList;
+import java.util.List;
+
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATab;
-import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
-import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class MaintenanceProtocolTab extends GHATab implements EIATypeSelectionListener,
-		EIASelectionListener {
+public class MaintenanceProtocolTab extends GHATab implements MaintenanceProtocolSelectionListener, MaintenanceProtocolSelectionProducer {
 
 	public static final String ID = "mprot";
 	private static final String TITLE = "Protocolos De Mant.";
 	private MaintenanceProtocolTopSection topSection;
 	private MaintenanceProtocolInternalTabset internalTabset;
+	private List<MaintenanceProtocolSelectionListener> listeners;
+	
+	private MaintenanceProtocol protocol;
+	
+	{
+		listeners = new LinkedList<MaintenanceProtocolSelectionListener>();
+	}
 
-	private EiaType eiaType;
-
-	public MaintenanceProtocolTab() {
+	public MaintenanceProtocolTab(){
 		super();
 		getHeader().setTitle(TITLE);
 
 		topSection = new MaintenanceProtocolTopSection(this);
-		topSection.AddEIATypeSelectionListener(this);
-		
 		internalTabset = new MaintenanceProtocolInternalTabset(this);
 
 		// Creacion de la tab de EIA
@@ -42,7 +44,7 @@ public class MaintenanceProtocolTab extends GHATab implements EIATypeSelectionLi
 
 	@Override
 	protected void onDraw() {
-		if (eiaType == null)
+		if(protocol == null)
 			topSection.search();
 	}
 
@@ -51,19 +53,30 @@ public class MaintenanceProtocolTab extends GHATab implements EIATypeSelectionLi
 		return ID;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionProducer#addMaintenanceProtocolSelectionListener(org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionListener)
+	 */
 	@Override
-	public void select(Eia eia) {
-		topSection.select(eia);
-		internalTabset.select(eia);
+	public void addMaintenanceProtocolSelectionListener(
+			MaintenanceProtocolSelectionListener maintenanceProtocolSelectionListener) {
+		listeners.add(maintenanceProtocolSelectionListener);
 	}
 
 	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener#select(org.fourgeeks.gha.domain.gmh.EiaType)
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionProducer#removeMaintenanceProtocolSelectionListener(org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionListener)
 	 */
 	@Override
-	public void select(EiaType eiaType) {
-		this.eiaType = eiaType;
-		internalTabset.select(eiaType);
+	public void removeMaintenanceProtocolSelectionListener(
+			MaintenanceProtocolSelectionListener maintenanceProtocolSelectionListener) {
+		listeners.remove(maintenanceProtocolSelectionListener);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionListener#select(org.fourgeeks.gha.domain.gmh.MaintenanceProtocol)
+	 */
+	@Override
+	public void select(MaintenanceProtocol maintenanceProtocol) {
+		for(MaintenanceProtocolSelectionListener listener : listeners)
+			listener.select(maintenanceProtocol);
+	}
 }
