@@ -53,7 +53,7 @@ public class BpuServiceTest extends GhaServiceTest {
 		entity = service.save(entity);
 
 		Assert.assertNotNull(entity);
-		// Assert.assertEquals(1, service.find(entity).size());
+		Assert.assertEquals(1, service.find(entity).size());
 		System.out.println("BEFORE " + entity.getId() + " " + entity.getBpi()
 				+ "\nAFTER " + service.find(entity.getId()).getId() + " "
 				+ service.find(entity.getId()).getBpi());

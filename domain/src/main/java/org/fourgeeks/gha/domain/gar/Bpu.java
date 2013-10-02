@@ -21,12 +21,14 @@ import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.domain.mix.Citizen;
 
 /**
- * @author emiliot
+ * @author emiliot, vivi.torresg
  * 
  */
 
 @Entity
-@NamedQueries(value = { @NamedQuery(name = "Bpu.getAll", query = "SELECT e from Bpu e order by e.id") })
+@NamedQueries(value = {
+		@NamedQuery(name = "Bpu.getAll", query = "SELECT e from Bpu e order by e.id"),
+		@NamedQuery(name = "Bpu.findByBpu", query = "SELECT e from Bpu e where e like :bpu order by e.id") })
 public class Bpu extends AbstractEntity {
 
 	/**
