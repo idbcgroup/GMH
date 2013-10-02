@@ -6,6 +6,8 @@ package org.fourgeeks.gha.domain.gmh;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 
@@ -15,6 +17,8 @@ import org.fourgeeks.gha.domain.AbstractEntity;
  */
 
 @Entity
+@NamedQueries(value = { 
+		@NamedQuery(name = "EiaTypeMaintenancePlan.findByMaintenancePlan", query = "SELECT e from EiaTypeMaintenancePlan e WHERE e.maintenancePlan = :maintenancePlan ORDER BY e.id")})
 public class EiaTypeMaintenancePlan extends AbstractEntity {
 
 	/**

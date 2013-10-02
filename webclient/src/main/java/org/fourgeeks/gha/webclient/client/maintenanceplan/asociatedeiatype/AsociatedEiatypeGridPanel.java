@@ -10,11 +10,8 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
-import org.fourgeeks.gha.webclient.client.eiatype.EIATypeGrid;
-import org.fourgeeks.gha.webclient.client.eiatype.EIATypeRecord;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSearchForm;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
-import org.fourgeeks.gha.webclient.client.eiatype.EIATypeUtil;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener;
 
 import com.smartgwt.client.widgets.Label;
@@ -30,12 +27,12 @@ import com.smartgwt.client.widgets.layout.VLayout;
  */
 public class AsociatedEiatypeGridPanel extends VLayout implements GHAClosable, GHAHideable, MaintenancePlanSelectionListener, EIATypeSelectionListener {
 
-	private EIATypeGrid grid;
+	private EiaTypeMaintenancePlanGrid grid;
 	private MaintenancePlan maintenancePlan;
 	private EIATypeSearchForm searchForm;
 	
 	{
-		grid = new EIATypeGrid();
+		grid = new EiaTypeMaintenancePlanGrid();
 		searchForm = new EIATypeSearchForm();
 		searchForm.addEiaTypeSelectionListener(new EIATypeSelectionListener() {
 			
@@ -84,8 +81,15 @@ public class AsociatedEiatypeGridPanel extends VLayout implements GHAClosable, G
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						EiaType eiaType = grid.getSelectedEntity();
-						//TODO
+						EiaTypeMaintenancePlan entity = grid.getSelectedEntity();
+						EiaTypeMaintenancePlanModel.delete(entity.getId(), new GHAAsyncCallback<Void>() {
+
+							@Override
+							public void onSuccess(Void result) {
+								loadData();
+							}
+							
+						});
 					}
 
 				}));
@@ -99,11 +103,11 @@ public class AsociatedEiatypeGridPanel extends VLayout implements GHAClosable, G
 	 * @param eiaType
 	 */
 	private void loadData() {
-		EiaTypeMaintenancePlanModel.findByMaintenancePlan(this.maintenancePlan, new GHAAsyncCallback<List<EiaType>>() {
+		EiaTypeMaintenancePlanModel.findByMaintenancePlan(this.maintenancePlan, new GHAAsyncCallback<List<EiaTypeMaintenancePlan>>() {
 
 			@Override
-			public void onSuccess(List<EiaType> result) {
-				ListGridRecord array[] = EIATypeUtil.toGridRecords(result).toArray(new EIATypeRecord[]{});
+			public void onSuccess(List<EiaTypeMaintenancePlan> result) {
+				ListGridRecord array[] = EiaTypeMaintenancePlanUtil.toGridRecors(result).toArray(new EiaTypeMaintenancePlanRecord[]{});
 				grid.setData(array);
 			}
 		});

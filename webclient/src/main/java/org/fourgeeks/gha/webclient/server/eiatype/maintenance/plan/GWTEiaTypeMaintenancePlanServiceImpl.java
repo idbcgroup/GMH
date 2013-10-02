@@ -3,11 +3,15 @@
  */
 package org.fourgeeks.gha.webclient.server.eiatype.maintenance.plan;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
+import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
+import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.ejb.gmh.EiaTypeMaintenancePlanServiceRemote;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype.GWTEiaTypeMaintenancePlanService;
 
@@ -44,6 +48,24 @@ public class GWTEiaTypeMaintenancePlanServiceImpl extends RemoteServiceServlet i
 			EiaTypeMaintenancePlan eiaTypeMaintenancePlan)
 			throws GHAEJBException {
 		return ejbService.save(eiaTypeMaintenancePlan);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype.GWTEiaTypeMaintenancePlanService#findByEiaType(org.fourgeeks.gha.domain.gmh.EiaType)
+	 */
+	@Override
+	public List<EiaTypeMaintenancePlan> findByEiaType(EiaType eiaType)
+			throws GHAEJBException {
+		return ejbService.findByEiaType(eiaType);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype.GWTEiaTypeMaintenancePlanService#findByMaintenancePlan(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
+	 */
+	@Override
+	public List<EiaTypeMaintenancePlan> findByMaintenancePlan(
+			MaintenancePlan maintenancePlan) throws GHAEJBException {
+		return ejbService.findByMaintenancePlan(maintenancePlan);
 	}
 
 }
