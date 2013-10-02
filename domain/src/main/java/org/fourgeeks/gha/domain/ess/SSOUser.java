@@ -23,6 +23,7 @@ import org.fourgeeks.gha.domain.gar.Bpu;
 @Table(name = "SSOUser", uniqueConstraints = @UniqueConstraint(columnNames = { "userName" }))
 @NamedQueries(value = {
 		@NamedQuery(name = "SSOUser.getAll", query = "SELECT e from SSOUser e order by e.userName"),
+		@NamedQuery(name = "SSOUser.findBySSOUser", query = "SELECT e from SSOUser e WHERE e like :ssoUser"),
 		@NamedQuery(name = "SSOUser.findByUserName", query = "SELECT e from SSOUser e WHERE e.userName = :userName") })
 public class SSOUser extends AbstractEntity {
 

@@ -28,7 +28,11 @@ import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.mix.Citizen;
 
 /**
- * @author emiliot
+ * <<<<<<< HEAD
+ * 
+ * @author emiliot =======
+ * @author emiliot, vivi.torresg >>>>>>> Correciones en SSOUser dominio y
+ *         servicio. Probados y funcionando.
  * 
  */
 
