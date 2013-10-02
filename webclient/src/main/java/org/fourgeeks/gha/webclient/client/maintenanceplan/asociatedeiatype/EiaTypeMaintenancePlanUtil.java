@@ -20,14 +20,35 @@ public class EiaTypeMaintenancePlanUtil {
 	private EiaTypeMaintenancePlanUtil() {
 		throw new UnsupportedOperationException("Esta clase no debe ser instanciada");
 	}
-	public static EiaTypeMaintenancePlanRecord toGridRecord(EiaTypeMaintenancePlan entity){
-		return new EiaTypeMaintenancePlanRecord(entity);
+	public static EiaTypeMaintenancePlanRecord toEiaTypeGridRecord(EiaTypeMaintenancePlan entity){
+		EiaTypeMaintenancePlanRecord record = new EiaTypeMaintenancePlanRecord(entity);
+		record.setEiaTypeAttributes();
+		return record;
 	}
 
-	public static List<EiaTypeMaintenancePlanRecord> toGridRecors(List<EiaTypeMaintenancePlan> entities){
+	public static List<EiaTypeMaintenancePlanRecord> toEiaTypeGridRecords(List<EiaTypeMaintenancePlan> entities){
 		List<EiaTypeMaintenancePlanRecord> list = new ArrayList<EiaTypeMaintenancePlanRecord>();
 		for(EiaTypeMaintenancePlan entity : entities){
-			list.add(new EiaTypeMaintenancePlanRecord(entity));
+			EiaTypeMaintenancePlanRecord record = new EiaTypeMaintenancePlanRecord(entity);
+			record.setEiaTypeAttributes();
+			list.add(record);
+		}
+		return list;
+	}
+	
+	public static EiaTypeMaintenancePlanRecord toMaintenancePlanGridRecord(EiaTypeMaintenancePlan entity){
+		EiaTypeMaintenancePlanRecord record = new EiaTypeMaintenancePlanRecord(entity);
+		record.setMaintenancePlanAttributes();
+		return record;
+	}
+
+	public static List<EiaTypeMaintenancePlanRecord> toMaintenancePlanGridRecords(List<EiaTypeMaintenancePlan> entities){
+		List<EiaTypeMaintenancePlanRecord> list = new ArrayList<EiaTypeMaintenancePlanRecord>();
+		for(EiaTypeMaintenancePlan entity : entities){
+			
+			EiaTypeMaintenancePlanRecord record = new EiaTypeMaintenancePlanRecord(entity);
+			record.setMaintenancePlanAttributes();
+			list.add(record);
 		}
 		return list;
 	}

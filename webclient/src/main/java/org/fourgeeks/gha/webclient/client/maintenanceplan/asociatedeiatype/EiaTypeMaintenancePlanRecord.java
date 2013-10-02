@@ -17,15 +17,26 @@ public class EiaTypeMaintenancePlanRecord extends GHAGridRecord<EiaTypeMaintenan
 	 */
 	public EiaTypeMaintenancePlanRecord(EiaTypeMaintenancePlan entity) {
 		this.eiaTypeMaintenancePlan = entity;
-		setAttribute("name", entity.getEiaType().getName());
-		setAttribute("code", entity.getEiaType().getCode());
-		if (entity.getEiaType().getBrand() != null){
-			setAttribute("brand", entity.getEiaType().getBrand().getName());
-			if (entity.getEiaType().getBrand().getManufacturer() != null)
-				setAttribute("manufacturer", entity.getEiaType().getBrand().getManufacturer().getName());
+		
+	}
+	
+	public void setEiaTypeAttributes(){
+		setAttribute("name", this.eiaTypeMaintenancePlan.getEiaType().getName());
+		setAttribute("code", this.eiaTypeMaintenancePlan.getEiaType().getCode());
+		if (this.eiaTypeMaintenancePlan.getEiaType().getBrand() != null){
+			setAttribute("brand", this.eiaTypeMaintenancePlan.getEiaType().getBrand().getName());
+			if (this.eiaTypeMaintenancePlan.getEiaType().getBrand().getManufacturer() != null)
+				setAttribute("manufacturer", this.eiaTypeMaintenancePlan.getEiaType().getBrand().getManufacturer().getName());
 		}
 
-		setAttribute("model", entity.getEiaType().getModel());
+		setAttribute("model", this.eiaTypeMaintenancePlan.getEiaType().getModel());
+	}
+	
+	public void setMaintenancePlanAttributes(){
+		setAttribute("name", this.eiaTypeMaintenancePlan.getMaintenancePlan().getName());
+		setAttribute("desc", this.eiaTypeMaintenancePlan.getMaintenancePlan().getDescription());
+		setAttribute("pot", this.eiaTypeMaintenancePlan.getMaintenancePlan().getPot());
+		setAttribute("freq", this.eiaTypeMaintenancePlan.getMaintenancePlan().getFrequency());
 	}
 
 	/* (non-Javadoc)
