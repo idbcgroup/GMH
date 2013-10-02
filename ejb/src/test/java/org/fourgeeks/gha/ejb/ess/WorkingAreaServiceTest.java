@@ -49,9 +49,7 @@ public class WorkingAreaServiceTest extends GhaServiceTest {
 		entity = service.save(entity);
 
 		Assert.assertNotNull(entity);
-		// TODO El método find(workingArea) siempre devuelve NULL (línea 50 de
-		// WorkingAreaService)
-		// Assert.assertEquals(1, service.find(entity).size());
+		Assert.assertEquals(1, service.find(entity).size());
 		System.out.println("BEFORE " + entity.getId() + " " + entity.getName()
 				+ "\nAFTER " + service.find(entity.getId()).getId() + " "
 				+ service.find(entity.getId()).getName());
