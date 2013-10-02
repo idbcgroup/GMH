@@ -1,31 +1,33 @@
 package org.fourgeeks.gha.webclient.client.maintenanceactivity;
 
-import org.fourgeeks.gha.domain.gmh.Eia;
-import org.fourgeeks.gha.domain.gmh.EiaType;
+import java.util.LinkedList;
+import java.util.List;
+
+import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATab;
-import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
-import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class MaintenanceActivityTab extends GHATab implements EIATypeSelectionListener,
-		EIASelectionListener {
+public class MaintenanceActivityTab extends GHATab implements MaintenanceActivitySelectionListener, MaintenanceActivitySelectionProducer {
 
 	public static final String ID = "mact";
 	private static final String TITLE = "Actividades De Mant.";
 	private MaintenanceActivityTopSection topSection;
 	private MaintenanceActivityInternalTabset internalTabset;
-
-	private EiaType eiaType;
+	List <MaintenanceActivitySelectionListener> listeners;
+	
+	private MaintenanceActivity activity;
+	
+	{
+		listeners = new LinkedList<MaintenanceActivitySelectionListener>();
+	}
 
 	public MaintenanceActivityTab() {
 		super();
 		getHeader().setTitle(TITLE);
 
-		topSection = new MaintenanceActivityTopSection(this);
-		topSection.AddEIATypeSelectionListener(this);
-		
+		topSection = new MaintenanceActivityTopSection(this);		
 		internalTabset = new MaintenanceActivityInternalTabset(this);
 
 		// Creacion de la tab de EIA
@@ -42,7 +44,7 @@ public class MaintenanceActivityTab extends GHATab implements EIATypeSelectionLi
 
 	@Override
 	protected void onDraw() {
-		if (eiaType == null)
+		if(activity == null)
 			topSection.search();
 	}
 
@@ -51,19 +53,32 @@ public class MaintenanceActivityTab extends GHATab implements EIATypeSelectionLi
 		return ID;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionProducer#addMaintenanceActivitySelectionListener(org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionListener)
+	 */
 	@Override
-	public void select(Eia eia) {
-		topSection.select(eia);
-		internalTabset.select(eia);
+	public void addMaintenanceActivitySelectionListener(
+			MaintenanceActivitySelectionListener maintenanceActivitySelectionListener) {
+		listeners.add(maintenanceActivitySelectionListener);
 	}
 
 	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener#select(org.fourgeeks.gha.domain.gmh.EiaType)
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionProducer#removeMaintenanceActivitySelectionListener(org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionListener)
 	 */
 	@Override
-	public void select(EiaType eiaType) {
-		this.eiaType = eiaType;
-		internalTabset.select(eiaType);
+	public void removeMaintenanceActivitySelectionListener(
+			MaintenanceActivitySelectionListener maintenanceActivitySelectionListener) {
+		listeners.remove(maintenanceActivitySelectionListener);
+		
 	}
 
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionListener#select(org.fourgeeks.gha.domain.gmh.MaintenanceActivity)
+	 */
+	@Override
+	public void select(MaintenanceActivity maintenanceActivity) {
+		for(MaintenanceActivitySelectionListener listener : listeners)
+			listener.select(maintenanceActivity);
+	}
+	
 }

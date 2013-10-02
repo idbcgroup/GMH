@@ -1,5 +1,8 @@
 package org.fourgeeks.gha.webclient.client.user.information;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
@@ -7,6 +10,7 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.user.UserForm;
 import org.fourgeeks.gha.webclient.client.user.UserSelectionListener;
+import org.fourgeeks.gha.webclient.client.user.UserSelectionProducer;
 import org.fourgeeks.gha.webclient.client.user.UserTab;
 
 import com.smartgwt.client.types.Alignment;
@@ -20,17 +24,17 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class UserInformationFormPanel extends VLayout implements GHAClosable,
-		GHAHideable, UserSelectionListener {
+		GHAHideable, UserSelectionProducer, UserSelectionListener {
 
-	private UserTab tab;
 	private UserForm userForm;
+	private List<UserSelectionListener> listeners;
 	
-	private SSOUser ssoUser, originalSSOUser;
+	private SSOUser originalSSOUser;
 
 	{
 		userForm = new UserForm();
+		listeners = new LinkedList<UserSelectionListener>();
 		originalSSOUser = null;
-		ssoUser = null;
 	}
 
 	/**
@@ -38,8 +42,6 @@ public class UserInformationFormPanel extends VLayout implements GHAClosable,
 	 */
 	public UserInformationFormPanel(UserTab tab) {
 		activateForm(false);
-		this.tab = tab;
-
 		tab.addGHAClosableHandler(this);
 
 		setWidth100();
@@ -78,6 +80,7 @@ public class UserInformationFormPanel extends VLayout implements GHAClosable,
 
 	protected void undo() {
 		select(this.originalSSOUser);
+//		save();
 	}
 
 	private void save() {
@@ -93,6 +96,12 @@ public class UserInformationFormPanel extends VLayout implements GHAClosable,
 	public void hide() {
 
 	}
+	
+	public void setSSOUser(SSOUser ssoUser){
+		this.originalSSOUser = ssoUser;
+		userForm.setSSOUser(ssoUser);
+		userForm.activateForm(true);
+	}
 
 	//Producer/Consumer stuff
 	
@@ -101,9 +110,25 @@ public class UserInformationFormPanel extends VLayout implements GHAClosable,
 	 */
 	@Override
 	public void select(SSOUser ssoUser) {
-		//puedo venir del tab o del form
-		userForm.setSSOUser(ssoUser);
-		activateForm(true);
-		this.originalSSOUser = this.ssoUser = ssoUser;
+		for(UserSelectionListener listener : listeners)
+			listener.select(ssoUser);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.webclient.client.user.UserSelectionProducer#addUserSelectionListener(org.fourgeeks.gha.webclient.client.user.UserSelectionListener)
+	 */
+	@Override
+	public void addUserSelectionListener(
+			UserSelectionListener userSelectionListener) {
+		listeners.add(userSelectionListener);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.webclient.client.user.UserSelectionProducer#removeUserSelectionListener(org.fourgeeks.gha.webclient.client.user.UserSelectionListener)
+	 */
+	@Override
+	public void removeUserSelectionListener(
+			UserSelectionListener userSelectionListener) {
+		listeners.remove(userSelectionListener);
 	}
 }

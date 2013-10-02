@@ -1,8 +1,6 @@
 package org.fourgeeks.gha.webclient.client.maintenanceprotocol;
 
-import java.util.List;
-
-import org.fourgeeks.gha.domain.gmh.Eia;
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
@@ -10,8 +8,6 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATabSet;
-import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
-import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
@@ -25,17 +21,15 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class MaintenanceProtocolTopSection extends HLayout
-		implements EIASelectionListener, GHAClosable, ResizeHandler {
+		implements MaintenanceProtocolSelectionListener, GHAClosable, ResizeHandler {
 
 	private final MaintenanceProtocolTab maintenanceProtocolTab;
-	private List<EIASelectionListener> selectionListeners;
 	private MaintenanceProtocolSearchForm maintenanceProtocolSearchForm;
-	private GHATextItem codeItem, nameItem, descriptionItem;
+	private GHATextItem nameItem, descriptionItem;
 		
 	{
 		maintenanceProtocolSearchForm = new MaintenanceProtocolSearchForm();
 		
-		codeItem = new GHATextItem("Código", false);
 		nameItem = new GHATextItem("Nombre", false);
 		descriptionItem = new GHATextItem("Descripcion",420, false);
 		descriptionItem.setColSpan(4);
@@ -48,7 +42,10 @@ public class MaintenanceProtocolTopSection extends HLayout
 		
 		tab.addGHAClosableHandler(this);
 		maintenanceProtocolTab = tab;
-		maintenanceProtocolSearchForm.addEIASelectionListener(maintenanceProtocolTab);
+		
+		//register tab as search listener, and topsection as listener
+		maintenanceProtocolSearchForm.addMaintenanceProtocolSelectionListener(tab);
+		tab.addMaintenanceProtocolSelectionListener(this);
 		
 		maintenanceProtocolTab.addGHAHideableHandler(new GHAHideable() {
 			
@@ -75,14 +72,13 @@ public class MaintenanceProtocolTopSection extends HLayout
 		//form.setWidth("100px");
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(4);
-		form.setItems(codeItem,nameItem,new GHASpacerItem(2),
+		form.setItems(nameItem,new GHASpacerItem(2),
 					  descriptionItem);
 		
 		VLayout sideButtons = GHAUiHelper.createBar(
 				new GHAImgButton("../resources/icons/search.png", new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						// TODO Auto-generated method stub
 						search();
 					}
 				}),
@@ -103,12 +99,6 @@ public class MaintenanceProtocolTopSection extends HLayout
 		maintenanceProtocolSearchForm.open();
 	}
 
-
-
-	public void AddEIATypeSelectionListener(EIATypeSelectionListener selecionListener) {
-		//selectionListeners.add(selecionListener);
-	}
-
 	@Override
 	public void close() {
 		maintenanceProtocolSearchForm.close();
@@ -119,10 +109,12 @@ public class MaintenanceProtocolTopSection extends HLayout
 		setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT + "px");		
 	}
 
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionListener#select(org.fourgeeks.gha.domain.gmh.MaintenanceProtocol)
+	 */
 	@Override
-	public void select(Eia eia) {
-		// TODO Auto-generated method stub
-		//for (EIASelectionListener listener : selectionListeners)
-		//	listener.select(eia);
+	public void select(MaintenanceProtocol maintenanceProtocol) {
+		nameItem.setValue(maintenanceProtocol.getName());
+		descriptionItem.setValue(maintenanceProtocol.getDescription());
 	}
 }

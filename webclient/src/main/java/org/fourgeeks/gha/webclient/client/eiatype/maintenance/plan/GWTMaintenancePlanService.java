@@ -41,6 +41,12 @@ public interface GWTMaintenancePlanService extends RemoteService{
 			throws GHAEJBException;
 
 	/**
+	 * @param maintenancePlan
+	 * @return the list of maintenance plans like the parameter
+	 * @throws GHAEJBException 
+	 */
+	public List<MaintenancePlan> find(MaintenancePlan maintenancePlan) throws GHAEJBException;
+	/**
 	 * @param Id
 	 * @return the EiaTypeMaintenancePlan by id
 	 * @throws GHAEJBException

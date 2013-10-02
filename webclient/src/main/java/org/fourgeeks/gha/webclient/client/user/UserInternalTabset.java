@@ -31,7 +31,7 @@ public class UserInternalTabset extends TabSet implements ResizeHandler {
 		setHeight(GHAUiHelper.getBottomSectionHeight());
 
 		GHAUiHelper.addGHAResizeHandler(this);
-
+		
 		userInformationSubTab = new UserInformationSubTab(userTab);
 		// userCredentialsSubTab = new UserCredentialsSubTab(userTab);
 		userLoginLogSubTab = new UserLoginLogSubTab(userTab);

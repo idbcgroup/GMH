@@ -40,6 +40,13 @@ public interface MaintenancePlanServiceRemote {
 	 */
 	public List<MaintenancePlan> findByEiaType(EiaType eiaType, int offset, int size)
 			throws GHAEJBException;
+	
+	/**
+	 * @param maintenancePlan
+	 * @return the list of maintenance plans like the parameter
+	 * @throws GHAEJBException 
+	 */
+	public List<MaintenancePlan> find(MaintenancePlan maintenancePlan) throws GHAEJBException;
 
 	/**
 	 * @param Id
