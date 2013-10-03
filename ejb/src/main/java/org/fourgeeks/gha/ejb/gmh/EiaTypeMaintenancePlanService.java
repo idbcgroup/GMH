@@ -76,7 +76,7 @@ public class EiaTypeMaintenancePlanService implements
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retriving all EiaTypeMaintenancePlans by eiatype", ex);
 			throw new GHAEJBException(
-					"Error obteniendo todos los EiaTypeMaintenancePlans por plan de eiatype");
+					"Error obteniendo todos los EiaTypeMaintenancePlans por eiatype");
 		}
 	}
 

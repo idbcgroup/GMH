@@ -12,22 +12,43 @@ import org.fourgeeks.gha.webclient.client.UI.grids.GhaGrid;
  *
  */
 public class EiaTypeMaintenancePlanGrid extends GhaGrid<EiaTypeMaintenancePlan> {
-
+	final GHAGridField codeGridField;
+	final GHAGridField nameGridField;
+	final GHAGridField brandGridField;
+	final GHAGridField modelGridField;
+	final GHAGridField manufacturerGridField;
+	
+	final GHAGridField descriptionGridField;
+	final GHAGridField freqGridField;
+	final GHAGridField periodOfTimeGridField;
+	
+	
 	/**
 	 * 
 	 */
 	public EiaTypeMaintenancePlanGrid() {
-		setEmptyMessage("No existen tipos de equipo para mostrar");
 		
-		GHAGridField codeGridField = new GHAGridField("code", "Codigo");
-		GHAGridField nameGridField = new GHAGridField("name", "Nombre");
-		GHAGridField brandGridField = new GHAGridField("brand", "Marca");
-		GHAGridField modelGridField = new GHAGridField("model", "Modelo");
-		GHAGridField makeGridField = new GHAGridField("manufacturer",
+		
+		codeGridField = new GHAGridField("code", "Codigo");
+		nameGridField = new GHAGridField("name", "Nombre");
+		brandGridField = new GHAGridField("brand", "Marca");
+		modelGridField = new GHAGridField("model", "Modelo");
+		manufacturerGridField = new GHAGridField("manufacturer",
 				"Fabricante");
-
-		setFields(codeGridField, nameGridField, brandGridField,
-				modelGridField, makeGridField);
+		
+		descriptionGridField = new GHAGridField("desc", "Descripción");
+		freqGridField = new GHAGridField("freq", "Frecuencia");
+		periodOfTimeGridField = new GHAGridField("pot", "Periodo de Tiempo");
 	}
 	
+	public void setEiaTypeFields(){
+		setEmptyMessage("No existen tipos de equipo para mostrar");
+		setFields(codeGridField, nameGridField, brandGridField,
+				modelGridField, manufacturerGridField);
+	}
+	
+	public void setMaintenancePlanFields(){
+		setEmptyMessage("No existen Planes de Mantenimiento para mostrar.");
+		setFields(nameGridField, descriptionGridField, freqGridField, periodOfTimeGridField);
+	}
 }

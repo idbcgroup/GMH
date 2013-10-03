@@ -18,7 +18,8 @@ import org.fourgeeks.gha.domain.AbstractEntity;
 
 @Entity
 @NamedQueries(value = { 
-		@NamedQuery(name = "EiaTypeMaintenancePlan.findByMaintenancePlan", query = "SELECT e from EiaTypeMaintenancePlan e WHERE e.maintenancePlan = :maintenancePlan ORDER BY e.id")})
+		@NamedQuery(name = "EiaTypeMaintenancePlan.findByMaintenancePlan", query = "SELECT e from EiaTypeMaintenancePlan e WHERE e.maintenancePlan = :maintenancePlan ORDER BY e.id"),
+		@NamedQuery(name = "EiaTypeMaintenancePlan.findByEiaType", query = "SELECT e from EiaTypeMaintenancePlan e WHERE e.eiaType = :eiaType ORDER BY e.id")})
 public class EiaTypeMaintenancePlan extends AbstractEntity {
 
 	/**

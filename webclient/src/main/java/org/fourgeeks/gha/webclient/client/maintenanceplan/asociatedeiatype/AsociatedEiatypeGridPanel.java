@@ -33,6 +33,8 @@ public class AsociatedEiatypeGridPanel extends VLayout implements GHAClosable, G
 	
 	{
 		grid = new EiaTypeMaintenancePlanGrid();
+		grid.setEiaTypeFields();
+		
 		searchForm = new EIATypeSearchForm();
 	}
 
@@ -84,15 +86,12 @@ public class AsociatedEiatypeGridPanel extends VLayout implements GHAClosable, G
 		this.searchForm.addEiaTypeSelectionListener(this);
 	}
 
-	/**
-	 * @param eiaType
-	 */
 	private void loadData() {
 		EiaTypeMaintenancePlanModel.findByMaintenancePlan(this.maintenancePlan, new GHAAsyncCallback<List<EiaTypeMaintenancePlan>>() {
 
 			@Override
 			public void onSuccess(List<EiaTypeMaintenancePlan> result) {
-				ListGridRecord array[] = EiaTypeMaintenancePlanUtil.toGridRecors(result).toArray(new EiaTypeMaintenancePlanRecord[]{});
+				ListGridRecord array[] = EiaTypeMaintenancePlanUtil.toEiaTypeGridRecords(result).toArray(new EiaTypeMaintenancePlanRecord[]{});
 				grid.setData(array);
 			}
 		});
