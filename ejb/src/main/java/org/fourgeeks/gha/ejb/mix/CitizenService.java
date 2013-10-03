@@ -15,8 +15,8 @@ import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.mix.Citizen;
 
 /**
- * @author emiliot
- *
+ * @author emiliot, vivi.torresg
+ * 
  */
 
 @Stateless(name = "mix.CitizenService")
@@ -26,7 +26,10 @@ public class CitizenService implements CitizenServiceRemote {
 
 	private final static Logger logger = Logger.getLogger(CitizenService.class
 			.getName());
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.ejb.mix.CitizenServiceRemote#delete(long)
 	 */
 	@Override
@@ -41,16 +44,28 @@ public class CitizenService implements CitizenServiceRemote {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.mix.CitizenServiceRemote#find(org.fourgeeks.gha.domain.mix.Citizen)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.mix.CitizenServiceRemote#find(org.fourgeeks.gha
+	 * .domain.mix.Citizen)
 	 */
 	@Override
 	public List<Citizen> find(Citizen citizen) throws EJBException {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			return em.createNamedQuery("Citizen.findByCitizen", Citizen.class)
+					.setParameter("citizen", citizen).getResultList();
+		} catch (Exception ex) {
+			logger.log(Level.SEVERE, "Error finding Citizen by citizen", ex);
+			throw new EJBException("Error obteniendo Citizen por citizen"
+					+ ex.getCause().getMessage());
+		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.ejb.mix.CitizenServiceRemote#find(long)
 	 */
 	@Override
@@ -64,7 +79,9 @@ public class CitizenService implements CitizenServiceRemote {
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.ejb.mix.CitizenServiceRemote#getAll()
 	 */
 	@Override
@@ -79,8 +96,12 @@ public class CitizenService implements CitizenServiceRemote {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.mix.CitizenServiceRemote#save(org.fourgeeks.gha.domain.mix.Citizen)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.mix.CitizenServiceRemote#save(org.fourgeeks.gha
+	 * .domain.mix.Citizen)
 	 */
 	@Override
 	public Citizen save(Citizen citizen) throws EJBException {
@@ -95,8 +116,12 @@ public class CitizenService implements CitizenServiceRemote {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.mix.CitizenServiceRemote#update(org.fourgeeks.gha.domain.mix.Citizen)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.mix.CitizenServiceRemote#update(org.fourgeeks.gha
+	 * .domain.mix.Citizen)
 	 */
 	@Override
 	public Citizen update(Citizen citizen) throws EJBException {
@@ -105,8 +130,7 @@ public class CitizenService implements CitizenServiceRemote {
 			em.flush();
 			return res;
 		} catch (Exception e) {
-			logger.log(Level.INFO,
-					"ERROR: unable to update Citizen ", e);
+			logger.log(Level.INFO, "ERROR: unable to update Citizen ", e);
 			throw new EJBException("ERROR: no se puede actualizar el Citizen "
 					+ e.getCause().getMessage());
 		}
