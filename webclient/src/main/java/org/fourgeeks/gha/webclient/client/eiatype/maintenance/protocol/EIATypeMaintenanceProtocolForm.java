@@ -19,11 +19,11 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class MaintenanceProtocolForm extends GHASlideInWindow implements GHAClosable,GHAHideable, ResizeHandler{
+public class EIATypeMaintenanceProtocolForm extends GHASlideInWindow implements GHAClosable,GHAHideable, ResizeHandler{
 
 	private MaintenanceProtocolGrid maintenanceProtocolGrid = new MaintenanceProtocolGrid();
 		
-	public MaintenanceProtocolForm() {
+	public EIATypeMaintenanceProtocolForm() {
 		super(1);
 		GHAUiHelper.addGHAResizeHandler(this);
 		setWidth100();

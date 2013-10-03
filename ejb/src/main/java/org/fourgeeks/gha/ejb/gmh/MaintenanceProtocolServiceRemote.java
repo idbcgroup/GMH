@@ -31,7 +31,7 @@ public interface MaintenanceProtocolServiceRemote {
 	 *         plan
 	 * @throws GHAEJBException
 	 */
-	public List<MaintenanceProtocol> findByEiaTypeMaintenancePlan(
+	public List<MaintenanceProtocol> findByMaintenancePlan(
 			MaintenancePlan maintenancePlan) throws GHAEJBException;
 
 	/**
@@ -42,7 +42,7 @@ public interface MaintenanceProtocolServiceRemote {
 	 *         plan starting at offset
 	 * @throws GHAEJBException
 	 */
-	public List<MaintenanceProtocol> findByEiaTypeMaintenancePlan(
+	public List<MaintenanceProtocol> findByMaintenancePlan(
 			MaintenancePlan maintenancePlan, int offset, int size)
 			throws GHAEJBException;
 
@@ -52,6 +52,13 @@ public interface MaintenanceProtocolServiceRemote {
 	 * @throws GHAEJBException
 	 */
 	public MaintenanceProtocol find(long Id) throws GHAEJBException;
+	
+	/**
+	 * @param maintenanceProtocol
+	 * @return the list of Protocols that are alike the parameter
+	 * @throws GHAEJBException
+	 */
+	public List<MaintenanceProtocol> find(MaintenanceProtocol maintenanceProtocol)throws GHAEJBException;
 
 	/**
 	 * @return the list with all EiaTypeMaintenanceProtocol Objects

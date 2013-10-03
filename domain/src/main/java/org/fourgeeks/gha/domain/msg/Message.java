@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.fourgeeks.gha.domain.msg;
 
 import javax.persistence.Column;
@@ -12,12 +9,12 @@ import org.fourgeeks.gha.domain.AbstractCodeEntity;
 import org.fourgeeks.gha.domain.enu.LanguageEnum;
 
 /**
- * @author emiliot
+ * @author alacret
  * 
  */
 @Entity
-@Table(name = "Message", schema = "GHAMsg", uniqueConstraints = @UniqueConstraint(columnNames = {
-		"code", "language" }))
+@Table(schema = "msg", uniqueConstraints = @UniqueConstraint(columnNames = {
+		"language", "code" }))
 public class Message extends AbstractCodeEntity {
 
 	/**
@@ -27,61 +24,46 @@ public class Message extends AbstractCodeEntity {
 
 	@Column(nullable = false)
 	private LanguageEnum language;
-	@Column(nullable = false)
-	private String message;
+
+	private String text;
 
 	/**
-	 * 
+	 * @param language
+	 * @param code
+	 * @param text
+	 */
+	public Message(LanguageEnum language, String code, String text) {
+		super();
+		this.language = language;
+		this.code = code;
+		this.text = text;
+	}
+
+	/**
 	 */
 	public Message() {
-	}
-
-	/**
-	 * @param code
-	 * 
-	 */
-	public Message(String code) {
-		this.code = code;
-	}
-
-	/**
-	 * @param code
-	 * @param languageEnum
-	 * @param message
-	 * 
-	 */
-	public Message(String code, LanguageEnum languageEnum, String message) {
-		this.code = code;
-		this.language = languageEnum;
-		this.message = message;
-	}
-
-	/**
-	 * @return the languague of the message
-	 */
-	public LanguageEnum getLanguage() {
-		return language;
+		super();
 	}
 
 	/**
 	 * @param language
+	 * @param code
+	 * @param text
 	 */
-	public void setLanguage(LanguageEnum language) {
-		this.language = language;
+	public Message(String code) {
+		super();
+		this.code = code;
+	}
+
+	@Override
+	public String toString() {
+		return this.getText();
 	}
 
 	/**
-	 * @return the message
+	 * @return the text
 	 */
-	public String getMessage() {
-		return message;
+	public String getText() {
+		return this.text;
 	}
-
-	/**
-	 * @param message
-	 */
-	public void setMessage(String message) {
-		this.message = message;
-	}
-
 }

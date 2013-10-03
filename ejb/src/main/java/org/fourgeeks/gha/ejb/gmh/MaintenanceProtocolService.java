@@ -10,6 +10,12 @@ import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.ParameterExpression;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
@@ -47,10 +53,10 @@ public class MaintenanceProtocolService implements
 	 * @see org.fourgeeks.gha.ejb.gmh.MaintenanceProtocolServiceRemote#findByMaintenancePlan(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
 	 */
 	@Override
-	public List<MaintenanceProtocol> findByEiaTypeMaintenancePlan(
+	public List<MaintenanceProtocol> findByMaintenancePlan(
 			MaintenancePlan maintenancePlan) throws GHAEJBException {
 		try {
-			return em.createNamedQuery("MaintenanceProtocol.findByEiaTypeMaintenancePlan", MaintenanceProtocol.class)
+			return em.createNamedQuery("MaintenanceProtocol.findByMaintenancePlan", MaintenanceProtocol.class)
 					.setParameter("maintenancePlan", maintenancePlan).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding MaintenanceProtocol by MaintenancePlan", e);
@@ -60,20 +66,81 @@ public class MaintenanceProtocolService implements
 	}
 
 	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.MaintenanceProtocolServiceRemote#findByEiaTypeMaintenancePlan(org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan, int, int)
+	 * @see org.fourgeeks.gha.ejb.gmh.MaintenanceProtocolServiceRemote#findByMaintenancePlan(org.fourgeeks.gha.domain.gmh.MaintenancePlan, int, int)
 	 */
 	@Override
-	public List<MaintenanceProtocol> findByEiaTypeMaintenancePlan(
+	public List<MaintenanceProtocol> findByMaintenancePlan(
 			MaintenancePlan maintenancePlan, int offset, int size)
 			throws GHAEJBException {
 		try {
-			return em.createNamedQuery("MaintenanceProtocol.findByEiaTypeMaintenancePlan", MaintenanceProtocol.class)
+			return em.createNamedQuery("MaintenanceProtocol.findByMaintenancePlan", MaintenanceProtocol.class)
 					.setParameter("maintenancePlan", maintenancePlan).setFirstResult(offset).setMaxResults(size).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding MaintenanceProtocol by MaintenancePlan", e);
 			throw new GHAEJBException("Error buscando MaintenanceProtocol por MaintenanceProtocol"
 					+ e.getCause().getMessage());
 		}
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.ejb.gmh.MaintenanceProtocolServiceRemote#find(org.fourgeeks.gha.domain.gmh.MaintenanceProtocol)
+	 */
+	@Override
+	public List<MaintenanceProtocol> find(
+			MaintenanceProtocol maintenanceProtocol) throws GHAEJBException {
+		try {
+			CriteriaBuilder cb = em.getCriteriaBuilder();
+			CriteriaQuery<MaintenanceProtocol> cQuery = cb.createQuery(MaintenanceProtocol.class);
+			Root<MaintenanceProtocol> root = cQuery.from(MaintenanceProtocol.class);
+
+			cQuery.select(root);
+			cQuery.orderBy(cb.asc(root.<String> get("name")));
+			Predicate criteria = buildFilters(maintenanceProtocol, cb, root);
+
+			if (criteria.getExpressions().size() == 0)
+				return getAll();
+
+			cQuery.where(criteria);
+			TypedQuery<MaintenanceProtocol> q = em.createQuery(cQuery);
+
+			if (maintenanceProtocol.getName() != null)
+				q.setParameter("name", "%" + maintenanceProtocol.getName().toLowerCase() + "%");
+			if(maintenanceProtocol.getDescription() != null)
+				q.setParameter("description", "%" + maintenanceProtocol.getDescription().toLowerCase() + "%");
+
+			return q.getResultList();
+
+		} catch (Exception e) {
+			logger.log(Level.SEVERE,
+					"Error obteniendo los maintenancePlan por maintenancePlan", e);
+			throw new GHAEJBException(
+					"Error obteniendo los maintenancePlan por maintenancePlan "
+							+ e.getCause().getMessage());
+		}
+	}
+
+	/**
+	 * @param maintenanceProtocol
+	 * @param cb
+	 * @param root
+	 * @return
+	 */
+	private Predicate buildFilters(MaintenanceProtocol maintenanceProtocol,
+			CriteriaBuilder cb, Root<MaintenanceProtocol> root) {
+		Predicate predicate = cb.conjunction();
+		if (maintenanceProtocol.getName() != null) {
+			ParameterExpression<String> p = cb.parameter(String.class,
+					"name");
+			predicate = cb.and(predicate,
+					cb.like(cb.lower(root.<String> get("name")), p));
+		}
+		if (maintenanceProtocol.getDescription() != null) {
+			ParameterExpression<String> p = cb.parameter(String.class,
+					"description");
+			predicate = cb.and(predicate,
+					cb.like(cb.lower(root.<String> get("description")), p));
+		}
+		return predicate;
 	}
 
 	/* (non-Javadoc)

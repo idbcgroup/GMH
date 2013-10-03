@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -48,6 +49,13 @@ public interface GWTEiaTypeService extends RemoteService {
 	 */
 	public List<EiaType> find(EiaType eiaType, int offset, int size)
 			throws GHAEJBException;
+	
+	/**
+	 * @param maintenancePlan
+	 * @return a list with the eiatypes associated to this maintenanceplan
+	 * @throws GHAEJBException
+	 */
+	public List<EiaType> findByMaintenancePlan(MaintenancePlan maintenancePlan)throws GHAEJBException;
 
 	/**
 	 * @param EiaType
