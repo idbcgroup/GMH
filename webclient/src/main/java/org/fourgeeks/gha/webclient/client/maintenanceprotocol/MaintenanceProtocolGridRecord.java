@@ -10,18 +10,18 @@ import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
  * @author jfuentes
  *
  */
-public class MaintenanceProtocolRecord extends GHAGridRecord<MaintenanceProtocol> {
+public class MaintenanceProtocolGridRecord extends GHAGridRecord<MaintenanceProtocol> {
 	private MaintenanceProtocol maintenanceProtocol;
-	
+
 
 	/**
 	 * @param maintenanceProtocol
 	 */
-	public MaintenanceProtocolRecord(MaintenanceProtocol maintenanceProtocol) {
+	public MaintenanceProtocolGridRecord(MaintenanceProtocol maintenanceProtocol) {
 		this.maintenanceProtocol = maintenanceProtocol;
 		setAttribute("id", this.maintenanceProtocol.getId());
 		setAttribute("name", this.maintenanceProtocol.getName());
-		setAttribute("description", this.maintenanceProtocol.getDescription());
+		setAttribute("desc", this.maintenanceProtocol.getDescription());
 	}
 
 

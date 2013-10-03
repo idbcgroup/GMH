@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
+import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
@@ -24,22 +25,24 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class MaintenanceActivitySearchForm extends GHASlideInWindow implements MaintenanceActivitySelectionListener, MaintenanceActivitySelectionProducer {
+public class MaintenanceActivitySearchForm extends GHASlideInWindow implements
+		MaintenanceActivitySelectionListener,
+		MaintenanceActivitySelectionProducer {
 
 	private List<MaintenanceActivitySelectionListener> listeners;
 	private MaintenanceActivityGrid grid;
 	private GHATextItem codeItem, nameItem, descriptionItem;
-	
+
 	private MaintenanceActivityAddForm addForm;
 
 	{
 		listeners = new LinkedList<MaintenanceActivitySelectionListener>();
 		nameItem = new GHATextItem("Nombre");
-		descriptionItem = new GHATextItem("Descripción",420);
+		descriptionItem = new GHATextItem("Descripción", 420);
 		descriptionItem.setColSpan(4);
-		
+
 		grid = new MaintenanceActivityGrid();
-		
+
 		addForm = new MaintenanceActivityAddForm();
 	}
 
@@ -48,17 +51,17 @@ public class MaintenanceActivitySearchForm extends GHASlideInWindow implements M
 		setTop(110);
 		setHeight(GHAUiHelper.getTabHeight() + "px");
 
-		Label title = new Label("<h3>Busqueda de Actividades de Mantenimiento</h3>");
+		Label title = new Label(
+				"<h3>Busqueda de Actividades de Mantenimiento</h3>");
 		title.setWidth(400);
 		title.setHeight("35px");
 		addMember(title);
-		
+
 		final DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(4);
 
-		form.setItems(nameItem, new GHASpacerItem(2),
-					  descriptionItem);
+		form.setItems(nameItem, new GHASpacerItem(2), descriptionItem);
 
 		// Event Handlers
 		ClickHandler searchClickHandler = new ClickHandler() {
@@ -77,21 +80,21 @@ public class MaintenanceActivitySearchForm extends GHASlideInWindow implements M
 				}
 			}
 		};
-		
+
 		nameItem.addKeyUpHandler(searchKeyUpHandler);
 		descriptionItem.addKeyUpHandler(searchKeyUpHandler);
-		
+
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
 				"../resources/icons/search.png", searchClickHandler),
-				new GHAImgButton("../resources/icons/clean.png",new ClickHandler() {
-					
-					@Override
-					public void onClick(ClickEvent event) {
-						form.clearValues();
-						grid.setData(new ListGridRecord[0]);
-					}
-				}),
-				new GHAImgButton("../resources/icons/cancel.png",
+				new GHAImgButton("../resources/icons/clean.png",
+						new ClickHandler() {
+
+							@Override
+							public void onClick(ClickEvent event) {
+								form.clearValues();
+								grid.setData(new ListGridRecord[0]);
+							}
+						}), new GHAImgButton("../resources/icons/cancel.png",
 						new ClickHandler() {
 
 							@Override
@@ -106,9 +109,10 @@ public class MaintenanceActivitySearchForm extends GHASlideInWindow implements M
 		formLayout.setDefaultLayoutAlign(VerticalAlignment.CENTER);
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
 
-		addMembers(title,
-				   formLayout,
-				   GHAUiHelper.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
+		addMembers(title, formLayout,
+				GHAUiHelper
+						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
+								+ "px"));
 
 		HLayout gridLayout = new HLayout();
 		gridLayout.setPadding(10);
@@ -130,22 +134,36 @@ public class MaintenanceActivitySearchForm extends GHASlideInWindow implements M
 				}));
 
 		gridLayout.addMembers(grid, sideGridButtons);
-
 		addMember(gridLayout);
-				
-		fillExtras();
-	}
 
-	private void fillExtras() {
-		// TODO:
+		// register as listener to the addform producer
+		addForm.addMaintenanceActivitySelectionListener(this);
 	}
 
 	private void search() {
-		//TODO
+		MaintenanceActivity maintenanceActivity = new MaintenanceActivity();
+		if (nameItem.getValue() != null)
+			maintenanceActivity.setName(nameItem.getValueAsString());
+		if (descriptionItem.getValue() != null)
+			maintenanceActivity.setDescription(descriptionItem
+					.getValueAsString());
+		search(maintenanceActivity);
 	}
 
 	private void search(final MaintenanceActivity activity) {
-		//TODO
+		MaintenanceActivityModel.find(activity,
+				new GHAAsyncCallback<List<MaintenanceActivity>>() {
+
+					@Override
+					public void onSuccess(List<MaintenanceActivity> result) {
+						ListGridRecord array[] = MaintenanceActivityUtil
+								.toGridRecords(result).toArray(
+										new MaintenanceActivityGridRecord[] {});
+						grid.setData(array);
+
+						// TODO: seleccionar un elemento si coincide exactamente
+					}
+				});
 	}
 
 	@Override
@@ -163,18 +181,30 @@ public class MaintenanceActivitySearchForm extends GHASlideInWindow implements M
 		setHeight(GHAUiHelper.getTabHeight() + "px");
 	}
 
-	//Producer/Consumer stuff
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionProducer#addMaintenanceActivitySelectionListener(org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionListener)
+	// Producer/Consumer stuff
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceactivity.
+	 * MaintenanceActivitySelectionProducer
+	 * #addMaintenanceActivitySelectionListener
+	 * (org.fourgeeks.gha.webclient.client
+	 * .maintenanceactivity.MaintenanceActivitySelectionListener)
 	 */
 	@Override
 	public void addMaintenanceActivitySelectionListener(
 			MaintenanceActivitySelectionListener maintenanceActivitySelectionListener) {
-		listeners.add(maintenanceActivitySelectionListener);	
+		listeners.add(maintenanceActivitySelectionListener);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionProducer#removeMaintenanceActivitySelectionListener(org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionListener)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceactivity.
+	 * MaintenanceActivitySelectionProducer
+	 * #removeMaintenanceActivitySelectionListener
+	 * (org.fourgeeks.gha.webclient.client
+	 * .maintenanceactivity.MaintenanceActivitySelectionListener)
 	 */
 	@Override
 	public void removeMaintenanceActivitySelectionListener(
@@ -182,12 +212,20 @@ public class MaintenanceActivitySearchForm extends GHASlideInWindow implements M
 		listeners.remove(maintenanceActivitySelectionListener);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionListener#select(org.fourgeeks.gha.domain.gmh.MaintenanceActivity)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceactivity.
+	 * MaintenanceActivitySelectionListener
+	 * #select(org.fourgeeks.gha.domain.gmh.MaintenanceActivity)
 	 */
 	@Override
 	public void select(MaintenanceActivity maintenanceActivity) {
-		// TODO Auto-generated method stub
+		MaintenanceActivityGridRecord gridRecord = MaintenanceActivityUtil
+				.toGridRecord(maintenanceActivity);
+		ListGridRecord array[] = { gridRecord };
+		grid.setData(array);
+		grid.selectRecord(gridRecord);
 	}
 
 }

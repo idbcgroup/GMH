@@ -29,10 +29,10 @@ public class MaintenanceProtocolForm extends VLayout implements
 	private GHATextItem nameItem, descriptionItem;
 	private List<MaintenanceProtocolSelectionListener> listeners;
 	private Validator validator;
-	
+
 	/**
-	 * this is used to keep the id of the persistent entity in order to
-	 * update, is only used with that purpose
+	 * this is used to keep the id of the persistent entity in order to update,
+	 * is only used with that purpose
 	 */
 	private MaintenanceProtocol updateProtocol;
 
@@ -41,7 +41,7 @@ public class MaintenanceProtocolForm extends VLayout implements
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		descriptionItem = new GHATextItem("Descripción", 620);
 		descriptionItem.setColSpan(4);
-		
+
 		listeners = new ArrayList<MaintenanceProtocolSelectionListener>();
 		validator = Validation.buildDefaultValidatorFactory().getValidator();
 	}
@@ -59,31 +59,28 @@ public class MaintenanceProtocolForm extends VLayout implements
 
 		mainPanel.addMembers(form, new LayoutSpacer());
 		addMember(mainPanel);
-		fill();
-	}
-
-	private void fill() {
-		//TODO
 	}
 
 	public void cancel() {
 		nameItem.clearValue();
+		descriptionItem.clearValue();
 	}
 
 	public void save() {
 		MaintenanceProtocol maintenanceProtocol = extract(false);
-		
-		//if validation fails
-		if(maintenanceProtocol == null)
+
+		// if validation fails
+		if (maintenanceProtocol == null)
 			return;
-		MaintenanceProtocolModel.save(maintenanceProtocol, new GHAAsyncCallback<MaintenanceProtocol>() {
-			
-			@Override
-			public void onSuccess(MaintenanceProtocol result) {
-				notifyMaintenanceProtocol(result);
-				cancel();
-			}
-		});
+		MaintenanceProtocolModel.save(maintenanceProtocol,
+				new GHAAsyncCallback<MaintenanceProtocol>() {
+
+					@Override
+					public void onSuccess(MaintenanceProtocol result) {
+						notifyMaintenanceProtocol(result);
+						cancel();
+					}
+				});
 	}
 
 	/**
@@ -92,56 +89,59 @@ public class MaintenanceProtocolForm extends VLayout implements
 	 */
 	private MaintenanceProtocol extract(boolean update) {
 		final MaintenanceProtocol maintenanceProtocol = new MaintenanceProtocol();
-		if(update){
+		if (update) {
 			maintenanceProtocol.setId(this.updateProtocol.getId());
 		}
-		
-		if(nameItem.getValue() != null){
+
+		if (nameItem.getValue() != null) {
 			maintenanceProtocol.setName(nameItem.getValueAsString());
 		}
-		if(descriptionItem.getValue() != null){
-			maintenanceProtocol.setDescription(descriptionItem.getValueAsString());
+		if (descriptionItem.getValue() != null) {
+			maintenanceProtocol.setDescription(descriptionItem
+					.getValueAsString());
 		}
-		
-		//TODO: validate
+
+		// TODO: validate
 		return maintenanceProtocol;
 	}
 
 	public void update() {
 		MaintenanceProtocol maintenanceProtocol = extract(true);
-		
-		//if validation fails
-		if(maintenanceProtocol == null)
-			return;
-		
-		MaintenanceProtocolModel.update(maintenanceProtocol, new GHAAsyncCallback<MaintenanceProtocol>() {
 
-			@Override
-			public void onSuccess(MaintenanceProtocol result) {
-				notifyMaintenanceProtocol(result);
-			}
-		
-		});
+		// if validation fails
+		if (maintenanceProtocol == null)
+			return;
+
+		MaintenanceProtocolModel.update(maintenanceProtocol,
+				new GHAAsyncCallback<MaintenanceProtocol>() {
+
+					@Override
+					public void onSuccess(MaintenanceProtocol result) {
+						notifyMaintenanceProtocol(result);
+					}
+
+				});
 	}
 
 	public void activateForm(boolean activate) {
 		nameItem.setDisabled(!activate);
 		descriptionItem.setDisabled(!activate);
 	}
-	
-	public void setMaintenanceProtocol(MaintenanceProtocol maintenanceProtocol){
+
+	public void setMaintenanceProtocol(MaintenanceProtocol maintenanceProtocol) {
 		this.updateProtocol = maintenanceProtocol;
 		nameItem.setValue(maintenanceProtocol.getName());
 		descriptionItem.setValue(maintenanceProtocol.getDescription());
 	}
 
 	// Producer stuff
-	private void notifyMaintenanceProtocol(MaintenanceProtocol maintenanceProtocol){
-		for(MaintenanceProtocolSelectionListener listener : listeners){
+	private void notifyMaintenanceProtocol(
+			MaintenanceProtocol maintenanceProtocol) {
+		for (MaintenanceProtocolSelectionListener listener : listeners) {
 			listener.select(maintenanceProtocol);
 		}
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
