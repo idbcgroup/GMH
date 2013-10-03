@@ -122,6 +122,8 @@ public class MaintenanceActivitySearchForm extends GHASlideInWindow implements
 
 					@Override
 					public void onClick(ClickEvent event) {
+						notifyMaintenanceActivity(((MaintenanceActivityGridRecord) grid
+								.getSelectedRecord()).toEntity());
 						hide();
 					}
 				}), GHAUiHelper.verticalGraySeparator("2px"), new GHAImgButton(
@@ -182,6 +184,13 @@ public class MaintenanceActivitySearchForm extends GHASlideInWindow implements
 	}
 
 	// Producer/Consumer stuff
+	private void notifyMaintenanceActivity(
+			MaintenanceActivity maintenanceActivity) {
+		for (MaintenanceActivitySelectionListener listener : listeners) {
+			listener.select(maintenanceActivity);
+		}
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 

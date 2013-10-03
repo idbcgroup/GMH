@@ -6,7 +6,7 @@ import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivit
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivityTab;
 
 public class MaintenanceActivityInformationSubTab extends GHASubTab implements
-MaintenanceActivitySelectionListener{
+		MaintenanceActivitySelectionListener {
 
 	private MaintenanceActivityInformationFormPanel form;
 
@@ -19,15 +19,15 @@ MaintenanceActivitySelectionListener{
 
 		setPane(form);
 
-		//register to listen for a selected maintenanceactivity
+		// register to listen for a selected maintenanceactivity
 		tab.addMaintenanceActivitySelectionListener(this);
-
+		form.addMaintenanceActivitySelectionListener(tab);
 	}
 
-	//Consumer stuff
+	// Consumer stuff
 	@Override
 	public void select(MaintenanceActivity maintenanceActivity) {
-		form.select(maintenanceActivity);
+		form.setMaintenanceActivity(maintenanceActivity);
 		setDisabled(false);
 	}
 }

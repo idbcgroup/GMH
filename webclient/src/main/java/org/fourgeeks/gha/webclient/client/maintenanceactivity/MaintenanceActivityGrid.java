@@ -10,8 +10,10 @@ public class MaintenanceActivityGrid extends GhaGrid<MaintenanceActivity> {
 		setEmptyMessage("No existen Actividades para mostrar.");
 
 		GHATreeGridField idGridField = new GHATreeGridField("id", "No.");
-		GHATreeGridField nameGridField = new GHATreeGridField("name", "Nombre Actividad");
-		GHATreeGridField descriptionGridField = new GHATreeGridField("description", "Descripción");
+		GHATreeGridField nameGridField = new GHATreeGridField("name",
+				"Nombre Actividad");
+		GHATreeGridField descriptionGridField = new GHATreeGridField("desc",
+				"Descripción");
 
 		setFields(idGridField, nameGridField, descriptionGridField);
 	}
