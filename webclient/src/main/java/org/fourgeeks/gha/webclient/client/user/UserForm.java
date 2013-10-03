@@ -19,6 +19,7 @@ import org.fourgeeks.gha.domain.mix.Citizen;
 import org.fourgeeks.gha.domain.mix.LegalEntity;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHADateItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
@@ -39,17 +40,17 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class UserForm extends VLayout implements UserSelectionProducer {
 
 	private GHATextItem usernameItem, passwordItem, confirmPasswordItem,
-			idItem, firstNameItem, secondNameItem, lastNameItem, primaryEmailItem, alternativeEmailItem,
-			secondLastNameItem, nationalityItem, legalEntityIdentifierItem;
+			idItem, firstNameItem, secondNameItem, lastNameItem,
+			primaryEmailItem, alternativeEmailItem, secondLastNameItem,
+			nationalityItem, legalEntityIdentifierItem;
 	private GHASelectItem typeidSelectItem, genderSelectItem, bpiSelectItem;
 	private GHADateItem birthDateItem;
 
 	private List<UserSelectionListener> listeners;
-	
+
 	/**
-	 * this is used to keep the id of the internal entities of ssouser
-	 * named bpu, bpi, citizen, legalentity, etc.
-	 * is used only for update purposes
+	 * this is used to keep the id of the internal entities of ssouser named
+	 * bpu, bpi, citizen, legalentity, etc. is used only for update purposes
 	 */
 	private SSOUser updateUser;
 
@@ -105,12 +106,11 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 		// form.setCellPadding(1);
 		form.setNumCols(3);
 		form.setItems(usernameItem, passwordItem, confirmPasswordItem,
-				typeidSelectItem, idItem, genderSelectItem, 
-				firstNameItem,secondNameItem, lastNameItem, 
-				secondLastNameItem,nationalityItem, birthDateItem,
-				primaryEmailItem, alternativeEmailItem,
-				bpiSelectItem, legalEntityIdentifierItem);
-		
+				typeidSelectItem, idItem, genderSelectItem, firstNameItem,
+				secondNameItem, lastNameItem, secondLastNameItem,
+				nationalityItem, birthDateItem, primaryEmailItem,
+				alternativeEmailItem, bpiSelectItem, legalEntityIdentifierItem);
+
 		mainPanel.addMembers(form, new LayoutSpacer());
 		addMember(mainPanel);
 		fill();
@@ -161,9 +161,9 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 	 */
 	public void save() {
 		SSOUser ssoUser = extract(false);
-		
-		//if the validation fail, return
-		if(ssoUser == null)
+
+		// if the validation fail, return
+		if (ssoUser == null)
 			return;
 		UserModel.save(ssoUser, new GHAAsyncCallback<SSOUser>() {
 
@@ -181,8 +181,8 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 	 */
 	public void update() {
 		SSOUser ssoUser = extract(true);
-		//if the validation fail, return
-		if(ssoUser == null)
+		// if the validation fail, return
+		if (ssoUser == null)
 			return;
 		UserModel.update(ssoUser, new GHAAsyncCallback<SSOUser>() {
 
@@ -192,28 +192,29 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 			}
 		});
 	}
-	
+
 	/**
-	 * This method extract the values from the fields.
-	 * the param is used to decide whether or not, the id values
-	 * from the inner entities should be added in order to update
-	 * or in the case of new ssoUser should not be added because
-	 * is new.
+	 * This method extract the values from the fields. the param is used to
+	 * decide whether or not, the id values from the inner entities should be
+	 * added in order to update or in the case of new ssoUser should not be
+	 * added because is new.
+	 * 
 	 * @param boolean update
 	 * @return the SSOUser to save/update
 	 */
-	private SSOUser extract(boolean update){
+	private SSOUser extract(boolean update) {
 		final SSOUser ssoUser = new SSOUser();
-		final Bpu bpu  = new Bpu();
-		final Citizen citizen =  new Citizen();
+		final Bpu bpu = new Bpu();
+		final Citizen citizen = new Citizen();
 		final LegalEntity legalEntity = new LegalEntity();
 		final Bpi bpi = new Bpi();
-		
-		if(update){
+
+		if (update) {
 			ssoUser.setId(this.updateUser.getId());
 			bpu.setId(this.updateUser.getBpu().getId());
 			citizen.setId(this.updateUser.getBpu().getCitizen().getId());
-			legalEntity.setId(this.updateUser.getBpu().getCitizen().getLegalEntity().getId());
+			legalEntity.setId(this.updateUser.getBpu().getCitizen()
+					.getLegalEntity().getId());
 			bpi.setId(this.updateUser.getBpu().getBpi().getId());
 		}
 
@@ -266,30 +267,50 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 
 		Set<ConstraintViolation<LegalEntity>> violationsLegalEntity = validator
 				.validate(legalEntity);
-		Set<ConstraintViolation<Citizen>> violationsCitizen = validator
-				.validate(citizen);
-		Set<ConstraintViolation<Bpu>> violationsBpu = validator.validate(bpu);
-		Set<ConstraintViolation<SSOUser>> violationsSSOUser = validator
-				.validate(ssoUser);
-		
-		if (violationsSSOUser.isEmpty() && violationsBpu.isEmpty() &&
-				violationsCitizen.isEmpty() && violationsLegalEntity.isEmpty()) {
-			
-			if (passwordItem.getValue() == null
-					|| confirmPasswordItem.getValue() == null
-					|| passwordItem.getValueAsString() != confirmPasswordItem
-							.getValueAsString()) {
-				GHANotification.alert("Las Constraseñas no coinciden");
-				return null;
-			}
-			
-			//everything ok, go save/update
-			return ssoUser;
-			
-		}else{
-			GHANotification.alert("Error en los datos de usuario, verifique los campos requeridos");
+
+		if (!violationsLegalEntity.isEmpty()) {
+			GHANotification.alert(GHAStrings.get(violationsLegalEntity
+					.iterator().next().getMessage()));
 			return null;
 		}
+
+		Set<ConstraintViolation<Citizen>> violationsCitizen = validator
+				.validate(citizen);
+
+		if (!violationsCitizen.isEmpty()) {
+			GHANotification.alert(GHAStrings.get(violationsCitizen.iterator()
+					.next().getMessage()));
+			return null;
+		}
+
+		Set<ConstraintViolation<Bpu>> violationsBpu = validator.validate(bpu);
+
+		if (!violationsBpu.isEmpty()) {
+			GHANotification.alert(GHAStrings.get(violationsBpu.iterator()
+					.next().getMessage()));
+			return null;
+		}
+
+		Set<ConstraintViolation<SSOUser>> violationsSSOUser = validator
+				.validate(ssoUser);
+
+		if (!violationsSSOUser.isEmpty()) {
+			GHANotification.alert(GHAStrings.get(violationsSSOUser.iterator()
+					.next().getMessage()));
+			return null;
+		}
+
+		if (passwordItem.getValue() == null) {
+			GHANotification.alert(GHAStrings.get("password-not-null"));
+			return null;
+		}
+
+		if (passwordItem.getValueAsString() != confirmPasswordItem
+				.getValueAsString()) {
+			GHANotification.alert(GHAStrings.get("password-missmatch"));
+			return null;
+		}
+		return ssoUser;
 	}
 
 	/**
@@ -313,71 +334,75 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 		primaryEmailItem.setDisabled(!activate);
 		alternativeEmailItem.setDisabled(!activate);
 	}
-	
+
 	/**
 	 * This method fills the userForm with the SSOUser info
+	 * 
 	 * @param ssoUser
 	 */
-	public void setSSOUser(SSOUser ssoUser){
+	public void setSSOUser(SSOUser ssoUser) {
 		this.updateUser = ssoUser;
-		
-		if(ssoUser.getUserName() != null){
+
+		if (ssoUser.getUserName() != null) {
 			usernameItem.setValue(ssoUser.getUserName());
 		}
-		if(ssoUser.getPassword() != null){
+		if (ssoUser.getPassword() != null) {
 			passwordItem.setValue(ssoUser.getPassword());
 			confirmPasswordItem.setValue(ssoUser.getPassword());
 		}
-		if(ssoUser.getUserLogonStatus() != null){
-			//TODO: when is added to the interface
+		if (ssoUser.getUserLogonStatus() != null) {
+			// TODO: when is added to the interface
 		}
-		if(ssoUser.getBpu() != null){
+		if (ssoUser.getBpu() != null) {
 			Bpu bpu = ssoUser.getBpu();
-			if(bpu.getBpi() != null){
+			if (bpu.getBpi() != null) {
 				bpiSelectItem.setValue(bpu.getBpi().getId());
 			}
-			
-			if(bpu.getCitizen() != null){
+
+			if (bpu.getCitizen() != null) {
 				Citizen citizen = bpu.getCitizen();
-				if(citizen.getFirstName() != null){
+				if (citizen.getFirstName() != null) {
 					firstNameItem.setValue(citizen.getFirstName());
 				}
-				if(citizen.getSecondName()!=null){
+				if (citizen.getSecondName() != null) {
 					secondNameItem.setValue(citizen.getSecondName());
 				}
-				if(citizen.getFirstLastName() != null){
+				if (citizen.getFirstLastName() != null) {
 					lastNameItem.setValue(citizen.getFirstLastName());
 				}
-				if(citizen.getSecondLastName() != null){
+				if (citizen.getSecondLastName() != null) {
 					secondLastNameItem.setValue(citizen.getSecondLastName());
 				}
-				if(citizen.getBirthDate() != null){
+				if (citizen.getBirthDate() != null) {
 					birthDateItem.setValue(citizen.getBirthDate());
 				}
-				if(citizen.getIdType() != null){
+				if (citizen.getIdType() != null) {
 					typeidSelectItem.setValue(citizen.getIdType().name());
 				}
-				if(citizen.getIdNumber() != null){
+				if (citizen.getIdNumber() != null) {
 					idItem.setValue(citizen.getIdNumber());
 				}
-				if(citizen.getNationality() != null){
+				if (citizen.getNationality() != null) {
 					nationalityItem.setValue(citizen.getNationality());
 				}
-				if(citizen.getGender() != null){
+				if (citizen.getGender() != null) {
 					genderSelectItem.setValue(citizen.getGender().name());
 				}
-				if(citizen.getPrimaryEmail() != null){
+				if (citizen.getPrimaryEmail() != null) {
 					primaryEmailItem.setValue(citizen.getPrimaryEmail());
 				}
-				if(citizen.getAlternativeEmail() != null){
-					alternativeEmailItem.setValue(citizen.getAlternativeEmail());
+				if (citizen.getAlternativeEmail() != null) {
+					alternativeEmailItem
+							.setValue(citizen.getAlternativeEmail());
 				}
-				if(citizen.getLegalEntity() != null && citizen.getLegalEntity().getIdentifier() != null){
-					legalEntityIdentifierItem.setValue(citizen.getLegalEntity().getIdentifier());
+				if (citizen.getLegalEntity() != null
+						&& citizen.getLegalEntity().getIdentifier() != null) {
+					legalEntityIdentifierItem.setValue(citizen.getLegalEntity()
+							.getIdentifier());
 				}
 			}
 		}
-		
+
 	}
 
 	// Producer stuff

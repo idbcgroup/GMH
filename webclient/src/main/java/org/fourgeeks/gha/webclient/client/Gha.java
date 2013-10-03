@@ -65,7 +65,7 @@ public class Gha implements EntryPoint {
 			}
 		});
 
-		Window.alert(GHAStrings.get("equipments"));
+//		Window.alert(GHAStrings.get("equipments"));
 
 	}
 }
