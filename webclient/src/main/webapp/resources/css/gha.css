@@ -181,6 +181,10 @@ input, .input{
 	margin-right: 10px;	
 }
 
+.required{
+	border-color: #E86842;
+}
+
 input, .dateItem{
 	border:1px solid;
 	border-color:#BABABA;
@@ -209,6 +213,12 @@ input[type="text"]:disabled,
 select,.select{
 	padding: 2px;
 	border:1px solid #BABABA;
+	background-color: #FFFFFF;
+}
+
+.select-required{
+	padding: 2px;
+	border:1px solid #E86842;
 	background-color: #FFFFFF;
 }
 

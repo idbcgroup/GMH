@@ -99,10 +99,12 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		information_TitleItem = new GHATitleTextItem("Información:");
 		codeTextItem = new GHATextItem("Código",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		codeTextItem.setRequired(true);
 		serialTextItem = new GHATextItem("Serial",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		fixedAssetIdTextItem = new GHATextItem("Id. Activo Fijo",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		fixedAssetIdTextItem.setRequired(true);
 		obuSelectItem = new GHASelectItem("Departamento Responsable",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		baseRoleSelectItem = new GHASelectItem("Rol Responsable",

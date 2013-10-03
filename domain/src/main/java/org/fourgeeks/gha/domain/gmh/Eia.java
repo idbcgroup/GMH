@@ -10,7 +10,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.CurrencyTypeEnum;
@@ -54,6 +53,7 @@ public class Eia extends AbstractEntity {
 	/** Fecha de Contabilización length =22 */
 	private BigDecimal adquisitionCostLocal;
 
+	@NotNull(message = "base-role-not-null")
 	@ManyToOne
 	@JoinColumn(name = "baseRoleFk", nullable = false)
 	private Role responsibleRole;
@@ -116,6 +116,7 @@ public class Eia extends AbstractEntity {
 	/**
 	 * Responsible Obu for the EIA
 	 */
+	@NotNull(message = "obu-not-null")
 	@ManyToOne
 	@JoinColumn(name = "obuFk", nullable = false)
 	private Obu obu;
@@ -123,7 +124,7 @@ public class Eia extends AbstractEntity {
 	private Date purchaseDate;
 	/** Número de la Factura de Compra length =30 */
 	private Date purchaseInvoiceDate;
-	@Size(max = 30, message = "El número de la factura no debe ser mayor de 30 caracteres")
+
 	private String purchaseInvoiceNumber;
 	/** Número de la Orden de Compra length =30 */
 	private Date purchaseOrderDate;
@@ -135,6 +136,7 @@ public class Eia extends AbstractEntity {
 	private String serialNumber;
 	/** Nombre Departamento donde esta adjudicado el equipo length =255 */
 
+	@NotNull(message = "state-not-null")
 	@Column(nullable = false)
 	private EiaStateEnum state = EiaStateEnum.CREATED;
 

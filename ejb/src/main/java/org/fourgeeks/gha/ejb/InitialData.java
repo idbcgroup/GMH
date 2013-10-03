@@ -150,6 +150,12 @@ public class InitialData {
 						"El nombre no pueder ser nulo"));
 				em.persist(new UiString(LanguageEnum.ES, "mobility-not-null",
 						"La movilidad no puede ser nula"));
+				em.persist(new UiString(LanguageEnum.ES, "base-role-not-null",
+						"El role base no puede ser nulo"));
+				em.persist(new UiString(LanguageEnum.ES, "obu-not-null",
+						"La organicación no puede ser nula"));
+				em.persist(new UiString(LanguageEnum.ES, "state-not-null",
+						"El estado no puede ser nulo"));
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating uistrings test data", e1);
