@@ -1,9 +1,9 @@
 package org.fourgeeks.gha.webclient.client.home;
 
 import org.fourgeeks.gha.domain.gar.Bpu;
-import org.fourgeeks.gha.webclient.client.UI.GHADropdownMenus;
 import org.fourgeeks.gha.webclient.client.UI.GHASessionData;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.dropdownmenus.UserDropdownMenu;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAPlace;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATabSet;
 
@@ -12,12 +12,13 @@ import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.smartgwt.client.types.Alignment;
-import com.smartgwt.client.types.AnimationEffect;
+import com.smartgwt.client.widgets.Canvas;
 import com.smartgwt.client.widgets.Img;
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
+import com.smartgwt.client.widgets.events.FocusChangedEvent;
+import com.smartgwt.client.widgets.events.FocusChangedHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
-import com.smartgwt.client.widgets.layout.VLayout;
 import com.smartgwt.client.widgets.menu.IMenuButton;
 import com.smartgwt.client.widgets.menu.Menu;
 
@@ -52,7 +53,16 @@ public class HomePlace extends GHAPlace {
 
 		Bpu user = GHASessionData.getLoggedUser();
 
-		final VLayout userMenu = GHADropdownMenus.userMenu(user);
+		final UserDropdownMenu userMenu = new UserDropdownMenu(user);
+		userMenu.addFocusChangedHandler(new FocusChangedHandler() {
+			@Override
+			public void onFocusChanged(FocusChangedEvent event) {
+				Window.alert("Focus Changed");
+				if (userMenu.isVisible()) {					
+					userMenu.hide();
+				}
+			}
+		});
 
 		// final VLayout notificationsMenu =
 		// GHADropdownMenus.notificationsMenu();
@@ -67,39 +77,12 @@ public class HomePlace extends GHAPlace {
 				+ user.getCitizen().getFirstLastName());
 		usernameLabel.setStyleName("username-text");
 		usernameLabel.setSize("300	px", "25px");
+		
 		// Label notificationsButton = new Label("1");
-		// notificationsButton.setStyleName("user-notifications-button");
+		// notificationsButton.setStyleName("user-notifications-button button-pointer");
 		// notificationsButton.setBackgroundImage("../resources/icons/boton1.png");
 		// notificationsButton.setSize("28px", "25px");
-		Img userButton = new Img("../resources/icons/boton2.png");
-		userButton.setSize("21px", "25px");
-
-		userButton
-				.addClickHandler(new com.smartgwt.client.widgets.events.ClickHandler() {
-					@Override
-					public void onClick(ClickEvent event) {
-						int posx = event.getX() - 270;
-						int posy = event.getY();
-						if (event.getY() < 50)
-							posy += 20;
-						else
-							posy += 10;
-
-						// TODO Auto-generated method stub
-						if (userMenu.isVisible()) {
-							userMenu.animateHide(AnimationEffect.FADE);
-							userMenu.setVisible(false);
-							userMenu.setLeft(0);
-							userMenu.setTop(0);
-						} else {
-							userMenu.animateShow(AnimationEffect.FADE);
-							userMenu.setLeft(posx);
-							userMenu.setTop(posy);
-							userMenu.setVisible(true);
-						}
-					}
-				});
-
+		
 		// notificationsButton
 		// .addClickHandler(new
 		// com.smartgwt.client.widgets.events.ClickHandler() {
@@ -125,7 +108,31 @@ public class HomePlace extends GHAPlace {
 		// }
 		// }
 		// });
+		
+		Img userButton = new Img("../resources/icons/boton2.png");
+		userButton.setStyleName("button-pointer");
+		userButton.setSize("21px", "25px");
+		
+		userButton
+		.addClickHandler(new com.smartgwt.client.widgets.events.ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				int posx = event.getX() - 270;
+				int posy = event.getY();
+				if (event.getY() < 50)
+					posy += 20;
+				else
+					posy += 10;
 
+				// TODO Auto-generated method stub
+				if (userMenu.isVisible()) {
+					userMenu.hide();
+				} else {
+					userMenu.show();
+				}
+			}
+		});
+		
 		userInfo.addMembers(usernameLabel, /* notificationsButton, */
 				userButton);
 
@@ -241,7 +248,14 @@ public class HomePlace extends GHAPlace {
 		IMenuButton menuButton = new IMenuButton("Aplicaciones", menu);
 		menuButton.setWidth(150);
 		menuButton.setHeight(24);
-		menuButton.setStylePrimaryName("gha-main-menu");
+//		menuButton.setStylePrimaryName("gha-main-menu");
+		menuButton.getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().setId("gha-main-menu");
+//		Window.alert("Number of childrens:"+menuButton.getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().setClassName("lets-see"));
+		int i=0;
+		for(Canvas c: menuButton.getChildren()){
+			Window.alert("Child "+i+" ClassName: "+c.getClassName());
+			i++;
+		}
 		menuButton.setZIndex(33333333);
 		GHATabSet.addMenu(menuButton);
 

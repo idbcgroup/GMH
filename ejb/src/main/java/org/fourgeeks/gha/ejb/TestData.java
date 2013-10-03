@@ -24,6 +24,7 @@ import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.enu.GenderTypeEnum;
 import org.fourgeeks.gha.domain.enu.LanguageEnum;
 import org.fourgeeks.gha.domain.enu.LocationLevelEnum;
+import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.enu.UserLogonStatusEnum;
 import org.fourgeeks.gha.domain.ess.BpuFunction;
 import org.fourgeeks.gha.domain.ess.Function;
@@ -44,6 +45,11 @@ import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
+import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
+import org.fourgeeks.gha.domain.gmh.MaintenanceActivityMaintenanceProtocol;
+import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.domain.mix.Citizen;
@@ -123,9 +129,168 @@ public class TestData {
 		materialTestData();
 		facilityTestData();
 		workingAreaTestData();
-		// // TODO
+		//
 		eiaTypeTestData();
 		eiaTestData();
+		//
+		maintenanceActivityTestData();
+		maintenancePlanTestData();
+		maintenanceProtocolTestData();
+		maintenanceActivityProtocolTestData();
+		eiaTypeMaintenancePlanTestData();
+		eiaMaintenancePlanificationTestData();
+	}
+
+	/**
+	 * 
+	 */
+	private void eiaMaintenancePlanificationTestData() {
+		// TODO Auto-generated method stub
+
+	}
+
+	/**
+	 * 
+	 */
+	private void eiaTypeMaintenancePlanTestData() {
+		String query = "SELECT t from EiaTypeMaintenancePlan t WHERE t.id = 1";
+		try {
+			em.createQuery(query).getSingleResult();
+		} catch (NoResultException e) {
+			try {
+				logger.info("Creating test data: EiaTypeMaintenancePlan");
+				em.persist(new EiaTypeMaintenancePlan(em.find(EiaType.class, "90001"), em.find(MaintenancePlan.class, 1L)));
+				em.persist(new EiaTypeMaintenancePlan(em.find(EiaType.class, "90002"), em.find(MaintenancePlan.class, 2L)));
+				em.flush();
+				
+			} catch (Exception e1) {
+				logger.log(Level.INFO, "error Creating MaintenanceActivity test data", e1);
+			}
+		}
+	}
+
+	/**
+	 * 
+	 */
+	private void maintenanceActivityProtocolTestData() {
+		String query = "SELECT t from MaintenanceActivityMaintenanceProtocol t WHERE t.id = 1";
+		try {
+			em.createQuery(query).getSingleResult();
+		} catch (NoResultException e) {
+			try {
+				logger.info("Creating test data: MaintenanceActivityMaintenanceProtocol");
+				List <MaintenanceProtocol> protocols = em.createNamedQuery("MaintenanceProtocol.getAll", MaintenanceProtocol.class).getResultList();
+				List <MaintenanceActivity> activities = em.createNamedQuery("MaintenanceActivity.getAll", MaintenanceActivity.class).getResultList();
+				
+				for(int i=0; i<4; ++i){
+					em.persist(new MaintenanceActivityMaintenanceProtocol(protocols.get(0), activities.get(i), i+1));
+					em.persist(new MaintenanceActivityMaintenanceProtocol(protocols.get(1), activities.get(i), i+1));
+				}
+				
+				em.persist(new MaintenanceActivityMaintenanceProtocol(protocols.get(0), activities.get(4), 5));
+				em.persist(new MaintenanceActivityMaintenanceProtocol(protocols.get(1), activities.get(5), 5));
+				
+				em.flush();
+			} catch (Exception e1) {
+				logger.log(Level.INFO, "error Creating MaintenanceActivity test data", e1);
+			}
+		}
+	}
+
+	/**
+	 * 
+	 */
+	private void maintenanceProtocolTestData() {
+		String query = "SELECT t from MaintenanceProtocol t WHERE t.id = 1";
+		try {
+			em.createQuery(query).getSingleResult();
+		} catch (NoResultException e) {
+			try {
+				logger.info("Creating test data: MaintenanceProtocol");
+				String protocolNames[] = {
+						"Protocolo para Impresoras de Tinta",
+						"Protocolo para impresoras Laser" };
+				String protocolDesc[] = {
+						"Protocolo para el mantenimiento de impresoras de tinta",
+						"Protocolo para el mantenimiento de impresoras laser"						
+				};
+				for(int i=0; i<2; ++i){
+					MaintenanceProtocol protocol = new MaintenanceProtocol();
+					protocol.setDescription(protocolDesc[i]);
+					protocol.setName(protocolNames[i]);
+					protocol.setMaintenancePlan(em.find(MaintenancePlan.class, (long)(i+1)));
+					em.persist(protocol);
+				}
+				em.flush();
+			} catch (Exception e1) {
+				logger.log(Level.INFO,
+						"error Creating MaintenanceActivity test data", e1);
+			}
+		}
+	}
+
+	/**
+	 * 
+	 */
+	private void maintenancePlanTestData() {
+		String query = "SELECT t from MaintenancePlan t WHERE t.id = 1";
+		try {
+			em.createQuery(query).getSingleResult();
+		} catch (NoResultException e) {
+			try {
+				logger.info("Creating test data: maintenance plan");
+
+				String planDesc[] = { "plan de mantenimiento impresoras de tinta",
+						"plan de mantenimiento impresoras laser" };
+				int planFrequency[] = { 1, 3 };
+				TimePeriodEnum planTimePeriod[] = { TimePeriodEnum.MONTHS,
+						TimePeriodEnum.SEMESTERS };
+				for (int i = 0; i < 2; ++i) {
+					MaintenancePlan entity = new MaintenancePlan();
+					entity.setDescription(planDesc[i]);
+					entity.setFrequency(planFrequency[i]);
+					entity.setPot(planTimePeriod[i]);
+					em.persist(entity);
+				}
+				em.flush();
+			} catch (Exception e1) {
+				logger.log(Level.INFO,
+						"error Creating MaintenancePlan test data", e1);
+			}
+		}
+	}
+
+	/**
+	 * 
+	 */
+	private void maintenanceActivityTestData() {
+		String query = "SELECT t from MaintenanceActivity t WHERE t.id = 1";
+		try {
+			em.createQuery(query).getSingleResult();
+		} catch (NoResultException e) {
+			try {
+				logger.info("Creating test data: maintenance activity");
+				String activityNames[] = { "Desconectar", "Abrir", "Limpiar",
+						"Cerrar", "Conectar", "Reemplazar" };
+				String activityDesc[] = {
+						"Desconecte el equipo de la corriente eléctrica",
+						"Quite los tornillos y levante la tapa del equipo",
+						"Limpie cuidadosamente el interior del equipo, sin líquidos",
+						"Cierre la tapa del equipo, y coloque los tornillos",
+						"Conecte el equipo a la corriente eléctrica, y verifique su funcionamiento",
+						"Reemplaze el toner del equipo"};
+				for (int i = 0; i < 6; ++i) {
+					MaintenanceActivity entity = new MaintenanceActivity();
+					entity.setName(activityNames[i]);
+					entity.setDescription(activityDesc[i]);
+					em.persist(entity);
+				}
+				em.flush();
+			} catch (Exception e1) {
+				logger.log(Level.INFO,
+						"error Creating MaintenanceActivity test data", e1);
+			}
+		}
 	}
 
 	/**
@@ -136,16 +301,23 @@ public class TestData {
 		try {
 			em.createQuery(query).getSingleResult();
 		} catch (NoResultException e) {
-			logger.info("Creating test data : WorkingArea");
-			String workingAreaNames [] = {"Enfermería Emergencia", "Enfermería U.C.I", "Enfermería Pediatría"};
-			for(int i=0; i<3; ++i){
-				WorkingArea entity = new WorkingArea();
-				entity.setBuildingLocation(em.find(BuildingLocation.class, "Building 00"+i));
-				entity.setName(workingAreaNames[i]);
-				
-				em.persist(entity);
+			try {
+				logger.info("Creating test data : WorkingArea");
+				String workingAreaNames[] = { "Enfermería Emergencia",
+						"Enfermería U.C.I", "Enfermería Pediatría" };
+				for (int i = 0; i < 3; ++i) {
+					WorkingArea entity = new WorkingArea();
+					entity.setBuildingLocation(em.find(BuildingLocation.class,
+							"Building 00" + i));
+					entity.setName(workingAreaNames[i]);
+
+					em.persist(entity);
+				}
+				em.flush();
+			} catch (Exception e1) {
+				logger.log(Level.INFO, "error Creating workingArea test data",
+						e1);
 			}
-			em.flush();
 		}
 	}
 
@@ -225,15 +397,17 @@ public class TestData {
 		} catch (NoResultException e) {
 			try {
 				logger.info("Creating Citizen test data");
-				String names [] = {"Rigoberto", "Angel", "Jorge", "Alejandro", "Isaac"};
-				String lastNames[] = {"Sanchez", "Lacret", "Fuentes", "Sanchez", "Casado"};
+				String names[] = { "Rigoberto", "Angel", "Jorge", "Alejandro",
+						"Isaac" };
+				String lastNames[] = { "Sanchez", "Lacret", "Fuentes",
+						"Sanchez", "Casado" };
 				for (int i = 0; i < 5; ++i) {
 					Citizen citizen = new Citizen(em.find(LegalEntity.class,
 							i + 5L), GenderTypeEnum.MALE);
 					citizen.setFirstName(names[i]);
-					citizen.setSecondName(names[(i+1)%5]);
+					citizen.setSecondName(names[(i + 1) % 5]);
 					citizen.setFirstLastName(lastNames[i]);
-					citizen.setSecondLastName(lastNames[(i+1)%5]);
+					citizen.setSecondLastName(lastNames[(i + 1) % 5]);
 					citizen.setIdType(DocumentTypeEnum.LOCAL);
 					citizen.setPrimaryEmail(names[i] + "@4geeks.co");
 					em.persist(citizen);
@@ -401,16 +575,21 @@ public class TestData {
 		try {
 			em.createQuery(query).getSingleResult();
 		} catch (NoResultException e) {
-			logger.info("Creating test data : facility");
-			String facilityNames [] = {"Sala 1 Rayos X", "Sala 1 Tomografía"};
-			for(int i = 3, j=0; i<5; ++i, ++j){
-				Facility facility = new Facility();
-				facility.setName(facilityNames[j]);
-				facility.setBuildingLocation(em.find(BuildingLocation.class,
-						"Building 00"+i));
-				em.persist(facility);
+			try {
+				logger.info("Creating test data : facility");
+				String facilityNames[] = { "Sala 1 Rayos X",
+						"Sala 1 Tomografía" };
+				for (int i = 3, j = 0; i < 5; ++i, ++j) {
+					Facility facility = new Facility();
+					facility.setName(facilityNames[j]);
+					facility.setBuildingLocation(em.find(
+							BuildingLocation.class, "Building 00" + i));
+					em.persist(facility);
+				}
+				em.flush();
+			} catch (Exception e1) {
+				logger.log(Level.INFO, "error Creating facility test data", e1);
 			}
-			em.flush();
 		}
 
 	}
@@ -533,7 +712,8 @@ public class TestData {
 		} catch (NoResultException e) {
 			try {
 				logger.info("creating test data : obu");
-				String obuNames [] = {"Administración", "Medicina General", "Dpto. de Nefrologia"};
+				String obuNames[] = { "Administración", "Medicina General",
+						"Dpto. de Nefrologia" };
 				Obu obu = null;
 				for (int i = 0; i < 3; i++) {
 					obu = new Obu();
