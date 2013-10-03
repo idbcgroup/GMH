@@ -14,7 +14,7 @@ import org.fourgeeks.gha.webclient.client.eia.EIARecord;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 import org.fourgeeks.gha.webclient.client.eia.EIAUtil;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
-import org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenancePlanMaintenanceProtocolGrid;
+import org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol.MaintenancePlanMaintenanceProtocolGrid;
 
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -28,8 +28,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class AsociatedMaintenanceProtocolsGridPanel extends VLayout implements
-		EIATypeSelectionListener,/* EiaSelectionProducer, */
-		EIASelectionListener, GHAClosable, GHAHideable {
+EIATypeSelectionListener,/* EiaSelectionProducer, */
+EIASelectionListener, GHAClosable, GHAHideable {
 
 	private MaintenancePlanMaintenanceProtocolGrid grid;
 	private EiaType eiaType;
@@ -43,8 +43,8 @@ public class AsociatedMaintenanceProtocolsGridPanel extends VLayout implements
 	public AsociatedMaintenanceProtocolsGridPanel(
 			AsociatedMaintenanceProtocolsSubTab subTab) {
 		super();
-		
-		
+
+
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
@@ -63,7 +63,7 @@ public class AsociatedMaintenanceProtocolsGridPanel extends VLayout implements
 						//TODO: EIA Search(select) form
 					}
 				}), new GHAImgButton("../resources/icons/delete.png",
-				new ClickHandler() {
+						new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
 						//TODO: Remove this plan for the selected equipment
@@ -77,9 +77,14 @@ public class AsociatedMaintenanceProtocolsGridPanel extends VLayout implements
 	}
 
 	@Override
-	public void select(EiaType eiaType) {
-		this.eiaType = eiaType;
-		loadData(eiaType);
+	public void close() {
+		//Close the search/select form
+	}
+
+	@Override
+	public void hide() {
+		//Hide the search/select form
+		// super.hide();
 	}
 
 	/**
@@ -89,23 +94,12 @@ public class AsociatedMaintenanceProtocolsGridPanel extends VLayout implements
 		EIAModel.find(eiaType, new GHAAsyncCallback<List<Eia>>() {
 			@Override
 			public void onSuccess(List<Eia> result) {
-				ListGridRecord[] array = (ListGridRecord[]) EIAUtil
+				ListGridRecord[] array = EIAUtil
 						.toGridRecords(result).toArray(new EIARecord[] {});
 				grid.setData(array);
 
 			}
 		});
-	}
-
-	@Override
-	public void close() {
-		//Close the search/select form
-	}
-
-	@Override
-	public void hide() {
-		//Hide the search/select form
-		// super.hide();
 	}
 
 	/*
@@ -126,6 +120,12 @@ public class AsociatedMaintenanceProtocolsGridPanel extends VLayout implements
 	 */
 	@Override
 	public void select(Eia eia) {
+		loadData(eiaType);
+	}
+
+	@Override
+	public void select(EiaType eiaType) {
+		this.eiaType = eiaType;
 		loadData(eiaType);
 	}
 
