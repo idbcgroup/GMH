@@ -5,7 +5,7 @@ package org.fourgeeks.gha.webclient.client.bpi;
 
 import java.util.List;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.mix.Bpi;
 
 import com.google.gwt.user.client.rpc.RemoteService;
@@ -19,41 +19,41 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 public interface GWTBpiService extends RemoteService{
 	/**
 	 * @param Id
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public void delete(long Id) throws EJBException;
+	public void delete(long Id) throws GHAEJBException;
 
 	/**
 	 * @param bpi
 	 * @return the list of bpis
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<Bpi> find(Bpi bpi) throws EJBException;
+	public List<Bpi> find(Bpi bpi) throws GHAEJBException;
 
 	/**
 	 * @param Id
 	 * @return the bpi
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public Bpi find(long Id) throws EJBException;
+	public Bpi find(long Id) throws GHAEJBException;
 	
 	/**
 	 * @return the list of bpis
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<Bpi> getAll() throws EJBException;
+	public List<Bpi> getAll() throws GHAEJBException;
 
 	/**
 	 * @param bpi
 	 * @return the saved bpi
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public Bpi save(Bpi bpi) throws EJBException;
+	public Bpi save(Bpi bpi) throws GHAEJBException;
 
 	/**
 	 * @param bpi
 	 * @return the updated bpi
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public Bpi update(Bpi bpi) throws EJBException;
+	public Bpi update(Bpi bpi) throws GHAEJBException;
 }

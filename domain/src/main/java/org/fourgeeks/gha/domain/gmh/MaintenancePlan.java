@@ -26,6 +26,7 @@ public class MaintenancePlan extends AbstractEntity {
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	private String name;
 	private String description;
 	private int frequency;
 	private TimePeriodEnum pot;
@@ -37,16 +38,21 @@ public class MaintenancePlan extends AbstractEntity {
 		// TODO Auto-generated constructor stub
 	}
 
+
 	/**
+	 * @param name
 	 * @param description
 	 * @param frequency
 	 * @param pot
 	 */
-	public MaintenancePlan(String description, int frequency, TimePeriodEnum pot) {
+	public MaintenancePlan(String name, String description, int frequency,
+			TimePeriodEnum pot) {
+		this.name = name;
 		this.description = description;
 		this.frequency = frequency;
 		this.pot = pot;
 	}
+
 
 	public String getDescription() {
 		return description;
@@ -70,6 +76,16 @@ public class MaintenancePlan extends AbstractEntity {
 
 	public void setPot(TimePeriodEnum pot) {
 		this.pot = pot;
+	}
+
+
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	

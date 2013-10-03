@@ -5,7 +5,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeUtility;
 import org.fourgeeks.gha.ejb.gmh.EiaTypeUtilityServiceRemote;
@@ -27,13 +27,13 @@ public class GWTEiaTypeUtilityServiceImpl extends RemoteServiceServlet
 	private EiaTypeUtilityServiceRemote serviceRemote;
 
 	@Override
-	public void delete(long id) throws EJBException {
+	public void delete(long id) throws GHAEJBException {
 		serviceRemote.delete(id);
 	}
 
 	@Override
 	public EiaTypeUtility save(EiaTypeUtility eiaTypeUtility)
-			throws EJBException {
+			throws GHAEJBException {
 		return serviceRemote.save(eiaTypeUtility);
 	}
 
@@ -42,7 +42,7 @@ public class GWTEiaTypeUtilityServiceImpl extends RemoteServiceServlet
 	 */
 	@Override
 	public List<EiaTypeUtility> findByEiaType(EiaType eiaType)
-			throws EJBException {
+			throws GHAEJBException {
 		return serviceRemote.findByEiaType(eiaType);
 	}
 

@@ -23,7 +23,7 @@ import org.fourgeeks.gha.domain.enu.ProviderRepresentEnum;
 import org.fourgeeks.gha.domain.enu.ProviderResourceTypeEnum;
 import org.fourgeeks.gha.domain.enu.ProviderServicesEnum;
 import org.fourgeeks.gha.domain.enu.ProviderTypeEnum;
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.mix.Institution;
 
@@ -117,21 +117,21 @@ public class ExternalProviderService implements ExternalProviderServiceRemote {
 	}
 
 	@Override
-	public void delete(long Id) throws EJBException {
+	public void delete(long Id) throws GHAEJBException {
 		try {
 			ExternalProvider entity = em.find(ExternalProvider.class, Id);
 			em.remove(entity);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete ExternalProvider",
 					e);
-			throw new EJBException("ERROR: unable to delete ExternalProvider "
+			throw new GHAEJBException("ERROR: unable to delete ExternalProvider "
 					+ e.getCause().getMessage());
 		}
 	}
 
 	@Override
 	public List<ExternalProvider> find(ExternalProvider entity)
-			throws EJBException {
+			throws GHAEJBException {
 		try {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<ExternalProvider> cQuery = cb
@@ -190,39 +190,39 @@ public class ExternalProviderService implements ExternalProviderServiceRemote {
 					Level.SEVERE,
 					"Error obteniendo buscando los ExternalProviders por externalProvider",
 					e);
-			throw new EJBException(
+			throw new GHAEJBException(
 					"Error obteniendo buscando los ExternalProviders por externalProvider "
 							+ e.getCause().getMessage());
 		}
 	}
 
 	@Override
-	public ExternalProvider find(long Id) throws EJBException {
+	public ExternalProvider find(long Id) throws GHAEJBException {
 		try {
 			return em.find(ExternalProvider.class, Id);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: finding ExternalProvider", e);
-			throw new EJBException("ERROR: finding ExternalProvider "
+			throw new GHAEJBException("ERROR: finding ExternalProvider "
 					+ e.getCause().getMessage());
 		}
 	}
 
 	@Override
-	public List<ExternalProvider> getAll() throws EJBException {
+	public List<ExternalProvider> getAll() throws GHAEJBException {
 		try {
 			return em.createNamedQuery("ExternalProvider.getAll",
 					ExternalProvider.class).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all ExternalProviders",
 					ex);
-			throw new EJBException(
+			throw new GHAEJBException(
 					"Error obteniendo todas las ExternalProvider"
 							+ ex.getCause().getMessage());
 		}
 	}
 
 	@Override
-	public ExternalProvider save(ExternalProvider entity) throws EJBException {
+	public ExternalProvider save(ExternalProvider entity) throws GHAEJBException {
 		try {
 			em.persist(entity);
 			em.flush();
@@ -230,14 +230,14 @@ public class ExternalProviderService implements ExternalProviderServiceRemote {
 		} catch (Exception e) {
 			logger.log(Level.INFO,
 					"ERROR: saving ExternalProvider " + entity.toString(), e);
-			throw new EJBException("ERROR: saving ExternalProvider "
+			throw new GHAEJBException("ERROR: saving ExternalProvider "
 					+ e.getCause().getMessage());
 		}
 
 	}
 
 	@Override
-	public ExternalProvider update(ExternalProvider entity) throws EJBException {
+	public ExternalProvider update(ExternalProvider entity) throws GHAEJBException {
 		try {
 			ExternalProvider res = em.merge(entity);
 			em.flush();
@@ -245,7 +245,7 @@ public class ExternalProviderService implements ExternalProviderServiceRemote {
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to update ExternalProvider "
 					+ entity.toString(), e);
-			throw new EJBException(
+			throw new GHAEJBException(
 					"ERROR: no se puede eliminar el ExternalProvider "
 							+ e.getCause().getMessage());
 		}

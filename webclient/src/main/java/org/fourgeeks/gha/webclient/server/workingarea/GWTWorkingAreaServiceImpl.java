@@ -9,7 +9,7 @@ import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 
 import org.fourgeeks.gha.domain.ess.WorkingArea;
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.ejb.ess.WorkingAreaServiceRemote;
 import org.fourgeeks.gha.webclient.client.workingarea.GWTWorkingAreaService;
 
@@ -33,42 +33,42 @@ public class GWTWorkingAreaServiceImpl extends RemoteServiceServlet implements G
 	 * @see org.fourgeeks.gha.webclient.client.workingarea.GWTWorkingAreaService#delete(long)
 	 */
 	@Override
-	public void delete(long Id) throws EJBException {
+	public void delete(long Id) throws GHAEJBException {
 		ejbService.delete(Id);
 	}
 	/* (non-Javadoc)
 	 * @see org.fourgeeks.gha.webclient.client.workingarea.GWTWorkingAreaService#find(org.fourgeeks.gha.domain.ess.WorkingArea)
 	 */
 	@Override
-	public List<WorkingArea> find(WorkingArea entity) throws EJBException {
+	public List<WorkingArea> find(WorkingArea entity) throws GHAEJBException {
 		return ejbService.find(entity);
 	}
 	/* (non-Javadoc)
 	 * @see org.fourgeeks.gha.webclient.client.workingarea.GWTWorkingAreaService#find(long)
 	 */
 	@Override
-	public WorkingArea find(long Id) throws EJBException {
+	public WorkingArea find(long Id) throws GHAEJBException {
 		return ejbService.find(Id);
 	}
 	/* (non-Javadoc)
 	 * @see org.fourgeeks.gha.webclient.client.workingarea.GWTWorkingAreaService#getAll()
 	 */
 	@Override
-	public List<WorkingArea> getAll() throws EJBException {
+	public List<WorkingArea> getAll() throws GHAEJBException {
 		return ejbService.getAll();
 	}
 	/* (non-Javadoc)
 	 * @see org.fourgeeks.gha.webclient.client.workingarea.GWTWorkingAreaService#save(org.fourgeeks.gha.domain.ess.WorkingArea)
 	 */
 	@Override
-	public WorkingArea save(WorkingArea entity) throws EJBException {
+	public WorkingArea save(WorkingArea entity) throws GHAEJBException {
 		return ejbService.save(entity);
 	}
 	/* (non-Javadoc)
 	 * @see org.fourgeeks.gha.webclient.client.workingarea.GWTWorkingAreaService#update(org.fourgeeks.gha.domain.ess.WorkingArea)
 	 */
 	@Override
-	public WorkingArea update(WorkingArea entity) throws EJBException {
+	public WorkingArea update(WorkingArea entity) throws GHAEJBException {
 		return ejbService.update(entity);
 	}
 

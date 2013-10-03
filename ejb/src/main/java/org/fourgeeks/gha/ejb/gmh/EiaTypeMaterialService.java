@@ -8,7 +8,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaterial;
 
@@ -23,7 +23,7 @@ public class EiaTypeMaterialService implements EiaTypeMaterialServiceRemote {
 
 	@Override
 	public List<EiaTypeMaterial> findByEiaType(EiaType eiaType)
-			throws EJBException {
+			throws GHAEJBException {
 		try {
 			return em
 					.createNamedQuery("EiaTypeMaterial.findByEiaType",
@@ -31,7 +31,7 @@ public class EiaTypeMaterialService implements EiaTypeMaterialServiceRemote {
 					.setParameter("eiaType", eiaType).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all EiaTypeMaterial", ex);
-			throw new EJBException(
+			throw new GHAEJBException(
 					"Error obteniendo todos los EiaTypeMaterial "
 							+ ex.getCause().getMessage());
 		}
@@ -39,7 +39,7 @@ public class EiaTypeMaterialService implements EiaTypeMaterialServiceRemote {
 
 	@Override
 	public EiaTypeMaterial save(EiaTypeMaterial eiaTypeMaterial)
-			throws EJBException {
+			throws GHAEJBException {
 		try {
 			em.persist(eiaTypeMaterial);
 			em.flush();
@@ -53,18 +53,18 @@ public class EiaTypeMaterialService implements EiaTypeMaterialServiceRemote {
 			// if (message == null)
 			// message = "Error guardando EiaTypeMaterial: "
 			// + e.getCause().getMessage();
-			throw new EJBException(message);
+			throw new GHAEJBException(message);
 		}
 	}
 
 	@Override
-	public void delete(long id) throws EJBException {
+	public void delete(long id) throws GHAEJBException {
 		try {
 			EiaTypeMaterial entity = em.find(EiaTypeMaterial.class, id);
 			em.remove(entity);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete eiatypematerial", e);
-			throw new EJBException("Error eliminando EiaTypeMaterial por id "
+			throw new GHAEJBException("Error eliminando EiaTypeMaterial por id "
 					+ e.getCause().getMessage());
 		}
 	}

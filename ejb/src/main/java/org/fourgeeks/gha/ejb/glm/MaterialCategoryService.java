@@ -11,7 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.glm.MaterialCategory;
 
 /**
@@ -34,14 +34,13 @@ public class MaterialCategoryService implements MaterialCategoryServiceRemote {
 	 * org.fourgeeks.gha.domain.glm.MaterialCategoryServiceRemote#delete(long)
 	 */
 	@Override
-	public void delete(long Id) throws EJBException {
+	public void delete(long Id) throws GHAEJBException {
 		try {
 			MaterialCategory entity = em.find(MaterialCategory.class, Id);
 			em.remove(entity);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete MaterialCategory",
-					e);
-			throw new EJBException("ERROR: unable to delete MaterialCategory "
+			throw new GHAEJBException("ERROR: unable to delete MaterialCategory "
 					+ e.getCause().getMessage());
 		}
 	}
@@ -55,7 +54,7 @@ public class MaterialCategoryService implements MaterialCategoryServiceRemote {
 	 */
 	@Override
 	public List<MaterialCategory> find(MaterialCategory materialCategory)
-			throws EJBException {
+			throws GHAEJBException {
 		try {
 			return em
 					.createNamedQuery(
@@ -79,12 +78,12 @@ public class MaterialCategoryService implements MaterialCategoryServiceRemote {
 	 * org.fourgeeks.gha.domain.glm.MaterialCategoryServiceRemote#find(long)
 	 */
 	@Override
-	public MaterialCategory find(long Id) throws EJBException {
+	public MaterialCategory find(long Id) throws GHAEJBException {
 		try {
 			return em.find(MaterialCategory.class, Id);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: finding MaterialCategory", e);
-			throw new EJBException("ERROR: finding MaterialCategory "
+			throw new GHAEJBException("ERROR: finding MaterialCategory "
 					+ e.getCause().getMessage());
 		}
 	}
@@ -95,16 +94,14 @@ public class MaterialCategoryService implements MaterialCategoryServiceRemote {
 	 * @see org.fourgeeks.gha.domain.glm.MaterialCategoryServiceRemote#getAll()
 	 */
 	@Override
-	public List<MaterialCategory> getAll() throws EJBException {
+	public List<MaterialCategory> getAll() throws GHAEJBException {
 		try {
 			return em.createNamedQuery("MaterialCategory.getAll",
 					MaterialCategory.class).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all MaterialCategories",
-					ex);
-			throw new EJBException(
-					"Error obteniendo todas los MaterialCategories"
-							+ ex.getCause().getMessage());
+			throw new GHAEJBException("Error obteniendo todas los MaterialCategories"
+					+ ex.getCause().getMessage());
 		}
 	}
 
@@ -117,7 +114,7 @@ public class MaterialCategoryService implements MaterialCategoryServiceRemote {
 	 */
 	@Override
 	public List<MaterialCategory> getAll(int offset, int size)
-			throws EJBException {
+			throws GHAEJBException {
 		try {
 			return em
 					.createNamedQuery("MaterialCategory.getAll",
@@ -125,10 +122,8 @@ public class MaterialCategoryService implements MaterialCategoryServiceRemote {
 					.setMaxResults(size).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all MaterialCategories",
-					ex);
-			throw new EJBException(
-					"Error obteniendo todas los MaterialCategories"
-							+ ex.getCause().getMessage());
+			throw new GHAEJBException("Error obteniendo todas los MaterialCategories"
+					+ ex.getCause().getMessage());
 		}
 	}
 
@@ -141,14 +136,14 @@ public class MaterialCategoryService implements MaterialCategoryServiceRemote {
 	 */
 	@Override
 	public MaterialCategory save(MaterialCategory materialCategory)
-			throws EJBException {
+			throws GHAEJBException {
 		try {
 			em.persist(materialCategory);
 			em.flush();
 			return em.find(MaterialCategory.class, materialCategory.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving materialCategory ", e);
-			throw new EJBException("ERROR: saving materialCategory "
+			throw new GHAEJBException("ERROR: saving materialCategory "
 					+ e.getCause().getMessage());
 		}
 	}
@@ -162,17 +157,15 @@ public class MaterialCategoryService implements MaterialCategoryServiceRemote {
 	 */
 	@Override
 	public MaterialCategory update(MaterialCategory materialCategory)
-			throws EJBException {
+			throws GHAEJBException {
 		try {
 			MaterialCategory res = em.merge(materialCategory);
 			em.flush();
 			return res;
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to update MaterialCategory ",
-					e);
-			throw new EJBException(
-					"ERROR: no se puede eliminar el MaterialCategory "
-							+ e.getCause().getMessage());
+			throw new GHAEJBException("ERROR: no se puede eliminar el MaterialCategory "
+					+ e.getCause().getMessage());
 		}
 	}
 

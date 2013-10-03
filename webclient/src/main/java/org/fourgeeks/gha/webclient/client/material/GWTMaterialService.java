@@ -5,7 +5,7 @@ package org.fourgeeks.gha.webclient.client.material;
 
 import java.util.List;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.glm.Material;
 import org.fourgeeks.gha.domain.gmh.Brand;
 
@@ -20,42 +20,42 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 public interface GWTMaterialService extends RemoteService {
 	/**
 	 * @return a List with all the Materials
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<Material> getAll() throws EJBException;
+	public List<Material> getAll() throws GHAEJBException;
 
 	/**
 	 * @param offset
 	 * @param size
 	 * @return a List with size Materials starting from offset
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<Material> getAll(int offset, int size) throws EJBException;
+	public List<Material> getAll(int offset, int size) throws GHAEJBException;
 
 	/**
 	 * @param material
 	 * @return a list of materials that match the Criteria
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<Material> find(Material material) throws EJBException;
+	public List<Material> find(Material material) throws GHAEJBException;
 	
 	/**
 	 * @param brand
 	 * @return a list of Materials filtered by brand
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<Material> findByBrand(Brand brand) throws EJBException;
+	public List<Material> findByBrand(Brand brand) throws GHAEJBException;
 
 	/**
 	 * @return a List with all the Materials who are utilities
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<Material> getAllUtilities() throws EJBException;
+	public List<Material> getAllUtilities() throws GHAEJBException;
 
 	/**
 	 * @param material
 	 * @return Material saved
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public Material save(Material material) throws EJBException;
+	public Material save(Material material) throws GHAEJBException;
 }

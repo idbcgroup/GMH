@@ -6,7 +6,7 @@ package org.fourgeeks.gha.ejb.ess;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.ess.InstanceLogon;
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 
 /**
  * @author emiliot
@@ -15,41 +15,41 @@ import org.fourgeeks.gha.domain.exceptions.EJBException;
 public interface InstanceLogonServiceRemote {
 	/**
 	 * @param Id
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public void delete(long Id) throws EJBException;
+	public void delete(long Id) throws GHAEJBException;
 
 	/**
 	 * @param instanceLogon
 	 * @return the list of instanceLogons
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<InstanceLogon> find(InstanceLogon instanceLogon) throws EJBException;
+	public List<InstanceLogon> find(InstanceLogon instanceLogon) throws GHAEJBException;
 
 	/**
 	 * @param Id
 	 * @return the instanceLogon
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public InstanceLogon find(long Id) throws EJBException;
+	public InstanceLogon find(long Id) throws GHAEJBException;
 	
 	/**
 	 * @return the list of instanceLogons
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<InstanceLogon> getAll() throws EJBException;
+	public List<InstanceLogon> getAll() throws GHAEJBException;
 
 	/**
 	 * @param instanceLogon
 	 * @return the saved instanceLogon
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public InstanceLogon save(InstanceLogon instanceLogon) throws EJBException;
+	public InstanceLogon save(InstanceLogon instanceLogon) throws GHAEJBException;
 
 	/**
 	 * @param instanceLogon
 	 * @return the updated instanceLogon
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public InstanceLogon update(InstanceLogon instanceLogon) throws EJBException;
+	public InstanceLogon update(InstanceLogon instanceLogon) throws GHAEJBException;
 }

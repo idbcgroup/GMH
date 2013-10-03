@@ -1,6 +1,5 @@
 package org.fourgeeks.gha.ejb.gar;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -11,7 +10,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import org.fourgeeks.gha.domain.ess.BpuFunction;
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
 
 /**
@@ -27,18 +26,13 @@ public class BpuFunctionService implements BpuFunctionServiceRemote {
 	private EntityManager em;
 
 	@Override
-	public List<String> getFunctionsAsStringListByBpu(Bpu bpu)
-			throws EJBException {
+	public List<BpuFunction> getFunctionsByBpu(Bpu bpu) throws GHAEJBException {
 
 		TypedQuery<BpuFunction> query;
 		try {
 			query = em.createNamedQuery("BpuFunction.findByBpu",
 					BpuFunction.class).setParameter("bpu", bpu);
-			List<BpuFunction> resultList = query.getResultList();
-			List<String> resultAsString = new ArrayList<String>();
-			for (BpuFunction bpuFunction : resultList)
-				resultAsString.add(bpuFunction.getFunction().getCode());
-			return resultAsString;
+			return query.getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "error retriving bpufunctions", e);
 		}

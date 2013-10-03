@@ -56,7 +56,8 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 
-		Label title = new Label("<h3>Equipos pertenecientes a este Tipo de Equipo</h3>");
+		Label title = new Label(
+				"<h3>Equipos pertenecientes a este Tipo de Equipo</h3>");
 		title.setHeight(30);
 		title.setWidth100();
 		title.setStyleName("title-label");
@@ -75,6 +76,7 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 
 					@Override
 					public void onClick(ClickEvent event) {
+
 						final Eia selectedRecord = grid.getSelectedEntity();
 
 						if (selectedRecord == null)

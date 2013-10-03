@@ -5,8 +5,6 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASubTab;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 import org.fourgeeks.gha.webclient.client.eia.EIATab;
 
-import com.google.gwt.user.client.Window;
-
 /**
  * @author alacret Equipments sub tab
  */
@@ -19,11 +17,14 @@ public class EIAInformationSubTab extends GHASubTab implements
 	}
 
 	/**
+	 * @param tab
 	 * 
 	 */
 	public EIAInformationSubTab(EIATab tab) {
 		super("Información", tab);
+		setDisabled(true);
 		tab.addEiaSelectionListener(this);
+		eiaInformationFormPanel.addEiaSelectionListener(tab);
 		addGHAClosableHandler(eiaInformationFormPanel);
 		addGHAHideableHandler(eiaInformationFormPanel);
 		setPane(eiaInformationFormPanel);
@@ -31,7 +32,12 @@ public class EIAInformationSubTab extends GHASubTab implements
 
 	@Override
 	public void select(Eia eia) {
-		Window.alert("InformationSubTab dice: ha sido seleccionado un Eia. Esto quiere decir que funciona para todas");
+		setDisabled(false);
+		eiaInformationFormPanel.setEia(eia);
+	}
+
+	@Override
+	public void hide() {
 	}
 
 }

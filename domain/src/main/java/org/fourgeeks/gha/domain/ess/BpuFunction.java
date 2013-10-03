@@ -18,7 +18,9 @@ import org.fourgeeks.gha.domain.gar.Bpu;
 @Entity
 @Table(name = "BpuFunction", uniqueConstraints = @UniqueConstraint(columnNames = {
 		"bpuFk", "functionFk" }))
-@NamedQueries(value = { @NamedQuery(name = "BpuFunction.findByBpu", query = "SELECT e from BpuFunction e WHERE e.bpu = :bpu order by e.id") })
+@NamedQueries(value = {
+		@NamedQuery(name = "BpuFunction.findByBpu", query = "SELECT e from BpuFunction e WHERE e.bpu = :bpu order by e.id"),
+		@NamedQuery(name = "BpuFunction.delete", query = "DELETE from BpuFunction e WHERE e.bpu = :bpu AND function = :function ") })
 public class BpuFunction extends AbstractEntity {
 
 	/**

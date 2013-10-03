@@ -1,53 +1,69 @@
-/**
- * 
- */
 package org.fourgeeks.gha.domain.msg;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
-import org.fourgeeks.gha.domain.AbstractEntity;
+import org.fourgeeks.gha.domain.AbstractCodeEntity;
 import org.fourgeeks.gha.domain.enu.LanguageEnum;
 
 /**
- * @author emiliot
- *
+ * @author alacret
+ * 
  */
 @Entity
-@Table(name = "Message", schema = "GHAMsg")
-public class Message extends AbstractEntity {
+@Table(schema = "msg", uniqueConstraints = @UniqueConstraint(columnNames = {
+		"language", "code" }))
+public class Message extends AbstractCodeEntity {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	private String code;
+
+	@Column(nullable = false)
 	private LanguageEnum language;
-	private String message;
+
+	private String text;
+
 	/**
-	 * 
+	 * @param language
+	 * @param code
+	 * @param text
 	 */
-	public Message() {
-		// TODO Auto-generated constructor stub
-	}
-	public String getCode() {
-		return code;
-	}
-	public void setCode(String code) {
-		this.code = code;
-	}
-	public LanguageEnum getLanguage() {
-		return language;
-	}
-	public void setLanguage(LanguageEnum language) {
+	public Message(LanguageEnum language, String code, String text) {
+		super();
 		this.language = language;
-	}
-	public String getMessage() {
-		return message;
-	}
-	public void setMessage(String message) {
-		this.message = message;
+		this.code = code;
+		this.text = text;
 	}
 
+	/**
+	 */
+	public Message() {
+		super();
+	}
+
+	/**
+	 * @param language
+	 * @param code
+	 * @param text
+	 */
+	public Message(String code) {
+		super();
+		this.code = code;
+	}
+
+	@Override
+	public String toString() {
+		return this.getText();
+	}
+
+	/**
+	 * @return the text
+	 */
+	public String getText() {
+		return this.text;
+	}
 }

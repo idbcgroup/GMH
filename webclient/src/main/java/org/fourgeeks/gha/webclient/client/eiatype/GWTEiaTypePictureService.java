@@ -5,7 +5,7 @@ package org.fourgeeks.gha.webclient.client.eiatype;
 
 import java.util.List;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypePicture;
 
@@ -22,46 +22,46 @@ public interface GWTEiaTypePictureService extends RemoteService {
 	/**
 	 * @param eiaTypePicture
 	 * @return EiaTypePicture saved
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public void save(EiaType eiaType) throws EJBException;
+	public void save(EiaType eiaType) throws GHAEJBException;
 
 	/**
 	 * @param Id
 	 * @return the EiaTypePicture with this Id
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public EiaTypePicture find(long id) throws EJBException;
+	public EiaTypePicture find(long id) throws GHAEJBException;
 
 	/**
 	 * @param eiaType
 	 * @return a list with possible matches to the eiaType passed by param
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<EiaTypePicture> findByEiaType(EiaType eiaType) throws EJBException;
+	public List<EiaTypePicture> findByEiaType(EiaType eiaType) throws GHAEJBException;
 
 	
 	/**
 	 * @param EiaType
 	 *            the EiaType to be update eiaTypePicture
 	 * @return a EiaType updated
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public boolean update(EiaType eiaType, int noDeletePicture[]) throws EJBException;
+	public boolean update(EiaType eiaType, int noDeletePicture[]) throws GHAEJBException;
 	
 	/**
 	 * @param EiaTypePicture
 	 *            the EiaTypePicture to be updated
 	 * @return a EiaTypePicture updated
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public boolean update(EiaTypePicture eiaTypePicture) throws EJBException;
+	public boolean update(EiaTypePicture eiaTypePicture) throws GHAEJBException;
 
 	/**
 	 * Delete an EiaTypePicture from database by Id
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public void delete(long Id) throws EJBException;
+	public void delete(long Id) throws GHAEJBException;
 	/**
 	 * 
 	 * Delete an Picture from session by name

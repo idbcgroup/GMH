@@ -19,6 +19,7 @@ public class EIATypeComponentSubTab extends GHASubTab implements
 	 */
 	public EIATypeComponentSubTab(EIATypeTab tab) {
 		super("Componentes", tab);
+		setDisabled(true);
 		tab.addEiaTypeSelectionListener(this);
 		partesGridPanel = new EIATypeComponentGridPanel();
 		addGHAClosableHandler(partesGridPanel);
@@ -30,5 +31,6 @@ public class EIATypeComponentSubTab extends GHASubTab implements
 	@Override
 	public void select(EiaType eiaType) {
 		partesGridPanel.select(eiaType);
+		setDisabled(false);
 	}
 }

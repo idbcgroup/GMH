@@ -1,58 +1,48 @@
 package org.fourgeeks.gha.webclient.client.maintenanceprotocol.information;
 
-import org.fourgeeks.gha.domain.gmh.EiaType;
+import java.util.LinkedList;
+import java.util.List;
+
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
-import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
+import org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolForm;
+import org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionListener;
+import org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionProducer;
 import org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolTab;
 
 import com.smartgwt.client.types.Alignment;
-import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
-import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
- * @author alacret
+ * @author alacret, emiliot
  * 
  */
-public class MaintenanceProtocolInformationFormPanel extends VLayout implements
-		EIATypeSelectionListener, GHAClosable, GHAHideable {
+public class MaintenanceProtocolInformationFormPanel extends VLayout implements GHAClosable, GHAHideable, MaintenanceProtocolSelectionListener, MaintenanceProtocolSelectionProducer {
+	private MaintenanceProtocolForm maintenanceProtocolForm;
+	private List<MaintenanceProtocolSelectionListener> listeners;
 	
-	private GHATextItem codeItem, nameItem, descriptionItem;
-	private EiaType eiaType, orginalEiaType;
-	private MaintenanceProtocolTab tab;
-
+	private MaintenanceProtocol originalMaintenanceProtocol;
 	{
-		codeItem = new GHATextItem("Código", 150);
-		nameItem = new GHATextItem("Nombre", 150);
-		descriptionItem = new GHATextItem("Descripción", 620);
-		descriptionItem.setColSpan(4);
+		maintenanceProtocolForm = new MaintenanceProtocolForm();
+		listeners = new LinkedList<MaintenanceProtocolSelectionListener>();
+		this.originalMaintenanceProtocol = null;
 	}
 
 	public MaintenanceProtocolInformationFormPanel(MaintenanceProtocolTab tab) {
 		activateForm(false);
-		this.tab = tab;
-		
 		tab.addGHAClosableHandler(this);
 		
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		setAlign(Alignment.CENTER);
-
-		DynamicForm form = new DynamicForm();
-		form.setTitleOrientation(TitleOrientation.TOP);
-		form.setNumCols(4);
-		form.setItems(codeItem, nameItem, new GHASpacerItem(2),
-				      descriptionItem);
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
 				"../resources/icons/save.png", new ClickHandler() {
@@ -71,54 +61,25 @@ public class MaintenanceProtocolInformationFormPanel extends VLayout implements
 				}));
 
 		HLayout gridPanel = new HLayout();
-		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
+		gridPanel.addMembers(maintenanceProtocolForm, new LayoutSpacer(), sideButtons);
 
 		addMember(gridPanel);
-
-		fillExtras();
+		
+		//register as maintenanceProtocolSelectionListener with the Form
+		maintenanceProtocolForm.addMaintenanceProtocolSelectionListener(this);
 	}
 
 	public void activateForm(boolean activate) {
-		codeItem.setDisabled(!activate);
-		nameItem.setDisabled(!activate);
-		descriptionItem.setDisabled(!activate);
+		maintenanceProtocolForm.activateForm(activate);
 	}
 
 	protected void undo() {
-		select(this.orginalEiaType);
-		save();
-	}
-
-	private void fillExtras() {
-		//TODO:
-	}
-
-	@Override
-	public void select(EiaType eiaType) {
-		activateForm(true);
-//		
-//		//reload brand and manufacturer forms, in order to avoid issues with new brands or manufacturers
-
-//		this.eiaType = this.orginalEiaType = eiaType;
-//		if (eiaType.getBrand() != null)
-//			brandItem.setValue(eiaType.getBrand().getId());
-//		if (eiaType.getManufacturer() != null)
-//			manItem.setValue(eiaType.getManufacturer().getId());
-//		codeItem.setValue(eiaType.getCode());
-//		nameItem.setValue(eiaType.getName());
-//		descriptionItem.setValue(eiaType.getDescription());
-//		modelItem.setValue(eiaType.getModel());
-//		useDescriptionItem.setValue(eiaType.getUseDescription());
-//		eiaUmdnsItem.setValue(eiaType.getEiaUmdns());
-//		mobilityItem.setValue(eiaType.getMobility().name());
-//		typeItem.setValue(eiaType.getType().name());
-//		if (eiaType.getSubtype() != null)
-//			subTypeItem.setValue(eiaType.getSubtype().name());
-//		showPhotographics(eiaType);
+		select(this.originalMaintenanceProtocol);
+//		save();
 	}
 
 	private void save() {
-		
+		maintenanceProtocolForm.update();
 	}
 
 	@Override
@@ -129,5 +90,42 @@ public class MaintenanceProtocolInformationFormPanel extends VLayout implements
 	@Override
 	public void hide() {
 
+	}
+
+	/**
+	 * @param maintenanceProtocol
+	 */
+	public void setMaintenanceProtocol(MaintenanceProtocol maintenanceProtocol) {
+		this.originalMaintenanceProtocol = maintenanceProtocol;
+		maintenanceProtocolForm.setMaintenanceProtocol(maintenanceProtocol);
+		maintenanceProtocolForm.activateForm(true);
+	}
+
+	//Producer/Consumer stuff
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionProducer#addMaintenanceProtocolSelectionListener(org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionListener)
+	 */
+	@Override
+	public void addMaintenanceProtocolSelectionListener(
+			MaintenanceProtocolSelectionListener maintenanceProtocolSelectionListener) {
+		listeners.add(maintenanceProtocolSelectionListener);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionProducer#removeMaintenanceProtocolSelectionListener(org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionListener)
+	 */
+	@Override
+	public void removeMaintenanceProtocolSelectionListener(
+			MaintenanceProtocolSelectionListener maintenanceProtocolSelectionListener) {
+		listeners.remove(maintenanceProtocolSelectionListener);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionListener#select(org.fourgeeks.gha.domain.gmh.MaintenanceProtocol)
+	 */
+	@Override
+	public void select(MaintenanceProtocol maintenanceProtocol) {
+		for(MaintenanceProtocolSelectionListener listener : listeners)
+			listener.select(maintenanceProtocol);
 	}
 }

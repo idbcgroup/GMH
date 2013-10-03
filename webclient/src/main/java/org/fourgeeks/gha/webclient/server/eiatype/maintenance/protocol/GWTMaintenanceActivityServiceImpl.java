@@ -8,7 +8,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.ServiceResource;
@@ -36,7 +36,7 @@ public class GWTMaintenanceActivityServiceImpl extends RemoteServiceServlet
 	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.GWTMaintenanceActivityService#delete(long)
 	 */
 	@Override
-	public void delete(long Id) throws EJBException {
+	public void delete(long Id) throws GHAEJBException {
 		ejbService.delete(Id);		
 	}
 
@@ -44,7 +44,7 @@ public class GWTMaintenanceActivityServiceImpl extends RemoteServiceServlet
 	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.GWTMaintenanceActivityService#find(long)
 	 */
 	@Override
-	public MaintenanceActivity find(long Id) throws EJBException {
+	public MaintenanceActivity find(long Id) throws GHAEJBException {
 		return ejbService.find(Id);
 	}
 
@@ -53,7 +53,7 @@ public class GWTMaintenanceActivityServiceImpl extends RemoteServiceServlet
 	 */
 	@Override
 	public List<MaintenanceActivity> findByMaintenanceProtocol(
-			MaintenanceProtocol maintenanceProtocol) throws EJBException {
+			MaintenanceProtocol maintenanceProtocol) throws GHAEJBException {
 		return ejbService.findByMaintenanceProtocol(maintenanceProtocol);
 	}
 
@@ -63,7 +63,7 @@ public class GWTMaintenanceActivityServiceImpl extends RemoteServiceServlet
 	@Override
 	public List<MaintenanceActivity> findByMaintenanceProtocol(
 			MaintenanceProtocol maintenanceProtocol, int offset, int size)
-			throws EJBException {
+			throws GHAEJBException {
 		return ejbService.findByMaintenanceProtocol(maintenanceProtocol, offset, size);
 	}
 
@@ -71,7 +71,7 @@ public class GWTMaintenanceActivityServiceImpl extends RemoteServiceServlet
 	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol.GWTMaintenanceActivityService#findByRaS(org.fourgeeks.gha.domain.gmh.RaS)
 	 */
 	@Override
-	public List<MaintenanceActivity> findByServiceResource(ServiceResource serviceResource) throws EJBException {
+	public List<MaintenanceActivity> findByServiceResource(ServiceResource serviceResource) throws GHAEJBException {
 		return ejbService.findByServiceResource(serviceResource);
 	}
 
@@ -79,7 +79,7 @@ public class GWTMaintenanceActivityServiceImpl extends RemoteServiceServlet
 	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.GWTMaintenanceActivityService#getAll()
 	 */
 	@Override
-	public List<MaintenanceActivity> getAll() throws EJBException {
+	public List<MaintenanceActivity> getAll() throws GHAEJBException {
 		return ejbService.getAll();
 	}
 
@@ -88,7 +88,7 @@ public class GWTMaintenanceActivityServiceImpl extends RemoteServiceServlet
 	 */
 	@Override
 	public List<MaintenanceActivity> getAll(int offset, int size)
-			throws EJBException {
+			throws GHAEJBException {
 		return ejbService.getAll(offset, size);
 	}
 
@@ -97,7 +97,7 @@ public class GWTMaintenanceActivityServiceImpl extends RemoteServiceServlet
 	 */
 	@Override
 	public MaintenanceActivity save(MaintenanceActivity maintenanceActivity)
-			throws EJBException {
+			throws GHAEJBException {
 		return ejbService.save(maintenanceActivity	);
 	}
 
@@ -106,7 +106,7 @@ public class GWTMaintenanceActivityServiceImpl extends RemoteServiceServlet
 	 */
 	@Override
 	public MaintenanceActivity update(MaintenanceActivity maintenanceActivity)
-			throws EJBException {
+			throws GHAEJBException {
 		return ejbService.update(maintenanceActivity);
 	}
 

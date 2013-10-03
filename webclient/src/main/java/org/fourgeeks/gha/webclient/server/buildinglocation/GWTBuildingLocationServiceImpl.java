@@ -7,7 +7,7 @@ import java.util.List;
 
 import javax.ejb.EJB;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.ejb.gmh.BuildingLocationServiceRemote;
 import org.fourgeeks.gha.webclient.client.buildinglocation.GWTBuildingLocationService;
@@ -30,13 +30,13 @@ public class GWTBuildingLocationServiceImpl extends RemoteServiceServlet
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	public List<BuildingLocation> getAll() throws EJBException {
+	public List<BuildingLocation> getAll() throws GHAEJBException {
 		return service.getAll();
 	}
 
 	@Override
 	public List<BuildingLocation> getAll(int offset, int size)
-			throws EJBException {
+			throws GHAEJBException {
 		return service.getAll(); // TODO
 	}
 }

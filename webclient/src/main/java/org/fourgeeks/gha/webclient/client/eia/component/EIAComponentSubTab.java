@@ -5,8 +5,6 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASubTab;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 import org.fourgeeks.gha.webclient.client.eia.EIATab;
 
-import com.google.gwt.user.client.Window;
-
 /**
  * @author alacret
  * 
@@ -21,6 +19,7 @@ public class EIAComponentSubTab extends GHASubTab implements
 	 */
 	public EIAComponentSubTab(EIATab tab) {
 		super("Componentes", tab);
+		setDisabled(true);
 		tab.addEiaSelectionListener(this);
 		eiaComponentGridPanel = new EIAComponentGridPanel();
 		addGHAClosableHandler(eiaComponentGridPanel);
@@ -31,7 +30,7 @@ public class EIAComponentSubTab extends GHASubTab implements
 
 	@Override
 	public void select(Eia eia) {
-		// TODO Auto-generated method stub
 		eiaComponentGridPanel.select(eia);
+		setDisabled(false);
 	}
 }

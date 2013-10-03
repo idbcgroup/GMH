@@ -1,10 +1,6 @@
 package org.fourgeeks.gha.webclient.client.maintenanceprotocol;
 
-import org.fourgeeks.gha.domain.gmh.Eia;
-import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
-import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.maintenanceprotocol.activities.ProtocolActivitiesSubTab;
 import org.fourgeeks.gha.webclient.client.maintenanceprotocol.asociatedmaintenanceplan.AsociatedMaintenancePlanSubTab;
 import org.fourgeeks.gha.webclient.client.maintenanceprotocol.information.MaintenanceProtocolInformationSubTab;
@@ -13,15 +9,11 @@ import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.widgets.tab.TabSet;
 
-public class MaintenanceProtocolInternalTabset extends TabSet implements
-		EIATypeSelectionListener, EIASelectionListener, ResizeHandler {
+public class MaintenanceProtocolInternalTabset extends TabSet implements ResizeHandler {
 
 	private MaintenanceProtocolInformationSubTab maintenanceProtocolInformationSubTab;
 	private AsociatedMaintenancePlanSubTab asociatedMaintenancePlanSubTab;
 	private ProtocolActivitiesSubTab protocolActivitySubTab;
-//	private EIAMaintPlanSubTab eiaPlanSubTab;
-//	private EIACostSubTab eiaCostsSubTab;
-//	private EIAMovementsSubTab eiaMovementsSubTab;
 		
 	public MaintenanceProtocolInternalTabset(MaintenanceProtocolTab mpTab) {
 		super();
@@ -33,38 +25,12 @@ public class MaintenanceProtocolInternalTabset extends TabSet implements
 		maintenanceProtocolInformationSubTab = new MaintenanceProtocolInformationSubTab(mpTab);
 		asociatedMaintenancePlanSubTab = new AsociatedMaintenancePlanSubTab(mpTab);
 		protocolActivitySubTab = new ProtocolActivitiesSubTab(mpTab);
-//		eiaPlanSubTab = new EIAMaintPlanSubTab(mpTab);
-//		eiaCostsSubTab = new EIACostSubTab(mpTab);
-//		eiaMovementsSubTab = new EIAMovementsSubTab(mpTab);
 		
 		// Agregando las Subtabs
 		addTab(maintenanceProtocolInformationSubTab);
 		addTab(asociatedMaintenancePlanSubTab);
 		addTab(protocolActivitySubTab);
-//		addTab(eiaPlanSubTab);
-//		addTab(eiaCostsSubTab);
-//		addTab(eiaMovementsSubTab);
 
-	}
-
-	@Override
-	public void select(Eia eia) {
-//		maintenanceProtocolInformationSubTab.select(eia);
-//		eiaPartesSubTab.select(eia);
-//		eiaMaterialSubTab.select(eia);
-//		eiaPlanSubTab.select(eia);
-//		eiaCostosSubTab.select(eia);
-//		eiaMovimientosSubTab.select(eia);
-	}
-	
-	@Override
-	public void select(EiaType eiaType) {
-		maintenanceProtocolInformationSubTab.select(eiaType);
-		asociatedMaintenancePlanSubTab.select(eiaType);
-		protocolActivitySubTab.select(eiaType);
-//		eiaPlanSubTab.select(eiaType);
-//		eiaCostsSubTab.select(eiaType);
-//		eiaMovementsSubTab.select(eiaType);
 	}
 
 	@Override

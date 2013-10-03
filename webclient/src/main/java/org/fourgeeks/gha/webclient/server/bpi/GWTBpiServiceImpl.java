@@ -8,7 +8,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.ejb.mix.BpiServiceRemote;
 import org.fourgeeks.gha.webclient.client.bpi.GWTBpiService;
@@ -32,7 +32,7 @@ public class GWTBpiServiceImpl extends RemoteServiceServlet implements GWTBpiSer
 	 * @see org.fourgeeks.gha.webclient.client.bpi.GWTBpiService#delete(long)
 	 */
 	@Override
-	public void delete(long Id) throws EJBException {
+	public void delete(long Id) throws GHAEJBException {
 		service.delete(Id);
 	}
 
@@ -40,7 +40,7 @@ public class GWTBpiServiceImpl extends RemoteServiceServlet implements GWTBpiSer
 	 * @see org.fourgeeks.gha.webclient.client.bpi.GWTBpiService#find(org.fourgeeks.gha.domain.mix.Bpi)
 	 */
 	@Override
-	public List<Bpi> find(Bpi bpi) throws EJBException {
+	public List<Bpi> find(Bpi bpi) throws GHAEJBException {
 		return service.find(bpi);
 	}
 
@@ -48,7 +48,7 @@ public class GWTBpiServiceImpl extends RemoteServiceServlet implements GWTBpiSer
 	 * @see org.fourgeeks.gha.webclient.client.bpi.GWTBpiService#find(long)
 	 */
 	@Override
-	public Bpi find(long Id) throws EJBException {
+	public Bpi find(long Id) throws GHAEJBException {
 		return service.find(Id);
 	}
 
@@ -56,7 +56,7 @@ public class GWTBpiServiceImpl extends RemoteServiceServlet implements GWTBpiSer
 	 * @see org.fourgeeks.gha.webclient.client.bpi.GWTBpiService#getAll()
 	 */
 	@Override
-	public List<Bpi> getAll() throws EJBException {
+	public List<Bpi> getAll() throws GHAEJBException {
 		return service.getAll();
 	}
 
@@ -64,7 +64,7 @@ public class GWTBpiServiceImpl extends RemoteServiceServlet implements GWTBpiSer
 	 * @see org.fourgeeks.gha.webclient.client.bpi.GWTBpiService#save(org.fourgeeks.gha.domain.mix.Bpi)
 	 */
 	@Override
-	public Bpi save(Bpi bpi) throws EJBException {
+	public Bpi save(Bpi bpi) throws GHAEJBException {
 		return service.save(bpi);
 	}
 
@@ -72,7 +72,7 @@ public class GWTBpiServiceImpl extends RemoteServiceServlet implements GWTBpiSer
 	 * @see org.fourgeeks.gha.webclient.client.bpi.GWTBpiService#update(org.fourgeeks.gha.domain.mix.Bpi)
 	 */
 	@Override
-	public Bpi update(Bpi bpi) throws EJBException {
+	public Bpi update(Bpi bpi) throws GHAEJBException {
 		return service.update(bpi);
 	}
 

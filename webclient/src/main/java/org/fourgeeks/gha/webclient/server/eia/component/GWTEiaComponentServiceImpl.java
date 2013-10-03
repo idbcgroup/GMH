@@ -7,7 +7,7 @@ import java.util.List;
 
 import javax.ejb.EJB;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaComponent;
 import org.fourgeeks.gha.ejb.gmh.EiaComponentServiceRemote;
@@ -33,7 +33,7 @@ public class GWTEiaComponentServiceImpl extends RemoteServiceServlet implements 
 	 * @see org.fourgeeks.gha.webclient.client.eia.component.GWTEiaComponentService#delete(long)
 	 */
 	@Override
-	public void delete(long Id) throws EJBException {
+	public void delete(long Id) throws GHAEJBException {
 		serviceRemote.delete(Id);
 	}
 
@@ -41,7 +41,7 @@ public class GWTEiaComponentServiceImpl extends RemoteServiceServlet implements 
 	 * @see org.fourgeeks.gha.webclient.client.eia.component.GWTEiaComponentService#find(org.fourgeeks.gha.domain.gmh.Eia)
 	 */
 	@Override
-	public List<EiaComponent> findByParentEia(Eia eia) throws EJBException {
+	public List<EiaComponent> findByParentEia(Eia eia) throws GHAEJBException {
 		return serviceRemote.findByParentEia(eia);
 	}
 
@@ -50,7 +50,7 @@ public class GWTEiaComponentServiceImpl extends RemoteServiceServlet implements 
 	 */
 	@Override
 	public List<EiaComponent> findByParentEia(Eia eia, int offset, int size)
-			throws EJBException {
+			throws GHAEJBException {
 		return serviceRemote.findByParentEia(eia);
 	}
 
@@ -58,7 +58,7 @@ public class GWTEiaComponentServiceImpl extends RemoteServiceServlet implements 
 	 * @see org.fourgeeks.gha.webclient.client.eia.component.GWTEiaComponentService#find(long)
 	 */
 	@Override
-	public EiaComponent find(long Id) throws EJBException {
+	public EiaComponent find(long Id) throws GHAEJBException {
 		return serviceRemote.find(Id);
 	}
 
@@ -66,7 +66,7 @@ public class GWTEiaComponentServiceImpl extends RemoteServiceServlet implements 
 	 * @see org.fourgeeks.gha.webclient.client.eia.component.GWTEiaComponentService#getAll()
 	 */
 	@Override
-	public List<EiaComponent> getAll() throws EJBException {
+	public List<EiaComponent> getAll() throws GHAEJBException {
 		return serviceRemote.getAll();
 	}
 
@@ -74,7 +74,7 @@ public class GWTEiaComponentServiceImpl extends RemoteServiceServlet implements 
 	 * @see org.fourgeeks.gha.webclient.client.eia.component.GWTEiaComponentService#getAll(int, int)
 	 */
 	@Override
-	public List<EiaComponent> getAll(int offset, int size) throws EJBException {
+	public List<EiaComponent> getAll(int offset, int size) throws GHAEJBException {
 		return serviceRemote.getAll(offset, size);
 	}
 
@@ -82,7 +82,7 @@ public class GWTEiaComponentServiceImpl extends RemoteServiceServlet implements 
 	 * @see org.fourgeeks.gha.webclient.client.eia.component.GWTEiaComponentService#save(org.fourgeeks.gha.domain.gmh.EiaComponent)
 	 */
 	@Override
-	public EiaComponent save(EiaComponent eiaComponent) throws EJBException {
+	public EiaComponent save(EiaComponent eiaComponent) throws GHAEJBException {
 		return serviceRemote.save(eiaComponent);
 	}
 
@@ -90,7 +90,7 @@ public class GWTEiaComponentServiceImpl extends RemoteServiceServlet implements 
 	 * @see org.fourgeeks.gha.webclient.client.eia.component.GWTEiaComponentService#update(org.fourgeeks.gha.domain.gmh.EiaComponent)
 	 */
 	@Override
-	public EiaComponent update(EiaComponent eiaComponent) throws EJBException {
+	public EiaComponent update(EiaComponent eiaComponent) throws GHAEJBException {
 		return serviceRemote.update(eiaComponent);
 	}
 

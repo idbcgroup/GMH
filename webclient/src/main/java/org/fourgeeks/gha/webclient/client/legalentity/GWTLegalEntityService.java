@@ -5,7 +5,7 @@ package org.fourgeeks.gha.webclient.client.legalentity;
 
 import java.util.List;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.mix.LegalEntity;
 
 import com.google.gwt.user.client.rpc.RemoteService;
@@ -19,41 +19,41 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 public interface GWTLegalEntityService extends RemoteService{
 	/**
 	 * @param Id
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public void delete(long Id) throws EJBException;
+	public void delete(long Id) throws GHAEJBException;
 
 	/**
 	 * @param legalEntity
 	 * @return the list of legalEntities
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<LegalEntity> find(LegalEntity legalEntity) throws EJBException;
+	public List<LegalEntity> find(LegalEntity legalEntity) throws GHAEJBException;
 
 	/**
 	 * @param Id
 	 * @return the legalEntity
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public LegalEntity find(long Id) throws EJBException;
+	public LegalEntity find(long Id) throws GHAEJBException;
 	
 	/**
 	 * @return the list of legalEntities
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<LegalEntity> getAll() throws EJBException;
+	public List<LegalEntity> getAll() throws GHAEJBException;
 
 	/**
 	 * @param legalEntity
 	 * @return the saved legalEntity
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public LegalEntity save(LegalEntity legalEntity) throws EJBException;
+	public LegalEntity save(LegalEntity legalEntity) throws GHAEJBException;
 
 	/**
 	 * @param legalEntity
 	 * @return the updated legalEntity
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public LegalEntity update(LegalEntity legalEntity) throws EJBException;
+	public LegalEntity update(LegalEntity legalEntity) throws GHAEJBException;
 }

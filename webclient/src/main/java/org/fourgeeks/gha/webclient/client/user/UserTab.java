@@ -1,20 +1,37 @@
 package org.fourgeeks.gha.webclient.client.user;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATab;
 
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class UserTab extends GHATab {
+/**
+ * @author alacret
+ * 
+ */
+public class UserTab extends GHATab implements UserSelectionListener,
+		UserSelectionProducer {
 
+	/**
+	 * 
+	 */
 	public static final String ID = "user";
 	private static final String TITLE = "Usuarios";
 	private UserTopSection topSection;
 	private UserInternalTabset internalTabset;
-
 	private SSOUser user;
-	
+	private List<UserSelectionListener> listeners;
+	{
+		listeners = new ArrayList<UserSelectionListener>();
+	}
+
+	/**
+	 * 
+	 */
 	public UserTab() {
 		super();
 		getHeader().setTitle(TITLE);
@@ -43,5 +60,25 @@ public class UserTab extends GHATab {
 	@Override
 	public String getId() {
 		return ID;
+	}
+
+	@Override
+	public void addUserSelectionListener(
+			UserSelectionListener userSelectionListener) {
+		listeners.add(userSelectionListener);
+
+	}
+
+	@Override
+	public void removeUserSelectionListener(
+			UserSelectionListener userSelectionListener) {
+		listeners.remove(userSelectionListener);
+
+	}
+
+	@Override
+	public void select(SSOUser ssoUser) {
+		for (UserSelectionListener listener : listeners)
+			listener.select(ssoUser);
 	}
 }

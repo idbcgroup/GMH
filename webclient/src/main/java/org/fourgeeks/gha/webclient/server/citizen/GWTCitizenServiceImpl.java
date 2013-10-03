@@ -8,7 +8,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.mix.Citizen;
 import org.fourgeeks.gha.ejb.mix.CitizenServiceRemote;
 import org.fourgeeks.gha.webclient.client.citizen.GWTCitizenService;
@@ -32,7 +32,7 @@ public class GWTCitizenServiceImpl extends RemoteServiceServlet implements GWTCi
 	 * @see org.fourgeeks.gha.webclient.client.citizen.GWTCitizenService#delete(long)
 	 */
 	@Override
-	public void delete(long Id) throws EJBException {
+	public void delete(long Id) throws GHAEJBException {
 		service.delete(Id);
 	}
 
@@ -40,7 +40,7 @@ public class GWTCitizenServiceImpl extends RemoteServiceServlet implements GWTCi
 	 * @see org.fourgeeks.gha.webclient.client.citizen.GWTCitizenService#find(org.fourgeeks.gha.domain.mix.Citizen)
 	 */
 	@Override
-	public List<Citizen> find(Citizen citizen) throws EJBException {
+	public List<Citizen> find(Citizen citizen) throws GHAEJBException {
 		return service.find(citizen);
 	}
 
@@ -48,7 +48,7 @@ public class GWTCitizenServiceImpl extends RemoteServiceServlet implements GWTCi
 	 * @see org.fourgeeks.gha.webclient.client.citizen.GWTCitizenService#find(long)
 	 */
 	@Override
-	public Citizen find(long Id) throws EJBException {
+	public Citizen find(long Id) throws GHAEJBException {
 		return service.find(Id);
 	}
 
@@ -56,7 +56,7 @@ public class GWTCitizenServiceImpl extends RemoteServiceServlet implements GWTCi
 	 * @see org.fourgeeks.gha.webclient.client.citizen.GWTCitizenService#getAll()
 	 */
 	@Override
-	public List<Citizen> getAll() throws EJBException {
+	public List<Citizen> getAll() throws GHAEJBException {
 		return service.getAll();
 	}
 
@@ -64,7 +64,7 @@ public class GWTCitizenServiceImpl extends RemoteServiceServlet implements GWTCi
 	 * @see org.fourgeeks.gha.webclient.client.citizen.GWTCitizenService#save(org.fourgeeks.gha.domain.mix.Citizen)
 	 */
 	@Override
-	public Citizen save(Citizen citizen) throws EJBException {
+	public Citizen save(Citizen citizen) throws GHAEJBException {
 		return service.save(citizen);
 	}
 
@@ -72,7 +72,7 @@ public class GWTCitizenServiceImpl extends RemoteServiceServlet implements GWTCi
 	 * @see org.fourgeeks.gha.webclient.client.citizen.GWTCitizenService#update(org.fourgeeks.gha.domain.mix.Citizen)
 	 */
 	@Override
-	public Citizen update(Citizen citizen) throws EJBException {
+	public Citizen update(Citizen citizen) throws GHAEJBException {
 		return service.update(citizen);
 	}
 

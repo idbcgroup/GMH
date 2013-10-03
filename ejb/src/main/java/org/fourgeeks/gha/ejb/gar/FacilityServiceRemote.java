@@ -7,7 +7,7 @@ import java.util.List;
 
 import javax.ejb.Remote;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Facility;
 
 /**
@@ -18,41 +18,41 @@ import org.fourgeeks.gha.domain.gar.Facility;
 public interface FacilityServiceRemote {
 	/**
 	 * @param Id
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public void delete(long Id) throws EJBException;
+	public void delete(long Id) throws GHAEJBException;
 
 	/**
 	 * @param entity
 	 * @return the list of Facilities
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<Facility> find(Facility entity) throws EJBException;
+	public List<Facility> find(Facility entity) throws GHAEJBException;
 
 	/**
 	 * @param Id
 	 * @return the Facility
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public Facility find(long Id) throws EJBException;
+	public Facility find(long Id) throws GHAEJBException;
 
 	/**
 	 * @return the list of Facilities
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<Facility> getAll() throws EJBException;
+	public List<Facility> getAll() throws GHAEJBException;
 
 	/**
 	 * @param entity
 	 * @return the saved Facility
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public Facility save(Facility entity) throws EJBException;
+	public Facility save(Facility entity) throws GHAEJBException;
 
 	/**
 	 * @param entity
 	 * @return the updated Facility
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public Facility update(Facility entity) throws EJBException;
+	public Facility update(Facility entity) throws GHAEJBException;
 }

@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.ejb.EJB;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaterial;
 import org.fourgeeks.gha.ejb.gmh.EiaTypeMaterialServiceRemote;
@@ -25,18 +25,18 @@ public class GWTEiaTypeMaterialServiceImpl extends RemoteServiceServlet
 	private EiaTypeMaterialServiceRemote serviceRemote;
 	
 	@Override
-	public List<EiaTypeMaterial> findByEiaType(EiaType eiaType) throws EJBException {
+	public List<EiaTypeMaterial> findByEiaType(EiaType eiaType) throws GHAEJBException {
 		return serviceRemote.findByEiaType(eiaType);
 	}
 
 	@Override
 	public EiaTypeMaterial save(EiaTypeMaterial eiaTypeMaterial)
-			throws EJBException {
+			throws GHAEJBException {
 		return serviceRemote.save(eiaTypeMaterial);
 	}
 
 	@Override
-	public void delete(long id) throws EJBException {
+	public void delete(long id) throws GHAEJBException {
 		serviceRemote.delete(id);
 	}
 

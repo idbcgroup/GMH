@@ -10,7 +10,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
 
 /**
@@ -31,49 +31,49 @@ public interface BuildingLocationServiceRemote {
 	/**
 	 * 
 	 * @param id
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public void delete(String id) throws EJBException;
+	public void delete(String id) throws GHAEJBException;
 
 	/**
 	 * 
 	 * @param brand
 	 * @return
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
 	public List<BuildingLocation> find(BuildingLocation buildingLocation)
-			throws EJBException;
+			throws GHAEJBException;
 
 	/**
 	 * 
 	 * @param id
 	 * @return
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public BuildingLocation find(String id) throws EJBException;
+	public BuildingLocation find(String id) throws GHAEJBException;
 
 	/**
 	 * 
 	 * @return
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<BuildingLocation> getAll() throws EJBException;
+	public List<BuildingLocation> getAll() throws GHAEJBException;
 
 	/**
 	 * 
 	 * @param brand
 	 * @return
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
 	public BuildingLocation save(BuildingLocation buildingLocation)
-			throws EJBException;
+			throws GHAEJBException;
 
 	/**
 	 * 
 	 * @param brand
 	 * @return
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
 	public BuildingLocation update(BuildingLocation buildingLocation)
-			throws EJBException;
+			throws GHAEJBException;
 }

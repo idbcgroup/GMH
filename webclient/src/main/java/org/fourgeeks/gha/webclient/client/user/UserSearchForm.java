@@ -1,11 +1,11 @@
 package org.fourgeeks.gha.webclient.client.user;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.enu.GenderTypeEnum;
 import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.domain.gar.Bpu;
-import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.mix.Citizen;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
@@ -13,7 +13,6 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
-import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.types.TitleOrientation;
@@ -33,7 +32,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class UserSearchForm extends GHASlideInWindow {
+public class UserSearchForm extends GHASlideInWindow implements
+		UserSelectionProducer, UserSelectionListener {
 
 	private UserGrid grid;
 	private GHATextItem usernameItem, firstNameItem, secondNameItem,
@@ -41,6 +41,7 @@ public class UserSearchForm extends GHASlideInWindow {
 			idItem;
 	private GHASelectItem genderSelectItem;
 	private UserAddForm addForm;
+	private List<UserSelectionListener> listeners;
 
 	{
 		usernameItem = new GHATextItem("Usuario",
@@ -63,11 +64,12 @@ public class UserSearchForm extends GHASlideInWindow {
 				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
 		grid = new UserGrid();
 		addForm = new UserAddForm();
+		listeners = new ArrayList<UserSelectionListener>();
 	}
 
 	/**
-	 * 
-	 */
+* 
+*/
 	public UserSearchForm() {
 		super(1);
 		setTop(110);
@@ -150,8 +152,8 @@ public class UserSearchForm extends GHASlideInWindow {
 
 					@Override
 					public void onClick(ClickEvent event) {
-						// selectEia(((EIARecord) grid.getSelectedRecord())
-						// .toEntity());
+						notifyUser(((UserRecord) grid.getSelectedRecord())
+								.toEntity());
 						hide();
 					}
 				}), GHAUiHelper.verticalGraySeparator("2px"), new GHAImgButton(
@@ -160,6 +162,7 @@ public class UserSearchForm extends GHASlideInWindow {
 					@Override
 					public void onClick(ClickEvent event) {
 						addForm.open();
+						addForm.show();
 					}
 				}));
 
@@ -168,24 +171,12 @@ public class UserSearchForm extends GHASlideInWindow {
 		addMember(gridLayout);
 
 		fillExtras();
+		// register as listener to the addform producer
+		addForm.addUserSelectionListener(this);
 	}
 
 	private void fillExtras() {
 		genderSelectItem.setValueMap(GenderTypeEnum.toValueMap());
-	}
-
-	/**
-	 * 
-	 * @param eiaSelectionListener
-	 */
-	public void addEIASelectionListener(
-			EIASelectionListener eiaSelectionListener) {
-		// listeners.add(eiaSelectionListener);
-	}
-
-	private void selectEia(Eia eia) {
-		// for (EIASelectionListener listener : listeners)
-		// listener.select(eia);
 	}
 
 	private void search() {
@@ -217,51 +208,20 @@ public class UserSearchForm extends GHASlideInWindow {
 		ssoUser.setBpu(bpu);
 		search(ssoUser);
 
-		// Eia eia = new Eia();
-		// if (actualCostItem.getValue() != null)
-		// eia.setActualCost(new BigDecimal(actualCostItem.getValueAsString()));
-		// if (responsibleRoleItem.getValue() != null)
-		// eia.setResponsibleRole(new RoleBase(Long
-		// .parseLong(responsibleRoleItem.getValueAsString())));
-		// eia.setCode(codeItem.getValueAsString());
-		// if (eiaTypeItem.getValue() != null)
-		// eia.setEiaType(new EiaType(eiaTypeItem.getValueAsString()));
-		// eia.setFixedAssetIdentifier(fixedAssetIdentifierItem.getValueAsString());
-		// // if (buildingLocationItem.getValue() != null)
-		// // eia.setBuildingLocation(new BuildingLocation(buildingLocationItem
-		// // .getValueAsString()));
-		// if (obuItem.getValue() != null)
-		// eia.setObu(new Obu(Long.parseLong(obuItem.getValueAsString())));
-		// eia.setSerialNumber(serialNumberItem.getValueAsString());
-		// if (stateItem.getValue() != null)
-		// eia.setState(EiaStateEnum.valueOf(stateItem.getValueAsString()));
-		// search(eia);
 	}
 
 	private void search(final SSOUser ssoU) {
 		UserModel.find(ssoU, new GHAAsyncCallback<List<SSOUser>>() {
 
 			@Override
-			public void onSuccess(List<SSOUser> arg0) {
-				// TODO Auto-generated method stub
-
+			public void onSuccess(List<SSOUser> ssoUsers) {
+				ListGridRecord[] array = UserUtil.toGridRecords(ssoUsers)
+						.toArray(new UserRecord[] {});
+				grid.setData(array);
+				// TODO: seleccionar un elemento si coincide con el usuario de
+				// la busqueda
 			}
 		});
-
-		// EIAModel.find(eia, new GHAAsyncCallback<List<Eia>>() {
-		//
-		// @Override
-		// public void onSuccess(List<Eia> result) {
-		// ListGridRecord[] array = EIAUtil.toGridRecords(result).toArray(
-		// new EIARecord[] {});
-		// grid.setData(array);
-		// if (eia != null && eia.getId() != 0l)
-		// for (ListGridRecord listGridRecord : grid.getRecords())
-		// if (((EIARecord) listGridRecord).toEntity().getId() == eia
-		// .getId())
-		// grid.selectRecord(listGridRecord);
-		// }
-		// });
 	}
 
 	@Override
@@ -277,6 +237,53 @@ public class UserSearchForm extends GHASlideInWindow {
 	@Override
 	public void onResize(ResizeEvent event) {
 		setHeight(GHAUiHelper.getTabHeight() + "px");
+	}
+
+	// Producer Consumer stuff
+	protected void notifyUser(SSOUser ssoUser) {
+		for (UserSelectionListener listener : listeners)
+			listener.select(ssoUser);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.user.UserSelectionProducer#
+	 * addUserSelectionListener
+	 * (org.fourgeeks.gha.webclient.client.user.UserSelectionListener)
+	 */
+	@Override
+	public void addUserSelectionListener(
+			UserSelectionListener userSelectionListener) {
+		listeners.add(userSelectionListener);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.user.UserSelectionProducer#
+	 * removeUserSelectionListener
+	 * (org.fourgeeks.gha.webclient.client.user.UserSelectionListener)
+	 */
+	@Override
+	public void removeUserSelectionListener(
+			UserSelectionListener userSelectionListener) {
+		listeners.add(userSelectionListener);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.user.UserSelectionListener#select(
+	 * org.fourgeeks.gha.domain.ess.SSOUser)
+	 */
+	@Override
+	public void select(SSOUser ssoUser) {
+		UserRecord gridRecord = UserUtil.toGridRecord(ssoUser);
+		ListGridRecord[] array = { gridRecord };
+		grid.setData(array);
+		grid.selectRecord(gridRecord);
 	}
 
 }

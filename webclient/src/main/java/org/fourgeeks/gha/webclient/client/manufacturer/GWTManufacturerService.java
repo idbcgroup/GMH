@@ -5,7 +5,7 @@ package org.fourgeeks.gha.webclient.client.manufacturer;
 
 import java.util.List;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 
 import com.google.gwt.user.client.rpc.RemoteService;
@@ -19,15 +19,15 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 public interface GWTManufacturerService extends RemoteService {
 	/**
 	 * @return a List with all the Manufacturers
-	 * @throws EJBException 
+	 * @throws GHAEJBException 
 	 */
-	public List<Manufacturer> getAll() throws EJBException;
+	public List<Manufacturer> getAll() throws GHAEJBException;
 
 	/**
 	 * @param offset
 	 * @param size
 	 * @return a List with size Manufacturers starting from offset
-	 * @throws EJBException 
+	 * @throws GHAEJBException 
 	 */
-	public List<Manufacturer> getAll(int offset, int size) throws EJBException;
+	public List<Manufacturer> getAll(int offset, int size) throws GHAEJBException;
 }

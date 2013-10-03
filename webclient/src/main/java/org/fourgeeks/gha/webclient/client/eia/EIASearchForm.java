@@ -38,7 +38,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class EIASearchForm extends GHASlideInWindow implements
-	EIASelectionListener,EiaSelectionProducer {
+		EIASelectionListener, EiaSelectionProducer {
 
 	private List<EIASelectionListener> listeners;
 	private EIAGrid grid;
@@ -46,7 +46,7 @@ public class EIASearchForm extends GHASlideInWindow implements
 			serialNumberItem;
 	private GHASelectItem responsibleRoleItem, eiaTypeItem,
 			workingAreaLocationItem, facilityLocationItem, obuItem, stateItem;
-	
+
 	private EIAAddForm addForm;
 	{
 		listeners = new LinkedList<EIASelectionListener>();
@@ -65,7 +65,7 @@ public class EIASearchForm extends GHASlideInWindow implements
 		stateItem = new GHASelectItem("Estado");
 
 		grid = new EIAGrid();
-		
+
 		addForm = new EIAAddForm();
 		addForm.addEiaSelectionListener(this);
 	}
@@ -155,16 +155,16 @@ public class EIASearchForm extends GHASlideInWindow implements
 
 					@Override
 					public void onClick(ClickEvent event) {
-						selectEia(((EIARecord) grid.getSelectedRecord())
+						notifyEia(((EIARecord) grid.getSelectedRecord())
 								.toEntity());
 						hide();
 					}
-				}), GHAUiHelper.verticalGraySeparator("2px"),
-				new GHAImgButton("../resources/icons/new.png",new ClickHandler() {
-					
+				}), GHAUiHelper.verticalGraySeparator("2px"), new GHAImgButton(
+				"../resources/icons/new.png", new ClickHandler() {
+
 					@Override
 					public void onClick(ClickEvent event) {
-						addForm.open();						
+						addForm.open();
 					}
 				}));
 
@@ -176,10 +176,11 @@ public class EIASearchForm extends GHASlideInWindow implements
 		searchForLocations();
 		searchForObus();
 		fillExtras();
+
+		addForm.addEiaSelectionListener(this);
 	}
 
 	private void fillExtras() {
-		// state
 		stateItem.setValueMap(EiaStateEnum.toValueMap());
 	}
 
@@ -259,7 +260,7 @@ public class EIASearchForm extends GHASlideInWindow implements
 		listeners.add(eiaSelectionListener);
 	}
 
-	private void selectEia(Eia eia) {
+	private void notifyEia(Eia eia) {
 		for (EIASelectionListener listener : listeners)
 			listener.select(eia);
 	}
@@ -268,7 +269,7 @@ public class EIASearchForm extends GHASlideInWindow implements
 	public void select(Eia eia) {
 		search(eia);
 	}
-	
+
 	private void search() {
 		Eia eia = new Eia();
 		if (actualCostItem.getValue() != null)
@@ -276,10 +277,13 @@ public class EIASearchForm extends GHASlideInWindow implements
 		if (responsibleRoleItem.getValue() != null)
 			eia.setResponsibleRole(new Role(Long.parseLong(responsibleRoleItem
 					.getValueAsString())));
-		eia.setCode(codeItem.getValueAsString());
+		if (codeItem.getValue() != null)
+			eia.setCode(codeItem.getValueAsString());
 		if (eiaTypeItem.getValue() != null)
 			eia.setEiaType(new EiaType(eiaTypeItem.getValueAsString()));
-		eia.setFixedAssetIdentifier(fixedAssetIdentifierItem.getValueAsString());
+		if (fixedAssetIdentifierItem.getValue() != null)
+			eia.setFixedAssetIdentifier(fixedAssetIdentifierItem
+					.getValueAsString());
 		if (workingAreaLocationItem.getValue() != null)
 			eia.setWorkingArea(new WorkingArea(Integer
 					.valueOf(workingAreaLocationItem.getValueAsString())));
@@ -288,9 +292,12 @@ public class EIASearchForm extends GHASlideInWindow implements
 					.getValueAsString())));
 		if (obuItem.getValue() != null)
 			eia.setObu(new Obu(Long.parseLong(obuItem.getValueAsString())));
-		eia.setSerialNumber(serialNumberItem.getValueAsString());
+		if (serialNumberItem.getValue() != null)
+			eia.setSerialNumber(serialNumberItem.getValueAsString());
 		if (stateItem.getValue() != null)
 			eia.setState(EiaStateEnum.valueOf(stateItem.getValueAsString()));
+		else
+			eia.setState(null);
 		search(eia);
 	}
 
@@ -302,6 +309,8 @@ public class EIASearchForm extends GHASlideInWindow implements
 				ListGridRecord[] array = EIAUtil.toGridRecords(result).toArray(
 						new EIARecord[] {});
 				grid.setData(array);
+				// TODO: arreglar de acuerdo a usersearchform como lo hizo el
+				// señor emilio
 				if (eia != null && eia.getId() != 0l)
 					for (ListGridRecord listGridRecord : grid.getRecords())
 						if (((EIARecord) listGridRecord).toEntity().getId() == eia

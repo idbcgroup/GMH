@@ -7,7 +7,7 @@ import java.util.List;
 
 import javax.ejb.Remote;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypePicture;
 
@@ -20,36 +20,36 @@ import org.fourgeeks.gha.domain.gmh.EiaTypePicture;
 public interface EiaTypePictureServiceRemote {
 	/**
 	 * @param eiaTypePicture
-	 * @throws EJBException
+	 * @throws GHAEJBException 
 	 */
-	public EiaTypePicture save(EiaTypePicture eiaTypePicture)
+	public void save(EiaTypePicture eiaTypePicture) throws GHAEJBException;
 			throws EJBException;
 
 	/**
 	 * @param Id
 	 * @return true if the object was deleted
-	 * @throws EJBException
+	 * @throws GHAEJBException 
 	 */
-	public boolean delete(long Id) throws EJBException;
+	public boolean delete(long Id) throws GHAEJBException;
 
 	/**
 	 * @param eiaTypePicture
 	 * @return true if the object was updated
-	 * @throws EJBException
+	 * @throws GHAEJBException 
 	 */
-	public boolean update(EiaTypePicture eiaTypePicture) throws EJBException;
+	public boolean update(EiaTypePicture eiaTypePicture) throws GHAEJBException;
 
 	/**
 	 * @param Id
 	 * @return the EiaTypePicture with this id
-	 * @throws EJBException
+	 * @throws GHAEJBException 
 	 */
-	public EiaTypePicture find(long Id) throws EJBException;
+	public EiaTypePicture find(long Id) throws GHAEJBException;
 
 	/**
 	 * @param eiaType
 	 * @return the list of EiaTypePicture pictures
-	 * @throws EJBException
+	 * @throws GHAEJBException 
 	 */
-	public List<EiaTypePicture> find(EiaType eiaType) throws EJBException;
+	public List<EiaTypePicture> find(EiaType eiaType) throws GHAEJBException;
 }
