@@ -124,8 +124,15 @@ public class InitialData {
 						"Debe suministrar nombre de usuario y contraseña"));
 				em.persist(new Message(LanguageEnum.ES, "LOGIN004",
 						"Usuario deshabilitado"));
-				em.persist(new Message(LanguageEnum.ES, "LOGIN005",
-						"Usuario bloqueado"));
+				em.persist(new Message(LanguageEnum.ES, "type-not-null",
+						"El tipo de equipo no puede ser nulo"));
+				em.persist(new Message(LanguageEnum.ES,
+						"external-provider-not-null",
+						"El proveedor externo no puede ser nulo"));
+				em.persist(new Message(LanguageEnum.ES, "name-not-null",
+						"El nombre no pueder ser nulo"));
+				em.persist(new Message(LanguageEnum.ES, "mobility-not-null",
+						"La movilidad no puede ser nula"));
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating message test data", e1);

@@ -342,4 +342,15 @@ public class EIASearchForm extends GHASlideInWindow implements
 			EIASelectionListener eiaSelectionListener) {
 		listeners.remove(eiaSelectionListener);
 	}
+
+	/**
+	 * @param eiaType
+	 */
+	public void select(EiaType eiaType) {
+		if (eiaType != null) {
+			eiaTypeItem.setValue(eiaType.getCode());
+			eiaTypeItem.disable();
+		}
+
+	}
 }

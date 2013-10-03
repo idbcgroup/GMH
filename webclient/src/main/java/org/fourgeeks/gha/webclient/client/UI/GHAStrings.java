@@ -1,5 +1,7 @@
 package org.fourgeeks.gha.webclient.client.UI;
 
+import java.util.MissingResourceException;
+
 import com.google.gwt.i18n.client.Dictionary;
 
 /**
@@ -18,6 +20,12 @@ public class GHAStrings {
 	 * @return the string representation in the current lang
 	 */
 	public static String get(String key) {
-		return theme.get(key);
+		String string;
+		try {
+			string = theme.get(key);
+		} catch (MissingResourceException e) {
+			return "String not found in the current locale: " + key;
+		}
+		return string;
 	}
 }

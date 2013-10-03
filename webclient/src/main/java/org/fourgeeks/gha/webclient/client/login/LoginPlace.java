@@ -42,8 +42,8 @@ public class LoginPlace extends GHAPlace {
 		html.append("<h1 class='login-titulo'>Iniciar Sesion</h1>");
 		// html.append("<div class='smallfont full'>Ubicado en:<span id='ubicacion'>Sotano enfermeria</span></div>");
 		html.append("<form class='centered'>");
-		html.append("<input class='round' id='username' type='text' placeholder='Nombre de usuario'><br/>");
-		html.append("<input class='round' id='password' type='password' placeholder='Contraseña'> <br/>");
+		html.append("<input maxlength='10' class='round' id='username' type='text' placeholder='Nombre de usuario'><br/>");
+		html.append("<input maxlength='10' class='round' id='password' type='password' placeholder='Contraseña'> <br/>");
 		html.append("<input id='login-button' type='button' value='Iniciar Sesion' class='GHAButton'>");
 		// html.append("<div class='smallfont'><input type='checkbox'>Recordar mis datos</div><br/>");
 		// html.append("<div id='recovery'><a  class='smallfont'>¿Olvidaste tu contraseña?</a></div></form></div>");

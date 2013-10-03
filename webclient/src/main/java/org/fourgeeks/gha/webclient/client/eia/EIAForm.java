@@ -24,6 +24,7 @@ import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHADateItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
@@ -791,7 +792,8 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		if (violations.isEmpty())
 			return eia;
 		else
-			GHANotification.alert(violations.iterator().next().getMessage());
+			GHANotification.alert(GHAStrings.get(violations.iterator().next()
+					.getMessage()));
 		// Window.alert("3");
 		// Window.alert(violations.iterator().next().getMessage());
 		// Window.alert("4");
