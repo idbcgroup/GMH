@@ -25,16 +25,16 @@ import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
  */
 
 @Entity
-@NamedQueries(value = { 
+@NamedQueries(value = {
 		@NamedQuery(name = "EiaType.getAll", query = "SELECT e from EiaType e order by e.code"),
-		@NamedQuery(name = "EiaType.findByMaintenancePlan", query = "SELECT etype from EiaTypeMaintenancePlan e JOIN e.eiaType etype WHERE e.maintenancePlan = :maintenancePlan ORDER BY e.id")})
-public class EiaType implements Serializable{
+		@NamedQuery(name = "EiaType.findByMaintenancePlan", query = "SELECT etype from EiaTypeMaintenancePlan e JOIN e.eiaType etype WHERE e.maintenancePlan = :maintenancePlan ORDER BY e.id") })
+public class EiaType implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	private String code;
 	/** Código asignado al EIA length =20 */
@@ -43,44 +43,48 @@ public class EiaType implements Serializable{
 	@JoinColumn(name = "brandFk")
 	private Brand brand;
 
-//	@ManyToOne
-//	@JoinColumn(name = "manufacturerFk")
-//	private Manufacturer manufacturer;
+	// @ManyToOne
+	// @JoinColumn(name = "manufacturerFk")
+	// private Manufacturer manufacturer;
 
-	@NotNull(message = "El Nombre no puede estar vacío")
+	@NotNull(message = "name-not-null")
 	@Size(min = 1, max = 255, message = "El Nombre debe tener entre 1 y 255 caracteres")
 	@Column(nullable = false)
 	private String name;
 	/** Nombre del Equipo o Instalación length =255 */
 
-	@Size(min = 1, max = 255, message = "La Descripción debe tener entre 1 y 255 caracteres")
+	// @Size(min = 1, max = 255, message =
+	// "La Descripción debe tener entre 1 y 255 caracteres")
 	private String description;
 	/** Descripción detallada Equipo o Instalación length =255 */
 
-	@Size(min = 1, max = 255, message = "El Modelo debe tener entre 1 y 255 caracteres")
+	// @Size(min = 1, max = 255, message =
+	// "El Modelo debe tener entre 1 y 255 caracteres")
 	private String model;
 	/** Modelo del Equipo o Instalación length =255 */
 
 	// private String eiaUseInArea; /** Área de utilización del equipo length
 	// =60 */
 
-	@Size(min = 1, max = 255, message = "El Uso debe tener entre 1 y 255 caracteres")
+	// @Size(min = 1, max = 255, message =
+	// "El Uso debe tener entre 1 y 255 caracteres")
 	private String useDescription;
 	/** Descripción del Uso en el área de utilización length =255 */
 
 	// private String eiaSerialized; /** Equipo es serializado (Si/NO) length =6
 	// */
 
-	@Size(min = 1, max = 16, message = "El Código UMDNS debe tener entre 1 y 255 caracteres")
+	// @Size(min = 1, max = 16, message =
+	// "El Código UMDNS debe tener entre 1 y 255 caracteres")
 	private String eiaUmdns;
 	/** Código UMDNS length =16 */
 
-	@NotNull(message = "La Movilidad no puede estar vacía")
+	@NotNull(message = "mobility-not-null")
 	@Column(nullable = false)
 	private EiaMobilityEnum mobility;
 	/** Equipo es movilizable length =60 */
 
-	@NotNull(message = "El Tipo no puede estar vacío")
+	@NotNull(message = "type-not-null")
 	@Column(nullable = false)
 	private EiaTypeEnum type;
 	/** Tipo de Equipo length =60 */
@@ -90,18 +94,18 @@ public class EiaType implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "eiaTypeCategoryFk")
 	private EiaTypeCategory eiaTypeCategory;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "serviceResourceFk")
 	private ServiceResource serviceResource;
-	
+
 	/**
 	 * 
 	 */
 	public EiaType() {
 		super();
 	}
-	
+
 	/**
 	 * @param code
 	 */
