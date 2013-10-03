@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client;
+package org.fourgeeks.gha.webclient.client.UI;
 
 import javax.validation.Validator;
 

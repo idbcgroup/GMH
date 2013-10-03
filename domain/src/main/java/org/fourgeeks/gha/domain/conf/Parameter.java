@@ -34,7 +34,7 @@ public class Parameter extends AbstractCodeEntity {
 	 * @param code
 	 * 
 	 */
-	public Parameter(String name, String code) {
+	public Parameter(String code, String name) {
 		this.name = name;
 		this.code = code;
 	}

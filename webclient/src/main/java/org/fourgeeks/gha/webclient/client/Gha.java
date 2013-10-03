@@ -2,6 +2,7 @@ package org.fourgeeks.gha.webclient.client;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAPlacesFactory;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAPlace;
 import org.fourgeeks.gha.webclient.client.login.GWTLoginService;
 import org.fourgeeks.gha.webclient.client.login.GWTLoginServiceAsync;
@@ -12,6 +13,7 @@ import com.google.gwt.core.client.RunAsyncCallback;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.Window;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -54,14 +56,16 @@ public class Gha implements EntryPoint {
 			public void onSuccess(Boolean result) {
 				if (!result) {
 					String token = History.getToken();
-						if (token.equals("login"))
-							History.fireCurrentHistoryState();
-						else
-							History.newItem("login");
+					if (token.equals("login"))
+						History.fireCurrentHistoryState();
+					else
+						History.newItem("login");
 				} else
 					History.fireCurrentHistoryState();
 			}
 		});
+
+		Window.alert(GHAStrings.get("equipments"));
 
 	}
 }

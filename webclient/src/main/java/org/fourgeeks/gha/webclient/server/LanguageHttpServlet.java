@@ -35,15 +35,18 @@ public class LanguageHttpServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 
-		PrintWriter writer = resp.getWriter();
 		resp.setContentType("application/javascript");
-		writer.write("var lang = {");
 		List<UiString> languageStringsList = service.getLanguageStringsList();
-		for (UiString uiString : languageStringsList)
-			writer.write("\"" + uiString.getCode() + "\":" + "\""
-					+ uiString.getText() + "\"");
-		writer.write("}");
 
+		StringBuilder stringBuilder = new StringBuilder();
+		for (UiString uiString : languageStringsList)
+			stringBuilder.append("\"" + uiString.getCode() + "\":" + "\""
+					+ uiString.getText() + "\",");
+
+		PrintWriter writer = resp.getWriter();
+		writer.write("var lang = {");
+		writer.write(stringBuilder.substring(0, stringBuilder.length() - 1));
+		writer.write("}");
 	}
 
 	@Override

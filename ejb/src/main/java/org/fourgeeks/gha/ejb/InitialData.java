@@ -83,7 +83,7 @@ public class InitialData {
 	}
 
 	private void parameter() {
-		String query = "SELECT t FROM Parameter t WHERE t.code = 'LOGIN-001'";
+		String query = "SELECT t FROM Parameter t WHERE t.code = 'P1'";
 		try {
 			em.createQuery(query).getSingleResult();
 		} catch (NoResultException e) {
@@ -104,7 +104,7 @@ public class InitialData {
 	}
 
 	private void messages() {
-		String query = "SELECT t FROM Message t WHERE t.id = 'LOGIN-001'";
+		String query = "SELECT t FROM Message t WHERE t.id = 'LOGIN001'";
 		try {
 			em.createQuery(query).getSingleResult();
 		} catch (NoResultException e) {
@@ -454,7 +454,6 @@ public class InitialData {
 				entity.setBuildingLocation(em.find(BuildingLocation.class,
 						"Building 00" + i));
 				entity.setName(workingAreaNames[i]);
-
 				em.persist(entity);
 			}
 			em.flush();

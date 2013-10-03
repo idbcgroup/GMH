@@ -31,6 +31,12 @@ public class UiString extends AbstractCodeEntity {
 	private String text;
 
 	/**
+	 */
+	public UiString() {
+		super();
+	}
+
+	/**
 	 * @param language
 	 * @param code
 	 * @param text
