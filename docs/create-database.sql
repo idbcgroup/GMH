@@ -1,4 +1,4 @@
-Drop schema if exists public cascade; 
+﻿Drop schema if exists public cascade; 
 create schema public;
 drop schema if exists ghalog cascade;  
 create schema ghalog;

@@ -51,8 +51,8 @@ public abstract class GHAUiHelper {
 		return separator;
 	}
 	
-	public static VLayout verticalGraySeparatorLabel(String height, String text) {
-		VLayout separator = new VLayout();
+	public static HLayout verticalGraySeparatorLabel(String height, String text) {
+		HLayout separator = new HLayout();
 		separator.setWidth100();
 		separator.setBackgroundColor("#666666");
 		separator.setHeight(height);
@@ -63,7 +63,7 @@ public abstract class GHAUiHelper {
 		title.setWidth100();
 		title.setStyleName("separator-title-label");
 		
-		separator.addMembers(title);
+		separator.addMember(title);
 		
 		return separator;
 	}
