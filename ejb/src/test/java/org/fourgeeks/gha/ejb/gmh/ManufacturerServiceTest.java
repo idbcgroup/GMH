@@ -55,10 +55,9 @@ public class ManufacturerServiceTest extends GhaServiceTest {
 				+ "\nAFTER " + service.find(entity.getId()).getId() + " "
 				+ service.find(entity.getId()).getName());
 		// Assert.assertEquals(entity, service.find(entity.getId()));
-
 		System.out.println(service.find(entity) + "  " + entity.getName());
-		// Assert.assertTrue(service.find(entity) != null
-		// && service.find(entity).size() >= 1);
+		Assert.assertTrue(service.find(entity) != null
+				&& service.find(entity).size() >= 1);
 		Assert.assertTrue(service.getAll() != null
 				&& service.getAll().size() >= 1);
 
