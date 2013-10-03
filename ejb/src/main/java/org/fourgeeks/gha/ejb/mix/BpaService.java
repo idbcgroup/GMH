@@ -15,8 +15,8 @@ import org.fourgeeks.gha.domain.exceptions.EJBException;
 import org.fourgeeks.gha.domain.mix.Bpa;
 
 /**
- * @author emiliot
- *
+ * @author emiliot, vivi.torresg
+ * 
  */
 
 @Stateless(name = "mix.BpaService")
@@ -26,8 +26,10 @@ public class BpaService implements BpaServiceRemote {
 
 	private final static Logger logger = Logger.getLogger(BpaService.class
 			.getName());
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.ejb.mix.BpaServiceRemote#delete(long)
 	 */
 	@Override
@@ -42,16 +44,28 @@ public class BpaService implements BpaServiceRemote {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.mix.BpaServiceRemote#find(org.fourgeeks.gha.domain.mix.Bpa)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.mix.BpaServiceRemote#find(org.fourgeeks.gha.domain
+	 * .mix.Bpa)
 	 */
 	@Override
 	public List<Bpa> find(Bpa bpa) throws EJBException {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			return em.createNamedQuery("Bpa.findByBpa", Bpa.class)
+					.setParameter("bpa", bpa).getResultList();
+		} catch (Exception ex) {
+			logger.log(Level.SEVERE, "Error finding Bpa by bpa", ex);
+			throw new EJBException("Error obteniendo Bpa por bpa"
+					+ ex.getCause().getMessage());
+		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.ejb.mix.BpaServiceRemote#find(long)
 	 */
 	@Override
@@ -65,14 +79,15 @@ public class BpaService implements BpaServiceRemote {
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.ejb.mix.BpaServiceRemote#getAll()
 	 */
 	@Override
 	public List<Bpa> getAll() throws EJBException {
 		try {
-			return em.createNamedQuery("Bpa.getAll", Bpa.class)
-					.getResultList();
+			return em.createNamedQuery("Bpa.getAll", Bpa.class).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all Bpa", ex);
 			throw new EJBException("Error obteniendo todas las Bpa"
@@ -80,8 +95,12 @@ public class BpaService implements BpaServiceRemote {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.mix.BpaServiceRemote#save(org.fourgeeks.gha.domain.mix.Bpa)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.mix.BpaServiceRemote#save(org.fourgeeks.gha.domain
+	 * .mix.Bpa)
 	 */
 	@Override
 	public Bpa save(Bpa bpa) throws EJBException {
@@ -96,8 +115,12 @@ public class BpaService implements BpaServiceRemote {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.mix.BpaServiceRemote#update(org.fourgeeks.gha.domain.mix.Bpa)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.mix.BpaServiceRemote#update(org.fourgeeks.gha.domain
+	 * .mix.Bpa)
 	 */
 	@Override
 	public Bpa update(Bpa bpa) throws EJBException {
@@ -106,8 +129,7 @@ public class BpaService implements BpaServiceRemote {
 			em.flush();
 			return res;
 		} catch (Exception e) {
-			logger.log(Level.INFO,
-					"ERROR: unable to update Bpa ", e);
+			logger.log(Level.INFO, "ERROR: unable to update Bpa ", e);
 			throw new EJBException("ERROR: no se puede actualizar el Bpa "
 					+ e.getCause().getMessage());
 		}
