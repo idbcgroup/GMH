@@ -74,7 +74,7 @@ public class Eia extends AbstractEntity {
 
 	// @Size(max = 30, message = "El campo debe ser menor a 30 caracteres")
 	// private String desincorporateReason;
-	@NotNull(message = "Debe seleccionar un tipo de equipo")
+	@NotNull(message = "type-not-null")
 	@ManyToOne
 	@JoinColumn(name = "eiaTypeFk", nullable = false)
 	private EiaType eiaType;
@@ -138,7 +138,7 @@ public class Eia extends AbstractEntity {
 	@Column(nullable = false)
 	private EiaStateEnum state = EiaStateEnum.CREATED;
 
-	@NotNull(message = "VAL001")
+	@NotNull(message = "external-provider-not-null")
 	@ManyToOne
 	@JoinColumn(name = "externalProviderFk", nullable = false)
 	private ExternalProvider provider;

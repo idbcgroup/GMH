@@ -12,12 +12,16 @@ import org.fourgeeks.gha.webclient.client.UI.grids.GhaGrid;
  *
  */
 public class EiaTypeMaintenancePlanGrid extends GhaGrid<EiaTypeMaintenancePlan> {
+	//EiaTypeFields
 	final GHAGridField codeGridField;
-	final GHAGridField nameGridField;
 	final GHAGridField brandGridField;
 	final GHAGridField modelGridField;
 	final GHAGridField manufacturerGridField;
 	
+	//Common fields
+	final GHAGridField nameGridField;
+	
+	//MaintenancePlan fields
 	final GHAGridField descriptionGridField;
 	final GHAGridField freqGridField;
 	final GHAGridField periodOfTimeGridField;
