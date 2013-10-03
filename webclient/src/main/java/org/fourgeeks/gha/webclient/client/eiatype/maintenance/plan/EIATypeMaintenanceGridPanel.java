@@ -96,6 +96,9 @@ public class EIATypeMaintenanceGridPanel extends VLayout implements GHAClosable,
 		mainPanel.addMembers(grid, sideButtons);
 	    
 		addMembers(mainPanel);
+		
+		//register as listener to the maintenance plan search form
+		this.searchForm.addMaintenancePlanSelectionListener(this);
 	}
 	
 	private void loadData() {
