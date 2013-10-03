@@ -57,9 +57,21 @@ public class HomePlace extends GHAPlace {
 		userMenu.addFocusChangedHandler(new FocusChangedHandler() {
 			@Override
 			public void onFocusChanged(FocusChangedEvent event) {
-				Window.alert("Focus Changed");
-				if (userMenu.isVisible()) {					
-					userMenu.hide();
+				boolean foc = event.getHasFocus();
+				if(!foc){
+//					Window.alert("Focus Changed. This widget has focus:"+!foc);
+					if (userMenu.isVisible()) {	
+//						Window.alert("contains focus:"+userMenu.containsFocus());
+//						boolean childFoc = false;
+//						Window.alert("number of children: "+userMenu.getChildren().length);
+//						for(Canvas ch : userMenu.getChildren())
+//							if(ch.containsFocus()){
+//								Window.alert("One of the children contains focus");
+//								childFoc = true;	
+//							}
+//						if(!childFoc)
+							userMenu.hide();
+					}
 				}
 			}
 		});
@@ -76,7 +88,7 @@ public class HomePlace extends GHAPlace {
 		Label usernameLabel = new Label(user.getCitizen().getFirstName() + " "
 				+ user.getCitizen().getFirstLastName());
 		usernameLabel.setStyleName("username-text");
-		usernameLabel.setSize("300	px", "25px");
+		usernameLabel.setSize("400px", "25px");
 		
 		// Label notificationsButton = new Label("1");
 		// notificationsButton.setStyleName("user-notifications-button button-pointer");
@@ -128,7 +140,7 @@ public class HomePlace extends GHAPlace {
 				if (userMenu.isVisible()) {
 					userMenu.hide();
 				} else {
-					userMenu.show();
+					userMenu.show(posx,posy);
 				}
 			}
 		});
