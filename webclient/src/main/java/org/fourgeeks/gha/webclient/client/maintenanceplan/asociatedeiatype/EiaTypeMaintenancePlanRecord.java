@@ -11,7 +11,7 @@ import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
  *
  */
 public class EiaTypeMaintenancePlanRecord extends GHAGridRecord<EiaTypeMaintenancePlan> {
-	EiaTypeMaintenancePlan eiaTypeMaintenancePlan;
+	private EiaTypeMaintenancePlan eiaTypeMaintenancePlan;
 	/**
 	 * @param entity
 	 */

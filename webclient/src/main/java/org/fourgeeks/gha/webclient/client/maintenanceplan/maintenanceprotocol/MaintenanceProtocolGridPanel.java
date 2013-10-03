@@ -1,26 +1,19 @@
 package org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol;
 
-import java.util.List;
-
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
-import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener;
-import org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolGrid;
-import org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolModel;
-import org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolRecord;
+import org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenancePlanMaintenanceProtocolGrid;
 import org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSearchForm;
 import org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionListener;
-import org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolUtil;
 
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
-import com.smartgwt.client.widgets.grid.ListGridRecord;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
@@ -30,12 +23,12 @@ import com.smartgwt.client.widgets.layout.VLayout;
  */
 public class MaintenanceProtocolGridPanel extends VLayout implements GHAClosable, GHAHideable, MaintenancePlanSelectionListener, MaintenanceProtocolSelectionListener{
 
-	private MaintenanceProtocolGrid grid = new MaintenanceProtocolGrid();
+	private MaintenancePlanMaintenanceProtocolGrid grid = new MaintenancePlanMaintenanceProtocolGrid();
 	private MaintenancePlan maintenancePlan;
 	private MaintenanceProtocolSearchForm searchForm;
 	
 	{
-		grid = new MaintenanceProtocolGrid();
+		grid = new MaintenancePlanMaintenanceProtocolGrid();
 		searchForm = new MaintenanceProtocolSearchForm();
 	}
 		
@@ -63,16 +56,16 @@ public class MaintenanceProtocolGridPanel extends VLayout implements GHAClosable
 					
 					@Override
 					public void onClick(ClickEvent event) {
-						MaintenanceProtocol maintenanceProtocol = grid.getSelectedEntity();
-						maintenanceProtocol.setMaintenancePlan(null);
-						MaintenanceProtocolModel.update(maintenanceProtocol, new GHAAsyncCallback<MaintenanceProtocol>() {
-
-							@Override
-							public void onSuccess(MaintenanceProtocol result) {
-								loadData();
-							}
-						
-						});
+//						MaintenanceProtocol maintenanceProtocol = grid.getSelectedEntity();
+//						maintenanceProtocol.setMaintenancePlan(null);
+//						MaintenanceProtocolModel.update(maintenanceProtocol, new GHAAsyncCallback<MaintenanceProtocol>() {
+//
+//							@Override
+//							public void onSuccess(MaintenanceProtocol result) {
+//								loadData();
+//							}
+//						
+//						});
 					}
 				})
 	    		);
@@ -97,14 +90,14 @@ public class MaintenanceProtocolGridPanel extends VLayout implements GHAClosable
 	}
 	
 	public void loadData(){
-		MaintenanceProtocolModel.findByMaintenancePlan(this.maintenancePlan, new GHAAsyncCallback<List<MaintenanceProtocol>>() {
-			
-			@Override
-			public void onSuccess(List<MaintenanceProtocol> result) {
-				ListGridRecord array[] = MaintenanceProtocolUtil.toGridRecords(result).toArray(new MaintenanceProtocolRecord[]{});
-				grid.setData(array);
-			}
-		});
+//		MaintenanceProtocolModel.findByMaintenancePlan(this.maintenancePlan, new GHAAsyncCallback<List<MaintenanceProtocol>>() {
+//			
+//			@Override
+//			public void onSuccess(List<MaintenanceProtocol> result) {
+//				ListGridRecord array[] = MaintenanceProtocolUtil.toGridRecords(result).toArray(new MaintenanceProtocolRecord[]{});
+//				grid.setData(array);
+//			}
+//		});
 	}
 
 	//Consumer stuff
@@ -113,15 +106,15 @@ public class MaintenanceProtocolGridPanel extends VLayout implements GHAClosable
 	 */
 	@Override
 	public void select(MaintenanceProtocol maintenanceProtocol) {
-		maintenanceProtocol.setMaintenancePlan(this.maintenancePlan);
-		MaintenanceProtocolModel.update(maintenanceProtocol, new GHAAsyncCallback<MaintenanceProtocol>() {
-
-			@Override
-			public void onSuccess(MaintenanceProtocol result) {
-				loadData();
-			}
-		
-		});
+//		maintenanceProtocol.setMaintenancePlan(this.maintenancePlan);
+//		MaintenanceProtocolModel.update(maintenanceProtocol, new GHAAsyncCallback<MaintenanceProtocol>() {
+//
+//			@Override
+//			public void onSuccess(MaintenanceProtocol result) {
+//				loadData();
+//			}
+//		
+//		});
 	}
 
 	/* (non-Javadoc)

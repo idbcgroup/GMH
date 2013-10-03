@@ -4,9 +4,9 @@ import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridField;
 import org.fourgeeks.gha.webclient.client.UI.grids.GhaGrid;
 
-public class MaintenanceProtocolGrid extends GhaGrid<MaintenanceProtocol> {
+public class MaintenancePlanMaintenanceProtocolGrid extends GhaGrid<MaintenanceProtocol> {
 
-	public MaintenanceProtocolGrid() {
+	public MaintenancePlanMaintenanceProtocolGrid() {
 		setEmptyMessage("No existen protocolos de mantenimiento.");
 
 		GHAGridField idGridField = new GHAGridField("id", "No.");

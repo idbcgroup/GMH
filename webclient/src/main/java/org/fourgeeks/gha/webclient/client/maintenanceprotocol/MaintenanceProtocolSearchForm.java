@@ -27,7 +27,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
 
 public class MaintenanceProtocolSearchForm extends GHASlideInWindow implements MaintenanceProtocolSelectionListener, MaintenanceProtocolSelectionProducer{
 
-	private MaintenanceProtocolGrid grid;
+	private MaintenancePlanMaintenanceProtocolGrid grid;
 	private GHATextItem nameItem, descriptionItem;
 	
 	private MaintenanceProtocolAddForm addForm;
@@ -39,7 +39,7 @@ public class MaintenanceProtocolSearchForm extends GHASlideInWindow implements M
 		descriptionItem = new GHATextItem("Descripción",420);
 		descriptionItem.setColSpan(4);
 		
-		grid = new MaintenanceProtocolGrid();
+		grid = new MaintenancePlanMaintenanceProtocolGrid();
 		
 		addForm = new MaintenanceProtocolAddForm();
 	}

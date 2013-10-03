@@ -1,24 +1,24 @@
 /**
  * 
  */
-package org.fourgeeks.gha.ejb.gmh;
+package org.fourgeeks.gha.webclient.client.maintenanceplan;
 
 import java.util.List;
-
-import javax.ejb.Remote;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlanMaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 
+import com.google.gwt.user.client.rpc.RemoteService;
+import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
+
 /**
  * @author emiliot
  *
  */
-
-@Remote
-public interface MaintenancePlanMaintenanceProtocolServiceRemote {
+@RemoteServiceRelativePath("maintenancePlanMaintenanceProtocolService")
+public interface GWTMaintenancePlanMaintenanceProtocolService extends RemoteService {
 	/**
 	 * Delete a MaintenancePlanMaintenanceProtocol from database by Id
 	 * @throws GHAEJBException
@@ -43,4 +43,5 @@ public interface MaintenancePlanMaintenanceProtocolServiceRemote {
 	 * @throws GHAEJBException
 	 */
 	public List<MaintenancePlanMaintenanceProtocol> findByMaintenancePlan(MaintenancePlan maintenancePlan) throws GHAEJBException;
+
 }

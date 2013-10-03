@@ -14,7 +14,7 @@ import org.fourgeeks.gha.webclient.client.eia.EIARecord;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 import org.fourgeeks.gha.webclient.client.eia.EIAUtil;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
-import org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolGrid;
+import org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenancePlanMaintenanceProtocolGrid;
 
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -31,10 +31,10 @@ public class AsociatedMaintenanceProtocolsGridPanel extends VLayout implements
 		EIATypeSelectionListener,/* EiaSelectionProducer, */
 		EIASelectionListener, GHAClosable, GHAHideable {
 
-	private MaintenanceProtocolGrid grid;
+	private MaintenancePlanMaintenanceProtocolGrid grid;
 	private EiaType eiaType;
 	{
-		grid = new MaintenanceProtocolGrid();
+		grid = new MaintenancePlanMaintenanceProtocolGrid();
 	}
 
 	/**
