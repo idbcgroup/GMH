@@ -34,6 +34,7 @@ public class MaintenanceProtocolGridPanel extends VLayout implements GHAClosable
 
 	{
 		grid = new MaintenancePlanMaintenanceProtocolGrid();
+		grid.setMaintenanceProtocolFields();
 		searchForm = new MaintenanceProtocolSearchForm();
 	}
 

@@ -15,7 +15,7 @@ public class MaintenancePlanMaintenanceProtocolGrid extends GhaGrid<MaintenanceP
 	//MaintenancePlanFields
 	final GHAGridField freqGridField;
 	final GHAGridField periodOfTimeGridField;
-	
+
 	//MaintenanceProtocolFields, common with plan
 	final GHAGridField idGridField;
 	final GHAGridField nameGridField;
@@ -24,22 +24,22 @@ public class MaintenancePlanMaintenanceProtocolGrid extends GhaGrid<MaintenanceP
 	 * 
 	 */
 	public MaintenancePlanMaintenanceProtocolGrid() {
-		
+
 		idGridField = new GHAGridField("id", "No");
 		nameGridField = new GHAGridField("name", "Nombre");
 		descriptionGridField = new GHAGridField("desc", "Descripción");
 		freqGridField = new GHAGridField("freq", "Frecuencia");
 		periodOfTimeGridField = new GHAGridField("pot", "Periodo de Tiempo");
 	}
-	
+
 	public void setMaintenancePlanFields(){
 		setEmptyMessage("No existen Planes de Mantenimiento para mostrar.");
 		setFields(idGridField, nameGridField, descriptionGridField, freqGridField, periodOfTimeGridField);
 	}
-	
+
 	public void setMaintenanceProtocolFields(){
-		setEmptyMessage("No existen protocolos de mantenimiento.");
+		setEmptyMessage("No existen Protocolos de Mantenimiento para mostrar.");
 		setFields(idGridField, nameGridField, descriptionGridField);
 	}
-	
+
 }

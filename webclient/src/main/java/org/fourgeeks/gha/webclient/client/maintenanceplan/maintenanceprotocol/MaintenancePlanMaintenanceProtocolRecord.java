@@ -12,14 +12,14 @@ import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
  */
 public class MaintenancePlanMaintenanceProtocolRecord extends GHAGridRecord<MaintenancePlanMaintenanceProtocol> {
 	private MaintenancePlanMaintenanceProtocol maintenancePlanMaintenanceProtocol;
-	
+
 	/**
 	 * 
 	 */
 	public MaintenancePlanMaintenanceProtocolRecord(MaintenancePlanMaintenanceProtocol maintenancePlanMaintenanceProtocol) {
 		this.maintenancePlanMaintenanceProtocol = maintenancePlanMaintenanceProtocol;
 	}
-	
+
 	public void setMaintenancePlanAttributes(){
 		setAttribute("id", this.maintenancePlanMaintenanceProtocol.getMaintenancePlan().getId());
 		setAttribute("name", this.maintenancePlanMaintenanceProtocol.getMaintenancePlan().getName());
@@ -27,11 +27,11 @@ public class MaintenancePlanMaintenanceProtocolRecord extends GHAGridRecord<Main
 		setAttribute("pot", this.maintenancePlanMaintenanceProtocol.getMaintenancePlan().getPot());
 		setAttribute("freq", this.maintenancePlanMaintenanceProtocol.getMaintenancePlan().getFrequency());
 	}
-	
+
 	public void setMaintenanceProtocolAttributes(){
 		setAttribute("id", this.maintenancePlanMaintenanceProtocol.getMaintenanceProtocol().getId());
 		setAttribute("name", this.maintenancePlanMaintenanceProtocol.getMaintenanceProtocol().getName());
-		setAttribute("description", this.maintenancePlanMaintenanceProtocol.getMaintenanceProtocol().getDescription());
+		setAttribute("desc", this.maintenancePlanMaintenanceProtocol.getMaintenanceProtocol().getDescription());
 	}
 
 	/* (non-Javadoc)
