@@ -374,6 +374,7 @@ public class InitialData {
 		maintenancePlanTestData();
 		maintenanceProtocolTestData();
 		maintenanceActivityProtocolTestData();
+		MaintenancePlanMaintenanceProtocol();
 		eiaTypeMaintenancePlanTestData();
 		eiaMaintenancePlanificationTestData();
 	}
@@ -445,6 +446,33 @@ public class InitialData {
 			}
 		}
 	}
+	
+	private void MaintenancePlanMaintenanceProtocol(){
+		String query = "SELECT t from MaintenancePlanMaintenanceProtocol t WHERE t.id = 1";
+		try{
+			em.createQuery(query).getSingleResult();
+		}catch(NoResultException e){
+			try {
+				logger.info("Creating test data: MaintenancePlanMaintenanceProtocol");
+				List<MaintenanceProtocol> protocols = em
+						.createNamedQuery("MaintenanceProtocol.getAll",
+								MaintenanceProtocol.class).getResultList();
+				List<MaintenancePlan> plans = em
+						.createNamedQuery("MaintenancePlan.getAll",
+								MaintenancePlan.class).getResultList();
+				for(MaintenancePlan plan : plans){
+					int k = 1;
+					for(MaintenanceProtocol protocol : protocols){
+						em.persist(new org.fourgeeks.gha.domain.gmh.MaintenancePlanMaintenanceProtocol(plan, protocol, k++));
+					}
+					em.flush();
+				}
+			} catch (Exception e1) {
+				logger.log(Level.INFO,
+						"error Creating MaintenancePlanMaintenanceProtocol test data", e1);
+			}
+		}
+	}
 
 	/**
 	 * 
@@ -466,14 +494,12 @@ public class InitialData {
 					MaintenanceProtocol protocol = new MaintenanceProtocol();
 					protocol.setDescription(protocolDesc[i]);
 					protocol.setName(protocolNames[i]);
-					protocol.setMaintenancePlan(em.find(MaintenancePlan.class,
-							(long) (i + 1)));
 					em.persist(protocol);
 				}
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO,
-						"error Creating MaintenanceActivity test data", e1);
+						"error Creating MaintenanceProtocol test data", e1);
 			}
 		}
 	}

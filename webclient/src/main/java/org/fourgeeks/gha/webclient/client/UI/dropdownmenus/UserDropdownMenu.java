@@ -14,6 +14,8 @@ import com.smartgwt.client.types.Positioning;
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
+import com.smartgwt.client.widgets.layout.HLayout;
+import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class UserDropdownMenu extends VLayout implements GHAHideable, ResizeHandler{
@@ -45,7 +47,7 @@ public class UserDropdownMenu extends VLayout implements GHAHideable, ResizeHand
 		mailText.setWidth100();
 		mailText.setStyleName("title-label");
 		
-		GHAImgButton logoutButton = new GHAImgButton("../resources/icons/cancel.png", new ClickHandler() {
+		GHAImgButton logoutButton = new GHAImgButton("../resources/icons/logout.png", new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				Window.alert("ButtonClicked");
@@ -62,12 +64,14 @@ public class UserDropdownMenu extends VLayout implements GHAHideable, ResizeHand
 
 		userdataLayout.addMembers(mailText);
 
-		addMembers(GHAUiHelper.verticalGraySeparatorLabel("25px", 
+		HLayout titleLayout = GHAUiHelper.verticalGraySeparatorLabel("25px", 
 				   user.getCitizen().getFirstName()
 				   + " "
-				   + user.getCitizen().getFirstLastName()), 
-				   userdataLayout,
-				   logoutButton);
+				   + user.getCitizen().getFirstLastName());
+		titleLayout.addMembers(new LayoutSpacer(),logoutButton);
+		
+		addMembers(titleLayout, 
+				   userdataLayout);
 	}
 	
 	public void show(int x, int y){
