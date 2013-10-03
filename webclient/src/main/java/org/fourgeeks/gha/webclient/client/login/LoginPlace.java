@@ -8,7 +8,6 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAPlace;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.InputElement;
-import com.google.gwt.dom.client.LinkElement;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Event;
@@ -17,8 +16,15 @@ import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
 
+/**
+ * @author alacret
+ * 
+ */
 public class LoginPlace extends GHAPlace {
 
+	/**
+	 * 
+	 */
 	public LoginPlace() {
 	}
 
@@ -53,13 +59,11 @@ public class LoginPlace extends GHAPlace {
 				.getElementById("username");
 		final InputElement passTextbox = (InputElement) Document.get()
 				.getElementById("password");
-		final LinkElement recoveryLink = (LinkElement) Document.get()
-				.getElementById("recovery");
+		// final LinkElement recoveryLink = (LinkElement) Document.get()
+		// .getElementById("recovery");
 
 		// Dar el foco al campo de user
 		userTextbox.focus();
-
-		// BUtton on click
 
 		DOM.sinkEvents(element, Event.ONCLICK);
 		DOM.setEventListener(element, new EventListener() {
@@ -68,8 +72,6 @@ public class LoginPlace extends GHAPlace {
 			public void onBrowserEvent(Event event) {
 				String username = userTextbox.getValue();
 				String password = passTextbox.getValue();
-
-				// Window.alert(username+"-"+password);
 
 				final GWTLoginServiceAsync service = GWT
 						.create(GWTLoginService.class);
@@ -97,8 +99,6 @@ public class LoginPlace extends GHAPlace {
 
 			@Override
 			public void onBrowserEvent(Event event) {
-				// TODO Auto-generated method stub
-
 				if (event.getKeyCode() == 13) {
 					String username = userTextbox.getValue();
 					String password = passTextbox.getValue();
@@ -112,7 +112,6 @@ public class LoginPlace extends GHAPlace {
 								public void onSuccess(Bpu result) {
 									if (result != null) {
 										GHASessionData.setLoggedUser(result);
-
 										String token = History.getToken();
 										if (token.equals("home"))
 											History.fireCurrentHistoryState();

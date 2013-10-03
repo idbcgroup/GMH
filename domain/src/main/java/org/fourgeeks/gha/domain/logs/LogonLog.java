@@ -18,7 +18,7 @@ import org.fourgeeks.gha.domain.msg.Message;
  */
 
 @Entity
-@Table(name = "LogonLog", schema = "GHALog")
+@Table(name = "LogonLog", schema = "log")
 @NamedQueries(value = { @NamedQuery(name = "LogonLog.getByBpu", query = "SELECT e from LogonLog e WHERE e.bpu = :bpu") })
 public class LogonLog extends GHALog {
 

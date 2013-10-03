@@ -10,25 +10,24 @@ import javax.persistence.Table;
 
 import org.fourgeeks.gha.domain.gar.Bpu;
 
-
 /**
  * @author emiliot
- *
+ * 
  */
 
 @Entity
-@Table(name = "UILog", schema = "GHALog")
+@Table(name = "UILog", schema = "log")
 public class UILog extends GHALog {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "bpuFk")
 	private Bpu bpu;
-	
+
 	/**
 	 * 
 	 */
