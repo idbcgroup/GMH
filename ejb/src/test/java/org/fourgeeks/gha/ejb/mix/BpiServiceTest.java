@@ -58,8 +58,8 @@ public class BpiServiceTest extends GhaServiceTest {
 				+ service.find(entity.getId()).getInstitution().getId());
 		// Assert.assertEquals(entity, service.find(entity.getId()));
 
-		// Assert.assertTrue(service.find(entity) != null
-		// && service.find(entity).size() >= 1);
+		Assert.assertTrue(service.find(entity) != null
+				&& service.find(entity).size() >= 1);
 		Assert.assertTrue(service.getAll() != null
 				&& service.getAll().size() >= 1);
 
