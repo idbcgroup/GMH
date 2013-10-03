@@ -28,6 +28,7 @@ import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.form.fields.events.KeyUpEvent;
 import com.smartgwt.client.widgets.form.fields.events.KeyUpHandler;
+import com.smartgwt.client.widgets.form.validator.IsIntegerValidator;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
@@ -52,20 +53,20 @@ public class EIASearchForm extends GHASlideInWindow implements
 		listeners = new LinkedList<EIASelectionListener>();
 
 		actualCostItem = new GHATextItem("Costo actual");
+		actualCostItem.setValidators(new IsIntegerValidator());
 		responsibleRoleItem = new GHASelectItem("Responsable");
 		codeItem = new GHATextItem("Código");
+		codeItem.setLength(20);
 		eiaTypeItem = new GHASelectItem("Tipo de equipo");
 		fixedAssetIdentifierItem = new GHATextItem("Identificador");
-
+		fixedAssetIdentifierItem.setLength(20);
 		workingAreaLocationItem = new GHASelectItem("Área de Trabajo");
 		facilityLocationItem = new GHASelectItem("Servicio/Instalación");
-
 		obuItem = new GHASelectItem("Organización");
 		serialNumberItem = new GHATextItem("Serial");
+		fixedAssetIdentifierItem.setLength(20);
 		stateItem = new GHASelectItem("Estado");
-
 		grid = new EIAGrid();
-
 		addForm = new EIAAddForm();
 		addForm.addEiaSelectionListener(this);
 	}
