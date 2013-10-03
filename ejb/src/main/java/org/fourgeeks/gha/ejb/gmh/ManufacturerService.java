@@ -15,7 +15,7 @@ import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 
 /**
- * @author emiliot
+ * @author emiliot, vivi.torresg
  * 
  */
 
@@ -72,10 +72,9 @@ public class ManufacturerService implements ManufacturerServiceRemote {
 			throws GHAEJBException {
 		try {
 			return em
-					.createNamedQuery("Manufacturer.findByName",
+					.createNamedQuery("Manufacturer.findByManufacturer",
 							Manufacturer.class)
-					.setParameter("name", manufacturer.getName())
-					.getResultList();
+					.setParameter("manufacturer", manufacturer).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO,
 					"Error: finding manufacturer by manufacturer", e);
