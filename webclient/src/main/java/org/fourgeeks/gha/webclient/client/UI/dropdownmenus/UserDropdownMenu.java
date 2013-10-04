@@ -37,12 +37,12 @@ public class UserDropdownMenu extends VLayout implements GHAHideable,
 	public UserDropdownMenu(Bpu user) {
 
 		GHAUiHelper.addGHAResizeHandler(this);
-		posX = (Window.getClientWidth() - 40) - width;
+		posX = (Window.getClientWidth() - 20) - width;
 
 		setAnimateTime(300);
 		setPosition(Positioning.ABSOLUTE);
 		setLeft(posX);
-		setTop(70);
+		setTop(71);
 		setSize(width + "px", "*");
 		setBackgroundColor("#FFFFFF");
 		setBorder("1px solid #E0E0E0");
@@ -114,7 +114,7 @@ public class UserDropdownMenu extends VLayout implements GHAHideable,
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		posX = (Window.getClientWidth() - 40) - width;
+		posX = (Window.getClientWidth() - 20) - width;
 		setLeft(posX);
 	}
 }
