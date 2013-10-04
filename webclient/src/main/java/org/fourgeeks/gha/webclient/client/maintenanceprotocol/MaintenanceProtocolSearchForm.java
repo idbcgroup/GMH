@@ -45,6 +45,7 @@ public class MaintenanceProtocolSearchForm extends GHASlideInWindow implements
 	{
 		listeners = new LinkedList<MaintenanceProtocolSelectionListener>();
 		nameItem = new GHATextItem("Nombre");
+		nameItem.setLength(100);
 		descriptionItem = new GHATextItem("Descripción", 420);
 		descriptionItem.setColSpan(4);
 

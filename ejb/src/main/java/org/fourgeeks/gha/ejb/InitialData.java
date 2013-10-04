@@ -1072,7 +1072,6 @@ public class InitialData {
 						"admin", UserLogonStatusEnum.STAYIN));
 				em.persist(new SSOUser(em.find(Bpu.class, 2L), "asanchez",
 						"asanchez", UserLogonStatusEnum.STAYIN));
-
 				em.flush();
 				logger.info("done creating test users");
 			} catch (Exception e1) {

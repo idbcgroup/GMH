@@ -25,7 +25,7 @@ public class MaintenanceActivity extends AbstractEntity {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@Size(min = 1, max = 100)
+	@Size(max = 100)
 	@NotNull(message = "name-not-null")
 	@Column(nullable = false)
 	private String name;

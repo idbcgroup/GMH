@@ -45,6 +45,7 @@ public class MaintenanceActivitySearchForm extends GHASlideInWindow implements
 	{
 		listeners = new LinkedList<MaintenanceActivitySelectionListener>();
 		nameItem = new GHATextItem("Nombre");
+		nameItem.setLength(100);
 		descriptionItem = new GHATextItem("Descripción", 420);
 		descriptionItem.setColSpan(4);
 

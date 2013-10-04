@@ -45,6 +45,7 @@ public class MaintenancePlanSearchForm extends GHASlideInWindow implements
 	{
 		listeners = new LinkedList<MaintenancePlanSelectionListener>();
 		nameItem = new GHATextItem("Nombre");
+		nameItem.setLength(100);
 		frequencyItem = new GHATextItem("Frecuencia");
 		periodOfTimeSelectItem = new GHASelectItem("Periodo de Tiempo");
 		descriptionItem = new GHATextItem("Descripción", 420);
