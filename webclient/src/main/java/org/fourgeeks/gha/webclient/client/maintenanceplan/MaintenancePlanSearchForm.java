@@ -190,11 +190,13 @@ public class MaintenancePlanSearchForm extends GHASlideInWindow implements
 
 	@Override
 	public void close() {
+		addForm.destroy();
 		destroy();
 	}
 
 	@Override
 	public void hide() {
+		addForm.hide();
 		super.hide();
 	}
 

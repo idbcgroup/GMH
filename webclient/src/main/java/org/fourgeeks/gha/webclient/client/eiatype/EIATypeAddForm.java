@@ -82,8 +82,7 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 		typeItem = new GHASelectItem("Tipo", 150);
 		typeItem.setRequired(true);
 		subTypeItem = new GHASelectItem("Subtipo", 150);
-		subTypeItem.setRequired(true);
-
+		
 		validator = Validation.buildDefaultValidatorFactory().getValidator();
 	}
 

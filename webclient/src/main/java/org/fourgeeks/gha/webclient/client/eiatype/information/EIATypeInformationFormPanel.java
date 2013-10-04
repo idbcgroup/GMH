@@ -86,8 +86,7 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		typeItem = new GHASelectItem("Tipo", 150);
 		typeItem.setRequired(true);
 		subTypeItem = new GHASelectItem("Subtipo", 150);
-		subTypeItem.setRequired(true);
-
+		
 		// // inicializando componentes de las imagenes
 		// img1 = new Img("../resources/img/default.png", 130, 130);
 		// img1.setImageType(ImageStyle.STRETCH);
