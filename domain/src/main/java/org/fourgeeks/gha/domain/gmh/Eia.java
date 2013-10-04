@@ -85,8 +85,9 @@ public class Eia extends AbstractEntity {
 	@JoinColumn(name = "eiaTypeFk", nullable = false)
 	private EiaType eiaType;
 
-	/** Número de Serial del Equipo length =60 */
+	@NotNull(message = "asset-id-not-null")
 	private String fixedAssetIdentifier;
+
 	/** Fecha de Recepción del Equipo length =22 */
 	private Date installationDate;
 	/** Fecha de la Factura de Compra length =22 */
@@ -212,18 +213,30 @@ public class Eia extends AbstractEntity {
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * @return
+	 */
 	public Date getAcceptationDate() {
 		return acceptationDate;
 	}
 
+	/**
+	 * @return
+	 */
 	public BigDecimal getActualCost() {
 		return actualCost;
 	}
 
+	/**
+	 * @return
+	 */
 	public CurrencyTypeEnum getActualCostCurrency() {
 		return actualCostCurrency;
 	}
 
+	/**
+	 * @return
+	 */
 	public BigDecimal getAdquisitionCost() {
 		return adquisitionCost;
 	}
