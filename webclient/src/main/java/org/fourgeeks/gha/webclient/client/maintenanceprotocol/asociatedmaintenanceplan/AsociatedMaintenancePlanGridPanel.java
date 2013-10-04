@@ -14,7 +14,7 @@ import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanMainten
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSearchForm;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol.MaintenancePlanMaintenanceProtocolGrid;
-import org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol.MaintenancePlanMaintenanceProtocolRecord;
+import org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol.MaintenancePlanMaintenanceProtocolGridRecord;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol.MaintenancePlanMaintenanceProtocolUtil;
 import org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionListener;
 
@@ -118,7 +118,7 @@ MaintenancePlanSelectionListener {
 						ListGridRecord array[] = MaintenancePlanMaintenanceProtocolUtil
 								.toPlanRecords(result)
 								.toArray(
-										new MaintenancePlanMaintenanceProtocolRecord[] {});
+										new MaintenancePlanMaintenanceProtocolGridRecord[] {});
 						grid.setData(array);
 					}
 

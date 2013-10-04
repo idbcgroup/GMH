@@ -10,13 +10,13 @@ import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
  * @author emiliot
  *
  */
-public class MaintenancePlanMaintenanceProtocolRecord extends GHAGridRecord<MaintenancePlanMaintenanceProtocol> {
+public class MaintenancePlanMaintenanceProtocolGridRecord extends GHAGridRecord<MaintenancePlanMaintenanceProtocol> {
 	private MaintenancePlanMaintenanceProtocol maintenancePlanMaintenanceProtocol;
 
 	/**
 	 * 
 	 */
-	public MaintenancePlanMaintenanceProtocolRecord(MaintenancePlanMaintenanceProtocol maintenancePlanMaintenanceProtocol) {
+	public MaintenancePlanMaintenanceProtocolGridRecord(MaintenancePlanMaintenanceProtocol maintenancePlanMaintenanceProtocol) {
 		this.maintenancePlanMaintenanceProtocol = maintenancePlanMaintenanceProtocol;
 	}
 

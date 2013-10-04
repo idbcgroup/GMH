@@ -5,8 +5,12 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASubTab;
 import org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionListener;
 import org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolTab;
 
+/**
+ * @author emiliot
+ * 
+ */
 public class AsociatedMaintenancePlanSubTab extends GHASubTab implements
-MaintenanceProtocolSelectionListener{
+		MaintenanceProtocolSelectionListener {
 
 	private AsociatedMaintenancePlanGridPanel panel;
 
@@ -14,7 +18,7 @@ MaintenanceProtocolSelectionListener{
 		super("Planes de Mant.", tab);
 		setDisabled(true);
 
-		//register as maintenance protocol listener with the tab
+		// register as maintenance protocol listener with the tab
 		tab.addMaintenanceProtocolSelectionListener(this);
 
 		panel = new AsociatedMaintenancePlanGridPanel(this);
@@ -24,7 +28,7 @@ MaintenanceProtocolSelectionListener{
 		setPane(panel);
 	}
 
-	//Consumer stuff
+	// Consumer stuff
 	@Override
 	public void select(MaintenanceProtocol maintenanceProtocol) {
 		panel.select(maintenanceProtocol);

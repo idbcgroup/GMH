@@ -109,7 +109,7 @@ MaintenanceProtocolSelectionListener {
 						ListGridRecord array[] = MaintenancePlanMaintenanceProtocolUtil
 								.toProtocolRecords(result)
 								.toArray(
-										new MaintenancePlanMaintenanceProtocolRecord[] {});
+										new MaintenancePlanMaintenanceProtocolGridRecord[] {});
 						grid.setData(array);
 					}
 

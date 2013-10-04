@@ -21,32 +21,32 @@ public class MaintenancePlanMaintenanceProtocolUtil {
 		throw new UnsupportedOperationException("Esta clase no debe ser instanciada");
 	}
 	
-	public static MaintenancePlanMaintenanceProtocolRecord toPlanRecord(MaintenancePlanMaintenanceProtocol entity){
-		MaintenancePlanMaintenanceProtocolRecord record = new MaintenancePlanMaintenanceProtocolRecord(entity);
+	public static MaintenancePlanMaintenanceProtocolGridRecord toPlanRecord(MaintenancePlanMaintenanceProtocol entity){
+		MaintenancePlanMaintenanceProtocolGridRecord record = new MaintenancePlanMaintenanceProtocolGridRecord(entity);
 		record.setMaintenancePlanAttributes();
 		return record;
 	}
 	
-	public static List<MaintenancePlanMaintenanceProtocolRecord> toPlanRecords(List<MaintenancePlanMaintenanceProtocol> entities){
-		List<MaintenancePlanMaintenanceProtocolRecord> list = new ArrayList<MaintenancePlanMaintenanceProtocolRecord>();
+	public static List<MaintenancePlanMaintenanceProtocolGridRecord> toPlanRecords(List<MaintenancePlanMaintenanceProtocol> entities){
+		List<MaintenancePlanMaintenanceProtocolGridRecord> list = new ArrayList<MaintenancePlanMaintenanceProtocolGridRecord>();
 		for(MaintenancePlanMaintenanceProtocol entity : entities){
-			MaintenancePlanMaintenanceProtocolRecord record = new MaintenancePlanMaintenanceProtocolRecord(entity);
+			MaintenancePlanMaintenanceProtocolGridRecord record = new MaintenancePlanMaintenanceProtocolGridRecord(entity);
 			record.setMaintenancePlanAttributes();
 			list.add(record);
 		}
 		return list;
 	}
 	
-	public static MaintenancePlanMaintenanceProtocolRecord toProtocolRecord(MaintenancePlanMaintenanceProtocol entity){
-		MaintenancePlanMaintenanceProtocolRecord record = new MaintenancePlanMaintenanceProtocolRecord(entity);
+	public static MaintenancePlanMaintenanceProtocolGridRecord toProtocolRecord(MaintenancePlanMaintenanceProtocol entity){
+		MaintenancePlanMaintenanceProtocolGridRecord record = new MaintenancePlanMaintenanceProtocolGridRecord(entity);
 		record.setMaintenanceProtocolAttributes();
 		return record;
 	}
 	
-	public static List<MaintenancePlanMaintenanceProtocolRecord> toProtocolRecords(List<MaintenancePlanMaintenanceProtocol> entities){
-		List<MaintenancePlanMaintenanceProtocolRecord> list = new ArrayList<MaintenancePlanMaintenanceProtocolRecord>();
+	public static List<MaintenancePlanMaintenanceProtocolGridRecord> toProtocolRecords(List<MaintenancePlanMaintenanceProtocol> entities){
+		List<MaintenancePlanMaintenanceProtocolGridRecord> list = new ArrayList<MaintenancePlanMaintenanceProtocolGridRecord>();
 		for(MaintenancePlanMaintenanceProtocol entity : entities){
-			MaintenancePlanMaintenanceProtocolRecord record = new MaintenancePlanMaintenanceProtocolRecord(entity);
+			MaintenancePlanMaintenanceProtocolGridRecord record = new MaintenancePlanMaintenanceProtocolGridRecord(entity);
 			record.setMaintenanceProtocolAttributes();
 			list.add(record);
 		}
