@@ -171,6 +171,8 @@ public class InitialData {
 				em.persist(new UiString(LanguageEnum.ES,
 						"maintenance-provider-not-null",
 						"Debe indicar el proveedor de mantenimiento"));
+				em.persist(new UiString(LanguageEnum.ES, "record-not-selected",
+						"Debe seleccionar un registro"));
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating uistrings test data", e1);
