@@ -6,6 +6,7 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -71,6 +72,12 @@ public class MaintenanceProtocolAddForm extends GHASlideInWindow implements
 	public void show() {
 		super.show();
 		maintenanceProtocolForm.show();
+	}
+
+	@Override
+	public void open() {
+		this.show();
+		animateShow(AnimationEffect.FLY);
 	}
 
 	/*

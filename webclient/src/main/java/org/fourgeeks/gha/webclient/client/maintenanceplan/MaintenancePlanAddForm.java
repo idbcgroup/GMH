@@ -6,6 +6,7 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -16,7 +17,6 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class MaintenancePlanAddForm extends GHASlideInWindow implements
 		MaintenancePlanSelectionProducer, MaintenancePlanSelectionListener {
 	private MaintenancePlanForm maintenancePlanForm;
-
 
 	{
 		maintenancePlanForm = new MaintenancePlanForm();
@@ -50,12 +50,13 @@ public class MaintenancePlanAddForm extends GHASlideInWindow implements
 				}));
 
 		HLayout gridPanel = new HLayout();
-		gridPanel.addMembers(maintenancePlanForm, new LayoutSpacer(), sideButtons);
+		gridPanel.addMembers(maintenancePlanForm, new LayoutSpacer(),
+				sideButtons);
 		addMember(gridPanel);
-		
-		//register as listener to the maintenancePlanForm
+
+		// register as listener to the maintenancePlanForm
 		maintenancePlanForm.addMaintenancePlanSelectionListener(this);
-		
+
 		fillExtras();
 	}
 
@@ -63,16 +64,17 @@ public class MaintenancePlanAddForm extends GHASlideInWindow implements
 		maintenancePlanForm.hide();
 		super.hide();
 	}
-	
-	private void save(){
+
+	private void save() {
 		maintenancePlanForm.save();
 	}
 
 	private void fillExtras() {
-		//TODO: 
+		// TODO:
 	}
-	
-	public void show(){
+
+	@Override
+	public void show() {
 		super.show();
 		maintenancePlanForm.show();
 	}
@@ -88,31 +90,53 @@ public class MaintenancePlanAddForm extends GHASlideInWindow implements
 		destroy();
 	}
 
-	//Producer/Consumer stuff
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionProducer#addMaintenancePlanSelectionListener(org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener)
+	@Override
+	public void open() {
+		this.show();
+		animateShow(AnimationEffect.FLY);
+	}
+
+	// Producer/Consumer stuff
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.
+	 * MaintenancePlanSelectionProducer
+	 * #addMaintenancePlanSelectionListener(org.fourgeeks
+	 * .gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener)
 	 */
 	@Override
 	public void addMaintenancePlanSelectionListener(
 			MaintenancePlanSelectionListener maintenancePlanSelectionListener) {
-		maintenancePlanForm.addMaintenancePlanSelectionListener(maintenancePlanSelectionListener);
+		maintenancePlanForm
+				.addMaintenancePlanSelectionListener(maintenancePlanSelectionListener);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionProducer#removeMaintenancePlanSelectionListener(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.
+	 * MaintenancePlanSelectionProducer
+	 * #removeMaintenancePlanSelectionListener(org
+	 * .fourgeeks.gha.domain.gmh.MaintenancePlan)
 	 */
 	@Override
 	public void removeMaintenancePlanSelectionListener(
 			MaintenancePlanSelectionListener maintenancePlanSelectionListener) {
-		maintenancePlanForm.removeMaintenancePlanSelectionListener(maintenancePlanSelectionListener);
+		maintenancePlanForm
+				.removeMaintenancePlanSelectionListener(maintenancePlanSelectionListener);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener#select(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.
+	 * MaintenancePlanSelectionListener
+	 * #select(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
 	 */
 	@Override
 	public void select(MaintenancePlan maintenancePlan) {
-		//called when the maintenanceplanform finish saving new entity
+		// called when the maintenanceplanform finish saving new entity
 		cancel();
 	}
 }
