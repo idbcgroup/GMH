@@ -70,6 +70,7 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 		manItem = new GHAComboboxItem<Manufacturer>("Fabricante", 150);
 		brandItem = new GHAComboboxItem<Brand>("Marca", 150);
 		mobilityItem = new GHASelectItem("Movilidad", 150);
+		mobilityItem.setRequired(true);
 		typeItem = new GHASelectItem("Tipo", 150);
 		typeItem.setRequired(true);
 		subTypeItem = new GHASelectItem("Subtipo", 150);
