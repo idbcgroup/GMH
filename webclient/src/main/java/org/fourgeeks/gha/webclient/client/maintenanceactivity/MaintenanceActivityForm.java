@@ -42,6 +42,7 @@ public class MaintenanceActivityForm extends VLayout implements
 
 	{
 		nameItem = new GHATextItem("Nombre de la Actividad", 150);
+		nameItem.setLength(100);
 		descriptionItem = new GHATextItem("Descripción", 620);
 		descriptionItem.setColSpan(4);
 
