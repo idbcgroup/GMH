@@ -59,10 +59,13 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 	{
 		usernameItem = new GHATextItem("Nombre de Usuario",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		usernameItem.setRequired(true);
 		passwordItem = new GHATextItem("Contraseña",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		passwordItem.setRequired(true);
 		confirmPasswordItem = new GHATextItem("Confirme contraseña",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		confirmPasswordItem.setRequired(true);
 		firstNameItem = new GHATextItem("Primer Nombre",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		secondNameItem = new GHATextItem("Segundo Nombre",
@@ -82,12 +85,14 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		genderSelectItem = new GHASelectItem("Género",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		genderSelectItem.setRequired(true);
 		nationalityItem = new GHATextItem("Nacionalidad",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		birthDateItem = new GHADateItem("Fecha de Nac.",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		bpiSelectItem = new GHASelectItem("Institución",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		bpiSelectItem.setRequired(true);
 		legalEntityIdentifierItem = new GHATextItem("R.I.F.",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 
@@ -199,7 +204,7 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 	 * added in order to update or in the case of new ssoUser should not be
 	 * added because is new.
 	 * 
-	 * @param boolean update
+	 * @param update
 	 * @return the SSOUser to save/update
 	 */
 	private SSOUser extract(boolean update) {

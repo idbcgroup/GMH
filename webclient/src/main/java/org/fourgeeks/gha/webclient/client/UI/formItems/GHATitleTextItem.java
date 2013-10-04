@@ -4,8 +4,15 @@ import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.VerticalAlignment;
 import com.smartgwt.client.widgets.form.fields.StaticTextItem;
 
+/**
+ * @author alacret
+ * 
+ */
 public class GHATitleTextItem extends StaticTextItem {
 
+	/**
+	 * 
+	 */
 	public GHATitleTextItem() {
 		super();
 		setAlign(Alignment.LEFT);
@@ -16,6 +23,9 @@ public class GHATitleTextItem extends StaticTextItem {
 		setTextBoxStyle("title-label");
 	}
 
+	/**
+	 * @param title
+	 */
 	public GHATitleTextItem(String title) {
 		this();
 		setDefaultValue(title);

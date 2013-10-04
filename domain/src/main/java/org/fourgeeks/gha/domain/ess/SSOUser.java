@@ -10,6 +10,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.UserLogonStatusEnum;
@@ -35,14 +36,17 @@ public class SSOUser extends AbstractEntity {
 	// private LegalEntity legalEntity;
 
 	@NotNull
-	@OneToOne(cascade = {CascadeType.MERGE})
+	@OneToOne(cascade = { CascadeType.MERGE })
 	@JoinColumn(name = "bpuFk", nullable = false)
 	private Bpu bpu;
 
-	@NotNull
+	@Size(max = 20)
+	@NotNull(message = "password-not-null")
 	@Column(nullable = false)
 	private String password;
-	@NotNull
+
+	@Size(max = 20)
+	@NotNull(message = "username-not-null")
 	@Column(nullable = false)
 	private String userName;
 
@@ -64,6 +68,9 @@ public class SSOUser extends AbstractEntity {
 		this.userLogonStatus = userLogonStatus;
 	}
 
+	/**
+	 * 
+	 */
 	public SSOUser() {
 	}
 
@@ -112,10 +119,16 @@ public class SSOUser extends AbstractEntity {
 		this.userLogonStatus = userLogonStatus;
 	}
 
+	/**
+	 * @return the bpu
+	 */
 	public Bpu getBpu() {
 		return bpu;
 	}
 
+	/**
+	 * @param bpu
+	 */
 	public void setBpu(Bpu bpu) {
 		this.bpu = bpu;
 	}

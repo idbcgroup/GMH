@@ -12,12 +12,11 @@ import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.smartgwt.client.types.Alignment;
+import com.smartgwt.client.types.Cursor;
 import com.smartgwt.client.widgets.Canvas;
 import com.smartgwt.client.widgets.Img;
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
-import com.smartgwt.client.widgets.events.FocusChangedEvent;
-import com.smartgwt.client.widgets.events.FocusChangedHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.menu.IMenuButton;
 import com.smartgwt.client.widgets.menu.Menu;
@@ -54,27 +53,28 @@ public class HomePlace extends GHAPlace {
 		Bpu user = GHASessionData.getLoggedUser();
 
 		final UserDropdownMenu userMenu = new UserDropdownMenu(user);
-		userMenu.addFocusChangedHandler(new FocusChangedHandler() {
-			@Override
-			public void onFocusChanged(FocusChangedEvent event) {
-				boolean foc = event.getHasFocus();
-				if(!foc){
-//					Window.alert("Focus Changed. This widget has focus:"+!foc);
-					if (userMenu.isVisible()) {	
-//						Window.alert("contains focus:"+userMenu.containsFocus());
-//						boolean childFoc = false;
-//						Window.alert("number of children: "+userMenu.getChildren().length);
-//						for(Canvas ch : userMenu.getChildren())
-//							if(ch.containsFocus()){
-//								Window.alert("One of the children contains focus");
-//								childFoc = true;	
-//							}
-//						if(!childFoc)
-							userMenu.hide();
-					}
-				}
-			}
-		});
+		// userMenu.addFocusChangedHandler(new FocusChangedHandler() {
+		// @Override
+		// public void onFocusChanged(FocusChangedEvent event) {
+		// boolean foc = event.getHasFocus();
+		// if (!foc) {
+		// // Window.alert("Focus Changed. This widget has focus:"+!foc);
+		// if (userMenu.isVisible()) {
+		// // Window.alert("contains focus:"+userMenu.containsFocus());
+		// // boolean childFoc = false;
+		// //
+		// Window.alert("number of children: "+userMenu.getChildren().length);
+		// // for(Canvas ch : userMenu.getChildren())
+		// // if(ch.containsFocus()){
+		// // Window.alert("One of the children contains focus");
+		// // childFoc = true;
+		// // }
+		// // if(!childFoc)
+		// userMenu.hide();
+		// }
+		// }
+		// }
+		// });
 
 		// final VLayout notificationsMenu =
 		// GHADropdownMenus.notificationsMenu();
@@ -89,12 +89,12 @@ public class HomePlace extends GHAPlace {
 				+ user.getCitizen().getFirstLastName());
 		usernameLabel.setStyleName("username-text");
 		usernameLabel.setSize("400px", "25px");
-		
+
 		// Label notificationsButton = new Label("1");
 		// notificationsButton.setStyleName("user-notifications-button button-pointer");
 		// notificationsButton.setBackgroundImage("../resources/icons/boton1.png");
 		// notificationsButton.setSize("28px", "25px");
-		
+
 		// notificationsButton
 		// .addClickHandler(new
 		// com.smartgwt.client.widgets.events.ClickHandler() {
@@ -120,31 +120,32 @@ public class HomePlace extends GHAPlace {
 		// }
 		// }
 		// });
-		
+
 		Img userButton = new Img("../resources/icons/boton2.png");
 		userButton.setStyleName("button-pointer");
+		userButton.setCursor(Cursor.POINTER);
 		userButton.setSize("21px", "25px");
-		
-		userButton
-		.addClickHandler(new com.smartgwt.client.widgets.events.ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				int posx = event.getX() - 270;
-				int posy = event.getY();
-				if (event.getY() < 50)
-					posy += 20;
-				else
-					posy += 10;
 
-				// TODO Auto-generated method stub
-				if (userMenu.isVisible()) {
-					userMenu.hide();
-				} else {
-					userMenu.show(posx,posy);
-				}
-			}
-		});
-		
+		userButton
+				.addClickHandler(new com.smartgwt.client.widgets.events.ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						int posx = event.getX() - 270;
+						int posy = event.getY();
+						if (event.getY() < 50)
+							posy += 20;
+						else
+							posy += 10;
+
+						// TODO Auto-generated method stub
+						if (userMenu.isVisible()) {
+							userMenu.hide();
+						} else {
+							userMenu.show(posx, posy);
+						}
+					}
+				});
+
 		userInfo.addMembers(usernameLabel, /* notificationsButton, */
 				userButton);
 
@@ -260,12 +261,14 @@ public class HomePlace extends GHAPlace {
 		IMenuButton menuButton = new IMenuButton("Aplicaciones", menu);
 		menuButton.setWidth(150);
 		menuButton.setHeight(24);
-//		menuButton.setStylePrimaryName("gha-main-menu");
-		menuButton.getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().setId("gha-main-menu");
-//		Window.alert("Number of childrens:"+menuButton.getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().setClassName("lets-see"));
-		int i=0;
-		for(Canvas c: menuButton.getChildren()){
-			Window.alert("Child "+i+" ClassName: "+c.getClassName());
+		// menuButton.setStylePrimaryName("gha-main-menu");
+		menuButton.getElement().getFirstChildElement().getFirstChildElement()
+				.getFirstChildElement().getFirstChildElement()
+				.getFirstChildElement().setId("gha-main-menu");
+		// Window.alert("Number of childrens:"+menuButton.getElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().getFirstChildElement().setClassName("lets-see"));
+		int i = 0;
+		for (Canvas c : menuButton.getChildren()) {
+			Window.alert("Child " + i + " ClassName: " + c.getClassName());
 			i++;
 		}
 		menuButton.setZIndex(33333333);

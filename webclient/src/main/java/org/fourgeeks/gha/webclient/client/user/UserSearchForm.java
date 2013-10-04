@@ -46,18 +46,25 @@ public class UserSearchForm extends GHASlideInWindow implements
 	{
 		usernameItem = new GHATextItem("Usuario",
 				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
+		usernameItem.setLength(20);
 		firstNameItem = new GHATextItem("Primer nombre",
 				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
+		firstNameItem.setLength(20);
 		secondNameItem = new GHATextItem("Segundo nombre",
 				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
+		secondNameItem.setLength(20);
 		firstLastNameItem = new GHATextItem("Primer apellido",
 				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
+		firstLastNameItem.setLength(20);
 		secondLastNameItem = new GHATextItem("Segundo apellido",
 				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
+		secondLastNameItem.setLength(20);
 		emailItem = new GHATextItem("Correo",
 				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
+		emailItem.setLength(254);
 		alterEmailItem = new GHATextItem("Correo alternativo",
 				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
+		alterEmailItem.setLength(254);
 		idItem = new GHATextItem("No. Identificiación",
 				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
 		genderSelectItem = new GHASelectItem("Género",
@@ -162,7 +169,7 @@ public class UserSearchForm extends GHASlideInWindow implements
 					@Override
 					public void onClick(ClickEvent event) {
 						addForm.open();
-						addForm.show();
+						// addForm.show();
 					}
 				}));
 

@@ -99,18 +99,19 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		information_TitleItem = new GHATitleTextItem("Información:");
 		codeTextItem = new GHATextItem("Código",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
-		codeTextItem.setRequired(true);
 		serialTextItem = new GHATextItem("Serial",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		fixedAssetIdTextItem = new GHATextItem("Id. Activo Fijo",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
-		fixedAssetIdTextItem.setRequired(true);
 		obuSelectItem = new GHASelectItem("Departamento Responsable",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		obuSelectItem.setRequired(true);
 		baseRoleSelectItem = new GHASelectItem("Rol Responsable",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		baseRoleSelectItem.setRequired(true);
 		stateSelectItem = new GHASelectItem("Estado Equipo",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		stateSelectItem.setRequired(true);
 		acceptationDateItem = new GHADateItem("Fecha de Aceptación",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 
@@ -120,6 +121,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		providerSelectItem = new GHASelectItem("Proveedor",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		providerSelectItem.setRequired(true);
 		purchaseOrderNumTextItem = new GHATextItem("No. Orden Compra",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		purchaseInvoiceNumTextItem = new GHATextItem("No. Factura",

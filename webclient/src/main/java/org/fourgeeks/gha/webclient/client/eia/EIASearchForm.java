@@ -1,6 +1,5 @@
 package org.fourgeeks.gha.webclient.client.eia;
 
-import java.math.BigDecimal;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -28,7 +27,6 @@ import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.form.fields.events.KeyUpEvent;
 import com.smartgwt.client.widgets.form.fields.events.KeyUpHandler;
-import com.smartgwt.client.widgets.form.validator.IsIntegerValidator;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
@@ -43,8 +41,7 @@ public class EIASearchForm extends GHASlideInWindow implements
 
 	private List<EIASelectionListener> listeners;
 	private EIAGrid grid;
-	private GHATextItem actualCostItem, codeItem, fixedAssetIdentifierItem,
-			serialNumberItem;
+	private GHATextItem codeItem, fixedAssetIdentifierItem, serialNumberItem;
 	private GHASelectItem responsibleRoleItem, eiaTypeItem,
 			workingAreaLocationItem, facilityLocationItem, obuItem, stateItem;
 
@@ -52,11 +49,9 @@ public class EIASearchForm extends GHASlideInWindow implements
 	{
 		listeners = new LinkedList<EIASelectionListener>();
 
-		actualCostItem = new GHATextItem("Costo actual");
-		actualCostItem.setValidators(new IsIntegerValidator());
 		responsibleRoleItem = new GHASelectItem("Responsable");
 		codeItem = new GHATextItem("Código");
-		codeItem.setLength(20);
+		codeItem.setLength(15);
 		eiaTypeItem = new GHASelectItem("Tipo de equipo");
 		fixedAssetIdentifierItem = new GHATextItem("Identificador");
 		fixedAssetIdentifierItem.setLength(20);
@@ -88,8 +83,8 @@ public class EIASearchForm extends GHASlideInWindow implements
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(5);
 
-		form.setItems(actualCostItem, responsibleRoleItem, codeItem,
-				eiaTypeItem, fixedAssetIdentifierItem, workingAreaLocationItem,
+		form.setItems(responsibleRoleItem, codeItem, eiaTypeItem,
+				fixedAssetIdentifierItem, workingAreaLocationItem,
 				facilityLocationItem, obuItem, serialNumberItem, stateItem);
 
 		ClickHandler searchClickHandler = new ClickHandler() {
@@ -108,7 +103,7 @@ public class EIASearchForm extends GHASlideInWindow implements
 				}
 			}
 		};
-		actualCostItem.addKeyUpHandler(searchKeyUpHandler);
+		// actualCostItem.addKeyUpHandler(searchKeyUpHandler);
 		responsibleRoleItem.addKeyUpHandler(searchKeyUpHandler);
 		codeItem.addKeyUpHandler(searchKeyUpHandler);
 		eiaTypeItem.addKeyUpHandler(searchKeyUpHandler);
@@ -273,8 +268,8 @@ public class EIASearchForm extends GHASlideInWindow implements
 
 	private void search() {
 		Eia eia = new Eia();
-		if (actualCostItem.getValue() != null)
-			eia.setActualCost(new BigDecimal(actualCostItem.getValueAsString()));
+		// if (actualCostItem.getValue() != null)
+		// eia.setActualCost(new BigDecimal(actualCostItem.getValueAsString()));
 		if (responsibleRoleItem.getValue() != null)
 			eia.setResponsibleRole(new Role(Long.parseLong(responsibleRoleItem
 					.getValueAsString())));

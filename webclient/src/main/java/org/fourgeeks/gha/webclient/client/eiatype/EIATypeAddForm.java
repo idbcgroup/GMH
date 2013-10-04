@@ -39,6 +39,10 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
+/**
+ * @author alacret
+ * 
+ */
 public class EIATypeAddForm extends GHASlideInWindow implements
 		EiaTypeSelectionProducer {
 
@@ -54,7 +58,9 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 	{
 		listeners = new ArrayList<EIATypeSelectionListener>();
 		codeItem = new GHATextItem("Código", 150);
+		codeItem.setRequired(true);
 		nameItem = new GHATextItem("Nombre", 150);
+		nameItem.setRequired(true);
 		modelItem = new GHATextItem("Modelo", 150);
 		descriptionItem = new GHATextItem("Descripción", 480);
 		descriptionItem.setColSpan(3);
@@ -65,11 +71,16 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 		brandItem = new GHAComboboxItem<Brand>("Marca", 150);
 		mobilityItem = new GHASelectItem("Movilidad", 150);
 		typeItem = new GHASelectItem("Tipo", 150);
+		typeItem.setRequired(true);
 		subTypeItem = new GHASelectItem("Subtipo", 150);
+		subTypeItem.setRequired(true);
 
 		validator = Validation.buildDefaultValidatorFactory().getValidator();
 	}
 
+	/**
+	 * 
+	 */
 	public EIATypeAddForm() {
 		super(2);
 		setHeight(GHAUiHelper.getBottomSectionHeight());
@@ -108,9 +119,9 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 			}
 		});
 
-		form.setItems(manItem, brandItem, typeItem, subTypeItem,
-				descriptionItem, mobilityItem, useDescriptionItem, codeItem,
-				nameItem, modelItem, eiaUmdnsItem);
+		form.setItems(codeItem, nameItem, typeItem, subTypeItem,
+				descriptionItem, mobilityItem, useDescriptionItem, brandItem,
+				manItem, modelItem, eiaUmdnsItem);
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
 				"../resources/icons/save.png", new ClickHandler() {

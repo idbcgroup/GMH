@@ -56,15 +56,15 @@
 		<url-pattern>/webclient/eiaType</url-pattern>
 	</servlet-mapping>
 
-	<servlet>
-		<servlet-name>GWTEiaTypePictureService</servlet-name>
-		<servlet-class>org.fourgeeks.gha.webclient.server.eiatype.GWTEiaTypePictureServiceImpl</servlet-class>
-	</servlet>
+<!-- 	<servlet> -->
+<!-- 		<servlet-name>GWTEiaTypePictureService</servlet-name> -->
+<!-- 		<servlet-class>org.fourgeeks.gha.webclient.server.eiatype.GWTEiaTypePictureServiceImpl</servlet-class> -->
+<!-- 	</servlet> -->
 
-	<servlet-mapping>
-		<servlet-name>GWTEiaTypePictureService</servlet-name>
-		<url-pattern>/webclient/eiaTypePicture</url-pattern>
-	</servlet-mapping>
+<!-- 	<servlet-mapping> -->
+<!-- 		<servlet-name>GWTEiaTypePictureService</servlet-name> -->
+<!-- 		<url-pattern>/webclient/eiaTypePicture</url-pattern> -->
+<!-- 	</servlet-mapping> -->
 
 	<servlet>
 		<servlet-name>GWTEiaService</servlet-name>

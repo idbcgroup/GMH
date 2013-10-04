@@ -142,20 +142,30 @@ public class InitialData {
 				em.persist(new UiString(LanguageEnum.ES, "equipments",
 						"Equipos"));
 				em.persist(new UiString(LanguageEnum.ES, "type-not-null",
-						"El tipo de equipo no puede ser nulo"));
+						"Debe indicar el tipo"));
 				em.persist(new UiString(LanguageEnum.ES,
 						"external-provider-not-null",
-						"El proveedor externo no puede ser nulo"));
+						"Debe indicar el proveedor"));
 				em.persist(new UiString(LanguageEnum.ES, "name-not-null",
-						"El nombre no pueder ser nulo"));
+						"Debe indicar el nombre"));
 				em.persist(new UiString(LanguageEnum.ES, "mobility-not-null",
-						"La movilidad no puede ser nula"));
+						"Debe indicar la movilidad"));
 				em.persist(new UiString(LanguageEnum.ES, "base-role-not-null",
-						"El role base no puede ser nulo"));
+						"Debe indicar el rol"));
 				em.persist(new UiString(LanguageEnum.ES, "obu-not-null",
-						"La organicación no puede ser nula"));
+						"Debe indicar la organización"));
 				em.persist(new UiString(LanguageEnum.ES, "state-not-null",
-						"El estado no puede ser nulo"));
+						"Debe indicar el estado"));
+				em.persist(new UiString(LanguageEnum.ES, "gender-not-null",
+						"Debe indicar el genero"));
+				em.persist(new UiString(LanguageEnum.ES, "bpi-not-null",
+						"Debe indicar la institución"));
+				em.persist(new UiString(LanguageEnum.ES, "username-not-null",
+						"Debe indicar el usuario"));
+				em.persist(new UiString(LanguageEnum.ES, "password-not-null",
+						"Debe indicar la clave"));
+				em.persist(new UiString(LanguageEnum.ES, "code-not-null",
+						"Debe indicar el código"));
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating uistrings test data", e1);
@@ -446,30 +456,33 @@ public class InitialData {
 			}
 		}
 	}
-	
-	private void MaintenancePlanMaintenanceProtocol(){
+
+	private void MaintenancePlanMaintenanceProtocol() {
 		String query = "SELECT t from MaintenancePlanMaintenanceProtocol t WHERE t.id = 1";
-		try{
+		try {
 			em.createQuery(query).getSingleResult();
-		}catch(NoResultException e){
+		} catch (NoResultException e) {
 			try {
 				logger.info("Creating test data: MaintenancePlanMaintenanceProtocol");
 				List<MaintenanceProtocol> protocols = em
 						.createNamedQuery("MaintenanceProtocol.getAll",
 								MaintenanceProtocol.class).getResultList();
-				List<MaintenancePlan> plans = em
-						.createNamedQuery("MaintenancePlan.getAll",
-								MaintenancePlan.class).getResultList();
-				for(MaintenancePlan plan : plans){
+				List<MaintenancePlan> plans = em.createNamedQuery(
+						"MaintenancePlan.getAll", MaintenancePlan.class)
+						.getResultList();
+				for (MaintenancePlan plan : plans) {
 					int k = 1;
-					for(MaintenanceProtocol protocol : protocols){
-						em.persist(new org.fourgeeks.gha.domain.gmh.MaintenancePlanMaintenanceProtocol(plan, protocol, k++));
+					for (MaintenanceProtocol protocol : protocols) {
+						em.persist(new org.fourgeeks.gha.domain.gmh.MaintenancePlanMaintenanceProtocol(
+								plan, protocol, k++));
 					}
 					em.flush();
 				}
 			} catch (Exception e1) {
-				logger.log(Level.INFO,
-						"error Creating MaintenancePlanMaintenanceProtocol test data", e1);
+				logger.log(
+						Level.INFO,
+						"error Creating MaintenancePlanMaintenanceProtocol test data",
+						e1);
 			}
 		}
 	}
