@@ -27,8 +27,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class MaintenanceProtocolGridPanel extends VLayout implements
-GHAClosable, GHAHideable, MaintenancePlanSelectionListener,
-MaintenanceProtocolSelectionListener {
+		GHAClosable, GHAHideable, MaintenancePlanSelectionListener,
+		MaintenanceProtocolSelectionListener {
 
 	private MaintenancePlanMaintenanceProtocolGrid grid = new MaintenancePlanMaintenanceProtocolGrid();
 	private MaintenancePlan maintenancePlan;
@@ -58,25 +58,25 @@ MaintenanceProtocolSelectionListener {
 					public void onClick(ClickEvent event) {
 						searchForm.open();
 					}
-				}), new GHAImgButton("../resources/icons/edit.png"),
+				}), /* new GHAImgButton("../resources/icons/edit.png"), */
 				new GHAImgButton("../resources/icons/delete.png",
 						new ClickHandler() {
 
-					@Override
-					public void onClick(ClickEvent event) {
-						MaintenancePlanMaintenanceProtocol entity = grid
-								.getSelectedEntity();
-						MaintenancePlanMaintenanceProtocolModel.delete(
-								entity.getId(),
-								new GHAAsyncCallback<Void>() {
+							@Override
+							public void onClick(ClickEvent event) {
+								MaintenancePlanMaintenanceProtocol entity = grid
+										.getSelectedEntity();
+								MaintenancePlanMaintenanceProtocolModel.delete(
+										entity.getId(),
+										new GHAAsyncCallback<Void>() {
 
-									@Override
-									public void onSuccess(Void result) {
-										loadData();
-									}
-								});
-					}
-				}));
+											@Override
+											public void onSuccess(Void result) {
+												loadData();
+											}
+										});
+							}
+						}));
 
 		HLayout mainPanel = new HLayout();
 		mainPanel.addMembers(grid, sideButtons);
@@ -99,21 +99,21 @@ MaintenanceProtocolSelectionListener {
 
 	public void loadData() {
 		MaintenancePlanMaintenanceProtocolModel
-		.findByMaintenancePlan(
-				maintenancePlan,
-				new GHAAsyncCallback<List<MaintenancePlanMaintenanceProtocol>>() {
+				.findByMaintenancePlan(
+						maintenancePlan,
+						new GHAAsyncCallback<List<MaintenancePlanMaintenanceProtocol>>() {
 
-					@Override
-					public void onSuccess(
-							List<MaintenancePlanMaintenanceProtocol> result) {
-						ListGridRecord array[] = MaintenancePlanMaintenanceProtocolUtil
-								.toProtocolRecords(result)
-								.toArray(
-										new MaintenancePlanMaintenanceProtocolGridRecord[] {});
-						grid.setData(array);
-					}
+							@Override
+							public void onSuccess(
+									List<MaintenancePlanMaintenanceProtocol> result) {
+								ListGridRecord array[] = MaintenancePlanMaintenanceProtocolUtil
+										.toProtocolRecords(result)
+										.toArray(
+												new MaintenancePlanMaintenanceProtocolGridRecord[] {});
+								grid.setData(array);
+							}
 
-				});
+						});
 	}
 
 	/*
@@ -145,11 +145,11 @@ MaintenanceProtocolSelectionListener {
 		MaintenancePlanMaintenanceProtocolModel.save(entity,
 				new GHAAsyncCallback<MaintenancePlanMaintenanceProtocol>() {
 
-			@Override
-			public void onSuccess(
-					MaintenancePlanMaintenanceProtocol result) {
-				loadData();
-			}
-		});
+					@Override
+					public void onSuccess(
+							MaintenancePlanMaintenanceProtocol result) {
+						loadData();
+					}
+				});
 	}
 }

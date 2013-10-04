@@ -56,7 +56,7 @@ public class ProtocolActivitiesGridPanel extends VLayout implements
 					public void onClick(ClickEvent event) {
 						searchForm.open();
 					}
-				}), new GHAImgButton("../resources/icons/edit.png"),
+				}), /* new GHAImgButton("../resources/icons/edit.png"), */
 				new GHAImgButton("../resources/icons/delete.png",
 						new ClickHandler() {
 
