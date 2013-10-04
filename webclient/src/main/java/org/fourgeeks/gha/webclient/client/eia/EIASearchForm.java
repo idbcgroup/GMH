@@ -54,7 +54,8 @@ public class EIASearchForm extends GHASlideInWindow implements
 
 		responsibleRoleItem = new GHASelectItem("Responsable");
 		codeItem = new GHATextItem("Código");
-		codeItem.setLength(15);
+		codeItem.setLength(20);
+		codeItem.setMask("####################");
 		eiaTypeItem = new GHASelectItem("Tipo de equipo");
 		fixedAssetIdentifierItem = new GHATextItem("Identificador");
 		fixedAssetIdentifierItem.setLength(20);
@@ -62,7 +63,10 @@ public class EIASearchForm extends GHASlideInWindow implements
 		facilityLocationItem = new GHASelectItem("Servicio/Instalación");
 		obuItem = new GHASelectItem("Organización");
 		serialNumberItem = new GHATextItem("Serial");
+		serialNumberItem.setLength(20);
+		serialNumberItem.setMask("AAAAAAAAAAAAAAAAAAAA");
 		fixedAssetIdentifierItem.setLength(20);
+		fixedAssetIdentifierItem.setMask("###################");
 		stateItem = new GHASelectItem("Estado");
 		grid = new EIAGrid();
 		addForm = new EIAAddForm();
