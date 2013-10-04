@@ -5,13 +5,17 @@ package org.fourgeeks.gha.webclient.client.maintenanceactivity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
+import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 
 import com.google.gwt.validation.client.impl.Validation;
 import com.smartgwt.client.types.TitleOrientation;
@@ -38,6 +42,7 @@ public class MaintenanceActivityForm extends VLayout implements
 
 	{
 		nameItem = new GHATextItem("Nombre de la Actividad", 150);
+		nameItem.setLength(100);
 		descriptionItem = new GHATextItem("Descripción", 620);
 		descriptionItem.setColSpan(4);
 
@@ -99,7 +104,13 @@ public class MaintenanceActivityForm extends VLayout implements
 					.getValueAsString());
 		}
 
-		// TODO: validate
+		Set<ConstraintViolation<MaintenanceActivity>> violations = validator
+				.validate(maintenanceActivity);
+		if (!violations.isEmpty()) {
+			GHANotification.alert(GHAStrings.get(violations.iterator().next()
+					.getMessage()));
+			return null;
+		}
 		return maintenanceActivity;
 	}
 

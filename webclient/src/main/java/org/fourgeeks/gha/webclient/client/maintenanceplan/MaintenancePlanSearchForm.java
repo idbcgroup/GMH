@@ -6,10 +6,13 @@ import java.util.List;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
+import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -25,6 +28,10 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
+/**
+ * @author alacret
+ * 
+ */
 public class MaintenancePlanSearchForm extends GHASlideInWindow implements
 		MaintenancePlanSelectionListener, MaintenancePlanSelectionProducer {
 
@@ -48,6 +55,9 @@ public class MaintenancePlanSearchForm extends GHASlideInWindow implements
 		addForm = new MaintenancePlanAddForm();
 	}
 
+	/**
+	 * 
+	 */
 	public MaintenancePlanSearchForm() {
 		super(1);
 		setTop(110);
@@ -123,9 +133,7 @@ public class MaintenancePlanSearchForm extends GHASlideInWindow implements
 
 					@Override
 					public void onClick(ClickEvent event) {
-						notifyMaintenancePlan(((MaintenancePlanRecord) grid
-								.getSelectedRecord()).toEntity());
-						hide();
+						selectMaintenancePlan();
 					}
 				}), GHAUiHelper.verticalGraySeparator("2px"), new GHAImgButton(
 				"../resources/icons/new.png", new ClickHandler() {
@@ -198,6 +206,9 @@ public class MaintenancePlanSearchForm extends GHASlideInWindow implements
 	}
 
 	// Producer/Consumer Stuff
+	/**
+	 * @param maintenancePlan
+	 */
 	public void notifyMaintenancePlan(MaintenancePlan maintenancePlan) {
 		for (MaintenancePlanSelectionListener listener : listeners)
 			listener.select(maintenancePlan);
@@ -247,5 +258,20 @@ public class MaintenancePlanSearchForm extends GHASlideInWindow implements
 		ListGridRecord array[] = { gridRecord };
 		grid.setData(array);
 		grid.selectRecord(gridRecord);
+	}
+
+	/**
+	 * 
+	 */
+	private void selectMaintenancePlan() {
+		GHAGridRecord<MaintenancePlan> selectedRecord = grid
+				.getSelectedRecord();
+		if (selectedRecord == null) {
+			GHANotification.alert(GHAStrings.get("record-not-selected"));
+			return;
+		}
+		notifyMaintenancePlan(((MaintenancePlanRecord) selectedRecord)
+				.toEntity());
+		hide();
 	}
 }

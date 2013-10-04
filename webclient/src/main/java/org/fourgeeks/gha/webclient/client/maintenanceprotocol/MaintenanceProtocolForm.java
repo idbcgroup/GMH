@@ -5,13 +5,17 @@ package org.fourgeeks.gha.webclient.client.maintenanceprotocol;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
+import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 
 import com.google.gwt.validation.client.impl.Validation;
 import com.smartgwt.client.types.TitleOrientation;
@@ -39,6 +43,7 @@ public class MaintenanceProtocolForm extends VLayout implements
 	{
 		nameItem = new GHATextItem("Nombre del Protocolo",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		nameItem.setRequired(true);
 		descriptionItem = new GHATextItem("Descripción", 620);
 		descriptionItem.setColSpan(4);
 
@@ -101,7 +106,13 @@ public class MaintenanceProtocolForm extends VLayout implements
 					.getValueAsString());
 		}
 
-		// TODO: validate
+		Set<ConstraintViolation<MaintenanceProtocol>> violations = validator
+				.validate(maintenanceProtocol);
+		if (!violations.isEmpty()) {
+			GHANotification.alert(GHAStrings.get(violations.iterator().next()
+					.getMessage()));
+			return null;
+		}
 		return maintenanceProtocol;
 	}
 

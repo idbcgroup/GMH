@@ -6,13 +6,15 @@ package org.fourgeeks.gha.domain.gmh;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 
 /**
  * @author emiliot
- *
+ * 
  */
 
 @Entity
@@ -25,19 +27,21 @@ public class MaintenancePlan extends AbstractEntity {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
+	@Size(max = 100)
+	@NotNull(message = "name-not-null")
 	private String name;
 	private String description;
+	@NotNull(message = "frecuency-not-null")
 	private int frequency;
+	@NotNull(message = "time-period-not-null")
 	private TimePeriodEnum pot;
 
 	/**
 	 * 
 	 */
 	public MaintenancePlan() {
-		// TODO Auto-generated constructor stub
 	}
-
 
 	/**
 	 * @param name
@@ -53,7 +57,9 @@ public class MaintenancePlan extends AbstractEntity {
 		this.pot = pot;
 	}
 
-
+	/**
+	 * @return the description
+	 */
 	public String getDescription() {
 		return description;
 	}
@@ -78,15 +84,12 @@ public class MaintenancePlan extends AbstractEntity {
 		this.pot = pot;
 	}
 
-
 	public String getName() {
 		return name;
 	}
 
-
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	
+
 }

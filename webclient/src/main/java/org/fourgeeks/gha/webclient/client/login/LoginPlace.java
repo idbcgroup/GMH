@@ -3,6 +3,8 @@ package org.fourgeeks.gha.webclient.client.login;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHASessionData;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAPlace;
 
 import com.google.gwt.core.client.GWT;
@@ -72,6 +74,16 @@ public class LoginPlace extends GHAPlace {
 			public void onBrowserEvent(Event event) {
 				String username = userTextbox.getValue();
 				String password = passTextbox.getValue();
+
+				if (username == null || username.equals("")) {
+					GHANotification.alert(GHAStrings.get("username-not-null"));
+					return;
+				}
+
+				if (password == null || password.equals("")) {
+					GHANotification.alert(GHAStrings.get("password-not-null"));
+					return;
+				}
 
 				final GWTLoginServiceAsync service = GWT
 						.create(GWTLoginService.class);

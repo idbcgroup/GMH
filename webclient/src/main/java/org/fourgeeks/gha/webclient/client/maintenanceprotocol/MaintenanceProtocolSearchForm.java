@@ -5,10 +5,13 @@ import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
+import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -25,6 +28,10 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
+/**
+ * @author alacret
+ * 
+ */
 public class MaintenanceProtocolSearchForm extends GHASlideInWindow implements
 		MaintenanceProtocolSelectionListener,
 		MaintenanceProtocolSelectionProducer {
@@ -46,6 +53,9 @@ public class MaintenanceProtocolSearchForm extends GHASlideInWindow implements
 		addForm = new MaintenanceProtocolAddForm();
 	}
 
+	/**
+	 * 
+	 */
 	public MaintenanceProtocolSearchForm() {
 		super(1);
 		setTop(110);
@@ -121,9 +131,7 @@ public class MaintenanceProtocolSearchForm extends GHASlideInWindow implements
 
 					@Override
 					public void onClick(ClickEvent event) {
-						notifyMaintenanceProtocol(((MaintenanceProtocolGridRecord) grid
-								.getSelectedRecord()).toEntity());
-						hide();
+						selectMaintenanceProtocol();
 					}
 				}), GHAUiHelper.verticalGraySeparator("2px"), new GHAImgButton(
 				"../resources/icons/new.png", new ClickHandler() {
@@ -237,6 +245,21 @@ public class MaintenanceProtocolSearchForm extends GHASlideInWindow implements
 		ListGridRecord array[] = { gridRecord };
 		grid.setData(array);
 		grid.selectRecord(gridRecord);
+	}
+
+	/**
+	 * 
+	 */
+	private void selectMaintenanceProtocol() {
+		GHAGridRecord<MaintenanceProtocol> selectedRecord = grid
+				.getSelectedRecord();
+		if (selectedRecord == null) {
+			GHANotification.alert(GHAStrings.get("record-not-selected"));
+			return;
+		}
+		notifyMaintenanceProtocol(((MaintenanceProtocolGridRecord) selectedRecord)
+				.toEntity());
+		hide();
 	}
 
 }
