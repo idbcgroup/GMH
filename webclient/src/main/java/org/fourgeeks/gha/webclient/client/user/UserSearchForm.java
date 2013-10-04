@@ -234,12 +234,14 @@ public class UserSearchForm extends GHASlideInWindow implements
 
 	@Override
 	public void close() {
+		addForm.destroy();
 		destroy();
 	}
 
 	@Override
 	public void hide() {
 		super.hide();
+		addForm.hide();
 	}
 
 	@Override

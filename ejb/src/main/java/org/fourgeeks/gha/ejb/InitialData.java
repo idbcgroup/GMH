@@ -143,6 +143,8 @@ public class InitialData {
 						"Equipos"));
 				em.persist(new UiString(LanguageEnum.ES, "type-not-null",
 						"Debe indicar el tipo"));
+				em.persist(new UiString(LanguageEnum.ES, "sub-type-not-null",
+						"Debe indicar el sub tipo"));
 				em.persist(new UiString(LanguageEnum.ES,
 						"external-provider-not-null",
 						"Debe indicar el proveedor"));
