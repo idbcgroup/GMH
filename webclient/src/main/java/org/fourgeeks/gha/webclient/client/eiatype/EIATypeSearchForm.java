@@ -49,10 +49,16 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 	{
 		selectionListeners = new LinkedList<EIATypeSelectionListener>();
 		codeEIAItem = new GHATextItem("Código");
+		codeEIAItem.setLength(20);
+		codeEIAItem.setMask("AAAAAAAAAAAAAAAAAAAA");
 		nameEIAItem = new GHATextItem("Nombre");
+		nameEIAItem.setLength(255);
 		brandItem = new GHASelectItem("Marca");
 		modelItem = new GHATextItem("Modelo");
+		modelItem.setLength(20);
 		umdnsCodeItem = new GHATextItem("EIAUMDNS");
+		umdnsCodeItem.setLength(16);
+		umdnsCodeItem.setMask("AAAAAAAAAAAAAAAAAAAA");
 		mobilityItem = new GHASelectItem("Movilidad");
 		typeItem = new GHASelectItem("Tipo de Equipo");
 		subTypeItem = new GHASelectItem("Subtipo");

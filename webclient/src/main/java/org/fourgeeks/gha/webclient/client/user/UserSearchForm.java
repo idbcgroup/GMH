@@ -50,26 +50,33 @@ public class UserSearchForm extends GHASlideInWindow implements
 		usernameItem = new GHATextItem("Usuario",
 				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
 		usernameItem.setLength(20);
+		usernameItem.setMask("AAAAAAAAAAAAAAAAAAAA");
 		firstNameItem = new GHATextItem("Primer nombre",
 				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
 		firstNameItem.setLength(20);
+		firstNameItem.setMask(">A<AAAAAAAAAAAAAAAAAAA");
 		secondNameItem = new GHATextItem("Segundo nombre",
 				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
 		secondNameItem.setLength(20);
+		secondNameItem.setMask(">A<AAAAAAAAAAAAAAAAAAA");
 		firstLastNameItem = new GHATextItem("Primer apellido",
 				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
 		firstLastNameItem.setLength(20);
+		firstLastNameItem.setMask(">A<AAAAAAAAAAAAAAAAAAA");
 		secondLastNameItem = new GHATextItem("Segundo apellido",
 				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
 		secondLastNameItem.setLength(20);
+		secondLastNameItem.setMask(">A<AAAAAAAAAAAAAAAAAAA");
 		emailItem = new GHATextItem("Correo",
 				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
 		emailItem.setLength(254);
 		alterEmailItem = new GHATextItem("Correo alternativo",
 				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
 		alterEmailItem.setLength(254);
-		idItem = new GHATextItem("No. Identificiación",
+		idItem = new GHATextItem("No. Identificación",
 				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
+		idItem.setLength(20);
+		idItem.setMask("####################");
 		genderSelectItem = new GHASelectItem("Género",
 				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
 		grid = new UserGrid();
