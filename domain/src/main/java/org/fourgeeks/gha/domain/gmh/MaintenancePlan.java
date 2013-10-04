@@ -3,6 +3,7 @@
  */
 package org.fourgeeks.gha.domain.gmh;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -30,11 +31,14 @@ public class MaintenancePlan extends AbstractEntity {
 
 	@Size(max = 100)
 	@NotNull(message = "name-not-null")
+	@Column(nullable = false)
 	private String name;
 	private String description;
 	@NotNull(message = "frecuency-not-null")
+	@Column(nullable = false)
 	private int frequency;
 	@NotNull(message = "time-period-not-null")
+	@Column(nullable = false)
 	private TimePeriodEnum pot;
 
 	/**
