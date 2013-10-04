@@ -1,8 +1,8 @@
 package org.fourgeeks.gha.webclient.client.UI.superclasses;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
-import java.util.Stack;
 
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
@@ -19,14 +19,14 @@ public final class GHATabSet {
 	private static Map<String, GHATab> tabs;
 	private static HorizontalPanel hPanel;
 	private static GHATab currentTab;
-	private static Stack<String> historyStack;
+	private static LinkedList<String> historyStack;
 	static {
 		hPanel = new HorizontalPanel();
 		hPanel.setHeight("24px");
 		hPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		RootPanel.get("menu-bar").add(hPanel);
 		tabs = new HashMap<String, GHATab>();
-		historyStack = new Stack<String>();
+		historyStack = new LinkedList<String>();
 	}
 
 	private GHATabSet() {
@@ -35,14 +35,8 @@ public final class GHATabSet {
 
 	private static void addTab(final GHATab tab) {
 		addHeader(tab.getHeader());
-
-		// if (currentTab != null)
-		// currentTab.hide();
-
 		tabs.put(tab.getId(), tab);
-
 		RootPanel.get("main-content").add(tab);
-		currentTab = tab;
 	}
 
 	/**
@@ -67,12 +61,12 @@ public final class GHATabSet {
 		if (currentTab != null)
 			currentTab.hide();
 
-		if (tabs.get(tab.getId()) == null) {
+		if (tabs.get(tab.getId()) == null)
 			addTab(tab);
-			return;
-		}
+		else
+			tab.show();
 
-		tab.show();
+		historyStack.add(tab.getId());
 		currentTab = tab;
 	}
 
@@ -101,7 +95,17 @@ public final class GHATabSet {
 
 		tab.close();
 		tabs.remove(tab.getId());
+		historyStack.remove(tab.getId());
 
-		History.back();
+		LinkedList<String> tempHistoryStack = new LinkedList<String>();
+		for (String token : historyStack)
+			if (!tab.getId().equals(token))
+				tempHistoryStack.add(token);
+		historyStack = tempHistoryStack;
+
+		if (tabs.size() == 0)
+			History.newItem("home");
+		else
+			History.newItem(historyStack.removeLast());
 	}
 }

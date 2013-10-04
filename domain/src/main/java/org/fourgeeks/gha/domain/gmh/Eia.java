@@ -196,13 +196,20 @@ public class Eia extends AbstractEntity {
 	 * @param eiaType
 	 * @param obu
 	 * @param state
+	 * @param fixedAssetIdentifier
+	 * @param maintenanceProvider
+	 * @param serialNumber
 	 */
 	public Eia(Role responsibleRole, EiaType eiaType, Obu obu,
-			EiaStateEnum state) {
+			EiaStateEnum state, String fixedAssetIdentifier,
+			ExternalProvider maintenanceProvider, String serialNumber) {
 		this.responsibleRole = responsibleRole;
 		this.eiaType = eiaType;
 		this.obu = obu;
 		this.state = state;
+		this.fixedAssetIdentifier = fixedAssetIdentifier;
+		this.maintenanceProvider = maintenanceProvider;
+		this.serialNumber = serialNumber;
 	}
 
 	/**
@@ -214,14 +221,14 @@ public class Eia extends AbstractEntity {
 	}
 
 	/**
-	 * @return
+	 * @return the acceptation Date
 	 */
 	public Date getAcceptationDate() {
 		return acceptationDate;
 	}
 
 	/**
-	 * @return
+	 * @return the ACtual cost
 	 */
 	public BigDecimal getActualCost() {
 		return actualCost;
@@ -241,6 +248,9 @@ public class Eia extends AbstractEntity {
 		return adquisitionCost;
 	}
 
+	/**
+	 * @return
+	 */
 	public CurrencyTypeEnum getAdquisitionCostCurrency() {
 		return adquisitionCostCurrency;
 	}
