@@ -175,6 +175,10 @@ public class InitialData {
 						"Debe indicar el proveedor de mantenimiento"));
 				em.persist(new UiString(LanguageEnum.ES, "record-not-selected",
 						"Debe seleccionar un registro"));
+				em.persist(new UiString(LanguageEnum.ES, "record-not-selected",
+						"Debe seleccionar un registro"));
+				em.persist(new UiString(LanguageEnum.ES, "username-not-null",
+						"Debe indicar el nombre de usuario"));
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating uistrings test data", e1);
