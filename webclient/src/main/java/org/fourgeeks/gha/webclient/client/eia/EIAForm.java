@@ -153,7 +153,6 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		location_TitleItem = new GHATitleTextItem("Ubicación:");
 		locationTypeSelectItem = new GHASelectItem("Tipo de Ubicación",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
-		locationTypeSelectItem.setRequired(true);
 		workingArea_TitleItem = new GHATitleTextItem("Área de Trabajo:");
 		facility_TitleItem = new GHATitleTextItem("Servicio/Instalación:");
 		workingAreaLocationCodeTextItem = new GHATextItem("Código",

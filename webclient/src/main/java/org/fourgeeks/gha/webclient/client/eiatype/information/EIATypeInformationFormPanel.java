@@ -82,12 +82,10 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		manItem = new GHASelectItem("Fabricante", 150);
 		brandItem = new GHASelectItem("Marca", 150);
 		mobilityItem = new GHASelectItem("Movilidad", 150);
-		mobilityItem.setRequired(true);
 		typeItem = new GHASelectItem("Tipo", 150);
 		typeItem.setRequired(true);
 		subTypeItem = new GHASelectItem("Subtipo", 150);
-		subTypeItem.setRequired(true);
-
+		
 		// // inicializando componentes de las imagenes
 		// img1 = new Img("../resources/img/default.png", 130, 130);
 		// img1.setImageType(ImageStyle.STRETCH);
