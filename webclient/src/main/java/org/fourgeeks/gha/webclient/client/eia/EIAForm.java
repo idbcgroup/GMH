@@ -103,7 +103,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		serialTextItem = new GHATextItem("Serial",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		serialTextItem.setRequired(true);
-		fixedAssetIdTextItem = new GHATextItem("Id. Activo Fijo",
+		fixedAssetIdTextItem = new GHATextItem("Id Activo Fijo",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		fixedAssetIdTextItem.setRequired(true);
 		obuSelectItem = new GHASelectItem("Departamento Responsable",

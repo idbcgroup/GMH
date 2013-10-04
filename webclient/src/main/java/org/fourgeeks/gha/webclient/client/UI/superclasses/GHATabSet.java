@@ -9,6 +9,10 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.smartgwt.client.widgets.menu.IMenuButton;
 
+/**
+ * @author alacret
+ * 
+ */
 public final class GHATabSet {
 
 	private static Map<String, GHATab> tabs;
@@ -30,7 +34,7 @@ public final class GHATabSet {
 		GHATabHeader header = tab.getHeader();
 		hPanel.add(header);
 		hPanel.setCellHeight(header, "24px");
-		
+
 		if (currentTab != null)
 			currentTab.hide();
 
@@ -41,6 +45,9 @@ public final class GHATabSet {
 		header.selectTab();
 	}
 
+	/**
+	 * @param tab
+	 */
 	public static void showTab(GHATab tab) {
 		if (tab == null)
 			return;
@@ -60,15 +67,25 @@ public final class GHATabSet {
 		currentTab = tab;
 	}
 
+	/**
+	 * @param id
+	 * @return the tab by the id
+	 */
 	public static GHATab getById(String id) {
 		return tabs.get(id);
 	}
 
+	/**
+	 * @param menuButton
+	 */
 	public static void addMenu(IMenuButton menuButton) {
 		hPanel.add(menuButton);
 		hPanel.setCellHeight(menuButton, "24px");
 	}
 
+	/**
+	 * @param tab
+	 */
 	public static void closeTab(final GHATab tab) {
 		if (tab == null)
 			return;
