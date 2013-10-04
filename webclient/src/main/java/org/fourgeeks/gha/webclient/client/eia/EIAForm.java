@@ -100,11 +100,16 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		codeTextItem = new GHATextItem("Código",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		codeTextItem.setLength(20);
+		codeTextItem.setMask("####################");
 		serialTextItem = new GHATextItem("Serial",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		serialTextItem.setLength(20);
+		serialTextItem.setMask("AAAAAAAAAAAAAAAAAAAA");
 		serialTextItem.setRequired(true);
 		fixedAssetIdTextItem = new GHATextItem("Id Activo Fijo",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		fixedAssetIdTextItem.setLength(19);
+		fixedAssetIdTextItem.setMask("###################");
 		fixedAssetIdTextItem.setRequired(true);
 		obuSelectItem = new GHASelectItem("Departamento Responsable",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
@@ -127,8 +132,12 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		providerSelectItem.setRequired(true);
 		purchaseOrderNumTextItem = new GHATextItem("No. Orden Compra",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		purchaseOrderNumTextItem.setLength(20);
+		purchaseOrderNumTextItem.setMask("####################");
 		purchaseInvoiceNumTextItem = new GHATextItem("No. Factura",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		purchaseInvoiceNumTextItem.setLength(20);
+		purchaseInvoiceNumTextItem.setMask("####################");
 		receptionDateItem = new GHADateItem("Recepción",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		installationDateItem = new GHADateItem("Instalación",
@@ -163,28 +172,38 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		lifeTime_TitleItem = new GHATitleTextItem("Tiempo de Vida:");
 		adquisitionCostTextItem = new GHATextItem("Costo de Adq. del equipo",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		adquisitionCostTextItem.setLength(16);
+		adquisitionCostTextItem.setMask("################");
 		adquisitionCostCurrencySelectItem = new GHASelectItem("Moneda",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		contabilizationDateItem = new GHADateItem("Fecha de Contabilización",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		adquisitionCostLocalTextItem = new GHATextItem("Costo de Adq. Local",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		adquisitionCostLocalTextItem.setLength(16);
+		adquisitionCostLocalTextItem.setMask("################");
 		adquisitionCostCurrencyLocalSelectItem = new GHASelectItem(
 				"Moneda Local", GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		depreciationMethodSelectItem = new GHASelectItem("Metodo Depreciación",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		depreciationTimeTextItem = new GHATextItem("Duración",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		depreciationTimeTextItem.setLength(3);
+		depreciationTimeTextItem.setMask("###");
 		depreciationTimePotSelectItem = new GHASelectItem("Periodo de Tiempo",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		lastDepreciationDate = new GHADateItem("Fecha Ult. Depreciación",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		lifeTimeTextItem = new GHATextItem("Duración",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		lifeTimeTextItem.setLength(3);
+		lifeTimeTextItem.setMask("###");
 		lifeTimePotSelectItem = new GHASelectItem("Periodo de Tiempo",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		actualCostTextItem = new GHATextItem("Costo Actual en libros",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		actualCostTextItem.setLength(16);
+		actualCostTextItem.setMask("################");
 		actualCostCurrencySelectItem = new GHASelectItem("Moneda",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 
@@ -197,6 +216,8 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
 		realWarrantyTimeTextItem = new GHATextItem("Duración",
 				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
+		realWarrantyTimeTextItem.setLength(3);
+		realWarrantyTimeTextItem.setMask("###");
 		realWarrantyPotSelectItem = new GHASelectItem("Periodo de Tiempo",
 				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
 		realWarrantyBeginDate = new GHADateItem("Fecha Inicio",
@@ -205,6 +226,8 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
 		intWarrantyTimeTextItem = new GHATextItem("Duración",
 				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
+		intWarrantyTimeTextItem.setLength(3);
+		intWarrantyTimeTextItem.setMask("###");
 		intWarrantyPotSelectItem = new GHASelectItem("Periodo de Tiempo",
 				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
 		intWarrantyBeginDate = new GHADateItem("Fecha Inicio",

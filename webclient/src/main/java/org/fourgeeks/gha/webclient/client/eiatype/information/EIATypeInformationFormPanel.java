@@ -63,17 +63,26 @@ public class EIATypeInformationFormPanel extends VLayout implements
 	{
 		codeItem = new GHATextItem("Código", 150);
 		codeItem.setRequired(true);
+		codeItem.setLength(20);
+		codeItem.setMask("AAAAAAAAAAAAAAAAAAAA");
 		nameItem = new GHATextItem("Nombre", 150);
 		nameItem.setRequired(true);
+		nameItem.setLength(255);
 		modelItem = new GHATextItem("Modelo", 150);
+		modelItem.setLength(20);
 		descriptionItem = new GHATextItem("Descripción", 480);
 		descriptionItem.setColSpan(3);
+		descriptionItem.setLength(255);
 		useDescriptionItem = new GHATextItem("Uso", 480);
 		useDescriptionItem.setColSpan(3);
+		useDescriptionItem.setLength(255);
 		eiaUmdnsItem = new GHATextItem("EIAUMDNS", 150);
+		eiaUmdnsItem.setLength(16);
+		eiaUmdnsItem.setMask("AAAAAAAAAAAAAAAAAAAA");
 		manItem = new GHASelectItem("Fabricante", 150);
 		brandItem = new GHASelectItem("Marca", 150);
 		mobilityItem = new GHASelectItem("Movilidad", 150);
+		mobilityItem.setRequired(true);
 		typeItem = new GHASelectItem("Tipo", 150);
 		typeItem.setRequired(true);
 		subTypeItem = new GHASelectItem("Subtipo", 150);
