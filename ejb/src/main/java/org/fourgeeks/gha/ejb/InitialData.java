@@ -1037,7 +1037,8 @@ public class InitialData {
 				for (int i = 1; i < 4; ++i) {
 					Eia eia = new Eia(bRole, em.find(EiaType.class, "9000"
 							+ Long.toString(i)), obu,
-							EiaStateEnum.values()[i % 3]);
+							EiaStateEnum.values()[i % 3], "GHAEQ-00" + i,
+							eProvider, "S9023423" + i);
 					eia.setCode("eia-00" + i);
 					eia.setFacility(facility);
 					eia.setProvider(eProvider);
