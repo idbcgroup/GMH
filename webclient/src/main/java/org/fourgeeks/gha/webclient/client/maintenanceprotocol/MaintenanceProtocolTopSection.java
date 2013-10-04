@@ -5,7 +5,6 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATabSet;
 
@@ -20,18 +19,18 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class MaintenanceProtocolTopSection extends HLayout
-		implements MaintenanceProtocolSelectionListener, GHAClosable, ResizeHandler {
+public class MaintenanceProtocolTopSection extends HLayout implements
+		MaintenanceProtocolSelectionListener, GHAClosable, ResizeHandler {
 
 	private final MaintenanceProtocolTab maintenanceProtocolTab;
 	private MaintenanceProtocolSearchForm maintenanceProtocolSearchForm;
 	private GHATextItem nameItem, descriptionItem;
-		
+
 	{
 		maintenanceProtocolSearchForm = new MaintenanceProtocolSearchForm();
-		
+
 		nameItem = new GHATextItem("Nombre", false);
-		descriptionItem = new GHATextItem("Descripcion",420, false);
+		descriptionItem = new GHATextItem("Descripcion", 420, false);
 		descriptionItem.setColSpan(4);
 
 	}
@@ -39,29 +38,17 @@ public class MaintenanceProtocolTopSection extends HLayout
 	public MaintenanceProtocolTopSection(MaintenanceProtocolTab tab) {
 		super();
 		GHAUiHelper.addGHAResizeHandler(this);
-		
+
 		tab.addGHAClosableHandler(this);
 		maintenanceProtocolTab = tab;
-		
-		//register tab as search listener, and topsection as listener
-		maintenanceProtocolSearchForm.addMaintenanceProtocolSelectionListener(tab);
+
+		// register tab as search listener, and topsection as listener
+		maintenanceProtocolSearchForm
+				.addMaintenanceProtocolSelectionListener(tab);
 		tab.addMaintenanceProtocolSelectionListener(this);
-		
-		maintenanceProtocolTab.addGHAHideableHandler(new GHAHideable() {
-			
-			@Override
-			public void hide() {
-				maintenanceProtocolSearchForm.hide();
-			}
-		});
-		maintenanceProtocolTab.addGHAClosableHandler(new GHAClosable() {
-			
-			@Override
-			public void close() {
-				maintenanceProtocolSearchForm.destroy();
-			}
-		});
-		
+		tab.addGHAHideableHandler(maintenanceProtocolSearchForm);
+		tab.addGHAClosableHandler(maintenanceProtocolSearchForm);
+
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		setWidth100();
 		setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT + "px");
@@ -69,28 +56,26 @@ public class MaintenanceProtocolTopSection extends HLayout
 		setBackgroundColor("#EAEAEA");
 
 		DynamicForm form = new DynamicForm();
-		//form.setWidth("100px");
+		// form.setWidth("100px");
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(4);
-		form.setItems(nameItem,new GHASpacerItem(2),
-					  descriptionItem);
-		
-		VLayout sideButtons = GHAUiHelper.createBar(
-				new GHAImgButton("../resources/icons/search.png", new ClickHandler() {
+		form.setItems(nameItem, new GHASpacerItem(2), descriptionItem);
+
+		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
+				"../resources/icons/search.png", new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
 						search();
 					}
-				}),
-				new GHAImgButton("../resources/icons/clean.png"),
-				new GHAImgButton("../resources/icons/cancel.png", new ClickHandler() {
-					@Override
-					public void onClick(ClickEvent event) {
-						GHATabSet.closeTab(maintenanceProtocolTab);
-					}
-				})
-		);
-		
+				}), new GHAImgButton("../resources/icons/clean.png"),
+				new GHAImgButton("../resources/icons/cancel.png",
+						new ClickHandler() {
+							@Override
+							public void onClick(ClickEvent event) {
+								GHATabSet.closeTab(maintenanceProtocolTab);
+							}
+						}));
+
 		addMembers(form, new LayoutSpacer(), sideButtons);
 
 	}
@@ -106,11 +91,15 @@ public class MaintenanceProtocolTopSection extends HLayout
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT + "px");		
+		setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT + "px");
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionListener#select(org.fourgeeks.gha.domain.gmh.MaintenanceProtocol)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceprotocol.
+	 * MaintenanceProtocolSelectionListener
+	 * #select(org.fourgeeks.gha.domain.gmh.MaintenanceProtocol)
 	 */
 	@Override
 	public void select(MaintenanceProtocol maintenanceProtocol) {

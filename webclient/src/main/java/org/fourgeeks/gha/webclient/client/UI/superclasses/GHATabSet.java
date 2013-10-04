@@ -2,6 +2,7 @@ package org.fourgeeks.gha.webclient.client.UI.superclasses;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Stack;
 
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
@@ -18,12 +19,14 @@ public final class GHATabSet {
 	private static Map<String, GHATab> tabs;
 	private static HorizontalPanel hPanel;
 	private static GHATab currentTab;
+	private static Stack<String> historyStack;
 	static {
 		hPanel = new HorizontalPanel();
 		hPanel.setHeight("24px");
 		hPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		RootPanel.get("menu-bar").add(hPanel);
 		tabs = new HashMap<String, GHATab>();
+		historyStack = new Stack<String>();
 	}
 
 	private GHATabSet() {
@@ -31,17 +34,23 @@ public final class GHATabSet {
 	}
 
 	private static void addTab(final GHATab tab) {
-		GHATabHeader header = tab.getHeader();
-		hPanel.add(header);
-		hPanel.setCellHeight(header, "24px");
+		addHeader(tab.getHeader());
 
-		if (currentTab != null)
-			currentTab.hide();
+		// if (currentTab != null)
+		// currentTab.hide();
 
 		tabs.put(tab.getId(), tab);
 
 		RootPanel.get("main-content").add(tab);
 		currentTab = tab;
+	}
+
+	/**
+	 * @param header
+	 */
+	private static void addHeader(GHATabHeader header) {
+		hPanel.add(header);
+		hPanel.setCellHeight(header, "24px");
 		header.selectTab();
 	}
 
@@ -52,16 +61,16 @@ public final class GHATabSet {
 		if (tab == null)
 			return;
 
-		if (tabs.get(tab.getId()) == null) {
-			addTab(tab);
-			return;
-		}
-
 		if (tab == currentTab)
 			return;
 
 		if (currentTab != null)
 			currentTab.hide();
+
+		if (tabs.get(tab.getId()) == null) {
+			addTab(tab);
+			return;
+		}
 
 		tab.show();
 		currentTab = tab;
@@ -69,7 +78,7 @@ public final class GHATabSet {
 
 	/**
 	 * @param id
-	 * @return the tab by the id
+	 * @return the tab with that ID
 	 */
 	public static GHATab getById(String id) {
 		return tabs.get(id);
@@ -89,9 +98,6 @@ public final class GHATabSet {
 	public static void closeTab(final GHATab tab) {
 		if (tab == null)
 			return;
-
-		// if (tabs.get(tab.getId()) == null)
-		// return;
 
 		tab.close();
 		tabs.remove(tab.getId());
