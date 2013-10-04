@@ -34,6 +34,7 @@ public class MaintenancePlan extends AbstractEntity {
 	@Column(nullable = false)
 	private String name;
 	private String description;
+	@Size(max = 3)
 	@NotNull(message = "frecuency-not-null")
 	@Column(nullable = false)
 	private int frequency;

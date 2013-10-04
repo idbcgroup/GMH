@@ -54,6 +54,7 @@ public class MaintenancePlanForm extends VLayout implements
 		frequencyItem = new GHATextItem("Frecuencia",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		frequencyItem.setRequired(true);
+		frequencyItem.setLength(3);
 		periodOfTimeItem = new GHASelectItem("Periodo de Tiempo",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		periodOfTimeItem.setRequired(true);
