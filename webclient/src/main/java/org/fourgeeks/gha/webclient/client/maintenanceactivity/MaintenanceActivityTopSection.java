@@ -21,15 +21,15 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class MaintenanceActivityTopSection extends HLayout
-		implements MaintenanceActivitySelectionListener, GHAClosable, ResizeHandler {
+implements MaintenanceActivitySelectionListener, GHAClosable, ResizeHandler {
 
 	private final MaintenanceActivityTab maintenanceActivityTab;
 	private MaintenanceActivitySearchForm maintenanceActivitySearchForm;
 	private GHATextItem nameItem, descriptionItem;
-		
+
 	{
 		maintenanceActivitySearchForm = new MaintenanceActivitySearchForm();
-		
+
 		nameItem = new GHATextItem("Nombre", false);
 		descriptionItem = new GHATextItem("Descripcion",420, false);
 		descriptionItem.setColSpan(4);
@@ -39,26 +39,29 @@ public class MaintenanceActivityTopSection extends HLayout
 	public MaintenanceActivityTopSection(MaintenanceActivityTab tab) {
 		super();
 		GHAUiHelper.addGHAResizeHandler(this);
-		
+
 		tab.addGHAClosableHandler(this);
 		maintenanceActivityTab = tab;
+
+		//register tab as search listener, and topsection as listener
 		maintenanceActivitySearchForm.addMaintenanceActivitySelectionListener(tab);
-		
+		tab.addMaintenanceActivitySelectionListener(this);
+
 		maintenanceActivityTab.addGHAHideableHandler(new GHAHideable() {
-			
+
 			@Override
 			public void hide() {
 				maintenanceActivitySearchForm.hide();
 			}
 		});
 		maintenanceActivityTab.addGHAClosableHandler(new GHAClosable() {
-			
+
 			@Override
 			public void close() {
 				maintenanceActivitySearchForm.destroy();
 			}
 		});
-		
+
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		setWidth100();
 		setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT + "px");
@@ -70,13 +73,12 @@ public class MaintenanceActivityTopSection extends HLayout
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(4);
 		form.setItems(nameItem,new GHASpacerItem(2),
-				      descriptionItem);
-		
+				descriptionItem);
+
 		VLayout sideButtons = GHAUiHelper.createBar(
 				new GHAImgButton("../resources/icons/search.png", new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						// TODO Auto-generated method stub
 						search();
 					}
 				}),
@@ -87,14 +89,10 @@ public class MaintenanceActivityTopSection extends HLayout
 						GHATabSet.closeTab(maintenanceActivityTab);
 					}
 				})
-		);
-		
+				);
+
 		addMembers(form, new LayoutSpacer(), sideButtons);
 
-	}
-
-	public void search() {
-		maintenanceActivitySearchForm.open();
 	}
 
 	@Override
@@ -107,13 +105,17 @@ public class MaintenanceActivityTopSection extends HLayout
 		setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT + "px");		
 	}
 
+	public void search() {
+		maintenanceActivitySearchForm.open();
+	}
+
 	/* (non-Javadoc)
 	 * @see org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionListener#select(org.fourgeeks.gha.domain.gmh.MaintenanceActivity)
 	 */
 	@Override
 	public void select(MaintenanceActivity maintenanceActivity) {
-		// TODO Auto-generated method stub
-		
+		nameItem.setValue(maintenanceActivity.getName());
+		descriptionItem.setValue(maintenanceActivity.getDescription());
 	}
 
 }

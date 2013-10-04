@@ -383,10 +383,10 @@ public class InitialData {
 		maintenanceActivityTestData();
 		maintenancePlanTestData();
 		maintenanceProtocolTestData();
-		maintenanceActivityProtocolTestData();
-		MaintenancePlanMaintenanceProtocol();
-		eiaTypeMaintenancePlanTestData();
-		eiaMaintenancePlanificationTestData();
+		// maintenanceActivityProtocolTestData();
+		// MaintenancePlanMaintenanceProtocol();
+		// eiaTypeMaintenancePlanTestData();
+		// eiaMaintenancePlanificationTestData();
 	}
 
 	/**

@@ -118,7 +118,7 @@ public class MaintenanceProtocolSearchForm extends GHASlideInWindow implements M
 
 					@Override
 					public void onClick(ClickEvent event) {
-						notifyMaintenanceProtocol(((MaintenanceProtocolRecord)grid.getSelectedRecord()).toEntity());
+						notifyMaintenanceProtocol(((MaintenanceProtocolGridRecord)grid.getSelectedRecord()).toEntity());
 						hide();
 					}
 				}), GHAUiHelper.verticalGraySeparator("2px"), new GHAImgButton(
@@ -132,28 +132,14 @@ public class MaintenanceProtocolSearchForm extends GHASlideInWindow implements M
 
 		gridLayout.addMembers(grid, sideGridButtons);
 		addMember(gridLayout);
-		fillExtras();
 
 		//register as listener to the addform producer
 		addForm.addMaintenanceProtocolSelectionListener(this);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionProducer#addMaintenanceProtocolSelectionListener(org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionListener)
-	 */
-	@Override
-	public void addMaintenanceProtocolSelectionListener(
-			MaintenanceProtocolSelectionListener maintenanceProtocolSelectionListener) {
-		listeners.add(maintenanceProtocolSelectionListener);
-
-	}
-
 	@Override
 	public void close() {
 		destroy();
-	}
-	private void fillExtras() {
-		// TODO:
 	}
 
 	@Override
@@ -161,25 +147,11 @@ public class MaintenanceProtocolSearchForm extends GHASlideInWindow implements M
 		super.hide();
 	}
 
-	//Producer/Consumer Stuff
-	private void notifyMaintenanceProtocol(MaintenanceProtocol maintenanceProtocol){
-		for(MaintenanceProtocolSelectionListener listener : listeners)
-			listener.select(maintenanceProtocol);
-	}
-
 	@Override
 	public void onResize(ResizeEvent event) {
 		setHeight(GHAUiHelper.getTabHeight() + "px");
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionProducer#removeMaintenanceProtocolSelectionListener(org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionListener)
-	 */
-	@Override
-	public void removeMaintenanceProtocolSelectionListener(
-			MaintenanceProtocolSelectionListener maintenanceProtocolSelectionListener) {
-		listeners.remove(maintenanceProtocolSelectionListener);
-	}
 	private void search() {
 		MaintenanceProtocol maintenanceProtocol = new MaintenanceProtocol();
 		if(nameItem.getValue() != null)
@@ -194,7 +166,7 @@ public class MaintenanceProtocolSearchForm extends GHASlideInWindow implements M
 
 			@Override
 			public void onSuccess(List<MaintenanceProtocol> result) {
-				ListGridRecord array[] = MaintenanceProtocolUtil.toGridRecords(result).toArray(new MaintenanceProtocolRecord[] {});
+				ListGridRecord array[] = MaintenanceProtocolUtil.toGridRecords(result).toArray(new MaintenanceProtocolGridRecord[] {});
 				grid.setData(array);
 
 				//TODO: seleccionar un elemento si coincide exactamente con el de busqueda
@@ -202,12 +174,37 @@ public class MaintenanceProtocolSearchForm extends GHASlideInWindow implements M
 		});
 	}
 
+	//Producer/Consumer Stuff
+	private void notifyMaintenanceProtocol(MaintenanceProtocol maintenanceProtocol){
+		for(MaintenanceProtocolSelectionListener listener : listeners)
+			listener.select(maintenanceProtocol);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionProducer#addMaintenanceProtocolSelectionListener(org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionListener)
+	 */
+	@Override
+	public void addMaintenanceProtocolSelectionListener(
+			MaintenanceProtocolSelectionListener maintenanceProtocolSelectionListener) {
+		listeners.add(maintenanceProtocolSelectionListener);
+
+	}
+
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionProducer#removeMaintenanceProtocolSelectionListener(org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionListener)
+	 */
+	@Override
+	public void removeMaintenanceProtocolSelectionListener(
+			MaintenanceProtocolSelectionListener maintenanceProtocolSelectionListener) {
+		listeners.remove(maintenanceProtocolSelectionListener);
+	}
+
 	/* (non-Javadoc)
 	 * @see org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionListener#select(org.fourgeeks.gha.domain.gmh.MaintenanceProtocol)
 	 */
 	@Override
 	public void select(MaintenanceProtocol maintenanceProtocol) {
-		MaintenanceProtocolRecord gridRecord = MaintenanceProtocolUtil.toGridRecord(maintenanceProtocol);
+		MaintenanceProtocolGridRecord gridRecord = MaintenanceProtocolUtil.toGridRecord(maintenanceProtocol);
 		ListGridRecord array[] = {gridRecord};
 		grid.setData(array);
 		grid.selectRecord(gridRecord);

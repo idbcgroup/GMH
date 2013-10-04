@@ -10,6 +10,12 @@ import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.ParameterExpression;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
@@ -56,14 +62,14 @@ public class MaintenanceActivityService implements MaintenanceActivityServiceRem
 	@Override
 	public List<MaintenanceActivity> findByMaintenanceProtocol(
 			MaintenanceProtocol maintenanceProtocol)
-			throws GHAEJBException {
+					throws GHAEJBException {
 		try {
 			return em
 					.createNamedQuery(
 							"MaintenanceActivity.findByMaintenanceProtocol",
 							MaintenanceActivity.class)
-					.setParameter("maintenanceProtocol",
-							maintenanceProtocol).getResultList();
+							.setParameter("maintenanceProtocol",
+									maintenanceProtocol).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding MaintenanceActivity by MaintenanceProtocol", e);
 			throw new GHAEJBException(
@@ -88,9 +94,9 @@ public class MaintenanceActivityService implements MaintenanceActivityServiceRem
 					.createNamedQuery(
 							"MaintenanceActivity.findByMaintenanceProtocol",
 							MaintenanceActivity.class)
-					.setParameter("maintenanceProtocol",
-							maintenanceProtocol).setFirstResult(offset)
-					.setMaxResults(size).getResultList();
+							.setParameter("maintenanceProtocol",
+									maintenanceProtocol).setFirstResult(offset)
+									.setMaxResults(size).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding by MaintenanceProtocol", e);
 			throw new GHAEJBException(
@@ -111,7 +117,7 @@ public class MaintenanceActivityService implements MaintenanceActivityServiceRem
 			throws GHAEJBException {
 		try {
 			return em.createNamedQuery("MaintenanceActivity.findByResource",
-							MaintenanceActivity.class)
+					MaintenanceActivity.class)
 					.setParameter("ras", serviceResource).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding by Resource/Service", e);
@@ -167,7 +173,7 @@ public class MaintenanceActivityService implements MaintenanceActivityServiceRem
 			return em
 					.createNamedQuery("MaintenanceActivity.getAll",
 							MaintenanceActivity.class).setFirstResult(offset)
-					.setMaxResults(size).getResultList();
+							.setMaxResults(size).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding all MaintenanceActivity", e);
 			throw new GHAEJBException("Error buscando todos los MaintenanceActivity"
@@ -217,5 +223,66 @@ public class MaintenanceActivityService implements MaintenanceActivityServiceRem
 					"ERROR: no se puede actualizar el MaintenanceActivity "
 							+ e.getCause().getMessage());
 		}
+	}
+
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.ejb.gmh.MaintenanceActivityServiceRemote#find(org.fourgeeks.gha.domain.gmh.MaintenanceActivity)
+	 */
+	@Override
+	public List<MaintenanceActivity> find(
+			MaintenanceActivity maintenanceActivity) throws GHAEJBException {
+		try {
+			CriteriaBuilder cb = em.getCriteriaBuilder();
+			CriteriaQuery<MaintenanceActivity> cQuery = cb.createQuery(MaintenanceActivity.class);
+			Root<MaintenanceActivity> root = cQuery.from(MaintenanceActivity.class);
+
+			cQuery.select(root);
+			cQuery.orderBy(cb.asc(root.<String> get("name")));
+			Predicate criteria = buildFilters(maintenanceActivity, cb, root);
+
+			if (criteria.getExpressions().size() == 0)
+				return getAll();
+
+			cQuery.where(criteria);
+			TypedQuery<MaintenanceActivity> q = em.createQuery(cQuery);
+
+			if (maintenanceActivity.getName() != null)
+				q.setParameter("name", "%" + maintenanceActivity.getName().toLowerCase() + "%");
+			if(maintenanceActivity.getDescription() != null)
+				q.setParameter("description", "%" + maintenanceActivity.getDescription().toLowerCase() + "%");
+
+			return q.getResultList();
+
+		} catch (Exception e) {
+			logger.log(Level.SEVERE,
+					"Error obteniendo los maintenancePlan por maintenancePlan", e);
+			throw new GHAEJBException(
+					"Error obteniendo los maintenancePlan por maintenancePlan "
+							+ e.getCause().getMessage());
+		}
+	}
+
+	/**
+	 * @param maintenanceActivity
+	 * @param cb
+	 * @param root
+	 * @return
+	 */
+	private Predicate buildFilters(MaintenanceActivity maintenanceActivity,
+			CriteriaBuilder cb, Root<MaintenanceActivity> root) {
+		Predicate predicate = cb.conjunction();
+		if (maintenanceActivity.getName() != null) {
+			ParameterExpression<String> p = cb.parameter(String.class,
+					"name");
+			predicate = cb.and(predicate,
+					cb.like(cb.lower(root.<String> get("name")), p));
+		}
+		if (maintenanceActivity.getDescription() != null) {
+			ParameterExpression<String> p = cb.parameter(String.class,
+					"description");
+			predicate = cb.and(predicate,
+					cb.like(cb.lower(root.<String> get("description")), p));
+		}
+		return predicate;
 	}
 }

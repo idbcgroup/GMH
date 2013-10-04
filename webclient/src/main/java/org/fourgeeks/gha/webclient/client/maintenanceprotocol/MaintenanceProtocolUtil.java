@@ -9,7 +9,7 @@ import java.util.List;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 
 /**
- * @author jfuentes
+ * @author jfuentes, emiliot
  *
  */
 public class MaintenanceProtocolUtil {
@@ -20,16 +20,16 @@ public class MaintenanceProtocolUtil {
 	private MaintenanceProtocolUtil() {
 		throw new UnsupportedOperationException("Esta clase no debe ser instanciada");
 	}
-	
-	public static MaintenanceProtocolRecord toGridRecord(MaintenanceProtocol maintenanceProtocol){
-		return new MaintenanceProtocolRecord(maintenanceProtocol);
+
+	public static MaintenanceProtocolGridRecord toGridRecord(MaintenanceProtocol maintenanceProtocol){
+		return new MaintenanceProtocolGridRecord(maintenanceProtocol);
 	}
-	public static List<MaintenanceProtocolRecord> toGridRecords(List<MaintenanceProtocol> maintenanceProtocols){
-		List<MaintenanceProtocolRecord> list = new ArrayList<MaintenanceProtocolRecord>();
+	public static List<MaintenanceProtocolGridRecord> toGridRecords(List<MaintenanceProtocol> maintenanceProtocols){
+		List<MaintenanceProtocolGridRecord> list = new ArrayList<MaintenanceProtocolGridRecord>();
 		for(MaintenanceProtocol prot : maintenanceProtocols){
-			list.add(new MaintenanceProtocolRecord(prot));
+			list.add(new MaintenanceProtocolGridRecord(prot));
 		}
 		return list;
 	}
-	
+
 }
