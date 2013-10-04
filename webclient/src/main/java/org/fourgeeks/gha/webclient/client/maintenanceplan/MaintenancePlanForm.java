@@ -49,10 +49,14 @@ public class MaintenancePlanForm extends VLayout implements
 	{
 		nameItem = new GHATextItem("Nombre",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		nameItem.setLength(100);
+		nameItem.setRequired(true);
 		frequencyItem = new GHATextItem("Frecuencia",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		frequencyItem.setRequired(true);
 		periodOfTimeItem = new GHASelectItem("Periodo de Tiempo",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		periodOfTimeItem.setRequired(true);
 		descriptionItem = new GHATextItem("Descripción", 620);
 		descriptionItem.setColSpan(4);
 
@@ -60,6 +64,9 @@ public class MaintenancePlanForm extends VLayout implements
 		listeners = new ArrayList<MaintenancePlanSelectionListener>();
 	}
 
+	/**
+	 * 
+	 */
 	public MaintenancePlanForm() {
 		final HLayout mainPanel = new HLayout();
 		final DynamicForm form = new DynamicForm();

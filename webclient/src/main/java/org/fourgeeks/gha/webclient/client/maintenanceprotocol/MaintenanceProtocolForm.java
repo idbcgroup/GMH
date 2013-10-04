@@ -43,6 +43,7 @@ public class MaintenanceProtocolForm extends VLayout implements
 	{
 		nameItem = new GHATextItem("Nombre del Protocolo",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		nameItem.setRequired(true);
 		descriptionItem = new GHATextItem("Descripción", 620);
 		descriptionItem.setColSpan(4);
 

@@ -57,6 +57,9 @@ public class MaintenancePlan extends AbstractEntity {
 		this.pot = pot;
 	}
 
+	/**
+	 * @return the description
+	 */
 	public String getDescription() {
 		return description;
 	}
