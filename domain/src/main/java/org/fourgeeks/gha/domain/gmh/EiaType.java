@@ -76,7 +76,8 @@ public class EiaType extends AbstractCodeEntity implements Serializable {
 	/** Código UMDNS length =16 */
 
 	// @NotNull(message = "mobility-not-null")
-	@Column
+	@NotNull(message = "mobility-not-null")
+	@Column(nullable = false)
 	private EiaMobilityEnum mobility;
 	/** Equipo es movilizable length =60 */
 
@@ -85,6 +86,8 @@ public class EiaType extends AbstractCodeEntity implements Serializable {
 	private EiaTypeEnum type;
 	/** Tipo de Equipo length =60 */
 
+	@NotNull(message = "sub-type-not-null")
+	@Column(nullable = false)
 	private EiaSubTypeEnum subtype;
 
 	@ManyToOne
