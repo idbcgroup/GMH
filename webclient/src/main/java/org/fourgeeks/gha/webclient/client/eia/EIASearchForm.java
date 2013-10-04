@@ -13,10 +13,13 @@ import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
+import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -151,9 +154,7 @@ public class EIASearchForm extends GHASlideInWindow implements
 
 					@Override
 					public void onClick(ClickEvent event) {
-						notifyEia(((EIARecord) grid.getSelectedRecord())
-								.toEntity());
-						hide();
+						selectEia();
 					}
 				}), GHAUiHelper.verticalGraySeparator("2px"), new GHAImgButton(
 				"../resources/icons/new.png", new ClickHandler() {
@@ -348,5 +349,18 @@ public class EIASearchForm extends GHASlideInWindow implements
 			eiaTypeItem.disable();
 		}
 
+	}
+
+	/**
+	 * 
+	 */
+	private void selectEia() {
+		GHAGridRecord<Eia> selectedRecord = grid.getSelectedRecord();
+		if (selectedRecord == null) {
+			GHANotification.alert(GHAStrings.get("record-not-selected"));
+			return;
+		}
+		notifyEia(((EIARecord) selectedRecord).toEntity());
+		hide();
 	}
 }
