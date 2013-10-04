@@ -928,6 +928,12 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 	}
 
 	@Override
+	public void show() {
+		super.show();
+		sectionForm.openFirst();
+	}
+	
+	@Override
 	public void hide() {
 		sectionForm.deactivate();
 	}
@@ -1078,4 +1084,5 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		// if (eia.getMacAddress() != null)
 		// macAddressTextItem.setValue(eia.getMacAddress());
 	}
+	
 }
