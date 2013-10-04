@@ -166,6 +166,11 @@ public class InitialData {
 						"Debe indicar la clave"));
 				em.persist(new UiString(LanguageEnum.ES, "code-not-null",
 						"Debe indicar el código"));
+				em.persist(new UiString(LanguageEnum.ES, "serial-not-null",
+						"Debe indicar el serial"));
+				em.persist(new UiString(LanguageEnum.ES,
+						"maintenance-provider-not-null",
+						"Debe indicar el proveedor de mantenimiento"));
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating uistrings test data", e1);

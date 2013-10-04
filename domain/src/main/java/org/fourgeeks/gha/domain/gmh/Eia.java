@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.CurrencyTypeEnum;
@@ -24,6 +25,10 @@ import org.fourgeeks.gha.domain.gar.Job;
 import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
 
+/**
+ * @author alacret
+ * 
+ */
 @Entity
 @NamedQueries(value = {
 		@NamedQuery(name = "Eia.getAll", query = "SELECT e from Eia e order by e.id"),
@@ -58,6 +63,7 @@ public class Eia extends AbstractEntity {
 	@JoinColumn(name = "baseRoleFk", nullable = false)
 	private Role responsibleRole;
 
+	@Size(max = 20)
 	private String code;
 	/** Denominación Moneda del Costo de Adquisición del equipo length =60 */
 	private Date contabilizationDate;
@@ -109,6 +115,7 @@ public class Eia extends AbstractEntity {
 	@JoinColumn(name = "jobFk")
 	private Job job;
 	//
+	@NotNull(message = "maintenance-provider-not-null")
 	@ManyToOne
 	@JoinColumn(name = "maintenanceProviderFk")
 	private ExternalProvider maintenanceProvider;
@@ -133,6 +140,7 @@ public class Eia extends AbstractEntity {
 	/** Fecha de Compra del Equipo length =22 */
 	private Date receptionDate;
 	/** Código asignado al Equipo o Instalación length =20 */
+	@NotNull(message = "serial-not-null")
 	private String serialNumber;
 	/** Nombre Departamento donde esta adjudicado el equipo length =255 */
 
