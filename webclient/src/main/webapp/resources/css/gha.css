@@ -201,7 +201,7 @@ input[type="text"]:disabled,
 	margin-right: 10px;	
 }
 
-.selectDisabled,
+.selectDisabled,.select-requiredDisabled,
 .dateItemDisabled{
 	background-color:#F6F6F6;
 	padding: 2px;

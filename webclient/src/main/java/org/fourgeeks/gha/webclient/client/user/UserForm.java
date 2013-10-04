@@ -68,10 +68,12 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 		confirmPasswordItem.setRequired(true);
 		firstNameItem = new GHATextItem("Primer Nombre",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		firstNameItem.setRequired(true);
 		secondNameItem = new GHATextItem("Segundo Nombre",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		lastNameItem = new GHATextItem("Apellido",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		lastNameItem.setRequired(true);
 		secondLastNameItem = new GHATextItem("Segundo Apellido",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		primaryEmailItem = new GHATextItem("Email Primario",
@@ -81,6 +83,7 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 
 		typeidSelectItem = new GHASelectItem("Tipo ID",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		typeidSelectItem.setRequired(true);
 		idItem = new GHATextItem("No. Identificiación",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		genderSelectItem = new GHASelectItem("Género",

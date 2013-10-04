@@ -102,8 +102,10 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		codeTextItem.setLength(20);
 		serialTextItem = new GHATextItem("Serial",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		serialTextItem.setRequired(true);
 		fixedAssetIdTextItem = new GHATextItem("Id. Activo Fijo",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		fixedAssetIdTextItem.setRequired(true);
 		obuSelectItem = new GHASelectItem("Departamento Responsable",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		obuSelectItem.setRequired(true);
@@ -142,6 +144,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		location_TitleItem = new GHATitleTextItem("Ubicación:");
 		locationTypeSelectItem = new GHASelectItem("Tipo de Ubicación",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		locationTypeSelectItem.setRequired(true);
 		workingArea_TitleItem = new GHATitleTextItem("Área de Trabajo:");
 		facility_TitleItem = new GHATitleTextItem("Servicio/Instalación:");
 		workingAreaLocationCodeTextItem = new GHATextItem("Código",
@@ -214,6 +217,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		// false);
 		maintenanceProviderSelectItem = new GHASelectItem("Proveedor de Mant.",
 				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
+		maintenanceProviderSelectItem.setRequired(true);
 	}
 
 	/**

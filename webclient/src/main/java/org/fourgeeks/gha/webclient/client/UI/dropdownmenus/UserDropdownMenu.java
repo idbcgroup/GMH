@@ -76,6 +76,7 @@ public class UserDropdownMenu extends VLayout implements GHAHideable,
 						UserDropdownMenu.this.hide();
 					}
 				});
+		logoutButton.setSize("17px", "24px");
 		// logoutButton.setAlign(Alignment.RIGHT);
 		// logoutButton.setPadding(20);
 
