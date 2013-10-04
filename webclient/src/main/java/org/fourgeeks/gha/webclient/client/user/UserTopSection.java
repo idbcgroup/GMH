@@ -53,10 +53,12 @@ public class UserTopSection extends HLayout implements GHAClosable,
 		super();
 		GHAUiHelper.addGHAResizeHandler(this);
 		tab.addGHAClosableHandler(this);
-		
+
 		tab.addUserSelectionListener(this);
 		userSearchForm.addUserSelectionListener(tab);
-		
+		tab.addGHAHideableHandler(userSearchForm);
+		tab.addGHAClosableHandler(userSearchForm);
+
 		// tab.addGHAHideableHandler(this);
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		setWidth100();
@@ -75,14 +77,13 @@ public class UserTopSection extends HLayout implements GHAClosable,
 					public void onClick(ClickEvent event) {
 						search();
 					}
-				}),
-				new GHAImgButton("../resources/icons/cancel.png",
-						new ClickHandler() {
-							@Override
-							public void onClick(ClickEvent event) {
-								GHATabSet.closeTab(tab);
-							}
-						}));
+				}), new GHAImgButton("../resources/icons/cancel.png",
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						GHATabSet.closeTab(tab);
+					}
+				}));
 
 		addMembers(form, new LayoutSpacer(), sideButtons);
 
