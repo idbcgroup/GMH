@@ -5,6 +5,7 @@ package org.fourgeeks.gha.domain.gar;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -15,6 +16,7 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
+import org.fourgeeks.gha.domain.ess.BpuFunction;
 import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.domain.mix.Citizen;
 
@@ -46,7 +48,7 @@ public class Bpu extends AbstractEntity {
 	 * The citizen associated with this bpu
 	 */
 	@NotNull
-	@OneToOne
+	@OneToOne(cascade = {CascadeType.MERGE})
 	@JoinColumn(name = "citizenFk", nullable = false)
 	private Citizen citizen; // TODO : No debe ir aqui, los citizen son BPA,
 								// debe haber una relacion con BPA
@@ -64,7 +66,7 @@ public class Bpu extends AbstractEntity {
 	private JobPosition jobPosition;
 
 	@Transient
-	private List<String> permissions;
+	private List<BpuFunction> permissions;
 
 	// @ManyToOne
 	// @JoinColumn(name = "jobFk")
@@ -120,7 +122,7 @@ public class Bpu extends AbstractEntity {
 	/**
 	 * @return the permissions
 	 */
-	public List<String> getPermissions() {
+	public List<BpuFunction> getPermissions() {
 		return permissions;
 	}
 
@@ -128,7 +130,7 @@ public class Bpu extends AbstractEntity {
 	 * @param permissions
 	 *            the permissions to set
 	 */
-	public void setPermissions(List<String> permissions) {
+	public void setPermissions(List<BpuFunction> permissions) {
 		this.permissions = permissions;
 	}
 }

@@ -11,7 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeComponent;
 
@@ -35,14 +35,14 @@ public class EiaTypeComponentService implements EiaTypeComponentServiceRemote {
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypeComponentServiceRemote#delete(long)
 	 */
 	@Override
-	public void delete(long Id) throws EJBException {
+	public void delete(long Id) throws GHAEJBException {
 		try {
 			EiaTypeComponent entity = em.find(EiaTypeComponent.class, Id);
 			em.remove(entity);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete eiatypecomponent",
 					e);
-			throw new EJBException("Error eliminando EiaTypeComponent por id "
+			throw new GHAEJBException("Error eliminando EiaTypeComponent por id "
 					+ e.getCause().getMessage());
 		}
 
@@ -54,12 +54,12 @@ public class EiaTypeComponentService implements EiaTypeComponentServiceRemote {
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypeComponentServiceRemote#find(long)
 	 */
 	@Override
-	public EiaTypeComponent find(long Id) throws EJBException {
+	public EiaTypeComponent find(long Id) throws GHAEJBException {
 		try {
 			return em.find(EiaTypeComponent.class, Id);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error buscando EiatypeComponent por Id ", e);
-			throw new EJBException("Error buscando Eiatypecomponent por Id "
+			throw new GHAEJBException("Error buscando Eiatypecomponent por Id "
 					+ e.getCause().getMessage());
 		}
 	}
@@ -71,7 +71,7 @@ public class EiaTypeComponentService implements EiaTypeComponentServiceRemote {
 	 */
 	@Override
 	public List<EiaTypeComponent> findByParentEiaType(EiaType eiaType)
-			throws EJBException {
+			throws GHAEJBException {
 		try {
 			return em
 					.createNamedQuery("EiaTypeComponent.findByParentEiaType",
@@ -80,7 +80,7 @@ public class EiaTypeComponentService implements EiaTypeComponentServiceRemote {
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all EiaTypeComponents",
 					ex);
-			throw new EJBException(
+			throw new GHAEJBException(
 					"Error obteniendo todos los eiaTypeComponents "
 							+ ex.getCause().getMessage());
 		}
@@ -92,14 +92,14 @@ public class EiaTypeComponentService implements EiaTypeComponentServiceRemote {
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypeComponentServiceRemote#getAll()
 	 */
 	@Override
-	public List<EiaTypeComponent> getAll() throws EJBException {
+	public List<EiaTypeComponent> getAll() throws GHAEJBException {
 		try {
 			return em.createNamedQuery("EiaTypeComponent.getAll",
 					EiaTypeComponent.class).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retriving all EiaTypeComponents",
 					ex);
-			throw new EJBException(
+			throw new GHAEJBException(
 					"Error obteniendo todos los EiaTypeComponents"
 							+ ex.getCause().getMessage());
 		}
@@ -113,7 +113,7 @@ public class EiaTypeComponentService implements EiaTypeComponentServiceRemote {
 	 */
 	@Override
 	public List<EiaTypeComponent> getAll(int offset, int size)
-			throws EJBException {
+			throws GHAEJBException {
 		try {
 			return em.createNamedQuery("EiaTypeComponent.getAll",
 					EiaTypeComponent.class).setFirstResult(offset)
@@ -121,7 +121,7 @@ public class EiaTypeComponentService implements EiaTypeComponentServiceRemote {
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retriving all EiaTypeComponents",
 					ex);
-			throw new EJBException(
+			throw new GHAEJBException(
 					"Error obteniendo todos los eiaTypeComponents "
 							+ ex.getCause().getMessage());
 		}
@@ -136,7 +136,7 @@ public class EiaTypeComponentService implements EiaTypeComponentServiceRemote {
 	 */
 	@Override
 	public EiaTypeComponent save(EiaTypeComponent eiaTypeComponent)
-			throws EJBException {
+			throws GHAEJBException {
 		try {
 			em.persist(eiaTypeComponent);
 			em.flush();
@@ -150,7 +150,7 @@ public class EiaTypeComponentService implements EiaTypeComponentServiceRemote {
 //			if (message == null)
 //				message = "Error guardando EiaTypeComponent: "
 //						+ e.getCause().getMessage();
-			throw new EJBException(message);
+			throw new GHAEJBException(message);
 		}
 
 	}
@@ -164,7 +164,7 @@ public class EiaTypeComponentService implements EiaTypeComponentServiceRemote {
 	 */
 	@Override
 	public EiaTypeComponent update(EiaTypeComponent eiaTypeComponent)
-			throws EJBException {
+			throws GHAEJBException {
 		try {
 			EiaTypeComponent res = em.merge(eiaTypeComponent);
 			em.flush();
@@ -172,7 +172,7 @@ public class EiaTypeComponentService implements EiaTypeComponentServiceRemote {
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to update eiatypecomponent",
 					e);
-			throw new EJBException("Error actualizando EiaTypeComponent "
+			throw new GHAEJBException("Error actualizando EiaTypeComponent "
 					+ e.getCause().getMessage());
 		}
 

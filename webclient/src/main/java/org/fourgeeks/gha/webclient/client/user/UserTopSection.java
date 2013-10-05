@@ -1,7 +1,7 @@
 package org.fourgeeks.gha.webclient.client.user;
 
+import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHACheckboxItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
@@ -25,19 +25,17 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class UserTopSection extends HLayout implements GHAClosable,
-		ResizeHandler, GHAHideable {
+		ResizeHandler, GHAHideable, UserSelectionListener {
 
 	private UserSearchForm userSearchForm;
 	private GHATextItem usernameItem, idItem, nameItem, lastNameItem,
-			typeidSelectItem;
-	private GHACheckboxItem blockedItem, activeItem;
+			typeidSelectItem, blockedItem;
 
 	{
 		userSearchForm = new UserSearchForm();
 		usernameItem = new GHATextItem("Usuario",
 				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE, false);
-		blockedItem = new GHACheckboxItem("bloqueado ?", false);
-		activeItem = new GHACheckboxItem("activo ? ", false);
+		blockedItem = new GHATextItem("Estado", false);
 		nameItem = new GHATextItem("Primer Nombre",
 				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE, false);
 		lastNameItem = new GHATextItem("Apellido",
@@ -55,7 +53,11 @@ public class UserTopSection extends HLayout implements GHAClosable,
 		super();
 		GHAUiHelper.addGHAResizeHandler(this);
 		tab.addGHAClosableHandler(this);
-		tab.addGHAHideableHandler(this);
+		
+		tab.addUserSelectionListener(this);
+		userSearchForm.addUserSelectionListener(tab);
+		
+		// tab.addGHAHideableHandler(this);
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		setWidth100();
 		setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT + "px");
@@ -63,9 +65,9 @@ public class UserTopSection extends HLayout implements GHAClosable,
 		setBackgroundColor("#EAEAEA");
 		DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
-		form.setNumCols(5);
-		form.setItems(usernameItem, blockedItem, activeItem, new GHASpacerItem(
-				2), nameItem, lastNameItem, typeidSelectItem, idItem);
+		form.setNumCols(4);
+		form.setItems(usernameItem, blockedItem, new GHASpacerItem(2),
+				nameItem, lastNameItem, typeidSelectItem, idItem);
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
 				"../resources/icons/search.png", new ClickHandler() {
@@ -73,7 +75,7 @@ public class UserTopSection extends HLayout implements GHAClosable,
 					public void onClick(ClickEvent event) {
 						search();
 					}
-				}), new GHAImgButton("../resources/icons/clean.png"),
+				}),
 				new GHAImgButton("../resources/icons/cancel.png",
 						new ClickHandler() {
 							@Override
@@ -101,5 +103,16 @@ public class UserTopSection extends HLayout implements GHAClosable,
 	@Override
 	public void onResize(ResizeEvent event) {
 		setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT + "px");
+	}
+
+	@Override
+	public void select(SSOUser ssoUser) {
+		usernameItem.setValue(ssoUser.getUserName());
+		blockedItem.setValue(ssoUser.getUserLogonStatus());
+		nameItem.setValue(ssoUser.getBpu().getCitizen().getFirstName());
+		lastNameItem.setValue(ssoUser.getBpu().getCitizen().getFirstLastName());
+		typeidSelectItem.setValue(ssoUser.getBpu().getCitizen().getIdType());
+		idItem.setValue(ssoUser.getBpu().getCitizen().getIdNumber());
+
 	}
 }

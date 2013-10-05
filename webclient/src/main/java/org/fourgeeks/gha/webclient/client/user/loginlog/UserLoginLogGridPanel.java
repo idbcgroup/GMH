@@ -1,8 +1,15 @@
 package org.fourgeeks.gha.webclient.client.user.loginlog;
 
-import org.fourgeeks.gha.domain.gmh.EiaType;
+import java.util.List;
+
+import org.fourgeeks.gha.domain.ess.SSOUser;
+import org.fourgeeks.gha.domain.logs.LogonLog;
+import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
+import org.fourgeeks.gha.webclient.client.logonlog.LogonLogModel;
+import org.fourgeeks.gha.webclient.client.logonlog.LogonLogRecord;
+import org.fourgeeks.gha.webclient.client.logonlog.LogonLogUtil;
 
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -12,20 +19,19 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class UserLoginLogGridPanel extends VLayout implements GHAClosable, GHAHideable {
-	
-	private LogGrid grid;
-	private EiaType eiaType;
+public class UserLoginLogGridPanel extends VLayout implements GHAClosable,
+		GHAHideable {
+
+	private LogonLogGrid grid;
 	{
-		grid = new LogGrid();
+		grid = new LogonLogGrid();
 	}
 
 	/**
-	 * @param eIATypeEquipmentSubTab
 	 */
-	public UserLoginLogGridPanel(UserLoginLogSubTab eIATypeEquipmentSubTab) {
+	public UserLoginLogGridPanel() {
 		super();
-		setStyleName("sides-padding padding-top");// Esto es VUDU!
+		setStyleName("sides-padding padding-top");
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 
@@ -35,49 +41,9 @@ public class UserLoginLogGridPanel extends VLayout implements GHAClosable, GHAHi
 		title.setStyleName("title-label");
 		addMember(title);
 
-		// //////Botones laterales
-//		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
-//				"../resources/icons/new.png", new ClickHandler() {
-//					@Override
-//					public void onClick(ClickEvent event) {
-//		
-//					}
-//				}), new GHAImgButton("../resources/icons/edit.png",
-//				new ClickHandler() {
-//
-//					@Override
-//					public void onClick(ClickEvent event) {
-//					
-//					}
-//				}), new GHAImgButton("../resources/icons/delete.png",
-//				new ClickHandler() {
-//
-//					@Override
-//					public void onClick(ClickEvent event) {
-//															
-//					}
-//
-//				}));
-
 		HLayout mainLayout = new HLayout();
-		mainLayout.addMembers(grid /*, sideButtons*/);
+		mainLayout.addMembers(grid);
 		addMember(mainLayout);
-	}
-
-	/**
-	 * @param eiaType
-	 */
-	private void loadData(EiaType eiaType) {
-//		EIAModel.find(eiaType, new GHAAsyncCallback<List<Eia>>() {
-//
-//			@Override
-//			public void onSuccess(List<Eia> result) {
-//				ListGridRecord[] array = (ListGridRecord[]) EIAUtil
-//						.toGridRecords(result).toArray(new EIARecord[] {});
-//				grid.setData(array);
-//
-//			}
-//		});
 	}
 
 	@Override
@@ -85,42 +51,22 @@ public class UserLoginLogGridPanel extends VLayout implements GHAClosable, GHAHi
 
 	}
 
-	@Override
-	public void hide() {
-
-		// super.hide();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.fourgeeks.gha.webclient.client.eia.EIASelectionListener#select(org
-	 * .fourgeeks.gha.domain.gmh.Eia)
-	 * 
-	 * @Override public void hide() {
-	 * eiaAddForm.animateHide(AnimationEffect.FLY); }
-	 * 
-	 * /* (non-Javadoc)
-	 * 
-	 * @see
-	 * org.fourgeeks.gha.webclient.client.eia.EIASelectionListener#select(org
-	 * .fourgeeks.gha.domain.gmh.Eia)
+	/**
+	 * @param ssoUser
 	 */
-	
+	public void loadData(SSOUser ssoUser) {
+		LogonLogModel.getLogsByBpu(ssoUser.getBpu(),
+				new GHAAsyncCallback<List<LogonLog>>() {
 
-	// @Override
-	// public void addEiaSelectionListener(
-	// EIASelectionListener eiaSelectionListener) {
-	// // TODO Auto-generated method stub
-	//
-	// }
-	//
-	// @Override
-	// public void removeEiaSelectionListener(
-	// EIASelectionListener eiaSelectionListener) {
-	// // TODO Auto-generated method stub
-	//
-	// }
+					@Override
+					public void onSuccess(List<LogonLog> list) {
+						List<LogonLogRecord> gridRecords = LogonLogUtil
+								.toGridRecords(list);
+						LogonLogRecord[] array = gridRecords
+								.toArray(new LogonLogRecord[] {});
+						grid.setData(array);
+					}
+				});
+	}
 
 }

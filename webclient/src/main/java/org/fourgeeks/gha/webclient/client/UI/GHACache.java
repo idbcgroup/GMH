@@ -11,6 +11,8 @@ import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
+import org.fourgeeks.gha.domain.mix.Bpi;
+import org.fourgeeks.gha.webclient.client.bpi.BpiModel;
 import org.fourgeeks.gha.webclient.client.brand.BrandModel;
 import org.fourgeeks.gha.webclient.client.buildinglocation.BuildingLocationModel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeModel;
@@ -46,6 +48,7 @@ public enum GHACache {
 	private List<EiaType> eiaTypes;
 	private List<WorkingArea> workingAreas;
 	private List<Facility> facilities;
+	private List<Bpi> bpis;
 
 	{
 		// Inititalization of the invalidation policy
@@ -68,6 +71,7 @@ public enum GHACache {
 		eiaTypes = null;
 		workingAreas = null;
 		facilities = null;
+		bpis = null;
 	}
 
 	public void getFacilities(GHAAsyncCallback<List<Facility>> callback) {
@@ -287,6 +291,33 @@ public enum GHACache {
 					@Override
 					public void onSuccess(List<Manufacturer> result) {
 						manufacturers = result;
+						// Avoiding synchronization problems
+						callback.onSuccess(result);
+					}
+				});
+	}
+	
+	/**
+	 * @param callback
+	 */
+	public void getBpis(
+			GHAAsyncCallback<List<Bpi>> callback,
+			boolean forceFromServer) {
+		if (forceFromServer || bpis == null)
+			getBpisFromServer(callback);
+		else {
+			callback.onSuccess(bpis);
+		}
+	}
+
+	private void getBpisFromServer(
+			final GHAAsyncCallback<List<Bpi>> callback) {
+		BpiModel.getAll(new GHAAsyncCallback<List<Bpi>>() { // AsyncCallback
+					// subclass
+
+					@Override
+					public void onSuccess(List<Bpi> result) {
+						bpis = result;
 						// Avoiding synchronization problems
 						callback.onSuccess(result);
 					}

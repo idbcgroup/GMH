@@ -9,7 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.validation.ConstraintViolationException;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeUtility;
 
@@ -28,7 +28,7 @@ public class EiaTypeUtilityService implements EiaTypeUtilityServiceRemote {
 
 	@Override
 	public EiaTypeUtility save(EiaTypeUtility eiaTypeUtility)
-			throws EJBException {
+			throws GHAEJBException {
 		try {
 			em.persist(eiaTypeUtility);
 			em.flush();
@@ -42,13 +42,13 @@ public class EiaTypeUtilityService implements EiaTypeUtilityServiceRemote {
 			if (message == null)
 				message = "Error guardando EiaTypeUtility: "
 						+ e.getCause().getMessage();
-			throw new EJBException(message);
+			throw new GHAEJBException(message);
 		}
 	}
 
 	@Override
 	public List<EiaTypeUtility> findByEiaType(EiaType eiaType)
-			throws EJBException {
+			throws GHAEJBException {
 		try {
 			return em
 					.createNamedQuery("EiaTypeUtility.findByEiaType",
@@ -57,20 +57,20 @@ public class EiaTypeUtilityService implements EiaTypeUtilityServiceRemote {
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all EiaTypeUtility",
 					ex);
-			throw new EJBException(
+			throw new GHAEJBException(
 					"Error obteniendo todos los EiaTypeUtility "
 							+ ex.getCause().getMessage());
 		}
 	}
 
 	@Override
-	public void delete(long id) throws EJBException {
+	public void delete(long id) throws GHAEJBException {
 		try {
 			EiaTypeUtility entity = em.find(EiaTypeUtility.class, id);
 			em.remove(entity);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete EiaTypeUtility", e);
-			throw new EJBException("Error eliminando EiaTypeUtility por id "
+			throw new GHAEJBException("Error eliminando EiaTypeUtility por id "
 					+ e.getCause().getMessage());
 		}
 	}

@@ -1,12 +1,11 @@
 package org.fourgeeks.gha.webclient.client.maintenanceplan.information;
 
-import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASubTab;
-import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
+import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanTab;
 
-public class MaintenancePlanInformationSubTab extends GHASubTab implements
-		EIATypeSelectionListener{
+public class MaintenancePlanInformationSubTab extends GHASubTab implements MaintenancePlanSelectionListener{
 
 	private MaintenancePlanInformationFormPanel form;
 
@@ -18,10 +17,18 @@ public class MaintenancePlanInformationSubTab extends GHASubTab implements
 		addGHAHideableHandler(form);
 		
 		setPane(form);
+		
+		//register to listen for selected maintenance plan
+		tab.addMaintenancePlanSelectionListener(this);
+		form.addMaintenancePlanSelectionListener(tab);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener#select(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
+	 */
 	@Override
-	public void select(EiaType eiaType) {
-		form.select(eiaType);
+	public void select(MaintenancePlan maintenancePlan) {
+		setDisabled(false);
+		form.setMaintenancePlan(maintenancePlan);
 	}
 }

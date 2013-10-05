@@ -5,7 +5,7 @@ package org.fourgeeks.gha.webclient.client.eiatype.utility;
 
 import java.util.List;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeUtility;
 
@@ -24,27 +24,27 @@ public interface GWTEiaTypeUtilityService extends RemoteService {
 	 * 
 	 * @param eiaTypeUtility
 	 * @return the saved EiaTypeUtility
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
 	public EiaTypeUtility save(EiaTypeUtility eiaTypeUtility)
-			throws EJBException;
+			throws GHAEJBException;
 
 	/**
 	 * REtrieve a list of EiaTypeUtility of the eiatype
 	 * 
 	 * @param eiaType
 	 * @return a list of EiaTypeUtility
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
 	public List<EiaTypeUtility> findByEiaType(EiaType eiaType)
-			throws EJBException;
+			throws GHAEJBException;
 
 	/**
 	 * Deletes a EiaTypeUtility
 	 * 
 	 * @param id
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public void delete(long id) throws EJBException;
+	public void delete(long id) throws GHAEJBException;
 
 }

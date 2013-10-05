@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.fourgeeks.gha.domain.enu.EiaPictureStateEnum;
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypePicture;
 import org.fourgeeks.gha.ejb.gmh.EiaTypePictureServiceRemote;
@@ -155,7 +155,7 @@ public class GWTEiaTypePictureServiceImpl extends RemoteServiceServlet implement
  */
 	@Override
 	public void save(EiaType eiaType)
-			throws EJBException {
+			throws GHAEJBException {
 		LOG.debug("Guardando el eiaTypePicture");
 		locatePhotographs(eiaType);
 		if(pictures != null){
@@ -167,13 +167,13 @@ public class GWTEiaTypePictureServiceImpl extends RemoteServiceServlet implement
 	}
 
 	@Override
-	public EiaTypePicture find(long id) throws EJBException {
+	public EiaTypePicture find(long id) throws GHAEJBException {
 		
 		return eiaTypePictureServiceRemote.find(id);
 	}
 
 	@Override
-	public List<EiaTypePicture> findByEiaType(EiaType eiaType) throws EJBException {
+	public List<EiaTypePicture> findByEiaType(EiaType eiaType) throws GHAEJBException {
 		return eiaTypePictureServiceRemote.find(eiaType);
 	}
 
@@ -181,7 +181,7 @@ public class GWTEiaTypePictureServiceImpl extends RemoteServiceServlet implement
 	 * actualiza las imagenes del eia type especificado
 	 */
 	@Override
-	public boolean update(EiaType eiaType, int noDeletePicture[]) throws EJBException {
+	public boolean update(EiaType eiaType, int noDeletePicture[]) throws GHAEJBException {
 		LOG.info("actualizando las imagenes de un eia type");
 		List<EiaTypePicture> listEiaTypePictures = eiaTypePictureServiceRemote.find(eiaType);
 		
@@ -235,13 +235,13 @@ public class GWTEiaTypePictureServiceImpl extends RemoteServiceServlet implement
 	}
 
 	@Override
-	public void delete(long id) throws EJBException {
+	public void delete(long id) throws GHAEJBException {
 		eiaTypePictureServiceRemote.delete(id);
 		
 	}
 
 	@Override
-	public boolean update(EiaTypePicture eiaTypePicture) throws EJBException {
+	public boolean update(EiaTypePicture eiaTypePicture) throws GHAEJBException {
 		return eiaTypePictureServiceRemote.update(eiaTypePicture);
 	}
 /**

@@ -1,12 +1,15 @@
 package org.fourgeeks.gha.webclient.client.maintenanceprotocol;
 
-import org.fourgeeks.gha.domain.gmh.Eia;
+import java.util.LinkedList;
+import java.util.List;
+
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
+import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
-import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.types.TitleOrientation;
@@ -22,17 +25,16 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class MaintenanceProtocolSearchForm extends GHASlideInWindow {
+public class MaintenanceProtocolSearchForm extends GHASlideInWindow implements MaintenanceProtocolSelectionListener, MaintenanceProtocolSelectionProducer{
 
-//	private List<EIASelectionListener> listeners;
 	private MaintenanceProtocolGrid grid;
-	private GHATextItem codeItem, nameItem, descriptionItem;
+	private GHATextItem nameItem, descriptionItem;
 	
 	private MaintenanceProtocolAddForm addForm;
-
+	private List <MaintenanceProtocolSelectionListener> listeners;
+	
 	{
-//		listeners = new LinkedList<EIASelectionListener>();
-		codeItem = new GHATextItem("Código");
+		listeners = new LinkedList<MaintenanceProtocolSelectionListener>();
 		nameItem = new GHATextItem("Nombre");
 		descriptionItem = new GHATextItem("Descripción",420);
 		descriptionItem.setColSpan(4);
@@ -56,7 +58,7 @@ public class MaintenanceProtocolSearchForm extends GHASlideInWindow {
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(4);
 
-		form.setItems(codeItem, nameItem, new GHASpacerItem(2),
+		form.setItems(nameItem, new GHASpacerItem(2),
 					  descriptionItem);
 
 		// Event Handlers
@@ -116,8 +118,7 @@ public class MaintenanceProtocolSearchForm extends GHASlideInWindow {
 
 					@Override
 					public void onClick(ClickEvent event) {
-//						selectEia(((EIARecord) grid.getSelectedRecord())
-//								.toEntity());
+						notifyMaintenanceProtocol(((MaintenanceProtocolRecord)grid.getSelectedRecord()).toEntity());
 						hide();
 					}
 				}), GHAUiHelper.verticalGraySeparator("2px"), new GHAImgButton(
@@ -130,67 +131,36 @@ public class MaintenanceProtocolSearchForm extends GHASlideInWindow {
 				}));
 
 		gridLayout.addMembers(grid, sideGridButtons);
-
 		addMember(gridLayout);
-				
-//		fillExtras();
+		fillExtras();
+		
+		//register as listener to the addform producer
+		addForm.addMaintenanceProtocolSelectionListener(this);
 	}
 
 	private void fillExtras() {
 		// TODO:
 	}
 
-	/**
-	 * 
-	 * @param eiaSelectionListener
-	 */
-	public void addEIASelectionListener(
-			EIASelectionListener eiaSelectionListener) {
-//		listeners.add(eiaSelectionListener);
-	}
-
-	private void selectEia(Eia eia) {
-//		for (EIASelectionListener listener : listeners)
-//			listener.select(eia);
-	}
-
 	private void search() {
-//		Eia eia = new Eia();
-//		if (actualCostItem.getValue() != null)
-//			eia.setActualCost(new BigDecimal(actualCostItem.getValueAsString()));
-//		if (responsibleRoleItem.getValue() != null)
-//			eia.setResponsibleRole(new RoleBase(Long
-//					.parseLong(responsibleRoleItem.getValueAsString())));
-//		eia.setCode(codeItem.getValueAsString());
-//		if (eiaTypeItem.getValue() != null)
-//			eia.setEiaType(new EiaType(eiaTypeItem.getValueAsString()));
-//		eia.setFixedAssetIdentifier(fixedAssetIdentifierItem.getValueAsString());
-////		if (buildingLocationItem.getValue() != null)
-////			eia.setBuildingLocation(new BuildingLocation(buildingLocationItem
-////					.getValueAsString()));
-//		if (obuItem.getValue() != null)
-//			eia.setObu(new Obu(Long.parseLong(obuItem.getValueAsString())));
-//		eia.setSerialNumber(serialNumberItem.getValueAsString());
-//		if (stateItem.getValue() != null)
-//			eia.setState(EiaStateEnum.valueOf(stateItem.getValueAsString()));
-//		search(eia);
+		MaintenanceProtocol maintenanceProtocol = new MaintenanceProtocol();
+		if(nameItem.getValue() != null)
+			maintenanceProtocol.setName(nameItem.getValueAsString());
+		if(descriptionItem.getValue() != null)
+			maintenanceProtocol.setDescription(descriptionItem.getValueAsString());
+		search(maintenanceProtocol);
 	}
-
-	private void search(final Eia eia) {
-//		EIAModel.find(eia, new GHAAsyncCallback<List<Eia>>() {
-//
-//			@Override
-//			public void onSuccess(List<Eia> result) {
-//				ListGridRecord[] array = EIAUtil.toGridRecords(result).toArray(
-//						new EIARecord[] {});
-//				grid.setData(array);
-//				if (eia != null && eia.getId() != 0l)
-//					for (ListGridRecord listGridRecord : grid.getRecords())
-//						if (((EIARecord) listGridRecord).toEntity().getId() == eia
-//								.getId())
-//							grid.selectRecord(listGridRecord);
-//			}
-//		});
+	private void search(final MaintenanceProtocol protocol){
+		MaintenanceProtocolModel.find(protocol, new GHAAsyncCallback<List<MaintenanceProtocol>>() {
+			
+			@Override
+			public void onSuccess(List<MaintenanceProtocol> result) {
+				ListGridRecord array[] = MaintenanceProtocolUtil.toGridRecords(result).toArray(new MaintenanceProtocolRecord[] {});
+				grid.setData(array);
+				
+				//TODO: seleccionar un elemento si coincide exactamente con el de busqueda
+			}
+		});
 	}
 
 	@Override
@@ -206,6 +176,41 @@ public class MaintenanceProtocolSearchForm extends GHASlideInWindow {
 	@Override
 	public void onResize(ResizeEvent event) {
 		setHeight(GHAUiHelper.getTabHeight() + "px");
+	}
+
+	//Producer/Consumer Stuff
+	private void notifyMaintenanceProtocol(MaintenanceProtocol maintenanceProtocol){
+		for(MaintenanceProtocolSelectionListener listener : listeners)
+			listener.select(maintenanceProtocol);
+	}
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionProducer#addMaintenanceProtocolSelectionListener(org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionListener)
+	 */
+	@Override
+	public void addMaintenanceProtocolSelectionListener(
+			MaintenanceProtocolSelectionListener maintenanceProtocolSelectionListener) {
+		listeners.add(maintenanceProtocolSelectionListener);
+		
+	}
+
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionProducer#removeMaintenanceProtocolSelectionListener(org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionListener)
+	 */
+	@Override
+	public void removeMaintenanceProtocolSelectionListener(
+			MaintenanceProtocolSelectionListener maintenanceProtocolSelectionListener) {
+		listeners.remove(maintenanceProtocolSelectionListener);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionListener#select(org.fourgeeks.gha.domain.gmh.MaintenanceProtocol)
+	 */
+	@Override
+	public void select(MaintenanceProtocol maintenanceProtocol) {
+		MaintenanceProtocolRecord gridRecord = MaintenanceProtocolUtil.toGridRecord(maintenanceProtocol);
+		ListGridRecord array[] = {gridRecord};
+		grid.setData(array);
+		grid.selectRecord(gridRecord);
 	}
 
 }

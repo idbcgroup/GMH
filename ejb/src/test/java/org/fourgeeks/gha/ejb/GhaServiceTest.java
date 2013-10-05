@@ -10,8 +10,9 @@ import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.enu.GenderTypeEnum;
 import org.fourgeeks.gha.domain.enu.LocationLevelEnum;
 import org.fourgeeks.gha.domain.ess.BpuFunction;
+import org.fourgeeks.gha.domain.ess.Function;
 import org.fourgeeks.gha.domain.ess.Role;
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Obu;
@@ -26,15 +27,19 @@ import org.fourgeeks.gha.domain.gmh.MaintenanceActivityServiceResource;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.ServiceResource;
+import org.fourgeeks.gha.domain.logs.LogonLog;
 import org.fourgeeks.gha.domain.mix.Bpa;
 import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.domain.mix.Citizen;
 import org.fourgeeks.gha.domain.mix.Institution;
 import org.fourgeeks.gha.domain.mix.LegalEntity;
+import org.fourgeeks.gha.domain.msg.Message;
+import org.fourgeeks.gha.ejb.ess.FunctionServiceRemote;
 import org.fourgeeks.gha.ejb.ess.InstanceLogonService;
 import org.fourgeeks.gha.ejb.gar.BpuFunctionService;
 import org.fourgeeks.gha.ejb.glm.ExternalProviderService;
 import org.fourgeeks.gha.ejb.gmh.BrandService;
+import org.fourgeeks.gha.ejb.log.LogonLogServiceRemote;
 import org.fourgeeks.gha.ejb.mix.BpaService;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.shrinkwrap.api.Archive;
@@ -77,6 +82,13 @@ public class GhaServiceTest {
 		return ShrinkWrap
 				.create(WebArchive.class, "test.war")
 				.addPackage(AbstractEntity.class.getPackage())
+				.addPackage(FunctionServiceRemote.class.getPackage())
+				.addPackage(Function.class.getPackage())
+				.addPackage(GHAEJBException.class.getPackage())
+				.addPackage(javax.ejb.EJBException.class.getPackage())
+				.addPackage(LogonLog.class.getPackage())
+				.addPackage(LogonLogServiceRemote.class.getPackage())
+				.addPackage(Message.class.getPackage())
 				.addPackage(Bpa.class.getPackage())
 				.addPackage(BpaService.class.getPackage())
 				.addPackage(Bpu.class.getPackage())
@@ -84,8 +96,7 @@ public class GhaServiceTest {
 				.addPackage(BpuFunctionService.class.getPackage())
 				.addPackage(Brand.class.getPackage())
 				.addPackage(BrandService.class.getPackage())
-				.addPackage(EiaMobilityEnum.class.getPackage())
-				.addPackage(EJBException.class.getPackage())
+				.addPackage(GHAEJBException.class.getPackage())
 				.addPackage(ExternalProvider.class.getPackage())
 				.addPackage(ExternalProviderService.class.getPackage())
 				.addPackage(GhaServiceTest.class.getPackage())

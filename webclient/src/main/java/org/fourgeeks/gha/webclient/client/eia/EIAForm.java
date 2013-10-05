@@ -84,13 +84,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 	private GHASectionForm sectionForm;
 	private Validator validator;
 	private List<EIASelectionListener> listeners;
-	private EiaType eiaType;
 	private Eia entity;
-	private EIAUpdateForm eiaUpdateForm;
-
-	public void setEiaUpdateForm(EIAUpdateForm eiaUpdateForm) {
-		this.eiaUpdateForm = eiaUpdateForm;
-	}
 
 	{ // Global
 		sectionForm = new GHASectionForm();
@@ -228,7 +222,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 	 * 
 	 */
 	public EIAForm(EiaType eiaType) {
-		this.eiaType = eiaType;
+		select(eiaType);
 
 		sectionForm.addSection("Información Básica", getInfoBasicaForm(), true);
 		sectionForm.addSectionSeparator();
@@ -580,14 +574,12 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 	 * Save the new element to database
 	 */
 	public void save() {
-		final Eia eia = extract();
+		Eia eia = extract();
 		if (eia != null)
 			EIAModel.save(eia, new GHAAsyncCallback<Eia>() {
 				@Override
 				public void onSuccess(Eia result) {
-					select(result);
-					cancel();
-					hide();
+					notifyEia(result);
 				}
 			});
 	}
@@ -601,10 +593,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 			EIAModel.update(eia, new GHAAsyncCallback<Eia>() {
 				@Override
 				public void onSuccess(Eia result) {
-					select(result);
-					GHANotification.alert("Edición exitosa");
-					cancel();
-					hide();
+					notifyEia(result);
 				}
 			});
 	}
@@ -621,7 +610,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 
 		// basic information
 		if (eiaTypeSelectItem.getValue() != null)
-			eia.setEiaType(eiaType);
+			eia.setEiaType(new EiaType(eiaTypeSelectItem.getValueAsString()));
 		eia.setCode(codeTextItem.getValueAsString());
 		eia.setSerialNumber(serialTextItem.getValueAsString());
 		eia.setFixedAssetIdentifier(fixedAssetIdTextItem.getValueAsString());
@@ -794,6 +783,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		// eia.setIpAddress(ipAddresTextItem.getValueAsString());
 		// eia.setMacAddress(macAddressTextItem.getValueAsString());
 		// Window.alert("1 " + eia);
+
 		Set<ConstraintViolation<Eia>> violations = validator.validate(eia);
 		// Window.alert("2 " + violations);
 		// Window.alert(violations.isEmpty() == true ? "vacio" : "novacio");
@@ -810,7 +800,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 	/**
 	 * 
 	 */
-	private void cancel() {
+	public void clearValue() {
 		this.entity = null;
 		// clean text fields
 		codeTextItem.clearValue();
@@ -877,7 +867,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 
 	// //Implementations
 
-	private void select(Eia eia) {
+	private void notifyEia(Eia eia) {
 		for (EIASelectionListener listener : listeners)
 			listener.select(eia);
 	}
@@ -890,7 +880,6 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 
 	@Override
 	public void select(EiaType eiaType) {
-		this.eiaType = eiaType;
 		if (eiaType != null) {
 			eiaTypeSelectItem.setValue(eiaType.getCode());
 			eiaTypeSelectItem.disable();
@@ -905,11 +894,12 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 
 	@Override
 	public void hide() {
-//		this.entity = null;
 		sectionForm.deactivate();
-//		eiaUpdateForm.hide();
 	}
 
+	/**
+	 * @param eia
+	 */
 	public void setEia(Eia eia) {
 		this.entity = eia;
 		// basic information

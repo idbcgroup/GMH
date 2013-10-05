@@ -5,8 +5,9 @@ package org.fourgeeks.gha.webclient.client.eiatype;
 
 import java.util.List;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -21,59 +22,66 @@ public interface GWTEiaTypeService extends RemoteService {
 	/**
 	 * @param eiaType
 	 * @return EiaType saved
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public EiaType save(EiaType eiaType) throws EJBException;
+	public EiaType save(EiaType eiaType) throws GHAEJBException;
 
 	/**
 	 * @param code
 	 * @return the EiaType with this Id
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public EiaType find(String code) throws EJBException;
+	public EiaType find(String code) throws GHAEJBException;
 
 	/**
 	 * @param eiaType
 	 * @return a list with possible matches to the eiaType passed by param
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<EiaType> find(EiaType eiaType) throws EJBException;
+	public List<EiaType> find(EiaType eiaType) throws GHAEJBException;
 
 	/**
 	 * @param eiaType
 	 * @param offset
 	 * @param size
 	 * @return a list with possible matches to the eiaType passed by param
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
 	public List<EiaType> find(EiaType eiaType, int offset, int size)
-			throws EJBException;
+			throws GHAEJBException;
+	
+	/**
+	 * @param maintenancePlan
+	 * @return a list with the eiatypes associated to this maintenanceplan
+	 * @throws GHAEJBException
+	 */
+	public List<EiaType> findByMaintenancePlan(MaintenancePlan maintenancePlan)throws GHAEJBException;
 
 	/**
 	 * @param EiaType
 	 *            the EiaType to be updated
 	 * @return a EiaType updated
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public EiaType update(EiaType eiaType) throws EJBException;
+	public EiaType update(EiaType eiaType) throws GHAEJBException;
 
 	/**
 	 * Delete an EiaType from database by Id
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public void delete(long Id) throws EJBException;
+	public void delete(long Id) throws GHAEJBException;
 
 	/**
 	 * @return the list with all EiaType objects
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<EiaType> getAll() throws EJBException;
+	public List<EiaType> getAll() throws GHAEJBException;
 
 	/**
 	 * @param offset
 	 * @param size
 	 * @return List of EiaType beginning in offset up to size
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<EiaType> getAll(int offset, int size) throws EJBException;
+	public List<EiaType> getAll(int offset, int size) throws GHAEJBException;
 }

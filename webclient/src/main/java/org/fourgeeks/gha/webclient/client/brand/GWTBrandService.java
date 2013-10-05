@@ -5,7 +5,7 @@ package org.fourgeeks.gha.webclient.client.brand;
 
 import java.util.List;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 
@@ -20,22 +20,22 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 public interface GWTBrandService extends RemoteService {
 	/**
 	 * @return a List with all the Brands
-	 * @throws EJBException 
+	 * @throws GHAEJBException 
 	 */
-	public List<Brand> getAll() throws EJBException;
+	public List<Brand> getAll() throws GHAEJBException;
 
 	/**
 	 * @param offset
 	 * @param size
 	 * @return a List with size Brands starting from offset
-	 * @throws EJBException 
+	 * @throws GHAEJBException 
 	 */
-	public List<Brand> getAll(int offset, int size) throws EJBException;
+	public List<Brand> getAll(int offset, int size) throws GHAEJBException;
 	
 	/**
 	 * @param manufacturer
 	 * @return a list of brands filtered by manufacturer
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<Brand> findByManufacturer(Manufacturer manufacturer)throws EJBException;
+	public List<Brand> findByManufacturer(Manufacturer manufacturer)throws GHAEJBException;
 }

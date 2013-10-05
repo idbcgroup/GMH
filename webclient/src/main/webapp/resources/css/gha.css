@@ -38,7 +38,7 @@
 		.username-text{
 			/*float: left;
 			margin: 3px 0 0 10px;*/
-			font-size: small;
+			font-size: 12px;
 			text-align: right;
 			font-weight:bold;
 		}
@@ -50,7 +50,7 @@
 			background-image: url(../icons/boton1.png);
 			color:white;
 			font-weight:bold;
-			font-size: medium;
+			font-size: 12px;
 			text-align: center;
 			/*margin-left:10px;*/
 		}
@@ -69,16 +69,17 @@
 	background-image: url(../img/fondo-menu.jpeg);
 	background-repeat: repeat-x;	
 }
-	div#menu-bar.menu-bar table tbody tr td div#isc_IMenuButton_0_wrapper.gha-main-menu div#isc_8 table tbody tr td.menuButton,
-	div#menu-bar.menu-bar table tbody tr td div#isc_IMenuButton_0_wrapper.gha-main-menu div#isc_8 table tbody tr td.menuButtonOver,
-	div#menu-bar.menu-bar table tbody tr td div#isc_IMenuButton_0_wrapper.gha-main-menu div#isc_8 table tbody tr td.menuButtonDown {
+
+	div#menu-bar.menu-bar table tbody tr td div#isc_IMenuButton_0_wrapper.gha-main-menu div#isc_6 table tbody tr td.menuButton,
+	div#menu-bar.menu-bar table tbody tr td div#isc_IMenuButton_0_wrapper.gha-main-menu div#isc_6 table tbody tr td.menuButtonOver,
+	div#menu-bar.menu-bar table tbody tr td div#isc_IMenuButton_0_wrapper.gha-main-menu div#isc_6 table tbody tr td.menuButtonDown {
 		background: none;
 		background-color: white;
 		border:none;
 		padding-left: 20px;
 	}
 	.gha-main-menu .buttonTitle {
-		font-size: 14px;
+		font-size: 12px;
 		font-weight:bold;
 		color:#939496;
 		width:45px;
@@ -90,6 +91,7 @@
 	    border-right: 1px solid #CECECE;
 	    border-top: 1px solid #CECECE;
 	    font-weight: bold;
+	    font-size: 12px;
 	    margin-left: 3px;
 	    text-transform: uppercase;
 	}
@@ -115,6 +117,7 @@
 		vertical-align: middle;
 		padding-top: 5px;
 	}
+	
 .content {
 	width: 100%;
 	height: 100%;
@@ -132,8 +135,6 @@
 	height: 20px;
 	background-color: #464646;
 }
-
-
 
 .login-panel{
 	width: 300px;
@@ -156,7 +157,7 @@
 }
 
 .login-titulo{
-	font-size:medium;
+	font-size:12px;
 	text-align: center;
 	width: 100%;
 	margin:15px auto 15px auto;
@@ -207,15 +208,24 @@ select,.select{
 	background-color: #FFFFFF;
 }
 
+/*
 .titletext{
+	color:white;	
 	font-weight: bold;
-	font-size: 11px;
+	font-size: 12px;
 }
+*/
 
 .title-label{
 	font-weight: bold;
-	color: black;
-	font-size: 14px;
+	color:black;
+	font-size: 12px;
+}
+
+.separator-title-label{
+	font-weight: bold;
+	color:white;
+	font-size: 12px;
 }
 
 span.input-title label,span.input-title{
@@ -350,3 +360,4 @@ table.GHAupload-button tbody tr td form div.upld-form-elements div.DecoratedFile
 .headerButton{
 	/*background: none !important;*/
 }
+x

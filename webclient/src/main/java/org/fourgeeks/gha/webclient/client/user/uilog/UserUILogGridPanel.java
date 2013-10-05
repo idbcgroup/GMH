@@ -3,7 +3,7 @@ package org.fourgeeks.gha.webclient.client.user.uilog;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
-import org.fourgeeks.gha.webclient.client.user.loginlog.LogGrid;
+import org.fourgeeks.gha.webclient.client.user.loginlog.LogonLogGrid;
 
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -15,10 +15,10 @@ import com.smartgwt.client.widgets.layout.VLayout;
  */
 public class UserUILogGridPanel extends VLayout implements GHAClosable, GHAHideable {
 
-	private LogGrid grid;
+	private LogonLogGrid grid;
 	private EiaType eiaType;
 	{
-		grid = new LogGrid();
+		grid = new LogonLogGrid();
 	}
 
 	/**

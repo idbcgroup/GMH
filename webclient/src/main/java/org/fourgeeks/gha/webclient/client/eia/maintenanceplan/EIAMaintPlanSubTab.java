@@ -23,6 +23,7 @@ public class EIAMaintPlanSubTab extends GHASubTab implements
 	 */
 	public EIAMaintPlanSubTab(EIATab tab) {
 		super("Planes Mantenimiento", tab);
+		setDisabled(true);
 		tab.addEiaSelectionListener(this);
 		addGHAClosableHandler(eiaMaintPlanGridPanel);
 		addGHAHideableHandler(eiaMaintPlanGridPanel);
@@ -32,6 +33,6 @@ public class EIAMaintPlanSubTab extends GHASubTab implements
 	@Override
 	public void select(Eia eia) {
 		// TODO Auto-generated method stub
-
+		setDisabled(false);
 	}
 }

@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.ejb.EJB;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.ejb.gar.ObuServiceRemote;
 import org.fourgeeks.gha.webclient.client.obu.GWTObuService;
@@ -26,12 +26,12 @@ public class GWTObuServiceImpl extends RemoteServiceServlet implements
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	public List<Obu> getAll() throws EJBException {
+	public List<Obu> getAll() throws GHAEJBException {
 		return service.getAll();
 	}
 
 	@Override
-	public List<Obu> getAll(int offset, int size) throws EJBException {
+	public List<Obu> getAll(int offset, int size) throws GHAEJBException {
 		// TODO
 		return service.getAll();
 	}

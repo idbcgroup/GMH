@@ -9,6 +9,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.widgets.Canvas;
+import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
@@ -47,6 +48,23 @@ public abstract class GHAUiHelper {
 		separator.setWidth100();
 		separator.setBackgroundColor("#666666");
 		separator.setHeight(height);
+		return separator;
+	}
+	
+	public static VLayout verticalGraySeparatorLabel(String height, String text) {
+		VLayout separator = new VLayout();
+		separator.setWidth100();
+		separator.setBackgroundColor("#666666");
+		separator.setHeight(height);
+		separator.setStyleName("sides-padding");
+		
+		Label title = new Label(text);
+		title.setHeight(height);
+		title.setWidth100();
+		title.setStyleName("separator-title-label");
+		
+		separator.addMembers(title);
+		
 		return separator;
 	}
 	

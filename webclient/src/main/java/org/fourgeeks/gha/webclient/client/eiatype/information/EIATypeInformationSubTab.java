@@ -19,6 +19,7 @@ public class EIATypeInformationSubTab extends GHASubTab implements
 	 */
 	public EIATypeInformationSubTab(EIATypeTab tab) {
 		super("Información", tab);
+		setDisabled(true);
 		tab.addEiaTypeSelectionListener(this);
 		form = new EIATypeInformationFormPanel(tab);
 		addGHAClosableHandler(form);
@@ -30,5 +31,6 @@ public class EIATypeInformationSubTab extends GHASubTab implements
 	@Override
 	public void select(EiaType eiaType) {
 		form.select(eiaType);
+		setDisabled(false);
 	}
 }

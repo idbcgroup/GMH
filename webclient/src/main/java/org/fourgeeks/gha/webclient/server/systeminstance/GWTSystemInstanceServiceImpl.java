@@ -8,7 +8,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.mix.SystemInstance;
 import org.fourgeeks.gha.ejb.mix.SystemInstanceServiceRemote;
 import org.fourgeeks.gha.webclient.client.systeminstance.GWTSystemInstanceService;
@@ -32,7 +32,7 @@ public class GWTSystemInstanceServiceImpl extends RemoteServiceServlet implement
 	 * @see org.fourgeeks.gha.webclient.client.systeminstance.GWTSystemInstanceService#delete(long)
 	 */
 	@Override
-	public void delete(long Id) throws EJBException {
+	public void delete(long Id) throws GHAEJBException {
 		service.delete(Id);
 	}
 
@@ -41,7 +41,7 @@ public class GWTSystemInstanceServiceImpl extends RemoteServiceServlet implement
 	 */
 	@Override
 	public List<SystemInstance> find(SystemInstance systemInstance)
-			throws EJBException {
+			throws GHAEJBException {
 		return service.find(systemInstance);
 	}
 
@@ -49,7 +49,7 @@ public class GWTSystemInstanceServiceImpl extends RemoteServiceServlet implement
 	 * @see org.fourgeeks.gha.webclient.client.systeminstance.GWTSystemInstanceService#find(long)
 	 */
 	@Override
-	public SystemInstance find(long Id) throws EJBException {
+	public SystemInstance find(long Id) throws GHAEJBException {
 		return service.find(Id);
 	}
 
@@ -57,7 +57,7 @@ public class GWTSystemInstanceServiceImpl extends RemoteServiceServlet implement
 	 * @see org.fourgeeks.gha.webclient.client.systeminstance.GWTSystemInstanceService#getAll()
 	 */
 	@Override
-	public List<SystemInstance> getAll() throws EJBException {
+	public List<SystemInstance> getAll() throws GHAEJBException {
 		return service.getAll();
 	}
 
@@ -66,7 +66,7 @@ public class GWTSystemInstanceServiceImpl extends RemoteServiceServlet implement
 	 */
 	@Override
 	public SystemInstance save(SystemInstance systemInstance)
-			throws EJBException {
+			throws GHAEJBException {
 		return service.save(systemInstance);
 	}
 
@@ -75,7 +75,7 @@ public class GWTSystemInstanceServiceImpl extends RemoteServiceServlet implement
 	 */
 	@Override
 	public SystemInstance update(SystemInstance systemInstance)
-			throws EJBException {
+			throws GHAEJBException {
 		return service.save(systemInstance);
 	}
 

@@ -2,6 +2,7 @@ package org.fourgeeks.gha.domain.mix;
 
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -31,7 +32,7 @@ public class Citizen extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 
 	@NotNull
-	@OneToOne
+	@OneToOne(cascade = {CascadeType.MERGE})
 	@JoinColumn(name = "legalEntityFk", nullable = false)
 	private LegalEntity legalEntity;
 

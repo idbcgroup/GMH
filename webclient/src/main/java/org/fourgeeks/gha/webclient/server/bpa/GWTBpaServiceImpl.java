@@ -8,7 +8,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.mix.Bpa;
 import org.fourgeeks.gha.ejb.mix.BpaServiceRemote;
 import org.fourgeeks.gha.webclient.client.bpa.GWTBpaService;
@@ -32,7 +32,7 @@ public class GWTBpaServiceImpl extends RemoteServiceServlet implements GWTBpaSer
 	 * @see org.fourgeeks.gha.webclient.client.bpa.GWTBpaService#delete(long)
 	 */
 	@Override
-	public void delete(long Id) throws EJBException {
+	public void delete(long Id) throws GHAEJBException {
 		service.delete(Id);
 	}
 
@@ -40,7 +40,7 @@ public class GWTBpaServiceImpl extends RemoteServiceServlet implements GWTBpaSer
 	 * @see org.fourgeeks.gha.webclient.client.bpa.GWTBpaService#find(org.fourgeeks.gha.domain.mix.Bpa)
 	 */
 	@Override
-	public List<Bpa> find(Bpa bpa) throws EJBException {
+	public List<Bpa> find(Bpa bpa) throws GHAEJBException {
 		return service.find(bpa);
 	}
 
@@ -48,7 +48,7 @@ public class GWTBpaServiceImpl extends RemoteServiceServlet implements GWTBpaSer
 	 * @see org.fourgeeks.gha.webclient.client.bpa.GWTBpaService#find(long)
 	 */
 	@Override
-	public Bpa find(long Id) throws EJBException {
+	public Bpa find(long Id) throws GHAEJBException {
 		return service.find(Id);
 	}
 
@@ -56,7 +56,7 @@ public class GWTBpaServiceImpl extends RemoteServiceServlet implements GWTBpaSer
 	 * @see org.fourgeeks.gha.webclient.client.bpa.GWTBpaService#getAll()
 	 */
 	@Override
-	public List<Bpa> getAll() throws EJBException {
+	public List<Bpa> getAll() throws GHAEJBException {
 		return service.getAll();
 	}
 
@@ -64,7 +64,7 @@ public class GWTBpaServiceImpl extends RemoteServiceServlet implements GWTBpaSer
 	 * @see org.fourgeeks.gha.webclient.client.bpa.GWTBpaService#save(org.fourgeeks.gha.domain.mix.Bpa)
 	 */
 	@Override
-	public Bpa save(Bpa bpa) throws EJBException {
+	public Bpa save(Bpa bpa) throws GHAEJBException {
 		return service.save(bpa);
 	}
 
@@ -72,7 +72,7 @@ public class GWTBpaServiceImpl extends RemoteServiceServlet implements GWTBpaSer
 	 * @see org.fourgeeks.gha.webclient.client.bpa.GWTBpaService#update(org.fourgeeks.gha.domain.mix.Bpa)
 	 */
 	@Override
-	public Bpa update(Bpa bpa) throws EJBException {
+	public Bpa update(Bpa bpa) throws GHAEJBException {
 		return service.update(bpa);
 	}
 

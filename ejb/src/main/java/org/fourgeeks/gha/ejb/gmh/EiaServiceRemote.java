@@ -6,11 +6,8 @@ package org.fourgeeks.gha.ejb.gmh;
 import java.util.List;
 
 import javax.ejb.Remote;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 
@@ -23,71 +20,63 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 public interface EiaServiceRemote {
 
 	/**
-	 * @param entity
-	 * @param cb
-	 * @param root
-	 * @return a predicate with the filters used to search by eia
-	 */
-	public Predicate buildFilters(Eia entity, CriteriaBuilder cb, Root<Eia> root);
-
-	/**
 	 * @param Id
 	 * @return a boolean with the result of the operation
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 *             Delete an entity from database using its id
 	 */
-	public boolean delete(long Id) throws EJBException;
+	public boolean delete(long Id) throws GHAEJBException;
 
 	/**
 	 * @param eia
 	 * @return a List with eias using an eia as a filter
-	 * @throws EJBExceptions
+	 * @throws GHAEJBException
 	 */
-	public List<Eia> find(Eia eia) throws EJBException;
+	public List<Eia> find(Eia eia) throws GHAEJBException;
 
 	/**
 	 * @param eiaType
 	 * @return a List with eias searching by EiaType
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 *             Find all the eias BASED on the eiaType ID
 	 */
-	public List<Eia> findByEiaType(EiaType eiaType) throws EJBException;
+	public List<Eia> findByEiaType(EiaType eiaType) throws GHAEJBException;
 
 	/**
 	 * @param Id
 	 * @return Find an eia By Id
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public Eia find(long Id) throws EJBException;
+	public Eia find(long Id) throws GHAEJBException;
 
 	/**
 	 * @return a List with all the eias
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<Eia> getAll() throws EJBException;
+	public List<Eia> getAll() throws GHAEJBException;
 
 	/**
 	 * @param offset
 	 * @param size
 	 * @return a List with size eias starting from offset
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<Eia> getAll(int offset, int size) throws EJBException;
+	public List<Eia> getAll(int offset, int size) throws GHAEJBException;
 
 	/**
 	 * @param eia
-	 * @Return the persisted entity
-	 * @throws EJBException
+	 * @return the persisted entity
+	 * @throws GHAEJBException
 	 *             Persist an eia to database
 	 */
-	public Eia save(Eia eia) throws EJBException;
+	public Eia save(Eia eia) throws GHAEJBException;
 
 	/**
 	 * @param eia
 	 * @return the updated entity
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 *             Update the Eia
 	 */
-	public Eia update(Eia eia) throws EJBException;
+	public Eia update(Eia eia) throws GHAEJBException;
 
 }

@@ -12,9 +12,9 @@ public class MaintenancePlanGrid extends GhaGrid<MaintenancePlan>{
 
 		GHAGridField idGridField = new GHAGridField("id", "No");
 		GHAGridField nameGridField = new GHAGridField("name", "Nombre");
-		GHAGridField descriptionGridField = new GHAGridField("description", "Descripción");
+		GHAGridField descriptionGridField = new GHAGridField("desc", "Descripción");
 		GHAGridField freqGridField = new GHAGridField("freq", "Frecuencia");
-		GHAGridField periodOfTimeGridField = new GHAGridField("pod", "Periodo de Tiempo");
+		GHAGridField periodOfTimeGridField = new GHAGridField("pot", "Periodo de Tiempo");
 		
 		setFields(idGridField, nameGridField, descriptionGridField, freqGridField, periodOfTimeGridField);
 	}

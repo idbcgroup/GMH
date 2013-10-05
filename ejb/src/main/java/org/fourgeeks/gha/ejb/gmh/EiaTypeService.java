@@ -20,9 +20,10 @@ import javax.persistence.criteria.Root;
 import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
 import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
 import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 
 /**
@@ -116,13 +117,13 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypeService#deleteEiaType(long)
 	 */
 	@Override
-	public void delete(long Id) throws EJBException {
+	public void delete(long Id) throws GHAEJBException {
 		try {
 			EiaType entity = em.find(EiaType.class, Id);
 			em.remove(entity);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete eiatype", e);
-			throw new EJBException("Error eliminando EiaType por id "
+			throw new GHAEJBException("Error eliminando EiaType por id "
 					+ e.getCause().getMessage());
 		}
 	}
@@ -135,7 +136,7 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 	 * .domain.gmh.EiaType)
 	 */
 	@Override
-	public List<EiaType> find(EiaType entity) throws EJBException {
+	public List<EiaType> find(EiaType entity) throws GHAEJBException {
 
 		try {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -202,7 +203,7 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 		} catch (Exception e) {
 			logger.log(Level.SEVERE,
 					"Error obteniendo los eiaTypes por eiatype", e);
-			throw new EJBException("Error obteniendo los eiaTypes por eiatype "
+			throw new GHAEJBException("Error obteniendo los eiaTypes por eiatype "
 					+ e.getCause().getMessage());
 		}
 
@@ -217,7 +218,7 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 	 */
 	@Override
 	public List<EiaType> find(EiaType eiaType, int offset, int size)
-			throws EJBException {
+			throws GHAEJBException {
 		try {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<EiaType> cQuery = cb.createQuery(EiaType.class);
@@ -289,7 +290,7 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 		} catch (Exception e) {
 			logger.log(Level.SEVERE,
 					"Error obteniendo buscando los eiaTypes por eiatype", e);
-			throw new EJBException(
+			throw new GHAEJBException(
 					"Error obteniendo buscando los eiaTypes por eiatype "
 							+ e.getCause().getMessage());
 		}
@@ -302,12 +303,12 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypeService#getEiaType(long)
 	 */
 	@Override
-	public EiaType find(String code) throws EJBException {
+	public EiaType find(String code) throws GHAEJBException {
 		try {
 			return em.find(EiaType.class, code);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error buscando Eiatype por Id ", e);
-			throw new EJBException("Error buscando Eiatype por Id "
+			throw new GHAEJBException("Error buscando Eiatype por Id "
 					+ e.getCause().getMessage());
 		}
 	}
@@ -318,13 +319,13 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypeService#getAllEiaType()
 	 */
 	@Override
-	public List<EiaType> getAll() throws EJBException {
+	public List<EiaType> getAll() throws GHAEJBException {
 		try {
 			return em.createNamedQuery("EiaType.getAll", EiaType.class)
 					.getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all eiatypes", ex);
-			throw new EJBException("Error obteniendo todos los eiaTypes");
+			throw new GHAEJBException("Error obteniendo todos los eiaTypes");
 		}
 	}
 
@@ -334,13 +335,13 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypeService#getAll(long, long)
 	 */
 	@Override
-	public List<EiaType> getAll(int offset, int size) throws EJBException {
+	public List<EiaType> getAll(int offset, int size) throws GHAEJBException {
 		try {
 			return em.createNamedQuery("EiaType.getAll", EiaType.class)
 					.setFirstResult(offset).setMaxResults(size).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retriving all EitaTypes", ex);
-			throw new EJBException(
+			throw new GHAEJBException(
 					"Error obteniendo todos los eiaTypes paginado");
 		}
 
@@ -354,7 +355,7 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 	 * .domain.gmh.EiaType)
 	 */
 	@Override
-	public EiaType save(EiaType eiaType) throws EJBException {
+	public EiaType save(EiaType eiaType) throws GHAEJBException {
 		try {
 			Brand brand = eiaType.getBrand();
 			
@@ -371,7 +372,7 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 			
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving eiatype", e);
-			throw new EJBException("Error guardando EiaType: "
+			throw new GHAEJBException("Error guardando EiaType: "
 					+ e.getCause().getMessage());
 		}
 	}
@@ -384,15 +385,31 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 	 * gha.domain.gmh.EiaType)
 	 */
 	@Override
-	public EiaType update(EiaType eiaType) throws EJBException {
+	public EiaType update(EiaType eiaType) throws GHAEJBException {
 		try {
 			EiaType res = em.merge(eiaType);
 			em.flush();
 			return res;
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to update eiatype", e);
-			throw new EJBException("Error actualizando EiaType "
+			throw new GHAEJBException("Error actualizando EiaType "
 					+ e.getCause().getMessage());
+		}
+	}
+
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypeServiceRemote#findByMaintenancePlan(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
+	 */
+	@Override
+	public List<EiaType> findByMaintenancePlan(MaintenancePlan maintenancePlan)
+			throws GHAEJBException {
+		try {
+			return em.createNamedQuery("EiaType.findByMaintenancePlan", EiaType.class)
+					.setParameter("maintenancePlan", maintenancePlan).getResultList();
+		} catch (Exception ex) {
+			logger.log(Level.SEVERE, "Error retriving all EitaTypes by maintenancePlan", ex);
+			throw new GHAEJBException(
+					"Error obteniendo todos los eiaTypes por plan de mantenimiento");
 		}
 	}
 

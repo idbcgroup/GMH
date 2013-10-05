@@ -7,7 +7,7 @@ import java.util.List;
 
 import javax.ejb.Remote;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.glm.MaterialCategory;
 
 /**
@@ -19,51 +19,51 @@ import org.fourgeeks.gha.domain.glm.MaterialCategory;
 public interface MaterialCategoryServiceRemote {
 	/**
 	 * @param Id
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public void delete(long Id) throws EJBException;
+	public void delete(long Id) throws GHAEJBException;
 
 	/**
 	 * @param MaterialCategory
 	 * @return the list of MaterialCategories
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<MaterialCategory> find(MaterialCategory materialCategory) throws EJBException;
+	public List<MaterialCategory> find(MaterialCategory materialCategory) throws GHAEJBException;
 
 	/**
 	 * @param Id
 	 * @return the MaterialCategorys
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public MaterialCategory find(long Id) throws EJBException;
+	public MaterialCategory find(long Id) throws GHAEJBException;
 	
 
 	/**
 	 * @return the list of MaterialCategories
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<MaterialCategory> getAll() throws EJBException;
+	public List<MaterialCategory> getAll() throws GHAEJBException;
 
 	/**
 	 * @param offset
 	 * @param size
 	 * @return the list of MaterialCategories
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public List<MaterialCategory> getAll(int offset, int size) throws EJBException;
+	public List<MaterialCategory> getAll(int offset, int size) throws GHAEJBException;
 
 	/**
 	 * @param MaterialCategory
 	 * @return the saved MaterialCategory
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public MaterialCategory save(MaterialCategory materialCategory) throws EJBException;
+	public MaterialCategory save(MaterialCategory materialCategory) throws GHAEJBException;
 
 	/**
 	 * @param MaterialCategory
 	 * @return the updated MaterialCategory
-	 * @throws EJBException
+	 * @throws GHAEJBException
 	 */
-	public MaterialCategory update(MaterialCategory materialCategory) throws EJBException;
+	public MaterialCategory update(MaterialCategory materialCategory) throws GHAEJBException;
 
 }

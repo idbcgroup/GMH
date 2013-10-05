@@ -2,6 +2,7 @@ package org.fourgeeks.gha.webclient.client.user;
 
 import java.util.List;
 
+import org.fourgeeks.gha.domain.ess.BpuFunction;
 import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
@@ -42,6 +43,41 @@ public class UserModel {
 	public static void find(SSOUser ssoUser,
 			GHAAsyncCallback<List<SSOUser>> callback) {
 		ssoUservice.find(ssoUser, callback);
+	}
+
+	/**
+	 * @param ssoUser
+	 * @param ghaAsyncCallback
+	 */
+	public static void save(SSOUser ssoUser, GHAAsyncCallback<SSOUser> callback) {
+		ssoUservice.save(ssoUser, callback);
+	}
+
+	// TODO : Pasar a bpuFunctionmodel
+	public static void save(BpuFunction bpuFunction,
+			GHAAsyncCallback<BpuFunction> callback) {
+		ssoUservice.save(bpuFunction, callback);
+	}
+
+	// TODO : Pasar a bpuFunctionmodel
+	public static void delete(BpuFunction bpuFunction,
+			GHAAsyncCallback<Void> callback) {
+		ssoUservice.delete(bpuFunction, callback);
+	}
+
+// TODO : Pasar a bpuFunctionmodel
+	public static void getFunctionsByBpu(Bpu bpu,
+			GHAAsyncCallback<List<BpuFunction>> callback) {
+		ssoUservice.getFunctionsByBpu(bpu, callback);
+	}
+	
+	/**
+	 * @param ssoUser
+	 * @param ghaAsyncCallback
+	 */
+	public static void update(SSOUser ssoUser,
+			GHAAsyncCallback<SSOUser> callback) {
+		ssoUservice.update(ssoUser, callback);
 	}
 
 }
