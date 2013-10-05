@@ -42,7 +42,7 @@ public interface MaintenanceProtocolServiceRemote {
 	 * @throws GHAEJBException
 	 * 
 	 */
-	public List<MaintenanceProtocol> findByMaintenancePlan(
+	public List<MaintenanceProtocol> findByEiaTypeMaintenancePlan(
 			MaintenancePlan maintenancePlan, int offset, int size)
 			throws GHAEJBException;
 

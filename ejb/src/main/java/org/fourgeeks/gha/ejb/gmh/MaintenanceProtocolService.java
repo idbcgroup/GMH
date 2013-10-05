@@ -88,7 +88,7 @@ public class MaintenanceProtocolService implements
 	 * int)
 	 */
 	@Override
-	public List<MaintenanceProtocol> findByMaintenancePlan(
+	public List<MaintenanceProtocol> findByEiaTypeMaintenancePlan(
 			MaintenancePlan maintenancePlan, int offset, int size)
 			throws GHAEJBException {
 		try {

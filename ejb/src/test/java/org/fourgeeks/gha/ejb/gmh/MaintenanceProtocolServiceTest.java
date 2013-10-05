@@ -58,14 +58,14 @@ public class MaintenanceProtocolServiceTest extends GhaServiceTest {
 				+ service.find(entity.getId()).getDescription());
 		// Assert.assertEquals(entity, service.find(entity.getId()));
 
-		Assert.assertTrue(service.findByMaintenancePlan(super
+		Assert.assertTrue(service.findByEiaTypeMaintenancePlan(super
 				.getMaintenancePlan(em)) != null
-				&& service.findByMaintenancePlan(super.getMaintenancePlan(em))
-						.size() >= 1);
-		Assert.assertTrue(service.findByMaintenancePlan(
+				&& service.findByEiaTypeMaintenancePlan(
+						super.getMaintenancePlan(em)).size() >= 1);
+		Assert.assertTrue(service.findByEiaTypeMaintenancePlan(
 				super.getMaintenancePlan(em), 0, 10) != null
-				&& service.findByMaintenancePlan(super.getMaintenancePlan(em),
-						0, 10).size() >= 1);
+				&& service.findByEiaTypeMaintenancePlan(
+						super.getMaintenancePlan(em), 0, 10).size() >= 1);
 
 		Assert.assertTrue(service.getAll() != null
 				&& service.getAll().size() >= 1);
