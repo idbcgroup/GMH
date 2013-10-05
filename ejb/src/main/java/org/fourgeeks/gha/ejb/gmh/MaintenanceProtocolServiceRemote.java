@@ -31,7 +31,7 @@ public interface MaintenanceProtocolServiceRemote {
 	 *         plan
 	 * @throws EJBException
 	 */
-	public List<MaintenanceProtocol> findByMaintenancePlan(
+	public List<MaintenanceProtocol> findByEiaTypeMaintenancePlan(
 			MaintenancePlan maintenancePlan) throws EJBException;
 
 	/**
@@ -42,7 +42,7 @@ public interface MaintenanceProtocolServiceRemote {
 	 *          plan starting at offset
 	 * @throws EJBException
 	 */
-	public List<MaintenanceProtocol> findByMaintenancePlan(
+	public List<MaintenanceProtocol> findByEiaTypeMaintenancePlan(
 			MaintenancePlan maintenancePlan, int offset, int size)
 			throws EJBException;
 

@@ -57,8 +57,8 @@ public class InstitutionServiceTest extends GhaServiceTest {
 				+ service.find(entity.getId()).getName());
 		// Assert.assertEquals(entity, service.find(entity.getId()));
 
-		// Assert.assertTrue(service.find(entity) != null
-		// && service.find(entity).size() >= 1);
+		Assert.assertTrue(service.find(entity) != null
+				&& service.find(entity).size() >= 1);
 		Assert.assertTrue(service.getAll() != null
 				&& service.getAll().size() >= 1);
 		Assert.assertEquals(service.find(entity.getId()).getName(),

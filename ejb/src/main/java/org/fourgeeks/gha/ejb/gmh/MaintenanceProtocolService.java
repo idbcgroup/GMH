@@ -56,7 +56,7 @@ public class MaintenanceProtocolService implements
 	 * findByMaintenancePlan(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
 	 */
 	@Override
-	public List<MaintenanceProtocol> findByMaintenancePlan(
+	public List<MaintenanceProtocol> findByEiaTypeMaintenancePlan(
 			MaintenancePlan maintenancePlan) throws EJBException {
 		try {
 			return em
@@ -82,7 +82,7 @@ public class MaintenanceProtocolService implements
 	 * (org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan, int, int)
 	 */
 	@Override
-	public List<MaintenanceProtocol> findByMaintenancePlan(
+	public List<MaintenanceProtocol> findByEiaTypeMaintenancePlan(
 			MaintenancePlan maintenancePlan, int offset, int size)
 			throws EJBException {
 		try {
