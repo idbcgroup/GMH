@@ -36,8 +36,8 @@ public class EIAReportsFormPanel extends VLayout implements GHAClosable,
 		formReports = new EIAReportsForm();
 
 		// CREO EL SIDEBAR
-		VLayout sideBarLayout = GHAUiHelper.createBar(new GHAImgButton(
-				PATH_IMG_PRINT_BUTTON, new ClickHandler() {
+		VLayout sideBarLayout = GHAUiHelper.createBar(// boton generar reporte
+				new GHAImgButton(PATH_IMG_PRINT_BUTTON, new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
 						String params = formReports.getURLParameters();
@@ -45,12 +45,13 @@ public class EIAReportsFormPanel extends VLayout implements GHAClosable,
 						String uri = "webclient/reporteia" + params;
 						Window.open(UriUtils.sanitizeUri(uri), "_blank", "");
 					}
-				}), new GHAImgButton(PATH_IMG_CLEAN_BUTTON, new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				formReports.cleanItems();
-			}
-		}));
+				}), // boton clean
+				new GHAImgButton(PATH_IMG_CLEAN_BUTTON, new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						formReports.cleanItems();
+					}
+				}));
 
 		HLayout formPanel = new HLayout();
 		formPanel.addMembers(formReports, sideBarLayout);

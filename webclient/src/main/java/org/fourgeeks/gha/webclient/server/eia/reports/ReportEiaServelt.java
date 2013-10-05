@@ -67,6 +67,9 @@ public class ReportEiaServelt extends HttpServlet {
 			Eia eiaFilter = generateEiaForReport(req);
 			List<Eia> eiaList = service.find(eiaFilter);
 
+			if (eiaList.isEmpty())
+				eiaList.add(new Eia(null, null, null, null));
+
 			String reportFileRealPath = null;
 			EiaDataSource dataSource = null;
 

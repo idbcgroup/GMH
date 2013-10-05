@@ -7,9 +7,12 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRField;
 
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
+import org.fourgeeks.gha.domain.ess.Role;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
 import org.fourgeeks.gha.domain.gar.Facility;
+import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.gmh.Eia;
+import org.fourgeeks.gha.domain.gmh.EiaType;
 
 public class EiaDataSource implements JRDataSource {
 	private List<Eia> data;
@@ -67,17 +70,25 @@ public class EiaDataSource implements JRDataSource {
 			if (field.getName().equals("serial"))
 				return data.get(pos).getSerialNumber();
 
-			if (field.getName().equals("eiaType"))
-				return data.get(pos).getEiaType().getName();
+			if (field.getName().equals("eiaType")) {
+				EiaType eiaType = data.get(pos).getEiaType();
+				return eiaType != null ? eiaType.getName() : null;
+			}
 
-			if (field.getName().equals("brandEiaType"))
-				return data.get(pos).getEiaType().getBrand().getName();
+			if (field.getName().equals("brandEiaType")) {
+				EiaType eiaType = data.get(pos).getEiaType();
+				return eiaType != null ? eiaType.getBrand().getName() : null;
+			}
 
-			if (field.getName().equals("departamento"))
-				return data.get(pos).getObu().getName();
+			if (field.getName().equals("departamento")) {
+				Obu obu = data.get(pos).getObu();
+				return obu != null ? obu.getName() : null;
+			}
 
-			if (field.getName().equals("responsable"))
-				return data.get(pos).getResponsibleRole().getName();
+			if (field.getName().equals("responsable")) {
+				Role role = data.get(pos).getResponsibleRole();
+				return role != null ? role.getName() : null;
+			}
 		}
 
 		return null;

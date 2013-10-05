@@ -6,9 +6,7 @@
 		starts -->
 	<stylesheet src="Upload.css" />
 
-	<inherits name="com.googlecode.gwtx.Java">
-
-	</inherits>
+	<inherits name="com.googlecode.gwtx.Java" />
 
 	<!-- Change this line with your project's entry-point -->
 	<!--<entry-point class="package.Xxx"/> -->
