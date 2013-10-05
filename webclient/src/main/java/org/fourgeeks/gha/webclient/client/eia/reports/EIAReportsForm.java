@@ -3,6 +3,7 @@ package org.fourgeeks.gha.webclient.client.eia.reports;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import org.fourgeeks.gha.domain.enu.EiaReportFiltersEnum;
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
 import org.fourgeeks.gha.domain.gar.Facility;
@@ -49,24 +50,24 @@ public class EIAReportsForm extends VLayout {
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		tipoAgrupSelectItem.setDisabled(false);
 
-		// DEFINIENDO LOS EVENTOS DE LOS ITEMS
 		filterTypeRadioGroupItem.addChangedHandler(new ChangedHandler() {
-			@Override
-			public void onChanged(ChangedEvent event) {
-				String filterType = filterTypeRadioGroupItem.getValueAsString();
-
-				if (filterType.equals("edoEquipo"))
-					disableItems(false, true, true);
-				else if (filterType.equals("facility"))
-					disableItems(true, false, true);
-				else if (filterType.equals("workingArea"))
-					disableItems(true, true, false);
-			}
-
 			private void disableItems(boolean edoEq, boolean fac, boolean workAr) {
 				estadoSelectItem.setDisabled(edoEq);
 				facilitySelectItem.setDisabled(fac);
 				workingAreaSelectItem.setDisabled(workAr);
+			}
+
+			@Override
+			public void onChanged(ChangedEvent event) {
+				EiaReportFiltersEnum filterType = EiaReportFiltersEnum
+						.valueOf(filterTypeRadioGroupItem.getValueAsString());
+
+				if (filterType == EiaReportFiltersEnum.EDO_EQUIPO)
+					disableItems(false, true, true);
+				else if (filterType == EiaReportFiltersEnum.FACILITY)
+					disableItems(true, false, true);
+				else if (filterType == EiaReportFiltersEnum.WORKING_AREA)
+					disableItems(true, true, false);
 			}
 		});
 
@@ -81,20 +82,29 @@ public class EIAReportsForm extends VLayout {
 	}
 
 	/**
+	 * Limpia los valores de los items del formulario
+	 */
+	public void cleanItems() {
+		estadoSelectItem.clearValue();
+		facilitySelectItem.clearValue();
+		workingAreaSelectItem.clearValue();
+		tipoAgrupSelectItem.clearValue();
+	}
+
+	/**
 	 * Llena con datos los diferentes items del formulario
 	 */
 	private void fillItemsWhitData() {
-		LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
-		map.put("edoEquipo", "Estado Equipo");
-		map.put("workingArea", "Area de Trabajo");
-		map.put("facility", "Servicio/Instalación");
+		LinkedHashMap<String, String> map = EiaReportFiltersEnum.toValueMap();
+		map.remove(EiaReportFiltersEnum.SIN_FILTRO.name());
+		String edoEquipoName = EiaReportFiltersEnum.EDO_EQUIPO.name();
 		filterTypeRadioGroupItem.setValueMap(map);
-		filterTypeRadioGroupItem.setDefaultValue("edoEquipo");
+		filterTypeRadioGroupItem.setDefaultValue(edoEquipoName);
 
 		map = new LinkedHashMap<String, String>();
-		map.put("edoEquipo", "Estado Equipo");
-		map.put("facility", "Servicio/Instalación");
-		map.put("workingArea", "Area de Trabajo");
+		map.put(getClassName(EiaStateEnum.class), "Estado del equipo");
+		map.put(getClassName(Facility.class), "Facilidad");
+		map.put(getClassName(WorkingArea.class), "Area de Trabajo");
 		map.put("noAgrup", "Sin agrupar");
 		tipoAgrupSelectItem.setValueMap(map);
 		tipoAgrupSelectItem.setDefaultValue("noAgrup");
@@ -124,6 +134,15 @@ public class EIAReportsForm extends VLayout {
 	}
 
 	/**
+	 * @param clase
+	 *            la clase de la que se desea obtener el nombre
+	 * @return El nombre de la clase
+	 */
+	private String getClassName(Class<?> clase) {
+		return clase.getName();
+	}
+
+	/**
 	 * @return La parte del URL que contiene los parametros del reporte
 	 */
 	public String getURLParameters() {
@@ -131,50 +150,41 @@ public class EIAReportsForm extends VLayout {
 		String loggedUser = user.getFirstName() + " " + user.getFirstLastName();
 
 		String group = tipoAgrupSelectItem.getValueAsString();
+		String groupDesc = tipoAgrupSelectItem.getDisplayValue();
 
-		String filterType = filterTypeRadioGroupItem.getValueAsString();
-		String filterDesc = null, filterVal = null, filterTypeDesc = null;
+		EiaReportFiltersEnum filterType = EiaReportFiltersEnum
+				.valueOf(filterTypeRadioGroupItem.getValueAsString());
 
-		if (filterType.equals("edoEquipo")) {
+		String filterDesc = null, filterVal = null;
+		if (filterType == EiaReportFiltersEnum.EDO_EQUIPO) {
 			filterDesc = estadoSelectItem.getDisplayValue();
 			filterVal = estadoSelectItem.getValueAsString();
-			filterTypeDesc = "Equipo:";
 
-		} else if (filterType.equals("facility")) {
+		} else if (filterType == EiaReportFiltersEnum.FACILITY) {
 			filterDesc = facilitySelectItem.getDisplayValue();
 			filterVal = facilitySelectItem.getValueAsString();
-			filterTypeDesc = "Servicio/Instalación:";
 
-		} else {
+		} else if (filterType == EiaReportFiltersEnum.WORKING_AREA) {
 			filterDesc = workingAreaSelectItem.getDisplayValue();
 			filterVal = workingAreaSelectItem.getValueAsString();
-			filterTypeDesc = "Area de trabajo:";
 		}
 
 		if (filterVal == null) {
+			filterType = EiaReportFiltersEnum.SIN_FILTRO;
+			filterVal = "all";
 			filterDesc = "Todos";
-			filterType = "all";
 		}
 
 		String urlParams = "?";
-		urlParams += "filtertype=" + filterType;
-		urlParams += "&filtertypedesc=" + filterTypeDesc;
+		urlParams += "filtertype=" + filterType.name();
+		urlParams += "&filtertypedesc=" + filterType.toString();
 		urlParams += "&filter=" + filterVal;
 		urlParams += "&filterdesc=" + filterDesc;
 		urlParams += "&group=" + group;
+		urlParams += "&groupdesc=" + groupDesc;
 		urlParams += "&user=" + loggedUser;
 
 		return urlParams;
-	}
-
-	/**
-	 * Limpia los valores de los items del formulario
-	 */
-	public void cleanItems() {
-		estadoSelectItem.clearValue();
-		facilitySelectItem.clearValue();
-		workingAreaSelectItem.clearValue();
-		tipoAgrupSelectItem.clearValue();
 	}
 
 }

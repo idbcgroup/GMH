@@ -6,29 +6,59 @@ import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRField;
 
+import org.fourgeeks.gha.domain.enu.EiaStateEnum;
+import org.fourgeeks.gha.domain.ess.WorkingArea;
+import org.fourgeeks.gha.domain.gar.Facility;
 import org.fourgeeks.gha.domain.gmh.Eia;
 
 public class EiaDataSource implements JRDataSource {
 	private List<Eia> data;
-	private String groupField;
+	private Class<? extends Object> groupType;
 	private int pos;
 
-	public EiaDataSource(List<Eia> data, String groupField) {
+	/**
+	 * @param data
+	 *            Lista con los datos a mostrar enel reporte
+	 */
+	public EiaDataSource(List<Eia> data) {
 		this.data = data;
-		this.groupField = groupField;
+		this.groupType = null;
 		pos = -1;
+	}
+
+	/**
+	 * @param data
+	 *            Lista con los datos a mostrar enel reporte
+	 * @param groupTypeField
+	 *            String con el tipo de agrupacion si es que se van a agrupar
+	 *            los datos
+	 * @throws ClassNotFoundException
+	 *             Debe ser el nombre de una clase existente
+	 */
+	public EiaDataSource(List<Eia> data, String groupTypeField)
+			throws ClassNotFoundException {
+		this(data);
+		this.groupType = Class.forName(groupTypeField);
 	}
 
 	@Override
 	public Object getFieldValue(JRField field) throws JRException {
 		if (data != null) {
 			if (field.getName().equals("groupField")) {
-				if (groupField.equals("edoEquipo"))
-					return data.get(pos).getState().toString();
-				if (groupField.equals("facility"))
-					return data.get(pos).getFacility().getName();
-				if (groupField.equals("workingArea"))
-					return data.get(pos).getWorkingArea().getName();
+				if (groupType == EiaStateEnum.class) {
+					EiaStateEnum state = data.get(pos).getState();
+					return state != null ? state.toString() : "Sin estado";
+				}
+				if (groupType == Facility.class) {
+					Facility facility = data.get(pos).getFacility();
+					return facility != null ? facility.getName()
+							: "Sin servicio/instalación";
+				}
+				if (groupType == WorkingArea.class) {
+					WorkingArea workingArea = data.get(pos).getWorkingArea();
+					return workingArea != null ? workingArea.getName()
+							: "Sin area de trabajo";
+				}
 			}
 
 			if (field.getName().equals("code"))

@@ -27,6 +27,7 @@
 	</parameter>
 	<parameter name="fechaHoraReporte" class="java.lang.String"/>
 	<parameter name="nombreOperador" class="java.lang.String"/>
+	<parameter name="groupDesc" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -49,14 +50,14 @@
 					<box>
 						<topPen lineWidth="0.0" lineColor="#A5A5A5"/>
 						<leftPen lineWidth="1.0" lineColor="#A5A5A5"/>
-						<bottomPen lineWidth="0.0" lineColor="#A5A5A5"/>
+						<bottomPen lineWidth="1.0" lineColor="#A5A5A5"/>
 						<rightPen lineWidth="1.0" lineColor="#A5A5A5"/>
 					</box>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Calibri Light" size="11" isBold="true" pdfFontName="Courier" isPdfEmbedded="true"/>
 						<paragraph leftIndent="5"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$P{statusOrLoc}+" "+$F{groupField}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$P{groupDesc}+": "+$F{groupField}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>

@@ -25,6 +25,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.fourgeeks.gha.domain.enu.EiaReportFiltersEnum;
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
@@ -41,6 +42,13 @@ public class ReportEiaServelt extends HttpServlet {
 	private static final String REPORT_GROUP_FILE_DIR = "/resources/reportes/eiaReportGroups.jasper";
 	private static final String LOGO_DIR = "/resources/img/logoReport.jpg";
 
+	// parametros de la URI
+	private static final String PARAM_GROUP = "group",
+			PARAM_GROUPDESC = "groupdesc", PARAM_FILTER = "filter",
+			PARAM_FILTERTYPE = "filtertype", PARAM_USER = "user",
+			PARAM_FILTERTYPEDESC = "filtertypedesc",
+			PARAM_FILTERDESC = "filterdesc";
+
 	@EJB(name = "gmh.EiaService", beanInterface = EiaServiceRemote.class)
 	EiaServiceRemote service;
 
@@ -56,29 +64,29 @@ public class ReportEiaServelt extends HttpServlet {
 			throws ServletException, IOException {
 
 		try {
-			// genero el EIA que sirve de filtro para traer los datos deseados
-			Eia eiaFilter = generateEiaForReport(req);
-			// lista de datos a mostrar en el reporte
-			List<Eia> eiaList = service.find(eiaFilter);
-
-			// la fuente de datos de la que se nutre el reporte
-			String group = req.getParameter("group");
-			EiaDataSource dataSource = new EiaDataSource(eiaList, group);
-
-			// parametros que recibe el reporte
 			Map<String, Object> paramsReport = generateParamsMap(req);
 
-			// ubicacion de los archivos de reportes compilados (.jasper)
-			String relativePath = group.equals("noAgrup") ? REPORT_FILE_DIR
-					: REPORT_GROUP_FILE_DIR;
-			String reportFileRealPath = getServletContext().getRealPath(
-					relativePath);
+			Eia eiaFilter = generateEiaForReport(req);
+			List<Eia> eiaList = service.find(eiaFilter);
+
+			String reportFileRealPath = null;
+			EiaDataSource dataSource = null;
+
+			String group = req.getParameter(PARAM_GROUP);
+			if (group.equals("noAgrup")) {
+				dataSource = new EiaDataSource(eiaList);
+				reportFileRealPath = getServletContext().getRealPath(
+						REPORT_FILE_DIR);
+			} else {
+				dataSource = new EiaDataSource(eiaList, group);
+				reportFileRealPath = getServletContext().getRealPath(
+						REPORT_GROUP_FILE_DIR);
+			}
 
 			// generacion del archivo .jasper y llenado del reporte (fillReport)
 			JasperPrint fillReport = JasperFillManager.fillReport(
 					reportFileRealPath, paramsReport, dataSource);
 
-			// exportacion como PDF
 			exportAsPDF(resp, fillReport);
 
 		} catch (GHAEJBException e) {
@@ -88,6 +96,9 @@ public class ReportEiaServelt extends HttpServlet {
 		} catch (JRException e) {
 			LOG.log(Level.ERROR,
 					"Problema al generar el reporte de JasperReport", e);
+		} catch (ClassNotFoundException e) {
+			LOG.log(Level.ERROR,
+					"No existe la clase para agrupar los datos del reporte", e);
 		}
 	}
 
@@ -107,10 +118,8 @@ public class ReportEiaServelt extends HttpServlet {
 
 		response.setContentType("application/pdf");
 		response.addHeader("Content-Disposition",
-				"inline; filename=brandReport.pdf");
+				"inline; filename=eiaReport.pdf");
 
-		// se exporta en reporte lleno con los datos como PDF hacia la salida
-		// que ofrece el objeto response
 		JasperExportManager.exportReportToPdfStream(fillReport,
 				response.getOutputStream());
 	}
@@ -133,16 +142,22 @@ public class ReportEiaServelt extends HttpServlet {
 	 * @return Ojeto EIA con los filtros deseados
 	 */
 	private Eia generateEiaForReport(HttpServletRequest req) {
-		String filterVal = req.getParameter("filter");
-		String filterType = req.getParameter("filtertype");
+		String filterValParam = req.getParameter(PARAM_FILTER);
+		String filterParam = req.getParameter(PARAM_FILTERTYPE);
 
 		Eia eia = new Eia();
-		if (filterType.equals("edoEquipo"))
-			eia.setState(EiaStateEnum.valueOf(filterVal));
-		else if (filterType.equals("facility"))
-			eia.setFacility(new Facility(Long.parseLong(filterVal)));
-		else if (filterType.equals("workingArea"))
-			eia.setWorkingArea(new WorkingArea(Long.parseLong(filterVal)));
+		eia.setState(null);
+
+		EiaReportFiltersEnum filter = EiaReportFiltersEnum.valueOf(filterParam);
+
+		if (filter == EiaReportFiltersEnum.EDO_EQUIPO)
+			eia.setState(EiaStateEnum.valueOf(filterValParam));
+
+		else if (filter == EiaReportFiltersEnum.FACILITY)
+			eia.setFacility(new Facility(Long.parseLong(filterValParam)));
+
+		else if (filter == EiaReportFiltersEnum.WORKING_AREA)
+			eia.setWorkingArea(new WorkingArea(Long.parseLong(filterValParam)));
 
 		return eia;
 	}
@@ -158,16 +173,18 @@ public class ReportEiaServelt extends HttpServlet {
 		Image logoImage = new ImageIcon(getServletContext().getRealPath(
 				LOGO_DIR)).getImage();
 
+		String user = req.getParameter(PARAM_USER);
+		String filterTypeDesc = req.getParameter(PARAM_FILTERTYPEDESC);
+		String filterDesc = req.getParameter(PARAM_FILTERDESC);
+		final String groupDesc = req.getParameter(PARAM_GROUPDESC);
 		String datetimeReport = genDatetimeTimezoneStrRep();
-		String user = req.getParameter("user");
-		String filterTypeDesc = req.getParameter("filtertypedesc");
-		String filterDesc = req.getParameter("filterdesc");
 
 		Map<String, Object> paramsMap = new HashMap<String, Object>();
 		paramsMap.put("logo", logoImage);
 		paramsMap.put("fechaHoraReporte", datetimeReport);
 		paramsMap.put("statusOrLoc", filterTypeDesc);
 		paramsMap.put("statusOrLocVal", filterDesc);
+		paramsMap.put("groupDesc", groupDesc);
 		paramsMap.put("nombreOperador", user);
 
 		return paramsMap;
