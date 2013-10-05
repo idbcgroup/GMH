@@ -64,8 +64,6 @@ public class ReportEiaServelt extends HttpServlet {
 			throws ServletException, IOException {
 
 		try {
-			Map<String, Object> paramsReport = generateParamsMap(req);
-
 			Eia eiaFilter = generateEiaForReport(req);
 			List<Eia> eiaList = service.find(eiaFilter);
 
@@ -83,7 +81,8 @@ public class ReportEiaServelt extends HttpServlet {
 						REPORT_GROUP_FILE_DIR);
 			}
 
-			// generacion del archivo .jasper y llenado del reporte (fillReport)
+			Map<String, Object> paramsReport = generateParamsMap(req);
+
 			JasperPrint fillReport = JasperFillManager.fillReport(
 					reportFileRealPath, paramsReport, dataSource);
 
@@ -96,6 +95,7 @@ public class ReportEiaServelt extends HttpServlet {
 		} catch (JRException e) {
 			LOG.log(Level.ERROR,
 					"Problema al generar el reporte de JasperReport", e);
+
 		} catch (ClassNotFoundException e) {
 			LOG.log(Level.ERROR,
 					"No existe la clase para agrupar los datos del reporte", e);

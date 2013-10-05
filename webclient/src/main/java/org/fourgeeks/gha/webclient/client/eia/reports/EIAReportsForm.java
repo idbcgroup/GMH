@@ -14,6 +14,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHASessionData;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHARadioGroupItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHATitleTextItem;
 
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.form.DynamicForm;
@@ -22,9 +23,10 @@ import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class EIAReportsForm extends VLayout {
+	private GHATitleTextItem filtersTitleItem, agrupTypeTitleItem;
 	private GHARadioGroupItem filterTypeRadioGroupItem;
 	private GHASelectItem estadoSelectItem, facilitySelectItem,
-			workingAreaSelectItem, tipoAgrupSelectItem;
+			workingAreaSelectItem, agrupTypeSelectItem;
 
 	public EIAReportsForm() {
 		DynamicForm form = new DynamicForm();
@@ -32,6 +34,10 @@ public class EIAReportsForm extends VLayout {
 		form.setNumCols(1);
 
 		// CREANDO LOS ITEMS
+		filtersTitleItem = new GHATitleTextItem("Filtros");
+
+		agrupTypeTitleItem = new GHATitleTextItem("Agrupación");
+
 		filterTypeRadioGroupItem = new GHARadioGroupItem(350, false);
 
 		estadoSelectItem = new GHASelectItem("Estado",
@@ -46,9 +52,9 @@ public class EIAReportsForm extends VLayout {
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		facilitySelectItem.setDisabled(true);
 
-		tipoAgrupSelectItem = new GHASelectItem("Agrupar por",
+		agrupTypeSelectItem = new GHASelectItem("Agrupar por",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
-		tipoAgrupSelectItem.setDisabled(false);
+		agrupTypeSelectItem.setDisabled(false);
 
 		filterTypeRadioGroupItem.addChangedHandler(new ChangedHandler() {
 			private void disableItems(boolean edoEq, boolean fac, boolean workAr) {
@@ -75,8 +81,9 @@ public class EIAReportsForm extends VLayout {
 		fillItemsWhitData();
 
 		// ASIGNANDO LOS ITEMS AL FORM Y DEVOLVIENDO EL LAYOUT
-		form.setItems(filterTypeRadioGroupItem, estadoSelectItem,
-				workingAreaSelectItem, facilitySelectItem, tipoAgrupSelectItem);
+		form.setItems(filtersTitleItem, filterTypeRadioGroupItem,
+				estadoSelectItem, workingAreaSelectItem, facilitySelectItem,
+				agrupTypeTitleItem, agrupTypeSelectItem);
 
 		addMember(form);
 	}
@@ -88,7 +95,7 @@ public class EIAReportsForm extends VLayout {
 		estadoSelectItem.clearValue();
 		facilitySelectItem.clearValue();
 		workingAreaSelectItem.clearValue();
-		tipoAgrupSelectItem.clearValue();
+		agrupTypeSelectItem.clearValue();
 	}
 
 	/**
@@ -106,8 +113,8 @@ public class EIAReportsForm extends VLayout {
 		map.put(getClassName(Facility.class), "Facilidad");
 		map.put(getClassName(WorkingArea.class), "Area de Trabajo");
 		map.put("noAgrup", "Sin agrupar");
-		tipoAgrupSelectItem.setValueMap(map);
-		tipoAgrupSelectItem.setDefaultValue("noAgrup");
+		agrupTypeSelectItem.setValueMap(map);
+		agrupTypeSelectItem.setDefaultValue("noAgrup");
 
 		estadoSelectItem.setValueMap(EiaStateEnum.toValueMap());
 
@@ -149,8 +156,8 @@ public class EIAReportsForm extends VLayout {
 		Citizen user = GHASessionData.getLoggedUser().getCitizen();
 		String loggedUser = user.getFirstName() + " " + user.getFirstLastName();
 
-		String group = tipoAgrupSelectItem.getValueAsString();
-		String groupDesc = tipoAgrupSelectItem.getDisplayValue();
+		String group = agrupTypeSelectItem.getValueAsString();
+		String groupDesc = agrupTypeSelectItem.getDisplayValue();
 
 		EiaReportFiltersEnum filterType = EiaReportFiltersEnum
 				.valueOf(filterTypeRadioGroupItem.getValueAsString());
