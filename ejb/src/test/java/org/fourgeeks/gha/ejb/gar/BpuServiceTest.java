@@ -15,7 +15,8 @@ import javax.transaction.UserTransaction;
 
 import junit.framework.Assert;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.ess.BpuFunction;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.ejb.GhaServiceTest;
 import org.jboss.arquillian.junit.Arquillian;
@@ -40,7 +41,8 @@ public class BpuServiceTest extends GhaServiceTest {
 	@Test
 	public void test() throws NotSupportedException, SystemException,
 			SecurityException, IllegalStateException, RollbackException,
-			HeuristicMixedException, HeuristicRollbackException, EJBException {
+			HeuristicMixedException, HeuristicRollbackException,
+			GHAEJBException {
 		Assert.assertNotNull(em);
 		Assert.assertNotNull(service);
 
@@ -60,7 +62,8 @@ public class BpuServiceTest extends GhaServiceTest {
 		Assert.assertEquals(entity, service.find(entity.getId()));
 		Assert.assertTrue(service.getAll() != null
 				&& service.getAll().size() >= 1);
-		entity.setPermissions(new ArrayList<String>());
+		Assert.assertNull(service.find(entity.getId()).getPermissions());
+		entity.setPermissions(new ArrayList<BpuFunction>());
 		entity = service.update(entity);
 		Assert.assertNotNull(service.find(entity.getId()).getPermissions());
 		long id = entity.getId();

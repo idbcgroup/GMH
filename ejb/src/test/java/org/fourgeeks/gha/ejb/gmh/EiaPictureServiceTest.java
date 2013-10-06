@@ -14,7 +14,7 @@ import javax.transaction.UserTransaction;
 import junit.framework.Assert;
 
 import org.fourgeeks.gha.domain.enu.EiaPictureStateEnum;
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.EiaPicture;
 import org.fourgeeks.gha.ejb.GhaServiceTest;
 import org.jboss.arquillian.junit.Arquillian;
@@ -39,7 +39,8 @@ public class EiaPictureServiceTest extends GhaServiceTest {
 	@Test
 	public void test() throws NotSupportedException, SystemException,
 			SecurityException, IllegalStateException, RollbackException,
-			HeuristicMixedException, HeuristicRollbackException, EJBException {
+			HeuristicMixedException, HeuristicRollbackException,
+			GHAEJBException {
 		Assert.assertNotNull(em);
 		Assert.assertNotNull(service);
 
@@ -60,7 +61,7 @@ public class EiaPictureServiceTest extends GhaServiceTest {
 				+ entity.getDescription() + "\nAFTER "
 				+ service.find(entity.getId()).getId() + " "
 				+ service.find(entity.getId()).getDescription());
-		//Assert.assertEquals(entity, service.find(entity.getId()));
+		// Assert.assertEquals(entity, service.find(entity.getId()));
 		Assert.assertTrue(service.find(entity.getEia()) != null
 				&& service.find(entity.getEia()).size() >= 1);
 		entity.setDescription("EiaPicture test description updated");

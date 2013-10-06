@@ -174,8 +174,6 @@ public class MaterialCategoryService implements MaterialCategoryServiceRemote {
 			throw new GHAEJBException(
 					"ERROR: no se puede eliminar el MaterialCategory "
 							+ e.getCause().getMessage());
-
 		}
 	}
-
 }
