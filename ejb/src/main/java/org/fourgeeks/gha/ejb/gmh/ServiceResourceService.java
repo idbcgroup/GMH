@@ -41,8 +41,9 @@ public class ServiceResourceService implements ServiceResourceServiceRemote {
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete Resource/Service",
 					e);
-			throw new GHAEJBException("Error eliminando Resource/Service por id "
-					+ e.getCause().getMessage());
+			throw new GHAEJBException(
+					"Error eliminando Resource/Service por id "
+							+ e.getCause().getMessage());
 		}
 	}
 
@@ -65,6 +66,7 @@ public class ServiceResourceService implements ServiceResourceServiceRemote {
 					.getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO,
+					"Error finding Resources/Services by ProtocolActivity", e);
 			throw new GHAEJBException(
 					"Error buscando Resources/Services por ProtocolActivity"
 							+ e.getCause().getMessage());
@@ -99,8 +101,9 @@ public class ServiceResourceService implements ServiceResourceServiceRemote {
 					ServiceResource.class).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding all Resource/Service", e);
-			throw new GHAEJBException("Error buscando todos los Resource/Service"
-					+ e.getCause().getMessage());
+			throw new GHAEJBException(
+					"Error buscando todos los Resource/Service"
+							+ e.getCause().getMessage());
 		}
 	}
 
@@ -120,8 +123,9 @@ public class ServiceResourceService implements ServiceResourceServiceRemote {
 					.setMaxResults(size).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding all Resource/Service", e);
-			throw new GHAEJBException("Error buscando todos los Resource/Service"
-					+ e.getCause().getMessage());
+			throw new GHAEJBException(
+					"Error buscando todos los Resource/Service"
+							+ e.getCause().getMessage());
 		}
 	}
 

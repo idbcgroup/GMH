@@ -13,7 +13,7 @@ import javax.transaction.UserTransaction;
 
 import junit.framework.Assert;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.EiaTypeComponent;
 import org.fourgeeks.gha.ejb.GhaServiceTest;
 import org.jboss.arquillian.junit.Arquillian;
@@ -38,7 +38,8 @@ public class EiaTypeComponentServiceTest extends GhaServiceTest {
 	@Test
 	public void test() throws NotSupportedException, SystemException,
 			SecurityException, IllegalStateException, RollbackException,
-			HeuristicMixedException, HeuristicRollbackException, EJBException {
+			HeuristicMixedException, HeuristicRollbackException,
+			GHAEJBException {
 		Assert.assertNotNull(em);
 		Assert.assertNotNull(service);
 

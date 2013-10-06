@@ -63,7 +63,7 @@ public class InstanceLogonService implements InstanceLogonServiceRemote {
 		} catch (Exception e) {
 			logger.log(Level.INFO,
 					"Error: finding InstanceLogon by InstanceLogon", e);
-			throw new EJBException(
+			throw new GHAEJBException(
 					"Error buscando InstanceLogon por InstanceLogon "
 							+ e.getCause().getMessage());
 		}
@@ -97,8 +97,9 @@ public class InstanceLogonService implements InstanceLogonServiceRemote {
 					InstanceLogon.class).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all InstanceLogon", ex);
-			throw new GHAEJBException("Error obteniendo todas las InstanceLogon"
-					+ ex.getCause().getMessage());
+			throw new GHAEJBException(
+					"Error obteniendo todas las InstanceLogon"
+							+ ex.getCause().getMessage());
 		}
 	}
 
@@ -110,7 +111,8 @@ public class InstanceLogonService implements InstanceLogonServiceRemote {
 	 * .gha.domain.ess.InstanceLogon)
 	 */
 	@Override
-	public InstanceLogon save(InstanceLogon instanceLogon) throws GHAEJBException {
+	public InstanceLogon save(InstanceLogon instanceLogon)
+			throws GHAEJBException {
 		try {
 			em.persist(instanceLogon);
 			em.flush();
@@ -137,9 +139,9 @@ public class InstanceLogonService implements InstanceLogonServiceRemote {
 			em.flush();
 			return res;
 		} catch (Exception e) {
-			logger.log(Level.INFO,
-					"ERROR: unable to update InstanceLogon ", e);
-			throw new GHAEJBException("ERROR: no se puede actualizar el InstanceLogon "
+			logger.log(Level.INFO, "ERROR: unable to update InstanceLogon ", e);
+			throw new GHAEJBException(
+					"ERROR: no se puede actualizar el InstanceLogon "
 							+ e.getCause().getMessage());
 		}
 	}

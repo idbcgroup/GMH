@@ -58,7 +58,7 @@ public class BpaService implements BpaServiceRemote {
 					.setParameter("bpa", bpa).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error finding Bpa by bpa", ex);
-			throw new EJBException("Error obteniendo Bpa por bpa"
+			throw new GHAEJBException("Error obteniendo Bpa por bpa"
 					+ ex.getCause().getMessage());
 		}
 	}

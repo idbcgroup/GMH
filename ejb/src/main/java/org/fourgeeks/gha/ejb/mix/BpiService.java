@@ -58,7 +58,7 @@ public class BpiService implements BpiServiceRemote {
 					.setParameter("bpi", bpi).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error finding Bpi by bpi", ex);
-			throw new EJBException("Error obteniendo Bpi por bpi"
+			throw new GHAEJBException("Error obteniendo Bpi por bpi"
 					+ ex.getCause().getMessage());
 		}
 	}

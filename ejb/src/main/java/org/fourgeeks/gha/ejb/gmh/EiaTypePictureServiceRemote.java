@@ -20,36 +20,36 @@ import org.fourgeeks.gha.domain.gmh.EiaTypePicture;
 public interface EiaTypePictureServiceRemote {
 	/**
 	 * @param eiaTypePicture
-	 * @throws GHAEJBException 
+	 * @throws GHAEJBException
 	 */
-	public void save(EiaTypePicture eiaTypePicture) throws GHAEJBException;
-			throws EJBException;
+	public EiaTypePicture save(EiaTypePicture eiaTypePicture)
+			throws GHAEJBException;
 
 	/**
 	 * @param Id
 	 * @return true if the object was deleted
-	 * @throws GHAEJBException 
+	 * @throws GHAEJBException
 	 */
 	public boolean delete(long Id) throws GHAEJBException;
 
 	/**
 	 * @param eiaTypePicture
 	 * @return true if the object was updated
-	 * @throws GHAEJBException 
+	 * @throws GHAEJBException
 	 */
 	public boolean update(EiaTypePicture eiaTypePicture) throws GHAEJBException;
 
 	/**
 	 * @param Id
 	 * @return the EiaTypePicture with this id
-	 * @throws GHAEJBException 
+	 * @throws GHAEJBException
 	 */
 	public EiaTypePicture find(long Id) throws GHAEJBException;
 
 	/**
 	 * @param eiaType
 	 * @return the list of EiaTypePicture pictures
-	 * @throws GHAEJBException 
+	 * @throws GHAEJBException
 	 */
 	public List<EiaTypePicture> find(EiaType eiaType) throws GHAEJBException;
 }

@@ -96,7 +96,7 @@ public class EiaPictureService implements EiaPictureServiceRemote {
 	 * gha.domain.gmh.EiaPicture)
 	 */
 	@Override
-	public void save(EiaPicture eiaPicture)  throws GHAEJBException {
+	public EiaPicture save(EiaPicture eiaPicture) throws GHAEJBException {
 		try {
 			em.persist(eiaPicture);
 			em.flush();
@@ -122,7 +122,8 @@ public class EiaPictureService implements EiaPictureServiceRemote {
 			return true;
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to update eiaPicture", e);
-			throw new GHAEJBException("Error actualizando eiaPicture " +e.getCause().getMessage());
+			throw new GHAEJBException("Error actualizando eiaPicture "
+					+ e.getCause().getMessage());
 		}
 	}
 

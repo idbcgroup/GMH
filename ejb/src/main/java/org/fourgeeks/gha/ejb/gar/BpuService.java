@@ -57,7 +57,7 @@ public class BpuService implements BpuServiceRemote {
 					.setParameter("bpu", bpu).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error finding Bpu by bpu", ex);
-			throw new EJBException("Error obteniendo Bpu por bpu"
+			throw new GHAEJBException("Error obteniendo Bpu por bpu"
 					+ ex.getCause().getMessage());
 		}
 	}

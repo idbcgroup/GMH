@@ -13,7 +13,7 @@ import javax.transaction.UserTransaction;
 
 import junit.framework.Assert;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.ejb.GhaServiceTest;
 import org.jboss.arquillian.junit.Arquillian;
@@ -38,7 +38,8 @@ public class MaintenanceProtocolServiceTest extends GhaServiceTest {
 	@Test
 	public void test() throws NotSupportedException, SystemException,
 			SecurityException, IllegalStateException, RollbackException,
-			HeuristicMixedException, HeuristicRollbackException, EJBException {
+			HeuristicMixedException, HeuristicRollbackException,
+			GHAEJBException {
 		Assert.assertNotNull(em);
 		Assert.assertNotNull(service);
 
@@ -58,10 +59,10 @@ public class MaintenanceProtocolServiceTest extends GhaServiceTest {
 				+ service.find(entity.getId()).getDescription());
 		// Assert.assertEquals(entity, service.find(entity.getId()));
 
-		Assert.assertTrue(service.findByEiaTypeMaintenancePlan(super
+		Assert.assertTrue(service.findByMaintenancePlan(super
 				.getMaintenancePlan(em)) != null
-				&& service.findByEiaTypeMaintenancePlan(
-						super.getMaintenancePlan(em)).size() >= 1);
+				&& service.findByMaintenancePlan(super.getMaintenancePlan(em))
+						.size() >= 1);
 		Assert.assertTrue(service.findByEiaTypeMaintenancePlan(
 				super.getMaintenancePlan(em), 0, 10) != null
 				&& service.findByEiaTypeMaintenancePlan(

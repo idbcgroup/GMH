@@ -13,7 +13,7 @@ import javax.transaction.UserTransaction;
 
 import junit.framework.Assert;
 
-import org.fourgeeks.gha.domain.exceptions.EJBException;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.glm.MaterialCategory;
 import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.ejb.GhaServiceTest;
@@ -39,7 +39,8 @@ public class MaterialCategoryServiceTest extends GhaServiceTest {
 	@Test
 	public void test() throws NotSupportedException, SystemException,
 			SecurityException, IllegalStateException, RollbackException,
-			HeuristicMixedException, HeuristicRollbackException, EJBException {
+			HeuristicMixedException, HeuristicRollbackException,
+			GHAEJBException {
 		Assert.assertNotNull(em);
 		Assert.assertNotNull(service);
 

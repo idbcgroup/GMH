@@ -52,7 +52,8 @@ public class WorkingAreaService implements WorkingAreaServiceRemote {
 	 * .gha.domain.ess.WorkingArea)
 	 */
 	@Override
-	public List<WorkingArea> find(WorkingArea entity) throws GHAEJBException {
+	public List<WorkingArea> find(WorkingArea workingArea)
+			throws GHAEJBException {
 		try {
 			return em
 					.createNamedQuery("WorkingArea.findByWorkingArea",
@@ -61,7 +62,7 @@ public class WorkingAreaService implements WorkingAreaServiceRemote {
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE,
 					"Error finding WorkingArea by workingArea", ex);
-			throw new EJBException(
+			throw new GHAEJBException(
 					"Error obteniendo WorkingAreas por workingArea"
 							+ ex.getCause().getMessage());
 		}
@@ -134,9 +135,9 @@ public class WorkingAreaService implements WorkingAreaServiceRemote {
 			em.flush();
 			return res;
 		} catch (Exception e) {
-			logger.log(Level.INFO,
-					"ERROR: unable to update WorkingArea ", e);
-			throw new GHAEJBException("ERROR: no se puede actualizar el WorkingArea "
+			logger.log(Level.INFO, "ERROR: unable to update WorkingArea ", e);
+			throw new GHAEJBException(
+					"ERROR: no se puede actualizar el WorkingArea "
 							+ e.getCause().getMessage());
 		}
 	}

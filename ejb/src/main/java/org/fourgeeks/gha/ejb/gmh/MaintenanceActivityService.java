@@ -43,7 +43,7 @@ public class MaintenanceActivityService implements
 		} catch (Exception e) {
 			logger.log(Level.INFO,
 					"ERROR: unable to delete MaintenanceActivity", e);
-			throw new GHAEJBException("Error eliminando MaintenanceActivity por id "
+			throw new GHAEJBException(
 					"Error eliminando MaintenanceActivity por id "
 							+ e.getCause().getMessage());
 		}
@@ -58,8 +58,7 @@ public class MaintenanceActivityService implements
 	 */
 	@Override
 	public List<MaintenanceActivity> findByMaintenanceProtocol(
-			MaintenanceProtocol maintenanceProtocol)
-			throws GHAEJBException {
+			MaintenanceProtocol maintenanceProtocol) throws GHAEJBException {
 		try {
 			return em
 					.createNamedQuery(
@@ -69,9 +68,10 @@ public class MaintenanceActivityService implements
 					.getResultList();
 		} catch (Exception e) {
 			logger.log(
-			throw new GHAEJBException(
+					Level.INFO,
 					"Error: finding MaintenanceActivity by MaintenanceProtocol",
 					e);
+			throw new GHAEJBException(
 					"Error buscando MaintenanceActivity por MaintenanceProtocol"
 							+ e.getCause().getMessage());
 		}
@@ -86,8 +86,8 @@ public class MaintenanceActivityService implements
 	 */
 	@Override
 	public List<MaintenanceActivity> findByMaintenanceProtocol(
-			MaintenanceProtocol maintenanceProtocol, int offset,
-			int size) throws GHAEJBException {
+			MaintenanceProtocol maintenanceProtocol, int offset, int size)
+			throws GHAEJBException {
 		try {
 			return em
 					.createNamedQuery(
@@ -112,7 +112,7 @@ public class MaintenanceActivityService implements
 	 */
 	@Override
 	public List<MaintenanceActivity> findByServiceResource(
-			throws GHAEJBException {
+			ServiceResource serviceResource) throws GHAEJBException {
 		try {
 			return em
 					.createNamedQuery(
@@ -157,8 +157,9 @@ public class MaintenanceActivityService implements
 					MaintenanceActivity.class).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding all MaintenanceActivity", e);
-			throw new GHAEJBException("Error buscando todos los MaintenanceActivity"
-					+ e.getCause().getMessage());
+			throw new GHAEJBException(
+					"Error buscando todos los MaintenanceActivity"
+							+ e.getCause().getMessage());
 		}
 	}
 
@@ -179,8 +180,9 @@ public class MaintenanceActivityService implements
 					.setMaxResults(size).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding all MaintenanceActivity", e);
-			throw new GHAEJBException("Error buscando todos los MaintenanceActivity"
-					+ e.getCause().getMessage());
+			throw new GHAEJBException(
+					"Error buscando todos los MaintenanceActivity"
+							+ e.getCause().getMessage());
 		}
 	}
 

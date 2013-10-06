@@ -58,7 +58,7 @@ public class CitizenService implements CitizenServiceRemote {
 					.setParameter("citizen", citizen).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error finding Citizen by citizen", ex);
-			throw new EJBException("Error obteniendo Citizen por citizen"
+			throw new GHAEJBException("Error obteniendo Citizen por citizen"
 					+ ex.getCause().getMessage());
 		}
 	}
@@ -131,8 +131,9 @@ public class CitizenService implements CitizenServiceRemote {
 			return res;
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to update Citizen ", e);
-			throw new GHAEJBException("ERROR: no se puede actualizar el Citizen "
-					+ e.getCause().getMessage());
+			throw new GHAEJBException(
+					"ERROR: no se puede actualizar el Citizen "
+							+ e.getCause().getMessage());
 		}
 	}
 

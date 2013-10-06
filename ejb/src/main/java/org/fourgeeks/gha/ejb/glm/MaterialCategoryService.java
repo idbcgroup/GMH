@@ -40,8 +40,10 @@ public class MaterialCategoryService implements MaterialCategoryServiceRemote {
 			em.remove(entity);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete MaterialCategory",
-			throw new GHAEJBException("ERROR: unable to delete MaterialCategory "
-					+ e.getCause().getMessage());
+					e);
+			throw new GHAEJBException(
+					"ERROR: unable to delete MaterialCategory "
+							+ e.getCause().getMessage());
 		}
 	}
 
@@ -65,7 +67,7 @@ public class MaterialCategoryService implements MaterialCategoryServiceRemote {
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE,
 					"Error finding MaterialCategories by materialCategory", ex);
-			throw new EJBException(
+			throw new GHAEJBException(
 					"Error obteniendo MaterialCategories por materialCategory"
 							+ ex.getCause().getMessage());
 		}
@@ -100,8 +102,10 @@ public class MaterialCategoryService implements MaterialCategoryServiceRemote {
 					MaterialCategory.class).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all MaterialCategories",
-			throw new GHAEJBException("Error obteniendo todas los MaterialCategories"
-					+ ex.getCause().getMessage());
+					ex);
+			throw new GHAEJBException(
+					"Error obteniendo todas los MaterialCategories"
+							+ ex.getCause().getMessage());
 		}
 	}
 
@@ -122,8 +126,10 @@ public class MaterialCategoryService implements MaterialCategoryServiceRemote {
 					.setMaxResults(size).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all MaterialCategories",
-			throw new GHAEJBException("Error obteniendo todas los MaterialCategories"
-					+ ex.getCause().getMessage());
+					ex);
+			throw new GHAEJBException(
+					"Error obteniendo todas los MaterialCategories"
+							+ ex.getCause().getMessage());
 		}
 	}
 
@@ -164,9 +170,10 @@ public class MaterialCategoryService implements MaterialCategoryServiceRemote {
 			return res;
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to update MaterialCategory ",
-			throw new GHAEJBException("ERROR: no se puede eliminar el MaterialCategory "
-					+ e.getCause().getMessage());
+					e);
+			throw new GHAEJBException(
+					"ERROR: no se puede eliminar el MaterialCategory "
+							+ e.getCause().getMessage());
 		}
 	}
-
 }

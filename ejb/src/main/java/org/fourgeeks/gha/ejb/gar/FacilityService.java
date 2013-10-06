@@ -51,15 +51,16 @@ public class FacilityService implements FacilityServiceRemote {
 	 * .domain.gar.Facility)
 	 */
 	@Override
-	public List<Facility> find(Facility entity) throws GHAEJBException {
+	public List<Facility> find(Facility facility) throws GHAEJBException {
 		try {
 			return em
 					.createNamedQuery("Facility.findByFacility", Facility.class)
 					.setParameter("facility", facility).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error finding Facilities by facility", ex);
-			throw new EJBException("Error obteniendo Facilities por facility"
-					+ ex.getCause().getMessage());
+			throw new GHAEJBException(
+					"Error obteniendo Facilities por facility"
+							+ ex.getCause().getMessage());
 		}
 	}
 
@@ -131,8 +132,9 @@ public class FacilityService implements FacilityServiceRemote {
 			return res;
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to update Facility ", e);
-			throw new GHAEJBException("ERROR: no se puede actualizar el Facility "
-					+ e.getCause().getMessage());
+			throw new GHAEJBException(
+					"ERROR: no se puede actualizar el Facility "
+							+ e.getCause().getMessage());
 		}
 	}
 

@@ -45,8 +45,9 @@ public class MaintenanceSubProtocolService implements
 		} catch (Exception e) {
 			logger.log(Level.INFO,
 					"ERROR: unable to delete MaintenanceSubProtocol", e);
-			throw new GHAEJBException("Error eliminando MaintenanceSubProtocol por id "
-					+ e.getCause().getMessage());
+			throw new GHAEJBException(
+					"Error eliminando MaintenanceSubProtocol por id "
+							+ e.getCause().getMessage());
 		}
 	}
 
@@ -67,7 +68,9 @@ public class MaintenanceSubProtocolService implements
 					.setParameter("parentMaintenanceActivity",
 							maintenanceActivity).getResultList();
 		} catch (Exception e) {
-			logger.log(
+			logger.log(Level.INFO,
+					"Error finding ProtocolActivity by MaintenanceSubProtocol",
+					e);
 			throw new GHAEJBException(
 					"Error buscando ProtocolActivity por MaintenanceSubProtocol"
 							+ e.getCause().getMessage());
@@ -104,8 +107,10 @@ public class MaintenanceSubProtocolService implements
 					MaintenanceSubProtocol.class).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding all MaintenanceSubProtocol",
-			throw new GHAEJBException("Error buscando todos los MaintenanceSubProtocol"
-					+ e.getCause().getMessage());
+					e);
+			throw new GHAEJBException(
+					"Error buscando todos los MaintenanceSubProtocol"
+							+ e.getCause().getMessage());
 		}
 	}
 
@@ -126,8 +131,10 @@ public class MaintenanceSubProtocolService implements
 					.setFirstResult(offset).setMaxResults(size).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding all MaintenanceSubProtocol",
-			throw new GHAEJBException("Error buscando todos los MaintenanceSubProtocol"
-					+ e.getCause().getMessage());
+					e);
+			throw new GHAEJBException(
+					"Error buscando todos los MaintenanceSubProtocol"
+							+ e.getCause().getMessage());
 		}
 	}
 

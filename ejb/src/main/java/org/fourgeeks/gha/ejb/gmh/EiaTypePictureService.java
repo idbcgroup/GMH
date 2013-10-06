@@ -34,7 +34,7 @@ public class EiaTypePictureService implements EiaTypePictureServiceRemote {
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypePictureServiceRemote#delete(long)
 	 */
 	@Override
-	public boolean delete(long Id)  throws GHAEJBException{
+	public boolean delete(long Id) throws GHAEJBException {
 		try {
 			EiaTypePicture entity = em.find(EiaTypePicture.class, Id);
 			em.remove(entity);
@@ -55,7 +55,7 @@ public class EiaTypePictureService implements EiaTypePictureServiceRemote {
 	 * .gha.domain.gmh.EiaType)
 	 */
 	@Override
-	public List<EiaTypePicture> find(EiaType eiaType)  throws GHAEJBException{
+	public List<EiaTypePicture> find(EiaType eiaType) throws GHAEJBException {
 		try {
 			return em
 					.createNamedQuery("EiaTypePicture.findByEiaType",
@@ -64,7 +64,7 @@ public class EiaTypePictureService implements EiaTypePictureServiceRemote {
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE,
 					"Error finding EiaTypePictures by eiaType", ex);
-			throw new EJBException(
+			throw new GHAEJBException(
 					"Error obteniendo EiaTypePictures por eiaType"
 							+ ex.getCause().getMessage());
 		}
@@ -94,8 +94,8 @@ public class EiaTypePictureService implements EiaTypePictureServiceRemote {
 	 * .gha.domain.gmh.EiaTypePicture)
 	 */
 	@Override
-	public void save(EiaTypePicture eiaTypePicture) throws GHAEJBException {
-			throws EJBException {
+	public EiaTypePicture save(EiaTypePicture eiaTypePicture)
+			throws GHAEJBException {
 		try {
 			em.persist(eiaTypePicture);
 			em.flush();
@@ -116,15 +116,14 @@ public class EiaTypePictureService implements EiaTypePictureServiceRemote {
 	 * .gha.domain.gmh.EiaTypePicture)
 	 */
 	@Override
-	public boolean update(EiaTypePicture eiaTypePicture)  throws GHAEJBException{
+	public boolean update(EiaTypePicture eiaTypePicture) throws GHAEJBException {
 		try {
 			em.merge(eiaTypePicture);
 			return true;
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to update eiaTypePicture", e);
-			throw new GHAEJBException("Error actualizando eiaTypePicture " +e.getCause().getMessage());
+			throw new GHAEJBException("Error actualizando eiaTypePicture "
 					+ e.getCause().getMessage());
 		}
 	}
-
 }
