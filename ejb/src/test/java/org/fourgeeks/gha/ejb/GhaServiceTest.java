@@ -30,6 +30,7 @@ import org.fourgeeks.gha.domain.gmh.MaintenanceActivityMaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivityServiceResource;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
+import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.domain.gmh.ServiceResource;
 import org.fourgeeks.gha.domain.logs.LogonLog;
 import org.fourgeeks.gha.domain.mix.Bpa;
@@ -74,6 +75,7 @@ public class GhaServiceTest {
 	private MaintenanceActivityServiceResource maintenanceActivityServiceResource = null;
 	private MaintenancePlan maintenancePlan = null;
 	private MaintenanceProtocol maintenanceProtocol = null;
+	private Manufacturer manufacturer;
 	private Obu obu = null;
 	private Role role = null;
 	private ServiceResource serviceResource = null;
@@ -326,6 +328,18 @@ public class GhaServiceTest {
 					maintenanceProtocol.getId());
 		}
 		return maintenanceProtocol;
+	}
+
+	public Manufacturer getManufacturer(EntityManager em) {
+		if (manufacturer == null) {
+			Manufacturer manufacturer = new Manufacturer();
+			manufacturer.setName("Manufacturer test name");
+			em.persist(manufacturer);
+			em.flush();
+			this.manufacturer = em.find(Manufacturer.class,
+					manufacturer.getId());
+		}
+		return manufacturer;
 	}
 
 	public Obu getObu(EntityManager em) {
