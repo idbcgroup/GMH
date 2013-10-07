@@ -114,8 +114,8 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer {
 		});
 
 		form.setItems(codeItem, nameItem, typeItem, subTypeItem,
-				descriptionItem, mobilityItem, useDescriptionItem, brandItem,
-				manItem, modelItem, eiaUmdnsItem);
+				descriptionItem, mobilityItem, useDescriptionItem,
+				eiaUmdnsItem, manItem, brandItem, modelItem);
 
 		gridPanel.addMembers(form, new LayoutSpacer());
 		addMember(gridPanel);
@@ -237,7 +237,15 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer {
 	}
 
 	public void activateForm(boolean activate) {
-		// TODO brandItem.setDisabled(!activate);
+		if (activate) {
+			if (manItem.getValue() != null
+					&& !manItem.getValueAsString().isEmpty()) {
+				brandItem.setDisabled(false);
+			} else {
+				brandItem.setDisabled(true);
+			}
+		} else
+			brandItem.setDisabled(!activate);
 		manItem.setDisabled(!activate);
 		codeItem.setDisabled(!activate);
 		nameItem.setDisabled(!activate);
