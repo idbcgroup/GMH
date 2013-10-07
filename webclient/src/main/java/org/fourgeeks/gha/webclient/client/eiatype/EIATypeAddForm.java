@@ -16,6 +16,7 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAComboboxItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
@@ -38,6 +39,10 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
+/**
+ * @author alacret
+ * 
+ */
 public class EIATypeAddForm extends GHASlideInWindow implements
 		EiaTypeSelectionProducer {
 
@@ -53,22 +58,37 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 	{
 		listeners = new ArrayList<EIATypeSelectionListener>();
 		codeItem = new GHATextItem("Código", 150);
+		codeItem.setRequired(true);
+		codeItem.setLength(20);
+		codeItem.setMask("AAAAAAAAAAAAAAAAAAAA");
 		nameItem = new GHATextItem("Nombre", 150);
+		nameItem.setRequired(true);
+		nameItem.setLength(255);
 		modelItem = new GHATextItem("Modelo", 150);
+		modelItem.setLength(20);
 		descriptionItem = new GHATextItem("Descripción", 480);
 		descriptionItem.setColSpan(3);
+		descriptionItem.setLength(255);
 		useDescriptionItem = new GHATextItem("Uso", 480);
 		useDescriptionItem.setColSpan(3);
+		useDescriptionItem.setLength(255);
 		eiaUmdnsItem = new GHATextItem("EIAUMDNS", 150);
+		eiaUmdnsItem.setLength(16);
+		eiaUmdnsItem.setMask("AAAAAAAAAAAAAAAAAAAA");
 		manItem = new GHAComboboxItem<Manufacturer>("Fabricante", 150);
 		brandItem = new GHAComboboxItem<Brand>("Marca", 150);
 		mobilityItem = new GHASelectItem("Movilidad", 150);
+		mobilityItem.setRequired(true);
 		typeItem = new GHASelectItem("Tipo", 150);
+		typeItem.setRequired(true);
 		subTypeItem = new GHASelectItem("Subtipo", 150);
-
+		
 		validator = Validation.buildDefaultValidatorFactory().getValidator();
 	}
 
+	/**
+	 * 
+	 */
 	public EIATypeAddForm() {
 		super(2);
 		setHeight(GHAUiHelper.getBottomSectionHeight());
@@ -83,32 +103,33 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 		final DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(4);
-		
-		//disable the brand select if no manufacturer is selected
+
+		// disable the brand select if no manufacturer is selected
 		brandItem.disable();
-		
-		//set the handler for selected manufacturer
+
+		// set the handler for selected manufacturer
 		manItem.addChangedHandler(new ChangedHandler() {
-			
+
 			@Override
 			public void onChanged(ChangedEvent event) {
 				String manItemValue = manItem.getValueAsString();
-				if(manItemValue == null || manItemValue.isEmpty()){
+				if (manItemValue == null || manItemValue.isEmpty()) {
 					brandItem.disable();
 					brandItem.setValue("");
-				}else{
+				} else {
 					if (manItemValue.matches("[1-9]+\\d*")) {
-						fillBrands(new Manufacturer(Integer.valueOf(manItemValue), null));
+						fillBrands(new Manufacturer(Integer
+								.valueOf(manItemValue), null));
 					}
 					brandItem.setValue("");
 					brandItem.enable();
 				}
 			}
 		});
-		
-		form.setItems(manItem, brandItem, typeItem, subTypeItem,
-				descriptionItem, mobilityItem, useDescriptionItem, codeItem,
-				nameItem, modelItem, eiaUmdnsItem);
+
+		form.setItems(codeItem, nameItem, typeItem, subTypeItem,
+				descriptionItem, mobilityItem, useDescriptionItem, brandItem,
+				manItem, modelItem, eiaUmdnsItem);
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
 				"../resources/icons/save.png", new ClickHandler() {
@@ -132,7 +153,6 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 		fillMans(true);
 		fillExtras();
 	}
-
 
 	protected void cancel() {
 		hide();
@@ -177,28 +197,30 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 	}
 
 	private void fillBrands(Manufacturer manufacturer) {
-		BrandModel.findByManufacturer(manufacturer, new GHAAsyncCallback<List<Brand>>() {
+		BrandModel.findByManufacturer(manufacturer,
+				new GHAAsyncCallback<List<Brand>>() {
 
-			@Override
-			public void onSuccess(List<Brand> result) {
-				LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-				for (Brand brand : result)
-					valueMap.put(brand.getId() + "", brand.getName());
-				brandItem.setValueMap(valueMap);
-			}
-		
-		});
-//		GHACache.INSTANCE.getBrands(new GHAAsyncCallback<List<Brand>>() {
-//
-//			@Override
-//			public void onSuccess(List<Brand> result) {
-//				LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-//				for (Brand brand : result)
-//					valueMap.put(brand.getId() + "", brand.getName());
-//				brandItem.setValueMap(valueMap);
-//
-//			}
-//		}, false);
+					@Override
+					public void onSuccess(List<Brand> result) {
+						LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+						for (Brand brand : result)
+							valueMap.put(brand.getId() + "", brand.getName());
+						brandItem.setValueMap(valueMap);
+					}
+
+				});
+		// GHACache.INSTANCE.getBrands(new GHAAsyncCallback<List<Brand>>() {
+		//
+		// @Override
+		// public void onSuccess(List<Brand> result) {
+		// LinkedHashMap<String, String> valueMap = new LinkedHashMap<String,
+		// String>();
+		// for (Brand brand : result)
+		// valueMap.put(brand.getId() + "", brand.getName());
+		// brandItem.setValueMap(valueMap);
+		//
+		// }
+		// }, false);
 
 	}
 
@@ -232,11 +254,12 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 		}
 		if (manItem.getValue() != null) {
 			if (manItem.getValueAsString().matches("[1-9]+\\d*")) {
-				eiaType.getBrand().setManufacturer(new Manufacturer(Integer
-						.valueOf(manItem.getValueAsString()), null));
+				eiaType.getBrand().setManufacturer(
+						new Manufacturer(Integer.valueOf(manItem
+								.getValueAsString()), null));
 			} else {
-				eiaType.getBrand().setManufacturer(new Manufacturer(manItem
-						.getValueAsString()));
+				eiaType.getBrand().setManufacturer(
+						new Manufacturer(manItem.getValueAsString()));
 			}
 		}
 		eiaType.setCode(codeItem.getValueAsString());
@@ -263,15 +286,16 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 				public void onSuccess(EiaType result) {
 					select(result);
 					cancel();
-					
-					//reload manufacturers, possibly one new
+
+					// reload manufacturers, possibly one new
 					fillMans(true);
 					brandItem.clearValue();
 					brandItem.disable();
 				}
 			});
 		else
-			GHANotification.alert(violations.iterator().next().getMessage());
+			GHANotification.alert(GHAStrings.get(violations.iterator().next()
+					.getMessage()));
 	}
 
 	protected void select(EiaType eiaType) {

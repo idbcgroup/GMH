@@ -24,10 +24,12 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret, emiliot
  * 
  */
-public class MaintenanceProtocolInformationFormPanel extends VLayout implements GHAClosable, GHAHideable, MaintenanceProtocolSelectionListener, MaintenanceProtocolSelectionProducer {
+public class MaintenanceProtocolInformationFormPanel extends VLayout implements
+		GHAClosable, GHAHideable, MaintenanceProtocolSelectionListener,
+		MaintenanceProtocolSelectionProducer {
 	private MaintenanceProtocolForm maintenanceProtocolForm;
 	private List<MaintenanceProtocolSelectionListener> listeners;
-	
+
 	private MaintenanceProtocol originalMaintenanceProtocol;
 	{
 		maintenanceProtocolForm = new MaintenanceProtocolForm();
@@ -38,7 +40,7 @@ public class MaintenanceProtocolInformationFormPanel extends VLayout implements 
 	public MaintenanceProtocolInformationFormPanel(MaintenanceProtocolTab tab) {
 		activateForm(false);
 		tab.addGHAClosableHandler(this);
-		
+
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
@@ -61,11 +63,12 @@ public class MaintenanceProtocolInformationFormPanel extends VLayout implements 
 				}));
 
 		HLayout gridPanel = new HLayout();
-		gridPanel.addMembers(maintenanceProtocolForm, new LayoutSpacer(), sideButtons);
+		gridPanel.addMembers(maintenanceProtocolForm, new LayoutSpacer(),
+				sideButtons);
 
 		addMember(gridPanel);
-		
-		//register as maintenanceProtocolSelectionListener with the Form
+
+		// register as maintenanceProtocolSelectionListener with the Form
 		maintenanceProtocolForm.addMaintenanceProtocolSelectionListener(this);
 	}
 
@@ -75,7 +78,7 @@ public class MaintenanceProtocolInformationFormPanel extends VLayout implements 
 
 	protected void undo() {
 		select(this.originalMaintenanceProtocol);
-//		save();
+		// save();
 	}
 
 	private void save() {
@@ -101,9 +104,15 @@ public class MaintenanceProtocolInformationFormPanel extends VLayout implements 
 		maintenanceProtocolForm.activateForm(true);
 	}
 
-	//Producer/Consumer stuff
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionProducer#addMaintenanceProtocolSelectionListener(org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionListener)
+	// Producer/Consumer stuff
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceprotocol.
+	 * MaintenanceProtocolSelectionProducer
+	 * #addMaintenanceProtocolSelectionListener
+	 * (org.fourgeeks.gha.webclient.client
+	 * .maintenanceprotocol.MaintenanceProtocolSelectionListener)
 	 */
 	@Override
 	public void addMaintenanceProtocolSelectionListener(
@@ -111,8 +120,14 @@ public class MaintenanceProtocolInformationFormPanel extends VLayout implements 
 		listeners.add(maintenanceProtocolSelectionListener);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionProducer#removeMaintenanceProtocolSelectionListener(org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionListener)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceprotocol.
+	 * MaintenanceProtocolSelectionProducer
+	 * #removeMaintenanceProtocolSelectionListener
+	 * (org.fourgeeks.gha.webclient.client
+	 * .maintenanceprotocol.MaintenanceProtocolSelectionListener)
 	 */
 	@Override
 	public void removeMaintenanceProtocolSelectionListener(
@@ -120,12 +135,16 @@ public class MaintenanceProtocolInformationFormPanel extends VLayout implements 
 		listeners.remove(maintenanceProtocolSelectionListener);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionListener#select(org.fourgeeks.gha.domain.gmh.MaintenanceProtocol)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceprotocol.
+	 * MaintenanceProtocolSelectionListener
+	 * #select(org.fourgeeks.gha.domain.gmh.MaintenanceProtocol)
 	 */
 	@Override
 	public void select(MaintenanceProtocol maintenanceProtocol) {
-		for(MaintenanceProtocolSelectionListener listener : listeners)
+		for (MaintenanceProtocolSelectionListener listener : listeners)
 			listener.select(maintenanceProtocol);
 	}
 }

@@ -27,10 +27,13 @@ public abstract class GHASlideInWindow extends VLayout implements
 		setStyleName("sides-padding padding-top box");
 		setAlign(Alignment.CENTER);
 		setVisibility(Visibility.HIDDEN);
-		setAnimateTime(600);  
+		setAnimateTime(600);
 		GHAUiHelper.addGHAResizeHandler(this);
 	}
-	
+
+	/**
+	 * @param level
+	 */
 	public GHASlideInWindow(int level) {
 		setWidth100();
 		if (level <= 1)

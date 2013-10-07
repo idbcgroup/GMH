@@ -11,12 +11,19 @@ import com.smartgwt.client.widgets.events.MouseOverEvent;
 import com.smartgwt.client.widgets.events.MouseOverHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 
+/**
+ * @author alacret
+ * 
+ */
 public class GHATabHeader extends HLayout {
 
 	private HTML titulo;
 	private HTML cerrar;
 	private GHATab tab;
 
+	/**
+	 * @param tab
+	 */
 	public GHATabHeader(GHATab tab) {
 		this.tab = tab;
 		setStylePrimaryName("tab-header");
@@ -47,22 +54,22 @@ public class GHATabHeader extends HLayout {
 				close();
 			}
 		});
-		
+
 		addMouseOverHandler(new MouseOverHandler() {
-			
+
 			@Override
 			public void onMouseOver(MouseOverEvent event) {
 				getElement().addClassName("tab-header-over");
 			}
 		});
-		
+
 		addMouseOutHandler(new MouseOutHandler() {
 			@Override
 			public void onMouseOut(MouseOutEvent event) {
 				getElement().removeClassName("tab-header-over");
 			}
 		});
-		
+
 		addMember(cerrar);
 	}
 
@@ -78,14 +85,19 @@ public class GHATabHeader extends HLayout {
 	public void setTitle(String title) {
 		titulo.setHTML(title);
 	}
-	
-	public void selectTab(){
+
+	/**
+	 * 
+	 */
+	public void selectTab() {
 		getElement().addClassName("tab-header-selected");
 	}
-	
-	public void deselectTab(){
+
+	/**
+	 * 
+	 */
+	public void deselectTab() {
 		getElement().removeClassName("tab-header-selected");
 	}
-
 
 }

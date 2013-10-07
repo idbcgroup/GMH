@@ -1,13 +1,14 @@
-	/**
+/**
  * 
  */
 package org.fourgeeks.gha.domain.gmh;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 
@@ -18,11 +19,8 @@ import org.fourgeeks.gha.domain.AbstractEntity;
 
 @Entity
 @NamedQueries(value = {
-		@NamedQuery(name = "MaintenanceProtocol.findByMaintenancePlan", 
-				query = "SELECT e from MaintenanceProtocol e WHERE e.maintenancePlan = :maintenancePlan ORDER BY e.id"),
-		@NamedQuery(name = "MaintenanceProtocol.getAll",
-				query = "SELECT e from MaintenanceProtocol e ORDER BY e.id")
-})
+		@NamedQuery(name = "MaintenanceProtocol.findByMaintenancePlan", query = "SELECT prot from MaintenancePlanMaintenanceProtocol e JOIN e.maintenanceProtocol prot WHERE e.maintenancePlan = :maintenancePlan ORDER BY e.id"),
+		@NamedQuery(name = "MaintenanceProtocol.getAll", query = "SELECT e from MaintenanceProtocol e ORDER BY e.id") })
 public class MaintenanceProtocol extends AbstractEntity {
 
 	/**
@@ -30,32 +28,23 @@ public class MaintenanceProtocol extends AbstractEntity {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@ManyToOne
-	@JoinColumn(name = "maintenancePlanFk")
-	private MaintenancePlan maintenancePlan;
-	
+	@Size(max = 100)
+	@NotNull(message = "name-not-null")
+	@Column(nullable = false)
 	private String name;
-
 	private String description;
 
 	/**
 	 * 
 	 */
 	public MaintenanceProtocol() {
-		// TODO Auto-generated constructor stub
 	}
 
-	public MaintenancePlan getMaintenancePlan() {
-		return maintenancePlan;
-	}
-
+	/**
+	 * @return the description
+	 */
 	public String getDescription() {
 		return description;
-	}
-
-	public void setMaintenancePlan(
-			MaintenancePlan maintenancePlan) {
-		this.maintenancePlan = maintenancePlan;
 	}
 
 	public void setDescription(String description) {

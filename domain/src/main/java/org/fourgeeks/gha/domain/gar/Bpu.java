@@ -37,7 +37,7 @@ public class Bpu extends AbstractEntity {
 	/**
 	 * This is when the bpu belongs to the bpi
 	 */
-	@NotNull
+	@NotNull(message = "bpi-not-null")
 	@ManyToOne
 	@JoinColumn(name = "bpiFk", nullable = false)
 	private Bpi bpi;
@@ -46,7 +46,7 @@ public class Bpu extends AbstractEntity {
 	 * The citizen associated with this bpu
 	 */
 	@NotNull
-	@OneToOne(cascade = {CascadeType.MERGE})
+	@OneToOne(cascade = { CascadeType.MERGE })
 	@JoinColumn(name = "citizenFk", nullable = false)
 	private Citizen citizen; // TODO : No debe ir aqui, los citizen son BPA,
 								// debe haber una relacion con BPA

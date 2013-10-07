@@ -5,16 +5,20 @@ package org.fourgeeks.gha.webclient.client.maintenanceplan;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
+import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 
 import com.google.gwt.validation.client.impl.Validation;
 import com.smartgwt.client.types.TitleOrientation;
@@ -29,26 +33,31 @@ import com.smartgwt.client.widgets.layout.VLayout;
  */
 public class MaintenancePlanForm extends VLayout implements
 		MaintenancePlanSelectionProducer {
-	
+
 	private List<MaintenancePlanSelectionListener> listeners;
 
 	private GHATextItem nameItem, frequencyItem, descriptionItem;
 	private GHASelectItem periodOfTimeItem;
 	private Validator validator;
-	
+
 	/**
-	 * this is used to keep the id of the persistent entity in order to
-	 * update, is only used with that purpose
+	 * this is used to keep the id of the persistent entity in order to update,
+	 * is only used with that purpose
 	 */
 	private MaintenancePlan updatePlan;
 
 	{
 		nameItem = new GHATextItem("Nombre",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		nameItem.setLength(100);
+		nameItem.setRequired(true);
 		frequencyItem = new GHATextItem("Frecuencia",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		frequencyItem.setRequired(true);
+		frequencyItem.setLength(3);
 		periodOfTimeItem = new GHASelectItem("Periodo de Tiempo",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		periodOfTimeItem.setRequired(true);
 		descriptionItem = new GHATextItem("Descripción", 620);
 		descriptionItem.setColSpan(4);
 
@@ -56,6 +65,9 @@ public class MaintenancePlanForm extends VLayout implements
 		listeners = new ArrayList<MaintenancePlanSelectionListener>();
 	}
 
+	/**
+	 * 
+	 */
 	public MaintenancePlanForm() {
 		final HLayout mainPanel = new HLayout();
 		final DynamicForm form = new DynamicForm();
@@ -92,19 +104,20 @@ public class MaintenancePlanForm extends VLayout implements
 	 */
 	public void save() {
 		MaintenancePlan maintenancePlan = extract(false);
-		
-		//if validation fail
-		if(maintenancePlan == null)
+
+		// if validation fail
+		if (maintenancePlan == null)
 			return;
-		
-		MaintenancePlanModel.save(maintenancePlan, new GHAAsyncCallback<MaintenancePlan>() {
-			
-			@Override
-			public void onSuccess(MaintenancePlan result) {
-				notifyMaintenancePlan(result);
-				cancel();
-			}
-		});
+
+		MaintenancePlanModel.save(maintenancePlan,
+				new GHAAsyncCallback<MaintenancePlan>() {
+
+					@Override
+					public void onSuccess(MaintenancePlan result) {
+						notifyMaintenancePlan(result);
+						cancel();
+					}
+				});
 	}
 
 	/**
@@ -112,28 +125,34 @@ public class MaintenancePlanForm extends VLayout implements
 	 */
 	private MaintenancePlan extract(boolean update) {
 		final MaintenancePlan maintenancePlan = new MaintenancePlan();
-		if(update){
+		if (update) {
 			maintenancePlan.setId(this.updatePlan.getId());
 		}
-		
-		if(nameItem.getValue() != null){
+
+		if (nameItem.getValue() != null) {
 			maintenancePlan.setName(nameItem.getValueAsString());
 		}
-		if(descriptionItem.getValue() != null){
+		if (descriptionItem.getValue() != null) {
 			maintenancePlan.setDescription(descriptionItem.getValueAsString());
 		}
-		
-		//TODO: handle number format exception
-		if(frequencyItem.getValue() != null){
+
+		// TODO: handle number format exception
+		if (frequencyItem.getValue() != null) {
 			maintenancePlan.setFrequency(Integer.valueOf(frequencyItem
-				.getValueAsString()));
+					.getValueAsString()));
 		}
 		if (periodOfTimeItem.getValue() != null) {
 			maintenancePlan.setPot(TimePeriodEnum.valueOf(periodOfTimeItem
 					.getValueAsString()));
 		}
-		
-		//TODO: validate
+
+		Set<ConstraintViolation<MaintenancePlan>> violations = validator
+				.validate(maintenancePlan);
+		if (!violations.isEmpty()) {
+			GHANotification.alert(GHAStrings.get(violations.iterator().next()
+					.getMessage()));
+			return null;
+		}
 		return maintenancePlan;
 	}
 
@@ -142,21 +161,22 @@ public class MaintenancePlanForm extends VLayout implements
 	 */
 	public void update() {
 		MaintenancePlan maintenancePlan = extract(true);
-		
-		//if validation fails
-		if(maintenancePlan == null)
-			return;
-		
-		MaintenancePlanModel.update(maintenancePlan, new GHAAsyncCallback<MaintenancePlan>() {
 
-			@Override
-			public void onSuccess(MaintenancePlan result) {
-				notifyMaintenancePlan(result);
-			}
-		});
+		// if validation fails
+		if (maintenancePlan == null)
+			return;
+
+		MaintenancePlanModel.update(maintenancePlan,
+				new GHAAsyncCallback<MaintenancePlan>() {
+
+					@Override
+					public void onSuccess(MaintenancePlan result) {
+						notifyMaintenancePlan(result);
+					}
+				});
 	}
-	
-	public void setMaintenancePlan(MaintenancePlan maintenancePlan){
+
+	public void setMaintenancePlan(MaintenancePlan maintenancePlan) {
 		this.updatePlan = maintenancePlan;
 		nameItem.setValue(maintenancePlan.getName());
 		descriptionItem.setValue(maintenancePlan.getDescription());

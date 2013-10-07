@@ -6,6 +6,7 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -17,7 +18,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret, emiliot
  * 
  */
-public class UserAddForm extends GHASlideInWindow implements UserSelectionProducer, UserSelectionListener {
+public class UserAddForm extends GHASlideInWindow implements
+		UserSelectionProducer, UserSelectionListener {
 	private UserForm userForm;
 	{
 		userForm = new UserForm();
@@ -56,8 +58,8 @@ public class UserAddForm extends GHASlideInWindow implements UserSelectionProduc
 		HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(userForm, new LayoutSpacer(), sideButtons);
 		addMember(gridPanel);
-		
-		//register as listener to the userForm
+
+		// register as listener to the userForm
 		userForm.addUserSelectionListener(this);
 	}
 
@@ -80,14 +82,24 @@ public class UserAddForm extends GHASlideInWindow implements UserSelectionProduc
 		userForm.destroy();
 		destroy();
 	}
-	
-	public void show(){
+
+	@Override
+	public void open() {
+		this.show();
+		animateShow(AnimationEffect.FLY);
+	}
+
+	public void show() {
 		super.show();
 		userForm.show();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.user.UserSelectionProducer#addUserSelectionListener(org.fourgeeks.gha.webclient.client.user.UserSelectionListener)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.user.UserSelectionProducer#
+	 * addUserSelectionListener
+	 * (org.fourgeeks.gha.webclient.client.user.UserSelectionListener)
 	 */
 	@Override
 	public void addUserSelectionListener(
@@ -95,8 +107,12 @@ public class UserAddForm extends GHASlideInWindow implements UserSelectionProduc
 		userForm.addUserSelectionListener(userSelectionListener);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.user.UserSelectionProducer#removeUserSelectionListener(org.fourgeeks.gha.webclient.client.user.UserSelectionListener)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.user.UserSelectionProducer#
+	 * removeUserSelectionListener
+	 * (org.fourgeeks.gha.webclient.client.user.UserSelectionListener)
 	 */
 	@Override
 	public void removeUserSelectionListener(
@@ -104,12 +120,16 @@ public class UserAddForm extends GHASlideInWindow implements UserSelectionProduc
 		userForm.removeUserSelectionListener(userSelectionListener);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.user.UserSelectionListener#select(org.fourgeeks.gha.domain.ess.SSOUser)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.user.UserSelectionListener#select(
+	 * org.fourgeeks.gha.domain.ess.SSOUser)
 	 */
 	@Override
 	public void select(SSOUser ssoUser) {
-		//called when the userForm finish saving new entity
+		// called when the userForm finish saving new entity
 		cancel();
 	}
 }

@@ -53,10 +53,10 @@ public class MaintenanceProtocolService implements
 	 * @see org.fourgeeks.gha.ejb.gmh.MaintenanceProtocolServiceRemote#findByMaintenancePlan(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
 	 */
 	@Override
-	public List<MaintenanceProtocol> findByEiaTypeMaintenancePlan(
+	public List<MaintenanceProtocol> findByMaintenancePlan(
 			MaintenancePlan maintenancePlan) throws GHAEJBException {
 		try {
-			return em.createNamedQuery("MaintenanceProtocol.findByEiaTypeMaintenancePlan", MaintenanceProtocol.class)
+			return em.createNamedQuery("MaintenanceProtocol.findByMaintenancePlan", MaintenanceProtocol.class)
 					.setParameter("maintenancePlan", maintenancePlan).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding MaintenanceProtocol by MaintenancePlan", e);
@@ -66,14 +66,14 @@ public class MaintenanceProtocolService implements
 	}
 
 	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.MaintenanceProtocolServiceRemote#findByEiaTypeMaintenancePlan(org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan, int, int)
+	 * @see org.fourgeeks.gha.ejb.gmh.MaintenanceProtocolServiceRemote#findByMaintenancePlan(org.fourgeeks.gha.domain.gmh.MaintenancePlan, int, int)
 	 */
 	@Override
-	public List<MaintenanceProtocol> findByEiaTypeMaintenancePlan(
+	public List<MaintenanceProtocol> findByMaintenancePlan(
 			MaintenancePlan maintenancePlan, int offset, int size)
 			throws GHAEJBException {
 		try {
-			return em.createNamedQuery("MaintenanceProtocol.findByEiaTypeMaintenancePlan", MaintenanceProtocol.class)
+			return em.createNamedQuery("MaintenanceProtocol.findByMaintenancePlan", MaintenanceProtocol.class)
 					.setParameter("maintenancePlan", maintenancePlan).setFirstResult(offset).setMaxResults(size).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding MaintenanceProtocol by MaintenancePlan", e);

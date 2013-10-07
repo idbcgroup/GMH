@@ -18,16 +18,20 @@ import org.fourgeeks.gha.domain.gmh.EiaPicture;
 
 /**
  * @author emiliot
- *
+ * 
  */
 
-@Stateless(name="gmh.EiaPictureService")
-public class EiaPictureService implements EiaPictureServiceRemote{
+@Stateless(name = "gmh.EiaPictureService")
+public class EiaPictureService implements EiaPictureServiceRemote {
 	@PersistenceContext
 	EntityManager em;
-	
-	private final static Logger logger = Logger.getLogger(EiaTypePictureService.class.getName());
-	/* (non-Javadoc)
+
+	private final static Logger logger = Logger
+			.getLogger(EiaPictureService.class.getName());
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaPictureServiceRemote#delete(long)
 	 */
 	@Override
@@ -36,7 +40,7 @@ public class EiaPictureService implements EiaPictureServiceRemote{
 			EiaPicture entity = em.find(EiaPicture.class, Id);
 			em.remove(entity);
 			return true;
-			
+
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete EiaPicture", e);
 			throw new GHAEJBException("Error eliminando EiaPicture por id "
@@ -44,68 +48,81 @@ public class EiaPictureService implements EiaPictureServiceRemote{
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.EiaPictureServiceRemote#find(org.fourgeeks.gha.domain.gmh.Eia)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.EiaPictureServiceRemote#find(org.fourgeeks.
+	 * gha.domain.gmh.Eia)
 	 */
 	@Override
 	public List<EiaPicture> find(Eia eia) throws GHAEJBException {
-		List <EiaPicture> res = null;
-		try{
+		List<EiaPicture> res = null;
+		try {
 			res = em.createNamedQuery("EiaPicture.findByEia", EiaPicture.class)
-					.setParameter("eiaId", eia)
-					.getResultList();
-		}catch(NoResultException e){
+					.setParameter("eiaId", eia).getResultList();
+		} catch (NoResultException e) {
 			logger.log(Level.INFO, "No results", e);
-		}catch(Exception ex){
+		} catch (Exception ex) {
 			logger.log(Level.INFO, "Error buscando EiaPicture por Eia ", ex);
 			throw new GHAEJBException("Error buscando EiaPicture por Eia "
 					+ ex.getCause().getMessage());
 		}
-		
+
 		return res;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaPictureServiceRemote#find(long)
 	 */
 	@Override
 	public EiaPicture find(long Id) throws GHAEJBException {
-		try{
+		try {
 			return em.find(EiaPicture.class, Id);
-		}catch(Exception e){
+		} catch (Exception e) {
 			logger.log(Level.INFO, "Error buscando EiaPicture por Id ", e);
 			throw new GHAEJBException("Error buscando EiaPicture por Id "
 					+ e.getCause().getMessage());
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.EiaPictureServiceRemote#save(org.fourgeeks.gha.domain.gmh.EiaPicture)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.EiaPictureServiceRemote#save(org.fourgeeks.
+	 * gha.domain.gmh.EiaPicture)
 	 */
 	@Override
-	public void save(EiaPicture eiaPicture)  throws GHAEJBException {
-		try{
+	public void save(EiaPicture eiaPicture) throws GHAEJBException {
+		try {
 			em.persist(eiaPicture);
-		}catch(Exception e){
+		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving EiaPicture", e);
 			throw new GHAEJBException("Error guardando EiaPicture: "
 					+ e.getCause().getMessage());
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.EiaPictureServiceRemote#update(org.fourgeeks.gha.domain.gmh.EiaPicture)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.EiaPictureServiceRemote#update(org.fourgeeks
+	 * .gha.domain.gmh.EiaPicture)
 	 */
 	@Override
 	public boolean update(EiaPicture eiaPicture) throws GHAEJBException {
-		try{
+		try {
 			em.merge(eiaPicture);
 			return true;
-		}catch(Exception e){
+		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to update eiaPicture", e);
-			throw new GHAEJBException("Error actualizando eiaPicture " +e.getCause().getMessage());
+			throw new GHAEJBException("Error actualizando eiaPicture "
+					+ e.getCause().getMessage());
 		}
 	}
-	
 
 }

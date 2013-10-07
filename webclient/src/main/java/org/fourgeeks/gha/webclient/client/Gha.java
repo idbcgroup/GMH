@@ -54,14 +54,16 @@ public class Gha implements EntryPoint {
 			public void onSuccess(Boolean result) {
 				if (!result) {
 					String token = History.getToken();
-						if (token.equals("login"))
-							History.fireCurrentHistoryState();
-						else
-							History.newItem("login");
+					if (token.equals("login"))
+						History.fireCurrentHistoryState();
+					else
+						History.newItem("login");
 				} else
 					History.fireCurrentHistoryState();
 			}
 		});
+
+		// Window.alert(GHAStrings.get("equipments"));
 
 	}
 }

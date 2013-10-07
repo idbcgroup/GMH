@@ -33,7 +33,7 @@
 	
 	.user-info{		
 		float: right;	
-		margin: 2px 20px 0 0;*/
+		margin: 2px 20px 0 0;
 	}
 		.username-text{
 			/*float: left;
@@ -70,15 +70,19 @@
 	background-repeat: repeat-x;	
 }
 
-	div#menu-bar.menu-bar table tbody tr td div#isc_IMenuButton_0_wrapper.gha-main-menu div#isc_6 table tbody tr td.menuButton,
-	div#menu-bar.menu-bar table tbody tr td div#isc_IMenuButton_0_wrapper.gha-main-menu div#isc_6 table tbody tr td.menuButtonOver,
-	div#menu-bar.menu-bar table tbody tr td div#isc_IMenuButton_0_wrapper.gha-main-menu div#isc_6 table tbody tr td.menuButtonDown {
+	#gha-main-menu.menuButton,
+	#gha-main-menu.menuButtonOver,
+	#gha-main-menu.menuButtonDown
+	{
 		background: none;
 		background-color: white;
 		border:none;
 		padding-left: 20px;
 	}
-	.gha-main-menu .buttonTitle {
+	
+	 #gha-main-menu.menuButton table tbody tr td.buttonTitle,
+	 #gha-main-menu.menuButtonOver table tbody tr td.buttonTitle,
+	 #gha-main-menu.menuButtonDown table tbody tr td.buttonTitle{
 		font-size: 12px;
 		font-weight:bold;
 		color:#939496;
@@ -177,6 +181,10 @@ input, .input{
 	margin-right: 10px;	
 }
 
+.required{
+	border-color: #E86842;
+}
+
 input, .dateItem{
 	border:1px solid;
 	border-color:#BABABA;
@@ -193,7 +201,7 @@ input[type="text"]:disabled,
 	margin-right: 10px;	
 }
 
-.selectDisabled,
+.selectDisabled,.select-requiredDisabled,
 .dateItemDisabled{
 	background-color:#F6F6F6;
 	padding: 2px;
@@ -205,6 +213,12 @@ input[type="text"]:disabled,
 select,.select{
 	padding: 2px;
 	border:1px solid #BABABA;
+	background-color: #FFFFFF;
+}
+
+.select-required{
+	padding: 2px;
+	border:1px solid #E86842;
 	background-color: #FFFFFF;
 }
 
@@ -353,6 +367,14 @@ table.GHAupload-button tbody tr td form div.upld-form-elements div.DecoratedFile
 	background-image: url(../icons/arrow.png);
 	background-position: right center;
 	background-repeat: no-repeat;
+}
+
+div#header-bar.header-bar div#user-info.user-info div#isc_HLayout_0_wrapper div#isc_0.user-info div#isc_1 div#isc_5.button-pointer div#isc_4 img{
+	cursor:pointer;
+}
+
+.button-pointer{
+	cursor: pointer;
 }
  
 /*OVERRIDES*/

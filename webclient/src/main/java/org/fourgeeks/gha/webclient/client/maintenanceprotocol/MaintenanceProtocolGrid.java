@@ -10,9 +10,11 @@ public class MaintenanceProtocolGrid extends GhaGrid<MaintenanceProtocol> {
 		setEmptyMessage("No existen protocolos de mantenimiento.");
 
 		GHAGridField idGridField = new GHAGridField("id", "No.");
-		GHAGridField nameGridField = new GHAGridField("name", "Nombre Protocolo");
-		GHAGridField descriptionGridField = new GHAGridField("description", "Descripción del Protocolo");
-				
+		GHAGridField nameGridField = new GHAGridField("name",
+				"Nombre Protocolo");
+		GHAGridField descriptionGridField = new GHAGridField("desc",
+				"Descripción del Protocolo");
+
 		setFields(idGridField, nameGridField, descriptionGridField);
 	}
 

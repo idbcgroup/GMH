@@ -2,19 +2,21 @@ package org.fourgeeks.gha.webclient.client.maintenanceprotocol.asociatedmaintena
 
 import java.util.List;
 
-import org.fourgeeks.gha.domain.gmh.Eia;
-import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
+import org.fourgeeks.gha.domain.gmh.MaintenancePlanMaintenanceProtocol;
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
-import org.fourgeeks.gha.webclient.client.eia.EIAModel;
-import org.fourgeeks.gha.webclient.client.eia.EIARecord;
-import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
-import org.fourgeeks.gha.webclient.client.eia.EIAUtil;
-import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
-import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanGrid;
+import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanMaintenanceProtocolModel;
+import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSearchForm;
+import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener;
+import org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol.MaintenancePlanMaintenanceProtocolGrid;
+import org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol.MaintenancePlanMaintenanceProtocolGridRecord;
+import org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol.MaintenancePlanMaintenanceProtocolUtil;
+import org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionListener;
 
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -28,13 +30,17 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class AsociatedMaintenancePlanGridPanel extends VLayout implements
-		EIATypeSelectionListener,/* EiaSelectionProducer, */
-		EIASelectionListener, GHAClosable, GHAHideable {
+GHAClosable, GHAHideable, MaintenanceProtocolSelectionListener,
+MaintenancePlanSelectionListener {
 
-	private MaintenancePlanGrid grid;
-	private EiaType eiaType;
+	private MaintenancePlanMaintenanceProtocolGrid grid;
+	private MaintenanceProtocol maintenanceProtocol;
+	private MaintenancePlanSearchForm searchForm;
+
 	{
-		grid = new MaintenancePlanGrid();
+		grid = new MaintenancePlanMaintenanceProtocolGrid();
+		grid.setMaintenancePlanFields();
+		searchForm = new MaintenancePlanSearchForm();
 	}
 
 	/**
@@ -43,13 +49,12 @@ public class AsociatedMaintenancePlanGridPanel extends VLayout implements
 	public AsociatedMaintenancePlanGridPanel(
 			AsociatedMaintenancePlanSubTab subTab) {
 		super();
-		
-		
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 
-		Label title = new Label("<h3>Planes de Mantenimiento contienen este Protocolo</h3>");
+		Label title = new Label(
+				"<h3>Planes de Mantenimiento contienen este Protocolo</h3>");
 		title.setHeight(30);
 		title.setWidth100();
 		title.setStyleName("title-label");
@@ -60,13 +65,21 @@ public class AsociatedMaintenancePlanGridPanel extends VLayout implements
 				"../resources/icons/new.png", new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						//TODO: EIA Search(select) form
+						searchForm.open();
 					}
 				}), new GHAImgButton("../resources/icons/delete.png",
-				new ClickHandler() {
+						new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						//TODO: Remove this plan for the selected equipment
+						MaintenancePlanMaintenanceProtocol entity = grid.getSelectedEntity();
+						MaintenancePlanMaintenanceProtocolModel.delete(entity.getId(), new GHAAsyncCallback<Void>(
+								) {
+
+							@Override
+							public void onSuccess(Void result) {
+								loadData();
+							}
+						});
 					}
 
 				}));
@@ -74,73 +87,64 @@ public class AsociatedMaintenancePlanGridPanel extends VLayout implements
 		HLayout mainLayout = new HLayout();
 		mainLayout.addMembers(grid, sideButtons);
 		addMember(mainLayout);
+
+		//register as listener to the mantenanceplansearchform
+		this.searchForm.addMaintenancePlanSelectionListener(this);
 	}
 
 	@Override
-	public void select(EiaType eiaType) {
-		this.eiaType = eiaType;
-		loadData(eiaType);
+	public void close() {
+		// Close the search/select form
+	}
+
+	@Override
+	public void hide() {
+		// Hide the search/select form
+		// super.hide();
 	}
 
 	/**
 	 * @param eiaType
 	 */
-	private void loadData(EiaType eiaType) {
-		EIAModel.find(eiaType, new GHAAsyncCallback<List<Eia>>() {
-			@Override
-			public void onSuccess(List<Eia> result) {
-				ListGridRecord[] array = (ListGridRecord[]) EIAUtil
-						.toGridRecords(result).toArray(new EIARecord[] {});
-				grid.setData(array);
+	private void loadData() {
+		MaintenancePlanMaintenanceProtocolModel
+		.findByMaintenanceProtocol(
+				this.maintenanceProtocol,
+				new GHAAsyncCallback<List<MaintenancePlanMaintenanceProtocol>>() {
 
+					@Override
+					public void onSuccess(
+							List<MaintenancePlanMaintenanceProtocol> result) {
+						ListGridRecord array[] = MaintenancePlanMaintenanceProtocolUtil
+								.toPlanRecords(result)
+								.toArray(
+										new MaintenancePlanMaintenanceProtocolGridRecord[] {});
+						grid.setData(array);
+					}
+
+				});
+	}
+
+	//Consumer stuff
+	@Override
+	public void select(MaintenancePlan maintenancePlan) {
+		final MaintenancePlanMaintenanceProtocol entity = new MaintenancePlanMaintenanceProtocol();
+		entity.setMaintenancePlan(maintenancePlan);
+		entity.setMaintenanceProtocol(this.maintenanceProtocol);
+		MaintenancePlanMaintenanceProtocolModel.save(entity,
+				new GHAAsyncCallback<MaintenancePlanMaintenanceProtocol>() {
+
+			@Override
+			public void onSuccess(
+					MaintenancePlanMaintenanceProtocol result) {
+				loadData();
 			}
 		});
 	}
 
 	@Override
-	public void close() {
-		//Close the search/select form
+	public void select(MaintenanceProtocol maintenanceProtocol) {
+		this.maintenanceProtocol = maintenanceProtocol;
+		loadData();
 	}
-
-	@Override
-	public void hide() {
-		//Hide the search/select form
-		// super.hide();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.fourgeeks.gha.webclient.client.eia.EIASelectionListener#select(org
-	 * .fourgeeks.gha.domain.gmh.Eia)
-	 * 
-	 * @Override public void hide() {
-	 * eiaAddForm.animateHide(AnimationEffect.FLY); }
-	 * 
-	 * /* (non-Javadoc)
-	 * 
-	 * @see
-	 * org.fourgeeks.gha.webclient.client.eia.EIASelectionListener#select(org
-	 * .fourgeeks.gha.domain.gmh.Eia)
-	 */
-	@Override
-	public void select(Eia eia) {
-		loadData(eiaType);
-	}
-
-	// @Override
-	// public void addEiaSelectionListener(
-	// EIASelectionListener eiaSelectionListener) {
-	// // TODO Auto-generated method stub
-	//
-	// }
-	//
-	// @Override
-	// public void removeEiaSelectionListener(
-	// EIASelectionListener eiaSelectionListener) {
-	// // TODO Auto-generated method stub
-	//
-	// }
-
 }

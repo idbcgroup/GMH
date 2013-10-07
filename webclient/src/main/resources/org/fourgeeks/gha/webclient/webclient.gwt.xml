@@ -42,7 +42,7 @@
 
 	<!-- Inherit Hibernate validator -->
 	<inherits name="org.hibernate.validator.HibernateValidator" />
-	<replace-with class="org.fourgeeks.gha.webclient.client.GhaValidatorFactory">
+	<replace-with class="org.fourgeeks.gha.webclient.client.UI.GhaValidatorFactory">
 		<when-type-is class="javax.validation.ValidatorFactory" />
 	</replace-with>
 

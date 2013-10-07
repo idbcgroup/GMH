@@ -3,12 +3,13 @@ package org.fourgeeks.gha.webclient.client.login;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHASessionData;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAPlace;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.InputElement;
-import com.google.gwt.dom.client.LinkElement;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Event;
@@ -17,8 +18,15 @@ import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
 
+/**
+ * @author alacret
+ * 
+ */
 public class LoginPlace extends GHAPlace {
 
+	/**
+	 * 
+	 */
 	public LoginPlace() {
 	}
 
@@ -36,8 +44,8 @@ public class LoginPlace extends GHAPlace {
 		html.append("<h1 class='login-titulo'>Iniciar Sesion</h1>");
 		// html.append("<div class='smallfont full'>Ubicado en:<span id='ubicacion'>Sotano enfermeria</span></div>");
 		html.append("<form class='centered'>");
-		html.append("<input class='round' id='username' type='text' placeholder='Nombre de usuario'><br/>");
-		html.append("<input class='round' id='password' type='password' placeholder='Contraseña'> <br/>");
+		html.append("<input maxlength='20' class='round' id='username' type='text' placeholder='Nombre de usuario'><br/>");
+		html.append("<input maxlength='20' class='round' id='password' type='password' placeholder='Contraseña'> <br/>");
 		html.append("<input id='login-button' type='button' value='Iniciar Sesion' class='GHAButton'>");
 		// html.append("<div class='smallfont'><input type='checkbox'>Recordar mis datos</div><br/>");
 		// html.append("<div id='recovery'><a  class='smallfont'>¿Olvidaste tu contraseña?</a></div></form></div>");
@@ -53,13 +61,11 @@ public class LoginPlace extends GHAPlace {
 				.getElementById("username");
 		final InputElement passTextbox = (InputElement) Document.get()
 				.getElementById("password");
-		final LinkElement recoveryLink = (LinkElement) Document.get()
-				.getElementById("recovery");
+		// final LinkElement recoveryLink = (LinkElement) Document.get()
+		// .getElementById("recovery");
 
 		// Dar el foco al campo de user
 		userTextbox.focus();
-
-		// BUtton on click
 
 		DOM.sinkEvents(element, Event.ONCLICK);
 		DOM.setEventListener(element, new EventListener() {
@@ -69,7 +75,15 @@ public class LoginPlace extends GHAPlace {
 				String username = userTextbox.getValue();
 				String password = passTextbox.getValue();
 
-				// Window.alert(username+"-"+password);
+				if (username == null || username.equals("")) {
+					GHANotification.alert(GHAStrings.get("username-not-null"));
+					return;
+				}
+
+				if (password == null || password.equals("")) {
+					GHANotification.alert(GHAStrings.get("password-not-null"));
+					return;
+				}
 
 				final GWTLoginServiceAsync service = GWT
 						.create(GWTLoginService.class);
@@ -97,8 +111,6 @@ public class LoginPlace extends GHAPlace {
 
 			@Override
 			public void onBrowserEvent(Event event) {
-				// TODO Auto-generated method stub
-
 				if (event.getKeyCode() == 13) {
 					String username = userTextbox.getValue();
 					String password = passTextbox.getValue();
@@ -112,7 +124,6 @@ public class LoginPlace extends GHAPlace {
 								public void onSuccess(Bpu result) {
 									if (result != null) {
 										GHASessionData.setLoggedUser(result);
-
 										String token = History.getToken();
 										if (token.equals("home"))
 											History.fireCurrentHistoryState();

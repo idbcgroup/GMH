@@ -127,9 +127,18 @@ public class EIAAddForm extends GHASlideInWindow implements
 	private void save() {
 		eiaForm.save();
 	}
+	
+	@Override
+	public void open() {
+		super.open();
+		eiaForm.show();
+	}
 
 	@Override
 	public void select(Eia eia) {
+		eiaForm.clearValue();
 		hide();
 	}
+	
+	
 }

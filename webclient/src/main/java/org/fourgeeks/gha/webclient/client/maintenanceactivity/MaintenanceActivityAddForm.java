@@ -6,6 +6,7 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -14,7 +15,8 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class MaintenanceActivityAddForm extends GHASlideInWindow implements
-		MaintenanceActivitySelectionProducer, MaintenanceActivitySelectionListener {
+		MaintenanceActivitySelectionProducer,
+		MaintenanceActivitySelectionListener {
 	private MaintenanceActivityForm maintenanceActivityForm;
 	{
 		maintenanceActivityForm = new MaintenanceActivityForm();
@@ -48,10 +50,12 @@ public class MaintenanceActivityAddForm extends GHASlideInWindow implements
 				}));
 
 		HLayout gridPanel = new HLayout();
-		gridPanel.addMembers(maintenanceActivityForm, new LayoutSpacer(), sideButtons);
+		gridPanel.addMembers(maintenanceActivityForm, new LayoutSpacer(),
+				sideButtons);
 		addMember(gridPanel);
-		
-		fillExtras();
+
+		// register as listener to the maintenanceActivityForm
+		maintenanceActivityForm.addMaintenanceActivitySelectionListener(this);
 	}
 
 	protected void cancel() {
@@ -59,15 +63,12 @@ public class MaintenanceActivityAddForm extends GHASlideInWindow implements
 		super.hide();
 	}
 
-	private void fillExtras() {
-		//TODO: 
+	private void save() {
+		maintenanceActivityForm.save();
 	}
 
-	private void save() {
-		
-	}
-	
-	public void show(){
+	@Override
+	public void show() {
 		super.show();
 		maintenanceActivityForm.show();
 	}
@@ -82,31 +83,54 @@ public class MaintenanceActivityAddForm extends GHASlideInWindow implements
 		destroy();
 	}
 
-	//Producer/Consumer stuff
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionListener#select(org.fourgeeks.gha.domain.gmh.MaintenanceActivity)
+	@Override
+	public void open() {
+		this.show();
+		animateShow(AnimationEffect.FLY);
+	}
+
+	// Producer/Consumer stuff
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceactivity.
+	 * MaintenanceActivitySelectionListener
+	 * #select(org.fourgeeks.gha.domain.gmh.MaintenanceActivity)
 	 */
 	@Override
 	public void select(MaintenanceActivity maintenanceActivity) {
-		// TODO Auto-generated method stub
-		
+		cancel();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionProducer#addMaintenanceActivitySelectionListener(org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionListener)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceactivity.
+	 * MaintenanceActivitySelectionProducer
+	 * #addMaintenanceActivitySelectionListener
+	 * (org.fourgeeks.gha.webclient.client
+	 * .maintenanceactivity.MaintenanceActivitySelectionListener)
 	 */
 	@Override
 	public void addMaintenanceActivitySelectionListener(
 			MaintenanceActivitySelectionListener maintenanceActivitySelectionListener) {
-		maintenanceActivityForm.addMaintenanceActivitySelectionListener(maintenanceActivitySelectionListener);
+		maintenanceActivityForm
+				.addMaintenanceActivitySelectionListener(maintenanceActivitySelectionListener);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionProducer#removeMaintenanceActivitySelectionListener(org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionListener)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceactivity.
+	 * MaintenanceActivitySelectionProducer
+	 * #removeMaintenanceActivitySelectionListener
+	 * (org.fourgeeks.gha.webclient.client
+	 * .maintenanceactivity.MaintenanceActivitySelectionListener)
 	 */
 	@Override
 	public void removeMaintenanceActivitySelectionListener(
 			MaintenanceActivitySelectionListener maintenanceActivitySelectionListener) {
-		maintenanceActivityForm.removeMaintenanceActivitySelectionListener(maintenanceActivitySelectionListener);
+		maintenanceActivityForm
+				.removeMaintenanceActivitySelectionListener(maintenanceActivitySelectionListener);
 	}
 }
