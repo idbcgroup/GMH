@@ -217,7 +217,6 @@ public class Eia extends AbstractEntity {
 	 */
 	public Eia() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
