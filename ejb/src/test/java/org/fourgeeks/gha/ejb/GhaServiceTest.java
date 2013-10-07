@@ -43,6 +43,7 @@ import org.fourgeeks.gha.ejb.ess.InstanceLogonService;
 import org.fourgeeks.gha.ejb.gar.BpuFunctionService;
 import org.fourgeeks.gha.ejb.glm.ExternalProviderService;
 import org.fourgeeks.gha.ejb.gmh.BrandService;
+import org.fourgeeks.gha.ejb.language.LanguageService;
 import org.fourgeeks.gha.ejb.log.LogonLogServiceRemote;
 import org.fourgeeks.gha.ejb.mix.BpaService;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -105,6 +106,7 @@ public class GhaServiceTest {
 				.addPackage(GHAEJBException.class.getPackage())
 				.addPackage(GhaServiceTest.class.getPackage())
 				.addPackage(InstanceLogonService.class.getPackage())
+				.addPackage(LanguageService.class.getPackage())
 				.addPackage(LogonLog.class.getPackage())
 				.addPackage(LogonLogServiceRemote.class.getPackage())
 				.addPackage(Message.class.getPackage())
