@@ -2,9 +2,13 @@ package org.fourgeeks.gha.ejb;
 
 import java.sql.Date;
 
+import javax.ejb.EJBException;
 import javax.persistence.EntityManager;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
+import org.fourgeeks.gha.domain.codes.FunctionsCodes;
+import org.fourgeeks.gha.domain.conf.Parameter;
+import org.fourgeeks.gha.domain.enu.DocumentTypeEnum;
 import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
 import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.enu.GenderTypeEnum;
@@ -82,13 +86,6 @@ public class GhaServiceTest {
 		return ShrinkWrap
 				.create(WebArchive.class, "test.war")
 				.addPackage(AbstractEntity.class.getPackage())
-				.addPackage(FunctionServiceRemote.class.getPackage())
-				.addPackage(Function.class.getPackage())
-				.addPackage(GHAEJBException.class.getPackage())
-				.addPackage(javax.ejb.EJBException.class.getPackage())
-				.addPackage(LogonLog.class.getPackage())
-				.addPackage(LogonLogServiceRemote.class.getPackage())
-				.addPackage(Message.class.getPackage())
 				.addPackage(Bpa.class.getPackage())
 				.addPackage(BpaService.class.getPackage())
 				.addPackage(Bpu.class.getPackage())
@@ -96,11 +93,20 @@ public class GhaServiceTest {
 				.addPackage(BpuFunctionService.class.getPackage())
 				.addPackage(Brand.class.getPackage())
 				.addPackage(BrandService.class.getPackage())
-				.addPackage(GHAEJBException.class.getPackage())
+				.addPackage(DocumentTypeEnum.class.getPackage())
+				.addPackage(EJBException.class.getPackage())
 				.addPackage(ExternalProvider.class.getPackage())
 				.addPackage(ExternalProviderService.class.getPackage())
+				.addPackage(Function.class.getPackage())
+				.addPackage(FunctionsCodes.class.getPackage())
+				.addPackage(FunctionServiceRemote.class.getPackage())
+				.addPackage(GHAEJBException.class.getPackage())
 				.addPackage(GhaServiceTest.class.getPackage())
 				.addPackage(InstanceLogonService.class.getPackage())
+				.addPackage(LogonLog.class.getPackage())
+				.addPackage(LogonLogServiceRemote.class.getPackage())
+				.addPackage(Message.class.getPackage())
+				.addPackage(Parameter.class.getPackage())
 				.addAsResource("test-persistence.xml",
 						"META-INF/persistence.xml")
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
