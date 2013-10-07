@@ -57,6 +57,8 @@ public class BpuFunctionServiceTest extends GhaServiceTest {
 		em.joinTransaction();
 
 		Assert.assertNotNull(service.getFunctionsByBpu(super.getBpu(em)));
+
+		ux.commit();
 	}
 
 }
