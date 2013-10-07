@@ -1,19 +1,21 @@
 package org.fourgeeks.gha.ejb;
 
-<<<<<<< HEAD
-import javax.ejb.EJBException;
-=======
 import java.sql.Date;
 
->>>>>>> EiaPictureServiceTest agregado. No tiene método getAll(), el método
+import javax.ejb.EJBException;
 import javax.persistence.EntityManager;
 import org.fourgeeks.gha.domain.AbstractEntity;
+import org.fourgeeks.gha.domain.codes.FunctionsCodes;
+import org.fourgeeks.gha.domain.conf.Parameter;
+import org.fourgeeks.gha.domain.enu.DocumentTypeEnum;
 import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
 import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.enu.GenderTypeEnum;
 import org.fourgeeks.gha.domain.enu.LocationLevelEnum;
 import org.fourgeeks.gha.domain.ess.BpuFunction;
+import org.fourgeeks.gha.domain.ess.Function;
 import org.fourgeeks.gha.domain.ess.Role;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Obu;
@@ -28,15 +30,19 @@ import org.fourgeeks.gha.domain.gmh.MaintenanceActivityServiceResource;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.ServiceResource;
+import org.fourgeeks.gha.domain.logs.LogonLog;
 import org.fourgeeks.gha.domain.mix.Bpa;
 import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.domain.mix.Citizen;
 import org.fourgeeks.gha.domain.mix.Institution;
 import org.fourgeeks.gha.domain.mix.LegalEntity;
+import org.fourgeeks.gha.domain.msg.Message;
+import org.fourgeeks.gha.ejb.ess.FunctionServiceRemote;
 import org.fourgeeks.gha.ejb.ess.InstanceLogonService;
 import org.fourgeeks.gha.ejb.gar.BpuFunctionService;
 import org.fourgeeks.gha.ejb.glm.ExternalProviderService;
 import org.fourgeeks.gha.ejb.gmh.BrandService;
+import org.fourgeeks.gha.ejb.log.LogonLogServiceRemote;
 import org.fourgeeks.gha.ejb.mix.BpaService;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.shrinkwrap.api.Archive;
@@ -87,11 +93,20 @@ public class GhaServiceTest {
 				.addPackage(Brand.class.getPackage())
 				.addPackage(BrandService.class.getPackage())
 				.addPackage(EiaMobilityEnum.class.getPackage())
+				.addPackage(DocumentTypeEnum.class.getPackage())
 				.addPackage(EJBException.class.getPackage())
 				.addPackage(ExternalProvider.class.getPackage())
 				.addPackage(ExternalProviderService.class.getPackage())
+				.addPackage(Function.class.getPackage())
+				.addPackage(FunctionsCodes.class.getPackage())
+				.addPackage(FunctionServiceRemote.class.getPackage())
+				.addPackage(GHAEJBException.class.getPackage())
 				.addPackage(GhaServiceTest.class.getPackage())
 				.addPackage(InstanceLogonService.class.getPackage())
+				.addPackage(LogonLog.class.getPackage())
+				.addPackage(LogonLogServiceRemote.class.getPackage())
+				.addPackage(Message.class.getPackage())
+				.addPackage(Parameter.class.getPackage())
 				.addAsResource("test-persistence.xml",
 						"META-INF/persistence.xml")
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
