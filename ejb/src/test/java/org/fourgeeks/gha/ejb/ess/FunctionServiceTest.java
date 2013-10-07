@@ -13,18 +13,18 @@ import javax.transaction.UserTransaction;
 
 import junit.framework.Assert;
 
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.ejb.GhaServiceTest;
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
- * @author alacret
+ * @author alacret, vivi.torresg
  * 
  */
 @RunWith(Arquillian.class)
 public class FunctionServiceTest extends GhaServiceTest {
-
 	@PersistenceContext
 	EntityManager em;
 
@@ -34,33 +34,21 @@ public class FunctionServiceTest extends GhaServiceTest {
 	@Inject
 	UserTransaction ux;
 
-	/**
-	 * @throws NotSupportedException
-	 * @throws SystemException
-	 * @throws SecurityException
-	 * @throws IllegalStateException
-	 * @throws RollbackException
-	 * @throws HeuristicMixedException
-	 * @throws HeuristicRollbackException
-	 * @throws GHAEJBException
-	 */
 	@Test
 	public void test() throws NotSupportedException, SystemException,
 			SecurityException, IllegalStateException, RollbackException,
-			HeuristicMixedException, HeuristicRollbackException {
+			HeuristicMixedException, HeuristicRollbackException,
+			GHAEJBException {
 		Assert.assertNotNull(em);
 		Assert.assertNotNull(service);
 
 		ux.begin();
 		em.joinTransaction();
 
-		try {
-			service.getAll();
-			ux.commit();
-		} catch (Exception e) {
-			ux.rollback();
-		}
-		// em.flush();
+		Assert.assertNotNull(service.getAll());
+
+		ux.commit();
+
 	}
 
 }
