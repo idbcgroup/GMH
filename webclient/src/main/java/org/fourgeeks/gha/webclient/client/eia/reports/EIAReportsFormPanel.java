@@ -42,7 +42,7 @@ public class EIAReportsFormPanel extends VLayout implements GHAClosable,
 					public void onClick(ClickEvent event) {
 						String params = formReports.getURLParameters();
 
-						String uri = "webclient/reporteia" + params;
+						String uri = "reports/eia" + params;
 						Window.open(UriUtils.sanitizeUri(uri), "_blank", "");
 					}
 				}), // boton clean

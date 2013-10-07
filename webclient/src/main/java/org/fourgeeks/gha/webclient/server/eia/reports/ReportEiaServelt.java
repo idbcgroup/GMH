@@ -33,7 +33,7 @@ import org.fourgeeks.gha.domain.gar.Facility;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.ejb.gmh.EiaServiceRemote;
 
-@WebServlet(urlPatterns = { "/webclient/reporteia" })
+@WebServlet(urlPatterns = { "/reports/eia" })
 public class ReportEiaServelt extends HttpServlet {
 	private static final Logger LOG = Logger.getLogger(ReportEiaServelt.class);
 	private static final long serialVersionUID = 1L;
