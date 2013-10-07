@@ -30,11 +30,15 @@ public class MaintenancePlan extends AbstractEntity {
 
 	@Size(max = 100)
 	@NotNull(message = "name-not-null")
+	// @Column(nullable = false)
 	private String name;
 	private String description;
+	// @Size(max = 3)
 	@NotNull(message = "frecuency-not-null")
+	// @Column(nullable = false)
 	private int frequency;
 	@NotNull(message = "time-period-not-null")
+	// @Column(nullable = false)
 	private TimePeriodEnum pot;
 
 	/**
