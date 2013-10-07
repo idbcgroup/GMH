@@ -20,7 +20,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
- * @author alacret
+ * @author alacret, vivi.torresg
  * 
  */
 @RunWith(Arquillian.class)
@@ -48,24 +48,15 @@ public class BpuFunctionServiceTest extends GhaServiceTest {
 	@Test
 	public void test() throws NotSupportedException, SystemException,
 			SecurityException, IllegalStateException, RollbackException,
-			HeuristicMixedException, HeuristicRollbackException, GHAEJBException {
+			HeuristicMixedException, HeuristicRollbackException,
+			GHAEJBException {
 		Assert.assertNotNull(em);
 		Assert.assertNotNull(service);
 
 		ux.begin();
 		em.joinTransaction();
 
-		// Bpu find = em.find(Bpu.class, 1L);
-		//
-		// Assert.assertNotNull(find);
-
-		try {
-			// service.getFunctionsByBpu(find);
-			ux.commit();
-		} catch (Exception e) {
-			ux.rollback();
-		}
-
+		Assert.assertNotNull(service.getFunctionsByBpu(super.getBpu(em)));
 	}
 
 }
