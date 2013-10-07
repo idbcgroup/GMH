@@ -15,7 +15,7 @@ import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.mix.LegalEntity;
 
 /**
- * @author emiliot
+ * @author emiliot, vivi.torresg
  * 
  */
 @Stateless(name = "mix.LegalEntityService")
