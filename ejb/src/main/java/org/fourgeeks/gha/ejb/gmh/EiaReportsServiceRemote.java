@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ejb.Remote;
 
+import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.Eia;
 
@@ -16,5 +17,10 @@ public interface EiaReportsServiceRemote {
 	 *            lista con los ID de los equipos que se desea buscar
 	 * @return lista de equipos Eia
 	 */
-	public List<Eia> findByEiaIds(List<Long> eiaIds) throws GHAEJBException;;
+	public List<Eia> findAll(List<Long> facilityIds, List<Long> workAreaIds,
+			EiaStateEnum eiaState, boolean orderByUbicEiaType)
+			throws GHAEJBException;
+
+	public List<Eia> find(List<Long> eiaIds, boolean orderByUbicEiaType)
+			throws GHAEJBException;
 }

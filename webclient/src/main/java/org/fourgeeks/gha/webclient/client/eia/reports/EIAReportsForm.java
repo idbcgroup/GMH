@@ -152,7 +152,7 @@ public class EIAReportsForm extends VLayout {
 	/**
 	 * @return La parte del URL que contiene los parametros del reporte
 	 */
-	public String getURLParameters() {
+	public String getReportURI() {
 		Citizen user = GHASessionData.getLoggedUser().getCitizen();
 		String loggedUser = user.getFirstName() + " " + user.getFirstLastName();
 
@@ -182,16 +182,16 @@ public class EIAReportsForm extends VLayout {
 			filterDesc = "Todos";
 		}
 
-		String urlParams = "?";
-		urlParams += "filtertype=" + filterType.name();
-		urlParams += "&filtertypedesc=" + filterType.toString();
-		urlParams += "&filter=" + filterVal;
-		urlParams += "&filterdesc=" + filterDesc;
-		urlParams += "&group=" + group;
-		urlParams += "&groupdesc=" + groupDesc;
-		urlParams += "&user=" + loggedUser;
+		String url = "reports/eia/edoubic?";
+		url += "filtertype=" + filterType.name();
+		url += "&filtertypedesc=" + filterType.toString();
+		url += "&filter=" + filterVal;
+		url += "&filterdesc=" + filterDesc;
+		url += "&group=" + group;
+		url += "&groupdesc=" + groupDesc;
+		url += "&user=" + loggedUser;
 
-		return urlParams;
+		return url;
 	}
 
 }

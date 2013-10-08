@@ -40,9 +40,7 @@ public class EIAReportsFormPanel extends VLayout implements GHAClosable,
 				new GHAImgButton(PATH_IMG_PRINT_BUTTON, new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						String params = formReports.getURLParameters();
-
-						String uri = "reports/eia" + params;
+						String uri = formReports.getReportURI();
 						Window.open(UriUtils.sanitizeUri(uri), "_blank", "");
 					}
 				}), // boton clean

@@ -34,8 +34,11 @@ public class EiaDataSource implements JRDataSource {
 		this.groupType = null;
 		pos = -1;
 
-		if (this.data.isEmpty())
-			this.data.add(new Eia());
+		if (this.data.isEmpty()) {
+			Eia e = new Eia();
+			e.setState(null);
+			this.data.add(e);
+		}
 	}
 
 	/**

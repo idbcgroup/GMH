@@ -27,7 +27,7 @@ import org.fourgeeks.gha.domain.gar.Facility;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.ejb.gmh.EiaServiceRemote;
 
-@WebServlet(urlPatterns = { "/reports/eia" })
+@WebServlet(urlPatterns = { "/reports/eia/edoubic" })
 public class ReportEquiposEdoUbicServelt extends ReportEiaServelt {
 	private static final long serialVersionUID = 1L;
 
