@@ -17,13 +17,16 @@ import org.fourgeeks.gha.domain.enu.LanguageEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.msg.GHAMessage;
 import org.fourgeeks.gha.ejb.GhaServiceTest;
-import org.fourgeeks.gha.ejb.message.MessageServiceRemote;
+import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
  * @author emiliot
  * 
  */
+
+@RunWith(Arquillian.class)
 public class MessageServiceTest extends GhaServiceTest {
 	@PersistenceContext
 	EntityManager em;

@@ -23,7 +23,6 @@ import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
-import org.fourgeeks.gha.domain.glm.Material;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
@@ -50,6 +49,7 @@ import org.fourgeeks.gha.ejb.gmh.BrandService;
 import org.fourgeeks.gha.ejb.language.LanguageService;
 import org.fourgeeks.gha.ejb.log.LogonLogServiceRemote;
 import org.fourgeeks.gha.ejb.mix.BpaService;
+import org.fourgeeks.gha.ejb.msg.MessageService;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -113,6 +113,7 @@ public class GhaServiceTest {
 				.addPackage(LogonLog.class.getPackage())
 				.addPackage(LogonLogServiceRemote.class.getPackage())
 				.addPackage(GHAMessage.class.getPackage())
+				.addPackage(MessageService.class.getPackage())
 				.addPackage(Parameter.class.getPackage())
 				.addAsResource("test-persistence.xml",
 						"META-INF/persistence.xml")

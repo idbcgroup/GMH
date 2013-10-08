@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.ejb.message;
+package org.fourgeeks.gha.ejb.msg;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
