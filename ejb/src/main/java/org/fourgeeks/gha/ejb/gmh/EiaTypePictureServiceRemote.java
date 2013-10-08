@@ -29,7 +29,6 @@ public interface EiaTypePictureServiceRemote {
 	 * @param Id
 	 * @return true if the object was deleted
 	 * @throws GHAEJBException
-	 * 
 	 */
 	public boolean delete(long Id) throws GHAEJBException;
 
@@ -37,7 +36,6 @@ public interface EiaTypePictureServiceRemote {
 	 * @param eiaTypePicture
 	 * @return true if the object was updated
 	 * @throws GHAEJBException
-	 * 
 	 */
 	public boolean update(EiaTypePicture eiaTypePicture) throws GHAEJBException;
 

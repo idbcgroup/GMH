@@ -61,7 +61,6 @@ public class EiaPictureService implements EiaPictureServiceRemote {
 		try {
 			res = em.createNamedQuery("EiaPicture.findByEia", EiaPicture.class)
 					.setParameter("eia", eia).getResultList();
-
 		} catch (NoResultException e) {
 			logger.log(Level.INFO, "No results", e);
 		} catch (Exception ex) {

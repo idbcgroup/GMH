@@ -141,7 +141,6 @@ public class ManufacturerService implements ManufacturerServiceRemote {
 			logger.log(Level.INFO, "ERROR: unable to update manufacturer", e);
 			throw new GHAEJBException("Error actualizando manufacturer "
 					+ e.getCause().getMessage());
-
 		}
 	}
 }

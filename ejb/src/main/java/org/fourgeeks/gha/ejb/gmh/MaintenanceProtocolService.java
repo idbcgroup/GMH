@@ -81,11 +81,10 @@ public class MaintenanceProtocolService implements
 	}
 
 	/*
-	 * (non-Javadoc)
 	 * 
 	 * @see org.fourgeeks.gha.ejb.gmh.MaintenanceProtocolServiceRemote#
-	 * findByMaintenancePlan(org.fourgeeks.gha.domain.gmh.MaintenancePlan, int,
-	 * int)
+	 * findByEiaTypeMaintenancePlan
+	 * (org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan, int, int)
 	 */
 	@Override
 	public List<MaintenanceProtocol> findByEiaTypeMaintenancePlan(
@@ -108,8 +107,6 @@ public class MaintenanceProtocolService implements
 	}
 
 	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see
 	 * org.fourgeeks.gha.ejb.gmh.MaintenanceProtocolServiceRemote#find(org.fourgeeks
 	 * .gha.domain.gmh.MaintenanceProtocol)
@@ -178,10 +175,12 @@ public class MaintenanceProtocolService implements
 	}
 
 	/*
-	 * (non-Javadoc)
+	 * (non-Javadoc) <<<<<<< HEAD
 	 * 
 	 * @see
 	 * org.fourgeeks.gha.ejb.gmh.MaintenanceProtocolServiceRemote#find(long)
+	 * ======= >>>>>>> branch 'vivi-ejb-tests' of
+	 * git@codebasehq.com:4geeks/clinicas/gha.git
 	 */
 	@Override
 	public MaintenanceProtocol find(long Id) throws GHAEJBException {

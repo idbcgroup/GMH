@@ -70,16 +70,8 @@ public interface MaintenanceProtocolServiceRemote {
 	/**
 	 * @param offset
 	 * @param size
-	 *            <<<<<<< HEAD
 	 * @return List of EiaTypeMaintenanceProtocol beginning in offset up to size
-	 *         elements
 	 * @throws GHAEJBException
-	 *             =======
-	 * @return List of EiaTypeMaintenanceProtocol beginning in offset up to size
-	 *         elements
-	 * @throws EJBException
-	 *             >>>>>>> MaintenanceProtocolServiceTest agregado. Algunos
-	 *             cambios en el servicio
 	 */
 	public List<MaintenanceProtocol> getAll(int offset, int size)
 			throws GHAEJBException;
