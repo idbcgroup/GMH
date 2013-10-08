@@ -121,8 +121,16 @@ public class EIATypeMaterialGridPanel extends VLayout implements
 
 	@Override
 	public void close() {
-		// TODO Auto-generated method stub
-
+		materialSearchForm.close();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.smartgwt.client.widgets.Canvas#hide()
+	 */
+	@Override
+	public void hide() {
+		materialSearchForm.hide();
+	}
 }

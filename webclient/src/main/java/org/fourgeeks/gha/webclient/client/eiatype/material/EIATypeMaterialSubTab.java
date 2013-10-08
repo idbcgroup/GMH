@@ -16,6 +16,9 @@ public class EIATypeMaterialSubTab extends GHASubTab implements
 		tab.addEiaTypeSelectionListener(this);
 		eiaTypeMaterialGridPanel = new EIATypeMaterialGridPanel();
 		setPane(eiaTypeMaterialGridPanel);
+
+		addGHAClosableHandler(eiaTypeMaterialGridPanel);
+		addGHAHideableHandler(eiaTypeMaterialGridPanel);
 	}
 
 	@Override

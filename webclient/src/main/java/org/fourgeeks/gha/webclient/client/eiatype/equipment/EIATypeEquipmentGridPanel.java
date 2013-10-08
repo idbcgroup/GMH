@@ -133,8 +133,8 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 
 			@Override
 			public void onSuccess(List<Eia> result) {
-				ListGridRecord[] array = (ListGridRecord[]) EIAUtil
-						.toGridRecords(result).toArray(new EIARecord[] {});
+				ListGridRecord[] array = EIAUtil.toGridRecords(result).toArray(
+						new EIARecord[] {});
 				grid.setData(array);
 
 			}
@@ -159,33 +159,9 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 	 * @see
 	 * org.fourgeeks.gha.webclient.client.eia.EIASelectionListener#select(org
 	 * .fourgeeks.gha.domain.gmh.Eia)
-	 * 
-	 * @Override public void hide() {
-	 * eiaAddForm.animateHide(AnimationEffect.FLY); }
-	 * 
-	 * /* (non-Javadoc)
-	 * 
-	 * @see
-	 * org.fourgeeks.gha.webclient.client.eia.EIASelectionListener#select(org
-	 * .fourgeeks.gha.domain.gmh.Eia)
 	 */
 	@Override
 	public void select(Eia eia) {
 		loadData(eiaType);
 	}
-
-	// @Override
-	// public void addEiaSelectionListener(
-	// EIASelectionListener eiaSelectionListener) {
-	// // TODO Auto-generated method stub
-	//
-	// }
-	//
-	// @Override
-	// public void removeEiaSelectionListener(
-	// EIASelectionListener eiaSelectionListener) {
-	// // TODO Auto-generated method stub
-	//
-	// }
-
 }
