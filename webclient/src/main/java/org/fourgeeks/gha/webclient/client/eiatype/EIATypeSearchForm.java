@@ -11,10 +11,13 @@ import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
+import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -34,32 +37,35 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class EIATypeSearchForm extends GHASlideInWindow implements 
+public class EIATypeSearchForm extends GHASlideInWindow implements
 		EIATypeSelectionListener, EiaTypeSelectionProducer {
 
 	private List<EIATypeSelectionListener> selectionListeners;
 	private GHATextItem codeEIAItem, nameEIAItem, modelItem, umdnsCodeItem;
 	private EIATypeGrid eiaTypeGrid;
-	private GHASelectItem brandItem, mobilityItem, typeItem,
-			subTypeItem;
+	private GHASelectItem brandItem, mobilityItem, typeItem, subTypeItem;
 	private EIATypeAddForm addForm;
-	
 
 	{
 		selectionListeners = new LinkedList<EIATypeSelectionListener>();
 		codeEIAItem = new GHATextItem("Código");
+		codeEIAItem.setLength(20);
+		codeEIAItem.setMask("AAAAAAAAAAAAAAAAAAAA");
 		nameEIAItem = new GHATextItem("Nombre");
+		nameEIAItem.setLength(255);
 		brandItem = new GHASelectItem("Marca");
 		modelItem = new GHATextItem("Modelo");
+		modelItem.setLength(20);
 		umdnsCodeItem = new GHATextItem("EIAUMDNS");
+		umdnsCodeItem.setLength(16);
+		umdnsCodeItem.setMask("AAAAAAAAAAAAAAAAAAAA");
 		mobilityItem = new GHASelectItem("Movilidad");
 		typeItem = new GHASelectItem("Tipo de Equipo");
 		subTypeItem = new GHASelectItem("Subtipo");
-		
+
 		eiaTypeGrid = new EIATypeGrid();
 
 		addForm = new EIATypeAddForm();
-		addForm.addEiaTypeSelectionListener(this);
 	}
 
 	/**
@@ -109,15 +115,15 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
 				"../resources/icons/search.png", searchClickHandler),
-				new GHAImgButton("../resources/icons/clean.png", new ClickHandler() {
-					
-					@Override
-					public void onClick(ClickEvent event) {
-						form.clearValues();
-						eiaTypeGrid.setData(new ListGridRecord[0]);
-					}
-				}),
-				new GHAImgButton("../resources/icons/cancel.png",
+				new GHAImgButton("../resources/icons/clean.png",
+						new ClickHandler() {
+
+							@Override
+							public void onClick(ClickEvent event) {
+								form.clearValues();
+								eiaTypeGrid.setData(new ListGridRecord[0]);
+							}
+						}), new GHAImgButton("../resources/icons/cancel.png",
 						new ClickHandler() {
 
 							@Override
@@ -136,7 +142,6 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
 								+ "px"));
 
-		
 		eiaTypeGrid.setHeight(GHAUiHelper.getSubtabGridSize(30));
 		HLayout gridLayout = new HLayout();
 		gridLayout.setPadding(10);
@@ -146,9 +151,7 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 
 					@Override
 					public void onClick(ClickEvent event) {
-						selectEiaType(((EIATypeRecord) eiaTypeGrid
-								.getSelectedRecord()).toEntity());
-						hide();
+						selectEiaType();
 					}
 				}), GHAUiHelper.verticalGraySeparator("2px"), new GHAImgButton(
 				"../resources/icons/new.png", new ClickHandler() {
@@ -163,6 +166,9 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 
 		addMember(gridLayout);
 		fill();
+
+		// register as listener to the addform producer
+		addForm.addEiaTypeSelectionListener(this);
 	}
 
 	private void fill() {
@@ -172,8 +178,8 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 
 		fillBrands(false);
 	}
-	
-	private void fillBrands(boolean forceFromServer){
+
+	private void fillBrands(boolean forceFromServer) {
 		GHACache.INSTANCE.getBrands(new GHAAsyncCallback<List<Brand>>() {
 
 			@Override
@@ -187,7 +193,20 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 		}, forceFromServer);
 	}
 
-	private void selectEiaType(EiaType eiaType) {
+	private void selectEiaType() {
+		GHAGridRecord<EiaType> selectedRecord = eiaTypeGrid.getSelectedRecord();
+		if (selectedRecord == null) {
+			GHANotification.alert(GHAStrings.get("record-not-selected"));
+			return;
+		}
+		notifyEiaType(((EIATypeRecord) selectedRecord).toEntity());
+		hide();
+	}
+
+	/**
+	 * @param eiaType
+	 */
+	private void notifyEiaType(EiaType eiaType) {
 		for (EIATypeSelectionListener listener : selectionListeners)
 			listener.select(eiaType);
 	}
@@ -195,8 +214,9 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 	@Override
 	public void select(EiaType eiaType) {
 		search(eiaType);
-		
-		//Reload the Brand Select field, to prevent outdated cached list of brands
+
+		// Reload the Brand Select field, to prevent outdated cached list of
+		// brands
 		fillBrands(true);
 	}
 

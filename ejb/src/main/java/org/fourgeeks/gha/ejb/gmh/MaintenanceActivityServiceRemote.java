@@ -33,7 +33,7 @@ public interface MaintenanceActivityServiceRemote {
 	 */
 	public List<MaintenanceActivity> findByMaintenanceProtocol(
 			MaintenanceProtocol maintenanceProtocol)
-			throws GHAEJBException;
+					throws GHAEJBException;
 
 	/**
 	 * @param maintenanceProtocol
@@ -45,7 +45,7 @@ public interface MaintenanceActivityServiceRemote {
 	public List<MaintenanceActivity> findByMaintenanceProtocol(
 			MaintenanceProtocol maintenanceProtocol, int offset,
 			int size) throws GHAEJBException;
-	
+
 	/**
 	 * @param serviceResource
 	 * @return the list of maintenanceActivities that use the resource/service given
@@ -59,6 +59,12 @@ public interface MaintenanceActivityServiceRemote {
 	 * @throws GHAEJBException
 	 */
 	public MaintenanceActivity find(long Id) throws GHAEJBException;
+	/**
+	 * @param maintenanceActivity
+	 * @return a list with the maintenance activities that are like the parameter
+	 * @throws GHAEJBException
+	 */
+	public List<MaintenanceActivity> find(MaintenanceActivity maintenanceActivity) throws GHAEJBException;
 
 	/**
 	 * @return the list with all maintenanceActivity Objects

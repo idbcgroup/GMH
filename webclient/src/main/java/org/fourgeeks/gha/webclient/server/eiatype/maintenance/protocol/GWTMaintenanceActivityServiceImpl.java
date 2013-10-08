@@ -23,7 +23,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  */
 @WebServlet(urlPatterns = {"/webclient/maintenanceActivityService"})
 public class GWTMaintenanceActivityServiceImpl extends RemoteServiceServlet 
-		implements GWTMaintenanceActivityService {
+implements GWTMaintenanceActivityService {
 
 	/**
 	 * 
@@ -63,7 +63,7 @@ public class GWTMaintenanceActivityServiceImpl extends RemoteServiceServlet
 	@Override
 	public List<MaintenanceActivity> findByMaintenanceProtocol(
 			MaintenanceProtocol maintenanceProtocol, int offset, int size)
-			throws GHAEJBException {
+					throws GHAEJBException {
 		return ejbService.findByMaintenanceProtocol(maintenanceProtocol, offset, size);
 	}
 
@@ -108,6 +108,15 @@ public class GWTMaintenanceActivityServiceImpl extends RemoteServiceServlet
 	public MaintenanceActivity update(MaintenanceActivity maintenanceActivity)
 			throws GHAEJBException {
 		return ejbService.update(maintenanceActivity);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol.GWTMaintenanceActivityService#find(org.fourgeeks.gha.domain.gmh.MaintenanceActivity)
+	 */
+	@Override
+	public List<MaintenanceActivity> find(
+			MaintenanceActivity maintenanceActivity) throws GHAEJBException {
+		return ejbService.find(maintenanceActivity);
 	}
 
 }

@@ -25,6 +25,10 @@ import org.fourgeeks.gha.domain.gar.Job;
 import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
 
+/**
+ * @author alacret
+ * 
+ */
 @Entity
 @NamedQueries(value = {
 		@NamedQuery(name = "Eia.getAll", query = "SELECT e from Eia e order by e.id"),
@@ -54,10 +58,12 @@ public class Eia extends AbstractEntity {
 	/** Fecha de Contabilización length =22 */
 	private BigDecimal adquisitionCostLocal;
 
+	@NotNull(message = "base-role-not-null")
 	@ManyToOne
 	@JoinColumn(name = "baseRoleFk", nullable = false)
 	private Role responsibleRole;
 
+	@Size(max = 20)
 	private String code;
 	/** Denominación Moneda del Costo de Adquisición del equipo length =60 */
 	private Date contabilizationDate;
@@ -74,13 +80,14 @@ public class Eia extends AbstractEntity {
 
 	// @Size(max = 30, message = "El campo debe ser menor a 30 caracteres")
 	// private String desincorporateReason;
-	@NotNull(message = "Debe seleccionar un tipo de equipo")
+	@NotNull(message = "type-not-null")
 	@ManyToOne
 	@JoinColumn(name = "eiaTypeFk", nullable = false)
 	private EiaType eiaType;
 
-	/** Número de Serial del Equipo length =60 */
+	@NotNull(message = "asset-id-not-null")
 	private String fixedAssetIdentifier;
+
 	/** Fecha de Recepción del Equipo length =22 */
 	private Date installationDate;
 	/** Fecha de la Factura de Compra length =22 */
@@ -109,6 +116,7 @@ public class Eia extends AbstractEntity {
 	@JoinColumn(name = "jobFk")
 	private Job job;
 	//
+	@NotNull(message = "maintenance-provider-not-null")
 	@ManyToOne
 	@JoinColumn(name = "maintenanceProviderFk")
 	private ExternalProvider maintenanceProvider;
@@ -116,6 +124,7 @@ public class Eia extends AbstractEntity {
 	/**
 	 * Responsible Obu for the EIA
 	 */
+	@NotNull(message = "obu-not-null")
 	@ManyToOne
 	@JoinColumn(name = "obuFk", nullable = false)
 	private Obu obu;
@@ -123,7 +132,7 @@ public class Eia extends AbstractEntity {
 	private Date purchaseDate;
 	/** Número de la Factura de Compra length =30 */
 	private Date purchaseInvoiceDate;
-	@Size(max = 30, message = "El número de la factura no debe ser mayor de 30 caracteres")
+
 	private String purchaseInvoiceNumber;
 	/** Número de la Orden de Compra length =30 */
 	private Date purchaseOrderDate;
@@ -132,12 +141,15 @@ public class Eia extends AbstractEntity {
 	/** Fecha de Compra del Equipo length =22 */
 	private Date receptionDate;
 	/** Código asignado al Equipo o Instalación length =20 */
+	@NotNull(message = "serial-not-null")
 	private String serialNumber;
 	/** Nombre Departamento donde esta adjudicado el equipo length =255 */
 
+	@NotNull(message = "state-not-null")
 	@Column(nullable = false)
 	private EiaStateEnum state = EiaStateEnum.CREATED;
 
+	@NotNull(message = "external-provider-not-null")
 	@ManyToOne
 	@JoinColumn(name = "externalProviderFk", nullable = false)
 	private ExternalProvider provider;
@@ -184,13 +196,20 @@ public class Eia extends AbstractEntity {
 	 * @param eiaType
 	 * @param obu
 	 * @param state
+	 * @param fixedAssetIdentifier
+	 * @param maintenanceProvider
+	 * @param serialNumber
 	 */
 	public Eia(Role responsibleRole, EiaType eiaType, Obu obu,
-			EiaStateEnum state) {
+			EiaStateEnum state, String fixedAssetIdentifier,
+			ExternalProvider maintenanceProvider, String serialNumber) {
 		this.responsibleRole = responsibleRole;
 		this.eiaType = eiaType;
 		this.obu = obu;
 		this.state = state;
+		this.fixedAssetIdentifier = fixedAssetIdentifier;
+		this.maintenanceProvider = maintenanceProvider;
+		this.serialNumber = serialNumber;
 	}
 
 	/**
@@ -198,25 +217,39 @@ public class Eia extends AbstractEntity {
 	 */
 	public Eia() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * @return the acceptation Date
+	 */
 	public Date getAcceptationDate() {
 		return acceptationDate;
 	}
 
+	/**
+	 * @return the ACtual cost
+	 */
 	public BigDecimal getActualCost() {
 		return actualCost;
 	}
 
+	/**
+	 * @return
+	 */
 	public CurrencyTypeEnum getActualCostCurrency() {
 		return actualCostCurrency;
 	}
 
+	/**
+	 * @return
+	 */
 	public BigDecimal getAdquisitionCost() {
 		return adquisitionCost;
 	}
 
+	/**
+	 * @return
+	 */
 	public CurrencyTypeEnum getAdquisitionCostCurrency() {
 		return adquisitionCostCurrency;
 	}

@@ -4,9 +4,16 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAPlace;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATab;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATabSet;
 
+/**
+ * @author alacret
+ * 
+ */
 public class EIAPlace extends GHAPlace {
 	private GHATab tab;
 
+	/**
+	 * 
+	 */
 	public EIAPlace() {
 		tab = GHATabSet.getById(EIATab.ID);
 		if (tab == null)

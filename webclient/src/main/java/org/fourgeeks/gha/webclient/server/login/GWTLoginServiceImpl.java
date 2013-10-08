@@ -57,7 +57,7 @@ public class GWTLoginServiceImpl extends RemoteServiceServlet implements
 		String ipAdd = request.getRemoteAddr().toString();
 
 		if (user.equals("") || password.equals(""))
-			throw new GHAEJBException("Debe indicar usuario y contraseña");
+			throw new GHAEJBException("Debe indicar usuario y contraseña.");
 
 		HttpSession session = request.getSession();
 		if (session != null)
@@ -67,36 +67,33 @@ public class GWTLoginServiceImpl extends RemoteServiceServlet implements
 		try {
 			ssoUser = ssoUserService.findByUsername(user);
 		} catch (GHAEJBException e1) {
-			logService.log(new LogonLog(null, new Message("LOGIN-002"), ipAdd));
-			throw new GHAEJBException("El usuario con el identificador " + user
-					+ " no se ecnuentra registrado");
+			logService.log(new LogonLog(null, new Message("LOGIN002"), ipAdd));
+			throw new GHAEJBException("Disculpe, el usuario o la contraseña no son válidos.");
+		}
+
+		if (ssoUser.getUserLogonStatus().equals(UserLogonStatusEnum.BLOCKED)) {
+			logService.log(new LogonLog(ssoUser.getBpu(), new Message(
+					"LOGIN003"), ipAdd));
+			throw new GHAEJBException("Usuario bloqueado.");
 		}
 
 		try {
 			request.login(user, password);
-			if (ssoUser.getUserLogonStatus()
-					.equals(UserLogonStatusEnum.BLOCKED)) {
-				logService.log(new LogonLog(ssoUser.getBpu(), new Message(
-						"LOGIN-003"), ipAdd));
-			} else {
-
-				logService.log(new LogonLog(ssoUser.getBpu(), new Message(
-						"LOGIN-001"), ipAdd));
-				Bpu bpu = ssoUser.getBpu();
-				bpu.setPermissions(bpuFunctionService.getFunctionsByBpu(bpu));
-				return bpu;
-			}
-			return new Bpu();
+			logService.log(new LogonLog(ssoUser.getBpu(), new Message(
+					"LOGIN001"), ipAdd));
+			Bpu bpu = ssoUser.getBpu();
+			bpu.setPermissions(bpuFunctionService.getFunctionsByBpu(bpu));
+			return bpu;
 		} catch (ServletException e) {
 			logService.log(new LogonLog(ssoUser.getBpu(), new Message(
-					"LOGIN-004"), ipAdd));
+					"LOGIN004"), ipAdd));
 			throw new GHAEJBException(
-					"Credenciales inválidas, por favor verifique su nombre de usuario y contraseña");
+					"Disculpe, el usuario o la contraseña no son válidos.");
 		} catch (Exception e) {
 			logService.log(new LogonLog(ssoUser.getBpu(), new Message(
-					"LOGIN-005"), ipAdd));
+					"LOGIN005"), ipAdd));
 			throw new GHAEJBException(
-					"Credenciales inválidas, por favor verifique su nombre de usuario y contraseña");
+					"Disculpe, el usuario o la contraseña no son válidos.");
 		}
 	}
 

@@ -1,6 +1,5 @@
 package org.fourgeeks.gha.webclient.client.eia;
 
-import java.math.BigDecimal;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -14,10 +13,13 @@ import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
+import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -42,8 +44,7 @@ public class EIASearchForm extends GHASlideInWindow implements
 
 	private List<EIASelectionListener> listeners;
 	private EIAGrid grid;
-	private GHATextItem actualCostItem, codeItem, fixedAssetIdentifierItem,
-			serialNumberItem;
+	private GHATextItem codeItem, fixedAssetIdentifierItem, serialNumberItem;
 	private GHASelectItem responsibleRoleItem, eiaTypeItem,
 			workingAreaLocationItem, facilityLocationItem, obuItem, stateItem;
 
@@ -51,21 +52,23 @@ public class EIASearchForm extends GHASlideInWindow implements
 	{
 		listeners = new LinkedList<EIASelectionListener>();
 
-		actualCostItem = new GHATextItem("Costo actual");
 		responsibleRoleItem = new GHASelectItem("Responsable");
 		codeItem = new GHATextItem("Código");
+		codeItem.setLength(20);
+		codeItem.setMask("####################");
 		eiaTypeItem = new GHASelectItem("Tipo de equipo");
 		fixedAssetIdentifierItem = new GHATextItem("Identificador");
-
+		fixedAssetIdentifierItem.setLength(20);
 		workingAreaLocationItem = new GHASelectItem("Área de Trabajo");
 		facilityLocationItem = new GHASelectItem("Servicio/Instalación");
-
 		obuItem = new GHASelectItem("Organización");
 		serialNumberItem = new GHATextItem("Serial");
+		serialNumberItem.setLength(20);
+		serialNumberItem.setMask("AAAAAAAAAAAAAAAAAAAA");
+		fixedAssetIdentifierItem.setLength(20);
+		fixedAssetIdentifierItem.setMask("###################");
 		stateItem = new GHASelectItem("Estado");
-
 		grid = new EIAGrid();
-
 		addForm = new EIAAddForm();
 		addForm.addEiaSelectionListener(this);
 	}
@@ -87,8 +90,8 @@ public class EIASearchForm extends GHASlideInWindow implements
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(5);
 
-		form.setItems(actualCostItem, responsibleRoleItem, codeItem,
-				eiaTypeItem, fixedAssetIdentifierItem, workingAreaLocationItem,
+		form.setItems(responsibleRoleItem, codeItem, eiaTypeItem,
+				fixedAssetIdentifierItem, workingAreaLocationItem,
 				facilityLocationItem, obuItem, serialNumberItem, stateItem);
 
 		ClickHandler searchClickHandler = new ClickHandler() {
@@ -107,7 +110,7 @@ public class EIASearchForm extends GHASlideInWindow implements
 				}
 			}
 		};
-		actualCostItem.addKeyUpHandler(searchKeyUpHandler);
+		// actualCostItem.addKeyUpHandler(searchKeyUpHandler);
 		responsibleRoleItem.addKeyUpHandler(searchKeyUpHandler);
 		codeItem.addKeyUpHandler(searchKeyUpHandler);
 		eiaTypeItem.addKeyUpHandler(searchKeyUpHandler);
@@ -155,9 +158,7 @@ public class EIASearchForm extends GHASlideInWindow implements
 
 					@Override
 					public void onClick(ClickEvent event) {
-						notifyEia(((EIARecord) grid.getSelectedRecord())
-								.toEntity());
-						hide();
+						selectEia();
 					}
 				}), GHAUiHelper.verticalGraySeparator("2px"), new GHAImgButton(
 				"../resources/icons/new.png", new ClickHandler() {
@@ -272,8 +273,8 @@ public class EIASearchForm extends GHASlideInWindow implements
 
 	private void search() {
 		Eia eia = new Eia();
-		if (actualCostItem.getValue() != null)
-			eia.setActualCost(new BigDecimal(actualCostItem.getValueAsString()));
+		// if (actualCostItem.getValue() != null)
+		// eia.setActualCost(new BigDecimal(actualCostItem.getValueAsString()));
 		if (responsibleRoleItem.getValue() != null)
 			eia.setResponsibleRole(new Role(Long.parseLong(responsibleRoleItem
 					.getValueAsString())));
@@ -341,5 +342,29 @@ public class EIASearchForm extends GHASlideInWindow implements
 	public void removeEiaSelectionListener(
 			EIASelectionListener eiaSelectionListener) {
 		listeners.remove(eiaSelectionListener);
+	}
+
+	/**
+	 * @param eiaType
+	 */
+	public void select(EiaType eiaType) {
+		if (eiaType != null) {
+			eiaTypeItem.setValue(eiaType.getCode());
+			eiaTypeItem.disable();
+		}
+
+	}
+
+	/**
+	 * 
+	 */
+	private void selectEia() {
+		GHAGridRecord<Eia> selectedRecord = grid.getSelectedRecord();
+		if (selectedRecord == null) {
+			GHANotification.alert(GHAStrings.get("record-not-selected"));
+			return;
+		}
+		notifyEia(((EIARecord) selectedRecord).toEntity());
+		hide();
 	}
 }
