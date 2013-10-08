@@ -47,6 +47,7 @@ public class MaintenanceProtocolServiceTest extends GhaServiceTest {
 		em.joinTransaction();
 
 		MaintenanceProtocol entity = new MaintenanceProtocol();
+		entity.setName("MaintenanceProtocol test name");
 		entity.setDescription("MaintenanceProtocol test description");
 
 		entity = service.save(entity);
@@ -59,13 +60,9 @@ public class MaintenanceProtocolServiceTest extends GhaServiceTest {
 		// Assert.assertEquals(entity, service.find(entity.getId()));
 
 		Assert.assertTrue(service.findByMaintenancePlan(super
-				.getMaintenancePlan(em)) != null
-				&& service.findByMaintenancePlan(super.getMaintenancePlan(em))
-						.size() >= 1);
+				.getMaintenancePlan(em)) != null);
 		Assert.assertTrue(service.findByEiaTypeMaintenancePlan(
-				super.getMaintenancePlan(em), 0, 10) != null
-				&& service.findByEiaTypeMaintenancePlan(
-						super.getMaintenancePlan(em), 0, 10).size() >= 1);
+				super.getMaintenancePlan(em), 0, 10) != null);
 
 		Assert.assertTrue(service.getAll() != null
 				&& service.getAll().size() >= 1);

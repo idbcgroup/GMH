@@ -13,6 +13,7 @@ import javax.transaction.UserTransaction;
 
 import junit.framework.Assert;
 
+import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.ejb.GhaServiceTest;
@@ -48,6 +49,8 @@ public class MaintenancePlanServiceTest extends GhaServiceTest {
 
 		MaintenancePlan entity = new MaintenancePlan();
 		entity.setDescription("MaintenancePlan test description");
+		entity.setName("MaintenancePlan teste name");
+		entity.setPot(TimePeriodEnum.DAYS);
 
 		entity = service.save(entity);
 
