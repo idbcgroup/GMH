@@ -18,7 +18,7 @@ import org.fourgeeks.gha.domain.gmh.ServiceResource;
 import org.fourgeeks.gha.domain.logs.LogonLog;
 import org.fourgeeks.gha.domain.mix.Bpa;
 import org.fourgeeks.gha.domain.mix.LegalEntity;
-import org.fourgeeks.gha.domain.msg.Message;
+import org.fourgeeks.gha.domain.msg.GHAMessage;
 import org.fourgeeks.gha.ejb.ess.FunctionServiceRemote;
 import org.fourgeeks.gha.ejb.gar.BpuFunctionService;
 import org.fourgeeks.gha.ejb.gar.BpuFunctionServiceRemote;
@@ -58,7 +58,7 @@ public class GhaServiceTest {
 				.addPackage(javax.ejb.EJBException.class.getPackage())
 				.addPackage(LogonLog.class.getPackage())
 				.addPackage(LogonLogServiceRemote.class.getPackage())
-				.addPackage(Message.class.getPackage())
+				.addPackage(GHAMessage.class.getPackage())
 				.addPackage(ItSystem.class.getPackage())
 				.addPackage(AbstractEntity.class.getPackage())
 				.addPackage(Bpu.class.getPackage())

@@ -15,7 +15,7 @@ import org.fourgeeks.gha.domain.enu.LanguageEnum;
 @Entity
 @Table(schema = "msg", uniqueConstraints = @UniqueConstraint(columnNames = {
 		"language", "code" }))
-public class Message extends AbstractCodeEntity {
+public class GHAMessage extends AbstractCodeEntity {
 
 	/**
 	 * 
@@ -32,7 +32,7 @@ public class Message extends AbstractCodeEntity {
 	 * @param code
 	 * @param text
 	 */
-	public Message(LanguageEnum language, String code, String text) {
+	public GHAMessage(LanguageEnum language, String code, String text) {
 		super();
 		this.language = language;
 		this.code = code;
@@ -41,7 +41,7 @@ public class Message extends AbstractCodeEntity {
 
 	/**
 	 */
-	public Message() {
+	public GHAMessage() {
 		super();
 	}
 
@@ -50,7 +50,7 @@ public class Message extends AbstractCodeEntity {
 	 * @param code
 	 * @param text
 	 */
-	public Message(String code) {
+	public GHAMessage(String code) {
 		super();
 		this.code = code;
 	}

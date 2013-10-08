@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
-import org.fourgeeks.gha.domain.msg.Message;
+import org.fourgeeks.gha.domain.msg.GHAMessage;
 
 /**
  * @author emiliot
@@ -30,7 +30,7 @@ public abstract class GHALog extends AbstractEntity {
 
 	@ManyToOne
 	@JoinColumn(nullable = false)
-	protected Message message;
+	protected GHAMessage message;
 
 	/**
 	 * @return the timestamp
@@ -42,14 +42,14 @@ public abstract class GHALog extends AbstractEntity {
 	/**
 	 * @return the message
 	 */
-	public Message getMessage() {
+	public GHAMessage getMessage() {
 		return message;
 	}
 
 	/**
 	 * @param message
 	 */
-	public void setMessage(Message message) {
+	public void setMessage(GHAMessage message) {
 		this.message = message;
 	}
 }

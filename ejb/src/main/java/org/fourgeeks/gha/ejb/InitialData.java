@@ -58,7 +58,7 @@ import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.domain.mix.Citizen;
 import org.fourgeeks.gha.domain.mix.Institution;
 import org.fourgeeks.gha.domain.mix.LegalEntity;
-import org.fourgeeks.gha.domain.msg.Message;
+import org.fourgeeks.gha.domain.msg.GHAMessage;
 import org.fourgeeks.gha.domain.msg.UiString;
 import org.fourgeeks.gha.ejb.ess.FunctionServiceRemote;
 
@@ -110,20 +110,60 @@ public class InitialData {
 	}
 
 	private void messages() {
-		String query = "SELECT t FROM Message t WHERE t.id = 'LOGIN001'";
+		String query = "SELECT t FROM GHAMessage t WHERE t.id = 'LOGIN001'";
 		try {
 			em.createQuery(query).getSingleResult();
 		} catch (NoResultException e) {
 			try {
 				logger.info("Creating message test data");
-				em.persist(new Message(LanguageEnum.ES, "LOGIN001",
+				em.persist(new GHAMessage(LanguageEnum.ES, "LOGIN001",
 						"Inicio de sesión exitoso"));
-				em.persist(new Message(LanguageEnum.ES, "LOGIN002",
+				em.persist(new GHAMessage(LanguageEnum.ES, "LOGIN002",
 						"Clave incorrecta"));
-				em.persist(new Message(LanguageEnum.ES, "LOGIN003",
+				em.persist(new GHAMessage(LanguageEnum.ES, "LOGIN003",
 						"Debe suministrar nombre de usuario y contraseña"));
-				em.persist(new Message(LanguageEnum.ES, "LOGIN004",
+				em.persist(new GHAMessage(LanguageEnum.ES, "LOGIN004",
 						"Usuario deshabilitado"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "type-not-null",
+						"Debe indicar el tipo"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "sub-type-not-null",
+						"Debe indicar el sub tipo"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"external-provider-not-null",
+						"Debe indicar el proveedor"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "name-not-null",
+						"Debe indicar el nombre"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "mobility-not-null",
+						"Debe indicar la movilidad"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"base-role-not-null", "Debe indicar el rol"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "obu-not-null",
+						"Debe indicar la organización"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "state-not-null",
+						"Debe indicar el estado"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "gender-not-null",
+						"Debe indicar el genero"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "bpi-not-null",
+						"Debe indicar la institución"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "username-not-null",
+						"Debe indicar el usuario"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "password-not-null",
+						"Debe indicar la clave"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "code-not-null",
+						"Debe indicar el código"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "serial-not-null",
+						"Debe indicar el serial"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"maintenance-provider-not-null",
+						"Debe indicar el proveedor de mantenimiento"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"record-not-selected", "Debe seleccionar un registro"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"frecuency-not-null", "Debe indicar la frecuencia"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"time-period-not-null",
+						"Debe indicar el periodo de tiempo"));
+
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating message test data", e1);
@@ -141,45 +181,6 @@ public class InitialData {
 				em.persist(new UiString(LanguageEnum.ES, "name", "Nombre"));
 				em.persist(new UiString(LanguageEnum.ES, "equipments",
 						"Equipos"));
-				em.persist(new UiString(LanguageEnum.ES, "type-not-null",
-						"Debe indicar el tipo"));
-				em.persist(new UiString(LanguageEnum.ES, "sub-type-not-null",
-						"Debe indicar el sub tipo"));
-				em.persist(new UiString(LanguageEnum.ES,
-						"external-provider-not-null",
-						"Debe indicar el proveedor"));
-				em.persist(new UiString(LanguageEnum.ES, "name-not-null",
-						"Debe indicar el nombre"));
-				em.persist(new UiString(LanguageEnum.ES, "mobility-not-null",
-						"Debe indicar la movilidad"));
-				em.persist(new UiString(LanguageEnum.ES, "base-role-not-null",
-						"Debe indicar el rol"));
-				em.persist(new UiString(LanguageEnum.ES, "obu-not-null",
-						"Debe indicar la organización"));
-				em.persist(new UiString(LanguageEnum.ES, "state-not-null",
-						"Debe indicar el estado"));
-				em.persist(new UiString(LanguageEnum.ES, "gender-not-null",
-						"Debe indicar el genero"));
-				em.persist(new UiString(LanguageEnum.ES, "bpi-not-null",
-						"Debe indicar la institución"));
-				em.persist(new UiString(LanguageEnum.ES, "username-not-null",
-						"Debe indicar el usuario"));
-				em.persist(new UiString(LanguageEnum.ES, "password-not-null",
-						"Debe indicar la clave"));
-				em.persist(new UiString(LanguageEnum.ES, "code-not-null",
-						"Debe indicar el código"));
-				em.persist(new UiString(LanguageEnum.ES, "serial-not-null",
-						"Debe indicar el serial"));
-				em.persist(new UiString(LanguageEnum.ES,
-						"maintenance-provider-not-null",
-						"Debe indicar el proveedor de mantenimiento"));
-				em.persist(new UiString(LanguageEnum.ES, "record-not-selected",
-						"Debe seleccionar un registro"));
-				em.persist(new UiString(LanguageEnum.ES, "frecuency-not-null",
-						"Debe indicar la frecuencia"));
-				em.persist(new UiString(LanguageEnum.ES,
-						"time-period-not-null",
-						"Debe indicar el periodo de tiempo"));
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating uistrings test data", e1);
