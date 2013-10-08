@@ -48,7 +48,6 @@ public class MaintenanceProtocolServiceTest extends GhaServiceTest {
 
 		MaintenanceProtocol entity = new MaintenanceProtocol();
 		entity.setDescription("MaintenanceProtocol test description");
-		entity.setMaintenancePlan(super.getMaintenancePlan(em));
 
 		entity = service.save(entity);
 

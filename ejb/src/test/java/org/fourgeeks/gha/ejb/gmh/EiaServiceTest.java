@@ -52,6 +52,9 @@ public class EiaServiceTest extends GhaServiceTest {
 		entity.setObu(super.getObu(em));
 		entity.setProvider(super.getExternalProvider(em));
 		entity.setResponsibleRole(super.getRole(em));
+		entity.setMaintenanceProvider(super.getExternalProvider(em));
+		entity.setSerialNumber("Eia test serialNumber");
+		entity.setFixedAssetIdentifier("Eia test asset");
 
 		entity = service.save(entity);
 

@@ -9,9 +9,11 @@ import org.fourgeeks.gha.domain.codes.FunctionsCodes;
 import org.fourgeeks.gha.domain.conf.Parameter;
 import org.fourgeeks.gha.domain.enu.DocumentTypeEnum;
 import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
+import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
 import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.enu.GenderTypeEnum;
 import org.fourgeeks.gha.domain.enu.LocationLevelEnum;
+import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.ess.BpuFunction;
 import org.fourgeeks.gha.domain.ess.Function;
 import org.fourgeeks.gha.domain.ess.Role;
@@ -190,6 +192,9 @@ public class GhaServiceTest {
 			eia.setObu(getObu(em));
 			eia.setProvider(getExternalProvider(em));
 			eia.setResponsibleRole(getRole(em));
+			eia.setMaintenanceProvider(getExternalProvider(em));
+			eia.setSerialNumber("Eia test serialNumber");
+			eia.setFixedAssetIdentifier("Eia test asset");
 			em.persist(eia);
 			em.flush();
 			this.eia = em.find(Eia.class, eia.getId());
@@ -204,6 +209,7 @@ public class GhaServiceTest {
 			eiaType.setMobility(EiaMobilityEnum.FIXED);
 			eiaType.setName("EiaType test name");
 			eiaType.setType(EiaTypeEnum.EQUIPMENT);
+			eiaType.setSubtype(EiaSubTypeEnum.DIAGNOSE);
 			em.persist(eiaType);
 			em.flush();
 			this.eiaType = em.find(EiaType.class, eiaType.getCode());
@@ -312,7 +318,9 @@ public class GhaServiceTest {
 	public MaintenancePlan getMaintenancePlan(EntityManager em) {
 		if (maintenancePlan == null) {
 			MaintenancePlan maintenancePlan = new MaintenancePlan();
+			maintenancePlan.setName("MaintenancePlan test name");
 			maintenancePlan.setDescription("MaintenancePlan test description");
+			maintenancePlan.setPot(TimePeriodEnum.DAYS);
 			em.persist(maintenancePlan);
 			em.flush();
 			this.maintenancePlan = em.find(MaintenancePlan.class,
