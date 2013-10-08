@@ -15,19 +15,21 @@ import org.fourgeeks.gha.domain.ess.WorkingArea;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 
 /**
- * @author emiliot
- *
+ * @author emiliot, vivi.torresg
+ * 
  */
 
 @Stateless(name = "ess.WorkingAreaService")
-public class WorkingAreaService implements WorkingAreaServiceRemote{
+public class WorkingAreaService implements WorkingAreaServiceRemote {
 	@PersistenceContext
 	EntityManager em;
-	
-	private final static Logger logger = Logger.getLogger(WorkingAreaService.class
-			.getName());
-	
-	/* (non-Javadoc)
+
+	private final static Logger logger = Logger
+			.getLogger(WorkingAreaService.class.getName());
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.ejb.ess.WorkingAreaServiceRemote#delete(long)
 	 */
 	@Override
@@ -42,16 +44,33 @@ public class WorkingAreaService implements WorkingAreaServiceRemote{
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.ess.WorkingAreaServiceRemote#find(org.fourgeeks.gha.domain.ess.WorkingArea)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.ess.WorkingAreaServiceRemote#find(org.fourgeeks
+	 * .gha.domain.ess.WorkingArea)
 	 */
 	@Override
-	public List<WorkingArea> find(WorkingArea entity) throws GHAEJBException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<WorkingArea> find(WorkingArea workingArea)
+			throws GHAEJBException {
+		try {
+			return em
+					.createNamedQuery("WorkingArea.findByWorkingArea",
+							WorkingArea.class)
+					.setParameter("workingArea", workingArea).getResultList();
+		} catch (Exception ex) {
+			logger.log(Level.SEVERE,
+					"Error finding WorkingArea by workingArea", ex);
+			throw new GHAEJBException(
+					"Error obteniendo WorkingAreas por workingArea"
+							+ ex.getCause().getMessage());
+		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.ejb.ess.WorkingAreaServiceRemote#find(long)
 	 */
 	@Override
@@ -65,13 +84,16 @@ public class WorkingAreaService implements WorkingAreaServiceRemote{
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.ejb.ess.WorkingAreaServiceRemote#getAll()
 	 */
 	@Override
 	public List<WorkingArea> getAll() throws GHAEJBException {
 		try {
-			return em.createNamedQuery("WorkingArea.getAll", WorkingArea.class).getResultList();
+			return em.createNamedQuery("WorkingArea.getAll", WorkingArea.class)
+					.getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all WorkingArea", ex);
 			throw new GHAEJBException("Error obteniendo todas las WorkingAreas"
@@ -79,8 +101,12 @@ public class WorkingAreaService implements WorkingAreaServiceRemote{
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.ess.WorkingAreaServiceRemote#save(org.fourgeeks.gha.domain.ess.WorkingArea)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.ess.WorkingAreaServiceRemote#save(org.fourgeeks
+	 * .gha.domain.ess.WorkingArea)
 	 */
 	@Override
 	public WorkingArea save(WorkingArea entity) throws GHAEJBException {
@@ -95,8 +121,12 @@ public class WorkingAreaService implements WorkingAreaServiceRemote{
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.ess.WorkingAreaServiceRemote#update(org.fourgeeks.gha.domain.ess.WorkingArea)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.ess.WorkingAreaServiceRemote#update(org.fourgeeks
+	 * .gha.domain.ess.WorkingArea)
 	 */
 	@Override
 	public WorkingArea update(WorkingArea entity) throws GHAEJBException {
@@ -105,10 +135,10 @@ public class WorkingAreaService implements WorkingAreaServiceRemote{
 			em.flush();
 			return res;
 		} catch (Exception e) {
-			logger.log(Level.INFO,
-					"ERROR: unable to update WorkingArea ", e);
-			throw new GHAEJBException("ERROR: no se puede actualizar el WorkingArea "
-					+ e.getCause().getMessage());
+			logger.log(Level.INFO, "ERROR: unable to update WorkingArea ", e);
+			throw new GHAEJBException(
+					"ERROR: no se puede actualizar el WorkingArea "
+							+ e.getCause().getMessage());
 		}
 	}
 }

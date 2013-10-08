@@ -292,7 +292,6 @@ public class EiaService implements EiaServiceRemote {
 	public Eia update(Eia eia) throws GHAEJBException {
 		try {
 			Eia res = em.merge(eia);
-			em.flush();
 			return res;
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to update eia ", e);

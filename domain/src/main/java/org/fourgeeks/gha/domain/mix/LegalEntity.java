@@ -9,12 +9,15 @@ import javax.persistence.NamedQuery;
 import org.fourgeeks.gha.domain.AbstractEntity;
 
 /**
- * @author emiliot Entidad legal aplicable a todas las personas Naturales y
- *         Jurídicas
+ * @author emiliot, vivi.torresg
+ * 
+ *         Entidad legal aplicable a todas las personas Naturales y Jurídicas
  * 
  */
 @Entity
-@NamedQueries(value = { @NamedQuery(name = "LegalEntity.getAll", query = "SELECT e from LegalEntity e order by e.id") })
+@NamedQueries(value = {
+		@NamedQuery(name = "LegalEntity.getAll", query = "SELECT e from LegalEntity e order by e.id"),
+		@NamedQuery(name = "LegalEntity.findByLegalEntity", query = "SELECT e from LegalEntity e where e like :legalEntity order by e.id") })
 public class LegalEntity extends AbstractEntity {
 	/**
 	 * 

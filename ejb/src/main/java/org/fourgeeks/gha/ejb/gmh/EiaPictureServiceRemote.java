@@ -19,7 +19,7 @@ public interface EiaPictureServiceRemote {
 	 * @param eiaPicture
 	 * @throws GHAEJBException
 	 */
-	public void save(EiaPicture eiaPicture) throws GHAEJBException;
+	public EiaPicture save(EiaPicture eiaPicture) throws GHAEJBException;
 
 	/**
 	 * @param Id

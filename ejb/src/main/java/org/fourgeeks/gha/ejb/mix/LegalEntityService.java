@@ -15,17 +15,20 @@ import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.mix.LegalEntity;
 
 /**
- * @author emiliot
- *
+ * @author emiliot, vivi.torresg
+ * 
  */
 @Stateless(name = "mix.LegalEntityService")
 public class LegalEntityService implements LegalEntityServiceRemote {
 	@PersistenceContext
 	private EntityManager em;
 
-	private final static Logger logger = Logger.getLogger(LegalEntityService.class
-			.getName());
-	/* (non-Javadoc)
+	private final static Logger logger = Logger
+			.getLogger(LegalEntityService.class.getName());
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.ejb.mix.LegalEntityServiceRemote#delete(long)
 	 */
 	@Override
@@ -40,16 +43,33 @@ public class LegalEntityService implements LegalEntityServiceRemote {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.mix.LegalEntityServiceRemote#find(org.fourgeeks.gha.domain.mix.LegalEntity)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.mix.LegalEntityServiceRemote#find(org.fourgeeks
+	 * .gha.domain.mix.LegalEntity)
 	 */
 	@Override
-	public List<LegalEntity> find(LegalEntity legalEntity) throws GHAEJBException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<LegalEntity> find(LegalEntity legalEntity)
+			throws GHAEJBException {
+		try {
+			return em
+					.createNamedQuery("LegalEntity.findByLegalEntity",
+							LegalEntity.class)
+					.setParameter("legalEntity", legalEntity).getResultList();
+		} catch (Exception ex) {
+			logger.log(Level.SEVERE,
+					"Error finding LegalEntity by legalEntity", ex);
+			throw new GHAEJBException(
+					"Error obteniendo LegalEntity por legalEntity"
+							+ ex.getCause().getMessage());
+		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.ejb.mix.LegalEntityServiceRemote#find(long)
 	 */
 	@Override
@@ -63,7 +83,9 @@ public class LegalEntityService implements LegalEntityServiceRemote {
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.ejb.mix.LegalEntityServiceRemote#getAll()
 	 */
 	@Override
@@ -78,8 +100,12 @@ public class LegalEntityService implements LegalEntityServiceRemote {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.mix.LegalEntityServiceRemote#save(org.fourgeeks.gha.domain.mix.LegalEntity)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.mix.LegalEntityServiceRemote#save(org.fourgeeks
+	 * .gha.domain.mix.LegalEntity)
 	 */
 	@Override
 	public LegalEntity save(LegalEntity legalEntity) throws GHAEJBException {
@@ -94,8 +120,12 @@ public class LegalEntityService implements LegalEntityServiceRemote {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.mix.LegalEntityServiceRemote#update(org.fourgeeks.gha.domain.mix.LegalEntity)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.mix.LegalEntityServiceRemote#update(org.fourgeeks
+	 * .gha.domain.mix.LegalEntity)
 	 */
 	@Override
 	public LegalEntity update(LegalEntity legalEntity) throws GHAEJBException {
@@ -104,10 +134,10 @@ public class LegalEntityService implements LegalEntityServiceRemote {
 			em.flush();
 			return res;
 		} catch (Exception e) {
-			logger.log(Level.INFO,
-					"ERROR: unable to update LegalEntity ", e);
-			throw new GHAEJBException("ERROR: no se puede actualizar el LegalEntity "
-					+ e.getCause().getMessage());
+			logger.log(Level.INFO, "ERROR: unable to update LegalEntity ", e);
+			throw new GHAEJBException(
+					"ERROR: no se puede actualizar el LegalEntity "
+							+ e.getCause().getMessage());
 		}
 	}
 

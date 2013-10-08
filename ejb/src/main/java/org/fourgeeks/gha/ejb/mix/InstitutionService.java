@@ -15,8 +15,8 @@ import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.mix.Institution;
 
 /**
- * @author emiliot
- *
+ * @author emiliot, vivi.torresg
+ * 
  */
 
 @Stateless(name = "mix.InstitutionService")
@@ -24,9 +24,12 @@ public class InstitutionService implements InstitutionServiceRemote {
 	@PersistenceContext
 	private EntityManager em;
 
-	private final static Logger logger = Logger.getLogger(InstitutionService.class
-			.getName());
-	/* (non-Javadoc)
+	private final static Logger logger = Logger
+			.getLogger(InstitutionService.class.getName());
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.ejb.mix.InstitutionServiceRemote#delete(long)
 	 */
 	@Override
@@ -41,16 +44,33 @@ public class InstitutionService implements InstitutionServiceRemote {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.mix.InstitutionServiceRemote#find(org.fourgeeks.gha.domain.mix.Institution)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.mix.InstitutionServiceRemote#find(org.fourgeeks
+	 * .gha.domain.mix.Institution)
 	 */
 	@Override
-	public List<Institution> find(Institution institution) throws GHAEJBException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Institution> find(Institution institution)
+			throws GHAEJBException {
+		try {
+			return em
+					.createNamedQuery("Institution.findByInstitution",
+							Institution.class)
+					.setParameter("institution", institution).getResultList();
+		} catch (Exception ex) {
+			logger.log(Level.SEVERE,
+					"Error finding Institution by institution", ex);
+			throw new GHAEJBException(
+					"Error obteniendo Institution por institution"
+							+ ex.getCause().getMessage());
+		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.ejb.mix.InstitutionServiceRemote#find(long)
 	 */
 	@Override
@@ -64,7 +84,9 @@ public class InstitutionService implements InstitutionServiceRemote {
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.ejb.mix.InstitutionServiceRemote#getAll()
 	 */
 	@Override
@@ -79,8 +101,12 @@ public class InstitutionService implements InstitutionServiceRemote {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.mix.InstitutionServiceRemote#save(org.fourgeeks.gha.domain.mix.Institution)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.mix.InstitutionServiceRemote#save(org.fourgeeks
+	 * .gha.domain.mix.Institution)
 	 */
 	@Override
 	public Institution save(Institution institution) throws GHAEJBException {
@@ -95,8 +121,12 @@ public class InstitutionService implements InstitutionServiceRemote {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.mix.InstitutionServiceRemote#update(org.fourgeeks.gha.domain.mix.Institution)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.mix.InstitutionServiceRemote#update(org.fourgeeks
+	 * .gha.domain.mix.Institution)
 	 */
 	@Override
 	public Institution update(Institution institution) throws GHAEJBException {
@@ -105,11 +135,10 @@ public class InstitutionService implements InstitutionServiceRemote {
 			em.flush();
 			return res;
 		} catch (Exception e) {
-			logger.log(Level.INFO,
-					"ERROR: unable to update Institution ", e);
-			throw new GHAEJBException("ERROR: no se puede actualizar el Institution "
-					+ e.getCause().getMessage());
+			logger.log(Level.INFO, "ERROR: unable to update Institution ", e);
+			throw new GHAEJBException(
+					"ERROR: no se puede actualizar el Institution "
+							+ e.getCause().getMessage());
 		}
 	}
-
 }
