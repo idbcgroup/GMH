@@ -83,6 +83,13 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 			lastDepreciationDate, realWarrantyBeginDate, intWarrantyBeginDate;
 	// private GHACheckboxItem sameLocationAttendedItem, isInMaintenanceItem;
 	private GHASectionForm sectionForm;
+
+	private DynamicForm infoBasicaForm;
+	private DynamicForm adquisicionForm;
+	private DynamicForm ubicacionForm;
+	private DynamicForm costosTab;
+	private DynamicForm garantiasMantForm;
+
 	private Validator validator;
 	private List<EIASelectionListener> listeners;
 	private Eia entity;
@@ -257,12 +264,18 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 	public EIAForm(EiaType eiaType) {
 		select(eiaType);
 
-		sectionForm.addSection("Información Básica", getInfoBasicaForm(), true);
+		infoBasicaForm = getInfoBasicaForm();
+		adquisicionForm = getAdquisicionForm();
+		ubicacionForm = getUbicacionForm();
+		costosTab = getCostosTab();
+		garantiasMantForm = getGarantiasMantForm();
+
+		sectionForm.addSection("Información Básica", infoBasicaForm, true);
 		sectionForm.addSectionSeparator();
-		sectionForm.addSection("Adquisicion", getAdquisicionForm(), false);
-		sectionForm.addSection("Ubicación", getUbicacionForm(), false);
-		sectionForm.addSection("Costos", getCostosTab(), false);
-		sectionForm.addSection("Garantias", getGarantiasMantForm(), false);
+		sectionForm.addSection("Adquisicion", adquisicionForm, false);
+		sectionForm.addSection("Ubicación", ubicacionForm, false);
+		sectionForm.addSection("Costos", costosTab, false);
+		sectionForm.addSection("Garantias", garantiasMantForm, false);
 		// sectionForm.addSection("EquiposIT", getEquiposIT(), false);
 
 		addMember(sectionForm);
@@ -815,19 +828,19 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		// eia.setMachineName(machineNameTextItem.getValueAsString());
 		// eia.setIpAddress(ipAddresTextItem.getValueAsString());
 		// eia.setMacAddress(macAddressTextItem.getValueAsString());
-		// Window.alert("1 " + eia);
 
 		Set<ConstraintViolation<Eia>> violations = validator.validate(eia);
-		// Window.alert("2 " + violations);
-		// Window.alert(violations.isEmpty() == true ? "vacio" : "novacio");
-		if (violations.isEmpty())
-			return eia;
-		else
-			GHANotification.alert(GHAStrings.get(violations.iterator().next()
-					.getMessage()));
-		// Window.alert("3");
-		// Window.alert(violations.iterator().next().getMessage());
-		// Window.alert("4");
+
+		if (infoBasicaForm.validate() && adquisicionForm.validate()
+				&& ubicacionForm.validate() && costosTab.validate()
+				&& garantiasMantForm.validate()) {
+			if (violations.isEmpty()) {
+				return eia;
+			} else {
+				GHANotification.alert(GHAStrings.get(violations.iterator()
+						.next().getMessage()));
+			}
+		}
 		return null;
 	}
 
@@ -931,7 +944,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		super.show();
 		sectionForm.openFirst();
 	}
-	
+
 	@Override
 	public void hide() {
 		sectionForm.deactivate();
@@ -1083,5 +1096,5 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		// if (eia.getMacAddress() != null)
 		// macAddressTextItem.setValue(eia.getMacAddress());
 	}
-	
+
 }
