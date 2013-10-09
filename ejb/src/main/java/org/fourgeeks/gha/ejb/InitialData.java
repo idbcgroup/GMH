@@ -116,6 +116,10 @@ public class InitialData {
 		} catch (NoResultException e) {
 			try {
 				logger.info("Creating message test data");
+				em.persist(new GHAMessage(LanguageEnum.ES, "no-message",
+						"No existe un mensaje para su localidad"));
+				em.persist(new GHAMessage(LanguageEnum.EN, "no-message-en",
+						"There is no message for your location"));
 				em.persist(new GHAMessage(LanguageEnum.ES, "LOGIN001",
 						"Inicio de sesión exitoso"));
 				em.persist(new GHAMessage(LanguageEnum.ES, "LOGIN002",

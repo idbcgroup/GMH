@@ -2,6 +2,8 @@ package org.fourgeeks.gha.domain.msg;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -15,6 +17,7 @@ import org.fourgeeks.gha.domain.enu.LanguageEnum;
 @Entity
 @Table(schema = "msg", uniqueConstraints = @UniqueConstraint(columnNames = {
 		"language", "code" }))
+@NamedQueries(value = { @NamedQuery(name = "GHAMessage.find", query = "SELECT e FROM GHAMessage e WHERE e.code = :code AND e.language = :language") })
 public class GHAMessage extends AbstractCodeEntity {
 
 	/**
