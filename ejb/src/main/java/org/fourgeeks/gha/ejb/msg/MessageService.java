@@ -1,5 +1,7 @@
 package org.fourgeeks.gha.ejb.msg;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -37,6 +39,20 @@ public class MessageService implements MessageServiceRemote {
 			throw new GHAEJBException("ERROR: finding GHAMessage "
 					+ e.getCause().getMessage());
 		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.ejb.msg.MessageServiceRemote#find(java.util.List)
+	 */
+	@Override
+	public List<GHAMessage> find(List<String> messages) throws GHAEJBException {
+		List<GHAMessage> result = new ArrayList<GHAMessage>();
+		for (String message : messages)
+			result.add(find(message));
+
+		return result;
 	}
 
 }

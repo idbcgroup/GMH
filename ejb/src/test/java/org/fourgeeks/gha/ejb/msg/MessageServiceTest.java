@@ -2,6 +2,9 @@ package org.fourgeeks.gha.ejb.msg;
 
 import static junit.framework.Assert.assertNotNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -59,11 +62,26 @@ public class MessageServiceTest extends GhaServiceTest {
 		em.joinTransaction();
 
 		try {
-			em.persist(new GHAMessage(LanguageEnum.ES, "test-code", "test msg"));
-			GHAMessage msg = service.find("test-code");
-			assertNotNull(msg);
-			assert (msg.getText().equals("test msg"));
+			String codes[] = { "test-code", "test-code2" };
+			String msgs[] = { "test msg", "test msg 2" };
+			em.persist(new GHAMessage(LanguageEnum.ES, codes[0], msgs[0]));
+			em.persist(new GHAMessage(LanguageEnum.ES, codes[1], msgs[1]));
 			em.flush();
+
+			GHAMessage msg = service.find(codes[0]);
+			assertNotNull(msg);
+			assert (msg.getText().equals(msgs[0]));
+
+			ArrayList<String> param = new ArrayList<String>();
+			for (String s : codes)
+				param.add(s);
+
+			List<GHAMessage> test = service.find(param);
+			assertNotNull(test);
+			int i = 0;
+			for (GHAMessage message : test) {
+				assert (message.getText().equals(msgs[i++]));
+			}
 		} catch (Exception e) {
 			ux.rollback();
 			e.printStackTrace();
