@@ -6,7 +6,9 @@
         http://docs.jboss.org/ironjacamar/schema/datasources_1_0.xsd">
 	<datasource enabled="true" jndi-name="jdbc/arquillian"
 		pool-name="ArquillianEmbeddedH2Pool">
-		<connection-url>jdbc:h2:mem:arquillian;DB_CLOSE_DELAY=-1;INIT=CREATE SCHEMA IF NOT EXISTS GHALOG\;CREATE SCHEMA IF NOT EXISTS GHAMSG</connection-url>
+		<connection-url>jdbc:h2:mem:arquillian;DB_CLOSE_DELAY=-1;INIT=CREATE
+			SCHEMA IF NOT EXISTS LOG\;CREATE SCHEMA IF NOT EXISTS MSG\;CREATE
+			SCHEMA IF NOT EXISTS CONF</connection-url>
 		<driver>h2</driver>
 	</datasource>
 </datasources>

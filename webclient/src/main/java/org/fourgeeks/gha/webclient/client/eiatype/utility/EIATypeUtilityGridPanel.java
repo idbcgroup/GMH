@@ -28,33 +28,37 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class EIATypeUtilityGridPanel extends VLayout implements
 		EIATypeSelectionListener, GHAClosable, GHAHideable {
 
-	//private MaterialGrid grid = new MaterialGrid();
-	private EiaTypeUtilityGrid grid = new EiaTypeUtilityGrid(); 
+	// private MaterialGrid grid = new MaterialGrid();
+	private EiaTypeUtilityGrid grid = new EiaTypeUtilityGrid();
 	private UtilitySearchForm utilitySearchForm;
 	private EiaType eiaType;
-	
-	
+
 	{
 		utilitySearchForm = new UtilitySearchForm();
-		utilitySearchForm.addMaterialSelectionListener(new MaterialSelectionListener(){
-
-			@Override
-			public void select(Material material) {
-				// TODO Auto-generated method stub
-				EiaTypeUtility eiaTypeUtility = new EiaTypeUtility();
-				eiaTypeUtility.setEiaType(EIATypeUtilityGridPanel.this.eiaType);
-				eiaTypeUtility.setMaterial(material);
-				EIATypeUtilityModel.save(eiaTypeUtility, new GHAAsyncCallback<EiaTypeUtility>(){
+		utilitySearchForm
+				.addMaterialSelectionListener(new MaterialSelectionListener() {
 
 					@Override
-					public void onSuccess(EiaTypeUtility result) {
+					public void select(Material material) {
 						// TODO Auto-generated method stub
-						loadData();
-					}});
-			}} );
+						EiaTypeUtility eiaTypeUtility = new EiaTypeUtility();
+						eiaTypeUtility
+								.setEiaType(EIATypeUtilityGridPanel.this.eiaType);
+						eiaTypeUtility.setMaterial(material);
+						EIATypeUtilityModel.save(eiaTypeUtility,
+								new GHAAsyncCallback<EiaTypeUtility>() {
+
+									@Override
+									public void onSuccess(EiaTypeUtility result) {
+										// TODO Auto-generated method stub
+										loadData();
+									}
+								});
+					}
+				});
 
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -76,23 +80,27 @@ public class EIATypeUtilityGridPanel extends VLayout implements
 					public void onClick(ClickEvent event) {
 						utilitySearchForm.open();
 					}
-				}),
-				new GHAImgButton("../resources/icons/delete.png", new ClickHandler() {
-					
+				}), new GHAImgButton("../resources/icons/delete.png",
+				new ClickHandler() {
+
 					@Override
 					public void onClick(ClickEvent event) {
 						// TODO Auto-generated method stub
-						//EiaTypeUtility eiaTypeUtility = ((EIATypeUtilityRecord) grid.getSelectedRecord()).toEntity();
-						EiaTypeUtility eiaTypeUtility = grid.getSelectedEntity();
-						EIATypeUtilityModel.delete(eiaTypeUtility.getId(), new GHAAsyncCallback<Void>(){
-							
-							@Override
-							public void onSuccess(Void result) {
-								// TODO Auto-generated method stub
-								loadData();
-							}});
+						// EiaTypeUtility eiaTypeUtility =
+						// ((EIATypeUtilityRecord)
+						// grid.getSelectedRecord()).toEntity();
+						EiaTypeUtility eiaTypeUtility = grid
+								.getSelectedEntity();
+						EIATypeUtilityModel.delete(eiaTypeUtility.getId(),
+								new GHAAsyncCallback<Void>() {
 
-						
+									@Override
+									public void onSuccess(Void result) {
+										// TODO Auto-generated method stub
+										loadData();
+									}
+								});
+
 					}
 				}));
 
@@ -110,33 +118,33 @@ public class EIATypeUtilityGridPanel extends VLayout implements
 
 	@Override
 	public void close() {
-		// TODO Auto-generated method stub
-
+		utilitySearchForm.close();
 	}
 
 	@Override
 	public void hide() {
-		// TODO Auto-generated method stub
-
+		utilitySearchForm.hide();
 	}
-	
+
 	private void loadData() {
-		EIATypeUtilityModel.findByEiaType(eiaType, new AsyncCallback<List<EiaTypeUtility>>(){
+		EIATypeUtilityModel.findByEiaType(eiaType,
+				new AsyncCallback<List<EiaTypeUtility>>() {
 
-			@Override
-			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
-			}
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+					}
 
-			@Override
-			public void onSuccess(List<EiaTypeUtility> result) {
-				// TODO Auto-generated method stub
-				ListGridRecord[] array = EIATypeUtilityUtil.toGridRecords(result)
-						.toArray(new EIATypeUtilityRecord[] {});
-				grid.setData(array);
+					@Override
+					public void onSuccess(List<EiaTypeUtility> result) {
+						// TODO Auto-generated method stub
+						ListGridRecord[] array = EIATypeUtilityUtil
+								.toGridRecords(result).toArray(
+										new EIATypeUtilityRecord[] {});
+						grid.setData(array);
 
-			}});
+					}
+				});
 	}
-
 
 }

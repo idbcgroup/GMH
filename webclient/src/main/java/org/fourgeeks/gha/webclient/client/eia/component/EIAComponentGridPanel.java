@@ -21,35 +21,39 @@ import com.smartgwt.client.widgets.grid.events.CellSavedHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIAComponentGridPanel extends VLayout implements GHAClosable, GHAHideable, EIASelectionListener {
+public class EIAComponentGridPanel extends VLayout implements GHAClosable,
+		GHAHideable, EIASelectionListener {
 
 	private EIAComponentGrid eiaComponentGrid;
 	private Eia eia;
 	private EIASearchForm eIASearchForm;
-	
+
 	{
 		eiaComponentGrid = new EIAComponentGrid();
-		eiaComponentGrid.getComponentobsField().addCellSavedHandler(new CellSavedHandler() {
-			
-			@Override
-			public void onCellSaved(CellSavedEvent event) {
-				// TODO Auto-generated method stub
-				EiaComponent eiaComponent = ((EIAComponentRecord) event.getRecord()).toEntity();
-				eiaComponent.setComponentObs((String) event.getNewValue());
-				EIAComponentModel.update(eiaComponent,
-						new GHAAsyncCallback<EiaComponent>() {
+		eiaComponentGrid.getComponentobsField().addCellSavedHandler(
+				new CellSavedHandler() {
 
-							@Override
-							public void onSuccess(EiaComponent result) {
-							}
-						});
-				
-			}
-		});
-		
+					@Override
+					public void onCellSaved(CellSavedEvent event) {
+						// TODO Auto-generated method stub
+						EiaComponent eiaComponent = ((EIAComponentRecord) event
+								.getRecord()).toEntity();
+						eiaComponent.setComponentObs((String) event
+								.getNewValue());
+						EIAComponentModel.update(eiaComponent,
+								new GHAAsyncCallback<EiaComponent>() {
+
+									@Override
+									public void onSuccess(EiaComponent result) {
+									}
+								});
+
+					}
+				});
+
 		eIASearchForm = new EIASearchForm();
 		eIASearchForm.addEiaSelectionListener(new EIASelectionListener() {
-			
+
 			@Override
 			public void select(Eia eia) {
 				// TODO Auto-generated method stub
@@ -64,45 +68,43 @@ public class EIAComponentGridPanel extends VLayout implements GHAClosable, GHAHi
 							public void onSuccess(EiaComponent result) {
 								// TODO Auto-generated method stub
 								loadData();
-								
+
 							}
 						});
 
 			}
 		});
 	}
-	
-	
+
 	public EIAComponentGridPanel() {
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
-		
-		
+
 		Label title = new Label("<h3>Componentes de EIA</h3>");
 		title.setHeight(35);
 		title.setWidth100();
 		title.setStyleName("title-label");
-		
-		
-		
-// //////Botones laterales
-		VLayout sideButtons = GHAUiHelper.createBar(
-	    		new GHAImgButton("../resources/icons/new.png", new ClickHandler() {
+
+		// //////Botones laterales
+		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
+				"../resources/icons/new.png", new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
 						// TODO Auto-generated method stub
-//						form.animateShow(AnimationEffect.FLY);
+						// form.animateShow(AnimationEffect.FLY);
 						eIASearchForm.open();
 					}
-				}),
-	    		new GHAImgButton("../resources/icons/delete.png", new ClickHandler() {
-					
+				}), new GHAImgButton("../resources/icons/delete.png",
+				new ClickHandler() {
+
 					@Override
 					public void onClick(ClickEvent event) {
 						// TODO Auto-generated method stub
-						//EiaComponent eiaComponent = ((EIAComponentRecord) eiaComponentGrid.getSelectedRecord()).toEntity();
-						EiaComponent eiaComponent = eiaComponentGrid.getSelectedEntity();
+						// EiaComponent eiaComponent = ((EIAComponentRecord)
+						// eiaComponentGrid.getSelectedRecord()).toEntity();
+						EiaComponent eiaComponent = eiaComponentGrid
+								.getSelectedEntity();
 						EIAComponentModel.delete(eiaComponent.getId(),
 								new GHAAsyncCallback<Void>() {
 
@@ -114,24 +116,24 @@ public class EIAComponentGridPanel extends VLayout implements GHAClosable, GHAHi
 
 					}
 				}));
-		
+
 		HLayout mainPanel = new HLayout();
-		mainPanel.addMembers(eiaComponentGrid,sideButtons);
-		
+		mainPanel.addMembers(eiaComponentGrid, sideButtons);
+
 		addMembers(title, mainPanel);
-		
+
 	}
 
 	@Override
 	public void close() {
-		// TODO Auto-generated method stub
-		
+		eIASearchForm.close();
+
 	}
-	
+
 	@Override
 	public void hide() {
-		// TODO Auto-generated method stub
-		
+		eIASearchForm.hide();
+
 	}
 
 	@Override
@@ -143,17 +145,18 @@ public class EIAComponentGridPanel extends VLayout implements GHAClosable, GHAHi
 
 	private void loadData() {
 		// TODO Auto-generated method stub
-		EIAComponentModel.findByEiaId(eia, new GHAAsyncCallback<List<EiaComponent>>() {
+		EIAComponentModel.findByEiaId(eia,
+				new GHAAsyncCallback<List<EiaComponent>>() {
 
 					@Override
 					public void onSuccess(List<EiaComponent> eiaComponents) {
-						ListGridRecord[] array = EIAComponentUtil.toGridRecords(eiaComponents).toArray(
-								new EIAComponentRecord[]{});
+						ListGridRecord[] array = EIAComponentUtil
+								.toGridRecords(eiaComponents).toArray(
+										new EIAComponentRecord[] {});
 						eiaComponentGrid.setData(array);
 					}
 
-		});
+				});
 
 	}
 }
-

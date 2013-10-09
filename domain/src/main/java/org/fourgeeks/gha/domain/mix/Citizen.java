@@ -17,10 +17,14 @@ import org.fourgeeks.gha.domain.enu.DocumentTypeEnum;
 import org.fourgeeks.gha.domain.enu.GenderTypeEnum;
 
 /**
- * @author alacret Entity that represents a citizen
+ * @author alacret, vivi.torresg
+ * 
+ *         Entity that represents a citizen
  */
 @Entity
-@NamedQueries(value = { @NamedQuery(name = "Citizen.getAll", query = "SELECT e from Citizen e order by e.firstLastName") })
+@NamedQueries(value = {
+		@NamedQuery(name = "Citizen.getAll", query = "SELECT e from Citizen e order by e.firstLastName"),
+		@NamedQuery(name = "Citizen.findByCitizen", query = "SELECT e from Citizen e where e like :citizen order by e.firstLastName") })
 public class Citizen extends AbstractEntity {
 
 	/**

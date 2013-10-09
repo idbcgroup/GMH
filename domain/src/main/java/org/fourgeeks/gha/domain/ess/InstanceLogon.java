@@ -15,32 +15,33 @@ import org.fourgeeks.gha.domain.mix.Bpa;
 import org.fourgeeks.gha.domain.mix.SystemInstance;
 
 /**
- * @author emiliot
- *
+ * @author emiliot, vivi.torresg
+ * 
  */
 
 @Entity
 @NamedQueries(value = {
-		@NamedQuery(name = "InstanceLogon.getAll", query = "SELECT e from InstanceLogon e order by e.id") })
+		@NamedQuery(name = "InstanceLogon.getAll", query = "SELECT e from InstanceLogon e order by e.id"),
+		@NamedQuery(name = "InstanceLogon.findByInstanceLogon", query = "SELECT e from InstanceLogon e  where e like :instanceLogon order by e.id") })
 public class InstanceLogon extends AbstractEntity {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "singleSignOnUserFk")
 	private SSOUser sso;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "bpaFk")
 	private Bpa bpa;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "systemInstanceFk")
 	private SystemInstance systemInstance;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "bpuFk")
 	private Bpu bpu;

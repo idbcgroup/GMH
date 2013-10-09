@@ -10,12 +10,13 @@ import javax.persistence.OneToOne;
 import org.fourgeeks.gha.domain.AbstractEntity;
 
 /**
- * @author alacret
+ * @author alacret, vivi.torresg
  * 
  */
 @Entity
 @NamedQueries(value = {
-		@NamedQuery(name = "Institution.getAll", query = "SELECT e from Institution e order by e.name") })
+		@NamedQuery(name = "Institution.getAll", query = "SELECT e from Institution e order by e.name"),
+		@NamedQuery(name = "Institution.findByInstitution", query = "SELECT e from Institution e where e like :institution order by e.name") })
 public class Institution extends AbstractEntity {
 	/**
 	 * 
@@ -30,6 +31,7 @@ public class Institution extends AbstractEntity {
 
 	@Column(nullable = false)
 	private String name;
+
 	/** length =255 */
 
 	/**

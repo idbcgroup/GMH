@@ -89,12 +89,12 @@ public class MaintenanceProtocolGridPanel extends VLayout implements
 
 	@Override
 	public void close() {
-		// TODO:
+		searchForm.close();
 	}
 
 	@Override
 	public void hide() {
-		super.hide();
+		searchForm.hide();
 	}
 
 	public void loadData() {
