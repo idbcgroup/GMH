@@ -9,7 +9,6 @@ import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.Visibility;
 import com.smartgwt.client.widgets.AnimationCallback;
-import com.smartgwt.client.widgets.Window;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
@@ -30,8 +29,6 @@ public abstract class GHASlideInWindow extends VLayout implements
 		setVisibility(Visibility.HIDDEN);
 		setAnimateTime(600);
 		GHAUiHelper.addGHAResizeHandler(this);
-
-		Window w = new Window();
 	}
 
 	/**

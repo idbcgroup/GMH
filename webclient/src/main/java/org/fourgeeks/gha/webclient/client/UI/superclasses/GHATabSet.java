@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
-import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.RootPanel;
 
 /**
@@ -18,7 +17,7 @@ public final class GHATabSet {
 	private static LinkedList<String> historyStack;
 	static {
 		tabs = new HashMap<String, GHATab>();
-		historyStack = new LinkedList<String>();
+		// historyStack = new LinkedList<String>();
 	}
 
 	private GHATabSet() {
@@ -96,17 +95,17 @@ public final class GHATabSet {
 
 		tab.close();
 		tabs.remove(tab.getId());
-		historyStack.remove(tab.getId());
+		// historyStack.remove(tab.getId());
 
-		LinkedList<String> tempHistoryStack = new LinkedList<String>();
-		for (String token : historyStack)
-			if (!tab.getId().equals(token))
-				tempHistoryStack.add(token);
-		historyStack = tempHistoryStack;
+		// LinkedList<String> tempHistoryStack = new LinkedList<String>();
+		// for (String token : historyStack)
+		// if (!tab.getId().equals(token))
+		// tempHistoryStack.add(token);
+		// historyStack = tempHistoryStack;
 
-		if (tabs.size() == 0)
-			History.newItem("home");
-		else
-			History.newItem(historyStack.removeLast());
+		// if (tabs.size() == 0)
+		// History.newItem("home");
+		// else
+		// History.newItem(historyStack.removeLast());
 	}
 }

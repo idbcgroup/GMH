@@ -20,7 +20,7 @@ public class UserTab extends GHATab implements UserSelectionListener,
 	 * 
 	 */
 	public static final String ID = "user";
-	private static final String TITLE = "Usuarios";
+	// private static final String TITLE = "Usuarios";
 	private UserTopSection topSection;
 	private UserInternalTabset internalTabset;
 	private SSOUser user;
@@ -34,7 +34,7 @@ public class UserTab extends GHATab implements UserSelectionListener,
 	 */
 	public UserTab() {
 		super();
-		getHeader().setTitle(TITLE);
+		// getHeader().setTitle(TITLE);
 
 		topSection = new UserTopSection(this);
 		internalTabset = new UserInternalTabset(this);

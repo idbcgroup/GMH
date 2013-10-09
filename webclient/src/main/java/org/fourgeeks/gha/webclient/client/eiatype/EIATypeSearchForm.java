@@ -74,7 +74,7 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 	 */
 	public EIATypeSearchForm() {
 		super(1);
-		setTop(110);
+		setTop(90);
 		setHeight(GHAUiHelper.getTabHeight() + "px");
 
 		Label title = new Label("<h3>Buscar un Tipo de Equipo</h3>");

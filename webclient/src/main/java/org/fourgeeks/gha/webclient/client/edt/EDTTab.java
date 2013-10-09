@@ -5,7 +5,7 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATab;
 
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EDTTab extends GHATab{
+public class EDTTab extends GHATab {
 
 	public static final String ID = "edt";
 	private static final String TITLE = "Estacion De Trabajo";
@@ -13,26 +13,27 @@ public class EDTTab extends GHATab{
 	private EDTTopMenu topMenu = new EDTTopMenu();
 	private EDTTopGridPanel topGridPanel = new EDTTopGridPanel();
 	private EDTBotGridPanel botGridPanel = new EDTBotGridPanel();
-	
+
 	public EDTTab() {
 		super();
-		getHeader().setTitle(TITLE);
-		
+		// getHeader().setTitle(TITLE);
+
 		// Creacion de la tab de EDT
 		VLayout verticalPanel = new VLayout();
 		verticalPanel.setBackgroundColor("#E0E0E0");
-		
+
 		verticalPanel.addMember(topMenu);
-		verticalPanel.addMember(GHAUiHelper.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
+		verticalPanel.addMember(GHAUiHelper
+				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
 		verticalPanel.addMember(topGridPanel);
 		verticalPanel.addMember(botGridPanel);
-		
+
 		addMember(verticalPanel);
 	}
 
 	@Override
 	protected void onDraw() {
-		
+
 	}
 
 	@Override
