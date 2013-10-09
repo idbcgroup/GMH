@@ -11,6 +11,7 @@ import org.fourgeeks.gha.domain.ess.BpuFunction;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.webclient.client.UI.GHASessionData;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImg;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -18,13 +19,13 @@ import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.EventListener;
 import com.google.gwt.user.client.History;
-import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.smartgwt.client.core.Rectangle;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.Cursor;
 import com.smartgwt.client.types.VerticalAlignment;
 import com.smartgwt.client.widgets.AnimationCallback;
+import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.events.MouseOutEvent;
@@ -72,8 +73,10 @@ public class GHAMenu {
 		Bpu user = GHASessionData.getLoggedUser();
 		List<GHAMenuOption> menuOptions = getMenuOptions(user);
 		for (GHAMenuOption ghaMenuOption : menuOptions){
+			ghaMenuOption.setBar(verticalMenu);
 			verticalMenu.addOption(ghaMenuOption);
 		}
+		
 		RootPanel.get("menu-bar").add(menu);
 	}
 
@@ -103,16 +106,16 @@ public class GHAMenu {
 
 		public GHAMenuBar() {
 			setWidth("200px");
-			setHeight(GHAUiHelper.getTabHeight()+24+"px");
+			setHeight(GHAUiHelper.getTabHeight()+15+"px");
 			setMembersMargin(10);
-			setStyleName("menu-padding");
+//			setStyleName("menu-padding");
 			setLeft(0);
 			setTop(60);
 			setVisible(false);
 			setAnimateTime(600);
 			setBackgroundColor("#FFFFFF");
 			setScrollbarSize(5);
-			setShadowDepth(8);
+			setShadowDepth(6);
 			setShowShadow(true);
 		}
 
@@ -128,14 +131,13 @@ public class GHAMenu {
 
 			if (!(mouseX >= menuMinX && mouseX <= menuMaxX
 					&& mouseY >= menuMinY && mouseY <= menuMaxY)) {
-				animateHide(AnimationEffect.FLY);
-				GHAUiHelper.removeDocumentClickHandler(this);
+				hide();
 			}
 		}
 
 		@Override
 		public void onResize(ResizeEvent event) {
-			setHeight(GHAUiHelper.getTabHeight()+24+ "px");
+			setHeight(GHAUiHelper.getTabHeight()+15+ "px");
 		}
 
 		public void addOption(GHAMenuOption option) {
@@ -155,7 +157,11 @@ public class GHAMenu {
 				}
 			});
 		}
-
+		
+		public void hide(){
+			animateHide(AnimationEffect.FLY);
+			GHAUiHelper.removeDocumentClickHandler(this);
+		}
 	}
 
 	/**
@@ -164,37 +170,40 @@ public class GHAMenu {
 	 */
 	static private class GHAMenuOption extends HLayout {
 
+		private GHAMenuBar bar;
 		/**
 		 * @param text
 		 * @param token
 		 * @param imgSrc
 		 */
 		public GHAMenuOption(String text, final String token, String imgSrc) {
-//			setStylePrimaryName("tab-header");
 			setWidth100();
 			setHeight("24px");
 			setMembersMargin(7);
-//			setAlign(Alignment.LEFT);
 			setDefaultLayoutAlign(VerticalAlignment.CENTER);
 			setCursor(Cursor.HAND);
 			setVisible(false);
 			setStyleName("menu-option");
 			// Window.alert(imgSrc);
-			addMembers(new GHAImgButton(imgSrc), new LayoutSpacer());
+			GHAImg iconButton = new GHAImg(imgSrc);
+			iconButton.setStyleName("left-menu-padding");
+			
+			addMembers(iconButton, new LayoutSpacer());
 
-			HTML titulo = new HTML(text);
+			Label titulo = new Label(text);
 			titulo.setWidth("150px");
 			titulo.setHeight("20px");
+			titulo.setStyleName("menu-option-title");
 			titulo.addStyleName("button-pointer");
-//			titulo.setStyleName("tab-header-title");
 			
 			addClickHandler(new ClickHandler() {
 			 
 				@Override
 				public void onClick(ClickEvent event) {
 					History.newItem(token);
+					bar.hide();
 				} 
-			  });
+			});
 			
 			addMouseOverHandler(new MouseOverHandler() {
 				
@@ -216,6 +225,15 @@ public class GHAMenu {
 			addMember(new LayoutSpacer());
 			 
 		}
+		
+		public GHAMenuBar getBar() {
+			return bar;
+		}
+		
+		public void setBar(GHAMenuBar bar) {
+			this.bar = bar;
+		}
+		
 	}
 
 }
