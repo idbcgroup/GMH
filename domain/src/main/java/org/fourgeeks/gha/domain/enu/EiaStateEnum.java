@@ -3,7 +3,9 @@
  */
 package org.fourgeeks.gha.domain.enu;
 
+import java.util.Arrays;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
  * @author emiliot
@@ -85,5 +87,12 @@ public enum EiaStateEnum {
 		for (EiaStateEnum mobility : EiaStateEnum.values())
 			valueMap.put(mobility.name() + "", mobility.toString());
 		return valueMap;
+	}
+
+	/**
+	 * @return a {@link List} of {@link EiaStateEnum}
+	 */
+	public static List<EiaStateEnum> valuesList() {
+		return Arrays.asList(EiaStateEnum.values());
 	}
 }

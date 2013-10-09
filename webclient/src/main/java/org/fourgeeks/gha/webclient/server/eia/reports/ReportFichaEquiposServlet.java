@@ -84,11 +84,11 @@ public class ReportFichaEquiposServlet extends ReportEiaServelt {
 		QueryParamsContainer qpc = new QueryParamsContainer(req);
 		List<Eia> eiaList = null;
 
-		if (qpc.eiaIds.isEmpty())
-			eiaList = service.find(qpc.eiaIds, qpc.orden);
-		else
-			eiaList = service.findAll(qpc.facsIds, qpc.workingAreasIds,
+		if (qpc.eiaIds == null)
+			eiaList = service.findAll(qpc.facilsIds, qpc.workingAreasIds,
 					qpc.eiaState, qpc.orden);
+		else
+			eiaList = service.find(qpc.eiaIds, qpc.orden);
 
 		return eiaList;
 	}
@@ -124,7 +124,7 @@ public class ReportFichaEquiposServlet extends ReportEiaServelt {
 	 */
 	private class QueryParamsContainer {
 		private List<Long> eiaIds;
-		private List<Long> facsIds;
+		private List<Long> facilsIds;
 		private List<Long> workingAreasIds;
 		private EiaStateEnum eiaState;
 		private boolean orden;
@@ -139,27 +139,31 @@ public class ReportFichaEquiposServlet extends ReportEiaServelt {
 			eiaIds = toList(eiasValue);
 
 			String facsValue = req.getParameter(PARAM_FACILS);
-			facsIds = toList(facsValue);
+			facilsIds = toList(facsValue);
 
 			String workAreasValue = req.getParameter(PARAM_WORKAREAS);
 			workingAreasIds = toList(workAreasValue);
 
+			eiaState = null;
 			String eiaStateParam = req.getParameter(PARAM_EDOEIA);
-			eiaState = eiaStateParam.equals("all") ? null : EiaStateEnum
-					.valueOf(eiaStateParam);
+			if (eiaStateParam != null)
+				if (!eiaStateParam.equals("all"))
+					eiaState = EiaStateEnum.valueOf(eiaStateParam);
 
 			orden = Boolean.valueOf(req.getParameter(PARAM_ORDEN));
 		}
 
 		private List<Long> toList(String paramValue) {
-			ArrayList<Long> list = new ArrayList<Long>();
+			if (paramValue != null)
+				if (!paramValue.equals("all")) {
+					ArrayList<Long> list = new ArrayList<Long>();
+					String[] arrayLongValues = paramValue.split(",");
+					for (String val : arrayLongValues)
+						list.add(Long.valueOf(val));
+					return list;
+				}
 
-			if (!paramValue.equals("all")) {
-				String[] arrayLongValues = paramValue.split(",");
-				for (String val : arrayLongValues)
-					list.add(Long.valueOf(val));
-			}
-			return list;
+			return null;
 		}
 	}
 }

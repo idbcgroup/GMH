@@ -126,13 +126,13 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{fechaHoraReporte}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement uuid="bc7e3def-6aba-4bba-b08b-825a819fb274" mode="Transparent" x="0" y="24" width="572" height="16" forecolor="#808080"/>
-				<textElement textAlignment="Center" verticalAlignment="Bottom">
+			<staticText>
+				<reportElement uuid="5463ca8d-fe29-4af5-875c-78f3a1f1487b" mode="Transparent" x="0" y="24" width="572" height="16" forecolor="#808080"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom" markup="none">
 					<font fontName="Calibri" size="11" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[Detalles de equipos]]></textFieldExpression>
-			</textField>
+				<text><![CDATA[Detalles de equipos]]></text>
+			</staticText>
 			<image>
 				<reportElement uuid="857b258b-9ebc-4b56-9cd9-862510d3724f" mode="Transparent" x="0" y="0" width="100" height="40">
 					<property name="local_mesure_unitwidth" value="pixel"/>
