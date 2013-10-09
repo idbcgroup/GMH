@@ -3,33 +3,42 @@
 	margin: 0px;
 	font-size: 10px;
 }
-.top-bar{
+body{
+	background-color: white;
+}
+/*.top-bar{
 	width: 100%;
 	height: 15px;
-	background-color: #464646;
-}
+	background-color: #FFFFFF;
+}*/
 .header-bar{
 	width: 100%;
 	height: 60px;
-	background-color: #ECECEC;
-	padding-top: 10px;
+	background-color: #FFFFFF;	
 }
 
-	.logo{
+	/*.logo{
 		width: 108px;
 		height: 49px;
 		background-image: url(../img/logo.png);
 		float: left;
 		margin-left: 10px;
+	}*/
+
+	.logo{
+		width: 111px;
+		height: 60px;
+		background-image: url(../img/logo.png);
+		float: left;		
 	}
 	
-	.footer-logo{
+	/*.footer-logo{
 		width: 37px;
 		height: 16px;
 		background-image: url(../icons/footLogo.jpg);
 		float: right;
 		margin-left: 10px;
-	}
+	}*/
 	
 	.user-info{		
 		float: right;	
@@ -66,8 +75,9 @@
 .menu-bar{
 	width: 100%;
 	height: 24px;
-	background-image: url(../img/fondo-menu.jpeg);
-	background-repeat: repeat-x;	
+	/*background-image: url(../img/fondo-menu.jpeg);*/
+	background-color:#E0E0DF;
+	/*background-repeat: repeat-x;	*/
 }
 
 	#gha-main-menu.menuButton,
@@ -122,29 +132,28 @@
 		padding-top: 5px;
 	}
 	
-.content {
+#main-content {
 	width: 100%;
 	height: 100%;
-	padding-bottom: 20px;
-	background-color: #E0E0E0;
+	background-color: white;
 }
 
 .white-background{
 	background-color: #FFFFFF;	
 }
-.footer-bar{
+/*.footer-bar{
 	position:fixed;
 	bottom:0%;
 	width: 100%;
 	height: 20px;
 	background-color: #464646;
-}
+}*/
 
 .login-panel{
 	width: 300px;
 	height: 300px;
 	text-align: center;
-	margin:30px auto 0 auto;
+	margin:0px auto 0 auto;
 }
 
 .login-panel input{

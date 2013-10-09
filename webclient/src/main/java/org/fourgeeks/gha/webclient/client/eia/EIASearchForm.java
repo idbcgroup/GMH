@@ -81,6 +81,8 @@ public class EIASearchForm extends GHASlideInWindow implements
 		setTop(110);
 		setHeight(GHAUiHelper.getTabHeight() + "px");
 
+		GHAUiHelper.addGHAResizeHandler(this);
+
 		Label title = new Label("<h3>Busqueda de Equipos</h3>");
 		title.setWidth(400);
 		title.setHeight("35px");
@@ -323,8 +325,9 @@ public class EIASearchForm extends GHASlideInWindow implements
 
 	@Override
 	public void close() {
-		destroy();
+		GHAUiHelper.removeGHAResizeHandler(this);
 		addForm.close();
+		destroy();
 	}
 
 	@Override

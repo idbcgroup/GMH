@@ -5,10 +5,7 @@ import java.util.LinkedList;
 import java.util.Map;
 
 import com.google.gwt.user.client.History;
-import com.google.gwt.user.client.ui.HasVerticalAlignment;
-import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.smartgwt.client.widgets.menu.IMenuButton;
 
 /**
  * @author alacret
@@ -17,14 +14,9 @@ import com.smartgwt.client.widgets.menu.IMenuButton;
 public final class GHATabSet {
 
 	private static Map<String, GHATab> tabs;
-	private static HorizontalPanel hPanel;
 	private static GHATab currentTab;
 	private static LinkedList<String> historyStack;
 	static {
-		hPanel = new HorizontalPanel();
-		hPanel.setHeight("24px");
-		hPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-		RootPanel.get("menu-bar").add(hPanel);
 		tabs = new HashMap<String, GHATab>();
 		historyStack = new LinkedList<String>();
 	}
@@ -34,19 +26,19 @@ public final class GHATabSet {
 	}
 
 	private static void addTab(final GHATab tab) {
-		addHeader(tab.getHeader());
+		// addHeader(tab.getHeader());
 		tabs.put(tab.getId(), tab);
 		RootPanel.get("main-content").add(tab);
 	}
 
-	/**
-	 * @param header
-	 */
-	private static void addHeader(GHATabHeader header) {
-		hPanel.add(header);
-		hPanel.setCellHeight(header, "24px");
-		header.selectTab();
-	}
+	// /**
+	// * @param header
+	// */
+	// private static void addHeader(GHATabHeader header) {
+	// hPanel.add(header);
+	// hPanel.setCellHeight(header, "24px");
+	// header.selectTab();
+	// }
 
 	/**
 	 * @param tab
@@ -78,13 +70,22 @@ public final class GHATabSet {
 		return tabs.get(id);
 	}
 
-	/**
-	 * @param menuButton
-	 */
-	public static void addMenu(IMenuButton menuButton) {
-		hPanel.add(menuButton);
-		hPanel.setCellHeight(menuButton, "24px");
-	}
+	// /**
+	// * @param menuButton
+	// */
+	// @Deprecated
+	// public static void addMenu(IMenuButton menuButton) {
+	// hPanel.add(menuButton);
+	// hPanel.setCellHeight(menuButton, "24px");
+	// }
+
+	// /**
+	// * @param menuButton
+	// */
+	// public static void addMenu(GHAImgButton menuButton) {
+	// hPanel.add(menuButton);
+	// hPanel.setCellHeight(menuButton, "24px");
+	// }
 
 	/**
 	 * @param tab

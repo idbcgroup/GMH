@@ -3,8 +3,12 @@ package org.fourgeeks.gha.webclient.client.UI.superclasses;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.smartgwt.client.widgets.Img;
 
+@Deprecated
 public class GHAImg extends Img {
 
+	/**
+	 * 
+	 */
 	public GHAImg() {
 		setBorder("1px solid black");
 	}

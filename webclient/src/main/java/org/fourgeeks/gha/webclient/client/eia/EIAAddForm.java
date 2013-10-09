@@ -119,6 +119,7 @@ public class EIAAddForm extends GHASlideInWindow implements
 	@Override
 	public void close() {
 		super.close();
+		destroy();
 	}
 
 	/**
@@ -127,7 +128,7 @@ public class EIAAddForm extends GHASlideInWindow implements
 	private void save() {
 		eiaForm.save();
 	}
-	
+
 	@Override
 	public void open() {
 		super.open();
@@ -139,6 +140,5 @@ public class EIAAddForm extends GHASlideInWindow implements
 		eiaForm.clearValue();
 		hide();
 	}
-	
-	
+
 }

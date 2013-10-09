@@ -5,6 +5,10 @@ import java.util.List;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
+import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.Element;
+import com.google.gwt.user.client.Event;
+import com.google.gwt.user.client.EventListener;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.smartgwt.client.types.Alignment;
@@ -13,6 +17,10 @@ import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
+/**
+ * @author alacret
+ * 
+ */
 public abstract class GHAUiHelper {
 
 	static {
@@ -27,17 +35,50 @@ public abstract class GHAUiHelper {
 
 			}
 		});
+
+		Element element = RootPanel.get().getElement();
+		DOM.sinkEvents(element, Event.ONCLICK);
+		DOM.setEventListener(element, new EventListener() {
+
+			@Override
+			public void onBrowserEvent(Event event) {
+				// TODO:
+				// NativeEvent nativeClickEvent =
+				// Document.get().createClickEvent(
+				// 0, event.getScreenX(), event.getScreenY(),
+				// event.getClientX(), event.getClientY(),
+				// event.getCtrlKey(), event.getAltKey(),
+				// event.getShiftKey(), event.getMetaKey());
+
+				for (EventListener handler : clickHandlers) {
+					if (handler != null)
+						handler.onBrowserEvent(event);
+				}
+			}
+		});
+		// RootPanel.get().addDomHandler(null, null)
 	}
-	//TextItem Sizes
+	// TextItem Sizes
+	/**
+	 * 
+	 */
 	public static final int THREE_COLUMN_FORMITEM_SIZE = 150;
+	/**
+	 * 
+	 */
 	public static final int FOUR_COLUMN_FORMITEM_SIZE = 135;
-	
+
 	// NO ESTAN TOTALMENTE MEDIDAS CON LA INTERFAZ
 	private static final int MIN_TAB_HEIGHT = 400;
 	private static final int MIN_TOP_SECTION_HEIGHT = 120;
 	private static final int MIN_BOTTOM_SECTION_HEIGHT = 260;
+	private static final int HEADER_HEIGTH = 60;
+	private static final int MENU_BAR_HEIGTH = 24;
 	// NO ESTAN TOTALMENTE MEDIDAS CON LA INTERFAZ
-	
+
+	/**
+	 * 
+	 */
 	public static final int MIN_GRID_SIZE = 120;
 
 	public static final int INNER_TOP_SECTION_HEIGHT = 120;
@@ -50,24 +91,28 @@ public abstract class GHAUiHelper {
 		separator.setHeight(height);
 		return separator;
 	}
-	
+
 	public static HLayout verticalGraySeparatorLabel(String height, String text) {
 		HLayout separator = new HLayout();
 		separator.setWidth100();
 		separator.setBackgroundColor("#666666");
 		separator.setHeight(height);
 		separator.setStyleName("sides-padding");
-		
+
 		Label title = new Label(text);
 		title.setHeight(height);
 		title.setWidth100();
 		title.setStyleName("separator-title-label");
-		
+
 		separator.addMember(title);
-		
+
 		return separator;
 	}
-	
+
+	/**
+	 * @param width
+	 * @return
+	 */
 	public static HLayout horizontalGraySeparator(String width) {
 		HLayout separator = new HLayout();
 		separator.setHeight100();
@@ -76,14 +121,12 @@ public abstract class GHAUiHelper {
 		return separator;
 	}
 
+	/**
+	 * @return the height that a tab must have
+	 */
 	public static int getTabHeight() {
 		int rootPanelHeight = Window.getClientHeight();
-		int topPartHeight = RootPanel.get("top-bar").getOffsetHeight()
-				+ RootPanel.get("header-bar").getOffsetHeight()
-				+ RootPanel.get("menu-bar").getOffsetHeight();
-		int footerHeight = RootPanel.get("footer-bar").getOffsetHeight();
-
-		int ret = rootPanelHeight - topPartHeight - footerHeight;
+		int ret = rootPanelHeight - HEADER_HEIGTH - MENU_BAR_HEIGTH;
 		if (ret < MIN_TAB_HEIGHT) {
 			return MIN_TAB_HEIGHT;
 		} else {
@@ -102,45 +145,61 @@ public abstract class GHAUiHelper {
 			return ret;
 		}
 	}
-	
-	public static int getGridSize(int extrasHeight){
+
+	/**
+	 * @param extrasHeight
+	 * @return
+	 */
+	public static int getGridSize(int extrasHeight) {
 		int tabHeight = getTabHeight();
 		int titleHeight = 30;
 		int topExtras = extrasHeight + titleHeight + 35;
-		
-		int ret= tabHeight-topExtras;
-		if(ret < MIN_GRID_SIZE){
+
+		int ret = tabHeight - topExtras;
+		if (ret < MIN_GRID_SIZE) {
 			return MIN_GRID_SIZE;
-		}else{
-			return ret;
-		}
-	}
-	
-	public static int getSubtabGridSize(int extrasHeight){
-		int bottomSectionHeight = getBottomSectionHeight();
-		int titleHeight = 30;
-		int topExtras = extrasHeight + titleHeight + 35;
-		
-		int ret= bottomSectionHeight-topExtras;
-		if(ret < MIN_GRID_SIZE){
-			return MIN_GRID_SIZE;
-		}else{
-			return ret;
-		}
-	}
-	
-	public static int getEDTGridSize(int extrasHeight){
-		int tabHeight = getTabHeight();
-		int topExtras = extrasHeight + 30 ;
-		
-		int ret = (tabHeight-topExtras)/2;
-		if(ret < MIN_GRID_SIZE){
-			return MIN_GRID_SIZE;
-		}else{
+		} else {
 			return ret;
 		}
 	}
 
+	/**
+	 * @param extrasHeight
+	 * @return
+	 */
+	public static int getSubtabGridSize(int extrasHeight) {
+		int bottomSectionHeight = getBottomSectionHeight();
+		int titleHeight = 30;
+		int topExtras = extrasHeight + titleHeight + 35;
+
+		int ret = bottomSectionHeight - topExtras;
+		if (ret < MIN_GRID_SIZE) {
+			return MIN_GRID_SIZE;
+		} else {
+			return ret;
+		}
+	}
+
+	/**
+	 * @param extrasHeight
+	 * @return
+	 */
+	public static int getEDTGridSize(int extrasHeight) {
+		int tabHeight = getTabHeight();
+		int topExtras = extrasHeight + 30;
+
+		int ret = (tabHeight - topExtras) / 2;
+		if (ret < MIN_GRID_SIZE) {
+			return MIN_GRID_SIZE;
+		} else {
+			return ret;
+		}
+	}
+
+	/**
+	 * @param buttons
+	 * @return
+	 */
 	public static VLayout createBar(Canvas... buttons) {
 		VLayout sideButtons = new VLayout();
 		sideButtons.setWidth(30);
@@ -153,8 +212,38 @@ public abstract class GHAUiHelper {
 
 	private static List<ResizeHandler> handlers = new ArrayList<ResizeHandler>();
 
+	/**
+	 * @param handler
+	 */
 	public static void addGHAResizeHandler(ResizeHandler handler) {
 		handlers.add(handler);
+	}
+
+	/**
+	 * @param handler
+	 */
+	public static void removeGHAResizeHandler(ResizeHandler handler) {
+		handlers.remove(handler);
+	}
+
+	private static List<EventListener> clickHandlers = new ArrayList<EventListener>();
+
+	/**
+	 * Adds a click handler to the document click event
+	 * 
+	 * @param handler
+	 */
+	public static void addDocumentClickHandler(EventListener handler) {
+		clickHandlers.add(handler);
+	}
+
+	/**
+	 * removes a click handler from the document click event
+	 * 
+	 * @param handler
+	 */
+	public static void removeDocumentClickHandler(EventListener handler) {
+		clickHandlers.remove(handler);
 	}
 
 }
