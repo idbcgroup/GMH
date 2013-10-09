@@ -17,18 +17,22 @@ import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.EventListener;
+import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.smartgwt.client.core.Rectangle;
-import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.Cursor;
 import com.smartgwt.client.types.VerticalAlignment;
-import com.smartgwt.client.types.Visibility;
 import com.smartgwt.client.widgets.AnimationCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
+import com.smartgwt.client.widgets.events.MouseOutEvent;
+import com.smartgwt.client.widgets.events.MouseOutHandler;
+import com.smartgwt.client.widgets.events.MouseOverEvent;
+import com.smartgwt.client.widgets.events.MouseOverHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
+import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
@@ -64,11 +68,12 @@ public class GHAMenu {
 				}
 			}
 		});
+		
 		Bpu user = GHASessionData.getLoggedUser();
 		List<GHAMenuOption> menuOptions = getMenuOptions(user);
-		for (GHAMenuOption ghaMenuOption : menuOptions)
+		for (GHAMenuOption ghaMenuOption : menuOptions){
 			verticalMenu.addOption(ghaMenuOption);
-
+		}
 		RootPanel.get("menu-bar").add(menu);
 	}
 
@@ -85,10 +90,10 @@ public class GHAMenu {
 
 		Set<Entry<String, String>> entrySet = permissionMap.entrySet();
 		List<GHAMenuOption> menuOptions = new ArrayList<GHAMenuOption>();
-		for (final Entry<String, String> entry : entrySet)
+		for (final Entry<String, String> entry : entrySet){
 			menuOptions.add(new GHAMenuOption(entry.getValue(), entry.getKey(),
 					"../resources/icons/menu/" + entry.getKey() + ".png"));
-
+		}
 		return menuOptions;
 	}
 
@@ -97,14 +102,18 @@ public class GHAMenu {
 		List<GHAMenuOption> options = new ArrayList<GHAMenu.GHAMenuOption>();
 
 		public GHAMenuBar() {
+			setWidth("200px");
+			setHeight(GHAUiHelper.getTabHeight()+24+"px");
+			setMembersMargin(10);
+			setStyleName("menu-padding");
 			setLeft(0);
-			setTop(70);
-			setVisibility(Visibility.HIDDEN);
+			setTop(60);
+			setVisible(false);
 			setAnimateTime(600);
-			setBackgroundColor("#E0E0DF");
-			setHeight(GHAUiHelper.getTabHeight() + "px");
-			setWidth(200);
-			setScrollbarSize(1);
+			setBackgroundColor("#FFFFFF");
+			setScrollbarSize(5);
+			setShadowDepth(8);
+			setShowShadow(true);
 		}
 
 		@Override
@@ -126,18 +135,18 @@ public class GHAMenu {
 
 		@Override
 		public void onResize(ResizeEvent event) {
-			setHeight(GHAUiHelper.getTabHeight() + "px");
+			setHeight(GHAUiHelper.getTabHeight()+24+ "px");
 		}
 
 		public void addOption(GHAMenuOption option) {
 			options.add(option);
-			option.setVisibility(Visibility.HIDDEN);
+			option.setVisible(false);
 			addMember(option);
 		}
 
 		public void open() {
 			for (GHAMenuOption option : options)
-				option.setVisibility(Visibility.VISIBLE);
+				option.setVisible(true);
 			animateShow(AnimationEffect.FLY, new AnimationCallback() {
 
 				@Override
@@ -161,39 +170,51 @@ public class GHAMenu {
 		 * @param imgSrc
 		 */
 		public GHAMenuOption(String text, final String token, String imgSrc) {
-			setStylePrimaryName("tab-header");
-			setWidth(170);
-			setHeight(12);
-			setAlign(Alignment.LEFT);
+//			setStylePrimaryName("tab-header");
+			setWidth100();
+			setHeight("24px");
+			setMembersMargin(7);
+//			setAlign(Alignment.LEFT);
 			setDefaultLayoutAlign(VerticalAlignment.CENTER);
 			setCursor(Cursor.HAND);
-			setVisibility(Visibility.HIDDEN);
+			setVisible(false);
+			setStyleName("menu-option");
 			// Window.alert(imgSrc);
-			addMember(new GHAImgButton(imgSrc));
+			addMembers(new GHAImgButton(imgSrc), new LayoutSpacer());
 
 			HTML titulo = new HTML(text);
-			titulo.setWidth("160px");
-			titulo.setHeight("12px");
-			titulo.setStylePrimaryName("tab-header-title");
+			titulo.setWidth("150px");
+			titulo.setHeight("20px");
+			titulo.addStyleName("button-pointer");
+//			titulo.setStyleName("tab-header-title");
+			
+			addClickHandler(new ClickHandler() {
+			 
+				@Override
+				public void onClick(ClickEvent event) {
+					History.newItem(token);
+				} 
+			  });
+			
+			addMouseOverHandler(new MouseOverHandler() {
+				
+				@Override
+				public void onMouseOver(MouseOverEvent event) {
+					  setBackgroundColor("#E0E0DF");
+				}
+			});
+			 
+			addMouseOutHandler(new MouseOutHandler() {
+				
+				@Override
+				public void onMouseOut(MouseOutEvent event) {
+					setBackgroundColor("#FFFFFF"); 
+				}
+			});
+			
 			addMember(titulo);
-			// * titulo.addClickHandler(new
-			// * com.google.gwt.event.dom.client.ClickHandler() {
-			// *
-			// * @Override public void onClick(
-			// * com.google.gwt.event.dom.client.ClickEvent event) {
-			// * History.newItem(token); } }); addMember(titulo);
-			// *
-			// * addMouseOverHandler(new MouseOverHandler() {
-			// *
-			// * @Override public void onMouseOver(MouseOverEvent event) {
-			// * getElement().addClassName("tab-header-over"); } });
-			// *
-			// * addMouseOutHandler(new MouseOutHandler() {
-			// *
-			// * @Override public void onMouseOut(MouseOutEvent event) {
-			// * getElement().removeClassName("tab-header-over"); } });
-			// */
-
+			addMember(new LayoutSpacer());
+			 
 		}
 	}
 

@@ -321,6 +321,13 @@ table.GHAupload-button tbody tr td form div.upld-form-elements div.DecoratedFile
 	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=10, Direction=135, Color='#5b5b5b')";
 	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=10, Direction=135, Color='#5b5b5b');		
 }
+
+.menu-padding{
+	padding-top: 12px;
+	padding-left: 12px;
+	padding-right: 12px;
+}
+
 .sides-padding{
 	padding-left: 20px;
 	padding-right: 20px;
