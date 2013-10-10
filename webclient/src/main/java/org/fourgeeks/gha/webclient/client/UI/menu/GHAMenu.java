@@ -69,14 +69,14 @@ public class GHAMenu {
 				}
 			}
 		});
-		
+
 		Bpu user = GHASessionData.getLoggedUser();
 		List<GHAMenuOption> menuOptions = getMenuOptions(user);
-		for (GHAMenuOption ghaMenuOption : menuOptions){
+		for (GHAMenuOption ghaMenuOption : menuOptions) {
 			ghaMenuOption.setBar(verticalMenu);
 			verticalMenu.addOption(ghaMenuOption);
 		}
-		
+
 		RootPanel.get("menu-bar").add(menu);
 	}
 
@@ -93,7 +93,7 @@ public class GHAMenu {
 
 		Set<Entry<String, String>> entrySet = permissionMap.entrySet();
 		List<GHAMenuOption> menuOptions = new ArrayList<GHAMenuOption>();
-		for (final Entry<String, String> entry : entrySet){
+		for (final Entry<String, String> entry : entrySet) {
 			menuOptions.add(new GHAMenuOption(entry.getValue(), entry.getKey(),
 					"../resources/icons/menu/" + entry.getKey() + ".png"));
 		}
@@ -105,10 +105,10 @@ public class GHAMenu {
 		List<GHAMenuOption> options = new ArrayList<GHAMenu.GHAMenuOption>();
 
 		public GHAMenuBar() {
-			setWidth("200px");
-			setHeight(GHAUiHelper.getTabHeight()+15+"px");
+			setWidth("250px");
+			setHeight(GHAUiHelper.getTabHeight() + 15 + "px");
 			setMembersMargin(10);
-//			setStyleName("menu-padding");
+			// setStyleName("menu-padding");
 			setLeft(0);
 			setTop(60);
 			setVisible(false);
@@ -137,7 +137,7 @@ public class GHAMenu {
 
 		@Override
 		public void onResize(ResizeEvent event) {
-			setHeight(GHAUiHelper.getTabHeight()+15+ "px");
+			setHeight(GHAUiHelper.getTabHeight() + 15 + "px");
 		}
 
 		public void addOption(GHAMenuOption option) {
@@ -157,8 +157,8 @@ public class GHAMenu {
 				}
 			});
 		}
-		
-		public void hide(){
+
+		public void hide() {
 			animateHide(AnimationEffect.FLY);
 			GHAUiHelper.removeDocumentClickHandler(this);
 		}
@@ -171,6 +171,7 @@ public class GHAMenu {
 	static private class GHAMenuOption extends HLayout {
 
 		private GHAMenuBar bar;
+
 		/**
 		 * @param text
 		 * @param token
@@ -187,7 +188,7 @@ public class GHAMenu {
 			// Window.alert(imgSrc);
 			GHAImg iconButton = new GHAImg(imgSrc);
 			iconButton.setStyleName("left-menu-padding");
-			
+
 			addMembers(iconButton, new LayoutSpacer());
 
 			Label titulo = new Label(text);
@@ -195,45 +196,41 @@ public class GHAMenu {
 			titulo.setHeight("20px");
 			titulo.setStyleName("menu-option-title");
 			titulo.addStyleName("button-pointer");
-			
+
 			addClickHandler(new ClickHandler() {
-			 
+
 				@Override
 				public void onClick(ClickEvent event) {
 					History.newItem(token);
 					bar.hide();
-				} 
+				}
 			});
-			
+
 			addMouseOverHandler(new MouseOverHandler() {
-				
+
 				@Override
 				public void onMouseOver(MouseOverEvent event) {
-					  setBackgroundColor("#E0E0DF");
+					setBackgroundColor("#E0E0DF");
 				}
 			});
-			 
+
 			addMouseOutHandler(new MouseOutHandler() {
-				
+
 				@Override
 				public void onMouseOut(MouseOutEvent event) {
-					setBackgroundColor("#FFFFFF"); 
+					setBackgroundColor("#FFFFFF");
 				}
 			});
-			
+
 			addMember(titulo);
 			addMember(new LayoutSpacer());
-			 
+
 		}
-		
-		public GHAMenuBar getBar() {
-			return bar;
-		}
-		
+
 		public void setBar(GHAMenuBar bar) {
 			this.bar = bar;
 		}
-		
+
 	}
 
 }

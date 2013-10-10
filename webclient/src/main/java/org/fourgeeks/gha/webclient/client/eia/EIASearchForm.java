@@ -78,7 +78,7 @@ public class EIASearchForm extends GHASlideInWindow implements
 	 */
 	public EIASearchForm() {
 		super(1);
-		setTop(110);
+		setTop(GHAUiHelper.getTopSpace());
 		setHeight(GHAUiHelper.getTabHeight() + "px");
 
 		GHAUiHelper.addGHAResizeHandler(this);
