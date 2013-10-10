@@ -20,15 +20,14 @@ import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
-import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIAReportsForm extends VLayout {
+public class EIAReportEdoUbicForm extends GHAReportForm {
 	private GHATitleTextItem filtersTitleItem, agrupTypeTitleItem;
 	private GHARadioGroupItem filterTypeRadioGroupItem;
 	private GHASelectItem estadoSelectItem, facilitySelectItem,
 			workingAreaSelectItem, agrupTypeSelectItem;
 
-	public EIAReportsForm() {
+	public EIAReportEdoUbicForm() {
 		DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(1);
@@ -152,6 +151,7 @@ public class EIAReportsForm extends VLayout {
 	/**
 	 * @return La parte del URL que contiene los parametros del reporte
 	 */
+	@Override
 	public String getReportURI() {
 		Citizen user = GHASessionData.getLoggedUser().getCitizen();
 		String loggedUser = user.getFirstName() + " " + user.getFirstLastName();

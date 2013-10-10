@@ -28,7 +28,8 @@ import org.fourgeeks.gha.ejb.gmh.EiaReportsServiceRemote;
 public class ReportFichaEquiposServlet extends ReportEiaServelt {
 	private static final long serialVersionUID = 1L;
 
-	private static final String REPORT_FILE_DIR = "/resources/reportes/GHM.FEIA.01.jasper";
+	private static final String REPORT_FILE_DIR_1 = "/resources/reportes/GHM.FEIA.01.jasper";
+	private static final String REPORT_FILE_DIR_2 = "/resources/reportes/GHM.FEIA.02.jasper";
 	private static final String LOGO_DIR = "/resources/img/logoReport.jpg";
 
 	private static final String PARAM_EIAS = "eias", PARAM_FACILS = "facils",
@@ -46,19 +47,17 @@ public class ReportFichaEquiposServlet extends ReportEiaServelt {
 	 * , javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
+	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		try {
-			List<Eia> eiaList = searchInService(req);
-
-			LOG.info("eiaList.size() = " + eiaList.size());
+			Map<String, Object> searchMap = searchInService(req);
 
 			String reportFileRealPath = null;
 			EiaDataSource dataSource = null;
 
-			dataSource = new EiaDataSource(eiaList);
-			reportFileRealPath = getServletContext().getRealPath(
-					REPORT_FILE_DIR);
+			dataSource = new EiaDataSource((List<Eia>) searchMap.get("data"));
+			reportFileRealPath = (String) searchMap.get("reportPath");
 
 			Map<String, Object> paramsReport = generateParamsMap(req);
 
@@ -79,18 +78,26 @@ public class ReportFichaEquiposServlet extends ReportEiaServelt {
 
 	}
 
-	private List<Eia> searchInService(HttpServletRequest req)
+	private Map<String, Object> searchInService(HttpServletRequest req)
 			throws GHAEJBException {
 		QueryParamsContainer qpc = new QueryParamsContainer(req);
 		List<Eia> eiaList = null;
+		String reportPath = null;
 
-		if (qpc.eiaIds == null)
+		if (qpc.eiaIds == null) {
+			reportPath = getServletContext().getRealPath(REPORT_FILE_DIR_2);
 			eiaList = service.findAll(qpc.facilsIds, qpc.workingAreasIds,
 					qpc.eiaState, qpc.orden);
-		else
+		} else {
+			reportPath = getServletContext().getRealPath(REPORT_FILE_DIR_1);
 			eiaList = service.find(qpc.eiaIds, qpc.orden);
+		}
 
-		return eiaList;
+		HashMap<String, Object> mapa = new HashMap<String, Object>();
+		mapa.put("data", eiaList);
+		mapa.put("reportPath", reportPath);
+
+		return mapa;
 	}
 
 	/*

@@ -22,6 +22,7 @@ public class GHASectionForm extends HLayout implements GHAHideable, GHAClosable 
 
 	private VLayout options;
 	private VLayout mainSection;
+	private Option selectedOption;
 	private List<Option> optionList;
 	{
 		optionList = new ArrayList<Option>();
@@ -30,6 +31,7 @@ public class GHASectionForm extends HLayout implements GHAHideable, GHAClosable 
 		options.setMembersMargin(3);
 		options.addStyleName("margin-right");
 		mainSection = new VLayout();
+		selectedOption = null;
 	}
 
 	public GHASectionForm() {
@@ -62,6 +64,7 @@ public class GHASectionForm extends HLayout implements GHAHideable, GHAClosable 
 				for (Option option : optionList)
 					option.deactivate();
 				option.activate();
+				selectedOption = option;
 			}
 		});
 		options.addMember(option);
@@ -93,6 +96,7 @@ public class GHASectionForm extends HLayout implements GHAHideable, GHAClosable 
 				for (Option option : optionList)
 					option.deactivate();
 				option.activate();
+				selectedOption = option;
 			}
 		});
 		options.addMember(option);
@@ -100,12 +104,24 @@ public class GHASectionForm extends HLayout implements GHAHideable, GHAClosable 
 	}
 
 	/**
+	 * @return Seccion de la opcion seleccionada o null si no se selecciono
+	 *         ninguna opcion
+	 */
+	public Canvas getSelectedOptionForm() {
+		if (selectedOption != null)
+			return selectedOption.getSection().getChildren()[0];
+		return null;
+	}
+
+	/**
 	 * Open the first section
 	 */
 	public void openFirst() {
 		Option option = optionList.get(0);
-		if (option != null)
+		if (option != null) {
 			option.activate();
+			selectedOption = option;
+		}
 	}
 
 	/**

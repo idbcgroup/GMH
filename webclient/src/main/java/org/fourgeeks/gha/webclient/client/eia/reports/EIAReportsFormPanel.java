@@ -4,9 +4,11 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASectionForm;
 
 import com.google.gwt.safehtml.shared.UriUtils;
 import com.google.gwt.user.client.Window;
+import com.smartgwt.client.widgets.Canvas;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -21,7 +23,8 @@ public class EIAReportsFormPanel extends VLayout implements GHAClosable,
 
 	private final String PATH_IMG_PRINT_BUTTON = "../resources/icons/check.png";
 	private final String PATH_IMG_CLEAN_BUTTON = "../resources/icons/clean.png";
-	private final EIAReportsForm formReports;
+	private final EIAReportEdoUbicForm edoUbicReportForm;
+	private final GHASectionForm secciones;
 
 	/**
 	 * Constructor
@@ -33,26 +36,37 @@ public class EIAReportsFormPanel extends VLayout implements GHAClosable,
 		setStyleName("sides-padding padding-top");
 
 		// CREO EL FORMULARIO
-		formReports = new EIAReportsForm();
+		edoUbicReportForm = new EIAReportEdoUbicForm();
 
 		// CREO EL SIDEBAR
 		VLayout sideBarLayout = GHAUiHelper.createBar(// boton generar reporte
 				new GHAImgButton(PATH_IMG_PRINT_BUTTON, new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						String uri = formReports.getReportURI();
+						Canvas form = secciones.getSelectedOptionForm();
+						GHAReportForm reportForm = (GHAReportForm) form;
+
+						String uri = reportForm.getReportURI();
 						Window.open(UriUtils.sanitizeUri(uri), "_blank", "");
 					}
 				}), // boton clean
 				new GHAImgButton(PATH_IMG_CLEAN_BUTTON, new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						formReports.cleanItems();
+						Canvas form = secciones.getSelectedOptionForm();
+						GHAReportForm reportForm = (GHAReportForm) form;
+
+						reportForm.cleanItems();
 					}
 				}));
 
+		// CREO EL SECTION FORM DONDE VAN A IR LOS FORMULARIOS
+		secciones = new GHASectionForm();
+		secciones.addSection("Edo. y Ubic.", edoUbicReportForm);
+		secciones.openFirst();
+
 		HLayout formPanel = new HLayout();
-		formPanel.addMembers(formReports, sideBarLayout);
+		formPanel.addMembers(secciones, sideBarLayout);
 
 		addMember(formPanel);
 	}

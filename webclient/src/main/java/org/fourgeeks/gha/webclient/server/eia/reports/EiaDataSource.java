@@ -21,6 +21,8 @@ import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 
 public class EiaDataSource implements JRDataSource {
+	private static final String NO_ASIGNADO = "no asignado";
+
 	private List<Eia> data;
 	private Class<? extends Object> groupType;
 	private int pos;
@@ -145,13 +147,13 @@ public class EiaDataSource implements JRDataSource {
 			}
 
 			if (field.getName().equals("areaTrabajo")) {
-				WorkingArea workingArea = eia.getWorkingArea();
-				return workingArea != null ? workingArea.getName() : null;
+				WorkingArea wArea = eia.getWorkingArea();
+				return wArea != null ? wArea.getName() : NO_ASIGNADO;
 			}
 
 			if (field.getName().equals("facilidad")) {
 				Facility facility = eia.getFacility();
-				return facility != null ? facility.getName() : null;
+				return facility != null ? facility.getName() : NO_ASIGNADO;
 			}
 
 			if (field.getName().equals("costoEquipo")) {

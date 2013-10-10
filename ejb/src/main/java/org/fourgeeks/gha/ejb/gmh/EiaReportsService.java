@@ -77,10 +77,8 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 		// definiendo joins
 		Root<Eia> eiaRoot = cQuery.from(Eia.class);
 		Join<Eia, EiaType> eiaTypeJoin = eiaRoot.join("eiaType");
-		Join<Eia, WorkingArea> workAreaJoin = eiaRoot.join("workingArea",
-				JoinType.LEFT);
-		Join<Eia, Facility> facilityJoin = eiaRoot.join("facility",
-				JoinType.LEFT);
+		Join<Eia, WorkingArea> workAreaJoin = eiaRoot.join("workingArea", JoinType.LEFT);
+		Join<Eia, Facility> facilityJoin = eiaRoot.join("facility",	JoinType.LEFT);
 
 		// creando el predicando de la consulta
 		Predicate eiaIdsPred = buildPredicList(eiaIds, eiaRoot);
@@ -90,11 +88,9 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 
 		// creando el order by
 		if (orderByUbicEiaType)
-			typeQuery.orderBy(getListOrderByNames(facilityJoin, workAreaJoin,
-					eiaTypeJoin));
+			typeQuery.orderBy(getListOrderByName(facilityJoin, workAreaJoin, eiaTypeJoin));
 		else
-			typeQuery.orderBy(getListOrderByNames(eiaTypeJoin, facilityJoin,
-					workAreaJoin));
+			typeQuery.orderBy(getListOrderByName(eiaTypeJoin, facilityJoin, workAreaJoin));
 
 		// EJECUTANDO QUERY
 		try {
@@ -103,8 +99,7 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 		} catch (NoResultException ex) {
 			logger.log(Level.INFO, "No results", ex);
 		} catch (Exception ex) {
-			logger.log(Level.INFO, "Error buscando EIAs por conjunto de IDs",
-					ex);
+			logger.log(Level.INFO, "Error buscando EIAs por conjunto de IDs", ex);
 			throw new EJBException("Error buscando EIAs por conjunto de IDs: "
 					+ ex.getCause().getMessage());
 		}
@@ -126,10 +121,8 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 		// definiendo joins
 		Root<Eia> eiaRoot = criteriaQuery.from(Eia.class);
 		Join<Eia, EiaType> eiaTypeJoin = eiaRoot.join("eiaType");
-		Join<Eia, WorkingArea> workAreaJoin = eiaRoot.join("workingArea",
-				JoinType.LEFT);
-		Join<Eia, Facility> facilityJoin = eiaRoot.join("facility",
-				JoinType.LEFT);
+		Join<Eia, WorkingArea> workAreaJoin = eiaRoot.join("workingArea", JoinType.LEFT);
+		Join<Eia, Facility> facilityJoin = eiaRoot.join("facility", JoinType.LEFT);
 
 		// creando predicandos para la consulta
 		Predicate facilityIdsPred = buildPredicList(facilityIds, facilityJoin);
@@ -137,16 +130,14 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 		Predicate eiaStatePred = buildEiaStatePredic(eiaRoot, eiaState);
 
 		// creando del query
-		CriteriaQuery<Eia> typeQuery = criteriaQuery.select(eiaRoot).where(
-				facilityIdsPred, workAreaIdsPred, eiaStatePred);
+		CriteriaQuery<Eia> typeQuery = criteriaQuery.select(eiaRoot).where(facilityIdsPred, 
+				workAreaIdsPred, eiaStatePred);
 
 		// creando el orden by
 		if (orderByUbicEiaType)
-			typeQuery.orderBy(getListOrderByNames(facilityJoin, workAreaJoin,
-					eiaTypeJoin));
+			typeQuery.orderBy(getListOrderByName(facilityJoin, workAreaJoin, eiaTypeJoin));
 		else
-			typeQuery.orderBy(getListOrderByNames(eiaTypeJoin, facilityJoin,
-					workAreaJoin));
+			typeQuery.orderBy(getListOrderByName(eiaTypeJoin, facilityJoin, workAreaJoin));
 
 		// EJECUTANDO QUERY
 		try {
@@ -155,8 +146,7 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 		} catch (NoResultException ex) {
 			logger.log(Level.INFO, "No results", ex);
 		} catch (Exception ex) {
-			logger.log(Level.INFO, "Error buscando EIAs por conjunto de IDs",
-					ex);
+			logger.log(Level.INFO, "Error buscando EIAs por conjunto de IDs", ex);
 			throw new EJBException("Error buscando EIAs por conjunto de IDs: "
 					+ ex.getCause().getMessage());
 		}
@@ -164,7 +154,7 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 		return null;
 	}
 
-	private List<Order> getListOrderByNames(From<Eia, ?>... entities) {
+	private List<Order> getListOrderByName(From<Eia, ?>... entities) {
 		CriteriaBuilder builder = em.getCriteriaBuilder();
 		List<Order> listOrder = new ArrayList<Order>();
 
