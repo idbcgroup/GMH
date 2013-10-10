@@ -831,21 +831,19 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 
 		Set<ConstraintViolation<Eia>> violations = validator.validate(eia);
 
-		// if (infoBasicaForm.validate() && adquisicionForm.validate()
-		// && ubicacionForm.validate() && costosTab.validate()
-		// && garantiasMantForm.validate()) {
-		if (violations.isEmpty()) {
-			return eia;
-		} else {
-			// GHANotification.alert(GHAStrings.get(violations.iterator()
-			// .next().getMessage()));
-			List<String> violationsList = new ArrayList<String>();
-			for (Iterator<ConstraintViolation<Eia>> it = violations.iterator(); it
-					.hasNext();)
-				violationsList.add(it.next().getMessage());
-			GHANotification.alert(violationsList);
+		if (infoBasicaForm.validate() && adquisicionForm.validate()
+				&& ubicacionForm.validate() && costosTab.validate()
+				&& garantiasMantForm.validate()) {
+			if (violations.isEmpty()) {
+				return eia;
+			} else {
+				List<String> violationsList = new ArrayList<String>();
+				for (Iterator<ConstraintViolation<Eia>> it = violations
+						.iterator(); it.hasNext();)
+					violationsList.add(it.next().getMessage());
+				GHANotification.alert(violationsList);
+			}
 		}
-		// }
 		return null;
 	}
 

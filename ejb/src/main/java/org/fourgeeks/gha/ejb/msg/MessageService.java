@@ -1,13 +1,11 @@
 package org.fourgeeks.gha.ejb.msg;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
@@ -38,18 +36,6 @@ public class MessageService implements MessageServiceRemote {
 		try {
 			return em.find(GHAMessage.class, new GHAMessageId(Id,
 					RuntimeParameters.getLang()));
-		} catch (NoResultException e1) {
-
-			try {
-				return em.createNamedQuery("GHAMessage.find", GHAMessage.class)
-						.setParameter("code", "no-message")
-						.setParameter("language", RuntimeParameters.getLang())
-						.getSingleResult();
-			} catch (Exception e) {
-				logger.log(Level.INFO, "ERROR: finding GHAMessage", e);
-				throw new GHAEJBException("ERROR: finding GHAMessage "
-						+ e.getCause().getMessage());
-			}
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: finding GHAMessage", e);
 			throw new GHAEJBException("ERROR: finding GHAMessage "
@@ -64,11 +50,18 @@ public class MessageService implements MessageServiceRemote {
 	 */
 	@Override
 	public List<GHAMessage> find(List<String> messages) throws GHAEJBException {
-		List<GHAMessage> result = new ArrayList<GHAMessage>();
-		for (String message : messages)
-			result.add(find(message));
+		try {
+			return em
+					.createNamedQuery("GHAMessage.getAllByCodes",
+							GHAMessage.class).setParameter("codes", messages)
+					.setParameter("language", RuntimeParameters.getLang())
+					.getResultList();
 
-		return result;
+		} catch (Exception e) {
+			logger.log(Level.INFO, "ERROR: finding GHAMessages", e);
+			throw new GHAEJBException("ERROR: finding GHAMessages "
+					+ e.getCause().getMessage());
+		}
 	}
 
 }
