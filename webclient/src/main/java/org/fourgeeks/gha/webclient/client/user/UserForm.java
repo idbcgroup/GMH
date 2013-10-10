@@ -2,6 +2,7 @@ package org.fourgeeks.gha.webclient.client.user;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
@@ -19,7 +20,6 @@ import org.fourgeeks.gha.domain.mix.Citizen;
 import org.fourgeeks.gha.domain.mix.LegalEntity;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
-import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHADateItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
@@ -47,6 +47,7 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 	private GHADateItem birthDateItem;
 
 	private List<UserSelectionListener> listeners;
+	private DynamicForm form;
 
 	/**
 	 * this is used to keep the id of the internal entities of ssouser named
@@ -78,17 +79,17 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		secondNameItem.setLength(20);
 		secondNameItem.setMask(">A<AAAAAAAAAAAAAAAAAAA");
-		
+
 		lastNameItem = new GHATextItem("Apellido",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		lastNameItem.setLength(20);
 		lastNameItem.setMask(">A<AAAAAAAAAAAAAAAAAAA");
-		
+
 		secondLastNameItem = new GHATextItem("Segundo Apellido",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		secondLastNameItem.setLength(20);
 		secondLastNameItem.setMask(">A<AAAAAAAAAAAAAAAAAAA");
-		
+
 		primaryEmailItem = new GHATextItem("Email Primario",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		primaryEmailItem.setLength(254);
@@ -107,12 +108,14 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 		nationalityItem = new GHATextItem("Nacionalidad",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		nationalityItem.setLength(60);
-		nationalityItem.setMask("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+		nationalityItem
+				.setMask("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 		birthDateItem = new GHADateItem("Fecha de Nac.",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		birthDateItem.setStartDate(new java.util.Date(50, 1, 1));
-		birthDateItem.setEndDate(new java.util.Date(System.currentTimeMillis()));
-		
+		birthDateItem
+				.setEndDate(new java.util.Date(System.currentTimeMillis()));
+
 		bpiSelectItem = new GHASelectItem("Institución",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		bpiSelectItem.setRequired(true);
@@ -124,6 +127,8 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 		validator = Validation.buildDefaultValidatorFactory().getValidator();
 
 		listeners = new ArrayList<UserSelectionListener>();
+
+		form = new DynamicForm();
 	}
 
 	/**
@@ -131,7 +136,6 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 	 */
 	public UserForm() {
 		final HLayout mainPanel = new HLayout();
-		final DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
 		// form.setCellPadding(1);
 		form.setNumCols(3);
@@ -295,52 +299,58 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 		bpu.setBpi(bpi);
 		ssoUser.setBpu(bpu);
 
+		List<String> violationsList = new ArrayList<String>();
+
 		Set<ConstraintViolation<LegalEntity>> violationsLegalEntity = validator
 				.validate(legalEntity);
-
-		if (!violationsLegalEntity.isEmpty()) {
-			GHANotification.alert(GHAStrings.get(violationsLegalEntity
-					.iterator().next().getMessage()));
-			return null;
-		}
-
 		Set<ConstraintViolation<Citizen>> violationsCitizen = validator
 				.validate(citizen);
-
-		if (!violationsCitizen.isEmpty()) {
-			GHANotification.alert(GHAStrings.get(violationsCitizen.iterator()
-					.next().getMessage()));
-			return null;
-		}
-
 		Set<ConstraintViolation<Bpu>> violationsBpu = validator.validate(bpu);
-
-		if (!violationsBpu.isEmpty()) {
-			GHANotification.alert(GHAStrings.get(violationsBpu.iterator()
-					.next().getMessage()));
-			return null;
-		}
-
 		Set<ConstraintViolation<SSOUser>> violationsSSOUser = validator
 				.validate(ssoUser);
 
-		if (!violationsSSOUser.isEmpty()) {
-			GHANotification.alert(GHAStrings.get(violationsSSOUser.iterator()
-					.next().getMessage()));
-			return null;
+		if (form.validate()) {
+
+			if (violationsLegalEntity.isEmpty()) {
+				for (Iterator<ConstraintViolation<LegalEntity>> it = violationsLegalEntity
+						.iterator(); it.hasNext();)
+					violationsList.add(it.next().getMessage());
+			}
+
+			if (!violationsCitizen.isEmpty()) {
+				for (Iterator<ConstraintViolation<Citizen>> it = violationsCitizen
+						.iterator(); it.hasNext();)
+					violationsList.add(it.next().getMessage());
+			}
+
+			if (!violationsBpu.isEmpty()) {
+				for (Iterator<ConstraintViolation<Bpu>> it = violationsBpu
+						.iterator(); it.hasNext();)
+					violationsList.add(it.next().getMessage());
+			}
+
+			if (!violationsSSOUser.isEmpty()) {
+				for (Iterator<ConstraintViolation<SSOUser>> it = violationsSSOUser
+						.iterator(); it.hasNext();)
+					violationsList.add(it.next().getMessage());
+			}
+
+			if (passwordItem.getValue() == null) {
+				violationsList.add("password-not-null");
+			}
+
+			if (passwordItem.getValueAsString() != confirmPasswordItem
+					.getValueAsString()) {
+				violationsList.add("password-missmatch");
+			}
+
+			if (violationsList.isEmpty())
+				return ssoUser;
+			else
+				GHANotification.alert(violationsList);
 		}
 
-		if (passwordItem.getValue() == null) {
-			GHANotification.alert(GHAStrings.get("password-not-null"));
-			return null;
-		}
-
-		if (passwordItem.getValueAsString() != confirmPasswordItem
-				.getValueAsString()) {
-			GHANotification.alert(GHAStrings.get("password-missmatch"));
-			return null;
-		}
-		return ssoUser;
+		return null;
 	}
 
 	/**
