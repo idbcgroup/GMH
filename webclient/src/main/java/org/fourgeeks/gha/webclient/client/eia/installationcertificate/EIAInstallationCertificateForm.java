@@ -21,7 +21,7 @@ public class EIAInstallationCertificateForm extends GHASlideInWindow {
 	}
 	public EIAInstallationCertificateForm() {
 		super(1);
-		setTop(110);
+		setTop(GHAUiHelper.getTopSpace());
 		setHeight(GHAUiHelper.getTabHeight());
 		
 ////////Botones laterales

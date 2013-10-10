@@ -59,7 +59,7 @@ public class MaintenanceActivitySearchForm extends GHASlideInWindow implements
 	 */
 	public MaintenanceActivitySearchForm() {
 		super(1);
-		setTop(110);
+		setTop(GHAUiHelper.getTopSpace());
 		setHeight(GHAUiHelper.getTabHeight() + "px");
 
 		Label title = new Label(

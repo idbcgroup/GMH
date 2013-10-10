@@ -105,7 +105,7 @@ public class GHAMenu {
 		List<GHAMenuOption> options = new ArrayList<GHAMenu.GHAMenuOption>();
 
 		public GHAMenuBar() {
-			setWidth("200px");
+			setWidth("250px");
 			setHeight(GHAUiHelper.getTabHeight()+15+"px");
 			setMembersMargin(10);
 //			setStyleName("menu-padding");

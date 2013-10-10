@@ -68,12 +68,14 @@ public abstract class GHAUiHelper {
 	 */
 	public static final int FOUR_COLUMN_FORMITEM_SIZE = 135;
 
+	private static final int HEADER_HEIGTH = 60;
+	private static final int MENU_BAR_HEIGTH = 24;
+	
 	// NO ESTAN TOTALMENTE MEDIDAS CON LA INTERFAZ
 	private static final int MIN_TAB_HEIGHT = 400;
 	private static final int MIN_TOP_SECTION_HEIGHT = 120;
 	private static final int MIN_BOTTOM_SECTION_HEIGHT = 260;
-	private static final int HEADER_HEIGTH = 60;
-	private static final int MENU_BAR_HEIGTH = 24;
+	
 	// NO ESTAN TOTALMENTE MEDIDAS CON LA INTERFAZ
 
 	/**
@@ -145,7 +147,11 @@ public abstract class GHAUiHelper {
 			return ret;
 		}
 	}
-
+	
+	public static int getTopSpace(){
+		return HEADER_HEIGTH + MENU_BAR_HEIGTH+1;
+	}
+	
 	/**
 	 * @param extrasHeight
 	 * @return
