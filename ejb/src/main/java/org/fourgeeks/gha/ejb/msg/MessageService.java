@@ -12,6 +12,7 @@ import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.msg.GHAMessage;
+import org.fourgeeks.gha.domain.msg.GHAMessageId;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
@@ -35,10 +36,8 @@ public class MessageService implements MessageServiceRemote {
 	@Override
 	public GHAMessage find(String Id) throws GHAEJBException {
 		try {
-			return em.createNamedQuery("GHAMessage.find", GHAMessage.class)
-					.setParameter("code", Id)
-					.setParameter("language", RuntimeParameters.getLang())
-					.getSingleResult();
+			return em.find(GHAMessage.class, new GHAMessageId(Id,
+					RuntimeParameters.getLang()));
 		} catch (NoResultException e1) {
 
 			try {

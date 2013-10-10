@@ -110,7 +110,7 @@ public class InitialData {
 	}
 
 	private void messages() {
-		String query = "SELECT t FROM GHAMessage t WHERE t.id = 'LOGIN001'";
+		String query = "SELECT t FROM GHAMessage t WHERE t.code = 'LOGIN001'";
 		try {
 			em.createQuery(query).getSingleResult();
 		} catch (NoResultException e) {
@@ -118,7 +118,7 @@ public class InitialData {
 				logger.info("Creating message test data");
 				em.persist(new GHAMessage(LanguageEnum.ES, "no-message",
 						"No existe un mensaje para su localidad"));
-				em.persist(new GHAMessage(LanguageEnum.EN, "no-message-en",
+				em.persist(new GHAMessage(LanguageEnum.EN, "no-message",
 						"There is no message for your location"));
 				em.persist(new GHAMessage(LanguageEnum.ES, "LOGIN001",
 						"Inicio de sesión exitoso"));

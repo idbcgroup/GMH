@@ -6,6 +6,7 @@ package org.fourgeeks.gha.domain.logs;
 import java.sql.Timestamp;
 
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 
@@ -29,7 +30,8 @@ public abstract class GHALog extends AbstractEntity {
 			new java.util.Date().getTime());
 
 	@ManyToOne
-	@JoinColumn(nullable = false)
+	@JoinColumns({ @JoinColumn(name = "code", referencedColumnName = "code"),
+			@JoinColumn(name = "language", referencedColumnName = "language") })
 	protected GHAMessage message;
 
 	/**

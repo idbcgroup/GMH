@@ -1,13 +1,14 @@
 package org.fourgeeks.gha.domain.msg;
 
-import javax.persistence.Column;
+import java.io.Serializable;
+
 import javax.persistence.Entity;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
-import org.fourgeeks.gha.domain.AbstractCodeEntity;
 import org.fourgeeks.gha.domain.enu.LanguageEnum;
 
 /**
@@ -15,20 +16,39 @@ import org.fourgeeks.gha.domain.enu.LanguageEnum;
  * 
  */
 @Entity
+@IdClass(GHAMessageId.class)
 @Table(schema = "msg", uniqueConstraints = @UniqueConstraint(columnNames = {
 		"language", "code" }))
-@NamedQueries(value = { @NamedQuery(name = "GHAMessage.find", query = "SELECT e FROM GHAMessage e WHERE e.code = :code AND e.language = :language") })
-public class GHAMessage extends AbstractCodeEntity {
+public class GHAMessage implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@Column(nullable = false)
+	@Id
+	@NotNull(message = "code-not-null")
+	private String code;
+	@Id
+	@NotNull(message = "language-not-null")
 	private LanguageEnum language;
 
 	private String text;
+
+	/**
+	 */
+	public GHAMessage() {
+		super();
+	}
+
+	/**
+	 * @param code
+	 * @param language
+	 */
+	public GHAMessage(String code, LanguageEnum language) {
+		this.code = code;
+		this.language = language;
+	}
 
 	/**
 	 * @param language
@@ -40,12 +60,6 @@ public class GHAMessage extends AbstractCodeEntity {
 		this.language = language;
 		this.code = code;
 		this.text = text;
-	}
-
-	/**
-	 */
-	public GHAMessage() {
-		super();
 	}
 
 	/**
