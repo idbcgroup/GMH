@@ -24,6 +24,7 @@ public class EIAReportsFormPanel extends VLayout implements GHAClosable,
 	private final String PATH_IMG_PRINT_BUTTON = "../resources/icons/check.png";
 	private final String PATH_IMG_CLEAN_BUTTON = "../resources/icons/clean.png";
 	private final EIAReportEdoUbicForm edoUbicReportForm;
+	private final EIAReportDetalleEquiposForm detalleEquiposReportForm;
 	private final GHASectionForm secciones;
 
 	/**
@@ -35,11 +36,19 @@ public class EIAReportsFormPanel extends VLayout implements GHAClosable,
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding padding-top");
 
-		// CREO EL FORMULARIO
+		// CREO LOS FORMULARIO
 		edoUbicReportForm = new EIAReportEdoUbicForm();
+		detalleEquiposReportForm = new EIAReportDetalleEquiposForm();
+
+		// CREO EL SECTION FORM DONDE VAN A IR LOS FORMULARIOS
+		secciones = new GHASectionForm();
+		secciones.addSection("Edo. y Ubic.", edoUbicReportForm);
+		secciones.addSection("Detalles de Equipos", detalleEquiposReportForm);
+		secciones.openFirst();
 
 		// CREO EL SIDEBAR
-		VLayout sideBarLayout = GHAUiHelper.createBar(// boton generar reporte
+		VLayout sideBarLayout = GHAUiHelper.createBar(
+		// boton generar reporte
 				new GHAImgButton(PATH_IMG_PRINT_BUTTON, new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
@@ -49,7 +58,8 @@ public class EIAReportsFormPanel extends VLayout implements GHAClosable,
 						String uri = reportForm.getReportURI();
 						Window.open(UriUtils.sanitizeUri(uri), "_blank", "");
 					}
-				}), // boton clean
+				}),
+				// boton clean
 				new GHAImgButton(PATH_IMG_CLEAN_BUTTON, new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
@@ -59,11 +69,6 @@ public class EIAReportsFormPanel extends VLayout implements GHAClosable,
 						reportForm.cleanItems();
 					}
 				}));
-
-		// CREO EL SECTION FORM DONDE VAN A IR LOS FORMULARIOS
-		secciones = new GHASectionForm();
-		secciones.addSection("Edo. y Ubic.", edoUbicReportForm);
-		secciones.openFirst();
 
 		HLayout formPanel = new HLayout();
 		formPanel.addMembers(secciones, sideBarLayout);

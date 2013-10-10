@@ -47,7 +47,7 @@ public class EIAReportEdoUbicForm extends GHAReportForm {
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		workingAreaSelectItem.setDisabled(true);
 
-		facilitySelectItem = new GHASelectItem("Servicio/Instalación",
+		facilitySelectItem = new GHASelectItem("Facilidad",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		facilitySelectItem.setDisabled(true);
 

@@ -13,11 +13,15 @@ public class EIAModel {
 	private static final GWTEiaServiceAsync eiaService = GWT
 			.create(GWTEiaService.class);
 
+	public static void getAll(GHAAsyncCallback<List<Eia>> eias) {
+		eiaService.getAll(eias);
+	}
+
 	public static void find(EiaType eiaType, GHAAsyncCallback<List<Eia>> eias) {
 		eiaService.findByEiaType(eiaType, eias);
 	}
-	
-	public static void find(Eia eia, GHAAsyncCallback<List <Eia>> eias){
+
+	public static void find(Eia eia, GHAAsyncCallback<List<Eia>> eias) {
 		eiaService.find(eia, eias);
 	}
 

@@ -9,12 +9,14 @@ import org.fourgeeks.gha.domain.gar.Facility;
 import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.gmh.Brand;
+import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.webclient.client.bpi.BpiModel;
 import org.fourgeeks.gha.webclient.client.brand.BrandModel;
 import org.fourgeeks.gha.webclient.client.buildinglocation.BuildingLocationModel;
+import org.fourgeeks.gha.webclient.client.eia.EIAModel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeModel;
 import org.fourgeeks.gha.webclient.client.externalprovider.ExternalProviderModel;
 import org.fourgeeks.gha.webclient.client.facility.FacilityModel;
@@ -46,6 +48,7 @@ public enum GHACache {
 	private List<Role> roles;
 	private List<ExternalProvider> externalProviders;
 	private List<EiaType> eiaTypes;
+	private List<Eia> eias;
 	private List<WorkingArea> workingAreas;
 	private List<Facility> facilities;
 	private List<Bpi> bpis;
@@ -110,6 +113,24 @@ public enum GHACache {
 			public void onSuccess(List<WorkingArea> result) {
 				workingAreas = result;
 				callback.onSuccess(result);
+			}
+		});
+	}
+
+	public void getEias(GHAAsyncCallback<List<Eia>> callback) {
+		if (eias == null)
+			getEiasFromServer(callback);
+		else
+			callback.onSuccess(eias);
+	}
+
+	private void getEiasFromServer(final GHAAsyncCallback<List<Eia>> callback) {
+		EIAModel.getAll(new GHAAsyncCallback<List<Eia>>() {
+
+			@Override
+			public void onSuccess(List<Eia> result) {
+				eias = result;
+				callback.onSuccess(eias);
 			}
 		});
 	}
@@ -296,12 +317,11 @@ public enum GHACache {
 					}
 				});
 	}
-	
+
 	/**
 	 * @param callback
 	 */
-	public void getBpis(
-			GHAAsyncCallback<List<Bpi>> callback,
+	public void getBpis(GHAAsyncCallback<List<Bpi>> callback,
 			boolean forceFromServer) {
 		if (forceFromServer || bpis == null)
 			getBpisFromServer(callback);
@@ -310,18 +330,17 @@ public enum GHACache {
 		}
 	}
 
-	private void getBpisFromServer(
-			final GHAAsyncCallback<List<Bpi>> callback) {
+	private void getBpisFromServer(final GHAAsyncCallback<List<Bpi>> callback) {
 		BpiModel.getAll(new GHAAsyncCallback<List<Bpi>>() { // AsyncCallback
-					// subclass
+			// subclass
 
-					@Override
-					public void onSuccess(List<Bpi> result) {
-						bpis = result;
-						// Avoiding synchronization problems
-						callback.onSuccess(result);
-					}
-				});
+			@Override
+			public void onSuccess(List<Bpi> result) {
+				bpis = result;
+				// Avoiding synchronization problems
+				callback.onSuccess(result);
+			}
+		});
 	}
 
 }
