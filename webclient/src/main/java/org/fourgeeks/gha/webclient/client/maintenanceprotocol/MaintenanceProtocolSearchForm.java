@@ -60,7 +60,7 @@ public class MaintenanceProtocolSearchForm extends GHASlideInWindow implements
 	public MaintenanceProtocolSearchForm() {
 		super(1);
 		setTop(GHAUiHelper.getTopSpace());
-		setHeight(GHAUiHelper.getTabHeight() + "px");
+		setHeight(GHAUiHelper.getTabHeight()-4 + "px");
 
 		Label title = new Label(
 				"<h3>Busqueda de Protocolos de Mantenimiento</h3>");
@@ -164,7 +164,7 @@ public class MaintenanceProtocolSearchForm extends GHASlideInWindow implements
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getTabHeight() + "px");
+		setHeight(GHAUiHelper.getTabHeight()-4 + "px");
 	}
 
 	private void search() {

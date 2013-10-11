@@ -45,17 +45,18 @@ public class GHAMenu {
 				"This class mus not be instantiaded");
 	}
 
+	final static GHAMenuBar verticalMenu = new GHAMenuBar();
+	public static Label selectedApp;
+	
 	/**
 	 * Build the Menu
 	 */
 	public static void buildMenu() {
-		final GHAMenuBar verticalMenu = new GHAMenuBar();
 		GHAUiHelper.addGHAResizeHandler(verticalMenu);
-
+		
 		GHAImgButton menu = new GHAImgButton("../resources/icons/menu.png");
 		menu.setSize("34px", "24px");
 		menu.addClickHandler(new ClickHandler() {
-
 			@Override
 			public void onClick(ClickEvent event) {
 				verticalMenu.bringToFront();
@@ -69,7 +70,19 @@ public class GHAMenu {
 				}
 			}
 		});
-
+		
+		selectedApp = new Label("Página Principal");
+		selectedApp.setWidth(250);
+		selectedApp.setHeight(25);
+		
+		HLayout menuPanel = new HLayout();
+		menuPanel.setWidth100();
+		menuPanel.setHeight(30);
+		menuPanel.setMembersMargin(10);
+		menuPanel.setDefaultLayoutAlign(VerticalAlignment.CENTER);
+		menuPanel.setStyleName("left-menu-padding");
+		menuPanel.addMembers(menu,selectedApp);
+		
 		Bpu user = GHASessionData.getLoggedUser();
 		List<GHAMenuOption> menuOptions = getMenuOptions(user);
 		for (GHAMenuOption ghaMenuOption : menuOptions) {
@@ -77,7 +90,7 @@ public class GHAMenu {
 			verticalMenu.addOption(ghaMenuOption);
 		}
 
-		RootPanel.get("menu-bar").add(menu);
+		RootPanel.get("menu-bar").add(menuPanel);
 	}
 
 	/**
@@ -179,9 +192,9 @@ public class GHAMenu {
 		 * @param token
 		 * @param imgSrc
 		 */
-		public GHAMenuOption(String text, final String token, String imgSrc) {
+		public GHAMenuOption(final String text, final String token, String imgSrc) {
 			setWidth100();
-			setHeight("24px");
+			setHeight("30px");
 			setMembersMargin(7);
 			setDefaultLayoutAlign(VerticalAlignment.CENTER);
 			setCursor(Cursor.HAND);
@@ -195,7 +208,7 @@ public class GHAMenu {
 
 			Label titulo = new Label(text);
 			titulo.setWidth("150px");
-			titulo.setHeight("20px");
+			titulo.setHeight("25px");
 			titulo.setStyleName("menu-option-title");
 			titulo.addStyleName("button-pointer");
 
@@ -203,11 +216,13 @@ public class GHAMenu {
 
 				@Override
 				public void onClick(ClickEvent event) {
-					History.newItem(token);
+					selectedApp.setContents(text);
+					selectedApp.markForRedraw();
 //					for (GHAMenuOption opt: bar.options)
 //						opt.setSelected(false);
 //					setSelected(true);
 					bar.hide();
+					History.newItem(token);	
 				}
 			});
 

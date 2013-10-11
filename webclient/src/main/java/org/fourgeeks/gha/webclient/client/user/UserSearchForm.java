@@ -90,7 +90,7 @@ public class UserSearchForm extends GHASlideInWindow implements
 	public UserSearchForm() {
 		super(1);
 		setTop(GHAUiHelper.getTopSpace());
-		setHeight(GHAUiHelper.getTabHeight() + "px");
+		setHeight(GHAUiHelper.getTabHeight()-4 + "px");
 
 		Label title = new Label("<h3>Búsqueda de Usuarios</h3>");
 		title.setWidth(400);
@@ -253,7 +253,7 @@ public class UserSearchForm extends GHASlideInWindow implements
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getTabHeight() + "px");
+		setHeight(GHAUiHelper.getTabHeight()-4 + "px");
 	}
 
 	// Producer Consumer stuff
