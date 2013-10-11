@@ -116,6 +116,10 @@ public class InitialData {
 		} catch (NoResultException e) {
 			try {
 				logger.info("Creating message test data");
+				em.persist(new GHAMessage(LanguageEnum.ES, "info-tittle",
+						"Información"));
+				em.persist(new GHAMessage(LanguageEnum.EN, "info-tittle",
+						"Information"));
 				em.persist(new GHAMessage(LanguageEnum.ES, "no-message",
 						"No existe un mensaje para su localidad"));
 				em.persist(new GHAMessage(LanguageEnum.EN, "no-message",
@@ -167,7 +171,21 @@ public class InitialData {
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"time-period-not-null",
 						"Debe indicar el periodo de tiempo"));
-
+				em.persist(new GHAMessage(LanguageEnum.ES, "eia-save-success",
+						"Guardado exitoso del Equipo"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"eiatype-save-success",
+						"Guardado exitoso del Tipo de Equipo"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "user-save-success",
+						"Guardado exitoso del Usuario"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"mplan-save-success",
+						"Guardado exitoso del Plan de Mantenimiento"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"mprot-save-success",
+						"Guardado exitoso del Protocolo de Mantenimiento"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "mact-save-success",
+						"Guardado exitoso de la Actividad de Mantenimiento"));
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating message test data", e1);

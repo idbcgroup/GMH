@@ -29,6 +29,7 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import com.google.gwt.validation.client.impl.Validation;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.form.DynamicForm;
+import com.smartgwt.client.widgets.form.validator.RegExpValidator;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
@@ -93,9 +94,17 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 		primaryEmailItem = new GHATextItem("Email Primario",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		primaryEmailItem.setLength(254);
+		RegExpValidator emailValidator = new RegExpValidator();
+		emailValidator.setErrorMessage("Dirección de Correo Inválida");
+		emailValidator
+				.setExpression("^([a-zA-Z0-9_.\\-+])+@(([a-zA-Z0-9\\-])+\\.)+[a-zA-Z0-9]{2,4}$");
+		primaryEmailItem.setValidators(emailValidator);
+
 		alternativeEmailItem = new GHATextItem("Email Secundario",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
-		primaryEmailItem.setLength(254);
+		alternativeEmailItem.setValidators(emailValidator);
+		alternativeEmailItem.setLength(254);
+
 		typeidSelectItem = new GHASelectItem("Tipo ID",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		idItem = new GHATextItem("No. Identificiación",
@@ -452,6 +461,7 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 	 *            this method notify the listeners for new ssoUser selected
 	 */
 	private void notifyUser(SSOUser ssoUser) {
+		GHANotification.alertMessage("user-save-success");
 		for (UserSelectionListener listener : listeners) {
 			listener.select(ssoUser);
 		}

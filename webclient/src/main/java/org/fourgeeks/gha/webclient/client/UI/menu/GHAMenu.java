@@ -28,6 +28,8 @@ import com.smartgwt.client.widgets.AnimationCallback;
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
+import com.smartgwt.client.widgets.events.HoverEvent;
+import com.smartgwt.client.widgets.events.HoverHandler;
 import com.smartgwt.client.widgets.events.MouseOutEvent;
 import com.smartgwt.client.widgets.events.MouseOutHandler;
 import com.smartgwt.client.widgets.events.MouseOverEvent;
@@ -45,24 +47,22 @@ public class GHAMenu {
 				"This class mus not be instantiaded");
 	}
 
-	final static GHAMenuBar verticalMenu = new GHAMenuBar();
-	public static Label selectedApp;
-	
+	final private static GHAMenuBar verticalMenu = new GHAMenuBar();
+
 	/**
 	 * Build the Menu
 	 */
 	public static void buildMenu() {
 		GHAUiHelper.addGHAResizeHandler(verticalMenu);
-		
+
 		GHAImgButton menu = new GHAImgButton("../resources/icons/menu.png");
 		menu.setSize("34px", "24px");
-		menu.addClickHandler(new ClickHandler() {
+		menu.addHoverHandler(new HoverHandler() {
+
 			@Override
-			public void onClick(ClickEvent event) {
+			public void onHover(HoverEvent event) {
 				verticalMenu.bringToFront();
 				if (!verticalMenu.isVisible()) {
-					// verticalMenu.animateHide(AnimationEffect.FLY);
-					// GHAUiHelper.removeDocumentClickHandler(verticalMenu);
 					verticalMenu.open();
 				} else {
 					verticalMenu.animateHide(AnimationEffect.FLY);
@@ -70,19 +70,27 @@ public class GHAMenu {
 				}
 			}
 		});
-		
-		selectedApp = new Label("Página Principal");
-		selectedApp.setWidth(250);
-		selectedApp.setHeight(25);
-		
+		menu.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				verticalMenu.bringToFront();
+				if (!verticalMenu.isVisible()) {
+					verticalMenu.open();
+				} else {
+					verticalMenu.animateHide(AnimationEffect.FLY);
+					GHAUiHelper.removeDocumentClickHandler(verticalMenu);
+				}
+			}
+		});
+
 		HLayout menuPanel = new HLayout();
 		menuPanel.setWidth100();
 		menuPanel.setHeight(30);
 		menuPanel.setMembersMargin(10);
 		menuPanel.setDefaultLayoutAlign(VerticalAlignment.CENTER);
 		menuPanel.setStyleName("left-menu-padding");
-		menuPanel.addMembers(menu,selectedApp);
-		
+		menuPanel.addMembers(menu);
+
 		Bpu user = GHASessionData.getLoggedUser();
 		List<GHAMenuOption> menuOptions = getMenuOptions(user);
 		for (GHAMenuOption ghaMenuOption : menuOptions) {
@@ -115,15 +123,13 @@ public class GHAMenu {
 
 	private static class GHAMenuBar extends VLayout implements EventListener,
 			ResizeHandler {
-		
-		GHAMenuOption selected;
+
 		List<GHAMenuOption> options = new ArrayList<GHAMenu.GHAMenuOption>();
 
 		public GHAMenuBar() {
 			setWidth("200px");
 			setHeight(GHAUiHelper.getTabHeight() + 15 + "px");
 			setMembersMargin(10);
-			// setStyleName("menu-padding");
 			setLeft(0);
 			setTop(60);
 			setVisible(false);
@@ -186,13 +192,14 @@ public class GHAMenu {
 	static private class GHAMenuOption extends HLayout {
 
 		private GHAMenuBar bar;
-		
+
 		/**
 		 * @param text
 		 * @param token
 		 * @param imgSrc
 		 */
-		public GHAMenuOption(final String text, final String token, String imgSrc) {
+		public GHAMenuOption(final String text, final String token,
+				String imgSrc) {
 			setWidth100();
 			setHeight("30px");
 			setMembersMargin(7);
@@ -200,9 +207,7 @@ public class GHAMenu {
 			setCursor(Cursor.HAND);
 			setVisible(false);
 			setStyleName("menu-option");
-			// Window.alert(imgSrc);
 			GHAImg iconButton = new GHAImg(imgSrc);
-//			iconButton.setStyleName("left-menu-padding");
 
 			addMembers(new LayoutSpacer(), iconButton);
 
@@ -216,13 +221,8 @@ public class GHAMenu {
 
 				@Override
 				public void onClick(ClickEvent event) {
-					selectedApp.setContents(text);
-					selectedApp.markForRedraw();
-//					for (GHAMenuOption opt: bar.options)
-//						opt.setSelected(false);
-//					setSelected(true);
 					bar.hide();
-					History.newItem(token);	
+					History.newItem(token);
 				}
 			});
 
@@ -245,13 +245,6 @@ public class GHAMenu {
 			addMember(titulo);
 			addMember(new LayoutSpacer());
 
-		}
-		
-		public void setSelected(boolean sel) {
-			if(sel)
-				addStyleName("side-option-selected");
-			else
-				removeStyleName("side-option-selected");
 		}
 
 		public void setBar(GHAMenuBar bar) {

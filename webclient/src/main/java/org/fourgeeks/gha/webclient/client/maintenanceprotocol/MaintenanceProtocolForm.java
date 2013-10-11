@@ -148,6 +148,7 @@ public class MaintenanceProtocolForm extends VLayout implements
 	// Producer stuff
 	private void notifyMaintenanceProtocol(
 			MaintenanceProtocol maintenanceProtocol) {
+		GHANotification.alertMessage("mprot-save-success");
 		for (MaintenanceProtocolSelectionListener listener : listeners) {
 			listener.select(maintenanceProtocol);
 		}
