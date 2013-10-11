@@ -152,6 +152,7 @@ public class MaintenanceActivityForm extends VLayout implements
 	// Producer Stuff
 	public void notifyMaintenanceActivity(
 			MaintenanceActivity maintenanceActivity) {
+		GHANotification.alertMessage("mact-save-success");
 		for (MaintenanceActivitySelectionListener listener : listeners) {
 			listener.select(maintenanceActivity);
 		}
