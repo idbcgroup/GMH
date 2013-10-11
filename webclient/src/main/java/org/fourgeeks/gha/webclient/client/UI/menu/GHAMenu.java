@@ -13,6 +13,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHASessionData;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImg;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATabHeader;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
@@ -48,6 +49,7 @@ public class GHAMenu {
 	}
 
 	final private static GHAMenuBar verticalMenu = new GHAMenuBar();
+	private static HLayout menuPanel;
 
 	/**
 	 * Build the Menu
@@ -83,7 +85,7 @@ public class GHAMenu {
 			}
 		});
 
-		HLayout menuPanel = new HLayout();
+		menuPanel = new HLayout();
 		menuPanel.setWidth100();
 		menuPanel.setHeight(30);
 		menuPanel.setMembersMargin(10);
@@ -250,6 +252,19 @@ public class GHAMenu {
 		public void setBar(GHAMenuBar bar) {
 			this.bar = bar;
 		}
+
+	}
+
+	/**
+	 * @param header
+	 */
+	public static void setHeader(GHATabHeader header) {
+		// menuPanel.addMember(header);
+		// menuPanel.redraw();
+	}
+
+	public static void removeHeader() {
+		// TODO Auto-generated method stub
 
 	}
 
