@@ -102,10 +102,12 @@ public class GHAMenu {
 
 	private static class GHAMenuBar extends VLayout implements EventListener,
 			ResizeHandler {
+		
+		GHAMenuOption selected;
 		List<GHAMenuOption> options = new ArrayList<GHAMenu.GHAMenuOption>();
 
 		public GHAMenuBar() {
-			setWidth("250px");
+			setWidth("200px");
 			setHeight(GHAUiHelper.getTabHeight() + 15 + "px");
 			setMembersMargin(10);
 			// setStyleName("menu-padding");
@@ -171,7 +173,7 @@ public class GHAMenu {
 	static private class GHAMenuOption extends HLayout {
 
 		private GHAMenuBar bar;
-
+		
 		/**
 		 * @param text
 		 * @param token
@@ -187,9 +189,9 @@ public class GHAMenu {
 			setStyleName("menu-option");
 			// Window.alert(imgSrc);
 			GHAImg iconButton = new GHAImg(imgSrc);
-			iconButton.setStyleName("left-menu-padding");
+//			iconButton.setStyleName("left-menu-padding");
 
-			addMembers(iconButton, new LayoutSpacer());
+			addMembers(new LayoutSpacer(), iconButton);
 
 			Label titulo = new Label(text);
 			titulo.setWidth("150px");
@@ -202,6 +204,9 @@ public class GHAMenu {
 				@Override
 				public void onClick(ClickEvent event) {
 					History.newItem(token);
+//					for (GHAMenuOption opt: bar.options)
+//						opt.setSelected(false);
+//					setSelected(true);
 					bar.hide();
 				}
 			});
@@ -225,6 +230,13 @@ public class GHAMenu {
 			addMember(titulo);
 			addMember(new LayoutSpacer());
 
+		}
+		
+		public void setSelected(boolean sel) {
+			if(sel)
+				addStyleName("side-option-selected");
+			else
+				removeStyleName("side-option-selected");
 		}
 
 		public void setBar(GHAMenuBar bar) {
