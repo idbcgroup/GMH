@@ -8,12 +8,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.fourgeeks.gha.domain.enu.LanguageEnum;
 import org.fourgeeks.gha.domain.enu.UserLogonStatusEnum;
 import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.logs.LogonLog;
-import org.fourgeeks.gha.domain.msg.Message;
+import org.fourgeeks.gha.domain.msg.GHAMessage;
 import org.fourgeeks.gha.ejb.ess.SSOUserServiceRemote;
 import org.fourgeeks.gha.ejb.gar.BpuFunctionServiceRemote;
 import org.fourgeeks.gha.ejb.log.LogonLogServiceRemote;
@@ -46,6 +47,7 @@ public class GWTLoginServiceImpl extends RemoteServiceServlet implements
 	 * @return true if there is a user logged in
 	 * 
 	 */
+	@Override
 	public boolean isLogged() {
 		HttpServletRequest request = this.perThreadRequest.get();
 		return !(request.getUserPrincipal() == null);
@@ -67,30 +69,32 @@ public class GWTLoginServiceImpl extends RemoteServiceServlet implements
 		try {
 			ssoUser = ssoUserService.findByUsername(user);
 		} catch (GHAEJBException e1) {
-			logService.log(new LogonLog(null, new Message("LOGIN002"), ipAdd));
-			throw new GHAEJBException("Disculpe, el usuario o la contraseña no son válidos.");
+			logService
+					.log(new LogonLog(null, new GHAMessage("LOGIN002"), ipAdd));
+			throw new GHAEJBException(
+					"Disculpe, el usuario o la contraseña no son válidos.");
 		}
 
 		if (ssoUser.getUserLogonStatus().equals(UserLogonStatusEnum.BLOCKED)) {
-			logService.log(new LogonLog(ssoUser.getBpu(), new Message(
+			logService.log(new LogonLog(ssoUser.getBpu(), new GHAMessage(
 					"LOGIN003"), ipAdd));
 			throw new GHAEJBException("Usuario bloqueado.");
 		}
 
 		try {
 			request.login(user, password);
-			logService.log(new LogonLog(ssoUser.getBpu(), new Message(
-					"LOGIN001"), ipAdd));
+			logService.log(new LogonLog(ssoUser.getBpu(), new GHAMessage(
+					"LOGIN001", LanguageEnum.ES), ipAdd));
 			Bpu bpu = ssoUser.getBpu();
 			bpu.setPermissions(bpuFunctionService.getFunctionsByBpu(bpu));
 			return bpu;
 		} catch (ServletException e) {
-			logService.log(new LogonLog(ssoUser.getBpu(), new Message(
+			logService.log(new LogonLog(ssoUser.getBpu(), new GHAMessage(
 					"LOGIN004"), ipAdd));
 			throw new GHAEJBException(
 					"Disculpe, el usuario o la contraseña no son válidos.");
 		} catch (Exception e) {
-			logService.log(new LogonLog(ssoUser.getBpu(), new Message(
+			logService.log(new LogonLog(ssoUser.getBpu(), new GHAMessage(
 					"LOGIN005"), ipAdd));
 			throw new GHAEJBException(
 					"Disculpe, el usuario o la contraseña no son válidos.");

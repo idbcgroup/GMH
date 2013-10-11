@@ -13,24 +13,25 @@ import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.CredentialTypeEnum;
 
 /**
- * @author emiliot
- *
+ * @author emiliot, vivi.torresg
+ * 
  */
 
 @Entity
 @NamedQueries(value = {
-		@NamedQuery(name = "Bpa.getAll", query = "SELECT e from Bpa e order by e.credentialType") })
+		@NamedQuery(name = "Bpa.getAll", query = "SELECT e from Bpa e order by e.credentialType"),
+		@NamedQuery(name = "Bpa.findByBpa", query = "SELECT e from Bpa e where e like :bpa order by e.credentialType") })
 public class Bpa extends AbstractEntity {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "legalEntityFk")
 	private LegalEntity legalEntity;
-	
+
 	private CredentialTypeEnum credentialType;
 
 	/**

@@ -66,7 +66,6 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 		eiaTypeGrid = new EIATypeGrid();
 
 		addForm = new EIATypeAddForm();
-		addForm.addEiaTypeSelectionListener(this);
 	}
 
 	/**
@@ -167,6 +166,9 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 
 		addMember(gridLayout);
 		fill();
+
+		// register as listener to the addform producer
+		addForm.addEiaTypeSelectionListener(this);
 	}
 
 	private void fill() {

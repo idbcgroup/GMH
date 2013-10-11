@@ -15,17 +15,20 @@ import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Facility;
 
 /**
- * @author emiliot
- *
+ * @author emiliot, vivi.torresg
+ * 
  */
 @Stateless(name = "ess.FacilityService")
 public class FacilityService implements FacilityServiceRemote {
 	@PersistenceContext
 	EntityManager em;
-	
+
 	private final static Logger logger = Logger.getLogger(FacilityService.class
 			.getName());
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.ejb.gar.FacilityServiceRemote#delete(long)
 	 */
 	@Override
@@ -40,16 +43,30 @@ public class FacilityService implements FacilityServiceRemote {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gar.FacilityServiceRemote#find(org.fourgeeks.gha.domain.gar.Facility)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gar.FacilityServiceRemote#find(org.fourgeeks.gha
+	 * .domain.gar.Facility)
 	 */
 	@Override
-	public List<Facility> find(Facility entity) throws GHAEJBException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Facility> find(Facility facility) throws GHAEJBException {
+		try {
+			return em
+					.createNamedQuery("Facility.findByFacility", Facility.class)
+					.setParameter("facility", facility).getResultList();
+		} catch (Exception ex) {
+			logger.log(Level.SEVERE, "Error finding Facilities by facility", ex);
+			throw new GHAEJBException(
+					"Error obteniendo Facilities por facility"
+							+ ex.getCause().getMessage());
+		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.ejb.gar.FacilityServiceRemote#find(long)
 	 */
 	@Override
@@ -63,13 +80,16 @@ public class FacilityService implements FacilityServiceRemote {
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.ejb.gar.FacilityServiceRemote#getAll()
 	 */
 	@Override
 	public List<Facility> getAll() throws GHAEJBException {
 		try {
-			return em.createNamedQuery("Facility.getAll", Facility.class).getResultList();
+			return em.createNamedQuery("Facility.getAll", Facility.class)
+					.getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all Facilities", ex);
 			throw new GHAEJBException("Error obteniendo todas las Facilities"
@@ -77,8 +97,12 @@ public class FacilityService implements FacilityServiceRemote {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gar.FacilityServiceRemote#save(org.fourgeeks.gha.domain.gar.Facility)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gar.FacilityServiceRemote#save(org.fourgeeks.gha
+	 * .domain.gar.Facility)
 	 */
 	@Override
 	public Facility save(Facility entity) throws GHAEJBException {
@@ -93,8 +117,12 @@ public class FacilityService implements FacilityServiceRemote {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gar.FacilityServiceRemote#update(org.fourgeeks.gha.domain.gar.Facility)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gar.FacilityServiceRemote#update(org.fourgeeks.
+	 * gha.domain.gar.Facility)
 	 */
 	@Override
 	public Facility update(Facility entity) throws GHAEJBException {
@@ -103,11 +131,10 @@ public class FacilityService implements FacilityServiceRemote {
 			em.flush();
 			return res;
 		} catch (Exception e) {
-			logger.log(Level.INFO,
-					"ERROR: unable to update Facility ", e);
-			throw new GHAEJBException("ERROR: no se puede actualizar el Facility "
-					+ e.getCause().getMessage());
+			logger.log(Level.INFO, "ERROR: unable to update Facility ", e);
+			throw new GHAEJBException(
+					"ERROR: no se puede actualizar el Facility "
+							+ e.getCause().getMessage());
 		}
 	}
-	
 }

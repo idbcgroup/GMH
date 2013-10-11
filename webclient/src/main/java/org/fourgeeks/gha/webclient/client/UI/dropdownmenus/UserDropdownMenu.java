@@ -4,7 +4,7 @@ import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAButton;
 import org.fourgeeks.gha.webclient.client.login.GWTLoginService;
 import org.fourgeeks.gha.webclient.client.login.GWTLoginServiceAsync;
 
@@ -14,6 +14,7 @@ import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.user.client.Window;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.Positioning;
+import com.smartgwt.client.types.VerticalAlignment;
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -40,15 +41,22 @@ public class UserDropdownMenu extends VLayout implements GHAHideable,
 		posX = (Window.getClientWidth() - 20) - width;
 
 		setAnimateTime(300);
-		setPosition(Positioning.ABSOLUTE);
+		setSize(width + "px", "*");
 		setLeft(posX);
 		setTop(71);
-		setSize(width + "px", "*");
+		
+		setMembersMargin(10);
+		setPosition(Positioning.ABSOLUTE);
 		setBackgroundColor("#FFFFFF");
 		setBorder("1px solid #E0E0E0");
 		setCanFocus(true);
 		setVisible(false);
 
+//		TITLE LAYOUT
+		HLayout titleLayout = GHAUiHelper.verticalGraySeparatorLabel("40px",
+				user.getCitizen().getFirstName() + " "
+						+ user.getCitizen().getFirstLastName());
+//		USER DATA
 		Label mailText;
 		if (user.getCitizen().getPrimaryEmail() != null) {
 			mailText = new Label("<br>Correo electrónico:<br><br> "
@@ -56,12 +64,18 @@ public class UserDropdownMenu extends VLayout implements GHAHideable,
 		} else {
 			mailText = new Label("<br>Correo electrónico:<br><br> No posee.");
 		}
-		mailText.setHeight("20px");
+		mailText.setHeight("40px");
 		mailText.setWidth100();
 		mailText.setStyleName("title-label");
 
-		GHAImgButton logoutButton = new GHAImgButton(
-				"../resources/icons/logout.png", new ClickHandler() {
+		VLayout userdataLayout = new VLayout();
+		userdataLayout.setHeight("70px");
+		userdataLayout.setStyleName("sides-padding");
+		userdataLayout.setDefaultLayoutAlign(VerticalAlignment.CENTER);
+		userdataLayout.addMembers(mailText);
+
+		GHAButton logoutButton = new GHAButton(
+				"Cerrar Sesion", new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
 						final GWTLoginServiceAsync service = GWT
@@ -76,21 +90,19 @@ public class UserDropdownMenu extends VLayout implements GHAHideable,
 						UserDropdownMenu.this.hide();
 					}
 				});
-		logoutButton.setSize("17px", "24px");
-		// logoutButton.setAlign(Alignment.RIGHT);
-		// logoutButton.setPadding(20);
+//		logoutButton.setSize("17px", "24px");
+//		logoutButton.setAlign(Alignment.RIGHT);
+//		logoutButton.setPadding(20);
+		
+//		LOGOUT LAYOUT
+		HLayout logoutLayout = new HLayout();
+		logoutLayout.setHeight("40px");
+		logoutLayout.setBackgroundColor("#E0E0E0");
+		logoutLayout.setStyleName("sides-padding");
+		logoutLayout.setDefaultLayoutAlign(VerticalAlignment.CENTER);
+		logoutLayout.addMembers(new LayoutSpacer(), logoutButton);
 
-		VLayout userdataLayout = new VLayout();
-		userdataLayout.setStyleName("sides-padding");
-
-		userdataLayout.addMembers(mailText);
-
-		HLayout titleLayout = GHAUiHelper.verticalGraySeparatorLabel("30px",
-				user.getCitizen().getFirstName() + " "
-						+ user.getCitizen().getFirstLastName());
-		titleLayout.addMembers(new LayoutSpacer(), logoutButton);
-
-		addMembers(titleLayout, userdataLayout);
+		addMembers(titleLayout, userdataLayout, logoutLayout);
 	}
 
 	/**

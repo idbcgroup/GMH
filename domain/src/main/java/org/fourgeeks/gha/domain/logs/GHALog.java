@@ -6,11 +6,12 @@ package org.fourgeeks.gha.domain.logs;
 import java.sql.Timestamp;
 
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
-import org.fourgeeks.gha.domain.msg.Message;
+import org.fourgeeks.gha.domain.msg.GHAMessage;
 
 /**
  * @author emiliot
@@ -29,8 +30,9 @@ public abstract class GHALog extends AbstractEntity {
 			new java.util.Date().getTime());
 
 	@ManyToOne
-	@JoinColumn(nullable = false)
-	protected Message message;
+	@JoinColumns({ @JoinColumn(name = "code", referencedColumnName = "code"),
+			@JoinColumn(name = "language", referencedColumnName = "language") })
+	protected GHAMessage message;
 
 	/**
 	 * @return the timestamp
@@ -42,14 +44,14 @@ public abstract class GHALog extends AbstractEntity {
 	/**
 	 * @return the message
 	 */
-	public Message getMessage() {
+	public GHAMessage getMessage() {
 		return message;
 	}
 
 	/**
 	 * @param message
 	 */
-	public void setMessage(Message message) {
+	public void setMessage(GHAMessage message) {
 		this.message = message;
 	}
 }

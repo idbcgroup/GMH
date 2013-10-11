@@ -203,8 +203,9 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 		} catch (Exception e) {
 			logger.log(Level.SEVERE,
 					"Error obteniendo los eiaTypes por eiatype", e);
-			throw new GHAEJBException("Error obteniendo los eiaTypes por eiatype "
-					+ e.getCause().getMessage());
+			throw new GHAEJBException(
+					"Error obteniendo los eiaTypes por eiatype "
+							+ e.getCause().getMessage());
 		}
 
 	}
@@ -358,10 +359,10 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 	public EiaType save(EiaType eiaType) throws GHAEJBException {
 		try {
 			Brand brand = eiaType.getBrand();
-			
-			if(brand != null && brand.getId() <= 0){
+
+			if (brand != null && brand.getId() <= 0) {
 				Manufacturer manufacturer = brand.getManufacturer();
-				if(manufacturer != null && manufacturer.getId() <= 0){
+				if (manufacturer != null && manufacturer.getId() <= 0) {
 					em.persist(manufacturer);
 				}
 				em.persist(brand);
@@ -369,7 +370,7 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 			em.persist(eiaType);
 			em.flush();
 			return em.find(EiaType.class, eiaType.getCode());
-			
+
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving eiatype", e);
 			throw new GHAEJBException("Error guardando EiaType: "
@@ -387,6 +388,15 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 	@Override
 	public EiaType update(EiaType eiaType) throws GHAEJBException {
 		try {
+			Brand brand = eiaType.getBrand();
+			if (brand != null && brand.getId() <= 0) {
+				Manufacturer manufacturer = brand.getManufacturer();
+				if (manufacturer != null && manufacturer.getId() <= 0) {
+					em.persist(manufacturer);
+				}
+				em.persist(brand);
+			}
+
 			EiaType res = em.merge(eiaType);
 			em.flush();
 			return res;
@@ -397,17 +407,25 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypeServiceRemote#findByMaintenancePlan(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.EiaTypeServiceRemote#findByMaintenancePlan(
+	 * org.fourgeeks.gha.domain.gmh.MaintenancePlan)
 	 */
 	@Override
 	public List<EiaType> findByMaintenancePlan(MaintenancePlan maintenancePlan)
 			throws GHAEJBException {
 		try {
-			return em.createNamedQuery("EiaType.findByMaintenancePlan", EiaType.class)
-					.setParameter("maintenancePlan", maintenancePlan).getResultList();
+			return em
+					.createNamedQuery("EiaType.findByMaintenancePlan",
+							EiaType.class)
+					.setParameter("maintenancePlan", maintenancePlan)
+					.getResultList();
 		} catch (Exception ex) {
-			logger.log(Level.SEVERE, "Error retriving all EitaTypes by maintenancePlan", ex);
+			logger.log(Level.SEVERE,
+					"Error retriving all EitaTypes by maintenancePlan", ex);
 			throw new GHAEJBException(
 					"Error obteniendo todos los eiaTypes por plan de mantenimiento");
 		}

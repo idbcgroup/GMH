@@ -20,6 +20,7 @@ public class GHASelectItem extends SelectItem {
 		setWidth(100);
 		setTitleStyle("input-title");
 		setShowFocused(false);
+		setAllowEmptyValue(true);
 	}
 
 	/**

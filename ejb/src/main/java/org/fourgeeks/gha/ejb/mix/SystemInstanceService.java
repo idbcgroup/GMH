@@ -15,19 +15,22 @@ import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.mix.SystemInstance;
 
 /**
- * @author emiliot
- *
+ * @author emiliot, vivi.torresg
+ * 
  */
 @Stateless(name = "mix.SystemInstanceService")
 public class SystemInstanceService implements SystemInstanceServiceRemote {
 	@PersistenceContext
 	private EntityManager em;
 
-	private final static Logger logger = Logger.getLogger(SystemInstanceService.class
-			.getName());
-	
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.domain.mix.SystemInstanceRemoteService#delete(long)
+	private final static Logger logger = Logger
+			.getLogger(SystemInstanceService.class.getName());
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.domain.mix.SystemInstanceRemoteService#delete(long)
 	 */
 	@Override
 	public void delete(long Id) throws GHAEJBException {
@@ -41,17 +44,34 @@ public class SystemInstanceService implements SystemInstanceServiceRemote {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.domain.mix.SystemInstanceRemoteService#find(org.fourgeeks.gha.domain.mix.SystemInstance)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.domain.mix.SystemInstanceRemoteService#find(org.fourgeeks
+	 * .gha.domain.mix.SystemInstance)
 	 */
 	@Override
 	public List<SystemInstance> find(SystemInstance systemInstance)
 			throws GHAEJBException {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			return em
+					.createNamedQuery("SystemInstance.findBySystemInstance",
+							SystemInstance.class)
+					.setParameter("systemInstance", systemInstance)
+					.getResultList();
+		} catch (Exception ex) {
+			logger.log(Level.SEVERE,
+					"Error finding SystemInstance by systemInstance", ex);
+			throw new GHAEJBException(
+					"Error obteniendo SystemInstance por systemInstance"
+							+ ex.getCause().getMessage());
+		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.domain.mix.SystemInstanceRemoteService#find(long)
 	 */
 	@Override
@@ -65,23 +85,30 @@ public class SystemInstanceService implements SystemInstanceServiceRemote {
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.domain.mix.SystemInstanceRemoteService#getAll()
 	 */
 	@Override
 	public List<SystemInstance> getAll() throws GHAEJBException {
 		try {
-			return em.createNamedQuery("SystemInstance.getAll", SystemInstance.class)
-					.getResultList();
+			return em.createNamedQuery("SystemInstance.getAll",
+					SystemInstance.class).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all SystemInstance", ex);
-			throw new GHAEJBException("Error obteniendo todas las SystemInstance"
-					+ ex.getCause().getMessage());
+			throw new GHAEJBException(
+					"Error obteniendo todas las SystemInstance"
+							+ ex.getCause().getMessage());
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.domain.mix.SystemInstanceRemoteService#save(org.fourgeeks.gha.domain.mix.SystemInstance)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.domain.mix.SystemInstanceRemoteService#save(org.fourgeeks
+	 * .gha.domain.mix.SystemInstance)
 	 */
 	@Override
 	public SystemInstance save(SystemInstance systemInstance)
@@ -97,8 +124,12 @@ public class SystemInstanceService implements SystemInstanceServiceRemote {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.domain.mix.SystemInstanceRemoteService#update(org.fourgeeks.gha.domain.mix.SystemInstance)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.domain.mix.SystemInstanceRemoteService#update(org.fourgeeks
+	 * .gha.domain.mix.SystemInstance)
 	 */
 	@Override
 	public SystemInstance update(SystemInstance systemInstance)
@@ -108,10 +139,10 @@ public class SystemInstanceService implements SystemInstanceServiceRemote {
 			em.flush();
 			return res;
 		} catch (Exception e) {
-			logger.log(Level.INFO,
-					"ERROR: unable to update SystemInstance ", e);
-			throw new GHAEJBException("ERROR: no se puede actualizar el SystemInstance "
-					+ e.getCause().getMessage());
+			logger.log(Level.INFO, "ERROR: unable to update SystemInstance ", e);
+			throw new GHAEJBException(
+					"ERROR: no se puede actualizar el SystemInstance "
+							+ e.getCause().getMessage());
 		}
 	}
 

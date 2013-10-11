@@ -16,7 +16,7 @@ import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.HasKey;
 
 /**
- * @author emiliot
+ * @author emiliot, vivi.torresg
  * 
  */
 
@@ -25,14 +25,14 @@ import org.fourgeeks.gha.domain.HasKey;
 @NamedQueries(value = {
 		@NamedQuery(name = "Brand.getAll", query = "SELECT e from Brand e order by e.name"),
 		@NamedQuery(name = "Brand.findByManufacturer", query = "SELECT e from Brand e WHERE e.manufacturer = :manufacturer ORDER BY e.name"),
-		@NamedQuery(name = "Brand.findByName", query = "SELECT e from Brand e where lower(e.name) like :name order by e.id") })
+		@NamedQuery(name = "Brand.findByName", query = "SELECT e from Brand e where lower(e.name) like lower(:name) order by e.id") })
 public class Brand extends AbstractEntity implements HasKey {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "manufacturerFk")
 	private Manufacturer manufacturer;
@@ -46,8 +46,8 @@ public class Brand extends AbstractEntity implements HasKey {
 	public Brand() {
 
 	}
-	
-	public Brand(long id){
+
+	public Brand(long id) {
 		this.id = id;
 	}
 

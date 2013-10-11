@@ -17,7 +17,7 @@ import org.fourgeeks.gha.domain.gmh.ServiceResource;
 
 /**
  * @author emiliot
- *
+ * 
  */
 
 @Stateless(name = "gmh.serviceResourceService")
@@ -28,7 +28,9 @@ public class ServiceResourceService implements ServiceResourceServiceRemote {
 	private final static Logger logger = Logger
 			.getLogger(ServiceResourceService.class.getName());
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.ejb.gmh.ServiceResourceServiceRemote#delete(long)
 	 */
 	@Override
@@ -39,30 +41,41 @@ public class ServiceResourceService implements ServiceResourceServiceRemote {
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete Resource/Service",
 					e);
-			throw new GHAEJBException("Error eliminando Resource/Service por id "
-					+ e.getCause().getMessage());
+			throw new GHAEJBException(
+					"Error eliminando Resource/Service por id "
+							+ e.getCause().getMessage());
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.ServiceResourceServiceRemote#findByProtocolActivity(org.fourgeeks.gha.domain.gmh.ProtocolActivity)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.ServiceResourceServiceRemote#findByProtocolActivity
+	 * (org.fourgeeks.gha.domain.gmh.ProtocolActivity)
 	 */
 	@Override
 	public List<ServiceResource> findByProtocolActivity(
 			MaintenanceActivity protocolActivity) throws GHAEJBException {
 		try {
-			return em.createNamedQuery("ServiceResource.findByProtocolActivity",
+			return em
+					.createNamedQuery(
+							"ServiceResource.findByMaintenanceActivity",
 							ServiceResource.class)
-					.setParameter("protocolActivity", protocolActivity).getResultList();
+					.setParameter("maintenanceActivity", protocolActivity)
+					.getResultList();
 		} catch (Exception e) {
-			logger.log(Level.INFO, "Error: finding Resources/Services by ProtocolActivity", e);
+			logger.log(Level.INFO,
+					"Error: finding Resources/Services by ProtocolActivity", e);
 			throw new GHAEJBException(
 					"Error buscando Resources/Services por ProtocolActivity"
 							+ e.getCause().getMessage());
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.ejb.gmh.ServiceResourceServiceRemote#find(long)
 	 */
 	@Override
@@ -76,7 +89,9 @@ public class ServiceResourceService implements ServiceResourceServiceRemote {
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.ejb.gmh.ServiceResourceServiceRemote#getAll()
 	 */
 	@Override
@@ -86,30 +101,40 @@ public class ServiceResourceService implements ServiceResourceServiceRemote {
 					ServiceResource.class).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding all Resource/Service", e);
-			throw new GHAEJBException("Error buscando todos los Resource/Service"
-					+ e.getCause().getMessage());
+			throw new GHAEJBException(
+					"Error buscando todos los Resource/Service"
+							+ e.getCause().getMessage());
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.ServiceResourceServiceRemote#getAll(int, int)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.ejb.gmh.ServiceResourceServiceRemote#getAll(int,
+	 * int)
 	 */
 	@Override
 	public List<ServiceResource> getAll(int offset, int size)
 			throws GHAEJBException {
 		try {
-			return em.createNamedQuery("ServiceResource.getAll",
-					ServiceResource.class).setFirstResult(offset).setMaxResults(size)
-					.getResultList();
+			return em
+					.createNamedQuery("ServiceResource.getAll",
+							ServiceResource.class).setFirstResult(offset)
+					.setMaxResults(size).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding all Resource/Service", e);
-			throw new GHAEJBException("Error buscando todos los Resource/Service"
-					+ e.getCause().getMessage());
+			throw new GHAEJBException(
+					"Error buscando todos los Resource/Service"
+							+ e.getCause().getMessage());
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.ServiceResourceServiceRemote#save(org.fourgeeks.gha.domain.gmh.ServiceResource)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.ServiceResourceServiceRemote#save(org.fourgeeks
+	 * .gha.domain.gmh.ServiceResource)
 	 */
 	@Override
 	public ServiceResource save(ServiceResource ras) throws GHAEJBException {
@@ -124,8 +149,12 @@ public class ServiceResourceService implements ServiceResourceServiceRemote {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.ServiceResourceServiceRemote#update(org.fourgeeks.gha.domain.gmh.ServiceResource)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.ServiceResourceServiceRemote#update(org.fourgeeks
+	 * .gha.domain.gmh.ServiceResource)
 	 */
 	@Override
 	public ServiceResource update(ServiceResource ras) throws GHAEJBException {
