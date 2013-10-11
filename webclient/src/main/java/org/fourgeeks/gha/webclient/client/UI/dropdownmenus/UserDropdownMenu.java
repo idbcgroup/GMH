@@ -5,6 +5,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAButton;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImg;
 import org.fourgeeks.gha.webclient.client.login.GWTLoginService;
 import org.fourgeeks.gha.webclient.client.login.GWTLoginServiceAsync;
 
@@ -29,8 +30,9 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class UserDropdownMenu extends VLayout implements GHAHideable,
 		ResizeHandler {
 
-	int posX;
+	int posX, picoPos;
 	private int width = 280;
+	GHAImg pico;
 
 	/**
 	 * @param user
@@ -39,19 +41,25 @@ public class UserDropdownMenu extends VLayout implements GHAHideable,
 
 		GHAUiHelper.addGHAResizeHandler(this);
 		posX = (Window.getClientWidth() - 20) - width;
-
-		setAnimateTime(300);
+		setAnimateFadeTime(300);
 		setSize(width + "px", "*");
 		setLeft(posX);
-		setTop(71);
-		
+		setTop(50);
 		setMembersMargin(10);
 		setPosition(Positioning.ABSOLUTE);
 		setBackgroundColor("#FFFFFF");
 		setBorder("1px solid #E0E0E0");
 		setCanFocus(true);
 		setVisible(false);
+		setShadowDepth(6);
+		setShowShadow(true);
 
+		pico = new GHAImg("../resources/img/pico.png",27,15);
+		picoPos = Window.getClientWidth() - 64;
+		pico.setTop(42);
+		pico.setLeft(picoPos);
+		pico.setPosition(Positioning.ABSOLUTE);
+		
 //		TITLE LAYOUT
 		HLayout titleLayout = GHAUiHelper.verticalGraySeparatorLabel("40px",
 				user.getCitizen().getFirstName() + " "
@@ -113,20 +121,25 @@ public class UserDropdownMenu extends VLayout implements GHAHideable,
 		setCanFocus(true);
 		animateShow(AnimationEffect.FADE);
 		setVisible(true);
-		focus();
+		pico.setVisible(true);
+		pico.animateShow(AnimationEffect.FADE);
+//		focus();
 	}
 
 	@Override
 	public void hide() {
-		blur();
+//		blur();
 		animateHide(AnimationEffect.FADE);
 		setVisible(false);
+		pico.setVisible(false);
+		pico.animateHide(AnimationEffect.FADE);
 		setCanFocus(false);
 	}
 
 	@Override
 	public void onResize(ResizeEvent event) {
 		posX = (Window.getClientWidth() - 20) - width;
+		picoPos = Window.getClientWidth() - 64;
 		setLeft(posX);
 	}
 }
