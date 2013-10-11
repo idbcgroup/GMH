@@ -61,7 +61,7 @@ public class MaintenancePlanSearchForm extends GHASlideInWindow implements
 	 */
 	public MaintenancePlanSearchForm() {
 		super(1);
-		setTop(110);
+		setTop(GHAUiHelper.getTopSpace());
 		setHeight(GHAUiHelper.getTabHeight() + "px");
 
 		Label title = new Label("<h3>Busqueda de Planes de Mantenimiento</h3>");

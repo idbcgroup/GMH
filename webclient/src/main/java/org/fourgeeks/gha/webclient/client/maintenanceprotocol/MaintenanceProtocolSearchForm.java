@@ -59,7 +59,7 @@ public class MaintenanceProtocolSearchForm extends GHASlideInWindow implements
 	 */
 	public MaintenanceProtocolSearchForm() {
 		super(1);
-		setTop(110);
+		setTop(GHAUiHelper.getTopSpace());
 		setHeight(GHAUiHelper.getTabHeight() + "px");
 
 		Label title = new Label(

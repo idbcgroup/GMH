@@ -19,8 +19,12 @@ public class GHAPlacesFactory {
 	 * }
 	 */
 
+	/**
+	 * @param token
+	 * @return
+	 */
 	public static GHAPlace createPlace(String token) {
-//		Window.alert("createplace"+ token);
+		// Window.alert("createplace"+ token);
 		if (token.equals("login"))
 			return new LoginPlace();
 		if (token.equals("lostpass"))

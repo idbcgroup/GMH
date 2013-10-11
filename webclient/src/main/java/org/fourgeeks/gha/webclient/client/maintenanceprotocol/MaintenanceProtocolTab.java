@@ -9,23 +9,25 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATab;
 
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class MaintenanceProtocolTab extends GHATab implements MaintenanceProtocolSelectionListener, MaintenanceProtocolSelectionProducer {
+public class MaintenanceProtocolTab extends GHATab implements
+		MaintenanceProtocolSelectionListener,
+		MaintenanceProtocolSelectionProducer {
 
 	public static final String ID = "mprot";
 	private static final String TITLE = "Protocolos De Mant.";
 	private MaintenanceProtocolTopSection topSection;
 	private MaintenanceProtocolInternalTabset internalTabset;
 	private List<MaintenanceProtocolSelectionListener> listeners;
-	
+
 	private MaintenanceProtocol protocol;
-	
+
 	{
 		listeners = new LinkedList<MaintenanceProtocolSelectionListener>();
 	}
 
-	public MaintenanceProtocolTab(){
+	public MaintenanceProtocolTab() {
 		super();
-		getHeader().setTitle(TITLE);
+		// getHeader().setTitle(TITLE);
 
 		topSection = new MaintenanceProtocolTopSection(this);
 		internalTabset = new MaintenanceProtocolInternalTabset(this);
@@ -44,7 +46,7 @@ public class MaintenanceProtocolTab extends GHATab implements MaintenanceProtoco
 
 	@Override
 	protected void onDraw() {
-		if(protocol == null)
+		if (protocol == null)
 			topSection.search();
 	}
 
@@ -53,8 +55,14 @@ public class MaintenanceProtocolTab extends GHATab implements MaintenanceProtoco
 		return ID;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionProducer#addMaintenanceProtocolSelectionListener(org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionListener)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceprotocol.
+	 * MaintenanceProtocolSelectionProducer
+	 * #addMaintenanceProtocolSelectionListener
+	 * (org.fourgeeks.gha.webclient.client
+	 * .maintenanceprotocol.MaintenanceProtocolSelectionListener)
 	 */
 	@Override
 	public void addMaintenanceProtocolSelectionListener(
@@ -62,8 +70,14 @@ public class MaintenanceProtocolTab extends GHATab implements MaintenanceProtoco
 		listeners.add(maintenanceProtocolSelectionListener);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionProducer#removeMaintenanceProtocolSelectionListener(org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionListener)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceprotocol.
+	 * MaintenanceProtocolSelectionProducer
+	 * #removeMaintenanceProtocolSelectionListener
+	 * (org.fourgeeks.gha.webclient.client
+	 * .maintenanceprotocol.MaintenanceProtocolSelectionListener)
 	 */
 	@Override
 	public void removeMaintenanceProtocolSelectionListener(
@@ -71,12 +85,16 @@ public class MaintenanceProtocolTab extends GHATab implements MaintenanceProtoco
 		listeners.remove(maintenanceProtocolSelectionListener);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionListener#select(org.fourgeeks.gha.domain.gmh.MaintenanceProtocol)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceprotocol.
+	 * MaintenanceProtocolSelectionListener
+	 * #select(org.fourgeeks.gha.domain.gmh.MaintenanceProtocol)
 	 */
 	@Override
 	public void select(MaintenanceProtocol maintenanceProtocol) {
-		for(MaintenanceProtocolSelectionListener listener : listeners)
+		for (MaintenanceProtocolSelectionListener listener : listeners)
 			listener.select(maintenanceProtocol);
 	}
 }

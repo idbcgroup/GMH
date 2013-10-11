@@ -23,7 +23,7 @@ public class EIADispatchmentForm extends GHASlideInWindow {
 	
 	public EIADispatchmentForm() {
 		super(1);
-		setTop(110);
+		setTop(GHAUiHelper.getTopSpace());
 		setHeight(GHAUiHelper.getTabHeight());
 		
 ////////Botones laterales

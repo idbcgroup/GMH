@@ -9,24 +9,24 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATab;
 
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class MaintenancePlanTab extends GHATab implements MaintenancePlanSelectionListener,
-		MaintenancePlanSelectionProducer {
+public class MaintenancePlanTab extends GHATab implements
+		MaintenancePlanSelectionListener, MaintenancePlanSelectionProducer {
 
 	public static final String ID = "mplan";
-	private static final String TITLE = "Planes De Mantenimiento";
+	// private static final String TITLE = "Planes De Mantenimiento";
 	private MaintenancePlanTopSection topSection;
 	private MaintenancePlanInternalTabset internalTabset;
 	private List<MaintenancePlanSelectionListener> listeners;
-	
+
 	private MaintenancePlan plan;
-	
+
 	{
 		listeners = new LinkedList<MaintenancePlanSelectionListener>();
 	}
 
 	public MaintenancePlanTab() {
 		super();
-		getHeader().setTitle(TITLE);
+		// getHeader().setTitle(TITLE);
 
 		topSection = new MaintenancePlanTopSection(this);
 		internalTabset = new MaintenancePlanInternalTabset(this);
@@ -45,7 +45,7 @@ public class MaintenancePlanTab extends GHATab implements MaintenancePlanSelecti
 
 	@Override
 	protected void onDraw() {
-		if(plan == null)
+		if (plan == null)
 			topSection.search();
 	}
 
@@ -54,8 +54,13 @@ public class MaintenancePlanTab extends GHATab implements MaintenancePlanSelecti
 		return ID;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionProducer#addMaintenancePlanSelectionListener(org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.
+	 * MaintenancePlanSelectionProducer
+	 * #addMaintenancePlanSelectionListener(org.fourgeeks
+	 * .gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener)
 	 */
 	@Override
 	public void addMaintenancePlanSelectionListener(
@@ -63,8 +68,14 @@ public class MaintenancePlanTab extends GHATab implements MaintenancePlanSelecti
 		listeners.add(maintenancePlanSelectionListener);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionProducer#removeMaintenancePlanSelectionListener(org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.
+	 * MaintenancePlanSelectionProducer
+	 * #removeMaintenancePlanSelectionListener(org
+	 * .fourgeeks.gha.webclient.client
+	 * .maintenanceplan.MaintenancePlanSelectionListener)
 	 */
 	@Override
 	public void removeMaintenancePlanSelectionListener(
@@ -72,12 +83,16 @@ public class MaintenancePlanTab extends GHATab implements MaintenancePlanSelecti
 		listeners.remove(maintenancePlanSelectionListener);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener#select(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.
+	 * MaintenancePlanSelectionListener
+	 * #select(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
 	 */
 	@Override
 	public void select(MaintenancePlan maintenancePlan) {
-		for(MaintenancePlanSelectionListener listener : listeners){
+		for (MaintenancePlanSelectionListener listener : listeners) {
 			listener.select(maintenancePlan);
 		}
 	}
