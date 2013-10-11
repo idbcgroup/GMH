@@ -208,17 +208,17 @@ public class InitialData {
 				Module moduleEia = new Module("Equipos", ModulesCodes.EIA);
 				em.persist(moduleEia);
 				Module moduleMainteancePlan = new Module(
-						"Planes de Mantenimiento", ModulesCodes.MPLAN);
+						"Planes de Mant.", ModulesCodes.MPLAN);
 				em.persist(moduleMainteancePlan);
 				Module moduleMaintenanceProtocol = new Module(
-						"Protocolos de Mantenimiento", ModulesCodes.MPROT);
+						"Protocolos de Mant.", ModulesCodes.MPROT);
 				em.persist(moduleMaintenanceProtocol);
 				Module maintenanceActivityModule = new Module(
-						"Actividades de Mantenimiento", ModulesCodes.MACT);
+						"Actividades de Mant.", ModulesCodes.MACT);
 				em.persist(maintenanceActivityModule);
 				// Screen
 				Screen screenUsuer = new Screen(moduleUser,
-						"Administración de usuarios", ScreenCodes.USER_ADM,
+						"Adm. de Usuarios", ScreenCodes.USER_ADM,
 						"user");
 				em.persist(screenUsuer);
 				Screen screenEiaType = new Screen(moduleEiaType,
