@@ -15,6 +15,7 @@ import org.fourgeeks.gha.webclient.client.eia.EIAGrid;
 import org.fourgeeks.gha.webclient.client.eia.EIAModel;
 import org.fourgeeks.gha.webclient.client.eia.EIARecord;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
+import org.fourgeeks.gha.webclient.client.eia.EIAUpdateForm;
 import org.fourgeeks.gha.webclient.client.eia.EIAUtil;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
@@ -39,9 +40,11 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 	private EiaType eiaType;
 
 	private EIAAddForm eiaAddForm;
+	private EIAUpdateForm eiaUpdateForm;
 	{
 		grid = new EIAGrid();
 		eiaAddForm = new EIAAddForm();
+		eiaUpdateForm = new EIAUpdateForm();
 	}
 
 	/**
@@ -51,7 +54,10 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 			EIATypeEquipmentSubTab eIATypeEquipmentSubTab) {
 		super();
 		eIATypeEquipmentSubTab.addGHAHideableHandler(eiaAddForm);
-		eiaAddForm.addEiaSelectionListener(eIATypeEquipmentSubTab);
+
+		eiaAddForm.addEiaSelectionListener(this);
+		eiaUpdateForm.addEiaSelectionListener(this);
+
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
@@ -110,6 +116,19 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 
 					}
 
+				}), new GHAImgButton("../resources/icons/undo.png",
+				new ClickHandler() {
+
+					@Override
+					public void onClick(ClickEvent event) {
+						final Eia selectedRecord = grid.getSelectedEntity();
+
+						if (selectedRecord == null)
+							return;// No record selected
+
+						eiaUpdateForm.setEia(selectedRecord);
+						eiaUpdateForm.open();
+					}
 				}));
 
 		HLayout mainLayout = new HLayout();
@@ -121,6 +140,7 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 	public void select(EiaType eiaType) {
 		this.eiaType = eiaType;
 		eiaAddForm.select(eiaType);
+		eiaUpdateForm.select(eiaType);
 		loadData(eiaType);
 
 	}
@@ -150,7 +170,6 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 	@Override
 	public void hide() {
 		eiaAddForm.hide();
-		// super.hide();
 	}
 
 	/*
