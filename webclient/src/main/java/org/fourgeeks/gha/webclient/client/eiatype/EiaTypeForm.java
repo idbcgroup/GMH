@@ -1,6 +1,7 @@
 package org.fourgeeks.gha.webclient.client.eiatype;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
@@ -16,7 +17,6 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
-import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAComboboxItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
@@ -44,6 +44,8 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer {
 	private GHAComboboxItem<Manufacturer> manItem;
 
 	private List<EIATypeSelectionListener> listeners;
+
+	private DynamicForm form;
 
 	/**
 	 * Used only for update purposes, to hold id and such values
@@ -81,12 +83,13 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer {
 		validator = Validation.buildDefaultValidatorFactory().getValidator();
 
 		listeners = new ArrayList<EIATypeSelectionListener>();
+
+		form = new DynamicForm();
 	}
 
 	public EiaTypeForm() {
 		final HLayout gridPanel = new HLayout();
 
-		final DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(4);
 
@@ -300,13 +303,18 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer {
 
 		Set<ConstraintViolation<EiaType>> violations = validator
 				.validate(eiaType);
-		if (violations.isEmpty())
-			return eiaType;
-		else {
-			GHANotification.alert(GHAStrings.get(violations.iterator().next()
-					.getMessage()));
-			return null;
+		if (form.validate()) {
+			if (violations.isEmpty())
+				return eiaType;
+			else {
+				List<String> violationsList = new ArrayList<String>();
+				for (Iterator<ConstraintViolation<EiaType>> it = violations
+						.iterator(); it.hasNext();)
+					violationsList.add(it.next().getMessage());
+				GHANotification.alert(violationsList);
+			}
 		}
+		return null;
 	}
 
 	public void setEiaType(EiaType eiaType) {

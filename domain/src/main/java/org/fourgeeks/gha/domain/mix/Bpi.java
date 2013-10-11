@@ -14,7 +14,8 @@ import org.fourgeeks.gha.domain.enu.BpiTypeEnum;
 
 @Entity
 @NamedQueries(value = {
-		@NamedQuery(name = "Bpi.getAll", query = "SELECT e from Bpi e order by e.name") })
+		@NamedQuery(name = "Bpi.getAll", query = "SELECT e from Bpi e order by e.name"),
+		@NamedQuery(name = "Bpi.findByBpi", query = "SELECT e from Bpi e where e like :bpi order by e.name") })
 public class Bpi extends AbstractEntity {
 
 	/**

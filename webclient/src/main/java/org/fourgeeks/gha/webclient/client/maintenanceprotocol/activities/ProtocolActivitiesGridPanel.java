@@ -87,12 +87,12 @@ public class ProtocolActivitiesGridPanel extends VLayout implements
 
 	@Override
 	public void close() {
-		// TODO:
+		searchForm.close();
 	}
 
 	@Override
 	public void hide() {
-		super.hide();
+		searchForm.hide();
 	}
 
 	private void loadData() {

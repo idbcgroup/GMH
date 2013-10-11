@@ -28,7 +28,7 @@ import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.mix.Citizen;
 
 /**
- * @author emiliot
+ * @author emiliot, vivi.torresg
  * 
  */
 

@@ -15,8 +15,8 @@ import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.mix.Bpi;
 
 /**
- * @author emiliot
- *
+ * @author emiliot, vivi.torresg
+ * 
  */
 
 @Stateless(name = "mix.BpiService")
@@ -26,7 +26,10 @@ public class BpiService implements BpiServiceRemote {
 
 	private final static Logger logger = Logger.getLogger(BpiService.class
 			.getName());
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.ejb.mix.BpiServiceRemote#delete(long)
 	 */
 	@Override
@@ -41,16 +44,28 @@ public class BpiService implements BpiServiceRemote {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.mix.BpiServiceRemote#find(org.fourgeeks.gha.domain.mix.Bpi)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.mix.BpiServiceRemote#find(org.fourgeeks.gha.domain
+	 * .mix.Bpi)
 	 */
 	@Override
 	public List<Bpi> find(Bpi bpi) throws GHAEJBException {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			return em.createNamedQuery("Bpi.findByBpi", Bpi.class)
+					.setParameter("bpi", bpi).getResultList();
+		} catch (Exception ex) {
+			logger.log(Level.SEVERE, "Error finding Bpi by bpi", ex);
+			throw new GHAEJBException("Error obteniendo Bpi por bpi"
+					+ ex.getCause().getMessage());
+		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.ejb.mix.BpiServiceRemote#find(long)
 	 */
 	@Override
@@ -64,14 +79,15 @@ public class BpiService implements BpiServiceRemote {
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.ejb.mix.BpiServiceRemote#getAll()
 	 */
 	@Override
 	public List<Bpi> getAll() throws GHAEJBException {
 		try {
-			return em.createNamedQuery("Bpi.getAll", Bpi.class)
-					.getResultList();
+			return em.createNamedQuery("Bpi.getAll", Bpi.class).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all Bpi", ex);
 			throw new GHAEJBException("Error obteniendo todas las Bpi"
@@ -79,8 +95,12 @@ public class BpiService implements BpiServiceRemote {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.mix.BpiServiceRemote#save(org.fourgeeks.gha.domain.mix.Bpi)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.mix.BpiServiceRemote#save(org.fourgeeks.gha.domain
+	 * .mix.Bpi)
 	 */
 	@Override
 	public Bpi save(Bpi bpi) throws GHAEJBException {
@@ -95,8 +115,12 @@ public class BpiService implements BpiServiceRemote {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.mix.BpiServiceRemote#update(org.fourgeeks.gha.domain.mix.Bpi)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.mix.BpiServiceRemote#update(org.fourgeeks.gha.domain
+	 * .mix.Bpi)
 	 */
 	@Override
 	public Bpi update(Bpi bpi) throws GHAEJBException {
@@ -105,8 +129,7 @@ public class BpiService implements BpiServiceRemote {
 			em.flush();
 			return res;
 		} catch (Exception e) {
-			logger.log(Level.INFO,
-					"ERROR: unable to update Bpi ", e);
+			logger.log(Level.INFO, "ERROR: unable to update Bpi ", e);
 			throw new GHAEJBException("ERROR: no se puede actualizar el Bpi "
 					+ e.getCause().getMessage());
 		}

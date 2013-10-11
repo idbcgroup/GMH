@@ -15,28 +15,30 @@ import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.ess.ItSystem;
 
 /**
- * @author emiliot
- *
+ * @author emiliot, vivi.torresg
+ * 
  */
 
 @Entity
-@Table(name = "SystemInstance", uniqueConstraints = @UniqueConstraint(columnNames = { "institutionFk", "itSystemFk" }))
+@Table(name = "SystemInstance", uniqueConstraints = @UniqueConstraint(columnNames = {
+		"institutionFk", "itSystemFk" }))
 @NamedQueries(value = {
-		@NamedQuery(name = "SystemInstance.getAll", query = "SELECT e from SystemInstance e order by e.id")})
+		@NamedQuery(name = "SystemInstance.getAll", query = "SELECT e from SystemInstance e order by e.id"),
+		@NamedQuery(name = "SystemInstance.findBySystemInstance", query = "SELECT e from SystemInstance e where e like :systemInstance order by e.id") })
 public class SystemInstance extends AbstractEntity {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * Institution associated with this system instance
 	 */
 	@ManyToOne
 	@JoinColumn(name = "institutionFk")
 	private Institution institution;
-	
+
 	/**
 	 * The itSystem associated with this instance
 	 */

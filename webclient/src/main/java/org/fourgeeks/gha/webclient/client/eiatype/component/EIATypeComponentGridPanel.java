@@ -166,14 +166,12 @@ public class EIATypeComponentGridPanel extends VLayout implements
 
 	@Override
 	public void close() {
-		// TODO Auto-generated method stub
-
+		eiaTypeSearchForm.close();
 	}
 
 	@Override
 	public void hide() {
-		// TODO Auto-generated method stub
-
+		eiaTypeSearchForm.hide();
 	}
 
 }

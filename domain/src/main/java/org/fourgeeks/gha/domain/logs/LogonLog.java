@@ -10,7 +10,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import org.fourgeeks.gha.domain.gar.Bpu;
-import org.fourgeeks.gha.domain.msg.Message;
+import org.fourgeeks.gha.domain.msg.GHAMessage;
 
 /**
  * @author emiliot
@@ -43,7 +43,7 @@ public class LogonLog extends GHALog {
 	 * @param ipAdd
 	 * 
 	 */
-	public LogonLog(Bpu bpu, Message message, String ipAdd) {
+	public LogonLog(Bpu bpu, GHAMessage message, String ipAdd) {
 		this.bpu = bpu;
 		this.message = message;
 		this.ipAdd = ipAdd;
