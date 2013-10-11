@@ -232,6 +232,12 @@ select,.select{
 	background-color: #FFFFFF;
 }
 
+.select-requiredError{
+	padding: 2px;
+	border:1px solid #E86842;
+	background-color: #FFFFFF;
+}
+
 /*
 .titletext{
 	color:white;	
