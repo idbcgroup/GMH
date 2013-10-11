@@ -28,6 +28,8 @@ import com.smartgwt.client.widgets.AnimationCallback;
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
+import com.smartgwt.client.widgets.events.HoverEvent;
+import com.smartgwt.client.widgets.events.HoverHandler;
 import com.smartgwt.client.widgets.events.MouseOutEvent;
 import com.smartgwt.client.widgets.events.MouseOutHandler;
 import com.smartgwt.client.widgets.events.MouseOverEvent;
@@ -54,6 +56,21 @@ public class GHAMenu {
 
 		GHAImgButton menu = new GHAImgButton("../resources/icons/menu.png");
 		menu.setSize("34px", "24px");
+		menu.addHoverHandler(new HoverHandler() {
+
+			@Override
+			public void onHover(HoverEvent event) {
+				verticalMenu.bringToFront();
+				if (!verticalMenu.isVisible()) {
+					// verticalMenu.animateHide(AnimationEffect.FLY);
+					// GHAUiHelper.removeDocumentClickHandler(verticalMenu);
+					verticalMenu.open();
+				} else {
+					verticalMenu.animateHide(AnimationEffect.FLY);
+					GHAUiHelper.removeDocumentClickHandler(verticalMenu);
+				}
+			}
+		});
 		menu.addClickHandler(new ClickHandler() {
 
 			@Override
