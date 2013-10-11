@@ -69,7 +69,7 @@ public abstract class GHAUiHelper {
 	public static final int FOUR_COLUMN_FORMITEM_SIZE = 135;
 
 	private static final int HEADER_HEIGTH = 60;
-	private static final int MENU_BAR_HEIGTH = 24;
+	private static final int MENU_BAR_HEIGTH = 30;
 	
 	// NO ESTAN TOTALMENTE MEDIDAS CON LA INTERFAZ
 	private static final int MIN_TAB_HEIGHT = 400;

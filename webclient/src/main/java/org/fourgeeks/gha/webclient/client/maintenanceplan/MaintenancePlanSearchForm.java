@@ -62,7 +62,7 @@ public class MaintenancePlanSearchForm extends GHASlideInWindow implements
 	public MaintenancePlanSearchForm() {
 		super(1);
 		setTop(GHAUiHelper.getTopSpace());
-		setHeight(GHAUiHelper.getTabHeight() + "px");
+		setHeight(GHAUiHelper.getTabHeight()-4 + "px");
 
 		Label title = new Label("<h3>Busqueda de Planes de Mantenimiento</h3>");
 		title.setWidth(400);
@@ -203,7 +203,7 @@ public class MaintenancePlanSearchForm extends GHASlideInWindow implements
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getTabHeight() + "px");
+		setHeight(GHAUiHelper.getTabHeight()-4 + "px");
 	}
 
 	// Producer/Consumer Stuff

@@ -22,7 +22,7 @@ public class EIAInstallationCertificateForm extends GHASlideInWindow {
 	public EIAInstallationCertificateForm() {
 		super(1);
 		setTop(GHAUiHelper.getTopSpace());
-		setHeight(GHAUiHelper.getTabHeight());
+		setHeight(GHAUiHelper.getTabHeight()-4);
 		
 ////////Botones laterales
 		VLayout sideButtons = GHAUiHelper.createBar(
@@ -60,7 +60,7 @@ public class EIAInstallationCertificateForm extends GHASlideInWindow {
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getTabHeight());
+		setHeight(GHAUiHelper.getTabHeight()-4);
 	}
 
 }
