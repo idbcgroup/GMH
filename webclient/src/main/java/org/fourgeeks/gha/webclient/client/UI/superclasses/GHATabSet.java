@@ -1,7 +1,6 @@
 package org.fourgeeks.gha.webclient.client.UI.superclasses;
 
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
 
 import com.google.gwt.user.client.History;
@@ -15,10 +14,8 @@ public final class GHATabSet {
 
 	private static Map<String, GHATab> tabs;
 	private static GHATab currentTab;
-	private static LinkedList<String> historyStack;
 	static {
 		tabs = new HashMap<String, GHATab>();
-		// historyStack = new LinkedList<String>();
 	}
 
 	private GHATabSet() {
@@ -26,19 +23,9 @@ public final class GHATabSet {
 	}
 
 	private static void addTab(final GHATab tab) {
-		// addHeader(tab.getHeader());
 		tabs.put(tab.getId(), tab);
 		RootPanel.get("main-content").add(tab);
 	}
-
-	// /**
-	// * @param header
-	// */
-	// private static void addHeader(GHATabHeader header) {
-	// hPanel.add(header);
-	// hPanel.setCellHeight(header, "24px");
-	// header.selectTab();
-	// }
 
 	/**
 	 * @param tab
@@ -51,15 +38,32 @@ public final class GHATabSet {
 			return;
 
 		if (currentTab != null)
-			currentTab.hide();
+			hideTab(currentTab);
 
 		if (tabs.get(tab.getId()) == null)
 			addTab(tab);
 		else
 			tab.show();
 
-		historyStack.add(tab.getId());
 		currentTab = tab;
+		showHeader(tab.getHeader());
+	}
+
+	/**
+	 * 
+	 */
+	private static void hideTab(GHATab tab) {
+		hideHeader(tab.getHeader());
+		tab.hide();
+	}
+
+	private static void hideHeader(GHATabHeader header) {
+		RootPanel.get("menu-bar").remove(header);
+	}
+
+	private static void showHeader(GHATabHeader header) {
+		RootPanel.get("menu-bar").add(header);
+
 	}
 
 	/**
@@ -69,23 +73,6 @@ public final class GHATabSet {
 	public static GHATab getById(String id) {
 		return tabs.get(id);
 	}
-
-	// /**
-	// * @param menuButton
-	// */
-	// @Deprecated
-	// public static void addMenu(IMenuButton menuButton) {
-	// hPanel.add(menuButton);
-	// hPanel.setCellHeight(menuButton, "24px");
-	// }
-
-	// /**
-	// * @param menuButton
-	// */
-	// public static void addMenu(GHAImgButton menuButton) {
-	// hPanel.add(menuButton);
-	// hPanel.setCellHeight(menuButton, "24px");
-	// }
 
 	/**
 	 * @param tab
@@ -98,17 +85,5 @@ public final class GHATabSet {
 		tabs.remove(tab.getId());
 
 		History.newItem("home");
-		// historyStack.remove(tab.getId());
-
-		// LinkedList<String> tempHistoryStack = new LinkedList<String>();
-		// for (String token : historyStack)
-		// if (!tab.getId().equals(token))
-		// tempHistoryStack.add(token);
-		// historyStack = tempHistoryStack;
-
-		// if (tabs.size() == 0)
-		// History.newItem("home");
-		// else
-		// History.newItem(historyStack.removeLast());
 	}
 }

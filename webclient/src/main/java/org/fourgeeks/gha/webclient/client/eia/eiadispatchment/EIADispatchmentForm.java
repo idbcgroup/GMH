@@ -24,7 +24,7 @@ public class EIADispatchmentForm extends GHASlideInWindow {
 	public EIADispatchmentForm() {
 		super(1);
 		setTop(GHAUiHelper.getTopSpace());
-		setHeight(GHAUiHelper.getTabHeight());
+		setHeight(GHAUiHelper.getTabHeight()-4);
 		
 ////////Botones laterales
 		VLayout sideButtons = GHAUiHelper.createBar(
@@ -62,7 +62,7 @@ public class EIADispatchmentForm extends GHASlideInWindow {
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getTabHeight());
+		setHeight(GHAUiHelper.getTabHeight()-4);
 	}
 
 }
