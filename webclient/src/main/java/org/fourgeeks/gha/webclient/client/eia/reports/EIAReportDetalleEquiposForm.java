@@ -171,9 +171,6 @@ public class EIAReportDetalleEquiposForm extends GHAReportForm {
 		});
 	}
 
-	/**
-	 * @return La parte del URL que contiene los parametros del reporte
-	 */
 	@Override
 	public String getReportURI() {
 		String url = "reports/eia/feia?";
@@ -214,6 +211,17 @@ public class EIAReportDetalleEquiposForm extends GHAReportForm {
 		return url;
 	}
 
+	/**
+	 * Append query param into a url
+	 * 
+	 * @param url
+	 *            the URL String for what the query param is going be append
+	 * @param param
+	 *            the param of the query param
+	 * @param value
+	 *            the value of the query param
+	 * @return the URL String with the appended query param
+	 */
 	private String buildUrl(String url, String param, String value) {
 		char lastchar = url.charAt(url.length() - 1);
 		if (lastchar == '?')
@@ -224,6 +232,13 @@ public class EIAReportDetalleEquiposForm extends GHAReportForm {
 		return url;
 	}
 
+	/**
+	 * Transform a String Array into a String of comma-separated values
+	 * 
+	 * @param valsParam
+	 *            the String Array to transform
+	 * @return The comma-separated String
+	 */
 	private String toCommaRepresent(String[] valsParam) {
 		String commaRepresentation = "";
 		for (int i = 0; i < valsParam.length; i++) {
