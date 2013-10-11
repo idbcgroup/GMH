@@ -37,6 +37,7 @@ public class EIAAddForm extends GHASlideInWindow implements
 	 */
 	private void initComponent() {
 		eiaForm.addEiaSelectionListener(this);
+
 		GHAUiHelper.addGHAResizeHandler(this);
 		setHeight(GHAUiHelper.getBottomSectionHeight());
 		setTop(240);
@@ -112,8 +113,8 @@ public class EIAAddForm extends GHASlideInWindow implements
 
 	@Override
 	public void hide() {
-		super.hide();
 		eiaForm.hide();
+		super.hide();
 	}
 
 	@Override

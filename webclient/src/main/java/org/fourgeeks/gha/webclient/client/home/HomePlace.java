@@ -43,8 +43,7 @@ public class HomePlace extends GHAPlace {
 		HOME_HAS_BEEN_BUILT = true;
 		// User box
 		RootPanel.get("main-content").clear();
-		int tabHeight = GHAUiHelper.getTabHeight();
-		RootPanel.get("main-content").setHeight(tabHeight + "px");
+		RootPanel.get("main-content").setHeight(GHAUiHelper.getTabHeight() + "px");
 		// RootPanel.get("user-info").clear();
 		// RootPanel.get("menu-bar").clear();
 		// RootPanel.get("main-content").removeStyleName("white-background");

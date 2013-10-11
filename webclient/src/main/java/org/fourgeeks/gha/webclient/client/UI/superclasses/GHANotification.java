@@ -28,7 +28,7 @@ public class GHANotification {
 	 */
 
 	public static void alert(String message) {
-		SC.say(message);
+		SC.say("Información", message);
 	}
 
 	public static void confirm(String title, String message,
@@ -41,7 +41,30 @@ public class GHANotification {
 		messageService.find(keys, callback);
 	}
 
+	private static void alertMessage(String key,
+			GHAAsyncCallback<GHAMessage> callback) {
+		messageService.find(key, callback);
+	}
+
 	/**
+	 * this method receives a key to find and show the message from database
+	 * 
+	 * @param key
+	 */
+	public static void alertMessage(String key) {
+		alertMessage(key, new GHAAsyncCallback<GHAMessage>() {
+
+			@Override
+			public void onSuccess(GHAMessage result) {
+				alert(result.getText());
+			}
+		});
+	}
+
+	/**
+	 * this method receives a list of keys to find the messages and then show
+	 * them to the user
+	 * 
 	 * @param keys
 	 */
 	public static void alert(List<String> keys) {

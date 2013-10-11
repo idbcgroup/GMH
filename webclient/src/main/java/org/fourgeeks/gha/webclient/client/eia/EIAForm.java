@@ -546,9 +546,10 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 					@Override
 					public void onSuccess(List<ExternalProvider> result) {
 						LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-						for (ExternalProvider entity : result)
+						for (ExternalProvider entity : result) {
 							valueMap.put(entity.getId() + "", entity
 									.getInstitution().getName() + "");
+						}
 						maintenanceProviderSelectItem.setValueMap(valueMap);
 						installationProviderSelectItem.setValueMap(valueMap);
 					}
@@ -918,6 +919,8 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 	// //Implementations
 
 	private void notifyEia(Eia eia) {
+		// notify user
+		GHANotification.alertMessage("eia-save-success");
 		for (EIASelectionListener listener : listeners)
 			listener.select(eia);
 	}
@@ -1086,7 +1089,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		if (eia.getMaintenanceProvider() != null
 				&& eia.getMaintenanceProvider().getInstitution() != null)
 			maintenanceProviderSelectItem.setValue(eia.getMaintenanceProvider()
-					.getInstitution().getId());
+					.getId());
 		// }
 
 		// itEquipments

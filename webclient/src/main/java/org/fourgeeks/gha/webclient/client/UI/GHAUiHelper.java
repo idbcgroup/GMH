@@ -37,7 +37,7 @@ public abstract class GHAUiHelper {
 		});
 
 		Element element = RootPanel.get().getElement();
-		DOM.sinkEvents(element, Event.ONCLICK);
+		DOM.sinkEvents(element, Event.ONMOUSEOVER);
 		DOM.setEventListener(element, new EventListener() {
 
 			@Override
@@ -69,13 +69,13 @@ public abstract class GHAUiHelper {
 	public static final int FOUR_COLUMN_FORMITEM_SIZE = 135;
 
 	private static final int HEADER_HEIGTH = 60;
-	private static final int MENU_BAR_HEIGTH = 24;
-	
+	private static final int MENU_BAR_HEIGTH = 30;
+
 	// NO ESTAN TOTALMENTE MEDIDAS CON LA INTERFAZ
 	private static final int MIN_TAB_HEIGHT = 400;
 	private static final int MIN_TOP_SECTION_HEIGHT = 120;
 	private static final int MIN_BOTTOM_SECTION_HEIGHT = 260;
-	
+
 	// NO ESTAN TOTALMENTE MEDIDAS CON LA INTERFAZ
 
 	/**
@@ -83,7 +83,7 @@ public abstract class GHAUiHelper {
 	 */
 	public static final int MIN_GRID_SIZE = 120;
 
-	public static final int INNER_TOP_SECTION_HEIGHT = 120;
+	public static final int INNER_TOP_SECTION_HEIGHT = 150;
 	public static final int V_SEPARATOR_HEIGHT = 10;
 
 	public static VLayout verticalGraySeparator(String height) {
@@ -147,11 +147,11 @@ public abstract class GHAUiHelper {
 			return ret;
 		}
 	}
-	
-	public static int getTopSpace(){
-		return HEADER_HEIGTH + MENU_BAR_HEIGTH+1;
+
+	public static int getTopSpace() {
+		return HEADER_HEIGTH + MENU_BAR_HEIGTH + 1;
 	}
-	
+
 	/**
 	 * @param extrasHeight
 	 * @return

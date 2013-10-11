@@ -20,7 +20,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class EIAUpdateForm extends GHASlideInWindow implements
-		EIATypeSelectionListener, EiaSelectionProducer {
+		EIATypeSelectionListener, EiaSelectionProducer, EIASelectionListener {
 	EIAForm eiaForm;
 
 	/**
@@ -36,6 +36,8 @@ public class EIAUpdateForm extends GHASlideInWindow implements
 	 * 
 	 */
 	private void initComponent() {
+		eiaForm.addEiaSelectionListener(this);
+
 		GHAUiHelper.addGHAResizeHandler(this);
 		setHeight(GHAUiHelper.getBottomSectionHeight());
 		setTop(240);
@@ -83,19 +85,6 @@ public class EIAUpdateForm extends GHASlideInWindow implements
 		setHeight(GHAUiHelper.getBottomSectionHeight());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener#select
-	 * (org.fourgeeks.gha.domain.gmh.EiaType)
-	 */
-	@Override
-	public void select(EiaType eiaType) {
-		eiaForm.select(eiaType);
-
-	}
-
 	@Override
 	public void addEiaSelectionListener(
 			EIASelectionListener eiaSelectionListener) {
@@ -110,16 +99,56 @@ public class EIAUpdateForm extends GHASlideInWindow implements
 
 	@Override
 	public void hide() {
+		eiaForm.hide();
 		super.hide();
-		this.close();
 	}
 
 	@Override
 	public void close() {
 		super.close();
+		destroy();
 	}
 
 	public void setEia(Eia eia) {
 		eiaForm.setEia(eia);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow#open
+	 * ()
+	 */
+	@Override
+	public void open() {
+		super.open();
+		eiaForm.show();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener#select
+	 * (org.fourgeeks.gha.domain.gmh.EiaType)
+	 */
+	@Override
+	public void select(EiaType eiaType) {
+		eiaForm.select(eiaType);
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.eia.EIASelectionListener#select(org
+	 * .fourgeeks.gha.domain.gmh.Eia)
+	 */
+	@Override
+	public void select(Eia eia) {
+		eiaForm.clearValue();
+		hide();
 	}
 }
