@@ -86,8 +86,8 @@ public class EiaType extends AbstractCodeEntity implements Serializable {
 	private EiaTypeEnum type;
 	/** Tipo de Equipo length =60 */
 
-	@NotNull(message = "sub-type-not-null")
-	@Column(nullable = false)
+	// @NotNull(message = "sub-type-not-null")
+	// @Column(nullable = false)
 	private EiaSubTypeEnum subtype;
 
 	@ManyToOne

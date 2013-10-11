@@ -83,7 +83,7 @@ public abstract class GHAUiHelper {
 	 */
 	public static final int MIN_GRID_SIZE = 120;
 
-	public static final int INNER_TOP_SECTION_HEIGHT = 120;
+	public static final int INNER_TOP_SECTION_HEIGHT = 150;
 	public static final int V_SEPARATOR_HEIGHT = 10;
 
 	public static VLayout verticalGraySeparator(String height) {

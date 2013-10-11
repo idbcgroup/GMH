@@ -919,6 +919,8 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 	// //Implementations
 
 	private void notifyEia(Eia eia) {
+		// notify user
+		GHANotification.alertMessage("eia-save-success");
 		for (EIASelectionListener listener : listeners)
 			listener.select(eia);
 	}
