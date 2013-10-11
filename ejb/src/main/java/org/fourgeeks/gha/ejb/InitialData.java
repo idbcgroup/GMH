@@ -207,8 +207,8 @@ public class InitialData {
 				em.persist(moduleEiaType);
 				Module moduleEia = new Module("Equipos", ModulesCodes.EIA);
 				em.persist(moduleEia);
-				Module moduleMainteancePlan = new Module(
-						"Planes de Mant.", ModulesCodes.MPLAN);
+				Module moduleMainteancePlan = new Module("Planes de Mant.",
+						ModulesCodes.MPLAN);
 				em.persist(moduleMainteancePlan);
 				Module moduleMaintenanceProtocol = new Module(
 						"Protocolos de Mant.", ModulesCodes.MPROT);
@@ -217,9 +217,8 @@ public class InitialData {
 						"Actividades de Mant.", ModulesCodes.MACT);
 				em.persist(maintenanceActivityModule);
 				// Screen
-				Screen screenUsuer = new Screen(moduleUser,
-						"Adm. de Usuarios", ScreenCodes.USER_ADM,
-						"user");
+				Screen screenUsuer = new Screen(moduleUser, "Adm. de Usuarios",
+						ScreenCodes.USER_ADM, "user");
 				em.persist(screenUsuer);
 				Screen screenEiaType = new Screen(moduleEiaType,
 						"Tipos de equipo", ScreenCodes.EIATYPE_ADM, "eiatype");
@@ -228,18 +227,16 @@ public class InitialData {
 						ScreenCodes.EIA_ADM, "eia");
 				em.persist(screenEia);
 				Screen screenMaintenancePlan = new Screen(moduleMainteancePlan,
-						"Planes de Mantenimiento",
-						ScreenCodes.MAINTENANCE_PLAN_ADM, "mplan");
+						"Planes de Mant.", ScreenCodes.MAINTENANCE_PLAN_ADM,
+						"mplan");
 				em.persist(screenMaintenancePlan);
 				Screen screenMaintenanceProtocol = new Screen(
-						moduleMaintenanceProtocol,
-						"Protocolos de Mantenimiento",
+						moduleMaintenanceProtocol, "Protocolos de Mant.",
 						ScreenCodes.MAINTENANCE_PROTOCOL_ADM, "mprot");
 				em.persist(screenMaintenanceProtocol);
 
 				Screen maintenanceActivityScreen = new Screen(
-						maintenanceActivityModule,
-						"Actividades de Mantenimiento",
+						maintenanceActivityModule, "Actividades de Mant.",
 						ScreenCodes.MAINTENANCE_ACTIVITY_ADM, "mact");
 				em.persist(maintenanceActivityScreen);
 
