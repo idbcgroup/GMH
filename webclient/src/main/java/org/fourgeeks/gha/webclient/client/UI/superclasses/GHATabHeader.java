@@ -36,4 +36,9 @@ public class GHATabHeader extends HLayout {
 		titulo.setHTML(title);
 	}
 
+	@Override
+	public String getTitle() {
+		return titulo.getHTML();
+	}
+
 }

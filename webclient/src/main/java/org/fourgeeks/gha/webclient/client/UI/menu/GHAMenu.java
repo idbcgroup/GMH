@@ -29,8 +29,6 @@ import com.smartgwt.client.widgets.AnimationCallback;
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
-import com.smartgwt.client.widgets.events.HoverEvent;
-import com.smartgwt.client.widgets.events.HoverHandler;
 import com.smartgwt.client.widgets.events.MouseOutEvent;
 import com.smartgwt.client.widgets.events.MouseOutHandler;
 import com.smartgwt.client.widgets.events.MouseOverEvent;
@@ -49,7 +47,7 @@ public class GHAMenu {
 	}
 
 	final private static GHAMenuBar verticalMenu = new GHAMenuBar();
-	private static HLayout menuPanel;
+	private static Label title = new Label();
 
 	/**
 	 * Build the Menu
@@ -59,19 +57,6 @@ public class GHAMenu {
 
 		GHAImgButton menu = new GHAImgButton("../resources/icons/menu.png");
 		menu.setSize("34px", "24px");
-		menu.addHoverHandler(new HoverHandler() {
-
-			@Override
-			public void onHover(HoverEvent event) {
-				verticalMenu.bringToFront();
-				if (!verticalMenu.isVisible()) {
-					verticalMenu.open();
-				} else {
-					verticalMenu.animateHide(AnimationEffect.FLY);
-					GHAUiHelper.removeDocumentClickHandler(verticalMenu);
-				}
-			}
-		});
 		menu.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -85,13 +70,13 @@ public class GHAMenu {
 			}
 		});
 
-		menuPanel = new HLayout();
+		HLayout menuPanel = new HLayout();
 		menuPanel.setWidth100();
 		menuPanel.setHeight(30);
 		menuPanel.setMembersMargin(10);
 		menuPanel.setDefaultLayoutAlign(VerticalAlignment.CENTER);
 		menuPanel.setStyleName("left-menu-padding");
-		menuPanel.addMembers(menu);
+		menuPanel.addMembers(menu, title);
 
 		Bpu user = GHASessionData.getLoggedUser();
 		List<GHAMenuOption> menuOptions = getMenuOptions(user);
@@ -259,13 +244,14 @@ public class GHAMenu {
 	 * @param header
 	 */
 	public static void setHeader(GHATabHeader header) {
-		// menuPanel.addMember(header);
-		// menuPanel.redraw();
+		title.setTitle(header.getTitle());
 	}
 
+	/**
+	 * 
+	 */
 	public static void removeHeader() {
-		// TODO Auto-generated method stub
-
+		title.setTitle("");
 	}
 
 }
