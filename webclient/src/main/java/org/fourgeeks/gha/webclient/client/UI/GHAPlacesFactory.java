@@ -12,6 +12,9 @@ import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanPlace;
 import org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolPlace;
 import org.fourgeeks.gha.webclient.client.user.UserPlace;
 
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.RunAsyncCallback;
+
 public class GHAPlacesFactory {
 	/*
 	 * private UIPlacesFactory() throws UnavailableException{ throw new
@@ -21,33 +24,46 @@ public class GHAPlacesFactory {
 
 	/**
 	 * @param token
-	 * @return
 	 */
-	public static GHAPlace createPlace(String token) {
-		// Window.alert("createplace"+ token);
-		if (token.equals("login"))
-			return new LoginPlace();
-		if (token.equals("lostpass"))
-			return new ForgottenPasswordPlace();
-		else if (token.equals("home"))
-			return new HomePlace();
-		else if (token.equals("eiatype"))
-			return new EIATypePlace();
-		else if (token.startsWith("eia"))
-			return new EIAPlace();
-		else if (token.startsWith("edt"))
-			return new EDTPlace();
-		else if (token.startsWith("mplan"))
-			return new MaintenancePlanPlace();
-		else if (token.startsWith("mprot"))
-			return new MaintenanceProtocolPlace();
-		else if (token.startsWith("mact"))
-			return new MaintenanceActivityPlace();
-		else if (token.startsWith("user"))
-			return new UserPlace();
-		/*
-		 * switch (token) { case "login": }
-		 */
-		throw new IllegalArgumentException("Unsuported token");
+	public static void createPlace(final String token) {
+		GWT.runAsync(new RunAsyncCallback() {
+
+			@Override
+			public void onSuccess() {
+				GHAPlace place = null;
+				if (token.equals("login"))
+					place = new LoginPlace();
+				else if (token.equals("lostpass"))
+					place = new ForgottenPasswordPlace();
+				else if (token.equals("home"))
+					place = new HomePlace();
+				else if (token.equals("eiatype"))
+					place = new EIATypePlace();
+				else if (token.startsWith("eia"))
+					place = new EIAPlace();
+				else if (token.startsWith("edt"))
+					place = new EDTPlace();
+				else if (token.startsWith("mplan"))
+					place = new MaintenancePlanPlace();
+				else if (token.startsWith("mprot"))
+					place = new MaintenanceProtocolPlace();
+				else if (token.startsWith("mact"))
+					place = new MaintenanceActivityPlace();
+				else if (token.startsWith("user"))
+					place = new UserPlace();
+				else
+					throw new IllegalArgumentException("Unsuported token");
+				place.setToken(token);
+				place.show();
+
+			}
+
+			@Override
+			public void onFailure(Throwable reason) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
 	}
 }

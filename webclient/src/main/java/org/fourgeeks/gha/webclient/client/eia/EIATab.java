@@ -34,7 +34,7 @@ public class EIATab extends GHATab implements EIASelectionListener,
 	 */
 	public EIATab() {
 		super();
-		// getHeader().setTitle(TITLE);
+		getHeader().setTitle(TITLE);
 
 		topSection = new EIATopSection(this);
 		internalTabset = new EIAInternalTabset(this);

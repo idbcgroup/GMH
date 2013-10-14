@@ -27,10 +27,18 @@ public class GHANotification {
 	 * addMember(GHAUiHelper.verticalGraySeparator("25px")); }
 	 */
 
+	/**
+	 * @param message
+	 */
 	public static void alert(String message) {
 		SC.say("Información", message);
 	}
 
+	/**
+	 * @param title
+	 * @param message
+	 * @param callback
+	 */
 	public static void confirm(String title, String message,
 			BooleanCallback callback) {
 		SC.ask(title, message, callback);

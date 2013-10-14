@@ -34,22 +34,8 @@ public class Gha implements EntryPoint {
 				final String historyToken = event.getValue();
 				if (historyToken == null)
 					return;
-				GWT.runAsync(new RunAsyncCallback() {
-
-					@Override
-					public void onSuccess() {
-						GHAPlace place = GHAPlacesFactory
-								.createPlace(historyToken);
-						place.setToken(historyToken);
-						place.show();
-					}
-
-					@Override
-					public void onFailure(Throwable arg0) {
-
-					}
-				});
-
+				GHAPlacesFactory
+				.createPlace(historyToken);
 			}
 		});
 

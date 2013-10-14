@@ -32,6 +32,7 @@ public class EIAInternalTabset extends TabSet implements ResizeHandler {
 		setHeight(GHAUiHelper.getBottomSectionHeight());
 		GHAUiHelper.addGHAResizeHandler(this);
 		eiaInformationSubTab = new EIAInformationSubTab(eiaTab);
+
 		eiaPartsSubTab = new EIAComponentSubTab(eiaTab);
 		eiaReportsSubTab = new EIAReportsSubTab(eiaTab);
 		// eiaPlanSubTab = new EIAMaintPlanSubTab(eiaTab);

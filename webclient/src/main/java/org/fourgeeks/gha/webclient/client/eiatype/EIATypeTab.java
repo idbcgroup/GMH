@@ -20,7 +20,7 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 	 * The ID of the Tab
 	 */
 	public static final String ID = "eiatype";
-	// private static final String TITLE = "Tipos de equipo";
+	private static final String TITLE = "Tipos de equipo";
 	private List<EIATypeSelectionListener> listeners = new ArrayList<EIATypeSelectionListener>();
 	private EIATypeTopSection topSection;
 	private EiaType eiaType;
@@ -32,7 +32,7 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 	public EIATypeTab(EiaType eiaType) {
 		super();
 		this.eiaType = eiaType;
-		// getHeader().setTitle(TITLE);
+		getHeader().setTitle(TITLE);
 
 		topSection = new EIATypeTopSection(this);
 		internatlTabSet = new EIATypeInternalTabset(this);
