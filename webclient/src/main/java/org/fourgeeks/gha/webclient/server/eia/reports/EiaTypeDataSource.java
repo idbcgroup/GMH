@@ -8,6 +8,7 @@ import net.sf.jasperreports.engine.JRField;
 
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.domain.gmh.Manufacturer;
 
 public class EiaTypeDataSource implements JRDataSource {
 
@@ -48,8 +49,11 @@ public class EiaTypeDataSource implements JRDataSource {
 				return eiaType.getModel();
 
 			if (field.getName().equals("fabricante")) {
-				Brand brand = eiaType.getBrand();
-				return brand != null ? brand.getManufacturer() : null;
+				if (eiaType.getBrand() != null) {
+					Manufacturer fabric = eiaType.getBrand().getManufacturer();
+					return fabric != null ? fabric.getName() : null;
+				}
+				return null;
 			}
 		}
 

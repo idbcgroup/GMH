@@ -15,6 +15,8 @@ public interface EiaReportsServiceRemote {
 	 * Devuelve todos los EIA que cumplan las condiciones dadas por los
 	 * parametros
 	 * 
+	 * @param eiaTypeCodes
+	 *            Lista de IDs (codigos) de los tipos de equipos
 	 * @param facilityIds
 	 *            Lista de IDs de facilidades
 	 * @param workAreaIds
@@ -28,9 +30,10 @@ public interface EiaReportsServiceRemote {
 	 *         lista vacia
 	 * @throws GHAEJBException
 	 */
-	public List<Eia> findAllEias(List<Long> facilityIds,
-			List<Long> workAreaIds, EiaStateEnum eiaState,
-			boolean orderByUbicEiaType) throws GHAEJBException;
+	public List<Eia> findAllEias(List<String> eiaTypeIds,
+			List<Long> facilityIds, List<Long> workAreaIds,
+			EiaStateEnum eiaState, boolean orderByUbicEiaType)
+			throws GHAEJBException;
 
 	/**
 	 * Devuelve los EIA cuyo ID sea alguno de los ID pasados por parametro

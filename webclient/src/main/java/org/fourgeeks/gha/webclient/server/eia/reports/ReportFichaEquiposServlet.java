@@ -28,8 +28,8 @@ import org.fourgeeks.gha.ejb.gmh.EiaReportsServiceRemote;
 public class ReportFichaEquiposServlet extends ReportEiaServelt {
 	private static final long serialVersionUID = 1L;
 
-	private static final String REPORT_FILE_DIR_1 = "/resources/reportes/GHM.FEIA.01.jasper";
-	private static final String REPORT_FILE_DIR_2 = "/resources/reportes/GHM.FEIA.02.jasper";
+	private static final String REPORT_FILE_DIR_1 = "/resources/reportes/compilados/GMH.FEIA.01.jasper";
+	private static final String REPORT_FILE_DIR_2 = "/resources/reportes/compilados/GMH.FEIA.02.jasper";
 	private static final String LOGO_DIR = "/resources/img/logoReport.jpg";
 
 	private static final String PARAM_EIAS = "eias", PARAM_FACILS = "facils",
@@ -86,8 +86,8 @@ public class ReportFichaEquiposServlet extends ReportEiaServelt {
 
 		if (qpc.eiaIds == null) {
 			reportPath = getServletContext().getRealPath(REPORT_FILE_DIR_2);
-			eiaList = service.findAllEias(qpc.facilsIds, qpc.workingAreasIds,
-					qpc.eiaState, qpc.orden);
+			eiaList = service.findAllEias(null, qpc.facilsIds,
+					qpc.workingAreasIds, qpc.eiaState, qpc.orden);
 		} else {
 			reportPath = getServletContext().getRealPath(REPORT_FILE_DIR_1);
 			eiaList = service.findEias(qpc.eiaIds, qpc.orden);

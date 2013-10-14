@@ -34,10 +34,11 @@ import org.fourgeeks.gha.ejb.gmh.EiaReportsServiceRemote;
  */
 @WebServlet(urlPatterns = { "/reports/eia/leia" })
 public class ReportListEiaTypesEiasServlet extends ReportEiaServelt {
-	private static final long serialVersionUID = 1L;
 
-	private static final String REPORT_FILE_DIR = "/resources/reportes/GHM.LEIA.01.jasper";
-	private static final String SUBREPORT_FILE_DIR = "/resources/reportes/GHM.LEIA.01.SR.jasper";
+	private static final long serialVersionUID = 1L;
+	private static final String REPORT_FILE_DIR = "/resources/reportes/compilados/GMH.LEIA.01.jasper";
+	private static final String SUBREPORT_FILE_DIR = "/resources/reportes/compilados/GMH.LEIA.01.SR.jasper";
+
 	private static final String LOGO_DIR = "/resources/img/logoReport.jpg";
 
 	private static final String PARAM_EIATYPES = "eiatypes",
@@ -89,31 +90,6 @@ public class ReportListEiaTypesEiasServlet extends ReportEiaServelt {
 
 	}
 
-	private Map<String, Object> searchInService(HttpServletRequest req)
-			throws GHAEJBException {
-		QueryParamsContainer qpc = new QueryParamsContainer(req);
-		List<Eia> eiaList = null;
-		List<EiaType> eiaTypeList = null;
-
-		if (qpc.showEias) {
-			eiaTypeList = service.findEiaTypes(qpc.eiaTypeCodes);
-			eiaList = service.findAllEias(qpc.facilsIds, qpc.workingAreasIds,
-					qpc.eiaState, qpc.orden);
-		} else {
-			eiaTypeList = service.findEiaTypes(qpc.eiaTypeCodes);
-			eiaList = new ArrayList<Eia>();
-		}
-
-		EiaDataSource eiaDS = new EiaDataSource(eiaList);
-		EiaTypeDataSource eiaTypeDS = new EiaTypeDataSource(eiaTypeList);
-
-		HashMap<String, Object> mapa = new HashMap<String, Object>();
-		mapa.put("eiaDS", eiaDS);
-		mapa.put("eiaTypeDS", eiaTypeDS);
-
-		return mapa;
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -129,15 +105,66 @@ public class ReportListEiaTypesEiasServlet extends ReportEiaServelt {
 		String user = req.getParameter(PARAM_USER);
 		String showEias = req.getParameter(PARAM_SHOWEIAS);
 		String datetimeReport = genDatetimeTimezoneStrRep();
+		String subReportRealPath = getServletContext().getRealPath(
+				SUBREPORT_FILE_DIR);
 
 		Map<String, Object> paramsMap = new HashMap<String, Object>();
 		paramsMap.put("logo", logoImage);
 		paramsMap.put("fechaHoraReporte", datetimeReport);
 		paramsMap.put("nombreOperador", user);
 		paramsMap.put("showEias", Boolean.valueOf(showEias));
-		paramsMap.put("subReportFileDir", SUBREPORT_FILE_DIR);
+		paramsMap.put("subReportFileDir", subReportRealPath);
 
 		return paramsMap;
+	}
+
+	/**
+	 * Busca en el servicio EJB los datos necesarios para el reporte y
+	 * subreporte
+	 * 
+	 * @param req
+	 *            El request con los datos para la consulta al EJB
+	 * @return Mapa con los DataSource utilizados por el reporte y subreporte
+	 * @throws GHAEJBException
+	 */
+	private Map<String, Object> searchInService(HttpServletRequest req)
+			throws GHAEJBException {
+		QueryParamsContainer qpc = new QueryParamsContainer(req);
+		List<Eia> eiaList = null;
+		List<EiaType> eiaTypeList = null;
+
+		if (qpc.showEias) {
+			eiaTypeList = service.findEiaTypes(qpc.eiaTypeCodes);
+
+			List<String> eiaTypeCodeList = toCodeList(eiaTypeList);
+			eiaList = service.findAllEias(eiaTypeCodeList, qpc.facilsIds,
+					qpc.workingAreasIds, qpc.eiaState, qpc.orden);
+		} else {
+			eiaTypeList = service.findEiaTypes(qpc.eiaTypeCodes);
+			eiaList = new ArrayList<Eia>();
+		}
+
+		EiaDataSource eiaDS = new EiaDataSource(eiaList);
+		EiaTypeDataSource eiaTypeDS = new EiaTypeDataSource(eiaTypeList);
+
+		HashMap<String, Object> mapa = new HashMap<String, Object>();
+		mapa.put("eiaDS", eiaDS);
+		mapa.put("eiaTypeDS", eiaTypeDS);
+
+		return mapa;
+	}
+
+	/**
+	 * @param eiaTypeList
+	 *            lista de tipos de equipo
+	 * @return Lista de codigos de los tipos de equipos
+	 */
+	private List<String> toCodeList(List<EiaType> eiaTypeList) {
+		ArrayList<String> codeList = new ArrayList<String>();
+		for (EiaType eiaType : eiaTypeList)
+			codeList.add(eiaType.getCode());
+
+		return codeList;
 	}
 
 	/**
@@ -194,13 +221,14 @@ public class ReportListEiaTypesEiasServlet extends ReportEiaServelt {
 		}
 
 		private List<String> toStringList(String paramValue) {
-			if (paramValue != null) {
-				ArrayList<String> list = new ArrayList<String>();
-				String[] arrayLongValues = paramValue.split(",");
-				for (String val : arrayLongValues)
-					list.add(val);
-				return list;
-			}
+			if (paramValue != null)
+				if (!paramValue.equals("all")) {
+					ArrayList<String> list = new ArrayList<String>();
+					String[] arrayLongValues = paramValue.split(",");
+					for (String val : arrayLongValues)
+						list.add(val);
+					return list;
+				}
 
 			return null;
 		}

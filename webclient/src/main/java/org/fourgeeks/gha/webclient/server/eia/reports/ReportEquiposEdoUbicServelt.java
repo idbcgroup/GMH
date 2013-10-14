@@ -31,8 +31,8 @@ import org.fourgeeks.gha.ejb.gmh.EiaServiceRemote;
 public class ReportEquiposEdoUbicServelt extends ReportEiaServelt {
 	private static final long serialVersionUID = 1L;
 
-	private static final String REPORT_FILE_DIR = "/resources/reportes/eiaReport.jasper";
-	private static final String REPORT_GROUP_FILE_DIR = "/resources/reportes/eiaReportGroups.jasper";
+	private static final String REPORT_FILE_DIR = "/resources/reportes/compilados/eiaReport.jasper";
+	private static final String REPORT_GROUP_FILE_DIR = "/resources/reportes/compilados/eiaReportGroups.jasper";
 	private static final String LOGO_DIR = "/resources/img/logoReport.jpg";
 
 	// parametros de la URI

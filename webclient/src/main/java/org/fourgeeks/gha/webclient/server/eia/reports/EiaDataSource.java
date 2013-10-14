@@ -88,6 +88,11 @@ public class EiaDataSource implements JRDataSource {
 				return eiaType != null ? eiaType.getName() : null;
 			}
 
+			if (field.getName().equals("eiaTypeCode")) {
+				EiaType eiaType = eia.getEiaType();
+				return eiaType != null ? eiaType.getCode() : null;
+			}
+
 			if (field.getName().equals("code"))
 				return eia.getCode();
 

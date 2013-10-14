@@ -64,8 +64,7 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 	 *            el estado del equipo
 	 * @return El predicado deseado
 	 */
-	private Predicate buildEiaStatePredic(Root<Eia> eiaRoot,
-			EiaStateEnum eiaState) {
+	private Predicate toEiaStatePredic(Root<Eia> eiaRoot, EiaStateEnum eiaState) {
 		ArrayList<EiaStateEnum> list = new ArrayList<EiaStateEnum>();
 		if (eiaState != null)
 			list.add(eiaState);
@@ -76,19 +75,22 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 	/**
 	 * Devuelve un predicado con los IDs de la lista
 	 * 
-	 * @param listIds
+	 * @param lista
 	 *            lista de IDs, puede ser null
 	 * @param from
 	 *            la entidad sobre la que va a actuar el predicado
 	 * @return El predicado deseado
 	 */
-	private Predicate buildPredicList(List<Long> listIds, From<Eia, ?> from) {
+	private Predicate toPredicList(List<?> lista, From<Eia, ?> from,
+			String campo) {
+
 		CriteriaBuilder builder = em.getCriteriaBuilder();
 
-		if (listIds != null) {
-			Predicate[] predicArray = new Predicate[listIds.size()];
-			for (int i = 0, size = listIds.size(); i < size; i++)
-				predicArray[i] = builder.equal(from.get("id"), listIds.get(i));
+		if (lista != null) {
+			Predicate[] predicArray = new Predicate[lista.size()];
+			for (int i = 0, size = lista.size(); i < size; i++)
+				predicArray[i] = builder.equal(from.get(campo), lista.get(i));
+
 			return builder.or(predicArray);
 		}
 
@@ -120,7 +122,7 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 				JoinType.LEFT);
 
 		// creando el predicando de la consulta
-		Predicate eiaIdsPred = buildPredicList(eiaIds, eiaRoot);
+		Predicate eiaIdsPred = toPredicList(eiaIds, eiaRoot, "id");
 
 		// creando el query
 		CriteriaQuery<Eia> typeQuery = cQuery.select(eiaRoot).where(eiaIdsPred);
@@ -159,9 +161,10 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Eia> findAllEias(List<Long> facilityIds,
-			List<Long> workAreaIds, EiaStateEnum eiaState,
-			boolean orderByUbicEiaType) throws GHAEJBException {
+	public List<Eia> findAllEias(List<String> eiaTypeIds,
+			List<Long> facilityIds, List<Long> workAreaIds,
+			EiaStateEnum eiaState, boolean orderByUbicEiaType)
+			throws GHAEJBException {
 
 		// CONSTRUYENDO QUERY
 		// creando los builders para construir el query
@@ -177,13 +180,14 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 				JoinType.LEFT);
 
 		// creando predicandos para la consulta
-		Predicate facilityIdsPred = buildPredicList(facilityIds, facilityJoin);
-		Predicate workAreaIdsPred = buildPredicList(workAreaIds, workAreaJoin);
-		Predicate eiaStatePred = buildEiaStatePredic(eiaRoot, eiaState);
+		Predicate eiaTypesPredic = toPredicList(eiaTypeIds, eiaTypeJoin, "code");
+		Predicate facilsPred = toPredicList(facilityIds, facilityJoin, "id");
+		Predicate workAreasPred = toPredicList(workAreaIds, workAreaJoin, "id");
+		Predicate eiaStatePred = toEiaStatePredic(eiaRoot, eiaState);
 
 		// creando del query
 		CriteriaQuery<Eia> typeQuery = criteriaQuery.select(eiaRoot).where(
-				facilityIdsPred, workAreaIdsPred, eiaStatePred);
+				eiaTypesPredic, facilsPred, workAreasPred, eiaStatePred);
 
 		// creando el orden by
 		if (orderByUbicEiaType)
