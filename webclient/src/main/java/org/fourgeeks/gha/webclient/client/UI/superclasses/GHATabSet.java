@@ -3,6 +3,8 @@ package org.fourgeeks.gha.webclient.client.UI.superclasses;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.fourgeeks.gha.webclient.client.UI.menu.GHAMenu;
+
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.RootPanel;
 
@@ -53,17 +55,12 @@ public final class GHATabSet {
 	 * 
 	 */
 	private static void hideTab(GHATab tab) {
-		hideHeader(tab.getHeader());
+		GHAMenu.removeHeader();
 		tab.hide();
 	}
 
-	private static void hideHeader(GHATabHeader header) {
-		RootPanel.get("menu-bar").remove(header);
-	}
-
 	private static void showHeader(GHATabHeader header) {
-		RootPanel.get("menu-bar").add(header);
-
+		GHAMenu.setHeader(header);
 	}
 
 	/**
