@@ -89,7 +89,7 @@ public class EIAReportsFormPanel extends VLayout implements GHAClosable,
 
 	@Override
 	public void hide() {
-		super.hide();
+		// super.hide();
 		secciones.deactivate();
 	}
 }
