@@ -16,16 +16,16 @@
 	<style name="estiloTitulosColumHeader" mode="Opaque" forecolor="#000000" backcolor="#BDD6EE" hAlign="Center" vAlign="Middle" fontName="Calibri Light" fontSize="11" isBold="true">
 		<pen lineWidth="1.0" lineColor="#F2F2F2"/>
 	</style>
-	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["C:\\Users\\Nelson\\workspace\\gha\\webclient\\src\\main\\webapp\\resources\\reportes\\"]]></defaultValueExpression>
-	</parameter>
 	<parameter name="logo" class="java.awt.Image">
 		<parameterDescription><![CDATA[]]></parameterDescription>
 	</parameter>
 	<parameter name="fechaHoraReporte" class="java.lang.String"/>
 	<parameter name="nombreOperador" class="java.lang.String"/>
-	<parameter name="subReportDataSource" class="net.sf.jasperreports.engine.JRDataSource"/>
 	<parameter name="showEias" class="java.lang.Boolean"/>
+	<parameter name="subReportFileDir" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\Nelson\\workspace\\gha\\webclient\\src\\main\\webapp\\resources\\reportes\\GHA.LEIA.01.SR.jrxml"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="subReportDataSource" class="net.sf.jasperreports.engine.JRDataSource"/>
 	<queryString language="hql">
 		<![CDATA[]]>
 	</queryString>
@@ -351,7 +351,7 @@
 			<subreport>
 				<reportElement uuid="17b04176-93da-485d-aebd-adfea1977673" x="0" y="38" width="572" height="60"/>
 				<dataSourceExpression><![CDATA[$P{subReportDataSource}]]></dataSourceExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "GHA.LEIA.01.SR.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{subReportFileDir}]]></subreportExpression>
 			</subreport>
 		</band>
 	</summary>

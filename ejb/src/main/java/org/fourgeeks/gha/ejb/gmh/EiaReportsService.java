@@ -34,6 +34,18 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 	private final static Logger logger = Logger
 			.getLogger(EiaReportsService.class.getName());
 
+	/**
+	 * Devuelve un predicado para una lista de estados de equipos
+	 * 
+	 * @param eiaRoot
+	 *            la entidad {@link Eia} sobre la que se le va a plicar el
+	 *            predicado
+	 * @param eiaStates
+	 *            Lista de {@link EiaStateEnum} con los estados de equipos
+	 *            deseados. puede ser vacia
+	 * @return {@link Predicate} para la lista o para todos los estados de
+	 *         equipos, en caso de que la lista este vacia
+	 */
 	private Predicate buildEiaStatePredic(Root<Eia> eiaRoot,
 			List<EiaStateEnum> eiaStates) {
 
@@ -43,6 +55,15 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 		return eiaRoot.get("state").in(eiaStates);
 	}
 
+	/**
+	 * Devuelve un predicado para un estado de equipo
+	 * 
+	 * @param eiaRoot
+	 *            la entidad eia sobre la que se le va a plicar el predicado
+	 * @param eiaState
+	 *            el estado del equipo
+	 * @return El predicado deseado
+	 */
 	private Predicate buildEiaStatePredic(Root<Eia> eiaRoot,
 			EiaStateEnum eiaState) {
 		ArrayList<EiaStateEnum> list = new ArrayList<EiaStateEnum>();
@@ -52,6 +73,15 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 		return buildEiaStatePredic(eiaRoot, list);
 	}
 
+	/**
+	 * Devuelve un predicado con los IDs de la lista
+	 * 
+	 * @param listIds
+	 *            lista de IDs, puede ser null
+	 * @param from
+	 *            la entidad sobre la que va a actuar el predicado
+	 * @return El predicado deseado
+	 */
 	private Predicate buildPredicList(List<Long> listIds, From<Eia, ?> from) {
 		CriteriaBuilder builder = em.getCriteriaBuilder();
 
@@ -65,9 +95,16 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 		return builder.conjunction();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.EiaReportsServiceRemote#findEias(java.util.
+	 * List, boolean)
+	 */
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<Eia> find(List<Long> eiaIds, boolean orderByUbicEiaType)
+	public List<Eia> findEias(List<Long> eiaIds, boolean orderByUbicEiaType)
 			throws GHAEJBException {
 
 		// CONSTRUYENDO QUERY
@@ -77,8 +114,10 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 		// definiendo joins
 		Root<Eia> eiaRoot = cQuery.from(Eia.class);
 		Join<Eia, EiaType> eiaTypeJoin = eiaRoot.join("eiaType");
-		Join<Eia, WorkingArea> workAreaJoin = eiaRoot.join("workingArea", JoinType.LEFT);
-		Join<Eia, Facility> facilityJoin = eiaRoot.join("facility",	JoinType.LEFT);
+		Join<Eia, WorkingArea> workAreaJoin = eiaRoot.join("workingArea",
+				JoinType.LEFT);
+		Join<Eia, Facility> facilityJoin = eiaRoot.join("facility",
+				JoinType.LEFT);
 
 		// creando el predicando de la consulta
 		Predicate eiaIdsPred = buildPredicList(eiaIds, eiaRoot);
@@ -88,9 +127,11 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 
 		// creando el order by
 		if (orderByUbicEiaType)
-			typeQuery.orderBy(getListOrderByName(facilityJoin, workAreaJoin, eiaTypeJoin));
+			typeQuery.orderBy(getListOrderByName(facilityJoin, workAreaJoin,
+					eiaTypeJoin));
 		else
-			typeQuery.orderBy(getListOrderByName(eiaTypeJoin, facilityJoin, workAreaJoin));
+			typeQuery.orderBy(getListOrderByName(eiaTypeJoin, facilityJoin,
+					workAreaJoin));
 
 		// EJECUTANDO QUERY
 		try {
@@ -99,7 +140,8 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 		} catch (NoResultException ex) {
 			logger.log(Level.INFO, "No results", ex);
 		} catch (Exception ex) {
-			logger.log(Level.INFO, "Error buscando EIAs por conjunto de IDs", ex);
+			logger.log(Level.INFO, "Error buscando EIAs por conjunto de IDs",
+					ex);
 			throw new EJBException("Error buscando EIAs por conjunto de IDs: "
 					+ ex.getCause().getMessage());
 		}
@@ -107,11 +149,19 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 		return null;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.EiaReportsServiceRemote#findAllEias(java.util
+	 * .List, java.util.List, org.fourgeeks.gha.domain.enu.EiaStateEnum,
+	 * boolean)
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Eia> findAll(List<Long> facilityIds, List<Long> workAreaIds,
-			EiaStateEnum eiaState, boolean orderByUbicEiaType)
-			throws GHAEJBException {
+	public List<Eia> findAllEias(List<Long> facilityIds,
+			List<Long> workAreaIds, EiaStateEnum eiaState,
+			boolean orderByUbicEiaType) throws GHAEJBException {
 
 		// CONSTRUYENDO QUERY
 		// creando los builders para construir el query
@@ -121,8 +171,10 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 		// definiendo joins
 		Root<Eia> eiaRoot = criteriaQuery.from(Eia.class);
 		Join<Eia, EiaType> eiaTypeJoin = eiaRoot.join("eiaType");
-		Join<Eia, WorkingArea> workAreaJoin = eiaRoot.join("workingArea", JoinType.LEFT);
-		Join<Eia, Facility> facilityJoin = eiaRoot.join("facility", JoinType.LEFT);
+		Join<Eia, WorkingArea> workAreaJoin = eiaRoot.join("workingArea",
+				JoinType.LEFT);
+		Join<Eia, Facility> facilityJoin = eiaRoot.join("facility",
+				JoinType.LEFT);
 
 		// creando predicandos para la consulta
 		Predicate facilityIdsPred = buildPredicList(facilityIds, facilityJoin);
@@ -130,14 +182,16 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 		Predicate eiaStatePred = buildEiaStatePredic(eiaRoot, eiaState);
 
 		// creando del query
-		CriteriaQuery<Eia> typeQuery = criteriaQuery.select(eiaRoot).where(facilityIdsPred, 
-				workAreaIdsPred, eiaStatePred);
+		CriteriaQuery<Eia> typeQuery = criteriaQuery.select(eiaRoot).where(
+				facilityIdsPred, workAreaIdsPred, eiaStatePred);
 
 		// creando el orden by
 		if (orderByUbicEiaType)
-			typeQuery.orderBy(getListOrderByName(facilityJoin, workAreaJoin, eiaTypeJoin));
+			typeQuery.orderBy(getListOrderByName(facilityJoin, workAreaJoin,
+					eiaTypeJoin));
 		else
-			typeQuery.orderBy(getListOrderByName(eiaTypeJoin, facilityJoin, workAreaJoin));
+			typeQuery.orderBy(getListOrderByName(eiaTypeJoin, facilityJoin,
+					workAreaJoin));
 
 		// EJECUTANDO QUERY
 		try {
@@ -146,7 +200,8 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 		} catch (NoResultException ex) {
 			logger.log(Level.INFO, "No results", ex);
 		} catch (Exception ex) {
-			logger.log(Level.INFO, "Error buscando EIAs por conjunto de IDs", ex);
+			logger.log(Level.INFO, "Error buscando EIAs por conjunto de IDs",
+					ex);
 			throw new EJBException("Error buscando EIAs por conjunto de IDs: "
 					+ ex.getCause().getMessage());
 		}
@@ -154,6 +209,14 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 		return null;
 	}
 
+	/**
+	 * Devuelve lista de ordenadores por nombre en base a las entidades pasadas
+	 * por parametros
+	 * 
+	 * @param entities
+	 *            entidades que van a ser utilizadas en el ORDER BY
+	 * @return lista de ordenadores para la consulta
+	 */
 	private List<Order> getListOrderByName(From<Eia, ?>... entities) {
 		CriteriaBuilder builder = em.getCriteriaBuilder();
 		List<Order> listOrder = new ArrayList<Order>();
@@ -162,5 +225,35 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 			listOrder.add(builder.asc(entity.<String> get("name")));
 
 		return listOrder;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.EiaReportsServiceRemote#findEiaTypes(java.util
+	 * .List)
+	 */
+	@Override
+	public List<EiaType> findEiaTypes(List<String> eiaTypeCodes)
+			throws GHAEJBException {
+		try {
+			if (eiaTypeCodes == null) {
+				String stringQuery = "SELECT e from EiaType e order by e.name";
+				return em.createQuery(stringQuery, EiaType.class)
+						.getResultList();
+			} else {
+				String queryString = "SELECT e from EiaType e where e.code in :codeList order by e.name";
+				return em.createQuery(queryString, EiaType.class)
+						.setParameter("codeList", eiaTypeCodes).getResultList();
+			}
+		} catch (NoResultException ex) {
+			logger.log(Level.INFO, "No results", ex);
+		} catch (Exception ex) {
+			logger.log(Level.SEVERE, "Error retrieving eiaTypes", ex);
+			throw new GHAEJBException("Error obteniendo todos los eiaTypes");
+		}
+
+		return null;
 	}
 }

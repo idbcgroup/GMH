@@ -86,11 +86,11 @@ public class ReportFichaEquiposServlet extends ReportEiaServelt {
 
 		if (qpc.eiaIds == null) {
 			reportPath = getServletContext().getRealPath(REPORT_FILE_DIR_2);
-			eiaList = service.findAll(qpc.facilsIds, qpc.workingAreasIds,
+			eiaList = service.findAllEias(qpc.facilsIds, qpc.workingAreasIds,
 					qpc.eiaState, qpc.orden);
 		} else {
 			reportPath = getServletContext().getRealPath(REPORT_FILE_DIR_1);
-			eiaList = service.find(qpc.eiaIds, qpc.orden);
+			eiaList = service.findEias(qpc.eiaIds, qpc.orden);
 		}
 
 		HashMap<String, Object> mapa = new HashMap<String, Object>();
