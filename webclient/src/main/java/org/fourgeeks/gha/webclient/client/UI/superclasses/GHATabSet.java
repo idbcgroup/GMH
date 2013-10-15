@@ -95,7 +95,7 @@ public final class GHATabSet {
 
 		tab.close();
 		tabs.remove(tab.getId());
-
+		hPanel.remove(tab.getHeader());
 		History.newItem("home");
 	}
 

@@ -1,8 +1,13 @@
 package org.fourgeeks.gha.webclient.client.UI.superclasses;
 
+import com.google.gwt.event.dom.client.MouseOutEvent;
+import com.google.gwt.event.dom.client.MouseOutHandler;
+import com.google.gwt.event.dom.client.MouseOverEvent;
+import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.user.client.ui.HTML;
 import com.smartgwt.client.types.VerticalAlignment;
 import com.smartgwt.client.widgets.layout.HLayout;
+import com.smartgwt.client.widgets.layout.LayoutSpacer;
 
 /**
  * @author alacret
@@ -10,7 +15,7 @@ import com.smartgwt.client.widgets.layout.HLayout;
  */
 public class GHATabHeader extends HLayout {
 
-	private HTML titulo;
+	private Option titulo;
 
 	// private GHATab tab;
 
@@ -20,15 +25,17 @@ public class GHATabHeader extends HLayout {
 	public GHATabHeader(GHATab tab) {
 		// this.tab = tab;
 		setStylePrimaryName("tab-header");
-		setWidth(170);
-		setHeight(24);
+		setWidth100();
+		setHeight(30);
 		setDefaultLayoutAlign(VerticalAlignment.CENTER);
 
-		titulo = new HTML();
-		titulo.setWidth("160px");
-		titulo.setHeight("24px");
-		titulo.setStylePrimaryName("tab-header-title");
+		titulo = new Option(false);
 		addMember(titulo);
+
+		addMember(new LayoutSpacer());
+
+		Option cerrar = new Option("Cerrar", true);
+		addMember(cerrar);
 
 	}
 
@@ -41,4 +48,36 @@ public class GHATabHeader extends HLayout {
 		return titulo.getHTML();
 	}
 
+	private static class Option extends HTML {
+
+		public Option(boolean hoverable) {
+			super();
+			setStylePrimaryName("tab-header-title");
+			setWidth("120px");
+			// setHeight("18px");
+			if (hoverable) {
+				addStyleName("button-pointer");
+				addMouseOverHandler(new MouseOverHandler() {
+
+					@Override
+					public void onMouseOver(MouseOverEvent event) {
+						addStyleName("tab-header-title-over");
+					}
+				});
+				addMouseOutHandler(new MouseOutHandler() {
+
+					@Override
+					public void onMouseOut(MouseOutEvent event) {
+						removeStyleName("tab-header-title-over");
+					}
+				});
+			}
+		}
+
+		public Option(String text, boolean hoverable) {
+			this(hoverable);
+			setHTML(text);
+		}
+
+	}
 }

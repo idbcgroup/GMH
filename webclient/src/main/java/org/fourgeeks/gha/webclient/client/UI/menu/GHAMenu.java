@@ -55,7 +55,7 @@ public class GHAMenu {
 			setLeft(0);
 			setTop(60);
 			setVisible(false);
-			setAnimateTime(600);
+			setAnimateTime(400);
 			setBackgroundColor("#FFFFFF");
 			setScrollbarSize(5);
 			setShadowDepth(6);

@@ -18,6 +18,10 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
+/**
+ * @author alacret
+ * 
+ */
 public class GHASectionForm extends HLayout implements GHAHideable, GHAClosable {
 
 	private VLayout options;
@@ -32,6 +36,9 @@ public class GHASectionForm extends HLayout implements GHAHideable, GHAClosable 
 		mainSection = new VLayout();
 	}
 
+	/**
+	 * 
+	 */
 	public GHASectionForm() {
 		addStyleName("padding-top");
 		setWidth100();

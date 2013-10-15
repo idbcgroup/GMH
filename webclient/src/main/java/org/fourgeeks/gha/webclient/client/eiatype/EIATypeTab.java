@@ -7,8 +7,6 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATab;
 
-import com.smartgwt.client.widgets.layout.VLayout;
-
 /**
  * @author alacret
  * 
@@ -32,13 +30,12 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 	public EIATypeTab(EiaType eiaType) {
 		super();
 		this.eiaType = eiaType;
-		getHeader().setTitle(TITLE);
+		header.setTitle(TITLE);
 
 		topSection = new EIATypeTopSection(this);
 		internatlTabSet = new EIATypeInternalTabset(this);
 
-		VLayout verticalPanel = new VLayout();
-		verticalPanel.setBackgroundColor("#E0E0E0");
+		verticalPanel.setBackgroundColor("#FFFFFF");
 		verticalPanel.addMember(topSection);
 		verticalPanel.addMember(GHAUiHelper
 				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
