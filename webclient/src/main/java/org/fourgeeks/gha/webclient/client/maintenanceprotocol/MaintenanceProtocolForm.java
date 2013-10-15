@@ -4,6 +4,7 @@
 package org.fourgeeks.gha.webclient.client.maintenanceprotocol;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -12,7 +13,6 @@ import javax.validation.Validator;
 
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
-import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
@@ -34,6 +34,8 @@ public class MaintenanceProtocolForm extends VLayout implements
 	private List<MaintenanceProtocolSelectionListener> listeners;
 	private Validator validator;
 
+	private DynamicForm form;
+
 	/**
 	 * this is used to keep the id of the persistent entity in order to update,
 	 * is only used with that purpose
@@ -49,6 +51,8 @@ public class MaintenanceProtocolForm extends VLayout implements
 
 		listeners = new ArrayList<MaintenanceProtocolSelectionListener>();
 		validator = Validation.buildDefaultValidatorFactory().getValidator();
+
+		form = new DynamicForm();
 	}
 
 	/**
@@ -57,7 +61,6 @@ public class MaintenanceProtocolForm extends VLayout implements
 	public MaintenanceProtocolForm() {
 		final HLayout mainPanel = new HLayout();
 
-		final DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(3);
 		form.setItems(nameItem, descriptionItem);
@@ -108,12 +111,19 @@ public class MaintenanceProtocolForm extends VLayout implements
 
 		Set<ConstraintViolation<MaintenanceProtocol>> violations = validator
 				.validate(maintenanceProtocol);
-		if (!violations.isEmpty()) {
-			GHANotification.alert(GHAStrings.get(violations.iterator().next()
-					.getMessage()));
-			return null;
+
+		if (form.validate()) {
+			if (violations.isEmpty()) {
+				return maintenanceProtocol;
+			} else {
+				List<String> violationsList = new ArrayList<String>();
+				for (Iterator<ConstraintViolation<MaintenanceProtocol>> it = violations
+						.iterator(); it.hasNext();)
+					violationsList.add(it.next().getMessage());
+				GHANotification.alert(violationsList);
+			}
 		}
-		return maintenanceProtocol;
+		return null;
 	}
 
 	public void update() {
