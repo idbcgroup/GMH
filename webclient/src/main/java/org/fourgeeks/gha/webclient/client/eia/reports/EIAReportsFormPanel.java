@@ -18,13 +18,13 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author naramirez
  * 
  */
-public class EIAReportsFormPanel extends VLayout implements GHAClosable,
-		GHAHideable {
+public class EIAReportsFormPanel extends VLayout implements GHAClosable, GHAHideable {
 
 	private final String PATH_IMG_PRINT_BUTTON = "../resources/icons/check.png";
 	private final String PATH_IMG_CLEAN_BUTTON = "../resources/icons/clean.png";
 	private final EIAReportEdoUbicForm edoUbicReportForm;
 	private final EIAReportDetalleEquiposForm detalleEquiposReportForm;
+	private final EIAReportListEiaTypesEiasForm eiaTypesEiasReportForm;
 	private final GHASectionForm secciones;
 
 	/**
@@ -36,14 +36,16 @@ public class EIAReportsFormPanel extends VLayout implements GHAClosable,
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding padding-top");
 
-		// CREO LOS FORMULARIO
+		// CREO LOS FORMULARIOS
 		edoUbicReportForm = new EIAReportEdoUbicForm();
 		detalleEquiposReportForm = new EIAReportDetalleEquiposForm();
+		eiaTypesEiasReportForm = new EIAReportListEiaTypesEiasForm();
 
 		// CREO EL SECTION FORM DONDE VAN A IR LOS FORMULARIOS
 		secciones = new GHASectionForm();
 		secciones.addSection("Edo. y Ubic.", edoUbicReportForm);
 		secciones.addSection("Detalles de Equipos", detalleEquiposReportForm);
+		secciones.addSection("Listado Tipos de Equipo", eiaTypesEiasReportForm);
 		secciones.openFirst();
 
 		// CREO EL SIDEBAR

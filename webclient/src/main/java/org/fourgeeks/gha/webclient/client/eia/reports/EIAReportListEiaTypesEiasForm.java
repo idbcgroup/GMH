@@ -6,12 +6,13 @@ import java.util.List;
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
 import org.fourgeeks.gha.domain.gar.Facility;
-import org.fourgeeks.gha.domain.gmh.Eia;
+import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.mix.Citizen;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHASessionData;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHACheckboxItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHARadioGroupItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
@@ -22,38 +23,37 @@ import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 
-public class EIAReportDetalleEquiposForm extends GHAReportForm {
-	private static final String VAL_SOME_EIAS = "someEias";
-	private static final String VAL_ALL_EIAS = "allEias";
-	private static final String VAL_ORDER_BY_UBIC_EIATYPE = "true";
-	private static final String VAL_ORDER_BY_EIATYPE_UBIC = "false";
+public class EIAReportListEiaTypesEiasForm extends GHAReportForm {
+	private static final String VAL_SOME_EIATYPES = "someEiaTypes";
+	private static final String VAL_ALL_EIATYPES = "allEiaTypes";
 
-	private GHATitleTextItem filtersTitleItem, orderByTitleItem;
+	private GHATitleTextItem filtersTitleItem;
 	private GHARadioGroupItem filtersRadioGroupItem;
-	private GHARadioGroupItem orderByRadioGroupItem;
-	private GHASelectItem eiasSelectItem, facilsSelectItem, workAreasSelectItem,
+	private GHACheckboxItem showEiasCheckboxItem;
+	private GHASelectItem eiaTypesSelectItem, facilsSelectItem, workAreasSelectItem,
 			eiaStatesSelectItem;
 
-	public EIAReportDetalleEquiposForm() {
+	public EIAReportListEiaTypesEiasForm() {
 		DynamicForm formFilters = new DynamicForm();
 		formFilters.setTitleOrientation(TitleOrientation.TOP);
 		formFilters.setNumCols(1);
 
 		DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
-		form.setNumCols(3);
-
-		DynamicForm formOrderBy = new DynamicForm();
-		formOrderBy.setTitleOrientation(TitleOrientation.TOP);
-		formOrderBy.setNumCols(1);
+		form.setNumCols(2);
 
 		// CREANDO LOS ITEMS
 		filtersTitleItem = new GHATitleTextItem("Filtros");
 
 		filtersRadioGroupItem = new GHARadioGroupItem(300, false);
 
-		eiasSelectItem = new GHASelectItem("Equipo", GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
-		eiasSelectItem.setMultiple(true);
+		eiaTypesSelectItem = new GHASelectItem("Tipo de equipo",
+				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		eiaTypesSelectItem.setMultiple(true);
+
+		showEiasCheckboxItem = new GHACheckboxItem("Mostar equipos por tipo de equipo", true);
+		showEiasCheckboxItem.setDefaultValue(true);
+		showEiasCheckboxItem.setColSpan(2);
 
 		workAreasSelectItem = new GHASelectItem("Area de Trabajo",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
@@ -67,15 +67,21 @@ public class EIAReportDetalleEquiposForm extends GHAReportForm {
 		eiaStatesSelectItem = new GHASelectItem("Estado", GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		eiaStatesSelectItem.setDisabled(true);
 
-		orderByTitleItem = new GHATitleTextItem("Ordenar por");
-
-		orderByRadioGroupItem = new GHARadioGroupItem(350, false);
-
 		// DEFINIENDO MANEJADORES DE EVENTOS
 		filtersRadioGroupItem.addChangedHandler(new ChangedHandler() {
-			private void disableItems(boolean eias, boolean facil, boolean workArea,
-					boolean eiaState) {
-				eiasSelectItem.setDisabled(eias);
+			@Override
+			public void onChanged(ChangedEvent event) {
+				String filterType = filtersRadioGroupItem.getValueAsString();
+
+				if (filterType.equals(VAL_SOME_EIATYPES))
+					eiaTypesSelectItem.setDisabled(false);
+				else if (filterType.equals(VAL_ALL_EIATYPES))
+					eiaTypesSelectItem.setDisabled(true);
+			}
+		});
+
+		showEiasCheckboxItem.addChangedHandler(new ChangedHandler() {
+			private void disableItems(boolean facil, boolean workArea, boolean eiaState) {
 				facilsSelectItem.setDisabled(facil);
 				workAreasSelectItem.setDisabled(workArea);
 				eiaStatesSelectItem.setDisabled(eiaState);
@@ -83,12 +89,12 @@ public class EIAReportDetalleEquiposForm extends GHAReportForm {
 
 			@Override
 			public void onChanged(ChangedEvent event) {
-				String filterType = filtersRadioGroupItem.getValueAsString();
+				boolean showEias = showEiasCheckboxItem.getValueAsBoolean();
 
-				if (filterType.equals(VAL_SOME_EIAS))
-					disableItems(false, true, true, true);
-				else if (filterType.equals(VAL_ALL_EIAS))
-					disableItems(true, false, false, false);
+				if (showEias)
+					disableItems(false, false, false);
+				else
+					disableItems(true, true, true);
 			}
 		});
 
@@ -98,22 +104,21 @@ public class EIAReportDetalleEquiposForm extends GHAReportForm {
 		// ASIGNANDO LOS ITEMS AL FORM Y DEVOLVIENDO EL LAYOUT
 		formFilters.setItems(filtersTitleItem, filtersRadioGroupItem);
 
-		form.setItems(eiasSelectItem, new GHASpacerItem(2), facilsSelectItem, workAreasSelectItem,
-				new GHASpacerItem(), eiaStatesSelectItem);
+		form.setItems(eiaTypesSelectItem, new GHASpacerItem(), new GHASpacerItem(2),
+				showEiasCheckboxItem, facilsSelectItem, workAreasSelectItem, eiaStatesSelectItem);
 
-		formOrderBy.setItems(orderByTitleItem, orderByRadioGroupItem);
-
-		addMembers(formFilters, form, formOrderBy);
+		addMembers(formFilters, form);
 	}
 
 	/**
 	 * Limpia los valores de los items del formulario
 	 */
 	public void cleanItems() {
-		eiasSelectItem.clearValue();
+		eiaTypesSelectItem.clearValue();
 		facilsSelectItem.clearValue();
 		workAreasSelectItem.clearValue();
 		eiaStatesSelectItem.clearValue();
+		showEiasCheckboxItem.clearValue();
 	}
 
 	/**
@@ -123,28 +128,22 @@ public class EIAReportDetalleEquiposForm extends GHAReportForm {
 		LinkedHashMap<String, String> map;
 
 		map = new LinkedHashMap<String, String>();
-		map.put(VAL_SOME_EIAS, "Uno o varios equipos");
-		map.put(VAL_ALL_EIAS, "Todos los equipos");
+		map.put(VAL_SOME_EIATYPES, "Uno o varios tipos de equipo");
+		map.put(VAL_ALL_EIATYPES, "Todos los tipos de equipo");
 		filtersRadioGroupItem.setValueMap(map);
-		filtersRadioGroupItem.setDefaultValue(VAL_SOME_EIAS);
-
-		map = new LinkedHashMap<String, String>();
-		map.put(VAL_ORDER_BY_UBIC_EIATYPE, "Ubicación y tipo de equipo");
-		map.put(VAL_ORDER_BY_EIATYPE_UBIC, "Tipo de equipo y ubicación");
-		orderByRadioGroupItem.setValueMap(map);
-		orderByRadioGroupItem.setDefaultValue(VAL_ORDER_BY_UBIC_EIATYPE);
+		filtersRadioGroupItem.setDefaultValue(VAL_SOME_EIATYPES);
 
 		eiaStatesSelectItem.setValueMap(EiaStateEnum.toValueMap());
 
-		GHACache.INSTANCE.getEias(new GHAAsyncCallback<List<Eia>>() {
+		GHACache.INSTANCE.getEiaTypes(new GHAAsyncCallback<List<EiaType>>() {
 			@Override
-			public void onSuccess(List<Eia> result) {
+			public void onSuccess(List<EiaType> result) {
 				LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
-				for (Eia entity : result)
-					map.put(entity.getId() + "", entity.getCode());
-				eiasSelectItem.setValueMap(map);
+				for (EiaType entity : result)
+					map.put(entity.getCode(), entity.getName());
+				eiaTypesSelectItem.setValueMap(map);
 			}
-		});
+		}, false);
 
 		GHACache.INSTANCE.getWorkingAreas(new GHAAsyncCallback<List<WorkingArea>>() {
 			@Override
@@ -169,18 +168,24 @@ public class EIAReportDetalleEquiposForm extends GHAReportForm {
 
 	@Override
 	public String getReportURI() {
-		String url = "reports/eia/feia?";
+		String url = "reports/eia/leia?";
 
 		String selectedFilter = filtersRadioGroupItem.getValueAsString();
+		Boolean showEias = showEiasCheckboxItem.getValueAsBoolean();
 
-		// algunos EIA (los seleccionados)
-		if (selectedFilter.equals(VAL_SOME_EIAS)) {
-			String[] eias = eiasSelectItem.getValues();
-			if (eias.length > 0)
-				url = buildUrl(url, "eias", toCommaRepresent(eias));
-		}
-		// todos los EIA
+		if (selectedFilter.equals(VAL_ALL_EIATYPES)) // todos los EIA_TYPE
+			url = buildUrl(url, "eiatypes", "all");
 		else {
+			// algunos EIA_TYPE (los seleccionados)
+			String[] eiaTypes = eiaTypesSelectItem.getValues();
+			if (eiaTypes.length > 0)
+				url = buildUrl(url, "eiatypes", toCommaRepresent(eiaTypes));
+		}
+
+		// mostrar EIAs
+		url = buildUrl(url, "showeias", showEias.toString());
+
+		if (showEias) {
 			// facilidades
 			String[] facils = facilsSelectItem.getValues();
 			if (facils.length > 0)
@@ -199,10 +204,6 @@ public class EIAReportDetalleEquiposForm extends GHAReportForm {
 		Citizen user = GHASessionData.getLoggedUser().getCitizen();
 		String loggedUser = user.getFirstName() + " " + user.getFirstLastName();
 		url = buildUrl(url, "user", loggedUser);
-
-		// orden del equipo
-		String orderBy = orderByRadioGroupItem.getValueAsString();
-		url = buildUrl(url, "orden", orderBy);
 
 		return url;
 	}
