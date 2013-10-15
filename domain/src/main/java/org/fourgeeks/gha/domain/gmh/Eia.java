@@ -200,9 +200,8 @@ public class Eia extends AbstractEntity {
 	 * @param maintenanceProvider
 	 * @param serialNumber
 	 */
-	public Eia(Role responsibleRole, EiaType eiaType, Obu obu,
-			EiaStateEnum state, String fixedAssetIdentifier,
-			ExternalProvider maintenanceProvider, String serialNumber) {
+	public Eia(Role responsibleRole, EiaType eiaType, Obu obu, EiaStateEnum state,
+			String fixedAssetIdentifier, ExternalProvider maintenanceProvider, String serialNumber) {
 		this.responsibleRole = responsibleRole;
 		this.eiaType = eiaType;
 		this.obu = obu;
@@ -418,13 +417,11 @@ public class Eia extends AbstractEntity {
 		this.adquisitionCost = adquisitionCost;
 	}
 
-	public void setAdquisitionCostCurrency(
-			CurrencyTypeEnum adquisitionCostCurrency) {
+	public void setAdquisitionCostCurrency(CurrencyTypeEnum adquisitionCostCurrency) {
 		this.adquisitionCostCurrency = adquisitionCostCurrency;
 	}
 
-	public void setAdquisitionCostCurrencyLocal(
-			CurrencyTypeEnum adquisitionCostCurrencyLocal) {
+	public void setAdquisitionCostCurrencyLocal(CurrencyTypeEnum adquisitionCostCurrencyLocal) {
 		this.adquisitionCostCurrencyLocal = adquisitionCostCurrencyLocal;
 	}
 

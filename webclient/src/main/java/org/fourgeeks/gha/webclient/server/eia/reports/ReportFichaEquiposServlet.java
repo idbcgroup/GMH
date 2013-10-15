@@ -33,8 +33,8 @@ public class ReportFichaEquiposServlet extends ReportEiaServelt {
 	private static final String LOGO_DIR = "/resources/img/logoReport.jpg";
 
 	private static final String PARAM_EIAS = "eias", PARAM_FACILS = "facils",
-			PARAM_WORKAREAS = "workareas", PARAM_EDOEIA = "edoeia",
-			PARAM_USER = "user", PARAM_ORDEN = "orden";
+			PARAM_WORKAREAS = "workareas", PARAM_EDOEIA = "edoeia", PARAM_USER = "user",
+			PARAM_ORDEN = "orden";
 
 	@EJB(name = "gmh.EiaReportsService", beanInterface = EiaReportsServiceRemote.class)
 	EiaReportsServiceRemote service;
@@ -48,8 +48,8 @@ public class ReportFichaEquiposServlet extends ReportEiaServelt {
 	 */
 	@Override
 	@SuppressWarnings("unchecked")
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
+			IOException {
 		try {
 			Map<String, Object> searchMap = searchInService(req);
 
@@ -61,33 +61,30 @@ public class ReportFichaEquiposServlet extends ReportEiaServelt {
 
 			Map<String, Object> paramsReport = generateParamsMap(req);
 
-			JasperPrint fillReport = JasperFillManager.fillReport(
-					reportFileRealPath, paramsReport, dataSource);
+			JasperPrint fillReport = JasperFillManager.fillReport(reportFileRealPath, paramsReport,
+					dataSource);
 
 			exportAsPDF(resp, fillReport, "detalle-equipos.pdf");
 
 		} catch (GHAEJBException e) {
-			LOG.log(Level.ERROR,
-					"Problema al obtener los datos para el reporte", e);
+			LOG.log(Level.ERROR, "Problema al obtener los datos para el reporte", e);
 
 		} catch (JRException e) {
-			LOG.log(Level.ERROR,
-					"Problema al generar el reporte de JasperReport", e);
+			LOG.log(Level.ERROR, "Problema al generar el reporte de JasperReport", e);
 
 		}
 
 	}
 
-	private Map<String, Object> searchInService(HttpServletRequest req)
-			throws GHAEJBException {
+	private Map<String, Object> searchInService(HttpServletRequest req) throws GHAEJBException {
 		QueryParamsContainer qpc = new QueryParamsContainer(req);
 		List<Eia> eiaList = null;
 		String reportPath = null;
 
 		if (qpc.eiaIds == null) {
 			reportPath = getServletContext().getRealPath(REPORT_FILE_DIR_2);
-			eiaList = service.findAllEias(null, qpc.facilsIds,
-					qpc.workingAreasIds, qpc.eiaState, qpc.orden);
+			eiaList = service.findAllEias(qpc.facilsIds, qpc.workingAreasIds, qpc.eiaState,
+					qpc.orden);
 		} else {
 			reportPath = getServletContext().getRealPath(REPORT_FILE_DIR_1);
 			eiaList = service.findEias(qpc.eiaIds, qpc.orden);
@@ -109,8 +106,7 @@ public class ReportFichaEquiposServlet extends ReportEiaServelt {
 	@Override
 	protected Map<String, Object> generateParamsMap(HttpServletRequest req) {
 		// logo del sistema que ha de aparecer como parte del reporte
-		Image logoImage = new ImageIcon(getServletContext().getRealPath(
-				LOGO_DIR)).getImage();
+		Image logoImage = new ImageIcon(getServletContext().getRealPath(LOGO_DIR)).getImage();
 
 		String user = req.getParameter(PARAM_USER);
 		String datetimeReport = genDatetimeTimezoneStrRep();

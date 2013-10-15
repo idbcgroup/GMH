@@ -23,6 +23,23 @@ public interface EiaReportsServiceRemote {
 	 *            Lista de IDs de areas de trabajo
 	 * @param eiaState
 	 *            Uno o ningun estado de equipo
+	 * @return Lista de equipos que cumplan con la condicion. Puede devolver una
+	 *         lista vacia
+	 * @throws GHAEJBException
+	 */
+	public List<Eia> findEiasByEiaTypes(List<String> eiaTypeIds, List<Long> facilityIds,
+			List<Long> workAreaIds, EiaStateEnum eiaState) throws GHAEJBException;
+
+	/**
+	 * Devuelve todos los EIA que cumplan las condiciones dadas por los
+	 * parametros
+	 * 
+	 * @param facilityIds
+	 *            Lista de IDs de facilidades
+	 * @param workAreaIds
+	 *            Lista de IDs de areas de trabajo
+	 * @param eiaState
+	 *            Uno o ningun estado de equipo
 	 * @param orderByUbicEiaType
 	 *            ¿Ordenar por Ubicacion y eiaType (<code>true</code>) o por
 	 *            eiaType y Ubicacion ( <code>false</code>)?
@@ -30,10 +47,8 @@ public interface EiaReportsServiceRemote {
 	 *         lista vacia
 	 * @throws GHAEJBException
 	 */
-	public List<Eia> findAllEias(List<String> eiaTypeIds,
-			List<Long> facilityIds, List<Long> workAreaIds,
-			EiaStateEnum eiaState, boolean orderByUbicEiaType)
-			throws GHAEJBException;
+	public List<Eia> findAllEias(List<Long> facilityIds, List<Long> workAreaIds,
+			EiaStateEnum eiaState, boolean orderByUbicEiaType) throws GHAEJBException;
 
 	/**
 	 * Devuelve los EIA cuyo ID sea alguno de los ID pasados por parametro
@@ -47,8 +62,7 @@ public interface EiaReportsServiceRemote {
 	 *         lista vacia
 	 * @throws GHAEJBException
 	 */
-	public List<Eia> findEias(List<Long> eiaIds, boolean orderByUbicEiaType)
-			throws GHAEJBException;
+	public List<Eia> findEias(List<Long> eiaIds, boolean orderByUbicEiaType) throws GHAEJBException;
 
 	/**
 	 * 
@@ -56,6 +70,5 @@ public interface EiaReportsServiceRemote {
 	 * @return
 	 * @throws GHAEJBException
 	 */
-	public List<EiaType> findEiaTypes(List<String> eiaTypeIds)
-			throws GHAEJBException;
+	public List<EiaType> findEiaTypes(List<String> eiaTypeIds) throws GHAEJBException;
 }

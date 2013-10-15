@@ -3,7 +3,7 @@
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="48"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
@@ -839,7 +839,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{proveedorInstalacion}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField isBlankWhenNull="false">
 				<reportElement uuid="5568b6b1-63e8-4b95-af55-dbb8fbe1e3c5" mode="Transparent" x="143" y="240" width="143" height="20">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -854,7 +854,7 @@
 					<font fontName="Calibri" size="10" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
 					<paragraph firstLineIndent="0" leftIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{areaTrabajo}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{areaTrabajo} == null ? "no asignado" : $F{areaTrabajo})]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="8a277bfc-2d81-447b-ab44-443528c7ff79" mode="Transparent" x="429" y="240" width="143" height="20">
@@ -871,7 +871,7 @@
 					<font fontName="Calibri" size="10" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{facilidad}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{facilidad} == null ? "no asignado" : $F{facilidad})]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement uuid="335b6419-8300-491d-9f29-4ba8d094a4e7" style="estiloTitulosColumHeader" mode="Opaque" x="0" y="220" width="572" height="20">

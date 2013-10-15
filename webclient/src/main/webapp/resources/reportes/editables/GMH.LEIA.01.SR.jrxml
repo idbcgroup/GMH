@@ -40,7 +40,7 @@
 						<font fontName="Calibri" size="12" isBold="true" pdfFontName="Courier" isPdfEmbedded="true"/>
 						<paragraph leftIndent="2"/>
 					</textElement>
-					<textFieldExpression><![CDATA["Equipos de tipo: " + $F{eiaType}]]></textFieldExpression>
+					<textFieldExpression><![CDATA["Equipos de tipo: " + ( $F{eiaType} == null ? "N/A" : $F{eiaType} )]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>
