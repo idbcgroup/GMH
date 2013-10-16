@@ -57,6 +57,7 @@ public class UserDropdownMenu extends VLayout implements GHAHideable,
 		setVisible(false);
 		setShadowDepth(6);
 		setShowShadow(true);
+		setZIndex(444444444);
 
 		pico = new GHAImg("../resources/img/pico.png", 27, 15);
 		picoPos = Window.getClientWidth() - 64;
@@ -148,6 +149,7 @@ public class UserDropdownMenu extends VLayout implements GHAHideable,
 		posX = (Window.getClientWidth() - 20) - width;
 		picoPos = Window.getClientWidth() - 64;
 		setLeft(posX);
+		pico.setLeft(picoPos);
 	}
 
 	@Override
