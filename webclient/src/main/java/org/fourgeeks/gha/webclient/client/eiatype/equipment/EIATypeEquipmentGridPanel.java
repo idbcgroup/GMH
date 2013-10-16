@@ -116,7 +116,7 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 
 					}
 
-				}), new GHAImgButton("../resources/icons/undo.png",
+				}), new GHAImgButton("../resources/icons/edit.png",
 				new ClickHandler() {
 
 					@Override
