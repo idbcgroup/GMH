@@ -303,16 +303,14 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer {
 
 		Set<ConstraintViolation<EiaType>> violations = validator
 				.validate(eiaType);
-		if (form.validate()) {
-			if (violations.isEmpty())
-				return eiaType;
-			else {
-				List<String> violationsList = new ArrayList<String>();
-				for (Iterator<ConstraintViolation<EiaType>> it = violations
-						.iterator(); it.hasNext();)
-					violationsList.add(it.next().getMessage());
-				GHANotification.alert(violationsList);
-			}
+		if (form.validate() && violations.isEmpty())
+			return eiaType;
+		else {
+			List<String> violationsList = new ArrayList<String>();
+			for (Iterator<ConstraintViolation<EiaType>> it = violations
+					.iterator(); it.hasNext();)
+				violationsList.add(it.next().getMessage());
+			GHANotification.alert(violationsList);
 		}
 		return null;
 	}

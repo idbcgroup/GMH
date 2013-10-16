@@ -112,16 +112,14 @@ public class MaintenanceProtocolForm extends VLayout implements
 		Set<ConstraintViolation<MaintenanceProtocol>> violations = validator
 				.validate(maintenanceProtocol);
 
-		if (form.validate()) {
-			if (violations.isEmpty()) {
-				return maintenanceProtocol;
-			} else {
-				List<String> violationsList = new ArrayList<String>();
-				for (Iterator<ConstraintViolation<MaintenanceProtocol>> it = violations
-						.iterator(); it.hasNext();)
-					violationsList.add(it.next().getMessage());
-				GHANotification.alert(violationsList);
-			}
+		if (form.validate() && violations.isEmpty())
+			return maintenanceProtocol;
+		else {
+			List<String> violationsList = new ArrayList<String>();
+			for (Iterator<ConstraintViolation<MaintenanceProtocol>> it = violations
+					.iterator(); it.hasNext();)
+				violationsList.add(it.next().getMessage());
+			GHANotification.alert(violationsList);
 		}
 		return null;
 	}
