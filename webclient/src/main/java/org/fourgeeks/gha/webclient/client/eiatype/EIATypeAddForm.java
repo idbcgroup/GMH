@@ -68,6 +68,12 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 		form.hide();
 		super.hide();
 	}
+	
+	@Override
+	public void open() {
+		super.open();
+		form.show();
+	}
 
 	private void save() {
 		form.save();
