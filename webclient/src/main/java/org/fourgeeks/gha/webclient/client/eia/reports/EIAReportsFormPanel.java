@@ -24,7 +24,8 @@ public class EIAReportsFormPanel extends VLayout implements GHAClosable, GHAHide
 	private final String PATH_IMG_CLEAN_BUTTON = "../resources/icons/clean.png";
 	private final EIAReportEdoUbicForm edoUbicReportForm;
 	private final EIAReportDetalleEquiposForm detalleEquiposReportForm;
-	private final EIAReportListEiaTypesEiasForm eiaTypesEiasReportForm;
+	private final EIAReportListEiaTypesEiasForm listEiaTypesEiasReportForm;
+	private final EIAReportListEiasForm listEiasReportForm;
 	private final GHASectionForm secciones;
 
 	/**
@@ -39,13 +40,15 @@ public class EIAReportsFormPanel extends VLayout implements GHAClosable, GHAHide
 		// CREO LOS FORMULARIOS
 		edoUbicReportForm = new EIAReportEdoUbicForm();
 		detalleEquiposReportForm = new EIAReportDetalleEquiposForm();
-		eiaTypesEiasReportForm = new EIAReportListEiaTypesEiasForm();
+		listEiaTypesEiasReportForm = new EIAReportListEiaTypesEiasForm();
+		listEiasReportForm = new EIAReportListEiasForm();
 
 		// CREO EL SECTION FORM DONDE VAN A IR LOS FORMULARIOS
 		secciones = new GHASectionForm();
 		secciones.addSection("Edo. y Ubic.", edoUbicReportForm);
 		secciones.addSection("Detalles de Equipos", detalleEquiposReportForm);
-		secciones.addSection("Listado Tipos de Equipo", eiaTypesEiasReportForm);
+		secciones.addSection("Listado Tipos de Equipo", listEiaTypesEiasReportForm);
+		secciones.addSection("Listado de Equipos", listEiasReportForm);
 		secciones.openFirst();
 
 		// CREO EL SIDEBAR
