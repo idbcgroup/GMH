@@ -72,7 +72,6 @@ public class GHATabHeader extends HLayout implements ResizeHandler{
 				setBackgroundRepeat(BackgroundRepeat.NO_REPEAT);
 				
 				addMouseOverHandler(new MouseOverHandler() {
-					
 					@Override
 					public void onMouseOver(MouseOverEvent event) {
 						setBackgroundImage(bgSrcOver);

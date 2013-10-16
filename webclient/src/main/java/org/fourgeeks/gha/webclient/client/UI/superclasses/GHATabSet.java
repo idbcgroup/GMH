@@ -107,7 +107,7 @@ public final class GHATabSet {
 		GHAUiHelper.addGHAResizeHandler(verticalMenu);
 
 		GHAImgButton menu = new GHAImgButton("../resources/icons/menu.png");
-		menu.setSize("34px", "24px");
+		menu.setSize("34px", "22px");
 		menu.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
