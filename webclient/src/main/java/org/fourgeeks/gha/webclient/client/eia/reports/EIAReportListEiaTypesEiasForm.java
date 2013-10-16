@@ -52,7 +52,7 @@ public class EIAReportListEiaTypesEiasForm extends GHAReportForm {
 		eiaTypesSelectItem.setMultiple(true);
 
 		showEiasCheckboxItem = new GHACheckboxItem("Mostar equipos por tipo de equipo", true);
-		showEiasCheckboxItem.setDefaultValue(true);
+		showEiasCheckboxItem.setDefaultValue(false);
 		showEiasCheckboxItem.setColSpan(2);
 
 		workAreasSelectItem = new GHASelectItem("Area de Trabajo",

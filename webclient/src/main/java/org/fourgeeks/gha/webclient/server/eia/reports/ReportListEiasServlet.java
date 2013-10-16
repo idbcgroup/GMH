@@ -24,21 +24,25 @@ import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.ejb.gmh.EiaReportsServiceRemote;
+import org.fourgeeks.gha.ejb.gmh.EiaServiceRemote;
 
-@WebServlet(urlPatterns = { "/reports/eia/feia" })
-public class ReportFichaEquiposServlet extends ReportEiaServelt {
+@WebServlet(urlPatterns = { "/reports/eia/leqi" })
+public class ReportListEiasServlet extends ReportEiaServelt {
 	private static final long serialVersionUID = 1L;
 
-	private static final String REPORT_FILE_DIR_1 = "/resources/reportes/compilados/GMH.FEIA.01.jasper";
-	private static final String REPORT_FILE_DIR_2 = "/resources/reportes/compilados/GMH.FEIA.02.jasper";
+	private static final String REPORT_FILE_DIR_1 = "/resources/reportes/compilados/GMH.LEQI.01.jasper";
+	private static final String REPORT_FILE_DIR_2 = "/resources/reportes/compilados/GMH.LEQI.02.jasper";
 	private static final String LOGO_DIR = "/resources/img/logoReport.jpg";
 
-	private static final String PARAM_EIAS = "eias", PARAM_FACILS = "facils",
-			PARAM_WORKAREAS = "workareas", PARAM_EDOEIA = "edoeia", PARAM_USER = "user",
-			PARAM_ORDEN = "orden";
+	private static final String PARAM_EIA = "eia", PARAM_EIATYPE = "eiatype",
+			PARAM_FACILS = "facils", PARAM_WORKAREAS = "workareas", PARAM_EDOEIA = "edoeia",
+			PARAM_USER = "user", PARAM_ORDEN = "orden";
 
 	@EJB(name = "gmh.EiaReportsService", beanInterface = EiaReportsServiceRemote.class)
-	EiaReportsServiceRemote service;
+	EiaReportsServiceRemote serviceEiaReport;
+
+	@EJB(name = "gmh.EiaService", beanInterface = EiaServiceRemote.class)
+	EiaServiceRemote serviceEia;
 
 	/*
 	 * (non-Javadoc)
@@ -82,13 +86,22 @@ public class ReportFichaEquiposServlet extends ReportEiaServelt {
 		List<Eia> eiaList = null;
 		String reportPath = null;
 
-		if (qpc.eiaIds == null) {
-			reportPath = getServletContext().getRealPath(REPORT_FILE_DIR_2);
-			eiaList = service.findAllEias(qpc.facilsIds, qpc.workingAreasIds, qpc.eiaState,
-					qpc.orden);
-		} else {
+		if (qpc.eiaId != null) {
+			// un equipo
 			reportPath = getServletContext().getRealPath(REPORT_FILE_DIR_1);
-			eiaList = service.findEias(qpc.eiaIds, qpc.orden);
+			eiaList = new ArrayList<Eia>();
+			Eia eia = serviceEia.find(qpc.eiaId);
+			eiaList.add(eia);
+		} else if (qpc.eiaTypeCode == null) {
+			// todos los equipos
+			reportPath = getServletContext().getRealPath(REPORT_FILE_DIR_1);
+			eiaList = serviceEiaReport.findAllEias(qpc.facilsIds, qpc.workingAreasIds,
+					qpc.eiaState, qpc.orden);
+		} else {
+			// equipos por tipo de equipo
+			reportPath = getServletContext().getRealPath(REPORT_FILE_DIR_2);
+			eiaList = serviceEiaReport.findEiasByEiaType(qpc.eiaTypeCode, qpc.facilsIds,
+					qpc.workingAreasIds, qpc.eiaState, qpc.orden);
 		}
 
 		HashMap<String, Object> mapa = new HashMap<String, Object>();
@@ -127,7 +140,8 @@ public class ReportFichaEquiposServlet extends ReportEiaServelt {
 	 * @author naramirez
 	 */
 	private class QueryParamsContainer {
-		private List<Long> eiaIds;
+		private Long eiaId;
+		private String eiaTypeCode;
 		private List<Long> facilsIds;
 		private List<Long> workingAreasIds;
 		private EiaStateEnum eiaState;
@@ -139,14 +153,16 @@ public class ReportFichaEquiposServlet extends ReportEiaServelt {
 		 *            al servlet
 		 */
 		public QueryParamsContainer(HttpServletRequest req) {
-			String eiasValue = req.getParameter(PARAM_EIAS);
-			eiaIds = toList(eiasValue);
+			eiaId = null;
+			String eiaValue = req.getParameter(PARAM_EIA);
+			if (eiaValue != null)
+				if (!eiaValue.equals("all"))
+					eiaId = Long.valueOf(eiaValue);
 
-			String facsValue = req.getParameter(PARAM_FACILS);
-			facilsIds = toList(facsValue);
-
-			String workAreasValue = req.getParameter(PARAM_WORKAREAS);
-			workingAreasIds = toList(workAreasValue);
+			eiaTypeCode = null;
+			String eiaTypeValue = req.getParameter(PARAM_EIATYPE);
+			if (eiaTypeValue != null)
+				eiaTypeCode = eiaTypeValue;
 
 			eiaState = null;
 			String eiaStateParam = req.getParameter(PARAM_EDOEIA);
@@ -154,9 +170,15 @@ public class ReportFichaEquiposServlet extends ReportEiaServelt {
 				if (!eiaStateParam.equals("all"))
 					eiaState = EiaStateEnum.valueOf(eiaStateParam);
 
+			String facsValue = req.getParameter(PARAM_FACILS);
+			facilsIds = toList(facsValue);
+
+			String workAreasValue = req.getParameter(PARAM_WORKAREAS);
+			workingAreasIds = toList(workAreasValue);
+
 			Boolean orderByUbicEiaType = Boolean.valueOf(req.getParameter(PARAM_ORDEN));
-			orden = orderByUbicEiaType ? EiaReportOrderByEnum.UBIC_EIATYPE
-					: EiaReportOrderByEnum.EIATYPE_UBIC;
+			orden = orderByUbicEiaType ? EiaReportOrderByEnum.UBIC_EIA
+					: EiaReportOrderByEnum.EIA_UBIC;
 		}
 
 		private List<Long> toList(String paramValue) {
@@ -172,4 +194,5 @@ public class ReportFichaEquiposServlet extends ReportEiaServelt {
 			return null;
 		}
 	}
+
 }
