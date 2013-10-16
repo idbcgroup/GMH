@@ -186,6 +186,41 @@ public class InitialData {
 						"Guardado exitoso del Protocolo de Mantenimiento"));
 				em.persist(new GHAMessage(LanguageEnum.ES, "mact-save-success",
 						"Guardado exitoso de la Actividad de Mantenimiento"));
+
+				// eiatype service messages
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"eiatype-delete-fail",
+						"Fallo la eliminación del EiaType"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "eiatype-save-fail",
+						"Guardado fallido del Tipo de Equipo"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"eiatype-update-fail",
+						"Actualización fallida del Tipo de Equipo"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "eiatype-find-fail",
+						"Búsqueda fallida de Tipos de Equipo"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"eiatype-findByMaintenancePlan-fail",
+						"Guardado fallido del Tipo de Equipo"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"eiatype-getAll-fail",
+						"Guardado fallido del Tipo de Equipo"));
+
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"eiatype-delete-fail",
+						"Failed to delete Equipment type"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"eiatype-update-fail",
+						"Failed to update Equipment type"));
+				em.persist(new GHAMessage(LanguageEnum.EN, "eiatype-find-fail",
+						"Failed to find Equipment Type"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"eiatype-findByMaintenancePlan-fail",
+						"Failed to find Equipment type by Maintenance Plan"));
+				em.persist(new GHAMessage(LanguageEnum.EN, "eiatype-save-fail",
+						"Failed to save Equipment type"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"eiatype-getAll-fail",
+						"Failed to get all Equipment types"));
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating message test data", e1);
