@@ -122,15 +122,12 @@ body{
 	}*/
 	
 	.tab-header-title{
-		text-align: center;
-		vertical-align: middle;
-		/*padding-top: 5px;*/
-		margin-top:7px;
+		padding-left:6px;
+		color:#666666;
+		font-size: 12px;
+		font-weight:bold;
 		text-transform: capitalize;
-	}
-	
-	.tab-header-title-over{
-		border-bottom: 1px solid red;
+		line-height:30px;
 	}
 	
 	.tab-header-close-button{

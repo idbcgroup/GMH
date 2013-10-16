@@ -41,7 +41,7 @@ public class UserDropdownMenu extends VLayout implements GHAHideable,
 
 		GHAUiHelper.addGHAResizeHandler(this);
 		posX = (Window.getClientWidth() - 20) - width;
-		setAnimateFadeTime(300);
+//		setAnimateFadeTime(300);
 		setSize(width + "px", "*");
 		setLeft(posX);
 		setTop(50);
