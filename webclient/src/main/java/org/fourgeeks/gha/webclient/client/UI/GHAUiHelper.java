@@ -37,23 +37,21 @@ public abstract class GHAUiHelper {
 		});
 
 		Element element = RootPanel.get().getElement();
-		DOM.sinkEvents(element, Event.ONMOUSEOVER);
+		DOM.sinkEvents(element, Event.MOUSEEVENTS);
 		DOM.setEventListener(element, new EventListener() {
 
 			@Override
 			public void onBrowserEvent(Event event) {
-				// TODO:
-				// NativeEvent nativeClickEvent =
-				// Document.get().createClickEvent(
-				// 0, event.getScreenX(), event.getScreenY(),
-				// event.getClientX(), event.getClientY(),
-				// event.getCtrlKey(), event.getAltKey(),
-				// event.getShiftKey(), event.getMetaKey());
-
-				for (EventListener handler : clickHandlers) {
-					if (handler != null)
-						handler.onBrowserEvent(event);
-				}
+				if (event.getType().equals("mousemove"))// mouse move
+					for (EventListener handler : mouseOverHandlers) {
+						if (handler != null)
+							handler.onBrowserEvent(event);
+					}
+				else if (event.getType().equals("mousedown"))// mouse down
+					for (EventListener handler : clickHandlers) {
+						if (handler != null)
+							handler.onBrowserEvent(event);
+					}
 			}
 		});
 		// RootPanel.get().addDomHandler(null, null)
@@ -230,6 +228,26 @@ public abstract class GHAUiHelper {
 	 */
 	public static void removeGHAResizeHandler(ResizeHandler handler) {
 		handlers.remove(handler);
+	}
+
+	private static List<EventListener> mouseOverHandlers = new ArrayList<EventListener>();
+
+	/**
+	 * Adds a click handler to the document mouse over event
+	 * 
+	 * @param handler
+	 */
+	public static void addDocumentMouseOverHandler(EventListener handler) {
+		mouseOverHandlers.add(handler);
+	}
+
+	/**
+	 * removes a click handler from the document mouse over event
+	 * 
+	 * @param handler
+	 */
+	public static void removeDocumentMouseOverHandler(EventListener handler) {
+		mouseOverHandlers.remove(handler);
 	}
 
 	private static List<EventListener> clickHandlers = new ArrayList<EventListener>();

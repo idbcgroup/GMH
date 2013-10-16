@@ -27,13 +27,15 @@ public class HomePlace extends GHAPlace {
 	private static boolean HOME_HAS_BEEN_BUILT = false;
 
 	/**
- * 
- */
+	 * @param token
+	 * 
+	 */
 	// private EIADispatchmentForm dispatchmentForm = new EIADispatchmentForm();
 	// private EIAInstallationCertificateForm installationCertificateForm = new
 	// EIAInstallationCertificateForm();
 
-	public HomePlace() {
+	public HomePlace(String token) {
+		super(token);
 	}
 
 	@Override
@@ -73,18 +75,17 @@ public class HomePlace extends GHAPlace {
 				.addClickHandler(new com.smartgwt.client.widgets.events.ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						int posx = event.getX() - 270;
-						int posy = event.getY();
-						if (event.getY() < 50)
-							posy += 20;
-						else
-							posy += 10;
+						// int posx = event.getX() - 270;
+						// int posy = event.getY();
+						// if (event.getY() < 50)
+						// posy += 20;
+						// else
+						// posy += 10;
 
-						// TODO Auto-generated method stub
 						if (userMenu.isVisible()) {
 							userMenu.hide();
 						} else {
-							userMenu.show(posx, posy);
+							userMenu.show();
 						}
 					}
 				});

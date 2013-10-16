@@ -116,7 +116,7 @@ public final class GHATabSet {
 					verticalMenu.open();
 				} else {
 					verticalMenu.animateHide(AnimationEffect.FLY);
-					GHAUiHelper.removeDocumentClickHandler(verticalMenu);
+					GHAUiHelper.removeDocumentMouseOverHandler(verticalMenu);
 				}
 			}
 		});

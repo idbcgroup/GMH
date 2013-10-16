@@ -48,7 +48,7 @@ public class GHATabHeader extends HLayout {
 		return titulo.getHTML();
 	}
 
-	private static class Option extends HTML {
+	protected static class Option extends HTML {
 
 		public Option(boolean hoverable) {
 			super();

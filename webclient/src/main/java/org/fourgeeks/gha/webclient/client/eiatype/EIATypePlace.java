@@ -12,9 +12,11 @@ public class EIATypePlace extends GHAPlace {
 	private GHATab tab;
 
 	/**
+	 * @param token
 	 * 
 	 */
-	public EIATypePlace() {
+	public EIATypePlace(String token) {
+		super(token);
 		tab = GHATabSet.getById(EIATypeTab.ID);
 		if (tab == null)
 			tab = new EIATypeTab(null);
