@@ -203,6 +203,8 @@ public class InitialData {
 				em.persist(new UiString(LanguageEnum.ES, "name", "Nombre"));
 				em.persist(new UiString(LanguageEnum.ES, "equipments",
 						"Equipos"));
+				em.persist(new UiString(LanguageEnum.ES, "password",
+						"Clave de acceso"));
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating uistrings test data", e1);

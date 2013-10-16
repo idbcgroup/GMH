@@ -12,10 +12,14 @@ import org.fourgeeks.gha.webclient.client.login.GWTLoginServiceAsync;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
+import com.google.gwt.user.client.Event;
+import com.google.gwt.user.client.EventListener;
 import com.google.gwt.user.client.Window;
+import com.smartgwt.client.core.Rectangle;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.Positioning;
 import com.smartgwt.client.types.VerticalAlignment;
+import com.smartgwt.client.widgets.AnimationCallback;
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -28,7 +32,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class UserDropdownMenu extends VLayout implements GHAHideable,
-		ResizeHandler {
+		ResizeHandler, EventListener {
 
 	int posX, picoPos;
 	private int width = 280;
@@ -54,17 +58,17 @@ public class UserDropdownMenu extends VLayout implements GHAHideable,
 		setShadowDepth(6);
 		setShowShadow(true);
 
-		pico = new GHAImg("../resources/img/pico.png",27,15);
+		pico = new GHAImg("../resources/img/pico.png", 27, 15);
 		picoPos = Window.getClientWidth() - 64;
 		pico.setTop(42);
 		pico.setLeft(picoPos);
 		pico.setPosition(Positioning.ABSOLUTE);
-		
-//		TITLE LAYOUT
+
+		// TITLE LAYOUT
 		HLayout titleLayout = GHAUiHelper.verticalGraySeparatorLabel("40px",
 				user.getCitizen().getFirstName() + " "
 						+ user.getCitizen().getFirstLastName());
-//		USER DATA
+		// USER DATA
 		Label mailText;
 		if (user.getCitizen().getPrimaryEmail() != null) {
 			mailText = new Label("<br>Correo electrónico:<br><br> "
@@ -82,8 +86,8 @@ public class UserDropdownMenu extends VLayout implements GHAHideable,
 		userdataLayout.setDefaultLayoutAlign(VerticalAlignment.CENTER);
 		userdataLayout.addMembers(mailText);
 
-		GHAButton logoutButton = new GHAButton(
-				"Cerrar Sesion", new ClickHandler() {
+		GHAButton logoutButton = new GHAButton("Cerrar Sesion",
+				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
 						final GWTLoginServiceAsync service = GWT
@@ -98,11 +102,11 @@ public class UserDropdownMenu extends VLayout implements GHAHideable,
 						UserDropdownMenu.this.hide();
 					}
 				});
-//		logoutButton.setSize("17px", "24px");
-//		logoutButton.setAlign(Alignment.RIGHT);
-//		logoutButton.setPadding(20);
-		
-//		LOGOUT LAYOUT
+		// logoutButton.setSize("17px", "24px");
+		// logoutButton.setAlign(Alignment.RIGHT);
+		// logoutButton.setPadding(20);
+
+		// LOGOUT LAYOUT
 		HLayout logoutLayout = new HLayout();
 		logoutLayout.setHeight("40px");
 		logoutLayout.setBackgroundColor("#E0E0E0");
@@ -113,27 +117,30 @@ public class UserDropdownMenu extends VLayout implements GHAHideable,
 		addMembers(titleLayout, userdataLayout, logoutLayout);
 	}
 
-	/**
-	 * @param x
-	 * @param y
-	 */
-	public void show(int x, int y) {
+	@Override
+	public void show() {
 		setCanFocus(true);
-		animateShow(AnimationEffect.FADE);
+		animateShow(AnimationEffect.FADE, new AnimationCallback() {
+
+			@Override
+			public void execute(boolean earlyFinish) {
+				GHAUiHelper.addDocumentClickHandler(UserDropdownMenu.this);
+			}
+		});
 		setVisible(true);
 		pico.setVisible(true);
 		pico.animateShow(AnimationEffect.FADE);
-//		focus();
+		bringToFront();
 	}
 
 	@Override
 	public void hide() {
-//		blur();
 		animateHide(AnimationEffect.FADE);
 		setVisible(false);
 		pico.setVisible(false);
 		pico.animateHide(AnimationEffect.FADE);
 		setCanFocus(false);
+		GHAUiHelper.removeDocumentClickHandler(UserDropdownMenu.this);
 	}
 
 	@Override
@@ -141,5 +148,20 @@ public class UserDropdownMenu extends VLayout implements GHAHideable,
 		posX = (Window.getClientWidth() - 20) - width;
 		picoPos = Window.getClientWidth() - 64;
 		setLeft(posX);
+	}
+
+	@Override
+	public void onBrowserEvent(Event event) {
+		int mouseX = event.getClientX();
+		int mouseY = event.getClientY();
+		Rectangle rect = getRect();
+		int menuMinX = rect.getLeft();
+		int menuMaxX = rect.getLeft() + rect.getWidth();
+		int menuMinY = rect.getTop();
+		int menuMaxY = rect.getTop() + rect.getHeight();
+
+		if (!(mouseX >= menuMinX && mouseX <= menuMaxX && mouseY >= menuMinY && mouseY <= menuMaxY)) {
+			hide();
+		}
 	}
 }

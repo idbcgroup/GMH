@@ -102,14 +102,14 @@ public class GHAMenu {
 
 				@Override
 				public void execute(boolean earlyFinish) {
-					GHAUiHelper.addDocumentClickHandler(GHAMenuBar.this);
+					GHAUiHelper.addDocumentMouseOverHandler(GHAMenuBar.this);
 				}
 			});
 		}
 
 		public void hide() {
 			animateHide(AnimationEffect.FLY);
-			GHAUiHelper.removeDocumentClickHandler(this);
+			GHAUiHelper.removeDocumentMouseOverHandler(this);
 		}
 	}
 
