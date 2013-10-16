@@ -40,7 +40,7 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 	 * @return String de la consulta con el parametro deseado en la clausula
 	 *         where
 	 */
-	private String buildWherePred(String query, Object elem, String campo, String op, String param) {
+	private String buildWhere(String query, Object elem, String campo, String op, String param) {
 
 		if (elem != null) {
 			query += query.isEmpty() ? " where " : " and ";
@@ -61,14 +61,15 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 	public List<Eia> findAllEias(List<Long> facilityIds, List<Long> workAreaIds,
 			EiaStateEnum eiaState, EiaReportOrderByEnum orderBy) throws GHAEJBException {
 
+		// CONSTRUYENDO QUERY
 		String queryStr = "select eia from Eia eia join eia.eiaType as eiatype "
 				+ " left join eia.workingArea as workingarea "
 				+ " left join eia.facility as facility ";
 
 		String whereStr = "";
-		whereStr = buildWherePred(whereStr, facilityIds, "facility.id", "in", ":facilityIds");
-		whereStr = buildWherePred(whereStr, workAreaIds, "workingarea.id", "in", ":workAreaIds");
-		whereStr = buildWherePred(whereStr, eiaState, "eia.state", "=", ":eiaState");
+		whereStr = buildWhere(whereStr, facilityIds, "facility.id", "in", ":facilityIds");
+		whereStr = buildWhere(whereStr, workAreaIds, "workingarea.id", "in", ":workAreaIds");
+		whereStr = buildWhere(whereStr, eiaState, "eia.state", "=", ":eiaState");
 
 		queryStr += whereStr;
 
@@ -115,12 +116,13 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 	public List<Eia> findEias(List<Long> eiaIds, EiaReportOrderByEnum orderBy)
 			throws GHAEJBException {
 
+		// CONSTRUYENDO QUERY
 		String queryStr = "select eia from Eia eia join eia.eiaType as eiatype "
 				+ " left join eia.workingArea as workingarea "
 				+ " left join eia.facility as facility ";
 
 		String whereStr = "";
-		whereStr = buildWherePred(whereStr, eiaIds, "eia.id", "in", ":eiaIds");
+		whereStr = buildWhere(whereStr, eiaIds, "eia.id", "in", ":eiaIds");
 
 		queryStr += whereStr;
 
@@ -164,16 +166,17 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 	public List<Eia> findEiasByEiaType(String eiaTypeCode, List<Long> facilityIds,
 			List<Long> workAreaIds, EiaStateEnum eiaState, EiaReportOrderByEnum orderBy)
 			throws GHAEJBException {
+
 		// CONSTRUYENDO QUERY
 		String queryStr = "select eia from Eia eia join eia.eiaType as eiatype "
 				+ " left join eia.workingArea as workingarea "
 				+ " left join eia.facility as facility ";
 
 		String whereStr = "";
-		whereStr = buildWherePred(whereStr, eiaTypeCode, "eiatype.code", "=", ":eiaTypeCode");
-		whereStr = buildWherePred(whereStr, facilityIds, "facility.id", "in", ":facilityIds");
-		whereStr = buildWherePred(whereStr, workAreaIds, "workingarea.id", "in", ":workAreaIds");
-		whereStr = buildWherePred(whereStr, eiaState, "eia.state", "=", ":eiaState");
+		whereStr = buildWhere(whereStr, eiaTypeCode, "eiatype.code", "=", ":eiaTypeCode");
+		whereStr = buildWhere(whereStr, facilityIds, "facility.id", "in", ":facilityIds");
+		whereStr = buildWhere(whereStr, workAreaIds, "workingarea.id", "in", ":workAreaIds");
+		whereStr = buildWhere(whereStr, eiaState, "eia.state", "=", ":eiaState");
 
 		queryStr += whereStr;
 
@@ -232,10 +235,10 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 				+ " left join eia.facility as facility ";
 
 		String whereStr = "";
-		whereStr = buildWherePred(whereStr, eiaTypeIds, "eiatype.code", "in", ":eiaTypeIds");
-		whereStr = buildWherePred(whereStr, facilityIds, "facility.id", "in", ":facilityIds");
-		whereStr = buildWherePred(whereStr, workAreaIds, "workingarea.id", "in", ":workAreaIds");
-		whereStr = buildWherePred(whereStr, eiaState, "eia.state", "=", ":eiaState");
+		whereStr = buildWhere(whereStr, eiaTypeIds, "eiatype.code", "in", ":eiaTypeIds");
+		whereStr = buildWhere(whereStr, facilityIds, "facility.id", "in", ":facilityIds");
+		whereStr = buildWhere(whereStr, workAreaIds, "workingarea.id", "in", ":workAreaIds");
+		whereStr = buildWhere(whereStr, eiaState, "eia.state", "=", ":eiaState");
 
 		queryStr += whereStr;
 
