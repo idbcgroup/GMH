@@ -43,7 +43,7 @@ public class GHAMenu {
 	public static class GHAMenuBar extends VLayout implements EventListener,
 			ResizeHandler {
 
-		List<GHAMenuOption> options = new ArrayList<GHAMenu.GHAMenuOption>();
+		private List<GHAMenuOption> options = new ArrayList<GHAMenu.GHAMenuOption>();
 
 		/**
 		 * 
@@ -111,6 +111,17 @@ public class GHAMenu {
 			animateHide(AnimationEffect.FLY);
 			GHAUiHelper.removeDocumentMouseOverHandler(this);
 		}
+
+		/**
+		 * @param token
+		 * @return the ghamenuoption of this token or null if is not found
+		 */
+		public GHAMenuOption getByToken(String token) {
+			for (GHAMenuOption option : options)
+				if (option.getToken().equals(token))
+					return option;
+			return null;
+		}
 	}
 
 	/**
@@ -119,7 +130,7 @@ public class GHAMenu {
 	 */
 	static public class GHAMenuOption extends HLayout {
 
-		private GHAMenuBar bar;
+		private String token;
 
 		/**
 		 * @param text
@@ -128,6 +139,7 @@ public class GHAMenu {
 		 */
 		public GHAMenuOption(final String text, final String token,
 				String imgSrc) {
+			this.token = token;
 			setWidth100();
 			setHeight("30px");
 			setMembersMargin(7);
@@ -149,7 +161,6 @@ public class GHAMenu {
 
 				@Override
 				public void onClick(ClickEvent event) {
-					bar.hide();
 					History.newItem(token);
 				}
 			});
@@ -176,12 +187,11 @@ public class GHAMenu {
 		}
 
 		/**
-		 * @param bar
+		 * @return the token
 		 */
-		public void setBar(GHAMenuBar bar) {
-			this.bar = bar;
+		public String getToken() {
+			return token;
 		}
 
 	}
-
 }
