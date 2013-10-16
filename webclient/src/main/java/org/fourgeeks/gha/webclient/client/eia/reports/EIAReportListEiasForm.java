@@ -46,7 +46,7 @@ public class EIAReportListEiasForm extends GHAReportForm {
 		filtersTitleItem = new GHATitleTextItem("Filtros");
 		filtersTitleItem.setColSpan(2);
 
-		filtersRadioGroupItem = new GHARadioGroupItem(300, false);
+		filtersRadioGroupItem = new GHARadioGroupItem(400, false);
 		filtersRadioGroupItem.setColSpan(2);
 
 		eiaSelectItem = new GHASelectItem("Equipo", GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
@@ -69,7 +69,7 @@ public class EIAReportListEiasForm extends GHAReportForm {
 		orderByTitleItem = new GHATitleTextItem("Ordenar por");
 		orderByTitleItem.setColSpan(2);
 
-		orderByRadioGroupItem = new GHARadioGroupItem(350, false);
+		orderByRadioGroupItem = new GHARadioGroupItem(250, false);
 		orderByRadioGroupItem.setColSpan(2);
 
 		// DEFINIENDO MANEJADORES DE EVENTOS
@@ -118,6 +118,12 @@ public class EIAReportListEiasForm extends GHAReportForm {
 		eiaStatesSelectItem.clearValue();
 		filtersRadioGroupItem.clearValue();
 		orderByRadioGroupItem.clearValue();
+
+		eiaSelectItem.setDisabled(false);
+		eiaTypeSelectItem.setDisabled(true);
+		facilsSelectItem.setDisabled(true);
+		workAreasSelectItem.setDisabled(true);
+		eiaStatesSelectItem.setDisabled(true);
 	}
 
 	/**

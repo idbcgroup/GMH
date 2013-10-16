@@ -114,6 +114,11 @@ public class EIAReportDetalleEquiposForm extends GHAReportForm {
 		facilsSelectItem.clearValue();
 		workAreasSelectItem.clearValue();
 		eiaStatesSelectItem.clearValue();
+
+		eiasSelectItem.setDisabled(false);
+		facilsSelectItem.setDisabled(true);
+		workAreasSelectItem.setDisabled(true);
+		eiaStatesSelectItem.setDisabled(true);
 	}
 
 	/**

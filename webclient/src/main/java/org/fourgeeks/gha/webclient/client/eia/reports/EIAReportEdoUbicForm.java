@@ -24,8 +24,8 @@ import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 public class EIAReportEdoUbicForm extends GHAReportForm {
 	private GHATitleTextItem filtersTitleItem, agrupTypeTitleItem;
 	private GHARadioGroupItem filterTypeRadioGroupItem;
-	private GHASelectItem estadoSelectItem, facilitySelectItem,
-			workingAreaSelectItem, agrupTypeSelectItem;
+	private GHASelectItem estadoSelectItem, facilitySelectItem, workingAreaSelectItem,
+			agrupTypeSelectItem;
 
 	public EIAReportEdoUbicForm() {
 		DynamicForm form = new DynamicForm();
@@ -39,16 +39,14 @@ public class EIAReportEdoUbicForm extends GHAReportForm {
 
 		filterTypeRadioGroupItem = new GHARadioGroupItem(350, false);
 
-		estadoSelectItem = new GHASelectItem("Estado",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		estadoSelectItem = new GHASelectItem("Estado", GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		estadoSelectItem.setDisabled(false);
 
 		workingAreaSelectItem = new GHASelectItem("Area de Trabajo",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		workingAreaSelectItem.setDisabled(true);
 
-		facilitySelectItem = new GHASelectItem("Facilidad",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		facilitySelectItem = new GHASelectItem("Facilidad", GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		facilitySelectItem.setDisabled(true);
 
 		agrupTypeSelectItem = new GHASelectItem("Agrupar por",
@@ -80,9 +78,8 @@ public class EIAReportEdoUbicForm extends GHAReportForm {
 		fillItemsWhitData();
 
 		// ASIGNANDO LOS ITEMS AL FORM Y DEVOLVIENDO EL LAYOUT
-		form.setItems(filtersTitleItem, filterTypeRadioGroupItem,
-				estadoSelectItem, workingAreaSelectItem, facilitySelectItem,
-				agrupTypeTitleItem, agrupTypeSelectItem);
+		form.setItems(filtersTitleItem, filterTypeRadioGroupItem, estadoSelectItem,
+				workingAreaSelectItem, facilitySelectItem, agrupTypeTitleItem, agrupTypeSelectItem);
 
 		addMember(form);
 	}
@@ -95,6 +92,10 @@ public class EIAReportEdoUbicForm extends GHAReportForm {
 		facilitySelectItem.clearValue();
 		workingAreaSelectItem.clearValue();
 		agrupTypeSelectItem.clearValue();
+
+		estadoSelectItem.setDisabled(false);
+		facilitySelectItem.setDisabled(true);
+		workingAreaSelectItem.setDisabled(true);
 	}
 
 	/**
@@ -117,16 +118,15 @@ public class EIAReportEdoUbicForm extends GHAReportForm {
 
 		estadoSelectItem.setValueMap(EiaStateEnum.toValueMap());
 
-		GHACache.INSTANCE
-				.getWorkingAreas(new GHAAsyncCallback<List<WorkingArea>>() {
-					@Override
-					public void onSuccess(List<WorkingArea> result) {
-						LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
-						for (WorkingArea entity : result)
-							map.put(entity.getId() + "", entity.getName());
-						workingAreaSelectItem.setValueMap(map);
-					}
-				});
+		GHACache.INSTANCE.getWorkingAreas(new GHAAsyncCallback<List<WorkingArea>>() {
+			@Override
+			public void onSuccess(List<WorkingArea> result) {
+				LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
+				for (WorkingArea entity : result)
+					map.put(entity.getId() + "", entity.getName());
+				workingAreaSelectItem.setValueMap(map);
+			}
+		});
 
 		GHACache.INSTANCE.getFacilities(new GHAAsyncCallback<List<Facility>>() {
 			@Override
@@ -159,8 +159,8 @@ public class EIAReportEdoUbicForm extends GHAReportForm {
 		String group = agrupTypeSelectItem.getValueAsString();
 		String groupDesc = agrupTypeSelectItem.getDisplayValue();
 
-		EiaReportFiltersEnum filterType = EiaReportFiltersEnum
-				.valueOf(filterTypeRadioGroupItem.getValueAsString());
+		EiaReportFiltersEnum filterType = EiaReportFiltersEnum.valueOf(filterTypeRadioGroupItem
+				.getValueAsString());
 
 		String filterDesc = null, filterVal = null;
 		if (filterType == EiaReportFiltersEnum.EDO_EQUIPO) {

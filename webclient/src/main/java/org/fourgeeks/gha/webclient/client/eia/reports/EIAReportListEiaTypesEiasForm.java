@@ -119,6 +119,11 @@ public class EIAReportListEiaTypesEiasForm extends GHAReportForm {
 		workAreasSelectItem.clearValue();
 		eiaStatesSelectItem.clearValue();
 		showEiasCheckboxItem.clearValue();
+
+		eiaTypesSelectItem.setDisabled(false);
+		facilsSelectItem.setDisabled(true);
+		workAreasSelectItem.setDisabled(true);
+		eiaStatesSelectItem.setDisabled(true);
 	}
 
 	/**
