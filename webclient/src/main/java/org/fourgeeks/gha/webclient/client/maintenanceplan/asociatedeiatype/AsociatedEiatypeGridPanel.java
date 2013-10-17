@@ -10,11 +10,11 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSearchForm;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener;
 
-import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
@@ -49,11 +49,7 @@ public class AsociatedEiatypeGridPanel extends VLayout implements GHAClosable,
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 
-		Label title = new Label(
-				"<h3>Tipos de Equipo que estan asociados al Plan de Mantenimiento</h3>");
-		title.setHeight(30);
-		title.setWidth100();
-		title.setStyleName("title-label");
+		GHALabel title = new GHALabel("Tipos de Equipo que estan asociados al Plan de Mantenimiento");
 		addMember(title);
 
 		// //////Botones laterales

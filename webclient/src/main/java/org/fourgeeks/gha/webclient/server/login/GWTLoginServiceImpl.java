@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.fourgeeks.gha.domain.enu.LanguageEnum;
-import org.fourgeeks.gha.domain.enu.UserLogonStatusEnum;
 import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
@@ -18,6 +17,7 @@ import org.fourgeeks.gha.domain.msg.GHAMessage;
 import org.fourgeeks.gha.ejb.ess.SSOUserServiceRemote;
 import org.fourgeeks.gha.ejb.gar.BpuFunctionServiceRemote;
 import org.fourgeeks.gha.ejb.log.LogonLogServiceRemote;
+import org.fourgeeks.gha.ejb.msg.MessageServiceRemote;
 import org.fourgeeks.gha.webclient.client.login.GWTLoginService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -43,6 +43,9 @@ public class GWTLoginServiceImpl extends RemoteServiceServlet implements
 	@EJB(name = "gar.BpuFunctionService")
 	BpuFunctionServiceRemote bpuFunctionService;
 
+	@EJB(name = "msg.MessageService")
+	MessageServiceRemote messageService;
+
 	/**
 	 * @return true if there is a user logged in
 	 * 
@@ -58,9 +61,6 @@ public class GWTLoginServiceImpl extends RemoteServiceServlet implements
 		HttpServletRequest request = this.perThreadRequest.get();
 		String ipAdd = request.getRemoteAddr().toString();
 
-		if (user.equals("") || password.equals(""))
-			throw new GHAEJBException("Debe indicar usuario y contraseña.");
-
 		HttpSession session = request.getSession();
 		if (session != null)
 			session.invalidate();
@@ -69,17 +69,16 @@ public class GWTLoginServiceImpl extends RemoteServiceServlet implements
 		try {
 			ssoUser = ssoUserService.findByUsername(user);
 		} catch (GHAEJBException e1) {
-			logService
-					.log(new LogonLog(null, new GHAMessage("LOGIN002"), ipAdd));
-			throw new GHAEJBException(
-					"Disculpe, el usuario o la contraseña no son válidos.");
+			logService.log(new LogonLog(null, e1.getGhaMessage(), ipAdd));
+			throw e1;
 		}
 
-		if (ssoUser.getUserLogonStatus().equals(UserLogonStatusEnum.BLOCKED)) {
-			logService.log(new LogonLog(ssoUser.getBpu(), new GHAMessage(
-					"LOGIN003"), ipAdd));
-			throw new GHAEJBException("Usuario bloqueado.");
-		}
+		// if (ssoUser.getUserLogonStatus().equals(UserLogonStatusEnum.BLOCKED))
+		// {
+		// logService.log(new LogonLog(ssoUser.getBpu(), new GHAMessage(
+		// "LOGIN003"), ipAdd));
+		// throw new GHAEJBException("Usuario bloqueado.");
+		// }
 
 		try {
 			request.login(user, password);
@@ -89,15 +88,15 @@ public class GWTLoginServiceImpl extends RemoteServiceServlet implements
 			bpu.setPermissions(bpuFunctionService.getFunctionsByBpu(bpu));
 			return bpu;
 		} catch (ServletException e) {
-			logService.log(new LogonLog(ssoUser.getBpu(), new GHAMessage(
-					"LOGIN004"), ipAdd));
-			throw new GHAEJBException(
-					"Disculpe, el usuario o la contraseña no son válidos.");
+			GHAMessage ghaMessage = messageService.find("LOGIN002");
+
+			logService.log(new LogonLog(ssoUser.getBpu(), ghaMessage, ipAdd));
+			throw new GHAEJBException(ghaMessage);
+
 		} catch (Exception e) {
-			logService.log(new LogonLog(ssoUser.getBpu(), new GHAMessage(
-					"LOGIN005"), ipAdd));
-			throw new GHAEJBException(
-					"Disculpe, el usuario o la contraseña no son válidos.");
+			GHAMessage ghaMessage = messageService.find("LOGIN005");
+			logService.log(new LogonLog(ssoUser.getBpu(), ghaMessage, ipAdd));
+			throw new GHAEJBException(ghaMessage);
 		}
 	}
 

@@ -21,11 +21,15 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.fourgeeks.gha.domain.enu.GenderTypeEnum;
+import org.fourgeeks.gha.domain.enu.UserLogonStatusEnum;
 import org.fourgeeks.gha.domain.ess.BpuFunction;
 import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.mix.Citizen;
+import org.fourgeeks.gha.domain.msg.GHAMessage;
+import org.fourgeeks.gha.domain.msg.GHAMessageId;
+import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
  * @author emiliot, vivi.torresg
@@ -317,18 +321,50 @@ public class SSOUserService implements SSOUserServiceRemote {
 			SSOUser user = em
 					.createNamedQuery("SSOUser.findByUserName", SSOUser.class)
 					.setParameter("userName", userName).getSingleResult();
+
+			if (user.getUserLogonStatus() == UserLogonStatusEnum.BLOCKED)
+				throw new GHAEJBException(new GHAMessage("LOGIN004"));
+
 			return user;
 		} catch (NoResultException ex) {
 			logger.info("username: " + userName + " not found. Error:"
 					+ ex.getMessage());
-			throw new GHAEJBException("Usuario no existe: " + userName + " "
-					+ ex.getMessage());
+			GHAEJBException exception = new GHAEJBException();
+
+			try {
+				exception.setGhaMessage(em.find(
+						GHAMessage.class,
+						new GHAMessageId("LOGIN005", RuntimeParameters
+								.getLang())));
+			} catch (Exception e1) {
+				exception.setGhaMessage(new GHAMessage(RuntimeParameters
+						.getLang(), "generic-error-msg",
+						"Error de sistema, intente más tarde."));
+			}
+
+			throw exception;
+		} catch (GHAEJBException ex) {
+			logger.info("username: " + userName + "blocked" + ex.getMessage());
+			GHAEJBException exception = new GHAEJBException();
+
+			try {
+				exception.setGhaMessage(em.find(
+						GHAMessage.class,
+						new GHAMessageId("LOGIN004", RuntimeParameters
+								.getLang())));
+			} catch (Exception e1) {
+				exception.setGhaMessage(new GHAMessage(RuntimeParameters
+						.getLang(), "generic-error-msg",
+						"Error de sistema, intente más tarde."));
+			}
+			throw exception;
+
 		} catch (Exception ex) {
 			logger.info("Error finding SSOUser by username. Error: "
 					+ ex.getMessage());
-			throw new GHAEJBException(
-					"Error obteniendo el SSOUser por username"
-							+ ex.getCause().getMessage());
+			throw new GHAEJBException(new GHAMessage(
+					RuntimeParameters.getLang(), "generic-error-msg",
+					"Error de sistema, intente más tarde."));
 		}
 	}
 

@@ -6,6 +6,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImg;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.login.GWTLoginService;
 import org.fourgeeks.gha.webclient.client.login.GWTLoginServiceAsync;
 
@@ -20,7 +21,6 @@ import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.Positioning;
 import com.smartgwt.client.types.VerticalAlignment;
 import com.smartgwt.client.widgets.AnimationCallback;
-import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -57,6 +57,7 @@ public class UserDropdownMenu extends VLayout implements GHAHideable,
 		setVisible(false);
 		setShadowDepth(6);
 		setShowShadow(true);
+		setZIndex(444444444);
 
 		pico = new GHAImg("../resources/img/pico.png", 27, 15);
 		picoPos = Window.getClientWidth() - 64;
@@ -69,16 +70,13 @@ public class UserDropdownMenu extends VLayout implements GHAHideable,
 				user.getCitizen().getFirstName() + " "
 						+ user.getCitizen().getFirstLastName());
 		// USER DATA
-		Label mailText;
+		GHALabel mailText;
 		if (user.getCitizen().getPrimaryEmail() != null) {
-			mailText = new Label("<br>Correo electrónico:<br><br> "
+			mailText = new GHALabel("<br>Correo electrónico:<br><br> "
 					+ user.getCitizen().getPrimaryEmail());
 		} else {
-			mailText = new Label("<br>Correo electrónico:<br><br> No posee.");
+			mailText = new GHALabel("<br>Correo electrónico:<br><br> No posee.");
 		}
-		mailText.setHeight("40px");
-		mailText.setWidth100();
-		mailText.setStyleName("title-label");
 
 		VLayout userdataLayout = new VLayout();
 		userdataLayout.setHeight("70px");
@@ -148,6 +146,7 @@ public class UserDropdownMenu extends VLayout implements GHAHideable,
 		posX = (Window.getClientWidth() - 20) - width;
 		picoPos = Window.getClientWidth() - 64;
 		setLeft(posX);
+		pico.setLeft(picoPos);
 	}
 
 	@Override

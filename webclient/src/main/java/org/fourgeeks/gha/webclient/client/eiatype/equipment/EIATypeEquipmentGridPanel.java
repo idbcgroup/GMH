@@ -9,6 +9,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.eia.EIAAddForm;
 import org.fourgeeks.gha.webclient.client.eia.EIAGrid;
@@ -21,7 +22,6 @@ import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.util.BooleanCallback;
-import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
@@ -62,11 +62,7 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 
-		Label title = new Label(
-				"<h3>Equipos pertenecientes a este Tipo de Equipo</h3>");
-		title.setHeight(30);
-		title.setWidth100();
-		title.setStyleName("title-label");
+		GHALabel title = new GHALabel("Equipos pertenecientes a este Tipo de Equipo");
 		addMember(title);
 
 		// //////Botones laterales
@@ -116,7 +112,7 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 
 					}
 
-				}), new GHAImgButton("../resources/icons/undo.png",
+				}), new GHAImgButton("../resources/icons/edit.png",
 				new ClickHandler() {
 
 					@Override

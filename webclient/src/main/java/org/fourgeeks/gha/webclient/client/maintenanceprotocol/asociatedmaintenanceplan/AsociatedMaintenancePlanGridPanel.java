@@ -53,11 +53,7 @@ public class AsociatedMaintenancePlanGridPanel extends VLayout implements
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 
-		Label title = new Label(
-				"<h3>Planes de Mantenimiento contienen este Protocolo</h3>");
-		title.setHeight(30);
-		title.setWidth100();
-		title.setStyleName("title-label");
+		Label title = new Label("Planes de Mantenimiento contienen este Protocolo");
 		addMember(title);
 
 		// //////Botones laterales
