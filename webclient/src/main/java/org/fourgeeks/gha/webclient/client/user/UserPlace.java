@@ -4,10 +4,18 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAPlace;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATab;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATabSet;
 
+/**
+ * @author alacret
+ * 
+ */
 public class UserPlace extends GHAPlace {
 	private GHATab tab;
 
-	public UserPlace() {
+	/**
+	 * @param token
+	 */
+	public UserPlace(String token) {
+		super(token);
 		tab = GHATabSet.getById(UserTab.ID);
 		if (tab == null)
 			tab = new UserTab();

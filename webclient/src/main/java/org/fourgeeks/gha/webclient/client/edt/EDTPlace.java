@@ -7,7 +7,8 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATabSet;
 public class EDTPlace extends GHAPlace {
 	private GHATab tab;
 
-	public EDTPlace() {
+	public EDTPlace(String token) {
+		super(token);
 		tab = GHATabSet.getById(EDTTab.ID);
 		if (tab == null)
 			tab = new EDTTab();

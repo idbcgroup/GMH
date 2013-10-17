@@ -318,45 +318,43 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 		Set<ConstraintViolation<SSOUser>> violationsSSOUser = validator
 				.validate(ssoUser);
 
-		if (form.validate()) {
+		if (violationsLegalEntity.isEmpty()) {
+			for (Iterator<ConstraintViolation<LegalEntity>> it = violationsLegalEntity
+					.iterator(); it.hasNext();)
+				violationsList.add(it.next().getMessage());
+		}
 
-			if (violationsLegalEntity.isEmpty()) {
-				for (Iterator<ConstraintViolation<LegalEntity>> it = violationsLegalEntity
-						.iterator(); it.hasNext();)
-					violationsList.add(it.next().getMessage());
-			}
+		if (!violationsCitizen.isEmpty()) {
+			for (Iterator<ConstraintViolation<Citizen>> it = violationsCitizen
+					.iterator(); it.hasNext();)
+				violationsList.add(it.next().getMessage());
+		}
 
-			if (!violationsCitizen.isEmpty()) {
-				for (Iterator<ConstraintViolation<Citizen>> it = violationsCitizen
-						.iterator(); it.hasNext();)
-					violationsList.add(it.next().getMessage());
-			}
+		if (!violationsBpu.isEmpty()) {
+			for (Iterator<ConstraintViolation<Bpu>> it = violationsBpu
+					.iterator(); it.hasNext();)
+				violationsList.add(it.next().getMessage());
+		}
 
-			if (!violationsBpu.isEmpty()) {
-				for (Iterator<ConstraintViolation<Bpu>> it = violationsBpu
-						.iterator(); it.hasNext();)
-					violationsList.add(it.next().getMessage());
-			}
+		if (!violationsSSOUser.isEmpty()) {
+			for (Iterator<ConstraintViolation<SSOUser>> it = violationsSSOUser
+					.iterator(); it.hasNext();)
+				violationsList.add(it.next().getMessage());
+		}
 
-			if (!violationsSSOUser.isEmpty()) {
-				for (Iterator<ConstraintViolation<SSOUser>> it = violationsSSOUser
-						.iterator(); it.hasNext();)
-					violationsList.add(it.next().getMessage());
-			}
+		if (passwordItem.getValue() == null) {
+			violationsList.add("password-not-null");
+		}
 
-			if (passwordItem.getValue() == null) {
-				violationsList.add("password-not-null");
-			}
+		if (passwordItem.getValueAsString() != confirmPasswordItem
+				.getValueAsString()) {
+			violationsList.add("password-missmatch");
+		}
 
-			if (passwordItem.getValueAsString() != confirmPasswordItem
-					.getValueAsString()) {
-				violationsList.add("password-missmatch");
-			}
-
-			if (violationsList.isEmpty())
-				return ssoUser;
-			else
-				GHANotification.alert(violationsList);
+		if (form.validate() && violationsList.isEmpty()) {
+			return ssoUser;
+		} else {
+			GHANotification.alert(violationsList);
 		}
 
 		return null;

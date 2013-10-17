@@ -4,10 +4,18 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAPlace;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATab;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATabSet;
 
+/**
+ * @author alacret
+ * 
+ */
 public class MaintenanceActivityPlace extends GHAPlace {
 	private GHATab tab;
 
-	public MaintenanceActivityPlace() {
+	/**
+	 * @param token
+	 */
+	public MaintenanceActivityPlace(String token) {
+		super(token);
 		tab = GHATabSet.getById(MaintenanceActivityTab.ID);
 		if (tab == null)
 			tab = new MaintenanceActivityTab();

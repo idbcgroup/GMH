@@ -100,7 +100,7 @@ body{
 		width:45px;
 	}
 	
-	.tab-header{
+	/*.tab-header{
 		background-color: #CECECE;
 	    border-left: 1px solid #CECECE;
 	    border-right: 1px solid #CECECE;
@@ -119,14 +119,17 @@ body{
 	.tab-header-over{
 		background-color: #EAEAEA;
 		cursor: pointer;
-	}
+	}*/
 	
 	.tab-header-title{
-		text-align: center;
-		vertical-align: middle;
-		padding-top: 5px;
+		padding-left:6px;
+		color:#666666;
+		font-size: 12px;
+		font-weight:bold;
+		text-transform: capitalize;
+		line-height:30px;
 	}
-	
+		
 	.tab-header-close-button{
 		text-align: center;
 		vertical-align: middle;

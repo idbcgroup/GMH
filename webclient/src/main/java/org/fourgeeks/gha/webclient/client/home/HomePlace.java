@@ -4,8 +4,8 @@ import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.webclient.client.UI.GHASessionData;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.dropdownmenus.UserDropdownMenu;
-import org.fourgeeks.gha.webclient.client.UI.menu.GHAMenu;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAPlace;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATabSet;
 
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -27,13 +27,15 @@ public class HomePlace extends GHAPlace {
 	private static boolean HOME_HAS_BEEN_BUILT = false;
 
 	/**
- * 
- */
+	 * @param token
+	 * 
+	 */
 	// private EIADispatchmentForm dispatchmentForm = new EIADispatchmentForm();
 	// private EIAInstallationCertificateForm installationCertificateForm = new
 	// EIAInstallationCertificateForm();
 
-	public HomePlace() {
+	public HomePlace(String token) {
+		super(token);
 	}
 
 	@Override
@@ -43,7 +45,8 @@ public class HomePlace extends GHAPlace {
 		HOME_HAS_BEEN_BUILT = true;
 		// User box
 		RootPanel.get("main-content").clear();
-		RootPanel.get("main-content").setHeight(GHAUiHelper.getTabHeight() + "px");
+		RootPanel.get("main-content").setHeight(
+				GHAUiHelper.getTabHeight() + "px");
 		// RootPanel.get("user-info").clear();
 		// RootPanel.get("menu-bar").clear();
 		// RootPanel.get("main-content").removeStyleName("white-background");
@@ -72,18 +75,17 @@ public class HomePlace extends GHAPlace {
 				.addClickHandler(new com.smartgwt.client.widgets.events.ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						int posx = event.getX() - 270;
-						int posy = event.getY();
-						if (event.getY() < 50)
-							posy += 20;
-						else
-							posy += 10;
+						// int posx = event.getX() - 270;
+						// int posy = event.getY();
+						// if (event.getY() < 50)
+						// posy += 20;
+						// else
+						// posy += 10;
 
-						// TODO Auto-generated method stub
 						if (userMenu.isVisible()) {
 							userMenu.hide();
 						} else {
-							userMenu.show(posx, posy);
+							userMenu.show();
 						}
 					}
 				});
@@ -102,6 +104,6 @@ public class HomePlace extends GHAPlace {
 
 		RootPanel.get("user-info").add(userInfo);
 
-		GHAMenu.buildMenu();
+		GHATabSet.buildMenu();
 	}
 }

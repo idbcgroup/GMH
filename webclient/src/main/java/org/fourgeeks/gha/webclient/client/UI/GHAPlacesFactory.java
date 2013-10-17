@@ -1,6 +1,5 @@
 package org.fourgeeks.gha.webclient.client.UI;
 
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAPlace;
 import org.fourgeeks.gha.webclient.client.edt.EDTPlace;
 import org.fourgeeks.gha.webclient.client.eia.EIAPlace;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypePlace;
@@ -12,6 +11,13 @@ import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanPlace;
 import org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolPlace;
 import org.fourgeeks.gha.webclient.client.user.UserPlace;
 
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.RunAsyncCallback;
+
+/**
+ * @author alacret
+ * 
+ */
 public class GHAPlacesFactory {
 	/*
 	 * private UIPlacesFactory() throws UnavailableException{ throw new
@@ -21,33 +27,144 @@ public class GHAPlacesFactory {
 
 	/**
 	 * @param token
-	 * @return
 	 */
-	public static GHAPlace createPlace(String token) {
-		// Window.alert("createplace"+ token);
+	public static void createPlace(final String token) {
+
 		if (token.equals("login"))
-			return new LoginPlace();
-		if (token.equals("lostpass"))
-			return new ForgottenPasswordPlace();
+			GWT.runAsync(new RunAsyncCallback() {
+
+				@Override
+				public void onSuccess() {
+					new LoginPlace(token).show();
+				}
+
+				@Override
+				public void onFailure(Throwable reason) {
+
+				}
+			});
+
+		else if (token.equals("lostpass"))
+			GWT.runAsync(new RunAsyncCallback() {
+
+				@Override
+				public void onSuccess() {
+					new ForgottenPasswordPlace(token).show();
+					;
+				}
+
+				@Override
+				public void onFailure(Throwable reason) {
+
+				}
+			});
+
 		else if (token.equals("home"))
-			return new HomePlace();
+			GWT.runAsync(new RunAsyncCallback() {
+
+				@Override
+				public void onSuccess() {
+					new HomePlace(token).show();
+				}
+
+				@Override
+				public void onFailure(Throwable reason) {
+
+				}
+			});
 		else if (token.equals("eiatype"))
-			return new EIATypePlace();
+			GWT.runAsync(new RunAsyncCallback() {
+
+				@Override
+				public void onSuccess() {
+					new EIATypePlace(token).show();
+				}
+
+				@Override
+				public void onFailure(Throwable reason) {
+
+				}
+			});
 		else if (token.startsWith("eia"))
-			return new EIAPlace();
+			GWT.runAsync(new RunAsyncCallback() {
+
+				@Override
+				public void onSuccess() {
+					new EIAPlace(token).show();
+				}
+
+				@Override
+				public void onFailure(Throwable reason) {
+
+				}
+			});
 		else if (token.startsWith("edt"))
-			return new EDTPlace();
+			GWT.runAsync(new RunAsyncCallback() {
+
+				@Override
+				public void onSuccess() {
+					new EDTPlace(token).show();
+				}
+
+				@Override
+				public void onFailure(Throwable reason) {
+
+				}
+			});
 		else if (token.startsWith("mplan"))
-			return new MaintenancePlanPlace();
+			GWT.runAsync(new RunAsyncCallback() {
+
+				@Override
+				public void onSuccess() {
+					new MaintenancePlanPlace(token).show();
+				}
+
+				@Override
+				public void onFailure(Throwable reason) {
+
+				}
+			});
 		else if (token.startsWith("mprot"))
-			return new MaintenanceProtocolPlace();
+			GWT.runAsync(new RunAsyncCallback() {
+
+				@Override
+				public void onSuccess() {
+					new MaintenanceProtocolPlace(token).show();
+				}
+
+				@Override
+				public void onFailure(Throwable reason) {
+
+				}
+			});
 		else if (token.startsWith("mact"))
-			return new MaintenanceActivityPlace();
+			GWT.runAsync(new RunAsyncCallback() {
+
+				@Override
+				public void onSuccess() {
+					new MaintenanceActivityPlace(token).show();
+				}
+
+				@Override
+				public void onFailure(Throwable reason) {
+
+				}
+			});
 		else if (token.startsWith("user"))
-			return new UserPlace();
-		/*
-		 * switch (token) { case "login": }
-		 */
-		throw new IllegalArgumentException("Unsuported token");
+			GWT.runAsync(new RunAsyncCallback() {
+
+				@Override
+				public void onSuccess() {
+					new UserPlace(token).show();
+				}
+
+				@Override
+				public void onFailure(Throwable reason) {
+
+				}
+			});
+		else
+			throw new IllegalArgumentException("Unsuported token");
+
 	}
 }

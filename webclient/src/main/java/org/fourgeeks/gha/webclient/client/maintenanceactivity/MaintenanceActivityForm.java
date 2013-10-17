@@ -4,6 +4,7 @@
 package org.fourgeeks.gha.webclient.client.maintenanceactivity;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -12,7 +13,6 @@ import javax.validation.Validator;
 
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
-import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
@@ -34,6 +34,8 @@ public class MaintenanceActivityForm extends VLayout implements
 	private GHATextItem nameItem, descriptionItem;
 	private Validator validator;
 
+	private DynamicForm form;
+
 	/**
 	 * this is used to keep the id of the persistent entity in order to update,
 	 * is only used with that purpose
@@ -49,6 +51,8 @@ public class MaintenanceActivityForm extends VLayout implements
 
 		validator = Validation.buildDefaultValidatorFactory().getValidator();
 		listeners = new ArrayList<MaintenanceActivitySelectionListener>();
+
+		form = new DynamicForm();
 	}
 
 	/**
@@ -57,7 +61,6 @@ public class MaintenanceActivityForm extends VLayout implements
 	public MaintenanceActivityForm() {
 		final HLayout mainPanel = new HLayout();
 
-		final DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(4);
 		form.setItems(nameItem, new GHASpacerItem(3), descriptionItem);
@@ -110,12 +113,16 @@ public class MaintenanceActivityForm extends VLayout implements
 
 		Set<ConstraintViolation<MaintenanceActivity>> violations = validator
 				.validate(maintenanceActivity);
-		if (!violations.isEmpty()) {
-			GHANotification.alert(GHAStrings.get(violations.iterator().next()
-					.getMessage()));
-			return null;
+		if (form.validate() && violations.isEmpty())
+			return maintenanceActivity;
+		else {
+			List<String> violationsList = new ArrayList<String>();
+			for (Iterator<ConstraintViolation<MaintenanceActivity>> it = violations
+					.iterator(); it.hasNext();)
+				violationsList.add(it.next().getMessage());
+			GHANotification.alert(violationsList);
 		}
-		return maintenanceActivity;
+		return null;
 	}
 
 	/**
