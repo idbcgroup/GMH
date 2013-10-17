@@ -246,6 +246,8 @@ public class InitialData {
 						"Debe ingresar un usuario válido"));
 				em.persist(new UiString(LanguageEnum.ES, "password-not-null",
 						"Debe ingresar una contraseña válida"));
+				em.persist(new UiString(LanguageEnum.ES, "email-invalid-field",
+						"Debe ingresar un email válido"));
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating uistrings test data", e1);
