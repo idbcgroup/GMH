@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImg;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
@@ -16,7 +17,6 @@ import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.Cursor;
 import com.smartgwt.client.types.VerticalAlignment;
 import com.smartgwt.client.widgets.AnimationCallback;
-import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.events.MouseOutEvent;
@@ -139,11 +139,10 @@ public class GHAMenu {
 
 			addMembers(new LayoutSpacer(), iconButton);
 
-			Label titulo = new Label(text);
+			GHALabel titulo = new GHALabel(text);
 			titulo.setWidth("150px");
 			titulo.setHeight("25px");
-			titulo.setStyleName("menu-option-title");
-			titulo.addStyleName("button-pointer");
+			titulo.setStyleName("menu-option-title button-pointer");
 
 			addClickHandler(new ClickHandler() {
 

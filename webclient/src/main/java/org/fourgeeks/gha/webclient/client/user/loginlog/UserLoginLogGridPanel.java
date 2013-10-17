@@ -7,11 +7,11 @@ import org.fourgeeks.gha.domain.logs.LogonLog;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.logonlog.LogonLogModel;
 import org.fourgeeks.gha.webclient.client.logonlog.LogonLogRecord;
 import org.fourgeeks.gha.webclient.client.logonlog.LogonLogUtil;
 
-import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
@@ -35,10 +35,7 @@ public class UserLoginLogGridPanel extends VLayout implements GHAClosable,
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 
-		Label title = new Label("<h3>Log de Connecciones al Sistema</h3>");
-		title.setHeight(30);
-		title.setWidth100();
-		title.setStyleName("title-label");
+		GHALabel title = new GHALabel("Log de Connecciones al Sistema");
 		addMember(title);
 
 		HLayout mainLayout = new HLayout();

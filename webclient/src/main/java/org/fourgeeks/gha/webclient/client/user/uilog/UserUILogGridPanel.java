@@ -3,9 +3,9 @@ package org.fourgeeks.gha.webclient.client.user.uilog;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.user.loginlog.LogonLogGrid;
 
-import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
@@ -31,10 +31,7 @@ public class UserUILogGridPanel extends VLayout implements GHAClosable, GHAHidea
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 
-		Label title = new Label("<h3>Log de Mensajes UI</h3>");
-		title.setHeight(30);
-		title.setWidth100();
-		title.setStyleName("title-label");
+		GHALabel title = new GHALabel("Log de Mensajes UI");
 		addMember(title);
 
 		// //////Botones laterales

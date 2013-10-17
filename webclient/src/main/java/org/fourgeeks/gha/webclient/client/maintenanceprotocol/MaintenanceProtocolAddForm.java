@@ -3,11 +3,11 @@ package org.fourgeeks.gha.webclient.client.maintenanceprotocol;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.types.AnimationEffect;
-import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -28,10 +28,7 @@ public class MaintenanceProtocolAddForm extends GHASlideInWindow implements
 		setHeight(GHAUiHelper.getBottomSectionHeight());
 		setTop(240);
 
-		Label title = new Label("<h3>Nuevo Protocolo de Mantenimiento</h3>");
-		title.setHeight(30);
-		title.setWidth100();
-		title.setStyleName("title-label");
+		GHALabel title = new GHALabel("Nuevo Protocolo de Mantenimiento");
 		addMember(title);
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(

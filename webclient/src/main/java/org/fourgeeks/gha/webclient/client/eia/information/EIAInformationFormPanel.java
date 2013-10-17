@@ -8,11 +8,11 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.eia.EIAForm;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 import org.fourgeeks.gha.webclient.client.eia.EiaSelectionProducer;
 
-import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -42,11 +42,8 @@ public class EIAInformationFormPanel extends VLayout implements GHAClosable, GHA
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		eiaForm.addEiaSelectionListener(this);
-		Label title = new Label("<h3>Caracteristicas del EIA</h3>");
-		title.setHeight(30);
-		title.setWidth100();
-		title.setStyleName("title-label");
-
+		GHALabel title = new GHALabel("Caracteristicas del Equipos");
+		
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton("../resources/icons/save.png",
 				new ClickHandler() {
 
