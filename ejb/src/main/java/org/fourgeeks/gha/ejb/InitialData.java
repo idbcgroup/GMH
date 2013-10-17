@@ -127,11 +127,13 @@ public class InitialData {
 				em.persist(new GHAMessage(LanguageEnum.ES, "LOGIN001",
 						"Inicio de sesión exitoso"));
 				em.persist(new GHAMessage(LanguageEnum.ES, "LOGIN002",
-						"Clave incorrecta"));
+						"La contraseña es incorrecta"));
 				em.persist(new GHAMessage(LanguageEnum.ES, "LOGIN003",
 						"Debe suministrar nombre de usuario y contraseña"));
 				em.persist(new GHAMessage(LanguageEnum.ES, "LOGIN004",
 						"Usuario deshabilitado"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "LOGIN005",
+						"Usuario no registrado en el sistema"));
 				em.persist(new GHAMessage(LanguageEnum.ES, "type-not-null",
 						"Debe indicar el tipo"));
 				em.persist(new GHAMessage(LanguageEnum.ES, "sub-type-not-null",
