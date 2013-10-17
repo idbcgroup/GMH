@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="EiaTypeCompReport" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryWithPageHeaderAndFooter="true" uuid="606d8e54-0a0a-4415-92bf-390680ff9945">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="174"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<style name="estiloTitulosColumHeader" mode="Opaque" forecolor="#000000" backcolor="#BDD6EE" hAlign="Center" vAlign="Middle" fontName="Calibri Light" fontSize="11" isBold="true">
+		<pen lineWidth="1.0" lineColor="#F2F2F2"/>
+	</style>
+	<style name="estiloTitulosGroupHeader" mode="Opaque" forecolor="#000000" backcolor="#DEEAF6" fill="Solid" hAlign="Left" vAlign="Middle" fontName="Calibri" fontSize="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false">
+		<box leftPadding="5">
+			<pen lineColor="#A5A5A5"/>
+			<topPen lineWidth="0.0" lineColor="#A5A5A5"/>
+			<leftPen lineWidth="1.0" lineColor="#A5A5A5"/>
+			<bottomPen lineWidth="1.0" lineColor="#A5A5A5"/>
+			<rightPen lineWidth="1.0" lineColor="#A5A5A5"/>
+		</box>
+	</style>
+	<parameter name="logo" class="java.awt.Image">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
+	<parameter name="fechaHoraReporte" class="java.lang.String"/>
+	<parameter name="nombreOperador" class="java.lang.String"/>
+	<queryString language="hql">
+		<![CDATA[]]>
+	</queryString>
+	<field name="eiaType.code" class="java.lang.String"/>
+	<field name="eiaType.name" class="java.lang.String"/>
+	<field name="eiaType.brand.name" class="java.lang.String"/>
+	<field name="eiaType.model" class="java.lang.String"/>
+	<field name="eiaType.brand.manufacturer.name" class="java.lang.String"/>
+	<field name="parentEiaType.name" class="java.lang.String"/>
+	<group name="Parent eiaType">
+		<groupExpression><![CDATA[$F{parentEiaType.name}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<textField>
+					<reportElement uuid="4df5f2e1-66e1-42fc-863b-f667b24137c8" style="estiloTitulosGroupHeader" mode="Opaque" x="0" y="0" width="752" height="20" backcolor="#DEEAF6"/>
+					<textElement textAlignment="Left">
+						<font fontName="Calibri"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Componentes del Tipo de Equipo: " + $F{parentEiaType.name}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band>
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="59">
+			<image>
+				<reportElement uuid="857b258b-9ebc-4b56-9cd9-862510d3724f" mode="Transparent" x="0" y="0" width="100" height="40">
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="27735e2d-836c-40ed-a1cc-c1f1da212ccc" mode="Transparent" x="634" y="10" width="118" height="16" forecolor="#808080"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Calibri" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
+					<paragraph firstLineIndent="0" leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[Fecha del reporte]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="94e8d37b-4815-46cd-b860-37bd7a923b7e" mode="Transparent" x="634" y="26" width="118" height="14" forecolor="#808080"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Calibri" size="8" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaHoraReporte}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="7c93d762-4aa3-40b0-b6ed-3d52ffbff679" mode="Transparent" x="0" y="4" width="752" height="20" forecolor="#808080">
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Calibri" size="16" isBold="true" pdfFontName="Courier-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Reporte de Equipos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9cd9002a-a405-42df-ab1f-566e9f52dfdd" mode="Transparent" x="0" y="24" width="752" height="16" forecolor="#808080"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom" markup="none">
+					<font fontName="Calibri" size="11" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Componentes de Tipos de Equipos]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="170da3b4-cd39-4638-8c33-c775a29ddea2" positionType="FixRelativeToBottom" mode="Transparent" x="0" y="45" width="752" height="1" forecolor="#5B9BD5" backcolor="#5B9BD5">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="2.0" lineColor="#5B9BD5"/>
+				</graphicElement>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="601c798b-027d-4a30-a9d3-cd0cde3e6ff2" style="estiloTitulosColumHeader" mode="Opaque" x="150" y="0" width="152" height="20">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#A5A5A5"/>
+					<leftPen lineWidth="1.0" lineColor="#A5A5A5"/>
+					<bottomPen lineWidth="1.0" lineColor="#A5A5A5"/>
+					<rightPen lineWidth="1.0" lineColor="#A5A5A5"/>
+				</box>
+				<textElement>
+					<font size="11" isBold="true" pdfFontName="Courier-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="60d3ab9a-7f4c-4310-8eda-e7562d9e840b" key="" style="estiloTitulosColumHeader" mode="Opaque" x="0" y="0" width="150" height="20">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="local_mesure_unitx" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#A5A5A5"/>
+					<leftPen lineWidth="1.0" lineColor="#A5A5A5"/>
+					<bottomPen lineWidth="1.0" lineColor="#A5A5A5"/>
+					<rightPen lineWidth="1.0" lineColor="#A5A5A5"/>
+				</box>
+				<textElement>
+					<font pdfFontName="Courier-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Codigo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e80d169a-ab46-4628-8f1f-6f999fb112b8" style="estiloTitulosColumHeader" mode="Opaque" x="302" y="0" width="150" height="20">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#A5A5A5"/>
+					<leftPen lineWidth="1.0" lineColor="#A5A5A5"/>
+					<bottomPen lineWidth="1.0" lineColor="#A5A5A5"/>
+					<rightPen lineWidth="1.0" lineColor="#A5A5A5"/>
+				</box>
+				<textElement>
+					<font size="11" isBold="true" pdfFontName="Courier-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Marca]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ee888fc6-4408-4ef8-9ce4-9017d19755f9" style="estiloTitulosColumHeader" mode="Opaque" x="452" y="0" width="150" height="20">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#A5A5A5"/>
+					<leftPen lineWidth="1.0" lineColor="#A5A5A5"/>
+					<bottomPen lineWidth="1.0" lineColor="#A5A5A5"/>
+					<rightPen lineWidth="1.0" lineColor="#A5A5A5"/>
+				</box>
+				<textElement>
+					<font size="11" isBold="true" pdfFontName="Courier-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Modelo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="75ef3a9e-b8bf-40b5-84d9-7d20858a11b7" style="estiloTitulosColumHeader" mode="Opaque" x="602" y="0" width="150" height="20">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#A5A5A5"/>
+					<leftPen lineWidth="1.0" lineColor="#A5A5A5"/>
+					<bottomPen lineWidth="1.0" lineColor="#A5A5A5"/>
+					<rightPen lineWidth="1.0" lineColor="#A5A5A5"/>
+				</box>
+				<textElement>
+					<font size="11" isBold="true" pdfFontName="Courier-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Fabricante]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="223d7c29-c14c-4be1-aa44-712b89400f80" mode="Transparent" x="0" y="0" width="150" height="20">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#A5A5A5"/>
+					<leftPen lineWidth="1.0" lineColor="#A5A5A5"/>
+					<bottomPen lineWidth="1.0" lineColor="#A5A5A5"/>
+					<rightPen lineWidth="1.0" lineColor="#A5A5A5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="10" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{eiaType.code}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="3c1994ea-7207-44c1-84d3-07337ec3c7de" mode="Transparent" x="150" y="0" width="152" height="20">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#A5A5A5"/>
+					<leftPen lineWidth="1.0" lineColor="#A5A5A5"/>
+					<bottomPen lineWidth="1.0" lineColor="#A5A5A5"/>
+					<rightPen lineWidth="1.0" lineColor="#A5A5A5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Calibri" size="10" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{eiaType.name}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="3eb1344d-820a-4a8e-8dee-051a09240fc6" mode="Transparent" x="302" y="0" width="150" height="20">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#A5A5A5"/>
+					<leftPen lineWidth="1.0" lineColor="#A5A5A5"/>
+					<bottomPen lineWidth="1.0" lineColor="#A5A5A5"/>
+					<rightPen lineWidth="1.0" lineColor="#A5A5A5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Calibri" size="10" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{eiaType.brand.name}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="4b12d988-bb50-410c-83d9-63c53070ad82" mode="Transparent" x="452" y="0" width="150" height="20">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#A5A5A5"/>
+					<leftPen lineWidth="1.0" lineColor="#A5A5A5"/>
+					<bottomPen lineWidth="1.0" lineColor="#A5A5A5"/>
+					<rightPen lineWidth="1.0" lineColor="#A5A5A5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Calibri" size="10" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{eiaType.model}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="0a08c96c-e822-4ff5-8042-b2ba35ef8312" mode="Transparent" x="602" y="0" width="150" height="20">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#A5A5A5"/>
+					<leftPen lineWidth="1.0" lineColor="#A5A5A5"/>
+					<bottomPen lineWidth="1.0" lineColor="#A5A5A5"/>
+					<rightPen lineWidth="1.0" lineColor="#A5A5A5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Calibri" size="10" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{eiaType.brand.manufacturer.name}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="24" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement uuid="1be28e21-c0e5-4bcb-a201-e8670a35d6d2" mode="Transparent" x="577" y="0" width="175" height="12" forecolor="#808080">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Calibri" size="8" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de "+$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement uuid="ded7e342-3bf1-4871-86a8-d159c125e04a" mode="Transparent" x="0" y="0" width="50" height="24">
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement uuid="c163e2e1-cc1d-4713-bc3d-feeada8f009c" mode="Transparent" x="50" y="12" width="183" height="12" forecolor="#808080"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Calibri" size="8" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Operador: "+$P{nombreOperador}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="dfe07fb3-2eb2-4280-8543-5a7944d3db49" mode="Transparent" x="50" y="0" width="183" height="12" forecolor="#808080">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Calibri" size="8" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Fecha de impresión: "+$P{fechaHoraReporte}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
