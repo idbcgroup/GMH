@@ -30,10 +30,7 @@ public class EIATypeMaintenanceProtocolForm extends GHASlideInWindow implements 
 		setHeight(GHAUiHelper.getBottomSectionHeight()-20);
 		setTop(260);
 		    
-		Label title = new Label("<h3>Protocolos del Plan</h3>");
-		title.setHeight(35);
-		title.setWidth100();
-		title.setStyleName("title-label");
+		Label title = new Label("Protocolos del Plan");
 		
 		VLayout sideButtons = GHAUiHelper.createBar(
 				new GHAImgButton("../resources/icons/edit.png"),

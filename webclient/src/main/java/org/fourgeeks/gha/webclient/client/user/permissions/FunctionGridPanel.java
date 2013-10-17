@@ -10,12 +10,12 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridField;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.function.FunctionModel;
 import org.fourgeeks.gha.webclient.client.function.FunctionRecord;
 import org.fourgeeks.gha.webclient.client.function.FunctionUtil;
 import org.fourgeeks.gha.webclient.client.user.UserModel;
 
-import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.grid.events.CellSavedEvent;
 import com.smartgwt.client.widgets.grid.events.CellSavedHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -43,10 +43,7 @@ public class FunctionGridPanel extends VLayout implements GHAClosable,
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 
-		Label title = new Label("<h3>Permisos</h3>");
-		title.setHeight(30);
-		title.setWidth100();
-		title.setStyleName("title-label");
+		GHALabel title = new GHALabel("Permisos");
 		addMember(title);
 
 		HLayout mainLayout = new HLayout();
