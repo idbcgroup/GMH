@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATab;
+import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
 
 /**
  * @author alacret
@@ -28,10 +28,11 @@ public class EIATab extends GHATab implements EIASelectionListener,
 	}
 
 	/**
+	 * @param token
 	 * 
 	 */
-	public EIATab() {
-		super();
+	public EIATab(String token) {
+		super(token);
 		header.setTitle(TITLE);
 
 		topSection = new EIATopSection(this);

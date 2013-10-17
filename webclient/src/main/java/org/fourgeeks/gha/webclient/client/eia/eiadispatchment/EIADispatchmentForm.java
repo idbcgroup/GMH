@@ -19,50 +19,51 @@ public class EIADispatchmentForm extends GHASlideInWindow {
 	{
 		dispatchmentGrid = new EIAGrid();
 	}
-	
-	
+
 	public EIADispatchmentForm() {
-		super(1);
+		super();
 		setTop(GHAUiHelper.getTopSpace());
-		setHeight(GHAUiHelper.getTabHeight()-4);
-		
-////////Botones laterales
-		VLayout sideButtons = GHAUiHelper.createBar(
-	    		new GHAImgButton("../resources/icons/check.png", new ClickHandler() {
+		setHeight(GHAUiHelper.getTabHeight() - 4);
+
+		// //////Botones laterales
+		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
+				"../resources/icons/check.png", new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
 						// TODO Auto-generated method stub
 					}
-				}),
-				GHAUiHelper.verticalGraySeparator("2px"),
-	    		new GHAImgButton("../resources/icons/cancel.png", new ClickHandler() {
+				}), GHAUiHelper.verticalGraySeparator("2px"), new GHAImgButton(
+				"../resources/icons/cancel.png", new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
 						hide();
 					}
 				}));
-		
+
 		HLayout topPanel = new HLayout();
-		topPanel.setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT -30);
+		topPanel.setHeight(GHAUiHelper.DEFAULT_TOP_SECTION_HEIGHT - 30);
 		topPanel.setStyleName("sides-padding");
-		
+
 		topPanel.addMembers(new LayoutSpacer(), sideButtons);
-		
+
 		Label title = new Label("<h3>Despacho de equipos</h3>");
 		title.setHeight(35);
 		title.setWidth100();
 		title.setStyleName("title-label");
-		
+
 		HLayout botPanel = new HLayout();
 		botPanel.setStyleName("sides-padding padding-top");
 		botPanel.addMembers(dispatchmentGrid);
-		
-		addMembers(title,topPanel,GHAUiHelper.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT+"px"), botPanel);
+
+		addMembers(title, topPanel,
+				GHAUiHelper
+						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
+								+ "px"), botPanel);
 	}
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getTabHeight()-4);
+		setHeight(GHAUiHelper.getTabHeight() - 4);
 	}
 
 }

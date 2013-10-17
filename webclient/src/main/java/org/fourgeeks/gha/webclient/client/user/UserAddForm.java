@@ -29,7 +29,7 @@ public class UserAddForm extends GHASlideInWindow implements
 	 * 
 	 */
 	public UserAddForm() {
-		super(2);
+		super();
 		setHeight(GHAUiHelper.getBottomSectionHeight());
 		setTop(240);
 

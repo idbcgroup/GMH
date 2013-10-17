@@ -5,7 +5,11 @@ import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATab;
+import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
+import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader;
+
+import com.smartgwt.client.widgets.events.ClickEvent;
+import com.smartgwt.client.widgets.events.ClickHandler;
 
 /**
  * @author alacret
@@ -20,32 +24,66 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 	public static final String ID = "eiatype";
 	private static final String TITLE = "Tipos de equipo";
 	private List<EIATypeSelectionListener> listeners = new ArrayList<EIATypeSelectionListener>();
-	private EIATypeTopSection topSection;
-	// private EiaType eiaType;
-	private EIATypeInternalTabset internatlTabSet;
+	private EIATypeTopForm topSection;
+	private EIATypeAddForm addForm;
+
+	// private EIATypeInternalTabset internatlTabSet;
 
 	/**
-	 * @param eiaType
+	 * @param token
 	 */
-	public EIATypeTab() {
-		super();
-		header.setTitle(TITLE);
+	public EIATypeTab(String token) {
+		super(token);
+		header = new GHATabHeader(this, TITLE);
+		header.addSearchOption(new ClickHandler() {
 
-		topSection = new EIATypeTopSection(this);
-		internatlTabSet = new EIATypeInternalTabset(this);
+			@Override
+			public void onClick(ClickEvent event) {
+				search();
+			}
+		});
+		header.addAddOption(new ClickHandler() {
 
-		verticalPanel.setBackgroundColor("#FFFFFF");
+			@Override
+			public void onClick(ClickEvent event) {
+				add();
+
+			}
+		});
+		header.addCleanOption(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				clean();
+
+			}
+		});
+
+		topSection = new EIATypeTopForm(this);
+		topSection.setShadowDepth(8);
+		// internatlTabSet = new EIATypeInternalTabset(this);
+
 		verticalPanel.addMember(topSection);
 		verticalPanel.addMember(GHAUiHelper
 				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
-		verticalPanel.addMember(internatlTabSet);
+		// verticalPanel.addMember(internatlTabSet);
 		addMember(verticalPanel);
 	}
 
-	@Override
-	protected void onDraw() {
-		// if (eiaType == null)
-		topSection.search();
+	protected void search() {
+		// TODO Auto-generated method stub
+
+	}
+
+	protected void add() {
+		if (addForm == null)
+			addForm = new EIATypeAddForm();
+		addForm.open();
+	}
+
+	protected void clean() {
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override

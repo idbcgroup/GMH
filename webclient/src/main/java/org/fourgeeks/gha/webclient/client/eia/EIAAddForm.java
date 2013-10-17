@@ -27,7 +27,7 @@ public class EIAAddForm extends GHASlideInWindow implements
 	 * 
 	 */
 	public EIAAddForm() {
-		super(1);
+		super();
 		eiaForm = new EIAForm();
 		initComponent();
 	}
@@ -39,8 +39,7 @@ public class EIAAddForm extends GHASlideInWindow implements
 		eiaForm.addEiaSelectionListener(this);
 
 		GHAUiHelper.addGHAResizeHandler(this);
-		setHeight(GHAUiHelper.getBottomSectionHeight());
-		setTop(240);
+		setHeight(GHAUiHelper.getTabHeight());
 
 		Label title = new Label("<h3>Nuevo equipo</h3>");
 		title.setWidth(400);
@@ -76,7 +75,7 @@ public class EIAAddForm extends GHASlideInWindow implements
 	 * 
 	 */
 	public EIAAddForm(EiaType eiaType) {
-		super(1);
+		super();
 		eiaForm = new EIAForm(eiaType);
 		initComponent();
 	}

@@ -23,7 +23,7 @@ public class MaintenanceActivityAddForm extends GHASlideInWindow implements
 	}
 
 	public MaintenanceActivityAddForm() {
-		super(2);
+		super();
 		setHeight(GHAUiHelper.getBottomSectionHeight());
 		setTop(240);
 

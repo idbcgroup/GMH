@@ -1,10 +1,14 @@
 package org.fourgeeks.gha.webclient.client.edt;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATab;
+import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
 
 import com.smartgwt.client.widgets.layout.VLayout;
 
+/**
+ * @author alacret
+ * 
+ */
 public class EDTTab extends GHATab {
 
 	public static final String ID = "edt";
@@ -14,8 +18,11 @@ public class EDTTab extends GHATab {
 	private EDTTopGridPanel topGridPanel = new EDTTopGridPanel();
 	private EDTBotGridPanel botGridPanel = new EDTBotGridPanel();
 
-	public EDTTab() {
-		super();
+	/**
+	 * @param token
+	 */
+	public EDTTab(String token) {
+		super(token);
 		// getHeader().setTitle(TITLE);
 
 		// Creacion de la tab de EDT

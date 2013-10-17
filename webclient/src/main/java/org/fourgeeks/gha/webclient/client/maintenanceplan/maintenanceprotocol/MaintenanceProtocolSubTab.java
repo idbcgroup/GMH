@@ -1,7 +1,7 @@
 package org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol;
 
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASubTab;
+import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanTab;
 

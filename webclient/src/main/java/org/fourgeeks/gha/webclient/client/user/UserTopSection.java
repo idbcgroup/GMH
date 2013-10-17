@@ -7,7 +7,7 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATabSet;
+import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabSet;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
@@ -62,7 +62,7 @@ public class UserTopSection extends HLayout implements GHAClosable,
 		// tab.addGHAHideableHandler(this);
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		setWidth100();
-		setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT + "px");
+		setHeight(GHAUiHelper.DEFAULT_TOP_SECTION_HEIGHT + "px");
 		setDefaultLayoutAlign(VerticalAlignment.CENTER);
 		setBackgroundColor("#EAEAEA");
 		DynamicForm form = new DynamicForm();
@@ -103,7 +103,7 @@ public class UserTopSection extends HLayout implements GHAClosable,
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT + "px");
+		setHeight(GHAUiHelper.DEFAULT_TOP_SECTION_HEIGHT + "px");
 	}
 
 	@Override

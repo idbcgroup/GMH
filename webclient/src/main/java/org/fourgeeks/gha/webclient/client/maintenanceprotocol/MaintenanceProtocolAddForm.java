@@ -24,7 +24,7 @@ public class MaintenanceProtocolAddForm extends GHASlideInWindow implements
 	}
 
 	public MaintenanceProtocolAddForm() {
-		super(2);
+		super();
 		setHeight(GHAUiHelper.getBottomSectionHeight());
 		setTop(240);
 

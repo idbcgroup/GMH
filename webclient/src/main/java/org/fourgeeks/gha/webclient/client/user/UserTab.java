@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATab;
+import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
 
 import com.smartgwt.client.widgets.layout.VLayout;
 
@@ -30,10 +30,11 @@ public class UserTab extends GHATab implements UserSelectionListener,
 	}
 
 	/**
+	 * @param token
 	 * 
 	 */
-	public UserTab() {
-		super();
+	public UserTab(String token) {
+		super(token);
 		getHeader().setTitle(TITLE);
 
 		topSection = new UserTopSection(this);

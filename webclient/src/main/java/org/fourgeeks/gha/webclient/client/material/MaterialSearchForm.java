@@ -61,15 +61,15 @@ public class MaterialSearchForm extends GHASlideInWindow implements
 	 * 
 	 */
 	public MaterialSearchForm() {
-		super(1);
+		super();
 		setTop(GHAUiHelper.getTopSpace());
-		setHeight(GHAUiHelper.getTabHeight()-4 + "px");
+		setHeight(GHAUiHelper.getTabHeight() - 4 + "px");
 
 		Label title = new Label("<h3>Buscar un Material</h3>");
 		title.setWidth(400);
 		title.setHeight("35px");
 		addMember(title);
-		
+
 		final DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(5);
@@ -104,15 +104,15 @@ public class MaterialSearchForm extends GHASlideInWindow implements
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
 				"../resources/icons/search.png", searchClickHandler),
-				new GHAImgButton("../resources/icons/clean.png", new ClickHandler() {
-					
-					@Override
-					public void onClick(ClickEvent event) {
-						form.clearValues();
-						grid.setData(new ListGridRecord[0]);
-					}
-				}),
-				new GHAImgButton("../resources/icons/cancel.png",
+				new GHAImgButton("../resources/icons/clean.png",
+						new ClickHandler() {
+
+							@Override
+							public void onClick(ClickEvent event) {
+								form.clearValues();
+								grid.setData(new ListGridRecord[0]);
+							}
+						}), new GHAImgButton("../resources/icons/cancel.png",
 						new ClickHandler() {
 
 							@Override
@@ -123,11 +123,13 @@ public class MaterialSearchForm extends GHASlideInWindow implements
 
 		HLayout formLayout = new HLayout();
 		formLayout.setPadding(10);
-		formLayout.setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT + "px");
+		formLayout.setHeight(GHAUiHelper.DEFAULT_TOP_SECTION_HEIGHT + "px");
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
 
-		addMembers(title,formLayout,
-				   GHAUiHelper.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
+		addMembers(title, formLayout,
+				GHAUiHelper
+						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
+								+ "px"));
 
 		grid = new MaterialGrid();
 		HLayout gridLayout = new HLayout();
@@ -233,7 +235,7 @@ public class MaterialSearchForm extends GHASlideInWindow implements
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getTabHeight()-4 + "px");
+		setHeight(GHAUiHelper.getTabHeight() - 4 + "px");
 	}
 
 	@Override

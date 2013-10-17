@@ -1,8 +1,9 @@
-package org.fourgeeks.gha.webclient.client.UI.superclasses;
+package org.fourgeeks.gha.webclient.client.UI.tabs;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 
@@ -15,21 +16,22 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public abstract class GHATab extends VLayout implements GHAClosable,
 		GHAHideable {
 
-	private String token = null;
+	private String token;;
 	protected GHATabHeader header;
 	protected VLayout verticalPanel = new VLayout();
 	private List<GHAClosable> closables = new ArrayList<GHAClosable>();
 	private List<GHAHideable> hideables = new ArrayList<GHAHideable>();
 
 	/**
+	 * @param header
+	 * @param token
 	 * 
 	 */
-	public GHATab() {
+	public GHATab(String token) {
+		this.token = token;
 		setWidth100();
-		// setBackgroundColor("#E0E0E0");
-		setBackgroundColor("#FFFFFF");
-		header = new GHATabHeader(this);
-		verticalPanel.setBackgroundColor("#FFFFFF");
+		setBackgroundColor(GHAUiHelper.BACKGROUND_COLOR);
+		// verticalPanel.setBackgroundColor("#FFFFFF");
 		// addMember(verticalPanel);
 	}
 
@@ -46,18 +48,9 @@ public abstract class GHATab extends VLayout implements GHAClosable,
 	}
 
 	/**
-	 * @param token
-	 */
-	public void setToken(String token) {
-		this.token = token;
-	};
-
-	/**
 	 * @return the token
 	 */
 	public String getToken() {
-		if (token == null)
-			GHANotification.alert("No token set for this tab");
 		return token;
 	};
 
@@ -69,7 +62,10 @@ public abstract class GHATab extends VLayout implements GHAClosable,
 		for (GHAClosable closable : closables)
 			closable.close();
 		// if (getHeader() != null)
+		// TODO: test if the header can get remove from this point, and not form
+		// ghatabset
 		// getHeader().removeFromParent();
+
 		removeFromParent();
 	}
 

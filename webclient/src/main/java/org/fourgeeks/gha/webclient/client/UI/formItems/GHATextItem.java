@@ -1,5 +1,7 @@
 package org.fourgeeks.gha.webclient.client.UI.formItems;
 
+import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+
 import com.smartgwt.client.widgets.form.fields.TextItem;
 
 /**
@@ -16,8 +18,9 @@ public class GHATextItem extends TextItem {
 		setTextBoxStyle("input");
 		setHeight(18);
 		setCellStyle("gha-form-cell");
-		setWidth(100);
+		setWidth(GHAUiHelper.DEFAULT_ITEM_SIZE);
 		setTitleStyle("input-title");
+		setLength(255);
 	}
 
 	/**
