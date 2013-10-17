@@ -66,9 +66,7 @@ public class GHAMessage implements Serializable {
 	}
 
 	/**
-	 * @param language
 	 * @param code
-	 * @param text
 	 */
 	public GHAMessage(String code) {
 		super();
@@ -85,5 +83,20 @@ public class GHAMessage implements Serializable {
 	 */
 	public String getText() {
 		return this.text;
+	}
+
+	/**
+	 * @return the code
+	 */
+	public String getCode() {
+		return code;
+	}
+
+	/**
+	 * @param text
+	 *            the text to set
+	 */
+	public void setText(String text) {
+		this.text = text;
 	}
 }

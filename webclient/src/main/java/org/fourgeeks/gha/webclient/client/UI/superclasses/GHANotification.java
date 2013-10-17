@@ -88,4 +88,11 @@ public class GHANotification {
 			}
 		});
 	}
+
+	/**
+	 * @param ghaMessage
+	 */
+	public static void alert(GHAMessage ghaMessage) {
+		alert(ghaMessage.getText());
+	}
 }

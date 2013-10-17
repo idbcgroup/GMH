@@ -3,6 +3,8 @@ package org.fourgeeks.gha.webclient.client.UI;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
+
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.user.client.DOM;
@@ -13,7 +15,6 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.widgets.Canvas;
-import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
@@ -117,9 +118,8 @@ public abstract class GHAUiHelper {
 		separator.setHeight(height);
 		separator.setStyleName("sides-padding");
 
-		Label title = new Label(text);
+		GHALabel title = new GHALabel(text);
 		title.setHeight(height);
-		title.setWidth100();
 		title.setStyleName("separator-title-label");
 
 		separator.addMember(title);

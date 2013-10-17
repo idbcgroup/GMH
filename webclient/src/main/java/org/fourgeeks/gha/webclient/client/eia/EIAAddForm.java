@@ -4,11 +4,11 @@ import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
-import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -41,10 +41,7 @@ public class EIAAddForm extends GHASlideInWindow implements
 		GHAUiHelper.addGHAResizeHandler(this);
 		setHeight(GHAUiHelper.getTabHeight());
 
-		Label title = new Label("<h3>Nuevo equipo</h3>");
-		title.setWidth(400);
-		title.setHeight("35px");
-		addMember(title);
+		GHALabel title = new GHALabel("Nuevo equipo");
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
 				"../resources/icons/save.png", new ClickHandler() {

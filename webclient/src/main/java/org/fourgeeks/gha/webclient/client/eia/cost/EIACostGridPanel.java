@@ -5,9 +5,9 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
-import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -23,15 +23,8 @@ public class EIACostGridPanel extends VLayout implements EIATypeSelectionListene
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		
-		Label title = new Label("<h3>Costos/Depreciación (Pospuesta)</h3>");
-		title.setHeight(35);
-		title.setWidth100();
-		title.setStyleName("title-label");
-	
-		Label titleDep = new Label("<h3>Registro de Depreciación</h3>");
-		titleDep.setHeight(35);
-		titleDep.setWidth100();
-		titleDep.setStyleName("title-label");
+		GHALabel title = new GHALabel("Costos/Depreciación (Pospuesta)");
+		GHALabel titleDep = new GHALabel("Registro de Depreciación");
 		
 		// //////Botones laterales
         VLayout sideButtons = GHAUiHelper.createBar(

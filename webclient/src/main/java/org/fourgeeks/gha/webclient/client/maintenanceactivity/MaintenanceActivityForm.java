@@ -113,16 +113,14 @@ public class MaintenanceActivityForm extends VLayout implements
 
 		Set<ConstraintViolation<MaintenanceActivity>> violations = validator
 				.validate(maintenanceActivity);
-		if (form.validate()) {
-			if (violations.isEmpty())
-				return maintenanceActivity;
-			else {
-				List<String> violationsList = new ArrayList<String>();
-				for (Iterator<ConstraintViolation<MaintenanceActivity>> it = violations
-						.iterator(); it.hasNext();)
-					violationsList.add(it.next().getMessage());
-				GHANotification.alert(violationsList);
-			}
+		if (form.validate() && violations.isEmpty())
+			return maintenanceActivity;
+		else {
+			List<String> violationsList = new ArrayList<String>();
+			for (Iterator<ConstraintViolation<MaintenanceActivity>> it = violations
+					.iterator(); it.hasNext();)
+				violationsList.add(it.next().getMessage());
+			GHANotification.alert(violationsList);
 		}
 		return null;
 	}

@@ -4,11 +4,11 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.widgets.AnimationCallback;
-import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -34,10 +34,7 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 	public EIATypeAddForm() {
 		super();
 		setHeight(GHAUiHelper.getTabHeight());
-		Label title = new Label("<h3>Nuevo Tipo de Equipo</h3>");
-		title.setHeight(30);
-		title.setWidth100();
-		title.setStyleName("title-label");
+		GHALabel title = new GHALabel("Nuevo Tipo de Equipo");
 		addMember(title);
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
@@ -67,6 +64,12 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 	// protected void cancel() {
 	// form.hide();
 	// super.hide();
+	// }
+
+	// @Override
+	// public void open() {
+	// super.open();
+	// form.show();
 	// }
 
 	private void save() {

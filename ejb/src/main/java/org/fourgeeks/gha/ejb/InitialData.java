@@ -127,11 +127,13 @@ public class InitialData {
 				em.persist(new GHAMessage(LanguageEnum.ES, "LOGIN001",
 						"Inicio de sesión exitoso"));
 				em.persist(new GHAMessage(LanguageEnum.ES, "LOGIN002",
-						"Clave incorrecta"));
+						"La contraseña es incorrecta"));
 				em.persist(new GHAMessage(LanguageEnum.ES, "LOGIN003",
 						"Debe suministrar nombre de usuario y contraseña"));
 				em.persist(new GHAMessage(LanguageEnum.ES, "LOGIN004",
 						"Usuario deshabilitado"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "LOGIN005",
+						"Usuario no registrado en el sistema"));
 				em.persist(new GHAMessage(LanguageEnum.ES, "type-not-null",
 						"Debe indicar el tipo"));
 				em.persist(new GHAMessage(LanguageEnum.ES, "sub-type-not-null",
@@ -186,6 +188,41 @@ public class InitialData {
 						"Guardado exitoso del Protocolo de Mantenimiento"));
 				em.persist(new GHAMessage(LanguageEnum.ES, "mact-save-success",
 						"Guardado exitoso de la Actividad de Mantenimiento"));
+
+				// eiatype service messages
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"eiatype-delete-fail",
+						"Fallo la eliminación del EiaType"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "eiatype-save-fail",
+						"Guardado fallido del Tipo de Equipo"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"eiatype-update-fail",
+						"Actualización fallida del Tipo de Equipo"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "eiatype-find-fail",
+						"Búsqueda fallida de Tipos de Equipo"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"eiatype-findByMaintenancePlan-fail",
+						"Guardado fallido del Tipo de Equipo"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"eiatype-getAll-fail",
+						"Guardado fallido del Tipo de Equipo"));
+
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"eiatype-delete-fail",
+						"Failed to delete Equipment type"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"eiatype-update-fail",
+						"Failed to update Equipment type"));
+				em.persist(new GHAMessage(LanguageEnum.EN, "eiatype-find-fail",
+						"Failed to find Equipment Type"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"eiatype-findByMaintenancePlan-fail",
+						"Failed to find Equipment type by Maintenance Plan"));
+				em.persist(new GHAMessage(LanguageEnum.EN, "eiatype-save-fail",
+						"Failed to save Equipment type"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"eiatype-getAll-fail",
+						"Failed to get all Equipment types"));
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating message test data", e1);
@@ -209,6 +246,10 @@ public class InitialData {
 				em.persist(new UiString(LanguageEnum.ES, "add", "Agregar"));
 				em.persist(new UiString(LanguageEnum.ES, "clean", "Limpiar"));
 				em.persist(new UiString(LanguageEnum.ES, "search", "Buscar"));
+				em.persist(new UiString(LanguageEnum.ES, "username-not-null",
+						"Debe ingresar un usuario válido"));
+				em.persist(new UiString(LanguageEnum.ES, "password-not-null",
+						"Debe ingresar una contraseña válida"));
 				em.persist(new UiString(LanguageEnum.ES, "code", "Código"));
 				em.persist(new UiString(LanguageEnum.ES, "model", "Modelo"));
 				em.persist(new UiString(LanguageEnum.ES, "none", "Modelo"));

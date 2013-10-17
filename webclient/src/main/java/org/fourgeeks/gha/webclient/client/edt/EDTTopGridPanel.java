@@ -3,8 +3,8 @@ package org.fourgeeks.gha.webclient.client.edt;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 
-import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -25,10 +25,7 @@ public class EDTTopGridPanel extends VLayout implements GHAClosable{
 		setBackgroundColor("#E0E0E0");
 		
 		//Title
-		Label topTitle = new Label("<h3>Por Atender</h3>");
-		topTitle.setHeight(35);
-		topTitle.setWidth100();
-		topTitle.setStyleName("title-label");
+		GHALabel topTitle = new GHALabel("Por Atender");
 		
 		// //////Botones laterales
 		
