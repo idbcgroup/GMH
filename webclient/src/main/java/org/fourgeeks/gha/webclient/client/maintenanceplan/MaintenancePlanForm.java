@@ -151,17 +151,15 @@ public class MaintenancePlanForm extends VLayout implements
 
 		Set<ConstraintViolation<MaintenancePlan>> violations = validator
 				.validate(maintenancePlan);
-		if (form.validate()) {
-			if (violations.isEmpty()) {
-				return maintenancePlan;
-			} else {
-				List<String> violationsList = new ArrayList<String>();
-				for (Iterator<ConstraintViolation<MaintenancePlan>> it = violations
-						.iterator(); it.hasNext();) {
-					violationsList.add(it.next().getMessage());
-				}
-				GHANotification.alert(violationsList);
+		if (form.validate() && violations.isEmpty())
+			return maintenancePlan;
+		else {
+			List<String> violationsList = new ArrayList<String>();
+			for (Iterator<ConstraintViolation<MaintenancePlan>> it = violations
+					.iterator(); it.hasNext();) {
+				violationsList.add(it.next().getMessage());
 			}
+			GHANotification.alert(violationsList);
 		}
 		return null;
 	}
