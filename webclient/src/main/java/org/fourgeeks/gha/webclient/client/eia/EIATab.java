@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
+import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader;
 
 /**
  * @author alacret
@@ -32,6 +33,7 @@ public class EIATab extends GHATab implements EIASelectionListener,
 	 */
 	public EIATab(String token) {
 		super(token);
+		header = new GHATabHeader(this, TITLE);
 		// header.setTitle(TITLE);
 		//
 		// topSection = new EIATopSection(this);
@@ -41,13 +43,13 @@ public class EIATab extends GHATab implements EIASelectionListener,
 		// verticalPanel.addMember(GHAUiHelper
 		// .verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
 		// verticalPanel.addMember(internalTabset);
-		addMember(verticalPanel);
+		// addMember(verticalPanel);
 	}
 
 	@Override
 	protected void onDraw() {
-		if (eia == null)
-			topSection.search();
+		// if (eia == null)
+		// topSection.search();
 	}
 
 	@Override

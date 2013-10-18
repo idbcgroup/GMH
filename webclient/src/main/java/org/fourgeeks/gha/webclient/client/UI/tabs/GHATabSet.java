@@ -52,7 +52,17 @@ public final class GHATabSet {
 		Window.alert("try adding the tab to the map");
 		tabs.put(tab.getId(), tab);
 		Window.alert("try adding the tab to the main content div");
-		RootPanel.get("main-content").add(tab);
+		RootPanel rootPanel = RootPanel.get("main-content");
+		Window.alert(rootPanel == null ? "root panel is null?"
+				: "root panel is not null");
+		Window.alert(tab == null ? "tab panel is null?"
+				: "tab panel is not null");
+		try {
+			rootPanel.add(tab);
+		} catch (Exception e) {
+			Window.alert("error tring to add the tab to the manin content");
+			Window.alert(e.getMessage());
+		}
 		Window.alert("succeding adding the tab to the main content");
 	}
 
