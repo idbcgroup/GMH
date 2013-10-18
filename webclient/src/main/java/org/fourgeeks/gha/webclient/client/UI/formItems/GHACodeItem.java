@@ -13,8 +13,7 @@ public class GHACodeItem extends GHATextItem {
 	 * 
 	 */
 	public GHACodeItem() {
-		super(GHAStrings.get("code"));
-		setLength(GHAUiHelper.CODE_ITEM_LENGTH);
+		this(GHAUiHelper.CODE_ITEM_LENGTH);
 	}
 
 	/**
@@ -24,6 +23,23 @@ public class GHACodeItem extends GHATextItem {
 	public GHACodeItem(int width) {
 		super(GHAStrings.get("code"), width);
 		setLength(GHAUiHelper.CODE_ITEM_LENGTH);
+	}
+
+	/**
+	 * @param required
+	 */
+	public GHACodeItem(boolean required) {
+		this();
+		setRequired(required);
+	}
+
+	/**
+	 * @param required
+	 * @param width
+	 */
+	public GHACodeItem(boolean required, int width) {
+		this(required);
+		setWidth(width);
 	}
 
 }

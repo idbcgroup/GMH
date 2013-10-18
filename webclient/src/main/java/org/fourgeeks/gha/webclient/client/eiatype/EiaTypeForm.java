@@ -17,6 +17,8 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHACodeItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAComboboxItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
@@ -37,7 +39,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer {
-	private GHATextItem codeItem, nameItem, modelItem, descriptionItem,
+	private GHACodeItem codeItem;
+	private GHATextItem nameItem, modelItem, descriptionItem,
 			useDescriptionItem, eiaUmdnsItem;
 	private GHASelectItem mobilityItem, typeItem, subTypeItem;
 	private GHAComboboxItem<Brand> brandItem;
@@ -54,13 +57,9 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer {
 
 	private Validator validator;
 	{
-		codeItem = new GHATextItem("Código", 150);
-		codeItem.setRequired(true);
-		codeItem.setLength(20);
-		codeItem.setMask("AAAAAAAAAAAAAAAAAAAA");
-		nameItem = new GHATextItem("Nombre", 150);
+		codeItem = new GHACodeItem(true, 150);
+		nameItem = new GHATextItem(GHAStrings.get("name"), 150);
 		nameItem.setRequired(true);
-		nameItem.setLength(255);
 		modelItem = new GHATextItem("Modelo", 150);
 		modelItem.setLength(20);
 		descriptionItem = new GHATextItem("Descripción", 480);
@@ -87,6 +86,9 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer {
 		form = new DynamicForm();
 	}
 
+	/**
+	 * 
+	 */
 	public EiaTypeForm() {
 		final HLayout gridPanel = new HLayout();
 
