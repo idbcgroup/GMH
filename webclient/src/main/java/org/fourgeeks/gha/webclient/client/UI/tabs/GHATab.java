@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
+import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToHideException;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 
@@ -56,35 +58,38 @@ public abstract class GHATab extends VLayout implements GHAClosable,
 
 	/**
 	 * This method is call by the GHATAbSet to notyfy the close action
+	 * 
+	 * @throws UnavailableToCloseException
 	 */
 	@Override
-	public void close() {
+	public void close() throws UnavailableToCloseException {
 		for (GHAClosable closable : closables)
-			closable.close();
-		// if (getHeader() != null)
-		// TODO: test if the header can get remove from this point, and not form
-		// ghatabset
-		// getHeader().removeFromParent();
-
+			try {
+				closable.close();
+			} catch (Exception e) {
+				throw new UnavailableToCloseException(e);
+			}
 		removeFromParent();
+		destroy();
 	}
 
 	@Override
-	public void hide() {
+	public void hide() throws UnavailableToHideException {
 		for (GHAHideable hideable : hideables)
-			hideable.hide();
+			try {
+				hideable.hide();
+			} catch (UnavailableToHideException e) {
+				throw new UnavailableToHideException(e);
+			}
+
 		super.hide();
 		getElement().addClassName("hidden");
-		// Tab
-		// getHeader().deselectTab();
 	}
 
 	@Override
 	public void show() {
 		super.show();
 		getElement().removeClassName("hidden");
-		// Tab
-		// getHeader().selectTab();
 	}
 
 	/**

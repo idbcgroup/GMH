@@ -1,6 +1,7 @@
 package org.fourgeeks.gha.webclient.client.eiatype;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
@@ -34,8 +35,7 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 	public EIATypeAddForm() {
 		super();
 		setHeight(GHAUiHelper.getTabHeight());
-		GHALabel title = new GHALabel("Nuevo Tipo de Equipo");
-		addMember(title);
+		addMember(new GHALabel(GHAStrings.get("new-eiatype")));
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
 				"../resources/icons/save.png", new ClickHandler() {

@@ -119,12 +119,6 @@ public class EIATypeTopForm extends HLayout implements
 					public void onClick(ClickEvent event) {
 						search();
 					}
-				}), new GHAImgButton("../resources/icons/cancel.png",
-				new ClickHandler() {
-					@Override
-					public void onClick(ClickEvent event) {
-						// GHATabSet.closeTab(EIATypeTopForm.this.eiaTypeTab);
-					}
 				}));
 		addMembers(form, /* new LayoutSpacer(), photoPanel, */
 				new LayoutSpacer(), sideButtons);

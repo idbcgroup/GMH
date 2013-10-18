@@ -11,11 +11,14 @@ import org.fourgeeks.gha.domain.ess.BpuFunction;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.webclient.client.UI.GHASessionData;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
+import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToHideException;
 import org.fourgeeks.gha.webclient.client.UI.menu.GHAMenu.GHAMenuBar;
 import org.fourgeeks.gha.webclient.client.UI.menu.GHAMenu.GHAMenuOption;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
 
 import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -52,8 +55,10 @@ public final class GHATabSet {
 
 	/**
 	 * @param tab
+	 * @throws UnavailableToHideException
 	 */
-	public static void showTab(GHATab tab) {
+	public static void showTab(GHATab tab) throws UnavailableToHideException {
+		Window.alert("showtab");
 		if (tab == null)
 			return;
 
@@ -61,7 +66,11 @@ public final class GHATabSet {
 			return;
 
 		if (currentTab != null)
-			hideTab(currentTab);
+			try {
+				hideTab(currentTab);
+			} catch (UnavailableToHideException e) {
+				throw new UnavailableToHideException(e);
+			}
 
 		if (tabs.get(tab.getId()) == null)
 			addTab(tab);
@@ -72,9 +81,13 @@ public final class GHATabSet {
 		currentTab = tab;
 	}
 
-	private static void hideTab(GHATab tab) {
-		tab.hide();
-		hPanel.remove(tab.getHeader());
+	private static void hideTab(GHATab tab) throws UnavailableToHideException {
+		try {
+			tab.hide();
+		} catch (UnavailableToHideException e) {
+			throw new UnavailableToHideException(e);
+		}
+		// hPanel.remove(tab.getHeader());
 	}
 
 	/**
@@ -87,12 +100,18 @@ public final class GHATabSet {
 
 	/**
 	 * @param tab
+	 * @throws UnavailableToCloseException
 	 */
-	public static void closeTab(final GHATab tab) {
+	public static void closeTab(final GHATab tab)
+			throws UnavailableToCloseException {
 		if (tab == null)
 			return;
 
-		tab.close();
+		try {
+			tab.close();
+		} catch (UnavailableToCloseException e) {
+			throw new UnavailableToCloseException(e);
+		}
 		tabs.remove(tab.getId());
 		hPanel.remove(tab.getHeader());
 		History.newItem("home");

@@ -27,7 +27,7 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 	private EIATypeTopForm topSection;
 	private EIATypeAddForm addForm;
 
-	// private EIATypeInternalTabset internatlTabSet;
+	private EIATypeInternalTabset internatlTabSet;
 
 	/**
 	 * @param token
@@ -35,6 +35,10 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 	public EIATypeTab(String token) {
 		super(token);
 		header = new GHATabHeader(this, TITLE);
+		addGHAHideableHandler(header);
+		topSection = new EIATypeTopForm(this);
+		internatlTabSet = new EIATypeInternalTabset(this);
+
 		header.addSearchOption(new ClickHandler() {
 
 			@Override
@@ -59,14 +63,10 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 			}
 		});
 
-		topSection = new EIATypeTopForm(this);
-		topSection.setShadowDepth(8);
-		// internatlTabSet = new EIATypeInternalTabset(this);
-
 		verticalPanel.addMember(topSection);
 		verticalPanel.addMember(GHAUiHelper
 				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
-		// verticalPanel.addMember(internatlTabSet);
+		verticalPanel.addMember(internatlTabSet);
 		addMember(verticalPanel);
 	}
 

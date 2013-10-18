@@ -261,6 +261,10 @@ public class InitialData {
 						"Tipo de equipo"));
 				em.persist(new UiString(LanguageEnum.ES, "subtype", "Sub tipo"));
 				em.persist(new UiString(LanguageEnum.ES, "brand", "Marca"));
+				em.persist(new UiString(LanguageEnum.ES, "new-equipment",
+						"Nuevo equipo"));
+				em.persist(new UiString(LanguageEnum.ES, "new-eiatype",
+						"Nuevo tipo de equipo"));
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating uistrings test data", e1);
