@@ -29,8 +29,14 @@ public class GHAPlacesFactory {
 	 * @param token
 	 */
 	public static void createPlace(final String token) {
+		int indexOf = token.indexOf("/");
+		String stripToken = null;
+		if (indexOf == -1)
+			stripToken = token;
+		else
+			stripToken = token.substring(0, indexOf);
 
-		if (token.equals("login"))
+		if (stripToken.equals("login"))
 			GWT.runAsync(new RunAsyncCallback() {
 
 				@Override
@@ -44,7 +50,7 @@ public class GHAPlacesFactory {
 				}
 			});
 
-		else if (token.equals("lostpass"))
+		else if (stripToken.equals("lostpass"))
 			GWT.runAsync(new RunAsyncCallback() {
 
 				@Override
@@ -59,7 +65,7 @@ public class GHAPlacesFactory {
 				}
 			});
 
-		else if (token.equals("home"))
+		else if (stripToken.equals("home"))
 			GWT.runAsync(new RunAsyncCallback() {
 
 				@Override
@@ -72,7 +78,7 @@ public class GHAPlacesFactory {
 
 				}
 			});
-		else if (token.equals("eiatype"))
+		else if (stripToken.equals("eiatype"))
 			GWT.runAsync(new RunAsyncCallback() {
 
 				@Override
@@ -85,7 +91,7 @@ public class GHAPlacesFactory {
 
 				}
 			});
-		else if (token.startsWith("eia"))
+		else if (stripToken.startsWith("eia"))
 			GWT.runAsync(new RunAsyncCallback() {
 
 				@Override
@@ -98,7 +104,7 @@ public class GHAPlacesFactory {
 
 				}
 			});
-		else if (token.startsWith("edt"))
+		else if (stripToken.startsWith("edt"))
 			GWT.runAsync(new RunAsyncCallback() {
 
 				@Override
@@ -111,7 +117,7 @@ public class GHAPlacesFactory {
 
 				}
 			});
-		else if (token.startsWith("mplan"))
+		else if (stripToken.startsWith("mplan"))
 			GWT.runAsync(new RunAsyncCallback() {
 
 				@Override
@@ -124,7 +130,7 @@ public class GHAPlacesFactory {
 
 				}
 			});
-		else if (token.startsWith("mprot"))
+		else if (stripToken.startsWith("mprot"))
 			GWT.runAsync(new RunAsyncCallback() {
 
 				@Override
@@ -137,7 +143,7 @@ public class GHAPlacesFactory {
 
 				}
 			});
-		else if (token.startsWith("mact"))
+		else if (stripToken.startsWith("mact"))
 			GWT.runAsync(new RunAsyncCallback() {
 
 				@Override
@@ -150,7 +156,7 @@ public class GHAPlacesFactory {
 
 				}
 			});
-		else if (token.startsWith("user"))
+		else if (stripToken.startsWith("user"))
 			GWT.runAsync(new RunAsyncCallback() {
 
 				@Override

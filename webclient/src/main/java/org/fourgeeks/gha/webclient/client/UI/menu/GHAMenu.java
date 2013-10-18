@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImg;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
@@ -16,7 +17,6 @@ import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.Cursor;
 import com.smartgwt.client.types.VerticalAlignment;
 import com.smartgwt.client.widgets.AnimationCallback;
-import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.events.MouseOutEvent;
@@ -43,7 +43,7 @@ public class GHAMenu {
 	public static class GHAMenuBar extends VLayout implements EventListener,
 			ResizeHandler {
 
-		List<GHAMenuOption> options = new ArrayList<GHAMenu.GHAMenuOption>();
+		private List<GHAMenuOption> options = new ArrayList<GHAMenu.GHAMenuOption>();
 
 		/**
 		 * 
@@ -111,6 +111,17 @@ public class GHAMenu {
 			animateHide(AnimationEffect.FLY);
 			GHAUiHelper.removeDocumentMouseOverHandler(this);
 		}
+
+		/**
+		 * @param token
+		 * @return the ghamenuoption of this token or null if is not found
+		 */
+		public GHAMenuOption getByToken(String token) {
+			for (GHAMenuOption option : options)
+				if (option.getToken().equals(token))
+					return option;
+			return null;
+		}
 	}
 
 	/**
@@ -119,7 +130,7 @@ public class GHAMenu {
 	 */
 	static public class GHAMenuOption extends HLayout {
 
-		private GHAMenuBar bar;
+		private String token;
 
 		/**
 		 * @param text
@@ -128,6 +139,7 @@ public class GHAMenu {
 		 */
 		public GHAMenuOption(final String text, final String token,
 				String imgSrc) {
+			this.token = token;
 			setWidth100();
 			setHeight("30px");
 			setMembersMargin(7);
@@ -139,17 +151,15 @@ public class GHAMenu {
 
 			addMembers(new LayoutSpacer(), iconButton);
 
-			Label titulo = new Label(text);
+			GHALabel titulo = new GHALabel(text);
 			titulo.setWidth("150px");
 			titulo.setHeight("25px");
-			titulo.setStyleName("menu-option-title");
-			titulo.addStyleName("button-pointer");
+			titulo.setStyleName("menu-option-title button-pointer");
 
 			addClickHandler(new ClickHandler() {
 
 				@Override
 				public void onClick(ClickEvent event) {
-					bar.hide();
 					History.newItem(token);
 				}
 			});
@@ -176,12 +186,11 @@ public class GHAMenu {
 		}
 
 		/**
-		 * @param bar
+		 * @return the token
 		 */
-		public void setBar(GHAMenuBar bar) {
-			this.bar = bar;
+		public String getToken() {
+			return token;
 		}
 
 	}
-
 }

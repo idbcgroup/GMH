@@ -21,15 +21,14 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 	private static final String TITLE = "Tipos de equipo";
 	private List<EIATypeSelectionListener> listeners = new ArrayList<EIATypeSelectionListener>();
 	private EIATypeTopSection topSection;
-	private EiaType eiaType;
+	// private EiaType eiaType;
 	private EIATypeInternalTabset internatlTabSet;
 
 	/**
 	 * @param eiaType
 	 */
-	public EIATypeTab(EiaType eiaType) {
+	public EIATypeTab() {
 		super();
-		this.eiaType = eiaType;
 		header.setTitle(TITLE);
 
 		topSection = new EIATypeTopSection(this);
@@ -45,8 +44,8 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 
 	@Override
 	protected void onDraw() {
-		if (eiaType == null)
-			topSection.search();
+		// if (eiaType == null)
+		topSection.search();
 	}
 
 	@Override

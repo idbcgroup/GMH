@@ -65,9 +65,7 @@ public class MaterialSearchForm extends GHASlideInWindow implements
 		setTop(GHAUiHelper.getTopSpace());
 		setHeight(GHAUiHelper.getTabHeight()-4 + "px");
 
-		Label title = new Label("<h3>Buscar un Material</h3>");
-		title.setWidth(400);
-		title.setHeight("35px");
+		Label title = new Label("Buscar un Material");
 		addMember(title);
 		
 		final DynamicForm form = new DynamicForm();

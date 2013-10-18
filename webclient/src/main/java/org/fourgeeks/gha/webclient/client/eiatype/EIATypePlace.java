@@ -19,7 +19,7 @@ public class EIATypePlace extends GHAPlace {
 		super(token);
 		tab = GHATabSet.getById(EIATypeTab.ID);
 		if (tab == null)
-			tab = new EIATypeTab(null);
+			tab = new EIATypeTab();
 	}
 
 	@Override

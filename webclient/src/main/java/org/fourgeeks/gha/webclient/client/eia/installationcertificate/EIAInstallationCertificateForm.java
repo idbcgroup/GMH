@@ -2,11 +2,11 @@ package org.fourgeeks.gha.webclient.client.eia.installationcertificate;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
 import org.fourgeeks.gha.webclient.client.eia.EIAGrid;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
-import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -46,10 +46,7 @@ public class EIAInstallationCertificateForm extends GHASlideInWindow {
 		
 		topPanel.addMembers(new LayoutSpacer(), sideButtons);
 		
-		Label title = new Label("<h3>Acta de Instalación</h3>");
-		title.setHeight(35);
-		title.setWidth100();
-		title.setStyleName("title-label");
+		GHALabel title = new GHALabel("Acta de Instalación");
 		
 		HLayout botPanel = new HLayout();
 		botPanel.setStyleName("sides-padding padding-top");

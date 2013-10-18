@@ -7,11 +7,11 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHACheckboxItem;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.user.UserTab;
 
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.TitleOrientation;
-import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
@@ -48,10 +48,7 @@ public class UserCredentialsFormPanel extends VLayout implements GHAClosable, GH
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		setAlign(Alignment.CENTER);
 
-		Label title = new Label("<h3>Credenciales del Usuario</h3>");
-		title.setHeight(30);
-		title.setWidth100();
-		title.setStyleName("title-label");
+		GHALabel title = new GHALabel("Credenciales del Usuario");
 		addMember(title);
 		
 		DynamicForm form = new DynamicForm();
