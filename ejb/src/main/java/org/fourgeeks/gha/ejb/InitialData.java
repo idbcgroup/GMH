@@ -206,7 +206,6 @@ public class InitialData {
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"eiatype-getAll-fail",
 						"Guardado fallido del Tipo de Equipo"));
-
 				em.persist(new GHAMessage(LanguageEnum.EN,
 						"eiatype-delete-fail",
 						"Failed to delete Equipment type"));
@@ -223,6 +222,14 @@ public class InitialData {
 				em.persist(new GHAMessage(LanguageEnum.EN,
 						"eiatype-getAll-fail",
 						"Failed to get all Equipment types"));
+
+				// function service messages
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"function-getAll-fail",
+						"Búsqueda fallida de todas las Funciones"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"function-getAll-fail", "Failed to get all Functions"));
+
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating message test data", e1);
