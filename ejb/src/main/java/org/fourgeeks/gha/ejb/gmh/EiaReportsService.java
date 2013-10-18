@@ -17,6 +17,7 @@ import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.domain.gmh.EiaTypeComponent;
 
 @Stateless(name = "gmh.EiaReportsService")
 public class EiaReportsService implements EiaReportsServiceRemote {
@@ -99,6 +100,50 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 		} catch (Exception ex) {
 			logger.log(Level.INFO, "Error en metodo EJB findAllEias", ex);
 			throw new GHAEJBException("Error en metodo EJB findAllEias: "
+					+ ex.getCause().getMessage());
+		}
+
+		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.EiaReportsServiceRemote#findComponentsByEiaTypes
+	 * (java.util.List)
+	 */
+	@Override
+	public List<EiaTypeComponent> findComponentsByEiaTypes(List<String> eiaTypeIds,
+			EiaReportOrderByEnum orderBy) throws GHAEJBException {
+
+		// CONSTRUYENDO QUERY
+		String queryStr = "select comp from EiaTypeComponent comp "
+				+ "join comp.eiaType eiatype right join comp.parentEiaType parent";
+
+		String whereStr = "";
+		whereStr = buildWhere(whereStr, eiaTypeIds, "parent.code", "in", ":eiaTypeIds");
+
+		queryStr += whereStr;
+
+		if (orderBy == EiaReportOrderByEnum.EIATYPE_COMPONENT)
+			queryStr += " order by parent.name, eiatype.name ";
+		else if (orderBy == EiaReportOrderByEnum.COMPONENT_EIATYPE)
+			queryStr += " order by eiatype.name, parent.name ";
+
+		// EJECUTANDO QUERY
+		try {
+			TypedQuery<EiaTypeComponent> query = em.createQuery(queryStr, EiaTypeComponent.class);
+			if (eiaTypeIds != null)
+				query.setParameter("eiaTypeIds", eiaTypeIds);
+
+			return query.getResultList();
+
+		} catch (NoResultException ex) {
+			logger.log(Level.INFO, "No results", ex);
+		} catch (Exception ex) {
+			logger.log(Level.INFO, "Error en metodo EJB findComponentsByEiaTypes", ex);
+			throw new GHAEJBException("Error en metodo EJB findComponentsByEiaTypes: "
 					+ ex.getCause().getMessage());
 		}
 

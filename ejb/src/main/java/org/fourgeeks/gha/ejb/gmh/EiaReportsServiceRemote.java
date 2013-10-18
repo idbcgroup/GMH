@@ -9,6 +9,7 @@ import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.domain.gmh.EiaTypeComponent;
 
 @Remote
 public interface EiaReportsServiceRemote {
@@ -31,6 +32,15 @@ public interface EiaReportsServiceRemote {
 	 */
 	public List<Eia> findAllEias(List<Long> facilityIds, List<Long> workAreaIds,
 			EiaStateEnum eiaState, EiaReportOrderByEnum orderBy) throws GHAEJBException;
+
+	/**
+	 * 
+	 * @param eiaTypeIds
+	 * 
+	 * @return
+	 */
+	public List<EiaTypeComponent> findComponentsByEiaTypes(List<String> eiaTypeIds,
+			EiaReportOrderByEnum orderBy) throws GHAEJBException;
 
 	/**
 	 * Devuelve los Eia cuyo ID sea alguno de los ID pasados por parametro

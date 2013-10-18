@@ -14,16 +14,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.ImageIcon;
 
+import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import org.apache.log4j.Level;
 import org.fourgeeks.gha.domain.enu.EiaReportFiltersEnum;
 import org.fourgeeks.gha.domain.enu.EiaReportOrderByEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.Eia;
+import org.fourgeeks.gha.domain.gmh.EiaTypeComponent;
 import org.fourgeeks.gha.ejb.gmh.EiaReportsServiceRemote;
+import org.fourgeeks.gha.ejb.gmh.EiaTypeComponentServiceRemote;
 
 @WebServlet(urlPatterns = { "/reports/eia/lcrd" })
 public class ReportListEiaTypeCompsServlet extends ReportEiaServelt {
@@ -37,7 +41,10 @@ public class ReportListEiaTypeCompsServlet extends ReportEiaServelt {
 			PARAM_FILTER = "filter", PARAM_USER = "user", PARAM_ORDEN = "orden";
 
 	@EJB(name = "gmh.EiaReportsService", beanInterface = EiaReportsServiceRemote.class)
-	EiaReportsServiceRemote service;
+	EiaReportsServiceRemote serviceReport;
+
+	@EJB(name = "gmh.EiaTypeComponentService", beanInterface = EiaTypeComponentServiceRemote.class)
+	EiaTypeComponentServiceRemote serviceEiaTypeComponent;
 
 	/*
 	 * (non-Javadoc)
@@ -47,16 +54,15 @@ public class ReportListEiaTypeCompsServlet extends ReportEiaServelt {
 	 * , javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
 			IOException {
 		try {
 			Map<String, Object> searchMap = searchInService(req);
 
 			String reportFileRealPath = null;
-			EiaDataSource dataSource = null;
+			JRDataSource dataSource = null;
 
-			dataSource = new EiaDataSource((List<Eia>) searchMap.get("data"));
+			dataSource = (JRDataSource) searchMap.get("dataSource");
 			reportFileRealPath = (String) searchMap.get("reportPath");
 
 			Map<String, Object> paramsReport = generateParamsMap(req);
@@ -85,24 +91,37 @@ public class ReportListEiaTypeCompsServlet extends ReportEiaServelt {
 	protected Map<String, Object> searchInService(HttpServletRequest req) throws GHAEJBException {
 		QueryParamsContainer qpc = new QueryParamsContainer(req);
 		List<Eia> eiaList = null;
+		List<EiaTypeComponent> eiaTypeCompList = null;
 		String reportPath = null;
 
+		HashMap<String, Object> mapa = new HashMap<String, Object>();
+
+		// TIPOS DE EQUIPO Y SUS COMPONENTES
 		if (qpc.filter == EiaReportFiltersEnum.EIATYPE_AND_COMPONENTS) {
-			// todos los equipos
+			if (qpc.componentId == null) {
+				// Componentes de uno, varios o todos los tipos de equipo
+				eiaTypeCompList = serviceReport.findComponentsByEiaTypes(qpc.eiaTypeCodes,
+						qpc.orden);
+			} else {
+				// un componente especifico de un tipo de equipo
+				eiaTypeCompList = new ArrayList<EiaTypeComponent>();
+				EiaTypeComponent comp = serviceEiaTypeComponent.find(qpc.componentId);
+				eiaTypeCompList.add(comp);
+			}
+
+			// obtengo el dataSource para el reporte y se lo agrego al mapa
+			JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(eiaTypeCompList);
+			mapa.put("dataSource", dataSource);
+
+			// obtengo la ruta relativa donde se encuentra el repote compilado
 			reportPath = getServletContext().getRealPath(REPORT_FILE_DIR_1);
-			// eiaList = serviceEiaReport.findAllEias(qpc.componentsIds,
-			// qpc.workingAreasIds,
-			// qpc.eiaState, qpc.orden);
-		} else {
-			// equipos por tipo de equipo
+		}
+		// COMPONENTES Y LOS EQUIPOS QUE LO TIENEN DEFINIDO
+		else {
+			mapa.put("dataSource", eiaList);
 			reportPath = getServletContext().getRealPath(REPORT_FILE_DIR_2);
-			// eiaList = serviceEiaReport.findEiasByEiaType(qpc.eiaTypeCode,
-			// qpc.componentsIds,
-			// qpc.workingAreasIds, qpc.eiaState, qpc.orden);
 		}
 
-		HashMap<String, Object> mapa = new HashMap<String, Object>();
-		mapa.put("data", eiaList);
 		mapa.put("reportPath", reportPath);
 
 		return mapa;
@@ -166,7 +185,7 @@ public class ReportListEiaTypeCompsServlet extends ReportEiaServelt {
 		private Long validateToLong(String paramValue) {
 			if (paramValue != null)
 				if (!paramValue.equals("all"))
-					componentId = Long.valueOf(paramValue);
+					return Long.valueOf(paramValue);
 			return null;
 		}
 
