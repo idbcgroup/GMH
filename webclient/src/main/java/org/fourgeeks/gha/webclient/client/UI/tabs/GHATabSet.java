@@ -18,6 +18,7 @@ import org.fourgeeks.gha.webclient.client.UI.menu.GHAMenu.GHAMenuOption;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
 
 import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -48,8 +49,11 @@ public final class GHATabSet {
 	}
 
 	private static void addTab(final GHATab tab) {
+		Window.alert("try adding the tab to the map");
 		tabs.put(tab.getId(), tab);
+		Window.alert("try adding the tab to the main content div");
 		RootPanel.get("main-content").add(tab);
+		Window.alert("succeding adding the tab to the main content");
 	}
 
 	/**
@@ -57,25 +61,36 @@ public final class GHATabSet {
 	 * @throws UnavailableToHideException
 	 */
 	public static void showTab(GHATab tab) throws UnavailableToHideException {
+		Window.alert("showtab");
 		if (tab == null)
 			return;
-
+		Window.alert("showtab2");
+		Window.alert(currentTab == null ? "currentab is null"
+				: "currentab is not null");
 		if (tab == currentTab)
 			return;
-
+		Window.alert("showtab3");
 		if (currentTab != null)
 			try {
+				Window.alert("try hide");
 				hideTab(currentTab);
+				Window.alert("sucess hiding");
 			} catch (UnavailableToHideException e) {
+				Window.alert("hide exception");
 				throw new UnavailableToHideException(e);
 			}
-
-		if (tabs.get(tab.getId()) == null)
+		Window.alert("checking if the tab is in the map");
+		if (tabs.get(tab.getId()) == null) {
+			Window.alert("the tab is not in the map, lets add it");
 			addTab(tab);
-		else
+		} else {
+			Window.alert("the tab is in in the map, lets show it");
 			tab.show();
+		}
 
+		Window.alert("trying to add de header");
 		hPanel.add(tab.getHeader());
+		Window.alert("tryng to assign currenttab");
 		currentTab = tab;
 	}
 

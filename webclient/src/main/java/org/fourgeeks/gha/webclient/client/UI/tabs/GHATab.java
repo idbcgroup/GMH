@@ -18,7 +18,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public abstract class GHATab extends VLayout implements GHAClosable,
 		GHAHideable {
 
-	private String token;;
+	private String token;
 	protected GHATabHeader header;
 	protected VLayout verticalPanel = new VLayout();
 	private List<GHAClosable> closables = new ArrayList<GHAClosable>();
@@ -38,7 +38,7 @@ public abstract class GHATab extends VLayout implements GHAClosable,
 	}
 
 	/**
-	 * @return the id
+	 * @return the id of the tab
 	 */
 	public abstract String getId();
 
