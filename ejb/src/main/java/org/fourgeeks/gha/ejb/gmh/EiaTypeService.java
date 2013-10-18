@@ -39,6 +39,8 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 	@PersistenceContext
 	EntityManager em;
 
+	private GHAEJBException exception = new GHAEJBException();
+
 	private final static Logger logger = Logger.getLogger(EiaTypeService.class
 			.getName());
 
@@ -126,8 +128,6 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 			em.remove(entity);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete eiatype", e);
-			GHAEJBException exception = new GHAEJBException();
-
 			try {
 				exception.setGhaMessage(em.find(GHAMessage.class,
 						new GHAMessageId("eiatype-delete-fail",
@@ -137,7 +137,6 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 						.getLang(), "generic-error-msg",
 						"Error de sistema, intente más tarde."));
 			}
-
 			throw exception;
 		}
 	}
@@ -217,8 +216,6 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 		} catch (Exception e) {
 			logger.log(Level.SEVERE,
 					"Error obteniendo los eiaTypes por eiatype", e);
-			GHAEJBException exception = new GHAEJBException();
-
 			try {
 				exception.setGhaMessage(em.find(
 						GHAMessage.class,
@@ -229,7 +226,6 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 						.getLang(), "generic-error-msg",
 						"Error de sistema, intente más tarde."));
 			}
-
 			throw exception;
 		}
 
@@ -316,8 +312,6 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 		} catch (Exception e) {
 			logger.log(Level.SEVERE,
 					"Error obteniendo buscando los eiaTypes por eiatype", e);
-			GHAEJBException exception = new GHAEJBException();
-
 			try {
 				exception.setGhaMessage(em.find(
 						GHAMessage.class,
@@ -328,7 +322,6 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 						.getLang(), "generic-error-msg",
 						"Error de sistema, intente más tarde."));
 			}
-
 			throw exception;
 		}
 
@@ -345,8 +338,6 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 			return em.find(EiaType.class, code);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error buscando Eiatype por Id ", e);
-			GHAEJBException exception = new GHAEJBException();
-
 			try {
 				exception.setGhaMessage(em.find(
 						GHAMessage.class,
@@ -374,8 +365,6 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 					.getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all eiatypes", ex);
-			GHAEJBException exception = new GHAEJBException();
-
 			try {
 				exception.setGhaMessage(em.find(GHAMessage.class,
 						new GHAMessageId("eiatype-getAll-fail",
@@ -402,8 +391,6 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 					.setFirstResult(offset).setMaxResults(size).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retriving all EitaTypes", ex);
-			GHAEJBException exception = new GHAEJBException();
-
 			try {
 				exception.setGhaMessage(em.find(GHAMessage.class,
 						new GHAMessageId("eiatype-getAll-fail",
@@ -413,7 +400,6 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 						.getLang(), "generic-error-msg",
 						"Error de sistema, intente más tarde."));
 			}
-
 			throw exception;
 		}
 
@@ -443,8 +429,6 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 			return em.find(EiaType.class, eiaType.getCode());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving eiatype", e);
-			GHAEJBException exception = new GHAEJBException();
-
 			try {
 				exception.setGhaMessage(em.find(
 						GHAMessage.class,
@@ -455,7 +439,6 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 						.getLang(), "generic-error-msg",
 						"Error de sistema, intente más tarde."));
 			}
-
 			throw exception;
 		}
 	}
@@ -484,8 +467,6 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 			return res;
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to update eiatype", e);
-			GHAEJBException exception = new GHAEJBException();
-
 			try {
 				exception.setGhaMessage(em.find(GHAMessage.class,
 						new GHAMessageId("eiatype-update-fail",
@@ -495,7 +476,6 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 						.getLang(), "generic-error-msg",
 						"Error de sistema, intente más tarde."));
 			}
-
 			throw exception;
 		}
 	}
@@ -519,8 +499,6 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE,
 					"Error retriving all EitaTypes by maintenancePlan", ex);
-			GHAEJBException exception = new GHAEJBException();
-
 			try {
 				exception.setGhaMessage(em.find(GHAMessage.class,
 						new GHAMessageId("eiatype-findByMaintenancePlan-fail",
@@ -530,9 +508,7 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 						.getLang(), "generic-error-msg",
 						"Error de sistema, intente más tarde."));
 			}
-
 			throw exception;
 		}
 	}
-
 }
