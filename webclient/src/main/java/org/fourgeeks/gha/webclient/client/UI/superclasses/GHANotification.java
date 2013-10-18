@@ -95,4 +95,37 @@ public class GHANotification {
 	public static void alert(GHAMessage ghaMessage) {
 		alert(ghaMessage.getText());
 	}
+	
+//	public static class ModalInfoNotification extends VLayout implements ResizeHandler{
+//
+//		public ModalInfoNotification() {
+//			super();
+//			setWidth();
+//			setLeft(-5);
+//			setBackgroundColor("#E0E0E0");
+//			setStyleName("sides-padding padding-top box");
+//			setAlign(Alignment.CENTER);
+//			setVisibility(Visibility.HIDDEN);
+//			setAnimateTime(600);
+//			GHAUiHelper.addGHAResizeHandler(this);
+//		}
+//
+//		public ModalInfoNotification(int membersMargin) {
+//			super(membersMargin);
+//			// TODO Auto-generated constructor stub
+//		}
+//
+//		public ModalInfoNotification(JavaScriptObject jsObj) {
+//			super(jsObj);
+//			// TODO Auto-generated constructor stub
+//		}
+//
+//		@Override
+//		public void onResize(ResizeEvent event) {
+//			// TODO Auto-generated method stub
+//			
+//		}
+//	}
+	
+	
 }
