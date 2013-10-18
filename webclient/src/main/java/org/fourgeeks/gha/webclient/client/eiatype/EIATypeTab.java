@@ -24,7 +24,7 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 	public static final String ID = "eiatype";
 	private static final String TITLE = "Tipos de equipo";
 	private List<EIATypeSelectionListener> listeners = new ArrayList<EIATypeSelectionListener>();
-	private EIATypeTopForm topSection;
+	private EIATypeTopForm topForm;
 	private EIATypeAddForm addForm;
 
 	private EIATypeInternalTabset internatlTabSet;
@@ -35,7 +35,7 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 	public EIATypeTab(String token) {
 		super(token);
 		header = new GHATabHeader(this, TITLE);
-		topSection = new EIATypeTopForm(this);
+		topForm = new EIATypeTopForm(this);
 		internatlTabSet = new EIATypeInternalTabset(this);
 
 		header.addSearchOption(new ClickHandler() {
@@ -62,7 +62,7 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 			}
 		});
 
-		verticalPanel.addMember(topSection);
+		verticalPanel.addMember(topForm);
 		verticalPanel.addMember(GHAUiHelper
 				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
 		verticalPanel.addMember(internatlTabSet);
