@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="EiaTypeCompReport" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryWithPageHeaderAndFooter="true" uuid="606d8e54-0a0a-4415-92bf-390680ff9945">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="167"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
@@ -33,14 +33,15 @@
 	<queryString language="hql">
 		<![CDATA[]]>
 	</queryString>
-	<field name="eiaType.code" class="java.lang.String"/>
-	<field name="eiaType.name" class="java.lang.String"/>
-	<field name="eiaType.brand.name" class="java.lang.String"/>
-	<field name="eiaType.model" class="java.lang.String"/>
-	<field name="eiaType.brand.manufacturer.name" class="java.lang.String"/>
-	<field name="parentEiaType.name" class="java.lang.String"/>
-	<group name="Parent eiaType">
-		<groupExpression><![CDATA[$F{parentEiaType.name}]]></groupExpression>
+	<field name="areaTrabajo" class="java.lang.String"/>
+	<field name="facilidad" class="java.lang.String"/>
+	<field name="edoEquipo" class="java.lang.String"/>
+	<field name="nombreEiaType" class="java.lang.String"/>
+	<field name="code" class="java.lang.String"/>
+	<field name="serial" class="java.lang.String"/>
+	<field name="nombreComponente" class="java.lang.String"/>
+	<group name="Nombre EiaType">
+		<groupExpression><![CDATA[$F{nombreEiaType}]]></groupExpression>
 		<groupHeader>
 			<band height="20">
 				<textField>
@@ -48,7 +49,7 @@
 					<textElement textAlignment="Left">
 						<font fontName="Calibri"/>
 					</textElement>
-					<textFieldExpression><![CDATA["Componente: " + $F{parentEiaType.name}]]></textFieldExpression>
+					<textFieldExpression><![CDATA["Tipo de equipo: " + $F{nombreEiaType} + " - Componente: " + $F{nombreComponente}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>
@@ -131,7 +132,7 @@
 	<columnHeader>
 		<band height="20" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="16a0be08-9489-4dc7-98ab-a09c0bbc2e23" style="estiloTitulosColumHeader" mode="Opaque" x="502" y="0" width="125" height="20">
+				<reportElement uuid="16a0be08-9489-4dc7-98ab-a09c0bbc2e23" style="estiloTitulosColumHeader" mode="Opaque" x="450" y="0" width="150" height="20">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unity" value="pixel"/>
@@ -149,7 +150,7 @@
 				<text><![CDATA[Facilidad]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="6ab8f186-897f-4d94-9f77-11de44047429" key="" style="estiloTitulosColumHeader" mode="Opaque" x="0" y="0" width="127" height="20">
+				<reportElement uuid="6ab8f186-897f-4d94-9f77-11de44047429" key="" style="estiloTitulosColumHeader" mode="Opaque" x="0" y="0" width="150" height="20">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unity" value="pixel"/>
@@ -168,25 +169,7 @@
 				<text><![CDATA[Codigo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="2547e63c-8637-4c87-a793-a5038b457f24" style="estiloTitulosColumHeader" mode="Opaque" x="252" y="0" width="125" height="20">
-					<property name="local_mesure_unitheight" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="local_mesure_unity" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				</reportElement>
-				<box>
-					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#A5A5A5"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#A5A5A5"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#A5A5A5"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#A5A5A5"/>
-				</box>
-				<textElement>
-					<font size="11" isBold="true" pdfFontName="Courier-Bold" isPdfEmbedded="true"/>
-				</textElement>
-				<text><![CDATA[Tipo]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="2e8636d9-019f-46bf-a83c-6c85f74e0c25" key="" style="estiloTitulosColumHeader" mode="Opaque" x="127" y="0" width="125" height="20">
+				<reportElement uuid="2e8636d9-019f-46bf-a83c-6c85f74e0c25" key="" style="estiloTitulosColumHeader" mode="Opaque" x="150" y="0" width="150" height="20">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -202,7 +185,7 @@
 				<text><![CDATA[Serial]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="4862b2d6-6f1d-4b89-8069-b6cd764ec8f3" style="estiloTitulosColumHeader" mode="Opaque" x="377" y="0" width="125" height="20">
+				<reportElement uuid="4862b2d6-6f1d-4b89-8069-b6cd764ec8f3" style="estiloTitulosColumHeader" mode="Opaque" x="300" y="0" width="150" height="20">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unity" value="pixel"/>
@@ -220,7 +203,7 @@
 				<text><![CDATA[Estado]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="79cab756-e5ce-4638-8630-7f7232090414" style="estiloTitulosColumHeader" mode="Opaque" x="627" y="0" width="125" height="20">
+				<reportElement uuid="79cab756-e5ce-4638-8630-7f7232090414" style="estiloTitulosColumHeader" mode="Opaque" x="600" y="0" width="152" height="20">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unity" value="pixel"/>
@@ -242,24 +225,7 @@
 	<detail>
 		<band height="20" splitType="Stretch">
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="f68a4a10-2abf-45a8-82a6-cdf3d3774ca9" mode="Transparent" x="252" y="0" width="125" height="20">
-					<property name="local_mesure_unitheight" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<box>
-					<topPen lineWidth="0.0" lineColor="#A5A5A5"/>
-					<leftPen lineWidth="0.0" lineColor="#A5A5A5"/>
-					<bottomPen lineWidth="1.0" lineColor="#A5A5A5"/>
-					<rightPen lineWidth="1.0" lineColor="#A5A5A5"/>
-				</box>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Calibri" size="10" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
-					<paragraph leftIndent="5"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{eiaType}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement uuid="cf6ed52b-82aa-4fd4-98a0-fe1df87a7806" mode="Transparent" x="127" y="0" width="125" height="20">
+				<reportElement uuid="cf6ed52b-82aa-4fd4-98a0-fe1df87a7806" mode="Transparent" x="150" y="0" width="150" height="20">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -276,7 +242,7 @@
 				<textFieldExpression><![CDATA[$F{serial}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="ec698e67-07e5-4c06-800a-02a0ea5b3dbb" mode="Transparent" x="627" y="0" width="125" height="20">
+				<reportElement uuid="ec698e67-07e5-4c06-800a-02a0ea5b3dbb" mode="Transparent" x="600" y="0" width="152" height="20">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -293,7 +259,7 @@
 				<textFieldExpression><![CDATA[$F{areaTrabajo}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="370e14c2-0714-4253-b64c-d5cd3557ac56" mode="Transparent" x="0" y="0" width="127" height="20">
+				<reportElement uuid="370e14c2-0714-4253-b64c-d5cd3557ac56" mode="Transparent" x="0" y="0" width="150" height="20">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unitx" value="pixel"/>
@@ -312,7 +278,7 @@
 				<textFieldExpression><![CDATA[$F{code}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="448f38c0-6381-4751-9d47-7098af9b9acd" mode="Transparent" x="377" y="0" width="125" height="20">
+				<reportElement uuid="448f38c0-6381-4751-9d47-7098af9b9acd" mode="Transparent" x="300" y="0" width="150" height="20">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -329,7 +295,7 @@
 				<textFieldExpression><![CDATA[$F{edoEquipo}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="ba3fc3f7-0f27-4ba0-b755-62ab29d22ae0" mode="Transparent" x="502" y="0" width="125" height="20">
+				<reportElement uuid="ba3fc3f7-0f27-4ba0-b755-62ab29d22ae0" mode="Transparent" x="450" y="0" width="150" height="20">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>

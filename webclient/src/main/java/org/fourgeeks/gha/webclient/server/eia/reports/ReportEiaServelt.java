@@ -17,10 +17,10 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperPrint;
 
 import org.apache.log4j.Logger;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 
 public abstract class ReportEiaServelt extends HttpServlet {
-	protected static final Logger LOG = Logger
-			.getLogger(ReportEiaServelt.class);
+	protected static final Logger LOG = Logger.getLogger(ReportEiaServelt.class);
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -34,16 +34,13 @@ public abstract class ReportEiaServelt extends HttpServlet {
 	 * @throws JRException
 	 * @throws IOException
 	 */
-	protected void exportAsPDF(HttpServletResponse response,
-			JasperPrint fillReport, String nombreReportFile)
-			throws JRException, IOException {
+	protected void exportAsPDF(HttpServletResponse response, JasperPrint fillReport,
+			String nombreReportFile) throws JRException, IOException {
 
 		response.setContentType("application/pdf");
-		response.addHeader("Content-Disposition", "inline; filename="
-				+ nombreReportFile);
+		response.addHeader("Content-Disposition", "inline; filename=" + nombreReportFile);
 
-		JasperExportManager.exportReportToPdfStream(fillReport,
-				response.getOutputStream());
+		JasperExportManager.exportReportToPdfStream(fillReport, response.getOutputStream());
 	}
 
 	/**
@@ -61,8 +58,7 @@ public abstract class ReportEiaServelt extends HttpServlet {
 	 *            objeto con los parametros de la peticionO
 	 * @return Mapa con los parametros que recibe el reporte
 	 */
-	protected abstract Map<String, Object> generateParamsMap(
-			HttpServletRequest req);
+	protected abstract Map<String, Object> generateParamsMap(HttpServletRequest req);
 
 	/*
 	 * (non-Javadoc)
@@ -73,4 +69,17 @@ public abstract class ReportEiaServelt extends HttpServlet {
 	public void init(ServletConfig servletConfig) throws ServletException {
 		super.init(servletConfig);
 	}
+
+	/**
+	 * Metodo utilizado para realizar la busqueda en los servicios EJB
+	 * 
+	 * @param req
+	 *            Objeto con los parametros de la peticion al Servlet
+	 * 
+	 * @return Mapa con los datos necesarios apra realizar el reporte en base a
+	 *         lo obtenido en la consulta a los servicios EJB
+	 * @throws GHAEJBException
+	 */
+	protected abstract Map<String, Object> searchInService(HttpServletRequest req)
+			throws GHAEJBException;
 }

@@ -19,23 +19,22 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 
 import org.apache.log4j.Level;
+import org.fourgeeks.gha.domain.enu.EiaReportFiltersEnum;
 import org.fourgeeks.gha.domain.enu.EiaReportOrderByEnum;
-import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.ejb.gmh.EiaReportsServiceRemote;
 
-@WebServlet(urlPatterns = { "/reports/eia/feia" })
-public class ReportFichaEquiposServlet extends ReportEiaServelt {
+@WebServlet(urlPatterns = { "/reports/eia/lcrd" })
+public class ReportListEiaTypeCompsServlet extends ReportEiaServelt {
 	private static final long serialVersionUID = 1L;
 
-	private static final String REPORT_FILE_DIR_1 = "/resources/reportes/compilados/GMH.FEIA.01.jasper";
-	private static final String REPORT_FILE_DIR_2 = "/resources/reportes/compilados/GMH.FEIA.02.jasper";
+	private static final String REPORT_FILE_DIR_1 = "/resources/reportes/compilados/GMH.LCRD.01.jasper";
+	private static final String REPORT_FILE_DIR_2 = "/resources/reportes/compilados/GMH.LCRD.02.jasper";
 	private static final String LOGO_DIR = "/resources/img/logoReport.jpg";
 
-	private static final String PARAM_EIAS = "eias", PARAM_FACILS = "facils",
-			PARAM_WORKAREAS = "workareas", PARAM_EDOEIA = "edoeia", PARAM_USER = "user",
-			PARAM_ORDEN = "orden";
+	private static final String PARAM_EIATYPES = "eiatypes", PARAM_COMPONENT = "component",
+			PARAM_FILTER = "filter", PARAM_USER = "user", PARAM_ORDEN = "orden";
 
 	@EJB(name = "gmh.EiaReportsService", beanInterface = EiaReportsServiceRemote.class)
 	EiaReportsServiceRemote service;
@@ -88,13 +87,18 @@ public class ReportFichaEquiposServlet extends ReportEiaServelt {
 		List<Eia> eiaList = null;
 		String reportPath = null;
 
-		if (qpc.eiaIds == null) {
-			reportPath = getServletContext().getRealPath(REPORT_FILE_DIR_2);
-			eiaList = service.findAllEias(qpc.facilsIds, qpc.workingAreasIds, qpc.eiaState,
-					qpc.orden);
-		} else {
+		if (qpc.filter == EiaReportFiltersEnum.EIATYPE_AND_COMPONENTS) {
+			// todos los equipos
 			reportPath = getServletContext().getRealPath(REPORT_FILE_DIR_1);
-			eiaList = service.findEias(qpc.eiaIds, qpc.orden);
+			// eiaList = serviceEiaReport.findAllEias(qpc.componentsIds,
+			// qpc.workingAreasIds,
+			// qpc.eiaState, qpc.orden);
+		} else {
+			// equipos por tipo de equipo
+			reportPath = getServletContext().getRealPath(REPORT_FILE_DIR_2);
+			// eiaList = serviceEiaReport.findEiasByEiaType(qpc.eiaTypeCode,
+			// qpc.componentsIds,
+			// qpc.workingAreasIds, qpc.eiaState, qpc.orden);
 		}
 
 		HashMap<String, Object> mapa = new HashMap<String, Object>();
@@ -133,10 +137,9 @@ public class ReportFichaEquiposServlet extends ReportEiaServelt {
 	 * @author naramirez
 	 */
 	private class QueryParamsContainer {
-		private List<Long> eiaIds;
-		private List<Long> facilsIds;
-		private List<Long> workingAreasIds;
-		private EiaStateEnum eiaState;
+		private List<String> eiaTypeCodes;
+		private Long componentId;
+		private EiaReportFiltersEnum filter;
 		private EiaReportOrderByEnum orden;
 
 		/**
@@ -145,37 +148,40 @@ public class ReportFichaEquiposServlet extends ReportEiaServelt {
 		 *            al servlet
 		 */
 		public QueryParamsContainer(HttpServletRequest req) {
-			String eiasValue = req.getParameter(PARAM_EIAS);
-			eiaIds = toList(eiasValue);
 
-			String facsValue = req.getParameter(PARAM_FACILS);
-			facilsIds = toList(facsValue);
+			String eiaTypesValue = req.getParameter(PARAM_EIATYPES);
+			eiaTypeCodes = validateToStringList(eiaTypesValue);
 
-			String workAreasValue = req.getParameter(PARAM_WORKAREAS);
-			workingAreasIds = toList(workAreasValue);
+			String filterValue = req.getParameter(PARAM_FILTER);
+			filter = EiaReportFiltersEnum.valueOf(filterValue);
 
-			eiaState = null;
-			String eiaStateParam = req.getParameter(PARAM_EDOEIA);
-			if (eiaStateParam != null)
-				if (!eiaStateParam.equals("all"))
-					eiaState = EiaStateEnum.valueOf(eiaStateParam);
+			String compValue = req.getParameter(PARAM_COMPONENT);
+			componentId = validateToLong(compValue);
 
 			Boolean orderByUbicEiaType = Boolean.valueOf(req.getParameter(PARAM_ORDEN));
-			orden = orderByUbicEiaType ? EiaReportOrderByEnum.UBIC_EIATYPE
-					: EiaReportOrderByEnum.EIATYPE_UBIC;
+			orden = orderByUbicEiaType ? EiaReportOrderByEnum.EIATYPE_COMPONENT
+					: EiaReportOrderByEnum.COMPONENT_EIATYPE;
 		}
 
-		private List<Long> toList(String paramValue) {
+		private Long validateToLong(String paramValue) {
+			if (paramValue != null)
+				if (!paramValue.equals("all"))
+					componentId = Long.valueOf(paramValue);
+			return null;
+		}
+
+		private List<String> validateToStringList(String paramValue) {
 			if (paramValue != null)
 				if (!paramValue.equals("all")) {
-					ArrayList<Long> list = new ArrayList<Long>();
+					ArrayList<String> list = new ArrayList<String>();
 					String[] arrayLongValues = paramValue.split(",");
 					for (String val : arrayLongValues)
-						list.add(Long.valueOf(val));
+						list.add(val);
 					return list;
 				}
 
 			return null;
 		}
 	}
+
 }

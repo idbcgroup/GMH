@@ -81,7 +81,13 @@ public class ReportListEiasServlet extends ReportEiaServelt {
 
 	}
 
-	private Map<String, Object> searchInService(HttpServletRequest req) throws GHAEJBException {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.server.eia.reports.ReportEiaServelt#
+	 * searchInService(javax.servlet.http.HttpServletRequest)
+	 */
+	protected Map<String, Object> searchInService(HttpServletRequest req) throws GHAEJBException {
 		QueryParamsContainer qpc = new QueryParamsContainer(req);
 		List<Eia> eiaList = null;
 		String reportPath = null;

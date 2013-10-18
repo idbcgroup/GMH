@@ -10,6 +10,10 @@ public enum EiaReportFiltersEnum {
 	/***/
 	WORKING_AREA("Area de trabajo"),
 
+	EIATYPE_AND_COMPONENTS("Tipos de equipos y sus componentes"),
+
+	COMPONENTS_AND_EIA("Componentes y sus equipos"),
+
 	SIN_FILTRO("");
 
 	private String nombre;
@@ -45,6 +49,20 @@ public enum EiaReportFiltersEnum {
 	public static LinkedHashMap<String, String> toValueMap() {
 		LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
 		for (EiaReportFiltersEnum e : EiaReportFiltersEnum.values())
+			valueMap.put(e.name(), e.toString());
+		return valueMap;
+	}
+
+	/**
+	 * 
+	 * @param filters
+	 *            los enums a que se desean represetar como un mapa
+	 * 
+	 * @return Un {@link LinkedHashMap} con los enums pasados por parametro
+	 */
+	public static LinkedHashMap<String, String> toValueMap(EiaReportFiltersEnum... filters) {
+		LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+		for (EiaReportFiltersEnum e : filters)
 			valueMap.put(e.name(), e.toString());
 		return valueMap;
 	}

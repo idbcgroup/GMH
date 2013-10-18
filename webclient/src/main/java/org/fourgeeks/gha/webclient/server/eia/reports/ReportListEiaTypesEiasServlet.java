@@ -110,16 +110,13 @@ public class ReportListEiaTypesEiasServlet extends ReportEiaServelt {
 		return paramsMap;
 	}
 
-	/**
-	 * Busca en el servicio EJB los datos necesarios para el reporte y
-	 * subreporte
+	/*
+	 * (non-Javadoc)
 	 * 
-	 * @param req
-	 *            El request con los datos para la consulta al EJB
-	 * @return Mapa con los DataSource utilizados por el reporte y subreporte
-	 * @throws GHAEJBException
+	 * @see org.fourgeeks.gha.webclient.server.eia.reports.ReportEiaServelt#
+	 * searchInService(javax.servlet.http.HttpServletRequest)
 	 */
-	private Map<String, Object> searchInService(HttpServletRequest req) throws GHAEJBException {
+	protected Map<String, Object> searchInService(HttpServletRequest req) throws GHAEJBException {
 		QueryParamsContainer qpc = new QueryParamsContainer(req);
 		List<Eia> eiaList = null;
 		List<EiaType> eiaTypeList = null;
