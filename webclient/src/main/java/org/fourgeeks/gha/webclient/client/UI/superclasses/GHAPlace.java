@@ -1,5 +1,7 @@
 package org.fourgeeks.gha.webclient.client.UI.superclasses;
 
+import org.fourgeeks.gha.webclient.client.UI.menu.GHAMenu.GHAMenuOption;
+
 import com.smartgwt.client.util.SC;
 
 /**
@@ -37,4 +39,8 @@ public abstract class GHAPlace {
 			SC.say("No token set for this place");
 		return token;
 	};
+
+	protected GHAMenuOption getGHAMenuOption() {
+		return GHATabSet.getGHAMenuOptionByToken(getToken());
+	}
 }

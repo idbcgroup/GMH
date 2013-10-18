@@ -31,6 +31,7 @@ public final class GHATabSet {
 	private static Map<String, GHATab> tabs;
 	private static GHATab currentTab;
 	private static HorizontalPanel hPanel;
+	private static GHAMenuBar verticalMenu;
 	static {
 		tabs = new HashMap<String, GHATab>();
 		hPanel = new HorizontalPanel();
@@ -70,9 +71,6 @@ public final class GHATabSet {
 		currentTab = tab;
 	}
 
-	/**
-	 * 
-	 */
 	private static void hideTab(GHATab tab) {
 		tab.hide();
 		hPanel.remove(tab.getHeader());
@@ -103,7 +101,7 @@ public final class GHATabSet {
 	 * Build the Menu
 	 */
 	public static void buildMenu() {
-		final GHAMenuBar verticalMenu = new GHAMenuBar();
+		verticalMenu = new GHAMenuBar();
 		GHAUiHelper.addGHAResizeHandler(verticalMenu);
 
 		GHAImgButton menu = new GHAImgButton("../resources/icons/menu.png");
@@ -121,22 +119,12 @@ public final class GHATabSet {
 			}
 		});
 
-		// HLayout menuPanel = new HLayout();
-		// menuPanel.setWidth100();
-		// menuPanel.setHeight(30);
-		// menuPanel.setMembersMargin(10);
-		// menuPanel.setDefaultLayoutAlign(VerticalAlignment.CENTER);
-		// menuPanel.setStyleName("left-menu-padding");
 		hPanel.add(menu);
 
 		Bpu user = GHASessionData.getLoggedUser();
 		List<GHAMenuOption> menuOptions = getMenuOptions(user);
-		for (GHAMenuOption ghaMenuOption : menuOptions) {
-			ghaMenuOption.setBar(verticalMenu);
+		for (GHAMenuOption ghaMenuOption : menuOptions)
 			verticalMenu.addOption(ghaMenuOption);
-		}
-
-		// RootPanel.get("menu-bar").add(menuPanel);
 	}
 
 	/**
@@ -159,4 +147,11 @@ public final class GHATabSet {
 		return menuOptions;
 	}
 
+	/**
+	 * @param token
+	 * @return the ghamenuoption of this token or null if is not found
+	 */
+	public static GHAMenuOption getGHAMenuOptionByToken(String token) {
+		return verticalMenu.getByToken(token);
+	}
 }
