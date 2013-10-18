@@ -3,7 +3,6 @@ package org.fourgeeks.gha.webclient.client.UI.tabs;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
@@ -24,7 +23,7 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
  * @author alacret
  * 
  */
-public class GHATabHeader extends HLayout implements ResizeHandler, GHAHideable {
+public class GHATabHeader extends HLayout implements ResizeHandler {
 
 	private Option titulo;
 	private int memberPos = 2;

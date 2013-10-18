@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.Eia;
-import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
 
 /**
@@ -33,15 +32,15 @@ public class EIATab extends GHATab implements EIASelectionListener,
 	 */
 	public EIATab(String token) {
 		super(token);
-		header.setTitle(TITLE);
-
-		topSection = new EIATopSection(this);
-		internalTabset = new EIAInternalTabset(this);
-
-		verticalPanel.addMember(topSection);
-		verticalPanel.addMember(GHAUiHelper
-				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
-		verticalPanel.addMember(internalTabset);
+		// header.setTitle(TITLE);
+		//
+		// topSection = new EIATopSection(this);
+		// internalTabset = new EIAInternalTabset(this);
+		//
+		// verticalPanel.addMember(topSection);
+		// verticalPanel.addMember(GHAUiHelper
+		// .verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
+		// verticalPanel.addMember(internalTabset);
 		addMember(verticalPanel);
 	}
 

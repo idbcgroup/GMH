@@ -18,7 +18,6 @@ import org.fourgeeks.gha.webclient.client.UI.menu.GHAMenu.GHAMenuOption;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
 
 import com.google.gwt.user.client.History;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -58,7 +57,6 @@ public final class GHATabSet {
 	 * @throws UnavailableToHideException
 	 */
 	public static void showTab(GHATab tab) throws UnavailableToHideException {
-		Window.alert("showtab");
 		if (tab == null)
 			return;
 
@@ -87,7 +85,7 @@ public final class GHATabSet {
 		} catch (UnavailableToHideException e) {
 			throw new UnavailableToHideException(e);
 		}
-		// hPanel.remove(tab.getHeader());
+		hPanel.remove(tab.getHeader());
 	}
 
 	/**
