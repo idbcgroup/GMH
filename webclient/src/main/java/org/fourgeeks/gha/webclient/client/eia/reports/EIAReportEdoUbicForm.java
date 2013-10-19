@@ -102,11 +102,11 @@ public class EIAReportEdoUbicForm extends GHAReportForm {
 	 * Llena con datos los diferentes items del formulario
 	 */
 	private void fillItemsWhitData() {
-		LinkedHashMap<String, String> map = EiaReportFiltersEnum.toValueMap();
-		map.remove(EiaReportFiltersEnum.SIN_FILTRO.name());
-		String edoEquipoName = EiaReportFiltersEnum.EDO_EQUIPO.name();
+		LinkedHashMap<String, String> map = EiaReportFiltersEnum.toValueMap(
+				EiaReportFiltersEnum.EDO_EQUIPO, EiaReportFiltersEnum.WORKING_AREA,
+				EiaReportFiltersEnum.FACILITY);
 		filterTypeRadioGroupItem.setValueMap(map);
-		filterTypeRadioGroupItem.setDefaultValue(edoEquipoName);
+		filterTypeRadioGroupItem.setDefaultValue(EiaReportFiltersEnum.EDO_EQUIPO.name());
 
 		map = new LinkedHashMap<String, String>();
 		map.put(getClassName(EiaStateEnum.class), "Estado del equipo");

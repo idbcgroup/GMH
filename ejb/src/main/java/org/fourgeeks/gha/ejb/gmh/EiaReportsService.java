@@ -1,6 +1,5 @@
 package org.fourgeeks.gha.ejb.gmh;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -9,15 +8,15 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.fourgeeks.gha.domain.enu.EiaReportOrderByEnum;
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.Eia;
+import org.fourgeeks.gha.domain.gmh.EiaReportEntity;
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.domain.gmh.EiaTypeComponent;
+import org.fourgeeks.gha.domain.gmh.EiaTypeComponentReportEntity;
 
 @Stateless(name = "gmh.EiaReportsService")
 public class EiaReportsService implements EiaReportsServiceRemote {
@@ -114,11 +113,11 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 	 * (java.util.List)
 	 */
 	@Override
-	public List<EiaTypeComponent> findComponentsByEiaTypes(List<String> eiaTypeIds,
+	public List<EiaTypeComponentReportEntity> findComponentsByEiaTypes(List<String> eiaTypeIds,
 			EiaReportOrderByEnum orderBy) throws GHAEJBException {
 
 		// CONSTRUYENDO QUERY
-		String queryStr = "select comp from EiaTypeComponent comp "
+		String queryStr = "select new EiaTypeComponentReportEntity(comp,parent,eiatype) from EiaTypeComponent comp "
 				+ "join comp.eiaType eiatype right join comp.parentEiaType parent";
 
 		String whereStr = "";
@@ -133,7 +132,8 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 
 		// EJECUTANDO QUERY
 		try {
-			TypedQuery<EiaTypeComponent> query = em.createQuery(queryStr, EiaTypeComponent.class);
+			TypedQuery<EiaTypeComponentReportEntity> query = em.createQuery(queryStr,
+					EiaTypeComponentReportEntity.class);
 			if (eiaTypeIds != null)
 				query.setParameter("eiaTypeIds", eiaTypeIds);
 
@@ -269,12 +269,12 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 	 * boolean)
 	 */
 	@Override
-	@SuppressWarnings("unchecked")
-	public List<Eia> findEiasByEiaTypes(List<String> eiaTypeIds, List<Long> facilityIds,
-			List<Long> workAreaIds, EiaStateEnum eiaState) throws GHAEJBException {
+	public List<EiaReportEntity> findEiasByEiaTypes(List<String> eiaTypeIds,
+			List<Long> facilityIds, List<Long> workAreaIds, EiaStateEnum eiaState)
+			throws GHAEJBException {
 
 		// CONSTRUYENDO QUERY
-		String queryStr = "select eia, eiatype from Eia eia "
+		String queryStr = "select new EiaReportEntity(eia,eiatype) from Eia eia "
 				+ " right join eia.eiaType as eiatype "
 				+ " left join eia.workingArea as workingarea "
 				+ " left join eia.facility as facility ";
@@ -293,7 +293,7 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 		// EJECUTANDO QUERY
 		try {
 			// creo el query y le asigno los parametros
-			Query query = em.createQuery(queryStr);
+			TypedQuery<EiaReportEntity> query = em.createQuery(queryStr, EiaReportEntity.class);
 			if (eiaTypeIds != null)
 				query.setParameter("eiaTypeIds", eiaTypeIds);
 			if (facilityIds != null)
@@ -303,23 +303,8 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 			if (eiaState != null)
 				query.setParameter("eiaState", eiaState);
 
-			// obtengo la lista de resultados
-			List<Object> resultList = query.getResultList();
-
-			// creo la lista de eia con los resultados devueltos por el query
-			List<Eia> resultListEia = new ArrayList<Eia>();
-			for (Object record : resultList) {
-				Object[] values = (Object[]) record;
-				Eia eia = (Eia) values[0];
-				EiaType eiaType = (EiaType) values[1];
-
-				if (eia == null)
-					eia = new Eia(null, eiaType, null, null, null, null, null);
-				resultListEia.add(eia);
-			}
-
 			// devuelvo la lista de eia
-			return resultListEia;
+			return query.getResultList();
 
 		} catch (NoResultException ex) {
 			logger.log(Level.INFO, "No results", ex);

@@ -26,6 +26,7 @@ import org.fourgeeks.gha.domain.enu.EiaReportOrderByEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaTypeComponent;
+import org.fourgeeks.gha.domain.gmh.EiaTypeComponentReportEntity;
 import org.fourgeeks.gha.ejb.gmh.EiaReportsServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.EiaTypeComponentServiceRemote;
 
@@ -91,7 +92,7 @@ public class ReportListEiaTypeCompsServlet extends ReportEiaServelt {
 	protected Map<String, Object> searchInService(HttpServletRequest req) throws GHAEJBException {
 		QueryParamsContainer qpc = new QueryParamsContainer(req);
 		List<Eia> eiaList = null;
-		List<EiaTypeComponent> eiaTypeCompList = null;
+		List<EiaTypeComponentReportEntity> eiaTypeCompList = null;
 		String reportPath = null;
 
 		HashMap<String, Object> mapa = new HashMap<String, Object>();
@@ -104,9 +105,9 @@ public class ReportListEiaTypeCompsServlet extends ReportEiaServelt {
 						qpc.orden);
 			} else {
 				// un componente especifico de un tipo de equipo
-				eiaTypeCompList = new ArrayList<EiaTypeComponent>();
+				eiaTypeCompList = new ArrayList<EiaTypeComponentReportEntity>();
 				EiaTypeComponent comp = serviceEiaTypeComponent.find(qpc.componentId);
-				eiaTypeCompList.add(comp);
+				eiaTypeCompList.add(new EiaTypeComponentReportEntity(comp));
 			}
 
 			// obtengo el dataSource para el reporte y se lo agrego al mapa

@@ -18,27 +18,35 @@ import org.fourgeeks.gha.domain.gar.Facility;
 import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.gmh.Eia;
+import org.fourgeeks.gha.domain.gmh.EiaReportEntity;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 
 public class EiaDataSource implements JRDataSource {
 
-	private List<Eia> data;
+	private List<Eia> dataEia;
+	private List<EiaReportEntity> dataEiaRepEnt;
 	private Class<? extends Object> groupType;
 	private int pos;
+
+	public EiaDataSource() {
+		dataEia = null;
+		dataEiaRepEnt = null;
+		groupType = null;
+		pos = -1;
+	}
 
 	/**
 	 * @param data
 	 *            Lista con los datos a mostrar enel reporte
 	 */
 	public EiaDataSource(List<Eia> data) {
-		this.data = data;
-		this.groupType = null;
-		pos = -1;
+		this();
 
-		if (this.data.isEmpty()) {
+		this.dataEia = data;
+		if (this.dataEia.isEmpty()) {
 			Eia e = new Eia();
 			e.setState(null);
-			this.data.add(e);
+			this.dataEia.add(e);
 		}
 	}
 
@@ -51,16 +59,24 @@ public class EiaDataSource implements JRDataSource {
 	 * @throws ClassNotFoundException
 	 *             Debe ser el nombre de una clase existente
 	 */
-	public EiaDataSource(List<Eia> data, String groupTypeField)
-			throws ClassNotFoundException {
+	public EiaDataSource(List<Eia> data, String groupTypeField) throws ClassNotFoundException {
 		this(data);
 		this.groupType = Class.forName(groupTypeField);
 	}
 
+	private Eia getEiaFromLista(int pos) {
+		if (dataEia != null)
+			return dataEia.get(pos);
+		if (dataEiaRepEnt != null)
+			return dataEiaRepEnt.get(pos).getEia();
+
+		return null;
+	}
+
 	@Override
 	public Object getFieldValue(JRField field) throws JRException {
-		if (data != null) {
-			final Eia eia = data.get(pos);
+		if (!listaDatosVacia()) {
+			final Eia eia = getEiaFromLista(pos);
 
 			if (field.getName().equals("groupField")) {
 				if (groupType == EiaStateEnum.class) {
@@ -69,13 +85,11 @@ public class EiaDataSource implements JRDataSource {
 				}
 				if (groupType == Facility.class) {
 					Facility facility = eia.getFacility();
-					return facility != null ? facility.getName()
-							: "Sin servicio/instalación";
+					return facility != null ? facility.getName() : "Sin servicio/instalación";
 				}
 				if (groupType == WorkingArea.class) {
 					WorkingArea workingArea = eia.getWorkingArea();
-					return workingArea != null ? workingArea.getName()
-							: "Sin area de trabajo";
+					return workingArea != null ? workingArea.getName() : "Sin area de trabajo";
 				}
 			}
 
@@ -175,8 +189,8 @@ public class EiaDataSource implements JRDataSource {
 				BigDecimal cost = eia.getAdquisitionCostLocal();
 				CurrencyTypeEnum curr = eia.getAdquisitionCostCurrencyLocal();
 
-				return cost != null && curr != null ? cost.toString() + " "
-						+ curr.toString() : null;
+				return cost != null && curr != null ? cost.toString() + " " + curr.toString()
+						: null;
 			}
 
 			if (field.getName().equals("metodoDepreciacion")) {
@@ -256,12 +270,45 @@ public class EiaDataSource implements JRDataSource {
 		return time + " " + string;
 	}
 
+	private boolean listaDatosVacia() {
+		if (dataEia != null)
+			return false;
+		if (dataEiaRepEnt != null)
+			return false;
+		return true;
+	}
+
 	@Override
 	public boolean next() throws JRException {
 		pos++;
-		if (data == null)
-			return false;
-		return (pos < data.size());
+		if (dataEia != null)
+			return pos < dataEia.size();
+
+		if (dataEiaRepEnt != null)
+			return pos < dataEiaRepEnt.size();
+
+		return false;
+	}
+
+	public void setDataEia(List<Eia> data) {
+		dataEia = data;
+		dataEiaRepEnt = null;
+
+		if (dataEia.isEmpty()) {
+			Eia e = new Eia();
+			e.setState(null);
+			dataEia.add(e);
+		}
+	}
+
+	public void setDataEiaReportEntity(List<EiaReportEntity> data) {
+		dataEia = null;
+		dataEiaRepEnt = data;
+
+		if (dataEiaRepEnt.isEmpty()) {
+			EiaReportEntity e = new EiaReportEntity();
+			dataEiaRepEnt.add(e);
+		}
 	}
 
 }

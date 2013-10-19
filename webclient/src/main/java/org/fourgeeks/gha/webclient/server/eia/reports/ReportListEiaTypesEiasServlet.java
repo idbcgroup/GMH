@@ -22,6 +22,7 @@ import org.apache.log4j.Level;
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.Eia;
+import org.fourgeeks.gha.domain.gmh.EiaReportEntity;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.ejb.gmh.EiaReportsServiceRemote;
 
@@ -118,7 +119,7 @@ public class ReportListEiaTypesEiasServlet extends ReportEiaServelt {
 	 */
 	protected Map<String, Object> searchInService(HttpServletRequest req) throws GHAEJBException {
 		QueryParamsContainer qpc = new QueryParamsContainer(req);
-		List<Eia> eiaList = null;
+		List<EiaReportEntity> eiaList = null;
 		List<EiaType> eiaTypeList = null;
 
 		if (qpc.showEias) {
@@ -127,12 +128,17 @@ public class ReportListEiaTypesEiasServlet extends ReportEiaServelt {
 			List<String> eiaTypeCodeList = toCodeList(eiaTypeList);
 			eiaList = service.findEiasByEiaTypes(eiaTypeCodeList, qpc.facilsIds,
 					qpc.workingAreasIds, qpc.eiaState);
+
+			LOG.log(Level.INFO, "eiaList.size() = " + eiaList.size());
+			Eia eia = eiaList.get(0).getEia();
+			LOG.log(Level.INFO, "eia.getCode() = " + eia.getCode());
 		} else {
 			eiaTypeList = service.findEiaTypes(qpc.eiaTypeCodes);
-			eiaList = new ArrayList<Eia>();
+			eiaList = new ArrayList<EiaReportEntity>();
 		}
 
-		EiaDataSource eiaDS = new EiaDataSource(eiaList);
+		EiaDataSource eiaDS = new EiaDataSource();
+		eiaDS.setDataEiaReportEntity(eiaList);
 		EiaTypeDataSource eiaTypeDS = new EiaTypeDataSource(eiaTypeList);
 
 		HashMap<String, Object> mapa = new HashMap<String, Object>();

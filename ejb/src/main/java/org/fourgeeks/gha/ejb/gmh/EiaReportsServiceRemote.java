@@ -8,8 +8,9 @@ import org.fourgeeks.gha.domain.enu.EiaReportOrderByEnum;
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.Eia;
+import org.fourgeeks.gha.domain.gmh.EiaReportEntity;
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.domain.gmh.EiaTypeComponent;
+import org.fourgeeks.gha.domain.gmh.EiaTypeComponentReportEntity;
 
 @Remote
 public interface EiaReportsServiceRemote {
@@ -39,7 +40,7 @@ public interface EiaReportsServiceRemote {
 	 * 
 	 * @return
 	 */
-	public List<EiaTypeComponent> findComponentsByEiaTypes(List<String> eiaTypeIds,
+	public List<EiaTypeComponentReportEntity> findComponentsByEiaTypes(List<String> eiaTypeIds,
 			EiaReportOrderByEnum orderBy) throws GHAEJBException;
 
 	/**
@@ -97,8 +98,9 @@ public interface EiaReportsServiceRemote {
 	 *         lista vacia
 	 * @throws GHAEJBException
 	 */
-	public List<Eia> findEiasByEiaTypes(List<String> eiaTypeIds, List<Long> facilityIds,
-			List<Long> workAreaIds, EiaStateEnum eiaState) throws GHAEJBException;
+	public List<EiaReportEntity> findEiasByEiaTypes(List<String> eiaTypeIds,
+			List<Long> facilityIds, List<Long> workAreaIds, EiaStateEnum eiaState)
+			throws GHAEJBException;
 
 	/**
 	 * Devuelve los EiaType cuyos IDs (codigos) sean los pasados por parametro
