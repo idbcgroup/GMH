@@ -230,6 +230,44 @@ public class InitialData {
 				em.persist(new GHAMessage(LanguageEnum.EN,
 						"function-getAll-fail", "Failed to get all Functions"));
 
+				// instanceLogon service messages
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"instanceLogon-delete-fail",
+						"Fallo la eliminación del InstanceLogon"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"instanceLogon-findByInstanceLogon-fail",
+						"Búsqueda fallida de InstanceLogon por instanceLogon"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"instanceLogon-find-fail",
+						"Búsqueda fallida de InstanceLogon"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"instanceLogon-getAll-fail",
+						"Búsqueda fallida de todos los InstanceLogon"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"instanceLogon-save-fail",
+						"Guardado fallido de InstanceLogon"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"instanceLogon-update-fail",
+						"Actualización fallida de InstanceLogon"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"instanceLogon-delete-fail",
+						"Failed to delete InstanceLogon"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"instanceLogon-findByInstanceLogon-fail",
+						"Failed to find InstanceLogon by instanceLogon"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"instanceLogon-find-fail",
+						"Failed to find InstanceLogon"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"instanceLogon-getAll-fail",
+						"Failed to get all instanceLogon"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"instanceLogon-save-fail",
+						"Failed to save InstanceLogon"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"instanceLogon-update-fail",
+						"Failed to update InstanceLogon"));
+
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating message test data", e1);
