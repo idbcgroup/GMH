@@ -346,6 +346,42 @@ public class InitialData {
 						"bpuFunction-delete-fail",
 						"Failed to delete BpuFunction"));
 
+				// workingArea service messages
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"workingArea-delete-fail",
+						"Fallo la eliminación del WorkingArea"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"workingArea-findByWorkingArea-fail",
+						"Búsqueda fallida de WorkingArea por workingArea"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"workingArea-find-fail",
+						"Búsqueda fallida de WorkingArea"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"workingArea-getAll-fail",
+						"Búsqueda fallida de todos los WorkingArea"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"workingArea-save-fail",
+						"Guardado fallido de WorkingArea"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"workingArea-update-fail",
+						"Actualización fallida de WorkingArea"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"workingArea-delete-fail",
+						"Failed to delete WorkingArea"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"workingArea-findByWorkingArea-fail",
+						"Failed to find WorkingArea by workingArea"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"workingArea-find-fail", "Failed to find WorkingArea"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"workingArea-getAll-fail",
+						"Failed to get all WorkingArea"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"workingArea-save-fail", "Failed to save WorkingArea"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"workingArea-update-fail",
+						"Failed to update WorkingArea"));
+
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating message test data", e1);
