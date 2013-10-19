@@ -388,6 +388,32 @@ public class InitialData {
 						"workingArea-update-fail",
 						"Failed to update WorkingArea"));
 
+				// bpu service messages
+				em.persist(new GHAMessage(LanguageEnum.ES, "bpu-delete-fail",
+						"Fallo la eliminación del Bpu"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"bpu-findByBpu-fail", "Búsqueda fallida de Bpu por bpu"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "bpu-find-fail",
+						"Búsqueda fallida de Bpu"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "bpu-getAll-fail",
+						"Búsqueda fallida de todos los Bpu"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "bpu-save-fail",
+						"Guardado fallido de Bpu"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "bpu-update-fail",
+						"Actualización fallida de Bpu"));
+				em.persist(new GHAMessage(LanguageEnum.EN, "bpu-delete-fail",
+						"Failed to delete Bpu"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"bpu-findByBpu-fail", "Failed to find Bpu by bpu"));
+				em.persist(new GHAMessage(LanguageEnum.EN, "bpu-find-fail",
+						"Failed to find Bpu"));
+				em.persist(new GHAMessage(LanguageEnum.EN, "bpu-getAll-fail",
+						"Failed to get all Bpu"));
+				em.persist(new GHAMessage(LanguageEnum.EN, "bpu-save-fail",
+						"Failed to save Bpu"));
+				em.persist(new GHAMessage(LanguageEnum.EN, "bpu-update-fail",
+						"Failed to update Bpu"));
+
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating message test data", e1);
