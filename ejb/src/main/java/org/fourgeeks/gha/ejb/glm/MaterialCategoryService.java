@@ -13,6 +13,8 @@ import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.glm.MaterialCategory;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
  * @author emiliot, vivi.torresg
@@ -20,7 +22,8 @@ import org.fourgeeks.gha.domain.glm.MaterialCategory;
  */
 
 @Stateless(name = "glm.MaterialCategoryService")
-public class MaterialCategoryService implements MaterialCategoryServiceRemote {
+public class MaterialCategoryService extends GHAEJBExceptionImpl implements
+		MaterialCategoryServiceRemote {
 	@PersistenceContext
 	private EntityManager em;
 
@@ -41,9 +44,8 @@ public class MaterialCategoryService implements MaterialCategoryServiceRemote {
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete MaterialCategory",
 					e);
-			throw new GHAEJBException(
-					"ERROR: unable to delete MaterialCategory "
-							+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("materialCategory-delete-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -67,9 +69,9 @@ public class MaterialCategoryService implements MaterialCategoryServiceRemote {
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE,
 					"Error finding MaterialCategories by materialCategory", ex);
-			throw new GHAEJBException(
-					"Error obteniendo MaterialCategories por materialCategory"
-							+ ex.getCause().getMessage());
+			throw super.generateGHAEJBException(
+					"materialCategory-findByMaterialCategory-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -85,8 +87,8 @@ public class MaterialCategoryService implements MaterialCategoryServiceRemote {
 			return em.find(MaterialCategory.class, Id);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: finding MaterialCategory", e);
-			throw new GHAEJBException("ERROR: finding MaterialCategory "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("materialCategory-find-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -103,9 +105,8 @@ public class MaterialCategoryService implements MaterialCategoryServiceRemote {
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all MaterialCategories",
 					ex);
-			throw new GHAEJBException(
-					"Error obteniendo todas los MaterialCategories"
-							+ ex.getCause().getMessage());
+			throw super.generateGHAEJBException("materialCategory-getAll-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -127,9 +128,8 @@ public class MaterialCategoryService implements MaterialCategoryServiceRemote {
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all MaterialCategories",
 					ex);
-			throw new GHAEJBException(
-					"Error obteniendo todas los MaterialCategories"
-							+ ex.getCause().getMessage());
+			throw super.generateGHAEJBException("materialCategory-getAll-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -149,8 +149,8 @@ public class MaterialCategoryService implements MaterialCategoryServiceRemote {
 			return em.find(MaterialCategory.class, materialCategory.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving materialCategory ", e);
-			throw new GHAEJBException("ERROR: saving materialCategory "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("materialCategory-save-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -171,9 +171,8 @@ public class MaterialCategoryService implements MaterialCategoryServiceRemote {
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to update MaterialCategory ",
 					e);
-			throw new GHAEJBException(
-					"ERROR: no se puede eliminar el MaterialCategory "
-							+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("materialCategory-update-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 }

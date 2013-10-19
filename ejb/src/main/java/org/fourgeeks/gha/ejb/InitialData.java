@@ -509,6 +509,44 @@ public class InitialData {
 						"externalProvider-update-fail",
 						"Failed to update ExternalProvider"));
 
+				// materialCategory service messages
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"materialCategory-delete-fail",
+						"Fallo la eliminación del MaterialCategory"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"materialCategory-findByMaterialCategory-fail",
+						"Búsqueda fallida de MaterialCategory por materialCategory"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"materialCategory-find-fail",
+						"Búsqueda fallida de MaterialCategory"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"materialCategory-getAll-fail",
+						"Búsqueda fallida de todos los MaterialCategory"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"materialCategory-save-fail",
+						"Guardado fallido de MaterialCategory"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"materialCategory-update-fail",
+						"Actualización fallida de MaterialCategory"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"materialCategory-delete-fail",
+						"Failed to delete MaterialCategory"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"materialCategory-findByMaterialCategory-fail",
+						"Failed to find MaterialCategory by materialCategory"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"materialCategory-find-fail",
+						"Failed to find MaterialCategory"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"materialCategory-getAll-fail",
+						"Failed to get all MaterialCategory"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"materialCategory-save-fail",
+						"Failed to save MaterialCategory"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"materialCategory-update-fail",
+						"Failed to update MaterialCategory"));
+
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating message test data", e1);
