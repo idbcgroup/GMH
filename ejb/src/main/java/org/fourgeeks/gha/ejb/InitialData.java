@@ -414,6 +414,37 @@ public class InitialData {
 				em.persist(new GHAMessage(LanguageEnum.EN, "bpu-update-fail",
 						"Failed to update Bpu"));
 
+				// facility service messages
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"facility-delete-fail",
+						"Fallo la eliminación del Facility"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"facility-findByFacility-fail",
+						"Búsqueda fallida de Facility por facility"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"facility-find-fail", "Búsqueda fallida de Facility"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"facility-getAll-fail",
+						"Búsqueda fallida de todos los Facility"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"facility-save-fail", "Guardado fallido de Facility"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"facility-update-fail",
+						"Actualización fallida de Facility"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"facility-delete-fail", "Failed to delete Facility"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"facility-findByFacility-fail",
+						"Failed to find Facility by facility"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"facility-find-fail", "Failed to find Facility"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"facility-getAll-fail", "Failed to get all Facility"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"facility-save-fail", "Failed to save Facility"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"facility-update-fail", "Failed to update Facility"));
+
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating message test data", e1);
