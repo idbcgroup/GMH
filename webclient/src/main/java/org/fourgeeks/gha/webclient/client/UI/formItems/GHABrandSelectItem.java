@@ -51,11 +51,17 @@ public class GHABrandSelectItem extends GHASelectItem {
 		this(GHAUiHelper.DEFAULT_ITEM_SIZE);
 	}
 
-	@Override
-	public String getValue() {
-		if (getValue() == null)
-			return null;
-		else
-			return getValueAsString();
-	}
+	// public boolean isNull() {
+	// Window.alert("3.1.1");
+	// Window.alert(getValueAsString());
+	// return getValue() == null;
+	// }
+	//
+	// @Override
+	// public String getValue() {
+	// if (getValue() == null)
+	// return null;
+	// else
+	// return getValueAsString();
+	// }
 }

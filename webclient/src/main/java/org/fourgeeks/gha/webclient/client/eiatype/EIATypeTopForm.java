@@ -45,7 +45,7 @@ public class EIATypeTopForm extends HLayout implements
 	int index;
 	// private GHAImg photo;
 
-	private EiaTypeResultSet resultSet;
+	private final EiaTypeResultSet resultSet;
 
 	{
 		// eiaTypeSearchForm = new EIATypeSearchForm();
@@ -207,8 +207,10 @@ public class EIATypeTopForm extends HLayout implements
 		eiaType.setName(nameItem.getValueAsString());
 		Window.alert("3");
 
-		if (brandItem.getValue() != null)
-			eiaType.setBrand(new Brand(brandItem.getValue(), null));
+		if (brandItem.getValue() != null) {
+			eiaType.setBrand(new Brand(Integer.valueOf(brandItem
+					.getValueAsString()), null));
+		}
 		Window.alert("4");
 		eiaType.setModel(modelItem.getValueAsString());
 		Window.alert("5");
