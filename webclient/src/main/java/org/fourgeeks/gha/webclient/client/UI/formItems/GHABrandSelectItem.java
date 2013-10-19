@@ -3,7 +3,6 @@ package org.fourgeeks.gha.webclient.client.UI.formItems;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
@@ -53,10 +52,10 @@ public class GHABrandSelectItem extends GHASelectItem {
 	}
 
 	@Override
-	public EiaMobilityEnum getValue() {
+	public String getValue() {
 		if (getValue() == null)
 			return null;
 		else
-			return EiaMobilityEnum.valueOf(getValueAsString());
+			return getValueAsString();
 	}
 }
