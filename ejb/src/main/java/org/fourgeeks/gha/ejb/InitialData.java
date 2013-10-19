@@ -471,6 +471,44 @@ public class InitialData {
 				em.persist(new GHAMessage(LanguageEnum.EN, "obu-update-fail",
 						"Failed to update Obu"));
 
+				// externalProvider service messages
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"externalProvider-delete-fail",
+						"Fallo la eliminación del ExternalProvider"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"externalProvider-findByExternalProvider-fail",
+						"Búsqueda fallida de ExternalProvider por externalProvider"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"externalProvider-find-fail",
+						"Búsqueda fallida de ExternalProvider"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"externalProvider-getAll-fail",
+						"Búsqueda fallida de todos los ExternalProvider"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"externalProvider-save-fail",
+						"Guardado fallido de ExternalProvider"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"externalProvider-update-fail",
+						"Actualización fallida de ExternalProvider"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"externalProvider-delete-fail",
+						"Failed to delete ExternalProvider"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"externalProvider-findByExternalProvider-fail",
+						"Failed to find ExternalProvider by externalProvider"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"externalProvider-find-fail",
+						"Failed to find ExternalProvider"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"externalProvider-getAll-fail",
+						"Failed to get all ExternalProvider"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"externalProvider-save-fail",
+						"Failed to save ExternalProvider"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"externalProvider-update-fail",
+						"Failed to update ExternalProvider"));
+
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating message test data", e1);
