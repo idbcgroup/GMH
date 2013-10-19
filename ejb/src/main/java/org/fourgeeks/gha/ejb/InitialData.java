@@ -547,6 +547,49 @@ public class InitialData {
 						"materialCategory-update-fail",
 						"Failed to update MaterialCategory"));
 
+				// material service messages
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"material-delete-fail",
+						"Fallo la eliminación del Material"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"material-findByMaterial-fail",
+						"Búsqueda fallida de Material por material"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"material-find-fail", "Búsqueda fallida de Material"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"material-findByType-fail",
+						"Búsqueda fallida de Material por Tipo"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"material-findByBrand-fail",
+						"Búsqueda fallida de Material por Brand"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"material-getAll-fail",
+						"Búsqueda fallida de todos los Material"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"material-save-fail", "Guardado fallido de Material"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"material-update-fail",
+						"Actualización fallida de Material"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"material-delete-fail", "Failed to delete Material"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"material-findByMaterial-fail",
+						"Failed to find Material by material"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"material-find-fail", "Failed to find Material"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"material-findByType-fail",
+						"Failed to find Material by Type"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"material-findByBrand-fail",
+						"Falied to find Material by Brand"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"material-getAll-fail", "Failed to get all Material"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"material-save-fail", "Failed to save Material"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"material-update-fail", "Failed to update Material"));
+
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating message test data", e1);
