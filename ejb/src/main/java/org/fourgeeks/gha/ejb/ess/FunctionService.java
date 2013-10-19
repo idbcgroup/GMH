@@ -11,8 +11,7 @@ import javax.persistence.TypedQuery;
 
 import org.fourgeeks.gha.domain.ess.Function;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
-import org.fourgeeks.gha.domain.msg.GHAMessage;
-import org.fourgeeks.gha.domain.msg.GHAMessageId;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
@@ -20,12 +19,11 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * 
  */
 @Stateless(name = "ess.FunctionService")
-public class FunctionService implements FunctionServiceRemote {
+public class FunctionService extends GHAEJBExceptionImpl implements
+		FunctionServiceRemote {
 
 	@PersistenceContext
 	private EntityManager em;
-
-	private GHAEJBException exception = new GHAEJBException();
 
 	private final static Logger logger = Logger.getLogger(FunctionService.class
 			.getName());
@@ -33,21 +31,13 @@ public class FunctionService implements FunctionServiceRemote {
 	@Override
 	public List<Function> getAll() throws GHAEJBException {
 		try {
-			TypedQuery<Function> query = em.createNamedQuery("Function.getAl",
+			TypedQuery<Function> query = em.createNamedQuery("Function.getAll",
 					Function.class);
 			return query.getResultList();
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "Error obteniendo todos los function", e);
-			try {
-				exception.setGhaMessage(em.find(GHAMessage.class,
-						new GHAMessageId("function-getAll-fail",
-								RuntimeParameters.getLang())));
-			} catch (Exception e1) {
-				exception.setGhaMessage(new GHAMessage(RuntimeParameters
-						.getLang(), "generic-error-msg",
-						"Error de sistema, intente más tarde."));
-			}
-			throw exception;
+			throw super.generateGHAEJBException("function-getAll-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
