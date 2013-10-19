@@ -63,7 +63,7 @@ import org.fourgeeks.gha.domain.msg.UiString;
 import org.fourgeeks.gha.ejb.ess.FunctionServiceRemote;
 
 /**
- * @author alacret
+ * @author alacret, vivi.torresg
  * 
  */
 @Startup
@@ -295,6 +295,56 @@ public class InitialData {
 						"Failed to save Role"));
 				em.persist(new GHAMessage(LanguageEnum.EN, "role-update-fail",
 						"Failed to update Role"));
+
+				// ssoUser service messages
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"ssoUser-delete-fail",
+						"Fallo la eliminación del SSOUser"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"ssoUser-findBySsoUser-fail",
+						"Búsqueda fallida de SSOUser por ssoUser"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "ssoUser-find-fail",
+						"Búsqueda fallida de SSOUser"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"ssoUser-getAll-fail",
+						"Búsqueda fallida de todos los SSOUser"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "ssoUser-save-fail",
+						"Guardado fallido de SSOUser"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"ssoUser-update-fail",
+						"Actualización fallida de SSOUser"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"ssoUser-findByUserName-fail",
+						"Búsqueda fallida de SSOUser por userName"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"ssoUser-delete-fail", "Failed to delete SSOUSer"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"ssoUser-findBySsoUser-fail",
+						"Failed to find SSOUser by ssoUser"));
+				em.persist(new GHAMessage(LanguageEnum.EN, "ssoUser-find-fail",
+						"Failed to find SSOUser"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"ssoUser-getAll-fail", "Failed to get all SSOUser"));
+				em.persist(new GHAMessage(LanguageEnum.EN, "ssoUser-save-fail",
+						"Failed to save SSOUser"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"ssoUser-update-fail", "Failed to update SSOUser"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"ssoUser-findByUserName-fail",
+						"Failed to find SSOUser by userName"));
+
+				// bpuFunction service messages
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"bpuFunction-save-fail",
+						"Guardado fallido del BpuFunction"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"bpuFunction-delete-fail",
+						"Fallo la eliminación del BpuFunction"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"bpuFunction-save-fail", "Failed to save BpuFunction"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"bpuFunction-delete-fail",
+						"Failed to delete BpuFunction"));
 
 				em.flush();
 			} catch (Exception e1) {

@@ -7,8 +7,8 @@ import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.msg.GHAMessage;
 import org.fourgeeks.gha.domain.msg.GHAMessageId;
 
-/*
- * @author vivi.torresg 
+/**
+ * @author vivi.torresg
  * 
  */
 public class GHAEJBExceptionImpl {
