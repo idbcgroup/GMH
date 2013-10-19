@@ -268,6 +268,34 @@ public class InitialData {
 						"instanceLogon-update-fail",
 						"Failed to update InstanceLogon"));
 
+				// role service messages
+				em.persist(new GHAMessage(LanguageEnum.ES, "role-delete-fail",
+						"Fallo la eliminación del Rol"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"role-findByRoleBase-fail",
+						"Búsqueda fallida de Rol por rol"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "role-find-fail",
+						"Búsqueda fallida de Rol"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "role-getAll-fail",
+						"Búsqueda fallida de todos los Rol"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "role-save-fail",
+						"Guardado fallido de Rol"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "role-update-fail",
+						"Actualización fallida de Rol"));
+				em.persist(new GHAMessage(LanguageEnum.EN, "role-delete-fail",
+						"Failed to delete Role"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"role-findByRoleBase-fail",
+						"Failed to find Role by role"));
+				em.persist(new GHAMessage(LanguageEnum.EN, "role-find-fail",
+						"Failed to find Role"));
+				em.persist(new GHAMessage(LanguageEnum.EN, "role-getAll-fail",
+						"Failed to get all Role"));
+				em.persist(new GHAMessage(LanguageEnum.EN, "role-save-fail",
+						"Failed to save Role"));
+				em.persist(new GHAMessage(LanguageEnum.EN, "role-update-fail",
+						"Failed to update Role"));
+
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating message test data", e1);
