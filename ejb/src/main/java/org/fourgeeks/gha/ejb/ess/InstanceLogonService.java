@@ -13,6 +13,9 @@ import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.ess.InstanceLogon;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
+import org.fourgeeks.gha.domain.msg.GHAMessage;
+import org.fourgeeks.gha.domain.msg.GHAMessageId;
+import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
  * @author emiliot, vivi.torresg
@@ -23,6 +26,8 @@ import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 public class InstanceLogonService implements InstanceLogonServiceRemote {
 	@PersistenceContext
 	private EntityManager em;
+
+	private GHAEJBException exception = new GHAEJBException();
 
 	private final static Logger logger = Logger
 			.getLogger(InstanceLogonService.class.getName());
@@ -39,8 +44,16 @@ public class InstanceLogonService implements InstanceLogonServiceRemote {
 			em.remove(entity);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete InstanceLogon", e);
-			throw new GHAEJBException("ERROR: unable to delete InstanceLogon "
-					+ e.getCause().getMessage());
+			try {
+				exception.setGhaMessage(em.find(GHAMessage.class,
+						new GHAMessageId("instanceLogon-delete-fail",
+								RuntimeParameters.getLang())));
+			} catch (Exception e1) {
+				exception.setGhaMessage(new GHAMessage(RuntimeParameters
+						.getLang(), "generic-error-msg",
+						"Error de sistema, intente más tarde."));
+			}
+			throw exception;
 		}
 	}
 
@@ -63,9 +76,17 @@ public class InstanceLogonService implements InstanceLogonServiceRemote {
 		} catch (Exception e) {
 			logger.log(Level.INFO,
 					"Error: finding InstanceLogon by InstanceLogon", e);
-			throw new GHAEJBException(
-					"Error buscando InstanceLogon por InstanceLogon "
-							+ e.getCause().getMessage());
+			try {
+				exception.setGhaMessage(em.find(GHAMessage.class,
+						new GHAMessageId(
+								"instanceLogon-findByInstanceLogon-fail",
+								RuntimeParameters.getLang())));
+			} catch (Exception e1) {
+				exception.setGhaMessage(new GHAMessage(RuntimeParameters
+						.getLang(), "generic-error-msg",
+						"Error de sistema, intente más tarde."));
+			}
+			throw exception;
 		}
 	}
 
@@ -80,8 +101,16 @@ public class InstanceLogonService implements InstanceLogonServiceRemote {
 			return em.find(InstanceLogon.class, Id);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: finding InstanceLogon", e);
-			throw new GHAEJBException("ERROR: finding InstanceLogon "
-					+ e.getCause().getMessage());
+			try {
+				exception.setGhaMessage(em.find(GHAMessage.class,
+						new GHAMessageId("instanceLogon-find-fail",
+								RuntimeParameters.getLang())));
+			} catch (Exception e1) {
+				exception.setGhaMessage(new GHAMessage(RuntimeParameters
+						.getLang(), "generic-error-msg",
+						"Error de sistema, intente más tarde."));
+			}
+			throw exception;
 		}
 	}
 
@@ -97,9 +126,16 @@ public class InstanceLogonService implements InstanceLogonServiceRemote {
 					InstanceLogon.class).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all InstanceLogon", ex);
-			throw new GHAEJBException(
-					"Error obteniendo todas las InstanceLogon"
-							+ ex.getCause().getMessage());
+			try {
+				exception.setGhaMessage(em.find(GHAMessage.class,
+						new GHAMessageId("instanceLogon-getAll-fail",
+								RuntimeParameters.getLang())));
+			} catch (Exception e1) {
+				exception.setGhaMessage(new GHAMessage(RuntimeParameters
+						.getLang(), "generic-error-msg",
+						"Error de sistema, intente más tarde."));
+			}
+			throw exception;
 		}
 	}
 
@@ -119,8 +155,16 @@ public class InstanceLogonService implements InstanceLogonServiceRemote {
 			return em.find(InstanceLogon.class, instanceLogon.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving InstanceLogon ", e);
-			throw new GHAEJBException("ERROR: saving InstanceLogon "
-					+ e.getCause().getMessage());
+			try {
+				exception.setGhaMessage(em.find(GHAMessage.class,
+						new GHAMessageId("instanceLogon-save-fail",
+								RuntimeParameters.getLang())));
+			} catch (Exception e1) {
+				exception.setGhaMessage(new GHAMessage(RuntimeParameters
+						.getLang(), "generic-error-msg",
+						"Error de sistema, intente más tarde."));
+			}
+			throw exception;
 		}
 	}
 
@@ -140,9 +184,16 @@ public class InstanceLogonService implements InstanceLogonServiceRemote {
 			return res;
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to update InstanceLogon ", e);
-			throw new GHAEJBException(
-					"ERROR: no se puede actualizar el InstanceLogon "
-							+ e.getCause().getMessage());
+			try {
+				exception.setGhaMessage(em.find(GHAMessage.class,
+						new GHAMessageId("instanceLogon-update-fail",
+								RuntimeParameters.getLang())));
+			} catch (Exception e1) {
+				exception.setGhaMessage(new GHAMessage(RuntimeParameters
+						.getLang(), "generic-error-msg",
+						"Error de sistema, intente más tarde."));
+			}
+			throw exception;
 		}
 	}
 }
