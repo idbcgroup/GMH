@@ -13,8 +13,7 @@ import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.ess.Role;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
-import org.fourgeeks.gha.domain.msg.GHAMessage;
-import org.fourgeeks.gha.domain.msg.GHAMessageId;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
@@ -22,11 +21,10 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * 
  */
 @Stateless(name = "ess.RoleService")
-public class RoleService implements RoleServiceRemote {
+public class RoleService extends GHAEJBExceptionImpl implements
+		RoleServiceRemote {
 	@PersistenceContext
 	EntityManager em;
-
-	private GHAEJBException exception = new GHAEJBException();
 
 	private final static Logger logger = Logger.getLogger(RoleService.class
 			.getName());
@@ -38,17 +36,8 @@ public class RoleService implements RoleServiceRemote {
 			em.remove(entity);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete Role", e);
-			try {
-				exception.setGhaMessage(em.find(
-						GHAMessage.class,
-						new GHAMessageId("role-delete-fail", RuntimeParameters
-								.getLang())));
-			} catch (Exception e1) {
-				exception.setGhaMessage(new GHAMessage(RuntimeParameters
-						.getLang(), "generic-error-msg",
-						"Error de sistema, intente más tarde."));
-			}
-			throw exception;
+			throw super.generateGHAEJBException("role-delete-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -60,16 +49,8 @@ public class RoleService implements RoleServiceRemote {
 					.getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding Role by Role", e);
-			try {
-				exception.setGhaMessage(em.find(GHAMessage.class,
-						new GHAMessageId("role-findByRoleBase-fail",
-								RuntimeParameters.getLang())));
-			} catch (Exception e1) {
-				exception.setGhaMessage(new GHAMessage(RuntimeParameters
-						.getLang(), "generic-error-msg",
-						"Error de sistema, intente más tarde."));
-			}
-			throw exception;
+			throw super.generateGHAEJBException("role-findByRoleBase-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -79,17 +60,8 @@ public class RoleService implements RoleServiceRemote {
 			return em.find(Role.class, Id);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: finding Role", e);
-			try {
-				exception.setGhaMessage(em.find(
-						GHAMessage.class,
-						new GHAMessageId("role-find-fail", RuntimeParameters
-								.getLang())));
-			} catch (Exception e1) {
-				exception.setGhaMessage(new GHAMessage(RuntimeParameters
-						.getLang(), "generic-error-msg",
-						"Error de sistema, intente más tarde."));
-			}
-			throw exception;
+			throw super.generateGHAEJBException("role-find-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -100,17 +72,8 @@ public class RoleService implements RoleServiceRemote {
 					.getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all Role", ex);
-			try {
-				exception.setGhaMessage(em.find(
-						GHAMessage.class,
-						new GHAMessageId("role-getAll-fail", RuntimeParameters
-								.getLang())));
-			} catch (Exception e1) {
-				exception.setGhaMessage(new GHAMessage(RuntimeParameters
-						.getLang(), "generic-error-msg",
-						"Error de sistema, intente más tarde."));
-			}
-			throw exception;
+			throw super.generateGHAEJBException("role-getAll-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -122,19 +85,9 @@ public class RoleService implements RoleServiceRemote {
 			return em.find(Role.class, entity.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving Role " + entity.toString(), e);
-			try {
-				exception.setGhaMessage(em.find(
-						GHAMessage.class,
-						new GHAMessageId("role-save-fail", RuntimeParameters
-								.getLang())));
-			} catch (Exception e1) {
-				exception.setGhaMessage(new GHAMessage(RuntimeParameters
-						.getLang(), "generic-error-msg",
-						"Error de sistema, intente más tarde."));
-			}
-			throw exception;
+			throw super.generateGHAEJBException("role-save-fail",
+					RuntimeParameters.getLang(), em);
 		}
-
 	}
 
 	@Override
@@ -146,18 +99,8 @@ public class RoleService implements RoleServiceRemote {
 		} catch (Exception e) {
 			logger.log(Level.INFO,
 					"ERROR: unable to update Role " + entity.toString(), e);
-			try {
-				exception.setGhaMessage(em.find(
-						GHAMessage.class,
-						new GHAMessageId("role-update-fail", RuntimeParameters
-								.getLang())));
-			} catch (Exception e1) {
-				exception.setGhaMessage(new GHAMessage(RuntimeParameters
-						.getLang(), "generic-error-msg",
-						"Error de sistema, intente más tarde."));
-			}
-			throw exception;
+			throw super.generateGHAEJBException("role-update-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
-
 }
