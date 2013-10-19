@@ -445,6 +445,32 @@ public class InitialData {
 				em.persist(new GHAMessage(LanguageEnum.EN,
 						"facility-update-fail", "Failed to update Facility"));
 
+				// obu service messages
+				em.persist(new GHAMessage(LanguageEnum.ES, "obu-delete-fail",
+						"Fallo la eliminación del Obu"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"obu-findByObu-fail", "Búsqueda fallida de Obu por obu"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "obu-find-fail",
+						"Búsqueda fallida de Obu"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "obu-getAll-fail",
+						"Búsqueda fallida de todos los Obu"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "obu-save-fail",
+						"Guardado fallido de Obu"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "obu-update-fail",
+						"Actualización fallida de Obu"));
+				em.persist(new GHAMessage(LanguageEnum.EN, "obu-delete-fail",
+						"Failed to delete Obu"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"obu-findByObu-fail", "Failed to find Obu by obu"));
+				em.persist(new GHAMessage(LanguageEnum.EN, "obu-find-fail",
+						"Failed to find Obu"));
+				em.persist(new GHAMessage(LanguageEnum.EN, "obu-getAll-fail",
+						"Failed to get all Obu"));
+				em.persist(new GHAMessage(LanguageEnum.EN, "obu-save-fail",
+						"Failed to save Obu"));
+				em.persist(new GHAMessage(LanguageEnum.EN, "obu-update-fail",
+						"Failed to update Obu"));
+
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating message test data", e1);
