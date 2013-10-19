@@ -202,10 +202,10 @@ public class InitialData {
 						"Búsqueda fallida de Tipos de Equipo"));
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"eiatype-findByMaintenancePlan-fail",
-						"Guardado fallido del Tipo de Equipo"));
+						"Búsqueda fallida del Tipo de Equipo por Plan de Mantenimeinto"));
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"eiatype-getAll-fail",
-						"Guardado fallido del Tipo de Equipo"));
+						"Búsqueda fallida de todos los Tipos de Equipo"));
 				em.persist(new GHAMessage(LanguageEnum.EN,
 						"eiatype-delete-fail",
 						"Failed to delete Equipment type"));
@@ -340,11 +340,17 @@ public class InitialData {
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"bpuFunction-delete-fail",
 						"Fallo la eliminación del BpuFunction"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"bpuFunction-getFunctionsByBpu-fail",
+						"Búsqueda fallida de BpuFunction por bpu"));
 				em.persist(new GHAMessage(LanguageEnum.EN,
 						"bpuFunction-save-fail", "Failed to save BpuFunction"));
 				em.persist(new GHAMessage(LanguageEnum.EN,
 						"bpuFunction-delete-fail",
 						"Failed to delete BpuFunction"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"bpuFunction-getFunctionsByBpu-fail",
+						"Failed to get BpuFunction by bpu"));
 
 				// workingArea service messages
 				em.persist(new GHAMessage(LanguageEnum.ES,
