@@ -8,7 +8,7 @@ public class GHALabel extends Label {
 	public GHALabel(String title) {
 		this();
 		setContents(title);
-		setHeight(35);
+		setHeight("25px");
 		setWidth100();
 		setStyleName("title-label");
 	}
