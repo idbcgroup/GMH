@@ -698,6 +698,72 @@ public class InitialData {
 						"eiaComponent-update-fail",
 						"Failed to update EiaComponent"));
 
+				// eiaPicture service messages
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"eiaPicture-delete-fail",
+						"Fallo la eliminación del EiaPicture"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"eiaPicture-findByEia-fail",
+						"Búsqueda fallida de EiaPicture por eia"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"eiaPicture-find-fail",
+						"Búsqueda fallida de EiaPicture"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"eiaPicture-getAll-fail",
+						"Búsqueda fallida de todos los EiaPicture"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"eiaPicture-save-fail",
+						"Guardado fallido de EiaPicture"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"eiaPicture-update-fail",
+						"Actualización fallida de EiaPicture"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"eiaPicture-delete-fail", "Failed to delete EiaPicture"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"eiaPicture-findByEia-fail",
+						"Failed to find EiaPicture by eia"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"eiaPicture-find-fail", "Failed to find EiaPicture"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"eiaPicture-getAll-fail",
+						"Failed to get all EiaPicture"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"eiaPicture-save-fail", "Failed to save EiaPicture"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"eiaPicture-update-fail", "Failed to update EiaPicture"));
+
+				// eia service messages
+				em.persist(new GHAMessage(LanguageEnum.ES, "eia-delete-fail",
+						"Fallo la eliminación del Eia"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"eia-findByEia-fail", "Búsqueda fallida de Eia por eia"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"eia-findByEiaType-fail",
+						"Búsqueda fallida de Eia por eiaType"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "eia-find-fail",
+						"Búsqueda fallida de Eia"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "eia-getAll-fail",
+						"Búsqueda fallida de todos los Eia"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "eia-save-fail",
+						"Guardado fallido de Eia"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "eia-update-fail",
+						"Actualización fallida de Eia"));
+				em.persist(new GHAMessage(LanguageEnum.EN, "eia-delete-fail",
+						"Failed to delete Eia"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"eia-findByEia-fail", "Failed to find Eia by eia"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"eia-findByEiaType-fail",
+						"Failed to find Eia by eiaType"));
+				em.persist(new GHAMessage(LanguageEnum.EN, "eia-find-fail",
+						"Failed to find Eia"));
+				em.persist(new GHAMessage(LanguageEnum.EN, "eia-getAll-fail",
+						"Failed to get all Eia"));
+				em.persist(new GHAMessage(LanguageEnum.EN, "eia-save-fail",
+						"Failed to save Eia"));
+				em.persist(new GHAMessage(LanguageEnum.EN, "eia-update-fail",
+						"Failed to update Eia"));
+
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating message test data", e1);
