@@ -662,6 +662,42 @@ public class InitialData {
 						"buildingLocation-update-fail",
 						"Failed to update BuildingLocation"));
 
+				// eiaComponent service messages
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"eiaComponent-delete-fail",
+						"Fallo la eliminación del EiaComponent"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"eiaComponent-findByParentEia-fail",
+						"Búsqueda fallida de EiaComponent por parentEia"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"eiaComponent-find-fail",
+						"Búsqueda fallida de EiaComponent"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"eiaComponent-getAll-fail",
+						"Búsqueda fallida de todos los EiaComponent"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"eiaComponent-save-fail",
+						"Guardado fallido de EiaComponent"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"eiaComponent-update-fail",
+						"Actualización fallida de EiaComponent"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"eiaComponent-delete-fail",
+						"Failed to delete EiaComponent"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"eiaComponent-findByParentEia-fail",
+						"Failed to find EiaComponent by parentEia"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"eiaComponent-find-fail", "Failed to find EiaComponent"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"eiaComponent-getAll-fail",
+						"Failed to get all EiaComponent"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"eiaComponent-save-fail", "Failed to save EiaComponent"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"eiaComponent-update-fail",
+						"Failed to update EiaComponent"));
+
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating message test data", e1);
