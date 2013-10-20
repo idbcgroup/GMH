@@ -590,6 +590,40 @@ public class InitialData {
 				em.persist(new GHAMessage(LanguageEnum.EN,
 						"material-update-fail", "Failed to update Material"));
 
+				// brand service messages
+				em.persist(new GHAMessage(LanguageEnum.ES, "brand-delete-fail",
+						"Fallo la eliminación del Brand"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"brand-findByBrand-fail",
+						"Búsqueda fallida de Brand por brand"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "brand-find-fail",
+						"Búsqueda fallida de Brand"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"brand-findByManufacturer-fail",
+						"Búsqueda fallida de Brand por Manufacturer"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "brand-getAll-fail",
+						"Búsqueda fallida de todos los Brand"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "brand-save-fail",
+						"Guardado fallido de Brand"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "brand-update-fail",
+						"Actualización fallida de Brand"));
+				em.persist(new GHAMessage(LanguageEnum.EN, "brand-delete-fail",
+						"Failed to delete Brand"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"brand-findByBrand-fail",
+						"Failed to find Brand by brand"));
+				em.persist(new GHAMessage(LanguageEnum.EN, "brand-find-fail",
+						"Failed to find Brand"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"brand-findByManufacturer-fail",
+						"Failed to find Brand by Manufacturer"));
+				em.persist(new GHAMessage(LanguageEnum.EN, "brand-getAll-fail",
+						"Failed to get all Brand"));
+				em.persist(new GHAMessage(LanguageEnum.EN, "brand-save-fail",
+						"Failed to save Brand"));
+				em.persist(new GHAMessage(LanguageEnum.EN, "brand-update-fail",
+						"Failed to update Brand"));
+
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating message test data", e1);
