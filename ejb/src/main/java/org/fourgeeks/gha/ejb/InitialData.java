@@ -624,6 +624,44 @@ public class InitialData {
 				em.persist(new GHAMessage(LanguageEnum.EN, "brand-update-fail",
 						"Failed to update Brand"));
 
+				// buildingLocation service messages
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"buildingLocation-delete-fail",
+						"Fallo la eliminación del BuildingLocation"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"buildingLocation-findByBuildingLocation-fail",
+						"Búsqueda fallida de BuildingLocation por buildingLocation"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"buildingLocation-find-fail",
+						"Búsqueda fallida de BuildingLocation"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"buildingLocation-getAll-fail",
+						"Búsqueda fallida de todos los BuildingLocation"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"buildingLocation-save-fail",
+						"Guardado fallido de BuildingLocation"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"buildingLocation-update-fail",
+						"Actualización fallida de BuildingLocation"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"buildingLocation-delete-fail",
+						"Failed to delete BuildingLocation"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"buildingLocation-findByBuildingLocation-fail",
+						"Failed to find BuildingLocation by buildingLocation"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"buildingLocation-find-fail",
+						"Failed to find BuildingLocation"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"buildingLocation-getAll-fail",
+						"Failed to get all BuildingLocation"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"buildingLocation-save-fail",
+						"Failed to save BuildingLocation"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"buildingLocation-update-fail",
+						"Failed to update BuildingLocation"));
+
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating message test data", e1);
