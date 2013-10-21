@@ -72,7 +72,6 @@ public final class GHATabSet {
 			try {
 				hideTab(currentTab);
 			} catch (UnavailableToHideException e) {
-				Window.alert("hide exception");
 				throw new UnavailableToHideException(e);
 			}
 
@@ -87,12 +86,16 @@ public final class GHATabSet {
 	}
 
 	private static void hideTab(GHATab tab) throws UnavailableToHideException {
-		try {
-			tab.hide();
-		} catch (UnavailableToHideException e) {
-			throw new UnavailableToHideException(e);
+		if (tab.canBeHidden()) {
+			try {
+				tab.hide();
+			} catch (UnavailableToHideException e) {
+				throw new UnavailableToHideException(e);
+			}
+			hPanel.remove(tab.getHeader());
+			return;
 		}
-		hPanel.remove(tab.getHeader());
+		throw new UnavailableToHideException(null);
 	}
 
 	/**
@@ -112,14 +115,18 @@ public final class GHATabSet {
 		if (tab == null)
 			return;
 
-		try {
-			tab.close();
-		} catch (UnavailableToCloseException e) {
-			throw new UnavailableToCloseException(e);
+		if (tab.canBeClosen()) {
+			try {
+				tab.close();
+			} catch (UnavailableToCloseException e) {
+				throw new UnavailableToCloseException(e);
+			}
+			tabs.remove(tab.getId());
+			hPanel.remove(tab.getHeader());
+			History.newItem("home");
+			return;
 		}
-		tabs.remove(tab.getId());
-		hPanel.remove(tab.getHeader());
-		History.newItem("home");
+		throw new UnavailableToCloseException(null);
 	}
 
 	/**
