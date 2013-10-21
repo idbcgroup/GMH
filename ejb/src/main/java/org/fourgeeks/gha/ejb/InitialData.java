@@ -1138,6 +1138,42 @@ public class InitialData {
 						"maintenanceSubProtocol-update-fail",
 						"Failed to update MaintenanceSubProtocol"));
 
+				// manufacturer service messages
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"manufacturer-delete-fail",
+						"Fallo la eliminación del Manufacturer"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"manufacturer-findByManufacturer-fail",
+						"Búsqueda fallida de Manufacturer por manufacturer"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"manufacturer-find-fail",
+						"Búsqueda fallida de Manufacturer"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"manufacturer-getAll-fail",
+						"Búsqueda fallida de todos los Manufacturer"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"manufacturer-save-fail",
+						"Guardado fallido de Manufacturer"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"manufacturer-update-fail",
+						"Actualización fallida de Manufacturer"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"manufacturer-delete-fail",
+						"Failed to delete Manufacturer"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"manufacturer-findByManufacturer-fail",
+						"Failed to find Manufacturer by manufacturer"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"manufacturer-find-fail", "Failed to find Manufacturer"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"manufacturer-getAll-fail",
+						"Failed to get all Manufacturer"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"manufacturer-save-fail", "Failed to save Manufacturer"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"manufacturer-update-fail",
+						"Failed to update Manufacturer"));
+
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating message test data", e1);
