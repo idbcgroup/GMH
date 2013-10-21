@@ -110,11 +110,8 @@ public class ReportListEiaTypeCompsServlet extends ReportEiaServelt {
 				eiaTypeCompList.add(new EiaTypeComponentReportEntity(comp));
 			}
 
-			// obtengo el dataSource para el reporte y se lo agrego al mapa
 			JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(eiaTypeCompList);
 			mapa.put("dataSource", dataSource);
-
-			// obtengo la ruta relativa donde se encuentra el repote compilado
 			reportPath = getServletContext().getRealPath(REPORT_FILE_DIR_1);
 		}
 		// COMPONENTES Y LOS EQUIPOS QUE LO TIENEN DEFINIDO

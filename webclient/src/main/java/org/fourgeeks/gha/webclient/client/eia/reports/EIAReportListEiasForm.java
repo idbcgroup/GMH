@@ -46,7 +46,7 @@ public class EIAReportListEiasForm extends GHAReportForm {
 		filtersTitleItem = new GHATitleTextItem("Filtros");
 		filtersTitleItem.setColSpan(2);
 
-		filtersRadioGroupItem = new GHARadioGroupItem(400, false);
+		filtersRadioGroupItem = new GHARadioGroupItem(360, false);
 		filtersRadioGroupItem.setColSpan(2);
 
 		eiaSelectItem = new GHASelectItem("Equipo", GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
