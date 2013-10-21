@@ -1098,6 +1098,46 @@ public class InitialData {
 						"maintenanceProtocol-update-fail",
 						"Failed to update MaintenanceProtocol"));
 
+				// maintenanceSubProtocol service messages
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"maintenanceSubProtocol-delete-fail",
+						"Fallo la eliminación del MaintenanceSubProtocol"));
+				em.persist(new GHAMessage(
+						LanguageEnum.ES,
+						"maintenanceSubProtocol-findByMaintenanceActivity-fail",
+						"Búsqueda fallida de MaintenanceSubProtocol por maintenanceActivity"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"maintenanceSubProtocol-find-fail",
+						"Búsqueda fallida de MaintenanceSubProtocol"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"maintenanceSubProtocol-getAll-fail",
+						"Búsqueda fallida de todos los MaintenanceSubProtocol"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"maintenanceSubProtocol-save-fail",
+						"Guardado fallido de MaintenanceSubProtocol"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"maintenanceSubProtocol-update-fail",
+						"Actualización fallida de MaintenanceSubProtocol"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"maintenanceSubProtocol-delete-fail",
+						"Failed to delete MaintenanceSubProtocol"));
+				em.persist(new GHAMessage(
+						LanguageEnum.EN,
+						"maintenanceSubProtocol-findByMaintenanceActivity-fail",
+						"Failed to find MaintenanceSubProtocol by maintenanceActivity"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"maintenanceSubProtocol-find-fail",
+						"Failed to find MaintenanceSubProtocol"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"maintenanceSubProtocol-getAll-fail",
+						"Failed to get all MaintenanceSubProtocol"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"maintenanceSubProtocol-save-fail",
+						"Failed to save MaintenanceSubProtocol"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"maintenanceSubProtocol-update-fail",
+						"Failed to update MaintenanceSubProtocol"));
+
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating message test data", e1);

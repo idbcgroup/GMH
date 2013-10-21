@@ -14,15 +14,17 @@ import javax.persistence.PersistenceContext;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenanceSubProtocol;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
- * @author emiliot
+ * @author emiliot, vivi.torresg
  * 
  */
 
 @Stateless(name = "gmh.maintenanceSubProtocolService")
-public class MaintenanceSubProtocolService implements
-		MaintenanceSubProtocolServiceRemote {
+public class MaintenanceSubProtocolService extends GHAEJBExceptionImpl
+		implements MaintenanceSubProtocolServiceRemote {
 	@PersistenceContext
 	EntityManager em;
 
@@ -45,9 +47,9 @@ public class MaintenanceSubProtocolService implements
 		} catch (Exception e) {
 			logger.log(Level.INFO,
 					"ERROR: unable to delete MaintenanceSubProtocol", e);
-			throw new GHAEJBException(
-					"Error eliminando MaintenanceSubProtocol por id "
-							+ e.getCause().getMessage());
+			throw super.generateGHAEJBException(
+					"maintenanceSubProtocol-delete-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -72,9 +74,9 @@ public class MaintenanceSubProtocolService implements
 					Level.INFO,
 					"Error: finding ProtocolActivity by MaintenanceSubProtocol",
 					e);
-			throw new GHAEJBException(
-					"Error buscando ProtocolActivity por MaintenanceSubProtocol"
-							+ e.getCause().getMessage());
+			throw super.generateGHAEJBException(
+					"maintenanceSubProtocol-findByMaintenanceActvity-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -90,8 +92,9 @@ public class MaintenanceSubProtocolService implements
 			return em.find(MaintenanceSubProtocol.class, Id);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: finding MaintenanceSubProtocol", e);
-			throw new GHAEJBException("ERROR: finding MaintenanceSubProtocol "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException(
+					"maintenanceSubProtocol-find-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -109,9 +112,9 @@ public class MaintenanceSubProtocolService implements
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding all MaintenanceSubProtocol",
 					e);
-			throw new GHAEJBException(
-					"Error buscando todos los MaintenanceSubProtocol"
-							+ e.getCause().getMessage());
+			throw super.generateGHAEJBException(
+					"maintenanceSubProtocol-getAll-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -133,9 +136,9 @@ public class MaintenanceSubProtocolService implements
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding all MaintenanceSubProtocol",
 					e);
-			throw new GHAEJBException(
-					"Error buscando todos los MaintenanceSubProtocol"
-							+ e.getCause().getMessage());
+			throw super.generateGHAEJBException(
+					"maintenanceSubProtocol-getAll-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -157,8 +160,9 @@ public class MaintenanceSubProtocolService implements
 					maintenanceSubProtocol.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving MaintenanceSubProtocol ", e);
-			throw new GHAEJBException("ERROR: saving MaintenanceSubProtocol "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException(
+					"maintenanceSubProtocol-save-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -179,10 +183,10 @@ public class MaintenanceSubProtocolService implements
 			return em.find(MaintenanceSubProtocol.class,
 					maintenanceSubProtocol.getId());
 		} catch (Exception e) {
-			logger.log(Level.INFO, "ERROR: saving MaintenanceSubProtocol ", e);
-			throw new GHAEJBException("ERROR: saving MaintenanceSubProtocol "
-					+ e.getCause().getMessage());
+			logger.log(Level.INFO, "ERROR: updating MaintenanceSubProtocol ", e);
+			throw super.generateGHAEJBException(
+					"maintenanceSubProtocol-update-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
-
 }
