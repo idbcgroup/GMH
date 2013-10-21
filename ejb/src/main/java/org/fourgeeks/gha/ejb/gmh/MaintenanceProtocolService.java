@@ -20,14 +20,16 @@ import javax.persistence.criteria.Root;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
- * @author emiliot
+ * @author emiliot, vivi.torresg
  * 
  */
 
 @Stateless(name = "gmh.maintenanceProtocolService")
-public class MaintenanceProtocolService implements
+public class MaintenanceProtocolService extends GHAEJBExceptionImpl implements
 		MaintenanceProtocolServiceRemote {
 	@PersistenceContext
 	EntityManager em;
@@ -49,9 +51,9 @@ public class MaintenanceProtocolService implements
 		} catch (Exception e) {
 			logger.log(Level.INFO,
 					"ERROR: unable to delete MaintenanceProtocol", e);
-			throw new GHAEJBException(
-					"Error eliminando MaintenanceProtocol por id "
-							+ e.getCause().getMessage());
+			throw super.generateGHAEJBException(
+					"maintenanceProtocol-delete-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -74,9 +76,9 @@ public class MaintenanceProtocolService implements
 		} catch (Exception e) {
 			logger.log(Level.INFO,
 					"Error: finding MaintenanceProtocol by MaintenancePlan", e);
-			throw new GHAEJBException(
-					"Error buscando MaintenanceProtocol por MaintenanceProtocol"
-							+ e.getCause().getMessage());
+			throw super.generateGHAEJBException(
+					"maintenanceProtocol-findByMaintenancePlan-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -100,9 +102,9 @@ public class MaintenanceProtocolService implements
 		} catch (Exception e) {
 			logger.log(Level.INFO,
 					"Error: finding MaintenanceProtocol by MaintenancePlan", e);
-			throw new GHAEJBException(
-					"Error buscando MaintenanceProtocol por MaintenanceProtocol"
-							+ e.getCause().getMessage());
+			throw super.generateGHAEJBException(
+					"maintenanceProtocol-findByMaintenancePlan-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -142,12 +144,13 @@ public class MaintenanceProtocolService implements
 			return q.getResultList();
 
 		} catch (Exception e) {
-			logger.log(Level.SEVERE,
-					"Error obteniendo los maintenancePlan por maintenancePlan",
+			logger.log(
+					Level.SEVERE,
+					"Error obteniendo los maintenanceProtocol por maintenanceProtocol",
 					e);
-			throw new GHAEJBException(
-					"Error obteniendo los maintenancePlan por maintenancePlan "
-							+ e.getCause().getMessage());
+			throw super.generateGHAEJBException(
+					"maintenanceProtocol-findByMaintenanceProtocol-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -175,12 +178,10 @@ public class MaintenanceProtocolService implements
 	}
 
 	/*
-	 * (non-Javadoc) <<<<<<< HEAD
+	 * (non-Javadoc)
 	 * 
 	 * @see
 	 * org.fourgeeks.gha.ejb.gmh.MaintenanceProtocolServiceRemote#find(long)
-	 * ======= >>>>>>> branch 'vivi-ejb-tests' of
-	 * git@codebasehq.com:4geeks/clinicas/gha.git
 	 */
 	@Override
 	public MaintenanceProtocol find(long Id) throws GHAEJBException {
@@ -188,8 +189,9 @@ public class MaintenanceProtocolService implements
 			return em.find(MaintenanceProtocol.class, Id);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: finding MaintenanceProtocol", e);
-			throw new GHAEJBException("ERROR: finding MaintenanceProtocol "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException(
+					"maintenanceProtocol-find-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -205,9 +207,9 @@ public class MaintenanceProtocolService implements
 					MaintenanceProtocol.class).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding all MaintenanceProtocol", e);
-			throw new GHAEJBException(
-					"Error buscando todos los MaintenanceProtocol"
-							+ e.getCause().getMessage());
+			throw super.generateGHAEJBException(
+					"maintenanceProtocol-getAll-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -228,9 +230,9 @@ public class MaintenanceProtocolService implements
 					.setMaxResults(size).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding all MaintenanceProtocol", e);
-			throw new GHAEJBException(
-					"Error buscando todos los MaintenanceProtocol"
-							+ e.getCause().getMessage());
+			throw super.generateGHAEJBException(
+					"maintenanceProtocol-getAll-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -251,8 +253,9 @@ public class MaintenanceProtocolService implements
 					maintenanceProtocol.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving MaintenanceProtocol ", e);
-			throw new GHAEJBException("ERROR: saving MaintenanceProtocol "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException(
+					"maintenanceProtocol-save-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -273,9 +276,9 @@ public class MaintenanceProtocolService implements
 		} catch (Exception e) {
 			logger.log(Level.INFO,
 					"ERROR: unable to update MaintenanceProtocol ", e);
-			throw new GHAEJBException(
-					"ERROR: no se puede actualizar el MaintenanceProtocol "
-							+ e.getCause().getMessage());
+			throw super.generateGHAEJBException(
+					"maintenanceProtocol-update-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
