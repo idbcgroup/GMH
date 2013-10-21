@@ -21,13 +21,12 @@ public class EIATypeInformationSubTab extends GHASubTab implements
 		super("Información", tab);
 		setDisabled(true);
 
-		form = new EIATypeInformationFormPanel(tab);
+		form = new EIATypeInformationFormPanel();
 		addGHAClosableHandler(form);
 		addGHAHideableHandler(form);
 
 		setPane(form);
 
-		// register this as tab listener, and register tab as form listener
 		form.addEiaTypeSelectionListener(tab);
 		tab.addEiaTypeSelectionListener(this);
 	}

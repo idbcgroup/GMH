@@ -9,7 +9,6 @@ import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToHideExcepti
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 
-import com.google.gwt.user.client.Window;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
@@ -92,12 +91,9 @@ public abstract class GHATab extends VLayout implements GHAClosable,
 
 	@Override
 	public boolean canBeClosen() {
-		Window.alert("can be closen");
-		Window.alert(closables.size() + "");
 		for (GHAClosable closable : closables)
 			if (!closable.canBeClosen())
 				return false;
-		Window.alert("empty or complete");
 		return true;
 	}
 

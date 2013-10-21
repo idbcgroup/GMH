@@ -11,7 +11,6 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
-import org.fourgeeks.gha.webclient.client.eiatype.EIATypeTab;
 import org.fourgeeks.gha.webclient.client.eiatype.EiaTypeForm;
 import org.fourgeeks.gha.webclient.client.eiatype.EiaTypeSelectionProducer;
 
@@ -128,10 +127,8 @@ public class EIATypeInformationFormPanel extends VLayout implements
 	// };
 	// }
 
-	public EIATypeInformationFormPanel(EIATypeTab tab) {
+	public EIATypeInformationFormPanel() {
 		activateForm(false);
-		tab.addGHAClosableHandler(this);
-
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
@@ -496,13 +493,11 @@ public class EIATypeInformationFormPanel extends VLayout implements
 
 	@Override
 	public boolean canBeHidden() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean canBeClosen() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 }

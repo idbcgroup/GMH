@@ -50,11 +50,8 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 	/**
 	 * @param eIATypeEquipmentSubTab
 	 */
-	public EIATypeEquipmentGridPanel(
-			EIATypeEquipmentSubTab eIATypeEquipmentSubTab) {
+	public EIATypeEquipmentGridPanel() {
 		super();
-		eIATypeEquipmentSubTab.addGHAHideableHandler(eiaAddForm);
-
 		eiaAddForm.addEiaSelectionListener(this);
 		eiaUpdateForm.addEiaSelectionListener(this);
 
@@ -183,13 +180,11 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 
 	@Override
 	public boolean canBeHidden() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean canBeClosen() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 }
