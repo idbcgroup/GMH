@@ -980,6 +980,36 @@ public class InitialData {
 						"maintenanceActivity-update-fail",
 						"Failed to update MaintenanceActivity"));
 
+				// maintenancePlanMaintenanceProtocol service messages
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"maintenancePlanMaintenanceProtocol-delete-fail",
+						"Fallo la eliminación del MaintenancePlanMaintenanceProtocol"));
+				em.persist(new GHAMessage(
+						LanguageEnum.ES,
+						"maintenancePlanMaintenanceProtocol-findByMaintenancePlan-fail",
+						"Búsqueda fallida de MaintenancePlanMaintenanceProtocol por plan de mantenimiento"));
+				em.persist(new GHAMessage(
+						LanguageEnum.ES,
+						"maintenancePlanMaintenanceProtocol-findByMaintenanceProtocol-fail",
+						"Búsqueda fallida de MaintenancePlanMaintenanceProtocol por protocolo de mantenimiento"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"maintenancePlanMaintenanceProtocol-save-fail",
+						"Guardado fallido de MaintenancePlanMaintenanceProtocol"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"maintenancePlanMaintenanceProtocol-delete-fail",
+						"Failed to delete MaintenancePlanMaintenanceProtocol"));
+				em.persist(new GHAMessage(
+						LanguageEnum.EN,
+						"maintenancePlanMaintenanceProtocol-findByMaintenancePlan-fail",
+						"Failed to find MaintenancePlanMaintenanceProtocol by maintenance plan"));
+				em.persist(new GHAMessage(
+						LanguageEnum.EN,
+						"maintenancePlanMaintenanceProtocol-findByMaintenanceProtocol-fail",
+						"Failed to find MaintenancePlanMaintenanceProtocol by maintenance protocol"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"maintenancePlanMaintenanceProtocol-save-fail",
+						"Failed to save MaintenancePlanMaintenanceProtocol"));
+
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating message test data", e1);
