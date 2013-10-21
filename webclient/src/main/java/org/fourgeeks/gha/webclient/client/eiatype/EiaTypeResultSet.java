@@ -30,9 +30,11 @@ public class EiaTypeResultSet extends GHASlideInWindow implements
 	/**
 	 * 
 	 */
-	public EiaTypeResultSet() {
+	public EiaTypeResultSet(EIATypeTab tab) {
 		super();
 
+		// add the tab as listener to the result set selection event
+		this.addEiaTypeSelectionListener(tab);
 	}
 
 	/**

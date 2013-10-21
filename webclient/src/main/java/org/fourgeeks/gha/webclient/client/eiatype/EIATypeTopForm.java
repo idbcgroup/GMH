@@ -1,6 +1,10 @@
 package org.fourgeeks.gha.webclient.client.eiatype;
 
+import java.util.List;
+
+import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHABrandSelectItem;
@@ -13,6 +17,7 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
+import com.google.gwt.user.client.Window;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.types.VerticalAlignment;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -39,6 +44,9 @@ public class EIATypeTopForm extends HLayout implements
 	// private List<EiaTypePicture> listEiaTypePictures;
 	int index;
 	// private GHAImg photo;
+
+	private final EiaTypeResultSet resultSet;
+
 	{
 		// eiaTypeSearchForm = new EIATypeSearchForm();
 		codeItem = new GHACodeItem(230);
@@ -49,6 +57,7 @@ public class EIATypeTopForm extends HLayout implements
 		mobilityItem = new GHAMobilitySelectItem(220);
 		typeItem = new GHAEiaTypeTypeSelectItem(220);
 		subTypeItem = new GHAEiaTypeSubTypeSelectItem(220);
+
 	}
 
 	/**
@@ -122,6 +131,8 @@ public class EIATypeTopForm extends HLayout implements
 				}));
 		addMembers(form, /* new LayoutSpacer(), photoPanel, */
 				new LayoutSpacer(), sideButtons);
+
+		resultSet = new EiaTypeResultSet(eiaTypeTab);
 	}
 
 	// private void next() {
@@ -183,10 +194,60 @@ public class EIATypeTopForm extends HLayout implements
 	}
 
 	/**
-	 * Opens the search form
+	 * Triggered from the topForm search icon, do the search and fill the result
+	 * set
 	 */
 	public void search() {
-		// eiaTypeSearchForm.open();
+		Window.alert("enter search");
+		EiaType eiaType = new EiaType();
+
+		Window.alert("1");
+		eiaType.setCode(codeItem.getValueAsString());
+		Window.alert("2");
+		eiaType.setName(nameItem.getValueAsString());
+		Window.alert("3");
+
+		if (brandItem.getValue() != null) {
+			eiaType.setBrand(new Brand(Integer.valueOf(brandItem
+					.getValueAsString()), null));
+		}
+		Window.alert("4");
+		eiaType.setModel(modelItem.getValueAsString());
+		Window.alert("5");
+		if (mobilityItem.getValue() != null)
+			eiaType.setMobility(mobilityItem.getValue());
+		Window.alert("6");
+		if (typeItem.getValue() != null)
+			eiaType.setType(typeItem.getValue());
+		Window.alert("7");
+		if (subTypeItem.getValue() != null)
+			eiaType.setSubtype(subTypeItem.getValue());
+		Window.alert("8");
+
+		search(eiaType);
+	}
+
+	/**
+	 * Make the call to search and fill the resultSet with the result
+	 * 
+	 * @param eiaType
+	 */
+	public void search(EiaType eiaType) {
+		Window.alert("search");
+		EIATypeModel.find(eiaType, new GHAAsyncCallback<List<EiaType>>() {
+			@Override
+			public void onSuccess(List<EiaType> result) {
+				Window.alert("succes search");
+				if (result.size() == 1) {
+					Window.alert("only one result, go to the internal tabset");
+					resultSet.hide();
+				} else {
+					resultSet.setRecords(result);
+					resultSet.show();
+				}
+			}
+
+		});
 	}
 
 	// @Override
