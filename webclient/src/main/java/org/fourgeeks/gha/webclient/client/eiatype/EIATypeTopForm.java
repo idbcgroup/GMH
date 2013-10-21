@@ -45,6 +45,7 @@ public class EIATypeTopForm extends HLayout implements
 	int index;
 	// private GHAImg photo;
 	private EiaTypeResultSet resultSet;
+	private boolean activated = false;
 
 	{
 		// eiaTypeSearchForm = new EIATypeSearchForm();
@@ -257,6 +258,21 @@ public class EIATypeTopForm extends HLayout implements
 	@Override
 	public void onResize(ResizeEvent event) {
 		setHeight(GHAUiHelper.DEFAULT_TOP_SECTION_HEIGHT + "px");
+	}
+
+	public boolean isActivate() {
+		return activated;
+	}
+
+	public void activate() {
+		// TODO Set the component to activate state
+		activated = true;
+
+	}
+
+	public void deactivate() {
+		// TODO deactivate the component
+		activated = false;
 	}
 
 	// @Override

@@ -7,10 +7,13 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
+import com.smartgwt.client.widgets.events.ClickEvent;
+import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
 import com.smartgwt.client.widgets.layout.VLayout;
 
@@ -21,11 +24,11 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class EiaTypeResultSet extends VLayout implements
 		EiaTypeSelectionProducer, ResizeHandler {
 	private List<EIATypeSelectionListener> listeners;
-	private EIATypeGrid eiaTypeGrid;
+	private EIATypeGrid grid;
 
 	{
 		listeners = new ArrayList<EIATypeSelectionListener>();
-		eiaTypeGrid = new EIATypeGrid();
+		grid = new EIATypeGrid();
 	}
 
 	/**
@@ -33,13 +36,29 @@ public class EiaTypeResultSet extends VLayout implements
 	 */
 	public EiaTypeResultSet() {
 		super();
+		addMember(grid);
+		addMember(GHAUiHelper.createBar(new GHAImgButton(
+				"../resources/icons/check.png", new ClickHandler() {
+
+					@Override
+					public void onClick(ClickEvent event) {
+						selectEiaType();
+					}
+				}), GHAUiHelper.verticalGraySeparator("2px"), new GHAImgButton(
+				"../resources/icons/delete.png", new ClickHandler() {
+
+					@Override
+					public void onClick(ClickEvent event) {
+						// TODO delete an selected eiatype
+					}
+				})));
 	}
 
 	/**
 	 * notify selected eiaType from the grid
 	 */
 	private void selectEiaType() {
-		GHAGridRecord<EiaType> selectedRecord = eiaTypeGrid.getSelectedRecord();
+		GHAGridRecord<EiaType> selectedRecord = grid.getSelectedRecord();
 		if (selectedRecord == null) {
 			GHANotification.alert(GHAStrings.get("record-not-selected"));
 			return;
@@ -56,7 +75,7 @@ public class EiaTypeResultSet extends VLayout implements
 	public void setRecords(List<EiaType> records) {
 		ListGridRecord[] array = EIATypeUtil.toGridRecords(records).toArray(
 				new EIATypeRecord[] {});
-		eiaTypeGrid.setData(array);
+		grid.setData(array);
 	}
 
 	/*
