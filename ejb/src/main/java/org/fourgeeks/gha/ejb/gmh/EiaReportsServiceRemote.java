@@ -10,7 +10,9 @@ import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaReportEntity;
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.domain.gmh.EiaTypeComponent;
 import org.fourgeeks.gha.domain.gmh.EiaTypeComponentReportEntity;
+import org.fourgeeks.gha.domain.gmh.EiaTypeCompsEiasReportEntity;
 
 @Remote
 public interface EiaReportsServiceRemote {
@@ -49,10 +51,11 @@ public interface EiaReportsServiceRemote {
 	 * @param eiaIds
 	 *            lista con los ID de los equipos que se desea buscar
 	 * @param orderBy
-	 *            Como se van a ordenar los equipos
+	 *            Como se van a ordenar los componentes
 	 * 
 	 * @return Lista de equipos que cumplan con la condicion. Puede devolver una
 	 *         lista vacia
+	 * 
 	 * @throws GHAEJBException
 	 */
 	public List<Eia> findEias(List<Long> eiaIds, EiaReportOrderByEnum orderBy)
@@ -80,6 +83,26 @@ public interface EiaReportsServiceRemote {
 	public List<Eia> findEiasByEiaType(String eiaTypeCode, List<Long> facilityIds,
 			List<Long> workAreaIds, EiaStateEnum eiaState, EiaReportOrderByEnum orderBy)
 			throws GHAEJBException;
+
+	/**
+	 * Devuelve los equipos que tienen definido un {@link EiaTypeComponent} (los
+	 * equipos que pertenecen a un tipo de equipo componente)
+	 * 
+	 * @param eiaTypeIds
+	 *            El tipo de equipo que tiene componentes. Puede ser nulo (todos
+	 *            los tipos de equipos)
+	 * @param componentId
+	 *            El id del componente del tipo de equipo. Puede ser nulo (todos
+	 *            los componentes de un tipo de equipo)
+	 * @param orderBy
+	 *            Como se van a ordenar los equipos
+	 * 
+	 * @return Lista de equipos y sus componentes definidos
+	 * 
+	 * @throws GHAEJBException
+	 */
+	public List<EiaTypeCompsEiasReportEntity> findEiasByEiaTypeComponents(List<String> eiaTypeIds,
+			Long componentId, EiaReportOrderByEnum orderBy) throws GHAEJBException;
 
 	/**
 	 * Devuelve todos los Eia que cumplan las condiciones dadas por los

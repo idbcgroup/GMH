@@ -1,5 +1,6 @@
 package org.fourgeeks.gha.ejb.gmh;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -8,6 +9,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.fourgeeks.gha.domain.enu.EiaReportOrderByEnum;
@@ -17,13 +19,14 @@ import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaReportEntity;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeComponentReportEntity;
+import org.fourgeeks.gha.domain.gmh.EiaTypeCompsEiasReportEntity;
 
 @Stateless(name = "gmh.EiaReportsService")
 public class EiaReportsService implements EiaReportsServiceRemote {
+	private final static Logger logger = Logger.getLogger(EiaReportsService.class.getName());
+
 	@PersistenceContext
 	EntityManager em;
-
-	private final static Logger logger = Logger.getLogger(EiaReportsService.class.getName());
 
 	/**
 	 * @param query
@@ -258,6 +261,83 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 					+ ex.getCause().getMessage());
 		}
 		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.EiaReportsServiceRemote#findEiasByEiaTypeComponents
+	 * (java.lang.String, java.lang.Long,
+	 * org.fourgeeks.gha.domain.enu.EiaReportOrderByEnum)
+	 */
+	@Override
+	public List<EiaTypeCompsEiasReportEntity> findEiasByEiaTypeComponents(List<String> eiaTypeIds,
+			Long componentId, EiaReportOrderByEnum orderBy) throws GHAEJBException {
+		// CONSTRUYENDO QUERY
+		String queryStr = "SELECT eia.code, eia.serialnumber, eia.state, facility.name as facilidad, "
+				+ " workingarea.name as areaTrabajo, eiaTypeComp.name as nombreComponente, eiaTypeParent.name as nombreEiaType "
+				+ " FROM EiaTypeComponent as comp "
+				+ "  RIGHT JOIN EiaType as eiaTypeParent on comp.parentEiaTypeFK = eiaTypeParent.code "
+				+ "  LEFT JOIN EiaType as eiaTypeComp on comp.eiaTypeFK = eiaTypeComp.code "
+				+ "  LEFT JOIN Eia as eia on comp.eiaTypeFK = eia.eiaTypeFK "
+				+ "  LEFT JOIN facility on eia.facilityfk = facility.id "
+				+ "  LEFT JOIN workingarea on eia.workingareafk = workingarea.id ";
+
+		String whereStr = "";
+		whereStr = buildWhere(whereStr, eiaTypeIds, "eiaTypeParent.code", "in", "?1");
+		whereStr = buildWhere(whereStr, componentId, "comp.id", "=", "?1");
+
+		queryStr += whereStr;
+
+		if (orderBy == EiaReportOrderByEnum.EIATYPE_COMPONENT)
+			queryStr += " order by eiaTypeParent.name, eiaTypeComp.name ";
+		else if (orderBy == EiaReportOrderByEnum.COMPONENT_EIATYPE)
+			queryStr += " order by eiaTypeComp.name, eiaTypeParent.name ";
+
+		// EJECUTANDO QUERY
+		try {
+			// creo el query y le asigno los parametros
+			Query query = em.createNativeQuery(queryStr);
+
+			if (eiaTypeIds != null)
+				query.setParameter(1, eiaTypeIds);
+			if (componentId != null)
+				query.setParameter(1, componentId);
+
+			// devuelvo la lista de eia
+			List<EiaTypeCompsEiasReportEntity> resultList = toEiaTypeCompsEiasReportEntityList(query
+					.getResultList());
+
+			return resultList;
+
+		} catch (NoResultException ex) {
+			logger.log(Level.INFO, "No results", ex);
+		} catch (Exception ex) {
+			logger.log(Level.INFO, "Error en metodo EJB findEiasByEiaTypeComponents", ex);
+			throw new GHAEJBException("Error en metodo EJB findEiasByEiaTypeComponents: "
+					+ ex.getCause().getMessage());
+		}
+		return null;
+	}
+
+	private List<EiaTypeCompsEiasReportEntity> toEiaTypeCompsEiasReportEntityList(List<?> resultList) {
+		List<EiaTypeCompsEiasReportEntity> list = new ArrayList<EiaTypeCompsEiasReportEntity>();
+		for (Object registro : resultList) {
+			Object[] vals = (Object[]) registro;
+
+			EiaTypeCompsEiasReportEntity entity = new EiaTypeCompsEiasReportEntity();
+			entity.setCode((String) vals[0]);
+			entity.setSerial((String) vals[1]);
+			entity.setEdoEquipoId((Integer) vals[2]);
+			entity.setFacilidad((String) vals[3]);
+			entity.setAreaTrabajo((String) vals[4]);
+			entity.setNombreComponente((String) vals[5]);
+			entity.setNombreEiaType((String) vals[6]);
+
+			list.add(entity);
+		}
+		return list;
 	}
 
 	/*

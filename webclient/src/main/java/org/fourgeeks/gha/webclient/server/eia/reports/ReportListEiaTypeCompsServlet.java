@@ -24,9 +24,9 @@ import org.apache.log4j.Level;
 import org.fourgeeks.gha.domain.enu.EiaReportFiltersEnum;
 import org.fourgeeks.gha.domain.enu.EiaReportOrderByEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
-import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaTypeComponent;
 import org.fourgeeks.gha.domain.gmh.EiaTypeComponentReportEntity;
+import org.fourgeeks.gha.domain.gmh.EiaTypeCompsEiasReportEntity;
 import org.fourgeeks.gha.ejb.gmh.EiaReportsServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.EiaTypeComponentServiceRemote;
 
@@ -91,7 +91,7 @@ public class ReportListEiaTypeCompsServlet extends ReportEiaServelt {
 	 */
 	protected Map<String, Object> searchInService(HttpServletRequest req) throws GHAEJBException {
 		QueryParamsContainer qpc = new QueryParamsContainer(req);
-		List<Eia> eiaList = null;
+		List<EiaTypeCompsEiasReportEntity> eiaList = null;
 		List<EiaTypeComponentReportEntity> eiaTypeCompList = null;
 		String reportPath = null;
 
@@ -115,8 +115,12 @@ public class ReportListEiaTypeCompsServlet extends ReportEiaServelt {
 			reportPath = getServletContext().getRealPath(REPORT_FILE_DIR_1);
 		}
 		// COMPONENTES Y LOS EQUIPOS QUE LO TIENEN DEFINIDO
-		else {
-			mapa.put("dataSource", eiaList);
+		else if (qpc.filter == EiaReportFiltersEnum.COMPONENTS_AND_EIA) {
+			eiaList = serviceReport.findEiasByEiaTypeComponents(qpc.eiaTypeCodes, qpc.componentId,
+					qpc.orden);
+
+			JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(eiaList);
+			mapa.put("dataSource", dataSource);
 			reportPath = getServletContext().getRealPath(REPORT_FILE_DIR_2);
 		}
 

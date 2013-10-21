@@ -49,7 +49,8 @@
 					<textElement textAlignment="Left">
 						<font fontName="Calibri"/>
 					</textElement>
-					<textFieldExpression><![CDATA["Tipo de equipo: " + $F{nombreEiaType} + " - Componente: " + $F{nombreComponente}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[($F{nombreEiaType} != null ? "Tipo de equipo: " + $F{nombreEiaType} : "Tipo de equipo: N/A")
++" - "+ ($F{nombreComponente} != null? "Componente: " + $F{nombreComponente}: "Componente: N/A")]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>
