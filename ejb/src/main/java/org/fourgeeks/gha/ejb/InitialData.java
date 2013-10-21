@@ -900,6 +900,36 @@ public class InitialData {
 						"eiaTypeUtility-save-fail",
 						"Failed to save EiaTypeUtility"));
 
+				// maintenanceActivityMaintenanceProtocol service messages
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"maintenanceActivityMaintenanceProtocol-delete-fail",
+						"Fallo la eliminación del MaintenanceActivityMaintenanceProtocol"));
+				em.persist(new GHAMessage(
+						LanguageEnum.ES,
+						"maintenanceActivityMaintenanceProtocol-findByMaintenanceActivity-fail",
+						"Búsqueda fallida de MaintenanceActivityMaintenanceProtocol por actividad de mantenimiento"));
+				em.persist(new GHAMessage(
+						LanguageEnum.ES,
+						"maintenanceActivityMaintenanceProtocol-findByMaintenanceProtocol-fail",
+						"Búsqueda fallida de MaintenanceActivityMaintenanceProtocol por protocolo de mantenimiento"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"maintenanceActivityMaintenanceProtocol-save-fail",
+						"Guardado fallido de MaintenanceActivityMaintenanceProtocol"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"maintenanceActivityMaintenanceProtocol-delete-fail",
+						"Failed to delete MaintenanceActivityMaintenanceProtocol"));
+				em.persist(new GHAMessage(
+						LanguageEnum.EN,
+						"maintenanceActivityMaintenanceProtocol-findByMaintenanceActivity-fail",
+						"Failed to find MaintenanceActivityMaintenanceProtocol by maintenance activity"));
+				em.persist(new GHAMessage(
+						LanguageEnum.EN,
+						"maintenanceActivityMaintenanceProtocol-findByMaintenanceProtocol-fail",
+						"Failed to find MaintenanceActivityMaintenanceProtocol by maintenance protocol"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"maintenanceActivityMaintenanceProtocol-save-fail",
+						"Failed to save MaintenanceActivityMaintenanceProtocol"));
+
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating message test data", e1);
