@@ -930,6 +930,56 @@ public class InitialData {
 						"maintenanceActivityMaintenanceProtocol-save-fail",
 						"Failed to save MaintenanceActivityMaintenanceProtocol"));
 
+				// maintenanceActivity service messages
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"maintenanceActivity-delete-fail",
+						"Fallo la eliminación del MaintenanceActivity"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"maintenanceActivity-findByMaintenanceProtocol-fail",
+						"Búsqueda fallida de MaintenanceActivity por protocolo de mantenimiento"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"maintenanceActivity-findByServiceResource-fail",
+						"Búsqueda fallida de MaintenanceActivity por serviceResource"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"maintenanceActivity-find-fail",
+						"Búsqueda fallida de MaintenanceActivity"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"maintenanceActivity-findByMaintenanceActivity-fail",
+						"Búsqueda fallida de MaintenanceActivity por maintenanceActivity"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"maintenanceActivity-getAll-fail",
+						"Búsqueda fallida de todos los MaintenanceActivity"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"maintenanceActivity-save-fail",
+						"Guardado fallido de MaintenanceActivity"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"maintenanceActivity-update-fail",
+						"Actualización fallida de MaintenanceActivity"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"maintenanceActivity-delete-fail",
+						"Failed to delete MaintenanceActivity"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"maintenanceActivity-findByMaintenanceProtocol-fail",
+						"Failed to find MaintenanceActivity by maintenance protocol"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"maintenanceActivity-findByServiceResource-fail",
+						"Failed to find MaintenanceActivity by serviceResource"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"maintenanceActivity-find-fail",
+						"Failed to find MaintenanceActivity"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"maintenanceActivity-findByMaintenanceActivity-fail",
+						"Failed to find MaintenanceActivity by maintenanceActivity"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"maintenanceActivity-getAll-fail",
+						"Failed to get all MaintenanceActivity"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"maintenanceActivity-save-fail",
+						"Failed to save MaintenanceActivity"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"maintenanceActivity-update-fail",
+						"Failed to update MaintenanceActivity"));
+
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating message test data", e1);
