@@ -15,13 +15,13 @@ import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
-import com.smartgwt.client.widgets.layout.VLayout;
+import com.smartgwt.client.widgets.layout.HLayout;
 
 /**
  * @author emiliot
  * 
  */
-public class EiaTypeResultSet extends VLayout implements
+public class EiaTypeResultSet extends HLayout implements
 		EiaTypeSelectionProducer, ResizeHandler {
 	private List<EIATypeSelectionListener> listeners;
 	private EIATypeGrid grid;

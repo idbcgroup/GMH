@@ -25,10 +25,10 @@ public class GHAEiaTypeSubTypeSelectItem extends GHASelectItem {
 		this(GHAUiHelper.DEFAULT_ITEM_SIZE);
 	}
 
-	public EiaSubTypeEnum getValue() {
-		if (getValue() == null)
-			return null;
-		else
-			return EiaSubTypeEnum.valueOf(getValueAsString());
-	}
+	// public EiaSubTypeEnum getValue() {
+	// if (getValue() == null)
+	// return null;
+	// else
+	// return EiaSubTypeEnum.valueOf(getValueAsString());
+	// }
 }

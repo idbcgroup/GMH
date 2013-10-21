@@ -25,10 +25,10 @@ public class GHAMobilitySelectItem extends GHASelectItem {
 		this(GHAUiHelper.DEFAULT_ITEM_SIZE);
 	}
 
-	public EiaMobilityEnum getValue() {
-		if (getValue() == null)
-			return null;
-		else
-			return EiaMobilityEnum.valueOf(getValueAsString());
-	}
+	// public EiaMobilityEnum getValue() {
+	// if (getValue() == null)
+	// return null;
+	// else
+	// return EiaMobilityEnum.valueOf(getValueAsString());
+	// }
 }

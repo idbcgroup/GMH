@@ -25,10 +25,10 @@ public class GHAEiaTypeTypeSelectItem extends GHASelectItem {
 		this(GHAUiHelper.DEFAULT_ITEM_SIZE);
 	}
 
-	public EiaTypeEnum getValue() {
-		if (getValue() == null)
-			return null;
-		else
-			return EiaTypeEnum.valueOf(getValueAsString());
-	}
+	// public EiaTypeEnum getValue() {
+	// if (getValue() == null)
+	// return null;
+	// else
+	// return EiaTypeEnum.valueOf(getValueAsString());
+	// }
 }

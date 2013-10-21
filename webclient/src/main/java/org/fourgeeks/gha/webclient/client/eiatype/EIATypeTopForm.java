@@ -2,6 +2,9 @@ package org.fourgeeks.gha.webclient.client.eiatype;
 
 import java.util.List;
 
+import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
+import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
+import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
@@ -66,9 +69,6 @@ public class EIATypeTopForm extends HLayout implements
 	public EIATypeTopForm(EiaTypeResultSet resultSet) {
 		super();
 		this.resultSet = resultSet;
-		// this.eiaTypeTab = eiaTypeTab;
-		// eiaTypeTab.addGHAHideableHandler(eiaTypeSearchForm);
-		// eiaTypeTab.addGHAClosableHandler(eiaTypeSearchForm);
 		GHAUiHelper.addGHAResizeHandler(this);
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		setWidth100();
@@ -80,8 +80,6 @@ public class EIATypeTopForm extends HLayout implements
 		form.setNumCols(4);
 		form.setItems(codeItem, modelItem, nameItem, brandItem, mobilityItem,
 				typeItem, subTypeItem);
-		// form.setItems(codeItem, nameItem, brandItem, modelItem, mobilityItem,
-		// typeItem, subTypeItem);
 		// Panel de la Fotografia
 		//
 		// HLayout photoPanel = new HLayout();
@@ -170,26 +168,23 @@ public class EIATypeTopForm extends HLayout implements
 
 	@Override
 	public void select(EiaType eiaType) {
-		// // getEiaTypePicture(eiaType);
-		// codeItem.setValue(eiaType.getCode());
-		// nameItem.setValue(eiaType.getName());
-		//
-		// if (eiaType.getBrand() != null) {
-		// brandItem.setValue(eiaType.getBrand().getName());
-		// if (eiaType.getBrand().getManufacturer() != null)
-		// manItem.setValue(eiaType.getBrand().getManufacturer().getName());
-		// }
-		//
-		// modelItem.setValue(eiaType.getModel());
-		//
-		// if (eiaType.getMobility() != null)
-		// mobilityItem.setValue(eiaType.getMobility().toString());
-		//
-		// if (eiaType.getType() != null)
-		// typeItem.setValue(eiaType.getType().toString());
-		//
-		// if (eiaType.getSubtype() != null)
-		// subTypeItem.setValue(eiaType.getSubtype().toString());
+		// getEiaTypePicture(eiaType);
+		codeItem.setValue(eiaType.getCode());
+		nameItem.setValue(eiaType.getName());
+
+		if (eiaType.getBrand() != null)
+			brandItem.setValue(eiaType.getBrand().getName());
+
+		modelItem.setValue(eiaType.getModel());
+
+		if (eiaType.getMobility() != null)
+			mobilityItem.setValue(eiaType.getMobility().toString());
+
+		if (eiaType.getType() != null)
+			typeItem.setValue(eiaType.getType().toString());
+
+		if (eiaType.getSubtype() != null)
+			subTypeItem.setValue(eiaType.getSubtype().toString());
 	}
 
 	/**
@@ -200,28 +195,22 @@ public class EIATypeTopForm extends HLayout implements
 		Window.alert("enter search");
 		EiaType eiaType = new EiaType();
 
-		Window.alert("1");
 		eiaType.setCode(codeItem.getValueAsString());
-		Window.alert("2");
 		eiaType.setName(nameItem.getValueAsString());
-		Window.alert("3");
 
 		if (brandItem.getValue() != null) {
 			eiaType.setBrand(new Brand(Integer.valueOf(brandItem
 					.getValueAsString()), null));
 		}
-		Window.alert("4");
 		eiaType.setModel(modelItem.getValueAsString());
-		Window.alert("5");
 		if (mobilityItem.getValue() != null)
-			eiaType.setMobility(mobilityItem.getValue());
-		Window.alert("6");
+			eiaType.setMobility(EiaMobilityEnum.valueOf(mobilityItem
+					.getValueAsString()));
 		if (typeItem.getValue() != null)
-			eiaType.setType(typeItem.getValue());
-		Window.alert("7");
+			eiaType.setType(EiaTypeEnum.valueOf(typeItem.getValueAsString()));
 		if (subTypeItem.getValue() != null)
-			eiaType.setSubtype(subTypeItem.getValue());
-		Window.alert("8");
+			eiaType.setSubtype(EiaSubTypeEnum.valueOf(subTypeItem
+					.getValueAsString()));
 
 		search(eiaType);
 	}
@@ -232,11 +221,9 @@ public class EIATypeTopForm extends HLayout implements
 	 * @param eiaType
 	 */
 	public void search(EiaType eiaType) {
-		Window.alert("search");
 		EIATypeModel.find(eiaType, new GHAAsyncCallback<List<EiaType>>() {
 			@Override
 			public void onSuccess(List<EiaType> result) {
-				Window.alert("succes search");
 				if (result.size() == 1) {
 					Window.alert("only one result, go to the internal tabset");
 					resultSet.hide();
