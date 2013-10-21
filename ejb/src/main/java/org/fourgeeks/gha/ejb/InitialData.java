@@ -1010,6 +1010,50 @@ public class InitialData {
 						"maintenancePlanMaintenanceProtocol-save-fail",
 						"Failed to save MaintenancePlanMaintenanceProtocol"));
 
+				// maintenancePlan service messages
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"maintenancePlan-delete-fail",
+						"Fallo la eliminación del MaintenancePlan"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"maintenancePlan-findByEiaType-fail",
+						"Búsqueda fallida de MaintenancePlan por eiaType"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"maintenancePlan-findByMaintenancePlan-fail",
+						"Búsqueda fallida de MaintenancePlan por maintenancePlan"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"maintenancePlan-find-fail",
+						"Búsqueda fallida de MaintenancePlan"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"maintenancePlan-getAll-fail",
+						"Búsqueda fallida de todos los MaintenancePlan"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"maintenancePlan-save-fail",
+						"Guardado fallido de MaintenancePlan"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"maintenancePlan-update-fail",
+						"Actualización fallida de MaintenancePlan"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"maintenancePlan-delete-fail",
+						"Failed to delete MaintenancePlan"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"maintenancePlan-findByEiaType-fail",
+						"Failed to find MaintenancePlan by eiaType"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"maintenancePlan-findByMaintenancePlan-fail",
+						"Failed to find MaintenancePlan by maintenancePlan"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"maintenancePlan-find-fail",
+						"Failed to find MaintenancePlan"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"maintenancePlan-getAll-fail",
+						"Failed to get all MaintenancePlan"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"maintenancePlan-save-fail",
+						"Failed to save MaintenancePlan"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"maintenancePlan-update-fail",
+						"Failed to update MaintenancePlan"));
+
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating message test data", e1);
