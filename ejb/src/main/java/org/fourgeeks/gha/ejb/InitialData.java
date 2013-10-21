@@ -880,6 +880,26 @@ public class InitialData {
 						"eiaTypePicture-update-fail",
 						"Failed to update EiaTypePicture"));
 
+				// eiaTypeUtility service messages
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"eiaTypeUtility-delete-fail",
+						"Fallo la eliminación del EiaTypeUtility"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"eiaTypeUtility-findByEiaType-fail",
+						"Búsqueda fallida de EiaTypeUtility por eiaType"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"eiaTypeUtility-save-fail",
+						"Guardado fallido de EiaTypeUtility"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"eiaTypeUtility-delete-fail",
+						"Failed to delete EiaTypeUtility"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"eiaTypeUtility-findByEiaType-fail",
+						"Failed to find EiaTypeUtility by eiaType"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"eiaTypeUtility-save-fail",
+						"Failed to save EiaTypeUtility"));
+
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating message test data", e1);
