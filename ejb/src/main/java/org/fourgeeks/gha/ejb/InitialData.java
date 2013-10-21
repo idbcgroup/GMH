@@ -802,6 +802,32 @@ public class InitialData {
 						"eiaTypeComponent-update-fail",
 						"Failed to update EiaTypeComponent"));
 
+				// eiaTypeMaintenancePlan service messages
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"eiaTypeMaintenancePlan-delete-fail",
+						"Fallo la eliminación del EiaTypeMaintenancePlan"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"eiaTypeMaintenancePlan-findByEiaType-fail",
+						"Búsqueda fallida de EiaTypeMaintenancePlan por eiaType"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"eiaTypeMaintenancePlan-findByMaintenancePlan-fail",
+						"Búsqueda fallida de EiaTypeMaintenancePlan po maintenancePlan"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"eiaTypeMaintenancePlan-save-fail",
+						"Guardado fallido de EiaTypeMaintenancePlan"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"eiaTypeMaintenancePlan-delete-fail",
+						"Failed to delete EiaTypeMaintenancePlan"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"eiaTypeMaintenancePlan-findByEiaType-fail",
+						"Failed to find EiaTypeMaintenancePlan by eiaType"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"eiaTypeMaintenancePlan-findByMaintenancePlan-fail",
+						"Failed to find EiaTypeMaintenancePlan by maintenancePlan"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"eiaTypeMaintenancePlan-save-fail",
+						"Failed to save EiaTypeMaintenancePlan"));
+
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating message test data", e1);
