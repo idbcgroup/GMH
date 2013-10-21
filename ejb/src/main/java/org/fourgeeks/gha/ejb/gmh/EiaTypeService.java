@@ -25,21 +25,19 @@ import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
-import org.fourgeeks.gha.domain.msg.GHAMessage;
-import org.fourgeeks.gha.domain.msg.GHAMessageId;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
- * @author emiliot
+ * @author emiliot, vivi.torresg
  * 
  */
 
 @Stateless(name = "gmh.EiaTypeService")
-public class EiaTypeService implements EiaTypeServiceRemote {
+public class EiaTypeService extends GHAEJBExceptionImpl implements
+		EiaTypeServiceRemote {
 	@PersistenceContext
 	EntityManager em;
-
-	private GHAEJBException exception = new GHAEJBException();
 
 	private final static Logger logger = Logger.getLogger(EiaTypeService.class
 			.getName());
@@ -128,16 +126,8 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 			em.remove(entity);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete eiatype", e);
-			try {
-				exception.setGhaMessage(em.find(GHAMessage.class,
-						new GHAMessageId("eiatype-delete-fail",
-								RuntimeParameters.getLang())));
-			} catch (Exception e1) {
-				exception.setGhaMessage(new GHAMessage(RuntimeParameters
-						.getLang(), "generic-error-msg",
-						"Error de sistema, intente más tarde."));
-			}
-			throw exception;
+			throw super.generateGHAEJBException("eiaType-delete-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -216,19 +206,9 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 		} catch (Exception e) {
 			logger.log(Level.SEVERE,
 					"Error obteniendo los eiaTypes por eiatype", e);
-			try {
-				exception.setGhaMessage(em.find(
-						GHAMessage.class,
-						new GHAMessageId("eiatype-find-fail", RuntimeParameters
-								.getLang())));
-			} catch (Exception e1) {
-				exception.setGhaMessage(new GHAMessage(RuntimeParameters
-						.getLang(), "generic-error-msg",
-						"Error de sistema, intente más tarde."));
-			}
-			throw exception;
+			throw super.generateGHAEJBException("eiaType-find-fail",
+					RuntimeParameters.getLang(), em);
 		}
-
 	}
 
 	/*
@@ -312,19 +292,9 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 		} catch (Exception e) {
 			logger.log(Level.SEVERE,
 					"Error obteniendo buscando los eiaTypes por eiatype", e);
-			try {
-				exception.setGhaMessage(em.find(
-						GHAMessage.class,
-						new GHAMessageId("eiatype-find-fail", RuntimeParameters
-								.getLang())));
-			} catch (Exception e1) {
-				exception.setGhaMessage(new GHAMessage(RuntimeParameters
-						.getLang(), "generic-error-msg",
-						"Error de sistema, intente más tarde."));
-			}
-			throw exception;
+			throw super.generateGHAEJBException("eiaType-find-fail",
+					RuntimeParameters.getLang(), em);
 		}
-
 	}
 
 	/*
@@ -338,18 +308,8 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 			return em.find(EiaType.class, code);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error buscando Eiatype por Id ", e);
-			try {
-				exception.setGhaMessage(em.find(
-						GHAMessage.class,
-						new GHAMessageId("eiatype-find-fail", RuntimeParameters
-								.getLang())));
-			} catch (Exception e1) {
-				exception.setGhaMessage(new GHAMessage(RuntimeParameters
-						.getLang(), "generic-error-msg",
-						"Error de sistema, intente más tarde."));
-			}
-
-			throw exception;
+			throw super.generateGHAEJBException("eiaType-find-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -365,17 +325,8 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 					.getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all eiatypes", ex);
-			try {
-				exception.setGhaMessage(em.find(GHAMessage.class,
-						new GHAMessageId("eiatype-getAll-fail",
-								RuntimeParameters.getLang())));
-			} catch (Exception e1) {
-				exception.setGhaMessage(new GHAMessage(RuntimeParameters
-						.getLang(), "generic-error-msg",
-						"Error de sistema, intente más tarde."));
-			}
-
-			throw exception;
+			throw super.generateGHAEJBException("eiaType-getAll-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -391,18 +342,9 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 					.setFirstResult(offset).setMaxResults(size).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retriving all EitaTypes", ex);
-			try {
-				exception.setGhaMessage(em.find(GHAMessage.class,
-						new GHAMessageId("eiatype-getAll-fail",
-								RuntimeParameters.getLang())));
-			} catch (Exception e1) {
-				exception.setGhaMessage(new GHAMessage(RuntimeParameters
-						.getLang(), "generic-error-msg",
-						"Error de sistema, intente más tarde."));
-			}
-			throw exception;
+			throw super.generateGHAEJBException("eiaType-getAll-fail",
+					RuntimeParameters.getLang(), em);
 		}
-
 	}
 
 	/*
@@ -429,17 +371,8 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 			return em.find(EiaType.class, eiaType.getCode());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving eiatype", e);
-			try {
-				exception.setGhaMessage(em.find(
-						GHAMessage.class,
-						new GHAMessageId("eiatype-save-fail", RuntimeParameters
-								.getLang())));
-			} catch (Exception e1) {
-				exception.setGhaMessage(new GHAMessage(RuntimeParameters
-						.getLang(), "generic-error-msg",
-						"Error de sistema, intente más tarde."));
-			}
-			throw exception;
+			throw super.generateGHAEJBException("eiaType-save-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -461,22 +394,13 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 				}
 				em.persist(brand);
 			}
-
 			EiaType res = em.merge(eiaType);
 			em.flush();
 			return res;
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to update eiatype", e);
-			try {
-				exception.setGhaMessage(em.find(GHAMessage.class,
-						new GHAMessageId("eiatype-update-fail",
-								RuntimeParameters.getLang())));
-			} catch (Exception e1) {
-				exception.setGhaMessage(new GHAMessage(RuntimeParameters
-						.getLang(), "generic-error-msg",
-						"Error de sistema, intente más tarde."));
-			}
-			throw exception;
+			throw super.generateGHAEJBException("eiaType-update-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -499,16 +423,9 @@ public class EiaTypeService implements EiaTypeServiceRemote {
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE,
 					"Error retriving all EitaTypes by maintenancePlan", ex);
-			try {
-				exception.setGhaMessage(em.find(GHAMessage.class,
-						new GHAMessageId("eiatype-findByMaintenancePlan-fail",
-								RuntimeParameters.getLang())));
-			} catch (Exception e1) {
-				exception.setGhaMessage(new GHAMessage(RuntimeParameters
-						.getLang(), "generic-error-msg",
-						"Error de sistema, intente más tarde."));
-			}
-			throw exception;
+			throw super.generateGHAEJBException(
+					"eiaType-findByMaintenancePlan-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 }
