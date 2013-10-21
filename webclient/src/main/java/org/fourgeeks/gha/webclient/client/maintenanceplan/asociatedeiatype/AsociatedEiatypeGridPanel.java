@@ -49,7 +49,8 @@ public class AsociatedEiatypeGridPanel extends VLayout implements GHAClosable,
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 
-		GHALabel title = new GHALabel("Tipos de Equipo que estan asociados al Plan de Mantenimiento");
+		GHALabel title = new GHALabel(
+				"Tipos de Equipo que estan asociados al Plan de Mantenimiento");
 		addMember(title);
 
 		// //////Botones laterales
@@ -146,5 +147,17 @@ public class AsociatedEiatypeGridPanel extends VLayout implements GHAClosable,
 						loadData();
 					}
 				});
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

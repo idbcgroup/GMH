@@ -118,4 +118,16 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 	public void select(EiaType eiaType) {
 		// cancel();
 	}
+
+	@Override
+	public boolean canBeHidden() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

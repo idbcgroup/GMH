@@ -75,4 +75,16 @@ public class EIATab extends GHATab implements EIASelectionListener,
 		selectionListeners.remove(eiaSelectionListener);
 	}
 
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

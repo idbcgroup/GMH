@@ -28,7 +28,7 @@ public class UserInformationFormPanel extends VLayout implements GHAClosable,
 
 	private UserForm userForm;
 	private List<UserSelectionListener> listeners;
-	
+
 	private SSOUser originalSSOUser;
 
 	{
@@ -69,8 +69,8 @@ public class UserInformationFormPanel extends VLayout implements GHAClosable,
 		gridPanel.addMembers(userForm, sideButtons);
 
 		addMember(gridPanel);
-		
-		//register as user selected listener from userForm
+
+		// register as user selected listener from userForm
 		userForm.addUserSelectionListener(this);
 	}
 
@@ -80,7 +80,7 @@ public class UserInformationFormPanel extends VLayout implements GHAClosable,
 
 	protected void undo() {
 		select(this.originalSSOUser);
-//		save();
+		// save();
 	}
 
 	private void save() {
@@ -96,26 +96,34 @@ public class UserInformationFormPanel extends VLayout implements GHAClosable,
 	public void hide() {
 
 	}
-	
-	public void setSSOUser(SSOUser ssoUser){
+
+	public void setSSOUser(SSOUser ssoUser) {
 		this.originalSSOUser = ssoUser;
 		userForm.setSSOUser(ssoUser);
 		userForm.activateForm(true);
 	}
 
-	//Producer/Consumer stuff
-	
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.user.UserSelectionListener#select(org.fourgeeks.gha.domain.ess.SSOUser)
+	// Producer/Consumer stuff
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.user.UserSelectionListener#select(
+	 * org.fourgeeks.gha.domain.ess.SSOUser)
 	 */
 	@Override
 	public void select(SSOUser ssoUser) {
-		for(UserSelectionListener listener : listeners)
+		for (UserSelectionListener listener : listeners)
 			listener.select(ssoUser);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.user.UserSelectionProducer#addUserSelectionListener(org.fourgeeks.gha.webclient.client.user.UserSelectionListener)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.user.UserSelectionProducer#
+	 * addUserSelectionListener
+	 * (org.fourgeeks.gha.webclient.client.user.UserSelectionListener)
 	 */
 	@Override
 	public void addUserSelectionListener(
@@ -123,12 +131,28 @@ public class UserInformationFormPanel extends VLayout implements GHAClosable,
 		listeners.add(userSelectionListener);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.user.UserSelectionProducer#removeUserSelectionListener(org.fourgeeks.gha.webclient.client.user.UserSelectionListener)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.user.UserSelectionProducer#
+	 * removeUserSelectionListener
+	 * (org.fourgeeks.gha.webclient.client.user.UserSelectionListener)
 	 */
 	@Override
 	public void removeUserSelectionListener(
 			UserSelectionListener userSelectionListener) {
 		listeners.remove(userSelectionListener);
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

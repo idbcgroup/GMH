@@ -53,4 +53,16 @@ public class GHASubTab extends Tab implements GHAClosable, GHAHideable {
 		hideables.add(hideable);
 	}
 
+	@Override
+	public boolean canBeHidden() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

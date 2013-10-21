@@ -82,4 +82,16 @@ public class UserTab extends GHATab implements UserSelectionListener,
 		for (UserSelectionListener listener : listeners)
 			listener.select(ssoUser);
 	}
+
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

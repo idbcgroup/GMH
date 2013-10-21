@@ -49,7 +49,8 @@ public class EIATypeMaintenanceGridPanel extends VLayout implements
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 
-		Label title = new Label("Planes de Mantenimiento asociados al tipo de equipo");
+		Label title = new Label(
+				"Planes de Mantenimiento asociados al tipo de equipo");
 		addMember(title);
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
@@ -159,6 +160,18 @@ public class EIATypeMaintenanceGridPanel extends VLayout implements
 						loadData();
 					}
 				});
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

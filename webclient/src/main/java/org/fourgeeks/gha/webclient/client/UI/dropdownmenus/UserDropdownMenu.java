@@ -45,7 +45,7 @@ public class UserDropdownMenu extends VLayout implements GHAHideable,
 
 		GHAUiHelper.addGHAResizeHandler(this);
 		posX = (Window.getClientWidth() - 20) - width;
-//		setAnimateFadeTime(300);
+		// setAnimateFadeTime(300);
 		setSize(width + "px", "*");
 		setLeft(posX);
 		setTop(50);
@@ -162,5 +162,11 @@ public class UserDropdownMenu extends VLayout implements GHAHideable,
 		if (!(mouseX >= menuMinX && mouseX <= menuMaxX && mouseY >= menuMinY && mouseY <= menuMaxY)) {
 			hide();
 		}
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

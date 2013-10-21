@@ -314,4 +314,16 @@ public class UserSearchForm extends GHASlideInWindow implements
 		hide();
 	}
 
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

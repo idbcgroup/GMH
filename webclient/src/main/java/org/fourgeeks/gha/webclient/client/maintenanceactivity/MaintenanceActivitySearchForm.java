@@ -62,7 +62,8 @@ public class MaintenanceActivitySearchForm extends GHASlideInWindow implements
 		setTop(GHAUiHelper.getTopSpace());
 		setHeight(GHAUiHelper.getTabHeight() - 4 + "px");
 
-		GHALabel title = new GHALabel("Busqueda de Actividades de Mantenimiento");
+		GHALabel title = new GHALabel(
+				"Busqueda de Actividades de Mantenimiento");
 		addMember(title);
 
 		final DynamicForm form = new DynamicForm();
@@ -258,6 +259,18 @@ public class MaintenanceActivitySearchForm extends GHASlideInWindow implements
 		notifyMaintenanceActivity(((MaintenanceActivityGridRecord) selectedRecord)
 				.toEntity());
 		hide();
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

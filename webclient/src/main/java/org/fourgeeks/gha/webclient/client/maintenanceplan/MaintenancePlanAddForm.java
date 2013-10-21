@@ -136,4 +136,16 @@ public class MaintenancePlanAddForm extends GHASlideInWindow implements
 		// called when the maintenanceplanform finish saving new entity
 		cancel();
 	}
+
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

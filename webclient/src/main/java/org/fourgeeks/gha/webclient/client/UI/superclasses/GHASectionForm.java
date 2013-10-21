@@ -184,4 +184,16 @@ public class GHASectionForm extends HLayout implements GHAHideable, GHAClosable 
 		super.hide();
 		deactivate();
 	}
+
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

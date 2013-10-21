@@ -116,4 +116,16 @@ public class UserTopSection extends HLayout implements GHAClosable,
 		idItem.setValue(ssoUser.getBpu().getCitizen().getIdNumber());
 
 	}
+
+	@Override
+	public boolean canBeHidden() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

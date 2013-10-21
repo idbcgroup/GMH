@@ -62,7 +62,8 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 
-		GHALabel title = new GHALabel("Equipos pertenecientes a este Tipo de Equipo");
+		GHALabel title = new GHALabel(
+				"Equipos pertenecientes a este Tipo de Equipo");
 		addMember(title);
 
 		// //////Botones laterales
@@ -178,5 +179,17 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 	@Override
 	public void select(Eia eia) {
 		loadData(eiaType);
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

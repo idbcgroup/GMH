@@ -107,4 +107,10 @@ public class MaintenanceActivityTopSection extends HLayout implements
 		descriptionItem.setValue(maintenanceActivity.getDescription());
 	}
 
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

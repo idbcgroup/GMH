@@ -247,4 +247,16 @@ public class MaterialSearchForm extends GHASlideInWindow implements
 			MaterialSelectionListener materialSelectionListener) {
 		selectionListeners.remove(materialSelectionListener);
 	}
+
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

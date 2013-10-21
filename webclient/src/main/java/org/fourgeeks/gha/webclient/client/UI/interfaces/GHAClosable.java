@@ -9,6 +9,11 @@ import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseExcept
 public interface GHAClosable {
 
 	/**
+	 * @return if the component can be closen
+	 */
+	public boolean canBeClosen();
+
+	/**
 	 * @throws UnavailableToCloseException
 	 */
 	public void close() throws UnavailableToCloseException;

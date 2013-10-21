@@ -112,4 +112,10 @@ public class MaintenancePlanTopSection extends HLayout implements
 		periodOfTimeItem.setValue(maintenancePlan.getPot());
 	}
 
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

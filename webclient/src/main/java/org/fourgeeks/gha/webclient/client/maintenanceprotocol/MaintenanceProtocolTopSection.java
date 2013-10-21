@@ -106,4 +106,10 @@ public class MaintenanceProtocolTopSection extends HLayout implements
 		nameItem.setValue(maintenanceProtocol.getName());
 		descriptionItem.setValue(maintenanceProtocol.getDescription());
 	}
+
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
