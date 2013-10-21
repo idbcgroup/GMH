@@ -848,6 +848,38 @@ public class InitialData {
 						"eiaTypeMaterial-save-fail",
 						"Failed to save EiaTypeMaterial"));
 
+				// eiaTypePicture service messages
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"eiaTypePicture-delete-fail",
+						"Fallo la eliminación del EiaTypePicture"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"eiaTypePicture-findByEiaType-fail",
+						"Búsqueda fallida de EiaTypePicture por eiaType"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"eiaTypePicture-find-fail",
+						"Búsqueda fallida de EiaTypePicture"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"eiaTypePicture-save-fail",
+						"Guardado fallido de EiaTypePicture"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"eiaTypePicture-update-fail",
+						"Actualización fallida de EiaTypePicture"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"eiaTypePicture-delete-fail",
+						"Failed to delete EiaTypePicture"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"eiaTypePicture-findByEiaType-fail",
+						"Failed to find EiaTypePicture by eiaType"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"eiaTypePicture-find-fail",
+						"Failed to find EiaTypePicture"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"eiaTypePicture-save-fail",
+						"Failed to save EiaTypePicture"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"eiaTypePicture-update-fail",
+						"Failed to update EiaTypePicture"));
+
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating message test data", e1);
