@@ -828,6 +828,26 @@ public class InitialData {
 						"eiaTypeMaintenancePlan-save-fail",
 						"Failed to save EiaTypeMaintenancePlan"));
 
+				// eiaTypeMaterial service messages
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"eiaTypeMaterial-delete-fail",
+						"Fallo la eliminación del EiaTypeMaterial"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"eiaTypeMaterial-findByEiaType-fail",
+						"Búsqueda fallida de EiaTypeMaterial por eiaType"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"eiaTypeMaterial-save-fail",
+						"Guardado fallido de EiaTypeMaterial"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"eiaTypeMaterial-delete-fail",
+						"Failed to delete EiaTypeMaterial"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"eiaTypeMaterial-findByEiaType-fail",
+						"Failed to find EiaTypeMaterial by eiaType"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"eiaTypeMaterial-save-fail",
+						"Failed to save EiaTypeMaterial"));
+
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating message test data", e1);

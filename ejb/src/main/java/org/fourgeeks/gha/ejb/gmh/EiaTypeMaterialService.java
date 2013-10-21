@@ -11,9 +11,12 @@ import javax.persistence.PersistenceContext;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaterial;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 @Stateless(name = "gmh.EiaTypeMaterialService")
-public class EiaTypeMaterialService implements EiaTypeMaterialServiceRemote {
+public class EiaTypeMaterialService extends GHAEJBExceptionImpl implements
+		EiaTypeMaterialServiceRemote {
 
 	@PersistenceContext
 	private EntityManager em;
@@ -31,9 +34,9 @@ public class EiaTypeMaterialService implements EiaTypeMaterialServiceRemote {
 					.setParameter("eiaType", eiaType).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all EiaTypeMaterial", ex);
-			throw new GHAEJBException(
-					"Error obteniendo todos los EiaTypeMaterial "
-							+ ex.getCause().getMessage());
+			throw super.generateGHAEJBException(
+					"eiaTypeMaterial-findByEiaType-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -46,14 +49,16 @@ public class EiaTypeMaterialService implements EiaTypeMaterialServiceRemote {
 			return em.find(EiaTypeMaterial.class, eiaTypeMaterial.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving eiaTypeMaterial", e);
-			String message = null;
+			// String message = null;
 			// if (e.getCause() instanceof ConstraintViolationException) {
-			message = "Error: Ya se ha agregado ese Material a este Tipo de Equipo";
+			// message =
+			// "Error: Ya se ha agregado ese Material a este Tipo de Equipo";
 			// }
 			// if (message == null)
 			// message = "Error guardando EiaTypeMaterial: "
 			// + e.getCause().getMessage();
-			throw new GHAEJBException(message);
+			throw super.generateGHAEJBException("eiaTypeMaterial-save-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -64,9 +69,8 @@ public class EiaTypeMaterialService implements EiaTypeMaterialServiceRemote {
 			em.remove(entity);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete eiatypematerial", e);
-			throw new GHAEJBException("Error eliminando EiaTypeMaterial por id "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("eiaTypeMaterial-delete-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
-
 }
