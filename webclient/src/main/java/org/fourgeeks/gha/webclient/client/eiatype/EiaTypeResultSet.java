@@ -8,17 +8,18 @@ import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
+import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
  * @author emiliot
  * 
  */
-public class EiaTypeResultSet extends GHASlideInWindow implements
-		EiaTypeSelectionProducer {
+public class EiaTypeResultSet extends VLayout implements
+		EiaTypeSelectionProducer, ResizeHandler {
 	private List<EIATypeSelectionListener> listeners;
 	private EIATypeGrid eiaTypeGrid;
 
@@ -30,11 +31,8 @@ public class EiaTypeResultSet extends GHASlideInWindow implements
 	/**
 	 * 
 	 */
-	public EiaTypeResultSet(EIATypeTab tab) {
+	public EiaTypeResultSet() {
 		super();
-
-		// add the tab as listener to the result set selection event
-		this.addEiaTypeSelectionListener(tab);
 	}
 
 	/**
@@ -103,18 +101,6 @@ public class EiaTypeResultSet extends GHASlideInWindow implements
 			EIATypeSelectionListener eIATypeSelectionListener) {
 		listeners.remove(eIATypeSelectionListener);
 
-	}
-
-	@Override
-	public boolean canBeClosen() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean canBeHidden() {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 }

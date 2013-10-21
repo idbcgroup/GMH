@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
@@ -23,12 +24,12 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 	 * The ID of the Tab
 	 */
 	public static final String ID = "eiatype";
-	private static final String TITLE = "Tipos de equipo";
+	private static final String TITLE = GHAStrings.get("eiatypes");
 	private List<EIATypeSelectionListener> listeners = new ArrayList<EIATypeSelectionListener>();
 	private EIATypeTopForm topForm;
 	private EIATypeAddForm addForm;
-
 	private EIATypeInternalTabset internatlTabSet;
+	private EiaTypeResultSet resultSet;
 
 	/**
 	 * @param token
@@ -36,8 +37,13 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 	public EIATypeTab(String token) {
 		super(token);
 		header = new GHATabHeader(this, TITLE);
-		topForm = new EIATypeTopForm(this);
+		resultSet = new EiaTypeResultSet();
+		resultSet.addEiaTypeSelectionListener(this);
+		topForm = new EIATypeTopForm(resultSet);
+		addEiaTypeSelectionListener(topForm);
 		internatlTabSet = new EIATypeInternalTabset(this);
+		addForm = new EIATypeAddForm();
+		addForm.addEiaTypeSelectionListener(this);
 
 		header.addSearchOption(new ClickHandler() {
 
@@ -54,30 +60,20 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 
 			}
 		});
-		header.addCleanOption(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				clean();
-
-			}
-		});
 
 		verticalPanel.addMember(topForm);
 		verticalPanel.addMember(GHAUiHelper
 				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
 		verticalPanel.addMember(internatlTabSet);
+		verticalPanel.addMember(internatlTabSet);
 		addMember(verticalPanel);
 	}
 
 	protected void search() {
-		// TODO Auto-generated method stub
 
 	}
 
 	protected void add() {
-		if (addForm == null)
-			addForm = new EIATypeAddForm();
 		addForm.open();
 	}
 

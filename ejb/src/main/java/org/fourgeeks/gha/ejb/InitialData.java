@@ -259,6 +259,8 @@ public class InitialData {
 						"Movilidad"));
 				em.persist(new UiString(LanguageEnum.ES, "eiatype",
 						"Tipo de equipo"));
+				em.persist(new UiString(LanguageEnum.ES, "eiatypes",
+						"Tipos de equipo"));
 				em.persist(new UiString(LanguageEnum.ES, "subtype", "Sub tipo"));
 				em.persist(new UiString(LanguageEnum.ES, "brand", "Marca"));
 				em.persist(new UiString(LanguageEnum.ES, "new-equipment",

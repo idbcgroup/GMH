@@ -44,8 +44,7 @@ public class EIATypeTopForm extends HLayout implements
 	// private List<EiaTypePicture> listEiaTypePictures;
 	int index;
 	// private GHAImg photo;
-
-	private final EiaTypeResultSet resultSet;
+	private EiaTypeResultSet resultSet;
 
 	{
 		// eiaTypeSearchForm = new EIATypeSearchForm();
@@ -61,12 +60,12 @@ public class EIATypeTopForm extends HLayout implements
 	}
 
 	/**
-	 * @param eiaTypeTab
+	 * @param resultSet
 	 */
-	public EIATypeTopForm(EIATypeTab eiaTypeTab) {
+	public EIATypeTopForm(EiaTypeResultSet resultSet) {
 		super();
+		this.resultSet = resultSet;
 		// this.eiaTypeTab = eiaTypeTab;
-		eiaTypeTab.addEiaTypeSelectionListener(this);
 		// eiaTypeTab.addGHAHideableHandler(eiaTypeSearchForm);
 		// eiaTypeTab.addGHAClosableHandler(eiaTypeSearchForm);
 		GHAUiHelper.addGHAResizeHandler(this);
@@ -132,7 +131,6 @@ public class EIATypeTopForm extends HLayout implements
 		addMembers(form, /* new LayoutSpacer(), photoPanel, */
 				new LayoutSpacer(), sideButtons);
 
-		resultSet = new EiaTypeResultSet(eiaTypeTab);
 	}
 
 	// private void next() {
