@@ -94,6 +94,11 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 	protected void add() {
 		if (addForm.isVisible())
 			return;
+		if (internalTabSet.isVisible())
+			if (internalTabSet.canBeHidden())
+				internalTabSet.hide();
+			else
+				return;
 		if (topForm.isActivate())
 			topForm.deactivate();
 		if (resultSet.isVisible())

@@ -34,6 +34,7 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 	 */
 	public EIATypeAddForm() {
 		super();
+		setWidth100();
 		setHeight(GHAUiHelper.getTabHeight());
 		addMember(new GHALabel(GHAStrings.get("new-eiatype")));
 
@@ -78,7 +79,7 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getBottomSectionHeight());
+		setHeight(GHAUiHelper.getTabHeight());
 	}
 
 	@Override
@@ -121,13 +122,11 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 
 	@Override
 	public boolean canBeHidden() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean canBeClosen() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 }

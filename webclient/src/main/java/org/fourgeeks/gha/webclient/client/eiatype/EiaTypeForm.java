@@ -20,7 +20,10 @@ import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHACodeItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAComboboxItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHAEiaTypeSubTypeSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHAEiaTypeTypeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextAreaItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.brand.BrandModel;
@@ -40,9 +43,12 @@ import com.smartgwt.client.widgets.layout.VLayout;
  */
 public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer {
 	private GHACodeItem codeItem;
-	private GHATextItem nameItem, modelItem, descriptionItem,
-			useDescriptionItem, eiaUmdnsItem;
-	private GHASelectItem mobilityItem, typeItem, subTypeItem;
+	private GHATextItem nameItem, modelItem, eiaUmdnsItem;
+	private GHATextAreaItem descriptionItem;
+	private GHATextAreaItem useDescriptionItem;
+	private GHASelectItem mobilityItem;
+	private GHAEiaTypeTypeSelectItem typeItem;
+	private GHAEiaTypeSubTypeSelectItem subTypeItem;
 	private GHAComboboxItem<Brand> brandItem;
 	private GHAComboboxItem<Manufacturer> manItem;
 
@@ -57,32 +63,32 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer {
 
 	private Validator validator;
 	{
-		codeItem = new GHACodeItem(true, 150);
-		nameItem = new GHATextItem(GHAStrings.get("name"), 150);
+		codeItem = new GHACodeItem(true, 300);
+		nameItem = new GHATextItem(GHAStrings.get("name"), 300);
 		nameItem.setRequired(true);
-		modelItem = new GHATextItem("Modelo", 150);
-		modelItem.setLength(20);
-		descriptionItem = new GHATextItem("Descripción", 480);
-		descriptionItem.setColSpan(3);
-		descriptionItem.setLength(255);
-		useDescriptionItem = new GHATextItem("Uso", 480);
-		useDescriptionItem.setColSpan(3);
-		useDescriptionItem.setLength(255);
-		eiaUmdnsItem = new GHATextItem("EIAUMDNS", 150);
-		eiaUmdnsItem.setLength(16);
-		eiaUmdnsItem.setMask("AAAAAAAAAAAAAAAAAAAA");
-		manItem = new GHAComboboxItem<Manufacturer>("Fabricante", 150);
-		brandItem = new GHAComboboxItem<Brand>("Marca", 150);
-		mobilityItem = new GHASelectItem("Movilidad", 150);
-		mobilityItem.setRequired(true);
-		typeItem = new GHASelectItem("Tipo", 150);
+		typeItem = new GHAEiaTypeTypeSelectItem(300);
 		typeItem.setRequired(true);
-		subTypeItem = new GHASelectItem("Subtipo", 150);
-
+		//
+		subTypeItem = new GHAEiaTypeSubTypeSelectItem(300);
+		eiaUmdnsItem = new GHATextItem("EIAUMDNS", 300);
+		eiaUmdnsItem.setLength(16);
+		modelItem = new GHATextItem(GHAStrings.get("model"), 300);
+		modelItem.setLength(20);
+		//
+		descriptionItem = new GHATextAreaItem(GHAStrings.get("description"),
+				900);
+		descriptionItem.setColSpan(3);
+		useDescriptionItem = new GHATextAreaItem(GHAStrings.get("use"), 900);
+		useDescriptionItem.setColSpan(3);
+		//
+		manItem = new GHAComboboxItem<Manufacturer>(
+				GHAStrings.get("manufacturer"), 300);
+		brandItem = new GHAComboboxItem<Brand>(GHAStrings.get("brand"), 300);
+		mobilityItem = new GHASelectItem(GHAStrings.get("mobility"), 300);
+		mobilityItem.setRequired(true);
+		//
 		validator = Validation.buildDefaultValidatorFactory().getValidator();
-
 		listeners = new ArrayList<EIATypeSelectionListener>();
-
 		form = new DynamicForm();
 	}
 
@@ -93,7 +99,7 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer {
 		final HLayout gridPanel = new HLayout();
 
 		form.setTitleOrientation(TitleOrientation.TOP);
-		form.setNumCols(4);
+		form.setNumCols(3);
 
 		// disable the brand select if no manufacturer is selected
 		brandItem.disable();
@@ -118,9 +124,12 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer {
 			}
 		});
 
-		form.setItems(codeItem, nameItem, typeItem, subTypeItem,
-				descriptionItem, mobilityItem, useDescriptionItem,
-				eiaUmdnsItem, manItem, brandItem, modelItem);
+		form.setItems(codeItem, nameItem, typeItem, subTypeItem, eiaUmdnsItem,
+				modelItem,
+
+				mobilityItem, manItem, brandItem,
+
+				descriptionItem, useDescriptionItem);
 
 		gridPanel.addMembers(form, new LayoutSpacer());
 		addMember(gridPanel);

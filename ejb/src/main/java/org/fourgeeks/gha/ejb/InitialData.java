@@ -269,6 +269,10 @@ public class InitialData {
 						"Nuevo tipo de equipo"));
 				em.persist(new UiString(LanguageEnum.ES, "search-results",
 						"Resultados de la búsqueda"));
+				em.persist(new UiString(LanguageEnum.ES, "description",
+						"Descripción"));
+				em.persist(new UiString(LanguageEnum.ES, "use", "Uso"));
+				em.persist(new UiString(LanguageEnum.ES, "type", "Tipo"));
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating uistrings test data", e1);
