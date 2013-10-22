@@ -307,7 +307,7 @@ public class UserSearchForm extends GHASlideInWindow implements
 	private void selectUser() {
 		GHAGridRecord<SSOUser> selectedRecord = grid.getSelectedRecord();
 		if (selectedRecord == null) {
-			GHANotification.alert(GHAStrings.get("record-not-selected"));
+			GHANotification.oldAlert(GHAStrings.get("record-not-selected"));
 			return;
 		}
 		notifyUser(((UserRecord) selectedRecord).toEntity());

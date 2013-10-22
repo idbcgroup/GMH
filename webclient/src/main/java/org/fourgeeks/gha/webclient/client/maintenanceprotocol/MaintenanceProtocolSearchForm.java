@@ -252,7 +252,7 @@ public class MaintenanceProtocolSearchForm extends GHASlideInWindow implements
 		GHAGridRecord<MaintenanceProtocol> selectedRecord = grid
 				.getSelectedRecord();
 		if (selectedRecord == null) {
-			GHANotification.alert(GHAStrings.get("record-not-selected"));
+			GHANotification.oldAlert(GHAStrings.get("record-not-selected"));
 			return;
 		}
 		notifyMaintenanceProtocol(((MaintenanceProtocolGridRecord) selectedRecord)

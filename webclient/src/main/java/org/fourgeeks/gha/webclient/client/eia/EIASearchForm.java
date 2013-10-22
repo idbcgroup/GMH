@@ -361,7 +361,7 @@ public class EIASearchForm extends GHASlideInWindow implements
 	private void selectEia() {
 		GHAGridRecord<Eia> selectedRecord = grid.getSelectedRecord();
 		if (selectedRecord == null) {
-			GHANotification.alert(GHAStrings.get("record-not-selected"));
+			GHANotification.oldAlert(GHAStrings.get("record-not-selected"));
 			return;
 		}
 		notifyEia(((EIARecord) selectedRecord).toEntity());

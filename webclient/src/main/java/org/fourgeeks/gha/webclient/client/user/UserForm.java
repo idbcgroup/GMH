@@ -459,7 +459,7 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 	 *            this method notify the listeners for new ssoUser selected
 	 */
 	private void notifyUser(SSOUser ssoUser) {
-		GHANotification.alertMessage("user-save-success");
+		GHANotification.alert("user-save-success");
 		for (UserSelectionListener listener : listeners) {
 			listener.select(ssoUser);
 		}

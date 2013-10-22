@@ -352,7 +352,7 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer {
 
 	// Producer stuff
 	private void notifyEiaType(EiaType eiaType) {
-		GHANotification.alertMessage("eiatype-save-success");
+		GHANotification.alert("eiatype-save-success");
 		for (EIATypeSelectionListener listener : listeners)
 			listener.select(eiaType);
 	}

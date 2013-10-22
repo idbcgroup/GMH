@@ -28,7 +28,7 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 	private List<EIATypeSelectionListener> listeners = new ArrayList<EIATypeSelectionListener>();
 	private EIATypeTopForm topForm;
 	private EIATypeAddForm addForm;
-	private EIATypeInternalTabset internatlTabSet;
+	private EIATypeInternalTabset internalTabSet;
 	private EiaTypeResultSet resultSet;
 
 	/**
@@ -45,7 +45,7 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 		topForm.activate();
 		addEiaTypeSelectionListener(topForm);
 
-		internatlTabSet = new EIATypeInternalTabset(this);
+		internalTabSet = new EIATypeInternalTabset(this);
 
 		addForm = new EIATypeAddForm();
 		addForm.addEiaTypeSelectionListener(this);
@@ -69,7 +69,7 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 		verticalPanel.addMember(topForm);
 		verticalPanel.addMember(GHAUiHelper
 				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
-		verticalPanel.addMember(internatlTabSet);
+		verticalPanel.addMember(internalTabSet);
 		verticalPanel.addMember(resultSet);
 		addMember(verticalPanel);
 	}
@@ -77,12 +77,18 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 	protected void search() {
 		if (topForm.isActivate())
 			return;
+		if (internalTabSet.isVisible())
+			if (internalTabSet.canBeHidden())
+				internalTabSet.hide();
+			else
+				return;
 		if (addForm.isVisible())
 			addForm.hide();
 		if (resultSet.isVisible())
 			resultSet.hide();
-
 		topForm.activate();
+		// GHANotification.info(GHAStrings.get("")); //TODO: Mensaje de
+		// informacion para indicar que se ha actividado el modo de busqueda
 	}
 
 	protected void add() {

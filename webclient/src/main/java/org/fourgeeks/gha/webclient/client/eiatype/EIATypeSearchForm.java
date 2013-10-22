@@ -194,7 +194,7 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 	private void selectEiaType() {
 		GHAGridRecord<EiaType> selectedRecord = eiaTypeGrid.getSelectedRecord();
 		if (selectedRecord == null) {
-			GHANotification.alert(GHAStrings.get("record-not-selected"));
+			GHANotification.oldAlert(GHAStrings.get("record-not-selected"));
 			return;
 		}
 		notifyEiaType(((EIATypeRecord) selectedRecord).toEntity());

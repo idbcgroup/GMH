@@ -11,6 +11,10 @@ import com.google.gwt.core.shared.GWT;
 import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.util.SC;
 
+/**
+ * @author alacret
+ * 
+ */
 public class GHANotification {
 	private static final GWTMessageServiceAsync messageService = GWT
 			.create(GWTMessageService.class);
@@ -30,8 +34,16 @@ public class GHANotification {
 	/**
 	 * @param message
 	 */
-	public static void alert(String message) {
+	@Deprecated
+	public static void oldAlert(String message) {
 		SC.say("Información", message);
+	}
+
+	/**
+	 * @param key
+	 */
+	public static void info(String key) {
+		alert(key);
 	}
 
 	/**
@@ -44,29 +56,20 @@ public class GHANotification {
 		SC.ask(title, message, callback);
 	}
 
-	private static void alert(List<String> keys,
-			GHAAsyncCallback<List<GHAMessage>> callback) {
-		messageService.find(keys, callback);
-	}
-
-	private static void alertMessage(String key,
-			GHAAsyncCallback<GHAMessage> callback) {
-		messageService.find(key, callback);
-	}
-
 	/**
 	 * this method receives a key to find and show the message from database
 	 * 
 	 * @param key
 	 */
-	public static void alertMessage(String key) {
-		alertMessage(key, new GHAAsyncCallback<GHAMessage>() {
+	public static void alert(String key) {
+		messageService.find(key, new GHAAsyncCallback<GHAMessage>() {
 
 			@Override
 			public void onSuccess(GHAMessage result) {
-				alert(result.getText());
+				SC.say(result.getText());
 			}
 		});
+
 	}
 
 	/**
@@ -76,7 +79,7 @@ public class GHANotification {
 	 * @param keys
 	 */
 	public static void alert(List<String> keys) {
-		alert(keys, new GHAAsyncCallback<List<GHAMessage>>() {
+		messageService.find(keys, new GHAAsyncCallback<List<GHAMessage>>() {
 
 			@Override
 			public void onSuccess(List<GHAMessage> result) {
@@ -84,7 +87,7 @@ public class GHANotification {
 				for (GHAMessage msg : result) {
 					builder.append(msg.getText()).append("<br>");
 				}
-				alert(builder.toString());
+				SC.say(builder.toString());
 			}
 		});
 	}
@@ -93,6 +96,6 @@ public class GHANotification {
 	 * @param ghaMessage
 	 */
 	public static void alert(GHAMessage ghaMessage) {
-		alert(ghaMessage.getText());
+		SC.say(ghaMessage.getText());
 	}
 }

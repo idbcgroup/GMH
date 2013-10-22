@@ -8,6 +8,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -16,12 +17,13 @@ import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
 import com.smartgwt.client.widgets.layout.HLayout;
+import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
  * @author emiliot
  * 
  */
-public class EiaTypeResultSet extends HLayout implements
+public class EiaTypeResultSet extends VLayout implements
 		EiaTypeSelectionProducer, ResizeHandler {
 	private List<EIATypeSelectionListener> listeners;
 	private EIATypeGrid grid;
@@ -36,8 +38,11 @@ public class EiaTypeResultSet extends HLayout implements
 	 */
 	public EiaTypeResultSet() {
 		super();
-		addMember(grid);
-		addMember(GHAUiHelper.createBar(new GHAImgButton(
+		setStyleName("sides-padding padding-top");// Esto es VUDU!
+		setVisible(false);
+		addMember(new GHALabel(GHAStrings.get("search-results")));
+		HLayout gridPanel = new HLayout();
+		gridPanel.addMembers(grid, GHAUiHelper.createBar(new GHAImgButton(
 				"../resources/icons/check.png", new ClickHandler() {
 
 					@Override
@@ -52,6 +57,7 @@ public class EiaTypeResultSet extends HLayout implements
 						// TODO delete an selected eiatype
 					}
 				})));
+		addMember(gridPanel);
 	}
 
 	/**

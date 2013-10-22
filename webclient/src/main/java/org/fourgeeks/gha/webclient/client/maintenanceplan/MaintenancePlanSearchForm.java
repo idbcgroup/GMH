@@ -266,7 +266,7 @@ public class MaintenancePlanSearchForm extends GHASlideInWindow implements
 		GHAGridRecord<MaintenancePlan> selectedRecord = grid
 				.getSelectedRecord();
 		if (selectedRecord == null) {
-			GHANotification.alert(GHAStrings.get("record-not-selected"));
+			GHANotification.oldAlert(GHAStrings.get("record-not-selected"));
 			return;
 		}
 		notifyMaintenancePlan(((MaintenancePlanRecord) selectedRecord)

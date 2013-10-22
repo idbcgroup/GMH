@@ -79,12 +79,12 @@ public class LoginPlace extends GHAPlace {
 				String password = passTextbox.getValue();
 
 				if (username == null || username.equals("")) {
-					GHANotification.alert(GHAStrings.get("username-not-null"));
+					GHANotification.oldAlert(GHAStrings.get("username-not-null"));
 					return;
 				}
 
 				if (password == null || password.equals("")) {
-					GHANotification.alert(GHAStrings.get("password-not-null"));
+					GHANotification.oldAlert(GHAStrings.get("password-not-null"));
 					return;
 				}
 
