@@ -1295,6 +1295,78 @@ public class InitialData {
 				em.persist(new GHAMessage(LanguageEnum.EN,
 						"citizen-update-fail", "Failed to update Citizen"));
 
+				// institution service messages
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"institution-delete-fail",
+						"Fallo la eliminación del Institution"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"institution-findByInstitution-fail",
+						"Búsqueda fallida de Institution por institution"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"institution-find-fail",
+						"Búsqueda fallida de Institution"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"institution-getAll-fail",
+						"Búsqueda fallida de todos los Institution"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"institution-save-fail",
+						"Guardado fallido de Institution"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"institution-update-fail",
+						"Actualización fallida de Institution"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"institution-delete-fail",
+						"Failed to delete Institution"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"institution-findByInstitution-fail",
+						"Failed to find Institution by institution"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"institution-find-fail", "Failed to find Institution"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"institution-getAll-fail",
+						"Failed to get all Institution"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"institution-save-fail", "Failed to save Institution"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"institution-update-fail",
+						"Failed to update Institution"));
+
+				// legalEntity service messages
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"legalEntity-delete-fail",
+						"Fallo la eliminación del LegalEntity"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"legalEntity-findByLegalEntity-fail",
+						"Búsqueda fallida de LegalEntity por legalEntity"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"legalEntity-find-fail",
+						"Búsqueda fallida de LegalEntity"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"legalEntity-getAll-fail",
+						"Búsqueda fallida de todos los LegalEntity"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"legalEntity-save-fail",
+						"Guardado fallido de LegalEntity"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"legalEntity-update-fail",
+						"Actualización fallida de LegalEntity"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"legalEntity-delete-fail",
+						"Failed to delete LegalEntity"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"legalEntity-findByLegalEntity-fail",
+						"Failed to find LegalEntity by legalEntity"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"legalEntity-find-fail", "Failed to find LegalEntity"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"legalEntity-getAll-fail",
+						"Failed to get all LegalEntity"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"legalEntity-save-fail", "Failed to save LegalEntity"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"legalEntity-update-fail",
+						"Failed to update LegalEntity"));
+
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating message test data", e1);

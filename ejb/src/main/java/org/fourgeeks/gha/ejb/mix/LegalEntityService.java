@@ -13,13 +13,16 @@ import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.mix.LegalEntity;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
  * @author emiliot, vivi.torresg
  * 
  */
 @Stateless(name = "mix.LegalEntityService")
-public class LegalEntityService implements LegalEntityServiceRemote {
+public class LegalEntityService extends GHAEJBExceptionImpl implements
+		LegalEntityServiceRemote {
 	@PersistenceContext
 	private EntityManager em;
 
@@ -38,8 +41,8 @@ public class LegalEntityService implements LegalEntityServiceRemote {
 			em.remove(entity);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete LegalEntity", e);
-			throw new GHAEJBException("ERROR: unable to delete LegalEntity "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("legalEntity-delete-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -61,9 +64,9 @@ public class LegalEntityService implements LegalEntityServiceRemote {
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE,
 					"Error finding LegalEntity by legalEntity", ex);
-			throw new GHAEJBException(
-					"Error obteniendo LegalEntity por legalEntity"
-							+ ex.getCause().getMessage());
+			throw super.generateGHAEJBException(
+					"legalEntity-findByLegalEntity-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -78,8 +81,8 @@ public class LegalEntityService implements LegalEntityServiceRemote {
 			return em.find(LegalEntity.class, Id);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: finding LegalEntity", e);
-			throw new GHAEJBException("ERROR: finding LegalEntity "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("legalEntity-find-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -95,8 +98,8 @@ public class LegalEntityService implements LegalEntityServiceRemote {
 					.getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all LegalEntity", ex);
-			throw new GHAEJBException("Error obteniendo todas las LegalEntity"
-					+ ex.getCause().getMessage());
+			throw super.generateGHAEJBException("legalEntity-getAll-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -115,8 +118,8 @@ public class LegalEntityService implements LegalEntityServiceRemote {
 			return em.find(LegalEntity.class, legalEntity.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving LegalEntity ", e);
-			throw new GHAEJBException("ERROR: saving LegalEntity "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("legalEntity-save-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -135,10 +138,8 @@ public class LegalEntityService implements LegalEntityServiceRemote {
 			return res;
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to update LegalEntity ", e);
-			throw new GHAEJBException(
-					"ERROR: no se puede actualizar el LegalEntity "
-							+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("legalEntity-update-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
-
 }
