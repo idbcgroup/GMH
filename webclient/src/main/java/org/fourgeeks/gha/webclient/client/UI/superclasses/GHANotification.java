@@ -4,12 +4,25 @@ import java.util.List;
 
 import org.fourgeeks.gha.domain.msg.GHAMessage;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
+import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.message.GWTMessageService;
 import org.fourgeeks.gha.webclient.client.message.GWTMessageServiceAsync;
 
+import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.shared.GWT;
+import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.event.logical.shared.ResizeHandler;
+import com.google.gwt.user.client.Window;
+import com.smartgwt.client.types.Alignment;
+import com.smartgwt.client.types.AnimationEffect;
+import com.smartgwt.client.types.Positioning;
 import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.util.SC;
+import com.smartgwt.client.widgets.events.ClickEvent;
+import com.smartgwt.client.widgets.events.ClickHandler;
+import com.smartgwt.client.widgets.layout.HLayout;
+import com.smartgwt.client.widgets.layout.VLayout;
 
 public class GHANotification {
 	private static final GWTMessageServiceAsync messageService = GWT
@@ -96,36 +109,85 @@ public class GHANotification {
 		alert(ghaMessage.getText());
 	}
 	
-//	public static class ModalInfoNotification extends VLayout implements ResizeHandler{
-//
-//		public ModalInfoNotification() {
-//			super();
-//			setWidth();
-//			setLeft(-5);
-//			setBackgroundColor("#E0E0E0");
-//			setStyleName("sides-padding padding-top box");
-//			setAlign(Alignment.CENTER);
-//			setVisibility(Visibility.HIDDEN);
-//			setAnimateTime(600);
-//			GHAUiHelper.addGHAResizeHandler(this);
-//		}
-//
-//		public ModalInfoNotification(int membersMargin) {
-//			super(membersMargin);
-//			// TODO Auto-generated constructor stub
-//		}
-//
-//		public ModalInfoNotification(JavaScriptObject jsObj) {
-//			super(jsObj);
-//			// TODO Auto-generated constructor stub
-//		}
-//
-//		@Override
-//		public void onResize(ResizeEvent event) {
-//			// TODO Auto-generated method stub
-//			
-//		}
-//	}
+	public static class ModalInfoNotification extends VLayout implements ResizeHandler, GHAClosable{
+
+		private int width = 300;
+		
+		public ModalInfoNotification(String title, String errorMessage) {
+			super();
+			GHAUiHelper.addGHAResizeHandler(this);
+			
+			setPosition(Positioning.ABSOLUTE);
+			setWidth(width);
+			setHeight("*");
+			setLeft((Window.getClientWidth()/2)-(width/2));
+			setTop(140);
+			setDefaultLayoutAlign(Alignment.CENTER);
+			
+			setVisible(false);
+			setAnimateTime(600);
+			
+			setShadowDepth(6);
+			setShowShadow(true);
+			
+			
+			// TITLE LAYOUT
+			HLayout titleLayout = GHAUiHelper.verticalGraySeparatorLabel("40px","Informacion");
+			
+			// LABEL LAYOUT
+			GHALabel errorText = new GHALabel(errorMessage);
+			
+			VLayout userdataLayout = new VLayout();
+			userdataLayout.setHeight("*");
+			userdataLayout.setWidth100();
+			userdataLayout.setStyleName("sides-padding padding-top");
+			userdataLayout.setBackgroundColor("#EOEOEO");
+			userdataLayout.setAlign(Alignment.CENTER);
+			userdataLayout.setMembersMargin(10);
+			
+			GHAButton acceptButton = new GHAButton("Aceptar", new ClickHandler() {
+				@Override
+				public void onClick(ClickEvent event) {
+					close();
+				}
+			});
+			
+			userdataLayout.addMembers(errorText, acceptButton);
+			
+			addMembers(titleLayout,userdataLayout);
+			
+			show();
+		}
+		
+		
+
+		public ModalInfoNotification(int membersMargin) {
+			super(membersMargin);
+			// TODO Auto-generated constructor stub
+		}
+
+		public ModalInfoNotification(JavaScriptObject jsObj) {
+			super(jsObj);
+			// TODO Auto-generated constructor stub
+		}
+
+		@Override
+		public void onResize(ResizeEvent event) {
+			setLeft((Window.getClientWidth()/2)-(width/2));
+		}
+
+		@Override
+		public void close() {
+			// TODO Auto-generated method stub
+			animateHide(AnimationEffect.FADE);
+		}
+		
+		@Override
+		public void show() {
+			super.show();
+			animateShow(AnimationEffect.FADE);
+		}
+	}
 	
 	
 }

@@ -105,5 +105,7 @@ public class HomePlace extends GHAPlace {
 		RootPanel.get("user-info").add(userInfo);
 
 		GHATabSet.buildMenu();
+		
+//		GHANotification.ModalInfoNotification note = new GHANotification.ModalInfoNotification("Titulo","Mensaje de error");
 	}
 }
