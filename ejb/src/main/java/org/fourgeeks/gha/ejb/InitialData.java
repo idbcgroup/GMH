@@ -1174,6 +1174,44 @@ public class InitialData {
 						"manufacturer-update-fail",
 						"Failed to update Manufacturer"));
 
+				// serviceResource service messages
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"serviceResource-delete-fail",
+						"Fallo la eliminación del ServiceResource"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"serviceResource-findByMaintenanceActivity-fail",
+						"Búsqueda fallida de ServiceResource por maintenanceActivity"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"serviceResource-find-fail",
+						"Búsqueda fallida de ServiceResource"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"serviceResource-getAll-fail",
+						"Búsqueda fallida de todos los ServiceResource"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"serviceResource-save-fail",
+						"Guardado fallido de ServiceResource"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"serviceResource-update-fail",
+						"Actualización fallida de ServiceResource"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"serviceResource-delete-fail",
+						"Failed to delete ServiceResource"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"serviceResource-findByMaintenanceActivity-fail",
+						"Failed to find ServiceResource by maintenanceActivity"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"serviceResource-find-fail",
+						"Failed to find ServiceResource"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"serviceResource-getAll-fail",
+						"Failed to get all ServiceResource"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"serviceResource-save-fail",
+						"Failed to save ServiceResource"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"serviceResource-update-fail",
+						"Failed to update ServiceResource"));
+
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating message test data", e1);

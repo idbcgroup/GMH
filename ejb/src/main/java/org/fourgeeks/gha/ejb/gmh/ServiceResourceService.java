@@ -14,14 +14,17 @@ import javax.persistence.PersistenceContext;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.ServiceResource;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
- * @author emiliot
+ * @author emiliot, vivi.torresg
  * 
  */
 
 @Stateless(name = "gmh.serviceResourceService")
-public class ServiceResourceService implements ServiceResourceServiceRemote {
+public class ServiceResourceService extends GHAEJBExceptionImpl implements
+		ServiceResourceServiceRemote {
 	@PersistenceContext
 	EntityManager em;
 
@@ -41,9 +44,8 @@ public class ServiceResourceService implements ServiceResourceServiceRemote {
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete Resource/Service",
 					e);
-			throw new GHAEJBException(
-					"Error eliminando Resource/Service por id "
-							+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("serviceResource-delete-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -66,10 +68,11 @@ public class ServiceResourceService implements ServiceResourceServiceRemote {
 					.getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO,
-					"Error: finding Resources/Services by ProtocolActivity", e);
-			throw new GHAEJBException(
-					"Error buscando Resources/Services por ProtocolActivity"
-							+ e.getCause().getMessage());
+					"Error: finding Resources/Services by MaintenanceActivity",
+					e);
+			throw super.generateGHAEJBException(
+					"serviceResource-findByMaintenanceActivity-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -84,8 +87,8 @@ public class ServiceResourceService implements ServiceResourceServiceRemote {
 			return em.find(ServiceResource.class, Id);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: finding Resource/Service", e);
-			throw new GHAEJBException("ERROR: finding Resource/Service "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("serviceResource-find-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -101,9 +104,8 @@ public class ServiceResourceService implements ServiceResourceServiceRemote {
 					ServiceResource.class).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding all Resource/Service", e);
-			throw new GHAEJBException(
-					"Error buscando todos los Resource/Service"
-							+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("serviceResource-getAll-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -123,9 +125,8 @@ public class ServiceResourceService implements ServiceResourceServiceRemote {
 					.setMaxResults(size).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding all Resource/Service", e);
-			throw new GHAEJBException(
-					"Error buscando todos los Resource/Service"
-							+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("serviceResource-getAll-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -144,8 +145,8 @@ public class ServiceResourceService implements ServiceResourceServiceRemote {
 			return em.find(ServiceResource.class, ras.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving Resource/Service ", e);
-			throw new GHAEJBException("ERROR: saving Resource/Service "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("serviceResource-save-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -165,9 +166,8 @@ public class ServiceResourceService implements ServiceResourceServiceRemote {
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to update Resource/Service ",
 					e);
-			throw new GHAEJBException(
-					"ERROR: no se puede actualizar el Resource/Service "
-							+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("serviceResource-update-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 }
