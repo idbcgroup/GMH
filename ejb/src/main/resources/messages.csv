@@ -1,0 +1,39 @@
+0,info-tittle,Información
+0,no-message,No existe un mensaje para su localidad
+0,LOGIN001,Inicio de sesión exitoso
+0,LOGIN002,La clave de acceso es incorrecta
+0,LOGIN003,Debe suministrar nombre de usuario y clave de acceso
+0,LOGIN004,Usuario deshabilitado
+0,LOGIN005,Usuario no registrado en el sistema
+0,type-not-null,Debe indicar el tipo
+0,sub-type-not-null,Debe indicar el subtipo
+0,external-provider-not-null,Debe indicar el proveedor
+0,name-not-null,Debe indicar el nombre
+0,mobility-not-null,Debe indicar la movilidad
+0,base-role-not-null,Debe indicar el rol
+0,obu-not-null,Debe indicar la organización
+0,state-not-null,Debe indicar el estado
+0,gender-not-null,Debe indicar el género
+0,bpi-not-null,Debe indicar la institución
+0,username-not-null,Debe indicar el usuario
+0,password-not-null,Debe indicar la clave de acceso
+0,code-not-null,Debe indicar el código
+0,serial-not-null,Debe indicar el serial
+0,maintenance-provider-not-null,Debe indicar el proveedor de mantenimiento
+0,record-not-selected,Debe seleccinar un registro
+0,frecuency-not-null,Debe indicar la frecuencia
+0,time-period-not-null,Debe indicar el período de tiempo
+0,eia-save-success,Guardado exitoso del Equipo
+0,eiatype-save-success,Guardado exitoso del Tipo de Equipo
+0,user-save-success,Guardado exitoso del Usuario
+0,mplan-save-success,Guardado exitoso del Plan de Mantenimiento
+0,mprot-save-success,Guardado exitoso del Protocolo de Mantenimiento 
+0,mact-save-success,Guardado exitoso de la Actividad de Mantenimiento
+0,eiatype-delete-fail,Falló la eliminación del Tipo de Equipo
+0,eiatype-save-fail,Guardado fallido del Tipo de Equipo
+0,eiatype-update-fail,Actualización fallida del Tipo de Equipo
+0,eiatype-find-fail,Búsqueda fallida de Tipos de Equipo
+0,eiatype-findByMaintenancePlan-fail,Guardado fallido del Tipo de Equipo
+0,eiatype-getAll-fail,Guardado fallido del Tipo de Equipo
+
+
