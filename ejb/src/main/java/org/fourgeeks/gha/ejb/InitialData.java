@@ -1264,6 +1264,37 @@ public class InitialData {
 				em.persist(new GHAMessage(LanguageEnum.EN, "bpi-update-fail",
 						"Failed to update Bpi"));
 
+				// citizen service messages
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"citizen-delete-fail",
+						"Fallo la eliminación del Citizen"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"citizen-findByCitizen-fail",
+						"Búsqueda fallida de Citizen por citizen"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "citizen-find-fail",
+						"Búsqueda fallida de Citizen"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"citizen-getAll-fail",
+						"Búsqueda fallida de todos los Citizen"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "citizen-save-fail",
+						"Guardado fallido de Citizen"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"citizen-update-fail",
+						"Actualización fallida de Citizen"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"citizen-delete-fail", "Failed to delete Citizen"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"citizen-findByCitizen-fail",
+						"Failed to find Citizen by citizen"));
+				em.persist(new GHAMessage(LanguageEnum.EN, "citizen-find-fail",
+						"Failed to find Citizen"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"citizen-getAll-fail", "Failed to get all Citizen"));
+				em.persist(new GHAMessage(LanguageEnum.EN, "citizen-save-fail",
+						"Failed to save Citizen"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"citizen-update-fail", "Failed to update Citizen"));
+
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating message test data", e1);
