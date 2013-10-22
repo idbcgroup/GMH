@@ -22,6 +22,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHADateItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHAEmailItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
@@ -29,7 +30,6 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import com.google.gwt.validation.client.impl.Validation;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.form.DynamicForm;
-import com.smartgwt.client.widgets.form.validator.RegExpValidator;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
@@ -42,10 +42,10 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 
 	private GHATextItem usernameItem, passwordItem, confirmPasswordItem,
 			idItem, firstNameItem, secondNameItem, lastNameItem,
-			primaryEmailItem, alternativeEmailItem, secondLastNameItem,
-			nationalityItem, legalEntityIdentifierItem;
+			secondLastNameItem, nationalityItem, legalEntityIdentifierItem;
 	private GHASelectItem typeidSelectItem, genderSelectItem, bpiSelectItem;
 	private GHADateItem birthDateItem;
+	private GHAEmailItem primaryEmailItem, alternativeEmailItem;
 
 	private List<UserSelectionListener> listeners;
 	private DynamicForm form;
@@ -91,18 +91,12 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 		secondLastNameItem.setLength(20);
 		secondLastNameItem.setMask(">A<AAAAAAAAAAAAAAAAAAA");
 
-		primaryEmailItem = new GHATextItem("Email Primario",
+		primaryEmailItem = new GHAEmailItem("Email Primario",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		primaryEmailItem.setLength(254);
-		RegExpValidator emailValidator = new RegExpValidator();
-		emailValidator.setErrorMessage("Dirección de Correo Inválida");
-		emailValidator
-				.setExpression("^([a-zA-Z0-9_.\\-+])+@(([a-zA-Z0-9\\-])+\\.)+[a-zA-Z0-9]{2,4}$");
-		primaryEmailItem.setValidators(emailValidator);
 
-		alternativeEmailItem = new GHATextItem("Email Secundario",
+		alternativeEmailItem = new GHAEmailItem("Email Secundario",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
-		alternativeEmailItem.setValidators(emailValidator);
 		alternativeEmailItem.setLength(254);
 
 		typeidSelectItem = new GHASelectItem("Tipo ID",

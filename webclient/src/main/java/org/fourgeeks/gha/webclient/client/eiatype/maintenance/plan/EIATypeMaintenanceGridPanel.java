@@ -10,6 +10,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSearchForm;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener;
@@ -18,7 +19,6 @@ import org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype.EiaTy
 import org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype.EiaTypeMaintenancePlanRecord;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype.EiaTypeMaintenancePlanUtil;
 
-import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
@@ -43,13 +43,16 @@ public class EIATypeMaintenanceGridPanel extends VLayout implements
 		searchForm = new MaintenancePlanSearchForm();
 	}
 
+	/**
+	 * 
+	 */
 	public EIATypeMaintenanceGridPanel() {
 		super();
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 
-		Label title = new Label(
+		GHALabel title = new GHALabel(
 				"Planes de Mantenimiento asociados al tipo de equipo");
 		addMember(title);
 

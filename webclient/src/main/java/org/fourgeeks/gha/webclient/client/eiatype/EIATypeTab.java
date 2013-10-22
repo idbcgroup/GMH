@@ -6,7 +6,6 @@ import java.util.List;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader;
 
@@ -116,12 +115,6 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 	public void select(EiaType eiaType) {
 		for (EIATypeSelectionListener listener : listeners)
 			listener.select(eiaType);
-	}
-
-	@Override
-	public void addGHAClosableHandler(GHAClosable closable) {
-		// TODO Auto-generated method stub
-		super.addGHAClosableHandler(closable);
 	}
 
 	@Override

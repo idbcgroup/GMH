@@ -13,6 +13,7 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
+import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
@@ -133,7 +134,8 @@ public class EiaTypeResultSet extends VLayout implements
 		ListGridRecord[] array = EIATypeUtil.toGridRecords(records).toArray(
 				new EIATypeRecord[] {});
 		grid.setData(array);
-		this.show();
+		// setAnimateAcceleration(AnimationAcceleration.NONE);
+		this.animateShow(AnimationEffect.FADE);
 	}
 
 }

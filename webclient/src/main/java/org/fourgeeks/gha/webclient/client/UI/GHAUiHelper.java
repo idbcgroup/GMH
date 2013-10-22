@@ -130,7 +130,7 @@ public abstract class GHAUiHelper {
 
 	/**
 	 * @param width
-	 * @return
+	 * @return an horizontal gray separator
 	 */
 	public static HLayout horizontalGraySeparator(String width) {
 		HLayout separator = new HLayout();

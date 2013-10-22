@@ -1,0 +1,6 @@
+0,name,Nombre
+0,equipments,Equipos
+0,password,Clave de Acceso
+0,username-not-null,Debe ingresar un usuario válido
+0,password-not-null,Debe ingresar una clave de acceso válida
+0,email-invalid-field,Debe ingresar un email válido

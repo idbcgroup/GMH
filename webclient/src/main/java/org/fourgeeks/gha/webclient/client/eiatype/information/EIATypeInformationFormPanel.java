@@ -3,8 +3,6 @@ package org.fourgeeks.gha.webclient.client.eiatype.information;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.validation.Validator;
-
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
@@ -32,13 +30,6 @@ public class EIATypeInformationFormPanel extends VLayout implements
 	private EiaTypeForm eiaTypeForm;
 	private List<EIATypeSelectionListener> listeners;
 	private EiaType originalEiaType;
-
-	// private OnFinishUploaderHandler onFinishUploaderHandler1,
-	// onFinishUploaderHandler2, onFinishUploaderHandler3;
-	// private Img img1, img2, img3;
-	// private int idImg1, idImg2, idImg3;
-	// private String imgName1, imgName2, imgName3;
-	private Validator validator;
 
 	{
 		eiaTypeForm = new EiaTypeForm();
@@ -128,7 +119,6 @@ public class EIATypeInformationFormPanel extends VLayout implements
 	// }
 
 	public EIATypeInformationFormPanel() {
-		activateForm(false);
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
@@ -281,19 +271,22 @@ public class EIATypeInformationFormPanel extends VLayout implements
 	/**
 	 * @param activate
 	 */
-	public void activateForm(boolean activate) {
-		eiaTypeForm.activate(activate);
+	public void activate() {
+		eiaTypeForm.activate();
 	}
 
 	protected void undo() {
 		select(this.originalEiaType);
 	}
 
+	/**
+	 * @param eiaType
+	 */
 	public void setEiaType(EiaType eiaType) {
 		this.originalEiaType = eiaType;
 		eiaTypeForm.setEiaType(eiaType);
 
-		activateForm(true);
+		activate();
 		// showPhotographics(eiaType);
 	}
 

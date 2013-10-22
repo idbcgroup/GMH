@@ -1,5 +1,8 @@
 package org.fourgeeks.gha.webclient.client.UI.tabs;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
@@ -27,6 +30,7 @@ public class GHATabHeader extends HLayout implements ResizeHandler {
 
 	private Option titulo;
 	private int memberPos = 2;
+	private List<Option> selectables = new LinkedList<Option>();
 
 	/**
 	 * @param tab
@@ -40,14 +44,14 @@ public class GHATabHeader extends HLayout implements ResizeHandler {
 		setMembersMargin(6);
 		setStyleName("sides-padding tab-header");
 
-		titulo = new Option(title, 150, false, "", "");
+		titulo = new Option(this, title, 150, false, "", "");
 
 		addMember(titulo);
 
 		addMember(new LayoutSpacer());
 
-		Option closeOption = new Option(GHAStrings.get("close"), 90, true,
-				"../resources/img/cerrarButton.png",
+		Option closeOption = new Option(this, GHAStrings.get("close"), 90,
+				true, "../resources/img/cerrarButton.png",
 				"../resources/img/cerrarButtonOver.png");
 		closeOption.addClickHandler(new ClickHandler() {
 
@@ -70,9 +74,10 @@ public class GHATabHeader extends HLayout implements ResizeHandler {
 	 * @param clickHandler
 	 *            the action to be taken when the user clicks
 	 */
+	@Deprecated
 	public void addCleanOption(ClickHandler clickHandler) {
-		Option cleanOption = new Option(GHAStrings.get("clean") + "...", 90,
-				true, "../resources/img/limpiarButton.png",
+		Option cleanOption = new Option(this, GHAStrings.get("clean") + "...",
+				90, true, "../resources/img/limpiarButton.png",
 				"../resources/img/limpiarButtonOver.png");
 		cleanOption.addClickHandler(clickHandler);
 		addMember(cleanOption, memberPos++);
@@ -85,11 +90,12 @@ public class GHATabHeader extends HLayout implements ResizeHandler {
 	 *            the action to be taken when the user clicks
 	 */
 	public void addAddOption(ClickHandler clickHandler) {
-		Option addOption = new Option(GHAStrings.get("add") + "...", 90, true,
-				"../resources/img/agregarButton.png",
+		Option addOption = new Option(this, GHAStrings.get("add") + "...", 90,
+				true, "../resources/img/agregarButton.png",
 				"../resources/img/agregarButtonOver.png");
 		addOption.addClickHandler(clickHandler);
 		addMember(addOption, memberPos++);
+		selectables.add(addOption);
 	}
 
 	/**
@@ -99,20 +105,39 @@ public class GHATabHeader extends HLayout implements ResizeHandler {
 	 *            the action to be taken when the user clicks
 	 */
 	public void addSearchOption(ClickHandler clickHandler) {
-		Option searchOption = new Option(GHAStrings.get("search") + "...", 90,
-				true, "../resources/img/buscarButton.png",
+		Option searchOption = new Option(this,
+				GHAStrings.get("search") + "...", 90, true,
+				"../resources/img/buscarButton.png",
 				"../resources/img/buscarButtonOver.png");
 		searchOption.addClickHandler(clickHandler);
 		addMember(searchOption, memberPos++);
+		selectables.add(searchOption);
 	}
 
 	private static class Option extends Label {
-		public Option(int width, boolean hoverable, final String bgSrc,
-				final String bgSrcOver) {
+		private String bgSrc;
+		private String bgSrcOver;
+
+		public Option(final GHATabHeader tabHeader, int width,
+				boolean hoverable, final String bgSrc, final String bgSrcOver) {
 			super();
+			this.bgSrc = bgSrc;
+			this.bgSrcOver = bgSrcOver;
 			setStyleName("tab-header-title");
 			setWidth(width + "px");
 			setHeight("30px");
+
+			addClickHandler(new ClickHandler() {
+				@Override
+				public void onClick(ClickEvent event) {
+					Window.alert("clic");
+					Window.alert(tabHeader.selectables.size() + "");
+					for (Option button : tabHeader.selectables)
+						button.deselectButton();
+					selectButton();
+				}
+			});
+
 			if (hoverable) {
 				setStyleName(getStyleName() + " button-pointer");
 				setBackgroundImage(bgSrc);
@@ -134,10 +159,18 @@ public class GHATabHeader extends HLayout implements ResizeHandler {
 			}
 		}
 
-		public Option(String text, int width, boolean hoverable, String bg,
-				String bgOver) {
-			this(width, hoverable, bg, bgOver);
+		public Option(GHATabHeader tabHeader, String text, int width,
+				boolean hoverable, String bg, String bgOver) {
+			this(tabHeader, width, hoverable, bg, bgOver);
 			setContents(text);
+		}
+
+		private void deselectButton() {
+			setBackgroundImage(bgSrc);
+		}
+
+		private void selectButton() {
+			setBackgroundImage(bgSrcOver);
 		}
 
 	}

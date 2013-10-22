@@ -15,6 +15,7 @@ import org.fourgeeks.gha.webclient.client.eiatype.utility.EIATypeUtilitySubTab;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
+import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.widgets.tab.TabSet;
 
 /**
@@ -79,7 +80,7 @@ public class EIATypeInternalTabset extends TabSet implements ResizeHandler,
 	 */
 	@Override
 	public void select(EiaType eiaType) {
-		// TODO: CHECK security policy to show subtabs
-		this.show();
+		animateShow(AnimationEffect.FADE);
 	}
+
 }

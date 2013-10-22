@@ -345,6 +345,9 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer {
 		return null;
 	}
 
+	/**
+	 * @param eiaType
+	 */
 	public void setEiaType(EiaType eiaType) {
 		// reload manufacturer select, in order to avoid issues with new brands
 		// or manufacturers

@@ -252,6 +252,8 @@ public class InitialData {
 						"Debe ingresar una contraseña válida"));
 				em.persist(new UiString(LanguageEnum.ES, "code", "Código"));
 				em.persist(new UiString(LanguageEnum.ES, "model", "Modelo"));
+				em.persist(new UiString(LanguageEnum.ES, "email-invalid-field",
+						"Debe ingresar un email válido"));
 				em.persist(new UiString(LanguageEnum.ES, "none", "Modelo"));
 				em.persist(new UiString(LanguageEnum.ES, "manufacturer",
 						"Fabricante"));
