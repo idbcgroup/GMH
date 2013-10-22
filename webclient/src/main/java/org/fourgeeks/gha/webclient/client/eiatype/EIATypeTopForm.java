@@ -188,6 +188,32 @@ public class EIATypeTopForm extends HLayout implements
 	}
 
 	/**
+	 * disable all the fields in the topform
+	 */
+	public void disableFields() {
+		codeItem.disable();
+		nameItem.disable();
+		brandItem.disable();
+		modelItem.disable();
+		mobilityItem.disable();
+		typeItem.disable();
+		subTypeItem.disable();
+	}
+
+	/**
+	 * Enable all the fields in the topform
+	 */
+	public void enableFields() {
+		codeItem.enable();
+		nameItem.enable();
+		brandItem.enable();
+		modelItem.enable();
+		mobilityItem.enable();
+		typeItem.enable();
+		subTypeItem.enable();
+	}
+
+	/**
 	 * Triggered from the topForm search icon, do the search and fill the result
 	 * set
 	 */
@@ -248,6 +274,9 @@ public class EIATypeTopForm extends HLayout implements
 
 		if (eiaType.getSubtype() != null)
 			subTypeItem.setValue(eiaType.getSubtype().toString());
+
+		// TODO: Lock fields of topForm
+		disableFields();
 	}
 
 }

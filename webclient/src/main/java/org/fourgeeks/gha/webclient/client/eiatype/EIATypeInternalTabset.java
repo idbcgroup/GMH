@@ -3,6 +3,7 @@ package org.fourgeeks.gha.webclient.client.eiatype;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.eiatype.component.EIATypeComponentSubTab;
@@ -21,7 +22,7 @@ import com.smartgwt.client.widgets.tab.TabSet;
  * 
  */
 public class EIATypeInternalTabset extends TabSet implements ResizeHandler,
-		GHAHideable {
+		GHAHideable, EIATypeSelectionListener {
 
 	private EIATypeInformationSubTab infoSubTab;
 	private EIATypeEquipmentSubTab equipementsSubTab;
@@ -67,5 +68,18 @@ public class EIATypeInternalTabset extends TabSet implements ResizeHandler,
 			if (!hideable.canBeHidden())
 				return false;
 		return true;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener#select
+	 * (org.fourgeeks.gha.domain.gmh.EiaType)
+	 */
+	@Override
+	public void select(EiaType eiaType) {
+		// TODO: CHECK security policy to show subtabs
+		this.show();
 	}
 }
