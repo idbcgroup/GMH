@@ -282,7 +282,7 @@ public class EIATypeInformationFormPanel extends VLayout implements
 	 * @param activate
 	 */
 	public void activateForm(boolean activate) {
-		eiaTypeForm.activateForm(activate);
+		eiaTypeForm.activate(activate);
 	}
 
 	protected void undo() {

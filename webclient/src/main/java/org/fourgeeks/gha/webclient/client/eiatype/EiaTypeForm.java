@@ -250,7 +250,26 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer {
 		subTypeItem.clearValue();
 	}
 
-	public void activateForm(boolean activate) {
+	/**
+	 * Activate the form
+	 * 
+	 */
+	public void activate() {
+		toggleForm(true);
+	}
+
+	/**
+	 * Deactivate the form
+	 * 
+	 */
+	public void deactivate() {
+		toggleForm(false);
+	}
+
+	/**
+	 * @param activate
+	 */
+	private void toggleForm(boolean activate) {
 		if (activate) {
 			if (manItem.getValue() != null
 					&& !manItem.getValueAsString().isEmpty()) {
