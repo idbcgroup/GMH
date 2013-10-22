@@ -1367,6 +1367,50 @@ public class InitialData {
 						"legalEntity-update-fail",
 						"Failed to update LegalEntity"));
 
+				// systemInstance service messages
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"systemInstance-delete-fail",
+						"Fallo la eliminación del SystemInstance"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"systemInstance-findBySystemInstance-fail",
+						"Búsqueda fallida de SystemInstance por systemInstance"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"systemInstance-find-fail",
+						"Búsqueda fallida de SystemInstance"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"systemInstance-getAll-fail",
+						"Búsqueda fallida de todos los SystemInstance"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"systemInstance-save-fail",
+						"Guardado fallido de SystemInstance"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"systemInstance-update-fail",
+						"Actualización fallida de SystemInstance"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"systemInstance-delete-fail",
+						"Failed to delete SystemInstance"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"systemInstance-findBySystemInstance-fail",
+						"Failed to find SystemInstance by systemInstance"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"systemInstance-find-fail",
+						"Failed to find SystemInstance"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"systemInstance-getAll-fail",
+						"Failed to get all SystemInstance"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"systemInstance-save-fail",
+						"Failed to save SystemInstance"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"systemInstance-update-fail",
+						"Failed to update SystemInstance"));
+
+				// message service messages
+				em.persist(new GHAMessage(LanguageEnum.ES, "message-find-fail",
+						"Búsqueda fallida de Message"));
+				em.persist(new GHAMessage(LanguageEnum.EN, "message-find-fail",
+						"Failed to find Message"));
+
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating message test data", e1);
