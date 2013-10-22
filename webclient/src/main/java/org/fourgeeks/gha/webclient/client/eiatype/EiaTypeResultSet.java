@@ -47,7 +47,7 @@ public class EiaTypeResultSet extends VLayout implements
 
 					@Override
 					public void onClick(ClickEvent event) {
-						selectEiaType();
+						notifySelectedEiaType();
 					}
 				}), GHAUiHelper.verticalGraySeparator("2px"), new GHAImgButton(
 				"../resources/icons/delete.png", new ClickHandler() {
@@ -58,47 +58,6 @@ public class EiaTypeResultSet extends VLayout implements
 					}
 				})));
 		addMember(gridPanel);
-	}
-
-	/**
-	 * notify selected eiaType from the grid
-	 */
-	private void selectEiaType() {
-		GHAGridRecord<EiaType> selectedRecord = grid.getSelectedRecord();
-		if (selectedRecord == null) {
-			GHANotification.alert(GHAStrings.get("record-not-selected"));
-			return;
-		}
-		notifyEiaType(((EIATypeRecord) selectedRecord).toEntity());
-		hide();
-	}
-
-	/**
-	 * this method set the list of records inside the grid
-	 * 
-	 * @param records
-	 */
-	public void setRecords(List<EiaType> records) {
-		ListGridRecord[] array = EIATypeUtil.toGridRecords(records).toArray(
-				new EIATypeRecord[] {});
-		grid.setData(array);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.google.gwt.event.logical.shared.ResizeHandler#onResize(com.google
-	 * .gwt.event.logical.shared.ResizeEvent)
-	 */
-	@Override
-	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getTabHeight() - 4 + "px");
-	}
-
-	private void notifyEiaType(EiaType eiaType) {
-		for (EIATypeSelectionListener listener : listeners)
-			listener.select(eiaType);
 	}
 
 	/*
@@ -114,6 +73,23 @@ public class EiaTypeResultSet extends VLayout implements
 		listeners.add(eIATypeSelectionListener);
 	}
 
+	private void notifyEiaType(EiaType eiaType) {
+		for (EIATypeSelectionListener listener : listeners)
+			listener.select(eiaType);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.google.gwt.event.logical.shared.ResizeHandler#onResize(com.google
+	 * .gwt.event.logical.shared.ResizeEvent)
+	 */
+	@Override
+	public void onResize(ResizeEvent event) {
+		setHeight(GHAUiHelper.getTabHeight() - 4 + "px");
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -126,6 +102,38 @@ public class EiaTypeResultSet extends VLayout implements
 			EIATypeSelectionListener eIATypeSelectionListener) {
 		listeners.remove(eIATypeSelectionListener);
 
+	}
+
+	/**
+	 * notify selected eiaType from the grid
+	 */
+	private void notifySelectedEiaType() {
+		GHAGridRecord<EiaType> selectedRecord = grid.getSelectedRecord();
+		if (selectedRecord == null) {
+			GHANotification.alert(GHAStrings.get("record-not-selected"));
+			return;
+		}
+		notifyEiaType(((EIATypeRecord) selectedRecord).toEntity());
+		hide();
+	}
+
+	/**
+	 * this method set the list of records inside the grid
+	 * 
+	 * @param records
+	 */
+	public void setRecords(List<EiaType> records) {
+		// if only one record is on the list, notify the element and return
+		if (records.size() == 1) {
+			notifyEiaType(records.get(0));
+			this.hide();
+			return;
+		}
+
+		ListGridRecord[] array = EIATypeUtil.toGridRecords(records).toArray(
+				new EIATypeRecord[] {});
+		grid.setData(array);
+		this.show();
 	}
 
 }

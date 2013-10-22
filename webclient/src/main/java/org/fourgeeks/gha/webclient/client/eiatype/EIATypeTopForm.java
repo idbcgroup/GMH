@@ -20,7 +20,6 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
-import com.google.gwt.user.client.Window;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.types.VerticalAlignment;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -69,12 +68,14 @@ public class EIATypeTopForm extends HLayout implements
 	public EIATypeTopForm(EiaTypeResultSet resultSet) {
 		super();
 		this.resultSet = resultSet;
+
 		GHAUiHelper.addGHAResizeHandler(this);
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		setWidth100();
 		setHeight(GHAUiHelper.DEFAULT_TOP_SECTION_HEIGHT + "px");
 		setBackgroundColor(GHAUiHelper.HIGHLIGHTED_BACKGROUND_COLOR);
 		setDefaultLayoutAlign(VerticalAlignment.CENTER);
+
 		DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(4);
@@ -166,25 +167,24 @@ public class EIATypeTopForm extends HLayout implements
 	// });
 	// }
 
+	public void activate() {
+		// TODO Set the component to activate state
+		activated = true;
+
+	}
+
+	public void deactivate() {
+		// TODO deactivate the component
+		activated = false;
+	}
+
+	public boolean isActivate() {
+		return activated;
+	}
+
 	@Override
-	public void select(EiaType eiaType) {
-		// getEiaTypePicture(eiaType);
-		codeItem.setValue(eiaType.getCode());
-		nameItem.setValue(eiaType.getName());
-
-		if (eiaType.getBrand() != null)
-			brandItem.setValue(eiaType.getBrand().getName());
-
-		modelItem.setValue(eiaType.getModel());
-
-		if (eiaType.getMobility() != null)
-			mobilityItem.setValue(eiaType.getMobility().toString());
-
-		if (eiaType.getType() != null)
-			typeItem.setValue(eiaType.getType().toString());
-
-		if (eiaType.getSubtype() != null)
-			subTypeItem.setValue(eiaType.getSubtype().toString());
+	public void onResize(ResizeEvent event) {
+		setHeight(GHAUiHelper.DEFAULT_TOP_SECTION_HEIGHT + "px");
 	}
 
 	/**
@@ -192,7 +192,6 @@ public class EIATypeTopForm extends HLayout implements
 	 * set
 	 */
 	public void search() {
-		Window.alert("enter search");
 		EiaType eiaType = new EiaType();
 
 		eiaType.setCode(codeItem.getValueAsString());
@@ -224,49 +223,31 @@ public class EIATypeTopForm extends HLayout implements
 		EIATypeModel.find(eiaType, new GHAAsyncCallback<List<EiaType>>() {
 			@Override
 			public void onSuccess(List<EiaType> result) {
-				if (result.size() == 1) {
-					Window.alert("only one result, go to the internal tabset");
-					resultSet.hide();
-				} else {
-					resultSet.setRecords(result);
-					resultSet.show();
-				}
+				resultSet.setRecords(result);
 			}
 
 		});
 	}
 
-	// @Override
-	// public void addEiaTypeSelectionListener(
-	// EIATypeSelectionListener selecionListener) {
-	// selectionListeners.add(selecionListener);
-	// }
-
 	@Override
-	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.DEFAULT_TOP_SECTION_HEIGHT + "px");
+	public void select(EiaType eiaType) {
+		// getEiaTypePicture(eiaType);
+		codeItem.setValue(eiaType.getCode());
+		nameItem.setValue(eiaType.getName());
+
+		if (eiaType.getBrand() != null)
+			brandItem.setValue(eiaType.getBrand().getName());
+
+		modelItem.setValue(eiaType.getModel());
+
+		if (eiaType.getMobility() != null)
+			mobilityItem.setValue(eiaType.getMobility().toString());
+
+		if (eiaType.getType() != null)
+			typeItem.setValue(eiaType.getType().toString());
+
+		if (eiaType.getSubtype() != null)
+			subTypeItem.setValue(eiaType.getSubtype().toString());
 	}
-
-	public boolean isActivate() {
-		return activated;
-	}
-
-	public void activate() {
-		// TODO Set the component to activate state
-		activated = true;
-
-	}
-
-	public void deactivate() {
-		// TODO deactivate the component
-		activated = false;
-	}
-
-	// @Override
-	// public void removeEiaTypeSelectionListener(
-	// EIATypeSelectionListener eIATypeSelectionListener) {
-	// selectionListeners.remove(eIATypeSelectionListener);
-	//
-	// }
 
 }
