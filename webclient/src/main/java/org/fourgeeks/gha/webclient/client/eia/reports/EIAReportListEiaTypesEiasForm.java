@@ -45,7 +45,7 @@ public class EIAReportListEiaTypesEiasForm extends GHAReportForm {
 		// CREANDO LOS ITEMS
 		filtersTitleItem = new GHATitleTextItem("Filtros");
 
-		filtersRadioGroupItem = new GHARadioGroupItem(300, false);
+		filtersRadioGroupItem = new GHARadioGroupItem(350, false);
 
 		eiaTypesSelectItem = new GHASelectItem("Tipo de equipo",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);

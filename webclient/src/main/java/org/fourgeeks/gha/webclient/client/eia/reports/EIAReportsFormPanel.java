@@ -26,6 +26,7 @@ public class EIAReportsFormPanel extends VLayout implements GHAClosable, GHAHide
 	private final EIAReportDetalleEquiposForm detalleEquiposReportForm;
 	private final EIAReportListEiaTypesEiasForm listEiaTypesEiasReportForm;
 	private final EIAReportListEiasForm listEiasReportForm;
+	private final EIAReportListEiaTypeCompsForm listEiaTypeCompsReportForm;
 	private final GHASectionForm secciones;
 
 	/**
@@ -42,6 +43,7 @@ public class EIAReportsFormPanel extends VLayout implements GHAClosable, GHAHide
 		detalleEquiposReportForm = new EIAReportDetalleEquiposForm();
 		listEiaTypesEiasReportForm = new EIAReportListEiaTypesEiasForm();
 		listEiasReportForm = new EIAReportListEiasForm();
+		listEiaTypeCompsReportForm = new EIAReportListEiaTypeCompsForm();
 
 		// CREO EL SECTION FORM DONDE VAN A IR LOS FORMULARIOS
 		secciones = new GHASectionForm();
@@ -49,6 +51,7 @@ public class EIAReportsFormPanel extends VLayout implements GHAClosable, GHAHide
 		secciones.addSection("Detalles de Equipos", detalleEquiposReportForm);
 		secciones.addSection("Listado Tipos de Equipo", listEiaTypesEiasReportForm);
 		secciones.addSection("Listado de Equipos", listEiasReportForm);
+		secciones.addSection("Tipos de Equipo y sus Comp.", listEiaTypeCompsReportForm);
 		secciones.openFirst();
 
 		// CREO EL SIDEBAR

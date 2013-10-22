@@ -40,8 +40,8 @@
 	<field name="code" class="java.lang.String"/>
 	<field name="serial" class="java.lang.String"/>
 	<field name="nombreComponente" class="java.lang.String"/>
-	<group name="Nombre EiaType">
-		<groupExpression><![CDATA[$F{nombreEiaType}]]></groupExpression>
+	<group name="Nombre Componente">
+		<groupExpression><![CDATA[$F{nombreComponente}+$F{nombreEiaType}]]></groupExpression>
 		<groupHeader>
 			<band height="20">
 				<textField>
