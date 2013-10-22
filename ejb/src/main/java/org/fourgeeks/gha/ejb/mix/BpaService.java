@@ -13,6 +13,8 @@ import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.mix.Bpa;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
  * @author emiliot, vivi.torresg
@@ -20,7 +22,7 @@ import org.fourgeeks.gha.domain.mix.Bpa;
  */
 
 @Stateless(name = "mix.BpaService")
-public class BpaService implements BpaServiceRemote {
+public class BpaService extends GHAEJBExceptionImpl implements BpaServiceRemote {
 	@PersistenceContext
 	private EntityManager em;
 
@@ -39,8 +41,8 @@ public class BpaService implements BpaServiceRemote {
 			em.remove(entity);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete Bpa", e);
-			throw new GHAEJBException("ERROR: unable to delete Bpa "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("bpa-delete-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -58,8 +60,8 @@ public class BpaService implements BpaServiceRemote {
 					.setParameter("bpa", bpa).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error finding Bpa by bpa", ex);
-			throw new GHAEJBException("Error obteniendo Bpa por bpa"
-					+ ex.getCause().getMessage());
+			throw super.generateGHAEJBException("bpa-findByBpa-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -74,8 +76,8 @@ public class BpaService implements BpaServiceRemote {
 			return em.find(Bpa.class, Id);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: finding Bpa", e);
-			throw new GHAEJBException("ERROR: finding Bpa "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("bpa-find-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -90,8 +92,8 @@ public class BpaService implements BpaServiceRemote {
 			return em.createNamedQuery("Bpa.getAll", Bpa.class).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all Bpa", ex);
-			throw new GHAEJBException("Error obteniendo todas las Bpa"
-					+ ex.getCause().getMessage());
+			throw super.generateGHAEJBException("bpa-getAll-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -110,8 +112,8 @@ public class BpaService implements BpaServiceRemote {
 			return em.find(Bpa.class, bpa.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving Bpa ", e);
-			throw new GHAEJBException("ERROR: saving Bpa "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("bpa-save-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -130,9 +132,8 @@ public class BpaService implements BpaServiceRemote {
 			return res;
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to update Bpa ", e);
-			throw new GHAEJBException("ERROR: no se puede actualizar el Bpa "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("bpa-update-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
-
 }

@@ -13,13 +13,16 @@ import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.ess.Role;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
  * @author alacret
  * 
  */
 @Stateless(name = "ess.RoleService")
-public class RoleService implements RoleServiceRemote {
+public class RoleService extends GHAEJBExceptionImpl implements
+		RoleServiceRemote {
 	@PersistenceContext
 	EntityManager em;
 
@@ -33,8 +36,8 @@ public class RoleService implements RoleServiceRemote {
 			em.remove(entity);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete Role", e);
-			throw new GHAEJBException("ERROR: unable to delete Role "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("role-delete-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -42,11 +45,12 @@ public class RoleService implements RoleServiceRemote {
 	public List<Role> find(Role roleBase) throws GHAEJBException {
 		try {
 			return em.createNamedQuery("Role.findByName", Role.class)
-					.setParameter("name", roleBase.getName().toLowerCase()).getResultList();
+					.setParameter("name", roleBase.getName().toLowerCase())
+					.getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding Role by Role", e);
-			throw new GHAEJBException("Error buscando Role por Role "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("role-findByRoleBase-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -56,8 +60,8 @@ public class RoleService implements RoleServiceRemote {
 			return em.find(Role.class, Id);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: finding Role", e);
-			throw new GHAEJBException("ERROR: finding Role "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("role-find-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -68,8 +72,8 @@ public class RoleService implements RoleServiceRemote {
 					.getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all Role", ex);
-			throw new GHAEJBException("Error obteniendo todas las Role"
-					+ ex.getCause().getMessage());
+			throw super.generateGHAEJBException("role-getAll-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -80,12 +84,10 @@ public class RoleService implements RoleServiceRemote {
 			em.flush();
 			return em.find(Role.class, entity.getId());
 		} catch (Exception e) {
-			logger.log(Level.INFO,
-					"ERROR: saving Role " + entity.toString(), e);
-			throw new GHAEJBException("ERROR: saving Role "
-					+ e.getCause().getMessage());
+			logger.log(Level.INFO, "ERROR: saving Role " + entity.toString(), e);
+			throw super.generateGHAEJBException("role-save-fail",
+					RuntimeParameters.getLang(), em);
 		}
-
 	}
 
 	@Override
@@ -97,9 +99,8 @@ public class RoleService implements RoleServiceRemote {
 		} catch (Exception e) {
 			logger.log(Level.INFO,
 					"ERROR: unable to update Role " + entity.toString(), e);
-			throw new GHAEJBException("ERROR: no se puede eliminar el Role "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("role-update-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
-
 }

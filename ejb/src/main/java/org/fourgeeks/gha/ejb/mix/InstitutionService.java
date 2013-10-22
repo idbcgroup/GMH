@@ -13,6 +13,8 @@ import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.mix.Institution;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
  * @author emiliot, vivi.torresg
@@ -20,7 +22,8 @@ import org.fourgeeks.gha.domain.mix.Institution;
  */
 
 @Stateless(name = "mix.InstitutionService")
-public class InstitutionService implements InstitutionServiceRemote {
+public class InstitutionService extends GHAEJBExceptionImpl implements
+		InstitutionServiceRemote {
 	@PersistenceContext
 	private EntityManager em;
 
@@ -39,8 +42,8 @@ public class InstitutionService implements InstitutionServiceRemote {
 			em.remove(entity);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete Institution", e);
-			throw new GHAEJBException("ERROR: unable to delete Institution "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("institution-delete-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -62,9 +65,9 @@ public class InstitutionService implements InstitutionServiceRemote {
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE,
 					"Error finding Institution by institution", ex);
-			throw new GHAEJBException(
-					"Error obteniendo Institution por institution"
-							+ ex.getCause().getMessage());
+			throw super.generateGHAEJBException(
+					"institution-findByInstitution-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -79,8 +82,8 @@ public class InstitutionService implements InstitutionServiceRemote {
 			return em.find(Institution.class, Id);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: finding Institution", e);
-			throw new GHAEJBException("ERROR: finding Institution "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("institution-find-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -96,8 +99,8 @@ public class InstitutionService implements InstitutionServiceRemote {
 					.getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all Institution", ex);
-			throw new GHAEJBException("Error obteniendo todas las Institution"
-					+ ex.getCause().getMessage());
+			throw super.generateGHAEJBException("institution-getAll-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -116,8 +119,8 @@ public class InstitutionService implements InstitutionServiceRemote {
 			return em.find(Institution.class, institution.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving Institution ", e);
-			throw new GHAEJBException("ERROR: saving Institution "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("institution-save-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -136,9 +139,8 @@ public class InstitutionService implements InstitutionServiceRemote {
 			return res;
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to update Institution ", e);
-			throw new GHAEJBException(
-					"ERROR: no se puede actualizar el Institution "
-							+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("institution-update-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 }
