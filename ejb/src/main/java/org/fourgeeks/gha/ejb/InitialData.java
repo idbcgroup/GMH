@@ -1212,6 +1212,58 @@ public class InitialData {
 						"serviceResource-update-fail",
 						"Failed to update ServiceResource"));
 
+				// bpa service messages
+				em.persist(new GHAMessage(LanguageEnum.ES, "bpa-delete-fail",
+						"Fallo la eliminación del Bpa"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"bpa-findByBpa-fail", "Búsqueda fallida de Bpa por bpa"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "bpa-find-fail",
+						"Búsqueda fallida de Bpa"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "bpa-getAll-fail",
+						"Búsqueda fallida de todos los Bpa"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "bpa-save-fail",
+						"Guardado fallido de Bpa"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "bpa-update-fail",
+						"Actualización fallida de Bpa"));
+				em.persist(new GHAMessage(LanguageEnum.EN, "bpa-delete-fail",
+						"Failed to delete Bpa"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"bpa-findByBpa-fail", "Failed to find Bpa by bpa"));
+				em.persist(new GHAMessage(LanguageEnum.EN, "bpa-find-fail",
+						"Failed to find Bpa"));
+				em.persist(new GHAMessage(LanguageEnum.EN, "bpa-getAll-fail",
+						"Failed to get all Bpa"));
+				em.persist(new GHAMessage(LanguageEnum.EN, "bpa-save-fail",
+						"Failed to save Bpa"));
+				em.persist(new GHAMessage(LanguageEnum.EN, "bpa-update-fail",
+						"Failed to update Bpa"));
+
+				// bpi service messages
+				em.persist(new GHAMessage(LanguageEnum.ES, "bpi-delete-fail",
+						"Fallo la eliminación del Bpi"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"bpi-findByBpi-fail", "Búsqueda fallida de Bpi por bpi"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "bpi-find-fail",
+						"Búsqueda fallida de Bpi"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "bpi-getAll-fail",
+						"Búsqueda fallida de todos los Bpi"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "bpi-save-fail",
+						"Guardado fallido de Bpi"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "bpi-update-fail",
+						"Actualización fallida de Bpi"));
+				em.persist(new GHAMessage(LanguageEnum.EN, "bpi-delete-fail",
+						"Failed to delete Bpi"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"bpi-findByBpi-fail", "Failed to find Bpi by bpi"));
+				em.persist(new GHAMessage(LanguageEnum.EN, "bpi-find-fail",
+						"Failed to find Bpi"));
+				em.persist(new GHAMessage(LanguageEnum.EN, "bpi-getAll-fail",
+						"Failed to get all Bpi"));
+				em.persist(new GHAMessage(LanguageEnum.EN, "bpi-save-fail",
+						"Failed to save Bpi"));
+				em.persist(new GHAMessage(LanguageEnum.EN, "bpi-update-fail",
+						"Failed to update Bpi"));
+
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating message test data", e1);

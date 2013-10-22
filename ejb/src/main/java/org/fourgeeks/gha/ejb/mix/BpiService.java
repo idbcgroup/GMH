@@ -13,6 +13,8 @@ import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.mix.Bpi;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
  * @author emiliot, vivi.torresg
@@ -20,7 +22,7 @@ import org.fourgeeks.gha.domain.mix.Bpi;
  */
 
 @Stateless(name = "mix.BpiService")
-public class BpiService implements BpiServiceRemote {
+public class BpiService extends GHAEJBExceptionImpl implements BpiServiceRemote {
 	@PersistenceContext
 	private EntityManager em;
 
@@ -39,8 +41,8 @@ public class BpiService implements BpiServiceRemote {
 			em.remove(entity);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete Bpi", e);
-			throw new GHAEJBException("ERROR: unable to delete Bpi "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("bpi-delete-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -58,8 +60,8 @@ public class BpiService implements BpiServiceRemote {
 					.setParameter("bpi", bpi).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error finding Bpi by bpi", ex);
-			throw new GHAEJBException("Error obteniendo Bpi por bpi"
-					+ ex.getCause().getMessage());
+			throw super.generateGHAEJBException("bpi-findByBpi-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -74,8 +76,8 @@ public class BpiService implements BpiServiceRemote {
 			return em.find(Bpi.class, Id);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: finding Bpi", e);
-			throw new GHAEJBException("ERROR: finding Bpi "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("bpi-find-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -90,8 +92,8 @@ public class BpiService implements BpiServiceRemote {
 			return em.createNamedQuery("Bpi.getAll", Bpi.class).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all Bpi", ex);
-			throw new GHAEJBException("Error obteniendo todas las Bpi"
-					+ ex.getCause().getMessage());
+			throw super.generateGHAEJBException("bpi-getAll-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -110,8 +112,8 @@ public class BpiService implements BpiServiceRemote {
 			return em.find(Bpi.class, bpi.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving Bpi ", e);
-			throw new GHAEJBException("ERROR: saving Bpi "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("bpi-save-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -130,9 +132,8 @@ public class BpiService implements BpiServiceRemote {
 			return res;
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to update Bpi ", e);
-			throw new GHAEJBException("ERROR: no se puede actualizar el Bpi "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("bpi-update-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
-
 }
