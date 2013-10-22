@@ -275,7 +275,7 @@ public class EIATypeTopForm extends HLayout implements
 		if (eiaType.getSubtype() != null)
 			subTypeItem.setValue(eiaType.getSubtype().toString());
 
-		// TODO: Lock fields of topForm
+		// lock fields of the topform
 		disableFields();
 	}
 
