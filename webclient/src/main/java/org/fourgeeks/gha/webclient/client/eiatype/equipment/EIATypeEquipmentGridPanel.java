@@ -158,12 +158,12 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 	@Override
 	public void close() {
 		eiaAddForm.animateHide(AnimationEffect.FLY);
-		eiaAddForm.destroy();
+		eiaAddForm.close();
 	}
 
 	@Override
 	public void hide() {
-		eiaAddForm.hide();
+		eiaAddForm.animateHide(AnimationEffect.FLY);
 	}
 
 	/*

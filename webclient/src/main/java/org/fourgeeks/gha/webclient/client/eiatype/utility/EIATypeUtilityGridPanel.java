@@ -15,6 +15,7 @@ import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.material.MaterialSelectionListener;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
@@ -109,18 +110,18 @@ public class EIATypeUtilityGridPanel extends VLayout implements
 
 	@Override
 	public void select(EiaType eiaType) {
-		// TODO Auto-generated method stub
 		this.eiaType = eiaType;
 	}
 
 	@Override
 	public void close() {
+		utilitySearchForm.animateHide(AnimationEffect.FLY);
 		utilitySearchForm.close();
 	}
 
 	@Override
 	public void hide() {
-		utilitySearchForm.hide();
+		utilitySearchForm.animateHide(AnimationEffect.FLY);
 	}
 
 	private void loadData() {

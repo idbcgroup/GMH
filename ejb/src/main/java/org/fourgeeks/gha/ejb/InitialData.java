@@ -1425,7 +1425,13 @@ public class InitialData {
 		} catch (NoResultException e) {
 			try {
 				logger.info("Creating uistrings test data");
+				em.persist(new UiString(LanguageEnum.ES, "utility-services",
+						"Servicios utilitarios"));
+				em.persist(new UiString(LanguageEnum.ES, "materials",
+						"Materiales"));
 				em.persist(new UiString(LanguageEnum.ES, "name", "Nombre"));
+				em.persist(new UiString(LanguageEnum.ES, "components",
+						"Componentes"));
 				em.persist(new UiString(LanguageEnum.ES, "information",
 						"Información"));
 				em.persist(new UiString(LanguageEnum.ES, "equipments",

@@ -6,8 +6,11 @@ import java.util.List;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 
@@ -25,7 +28,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class EiaTypeResultSet extends VLayout implements
-		EiaTypeSelectionProducer, ResizeHandler {
+		EiaTypeSelectionProducer, ResizeHandler, GHAHideable, GHAClosable {
 	private List<EIATypeSelectionListener> listeners;
 	private EIATypeGrid grid;
 
@@ -136,6 +139,21 @@ public class EiaTypeResultSet extends VLayout implements
 		grid.setData(array);
 		// setAnimateAcceleration(AnimationAcceleration.NONE);
 		this.animateShow(AnimationEffect.FADE);
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		return true;
+	}
+
+	@Override
+	public void close() throws UnavailableToCloseException {
+		destroy();
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		return true;
 	}
 
 }

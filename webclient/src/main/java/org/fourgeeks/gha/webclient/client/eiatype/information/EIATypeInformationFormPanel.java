@@ -437,7 +437,7 @@ public class EIATypeInformationFormPanel extends VLayout implements
 
 	@Override
 	public void close() {
-
+		destroy();
 	}
 
 	@Override

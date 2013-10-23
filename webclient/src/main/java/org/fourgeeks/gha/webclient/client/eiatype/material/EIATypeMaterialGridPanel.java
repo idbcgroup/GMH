@@ -15,6 +15,7 @@ import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.material.MaterialSearchForm;
 import org.fourgeeks.gha.webclient.client.material.MaterialSelectionListener;
 
+import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
@@ -118,6 +119,7 @@ public class EIATypeMaterialGridPanel extends VLayout implements
 
 	@Override
 	public void close() {
+		materialSearchForm.animateHide(AnimationEffect.FLY);
 		materialSearchForm.close();
 	}
 
@@ -128,7 +130,7 @@ public class EIATypeMaterialGridPanel extends VLayout implements
 	 */
 	@Override
 	public void hide() {
-		materialSearchForm.hide();
+		materialSearchForm.animateHide(AnimationEffect.FLY);
 	}
 
 	@Override
