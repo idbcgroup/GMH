@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.Eia;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader;
 
@@ -18,13 +19,13 @@ public class EIATab extends GHATab implements EIASelectionListener,
 	 * The ID of the Tab in the app managers
 	 */
 	public static final String ID = "eia";
-	private static final String TITLE = "Equipos";
+	private static final String TITLE = GHAStrings.get("equipos");
 	private EIATopSection topSection;
 	private EIAInternalTabset internalTabset;
-	private List<EIASelectionListener> selectionListeners;
+	private List<EIASelectionListener> listeners;
 	private Eia eia;
 	{
-		selectionListeners = new ArrayList<EIASelectionListener>();
+		listeners = new ArrayList<EIASelectionListener>();
 	}
 
 	/**
@@ -59,20 +60,20 @@ public class EIATab extends GHATab implements EIASelectionListener,
 
 	@Override
 	public void select(Eia eia) {
-		for (EIASelectionListener listener : selectionListeners)
+		for (EIASelectionListener listener : listeners)
 			listener.select(eia);
 	}
 
 	@Override
 	public void addEiaSelectionListener(
 			EIASelectionListener eiaSelectionListener) {
-		selectionListeners.add(eiaSelectionListener);
+		listeners.add(eiaSelectionListener);
 	}
 
 	@Override
 	public void removeEiaSelectionListener(
 			EIASelectionListener eiaSelectionListener) {
-		selectionListeners.remove(eiaSelectionListener);
+		listeners.remove(eiaSelectionListener);
 	}
 
 	@Override
