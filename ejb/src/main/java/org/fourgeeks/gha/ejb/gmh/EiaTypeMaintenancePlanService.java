@@ -15,39 +15,52 @@ import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
- * @author emiliot
- *
+ * @author emiliot, vivi.torresg
+ * 
  */
 
 @Stateless(name = "gmh.eiaTypeMaintenancePlanService")
-public class EiaTypeMaintenancePlanService implements
-		EiaTypeMaintenancePlanServiceRemote {
-	
+public class EiaTypeMaintenancePlanService extends GHAEJBExceptionImpl
+		implements EiaTypeMaintenancePlanServiceRemote {
+
 	@PersistenceContext
 	EntityManager em;
 
-	private final static Logger logger = Logger.getLogger(EiaTypeMaintenancePlanService.class
-			.getName());
+	private final static Logger logger = Logger
+			.getLogger(EiaTypeMaintenancePlanService.class.getName());
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypeMaintenancePlanServiceRemote#delete(long)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.EiaTypeMaintenancePlanServiceRemote#delete(
+	 * long)
 	 */
 	@Override
 	public void delete(long Id) throws GHAEJBException {
 		try {
-			EiaTypeMaintenancePlan entity = em.find(EiaTypeMaintenancePlan.class, Id);
+			EiaTypeMaintenancePlan entity = em.find(
+					EiaTypeMaintenancePlan.class, Id);
 			em.remove(entity);
 		} catch (Exception e) {
-			logger.log(Level.INFO, "ERROR: unable to delete EiaTypeMaintenancePlan", e);
-			throw new GHAEJBException("Error eliminando EiaTypeMaintenancePlan por id "
-					+ e.getCause().getMessage());
+			logger.log(Level.INFO,
+					"ERROR: unable to delete EiaTypeMaintenancePlan", e);
+			throw super.generateGHAEJBException(
+					"eiaTypeMaintenancePlan-delete-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypeMaintenancePlanServiceRemote#save(org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.EiaTypeMaintenancePlanServiceRemote#save(org
+	 * .fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan)
 	 */
 	@Override
 	public EiaTypeMaintenancePlan save(
@@ -56,45 +69,65 @@ public class EiaTypeMaintenancePlanService implements
 		try {
 			em.persist(eiaTypeMaintenancePlan);
 			em.flush();
-			return em.find(EiaTypeMaintenancePlan.class, eiaTypeMaintenancePlan.getId());
+			return em.find(EiaTypeMaintenancePlan.class,
+					eiaTypeMaintenancePlan.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving EiaTypeMaintenancePlan ", e);
-			throw new GHAEJBException("ERROR: saving EiaTypeMaintenancePlan "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException(
+					"eiaTypeMaintenancePlan-save-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypeMaintenancePlanServiceRemote#findByEiaType(org.fourgeeks.gha.domain.gmh.EiaType)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.EiaTypeMaintenancePlanServiceRemote#findByEiaType
+	 * (org.fourgeeks.gha.domain.gmh.EiaType)
 	 */
 	@Override
 	public List<EiaTypeMaintenancePlan> findByEiaType(EiaType eiaType)
 			throws GHAEJBException {
 		try {
-			return em.createNamedQuery("EiaTypeMaintenancePlan.findByEiaType", EiaTypeMaintenancePlan.class)
+			return em
+					.createNamedQuery("EiaTypeMaintenancePlan.findByEiaType",
+							EiaTypeMaintenancePlan.class)
 					.setParameter("eiaType", eiaType).getResultList();
 		} catch (Exception ex) {
-			logger.log(Level.SEVERE, "Error retriving all EiaTypeMaintenancePlans by eiatype", ex);
-			throw new GHAEJBException(
-					"Error obteniendo todos los EiaTypeMaintenancePlans por eiatype");
+			logger.log(Level.SEVERE,
+					"Error retriving all EiaTypeMaintenancePlans by eiatype",
+					ex);
+			throw super.generateGHAEJBException(
+					"eiaTypeMaintenancePlan-findByEiaType-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypeMaintenancePlanServiceRemote#findByMaintenancePlan(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypeMaintenancePlanServiceRemote#
+	 * findByMaintenancePlan(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
 	 */
 	@Override
 	public List<EiaTypeMaintenancePlan> findByMaintenancePlan(
 			MaintenancePlan maintenancePlan) throws GHAEJBException {
 		try {
-			return em.createNamedQuery("EiaTypeMaintenancePlan.findByMaintenancePlan", EiaTypeMaintenancePlan.class)
-					.setParameter("maintenancePlan", maintenancePlan).getResultList();
+			return em
+					.createNamedQuery(
+							"EiaTypeMaintenancePlan.findByMaintenancePlan",
+							EiaTypeMaintenancePlan.class)
+					.setParameter("maintenancePlan", maintenancePlan)
+					.getResultList();
 		} catch (Exception ex) {
-			logger.log(Level.SEVERE, "Error retriving all EiaTypeMaintenancePlans by maintenancePlan", ex);
-			throw new GHAEJBException(
-					"Error obteniendo todos los EiaTypeMaintenancePlans por plan de mantenimiento");
+			logger.log(
+					Level.SEVERE,
+					"Error retriving all EiaTypeMaintenancePlans by maintenancePlan",
+					ex);
+			throw super.generateGHAEJBException(
+					"eiaTypeMaintenancePlan-findByMaintenancePlan-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
-
-
 }

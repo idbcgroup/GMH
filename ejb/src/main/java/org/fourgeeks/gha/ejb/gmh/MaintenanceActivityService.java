@@ -21,13 +21,15 @@ import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.ServiceResource;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
- * @author emiliot
+ * @author emiliot, vivi.torresg
  * 
  */
 @Stateless(name = "gmh.maintenanceActivityService")
-public class MaintenanceActivityService implements
+public class MaintenanceActivityService extends GHAEJBExceptionImpl implements
 		MaintenanceActivityServiceRemote {
 	@PersistenceContext
 	EntityManager em;
@@ -49,9 +51,9 @@ public class MaintenanceActivityService implements
 		} catch (Exception e) {
 			logger.log(Level.INFO,
 					"ERROR: unable to delete MaintenanceActivity", e);
-			throw new GHAEJBException(
-					"Error eliminando MaintenanceActivity por id "
-							+ e.getCause().getMessage());
+			throw super.generateGHAEJBException(
+					"maintenanceActivity-delete-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -77,9 +79,9 @@ public class MaintenanceActivityService implements
 					Level.INFO,
 					"Error: finding MaintenanceActivity by MaintenanceProtocol",
 					e);
-			throw new GHAEJBException(
-					"Error buscando MaintenanceActivity por MaintenanceProtocol"
-							+ e.getCause().getMessage());
+			throw super.generateGHAEJBException(
+					"maintenanceActivity-findByMaintenanceProtocol-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -103,9 +105,9 @@ public class MaintenanceActivityService implements
 					.setFirstResult(offset).setMaxResults(size).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding by MaintenanceProtocol", e);
-			throw new GHAEJBException(
-					"Error buscando MaintenanceActivity por MaintenanceProtocol"
-							+ e.getCause().getMessage());
+			throw super.generateGHAEJBException(
+					"maintenanceActivity-findByMaintenanceProtocol-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -128,9 +130,9 @@ public class MaintenanceActivityService implements
 					.getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding by Resource/Service", e);
-			throw new GHAEJBException(
-					"Error buscando MaintenanceActivity por Resource/Service"
-							+ e.getCause().getMessage());
+			throw super.generateGHAEJBException(
+					"maintenanceActivity-findByServiceResource-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -146,8 +148,9 @@ public class MaintenanceActivityService implements
 			return em.find(MaintenanceActivity.class, Id);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: finding MaintenanceActivity", e);
-			throw new GHAEJBException("ERROR: finding MaintenanceActivity "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException(
+					"maintenanceActivity-find-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -163,9 +166,9 @@ public class MaintenanceActivityService implements
 					MaintenanceActivity.class).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding all MaintenanceActivity", e);
-			throw new GHAEJBException(
-					"Error buscando todos los MaintenanceActivity"
-							+ e.getCause().getMessage());
+			throw super.generateGHAEJBException(
+					"maintenanceActivity-getAll-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -186,9 +189,9 @@ public class MaintenanceActivityService implements
 					.setMaxResults(size).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding all MaintenanceActivity", e);
-			throw new GHAEJBException(
-					"Error buscando todos los MaintenanceActivity"
-							+ e.getCause().getMessage());
+			throw super.generateGHAEJBException(
+					"maintenanceActivity-getAll-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -208,8 +211,9 @@ public class MaintenanceActivityService implements
 			return em.find(MaintenanceActivity.class, protocolActivity.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving MaintenanceActivity ", e);
-			throw new GHAEJBException("ERROR: saving MaintenanceActivity "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException(
+					"maintenanceActivity-save-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -230,9 +234,9 @@ public class MaintenanceActivityService implements
 		} catch (Exception e) {
 			logger.log(Level.INFO,
 					"ERROR: unable to update MaintenanceActivity ", e);
-			throw new GHAEJBException(
-					"ERROR: no se puede actualizar el MaintenanceActivity "
-							+ e.getCause().getMessage());
+			throw super.generateGHAEJBException(
+					"maintenanceActivity-update-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -277,9 +281,9 @@ public class MaintenanceActivityService implements
 			logger.log(Level.SEVERE,
 					"Error obteniendo los maintenancePlan por maintenancePlan",
 					e);
-			throw new GHAEJBException(
-					"Error obteniendo los maintenancePlan por maintenancePlan "
-							+ e.getCause().getMessage());
+			throw super.generateGHAEJBException(
+					"maintenanceActivity-findByMaintenanceActivity-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 

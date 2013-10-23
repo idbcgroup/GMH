@@ -26,13 +26,16 @@ import org.fourgeeks.gha.domain.enu.ProviderTypeEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.mix.Institution;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
- * @author alacret
+ * @author alacret, vivi.torresg
  * 
  */
 @Stateless(name = "glm.ExternalProviderService")
-public class ExternalProviderService implements ExternalProviderServiceRemote {
+public class ExternalProviderService extends GHAEJBExceptionImpl implements
+		ExternalProviderServiceRemote {
 	@PersistenceContext
 	EntityManager em;
 
@@ -70,19 +73,19 @@ public class ExternalProviderService implements ExternalProviderServiceRemote {
 					root.<ProviderPreferenceEnum> get("preference"), p));
 
 		}
-//		if (entity.getPrimaryBrand() != null) {
-//			ParameterExpression<Brand> p = cb.parameter(Brand.class,
-//					"primaryBrand");
-//			criteria = cb.and(criteria,
-//					cb.equal(root.<Brand> get("primaryBrand"), p));
-//		}
-//		if (entity.getPrimaryManufacturer() != null) {
-//			ParameterExpression<Manufacturer> p = cb.parameter(
-//					Manufacturer.class, "primaryManufacturer");
-//			criteria = cb
-//					.and(criteria, cb.equal(
-//							root.<Manufacturer> get("primaryManufacturer"), p));
-//		}
+		// if (entity.getPrimaryBrand() != null) {
+		// ParameterExpression<Brand> p = cb.parameter(Brand.class,
+		// "primaryBrand");
+		// criteria = cb.and(criteria,
+		// cb.equal(root.<Brand> get("primaryBrand"), p));
+		// }
+		// if (entity.getPrimaryManufacturer() != null) {
+		// ParameterExpression<Manufacturer> p = cb.parameter(
+		// Manufacturer.class, "primaryManufacturer");
+		// criteria = cb
+		// .and(criteria, cb.equal(
+		// root.<Manufacturer> get("primaryManufacturer"), p));
+		// }
 		if (entity.getQualification() != null) {
 			ParameterExpression<ProviderQualEnum> p = cb.parameter(
 					ProviderQualEnum.class, "qualification");
@@ -124,8 +127,8 @@ public class ExternalProviderService implements ExternalProviderServiceRemote {
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete ExternalProvider",
 					e);
-			throw new GHAEJBException("ERROR: unable to delete ExternalProvider "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("externalProvider-delete-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -139,7 +142,7 @@ public class ExternalProviderService implements ExternalProviderServiceRemote {
 			Root<ExternalProvider> root = cQuery.from(ExternalProvider.class);
 			cQuery.select(root);
 			cQuery.orderBy(cb.asc(root.get("id")));
-			
+
 			Predicate criteria = buildFilters(entity, cb, root);
 			cQuery.where(criteria);
 
@@ -160,13 +163,13 @@ public class ExternalProviderService implements ExternalProviderServiceRemote {
 				if (entity.getPreference() != null) {
 					q.setParameter("preference", entity.getPreference());
 				}
-//				if (entity.getPrimaryBrand() != null) {
-//					q.setParameter("primaryBrand", entity.getPrimaryBrand());
-//				}
-//				if (entity.getPrimaryManufacturer() != null) {
-//					q.setParameter("primaryManufacturer",
-//							entity.getPrimaryManufacturer());
-//				}
+				// if (entity.getPrimaryBrand() != null) {
+				// q.setParameter("primaryBrand", entity.getPrimaryBrand());
+				// }
+				// if (entity.getPrimaryManufacturer() != null) {
+				// q.setParameter("primaryManufacturer",
+				// entity.getPrimaryManufacturer());
+				// }
 				if (entity.getQualification() != null) {
 					q.setParameter("qualification", entity.getQualification());
 				}
@@ -190,9 +193,9 @@ public class ExternalProviderService implements ExternalProviderServiceRemote {
 					Level.SEVERE,
 					"Error obteniendo buscando los ExternalProviders por externalProvider",
 					e);
-			throw new GHAEJBException(
-					"Error obteniendo buscando los ExternalProviders por externalProvider "
-							+ e.getCause().getMessage());
+			throw super.generateGHAEJBException(
+					"externalProvider-findByExternalProvider-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -202,8 +205,8 @@ public class ExternalProviderService implements ExternalProviderServiceRemote {
 			return em.find(ExternalProvider.class, Id);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: finding ExternalProvider", e);
-			throw new GHAEJBException("ERROR: finding ExternalProvider "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("externalProvider-find-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -215,14 +218,14 @@ public class ExternalProviderService implements ExternalProviderServiceRemote {
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all ExternalProviders",
 					ex);
-			throw new GHAEJBException(
-					"Error obteniendo todas las ExternalProvider"
-							+ ex.getCause().getMessage());
+			throw super.generateGHAEJBException("externalProvider-getAll-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
 	@Override
-	public ExternalProvider save(ExternalProvider entity) throws GHAEJBException {
+	public ExternalProvider save(ExternalProvider entity)
+			throws GHAEJBException {
 		try {
 			em.persist(entity);
 			em.flush();
@@ -230,14 +233,14 @@ public class ExternalProviderService implements ExternalProviderServiceRemote {
 		} catch (Exception e) {
 			logger.log(Level.INFO,
 					"ERROR: saving ExternalProvider " + entity.toString(), e);
-			throw new GHAEJBException("ERROR: saving ExternalProvider "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("externalProvider-save-fail",
+					RuntimeParameters.getLang(), em);
 		}
-
 	}
 
 	@Override
-	public ExternalProvider update(ExternalProvider entity) throws GHAEJBException {
+	public ExternalProvider update(ExternalProvider entity)
+			throws GHAEJBException {
 		try {
 			ExternalProvider res = em.merge(entity);
 			em.flush();
@@ -245,10 +248,8 @@ public class ExternalProviderService implements ExternalProviderServiceRemote {
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to update ExternalProvider "
 					+ entity.toString(), e);
-			throw new GHAEJBException(
-					"ERROR: no se puede eliminar el ExternalProvider "
-							+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("externalProvider-update-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
-
 }

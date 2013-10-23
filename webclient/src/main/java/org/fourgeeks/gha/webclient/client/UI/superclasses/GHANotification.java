@@ -14,6 +14,8 @@ import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.Positioning;
@@ -116,37 +118,47 @@ public class GHANotification {
 			ResizeHandler, GHAClosable {
 
 		private int width = 300;
+		private HTML backDiv = new HTML();
 
 		public ModalInfoNotification(String title, String errorMessage) {
 			super();
 			GHAUiHelper.addGHAResizeHandler(this);
 
-			setPosition(Positioning.ABSOLUTE);
 			setWidth(width);
 			setHeight("*");
 			setLeft((Window.getClientWidth() / 2) - (width / 2));
 			setTop(140);
+			setPosition(Positioning.ABSOLUTE);
+			setBackgroundColor("#E0E0E0");
+			setBorder("1px solid #E0E0E0");
 			setDefaultLayoutAlign(Alignment.CENTER);
-
+			setMembersMargin(10);
 			setVisible(false);
-			setAnimateTime(600);
+			setAnimateTime(60);
 
-			setShadowDepth(6);
+			setShadowDepth(4);
 			setShowShadow(true);
+			setZIndex(444444);
 
+			backDiv.setWidth("100%");
+			backDiv.setHeight("100%");
+			backDiv.setStyleName("backDivDim");
+			backDiv.setVisible(false);
 			// TITLE LAYOUT
 			HLayout titleLayout = GHAUiHelper.verticalGraySeparatorLabel(
 					"40px", "Informacion");
 
 			// LABEL LAYOUT
 			GHALabel errorText = new GHALabel(errorMessage);
+			errorText.setStyleName("text-label");
 
 			VLayout userdataLayout = new VLayout();
 			userdataLayout.setHeight("*");
 			userdataLayout.setWidth100();
-			userdataLayout.setStyleName("sides-padding padding-top");
-			userdataLayout.setBackgroundColor("#EOEOEO");
+			userdataLayout.setStyleName("sides-padding padding-top padding-bot");
+			userdataLayout.setBackgroundColor("#E0E0E0");
 			userdataLayout.setAlign(Alignment.CENTER);
+			userdataLayout.setDefaultLayoutAlign(Alignment.CENTER);
 			userdataLayout.setMembersMargin(10);
 
 			GHAButton acceptButton = new GHAButton("Aceptar",
@@ -182,13 +194,20 @@ public class GHANotification {
 		@Override
 		public void close() {
 			// TODO Auto-generated method stub
+			RootPanel.get("notificationsBackDiv").removeStyleName("dim");
+			
 			animateHide(AnimationEffect.FADE);
+			backDiv.setVisible(false);
 		}
 
 		@Override
 		public void show() {
-			super.show();
+//			super.show();
+			RootPanel.get("notificationsBackDiv").addStyleName("dim");
+			
 			animateShow(AnimationEffect.FADE);
+			setVisible(true);
+			bringToFront();
 		}
 
 		@Override

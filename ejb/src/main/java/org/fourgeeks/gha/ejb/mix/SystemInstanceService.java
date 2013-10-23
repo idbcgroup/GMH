@@ -13,13 +13,16 @@ import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.mix.SystemInstance;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
  * @author emiliot, vivi.torresg
  * 
  */
 @Stateless(name = "mix.SystemInstanceService")
-public class SystemInstanceService implements SystemInstanceServiceRemote {
+public class SystemInstanceService extends GHAEJBExceptionImpl implements
+		SystemInstanceServiceRemote {
 	@PersistenceContext
 	private EntityManager em;
 
@@ -39,8 +42,8 @@ public class SystemInstanceService implements SystemInstanceServiceRemote {
 			em.remove(entity);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete SystemInstance", e);
-			throw new GHAEJBException("ERROR: unable to delete SystemInstance "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("systemInstance-delete-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -63,9 +66,9 @@ public class SystemInstanceService implements SystemInstanceServiceRemote {
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE,
 					"Error finding SystemInstance by systemInstance", ex);
-			throw new GHAEJBException(
-					"Error obteniendo SystemInstance por systemInstance"
-							+ ex.getCause().getMessage());
+			throw super.generateGHAEJBException(
+					"systemInstance-findBySystemInstance-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -80,8 +83,8 @@ public class SystemInstanceService implements SystemInstanceServiceRemote {
 			return em.find(SystemInstance.class, Id);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: finding SystemInstance", e);
-			throw new GHAEJBException("ERROR: finding SystemInstance "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("systemInstance-find-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -97,9 +100,8 @@ public class SystemInstanceService implements SystemInstanceServiceRemote {
 					SystemInstance.class).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all SystemInstance", ex);
-			throw new GHAEJBException(
-					"Error obteniendo todas las SystemInstance"
-							+ ex.getCause().getMessage());
+			throw super.generateGHAEJBException("systemInstance-getAll-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -119,8 +121,8 @@ public class SystemInstanceService implements SystemInstanceServiceRemote {
 			return em.find(SystemInstance.class, systemInstance.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving SystemInstance ", e);
-			throw new GHAEJBException("ERROR: saving SystemInstance "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("systemInstance-save-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -140,10 +142,8 @@ public class SystemInstanceService implements SystemInstanceServiceRemote {
 			return res;
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to update SystemInstance ", e);
-			throw new GHAEJBException(
-					"ERROR: no se puede actualizar el SystemInstance "
-							+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("systemInstance-update-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
-
 }

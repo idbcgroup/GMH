@@ -18,13 +18,16 @@ import org.fourgeeks.gha.domain.enu.LocationLevelEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.mix.Bpi;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
- * @author alacret
+ * @author alacret, vivi.torresg
  * 
  */
 @Stateless(name = "gmh.BuildingLocationService")
-public class BuildingLocationService implements BuildingLocationServiceRemote {
+public class BuildingLocationService extends GHAEJBExceptionImpl implements
+		BuildingLocationServiceRemote {
 	@PersistenceContext
 	EntityManager em;
 
@@ -82,8 +85,8 @@ public class BuildingLocationService implements BuildingLocationServiceRemote {
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete BuildingLocation",
 					e);
-			throw new GHAEJBException("ERROR: unable to delete BuildingLocation "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("buildingLocation-delete-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -127,9 +130,9 @@ public class BuildingLocationService implements BuildingLocationServiceRemote {
 		} catch (Exception e) {
 			logger.log(Level.INFO,
 					"Error: finding BuildingLocation by BuildingLocation", e);
-			throw new GHAEJBException(
-					"Error finding BuildingLocation by BuildingLocation "
-							+ e.getCause().getMessage());
+			throw super.generateGHAEJBException(
+					"buildingLocation-findByBuildingLocation-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -139,8 +142,8 @@ public class BuildingLocationService implements BuildingLocationServiceRemote {
 			return em.find(BuildingLocation.class, id);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: finding BuildingLocation", e);
-			throw new GHAEJBException("ERROR: finding BuildingLocation "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("buildingLocation-find-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -152,13 +155,14 @@ public class BuildingLocationService implements BuildingLocationServiceRemote {
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all BuildingLocation",
 					ex);
-			throw new GHAEJBException("Error obteniendo todas las brands"
-					+ ex.getCause().getMessage());
+			throw super.generateGHAEJBException("buildingLocation-getAll-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
 	@Override
-	public BuildingLocation save(BuildingLocation entity) throws GHAEJBException {
+	public BuildingLocation save(BuildingLocation entity)
+			throws GHAEJBException {
 		try {
 			em.persist(entity);
 			em.flush();
@@ -166,14 +170,15 @@ public class BuildingLocationService implements BuildingLocationServiceRemote {
 		} catch (Exception e) {
 			logger.log(Level.INFO,
 					"ERROR: saving BuildingLocation " + entity.toString(), e);
-			throw new GHAEJBException("ERROR: saving BuildingLocation "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("buildingLocation-save-fail",
+					RuntimeParameters.getLang(), em);
 		}
 
 	}
 
 	@Override
-	public BuildingLocation update(BuildingLocation entity) throws GHAEJBException {
+	public BuildingLocation update(BuildingLocation entity)
+			throws GHAEJBException {
 		try {
 			BuildingLocation res = em.merge(entity);
 			em.flush();
@@ -181,9 +186,8 @@ public class BuildingLocationService implements BuildingLocationServiceRemote {
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to update BuildingLocation "
 					+ entity.toString(), e);
-			throw new GHAEJBException(
-					"ERROR: no se puede eliminar el BuildingLocation "
-							+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("buildingLocation-update-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 

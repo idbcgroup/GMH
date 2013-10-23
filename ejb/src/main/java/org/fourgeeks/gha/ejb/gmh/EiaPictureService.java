@@ -15,14 +15,17 @@ import javax.persistence.PersistenceContext;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaPicture;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
- * @author emiliot
+ * @author emiliot, vivi.torresg
  * 
  */
 
 @Stateless(name = "gmh.EiaPictureService")
-public class EiaPictureService implements EiaPictureServiceRemote {
+public class EiaPictureService extends GHAEJBExceptionImpl implements
+		EiaPictureServiceRemote {
 	@PersistenceContext
 	EntityManager em;
 
@@ -40,11 +43,10 @@ public class EiaPictureService implements EiaPictureServiceRemote {
 			EiaPicture entity = em.find(EiaPicture.class, Id);
 			em.remove(entity);
 			return true;
-
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete EiaPicture", e);
-			throw new GHAEJBException("Error eliminando EiaPicture por id "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("eiaPicture-delete-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -65,10 +67,9 @@ public class EiaPictureService implements EiaPictureServiceRemote {
 			logger.log(Level.INFO, "No results", e);
 		} catch (Exception ex) {
 			logger.log(Level.INFO, "Error buscando EiaPicture por Eia ", ex);
-			throw new GHAEJBException("Error buscando EiaPicture por Eia "
-					+ ex.getCause().getMessage());
+			throw super.generateGHAEJBException("eiaPicture-findByEia-fail",
+					RuntimeParameters.getLang(), em);
 		}
-
 		return res;
 	}
 
@@ -83,8 +84,8 @@ public class EiaPictureService implements EiaPictureServiceRemote {
 			return em.find(EiaPicture.class, Id);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error buscando EiaPicture por Id ", e);
-			throw new GHAEJBException("Error buscando EiaPicture por Id "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("eiaPicture-find-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -103,8 +104,8 @@ public class EiaPictureService implements EiaPictureServiceRemote {
 			return em.find(EiaPicture.class, eiaPicture.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving EiaPicture", e);
-			throw new GHAEJBException("Error guardando EiaPicture: "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("eiaPicture-save-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -122,9 +123,8 @@ public class EiaPictureService implements EiaPictureServiceRemote {
 			return true;
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to update eiaPicture", e);
-			throw new GHAEJBException("Error actualizando eiaPicture "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("eiaPicture-update-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
-
 }

@@ -108,11 +108,11 @@ public class GhaServiceTest {
 				.addPackage(FunctionServiceRemote.class.getPackage())
 				.addPackage(GHAEJBException.class.getPackage())
 				.addPackage(GhaServiceTest.class.getPackage())
+				.addPackage(GHAMessage.class.getPackage())
 				.addPackage(InstanceLogonService.class.getPackage())
 				.addPackage(LanguageService.class.getPackage())
 				.addPackage(LogonLog.class.getPackage())
 				.addPackage(LogonLogServiceRemote.class.getPackage())
-				.addPackage(GHAMessage.class.getPackage())
 				.addPackage(MessageService.class.getPackage())
 				.addPackage(Parameter.class.getPackage())
 				.addAsResource("test-persistence.xml",

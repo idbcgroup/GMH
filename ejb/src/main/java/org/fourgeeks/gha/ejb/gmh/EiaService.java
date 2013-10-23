@@ -27,6 +27,8 @@ import org.fourgeeks.gha.domain.gar.Obu;
 //import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
  * @author emiliot, vivi.torresg
@@ -34,7 +36,7 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
  */
 
 @Stateless(name = "gmh.EiaService")
-public class EiaService implements EiaServiceRemote {
+public class EiaService extends GHAEJBExceptionImpl implements EiaServiceRemote {
 	@PersistenceContext
 	EntityManager em;
 
@@ -44,7 +46,6 @@ public class EiaService implements EiaServiceRemote {
 	private final static Predicate buildFilters(Eia entity, CriteriaBuilder cb,
 			Root<Eia> root) {
 		Predicate criteria = cb.conjunction();
-
 		if (entity.getResponsibleRole() != null) {
 			System.out.println("1");
 			ParameterExpression<Role> p = cb.parameter(Role.class, "baseRole");
@@ -103,7 +104,6 @@ public class EiaService implements EiaServiceRemote {
 			criteria = cb.and(criteria,
 					cb.equal(root.<Facility> get("facility"), p));
 		}
-
 		return criteria;
 	}
 
@@ -118,15 +118,13 @@ public class EiaService implements EiaServiceRemote {
 			Eia entity = em.find(Eia.class, Id);
 			em.remove(entity);
 			return true;
-
 		} catch (Exception e) {
 			logger.log(Level.INFO,
 					"ERROR: unable to delete eia=" + Eia.class.getName()
 							+ " with id=" + Long.toString(Id), e);
-			throw new GHAEJBException("ERROR: eliminando un eia por id "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("eia-delete-fail",
+					RuntimeParameters.getLang(), em);
 		}
-
 	}
 
 	/*
@@ -187,9 +185,8 @@ public class EiaService implements EiaServiceRemote {
 		} catch (Exception e) {
 			logger.log(Level.SEVERE,
 					"Error obteniendo los Eia utilizando otro Eia", e);
-			throw new GHAEJBException(
-					"Error obteniendo los Eia utilizando otro Eia "
-							+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("eia-findByEia-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -207,8 +204,8 @@ public class EiaService implements EiaServiceRemote {
 					.setParameter("eiaType", eiaType).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding eia by eiatype", e);
-			throw new GHAEJBException("Error buscando eia por eiatype "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("eia-findByEiaType-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -223,8 +220,8 @@ public class EiaService implements EiaServiceRemote {
 			return em.find(Eia.class, Id);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: finding eia by id", e);
-			throw new GHAEJBException("Error buscando eia por id "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("eia-find-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -239,8 +236,8 @@ public class EiaService implements EiaServiceRemote {
 			return em.createNamedQuery("Eia.getAll", Eia.class).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all eias", ex);
-			throw new GHAEJBException("Error obteniendo todos los eias"
-					+ ex.getCause().getMessage());
+			throw super.generateGHAEJBException("eia-getAll-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -256,8 +253,8 @@ public class EiaService implements EiaServiceRemote {
 					.setFirstResult(offset).setMaxResults(size).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all eias", ex);
-			throw new GHAEJBException("Error obteniendo todos los eias"
-					+ ex.getCause().getMessage());
+			throw super.generateGHAEJBException("eia-getAll-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -276,8 +273,8 @@ public class EiaService implements EiaServiceRemote {
 			return em.find(Eia.class, eia.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving eia ", e);
-			throw new GHAEJBException("ERROR: guardando eia "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("eia-save-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -295,10 +292,8 @@ public class EiaService implements EiaServiceRemote {
 			return res;
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to update eia ", e);
-			throw new GHAEJBException("ERROR: no se puede actualizar el eia "
-					+ e.getCause().getMessage());
-
+			throw super.generateGHAEJBException("eia-update-fail",
+					RuntimeParameters.getLang(), em);
 		}
-
 	}
 }
