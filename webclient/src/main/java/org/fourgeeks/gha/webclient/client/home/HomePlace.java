@@ -5,7 +5,6 @@ import org.fourgeeks.gha.webclient.client.UI.GHASessionData;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.dropdownmenus.UserDropdownMenu;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAPlace;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATabSet;
 
@@ -106,7 +105,5 @@ public class HomePlace extends GHAPlace {
 		RootPanel.get("user-info").add(userInfo);
 
 		GHATabSet.buildMenu();
-		
-		GHANotification.ModalInfoNotification note = new GHANotification.ModalInfoNotification("Titulo","Mensaje de error");
 	}
 }
