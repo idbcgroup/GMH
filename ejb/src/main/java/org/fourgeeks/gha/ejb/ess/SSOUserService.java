@@ -27,8 +27,7 @@ import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.mix.Citizen;
-import org.fourgeeks.gha.domain.msg.GHAMessage;
-import org.fourgeeks.gha.domain.msg.GHAMessageId;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
@@ -37,7 +36,8 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  */
 
 @Stateless(name = "ess.SSOUserService")
-public class SSOUserService implements SSOUserServiceRemote {
+public class SSOUserService extends GHAEJBExceptionImpl implements
+		SSOUserServiceRemote {
 	@PersistenceContext
 	private EntityManager em;
 
@@ -124,7 +124,6 @@ public class SSOUserService implements SSOUserServiceRemote {
 				}
 			}
 		}
-
 		return predicate;
 	}
 
@@ -140,8 +139,8 @@ public class SSOUserService implements SSOUserServiceRemote {
 			em.remove(entity);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete SSOUser", e);
-			throw new GHAEJBException("ERROR: unable to delete SSOUser "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("ssoUser-delete-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -215,9 +214,8 @@ public class SSOUserService implements SSOUserServiceRemote {
 		} catch (Exception e) {
 			logger.log(Level.SEVERE,
 					"Error obteniendo los SSOUsers por SSOUser", e);
-			throw new GHAEJBException(
-					"Error obteniendo los SSOUsers por SSOUser "
-							+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("ssoUser-findBySsoUser-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -232,8 +230,8 @@ public class SSOUserService implements SSOUserServiceRemote {
 			return em.find(SSOUser.class, Id);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: finding SSOUser", e);
-			throw new GHAEJBException("ERROR: finding SSOUser "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("ssoUser-find-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -249,8 +247,8 @@ public class SSOUserService implements SSOUserServiceRemote {
 					.getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all SSOUser", ex);
-			throw new GHAEJBException("Error obteniendo todas las SSOUser"
-					+ ex.getCause().getMessage());
+			throw super.generateGHAEJBException("ssoUser-getAll-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -282,8 +280,8 @@ public class SSOUserService implements SSOUserServiceRemote {
 			return em.find(SSOUser.class, ssoUser.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving SSOUser ", e);
-			throw new GHAEJBException("ERROR: saving SSOUser "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("ssoUser-save-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -302,9 +300,8 @@ public class SSOUserService implements SSOUserServiceRemote {
 			return res;
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to update SSOUser ", e);
-			throw new GHAEJBException(
-					"ERROR: no se puede actualizar el SSOUser "
-							+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("ssoUser-update-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -323,48 +320,24 @@ public class SSOUserService implements SSOUserServiceRemote {
 					.setParameter("userName", userName).getSingleResult();
 
 			if (user.getUserLogonStatus() == UserLogonStatusEnum.BLOCKED)
-				throw new GHAEJBException(new GHAMessage("LOGIN004"));
+				throw super.generateGHAEJBException("LOGIN004",
+						RuntimeParameters.getLang(), em);
 
 			return user;
 		} catch (NoResultException ex) {
 			logger.info("username: " + userName + " not found. Error:"
 					+ ex.getMessage());
-			GHAEJBException exception = new GHAEJBException();
-
-			try {
-				exception.setGhaMessage(em.find(
-						GHAMessage.class,
-						new GHAMessageId("LOGIN005", RuntimeParameters
-								.getLang())));
-			} catch (Exception e1) {
-				exception.setGhaMessage(new GHAMessage(RuntimeParameters
-						.getLang(), "generic-error-msg",
-						"Error de sistema, intente más tarde."));
-			}
-
-			throw exception;
+			throw super.generateGHAEJBException("LOGIN005",
+					RuntimeParameters.getLang(), em);
 		} catch (GHAEJBException ex) {
 			logger.info("username: " + userName + "blocked" + ex.getMessage());
-			GHAEJBException exception = new GHAEJBException();
-
-			try {
-				exception.setGhaMessage(em.find(
-						GHAMessage.class,
-						new GHAMessageId("LOGIN004", RuntimeParameters
-								.getLang())));
-			} catch (Exception e1) {
-				exception.setGhaMessage(new GHAMessage(RuntimeParameters
-						.getLang(), "generic-error-msg",
-						"Error de sistema, intente más tarde."));
-			}
-			throw exception;
-
+			throw super.generateGHAEJBException("LOGIN004",
+					RuntimeParameters.getLang(), em);
 		} catch (Exception ex) {
 			logger.info("Error finding SSOUser by username. Error: "
 					+ ex.getMessage());
-			throw new GHAEJBException(new GHAMessage(
-					RuntimeParameters.getLang(), "generic-error-msg",
-					"Error de sistema, intente más tarde."));
+			throw super.generateGHAEJBException("ssoUser-findByUsername-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -376,8 +349,8 @@ public class SSOUserService implements SSOUserServiceRemote {
 			return em.find(BpuFunction.class, bpuFunction.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving BpuFunction ", e);
-			throw new GHAEJBException("ERROR: saving BpuFunction "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("bpuFunction-save-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -390,8 +363,8 @@ public class SSOUserService implements SSOUserServiceRemote {
 			query.executeUpdate();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: delete BpuFunction ", e);
-			throw new GHAEJBException("ERROR: delete BpuFunction "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("bpuFunction-delete-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 }

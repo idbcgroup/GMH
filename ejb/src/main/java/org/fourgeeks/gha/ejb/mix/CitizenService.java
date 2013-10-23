@@ -13,6 +13,8 @@ import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.mix.Citizen;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
  * @author emiliot, vivi.torresg
@@ -20,7 +22,8 @@ import org.fourgeeks.gha.domain.mix.Citizen;
  */
 
 @Stateless(name = "mix.CitizenService")
-public class CitizenService implements CitizenServiceRemote {
+public class CitizenService extends GHAEJBExceptionImpl implements
+		CitizenServiceRemote {
 	@PersistenceContext
 	private EntityManager em;
 
@@ -39,8 +42,8 @@ public class CitizenService implements CitizenServiceRemote {
 			em.remove(entity);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete Citizen", e);
-			throw new GHAEJBException("ERROR: unable to delete Citizen "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("citizen-delete-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -58,8 +61,8 @@ public class CitizenService implements CitizenServiceRemote {
 					.setParameter("citizen", citizen).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error finding Citizen by citizen", ex);
-			throw new GHAEJBException("Error obteniendo Citizen por citizen"
-					+ ex.getCause().getMessage());
+			throw super.generateGHAEJBException("citizen-findByCitizen-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -74,8 +77,8 @@ public class CitizenService implements CitizenServiceRemote {
 			return em.find(Citizen.class, Id);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: finding Citizen", e);
-			throw new GHAEJBException("ERROR: finding Citizen "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("citizen-find-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -91,8 +94,8 @@ public class CitizenService implements CitizenServiceRemote {
 					.getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all Citizen", ex);
-			throw new GHAEJBException("Error obteniendo todas las Citizen"
-					+ ex.getCause().getMessage());
+			throw super.generateGHAEJBException("citizen-getAll-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -111,8 +114,8 @@ public class CitizenService implements CitizenServiceRemote {
 			return em.find(Citizen.class, citizen.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving Citizen ", e);
-			throw new GHAEJBException("ERROR: saving Citizen "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("citizen-save-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -131,10 +134,8 @@ public class CitizenService implements CitizenServiceRemote {
 			return res;
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to update Citizen ", e);
-			throw new GHAEJBException(
-					"ERROR: no se puede actualizar el Citizen "
-							+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("citizen-update-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
-
 }

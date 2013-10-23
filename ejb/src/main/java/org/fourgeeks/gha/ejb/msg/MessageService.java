@@ -11,14 +11,16 @@ import javax.persistence.PersistenceContext;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.msg.GHAMessage;
 import org.fourgeeks.gha.domain.msg.GHAMessageId;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
- * @author emiliot
+ * @author emiliot, vivi.torresg
  * 
  */
 @Stateless(name = "msg.messageService")
-public class MessageService implements MessageServiceRemote {
+public class MessageService extends GHAEJBExceptionImpl implements
+		MessageServiceRemote {
 	@PersistenceContext
 	private EntityManager em;
 
@@ -38,8 +40,8 @@ public class MessageService implements MessageServiceRemote {
 					RuntimeParameters.getLang()));
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: finding GHAMessage", e);
-			throw new GHAEJBException("ERROR: finding GHAMessage "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("message-find-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -59,9 +61,8 @@ public class MessageService implements MessageServiceRemote {
 
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: finding GHAMessages", e);
-			throw new GHAEJBException("ERROR: finding GHAMessages "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("message-find-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
-
 }

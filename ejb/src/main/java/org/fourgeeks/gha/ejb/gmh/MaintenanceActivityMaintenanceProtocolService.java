@@ -12,14 +12,17 @@ import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivityMaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
- * @author emiliot
+ * @author emiliot, vivi.torresg
  * 
  */
 
 @Stateless(name = "gmh.maintenanceActivityMaintenanceProtocolService")
-public class MaintenanceActivityMaintenanceProtocolService implements
+public class MaintenanceActivityMaintenanceProtocolService extends
+		GHAEJBExceptionImpl implements
 		MaintenanceActivityMaintenanceProtocolServiceRemote {
 
 	@PersistenceContext
@@ -40,9 +43,9 @@ public class MaintenanceActivityMaintenanceProtocolService implements
 					Level.INFO,
 					"ERROR: unable to delete MaintenanceActivityMaintenanceProtocol",
 					e);
-			throw new GHAEJBException(
-					"Error eliminando MaintenanceActivityMaintenanceProtocol por id "
-							+ e.getCause().getMessage());
+			throw super.generateGHAEJBException(
+					"maintenanceActivityMaintenanceProtocol-delete-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -58,9 +61,9 @@ public class MaintenanceActivityMaintenanceProtocolService implements
 		} catch (Exception e) {
 			logger.log(Level.INFO,
 					"ERROR: saving MaintenanceActivityMaintenanceProtocol ", e);
-			throw new GHAEJBException(
-					"ERROR: saving MaintenanceActivityMaintenanceProtocol "
-							+ e.getCause().getMessage());
+			throw super.generateGHAEJBException(
+					"maintenanceActivityMaintenanceProtocol-save-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -79,8 +82,10 @@ public class MaintenanceActivityMaintenanceProtocolService implements
 					Level.SEVERE,
 					"Error retriving all MaintenanceActivityMaintenanceProtocol by MaintenanceProtocol",
 					ex);
-			throw new GHAEJBException(
-					"Error obteniendo todos los MaintenanceActivityMaintenanceProtocol por protocolo de mantenimiento");
+			throw super
+					.generateGHAEJBException(
+							"maintenanceActivityMaintenanceProtocol-findByMaintenanceProtocol-fail",
+							RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -99,9 +104,10 @@ public class MaintenanceActivityMaintenanceProtocolService implements
 					Level.SEVERE,
 					"Error retriving all MaintenanceActivityMaintenanceProtocol by activity",
 					ex);
-			throw new GHAEJBException(
-					"Error obteniendo todos los MaintenanceActivityMaintenanceProtocol por actividad de mantenimiento");
+			throw super
+					.generateGHAEJBException(
+							"maintenanceActivityMaintenanceProtocol-findByMaintenanceActivity-fail",
+							RuntimeParameters.getLang(), em);
 		}
 	}
-
 }

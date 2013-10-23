@@ -249,16 +249,21 @@ select,.select{
 }
 */
 
+.text-label{
+	color:black;
+	font-size: 12px;
+}
+
 .title-label{
 	font-weight: bold;
 	color:black;
-	font-size: 12px;
+	font-size: 14px;
 }
 
 .separator-title-label{
 	font-weight: bold;
 	color:white;
-	font-size: 12px;
+	font-size: 14px;
 }
 
 span.input-title label,span.input-title{
@@ -352,6 +357,10 @@ table.GHAupload-button tbody tr td form div.upld-form-elements div.DecoratedFile
 
 .padding-top{
 	padding-top: 10px;
+}
+
+.padding-bot{
+	padding-bottom: 10px;
 }
 
 .padding-top-recovery{

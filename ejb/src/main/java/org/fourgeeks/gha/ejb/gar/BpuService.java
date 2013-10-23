@@ -13,13 +13,15 @@ import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
  * @author emiliot, vivi.torresg
  * 
  */
 @Stateless(name = "gar.BpuService")
-public class BpuService implements BpuServiceRemote {
+public class BpuService extends GHAEJBExceptionImpl implements BpuServiceRemote {
 	@PersistenceContext
 	private EntityManager em;
 
@@ -38,8 +40,8 @@ public class BpuService implements BpuServiceRemote {
 			em.remove(entity);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete Bpu", e);
-			throw new GHAEJBException("ERROR: unable to delete Bpu "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("bpu-delete-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -57,8 +59,8 @@ public class BpuService implements BpuServiceRemote {
 					.setParameter("bpu", bpu).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error finding Bpu by bpu", ex);
-			throw new GHAEJBException("Error obteniendo Bpu por bpu"
-					+ ex.getCause().getMessage());
+			throw super.generateGHAEJBException("bpu-findByBpu-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -73,8 +75,8 @@ public class BpuService implements BpuServiceRemote {
 			return em.find(Bpu.class, Id);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: finding Bpu", e);
-			throw new GHAEJBException("ERROR: finding Bpu "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("bpu-find-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -89,8 +91,8 @@ public class BpuService implements BpuServiceRemote {
 			return em.createNamedQuery("Bpu.getAll", Bpu.class).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all Bpu", ex);
-			throw new GHAEJBException("Error obteniendo todas las Bpu"
-					+ ex.getCause().getMessage());
+			throw super.generateGHAEJBException("bpu-getAll-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -109,8 +111,8 @@ public class BpuService implements BpuServiceRemote {
 			return em.find(Bpu.class, bpu.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving Bpu ", e);
-			throw new GHAEJBException("ERROR: saving Bpu "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("bpu-save-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -129,8 +131,8 @@ public class BpuService implements BpuServiceRemote {
 			return res;
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to update Bpu ", e);
-			throw new GHAEJBException("ERROR: no se puede actualizar el Bpu "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("bpu-update-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 }

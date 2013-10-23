@@ -7,18 +7,20 @@ import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.validation.ConstraintViolationException;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeUtility;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
- * @author alacret
+ * @author alacret, vivi.torresg
  * 
  */
 @Stateless(name = "gmh.EiaTypeUtilityService")
-public class EiaTypeUtilityService implements EiaTypeUtilityServiceRemote {
+public class EiaTypeUtilityService extends GHAEJBExceptionImpl implements
+		EiaTypeUtilityServiceRemote {
 
 	@PersistenceContext
 	private EntityManager em;
@@ -35,14 +37,16 @@ public class EiaTypeUtilityService implements EiaTypeUtilityServiceRemote {
 			return em.find(EiaTypeUtility.class, eiaTypeUtility.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving EiaTypeUtility", e);
-			String message = null;
-			if (e.getCause() instanceof ConstraintViolationException) {
-				message = "Error: Ya se ha agregado este Servicio a este Tipo de Equipo";
-			}
-			if (message == null)
-				message = "Error guardando EiaTypeUtility: "
-						+ e.getCause().getMessage();
-			throw new GHAEJBException(message);
+			// String message = null;
+			// if (e.getCause() instanceof ConstraintViolationException) {
+			// message =
+			// "Error: Ya se ha agregado este Servicio a este Tipo de Equipo";
+			// }
+			// if (message == null)
+			// message = "Error guardando EiaTypeUtility: "
+			// + e.getCause().getMessage();
+			throw super.generateGHAEJBException("eiaTypeUtility-save-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -55,11 +59,10 @@ public class EiaTypeUtilityService implements EiaTypeUtilityServiceRemote {
 							EiaTypeUtility.class)
 					.setParameter("eiaType", eiaType).getResultList();
 		} catch (Exception ex) {
-			logger.log(Level.SEVERE, "Error retrieving all EiaTypeUtility",
-					ex);
-			throw new GHAEJBException(
-					"Error obteniendo todos los EiaTypeUtility "
-							+ ex.getCause().getMessage());
+			logger.log(Level.SEVERE, "Error retrieving all EiaTypeUtility", ex);
+			throw super.generateGHAEJBException(
+					"eiaTypeUtility-findByEiaType-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -70,8 +73,8 @@ public class EiaTypeUtilityService implements EiaTypeUtilityServiceRemote {
 			em.remove(entity);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete EiaTypeUtility", e);
-			throw new GHAEJBException("Error eliminando EiaTypeUtility por id "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("eiaTypeUtility-delete-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 

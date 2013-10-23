@@ -14,13 +14,16 @@ import javax.persistence.PersistenceContext;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
- * @author emiliot
+ * @author emiliot, vivi.torresg
  * 
  */
 @Stateless(name = "gmh.BrandService")
-public class BrandService implements BrandServiceRemote {
+public class BrandService extends GHAEJBExceptionImpl implements
+		BrandServiceRemote {
 	@PersistenceContext
 	private EntityManager em;
 
@@ -39,8 +42,8 @@ public class BrandService implements BrandServiceRemote {
 			em.remove(entity);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete brand", e);
-			throw new GHAEJBException("ERROR: unable to delete brand "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("brand-delete-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -58,8 +61,8 @@ public class BrandService implements BrandServiceRemote {
 					.setParameter("name", brand.getName()).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding by brand brand", e);
-			throw new GHAEJBException("Error buscando brand por brand "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("brand-findByBrand-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -74,8 +77,8 @@ public class BrandService implements BrandServiceRemote {
 			return em.find(Brand.class, Id);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: finding brand", e);
-			throw new GHAEJBException("ERROR: finding brand "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("brand-find-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -91,8 +94,8 @@ public class BrandService implements BrandServiceRemote {
 					.getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all brands", ex);
-			throw new GHAEJBException("Error obteniendo todas las brands"
-					+ ex.getCause().getMessage());
+			throw super.generateGHAEJBException("brand-getAll-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -111,8 +114,8 @@ public class BrandService implements BrandServiceRemote {
 			return em.find(Brand.class, brand.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving brand ", e);
-			throw new GHAEJBException("ERROR: saving brand "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("brand-save-fail",
+					RuntimeParameters.getLang(), em);
 		}
 
 	}
@@ -131,15 +134,18 @@ public class BrandService implements BrandServiceRemote {
 			em.flush();
 			return res;
 		} catch (Exception e) {
-			logger.log(Level.INFO,
-					"ERROR: unable to update brand ", e);
-			throw new GHAEJBException("ERROR: no se puede actualizar el brand "
-					+ e.getCause().getMessage());
+			logger.log(Level.INFO, "ERROR: unable to update brand ", e);
+			throw super.generateGHAEJBException("brand-update-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.ejb.gmh.BrandServiceRemote#findByManufacturer(org.fourgeeks.gha.domain.gmh.Manufacturer)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.BrandServiceRemote#findByManufacturer(org.fourgeeks
+	 * .gha.domain.gmh.Manufacturer)
 	 */
 	@Override
 	public List<Brand> findByManufacturer(Manufacturer manufacturer)
@@ -148,9 +154,11 @@ public class BrandService implements BrandServiceRemote {
 			return em.createNamedQuery("Brand.findByManufacturer", Brand.class)
 					.setParameter("manufacturer", manufacturer).getResultList();
 		} catch (Exception ex) {
-			logger.log(Level.SEVERE, "Error retrieving all brands by manufacturer", ex);
-			throw new GHAEJBException("Error obteniendo todas las brands by manufacturer"
-					+ ex.getCause().getMessage());
+			logger.log(Level.SEVERE,
+					"Error retrieving all brands by manufacturer", ex);
+			throw super.generateGHAEJBException(
+					"brand-findByManufacturer-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
