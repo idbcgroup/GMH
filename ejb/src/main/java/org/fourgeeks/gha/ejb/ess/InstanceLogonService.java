@@ -13,6 +13,8 @@ import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.ess.InstanceLogon;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
  * @author emiliot, vivi.torresg
@@ -20,7 +22,8 @@ import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
  */
 
 @Stateless(name = "ess.InstanceLogonService")
-public class InstanceLogonService implements InstanceLogonServiceRemote {
+public class InstanceLogonService extends GHAEJBExceptionImpl implements
+		InstanceLogonServiceRemote {
 	@PersistenceContext
 	private EntityManager em;
 
@@ -39,8 +42,8 @@ public class InstanceLogonService implements InstanceLogonServiceRemote {
 			em.remove(entity);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete InstanceLogon", e);
-			throw new GHAEJBException("ERROR: unable to delete InstanceLogon "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("instanceLogon-delete-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -63,9 +66,9 @@ public class InstanceLogonService implements InstanceLogonServiceRemote {
 		} catch (Exception e) {
 			logger.log(Level.INFO,
 					"Error: finding InstanceLogon by InstanceLogon", e);
-			throw new GHAEJBException(
-					"Error buscando InstanceLogon por InstanceLogon "
-							+ e.getCause().getMessage());
+			throw super.generateGHAEJBException(
+					"instanceLogon-findByInstanceLogon-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -80,8 +83,8 @@ public class InstanceLogonService implements InstanceLogonServiceRemote {
 			return em.find(InstanceLogon.class, Id);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: finding InstanceLogon", e);
-			throw new GHAEJBException("ERROR: finding InstanceLogon "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("instanceLogon-find-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -97,9 +100,8 @@ public class InstanceLogonService implements InstanceLogonServiceRemote {
 					InstanceLogon.class).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all InstanceLogon", ex);
-			throw new GHAEJBException(
-					"Error obteniendo todas las InstanceLogon"
-							+ ex.getCause().getMessage());
+			throw super.generateGHAEJBException("instanceLogon-getAll-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -119,8 +121,8 @@ public class InstanceLogonService implements InstanceLogonServiceRemote {
 			return em.find(InstanceLogon.class, instanceLogon.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving InstanceLogon ", e);
-			throw new GHAEJBException("ERROR: saving InstanceLogon "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("instanceLogon-save-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -140,9 +142,8 @@ public class InstanceLogonService implements InstanceLogonServiceRemote {
 			return res;
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to update InstanceLogon ", e);
-			throw new GHAEJBException(
-					"ERROR: no se puede actualizar el InstanceLogon "
-							+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("instanceLogon-update-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 }

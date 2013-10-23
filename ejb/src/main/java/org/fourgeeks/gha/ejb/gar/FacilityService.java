@@ -13,13 +13,16 @@ import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Facility;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
  * @author emiliot, vivi.torresg
  * 
  */
 @Stateless(name = "ess.FacilityService")
-public class FacilityService implements FacilityServiceRemote {
+public class FacilityService extends GHAEJBExceptionImpl implements
+		FacilityServiceRemote {
 	@PersistenceContext
 	EntityManager em;
 
@@ -38,8 +41,8 @@ public class FacilityService implements FacilityServiceRemote {
 			em.remove(entity);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete Facility", e);
-			throw new GHAEJBException("ERROR: unable to delete Facility "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("facility-delete-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -58,9 +61,8 @@ public class FacilityService implements FacilityServiceRemote {
 					.setParameter("facility", facility).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error finding Facilities by facility", ex);
-			throw new GHAEJBException(
-					"Error obteniendo Facilities por facility"
-							+ ex.getCause().getMessage());
+			throw super.generateGHAEJBException("facility-findByFacility-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -75,8 +77,8 @@ public class FacilityService implements FacilityServiceRemote {
 			return em.find(Facility.class, Id);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: finding Facility", e);
-			throw new GHAEJBException("ERROR: finding Facility "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("facility-find-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -92,8 +94,8 @@ public class FacilityService implements FacilityServiceRemote {
 					.getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all Facilities", ex);
-			throw new GHAEJBException("Error obteniendo todas las Facilities"
-					+ ex.getCause().getMessage());
+			throw super.generateGHAEJBException("facility-getAll-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -112,8 +114,8 @@ public class FacilityService implements FacilityServiceRemote {
 			return em.find(Facility.class, entity.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving Facility ", e);
-			throw new GHAEJBException("ERROR: saving Facility "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("facility-save-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -132,9 +134,8 @@ public class FacilityService implements FacilityServiceRemote {
 			return res;
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to update Facility ", e);
-			throw new GHAEJBException(
-					"ERROR: no se puede actualizar el Facility "
-							+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("facility-update-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 }

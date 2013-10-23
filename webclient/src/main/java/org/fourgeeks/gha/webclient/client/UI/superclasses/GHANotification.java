@@ -112,23 +112,36 @@ public class GHANotification {
 	public static class ModalInfoNotification extends VLayout implements ResizeHandler, GHAClosable{
 
 		private int width = 300;
+		private VLayout backDiv = new VLayout();
 		
 		public ModalInfoNotification(String title, String errorMessage) {
 			super();
 			GHAUiHelper.addGHAResizeHandler(this);
 			
-			setPosition(Positioning.ABSOLUTE);
 			setWidth(width);
 			setHeight("*");
 			setLeft((Window.getClientWidth()/2)-(width/2));
 			setTop(140);
+			setPosition(Positioning.ABSOLUTE);
+			setBackgroundColor("#E0E0E0");
+			setBorder("1px solid #E0E0E0");
 			setDefaultLayoutAlign(Alignment.CENTER);
-			
+			setMembersMargin(10);
 			setVisible(false);
 			setAnimateTime(600);
 			
-			setShadowDepth(6);
+			setShadowDepth(4);
 			setShowShadow(true);
+			setZIndex(444444444);
+			
+			backDiv.setWidth100();
+			backDiv.setHeight100();
+			backDiv.setTop(0);
+			backDiv.setLeft(0);
+			backDiv.setVisible(false);
+			backDiv.setShadowDepth(3);
+			backDiv.setShowShadow(true);
+			backDiv.setZIndex(4444444);
 			
 			
 			// TITLE LAYOUT
@@ -136,13 +149,15 @@ public class GHANotification {
 			
 			// LABEL LAYOUT
 			GHALabel errorText = new GHALabel(errorMessage);
+			errorText.setStyleName("text-label");
 			
 			VLayout userdataLayout = new VLayout();
 			userdataLayout.setHeight("*");
 			userdataLayout.setWidth100();
-			userdataLayout.setStyleName("sides-padding padding-top");
-			userdataLayout.setBackgroundColor("#EOEOEO");
+			userdataLayout.setStyleName("sides-padding padding-top padding-bot");
+			userdataLayout.setBackgroundColor("#E0E0E0");
 			userdataLayout.setAlign(Alignment.CENTER);
+			userdataLayout.setDefaultLayoutAlign(Alignment.CENTER);
 			userdataLayout.setMembersMargin(10);
 			
 			GHAButton acceptButton = new GHAButton("Aceptar", new ClickHandler() {
@@ -180,12 +195,20 @@ public class GHANotification {
 		public void close() {
 			// TODO Auto-generated method stub
 			animateHide(AnimationEffect.FADE);
+			backDiv.setVisible(false);
 		}
 		
 		@Override
 		public void show() {
-			super.show();
+//			super.show();
+			backDiv.setWidth100();
+			backDiv.setHeight100();
+			backDiv.setVisible(true);
+//			backDiv.animateShow(AnimationEffect.FADE);
+			
 			animateShow(AnimationEffect.FADE);
+			setVisible(true);
+			bringToFront();
 		}
 	}
 	

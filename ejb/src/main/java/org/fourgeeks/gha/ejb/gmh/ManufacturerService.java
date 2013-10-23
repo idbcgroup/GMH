@@ -13,6 +13,8 @@ import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
  * @author emiliot, vivi.torresg
@@ -20,7 +22,8 @@ import org.fourgeeks.gha.domain.gmh.Manufacturer;
  */
 
 @Stateless(name = "gmh.ManufacturerService")
-public class ManufacturerService implements ManufacturerServiceRemote {
+public class ManufacturerService extends GHAEJBExceptionImpl implements
+		ManufacturerServiceRemote {
 	@PersistenceContext
 	EntityManager em;
 
@@ -39,8 +42,8 @@ public class ManufacturerService implements ManufacturerServiceRemote {
 			em.remove(entity);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete manufacturer", e);
-			throw new GHAEJBException("Error eliminando Manufacturer por id "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("manufacturer-delete-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -55,8 +58,8 @@ public class ManufacturerService implements ManufacturerServiceRemote {
 			return em.find(Manufacturer.class, Id);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error buscando Manufacturer por Id ", e);
-			throw new GHAEJBException("Error buscando Manufacturer por Id "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("manufacturer-find-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -78,9 +81,9 @@ public class ManufacturerService implements ManufacturerServiceRemote {
 		} catch (Exception e) {
 			logger.log(Level.INFO,
 					"Error: finding manufacturer by manufacturer", e);
-			throw new GHAEJBException(
-					"Error buscando manufacturer por manufacturer "
-							+ e.getCause().getMessage());
+			throw super.generateGHAEJBException(
+					"manufacturer-findByManufacturer-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -96,9 +99,8 @@ public class ManufacturerService implements ManufacturerServiceRemote {
 					Manufacturer.class).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all manufacturers", ex);
-			throw new GHAEJBException(
-					"Error obteniendo todos los manufacturers"
-							+ ex.getCause().getMessage());
+			throw super.generateGHAEJBException("manufacturer-getAll-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -117,8 +119,8 @@ public class ManufacturerService implements ManufacturerServiceRemote {
 			return em.find(Manufacturer.class, manufacturer.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving manufacturer", e);
-			throw new GHAEJBException("Error guardando manufacturer: "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("manufacturer-save-fail",
+					RuntimeParameters.getLang(), em);
 		}
 
 	}
@@ -139,8 +141,8 @@ public class ManufacturerService implements ManufacturerServiceRemote {
 			return res;
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to update manufacturer", e);
-			throw new GHAEJBException("Error actualizando manufacturer "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("manufacturer-update-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 }

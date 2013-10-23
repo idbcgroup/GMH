@@ -13,6 +13,8 @@ import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.ess.WorkingArea;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
  * @author emiliot, vivi.torresg
@@ -20,7 +22,8 @@ import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
  */
 
 @Stateless(name = "ess.WorkingAreaService")
-public class WorkingAreaService implements WorkingAreaServiceRemote {
+public class WorkingAreaService extends GHAEJBExceptionImpl implements
+		WorkingAreaServiceRemote {
 	@PersistenceContext
 	EntityManager em;
 
@@ -39,8 +42,8 @@ public class WorkingAreaService implements WorkingAreaServiceRemote {
 			em.remove(entity);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete WorkingArea", e);
-			throw new GHAEJBException("ERROR: unable to delete WorkingArea "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("workingArea-delete-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -62,9 +65,9 @@ public class WorkingAreaService implements WorkingAreaServiceRemote {
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE,
 					"Error finding WorkingArea by workingArea", ex);
-			throw new GHAEJBException(
-					"Error obteniendo WorkingAreas por workingArea"
-							+ ex.getCause().getMessage());
+			throw super.generateGHAEJBException(
+					"workingArea-findByWorkingArea-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -79,8 +82,8 @@ public class WorkingAreaService implements WorkingAreaServiceRemote {
 			return em.find(WorkingArea.class, Id);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: finding WorkingArea", e);
-			throw new GHAEJBException("ERROR: finding WorkingArea "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("workingArea-find-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -96,8 +99,8 @@ public class WorkingAreaService implements WorkingAreaServiceRemote {
 					.getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all WorkingArea", ex);
-			throw new GHAEJBException("Error obteniendo todas las WorkingAreas"
-					+ ex.getCause().getMessage());
+			throw super.generateGHAEJBException("workingArea-getAll-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -116,8 +119,8 @@ public class WorkingAreaService implements WorkingAreaServiceRemote {
 			return em.find(WorkingArea.class, entity.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving WorkingArea ", e);
-			throw new GHAEJBException("ERROR: saving WorkingArea "
-					+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("workingArea-save-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 
@@ -136,9 +139,8 @@ public class WorkingAreaService implements WorkingAreaServiceRemote {
 			return res;
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to update WorkingArea ", e);
-			throw new GHAEJBException(
-					"ERROR: no se puede actualizar el WorkingArea "
-							+ e.getCause().getMessage());
+			throw super.generateGHAEJBException("workingArea-update-fail",
+					RuntimeParameters.getLang(), em);
 		}
 	}
 }

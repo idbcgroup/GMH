@@ -12,12 +12,17 @@ import javax.persistence.TypedQuery;
 import org.fourgeeks.gha.domain.ess.BpuFunction;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
- * @author alacret BpuFunction service
+ * @author alacret, vivi.torresg
+ * 
+ *         BpuFunction service
  */
 @Stateless(name = "gar.BpuFunctionService")
-public class BpuFunctionService implements BpuFunctionServiceRemote {
+public class BpuFunctionService extends GHAEJBExceptionImpl implements
+		BpuFunctionServiceRemote {
 
 	private final static Logger logger = Logger
 			.getLogger(BpuFunctionService.class.getName());
@@ -27,7 +32,6 @@ public class BpuFunctionService implements BpuFunctionServiceRemote {
 
 	@Override
 	public List<BpuFunction> getFunctionsByBpu(Bpu bpu) throws GHAEJBException {
-
 		TypedQuery<BpuFunction> query;
 		try {
 			query = em.createNamedQuery("BpuFunction.findByBpu",
@@ -35,7 +39,9 @@ public class BpuFunctionService implements BpuFunctionServiceRemote {
 			return query.getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "error retriving bpufunctions", e);
+			throw super.generateGHAEJBException(
+					"bpuFunction-getFunctionsByBpu-fail",
+					RuntimeParameters.getLang(), em);
 		}
-		return null;
 	}
 }
