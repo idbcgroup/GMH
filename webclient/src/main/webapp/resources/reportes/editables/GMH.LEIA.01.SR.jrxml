@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="GHA.LEIA.01.SR" pageWidth="572" pageHeight="752" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="6e05a361-dc32-446f-afb1-d6725b1e8b9d">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="GHA.LEIA.01.SR" pageWidth="752" pageHeight="572" orientation="Landscape" columnWidth="752" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="6e05a361-dc32-446f-afb1-d6725b1e8b9d">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -26,7 +26,7 @@
 		<groupHeader>
 			<band height="20">
 				<textField isBlankWhenNull="true">
-					<reportElement uuid="3d74d3ef-4e3d-4373-aa5f-0a6b05c21ccb" style="estiloTitulosColumHeader" mode="Opaque" x="0" y="0" width="572" height="20" backcolor="#DEEAF6">
+					<reportElement uuid="3d74d3ef-4e3d-4373-aa5f-0a6b05c21ccb" style="estiloTitulosColumHeader" mode="Opaque" x="0" y="0" width="752" height="20" backcolor="#DEEAF6">
 						<property name="local_mesure_unitheight" value="pixel"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
@@ -48,7 +48,7 @@
 	<columnHeader>
 		<band height="21" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="9d97dc1d-bc9a-4053-a12d-d06d68352fe9" style="estiloTitulosColumHeader" mode="Opaque" x="429" y="0" width="143" height="20">
+				<reportElement uuid="9d97dc1d-bc9a-4053-a12d-d06d68352fe9" style="estiloTitulosColumHeader" mode="Opaque" x="564" y="1" width="188" height="20">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unity" value="pixel"/>
@@ -66,7 +66,7 @@
 				<text><![CDATA[Facilidad]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="2a7b00ec-107b-432c-bf25-e50fd9392f2f" style="estiloTitulosColumHeader" mode="Opaque" x="286" y="0" width="143" height="20">
+				<reportElement uuid="2a7b00ec-107b-432c-bf25-e50fd9392f2f" style="estiloTitulosColumHeader" mode="Opaque" x="376" y="1" width="188" height="20">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unity" value="pixel"/>
@@ -84,7 +84,7 @@
 				<text><![CDATA[Area de trabajo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="ecf5290a-54ee-4b6c-889b-04029ede1edd" key="" style="estiloTitulosColumHeader" mode="Opaque" x="143" y="0" width="143" height="20">
+				<reportElement uuid="ecf5290a-54ee-4b6c-889b-04029ede1edd" key="" style="estiloTitulosColumHeader" mode="Opaque" x="188" y="1" width="188" height="20">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -100,7 +100,7 @@
 				<text><![CDATA[Serial]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="a6a47b15-4e3a-462e-aeac-49e98a868e43" key="" style="estiloTitulosColumHeader" mode="Opaque" x="0" y="0" width="143" height="20">
+				<reportElement uuid="a6a47b15-4e3a-462e-aeac-49e98a868e43" key="" style="estiloTitulosColumHeader" mode="Opaque" x="0" y="1" width="188" height="20">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="local_mesure_unity" value="pixel"/>
@@ -120,7 +120,7 @@
 	<detail>
 		<band height="20" splitType="Stretch">
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="6049dd5e-9a81-4a17-8fbc-5ce69709ba57" mode="Transparent" x="286" y="0" width="143" height="20">
+				<reportElement uuid="6049dd5e-9a81-4a17-8fbc-5ce69709ba57" mode="Transparent" x="376" y="0" width="188" height="20">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -137,7 +137,7 @@
 				<textFieldExpression><![CDATA[$F{areaTrabajo}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="dff9d91e-3401-4eac-bec8-ccd1adef0ede" mode="Transparent" x="429" y="0" width="143" height="20">
+				<reportElement uuid="dff9d91e-3401-4eac-bec8-ccd1adef0ede" mode="Transparent" x="564" y="0" width="188" height="20">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -154,7 +154,7 @@
 				<textFieldExpression><![CDATA[$F{facilidad}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="0be9a015-8dcb-497c-8187-44cf7c095b38" mode="Transparent" x="0" y="0" width="143" height="20">
+				<reportElement uuid="0be9a015-8dcb-497c-8187-44cf7c095b38" mode="Transparent" x="0" y="0" width="188" height="20">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -171,7 +171,7 @@
 				<textFieldExpression><![CDATA[$F{code}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="f5545886-f23d-49fc-93ad-95a78c5835f2" mode="Transparent" x="143" y="0" width="143" height="20">
+				<reportElement uuid="f5545886-f23d-49fc-93ad-95a78c5835f2" mode="Transparent" x="188" y="0" width="188" height="20">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
