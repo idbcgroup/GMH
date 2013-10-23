@@ -29,13 +29,13 @@ public class GHATabHeader extends HLayout implements ResizeHandler {
 	private OptionButton titulo;
 	private List<OptionButton> selectables = new LinkedList<OptionButton>();
 
-	// private GHATab tab;
+	private GHATab tab;
 
 	/**
 	 * @param tab
 	 */
 	public GHATabHeader(GHATab tab) {
-		// this.tab = tab;
+		this.tab = tab;
 		GHAUiHelper.addGHAResizeHandler(this);
 
 		setWidth(Window.getClientWidth() - 35);
@@ -70,11 +70,10 @@ public class GHATabHeader extends HLayout implements ResizeHandler {
 
 			@Override
 			public void onClick(ClickEvent event) {
+				GHATabSet.closeTab(GHATabHeader.this.tab);
 			}
 		});
 		addMembers(cerrar);
-		//
-		// addMembers(buscar,agregar,limpiar,cerrar);
 	}
 
 	@Override
