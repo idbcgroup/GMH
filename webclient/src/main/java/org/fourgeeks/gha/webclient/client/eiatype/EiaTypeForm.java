@@ -33,6 +33,7 @@ import org.fourgeeks.gha.webclient.client.brand.BrandModel;
 
 import com.google.gwt.validation.client.impl.Validation;
 import com.smartgwt.client.types.TitleOrientation;
+import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
@@ -433,6 +434,16 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer,
 
 	@Override
 	public boolean canBeClosen() {
+		if (hasUnCommittedChanges)
+			GHANotification.confirm(GHAStrings.get("information"),
+					"unsaved-changes", new BooleanCallback() {
+
+						@Override
+						public void execute(Boolean value) {
+							if (value.booleanValue())
+								hasUnCommittedChanges = false;
+						}
+					});
 		return !hasUnCommittedChanges;
 	}
 
@@ -444,7 +455,15 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer,
 	@Override
 	public boolean canBeHidden() {
 		if (hasUnCommittedChanges)
-			GHANotification.alert("unsavedchanges");
+			GHANotification.confirm(GHAStrings.get("information"),
+					"unsaved-changes", new BooleanCallback() {
+
+						@Override
+						public void execute(Boolean value) {
+							if (value.booleanValue())
+								hasUnCommittedChanges = false;
+						}
+					});
 		return !hasUnCommittedChanges;
 	}
 

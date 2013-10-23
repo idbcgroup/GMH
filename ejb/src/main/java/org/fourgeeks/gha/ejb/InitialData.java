@@ -116,8 +116,8 @@ public class InitialData {
 		} catch (NoResultException e) {
 			try {
 				logger.info("Creating message test data");
-				em.persist(new GHAMessage(LanguageEnum.ES, "info-tittle",
-						"Información"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "unsaved-changes",
+						"Existen cambios sin guardar, ¿Desea descartarlos?"));
 				em.persist(new GHAMessage(LanguageEnum.EN, "info-tittle",
 						"Information"));
 				em.persist(new GHAMessage(LanguageEnum.ES, "no-message",
@@ -1426,6 +1426,8 @@ public class InitialData {
 			try {
 				logger.info("Creating uistrings test data");
 				em.persist(new UiString(LanguageEnum.ES, "name", "Nombre"));
+				em.persist(new UiString(LanguageEnum.ES, "information",
+						"Información"));
 				em.persist(new UiString(LanguageEnum.ES, "equipments",
 						"Equipos"));
 				em.persist(new UiString(LanguageEnum.ES, "password",
