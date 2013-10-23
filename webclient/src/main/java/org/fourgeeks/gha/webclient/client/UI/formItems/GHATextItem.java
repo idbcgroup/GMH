@@ -36,6 +36,8 @@ public class GHATextItem extends TextItem {
 	/**
 	 * @param title
 	 * @param width
+	 * @param required
+	 * @param changedHandler
 	 */
 	public GHATextItem(String title, int width, boolean required,
 			ChangedHandler changedHandler) {
