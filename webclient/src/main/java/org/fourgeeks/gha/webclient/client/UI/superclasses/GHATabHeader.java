@@ -24,44 +24,59 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
  * @author alacret, jfuentes
  * 
  */
-public class GHATabHeader extends HLayout implements ResizeHandler{
- 
+public class GHATabHeader extends HLayout implements ResizeHandler {
+
 	private OptionButton titulo;
 	private List<OptionButton> selectables = new LinkedList<OptionButton>();
 
-	// private GHATab tab;
+	private GHATab tab;
 
 	/**
 	 * @param tab
 	 */
 	public GHATabHeader(GHATab tab) {
-		// this.tab = tab;
+		this.tab = tab;
 		GHAUiHelper.addGHAResizeHandler(this);
-		
-		setWidth(Window.getClientWidth()-35);
+
+		setWidth(Window.getClientWidth() - 35);
 		setHeight(30);
 		setDefaultLayoutAlign(VerticalAlignment.TOP);
 		setMembersMargin(6);
-		
+
 		setStyleName("sides-padding tab-header");
-		
-		titulo = new OptionButton(this,150,false, false,"","");
+
+		titulo = new OptionButton(this, 150, false, false, "", "");
 		addMember(titulo);
 
 		addMember(new LayoutSpacer());
-		//selectables
-		OptionButton buscar = new OptionButton(this, "Buscar...",90, true, true, "../resources/img/buscarButton.png","../resources/img/buscarButtonOver.png");
-		selectables.add(buscar);
-		OptionButton agregar = new OptionButton(this, "Agregar...",90, true, true, "../resources/img/agregarButton.png","../resources/img/agregarButtonOver.png");
-		selectables.add(agregar);
-		
-		//Not selectables
-		OptionButton limpiar = new OptionButton(this, "Limpiar",90, true, false, "../resources/img/limpiarButton.png","../resources/img/limpiarButtonOver.png");
-		OptionButton cerrar = new OptionButton(this, "Cerrar",90, true, false, "../resources/img/cerrarButton.png","../resources/img/cerrarButtonOver.png");
-				
-		addMembers(buscar,agregar,limpiar,cerrar);
+		// selectables
+		// OptionButton buscar = new OptionButton(this, "Buscar...",90, true,
+		// true,
+		// "../resources/img/buscarButton.png","../resources/img/buscarButtonOver.png");
+		// selectables.add(buscar);
+		// OptionButton agregar = new OptionButton(this, "Agregar...",90, true,
+		// true,
+		// "../resources/img/agregarButton.png","../resources/img/agregarButtonOver.png");
+		// selectables.add(agregar);
+		//
+		// //Not selectables
+		// OptionButton limpiar = new OptionButton(this, "Limpiar",90, true,
+		// false,
+		// "../resources/img/limpiarButton.png","../resources/img/limpiarButtonOver.png");
+		OptionButton cerrar = new OptionButton(this, "Cerrar", 90, true, false,
+				"../resources/img/cerrarButton.png",
+				"../resources/img/cerrarButtonOver.png");
+		cerrar.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				GHATabSet.closeTab(GHATabHeader.this.tab);
+			}
+		});
+		addMembers(cerrar);
 	}
 
+	@Override
 	public void setTitle(String title) {
 		titulo.setContents(title);
 	}
@@ -72,45 +87,47 @@ public class GHATabHeader extends HLayout implements ResizeHandler{
 	}
 
 	private static class OptionButton extends Label {
-		
+
 		private boolean selected;
 		private GHATabHeader parent;
 		private String bgImgSrc;
 		private String bgImgSrcOver;
-		
-		public OptionButton(GHATabHeader p, int width, boolean hoverable, boolean selectable, final String bgSrc, final String bgSrcOver) {
+
+		public OptionButton(GHATabHeader p, int width, boolean hoverable,
+				boolean selectable, final String bgSrc, final String bgSrcOver) {
 			super();
-			this.parent=p;
-			bgImgSrc=bgSrc;
-			bgImgSrcOver=bgSrcOver;
+			this.parent = p;
+			bgImgSrc = bgSrc;
+			bgImgSrcOver = bgSrcOver;
 			setStyleName("tab-header-title");
-			setWidth(width+"px");
+			setWidth(width + "px");
 			setHeight("30px");
-			
-			if (selectable){
+
+			if (selectable) {
 				addClickHandler(new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						//Selected Style
-						for(OptionButton button :parent.selectables){
-							button.selectButton(false, button.bgImgSrc, button.bgImgSrcOver);
+						// Selected Style
+						for (OptionButton button : parent.selectables) {
+							button.selectButton(false, button.bgImgSrc,
+									button.bgImgSrcOver);
 						}
 						selectButton(true, bgImgSrc, bgImgSrcOver);
 						//
-						//TODO: Funcionalidad de cada boton
+						// TODO: Funcionalidad de cada boton
 					}
 				});
 			}
-			
+
 			if (hoverable) {
 				selectButton(false, bgImgSrc, bgImgSrcOver);
-				setStyleName(getStyleName()+" button-pointer");
+				setStyleName(getStyleName() + " button-pointer");
 				setBackgroundRepeat(BackgroundRepeat.NO_REPEAT);
-				
+
 				addMouseOverHandler(new MouseOverHandler() {
 					@Override
 					public void onMouseOver(MouseOverEvent event) {
-						if(!isSelectedButton())
+						if (!isSelectedButton())
 							setBackgroundImage(bgImgSrcOver);
 					}
 				});
@@ -118,34 +135,35 @@ public class GHATabHeader extends HLayout implements ResizeHandler{
 
 					@Override
 					public void onMouseOut(MouseOutEvent event) {
-						if(!isSelectedButton())
+						if (!isSelectedButton())
 							setBackgroundImage(bgImgSrc);
 					}
 				});
 			}
 		}
 
-		public OptionButton(GHATabHeader p, String text, int width, boolean hoverable, boolean selectable, String bg, String bgOver) {
-			this(p,width,hoverable,selectable,bg,bgOver);
+		public OptionButton(GHATabHeader p, String text, int width,
+				boolean hoverable, boolean selectable, String bg, String bgOver) {
+			this(p, width, hoverable, selectable, bg, bgOver);
 			setContents(text);
 		}
-		
-		public void selectButton(boolean sel, String bgSrc, String bgSrcOver){
+
+		public void selectButton(boolean sel, String bgSrc, String bgSrcOver) {
 			selected = sel;
-			if(sel){
+			if (sel) {
 				setBackgroundImage(bgImgSrcOver);
-			}else{
+			} else {
 				setBackgroundImage(bgImgSrc);
 			}
 		}
-		
-		public boolean isSelectedButton(){
+
+		public boolean isSelectedButton() {
 			return selected;
 		}
 	}
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		setWidth(Window.getClientWidth()-35);
+		setWidth(Window.getClientWidth() - 35);
 	}
 }
