@@ -14,6 +14,8 @@ import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.Positioning;
@@ -112,7 +114,7 @@ public class GHANotification {
 	public static class ModalInfoNotification extends VLayout implements ResizeHandler, GHAClosable{
 
 		private int width = 300;
-		private VLayout backDiv = new VLayout();
+		private HTML backDiv = new HTML();
 		
 		public ModalInfoNotification(String title, String errorMessage) {
 			super();
@@ -128,21 +130,16 @@ public class GHANotification {
 			setDefaultLayoutAlign(Alignment.CENTER);
 			setMembersMargin(10);
 			setVisible(false);
-			setAnimateTime(600);
+			setAnimateTime(60);
 			
 			setShadowDepth(4);
 			setShowShadow(true);
-			setZIndex(444444444);
+			setZIndex(444444);
 			
-			backDiv.setWidth100();
-			backDiv.setHeight100();
-			backDiv.setTop(0);
-			backDiv.setLeft(0);
+			backDiv.setWidth("100%");
+			backDiv.setHeight("100%");
+			backDiv.setStyleName("backDivDim");
 			backDiv.setVisible(false);
-			backDiv.setShadowDepth(3);
-			backDiv.setShowShadow(true);
-			backDiv.setZIndex(4444444);
-			
 			
 			// TITLE LAYOUT
 			HLayout titleLayout = GHAUiHelper.verticalGraySeparatorLabel("40px","Informacion");
@@ -194,6 +191,8 @@ public class GHANotification {
 		@Override
 		public void close() {
 			// TODO Auto-generated method stub
+			RootPanel.get("notificationsBackDiv").removeStyleName("dim");
+			
 			animateHide(AnimationEffect.FADE);
 			backDiv.setVisible(false);
 		}
@@ -201,10 +200,7 @@ public class GHANotification {
 		@Override
 		public void show() {
 //			super.show();
-			backDiv.setWidth100();
-			backDiv.setHeight100();
-			backDiv.setVisible(true);
-//			backDiv.animateShow(AnimationEffect.FADE);
+			RootPanel.get("notificationsBackDiv").addStyleName("dim");
 			
 			animateShow(AnimationEffect.FADE);
 			setVisible(true);
