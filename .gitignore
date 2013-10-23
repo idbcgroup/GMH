@@ -6,6 +6,8 @@
 *.war
 *.orig
 *.log
+metadata/**
+.metadata/**
 
 ejb/bin/**
 webclient/bin/**
