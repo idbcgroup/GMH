@@ -26,6 +26,10 @@ import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
+/**
+ * @author alacret
+ * 
+ */
 public class GHANotification {
 	private static final GWTMessageServiceAsync messageService = GWT
 			.create(GWTMessageService.class);
@@ -45,8 +49,16 @@ public class GHANotification {
 	/**
 	 * @param message
 	 */
-	public static void alert(String message) {
+	@Deprecated
+	public static void oldAlert(String message) {
 		SC.say("Información", message);
+	}
+
+	/**
+	 * @param key
+	 */
+	public static void info(String key) {
+		alert(key);
 	}
 
 	/**
@@ -59,29 +71,20 @@ public class GHANotification {
 		SC.ask(title, message, callback);
 	}
 
-	private static void alert(List<String> keys,
-			GHAAsyncCallback<List<GHAMessage>> callback) {
-		messageService.find(keys, callback);
-	}
-
-	private static void alertMessage(String key,
-			GHAAsyncCallback<GHAMessage> callback) {
-		messageService.find(key, callback);
-	}
-
 	/**
 	 * this method receives a key to find and show the message from database
 	 * 
 	 * @param key
 	 */
-	public static void alertMessage(String key) {
-		alertMessage(key, new GHAAsyncCallback<GHAMessage>() {
+	public static void alert(String key) {
+		messageService.find(key, new GHAAsyncCallback<GHAMessage>() {
 
 			@Override
 			public void onSuccess(GHAMessage result) {
-				alert(result.getText());
+				SC.say(result.getText());
 			}
 		});
+
 	}
 
 	/**
@@ -91,7 +94,7 @@ public class GHANotification {
 	 * @param keys
 	 */
 	public static void alert(List<String> keys) {
-		alert(keys, new GHAAsyncCallback<List<GHAMessage>>() {
+		messageService.find(keys, new GHAAsyncCallback<List<GHAMessage>>() {
 
 			@Override
 			public void onSuccess(List<GHAMessage> result) {
@@ -99,7 +102,7 @@ public class GHANotification {
 				for (GHAMessage msg : result) {
 					builder.append(msg.getText()).append("<br>");
 				}
-				alert(builder.toString());
+				SC.say(builder.toString());
 			}
 		});
 	}
@@ -108,21 +111,22 @@ public class GHANotification {
 	 * @param ghaMessage
 	 */
 	public static void alert(GHAMessage ghaMessage) {
-		alert(ghaMessage.getText());
+		SC.say(ghaMessage.getText());
 	}
-	
-	public static class ModalInfoNotification extends VLayout implements ResizeHandler, GHAClosable{
+
+	private static class ModalInfoNotification extends VLayout implements
+			ResizeHandler, GHAClosable {
 
 		private int width = 300;
 		private HTML backDiv = new HTML();
-		
+
 		public ModalInfoNotification(String title, String errorMessage) {
 			super();
 			GHAUiHelper.addGHAResizeHandler(this);
-			
+
 			setWidth(width);
 			setHeight("*");
-			setLeft((Window.getClientWidth()/2)-(width/2));
+			setLeft((Window.getClientWidth() / 2) - (width / 2));
 			setTop(140);
 			setPosition(Positioning.ABSOLUTE);
 			setBackgroundColor("#E0E0E0");
@@ -131,23 +135,23 @@ public class GHANotification {
 			setMembersMargin(10);
 			setVisible(false);
 			setAnimateTime(60);
-			
+
 			setShadowDepth(4);
 			setShowShadow(true);
 			setZIndex(444444);
-			
+
 			backDiv.setWidth("100%");
 			backDiv.setHeight("100%");
 			backDiv.setStyleName("backDivDim");
 			backDiv.setVisible(false);
-			
 			// TITLE LAYOUT
-			HLayout titleLayout = GHAUiHelper.verticalGraySeparatorLabel("40px","Informacion");
-			
+			HLayout titleLayout = GHAUiHelper.verticalGraySeparatorLabel(
+					"40px", "Informacion");
+
 			// LABEL LAYOUT
 			GHALabel errorText = new GHALabel(errorMessage);
 			errorText.setStyleName("text-label");
-			
+
 			VLayout userdataLayout = new VLayout();
 			userdataLayout.setHeight("*");
 			userdataLayout.setWidth100();
@@ -156,22 +160,21 @@ public class GHANotification {
 			userdataLayout.setAlign(Alignment.CENTER);
 			userdataLayout.setDefaultLayoutAlign(Alignment.CENTER);
 			userdataLayout.setMembersMargin(10);
-			
-			GHAButton acceptButton = new GHAButton("Aceptar", new ClickHandler() {
-				@Override
-				public void onClick(ClickEvent event) {
-					close();
-				}
-			});
-			
+
+			GHAButton acceptButton = new GHAButton("Aceptar",
+					new ClickHandler() {
+						@Override
+						public void onClick(ClickEvent event) {
+							close();
+						}
+					});
+
 			userdataLayout.addMembers(errorText, acceptButton);
-			
-			addMembers(titleLayout,userdataLayout);
-			
+
+			addMembers(titleLayout, userdataLayout);
+
 			show();
 		}
-		
-		
 
 		public ModalInfoNotification(int membersMargin) {
 			super(membersMargin);
@@ -185,7 +188,7 @@ public class GHANotification {
 
 		@Override
 		public void onResize(ResizeEvent event) {
-			setLeft((Window.getClientWidth()/2)-(width/2));
+			setLeft((Window.getClientWidth() / 2) - (width / 2));
 		}
 
 		@Override
@@ -196,7 +199,7 @@ public class GHANotification {
 			animateHide(AnimationEffect.FADE);
 			backDiv.setVisible(false);
 		}
-		
+
 		@Override
 		public void show() {
 //			super.show();
@@ -206,7 +209,12 @@ public class GHANotification {
 			setVisible(true);
 			bringToFront();
 		}
+
+		@Override
+		public boolean canBeClosen() {
+			// TODO Auto-generated method stub
+			return false;
+		}
 	}
-	
-	
+
 }

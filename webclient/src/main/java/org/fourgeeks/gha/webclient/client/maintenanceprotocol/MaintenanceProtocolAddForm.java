@@ -24,7 +24,7 @@ public class MaintenanceProtocolAddForm extends GHASlideInWindow implements
 	}
 
 	public MaintenanceProtocolAddForm() {
-		super(2);
+		super();
 		setHeight(GHAUiHelper.getBottomSectionHeight());
 		setTop(240);
 
@@ -139,6 +139,18 @@ public class MaintenanceProtocolAddForm extends GHASlideInWindow implements
 	public void select(MaintenanceProtocol maintenanceProtocol) {
 		// called when the maintenanceprotocolform finish saving new entity
 		cancel();
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

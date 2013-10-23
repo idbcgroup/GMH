@@ -6,6 +6,7 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabSet;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
@@ -64,7 +65,7 @@ public class EIATopSection extends HLayout implements EIASelectionListener,
 
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		setWidth100();
-		setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT + "px");
+		setHeight(GHAUiHelper.DEFAULT_TOP_SECTION_HEIGHT + "px");
 		setDefaultLayoutAlign(VerticalAlignment.CENTER);
 		setBackgroundColor("#EAEAEA");
 
@@ -106,13 +107,13 @@ public class EIATopSection extends HLayout implements EIASelectionListener,
 					public void onClick(ClickEvent event) {
 						search();
 					}
-				})/*
-				 * , new GHAImgButton("../resources/icons/cancel.png",new
-				 * ClickHandler() {
-				 * 
-				 * @Override public void onClick(ClickEvent event) {
-				 * GHATabSet.closeTab(eIATab); } })
-				 */);
+				}), new GHAImgButton("../resources/icons/cancel.png",
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						GHATabSet.closeTab(eIATab);
+					}
+				}));
 
 		addMembers(form, /* photoPanel, */new LayoutSpacer(), sideButtons);
 
@@ -132,7 +133,7 @@ public class EIATopSection extends HLayout implements EIASelectionListener,
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT + "px");
+		setHeight(GHAUiHelper.DEFAULT_TOP_SECTION_HEIGHT + "px");
 	}
 
 	@Override
@@ -161,5 +162,11 @@ public class EIATopSection extends HLayout implements EIASelectionListener,
 		installationDate.setValue(eia.getInstallationDate());
 		acceptationDate.setValue(eia.getAcceptationDate());
 
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

@@ -17,6 +17,6 @@ public abstract class GHAAsyncCallback<T> implements AsyncCallback<T> {
 		if (caught instanceof GHAEJBException)
 			GHANotification.alert(((GHAEJBException) caught).getGhaMessage());
 		else
-			GHANotification.alert(caught.getMessage());
+			GHANotification.oldAlert(caught.getMessage());
 	}
 }

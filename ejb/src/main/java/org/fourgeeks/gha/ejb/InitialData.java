@@ -1430,12 +1430,39 @@ public class InitialData {
 						"Equipos"));
 				em.persist(new UiString(LanguageEnum.ES, "password",
 						"Clave de acceso"));
+				em.persist(new UiString(LanguageEnum.ES, "close", "Cerrar"));
+				em.persist(new UiString(LanguageEnum.ES, "add", "Agregar"));
+				em.persist(new UiString(LanguageEnum.ES, "clean", "Limpiar"));
+				em.persist(new UiString(LanguageEnum.ES, "search", "Buscar"));
 				em.persist(new UiString(LanguageEnum.ES, "username-not-null",
 						"Debe ingresar un usuario válido"));
 				em.persist(new UiString(LanguageEnum.ES, "password-not-null",
 						"Debe ingresar una contraseña válida"));
+				em.persist(new UiString(LanguageEnum.ES, "code", "Código"));
+				em.persist(new UiString(LanguageEnum.ES, "model", "Modelo"));
 				em.persist(new UiString(LanguageEnum.ES, "email-invalid-field",
 						"Debe ingresar un email válido"));
+				em.persist(new UiString(LanguageEnum.ES, "none", "Modelo"));
+				em.persist(new UiString(LanguageEnum.ES, "manufacturer",
+						"Fabricante"));
+				em.persist(new UiString(LanguageEnum.ES, "mobility",
+						"Movilidad"));
+				em.persist(new UiString(LanguageEnum.ES, "eiatype",
+						"Tipo de equipo"));
+				em.persist(new UiString(LanguageEnum.ES, "eiatypes",
+						"Tipos de equipo"));
+				em.persist(new UiString(LanguageEnum.ES, "subtype", "Sub tipo"));
+				em.persist(new UiString(LanguageEnum.ES, "brand", "Marca"));
+				em.persist(new UiString(LanguageEnum.ES, "new-equipment",
+						"Nuevo equipo"));
+				em.persist(new UiString(LanguageEnum.ES, "new-eiatype",
+						"Nuevo tipo de equipo"));
+				em.persist(new UiString(LanguageEnum.ES, "search-results",
+						"Resultados de la búsqueda"));
+				em.persist(new UiString(LanguageEnum.ES, "description",
+						"Descripción"));
+				em.persist(new UiString(LanguageEnum.ES, "use", "Uso"));
+				em.persist(new UiString(LanguageEnum.ES, "type", "Tipo"));
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating uistrings test data", e1);

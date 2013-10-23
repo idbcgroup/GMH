@@ -4,8 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATab;
+import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
+import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader;
+
+import com.smartgwt.client.widgets.events.ClickEvent;
+import com.smartgwt.client.widgets.events.ClickHandler;
 
 /**
  * @author alacret
@@ -18,34 +23,87 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 	 * The ID of the Tab
 	 */
 	public static final String ID = "eiatype";
-	private static final String TITLE = "Tipos de equipo";
+	private static final String TITLE = GHAStrings.get("eiatypes");
 	private List<EIATypeSelectionListener> listeners = new ArrayList<EIATypeSelectionListener>();
-	private EIATypeTopSection topSection;
-	// private EiaType eiaType;
-	private EIATypeInternalTabset internatlTabSet;
+	private EIATypeTopForm topForm;
+	private EIATypeAddForm addForm;
+	private EIATypeInternalTabset internalTabSet;
+	private EiaTypeResultSet resultSet;
 
 	/**
-	 * @param eiaType
+	 * @param token
 	 */
-	public EIATypeTab() {
-		super();
-		header.setTitle(TITLE);
+	public EIATypeTab(String token) {
+		super(token);
+		header = new GHATabHeader(this, TITLE);
 
-		topSection = new EIATypeTopSection(this);
-		internatlTabSet = new EIATypeInternalTabset(this);
+		resultSet = new EiaTypeResultSet();
+		resultSet.addEiaTypeSelectionListener(this);
 
-		verticalPanel.setBackgroundColor("#FFFFFF");
-		verticalPanel.addMember(topSection);
+		topForm = new EIATypeTopForm(resultSet);
+		topForm.activate();
+		addEiaTypeSelectionListener(topForm);
+
+		internalTabSet = new EIATypeInternalTabset(this);
+		addEiaTypeSelectionListener(internalTabSet);
+
+		addForm = new EIATypeAddForm();
+		addForm.addEiaTypeSelectionListener(this);
+
+		header.addSearchOption(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				search();
+			}
+		});
+		header.addAddOption(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				add();
+
+			}
+		});
+
+		verticalPanel.addMember(topForm);
 		verticalPanel.addMember(GHAUiHelper
 				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
-		verticalPanel.addMember(internatlTabSet);
+		verticalPanel.addMember(internalTabSet);
+		verticalPanel.addMember(resultSet);
 		addMember(verticalPanel);
 	}
 
-	@Override
-	protected void onDraw() {
-		// if (eiaType == null)
-		topSection.search();
+	protected void search() {
+		if (topForm.isActivate())
+			return;
+		if (internalTabSet.isVisible())
+			if (internalTabSet.canBeHidden())
+				internalTabSet.hide();
+			else
+				return;
+		if (addForm.isVisible())
+			addForm.hide();
+		if (resultSet.isVisible())
+			resultSet.hide();
+		topForm.activate();
+		// GHANotification.info(GHAStrings.get("")); //TODO: Mensaje de
+		// informacion para indicar que se ha actividado el modo de busqueda
+	}
+
+	protected void add() {
+		if (addForm.isVisible())
+			return;
+		if (internalTabSet.isVisible())
+			if (internalTabSet.canBeHidden())
+				internalTabSet.hide();
+			else
+				return;
+		if (topForm.isActivate())
+			topForm.deactivate();
+		if (resultSet.isVisible())
+			resultSet.hide();
+		addForm.open();
 	}
 
 	@Override

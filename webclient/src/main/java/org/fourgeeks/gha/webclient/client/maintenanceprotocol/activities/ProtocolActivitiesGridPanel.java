@@ -132,4 +132,16 @@ public class ProtocolActivitiesGridPanel extends VLayout implements
 		this.maintenanceProtocol = maintenanceProtocol;
 		loadData();
 	}
+
+	@Override
+	public boolean canBeHidden() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

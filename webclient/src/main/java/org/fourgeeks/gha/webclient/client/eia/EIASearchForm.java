@@ -77,9 +77,9 @@ public class EIASearchForm extends GHASlideInWindow implements
 	 * 
 	 */
 	public EIASearchForm() {
-		super(1);
+		super();
 		setTop(GHAUiHelper.getTopSpace());
-		setHeight(GHAUiHelper.getTabHeight()-4 + "px");
+		setHeight(GHAUiHelper.getTabHeight() - 4 + "px");
 
 		GHAUiHelper.addGHAResizeHandler(this);
 
@@ -141,7 +141,7 @@ public class EIASearchForm extends GHASlideInWindow implements
 
 		HLayout formLayout = new HLayout();
 		formLayout.setPadding(10);
-		formLayout.setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT + "px");
+		formLayout.setHeight(GHAUiHelper.DEFAULT_TOP_SECTION_HEIGHT + "px");
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
 
 		addMembers(title, formLayout,
@@ -335,7 +335,7 @@ public class EIASearchForm extends GHASlideInWindow implements
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getTabHeight()-4 + "px");
+		setHeight(GHAUiHelper.getTabHeight() - 4 + "px");
 	}
 
 	@Override
@@ -361,10 +361,22 @@ public class EIASearchForm extends GHASlideInWindow implements
 	private void selectEia() {
 		GHAGridRecord<Eia> selectedRecord = grid.getSelectedRecord();
 		if (selectedRecord == null) {
-			GHANotification.alert(GHAStrings.get("record-not-selected"));
+			GHANotification.oldAlert(GHAStrings.get("record-not-selected"));
 			return;
 		}
 		notifyEia(((EIARecord) selectedRecord).toEntity());
 		hide();
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

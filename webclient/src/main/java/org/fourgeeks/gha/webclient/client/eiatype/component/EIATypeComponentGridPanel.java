@@ -171,4 +171,14 @@ public class EIATypeComponentGridPanel extends VLayout implements
 		eiaTypeSearchForm.hide();
 	}
 
+	@Override
+	public boolean canBeHidden() {
+		return true;
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		return true;
+	}
+
 }

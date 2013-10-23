@@ -43,13 +43,17 @@ public class EIATypeMaintenanceGridPanel extends VLayout implements
 		searchForm = new MaintenancePlanSearchForm();
 	}
 
+	/**
+	 * 
+	 */
 	public EIATypeMaintenanceGridPanel() {
 		super();
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 
-		GHALabel title = new GHALabel("Planes de Mantenimiento asociados al tipo de equipo");
+		GHALabel title = new GHALabel(
+				"Planes de Mantenimiento asociados al tipo de equipo");
 		addMember(title);
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
@@ -159,6 +163,16 @@ public class EIATypeMaintenanceGridPanel extends VLayout implements
 						loadData();
 					}
 				});
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		return true;
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		return true;
 	}
 
 }

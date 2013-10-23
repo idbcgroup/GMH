@@ -88,9 +88,9 @@ public class UserSearchForm extends GHASlideInWindow implements
 * 
 */
 	public UserSearchForm() {
-		super(1);
+		super();
 		setTop(GHAUiHelper.getTopSpace());
-		setHeight(GHAUiHelper.getTabHeight()-4 + "px");
+		setHeight(GHAUiHelper.getTabHeight() - 4 + "px");
 
 		GHALabel title = new GHALabel("Búsqueda de Usuarios");
 		addMember(title);
@@ -150,7 +150,7 @@ public class UserSearchForm extends GHASlideInWindow implements
 
 		HLayout formLayout = new HLayout();
 		formLayout.setPadding(10);
-		formLayout.setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT + "px");
+		formLayout.setHeight(GHAUiHelper.DEFAULT_TOP_SECTION_HEIGHT + "px");
 		formLayout.setDefaultLayoutAlign(VerticalAlignment.CENTER);
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
 
@@ -251,7 +251,7 @@ public class UserSearchForm extends GHASlideInWindow implements
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getTabHeight()-4 + "px");
+		setHeight(GHAUiHelper.getTabHeight() - 4 + "px");
 	}
 
 	// Producer Consumer stuff
@@ -307,11 +307,23 @@ public class UserSearchForm extends GHASlideInWindow implements
 	private void selectUser() {
 		GHAGridRecord<SSOUser> selectedRecord = grid.getSelectedRecord();
 		if (selectedRecord == null) {
-			GHANotification.alert(GHAStrings.get("record-not-selected"));
+			GHANotification.oldAlert(GHAStrings.get("record-not-selected"));
 			return;
 		}
 		notifyUser(((UserRecord) selectedRecord).toEntity());
 		hide();
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

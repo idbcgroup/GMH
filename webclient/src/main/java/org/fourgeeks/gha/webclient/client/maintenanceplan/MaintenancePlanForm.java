@@ -204,7 +204,7 @@ public class MaintenancePlanForm extends VLayout implements
 
 	// Producer Stuff
 	private void notifyMaintenancePlan(MaintenancePlan plan) {
-		GHANotification.alertMessage("mplan-save-success");
+		GHANotification.alert("mplan-save-success");
 		for (MaintenancePlanSelectionListener listener : listeners) {
 			listener.select(plan);
 		}

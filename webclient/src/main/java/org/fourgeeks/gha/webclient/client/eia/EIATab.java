@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.Eia;
-import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATab;
+import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
+import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader;
 
 /**
  * @author alacret
@@ -28,26 +28,28 @@ public class EIATab extends GHATab implements EIASelectionListener,
 	}
 
 	/**
+	 * @param token
 	 * 
 	 */
-	public EIATab() {
-		super();
-		header.setTitle(TITLE);
-
-		topSection = new EIATopSection(this);
-		internalTabset = new EIAInternalTabset(this);
-
-		verticalPanel.addMember(topSection);
-		verticalPanel.addMember(GHAUiHelper
-				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
-		verticalPanel.addMember(internalTabset);
-		addMember(verticalPanel);
+	public EIATab(String token) {
+		super(token);
+		header = new GHATabHeader(this, TITLE);
+		// header.setTitle(TITLE);
+		//
+		// topSection = new EIATopSection(this);
+		// internalTabset = new EIAInternalTabset(this);
+		//
+		// verticalPanel.addMember(topSection);
+		// verticalPanel.addMember(GHAUiHelper
+		// .verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
+		// verticalPanel.addMember(internalTabset);
+		// addMember(verticalPanel);
 	}
 
 	@Override
 	protected void onDraw() {
-		if (eia == null)
-			topSection.search();
+		// if (eia == null)
+		// topSection.search();
 	}
 
 	@Override
@@ -71,6 +73,18 @@ public class EIATab extends GHATab implements EIASelectionListener,
 	public void removeEiaSelectionListener(
 			EIASelectionListener eiaSelectionListener) {
 		selectionListeners.remove(eiaSelectionListener);
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

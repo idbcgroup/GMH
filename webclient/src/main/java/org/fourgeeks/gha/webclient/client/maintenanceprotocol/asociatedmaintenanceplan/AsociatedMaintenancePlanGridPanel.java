@@ -53,7 +53,8 @@ public class AsociatedMaintenancePlanGridPanel extends VLayout implements
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 
-		Label title = new Label("Planes de Mantenimiento contienen este Protocolo");
+		Label title = new Label(
+				"Planes de Mantenimiento contienen este Protocolo");
 		addMember(title);
 
 		// //////Botones laterales
@@ -142,5 +143,17 @@ public class AsociatedMaintenancePlanGridPanel extends VLayout implements
 	public void select(MaintenanceProtocol maintenanceProtocol) {
 		this.maintenanceProtocol = maintenanceProtocol;
 		loadData();
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

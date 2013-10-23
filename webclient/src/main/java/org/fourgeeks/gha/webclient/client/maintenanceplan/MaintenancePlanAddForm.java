@@ -23,7 +23,7 @@ public class MaintenancePlanAddForm extends GHASlideInWindow implements
 	}
 
 	public MaintenancePlanAddForm() {
-		super(2);
+		super();
 		setHeight(GHAUiHelper.getBottomSectionHeight());
 		setTop(240);
 
@@ -135,5 +135,17 @@ public class MaintenancePlanAddForm extends GHASlideInWindow implements
 	public void select(MaintenancePlan maintenancePlan) {
 		// called when the maintenanceplanform finish saving new entity
 		cancel();
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

@@ -58,9 +58,9 @@ public class MaintenanceProtocolSearchForm extends GHASlideInWindow implements
 	 * 
 	 */
 	public MaintenanceProtocolSearchForm() {
-		super(1);
+		super();
 		setTop(GHAUiHelper.getTopSpace());
-		setHeight(GHAUiHelper.getTabHeight()-4 + "px");
+		setHeight(GHAUiHelper.getTabHeight() - 4 + "px");
 
 		GHALabel title = new GHALabel("Busqueda de Protocolos de Mantenimiento");
 		addMember(title);
@@ -112,7 +112,7 @@ public class MaintenanceProtocolSearchForm extends GHASlideInWindow implements
 
 		HLayout formLayout = new HLayout();
 		formLayout.setPadding(10);
-		formLayout.setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT + "px");
+		formLayout.setHeight(GHAUiHelper.DEFAULT_TOP_SECTION_HEIGHT + "px");
 		formLayout.setDefaultLayoutAlign(VerticalAlignment.CENTER);
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
 
@@ -161,7 +161,7 @@ public class MaintenanceProtocolSearchForm extends GHASlideInWindow implements
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getTabHeight()-4 + "px");
+		setHeight(GHAUiHelper.getTabHeight() - 4 + "px");
 	}
 
 	private void search() {
@@ -252,12 +252,24 @@ public class MaintenanceProtocolSearchForm extends GHASlideInWindow implements
 		GHAGridRecord<MaintenanceProtocol> selectedRecord = grid
 				.getSelectedRecord();
 		if (selectedRecord == null) {
-			GHANotification.alert(GHAStrings.get("record-not-selected"));
+			GHANotification.oldAlert(GHAStrings.get("record-not-selected"));
 			return;
 		}
 		notifyMaintenanceProtocol(((MaintenanceProtocolGridRecord) selectedRecord)
 				.toEntity());
 		hide();
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

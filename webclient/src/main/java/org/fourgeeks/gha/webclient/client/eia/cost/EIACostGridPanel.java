@@ -14,57 +14,72 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIACostGridPanel extends VLayout implements EIATypeSelectionListener, GHAClosable,GHAHideable{
-	
+public class EIACostGridPanel extends VLayout implements
+		EIATypeSelectionListener, GHAClosable, GHAHideable {
+
 	private EIADeprecationGrid eiaDeprecationGrid = new EIADeprecationGrid();
-	
+
 	public EIACostGridPanel() {
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
-		
+
 		GHALabel title = new GHALabel("Costos/Depreciación (Pospuesta)");
 		GHALabel titleDep = new GHALabel("Registro de Depreciación");
-		
+
 		// //////Botones laterales
-        VLayout sideButtons = GHAUiHelper.createBar(
-	    		new GHAImgButton("../resources/icons/new.png", new ClickHandler() {
+		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
+				"../resources/icons/new.png", new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
 						// TODO Auto-generated method stub
 					}
-				}),
-	    		new GHAImgButton("../resources/icons/edit.png"),
-	    		new GHAImgButton("../resources/icons/delete.png"),
-	    		new GHAImgButton("../resources/icons/set.png", new ClickHandler() {
-					@Override
-					public void onClick(ClickEvent event) {
-						// TODO Auto-generated method stub
-					}
-				}));
-		
-        HLayout mainPanel = new HLayout();
-        mainPanel.addMembers(eiaDeprecationGrid,sideButtons);
-        
-	    addMembers(title,new LayoutSpacer(), GHAUiHelper.verticalGraySeparator("10px"),titleDep,mainPanel,new LayoutSpacer());
+				}), new GHAImgButton("../resources/icons/edit.png"),
+				new GHAImgButton("../resources/icons/delete.png"),
+				new GHAImgButton("../resources/icons/set.png",
+						new ClickHandler() {
+							@Override
+							public void onClick(ClickEvent event) {
+								// TODO Auto-generated method stub
+							}
+						}));
+
+		HLayout mainPanel = new HLayout();
+		mainPanel.addMembers(eiaDeprecationGrid, sideButtons);
+
+		addMembers(title, new LayoutSpacer(),
+				GHAUiHelper.verticalGraySeparator("10px"), titleDep, mainPanel,
+				new LayoutSpacer());
 	}
 
 	@Override
 	public void select(EiaType eiaType) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void close() {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	@Override
 	public void hide() {
 		// TODO Auto-generated method stub
-		
+
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

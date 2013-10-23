@@ -29,7 +29,7 @@ public class UserAddForm extends GHASlideInWindow implements
 	 * 
 	 */
 	public UserAddForm() {
-		super(2);
+		super();
 		setHeight(GHAUiHelper.getBottomSectionHeight());
 		setTop(240);
 
@@ -128,5 +128,17 @@ public class UserAddForm extends GHASlideInWindow implements
 	public void select(SSOUser ssoUser) {
 		// called when the userForm finish saving new entity
 		cancel();
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

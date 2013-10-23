@@ -5,6 +5,7 @@ import java.util.Map;
 import org.fourgeeks.gha.domain.HasKey;
 
 import com.smartgwt.client.widgets.form.fields.ComboBoxItem;
+import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 
 /**
  * @author alacret
@@ -39,12 +40,21 @@ public class GHAComboboxItem<T extends HasKey> extends ComboBoxItem {
 	/**
 	 * @param title
 	 * @param width
-	 * @param callback
-	 * @param active
 	 */
 	public GHAComboboxItem(String title, int width) {
 		this(title);
 		setWidth(width);
+	}
+
+	/**
+	 * @param title
+	 * @param width
+	 */
+	public GHAComboboxItem(String title, int width,
+			ChangedHandler changedHandler) {
+		this(title);
+		setWidth(width);
+		addChangedHandler(changedHandler);
 	}
 
 	public GHAComboboxItem(int width) {
@@ -52,7 +62,7 @@ public class GHAComboboxItem<T extends HasKey> extends ComboBoxItem {
 		setShowTitle(false);
 		setWidth(width);
 	}
-	
+
 	/**
 	 * @param title
 	 * @param width

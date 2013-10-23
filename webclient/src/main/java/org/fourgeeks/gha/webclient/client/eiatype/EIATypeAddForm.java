@@ -1,12 +1,15 @@
 package org.fourgeeks.gha.webclient.client.eiatype;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.smartgwt.client.widgets.AnimationCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -18,7 +21,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class EIATypeAddForm extends GHASlideInWindow implements
-		EiaTypeSelectionProducer, EIATypeSelectionListener {
+		EiaTypeSelectionProducer, EIATypeSelectionListener, GHAClosable {
 
 	private EiaTypeForm form;
 
@@ -30,12 +33,10 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 	 * 
 	 */
 	public EIATypeAddForm() {
-		super(2);
-		setHeight(GHAUiHelper.getBottomSectionHeight());
-		setTop(240);
-
-		GHALabel title = new GHALabel("Nuevo Tipo de Equipo");
-		addMember(title);
+		super();
+		setWidth100();
+		setHeight(GHAUiHelper.getTabHeight());
+		addMember(new GHALabel(GHAStrings.get("new-eiatype")));
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
 				"../resources/icons/save.png", new ClickHandler() {
@@ -49,7 +50,7 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 
 					@Override
 					public void onClick(ClickEvent event) {
-						cancel();
+						hide();
 					}
 				}));
 
@@ -61,16 +62,16 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 		form.addEiaTypeSelectionListener(this);
 	}
 
-	protected void cancel() {
-		form.hide();
-		super.hide();
-	}
-	
-	@Override
-	public void open() {
-		super.open();
-		form.show();
-	}
+	// protected void cancel() {
+	// form.hide();
+	// super.hide();
+	// }
+
+	// @Override
+	// public void open() {
+	// super.open();
+	// form.show();
+	// }
 
 	private void save() {
 		form.save();
@@ -78,12 +79,18 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getBottomSectionHeight());
+		setHeight(GHAUiHelper.getTabHeight());
 	}
 
 	@Override
 	public void close() {
-		destroy();
+		hide(new AnimationCallback() {
+
+			@Override
+			public void execute(boolean earlyFinish) {
+				destroy();
+			}
+		});
 	}
 
 	// Producer/consumer stuff
@@ -110,6 +117,16 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 	 */
 	@Override
 	public void select(EiaType eiaType) {
-		cancel();
+		// cancel();
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		return true;
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		return true;
 	}
 }

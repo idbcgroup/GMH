@@ -69,4 +69,16 @@ public class EIAReportsFormPanel extends VLayout implements GHAClosable,
 		// TODO Auto-generated method stub
 
 	}
+
+	@Override
+	public boolean canBeHidden() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

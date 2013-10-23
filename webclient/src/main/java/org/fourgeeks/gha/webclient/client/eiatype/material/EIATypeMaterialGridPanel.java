@@ -130,4 +130,14 @@ public class EIATypeMaterialGridPanel extends VLayout implements
 	public void hide() {
 		materialSearchForm.hide();
 	}
+
+	@Override
+	public boolean canBeHidden() {
+		return true;
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		return true;
+	}
 }

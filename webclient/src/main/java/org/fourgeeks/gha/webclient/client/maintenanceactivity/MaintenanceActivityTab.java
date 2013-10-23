@@ -5,10 +5,14 @@ import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATab;
+import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
 
 import com.smartgwt.client.widgets.layout.VLayout;
 
+/**
+ * @author alacret
+ * 
+ */
 public class MaintenanceActivityTab extends GHATab implements
 		MaintenanceActivitySelectionListener,
 		MaintenanceActivitySelectionProducer {
@@ -26,10 +30,11 @@ public class MaintenanceActivityTab extends GHATab implements
 	}
 
 	/**
+	 * @param token
 	 * 
 	 */
-	public MaintenanceActivityTab() {
-		super();
+	public MaintenanceActivityTab(String token) {
+		super(token);
 		// getHeader().setTitle(TITLE);
 
 		topSection = new MaintenanceActivityTopSection(this);
@@ -100,6 +105,18 @@ public class MaintenanceActivityTab extends GHATab implements
 	public void select(MaintenanceActivity maintenanceActivity) {
 		for (MaintenanceActivitySelectionListener listener : listeners)
 			listener.select(maintenanceActivity);
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

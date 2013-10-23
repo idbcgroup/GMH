@@ -5,7 +5,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHASessionData;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAPlace;
+import org.fourgeeks.gha.webclient.client.UI.tabs.GHAPlace;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
@@ -79,12 +79,12 @@ public class LoginPlace extends GHAPlace {
 				String password = passTextbox.getValue();
 
 				if (username == null || username.equals("")) {
-					GHANotification.alert(GHAStrings.get("username-not-null"));
+					GHANotification.oldAlert(GHAStrings.get("username-not-null"));
 					return;
 				}
 
 				if (password == null || password.equals("")) {
-					GHANotification.alert(GHAStrings.get("password-not-null"));
+					GHANotification.oldAlert(GHAStrings.get("password-not-null"));
 					return;
 				}
 

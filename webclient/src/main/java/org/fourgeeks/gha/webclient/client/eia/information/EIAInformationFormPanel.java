@@ -22,8 +22,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class EIAInformationFormPanel extends VLayout implements GHAClosable, GHAHideable,
-		EiaSelectionProducer, EIASelectionListener {
+public class EIAInformationFormPanel extends VLayout implements GHAClosable,
+		GHAHideable, EiaSelectionProducer, EIASelectionListener {
 
 	/**
 	 * @param eiaEquipmentSubTab
@@ -43,20 +43,21 @@ public class EIAInformationFormPanel extends VLayout implements GHAClosable, GHA
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		eiaForm.addEiaSelectionListener(this);
 		GHALabel title = new GHALabel("Caracteristicas del Equipos");
-		
-		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton("../resources/icons/save.png",
-				new ClickHandler() {
+
+		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
+				"../resources/icons/save.png", new ClickHandler() {
 
 					@Override
 					public void onClick(ClickEvent event) {
 						save();
 					}
-				}), new GHAImgButton("../resources/icons/undo.png", new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				// undo();
-			}
-		}));
+				}), new GHAImgButton("../resources/icons/undo.png",
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						// undo();
+					}
+				}));
 
 		HLayout formPanel = new HLayout();
 		formPanel.addMembers(eiaForm, sideButtons);
@@ -84,13 +85,15 @@ public class EIAInformationFormPanel extends VLayout implements GHAClosable, GHA
 	}
 
 	@Override
-	public void addEiaSelectionListener(EIASelectionListener eiaSelectionListener) {
+	public void addEiaSelectionListener(
+			EIASelectionListener eiaSelectionListener) {
 		listeners.add(eiaSelectionListener);
 
 	}
 
 	@Override
-	public void removeEiaSelectionListener(EIASelectionListener eiaSelectionListener) {
+	public void removeEiaSelectionListener(
+			EIASelectionListener eiaSelectionListener) {
 		listeners.remove(eiaSelectionListener);
 	}
 
@@ -98,5 +101,17 @@ public class EIAInformationFormPanel extends VLayout implements GHAClosable, GHA
 	public void select(Eia eia) {
 		for (EIASelectionListener listener : listeners)
 			listener.select(eia);
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

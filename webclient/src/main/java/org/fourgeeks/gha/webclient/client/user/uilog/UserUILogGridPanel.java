@@ -13,7 +13,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class UserUILogGridPanel extends VLayout implements GHAClosable, GHAHideable {
+public class UserUILogGridPanel extends VLayout implements GHAClosable,
+		GHAHideable {
 
 	private LogonLogGrid grid;
 	private EiaType eiaType;
@@ -24,8 +25,7 @@ public class UserUILogGridPanel extends VLayout implements GHAClosable, GHAHidea
 	/**
 	 * @param eIATypeEquipmentSubTab
 	 */
-	public UserUILogGridPanel(
-			UserUILogSubTab eIATypeEquipmentSubTab) {
+	public UserUILogGridPanel(UserUILogSubTab eIATypeEquipmentSubTab) {
 		super();
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		setWidth100();
@@ -35,31 +35,31 @@ public class UserUILogGridPanel extends VLayout implements GHAClosable, GHAHidea
 		addMember(title);
 
 		// //////Botones laterales
-//		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
-//				"../resources/icons/new.png", new ClickHandler() {
-//
-//					@Override
-//					public void onClick(ClickEvent event) {
-//					
-//					}
-//				}), new GHAImgButton("../resources/icons/edit.png",
-//				new ClickHandler() {
-//					@Override
-//					public void onClick(ClickEvent event) {
-//					
-//					}
-//				}), new GHAImgButton("../resources/icons/delete.png",
-//				new ClickHandler() {
-//
-//					@Override
-//					public void onClick(ClickEvent event) {
-//					
-//					}
-//
-//				}));
+		// VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
+		// "../resources/icons/new.png", new ClickHandler() {
+		//
+		// @Override
+		// public void onClick(ClickEvent event) {
+		//
+		// }
+		// }), new GHAImgButton("../resources/icons/edit.png",
+		// new ClickHandler() {
+		// @Override
+		// public void onClick(ClickEvent event) {
+		//
+		// }
+		// }), new GHAImgButton("../resources/icons/delete.png",
+		// new ClickHandler() {
+		//
+		// @Override
+		// public void onClick(ClickEvent event) {
+		//
+		// }
+		//
+		// }));
 
 		HLayout mainLayout = new HLayout();
-		mainLayout.addMembers(grid/*, sideButtons*/);
+		mainLayout.addMembers(grid/* , sideButtons */);
 		addMember(mainLayout);
 	}
 
@@ -67,26 +67,38 @@ public class UserUILogGridPanel extends VLayout implements GHAClosable, GHAHidea
 	 * @param eiaType
 	 */
 	private void loadData(EiaType eiaType) {
-//		EIAModel.find(eiaType, new GHAAsyncCallback<List<Eia>>() {
-//
-//			@Override
-//			public void onSuccess(List<Eia> result) {
-//				ListGridRecord[] array = (ListGridRecord[]) EIAUtil
-//						.toGridRecords(result).toArray(new EIARecord[] {});
-//				grid.setData(array);
-//
-//			}
-//		});
+		// EIAModel.find(eiaType, new GHAAsyncCallback<List<Eia>>() {
+		//
+		// @Override
+		// public void onSuccess(List<Eia> result) {
+		// ListGridRecord[] array = (ListGridRecord[]) EIAUtil
+		// .toGridRecords(result).toArray(new EIARecord[] {});
+		// grid.setData(array);
+		//
+		// }
+		// });
 	}
 
 	@Override
 	public void close() {
-	
+
 	}
 
 	@Override
 	public void hide() {
 		// super.hide();
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	/*
@@ -105,7 +117,7 @@ public class UserUILogGridPanel extends VLayout implements GHAClosable, GHAHidea
 	 * org.fourgeeks.gha.webclient.client.eia.EIASelectionListener#select(org
 	 * .fourgeeks.gha.domain.gmh.Eia)
 	 */
-	
+
 	// @Override
 	// public void addEiaSelectionListener(
 	// EIASelectionListener eiaSelectionListener) {

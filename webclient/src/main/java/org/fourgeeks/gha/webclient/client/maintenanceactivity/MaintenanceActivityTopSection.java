@@ -6,7 +6,7 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATabSet;
+import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabSet;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
@@ -51,7 +51,7 @@ public class MaintenanceActivityTopSection extends HLayout implements
 
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		setWidth100();
-		setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT + "px");
+		setHeight(GHAUiHelper.DEFAULT_TOP_SECTION_HEIGHT + "px");
 		setDefaultLayoutAlign(VerticalAlignment.CENTER);
 		setBackgroundColor("#EAEAEA");
 
@@ -87,7 +87,7 @@ public class MaintenanceActivityTopSection extends HLayout implements
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT + "px");
+		setHeight(GHAUiHelper.DEFAULT_TOP_SECTION_HEIGHT + "px");
 	}
 
 	public void search() {
@@ -105,6 +105,12 @@ public class MaintenanceActivityTopSection extends HLayout implements
 	public void select(MaintenanceActivity maintenanceActivity) {
 		nameItem.setValue(maintenanceActivity.getName());
 		descriptionItem.setValue(maintenanceActivity.getDescription());
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

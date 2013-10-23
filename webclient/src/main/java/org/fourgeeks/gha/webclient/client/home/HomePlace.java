@@ -5,8 +5,8 @@ import org.fourgeeks.gha.webclient.client.UI.GHASessionData;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.dropdownmenus.UserDropdownMenu;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAPlace;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATabSet;
+import org.fourgeeks.gha.webclient.client.UI.tabs.GHAPlace;
+import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabSet;
 
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -61,8 +61,8 @@ public class HomePlace extends GHAPlace {
 		userInfo.setHeight("50px");
 		userInfo.setDefaultLayoutAlign(Alignment.CENTER);
 
-		GHALabel usernameLabel = new GHALabel(user.getCitizen().getFirstName() + " "
-				+ user.getCitizen().getFirstLastName());
+		GHALabel usernameLabel = new GHALabel(user.getCitizen().getFirstName()
+				+ " " + user.getCitizen().getFirstLastName());
 		usernameLabel.setStyleName("username-text");
 		usernameLabel.setSize("400px", "25px");
 

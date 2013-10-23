@@ -27,7 +27,7 @@ public class EIAUpdateForm extends GHASlideInWindow implements
 	 * 
 	 */
 	public EIAUpdateForm() {
-		super(1);
+		super();
 		eiaForm = new EIAForm();
 		initComponent();
 	}
@@ -72,7 +72,7 @@ public class EIAUpdateForm extends GHASlideInWindow implements
 	 * 
 	 */
 	public EIAUpdateForm(EiaType eiaType) {
-		super(1);
+		super();
 		eiaForm = new EIAForm(eiaType);
 		initComponent();
 	}
@@ -147,5 +147,17 @@ public class EIAUpdateForm extends GHASlideInWindow implements
 	public void select(Eia eia) {
 		eiaForm.clearValue();
 		hide();
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

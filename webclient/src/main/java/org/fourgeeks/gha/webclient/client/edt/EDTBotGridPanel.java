@@ -10,7 +10,7 @@ import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EDTBotGridPanel extends VLayout implements GHAClosable{
+public class EDTBotGridPanel extends VLayout implements GHAClosable {
 
 	private EDTBotGrid botGrid;
 	{
@@ -21,43 +21,48 @@ public class EDTBotGridPanel extends VLayout implements GHAClosable{
 		super();
 		setStyleName("sides-padding");// Esto es VUDU!
 		setWidth100();
-		
+
 		setBackgroundColor("#E0E0E0");
-		
+
 		GHALabel botTitle = new GHALabel("Atendidos");
-		
+
 		// //////Botones laterales
-		
-		VLayout sideButtons = GHAUiHelper.createBar(
-				new GHAImgButton("../resources/icons/save.png", new ClickHandler() {
+
+		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
+				"../resources/icons/save.png", new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						//TODO: Funcion que guarde
+						// TODO: Funcion que guarde
 					}
-				}),
-				new GHAImgButton("../resources/icons/undo.png",new ClickHandler() {
+				}), new GHAImgButton("../resources/icons/undo.png",
+				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
 						// TODO Auto-generated method stub
-						
+
 					}
-				}),
-				GHAUiHelper.verticalGraySeparator("2px"),
-				new GHAImgButton("../resources/icons/new.png", new ClickHandler() {
+				}), GHAUiHelper.verticalGraySeparator("2px"), new GHAImgButton(
+				"../resources/icons/new.png", new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						//TODO: Funcion que agregue una actividad
+						// TODO: Funcion que agregue una actividad
 					}
 				}));
 
 		HLayout mainpanel = new HLayout();
 		mainpanel.addMembers(botGrid, sideButtons);
-		
-		addMembers(botTitle,mainpanel);
+
+		addMembers(botTitle, mainpanel);
 	}
 
 	@Override
 	public void close() {
-		//TODO:Close the add forms
+		// TODO:Close the add forms
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

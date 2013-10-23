@@ -23,26 +23,30 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class UserCredentialsFormPanel extends VLayout implements GHAClosable, GHAHideable {
-	
-	private GHACheckboxItem physicianItem, nurseItem, payerItem, patientItem, admisionItem;
+public class UserCredentialsFormPanel extends VLayout implements GHAClosable,
+		GHAHideable {
+
+	private GHACheckboxItem physicianItem, nurseItem, payerItem, patientItem,
+			admisionItem;
 	private EiaType eiaType, orginalEiaType;
 	private UserTab tab;
 
 	{
-		physicianItem = new GHACheckboxItem(CredentialTypeEnum.PHYSICIAN.toString());
+		physicianItem = new GHACheckboxItem(
+				CredentialTypeEnum.PHYSICIAN.toString());
 		nurseItem = new GHACheckboxItem(CredentialTypeEnum.NURSE.toString());
 		payerItem = new GHACheckboxItem(CredentialTypeEnum.PAYER.toString());
 		patientItem = new GHACheckboxItem(CredentialTypeEnum.PATIENT.toString());
-		admisionItem = new GHACheckboxItem(CredentialTypeEnum.ADMISSION_AGENT.toString());
+		admisionItem = new GHACheckboxItem(
+				CredentialTypeEnum.ADMISSION_AGENT.toString());
 	}
 
 	public UserCredentialsFormPanel(UserTab tab) {
 		activateForm(false);
 		this.tab = tab;
-		
+
 		tab.addGHAClosableHandler(this);
-		
+
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
@@ -50,12 +54,13 @@ public class UserCredentialsFormPanel extends VLayout implements GHAClosable, GH
 
 		GHALabel title = new GHALabel("Credenciales del Usuario");
 		addMember(title);
-		
+
 		DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(1);
-		form.setItems(physicianItem, nurseItem,payerItem,patientItem,admisionItem);
-		
+		form.setItems(physicianItem, nurseItem, payerItem, patientItem,
+				admisionItem);
+
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
 				"../resources/icons/save.png", new ClickHandler() {
 
@@ -87,12 +92,12 @@ public class UserCredentialsFormPanel extends VLayout implements GHAClosable, GH
 	}
 
 	protected void undo() {
-		//reload the original eiatype
+		// reload the original eiatype
 		save();
 	}
 
 	private void save() {
-		
+
 	}
 
 	@Override
@@ -103,5 +108,17 @@ public class UserCredentialsFormPanel extends VLayout implements GHAClosable, GH
 	@Override
 	public void hide() {
 
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

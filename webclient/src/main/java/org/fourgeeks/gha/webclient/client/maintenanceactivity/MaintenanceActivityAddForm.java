@@ -23,7 +23,7 @@ public class MaintenanceActivityAddForm extends GHASlideInWindow implements
 	}
 
 	public MaintenanceActivityAddForm() {
-		super(2);
+		super();
 		setHeight(GHAUiHelper.getBottomSectionHeight());
 		setTop(240);
 
@@ -129,5 +129,17 @@ public class MaintenanceActivityAddForm extends GHASlideInWindow implements
 			MaintenanceActivitySelectionListener maintenanceActivitySelectionListener) {
 		maintenanceActivityForm
 				.removeMaintenanceActivitySelectionListener(maintenanceActivitySelectionListener);
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

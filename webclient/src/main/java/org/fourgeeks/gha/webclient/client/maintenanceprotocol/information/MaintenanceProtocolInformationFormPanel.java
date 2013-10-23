@@ -147,4 +147,16 @@ public class MaintenanceProtocolInformationFormPanel extends VLayout implements
 		for (MaintenanceProtocolSelectionListener listener : listeners)
 			listener.select(maintenanceProtocol);
 	}
+
+	@Override
+	public boolean canBeHidden() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

@@ -144,4 +144,14 @@ public class EIATypeUtilityGridPanel extends VLayout implements
 				});
 	}
 
+	@Override
+	public boolean canBeHidden() {
+		return true;
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		return true;
+	}
+
 }

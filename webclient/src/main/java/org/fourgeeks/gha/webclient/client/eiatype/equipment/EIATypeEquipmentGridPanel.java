@@ -50,11 +50,8 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 	/**
 	 * @param eIATypeEquipmentSubTab
 	 */
-	public EIATypeEquipmentGridPanel(
-			EIATypeEquipmentSubTab eIATypeEquipmentSubTab) {
+	public EIATypeEquipmentGridPanel() {
 		super();
-		eIATypeEquipmentSubTab.addGHAHideableHandler(eiaAddForm);
-
 		eiaAddForm.addEiaSelectionListener(this);
 		eiaUpdateForm.addEiaSelectionListener(this);
 
@@ -62,7 +59,8 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 
-		GHALabel title = new GHALabel("Equipos pertenecientes a este Tipo de Equipo");
+		GHALabel title = new GHALabel(
+				"Equipos pertenecientes a este Tipo de Equipo");
 		addMember(title);
 
 		// //////Botones laterales
@@ -178,5 +176,15 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 	@Override
 	public void select(Eia eia) {
 		loadData(eiaType);
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		return true;
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		return true;
 	}
 }
