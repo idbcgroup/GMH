@@ -3,6 +3,7 @@ package org.fourgeeks.gha.webclient.client.UI.formItems;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
 import com.smartgwt.client.widgets.form.fields.TextItem;
+import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 
 /**
  * @author alacret
@@ -33,6 +34,17 @@ public class GHATextItem extends TextItem {
 	}
 
 	/**
+	 * @param title
+	 * @param width
+	 */
+	public GHATextItem(String title, int width, boolean required,
+			ChangedHandler changedHandler) {
+		this(title, width);
+		setRequired(required);
+		addChangedHandler(changedHandler);
+	}
+
+	/**
 	 * @param width
 	 */
 	public GHATextItem(int width) {
@@ -47,8 +59,7 @@ public class GHATextItem extends TextItem {
 	 * @param active
 	 */
 	public GHATextItem(String title, int width, boolean active) {
-		this(title);
-		setWidth(width);
+		this(title, width);
 		setDisabled(!active);
 	}
 

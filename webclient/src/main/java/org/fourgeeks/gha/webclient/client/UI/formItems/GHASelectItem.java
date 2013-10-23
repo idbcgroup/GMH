@@ -1,6 +1,7 @@
 package org.fourgeeks.gha.webclient.client.UI.formItems;
 
 import com.smartgwt.client.widgets.form.fields.SelectItem;
+import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 
 /**
  * @author alacret
@@ -30,6 +31,19 @@ public class GHASelectItem extends SelectItem {
 	public GHASelectItem(String title, int width) {
 		this(title);
 		setWidth(width);
+	}
+
+	/**
+	 * @param title
+	 * @param width
+	 * @param changedHandler
+	 */
+	public GHASelectItem(String title, int width, boolean required,
+			ChangedHandler changedHandler) {
+		this(title);
+		setWidth(width);
+		setRequired(required);
+		addChangedHandler(changedHandler);
 	}
 
 	/**

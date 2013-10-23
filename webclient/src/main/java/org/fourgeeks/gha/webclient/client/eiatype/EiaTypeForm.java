@@ -18,6 +18,7 @@ import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
+import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHACodeItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAComboboxItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAEiaTypeSubTypeSelectItem;
@@ -25,6 +26,8 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHAEiaTypeTypeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextAreaItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.brand.BrandModel;
 
@@ -41,7 +44,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author emiliot
  * 
  */
-public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer {
+public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer,
+		GHAHideable, GHAClosable {
 	private GHACodeItem codeItem;
 	private GHATextItem nameItem, modelItem, eiaUmdnsItem;
 	private GHATextAreaItem descriptionItem;
@@ -60,32 +64,41 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer {
 	 * Used only for update purposes, to hold id and such values
 	 */
 	private EiaType updateEiaType;
+	private boolean hasUnCommittedChanges = false;
+	private ChangedHandler changedHandler = new ChangedHandler() {
 
+		@Override
+		public void onChanged(ChangedEvent event) {
+			hasUnCommittedChanges = true;
+		}
+	};
 	private Validator validator;
 	{
-		codeItem = new GHACodeItem(true, 300);
-		nameItem = new GHATextItem(GHAStrings.get("name"), 300);
-		nameItem.setRequired(true);
-		typeItem = new GHAEiaTypeTypeSelectItem(300);
-		typeItem.setRequired(true);
+		codeItem = new GHACodeItem(true, 300, changedHandler);
+		nameItem = new GHATextItem(GHAStrings.get("name"), 300, true,
+				changedHandler);
+		typeItem = new GHAEiaTypeTypeSelectItem(300, true, changedHandler);
 		//
-		subTypeItem = new GHAEiaTypeSubTypeSelectItem(300);
-		eiaUmdnsItem = new GHATextItem("EIAUMDNS", 300);
+		subTypeItem = new GHAEiaTypeSubTypeSelectItem(300, changedHandler);
+		eiaUmdnsItem = new GHATextItem("EIAUMDNS", 300, false, changedHandler);
 		eiaUmdnsItem.setLength(16);
-		modelItem = new GHATextItem(GHAStrings.get("model"), 300);
+		modelItem = new GHATextItem(GHAStrings.get("model"), 300, false,
+				changedHandler);
 		modelItem.setLength(20);
 		//
 		descriptionItem = new GHATextAreaItem(GHAStrings.get("description"),
-				900);
+				900, changedHandler);
 		descriptionItem.setColSpan(3);
-		useDescriptionItem = new GHATextAreaItem(GHAStrings.get("use"), 900);
+		useDescriptionItem = new GHATextAreaItem(GHAStrings.get("use"), 900,
+				changedHandler);
 		useDescriptionItem.setColSpan(3);
 		//
 		manItem = new GHAComboboxItem<Manufacturer>(
-				GHAStrings.get("manufacturer"), 300);
-		brandItem = new GHAComboboxItem<Brand>(GHAStrings.get("brand"), 300);
-		mobilityItem = new GHASelectItem(GHAStrings.get("mobility"), 300);
-		mobilityItem.setRequired(true);
+				GHAStrings.get("manufacturer"), 300, changedHandler);
+		brandItem = new GHAComboboxItem<Brand>(GHAStrings.get("brand"), 300,
+				changedHandler);
+		mobilityItem = new GHASelectItem(GHAStrings.get("mobility"), 300, true,
+				changedHandler);
 		//
 		validator = Validation.buildDefaultValidatorFactory().getValidator();
 		listeners = new ArrayList<EIATypeSelectionListener>();
@@ -204,6 +217,7 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer {
 
 				@Override
 				public void onSuccess(EiaType result) {
+					hasUnCommittedChanges = false;
 					notifyEiaType(result);
 					cancel();
 
@@ -226,6 +240,7 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer {
 
 				@Override
 				public void onSuccess(EiaType result) {
+					hasUnCommittedChanges = false;
 					notifyEiaType(result);
 				}
 			});
@@ -414,6 +429,23 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer {
 			EIATypeSelectionListener eIATypeSelectionListener) {
 		listeners.remove(eIATypeSelectionListener);
 
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		return !hasUnCommittedChanges;
+	}
+
+	@Override
+	public void close() throws UnavailableToCloseException {
+
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		if (hasUnCommittedChanges)
+			GHANotification.alert("unsavedchanges");
+		return !hasUnCommittedChanges;
 	}
 
 }

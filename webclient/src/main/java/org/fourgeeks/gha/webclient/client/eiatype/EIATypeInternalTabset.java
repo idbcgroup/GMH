@@ -43,6 +43,7 @@ public class EIATypeInternalTabset extends TabSet implements ResizeHandler,
 		setHeight(GHAUiHelper.getBottomSectionHeight());
 		setVisible(false);
 		infoSubTab = new EIATypeInformationSubTab(tab);
+		hideables.add(infoSubTab);
 		equipementsSubTab = new EIATypeEquipmentSubTab(tab);
 		partsSubTab = new EIATypeComponentSubTab(tab);
 		materialSubTab = new EIATypeMaterialSubTab(tab);

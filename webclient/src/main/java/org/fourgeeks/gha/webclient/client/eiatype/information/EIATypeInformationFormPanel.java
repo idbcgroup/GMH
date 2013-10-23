@@ -27,12 +27,12 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		EIATypeSelectionListener, EiaTypeSelectionProducer, GHAClosable,
 		GHAHideable {
 
-	private EiaTypeForm eiaTypeForm;
+	private EiaTypeForm form;
 	private List<EIATypeSelectionListener> listeners;
 	private EiaType originalEiaType;
 
 	{
-		eiaTypeForm = new EiaTypeForm();
+		form = new EiaTypeForm();
 		listeners = new ArrayList<EIATypeSelectionListener>();
 		originalEiaType = null;
 
@@ -141,7 +141,7 @@ public class EIATypeInformationFormPanel extends VLayout implements
 				}));
 
 		HLayout gridPanel = new HLayout();
-		gridPanel.addMembers(eiaTypeForm, new LayoutSpacer(), sideButtons);
+		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
 
 		/**************** COMPONENTE PARA SUBIDA DE IMAGEN ****************************************/
 		// SingleUploader uploadPhoto1 = new
@@ -265,14 +265,14 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		// addMember(uploadImagenes);
 
 		// register as eiatypeselected listener with eiatypeform
-		eiaTypeForm.addEiaTypeSelectionListener(this);
+		form.addEiaTypeSelectionListener(this);
 	}
 
 	/**
 	 * @param activate
 	 */
 	public void activate() {
-		eiaTypeForm.activate();
+		form.activate();
 	}
 
 	protected void undo() {
@@ -284,7 +284,7 @@ public class EIATypeInformationFormPanel extends VLayout implements
 	 */
 	public void setEiaType(EiaType eiaType) {
 		this.originalEiaType = eiaType;
-		eiaTypeForm.setEiaType(eiaType);
+		form.setEiaType(eiaType);
 
 		activate();
 		// showPhotographics(eiaType);
@@ -346,7 +346,7 @@ public class EIATypeInformationFormPanel extends VLayout implements
 	// }
 
 	private void save() {
-		eiaTypeForm.update();
+		form.update();
 		// if (this.eiaType == null)
 		// return;
 		// final EiaType eiaType = new EiaType();
@@ -486,7 +486,7 @@ public class EIATypeInformationFormPanel extends VLayout implements
 
 	@Override
 	public boolean canBeHidden() {
-		return true;
+		return form.canBeHidden();
 	}
 
 	@Override
