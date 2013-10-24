@@ -114,8 +114,7 @@ public class UserInformationFormPanel extends VLayout implements GHAClosable,
 	 */
 	@Override
 	public void select(SSOUser ssoUser) {
-		for (UserSelectionListener listener : listeners)
-			listener.select(ssoUser);
+		notifyUser(ssoUser);
 	}
 
 	/*
@@ -154,5 +153,11 @@ public class UserInformationFormPanel extends VLayout implements GHAClosable,
 	public boolean canBeClosen() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public void notifyUser(SSOUser ssoUser) {
+		for (UserSelectionListener listener : listeners)
+			listener.select(ssoUser);
 	}
 }

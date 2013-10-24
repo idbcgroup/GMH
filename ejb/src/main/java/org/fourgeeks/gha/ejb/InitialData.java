@@ -104,7 +104,9 @@ public class InitialData {
 						LanguageEnum.ES.name()));
 				em.flush();
 			} catch (Exception e1) {
-				logger.log(Level.INFO, "error Creating parameter test data", e1);
+				logger
+						.log(Level.INFO, "error Creating parameter test data",
+								e1);
 			}
 		}
 	}
@@ -200,9 +202,10 @@ public class InitialData {
 						"Actualización fallida del Tipo de Equipo"));
 				em.persist(new GHAMessage(LanguageEnum.ES, "eiatype-find-fail",
 						"Búsqueda fallida de Tipos de Equipo"));
-				em.persist(new GHAMessage(LanguageEnum.ES,
-						"eiatype-findByMaintenancePlan-fail",
-						"Búsqueda fallida del Tipo de Equipo por Plan de Mantenimeinto"));
+				em
+						.persist(new GHAMessage(LanguageEnum.ES,
+								"eiatype-findByMaintenancePlan-fail",
+								"Búsqueda fallida del Tipo de Equipo por Plan de Mantenimeinto"));
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"eiatype-getAll-fail",
 						"Búsqueda fallida de todos los Tipos de Equipo"));
@@ -391,8 +394,10 @@ public class InitialData {
 				// bpu service messages
 				em.persist(new GHAMessage(LanguageEnum.ES, "bpu-delete-fail",
 						"Fallo la eliminación del Bpu"));
-				em.persist(new GHAMessage(LanguageEnum.ES,
-						"bpu-findByBpu-fail", "Búsqueda fallida de Bpu por bpu"));
+				em
+						.persist(new GHAMessage(LanguageEnum.ES,
+								"bpu-findByBpu-fail",
+								"Búsqueda fallida de Bpu por bpu"));
 				em.persist(new GHAMessage(LanguageEnum.ES, "bpu-find-fail",
 						"Búsqueda fallida de Bpu"));
 				em.persist(new GHAMessage(LanguageEnum.ES, "bpu-getAll-fail",
@@ -448,8 +453,10 @@ public class InitialData {
 				// obu service messages
 				em.persist(new GHAMessage(LanguageEnum.ES, "obu-delete-fail",
 						"Fallo la eliminación del Obu"));
-				em.persist(new GHAMessage(LanguageEnum.ES,
-						"obu-findByObu-fail", "Búsqueda fallida de Obu por obu"));
+				em
+						.persist(new GHAMessage(LanguageEnum.ES,
+								"obu-findByObu-fail",
+								"Búsqueda fallida de Obu por obu"));
 				em.persist(new GHAMessage(LanguageEnum.ES, "obu-find-fail",
 						"Búsqueda fallida de Obu"));
 				em.persist(new GHAMessage(LanguageEnum.ES, "obu-getAll-fail",
@@ -475,9 +482,10 @@ public class InitialData {
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"externalProvider-delete-fail",
 						"Fallo la eliminación del ExternalProvider"));
-				em.persist(new GHAMessage(LanguageEnum.ES,
-						"externalProvider-findByExternalProvider-fail",
-						"Búsqueda fallida de ExternalProvider por externalProvider"));
+				em
+						.persist(new GHAMessage(LanguageEnum.ES,
+								"externalProvider-findByExternalProvider-fail",
+								"Búsqueda fallida de ExternalProvider por externalProvider"));
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"externalProvider-find-fail",
 						"Búsqueda fallida de ExternalProvider"));
@@ -513,9 +521,10 @@ public class InitialData {
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"materialCategory-delete-fail",
 						"Fallo la eliminación del MaterialCategory"));
-				em.persist(new GHAMessage(LanguageEnum.ES,
-						"materialCategory-findByMaterialCategory-fail",
-						"Búsqueda fallida de MaterialCategory por materialCategory"));
+				em
+						.persist(new GHAMessage(LanguageEnum.ES,
+								"materialCategory-findByMaterialCategory-fail",
+								"Búsqueda fallida de MaterialCategory por materialCategory"));
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"materialCategory-find-fail",
 						"Búsqueda fallida de MaterialCategory"));
@@ -628,9 +637,10 @@ public class InitialData {
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"buildingLocation-delete-fail",
 						"Fallo la eliminación del BuildingLocation"));
-				em.persist(new GHAMessage(LanguageEnum.ES,
-						"buildingLocation-findByBuildingLocation-fail",
-						"Búsqueda fallida de BuildingLocation por buildingLocation"));
+				em
+						.persist(new GHAMessage(LanguageEnum.ES,
+								"buildingLocation-findByBuildingLocation-fail",
+								"Búsqueda fallida de BuildingLocation por buildingLocation"));
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"buildingLocation-find-fail",
 						"Búsqueda fallida de BuildingLocation"));
@@ -687,13 +697,17 @@ public class InitialData {
 				em.persist(new GHAMessage(LanguageEnum.EN,
 						"eiaComponent-findByParentEia-fail",
 						"Failed to find EiaComponent by parentEia"));
-				em.persist(new GHAMessage(LanguageEnum.EN,
-						"eiaComponent-find-fail", "Failed to find EiaComponent"));
+				em
+						.persist(new GHAMessage(LanguageEnum.EN,
+								"eiaComponent-find-fail",
+								"Failed to find EiaComponent"));
 				em.persist(new GHAMessage(LanguageEnum.EN,
 						"eiaComponent-getAll-fail",
 						"Failed to get all EiaComponent"));
-				em.persist(new GHAMessage(LanguageEnum.EN,
-						"eiaComponent-save-fail", "Failed to save EiaComponent"));
+				em
+						.persist(new GHAMessage(LanguageEnum.EN,
+								"eiaComponent-save-fail",
+								"Failed to save EiaComponent"));
 				em.persist(new GHAMessage(LanguageEnum.EN,
 						"eiaComponent-update-fail",
 						"Failed to update EiaComponent"));
@@ -717,8 +731,10 @@ public class InitialData {
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"eiaPicture-update-fail",
 						"Actualización fallida de EiaPicture"));
-				em.persist(new GHAMessage(LanguageEnum.EN,
-						"eiaPicture-delete-fail", "Failed to delete EiaPicture"));
+				em
+						.persist(new GHAMessage(LanguageEnum.EN,
+								"eiaPicture-delete-fail",
+								"Failed to delete EiaPicture"));
 				em.persist(new GHAMessage(LanguageEnum.EN,
 						"eiaPicture-findByEia-fail",
 						"Failed to find EiaPicture by eia"));
@@ -729,14 +745,18 @@ public class InitialData {
 						"Failed to get all EiaPicture"));
 				em.persist(new GHAMessage(LanguageEnum.EN,
 						"eiaPicture-save-fail", "Failed to save EiaPicture"));
-				em.persist(new GHAMessage(LanguageEnum.EN,
-						"eiaPicture-update-fail", "Failed to update EiaPicture"));
+				em
+						.persist(new GHAMessage(LanguageEnum.EN,
+								"eiaPicture-update-fail",
+								"Failed to update EiaPicture"));
 
 				// eia service messages
 				em.persist(new GHAMessage(LanguageEnum.ES, "eia-delete-fail",
 						"Fallo la eliminación del Eia"));
-				em.persist(new GHAMessage(LanguageEnum.ES,
-						"eia-findByEia-fail", "Búsqueda fallida de Eia por eia"));
+				em
+						.persist(new GHAMessage(LanguageEnum.ES,
+								"eia-findByEia-fail",
+								"Búsqueda fallida de Eia por eia"));
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"eia-findByEiaType-fail",
 						"Búsqueda fallida de Eia por eiaType"));
@@ -768,9 +788,10 @@ public class InitialData {
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"eiaTypeComponent-delete-fail",
 						"Fallo la eliminación del EiaTypeComponent"));
-				em.persist(new GHAMessage(LanguageEnum.ES,
-						"eiaTypeComponent-findByParentEiaType-fail",
-						"Búsqueda fallida de EiaTypeComponent por parentEiaType"));
+				em
+						.persist(new GHAMessage(LanguageEnum.ES,
+								"eiaTypeComponent-findByParentEiaType-fail",
+								"Búsqueda fallida de EiaTypeComponent por parentEiaType"));
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"eiaTypeComponent-find-fail",
 						"Búsqueda fallida de EiaTypeComponent"));
@@ -806,12 +827,15 @@ public class InitialData {
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"eiaTypeMaintenancePlan-delete-fail",
 						"Fallo la eliminación del EiaTypeMaintenancePlan"));
-				em.persist(new GHAMessage(LanguageEnum.ES,
-						"eiaTypeMaintenancePlan-findByEiaType-fail",
-						"Búsqueda fallida de EiaTypeMaintenancePlan por eiaType"));
-				em.persist(new GHAMessage(LanguageEnum.ES,
-						"eiaTypeMaintenancePlan-findByMaintenancePlan-fail",
-						"Búsqueda fallida de EiaTypeMaintenancePlan po maintenancePlan"));
+				em
+						.persist(new GHAMessage(LanguageEnum.ES,
+								"eiaTypeMaintenancePlan-findByEiaType-fail",
+								"Búsqueda fallida de EiaTypeMaintenancePlan por eiaType"));
+				em
+						.persist(new GHAMessage(
+								LanguageEnum.ES,
+								"eiaTypeMaintenancePlan-findByMaintenancePlan-fail",
+								"Búsqueda fallida de EiaTypeMaintenancePlan po maintenancePlan"));
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"eiaTypeMaintenancePlan-save-fail",
 						"Guardado fallido de EiaTypeMaintenancePlan"));
@@ -821,9 +845,11 @@ public class InitialData {
 				em.persist(new GHAMessage(LanguageEnum.EN,
 						"eiaTypeMaintenancePlan-findByEiaType-fail",
 						"Failed to find EiaTypeMaintenancePlan by eiaType"));
-				em.persist(new GHAMessage(LanguageEnum.EN,
-						"eiaTypeMaintenancePlan-findByMaintenancePlan-fail",
-						"Failed to find EiaTypeMaintenancePlan by maintenancePlan"));
+				em
+						.persist(new GHAMessage(
+								LanguageEnum.EN,
+								"eiaTypeMaintenancePlan-findByMaintenancePlan-fail",
+								"Failed to find EiaTypeMaintenancePlan by maintenancePlan"));
 				em.persist(new GHAMessage(LanguageEnum.EN,
 						"eiaTypeMaintenancePlan-save-fail",
 						"Failed to save EiaTypeMaintenancePlan"));
@@ -901,51 +927,69 @@ public class InitialData {
 						"Failed to save EiaTypeUtility"));
 
 				// maintenanceActivityMaintenanceProtocol service messages
-				em.persist(new GHAMessage(LanguageEnum.ES,
-						"maintenanceActivityMaintenanceProtocol-delete-fail",
-						"Fallo la eliminación del MaintenanceActivityMaintenanceProtocol"));
-				em.persist(new GHAMessage(
-						LanguageEnum.ES,
-						"maintenanceActivityMaintenanceProtocol-findByMaintenanceActivity-fail",
-						"Búsqueda fallida de MaintenanceActivityMaintenanceProtocol por actividad de mantenimiento"));
-				em.persist(new GHAMessage(
-						LanguageEnum.ES,
-						"maintenanceActivityMaintenanceProtocol-findByMaintenanceProtocol-fail",
-						"Búsqueda fallida de MaintenanceActivityMaintenanceProtocol por protocolo de mantenimiento"));
-				em.persist(new GHAMessage(LanguageEnum.ES,
-						"maintenanceActivityMaintenanceProtocol-save-fail",
-						"Guardado fallido de MaintenanceActivityMaintenanceProtocol"));
-				em.persist(new GHAMessage(LanguageEnum.EN,
-						"maintenanceActivityMaintenanceProtocol-delete-fail",
-						"Failed to delete MaintenanceActivityMaintenanceProtocol"));
-				em.persist(new GHAMessage(
-						LanguageEnum.EN,
-						"maintenanceActivityMaintenanceProtocol-findByMaintenanceActivity-fail",
-						"Failed to find MaintenanceActivityMaintenanceProtocol by maintenance activity"));
-				em.persist(new GHAMessage(
-						LanguageEnum.EN,
-						"maintenanceActivityMaintenanceProtocol-findByMaintenanceProtocol-fail",
-						"Failed to find MaintenanceActivityMaintenanceProtocol by maintenance protocol"));
-				em.persist(new GHAMessage(LanguageEnum.EN,
-						"maintenanceActivityMaintenanceProtocol-save-fail",
-						"Failed to save MaintenanceActivityMaintenanceProtocol"));
+				em
+						.persist(new GHAMessage(
+								LanguageEnum.ES,
+								"maintenanceActivityMaintenanceProtocol-delete-fail",
+								"Fallo la eliminación del MaintenanceActivityMaintenanceProtocol"));
+				em
+						.persist(new GHAMessage(
+								LanguageEnum.ES,
+								"maintenanceActivityMaintenanceProtocol-findByMaintenanceActivity-fail",
+								"Búsqueda fallida de MaintenanceActivityMaintenanceProtocol por actividad de mantenimiento"));
+				em
+						.persist(new GHAMessage(
+								LanguageEnum.ES,
+								"maintenanceActivityMaintenanceProtocol-findByMaintenanceProtocol-fail",
+								"Búsqueda fallida de MaintenanceActivityMaintenanceProtocol por protocolo de mantenimiento"));
+				em
+						.persist(new GHAMessage(
+								LanguageEnum.ES,
+								"maintenanceActivityMaintenanceProtocol-save-fail",
+								"Guardado fallido de MaintenanceActivityMaintenanceProtocol"));
+				em
+						.persist(new GHAMessage(
+								LanguageEnum.EN,
+								"maintenanceActivityMaintenanceProtocol-delete-fail",
+								"Failed to delete MaintenanceActivityMaintenanceProtocol"));
+				em
+						.persist(new GHAMessage(
+								LanguageEnum.EN,
+								"maintenanceActivityMaintenanceProtocol-findByMaintenanceActivity-fail",
+								"Failed to find MaintenanceActivityMaintenanceProtocol by maintenance activity"));
+				em
+						.persist(new GHAMessage(
+								LanguageEnum.EN,
+								"maintenanceActivityMaintenanceProtocol-findByMaintenanceProtocol-fail",
+								"Failed to find MaintenanceActivityMaintenanceProtocol by maintenance protocol"));
+				em
+						.persist(new GHAMessage(
+								LanguageEnum.EN,
+								"maintenanceActivityMaintenanceProtocol-save-fail",
+								"Failed to save MaintenanceActivityMaintenanceProtocol"));
 
 				// maintenanceActivity service messages
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"maintenanceActivity-delete-fail",
 						"Fallo la eliminación del MaintenanceActivity"));
-				em.persist(new GHAMessage(LanguageEnum.ES,
-						"maintenanceActivity-findByMaintenanceProtocol-fail",
-						"Búsqueda fallida de MaintenanceActivity por protocolo de mantenimiento"));
-				em.persist(new GHAMessage(LanguageEnum.ES,
-						"maintenanceActivity-findByServiceResource-fail",
-						"Búsqueda fallida de MaintenanceActivity por serviceResource"));
+				em
+						.persist(new GHAMessage(
+								LanguageEnum.ES,
+								"maintenanceActivity-findByMaintenanceProtocol-fail",
+								"Búsqueda fallida de MaintenanceActivity por protocolo de mantenimiento"));
+				em
+						.persist(new GHAMessage(
+								LanguageEnum.ES,
+								"maintenanceActivity-findByServiceResource-fail",
+								"Búsqueda fallida de MaintenanceActivity por serviceResource"));
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"maintenanceActivity-find-fail",
 						"Búsqueda fallida de MaintenanceActivity"));
-				em.persist(new GHAMessage(LanguageEnum.ES,
-						"maintenanceActivity-findByMaintenanceActivity-fail",
-						"Búsqueda fallida de MaintenanceActivity por maintenanceActivity"));
+				em
+						.persist(new GHAMessage(
+								LanguageEnum.ES,
+								"maintenanceActivity-findByMaintenanceActivity-fail",
+								"Búsqueda fallida de MaintenanceActivity por maintenanceActivity"));
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"maintenanceActivity-getAll-fail",
 						"Búsqueda fallida de todos los MaintenanceActivity"));
@@ -958,18 +1002,24 @@ public class InitialData {
 				em.persist(new GHAMessage(LanguageEnum.EN,
 						"maintenanceActivity-delete-fail",
 						"Failed to delete MaintenanceActivity"));
-				em.persist(new GHAMessage(LanguageEnum.EN,
-						"maintenanceActivity-findByMaintenanceProtocol-fail",
-						"Failed to find MaintenanceActivity by maintenance protocol"));
-				em.persist(new GHAMessage(LanguageEnum.EN,
-						"maintenanceActivity-findByServiceResource-fail",
-						"Failed to find MaintenanceActivity by serviceResource"));
+				em
+						.persist(new GHAMessage(
+								LanguageEnum.EN,
+								"maintenanceActivity-findByMaintenanceProtocol-fail",
+								"Failed to find MaintenanceActivity by maintenance protocol"));
+				em
+						.persist(new GHAMessage(
+								LanguageEnum.EN,
+								"maintenanceActivity-findByServiceResource-fail",
+								"Failed to find MaintenanceActivity by serviceResource"));
 				em.persist(new GHAMessage(LanguageEnum.EN,
 						"maintenanceActivity-find-fail",
 						"Failed to find MaintenanceActivity"));
-				em.persist(new GHAMessage(LanguageEnum.EN,
-						"maintenanceActivity-findByMaintenanceActivity-fail",
-						"Failed to find MaintenanceActivity by maintenanceActivity"));
+				em
+						.persist(new GHAMessage(
+								LanguageEnum.EN,
+								"maintenanceActivity-findByMaintenanceActivity-fail",
+								"Failed to find MaintenanceActivity by maintenanceActivity"));
 				em.persist(new GHAMessage(LanguageEnum.EN,
 						"maintenanceActivity-getAll-fail",
 						"Failed to get all MaintenanceActivity"));
@@ -981,31 +1031,38 @@ public class InitialData {
 						"Failed to update MaintenanceActivity"));
 
 				// maintenancePlanMaintenanceProtocol service messages
-				em.persist(new GHAMessage(LanguageEnum.ES,
-						"maintenancePlanMaintenanceProtocol-delete-fail",
-						"Fallo la eliminación del MaintenancePlanMaintenanceProtocol"));
-				em.persist(new GHAMessage(
-						LanguageEnum.ES,
-						"maintenancePlanMaintenanceProtocol-findByMaintenancePlan-fail",
-						"Búsqueda fallida de MaintenancePlanMaintenanceProtocol por plan de mantenimiento"));
-				em.persist(new GHAMessage(
-						LanguageEnum.ES,
-						"maintenancePlanMaintenanceProtocol-findByMaintenanceProtocol-fail",
-						"Búsqueda fallida de MaintenancePlanMaintenanceProtocol por protocolo de mantenimiento"));
-				em.persist(new GHAMessage(LanguageEnum.ES,
-						"maintenancePlanMaintenanceProtocol-save-fail",
-						"Guardado fallido de MaintenancePlanMaintenanceProtocol"));
+				em
+						.persist(new GHAMessage(
+								LanguageEnum.ES,
+								"maintenancePlanMaintenanceProtocol-delete-fail",
+								"Fallo la eliminación del MaintenancePlanMaintenanceProtocol"));
+				em
+						.persist(new GHAMessage(
+								LanguageEnum.ES,
+								"maintenancePlanMaintenanceProtocol-findByMaintenancePlan-fail",
+								"Búsqueda fallida de MaintenancePlanMaintenanceProtocol por plan de mantenimiento"));
+				em
+						.persist(new GHAMessage(
+								LanguageEnum.ES,
+								"maintenancePlanMaintenanceProtocol-findByMaintenanceProtocol-fail",
+								"Búsqueda fallida de MaintenancePlanMaintenanceProtocol por protocolo de mantenimiento"));
+				em
+						.persist(new GHAMessage(LanguageEnum.ES,
+								"maintenancePlanMaintenanceProtocol-save-fail",
+								"Guardado fallido de MaintenancePlanMaintenanceProtocol"));
 				em.persist(new GHAMessage(LanguageEnum.EN,
 						"maintenancePlanMaintenanceProtocol-delete-fail",
 						"Failed to delete MaintenancePlanMaintenanceProtocol"));
-				em.persist(new GHAMessage(
-						LanguageEnum.EN,
-						"maintenancePlanMaintenanceProtocol-findByMaintenancePlan-fail",
-						"Failed to find MaintenancePlanMaintenanceProtocol by maintenance plan"));
-				em.persist(new GHAMessage(
-						LanguageEnum.EN,
-						"maintenancePlanMaintenanceProtocol-findByMaintenanceProtocol-fail",
-						"Failed to find MaintenancePlanMaintenanceProtocol by maintenance protocol"));
+				em
+						.persist(new GHAMessage(
+								LanguageEnum.EN,
+								"maintenancePlanMaintenanceProtocol-findByMaintenancePlan-fail",
+								"Failed to find MaintenancePlanMaintenanceProtocol by maintenance plan"));
+				em
+						.persist(new GHAMessage(
+								LanguageEnum.EN,
+								"maintenancePlanMaintenanceProtocol-findByMaintenanceProtocol-fail",
+								"Failed to find MaintenancePlanMaintenanceProtocol by maintenance protocol"));
 				em.persist(new GHAMessage(LanguageEnum.EN,
 						"maintenancePlanMaintenanceProtocol-save-fail",
 						"Failed to save MaintenancePlanMaintenanceProtocol"));
@@ -1017,9 +1074,10 @@ public class InitialData {
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"maintenancePlan-findByEiaType-fail",
 						"Búsqueda fallida de MaintenancePlan por eiaType"));
-				em.persist(new GHAMessage(LanguageEnum.ES,
-						"maintenancePlan-findByMaintenancePlan-fail",
-						"Búsqueda fallida de MaintenancePlan por maintenancePlan"));
+				em
+						.persist(new GHAMessage(LanguageEnum.ES,
+								"maintenancePlan-findByMaintenancePlan-fail",
+								"Búsqueda fallida de MaintenancePlan por maintenancePlan"));
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"maintenancePlan-find-fail",
 						"Búsqueda fallida de MaintenancePlan"));
@@ -1058,12 +1116,16 @@ public class InitialData {
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"maintenanceProtocol-delete-fail",
 						"Fallo la eliminación del MaintenanceProtocol"));
-				em.persist(new GHAMessage(LanguageEnum.ES,
-						"maintenanceProtocol-findByMaintenancePlan-fail",
-						"Búsqueda fallida de MaintenanceProtocol por plan de mantenimiento"));
-				em.persist(new GHAMessage(LanguageEnum.ES,
-						"maintenanceProtocol-findByMaintenanceProtocol-fail",
-						"Búsqueda fallida de MaintenanceProtocol por maintenanceProtocol"));
+				em
+						.persist(new GHAMessage(
+								LanguageEnum.ES,
+								"maintenanceProtocol-findByMaintenancePlan-fail",
+								"Búsqueda fallida de MaintenanceProtocol por plan de mantenimiento"));
+				em
+						.persist(new GHAMessage(
+								LanguageEnum.ES,
+								"maintenanceProtocol-findByMaintenanceProtocol-fail",
+								"Búsqueda fallida de MaintenanceProtocol por maintenanceProtocol"));
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"maintenanceProtocol-find-fail",
 						"Búsqueda fallida de MaintenanceProtocol"));
@@ -1079,12 +1141,16 @@ public class InitialData {
 				em.persist(new GHAMessage(LanguageEnum.EN,
 						"maintenanceProtocol-delete-fail",
 						"Failed to delete MaintenanceProtocol"));
-				em.persist(new GHAMessage(LanguageEnum.EN,
-						"maintenanceProtocol-findByMaintenancePlan-fail",
-						"Failed to find MaintenanceProtocol by maintenancePlan"));
-				em.persist(new GHAMessage(LanguageEnum.EN,
-						"maintenanceProtocol-findByMaintenanceProtocol-fail",
-						"Failed to find MaintenanceProtocol by maintenanceProtocol"));
+				em
+						.persist(new GHAMessage(
+								LanguageEnum.EN,
+								"maintenanceProtocol-findByMaintenancePlan-fail",
+								"Failed to find MaintenanceProtocol by maintenancePlan"));
+				em
+						.persist(new GHAMessage(
+								LanguageEnum.EN,
+								"maintenanceProtocol-findByMaintenanceProtocol-fail",
+								"Failed to find MaintenanceProtocol by maintenanceProtocol"));
 				em.persist(new GHAMessage(LanguageEnum.EN,
 						"maintenanceProtocol-find-fail",
 						"Failed to find MaintenanceProtocol"));
@@ -1102,16 +1168,18 @@ public class InitialData {
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"maintenanceSubProtocol-delete-fail",
 						"Fallo la eliminación del MaintenanceSubProtocol"));
-				em.persist(new GHAMessage(
-						LanguageEnum.ES,
-						"maintenanceSubProtocol-findByMaintenanceActivity-fail",
-						"Búsqueda fallida de MaintenanceSubProtocol por maintenanceActivity"));
+				em
+						.persist(new GHAMessage(
+								LanguageEnum.ES,
+								"maintenanceSubProtocol-findByMaintenanceActivity-fail",
+								"Búsqueda fallida de MaintenanceSubProtocol por maintenanceActivity"));
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"maintenanceSubProtocol-find-fail",
 						"Búsqueda fallida de MaintenanceSubProtocol"));
-				em.persist(new GHAMessage(LanguageEnum.ES,
-						"maintenanceSubProtocol-getAll-fail",
-						"Búsqueda fallida de todos los MaintenanceSubProtocol"));
+				em
+						.persist(new GHAMessage(LanguageEnum.ES,
+								"maintenanceSubProtocol-getAll-fail",
+								"Búsqueda fallida de todos los MaintenanceSubProtocol"));
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"maintenanceSubProtocol-save-fail",
 						"Guardado fallido de MaintenanceSubProtocol"));
@@ -1121,10 +1189,11 @@ public class InitialData {
 				em.persist(new GHAMessage(LanguageEnum.EN,
 						"maintenanceSubProtocol-delete-fail",
 						"Failed to delete MaintenanceSubProtocol"));
-				em.persist(new GHAMessage(
-						LanguageEnum.EN,
-						"maintenanceSubProtocol-findByMaintenanceActivity-fail",
-						"Failed to find MaintenanceSubProtocol by maintenanceActivity"));
+				em
+						.persist(new GHAMessage(
+								LanguageEnum.EN,
+								"maintenanceSubProtocol-findByMaintenanceActivity-fail",
+								"Failed to find MaintenanceSubProtocol by maintenanceActivity"));
 				em.persist(new GHAMessage(LanguageEnum.EN,
 						"maintenanceSubProtocol-find-fail",
 						"Failed to find MaintenanceSubProtocol"));
@@ -1163,13 +1232,17 @@ public class InitialData {
 				em.persist(new GHAMessage(LanguageEnum.EN,
 						"manufacturer-findByManufacturer-fail",
 						"Failed to find Manufacturer by manufacturer"));
-				em.persist(new GHAMessage(LanguageEnum.EN,
-						"manufacturer-find-fail", "Failed to find Manufacturer"));
+				em
+						.persist(new GHAMessage(LanguageEnum.EN,
+								"manufacturer-find-fail",
+								"Failed to find Manufacturer"));
 				em.persist(new GHAMessage(LanguageEnum.EN,
 						"manufacturer-getAll-fail",
 						"Failed to get all Manufacturer"));
-				em.persist(new GHAMessage(LanguageEnum.EN,
-						"manufacturer-save-fail", "Failed to save Manufacturer"));
+				em
+						.persist(new GHAMessage(LanguageEnum.EN,
+								"manufacturer-save-fail",
+								"Failed to save Manufacturer"));
 				em.persist(new GHAMessage(LanguageEnum.EN,
 						"manufacturer-update-fail",
 						"Failed to update Manufacturer"));
@@ -1178,9 +1251,11 @@ public class InitialData {
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"serviceResource-delete-fail",
 						"Fallo la eliminación del ServiceResource"));
-				em.persist(new GHAMessage(LanguageEnum.ES,
-						"serviceResource-findByMaintenanceActivity-fail",
-						"Búsqueda fallida de ServiceResource por maintenanceActivity"));
+				em
+						.persist(new GHAMessage(
+								LanguageEnum.ES,
+								"serviceResource-findByMaintenanceActivity-fail",
+								"Búsqueda fallida de ServiceResource por maintenanceActivity"));
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"serviceResource-find-fail",
 						"Búsqueda fallida de ServiceResource"));
@@ -1196,9 +1271,11 @@ public class InitialData {
 				em.persist(new GHAMessage(LanguageEnum.EN,
 						"serviceResource-delete-fail",
 						"Failed to delete ServiceResource"));
-				em.persist(new GHAMessage(LanguageEnum.EN,
-						"serviceResource-findByMaintenanceActivity-fail",
-						"Failed to find ServiceResource by maintenanceActivity"));
+				em
+						.persist(new GHAMessage(
+								LanguageEnum.EN,
+								"serviceResource-findByMaintenanceActivity-fail",
+								"Failed to find ServiceResource by maintenanceActivity"));
 				em.persist(new GHAMessage(LanguageEnum.EN,
 						"serviceResource-find-fail",
 						"Failed to find ServiceResource"));
@@ -1215,8 +1292,10 @@ public class InitialData {
 				// bpa service messages
 				em.persist(new GHAMessage(LanguageEnum.ES, "bpa-delete-fail",
 						"Fallo la eliminación del Bpa"));
-				em.persist(new GHAMessage(LanguageEnum.ES,
-						"bpa-findByBpa-fail", "Búsqueda fallida de Bpa por bpa"));
+				em
+						.persist(new GHAMessage(LanguageEnum.ES,
+								"bpa-findByBpa-fail",
+								"Búsqueda fallida de Bpa por bpa"));
 				em.persist(new GHAMessage(LanguageEnum.ES, "bpa-find-fail",
 						"Búsqueda fallida de Bpa"));
 				em.persist(new GHAMessage(LanguageEnum.ES, "bpa-getAll-fail",
@@ -1241,8 +1320,10 @@ public class InitialData {
 				// bpi service messages
 				em.persist(new GHAMessage(LanguageEnum.ES, "bpi-delete-fail",
 						"Fallo la eliminación del Bpi"));
-				em.persist(new GHAMessage(LanguageEnum.ES,
-						"bpi-findByBpi-fail", "Búsqueda fallida de Bpi por bpi"));
+				em
+						.persist(new GHAMessage(LanguageEnum.ES,
+								"bpi-findByBpi-fail",
+								"Búsqueda fallida de Bpi por bpi"));
 				em.persist(new GHAMessage(LanguageEnum.ES, "bpi-find-fail",
 						"Búsqueda fallida de Bpi"));
 				em.persist(new GHAMessage(LanguageEnum.ES, "bpi-getAll-fail",
@@ -1371,9 +1452,10 @@ public class InitialData {
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"systemInstance-delete-fail",
 						"Fallo la eliminación del SystemInstance"));
-				em.persist(new GHAMessage(LanguageEnum.ES,
-						"systemInstance-findBySystemInstance-fail",
-						"Búsqueda fallida de SystemInstance por systemInstance"));
+				em
+						.persist(new GHAMessage(LanguageEnum.ES,
+								"systemInstance-findBySystemInstance-fail",
+								"Búsqueda fallida de SystemInstance por systemInstance"));
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"systemInstance-find-fail",
 						"Búsqueda fallida de SystemInstance"));
@@ -1459,7 +1541,9 @@ public class InitialData {
 						"Tipo de equipo"));
 				em.persist(new UiString(LanguageEnum.ES, "eiatypes",
 						"Tipos de equipo"));
-				em.persist(new UiString(LanguageEnum.ES, "subtype", "Sub tipo"));
+				em
+						.persist(new UiString(LanguageEnum.ES, "subtype",
+								"Sub tipo"));
 				em.persist(new UiString(LanguageEnum.ES, "brand", "Marca"));
 				em.persist(new UiString(LanguageEnum.ES, "new-equipment",
 						"Nuevo equipo"));
@@ -1471,9 +1555,23 @@ public class InitialData {
 						"Descripción"));
 				em.persist(new UiString(LanguageEnum.ES, "use", "Uso"));
 				em.persist(new UiString(LanguageEnum.ES, "type", "Tipo"));
+				em.persist(new UiString(LanguageEnum.ES, "users", "Usuarios"));
+				em.persist(new UiString(LanguageEnum.ES, "user", "Usuario"));
+
+				em.persist(new UiString(LanguageEnum.ES, "state", "Estado"));
+				em.persist(new UiString(LanguageEnum.ES, "first-name",
+						"Primer nombre"));
+				em.persist(new UiString(LanguageEnum.ES, "last-name",
+						"Apellido"));
+				em.persist(new UiString(LanguageEnum.ES, "id-type",
+						"Tipo de identificacion"));// TODO acento
+				em.persist(new UiString(LanguageEnum.ES, "id-number",
+						"Numero de identificacion"));// TODO acento
 				em.flush();
 			} catch (Exception e1) {
-				logger.log(Level.INFO, "error Creating uistrings test data", e1);
+				logger
+						.log(Level.INFO, "error Creating uistrings test data",
+								e1);
 			}
 		}
 	}
@@ -1485,7 +1583,8 @@ public class InitialData {
 			em.createQuery(query).getSingleResult();
 		} catch (NoResultException e) {
 			try {
-				logger.info("creating test data : module, view, screen, functions");
+				logger
+						.info("creating test data : module, view, screen, functions");
 				Module moduleUser = new Module("Usuarios", ModulesCodes.USER);
 				em.persist(moduleUser);
 				Module moduleEiaType = new Module("Tipos de equipo",
@@ -1644,10 +1743,11 @@ public class InitialData {
 
 				em.flush();
 			} catch (Exception e1) {
-				logger.log(
-						Level.INFO,
-						"error creating test data: module, view, screen, functions",
-						e1);
+				logger
+						.log(
+								Level.INFO,
+								"error creating test data: module, view, screen, functions",
+								e1);
 			}
 		}
 	}
@@ -1731,7 +1831,8 @@ public class InitialData {
 			em.createQuery(query).getSingleResult();
 		} catch (NoResultException e) {
 			try {
-				logger.info("Creating test data: MaintenanceActivityMaintenanceProtocol");
+				logger
+						.info("Creating test data: MaintenanceActivityMaintenanceProtocol");
 				List<MaintenanceProtocol> protocols = em
 						.createNamedQuery("MaintenanceProtocol.getAll",
 								MaintenanceProtocol.class).getResultList();
@@ -1765,7 +1866,8 @@ public class InitialData {
 			em.createQuery(query).getSingleResult();
 		} catch (NoResultException e) {
 			try {
-				logger.info("Creating test data: MaintenancePlanMaintenanceProtocol");
+				logger
+						.info("Creating test data: MaintenancePlanMaintenanceProtocol");
 				List<MaintenanceProtocol> protocols = em
 						.createNamedQuery("MaintenanceProtocol.getAll",
 								MaintenanceProtocol.class).getResultList();
@@ -1775,16 +1877,18 @@ public class InitialData {
 				for (MaintenancePlan plan : plans) {
 					int k = 1;
 					for (MaintenanceProtocol protocol : protocols) {
-						em.persist(new org.fourgeeks.gha.domain.gmh.MaintenancePlanMaintenanceProtocol(
-								plan, protocol, k++));
+						em
+								.persist(new org.fourgeeks.gha.domain.gmh.MaintenancePlanMaintenanceProtocol(
+										plan, protocol, k++));
 					}
 					em.flush();
 				}
 			} catch (Exception e1) {
-				logger.log(
-						Level.INFO,
-						"error Creating MaintenancePlanMaintenanceProtocol test data",
-						e1);
+				logger
+						.log(
+								Level.INFO,
+								"error Creating MaintenancePlanMaintenanceProtocol test data",
+								e1);
 			}
 		}
 	}
@@ -2056,8 +2160,8 @@ public class InitialData {
 
 				for (int j = 0; j < 3; j++) {
 					eP = new ExternalProvider();
-					eP.setInstitution(em.find(Institution.class,
-							Long.valueOf(j + 3)));
+					eP.setInstitution(em.find(Institution.class, Long
+							.valueOf(j + 3)));
 					em.persist(eP);
 				}
 				em.flush();
@@ -2100,8 +2204,8 @@ public class InitialData {
 				for (int i = 0; i < 5; i++) {
 					institution = new Institution();
 					institution.setName("Test Institution " + i);
-					institution.setLegalEntity(em.find(LegalEntity.class,
-							Long.valueOf(i + 1L)));
+					institution.setLegalEntity(em.find(LegalEntity.class, Long
+							.valueOf(i + 1L)));
 					em.persist(institution);
 				}
 				em.flush();
@@ -2191,8 +2295,8 @@ public class InitialData {
 				logger.info("creating eia building locations");
 
 				for (int i = 0; i < 5; i++) {
-					BuildingLocation buildingLocation = new BuildingLocation(
-							em.find(Bpi.class, 1L), "Building 00" + i,
+					BuildingLocation buildingLocation = new BuildingLocation(em
+							.find(Bpi.class, 1L), "Building 00" + i,
 							LocationLevelEnum.BUILDING,
 							"Building Location Name " + i);
 					em.persist(buildingLocation);

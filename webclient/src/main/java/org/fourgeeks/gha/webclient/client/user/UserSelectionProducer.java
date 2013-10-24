@@ -1,5 +1,6 @@
 package org.fourgeeks.gha.webclient.client.user;
 
+import org.fourgeeks.gha.domain.ess.SSOUser;
 
 /**
  * @author alacret A User selection producer
@@ -16,4 +17,7 @@ public interface UserSelectionProducer {
 	 */
 	public void removeUserSelectionListener(
 			UserSelectionListener userSelectionListener);
+
+	public void notifyUser(SSOUser ssoUser);
+
 }

@@ -454,8 +454,7 @@ public class EIATypeInformationFormPanel extends VLayout implements
 	 */
 	@Override
 	public void select(EiaType eiaType) {
-		for (EIATypeSelectionListener listener : listeners)
-			listener.select(eiaType);
+		notifyEiaType(eiaType);
 	}
 
 	/*
@@ -492,5 +491,11 @@ public class EIATypeInformationFormPanel extends VLayout implements
 	@Override
 	public boolean canBeClosen() {
 		return true;
+	}
+
+	@Override
+	public void notifyEiaType(EiaType eiaType) {
+		for (EIATypeSelectionListener listener : listeners)
+			listener.select(eiaType);
 	}
 }
