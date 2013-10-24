@@ -83,7 +83,7 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 	}
 
 	protected void search() {
-		if (topForm.isActivate())
+		if (topForm.isActivated())
 			return;
 		if (internalTabSet.isVisible())
 			if (internalTabSet.canBeHidden())
@@ -107,7 +107,7 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 				internalTabSet.hide();
 			else
 				return;
-		if (topForm.isActivate())
+		if (topForm.isActivated())
 			topForm.deactivate();
 		if (resultSet.isVisible())
 			resultSet.hide();

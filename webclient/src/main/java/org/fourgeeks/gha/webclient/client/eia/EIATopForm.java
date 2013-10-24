@@ -1,12 +1,13 @@
 package org.fourgeeks.gha.webclient.client.eia;
 
 import org.fourgeeks.gha.domain.gmh.Eia;
+import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabSet;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
@@ -20,21 +21,20 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
- * @author alacret
+ * @author alacret, emiliot
  * 
  */
-public class EIATopSection extends HLayout implements EIASelectionListener,
-		GHAClosable, ResizeHandler {
+public class EIATopForm extends HLayout implements EIASelectionListener,
+		GHAClosable, GHAHideable, ResizeHandler {
 
-	private final EIATab eIATab;
-	private EIASearchForm eiaSearchForm;
 	private GHATextItem eiaType, code, serialNumber, state,
 			fixedAssetIdentifier, workingArea, facility, responsibleRole, obu,
 			acceptationDate, installationDate;
 
-	{
-		eiaSearchForm = new EIASearchForm();
+	private EiaResultSet resultSet;
+	private boolean activated = false;
 
+	{
 		eiaType = new GHATextItem("Tipo de equipo", 120, false);
 		code = new GHATextItem("Código", 120, false);
 		serialNumber = new GHATextItem("Serial", 120, false);
@@ -52,17 +52,11 @@ public class EIATopSection extends HLayout implements EIASelectionListener,
 	/**
 	 * @param eiaTab
 	 */
-	public EIATopSection(EIATab eiaTab) {
+	public EIATopForm(EiaResultSet resultSet) {
 		super();
+		this.resultSet = resultSet;
+
 		GHAUiHelper.addGHAResizeHandler(this);
-		eiaTab.addGHAClosableHandler(this);
-		eiaTab.addEiaSelectionListener(this);
-		eIATab = eiaTab;
-
-		eiaSearchForm.addEiaSelectionListener(eIATab);
-		eIATab.addGHAHideableHandler(eiaSearchForm);
-		eIATab.addGHAClosableHandler(eiaSearchForm);
-
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		setWidth100();
 		setHeight(GHAUiHelper.DEFAULT_TOP_SECTION_HEIGHT + "px");
@@ -107,33 +101,108 @@ public class EIATopSection extends HLayout implements EIASelectionListener,
 					public void onClick(ClickEvent event) {
 						search();
 					}
-				}), new GHAImgButton("../resources/icons/cancel.png",
-				new ClickHandler() {
-					@Override
-					public void onClick(ClickEvent event) {
-						GHATabSet.closeTab(eIATab);
-					}
 				}));
 
 		addMembers(form, /* photoPanel, */new LayoutSpacer(), sideButtons);
 
 	}
 
-	/**
+	public void activate() {
+		activated = true;
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		return true;
+	}
+
+	/*
+	 * (non-Javadoc)
 	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable#canBeHidden
+	 * ()
 	 */
-	public void search() {
-		eiaSearchForm.open();
+	@Override
+	public boolean canBeHidden() {
+		return true;
 	}
 
 	@Override
 	public void close() {
+		destroy();
+	}
 
+	public void deactivate() {
+		activated = false;
+	}
+
+	public void disableFields() {
+		// TODO: Disable fields in the topform
+	}
+
+	public void enableFields() {
+		// TODO: Enable topform fields
+	}
+
+	public boolean isActivated() {
+		return activated;
 	}
 
 	@Override
 	public void onResize(ResizeEvent event) {
 		setHeight(GHAUiHelper.DEFAULT_TOP_SECTION_HEIGHT + "px");
+	}
+
+	/**
+	 * 
+	 */
+	public void search() {
+		Eia eia = new Eia();
+		if (eiaType.getValue() != null)
+			eia.setEiaType(new EiaType(eiaType.getValueAsString()));
+		if (code.getValue() != null)
+			eia.setCode(code.getValueAsString());
+		if (serialNumber.getValue() != null)
+			eia.setSerialNumber(serialNumber.getValueAsString());
+		if (fixedAssetIdentifier != null)
+			eia.setFixedAssetIdentifier(fixedAssetIdentifier.getValueAsString());
+
+		// // if (actualCostItem.getValue() != null)
+		// // eia.setActualCost(new
+		// BigDecimal(actualCostItem.getValueAsString()));
+		// if (responsibleRoleItem.getValue() != null)
+		// eia.setResponsibleRole(new Role(Long.parseLong(responsibleRoleItem
+		// .getValueAsString())));
+		// if (fixedAssetIdentifierItem.getValue() != null)
+		// eia.setFixedAssetIdentifier(fixedAssetIdentifierItem
+		// .getValueAsString());
+		// if (workingAreaLocationItem.getValue() != null)
+		// eia.setWorkingArea(new WorkingArea(Integer
+		// .valueOf(workingAreaLocationItem.getValueAsString())));
+		// if (facilityLocationItem.getValue() != null)
+		// eia.setFacility(new Facility(Integer.valueOf(facilityLocationItem
+		// .getValueAsString())));
+		// if (obuItem.getValue() != null)
+		// eia.setObu(new Obu(Long.parseLong(obuItem.getValueAsString())));
+		// if (stateItem.getValue() != null)
+		// eia.setState(EiaStateEnum.valueOf(stateItem.getValueAsString()));
+		// else
+		// eia.setState(null);
+		// search(eia);
+
+		// state = new GHATextItem("Estado", 120, false);
+		// workingArea = new GHATextItem("Area de trabajo", 120, false);
+		// facility = new GHATextItem("Facilidad", 120, false);
+		// obu = new GHATextItem("Organización", 120, false);
+		// responsibleRole = new GHATextItem("Responsable", 120, false);
+		// installationDate = new GHATextItem("Instalación", 120, false);
+		// acceptationDate = new GHATextItem("Recibido en", 120, false);
+
+	}
+
+	public void search(Eia eia) {
+		// TODO
 	}
 
 	@Override
@@ -162,11 +231,7 @@ public class EIATopSection extends HLayout implements EIASelectionListener,
 		installationDate.setValue(eia.getInstallationDate());
 		acceptationDate.setValue(eia.getAcceptationDate());
 
-	}
-
-	@Override
-	public boolean canBeClosen() {
-		// TODO Auto-generated method stub
-		return false;
+		// lock fields of the topform
+		disableFields();
 	}
 }

@@ -1,9 +1,9 @@
-package org.fourgeeks.gha.webclient.client.eiatype;
+package org.fourgeeks.gha.webclient.client.eia;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
@@ -13,10 +13,11 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
+import org.fourgeeks.gha.webclient.client.eiatype.EIATypeRecord;
 
-import com.google.gwt.event.logical.shared.ResizeEvent;
-import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.types.AnimationEffect;
+import com.smartgwt.client.widgets.drawing.events.ResizedEvent;
+import com.smartgwt.client.widgets.drawing.events.ResizedHandler;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
@@ -27,20 +28,20 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author emiliot
  * 
  */
-public class EiaTypeResultSet extends VLayout implements
-		EiaTypeSelectionProducer, ResizeHandler, GHAHideable, GHAClosable {
-	private List<EIATypeSelectionListener> listeners;
-	private EIATypeGrid grid;
+public class EiaResultSet extends VLayout implements EiaSelectionProducer,
+		ResizedHandler, GHAHideable, GHAClosable {
+	private List<EIASelectionListener> listeners;
+	private EIAGrid grid;
 
 	{
-		listeners = new ArrayList<EIATypeSelectionListener>();
-		grid = new EIATypeGrid();
+		listeners = new ArrayList<EIASelectionListener>();
+		grid = new EIAGrid();
 	}
 
 	/**
 	 * 
 	 */
-	public EiaTypeResultSet() {
+	public EiaResultSet() {
 		super();
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		setVisible(false);
@@ -51,14 +52,14 @@ public class EiaTypeResultSet extends VLayout implements
 
 					@Override
 					public void onClick(ClickEvent event) {
-						notifySelectedEiaType();
+						notifySelectedEia();
 					}
 				}), GHAUiHelper.verticalGraySeparator("2px"), new GHAImgButton(
 				"../resources/icons/delete.png", new ClickHandler() {
 
 					@Override
 					public void onClick(ClickEvent event) {
-						// TODO delete an selected eiatype
+						// TODO delete an selected eia
 					}
 				})));
 		addMember(gridPanel);
@@ -67,46 +68,62 @@ public class EiaTypeResultSet extends VLayout implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.fourgeeks.gha.webclient.client.eiatype.EiaTypeSelectionProducer#
-	 * addEiaTypeSelectionListener
-	 * (org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener)
+	 * @see org.fourgeeks.gha.webclient.client.eia.EiaSelectionProducer#
+	 * addEiaSelectionListener
+	 * (org.fourgeeks.gha.webclient.client.eia.EIASelectionListener)
 	 */
 	@Override
-	public void addEiaTypeSelectionListener(
-			EIATypeSelectionListener eIATypeSelectionListener) {
-		listeners.add(eIATypeSelectionListener);
+	public void addEiaSelectionListener(
+			EIASelectionListener eiaSelectionListener) {
+		listeners.add(eiaSelectionListener);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable#canBeClosen
+	 * ()
+	 */
 	@Override
 	public boolean canBeClosen() {
 		return true;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable#canBeHidden
+	 * ()
+	 */
 	@Override
 	public boolean canBeHidden() {
 		return true;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable#close()
+	 */
 	@Override
 	public void close() throws UnavailableToCloseException {
 		destroy();
 	}
 
-	private void notifyEiaType(EiaType eiaType) {
-		for (EIATypeSelectionListener listener : listeners)
-			listener.select(eiaType);
+	private void notifyEia(Eia eia) {
+		for (EIASelectionListener listener : listeners)
+			listener.select(eia);
 	}
 
-	/**
-	 * notify selected eiaType from the grid
-	 */
-	private void notifySelectedEiaType() {
-		GHAGridRecord<EiaType> selectedRecord = grid.getSelectedRecord();
+	private void notifySelectedEia() {
+		GHAGridRecord<Eia> selectedRecord = grid.getSelectedRecord();
 		if (selectedRecord == null) {
 			GHANotification.alert(GHAStrings.get("record-not-selected"));
 			return;
 		}
-		notifyEiaType(((EIATypeRecord) selectedRecord).toEntity());
+		notifyEia(((EIARecord) selectedRecord).toEntity());
 		hide();
 	}
 
@@ -114,42 +131,36 @@ public class EiaTypeResultSet extends VLayout implements
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.google.gwt.event.logical.shared.ResizeHandler#onResize(com.google
-	 * .gwt.event.logical.shared.ResizeEvent)
+	 * com.smartgwt.client.widgets.drawing.events.ResizedHandler#onResized(com
+	 * .smartgwt.client.widgets.drawing.events.ResizedEvent)
 	 */
 	@Override
-	public void onResize(ResizeEvent event) {
+	public void onResized(ResizedEvent event) {
 		setHeight(GHAUiHelper.getTabHeight() - 4 + "px");
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.fourgeeks.gha.webclient.client.eiatype.EiaTypeSelectionProducer#
-	 * removeEiaTypeSelectionListener
-	 * (org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener)
+	 * @see org.fourgeeks.gha.webclient.client.eia.EiaSelectionProducer#
+	 * removeEiaSelectionListener
+	 * (org.fourgeeks.gha.webclient.client.eia.EIASelectionListener)
 	 */
 	@Override
-	public void removeEiaTypeSelectionListener(
-			EIATypeSelectionListener eIATypeSelectionListener) {
-		listeners.remove(eIATypeSelectionListener);
-
+	public void removeEiaSelectionListener(
+			EIASelectionListener eiaSelectionListener) {
+		listeners.remove(eiaSelectionListener);
 	}
 
-	/**
-	 * this method set the list of records inside the grid
-	 * 
-	 * @param records
-	 */
-	public void setRecords(List<EiaType> records) {
+	public void setRecords(List<Eia> records) {
 		// if only one record is on the list, notify the element and return
 		if (records.size() == 1) {
-			notifyEiaType(records.get(0));
+			notifyEia(records.get(0));
 			this.hide();
 			return;
 		}
 
-		ListGridRecord[] array = EIATypeUtil.toGridRecords(records).toArray(
+		ListGridRecord[] array = EIAUtil.toGridRecords(records).toArray(
 				new EIATypeRecord[] {});
 		grid.setData(array);
 		// setAnimateAcceleration(AnimationAcceleration.NONE);

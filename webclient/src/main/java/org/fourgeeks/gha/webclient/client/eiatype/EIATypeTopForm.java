@@ -176,18 +176,24 @@ public class EIATypeTopForm extends HLayout implements
 
 	}
 
-	public void deactivate() {
-		// TODO deactivate the component
-		activated = false;
-	}
-
-	public boolean isActivate() {
-		return activated;
+	@Override
+	public boolean canBeClosen() {
+		return true;
 	}
 
 	@Override
-	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.DEFAULT_TOP_SECTION_HEIGHT + "px");
+	public boolean canBeHidden() {
+		return true;
+	}
+
+	@Override
+	public void close() throws UnavailableToCloseException {
+		destroy();
+	}
+
+	public void deactivate() {
+		// TODO deactivate the component
+		activated = false;
 	}
 
 	/**
@@ -214,6 +220,15 @@ public class EIATypeTopForm extends HLayout implements
 		mobilityItem.enable();
 		typeItem.enable();
 		subTypeItem.enable();
+	}
+
+	public boolean isActivated() {
+		return activated;
+	}
+
+	@Override
+	public void onResize(ResizeEvent event) {
+		setHeight(GHAUiHelper.DEFAULT_TOP_SECTION_HEIGHT + "px");
 	}
 
 	/**
@@ -280,21 +295,6 @@ public class EIATypeTopForm extends HLayout implements
 
 		// lock fields of the topform
 		disableFields();
-	}
-
-	@Override
-	public boolean canBeClosen() {
-		return true;
-	}
-
-	@Override
-	public void close() throws UnavailableToCloseException {
-		destroy();
-	}
-
-	@Override
-	public boolean canBeHidden() {
-		return true;
 	}
 
 }
