@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.eiatype.component.EIATypeComponentSubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.equipment.EIATypeEquipmentSubTab;
@@ -22,15 +24,16 @@ import com.smartgwt.client.widgets.tab.TabSet;
  * 
  */
 public class EIATypeInternalTabset extends TabSet implements ResizeHandler,
-		GHAHideable, EIATypeSelectionListener {
+		GHAHideable, GHAClosable, EIATypeSelectionListener {
 
 	private EIATypeInformationSubTab infoSubTab;
 	private EIATypeEquipmentSubTab equipementsSubTab;
 	private EIATypeComponentSubTab partsSubTab;
 	private EIATypeMaterialSubTab materialSubTab;
 	private EIATypeUtilitySubTab servicesSubTab;
-//	private EIATypeMaintenanceSubTab maintenanceSubTab;
+	// private EIATypeMaintenanceSubTab maintenanceSubTab;
 	private List<GHAHideable> hideables = new ArrayList<GHAHideable>();
+	private List<GHAClosable> closables = new ArrayList<GHAClosable>();
 
 	/**
 	 * @param tab
@@ -41,13 +44,25 @@ public class EIATypeInternalTabset extends TabSet implements ResizeHandler,
 		setWidth100();
 		setHeight(GHAUiHelper.getBottomSectionHeight());
 		setVisible(false);
+
 		infoSubTab = new EIATypeInformationSubTab(tab);
 		hideables.add(infoSubTab);
+		closables.add(infoSubTab);
 		equipementsSubTab = new EIATypeEquipmentSubTab(tab);
+		hideables.add(equipementsSubTab);
+		closables.add(equipementsSubTab);
 		partsSubTab = new EIATypeComponentSubTab(tab);
+		hideables.add(partsSubTab);
+		closables.add(partsSubTab);
 		materialSubTab = new EIATypeMaterialSubTab(tab);
+		hideables.add(materialSubTab);
+		closables.add(materialSubTab);
 		servicesSubTab = new EIATypeUtilitySubTab(tab);
-//		maintenanceSubTab = new EIATypeMaintenanceSubTab(tab);
+		hideables.add(servicesSubTab);
+		closables.add(servicesSubTab);
+		// maintenanceSubTab = new EIATypeMaintenanceSubTab(tab);
+		// hideables.add(maintenanceSubTab);
+		// closables.add(maintenanceSubTab);
 
 		// Agregando las Subtabs
 		addTab(infoSubTab);
@@ -55,7 +70,7 @@ public class EIATypeInternalTabset extends TabSet implements ResizeHandler,
 		addTab(partsSubTab);
 		addTab(materialSubTab);
 		addTab(servicesSubTab);
-//		addTab(maintenanceSubTab);
+		// addTab(maintenanceSubTab);
 	}
 
 	@Override
@@ -71,6 +86,13 @@ public class EIATypeInternalTabset extends TabSet implements ResizeHandler,
 		return true;
 	}
 
+	@Override
+	public void hide() {
+		for (GHAHideable hideable : hideables)
+			hideable.hide();
+		super.hide();
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -81,6 +103,21 @@ public class EIATypeInternalTabset extends TabSet implements ResizeHandler,
 	@Override
 	public void select(EiaType eiaType) {
 		animateShow(AnimationEffect.FADE);
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		for (GHAClosable closable : closables)
+			if (!closable.canBeClosen())
+				return false;
+		return true;
+	}
+
+	@Override
+	public void close() throws UnavailableToCloseException {
+		for (GHAClosable closable : closables)
+			closable.close();
+		destroy();
 	}
 
 }

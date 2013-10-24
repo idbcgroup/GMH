@@ -49,7 +49,6 @@ public class GHATabHeader extends HLayout implements ResizeHandler {
 		addMember(titulo);
 
 		addMember(new LayoutSpacer());
-
 		Option closeOption = new Option(this, GHAStrings.get("close"), 90,
 				true, "../resources/img/cerrarButton.png",
 				"../resources/img/cerrarButtonOver.png");
@@ -130,8 +129,6 @@ public class GHATabHeader extends HLayout implements ResizeHandler {
 			addClickHandler(new ClickHandler() {
 				@Override
 				public void onClick(ClickEvent event) {
-					Window.alert("clic");
-					Window.alert(tabHeader.selectables.size() + "");
 					for (Option button : tabHeader.selectables)
 						button.deselectButton();
 					selectButton();

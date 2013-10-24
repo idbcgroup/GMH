@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.fourgeeks.gha.domain.msg.GHAMessage;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.message.GWTMessageService;
@@ -51,7 +52,7 @@ public class GHANotification {
 	 */
 	@Deprecated
 	public static void oldAlert(String message) {
-		SC.say("Información", message);
+		SC.say(GHAStrings.get("information"), message);
 	}
 
 	/**
@@ -155,7 +156,8 @@ public class GHANotification {
 			VLayout userdataLayout = new VLayout();
 			userdataLayout.setHeight("*");
 			userdataLayout.setWidth100();
-			userdataLayout.setStyleName("sides-padding padding-top padding-bot");
+			userdataLayout
+					.setStyleName("sides-padding padding-top padding-bot");
 			userdataLayout.setBackgroundColor("#E0E0E0");
 			userdataLayout.setAlign(Alignment.CENTER);
 			userdataLayout.setDefaultLayoutAlign(Alignment.CENTER);
@@ -195,16 +197,16 @@ public class GHANotification {
 		public void close() {
 			// TODO Auto-generated method stub
 			RootPanel.get("notificationsBackDiv").removeStyleName("dim");
-			
+
 			animateHide(AnimationEffect.FADE);
 			backDiv.setVisible(false);
 		}
 
 		@Override
 		public void show() {
-//			super.show();
+			// super.show();
 			RootPanel.get("notificationsBackDiv").addStyleName("dim");
-			
+
 			animateShow(AnimationEffect.FADE);
 			setVisible(true);
 			bringToFront();

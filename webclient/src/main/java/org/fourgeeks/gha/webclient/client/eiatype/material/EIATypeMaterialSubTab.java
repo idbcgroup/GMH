@@ -1,6 +1,7 @@
 package org.fourgeeks.gha.webclient.client.eiatype.material;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeTab;
@@ -18,19 +19,19 @@ public class EIATypeMaterialSubTab extends GHASubTab implements
 	 * @param tab
 	 */
 	public EIATypeMaterialSubTab(EIATypeTab tab) {
-		super("Materiales", tab);
-		setDisabled(true);
-		tab.addEiaTypeSelectionListener(this);
-		eiaTypeMaterialGridPanel = new EIATypeMaterialGridPanel();
-		setPane(eiaTypeMaterialGridPanel);
+		super(GHAStrings.get("materials"), tab);
 
+		eiaTypeMaterialGridPanel = new EIATypeMaterialGridPanel();
 		addGHAClosableHandler(eiaTypeMaterialGridPanel);
 		addGHAHideableHandler(eiaTypeMaterialGridPanel);
+
+		setPane(eiaTypeMaterialGridPanel);
+
+		tab.addEiaTypeSelectionListener(this);
 	}
 
 	@Override
 	public void select(EiaType eiaType) {
 		eiaTypeMaterialGridPanel.select(eiaType);
-		setDisabled(false);
 	}
 }
