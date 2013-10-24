@@ -36,6 +36,21 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 	public EIATypeTab(String token) {
 		super(token);
 		header = new GHATabHeader(this, TITLE);
+		header.addSearchOption(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				search();
+			}
+		});
+		header.addAddOption(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				add();
+
+			}
+		});
 
 		resultSet = new EiaTypeResultSet();
 		addGHAHideableHandler(resultSet);
@@ -57,22 +72,6 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 		addGHAHideableHandler(addForm);
 		addGHAClosableHandler(addForm);
 		addForm.addEiaTypeSelectionListener(this);
-
-		header.addSearchOption(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				search();
-			}
-		});
-		header.addAddOption(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				add();
-
-			}
-		});
 
 		verticalPanel.addMember(topForm);
 		verticalPanel.addMember(GHAUiHelper
@@ -121,8 +120,7 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 
 	@Override
 	public void select(EiaType eiaType) {
-		for (EIATypeSelectionListener listener : listeners)
-			listener.select(eiaType);
+		notifyEiaType(eiaType);
 	}
 
 	@Override
@@ -135,5 +133,11 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 	public void removeEiaTypeSelectionListener(
 			EIATypeSelectionListener eIATypeSelectionListener) {
 		listeners.remove(eIATypeSelectionListener);
+	}
+
+	@Override
+	public void notifyEiaType(EiaType eiaType) {
+		for (EIATypeSelectionListener listener : listeners)
+			listener.select(eiaType);
 	}
 }

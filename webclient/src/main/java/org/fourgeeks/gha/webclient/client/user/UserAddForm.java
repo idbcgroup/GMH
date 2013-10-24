@@ -126,8 +126,7 @@ public class UserAddForm extends GHASlideInWindow implements
 	 */
 	@Override
 	public void select(SSOUser ssoUser) {
-		// called when the userForm finish saving new entity
-		cancel();
+		notifyUser(ssoUser);
 	}
 
 	@Override
@@ -140,5 +139,10 @@ public class UserAddForm extends GHASlideInWindow implements
 	public boolean canBeHidden() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public void notifyUser(SSOUser ssoUser) {
+		cancel();
 	}
 }

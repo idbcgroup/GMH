@@ -47,7 +47,7 @@ public class EIATypeTopForm extends HLayout implements
 	private GHABrandSelectItem brandItem;
 	private GHAMobilitySelectItem mobilityItem;
 	// private List<EiaTypePicture> listEiaTypePictures;
-	int index;
+	// int index;
 	// private GHAImg photo;
 	private EiaTypeResultSet resultSet;
 	private boolean activated = false;
@@ -73,10 +73,10 @@ public class EIATypeTopForm extends HLayout implements
 		this.resultSet = resultSet;
 
 		GHAUiHelper.addGHAResizeHandler(this);
-		setStyleName("sides-padding padding-top");// Esto es VUDU!
+		setStyleName("sides-padding padding-top");
 		setWidth100();
 		setHeight(GHAUiHelper.DEFAULT_TOP_SECTION_HEIGHT + "px");
-		setBackgroundColor(GHAUiHelper.HIGHLIGHTED_BACKGROUND_COLOR);
+		setBackgroundColor(GHAUiHelper.BACKGROUND_COLOR);
 		setDefaultLayoutAlign(VerticalAlignment.CENTER);
 
 		DynamicForm form = new DynamicForm();
@@ -132,8 +132,8 @@ public class EIATypeTopForm extends HLayout implements
 					}
 				}));
 		addMembers(form, /* new LayoutSpacer(), photoPanel, */
-				new LayoutSpacer(), sideButtons);
-
+		new LayoutSpacer(), sideButtons);
+		deactivate();
 	}
 
 	// private void next() {
@@ -171,48 +171,6 @@ public class EIATypeTopForm extends HLayout implements
 	// }
 
 	public void activate() {
-		// TODO Set the component to activate state
-		activated = true;
-
-	}
-
-	@Override
-	public boolean canBeClosen() {
-		return true;
-	}
-
-	@Override
-	public boolean canBeHidden() {
-		return true;
-	}
-
-	@Override
-	public void close() throws UnavailableToCloseException {
-		destroy();
-	}
-
-	public void deactivate() {
-		// TODO deactivate the component
-		activated = false;
-	}
-
-	/**
-	 * disable all the fields in the topform
-	 */
-	public void disableFields() {
-		codeItem.disable();
-		nameItem.disable();
-		brandItem.disable();
-		modelItem.disable();
-		mobilityItem.disable();
-		typeItem.disable();
-		subTypeItem.disable();
-	}
-
-	/**
-	 * Enable all the fields in the topform
-	 */
-	public void enableFields() {
 		codeItem.enable();
 		nameItem.enable();
 		brandItem.enable();
@@ -220,6 +178,19 @@ public class EIATypeTopForm extends HLayout implements
 		mobilityItem.enable();
 		typeItem.enable();
 		subTypeItem.enable();
+		activated = true;
+
+	}
+
+	public void deactivate() {
+		codeItem.disable();
+		nameItem.disable();
+		brandItem.disable();
+		modelItem.disable();
+		mobilityItem.disable();
+		typeItem.disable();
+		subTypeItem.disable();
+		activated = false;
 	}
 
 	public boolean isActivated() {
@@ -294,7 +265,22 @@ public class EIATypeTopForm extends HLayout implements
 			subTypeItem.setValue(eiaType.getSubtype().toString());
 
 		// lock fields of the topform
-		disableFields();
+		deactivate();
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		return true;
+	}
+
+	@Override
+	public void close() throws UnavailableToCloseException {
+		destroy();
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		return true;
 	}
 
 }

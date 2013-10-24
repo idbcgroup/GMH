@@ -135,10 +135,8 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 		formLayout.setHeight(GHAUiHelper.DEFAULT_TOP_SECTION_HEIGHT + "px");
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
 
-		addMembers(title, formLayout,
-				GHAUiHelper
-						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
-								+ "px"));
+		addMembers(title, formLayout, GHAUiHelper
+				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
 
 		eiaTypeGrid.setHeight(GHAUiHelper.getSubtabGridSize(30));
 		HLayout gridLayout = new HLayout();
@@ -201,10 +199,8 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 		hide();
 	}
 
-	/**
-	 * @param eiaType
-	 */
-	private void notifyEiaType(EiaType eiaType) {
+	@Override
+	public void notifyEiaType(EiaType eiaType) {
 		for (EIATypeSelectionListener listener : selectionListeners)
 			listener.select(eiaType);
 	}

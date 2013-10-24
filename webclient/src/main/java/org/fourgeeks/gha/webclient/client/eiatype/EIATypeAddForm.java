@@ -129,4 +129,9 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 	public boolean canBeClosen() {
 		return true;
 	}
+
+	@Override
+	public void notifyEiaType(EiaType eiaType) {
+		form.notifyEiaType(eiaType);
+	}
 }

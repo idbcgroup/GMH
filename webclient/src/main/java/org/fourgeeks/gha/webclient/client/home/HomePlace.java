@@ -40,8 +40,9 @@ public class HomePlace extends GHAPlace {
 
 	@Override
 	public void show() {
-		if (HOME_HAS_BEEN_BUILT)
+		if (HOME_HAS_BEEN_BUILT) {
 			return;
+		}
 		HOME_HAS_BEEN_BUILT = true;
 		// User box
 		RootPanel.get("main-content").clear();
@@ -91,7 +92,7 @@ public class HomePlace extends GHAPlace {
 				});
 
 		userInfo.addMembers(usernameLabel, /* notificationsButton, */
-				userButton);
+		userButton);
 
 		userInfo.addFocusChangedHandler(new FocusChangedHandler() {
 

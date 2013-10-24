@@ -94,8 +94,8 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer,
 				changedHandler);
 		useDescriptionItem.setColSpan(3);
 		//
-		manItem = new GHAComboboxItem<Manufacturer>(
-				GHAStrings.get("manufacturer"), 300, changedHandler);
+		manItem = new GHAComboboxItem<Manufacturer>(GHAStrings
+				.get("manufacturer"), 300, changedHandler);
 		brandItem = new GHAComboboxItem<Brand>(GHAStrings.get("brand"), 300,
 				changedHandler);
 		mobilityItem = new GHASelectItem(GHAStrings.get("mobility"), 300, true,
@@ -398,7 +398,7 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer,
 	}
 
 	// Producer stuff
-	private void notifyEiaType(EiaType eiaType) {
+	public void notifyEiaType(EiaType eiaType) {
 		GHANotification.alert("eiatype-save-success");
 		for (EIATypeSelectionListener listener : listeners)
 			listener.select(eiaType);

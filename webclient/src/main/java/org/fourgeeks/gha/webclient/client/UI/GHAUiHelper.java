@@ -65,6 +65,7 @@ public abstract class GHAUiHelper {
 	/**
 	 * 
 	 */
+	@Deprecated
 	public static final int FOUR_COLUMN_FORMITEM_SIZE = 135;
 
 	private static final int HEADER_HEIGTH = 60;
