@@ -15,9 +15,14 @@ import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHACodeItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHADateItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHAEiaStateSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHAEiaTypeSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHAFacilitySelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHAObuSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHARoleSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHAWorkingAreaSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
@@ -42,40 +47,49 @@ public class EIATopForm extends HLayout implements EIASelectionListener,
 
 	private GHATextItem serialNumber, fixedAssetIdentifier;
 	private GHACodeItem codeItem;
-	private GHASelectItem eiaTypeSelectItem, stateSelectItem, obuSelectItem,
-			baseRoleSelectItem, workingAreaLocationSelectItem,
-			facilityLocationSelectItem;
+	private GHAEiaStateSelectItem stateSelectItem;
+	private GHAObuSelectItem obuSelectItem;
+	private GHARoleSelectItem baseRoleSelectItem;
+	private GHAWorkingAreaSelectItem workingAreaLocationSelectItem;
+	private GHAFacilitySelectItem facilityLocationSelectItem;
+	private GHAEiaTypeSelectItem eiaTypeSelectItem;
 	private GHADateItem acceptationDateItem, installationDateItem;
 
 	private EiaResultSet resultSet;
 	private boolean activated = false;
 
 	{
-		eiaTypeSelectItem = new GHASelectItem("Tipo",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false);
+		eiaTypeSelectItem = new GHAEiaTypeSelectItem(
+				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		eiaTypeSelectItem.disable();
 
 		codeItem = new GHACodeItem(120);
-		codeItem.setDisabled(true);
+		codeItem.disable();
 
-		serialNumber = new GHATextItem(GHAStrings.get("eia-serialNumber"), 120,
+		serialNumber = new GHATextItem(GHAStrings.get("serialNumber"), 120,
 				false);
 		fixedAssetIdentifier = new GHATextItem(
-				GHAStrings.get("eia-fixedAssetIdentifier"), 120, false);
+				GHAStrings.get("fixedAssetIdentifier"), 120, false);
 
-		stateSelectItem = new GHASelectItem("Estado Equipo",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false);
+		stateSelectItem = new GHAEiaStateSelectItem(
+				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		stateSelectItem.disable();
 
-		workingAreaLocationSelectItem = new GHASelectItem("Nombre",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false);
+		workingAreaLocationSelectItem = new GHAWorkingAreaSelectItem(
+				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		workingAreaLocationSelectItem.disable();
 
-		facilityLocationSelectItem = new GHASelectItem("Nombre",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false);
+		facilityLocationSelectItem = new GHAFacilitySelectItem(
+				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		facilityLocationSelectItem.disable();
 
-		obuSelectItem = new GHASelectItem("Departamento Responsable",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false);
+		obuSelectItem = new GHAObuSelectItem(
+				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		obuSelectItem.disable();
 
-		baseRoleSelectItem = new GHASelectItem("Rol Responsable",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false);
+		baseRoleSelectItem = new GHARoleSelectItem(
+				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		baseRoleSelectItem.disable();
 
 		installationDateItem = new GHADateItem("Instalación",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false);

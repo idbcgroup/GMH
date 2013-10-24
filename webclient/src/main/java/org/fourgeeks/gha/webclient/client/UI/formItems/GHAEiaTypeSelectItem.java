@@ -15,11 +15,11 @@ import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
  * @author emiliot
  * 
  */
-public class GHAEiatypeSelectItem extends GHASelectItem {
+public class GHAEiaTypeSelectItem extends GHASelectItem {
 	/**
 	 * @param width
 	 */
-	public GHAEiatypeSelectItem(int width) {
+	public GHAEiaTypeSelectItem(int width) {
 		super(GHAStrings.get("eiatype-select-item"), width);
 		fill(true);
 	}
@@ -27,7 +27,7 @@ public class GHAEiatypeSelectItem extends GHASelectItem {
 	/**
 	 * 
 	 */
-	public GHAEiatypeSelectItem() {
+	public GHAEiaTypeSelectItem() {
 		this(GHAUiHelper.DEFAULT_ITEM_SIZE);
 	}
 
@@ -37,7 +37,7 @@ public class GHAEiatypeSelectItem extends GHASelectItem {
 	 * @param required
 	 * @param changedHandler
 	 */
-	public GHAEiatypeSelectItem(int width, boolean required,
+	public GHAEiaTypeSelectItem(int width, boolean required,
 			ChangedHandler changedHandler) {
 		super(GHAStrings.get("eiatype-select-item"), width);
 		setRequired(required);
