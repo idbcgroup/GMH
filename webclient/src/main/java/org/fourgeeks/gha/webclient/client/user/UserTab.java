@@ -58,6 +58,7 @@ public class UserTab extends GHATab implements UserSelectionListener,
 		resultSet.addUserSelectionListener(this);
 
 		topForm = new UserTopForm(resultSet);
+		topForm.activate();
 		// internalTabset = new UserInternalTabset(this);
 
 		verticalPanel.addMember(topForm);

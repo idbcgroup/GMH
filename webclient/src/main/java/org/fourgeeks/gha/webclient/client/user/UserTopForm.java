@@ -3,6 +3,7 @@ package org.fourgeeks.gha.webclient.client.user;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.enu.GenderTypeEnum;
+import org.fourgeeks.gha.domain.enu.UserLogonStatusEnum;
 import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.mix.Citizen;
@@ -36,7 +37,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class UserTopForm extends HLayout implements GHAClosable, ResizeHandler,
 		GHAHideable, UserSelectionListener {
 
-	private GHATextItem usernameItem, typeidSelectItem, blockedItem;
+	private GHATextItem usernameItem, typeidSelectItem;
+	private GHASelectItem stateItem;
 	private GHATextItem firstNameItem, secondNameItem, firstLastNameItem,
 			secondLastNameItem, emailItem, alterEmailItem, idItem;
 	private GHASelectItem genderSelectItem;
@@ -53,34 +55,32 @@ public class UserTopForm extends HLayout implements GHAClosable, ResizeHandler,
 	};
 
 	{
-		usernameItem = new GHAUserNameItem(200, false);
-		firstNameItem = new GHATextItem("Primer nombre", 200);
+		usernameItem = new GHAUserNameItem(300);
+		usernameItem.setColSpan(2);
+		firstNameItem = new GHATextItem("Primer nombre", 150);
 		firstNameItem.setLength(20);
 		firstNameItem.setMask(">A<AAAAAAAAAAAAAAAAAAA");
-		blockedItem = new GHATextItem(GHAStrings.get("state"), false);
-		typeidSelectItem = new GHATextItem(GHAStrings.get("id-type"), 200,
-				false);
-		idItem = new GHATextItem(GHAStrings.get("id-number"), 200, false);
-		secondNameItem = new GHATextItem("Segundo nombre", 200);
+		stateItem = new GHASelectItem(GHAStrings.get("state"), 150);
+		stateItem.setValueMap(UserLogonStatusEnum.toValueMap());
+		typeidSelectItem = new GHATextItem(GHAStrings.get("id-type"), 150);
+		idItem = new GHATextItem(GHAStrings.get("id-number"), 150);
+		secondNameItem = new GHATextItem("Segundo nombre", 150);
 		secondNameItem.setLength(20);
 		secondNameItem.setMask(">A<AAAAAAAAAAAAAAAAAAA");
-		firstLastNameItem = new GHATextItem("Primer apellido", 200);
+		firstLastNameItem = new GHATextItem("Primer apellido", 150);
 		firstLastNameItem.setLength(20);
 		firstLastNameItem.setMask(">A<AAAAAAAAAAAAAAAAAAA");
-		secondLastNameItem = new GHATextItem("Segundo apellido", 200);
+		secondLastNameItem = new GHATextItem("Segundo apellido", 150);
 		secondLastNameItem.setLength(20);
 		secondLastNameItem.setMask(">A<AAAAAAAAAAAAAAAAAAA");
-		emailItem = new GHATextItem("Correo", 200);
+		emailItem = new GHATextItem("Correo", 150);
 		emailItem.setLength(254);
-		alterEmailItem = new GHATextItem("Correo alternativo",
-				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
+		alterEmailItem = new GHATextItem("Correo alternativo", 150);
 		alterEmailItem.setLength(254);
-		idItem = new GHATextItem("No. Identificación",
-				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
+		idItem = new GHATextItem("No. Identificación", 150);
 		idItem.setLength(20);
 		idItem.setMask("####################");
-		genderSelectItem = new GHASelectItem("Género",
-				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE);
+		genderSelectItem = new GHASelectItem("Género", 150);
 		genderSelectItem.setValueMap(GenderTypeEnum.toValueMap());
 		usernameItem.addKeyUpHandler(searchKeyUpHandler);
 		firstNameItem.addKeyUpHandler(searchKeyUpHandler);
@@ -90,7 +90,6 @@ public class UserTopForm extends HLayout implements GHAClosable, ResizeHandler,
 		emailItem.addKeyUpHandler(searchKeyUpHandler);
 		genderSelectItem.addKeyUpHandler(searchKeyUpHandler);
 		alterEmailItem.addKeyUpHandler(searchKeyUpHandler);
-
 	}
 
 	/**
@@ -110,7 +109,7 @@ public class UserTopForm extends HLayout implements GHAClosable, ResizeHandler,
 		DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(6);
-		form.setItems(usernameItem, firstNameItem, blockedItem, secondNameItem,
+		form.setItems(usernameItem, firstNameItem, stateItem, secondNameItem,
 				firstLastNameItem, secondLastNameItem, typeidSelectItem,
 				idItem, emailItem, alterEmailItem, genderSelectItem);
 
@@ -180,26 +179,68 @@ public class UserTopForm extends HLayout implements GHAClosable, ResizeHandler,
 
 	@Override
 	public void select(SSOUser ssoUser) {
-		usernameItem.setValue(ssoUser.getUserName());
-		blockedItem.setValue(ssoUser.getUserLogonStatus());
-		typeidSelectItem.setValue(ssoUser.getBpu().getCitizen().getIdType());
-		idItem.setValue(ssoUser.getBpu().getCitizen().getIdNumber());
+		if (ssoUser.getUserName() != null)
+			usernameItem.setValue(ssoUser.getUserName());
+
+		if (ssoUser.getUserLogonStatus() != null)
+			stateItem.setValue(ssoUser.getUserLogonStatus().name());
+
+		if (ssoUser.getBpu() != null) {
+			Bpu bpu = ssoUser.getBpu();
+
+			if (bpu.getCitizen() != null) {
+				Citizen citizen = bpu.getCitizen();
+				if (citizen.getFirstName() != null)
+					firstNameItem.setValue(citizen.getFirstName());
+				if (citizen.getIdType() != null)
+					typeidSelectItem.setValue(citizen.getIdType().name());
+				if (citizen.getIdNumber() != null)
+					idItem.setValue(citizen.getIdNumber());
+				if (citizen.getSecondName() != null)
+					secondNameItem.setValue(citizen.getSecondName());
+				if (citizen.getFirstLastName() != null)
+					firstLastNameItem.setValue(citizen.getFirstLastName());
+				if (citizen.getSecondLastName() != null)
+					secondLastNameItem.setValue(citizen.getSecondLastName());
+				if (citizen.getPrimaryEmail() != null)
+					emailItem.setValue(citizen.getPrimaryEmail());
+				if (citizen.getAlternativeEmail() != null)
+					alterEmailItem.setValue(citizen.getAlternativeEmail());
+				if (citizen.getGender() != null)
+					genderSelectItem.setValue(citizen.getGender().name());
+
+			}
+		}
 		deactivate();
 	}
 
 	public void deactivate() {
 		usernameItem.disable();
-		blockedItem.disable();
+		stateItem.disable();
 		typeidSelectItem.disable();
 		idItem.disable();
+		firstNameItem.disable();
+		secondNameItem.disable();
+		firstLastNameItem.disable();
+		secondLastNameItem.disable();
+		emailItem.disable();
+		alterEmailItem.disable();
+		genderSelectItem.disable();
 		activated = false;
 	}
 
 	public void activate() {
 		usernameItem.enable();
-		blockedItem.enable();
+		stateItem.enable();
 		typeidSelectItem.enable();
 		idItem.enable();
+		firstNameItem.enable();
+		secondNameItem.enable();
+		firstLastNameItem.enable();
+		secondLastNameItem.enable();
+		emailItem.enable();
+		alterEmailItem.enable();
+		genderSelectItem.enable();
 		activated = true;
 	}
 
