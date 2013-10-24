@@ -1,8 +1,21 @@
 package org.fourgeeks.gha.webclient.client.eia;
 
+import java.sql.Date;
+import java.util.List;
+
+import org.fourgeeks.gha.domain.enu.EiaStateEnum;
+import org.fourgeeks.gha.domain.ess.Role;
+import org.fourgeeks.gha.domain.ess.WorkingArea;
+import org.fourgeeks.gha.domain.gar.Facility;
+import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHACodeItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHADateItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
@@ -27,25 +40,48 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class EIATopForm extends HLayout implements EIASelectionListener,
 		GHAClosable, GHAHideable, ResizeHandler {
 
-	private GHATextItem eiaType, code, serialNumber, state,
-			fixedAssetIdentifier, workingArea, facility, responsibleRole, obu,
-			acceptationDate, installationDate;
+	private GHATextItem eiaType, serialNumber, state, fixedAssetIdentifier;
+	private GHACodeItem codeItem;
+	private GHASelectItem eiaTypeSelectItem, stateSelectItem, obuSelectItem,
+			baseRoleSelectItem, workingAreaLocationSelectItem,
+			facilityLocationSelectItem;
+	private GHADateItem acceptationDateItem, installationDateItem;
 
 	private EiaResultSet resultSet;
 	private boolean activated = false;
 
 	{
-		eiaType = new GHATextItem("Tipo de equipo", 120, false);
-		code = new GHATextItem("Código", 120, false);
-		serialNumber = new GHATextItem("Serial", 120, false);
-		fixedAssetIdentifier = new GHATextItem("Identificador", 120, false);
-		state = new GHATextItem("Estado", 120, false);
-		workingArea = new GHATextItem("Area de trabajo", 120, false);
-		facility = new GHATextItem("Facilidad", 120, false);
-		obu = new GHATextItem("Organización", 120, false);
-		responsibleRole = new GHATextItem("Responsable", 120, false);
-		installationDate = new GHATextItem("Instalación", 120, false);
-		acceptationDate = new GHATextItem("Recibido en", 120, false);
+		eiaTypeSelectItem = new GHASelectItem("Tipo",
+				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false);
+
+		codeItem = new GHACodeItem(120);
+		codeItem.setDisabled(true);
+
+		serialNumber = new GHATextItem(GHAStrings.get("eia-serialNumber"), 120,
+				false);
+		fixedAssetIdentifier = new GHATextItem(
+				GHAStrings.get("eia-fixedAssetIdentifier"), 120, false);
+
+		stateSelectItem = new GHASelectItem("Estado Equipo",
+				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false);
+
+		workingAreaLocationSelectItem = new GHASelectItem("Nombre",
+				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false);
+
+		facilityLocationSelectItem = new GHASelectItem("Nombre",
+				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false);
+
+		obuSelectItem = new GHASelectItem("Departamento Responsable",
+				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false);
+
+		baseRoleSelectItem = new GHASelectItem("Rol Responsable",
+				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false);
+
+		installationDateItem = new GHADateItem("Instalación",
+				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false);
+
+		acceptationDateItem = new GHADateItem("Fecha de Aceptación",
+				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false);
 
 	}
 
@@ -67,9 +103,11 @@ public class EIATopForm extends HLayout implements EIASelectionListener,
 		// form.setWidth("100px");
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(6);
-		form.setItems(eiaType, code, serialNumber, fixedAssetIdentifier, state,
-				new GHASpacerItem(), workingArea, facility, obu,
-				responsibleRole, acceptationDate, installationDate);
+		form.setItems(eiaTypeSelectItem, codeItem, serialNumber,
+				fixedAssetIdentifier, stateSelectItem, new GHASpacerItem(),
+				workingAreaLocationSelectItem, facilityLocationSelectItem,
+				obuSelectItem, baseRoleSelectItem, acceptationDateItem,
+				installationDateItem);
 
 		// Panel de la Fotografia Equipos
 
@@ -138,11 +176,31 @@ public class EIATopForm extends HLayout implements EIASelectionListener,
 	}
 
 	public void disableFields() {
-		// TODO: Disable fields in the topform
+		eiaTypeSelectItem.disable();
+		codeItem.disable();
+		serialNumber.disable();
+		fixedAssetIdentifier.disable();
+		stateSelectItem.disable();
+		workingAreaLocationSelectItem.disable();
+		facilityLocationSelectItem.disable();
+		obuSelectItem.disable();
+		baseRoleSelectItem.disable();
+		installationDateItem.disable();
+		acceptationDateItem.disable();
 	}
 
 	public void enableFields() {
-		// TODO: Enable topform fields
+		eiaTypeSelectItem.enable();
+		codeItem.enable();
+		serialNumber.enable();
+		fixedAssetIdentifier.enable();
+		stateSelectItem.enable();
+		workingAreaLocationSelectItem.enable();
+		facilityLocationSelectItem.enable();
+		obuSelectItem.enable();
+		baseRoleSelectItem.enable();
+		installationDateItem.enable();
+		acceptationDateItem.enable();
 	}
 
 	public boolean isActivated() {
@@ -161,75 +219,84 @@ public class EIATopForm extends HLayout implements EIASelectionListener,
 		Eia eia = new Eia();
 		if (eiaType.getValue() != null)
 			eia.setEiaType(new EiaType(eiaType.getValueAsString()));
-		if (code.getValue() != null)
-			eia.setCode(code.getValueAsString());
+		if (codeItem.getValue() != null)
+			eia.setCode(codeItem.getValueAsString());
 		if (serialNumber.getValue() != null)
 			eia.setSerialNumber(serialNumber.getValueAsString());
 		if (fixedAssetIdentifier != null)
 			eia.setFixedAssetIdentifier(fixedAssetIdentifier.getValueAsString());
-
-		// // if (actualCostItem.getValue() != null)
-		// // eia.setActualCost(new
-		// BigDecimal(actualCostItem.getValueAsString()));
-		// if (responsibleRoleItem.getValue() != null)
-		// eia.setResponsibleRole(new Role(Long.parseLong(responsibleRoleItem
-		// .getValueAsString())));
-		// if (fixedAssetIdentifierItem.getValue() != null)
-		// eia.setFixedAssetIdentifier(fixedAssetIdentifierItem
-		// .getValueAsString());
-		// if (workingAreaLocationItem.getValue() != null)
-		// eia.setWorkingArea(new WorkingArea(Integer
-		// .valueOf(workingAreaLocationItem.getValueAsString())));
-		// if (facilityLocationItem.getValue() != null)
-		// eia.setFacility(new Facility(Integer.valueOf(facilityLocationItem
-		// .getValueAsString())));
-		// if (obuItem.getValue() != null)
-		// eia.setObu(new Obu(Long.parseLong(obuItem.getValueAsString())));
-		// if (stateItem.getValue() != null)
-		// eia.setState(EiaStateEnum.valueOf(stateItem.getValueAsString()));
-		// else
-		// eia.setState(null);
-		// search(eia);
-
-		// state = new GHATextItem("Estado", 120, false);
-		// workingArea = new GHATextItem("Area de trabajo", 120, false);
-		// facility = new GHATextItem("Facilidad", 120, false);
-		// obu = new GHATextItem("Organización", 120, false);
-		// responsibleRole = new GHATextItem("Responsable", 120, false);
-		// installationDate = new GHATextItem("Instalación", 120, false);
-		// acceptationDate = new GHATextItem("Recibido en", 120, false);
+		if (obuSelectItem.getValue() != null) {
+			Obu obu = new Obu();
+			obu.setId(Integer.valueOf(obuSelectItem.getValueAsString()));
+			eia.setObu(obu);
+		}
+		if (baseRoleSelectItem.getValue() != null) {
+			Role baseRole = new Role();
+			baseRole.setId(Integer.valueOf(baseRoleSelectItem
+					.getValueAsString()));
+			eia.setResponsibleRole(baseRole);
+		}
+		if (stateSelectItem.getValue() != null) {
+			eia.setState(EiaStateEnum.valueOf(stateSelectItem
+					.getValueAsString()));
+		}
+		if (acceptationDateItem.getValue() != null)
+			eia.setAcceptationDate(new Date(acceptationDateItem
+					.getValueAsDate().getTime()));
+		if (installationDateItem.getValue() != null)
+			eia.setInstallationDate(new Date(installationDateItem
+					.getValueAsDate().getTime()));
+		if (facilityLocationSelectItem.getValue() != null) {
+			eia.setWorkingArea(null);
+			eia.setFacility(new Facility(Integer
+					.valueOf(facilityLocationSelectItem.getValueAsString())));
+		}
+		if (workingAreaLocationSelectItem.getValue() != null) {
+			eia.setFacility(null);
+			eia.setWorkingArea(new WorkingArea(Integer
+					.valueOf(workingAreaLocationSelectItem.getValueAsString())));
+		}
+		search(eia);
 
 	}
 
 	public void search(Eia eia) {
-		// TODO
+		EIAModel.find(eia, new GHAAsyncCallback<List<Eia>>() {
+
+			@Override
+			public void onSuccess(List<Eia> result) {
+				resultSet.setRecords(result);
+			}
+		});
 	}
 
 	@Override
 	public void select(Eia eia) {
-		if (eia.getEiaType() != null) {
-			eiaType.setValue(eia.getEiaType().getName());
-		}
-
-		code.setValue(eia.getCode());
-		serialNumber.setValue(eia.getSerialNumber());
-		fixedAssetIdentifier.setValue(eia.getFixedAssetIdentifier());
-		state.setValue(eia.getState().toString());
-
-		if (eia.getWorkingArea() != null)
-			workingArea.setValue(eia.getWorkingArea().getName());
-
-		if (eia.getFacility() != null)
-			facility.setValue(eia.getFacility().getName());
-
+		if (eia.getEiaType() != null)
+			eiaTypeSelectItem.setValue(eia.getEiaType().getCode());
+		if (eia.getCode() != null)
+			codeItem.setValue(eia.getCode());
+		if (eia.getSerialNumber() != null)
+			serialNumber.setValue(eia.getSerialNumber());
+		if (eia.getFixedAssetIdentifier() != null)
+			fixedAssetIdentifier.setValue(eia.getFixedAssetIdentifier());
 		if (eia.getObu() != null)
-			obu.setValue(eia.getObu().getName());
-
+			obuSelectItem.setValue(eia.getObu().getId());
 		if (eia.getResponsibleRole() != null)
-			responsibleRole.setValue(eia.getResponsibleRole().getName());
-
-		installationDate.setValue(eia.getInstallationDate());
-		acceptationDate.setValue(eia.getAcceptationDate());
+			baseRoleSelectItem.setValue(eia.getResponsibleRole().getId());
+		if (eia.getState() != null)
+			stateSelectItem.setValue(eia.getState().name());
+		if (eia.getAcceptationDate() != null)
+			acceptationDateItem.setValue(eia.getAcceptationDate());
+		if (eia.getInstallationDate() != null)
+			installationDateItem.setValue(eia.getInstallationDate());
+		if (eia.getWorkingArea() != null) {
+			workingAreaLocationSelectItem
+					.setValue(eia.getWorkingArea().getId());
+		}
+		if (eia.getFacility() != null) {
+			facilityLocationSelectItem.setValue(eia.getFacility().getId());
+		}
 
 		// lock fields of the topform
 		disableFields();
