@@ -40,7 +40,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class EIATopForm extends HLayout implements EIASelectionListener,
 		GHAClosable, GHAHideable, ResizeHandler {
 
-	private GHATextItem eiaType, serialNumber, state, fixedAssetIdentifier;
+	private GHATextItem serialNumber, fixedAssetIdentifier;
 	private GHACodeItem codeItem;
 	private GHASelectItem eiaTypeSelectItem, stateSelectItem, obuSelectItem,
 			baseRoleSelectItem, workingAreaLocationSelectItem,
@@ -217,8 +217,8 @@ public class EIATopForm extends HLayout implements EIASelectionListener,
 	 */
 	public void search() {
 		Eia eia = new Eia();
-		if (eiaType.getValue() != null)
-			eia.setEiaType(new EiaType(eiaType.getValueAsString()));
+		if (eiaTypeSelectItem.getValue() != null)
+			eia.setEiaType(new EiaType(eiaTypeSelectItem.getValueAsString()));
 		if (codeItem.getValue() != null)
 			eia.setCode(codeItem.getValueAsString());
 		if (serialNumber.getValue() != null)
