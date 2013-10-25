@@ -89,7 +89,10 @@ public class EIATab extends GHATab implements EIASelectionListener,
 			return;
 		}
 		if (internalTabset.isVisible()) {
-			// TODO
+			if (internalTabset.canBeHidden())
+				internalTabset.hide();
+			else
+				return;
 		}
 		if (topForm.isActivated())
 			topForm.deactivate();

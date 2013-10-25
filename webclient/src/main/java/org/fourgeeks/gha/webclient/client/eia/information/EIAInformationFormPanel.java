@@ -103,6 +103,11 @@ public class EIAInformationFormPanel extends VLayout implements GHAClosable,
 		destroy();
 	}
 
+	@Override
+	public void hide() {
+
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
