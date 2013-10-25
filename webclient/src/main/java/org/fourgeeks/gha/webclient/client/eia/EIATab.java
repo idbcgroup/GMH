@@ -5,8 +5,12 @@ import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
+import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader;
+
+import com.smartgwt.client.widgets.events.ClickEvent;
+import com.smartgwt.client.widgets.events.ClickHandler;
 
 /**
  * @author alacret
@@ -33,6 +37,20 @@ public class EIATab extends GHATab implements EIASelectionListener,
 	public EIATab(String token) {
 		super(token);
 		header = new GHATabHeader(this, TITLE);
+		header.addSearchOption(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				search();
+			}
+		});
+		header.addAddOption(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				add();
+			}
+		});
 
 		resultSet = new EiaResultSet();
 		addGHAHideableHandler(resultSet);
@@ -43,33 +61,41 @@ public class EIATab extends GHATab implements EIASelectionListener,
 		topForm.activate();
 		addGHAHideableHandler(topForm);
 		addGHAClosableHandler(topForm);
+		addEiaSelectionListener(topForm);
 
-		//
-		// topSection = new EIATopSection(this);
-		// internalTabset = new EIAInternalTabset(this);
-		//
-		// verticalPanel.addMember(topSection);
-		// verticalPanel.addMember(GHAUiHelper
-		// .verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
-		// verticalPanel.addMember(internalTabset);
-		// addMember(verticalPanel);
+		internalTabset = new EIAInternalTabset(this);
+		addGHAHideableHandler(internalTabset);
+		addGHAClosableHandler(internalTabset);
+		addEiaSelectionListener(internalTabset);
+
+		addForm = new EIAAddForm();
+		addGHAHideableHandler(addForm);
+		addGHAClosableHandler(addForm);
+		addForm.addEiaSelectionListener(this);
+
+		verticalPanel.addMember(topForm);
+		verticalPanel.addMember(GHAUiHelper
+				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
+		verticalPanel.addMember(internalTabset);
+		verticalPanel.addMember(resultSet);
+		addMember(verticalPanel);
 	}
 
-	@Override
-	protected void onDraw() {
-		// if (eia == null)
-		// topSection.search();
-	}
-
-	@Override
-	public String getId() {
-		return ID;
-	}
-
-	@Override
-	public void select(Eia eia) {
-		for (EIASelectionListener listener : listeners)
-			listener.select(eia);
+	/**
+	 * 
+	 */
+	protected void add() {
+		if (addForm.isVisible()) {
+			return;
+		}
+		if (internalTabset.isVisible()) {
+			// TODO
+		}
+		if (topForm.isActivated())
+			topForm.deactivate();
+		if (resultSet.isVisible())
+			resultSet.hide();
+		addForm.open();
 	}
 
 	@Override
@@ -79,21 +105,54 @@ public class EIATab extends GHATab implements EIASelectionListener,
 	}
 
 	@Override
+	public String getId() {
+		return ID;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.eia.EiaSelectionProducer#notifyEia
+	 * (org.fourgeeks.gha.domain.gmh.Eia)
+	 */
+	@Override
+	public void notifyEia(Eia eia) {
+		for (EIASelectionListener listener : listeners)
+			listener.select(eia);
+	}
+
+	@Override
 	public void removeEiaSelectionListener(
 			EIASelectionListener eiaSelectionListener) {
 		listeners.remove(eiaSelectionListener);
 	}
 
-	@Override
-	public boolean canBeClosen() {
-		// TODO Auto-generated method stub
-		return false;
+	/**
+	 * 
+	 */
+	protected void search() {
+		if (topForm.isActivated()) {
+			return;
+		}
+		if (internalTabset.isVisible()) {
+			// TODO
+		}
+		if (addForm.isVisible()) {
+			addForm.hide();
+		}
+		if (resultSet.isVisible()) {
+			resultSet.hide();
+		}
+		topForm.activate();
+		// GHANotification.info(GHAStrings.get("")); //TODO: Mensaje de
+		// informacion para indicar que se ha actividado el modo de busqueda
 	}
 
 	@Override
-	public boolean canBeHidden() {
-		// TODO Auto-generated method stub
-		return false;
+	public void select(Eia eia) {
+		for (EIASelectionListener listener : listeners)
+			listener.select(eia);
 	}
 
 }

@@ -81,6 +81,44 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 		addMember(verticalPanel);
 	}
 
+	protected void add() {
+		if (addForm.isVisible())
+			return;
+		if (internalTabSet.isVisible())
+			if (internalTabSet.canBeHidden())
+				internalTabSet.hide();
+			else
+				return;
+		if (topForm.isActivated())
+			topForm.deactivate();
+		if (resultSet.isVisible())
+			resultSet.hide();
+		addForm.open();
+	}
+
+	@Override
+	public void addEiaTypeSelectionListener(
+			EIATypeSelectionListener eIATypeSelectionListener) {
+		listeners.add(eIATypeSelectionListener);
+	}
+
+	@Override
+	public String getId() {
+		return ID;
+	}
+
+	@Override
+	public void notifyEiaType(EiaType eiaType) {
+		for (EIATypeSelectionListener listener : listeners)
+			listener.select(eiaType);
+	}
+
+	@Override
+	public void removeEiaTypeSelectionListener(
+			EIATypeSelectionListener eIATypeSelectionListener) {
+		listeners.remove(eIATypeSelectionListener);
+	}
+
 	protected void search() {
 		if (topForm.isActivated())
 			return;
@@ -98,46 +136,8 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 		// informacion para indicar que se ha actividado el modo de busqueda
 	}
 
-	protected void add() {
-		if (addForm.isVisible())
-			return;
-		if (internalTabSet.isVisible())
-			if (internalTabSet.canBeHidden())
-				internalTabSet.hide();
-			else
-				return;
-		if (topForm.isActivated())
-			topForm.deactivate();
-		if (resultSet.isVisible())
-			resultSet.hide();
-		addForm.open();
-	}
-
-	@Override
-	public String getId() {
-		return ID;
-	}
-
 	@Override
 	public void select(EiaType eiaType) {
 		notifyEiaType(eiaType);
-	}
-
-	@Override
-	public void addEiaTypeSelectionListener(
-			EIATypeSelectionListener eIATypeSelectionListener) {
-		listeners.add(eIATypeSelectionListener);
-	}
-
-	@Override
-	public void removeEiaTypeSelectionListener(
-			EIATypeSelectionListener eIATypeSelectionListener) {
-		listeners.remove(eIATypeSelectionListener);
-	}
-
-	@Override
-	public void notifyEiaType(EiaType eiaType) {
-		for (EIATypeSelectionListener listener : listeners)
-			listener.select(eiaType);
 	}
 }

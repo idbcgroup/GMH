@@ -112,7 +112,8 @@ public class EiaResultSet extends VLayout implements EiaSelectionProducer,
 		destroy();
 	}
 
-	private void notifyEia(Eia eia) {
+	@Override
+	public void notifyEia(Eia eia) {
 		for (EIASelectionListener listener : listeners)
 			listener.select(eia);
 	}

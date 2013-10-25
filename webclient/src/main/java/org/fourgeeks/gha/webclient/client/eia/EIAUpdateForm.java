@@ -145,7 +145,7 @@ public class EIAUpdateForm extends GHASlideInWindow implements
 	 */
 	@Override
 	public void select(Eia eia) {
-		eiaForm.clearValue();
+		eiaForm.cancel();
 		hide();
 	}
 
@@ -159,5 +159,18 @@ public class EIAUpdateForm extends GHASlideInWindow implements
 	public boolean canBeHidden() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.eia.EiaSelectionProducer#notifyEia
+	 * (org.fourgeeks.gha.domain.gmh.Eia)
+	 */
+	@Override
+	public void notifyEia(Eia eia) {
+		// TODO Auto-generated method stub
+
 	}
 }

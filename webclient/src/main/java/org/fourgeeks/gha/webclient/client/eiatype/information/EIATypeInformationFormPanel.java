@@ -269,25 +269,62 @@ public class EIATypeInformationFormPanel extends VLayout implements
 	}
 
 	/**
-	 * @param activate
+	 *	
 	 */
 	public void activate() {
 		form.activate();
 	}
 
-	protected void undo() {
-		select(this.originalEiaType);
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.eiatype.EiaTypeSelectionProducer#
+	 * addEiaTypeSelectionListener
+	 * (org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener)
+	 */
+	@Override
+	public void addEiaTypeSelectionListener(
+			EIATypeSelectionListener eIATypeSelectionListener) {
+		listeners.add(eIATypeSelectionListener);
 	}
 
-	/**
-	 * @param eiaType
-	 */
-	public void setEiaType(EiaType eiaType) {
-		this.originalEiaType = eiaType;
-		form.setEiaType(eiaType);
+	@Override
+	public boolean canBeClosen() {
+		return true;
+	}
 
-		activate();
-		// showPhotographics(eiaType);
+	@Override
+	public boolean canBeHidden() {
+		return form.canBeHidden();
+	}
+
+	@Override
+	public void close() {
+		destroy();
+	}
+
+	@Override
+	public void hide() {
+
+	}
+
+	@Override
+	public void notifyEiaType(EiaType eiaType) {
+		for (EIATypeSelectionListener listener : listeners)
+			listener.select(eiaType);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.eiatype.EiaTypeSelectionProducer#
+	 * removeEiaTypeSelectionListener
+	 * (org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener)
+	 */
+	@Override
+	public void removeEiaTypeSelectionListener(
+			EIATypeSelectionListener eIATypeSelectionListener) {
+		listeners.remove(eIATypeSelectionListener);
 	}
 
 	/**
@@ -435,16 +472,6 @@ public class EIATypeInformationFormPanel extends VLayout implements
 
 	}
 
-	@Override
-	public void close() {
-		destroy();
-	}
-
-	@Override
-	public void hide() {
-
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -457,45 +484,18 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		notifyEiaType(eiaType);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.fourgeeks.gha.webclient.client.eiatype.EiaTypeSelectionProducer#
-	 * addEiaTypeSelectionListener
-	 * (org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener)
+	/**
+	 * @param eiaType
 	 */
-	@Override
-	public void addEiaTypeSelectionListener(
-			EIATypeSelectionListener eIATypeSelectionListener) {
-		listeners.add(eIATypeSelectionListener);
+	public void setEiaType(EiaType eiaType) {
+		this.originalEiaType = eiaType;
+		form.setEiaType(eiaType);
+
+		activate();
+		// showPhotographics(eiaType);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.fourgeeks.gha.webclient.client.eiatype.EiaTypeSelectionProducer#
-	 * removeEiaTypeSelectionListener
-	 * (org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener)
-	 */
-	@Override
-	public void removeEiaTypeSelectionListener(
-			EIATypeSelectionListener eIATypeSelectionListener) {
-		listeners.remove(eIATypeSelectionListener);
-	}
-
-	@Override
-	public boolean canBeHidden() {
-		return form.canBeHidden();
-	}
-
-	@Override
-	public boolean canBeClosen() {
-		return true;
-	}
-
-	@Override
-	public void notifyEiaType(EiaType eiaType) {
-		for (EIATypeSelectionListener listener : listeners)
-			listener.select(eiaType);
+	protected void undo() {
+		select(this.originalEiaType);
 	}
 }

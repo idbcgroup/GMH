@@ -74,8 +74,11 @@ public class EIATypeInternalTabset extends TabSet implements ResizeHandler,
 	}
 
 	@Override
-	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getBottomSectionHeight());
+	public boolean canBeClosen() {
+		for (GHAClosable closable : closables)
+			if (!closable.canBeClosen())
+				return false;
+		return true;
 	}
 
 	@Override
@@ -87,10 +90,22 @@ public class EIATypeInternalTabset extends TabSet implements ResizeHandler,
 	}
 
 	@Override
+	public void close() throws UnavailableToCloseException {
+		for (GHAClosable closable : closables)
+			closable.close();
+		destroy();
+	}
+
+	@Override
 	public void hide() {
 		for (GHAHideable hideable : hideables)
 			hideable.hide();
 		super.hide();
+	}
+
+	@Override
+	public void onResize(ResizeEvent event) {
+		setHeight(GHAUiHelper.getBottomSectionHeight());
 	}
 
 	/*
@@ -103,21 +118,6 @@ public class EIATypeInternalTabset extends TabSet implements ResizeHandler,
 	@Override
 	public void select(EiaType eiaType) {
 		animateShow(AnimationEffect.FADE);
-	}
-
-	@Override
-	public boolean canBeClosen() {
-		for (GHAClosable closable : closables)
-			if (!closable.canBeClosen())
-				return false;
-		return true;
-	}
-
-	@Override
-	public void close() throws UnavailableToCloseException {
-		for (GHAClosable closable : closables)
-			closable.close();
-		destroy();
 	}
 
 }

@@ -260,7 +260,8 @@ public class EIASearchForm extends GHASlideInWindow implements
 		listeners.add(eiaSelectionListener);
 	}
 
-	private void notifyEia(Eia eia) {
+	@Override
+	public void notifyEia(Eia eia) {
 		for (EIASelectionListener listener : listeners)
 			listener.select(eia);
 	}

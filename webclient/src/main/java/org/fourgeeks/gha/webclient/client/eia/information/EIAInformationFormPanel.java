@@ -8,14 +8,15 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.eia.EIAForm;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 import org.fourgeeks.gha.webclient.client.eia.EiaSelectionProducer;
 
+import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
+import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
@@ -29,20 +30,24 @@ public class EIAInformationFormPanel extends VLayout implements GHAClosable,
 	 * @param eiaEquipmentSubTab
 	 * 
 	 */
-	private EIAForm eiaForm = new EIAForm();
-	private Eia firstEia;
-	private List<EIASelectionListener> listeners = new ArrayList<EIASelectionListener>();
+	private EIAForm form;
+	private Eia originalEia;
+	private List<EIASelectionListener> listeners;
+
+	{
+		form = new EIAForm();
+		listeners = new ArrayList<EIASelectionListener>();
+		originalEia = null;
+	}
 
 	/**
 	 * 
 	 */
 	public EIAInformationFormPanel() {
-		super();
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
-		eiaForm.addEiaSelectionListener(this);
-		GHALabel title = new GHALabel("Caracteristicas del Equipos");
+		setAlign(Alignment.CENTER);
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
 				"../resources/icons/save.png", new ClickHandler() {
@@ -55,33 +60,25 @@ public class EIAInformationFormPanel extends VLayout implements GHAClosable,
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						// undo();
+						undo();
 					}
 				}));
 
-		HLayout formPanel = new HLayout();
-		formPanel.addMembers(eiaForm, sideButtons);
+		HLayout gridPanel = new HLayout();
+		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
 
-		addMembers(title, formPanel);
+		addMember(gridPanel);
 
-	}
+		// register as eiaselected listener with eiaform
+		form.addEiaSelectionListener(this);
 
-	protected void save() {
-		eiaForm.update();
 	}
 
 	/**
-	 * @param eia
+	 * 
 	 */
-	public void setEia(Eia eia) {
-		this.firstEia = eia;
-		eiaForm.setEia(eia);
-
-	}
-
-	@Override
-	public void close() {
-
+	public void activate() {
+		form.activate();
 	}
 
 	@Override
@@ -92,26 +89,59 @@ public class EIAInformationFormPanel extends VLayout implements GHAClosable,
 	}
 
 	@Override
-	public void removeEiaSelectionListener(
-			EIASelectionListener eiaSelectionListener) {
-		listeners.remove(eiaSelectionListener);
+	public boolean canBeClosen() {
+		return true;
 	}
 
 	@Override
-	public void select(Eia eia) {
+	public boolean canBeHidden() {
+		return form.canBeHidden();
+	}
+
+	@Override
+	public void close() {
+		destroy();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.eia.EiaSelectionProducer#notifyEia
+	 * (org.fourgeeks.gha.domain.gmh.Eia)
+	 */
+	@Override
+	public void notifyEia(Eia eia) {
 		for (EIASelectionListener listener : listeners)
 			listener.select(eia);
 	}
 
 	@Override
-	public boolean canBeHidden() {
-		// TODO Auto-generated method stub
-		return false;
+	public void removeEiaSelectionListener(
+			EIASelectionListener eiaSelectionListener) {
+		listeners.remove(eiaSelectionListener);
+	}
+
+	protected void save() {
+		form.update();
 	}
 
 	@Override
-	public boolean canBeClosen() {
-		// TODO Auto-generated method stub
-		return false;
+	public void select(Eia eia) {
+		notifyEia(eia);
+	}
+
+	/**
+	 * @param eia
+	 */
+	public void setEia(Eia eia) {
+		this.originalEia = eia;
+		form.setEia(eia);
+
+		activate();
+	}
+
+	protected void undo() {
+		select(this.originalEia);
 	}
 }

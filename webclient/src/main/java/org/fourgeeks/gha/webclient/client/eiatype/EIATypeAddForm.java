@@ -73,14 +73,23 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 	// form.show();
 	// }
 
-	private void save() {
-		form.save();
+	@Override
+	public void addEiaTypeSelectionListener(
+			EIATypeSelectionListener eIATypeSelectionListener) {
+		form.addEiaTypeSelectionListener(eIATypeSelectionListener);
 	}
 
 	@Override
-	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getTabHeight());
+	public boolean canBeClosen() {
+		return true;
 	}
+
+	@Override
+	public boolean canBeHidden() {
+		return true;
+	}
+
+	// Producer/consumer stuff
 
 	@Override
 	public void close() {
@@ -93,12 +102,14 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 		});
 	}
 
-	// Producer/consumer stuff
+	@Override
+	public void notifyEiaType(EiaType eiaType) {
+		form.notifyEiaType(eiaType);
+	}
 
 	@Override
-	public void addEiaTypeSelectionListener(
-			EIATypeSelectionListener eIATypeSelectionListener) {
-		form.addEiaTypeSelectionListener(eIATypeSelectionListener);
+	public void onResize(ResizeEvent event) {
+		setHeight(GHAUiHelper.getTabHeight());
 	}
 
 	@Override
@@ -106,6 +117,10 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 			EIATypeSelectionListener eIATypeSelectionListener) {
 		form.removeEiaTypeSelectionListener(eIATypeSelectionListener);
 
+	}
+
+	private void save() {
+		form.save();
 	}
 
 	/*
@@ -118,20 +133,5 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 	@Override
 	public void select(EiaType eiaType) {
 		// cancel();
-	}
-
-	@Override
-	public boolean canBeHidden() {
-		return true;
-	}
-
-	@Override
-	public boolean canBeClosen() {
-		return true;
-	}
-
-	@Override
-	public void notifyEiaType(EiaType eiaType) {
-		form.notifyEiaType(eiaType);
 	}
 }

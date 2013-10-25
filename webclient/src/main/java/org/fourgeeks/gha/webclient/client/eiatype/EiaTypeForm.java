@@ -152,100 +152,56 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer,
 
 	}
 
-	private void fillExtras() {
-		// types
-		typeItem.setValueMap(EiaTypeEnum.toValueMap());
-		// subtypes
-		subTypeItem.setValueMap(EiaSubTypeEnum.toValueMap());
-		// mobility
-		mobilityItem.setValueMap(EiaMobilityEnum.toValueMap());
-	}
-
-	private void fillMans(boolean forceFromServer) {
-		GHACache.INSTANCE.getManufacturesrs(
-				new GHAAsyncCallback<List<Manufacturer>>() {
-
-					@Override
-					public void onSuccess(List<Manufacturer> result) {
-						LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-						for (Manufacturer manufacturer : result)
-							valueMap.put(manufacturer.getId() + "",
-									manufacturer.getName());
-						manItem.setValueMap(valueMap);
-
-					}
-				}, forceFromServer);
-	}
-
-	private void fillBrands(Manufacturer manufacturer) {
-		BrandModel.findByManufacturer(manufacturer,
-				new GHAAsyncCallback<List<Brand>>() {
-
-					@Override
-					public void onSuccess(List<Brand> result) {
-						LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-						for (Brand brand : result)
-							valueMap.put(brand.getId() + "", brand.getName());
-						brandItem.setValueMap(valueMap);
-					}
-
-				});
-	}
-
-	private void fillBrands(boolean forceFromServer) {
-		GHACache.INSTANCE.getBrands(new GHAAsyncCallback<List<Brand>>() {
-
-			@Override
-			public void onSuccess(List<Brand> result) {
-				LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-				for (Brand brand : result)
-					valueMap.put(brand.getId() + "", brand.getName());
-				brandItem.setValueMap(valueMap);
-
-			}
-		}, forceFromServer);
-
-	}
-
 	/**
+	 * Activate the form
 	 * 
 	 */
-	public void save() {
-		EiaType eiaType = extract(false);
-
-		if (eiaType != null)
-			EIATypeModel.save(eiaType, new GHAAsyncCallback<EiaType>() {
-
-				@Override
-				public void onSuccess(EiaType result) {
-					hasUnCommittedChanges = false;
-					notifyEiaType(result);
-					cancel();
-
-					// reload manufacturers, possibly one new
-					fillMans(true);
-					brandItem.clearValue();
-					brandItem.disable();
-				}
-			});
+	public void activate() {
+		toggleForm(true);
 	}
 
-	/**
+	/*
+	 * (non-Javadoc)
 	 * 
+	 * @see org.fourgeeks.gha.webclient.client.eiatype.EiaTypeSelectionProducer#
+	 * addEiaTypeSelectionListener
+	 * (org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener)
 	 */
-	public void update() {
-		EiaType eiaType = extract(true);
+	@Override
+	public void addEiaTypeSelectionListener(
+			EIATypeSelectionListener eIATypeSelectionListener) {
+		listeners.add(eIATypeSelectionListener);
 
-		if (eiaType != null) {
-			EIATypeModel.update(eiaType, new GHAAsyncCallback<EiaType>() {
+	}
 
-				@Override
-				public void onSuccess(EiaType result) {
-					hasUnCommittedChanges = false;
-					notifyEiaType(result);
-				}
-			});
-		}
+	@Override
+	public boolean canBeClosen() {
+		if (hasUnCommittedChanges)
+			GHANotification.confirm(GHAStrings.get("information"),
+					"unsaved-changes", new BooleanCallback() {
+
+						@Override
+						public void execute(Boolean value) {
+							if (value.booleanValue())
+								hasUnCommittedChanges = false;
+						}
+					});
+		return !hasUnCommittedChanges;
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		if (hasUnCommittedChanges)
+			GHANotification.confirm(GHAStrings.get("information"),
+					"unsaved-changes", new BooleanCallback() {
+
+						@Override
+						public void execute(Boolean value) {
+							if (value.booleanValue())
+								hasUnCommittedChanges = false;
+						}
+					});
+		return !hasUnCommittedChanges;
 	}
 
 	/**
@@ -266,12 +222,9 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer,
 		subTypeItem.clearValue();
 	}
 
-	/**
-	 * Activate the form
-	 * 
-	 */
-	public void activate() {
-		toggleForm(true);
+	@Override
+	public void close() throws UnavailableToCloseException {
+
 	}
 
 	/**
@@ -280,31 +233,6 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer,
 	 */
 	public void deactivate() {
 		toggleForm(false);
-	}
-
-	/**
-	 * @param activate
-	 */
-	private void toggleForm(boolean activate) {
-		if (activate) {
-			if (manItem.getValue() != null
-					&& !manItem.getValueAsString().isEmpty()) {
-				brandItem.setDisabled(false);
-			} else {
-				brandItem.setDisabled(true);
-			}
-		} else
-			brandItem.setDisabled(!activate);
-		manItem.setDisabled(!activate);
-		codeItem.setDisabled(!activate);
-		nameItem.setDisabled(!activate);
-		descriptionItem.setDisabled(!activate);
-		modelItem.setDisabled(!activate);
-		useDescriptionItem.setDisabled(!activate);
-		eiaUmdnsItem.setDisabled(!activate);
-		mobilityItem.setDisabled(!activate);
-		typeItem.setDisabled(!activate);
-		subTypeItem.setDisabled(!activate);
 	}
 
 	private EiaType extract(boolean update) {
@@ -361,6 +289,105 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer,
 		return null;
 	}
 
+	private void fillBrands(boolean forceFromServer) {
+		GHACache.INSTANCE.getBrands(new GHAAsyncCallback<List<Brand>>() {
+
+			@Override
+			public void onSuccess(List<Brand> result) {
+				LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+				for (Brand brand : result)
+					valueMap.put(brand.getId() + "", brand.getName());
+				brandItem.setValueMap(valueMap);
+
+			}
+		}, forceFromServer);
+
+	}
+
+	private void fillBrands(Manufacturer manufacturer) {
+		BrandModel.findByManufacturer(manufacturer,
+				new GHAAsyncCallback<List<Brand>>() {
+
+					@Override
+					public void onSuccess(List<Brand> result) {
+						LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+						for (Brand brand : result)
+							valueMap.put(brand.getId() + "", brand.getName());
+						brandItem.setValueMap(valueMap);
+					}
+
+				});
+	}
+
+	private void fillExtras() {
+		// types
+		typeItem.setValueMap(EiaTypeEnum.toValueMap());
+		// subtypes
+		subTypeItem.setValueMap(EiaSubTypeEnum.toValueMap());
+		// mobility
+		mobilityItem.setValueMap(EiaMobilityEnum.toValueMap());
+	}
+
+	private void fillMans(boolean forceFromServer) {
+		GHACache.INSTANCE.getManufacturesrs(
+				new GHAAsyncCallback<List<Manufacturer>>() {
+
+					@Override
+					public void onSuccess(List<Manufacturer> result) {
+						LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+						for (Manufacturer manufacturer : result)
+							valueMap.put(manufacturer.getId() + "",
+									manufacturer.getName());
+						manItem.setValueMap(valueMap);
+
+					}
+				}, forceFromServer);
+	}
+
+	// Producer stuff
+	public void notifyEiaType(EiaType eiaType) {
+		GHANotification.alert("eiatype-save-success");
+		for (EIATypeSelectionListener listener : listeners)
+			listener.select(eiaType);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.eiatype.EiaTypeSelectionProducer#
+	 * removeEiaTypeSelectionListener
+	 * (org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener)
+	 */
+	@Override
+	public void removeEiaTypeSelectionListener(
+			EIATypeSelectionListener eIATypeSelectionListener) {
+		listeners.remove(eIATypeSelectionListener);
+
+	}
+
+	/**
+	 * 
+	 */
+	public void save() {
+		EiaType eiaType = extract(false);
+
+		if (eiaType != null)
+			EIATypeModel.save(eiaType, new GHAAsyncCallback<EiaType>() {
+
+				@Override
+				public void onSuccess(EiaType result) {
+					hasUnCommittedChanges = false;
+					notifyEiaType(result);
+					cancel();
+
+					// reload manufacturers, possibly one new
+					fillMans(true);
+					brandItem.clearValue();
+					brandItem.disable();
+				}
+			});
+	}
+
 	/**
 	 * @param eiaType
 	 */
@@ -397,74 +424,47 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer,
 		// showPhotographics(eiaType);
 	}
 
-	// Producer stuff
-	public void notifyEiaType(EiaType eiaType) {
-		GHANotification.alert("eiatype-save-success");
-		for (EIATypeSelectionListener listener : listeners)
-			listener.select(eiaType);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.fourgeeks.gha.webclient.client.eiatype.EiaTypeSelectionProducer#
-	 * addEiaTypeSelectionListener
-	 * (org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener)
+	/**
+	 * @param activate
 	 */
-	@Override
-	public void addEiaTypeSelectionListener(
-			EIATypeSelectionListener eIATypeSelectionListener) {
-		listeners.add(eIATypeSelectionListener);
-
+	private void toggleForm(boolean activate) {
+		if (activate) {
+			if (manItem.getValue() != null
+					&& !manItem.getValueAsString().isEmpty()) {
+				brandItem.setDisabled(false);
+			} else {
+				brandItem.setDisabled(true);
+			}
+		} else
+			brandItem.setDisabled(!activate);
+		manItem.setDisabled(!activate);
+		codeItem.setDisabled(!activate);
+		nameItem.setDisabled(!activate);
+		descriptionItem.setDisabled(!activate);
+		modelItem.setDisabled(!activate);
+		useDescriptionItem.setDisabled(!activate);
+		eiaUmdnsItem.setDisabled(!activate);
+		mobilityItem.setDisabled(!activate);
+		typeItem.setDisabled(!activate);
+		subTypeItem.setDisabled(!activate);
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
 	 * 
-	 * @see org.fourgeeks.gha.webclient.client.eiatype.EiaTypeSelectionProducer#
-	 * removeEiaTypeSelectionListener
-	 * (org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener)
 	 */
-	@Override
-	public void removeEiaTypeSelectionListener(
-			EIATypeSelectionListener eIATypeSelectionListener) {
-		listeners.remove(eIATypeSelectionListener);
+	public void update() {
+		EiaType eiaType = extract(true);
 
-	}
+		if (eiaType != null) {
+			EIATypeModel.update(eiaType, new GHAAsyncCallback<EiaType>() {
 
-	@Override
-	public boolean canBeClosen() {
-		if (hasUnCommittedChanges)
-			GHANotification.confirm(GHAStrings.get("information"),
-					"unsaved-changes", new BooleanCallback() {
-
-						@Override
-						public void execute(Boolean value) {
-							if (value.booleanValue())
-								hasUnCommittedChanges = false;
-						}
-					});
-		return !hasUnCommittedChanges;
-	}
-
-	@Override
-	public void close() throws UnavailableToCloseException {
-
-	}
-
-	@Override
-	public boolean canBeHidden() {
-		if (hasUnCommittedChanges)
-			GHANotification.confirm(GHAStrings.get("information"),
-					"unsaved-changes", new BooleanCallback() {
-
-						@Override
-						public void execute(Boolean value) {
-							if (value.booleanValue())
-								hasUnCommittedChanges = false;
-						}
-					});
-		return !hasUnCommittedChanges;
+				@Override
+				public void onSuccess(EiaType result) {
+					hasUnCommittedChanges = false;
+					notifyEiaType(result);
+				}
+			});
+		}
 	}
 
 }
