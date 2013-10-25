@@ -23,7 +23,7 @@ public class EIATab extends GHATab implements EIASelectionListener,
 	 * The ID of the Tab in the app managers
 	 */
 	public static final String ID = "eia";
-	private static final String TITLE = GHAStrings.get("equipos");
+	private static final String TITLE = GHAStrings.get("equipments");
 	private List<EIASelectionListener> listeners = new ArrayList<EIASelectionListener>();
 	private EIATopForm topForm;
 	private EIAAddForm addForm;
@@ -136,7 +136,10 @@ public class EIATab extends GHATab implements EIASelectionListener,
 			return;
 		}
 		if (internalTabset.isVisible()) {
-			// TODO
+			if (internalTabset.canBeHidden())
+				internalTabset.hide();
+			else
+				return;
 		}
 		if (addForm.isVisible()) {
 			addForm.hide();

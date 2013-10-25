@@ -1480,9 +1480,27 @@ public class InitialData {
 				em.persist(new UiString(LanguageEnum.ES, "last-name",
 						"Apellido"));
 				em.persist(new UiString(LanguageEnum.ES, "id-type",
-						"Tipo de identificacion"));// TODO acento
+						"Tipo de identificación"));// TODO acento
 				em.persist(new UiString(LanguageEnum.ES, "id-number",
-						"Numero de identificacion"));// TODO acento
+						"Numero de identificación"));// TODO acento
+				em.persist(new UiString(LanguageEnum.ES,
+						"eiastate-select-item", "Estado"));
+				em.persist(new UiString(LanguageEnum.ES,
+						"eiastate-select-item", "Estado"));
+				em.persist(new UiString(LanguageEnum.ES, "serialNumber-item",
+						"Serial"));
+				em.persist(new UiString(LanguageEnum.ES,
+						"fixedAssetIdentifier-item", "Id Activo Fijo"));
+				em.persist(new UiString(LanguageEnum.ES,
+						"workingarea-select-item", "Area de Trabajo"));
+				em.persist(new UiString(LanguageEnum.ES,
+						"facility-select-item", "Instalación"));
+				em.persist(new UiString(LanguageEnum.ES, "obu-select-item",
+						"Departamento Responsable"));
+				em.persist(new UiString(LanguageEnum.ES, "obu-select-item",
+						"Departamento Responsable"));
+				em.persist(new UiString(LanguageEnum.ES, "role-select-item",
+						"Rol Responsable"));
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating uistrings test data", e1);

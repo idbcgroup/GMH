@@ -66,10 +66,10 @@ public class EIATopForm extends HLayout implements EIASelectionListener,
 		codeItem = new GHACodeItem(120);
 		codeItem.disable();
 
-		serialNumber = new GHATextItem(GHAStrings.get("serialNumber"), 120,
-				false);
+		serialNumber = new GHATextItem(GHAStrings.get("serialNumber-item"),
+				120, false);
 		fixedAssetIdentifier = new GHATextItem(
-				GHAStrings.get("fixedAssetIdentifier"), 120, false);
+				GHAStrings.get("fixedAssetIdentifier-item"), 120, false);
 
 		stateSelectItem = new GHAEiaStateSelectItem(
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
@@ -160,6 +160,17 @@ public class EIATopForm extends HLayout implements EIASelectionListener,
 	}
 
 	public void activate() {
+		eiaTypeSelectItem.enable();
+		codeItem.enable();
+		serialNumber.enable();
+		fixedAssetIdentifier.enable();
+		stateSelectItem.enable();
+		workingAreaLocationSelectItem.enable();
+		facilityLocationSelectItem.enable();
+		obuSelectItem.enable();
+		baseRoleSelectItem.enable();
+		installationDateItem.enable();
+		acceptationDateItem.enable();
 		activated = true;
 	}
 
@@ -186,10 +197,6 @@ public class EIATopForm extends HLayout implements EIASelectionListener,
 	}
 
 	public void deactivate() {
-		activated = false;
-	}
-
-	public void disableFields() {
 		eiaTypeSelectItem.disable();
 		codeItem.disable();
 		serialNumber.disable();
@@ -201,20 +208,7 @@ public class EIATopForm extends HLayout implements EIASelectionListener,
 		baseRoleSelectItem.disable();
 		installationDateItem.disable();
 		acceptationDateItem.disable();
-	}
-
-	public void enableFields() {
-		eiaTypeSelectItem.enable();
-		codeItem.enable();
-		serialNumber.enable();
-		fixedAssetIdentifier.enable();
-		stateSelectItem.enable();
-		workingAreaLocationSelectItem.enable();
-		facilityLocationSelectItem.enable();
-		obuSelectItem.enable();
-		baseRoleSelectItem.enable();
-		installationDateItem.enable();
-		acceptationDateItem.enable();
+		activated = false;
 	}
 
 	public boolean isActivated() {
@@ -313,6 +307,6 @@ public class EIATopForm extends HLayout implements EIASelectionListener,
 		}
 
 		// lock fields of the topform
-		disableFields();
+		deactivate();
 	}
 }

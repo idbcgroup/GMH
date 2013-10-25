@@ -15,7 +15,7 @@ public class GHAEiaStateSelectItem extends GHASelectItem {
 	 * @param width
 	 */
 	public GHAEiaStateSelectItem(int width) {
-		super(GHAStrings.get("eia-state-select-item"), width);
+		super(GHAStrings.get("eiastate-select-item"), width);
 		setValueMap(EiaStateEnum.toValueMap());
 	}
 
