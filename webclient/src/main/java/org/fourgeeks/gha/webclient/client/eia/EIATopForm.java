@@ -226,6 +226,8 @@ public class EIATopForm extends HLayout implements EIASelectionListener,
 	 */
 	public void search() {
 		Eia eia = new Eia();
+		eia.setState(null);
+
 		if (eiaTypeSelectItem.getValue() != null)
 			eia.setEiaType(new EiaType(eiaTypeSelectItem.getValueAsString()));
 		if (codeItem.getValue() != null)

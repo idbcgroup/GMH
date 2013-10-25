@@ -13,7 +13,7 @@ import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 
 /**
- * @author alacret
+ * @author alacret, emiliot
  * 
  */
 public class EIATab extends GHATab implements EIASelectionListener,
