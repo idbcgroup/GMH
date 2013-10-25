@@ -1,6 +1,7 @@
 package org.fourgeeks.gha.webclient.client.eia.component;
 
 import org.fourgeeks.gha.domain.gmh.Eia;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 import org.fourgeeks.gha.webclient.client.eia.EIATab;
@@ -12,25 +13,25 @@ import org.fourgeeks.gha.webclient.client.eia.EIATab;
 public class EIAComponentSubTab extends GHASubTab implements
 		EIASelectionListener {
 
-	private EIAComponentGridPanel eiaComponentGridPanel;
+	private EIAComponentGridPanel componentGridPanel;
 
 	/**
 	 * @param tab
 	 */
 	public EIAComponentSubTab(EIATab tab) {
-		super("Componentes", tab);
-		setDisabled(true);
-		tab.addEiaSelectionListener(this);
-		eiaComponentGridPanel = new EIAComponentGridPanel();
-		addGHAClosableHandler(eiaComponentGridPanel);
-		addGHAHideableHandler(eiaComponentGridPanel);
+		super(GHAStrings.get("components"), tab);
 
-		setPane(eiaComponentGridPanel);
+		componentGridPanel = new EIAComponentGridPanel();
+		addGHAClosableHandler(componentGridPanel);
+		addGHAHideableHandler(componentGridPanel);
+
+		setPane(componentGridPanel);
+
+		tab.addEiaSelectionListener(this);
 	}
 
 	@Override
 	public void select(Eia eia) {
-		eiaComponentGridPanel.select(eia);
-		setDisabled(false);
+		componentGridPanel.select(eia);
 	}
 }

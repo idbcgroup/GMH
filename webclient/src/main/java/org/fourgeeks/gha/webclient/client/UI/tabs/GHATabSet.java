@@ -116,6 +116,7 @@ public final class GHATabSet {
 			return;
 
 		if (tab.canBeClosen()) {
+			Window.alert("tab can be closen");
 			try {
 				tab.close();
 			} catch (UnavailableToCloseException e) {
@@ -126,6 +127,7 @@ public final class GHATabSet {
 			History.newItem("home");
 			return;
 		}
+		Window.alert("tab cannot be closen");
 		throw new UnavailableToCloseException(null);
 	}
 

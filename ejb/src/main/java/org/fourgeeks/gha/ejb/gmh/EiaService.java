@@ -47,58 +47,49 @@ public class EiaService extends GHAEJBExceptionImpl implements EiaServiceRemote 
 			Root<Eia> root) {
 		Predicate criteria = cb.conjunction();
 		if (entity.getResponsibleRole() != null) {
-			System.out.println("1");
 			ParameterExpression<Role> p = cb.parameter(Role.class, "baseRole");
 			criteria = cb.and(criteria,
 					cb.equal(root.<Role> get("responsibleRole"), p));
 		}
 		if (entity.getCode() != null) {
-			System.out.println("2");
 			ParameterExpression<String> p = cb.parameter(String.class, "code");
 			criteria = cb.and(criteria, cb.equal(root.<String> get("code"), p));
 		}
 		if (entity.getEiaType() != null) {
-			System.out.println("3");
 			ParameterExpression<EiaType> p = cb.parameter(EiaType.class,
 					"eiaType");
 			criteria = cb.and(criteria,
 					cb.equal(root.<EiaType> get("eiaType"), p));
 		}
 		if (entity.getObu() != null) {
-			System.out.println("4");
 			ParameterExpression<Obu> p = cb.parameter(Obu.class, "obu");
 			criteria = cb.and(criteria, cb.equal(root.<Obu> get("obu"), p));
 		}
 		if (entity.getSerialNumber() != null) {
-			System.out.println("5");
 			ParameterExpression<String> p = cb.parameter(String.class,
 					"serialNumber");
 			criteria = cb.and(criteria,
 					cb.equal(root.<String> get("serialNumber"), p));
 		}
 		if (entity.getState() != null) {
-			System.out.println("6");
 			ParameterExpression<EiaStateEnum> p = cb.parameter(
 					EiaStateEnum.class, "state");
 			criteria = cb.and(criteria,
 					cb.equal(root.<EiaStateEnum> get("state"), p));
 		}
 		if (entity.getActualCost() != null) {
-			System.out.println("7");
 			ParameterExpression<BigDecimal> p = cb.parameter(BigDecimal.class,
 					"actualCost");
 			criteria = cb.and(criteria,
 					cb.equal(root.<BigDecimal> get("actualCost"), p));
 		}
 		if (entity.getWorkingArea() != null) {
-			System.out.println("8");
 			ParameterExpression<WorkingArea> p = cb.parameter(
 					WorkingArea.class, "workingArea");
 			criteria = cb.and(criteria,
 					cb.equal(root.<WorkingArea> get("workingArea"), p));
 		}
 		if (entity.getFacility() != null) {
-			System.out.println("9");
 			ParameterExpression<Facility> p = cb.parameter(Facility.class,
 					"facility");
 			criteria = cb.and(criteria,
@@ -146,6 +137,7 @@ public class EiaService extends GHAEJBExceptionImpl implements EiaServiceRemote 
 			TypedQuery<Eia> q;
 			if (criteria.getExpressions().size() <= 0) {
 				q = em.createQuery(cQuery);
+				logger.log(Level.INFO, "return get all");
 			} else {
 				cQuery.where(criteria);
 				q = em.createQuery(cQuery);

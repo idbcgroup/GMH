@@ -29,6 +29,7 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
+import com.google.gwt.user.client.Window;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.types.VerticalAlignment;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -273,6 +274,7 @@ public class EIATopForm extends HLayout implements EIASelectionListener,
 
 			@Override
 			public void onSuccess(List<Eia> result) {
+				Window.alert("Search eia: " + result.size() + "");
 				resultSet.setRecords(result);
 			}
 		});

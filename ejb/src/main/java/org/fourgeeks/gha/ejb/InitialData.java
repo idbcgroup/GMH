@@ -1434,6 +1434,7 @@ public class InitialData {
 						"Componentes"));
 				em.persist(new UiString(LanguageEnum.ES, "information",
 						"Información"));
+				em.persist(new UiString(LanguageEnum.ES, "reports", "Reportes"));
 				em.persist(new UiString(LanguageEnum.ES, "equipments",
 						"Equipos"));
 				em.persist(new UiString(LanguageEnum.ES, "password",

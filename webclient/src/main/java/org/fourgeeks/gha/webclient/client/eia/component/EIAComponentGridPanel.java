@@ -21,6 +21,10 @@ import com.smartgwt.client.widgets.grid.events.CellSavedHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
+/**
+ * @author emiliot
+ * 
+ */
 public class EIAComponentGridPanel extends VLayout implements GHAClosable,
 		GHAHideable, EIASelectionListener {
 
@@ -135,13 +139,11 @@ public class EIAComponentGridPanel extends VLayout implements GHAClosable,
 
 	@Override
 	public void select(Eia eia) {
-		// TODO Auto-generated method stub
 		this.eia = eia;
 		loadData();
 	}
 
 	private void loadData() {
-		// TODO Auto-generated method stub
 		EIAComponentModel.findByEiaId(eia,
 				new GHAAsyncCallback<List<EiaComponent>>() {
 
@@ -159,13 +161,11 @@ public class EIAComponentGridPanel extends VLayout implements GHAClosable,
 
 	@Override
 	public boolean canBeHidden() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean canBeClosen() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 }

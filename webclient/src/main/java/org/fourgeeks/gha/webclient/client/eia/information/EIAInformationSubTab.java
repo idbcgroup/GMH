@@ -7,7 +7,7 @@ import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 import org.fourgeeks.gha.webclient.client.eia.EIATab;
 
 /**
- * @author alacret Equipments sub tab
+ * @author alacret, emiliot Equipments sub tab
  */
 public class EIAInformationSubTab extends GHASubTab implements
 		EIASelectionListener {
@@ -19,7 +19,7 @@ public class EIAInformationSubTab extends GHASubTab implements
 	 * 
 	 */
 	public EIAInformationSubTab(EIATab tab) {
-		super(GHAStrings.get("Information"), tab);
+		super(GHAStrings.get("information"), tab);
 
 		form = new EIAInformationFormPanel();
 		addGHAClosableHandler(form);
