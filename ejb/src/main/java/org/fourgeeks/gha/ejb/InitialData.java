@@ -1483,8 +1483,8 @@ public class InitialData {
 						"Tipo de identificación"));// TODO acento
 				em.persist(new UiString(LanguageEnum.ES, "id-number",
 						"Numero de identificación"));// TODO acento
-				em.persist(new UiString(LanguageEnum.ES,
-						"eiastate-select-item", "Estado"));
+				em.persist(new UiString(LanguageEnum.ES, "eiatype-select-item",
+						"Tipo de Equipo"));
 				em.persist(new UiString(LanguageEnum.ES,
 						"eiastate-select-item", "Estado"));
 				em.persist(new UiString(LanguageEnum.ES, "serialNumber-item",
@@ -1495,8 +1495,6 @@ public class InitialData {
 						"workingarea-select-item", "Area de Trabajo"));
 				em.persist(new UiString(LanguageEnum.ES,
 						"facility-select-item", "Instalación"));
-				em.persist(new UiString(LanguageEnum.ES, "obu-select-item",
-						"Departamento Responsable"));
 				em.persist(new UiString(LanguageEnum.ES, "obu-select-item",
 						"Departamento Responsable"));
 				em.persist(new UiString(LanguageEnum.ES, "role-select-item",

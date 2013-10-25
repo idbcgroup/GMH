@@ -19,7 +19,7 @@ public class EIAInformationSubTab extends GHASubTab implements
 	 * 
 	 */
 	public EIAInformationSubTab(EIATab tab) {
-		super(GHAStrings.get("Información"), tab);
+		super(GHAStrings.get("Information"), tab);
 
 		form = new EIAInformationFormPanel();
 		addGHAClosableHandler(form);
