@@ -39,6 +39,7 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASectionForm;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
+import com.google.gwt.user.client.Window;
 import com.google.gwt.validation.client.impl.Validation;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.util.BooleanCallback;
@@ -94,7 +95,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 	private DynamicForm infoBasicaForm;
 	private DynamicForm adquisicionForm;
 	private DynamicForm ubicacionForm;
-	private DynamicForm costosTab;
+	private DynamicForm costosForm;
 	private DynamicForm garantiasMantForm;
 
 	private Validator validator;
@@ -192,11 +193,11 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		workingAreaLocationCodeTextItem = new GHATextItem("Código",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false);
 		workingAreaLocationSelectItem = new GHASelectItem("Nombre",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, true, changedHandler);
+				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false, changedHandler);
 		facilityLocationCodeTextItem = new GHATextItem("Código",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false);
 		facilityLocationSelectItem = new GHASelectItem("Nombre",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, true, changedHandler);
+				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false, changedHandler);
 
 		// Costos Form Items
 		adqCost_TitleItem = new GHATitleTextItem("Costo Adquisición:");
@@ -300,14 +301,14 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		infoBasicaForm = getInfoBasicaForm();
 		adquisicionForm = getAdquisicionForm();
 		ubicacionForm = getUbicacionForm();
-		costosTab = getCostosTab();
+		costosForm = getCostosForm();
 		garantiasMantForm = getGarantiasMantForm();
 
 		sectionForm.addSection("Información Básica", infoBasicaForm, true);
 		sectionForm.addSectionSeparator();
 		sectionForm.addSection("Adquisicion", adquisicionForm, false);
 		sectionForm.addSection("Ubicación", ubicacionForm, false);
-		sectionForm.addSection("Costos", costosTab, false);
+		sectionForm.addSection("Costos", costosForm, false);
 		sectionForm.addSection("Garantias", garantiasMantForm, false);
 		// sectionForm.addSection("EquiposIT", getEquiposIT(), false);
 
@@ -549,7 +550,6 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 			eia.setInstallationProvider(new ExternalProvider(Integer
 					.valueOf(installationProviderSelectItem.getValueAsString())));
 		}
-
 		// ubication
 		if (locationTypeSelectItem.getValue() != null) {
 			if (locationTypeSelectItem.getValue().equals("0")) {
@@ -624,7 +624,6 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 			eia.setLifeTime(Integer.valueOf(lifeTimeTextItem.getValueAsString()));
 		eia.setLifeTimePoT(TimePeriodEnum.valueOf(lifeTimePotSelectItem
 				.getValueAsString()));
-
 		// guarantees
 		if (realWarrantyBeginDate.getValue() != null)
 			eia.setRealWarrantyBegin(new Date(realWarrantyBeginDate
@@ -668,14 +667,16 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		Set<ConstraintViolation<Eia>> violations = validator.validate(eia);
 
 		if (infoBasicaForm.validate() && adquisicionForm.validate()
-				&& ubicacionForm.validate() && costosTab.validate()
-				&& garantiasMantForm.validate() && violations.isEmpty())
+				&& ubicacionForm.validate() && costosForm.validate()
+				&& garantiasMantForm.validate() && violations.isEmpty()) {
 			return eia;
-		else {
+		} else {
 			List<String> violationsList = new ArrayList<String>();
 			for (Iterator<ConstraintViolation<Eia>> it = violations.iterator(); it
-					.hasNext();)
+					.hasNext();) {
 				violationsList.add(it.next().getMessage());
+				Window.alert(it.next().getMessage());
+			}
 			GHANotification.alert(violationsList);
 		}
 		return null;
@@ -871,12 +872,12 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 	/**
 	 * @return
 	 */
-	private DynamicForm getCostosTab() {
-		DynamicForm costosForm = new DynamicForm();
-		costosForm.setTitleOrientation(TitleOrientation.TOP);
-		costosForm.setNumCols(3);
+	private DynamicForm getCostosForm() {
+		DynamicForm res = new DynamicForm();
+		res.setTitleOrientation(TitleOrientation.TOP);
+		res.setNumCols(3);
 
-		costosForm.setItems(adqCost_TitleItem, new GHASpacerItem(2),
+		res.setItems(adqCost_TitleItem, new GHASpacerItem(2),
 				adquisitionCostTextItem, adquisitionCostCurrencySelectItem,
 				contabilizationDateItem, adquisitionCostLocalTextItem,
 				adquisitionCostCurrencyLocalSelectItem, new GHASpacerItem(),
@@ -888,7 +889,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 				depreciationTimePotSelectItem, lifeTime_TitleItem,
 				lifeTimeTextItem, lifeTimePotSelectItem);
 
-		return costosForm;
+		return res;
 	}
 
 	/*
@@ -989,7 +990,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 	 */
 	public void save() {
 		Eia eia = extract();
-		if (eia != null)
+		if (eia != null) {
 			EIAModel.save(eia, new GHAAsyncCallback<Eia>() {
 				@Override
 				public void onSuccess(Eia result) {
@@ -998,6 +999,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 					cancel();
 				}
 			});
+		}
 	}
 
 	/**

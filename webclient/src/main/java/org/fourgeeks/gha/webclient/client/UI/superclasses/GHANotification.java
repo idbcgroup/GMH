@@ -95,6 +95,10 @@ public class GHANotification {
 	 * @param keys
 	 */
 	public static void alert(List<String> keys) {
+		if (keys.isEmpty()) {
+			alert("form-errors");
+			return;
+		}
 		messageService.find(keys, new GHAAsyncCallback<List<GHAMessage>>() {
 
 			@Override
