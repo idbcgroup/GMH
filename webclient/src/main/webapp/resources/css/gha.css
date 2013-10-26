@@ -275,12 +275,14 @@ select,.select{
 span.input-title label,span.input-title{
 	color:black;
 	font-size:10px;	
+	font-weight: normal;
 }
 
 span.input-titleFocused label,span.input-titleFocused{
 	color:#828282;
 	font-size:10px;	
-	font-weight: bold;
+	font-weight: normal;
+/* 	font-weight: bold; */
 	border-color:yellow;
 }
 
