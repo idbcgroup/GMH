@@ -132,7 +132,7 @@ public class EIATypeTopForm extends HLayout implements
 					}
 				}));
 		addMembers(form, /* new LayoutSpacer(), photoPanel, */
-		new LayoutSpacer(), sideButtons);
+				new LayoutSpacer(), sideButtons);
 		deactivate();
 	}
 
@@ -208,14 +208,11 @@ public class EIATypeTopForm extends HLayout implements
 	 */
 	public void search() {
 		EiaType eiaType = new EiaType();
-
 		eiaType.setCode(codeItem.getValueAsString());
 		eiaType.setName(nameItem.getValueAsString());
-
-		if (brandItem.getValue() != null) {
+		if (brandItem.getValue() != null)
 			eiaType.setBrand(new Brand(Integer.valueOf(brandItem
 					.getValueAsString()), null));
-		}
 		eiaType.setModel(modelItem.getValueAsString());
 		if (mobilityItem.getValue() != null)
 			eiaType.setMobility(EiaMobilityEnum.valueOf(mobilityItem
@@ -225,7 +222,6 @@ public class EIATypeTopForm extends HLayout implements
 		if (subTypeItem.getValue() != null)
 			eiaType.setSubtype(EiaSubTypeEnum.valueOf(subTypeItem
 					.getValueAsString()));
-
 		search(eiaType);
 	}
 
@@ -251,18 +247,18 @@ public class EIATypeTopForm extends HLayout implements
 		nameItem.setValue(eiaType.getName());
 
 		if (eiaType.getBrand() != null)
-			brandItem.setValue(eiaType.getBrand().getName());
+			brandItem.setValue(eiaType.getBrand().getId());
 
 		modelItem.setValue(eiaType.getModel());
 
 		if (eiaType.getMobility() != null)
-			mobilityItem.setValue(eiaType.getMobility().toString());
+			mobilityItem.setValue(eiaType.getMobility().name());
 
 		if (eiaType.getType() != null)
-			typeItem.setValue(eiaType.getType().toString());
+			typeItem.setValue(eiaType.getType().name());
 
 		if (eiaType.getSubtype() != null)
-			subTypeItem.setValue(eiaType.getSubtype().toString());
+			subTypeItem.setValue(eiaType.getSubtype().name());
 
 		// lock fields of the topform
 		deactivate();

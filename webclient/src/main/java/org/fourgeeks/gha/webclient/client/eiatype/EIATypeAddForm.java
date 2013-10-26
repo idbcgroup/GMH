@@ -22,7 +22,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class EIATypeAddForm extends GHASlideInWindow implements
-		EiaTypeSelectionProducer, EIATypeSelectionListener, GHAClosable {
+		EiaTypeSelectionProducer, GHAClosable {
 
 	private EiaTypeForm form;
 
@@ -59,7 +59,7 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 		addMember(gridPanel);
 
 		// register as listener to the eiatypeform
-		form.addEiaTypeSelectionListener(this);
+		// form.addEiaTypeSelectionListener(this);
 	}
 
 	// protected void cancel() {
@@ -121,6 +121,7 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 
 	private void save() {
 		form.save();
+		hide();
 	}
 
 	/*
@@ -130,8 +131,8 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 	 * org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener#select
 	 * (org.fourgeeks.gha.domain.gmh.EiaType)
 	 */
-	@Override
-	public void select(EiaType eiaType) {
-		// cancel();
-	}
+	// @Override
+	// public void select(EiaType eiaType) {
+	// // cancel();
+	// }
 }
