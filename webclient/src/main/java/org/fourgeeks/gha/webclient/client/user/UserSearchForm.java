@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.ess.SSOUser;
-import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
@@ -47,6 +46,7 @@ public class UserSearchForm extends GHASlideInWindow implements
 */
 	public UserSearchForm() {
 		super();
+		userTopForm = new UserTopForm(new UserResultSet());
 		setTop(GHAUiHelper.getTopSpace());
 		setHeight(GHAUiHelper.getTabHeight() - 4 + "px");
 
@@ -117,20 +117,7 @@ public class UserSearchForm extends GHASlideInWindow implements
 	}
 
 	private void search() {
-	}
-
-	private void search(final SSOUser ssoU) {
-		UserModel.find(ssoU, new GHAAsyncCallback<List<SSOUser>>() {
-
-			@Override
-			public void onSuccess(List<SSOUser> ssoUsers) {
-				ListGridRecord[] array = UserUtil.toGridRecords(ssoUsers)
-						.toArray(new UserRecord[] {});
-				grid.setData(array);
-				// TODO: seleccionar un elemento si coincide con el usuario de
-				// la busqueda
-			}
-		});
+		userTopForm.search();
 	}
 
 	@Override

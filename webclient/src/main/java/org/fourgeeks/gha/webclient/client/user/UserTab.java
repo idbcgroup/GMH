@@ -25,7 +25,7 @@ public class UserTab extends GHATab implements UserSelectionListener,
 	public static final String ID = "user";
 	private static final String TITLE = GHAStrings.get("users");
 	private UserTopForm topForm;
-	private UserInternalTabset internalTabset;
+	private UserInternalTabset internalTabSet;
 	private List<UserSelectionListener> listeners = new ArrayList<UserSelectionListener>();
 	private UserResultSet resultSet;;
 
@@ -59,12 +59,20 @@ public class UserTab extends GHATab implements UserSelectionListener,
 
 		topForm = new UserTopForm(resultSet);
 		topForm.activate();
-		// internalTabset = new UserInternalTabset(this);
+		addGHAClosableHandler(topForm);
+		addGHAClosableHandler(topForm);
+		addUserSelectionListener(topForm);
+
+		internalTabSet = new UserInternalTabset(this);
+		addGHAHideableHandler(internalTabSet);
+		addGHAClosableHandler(internalTabSet);
+		addUserSelectionListener(internalTabSet);
 
 		verticalPanel.addMember(topForm);
 		verticalPanel.addMember(GHAUiHelper
 				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
 		// verticalPanel.addMember(internalTabset);
+		verticalPanel.addMember(resultSet);
 		addMember(verticalPanel);
 
 	}
