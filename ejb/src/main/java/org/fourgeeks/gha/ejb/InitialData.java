@@ -1917,9 +1917,17 @@ public class InitialData {
 			try {
 				logger.info("Creating bpufunction test data");
 				List<Function> all = functionService.getAll();
-				for (Function function : all)
-					em.persist(new BpuFunction(em.find(Bpu.class, 1L), em.find(
-							Function.class, function.getCode())));
+				Bpu admin = em.find(Bpu.class, 1L);
+				Bpu gha = em.find(Bpu.class, 3L);
+
+				for (Function function : all) {
+					em.persist(new BpuFunction(admin, function));
+					if (function.getCode().matches(
+							"^EIATYPE-ADM-(EQUI|COMP)-(VIEW|EDIT)$")) {
+						// usuario base solo eiatype
+						em.persist(new BpuFunction(gha, function));
+					}
+				}
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating bpufunction test data",
@@ -2393,6 +2401,8 @@ public class InitialData {
 						"admin", UserLogonStatusEnum.STAYIN));
 				em.persist(new SSOUser(em.find(Bpu.class, 2L), "asanchez",
 						"asanchez", UserLogonStatusEnum.STAYIN));
+				em.persist(new SSOUser(em.find(Bpu.class, 3L), "gha", "gha",
+						UserLogonStatusEnum.STAYIN));
 				em.flush();
 				logger.info("done creating test users");
 			} catch (Exception e1) {
