@@ -94,8 +94,8 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer,
 				changedHandler);
 		useDescriptionItem.setColSpan(3);
 		//
-		manItem = new GHAComboboxItem<Manufacturer>(GHAStrings
-				.get("manufacturer"), 300, changedHandler);
+		manItem = new GHAComboboxItem<Manufacturer>(
+				GHAStrings.get("manufacturer"), 300, changedHandler);
 		brandItem = new GHAComboboxItem<Brand>(GHAStrings.get("brand"), 300,
 				changedHandler);
 		mobilityItem = new GHASelectItem(GHAStrings.get("mobility"), 300, true,
@@ -178,12 +178,14 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer,
 	public boolean canBeClosen() {
 		if (hasUnCommittedChanges)
 			GHANotification.confirm(GHAStrings.get("information"),
-					"unsaved-changes", new BooleanCallback() {
+					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
 
 						@Override
 						public void execute(Boolean value) {
-							if (value.booleanValue())
+							if (value.booleanValue()) {
 								hasUnCommittedChanges = false;
+								// TODO: descartar cambios
+							}
 						}
 					});
 		return !hasUnCommittedChanges;
@@ -193,12 +195,14 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer,
 	public boolean canBeHidden() {
 		if (hasUnCommittedChanges)
 			GHANotification.confirm(GHAStrings.get("information"),
-					"unsaved-changes", new BooleanCallback() {
+					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
 
 						@Override
 						public void execute(Boolean value) {
-							if (value.booleanValue())
+							if (value.booleanValue()) {
 								hasUnCommittedChanges = false;
+								// TODO: descartar cambios
+							}
 						}
 					});
 		return !hasUnCommittedChanges;
@@ -345,6 +349,7 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer,
 	}
 
 	// Producer stuff
+	@Override
 	public void notifyEiaType(EiaType eiaType) {
 		GHANotification.alert("eiatype-save-success");
 		for (EIATypeSelectionListener listener : listeners)

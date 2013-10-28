@@ -39,7 +39,6 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASectionForm;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
-import com.google.gwt.user.client.Window;
 import com.google.gwt.validation.client.impl.Validation;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.util.BooleanCallback;
@@ -56,7 +55,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
 //import org.fourgeeks.gha.domain.enu.ItSystemEnum;
 
 /**
- * @author alacret, vivi.torresg
+ * @author alacret, vivi.torresg, emiliot
  * 
  */
 public class EIAForm extends VLayout implements EIATypeSelectionListener,
@@ -158,11 +157,11 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, true, changedHandler);
 		providerSelectItem.setRequired(true);
 		purchaseOrderNumTextItem = new GHATextItem("No. Orden Compra",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, true, changedHandler);
+				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false, changedHandler);
 		purchaseOrderNumTextItem.setLength(20);
 		purchaseOrderNumTextItem.setMask("####################");
 		purchaseInvoiceNumTextItem = new GHATextItem("No. Factura",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, true, changedHandler);
+				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false, changedHandler);
 		purchaseInvoiceNumTextItem.setLength(20);
 		purchaseInvoiceNumTextItem.setMask("####################");
 		receptionDateItem = new GHADateItem("Recepción",
@@ -181,7 +180,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 
 		installationProviderSelectItem = new GHASelectItem(
 				"Proveedor de Inst.", GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE,
-				true, changedHandler);
+				false, changedHandler);
 
 		// Ubicacion Form Items
 		location_TitleItem = new GHATitleTextItem("Ubicación:");
@@ -205,45 +204,45 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		depTime_TitleItem = new GHATitleTextItem("Tiempo de Depreciación:");
 		lifeTime_TitleItem = new GHATitleTextItem("Tiempo de Vida:");
 		adquisitionCostTextItem = new GHATextItem("Costo de Adq. del equipo",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, true, changedHandler);
+				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false, changedHandler);
 		adquisitionCostTextItem.setLength(16);
 		adquisitionCostTextItem.setMask("################");
 		adquisitionCostCurrencySelectItem = new GHASelectItem("Moneda",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, true, changedHandler);
+				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false, changedHandler);
 		contabilizationDateItem = new GHADateItem("Fecha de Contabilización",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, true);
 		contabilizationDateItem.addChangedHandler(changedHandler);
 
 		adquisitionCostLocalTextItem = new GHATextItem("Costo de Adq. Local",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, true, changedHandler);
+				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false, changedHandler);
 		adquisitionCostLocalTextItem.setLength(16);
 		adquisitionCostLocalTextItem.setMask("################");
 		adquisitionCostCurrencyLocalSelectItem = new GHASelectItem(
-				"Moneda Local", GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, true,
+				"Moneda Local", GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false,
 				changedHandler);
 		depreciationMethodSelectItem = new GHASelectItem("Metodo Depreciación",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, true, changedHandler);
+				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false, changedHandler);
 		depreciationTimeTextItem = new GHATextItem("Duración",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, true, changedHandler);
+				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false, changedHandler);
 		depreciationTimeTextItem.setLength(3);
 		depreciationTimeTextItem.setMask("###");
 		depreciationTimePotSelectItem = new GHASelectItem("Periodo de Tiempo",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, true, changedHandler);
+				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false, changedHandler);
 		lastDepreciationDate = new GHADateItem("Fecha Ult. Depreciación",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, true);
 		lastDepreciationDate.addChangedHandler(changedHandler);
 		lifeTimeTextItem = new GHATextItem("Duración",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, true, changedHandler);
+				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false, changedHandler);
 		lifeTimeTextItem.setLength(3);
 		lifeTimeTextItem.setMask("###");
 		lifeTimePotSelectItem = new GHASelectItem("Periodo de Tiempo",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, true, changedHandler);
+				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false, changedHandler);
 		actualCostTextItem = new GHATextItem("Costo Actual en libros",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, true, changedHandler);
+				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false, changedHandler);
 		actualCostTextItem.setLength(16);
 		actualCostTextItem.setMask("################");
 		actualCostCurrencySelectItem = new GHASelectItem("Moneda",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, true, changedHandler);
+				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false, changedHandler);
 
 		// Garantias Form Items
 		realWarranty_TitleItem = new GHATitleTextItem("Garantía Real:");
@@ -378,12 +377,14 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 	public boolean canBeClosen() {
 		if (hasUnCommittedChanges)
 			GHANotification.confirm(GHAStrings.get("information"),
-					"unsaved-changes", new BooleanCallback() {
+					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
 
 						@Override
 						public void execute(Boolean value) {
-							if (value.booleanValue())
+							if (value.booleanValue()) {
 								hasUnCommittedChanges = false;
+								// TODO: descartar cambios
+							}
 						}
 					});
 		return !hasUnCommittedChanges;
@@ -393,12 +394,14 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 	public boolean canBeHidden() {
 		if (hasUnCommittedChanges)
 			GHANotification.confirm(GHAStrings.get("information"),
-					"unsaved-changes", new BooleanCallback() {
+					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
 
 						@Override
 						public void execute(Boolean value) {
-							if (value.booleanValue())
+							if (value.booleanValue()) {
 								hasUnCommittedChanges = false;
+								// TODO: descartar cambios
+							}
 						}
 					});
 		return !hasUnCommittedChanges;
@@ -675,7 +678,6 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 			for (Iterator<ConstraintViolation<Eia>> it = violations.iterator(); it
 					.hasNext();) {
 				violationsList.add(it.next().getMessage());
-				Window.alert(it.next().getMessage());
 			}
 			GHANotification.alert(violationsList);
 		}
@@ -1213,7 +1215,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 	 */
 	public void update() {
 		Eia eia = extract();
-		if (eia != null)
+		if (eia != null) {
 			EIAModel.update(eia, new GHAAsyncCallback<Eia>() {
 				@Override
 				public void onSuccess(Eia result) {
@@ -1221,6 +1223,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 					notifyEia(result);
 				}
 			});
+		}
 	}
 
 	/*

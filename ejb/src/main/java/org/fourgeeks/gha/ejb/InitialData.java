@@ -127,7 +127,7 @@ public class InitialData {
 				em.persist(new GHAMessage(LanguageEnum.ES, "LOGIN001",
 						"Inicio de sesión exitoso"));
 				em.persist(new GHAMessage(LanguageEnum.ES, "LOGIN002",
-						"La contraseña es incorrecta"));
+						"La clave de acceso es incorrecta"));
 				em.persist(new GHAMessage(LanguageEnum.ES, "LOGIN003",
 						"Debe suministrar nombre de usuario y contraseña"));
 				em.persist(new GHAMessage(LanguageEnum.ES, "LOGIN004",
@@ -1502,6 +1502,8 @@ public class InitialData {
 						"Rol Responsable"));
 				em.persist(new UiString(LanguageEnum.ES, "form-errors",
 						"Errores en el formulario, por favor complete los campos correctamente"));
+				em.persist(new UiString(LanguageEnum.ES, "unsaved-changes",
+						"¿Descartar los cambios?"));
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating uistrings test data", e1);
