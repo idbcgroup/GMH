@@ -4,11 +4,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
-<<<<<<< HEAD
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASectionForm;
-=======
->>>>>>> master
 
 import com.google.gwt.safehtml.shared.UriUtils;
 import com.google.gwt.user.client.Window;
@@ -100,11 +96,11 @@ public class EIAReportsFormPanel extends VLayout implements GHAClosable, GHAHide
 	}
 
 	@Override
-<<<<<<< HEAD
 	public void hide() {
 		// super.hide();
 		secciones.deactivate();
-=======
+	}
+
 	public boolean canBeHidden() {
 		// TODO Auto-generated method stub
 		return true;
@@ -114,6 +110,5 @@ public class EIAReportsFormPanel extends VLayout implements GHAClosable, GHAHide
 	public boolean canBeClosen() {
 		// TODO Auto-generated method stub
 		return true;
->>>>>>> master
 	}
 }
