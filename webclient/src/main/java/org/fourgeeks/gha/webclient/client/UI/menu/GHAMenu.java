@@ -55,7 +55,7 @@ public class GHAMenu {
 			setLeft(0);
 			setTop(60);
 			setVisible(false);
-			setAnimateTime(400);
+			setAnimateTime(GHAUiHelper.DEFAULT_ANIMATION_TIME);
 			setBackgroundColor("#FFFFFF");
 			setScrollbarSize(5);
 			setShadowDepth(6);
