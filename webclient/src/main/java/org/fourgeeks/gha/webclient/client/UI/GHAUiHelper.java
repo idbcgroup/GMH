@@ -104,6 +104,7 @@ public abstract class GHAUiHelper {
 	 */
 	public static final String HIGHLIGHTED_BACKGROUND_COLOR = "#F4F4F4";
 	public static final int DEFAULT_TEXT_AREA_ITEM_HEIGHT = 70;
+	public static final int DEFAULT_ANIMATION_TIME = 400;
 
 	public static VLayout verticalGraySeparator(String height) {
 		VLayout separator = new VLayout();

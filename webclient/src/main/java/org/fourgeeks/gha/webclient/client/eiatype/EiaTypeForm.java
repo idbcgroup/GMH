@@ -374,6 +374,10 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer,
 	 * 
 	 */
 	public void save() {
+		save(null);
+	}
+
+	public void save(final GHAAsyncCallback<EiaType> callback) {
 		EiaType eiaType = extract(false);
 
 		if (eiaType != null)
@@ -384,11 +388,12 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer,
 					hasUnCommittedChanges = false;
 					notifyEiaType(result);
 					cancel();
-
 					// reload manufacturers, possibly one new
 					fillMans(true);
 					brandItem.clearValue();
 					brandItem.disable();
+					if (callback != null)
+						callback.onSuccess(result);
 				}
 			});
 	}

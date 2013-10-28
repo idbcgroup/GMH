@@ -8,6 +8,7 @@ import org.fourgeeks.gha.domain.gmh.EiaTypeUtility;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
@@ -51,7 +52,6 @@ public class EIATypeUtilityGridPanel extends VLayout implements
 
 									@Override
 									public void onSuccess(EiaTypeUtility result) {
-										// TODO Auto-generated method stub
 										loadData();
 									}
 								});
@@ -72,8 +72,8 @@ public class EIATypeUtilityGridPanel extends VLayout implements
 
 		// //////Botones laterales
 
-		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
-				"../resources/icons/new.png", new ClickHandler() {
+		VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
+				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
 						utilitySearchForm.open();
