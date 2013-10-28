@@ -80,6 +80,9 @@ public class EIATypeComponentGridPanel extends VLayout implements
 
 			@Override
 			public void select(EiaType eiaType) {
+				// clean the search form
+				EIATypeComponentGridPanel.this.searchForm.clean();
+
 				final EiaTypeComponent eiaTypeComponent = new EiaTypeComponent();
 				eiaTypeComponent
 						.setParentEiaType(EIATypeComponentGridPanel.this.eiaType);

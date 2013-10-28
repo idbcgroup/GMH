@@ -135,8 +135,10 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 		formLayout.setHeight(GHAUiHelper.DEFAULT_TOP_SECTION_HEIGHT + "px");
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
 
-		addMembers(title, formLayout, GHAUiHelper
-				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
+		addMembers(title, formLayout,
+				GHAUiHelper
+						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
+								+ "px"));
 
 		eiaTypeGrid.setHeight(GHAUiHelper.getSubtabGridSize(30));
 		HLayout gridLayout = new HLayout();
@@ -192,7 +194,7 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 	private void selectEiaType() {
 		GHAGridRecord<EiaType> selectedRecord = eiaTypeGrid.getSelectedRecord();
 		if (selectedRecord == null) {
-			GHANotification.oldAlert(GHAStrings.get("record-not-selected"));
+			GHANotification.info(GHAStrings.get("record-not-selected"));
 			return;
 		}
 		notifyEiaType(((EIATypeRecord) selectedRecord).toEntity());
@@ -286,13 +288,18 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 
 	@Override
 	public boolean canBeClosen() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean canBeHidden() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
+	}
+
+	/**
+	 * 
+	 */
+	public void clean() {
+		eiaTypeGrid.setData(new EIATypeRecord[] {});
 	}
 }
