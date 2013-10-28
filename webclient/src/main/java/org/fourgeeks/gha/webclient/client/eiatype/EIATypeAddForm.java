@@ -1,6 +1,7 @@
 package org.fourgeeks.gha.webclient.client.eiatype;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACloseButton;
@@ -120,8 +121,14 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 	}
 
 	private void save() {
-		form.save();
-		hide();
+		form.save(new GHAAsyncCallback<EiaType>() {
+
+			@Override
+			public void onSuccess(EiaType arg0) {
+				hide();
+
+			}
+		});
 	}
 
 	/*
