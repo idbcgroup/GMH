@@ -56,10 +56,12 @@ public class GHANotification {
 	}
 
 	/**
-	 * @param key
+	 * Alert a message using SC
+	 * 
+	 * @param message
 	 */
-	public static void info(String key) {
-		alert(key);
+	public static void info(String message) {
+		alert(message);
 	}
 
 	/**
