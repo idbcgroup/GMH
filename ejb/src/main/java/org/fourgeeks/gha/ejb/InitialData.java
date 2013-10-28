@@ -127,7 +127,7 @@ public class InitialData {
 				em.persist(new GHAMessage(LanguageEnum.ES, "LOGIN001",
 						"Inicio de sesión exitoso"));
 				em.persist(new GHAMessage(LanguageEnum.ES, "LOGIN002",
-						"La contraseña es incorrecta"));
+						"La clave de acceso es incorrecta"));
 				em.persist(new GHAMessage(LanguageEnum.ES, "LOGIN003",
 						"Debe suministrar nombre de usuario y contraseña"));
 				em.persist(new GHAMessage(LanguageEnum.ES, "LOGIN004",
