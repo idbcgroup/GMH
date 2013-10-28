@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.UI.superclasses;
+package org.fourgeeks.gha.webclient.client.UI.tabs;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,10 +11,14 @@ import org.fourgeeks.gha.domain.ess.BpuFunction;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.webclient.client.UI.GHASessionData;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
+import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToHideException;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.menu.GHAMenu.GHAMenuBar;
 import org.fourgeeks.gha.webclient.client.UI.menu.GHAMenu.GHAMenuOption;
 
 import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -46,34 +50,52 @@ public final class GHATabSet {
 
 	private static void addTab(final GHATab tab) {
 		tabs.put(tab.getId(), tab);
-		RootPanel.get("main-content").add(tab);
+		RootPanel rootPanel = RootPanel.get("main-content");
+		try {
+			rootPanel.add(tab);
+		} catch (Exception e) {
+			Window.alert("error tring to add the tab to the manin content");
+			Window.alert(e.getMessage());
+		}
 	}
 
 	/**
 	 * @param tab
+	 * @throws UnavailableToHideException
 	 */
-	public static void showTab(GHATab tab) {
+	public static void showTab(GHATab tab) throws UnavailableToHideException {
 		if (tab == null)
 			return;
-
 		if (tab == currentTab)
 			return;
-
 		if (currentTab != null)
-			hideTab(currentTab);
+			try {
+				hideTab(currentTab);
+			} catch (UnavailableToHideException e) {
+				throw new UnavailableToHideException(e);
+			}
 
-		if (tabs.get(tab.getId()) == null)
+		if (tabs.get(tab.getId()) == null) {
 			addTab(tab);
-		else
+		} else {
 			tab.show();
+		}
 
 		hPanel.add(tab.getHeader());
 		currentTab = tab;
 	}
 
-	private static void hideTab(GHATab tab) {
-		tab.hide();
-		hPanel.remove(tab.getHeader());
+	private static void hideTab(GHATab tab) throws UnavailableToHideException {
+		if (tab.canBeHidden()) {
+			try {
+				tab.hide();
+			} catch (UnavailableToHideException e) {
+				throw new UnavailableToHideException(e);
+			}
+			hPanel.remove(tab.getHeader());
+			return;
+		}
+		throw new UnavailableToHideException(null);
 	}
 
 	/**
@@ -86,15 +108,25 @@ public final class GHATabSet {
 
 	/**
 	 * @param tab
+	 * @throws UnavailableToCloseException
 	 */
-	public static void closeTab(final GHATab tab) {
+	public static void closeTab(final GHATab tab)
+			throws UnavailableToCloseException {
 		if (tab == null)
 			return;
 
-		tab.close();
-		tabs.remove(tab.getId());
-		hPanel.remove(tab.getHeader());
-		History.newItem("home");
+		if (tab.canBeClosen()) {
+			try {
+				tab.close();
+			} catch (UnavailableToCloseException e) {
+				throw new UnavailableToCloseException(e);
+			}
+			tabs.remove(tab.getId());
+			hPanel.remove(tab.getHeader());
+			History.newItem("home");
+			return;
+		}
+		throw new UnavailableToCloseException(null);
 	}
 
 	/**

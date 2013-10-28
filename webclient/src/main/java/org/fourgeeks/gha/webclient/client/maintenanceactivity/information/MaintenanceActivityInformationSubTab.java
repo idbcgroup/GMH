@@ -1,7 +1,7 @@
 package org.fourgeeks.gha.webclient.client.maintenanceactivity.information;
 
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASubTab;
+import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionListener;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivityTab;
 

@@ -16,7 +16,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
@@ -72,9 +72,9 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 	 * 
 	 */
 	public EIATypeSearchForm() {
-		super(1);
+		super();
 		setTop(GHAUiHelper.getTopSpace());
-		setHeight(GHAUiHelper.getTabHeight()-4 + "px");
+		setHeight(GHAUiHelper.getTabHeight() - 4 + "px");
 
 		GHALabel title = new GHALabel("Buscar un Tipo de Equipo");
 		addMember(title);
@@ -132,13 +132,11 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 
 		HLayout formLayout = new HLayout();
 		formLayout.setPadding(10);
-		formLayout.setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT + "px");
+		formLayout.setHeight(GHAUiHelper.DEFAULT_TOP_SECTION_HEIGHT + "px");
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
 
-		addMembers(title, formLayout,
-				GHAUiHelper
-						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
-								+ "px"));
+		addMembers(title, formLayout, GHAUiHelper
+				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
 
 		eiaTypeGrid.setHeight(GHAUiHelper.getSubtabGridSize(30));
 		HLayout gridLayout = new HLayout();
@@ -194,17 +192,15 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 	private void selectEiaType() {
 		GHAGridRecord<EiaType> selectedRecord = eiaTypeGrid.getSelectedRecord();
 		if (selectedRecord == null) {
-			GHANotification.alert(GHAStrings.get("record-not-selected"));
+			GHANotification.oldAlert(GHAStrings.get("record-not-selected"));
 			return;
 		}
 		notifyEiaType(((EIATypeRecord) selectedRecord).toEntity());
 		hide();
 	}
 
-	/**
-	 * @param eiaType
-	 */
-	private void notifyEiaType(EiaType eiaType) {
+	@Override
+	public void notifyEiaType(EiaType eiaType) {
 		for (EIATypeSelectionListener listener : selectionListeners)
 			listener.select(eiaType);
 	}
@@ -271,7 +267,7 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getTabHeight()-4 + "px");
+		setHeight(GHAUiHelper.getTabHeight() - 4 + "px");
 	}
 
 	@Override
@@ -286,5 +282,17 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 			EIATypeSelectionListener eIATypeSelectionListener) {
 		selectionListeners.remove(eIATypeSelectionListener);
 
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

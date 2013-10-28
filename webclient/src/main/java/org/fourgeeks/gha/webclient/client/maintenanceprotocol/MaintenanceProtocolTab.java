@@ -5,10 +5,12 @@ import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATab;
+import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
 
-import com.smartgwt.client.widgets.layout.VLayout;
-
+/**
+ * @author alacret
+ * 
+ */
 public class MaintenanceProtocolTab extends GHATab implements
 		MaintenanceProtocolSelectionListener,
 		MaintenanceProtocolSelectionProducer {
@@ -25,16 +27,14 @@ public class MaintenanceProtocolTab extends GHATab implements
 		listeners = new LinkedList<MaintenanceProtocolSelectionListener>();
 	}
 
-	public MaintenanceProtocolTab() {
-		super();
+	/**
+	 * @param token
+	 */
+	public MaintenanceProtocolTab(String token) {
+		super(token);
 		// getHeader().setTitle(TITLE);
-
 		topSection = new MaintenanceProtocolTopSection(this);
 		internalTabset = new MaintenanceProtocolInternalTabset(this);
-
-		// Creacion de la tab de EIA
-		VLayout verticalPanel = new VLayout();
-		verticalPanel.setBackgroundColor("#E0E0E0");
 
 		verticalPanel.addMember(topSection);
 		verticalPanel.addMember(GHAUiHelper
@@ -96,5 +96,17 @@ public class MaintenanceProtocolTab extends GHATab implements
 	public void select(MaintenanceProtocol maintenanceProtocol) {
 		for (MaintenanceProtocolSelectionListener listener : listeners)
 			listener.select(maintenanceProtocol);
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

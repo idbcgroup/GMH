@@ -7,9 +7,9 @@ import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSearchForm;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
@@ -49,7 +49,8 @@ public class AsociatedEiatypeGridPanel extends VLayout implements GHAClosable,
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 
-		GHALabel title = new GHALabel("Tipos de Equipo que estan asociados al Plan de Mantenimiento");
+		GHALabel title = new GHALabel(
+				"Tipos de Equipo que estan asociados al Plan de Mantenimiento");
 		addMember(title);
 
 		// //////Botones laterales
@@ -146,5 +147,17 @@ public class AsociatedEiatypeGridPanel extends VLayout implements GHAClosable,
 						loadData();
 					}
 				});
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

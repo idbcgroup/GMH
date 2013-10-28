@@ -2,7 +2,7 @@ package org.fourgeeks.gha.webclient.client.maintenanceactivity;
 
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
 
@@ -23,7 +23,7 @@ public class MaintenanceActivityAddForm extends GHASlideInWindow implements
 	}
 
 	public MaintenanceActivityAddForm() {
-		super(2);
+		super();
 		setHeight(GHAUiHelper.getBottomSectionHeight());
 		setTop(240);
 
@@ -129,5 +129,17 @@ public class MaintenanceActivityAddForm extends GHASlideInWindow implements
 			MaintenanceActivitySelectionListener maintenanceActivitySelectionListener) {
 		maintenanceActivityForm
 				.removeMaintenanceActivitySelectionListener(maintenanceActivitySelectionListener);
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

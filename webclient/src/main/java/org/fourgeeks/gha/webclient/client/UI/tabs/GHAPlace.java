@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.UI.superclasses;
+package org.fourgeeks.gha.webclient.client.UI.tabs;
 
 import org.fourgeeks.gha.webclient.client.UI.menu.GHAMenu.GHAMenuOption;
 

@@ -52,6 +52,7 @@ public class MessageService extends GHAEJBExceptionImpl implements
 	 */
 	@Override
 	public List<GHAMessage> find(List<String> messages) throws GHAEJBException {
+		// TODO: HANDLE EMPTY MESSAGE LIST
 		try {
 			return em
 					.createNamedQuery("GHAMessage.getAllByCodes",

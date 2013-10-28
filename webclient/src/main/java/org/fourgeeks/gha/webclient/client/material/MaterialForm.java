@@ -118,7 +118,7 @@ public class MaterialForm extends VLayout implements MaterialSelectionProducer {
 		if (violations.isEmpty())
 			return material;
 
-		GHANotification.alert(violations.iterator().next().getMessage());
+		GHANotification.oldAlert(violations.iterator().next().getMessage());
 
 		return null;
 	}

@@ -2,7 +2,7 @@ package org.fourgeeks.gha.webclient.client.user;
 
 import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
 
@@ -29,7 +29,7 @@ public class UserAddForm extends GHASlideInWindow implements
 	 * 
 	 */
 	public UserAddForm() {
-		super(2);
+		super();
 		setHeight(GHAUiHelper.getBottomSectionHeight());
 		setTop(240);
 
@@ -126,7 +126,23 @@ public class UserAddForm extends GHASlideInWindow implements
 	 */
 	@Override
 	public void select(SSOUser ssoUser) {
-		// called when the userForm finish saving new entity
+		notifyUser(ssoUser);
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void notifyUser(SSOUser ssoUser) {
 		cancel();
 	}
 }

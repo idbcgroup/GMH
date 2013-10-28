@@ -65,14 +65,14 @@ public abstract class GHAUiHelper {
 	/**
 	 * 
 	 */
+	@Deprecated
 	public static final int FOUR_COLUMN_FORMITEM_SIZE = 135;
 
 	private static final int HEADER_HEIGTH = 60;
 	private static final int MENU_BAR_HEIGTH = 30;
 
 	// NO ESTAN TOTALMENTE MEDIDAS CON LA INTERFAZ
-	private static final int MIN_TAB_HEIGHT = 400;
-	private static final int MIN_TOP_SECTION_HEIGHT = 120;
+	private static final int MIN_TAB_HEIGHT = 510;
 	private static final int MIN_BOTTOM_SECTION_HEIGHT = 260;
 
 	// NO ESTAN TOTALMENTE MEDIDAS CON LA INTERFAZ
@@ -82,8 +82,28 @@ public abstract class GHAUiHelper {
 	 */
 	public static final int MIN_GRID_SIZE = 120;
 
-	public static final int INNER_TOP_SECTION_HEIGHT = 150;
+	/**
+	 * The default top section height
+	 */
+	public static final int DEFAULT_TOP_SECTION_HEIGHT = 100;
 	public static final int V_SEPARATOR_HEIGHT = 10;
+	/**
+	 * the background color for the tabs y components
+	 */
+	public static final String BACKGROUND_COLOR = "#F4F4F4";
+	/**
+	 * The size of a form item if none is specify
+	 */
+	public static final int DEFAULT_ITEM_SIZE = 150;
+	/**
+	 * The default length for a code item
+	 */
+	public static final Integer CODE_ITEM_LENGTH = 20;
+	/**
+	 * 
+	 */
+	public static final String HIGHLIGHTED_BACKGROUND_COLOR = "#F4F4F4";
+	public static final int DEFAULT_TEXT_AREA_ITEM_HEIGHT = 70;
 
 	public static VLayout verticalGraySeparator(String height) {
 		VLayout separator = new VLayout();
@@ -111,7 +131,7 @@ public abstract class GHAUiHelper {
 
 	/**
 	 * @param width
-	 * @return
+	 * @return an horizontal gray separator
 	 */
 	public static HLayout horizontalGraySeparator(String width) {
 		HLayout separator = new HLayout();
@@ -134,9 +154,12 @@ public abstract class GHAUiHelper {
 		}
 	}
 
+	/**
+	 * @return the height for the bottom section
+	 */
 	public static int getBottomSectionHeight() {
 		int biggerTabHeight = getTabHeight();
-		int innerTopSection = INNER_TOP_SECTION_HEIGHT + V_SEPARATOR_HEIGHT;
+		int innerTopSection = DEFAULT_TOP_SECTION_HEIGHT + V_SEPARATOR_HEIGHT;
 
 		int ret = biggerTabHeight - innerTopSection;
 		if (ret < MIN_BOTTOM_SECTION_HEIGHT) {

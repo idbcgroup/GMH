@@ -7,14 +7,15 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaterial;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.material.MaterialSearchForm;
 import org.fourgeeks.gha.webclient.client.material.MaterialSelectionListener;
 
+import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
@@ -118,6 +119,7 @@ public class EIATypeMaterialGridPanel extends VLayout implements
 
 	@Override
 	public void close() {
+		materialSearchForm.animateHide(AnimationEffect.FLY);
 		materialSearchForm.close();
 	}
 
@@ -128,6 +130,16 @@ public class EIATypeMaterialGridPanel extends VLayout implements
 	 */
 	@Override
 	public void hide() {
-		materialSearchForm.hide();
+		materialSearchForm.animateHide(AnimationEffect.FLY);
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		return true;
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		return true;
 	}
 }

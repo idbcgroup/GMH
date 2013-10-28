@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.UI.superclasses;
+package org.fourgeeks.gha.webclient.client.UI.icons;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.smartgwt.client.widgets.Img;

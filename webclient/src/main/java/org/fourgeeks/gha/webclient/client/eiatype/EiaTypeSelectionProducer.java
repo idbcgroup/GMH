@@ -1,5 +1,7 @@
 package org.fourgeeks.gha.webclient.client.eiatype;
 
+import org.fourgeeks.gha.domain.gmh.EiaType;
+
 /**
  * @author alacret
  * 
@@ -16,5 +18,7 @@ public interface EiaTypeSelectionProducer {
 	 */
 	public void removeEiaTypeSelectionListener(
 			EIATypeSelectionListener eIATypeSelectionListener);
+
+	public void notifyEiaType(EiaType eiaType);
 
 }

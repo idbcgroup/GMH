@@ -1,7 +1,8 @@
 package org.fourgeeks.gha.webclient.client.eiatype.information;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASubTab;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
+import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeTab;
 
@@ -18,16 +19,14 @@ public class EIATypeInformationSubTab extends GHASubTab implements
 	 * @param tab
 	 */
 	public EIATypeInformationSubTab(EIATypeTab tab) {
-		super("Información", tab);
-		setDisabled(true);
+		super(GHAStrings.get("information"), tab);
 
-		form = new EIATypeInformationFormPanel(tab);
+		form = new EIATypeInformationFormPanel();
 		addGHAClosableHandler(form);
 		addGHAHideableHandler(form);
 
 		setPane(form);
 
-		// register this as tab listener, and register tab as form listener
 		form.addEiaTypeSelectionListener(tab);
 		tab.addEiaTypeSelectionListener(this);
 	}
@@ -35,6 +34,5 @@ public class EIATypeInformationSubTab extends GHASubTab implements
 	@Override
 	public void select(EiaType eiaType) {
 		form.setEiaType(eiaType);
-		setDisabled(false);
 	}
 }

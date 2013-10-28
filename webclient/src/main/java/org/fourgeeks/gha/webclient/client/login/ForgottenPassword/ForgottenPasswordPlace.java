@@ -1,6 +1,6 @@
 package org.fourgeeks.gha.webclient.client.login.ForgottenPassword;
 
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAPlace;
+import org.fourgeeks.gha.webclient.client.UI.tabs.GHAPlace;
 
 import com.google.gwt.user.client.ui.RootPanel;
 

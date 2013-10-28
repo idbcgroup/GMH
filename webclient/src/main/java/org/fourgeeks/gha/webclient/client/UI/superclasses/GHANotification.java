@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.fourgeeks.gha.domain.msg.GHAMessage;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.message.GWTMessageService;
@@ -14,6 +15,8 @@ import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.Positioning;
@@ -24,6 +27,10 @@ import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
+/**
+ * @author alacret
+ * 
+ */
 public class GHANotification {
 	private static final GWTMessageServiceAsync messageService = GWT
 			.create(GWTMessageService.class);
@@ -43,8 +50,16 @@ public class GHANotification {
 	/**
 	 * @param message
 	 */
-	public static void alert(String message) {
-		SC.say("Información", message);
+	@Deprecated
+	public static void oldAlert(String message) {
+		SC.say(GHAStrings.get("information"), message);
+	}
+
+	/**
+	 * @param key
+	 */
+	public static void info(String key) {
+		alert(key);
 	}
 
 	/**
@@ -57,29 +72,20 @@ public class GHANotification {
 		SC.ask(title, message, callback);
 	}
 
-	private static void alert(List<String> keys,
-			GHAAsyncCallback<List<GHAMessage>> callback) {
-		messageService.find(keys, callback);
-	}
-
-	private static void alertMessage(String key,
-			GHAAsyncCallback<GHAMessage> callback) {
-		messageService.find(key, callback);
-	}
-
 	/**
 	 * this method receives a key to find and show the message from database
 	 * 
 	 * @param key
 	 */
-	public static void alertMessage(String key) {
-		alertMessage(key, new GHAAsyncCallback<GHAMessage>() {
+	public static void alert(String key) {
+		messageService.find(key, new GHAAsyncCallback<GHAMessage>() {
 
 			@Override
 			public void onSuccess(GHAMessage result) {
-				alert(result.getText());
+				SC.say(result.getText());
 			}
 		});
+
 	}
 
 	/**
@@ -89,7 +95,11 @@ public class GHANotification {
 	 * @param keys
 	 */
 	public static void alert(List<String> keys) {
-		alert(keys, new GHAAsyncCallback<List<GHAMessage>>() {
+		if (keys.isEmpty()) {
+			alert("form-errors");
+			return;
+		}
+		messageService.find(keys, new GHAAsyncCallback<List<GHAMessage>>() {
 
 			@Override
 			public void onSuccess(List<GHAMessage> result) {
@@ -97,7 +107,7 @@ public class GHANotification {
 				for (GHAMessage msg : result) {
 					builder.append(msg.getText()).append("<br>");
 				}
-				alert(builder.toString());
+				SC.say(builder.toString());
 			}
 		});
 	}
@@ -106,21 +116,22 @@ public class GHANotification {
 	 * @param ghaMessage
 	 */
 	public static void alert(GHAMessage ghaMessage) {
-		alert(ghaMessage.getText());
+		SC.say(ghaMessage.getText());
 	}
-	
-	public static class ModalInfoNotification extends VLayout implements ResizeHandler, GHAClosable{
+
+	private static class ModalInfoNotification extends VLayout implements
+			ResizeHandler, GHAClosable {
 
 		private int width = 300;
-		private VLayout backDiv = new VLayout();
-		
+		private HTML backDiv = new HTML();
+
 		public ModalInfoNotification(String title, String errorMessage) {
 			super();
 			GHAUiHelper.addGHAResizeHandler(this);
-			
+
 			setWidth(width);
 			setHeight("*");
-			setLeft((Window.getClientWidth()/2)-(width/2));
+			setLeft((Window.getClientWidth() / 2) - (width / 2));
 			setTop(140);
 			setPosition(Positioning.ABSOLUTE);
 			setBackgroundColor("#E0E0E0");
@@ -128,53 +139,48 @@ public class GHANotification {
 			setDefaultLayoutAlign(Alignment.CENTER);
 			setMembersMargin(10);
 			setVisible(false);
-			setAnimateTime(600);
-			
+			setAnimateTime(60);
+
 			setShadowDepth(4);
 			setShowShadow(true);
-			setZIndex(444444444);
-			
-			backDiv.setWidth100();
-			backDiv.setHeight100();
-			backDiv.setTop(0);
-			backDiv.setLeft(0);
+			setZIndex(444444);
+
+			backDiv.setWidth("100%");
+			backDiv.setHeight("100%");
+			backDiv.setStyleName("backDivDim");
 			backDiv.setVisible(false);
-			backDiv.setShadowDepth(3);
-			backDiv.setShowShadow(true);
-			backDiv.setZIndex(4444444);
-			
-			
 			// TITLE LAYOUT
-			HLayout titleLayout = GHAUiHelper.verticalGraySeparatorLabel("40px","Informacion");
-			
+			HLayout titleLayout = GHAUiHelper.verticalGraySeparatorLabel(
+					"40px", "Informacion");
+
 			// LABEL LAYOUT
 			GHALabel errorText = new GHALabel(errorMessage);
 			errorText.setStyleName("text-label");
-			
+
 			VLayout userdataLayout = new VLayout();
 			userdataLayout.setHeight("*");
 			userdataLayout.setWidth100();
-			userdataLayout.setStyleName("sides-padding padding-top padding-bot");
+			userdataLayout
+					.setStyleName("sides-padding padding-top padding-bot");
 			userdataLayout.setBackgroundColor("#E0E0E0");
 			userdataLayout.setAlign(Alignment.CENTER);
 			userdataLayout.setDefaultLayoutAlign(Alignment.CENTER);
 			userdataLayout.setMembersMargin(10);
-			
-			GHAButton acceptButton = new GHAButton("Aceptar", new ClickHandler() {
-				@Override
-				public void onClick(ClickEvent event) {
-					close();
-				}
-			});
-			
+
+			GHAButton acceptButton = new GHAButton("Aceptar",
+					new ClickHandler() {
+						@Override
+						public void onClick(ClickEvent event) {
+							close();
+						}
+					});
+
 			userdataLayout.addMembers(errorText, acceptButton);
-			
-			addMembers(titleLayout,userdataLayout);
-			
+
+			addMembers(titleLayout, userdataLayout);
+
 			show();
 		}
-		
-		
 
 		public ModalInfoNotification(int membersMargin) {
 			super(membersMargin);
@@ -188,29 +194,33 @@ public class GHANotification {
 
 		@Override
 		public void onResize(ResizeEvent event) {
-			setLeft((Window.getClientWidth()/2)-(width/2));
+			setLeft((Window.getClientWidth() / 2) - (width / 2));
 		}
 
 		@Override
 		public void close() {
 			// TODO Auto-generated method stub
+			RootPanel.get("notificationsBackDiv").removeStyleName("dim");
+
 			animateHide(AnimationEffect.FADE);
 			backDiv.setVisible(false);
 		}
-		
+
 		@Override
 		public void show() {
-//			super.show();
-			backDiv.setWidth100();
-			backDiv.setHeight100();
-			backDiv.setVisible(true);
-//			backDiv.animateShow(AnimationEffect.FADE);
-			
+			// super.show();
+			RootPanel.get("notificationsBackDiv").addStyleName("dim");
+
 			animateShow(AnimationEffect.FADE);
 			setVisible(true);
 			bringToFront();
 		}
+
+		@Override
+		public boolean canBeClosen() {
+			// TODO Auto-generated method stub
+			return false;
+		}
 	}
-	
-	
+
 }

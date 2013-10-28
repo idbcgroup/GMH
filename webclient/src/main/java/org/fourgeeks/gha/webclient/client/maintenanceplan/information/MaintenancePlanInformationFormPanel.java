@@ -5,9 +5,9 @@ import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanForm;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionProducer;
@@ -25,10 +25,11 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class MaintenancePlanInformationFormPanel extends VLayout implements
-		MaintenancePlanSelectionListener, MaintenancePlanSelectionProducer, GHAClosable, GHAHideable {
+		MaintenancePlanSelectionListener, MaintenancePlanSelectionProducer,
+		GHAClosable, GHAHideable {
 	private MaintenancePlanForm maintenancePlanForm;
 	private List<MaintenancePlanSelectionListener> listeners;
-	
+
 	private MaintenancePlan originalMaintenancePlan;
 
 	{
@@ -40,7 +41,7 @@ public class MaintenancePlanInformationFormPanel extends VLayout implements
 	public MaintenancePlanInformationFormPanel(MaintenancePlanTab tab) {
 		activateForm(false);
 		tab.addGHAClosableHandler(this);
-		
+
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
@@ -63,11 +64,12 @@ public class MaintenancePlanInformationFormPanel extends VLayout implements
 				}));
 
 		HLayout gridPanel = new HLayout();
-		gridPanel.addMembers(maintenancePlanForm, new LayoutSpacer(), sideButtons);
+		gridPanel.addMembers(maintenancePlanForm, new LayoutSpacer(),
+				sideButtons);
 
 		addMember(gridPanel);
-		
-		//register as maintenanceplanselectedlistener with maintenanceplanform
+
+		// register as maintenanceplanselectedlistener with maintenanceplanform
 		maintenancePlanForm.addMaintenancePlanSelectionListener(this);
 	}
 
@@ -77,7 +79,7 @@ public class MaintenancePlanInformationFormPanel extends VLayout implements
 
 	protected void undo() {
 		select(this.originalMaintenancePlan);
-//		save();
+		// save();
 	}
 
 	private void save() {
@@ -93,15 +95,20 @@ public class MaintenancePlanInformationFormPanel extends VLayout implements
 	public void hide() {
 
 	}
-	
-	public void setMaintenancePlan(MaintenancePlan maintenancePlan){
+
+	public void setMaintenancePlan(MaintenancePlan maintenancePlan) {
 		this.originalMaintenancePlan = maintenancePlan;
 		maintenancePlanForm.setMaintenancePlan(maintenancePlan);
 		maintenancePlanForm.activateForm(true);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionProducer#addMaintenancePlanSelectionListener(org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.
+	 * MaintenancePlanSelectionProducer
+	 * #addMaintenancePlanSelectionListener(org.fourgeeks
+	 * .gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener)
 	 */
 	@Override
 	public void addMaintenancePlanSelectionListener(
@@ -109,22 +116,44 @@ public class MaintenancePlanInformationFormPanel extends VLayout implements
 		listeners.add(maintenancePlanSelectionListener);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionProducer#removeMaintenancePlanSelectionListener(org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.
+	 * MaintenancePlanSelectionProducer
+	 * #removeMaintenancePlanSelectionListener(org
+	 * .fourgeeks.gha.webclient.client
+	 * .maintenanceplan.MaintenancePlanSelectionListener)
 	 */
 	@Override
 	public void removeMaintenancePlanSelectionListener(
 			MaintenancePlanSelectionListener maintenancePlanSelectionListener) {
 		listeners.remove(maintenancePlanSelectionListener);
-		
+
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener#select(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.
+	 * MaintenancePlanSelectionListener
+	 * #select(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
 	 */
 	@Override
 	public void select(MaintenancePlan maintenancePlan) {
-		for(MaintenancePlanSelectionListener listener : listeners)
+		for (MaintenancePlanSelectionListener listener : listeners)
 			listener.select(maintenancePlan);
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

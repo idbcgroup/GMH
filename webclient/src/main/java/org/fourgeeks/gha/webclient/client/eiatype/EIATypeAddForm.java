@@ -1,12 +1,16 @@
 package org.fourgeeks.gha.webclient.client.eiatype;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHACloseButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.smartgwt.client.widgets.AnimationCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -18,7 +22,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class EIATypeAddForm extends GHASlideInWindow implements
-		EiaTypeSelectionProducer, EIATypeSelectionListener {
+		EiaTypeSelectionProducer, GHAClosable {
 
 	private EiaTypeForm form;
 
@@ -30,12 +34,10 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 	 * 
 	 */
 	public EIATypeAddForm() {
-		super(2);
-		setHeight(GHAUiHelper.getBottomSectionHeight());
-		setTop(240);
-
-		GHALabel title = new GHALabel("Nuevo Tipo de Equipo");
-		addMember(title);
+		super();
+		setWidth100();
+		setHeight(GHAUiHelper.getTabHeight());
+		addMember(new GHALabel(GHAStrings.get("new-eiatype")));
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
 				"../resources/icons/save.png", new ClickHandler() {
@@ -44,54 +46,70 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 					public void onClick(ClickEvent event) {
 						save();
 					}
-				}), new GHAImgButton("../resources/icons/cancel.png",
-				new ClickHandler() {
+				}), new GHACloseButton(new ClickHandler() {
 
-					@Override
-					public void onClick(ClickEvent event) {
-						cancel();
-					}
-				}));
+			@Override
+			public void onClick(ClickEvent event) {
+				hide();
+			}
+		}));
 
 		HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
 		addMember(gridPanel);
 
 		// register as listener to the eiatypeform
-		form.addEiaTypeSelectionListener(this);
+		// form.addEiaTypeSelectionListener(this);
 	}
 
-	protected void cancel() {
-		form.hide();
-		super.hide();
-	}
-	
-	@Override
-	public void open() {
-		super.open();
-		form.show();
-	}
+	// protected void cancel() {
+	// form.hide();
+	// super.hide();
+	// }
 
-	private void save() {
-		form.save();
-	}
-
-	@Override
-	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getBottomSectionHeight());
-	}
-
-	@Override
-	public void close() {
-		destroy();
-	}
-
-	// Producer/consumer stuff
+	// @Override
+	// public void open() {
+	// super.open();
+	// form.show();
+	// }
 
 	@Override
 	public void addEiaTypeSelectionListener(
 			EIATypeSelectionListener eIATypeSelectionListener) {
 		form.addEiaTypeSelectionListener(eIATypeSelectionListener);
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		return true;
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		return true;
+	}
+
+	// Producer/consumer stuff
+
+	@Override
+	public void close() {
+		hide(new AnimationCallback() {
+
+			@Override
+			public void execute(boolean earlyFinish) {
+				destroy();
+			}
+		});
+	}
+
+	@Override
+	public void notifyEiaType(EiaType eiaType) {
+		form.notifyEiaType(eiaType);
+	}
+
+	@Override
+	public void onResize(ResizeEvent event) {
+		setHeight(GHAUiHelper.getTabHeight());
 	}
 
 	@Override
@@ -101,6 +119,11 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 
 	}
 
+	private void save() {
+		form.save();
+		hide();
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -108,8 +131,8 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 	 * org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener#select
 	 * (org.fourgeeks.gha.domain.gmh.EiaType)
 	 */
-	@Override
-	public void select(EiaType eiaType) {
-		cancel();
-	}
+	// @Override
+	// public void select(EiaType eiaType) {
+	// // cancel();
+	// }
 }

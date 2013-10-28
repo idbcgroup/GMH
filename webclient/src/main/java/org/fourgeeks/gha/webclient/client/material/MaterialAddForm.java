@@ -1,7 +1,7 @@
 package org.fourgeeks.gha.webclient.client.material;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
 
@@ -28,7 +28,7 @@ public class MaterialAddForm extends GHASlideInWindow implements
 	 * 
 	 */
 	public MaterialAddForm() {
-		super(2);
+		super();
 		setHeight(GHAUiHelper.getBottomSectionHeight());
 		setTop(240);
 
@@ -73,6 +73,18 @@ public class MaterialAddForm extends GHASlideInWindow implements
 			MaterialSelectionListener materialSelectionListener) {
 		materialForm.addMaterialSelectionListener(materialSelectionListener);
 
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

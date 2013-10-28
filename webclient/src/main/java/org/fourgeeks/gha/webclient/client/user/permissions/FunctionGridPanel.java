@@ -131,4 +131,16 @@ public class FunctionGridPanel extends VLayout implements GHAClosable,
 		});
 	}
 
+	@Override
+	public boolean canBeHidden() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

@@ -10,7 +10,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
@@ -58,11 +58,12 @@ public class MaintenanceActivitySearchForm extends GHASlideInWindow implements
 	 * 
 	 */
 	public MaintenanceActivitySearchForm() {
-		super(1);
+		super();
 		setTop(GHAUiHelper.getTopSpace());
-		setHeight(GHAUiHelper.getTabHeight()-4 + "px");
+		setHeight(GHAUiHelper.getTabHeight() - 4 + "px");
 
-		GHALabel title = new GHALabel("Busqueda de Actividades de Mantenimiento");
+		GHALabel title = new GHALabel(
+				"Busqueda de Actividades de Mantenimiento");
 		addMember(title);
 
 		final DynamicForm form = new DynamicForm();
@@ -113,7 +114,7 @@ public class MaintenanceActivitySearchForm extends GHASlideInWindow implements
 
 		HLayout formLayout = new HLayout();
 		formLayout.setPadding(10);
-		formLayout.setHeight(GHAUiHelper.INNER_TOP_SECTION_HEIGHT + "px");
+		formLayout.setHeight(GHAUiHelper.DEFAULT_TOP_SECTION_HEIGHT + "px");
 		formLayout.setDefaultLayoutAlign(VerticalAlignment.CENTER);
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
 
@@ -188,7 +189,7 @@ public class MaintenanceActivitySearchForm extends GHASlideInWindow implements
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getTabHeight()-4 + "px");
+		setHeight(GHAUiHelper.getTabHeight() - 4 + "px");
 	}
 
 	// Producer/Consumer stuff
@@ -252,12 +253,24 @@ public class MaintenanceActivitySearchForm extends GHASlideInWindow implements
 		GHAGridRecord<MaintenanceActivity> selectedRecord = grid
 				.getSelectedRecord();
 		if (selectedRecord == null) {
-			GHANotification.alert(GHAStrings.get("record-not-selected"));
+			GHANotification.oldAlert(GHAStrings.get("record-not-selected"));
 			return;
 		}
 		notifyMaintenanceActivity(((MaintenanceActivityGridRecord) selectedRecord)
 				.toEntity());
 		hide();
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

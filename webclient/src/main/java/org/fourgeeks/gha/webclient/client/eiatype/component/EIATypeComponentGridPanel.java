@@ -6,13 +6,14 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeComponent;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSearchForm;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
+import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
@@ -30,7 +31,7 @@ public class EIATypeComponentGridPanel extends VLayout implements
 
 	private EIATypeComponentGrid eiaTypeComponentGrid;
 	private EiaType eiaType;
-	private EIATypeSearchForm eiaTypeSearchForm;
+	private EIATypeSearchForm searchForm;
 
 	{
 		eiaTypeComponentGrid = new EIATypeComponentGrid();
@@ -74,29 +75,27 @@ public class EIATypeComponentGridPanel extends VLayout implements
 					}
 				});
 
-		eiaTypeSearchForm = new EIATypeSearchForm();
-		eiaTypeSearchForm
-				.addEiaTypeSelectionListener(new EIATypeSelectionListener() {
+		searchForm = new EIATypeSearchForm();
+		searchForm.addEiaTypeSelectionListener(new EIATypeSelectionListener() {
 
-					@Override
-					public void select(EiaType eiaType) {
-						final EiaTypeComponent eiaTypeComponent = new EiaTypeComponent();
-						eiaTypeComponent
-								.setParentEiaType(EIATypeComponentGridPanel.this.eiaType);
-						eiaTypeComponent.setEiaType(eiaType);
-						eiaTypeComponent.setComponentReplaceable(false);
-						eiaTypeComponent.setComponentRequired(false);
-						EIATypeComponentModel.save(eiaTypeComponent,
-								new GHAAsyncCallback<EiaTypeComponent>() {
+			@Override
+			public void select(EiaType eiaType) {
+				final EiaTypeComponent eiaTypeComponent = new EiaTypeComponent();
+				eiaTypeComponent
+						.setParentEiaType(EIATypeComponentGridPanel.this.eiaType);
+				eiaTypeComponent.setEiaType(eiaType);
+				eiaTypeComponent.setComponentReplaceable(false);
+				eiaTypeComponent.setComponentRequired(false);
+				EIATypeComponentModel.save(eiaTypeComponent,
+						new GHAAsyncCallback<EiaTypeComponent>() {
 
-									@Override
-									public void onSuccess(
-											EiaTypeComponent result) {
-										loadData();
-									}
-								});
-					}
-				});
+							@Override
+							public void onSuccess(EiaTypeComponent result) {
+								loadData();
+							}
+						});
+			}
+		});
 	}
 
 	public EIATypeComponentGridPanel() {
@@ -112,7 +111,7 @@ public class EIATypeComponentGridPanel extends VLayout implements
 
 					@Override
 					public void onClick(ClickEvent event) {
-						eiaTypeSearchForm.open();
+						searchForm.open();
 
 					}
 				}), new GHAImgButton("../resources/icons/delete.png",
@@ -163,12 +162,23 @@ public class EIATypeComponentGridPanel extends VLayout implements
 
 	@Override
 	public void close() {
-		eiaTypeSearchForm.close();
+		searchForm.animateHide(AnimationEffect.FLY);
+		searchForm.close();
 	}
 
 	@Override
 	public void hide() {
-		eiaTypeSearchForm.hide();
+		searchForm.animateHide(AnimationEffect.FLY);
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		return true;
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		return true;
 	}
 
 }

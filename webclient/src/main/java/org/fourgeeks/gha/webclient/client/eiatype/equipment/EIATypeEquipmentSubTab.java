@@ -1,7 +1,8 @@
 package org.fourgeeks.gha.webclient.client.eiatype.equipment;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASubTab;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
+import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeTab;
 
@@ -18,19 +19,19 @@ public class EIATypeEquipmentSubTab extends GHASubTab implements
 	 * @param tab
 	 */
 	public EIATypeEquipmentSubTab(EIATypeTab tab) {
-		super("Equipos", tab);
-		setDisabled(true);
-		tab.addEiaTypeSelectionListener(this);
-		equiposGridPanel = new EIATypeEquipmentGridPanel(this);
+		super(GHAStrings.get("equipments"), tab);
+
+		equiposGridPanel = new EIATypeEquipmentGridPanel();
 		addGHAClosableHandler(equiposGridPanel);
 		addGHAHideableHandler(equiposGridPanel);
 
 		setPane(equiposGridPanel);
+
+		tab.addEiaTypeSelectionListener(this);
 	}
 
 	@Override
 	public void select(EiaType eiaType) {
 		equiposGridPanel.select(eiaType);
-		setDisabled(false);
 	}
 }

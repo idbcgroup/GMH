@@ -33,7 +33,7 @@ public class GHASectionForm extends HLayout implements GHAHideable, GHAClosable 
 		options = new VLayout();
 		options.setWidth(150);
 		options.setMembersMargin(3);
-		options.addStyleName("margin-right");
+		options.setStyleName("margin-right");
 		mainSection = new VLayout();
 		selectedOption = null;
 	}
@@ -199,5 +199,17 @@ public class GHASectionForm extends HLayout implements GHAHideable, GHAClosable 
 	public void hide() {
 		super.hide();
 		deactivate();
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

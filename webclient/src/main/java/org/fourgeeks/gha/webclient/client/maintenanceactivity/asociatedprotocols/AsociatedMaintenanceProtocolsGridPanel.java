@@ -6,9 +6,9 @@ import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.eia.EIAModel;
 import org.fourgeeks.gha.webclient.client.eia.EIARecord;
@@ -28,8 +28,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class AsociatedMaintenanceProtocolsGridPanel extends VLayout implements
-EIATypeSelectionListener,/* EiaSelectionProducer, */
-EIASelectionListener, GHAClosable, GHAHideable {
+		EIATypeSelectionListener,/* EiaSelectionProducer, */
+		EIASelectionListener, GHAClosable, GHAHideable {
 
 	private MaintenancePlanMaintenanceProtocolGrid grid;
 	private EiaType eiaType;
@@ -44,12 +44,12 @@ EIASelectionListener, GHAClosable, GHAHideable {
 			AsociatedMaintenanceProtocolsSubTab subTab) {
 		super();
 
-
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 
-		GHALabel title = new GHALabel("Protocolos de Mantenimiento contienen esta actividad");
+		GHALabel title = new GHALabel(
+				"Protocolos de Mantenimiento contienen esta actividad");
 		addMember(title);
 
 		// //////Botones laterales
@@ -57,13 +57,13 @@ EIASelectionListener, GHAClosable, GHAHideable {
 				"../resources/icons/new.png", new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						//TODO: EIA Search(select) form
+						// TODO: EIA Search(select) form
 					}
 				}), new GHAImgButton("../resources/icons/delete.png",
-						new ClickHandler() {
+				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						//TODO: Remove this plan for the selected equipment
+						// TODO: Remove this plan for the selected equipment
 					}
 
 				}));
@@ -75,12 +75,12 @@ EIASelectionListener, GHAClosable, GHAHideable {
 
 	@Override
 	public void close() {
-		//Close the search/select form
+		// Close the search/select form
 	}
 
 	@Override
 	public void hide() {
-		//Hide the search/select form
+		// Hide the search/select form
 		// super.hide();
 	}
 
@@ -91,8 +91,8 @@ EIASelectionListener, GHAClosable, GHAHideable {
 		EIAModel.find(eiaType, new GHAAsyncCallback<List<Eia>>() {
 			@Override
 			public void onSuccess(List<Eia> result) {
-				ListGridRecord[] array = EIAUtil
-						.toGridRecords(result).toArray(new EIARecord[] {});
+				ListGridRecord[] array = EIAUtil.toGridRecords(result).toArray(
+						new EIARecord[] {});
 				grid.setData(array);
 
 			}
@@ -124,6 +124,18 @@ EIASelectionListener, GHAClosable, GHAHideable {
 	public void select(EiaType eiaType) {
 		this.eiaType = eiaType;
 		loadData(eiaType);
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	// @Override

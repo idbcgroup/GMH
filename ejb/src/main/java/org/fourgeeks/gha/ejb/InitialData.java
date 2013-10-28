@@ -116,8 +116,8 @@ public class InitialData {
 		} catch (NoResultException e) {
 			try {
 				logger.info("Creating message test data");
-				em.persist(new GHAMessage(LanguageEnum.ES, "info-tittle",
-						"Información"));
+				em.persist(new GHAMessage(LanguageEnum.ES, "unsaved-changes",
+						"Existen cambios sin guardar, ¿Desea descartarlos?"));
 				em.persist(new GHAMessage(LanguageEnum.EN, "info-tittle",
 						"Information"));
 				em.persist(new GHAMessage(LanguageEnum.ES, "no-message",
@@ -1425,17 +1425,83 @@ public class InitialData {
 		} catch (NoResultException e) {
 			try {
 				logger.info("Creating uistrings test data");
+				em.persist(new UiString(LanguageEnum.ES, "utility-services",
+						"Servicios utilitarios"));
+				em.persist(new UiString(LanguageEnum.ES, "materials",
+						"Materiales"));
 				em.persist(new UiString(LanguageEnum.ES, "name", "Nombre"));
+				em.persist(new UiString(LanguageEnum.ES, "components",
+						"Componentes"));
+				em.persist(new UiString(LanguageEnum.ES, "information",
+						"Información"));
+				em.persist(new UiString(LanguageEnum.ES, "reports", "Reportes"));
 				em.persist(new UiString(LanguageEnum.ES, "equipments",
 						"Equipos"));
 				em.persist(new UiString(LanguageEnum.ES, "password",
 						"Clave de acceso"));
+				em.persist(new UiString(LanguageEnum.ES, "close", "Cerrar"));
+				em.persist(new UiString(LanguageEnum.ES, "add", "Agregar"));
+				em.persist(new UiString(LanguageEnum.ES, "clean", "Limpiar"));
+				em.persist(new UiString(LanguageEnum.ES, "search", "Buscar"));
 				em.persist(new UiString(LanguageEnum.ES, "username-not-null",
 						"Debe ingresar un usuario válido"));
 				em.persist(new UiString(LanguageEnum.ES, "password-not-null",
 						"Debe ingresar una contraseña válida"));
+				em.persist(new UiString(LanguageEnum.ES, "code", "Código"));
+				em.persist(new UiString(LanguageEnum.ES, "model", "Modelo"));
 				em.persist(new UiString(LanguageEnum.ES, "email-invalid-field",
 						"Debe ingresar un email válido"));
+				em.persist(new UiString(LanguageEnum.ES, "none", "Modelo"));
+				em.persist(new UiString(LanguageEnum.ES, "manufacturer",
+						"Fabricante"));
+				em.persist(new UiString(LanguageEnum.ES, "mobility",
+						"Movilidad"));
+				em.persist(new UiString(LanguageEnum.ES, "eiatype",
+						"Tipo de equipo"));
+				em.persist(new UiString(LanguageEnum.ES, "eiatypes",
+						"Tipos de equipo"));
+				em.persist(new UiString(LanguageEnum.ES, "subtype", "Sub tipo"));
+				em.persist(new UiString(LanguageEnum.ES, "brand", "Marca"));
+				em.persist(new UiString(LanguageEnum.ES, "new-eia",
+						"Nuevo equipo"));
+				em.persist(new UiString(LanguageEnum.ES, "new-eiatype",
+						"Nuevo tipo de equipo"));
+				em.persist(new UiString(LanguageEnum.ES, "search-results",
+						"Resultados de la búsqueda"));
+				em.persist(new UiString(LanguageEnum.ES, "description",
+						"Descripción"));
+				em.persist(new UiString(LanguageEnum.ES, "use", "Uso"));
+				em.persist(new UiString(LanguageEnum.ES, "type", "Tipo"));
+				em.persist(new UiString(LanguageEnum.ES, "users", "Usuarios"));
+				em.persist(new UiString(LanguageEnum.ES, "user", "Usuario"));
+
+				em.persist(new UiString(LanguageEnum.ES, "state", "Estado"));
+				em.persist(new UiString(LanguageEnum.ES, "first-name",
+						"Primer nombre"));
+				em.persist(new UiString(LanguageEnum.ES, "last-name",
+						"Apellido"));
+				em.persist(new UiString(LanguageEnum.ES, "id-type",
+						"Tipo de identificación"));// TODO acento
+				em.persist(new UiString(LanguageEnum.ES, "id-number",
+						"Numero de identificación"));// TODO acento
+				em.persist(new UiString(LanguageEnum.ES, "eiatype-select-item",
+						"Tipo de Equipo"));
+				em.persist(new UiString(LanguageEnum.ES,
+						"eiastate-select-item", "Estado"));
+				em.persist(new UiString(LanguageEnum.ES, "serialNumber-item",
+						"Serial"));
+				em.persist(new UiString(LanguageEnum.ES,
+						"fixedAssetIdentifier-item", "Id Activo Fijo"));
+				em.persist(new UiString(LanguageEnum.ES,
+						"workingarea-select-item", "Area de Trabajo"));
+				em.persist(new UiString(LanguageEnum.ES,
+						"facility-select-item", "Instalación"));
+				em.persist(new UiString(LanguageEnum.ES, "obu-select-item",
+						"Departamento Responsable"));
+				em.persist(new UiString(LanguageEnum.ES, "role-select-item",
+						"Rol Responsable"));
+				em.persist(new UiString(LanguageEnum.ES, "form-errors",
+						"Errores en el formulario, por favor complete los campos correctamente"));
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating uistrings test data", e1);

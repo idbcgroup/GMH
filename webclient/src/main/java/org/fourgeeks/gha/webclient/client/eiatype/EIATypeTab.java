@@ -4,8 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATab;
+import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
+import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader;
+
+import com.smartgwt.client.widgets.events.ClickEvent;
+import com.smartgwt.client.widgets.events.ClickHandler;
 
 /**
  * @author alacret
@@ -18,45 +23,77 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 	 * The ID of the Tab
 	 */
 	public static final String ID = "eiatype";
-	private static final String TITLE = "Tipos de equipo";
+	private static final String TITLE = GHAStrings.get("eiatypes");
 	private List<EIATypeSelectionListener> listeners = new ArrayList<EIATypeSelectionListener>();
-	private EIATypeTopSection topSection;
-	// private EiaType eiaType;
-	private EIATypeInternalTabset internatlTabSet;
+	private EIATypeTopForm topForm;
+	private EIATypeAddForm addForm;
+	private EIATypeInternalTabset internalTabSet;
+	private EiaTypeResultSet resultSet;
 
 	/**
-	 * @param eiaType
+	 * @param token
 	 */
-	public EIATypeTab() {
-		super();
-		header.setTitle(TITLE);
+	public EIATypeTab(String token) {
+		super(token);
+		header = new GHATabHeader(this, TITLE);
+		header.addSearchOption(new ClickHandler() {
 
-		topSection = new EIATypeTopSection(this);
-		internatlTabSet = new EIATypeInternalTabset(this);
+			@Override
+			public void onClick(ClickEvent event) {
+				search();
+			}
+		});
+		header.addAddOption(new ClickHandler() {
 
-		verticalPanel.setBackgroundColor("#FFFFFF");
-		verticalPanel.addMember(topSection);
+			@Override
+			public void onClick(ClickEvent event) {
+				add();
+
+			}
+		});
+
+		resultSet = new EiaTypeResultSet();
+		addGHAHideableHandler(resultSet);
+		addGHAClosableHandler(resultSet);
+		resultSet.addEiaTypeSelectionListener(this);
+
+		topForm = new EIATypeTopForm(resultSet);
+		topForm.activate();
+		addGHAHideableHandler(topForm);
+		addGHAClosableHandler(topForm);
+		addEiaTypeSelectionListener(topForm);
+
+		internalTabSet = new EIATypeInternalTabset(this);
+		addGHAHideableHandler(internalTabSet);
+		addGHAClosableHandler(internalTabSet);
+		addEiaTypeSelectionListener(internalTabSet);
+
+		addForm = new EIATypeAddForm();
+		addGHAHideableHandler(addForm);
+		addGHAClosableHandler(addForm);
+		addForm.addEiaTypeSelectionListener(this);
+
+		verticalPanel.addMember(topForm);
 		verticalPanel.addMember(GHAUiHelper
 				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
-		verticalPanel.addMember(internatlTabSet);
+		verticalPanel.addMember(internalTabSet);
+		verticalPanel.addMember(resultSet);
 		addMember(verticalPanel);
 	}
 
-	@Override
-	protected void onDraw() {
-		// if (eiaType == null)
-		topSection.search();
-	}
-
-	@Override
-	public String getId() {
-		return ID;
-	}
-
-	@Override
-	public void select(EiaType eiaType) {
-		for (EIATypeSelectionListener listener : listeners)
-			listener.select(eiaType);
+	protected void add() {
+		if (addForm.isVisible())
+			return;
+		if (internalTabSet.isVisible())
+			if (internalTabSet.canBeHidden())
+				internalTabSet.hide();
+			else
+				return;
+		if (topForm.isActivated())
+			topForm.deactivate();
+		if (resultSet.isVisible())
+			resultSet.hide();
+		addForm.open();
 	}
 
 	@Override
@@ -66,8 +103,41 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 	}
 
 	@Override
+	public String getId() {
+		return ID;
+	}
+
+	@Override
+	public void notifyEiaType(EiaType eiaType) {
+		for (EIATypeSelectionListener listener : listeners)
+			listener.select(eiaType);
+	}
+
+	@Override
 	public void removeEiaTypeSelectionListener(
 			EIATypeSelectionListener eIATypeSelectionListener) {
 		listeners.remove(eIATypeSelectionListener);
+	}
+
+	protected void search() {
+		if (topForm.isActivated())
+			return;
+		if (internalTabSet.isVisible())
+			if (internalTabSet.canBeHidden())
+				internalTabSet.hide();
+			else
+				return;
+		if (addForm.isVisible())
+			addForm.hide();
+		if (resultSet.isVisible())
+			resultSet.hide();
+		topForm.activate();
+		// GHANotification.info(GHAStrings.get("")); //TODO: Mensaje de
+		// informacion para indicar que se ha actividado el modo de busqueda
+	}
+
+	@Override
+	public void select(EiaType eiaType) {
+		notifyEiaType(eiaType);
 	}
 }

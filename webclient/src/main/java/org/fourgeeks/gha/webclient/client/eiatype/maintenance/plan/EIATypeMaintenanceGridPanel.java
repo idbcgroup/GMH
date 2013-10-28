@@ -7,9 +7,9 @@ import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSearchForm;
@@ -43,13 +43,17 @@ public class EIATypeMaintenanceGridPanel extends VLayout implements
 		searchForm = new MaintenancePlanSearchForm();
 	}
 
+	/**
+	 * 
+	 */
 	public EIATypeMaintenanceGridPanel() {
 		super();
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 
-		GHALabel title = new GHALabel("Planes de Mantenimiento asociados al tipo de equipo");
+		GHALabel title = new GHALabel(
+				"Planes de Mantenimiento asociados al tipo de equipo");
 		addMember(title);
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
@@ -159,6 +163,16 @@ public class EIATypeMaintenanceGridPanel extends VLayout implements
 						loadData();
 					}
 				});
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		return true;
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		return true;
 	}
 
 }

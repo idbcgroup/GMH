@@ -6,9 +6,9 @@ import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.eia.EIAAddForm;
@@ -50,11 +50,8 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 	/**
 	 * @param eIATypeEquipmentSubTab
 	 */
-	public EIATypeEquipmentGridPanel(
-			EIATypeEquipmentSubTab eIATypeEquipmentSubTab) {
+	public EIATypeEquipmentGridPanel() {
 		super();
-		eIATypeEquipmentSubTab.addGHAHideableHandler(eiaAddForm);
-
 		eiaAddForm.addEiaSelectionListener(this);
 		eiaUpdateForm.addEiaSelectionListener(this);
 
@@ -62,7 +59,8 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 
-		GHALabel title = new GHALabel("Equipos pertenecientes a este Tipo de Equipo");
+		GHALabel title = new GHALabel(
+				"Equipos pertenecientes a este Tipo de Equipo");
 		addMember(title);
 
 		// //////Botones laterales
@@ -160,12 +158,12 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 	@Override
 	public void close() {
 		eiaAddForm.animateHide(AnimationEffect.FLY);
-		eiaAddForm.destroy();
+		eiaAddForm.close();
 	}
 
 	@Override
 	public void hide() {
-		eiaAddForm.hide();
+		eiaAddForm.animateHide(AnimationEffect.FLY);
 	}
 
 	/*
@@ -178,5 +176,15 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 	@Override
 	public void select(Eia eia) {
 		loadData(eiaType);
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		return true;
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		return true;
 	}
 }

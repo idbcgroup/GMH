@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.UI.superclasses;
+package org.fourgeeks.gha.webclient.client.UI.tabs;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +51,22 @@ public class GHASubTab extends Tab implements GHAClosable, GHAHideable {
 	 */
 	public void addGHAHideableHandler(GHAHideable hideable) {
 		hideables.add(hideable);
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		for (GHAHideable hideable : hideables)
+			if (!hideable.canBeHidden())
+				return false;
+		return true;
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		for (GHAClosable closable : closables)
+			if (!closable.canBeClosen())
+				return false;
+		return true;
 	}
 
 }

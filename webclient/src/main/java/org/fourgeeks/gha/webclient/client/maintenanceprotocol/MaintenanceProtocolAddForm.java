@@ -2,7 +2,7 @@ package org.fourgeeks.gha.webclient.client.maintenanceprotocol;
 
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
 
@@ -24,7 +24,7 @@ public class MaintenanceProtocolAddForm extends GHASlideInWindow implements
 	}
 
 	public MaintenanceProtocolAddForm() {
-		super(2);
+		super();
 		setHeight(GHAUiHelper.getBottomSectionHeight());
 		setTop(240);
 
@@ -139,6 +139,18 @@ public class MaintenanceProtocolAddForm extends GHASlideInWindow implements
 	public void select(MaintenanceProtocol maintenanceProtocol) {
 		// called when the maintenanceprotocolform finish saving new entity
 		cancel();
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

@@ -5,15 +5,19 @@ import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATab;
+import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
 
 import com.smartgwt.client.widgets.layout.VLayout;
 
+/**
+ * @author alacret
+ * 
+ */
 public class MaintenancePlanTab extends GHATab implements
 		MaintenancePlanSelectionListener, MaintenancePlanSelectionProducer {
 
 	public static final String ID = "mplan";
-	// private static final String TITLE = "Planes De Mantenimiento";
+	private static final String TITLE = "Planes De Mantenimiento";
 	private MaintenancePlanTopSection topSection;
 	private MaintenancePlanInternalTabset internalTabset;
 	private List<MaintenancePlanSelectionListener> listeners;
@@ -24,8 +28,11 @@ public class MaintenancePlanTab extends GHATab implements
 		listeners = new LinkedList<MaintenancePlanSelectionListener>();
 	}
 
-	public MaintenancePlanTab() {
-		super();
+	/**
+	 * @param token
+	 */
+	public MaintenancePlanTab(String token) {
+		super(token);
 		// getHeader().setTitle(TITLE);
 
 		topSection = new MaintenancePlanTopSection(this);
@@ -95,6 +102,18 @@ public class MaintenancePlanTab extends GHATab implements
 		for (MaintenancePlanSelectionListener listener : listeners) {
 			listener.select(maintenancePlan);
 		}
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

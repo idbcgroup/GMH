@@ -3,15 +3,12 @@ package org.fourgeeks.gha.webclient.client.eiatype.information;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.validation.Validator;
-
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
-import org.fourgeeks.gha.webclient.client.eiatype.EIATypeTab;
 import org.fourgeeks.gha.webclient.client.eiatype.EiaTypeForm;
 import org.fourgeeks.gha.webclient.client.eiatype.EiaTypeSelectionProducer;
 
@@ -30,19 +27,12 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		EIATypeSelectionListener, EiaTypeSelectionProducer, GHAClosable,
 		GHAHideable {
 
-	private EiaTypeForm eiaTypeForm;
+	private EiaTypeForm form;
 	private List<EIATypeSelectionListener> listeners;
 	private EiaType originalEiaType;
 
-	// private OnFinishUploaderHandler onFinishUploaderHandler1,
-	// onFinishUploaderHandler2, onFinishUploaderHandler3;
-	// private Img img1, img2, img3;
-	// private int idImg1, idImg2, idImg3;
-	// private String imgName1, imgName2, imgName3;
-	private Validator validator;
-
 	{
-		eiaTypeForm = new EiaTypeForm();
+		form = new EiaTypeForm();
 		listeners = new ArrayList<EIATypeSelectionListener>();
 		originalEiaType = null;
 
@@ -128,10 +118,7 @@ public class EIATypeInformationFormPanel extends VLayout implements
 	// };
 	// }
 
-	public EIATypeInformationFormPanel(EIATypeTab tab) {
-		activateForm(false);
-		tab.addGHAClosableHandler(this);
-
+	public EIATypeInformationFormPanel() {
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
@@ -154,7 +141,7 @@ public class EIATypeInformationFormPanel extends VLayout implements
 				}));
 
 		HLayout gridPanel = new HLayout();
-		gridPanel.addMembers(eiaTypeForm, new LayoutSpacer(), sideButtons);
+		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
 
 		/**************** COMPONENTE PARA SUBIDA DE IMAGEN ****************************************/
 		// SingleUploader uploadPhoto1 = new
@@ -278,26 +265,66 @@ public class EIATypeInformationFormPanel extends VLayout implements
 		// addMember(uploadImagenes);
 
 		// register as eiatypeselected listener with eiatypeform
-		eiaTypeForm.addEiaTypeSelectionListener(this);
+		form.addEiaTypeSelectionListener(this);
 	}
 
 	/**
-	 * @param activate
+	 *	
 	 */
-	public void activateForm(boolean activate) {
-		eiaTypeForm.activateForm(activate);
+	public void activate() {
+		form.activate();
 	}
 
-	protected void undo() {
-		select(this.originalEiaType);
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.eiatype.EiaTypeSelectionProducer#
+	 * addEiaTypeSelectionListener
+	 * (org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener)
+	 */
+	@Override
+	public void addEiaTypeSelectionListener(
+			EIATypeSelectionListener eIATypeSelectionListener) {
+		listeners.add(eIATypeSelectionListener);
 	}
 
-	public void setEiaType(EiaType eiaType) {
-		this.originalEiaType = eiaType;
-		eiaTypeForm.setEiaType(eiaType);
+	@Override
+	public boolean canBeClosen() {
+		return true;
+	}
 
-		activateForm(true);
-		// showPhotographics(eiaType);
+	@Override
+	public boolean canBeHidden() {
+		return form.canBeHidden();
+	}
+
+	@Override
+	public void close() {
+		destroy();
+	}
+
+	@Override
+	public void hide() {
+
+	}
+
+	@Override
+	public void notifyEiaType(EiaType eiaType) {
+		for (EIATypeSelectionListener listener : listeners)
+			listener.select(eiaType);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.eiatype.EiaTypeSelectionProducer#
+	 * removeEiaTypeSelectionListener
+	 * (org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener)
+	 */
+	@Override
+	public void removeEiaTypeSelectionListener(
+			EIATypeSelectionListener eIATypeSelectionListener) {
+		listeners.remove(eIATypeSelectionListener);
 	}
 
 	/**
@@ -356,7 +383,7 @@ public class EIATypeInformationFormPanel extends VLayout implements
 	// }
 
 	private void save() {
-		eiaTypeForm.update();
+		form.update();
 		// if (this.eiaType == null)
 		// return;
 		// final EiaType eiaType = new EiaType();
@@ -445,16 +472,6 @@ public class EIATypeInformationFormPanel extends VLayout implements
 
 	}
 
-	@Override
-	public void close() {
-
-	}
-
-	@Override
-	public void hide() {
-
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -464,33 +481,21 @@ public class EIATypeInformationFormPanel extends VLayout implements
 	 */
 	@Override
 	public void select(EiaType eiaType) {
-		for (EIATypeSelectionListener listener : listeners)
-			listener.select(eiaType);
+		notifyEiaType(eiaType);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.fourgeeks.gha.webclient.client.eiatype.EiaTypeSelectionProducer#
-	 * addEiaTypeSelectionListener
-	 * (org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener)
+	/**
+	 * @param eiaType
 	 */
-	@Override
-	public void addEiaTypeSelectionListener(
-			EIATypeSelectionListener eIATypeSelectionListener) {
-		listeners.add(eIATypeSelectionListener);
+	public void setEiaType(EiaType eiaType) {
+		this.originalEiaType = eiaType;
+		form.setEiaType(eiaType);
+
+		activate();
+		// showPhotographics(eiaType);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.fourgeeks.gha.webclient.client.eiatype.EiaTypeSelectionProducer#
-	 * removeEiaTypeSelectionListener
-	 * (org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener)
-	 */
-	@Override
-	public void removeEiaTypeSelectionListener(
-			EIATypeSelectionListener eIATypeSelectionListener) {
-		listeners.remove(eIATypeSelectionListener);
+	protected void undo() {
+		select(this.originalEiaType);
 	}
 }

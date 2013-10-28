@@ -5,9 +5,8 @@ import org.fourgeeks.gha.webclient.client.UI.GHASessionData;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.dropdownmenus.UserDropdownMenu;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAPlace;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATabSet;
+import org.fourgeeks.gha.webclient.client.UI.tabs.GHAPlace;
+import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabSet;
 
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -41,8 +40,9 @@ public class HomePlace extends GHAPlace {
 
 	@Override
 	public void show() {
-		if (HOME_HAS_BEEN_BUILT)
+		if (HOME_HAS_BEEN_BUILT) {
 			return;
+		}
 		HOME_HAS_BEEN_BUILT = true;
 		// User box
 		RootPanel.get("main-content").clear();
@@ -62,8 +62,8 @@ public class HomePlace extends GHAPlace {
 		userInfo.setHeight("50px");
 		userInfo.setDefaultLayoutAlign(Alignment.CENTER);
 
-		GHALabel usernameLabel = new GHALabel(user.getCitizen().getFirstName() + " "
-				+ user.getCitizen().getFirstLastName());
+		GHALabel usernameLabel = new GHALabel(user.getCitizen().getFirstName()
+				+ " " + user.getCitizen().getFirstLastName());
 		usernameLabel.setStyleName("username-text");
 		usernameLabel.setSize("400px", "25px");
 
@@ -92,7 +92,7 @@ public class HomePlace extends GHAPlace {
 				});
 
 		userInfo.addMembers(usernameLabel, /* notificationsButton, */
-				userButton);
+		userButton);
 
 		userInfo.addFocusChangedHandler(new FocusChangedHandler() {
 
@@ -106,7 +106,5 @@ public class HomePlace extends GHAPlace {
 		RootPanel.get("user-info").add(userInfo);
 
 		GHATabSet.buildMenu();
-		
-		GHANotification.ModalInfoNotification note = new GHANotification.ModalInfoNotification("Titulo","Mensaje de error");
 	}
 }

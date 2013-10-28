@@ -3,7 +3,7 @@ package org.fourgeeks.gha.webclient.client.eia;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
@@ -27,7 +27,7 @@ public class EIAUpdateForm extends GHASlideInWindow implements
 	 * 
 	 */
 	public EIAUpdateForm() {
-		super(1);
+		super();
 		eiaForm = new EIAForm();
 		initComponent();
 	}
@@ -72,7 +72,7 @@ public class EIAUpdateForm extends GHASlideInWindow implements
 	 * 
 	 */
 	public EIAUpdateForm(EiaType eiaType) {
-		super(1);
+		super();
 		eiaForm = new EIAForm(eiaType);
 		initComponent();
 	}
@@ -145,7 +145,32 @@ public class EIAUpdateForm extends GHASlideInWindow implements
 	 */
 	@Override
 	public void select(Eia eia) {
-		eiaForm.clearValue();
+		eiaForm.cancel();
 		hide();
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.eia.EiaSelectionProducer#notifyEia
+	 * (org.fourgeeks.gha.domain.gmh.Eia)
+	 */
+	@Override
+	public void notifyEia(Eia eia) {
+		// TODO Auto-generated method stub
+
 	}
 }
