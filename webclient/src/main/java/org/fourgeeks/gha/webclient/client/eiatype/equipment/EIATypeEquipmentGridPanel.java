@@ -136,7 +136,6 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 		this.eiaType = eiaType;
 		eiaAddForm.select(eiaType);
 		eiaUpdateForm.select(eiaType);
-		eiaSearchForm.select(eiaType);
 		loadData(eiaType);
 
 	}
@@ -161,7 +160,6 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 	public void close() {
 		eiaAddForm.close();
 		eiaUpdateForm.close();
-		eiaSearchForm.close();
 	}
 
 	@Override
@@ -170,8 +168,6 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 			eiaAddForm.animateHide(AnimationEffect.FLY);
 		if (eiaUpdateForm.isVisible())
 			eiaUpdateForm.animateHide(AnimationEffect.FLY);
-		if (eiaSearchForm.isVisible())
-			eiaSearchForm.animateHide(AnimationEffect.FLY);
 	}
 
 	/*
