@@ -6,12 +6,14 @@ import org.fourgeeks.gha.domain.glm.Material;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaterial;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.material.MaterialSearchForm;
 import org.fourgeeks.gha.webclient.client.material.MaterialSelectionListener;
@@ -24,7 +26,7 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
- * @author alacret
+ * @author alacret, emiliot
  * 
  */
 public class EIATypeMaterialGridPanel extends VLayout implements
@@ -76,10 +78,18 @@ public class EIATypeMaterialGridPanel extends VLayout implements
 				}), new GHAImgButton("../resources/icons/delete.png",
 				new ClickHandler() {
 
+					@SuppressWarnings("deprecation")
 					@Override
 					public void onClick(ClickEvent event) {
-						EiaTypeMaterial eiaTypeMaterial = ((EIATypeMaterialRecord) grid
-								.getSelectedRecord()).toEntity();
+						EiaTypeMaterial eiaTypeMaterial = grid
+								.getSelectedEntity();
+
+						if (eiaTypeMaterial == null) {
+							GHANotification.oldAlert(GHAStrings
+									.get("record-not-selected"));
+							return;
+						}
+
 						EIATypeMaterialModel.delete(eiaTypeMaterial.getId(),
 								new GHAAsyncCallback<Void>() {
 

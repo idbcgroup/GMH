@@ -5,9 +5,10 @@ import java.util.List;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHANewButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
@@ -65,7 +66,7 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 		addMember(title);
 
 		// //////Botones laterales
-		VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
+		VLayout sideButtons = GHAUiHelper.createBar(new GHANewButton(
 				new ClickHandler() {
 
 					@Override
@@ -80,8 +81,11 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 
 						final Eia selectedRecord = grid.getSelectedEntity();
 
-						if (selectedRecord == null)
-							return;// No record selected
+						if (selectedRecord == null) {
+							GHANotification.oldAlert(GHAStrings
+									.get("record-not-selected"));
+							return;
+						}
 
 						GHANotification
 								.confirm(
@@ -118,8 +122,11 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 					public void onClick(ClickEvent event) {
 						final Eia selectedRecord = grid.getSelectedEntity();
 
-						if (selectedRecord == null)
-							return;// No record selected
+						if (selectedRecord == null) {
+							GHANotification.oldAlert(GHAStrings
+									.get("record-not-selected"));
+							return;
+						}
 
 						eiaUpdateForm.setEia(selectedRecord);
 						eiaUpdateForm.open();
@@ -158,13 +165,16 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 
 	@Override
 	public void close() {
-		eiaAddForm.animateHide(AnimationEffect.FLY);
 		eiaAddForm.close();
+		eiaUpdateForm.close();
 	}
 
 	@Override
 	public void hide() {
-		eiaAddForm.animateHide(AnimationEffect.FLY);
+		if (eiaAddForm.isVisible())
+			eiaAddForm.animateHide(AnimationEffect.FLY);
+		if (eiaUpdateForm.isVisible())
+			eiaUpdateForm.animateHide(AnimationEffect.FLY);
 	}
 
 	/*

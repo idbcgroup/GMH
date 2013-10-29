@@ -11,7 +11,6 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
-import com.smartgwt.client.widgets.AnimationCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -63,17 +62,6 @@ public class EIAAddForm extends GHASlideInWindow implements
 	@Override
 	public boolean canBeHidden() {
 		return true;
-	}
-
-	@Override
-	public void close() {
-		hide(new AnimationCallback() {
-
-			@Override
-			public void execute(boolean earlyFinish) {
-				destroy();
-			}
-		});
 	}
 
 	/**
@@ -136,6 +124,7 @@ public class EIAAddForm extends GHASlideInWindow implements
 	 */
 	private void save() {
 		form.save();
+		hide();
 	}
 
 	@Override

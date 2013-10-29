@@ -1504,6 +1504,10 @@ public class InitialData {
 						"Errores en el formulario, por favor complete los campos correctamente"));
 				em.persist(new UiString(LanguageEnum.ES, "unsaved-changes",
 						"¿Descartar los cambios?"));
+				em.persist(new UiString(LanguageEnum.ES, "search-component",
+						"Buscar un componente para un tipo de equipo"));
+				em.persist(new UiString(LanguageEnum.ES, "record-not-selected",
+						"Debe seleccionar un registro"));
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating uistrings test data", e1);

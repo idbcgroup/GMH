@@ -6,6 +6,7 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
@@ -36,7 +37,7 @@ public class AsociatedEiatypeGridPanel extends VLayout implements GHAClosable,
 		grid = new EiaTypeMaintenancePlanGrid();
 		grid.setEiaTypeFields();
 
-		searchForm = new EIATypeSearchForm();
+		searchForm = new EIATypeSearchForm(GHAStrings.get("search"));
 	}
 
 	/**

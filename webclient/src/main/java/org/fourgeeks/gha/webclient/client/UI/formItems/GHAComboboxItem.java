@@ -19,10 +19,11 @@ public class GHAComboboxItem<T extends HasKey> extends ComboBoxItem {
 	 */
 	public GHAComboboxItem() {
 		super();
-		setTextBoxStyle("select");
-		setHeight(18);
-		setCellStyle("gha-form-cell");
+		setHeight(20);
 		setWidth(100);
+		setPickerIconHeight(20);
+		setTextBoxStyle("combobox");
+		setCellStyle("gha-form-cell");
 		setTitleStyle("input-title");
 		setShowFocused(false);
 	}

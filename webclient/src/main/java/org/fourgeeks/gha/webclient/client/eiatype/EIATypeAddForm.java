@@ -113,6 +113,19 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 		setHeight(GHAUiHelper.getTabHeight());
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow#open
+	 * ()
+	 */
+	@Override
+	public void open() {
+		super.open();
+		form.activate();
+	}
+
 	@Override
 	public void removeEiaTypeSelectionListener(
 			EIATypeSelectionListener eIATypeSelectionListener) {

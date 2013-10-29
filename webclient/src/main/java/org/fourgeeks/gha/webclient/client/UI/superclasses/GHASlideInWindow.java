@@ -5,6 +5,7 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 
 import com.google.gwt.event.logical.shared.ResizeHandler;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.Visibility;
@@ -34,6 +35,11 @@ public abstract class GHASlideInWindow extends VLayout implements
 
 	@Override
 	public void close() {
+		RootPanel.get("slideInWindowsBackDiv").removeStyleName("dim");
+		int windowZIndex = getZIndex();
+		RootPanel.get("slideInWindowsBackDiv").getElement().getStyle().setZIndex(-80000);
+		
+		GHAUiHelper.removeGHAResizeHandler(this);
 		hide(new AnimationCallback() {
 
 			@Override
@@ -47,11 +53,19 @@ public abstract class GHASlideInWindow extends VLayout implements
 	 * 
 	 */
 	public void open() {
+		RootPanel.get("slideInWindowsBackDiv").addStyleName("dim");
+		int windowZIndex = getZIndex();
+		RootPanel.get("slideInWindowsBackDiv").getElement().getStyle().setZIndex(windowZIndex-1);
+		
 		animateShow(AnimationEffect.FLY);
 	}
 
 	@Override
 	public void hide() {
+		RootPanel.get("slideInWindowsBackDiv").removeStyleName("dim");
+		int windowZIndex = getZIndex();
+		RootPanel.get("slideInWindowsBackDiv").getElement().getStyle().setZIndex(-80000);
+		
 		animateHide(AnimationEffect.FLY);
 	}
 
@@ -59,6 +73,10 @@ public abstract class GHASlideInWindow extends VLayout implements
 	 * @param callback
 	 */
 	public void hide(AnimationCallback callback) {
+		RootPanel.get("slideInWindowsBackDiv").removeStyleName("dim");
+		int windowZIndex = getZIndex();
+		RootPanel.get("slideInWindowsBackDiv").getElement().getStyle().setZIndex(-80000);
+		
 		animateHide(AnimationEffect.FLY, callback);
 	}
 

@@ -121,7 +121,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		eiaTypeSelectItem.setRequired(true);
 		information_TitleItem = new GHATitleTextItem("Información:");
 		codeTextItem = new GHATextItem("Código",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, true, changedHandler);
+				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false, changedHandler);
 		codeTextItem.setLength(20);
 		codeTextItem.setMask("####################");
 		serialTextItem = new GHATextItem("Serial",
