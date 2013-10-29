@@ -12,9 +12,11 @@ import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSearchForm;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
+import com.google.gwt.user.client.Window;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -123,8 +125,16 @@ public class EIATypeComponentGridPanel extends VLayout implements
 
 					@Override
 					public void onClick(ClickEvent event) {
+						Window.alert("2");
 						EiaTypeComponent eiaTypeComponent = ((EIATypeComponentRecord) eiaTypeComponentGrid
 								.getSelectedRecord()).toEntity();
+
+						if (eiaTypeComponent == null) {
+							GHANotification.info(GHAStrings
+									.get("record-not-selected"));
+							return;
+						}
+
 						EIATypeComponentModel.delete(eiaTypeComponent.getId(),
 								new GHAAsyncCallback<Void>() {
 

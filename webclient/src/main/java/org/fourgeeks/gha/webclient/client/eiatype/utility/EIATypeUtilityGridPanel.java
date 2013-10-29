@@ -6,15 +6,18 @@ import org.fourgeeks.gha.domain.glm.Material;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeUtility;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.material.MaterialSelectionListener;
 
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -87,8 +90,16 @@ public class EIATypeUtilityGridPanel extends VLayout implements
 						// EiaTypeUtility eiaTypeUtility =
 						// ((EIATypeUtilityRecord)
 						// grid.getSelectedRecord()).toEntity();
+						Window.alert("5");
 						EiaTypeUtility eiaTypeUtility = grid
 								.getSelectedEntity();
+
+						if (eiaTypeUtility == null) {
+							GHANotification.info(GHAStrings
+									.get("record-not-selected"));
+							return;
+						}
+
 						EIATypeUtilityModel.delete(eiaTypeUtility.getId(),
 								new GHAAsyncCallback<Void>() {
 

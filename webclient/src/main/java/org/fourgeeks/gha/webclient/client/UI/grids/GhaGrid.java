@@ -4,6 +4,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
+import com.google.gwt.user.client.Window;
 import com.smartgwt.client.widgets.grid.ListGrid;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
 
@@ -48,8 +49,12 @@ public class GhaGrid<T> extends ListGrid implements ResizeHandler {
 		@SuppressWarnings("unchecked")
 		GHAGridRecord<T> selectedRecord = (GHAGridRecord<T>) super
 				.getSelectedRecord();
-		if (selectedRecord == null)
+		Window.alert("1.1");
+		if (selectedRecord == null) {
+			Window.alert("1.2");
 			return null;
+		}
+		Window.alert("1.3");
 		return selectedRecord.toEntity();
 	}
 

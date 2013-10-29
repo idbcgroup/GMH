@@ -6,16 +6,19 @@ import org.fourgeeks.gha.domain.glm.Material;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaterial;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.material.MaterialSearchForm;
 import org.fourgeeks.gha.webclient.client.material.MaterialSelectionListener;
 
+import com.google.gwt.user.client.Window;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -78,8 +81,16 @@ public class EIATypeMaterialGridPanel extends VLayout implements
 
 					@Override
 					public void onClick(ClickEvent event) {
+						Window.alert("3");
 						EiaTypeMaterial eiaTypeMaterial = ((EIATypeMaterialRecord) grid
 								.getSelectedRecord()).toEntity();
+
+						if (eiaTypeMaterial == null) {
+							GHANotification.info(GHAStrings
+									.get("record-not-selected"));
+							return;
+						}
+
 						EIATypeMaterialModel.delete(eiaTypeMaterial.getId(),
 								new GHAAsyncCallback<Void>() {
 
