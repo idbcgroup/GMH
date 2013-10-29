@@ -17,7 +17,6 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.material.MaterialSelectionListener;
 
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -27,7 +26,7 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
- * @author alacret
+ * @author alacret, emiliot
  * 
  */
 public class EIATypeUtilityGridPanel extends VLayout implements
@@ -84,18 +83,18 @@ public class EIATypeUtilityGridPanel extends VLayout implements
 				}), new GHAImgButton("../resources/icons/delete.png",
 				new ClickHandler() {
 
+					@SuppressWarnings("deprecation")
 					@Override
 					public void onClick(ClickEvent event) {
 						// TODO Auto-generated method stub
 						// EiaTypeUtility eiaTypeUtility =
 						// ((EIATypeUtilityRecord)
 						// grid.getSelectedRecord()).toEntity();
-						Window.alert("5");
 						EiaTypeUtility eiaTypeUtility = grid
 								.getSelectedEntity();
 
 						if (eiaTypeUtility == null) {
-							GHANotification.info(GHAStrings
+							GHANotification.oldAlert(GHAStrings
 									.get("record-not-selected"));
 							return;
 						}

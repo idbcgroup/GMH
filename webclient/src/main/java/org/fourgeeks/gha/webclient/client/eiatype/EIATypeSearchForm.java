@@ -195,7 +195,7 @@ public class EIATypeSearchForm extends GHASearchForm implements
 	private void selectEiaType() {
 		GHAGridRecord<EiaType> selectedRecord = eiaTypeGrid.getSelectedRecord();
 		if (selectedRecord == null) {
-			GHANotification.info(GHAStrings.get("record-not-selected"));
+			GHANotification.oldAlert(GHAStrings.get("record-not-selected"));
 			return;
 		}
 		notifyEiaType(((EIATypeRecord) selectedRecord).toEntity());

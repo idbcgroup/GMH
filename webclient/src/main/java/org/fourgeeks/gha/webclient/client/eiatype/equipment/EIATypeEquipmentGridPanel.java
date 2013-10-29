@@ -22,7 +22,6 @@ import org.fourgeeks.gha.webclient.client.eia.EIAUpdateForm;
 import org.fourgeeks.gha.webclient.client.eia.EIAUtil;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
-import com.google.gwt.user.client.Window;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -79,13 +78,11 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 
 					@Override
 					public void onClick(ClickEvent event) {
-						Window.alert("1");
 
 						final Eia selectedRecord = grid.getSelectedEntity();
 
 						if (selectedRecord == null) {
-							Window.alert("1.4");
-							GHANotification.info(GHAStrings
+							GHANotification.oldAlert(GHAStrings
 									.get("record-not-selected"));
 							return;
 						}

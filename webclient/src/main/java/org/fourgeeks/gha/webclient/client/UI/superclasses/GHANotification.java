@@ -56,15 +56,6 @@ public class GHANotification {
 	}
 
 	/**
-	 * Alert a message using SC
-	 * 
-	 * @param message
-	 */
-	public static void info(String message) {
-		alert(message);
-	}
-
-	/**
 	 * @param title
 	 * @param message
 	 * @param callback
@@ -204,7 +195,8 @@ public class GHANotification {
 			// TODO Auto-generated method stub
 			RootPanel.get("notificationsBackDiv").removeStyleName("dim");
 			int windowZIndex = getZIndex();
-			RootPanel.get("notificationsBackDiv").getElement().getStyle().setZIndex(-80000);
+			RootPanel.get("notificationsBackDiv").getElement().getStyle()
+					.setZIndex(-80000);
 
 			animateHide(AnimationEffect.FADE);
 			backDiv.setVisible(false);
@@ -215,8 +207,9 @@ public class GHANotification {
 			// super.show();
 			RootPanel.get("notificationsBackDiv").addStyleName("dim");
 			int windowZIndex = getZIndex();
-			RootPanel.get("notificationsBackDiv").getElement().getStyle().setZIndex(windowZIndex - 1);
-			
+			RootPanel.get("notificationsBackDiv").getElement().getStyle()
+					.setZIndex(windowZIndex - 1);
+
 			animateShow(AnimationEffect.FADE);
 			setVisible(true);
 			bringToFront();
