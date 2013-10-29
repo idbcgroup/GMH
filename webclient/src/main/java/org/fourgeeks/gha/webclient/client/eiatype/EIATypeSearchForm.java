@@ -17,11 +17,9 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASearchForm;
 
-import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -37,7 +35,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret, emiliot
  * 
  */
-public class EIATypeSearchForm extends GHASlideInWindow implements
+public class EIATypeSearchForm extends GHASearchForm implements
 		EIATypeSelectionListener, EiaTypeSelectionProducer {
 
 	private List<EIATypeSelectionListener> selectionListeners;
@@ -80,13 +78,8 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 	/**
 	 * 
 	 */
-	public EIATypeSearchForm() {
-		super();
-		setTop(GHAUiHelper.getTopSpace());
-		setHeight(GHAUiHelper.getTabHeight() - 4 + "px");
-
-		GHALabel title = new GHALabel("Buscar un Tipo de Equipo");
-		addMember(title);
+	public EIATypeSearchForm(String title) {
+		super(title);
 
 		final DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
@@ -144,7 +137,7 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 		formLayout.setHeight(GHAUiHelper.DEFAULT_TOP_SECTION_HEIGHT + "px");
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
 
-		addMembers(title, formLayout,
+		addMembers(formLayout,
 				GHAUiHelper
 						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
 								+ "px"));
@@ -280,11 +273,6 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 	}
 
 	@Override
-	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getTabHeight() - 4 + "px");
-	}
-
-	@Override
 	public void addEiaTypeSelectionListener(
 			EIATypeSelectionListener eIATypeSelectionListener) {
 		selectionListeners.add(eIATypeSelectionListener);
@@ -296,16 +284,6 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 			EIATypeSelectionListener eIATypeSelectionListener) {
 		selectionListeners.remove(eIATypeSelectionListener);
 
-	}
-
-	@Override
-	public boolean canBeClosen() {
-		return true;
-	}
-
-	@Override
-	public boolean canBeHidden() {
-		return true;
 	}
 
 	/**
