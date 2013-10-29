@@ -76,7 +76,7 @@ public class EIATypeTopForm extends HLayout implements
 		setStyleName("sides-padding padding-top");
 		setWidth100();
 		setHeight(GHAUiHelper.DEFAULT_TOP_SECTION_HEIGHT + "px");
-		setBackgroundColor(GHAUiHelper.BACKGROUND_COLOR);
+		setBackgroundColor(GHAUiHelper.DEFAULT_BACKGROUND_COLOR);
 		setDefaultLayoutAlign(VerticalAlignment.CENTER);
 
 		DynamicForm form = new DynamicForm();

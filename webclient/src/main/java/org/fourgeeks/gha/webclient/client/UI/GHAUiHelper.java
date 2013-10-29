@@ -90,7 +90,7 @@ public abstract class GHAUiHelper {
 	/**
 	 * the background color for the tabs y components
 	 */
-	public static final String BACKGROUND_COLOR = "#F4F4F4";
+	public static final String DEFAULT_BACKGROUND_COLOR = "#F4F4F4";
 	/**
 	 * The size of a form item if none is specify
 	 */

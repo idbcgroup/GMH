@@ -1,9 +1,10 @@
 package org.fourgeeks.gha.webclient.client.eia.material;
 
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
-import org.fourgeeks.gha.webclient.client.material.MaterialSearchForm;
+import org.fourgeeks.gha.webclient.client.materialcategory.MaterialCategorySearchForm;
 
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -27,13 +28,15 @@ public class EIAMaterialGridPanel extends VLayout {
 
 		// //////Botones laterales
 
-		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
-				"../resources/icons/new.png", new ClickHandler() {
-					@Override
-					public void onClick(ClickEvent event) {
-						new MaterialSearchForm().open();
-					}
-				}), new GHAImgButton("../resources/icons/edit.png"),
+		VLayout sideButtons = GHAUiHelper.createBar(
+				new GHAImgButton("../resources/icons/new.png",
+						new ClickHandler() {
+							@Override
+							public void onClick(ClickEvent event) {
+								new MaterialCategorySearchForm(GHAStrings
+										.get("search-material")).open();
+							}
+						}), new GHAImgButton("../resources/icons/edit.png"),
 				new GHAImgButton("../resources/icons/delete.png"),
 				new GHAImgButton("../resources/icons/set.png",
 						new ClickHandler() {

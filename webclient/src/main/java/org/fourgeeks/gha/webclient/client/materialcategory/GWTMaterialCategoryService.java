@@ -1,24 +1,25 @@
 /**
  * 
  */
-package org.fourgeeks.gha.ejb.glm;
+package org.fourgeeks.gha.webclient.client.materialcategory;
 
 import java.util.List;
 
-import javax.ejb.Remote;
-
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.glm.MaterialCategory;
+
+import com.google.gwt.user.client.rpc.RemoteService;
+import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 /**
  * @author emiliot
  * 
  */
 
-@Remote
-public interface MaterialCategoryServiceRemote {
+@RemoteServiceRelativePath("materialCategory")
+public interface GWTMaterialCategoryService extends RemoteService {
 	/**
-	 * @param code
+	 * @param Id
 	 * @throws GHAEJBException
 	 */
 	public void delete(String code) throws GHAEJBException;
@@ -32,7 +33,7 @@ public interface MaterialCategoryServiceRemote {
 			throws GHAEJBException;
 
 	/**
-	 * @param code
+	 * @param Id
 	 * @return the MaterialCategorys
 	 * @throws GHAEJBException
 	 */
@@ -70,10 +71,8 @@ public interface MaterialCategoryServiceRemote {
 			throws GHAEJBException;
 
 	/**
-	 * 
-	 * @return
+	 * @return a List with all the MaterialsCategories who are utilities
 	 * @throws GHAEJBException
 	 */
 	public List<MaterialCategory> getAllUtilities() throws GHAEJBException;
-
 }

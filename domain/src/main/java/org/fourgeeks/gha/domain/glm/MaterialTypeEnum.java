@@ -10,33 +10,7 @@ import java.util.LinkedHashMap;
  * 
  */
 public enum MaterialTypeEnum {
-	MATERIAL("Material"), SERVICIO("Servicio"), UTILITARIO("Utilitario");
-
-	private String name;
-
-	MaterialTypeEnum(String name) {
-		this.name = name;
-	}
-
-	public String toString() {
-		return this.name;
-	}
-
-	// /**
-	// * @param string
-	// * @return the MaterialTypeEnum representated by this value, or null if it
-	// * does not exist
-	// */
-	// public static MaterialTypeEnum getByString(String string) {
-	// if (string == null)
-	// return null;
-	//
-	// for (MaterialTypeEnum e : MaterialTypeEnum.values())
-	// if (string.equals(e.name()))
-	// return e;
-	//
-	// return null;
-	// }
+	MATERIAL, SERVICIO, UTILITARIO;
 
 	/**
 	 * @return a valueMap with this Enum values

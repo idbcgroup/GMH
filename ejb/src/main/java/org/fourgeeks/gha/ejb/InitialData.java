@@ -42,7 +42,6 @@ import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Facility;
 import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
-import org.fourgeeks.gha.domain.glm.Material;
 import org.fourgeeks.gha.domain.glm.MaterialCategory;
 import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.domain.gmh.Brand;
@@ -1425,8 +1424,12 @@ public class InitialData {
 		} catch (NoResultException e) {
 			try {
 				logger.info("Creating uistrings test data");
+				em.persist(new UiString(LanguageEnum.ES, "materials-category",
+						"Categorias de materiales"));
 				em.persist(new UiString(LanguageEnum.ES, "utility-services",
 						"Servicios utilitarios"));
+				em.persist(new UiString(LanguageEnum.ES, "external-code",
+						"Codigo externo"));// TODO acento
 				em.persist(new UiString(LanguageEnum.ES, "materials",
 						"Materiales"));
 				em.persist(new UiString(LanguageEnum.ES, "name", "Nombre"));
@@ -1506,6 +1509,11 @@ public class InitialData {
 						"¿Descartar los cambios?"));
 				em.persist(new UiString(LanguageEnum.ES, "search-component",
 						"Buscar un componente para un tipo de equipo"));
+				em.persist(new UiString(LanguageEnum.ES, "search-material",
+						"Buscar un material"));
+				em.persist(new UiString(LanguageEnum.ES,
+						"search-utility-material",
+						"Buscar un material utilitario"));
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating uistrings test data", e1);
@@ -1711,7 +1719,7 @@ public class InitialData {
 		brandTestData();
 		externalProviderTestData();
 		materialCategoryTestData();
-		materialTestData();
+		// materialTestData();
 		facilityTestData();
 		// // TODO
 		eiaTypeTestData();
@@ -1976,7 +1984,7 @@ public class InitialData {
 	 * 
 	 */
 	private void materialCategoryTestData() {
-		String query = "SELECT t from MaterialCategory t WHERE t.id = 1 ";
+		String query = "SELECT t from MaterialCategory t WHERE t.code = 'mat-cat-000' ";
 		try {
 			em.createQuery(query).getSingleResult();
 		} catch (NoResultException e) {
@@ -2018,17 +2026,17 @@ public class InitialData {
 	}
 
 	private void materialTestData() {
-		String query = "SELECT t from Material t WHERE t.id = 1 ";
+		String query = "SELECT t from MaterialCategory t WHERE t.id = 1 ";
 		try {
 			em.createQuery(query).getSingleResult();
 		} catch (NoResultException e) {
 			try {
 				logger.info("creating test data : material");
 				for (int j = 0; j < 3; j++) {
-					Material next = new Material("mat-00" + j, "material-00"
-							+ j, MaterialTypeEnum.values()[j % 3]);
-					next.setMaterialCategory(em.find(MaterialCategory.class,
-							(long) (j + 1)));
+					MaterialCategory next = new MaterialCategory("mat-00" + j,
+							"material-00" + j, MaterialTypeEnum.values()[j % 3]);
+					// next.setMaterialCategory(em.find(MaterialCategory.class,
+					// (long) (j + 1)));
 					em.persist(next);
 				}
 				em.flush();

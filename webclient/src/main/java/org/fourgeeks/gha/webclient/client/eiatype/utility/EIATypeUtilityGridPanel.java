@@ -2,10 +2,11 @@ package org.fourgeeks.gha.webclient.client.eiatype.utility;
 
 import java.util.List;
 
-import org.fourgeeks.gha.domain.glm.Material;
+import org.fourgeeks.gha.domain.glm.MaterialCategory;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeUtility;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
@@ -13,7 +14,7 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
-import org.fourgeeks.gha.webclient.client.material.MaterialSelectionListener;
+import org.fourgeeks.gha.webclient.client.materialcategory.MaterialCategorySelectionListener;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.smartgwt.client.types.AnimationEffect;
@@ -36,17 +37,18 @@ public class EIATypeUtilityGridPanel extends VLayout implements
 	private EiaType eiaType;
 
 	{
-		utilitySearchForm = new UtilitySearchForm();
+		utilitySearchForm = new UtilitySearchForm(
+				GHAStrings.get("search-utility-material"));
 		utilitySearchForm
-				.addMaterialSelectionListener(new MaterialSelectionListener() {
+				.addMaterialSelectionListener(new MaterialCategorySelectionListener() {
 
 					@Override
-					public void select(Material material) {
+					public void select(MaterialCategory material) {
 						// TODO Auto-generated method stub
 						EiaTypeUtility eiaTypeUtility = new EiaTypeUtility();
 						eiaTypeUtility
 								.setEiaType(EIATypeUtilityGridPanel.this.eiaType);
-						eiaTypeUtility.setMaterial(material);
+						eiaTypeUtility.setMaterialCategory(material);
 						EIATypeUtilityModel.save(eiaTypeUtility,
 								new GHAAsyncCallback<EiaTypeUtility>() {
 

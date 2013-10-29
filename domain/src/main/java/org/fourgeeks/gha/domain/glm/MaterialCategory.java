@@ -5,14 +5,11 @@ package org.fourgeeks.gha.domain.glm;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
 
-import org.fourgeeks.gha.domain.AbstractEntity;
-import org.fourgeeks.gha.domain.gmh.ServiceResourceCategory;
+import org.fourgeeks.gha.domain.AbstractCodeEntity;
 
 /**
  * @author emiliot, vivi.torresg
@@ -21,34 +18,32 @@ import org.fourgeeks.gha.domain.gmh.ServiceResourceCategory;
 
 @Entity
 @NamedQueries(value = {
-		@NamedQuery(name = "MaterialCategory.findByMaterialCategory", query = "SELECT e from MaterialCategory e where e like:materialCategory order by e.name"),
+		@NamedQuery(name = "MaterialCategory.getByType", query = "SELECT m FROM MaterialCategory m WHERE m.type = :materialTypeId ORDER BY m.name"),
 		@NamedQuery(name = "MaterialCategory.getAll", query = "SELECT e from MaterialCategory e order by e.name") })
-public class MaterialCategory extends AbstractEntity {
+public class MaterialCategory extends AbstractCodeEntity {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@NotNull(message = "El tipo de material no puede ser nulo")
+	@NotNull(message = "material-type-not-null")
 	@Column(nullable = false)
 	private MaterialTypeEnum type;
 
-	@ManyToOne
-	@JoinColumn(name = "serviceResourceCategoryFk")
-	private ServiceResourceCategory sRCategory;
+	// @ManyToOne
+	// @JoinColumn(name = "serviceResourceCategoryFk")
+	// private ServiceResourceCategory sRCategory;
 
 	private String description;
 	private String name;
-	private String code;
-	private String extCode;
+	private String externalCode;
 	private String model;
 
 	/**
 	 * 
 	 */
 	public MaterialCategory() {
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -86,20 +81,12 @@ public class MaterialCategory extends AbstractEntity {
 		this.name = name;
 	}
 
-	public String getCode() {
-		return code;
+	public String getExternalCode() {
+		return externalCode;
 	}
 
-	public void setCode(String code) {
-		this.code = code;
-	}
-
-	public String getExtCode() {
-		return extCode;
-	}
-
-	public void setExtCode(String extCode) {
-		this.extCode = extCode;
+	public void setExternalCode(String extCode) {
+		this.externalCode = extCode;
 	}
 
 	public String getModel() {
