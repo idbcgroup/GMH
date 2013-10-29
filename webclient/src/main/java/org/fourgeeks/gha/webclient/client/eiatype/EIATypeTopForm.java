@@ -137,6 +137,7 @@ public class EIATypeTopForm extends HLayout implements
 			}
 		};
 		
+		
 		codeItem.addKeyUpHandler(searchKeyUpHandler);
 		modelItem.addKeyUpHandler(searchKeyUpHandler);
 		nameItem.addKeyUpHandler(searchKeyUpHandler);
