@@ -153,6 +153,13 @@ public class EIATopForm extends HLayout implements EIASelectionListener,
 					public void onClick(ClickEvent event) {
 						search();
 					}
+				}), new GHAImgButton("../resources/icons/clean.png",
+				new ClickHandler() {
+
+					@Override
+					public void onClick(ClickEvent event) {
+						clearFields();
+					}
 				}));
 
 		addMembers(form, /* photoPanel, */new LayoutSpacer(), sideButtons);
@@ -194,6 +201,20 @@ public class EIATopForm extends HLayout implements EIASelectionListener,
 	@Override
 	public void close() {
 		destroy();
+	}
+
+	public void clearFields() {
+		eiaTypeSelectItem.clearValue();
+		codeItem.clearValue();
+		serialNumber.clearValue();
+		fixedAssetIdentifier.clearValue();
+		stateSelectItem.clearValue();
+		workingAreaLocationSelectItem.clearValue();
+		facilityLocationSelectItem.clearValue();
+		obuSelectItem.clearValue();
+		baseRoleSelectItem.clearValue();
+		installationDateItem.clearValue();
+		acceptationDateItem.clearValue();
 	}
 
 	public void deactivate() {
