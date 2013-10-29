@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.fourgeeks.gha.webclient.client.material;
+package org.fourgeeks.gha.webclient.client.materialcategory;
 
 import java.util.List;
 

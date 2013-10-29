@@ -10,27 +10,27 @@ import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.domain.gmh.EiaTypeMaterial;
+import org.fourgeeks.gha.domain.gmh.EiaTypeMaterialCategory;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 
-@Stateless(name = "gmh.EiaTypeMaterialService")
-public class EiaTypeMaterialService extends GHAEJBExceptionImpl implements
-		EiaTypeMaterialServiceRemote {
+@Stateless(name = "gmh.EiaTypeMaterialCategory")
+public class EiaTypeMaterialCategoryService extends GHAEJBExceptionImpl
+		implements EiaTypeMaterialCategoryServiceRemote {
 
 	@PersistenceContext
 	private EntityManager em;
 
 	private final static Logger logger = Logger
-			.getLogger(EiaTypeMaterialService.class.getName());
+			.getLogger(EiaTypeMaterialCategoryService.class.getName());
 
 	@Override
-	public List<EiaTypeMaterial> findByEiaType(EiaType eiaType)
+	public List<EiaTypeMaterialCategory> findByEiaType(EiaType eiaType)
 			throws GHAEJBException {
 		try {
 			return em
-					.createNamedQuery("EiaTypeMaterial.findByEiaType",
-							EiaTypeMaterial.class)
+					.createNamedQuery("EiaTypeMaterialCategory.findByEiaType",
+							EiaTypeMaterialCategory.class)
 					.setParameter("eiaType", eiaType).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all EiaTypeMaterial", ex);
@@ -41,12 +41,13 @@ public class EiaTypeMaterialService extends GHAEJBExceptionImpl implements
 	}
 
 	@Override
-	public EiaTypeMaterial save(EiaTypeMaterial eiaTypeMaterial)
+	public EiaTypeMaterialCategory save(EiaTypeMaterialCategory eiaTypeMaterial)
 			throws GHAEJBException {
 		try {
 			em.persist(eiaTypeMaterial);
 			em.flush();
-			return em.find(EiaTypeMaterial.class, eiaTypeMaterial.getId());
+			return em.find(EiaTypeMaterialCategory.class,
+					eiaTypeMaterial.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving eiaTypeMaterial", e);
 			// String message = null;
@@ -65,7 +66,8 @@ public class EiaTypeMaterialService extends GHAEJBExceptionImpl implements
 	@Override
 	public void delete(long id) throws GHAEJBException {
 		try {
-			EiaTypeMaterial entity = em.find(EiaTypeMaterial.class, id);
+			EiaTypeMaterialCategory entity = em.find(
+					EiaTypeMaterialCategory.class, id);
 			em.remove(entity);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete eiatypematerial", e);

@@ -53,9 +53,10 @@ public class MaterialCategoryServiceTest extends GhaServiceTest {
 
 		Assert.assertNotNull(entity);
 		Assert.assertEquals(1, service.find(entity).size());
-		System.out.println("BEFORE " + entity.getId() + " " + entity.getCode()
-				+ "\nAFTER " + service.find(entity.getId()).getId() + " "
-				+ service.find(entity.getId()).getCode());
+		System.out.println("BEFORE " + entity.getCode() + " "
+				+ entity.getCode() + "\nAFTER "
+				+ service.find(entity.getCode()).getCode() + " "
+				+ service.find(entity.getCode()).getCode());
 		// Assert.assertEquals(entity, service.find(entity.getId()));
 		Assert.assertTrue(service.getAll() != null
 				&& service.getAll().size() >= 1);
@@ -64,9 +65,9 @@ public class MaterialCategoryServiceTest extends GhaServiceTest {
 		entity.setCode("MaterialCategory test code updated");
 		entity = service.update(entity);
 		Assert.assertEquals("MaterialCategory test code updated",
-				service.find(entity.getId()).getCode());
-		long id = entity.getId();
-		service.delete(entity.getId());
+				service.find(entity.getCode()).getCode());
+		String id = entity.getCode();
+		service.delete(entity.getCode());
 		Assert.assertNull(service.find(id));
 
 		ux.commit();

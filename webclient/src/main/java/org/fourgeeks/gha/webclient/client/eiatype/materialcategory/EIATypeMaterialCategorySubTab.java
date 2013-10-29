@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eiatype.material;
+package org.fourgeeks.gha.webclient.client.eiatype.materialcategory;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
@@ -10,18 +10,18 @@ import org.fourgeeks.gha.webclient.client.eiatype.EIATypeTab;
  * @author alacret
  * 
  */
-public class EIATypeMaterialSubTab extends GHASubTab implements
+public class EIATypeMaterialCategorySubTab extends GHASubTab implements
 		EIATypeSelectionListener {
 
-	private EIATypeMaterialGridPanel eiaTypeMaterialGridPanel;
+	private EIATypeMaterialCategoryGridPanel eiaTypeMaterialGridPanel;
 
 	/**
 	 * @param tab
 	 */
-	public EIATypeMaterialSubTab(EIATypeTab tab) {
+	public EIATypeMaterialCategorySubTab(EIATypeTab tab) {
 		super(GHAStrings.get("materials"), tab);
 
-		eiaTypeMaterialGridPanel = new EIATypeMaterialGridPanel();
+		eiaTypeMaterialGridPanel = new EIATypeMaterialCategoryGridPanel();
 		addGHAClosableHandler(eiaTypeMaterialGridPanel);
 		addGHAHideableHandler(eiaTypeMaterialGridPanel);
 

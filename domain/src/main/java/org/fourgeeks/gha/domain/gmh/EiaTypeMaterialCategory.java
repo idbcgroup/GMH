@@ -12,7 +12,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
-import org.fourgeeks.gha.domain.glm.Material;
+import org.fourgeeks.gha.domain.glm.MaterialCategory;
 
 /**
  * @author emiliot
@@ -21,12 +21,9 @@ import org.fourgeeks.gha.domain.glm.Material;
 
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "eiaTypeFk",
-		"materialFk" }))
-@NamedQueries(value = {
-		@NamedQuery(name = "EiaTypeMaterial.findByEiaType",
-				query = "SELECT etm FROM EiaTypeMaterial etm WHERE etm.eiaType = :eiaType ORDER BY etm.id")
-	})
-public class EiaTypeMaterial extends AbstractEntity {
+		"materialCategoryFk" }))
+@NamedQueries(value = { @NamedQuery(name = "EiaTypeMaterialCategory.findByEiaType", query = "SELECT etm FROM EiaTypeMaterialCategory etm WHERE etm.eiaType = :eiaType ORDER BY etm.id") })
+public class EiaTypeMaterialCategory extends AbstractEntity {
 
 	/**
 	 * 
@@ -38,8 +35,8 @@ public class EiaTypeMaterial extends AbstractEntity {
 	private EiaType eiaType;
 
 	@ManyToOne
-	@JoinColumn(name = "materialFk")
-	private Material material;
+	@JoinColumn(name = "materialCategoryFk")
+	private MaterialCategory materialCategory;
 
 	public EiaType getEiaType() {
 		return eiaType;
@@ -49,12 +46,12 @@ public class EiaTypeMaterial extends AbstractEntity {
 		this.eiaType = eiaType;
 	}
 
-	public Material getMaterial() {
-		return material;
+	public MaterialCategory getMaterialCategory() {
+		return materialCategory;
 	}
 
-	public void setMaterial(Material material) {
-		this.material = material;
+	public void setMaterialCategory(MaterialCategory materialCategory) {
+		this.materialCategory = materialCategory;
 	}
-	
+
 }

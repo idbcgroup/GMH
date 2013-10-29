@@ -104,7 +104,7 @@ public class UserTopForm extends HLayout implements GHAClosable, ResizeHandler,
 		setWidth100();
 		setHeight(GHAUiHelper.DEFAULT_TOP_SECTION_HEIGHT + "px");
 		setDefaultLayoutAlign(VerticalAlignment.CENTER);
-		setBackgroundColor(GHAUiHelper.BACKGROUND_COLOR);
+		setBackgroundColor(GHAUiHelper.DEFAULT_BACKGROUND_COLOR);
 
 		DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);

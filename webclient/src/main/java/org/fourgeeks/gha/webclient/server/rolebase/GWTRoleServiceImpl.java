@@ -35,7 +35,6 @@ public class GWTRoleServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public List<Role> getAll(int offset, int size) throws GHAEJBException {
-		// TODO
 		return service.getAll();
 	}
 }
