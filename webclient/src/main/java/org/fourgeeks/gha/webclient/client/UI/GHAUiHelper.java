@@ -147,7 +147,7 @@ public abstract class GHAUiHelper {
 	 */
 	public static int getTabHeight() {
 		int rootPanelHeight = Window.getClientHeight();
-		int ret = rootPanelHeight - HEADER_HEIGTH - MENU_BAR_HEIGTH - 10;
+		int ret = rootPanelHeight - HEADER_HEIGTH - MENU_BAR_HEIGTH - 5;
 		if (ret < MIN_TAB_HEIGHT) {
 			return MIN_TAB_HEIGHT;
 		} else {

@@ -64,17 +64,6 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 		// form.addEiaTypeSelectionListener(this);
 	}
 
-	// protected void cancel() {
-	// form.hide();
-	// super.hide();
-	// }
-
-	// @Override
-	// public void open() {
-	// super.open();
-	// form.show();
-	// }
-
 	@Override
 	public void addEiaTypeSelectionListener(
 			EIATypeSelectionListener eIATypeSelectionListener) {
@@ -83,15 +72,13 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 
 	@Override
 	public boolean canBeClosen() {
-		return true;
+		return form.canBeClosen();
 	}
 
 	@Override
 	public boolean canBeHidden() {
-		return true;
+		return form.canBeClosen();
 	}
-
-	// Producer/consumer stuff
 
 	@Override
 	public void close() {

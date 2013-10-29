@@ -1,5 +1,7 @@
 package org.fourgeeks.gha.webclient.client.UI.icons;
 
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
+
 import com.smartgwt.client.widgets.events.ClickHandler;
 
 /**
@@ -14,6 +16,7 @@ public class GHACloseButton extends GHAImgButton {
 	 */
 	public GHACloseButton(ClickHandler clickHandler) {
 		super("../resources/icons/cancel.png", clickHandler);
+		setTooltip(GHAStrings.get("cancel"));
 	}
 
 }

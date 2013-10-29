@@ -3,6 +3,8 @@
  */
 package org.fourgeeks.gha.webclient.client.UI.icons;
 
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
+
 import com.smartgwt.client.widgets.events.ClickHandler;
 
 /**
@@ -13,6 +15,7 @@ public class GHACheckButton extends GHAImgButton {
 
 	public GHACheckButton(ClickHandler clickHandler) {
 		super("../resources/icons/check.png", clickHandler);
+		setTooltip(GHAStrings.get("select"));
 	}
 
 }
