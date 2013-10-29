@@ -19,11 +19,14 @@ import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 public interface EiaTypeServiceRemote {
 
 	/**
-	 * Delete an EiaType from database by Id
+	 * Delete the EiaType with this Id
+	 * 
+	 * @param code
+	 *            The code Id of the EiaType
 	 * 
 	 * @throws GHAEJBException
 	 */
-	public void delete(long Id) throws GHAEJBException;
+	public void delete(String code) throws GHAEJBException;
 
 	/**
 	 * @param eiaType
@@ -39,8 +42,7 @@ public interface EiaTypeServiceRemote {
 	 * @return a list with possible matches to the eiaType passed by param
 	 * @throws GHAEJBException
 	 */
-	public List<EiaType> find(EiaType eiaType, int offset, int size)
-			throws GHAEJBException;
+	public List<EiaType> find(EiaType eiaType, int offset, int size) throws GHAEJBException;
 
 	/**
 	 * @param maintenancePlan

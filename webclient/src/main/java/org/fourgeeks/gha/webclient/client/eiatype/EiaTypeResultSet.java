@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
@@ -59,7 +60,7 @@ public class EiaTypeResultSet extends VLayout implements EiaTypeSelectionProduce
 
 			@Override
 			public void onClick(ClickEvent event) {
-				// TODO delete an selected eiatype
+				deleteEiaType();
 			}
 		})));
 		addMember(gridPanel);
@@ -140,6 +141,24 @@ public class EiaTypeResultSet extends VLayout implements EiaTypeSelectionProduce
 		grid.setData(array);
 		// setAnimateAcceleration(AnimationAcceleration.NONE);
 		this.animateShow(AnimationEffect.FADE);
+	}
+
+	private void deleteEiaType() {
+		GHAGridRecord<EiaType> selectedRecord = grid.getSelectedRecord();
+		if (selectedRecord == null) {
+			GHANotification.alert("record-not-selected");
+			return;
+		}
+
+		List<EiaType> entities = grid.getSelectedEntities();
+		EIATypeModel.delete(entities, new GHAAsyncCallback<Void>() {
+
+			@Override
+			public void onSuccess(Void result) {
+				grid.removeSelectedData();
+				GHANotification.alert("eiatypes-delete-success");
+			}
+		});
 	}
 
 	private void mostrarCantResults(List<?> datos) {

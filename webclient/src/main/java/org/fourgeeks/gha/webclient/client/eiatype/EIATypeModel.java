@@ -9,25 +9,21 @@ import com.google.gwt.core.client.GWT;
 
 public class EIATypeModel {
 
-	private static final GWTEiaTypeServiceAsync service = GWT
-			.create(GWTEiaTypeService.class);
+	private static final GWTEiaTypeServiceAsync service = GWT.create(GWTEiaTypeService.class);
 
 	private EIATypeModel() {
-		throw new UnsupportedOperationException(
-				"Esta clase no debe ser instanciada");
+		throw new UnsupportedOperationException("Esta clase no debe ser instanciada");
 	}
 
 	public static void getAll(GHAAsyncCallback<List<EiaType>> callback) {
 		service.getAll(callback);
 	}
 
-	public static void getAll(int offset, int size,
-			GHAAsyncCallback<List<EiaType>> callback) {
+	public static void getAll(int offset, int size, GHAAsyncCallback<List<EiaType>> callback) {
 		service.getAll(offset, size, callback);
 	}
 
-	public static void find(EiaType eiaType,
-			GHAAsyncCallback<List<EiaType>> ghaAsyncCallback) {
+	public static void find(EiaType eiaType, GHAAsyncCallback<List<EiaType>> ghaAsyncCallback) {
 		service.find(eiaType, ghaAsyncCallback);
 
 	}
@@ -37,13 +33,15 @@ public class EIATypeModel {
 
 	}
 
-	public static void update(EiaType eiaType,
-			GHAAsyncCallback<EiaType> callback) {
+	public static void update(EiaType eiaType, GHAAsyncCallback<EiaType> callback) {
 		service.update(eiaType, callback);
 	}
 
-	public static void delete(Long id, GHAAsyncCallback<Void> callback) {
-		service.delete(id, callback);
+	public static void delete(String code, GHAAsyncCallback<Void> callback) {
+		service.delete(code, callback);
 	}
 
+	public static void delete(List<EiaType> eiaTypes, GHAAsyncCallback<Void> callback) {
+		service.delete(eiaTypes, callback);
+	}
 }

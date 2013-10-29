@@ -19,8 +19,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  * @author emiliot
  * 
  */
-public class GWTEiaTypeServiceImpl extends RemoteServiceServlet implements
-		GWTEiaTypeService {
+public class GWTEiaTypeServiceImpl extends RemoteServiceServlet implements GWTEiaTypeService {
 
 	/**
 	 * 
@@ -70,8 +69,21 @@ public class GWTEiaTypeServiceImpl extends RemoteServiceServlet implements
 	 * org.fourgeeks.gha.webclient.client.eia.GWTEiaTypeService#delete(long)
 	 */
 	@Override
-	public void delete(long Id) throws GHAEJBException {
-		eiaTypeServiceRemote.delete(Id);
+	public void delete(String code) throws GHAEJBException {
+		eiaTypeServiceRemote.delete(code);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.eiatype.GWTEiaTypeService#delete(java
+	 * .util.List)
+	 */
+	@Override
+	public void delete(List<EiaType> eiaTypes) throws GHAEJBException {
+		for (EiaType eiaType : eiaTypes)
+			eiaTypeServiceRemote.delete(eiaType.getCode());
 	}
 
 	/*
@@ -115,17 +127,20 @@ public class GWTEiaTypeServiceImpl extends RemoteServiceServlet implements
 	 * .gha.domain.gmh.EiaType, int, int)
 	 */
 	@Override
-	public List<EiaType> find(EiaType eiaType, int offset, int size)
-			throws GHAEJBException {
+	public List<EiaType> find(EiaType eiaType, int offset, int size) throws GHAEJBException {
 		return eiaTypeServiceRemote.find(eiaType, offset, size);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.eiatype.GWTEiaTypeService#findByMaintenancePlan(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.eiatype.GWTEiaTypeService#
+	 * findByMaintenancePlan(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
 	 */
 	@Override
 	public List<EiaType> findByMaintenancePlan(MaintenancePlan maintenancePlan)
 			throws GHAEJBException {
 		return eiaTypeServiceRemote.findByMaintenancePlan(maintenancePlan);
 	}
+
 }

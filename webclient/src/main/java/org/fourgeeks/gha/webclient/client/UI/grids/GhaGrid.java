@@ -1,5 +1,8 @@
 package org.fourgeeks.gha.webclient.client.UI.grids;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -46,12 +49,28 @@ public class GhaGrid<T> extends ListGrid implements ResizeHandler {
 	 */
 	public T getSelectedEntity() {
 		@SuppressWarnings("unchecked")
-		GHAGridRecord<T> selectedRecord = (GHAGridRecord<T>) super
-				.getSelectedRecord();
+		GHAGridRecord<T> selectedRecord = (GHAGridRecord<T>) super.getSelectedRecord();
 		if (selectedRecord == null) {
 			return null;
 		}
 		return selectedRecord.toEntity();
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<T> getSelectedEntities() {
+		GHAGridRecord<T> selectedRecord = (GHAGridRecord<T>) super.getSelectedRecord();
+		if (selectedRecord == null)
+			return null;
+
+		ArrayList<T> lista = new ArrayList<T>();
+		ListGridRecord[] selectedRecords = super.getSelectedRecords();
+
+		for (ListGridRecord record : selectedRecords) {
+			GHAGridRecord<T> ghaRecord = (GHAGridRecord<T>) record;
+			lista.add(ghaRecord.toEntity());
+		}
+
+		return lista;
 	}
 
 	@Override

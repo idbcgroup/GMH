@@ -34,16 +34,13 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  */
 
 @Stateless(name = "gmh.EiaTypeService")
-public class EiaTypeService extends GHAEJBExceptionImpl implements
-		EiaTypeServiceRemote {
+public class EiaTypeService extends GHAEJBExceptionImpl implements EiaTypeServiceRemote {
 	@PersistenceContext
 	EntityManager em;
 
-	private final static Logger logger = Logger.getLogger(EiaTypeService.class
-			.getName());
+	private final static Logger logger = Logger.getLogger(EiaTypeService.class.getName());
 
-	private static Predicate buildFilters(EiaType entity, CriteriaBuilder cb,
-			Root<EiaType> root) {
+	private static Predicate buildFilters(EiaType entity, CriteriaBuilder cb, Root<EiaType> root) {
 		Predicate criteria = cb.conjunction();
 
 		if (entity.getBrand() != null) {
@@ -57,57 +54,44 @@ public class EiaTypeService extends GHAEJBExceptionImpl implements
 		}
 
 		if (entity.getDescription() != null) {
-			ParameterExpression<String> p = cb.parameter(String.class,
-					"description");
-			criteria = cb.and(criteria,
-					cb.like(cb.lower(root.<String> get("description")), p));
+			ParameterExpression<String> p = cb.parameter(String.class, "description");
+			criteria = cb.and(criteria, cb.like(cb.lower(root.<String> get("description")), p));
 		}
 
 		if (entity.getEiaUmdns() != null) {
-			ParameterExpression<String> p = cb.parameter(String.class,
-					"eiaumdns");
-			criteria = cb.and(criteria,
-					cb.like(cb.lower(root.<String> get("eiaUmdns")), p));
+			ParameterExpression<String> p = cb.parameter(String.class, "eiaumdns");
+			criteria = cb.and(criteria, cb.like(cb.lower(root.<String> get("eiaUmdns")), p));
 		}
 
 		if (entity.getMobility() != null) {
-			ParameterExpression<EiaMobilityEnum> p = cb.parameter(
-					EiaMobilityEnum.class, "mobility");
-			criteria = cb.and(criteria,
-					cb.equal(root.<EiaMobilityEnum> get("mobility"), p));
+			ParameterExpression<EiaMobilityEnum> p = cb
+					.parameter(EiaMobilityEnum.class, "mobility");
+			criteria = cb.and(criteria, cb.equal(root.<EiaMobilityEnum> get("mobility"), p));
 		}
 
 		if (entity.getModel() != null) {
 			ParameterExpression<String> p = cb.parameter(String.class, "model");
-			criteria = cb.and(criteria,
-					cb.like(cb.lower(root.<String> get("model")), p));
+			criteria = cb.and(criteria, cb.like(cb.lower(root.<String> get("model")), p));
 		}
 
 		if (entity.getName() != null) {
 			ParameterExpression<String> p = cb.parameter(String.class, "name");
-			criteria = cb.and(criteria,
-					cb.like(cb.lower(root.<String> get("name")), p));
+			criteria = cb.and(criteria, cb.like(cb.lower(root.<String> get("name")), p));
 		}
 
 		if (entity.getSubtype() != null) {
-			ParameterExpression<EiaSubTypeEnum> p = cb.parameter(
-					EiaSubTypeEnum.class, "subtype");
-			criteria = cb.and(criteria,
-					cb.equal(root.<EiaSubTypeEnum> get("subtype"), p));
+			ParameterExpression<EiaSubTypeEnum> p = cb.parameter(EiaSubTypeEnum.class, "subtype");
+			criteria = cb.and(criteria, cb.equal(root.<EiaSubTypeEnum> get("subtype"), p));
 		}
 
 		if (entity.getType() != null) {
-			ParameterExpression<EiaTypeEnum> p = cb.parameter(
-					EiaTypeEnum.class, "etype");
-			criteria = cb.and(criteria,
-					cb.equal(root.<EiaTypeEnum> get("type"), p));
+			ParameterExpression<EiaTypeEnum> p = cb.parameter(EiaTypeEnum.class, "etype");
+			criteria = cb.and(criteria, cb.equal(root.<EiaTypeEnum> get("type"), p));
 		}
 
 		if (entity.getUseDescription() != null) {
-			ParameterExpression<String> p = cb.parameter(String.class,
-					"usedescription");
-			criteria = cb.and(criteria,
-					cb.like(cb.lower(root.<String> get("useDescription")), p));
+			ParameterExpression<String> p = cb.parameter(String.class, "usedescription");
+			criteria = cb.and(criteria, cb.like(cb.lower(root.<String> get("useDescription")), p));
 		}
 
 		return criteria;
@@ -117,17 +101,18 @@ public class EiaTypeService extends GHAEJBExceptionImpl implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypeService#deleteEiaType(long)
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.EiaTypeServiceRemote#delete(java.lang.String)
 	 */
 	@Override
-	public void delete(long Id) throws GHAEJBException {
+	public void delete(String code) throws GHAEJBException {
 		try {
-			EiaType entity = em.find(EiaType.class, Id);
+			EiaType entity = em.find(EiaType.class, code);
 			em.remove(entity);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete eiatype", e);
-			throw super.generateGHAEJBException("eiaType-delete-fail",
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException("eiaType-delete-fail", RuntimeParameters.getLang(),
+					em);
 		}
 	}
 
@@ -166,13 +151,11 @@ public class EiaTypeService extends GHAEJBExceptionImpl implements
 				}
 
 				if (entity.getDescription() != null) {
-					q.setParameter("description", "%"
-							+ entity.getDescription().toLowerCase() + "%");
+					q.setParameter("description", "%" + entity.getDescription().toLowerCase() + "%");
 				}
 
 				if (entity.getEiaUmdns() != null) {
-					q.setParameter("eiaumdns", "%"
-							+ entity.getEiaUmdns().toLowerCase() + "%");
+					q.setParameter("eiaumdns", "%" + entity.getEiaUmdns().toLowerCase() + "%");
 				}
 
 				if (entity.getMobility() != null) {
@@ -180,13 +163,11 @@ public class EiaTypeService extends GHAEJBExceptionImpl implements
 				}
 
 				if (entity.getModel() != null) {
-					q.setParameter("model", "%"
-							+ entity.getModel().toLowerCase() + "%");
+					q.setParameter("model", "%" + entity.getModel().toLowerCase() + "%");
 				}
 
 				if (entity.getName() != null) {
-					q.setParameter("name", "%" + entity.getName().toLowerCase()
-							+ "%");
+					q.setParameter("name", "%" + entity.getName().toLowerCase() + "%");
 				}
 
 				if (entity.getSubtype() != null) {
@@ -198,16 +179,15 @@ public class EiaTypeService extends GHAEJBExceptionImpl implements
 				}
 
 				if (entity.getUseDescription() != null) {
-					q.setParameter("usedescription", "%"
-							+ entity.getUseDescription().toLowerCase() + "%");
+					q.setParameter("usedescription", "%" + entity.getUseDescription().toLowerCase()
+							+ "%");
 				}
 			}
 			return q.getResultList();
 		} catch (Exception e) {
-			logger.log(Level.SEVERE,
-					"Error obteniendo los eiaTypes por eiatype", e);
-			throw super.generateGHAEJBException("eiaType-find-fail",
-					RuntimeParameters.getLang(), em);
+			logger.log(Level.SEVERE, "Error obteniendo los eiaTypes por eiatype", e);
+			throw super.generateGHAEJBException("eiaType-find-fail", RuntimeParameters.getLang(),
+					em);
 		}
 	}
 
@@ -219,8 +199,7 @@ public class EiaTypeService extends GHAEJBExceptionImpl implements
 	 * .domain.gmh.EiaType)
 	 */
 	@Override
-	public List<EiaType> find(EiaType eiaType, int offset, int size)
-			throws GHAEJBException {
+	public List<EiaType> find(EiaType eiaType, int offset, int size) throws GHAEJBException {
 		try {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<EiaType> cQuery = cb.createQuery(EiaType.class);
@@ -248,13 +227,12 @@ public class EiaTypeService extends GHAEJBExceptionImpl implements
 				}
 
 				if (eiaType.getDescription() != null) {
-					q.setParameter("description", "%"
-							+ eiaType.getDescription().toLowerCase() + "%");
+					q.setParameter("description", "%" + eiaType.getDescription().toLowerCase()
+							+ "%");
 				}
 
 				if (eiaType.getEiaUmdns() != null) {
-					q.setParameter("eiaumdns", "%"
-							+ eiaType.getEiaUmdns().toLowerCase() + "%");
+					q.setParameter("eiaumdns", "%" + eiaType.getEiaUmdns().toLowerCase() + "%");
 				}
 
 				if (eiaType.getMobility() != null) {
@@ -262,13 +240,11 @@ public class EiaTypeService extends GHAEJBExceptionImpl implements
 				}
 
 				if (eiaType.getModel() != null) {
-					q.setParameter("model", "%"
-							+ eiaType.getModel().toLowerCase() + "%");
+					q.setParameter("model", "%" + eiaType.getModel().toLowerCase() + "%");
 				}
 
 				if (eiaType.getName() != null) {
-					q.setParameter("name", "%"
-							+ eiaType.getName().toLowerCase() + "%");
+					q.setParameter("name", "%" + eiaType.getName().toLowerCase() + "%");
 				}
 
 				if (eiaType.getSubtype() != null) {
@@ -290,10 +266,9 @@ public class EiaTypeService extends GHAEJBExceptionImpl implements
 
 			return q.getResultList();
 		} catch (Exception e) {
-			logger.log(Level.SEVERE,
-					"Error obteniendo buscando los eiaTypes por eiatype", e);
-			throw super.generateGHAEJBException("eiaType-find-fail",
-					RuntimeParameters.getLang(), em);
+			logger.log(Level.SEVERE, "Error obteniendo buscando los eiaTypes por eiatype", e);
+			throw super.generateGHAEJBException("eiaType-find-fail", RuntimeParameters.getLang(),
+					em);
 		}
 	}
 
@@ -308,8 +283,8 @@ public class EiaTypeService extends GHAEJBExceptionImpl implements
 			return em.find(EiaType.class, code);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error buscando Eiatype por Id ", e);
-			throw super.generateGHAEJBException("eiaType-find-fail",
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException("eiaType-find-fail", RuntimeParameters.getLang(),
+					em);
 		}
 	}
 
@@ -321,12 +296,11 @@ public class EiaTypeService extends GHAEJBExceptionImpl implements
 	@Override
 	public List<EiaType> getAll() throws GHAEJBException {
 		try {
-			return em.createNamedQuery("EiaType.getAll", EiaType.class)
-					.getResultList();
+			return em.createNamedQuery("EiaType.getAll", EiaType.class).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all eiatypes", ex);
-			throw super.generateGHAEJBException("eiaType-getAll-fail",
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException("eiaType-getAll-fail", RuntimeParameters.getLang(),
+					em);
 		}
 	}
 
@@ -338,12 +312,12 @@ public class EiaTypeService extends GHAEJBExceptionImpl implements
 	@Override
 	public List<EiaType> getAll(int offset, int size) throws GHAEJBException {
 		try {
-			return em.createNamedQuery("EiaType.getAll", EiaType.class)
-					.setFirstResult(offset).setMaxResults(size).getResultList();
+			return em.createNamedQuery("EiaType.getAll", EiaType.class).setFirstResult(offset)
+					.setMaxResults(size).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retriving all EitaTypes", ex);
-			throw super.generateGHAEJBException("eiaType-getAll-fail",
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException("eiaType-getAll-fail", RuntimeParameters.getLang(),
+					em);
 		}
 	}
 
@@ -371,8 +345,8 @@ public class EiaTypeService extends GHAEJBExceptionImpl implements
 			return em.find(EiaType.class, eiaType.getCode());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving eiatype", e);
-			throw super.generateGHAEJBException("eiaType-save-fail",
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException("eiaType-save-fail", RuntimeParameters.getLang(),
+					em);
 		}
 	}
 
@@ -399,8 +373,8 @@ public class EiaTypeService extends GHAEJBExceptionImpl implements
 			return res;
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to update eiatype", e);
-			throw super.generateGHAEJBException("eiaType-update-fail",
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException("eiaType-update-fail", RuntimeParameters.getLang(),
+					em);
 		}
 	}
 
@@ -415,16 +389,11 @@ public class EiaTypeService extends GHAEJBExceptionImpl implements
 	public List<EiaType> findByMaintenancePlan(MaintenancePlan maintenancePlan)
 			throws GHAEJBException {
 		try {
-			return em
-					.createNamedQuery("EiaType.findByMaintenancePlan",
-							EiaType.class)
-					.setParameter("maintenancePlan", maintenancePlan)
-					.getResultList();
+			return em.createNamedQuery("EiaType.findByMaintenancePlan", EiaType.class)
+					.setParameter("maintenancePlan", maintenancePlan).getResultList();
 		} catch (Exception ex) {
-			logger.log(Level.SEVERE,
-					"Error retriving all EitaTypes by maintenancePlan", ex);
-			throw super.generateGHAEJBException(
-					"eiaType-findByMaintenancePlan-fail",
+			logger.log(Level.SEVERE, "Error retriving all EitaTypes by maintenancePlan", ex);
+			throw super.generateGHAEJBException("eiaType-findByMaintenancePlan-fail",
 					RuntimeParameters.getLang(), em);
 		}
 	}
