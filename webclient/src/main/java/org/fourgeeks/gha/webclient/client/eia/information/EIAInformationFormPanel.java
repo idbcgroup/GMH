@@ -31,13 +31,11 @@ public class EIAInformationFormPanel extends VLayout implements GHAClosable,
 	 * 
 	 */
 	private EIAForm form;
-	private Eia originalEia;
 	private List<EIASelectionListener> listeners;
 
 	{
 		form = new EIAForm();
 		listeners = new ArrayList<EIASelectionListener>();
-		originalEia = null;
 	}
 
 	/**
@@ -140,13 +138,12 @@ public class EIAInformationFormPanel extends VLayout implements GHAClosable,
 	 * @param eia
 	 */
 	public void setEia(Eia eia) {
-		this.originalEia = eia;
 		form.setEia(eia);
 
 		activate();
 	}
 
 	protected void undo() {
-		select(this.originalEia);
+		form.undo();
 	}
 }
