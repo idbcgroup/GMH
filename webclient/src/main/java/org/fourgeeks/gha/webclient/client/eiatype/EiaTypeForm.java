@@ -211,6 +211,33 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer,
 	}
 
 	/**
+	 * this method is used to hide the add/update form containing this form
+	 * after the user select or not to discard changes they try to close/hide
+	 * 
+	 * @param callback
+	 * @return
+	 */
+	public void canBeHidden(final BooleanCallback callback) {
+		if (hasUnCommittedChanges)
+			GHANotification.confirm(GHAStrings.get("information"),
+					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
+
+						@Override
+						public void execute(Boolean value) {
+							if (value.booleanValue()) {
+								undo();
+								hasUnCommittedChanges = false;
+
+								callback.execute(value);
+							}
+						}
+					});
+		else
+			callback.execute(true);
+
+	}
+
+	/**
 	 * 
 	 */
 	public void cancel() {
