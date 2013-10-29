@@ -8,6 +8,7 @@ import org.fourgeeks.gha.webclient.client.UI.icons.GHACloseButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -140,6 +141,7 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 
 			@Override
 			public void onSuccess(EiaType arg0) {
+				GHANotification.alert("eiatype-save-success");
 				hide();
 
 			}

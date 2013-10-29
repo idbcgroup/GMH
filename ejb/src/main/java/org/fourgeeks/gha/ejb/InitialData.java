@@ -177,6 +177,9 @@ public class InitialData {
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"eiatype-save-success",
 						"Guardado exitoso del Tipo de Equipo"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"material-save-success",
+						"Guardado exitoso del material"));
 				em.persist(new GHAMessage(LanguageEnum.ES, "user-save-success",
 						"Guardado exitoso del Usuario"));
 				em.persist(new GHAMessage(LanguageEnum.ES,
@@ -1424,6 +1427,7 @@ public class InitialData {
 		} catch (NoResultException e) {
 			try {
 				logger.info("Creating uistrings test data");
+				em.persist(new UiString(LanguageEnum.ES, "save", "Guardar"));
 				em.persist(new UiString(LanguageEnum.ES, "materials-category",
 						"Categorias de materiales"));
 				em.persist(new UiString(LanguageEnum.ES, "new-material",
