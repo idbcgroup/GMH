@@ -153,14 +153,13 @@ public class EIATypeSearchForm extends GHASearchForm implements
 					public void onClick(ClickEvent event) {
 						selectEiaType();
 					}
-				}), GHAUiHelper.verticalGraySeparator("2px"), new GHAImgButton(
-				"../resources/icons/new.png", new ClickHandler() {
-
-					@Override
-					public void onClick(ClickEvent event) {
-						addForm.open();
-					}
-				}));
+				})/*
+				 * , GHAUiHelper.verticalGraySeparator("2px"), new GHAImgButton(
+				 * "../resources/icons/new.png", new ClickHandler() {
+				 * 
+				 * @Override public void onClick(ClickEvent event) {
+				 * addForm.open(); } })
+				 */);
 
 		gridLayout.addMembers(eiaTypeGrid, sideGridButtons);
 

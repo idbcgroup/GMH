@@ -1,12 +1,11 @@
 package org.fourgeeks.gha.webclient.client.eia;
 
-import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 
 /**
- * @author alacret
+ * @author alacret, emiliot
  * 
  */
 public class EIARecord extends GHAGridRecord<Eia> {
@@ -19,26 +18,20 @@ public class EIARecord extends GHAGridRecord<Eia> {
 	public EIARecord(Eia eia) {
 		this.eia = eia;
 
+		setAttribute("id", eia.getId());
 		setAttribute("code", eia.getCode());
 		setAttribute("serialNumber", eia.getSerialNumber());
+		setAttribute("state", eia.getState());
+		if (eia.getWorkingArea() != null) {
+			setAttribute("location", eia.getWorkingArea().getName());
+		} else if (eia.getFacility() != null) {
+			setAttribute("location", eia.getFacility().getName());
+		}
 
 		EiaType eiaType = eia.getEiaType();
 		if (eiaType != null) {
-			setAttribute("eiaTypeCode", eiaType.getCode());
-			setAttribute("eiaTypeName", eiaType.getName());
-			setAttribute("eiaTypeModel", eiaType.getModel());
-			Brand brand = eiaType.getBrand();
-			if (brand != null) {
-				setAttribute("brandId", brand.getId());
-				setAttribute("brandName", brand.getName());
-			}
-//			Manufacturer man = eiaType.getManufacturer();
-//			if (man != null) {
-//				setAttribute("manufacturerId", man.getId());
-//				setAttribute("manufacturerName", man.getName());
-//			}
+			setAttribute("name", eiaType.getName());
 		}
-
 	}
 
 	@Override
