@@ -203,7 +203,7 @@ body{
 }
 
 .requiredValidated, .requiredValidatedFocused{
-	border: 1px solid #267F3E !important;
+	border: 1px solid #43FE42 !important;
 }
 
 input, .input{
