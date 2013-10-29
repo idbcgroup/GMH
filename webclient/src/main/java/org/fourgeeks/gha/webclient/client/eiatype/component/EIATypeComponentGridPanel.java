@@ -5,6 +5,7 @@ import java.util.List;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeComponent;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
@@ -76,7 +77,7 @@ public class EIATypeComponentGridPanel extends VLayout implements
 					}
 				});
 
-		searchForm = new EIATypeSearchForm();
+		searchForm = new EIATypeSearchForm(GHAStrings.get("search-component"));
 		searchForm.addEiaTypeSelectionListener(new EIATypeSelectionListener() {
 
 			@Override
