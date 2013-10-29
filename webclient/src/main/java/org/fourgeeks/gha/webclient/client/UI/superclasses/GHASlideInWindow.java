@@ -34,6 +34,7 @@ public abstract class GHASlideInWindow extends VLayout implements
 
 	@Override
 	public void close() {
+		GHAUiHelper.removeGHAResizeHandler(this);
 		hide(new AnimationCallback() {
 
 			@Override

@@ -7,7 +7,7 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHANewButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
@@ -65,7 +65,7 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 		addMember(title);
 
 		// //////Botones laterales
-		VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
+		VLayout sideButtons = GHAUiHelper.createBar(new GHANewButton(
 				new ClickHandler() {
 
 					@Override
@@ -136,6 +136,7 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 		this.eiaType = eiaType;
 		eiaAddForm.select(eiaType);
 		eiaUpdateForm.select(eiaType);
+		eiaSearchForm.select(eiaType);
 		loadData(eiaType);
 
 	}
@@ -158,13 +159,19 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 
 	@Override
 	public void close() {
-		eiaAddForm.animateHide(AnimationEffect.FLY);
 		eiaAddForm.close();
+		eiaUpdateForm.close();
+		eiaSearchForm.close();
 	}
 
 	@Override
 	public void hide() {
-		eiaAddForm.animateHide(AnimationEffect.FLY);
+		if (eiaAddForm.isVisible())
+			eiaAddForm.animateHide(AnimationEffect.FLY);
+		if (eiaUpdateForm.isVisible())
+			eiaUpdateForm.animateHide(AnimationEffect.FLY);
+		if (eiaSearchForm.isVisible())
+			eiaSearchForm.animateHide(AnimationEffect.FLY);
 	}
 
 	/*

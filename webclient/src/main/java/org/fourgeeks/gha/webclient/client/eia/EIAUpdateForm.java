@@ -49,7 +49,7 @@ public class EIAUpdateForm extends GHASlideInWindow implements
 
 					@Override
 					public void onClick(ClickEvent event) {
-						eiaForm.update();
+						update();
 					}
 				}), new GHAImgButton("../resources/icons/cancel.png",
 				new ClickHandler() {
@@ -102,8 +102,8 @@ public class EIAUpdateForm extends GHASlideInWindow implements
 
 	@Override
 	public void close() {
+		eiaForm.close();
 		super.close();
-		destroy();
 	}
 
 	public void setEia(Eia eia) {
@@ -172,5 +172,10 @@ public class EIAUpdateForm extends GHASlideInWindow implements
 	public void notifyEia(Eia eia) {
 		// TODO Auto-generated method stub
 
+	}
+
+	private void update() {
+		eiaForm.update();
+		hide();
 	}
 }

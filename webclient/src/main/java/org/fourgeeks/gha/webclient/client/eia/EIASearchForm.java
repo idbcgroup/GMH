@@ -48,7 +48,6 @@ public class EIASearchForm extends GHASlideInWindow implements
 	private GHASelectItem responsibleRoleItem, eiaTypeItem,
 			workingAreaLocationItem, facilityLocationItem, obuItem, stateItem;
 
-	private EIAAddForm addForm;
 	{
 		listeners = new LinkedList<EIASelectionListener>();
 
@@ -69,8 +68,6 @@ public class EIASearchForm extends GHASlideInWindow implements
 		fixedAssetIdentifierItem.setMask("###################");
 		stateItem = new GHASelectItem("Estado");
 		grid = new EIAGrid();
-		addForm = new EIAAddForm();
-		addForm.addEiaSelectionListener(this);
 	}
 
 	/**
@@ -159,14 +156,7 @@ public class EIASearchForm extends GHASlideInWindow implements
 					public void onClick(ClickEvent event) {
 						selectEia();
 					}
-				}), GHAUiHelper.verticalGraySeparator("2px"), new GHAImgButton(
-				"../resources/icons/new.png", new ClickHandler() {
-
-					@Override
-					public void onClick(ClickEvent event) {
-						addForm.open();
-					}
-				}));
+				}), GHAUiHelper.verticalGraySeparator("2px"));
 
 		gridLayout.addMembers(grid, sideGridButtons);
 
@@ -176,8 +166,6 @@ public class EIASearchForm extends GHASlideInWindow implements
 		searchForLocations();
 		searchForObus();
 		fillExtras();
-
-		addForm.addEiaSelectionListener(this);
 	}
 
 	private void fillExtras() {
@@ -322,16 +310,8 @@ public class EIASearchForm extends GHASlideInWindow implements
 	}
 
 	@Override
-	public void close() {
-		GHAUiHelper.removeGHAResizeHandler(this);
-		addForm.close();
-		destroy();
-	}
-
-	@Override
 	public void hide() {
 		super.hide();
-		addForm.hide();
 	}
 
 	@Override
