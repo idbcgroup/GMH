@@ -204,6 +204,10 @@ public class EIATopForm extends HLayout implements EIASelectionListener,
 	}
 
 	public void clearFields() {
+		// first check if the topform is active for search
+		if (!this.activated)
+			return;
+
 		eiaTypeSelectItem.clearValue();
 		codeItem.clearValue();
 		serialNumber.clearValue();

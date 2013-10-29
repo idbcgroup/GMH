@@ -190,6 +190,9 @@ public class EIATypeTopForm extends HLayout implements
 	}
 
 	public void clearFields() {
+		// first check if the topform is active for search
+		if (!this.activated)
+			return;
 		codeItem.clearValue();
 		nameItem.clearValue();
 		brandItem.clearValue();
