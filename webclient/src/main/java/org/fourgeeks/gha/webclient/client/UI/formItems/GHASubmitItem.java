@@ -7,7 +7,7 @@ public class GHASubmitItem extends SubmitItem {
 	public GHASubmitItem() {
 		super();
 //		setTextBoxStyle("input");
-		setHeight(18);
+		setHeight(20);
 		setCellStyle("gha-form-cell");
 		setWidth(100);
 //		setTitleStyle("input-title");

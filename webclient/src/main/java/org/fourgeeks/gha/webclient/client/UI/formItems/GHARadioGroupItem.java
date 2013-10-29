@@ -7,7 +7,7 @@ public class GHARadioGroupItem extends RadioGroupItem {
 	public GHARadioGroupItem() {
 		super();
 
-		setHeight(18);
+		setHeight(20);
 		setWidth(200);
 		setShowTitle(false);
 		setVertical(false);

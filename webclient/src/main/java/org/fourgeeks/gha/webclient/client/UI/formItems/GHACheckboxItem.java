@@ -6,7 +6,7 @@ public class GHACheckboxItem extends CheckboxItem {
 
 	public GHACheckboxItem() {
 		super();
-		setHeight(18);
+		setHeight(20);
 		setCellStyle("gha-form-cell");
 		setShowTitle(false);
 		setTitleStyle("input-title");

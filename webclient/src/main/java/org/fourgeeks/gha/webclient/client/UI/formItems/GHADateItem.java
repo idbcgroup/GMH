@@ -13,12 +13,12 @@ public class GHADateItem extends DateItem {
 	 */
 	public GHADateItem() {
 		super();
-		setUseTextField(true);
-		setTextBoxStyle("dateItem");
-		setTextAlign(Alignment.LEFT);
-		setHeight(18);
-		setCellStyle("gha-form-cell");
+		setHeight(20);
 		setWidth(100);
+		setUseTextField(true);
+		setTextAlign(Alignment.LEFT);
+		setTextBoxStyle("dateItem");
+		setCellStyle("gha-form-cell");
 		setTitleStyle("input-title");
 	}
 	/**

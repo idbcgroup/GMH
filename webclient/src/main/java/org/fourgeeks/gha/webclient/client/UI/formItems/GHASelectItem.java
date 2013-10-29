@@ -14,11 +14,11 @@ public class GHASelectItem extends SelectItem {
 	 */
 	public GHASelectItem() {
 		super();
-		setControlStyle("margin-right");
-		setTextBoxStyle("select");
-		setHeight(18);
-		setCellStyle("gha-form-cell");
+		setHeight(20);
 		setWidth(100);
+		setPickerIconHeight(20);
+		setTextBoxStyle("select");
+		setCellStyle("gha-form-cell");
 		setTitleStyle("input-title");
 		setShowFocused(false);
 		setAllowEmptyValue(true);
@@ -92,7 +92,7 @@ public class GHASelectItem extends SelectItem {
 	public void setRequired(Boolean required) {
 		super.setRequired(required);
 		if (required)
-			setTextBoxStyle("select-required");
+			setTextBoxStyle("select required");
 		else
 			setTextBoxStyle("select");
 	}

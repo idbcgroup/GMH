@@ -17,7 +17,7 @@ public class GHATitleTextItem extends StaticTextItem {
 		super();
 		setAlign(Alignment.LEFT);
 		setVAlign(VerticalAlignment.BOTTOM);
-		setHeight(18);
+		setHeight(20);
 		setCellStyle("gha-form-cell");
 		setShowTitle(false);
 		setTextBoxStyle("title-label");
