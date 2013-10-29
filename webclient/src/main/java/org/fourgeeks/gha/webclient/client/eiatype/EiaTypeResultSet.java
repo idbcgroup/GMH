@@ -143,6 +143,9 @@ public class EiaTypeResultSet extends VLayout implements EiaTypeSelectionProduce
 		this.animateShow(AnimationEffect.FADE);
 	}
 
+	/**
+	 * Elimina los eiaType seleccionados en el grid
+	 */
 	private void deleteEiaType() {
 		GHAGridRecord<EiaType> selectedRecord = grid.getSelectedRecord();
 		if (selectedRecord == null) {
@@ -161,6 +164,13 @@ public class EiaTypeResultSet extends VLayout implements EiaTypeSelectionProduce
 		});
 	}
 
+	/**
+	 * Actualiza el mensaje de resultados de la busqueda para que muestre la
+	 * cantidad de elementos encontrados
+	 * 
+	 * @param datos
+	 *            lista con los elementos encontrados
+	 */
 	private void mostrarCantResults(List<?> datos) {
 		String tituloSearchResults = GHAStrings.get("search-results");
 		searchResultsLabel.setContents(tituloSearchResults + ": " + datos.size() + " resultados");
