@@ -157,38 +157,13 @@ public class Eia extends AbstractEntity {
 	// WARRANTIES Section
 	// TODO: CHECK FOR NULL VALUES FROM HERE
 
-	@Column(nullable = true)
-	// false)
 	private WarrantySinceEnum realWarrantySince;
-	/** Estado del Equipo length =60 */
-
-	@Column(nullable = true)
-	// false)
 	private int realWarrantyTime;
-
-	@Column(nullable = true)
-	// false)
 	private TimePeriodEnum realWarrantyPoT;
-
-	@Column(nullable = true)
-	// false)
 	private Date realWarrantyBegin;
-
-	@Column(nullable = true)
-	// false)
 	private WarrantySinceEnum intWarrantySince;
-	/** Estado del Equipo length =60 */
-
-	@Column(nullable = true)
-	// false)
 	private int intWarrantyTime;
-
-	@Column(nullable = true)
-	// false)
 	private TimePeriodEnum intWarrantyPoT;
-
-	@Column(nullable = true)
-	// false)
 	private Date intWarrantyBegin;
 
 	/**
