@@ -6,11 +6,15 @@ import org.fourgeeks.gha.webclient.client.UI.grids.GhaGrid;
 
 import com.smartgwt.client.types.ListGridFieldType;
 
+/**
+ * @author emiliot
+ * 
+ */
 public class EIATypeComponentGrid extends GhaGrid<EiaTypeComponent> {
 
 	private GHAGridField requiredField;
 	private GHAGridField replaceableField;
-	
+
 	{
 		requiredField = new GHAGridField("required", "Requerido");
 		requiredField.setType(ListGridFieldType.BOOLEAN);
@@ -19,26 +23,22 @@ public class EIATypeComponentGrid extends GhaGrid<EiaTypeComponent> {
 		replaceableField.setCanEdit(true);
 		replaceableField.setType(ListGridFieldType.BOOLEAN);
 	}
-	
+
 	public EIATypeComponentGrid() {
 		setEmptyMessage("No existen componentes para mostrar");
-		
-		setFields(new GHAGridField("id", "No"),
-				new GHAGridField("code", "Codigo"),
-				new GHAGridField("name", "Nombre"),
-				new GHAGridField("brand", "Marca"),
-				new GHAGridField("model", "Modelo"),
-				requiredField,
-				replaceableField
-				);
+
+		setFields(new GHAGridField("code", "Codigo"), new GHAGridField("name",
+				"Nombre"), new GHAGridField("parent", "Pertenece"),
+				new GHAGridField("brand", "Marca"), new GHAGridField("model",
+						"Modelo"), requiredField, replaceableField);
 	}
-	
+
 	public GHAGridField getRequiredField() {
 		return requiredField;
 	}
-	
+
 	public GHAGridField getReplaceableField() {
 		return replaceableField;
 	}
-	
+
 }

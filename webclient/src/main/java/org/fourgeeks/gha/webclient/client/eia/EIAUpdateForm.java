@@ -16,7 +16,7 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
- * @author vivi.torresg Update Eia Form
+ * @author vivi.torresg, emiliot Update Eia Form
  * 
  */
 public class EIAUpdateForm extends GHASlideInWindow implements
