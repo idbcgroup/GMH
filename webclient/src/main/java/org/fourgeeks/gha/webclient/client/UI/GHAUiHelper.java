@@ -72,7 +72,7 @@ public abstract class GHAUiHelper {
 	private static final int MENU_BAR_HEIGTH = 30;
 
 	// NO ESTAN TOTALMENTE MEDIDAS CON LA INTERFAZ
-	private static final int MIN_TAB_HEIGHT = 510;
+	private static final int MIN_TAB_HEIGHT = 500;
 	private static final int MIN_BOTTOM_SECTION_HEIGHT = 260;
 
 	// NO ESTAN TOTALMENTE MEDIDAS CON LA INTERFAZ
@@ -147,7 +147,7 @@ public abstract class GHAUiHelper {
 	 */
 	public static int getTabHeight() {
 		int rootPanelHeight = Window.getClientHeight();
-		int ret = rootPanelHeight - HEADER_HEIGTH - MENU_BAR_HEIGTH;
+		int ret = rootPanelHeight - HEADER_HEIGTH - MENU_BAR_HEIGTH - 10;
 		if (ret < MIN_TAB_HEIGHT) {
 			return MIN_TAB_HEIGHT;
 		} else {

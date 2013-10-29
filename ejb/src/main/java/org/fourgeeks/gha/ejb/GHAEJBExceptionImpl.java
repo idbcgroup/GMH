@@ -13,17 +13,16 @@ import org.fourgeeks.gha.domain.msg.GHAMessageId;
  */
 public class GHAEJBExceptionImpl {
 
-	private GHAEJBException ghaejbException = new GHAEJBException();
-
 	public GHAEJBException generateGHAEJBException(String messageCode,
 			LanguageEnum lang, EntityManager em) {
+		GHAEJBException ghaejbException = new GHAEJBException();
 		try {
 			ghaejbException.setGhaMessage(em.find(GHAMessage.class,
 					new GHAMessageId(messageCode, lang)));
 		} catch (Exception e1) {
-			ghaejbException
-					.setGhaMessage(new GHAMessage(lang, "generic-error-msg",
-							"Error de sistema, intente más tarde."));
+			ghaejbException.setGhaMessage(new GHAMessage(lang,
+					"generic-error-msg",
+					"Unknow system failure, please contact IT support"));
 		}
 		return ghaejbException;
 	}

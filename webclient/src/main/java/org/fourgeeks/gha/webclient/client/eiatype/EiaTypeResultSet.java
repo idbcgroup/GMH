@@ -116,7 +116,7 @@ public class EiaTypeResultSet extends VLayout implements
 	private void notifySelectedEiaType() {
 		GHAGridRecord<EiaType> selectedRecord = grid.getSelectedRecord();
 		if (selectedRecord == null) {
-			GHANotification.alert(GHAStrings.get("record-not-selected"));
+			GHANotification.alert("record-not-selected");
 			return;
 		}
 		notifyEiaType(selectedRecord.toEntity());

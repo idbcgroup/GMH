@@ -185,7 +185,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		// Ubicacion Form Items
 		location_TitleItem = new GHATitleTextItem("Ubicación:");
 		locationTypeSelectItem = new GHASelectItem("Tipo de Ubicación",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, true, changedHandler);
+				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false, changedHandler);
 
 		workingArea_TitleItem = new GHATitleTextItem("Área de Trabajo:");
 		facility_TitleItem = new GHATitleTextItem("Servicio/Instalación:");
@@ -250,25 +250,25 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 				"Garantía del Intermediario:");
 		maintenance_TitleItem = new GHATitleTextItem("Mantenimiento:");
 		realWarrantySinceSelectItem = new GHASelectItem("Desde",
-				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE, true, changedHandler);
+				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE, false, changedHandler);
 		realWarrantyTimeTextItem = new GHATextItem("Duración",
-				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE, true, changedHandler);
+				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE, false, changedHandler);
 		realWarrantyTimeTextItem.setLength(3);
 		realWarrantyTimeTextItem.setMask("###");
 		realWarrantyPotSelectItem = new GHASelectItem("Periodo de Tiempo",
-				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE, true, changedHandler);
+				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE, false, changedHandler);
 		realWarrantyBeginDate = new GHADateItem("Fecha Inicio",
 				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE, true);
 		realWarrantyBeginDate.addChangedHandler(changedHandler);
 
 		intWarrantySinceSelectItem = new GHASelectItem("Desde",
-				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE, true, changedHandler);
+				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE, false, changedHandler);
 		intWarrantyTimeTextItem = new GHATextItem("Duración",
-				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE, true, changedHandler);
+				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE, false, changedHandler);
 		intWarrantyTimeTextItem.setLength(3);
 		intWarrantyTimeTextItem.setMask("###");
 		intWarrantyPotSelectItem = new GHASelectItem("Periodo de Tiempo",
-				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE, true, changedHandler);
+				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE, false, changedHandler);
 		intWarrantyBeginDate = new GHADateItem("Fecha Inicio",
 				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE, true);
 		intWarrantyBeginDate.addChangedHandler(changedHandler);
