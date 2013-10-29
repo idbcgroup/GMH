@@ -11,7 +11,7 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.eiatype.component.EIATypeComponentSubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.equipment.EIATypeEquipmentSubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.information.EIATypeInformationSubTab;
-import org.fourgeeks.gha.webclient.client.eiatype.material.EIATypeMaterialSubTab;
+import org.fourgeeks.gha.webclient.client.eiatype.materialcategory.EIATypeMaterialCategorySubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.utility.EIATypeUtilitySubTab;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -29,7 +29,7 @@ public class EIATypeInternalTabset extends TabSet implements ResizeHandler,
 	private EIATypeInformationSubTab infoSubTab;
 	private EIATypeEquipmentSubTab equipementsSubTab;
 	private EIATypeComponentSubTab partsSubTab;
-	private EIATypeMaterialSubTab materialSubTab;
+	private EIATypeMaterialCategorySubTab materialSubTab;
 	private EIATypeUtilitySubTab servicesSubTab;
 	// private EIATypeMaintenanceSubTab maintenanceSubTab;
 	private List<GHAHideable> hideables = new ArrayList<GHAHideable>();
@@ -54,7 +54,7 @@ public class EIATypeInternalTabset extends TabSet implements ResizeHandler,
 		partsSubTab = new EIATypeComponentSubTab(tab);
 		hideables.add(partsSubTab);
 		closables.add(partsSubTab);
-		materialSubTab = new EIATypeMaterialSubTab(tab);
+		materialSubTab = new EIATypeMaterialCategorySubTab(tab);
 		hideables.add(materialSubTab);
 		closables.add(materialSubTab);
 		servicesSubTab = new EIATypeUtilitySubTab(tab);

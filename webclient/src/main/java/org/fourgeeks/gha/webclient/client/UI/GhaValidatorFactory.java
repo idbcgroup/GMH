@@ -5,6 +5,7 @@ import javax.validation.Validator;
 import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.glm.Material;
+import org.fourgeeks.gha.domain.glm.MaterialCategory;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
@@ -28,7 +29,10 @@ public final class GhaValidatorFactory extends AbstractGwtValidatorFactory {
 	 * Only the classes and groups listed in the GwtValidation annotation can be
 	 * validated.
 	 */
-	@GwtValidation({ EiaType.class, Eia.class, Material.class, SSOUser.class, Citizen.class, LegalEntity.class, Bpu.class, MaintenanceProtocol.class, MaintenancePlan.class, MaintenanceActivity.class })
+	@GwtValidation({ EiaType.class, Eia.class, Material.class,
+			MaterialCategory.class, SSOUser.class, Citizen.class,
+			LegalEntity.class, Bpu.class, MaintenanceProtocol.class,
+			MaintenancePlan.class, MaintenanceActivity.class })
 	public interface GwtValidator extends Validator {
 	}
 

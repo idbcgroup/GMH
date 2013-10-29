@@ -163,16 +163,6 @@
 		<url-pattern>/webclient/eiaComponent</url-pattern>
 	</servlet-mapping>
 
-	<servlet>
-		<servlet-name>GWTEiaTypeMaterialService</servlet-name>
-		<servlet-class>org.fourgeeks.gha.webclient.server.eiatype.material.GWTEiaTypeMaterialServiceImpl</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>GWTEiaTypeMaterialService</servlet-name>
-		<url-pattern>/webclient/eiaTypeMaterial</url-pattern>
-	</servlet-mapping>
-
 	<!-- Default page to serve -->
 	<welcome-file-list>
 		<welcome-file>gha.html</welcome-file>

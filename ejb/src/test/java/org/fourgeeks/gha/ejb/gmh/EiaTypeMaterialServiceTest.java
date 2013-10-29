@@ -14,7 +14,7 @@ import javax.transaction.UserTransaction;
 import junit.framework.Assert;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
-import org.fourgeeks.gha.domain.gmh.EiaTypeMaterial;
+import org.fourgeeks.gha.domain.gmh.EiaTypeMaterialCategory;
 import org.fourgeeks.gha.ejb.GhaServiceTest;
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Test;
@@ -30,7 +30,7 @@ public class EiaTypeMaterialServiceTest extends GhaServiceTest {
 	EntityManager em;
 
 	@EJB(name = "gmh.EiaTypeMaterialService")
-	EiaTypeMaterialServiceRemote service;
+	EiaTypeMaterialCategoryServiceRemote service;
 
 	@Inject
 	UserTransaction ux;
@@ -46,7 +46,7 @@ public class EiaTypeMaterialServiceTest extends GhaServiceTest {
 		ux.begin();
 		em.joinTransaction();
 
-		EiaTypeMaterial entity = new EiaTypeMaterial();
+		EiaTypeMaterialCategory entity = new EiaTypeMaterialCategory();
 		entity.setEiaType(super.getEiaType(em));
 
 		entity = service.save(entity);

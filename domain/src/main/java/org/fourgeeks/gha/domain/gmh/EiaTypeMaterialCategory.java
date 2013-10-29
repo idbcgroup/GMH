@@ -18,11 +18,12 @@ import org.fourgeeks.gha.domain.glm.MaterialCategory;
  * @author emiliot
  * 
  */
+
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "materialFk",
-		"eiaTypeFk" }))
-@NamedQueries(value = { @NamedQuery(name = "EiaTypeUtility.findByEiaType", query = "SELECT e from EiaTypeUtility e WHERE e.eiaType = :eiaType order by e.id") })
-public class EiaTypeUtility extends AbstractEntity {
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "eiaTypeFk",
+		"materialCategoryFk" }))
+@NamedQueries(value = { @NamedQuery(name = "EiaTypeMaterialCategory.findByEiaType", query = "SELECT etm FROM EiaTypeMaterialCategory etm WHERE etm.eiaType = :eiaType ORDER BY etm.id") })
+public class EiaTypeMaterialCategory extends AbstractEntity {
 
 	/**
 	 * 
@@ -30,12 +31,20 @@ public class EiaTypeUtility extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 
 	@ManyToOne
-	@JoinColumn(name = "materialFk")
-	private MaterialCategory materialCategory;
-
-	@ManyToOne
 	@JoinColumn(name = "eiaTypeFk")
 	private EiaType eiaType;
+
+	@ManyToOne
+	@JoinColumn(name = "materialCategoryFk")
+	private MaterialCategory materialCategory;
+
+	public EiaType getEiaType() {
+		return eiaType;
+	}
+
+	public void setEiaType(EiaType eiaType) {
+		this.eiaType = eiaType;
+	}
 
 	public MaterialCategory getMaterialCategory() {
 		return materialCategory;
@@ -45,11 +54,4 @@ public class EiaTypeUtility extends AbstractEntity {
 		this.materialCategory = materialCategory;
 	}
 
-	public EiaType getEiaType() {
-		return eiaType;
-	}
-
-	public void setEiaType(EiaType eiaType) {
-		this.eiaType = eiaType;
-	}
 }
