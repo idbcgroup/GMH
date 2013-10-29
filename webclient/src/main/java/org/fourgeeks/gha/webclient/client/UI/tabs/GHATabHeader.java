@@ -109,6 +109,7 @@ public class GHATabHeader extends HLayout implements ResizeHandler {
 				"../resources/img/buscarButton.png",
 				"../resources/img/buscarButtonOver.png");
 		searchOption.addClickHandler(clickHandler);
+		searchOption.selectButton();
 		addMember(searchOption, memberPos++);
 		selectables.add(searchOption);
 	}
@@ -116,6 +117,7 @@ public class GHATabHeader extends HLayout implements ResizeHandler {
 	private static class Option extends Label {
 		private String bgSrc;
 		private String bgSrcOver;
+		private boolean selected = false;
 
 		public Option(final GHATabHeader tabHeader, int width,
 				boolean hoverable, final String bgSrc, final String bgSrcOver) {
@@ -143,14 +145,16 @@ public class GHATabHeader extends HLayout implements ResizeHandler {
 				addMouseOverHandler(new MouseOverHandler() {
 					@Override
 					public void onMouseOver(MouseOverEvent event) {
-						setBackgroundImage(bgSrcOver);
+						if(!selected)
+							setBackgroundImage(bgSrcOver);
 					}
 				});
 				addMouseOutHandler(new MouseOutHandler() {
 
 					@Override
 					public void onMouseOut(MouseOutEvent event) {
-						setBackgroundImage(bgSrc);
+						if(!selected)
+							setBackgroundImage(bgSrc);
 					}
 				});
 			}
@@ -162,12 +166,14 @@ public class GHATabHeader extends HLayout implements ResizeHandler {
 			setContents(text);
 		}
 
-		private void deselectButton() {
+		public void deselectButton() {
 			setBackgroundImage(bgSrc);
+			selected=false;
 		}
 
-		private void selectButton() {
+		public void selectButton() {
 			setBackgroundImage(bgSrcOver);
+			selected=true;
 		}
 
 	}
