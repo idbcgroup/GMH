@@ -2,7 +2,7 @@
 	padding: 0px;
 	margin: 0px;
 	font-size: 10px;
-	font-family: Helvetica;
+	font-family: Helvetica !important;
 }
 
 b{
@@ -198,7 +198,7 @@ body{
 	padding: 0px 10px 5px 0px;
 }
 
-.required, .requiredError{
+.required, .requiredError, .requiredFocused{
 	border: 1px solid #E86842 !important;
 }
 
@@ -218,6 +218,7 @@ select,.select, .combobox{
 	padding: 2px 2px 2px 5px;
 	border: 1px solid #BABABA;
 	margin-right: 1px;
+	r
 }
 
 input[type="text"]:disabled,
