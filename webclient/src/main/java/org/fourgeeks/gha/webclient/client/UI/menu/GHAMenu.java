@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImg;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -31,6 +32,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret The Menu
  */
 public class GHAMenu {
+	
 	private GHAMenu() {
 		throw new UnsupportedOperationException(
 				"This class mus not be instantiaded");
@@ -42,13 +44,15 @@ public class GHAMenu {
 	 */
 	public static class GHAMenuBar extends VLayout implements EventListener,
 			ResizeHandler {
-
+		
+		private GHAImgButton menuButton;
 		private List<GHAMenuOption> options = new ArrayList<GHAMenu.GHAMenuOption>();
 
 		/**
 		 * 
 		 */
-		public GHAMenuBar() {
+		public GHAMenuBar(GHAImgButton button) {
+			menuButton = button;
 			setWidth("200px");
 			setHeight(GHAUiHelper.getTabHeight() + 15 + "px");
 			setMembersMargin(10);
@@ -110,6 +114,7 @@ public class GHAMenu {
 		public void hide() {
 			animateHide(AnimationEffect.FLY);
 			GHAUiHelper.removeDocumentMouseOverHandler(this);
+			menuButton.blur();
 		}
 
 		/**

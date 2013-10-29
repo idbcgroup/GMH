@@ -202,6 +202,10 @@ body{
 	border: 1px solid #E86842 !important;
 }
 
+.requiredValidated, .requiredValidatedFocused{
+	border: 1px solid #267F3E !important;
+}
+
 input, .input{
 	padding: 2px 2px 2px 5px;
 	border: 1px solid #BABABA;
