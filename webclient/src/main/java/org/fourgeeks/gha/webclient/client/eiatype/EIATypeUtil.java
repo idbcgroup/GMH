@@ -23,4 +23,14 @@ public class EIATypeUtil {
 		return list;
 	}
 
+	public static List<EIATypeRecord> toGridRecords(List<EiaType> eiaTypes,
+			EiaType blackEiaType) {
+		List<EIATypeRecord> list = new ArrayList<EIATypeRecord>();
+		for (EiaType eiaType : eiaTypes) {
+			if (!eiaType.equals(blackEiaType))
+				list.add(new EIATypeRecord(eiaType));
+		}
+		return list;
+	}
+
 }
