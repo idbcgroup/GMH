@@ -122,8 +122,11 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 					public void onClick(ClickEvent event) {
 						final Eia selectedRecord = grid.getSelectedEntity();
 
-						if (selectedRecord == null)
-							return;// No record selected
+						if (selectedRecord == null) {
+							GHANotification.oldAlert(GHAStrings
+									.get("record-not-selected"));
+							return;
+						}
 
 						eiaUpdateForm.setEia(selectedRecord);
 						eiaUpdateForm.open();
