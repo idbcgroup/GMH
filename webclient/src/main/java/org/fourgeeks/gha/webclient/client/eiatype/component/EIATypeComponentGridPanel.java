@@ -115,8 +115,7 @@ public class EIATypeComponentGridPanel extends VLayout implements
 
 					@Override
 					public void onClick(ClickEvent event) {
-						searchForm.open();
-
+						searchForm.open(EIATypeComponentGridPanel.this.eiaType);
 					}
 				}), new GHAImgButton("../resources/icons/delete.png",
 				new ClickHandler() {

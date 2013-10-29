@@ -280,7 +280,6 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		// false);
 		maintenanceProviderSelectItem = new GHASelectItem("Proveedor de Mant.",
 				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE, true, changedHandler);
-		maintenanceProviderSelectItem.setRequired(true);
 	}
 
 	/**
