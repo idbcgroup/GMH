@@ -151,14 +151,12 @@ public class EIAUpdateForm extends GHASlideInWindow implements
 
 	@Override
 	public boolean canBeClosen() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean canBeHidden() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	/*
@@ -176,6 +174,5 @@ public class EIAUpdateForm extends GHASlideInWindow implements
 
 	private void update() {
 		eiaForm.update();
-		hide();
 	}
 }
