@@ -7,6 +7,7 @@ import org.fourgeeks.gha.domain.gmh.EiaTypeComponent;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
@@ -80,6 +81,9 @@ public class EIATypeComponentGridPanel extends VLayout implements
 
 			@Override
 			public void select(EiaType eiaType) {
+				// clean the search form
+				EIATypeComponentGridPanel.this.searchForm.clean();
+
 				final EiaTypeComponent eiaTypeComponent = new EiaTypeComponent();
 				eiaTypeComponent
 						.setParentEiaType(EIATypeComponentGridPanel.this.eiaType);
@@ -106,13 +110,12 @@ public class EIATypeComponentGridPanel extends VLayout implements
 		GHALabel title = new GHALabel("Componentes");
 
 		// //////Botones laterales
-		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
-				"../resources/icons/new.png", new ClickHandler() {
+		VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
+				new ClickHandler() {
 
 					@Override
 					public void onClick(ClickEvent event) {
-						searchForm.open();
-
+						searchForm.open(EIATypeComponentGridPanel.this.eiaType);
 					}
 				}), new GHAImgButton("../resources/icons/delete.png",
 				new ClickHandler() {

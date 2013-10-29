@@ -34,7 +34,7 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
- * @author alacret
+ * @author alacret, emiliot
  * 
  */
 public class EIATypeSearchForm extends GHASlideInWindow implements
@@ -45,6 +45,15 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 	private EIATypeGrid eiaTypeGrid;
 	private GHASelectItem brandItem, mobilityItem, typeItem, subTypeItem;
 	private EIATypeAddForm addForm;
+
+	/**
+	 * this list is used to exclude from the result the items that match
+	 */
+	private List<EiaType> blackList = null;
+	/**
+	 * this blackEiaType is used to exclude this one from the result list
+	 */
+	private EiaType blackEiaType = null;
 
 	{
 		selectionListeners = new LinkedList<EIATypeSelectionListener>();
@@ -135,8 +144,10 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 		formLayout.setHeight(GHAUiHelper.DEFAULT_TOP_SECTION_HEIGHT + "px");
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
 
-		addMembers(title, formLayout, GHAUiHelper
-				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
+		addMembers(title, formLayout,
+				GHAUiHelper
+						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
+								+ "px"));
 
 		eiaTypeGrid.setHeight(GHAUiHelper.getSubtabGridSize(30));
 		HLayout gridLayout = new HLayout();
@@ -192,7 +203,7 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 	private void selectEiaType() {
 		GHAGridRecord<EiaType> selectedRecord = eiaTypeGrid.getSelectedRecord();
 		if (selectedRecord == null) {
-			GHANotification.oldAlert(GHAStrings.get("record-not-selected"));
+			GHANotification.info(GHAStrings.get("record-not-selected"));
 			return;
 		}
 		notifyEiaType(((EIATypeRecord) selectedRecord).toEntity());
@@ -239,8 +250,11 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 
 			@Override
 			public void onSuccess(List<EiaType> eiaTypes) {
-				ListGridRecord[] array = EIATypeUtil.toGridRecords(eiaTypes)
-						.toArray(new EIATypeRecord[] {});
+				ListGridRecord[] array = blackEiaType == null ? EIATypeUtil
+						.toGridRecords(eiaTypes)
+						.toArray(new EIATypeRecord[] {}) : EIATypeUtil
+						.toGridRecords(eiaTypes, blackEiaType).toArray(
+								new EIATypeRecord[] {});
 				eiaTypeGrid.setData(array);
 				if (eiaType != null && eiaType.getCode() != "")
 					for (ListGridRecord listGridRecord : eiaTypeGrid
@@ -286,13 +300,38 @@ public class EIATypeSearchForm extends GHASlideInWindow implements
 
 	@Override
 	public boolean canBeClosen() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean canBeHidden() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
+	}
+
+	/**
+	 * 
+	 */
+	public void clean() {
+		eiaTypeGrid.setData(new EIATypeRecord[] {});
+	}
+
+	/**
+	 * this method is used to have a blacklist to filter results
+	 * 
+	 * @param blackList
+	 */
+	public void open(List<EiaType> blackList) {
+		this.blackList = blackList;
+		open();
+	}
+
+	/**
+	 * this method is used to exclude the blackEiaType from the results
+	 * 
+	 * @param blackEiaType
+	 */
+	public void open(EiaType blackEiaType) {
+		this.blackEiaType = blackEiaType;
+		open();
 	}
 }
