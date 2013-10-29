@@ -33,7 +33,7 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
- * @author alacret
+ * @author alacret, emiliot
  * 
  */
 public class EIATypeTopForm extends HLayout implements
@@ -130,6 +130,13 @@ public class EIATypeTopForm extends HLayout implements
 					public void onClick(ClickEvent event) {
 						search();
 					}
+				}), new GHAImgButton("../resources/icons/clean.png",
+				new ClickHandler() {
+
+					@Override
+					public void onClick(ClickEvent event) {
+						clearFields();
+					}
 				}));
 		addMembers(form, /* new LayoutSpacer(), photoPanel, */
 				new LayoutSpacer(), sideButtons);
@@ -180,6 +187,16 @@ public class EIATypeTopForm extends HLayout implements
 		subTypeItem.enable();
 		activated = true;
 
+	}
+
+	public void clearFields() {
+		codeItem.clearValue();
+		nameItem.clearValue();
+		brandItem.clearValue();
+		modelItem.clearValue();
+		mobilityItem.clearValue();
+		typeItem.clearValue();
+		subTypeItem.clearValue();
 	}
 
 	public void deactivate() {
