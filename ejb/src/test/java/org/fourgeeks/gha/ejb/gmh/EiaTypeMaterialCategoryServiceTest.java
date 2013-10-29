@@ -25,7 +25,7 @@ import org.junit.runner.RunWith;
  * 
  */
 @RunWith(Arquillian.class)
-public class EiaTypeMaterialServiceTest extends GhaServiceTest {
+public class EiaTypeMaterialCategoryServiceTest extends GhaServiceTest {
 	@PersistenceContext
 	EntityManager em;
 
