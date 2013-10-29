@@ -29,12 +29,10 @@ public class EIATypeInformationFormPanel extends VLayout implements
 
 	private EiaTypeForm form;
 	private List<EIATypeSelectionListener> listeners;
-	private EiaType originalEiaType;
 
 	{
 		form = new EiaTypeForm();
 		listeners = new ArrayList<EIATypeSelectionListener>();
-		originalEiaType = null;
 
 		// // inicializando componentes de las imagenes
 		// img1 = new Img("../resources/img/default.png", 130, 130);
@@ -488,7 +486,6 @@ public class EIATypeInformationFormPanel extends VLayout implements
 	 * @param eiaType
 	 */
 	public void setEiaType(EiaType eiaType) {
-		this.originalEiaType = eiaType;
 		form.setEiaType(eiaType);
 
 		activate();
@@ -496,6 +493,6 @@ public class EIATypeInformationFormPanel extends VLayout implements
 	}
 
 	protected void undo() {
-		select(this.originalEiaType);
+		form.undo();
 	}
 }
