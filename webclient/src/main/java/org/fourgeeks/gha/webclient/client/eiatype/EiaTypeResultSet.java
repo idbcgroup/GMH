@@ -143,8 +143,8 @@ public class EiaTypeResultSet extends VLayout implements EiaTypeSelectionProduce
 	}
 
 	private void mostrarCantResults(List<?> datos) {
-		String titulo = searchResultsLabel.getTitle();
-		searchResultsLabel.setContents(titulo + ": " + datos.size() + " resultados");
+		String tituloSearchResults = GHAStrings.get("search-results");
+		searchResultsLabel.setContents(tituloSearchResults + ": " + datos.size() + " resultados");
 		searchResultsLabel.redraw();
 	}
 

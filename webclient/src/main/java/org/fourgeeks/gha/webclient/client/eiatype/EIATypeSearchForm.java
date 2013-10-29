@@ -142,7 +142,6 @@ public class EIATypeSearchForm extends GHASearchForm implements EIATypeSelection
 
 		eiaTypeGrid.setHeight(GHAUiHelper.getSubtabGridSize(30));
 		HLayout gridLayout = new HLayout();
-		gridLayout.setPadding(10);
 
 		VLayout sideGridButtons = GHAUiHelper.createBar(new GHAImgButton(
 				"../resources/icons/check.png", new ClickHandler() {
@@ -162,9 +161,8 @@ public class EIATypeSearchForm extends GHASearchForm implements EIATypeSelection
 		gridLayout.addMembers(eiaTypeGrid, sideGridButtons);
 
 		searchResultsLabel = new GHALabel(GHAStrings.get("search-results"));
-		searchResultsLabel.setTop(10);
 
-		addMembers(searchResultsLabel, gridLayout);
+		addMembers(GHAUiHelper.verticalSeparator("10px"), searchResultsLabel, gridLayout);
 		fill();
 
 		// register as listener to the addform producer
@@ -256,8 +254,8 @@ public class EIATypeSearchForm extends GHASearchForm implements EIATypeSelection
 	}
 
 	private void mostrarCantResults(List<?> datos) {
-		String titulo = searchResultsLabel.getTitle();
-		searchResultsLabel.setContents(titulo + ": " + datos.size() + " resultados");
+		String tituloSearchResults = GHAStrings.get("search-results");
+		searchResultsLabel.setContents(tituloSearchResults + ": " + datos.size() + " resultados");
 		searchResultsLabel.redraw();
 	}
 

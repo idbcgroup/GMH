@@ -131,7 +131,6 @@ public class MaterialSearchForm extends GHASlideInWindow implements MaterialSele
 
 		grid = new MaterialGrid();
 		HLayout gridLayout = new HLayout();
-		gridLayout.setPadding(10);
 
 		VLayout sideGridButtons = GHAUiHelper.createBar(new GHAImgButton(
 				"../resources/icons/check.png", new ClickHandler() {
@@ -158,9 +157,8 @@ public class MaterialSearchForm extends GHASlideInWindow implements MaterialSele
 		gridLayout.addMembers(grid, sideGridButtons);
 
 		searchResultsLabel = new GHALabel(GHAStrings.get("search-results"));
-		searchResultsLabel.setTop(10);
 
-		addMembers(searchResultsLabel, gridLayout);
+		addMembers(GHAUiHelper.verticalSeparator("10px"), searchResultsLabel, gridLayout);
 		fillSelects();
 	}
 
@@ -229,8 +227,8 @@ public class MaterialSearchForm extends GHASlideInWindow implements MaterialSele
 	}
 
 	private void mostrarCantResults(List<?> datos) {
-		String titulo = searchResultsLabel.getTitle();
-		searchResultsLabel.setContents(titulo + ": " + datos.size() + " resultados");
+		String tituloSearchResults = GHAStrings.get("search-results");
+		searchResultsLabel.setContents(tituloSearchResults + ": " + datos.size() + " resultados");
 		searchResultsLabel.redraw();
 	}
 

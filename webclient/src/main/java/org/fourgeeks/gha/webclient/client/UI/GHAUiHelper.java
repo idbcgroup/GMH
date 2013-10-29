@@ -114,6 +114,13 @@ public abstract class GHAUiHelper {
 		return separator;
 	}
 
+	public static VLayout verticalSeparator(String height) {
+		VLayout separator = new VLayout();
+		separator.setWidth100();
+		separator.setHeight(height);
+		return separator;
+	}
+
 	public static HLayout verticalGraySeparatorLabel(String height, String text) {
 		HLayout separator = new HLayout();
 		separator.setWidth100();
