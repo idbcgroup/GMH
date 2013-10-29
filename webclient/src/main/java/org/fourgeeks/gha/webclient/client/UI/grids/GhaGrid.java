@@ -24,7 +24,7 @@ public class GhaGrid<T> extends ListGrid implements ResizeHandler {
 		setWidth100();
 		setHeight(GHAUiHelper.getSubtabGridSize(30));
 		setAlternateRecordStyles(false);
-		setCanResizeFields(false);
+		setMinFieldWidth(100);
 	}
 
 	/**
@@ -48,8 +48,9 @@ public class GhaGrid<T> extends ListGrid implements ResizeHandler {
 		@SuppressWarnings("unchecked")
 		GHAGridRecord<T> selectedRecord = (GHAGridRecord<T>) super
 				.getSelectedRecord();
-		if (selectedRecord == null)
+		if (selectedRecord == null) {
 			return null;
+		}
 		return selectedRecord.toEntity();
 	}
 

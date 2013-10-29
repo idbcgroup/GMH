@@ -5,6 +5,7 @@ import java.util.List;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHANewButton;
@@ -80,8 +81,11 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 
 						final Eia selectedRecord = grid.getSelectedEntity();
 
-						if (selectedRecord == null)
-							return;// No record selected
+						if (selectedRecord == null) {
+							GHANotification.oldAlert(GHAStrings
+									.get("record-not-selected"));
+							return;
+						}
 
 						GHANotification
 								.confirm(
@@ -118,8 +122,11 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 					public void onClick(ClickEvent event) {
 						final Eia selectedRecord = grid.getSelectedEntity();
 
-						if (selectedRecord == null)
-							return;// No record selected
+						if (selectedRecord == null) {
+							GHANotification.oldAlert(GHAStrings
+									.get("record-not-selected"));
+							return;
+						}
 
 						eiaUpdateForm.setEia(selectedRecord);
 						eiaUpdateForm.open();

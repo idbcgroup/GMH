@@ -11,6 +11,7 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.AnimationCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -51,7 +52,7 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 
 			@Override
 			public void onClick(ClickEvent event) {
-				hide();
+				canBeHide();
 			}
 		}));
 
@@ -113,11 +114,38 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 		setHeight(GHAUiHelper.getTabHeight());
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow#open
+	 * ()
+	 */
+	@Override
+	public void open() {
+		super.open();
+		form.activate();
+	}
+
 	@Override
 	public void removeEiaTypeSelectionListener(
 			EIATypeSelectionListener eIATypeSelectionListener) {
 		form.removeEiaTypeSelectionListener(eIATypeSelectionListener);
 
+	}
+
+	public void canBeHide() {
+		form.canBeHidden(new BooleanCallback() {
+
+			@Override
+			public void execute(Boolean value) {
+				if (value == true) {
+					// user selected to discard changes or there are no changes
+					EIATypeAddForm.this.hide();
+
+				}
+			}
+		});
 	}
 
 	private void save() {

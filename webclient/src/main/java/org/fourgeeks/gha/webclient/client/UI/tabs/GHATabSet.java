@@ -133,9 +133,6 @@ public final class GHATabSet {
 	 * Build the Menu
 	 */
 	public static void buildMenu() {
-		verticalMenu = new GHAMenuBar();
-		GHAUiHelper.addGHAResizeHandler(verticalMenu);
-
 		GHAImgButton menu = new GHAImgButton("../resources/icons/menu.png");
 		menu.setSize("34px", "22px");
 		menu.addClickHandler(new ClickHandler() {
@@ -153,6 +150,9 @@ public final class GHATabSet {
 
 		hPanel.add(menu);
 
+		verticalMenu = new GHAMenuBar(menu);
+		GHAUiHelper.addGHAResizeHandler(verticalMenu);
+		
 		Bpu user = GHASessionData.getLoggedUser();
 		List<GHAMenuOption> menuOptions = getMenuOptions(user);
 		for (GHAMenuOption ghaMenuOption : menuOptions)

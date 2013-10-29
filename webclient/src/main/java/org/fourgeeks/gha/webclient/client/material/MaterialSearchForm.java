@@ -9,10 +9,12 @@ import org.fourgeeks.gha.domain.glm.Material;
 import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -138,6 +140,12 @@ public class MaterialSearchForm extends GHASlideInWindow implements
 
 					@Override
 					public void onClick(ClickEvent event) {
+						if (grid.getSelectedEntity() == null) {
+							GHANotification.oldAlert(GHAStrings
+									.get("record-not-selected"));
+							return;
+						}
+
 						selectMaterial(grid.getSelectedEntity());
 						hide();
 					}

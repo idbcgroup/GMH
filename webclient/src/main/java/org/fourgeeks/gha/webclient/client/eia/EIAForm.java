@@ -99,7 +99,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 
 	private Validator validator;
 	private List<EIASelectionListener> listeners;
-	private Eia entity;
+	private Eia updateEntity;
 
 	private boolean hasUnCommittedChanges = false;
 	private ChangedHandler changedHandler = new ChangedHandler() {
@@ -381,8 +381,8 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 						@Override
 						public void execute(Boolean value) {
 							if (value.booleanValue()) {
+								undo();
 								hasUnCommittedChanges = false;
-								// TODO: descartar cambios
 							}
 						}
 					});
@@ -398,8 +398,8 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 						@Override
 						public void execute(Boolean value) {
 							if (value.booleanValue()) {
+								undo();
 								hasUnCommittedChanges = false;
-								// TODO: descartar cambios
 							}
 						}
 					});
@@ -410,7 +410,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 	 * 
 	 */
 	public void cancel() {
-		this.entity = null;
+		this.updateEntity = null;
 		// clean text fields
 		codeTextItem.clearValue();
 		serialTextItem.clearValue();
@@ -488,10 +488,10 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 	 */
 	private Eia extract() {
 		Eia eia;
-		if (this.entity == null)
+		if (this.updateEntity == null)
 			eia = new Eia();
 		else
-			eia = this.entity;
+			eia = this.updateEntity;
 
 		// basic information
 		if (eiaTypeSelectItem.getValue() != null)
@@ -1007,7 +1007,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 	 * @param eia
 	 */
 	public void setEia(Eia eia) {
-		this.entity = eia;
+		this.updateEntity = eia;
 		// basic information
 		if (eia.getEiaType() != null)
 			eiaTypeSelectItem.setValue(eia.getEiaType().getCode());
@@ -1207,6 +1207,17 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		purchaseInvoiceDateItem.setDisabled(!activate);
 		purchaseOrderDateItem.setDisabled(!activate);
 		acceptationDateItem.setDisabled(!activate);
+	}
+
+	/**
+	 * This method returns the form to the original entity or clean the form
+	 * if(updateEntity == null) cancel() else select(updateEntity)
+	 */
+	public void undo() {
+		if (updateEntity == null)
+			cancel();
+		else
+			this.setEia(updateEntity);
 	}
 
 	/**

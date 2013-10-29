@@ -3,6 +3,8 @@ package org.fourgeeks.gha.webclient.client.UI.formItems;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
 import com.smartgwt.client.widgets.form.fields.TextItem;
+import com.smartgwt.client.widgets.form.fields.events.BlurEvent;
+import com.smartgwt.client.widgets.form.fields.events.BlurHandler;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 
 /**
@@ -90,9 +92,20 @@ public class GHATextItem extends TextItem {
 	@Override
 	public void setRequired(Boolean required) {
 		super.setRequired(required);
-		if (required)
+		if (required){
 			setTextBoxStyle("input required");
-		else
+			addBlurHandler(new BlurHandler() {
+				@Override
+				public void onBlur(BlurEvent event) {
+					if(validate()){
+						setTextBoxStyle("input requiredValidated");
+					}else{
+						setTextBoxStyle("input required");
+					}
+				}
+			});
+		}else{
 			setTextBoxStyle("input");
+		}
 	}
 }

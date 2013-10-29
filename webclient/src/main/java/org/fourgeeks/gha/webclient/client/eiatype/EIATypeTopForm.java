@@ -28,6 +28,8 @@ import com.smartgwt.client.types.VerticalAlignment;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
+import com.smartgwt.client.widgets.form.fields.events.KeyUpEvent;
+import com.smartgwt.client.widgets.form.fields.events.KeyUpHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
@@ -55,13 +57,13 @@ public class EIATypeTopForm extends HLayout implements
 	{
 		// eiaTypeSearchForm = new EIATypeSearchForm();
 		codeItem = new GHACodeItem(230);
+		modelItem = new GHATextItem(GHAStrings.get("model"), 230);
 		nameItem = new GHATextItem(GHAStrings.get("name"), 460);
 		nameItem.setColSpan(2);
-		brandItem = new GHABrandSelectItem(200);
-		modelItem = new GHATextItem(GHAStrings.get("model"), 230);
-		mobilityItem = new GHAMobilitySelectItem(220);
-		typeItem = new GHAEiaTypeTypeSelectItem(220);
-		subTypeItem = new GHAEiaTypeSubTypeSelectItem(220);
+		brandItem = new GHABrandSelectItem(230);
+		mobilityItem = new GHAMobilitySelectItem(230);
+		typeItem = new GHAEiaTypeTypeSelectItem(230);
+		subTypeItem = new GHAEiaTypeSubTypeSelectItem(230);
 
 	}
 
@@ -124,6 +126,26 @@ public class EIATypeTopForm extends HLayout implements
 		// photoBotones.addMembers(nextPhoto);
 		// photoPanel.addMembers(photo, photoBotones);
 		// // Botones laterales del Panel
+		
+		KeyUpHandler searchKeyUpHandler = new KeyUpHandler() {
+
+			@Override
+			public void onKeyUp(KeyUpEvent event) {
+				if (event.getKeyName().equals("Enter")) {
+					search();
+				}
+			}
+		};
+		
+		
+		codeItem.addKeyUpHandler(searchKeyUpHandler);
+		modelItem.addKeyUpHandler(searchKeyUpHandler);
+		nameItem.addKeyUpHandler(searchKeyUpHandler);
+		brandItem.addKeyUpHandler(searchKeyUpHandler);
+		mobilityItem.addKeyUpHandler(searchKeyUpHandler);
+		typeItem.addKeyUpHandler(searchKeyUpHandler);
+		subTypeItem.addKeyUpHandler(searchKeyUpHandler);
+		
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
 				"../resources/icons/search.png", new ClickHandler() {
 					@Override

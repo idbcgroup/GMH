@@ -1,8 +1,8 @@
 *{
 	padding: 0px;
 	margin: 0px;
-	font-size: 10px;
-	font-family: Helvetica;
+	font-size: small;
+	font-family: Helvetica !important;
 }
 
 b{
@@ -185,7 +185,7 @@ body{
 }
 
 .login-titulo{
-	font-size:12px;
+	font-size:20px;
 	text-align: center;
 	width: 100%;
 	margin:15px auto 15px auto;
@@ -198,18 +198,24 @@ body{
 	padding: 0px 10px 5px 0px;
 }
 
-.required, .requiredError{
+.required, .requiredError, .requiredFocused{
 	border: 1px solid #E86842 !important;
+}
+
+.requiredValidated, .requiredValidatedFocused{
+	border: 1px solid #267F3E !important;
 }
 
 input, .input{
 	padding: 2px 2px 2px 5px;
 	border: 1px solid #BABABA;
+	border-radius: 3px 3px 3px 3px;
 }
 
 input, .dateItem{
 	padding: 2px 2px 2px 5px;
 	border: 1px solid #BABABA;
+	border-radius: 3px 3px 3px 3px;
 	text-align: left;
 }
 
@@ -217,7 +223,7 @@ select,.select, .combobox{
 	background-color: #FFFFFF;
 	padding: 2px 2px 2px 5px;
 	border: 1px solid #BABABA;
-	margin-right: 1px;
+	border-radius: 3px 0px 0px 3px;
 }
 
 input[type="text"]:disabled,
@@ -225,6 +231,7 @@ input[type="text"]:disabled,
 	background-color:#F6F6F6;
 	padding: 2px 2px 2px 5px;
 	border: 1px solid #BABABA;
+	border-radius: 3px 3px 3px 3px;
 }
 
 .selectDisabled, .comboboxDisabled,
@@ -233,6 +240,8 @@ input[type="text"]:disabled,
 	padding: 2px 2px 2px 5px;
 	margin-right: 1px;
 	border: 1px solid #BABABA;
+	border-radius: 3px 0px 0px 3px;
+	color: #ababab;
 }
 
 /*
@@ -263,16 +272,13 @@ input[type="text"]:disabled,
 
 span.input-title label,span.input-title{
 	color:black;
-	font-size:10px;	
 	font-weight: normal;
 }
 
 span.input-titleFocused label,span.input-titleFocused{
 	color:#828282;
-	font-size:10px;	
-	font-weight: normal;
+	font-weight: bold;
 /* 	font-weight: bold; */
-	border-color:yellow;
 }
 
 input[type=text].round,input[type=password].round{
@@ -332,11 +338,19 @@ table.GHAupload-button tbody tr td form div.upld-form-elements div.DecoratedFile
 	z-index: -80000;
 }
 
+.slideInWindowsBackDiv{
+	position:absolute;
+	top:0px;
+	left:0px;
+	width: 100%;
+	height: 100%;
+	z-index: -60000;
+}
+
 .dim{
 	position:absolute;
 	background-color:black;
-	opacity: 0.5;
-	z-index: 80000;
+	opacity: 0.3;
 }
 
 

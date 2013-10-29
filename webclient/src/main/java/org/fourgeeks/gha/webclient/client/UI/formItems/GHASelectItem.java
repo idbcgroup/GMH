@@ -1,6 +1,8 @@
 package org.fourgeeks.gha.webclient.client.UI.formItems;
 
 import com.smartgwt.client.widgets.form.fields.SelectItem;
+import com.smartgwt.client.widgets.form.fields.events.BlurEvent;
+import com.smartgwt.client.widgets.form.fields.events.BlurHandler;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 
 /**
@@ -91,9 +93,20 @@ public class GHASelectItem extends SelectItem {
 	@Override
 	public void setRequired(Boolean required) {
 		super.setRequired(required);
-		if (required)
+		if (required){
 			setTextBoxStyle("select required");
-		else
+			addBlurHandler(new BlurHandler() {
+				@Override
+				public void onBlur(BlurEvent event) {
+					if(validate()){
+						setTextBoxStyle("select requiredValidated");
+					}else{
+						setTextBoxStyle("select required");
+					}
+				}
+			});			
+		}else{
 			setTextBoxStyle("select");
+		}
 	}
 }

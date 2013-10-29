@@ -64,7 +64,7 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer,
 	/**
 	 * Used only for update purposes, to hold id and such values
 	 */
-	private EiaType updateEiaType;
+	private EiaType updateEntity;
 	private boolean hasUnCommittedChanges = false;
 	private ChangedHandler changedHandler = new ChangedHandler() {
 
@@ -76,6 +76,8 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer,
 	private Validator validator;
 	{
 		codeItem = new GHACodeItem(true, 300, changedHandler);
+		codeItem.disable();
+
 		nameItem = new GHATextItem(GHAStrings.get("name"), 300, true,
 				changedHandler);
 		typeItem = new GHAEiaTypeTypeSelectItem(300, true, changedHandler);
@@ -183,8 +185,8 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer,
 						@Override
 						public void execute(Boolean value) {
 							if (value.booleanValue()) {
+								undo();
 								hasUnCommittedChanges = false;
-								// TODO: descartar cambios
 							}
 						}
 					});
@@ -200,12 +202,39 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer,
 						@Override
 						public void execute(Boolean value) {
 							if (value.booleanValue()) {
+								undo();
 								hasUnCommittedChanges = false;
-								// TODO: descartar cambios
 							}
 						}
 					});
 		return !hasUnCommittedChanges;
+	}
+
+	/**
+	 * this method is used to hide the add/update form containing this form
+	 * after the user select or not to discard changes they try to close/hide
+	 * 
+	 * @param callback
+	 * @return
+	 */
+	public void canBeHidden(final BooleanCallback callback) {
+		if (hasUnCommittedChanges)
+			GHANotification.confirm(GHAStrings.get("information"),
+					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
+
+						@Override
+						public void execute(Boolean value) {
+							if (value.booleanValue()) {
+								undo();
+								hasUnCommittedChanges = false;
+
+								callback.execute(value);
+							}
+						}
+					});
+		else
+			callback.execute(true);
+
 	}
 
 	/**
@@ -242,7 +271,7 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer,
 	private EiaType extract(boolean update) {
 		final EiaType eiaType = new EiaType();
 		if (update)
-			eiaType.setCode(this.updateEiaType.getCode());
+			eiaType.setCode(this.updateEntity.getCode());
 
 		if (brandItem.getValue() != null) {
 			if (brandItem.getValueAsString().matches("[1-9]+\\d*")) {
@@ -406,7 +435,7 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer,
 		// or manufacturers
 		fillMans(true);
 
-		this.updateEiaType = eiaType;
+		this.updateEntity = eiaType;
 		if (eiaType.getBrand() != null) {
 			if (eiaType.getBrand().getManufacturer() != null) {
 				manItem.setValue(eiaType.getBrand().getManufacturer().getId());
@@ -448,7 +477,13 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer,
 		} else
 			brandItem.setDisabled(!activate);
 		manItem.setDisabled(!activate);
-		codeItem.setDisabled(!activate);
+
+		// this is to keep the code item disabled while update
+		if (updateEntity == null) // this is suposed to happen only on addform
+			codeItem.setDisabled(!activate);
+		else
+			codeItem.disable();
+
 		nameItem.setDisabled(!activate);
 		descriptionItem.setDisabled(!activate);
 		modelItem.setDisabled(!activate);
@@ -457,6 +492,17 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer,
 		mobilityItem.setDisabled(!activate);
 		typeItem.setDisabled(!activate);
 		subTypeItem.setDisabled(!activate);
+	}
+
+	/**
+	 * This method returns the form to the original entity or clean the form
+	 * if(updateEntity == null) cancel() else select(updateEntity)
+	 */
+	public void undo() {
+		if (updateEntity == null)
+			cancel();
+		else
+			this.setEiaType(updateEntity);
 	}
 
 	/**

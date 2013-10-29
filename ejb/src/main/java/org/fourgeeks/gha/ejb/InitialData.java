@@ -1511,6 +1511,8 @@ public class InitialData {
 						"Buscar un componente para un tipo de equipo"));
 				em.persist(new UiString(LanguageEnum.ES, "search-material",
 						"Buscar un material"));
+				em.persist(new UiString(LanguageEnum.ES, "record-not-selected",
+						"Debe seleccionar un registro"));
 				em.persist(new UiString(LanguageEnum.ES,
 						"search-utility-material",
 						"Buscar un material utilitario"));
