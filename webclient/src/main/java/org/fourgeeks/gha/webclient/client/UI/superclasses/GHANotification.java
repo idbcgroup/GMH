@@ -203,6 +203,8 @@ public class GHANotification {
 		public void close() {
 			// TODO Auto-generated method stub
 			RootPanel.get("notificationsBackDiv").removeStyleName("dim");
+			int windowZIndex = getZIndex();
+			RootPanel.get("notificationsBackDiv").getElement().getStyle().setZIndex(-80000);
 
 			animateHide(AnimationEffect.FADE);
 			backDiv.setVisible(false);
@@ -212,7 +214,9 @@ public class GHANotification {
 		public void show() {
 			// super.show();
 			RootPanel.get("notificationsBackDiv").addStyleName("dim");
-
+			int windowZIndex = getZIndex();
+			RootPanel.get("notificationsBackDiv").getElement().getStyle().setZIndex(windowZIndex - 1);
+			
 			animateShow(AnimationEffect.FADE);
 			setVisible(true);
 			bringToFront();
