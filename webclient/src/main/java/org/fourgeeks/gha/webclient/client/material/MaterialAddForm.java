@@ -1,5 +1,6 @@
 package org.fourgeeks.gha.webclient.client.material;
 
+import org.fourgeeks.gha.domain.glm.Material;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
@@ -17,7 +18,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class MaterialAddForm extends GHASlideInWindow implements
-		MaterialSelectionProducer {
+		MaterialSelectionProducer, MaterialSelectionListener {
 
 	private MaterialForm materialForm;
 	{
@@ -41,7 +42,6 @@ public class MaterialAddForm extends GHASlideInWindow implements
 					@Override
 					public void onClick(ClickEvent event) {
 						materialForm.save();
-						hide();
 					}
 				}), new GHAImgButton("../resources/icons/cancel.png",
 				new ClickHandler() {
@@ -55,6 +55,9 @@ public class MaterialAddForm extends GHASlideInWindow implements
 		HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(materialForm, new LayoutSpacer(), sideButtons);
 		addMember(gridPanel);
+
+		// register as listener to the addForm
+		materialForm.addMaterialSelectionListener(this);
 	}
 
 	@Override
@@ -77,14 +80,25 @@ public class MaterialAddForm extends GHASlideInWindow implements
 
 	@Override
 	public boolean canBeClosen() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean canBeHidden() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.material.MaterialSelectionListener
+	 * #select(org.fourgeeks.gha.domain.glm.Material)
+	 */
+	@Override
+	public void select(Material material) {
+		materialForm.cancel();
+		hide();
 	}
 
 }

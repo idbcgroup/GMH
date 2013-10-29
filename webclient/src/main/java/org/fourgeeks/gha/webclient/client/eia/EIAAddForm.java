@@ -124,12 +124,12 @@ public class EIAAddForm extends GHASlideInWindow implements
 	 */
 	private void save() {
 		form.save();
-		hide();
 	}
 
 	@Override
 	public void select(Eia eia) {
-
+		form.cancel();
+		hide();
 	}
 
 	/*
