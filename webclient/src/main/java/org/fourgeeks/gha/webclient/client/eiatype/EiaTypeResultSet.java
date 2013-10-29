@@ -28,9 +28,10 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author emiliot
  * 
  */
-public class EiaTypeResultSet extends VLayout implements
-		EiaTypeSelectionProducer, ResizeHandler, GHAHideable, GHAClosable {
+public class EiaTypeResultSet extends VLayout implements EiaTypeSelectionProducer, ResizeHandler,
+		GHAHideable, GHAClosable {
 	private List<EIATypeSelectionListener> listeners;
+	private GHALabel searchResultsLabel;
 	private EIATypeGrid grid;
 
 	{
@@ -45,23 +46,22 @@ public class EiaTypeResultSet extends VLayout implements
 		super();
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		setVisible(false);
-		addMember(new GHALabel(GHAStrings.get("search-results")));
+		searchResultsLabel = new GHALabel(GHAStrings.get("search-results"));
+		addMember(searchResultsLabel);
 		HLayout gridPanel = new HLayout();
-		gridPanel.addMembers(grid, GHAUiHelper.createBar(new GHACheckButton(
-				new ClickHandler() {
+		gridPanel.addMembers(grid, GHAUiHelper.createBar(new GHACheckButton(new ClickHandler() {
 
-					@Override
-					public void onClick(ClickEvent event) {
-						notifySelectedEiaType();
-					}
-				}), GHAUiHelper.verticalGraySeparator("2px"),
-				new GHADeleteButton(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				notifySelectedEiaType();
+			}
+		}), GHAUiHelper.verticalGraySeparator("2px"), new GHADeleteButton(new ClickHandler() {
 
-					@Override
-					public void onClick(ClickEvent event) {
-						// TODO delete an selected eiatype
-					}
-				})));
+			@Override
+			public void onClick(ClickEvent event) {
+				// TODO delete an selected eiatype
+			}
+		})));
 		addMember(gridPanel);
 	}
 
@@ -73,8 +73,7 @@ public class EiaTypeResultSet extends VLayout implements
 	 * (org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener)
 	 */
 	@Override
-	public void addEiaTypeSelectionListener(
-			EIATypeSelectionListener eIATypeSelectionListener) {
+	public void addEiaTypeSelectionListener(EIATypeSelectionListener eIATypeSelectionListener) {
 		listeners.add(eIATypeSelectionListener);
 	}
 
@@ -104,8 +103,7 @@ public class EiaTypeResultSet extends VLayout implements
 	 * (org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener)
 	 */
 	@Override
-	public void removeEiaTypeSelectionListener(
-			EIATypeSelectionListener eIATypeSelectionListener) {
+	public void removeEiaTypeSelectionListener(EIATypeSelectionListener eIATypeSelectionListener) {
 		listeners.remove(eIATypeSelectionListener);
 
 	}
@@ -129,6 +127,8 @@ public class EiaTypeResultSet extends VLayout implements
 	 * @param records
 	 */
 	public void setRecords(List<EiaType> records) {
+		mostrarCantResults(records);
+
 		// if only one record is on the list, notify the element and return
 		if (records.size() == 1) {
 			notifyEiaType(records.get(0));
@@ -136,11 +136,16 @@ public class EiaTypeResultSet extends VLayout implements
 			return;
 		}
 
-		ListGridRecord[] array = EIATypeUtil.toGridRecords(records).toArray(
-				new EIATypeRecord[] {});
+		ListGridRecord[] array = EIATypeUtil.toGridRecords(records).toArray(new EIATypeRecord[] {});
 		grid.setData(array);
 		// setAnimateAcceleration(AnimationAcceleration.NONE);
 		this.animateShow(AnimationEffect.FADE);
+	}
+
+	private void mostrarCantResults(List<?> datos) {
+		String titulo = searchResultsLabel.getTitle();
+		searchResultsLabel.setContents(titulo + ": " + datos.size() + " resultados");
+		searchResultsLabel.redraw();
 	}
 
 	@Override

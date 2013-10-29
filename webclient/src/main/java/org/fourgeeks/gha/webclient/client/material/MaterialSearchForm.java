@@ -14,6 +14,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
 
@@ -34,14 +35,16 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret Material search form
  * 
  */
-public class MaterialSearchForm extends GHASlideInWindow implements
-		MaterialSelectionListener, MaterialSelectionProducer {
+public class MaterialSearchForm extends GHASlideInWindow implements MaterialSelectionListener,
+		MaterialSelectionProducer {
 
 	private List<MaterialSelectionListener> selectionListeners;
-	private GHATextItem codeTextItem, nameTextItem, descriptionTextItem,
-			modelTextItem, extCodeTextItem;
+	private GHATextItem codeTextItem, nameTextItem, descriptionTextItem, modelTextItem,
+			extCodeTextItem;
 	protected GHASelectItem typeSelectItem, externalProviderSelectItem;
 	private MaterialGrid grid;
+	private GHALabel searchResultsLabel;
+
 	private MaterialAddForm addForm;
 
 	{
@@ -73,9 +76,8 @@ public class MaterialSearchForm extends GHASlideInWindow implements
 		final DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(5);
-		form.setItems(codeTextItem, nameTextItem, modelTextItem,
-				extCodeTextItem, descriptionTextItem,
-				externalProviderSelectItem, typeSelectItem);
+		form.setItems(codeTextItem, nameTextItem, modelTextItem, extCodeTextItem,
+				descriptionTextItem, externalProviderSelectItem, typeSelectItem);
 
 		// Event Handlers
 		ClickHandler searchClickHandler = new ClickHandler() {
@@ -103,23 +105,21 @@ public class MaterialSearchForm extends GHASlideInWindow implements
 		// ////////////////////////////
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
-				"../resources/icons/search.png", searchClickHandler),
-				new GHAImgButton("../resources/icons/clean.png",
-						new ClickHandler() {
+				"../resources/icons/search.png", searchClickHandler), new GHAImgButton(
+				"../resources/icons/clean.png", new ClickHandler() {
 
-							@Override
-							public void onClick(ClickEvent event) {
-								form.clearValues();
-								grid.setData(new ListGridRecord[0]);
-							}
-						}), new GHAImgButton("../resources/icons/cancel.png",
-						new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						form.clearValues();
+						grid.setData(new ListGridRecord[0]);
+					}
+				}), new GHAImgButton("../resources/icons/cancel.png", new ClickHandler() {
 
-							@Override
-							public void onClick(ClickEvent event) {
-								hide();
-							}
-						}));
+			@Override
+			public void onClick(ClickEvent event) {
+				hide();
+			}
+		}));
 
 		HLayout formLayout = new HLayout();
 		formLayout.setPadding(10);
@@ -127,9 +127,7 @@ public class MaterialSearchForm extends GHASlideInWindow implements
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
 
 		addMembers(title, formLayout,
-				GHAUiHelper
-						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
-								+ "px"));
+				GHAUiHelper.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
 
 		grid = new MaterialGrid();
 		HLayout gridLayout = new HLayout();
@@ -141,8 +139,7 @@ public class MaterialSearchForm extends GHASlideInWindow implements
 					@Override
 					public void onClick(ClickEvent event) {
 						if (grid.getSelectedEntity() == null) {
-							GHANotification.oldAlert(GHAStrings
-									.get("record-not-selected"));
+							GHANotification.oldAlert(GHAStrings.get("record-not-selected"));
 							return;
 						}
 
@@ -160,25 +157,26 @@ public class MaterialSearchForm extends GHASlideInWindow implements
 
 		gridLayout.addMembers(grid, sideGridButtons);
 
-		addMember(gridLayout);
+		searchResultsLabel = new GHALabel(GHAStrings.get("search-results"));
+		searchResultsLabel.setTop(10);
+
+		addMembers(searchResultsLabel, gridLayout);
 		fillSelects();
 	}
 
 	private void fillSelects() {
 		typeSelectItem.setValueMap(MaterialTypeEnum.toValueMap());
-		GHACache.INSTANCE
-				.getExternalProviders(new GHAAsyncCallback<List<ExternalProvider>>() {
+		GHACache.INSTANCE.getExternalProviders(new GHAAsyncCallback<List<ExternalProvider>>() {
 
-					@Override
-					public void onSuccess(List<ExternalProvider> result) {
-						LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-						for (ExternalProvider manufacturer : result)
-							valueMap.put(manufacturer.getId() + "",
-									manufacturer.getInstitution().getName());
-						externalProviderSelectItem.setValueMap(valueMap);
+			@Override
+			public void onSuccess(List<ExternalProvider> result) {
+				LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+				for (ExternalProvider manufacturer : result)
+					valueMap.put(manufacturer.getId() + "", manufacturer.getInstitution().getName());
+				externalProviderSelectItem.setValueMap(valueMap);
 
-					}
-				});
+			}
+		});
 	}
 
 	private void selectMaterial(Material material) {
@@ -199,8 +197,7 @@ public class MaterialSearchForm extends GHASlideInWindow implements
 		material.setModel(modelTextItem.getValueAsString());
 		material.setExtCode(extCodeTextItem.getValueAsString());
 		if (typeSelectItem.getValue() != null)
-			material.setType(MaterialTypeEnum.valueOf(typeSelectItem
-					.getValueAsString()));
+			material.setType(MaterialTypeEnum.valueOf(typeSelectItem.getValueAsString()));
 
 		if (externalProviderSelectItem.getValue() != null)
 			material.setExternalProvider(new ExternalProvider(Long
@@ -217,16 +214,24 @@ public class MaterialSearchForm extends GHASlideInWindow implements
 
 			@Override
 			public void onSuccess(List<Material> materials) {
-				ListGridRecord[] array = MaterialUtil.toGridRecords(materials)
-						.toArray(new MaterialRecord[] {});
+				mostrarCantResults(materials);
+
+				ListGridRecord[] array = MaterialUtil.toGridRecords(materials).toArray(
+						new MaterialRecord[] {});
 				grid.setData(array);
 				if (material != null && material.getId() != 0l)
 					for (ListGridRecord listGridRecord : grid.getRecords())
-						if (((MaterialRecord) listGridRecord).toEntity()
-								.getId() == material.getId())
+						if (((MaterialRecord) listGridRecord).toEntity().getId() == material
+								.getId())
 							grid.selectRecord(listGridRecord);
 			}
 		});
+	}
+
+	private void mostrarCantResults(List<?> datos) {
+		String titulo = searchResultsLabel.getTitle();
+		searchResultsLabel.setContents(titulo + ": " + datos.size() + " resultados");
+		searchResultsLabel.redraw();
 	}
 
 	@Override
@@ -245,14 +250,12 @@ public class MaterialSearchForm extends GHASlideInWindow implements
 	}
 
 	@Override
-	public void addMaterialSelectionListener(
-			MaterialSelectionListener materialSelectionListener) {
+	public void addMaterialSelectionListener(MaterialSelectionListener materialSelectionListener) {
 		selectionListeners.add(materialSelectionListener);
 	}
 
 	@Override
-	public void removeMaterialSelectionListener(
-			MaterialSelectionListener materialSelectionListener) {
+	public void removeMaterialSelectionListener(MaterialSelectionListener materialSelectionListener) {
 		selectionListeners.remove(materialSelectionListener);
 	}
 
