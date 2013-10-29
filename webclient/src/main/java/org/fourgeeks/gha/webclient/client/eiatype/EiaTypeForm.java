@@ -76,6 +76,8 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer,
 	private Validator validator;
 	{
 		codeItem = new GHACodeItem(true, 300, changedHandler);
+		codeItem.disable();
+
 		nameItem = new GHATextItem(GHAStrings.get("name"), 300, true,
 				changedHandler);
 		typeItem = new GHAEiaTypeTypeSelectItem(300, true, changedHandler);
@@ -448,7 +450,13 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer,
 		} else
 			brandItem.setDisabled(!activate);
 		manItem.setDisabled(!activate);
-		codeItem.setDisabled(!activate);
+
+		// this is to keep the code item disabled while update
+		if (updateEiaType == null) // this is suposed to happen only on addform
+			codeItem.setDisabled(!activate);
+		else
+			codeItem.disable();
+
 		nameItem.setDisabled(!activate);
 		descriptionItem.setDisabled(!activate);
 		modelItem.setDisabled(!activate);
