@@ -58,7 +58,7 @@ public class EIATypeMaterialCategoryGridPanel extends VLayout implements
 						});
 			}
 		};
-		addForm = new MaterialCategoryAddForm();
+		addForm = new MaterialCategoryAddForm(GHAStrings.get("new-material"));
 		addForm.addMaterialSelectionListener(materialSelectionListener);
 		searchForm = new MaterialCategorySearchForm(
 				GHAStrings.get("search-material"));

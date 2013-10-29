@@ -1151,6 +1151,8 @@ public class InitialData {
 				logger.info("Creating uistrings test data");
 				em.persist(new UiString(LanguageEnum.ES, "materials-category",
 						"Categorias de materiales"));
+				em.persist(new UiString(LanguageEnum.ES, "new-material",
+						"Nuevo material"));
 				em.persist(new UiString(LanguageEnum.ES, "utility-services",
 						"Servicios utilitarios"));
 				em.persist(new UiString(LanguageEnum.ES, "external-code", "Codigo externo"));// TODO

@@ -1,9 +1,11 @@
 package org.fourgeeks.gha.webclient.client.materialcategory;
 
+import org.fourgeeks.gha.domain.glm.MaterialCategory;
+import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHACancelButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAAddForm;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -16,7 +18,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class MaterialCategoryAddForm extends GHASlideInWindow implements
+public class MaterialCategoryAddForm extends GHAAddForm implements
 		MaterialCategorySelectionProducer {
 
 	private MaterialCategoryForm materialForm;
@@ -27,30 +29,22 @@ public class MaterialCategoryAddForm extends GHASlideInWindow implements
 	/**
 	 * 
 	 */
-	public MaterialCategoryAddForm() {
-		super();
-		setHeight(GHAUiHelper.getBottomSectionHeight());
-		setTop(240);
-
-		GHALabel title = new GHALabel("Agregar un Material");
-		addMember(title);
-
-		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
-				"../resources/icons/save.png", new ClickHandler() {
-
-					@Override
-					public void onClick(ClickEvent event) {
-						materialForm.save();
-						hide();
-					}
-				}), new GHAImgButton("../resources/icons/cancel.png",
+	public MaterialCategoryAddForm(String title) {
+		super(title);
+		VLayout sideButtons = GHAUiHelper.createBar(new GHASaveButton(
 				new ClickHandler() {
 
 					@Override
 					public void onClick(ClickEvent event) {
-						hide();
+						save();
 					}
-				}));
+				}), new GHACancelButton(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				hide();
+			}
+		}));
 
 		HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(materialForm, new LayoutSpacer(), sideButtons);
@@ -77,14 +71,23 @@ public class MaterialCategoryAddForm extends GHASlideInWindow implements
 
 	@Override
 	public boolean canBeClosen() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean canBeHidden() {
-		// TODO Auto-generated method stub
 		return false;
+	}
+
+	private void save() {
+		materialForm.save(new GHAAsyncCallback<MaterialCategory>() {
+
+			@Override
+			public void onSuccess(MaterialCategory arg0) {
+				hide();
+			}
+
+		});
 	}
 
 }

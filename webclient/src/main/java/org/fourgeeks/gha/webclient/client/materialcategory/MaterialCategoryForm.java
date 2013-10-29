@@ -54,18 +54,20 @@ public class MaterialCategoryForm extends VLayout implements
 
 	{
 		listeners = new ArrayList<MaterialCategorySelectionListener>();
-		codeItem = new GHACodeItem(true, 300, changedHandler);
+		nameItem = new GHATextItem(GHAStrings.get("name"), 900, false,
+				changedHandler);
+		nameItem.setColSpan(2);
+		codeItem = new GHACodeItem(true, 450, changedHandler);
 		externalCodeItem = new GHATextItem(GHAStrings.get("external-code"),
-				300, false, changedHandler);
-		nameItem = new GHATextItem(GHAStrings.get("name"), 300, false,
+				450, false, changedHandler);
+		typeItem = new GHASelectItem(GHAStrings.get("type"), 450, true,
+				changedHandler);
+		modelItem = new GHATextItem(GHAStrings.get("model"), 450, false,
 				changedHandler);
 		descriptionItem = new GHATextAreaItem(GHAStrings.get("description"),
-				480, changedHandler);
-		descriptionItem.setColSpan(3);
-		typeItem = new GHASelectItem(GHAStrings.get("type"), 300, true,
-				changedHandler);
-		modelItem = new GHATextItem(GHAStrings.get("model"), 300, false,
-				changedHandler);
+				900, changedHandler);
+		descriptionItem.setColSpan(2);
+
 		validator = Validation.buildDefaultValidatorFactory().getValidator();
 	}
 
@@ -76,9 +78,9 @@ public class MaterialCategoryForm extends VLayout implements
 		super();
 		form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
-		form.setNumCols(3);
-		form.setItems(codeItem, externalCodeItem, nameItem, descriptionItem,
-				typeItem, modelItem);
+		form.setNumCols(2);
+		form.setItems(nameItem, codeItem, externalCodeItem, typeItem,
+				modelItem, descriptionItem);
 		addMember(form);
 		fill();
 
@@ -89,18 +91,7 @@ public class MaterialCategoryForm extends VLayout implements
 	}
 
 	void save() {
-		final MaterialCategory materialCategory = extract();
-		if (materialCategory != null)
-			MaterialCategoryModel.save(materialCategory,
-					new GHAAsyncCallback<MaterialCategory>() {
-
-						@Override
-						public void onSuccess(MaterialCategory result) {
-							select(result);
-							cancel();
-						}
-					});
-
+		save(null);
 	}
 
 	/**
@@ -200,6 +191,24 @@ public class MaterialCategoryForm extends VLayout implements
 						}
 					});
 		return !hasUnCommittedChanges;
+	}
+
+	public void save(final GHAAsyncCallback<MaterialCategory> ghaAsyncCallback) {
+		final MaterialCategory materialCategory = extract();
+		if (materialCategory != null)
+			MaterialCategoryModel.save(materialCategory,
+					new GHAAsyncCallback<MaterialCategory>() {
+
+						@Override
+						public void onSuccess(MaterialCategory result) {
+							hasUnCommittedChanges = false;
+							select(result);
+							cancel();
+							if (ghaAsyncCallback != null)
+								ghaAsyncCallback.onSuccess(materialCategory);
+						}
+					});
+
 	}
 
 }
