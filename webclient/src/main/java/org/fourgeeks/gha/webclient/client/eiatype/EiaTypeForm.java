@@ -204,38 +204,10 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer,
 						public void execute(Boolean value) {
 							if (value.booleanValue()) {
 								undo();
-								hasUnCommittedChanges = false;
 							}
 						}
 					});
 		return !hasUnCommittedChanges;
-	}
-
-	/**
-	 * this method is used to hide the add/update form containing this form
-	 * after the user select or not to discard changes they try to close/hide
-	 * 
-	 * @param callback
-	 */
-	@Deprecated
-	public void canBeHidden(final BooleanCallback callback) {
-		if (hasUnCommittedChanges)
-			GHANotification.confirm(GHAStrings.get("information"),
-					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
-
-						@Override
-						public void execute(Boolean value) {
-							if (value.booleanValue()) {
-								undo();
-								hasUnCommittedChanges = false;
-
-								callback.execute(value);
-							}
-						}
-					});
-		else
-			callback.execute(true);
-
 	}
 
 	/**
@@ -510,6 +482,7 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer,
 			cancel();
 		else
 			this.setEiaType(updateEntity);
+		hasUnCommittedChanges = false;
 	}
 
 	/**
@@ -528,6 +501,21 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer,
 				}
 			});
 		}
+	}
+
+	/**
+	 * @return the hasUnCommittedChanges
+	 */
+	public boolean hasUnCommittedChanges() {
+		return hasUnCommittedChanges;
+	}
+
+	/**
+	 * @param hasUnCommittedChanges
+	 *            the hasUnCommittedChanges to set
+	 */
+	public void setHasUnCommittedChanges(boolean hasUnCommittedChanges) {
+		this.hasUnCommittedChanges = hasUnCommittedChanges;
 	}
 
 }
