@@ -9,10 +9,9 @@ import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSearchForm;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
@@ -29,8 +28,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret, emiliot
  * 
  */
-public class EIATypeComponentGridPanel extends VLayout implements
-		EIATypeSelectionListener, GHAClosable, GHAHideable {
+public class EIATypeComponentGridPanel extends GHAVerticalLayout implements
+		EIATypeSelectionListener {
 
 	private EIATypeComponentGrid grid;
 	private EiaType eiaType;
@@ -100,10 +99,7 @@ public class EIATypeComponentGridPanel extends VLayout implements
 	}
 
 	public EIATypeComponentGridPanel() {
-		setWidth100();
-		setBackgroundColor("#E0E0E0");
-		setStyleName("sides-padding padding-top");// Esto es VUDU!
-
+		super();
 		GHALabel title = new GHALabel("Componentes");
 
 		// //////Botones laterales

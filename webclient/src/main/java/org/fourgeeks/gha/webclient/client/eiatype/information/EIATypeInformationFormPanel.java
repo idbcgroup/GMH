@@ -6,13 +6,11 @@ import java.util.List;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.eiatype.EiaTypeForm;
 import org.fourgeeks.gha.webclient.client.eiatype.EiaTypeSelectionProducer;
 
-import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -23,9 +21,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class EIATypeInformationFormPanel extends VLayout implements
-		EIATypeSelectionListener, EiaTypeSelectionProducer, GHAClosable,
-		GHAHideable {
+public class EIATypeInformationFormPanel extends GHAVerticalLayout implements
+		EIATypeSelectionListener, EiaTypeSelectionProducer {
 
 	private EiaTypeForm form;
 	private List<EIATypeSelectionListener> listeners;
@@ -117,10 +114,7 @@ public class EIATypeInformationFormPanel extends VLayout implements
 	// }
 
 	public EIATypeInformationFormPanel() {
-		setWidth100();
-		setBackgroundColor("#E0E0E0");
-		setStyleName("sides-padding padding-top");// Esto es VUDU!
-		setAlign(Alignment.CENTER);
+		super();
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
 				"../resources/icons/save.png", new ClickHandler() {

@@ -9,10 +9,9 @@ import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHANewButton;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.eia.EIAAddForm;
 import org.fourgeeks.gha.webclient.client.eia.EIAGrid;
 import org.fourgeeks.gha.webclient.client.eia.EIAModel;
@@ -34,9 +33,9 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class EIATypeEquipmentGridPanel extends VLayout implements
+public class EIATypeEquipmentGridPanel extends GHAVerticalLayout implements
 		EIATypeSelectionListener,/* EiaSelectionProducer, */
-		EIASelectionListener, GHAClosable, GHAHideable {
+		EIASelectionListener {
 
 	private EIAGrid grid;
 	private EiaType eiaType;
@@ -56,10 +55,6 @@ public class EIATypeEquipmentGridPanel extends VLayout implements
 		super();
 		eiaAddForm.addEiaSelectionListener(this);
 		eiaUpdateForm.addEiaSelectionListener(this);
-
-		setStyleName("sides-padding padding-top");// Esto es VUDU!
-		setWidth100();
-		setBackgroundColor("#E0E0E0");
 
 		GHALabel title = new GHALabel(
 				"Equipos pertenecientes a este Tipo de Equipo");

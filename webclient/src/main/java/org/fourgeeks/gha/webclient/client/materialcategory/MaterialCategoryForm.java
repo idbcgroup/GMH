@@ -135,7 +135,8 @@ public class MaterialCategoryForm extends VLayout implements
 		modelItem.clearValue();
 	}
 
-	protected void select(MaterialCategory material) {
+	@Override
+	public void notifyMaterialCategory(MaterialCategory material) {
 		for (MaterialCategorySelectionListener listener : listeners)
 			listener.select(material);
 	}
@@ -202,7 +203,7 @@ public class MaterialCategoryForm extends VLayout implements
 						@Override
 						public void onSuccess(MaterialCategory result) {
 							hasUnCommittedChanges = false;
-							select(result);
+							notifyMaterialCategory(result);
 							cancel();
 							if (ghaAsyncCallback != null)
 								ghaAsyncCallback.onSuccess(materialCategory);

@@ -22,7 +22,7 @@ public class MaterialCategoryGrid extends GhaGrid<MaterialCategory> {
 		GHAGridField nameGridField = new GHAGridField("name",
 				GHAStrings.get("name"));
 		GHAGridField descriptionGridField = new GHAGridField("description",
-				GHAStrings.get("decription"));
+				GHAStrings.get("description"));
 		GHAGridField modelGridField = new GHAGridField("model",
 				GHAStrings.get("model"));
 		GHAGridField extCodeGridField = new GHAGridField("extCode",
