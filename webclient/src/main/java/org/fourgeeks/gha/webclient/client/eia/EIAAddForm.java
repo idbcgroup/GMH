@@ -21,8 +21,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret, emiliot Add Eia Form
  * 
  */
-public class EIAAddForm extends GHASlideInWindow implements
-		EIATypeSelectionListener, EiaSelectionProducer, EIASelectionListener {
+public class EIAAddForm extends GHASlideInWindow implements EIATypeSelectionListener,
+		EiaSelectionProducer, EIASelectionListener {
 	private EIAForm form;
 
 	{
@@ -48,8 +48,7 @@ public class EIAAddForm extends GHASlideInWindow implements
 	}
 
 	@Override
-	public void addEiaSelectionListener(
-			EIASelectionListener eiaSelectionListener) {
+	public void addEiaSelectionListener(EIASelectionListener eiaSelectionListener) {
 		form.addEiaSelectionListener(eiaSelectionListener);
 
 	}
@@ -72,8 +71,8 @@ public class EIAAddForm extends GHASlideInWindow implements
 		setHeight(GHAUiHelper.getTabHeight());
 		addMember(new GHALabel(GHAStrings.get("new-eia")));
 
-		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
-				"../resources/icons/save.png", new ClickHandler() {
+		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton("../resources/icons/save.png",
+				new ClickHandler() {
 
 					@Override
 					public void onClick(ClickEvent event) {
@@ -84,7 +83,8 @@ public class EIAAddForm extends GHASlideInWindow implements
 
 			@Override
 			public void onClick(ClickEvent event) {
-				hide();
+				form.hide();
+				EIAAddForm.this.hide();
 			}
 		}));
 
@@ -114,8 +114,7 @@ public class EIAAddForm extends GHASlideInWindow implements
 	}
 
 	@Override
-	public void removeEiaSelectionListener(
-			EIASelectionListener eiaSelectionListener) {
+	public void removeEiaSelectionListener(EIASelectionListener eiaSelectionListener) {
 		form.removeEiaSelectionListener(eiaSelectionListener);
 	}
 
