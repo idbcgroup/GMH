@@ -33,4 +33,5 @@ public abstract class AbstractCodeEntity implements Serializable {
 	public void setCode(String code) {
 		this.code = code;
 	}
+
 }

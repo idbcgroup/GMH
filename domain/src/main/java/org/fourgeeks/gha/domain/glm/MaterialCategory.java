@@ -36,8 +36,6 @@ public class MaterialCategory extends AbstractCodeEntity {
 	// private ServiceResourceCategory sRCategory;
 
 	private String description;
-	@NotNull(message = "name-not-null")
-	@Column(nullable = false)
 	private String name;
 	private String externalCode;
 	private String model;

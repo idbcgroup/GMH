@@ -21,7 +21,6 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 
-import com.google.gwt.user.client.Window;
 import com.google.gwt.validation.client.impl.Validation;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.util.BooleanCallback;
@@ -196,7 +195,6 @@ public class MaterialCategoryForm extends VLayout implements
 	 * @param ghaAsyncCallback
 	 */
 	public void save(final GHAAsyncCallback<MaterialCategory> ghaAsyncCallback) {
-		Window.alert("extracting");
 		final MaterialCategory materialCategory = extract();
 		if (materialCategory != null)
 			MaterialCategoryModel.save(materialCategory,
@@ -211,9 +209,5 @@ public class MaterialCategoryForm extends VLayout implements
 								ghaAsyncCallback.onSuccess(materialCategory);
 						}
 					});
-		else
-			Window.alert("the extract fail");
-
 	}
-
 }
