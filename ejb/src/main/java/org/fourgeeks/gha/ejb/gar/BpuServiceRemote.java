@@ -5,13 +5,16 @@ package org.fourgeeks.gha.ejb.gar;
 
 import java.util.List;
 
+import javax.ejb.Remote;
+
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
 
 /**
  * @author emiliot
- *
+ * 
  */
+@Remote
 public interface BpuServiceRemote {
 	/**
 	 * @param Id
@@ -32,7 +35,7 @@ public interface BpuServiceRemote {
 	 * @throws GHAEJBException
 	 */
 	public Bpu find(long Id) throws GHAEJBException;
-	
+
 	/**
 	 * @return the list of bpus
 	 * @throws GHAEJBException

@@ -31,6 +31,7 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.brand.BrandModel;
 
+import com.google.gwt.user.client.Window;
 import com.google.gwt.validation.client.impl.Validation;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.util.BooleanCallback;
@@ -215,8 +216,8 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer,
 	 * after the user select or not to discard changes they try to close/hide
 	 * 
 	 * @param callback
-	 * @return
 	 */
+	@Deprecated
 	public void canBeHidden(final BooleanCallback callback) {
 		if (hasUnCommittedChanges)
 			GHANotification.confirm(GHAStrings.get("information"),
@@ -307,9 +308,13 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer,
 		if (subTypeItem.getValue() != null)
 			eiaType.setSubtype(EiaSubTypeEnum.valueOf(subTypeItem
 					.getValueAsString()));
-
-		Set<ConstraintViolation<EiaType>> violations = validator
-				.validate(eiaType);
+		Set<ConstraintViolation<EiaType>> violations = null;
+		try {
+			violations = validator.validate(eiaType);
+		} catch (Exception e) {
+			Window.alert(e.getMessage());
+			e.printStackTrace();
+		}
 		if (form.validate() && violations.isEmpty())
 			return eiaType;
 		else {
@@ -405,6 +410,9 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer,
 		save(null);
 	}
 
+	/**
+	 * @param callback
+	 */
 	public void save(final GHAAsyncCallback<EiaType> callback) {
 		EiaType eiaType = extract(false);
 

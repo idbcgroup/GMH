@@ -13,6 +13,12 @@ import org.fourgeeks.gha.domain.msg.GHAMessageId;
  */
 public class GHAEJBExceptionImpl {
 
+	/**
+	 * @param messageCode
+	 * @param lang
+	 * @param em
+	 * @return a ghaejbexception
+	 */
 	public GHAEJBException generateGHAEJBException(String messageCode,
 			LanguageEnum lang, EntityManager em) {
 		GHAEJBException ghaejbException = new GHAEJBException();

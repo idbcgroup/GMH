@@ -1431,6 +1431,8 @@ public class InitialData {
 						"no-materials-to-show",
 						"No hay materiales para mostrar"));
 				em.persist(new UiString(LanguageEnum.ES, "save", "Guardar"));
+				em.persist(new UiString(LanguageEnum.ES, "cancel", "Cancelar"));
+				em.persist(new UiString(LanguageEnum.ES, "edit", "Editar"));
 				em.persist(new UiString(LanguageEnum.ES, "materials-category",
 						"Categorias de materiales"));
 				em.persist(new UiString(LanguageEnum.ES, "new-material",
