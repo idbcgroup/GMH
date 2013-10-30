@@ -94,10 +94,8 @@ public class MaterialCategorySearchForm extends GHASearchForm<MaterialCategory>
 		formLayout.setHeight(GHAUiHelper.DEFAULT_TOP_SECTION_HEIGHT + "px");
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
 
-		addMembers(formLayout,
-				GHAUiHelper
-						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
-								+ "px"));
+		addMembers(formLayout, GHAUiHelper
+				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
 
 		grid = new MaterialCategoryGrid();
 		HLayout gridLayout = new HLayout();

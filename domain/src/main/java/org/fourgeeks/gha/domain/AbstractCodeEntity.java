@@ -45,10 +45,10 @@ public abstract class AbstractCodeEntity implements Serializable {
 			return false;
 		if (obj == this)
 			return true;
-		if (!(obj instanceof AbstractEntity))
+		if (!(obj instanceof AbstractCodeEntity))
 			return false;
 		AbstractCodeEntity entity = (AbstractCodeEntity) obj;
-		return entity.getCode().equals(this);
+		return entity.getCode().equals(this.code);
 	}
 
 }
