@@ -91,14 +91,12 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements EIAType
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(searchClickHandler),
 				new GHACleanButton(new ClickHandler() {
-
 					@Override
 					public void onClick(ClickEvent event) {
 						form.clearValues();
 						grid.setData(new ListGridRecord[0]);
 					}
 				}), new GHACancelButton(new ClickHandler() {
-
 					@Override
 					public void onClick(ClickEvent event) {
 						hide();
@@ -122,13 +120,7 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements EIAType
 			public void onClick(ClickEvent event) {
 				selectEiaType();
 			}
-		})/*
-		 * , GHAUiHelper.verticalGraySeparator("2px"), new GHAImgButton(
-		 * "../resources/icons/new.png", new ClickHandler() {
-		 * 
-		 * @Override public void onClick(ClickEvent event) { addForm.open(); }
-		 * })
-		 */);
+		}));
 
 		gridLayout.addMembers(grid, sideGridButtons);
 
