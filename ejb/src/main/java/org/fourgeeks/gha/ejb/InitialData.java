@@ -166,16 +166,12 @@ public class InitialData {
 						"Guardado exitoso del Equipo"));
 				em.persist(new GHAMessage(LanguageEnum.ES, "eiatype-save-success",
 						"Guardado exitoso del Tipo de Equipo"));
-<<<<<<< HEAD
 				em.persist(new GHAMessage(LanguageEnum.ES, "eiatype-delete-success",
 						"Eliminación exitosa del Tipo de Equipo"));
 				em.persist(new GHAMessage(LanguageEnum.ES, "eiatypes-delete-success",
 						"Eliminación exitosa de los Tipos de Equipo"));
-=======
-				em.persist(new GHAMessage(LanguageEnum.ES,
-						"material-save-success",
+				em.persist(new GHAMessage(LanguageEnum.ES, "material-save-success",
 						"Guardado exitoso del material"));
->>>>>>> master
 				em.persist(new GHAMessage(LanguageEnum.ES, "user-save-success",
 						"Guardado exitoso del Usuario"));
 				em.persist(new GHAMessage(LanguageEnum.ES, "mplan-save-success",
@@ -1158,8 +1154,7 @@ public class InitialData {
 				em.persist(new UiString(LanguageEnum.ES, "save", "Guardar"));
 				em.persist(new UiString(LanguageEnum.ES, "materials-category",
 						"Categorias de materiales"));
-				em.persist(new UiString(LanguageEnum.ES, "new-material",
-						"Nuevo material"));
+				em.persist(new UiString(LanguageEnum.ES, "new-material", "Nuevo material"));
 				em.persist(new UiString(LanguageEnum.ES, "utility-services",
 						"Servicios utilitarios"));
 				em.persist(new UiString(LanguageEnum.ES, "external-code", "Codigo externo"));// TODO
