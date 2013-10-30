@@ -18,7 +18,6 @@ import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASearchForm;
 
-import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -32,8 +31,9 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret Material search form
  * 
  */
-public class MaterialCategorySearchForm extends GHASearchForm implements
-		MaterialCategorySelectionListener, MaterialCategorySelectionProducer {
+public class MaterialCategorySearchForm extends GHASearchForm<MaterialCategory>
+		implements MaterialCategorySelectionListener,
+		MaterialCategorySelectionProducer {
 
 	private List<MaterialCategorySelectionListener> selectionListeners;
 	private GHATextItem codeTextItem, nameTextItem, descriptionTextItem,
@@ -160,6 +160,9 @@ public class MaterialCategorySearchForm extends GHASearchForm implements
 
 					@Override
 					public void onSuccess(List<MaterialCategory> materials) {
+						if (blackList != null)
+							materials.removeAll(blackList);
+
 						ListGridRecord[] array = MaterialCategoryUtil
 								.toGridRecords(materials).toArray(
 										new MaterialCategoryRecord[] {});
@@ -174,21 +177,6 @@ public class MaterialCategorySearchForm extends GHASearchForm implements
 									grid.selectRecord(listGridRecord);
 					}
 				});
-	}
-
-	@Override
-	public void close() {
-		destroy();
-	}
-
-	@Override
-	public void hide() {
-		super.hide();
-	}
-
-	@Override
-	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getTabHeight() - 4 + "px");
 	}
 
 	@Override
@@ -218,4 +206,5 @@ public class MaterialCategorySearchForm extends GHASearchForm implements
 		for (MaterialCategorySelectionListener listener : selectionListeners)
 			listener.select(materialCategory);
 	}
+
 }

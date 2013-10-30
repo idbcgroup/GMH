@@ -1,5 +1,6 @@
 package org.fourgeeks.gha.webclient.client.eiatype.component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
@@ -15,7 +16,6 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSearchForm;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
-import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
@@ -108,7 +108,7 @@ public class EIATypeComponentGridPanel extends GHAVerticalLayout implements
 
 					@Override
 					public void onClick(ClickEvent event) {
-						searchForm.open(EIATypeComponentGridPanel.this.eiaType);
+						search();
 					}
 				}), new GHAImgButton("../resources/icons/delete.png",
 				new ClickHandler() {
@@ -166,13 +166,12 @@ public class EIATypeComponentGridPanel extends GHAVerticalLayout implements
 
 	@Override
 	public void close() {
-		searchForm.animateHide(AnimationEffect.FLY);
 		searchForm.close();
 	}
 
 	@Override
 	public void hide() {
-		searchForm.animateHide(AnimationEffect.FLY);
+		searchForm.hide();
 	}
 
 	@Override
@@ -183,6 +182,13 @@ public class EIATypeComponentGridPanel extends GHAVerticalLayout implements
 	@Override
 	public boolean canBeClosen() {
 		return true;
+	}
+
+	private void search() {
+		List<EiaType> blackList = new ArrayList<EiaType>();
+		blackList.add(EIATypeComponentGridPanel.this.eiaType);
+		searchForm.open();
+		searchForm.filterBy(blackList);
 	}
 
 }

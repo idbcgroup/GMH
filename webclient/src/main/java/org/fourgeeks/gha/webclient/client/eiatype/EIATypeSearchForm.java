@@ -34,7 +34,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret, emiliot
  * 
  */
-public class EIATypeSearchForm extends GHASearchForm implements
+public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 		EIATypeSelectionListener, EiaTypeSelectionProducer {
 
 	private List<EIATypeSelectionListener> selectionListeners;
@@ -42,15 +42,6 @@ public class EIATypeSearchForm extends GHASearchForm implements
 	private EIATypeGrid grid;
 	private GHASelectItem brandItem, mobilityItem, typeItem, subTypeItem;
 	private EIATypeAddForm addForm;
-
-	/**
-	 * this list is used to exclude from the result the items that match
-	 */
-	private List<EiaType> blackList = null;
-	/**
-	 * this blackEiaType is used to exclude this one from the result list
-	 */
-	private EiaType blackEiaType = null;
 
 	{
 		selectionListeners = new LinkedList<EIATypeSelectionListener>();
@@ -221,11 +212,11 @@ public class EIATypeSearchForm extends GHASearchForm implements
 
 			@Override
 			public void onSuccess(List<EiaType> eiaTypes) {
-				ListGridRecord[] array = blackEiaType == null ? EIATypeUtil
-						.toGridRecords(eiaTypes)
-						.toArray(new EIATypeRecord[] {}) : EIATypeUtil
-						.toGridRecords(eiaTypes, blackEiaType).toArray(
-								new EIATypeRecord[] {});
+				if (blackList != null)
+					eiaTypes.removeAll(blackList);
+
+				ListGridRecord[] array = EIATypeUtil.toGridRecords(eiaTypes)
+						.toArray(new EIATypeRecord[] {});
 				grid.setData(array);
 				if (eiaType != null && eiaType.getCode() != "")
 					for (ListGridRecord listGridRecord : grid.getRecords())
@@ -268,25 +259,5 @@ public class EIATypeSearchForm extends GHASearchForm implements
 	 */
 	public void clean() {
 		grid.setData(new EIATypeRecord[] {});
-	}
-
-	/**
-	 * this method is used to have a blacklist to filter results
-	 * 
-	 * @param blackList
-	 */
-	public void open(List<EiaType> blackList) {
-		this.blackList = blackList;
-		open();
-	}
-
-	/**
-	 * this method is used to exclude the blackEiaType from the results
-	 * 
-	 * @param blackEiaType
-	 */
-	public void open(EiaType blackEiaType) {
-		this.blackEiaType = blackEiaType;
-		open();
 	}
 }

@@ -25,4 +25,21 @@ public abstract class AbstractEntity implements Serializable {
 	public long getId() {
 		return id;
 	}
+
+	@Override
+	public int hashCode() {
+		return (int) this.id;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null)
+			return false;
+		if (obj == this)
+			return true;
+		if (!(obj instanceof AbstractEntity))
+			return false;
+		AbstractEntity entity = (AbstractEntity) obj;
+		return entity.getId() == this.id;
+	}
 }

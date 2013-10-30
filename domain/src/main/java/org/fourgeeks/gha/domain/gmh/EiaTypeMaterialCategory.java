@@ -31,11 +31,11 @@ public class EiaTypeMaterialCategory extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 
 	@ManyToOne
-	@JoinColumn(name = "eiaTypeFk")
+	@JoinColumn(name = "eiaTypeFk", nullable = false)
 	private EiaType eiaType;
 
 	@ManyToOne
-	@JoinColumn(name = "materialCategoryFk")
+	@JoinColumn(name = "materialCategoryFk", nullable = false)
 	private MaterialCategory materialCategory;
 
 	public EiaType getEiaType() {

@@ -1,5 +1,7 @@
 package org.fourgeeks.gha.webclient.client.UI.superclasses;
 
+import java.util.List;
+
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -8,8 +10,10 @@ import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.fields.events.KeyUpEvent;
 import com.smartgwt.client.widgets.form.fields.events.KeyUpHandler;
 
-public abstract class GHASearchForm extends GHASlideInWindow {
+public abstract class GHASearchForm<T> extends GHASlideInWindow {
 	private GHALabel label;
+	protected List<T> blackList;
+
 	protected KeyUpHandler searchKeyUpHandler = new KeyUpHandler() {
 		@Override
 		public void onKeyUp(KeyUpEvent event) {
@@ -51,4 +55,8 @@ public abstract class GHASearchForm extends GHASlideInWindow {
 	}
 
 	public abstract void search();
+
+	public void filterBy(List<T> blackList) {
+		this.blackList = blackList;
+	}
 }
