@@ -322,6 +322,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener, EiaSel
 
 	public void activate() {
 		toggleForm(true);
+		sectionForm.setVisible(true);
 	}
 
 	@Override
@@ -914,6 +915,13 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener, EiaSel
 				workingAreaLocationSelectItem, workingAreaLocationCodeTextItem, facility_TitleItem,
 				new GHASpacerItem(), facilityLocationSelectItem, facilityLocationCodeTextItem);
 		return areaForm;
+	}
+
+	@Override
+	public void hide() {
+		deactivate();
+		sectionForm.hide();
+		super.hide();
 	}
 
 	// //Implementations
