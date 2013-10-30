@@ -1,13 +1,16 @@
 package org.fourgeeks.gha.webclient.client.materialcategory;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.fourgeeks.gha.domain.AbstractCodeEntity;
 import org.fourgeeks.gha.domain.glm.MaterialCategory;
 import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.GHAUtil;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHACodeItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
@@ -55,6 +58,7 @@ public class MaterialCategorySearchForm extends GHASearchForm<MaterialCategory>
 	}
 
 	/**
+	 * @param title
 	 * 
 	 */
 	public MaterialCategorySearchForm(String title) {
@@ -94,8 +98,10 @@ public class MaterialCategorySearchForm extends GHASearchForm<MaterialCategory>
 		formLayout.setHeight(GHAUiHelper.DEFAULT_TOP_SECTION_HEIGHT + "px");
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
 
-		addMembers(formLayout, GHAUiHelper
-				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
+		addMembers(formLayout,
+				GHAUiHelper
+						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
+								+ "px"));
 
 		grid = new MaterialCategoryGrid();
 		HLayout gridLayout = new HLayout();
@@ -157,12 +163,22 @@ public class MaterialCategorySearchForm extends GHASearchForm<MaterialCategory>
 				new GHAAsyncCallback<List<MaterialCategory>>() {
 
 					@Override
-					public void onSuccess(List<MaterialCategory> materials) {
-						if (blackList != null)
-							materials.removeAll(blackList);
+					public void onSuccess(List<MaterialCategory> results) {
+						List<MaterialCategory> newList = null;
+						if (blackList != null) {
+							List<AbstractCodeEntity> tmpList = GHAUtil
+									.binarySearchFilterCodeEntity(results,
+											blackList);
+							List<MaterialCategory> newTmpList = new ArrayList<MaterialCategory>();
+							for (AbstractCodeEntity abstractCodeEntity : tmpList)
+								newTmpList
+										.add((MaterialCategory) abstractCodeEntity);
+							newList = newTmpList;
+						} else
+							newList = results;
 
 						ListGridRecord[] array = MaterialCategoryUtil
-								.toGridRecords(materials).toArray(
+								.toGridRecords(newList).toArray(
 										new MaterialCategoryRecord[] {});
 						grid.setData(array);
 						if (materialCateogry != null

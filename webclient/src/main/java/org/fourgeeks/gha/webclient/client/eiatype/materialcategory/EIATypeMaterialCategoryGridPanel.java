@@ -13,9 +13,8 @@ import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHANewButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.materialcategory.MaterialCategoryAddForm;
 import org.fourgeeks.gha.webclient.client.materialcategory.MaterialCategorySearchForm;
@@ -31,8 +30,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class EIATypeMaterialCategoryGridPanel extends VLayout implements
-		EIATypeSelectionListener, GHAClosable, GHAHideable {
+public class EIATypeMaterialCategoryGridPanel extends GHAVerticalLayout
+		implements EIATypeSelectionListener {
 
 	private EiaTypeMaterialCategoryGrid grid = new EiaTypeMaterialCategoryGrid();
 	private MaterialCategorySearchForm searchForm;
@@ -67,13 +66,11 @@ public class EIATypeMaterialCategoryGridPanel extends VLayout implements
 		searchForm.addMaterialSelectionListener(materialSelectionListener);
 	}
 
+	/**
+	 * 
+	 */
 	public EIATypeMaterialCategoryGridPanel() {
-		setWidth100();
-		setBackgroundColor(GHAUiHelper.DEFAULT_BACKGROUND_COLOR);
-		setStyleName("sides-padding padding-top");
-
-		GHALabel title = new GHALabel(GHAStrings.get("materials"));
-
+		super();
 		VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
 				new ClickHandler() {
 					@Override
@@ -110,7 +107,7 @@ public class EIATypeMaterialCategoryGridPanel extends VLayout implements
 		HLayout mainPanel = new HLayout();
 		mainPanel.addMembers(grid, sideButtons);
 
-		addMembers(title, mainPanel);
+		addMembers(new GHALabel(GHAStrings.get("materials")), mainPanel);
 	}
 
 	@Override

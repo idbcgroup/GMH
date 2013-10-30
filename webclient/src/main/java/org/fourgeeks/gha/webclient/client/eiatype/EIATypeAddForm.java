@@ -122,19 +122,23 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 
 	}
 
-	@Deprecated
 	public void canBeHide() {
-		form.canBeHidden(new BooleanCallback() {
+		if (form.hasUnCommittedChanges()) {
+			GHANotification.confirm(GHAStrings.get("information"),
+					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
 
-			@Override
-			public void execute(Boolean value) {
-				if (value == true) {
-					// user selected to discard changes or there are no changes
-					EIATypeAddForm.this.hide();
-
-				}
-			}
-		});
+						@Override
+						public void execute(Boolean value) {
+							if (value) {
+								// discard changes and hide
+								form.undo();
+								hide();
+							}
+						}
+					});
+		} else {
+			hide();
+		}
 	}
 
 	private void save() {
