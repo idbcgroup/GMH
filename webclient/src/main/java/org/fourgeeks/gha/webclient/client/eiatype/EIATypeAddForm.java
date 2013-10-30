@@ -53,16 +53,13 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 
 			@Override
 			public void onClick(ClickEvent event) {
-				canBeHide();
+				EIATypeAddForm.this.hide();
 			}
 		}));
 
 		HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
 		addMember(gridPanel);
-
-		// register as listener to the eiatypeform
-		// form.addEiaTypeSelectionListener(this);
 	}
 
 	@Override
@@ -122,7 +119,8 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 
 	}
 
-	public void canBeHide() {
+	@Override
+	public void hide() {
 		if (form.hasUnCommittedChanges()) {
 			GHANotification.confirm(GHAStrings.get("information"),
 					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
@@ -132,12 +130,12 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 							if (value) {
 								// discard changes and hide
 								form.undo();
-								hide();
+								EIATypeAddForm.super.hide();
 							}
 						}
 					});
 		} else {
-			hide();
+			super.hide();
 		}
 	}
 
@@ -147,7 +145,7 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 			@Override
 			public void onSuccess(EiaType arg0) {
 				GHANotification.alert("eiatype-save-success");
-				hide();
+				EIATypeAddForm.this.hide();
 
 			}
 		});
