@@ -6,6 +6,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACancelButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAAddForm;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -84,6 +85,7 @@ public class MaterialCategoryAddForm extends GHAAddForm implements
 
 			@Override
 			public void onSuccess(MaterialCategory arg0) {
+				GHANotification.alert("material-save-success");
 				hide();
 			}
 
