@@ -28,6 +28,7 @@ public class MaterialCategoryAddForm extends GHAAddForm implements
 	}
 
 	/**
+	 * @param title
 	 * 
 	 */
 	public MaterialCategoryAddForm(String title) {

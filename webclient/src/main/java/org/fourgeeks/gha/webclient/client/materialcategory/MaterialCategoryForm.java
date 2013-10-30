@@ -12,29 +12,25 @@ import org.fourgeeks.gha.domain.glm.MaterialCategory;
 import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
-import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHACodeItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextAreaItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 
 import com.google.gwt.validation.client.impl.Validation;
 import com.smartgwt.client.types.TitleOrientation;
-import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
-import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
  * @author alacret
  * 
  */
-public class MaterialCategoryForm extends VLayout implements
-		MaterialCategorySelectionProducer, GHAHideable, GHAClosable {
+public class MaterialCategoryForm extends GHAVerticalLayout implements
+		MaterialCategorySelectionProducer {
 
 	private List<MaterialCategorySelectionListener> listeners;
 	private GHATextItem codeItem, externalCodeItem, nameItem, modelItem;
@@ -51,6 +47,7 @@ public class MaterialCategoryForm extends VLayout implements
 			hasUnCommittedChanges = true;
 		}
 	};
+	private MaterialCategory updateEntity;
 
 	{
 		listeners = new ArrayList<MaterialCategorySelectionListener>();
@@ -90,7 +87,10 @@ public class MaterialCategoryForm extends VLayout implements
 		typeItem.setValueMap(MaterialTypeEnum.toValueMap());
 	}
 
-	void save() {
+	/**
+	 * 
+	 */
+	public void save() {
 		save(null);
 	}
 
@@ -152,45 +152,6 @@ public class MaterialCategoryForm extends VLayout implements
 
 	}
 
-	@Override
-	public void close() throws UnavailableToCloseException {
-
-	}
-
-	@Override
-	public boolean canBeClosen() {
-		if (hasUnCommittedChanges)
-			GHANotification.confirm(GHAStrings.get("information"),
-					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
-
-						@Override
-						public void execute(Boolean value) {
-							if (value.booleanValue()) {
-								hasUnCommittedChanges = false;
-								// TODO: descartar cambios
-							}
-						}
-					});
-		return !hasUnCommittedChanges;
-	}
-
-	@Override
-	public boolean canBeHidden() {
-		if (hasUnCommittedChanges)
-			GHANotification.confirm(GHAStrings.get("information"),
-					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
-
-						@Override
-						public void execute(Boolean value) {
-							if (value.booleanValue()) {
-								hasUnCommittedChanges = false;
-								// TODO: descartar cambios
-							}
-						}
-					});
-		return !hasUnCommittedChanges;
-	}
-
 	/**
 	 * @param ghaAsyncCallback
 	 */
@@ -209,5 +170,44 @@ public class MaterialCategoryForm extends VLayout implements
 								ghaAsyncCallback.onSuccess(materialCategory);
 						}
 					});
+	}
+
+	/**
+	 * @return the hasUnCommittedChanges
+	 */
+	public boolean hasUnCommittedChanges() {
+		return hasUnCommittedChanges;
+	}
+
+	/**
+	 * This method returns the form to the original entity or clean the form
+	 * if(updateEntity == null) cancel() else select(updateEntity)
+	 */
+	public void undo() {
+		if (updateEntity == null)
+			cancel();
+		else
+			this.setMaterialCategory(updateEntity);
+		hasUnCommittedChanges = false;
+	}
+
+	/**
+	 * @param materialCategory
+	 */
+	public void setMaterialCategory(MaterialCategory materialCategory) {
+		this.updateEntity = materialCategory;
+
+		codeItem.setValue(materialCategory.getCode());
+		externalCodeItem.setValue(materialCategory.getExternalCode());
+		nameItem.setValue(materialCategory.getName());
+		descriptionItem.setValue(materialCategory.getDescription());
+
+		if (materialCategory.getType() != null)
+			typeItem.setValue(materialCategory.getType().name());
+
+		if (typeItem.getValue() != null)
+			materialCategory.setType(MaterialTypeEnum.valueOf(typeItem
+					.getValueAsString()));
+		materialCategory.setModel(modelItem.getValueAsString());
 	}
 }

@@ -9,6 +9,8 @@ import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHANewButton;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
@@ -35,7 +37,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  */
 public class EIATypeEquipmentGridPanel extends GHAVerticalLayout implements
 		EIATypeSelectionListener,/* EiaSelectionProducer, */
-		EIASelectionListener {
+		EIASelectionListener, GHAHideable, GHAClosable {
 
 	private EIAGrid grid;
 	private EiaType eiaType;
