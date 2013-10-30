@@ -58,36 +58,30 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret, vivi.torresg, emiliot
  * 
  */
-public class EIAForm extends VLayout implements EIATypeSelectionListener,
-		EiaSelectionProducer, GHAHideable, GHAClosable {
+public class EIAForm extends VLayout implements EIATypeSelectionListener, EiaSelectionProducer,
+		GHAHideable, GHAClosable {
 	private GHATextItem codeTextItem, serialTextItem, fixedAssetIdTextItem,
-			purchaseOrderNumTextItem, purchaseInvoiceNumTextItem,
-			workingAreaLocationCodeTextItem, facilityLocationCodeTextItem,
-			adquisitionCostTextItem, adquisitionCostLocalTextItem,
+			purchaseOrderNumTextItem, purchaseInvoiceNumTextItem, workingAreaLocationCodeTextItem,
+			facilityLocationCodeTextItem, adquisitionCostTextItem, adquisitionCostLocalTextItem,
 			depreciationTimeTextItem, lifeTimeTextItem, actualCostTextItem,
 			realWarrantyTimeTextItem, intWarrantyTimeTextItem;
 	// codeMant_WarrMant_TextItem;
-	private GHASelectItem obuSelectItem, baseRoleSelectItem, stateSelectItem,
-			providerSelectItem, locationTypeSelectItem,
-			workingAreaLocationSelectItem, facilityLocationSelectItem,
-			adquisitionCostCurrencySelectItem,
-			adquisitionCostCurrencyLocalSelectItem,
-			depreciationMethodSelectItem, depreciationTimePotSelectItem,
-			lifeTimePotSelectItem, actualCostCurrencySelectItem,
-			realWarrantySinceSelectItem, realWarrantyPotSelectItem,
+	private GHASelectItem obuSelectItem, baseRoleSelectItem, stateSelectItem, providerSelectItem,
+			locationTypeSelectItem, workingAreaLocationSelectItem, facilityLocationSelectItem,
+			adquisitionCostCurrencySelectItem, adquisitionCostCurrencyLocalSelectItem,
+			depreciationMethodSelectItem, depreciationTimePotSelectItem, lifeTimePotSelectItem,
+			actualCostCurrencySelectItem, realWarrantySinceSelectItem, realWarrantyPotSelectItem,
 			intWarrantyPotSelectItem, intWarrantySinceSelectItem,
 			// maintenanceLocationSelectItem,
-			maintenanceProviderSelectItem, eiaTypeSelectItem,
-			installationProviderSelectItem;
-	private GHATitleTextItem information_TitleItem, adquisition_TitleItem,
-			location_TitleItem, workingArea_TitleItem, facility_TitleItem,
-			adqCost_TitleItem, actualCost_TitleItem, depTime_TitleItem,
-			lifeTime_TitleItem, realWarranty_TitleItem,
+			maintenanceProviderSelectItem, eiaTypeSelectItem, installationProviderSelectItem;
+	private GHATitleTextItem information_TitleItem, adquisition_TitleItem, location_TitleItem,
+			workingArea_TitleItem, facility_TitleItem, adqCost_TitleItem, actualCost_TitleItem,
+			depTime_TitleItem, lifeTime_TitleItem, realWarranty_TitleItem,
 			intermedWarranty_TitleItem, maintenance_TitleItem;
-	private GHADateItem acceptationDateItem, purchaseDateItem,
-			purchaseInvoiceDateItem, purchaseOrderDateItem, receptionDateItem,
-			installationDateItem, contabilizationDateItem,
-			lastDepreciationDate, realWarrantyBeginDate, intWarrantyBeginDate;
+	private GHADateItem acceptationDateItem, purchaseDateItem, purchaseInvoiceDateItem,
+			purchaseOrderDateItem, receptionDateItem, installationDateItem,
+			contabilizationDateItem, lastDepreciationDate, realWarrantyBeginDate,
+			intWarrantyBeginDate;
 	// private GHACheckboxItem sameLocationAttendedItem, isInMaintenanceItem;
 	private GHASectionForm sectionForm;
 
@@ -116,16 +110,16 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		validator = Validation.buildDefaultValidatorFactory().getValidator();
 
 		// Information Form Items
-		eiaTypeSelectItem = new GHASelectItem("Tipo",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, true, changedHandler);
+		eiaTypeSelectItem = new GHASelectItem("Tipo", GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, true,
+				changedHandler);
 		eiaTypeSelectItem.setRequired(true);
 		information_TitleItem = new GHATitleTextItem("Información:");
-		codeTextItem = new GHATextItem("Código",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false, changedHandler);
+		codeTextItem = new GHATextItem("Código", GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false,
+				changedHandler);
 		codeTextItem.setLength(20);
 		codeTextItem.setMask("####################");
-		serialTextItem = new GHATextItem("Serial",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, true, changedHandler);
+		serialTextItem = new GHATextItem("Serial", GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, true,
+				changedHandler);
 		serialTextItem.setLength(20);
 		serialTextItem.setMask("AAAAAAAAAAAAAAAAAAAA");
 		serialTextItem.setRequired(true);
@@ -153,8 +147,8 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, true);
 		purchaseDateItem.addChangedHandler(changedHandler);
 
-		providerSelectItem = new GHASelectItem("Proveedor",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, true, changedHandler);
+		providerSelectItem = new GHASelectItem("Proveedor", GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE,
+				true, changedHandler);
 		providerSelectItem.setRequired(true);
 		purchaseOrderNumTextItem = new GHATextItem("No. Orden Compra",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false, changedHandler);
@@ -164,8 +158,8 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false, changedHandler);
 		purchaseInvoiceNumTextItem.setLength(20);
 		purchaseInvoiceNumTextItem.setMask("####################");
-		receptionDateItem = new GHADateItem("Recepción",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, true);
+		receptionDateItem = new GHADateItem("Recepción", GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE,
+				true);
 		receptionDateItem.addChangedHandler(changedHandler);
 
 		installationDateItem = new GHADateItem("Instalación",
@@ -178,9 +172,8 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, true);
 		purchaseOrderDateItem.addChangedHandler(changedHandler);
 
-		installationProviderSelectItem = new GHASelectItem(
-				"Proveedor de Inst.", GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE,
-				false, changedHandler);
+		installationProviderSelectItem = new GHASelectItem("Proveedor de Inst.",
+				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false, changedHandler);
 
 		// Ubicacion Form Items
 		location_TitleItem = new GHATitleTextItem("Ubicación:");
@@ -193,10 +186,13 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false);
 		workingAreaLocationSelectItem = new GHASelectItem("Nombre",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false, changedHandler);
+		workingAreaLocationSelectItem.setDisabled(true);
+
 		facilityLocationCodeTextItem = new GHATextItem("Código",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false);
 		facilityLocationSelectItem = new GHASelectItem("Nombre",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false, changedHandler);
+		facilityLocationSelectItem.setDisabled(true);
 
 		// Costos Form Items
 		adqCost_TitleItem = new GHATitleTextItem("Costo Adquisición:");
@@ -217,9 +213,8 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false, changedHandler);
 		adquisitionCostLocalTextItem.setLength(16);
 		adquisitionCostLocalTextItem.setMask("################");
-		adquisitionCostCurrencyLocalSelectItem = new GHASelectItem(
-				"Moneda Local", GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false,
-				changedHandler);
+		adquisitionCostCurrencyLocalSelectItem = new GHASelectItem("Moneda Local",
+				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false, changedHandler);
 		depreciationMethodSelectItem = new GHASelectItem("Metodo Depreciación",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false, changedHandler);
 		depreciationTimeTextItem = new GHATextItem("Duración",
@@ -231,8 +226,8 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		lastDepreciationDate = new GHADateItem("Fecha Ult. Depreciación",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, true);
 		lastDepreciationDate.addChangedHandler(changedHandler);
-		lifeTimeTextItem = new GHATextItem("Duración",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false, changedHandler);
+		lifeTimeTextItem = new GHATextItem("Duración", GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE,
+				false, changedHandler);
 		lifeTimeTextItem.setLength(3);
 		lifeTimeTextItem.setMask("###");
 		lifeTimePotSelectItem = new GHASelectItem("Periodo de Tiempo",
@@ -246,8 +241,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 
 		// Garantias Form Items
 		realWarranty_TitleItem = new GHATitleTextItem("Garantía Real:");
-		intermedWarranty_TitleItem = new GHATitleTextItem(
-				"Garantía del Intermediario:");
+		intermedWarranty_TitleItem = new GHATitleTextItem("Garantía del Intermediario:");
 		maintenance_TitleItem = new GHATitleTextItem("Mantenimiento:");
 		realWarrantySinceSelectItem = new GHASelectItem("Desde",
 				GHAUiHelper.FOUR_COLUMN_FORMITEM_SIZE, false, changedHandler);
@@ -331,8 +325,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 	}
 
 	@Override
-	public void addEiaSelectionListener(
-			EIASelectionListener eiaSelectionListener) {
+	public void addEiaSelectionListener(EIASelectionListener eiaSelectionListener) {
 		listeners.add(eiaSelectionListener);
 	}
 
@@ -468,7 +461,6 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		purchaseInvoiceDateItem.clearValue();
 		purchaseOrderDateItem.clearValue();
 		acceptationDateItem.clearValue();
-
 		// sameLocationAttendedItem.setValue(false);
 		// isInMaintenanceItem.setValue(false);
 
@@ -506,48 +498,39 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		}
 		if (baseRoleSelectItem.getValue() != null) {
 			Role baseRole = new Role();
-			baseRole.setId(Integer.valueOf(baseRoleSelectItem
-					.getValueAsString()));
+			baseRole.setId(Integer.valueOf(baseRoleSelectItem.getValueAsString()));
 			eia.setResponsibleRole(baseRole);
 		}
 
 		if (stateSelectItem.getValue() != null) {
-			eia.setState(EiaStateEnum.valueOf(stateSelectItem
-					.getValueAsString()));
+			eia.setState(EiaStateEnum.valueOf(stateSelectItem.getValueAsString()));
 		}
 
 		if (acceptationDateItem.getValue() != null)
-			eia.setAcceptationDate(new Date(acceptationDateItem
-					.getValueAsDate().getTime()));
+			eia.setAcceptationDate(new Date(acceptationDateItem.getValueAsDate().getTime()));
 
 		// adquisition
 		if (purchaseDateItem.getValue() != null)
-			eia.setPurchaseDate(new Date(purchaseDateItem.getValueAsDate()
-					.getTime()));
+			eia.setPurchaseDate(new Date(purchaseDateItem.getValueAsDate().getTime()));
 
 		if (receptionDateItem.getValue() != null)
-			eia.setReceptionDate(new Date(receptionDateItem.getValueAsDate()
-					.getTime()));
+			eia.setReceptionDate(new Date(receptionDateItem.getValueAsDate().getTime()));
 
 		if (installationDateItem.getValue() != null)
-			eia.setInstallationDate(new Date(installationDateItem
-					.getValueAsDate().getTime()));
+			eia.setInstallationDate(new Date(installationDateItem.getValueAsDate().getTime()));
 
 		if (providerSelectItem.getValue() != null) {
-			eia.setProvider(new ExternalProvider(Integer
-					.valueOf(providerSelectItem.getValueAsString())));
+			eia.setProvider(new ExternalProvider(Integer.valueOf(providerSelectItem
+					.getValueAsString())));
 		}
 		eia.setPurchaseOrderNumber(purchaseOrderNumTextItem.getValueAsString());
-		eia.setPurchaseInvoiceNumber(purchaseInvoiceNumTextItem
-				.getValueAsString());
+		eia.setPurchaseInvoiceNumber(purchaseInvoiceNumTextItem.getValueAsString());
 
 		if (purchaseInvoiceDateItem.getValue() != null)
-			eia.setPurchaseInvoiceDate(new Date(purchaseInvoiceDateItem
-					.getValueAsDate().getTime()));
+			eia.setPurchaseInvoiceDate(new Date(purchaseInvoiceDateItem.getValueAsDate().getTime()));
 
 		if (purchaseOrderDateItem.getValue() != null)
-			eia.setPurchaseOrderDate(new Date(purchaseOrderDateItem
-					.getValueAsDate().getTime()));
+			eia.setPurchaseOrderDate(new Date(purchaseOrderDateItem.getValueAsDate().getTime()));
 		if (installationProviderSelectItem.getValue() != null) {
 			eia.setInstallationProvider(new ExternalProvider(Integer
 					.valueOf(installationProviderSelectItem.getValueAsString())));
@@ -558,15 +541,13 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 				if (workingAreaLocationSelectItem.getValue() != null) {
 					eia.setFacility(null);
 					eia.setWorkingArea(new WorkingArea(Integer
-							.valueOf(workingAreaLocationSelectItem
-									.getValueAsString())));
+							.valueOf(workingAreaLocationSelectItem.getValueAsString())));
 				}
 			} else if (locationTypeSelectItem.getValue().equals("1")) {
 				if (facilityLocationSelectItem.getValue() != null) {
 					eia.setWorkingArea(null);
-					eia.setFacility(new Facility(Integer
-							.valueOf(facilityLocationSelectItem
-									.getValueAsString())));
+					eia.setFacility(new Facility(Integer.valueOf(facilityLocationSelectItem
+							.getValueAsString())));
 				}
 			}
 		}
@@ -586,72 +567,61 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 
 		// costs
 		if (adquisitionCostTextItem.getValue() != null)
-			eia.setAdquisitionCost(BigDecimal.valueOf(Double
-					.valueOf(adquisitionCostTextItem.getValueAsString())));
+			eia.setAdquisitionCost(BigDecimal.valueOf(Double.valueOf(adquisitionCostTextItem
+					.getValueAsString())));
 
-		eia.setAdquisitionCostCurrency(CurrencyTypeEnum
-				.valueOf(adquisitionCostCurrencySelectItem.getValueAsString()));
+		eia.setAdquisitionCostCurrency(CurrencyTypeEnum.valueOf(adquisitionCostCurrencySelectItem
+				.getValueAsString()));
 
 		if (contabilizationDateItem.getValue() != null)
-			eia.setContabilizationDate(new Date(contabilizationDateItem
-					.getValueAsDate().getTime()));
+			eia.setContabilizationDate(new Date(contabilizationDateItem.getValueAsDate().getTime()));
 
 		if (adquisitionCostLocalTextItem.getValue() != null)
 			eia.setAdquisitionCostLocal(BigDecimal.valueOf(Double
 					.valueOf(adquisitionCostLocalTextItem.getValueAsString())));
 
 		eia.setAdquisitionCostCurrencyLocal(CurrencyTypeEnum
-				.valueOf(adquisitionCostCurrencyLocalSelectItem
-						.getValueAsString()));
-		eia.setDepreciationMethod(DepreciationMethodEnum
-				.valueOf(depreciationMethodSelectItem.getValueAsString()));
+				.valueOf(adquisitionCostCurrencyLocalSelectItem.getValueAsString()));
+		eia.setDepreciationMethod(DepreciationMethodEnum.valueOf(depreciationMethodSelectItem
+				.getValueAsString()));
 
 		if (lastDepreciationDate.getValue() != null)
-			eia.setDateLastDepreciation(new Date(lastDepreciationDate
-					.getValueAsDate().getTime()));
+			eia.setDateLastDepreciation(new Date(lastDepreciationDate.getValueAsDate().getTime()));
 
 		if (actualCostTextItem.getValue() != null)
-			eia.setActualCost(BigDecimal.valueOf(Double
-					.valueOf(actualCostTextItem.getValueAsString())));
-		eia.setActualCostCurrency(CurrencyTypeEnum
-				.valueOf(actualCostCurrencySelectItem.getValueAsString()));
+			eia.setActualCost(BigDecimal.valueOf(Double.valueOf(actualCostTextItem
+					.getValueAsString())));
+		eia.setActualCostCurrency(CurrencyTypeEnum.valueOf(actualCostCurrencySelectItem
+				.getValueAsString()));
 
 		if (depreciationTimeTextItem.getValue() != null)
-			eia.setDepreciationTime(Integer.valueOf(depreciationTimeTextItem
-					.getValueAsString()));
-		eia.setDepreciationTimePoT(TimePeriodEnum
-				.valueOf(depreciationTimePotSelectItem.getValueAsString()));
+			eia.setDepreciationTime(Integer.valueOf(depreciationTimeTextItem.getValueAsString()));
+		eia.setDepreciationTimePoT(TimePeriodEnum.valueOf(depreciationTimePotSelectItem
+				.getValueAsString()));
 
 		if (lifeTimeTextItem.getValue() != null)
 			eia.setLifeTime(Integer.valueOf(lifeTimeTextItem.getValueAsString()));
-		eia.setLifeTimePoT(TimePeriodEnum.valueOf(lifeTimePotSelectItem
-				.getValueAsString()));
+		eia.setLifeTimePoT(TimePeriodEnum.valueOf(lifeTimePotSelectItem.getValueAsString()));
 		// guarantees
 		if (realWarrantyBeginDate.getValue() != null)
-			eia.setRealWarrantyBegin(new Date(realWarrantyBeginDate
-					.getValueAsDate().getTime()));
+			eia.setRealWarrantyBegin(new Date(realWarrantyBeginDate.getValueAsDate().getTime()));
 
-		eia.setRealWarrantyPoT(TimePeriodEnum.valueOf(realWarrantyPotSelectItem
+		eia.setRealWarrantyPoT(TimePeriodEnum.valueOf(realWarrantyPotSelectItem.getValueAsString()));
+		eia.setRealWarrantySince(WarrantySinceEnum.valueOf(realWarrantySinceSelectItem
 				.getValueAsString()));
-		eia.setRealWarrantySince(WarrantySinceEnum
-				.valueOf(realWarrantySinceSelectItem.getValueAsString()));
 
 		if (realWarrantyTimeTextItem.getValue() != null)
-			eia.setRealWarrantyTime(Integer.valueOf(realWarrantyTimeTextItem
-					.getValueAsString()));
+			eia.setRealWarrantyTime(Integer.valueOf(realWarrantyTimeTextItem.getValueAsString()));
 
 		if (intWarrantyBeginDate.getValue() != null)
-			eia.setIntWarrantyBegin(new Date(intWarrantyBeginDate
-					.getValueAsDate().getTime()));
+			eia.setIntWarrantyBegin(new Date(intWarrantyBeginDate.getValueAsDate().getTime()));
 
-		eia.setIntWarrantyPoT(TimePeriodEnum.valueOf(intWarrantyPotSelectItem
+		eia.setIntWarrantyPoT(TimePeriodEnum.valueOf(intWarrantyPotSelectItem.getValueAsString()));
+		eia.setIntWarrantySince(WarrantySinceEnum.valueOf(intWarrantySinceSelectItem
 				.getValueAsString()));
-		eia.setIntWarrantySince(WarrantySinceEnum
-				.valueOf(intWarrantySinceSelectItem.getValueAsString()));
 
 		if (intWarrantyTimeTextItem.getValue() != null)
-			eia.setIntWarrantyTime(Integer.valueOf(intWarrantyTimeTextItem
-					.getValueAsString()));
+			eia.setIntWarrantyTime(Integer.valueOf(intWarrantyTimeTextItem.getValueAsString()));
 		// if (isInMaintenanceItem.getValueAsBoolean()) {
 		// eia.setMaintenanceLocation(new BuildingLocation(
 		// maintenanceLocationSelectItem.getValueAsString()));
@@ -668,14 +638,12 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 
 		Set<ConstraintViolation<Eia>> violations = validator.validate(eia);
 
-		if (infoBasicaForm.validate() && adquisicionForm.validate()
-				&& ubicacionForm.validate() && costosForm.validate()
-				&& garantiasMantForm.validate() && violations.isEmpty()) {
+		if (infoBasicaForm.validate() && adquisicionForm.validate() && ubicacionForm.validate()
+				&& costosForm.validate() && garantiasMantForm.validate() && violations.isEmpty()) {
 			return eia;
 		} else {
 			List<String> violationsList = new ArrayList<String>();
-			for (Iterator<ConstraintViolation<Eia>> it = violations.iterator(); it
-					.hasNext();) {
+			for (Iterator<ConstraintViolation<Eia>> it = violations.iterator(); it.hasNext();) {
 				violationsList.add(it.next().getMessage());
 			}
 			GHANotification.alert(violationsList);
@@ -684,17 +652,15 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 	}
 
 	private void fillAdquisitionSelects() {
-		GHACache.INSTANCE
-				.getExternalProviders(new GHAAsyncCallback<List<ExternalProvider>>() {
-					@Override
-					public void onSuccess(List<ExternalProvider> result) {
-						LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-						for (ExternalProvider entity : result)
-							valueMap.put(entity.getId() + "", entity
-									.getInstitution().getName() + "");
-						providerSelectItem.setValueMap(valueMap);
-					}
-				});
+		GHACache.INSTANCE.getExternalProviders(new GHAAsyncCallback<List<ExternalProvider>>() {
+			@Override
+			public void onSuccess(List<ExternalProvider> result) {
+				LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+				for (ExternalProvider entity : result)
+					valueMap.put(entity.getId() + "", entity.getInstitution().getName() + "");
+				providerSelectItem.setValueMap(valueMap);
+			}
+		});
 	}
 
 	// private DynamicForm getEquiposIT() {
@@ -710,18 +676,13 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 	// }
 
 	private void fillCostsSelects() {
-		adquisitionCostCurrencySelectItem.setValueMap(CurrencyTypeEnum
-				.toValueMap());
+		adquisitionCostCurrencySelectItem.setValueMap(CurrencyTypeEnum.toValueMap());
 		adquisitionCostCurrencySelectItem.setValue(CurrencyTypeEnum.BS.name());
-		adquisitionCostCurrencyLocalSelectItem.setValueMap(CurrencyTypeEnum
-				.toValueMap());
-		adquisitionCostCurrencyLocalSelectItem.setValue(CurrencyTypeEnum.BS
-				.name());
+		adquisitionCostCurrencyLocalSelectItem.setValueMap(CurrencyTypeEnum.toValueMap());
+		adquisitionCostCurrencyLocalSelectItem.setValue(CurrencyTypeEnum.BS.name());
 
-		depreciationMethodSelectItem.setValueMap(DepreciationMethodEnum
-				.toValueMap());
-		depreciationMethodSelectItem.setValue(DepreciationMethodEnum.METHOD_1
-				.name());
+		depreciationMethodSelectItem.setValueMap(DepreciationMethodEnum.toValueMap());
+		depreciationMethodSelectItem.setValue(DepreciationMethodEnum.METHOD_1.name());
 
 		depreciationTimePotSelectItem.setValueMap(TimePeriodEnum.toValueMap());
 		depreciationTimePotSelectItem.setValue(TimePeriodEnum.HOURS.name());
@@ -771,21 +732,18 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 	}
 
 	private void fillLocationsSelects() {
-		GHACache.INSTANCE
-				.getWorkingAreas(new GHAAsyncCallback<List<WorkingArea>>() {
-					@Override
-					public void onSuccess(List<WorkingArea> result) {
-						LinkedHashMap<String, String> valueMapWorkingArea = new LinkedHashMap<String, String>();
+		GHACache.INSTANCE.getWorkingAreas(new GHAAsyncCallback<List<WorkingArea>>() {
+			@Override
+			public void onSuccess(List<WorkingArea> result) {
+				LinkedHashMap<String, String> valueMapWorkingArea = new LinkedHashMap<String, String>();
 
-						for (WorkingArea entity : result) {
-							valueMapWorkingArea.put(entity.getId() + "",
-									entity.getName());
-						}
+				for (WorkingArea entity : result) {
+					valueMapWorkingArea.put(entity.getId() + "", entity.getName());
+				}
 
-						workingAreaLocationSelectItem
-								.setValueMap(valueMapWorkingArea);
-					}
-				});
+				workingAreaLocationSelectItem.setValueMap(valueMapWorkingArea);
+			}
+		});
 		GHACache.INSTANCE.getFacilities(new GHAAsyncCallback<List<Facility>>() {
 			@Override
 			public void onSuccess(List<Facility> result) {
@@ -833,19 +791,17 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		// }
 		// });
 
-		GHACache.INSTANCE
-				.getExternalProviders(new GHAAsyncCallback<List<ExternalProvider>>() {
-					@Override
-					public void onSuccess(List<ExternalProvider> result) {
-						LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-						for (ExternalProvider entity : result) {
-							valueMap.put(entity.getId() + "", entity
-									.getInstitution().getName() + "");
-						}
-						maintenanceProviderSelectItem.setValueMap(valueMap);
-						installationProviderSelectItem.setValueMap(valueMap);
-					}
-				});
+		GHACache.INSTANCE.getExternalProviders(new GHAAsyncCallback<List<ExternalProvider>>() {
+			@Override
+			public void onSuccess(List<ExternalProvider> result) {
+				LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+				for (ExternalProvider entity : result) {
+					valueMap.put(entity.getId() + "", entity.getInstitution().getName() + "");
+				}
+				maintenanceProviderSelectItem.setValueMap(valueMap);
+				installationProviderSelectItem.setValueMap(valueMap);
+			}
+		});
 	}
 
 	/**
@@ -857,10 +813,9 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		adquisicionForm.setTitleOrientation(TitleOrientation.TOP);
 		adquisicionForm.setNumCols(3);
 
-		adquisicionForm.setItems(adquisition_TitleItem, new GHASpacerItem(2),
-				purchaseDateItem, receptionDateItem, installationDateItem,
-				providerSelectItem, purchaseOrderNumTextItem,
-				purchaseInvoiceNumTextItem, purchaseInvoiceDateItem,
+		adquisicionForm.setItems(adquisition_TitleItem, new GHASpacerItem(2), purchaseDateItem,
+				receptionDateItem, installationDateItem, providerSelectItem,
+				purchaseOrderNumTextItem, purchaseInvoiceNumTextItem, purchaseInvoiceDateItem,
 				purchaseOrderDateItem, installationProviderSelectItem);
 		return adquisicionForm;
 	}
@@ -878,17 +833,14 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		res.setTitleOrientation(TitleOrientation.TOP);
 		res.setNumCols(3);
 
-		res.setItems(adqCost_TitleItem, new GHASpacerItem(2),
-				adquisitionCostTextItem, adquisitionCostCurrencySelectItem,
-				contabilizationDateItem, adquisitionCostLocalTextItem,
-				adquisitionCostCurrencyLocalSelectItem, new GHASpacerItem(),
-				actualCost_TitleItem, new GHASpacerItem(2),
-				depreciationMethodSelectItem, lastDepreciationDate,
-				new GHASpacerItem(), actualCostTextItem,
-				actualCostCurrencySelectItem, new GHASpacerItem(),
-				depTime_TitleItem, depreciationTimeTextItem,
-				depreciationTimePotSelectItem, lifeTime_TitleItem,
-				lifeTimeTextItem, lifeTimePotSelectItem);
+		res.setItems(adqCost_TitleItem, new GHASpacerItem(2), adquisitionCostTextItem,
+				adquisitionCostCurrencySelectItem, contabilizationDateItem,
+				adquisitionCostLocalTextItem, adquisitionCostCurrencyLocalSelectItem,
+				new GHASpacerItem(), actualCost_TitleItem, new GHASpacerItem(2),
+				depreciationMethodSelectItem, lastDepreciationDate, new GHASpacerItem(),
+				actualCostTextItem, actualCostCurrencySelectItem, new GHASpacerItem(),
+				depTime_TitleItem, depreciationTimeTextItem, depreciationTimePotSelectItem,
+				lifeTime_TitleItem, lifeTimeTextItem, lifeTimePotSelectItem);
 
 		return res;
 	}
@@ -921,15 +873,12 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		garantiasMantenimientoForm.setTitleOrientation(TitleOrientation.TOP);
 		garantiasMantenimientoForm.setNumCols(3);
 
-		garantiasMantenimientoForm.setItems(realWarranty_TitleItem,
-				new GHASpacerItem(2), realWarrantySinceSelectItem,
-				realWarrantyBeginDate, new GHASpacerItem(),
-				realWarrantyTimeTextItem, realWarrantyPotSelectItem,
-				new GHASpacerItem(), intermedWarranty_TitleItem,
-				new GHASpacerItem(2), intWarrantySinceSelectItem,
-				intWarrantyBeginDate, new GHASpacerItem(),
-				intWarrantyTimeTextItem, intWarrantyPotSelectItem,
-				new GHASpacerItem(), maintenance_TitleItem, // isInMaintenanceItem,
+		garantiasMantenimientoForm.setItems(realWarranty_TitleItem, new GHASpacerItem(2),
+				realWarrantySinceSelectItem, realWarrantyBeginDate, new GHASpacerItem(),
+				realWarrantyTimeTextItem, realWarrantyPotSelectItem, new GHASpacerItem(),
+				intermedWarranty_TitleItem, new GHASpacerItem(2), intWarrantySinceSelectItem,
+				intWarrantyBeginDate, new GHASpacerItem(), intWarrantyTimeTextItem,
+				intWarrantyPotSelectItem, new GHASpacerItem(), maintenance_TitleItem, // isInMaintenanceItem,
 				new GHASpacerItem(2), maintenanceProviderSelectItem);
 		// maintenanceLocationSelectItem,
 		// codeMant_WarrMant_TextItem,
@@ -946,10 +895,9 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		equipoForm.setTitleOrientation(TitleOrientation.TOP);
 		equipoForm.setNumCols(3);
 
-		equipoForm.setItems(eiaTypeSelectItem, new GHASpacerItem(2),
-				information_TitleItem, new GHASpacerItem(2), codeTextItem,
-				serialTextItem, fixedAssetIdTextItem, obuSelectItem,
-				baseRoleSelectItem, stateSelectItem, acceptationDateItem);
+		equipoForm.setItems(eiaTypeSelectItem, new GHASpacerItem(2), information_TitleItem,
+				new GHASpacerItem(2), codeTextItem, serialTextItem, fixedAssetIdTextItem,
+				obuSelectItem, baseRoleSelectItem, stateSelectItem, acceptationDateItem);
 		return equipoForm;
 	}
 
@@ -961,12 +909,10 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		areaForm.setTitleOrientation(TitleOrientation.TOP);
 		areaForm.setNumCols(2);
 
-		areaForm.setItems(location_TitleItem, new GHASpacerItem(),
-				locationTypeSelectItem, new GHASpacerItem(),
-				workingArea_TitleItem, new GHASpacerItem(),
-				workingAreaLocationSelectItem, workingAreaLocationCodeTextItem,
-				facility_TitleItem, new GHASpacerItem(),
-				facilityLocationSelectItem, facilityLocationCodeTextItem);
+		areaForm.setItems(location_TitleItem, new GHASpacerItem(), locationTypeSelectItem,
+				new GHASpacerItem(), workingArea_TitleItem, new GHASpacerItem(),
+				workingAreaLocationSelectItem, workingAreaLocationCodeTextItem, facility_TitleItem,
+				new GHASpacerItem(), facilityLocationSelectItem, facilityLocationCodeTextItem);
 		return areaForm;
 	}
 
@@ -981,8 +927,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 	}
 
 	@Override
-	public void removeEiaSelectionListener(
-			EIASelectionListener eiaSelectionListener) {
+	public void removeEiaSelectionListener(EIASelectionListener eiaSelectionListener) {
 		listeners.remove(eiaSelectionListener);
 	}
 
@@ -1044,8 +989,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		if (eia.getPurchaseOrderDate() != null)
 			purchaseOrderDateItem.setValue(eia.getPurchaseOrderDate());
 		if (eia.getInstallationProvider() != null)
-			installationProviderSelectItem.setValue(eia
-					.getInstallationProvider().getId());
+			installationProviderSelectItem.setValue(eia.getInstallationProvider().getId());
 
 		// // ubication
 		// boolean flag = true;
@@ -1067,13 +1011,13 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		// sameLocationAttendedItem.setValue(false);
 		// }
 		if (eia.getWorkingArea() != null) {
-			workingAreaLocationSelectItem
-					.setValue(eia.getWorkingArea().getId());
-			workingAreaLocationCodeTextItem.setValue(eia.getWorkingArea()
-					.getId());
+			workingAreaLocationSelectItem.setDisabled(false);
+			workingAreaLocationSelectItem.setValue(eia.getWorkingArea().getId());
+			workingAreaLocationCodeTextItem.setValue(eia.getWorkingArea().getId());
 			locationTypeSelectItem.setValue("0");
 		}
 		if (eia.getFacility() != null) {
+			facilityLocationSelectItem.setDisabled(false);
 			facilityLocationSelectItem.setValue(eia.getFacility().getId());
 			facilityLocationCodeTextItem.setValue(eia.getFacility().getId());
 			locationTypeSelectItem.setValue("1");
@@ -1083,45 +1027,38 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		if (eia.getAdquisitionCost() != null)
 			adquisitionCostTextItem.setValue(eia.getAdquisitionCost());
 		if (eia.getAdquisitionCostCurrency() != null)
-			adquisitionCostCurrencySelectItem.setValue(eia
-					.getAdquisitionCostCurrency().name());
+			adquisitionCostCurrencySelectItem.setValue(eia.getAdquisitionCostCurrency().name());
 		if (eia.getContabilizationDate() != null)
 			contabilizationDateItem.setValue(eia.getContabilizationDate());
 		if (eia.getAdquisitionCostLocal() != null)
-			adquisitionCostLocalTextItem
-					.setValue(eia.getAdquisitionCostLocal());
+			adquisitionCostLocalTextItem.setValue(eia.getAdquisitionCostLocal());
 		if (eia.getAdquisitionCostCurrencyLocal() != null)
-			adquisitionCostCurrencyLocalSelectItem.setValue(eia
-					.getAdquisitionCostCurrencyLocal().name());
-		if (eia.getDepreciationMethod() != null)
-			depreciationMethodSelectItem.setValue(eia.getDepreciationMethod()
+			adquisitionCostCurrencyLocalSelectItem.setValue(eia.getAdquisitionCostCurrencyLocal()
 					.name());
+		if (eia.getDepreciationMethod() != null)
+			depreciationMethodSelectItem.setValue(eia.getDepreciationMethod().name());
 		if (eia.getDateLastDepreciation() != null)
 			lastDepreciationDate.setValue(eia.getDateLastDepreciation());
 		if (eia.getActualCost() != null)
 			actualCostTextItem.setValue(eia.getActualCost());
 		if (eia.getActualCostCurrency() != null)
-			actualCostCurrencySelectItem.setValue(eia.getActualCostCurrency()
-					.name());
+			actualCostCurrencySelectItem.setValue(eia.getActualCostCurrency().name());
 		depreciationTimeTextItem.setValue(eia.getDepreciationTime());
 		if (eia.getDepreciationTimePoT() != null)
-			depreciationTimePotSelectItem.setValue(eia.getDepreciationTimePoT()
-					.name());
+			depreciationTimePotSelectItem.setValue(eia.getDepreciationTimePoT().name());
 		lifeTimeTextItem.setValue(eia.getLifeTime());
 		if (eia.getLifeTimePoT() != null)
 			lifeTimePotSelectItem.setValue(eia.getLifeTimePoT().name());
 
 		// guarantees if (eia.getRealWarrantyBegin() != null)
 		if (eia.getRealWarrantySince() != null)
-			realWarrantySinceSelectItem.setValue(eia.getRealWarrantySince()
-					.name());
+			realWarrantySinceSelectItem.setValue(eia.getRealWarrantySince().name());
 		realWarrantyBeginDate.setValue(eia.getRealWarrantyBegin());
 		realWarrantyTimeTextItem.setValue(eia.getRealWarrantyTime());
 		if (eia.getRealWarrantyPoT() != null)
 			realWarrantyPotSelectItem.setValue(eia.getRealWarrantyPoT().name());
 		if (eia.getIntWarrantySince() != null)
-			intWarrantySinceSelectItem.setValue(eia.getIntWarrantySince()
-					.name());
+			intWarrantySinceSelectItem.setValue(eia.getIntWarrantySince().name());
 		if (eia.getIntWarrantyBegin() != null)
 			intWarrantyBeginDate.setValue(eia.getIntWarrantyBegin());
 		intWarrantyTimeTextItem.setValue(eia.getIntWarrantyTime());
@@ -1135,8 +1072,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		// .getMaintenanceLocation().getCode());
 		if (eia.getMaintenanceProvider() != null
 				&& eia.getMaintenanceProvider().getInstitution() != null)
-			maintenanceProviderSelectItem.setValue(eia.getMaintenanceProvider()
-					.getId());
+			maintenanceProviderSelectItem.setValue(eia.getMaintenanceProvider().getId());
 		// }
 
 		// itEquipments
