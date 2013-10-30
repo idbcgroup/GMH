@@ -3,9 +3,9 @@ package org.fourgeeks.gha.webclient.client.UI.formItems;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
 import com.smartgwt.client.widgets.form.fields.TextItem;
-import com.smartgwt.client.widgets.form.fields.events.BlurEvent;
-import com.smartgwt.client.widgets.form.fields.events.BlurHandler;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
+import com.smartgwt.client.widgets.form.fields.events.EditorExitEvent;
+import com.smartgwt.client.widgets.form.fields.events.EditorExitHandler;
 
 /**
  * @author alacret
@@ -94,16 +94,20 @@ public class GHATextItem extends TextItem {
 		super.setRequired(required);
 		if (required){
 			setTextBoxStyle("input required");
-			addBlurHandler(new BlurHandler() {
+//			setErrorOrientation(FormErrorOrientation.RIGHT);
+			setShowErrorIcon(false);
+			setValidateOnExit(true);
+			addEditorExitHandler(new EditorExitHandler() {
 				@Override
-				public void onBlur(BlurEvent event) {
+				public void onEditorExit(EditorExitEvent event) {
 					if(validate()){
 						setTextBoxStyle("input requiredValidated");
 					}else{
 						setTextBoxStyle("input required");
-					}
+					}					
 				}
 			});
+//			validate();
 		}else{
 			setTextBoxStyle("input");
 		}
