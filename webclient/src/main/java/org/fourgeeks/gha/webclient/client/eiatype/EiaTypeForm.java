@@ -26,9 +26,8 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHAEiaTypeTypeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextAreaItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.brand.BrandModel;
 
 import com.google.gwt.user.client.Window;
@@ -40,14 +39,13 @@ import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
-import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
  * @author emiliot
  * 
  */
-public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer,
-		GHAHideable, GHAClosable {
+public class EiaTypeForm extends GHAVerticalLayout implements
+		EiaTypeSelectionProducer {
 	private GHACodeItem codeItem;
 	private GHATextItem nameItem, modelItem, eiaUmdnsItem;
 	private GHATextAreaItem descriptionItem;
@@ -187,7 +185,6 @@ public class EiaTypeForm extends VLayout implements EiaTypeSelectionProducer,
 						public void execute(Boolean value) {
 							if (value.booleanValue()) {
 								undo();
-								hasUnCommittedChanges = false;
 							}
 						}
 					});

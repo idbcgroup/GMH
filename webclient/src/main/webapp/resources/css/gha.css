@@ -191,6 +191,8 @@ body{
 	margin:15px auto 15px auto;
 }
 
+/* Form  Items */
+
 .gha-form-cell ,
 .gha-form-cellDisabled,
 .gha-form-cellFocused,
@@ -290,6 +292,48 @@ input[type=text].round,input[type=password].round{
 	padding-left: 5px; 
 }
 
+/*//////////////////// */
+/* Internal Tabset */
+.tabButtonTop{
+	color: #000000 !important;
+	padding: 3px 7px !important;
+	font-size: small !important;
+}
+
+.tabButtonTopSelected{
+	background-color: #F4F4F4 !important;
+	background-image: none;
+	color: #000000 !important;
+	padding: 3px 7px !important;
+	font-size: small !important;
+}
+
+.tabButtonTopDown{
+	color: #000000 !important;
+	padding: 3px 7px !important;
+	font-size: small !important;
+}
+
+.tabButtonTopOver{
+	color: #00A0F6 !important;
+	padding: 3px 7px !important;
+	font-size: small !important;
+}
+
+.tabButtonTopSelectedOver{
+	background-color: #F4F4F4 !important;
+	background-image: none;
+	color: #00A0F6 !important;
+	padding: 3px 7px !important;
+	font-size: small !important;
+} 
+
+.tabBarTop{
+	background-color: #cbcbcb;
+}
+
+
+/*//////////////////// */
 .GHAButton{
 	border:none;
 	border-radius:5px;
@@ -446,4 +490,3 @@ div#header-bar.header-bar div#user-info.user-info div#isc_HLayout_0_wrapper div#
 .headerButton{
 	/*background: none !important;*/
 }
-x
