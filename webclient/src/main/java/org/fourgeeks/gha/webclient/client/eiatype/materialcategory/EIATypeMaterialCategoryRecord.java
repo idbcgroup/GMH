@@ -21,6 +21,8 @@ public class EIATypeMaterialCategoryRecord extends
 		this.eiaTypeMaterialCategory = eiaTypeMaterialCategory;
 		MaterialCategory materialCategory = eiaTypeMaterialCategory
 				.getMaterialCategory();
+		if (materialCategory == null)
+			return;
 		setAttribute("code", materialCategory.getCode());
 		setAttribute("name", materialCategory.getName());
 		setAttribute("description", materialCategory.getDescription());

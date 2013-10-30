@@ -1,5 +1,6 @@
 package org.fourgeeks.gha.webclient.client.eiatype.materialcategory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.glm.MaterialCategory;
@@ -77,7 +78,7 @@ public class EIATypeMaterialCategoryGridPanel extends VLayout implements
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						searchForm.open();
+						search();
 					}
 				}), new GHANewButton(new ClickHandler() {
 
@@ -123,11 +124,11 @@ public class EIATypeMaterialCategoryGridPanel extends VLayout implements
 				new GHAAsyncCallback<List<EiaTypeMaterialCategory>>() {
 
 					@Override
-					public void onSuccess(
-							List<EiaTypeMaterialCategory> eiaTypeMaterial) {
-						ListGridRecord[] array = EIATypeMaterialCategoryUtil
-								.toGridRecords(eiaTypeMaterial).toArray(
-										new EIATypeMaterialCategoryRecord[] {});
+					public void onSuccess(List<EiaTypeMaterialCategory> list) {
+						List<EIATypeMaterialCategoryRecord> gridRecords = EIATypeMaterialCategoryUtil
+								.toGridRecords(list);
+						ListGridRecord[] array = gridRecords
+								.toArray(new EIATypeMaterialCategoryRecord[] {});
 						grid.setData(array);
 					}
 				});
@@ -161,5 +162,19 @@ public class EIATypeMaterialCategoryGridPanel extends VLayout implements
 	@Override
 	public boolean canBeClosen() {
 		return true;
+	}
+
+	private void search() {
+		ListGridRecord[] records = grid.getRecords();
+		List<MaterialCategory> blackList = null;
+		if (records.length != 0) {
+			blackList = new ArrayList<MaterialCategory>();
+			for (int i = 0; i < records.length; i++)
+				blackList.add(((EIATypeMaterialCategoryRecord) records[i])
+						.toEntity().getMaterialCategory());
+
+		}
+		searchForm.filterBy(blackList);
+		searchForm.open();
 	}
 }

@@ -19,6 +19,10 @@ public interface EiaTypeSelectionProducer {
 	public void removeEiaTypeSelectionListener(
 			EIATypeSelectionListener eIATypeSelectionListener);
 
+	/**
+	 * 
+	 * @param eiaType
+	 */
 	public void notifyEiaType(EiaType eiaType);
 
 }

@@ -1,5 +1,6 @@
 package org.fourgeeks.gha.webclient.client.eiatype.component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
@@ -9,14 +10,12 @@ import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSearchForm;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
-import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
@@ -29,8 +28,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret, emiliot
  * 
  */
-public class EIATypeComponentGridPanel extends VLayout implements
-		EIATypeSelectionListener, GHAClosable, GHAHideable {
+public class EIATypeComponentGridPanel extends GHAVerticalLayout implements
+		EIATypeSelectionListener {
 
 	private EIATypeComponentGrid grid;
 	private EiaType eiaType;
@@ -100,10 +99,7 @@ public class EIATypeComponentGridPanel extends VLayout implements
 	}
 
 	public EIATypeComponentGridPanel() {
-		setWidth100();
-		setBackgroundColor("#E0E0E0");
-		setStyleName("sides-padding padding-top");// Esto es VUDU!
-
+		super();
 		GHALabel title = new GHALabel("Componentes");
 
 		// //////Botones laterales
@@ -112,7 +108,7 @@ public class EIATypeComponentGridPanel extends VLayout implements
 
 					@Override
 					public void onClick(ClickEvent event) {
-						searchForm.open(EIATypeComponentGridPanel.this.eiaType);
+						search();
 					}
 				}), new GHAImgButton("../resources/icons/delete.png",
 				new ClickHandler() {
@@ -170,13 +166,12 @@ public class EIATypeComponentGridPanel extends VLayout implements
 
 	@Override
 	public void close() {
-		searchForm.animateHide(AnimationEffect.FLY);
 		searchForm.close();
 	}
 
 	@Override
 	public void hide() {
-		searchForm.animateHide(AnimationEffect.FLY);
+		searchForm.hide();
 	}
 
 	@Override
@@ -187,6 +182,13 @@ public class EIATypeComponentGridPanel extends VLayout implements
 	@Override
 	public boolean canBeClosen() {
 		return true;
+	}
+
+	private void search() {
+		List<EiaType> blackList = new ArrayList<EiaType>();
+		blackList.add(EIATypeComponentGridPanel.this.eiaType);
+		searchForm.open();
+		searchForm.filterBy(blackList);
 	}
 
 }

@@ -11,13 +11,13 @@ import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
-import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
-import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHACancelButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHACheckButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASearchForm;
 
@@ -25,8 +25,6 @@ import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
-import com.smartgwt.client.widgets.form.fields.events.KeyUpEvent;
-import com.smartgwt.client.widgets.form.fields.events.KeyUpHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
@@ -36,24 +34,15 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret, emiliot
  * 
  */
-public class EIATypeSearchForm extends GHASearchForm implements EIATypeSelectionListener,
-		EiaTypeSelectionProducer {
+public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
+		EIATypeSelectionListener, EiaTypeSelectionProducer {
 
 	private List<EIATypeSelectionListener> selectionListeners;
 	private GHATextItem codeEIAItem, nameEIAItem, modelItem, umdnsCodeItem;
-	private EIATypeGrid eiaTypeGrid;
+	private EIATypeGrid grid;
 	private GHASelectItem brandItem, mobilityItem, typeItem, subTypeItem;
 	private EIATypeAddForm addForm;
 	private GHALabel searchResultsLabel;
-
-	/**
-	 * this list is used to exclude from the result the items that match
-	 */
-	private List<EiaType> blackList = null;
-	/**
-	 * this blackEiaType is used to exclude this one from the result list
-	 */
-	private EiaType blackEiaType = null;
 
 	{
 		selectionListeners = new LinkedList<EIATypeSelectionListener>();
@@ -72,7 +61,7 @@ public class EIATypeSearchForm extends GHASearchForm implements EIATypeSelection
 		typeItem = new GHASelectItem("Tipo de Equipo");
 		subTypeItem = new GHASelectItem("Subtipo");
 
-		eiaTypeGrid = new EIATypeGrid();
+		grid = new EIATypeGrid();
 
 		addForm = new EIATypeAddForm();
 	}
@@ -82,28 +71,11 @@ public class EIATypeSearchForm extends GHASearchForm implements EIATypeSelection
 	 */
 	public EIATypeSearchForm(String title) {
 		super(title);
-
 		final DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(5);
 		form.setItems(codeEIAItem, nameEIAItem, brandItem, modelItem, umdnsCodeItem, mobilityItem,
 				typeItem, subTypeItem);
-
-		// Event Handlers
-		ClickHandler searchClickHandler = new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				search();
-			}
-		};
-		KeyUpHandler searchKeyUpHandler = new KeyUpHandler() {
-			@Override
-			public void onKeyUp(KeyUpEvent event) {
-				if (event.getKeyName().equals("Enter")) {
-					search();
-				}
-			}
-		};
 
 		codeEIAItem.addKeyUpHandler(searchKeyUpHandler);
 		nameEIAItem.addKeyUpHandler(searchKeyUpHandler);
@@ -115,16 +87,15 @@ public class EIATypeSearchForm extends GHASearchForm implements EIATypeSelection
 		subTypeItem.addKeyUpHandler(searchKeyUpHandler);
 		// ////////////////////////////
 
-		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
-				"../resources/icons/search.png", searchClickHandler), new GHAImgButton(
-				"../resources/icons/clean.png", new ClickHandler() {
+		VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
+				searchClickHandler), new GHACleanButton(new ClickHandler() {
 
-					@Override
-					public void onClick(ClickEvent event) {
-						form.clearValues();
-						eiaTypeGrid.setData(new ListGridRecord[0]);
-					}
-				}), new GHAImgButton("../resources/icons/cancel.png", new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				form.clearValues();
+				grid.setData(new ListGridRecord[0]);
+			}
+		}), new GHACancelButton(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
@@ -140,11 +111,11 @@ public class EIATypeSearchForm extends GHASearchForm implements EIATypeSelection
 		addMembers(formLayout,
 				GHAUiHelper.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
 
-		eiaTypeGrid.setHeight(GHAUiHelper.getSubtabGridSize(30));
+		grid.setHeight(GHAUiHelper.getSubtabGridSize(30));
 		HLayout gridLayout = new HLayout();
 
-		VLayout sideGridButtons = GHAUiHelper.createBar(new GHAImgButton(
-				"../resources/icons/check.png", new ClickHandler() {
+		VLayout sideGridButtons = GHAUiHelper.createBar(new GHACheckButton(
+				new ClickHandler() {
 
 					@Override
 					public void onClick(ClickEvent event) {
@@ -158,7 +129,7 @@ public class EIATypeSearchForm extends GHASearchForm implements EIATypeSelection
 				 * addForm.open(); } })
 				 */);
 
-		gridLayout.addMembers(eiaTypeGrid, sideGridButtons);
+		gridLayout.addMembers(grid, sideGridButtons);
 
 		searchResultsLabel = new GHALabel(GHAStrings.get("search-results"));
 
@@ -192,12 +163,12 @@ public class EIATypeSearchForm extends GHASearchForm implements EIATypeSelection
 	}
 
 	private void selectEiaType() {
-		GHAGridRecord<EiaType> selectedRecord = eiaTypeGrid.getSelectedRecord();
-		if (selectedRecord == null) {
-			GHANotification.oldAlert(GHAStrings.get("record-not-selected"));
+		EiaType selectedEntity = grid.getSelectedEntity();
+		if (selectedEntity == null) {
+			GHANotification.alert("record-not-selected");
 			return;
 		}
-		notifyEiaType(((EIATypeRecord) selectedRecord).toEntity());
+		notifyEiaType(selectedEntity);
 		hide();
 	}
 
@@ -216,7 +187,7 @@ public class EIATypeSearchForm extends GHASearchForm implements EIATypeSelection
 		fillBrands(true);
 	}
 
-	private void search() {
+	public void search() {
 		EiaType eiaType = new EiaType();
 		eiaType.setCode(codeEIAItem.getValueAsString());
 		eiaType.setName(nameEIAItem.getValueAsString());
@@ -238,17 +209,21 @@ public class EIATypeSearchForm extends GHASearchForm implements EIATypeSelection
 
 			@Override
 			public void onSuccess(List<EiaType> eiaTypes) {
-				mostrarCantResults(eiaTypes);
+				if (blackList != null)
+					eiaTypes.removeAll(blackList);
 
-				ListGridRecord[] array = blackEiaType == null ? EIATypeUtil.toGridRecords(eiaTypes)
-						.toArray(new EIATypeRecord[] {}) : EIATypeUtil.toGridRecords(eiaTypes,
-						blackEiaType).toArray(new EIATypeRecord[] {});
-				eiaTypeGrid.setData(array);
+				ListGridRecord[] array = EIATypeUtil.toGridRecords(eiaTypes)
+						.toArray(new EIATypeRecord[] {});
+			
+				mostrarCantResults(eiaTypes);
+				
+				grid.setData(array);
 				if (eiaType != null && eiaType.getCode() != "")
-					for (ListGridRecord listGridRecord : eiaTypeGrid.getRecords())
-						if (((EIATypeRecord) listGridRecord).toEntity().getCode() == eiaType
+					for (ListGridRecord listGridRecord : grid.getRecords())
 								.getCode())
-							eiaTypeGrid.selectRecord(listGridRecord);
+						if (((EIATypeRecord) listGridRecord).toEntity()
+								.getCode() == eiaType.getCode())
+							grid.selectRecord(listGridRecord);
 			}
 		});
 	}
@@ -287,26 +262,6 @@ public class EIATypeSearchForm extends GHASearchForm implements EIATypeSelection
 	 * 
 	 */
 	public void clean() {
-		eiaTypeGrid.setData(new EIATypeRecord[] {});
-	}
-
-	/**
-	 * this method is used to have a blacklist to filter results
-	 * 
-	 * @param blackList
-	 */
-	public void open(List<EiaType> blackList) {
-		this.blackList = blackList;
-		open();
-	}
-
-	/**
-	 * this method is used to exclude the blackEiaType from the results
-	 * 
-	 * @param blackEiaType
-	 */
-	public void open(EiaType blackEiaType) {
-		this.blackEiaType = blackEiaType;
-		open();
+		grid.setData(new EIATypeRecord[] {});
 	}
 }

@@ -10,10 +10,9 @@ import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.materialcategory.MaterialCategorySelectionListener;
 
@@ -29,8 +28,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret, emiliot
  * 
  */
-public class EIATypeUtilityGridPanel extends VLayout implements
-		EIATypeSelectionListener, GHAClosable, GHAHideable {
+public class EIATypeUtilityGridPanel extends GHAVerticalLayout implements
+		EIATypeSelectionListener {
 
 	// private MaterialGrid grid = new MaterialGrid();
 	private EiaTypeUtilityGrid grid = new EiaTypeUtilityGrid();
@@ -67,13 +66,9 @@ public class EIATypeUtilityGridPanel extends VLayout implements
 	 * 
 	 */
 	public EIATypeUtilityGridPanel() {
-		setWidth100();
-		setBackgroundColor("#E0E0E0");
-		setStyleName("sides-padding padding-top");// Esto es VUDU!
+		super();
 
 		GHALabel title = new GHALabel("Servicios utilitarios");
-
-		// //////Botones laterales
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
 				new ClickHandler() {
@@ -84,19 +79,13 @@ public class EIATypeUtilityGridPanel extends VLayout implements
 				}), new GHAImgButton("../resources/icons/delete.png",
 				new ClickHandler() {
 
-					@SuppressWarnings("deprecation")
 					@Override
 					public void onClick(ClickEvent event) {
-						// TODO Auto-generated method stub
-						// EiaTypeUtility eiaTypeUtility =
-						// ((EIATypeUtilityRecord)
-						// grid.getSelectedRecord()).toEntity();
 						EiaTypeUtility eiaTypeUtility = grid
 								.getSelectedEntity();
 
 						if (eiaTypeUtility == null) {
-							GHANotification.oldAlert(GHAStrings
-									.get("record-not-selected"));
+							GHANotification.alert("record-not-selected");
 							return;
 						}
 
@@ -105,7 +94,6 @@ public class EIATypeUtilityGridPanel extends VLayout implements
 
 									@Override
 									public void onSuccess(Void result) {
-										// TODO Auto-generated method stub
 										loadData();
 									}
 								});

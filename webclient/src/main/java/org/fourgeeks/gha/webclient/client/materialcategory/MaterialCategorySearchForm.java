@@ -6,19 +6,22 @@ import java.util.List;
 import org.fourgeeks.gha.domain.glm.MaterialCategory;
 import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHACodeItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHACancelButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHACheckButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASearchForm;
 
-import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
-import com.smartgwt.client.widgets.form.fields.events.KeyUpEvent;
-import com.smartgwt.client.widgets.form.fields.events.KeyUpHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
@@ -28,8 +31,9 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret Material search form
  * 
  */
-public class MaterialCategorySearchForm extends GHASearchForm implements
-		MaterialCategorySelectionListener, MaterialCategorySelectionProducer {
+public class MaterialCategorySearchForm extends GHASearchForm<MaterialCategory>
+		implements MaterialCategorySelectionListener,
+		MaterialCategorySelectionProducer {
 
 	private List<MaterialCategorySelectionListener> selectionListeners;
 	private GHATextItem codeTextItem, nameTextItem, descriptionTextItem,
@@ -39,14 +43,15 @@ public class MaterialCategorySearchForm extends GHASearchForm implements
 
 	{
 		selectionListeners = new LinkedList<MaterialCategorySelectionListener>();
-		codeTextItem = new GHATextItem("Código");
-		nameTextItem = new GHATextItem("Nombre");
-		modelTextItem = new GHATextItem("Modelo");
-		extCodeTextItem = new GHATextItem("Código externo");
-		descriptionTextItem = new GHATextItem("Descipción");
+		//
+		codeTextItem = new GHACodeItem(300);
+		nameTextItem = new GHATextItem(GHAStrings.get("name"), 300);
+		modelTextItem = new GHATextItem(GHAStrings.get("model"), 300);
+		extCodeTextItem = new GHATextItem(GHAStrings.get("external-code"), 300);
+		descriptionTextItem = new GHATextItem(GHAStrings.get("description"),
+				300);
 		// selects
-		typeSelectItem = new GHASelectItem("Tipo");
-
+		typeSelectItem = new GHASelectItem(GHAStrings.get("type"), 300);
 	}
 
 	/**
@@ -56,25 +61,9 @@ public class MaterialCategorySearchForm extends GHASearchForm implements
 		super(title);
 		final DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
-		form.setNumCols(5);
+		form.setNumCols(3);
 		form.setItems(codeTextItem, nameTextItem, modelTextItem,
-				extCodeTextItem, descriptionTextItem, typeSelectItem);
-
-		// Event Handlers
-		ClickHandler searchClickHandler = new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				search();
-			}
-		};
-		KeyUpHandler searchKeyUpHandler = new KeyUpHandler() {
-			@Override
-			public void onKeyUp(KeyUpEvent event) {
-				if (event.getKeyName().equals("Enter")) {
-					search();
-				}
-			}
-		};
+				typeSelectItem, extCodeTextItem, descriptionTextItem);
 
 		codeTextItem.addKeyUpHandler(searchKeyUpHandler);
 		nameTextItem.addKeyUpHandler(searchKeyUpHandler);
@@ -84,48 +73,42 @@ public class MaterialCategorySearchForm extends GHASearchForm implements
 		typeSelectItem.addKeyUpHandler(searchKeyUpHandler);
 		// ////////////////////////////
 
-		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
-				"../resources/icons/search.png", searchClickHandler),
-				new GHAImgButton("../resources/icons/clean.png",
-						new ClickHandler() {
+		VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
+				searchClickHandler), new GHACleanButton(new ClickHandler() {
 
-							@Override
-							public void onClick(ClickEvent event) {
-								form.clearValues();
-								grid.setData(new ListGridRecord[0]);
-							}
-						}), new GHAImgButton("../resources/icons/cancel.png",
-						new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				form.clearValues();
+				grid.setData(new ListGridRecord[0]);
+			}
+		}), new GHACancelButton(new ClickHandler() {
 
-							@Override
-							public void onClick(ClickEvent event) {
-								hide();
-							}
-						}));
+			@Override
+			public void onClick(ClickEvent event) {
+				hide();
+			}
+		}));
 
 		HLayout formLayout = new HLayout();
 		formLayout.setPadding(10);
 		formLayout.setHeight(GHAUiHelper.DEFAULT_TOP_SECTION_HEIGHT + "px");
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
 
-		addMembers(formLayout,
-				GHAUiHelper
-						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
-								+ "px"));
+		addMembers(formLayout, GHAUiHelper
+				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
 
 		grid = new MaterialCategoryGrid();
 		HLayout gridLayout = new HLayout();
 		gridLayout.setPadding(10);
 
-		VLayout sideGridButtons = GHAUiHelper.createBar(new GHAImgButton(
-				"../resources/icons/check.png", new ClickHandler() {
+		VLayout sideGridButtons = GHAUiHelper.createBar(new GHACheckButton(
+				new ClickHandler() {
 
 					@Override
 					public void onClick(ClickEvent event) {
-						selectMaterialCategory(grid.getSelectedEntity());
-						hide();
+						selectMaterialCategory();
 					}
-				}), GHAUiHelper.verticalGraySeparator("2px"));
+				}));
 
 		gridLayout.addMembers(grid, sideGridButtons);
 
@@ -137,9 +120,14 @@ public class MaterialCategorySearchForm extends GHASearchForm implements
 		typeSelectItem.setValueMap(MaterialTypeEnum.toValueMap());
 	}
 
-	private void selectMaterialCategory(MaterialCategory materialCategory) {
-		for (MaterialCategorySelectionListener listener : selectionListeners)
-			listener.select(materialCategory);
+	private void selectMaterialCategory() {
+		MaterialCategory selectedEntity = grid.getSelectedEntity();
+		if (selectedEntity == null) {
+			GHANotification.alert("record-not-selected");
+			return;
+		}
+		notifyMaterialCategory(selectedEntity);
+		hide();
 	}
 
 	@Override
@@ -147,7 +135,7 @@ public class MaterialCategorySearchForm extends GHASearchForm implements
 		search(materialCategory);
 	}
 
-	private void search() {
+	public void search() {
 		MaterialCategory material = new MaterialCategory();
 		material.setCode(codeTextItem.getValueAsString());
 		material.setName(nameTextItem.getValueAsString());
@@ -170,6 +158,9 @@ public class MaterialCategorySearchForm extends GHASearchForm implements
 
 					@Override
 					public void onSuccess(List<MaterialCategory> materials) {
+						if (blackList != null)
+							materials.removeAll(blackList);
+
 						ListGridRecord[] array = MaterialCategoryUtil
 								.toGridRecords(materials).toArray(
 										new MaterialCategoryRecord[] {});
@@ -184,21 +175,6 @@ public class MaterialCategorySearchForm extends GHASearchForm implements
 									grid.selectRecord(listGridRecord);
 					}
 				});
-	}
-
-	@Override
-	public void close() {
-		destroy();
-	}
-
-	@Override
-	public void hide() {
-		super.hide();
-	}
-
-	@Override
-	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getTabHeight() - 4 + "px");
 	}
 
 	@Override
@@ -222,4 +198,11 @@ public class MaterialCategorySearchForm extends GHASearchForm implements
 	public boolean canBeHidden() {
 		return true;
 	}
+
+	@Override
+	public void notifyMaterialCategory(MaterialCategory materialCategory) {
+		for (MaterialCategorySelectionListener listener : selectionListeners)
+			listener.select(materialCategory);
+	}
+
 }

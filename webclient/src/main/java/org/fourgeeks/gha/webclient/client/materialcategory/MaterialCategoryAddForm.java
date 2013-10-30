@@ -22,9 +22,9 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class MaterialCategoryAddForm extends GHAAddForm implements
 		MaterialCategorySelectionProducer {
 
-	private MaterialCategoryForm materialForm;
+	private MaterialCategoryForm form;
 	{
-		materialForm = new MaterialCategoryForm();
+		form = new MaterialCategoryForm();
 	}
 
 	/**
@@ -48,14 +48,14 @@ public class MaterialCategoryAddForm extends GHAAddForm implements
 		}));
 
 		HLayout gridPanel = new HLayout();
-		gridPanel.addMembers(materialForm, new LayoutSpacer(), sideButtons);
+		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
 		addMember(gridPanel);
 	}
 
 	@Override
 	public void addMaterialSelectionListener(
 			MaterialCategorySelectionListener materialSelectionListener) {
-		materialForm.addMaterialSelectionListener(materialSelectionListener);
+		form.addMaterialSelectionListener(materialSelectionListener);
 	}
 
 	@Override
@@ -66,7 +66,7 @@ public class MaterialCategoryAddForm extends GHAAddForm implements
 	@Override
 	public void removeMaterialSelectionListener(
 			MaterialCategorySelectionListener materialSelectionListener) {
-		materialForm.addMaterialSelectionListener(materialSelectionListener);
+		form.addMaterialSelectionListener(materialSelectionListener);
 
 	}
 
@@ -81,7 +81,7 @@ public class MaterialCategoryAddForm extends GHAAddForm implements
 	}
 
 	private void save() {
-		materialForm.save(new GHAAsyncCallback<MaterialCategory>() {
+		form.save(new GHAAsyncCallback<MaterialCategory>() {
 
 			@Override
 			public void onSuccess(MaterialCategory arg0) {
@@ -90,6 +90,11 @@ public class MaterialCategoryAddForm extends GHAAddForm implements
 			}
 
 		});
+	}
+
+	@Override
+	public void notifyMaterialCategory(MaterialCategory materialCategory) {
+		form.notifyMaterialCategory(materialCategory);
 	}
 
 }

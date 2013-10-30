@@ -1151,6 +1151,9 @@ public class InitialData {
 		} catch (NoResultException e) {
 			try {
 				logger.info("Creating uistrings test data");
+				em.persist(new UiString(LanguageEnum.ES,
+						"no-materials-to-show",
+						"No hay materiales para mostrar"));
 				em.persist(new UiString(LanguageEnum.ES, "save", "Guardar"));
 				em.persist(new UiString(LanguageEnum.ES, "materials-category",
 						"Categorias de materiales"));
