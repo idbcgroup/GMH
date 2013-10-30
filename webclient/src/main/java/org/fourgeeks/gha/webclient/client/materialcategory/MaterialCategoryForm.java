@@ -21,6 +21,7 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 
+import com.google.gwt.user.client.Window;
 import com.google.gwt.validation.client.impl.Validation;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.util.BooleanCallback;
@@ -107,13 +108,10 @@ public class MaterialCategoryForm extends VLayout implements
 			materialCategory.setType(MaterialTypeEnum.valueOf(typeItem
 					.getValueAsString()));
 		materialCategory.setModel(modelItem.getValueAsString());
-
 		Set<ConstraintViolation<MaterialCategory>> violations = validator
 				.validate(materialCategory);
-
 		if (violations.isEmpty())
 			return materialCategory;
-
 		if (form.validate() && violations.isEmpty())
 			return materialCategory;
 		else {
@@ -194,7 +192,11 @@ public class MaterialCategoryForm extends VLayout implements
 		return !hasUnCommittedChanges;
 	}
 
+	/**
+	 * @param ghaAsyncCallback
+	 */
 	public void save(final GHAAsyncCallback<MaterialCategory> ghaAsyncCallback) {
+		Window.alert("extracting");
 		final MaterialCategory materialCategory = extract();
 		if (materialCategory != null)
 			MaterialCategoryModel.save(materialCategory,
@@ -209,6 +211,8 @@ public class MaterialCategoryForm extends VLayout implements
 								ghaAsyncCallback.onSuccess(materialCategory);
 						}
 					});
+		else
+			Window.alert("the extract fail");
 
 	}
 

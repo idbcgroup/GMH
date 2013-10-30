@@ -3,8 +3,6 @@
  */
 package org.fourgeeks.gha.domain.gmh;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -28,7 +26,7 @@ import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 @NamedQueries(value = {
 		@NamedQuery(name = "EiaType.getAll", query = "SELECT e from EiaType e order by e.code"),
 		@NamedQuery(name = "EiaType.findByMaintenancePlan", query = "SELECT etype from EiaTypeMaintenancePlan e JOIN e.eiaType etype WHERE e.maintenancePlan = :maintenancePlan ORDER BY e.id") })
-public class EiaType extends AbstractCodeEntity implements Serializable {
+public class EiaType extends AbstractCodeEntity {
 
 	/**
 	 * 

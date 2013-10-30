@@ -6,7 +6,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.NotNull;
 
+/**
+ * @author alacret
+ * 
+ */
 @MappedSuperclass
 public abstract class AbstractEntity implements Serializable {
 
@@ -14,32 +19,23 @@ public abstract class AbstractEntity implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@NotNull(message = "id-not-null")
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected long id;
 
+	/**
+	 * @param id
+	 */
 	public void setId(long id) {
 		this.id = id;
 	}
 
+	/**
+	 * @return the Id
+	 */
 	public long getId() {
 		return id;
 	}
 
-	@Override
-	public int hashCode() {
-		return (int) this.id;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (obj == null)
-			return false;
-		if (obj == this)
-			return true;
-		if (!(obj instanceof AbstractEntity))
-			return false;
-		AbstractEntity entity = (AbstractEntity) obj;
-		return entity.getId() == this.id;
-	}
 }

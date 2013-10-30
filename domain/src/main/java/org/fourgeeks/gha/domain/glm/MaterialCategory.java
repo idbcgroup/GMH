@@ -36,6 +36,8 @@ public class MaterialCategory extends AbstractCodeEntity {
 	// private ServiceResourceCategory sRCategory;
 
 	private String description;
+	@NotNull(message = "name-not-null")
+	@Column(nullable = false)
 	private String name;
 	private String externalCode;
 	private String model;
@@ -57,42 +59,72 @@ public class MaterialCategory extends AbstractCodeEntity {
 		this.code = code;
 	}
 
+	/**
+	 * @return the type
+	 */
 	public MaterialTypeEnum getType() {
 		return type;
 	}
 
+	/**
+	 * @param type
+	 */
 	public void setType(MaterialTypeEnum type) {
 		this.type = type;
 	}
 
+	/**
+	 * @return the description
+	 */
 	public String getDescription() {
 		return description;
 	}
 
+	/**
+	 * @param description
+	 */
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
+	/**
+	 * @return the name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * @param name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * @return the external code
+	 */
 	public String getExternalCode() {
 		return externalCode;
 	}
 
+	/**
+	 * @param extCode
+	 */
 	public void setExternalCode(String extCode) {
 		this.externalCode = extCode;
 	}
 
+	/**
+	 * @return the model
+	 */
 	public String getModel() {
 		return model;
 	}
 
+	/**
+	 * @param model
+	 */
 	public void setModel(String model) {
 		this.model = model;
 	}

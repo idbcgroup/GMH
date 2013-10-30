@@ -122,6 +122,7 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 
 	}
 
+	@Deprecated
 	public void canBeHide() {
 		form.canBeHidden(new BooleanCallback() {
 

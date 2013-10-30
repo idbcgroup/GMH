@@ -33,22 +33,4 @@ public abstract class AbstractCodeEntity implements Serializable {
 	public void setCode(String code) {
 		this.code = code;
 	}
-
-	@Override
-	public int hashCode() {
-		return this.code.hashCode();
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (obj == null)
-			return false;
-		if (obj == this)
-			return true;
-		if (!(obj instanceof AbstractCodeEntity))
-			return false;
-		AbstractCodeEntity entity = (AbstractCodeEntity) obj;
-		return entity.getCode().equals(this.code);
-	}
-
 }
