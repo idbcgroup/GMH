@@ -253,9 +253,9 @@ public class InitialData {
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"instanceLogon-getAll-fail",
 						"Hubo un fallo en la búsqueda de todos los InstanceLogon"));
-				
-//////>>>>>>>>>>>>>>>>>>>>>>>>>>>>HUMANIZACION HASTA ACA.	
-			
+
+				// ////>>>>>>>>>>>>>>>>>>>>>>>>>>>>HUMANIZACION HASTA ACA.
+
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"instanceLogon-save-fail",
 						"Guardado fallido de InstanceLogon"));
@@ -1541,6 +1541,12 @@ public class InitialData {
 				em.persist(new UiString(LanguageEnum.ES,
 						"search-utility-material",
 						"Buscar un material utilitario"));
+				em.persist(new UiString(LanguageEnum.ES,
+						"materialcategory-title", "Categoría de Materiales"));
+				em.persist(new UiString(LanguageEnum.ES,
+						"eiatype-materialcategory-delete-confirm",
+						"¿Desea eliminar el material al tipo de equipo seleccionado?"));
+
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating uistrings test data", e1);
