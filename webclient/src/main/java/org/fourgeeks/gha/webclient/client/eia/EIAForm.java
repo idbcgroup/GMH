@@ -961,8 +961,6 @@ public class EIAForm extends GHAVerticalLayout implements
 				public void onSuccess(Eia result) {
 					hasUnCommittedChanges = false;
 					notifyEia(result);
-					if (callback != null)
-						callback.onSuccess(result);
 					cancel();
 
 					if (callback != null)
@@ -1220,8 +1218,10 @@ public class EIAForm extends GHAVerticalLayout implements
 			EIAModel.update(eia, new GHAAsyncCallback<Eia>() {
 				@Override
 				public void onSuccess(Eia result) {
+					EIAForm.this.updateEntity = result;
 					hasUnCommittedChanges = false;
 					notifyEia(result);
+					cancel();
 
 					if (callback != null)
 						callback.onSuccess(result);

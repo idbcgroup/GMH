@@ -143,6 +143,21 @@ public class EIAAddForm extends GHAAddForm implements EIATypeSelectionListener,
 
 	@Override
 	public void hide() {
+		if (form.hasUnCommittedChanges()) {
+			GHANotification.confirm(GHAStrings.get("information"),
+					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
+
+						@Override
+						public void execute(Boolean value) {
+							if (value) {
+								form.undo();
+								form.hide();
+								EIAAddForm.super.hide();
+							}
+						}
+					});
+			return;
+		}
 		form.hide();
 		super.hide();
 	}
