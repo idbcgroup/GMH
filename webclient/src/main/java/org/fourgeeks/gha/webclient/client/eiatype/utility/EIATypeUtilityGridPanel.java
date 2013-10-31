@@ -1,5 +1,6 @@
 package org.fourgeeks.gha.webclient.client.eiatype.utility;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.glm.MaterialCategory;
@@ -35,13 +36,13 @@ public class EIATypeUtilityGridPanel extends GHAVerticalLayout implements
 
 	// private MaterialGrid grid = new MaterialGrid();
 	private EiaTypeUtilityGrid grid = new EiaTypeUtilityGrid();
-	private UtilitySearchForm utilitySearchForm;
+	private UtilitySearchForm searchForm;
 	private EiaType eiaType;
 
 	{
-		utilitySearchForm = new UtilitySearchForm(
+		searchForm = new UtilitySearchForm(
 				GHAStrings.get("search-utility-material"));
-		utilitySearchForm
+		searchForm
 				.addMaterialSelectionListener(new MaterialCategorySelectionListener() {
 
 					@Override
@@ -76,7 +77,7 @@ public class EIATypeUtilityGridPanel extends GHAVerticalLayout implements
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						utilitySearchForm.open();
+						search();
 					}
 				}), new GHAImgButton("../resources/icons/delete.png",
 				new ClickHandler() {
@@ -116,13 +117,13 @@ public class EIATypeUtilityGridPanel extends GHAVerticalLayout implements
 
 	@Override
 	public void close() {
-		utilitySearchForm.animateHide(AnimationEffect.FLY);
-		utilitySearchForm.close();
+		searchForm.animateHide(AnimationEffect.FLY);
+		searchForm.close();
 	}
 
 	@Override
 	public void hide() {
-		utilitySearchForm.animateHide(AnimationEffect.FLY);
+		searchForm.animateHide(AnimationEffect.FLY);
 	}
 
 	private void loadData() {
@@ -154,6 +155,22 @@ public class EIATypeUtilityGridPanel extends GHAVerticalLayout implements
 	@Override
 	public boolean canBeClosen() {
 		return true;
+	}
+
+	/**
+	 * 
+	 */
+	private void search() {
+		ListGridRecord[] records = grid.getRecords();
+		List<MaterialCategory> blackList = null;
+		if (records.length != 0) {
+			blackList = new ArrayList<MaterialCategory>();
+			for (int i = 0; i < records.length; i++)
+				blackList.add(((EIATypeUtilityRecord) records[i]).toEntity()
+						.getMaterialCategory());
+		}
+		searchForm.filterBy(blackList);
+		searchForm.open();
 	}
 
 }

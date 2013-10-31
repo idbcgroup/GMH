@@ -87,6 +87,7 @@ public class MaterialCategoryAddForm extends GHAAddForm implements
 			@Override
 			public void onSuccess(MaterialCategory arg0) {
 				GHANotification.alert("material-save-success");
+				form.cancel();
 				hide();
 			}
 

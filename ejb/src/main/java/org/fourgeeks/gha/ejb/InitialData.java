@@ -117,6 +117,9 @@ public class InitialData {
 				logger.info("Creating message test data");
 				em.persist(new GHAMessage(LanguageEnum.ES, "asset-id-not-null",
 						"Debe indicar el identificador del activo"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"material-type-not-null",
+						"Debe indicar el tipo de material"));
 				em.persist(new GHAMessage(LanguageEnum.ES, "unsaved-changes",
 						"Existen cambios sin guardar, ¿Desea descartarlos?"));
 				em.persist(new GHAMessage(LanguageEnum.EN, "info-tittle",
@@ -253,9 +256,9 @@ public class InitialData {
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"instanceLogon-getAll-fail",
 						"Hubo un fallo en la búsqueda de todos los InstanceLogon"));
-				
-//////>>>>>>>>>>>>>>>>>>>>>>>>>>>>HUMANIZACION HASTA ACA.	
-			
+
+				// ////>>>>>>>>>>>>>>>>>>>>>>>>>>>>HUMANIZACION HASTA ACA.
+
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"instanceLogon-save-fail",
 						"Guardado fallido de InstanceLogon"));
@@ -1438,6 +1441,7 @@ public class InitialData {
 		} catch (NoResultException e) {
 			try {
 				logger.info("Creating uistrings test data");
+				em.persist(new UiString(LanguageEnum.ES, "delete", "Borrar"));
 				em.persist(new UiString(LanguageEnum.ES,
 						"no-materials-to-show",
 						"No hay materiales para mostrar"));

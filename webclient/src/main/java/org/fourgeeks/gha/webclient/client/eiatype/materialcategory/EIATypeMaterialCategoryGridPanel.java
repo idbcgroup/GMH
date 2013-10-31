@@ -171,7 +171,6 @@ public class EIATypeMaterialCategoryGridPanel extends GHAVerticalLayout
 			for (int i = 0; i < records.length; i++)
 				blackList.add(((EIATypeMaterialCategoryRecord) records[i])
 						.toEntity().getMaterialCategory());
-
 		}
 		searchForm.filterBy(blackList);
 		searchForm.open();

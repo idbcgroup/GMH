@@ -13,6 +13,9 @@ import com.smartgwt.client.widgets.events.ClickHandler;
  */
 public class GHADeleteButton extends GHAImgButton {
 
+	/**
+	 * @param clickHandler
+	 */
 	public GHADeleteButton(ClickHandler clickHandler) {
 		super("../resources/icons/delete.png", clickHandler);
 		setTooltip(GHAStrings.get("delete"));

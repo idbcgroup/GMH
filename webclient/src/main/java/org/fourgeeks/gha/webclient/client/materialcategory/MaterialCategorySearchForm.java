@@ -43,6 +43,7 @@ public class MaterialCategorySearchForm extends GHASearchForm<MaterialCategory>
 			modelTextItem, extCodeTextItem;
 	protected GHASelectItem typeSelectItem;
 	private MaterialCategoryGrid grid;
+	private final DynamicForm form = new DynamicForm();
 
 	{
 		selectionListeners = new LinkedList<MaterialCategorySelectionListener>();
@@ -63,7 +64,7 @@ public class MaterialCategorySearchForm extends GHASearchForm<MaterialCategory>
 	 */
 	public MaterialCategorySearchForm(String title) {
 		super(title);
-		final DynamicForm form = new DynamicForm();
+
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(3);
 		form.setItems(codeTextItem, nameTextItem, modelTextItem,
@@ -82,8 +83,7 @@ public class MaterialCategorySearchForm extends GHASearchForm<MaterialCategory>
 
 			@Override
 			public void onClick(ClickEvent event) {
-				form.clearValues();
-				grid.setData(new ListGridRecord[0]);
+				clean();
 			}
 		}), new GHACancelButton(new ClickHandler() {
 
@@ -134,6 +134,7 @@ public class MaterialCategorySearchForm extends GHASearchForm<MaterialCategory>
 		}
 		notifyMaterialCategory(selectedEntity);
 		hide();
+		grid.removeSelectedData();
 	}
 
 	@Override
@@ -219,6 +220,14 @@ public class MaterialCategorySearchForm extends GHASearchForm<MaterialCategory>
 	public void notifyMaterialCategory(MaterialCategory materialCategory) {
 		for (MaterialCategorySelectionListener listener : selectionListeners)
 			listener.select(materialCategory);
+	}
+
+	/**
+	 * 
+	 */
+	private void clean() {
+		form.clearValues();
+		grid.setData(new ListGridRecord[0]);
 	}
 
 }

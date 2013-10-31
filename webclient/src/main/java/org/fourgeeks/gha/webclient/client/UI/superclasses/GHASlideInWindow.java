@@ -27,12 +27,12 @@ public abstract class GHASlideInWindow extends GHAVerticalLayout implements
 		setAnimateTime(GHAUiHelper.DEFAULT_ANIMATION_TIME);
 		GHAUiHelper.addGHAResizeHandler(this);
 		setTop(GHAUiHelper.DEFAULT_TOP_SECTION_HEIGHT);
-		setHeight(GHAUiHelper.getTabHeight());
+		setHeight(GHAUiHelper.getTabHeight() - 5);
 	}
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getTabHeight());
+		setHeight(GHAUiHelper.getTabHeight() - 5);
 	}
 
 	@Override

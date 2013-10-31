@@ -10,6 +10,7 @@ import org.fourgeeks.gha.webclient.client.materialcategory.MaterialCategorySearc
 public class UtilitySearchForm extends MaterialCategorySearchForm {
 
 	/**
+	 * @param title
 	 * 
 	 */
 	public UtilitySearchForm(String title) {
