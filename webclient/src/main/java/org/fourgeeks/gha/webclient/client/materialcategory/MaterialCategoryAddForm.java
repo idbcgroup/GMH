@@ -49,8 +49,8 @@ public class MaterialCategoryAddForm extends GHAAddForm implements
 				hide();
 			}
 		}));
-
 		HLayout gridPanel = new HLayout();
+		// gridPanel.setAlign(VerticalAlignment.TOP);
 		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
 		addMember(gridPanel);
 	}

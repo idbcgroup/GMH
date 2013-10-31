@@ -8,8 +8,6 @@ import java.util.List;
 import org.fourgeeks.gha.domain.AbstractCodeEntity;
 import org.fourgeeks.gha.domain.AbstractEntity;
 
-import com.google.gwt.user.client.Window;
-
 /**
  * @author alacret
  * 
@@ -63,8 +61,7 @@ public final class GHAUtil {
 		List<AbstractEntity> newList = new ArrayList<AbstractEntity>();
 		Long[] keyArray = longArrayFrom(blackList);
 		for (AbstractEntity allItem : all) {
-			if (!(binarySearch(keyArray,
-					Long.valueOf(allItem.getId()))))
+			if (!(binarySearch(keyArray, Long.valueOf(allItem.getId()))))
 				newList.add(allItem);
 		}
 
@@ -91,7 +88,6 @@ public final class GHAUtil {
 		while (low < high) {
 			int mid = (low + high) / 2;
 			int cmp = key.compareTo(all[mid]);
-			Window.alert(all[mid] + " compare to: " + key + " : " + cmp);
 			if (cmp == 0)
 				return true;
 			else if (cmp > 0)
