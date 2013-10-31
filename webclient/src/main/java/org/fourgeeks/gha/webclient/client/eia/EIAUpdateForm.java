@@ -3,6 +3,7 @@ package org.fourgeeks.gha.webclient.client.eia;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
@@ -11,6 +12,7 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -23,22 +25,96 @@ import com.smartgwt.client.widgets.layout.VLayout;
  */
 public class EIAUpdateForm extends GHASlideInWindow implements
 		EIATypeSelectionListener, EiaSelectionProducer, EIASelectionListener {
-	EIAForm eiaForm;
+	EIAForm form;
 
 	/**
 	 * 
 	 */
 	public EIAUpdateForm() {
 		super();
-		eiaForm = new EIAForm();
+		form = new EIAForm();
 		initComponent();
+	}
+
+	/**
+	 * @param eiaType
+	 * 
+	 */
+	public EIAUpdateForm(EiaType eiaType) {
+		super();
+		form = new EIAForm();
+		form.select(eiaType);
+		initComponent();
+	}
+
+	@Override
+	public void addEiaSelectionListener(
+			EIASelectionListener eiaSelectionListener) {
+		form.addEiaSelectionListener(eiaSelectionListener);
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		if (form.hasUnCommittedChanges()) {
+			GHANotification.confirm(GHAStrings.get("information"),
+					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
+
+						@Override
+						public void execute(Boolean value) {
+							if (value) {
+								form.undo();
+							}
+						}
+					});
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		if (form.hasUnCommittedChanges()) {
+			GHANotification.confirm(GHAStrings.get("information"),
+					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
+
+						@Override
+						public void execute(Boolean value) {
+							if (value) {
+								form.undo();
+							}
+						}
+					});
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public void hide() {
+		if (form.hasUnCommittedChanges()) {
+			GHANotification.confirm(GHAStrings.get("information"),
+					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
+
+						@Override
+						public void execute(Boolean value) {
+							if (value) {
+								form.undo();
+								form.hide();
+								EIAUpdateForm.super.hide();
+							}
+						}
+					});
+			return;
+		}
+		form.hide();
+		hide();
 	}
 
 	/**
 	 * 
 	 */
 	private void initComponent() {
-		eiaForm.addEiaSelectionListener(this);
+		form.addEiaSelectionListener(this);
 
 		GHAUiHelper.addGHAResizeHandler(this);
 		setHeight(GHAUiHelper.getBottomSectionHeight());
@@ -63,100 +139,10 @@ public class EIAUpdateForm extends GHASlideInWindow implements
 				}));
 
 		HLayout mainLayout = new HLayout();
-		mainLayout.addMember(eiaForm);
+		mainLayout.addMember(form);
 		mainLayout.addMembers(new LayoutSpacer(), sideButtons);
 		addMember(mainLayout);
 
-	}
-
-	/**
-	 * @param eiaType
-	 * 
-	 */
-	public EIAUpdateForm(EiaType eiaType) {
-		super();
-		eiaForm = new EIAForm();
-		eiaForm.select(eiaType);
-		initComponent();
-	}
-
-	@Override
-	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getBottomSectionHeight());
-	}
-
-	@Override
-	public void addEiaSelectionListener(
-			EIASelectionListener eiaSelectionListener) {
-		eiaForm.addEiaSelectionListener(eiaSelectionListener);
-	}
-
-	@Override
-	public void removeEiaSelectionListener(
-			EIASelectionListener eiaSelectionListener) {
-		eiaForm.removeEiaSelectionListener(eiaSelectionListener);
-	}
-
-	@Override
-	public void hide() {
-		eiaForm.hide();
-		super.hide();
-	}
-
-	/**
-	 * @param eia
-	 */
-	public void setEia(Eia eia) {
-		eiaForm.setEia(eia);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow#open
-	 * ()
-	 */
-	@Override
-	public void open() {
-		super.open();
-		eiaForm.show();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener#select
-	 * (org.fourgeeks.gha.domain.gmh.EiaType)
-	 */
-	@Override
-	public void select(EiaType eiaType) {
-		eiaForm.select(eiaType);
-
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.fourgeeks.gha.webclient.client.eia.EIASelectionListener#select(org
-	 * .fourgeeks.gha.domain.gmh.Eia)
-	 */
-	@Override
-	public void select(Eia eia) {
-		eiaForm.cancel();
-		hide();
-	}
-
-	@Override
-	public boolean canBeClosen() {
-		return true;
-	}
-
-	@Override
-	public boolean canBeHidden() {
-		return true;
 	}
 
 	/*
@@ -172,8 +158,65 @@ public class EIAUpdateForm extends GHASlideInWindow implements
 
 	}
 
+	@Override
+	public void onResize(ResizeEvent event) {
+		setHeight(GHAUiHelper.getBottomSectionHeight());
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow#open
+	 * ()
+	 */
+	@Override
+	public void open() {
+		super.open();
+		form.show();
+	}
+
+	@Override
+	public void removeEiaSelectionListener(
+			EIASelectionListener eiaSelectionListener) {
+		form.removeEiaSelectionListener(eiaSelectionListener);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.eia.EIASelectionListener#select(org
+	 * .fourgeeks.gha.domain.gmh.Eia)
+	 */
+	@Override
+	public void select(Eia eia) {
+		form.cancel();
+		hide();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener#select
+	 * (org.fourgeeks.gha.domain.gmh.EiaType)
+	 */
+	@Override
+	public void select(EiaType eiaType) {
+		form.select(eiaType);
+
+	}
+
+	/**
+	 * @param eia
+	 */
+	public void setEia(Eia eia) {
+		form.setEia(eia);
+	}
+
 	private void update() {
-		eiaForm.update(new GHAAsyncCallback<Eia>() {
+		form.update(new GHAAsyncCallback<Eia>() {
 
 			@Override
 			public void onSuccess(Eia result) {
