@@ -8,7 +8,7 @@ import org.fourgeeks.gha.domain.gmh.EiaTypeUtility;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
@@ -20,6 +20,7 @@ import org.fourgeeks.gha.webclient.client.materialcategory.MaterialCategorySelec
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.smartgwt.client.types.AnimationEffect;
+import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
@@ -78,30 +79,40 @@ public class EIATypeUtilityGridPanel extends GHAVerticalLayout implements
 					public void onClick(ClickEvent event) {
 						utilitySearchForm.open();
 					}
-				}), new GHAImgButton("../resources/icons/delete.png",
-				new ClickHandler() {
+				}), new GHADeleteButton(new ClickHandler() {
 
-					@Override
-					public void onClick(ClickEvent event) {
-						EiaTypeUtility eiaTypeUtility = grid
-								.getSelectedEntity();
+			@Override
+			public void onClick(ClickEvent event) {
+				final EiaTypeUtility eiaTypeUtility = grid.getSelectedEntity();
 
-						if (eiaTypeUtility == null) {
-							GHANotification.alert("record-not-selected");
-							return;
-						}
+				if (eiaTypeUtility == null) {
+					GHANotification.alert("record-not-selected");
+					return;
+				}
 
-						EIATypeUtilityModel.delete(eiaTypeUtility.getId(),
-								new GHAAsyncCallback<Void>() {
+				GHANotification.confirm(GHAStrings
+						.get("materialcategory-title"), GHAStrings
+						.get("eiatype-materialcategory-delete-confirm"),
+						new BooleanCallback() {
 
-									@Override
-									public void onSuccess(Void result) {
-										loadData();
-									}
-								});
+							@Override
+							public void execute(Boolean value) {
+								if (value) {
+									EIATypeUtilityModel.delete(
+											eiaTypeUtility.getId(),
+											new GHAAsyncCallback<Void>() {
 
-					}
-				}));
+												@Override
+												public void onSuccess(
+														Void result) {
+													loadData();
+												}
+											});
+								}
+							}
+						});
+			}
+		}));
 
 		HLayout mainPanel = new HLayout();
 		mainPanel.addMembers(grid, sideButtons);
