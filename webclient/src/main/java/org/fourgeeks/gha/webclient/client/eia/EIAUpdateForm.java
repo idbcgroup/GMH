@@ -119,6 +119,7 @@ public class EIAUpdateForm extends GHASlideInWindow implements
 						}
 					});
 		} else {
+			form.hide();
 			super.hide();
 		}
 	}
@@ -215,6 +216,7 @@ public class EIAUpdateForm extends GHASlideInWindow implements
 
 			@Override
 			public void onSuccess(Eia result) {
+				form.hide();
 				EIAUpdateForm.this.hide();
 			}
 		});

@@ -130,11 +130,13 @@ public class EIAAddForm extends GHASlideInWindow implements
 							if (value) {
 								// discard changes and hide
 								form.undo();
+								form.hide();
 								EIAAddForm.super.hide();
 							}
 						}
 					});
 		} else {
+			form.hide();
 			super.hide();
 		}
 	}
@@ -195,6 +197,7 @@ public class EIAAddForm extends GHASlideInWindow implements
 	@Override
 	public void open() {
 		super.open();
+		form.show();
 		form.activate();
 	}
 
@@ -212,6 +215,7 @@ public class EIAAddForm extends GHASlideInWindow implements
 
 			@Override
 			public void onSuccess(Eia result) {
+				form.hide();
 				EIAAddForm.this.hide();
 			}
 
