@@ -98,6 +98,14 @@ public final class GHATabSet {
 		throw new UnavailableToHideException(null);
 	}
 
+	public static void hideCurrentTab() throws UnavailableToHideException {
+		hideTab(currentTab);
+	}
+
+	public static void closeCurrentTab() throws UnavailableToHideException {
+		closeTab(currentTab);
+	}
+
 	/**
 	 * @param id
 	 * @return the tab with that ID
@@ -152,7 +160,7 @@ public final class GHATabSet {
 
 		verticalMenu = new GHAMenuBar(menu);
 		GHAUiHelper.addGHAResizeHandler(verticalMenu);
-		
+
 		Bpu user = GHASessionData.getLoggedUser();
 		List<GHAMenuOption> menuOptions = getMenuOptions(user);
 		for (GHAMenuOption ghaMenuOption : menuOptions)

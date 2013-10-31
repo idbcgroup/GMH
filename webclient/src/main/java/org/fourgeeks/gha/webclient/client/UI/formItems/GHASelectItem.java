@@ -19,11 +19,18 @@ public class GHASelectItem extends SelectItem {
 		setHeight(20);
 		setWidth(100);
 		setPickerIconHeight(20);
+		setOriginalStyle();
+		setShowFocused(false);
+		setAllowEmptyValue(true);
+	}
+
+	/**
+	 * 
+	 */
+	private void setOriginalStyle() {
 		setTextBoxStyle("select");
 		setCellStyle("gha-form-cell");
 		setTitleStyle("input-title");
-		setShowFocused(false);
-		setAllowEmptyValue(true);
 	}
 
 	/**
@@ -93,24 +100,33 @@ public class GHASelectItem extends SelectItem {
 	@Override
 	public void setRequired(Boolean required) {
 		super.setRequired(required);
-		if (required){
+		if (required) {
 			setTextBoxStyle("select required");
-//			setErrorOrientation(FormErrorOrientation.RIGHT);
+			// setErrorOrientation(FormErrorOrientation.RIGHT);
 			setShowErrorIcon(false);
 			setValidateOnExit(true);
 			addEditorExitHandler(new EditorExitHandler() {
 				@Override
 				public void onEditorExit(EditorExitEvent event) {
-					if(validate()){
+					if (validate()) {
 						setTextBoxStyle("select requiredValidated");
-					}else{
+					} else {
 						setTextBoxStyle("select required");
-					}					
+					}
 				}
-			});	
-//			validate();
-		}else{
+			});
+			// validate();
+		} else {
 			setTextBoxStyle("select");
 		}
+	}
+
+	@Override
+	public void clearValue() {
+		super.clearValue();
+		Boolean required = getRequired();
+		setOriginalStyle();
+		if (required != null && required)
+			setTextBoxStyle("select required");
 	}
 }

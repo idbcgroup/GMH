@@ -4,9 +4,16 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 
+/**
+ * @author alacret
+ * 
+ */
 public abstract class GHAAddForm extends GHASlideInWindow {
 	private GHALabel label;
 
+	/**
+	 * @param title
+	 */
 	public GHAAddForm(String title) {
 		super();
 		setHeight(GHAUiHelper.getTabHeight());

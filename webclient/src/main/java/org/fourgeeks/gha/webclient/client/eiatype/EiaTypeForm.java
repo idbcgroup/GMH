@@ -18,7 +18,6 @@ import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
-import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHACodeItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAComboboxItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAEiaTypeSubTypeSelectItem;
@@ -26,8 +25,6 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHAEiaTypeTypeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextAreaItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.brand.BrandModel;
@@ -35,7 +32,6 @@ import org.fourgeeks.gha.webclient.client.brand.BrandModel;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.validation.client.impl.Validation;
 import com.smartgwt.client.types.TitleOrientation;
-import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
@@ -46,8 +42,8 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
  * @author emiliot
  * 
  */
-public class EiaTypeForm extends GHAVerticalLayout implements EiaTypeSelectionProducer,
-		GHAHideable, GHAClosable {
+public class EiaTypeForm extends GHAVerticalLayout implements
+		EiaTypeSelectionProducer {
 	private GHACodeItem codeItem;
 	private GHATextItem nameItem, modelItem, eiaUmdnsItem;
 	private GHATextAreaItem descriptionItem;
@@ -79,24 +75,30 @@ public class EiaTypeForm extends GHAVerticalLayout implements EiaTypeSelectionPr
 		codeItem = new GHACodeItem(true, 300, changedHandler);
 		codeItem.disable();
 
-		nameItem = new GHATextItem(GHAStrings.get("name"), 300, true, changedHandler);
+		nameItem = new GHATextItem(GHAStrings.get("name"), 300, true,
+				changedHandler);
 		typeItem = new GHAEiaTypeTypeSelectItem(300, true, changedHandler);
 		//
 		subTypeItem = new GHAEiaTypeSubTypeSelectItem(300, changedHandler);
 		eiaUmdnsItem = new GHATextItem("EIAUMDNS", 300, false, changedHandler);
 		eiaUmdnsItem.setLength(16);
-		modelItem = new GHATextItem(GHAStrings.get("model"), 300, false, changedHandler);
+		modelItem = new GHATextItem(GHAStrings.get("model"), 300, false,
+				changedHandler);
 		modelItem.setLength(20);
 		//
-		descriptionItem = new GHATextAreaItem(GHAStrings.get("description"), 900, changedHandler);
+		descriptionItem = new GHATextAreaItem(GHAStrings.get("description"),
+				900, changedHandler);
 		descriptionItem.setColSpan(3);
-		useDescriptionItem = new GHATextAreaItem(GHAStrings.get("use"), 900, changedHandler);
+		useDescriptionItem = new GHATextAreaItem(GHAStrings.get("use"), 900,
+				changedHandler);
 		useDescriptionItem.setColSpan(3);
 		//
-		manItem = new GHAComboboxItem<Manufacturer>(GHAStrings.get("manufacturer"), 300,
+		manItem = new GHAComboboxItem<Manufacturer>(
+				GHAStrings.get("manufacturer"), 300, changedHandler);
+		brandItem = new GHAComboboxItem<Brand>(GHAStrings.get("brand"), 300,
 				changedHandler);
-		brandItem = new GHAComboboxItem<Brand>(GHAStrings.get("brand"), 300, changedHandler);
-		mobilityItem = new GHASelectItem(GHAStrings.get("mobility"), 300, true, changedHandler);
+		mobilityItem = new GHASelectItem(GHAStrings.get("mobility"), 300, true,
+				changedHandler);
 		//
 		validator = Validation.buildDefaultValidatorFactory().getValidator();
 		listeners = new ArrayList<EIATypeSelectionListener>();
@@ -126,7 +128,8 @@ public class EiaTypeForm extends GHAVerticalLayout implements EiaTypeSelectionPr
 					brandItem.setValue("");
 				} else {
 					if (manItemValue.matches("[1-9]+\\d*")) {
-						fillBrands(new Manufacturer(Integer.valueOf(manItemValue), null));
+						fillBrands(new Manufacturer(Integer
+								.valueOf(manItemValue), null));
 					}
 					brandItem.setValue("");
 					brandItem.enable();
@@ -134,11 +137,12 @@ public class EiaTypeForm extends GHAVerticalLayout implements EiaTypeSelectionPr
 			}
 		});
 
-		form.setItems(codeItem, nameItem, typeItem, subTypeItem, eiaUmdnsItem, modelItem,
+		form.setItems(codeItem, nameItem, typeItem, subTypeItem, eiaUmdnsItem,
+				modelItem,
 
-		mobilityItem, manItem, brandItem,
+				mobilityItem, manItem, brandItem,
 
-		descriptionItem, useDescriptionItem);
+				descriptionItem, useDescriptionItem);
 
 		gridPanel.addMembers(form, new LayoutSpacer());
 		addMember(gridPanel);
@@ -163,41 +167,10 @@ public class EiaTypeForm extends GHAVerticalLayout implements EiaTypeSelectionPr
 	 * (org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener)
 	 */
 	@Override
-	public void addEiaTypeSelectionListener(EIATypeSelectionListener eIATypeSelectionListener) {
+	public void addEiaTypeSelectionListener(
+			EIATypeSelectionListener eIATypeSelectionListener) {
 		listeners.add(eIATypeSelectionListener);
 
-	}
-
-	@Override
-	public boolean canBeClosen() {
-		if (hasUnCommittedChanges)
-			GHANotification.confirm(GHAStrings.get("information"),
-					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
-
-						@Override
-						public void execute(Boolean value) {
-							if (value.booleanValue()) {
-								undo();
-							}
-						}
-					});
-		return !hasUnCommittedChanges;
-	}
-
-	@Override
-	public boolean canBeHidden() {
-		if (hasUnCommittedChanges)
-			GHANotification.confirm(GHAStrings.get("information"),
-					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
-
-						@Override
-						public void execute(Boolean value) {
-							if (value.booleanValue()) {
-								undo();
-							}
-						}
-					});
-		return !hasUnCommittedChanges;
 	}
 
 	/**
@@ -218,11 +191,6 @@ public class EiaTypeForm extends GHAVerticalLayout implements EiaTypeSelectionPr
 		subTypeItem.clearValue();
 	}
 
-	@Override
-	public void close() throws UnavailableToCloseException {
-
-	}
-
 	/**
 	 * Deactivate the form
 	 * 
@@ -238,7 +206,8 @@ public class EiaTypeForm extends GHAVerticalLayout implements EiaTypeSelectionPr
 
 		if (brandItem.getValue() != null) {
 			if (brandItem.getValueAsString().matches("[1-9]+\\d*")) {
-				eiaType.setBrand(new Brand(Integer.valueOf(brandItem.getValueAsString()), null));
+				eiaType.setBrand(new Brand(Integer.valueOf(brandItem
+						.getValueAsString()), null));
 			} else {
 				eiaType.setBrand(new Brand(brandItem.getValueAsString()));
 			}
@@ -246,9 +215,11 @@ public class EiaTypeForm extends GHAVerticalLayout implements EiaTypeSelectionPr
 		if (manItem.getValue() != null) {
 			if (manItem.getValueAsString().matches("[1-9]+\\d*")) {
 				eiaType.getBrand().setManufacturer(
-						new Manufacturer(Integer.valueOf(manItem.getValueAsString()), null));
+						new Manufacturer(Integer.valueOf(manItem
+								.getValueAsString()), null));
 			} else {
-				eiaType.getBrand().setManufacturer(new Manufacturer(manItem.getValueAsString()));
+				eiaType.getBrand().setManufacturer(
+						new Manufacturer(manItem.getValueAsString()));
 			}
 		}
 
@@ -260,11 +231,13 @@ public class EiaTypeForm extends GHAVerticalLayout implements EiaTypeSelectionPr
 		eiaType.setUseDescription(useDescriptionItem.getValueAsString());
 		eiaType.setEiaUmdns(eiaUmdnsItem.getValueAsString());
 		if (mobilityItem.getValue() != null)
-			eiaType.setMobility(EiaMobilityEnum.valueOf(mobilityItem.getValueAsString()));
+			eiaType.setMobility(EiaMobilityEnum.valueOf(mobilityItem
+					.getValueAsString()));
 		if (typeItem.getValue() != null)
 			eiaType.setType(EiaTypeEnum.valueOf(typeItem.getValueAsString()));
 		if (subTypeItem.getValue() != null)
-			eiaType.setSubtype(EiaSubTypeEnum.valueOf(subTypeItem.getValueAsString()));
+			eiaType.setSubtype(EiaSubTypeEnum.valueOf(subTypeItem
+					.getValueAsString()));
 		Set<ConstraintViolation<EiaType>> violations = null;
 		try {
 			violations = validator.validate(eiaType);
@@ -276,7 +249,8 @@ public class EiaTypeForm extends GHAVerticalLayout implements EiaTypeSelectionPr
 			return eiaType;
 		else {
 			List<String> violationsList = new ArrayList<String>();
-			for (Iterator<ConstraintViolation<EiaType>> it = violations.iterator(); it.hasNext();)
+			for (Iterator<ConstraintViolation<EiaType>> it = violations
+					.iterator(); it.hasNext();)
 				violationsList.add(it.next().getMessage());
 			GHANotification.alert(violationsList);
 		}
@@ -299,17 +273,18 @@ public class EiaTypeForm extends GHAVerticalLayout implements EiaTypeSelectionPr
 	}
 
 	private void fillBrands(Manufacturer manufacturer) {
-		BrandModel.findByManufacturer(manufacturer, new GHAAsyncCallback<List<Brand>>() {
+		BrandModel.findByManufacturer(manufacturer,
+				new GHAAsyncCallback<List<Brand>>() {
 
-			@Override
-			public void onSuccess(List<Brand> result) {
-				LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-				for (Brand brand : result)
-					valueMap.put(brand.getId() + "", brand.getName());
-				brandItem.setValueMap(valueMap);
-			}
+					@Override
+					public void onSuccess(List<Brand> result) {
+						LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+						for (Brand brand : result)
+							valueMap.put(brand.getId() + "", brand.getName());
+						brandItem.setValueMap(valueMap);
+					}
 
-		});
+				});
 	}
 
 	private void fillExtras() {
@@ -322,22 +297,33 @@ public class EiaTypeForm extends GHAVerticalLayout implements EiaTypeSelectionPr
 	}
 
 	private void fillMans(boolean forceFromServer) {
-		GHACache.INSTANCE.getManufacturesrs(new GHAAsyncCallback<List<Manufacturer>>() {
+		GHACache.INSTANCE.getManufacturesrs(
+				new GHAAsyncCallback<List<Manufacturer>>() {
 
-			@Override
-			public void onSuccess(List<Manufacturer> result) {
-				LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-				for (Manufacturer manufacturer : result)
-					valueMap.put(manufacturer.getId() + "", manufacturer.getName());
-				manItem.setValueMap(valueMap);
+					@Override
+					public void onSuccess(List<Manufacturer> result) {
+						LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+						for (Manufacturer manufacturer : result)
+							valueMap.put(manufacturer.getId() + "",
+									manufacturer.getName());
+						manItem.setValueMap(valueMap);
 
-			}
-		}, forceFromServer);
+					}
+				}, forceFromServer);
+	}
+
+	/**
+	 * @return the hasUnCommittedChanges
+	 */
+	public boolean hasUnCommittedChanges() {
+		return hasUnCommittedChanges;
 	}
 
 	// Producer stuff
 	@Override
 	public void notifyEiaType(EiaType eiaType) {
+		// notify user
+		GHANotification.alert("eiatype-save-success");
 		for (EIATypeSelectionListener listener : listeners)
 			listener.select(eiaType);
 	}
@@ -350,7 +336,8 @@ public class EiaTypeForm extends GHAVerticalLayout implements EiaTypeSelectionPr
 	 * (org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener)
 	 */
 	@Override
-	public void removeEiaTypeSelectionListener(EIATypeSelectionListener eIATypeSelectionListener) {
+	public void removeEiaTypeSelectionListener(
+			EIATypeSelectionListener eIATypeSelectionListener) {
 		listeners.remove(eIATypeSelectionListener);
 
 	}
@@ -423,11 +410,20 @@ public class EiaTypeForm extends GHAVerticalLayout implements EiaTypeSelectionPr
 	}
 
 	/**
+	 * @param hasUnCommittedChanges
+	 *            the hasUnCommittedChanges to set
+	 */
+	public void setHasUnCommittedChanges(boolean hasUnCommittedChanges) {
+		this.hasUnCommittedChanges = hasUnCommittedChanges;
+	}
+
+	/**
 	 * @param activate
 	 */
 	private void toggleForm(boolean activate) {
 		if (activate) {
-			if (manItem.getValue() != null && !manItem.getValueAsString().isEmpty()) {
+			if (manItem.getValue() != null
+					&& !manItem.getValueAsString().isEmpty()) {
 				brandItem.setDisabled(false);
 			} else {
 				brandItem.setDisabled(true);
@@ -480,21 +476,6 @@ public class EiaTypeForm extends GHAVerticalLayout implements EiaTypeSelectionPr
 				}
 			});
 		}
-	}
-
-	/**
-	 * @return the hasUnCommittedChanges
-	 */
-	public boolean hasUnCommittedChanges() {
-		return hasUnCommittedChanges;
-	}
-
-	/**
-	 * @param hasUnCommittedChanges
-	 *            the hasUnCommittedChanges to set
-	 */
-	public void setHasUnCommittedChanges(boolean hasUnCommittedChanges) {
-		this.hasUnCommittedChanges = hasUnCommittedChanges;
 	}
 
 }
