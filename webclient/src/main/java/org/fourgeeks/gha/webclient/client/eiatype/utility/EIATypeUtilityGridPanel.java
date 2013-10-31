@@ -10,6 +10,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHANewButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
@@ -18,9 +19,10 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.materialcategory.MaterialCategorySelectionListener;
+import org.fourgeeks.gha.webclient.client.utility.UtilityAddForm;
+import org.fourgeeks.gha.webclient.client.utility.UtilitySearchForm;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -37,31 +39,32 @@ public class EIATypeUtilityGridPanel extends GHAVerticalLayout implements
 
 	private EiaTypeUtilityGrid grid = new EiaTypeUtilityGrid();
 	private UtilitySearchForm searchForm;
+	private UtilityAddForm addForm;
 	private EiaType eiaType;
+	private MaterialCategorySelectionListener materialSelectionListener = new MaterialCategorySelectionListener() {
+
+		@Override
+		public void select(MaterialCategory material) {
+			EiaTypeUtility eiaTypeUtility = new EiaTypeUtility();
+			eiaTypeUtility.setEiaType(EIATypeUtilityGridPanel.this.eiaType);
+			eiaTypeUtility.setMaterialCategory(material);
+			EIATypeUtilityModel.save(eiaTypeUtility,
+					new GHAAsyncCallback<EiaTypeUtility>() {
+
+						@Override
+						public void onSuccess(EiaTypeUtility result) {
+							loadData();
+						}
+					});
+		}
+	};
 
 	{
+		addForm = new UtilityAddForm(GHAStrings.get("new-utility-service"));
+		addForm.addMaterialSelectionListener(materialSelectionListener);
 		searchForm = new UtilitySearchForm(
 				GHAStrings.get("search-utility-material"));
-		searchForm
-				.addMaterialSelectionListener(new MaterialCategorySelectionListener() {
-
-					@Override
-					public void select(MaterialCategory material) {
-						// TODO Auto-generated method stub
-						EiaTypeUtility eiaTypeUtility = new EiaTypeUtility();
-						eiaTypeUtility
-								.setEiaType(EIATypeUtilityGridPanel.this.eiaType);
-						eiaTypeUtility.setMaterialCategory(material);
-						EIATypeUtilityModel.save(eiaTypeUtility,
-								new GHAAsyncCallback<EiaTypeUtility>() {
-
-									@Override
-									public void onSuccess(EiaTypeUtility result) {
-										loadData();
-									}
-								});
-					}
-				});
+		searchForm.addMaterialSelectionListener(materialSelectionListener);
 
 	}
 
@@ -79,7 +82,13 @@ public class EIATypeUtilityGridPanel extends GHAVerticalLayout implements
 					public void onClick(ClickEvent event) {
 						search();
 					}
-				}), new GHADeleteButton(new ClickHandler() {
+				}), new GHANewButton(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				addForm.open();
+			}
+		}), new GHADeleteButton(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
@@ -100,13 +109,19 @@ public class EIATypeUtilityGridPanel extends GHAVerticalLayout implements
 
 	@Override
 	public void close() {
-		searchForm.animateHide(AnimationEffect.FLY);
+		hide();
+
 		searchForm.close();
+
+		addForm.close();
 	}
 
 	@Override
 	public void hide() {
-		searchForm.animateHide(AnimationEffect.FLY);
+		if (searchForm.isVisible())
+			searchForm.hide();
+		if (addForm.isVisible())
+			addForm.hide();
 	}
 
 	private void loadData() {

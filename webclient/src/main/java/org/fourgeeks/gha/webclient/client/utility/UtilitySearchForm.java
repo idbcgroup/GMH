@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eiatype.utility;
+package org.fourgeeks.gha.webclient.client.utility;
 
 import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.webclient.client.materialcategory.MaterialCategorySearchForm;

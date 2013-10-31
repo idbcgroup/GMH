@@ -1441,6 +1441,9 @@ public class InitialData {
 		} catch (NoResultException e) {
 			try {
 				logger.info("Creating uistrings test data");
+
+				em.persist(new UiString(LanguageEnum.ES, "new-utility-service",
+						"Nuevo servicio utilitario"));
 				em.persist(new UiString(LanguageEnum.ES, "delete", "Borrar"));
 				em.persist(new UiString(LanguageEnum.ES,
 						"no-materials-to-show",

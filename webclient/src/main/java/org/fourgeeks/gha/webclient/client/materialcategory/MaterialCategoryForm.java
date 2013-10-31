@@ -213,4 +213,12 @@ public class MaterialCategoryForm extends GHAVerticalLayout implements
 					.getValueAsString()));
 		materialCategory.setModel(modelItem.getValueAsString());
 	}
+
+	/**
+	 * @param type
+	 */
+	public void setType(MaterialTypeEnum type) {
+		typeItem.setValue(type.name());
+		typeItem.setDisabled(true);
+	}
 }

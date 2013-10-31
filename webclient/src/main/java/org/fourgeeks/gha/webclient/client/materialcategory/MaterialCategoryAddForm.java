@@ -24,7 +24,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class MaterialCategoryAddForm extends GHAAddForm implements
 		MaterialCategorySelectionProducer {
 
-	private MaterialCategoryForm form;
+	protected MaterialCategoryForm form;
 	{
 		form = new MaterialCategoryForm();
 	}
