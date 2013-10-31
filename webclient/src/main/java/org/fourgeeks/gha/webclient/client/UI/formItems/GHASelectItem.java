@@ -1,5 +1,7 @@
 package org.fourgeeks.gha.webclient.client.UI.formItems;
 
+import java.util.Date;
+
 import com.smartgwt.client.widgets.form.fields.SelectItem;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 import com.smartgwt.client.widgets.form.fields.events.EditorExitEvent;
@@ -22,6 +24,26 @@ public class GHASelectItem extends SelectItem {
 		setOriginalStyle();
 		setShowFocused(false);
 		setAllowEmptyValue(true);
+		
+		// setErrorOrientation(FormErrorOrientation.RIGHT);
+		setShowErrorIcon(false);
+		setValidateOnExit(true);
+		
+		addEditorExitHandler(new EditorExitHandler() {
+			@Override
+			public void onEditorExit(EditorExitEvent event) {
+//				Window.alert("Se dispara el EditorExit");
+				if(getRequired()){
+					if (validate()) {
+						setTextBoxStyle("select requiredValidated");
+					} else {
+						setTextBoxStyle("select required");
+					}
+				}else{
+					setOriginalStyle();
+				}
+			}
+		});
 	}
 
 	/**
@@ -102,23 +124,56 @@ public class GHASelectItem extends SelectItem {
 		super.setRequired(required);
 		if (required) {
 			setTextBoxStyle("select required");
-			// setErrorOrientation(FormErrorOrientation.RIGHT);
-			setShowErrorIcon(false);
-			setValidateOnExit(true);
-			addEditorExitHandler(new EditorExitHandler() {
-				@Override
-				public void onEditorExit(EditorExitEvent event) {
-					if (validate()) {
-						setTextBoxStyle("select requiredValidated");
-					} else {
-						setTextBoxStyle("select required");
-					}
-				}
-			});
-			// validate();
 		} else {
-			setTextBoxStyle("select");
+			setOriginalStyle();
 		}
+	}
+	
+	private void initialValidation(){
+		Boolean required = getRequired();
+		if(required != null && required){
+			if(validate()){
+				setTextBoxStyle("select requiredValidated");;
+			}else{
+				setTextBoxStyle("select required");
+			}
+		}
+	}
+	
+	@Override
+	public void setValue(boolean value) {
+		super.setValue(value);
+		initialValidation();
+	}
+	
+	@Override
+	public void setValue(String value) {
+		super.setValue(value);
+		initialValidation();
+	}
+	
+	@Override
+	public void setValue(Date value) {
+		super.setValue(value);
+		initialValidation();
+	}
+	
+	@Override
+	public void setValue(int value) {
+		super.setValue(value);
+		initialValidation();
+	}
+	
+	@Override
+	public void setValue(double value) {
+		super.setValue(value);
+		initialValidation();
+	}
+	
+	@Override
+	public void setValue(Object value) {
+		super.setValue(value);
+		initialValidation();
 	}
 
 	@Override

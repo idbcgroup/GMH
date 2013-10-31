@@ -407,6 +407,7 @@ public class EiaTypeForm extends GHAVerticalLayout implements
 		if (eiaType.getSubtype() != null)
 			subTypeItem.setValue(eiaType.getSubtype().name());
 		// showPhotographics(eiaType);
+		
 	}
 
 	/**
