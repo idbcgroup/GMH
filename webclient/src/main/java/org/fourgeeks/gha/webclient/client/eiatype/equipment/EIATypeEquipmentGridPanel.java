@@ -59,17 +59,19 @@ public class EIATypeEquipmentGridPanel extends GHAVerticalLayout implements
 		eiaAddForm.addEiaSelectionListener(this);
 		eiaUpdateForm.addEiaSelectionListener(this);
 
-		GHALabel title = new GHALabel("Equipos pertenecientes a este Tipo de Equipo");
+		GHALabel title = new GHALabel(
+				"Equipos pertenecientes a este Tipo de Equipo");
 		addMember(title);
 
 		// //////Botones laterales
-		VLayout sideButtons = GHAUiHelper.createBar(new GHANewButton(new ClickHandler() {
+		VLayout sideButtons = GHAUiHelper.createBar(new GHANewButton(
+				new ClickHandler() {
 
-			@Override
-			public void onClick(ClickEvent event) {
-				eiaAddForm.open();
-			}
-		}), new GHADeleteButton(new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						eiaAddForm.open();
+					}
+				}), new GHADeleteButton(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
@@ -77,12 +79,13 @@ public class EIATypeEquipmentGridPanel extends GHAVerticalLayout implements
 				final Eia selectedRecord = grid.getSelectedEntity();
 
 				if (selectedRecord == null) {
-					GHANotification.oldAlert(GHAStrings.get("record-not-selected"));
+					GHANotification.alert("record-not-selected");
 					return;
 				}
 
 				GHANotification.confirm("Equipo",
-						"Confirme si desea eliminar el equipo seleccionado", new BooleanCallback() {
+						"Confirme si desea eliminar el equipo seleccionado",
+						new BooleanCallback() {
 
 							@Override
 							public void execute(Boolean resultAsc) {
@@ -91,7 +94,8 @@ public class EIATypeEquipmentGridPanel extends GHAVerticalLayout implements
 											new GHAAsyncCallback<Boolean>() {
 
 												@Override
-												public void onSuccess(Boolean result) {
+												public void onSuccess(
+														Boolean result) {
 													loadData(eiaType);
 
 												}
@@ -109,7 +113,8 @@ public class EIATypeEquipmentGridPanel extends GHAVerticalLayout implements
 				final Eia selectedRecord = grid.getSelectedEntity();
 
 				if (selectedRecord == null) {
-					GHANotification.oldAlert(GHAStrings.get("record-not-selected"));
+					GHANotification.oldAlert(GHAStrings
+							.get("record-not-selected"));
 					return;
 				}
 
@@ -140,7 +145,8 @@ public class EIATypeEquipmentGridPanel extends GHAVerticalLayout implements
 
 			@Override
 			public void onSuccess(List<Eia> result) {
-				ListGridRecord[] array = EIAUtil.toGridRecords(result).toArray(new EIARecord[] {});
+				ListGridRecord[] array = EIAUtil.toGridRecords(result).toArray(
+						new EIARecord[] {});
 				grid.setData(array);
 
 			}
