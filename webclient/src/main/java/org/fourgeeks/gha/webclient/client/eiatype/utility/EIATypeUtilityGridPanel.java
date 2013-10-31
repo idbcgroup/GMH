@@ -181,8 +181,8 @@ public class EIATypeUtilityGridPanel extends GHAVerticalLayout implements
 			return;
 		}
 
-		GHANotification.confirm(GHAStrings.get("materialcategory-title"),
-				GHAStrings.get("eiatype-materialcategory-delete-confirm"),
+		GHANotification.confirm(GHAStrings.get("material-category"),
+				GHAStrings.get("eiatype-utility-service-delete-confirm"),
 				new BooleanCallback() {
 
 					@Override
@@ -193,7 +193,7 @@ public class EIATypeUtilityGridPanel extends GHAVerticalLayout implements
 
 										@Override
 										public void onSuccess(Void result) {
-											loadData();
+											grid.removeSelectedData();
 										}
 									});
 						}

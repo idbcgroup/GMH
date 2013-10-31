@@ -1549,10 +1549,14 @@ public class InitialData {
 						"search-utility-material",
 						"Buscar un material utilitario"));
 				em.persist(new UiString(LanguageEnum.ES,
-						"materialcategory-title", "Categoría de Materiales"));
+						"eiatype-material-category-delete-confirm",
+						"¿Desea eliminar la categoria de material asociada al tipo de equipo?"));
 				em.persist(new UiString(LanguageEnum.ES,
-						"eiatype-materialcategory-delete-confirm",
-						"¿Desea eliminar el material al tipo de equipo seleccionado?"));
+						"eiatype-utility-service-delete-confirm",
+						"¿Desea eliminar el servicio utilitario asociado al tipo de equipo?"));
+				em.persist(new UiString(LanguageEnum.ES,
+						"eiatype-delete-confirm",
+						"¿Desea eliminar el tipo de equipo?"));
 
 				em.flush();
 			} catch (Exception e1) {
