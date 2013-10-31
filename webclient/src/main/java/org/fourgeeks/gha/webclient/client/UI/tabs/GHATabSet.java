@@ -179,6 +179,14 @@ public final class GHATabSet {
 		return menuOptions;
 	}
 
+	public static GHATab getCurrentTab() {
+		return currentTab;
+	}
+
+	public static void setCurrentTab(GHATab currentTab) {
+		GHATabSet.currentTab = currentTab;
+	}
+
 	/**
 	 * @param token
 	 * @return the ghamenuoption of this token or null if is not found

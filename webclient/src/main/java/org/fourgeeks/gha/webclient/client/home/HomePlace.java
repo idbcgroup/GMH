@@ -40,6 +40,7 @@ public class HomePlace extends GHAPlace {
 
 	@Override
 	public void show() {
+		GHATabSet.closeTab(GHATabSet.getCurrentTab());
 		if (HOME_HAS_BEEN_BUILT) {
 			return;
 		}
