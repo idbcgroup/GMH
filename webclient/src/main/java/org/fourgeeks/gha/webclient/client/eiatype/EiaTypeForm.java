@@ -18,7 +18,6 @@ import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
-import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHACodeItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAComboboxItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAEiaTypeSubTypeSelectItem;
@@ -33,7 +32,6 @@ import org.fourgeeks.gha.webclient.client.brand.BrandModel;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.validation.client.impl.Validation;
 import com.smartgwt.client.types.TitleOrientation;
-import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
@@ -175,38 +173,6 @@ public class EiaTypeForm extends GHAVerticalLayout implements
 
 	}
 
-	@Override
-	public boolean canBeClosen() {
-		if (hasUnCommittedChanges)
-			GHANotification.confirm(GHAStrings.get("information"),
-					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
-
-						@Override
-						public void execute(Boolean value) {
-							if (value.booleanValue()) {
-								undo();
-							}
-						}
-					});
-		return !hasUnCommittedChanges;
-	}
-
-	@Override
-	public boolean canBeHidden() {
-		if (hasUnCommittedChanges)
-			GHANotification.confirm(GHAStrings.get("information"),
-					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
-
-						@Override
-						public void execute(Boolean value) {
-							if (value.booleanValue()) {
-								undo();
-							}
-						}
-					});
-		return !hasUnCommittedChanges;
-	}
-
 	/**
 	 * 
 	 */
@@ -223,11 +189,6 @@ public class EiaTypeForm extends GHAVerticalLayout implements
 		mobilityItem.clearValue();
 		typeItem.clearValue();
 		subTypeItem.clearValue();
-	}
-
-	@Override
-	public void close() throws UnavailableToCloseException {
-
 	}
 
 	/**

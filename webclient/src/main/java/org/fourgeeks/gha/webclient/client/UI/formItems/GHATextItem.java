@@ -19,11 +19,18 @@ public class GHATextItem extends TextItem {
 	public GHATextItem() {
 		super();
 		setHeight(20);
+		setOriginalStyle();
+		setWidth(GHAUiHelper.DEFAULT_ITEM_SIZE);
+		setLength(255);
+	}
+
+	/**
+	 * 
+	 */
+	private void setOriginalStyle() {
 		setTextBoxStyle("input");
 		setCellStyle("gha-form-cell");
-		setWidth(GHAUiHelper.DEFAULT_ITEM_SIZE);
 		setTitleStyle("input-title");
-		setLength(255);
 	}
 
 	/**
@@ -92,24 +99,33 @@ public class GHATextItem extends TextItem {
 	@Override
 	public void setRequired(Boolean required) {
 		super.setRequired(required);
-		if (required){
+		if (required) {
 			setTextBoxStyle("input required");
-//			setErrorOrientation(FormErrorOrientation.RIGHT);
+			// setErrorOrientation(FormErrorOrientation.RIGHT);
 			setShowErrorIcon(false);
 			setValidateOnExit(true);
 			addEditorExitHandler(new EditorExitHandler() {
 				@Override
 				public void onEditorExit(EditorExitEvent event) {
-					if(validate()){
+					if (validate()) {
 						setTextBoxStyle("input requiredValidated");
-					}else{
+					} else {
 						setTextBoxStyle("input required");
-					}					
+					}
 				}
 			});
-//			validate();
-		}else{
+			// validate();
+		} else {
 			setTextBoxStyle("input");
 		}
+	}
+
+	@Override
+	public void clearValue() {
+		super.clearValue();
+		Boolean required = getRequired();
+		setOriginalStyle();
+		if (required != null && required)
+			setTextBoxStyle("input required");
 	}
 }

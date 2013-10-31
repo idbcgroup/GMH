@@ -25,29 +25,24 @@ import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
-import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHADateItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATitleTextItem;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASectionForm;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.google.gwt.validation.client.impl.Validation;
 import com.smartgwt.client.types.TitleOrientation;
-import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.form.fields.events.ChangeEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangeHandler;
 import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
-import com.smartgwt.client.widgets.layout.VLayout;
 //import org.fourgeeks.gha.domain.gar.BuildingLocation;
 //import org.fourgeeks.gha.webclient.client.UI.GHACheckboxItem;
 //import com.google.gwt.user.client.Window;
@@ -58,8 +53,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret, vivi.torresg, emiliot
  * 
  */
-public class EIAForm extends VLayout implements EIATypeSelectionListener,
-		EiaSelectionProducer, GHAHideable, GHAClosable {
+public class EIAForm extends GHAVerticalLayout implements
+		EIATypeSelectionListener, EiaSelectionProducer {
 	private GHATextItem codeTextItem, serialTextItem, fixedAssetIdTextItem,
 			purchaseOrderNumTextItem, purchaseInvoiceNumTextItem,
 			workingAreaLocationCodeTextItem, facilityLocationCodeTextItem,
@@ -143,6 +138,8 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		stateSelectItem = new GHASelectItem("Estado Equipo",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, true, changedHandler);
 		stateSelectItem.setRequired(true);
+		stateSelectItem.setDefaultValue(EiaStateEnum.CREATED.name());
+		stateSelectItem.setAllowEmptyValue(false);
 		acceptationDateItem = new GHADateItem("Fecha de Aceptación",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, true);
 		acceptationDateItem.addChangedHandler(changedHandler);
@@ -286,18 +283,10 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 	}
 
 	/**
-	 * Creates a EiaForm with a eiatype select
-	 */
-	public EIAForm() {
-		this(null);
-	}
-
-	/**
 	 * @param eiaType
 	 * 
 	 */
-	public EIAForm(EiaType eiaType) {
-		select(eiaType);
+	public EIAForm() {
 
 		infoBasicaForm = getInfoBasicaForm();
 		adquisicionForm = getAdquisicionForm();
@@ -329,6 +318,9 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		// warrantyFunctionalities();
 	}
 
+	/**
+	 * 
+	 */
 	public void activate() {
 		toggleForm(true);
 	}
@@ -375,38 +367,6 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		});
 	}
 
-	@Override
-	public boolean canBeClosen() {
-		if (hasUnCommittedChanges)
-			GHANotification.confirm(GHAStrings.get("information"),
-					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
-
-						@Override
-						public void execute(Boolean value) {
-							if (value.booleanValue()) {
-								undo();
-							}
-						}
-					});
-		return !hasUnCommittedChanges;
-	}
-
-	@Override
-	public boolean canBeHidden() {
-		if (hasUnCommittedChanges)
-			GHANotification.confirm(GHAStrings.get("information"),
-					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
-
-						@Override
-						public void execute(Boolean value) {
-							if (value.booleanValue()) {
-								undo();
-							}
-						}
-					});
-		return !hasUnCommittedChanges;
-	}
-
 	/**
 	 * 
 	 */
@@ -415,6 +375,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		// clean text fields
 		codeTextItem.clearValue();
 		serialTextItem.clearValue();
+		serialTextItem.validate();
 		fixedAssetIdTextItem.clearValue();
 		purchaseOrderNumTextItem.clearValue();
 		purchaseInvoiceNumTextItem.clearValue();
@@ -433,10 +394,10 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		// machineNameTextItem.clearValue();
 
 		// clean select fields
-		eiaTypeSelectItem.clearValue();
+		// eiaTypeSelectItem.clearValue();
 		obuSelectItem.clearValue();
 		baseRoleSelectItem.clearValue();
-		stateSelectItem.clearValue();
+		// stateSelectItem.setValue(EiaStateEnum.CREATED.name());
 		providerSelectItem.clearValue();
 		installationProviderSelectItem.clearValue();
 		locationTypeSelectItem.clearValue();
@@ -471,21 +432,15 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		acceptationDateItem.clearValue();
 		// sameLocationAttendedItem.setValue(false);
 		// isInMaintenanceItem.setValue(false);
-
 	}
 
-	@Override
-	public void close() throws UnavailableToCloseException {
-
-	}
-
+	/**
+	 * 
+	 */
 	public void deactivate() {
 		toggleForm(false);
 	}
 
-	/**
-	 * @return
-	 */
 	private Eia extract() {
 		Eia eia;
 		if (this.updateEntity == null)
@@ -510,29 +465,23 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 					.getValueAsString()));
 			eia.setResponsibleRole(baseRole);
 		}
-
-		if (stateSelectItem.getValue() != null) {
+		if (stateSelectItem.getValue() != null)
 			eia.setState(EiaStateEnum.valueOf(stateSelectItem
 					.getValueAsString()));
-		}
 
 		if (acceptationDateItem.getValue() != null)
 			eia.setAcceptationDate(new Date(acceptationDateItem
 					.getValueAsDate().getTime()));
 
-		// adquisition
 		if (purchaseDateItem.getValue() != null)
 			eia.setPurchaseDate(new Date(purchaseDateItem.getValueAsDate()
 					.getTime()));
-
 		if (receptionDateItem.getValue() != null)
 			eia.setReceptionDate(new Date(receptionDateItem.getValueAsDate()
 					.getTime()));
-
 		if (installationDateItem.getValue() != null)
 			eia.setInstallationDate(new Date(installationDateItem
 					.getValueAsDate().getTime()));
-
 		if (providerSelectItem.getValue() != null) {
 			eia.setProvider(new ExternalProvider(Integer
 					.valueOf(providerSelectItem.getValueAsString())));
@@ -544,7 +493,6 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		if (purchaseInvoiceDateItem.getValue() != null)
 			eia.setPurchaseInvoiceDate(new Date(purchaseInvoiceDateItem
 					.getValueAsDate().getTime()));
-
 		if (purchaseOrderDateItem.getValue() != null)
 			eia.setPurchaseOrderDate(new Date(purchaseOrderDateItem
 					.getValueAsDate().getTime()));
@@ -552,7 +500,6 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 			eia.setInstallationProvider(new ExternalProvider(Integer
 					.valueOf(installationProviderSelectItem.getValueAsString())));
 		}
-		// ubication
 		if (locationTypeSelectItem.getValue() != null) {
 			if (locationTypeSelectItem.getValue().equals("0")) {
 				if (workingAreaLocationSelectItem.getValue() != null) {
@@ -595,11 +542,9 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		if (contabilizationDateItem.getValue() != null)
 			eia.setContabilizationDate(new Date(contabilizationDateItem
 					.getValueAsDate().getTime()));
-
 		if (adquisitionCostLocalTextItem.getValue() != null)
 			eia.setAdquisitionCostLocal(BigDecimal.valueOf(Double
 					.valueOf(adquisitionCostLocalTextItem.getValueAsString())));
-
 		eia.setAdquisitionCostCurrencyLocal(CurrencyTypeEnum
 				.valueOf(adquisitionCostCurrencyLocalSelectItem
 						.getValueAsString()));
@@ -609,7 +554,6 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		if (lastDepreciationDate.getValue() != null)
 			eia.setDateLastDepreciation(new Date(lastDepreciationDate
 					.getValueAsDate().getTime()));
-
 		if (actualCostTextItem.getValue() != null)
 			eia.setActualCost(BigDecimal.valueOf(Double
 					.valueOf(actualCostTextItem.getValueAsString())));
@@ -630,7 +574,6 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		if (realWarrantyBeginDate.getValue() != null)
 			eia.setRealWarrantyBegin(new Date(realWarrantyBeginDate
 					.getValueAsDate().getTime()));
-
 		eia.setRealWarrantyPoT(TimePeriodEnum.valueOf(realWarrantyPotSelectItem
 				.getValueAsString()));
 		eia.setRealWarrantySince(WarrantySinceEnum
@@ -767,7 +710,7 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		});
 
 		stateSelectItem.setValueMap(EiaStateEnum.toValueMap());
-		stateSelectItem.setValue(EiaStateEnum.CREATED.name());
+		// stateSelectItem.setValue(EiaStateEnum.CREATED.name());
 	}
 
 	private void fillLocationsSelects() {
@@ -974,8 +917,6 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 
 	@Override
 	public void notifyEia(Eia eia) {
-		// notify user
-		GHANotification.alert("eia-save-success");
 		for (EIASelectionListener listener : listeners)
 			listener.select(eia);
 	}
@@ -990,6 +931,13 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 	 * Save the new element to database
 	 */
 	public void save() {
+		save(null);
+	}
+
+	/**
+	 * @param callback
+	 */
+	public void save(final GHAAsyncCallback<Eia> callback) {
 		Eia eia = extract();
 		if (eia != null) {
 			EIAModel.save(eia, new GHAAsyncCallback<Eia>() {
@@ -997,6 +945,8 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 				public void onSuccess(Eia result) {
 					hasUnCommittedChanges = false;
 					notifyEia(result);
+					if (callback != null)
+						callback.onSuccess(result);
 					cancel();
 				}
 			});

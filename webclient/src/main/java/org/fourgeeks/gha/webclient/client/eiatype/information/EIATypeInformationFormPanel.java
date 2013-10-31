@@ -285,12 +285,12 @@ public class EIATypeInformationFormPanel extends GHAVerticalLayout implements
 
 	@Override
 	public boolean canBeClosen() {
-		return true;
+		return !form.hasUnCommittedChanges();
 	}
 
 	@Override
 	public boolean canBeHidden() {
-		return form.canBeHidden();
+		return !form.hasUnCommittedChanges();
 	}
 
 	@Override

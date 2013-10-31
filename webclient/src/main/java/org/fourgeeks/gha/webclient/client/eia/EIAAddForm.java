@@ -2,12 +2,12 @@ package org.fourgeeks.gha.webclient.client.eia;
 
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
+import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACloseButton;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAAddForm;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -21,8 +21,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret, emiliot Add Eia Form
  * 
  */
-public class EIAAddForm extends GHASlideInWindow implements
-		EIATypeSelectionListener, EiaSelectionProducer, EIASelectionListener {
+public class EIAAddForm extends GHAAddForm implements EIATypeSelectionListener,
+		EiaSelectionProducer, EIASelectionListener {
 	private EIAForm form;
 
 	{
@@ -30,20 +30,23 @@ public class EIAAddForm extends GHASlideInWindow implements
 	}
 
 	/**
+	 * @param title
 	 * 
 	 */
-	public EIAAddForm() {
-		super();
+	public EIAAddForm(String title) {
+		super(title);
 		initComponent();
 	}
 
 	/**
 	 * @param eiaType
+	 * @param title
 	 * 
 	 */
-	public EIAAddForm(EiaType eiaType) {
-		super();
-		form = new EIAForm(eiaType);
+	public EIAAddForm(EiaType eiaType, String title) {
+		super(title);
+		form = new EIAForm();
+		form.select(eiaType);
 		initComponent();
 	}
 
@@ -68,12 +71,8 @@ public class EIAAddForm extends GHASlideInWindow implements
 	 * 
 	 */
 	private void initComponent() {
-		setWidth100();
-		setHeight(GHAUiHelper.getTabHeight());
-		addMember(new GHALabel(GHAStrings.get("new-eia")));
-
-		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
-				"../resources/icons/save.png", new ClickHandler() {
+		VLayout sideButtons = GHAUiHelper.createBar(new GHASaveButton(
+				new ClickHandler() {
 
 					@Override
 					public void onClick(ClickEvent event) {
@@ -123,13 +122,33 @@ public class EIAAddForm extends GHASlideInWindow implements
 	 * 
 	 */
 	private void save() {
-		form.save();
+		form.save(new GHAAsyncCallback<Eia>() {
+
+			@Override
+			public void onSuccess(Eia result) {
+				GHANotification.alert("eia-save-success");
+				hide();
+			}
+		});
+
+	}
+
+	@Override
+	public void hide() {
+		super.hide();
+		form.hide();
 	}
 
 	@Override
 	public void select(Eia eia) {
 		form.cancel();
 		hide();
+	}
+
+	@Override
+	public void open() {
+		super.open();
+		form.show();
 	}
 
 	/*

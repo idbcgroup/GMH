@@ -73,7 +73,8 @@ public class EIAUpdateForm extends GHASlideInWindow implements
 	 */
 	public EIAUpdateForm(EiaType eiaType) {
 		super();
-		eiaForm = new EIAForm(eiaType);
+		eiaForm = new EIAForm();
+		eiaForm.select(eiaType);
 		initComponent();
 	}
 
@@ -100,12 +101,9 @@ public class EIAUpdateForm extends GHASlideInWindow implements
 		super.hide();
 	}
 
-	@Override
-	public void close() {
-		eiaForm.close();
-		super.close();
-	}
-
+	/**
+	 * @param eia
+	 */
 	public void setEia(Eia eia) {
 		eiaForm.setEia(eia);
 	}

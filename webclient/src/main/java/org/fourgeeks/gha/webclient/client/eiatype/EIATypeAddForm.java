@@ -70,12 +70,12 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 
 	@Override
 	public boolean canBeClosen() {
-		return form.canBeClosen();
+		return !form.hasUnCommittedChanges();
 	}
 
 	@Override
 	public boolean canBeHidden() {
-		return form.canBeClosen();
+		return !form.hasUnCommittedChanges();
 	}
 
 	@Override
