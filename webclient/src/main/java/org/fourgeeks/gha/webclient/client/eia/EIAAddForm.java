@@ -3,6 +3,7 @@ package org.fourgeeks.gha.webclient.client.eia;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACloseButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
@@ -11,6 +12,7 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -59,11 +61,37 @@ public class EIAAddForm extends GHAAddForm implements EIATypeSelectionListener,
 
 	@Override
 	public boolean canBeClosen() {
+		if (form.hasUnCommittedChanges()) {
+			GHANotification.confirm(GHAStrings.get("information"),
+					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
+
+						@Override
+						public void execute(Boolean value) {
+							if (value) {
+								form.undo();
+							}
+						}
+					});
+			return false;
+		}
 		return true;
 	}
 
 	@Override
 	public boolean canBeHidden() {
+		if (form.hasUnCommittedChanges()) {
+			GHANotification.confirm(GHAStrings.get("information"),
+					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
+
+						@Override
+						public void execute(Boolean value) {
+							if (value) {
+								form.undo();
+							}
+						}
+					});
+			return false;
+		}
 		return true;
 	}
 
