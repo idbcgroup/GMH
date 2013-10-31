@@ -53,6 +53,8 @@ public class EIATypeTopForm extends HLayout implements
 	// private GHAImg photo;
 	private EiaTypeResultSet resultSet;
 	private boolean activated = false;
+	private GHAImgButton cleanImgButton;
+	private GHAImgButton searchImgButton;
 
 	{
 		// eiaTypeSearchForm = new EIATypeSearchForm();
@@ -146,20 +148,22 @@ public class EIATypeTopForm extends HLayout implements
 		typeItem.addKeyUpHandler(searchKeyUpHandler);
 		subTypeItem.addKeyUpHandler(searchKeyUpHandler);
 		
-		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
+		searchImgButton = new GHAImgButton(
 				"../resources/icons/search.png", new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
 						search();
 					}
-				}), new GHAImgButton("../resources/icons/clean.png",
+				});
+		cleanImgButton = new GHAImgButton("../resources/icons/clean.png",
 				new ClickHandler() {
 
 					@Override
 					public void onClick(ClickEvent event) {
 						clearFields();
 					}
-				}));
+				});
+		VLayout sideButtons = GHAUiHelper.createBar(searchImgButton, cleanImgButton);
 		addMembers(form, /* new LayoutSpacer(), photoPanel, */
 				new LayoutSpacer(), sideButtons);
 		deactivate();
@@ -207,8 +211,9 @@ public class EIATypeTopForm extends HLayout implements
 		mobilityItem.enable();
 		typeItem.enable();
 		subTypeItem.enable();
+		searchImgButton.enable();
+		cleanImgButton.enable();
 		activated = true;
-
 	}
 
 	public void clearFields() {
@@ -232,6 +237,8 @@ public class EIATypeTopForm extends HLayout implements
 		mobilityItem.disable();
 		typeItem.disable();
 		subTypeItem.disable();
+		searchImgButton.disable();
+		cleanImgButton.disable();
 		activated = false;
 	}
 
