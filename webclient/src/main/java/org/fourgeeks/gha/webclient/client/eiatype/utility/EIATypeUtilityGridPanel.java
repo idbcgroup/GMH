@@ -35,7 +35,6 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class EIATypeUtilityGridPanel extends GHAVerticalLayout implements
 		EIATypeSelectionListener, GHAHideable, GHAClosable {
 
-	// private MaterialGrid grid = new MaterialGrid();
 	private EiaTypeUtilityGrid grid = new EiaTypeUtilityGrid();
 	private UtilitySearchForm searchForm;
 	private EiaType eiaType;
@@ -84,34 +83,7 @@ public class EIATypeUtilityGridPanel extends GHAVerticalLayout implements
 
 			@Override
 			public void onClick(ClickEvent event) {
-				final EiaTypeUtility eiaTypeUtility = grid.getSelectedEntity();
-
-				if (eiaTypeUtility == null) {
-					GHANotification.alert("record-not-selected");
-					return;
-				}
-
-				GHANotification.confirm(GHAStrings
-						.get("materialcategory-title"), GHAStrings
-						.get("eiatype-materialcategory-delete-confirm"),
-						new BooleanCallback() {
-
-							@Override
-							public void execute(Boolean value) {
-								if (value) {
-									EIATypeUtilityModel.delete(
-											eiaTypeUtility.getId(),
-											new GHAAsyncCallback<Void>() {
-
-												@Override
-												public void onSuccess(
-														Void result) {
-													loadData();
-												}
-											});
-								}
-							}
-						});
+				delete();
 			}
 		}));
 
@@ -148,7 +120,6 @@ public class EIATypeUtilityGridPanel extends GHAVerticalLayout implements
 
 					@Override
 					public void onSuccess(List<EiaTypeUtility> result) {
-						// TODO Auto-generated method stub
 						ListGridRecord[] array = EIATypeUtilityUtil
 								.toGridRecords(result).toArray(
 										new EIATypeUtilityRecord[] {});
@@ -182,6 +153,37 @@ public class EIATypeUtilityGridPanel extends GHAVerticalLayout implements
 		}
 		searchForm.filterBy(blackList);
 		searchForm.open();
+	}
+
+	/**
+	 * 
+	 */
+	private void delete() {
+		final EiaTypeUtility eiaTypeUtility = grid.getSelectedEntity();
+
+		if (eiaTypeUtility == null) {
+			GHANotification.alert("record-not-selected");
+			return;
+		}
+
+		GHANotification.confirm(GHAStrings.get("materialcategory-title"),
+				GHAStrings.get("eiatype-materialcategory-delete-confirm"),
+				new BooleanCallback() {
+
+					@Override
+					public void execute(Boolean value) {
+						if (value) {
+							EIATypeUtilityModel.delete(eiaTypeUtility.getId(),
+									new GHAAsyncCallback<Void>() {
+
+										@Override
+										public void onSuccess(Void result) {
+											loadData();
+										}
+									});
+						}
+					}
+				});
 	}
 
 }
