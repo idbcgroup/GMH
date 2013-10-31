@@ -7,6 +7,7 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
@@ -119,8 +120,8 @@ public class EIATypeInformationFormPanel extends GHAVerticalLayout implements
 	public EIATypeInformationFormPanel() {
 		super();
 
-		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
-				"../resources/icons/save.png", new ClickHandler() {
+		VLayout sideButtons = GHAUiHelper.createBar(new GHASaveButton(
+				new ClickHandler() {
 
 					@Override
 					public void onClick(ClickEvent event) {

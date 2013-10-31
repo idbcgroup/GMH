@@ -25,7 +25,6 @@ import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
-import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHADateItem;
@@ -41,7 +40,6 @@ import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.google.gwt.validation.client.impl.Validation;
 import com.smartgwt.client.types.TitleOrientation;
-import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.form.fields.events.ChangeEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangeHandler;
@@ -377,33 +375,11 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 
 	@Override
 	public boolean canBeClosen() {
-		if (hasUnCommittedChanges)
-			GHANotification.confirm(GHAStrings.get("information"),
-					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
-
-						@Override
-						public void execute(Boolean value) {
-							if (value.booleanValue()) {
-								undo();
-							}
-						}
-					});
 		return !hasUnCommittedChanges;
 	}
 
 	@Override
 	public boolean canBeHidden() {
-		if (hasUnCommittedChanges)
-			GHANotification.confirm(GHAStrings.get("information"),
-					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
-
-						@Override
-						public void execute(Boolean value) {
-							if (value.booleanValue()) {
-								undo();
-							}
-						}
-					});
 		return !hasUnCommittedChanges;
 	}
 
@@ -972,6 +948,13 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 
 	// //Implementations
 
+	/**
+	 * @return the hasUnCommittedChanges
+	 */
+	public boolean hasUnCommittedChanges() {
+		return hasUnCommittedChanges;
+	}
+
 	@Override
 	public void notifyEia(Eia eia) {
 		// notify user
@@ -986,10 +969,16 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		listeners.remove(eiaSelectionListener);
 	}
 
+	public void save() {
+		save(null);
+	}
+
 	/**
 	 * Save the new element to database
+	 * 
+	 * @param callback
 	 */
-	public void save() {
+	public void save(final GHAAsyncCallback<Eia> callback) {
 		Eia eia = extract();
 		if (eia != null) {
 			EIAModel.save(eia, new GHAAsyncCallback<Eia>() {
@@ -998,8 +987,26 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 					hasUnCommittedChanges = false;
 					notifyEia(result);
 					cancel();
+
+					if (callback != null)
+						callback.onSuccess(result);
 				}
 			});
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener#select
+	 * (org.fourgeeks.gha.domain.gmh.EiaType)
+	 */
+	@Override
+	public void select(EiaType eiaType) {
+		if (eiaType != null) {
+			eiaTypeSelectItem.setValue(eiaType.getCode());
+			eiaTypeSelectItem.disable();
 		}
 	}
 
@@ -1223,10 +1230,14 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 		hasUnCommittedChanges = false;
 	}
 
-	/**
-	 * Update the eia element
-	 */
 	public void update() {
+		update(null);
+	}
+
+	/**
+	 * @param callback
+	 */
+	public void update(final GHAAsyncCallback<Eia> callback) {
 		Eia eia = extract();
 		if (eia != null) {
 			EIAModel.update(eia, new GHAAsyncCallback<Eia>() {
@@ -1234,31 +1245,12 @@ public class EIAForm extends VLayout implements EIATypeSelectionListener,
 				public void onSuccess(Eia result) {
 					hasUnCommittedChanges = false;
 					notifyEia(result);
+
+					if (callback != null)
+						callback.onSuccess(result);
 				}
 			});
 		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener#select
-	 * (org.fourgeeks.gha.domain.gmh.EiaType)
-	 */
-	@Override
-	public void select(EiaType eiaType) {
-		if (eiaType != null) {
-			eiaTypeSelectItem.setValue(eiaType.getCode());
-			eiaTypeSelectItem.disable();
-		}
-	}
-
-	/**
-	 * @return the hasUnCommittedChanges
-	 */
-	public boolean hasUnCommittedChanges() {
-		return hasUnCommittedChanges;
 	}
 
 }

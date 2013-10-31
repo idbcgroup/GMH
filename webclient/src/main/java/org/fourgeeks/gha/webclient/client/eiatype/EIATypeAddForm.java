@@ -116,6 +116,26 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 	}
 
 	@Override
+	public void hide() {
+		if (form.hasUnCommittedChanges()) {
+			GHANotification.confirm(GHAStrings.get("information"),
+					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
+
+						@Override
+						public void execute(Boolean value) {
+							if (value) {
+								// discard changes and hide
+								form.undo();
+								EIATypeAddForm.super.hide();
+							}
+						}
+					});
+		} else {
+			super.hide();
+		}
+	}
+
+	@Override
 	public void notifyEiaType(EiaType eiaType) {
 		form.notifyEiaType(eiaType);
 	}
@@ -145,32 +165,11 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 
 	}
 
-	@Override
-	public void hide() {
-		if (form.hasUnCommittedChanges()) {
-			GHANotification.confirm(GHAStrings.get("information"),
-					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
-
-						@Override
-						public void execute(Boolean value) {
-							if (value) {
-								// discard changes and hide
-								form.undo();
-								EIATypeAddForm.super.hide();
-							}
-						}
-					});
-		} else {
-			super.hide();
-		}
-	}
-
 	private void save() {
 		form.save(new GHAAsyncCallback<EiaType>() {
 
 			@Override
 			public void onSuccess(EiaType arg0) {
-				GHANotification.alert("eiatype-save-success");
 				EIATypeAddForm.this.hide();
 
 			}
