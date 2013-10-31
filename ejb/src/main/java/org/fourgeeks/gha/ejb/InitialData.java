@@ -1529,7 +1529,7 @@ public class InitialData {
 				em.persist(new UiString(LanguageEnum.ES, "role-select-item",
 						"Rol Responsable"));
 				em.persist(new UiString(LanguageEnum.ES, "form-errors",
-						"Errores en el formulario, por favor complete los campos correctamente"));
+						"Errores en el formulario,git por favor complete los campos correctamente"));
 				em.persist(new UiString(LanguageEnum.ES, "unsaved-changes",
 						"Tiene cambios sin guardar, ¿Desea descartarlos?"));
 				em.persist(new UiString(LanguageEnum.ES, "search-component",
