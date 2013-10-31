@@ -13,6 +13,8 @@ import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHANewButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
@@ -31,7 +33,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class EIATypeMaterialCategoryGridPanel extends GHAVerticalLayout
-		implements EIATypeSelectionListener {
+		implements EIATypeSelectionListener, GHAHideable, GHAClosable {
 
 	private EiaTypeMaterialCategoryGrid grid = new EiaTypeMaterialCategoryGrid();
 	private MaterialCategorySearchForm searchForm;

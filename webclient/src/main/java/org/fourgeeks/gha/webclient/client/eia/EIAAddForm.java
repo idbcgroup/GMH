@@ -6,7 +6,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACloseButton;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
@@ -27,8 +27,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  */
 public class EIAAddForm extends GHASlideInWindow implements
 		EIATypeSelectionListener, EiaSelectionProducer {
-
 	private EIAForm form;
+
 	{
 		form = new EIAForm();
 	}
@@ -149,16 +149,13 @@ public class EIAAddForm extends GHASlideInWindow implements
 		setHeight(GHAUiHelper.getTabHeight());
 		addMember(new GHALabel(GHAStrings.get("new-eia")));
 
-		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
-				"../resources/icons/save.png", new ClickHandler() {
-
+		VLayout sideButtons = GHAUiHelper.createBar(new GHASaveButton(
+				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
 						save();
-
 					}
 				}), new GHACloseButton(new ClickHandler() {
-
 			@Override
 			public void onClick(ClickEvent event) {
 				hide();
@@ -168,6 +165,9 @@ public class EIAAddForm extends GHASlideInWindow implements
 		HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
 		addMember(gridPanel);
+
+		// register as listener to the eiaform
+		// form.addEiaSelectionListener(this);
 	}
 
 	/*
@@ -182,11 +182,6 @@ public class EIAAddForm extends GHASlideInWindow implements
 		form.notifyEia(eia);
 	}
 
-	@Override
-	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getTabHeight());
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -199,6 +194,11 @@ public class EIAAddForm extends GHASlideInWindow implements
 		super.open();
 		form.show();
 		form.activate();
+	}
+
+	@Override
+	public void onResize(ResizeEvent event) {
+		setHeight(GHAUiHelper.getTabHeight());
 	}
 
 	@Override
