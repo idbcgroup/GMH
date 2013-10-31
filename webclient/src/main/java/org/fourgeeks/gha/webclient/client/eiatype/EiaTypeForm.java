@@ -312,9 +312,18 @@ public class EiaTypeForm extends GHAVerticalLayout implements
 				}, forceFromServer);
 	}
 
+	/**
+	 * @return the hasUnCommittedChanges
+	 */
+	public boolean hasUnCommittedChanges() {
+		return hasUnCommittedChanges;
+	}
+
 	// Producer stuff
 	@Override
 	public void notifyEiaType(EiaType eiaType) {
+		// notify user
+		GHANotification.alert("eiatype-save-success");
 		for (EIATypeSelectionListener listener : listeners)
 			listener.select(eiaType);
 	}
@@ -401,6 +410,14 @@ public class EiaTypeForm extends GHAVerticalLayout implements
 	}
 
 	/**
+	 * @param hasUnCommittedChanges
+	 *            the hasUnCommittedChanges to set
+	 */
+	public void setHasUnCommittedChanges(boolean hasUnCommittedChanges) {
+		this.hasUnCommittedChanges = hasUnCommittedChanges;
+	}
+
+	/**
 	 * @param activate
 	 */
 	private void toggleForm(boolean activate) {
@@ -459,21 +476,6 @@ public class EiaTypeForm extends GHAVerticalLayout implements
 				}
 			});
 		}
-	}
-
-	/**
-	 * @return the hasUnCommittedChanges
-	 */
-	public boolean hasUnCommittedChanges() {
-		return hasUnCommittedChanges;
-	}
-
-	/**
-	 * @param hasUnCommittedChanges
-	 *            the hasUnCommittedChanges to set
-	 */
-	public void setHasUnCommittedChanges(boolean hasUnCommittedChanges) {
-		this.hasUnCommittedChanges = hasUnCommittedChanges;
 	}
 
 }

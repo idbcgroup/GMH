@@ -4,15 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.Eia;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.eia.EIAForm;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 import org.fourgeeks.gha.webclient.client.eia.EiaSelectionProducer;
 
 import com.smartgwt.client.types.Alignment;
+import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -47,8 +51,8 @@ public class EIAInformationFormPanel extends VLayout implements GHAClosable,
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		setAlign(Alignment.CENTER);
 
-		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
-				"../resources/icons/save.png", new ClickHandler() {
+		VLayout sideButtons = GHAUiHelper.createBar(new GHASaveButton(
+				new ClickHandler() {
 
 					@Override
 					public void onClick(ClickEvent event) {
@@ -88,12 +92,38 @@ public class EIAInformationFormPanel extends VLayout implements GHAClosable,
 
 	@Override
 	public boolean canBeClosen() {
-		return !form.hasUnCommittedChanges();
+		if (form.hasUnCommittedChanges()) {
+			GHANotification.confirm(GHAStrings.get("information"),
+					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
+
+						@Override
+						public void execute(Boolean value) {
+							if (value) {
+								form.undo();
+							}
+						}
+					});
+			return false;
+		}
+		return true;
 	}
 
 	@Override
 	public boolean canBeHidden() {
-		return !form.hasUnCommittedChanges();
+		if (form.hasUnCommittedChanges()) {
+			GHANotification.confirm(GHAStrings.get("information"),
+					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
+
+						@Override
+						public void execute(Boolean value) {
+							if (value) {
+								form.undo();
+							}
+						}
+					});
+			return false;
+		}
+		return true;
 	}
 
 	@Override

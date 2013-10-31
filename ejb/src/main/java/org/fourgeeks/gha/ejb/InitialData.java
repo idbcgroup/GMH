@@ -1528,7 +1528,7 @@ public class InitialData {
 				em.persist(new UiString(LanguageEnum.ES, "form-errors",
 						"Errores en el formulario, por favor complete los campos correctamente"));
 				em.persist(new UiString(LanguageEnum.ES, "unsaved-changes",
-						"¿Descartar los cambios?"));
+						"Tiene cambios sin guardar, ¿Desea descartarlos?"));
 				em.persist(new UiString(LanguageEnum.ES, "search-component",
 						"Buscar un componente para un tipo de equipo"));
 				em.persist(new UiString(LanguageEnum.ES, "search-material",
