@@ -2,9 +2,11 @@ package org.fourgeeks.gha.webclient.client.eia;
 
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
@@ -171,6 +173,13 @@ public class EIAUpdateForm extends GHASlideInWindow implements
 	}
 
 	private void update() {
-		eiaForm.update();
+		eiaForm.update(new GHAAsyncCallback<Eia>() {
+
+			@Override
+			public void onSuccess(Eia result) {
+				GHANotification.alert("eia-save-success");
+				hide();
+			}
+		});
 	}
 }
