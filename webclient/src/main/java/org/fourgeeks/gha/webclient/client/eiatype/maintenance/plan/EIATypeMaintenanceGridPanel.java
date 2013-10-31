@@ -7,7 +7,10 @@ import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHAEditButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHANewButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
@@ -56,13 +59,13 @@ public class EIATypeMaintenanceGridPanel extends VLayout implements
 				"Planes de Mantenimiento asociados al tipo de equipo");
 		addMember(title);
 
-		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
-				"../resources/icons/new.png", new ClickHandler() {
+		VLayout sideButtons = GHAUiHelper.createBar(new GHANewButton(
+				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
 						searchForm.open();
 					}
-				}), new GHAImgButton("../resources/icons/edit.png",
+				}), new GHAEditButton(
 				new ClickHandler() {
 
 					@Override
@@ -70,7 +73,7 @@ public class EIATypeMaintenanceGridPanel extends VLayout implements
 						// TODO Auto-generated method stub
 
 					}
-				}), new GHAImgButton("../resources/icons/delete.png",
+				}), new GHADeleteButton(
 				new ClickHandler() {
 
 					@Override
@@ -88,7 +91,8 @@ public class EIATypeMaintenanceGridPanel extends VLayout implements
 								});
 
 					}
-				}), GHAUiHelper.verticalGraySeparator("2px"), new GHAImgButton(
+				}), GHAUiHelper.verticalGraySeparator("2px"), 
+				new GHAImgButton(
 				"../resources/icons/set.png", new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {

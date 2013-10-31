@@ -17,7 +17,9 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHAEiaTypeSubTypeSelectIt
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAEiaTypeTypeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAMobilitySelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 
@@ -148,14 +150,13 @@ public class EIATypeTopForm extends HLayout implements
 		typeItem.addKeyUpHandler(searchKeyUpHandler);
 		subTypeItem.addKeyUpHandler(searchKeyUpHandler);
 		
-		searchImgButton = new GHAImgButton(
-				"../resources/icons/search.png", new ClickHandler() {
+		searchImgButton = new GHASearchButton(new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
 						search();
 					}
 				});
-		cleanImgButton = new GHAImgButton("../resources/icons/clean.png",
+		cleanImgButton = new GHACleanButton(
 				new ClickHandler() {
 
 					@Override
@@ -205,6 +206,7 @@ public class EIATypeTopForm extends HLayout implements
 
 	public void activate() {
 		codeItem.enable();
+		codeItem.focusInItem();
 		nameItem.enable();
 		brandItem.enable();
 		modelItem.enable();
