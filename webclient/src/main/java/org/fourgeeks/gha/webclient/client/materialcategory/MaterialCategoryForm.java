@@ -130,6 +130,9 @@ public class MaterialCategoryForm extends GHAVerticalLayout implements
 		nameItem.clearValue();
 		descriptionItem.clearValue();
 		modelItem.clearValue();
+		if (!typeItem.isDisabled()) {
+			typeItem.clearValue();
+		}
 	}
 
 	@Override
