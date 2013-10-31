@@ -116,7 +116,7 @@ public class InitialData {
 			try {
 				logger.info("Creating message test data");
 				em.persist(new GHAMessage(LanguageEnum.ES, "asset-id-not-null",
-						"Dindicar el identificador del activo"));
+						"Debe indicar el identificador del activo"));
 				em.persist(new GHAMessage(LanguageEnum.ES, "unsaved-changes",
 						"Existen cambios sin guardar, ¿Desea descartarlos?"));
 				em.persist(new GHAMessage(LanguageEnum.EN, "info-tittle",
@@ -175,47 +175,47 @@ public class InitialData {
 						"time-period-not-null",
 						"Debe indicar el periodo de tiempo"));
 				em.persist(new GHAMessage(LanguageEnum.ES, "eia-save-success",
-						"Guardado exitoso del Equipo"));
+						"El equipo ha sido guardado exitosamente"));
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"eiatype-save-success",
-						"Guardado exitoso del Tipo de Equipo"));
+						"El Tipo de Equipo ha sido guardado exitosamente"));
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"eiatype-delete-success",
-						"Eliminación exitosa del Tipo de Equipo"));
+						"El tipo de equipo ha sido eliminado exitosamente"));
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"eiatypes-delete-success",
-						"Eliminación exitosa de los Tipos de Equipo"));
+						"Los tipos de equipo ha sido eliminado exitosamente"));
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"material-save-success",
-						"Guardado exitoso del material"));
+						"El material ha sido guardado exitosamente"));
 				em.persist(new GHAMessage(LanguageEnum.ES, "user-save-success",
-						"Guardado exitoso del Usuario"));
+						"El usuario ha sido guardado exitosamente"));
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"mplan-save-success",
-						"Guardado exitoso del Plan de Mantenimiento"));
+						"El plan de mantenimiento ha sido guardado exitosamente"));
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"mprot-save-success",
-						"Guardado exitoso del Protocolo de Mantenimiento"));
+						"El protocolo de mantenimiento ha sido guardado exitosamente"));
 				em.persist(new GHAMessage(LanguageEnum.ES, "mact-save-success",
-						"Guardado exitoso de la Actividad de Mantenimiento"));
+						"La actividad de mantenimiento ha sido guardada exitosamente"));
 
 				// eiatype service messages
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"eiatype-delete-fail",
 						"Falló la eliminación del EiaType"));
 				em.persist(new GHAMessage(LanguageEnum.ES, "eiatype-save-fail",
-						"Guardado fallido del Tipo de Equipo"));
+						"El tipo de equipo no ha sido guardado"));
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"eiatype-update-fail",
-						"Actualización fallida del Tipo de Equipo"));
+						"No se pudo actualizar el Tipo de Equipo"));
 				em.persist(new GHAMessage(LanguageEnum.ES, "eiatype-find-fail",
-						"Búsqueda fallida de Tipos de Equipo"));
+						"Hubo un fallo en la búsqueda de Tipos de Equipo"));
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"eiatype-findByMaintenancePlan-fail",
-						"Búsqueda fallida del Tipo de Equipo por Plan de Mantenimeinto"));
+						"Hubo un fallo en la búsqueda del Tipo de Equipo por Plan de Mantenimeinto"));
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"eiatype-getAll-fail",
-						"Búsqueda fallida de todos los Tipos de Equipo"));
+						"Hubo un fallo en la búsqueda de todos los Tipos de Equipo"));
 				em.persist(new GHAMessage(LanguageEnum.EN,
 						"eiatype-delete-fail",
 						"Failed to delete Equipment type"));
@@ -236,23 +236,26 @@ public class InitialData {
 				// function service messages
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"function-getAll-fail",
-						"Búsqueda fallida de todas las Funciones"));
+						"Hubo un fallo en la búsqueda de todas las Funciones"));
 				em.persist(new GHAMessage(LanguageEnum.EN,
 						"function-getAll-fail", "Failed to get all Functions"));
 
 				// instanceLogon service messages
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"instanceLogon-delete-fail",
-						"Fallo la eliminación del InstanceLogon"));
+						"Hubo un fallo en la eliminación del InstanceLogon"));
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"instanceLogon-findByInstanceLogon-fail",
-						"Búsqueda fallida de InstanceLogon por instanceLogon"));
+						"Hubo un fallo en la búsqueda de InstanceLogon por instanceLogon"));
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"instanceLogon-find-fail",
-						"Búsqueda fallida de InstanceLogon"));
+						"Hubo un fallo en la búsqueda de InstanceLogon"));
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"instanceLogon-getAll-fail",
-						"Búsqueda fallida de todos los InstanceLogon"));
+						"Hubo un fallo en la búsqueda de todos los InstanceLogon"));
+				
+//////>>>>>>>>>>>>>>>>>>>>>>>>>>>>HUMANIZACION HASTA ACA.	
+			
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"instanceLogon-save-fail",
 						"Guardado fallido de InstanceLogon"));
