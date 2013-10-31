@@ -4,13 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.eiatype.EiaTypeForm;
 import org.fourgeeks.gha.webclient.client.eiatype.EiaTypeSelectionProducer;
 
+import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -257,7 +260,7 @@ public class EIATypeInformationFormPanel extends GHAVerticalLayout implements
 		// addMember(uploadImagenes);
 
 		// register as eiatypeselected listener with eiatypeform
-		form.addEiaTypeSelectionListener(this);
+		// form.addEiaTypeSelectionListener(this);
 	}
 
 	/**
@@ -282,12 +285,38 @@ public class EIATypeInformationFormPanel extends GHAVerticalLayout implements
 
 	@Override
 	public boolean canBeClosen() {
+		if (form.hasUnCommittedChanges()) {
+			GHANotification.confirm(GHAStrings.get("information"),
+					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
+
+						@Override
+						public void execute(Boolean value) {
+							if (value) {
+								form.undo();
+							}
+						}
+					});
+			return false;
+		}
 		return true;
 	}
 
 	@Override
 	public boolean canBeHidden() {
-		return form.canBeHidden();
+		if (form.hasUnCommittedChanges()) {
+			GHANotification.confirm(GHAStrings.get("information"),
+					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
+
+						@Override
+						public void execute(Boolean value) {
+							if (value) {
+								form.undo();
+							}
+						}
+					});
+			return false;
+		}
+		return true;
 	}
 
 	@Override

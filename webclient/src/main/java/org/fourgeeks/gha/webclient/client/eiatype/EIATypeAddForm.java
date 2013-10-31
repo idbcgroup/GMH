@@ -5,7 +5,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACloseButton;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
@@ -42,8 +42,8 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 		setHeight(GHAUiHelper.getTabHeight());
 		addMember(new GHALabel(GHAStrings.get("new-eiatype")));
 
-		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
-				"../resources/icons/save.png", new ClickHandler() {
+		VLayout sideButtons = GHAUiHelper.createBar(new GHASaveButton(
+				new ClickHandler() {
 
 					@Override
 					public void onClick(ClickEvent event) {
@@ -70,12 +70,38 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 
 	@Override
 	public boolean canBeClosen() {
-		return form.canBeClosen();
+		if (form.hasUnCommittedChanges()) {
+			GHANotification.confirm(GHAStrings.get("information"),
+					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
+
+						@Override
+						public void execute(Boolean value) {
+							if (value) {
+								form.undo();
+							}
+						}
+					});
+			return false;
+		}
+		return true;
 	}
 
 	@Override
 	public boolean canBeHidden() {
-		return form.canBeClosen();
+		if (form.hasUnCommittedChanges()) {
+			GHANotification.confirm(GHAStrings.get("information"),
+					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
+
+						@Override
+						public void execute(Boolean value) {
+							if (value) {
+								form.undo();
+							}
+						}
+					});
+			return false;
+		}
+		return true;
 	}
 
 	@Override
