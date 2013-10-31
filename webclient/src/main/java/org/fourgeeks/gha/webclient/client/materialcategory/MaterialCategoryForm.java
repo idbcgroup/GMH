@@ -130,6 +130,9 @@ public class MaterialCategoryForm extends GHAVerticalLayout implements
 		nameItem.clearValue();
 		descriptionItem.clearValue();
 		modelItem.clearValue();
+		if (!typeItem.isDisabled()) {
+			typeItem.clearValue();
+		}
 	}
 
 	@Override
@@ -209,5 +212,13 @@ public class MaterialCategoryForm extends GHAVerticalLayout implements
 			materialCategory.setType(MaterialTypeEnum.valueOf(typeItem
 					.getValueAsString()));
 		materialCategory.setModel(modelItem.getValueAsString());
+	}
+
+	/**
+	 * @param type
+	 */
+	public void setType(MaterialTypeEnum type) {
+		typeItem.setValue(type.name());
+		typeItem.setDisabled(true);
 	}
 }

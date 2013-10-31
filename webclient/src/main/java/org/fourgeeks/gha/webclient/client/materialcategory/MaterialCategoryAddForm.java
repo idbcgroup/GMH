@@ -2,6 +2,7 @@ package org.fourgeeks.gha.webclient.client.materialcategory;
 
 import org.fourgeeks.gha.domain.glm.MaterialCategory;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACancelButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
@@ -9,6 +10,7 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAAddForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -22,7 +24,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class MaterialCategoryAddForm extends GHAAddForm implements
 		MaterialCategorySelectionProducer {
 
-	private MaterialCategoryForm form;
+	protected MaterialCategoryForm form;
 	{
 		form = new MaterialCategoryForm();
 	}
@@ -47,8 +49,8 @@ public class MaterialCategoryAddForm extends GHAAddForm implements
 				hide();
 			}
 		}));
-
 		HLayout gridPanel = new HLayout();
+		// gridPanel.setAlign(VerticalAlignment.TOP);
 		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
 		addMember(gridPanel);
 	}
@@ -57,6 +59,88 @@ public class MaterialCategoryAddForm extends GHAAddForm implements
 	public void addMaterialSelectionListener(
 			MaterialCategorySelectionListener materialSelectionListener) {
 		form.addMaterialSelectionListener(materialSelectionListener);
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		if (form.hasUnCommittedChanges()) {
+			GHANotification.confirm(GHAStrings.get("information"),
+					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
+
+						@Override
+						public void execute(Boolean value) {
+							if (value) {
+								form.undo();
+							}
+						}
+					});
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		if (form.hasUnCommittedChanges()) {
+			GHANotification.confirm(GHAStrings.get("information"),
+					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
+
+						@Override
+						public void execute(Boolean value) {
+							if (value) {
+								form.undo();
+							}
+						}
+					});
+			return false;
+		}
+		return true;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow#hide
+	 * ()
+	 */
+	@Override
+	public void hide() {
+		if (form.hasUnCommittedChanges()) {
+			GHANotification.confirm(GHAStrings.get("information"),
+					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
+
+						@Override
+						public void execute(Boolean value) {
+							if (value) {
+								form.undo();
+								form.hide();
+								MaterialCategoryAddForm.super.hide();
+							}
+						}
+					});
+			return;
+		}
+		form.hide();
+		super.hide();
+	}
+
+	@Override
+	public void notifyMaterialCategory(MaterialCategory materialCategory) {
+		form.notifyMaterialCategory(materialCategory);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow#open
+	 * ()
+	 */
+	@Override
+	public void open() {
+		super.open();
+		form.show();
 	}
 
 	@Override
@@ -71,31 +155,17 @@ public class MaterialCategoryAddForm extends GHAAddForm implements
 
 	}
 
-	@Override
-	public boolean canBeClosen() {
-		return false;
-	}
-
-	@Override
-	public boolean canBeHidden() {
-		return false;
-	}
-
 	private void save() {
 		form.save(new GHAAsyncCallback<MaterialCategory>() {
 
 			@Override
 			public void onSuccess(MaterialCategory arg0) {
 				GHANotification.alert("material-save-success");
+				form.cancel();
 				hide();
 			}
 
 		});
-	}
-
-	@Override
-	public void notifyMaterialCategory(MaterialCategory materialCategory) {
-		form.notifyMaterialCategory(materialCategory);
 	}
 
 }

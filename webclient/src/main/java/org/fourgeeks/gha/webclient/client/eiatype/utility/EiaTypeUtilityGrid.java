@@ -4,15 +4,17 @@ import org.fourgeeks.gha.domain.gmh.EiaTypeUtility;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridField;
 import org.fourgeeks.gha.webclient.client.UI.grids.GhaGrid;
 
-
 /**
  * @author sizturriaga
  * 
  */
 public class EiaTypeUtilityGrid extends GhaGrid<EiaTypeUtility> {
-	
-	public EiaTypeUtilityGrid(){
-		
+
+	/**
+	 * 
+	 */
+	public EiaTypeUtilityGrid() {
+
 		setEmptyMessage("No existen Materiales para mostrar");
 
 		GHAGridField codeGridField = new GHAGridField("code", "Código");
@@ -30,6 +32,5 @@ public class EiaTypeUtilityGrid extends GhaGrid<EiaTypeUtility> {
 				modelGridField, extCodeGridField, typeGridField,
 				extProviderGridField);
 	}
-	
 
 }

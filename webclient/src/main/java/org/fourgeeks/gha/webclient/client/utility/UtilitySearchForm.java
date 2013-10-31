@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eiatype.utility;
+package org.fourgeeks.gha.webclient.client.utility;
 
 import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.webclient.client.materialcategory.MaterialCategorySearchForm;
@@ -10,6 +10,7 @@ import org.fourgeeks.gha.webclient.client.materialcategory.MaterialCategorySearc
 public class UtilitySearchForm extends MaterialCategorySearchForm {
 
 	/**
+	 * @param title
 	 * 
 	 */
 	public UtilitySearchForm(String title) {

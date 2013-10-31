@@ -32,15 +32,6 @@ public class EIAAddForm extends GHAAddForm implements EIATypeSelectionListener,
 	}
 
 	/**
-	 * @param title
-	 * 
-	 */
-	public EIAAddForm(String title) {
-		super(title);
-		initComponent();
-	}
-
-	/**
 	 * @param eiaType
 	 * @param title
 	 * 
@@ -49,6 +40,15 @@ public class EIAAddForm extends GHAAddForm implements EIATypeSelectionListener,
 		super(title);
 		form = new EIAForm();
 		form.select(eiaType);
+		initComponent();
+	}
+
+	/**
+	 * @param title
+	 * 
+	 */
+	public EIAAddForm(String title) {
+		super(title);
 		initComponent();
 	}
 
@@ -95,6 +95,27 @@ public class EIAAddForm extends GHAAddForm implements EIATypeSelectionListener,
 		return true;
 	}
 
+	@Override
+	public void hide() {
+		if (form.hasUnCommittedChanges()) {
+			GHANotification.confirm(GHAStrings.get("information"),
+					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
+
+						@Override
+						public void execute(Boolean value) {
+							if (value) {
+								form.undo();
+								form.hide();
+								EIAAddForm.super.hide();
+							}
+						}
+					});
+			return;
+		}
+		form.hide();
+		super.hide();
+	}
+
 	/**
 	 * 
 	 */
@@ -136,30 +157,15 @@ public class EIAAddForm extends GHAAddForm implements EIATypeSelectionListener,
 	}
 
 	@Override
-	public void removeEiaSelectionListener(
-			EIASelectionListener eiaSelectionListener) {
-		form.removeEiaSelectionListener(eiaSelectionListener);
+	public void open() {
+		super.open();
+		form.show();
 	}
 
 	@Override
-	public void hide() {
-		if (form.hasUnCommittedChanges()) {
-			GHANotification.confirm(GHAStrings.get("information"),
-					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
-
-						@Override
-						public void execute(Boolean value) {
-							if (value) {
-								form.undo();
-								form.hide();
-								EIAAddForm.super.hide();
-							}
-						}
-					});
-			return;
-		}
-		form.hide();
-		super.hide();
+	public void removeEiaSelectionListener(
+			EIASelectionListener eiaSelectionListener) {
+		form.removeEiaSelectionListener(eiaSelectionListener);
 	}
 
 	/**
@@ -175,12 +181,6 @@ public class EIAAddForm extends GHAAddForm implements EIATypeSelectionListener,
 			}
 		});
 
-	}
-
-	@Override
-	public void open() {
-		super.open();
-		form.show();
 	}
 
 	/*

@@ -4,18 +4,17 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 
+import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.Visibility;
 import com.smartgwt.client.widgets.AnimationCallback;
-import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
  * @author alacret a window that slide in
  */
-public abstract class GHASlideInWindow extends VLayout implements
+public abstract class GHASlideInWindow extends GHAVerticalLayout implements
 		ResizeHandler, GHAClosable, GHAHideable {
 
 	/**
@@ -24,13 +23,16 @@ public abstract class GHASlideInWindow extends VLayout implements
 	public GHASlideInWindow() {
 		setWidth100();
 		setLeft(-5);
-		setBackgroundColor(GHAUiHelper.DEFAULT_BACKGROUND_COLOR);
-		setStyleName("sides-padding padding-top box");
-		setAlign(Alignment.CENTER);
 		setVisibility(Visibility.HIDDEN);
 		setAnimateTime(GHAUiHelper.DEFAULT_ANIMATION_TIME);
 		GHAUiHelper.addGHAResizeHandler(this);
-		setTop(95);
+		setTop(GHAUiHelper.DEFAULT_TOP_SECTION_HEIGHT);
+		setHeight(GHAUiHelper.getTabHeight() - 5);
+	}
+
+	@Override
+	public void onResize(ResizeEvent event) {
+		setHeight(GHAUiHelper.getTabHeight() - 5);
 	}
 
 	@Override

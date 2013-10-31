@@ -9,19 +9,20 @@ import org.fourgeeks.gha.domain.gmh.EiaTypeMaterialCategory;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHANewButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.materialcategory.MaterialCategoryAddForm;
 import org.fourgeeks.gha.webclient.client.materialcategory.MaterialCategorySearchForm;
 import org.fourgeeks.gha.webclient.client.materialcategory.MaterialCategorySelectionListener;
 
+import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
@@ -89,17 +90,33 @@ public class EIATypeMaterialCategoryGridPanel extends GHAVerticalLayout
 
 			@Override
 			public void onClick(ClickEvent event) {
-				GHAGridRecord<EiaTypeMaterialCategory> selectedRecord = grid
-						.getSelectedRecord();
-				EiaTypeMaterialCategory eiaTypeMaterialCategory = selectedRecord
-						.toEntity();
-				EIATypeMaterialCategoryModel.delete(
-						eiaTypeMaterialCategory.getId(),
-						new GHAAsyncCallback<Void>() {
+				final EiaTypeMaterialCategory eiaTypeMaterialCategory = grid
+						.getSelectedEntity();
+
+				if (eiaTypeMaterialCategory == null) {
+					GHANotification.alert("record-not-selected");
+					return;
+				}
+
+				GHANotification.confirm(GHAStrings
+						.get("materialcategory-title"), GHAStrings
+						.get("eiatype-materialcategory-delete-confirm"),
+						new BooleanCallback() {
 
 							@Override
-							public void onSuccess(Void result) {
-								loadData();
+							public void execute(Boolean value) {
+								if (value) {
+									EIATypeMaterialCategoryModel.delete(
+											eiaTypeMaterialCategory.getId(),
+											new GHAAsyncCallback<Void>() {
+
+												@Override
+												public void onSuccess(
+														Void result) {
+													loadData();
+												}
+											});
+								}
 							}
 						});
 
@@ -171,7 +188,6 @@ public class EIATypeMaterialCategoryGridPanel extends GHAVerticalLayout
 			for (int i = 0; i < records.length; i++)
 				blackList.add(((EIATypeMaterialCategoryRecord) records[i])
 						.toEntity().getMaterialCategory());
-
 		}
 		searchForm.filterBy(blackList);
 		searchForm.open();

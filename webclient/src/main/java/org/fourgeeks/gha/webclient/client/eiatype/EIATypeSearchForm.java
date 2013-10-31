@@ -48,6 +48,7 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 	private GHASelectItem brandItem, mobilityItem, typeItem, subTypeItem;
 	private EIATypeAddForm addForm;
 	private GHALabel searchResultsLabel;
+	private final DynamicForm form = new DynamicForm();
 
 	{
 		selectionListeners = new LinkedList<EIATypeSelectionListener>();
@@ -76,7 +77,6 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 	 */
 	public EIATypeSearchForm(String title) {
 		super(title);
-		final DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(5);
 		form.setItems(codeEIAItem, nameEIAItem, brandItem, modelItem,
@@ -96,8 +96,7 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 				searchClickHandler), new GHACleanButton(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				form.clearValues();
-				grid.setData(new ListGridRecord[0]);
+				clean();
 			}
 		}), new GHACancelButton(new ClickHandler() {
 			@Override
@@ -170,6 +169,7 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 		}
 		notifyEiaType(selectedEntity);
 		hide();
+		grid.removeSelectedData();
 	}
 
 	@Override
@@ -275,6 +275,7 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 	 * 
 	 */
 	public void clean() {
+		form.clearValues();
 		grid.setData(new EIATypeRecord[] {});
 	}
 }
