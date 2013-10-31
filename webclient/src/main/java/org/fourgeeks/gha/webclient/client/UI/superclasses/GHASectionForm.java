@@ -97,7 +97,6 @@ public class GHASectionForm extends HLayout implements GHAHideable, GHAClosable 
 
 		final Option option = new Option(name, section);
 		option.addClickHandler(new com.google.gwt.event.dom.client.ClickHandler() {
-
 			@Override
 			public void onClick(com.google.gwt.event.dom.client.ClickEvent event) {
 				for (Option option : optionList)
@@ -129,6 +128,13 @@ public class GHASectionForm extends HLayout implements GHAHideable, GHAClosable 
 			option.activate();
 			selectedOption = option;
 		}
+	}
+
+	public void openSelectedSection() {
+		if (selectedOption != null)
+			selectedOption.activate();
+		else
+			openFirst();
 	}
 
 	/**
@@ -192,12 +198,6 @@ public class GHASectionForm extends HLayout implements GHAHideable, GHAClosable 
 
 	@Override
 	public void close() {
-		deactivate();
-	}
-
-	@Override
-	public void hide() {
-		super.hide();
 		deactivate();
 	}
 

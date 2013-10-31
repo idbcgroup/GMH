@@ -22,7 +22,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class EIAAddForm extends GHAAddForm implements EIATypeSelectionListener,
-		EiaSelectionProducer, EIASelectionListener {
+		EiaSelectionProducer {
 	private EIAForm form;
 
 	{
@@ -73,14 +73,11 @@ public class EIAAddForm extends GHAAddForm implements EIATypeSelectionListener,
 	private void initComponent() {
 		VLayout sideButtons = GHAUiHelper.createBar(new GHASaveButton(
 				new ClickHandler() {
-
 					@Override
 					public void onClick(ClickEvent event) {
 						save();
-
 					}
 				}), new GHACloseButton(new ClickHandler() {
-
 			@Override
 			public void onClick(ClickEvent event) {
 				hide();
@@ -91,8 +88,6 @@ public class EIAAddForm extends GHAAddForm implements EIATypeSelectionListener,
 		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
 		addMember(gridPanel);
 
-		// register as listener to the eiaform
-		form.addEiaSelectionListener(this);
 	}
 
 	/*
@@ -118,6 +113,12 @@ public class EIAAddForm extends GHAAddForm implements EIATypeSelectionListener,
 		form.removeEiaSelectionListener(eiaSelectionListener);
 	}
 
+	@Override
+	public void hide() {
+		form.hide();
+		super.hide();
+	}
+
 	/**
 	 * 
 	 */
@@ -131,18 +132,6 @@ public class EIAAddForm extends GHAAddForm implements EIATypeSelectionListener,
 			}
 		});
 
-	}
-
-	@Override
-	public void hide() {
-		super.hide();
-		form.hide();
-	}
-
-	@Override
-	public void select(Eia eia) {
-		form.cancel();
-		hide();
 	}
 
 	@Override

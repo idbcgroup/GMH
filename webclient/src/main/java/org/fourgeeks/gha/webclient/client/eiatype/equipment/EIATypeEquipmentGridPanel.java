@@ -7,6 +7,7 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHANewButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
@@ -58,77 +59,64 @@ public class EIATypeEquipmentGridPanel extends GHAVerticalLayout implements
 		eiaAddForm.addEiaSelectionListener(this);
 		eiaUpdateForm.addEiaSelectionListener(this);
 
-		GHALabel title = new GHALabel(
-				"Equipos pertenecientes a este Tipo de Equipo");
+		GHALabel title = new GHALabel("Equipos pertenecientes a este Tipo de Equipo");
 		addMember(title);
 
 		// //////Botones laterales
-		VLayout sideButtons = GHAUiHelper.createBar(new GHANewButton(
-				new ClickHandler() {
+		VLayout sideButtons = GHAUiHelper.createBar(new GHANewButton(new ClickHandler() {
 
-					@Override
-					public void onClick(ClickEvent event) {
-						eiaAddForm.open();
-					}
-				}), new GHAImgButton("../resources/icons/delete.png",
-				new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				eiaAddForm.open();
+			}
+		}), new GHADeleteButton(new ClickHandler() {
 
-					@Override
-					public void onClick(ClickEvent event) {
+			@Override
+			public void onClick(ClickEvent event) {
 
-						final Eia selectedRecord = grid.getSelectedEntity();
+				final Eia selectedRecord = grid.getSelectedEntity();
 
-						if (selectedRecord == null) {
-							GHANotification.oldAlert(GHAStrings
-									.get("record-not-selected"));
-							return;
-						}
+				if (selectedRecord == null) {
+					GHANotification.oldAlert(GHAStrings.get("record-not-selected"));
+					return;
+				}
 
-						GHANotification
-								.confirm(
-										"Equipo",
-										"Confirme si desea eliminar el equipo seleccionado",
-										new BooleanCallback() {
+				GHANotification.confirm("Equipo",
+						"Confirme si desea eliminar el equipo seleccionado", new BooleanCallback() {
 
-											@Override
-											public void execute(
-													Boolean resultAsc) {
-												if (resultAsc)
-													EIAModel.delete(
-															selectedRecord
-																	.getId(),
-															new GHAAsyncCallback<Boolean>() {
+							@Override
+							public void execute(Boolean resultAsc) {
+								if (resultAsc)
+									EIAModel.delete(selectedRecord.getId(),
+											new GHAAsyncCallback<Boolean>() {
 
-																@Override
-																public void onSuccess(
-																		Boolean result) {
-																	loadData(eiaType);
+												@Override
+												public void onSuccess(Boolean result) {
+													loadData(eiaType);
 
-																}
+												}
 
-															});
-											}
-										});
+											});
+							}
+						});
 
-					}
+			}
 
-				}), new GHAImgButton("../resources/icons/edit.png",
-				new ClickHandler() {
+		}), new GHAImgButton("../resources/icons/edit.png", new ClickHandler() {
 
-					@Override
-					public void onClick(ClickEvent event) {
-						final Eia selectedRecord = grid.getSelectedEntity();
+			@Override
+			public void onClick(ClickEvent event) {
+				final Eia selectedRecord = grid.getSelectedEntity();
 
-						if (selectedRecord == null) {
-							GHANotification.oldAlert(GHAStrings
-									.get("record-not-selected"));
-							return;
-						}
+				if (selectedRecord == null) {
+					GHANotification.oldAlert(GHAStrings.get("record-not-selected"));
+					return;
+				}
 
-						eiaUpdateForm.setEia(selectedRecord);
-						eiaUpdateForm.open();
-					}
-				}));
+				eiaUpdateForm.setEia(selectedRecord);
+				eiaUpdateForm.open();
+			}
+		}));
 
 		HLayout mainLayout = new HLayout();
 		mainLayout.addMembers(grid, sideButtons);
@@ -152,8 +140,7 @@ public class EIATypeEquipmentGridPanel extends GHAVerticalLayout implements
 
 			@Override
 			public void onSuccess(List<Eia> result) {
-				ListGridRecord[] array = EIAUtil.toGridRecords(result).toArray(
-						new EIARecord[] {});
+				ListGridRecord[] array = EIAUtil.toGridRecords(result).toArray(new EIARecord[] {});
 				grid.setData(array);
 
 			}
