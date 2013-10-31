@@ -130,6 +130,19 @@ public class MaterialCategoryAddForm extends GHAAddForm implements
 		form.notifyMaterialCategory(materialCategory);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow#open
+	 * ()
+	 */
+	@Override
+	public void open() {
+		super.open();
+		form.show();
+	}
+
 	@Override
 	public void onResize(ResizeEvent event) {
 		setHeight(GHAUiHelper.getBottomSectionHeight());

@@ -94,14 +94,13 @@ public class EIATypeMaterialCategoryGridPanel extends GHAVerticalLayout
 						.getSelectedEntity();
 
 				if (eiaTypeMaterialCategory == null) {
-					GHANotification.oldAlert(GHAStrings
-							.get("record-not-selected"));
+					GHANotification.alert("record-not-selected");
 					return;
 				}
 
-				GHANotification.confirm(
-						GHAStrings.get("materialcategory-title"),
-						"eiatype-materialcategory-delete-confirm",
+				GHANotification.confirm(GHAStrings
+						.get("materialcategory-title"), GHAStrings
+						.get("eiatype-materialcategory-delete-confirm"),
 						new BooleanCallback() {
 
 							@Override
