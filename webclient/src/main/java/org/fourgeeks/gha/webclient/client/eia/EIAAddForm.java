@@ -159,7 +159,7 @@ public class EIAAddForm extends GHAAddForm implements EIATypeSelectionListener,
 			return;
 		}
 		form.hide();
-		hide();
+		super.hide();
 	}
 
 	/**

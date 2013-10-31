@@ -106,8 +106,9 @@ public class EIAUpdateForm extends GHASlideInWindow implements
 					});
 			return;
 		}
+
 		form.hide();
-		hide();
+		super.hide();
 	}
 
 	/**
