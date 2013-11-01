@@ -68,7 +68,7 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 		addGHAClosableHandler(internalTabSet);
 		addEiaTypeSelectionListener(internalTabSet);
 
-		addForm = new EIATypeAddForm();
+		addForm = new EIATypeAddForm(GHAStrings.get("new-eiatype"));
 		addGHAHideableHandler(addForm);
 		addGHAClosableHandler(addForm);
 		addForm.addEiaTypeSelectionListener(this);
@@ -78,6 +78,7 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
 		verticalPanel.addMember(internalTabSet);
 		verticalPanel.addMember(resultSet);
+		
 		addMember(verticalPanel);
 	}
 

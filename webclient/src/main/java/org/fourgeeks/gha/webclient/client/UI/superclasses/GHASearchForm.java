@@ -33,15 +33,15 @@ public abstract class GHASearchForm<T> extends GHASlideInWindow {
 	public GHASearchForm(String title) {
 		super();
 		setWidth100();
-		setHeight(GHAUiHelper.getTabHeight());
-		setTop(GHAUiHelper.getTopSpace());
+		setHeight(GHAUiHelper.getTabHeight()-5);
+		setTop(GHAUiHelper.DEFAULT_TOP_SECTION_HEIGHT);
 		label = new GHALabel(title);
 		addMember(label);
 	}
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getTabHeight());
+		setHeight(GHAUiHelper.getTabHeight()-5);
 	}
 
 	@Override

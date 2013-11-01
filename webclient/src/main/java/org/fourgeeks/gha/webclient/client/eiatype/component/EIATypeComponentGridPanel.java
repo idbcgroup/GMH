@@ -103,7 +103,6 @@ public class EIATypeComponentGridPanel extends GHAVerticalLayout implements
 	public EIATypeComponentGridPanel() {
 		super();
 		GHALabel title = new GHALabel("Componentes");
-
 		// //////Botones laterales
 		VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
 				new ClickHandler() {
@@ -137,7 +136,6 @@ public class EIATypeComponentGridPanel extends GHAVerticalLayout implements
 								});
 					}
 				}));
-
 		final HLayout gridContainer = new HLayout();
 		gridContainer.addMembers(grid, sideButtons);
 

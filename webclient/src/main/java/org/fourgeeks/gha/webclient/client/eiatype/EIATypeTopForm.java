@@ -81,7 +81,7 @@ public class EIATypeTopForm extends HLayout implements
 		GHAUiHelper.addGHAResizeHandler(this);
 		setStyleName("sides-padding padding-top");
 		setWidth100();
-		setHeight(GHAUiHelper.DEFAULT_TOP_SECTION_HEIGHT + "px");
+		setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT + "px");
 		setBackgroundColor(GHAUiHelper.DEFAULT_BACKGROUND_COLOR);
 		setDefaultLayoutAlign(VerticalAlignment.CENTER);
 
@@ -250,7 +250,7 @@ public class EIATypeTopForm extends HLayout implements
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.DEFAULT_TOP_SECTION_HEIGHT + "px");
+		setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT + "px");
 	}
 
 	/**

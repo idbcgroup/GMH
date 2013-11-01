@@ -51,7 +51,7 @@ public class MaintenanceActivityTopSection extends HLayout implements
 
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		setWidth100();
-		setHeight(GHAUiHelper.DEFAULT_TOP_SECTION_HEIGHT + "px");
+		setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT + "px");
 		setDefaultLayoutAlign(VerticalAlignment.CENTER);
 		setBackgroundColor("#EAEAEA");
 
@@ -87,7 +87,7 @@ public class MaintenanceActivityTopSection extends HLayout implements
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.DEFAULT_TOP_SECTION_HEIGHT + "px");
+		setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT + "px");
 	}
 
 	public void search() {

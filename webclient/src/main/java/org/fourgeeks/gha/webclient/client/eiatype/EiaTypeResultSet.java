@@ -46,6 +46,7 @@ public class EiaTypeResultSet extends VLayout implements
 	 */
 	public EiaTypeResultSet() {
 		super();
+		setHeight(GHAUiHelper.getBottomSectionHeight());
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		setVisible(false);
 		searchResultsLabel = new GHALabel(GHAStrings.get("search-results"));
@@ -97,7 +98,7 @@ public class EiaTypeResultSet extends VLayout implements
 	 */
 	@Override
 	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getTabHeight() - 4 + "px");
+		setHeight(GHAUiHelper.getBottomSectionHeight());
 	}
 
 	/*

@@ -102,7 +102,7 @@ public class UserTopForm extends HLayout implements GHAClosable, ResizeHandler,
 		GHAUiHelper.addGHAResizeHandler(this);
 		setStyleName("sides-padding padding-top");
 		setWidth100();
-		setHeight(GHAUiHelper.DEFAULT_TOP_SECTION_HEIGHT + "px");
+		setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT + "px");
 		setDefaultLayoutAlign(VerticalAlignment.CENTER);
 		setBackgroundColor(GHAUiHelper.DEFAULT_BACKGROUND_COLOR);
 
@@ -174,7 +174,7 @@ public class UserTopForm extends HLayout implements GHAClosable, ResizeHandler,
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.DEFAULT_TOP_SECTION_HEIGHT + "px");
+		setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT + "px");
 	}
 
 	@Override

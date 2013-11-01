@@ -7,9 +7,8 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACloseButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAAddForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.util.BooleanCallback;
@@ -24,7 +23,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret, emiliot
  * 
  */
-public class EIATypeAddForm extends GHASlideInWindow implements
+public class EIATypeAddForm extends GHAAddForm implements
 		EiaTypeSelectionProducer, GHAClosable {
 
 	private EiaTypeForm form;
@@ -36,12 +35,8 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 	/**
 	 * 
 	 */
-	public EIATypeAddForm() {
-		super();
-		setWidth100();
-		setHeight(GHAUiHelper.getTabHeight());
-		addMember(new GHALabel(GHAStrings.get("new-eiatype")));
-
+	public EIATypeAddForm(String title) {
+		super(GHAStrings.get(title));
 		VLayout sideButtons = GHAUiHelper.createBar(new GHASaveButton(
 				new ClickHandler() {
 					@Override

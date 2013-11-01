@@ -85,8 +85,8 @@ public abstract class GHAUiHelper {
 	/**
 	 * The default top section height
 	 */
-	public static final int DEFAULT_TOP_SECTION_HEIGHT = HEADER_HEIGTH
-			+ MENU_BAR_HEIGTH;
+	public static final int DEFAULT_TOP_SECTION_HEIGHT = HEADER_HEIGTH + MENU_BAR_HEIGTH +1;
+	public static final int DEFAULT_INNER_TOP_SECTION_HEIGHT = 110;
 	public static final int V_SEPARATOR_HEIGHT = 10;
 	/**
 	 * the background color for the tabs y components
@@ -168,7 +168,7 @@ public abstract class GHAUiHelper {
 	 */
 	public static int getBottomSectionHeight() {
 		int biggerTabHeight = getTabHeight();
-		int innerTopSection = DEFAULT_TOP_SECTION_HEIGHT + V_SEPARATOR_HEIGHT;
+		int innerTopSection = DEFAULT_INNER_TOP_SECTION_HEIGHT + V_SEPARATOR_HEIGHT;
 
 		int ret = biggerTabHeight - innerTopSection;
 		if (ret < MIN_BOTTOM_SECTION_HEIGHT) {
@@ -178,7 +178,7 @@ public abstract class GHAUiHelper {
 		}
 	}
 
-	@Deprecated
+	
 	public static int getTopSpace() {
 		return HEADER_HEIGTH + MENU_BAR_HEIGTH + 1;
 	}

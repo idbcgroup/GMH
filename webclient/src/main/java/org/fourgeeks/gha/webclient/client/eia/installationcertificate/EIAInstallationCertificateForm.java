@@ -41,7 +41,7 @@ public class EIAInstallationCertificateForm extends GHASlideInWindow {
 				}));
 
 		HLayout topPanel = new HLayout();
-		topPanel.setHeight(GHAUiHelper.DEFAULT_TOP_SECTION_HEIGHT - 30);
+		topPanel.setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT - 30);
 		topPanel.setStyleName("sides-padding");
 
 		topPanel.addMembers(new LayoutSpacer(), sideButtons);
