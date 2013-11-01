@@ -16,6 +16,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.GHAUtil;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHACodeItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACancelButton;
@@ -52,20 +53,19 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 
 	{
 		selectionListeners = new LinkedList<EIATypeSelectionListener>();
-		codeEIAItem = new GHATextItem("Código");
-		codeEIAItem.setLength(20);
+		codeEIAItem = new GHACodeItem(225);
 		codeEIAItem.setMask("AAAAAAAAAAAAAAAAAAAA");
-		nameEIAItem = new GHATextItem("Nombre");
+		nameEIAItem = new GHATextItem(GHAStrings.get("name"), 215);
 		nameEIAItem.setLength(255);
-		brandItem = new GHASelectItem("Marca");
-		modelItem = new GHATextItem("Modelo");
+		brandItem = new GHASelectItem(GHAStrings.get("name"), 255);
+		modelItem = new GHATextItem(GHAStrings.get("model"), 225);
 		modelItem.setLength(20);
-		umdnsCodeItem = new GHATextItem("EIAUMDNS");
+		umdnsCodeItem = new GHATextItem("EIAUMDNS", 225);
 		umdnsCodeItem.setLength(16);
 		umdnsCodeItem.setMask("AAAAAAAAAAAAAAAAAAAA");
-		mobilityItem = new GHASelectItem("Movilidad");
-		typeItem = new GHASelectItem("Tipo de Equipo");
-		subTypeItem = new GHASelectItem("Subtipo");
+		mobilityItem = new GHASelectItem(GHAStrings.get("mobility"), 225);
+		typeItem = new GHASelectItem(GHAStrings.get("eiatype"), 225);
+		subTypeItem = new GHASelectItem(GHAStrings.get("subtype"), 225);
 
 		grid = new EIATypeGrid();
 
@@ -77,9 +77,9 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 	public EIATypeSearchForm(String title) {
 		super(title);
 		form.setTitleOrientation(TitleOrientation.TOP);
-		form.setNumCols(5);
-		form.setItems(codeEIAItem, nameEIAItem, brandItem, modelItem,
-				umdnsCodeItem, mobilityItem, typeItem, subTypeItem);
+		form.setNumCols(4);
+		form.setItems(codeEIAItem, nameEIAItem, modelItem, umdnsCodeItem,
+				mobilityItem, typeItem, subTypeItem, brandItem);
 
 		codeEIAItem.addKeyUpHandler(searchKeyUpHandler);
 		nameEIAItem.addKeyUpHandler(searchKeyUpHandler);
@@ -91,21 +91,18 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 		subTypeItem.addKeyUpHandler(searchKeyUpHandler);
 		// ////////////////////////////
 
-		VLayout sideButtons = GHAUiHelper.createBar(
-				new GHASearchButton(searchClickHandler),
-				new GHACleanButton(
-				new ClickHandler() {
-					@Override
-					public void onClick(ClickEvent event) {
-						clean();
-					}
-				}), 
-				new GHACancelButton(new ClickHandler() {
-					@Override
-					public void onClick(ClickEvent event) {
-						hide();
-					}
-				}));
+		VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
+				searchClickHandler), new GHACleanButton(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				clean();
+			}
+		}), new GHACancelButton(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				hide();
+			}
+		}));
 		
 
 		HLayout formLayout = new HLayout();
@@ -191,6 +188,7 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 		fillBrands(true);
 	}
 
+	@Override
 	public void search() {
 		EiaType eiaType = new EiaType();
 		eiaType.setCode(codeEIAItem.getValueAsString());

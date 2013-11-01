@@ -25,7 +25,7 @@ public final class GHAUtil {
 	public static List<AbstractCodeEntity> binarySearchFilterCodeEntity(
 			List<? extends AbstractCodeEntity> all,
 			List<? extends AbstractCodeEntity> blackList) {
-		Collections.sort(all, new Comparator<AbstractCodeEntity>() {
+		Collections.sort(blackList, new Comparator<AbstractCodeEntity>() {
 
 			@Override
 			public int compare(AbstractCodeEntity o1, AbstractCodeEntity o2) {
@@ -35,9 +35,11 @@ public final class GHAUtil {
 
 		List<AbstractCodeEntity> newList = new ArrayList<AbstractCodeEntity>();
 		String[] keyArray = stringArrayFrom(blackList);
+
 		for (AbstractCodeEntity allItem : all) {
-			if (!(binarySearch(keyArray, allItem.getCode())))
+			if (!(binarySearch(keyArray, allItem.getCode()))) {
 				newList.add(allItem);
+			}
 		}
 
 		return newList;
@@ -51,7 +53,7 @@ public final class GHAUtil {
 	public static List<AbstractEntity> binarySearchFilterEntity(
 			List<? extends AbstractEntity> all,
 			List<? extends AbstractEntity> blackList) {
-		Collections.sort(all, new Comparator<AbstractEntity>() {
+		Collections.sort(blackList, new Comparator<AbstractEntity>() {
 
 			@Override
 			public int compare(AbstractEntity o1, AbstractEntity o2) {
@@ -91,9 +93,9 @@ public final class GHAUtil {
 			if (cmp == 0)
 				return true;
 			else if (cmp > 0)
-				high = mid;
-			else
 				low = mid + 1;
+			else
+				high = mid;
 		}
 		return false;
 	}

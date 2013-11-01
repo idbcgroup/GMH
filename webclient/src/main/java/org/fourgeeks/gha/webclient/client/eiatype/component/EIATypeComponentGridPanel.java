@@ -185,10 +185,17 @@ public class EIATypeComponentGridPanel extends GHAVerticalLayout implements
 	}
 
 	private void search() {
+		ListGridRecord records[] = grid.getRecords();
 		List<EiaType> blackList = new ArrayList<EiaType>();
 		blackList.add(EIATypeComponentGridPanel.this.eiaType);
-		searchForm.open();
+
+		for (int i = 0; i < records.length; i++) {
+			blackList.add(((EIATypeComponentRecord) records[i]).toEntity()
+					.getEiaType());
+		}
+
 		searchForm.filterBy(blackList);
+		searchForm.open();
 	}
 
 }
