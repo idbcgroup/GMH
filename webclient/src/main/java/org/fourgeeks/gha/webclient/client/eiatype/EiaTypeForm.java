@@ -307,7 +307,6 @@ public class EiaTypeForm extends GHAVerticalLayout implements
 							valueMap.put(manufacturer.getId() + "",
 									manufacturer.getName());
 						manItem.setValueMap(valueMap);
-
 					}
 				}, forceFromServer);
 	}
@@ -377,24 +376,13 @@ public class EiaTypeForm extends GHAVerticalLayout implements
 	 * @param eiaType
 	 */
 	public void setEiaType(EiaType eiaType) {
-		// reload manufacturer select, in order to avoid issues with new brands
-		// or manufacturers
-		fillMans(true);
-
 		this.updateEntity = eiaType;
 		if (eiaType.getBrand() != null) {
-			if (eiaType.getBrand().getManufacturer() != null) {
-				manItem.setValue(eiaType.getBrand().getManufacturer().getId());
-
-				// fill brands by manufacturer
-				fillBrands(eiaType.getBrand().getManufacturer());
-			} else {
-				// this shouldnt be happening, because if the eiatype has a
-				// brand this brand should have manufacturer
-				fillBrands(true);
-			}
-			// set brand value
-			brandItem.setValue(eiaType.getBrand().getId());
+			fillBrands(eiaType.getBrand());
+			fillMans(eiaType.getBrand().getManufacturer());
+		} else {
+			manItem.clearValue();
+			brandItem.clearValue();
 		}
 		codeItem.setValue(eiaType.getCode());
 		nameItem.setValue(eiaType.getName());
@@ -407,7 +395,41 @@ public class EiaTypeForm extends GHAVerticalLayout implements
 		if (eiaType.getSubtype() != null)
 			subTypeItem.setValue(eiaType.getSubtype().name());
 		// showPhotographics(eiaType);
-		
+
+	}
+
+	private void fillMans(final Manufacturer manufacturer) {
+		GHACache.INSTANCE.getManufacturesrs(
+				new GHAAsyncCallback<List<Manufacturer>>() {
+
+					@Override
+					public void onSuccess(List<Manufacturer> result) {
+						LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+						for (Manufacturer manufacturer : result)
+							valueMap.put(manufacturer.getId() + "",
+									manufacturer.getName());
+						manItem.setValueMap(valueMap);
+						manItem.setValue(manufacturer.getId());
+					}
+				}, true);
+	}
+
+	private void fillBrands(final Brand brand) {
+		Manufacturer manufacturer = brand.getManufacturer();
+		BrandModel.findByManufacturer(manufacturer,
+				new GHAAsyncCallback<List<Brand>>() {
+
+					@Override
+					public void onSuccess(List<Brand> result) {
+						LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+						for (Brand brand : result)
+							valueMap.put(brand.getId() + "", brand.getName());
+						brandItem.setValueMap(valueMap);
+						brandItem.setValue(brand.getId());
+					}
+
+				});
+
 	}
 
 	/**
