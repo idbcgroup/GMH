@@ -82,7 +82,7 @@ public class Eia extends AbstractEntity {
 	// private String desincorporateReason;
 	@NotNull(message = "type-not-null")
 	@ManyToOne
-	@JoinColumn(name = "eiaTypeFk", columnDefinition = "varchar(255) REFERENCES eiatype(code) ON UPDATE CASCADE ON DELETE CASCADE")
+	@JoinColumn(name = "eiaTypeFk", nullable = false, columnDefinition = "varchar(255) REFERENCES eiatype(code) ON UPDATE CASCADE ON DELETE CASCADE")
 	private EiaType eiaType;
 
 	@NotNull(message = "asset-id-not-null")

@@ -14,7 +14,6 @@ import javax.persistence.UniqueConstraint;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 
-
 /**
  * @author emiliot
  * 
@@ -33,11 +32,11 @@ public class EiaTypeComponent extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 
 	@OneToOne
-	@JoinColumn(name = "eiaTypeFk", nullable = false)
+	@JoinColumn(name = "eiaTypeFk", nullable = false, columnDefinition = "varchar(255) REFERENCES eiatype(code) ON UPDATE CASCADE ON DELETE CASCADE")
 	private EiaType eiaType;
 
 	@ManyToOne
-	@JoinColumn(name = "parentEiaTypeFk", nullable = false)
+	@JoinColumn(name = "parentEiaTypeFk", nullable = false, columnDefinition = "varchar(255) REFERENCES eiatype(code) ON UPDATE CASCADE ON DELETE CASCADE")
 	private EiaType parentEiaType;
 
 	/** Attributes */
