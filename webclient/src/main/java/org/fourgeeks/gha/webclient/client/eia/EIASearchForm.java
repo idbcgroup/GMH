@@ -18,7 +18,10 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHACancelButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
@@ -117,24 +120,25 @@ public class EIASearchForm extends GHASlideInWindow implements
 		serialNumberItem.addKeyUpHandler(searchKeyUpHandler);
 		stateItem.addKeyUpHandler(searchKeyUpHandler);
 
-		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
-				"../resources/icons/search.png", searchClickHandler),
-				new GHAImgButton("../resources/icons/clean.png",
-						new ClickHandler() {
+		VLayout sideButtons = GHAUiHelper.createBar(
+				new GHASearchButton(searchClickHandler),
+				new GHACleanButton(
+					new ClickHandler() {
 
-							@Override
-							public void onClick(ClickEvent event) {
-								form.clearValues();
-								grid.setData(new ListGridRecord[0]);
-							}
-						}), new GHAImgButton("../resources/icons/cancel.png",
-						new ClickHandler() {
+						@Override
+						public void onClick(ClickEvent event) {
+							form.clearValues();
+							grid.setData(new ListGridRecord[0]);
+						}
+					}), 
+				new GHACancelButton(
+					new ClickHandler() {
 
-							@Override
-							public void onClick(ClickEvent event) {
-								hide();
-							}
-						}));
+						@Override
+						public void onClick(ClickEvent event) {
+							hide();
+						}
+					}));
 
 		HLayout formLayout = new HLayout();
 		formLayout.setPadding(10);

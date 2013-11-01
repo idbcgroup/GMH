@@ -26,6 +26,7 @@ public class GHAComboboxItem<T extends HasKey> extends ComboBoxItem {
 		setCellStyle("gha-form-cell");
 		setTitleStyle("input-title");
 		setShowFocused(false);
+		setAllowEmptyValue(true);
 	}
 
 	/**

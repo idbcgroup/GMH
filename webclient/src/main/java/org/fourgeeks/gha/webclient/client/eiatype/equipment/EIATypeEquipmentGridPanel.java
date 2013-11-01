@@ -8,7 +8,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHAEditButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHANewButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
@@ -106,7 +106,7 @@ public class EIATypeEquipmentGridPanel extends GHAVerticalLayout implements
 
 			}
 
-		}), new GHAImgButton("../resources/icons/edit.png", new ClickHandler() {
+		}), new GHAEditButton(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {

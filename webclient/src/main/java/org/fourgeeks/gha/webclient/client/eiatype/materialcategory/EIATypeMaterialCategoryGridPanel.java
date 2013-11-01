@@ -90,36 +90,7 @@ public class EIATypeMaterialCategoryGridPanel extends GHAVerticalLayout
 
 			@Override
 			public void onClick(ClickEvent event) {
-				final EiaTypeMaterialCategory eiaTypeMaterialCategory = grid
-						.getSelectedEntity();
-
-				if (eiaTypeMaterialCategory == null) {
-					GHANotification.alert("record-not-selected");
-					return;
-				}
-
-				GHANotification.confirm(GHAStrings
-						.get("materialcategory-title"), GHAStrings
-						.get("eiatype-materialcategory-delete-confirm"),
-						new BooleanCallback() {
-
-							@Override
-							public void execute(Boolean value) {
-								if (value) {
-									EIATypeMaterialCategoryModel.delete(
-											eiaTypeMaterialCategory.getId(),
-											new GHAAsyncCallback<Void>() {
-
-												@Override
-												public void onSuccess(
-														Void result) {
-													loadData();
-												}
-											});
-								}
-							}
-						});
-
+				delete();
 			}
 		}));
 
@@ -191,5 +162,38 @@ public class EIATypeMaterialCategoryGridPanel extends GHAVerticalLayout
 		}
 		searchForm.filterBy(blackList);
 		searchForm.open();
+	}
+
+	/**
+	 * 
+	 */
+	private void delete() {
+		final EiaTypeMaterialCategory eiaTypeMaterialCategory = grid
+				.getSelectedEntity();
+
+		if (eiaTypeMaterialCategory == null) {
+			GHANotification.alert("record-not-selected");
+			return;
+		}
+
+		GHANotification.confirm(GHAStrings.get("materials-category"),
+				GHAStrings.get("eiatype-material-category-delete-confirm"),
+				new BooleanCallback() {
+
+					@Override
+					public void execute(Boolean value) {
+						if (value) {
+							EIATypeMaterialCategoryModel.delete(
+									eiaTypeMaterialCategory.getId(),
+									new GHAAsyncCallback<Void>() {
+
+										@Override
+										public void onSuccess(Void result) {
+											grid.removeSelectedData();
+										}
+									});
+						}
+					}
+				});
 	}
 }

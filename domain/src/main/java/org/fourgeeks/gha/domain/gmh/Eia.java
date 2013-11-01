@@ -82,7 +82,7 @@ public class Eia extends AbstractEntity {
 	// private String desincorporateReason;
 	@NotNull(message = "type-not-null")
 	@ManyToOne
-	@JoinColumn(name = "eiaTypeFk", nullable = false)
+	@JoinColumn(name = "eiaTypeFk", columnDefinition = "varchar(255) REFERENCES eiatype(code) ON UPDATE CASCADE ON DELETE CASCADE")
 	private EiaType eiaType;
 
 	@NotNull(message = "asset-id-not-null")
@@ -175,8 +175,9 @@ public class Eia extends AbstractEntity {
 	 * @param maintenanceProvider
 	 * @param serialNumber
 	 */
-	public Eia(Role responsibleRole, EiaType eiaType, Obu obu, EiaStateEnum state,
-			String fixedAssetIdentifier, ExternalProvider maintenanceProvider, String serialNumber) {
+	public Eia(Role responsibleRole, EiaType eiaType, Obu obu,
+			EiaStateEnum state, String fixedAssetIdentifier,
+			ExternalProvider maintenanceProvider, String serialNumber) {
 		this.responsibleRole = responsibleRole;
 		this.eiaType = eiaType;
 		this.obu = obu;
@@ -392,11 +393,13 @@ public class Eia extends AbstractEntity {
 		this.adquisitionCost = adquisitionCost;
 	}
 
-	public void setAdquisitionCostCurrency(CurrencyTypeEnum adquisitionCostCurrency) {
+	public void setAdquisitionCostCurrency(
+			CurrencyTypeEnum adquisitionCostCurrency) {
 		this.adquisitionCostCurrency = adquisitionCostCurrency;
 	}
 
-	public void setAdquisitionCostCurrencyLocal(CurrencyTypeEnum adquisitionCostCurrencyLocal) {
+	public void setAdquisitionCostCurrencyLocal(
+			CurrencyTypeEnum adquisitionCostCurrencyLocal) {
 		this.adquisitionCostCurrencyLocal = adquisitionCostCurrencyLocal;
 	}
 
