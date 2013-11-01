@@ -44,7 +44,6 @@ public class EIATypeAddForm extends GHASlideInWindow implements
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHASaveButton(
 				new ClickHandler() {
-
 					@Override
 					public void onClick(ClickEvent event) {
 						save();

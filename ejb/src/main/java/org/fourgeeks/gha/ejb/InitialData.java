@@ -1450,6 +1450,8 @@ public class InitialData {
 						"No hay materiales para mostrar"));
 				em.persist(new UiString(LanguageEnum.ES, "save", "Guardar"));
 				em.persist(new UiString(LanguageEnum.ES, "cancel", "Cancelar"));
+				em.persist(new UiString(LanguageEnum.ES, "new", "Agregar"));
+				em.persist(new UiString(LanguageEnum.ES, "select", "Seleccionar"));
 				em.persist(new UiString(LanguageEnum.ES, "edit", "Editar"));
 				em.persist(new UiString(LanguageEnum.ES, "materials-category",
 						"Categorias de materiales"));
@@ -1473,6 +1475,7 @@ public class InitialData {
 				em.persist(new UiString(LanguageEnum.ES, "password",
 						"Clave de acceso"));
 				em.persist(new UiString(LanguageEnum.ES, "close", "Cerrar"));
+				em.persist(new UiString(LanguageEnum.ES, "undo", "Deshacer"));
 				em.persist(new UiString(LanguageEnum.ES, "add", "Agregar"));
 				em.persist(new UiString(LanguageEnum.ES, "clean", "Limpiar"));
 				em.persist(new UiString(LanguageEnum.ES, "search", "Buscar"));
