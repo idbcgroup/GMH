@@ -187,6 +187,7 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 		fillBrands(true);
 	}
 
+	@Override
 	public void search() {
 		EiaType eiaType = new EiaType();
 		eiaType.setCode(codeEIAItem.getValueAsString());
