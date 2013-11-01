@@ -18,6 +18,7 @@ import org.fourgeeks.gha.webclient.client.UI.icons.GHACancelButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACheckButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASearchForm;
 
@@ -43,6 +44,8 @@ public class MaterialCategorySearchForm extends GHASearchForm<MaterialCategory>
 			modelTextItem, extCodeTextItem;
 	protected GHASelectItem typeSelectItem;
 	private MaterialCategoryGrid grid;
+	private GHALabel searchResultsLabel;
+
 	private final DynamicForm form = new DynamicForm();
 
 	{
@@ -105,7 +108,6 @@ public class MaterialCategorySearchForm extends GHASearchForm<MaterialCategory>
 
 		grid = new MaterialCategoryGrid();
 		HLayout gridLayout = new HLayout();
-		gridLayout.setPadding(10);
 
 		VLayout sideGridButtons = GHAUiHelper.createBar(new GHACheckButton(
 				new ClickHandler() {
@@ -118,7 +120,10 @@ public class MaterialCategorySearchForm extends GHASearchForm<MaterialCategory>
 
 		gridLayout.addMembers(grid, sideGridButtons);
 
-		addMember(gridLayout);
+		searchResultsLabel = new GHALabel(GHAStrings.get("search-results"));
+
+		addMembers(GHAUiHelper.verticalSeparator("10px"), searchResultsLabel,
+				gridLayout);
 		fillSelects();
 	}
 
@@ -175,8 +180,10 @@ public class MaterialCategorySearchForm extends GHASearchForm<MaterialCategory>
 								newTmpList
 										.add((MaterialCategory) abstractCodeEntity);
 							newList = newTmpList;
-						} else
+						} else {
 							newList = results;
+							mostrarCantResults(results);
+						}
 
 						ListGridRecord[] array = MaterialCategoryUtil
 								.toGridRecords(newList).toArray(
@@ -230,4 +237,17 @@ public class MaterialCategorySearchForm extends GHASearchForm<MaterialCategory>
 		grid.setData(new ListGridRecord[0]);
 	}
 
+	/**
+	 * Actualiza el mensaje de resultados de la busqueda para que muestre la
+	 * cantidad de elementos encontrados
+	 * 
+	 * @param datos
+	 *            lista con los elementos encontrados
+	 */
+	private void mostrarCantResults(List<?> datos) {
+		String tituloSearchResults = GHAStrings.get("search-results");
+		searchResultsLabel.setContents(tituloSearchResults + ": "
+				+ datos.size() + " resultados");
+		searchResultsLabel.redraw();
+	}
 }

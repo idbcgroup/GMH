@@ -92,21 +92,18 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 		subTypeItem.addKeyUpHandler(searchKeyUpHandler);
 		// ////////////////////////////
 
-		VLayout sideButtons = GHAUiHelper.createBar(
-				new GHASearchButton(searchClickHandler),
-				new GHACleanButton(
-				new ClickHandler() {
-					@Override
-					public void onClick(ClickEvent event) {
-						clean();
-					}
-				}), 
-				new GHACancelButton(new ClickHandler() {
-					@Override
-					public void onClick(ClickEvent event) {
-						hide();
-					}
-				}));
+		VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
+				searchClickHandler), new GHACleanButton(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				clean();
+			}
+		}), new GHACancelButton(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				hide();
+			}
+		}));
 
 		HLayout formLayout = new HLayout();
 		formLayout.setPadding(10);
