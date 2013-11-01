@@ -24,22 +24,22 @@ public class GHASelectItem extends SelectItem {
 		setOriginalStyle();
 		setShowFocused(false);
 		setAllowEmptyValue(true);
-		
+
 		// setErrorOrientation(FormErrorOrientation.RIGHT);
 		setShowErrorIcon(false);
 		setValidateOnExit(true);
-		
+
 		addEditorExitHandler(new EditorExitHandler() {
 			@Override
 			public void onEditorExit(EditorExitEvent event) {
-//				Window.alert("Se dispara el EditorExit");
-				if(getRequired()){
+				// Window.alert("Se dispara el EditorExit");
+				if (getRequired()) {
 					if (validate()) {
 						setTextBoxStyle("select requiredValidated");
 					} else {
 						setTextBoxStyle("select required");
 					}
-				}else{
+				} else {
 					setOriginalStyle();
 				}
 			}
@@ -128,48 +128,49 @@ public class GHASelectItem extends SelectItem {
 			setOriginalStyle();
 		}
 	}
-	
-	private void initialValidation(){
+
+	private void initialValidation() {
 		Boolean required = getRequired();
-		if(required != null && required){
-			if(validate()){
-				setTextBoxStyle("select requiredValidated");;
-			}else{
+		if (required != null && required) {
+			if (validate()) {
+				setTextBoxStyle("select requiredValidated");
+				;
+			} else {
 				setTextBoxStyle("select required");
 			}
 		}
 	}
-	
+
 	@Override
 	public void setValue(boolean value) {
 		super.setValue(value);
 		initialValidation();
 	}
-	
+
 	@Override
 	public void setValue(String value) {
 		super.setValue(value);
 		initialValidation();
 	}
-	
+
 	@Override
 	public void setValue(Date value) {
 		super.setValue(value);
 		initialValidation();
 	}
-	
+
 	@Override
 	public void setValue(int value) {
 		super.setValue(value);
 		initialValidation();
 	}
-	
+
 	@Override
 	public void setValue(double value) {
 		super.setValue(value);
 		initialValidation();
 	}
-	
+
 	@Override
 	public void setValue(Object value) {
 		super.setValue(value);
@@ -183,5 +184,15 @@ public class GHASelectItem extends SelectItem {
 		setOriginalStyle();
 		if (required != null && required)
 			setTextBoxStyle("select required");
+
+		// setOriginalNullValue(null);
+	}
+
+	/**
+	 * @param object
+	 */
+	private void setOriginalNullValue(Object object) {
+		setValue(object);
+
 	}
 }

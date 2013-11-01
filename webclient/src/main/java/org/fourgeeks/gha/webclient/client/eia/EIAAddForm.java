@@ -12,6 +12,7 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.user.client.Window;
 import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -172,11 +173,13 @@ public class EIAAddForm extends GHAAddForm implements EIATypeSelectionListener,
 	 * 
 	 */
 	private void save() {
+		Window.alert("entrando al save");
 		form.save(new GHAAsyncCallback<Eia>() {
 
 			@Override
 			public void onSuccess(Eia result) {
 				GHANotification.alert("eia-save-success");
+				Window.alert("save-sucess");
 				hide();
 			}
 		});
