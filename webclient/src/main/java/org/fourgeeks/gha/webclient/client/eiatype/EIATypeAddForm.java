@@ -36,7 +36,7 @@ public class EIATypeAddForm extends GHAAddForm implements
 	 * 
 	 */
 	public EIATypeAddForm(String title) {
-		super(GHAStrings.get(title));
+		super(title);
 		VLayout sideButtons = GHAUiHelper.createBar(new GHASaveButton(
 				new ClickHandler() {
 					@Override
