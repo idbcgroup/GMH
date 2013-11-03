@@ -36,7 +36,6 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASectionForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
-import com.google.gwt.user.client.Window;
 import com.google.gwt.validation.client.impl.Validation;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.form.DynamicForm;
@@ -610,10 +609,6 @@ public class EIAForm extends GHAVerticalLayout implements
 		// eia.setMachineName(machineNameTextItem.getValueAsString());
 		// eia.setIpAddress(ipAddresTextItem.getValueAsString());
 		// eia.setMacAddress(macAddressTextItem.getValueAsString());
-
-		Window.alert("eia.purchaceDate = " + eia.getPurchaseDate() + "<br>"
-				+ "eia.receptionDate = " + eia.getReceptionDate() + "<br>"
-				+ "eia.installationDate = " + eia.getInstallationDate());
 
 		Set<ConstraintViolation<Eia>> violations = validator.validate(eia);
 
