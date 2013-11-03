@@ -36,6 +36,7 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASectionForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
+import com.google.gwt.user.client.Window;
 import com.google.gwt.validation.client.impl.Validation;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.form.DynamicForm;
@@ -473,15 +474,15 @@ public class EIAForm extends GHAVerticalLayout implements
 					.getValueAsDate().getTime()));
 
 		// adquisicion
-		if (purchaseDateItem.getValue() != null)
-			eia.setPurchaseDate(new Date(purchaseDateItem.getValueAsDate()
-					.getTime()));
-		if (receptionDateItem.getValue() != null)
-			eia.setReceptionDate(new Date(receptionDateItem.getValueAsDate()
-					.getTime()));
-		if (installationDateItem.getValue() != null)
-			eia.setInstallationDate(new Date(installationDateItem
-					.getValueAsDate().getTime()));
+		eia.setPurchaseDate(purchaseDateItem.getValue() != null ? new Date(
+				purchaseDateItem.getValueAsDate().getTime()) : null);
+
+		eia.setReceptionDate(receptionDateItem.getValue() != null ? new Date(
+				receptionDateItem.getValueAsDate().getTime()) : null);
+
+		eia.setInstallationDate(installationDateItem.getValue() != null ? new Date(
+				installationDateItem.getValueAsDate().getTime()) : null);
+
 		if (providerSelectItem.getValue() != null) {
 			eia.setProvider(new ExternalProvider(Integer
 					.valueOf(providerSelectItem.getValueAsString())));
@@ -609,6 +610,10 @@ public class EIAForm extends GHAVerticalLayout implements
 		// eia.setMachineName(machineNameTextItem.getValueAsString());
 		// eia.setIpAddress(ipAddresTextItem.getValueAsString());
 		// eia.setMacAddress(macAddressTextItem.getValueAsString());
+
+		Window.alert("eia.purchaceDate = " + eia.getPurchaseDate() + "<br>"
+				+ "eia.receptionDate = " + eia.getReceptionDate() + "<br>"
+				+ "eia.installationDate = " + eia.getInstallationDate());
 
 		Set<ConstraintViolation<Eia>> violations = validator.validate(eia);
 

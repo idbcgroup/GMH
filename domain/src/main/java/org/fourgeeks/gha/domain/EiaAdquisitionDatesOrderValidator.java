@@ -20,20 +20,20 @@ public class EiaAdquisitionDatesOrderValidator implements
 		Date receptionDate = eia.getReceptionDate();
 		Date installationDate = eia.getInstallationDate();
 
-		if (purchaseDate == null && receptionDate == null
-				&& installationDate != null)
-			return false;
-
-		if (purchaseDate == null && receptionDate != null
-				&& installationDate != null)
-			return false;
-
-		if (installationDate != null && receptionDate != null
-				&& purchaseDate != null) {
-			return purchaseDate.getTime() <= receptionDate.getTime()
-					&& purchaseDate.getTime() <= installationDate.getTime();
+		if (receptionDate != null) {
+			if (purchaseDate == null)
+				return false;
+			if (purchaseDate.getTime() > receptionDate.getTime())
+				return false;
 		}
 
-		return purchaseDate.getTime() <= receptionDate.getTime();
+		if (installationDate != null) {
+			if (receptionDate == null)
+				return false;
+			if (receptionDate.getTime() > installationDate.getTime())
+				return false;
+		}
+
+		return true;
 	}
 }
