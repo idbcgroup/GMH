@@ -130,7 +130,7 @@ public class EIATypeTopForm extends HLayout implements
 		// photoBotones.addMembers(nextPhoto);
 		// photoPanel.addMembers(photo, photoBotones);
 		// // Botones laterales del Panel
-		
+
 		KeyUpHandler searchKeyUpHandler = new KeyUpHandler() {
 
 			@Override
@@ -140,8 +140,7 @@ public class EIATypeTopForm extends HLayout implements
 				}
 			}
 		};
-		
-		
+
 		codeItem.addKeyUpHandler(searchKeyUpHandler);
 		modelItem.addKeyUpHandler(searchKeyUpHandler);
 		nameItem.addKeyUpHandler(searchKeyUpHandler);
@@ -149,22 +148,22 @@ public class EIATypeTopForm extends HLayout implements
 		mobilityItem.addKeyUpHandler(searchKeyUpHandler);
 		typeItem.addKeyUpHandler(searchKeyUpHandler);
 		subTypeItem.addKeyUpHandler(searchKeyUpHandler);
-		
-		searchImgButton = new GHASearchButton(new ClickHandler() {
-					@Override
-					public void onClick(ClickEvent event) {
-						search();
-					}
-				});
-		cleanImgButton = new GHACleanButton(
-				new ClickHandler() {
 
-					@Override
-					public void onClick(ClickEvent event) {
-						clearFields();
-					}
-				});
-		VLayout sideButtons = GHAUiHelper.createBar(searchImgButton, cleanImgButton);
+		searchImgButton = new GHASearchButton(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				search();
+			}
+		});
+		cleanImgButton = new GHACleanButton(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				clearFields();
+			}
+		});
+		VLayout sideButtons = GHAUiHelper.createBar(searchImgButton,
+				cleanImgButton);
 		addMembers(form, /* new LayoutSpacer(), photoPanel, */
 				new LayoutSpacer(), sideButtons);
 		deactivate();
@@ -218,6 +217,9 @@ public class EIATypeTopForm extends HLayout implements
 		activated = true;
 	}
 
+	/**
+	 * 
+	 */
 	public void clearFields() {
 		// first check if the topform is active for search
 		if (!this.activated)
@@ -231,6 +233,9 @@ public class EIATypeTopForm extends HLayout implements
 		subTypeItem.clearValue();
 	}
 
+	/**
+	 * 
+	 */
 	public void deactivate() {
 		codeItem.disable();
 		nameItem.disable();
@@ -244,6 +249,9 @@ public class EIATypeTopForm extends HLayout implements
 		activated = false;
 	}
 
+	/**
+	 * @return wheter the component is activated
+	 */
 	public boolean isActivated() {
 		return activated;
 	}

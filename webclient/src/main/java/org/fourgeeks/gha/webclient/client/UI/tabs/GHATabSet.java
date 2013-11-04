@@ -98,12 +98,20 @@ public final class GHATabSet {
 		throw new UnavailableToHideException(null);
 	}
 
+	/**
+	 * @throws UnavailableToHideException
+	 */
 	public static void hideCurrentTab() throws UnavailableToHideException {
 		hideTab(currentTab);
+		currentTab = null;
 	}
 
+	/**
+	 * @throws UnavailableToHideException
+	 */
 	public static void closeCurrentTab() throws UnavailableToHideException {
 		closeTab(currentTab);
+		currentTab = null;
 	}
 
 	/**
@@ -187,13 +195,19 @@ public final class GHATabSet {
 		return menuOptions;
 	}
 
-	public static GHATab getCurrentTab() {
-		return currentTab;
-	}
-
-	public static void setCurrentTab(GHATab currentTab) {
-		GHATabSet.currentTab = currentTab;
-	}
+	// /**
+	// * @return the currentTab
+	// */
+	// public static GHATab getCurrentTab() {
+	// return currentTab;
+	// }
+	//
+	// /**
+	// * @param currentTab
+	// */
+	// public static void setCurrentTab(GHATab currentTab) {
+	// GHATabSet.currentTab = currentTab;
+	// }
 
 	/**
 	 * @param token

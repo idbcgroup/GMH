@@ -9,6 +9,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader;
 
+import com.smartgwt.client.types.Visibility;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 
@@ -159,6 +160,12 @@ public class EIATab extends GHATab implements EIASelectionListener,
 	public void select(Eia eia) {
 		for (EIASelectionListener listener : listeners)
 			listener.select(eia);
+	}
+
+	@Override
+	public void show() {
+		super.show();
+		topForm.setVisibility(Visibility.VISIBLE);
 	}
 
 }

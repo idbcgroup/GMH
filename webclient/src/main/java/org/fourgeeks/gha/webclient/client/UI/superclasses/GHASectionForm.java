@@ -130,6 +130,9 @@ public class GHASectionForm extends HLayout implements GHAHideable, GHAClosable 
 		}
 	}
 
+	/**
+	 * 
+	 */
 	public void openSelectedSection() {
 		if (selectedOption != null)
 			selectedOption.activate();
@@ -203,13 +206,11 @@ public class GHASectionForm extends HLayout implements GHAHideable, GHAClosable 
 
 	@Override
 	public boolean canBeClosen() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean canBeHidden() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 }
