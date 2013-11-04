@@ -116,6 +116,7 @@ public class EIATypeInternalTabset extends TabSet implements ResizeHandler,
 	@Override
 	public void select(EiaType eiaType) {
 		animateShow(AnimationEffect.FADE);
+		selectTab(0);
 	}
 
 }
