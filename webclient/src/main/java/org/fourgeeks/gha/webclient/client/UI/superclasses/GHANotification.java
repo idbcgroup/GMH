@@ -75,7 +75,7 @@ public class GHANotification {
 
 			@Override
 			public void onSuccess(GHAMessage result) {
-				SC.say(result.getText());
+				SC.say(GHAStrings.get("information"), result.getText());
 			}
 		});
 
