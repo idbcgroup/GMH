@@ -1040,23 +1040,19 @@ public class EIAForm extends GHAVerticalLayout implements
 		if (eia.getAcceptationDate() != null)
 			acceptationDateItem.setValue(eia.getAcceptationDate());
 
-		// adquisition
-		if (eia.getPurchaseDate() != null)
-			purchaseDateItem.setValue(eia.getPurchaseDate());
-		if (eia.getReceptionDate() != null)
-			receptionDateItem.setValue(eia.getReceptionDate());
-		if (eia.getInstallationDate() != null)
-			installationDateItem.setValue(eia.getInstallationDate());
+		// acquisition
+		purchaseDateItem.setValue(eia.getPurchaseDate());
+		receptionDateItem.setValue(eia.getReceptionDate());
+		installationDateItem.setValue(eia.getInstallationDate());
+		purchaseInvoiceDateItem.setValue(eia.getPurchaseInvoiceDate());
+		purchaseOrderDateItem.setValue(eia.getPurchaseOrderDate());
+
 		if (eia.getProvider() != null)
 			providerSelectItem.setValue(eia.getProvider().getId());
 		if (eia.getPurchaseOrderNumber() != null)
 			purchaseOrderNumTextItem.setValue(eia.getPurchaseOrderNumber());
 		if (eia.getPurchaseInvoiceNumber() != null)
 			purchaseInvoiceNumTextItem.setValue(eia.getPurchaseInvoiceNumber());
-		if (eia.getPurchaseInvoiceDate() != null)
-			purchaseInvoiceDateItem.setValue(eia.getPurchaseInvoiceDate());
-		if (eia.getPurchaseOrderDate() != null)
-			purchaseOrderDateItem.setValue(eia.getPurchaseOrderDate());
 		if (eia.getInstallationProvider() != null)
 			installationProviderSelectItem.setValue(eia
 					.getInstallationProvider().getId());

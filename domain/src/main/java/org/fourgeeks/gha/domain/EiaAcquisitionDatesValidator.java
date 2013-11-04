@@ -7,11 +7,11 @@ import javax.validation.ConstraintValidatorContext;
 
 import org.fourgeeks.gha.domain.gmh.Eia;
 
-public class EiaAdquisitionDatesOrderValidator implements
-		ConstraintValidator<EiaAdquisitionDatesOrderValidation, Eia> {
+public class EiaAcquisitionDatesValidator implements
+		ConstraintValidator<EiaAcquisitionDatesValidation, Eia> {
 
 	@Override
-	public void initialize(EiaAdquisitionDatesOrderValidation arg0) {
+	public void initialize(EiaAcquisitionDatesValidation arg0) {
 	}
 
 	@Override
