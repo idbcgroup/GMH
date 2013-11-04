@@ -475,14 +475,14 @@ public class EIAForm extends GHAVerticalLayout implements
 					.getValueAsDate().getTime()));
 
 		// acquisition
-		eia.setPurchaseDate(purchaseDateItem.getValue() != null ? new Date(
-				purchaseDateItem.getValueAsDate().getTime()) : null);
+		eia.setPurchaseDate(purchaseDateItem.getValue() == null ? null
+				: new Date(purchaseDateItem.getValueAsDate().getTime()));
 
-		eia.setReceptionDate(receptionDateItem.getValue() != null ? new Date(
-				receptionDateItem.getValueAsDate().getTime()) : null);
+		eia.setReceptionDate(receptionDateItem.getValue() == null ? null
+				: new Date(receptionDateItem.getValueAsDate().getTime()));
 
-		eia.setInstallationDate(installationDateItem.getValue() != null ? new Date(
-				installationDateItem.getValueAsDate().getTime()) : null);
+		eia.setInstallationDate(installationDateItem.getValue() == null ? null
+				: new Date(installationDateItem.getValueAsDate().getTime()));
 
 		if (providerSelectItem.getValue() != null) {
 			eia.setProvider(new ExternalProvider(Integer
@@ -494,13 +494,11 @@ public class EIAForm extends GHAVerticalLayout implements
 		eia.setPurchaseInvoiceNumber(purchaseInvoiceNumTextItem
 				.getValueAsString());
 
-		if (purchaseInvoiceDateItem.getValue() != null)
-			eia.setPurchaseInvoiceDate(new Date(purchaseInvoiceDateItem
-					.getValueAsDate().getTime()));
+		eia.setPurchaseInvoiceDate(purchaseInvoiceDateItem.getValue() == null ? null
+				: new Date(purchaseInvoiceDateItem.getValueAsDate().getTime()));
 
-		if (purchaseOrderDateItem.getValue() != null)
-			eia.setPurchaseOrderDate(new Date(purchaseOrderDateItem
-					.getValueAsDate().getTime()));
+		eia.setPurchaseOrderDate(purchaseOrderDateItem.getValue() == null ? null
+				: new Date(purchaseOrderDateItem.getValueAsDate().getTime()));
 
 		if (installationProviderSelectItem.getValue() != null) {
 			eia.setInstallationProvider(new ExternalProvider(Integer
