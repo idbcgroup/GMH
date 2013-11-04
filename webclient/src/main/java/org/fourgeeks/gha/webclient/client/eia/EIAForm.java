@@ -294,12 +294,12 @@ public class EIAForm extends GHAVerticalLayout implements
 		costosForm = getCostosForm();
 		garantiasMantForm = getGarantiasMantForm();
 
-		sectionForm.addSection("Información Básica", infoBasicaForm, true);
+		sectionForm.addSection("Información Básica", infoBasicaForm);
 		sectionForm.addSectionSeparator();
-		sectionForm.addSection("Adquisicion", adquisicionForm, false);
-		sectionForm.addSection("Ubicación", ubicacionForm, false);
-		sectionForm.addSection("Costos", costosForm, false);
-		sectionForm.addSection("Garantias", garantiasMantForm, false);
+		sectionForm.addSection("Adquisicion", adquisicionForm);
+		sectionForm.addSection("Ubicación", ubicacionForm);
+		sectionForm.addSection("Costos", costosForm);
+		sectionForm.addSection("Garantias", garantiasMantForm);
 		// sectionForm.addSection("EquiposIT", getEquiposIT(), false);
 
 		addMember(sectionForm);
@@ -922,7 +922,10 @@ public class EIAForm extends GHAVerticalLayout implements
 
 	@Override
 	public void show() {
-		sectionForm.openSelectedSection();
+		if (hasUnCommittedChanges)
+			sectionForm.openSelectedSection();
+		else
+			sectionForm.openFirst();
 		super.show();
 	}
 
@@ -947,6 +950,9 @@ public class EIAForm extends GHAVerticalLayout implements
 		listeners.remove(eiaSelectionListener);
 	}
 
+	/**
+	 * 
+	 */
 	public void save() {
 		save(null);
 	}
