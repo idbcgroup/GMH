@@ -397,7 +397,7 @@ public class EIAForm extends GHAVerticalLayout implements
 		// eiaTypeSelectItem.clearValue();
 		obuSelectItem.clearValue();
 		baseRoleSelectItem.clearValue();
-		// stateSelectItem.setValue(EiaStateEnum.CREATED.name());
+		stateSelectItem.clearValue();
 		providerSelectItem.clearValue();
 		installationProviderSelectItem.clearValue();
 		locationTypeSelectItem.clearValue();
@@ -535,9 +535,10 @@ public class EIAForm extends GHAVerticalLayout implements
 		if (adquisitionCostTextItem.getValue() != null)
 			eia.setAdquisitionCost(BigDecimal.valueOf(Double
 					.valueOf(adquisitionCostTextItem.getValueAsString())));
-
-		eia.setAdquisitionCostCurrency(CurrencyTypeEnum
-				.valueOf(adquisitionCostCurrencySelectItem.getValueAsString()));
+		if (adquisitionCostCurrencySelectItem.getValue() != null)
+			eia.setAdquisitionCostCurrency(CurrencyTypeEnum
+					.valueOf(adquisitionCostCurrencySelectItem
+							.getValueAsString()));
 
 		if (contabilizationDateItem.getValue() != null)
 			eia.setContabilizationDate(new Date(contabilizationDateItem
@@ -545,11 +546,15 @@ public class EIAForm extends GHAVerticalLayout implements
 		if (adquisitionCostLocalTextItem.getValue() != null)
 			eia.setAdquisitionCostLocal(BigDecimal.valueOf(Double
 					.valueOf(adquisitionCostLocalTextItem.getValueAsString())));
-		eia.setAdquisitionCostCurrencyLocal(CurrencyTypeEnum
-				.valueOf(adquisitionCostCurrencyLocalSelectItem
-						.getValueAsString()));
-		eia.setDepreciationMethod(DepreciationMethodEnum
-				.valueOf(depreciationMethodSelectItem.getValueAsString()));
+
+		if (adquisitionCostCurrencyLocalSelectItem.getValue() != null)
+			eia.setAdquisitionCostCurrencyLocal(CurrencyTypeEnum
+					.valueOf(adquisitionCostCurrencyLocalSelectItem
+							.getValueAsString()));
+
+		if (depreciationMethodSelectItem.getValue() != null)
+			eia.setDepreciationMethod(DepreciationMethodEnum
+					.valueOf(depreciationMethodSelectItem.getValueAsString()));
 
 		if (lastDepreciationDate.getValue() != null)
 			eia.setDateLastDepreciation(new Date(lastDepreciationDate
@@ -557,28 +562,36 @@ public class EIAForm extends GHAVerticalLayout implements
 		if (actualCostTextItem.getValue() != null)
 			eia.setActualCost(BigDecimal.valueOf(Double
 					.valueOf(actualCostTextItem.getValueAsString())));
-		eia.setActualCostCurrency(CurrencyTypeEnum
-				.valueOf(actualCostCurrencySelectItem.getValueAsString()));
+
+		if (actualCostCurrencySelectItem.getValue() != null)
+			eia.setActualCostCurrency(CurrencyTypeEnum
+					.valueOf(actualCostCurrencySelectItem.getValueAsString()));
 
 		if (depreciationTimeTextItem.getValue() != null)
 			eia.setDepreciationTime(Integer.valueOf(depreciationTimeTextItem
 					.getValueAsString()));
-		eia.setDepreciationTimePoT(TimePeriodEnum
-				.valueOf(depreciationTimePotSelectItem.getValueAsString()));
+
+		if (depreciationTimePotSelectItem.getValue() != null)
+			eia.setDepreciationTimePoT(TimePeriodEnum
+					.valueOf(depreciationTimePotSelectItem.getValueAsString()));
 
 		if (lifeTimeTextItem.getValue() != null)
 			eia.setLifeTime(Integer.valueOf(lifeTimeTextItem.getValueAsString()));
-		eia.setLifeTimePoT(TimePeriodEnum.valueOf(lifeTimePotSelectItem
-				.getValueAsString()));
 
+		if (lifeTimePotSelectItem.getValue() != null)
+			eia.setLifeTimePoT(TimePeriodEnum.valueOf(lifeTimePotSelectItem
+					.getValueAsString()));
 		// guarantees
 		if (realWarrantyBeginDate.getValue() != null)
 			eia.setRealWarrantyBegin(new Date(realWarrantyBeginDate
 					.getValueAsDate().getTime()));
-		eia.setRealWarrantyPoT(TimePeriodEnum.valueOf(realWarrantyPotSelectItem
-				.getValueAsString()));
-		eia.setRealWarrantySince(WarrantySinceEnum
-				.valueOf(realWarrantySinceSelectItem.getValueAsString()));
+		if (realWarrantyPotSelectItem.getValue() != null)
+			eia.setRealWarrantyPoT(TimePeriodEnum
+					.valueOf(realWarrantyPotSelectItem.getValueAsString()));
+
+		if (realWarrantySinceSelectItem.getValue() != null)
+			eia.setRealWarrantySince(WarrantySinceEnum
+					.valueOf(realWarrantySinceSelectItem.getValueAsString()));
 
 		if (realWarrantyTimeTextItem.getValue() != null)
 			eia.setRealWarrantyTime(Integer.valueOf(realWarrantyTimeTextItem
@@ -588,10 +601,12 @@ public class EIAForm extends GHAVerticalLayout implements
 			eia.setIntWarrantyBegin(new Date(intWarrantyBeginDate
 					.getValueAsDate().getTime()));
 
-		eia.setIntWarrantyPoT(TimePeriodEnum.valueOf(intWarrantyPotSelectItem
-				.getValueAsString()));
-		eia.setIntWarrantySince(WarrantySinceEnum
-				.valueOf(intWarrantySinceSelectItem.getValueAsString()));
+		if (intWarrantyPotSelectItem.getValue() != null)
+			eia.setIntWarrantyPoT(TimePeriodEnum
+					.valueOf(intWarrantyPotSelectItem.getValueAsString()));
+		if (intWarrantySinceSelectItem.getValue() != null)
+			eia.setIntWarrantySince(WarrantySinceEnum
+					.valueOf(intWarrantySinceSelectItem.getValueAsString()));
 
 		if (intWarrantyTimeTextItem.getValue() != null)
 			eia.setIntWarrantyTime(Integer.valueOf(intWarrantyTimeTextItem
