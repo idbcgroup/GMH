@@ -73,6 +73,22 @@ public class EIATypeComponentGridPanel extends GHAVerticalLayout implements
 						});
 			}
 		});
+		grid.getAmountField().addCellSavedHandler(new CellSavedHandler() {
+
+			@Override
+			public void onCellSaved(CellSavedEvent event) {
+				EiaTypeComponent eiaTypeComponent = ((EIATypeComponentRecord) event
+						.getRecord()).toEntity();
+				eiaTypeComponent.setAmount((Integer) event.getNewValue());
+				EIATypeComponentModel.update(eiaTypeComponent,
+						new GHAAsyncCallback<EiaTypeComponent>() {
+
+							@Override
+							public void onSuccess(EiaTypeComponent result) {
+							}
+						});
+			}
+		});
 
 		searchForm = new EIATypeSearchForm(GHAStrings.get("search-component"));
 		searchForm.addEiaTypeSelectionListener(new EIATypeSelectionListener() {
@@ -111,31 +127,29 @@ public class EIATypeComponentGridPanel extends GHAVerticalLayout implements
 					public void onClick(ClickEvent event) {
 						search();
 					}
-				}), new GHADeleteButton(
-				new ClickHandler() {
+				}), new GHADeleteButton(new ClickHandler() {
 
-					@SuppressWarnings("deprecation")
-					@Override
-					public void onClick(ClickEvent event) {
-						EiaTypeComponent eiaTypeComponent = grid
-								.getSelectedEntity();
+			@SuppressWarnings("deprecation")
+			@Override
+			public void onClick(ClickEvent event) {
+				EiaTypeComponent eiaTypeComponent = grid.getSelectedEntity();
 
-						if (eiaTypeComponent == null) {
-							GHANotification.oldAlert(GHAStrings
-									.get("record-not-selected"));
-							return;
-						}
+				if (eiaTypeComponent == null) {
+					GHANotification.oldAlert(GHAStrings
+							.get("record-not-selected"));
+					return;
+				}
 
-						EIATypeComponentModel.delete(eiaTypeComponent.getId(),
-								new GHAAsyncCallback<Void>() {
+				EIATypeComponentModel.delete(eiaTypeComponent.getId(),
+						new GHAAsyncCallback<Void>() {
 
-									@Override
-									public void onSuccess(Void result) {
-										loadData();
-									}
-								});
-					}
-				}));
+							@Override
+							public void onSuccess(Void result) {
+								loadData();
+							}
+						});
+			}
+		}));
 		final HLayout gridContainer = new HLayout();
 		gridContainer.addMembers(grid, sideButtons);
 

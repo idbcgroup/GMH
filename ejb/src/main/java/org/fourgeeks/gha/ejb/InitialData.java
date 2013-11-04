@@ -1564,6 +1564,7 @@ public class InitialData {
 				em.persist(new UiString(LanguageEnum.ES,
 						"eiatype-delete-confirm",
 						"¿Desea eliminar el tipo de equipo?"));
+				em.persist(new UiString(LanguageEnum.ES, "amount", "Cantidad"));
 
 				em.flush();
 			} catch (Exception e1) {
