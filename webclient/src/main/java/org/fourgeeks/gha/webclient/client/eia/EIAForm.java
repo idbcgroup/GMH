@@ -137,6 +137,8 @@ public class EIAForm extends GHAVerticalLayout implements
 		baseRoleSelectItem.setRequired(true);
 		stateSelectItem = new GHASelectItem("Estado Equipo",
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, true, changedHandler);
+		stateSelectItem.setDefaultValue(EiaStateEnum.CREATED);
+
 		stateSelectItem.setRequired(true);
 		stateSelectItem.setDefaultValue(EiaStateEnum.CREATED.name());
 		stateSelectItem.setAllowEmptyValue(false);
