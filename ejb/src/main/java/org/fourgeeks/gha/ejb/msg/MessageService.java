@@ -1,6 +1,9 @@
 package org.fourgeeks.gha.ejb.msg;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -52,13 +55,46 @@ public class MessageService extends GHAEJBExceptionImpl implements
 	 */
 	@Override
 	public List<GHAMessage> find(List<String> messages) throws GHAEJBException {
-		// TODO: HANDLE EMPTY MESSAGE LIST
 		try {
-			return em
+			List<GHAMessage> resultList = em
 					.createNamedQuery("GHAMessage.getAllByCodes",
 							GHAMessage.class).setParameter("codes", messages)
 					.setParameter("language", RuntimeParameters.getLang())
 					.getResultList();
+
+			// if not all the messages are returned
+			if (messages.size() != resultList.size()) {
+				Map<String, Integer> keysFound = new TreeMap<String, Integer>();
+				List<GHAMessage> res = new ArrayList<GHAMessage>();
+
+				// build a map with the keys found, map code, pos
+				for (int i = 0; i < resultList.size(); ++i) {
+					keysFound.put(resultList.get(i).getCode(), i);
+				}
+
+				// for each key to find
+				for (String key : messages) {
+					// if it was found, add it to the final set
+					if (keysFound.containsKey(key)) {
+						res.add(resultList.get(keysFound.get(key)));
+					} else {
+						// else add a not found message with the key
+						GHAMessage next = super.generateGHAEJBException(
+								"message-find-fail",
+								RuntimeParameters.getLang(), em)
+								.getGhaMessage();
+
+						// if it is not a generic message
+						if (next.getCode().equals("message-find-fail")) {
+							// add the key to the message
+							next.setText(next.getText() + " " + key);
+						}
+						res.add(next);
+					}
+				}
+				return res;
+			}
+			return resultList;
 
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: finding GHAMessages", e);

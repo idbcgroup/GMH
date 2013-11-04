@@ -100,7 +100,7 @@ public class GHANotification {
 				for (GHAMessage msg : result) {
 					builder.append(msg.getText()).append("<br>");
 				}
-				SC.say(builder.toString());
+				SC.say(GHAStrings.get("information"), builder.toString());
 			}
 		});
 	}
