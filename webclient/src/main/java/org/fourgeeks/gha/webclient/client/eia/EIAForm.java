@@ -468,20 +468,20 @@ public class EIAForm extends GHAVerticalLayout implements
 		if (stateSelectItem.getValue() != null)
 			eia.setState(EiaStateEnum.valueOf(stateSelectItem
 					.getValueAsString()));
-
 		if (acceptationDateItem.getValue() != null)
 			eia.setAcceptationDate(new Date(acceptationDateItem
 					.getValueAsDate().getTime()));
 
-		if (purchaseDateItem.getValue() != null)
-			eia.setPurchaseDate(new Date(purchaseDateItem.getValueAsDate()
-					.getTime()));
-		if (receptionDateItem.getValue() != null)
-			eia.setReceptionDate(new Date(receptionDateItem.getValueAsDate()
-					.getTime()));
-		if (installationDateItem.getValue() != null)
-			eia.setInstallationDate(new Date(installationDateItem
-					.getValueAsDate().getTime()));
+		// adquisicion
+		eia.setPurchaseDate(purchaseDateItem.getValue() != null ? new Date(
+				purchaseDateItem.getValueAsDate().getTime()) : null);
+
+		eia.setReceptionDate(receptionDateItem.getValue() != null ? new Date(
+				receptionDateItem.getValueAsDate().getTime()) : null);
+
+		eia.setInstallationDate(installationDateItem.getValue() != null ? new Date(
+				installationDateItem.getValueAsDate().getTime()) : null);
+
 		if (providerSelectItem.getValue() != null) {
 			eia.setProvider(new ExternalProvider(Integer
 					.valueOf(providerSelectItem.getValueAsString())));
@@ -570,6 +570,7 @@ public class EIAForm extends GHAVerticalLayout implements
 			eia.setLifeTime(Integer.valueOf(lifeTimeTextItem.getValueAsString()));
 		eia.setLifeTimePoT(TimePeriodEnum.valueOf(lifeTimePotSelectItem
 				.getValueAsString()));
+
 		// guarantees
 		if (realWarrantyBeginDate.getValue() != null)
 			eia.setRealWarrantyBegin(new Date(realWarrantyBeginDate

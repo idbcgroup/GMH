@@ -103,21 +103,20 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 				hide();
 			}
 		}));
-		
 
 		HLayout formLayout = new HLayout();
 		formLayout.setPadding(10);
-		formLayout.setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT + "px");
+		formLayout.setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT
+				+ "px");
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
 
-		
 		addMembers(formLayout,
 				GHAUiHelper
 						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
 								+ "px"));
 
 		grid.setHeight(GHAUiHelper.getSubtabGridSize(30));
-		
+
 		HLayout gridLayout = new HLayout();
 
 		VLayout sideGridButtons = GHAUiHelper.createBar(new GHACheckButton(
@@ -137,7 +136,7 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 		fill();
 
 		// register as listener to the addform producer
-//		addForm.addEiaTypeSelectionListener(this);
+		// addForm.addEiaTypeSelectionListener(this);
 	}
 
 	private void fill() {
@@ -250,13 +249,13 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 	@Override
 	public void close() {
 		destroy();
-//		addForm.close();
+		// addForm.close();
 	}
 
 	@Override
 	public void hide() {
 		super.hide();
-//		addForm.hide();
+		// addForm.hide();
 	}
 
 	@Override

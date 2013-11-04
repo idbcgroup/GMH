@@ -235,6 +235,9 @@ public class InitialData {
 				em.persist(new GHAMessage(LanguageEnum.EN,
 						"eiatype-getAll-fail",
 						"Failed to get all Equipment types"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"error-eia-adquisition-dates-order",
+						"Las fecha de adquisicion deben estar en orden cronologico"));
 
 				// function service messages
 				em.persist(new GHAMessage(LanguageEnum.ES,
@@ -1451,7 +1454,8 @@ public class InitialData {
 				em.persist(new UiString(LanguageEnum.ES, "save", "Guardar"));
 				em.persist(new UiString(LanguageEnum.ES, "cancel", "Cancelar"));
 				em.persist(new UiString(LanguageEnum.ES, "new", "Agregar"));
-				em.persist(new UiString(LanguageEnum.ES, "select", "Seleccionar"));
+				em.persist(new UiString(LanguageEnum.ES, "select",
+						"Seleccionar"));
 				em.persist(new UiString(LanguageEnum.ES, "edit", "Editar"));
 				em.persist(new UiString(LanguageEnum.ES, "materials-category",
 						"Categorias de materiales"));
