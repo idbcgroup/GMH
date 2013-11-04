@@ -448,6 +448,8 @@ public class EIAForm extends GHAVerticalLayout implements
 		else
 			eia = this.updateEntity;
 
+		// EXTRAYENDO LOS DATOS
+
 		// basic information
 		if (eiaTypeSelectItem.getValue() != null)
 			eia.setEiaType(new EiaType(eiaTypeSelectItem.getValueAsString()));
@@ -472,7 +474,7 @@ public class EIAForm extends GHAVerticalLayout implements
 			eia.setAcceptationDate(new Date(acceptationDateItem
 					.getValueAsDate().getTime()));
 
-		// adquisicion
+		// acquisition
 		eia.setPurchaseDate(purchaseDateItem.getValue() != null ? new Date(
 				purchaseDateItem.getValueAsDate().getTime()) : null);
 
@@ -486,20 +488,25 @@ public class EIAForm extends GHAVerticalLayout implements
 			eia.setProvider(new ExternalProvider(Integer
 					.valueOf(providerSelectItem.getValueAsString())));
 		}
+
 		eia.setPurchaseOrderNumber(purchaseOrderNumTextItem.getValueAsString());
+
 		eia.setPurchaseInvoiceNumber(purchaseInvoiceNumTextItem
 				.getValueAsString());
 
 		if (purchaseInvoiceDateItem.getValue() != null)
 			eia.setPurchaseInvoiceDate(new Date(purchaseInvoiceDateItem
 					.getValueAsDate().getTime()));
+
 		if (purchaseOrderDateItem.getValue() != null)
 			eia.setPurchaseOrderDate(new Date(purchaseOrderDateItem
 					.getValueAsDate().getTime()));
+
 		if (installationProviderSelectItem.getValue() != null) {
 			eia.setInstallationProvider(new ExternalProvider(Integer
 					.valueOf(installationProviderSelectItem.getValueAsString())));
 		}
+
 		if (locationTypeSelectItem.getValue() != null) {
 			if (locationTypeSelectItem.getValue().equals("0")) {
 				if (workingAreaLocationSelectItem.getValue() != null) {
@@ -610,6 +617,9 @@ public class EIAForm extends GHAVerticalLayout implements
 		// eia.setIpAddress(ipAddresTextItem.getValueAsString());
 		// eia.setMacAddress(macAddressTextItem.getValueAsString());
 
+		// --------------------------------------------------------------------
+
+		// VALIDANDO LOS DATOS
 		Set<ConstraintViolation<Eia>> violations = validator.validate(eia);
 
 		if (infoBasicaForm.validate() && adquisicionForm.validate()
