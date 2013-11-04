@@ -36,7 +36,6 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASectionForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
-import com.google.gwt.user.client.Window;
 import com.google.gwt.validation.client.impl.Validation;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.form.DynamicForm;
@@ -452,30 +451,23 @@ public class EIAForm extends GHAVerticalLayout implements
 		// basic information
 		if (eiaTypeSelectItem.getValue() != null)
 			eia.setEiaType(new EiaType(eiaTypeSelectItem.getValueAsString()));
-		Window.alert("1");
 		eia.setCode(codeTextItem.getValueAsString());
-		Window.alert("2");
 		eia.setSerialNumber(serialTextItem.getValueAsString());
-		Window.alert("3");
 		eia.setFixedAssetIdentifier(fixedAssetIdTextItem.getValueAsString());
-		Window.alert("4");
 		if (obuSelectItem.getValue() != null) {
 			Obu obu = new Obu();
 			obu.setId(Integer.valueOf(obuSelectItem.getValueAsString()));
 			eia.setObu(obu);
 		}
-		Window.alert("5");
 		if (baseRoleSelectItem.getValue() != null) {
 			Role baseRole = new Role();
 			baseRole.setId(Integer.valueOf(baseRoleSelectItem
 					.getValueAsString()));
 			eia.setResponsibleRole(baseRole);
 		}
-		Window.alert("6");
 		if (stateSelectItem.getValue() != null)
 			eia.setState(EiaStateEnum.valueOf(stateSelectItem
 					.getValueAsString()));
-		Window.alert("7");
 		if (acceptationDateItem.getValue() != null)
 			eia.setAcceptationDate(new Date(acceptationDateItem
 					.getValueAsDate().getTime()));
@@ -494,26 +486,20 @@ public class EIAForm extends GHAVerticalLayout implements
 			eia.setProvider(new ExternalProvider(Integer
 					.valueOf(providerSelectItem.getValueAsString())));
 		}
-		Window.alert("12");
 		eia.setPurchaseOrderNumber(purchaseOrderNumTextItem.getValueAsString());
-		Window.alert("13");
 		eia.setPurchaseInvoiceNumber(purchaseInvoiceNumTextItem
 				.getValueAsString());
-		Window.alert("14");
 
 		if (purchaseInvoiceDateItem.getValue() != null)
 			eia.setPurchaseInvoiceDate(new Date(purchaseInvoiceDateItem
 					.getValueAsDate().getTime()));
-		Window.alert("15");
 		if (purchaseOrderDateItem.getValue() != null)
 			eia.setPurchaseOrderDate(new Date(purchaseOrderDateItem
 					.getValueAsDate().getTime()));
-		Window.alert("16");
 		if (installationProviderSelectItem.getValue() != null) {
 			eia.setInstallationProvider(new ExternalProvider(Integer
 					.valueOf(installationProviderSelectItem.getValueAsString())));
 		}
-		Window.alert("16");
 		if (locationTypeSelectItem.getValue() != null) {
 			if (locationTypeSelectItem.getValue().equals("0")) {
 				if (workingAreaLocationSelectItem.getValue() != null) {
@@ -531,7 +517,6 @@ public class EIAForm extends GHAVerticalLayout implements
 				}
 			}
 		}
-		Window.alert("17");
 		// if (buildingLocationSelectItem.getValue() != null) {
 		// eia.setBuildingLocation(new BuildingLocation(
 		// buildingLocationSelectItem.getValueAsString()));
@@ -550,89 +535,82 @@ public class EIAForm extends GHAVerticalLayout implements
 		if (adquisitionCostTextItem.getValue() != null)
 			eia.setAdquisitionCost(BigDecimal.valueOf(Double
 					.valueOf(adquisitionCostTextItem.getValueAsString())));
-		Window.alert("18");
-		Window.alert(adquisitionCostCurrencySelectItem.getValueAsString());
 		if (adquisitionCostCurrencySelectItem.getValue() != null)
 			eia.setAdquisitionCostCurrency(CurrencyTypeEnum
 					.valueOf(adquisitionCostCurrencySelectItem
 							.getValueAsString()));
-		Window.alert("19");
 
 		if (contabilizationDateItem.getValue() != null)
 			eia.setContabilizationDate(new Date(contabilizationDateItem
 					.getValueAsDate().getTime()));
-		Window.alert("20");
 		if (adquisitionCostLocalTextItem.getValue() != null)
 			eia.setAdquisitionCostLocal(BigDecimal.valueOf(Double
 					.valueOf(adquisitionCostLocalTextItem.getValueAsString())));
-		Window.alert("22");
-		eia.setAdquisitionCostCurrencyLocal(CurrencyTypeEnum
-				.valueOf(adquisitionCostCurrencyLocalSelectItem
-						.getValueAsString()));
-		Window.alert("23");
-		eia.setDepreciationMethod(DepreciationMethodEnum
-				.valueOf(depreciationMethodSelectItem.getValueAsString()));
-		Window.alert("24");
+
+		if (adquisitionCostCurrencyLocalSelectItem.getValue() != null)
+			eia.setAdquisitionCostCurrencyLocal(CurrencyTypeEnum
+					.valueOf(adquisitionCostCurrencyLocalSelectItem
+							.getValueAsString()));
+
+		if (depreciationMethodSelectItem.getValue() != null)
+			eia.setDepreciationMethod(DepreciationMethodEnum
+					.valueOf(depreciationMethodSelectItem.getValueAsString()));
 
 		if (lastDepreciationDate.getValue() != null)
 			eia.setDateLastDepreciation(new Date(lastDepreciationDate
 					.getValueAsDate().getTime()));
-		Window.alert("25");
 		if (actualCostTextItem.getValue() != null)
 			eia.setActualCost(BigDecimal.valueOf(Double
 					.valueOf(actualCostTextItem.getValueAsString())));
-		Window.alert("26");
-		eia.setActualCostCurrency(CurrencyTypeEnum
-				.valueOf(actualCostCurrencySelectItem.getValueAsString()));
-		Window.alert("27");
+
+		if (actualCostCurrencySelectItem.getValue() != null)
+			eia.setActualCostCurrency(CurrencyTypeEnum
+					.valueOf(actualCostCurrencySelectItem.getValueAsString()));
 
 		if (depreciationTimeTextItem.getValue() != null)
 			eia.setDepreciationTime(Integer.valueOf(depreciationTimeTextItem
 					.getValueAsString()));
-		Window.alert("28");
-		eia.setDepreciationTimePoT(TimePeriodEnum
-				.valueOf(depreciationTimePotSelectItem.getValueAsString()));
-		Window.alert("29");
+
+		if (depreciationTimePotSelectItem.getValue() != null)
+			eia.setDepreciationTimePoT(TimePeriodEnum
+					.valueOf(depreciationTimePotSelectItem.getValueAsString()));
 
 		if (lifeTimeTextItem.getValue() != null)
 			eia.setLifeTime(Integer.valueOf(lifeTimeTextItem.getValueAsString()));
-		Window.alert("30");
-		eia.setLifeTimePoT(TimePeriodEnum.valueOf(lifeTimePotSelectItem
-				.getValueAsString()));
-		Window.alert("31");
+
+		if (lifeTimePotSelectItem.getValue() != null)
+			eia.setLifeTimePoT(TimePeriodEnum.valueOf(lifeTimePotSelectItem
+					.getValueAsString()));
 		// guarantees
 		if (realWarrantyBeginDate.getValue() != null)
 			eia.setRealWarrantyBegin(new Date(realWarrantyBeginDate
 					.getValueAsDate().getTime()));
-		Window.alert("32");
-		eia.setRealWarrantyPoT(TimePeriodEnum.valueOf(realWarrantyPotSelectItem
-				.getValueAsString()));
-		Window.alert("33");
-		eia.setRealWarrantySince(WarrantySinceEnum
-				.valueOf(realWarrantySinceSelectItem.getValueAsString()));
-		Window.alert("34");
+		if (realWarrantyPotSelectItem.getValue() != null)
+			eia.setRealWarrantyPoT(TimePeriodEnum
+					.valueOf(realWarrantyPotSelectItem.getValueAsString()));
+
+		if (realWarrantySinceSelectItem.getValue() != null)
+			eia.setRealWarrantySince(WarrantySinceEnum
+					.valueOf(realWarrantySinceSelectItem.getValueAsString()));
 
 		if (realWarrantyTimeTextItem.getValue() != null)
 			eia.setRealWarrantyTime(Integer.valueOf(realWarrantyTimeTextItem
 					.getValueAsString()));
-		Window.alert("35");
 
 		if (intWarrantyBeginDate.getValue() != null)
 			eia.setIntWarrantyBegin(new Date(intWarrantyBeginDate
 					.getValueAsDate().getTime()));
-		Window.alert("36");
 
-		eia.setIntWarrantyPoT(TimePeriodEnum.valueOf(intWarrantyPotSelectItem
-				.getValueAsString()));
-		Window.alert("37");
-		eia.setIntWarrantySince(WarrantySinceEnum
-				.valueOf(intWarrantySinceSelectItem.getValueAsString()));
-		Window.alert("38");
+		if (intWarrantyPotSelectItem.getValue() != null)
+			eia.setIntWarrantyPoT(TimePeriodEnum
+					.valueOf(intWarrantyPotSelectItem.getValueAsString()));
+		if (intWarrantySinceSelectItem.getValue() != null)
+			eia.setIntWarrantySince(WarrantySinceEnum
+					.valueOf(intWarrantySinceSelectItem.getValueAsString()));
 
 		if (intWarrantyTimeTextItem.getValue() != null)
 			eia.setIntWarrantyTime(Integer.valueOf(intWarrantyTimeTextItem
 					.getValueAsString()));
-		Window.alert("39");
 		// if (isInMaintenanceItem.getValueAsBoolean()) {
 		// eia.setMaintenanceLocation(new BuildingLocation(
 		// maintenanceLocationSelectItem.getValueAsString()));
@@ -646,7 +624,6 @@ public class EIAForm extends GHAVerticalLayout implements
 		// eia.setMachineName(machineNameTextItem.getValueAsString());
 		// eia.setIpAddress(ipAddresTextItem.getValueAsString());
 		// eia.setMacAddress(macAddressTextItem.getValueAsString());
-		Window.alert("luego de sacar los valores");
 
 		Set<ConstraintViolation<Eia>> violations = validator.validate(eia);
 
@@ -994,13 +971,10 @@ public class EIAForm extends GHAVerticalLayout implements
 	 */
 	public void save(final GHAAsyncCallback<Eia> callback) {
 		Eia eia = extract();
-		Window.alert("luego del extract, eia == null "
-				+ Boolean.toString(eia == null));
 		if (eia != null) {
 			EIAModel.save(eia, new GHAAsyncCallback<Eia>() {
 				@Override
 				public void onSuccess(Eia result) {
-					Window.alert("onSuccess dentro del form");
 					hasUnCommittedChanges = false;
 					notifyEia(result);
 					cancel();
