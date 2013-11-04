@@ -479,19 +479,17 @@ public class EIAForm extends GHAVerticalLayout implements
 		if (acceptationDateItem.getValue() != null)
 			eia.setAcceptationDate(new Date(acceptationDateItem
 					.getValueAsDate().getTime()));
-		Window.alert("8");
-		if (purchaseDateItem.getValue() != null)
-			eia.setPurchaseDate(new Date(purchaseDateItem.getValueAsDate()
-					.getTime()));
-		Window.alert("9");
-		if (receptionDateItem.getValue() != null)
-			eia.setReceptionDate(new Date(receptionDateItem.getValueAsDate()
-					.getTime()));
-		Window.alert("10");
-		if (installationDateItem.getValue() != null)
-			eia.setInstallationDate(new Date(installationDateItem
-					.getValueAsDate().getTime()));
-		Window.alert("11");
+
+		// adquisicion
+		eia.setPurchaseDate(purchaseDateItem.getValue() != null ? new Date(
+				purchaseDateItem.getValueAsDate().getTime()) : null);
+
+		eia.setReceptionDate(receptionDateItem.getValue() != null ? new Date(
+				receptionDateItem.getValueAsDate().getTime()) : null);
+
+		eia.setInstallationDate(installationDateItem.getValue() != null ? new Date(
+				installationDateItem.getValueAsDate().getTime()) : null);
+
 		if (providerSelectItem.getValue() != null) {
 			eia.setProvider(new ExternalProvider(Integer
 					.valueOf(providerSelectItem.getValueAsString())));
