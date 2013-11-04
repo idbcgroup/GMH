@@ -40,7 +40,7 @@ public class HomePlace extends GHAPlace {
 
 	@Override
 	public void show() {
-		GHATabSet.closeTab(GHATabSet.getCurrentTab());
+		GHATabSet.closeCurrentTab();
 		if (HOME_HAS_BEEN_BUILT) {
 			return;
 		}
@@ -93,7 +93,7 @@ public class HomePlace extends GHAPlace {
 				});
 
 		userInfo.addMembers(usernameLabel, /* notificationsButton, */
-		userButton);
+				userButton);
 
 		userInfo.addFocusChangedHandler(new FocusChangedHandler() {
 
