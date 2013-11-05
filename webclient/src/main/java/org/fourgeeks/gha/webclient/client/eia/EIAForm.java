@@ -957,6 +957,7 @@ public class EIAForm extends GHAVerticalLayout implements
 
 	@Override
 	public void notifyEia(Eia eia) {
+		GHANotification.alert("eia-save-success");
 		for (EIASelectionListener listener : listeners)
 			listener.select(eia);
 	}
@@ -1245,7 +1246,6 @@ public class EIAForm extends GHAVerticalLayout implements
 					EIAForm.this.updateEntity = result;
 					hasUnCommittedChanges = false;
 					notifyEia(result);
-					cancel();
 
 					if (callback != null)
 						callback.onSuccess(result);

@@ -237,7 +237,7 @@ public class InitialData {
 						"Failed to get all Equipment types"));
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"error-eia-adquisition-dates-order",
-						"Las fecha de adquisicion deben estar en orden cronologico"));
+						"Las fechas de adquisicion deben estar en orden cronológico"));
 
 				// function service messages
 				em.persist(new GHAMessage(LanguageEnum.ES,

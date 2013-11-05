@@ -176,7 +176,6 @@ public class EIAAddForm extends GHAAddForm implements EIATypeSelectionListener,
 
 			@Override
 			public void onSuccess(Eia result) {
-				GHANotification.alert("eia-save-success");
 				hide();
 			}
 		});
