@@ -57,7 +57,7 @@ public class UserTab extends GHATab implements UserSelectionListener,
 		addGHAClosableHandler(resultSet);
 		resultSet.addUserSelectionListener(this);
 
-		topForm = new UserTopForm(resultSet);
+		topForm = new UserTopForm(resultSet, this);
 		topForm.activate();
 		addGHAClosableHandler(topForm);
 		addGHAClosableHandler(topForm);
@@ -77,7 +77,7 @@ public class UserTab extends GHATab implements UserSelectionListener,
 
 	}
 
-	protected void search() {
+	public void search() {
 		// if (topForm.isActivate())
 		// return;
 		// if (internalTabSet.isVisible())

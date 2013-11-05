@@ -40,7 +40,7 @@ public class SSOUser extends AbstractEntity {
 
 	@NotNull
 	@OneToOne(cascade = { CascadeType.MERGE })
-	@JoinColumn(name = "bpuFk", nullable = false)
+	@JoinColumn(name = "bpuFk", nullable = false, columnDefinition = "bigint REFERENCES bpu(id) ON UPDATE CASCADE ON DELETE CASCADE")
 	private Bpu bpu;
 
 	@Size(max = 20)

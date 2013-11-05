@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.fourgeeks.gha.domain.enu.GenderTypeEnum;
 import org.fourgeeks.gha.domain.enu.UserLogonStatusEnum;
+import org.fourgeeks.gha.domain.ess.BpuFunction;
 import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.mix.Citizen;
@@ -13,14 +14,18 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAUserNameItem;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.types.VerticalAlignment;
+import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
@@ -37,6 +42,10 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class UserTopForm extends HLayout implements GHAClosable, ResizeHandler,
 		GHAHideable, UserSelectionListener {
 
+	private List<BpuFunction> permissions;
+	private UserTab userTab;
+	private VLayout sideButtons;
+	private GHAImgButton deleteImgButton, searchImgButton;
 	private GHATextItem usernameItem, typeidSelectItem;
 	private GHASelectItem stateItem;
 	private GHATextItem firstNameItem, secondNameItem, firstLastNameItem,
@@ -45,7 +54,6 @@ public class UserTopForm extends HLayout implements GHAClosable, ResizeHandler,
 	private UserResultSet resultSet;
 	private boolean activated = false;
 	private KeyUpHandler searchKeyUpHandler = new KeyUpHandler() {
-
 		@Override
 		public void onKeyUp(KeyUpEvent event) {
 			if (event.getKeyName().equals("Enter")) {
@@ -93,11 +101,13 @@ public class UserTopForm extends HLayout implements GHAClosable, ResizeHandler,
 	}
 
 	/**
+	 * @param userTab
 	 * @param tab
 	 */
-	public UserTopForm(UserResultSet resultSet) {
+	public UserTopForm(UserResultSet resultSet, UserTab userTab) {
 		super();
 		this.resultSet = resultSet;
+		this.userTab = userTab;
 
 		GHAUiHelper.addGHAResizeHandler(this);
 		setStyleName("sides-padding padding-top");
@@ -113,15 +123,105 @@ public class UserTopForm extends HLayout implements GHAClosable, ResizeHandler,
 				firstLastNameItem, secondLastNameItem, typeidSelectItem,
 				idItem, emailItem, alterEmailItem, genderSelectItem);
 
-		VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
-				new ClickHandler() {
-					@Override
-					public void onClick(ClickEvent event) {
-						search();
-					}
-				}));
+		deleteImgButton = new GHADeleteButton(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				delete();
+			}
+		});
+		searchImgButton = new GHASearchButton(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				search();
+			}
+		});
+
+		sideButtons = GHAUiHelper.createBar(searchImgButton);
 		addMembers(form, new LayoutSpacer(), sideButtons);
 		deactivate();
+	}
+
+	public void activate() {
+		usernameItem.enable();
+		stateItem.enable();
+		typeidSelectItem.enable();
+		idItem.enable();
+		firstNameItem.enable();
+		secondNameItem.enable();
+		firstLastNameItem.enable();
+		secondLastNameItem.enable();
+		emailItem.enable();
+		alterEmailItem.enable();
+		genderSelectItem.enable();
+		sideButtons.removeMember(deleteImgButton);
+		sideButtons.addMember(searchImgButton, 0);
+		activated = true;
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		return true;
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		return true;
+	}
+
+	private void clearFields() {
+
+	}
+
+	@Override
+	public void close() {
+		destroy();
+	}
+
+	public void deactivate() {
+		usernameItem.disable();
+		stateItem.disable();
+		typeidSelectItem.disable();
+		idItem.disable();
+		firstNameItem.disable();
+		secondNameItem.disable();
+		firstLastNameItem.disable();
+		secondLastNameItem.disable();
+		emailItem.disable();
+		alterEmailItem.disable();
+		genderSelectItem.disable();
+		sideButtons.removeMember(searchImgButton);
+		sideButtons.addMember(deleteImgButton, 0);
+		activated = false;
+	}
+
+	private void delete() {
+		GHANotification.confirm(GHAStrings.get("user"),
+				GHAStrings.get("eia-delete-confirm"), new BooleanCallback() {
+					@Override
+					public void execute(Boolean value) {
+						if (value) {
+							// UserModel.delete(permissions,
+							// new GHAAsyncCallback<Void>() {
+							// @Override
+							// public void onSuccess(Void result) {
+							// userTab.search();
+							// clearFields();
+							// GHANotification
+							// .alert("eia-delete-success");
+							// }
+							// });
+						}
+					}
+				});
+	}
+
+	public boolean isActivate() {
+		return activated;
+	}
+
+	@Override
+	public void onResize(ResizeEvent event) {
+		setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT + "px");
 	}
 
 	/**
@@ -168,17 +268,9 @@ public class UserTopForm extends HLayout implements GHAClosable, ResizeHandler,
 	}
 
 	@Override
-	public void close() {
-		destroy();
-	}
-
-	@Override
-	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT + "px");
-	}
-
-	@Override
 	public void select(SSOUser ssoUser) {
+		// TODO seleccionar identificador
+
 		if (ssoUser.getUserName() != null)
 			usernameItem.setValue(ssoUser.getUserName());
 
@@ -212,49 +304,5 @@ public class UserTopForm extends HLayout implements GHAClosable, ResizeHandler,
 			}
 		}
 		deactivate();
-	}
-
-	public void deactivate() {
-		usernameItem.disable();
-		stateItem.disable();
-		typeidSelectItem.disable();
-		idItem.disable();
-		firstNameItem.disable();
-		secondNameItem.disable();
-		firstLastNameItem.disable();
-		secondLastNameItem.disable();
-		emailItem.disable();
-		alterEmailItem.disable();
-		genderSelectItem.disable();
-		activated = false;
-	}
-
-	public void activate() {
-		usernameItem.enable();
-		stateItem.enable();
-		typeidSelectItem.enable();
-		idItem.enable();
-		firstNameItem.enable();
-		secondNameItem.enable();
-		firstLastNameItem.enable();
-		secondLastNameItem.enable();
-		emailItem.enable();
-		alterEmailItem.enable();
-		genderSelectItem.enable();
-		activated = true;
-	}
-
-	public boolean isActivate() {
-		return activated;
-	}
-
-	@Override
-	public boolean canBeHidden() {
-		return true;
-	}
-
-	@Override
-	public boolean canBeClosen() {
-		return true;
 	}
 }

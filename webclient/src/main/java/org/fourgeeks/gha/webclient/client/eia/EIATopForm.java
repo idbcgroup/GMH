@@ -49,7 +49,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  */
 public class EIATopForm extends HLayout implements EIASelectionListener,
 		GHAClosable, GHAHideable, ResizeHandler {
-	private long eiaId;
+	private long selectedEiaId;
 
 	private GHATextItem serialNumber, fixedAssetIdentifier;
 	private GHACodeItem codeItem;
@@ -259,13 +259,13 @@ public class EIATopForm extends HLayout implements EIASelectionListener,
 		activated = false;
 	}
 
-	protected void delete() {
+	private void delete() {
 		GHANotification.confirm(GHAStrings.get("eia"),
 				GHAStrings.get("eia-delete-confirm"), new BooleanCallback() {
 					@Override
 					public void execute(Boolean value) {
 						if (value) {
-							EIAModel.delete(eiaId,
+							EIAModel.delete(selectedEiaId,
 									new GHAAsyncCallback<Boolean>() {
 										@Override
 										public void onSuccess(Boolean result) {
@@ -352,7 +352,7 @@ public class EIATopForm extends HLayout implements EIASelectionListener,
 
 	@Override
 	public void select(Eia eia) {
-		this.eiaId = eia.getId();
+		this.selectedEiaId = eia.getId();
 
 		if (eia.getEiaType() != null)
 			eiaTypeSelectItem.setValue(eia.getEiaType().getCode());
