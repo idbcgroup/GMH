@@ -866,6 +866,12 @@ public class InitialData {
 				em.persist(new GHAMessage(LanguageEnum.EN,
 						"eiaTypeMaterial-save-fail",
 						"Failed to save EiaTypeMaterial"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"eiaTypeMaterial-update-fail",
+						"Actualización fallida de EiaTypeMaterial"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"eiaTypeMaterial-update-fail",
+						"Actualización fallida del EiaType y el Material"));
 
 				// eiaTypePicture service messages
 				em.persist(new GHAMessage(LanguageEnum.ES,
@@ -918,6 +924,12 @@ public class InitialData {
 				em.persist(new GHAMessage(LanguageEnum.EN,
 						"eiaTypeUtility-save-fail",
 						"Failed to save EiaTypeUtility"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"eiaTypeUtility-update-fail",
+						"Failed to save EiaTypeUtility"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"eiaTypeUtility-update-fail",
+						"Fallo la actualización del EiaType y el Servicio Utilitario"));
 
 				// maintenanceActivityMaintenanceProtocol service messages
 				em.persist(new GHAMessage(LanguageEnum.ES,
@@ -1565,6 +1577,9 @@ public class InitialData {
 						"eiatype-delete-confirm",
 						"¿Desea eliminar el tipo de equipo?"));
 				em.persist(new UiString(LanguageEnum.ES, "amount", "Cantidad"));
+				em.persist(new UiString(LanguageEnum.ES,
+						"empty-materialcategory-grid",
+						"No existen Materiales para mostrar"));
 
 				em.flush();
 			} catch (Exception e1) {

@@ -13,7 +13,7 @@ import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 /**
- * @author alacret
+ * @author alacret, emiliot
  * 
  */
 @RemoteServiceRelativePath("eiaTypeUtility")
@@ -46,5 +46,8 @@ public interface GWTEiaTypeUtilityService extends RemoteService {
 	 * @throws GHAEJBException
 	 */
 	public void delete(long id) throws GHAEJBException;
+
+	public EiaTypeUtility update(EiaTypeUtility eiaTypeUtility)
+			throws GHAEJBException;
 
 }

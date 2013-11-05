@@ -21,4 +21,8 @@ public interface GWTEiaTypeMaterialCategoryService extends RemoteService {
 
 	public void delete(long id) throws GHAEJBException;
 
+	public EiaTypeMaterialCategory update(
+			EiaTypeMaterialCategory eiaTypeMaterialCategory)
+			throws GHAEJBException;
+
 }

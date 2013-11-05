@@ -19,4 +19,8 @@ public interface EiaTypeMaterialCategoryServiceRemote {
 
 	public void delete(long id) throws GHAEJBException;
 
+	public EiaTypeMaterialCategory update(
+			EiaTypeMaterialCategory eiaTypeMaterialCategory)
+			throws GHAEJBException;
+
 }

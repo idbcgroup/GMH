@@ -75,4 +75,26 @@ public class EiaTypeMaterialCategoryService extends GHAEJBExceptionImpl
 					RuntimeParameters.getLang(), em);
 		}
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.EiaTypeMaterialCategoryServiceRemote#update
+	 * (org.fourgeeks.gha.domain.gmh.EiaTypeMaterialCategory)
+	 */
+	@Override
+	public EiaTypeMaterialCategory update(
+			EiaTypeMaterialCategory eiaTypeMaterialCategory)
+			throws GHAEJBException {
+		try {
+			EiaTypeMaterialCategory res = em.merge(eiaTypeMaterialCategory);
+			em.flush();
+			return res;
+		} catch (Exception e) {
+			logger.log(Level.INFO, "ERROR: updating eiaTypeMaterial", e);
+			throw super.generateGHAEJBException("eiaTypeMaterial-update-fail",
+					RuntimeParameters.getLang(), em);
+		}
+	}
 }

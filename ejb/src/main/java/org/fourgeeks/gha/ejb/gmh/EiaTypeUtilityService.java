@@ -15,7 +15,7 @@ import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
- * @author alacret, vivi.torresg
+ * @author alacret, vivi.torresg, emiliot
  * 
  */
 @Stateless(name = "gmh.EiaTypeUtilityService")
@@ -74,6 +74,27 @@ public class EiaTypeUtilityService extends GHAEJBExceptionImpl implements
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete EiaTypeUtility", e);
 			throw super.generateGHAEJBException("eiaTypeUtility-delete-fail",
+					RuntimeParameters.getLang(), em);
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.EiaTypeUtilityServiceRemote#update(org.fourgeeks
+	 * .gha.domain.gmh.EiaTypeUtility)
+	 */
+	@Override
+	public EiaTypeUtility update(EiaTypeUtility eiaTypeUtility)
+			throws GHAEJBException {
+		try {
+			EiaTypeUtility res = em.merge(eiaTypeUtility);
+			em.flush();
+			return res;
+		} catch (Exception e) {
+			logger.log(Level.INFO, "ERROR: updating eiaTypeUtility", e);
+			throw super.generateGHAEJBException("eiaTypeUtility-update-fail",
 					RuntimeParameters.getLang(), em);
 		}
 	}

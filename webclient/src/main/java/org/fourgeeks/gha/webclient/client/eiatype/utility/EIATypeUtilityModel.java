@@ -9,20 +9,20 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-
 /**
- * @author sizturriaga
+ * @author sizturriaga, emiliot
  * 
  */
 public class EIATypeUtilityModel {
-	
+
 	private static final GWTEiaTypeUtilityServiceAsync service = GWT
 			.create(GWTEiaTypeUtilityService.class);
-	
-	EIATypeUtilityModel(){
-		throw new UnsupportedOperationException("Esta clase no debe ser instanciada");
+
+	EIATypeUtilityModel() {
+		throw new UnsupportedOperationException(
+				"Esta clase no debe ser instanciada");
 	}
-	
+
 	public static void delete(long id, GHAAsyncCallback<Void> callback) {
 		service.delete(id, callback);
 	}
@@ -32,9 +32,14 @@ public class EIATypeUtilityModel {
 		service.findByEiaType(eiaType, callback);
 	}
 
-	public static void save(EiaTypeUtility eiaTypeUtility,GHAAsyncCallback<EiaTypeUtility> callback) {
+	public static void save(EiaTypeUtility eiaTypeUtility,
+			GHAAsyncCallback<EiaTypeUtility> callback) {
 		service.save(eiaTypeUtility, callback);
 	}
 
+	public static void update(EiaTypeUtility eiaTypeUtility,
+			GHAAsyncCallback<EiaTypeUtility> callback) {
+		service.update(eiaTypeUtility, callback);
+	}
 
 }
