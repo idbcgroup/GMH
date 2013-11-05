@@ -2,7 +2,6 @@ package org.fourgeeks.gha.webclient.client.eiatype;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.AbstractCodeEntity;
@@ -20,18 +19,14 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHACodeItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACancelButton;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHACheckButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASearchForm;
 
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
-import com.smartgwt.client.widgets.grid.ListGridRecord;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
@@ -43,16 +38,12 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 		EIATypeSelectionListener, EiaTypeSelectionProducer {
 
-	private List<EIATypeSelectionListener> selectionListeners;
 	private GHATextItem codeEIAItem, nameEIAItem, modelItem, umdnsCodeItem;
-	private EIATypeGrid grid;
 	private GHASelectItem brandItem, mobilityItem, typeItem, subTypeItem;
-	private EIATypeAddForm addForm;
-	private GHALabel searchResultsLabel;
+	private EiaTypeResultSet resultSet = new EiaTypeResultSet();
 	private final DynamicForm form = new DynamicForm();
 
 	{
-		selectionListeners = new LinkedList<EIATypeSelectionListener>();
 		codeEIAItem = new GHACodeItem(225);
 		codeEIAItem.setMask("AAAAAAAAAAAAAAAAAAAA");
 		nameEIAItem = new GHATextItem(GHAStrings.get("name"), 215);
@@ -66,12 +57,19 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 		mobilityItem = new GHASelectItem(GHAStrings.get("mobility"), 225);
 		typeItem = new GHASelectItem(GHAStrings.get("eiatype"), 225);
 		subTypeItem = new GHASelectItem(GHAStrings.get("subtype"), 225);
+		//
+		resultSet.addEiaTypeSelectionListener(new EIATypeSelectionListener() {
 
-		grid = new EIATypeGrid();
+			@Override
+			public void select(EiaType eiaType) {
+				hide();
 
+			}
+		});
 	}
 
 	/**
+	 * @param title
 	 * 
 	 */
 	public EIATypeSearchForm(String title) {
@@ -113,30 +111,8 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 		addMembers(formLayout,
 				GHAUiHelper
 						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
-								+ "px"));
-
-		grid.setHeight(GHAUiHelper.getSubtabGridSize(30));
-
-		HLayout gridLayout = new HLayout();
-
-		VLayout sideGridButtons = GHAUiHelper.createBar(new GHACheckButton(
-				new ClickHandler() {
-
-					@Override
-					public void onClick(ClickEvent event) {
-						selectEiaType();
-					}
-				}));
-		gridLayout.addMembers(grid, sideGridButtons);
-
-		searchResultsLabel = new GHALabel(GHAStrings.get("search-results"));
-
-		addMembers(GHAUiHelper.verticalSeparator("10px"), searchResultsLabel,
-				gridLayout);
+								+ "px"), resultSet);
 		fill();
-
-		// register as listener to the addform producer
-		// addForm.addEiaTypeSelectionListener(this);
 	}
 
 	private void fill() {
@@ -161,21 +137,8 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 		}, forceFromServer);
 	}
 
-	private void selectEiaType() {
-		EiaType selectedEntity = grid.getSelectedEntity();
-		if (selectedEntity == null) {
-			GHANotification.alert("record-not-selected");
-			return;
-		}
-		notifyEiaType(selectedEntity);
-		hide();
-		grid.removeSelectedData();
-	}
-
 	@Override
 	public void notifyEiaType(EiaType eiaType) {
-		for (EIATypeSelectionListener listener : selectionListeners)
-			listener.select(eiaType);
 	}
 
 	@Override
@@ -224,51 +187,33 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 				} else
 					newList = results;
 
-				ListGridRecord[] array = EIATypeUtil.toGridRecords(newList)
-						.toArray(new EIATypeRecord[] {});
+				resultSet.setRecords(newList);
 
-				mostrarCantResults(results);
-
-				grid.setData(array);
-				if (eiaType != null && eiaType.getCode() != "")
-					for (ListGridRecord listGridRecord : grid.getRecords())
-						if (((EIATypeRecord) listGridRecord).toEntity()
-								.getCode() == eiaType.getCode())
-							grid.selectRecord(listGridRecord);
 			}
 		});
-	}
-
-	private void mostrarCantResults(List<?> datos) {
-		String tituloSearchResults = GHAStrings.get("search-results");
-		searchResultsLabel.setContents(tituloSearchResults + ": "
-				+ datos.size() + " resultados");
-		searchResultsLabel.redraw();
 	}
 
 	@Override
 	public void close() {
 		destroy();
-		// addForm.close();
 	}
 
 	@Override
 	public void hide() {
 		super.hide();
-		// addForm.hide();
 	}
 
 	@Override
 	public void addEiaTypeSelectionListener(
 			EIATypeSelectionListener eIATypeSelectionListener) {
-		selectionListeners.add(eIATypeSelectionListener);
+		resultSet.addEiaTypeSelectionListener(eIATypeSelectionListener);
 
 	}
 
 	@Override
 	public void removeEiaTypeSelectionListener(
 			EIATypeSelectionListener eIATypeSelectionListener) {
-		selectionListeners.remove(eIATypeSelectionListener);
+		resultSet.removeEiaTypeSelectionListener(eIATypeSelectionListener);
 
 	}
 
@@ -277,6 +222,12 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 	 */
 	public void clean() {
 		form.clearValues();
-		grid.setData(new EIATypeRecord[] {});
+		resultSet.clean();
+	}
+
+	@Override
+	public void open() {
+		resultSet.setVisible(true);
+		super.open();
 	}
 }

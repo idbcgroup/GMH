@@ -4,8 +4,15 @@ import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.webclient.client.UI.grids.GhaGrid;
 import org.fourgeeks.gha.webclient.client.UI.grids.tree.GHATreeGridField;
 
+/**
+ * @author alacret
+ * 
+ */
 public class UserGrid extends GhaGrid<SSOUser> {
 
+	/**
+	 * 
+	 */
 	public UserGrid() {
 
 		setEmptyMessage("No existen usuarios que mostrar.");

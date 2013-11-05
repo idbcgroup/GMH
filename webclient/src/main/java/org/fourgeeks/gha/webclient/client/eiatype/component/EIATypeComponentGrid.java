@@ -29,6 +29,9 @@ public class EIATypeComponentGrid extends GhaGrid<EiaTypeComponent> {
 		amountField.setType(ListGridFieldType.INTEGER);
 	}
 
+	/**
+	 * 
+	 */
 	public EIATypeComponentGrid() {
 		setEmptyMessage("No existen componentes para mostrar");
 
@@ -38,10 +41,16 @@ public class EIATypeComponentGrid extends GhaGrid<EiaTypeComponent> {
 						"Modelo"), requiredField, replaceableField, amountField);
 	}
 
+	/**
+	 * @return the required field
+	 */
 	public GHAGridField getRequiredField() {
 		return requiredField;
 	}
 
+	/**
+	 * @return the replaceable field
+	 */
 	public GHAGridField getReplaceableField() {
 		return replaceableField;
 	}

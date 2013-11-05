@@ -93,6 +93,7 @@ public class UserTopForm extends HLayout implements GHAClosable, ResizeHandler,
 	}
 
 	/**
+	 * @param resultSet
 	 * @param tab
 	 */
 	public UserTopForm(UserResultSet resultSet) {

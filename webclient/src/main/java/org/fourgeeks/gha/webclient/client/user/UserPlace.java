@@ -24,6 +24,7 @@ public class UserPlace extends GHAPlace {
 			tab = new UserTab(token);
 	}
 
+	@Override
 	public void show() {
 		try {
 			GHATabSet.showTab(tab);

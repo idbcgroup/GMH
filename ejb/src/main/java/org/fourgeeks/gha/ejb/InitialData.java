@@ -1559,14 +1559,14 @@ public class InitialData {
 				em.persist(new UiString(LanguageEnum.ES, "unsaved-changes",
 						"Tiene cambios sin guardar, ¿Desea descartarlos?"));
 				em.persist(new UiString(LanguageEnum.ES, "search-component",
-						"Buscar un componente para un tipo de equipo"));
+						"Búsqueda de componentes"));
 				em.persist(new UiString(LanguageEnum.ES, "search-material",
-						"Buscar un material"));
+						"Búsqueda de materiales"));
 				em.persist(new UiString(LanguageEnum.ES, "record-not-selected",
 						"Debe seleccionar un registro"));
 				em.persist(new UiString(LanguageEnum.ES,
 						"search-utility-material",
-						"Buscar un material utilitario"));
+						"Búsqueda de materiales utilitarios"));
 				em.persist(new UiString(LanguageEnum.ES,
 						"eiatype-material-category-delete-confirm",
 						"¿Desea eliminar la categoria de material asociada al tipo de equipo?"));
