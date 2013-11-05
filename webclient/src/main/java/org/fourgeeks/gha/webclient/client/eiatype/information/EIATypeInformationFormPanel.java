@@ -1,8 +1,5 @@
 package org.fourgeeks.gha.webclient.client.eiatype.information;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
@@ -24,7 +21,7 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
- * @author alacret
+ * @author alacret, emiliot
  * 
  */
 public class EIATypeInformationFormPanel extends GHAVerticalLayout implements
@@ -32,11 +29,9 @@ public class EIATypeInformationFormPanel extends GHAVerticalLayout implements
 		GHAClosable {
 
 	private EiaTypeForm form;
-	private List<EIATypeSelectionListener> listeners;
 
 	{
 		form = new EiaTypeForm();
-		listeners = new ArrayList<EIATypeSelectionListener>();
 
 		// // inicializando componentes de las imagenes
 		// img1 = new Img("../resources/img/default.png", 130, 130);
@@ -130,14 +125,13 @@ public class EIATypeInformationFormPanel extends GHAVerticalLayout implements
 					public void onClick(ClickEvent event) {
 						save();
 					}
-				}), new GHAUndoButton(
-				new ClickHandler() {
+				}), new GHAUndoButton(new ClickHandler() {
 
-					@Override
-					public void onClick(ClickEvent event) {
-						undo();
-					}
-				}));
+			@Override
+			public void onClick(ClickEvent event) {
+				undo();
+			}
+		}));
 
 		HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
@@ -284,7 +278,7 @@ public class EIATypeInformationFormPanel extends GHAVerticalLayout implements
 	@Override
 	public void addEiaTypeSelectionListener(
 			EIATypeSelectionListener eIATypeSelectionListener) {
-		listeners.add(eIATypeSelectionListener);
+		form.addEiaTypeSelectionListener(eIATypeSelectionListener);
 	}
 
 	@Override
@@ -335,8 +329,6 @@ public class EIATypeInformationFormPanel extends GHAVerticalLayout implements
 
 	@Override
 	public void notifyEiaType(EiaType eiaType) {
-		for (EIATypeSelectionListener listener : listeners)
-			listener.select(eiaType);
 	}
 
 	/*
@@ -349,7 +341,7 @@ public class EIATypeInformationFormPanel extends GHAVerticalLayout implements
 	@Override
 	public void removeEiaTypeSelectionListener(
 			EIATypeSelectionListener eIATypeSelectionListener) {
-		listeners.remove(eIATypeSelectionListener);
+		form.removeEiaTypeSelectionListener(eIATypeSelectionListener);
 	}
 
 	/**
