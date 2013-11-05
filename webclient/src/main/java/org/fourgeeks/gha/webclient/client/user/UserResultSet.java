@@ -6,26 +6,27 @@ import java.util.List;
 import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACheckButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAResultSet;
 
-import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
 import com.smartgwt.client.widgets.layout.HLayout;
-import com.smartgwt.client.widgets.layout.VLayout;
 
-public class UserResultSet extends VLayout implements UserSelectionProducer,
-		ResizeHandler, GHAHideable, GHAClosable {
+/**
+ * @author alacret
+ * 
+ */
+public class UserResultSet extends GHAResultSet<SSOUser> implements
+		UserSelectionProducer, ResizeHandler, GHAHideable, GHAClosable {
 	private List<UserSelectionListener> listeners = new ArrayList<UserSelectionListener>();
 	private UserGrid grid = new UserGrid();
 
@@ -33,10 +34,7 @@ public class UserResultSet extends VLayout implements UserSelectionProducer,
 	 * 
 	 */
 	public UserResultSet() {
-		super();
-		setStyleName("sides-padding padding-top");// Esto es VUDU!
-		setVisible(false);
-		addMember(new GHALabel(GHAStrings.get("search-results")));
+		super(GHAStrings.get("search-results"));
 		HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(grid, GHAUiHelper.createBar(new GHACheckButton(
 				new ClickHandler() {
@@ -50,28 +48,20 @@ public class UserResultSet extends VLayout implements UserSelectionProducer,
 
 					@Override
 					public void onClick(ClickEvent event) {
-						// TODO delete an selected user
+						delete();
 					}
 				})));
 		addMember(gridPanel);
+	}
+
+	protected void delete() {
+		// TODO Auto-generated method stub
 	}
 
 	@Override
 	public void notifyUser(SSOUser user) {
 		for (UserSelectionListener listener : listeners)
 			listener.select(user);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.google.gwt.event.logical.shared.ResizeHandler#onResize(com.google
-	 * .gwt.event.logical.shared.ResizeEvent)
-	 */
-	@Override
-	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getTabHeight() - 4 + "px");
 	}
 
 	/**
@@ -87,11 +77,7 @@ public class UserResultSet extends VLayout implements UserSelectionProducer,
 		hide();
 	}
 
-	/**
-	 * this method set the list of records inside the grid
-	 * 
-	 * @param records
-	 */
+	@Override
 	public void setRecords(List<SSOUser> records) {
 		// if only one record is on the list, notify the element and return
 		if (records.size() == 1) {
@@ -108,21 +94,6 @@ public class UserResultSet extends VLayout implements UserSelectionProducer,
 	}
 
 	@Override
-	public boolean canBeClosen() {
-		return true;
-	}
-
-	@Override
-	public void close() throws UnavailableToCloseException {
-		destroy();
-	}
-
-	@Override
-	public boolean canBeHidden() {
-		return true;
-	}
-
-	@Override
 	public void addUserSelectionListener(
 			UserSelectionListener userSelectionListener) {
 		listeners.add(userSelectionListener);
@@ -134,6 +105,11 @@ public class UserResultSet extends VLayout implements UserSelectionProducer,
 			UserSelectionListener userSelectionListener) {
 		listeners.remove(userSelectionListener);
 
+	}
+
+	@Override
+	public void clean() {
+		grid.setData(new UserRecord[] {});
 	}
 
 }

@@ -54,6 +54,7 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 		});
 
 		resultSet = new EiaTypeResultSet();
+		resultSet.setVisible(false);
 		addGHAHideableHandler(resultSet);
 		addGHAClosableHandler(resultSet);
 		resultSet.addEiaTypeSelectionListener(this);

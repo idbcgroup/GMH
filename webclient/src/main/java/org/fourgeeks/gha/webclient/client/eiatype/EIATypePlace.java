@@ -16,7 +16,6 @@ public class EIATypePlace extends GHAPlace {
 
 	/**
 	 * @param token
-	 * 
 	 */
 	public EIATypePlace(String token) {
 		super(token);
