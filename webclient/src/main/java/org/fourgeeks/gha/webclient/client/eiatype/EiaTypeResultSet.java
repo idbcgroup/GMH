@@ -108,14 +108,12 @@ public class EiaTypeResultSet extends GHAResultSet<EiaType> implements
 	@Override
 	public void setRecords(List<EiaType> records) {
 		mostrarCantResults(records);
-
 		// if only one record is on the list, notify the element and return
 		if (records.size() == 1) {
 			notifyEiaType(records.get(0));
 			hide();
 			return;
 		}
-
 		ListGridRecord[] array = EIATypeUtil.toGridRecords(records).toArray(
 				new EIATypeRecord[] {});
 		grid.setData(array);

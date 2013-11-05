@@ -25,8 +25,6 @@ import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
-import com.smartgwt.client.widgets.form.fields.events.KeyUpEvent;
-import com.smartgwt.client.widgets.form.fields.events.KeyUpHandler;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
@@ -47,7 +45,6 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 	// private List<EiaTypePicture> listEiaTypePictures;
 	// int index;
 	// private GHAImg photo;
-	private EiaTypeResultSet resultSet;
 	private GHAImgButton cleanImgButton;
 	private GHAImgButton searchImgButton;
 
@@ -68,7 +65,6 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 	 */
 	public EIATypeTopForm(EiaTypeResultSet resultSet) {
 		super(resultSet);
-
 		DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(4);
@@ -114,16 +110,6 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 		// photoBotones.addMembers(nextPhoto);
 		// photoPanel.addMembers(photo, photoBotones);
 		// // Botones laterales del Panel
-
-		KeyUpHandler searchKeyUpHandler = new KeyUpHandler() {
-
-			@Override
-			public void onKeyUp(KeyUpEvent event) {
-				if (event.getKeyName().equals("Enter")) {
-					search();
-				}
-			}
-		};
 
 		codeItem.addKeyUpHandler(searchKeyUpHandler);
 		modelItem.addKeyUpHandler(searchKeyUpHandler);

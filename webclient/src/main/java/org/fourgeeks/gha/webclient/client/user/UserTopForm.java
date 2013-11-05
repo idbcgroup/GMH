@@ -9,24 +9,18 @@ import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.mix.Citizen;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
+import org.fourgeeks.gha.webclient.client.UI.GHATopForm;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHANameItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAUserNameItem;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 
-import com.google.gwt.event.logical.shared.ResizeEvent;
-import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.types.TitleOrientation;
-import com.smartgwt.client.types.VerticalAlignment;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
-import com.smartgwt.client.widgets.form.fields.events.KeyUpEvent;
-import com.smartgwt.client.widgets.form.fields.events.KeyUpHandler;
-import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
@@ -34,8 +28,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class UserTopForm extends HLayout implements GHAClosable, ResizeHandler,
-		GHAHideable, UserSelectionListener {
+public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
+		UserSelectionListener {
 
 	private GHATextItem usernameItem, typeidSelectItem;
 	private GHASelectItem stateItem;
@@ -43,28 +37,15 @@ public class UserTopForm extends HLayout implements GHAClosable, ResizeHandler,
 			secondLastNameItem, emailItem, alterEmailItem, idItem;
 	private GHASelectItem genderSelectItem;
 	private UserResultSet resultSet;
-	private boolean activated = false;
-	private KeyUpHandler searchKeyUpHandler = new KeyUpHandler() {
-
-		@Override
-		public void onKeyUp(KeyUpEvent event) {
-			if (event.getKeyName().equals("Enter")) {
-				search();
-			}
-		}
-	};
-
 	{
 		usernameItem = new GHAUserNameItem(300);
 		usernameItem.setColSpan(2);
-		firstNameItem = new GHATextItem("Primer nombre", 150);
-		firstNameItem.setLength(20);
-		firstNameItem.setMask(">A<AAAAAAAAAAAAAAAAAAA");
+		firstNameItem = new GHANameItem(GHAStrings.get("first-name"), 150);
 		stateItem = new GHASelectItem(GHAStrings.get("state"), 150);
 		stateItem.setValueMap(UserLogonStatusEnum.toValueMap());
 		typeidSelectItem = new GHATextItem(GHAStrings.get("id-type"), 150);
 		idItem = new GHATextItem(GHAStrings.get("id-number"), 150);
-		secondNameItem = new GHATextItem("Segundo nombre", 150);
+		secondNameItem = new GHANameItem(GHAStrings.get("second-name"), 150);
 		secondNameItem.setLength(20);
 		secondNameItem.setMask(">A<AAAAAAAAAAAAAAAAAAA");
 		firstLastNameItem = new GHATextItem("Primer apellido", 150);
@@ -97,16 +78,7 @@ public class UserTopForm extends HLayout implements GHAClosable, ResizeHandler,
 	 * @param tab
 	 */
 	public UserTopForm(UserResultSet resultSet) {
-		super();
-		this.resultSet = resultSet;
-
-		GHAUiHelper.addGHAResizeHandler(this);
-		setStyleName("sides-padding padding-top");
-		setWidth100();
-		setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT + "px");
-		setDefaultLayoutAlign(VerticalAlignment.CENTER);
-		setBackgroundColor(GHAUiHelper.DEFAULT_BACKGROUND_COLOR);
-
+		super(resultSet);
 		DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(6);
@@ -125,9 +97,7 @@ public class UserTopForm extends HLayout implements GHAClosable, ResizeHandler,
 		deactivate();
 	}
 
-	/**
-	 * 
-	 */
+	@Override
 	public void search() {
 		SSOUser ssoUser = new SSOUser();
 		if (usernameItem.getValue() != null)
@@ -158,7 +128,8 @@ public class UserTopForm extends HLayout implements GHAClosable, ResizeHandler,
 		search(ssoUser);
 	}
 
-	private void search(final SSOUser ssoU) {
+	@Override
+	public void search(final SSOUser ssoU) {
 		UserModel.find(ssoU, new GHAAsyncCallback<List<SSOUser>>() {
 
 			@Override
@@ -166,16 +137,6 @@ public class UserTopForm extends HLayout implements GHAClosable, ResizeHandler,
 				resultSet.setRecords(ssoUsers);
 			}
 		});
-	}
-
-	@Override
-	public void close() {
-		destroy();
-	}
-
-	@Override
-	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT + "px");
 	}
 
 	@Override
@@ -245,17 +206,10 @@ public class UserTopForm extends HLayout implements GHAClosable, ResizeHandler,
 		activated = true;
 	}
 
-	public boolean isActivate() {
-		return activated;
+	@Override
+	public void clear() {
+		// TODO Auto-generated method stub
+
 	}
 
-	@Override
-	public boolean canBeHidden() {
-		return true;
-	}
-
-	@Override
-	public boolean canBeClosen() {
-		return true;
-	}
 }

@@ -8,6 +8,8 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAResultSet;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.types.VerticalAlignment;
+import com.smartgwt.client.widgets.form.fields.events.KeyUpEvent;
+import com.smartgwt.client.widgets.form.fields.events.KeyUpHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 
 /**
@@ -18,8 +20,18 @@ import com.smartgwt.client.widgets.layout.HLayout;
  */
 public abstract class GHATopForm<T extends GHAResultSet<E>, E> extends HLayout
 		implements ResizeHandler, GHAClosable, GHAHideable {
-	protected GHAResultSet<E> resultSet;
+	protected T resultSet;
 	protected boolean activated = false;
+
+	protected KeyUpHandler searchKeyUpHandler = new KeyUpHandler() {
+
+		@Override
+		public void onKeyUp(KeyUpEvent event) {
+			if (event.getKeyName().equals("Enter")) {
+				search();
+			}
+		}
+	};
 
 	/**
 	 * @param resultSet

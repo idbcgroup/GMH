@@ -52,35 +52,31 @@ public class UserTab extends GHATab implements UserSelectionListener,
 
 			}
 		});
-
 		resultSet = new UserResultSet();
 		resultSet.setVisible(false);
 		addGHAHideableHandler(resultSet);
 		addGHAClosableHandler(resultSet);
 		resultSet.addUserSelectionListener(this);
-
 		topForm = new UserTopForm(resultSet);
 		topForm.activate();
 		addGHAClosableHandler(topForm);
 		addGHAClosableHandler(topForm);
 		addUserSelectionListener(topForm);
-
-		internalTabSet = new UserInternalTabset(this);
-		addGHAHideableHandler(internalTabSet);
-		addGHAClosableHandler(internalTabSet);
-		addUserSelectionListener(internalTabSet);
-
-		addForm = new UserAddForm();
-		addGHAHideableHandler(addForm);
-		addGHAClosableHandler(addForm);
-		addForm.addUserSelectionListener(this);
-
+		// internalTabSet = new UserInternalTabset(this);
+		// addGHAHideableHandler(internalTabSet);
+		// addGHAClosableHandler(internalTabSet);
+		// addUserSelectionListener(internalTabSet);
+		// Window.alert("4");
+		// addForm = new UserAddForm();
+		// addGHAHideableHandler(addForm);
+		// addGHAClosableHandler(addForm);
+		// addForm.addUserSelectionListener(this);
+		// Window.alert("5");
 		verticalPanel.addMember(topForm);
 		verticalPanel.addMember(GHAUiHelper
 				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
-		verticalPanel.addMember(internalTabSet);
+		// verticalPanel.addMember(internalTabSet);
 		verticalPanel.addMember(resultSet);
-
 		addMember(verticalPanel);
 
 	}
