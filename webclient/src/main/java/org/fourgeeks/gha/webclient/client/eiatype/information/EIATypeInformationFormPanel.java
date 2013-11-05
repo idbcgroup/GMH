@@ -130,14 +130,13 @@ public class EIATypeInformationFormPanel extends GHAVerticalLayout implements
 					public void onClick(ClickEvent event) {
 						save();
 					}
-				}), new GHAUndoButton(
-				new ClickHandler() {
+				}), new GHAUndoButton(new ClickHandler() {
 
-					@Override
-					public void onClick(ClickEvent event) {
-						undo();
-					}
-				}));
+			@Override
+			public void onClick(ClickEvent event) {
+				undo();
+			}
+		}));
 
 		HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);

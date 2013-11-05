@@ -6,7 +6,6 @@ import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACloseButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAAddForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 
@@ -24,7 +23,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class EIATypeAddForm extends GHAAddForm implements
-		EiaTypeSelectionProducer, GHAClosable {
+		EiaTypeSelectionProducer {
 
 	private EiaTypeForm form;
 
@@ -33,6 +32,7 @@ public class EIATypeAddForm extends GHAAddForm implements
 	}
 
 	/**
+	 * @param title
 	 * 
 	 */
 	public EIATypeAddForm(String title) {

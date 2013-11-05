@@ -1456,7 +1456,12 @@ public class InitialData {
 		} catch (NoResultException e) {
 			try {
 				logger.info("Creating uistrings test data");
-
+				em.persist(new UiString(LanguageEnum.ES, "new-user",
+						"Nuevo usuario"));
+				em.persist(new UiString(LanguageEnum.ES, "permissions",
+						"Permisos"));
+				em.persist(new UiString(LanguageEnum.ES, "login-log",
+						"Registro de inicio de sesión"));
 				em.persist(new UiString(LanguageEnum.ES, "new-utility-service",
 						"Nuevo servicio utilitario"));
 				em.persist(new UiString(LanguageEnum.ES, "delete", "Borrar"));
@@ -1481,6 +1486,10 @@ public class InitialData {
 				em.persist(new UiString(LanguageEnum.ES, "materials",
 						"Materiales"));
 				em.persist(new UiString(LanguageEnum.ES, "name", "Nombre"));
+				em.persist(new UiString(LanguageEnum.ES, "mail", "Correo"));
+				em.persist(new UiString(LanguageEnum.ES, "alternative-mail",
+						"Correo alternativo"));
+				em.persist(new UiString(LanguageEnum.ES, "genre", "Género"));
 				em.persist(new UiString(LanguageEnum.ES, "components",
 						"Componentes"));
 				em.persist(new UiString(LanguageEnum.ES, "information",
@@ -1530,6 +1539,12 @@ public class InitialData {
 				em.persist(new UiString(LanguageEnum.ES, "state", "Estado"));
 				em.persist(new UiString(LanguageEnum.ES, "first-name",
 						"Primer nombre"));
+				em.persist(new UiString(LanguageEnum.ES, "second-name",
+						"Segundo nombre"));
+				em.persist(new UiString(LanguageEnum.ES, "first-lastname",
+						"Primer apellido"));
+				em.persist(new UiString(LanguageEnum.ES, "second-lastname",
+						"Segundo apellido"));
 				em.persist(new UiString(LanguageEnum.ES, "last-name",
 						"Apellido"));
 				em.persist(new UiString(LanguageEnum.ES, "id-type",

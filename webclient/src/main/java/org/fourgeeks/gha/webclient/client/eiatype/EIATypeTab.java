@@ -25,11 +25,11 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 	 */
 	public static final String ID = "eiatype";
 	private static final String TITLE = GHAStrings.get("eiatypes");
-	private List<EIATypeSelectionListener> listeners = new ArrayList<EIATypeSelectionListener>();
-	private EIATypeTopForm topForm;
 	private EIATypeAddForm addForm;
-	private EIATypeInternalTabset internalTabSet;
+	private EIATypeInternalTabSet internalTabSet;
+	private List<EIATypeSelectionListener> listeners = new ArrayList<EIATypeSelectionListener>();
 	private EiaTypeResultSet resultSet;
+	private EIATypeTopForm topForm;
 
 	/**
 	 * @param token
@@ -49,7 +49,6 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 			@Override
 			public void onClick(ClickEvent event) {
 				add();
-
 			}
 		});
 
@@ -65,7 +64,7 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 		addGHAClosableHandler(topForm);
 		addEiaTypeSelectionListener(topForm);
 
-		internalTabSet = new EIATypeInternalTabset(this);
+		internalTabSet = new EIATypeInternalTabSet(this);
 		addGHAHideableHandler(internalTabSet);
 		addGHAClosableHandler(internalTabSet);
 		addEiaTypeSelectionListener(internalTabSet);
@@ -97,6 +96,8 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 		if (resultSet.isVisible())
 			resultSet.hide();
 		addForm.open();
+		// GHANotification.info(GHAStrings.get("")); //TODO: Mensaje de
+		// informacion para indicar que se ha actividado el modo de busqueda
 	}
 
 	@Override

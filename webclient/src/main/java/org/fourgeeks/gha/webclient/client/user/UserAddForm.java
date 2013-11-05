@@ -2,9 +2,9 @@ package org.fourgeeks.gha.webclient.client.user;
 
 import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHACancelButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAAddForm;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.types.AnimationEffect;
@@ -18,46 +18,37 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret, emiliot
  * 
  */
-public class UserAddForm extends GHASlideInWindow implements
-		UserSelectionProducer, UserSelectionListener {
+public class UserAddForm extends GHAAddForm implements UserSelectionProducer {
 	private UserForm userForm;
 	{
 		userForm = new UserForm();
 	}
 
 	/**
+	 * @param title
 	 * 
 	 */
-	public UserAddForm() {
-		super();
-		setHeight(GHAUiHelper.getBottomSectionHeight());
-		setTop(240);
-
-		GHALabel title = new GHALabel("Nuevo Usuario");
-		addMember(title);
-
-		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
-				"../resources/icons/save.png", new ClickHandler() {
+	public UserAddForm(String title) {
+		super(title);
+		VLayout sideButtons = GHAUiHelper.createBar(new GHASaveButton(
+				new ClickHandler() {
 
 					@Override
 					public void onClick(ClickEvent event) {
 						save();
 					}
-				}), new GHAImgButton("../resources/icons/cancel.png",
-				new ClickHandler() {
+				}), new GHACancelButton(new ClickHandler() {
 
-					@Override
-					public void onClick(ClickEvent event) {
-						cancel();
-					}
-				}));
+			@Override
+			public void onClick(ClickEvent event) {
+				cancel();
+			}
+		}));
 
 		HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(userForm, new LayoutSpacer(), sideButtons);
 		addMember(gridPanel);
 
-		// register as listener to the userForm
-		userForm.addUserSelectionListener(this);
 	}
 
 	protected void cancel() {
@@ -82,13 +73,12 @@ public class UserAddForm extends GHASlideInWindow implements
 
 	@Override
 	public void open() {
-		this.show();
 		animateShow(AnimationEffect.FLY);
 	}
 
 	public void show() {
-		super.show();
 		userForm.show();
+		super.show();
 	}
 
 	/*
@@ -117,17 +107,17 @@ public class UserAddForm extends GHASlideInWindow implements
 		userForm.removeUserSelectionListener(userSelectionListener);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.fourgeeks.gha.webclient.client.user.UserSelectionListener#select(
-	 * org.fourgeeks.gha.domain.ess.SSOUser)
-	 */
-	@Override
-	public void select(SSOUser ssoUser) {
-		notifyUser(ssoUser);
-	}
+	// /*
+	// * (non-Javadoc)
+	// *
+	// * @see
+	// * org.fourgeeks.gha.webclient.client.user.UserSelectionListener#select(
+	// * org.fourgeeks.gha.domain.ess.SSOUser)
+	// */
+	// @Override
+	// public void select(SSOUser ssoUser) {
+	// notifyUser(ssoUser);
+	// }
 
 	@Override
 	public boolean canBeClosen() {

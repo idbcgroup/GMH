@@ -30,14 +30,11 @@ public class UserSearchForm extends GHASlideInWindow implements
 		UserSelectionProducer, UserSelectionListener {
 
 	private UserGrid grid;
-
-	private UserAddForm addForm;
 	private List<UserSelectionListener> listeners;
 	private UserTopForm userTopForm;
 
 	{
 		grid = new UserGrid();
-		addForm = new UserAddForm();
 		listeners = new ArrayList<UserSelectionListener>();
 	}
 
@@ -81,12 +78,15 @@ public class UserSearchForm extends GHASlideInWindow implements
 
 		HLayout formLayout = new HLayout();
 		formLayout.setPadding(10);
-		formLayout.setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT + "px");
+		formLayout.setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT
+				+ "px");
 		formLayout.setDefaultLayoutAlign(VerticalAlignment.CENTER);
 		formLayout.addMembers(new LayoutSpacer(), sideButtons);
 
-		addMembers(title, formLayout, GHAUiHelper
-				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
+		addMembers(title, formLayout,
+				GHAUiHelper
+						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
+								+ "px"));
 
 		HLayout gridLayout = new HLayout();
 		gridLayout.setPadding(10);
@@ -98,22 +98,12 @@ public class UserSearchForm extends GHASlideInWindow implements
 					public void onClick(ClickEvent event) {
 						selectUser();
 					}
-				}), GHAUiHelper.verticalGraySeparator("2px"), new GHAImgButton(
-				"../resources/icons/new.png", new ClickHandler() {
-
-					@Override
-					public void onClick(ClickEvent event) {
-						addForm.open();
-						// addForm.show();
-					}
-				}));
+				}), GHAUiHelper.verticalGraySeparator("2px"));
 
 		gridLayout.addMembers(grid, sideGridButtons);
 
 		addMember(gridLayout);
 
-		// register as listener to the addform producer
-		addForm.addUserSelectionListener(this);
 	}
 
 	private void search() {
@@ -122,14 +112,12 @@ public class UserSearchForm extends GHASlideInWindow implements
 
 	@Override
 	public void close() {
-		addForm.destroy();
 		destroy();
 	}
 
 	@Override
 	public void hide() {
 		super.hide();
-		addForm.hide();
 	}
 
 	@Override
