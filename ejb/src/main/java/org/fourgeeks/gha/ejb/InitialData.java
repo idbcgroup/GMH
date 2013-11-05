@@ -755,6 +755,9 @@ public class InitialData {
 				em.persist(new GHAMessage(LanguageEnum.ES, "eia-delete-fail",
 						"Fallo la eliminación del Eia"));
 				em.persist(new GHAMessage(LanguageEnum.ES,
+						"eia-delete-success",
+						"El equipo a sido eliminado exitosamente"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
 						"eia-findByEia-fail", "Búsqueda fallida de Eia por eia"));
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"eia-findByEiaType-fail",
@@ -1564,6 +1567,8 @@ public class InitialData {
 				em.persist(new UiString(LanguageEnum.ES,
 						"eiatype-delete-confirm",
 						"¿Desea eliminar el tipo de equipo?"));
+				em.persist(new UiString(LanguageEnum.ES, "eia-delete-confirm",
+						"¿Desea eliminar el equipo?"));
 
 				em.flush();
 			} catch (Exception e1) {

@@ -18,15 +18,18 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHAEiaTypeTypeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAMobilitySelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.types.VerticalAlignment;
+import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
@@ -55,8 +58,9 @@ public class EIATypeTopForm extends HLayout implements
 	// private GHAImg photo;
 	private EiaTypeResultSet resultSet;
 	private boolean activated = false;
-	private GHAImgButton cleanImgButton;
-	private GHAImgButton searchImgButton;
+	private GHAImgButton deleteImgButton, cleanImgButton, searchImgButton;
+	private VLayout sideButtons;
+	private EIATypeTab eiaTypeTab;
 
 	{
 		// eiaTypeSearchForm = new EIATypeSearchForm();
@@ -73,10 +77,12 @@ public class EIATypeTopForm extends HLayout implements
 
 	/**
 	 * @param resultSet
+	 * @param eiaTypeTab
 	 */
-	public EIATypeTopForm(EiaTypeResultSet resultSet) {
+	public EIATypeTopForm(EiaTypeResultSet resultSet, EIATypeTab eiaTypeTab) {
 		super();
 		this.resultSet = resultSet;
+		this.eiaTypeTab = eiaTypeTab;
 
 		GHAUiHelper.addGHAResizeHandler(this);
 		setStyleName("sides-padding padding-top");
@@ -156,14 +162,19 @@ public class EIATypeTopForm extends HLayout implements
 			}
 		});
 		cleanImgButton = new GHACleanButton(new ClickHandler() {
-
 			@Override
 			public void onClick(ClickEvent event) {
 				clearFields();
 			}
 		});
-		VLayout sideButtons = GHAUiHelper.createBar(searchImgButton,
-				cleanImgButton);
+		deleteImgButton = new GHADeleteButton(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				delete();
+			}
+		});
+
+		sideButtons = GHAUiHelper.createBar(searchImgButton, cleanImgButton);
 		addMembers(form, /* new LayoutSpacer(), photoPanel, */
 				new LayoutSpacer(), sideButtons);
 		deactivate();
@@ -212,9 +223,21 @@ public class EIATypeTopForm extends HLayout implements
 		mobilityItem.enable();
 		typeItem.enable();
 		subTypeItem.enable();
-		searchImgButton.enable();
 		cleanImgButton.enable();
+		sideButtons.removeMember(deleteImgButton);
+		sideButtons.addMember(searchImgButton, 0);
+
 		activated = true;
+	}
+
+	@Override
+	public boolean canBeClosen() {
+		return true;
+	}
+
+	@Override
+	public boolean canBeHidden() {
+		return true;
 	}
 
 	/**
@@ -233,6 +256,11 @@ public class EIATypeTopForm extends HLayout implements
 		subTypeItem.clearValue();
 	}
 
+	@Override
+	public void close() throws UnavailableToCloseException {
+		destroy();
+	}
+
 	/**
 	 * 
 	 */
@@ -244,9 +272,35 @@ public class EIATypeTopForm extends HLayout implements
 		mobilityItem.disable();
 		typeItem.disable();
 		subTypeItem.disable();
-		searchImgButton.disable();
 		cleanImgButton.disable();
+		sideButtons.removeMember(searchImgButton);
+		sideButtons.addMember(deleteImgButton, 0);
 		activated = false;
+	}
+
+	/**
+	 * Elimina el eiaType seleccionado
+	 */
+	private void delete() {
+		GHANotification.confirm(GHAStrings.get("eiatype"),
+				GHAStrings.get("eiatype-delete-confirm"),
+				new BooleanCallback() {
+					@Override
+					public void execute(Boolean value) {
+						if (value) {
+							EIATypeModel.delete(codeItem.getValueAsString(),
+									new GHAAsyncCallback<Void>() {
+										@Override
+										public void onSuccess(Void result) {
+											eiaTypeTab.search();
+											clearFields();
+											GHANotification
+													.alert("eiatype-delete-success");
+										}
+									});
+						}
+					}
+				});
 	}
 
 	/**
@@ -321,21 +375,6 @@ public class EIATypeTopForm extends HLayout implements
 
 		// lock fields of the topform
 		deactivate();
-	}
-
-	@Override
-	public boolean canBeClosen() {
-		return true;
-	}
-
-	@Override
-	public void close() throws UnavailableToCloseException {
-		destroy();
-	}
-
-	@Override
-	public boolean canBeHidden() {
-		return true;
 	}
 
 }
