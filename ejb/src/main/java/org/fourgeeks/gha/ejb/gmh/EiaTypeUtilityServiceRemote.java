@@ -9,7 +9,7 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeUtility;
 
 /**
- * @author alacret
+ * @author alacret, emiliot
  * 
  */
 @Remote
@@ -42,5 +42,15 @@ public interface EiaTypeUtilityServiceRemote {
 	 * @throws GHAEJBException
 	 */
 	public void delete(long id) throws GHAEJBException;
+
+	/**
+	 * Updates a EiaTypeUtility
+	 * 
+	 * @param eiaTypeUtility
+	 * @return
+	 * @throws GHAEJBException
+	 */
+	public EiaTypeUtility update(EiaTypeUtility eiaTypeUtility)
+			throws GHAEJBException;
 
 }

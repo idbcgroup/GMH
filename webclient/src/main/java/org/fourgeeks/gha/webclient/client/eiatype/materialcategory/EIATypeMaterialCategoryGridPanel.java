@@ -26,6 +26,8 @@ import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
+import com.smartgwt.client.widgets.grid.events.CellSavedEvent;
+import com.smartgwt.client.widgets.grid.events.CellSavedHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
@@ -36,12 +38,30 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class EIATypeMaterialCategoryGridPanel extends GHAVerticalLayout
 		implements EIATypeSelectionListener, GHAHideable, GHAClosable {
 
-	private EiaTypeMaterialCategoryGrid grid = new EiaTypeMaterialCategoryGrid();
+	private EiaTypeMaterialCategoryGrid grid;
 	private MaterialCategorySearchForm searchForm;
 	private EiaType eiaType;
 	private MaterialCategoryAddForm addForm;
 
 	{
+		grid = new EiaTypeMaterialCategoryGrid();
+		grid.getAmountGridField().addCellSavedHandler(new CellSavedHandler() {
+
+			@Override
+			public void onCellSaved(CellSavedEvent event) {
+				EiaTypeMaterialCategory entity = ((EIATypeMaterialCategoryRecord) event
+						.getRecord()).toEntity();
+				entity.setAmount((Integer) event.getNewValue());
+				EIATypeMaterialCategoryModel.update(entity,
+						new GHAAsyncCallback<EiaTypeMaterialCategory>() {
+
+							@Override
+							public void onSuccess(EiaTypeMaterialCategory result) {
+							}
+						});
+			}
+		});
+
 		MaterialCategorySelectionListener materialSelectionListener = new MaterialCategorySelectionListener() {
 
 			@Override

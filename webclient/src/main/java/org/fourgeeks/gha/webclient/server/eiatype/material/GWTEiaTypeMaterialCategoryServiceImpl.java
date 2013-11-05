@@ -42,4 +42,18 @@ public class GWTEiaTypeMaterialCategoryServiceImpl extends RemoteServiceServlet
 		serviceRemote.delete(id);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.eiatype.materialcategory.
+	 * GWTEiaTypeMaterialCategoryService
+	 * #update(org.fourgeeks.gha.domain.gmh.EiaTypeMaterialCategory)
+	 */
+	@Override
+	public EiaTypeMaterialCategory update(
+			EiaTypeMaterialCategory eiaTypeMaterialCategory)
+			throws GHAEJBException {
+		return serviceRemote.update(eiaTypeMaterialCategory);
+	}
+
 }

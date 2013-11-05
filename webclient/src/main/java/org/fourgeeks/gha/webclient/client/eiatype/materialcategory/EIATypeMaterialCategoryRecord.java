@@ -30,6 +30,7 @@ public class EIATypeMaterialCategoryRecord extends
 		setAttribute("extCode", materialCategory.getExternalCode());
 		if (materialCategory.getType() != null)
 			setAttribute("type", materialCategory.getType().toString());
+		setAttribute("amount", eiaTypeMaterialCategory.getAmount());
 
 	}
 

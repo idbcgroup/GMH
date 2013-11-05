@@ -14,7 +14,7 @@ import org.fourgeeks.gha.webclient.client.eiatype.utility.GWTEiaTypeUtilityServi
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 /**
- * @author alacret
+ * @author alacret, emiliot
  * 
  */
 @WebServlet(urlPatterns = { "/webclient/eiaTypeUtility" })
@@ -37,13 +37,30 @@ public class GWTEiaTypeUtilityServiceImpl extends RemoteServiceServlet
 		return serviceRemote.save(eiaTypeUtility);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.eiatype.utility.GWTEiaTypeUtilityService#findByEiaType(org.fourgeeks.gha.domain.gmh.EiaType)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.eiatype.utility.GWTEiaTypeUtilityService
+	 * #findByEiaType(org.fourgeeks.gha.domain.gmh.EiaType)
 	 */
 	@Override
 	public List<EiaTypeUtility> findByEiaType(EiaType eiaType)
 			throws GHAEJBException {
 		return serviceRemote.findByEiaType(eiaType);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.eiatype.utility.GWTEiaTypeUtilityService
+	 * #update(org.fourgeeks.gha.domain.gmh.EiaTypeUtility)
+	 */
+	@Override
+	public EiaTypeUtility update(EiaTypeUtility eiaTypeUtility)
+			throws GHAEJBException {
+		return serviceRemote.update(eiaTypeUtility);
 	}
 
 }
