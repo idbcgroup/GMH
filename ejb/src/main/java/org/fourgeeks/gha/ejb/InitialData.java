@@ -1599,8 +1599,8 @@ public class InitialData {
 						"¿Desea eliminar el tipo de equipo?"));
 				em.persist(new UiString(LanguageEnum.ES, "eia-delete-confirm",
 						"¿Desea eliminar el equipo?"));
-				em.persist(new UiString(LanguageEnum.ES, "user-delete-confirm",
-						"¿Desea eliminar al usuario?"));
+				em.persist(new UiString(LanguageEnum.ES,
+						"ssoUser-delete-confirm", "¿Desea eliminar al usuario?"));
 				em.persist(new UiString(LanguageEnum.ES, "amount", "Cantidad"));
 				em.persist(new UiString(LanguageEnum.ES,
 						"empty-materialcategory-grid",
