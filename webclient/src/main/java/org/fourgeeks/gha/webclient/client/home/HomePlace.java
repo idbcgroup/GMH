@@ -4,7 +4,9 @@ import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.webclient.client.UI.GHASessionData;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.dropdownmenus.UserDropdownMenu;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHAPlace;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabSet;
 
@@ -14,6 +16,7 @@ import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.Cursor;
 import com.smartgwt.client.widgets.Img;
 import com.smartgwt.client.widgets.events.ClickEvent;
+import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.events.FocusChangedEvent;
 import com.smartgwt.client.widgets.events.FocusChangedHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -91,9 +94,18 @@ public class HomePlace extends GHAPlace {
 						}
 					}
 				});
+		
+		GHAButton notifbut= new GHAButton("Show", new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				// TODO Auto-generated method stub
+				GHANotification.modalNotification.show("Informeichon", "Informacion del error");
+			}
+		});	
 
 		userInfo.addMembers(usernameLabel, /* notificationsButton, */
-				userButton);
+				userButton,notifbut);
 
 		userInfo.addFocusChangedHandler(new FocusChangedHandler() {
 
@@ -106,6 +118,6 @@ public class HomePlace extends GHAPlace {
 
 		RootPanel.get("user-info").add(userInfo);
 
-		GHATabSet.buildMenu();
+		GHATabSet.buildMenu();	
 	}
 }
