@@ -104,8 +104,14 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 				search();
 			}
 		});
+		cleanButton = new GHACleanButton(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				clear();
+			}
+		});
 
-		sideButtons = GHAUiHelper.createBar(searchButton);
+		sideButtons = GHAUiHelper.createBar(searchButton, cleanButton);
 		addMembers(form, new LayoutSpacer(), sideButtons);
 		deactivate();
 	}
@@ -155,7 +161,6 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 	@Override
 	public void select(SSOUser ssoUser) {
 		selectedUserId = ssoUser.getId();
-		// TODO seleccionar identificador
 
 		if (ssoUser.getUserName() != null)
 			usernameItem.setValue(ssoUser.getUserName());
@@ -204,9 +209,16 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 		emailItem.setDisabled(disabled);
 		alterEmailItem.setDisabled(disabled);
 		genderSelectItem.setDisabled(disabled);
-		searchButton.setDisabled(disabled);
 		cleanButton.setDisabled(disabled);
 		activated = !disabled;
+		if (disabled) {
+			sideButtons.removeMember(searchButton);
+			sideButtons.addMember(deleteButton, 0);
+		} else {
+			sideButtons.removeMember(deleteButton);
+			sideButtons.addMember(searchButton, 0);
+
+		}
 	}
 
 	public void deactivate() {
@@ -239,7 +251,8 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 
 	private void delete() {
 		GHANotification.confirm(GHAStrings.get("user"),
-				GHAStrings.get("user-delete-confirm"), new BooleanCallback() {
+				GHAStrings.get("ssoSser-delete-confirm"),
+				new BooleanCallback() {
 					@Override
 					public void execute(Boolean value) {
 						if (value) {
