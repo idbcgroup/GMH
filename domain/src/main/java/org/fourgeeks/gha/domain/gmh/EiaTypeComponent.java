@@ -45,9 +45,9 @@ public class EiaTypeComponent extends AbstractEntity {
 	private boolean componentReplaceable;
 
 	/**
-	 * Componente se puede sustituir, NO = se debe usar exactamente el
-	 * componente indicado por el fabricante
+	 * Amount of components included in the relationship
 	 */
+	private int amount = 0;
 
 	/**
 	 * 
@@ -102,6 +102,21 @@ public class EiaTypeComponent extends AbstractEntity {
 
 	public void setParentEiaType(EiaType parentEiaType) {
 		this.parentEiaType = parentEiaType;
+	}
+
+	/**
+	 * @return the amount
+	 */
+	public int getAmount() {
+		return amount;
+	}
+
+	/**
+	 * @param amount
+	 *            the amount to set
+	 */
+	public void setAmount(int amount) {
+		this.amount = amount;
 	}
 
 }

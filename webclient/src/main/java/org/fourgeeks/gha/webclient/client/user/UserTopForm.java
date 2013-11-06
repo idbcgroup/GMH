@@ -3,30 +3,27 @@ package org.fourgeeks.gha.webclient.client.user;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.enu.GenderTypeEnum;
-import org.fourgeeks.gha.domain.enu.UserLogonStatusEnum;
 import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.mix.Citizen;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
+import org.fourgeeks.gha.webclient.client.UI.GHATopForm;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHAEmailItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHAGenreSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHANameItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAUserNameItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHAUserStateSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 
-import com.google.gwt.event.logical.shared.ResizeEvent;
-import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.types.TitleOrientation;
-import com.smartgwt.client.types.VerticalAlignment;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
-import com.smartgwt.client.widgets.form.fields.events.KeyUpEvent;
-import com.smartgwt.client.widgets.form.fields.events.KeyUpHandler;
-import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
@@ -34,54 +31,35 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class UserTopForm extends HLayout implements GHAClosable, ResizeHandler,
-		GHAHideable, UserSelectionListener {
+public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
+		UserSelectionListener {
 
 	private GHATextItem usernameItem, typeidSelectItem;
 	private GHASelectItem stateItem;
 	private GHATextItem firstNameItem, secondNameItem, firstLastNameItem,
 			secondLastNameItem, emailItem, alterEmailItem, idItem;
 	private GHASelectItem genderSelectItem;
-	private UserResultSet resultSet;
-	private boolean activated = false;
-	private KeyUpHandler searchKeyUpHandler = new KeyUpHandler() {
-
-		@Override
-		public void onKeyUp(KeyUpEvent event) {
-			if (event.getKeyName().equals("Enter")) {
-				search();
-			}
-		}
-	};
-
+	private GHASearchButton searchButton;
+	private GHACleanButton cleanButton;
 	{
 		usernameItem = new GHAUserNameItem(300);
 		usernameItem.setColSpan(2);
-		firstNameItem = new GHATextItem("Primer nombre", 150);
-		firstNameItem.setLength(20);
-		firstNameItem.setMask(">A<AAAAAAAAAAAAAAAAAAA");
-		stateItem = new GHASelectItem(GHAStrings.get("state"), 150);
-		stateItem.setValueMap(UserLogonStatusEnum.toValueMap());
+		firstNameItem = new GHANameItem(GHAStrings.get("first-name"), 150);
+		stateItem = new GHAUserStateSelectItem(150);
 		typeidSelectItem = new GHATextItem(GHAStrings.get("id-type"), 150);
 		idItem = new GHATextItem(GHAStrings.get("id-number"), 150);
-		secondNameItem = new GHATextItem("Segundo nombre", 150);
-		secondNameItem.setLength(20);
-		secondNameItem.setMask(">A<AAAAAAAAAAAAAAAAAAA");
-		firstLastNameItem = new GHATextItem("Primer apellido", 150);
-		firstLastNameItem.setLength(20);
-		firstLastNameItem.setMask(">A<AAAAAAAAAAAAAAAAAAA");
-		secondLastNameItem = new GHATextItem("Segundo apellido", 150);
-		secondLastNameItem.setLength(20);
-		secondLastNameItem.setMask(">A<AAAAAAAAAAAAAAAAAAA");
-		emailItem = new GHATextItem("Correo", 150);
-		emailItem.setLength(254);
-		alterEmailItem = new GHATextItem("Correo alternativo", 150);
-		alterEmailItem.setLength(254);
-		idItem = new GHATextItem("No. Identificación", 150);
+		secondNameItem = new GHANameItem(GHAStrings.get("second-name"), 150);
+		firstLastNameItem = new GHANameItem(GHAStrings.get("first-lastname"),
+				150);
+		secondLastNameItem = new GHANameItem(GHAStrings.get("second-lastname"),
+				150);
+		emailItem = new GHAEmailItem(GHAStrings.get("mail"), 150);
+		alterEmailItem = new GHAEmailItem(GHAStrings.get("alternative-mail"),
+				150);
+		idItem = new GHATextItem(GHAStrings.get("id-number"), 150);
 		idItem.setLength(20);
 		idItem.setMask("####################");
-		genderSelectItem = new GHASelectItem("Género", 150);
-		genderSelectItem.setValueMap(GenderTypeEnum.toValueMap());
+		genderSelectItem = new GHAGenreSelectItem(150);
 		usernameItem.addKeyUpHandler(searchKeyUpHandler);
 		firstNameItem.addKeyUpHandler(searchKeyUpHandler);
 		secondNameItem.addKeyUpHandler(searchKeyUpHandler);
@@ -93,40 +71,37 @@ public class UserTopForm extends HLayout implements GHAClosable, ResizeHandler,
 	}
 
 	/**
+	 * @param resultSet
 	 * @param tab
 	 */
 	public UserTopForm(UserResultSet resultSet) {
-		super();
-		this.resultSet = resultSet;
-
-		GHAUiHelper.addGHAResizeHandler(this);
-		setStyleName("sides-padding padding-top");
-		setWidth100();
-		setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT + "px");
-		setDefaultLayoutAlign(VerticalAlignment.CENTER);
-		setBackgroundColor(GHAUiHelper.DEFAULT_BACKGROUND_COLOR);
-
+		super(resultSet);
 		DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(6);
-		form.setItems(usernameItem, firstNameItem, stateItem, secondNameItem,
+		form.setItems(usernameItem, stateItem, firstNameItem, secondNameItem,
 				firstLastNameItem, secondLastNameItem, typeidSelectItem,
 				idItem, emailItem, alterEmailItem, genderSelectItem);
 
-		VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
-				new ClickHandler() {
-					@Override
-					public void onClick(ClickEvent event) {
-						search();
-					}
-				}));
+		searchButton = new GHASearchButton(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				search();
+			}
+		});
+		cleanButton = new GHACleanButton(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				clear();
+			}
+		});
+
+		VLayout sideButtons = GHAUiHelper.createBar(searchButton, cleanButton);
 		addMembers(form, new LayoutSpacer(), sideButtons);
 		deactivate();
 	}
 
-	/**
-	 * 
-	 */
+	@Override
 	public void search() {
 		SSOUser ssoUser = new SSOUser();
 		if (usernameItem.getValue() != null)
@@ -157,7 +132,8 @@ public class UserTopForm extends HLayout implements GHAClosable, ResizeHandler,
 		search(ssoUser);
 	}
 
-	private void search(final SSOUser ssoU) {
+	@Override
+	public void search(final SSOUser ssoU) {
 		UserModel.find(ssoU, new GHAAsyncCallback<List<SSOUser>>() {
 
 			@Override
@@ -165,16 +141,6 @@ public class UserTopForm extends HLayout implements GHAClosable, ResizeHandler,
 				resultSet.setRecords(ssoUsers);
 			}
 		});
-	}
-
-	@Override
-	public void close() {
-		destroy();
-	}
-
-	@Override
-	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT + "px");
 	}
 
 	@Override
@@ -214,47 +180,49 @@ public class UserTopForm extends HLayout implements GHAClosable, ResizeHandler,
 		deactivate();
 	}
 
+	private void toggleForm(boolean disabled) {
+		usernameItem.setDisabled(disabled);
+		stateItem.setDisabled(disabled);
+		typeidSelectItem.setDisabled(disabled);
+		idItem.setDisabled(disabled);
+		firstNameItem.setDisabled(disabled);
+		secondNameItem.setDisabled(disabled);
+		firstLastNameItem.setDisabled(disabled);
+		secondLastNameItem.setDisabled(disabled);
+		emailItem.setDisabled(disabled);
+		alterEmailItem.setDisabled(disabled);
+		genderSelectItem.setDisabled(disabled);
+		searchButton.setDisabled(disabled);
+		cleanButton.setDisabled(disabled);
+		activated = !disabled;
+	}
+
 	public void deactivate() {
-		usernameItem.disable();
-		stateItem.disable();
-		typeidSelectItem.disable();
-		idItem.disable();
-		firstNameItem.disable();
-		secondNameItem.disable();
-		firstLastNameItem.disable();
-		secondLastNameItem.disable();
-		emailItem.disable();
-		alterEmailItem.disable();
-		genderSelectItem.disable();
-		activated = false;
+		toggleForm(true);
 	}
 
 	public void activate() {
-		usernameItem.enable();
-		stateItem.enable();
-		typeidSelectItem.enable();
-		idItem.enable();
-		firstNameItem.enable();
-		secondNameItem.enable();
-		firstLastNameItem.enable();
-		secondLastNameItem.enable();
-		emailItem.enable();
-		alterEmailItem.enable();
-		genderSelectItem.enable();
+		toggleForm(false);
+		usernameItem.focusInItem();
+	}
+
+	@Override
+	public void clear() {
+		usernameItem.clearValue();
+		stateItem.clearValue();
+		typeidSelectItem.clearValue();
+		idItem.clearValue();
+		firstNameItem.clearValue();
+		secondNameItem.clearValue();
+		firstLastNameItem.clearValue();
+		secondLastNameItem.clearValue();
+		emailItem.clearValue();
+		alterEmailItem.clearValue();
+		genderSelectItem.clearValue();
+		searchButton.setDisabled(false);
+		cleanButton.setDisabled(false);
 		activated = true;
+
 	}
 
-	public boolean isActivate() {
-		return activated;
-	}
-
-	@Override
-	public boolean canBeHidden() {
-		return true;
-	}
-
-	@Override
-	public boolean canBeClosen() {
-		return true;
-	}
 }

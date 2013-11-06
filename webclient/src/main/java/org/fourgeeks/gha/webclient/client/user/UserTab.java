@@ -9,6 +9,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader;
 
+import com.smartgwt.client.types.Visibility;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 
@@ -20,18 +21,18 @@ public class UserTab extends GHATab implements UserSelectionListener,
 		UserSelectionProducer {
 
 	/**
-	 * 
+	 * The ID of the Tab
 	 */
 	public static final String ID = "user";
 	private static final String TITLE = GHAStrings.get("users");
-	private UserTopForm topForm;
+	private UserAddForm addForm;
 	private UserInternalTabset internalTabSet;
 	private List<UserSelectionListener> listeners = new ArrayList<UserSelectionListener>();
-	private UserResultSet resultSet;;
+	private UserResultSet resultSet;
+	private UserTopForm topForm;;
 
 	/**
 	 * @param token
-	 * 
 	 */
 	public UserTab(String token) {
 		super(token);
@@ -48,11 +49,11 @@ public class UserTab extends GHATab implements UserSelectionListener,
 			@Override
 			public void onClick(ClickEvent event) {
 				add();
-
 			}
 		});
 
 		resultSet = new UserResultSet();
+		resultSet.setVisible(false);
 		addGHAHideableHandler(resultSet);
 		addGHAClosableHandler(resultSet);
 		resultSet.addUserSelectionListener(this);
@@ -68,45 +69,41 @@ public class UserTab extends GHATab implements UserSelectionListener,
 		addGHAClosableHandler(internalTabSet);
 		addUserSelectionListener(internalTabSet);
 
+		addForm = new UserAddForm(GHAStrings.get("new-user"));
+		addGHAHideableHandler(addForm);
+		addGHAClosableHandler(addForm);
+		addForm.addUserSelectionListener(this);
+
 		verticalPanel.addMember(topForm);
 		verticalPanel.addMember(GHAUiHelper
 				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
-		// verticalPanel.addMember(internalTabset);
+		verticalPanel.addMember(internalTabSet);
 		verticalPanel.addMember(resultSet);
+
 		addMember(verticalPanel);
-
-	}
-
-	protected void search() {
-		// if (topForm.isActivate())
-		// return;
-		// if (internalTabSet.isVisible())
-		// if (internalTabSet.canBeHidden())
-		// internalTabSet.hide();
-		// else
-		// return;
-		// if (addForm.isVisible())
-		// addForm.hide();
-		// if (resultSet.isVisible())
-		// resultSet.hide();
-		// topForm.activate();
-		// // GHANotification.info(GHAStrings.get("")); //TODO: Mensaje de
-		// // informacion para indicar que se ha actividado el modo de busqueda
 	}
 
 	protected void add() {
-		// if (addForm.isVisible())
-		// return;
-		// if (internalTabSet.isVisible())
-		// if (internalTabSet.canBeHidden())
-		// internalTabSet.hide();
-		// else
-		// return;
-		// if (topForm.isActivate())
-		// topForm.deactivate();
-		// if (resultSet.isVisible())
-		// resultSet.hide();
-		// addForm.open();
+		if (addForm.isVisible())
+			return;
+		if (internalTabSet.isVisible())
+			if (internalTabSet.canBeHidden())
+				internalTabSet.hide();
+			else
+				return;
+		if (topForm.isActivated())
+			topForm.deactivate();
+		if (resultSet.isVisible())
+			resultSet.hide();
+		addForm.open();
+		// GHANotification.info(GHAStrings.get("")); //TODO: Mensaje de
+		// informacion para indicar que se ha actividado el modo de busqueda
+	}
+
+	@Override
+	public void addUserSelectionListener(
+			UserSelectionListener userSelectionListener) {
+		listeners.add(userSelectionListener);
 	}
 
 	@Override
@@ -115,29 +112,42 @@ public class UserTab extends GHATab implements UserSelectionListener,
 	}
 
 	@Override
-	public void addUserSelectionListener(
-			UserSelectionListener userSelectionListener) {
-		listeners.add(userSelectionListener);
-
+	public void notifyUser(SSOUser ssoUser) {
+		for (UserSelectionListener userSelectionListener : listeners)
+			userSelectionListener.select(ssoUser);
 	}
 
 	@Override
 	public void removeUserSelectionListener(
 			UserSelectionListener userSelectionListener) {
 		listeners.remove(userSelectionListener);
+	}
 
+	protected void search() {
+		if (topForm.isActivated())
+			return;
+		if (internalTabSet.isVisible())
+			if (internalTabSet.canBeHidden())
+				internalTabSet.hide();
+			else
+				return;
+		if (addForm.isVisible())
+			addForm.hide();
+		if (resultSet.isVisible())
+			resultSet.hide();
+		topForm.activate();
+		// // GHANotification.info(GHAStrings.get("")); //TODO: Mensaje de
+		// // informacion para indicar que se ha actividado el modo de busqueda
 	}
 
 	@Override
 	public void select(SSOUser ssoUser) {
-		for (UserSelectionListener listener : listeners)
-			listener.select(ssoUser);
+		notifyUser(ssoUser);
 	}
 
 	@Override
-	public void notifyUser(SSOUser ssoUser) {
-		for (UserSelectionListener userSelectionListener : listeners)
-			userSelectionListener.select(ssoUser);
-
+	public void show() {
+		super.show();
+		topForm.setVisibility(Visibility.VISIBLE);
 	}
 }

@@ -145,7 +145,7 @@ public class GHATabHeader extends HLayout implements ResizeHandler {
 				addMouseOverHandler(new MouseOverHandler() {
 					@Override
 					public void onMouseOver(MouseOverEvent event) {
-						if(!selected)
+						if (!selected)
 							setBackgroundImage(bgSrcOver);
 					}
 				});
@@ -153,7 +153,7 @@ public class GHATabHeader extends HLayout implements ResizeHandler {
 
 					@Override
 					public void onMouseOut(MouseOutEvent event) {
-						if(!selected)
+						if (!selected)
 							setBackgroundImage(bgSrc);
 					}
 				});
@@ -168,12 +168,12 @@ public class GHATabHeader extends HLayout implements ResizeHandler {
 
 		public void deselectButton() {
 			setBackgroundImage(bgSrc);
-			selected=false;
+			selected = false;
 		}
 
 		public void selectButton() {
 			setBackgroundImage(bgSrcOver);
-			selected=true;
+			selected = true;
 		}
 
 	}
