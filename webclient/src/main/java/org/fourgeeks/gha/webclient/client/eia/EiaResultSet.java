@@ -100,6 +100,7 @@ public class EiaResultSet extends GHAResultSet<Eia> implements
 	@Override
 	public void clean() {
 		grid.setData(new EIARecord[] {});
+		showResultsSize(null);
 	}
 
 	private void delete() {
@@ -149,6 +150,7 @@ public class EiaResultSet extends GHAResultSet<Eia> implements
 			hide();
 			return;
 		}
+		showResultsSize(records);
 		ListGridRecord[] array = EIAUtil.toGridRecords(records).toArray(
 				new EIARecord[] {});
 		grid.setData(array);

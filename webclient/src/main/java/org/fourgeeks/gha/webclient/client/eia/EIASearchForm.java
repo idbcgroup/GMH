@@ -149,7 +149,7 @@ public class EIASearchForm extends GHASearchForm<Eia> implements
 	/**
 	 * 
 	 */
-	private void clean() {
+	public void clean() {
 		form.clearValues();
 		resultSet.clean();
 	}

@@ -61,6 +61,9 @@ public class EIAComponentGridPanel extends GHAVerticalLayout implements
 
 			@Override
 			public void select(Eia eia) {
+				// clean the searchForm
+				EIAComponentGridPanel.this.searchForm.clean();
+
 				final EiaComponent eiaComponent = new EiaComponent();
 				eiaComponent.setParentEia(EIAComponentGridPanel.this.eia);
 				eiaComponent.setEia(eia);

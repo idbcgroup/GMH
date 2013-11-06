@@ -74,6 +74,7 @@ public class EiaTypeResultSet extends GHAResultSet<EiaType> implements
 	@Override
 	public void clean() {
 		grid.setData(new EIATypeRecord[] {});
+		showResultsSize(null);
 	}
 
 	/**
@@ -104,20 +105,6 @@ public class EiaTypeResultSet extends GHAResultSet<EiaType> implements
 						}
 					}
 				});
-	}
-
-	/**
-	 * Actualiza el mensaje de resultados de la busqueda para que muestre la
-	 * cantidad de elementos encontrados
-	 * 
-	 * @param datos
-	 *            lista con los elementos encontrados
-	 */
-	private void mostrarCantResults(List<?> datos) {
-		String tituloSearchResults = GHAStrings.get("search-results");
-		searchResultsLabel.setContents(tituloSearchResults + ": "
-				+ datos.size() + " resultados");
-		searchResultsLabel.redraw();
 	}
 
 	@Override
@@ -156,13 +143,13 @@ public class EiaTypeResultSet extends GHAResultSet<EiaType> implements
 
 	@Override
 	public void setRecords(List<EiaType> records, boolean notifyIfOnlyOneResult) {
-		mostrarCantResults(records);
 		// if only one record is on the list, notify the element and return
 		if (notifyIfOnlyOneResult && records.size() == 1) {
 			notifyEiaType(records.get(0));
 			hide();
 			return;
 		}
+		showResultsSize(records);
 		ListGridRecord[] array = EIATypeUtil.toGridRecords(records).toArray(
 				new EIATypeRecord[] {});
 		grid.setData(array);

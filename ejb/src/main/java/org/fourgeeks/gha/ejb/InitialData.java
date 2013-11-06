@@ -1596,6 +1596,8 @@ public class InitialData {
 						"empty-materialcategory-grid",
 						"No existen Materiales para mostrar"));
 
+				em.persist(new UiString(LanguageEnum.ES, "results",
+						"Resultados"));
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating uistrings test data", e1);
