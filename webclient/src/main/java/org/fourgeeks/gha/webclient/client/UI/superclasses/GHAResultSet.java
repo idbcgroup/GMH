@@ -65,7 +65,7 @@ public abstract class GHAResultSet<T> extends VLayout implements ResizeHandler,
 	protected void showResultsSize(List<?> results) {
 		String title = GHAStrings.get("search-results");
 		searchResultsLabel.setContents(title + ": "
-				+ (results == null ? 0 : results.size())
+				+ (results == null ? 0 : results.size()) + " "
 				+ GHAStrings.get("results"));
 		searchResultsLabel.redraw();
 	}
