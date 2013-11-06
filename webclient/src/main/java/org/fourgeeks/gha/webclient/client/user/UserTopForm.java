@@ -138,7 +138,7 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 
 			@Override
 			public void onSuccess(List<SSOUser> ssoUsers) {
-				resultSet.setRecords(ssoUsers);
+				resultSet.setRecords(ssoUsers, true);
 			}
 		});
 	}

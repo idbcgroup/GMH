@@ -301,7 +301,7 @@ public class EIATopForm extends HLayout implements EIASelectionListener,
 			@Override
 			public void onSuccess(List<Eia> result) {
 				// Window.alert("Search eia: " + result.size() + "");
-				resultSet.setRecords(result);
+				resultSet.setRecords(result, true);
 			}
 		});
 	}

@@ -240,7 +240,7 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 		EIATypeModel.find(eiaType, new GHAAsyncCallback<List<EiaType>>() {
 			@Override
 			public void onSuccess(List<EiaType> result) {
-				resultSet.setRecords(result);
+				resultSet.setRecords(result, true);
 			}
 
 		});
