@@ -91,9 +91,21 @@ public class HomePlace extends GHAPlace {
 						}
 					}
 				});
+		
+//		GHAButton notifbut= new GHAButton("Show", new ClickHandler() {
+//			
+//			@Override
+//			public void onClick(ClickEvent event) {
+//				// TODO Auto-generated method stub
+//				GHANotification.modalNotification.show("Informeichon", "Informacion del error");
+//			}
+//		});	
 
-		userInfo.addMembers(usernameLabel, /* notificationsButton, */
-				userButton);
+		userInfo.addMembers(usernameLabel, 
+				/* notificationsButton, */
+				userButton
+//				, notifbut
+				);
 
 		userInfo.addFocusChangedHandler(new FocusChangedHandler() {
 
@@ -106,6 +118,6 @@ public class HomePlace extends GHAPlace {
 
 		RootPanel.get("user-info").add(userInfo);
 
-		GHATabSet.buildMenu();
+		GHATabSet.buildMenu();	
 	}
 }

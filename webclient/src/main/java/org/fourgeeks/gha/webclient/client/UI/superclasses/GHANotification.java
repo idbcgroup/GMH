@@ -10,16 +10,15 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.message.GWTMessageService;
 import org.fourgeeks.gha.webclient.client.message.GWTMessageServiceAsync;
 
-import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.Positioning;
+import com.smartgwt.client.types.VerticalAlignment;
 import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.util.SC;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -35,6 +34,8 @@ public class GHANotification {
 	private static final GWTMessageServiceAsync messageService = GWT
 			.create(GWTMessageService.class);
 
+	public static final ModalNotification modalNotification = new ModalNotification();
+	
 	/*
 	 * public GHANotification() { setPosition(Positioning.ABSOLUTE);
 	 * setBottom(Window.getClientHeight()-20); setSize("280px", "*");
@@ -112,53 +113,50 @@ public class GHANotification {
 		SC.say(ghaMessage.getText());
 	}
 
-	private static class ModalInfoNotification extends VLayout implements
+	public static class ModalNotification extends VLayout implements
 			ResizeHandler, GHAClosable {
 
-		private int width = 300;
-		private HTML backDiv = new HTML();
-
-		public ModalInfoNotification(String title, String errorMessage) {
+		private int width = 700;
+		private RootPanel backDivPanel = RootPanel.get("notificationsBackDiv");
+		private GHALabel titleText;
+		private GHALabel errorText;
+		{
+			titleText = new GHALabel("Información");
+//			titleText.setBackgroundColor("#CBCBCB");
+			errorText = new GHALabel("default error text");
+			errorText.setStyleName("text-label");
+			errorText.setHeight("*");
+		}
+		
+		
+		public ModalNotification() {
 			super();
 			GHAUiHelper.addGHAResizeHandler(this);
 
 			setWidth(width);
 			setHeight("*");
 			setLeft((Window.getClientWidth() / 2) - (width / 2));
-			setTop(140);
+//			setTop(140);
 			setPosition(Positioning.ABSOLUTE);
 			setBackgroundColor("#E0E0E0");
 			setBorder("1px solid #E0E0E0");
 			setDefaultLayoutAlign(Alignment.CENTER);
 			setMembersMargin(10);
 			setVisible(false);
-			setAnimateTime(60);
+			setAnimateTime(400);
 
 			setShadowDepth(4);
 			setShowShadow(true);
 			setZIndex(444444);
-
-			backDiv.setWidth("100%");
-			backDiv.setHeight("100%");
-			backDiv.setStyleName("backDivDim");
-			backDiv.setVisible(false);
-			// TITLE LAYOUT
-			HLayout titleLayout = GHAUiHelper.verticalGraySeparatorLabel(
-					"40px", "Informacion");
-
-			// LABEL LAYOUT
-			GHALabel errorText = new GHALabel(errorMessage);
-			errorText.setStyleName("text-label");
-
-			VLayout userdataLayout = new VLayout();
-			userdataLayout.setHeight("*");
-			userdataLayout.setWidth100();
-			userdataLayout
-					.setStyleName("sides-padding padding-top padding-bot");
-			userdataLayout.setBackgroundColor("#E0E0E0");
-			userdataLayout.setAlign(Alignment.CENTER);
-			userdataLayout.setDefaultLayoutAlign(Alignment.CENTER);
-			userdataLayout.setMembersMargin(10);
+			
+			VLayout textLayout = new VLayout();
+			textLayout.setHeight("*");
+//			textLayout.setWidth100();
+//			textLayout.setStyleName("sides-padding padding-top padding-bot");
+//			textLayout.setAlign(Alignment.CENTER);
+			textLayout.setDefaultLayoutAlign(Alignment.CENTER);
+			textLayout.setMembersMargin(10);
+			textLayout.addMembers(titleText, errorText);
 
 			GHAButton acceptButton = new GHAButton("Aceptar",
 					new ClickHandler() {
@@ -168,21 +166,24 @@ public class GHANotification {
 						}
 					});
 
-			userdataLayout.addMembers(errorText, acceptButton);
-
-			addMembers(titleLayout, userdataLayout);
-
-			show();
-		}
-
-		public ModalInfoNotification(int membersMargin) {
-			super(membersMargin);
-			// TODO Auto-generated constructor stub
-		}
-
-		public ModalInfoNotification(JavaScriptObject jsObj) {
-			super(jsObj);
-			// TODO Auto-generated constructor stub
+			VLayout buttonsLayout = new VLayout();
+			buttonsLayout.setHeight("*");
+			buttonsLayout.setWidth("100px");
+			buttonsLayout.setMembersMargin(10);
+			buttonsLayout.setAlign(VerticalAlignment.BOTTOM);
+			buttonsLayout.setDefaultLayoutAlign(Alignment.CENTER);
+			buttonsLayout.addMembers(acceptButton);
+			
+			HLayout mainLayout = new HLayout();
+			mainLayout.setHeight("*");
+			mainLayout.setWidth100();
+			mainLayout.setMembersMargin(10);
+			mainLayout.setBackgroundColor("#E0E0E0");
+			mainLayout.setStyleName("sides-padding padding-top padding-bot");
+			
+			mainLayout.addMembers(textLayout,buttonsLayout);
+						
+			addMembers(mainLayout,GHAUiHelper.verticalGraySeparatorImgBar("../resources/icons/notifications/closerBar.png", 18, 12, 12));
 		}
 
 		@Override
@@ -192,27 +193,27 @@ public class GHANotification {
 
 		@Override
 		public void close() {
-			// TODO Auto-generated method stub
-			RootPanel.get("notificationsBackDiv").removeStyleName("dim");
-			int windowZIndex = getZIndex();
-			RootPanel.get("notificationsBackDiv").getElement().getStyle()
-					.setZIndex(-80000);
+			backDivPanel.removeStyleName("dim");
+			backDivPanel.getElement().getStyle().setZIndex(-80000);
 
-			animateHide(AnimationEffect.FADE);
-			backDiv.setVisible(false);
+			animateHide(AnimationEffect.SLIDE);
 		}
 
 		@Override
 		public void show() {
-			// super.show();
-			RootPanel.get("notificationsBackDiv").addStyleName("dim");
-			int windowZIndex = getZIndex();
-			RootPanel.get("notificationsBackDiv").getElement().getStyle()
-					.setZIndex(windowZIndex - 1);
-
-			animateShow(AnimationEffect.FADE);
-			setVisible(true);
-			bringToFront();
+			animateShow(AnimationEffect.SLIDE);
+			backDivPanel.addStyleName("dim");
+			backDivPanel.getElement().getStyle().setZIndex(getZIndex() - 1);
+		}
+		
+		public void show(String title, String innerText){
+			setText(title, innerText);
+			show();		
+		}
+		
+		private void setText(String tit, String text){
+			titleText.setContents(tit);
+			errorText.setContents(text);
 		}
 
 		@Override
@@ -221,5 +222,4 @@ public class GHANotification {
 			return false;
 		}
 	}
-
 }
