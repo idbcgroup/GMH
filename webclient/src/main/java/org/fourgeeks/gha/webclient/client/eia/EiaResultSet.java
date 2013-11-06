@@ -6,14 +6,13 @@ import java.util.List;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACheckButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAResultSet;
 
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.widgets.drawing.events.ResizedEvent;
@@ -22,14 +21,13 @@ import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
 import com.smartgwt.client.widgets.layout.HLayout;
-import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
  * @author emiliot
  * 
  */
-public class EiaResultSet extends VLayout implements EiaSelectionProducer,
-		ResizedHandler, GHAHideable, GHAClosable {
+public class EiaResultSet extends GHAResultSet<Eia> implements
+		EiaSelectionProducer, ResizedHandler, GHAHideable, GHAClosable {
 	private List<EIASelectionListener> listeners;
 	private EIAGrid grid;
 
@@ -42,10 +40,7 @@ public class EiaResultSet extends VLayout implements EiaSelectionProducer,
 	 * 
 	 */
 	public EiaResultSet() {
-		super();
-		setStyleName("sides-padding padding-top");// Esto es VUDU!
-		setVisible(false);
-		addMember(new GHALabel(GHAStrings.get("search-results")));
+		super(GHAStrings.get("search-results"));
 		HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(grid, GHAUiHelper.createBar(new GHACheckButton(
 				new ClickHandler() {
@@ -102,14 +97,13 @@ public class EiaResultSet extends VLayout implements EiaSelectionProducer,
 		return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable#close()
-	 */
 	@Override
-	public void close() throws UnavailableToCloseException {
-		destroy();
+	public void clean() {
+		grid.setData(new EIARecord[] {});
+	}
+
+	private void delete() {
+		// TODO: delete selected records on the grid
 	}
 
 	@Override
@@ -126,6 +120,7 @@ public class EiaResultSet extends VLayout implements EiaSelectionProducer,
 		}
 		notifyEia(((EIARecord) selectedRecord).toEntity());
 		hide();
+		// TODO: VALIDAR grid.removeSelectedData();
 	}
 
 	/*
@@ -140,31 +135,25 @@ public class EiaResultSet extends VLayout implements EiaSelectionProducer,
 		setHeight(GHAUiHelper.getTabHeight() - 4 + "px");
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.fourgeeks.gha.webclient.client.eia.EiaSelectionProducer#
-	 * removeEiaSelectionListener
-	 * (org.fourgeeks.gha.webclient.client.eia.EIASelectionListener)
-	 */
 	@Override
 	public void removeEiaSelectionListener(
 			EIASelectionListener eiaSelectionListener) {
 		listeners.remove(eiaSelectionListener);
 	}
 
-	public void setRecords(List<Eia> records) {
+	@Override
+	public void setRecords(List<Eia> records, boolean notifyIfOnlyOneResult) {
 		// if only one record is on the list, notify the element and return
-		if (records.size() == 1) {
+		if (notifyIfOnlyOneResult && records.size() == 1) {
 			notifyEia(records.get(0));
-			this.hide();
+			hide();
 			return;
 		}
 		ListGridRecord[] array = EIAUtil.toGridRecords(records).toArray(
 				new EIARecord[] {});
 		grid.setData(array);
-		// setAnimateAcceleration(AnimationAcceleration.NONE);
-		this.animateShow(AnimationEffect.FADE);
+		if (!isVisible())
+			this.animateShow(AnimationEffect.FADE);
 	}
 
 }

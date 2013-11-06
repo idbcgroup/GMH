@@ -134,7 +134,7 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 
 			@Override
 			public void onSuccess(List<SSOUser> ssoUsers) {
-				resultSet.setRecords(ssoUsers);
+				resultSet.setRecords(ssoUsers, true);
 			}
 		});
 	}
@@ -176,6 +176,7 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 		deactivate();
 	}
 
+	@Override
 	public void deactivate() {
 		usernameItem.disable();
 		stateItem.disable();
@@ -191,6 +192,7 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 		activated = false;
 	}
 
+	@Override
 	public void activate() {
 		usernameItem.enable();
 		stateItem.enable();

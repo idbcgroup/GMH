@@ -115,6 +115,26 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 		fill();
 	}
 
+	@Override
+	public void addEiaTypeSelectionListener(
+			EIATypeSelectionListener eIATypeSelectionListener) {
+		resultSet.addEiaTypeSelectionListener(eIATypeSelectionListener);
+
+	}
+
+	/**
+	 * 
+	 */
+	public void clean() {
+		form.clearValues();
+		resultSet.clean();
+	}
+
+	@Override
+	public void close() {
+		destroy();
+	}
+
 	private void fill() {
 		typeItem.setValueMap(EiaTypeEnum.toValueMap());
 		subTypeItem.setValueMap(EiaSubTypeEnum.toValueMap());
@@ -138,16 +158,25 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 	}
 
 	@Override
+	public void hide() {
+		super.hide();
+	}
+
+	@Override
 	public void notifyEiaType(EiaType eiaType) {
 	}
 
 	@Override
-	public void select(EiaType eiaType) {
-		search(eiaType);
+	public void open() {
+		resultSet.setVisible(true);
+		super.open();
+	}
 
-		// Reload the Brand Select field, to prevent outdated cached list of
-		// brands
-		fillBrands(true);
+	@Override
+	public void removeEiaTypeSelectionListener(
+			EIATypeSelectionListener eIATypeSelectionListener) {
+		resultSet.removeEiaTypeSelectionListener(eIATypeSelectionListener);
+
 	}
 
 	@Override
@@ -187,47 +216,18 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 				} else
 					newList = results;
 
-				resultSet.setRecords(newList);
+				resultSet.setRecords(newList, false);
 
 			}
 		});
 	}
 
 	@Override
-	public void close() {
-		destroy();
-	}
+	public void select(EiaType eiaType) {
+		search(eiaType);
 
-	@Override
-	public void hide() {
-		super.hide();
-	}
-
-	@Override
-	public void addEiaTypeSelectionListener(
-			EIATypeSelectionListener eIATypeSelectionListener) {
-		resultSet.addEiaTypeSelectionListener(eIATypeSelectionListener);
-
-	}
-
-	@Override
-	public void removeEiaTypeSelectionListener(
-			EIATypeSelectionListener eIATypeSelectionListener) {
-		resultSet.removeEiaTypeSelectionListener(eIATypeSelectionListener);
-
-	}
-
-	/**
-	 * 
-	 */
-	public void clean() {
-		form.clearValues();
-		resultSet.clean();
-	}
-
-	@Override
-	public void open() {
-		resultSet.setVisible(true);
-		super.open();
+		// Reload the Brand Select field, to prevent outdated cached list of
+		// brands
+		fillBrands(true);
 	}
 }

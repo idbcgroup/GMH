@@ -63,8 +63,9 @@ public abstract class GHAResultSet<T> extends VLayout implements ResizeHandler,
 
 	/**
 	 * @param records
+	 * @param notifyIfOnlyOneResult TODO
 	 */
-	public abstract void setRecords(List<T> records);
+	public abstract void setRecords(List<T> records, boolean notifyIfOnlyOneResult);
 
 	@Override
 	public void close() throws UnavailableToCloseException {

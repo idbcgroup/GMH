@@ -1,9 +1,10 @@
 package org.fourgeeks.gha.webclient.client.eia;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.List;
 
+import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.ess.Role;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
@@ -13,18 +14,14 @@ import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
-import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.GHAUtil;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
-import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACancelButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASearchForm;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.types.TitleOrientation;
@@ -33,26 +30,24 @@ import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.form.fields.events.KeyUpEvent;
 import com.smartgwt.client.widgets.form.fields.events.KeyUpHandler;
-import com.smartgwt.client.widgets.grid.ListGridRecord;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
- * @author alacret
+ * @author alacret, emiliot
  * 
  */
-public class EIASearchForm extends GHASlideInWindow implements
+public class EIASearchForm extends GHASearchForm<Eia> implements
 		EIASelectionListener, EiaSelectionProducer {
 
-	private List<EIASelectionListener> listeners;
-	private EIAGrid grid;
 	private GHATextItem codeItem, fixedAssetIdentifierItem, serialNumberItem;
 	private GHASelectItem responsibleRoleItem, eiaTypeItem,
 			workingAreaLocationItem, facilityLocationItem, obuItem, stateItem;
+	private EiaResultSet resultSet = new EiaResultSet();
+	private final DynamicForm form = new DynamicForm();
 
 	{
-		listeners = new LinkedList<EIASelectionListener>();
 
 		responsibleRoleItem = new GHASelectItem("Responsable");
 		codeItem = new GHATextItem("Código");
@@ -70,22 +65,26 @@ public class EIASearchForm extends GHASlideInWindow implements
 		fixedAssetIdentifierItem.setLength(20);
 		fixedAssetIdentifierItem.setMask("###################");
 		stateItem = new GHASelectItem("Estado");
-		grid = new EIAGrid();
+
+		resultSet.addEiaSelectionListener(new EIASelectionListener() {
+
+			@Override
+			public void select(Eia eia) {
+				hide();
+			}
+		});
 	}
 
 	/**
 	 * 
 	 */
-	public EIASearchForm() {
-		super();
+	public EIASearchForm(String title) {
+		super(title);
 		setTop(GHAUiHelper.DEFAULT_TOP_SECTION_HEIGHT);
 		setHeight(GHAUiHelper.getTabHeight() - 5 + "px");
 
 		GHAUiHelper.addGHAResizeHandler(this);
 
-		GHALabel title = new GHALabel("Busqueda de Equipos");
-
-		final DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(5);
 
@@ -93,13 +92,6 @@ public class EIASearchForm extends GHASlideInWindow implements
 				fixedAssetIdentifierItem, workingAreaLocationItem,
 				facilityLocationItem, obuItem, serialNumberItem, stateItem);
 
-		ClickHandler searchClickHandler = new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				search();
-			}
-		};
 		KeyUpHandler searchKeyUpHandler = new KeyUpHandler() {
 
 			@Override
@@ -120,60 +112,137 @@ public class EIASearchForm extends GHASlideInWindow implements
 		serialNumberItem.addKeyUpHandler(searchKeyUpHandler);
 		stateItem.addKeyUpHandler(searchKeyUpHandler);
 
-		VLayout sideButtons = GHAUiHelper.createBar(
-				new GHASearchButton(searchClickHandler),
-				new GHACleanButton(
-					new ClickHandler() {
+		VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
+				searchClickHandler), new GHACleanButton(new ClickHandler() {
 
-						@Override
-						public void onClick(ClickEvent event) {
-							form.clearValues();
-							grid.setData(new ListGridRecord[0]);
-						}
-					}), 
-				new GHACancelButton(
-					new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				clean();
+			}
+		}), new GHACancelButton(new ClickHandler() {
 
-						@Override
-						public void onClick(ClickEvent event) {
-							hide();
-						}
-					}));
+			@Override
+			public void onClick(ClickEvent event) {
+				hide();
+			}
+		}));
 
 		HLayout formLayout = new HLayout();
 		formLayout.setPadding(10);
-		formLayout.setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT + "px");
+		formLayout.setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT
+				+ "px");
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
 
-		addMembers(title, formLayout,
+		addMembers(formLayout,
 				GHAUiHelper
 						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
-								+ "px"));
+								+ "px"), resultSet);
+		fill();
+	}
 
-		HLayout gridLayout = new HLayout();
-		gridLayout.setPadding(10);
+	@Override
+	public void addEiaSelectionListener(
+			EIASelectionListener eiaSelectionListener) {
+		resultSet.addEiaSelectionListener(eiaSelectionListener);
+	}
 
-		VLayout sideGridButtons = GHAUiHelper.createBar(new GHAImgButton(
-				"../resources/icons/check.png", new ClickHandler() {
+	/**
+	 * 
+	 */
+	private void clean() {
+		form.clearValues();
+		resultSet.clean();
+	}
 
-					@Override
-					public void onClick(ClickEvent event) {
-						selectEia();
-					}
-				}), GHAUiHelper.verticalGraySeparator("2px"));
+	@Override
+	public void close() {
+		destroy();
+	}
 
-		gridLayout.addMembers(grid, sideGridButtons);
-
-		addMember(gridLayout);
+	private void fill() {
+		stateItem.setValueMap(EiaStateEnum.toValueMap());
 		searchForEiaTypes();
 		searchForRoleBases();
 		searchForLocations();
 		searchForObus();
-		fillExtras();
 	}
 
-	private void fillExtras() {
-		stateItem.setValueMap(EiaStateEnum.toValueMap());
+	@Override
+	public void hide() {
+		super.hide();
+	}
+
+	@Override
+	public void notifyEia(Eia eia) {
+	}
+
+	@Override
+	public void onResize(ResizeEvent event) {
+		setHeight(GHAUiHelper.getTabHeight() - 5 + "px");
+	}
+
+	@Override
+	public void open() {
+		resultSet.setVisible(true);
+		super.open();
+	}
+
+	@Override
+	public void removeEiaSelectionListener(
+			EIASelectionListener eiaSelectionListener) {
+		resultSet.removeEiaSelectionListener(eiaSelectionListener);
+	}
+
+	@Override
+	public void search() {
+		Eia eia = new Eia();
+		// if (actualCostItem.getValue() != null)
+		// eia.setActualCost(new BigDecimal(actualCostItem.getValueAsString()));
+		if (responsibleRoleItem.getValue() != null)
+			eia.setResponsibleRole(new Role(Long.parseLong(responsibleRoleItem
+					.getValueAsString())));
+		if (codeItem.getValue() != null)
+			eia.setCode(codeItem.getValueAsString());
+		if (eiaTypeItem.getValue() != null)
+			eia.setEiaType(new EiaType(eiaTypeItem.getValueAsString()));
+		if (fixedAssetIdentifierItem.getValue() != null)
+			eia.setFixedAssetIdentifier(fixedAssetIdentifierItem
+					.getValueAsString());
+		if (workingAreaLocationItem.getValue() != null)
+			eia.setWorkingArea(new WorkingArea(Integer
+					.valueOf(workingAreaLocationItem.getValueAsString())));
+		if (facilityLocationItem.getValue() != null)
+			eia.setFacility(new Facility(Integer.valueOf(facilityLocationItem
+					.getValueAsString())));
+		if (obuItem.getValue() != null)
+			eia.setObu(new Obu(Long.parseLong(obuItem.getValueAsString())));
+		if (serialNumberItem.getValue() != null)
+			eia.setSerialNumber(serialNumberItem.getValueAsString());
+		if (stateItem.getValue() != null)
+			eia.setState(EiaStateEnum.valueOf(stateItem.getValueAsString()));
+		else
+			eia.setState(null);
+		search(eia);
+	}
+
+	private void search(final Eia eia) {
+		EIAModel.find(eia, new GHAAsyncCallback<List<Eia>>() {
+
+			@Override
+			public void onSuccess(List<Eia> result) {
+				List<Eia> newList = new ArrayList<Eia>();
+				if (blackList != null) {
+					List<AbstractEntity> tmpList = GHAUtil
+							.binarySearchFilterEntity(result, blackList);
+					List<Eia> newTmpList = new ArrayList<Eia>();
+					for (AbstractEntity entity : tmpList)
+						newTmpList.add((Eia) entity);
+					newList = newTmpList;
+				} else
+					newList = result;
+				resultSet.setRecords(newList, false);
+			}
+		});
 	}
 
 	private void searchForEiaTypes() {
@@ -247,86 +316,8 @@ public class EIASearchForm extends GHASlideInWindow implements
 	}
 
 	@Override
-	public void addEiaSelectionListener(
-			EIASelectionListener eiaSelectionListener) {
-		listeners.add(eiaSelectionListener);
-	}
-
-	@Override
-	public void notifyEia(Eia eia) {
-		for (EIASelectionListener listener : listeners)
-			listener.select(eia);
-	}
-
-	@Override
 	public void select(Eia eia) {
 		search(eia);
-	}
-
-	private void search() {
-		Eia eia = new Eia();
-		// if (actualCostItem.getValue() != null)
-		// eia.setActualCost(new BigDecimal(actualCostItem.getValueAsString()));
-		if (responsibleRoleItem.getValue() != null)
-			eia.setResponsibleRole(new Role(Long.parseLong(responsibleRoleItem
-					.getValueAsString())));
-		if (codeItem.getValue() != null)
-			eia.setCode(codeItem.getValueAsString());
-		if (eiaTypeItem.getValue() != null)
-			eia.setEiaType(new EiaType(eiaTypeItem.getValueAsString()));
-		if (fixedAssetIdentifierItem.getValue() != null)
-			eia.setFixedAssetIdentifier(fixedAssetIdentifierItem
-					.getValueAsString());
-		if (workingAreaLocationItem.getValue() != null)
-			eia.setWorkingArea(new WorkingArea(Integer
-					.valueOf(workingAreaLocationItem.getValueAsString())));
-		if (facilityLocationItem.getValue() != null)
-			eia.setFacility(new Facility(Integer.valueOf(facilityLocationItem
-					.getValueAsString())));
-		if (obuItem.getValue() != null)
-			eia.setObu(new Obu(Long.parseLong(obuItem.getValueAsString())));
-		if (serialNumberItem.getValue() != null)
-			eia.setSerialNumber(serialNumberItem.getValueAsString());
-		if (stateItem.getValue() != null)
-			eia.setState(EiaStateEnum.valueOf(stateItem.getValueAsString()));
-		else
-			eia.setState(null);
-		search(eia);
-	}
-
-	private void search(final Eia eia) {
-		EIAModel.find(eia, new GHAAsyncCallback<List<Eia>>() {
-
-			@Override
-			public void onSuccess(List<Eia> result) {
-				ListGridRecord[] array = EIAUtil.toGridRecords(result).toArray(
-						new EIARecord[] {});
-				grid.setData(array);
-				// TODO: arreglar de acuerdo a usersearchform como lo hizo el
-				// señor emilio
-				if (eia != null && eia.getId() != 0l)
-					for (ListGridRecord listGridRecord : grid.getRecords())
-						if (((EIARecord) listGridRecord).toEntity().getId() == eia
-								.getId())
-							grid.selectRecord(listGridRecord);
-			}
-		});
-	}
-
-	@Override
-	public void hide() {
-		super.hide();
-	}
-
-	@Override
-	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getTabHeight() - 5 + "px");
-	}
-
-	@Override
-	public void removeEiaSelectionListener(
-			EIASelectionListener eiaSelectionListener) {
-		listeners.remove(eiaSelectionListener);
 	}
 
 	/**
@@ -338,30 +329,5 @@ public class EIASearchForm extends GHASlideInWindow implements
 			eiaTypeItem.disable();
 		}
 
-	}
-
-	/**
-	 * 
-	 */
-	private void selectEia() {
-		GHAGridRecord<Eia> selectedRecord = grid.getSelectedRecord();
-		if (selectedRecord == null) {
-			GHANotification.oldAlert(GHAStrings.get("record-not-selected"));
-			return;
-		}
-		notifyEia(((EIARecord) selectedRecord).toEntity());
-		hide();
-	}
-
-	@Override
-	public boolean canBeClosen() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean canBeHidden() {
-		// TODO Auto-generated method stub
-		return false;
 	}
 }
