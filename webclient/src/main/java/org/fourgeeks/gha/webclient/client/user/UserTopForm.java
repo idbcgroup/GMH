@@ -17,11 +17,13 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAUserNameItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAUserStateSelectItem;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 
 import com.smartgwt.client.types.TitleOrientation;
+import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
@@ -35,7 +37,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 		UserSelectionListener {
 
-	private List<BpuFunction> permissions;
+	private long selectedUserId;
 	private UserTab userTab;
 	private VLayout sideButtons;
 	private GHATextItem usernameItem, typeidSelectItem;
@@ -44,7 +46,7 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 			secondLastNameItem, emailItem, alterEmailItem, idItem;
 	private GHASelectItem genderSelectItem;
 	private GHASearchButton searchButton;
-	private GHADeleteButton deleteImgButton
+	private GHADeleteButton deleteButton;
 	private GHACleanButton cleanButton;
 	{
 		usernameItem = new GHAUserNameItem(300);
@@ -77,10 +79,12 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 
 	/**
 	 * @param resultSet
+	 * @param userTab
 	 * @param tab
 	 */
-	public UserTopForm(UserResultSet resultSet) {
+	public UserTopForm(UserResultSet resultSet, UserTab userTab) {
 		super(resultSet);
+		this.userTab = userTab;
 		DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(6);
@@ -88,20 +92,20 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 				firstLastNameItem, secondLastNameItem, typeidSelectItem,
 				idItem, emailItem, alterEmailItem, genderSelectItem);
 
-		deleteImgButton = new GHADeleteButton(new ClickHandler() {
+		deleteButton = new GHADeleteButton(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				delete();
 			}
 		});
-		searchImgButton = new GHASearchButton(new ClickHandler() {
+		searchButton = new GHASearchButton(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				search();
 			}
 		});
 
-		sideButtons = GHAUiHelper.createBar(searchImgButton);
+		sideButtons = GHAUiHelper.createBar(searchButton);
 		addMembers(form, new LayoutSpacer(), sideButtons);
 		deactivate();
 	}
@@ -150,6 +154,7 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 
 	@Override
 	public void select(SSOUser ssoUser) {
+		selectedUserId = ssoUser.getId();
 		// TODO seleccionar identificador
 
 		if (ssoUser.getUserName() != null)
@@ -232,4 +237,24 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 
 	}
 
+	private void delete() {
+		GHANotification.confirm(GHAStrings.get("user"),
+				GHAStrings.get("user-delete-confirm"), new BooleanCallback() {
+					@Override
+					public void execute(Boolean value) {
+						if (value) {
+							UserModel.delete(selectedUserId,
+									new GHAAsyncCallback<Void>() {
+										@Override
+										public void onSuccess(Void result) {
+											userTab.search();
+											clear();
+											GHANotification
+													.alert("ssoUser-delete-success");
+										}
+									});
+						}
+					}
+				});
+	}
 }

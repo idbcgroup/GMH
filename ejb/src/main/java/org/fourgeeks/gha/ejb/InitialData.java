@@ -320,6 +320,9 @@ public class InitialData {
 						"ssoUser-delete-fail",
 						"Fallo la eliminación del SSOUser"));
 				em.persist(new GHAMessage(LanguageEnum.ES,
+						"ssoUser-delete-success",
+						"Usuario eliminado exitosamente"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
 						"ssoUser-findBySsoUser-fail",
 						"Búsqueda fallida de SSOUser por ssoUser"));
 				em.persist(new GHAMessage(LanguageEnum.ES, "ssoUser-find-fail",
@@ -1596,6 +1599,8 @@ public class InitialData {
 						"¿Desea eliminar el tipo de equipo?"));
 				em.persist(new UiString(LanguageEnum.ES, "eia-delete-confirm",
 						"¿Desea eliminar el equipo?"));
+				em.persist(new UiString(LanguageEnum.ES, "user-delete-confirm",
+						"¿Desea eliminar al usuario?"));
 				em.persist(new UiString(LanguageEnum.ES, "amount", "Cantidad"));
 				em.persist(new UiString(LanguageEnum.ES,
 						"empty-materialcategory-grid",

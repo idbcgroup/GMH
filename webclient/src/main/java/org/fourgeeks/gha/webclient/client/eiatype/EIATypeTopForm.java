@@ -21,8 +21,10 @@ import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 
 import com.smartgwt.client.types.TitleOrientation;
+import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
@@ -229,7 +231,6 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 		activated = false;
 	}
 
-
 	/**
 	 * Elimina el eiaType seleccionado
 	 */
@@ -245,7 +246,7 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 										@Override
 										public void onSuccess(Void result) {
 											eiaTypeTab.search();
-											clearFields();
+											clear();
 											GHANotification
 													.alert("eiatype-delete-success");
 										}
@@ -254,6 +255,7 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 					}
 				});
 	}
+
 	@Override
 	public void search() {
 		EiaType eiaType = new EiaType();
