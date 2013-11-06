@@ -30,14 +30,11 @@ public class UserSearchForm extends GHASlideInWindow implements
 		UserSelectionProducer, UserSelectionListener {
 
 	private UserGrid grid;
-
-	private UserAddForm addForm;
 	private List<UserSelectionListener> listeners;
 	private UserTopForm userTopForm;
 
 	{
 		grid = new UserGrid();
-		addForm = new UserAddForm();
 		listeners = new ArrayList<UserSelectionListener>();
 	}
 
@@ -101,22 +98,12 @@ public class UserSearchForm extends GHASlideInWindow implements
 					public void onClick(ClickEvent event) {
 						selectUser();
 					}
-				}), GHAUiHelper.verticalGraySeparator("2px"), new GHAImgButton(
-				"../resources/icons/new.png", new ClickHandler() {
-
-					@Override
-					public void onClick(ClickEvent event) {
-						addForm.open();
-						// addForm.show();
-					}
-				}));
+				}), GHAUiHelper.verticalGraySeparator("2px"));
 
 		gridLayout.addMembers(grid, sideGridButtons);
 
 		addMember(gridLayout);
 
-		// register as listener to the addform producer
-		addForm.addUserSelectionListener(this);
 	}
 
 	private void search() {
@@ -125,14 +112,12 @@ public class UserSearchForm extends GHASlideInWindow implements
 
 	@Override
 	public void close() {
-		addForm.destroy();
 		destroy();
 	}
 
 	@Override
 	public void hide() {
 		super.hide();
-		addForm.hide();
 	}
 
 	@Override

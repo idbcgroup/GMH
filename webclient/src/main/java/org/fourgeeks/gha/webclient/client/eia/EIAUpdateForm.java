@@ -221,7 +221,6 @@ public class EIAUpdateForm extends GHASlideInWindow implements
 
 			@Override
 			public void onSuccess(Eia result) {
-				GHANotification.alert("eia-save-success");
 				hide();
 			}
 		});

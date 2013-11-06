@@ -1,6 +1,7 @@
 package org.fourgeeks.gha.webclient.client.user.permissions;
 
 import org.fourgeeks.gha.domain.ess.SSOUser;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
 import org.fourgeeks.gha.webclient.client.user.UserSelectionListener;
 import org.fourgeeks.gha.webclient.client.user.UserTab;
@@ -18,8 +19,7 @@ public class UserPermissionSubTab extends GHASubTab implements
 	 * @param tab
 	 */
 	public UserPermissionSubTab(UserTab tab) {
-		super("Permisos", tab);
-		setDisabled(true);
+		super(GHAStrings.get("permissions"), tab);
 		tab.addUserSelectionListener(this);
 		gridPanel = new FunctionGridPanel(this);
 		setPane(gridPanel);
@@ -27,7 +27,6 @@ public class UserPermissionSubTab extends GHASubTab implements
 
 	@Override
 	public void select(SSOUser ssoUser) {
-		setDisabled(false);
 		gridPanel.loadData(ssoUser);
 	}
 

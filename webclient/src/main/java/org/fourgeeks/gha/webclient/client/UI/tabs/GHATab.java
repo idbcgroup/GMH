@@ -33,8 +33,6 @@ public abstract class GHATab extends VLayout implements GHAClosable,
 		this.token = token;
 		setWidth100();
 		setBackgroundColor(GHAUiHelper.DEFAULT_BACKGROUND_COLOR);
-		// verticalPanel.setBackgroundColor("#FFFFFF");
-		// addMember(verticalPanel);
 	}
 
 	/**

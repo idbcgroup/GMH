@@ -38,6 +38,8 @@ public class EiaTypeMaterialCategory extends AbstractEntity {
 	@JoinColumn(name = "materialCategoryFk", nullable = false, columnDefinition = "varchar(255) REFERENCES materialcategory(code) ON UPDATE CASCADE ON DELETE CASCADE")
 	private MaterialCategory materialCategory;
 
+	private int amount = 0;
+
 	public EiaType getEiaType() {
 		return eiaType;
 	}
@@ -52,6 +54,21 @@ public class EiaTypeMaterialCategory extends AbstractEntity {
 
 	public void setMaterialCategory(MaterialCategory materialCategory) {
 		this.materialCategory = materialCategory;
+	}
+
+	/**
+	 * @return the amount
+	 */
+	public int getAmount() {
+		return amount;
+	}
+
+	/**
+	 * @param amount
+	 *            the amount to set
+	 */
+	public void setAmount(int amount) {
+		this.amount = amount;
 	}
 
 }

@@ -237,7 +237,7 @@ public class InitialData {
 						"Failed to get all Equipment types"));
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"error-eia-adquisition-dates-order",
-						"Las fecha de adquisicion deben estar en orden cronologico"));
+						"Las fechas de adquisicion deben estar en orden cronológico"));
 
 				// function service messages
 				em.persist(new GHAMessage(LanguageEnum.ES,
@@ -869,6 +869,12 @@ public class InitialData {
 				em.persist(new GHAMessage(LanguageEnum.EN,
 						"eiaTypeMaterial-save-fail",
 						"Failed to save EiaTypeMaterial"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"eiaTypeMaterial-update-fail",
+						"Actualización fallida de EiaTypeMaterial"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"eiaTypeMaterial-update-fail",
+						"Actualización fallida del EiaType y el Material"));
 
 				// eiaTypePicture service messages
 				em.persist(new GHAMessage(LanguageEnum.ES,
@@ -921,6 +927,12 @@ public class InitialData {
 				em.persist(new GHAMessage(LanguageEnum.EN,
 						"eiaTypeUtility-save-fail",
 						"Failed to save EiaTypeUtility"));
+				em.persist(new GHAMessage(LanguageEnum.EN,
+						"eiaTypeUtility-update-fail",
+						"Failed to save EiaTypeUtility"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"eiaTypeUtility-update-fail",
+						"Fallo la actualización del EiaType y el Servicio Utilitario"));
 
 				// maintenanceActivityMaintenanceProtocol service messages
 				em.persist(new GHAMessage(LanguageEnum.ES,
@@ -1447,7 +1459,12 @@ public class InitialData {
 		} catch (NoResultException e) {
 			try {
 				logger.info("Creating uistrings test data");
-
+				em.persist(new UiString(LanguageEnum.ES, "new-user",
+						"Nuevo usuario"));
+				em.persist(new UiString(LanguageEnum.ES, "permissions",
+						"Permisos"));
+				em.persist(new UiString(LanguageEnum.ES, "login-log",
+						"Registro de inicio de sesión"));
 				em.persist(new UiString(LanguageEnum.ES, "new-utility-service",
 						"Nuevo servicio utilitario"));
 				em.persist(new UiString(LanguageEnum.ES, "delete", "Borrar"));
@@ -1472,6 +1489,10 @@ public class InitialData {
 				em.persist(new UiString(LanguageEnum.ES, "materials",
 						"Materiales"));
 				em.persist(new UiString(LanguageEnum.ES, "name", "Nombre"));
+				em.persist(new UiString(LanguageEnum.ES, "mail", "Correo"));
+				em.persist(new UiString(LanguageEnum.ES, "alternative-mail",
+						"Correo alternativo"));
+				em.persist(new UiString(LanguageEnum.ES, "genre", "Género"));
 				em.persist(new UiString(LanguageEnum.ES, "components",
 						"Componentes"));
 				em.persist(new UiString(LanguageEnum.ES, "information",
@@ -1521,6 +1542,12 @@ public class InitialData {
 				em.persist(new UiString(LanguageEnum.ES, "state", "Estado"));
 				em.persist(new UiString(LanguageEnum.ES, "first-name",
 						"Primer nombre"));
+				em.persist(new UiString(LanguageEnum.ES, "second-name",
+						"Segundo nombre"));
+				em.persist(new UiString(LanguageEnum.ES, "first-lastname",
+						"Primer apellido"));
+				em.persist(new UiString(LanguageEnum.ES, "second-lastname",
+						"Segundo apellido"));
 				em.persist(new UiString(LanguageEnum.ES, "last-name",
 						"Apellido"));
 				em.persist(new UiString(LanguageEnum.ES, "id-type",
@@ -1550,14 +1577,14 @@ public class InitialData {
 				em.persist(new UiString(LanguageEnum.ES, "unsaved-changes",
 						"Tiene cambios sin guardar, ¿Desea descartarlos?"));
 				em.persist(new UiString(LanguageEnum.ES, "search-component",
-						"Buscar un componente para un tipo de equipo"));
+						"Búsqueda de componentes"));
 				em.persist(new UiString(LanguageEnum.ES, "search-material",
-						"Buscar un material"));
+						"Búsqueda de materiales"));
 				em.persist(new UiString(LanguageEnum.ES, "record-not-selected",
 						"Debe seleccionar un registro"));
 				em.persist(new UiString(LanguageEnum.ES,
 						"search-utility-material",
-						"Buscar un material utilitario"));
+						"Búsqueda de materiales utilitarios"));
 				em.persist(new UiString(LanguageEnum.ES,
 						"eiatype-material-category-delete-confirm",
 						"¿Desea eliminar la categoria de material asociada al tipo de equipo?"));
@@ -1569,6 +1596,10 @@ public class InitialData {
 						"¿Desea eliminar el tipo de equipo?"));
 				em.persist(new UiString(LanguageEnum.ES, "eia-delete-confirm",
 						"¿Desea eliminar el equipo?"));
+				em.persist(new UiString(LanguageEnum.ES, "amount", "Cantidad"));
+				em.persist(new UiString(LanguageEnum.ES,
+						"empty-materialcategory-grid",
+						"No existen Materiales para mostrar"));
 
 				em.flush();
 			} catch (Exception e1) {

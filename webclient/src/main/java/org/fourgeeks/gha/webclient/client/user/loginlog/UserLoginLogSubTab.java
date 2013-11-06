@@ -1,6 +1,7 @@
 package org.fourgeeks.gha.webclient.client.user.loginlog;
 
 import org.fourgeeks.gha.domain.ess.SSOUser;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
 import org.fourgeeks.gha.webclient.client.user.UserSelectionListener;
 import org.fourgeeks.gha.webclient.client.user.UserTab;
@@ -18,8 +19,7 @@ public class UserLoginLogSubTab extends GHASubTab implements
 	 * @param tab
 	 */
 	public UserLoginLogSubTab(UserTab tab) {
-		super("Login Log", tab);
-		setDisabled(true);
+		super(GHAStrings.get("login-log"), tab);
 		tab.addUserSelectionListener(this);
 		userLoginLogGridPanel = new UserLoginLogGridPanel();
 		setPane(userLoginLogGridPanel);
@@ -27,7 +27,6 @@ public class UserLoginLogSubTab extends GHASubTab implements
 
 	@Override
 	public void select(SSOUser ssoUser) {
-		setDisabled(false);
 		userLoginLogGridPanel.loadData(ssoUser);
 	}
 

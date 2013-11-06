@@ -65,12 +65,12 @@ public class UserModel {
 		ssoUservice.delete(bpuFunction, callback);
 	}
 
-// TODO : Pasar a bpuFunctionmodel
+	// TODO : Pasar a bpuFunctionmodel
 	public static void getFunctionsByBpu(Bpu bpu,
 			GHAAsyncCallback<List<BpuFunction>> callback) {
 		ssoUservice.getFunctionsByBpu(bpu, callback);
 	}
-	
+
 	/**
 	 * @param ssoUser
 	 * @param ghaAsyncCallback

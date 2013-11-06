@@ -10,6 +10,11 @@ import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.fields.events.KeyUpEvent;
 import com.smartgwt.client.widgets.form.fields.events.KeyUpHandler;
 
+/**
+ * @author alacret
+ * 
+ * @param <T>
+ */
 public abstract class GHASearchForm<T> extends GHASlideInWindow {
 	private GHALabel label;
 	protected List<T> blackList;
@@ -30,10 +35,13 @@ public abstract class GHASearchForm<T> extends GHASlideInWindow {
 		}
 	};
 
+	/**
+	 * @param title
+	 */
 	public GHASearchForm(String title) {
 		super();
 		setWidth100();
-		setHeight(GHAUiHelper.getTabHeight()-5);
+		setHeight(GHAUiHelper.getTabHeight());
 		setTop(GHAUiHelper.DEFAULT_TOP_SECTION_HEIGHT);
 		label = new GHALabel(title);
 		addMember(label);
@@ -41,7 +49,7 @@ public abstract class GHASearchForm<T> extends GHASlideInWindow {
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getTabHeight()-5);
+		setHeight(GHAUiHelper.getTabHeight() - 5);
 	}
 
 	@Override
@@ -54,8 +62,14 @@ public abstract class GHASearchForm<T> extends GHASlideInWindow {
 		return true;
 	}
 
+	/**
+	 * 
+	 */
 	public abstract void search();
 
+	/**
+	 * @param blackList
+	 */
 	public void filterBy(List<T> blackList) {
 		this.blackList = blackList;
 	}

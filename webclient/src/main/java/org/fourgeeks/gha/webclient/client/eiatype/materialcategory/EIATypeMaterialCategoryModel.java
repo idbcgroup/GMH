@@ -32,4 +32,13 @@ public class EIATypeMaterialCategoryModel {
 		service.delete(id, callback);
 	}
 
+	/**
+	 * @param entity
+	 * @param callback
+	 */
+	public static void update(EiaTypeMaterialCategory entity,
+			GHAAsyncCallback<EiaTypeMaterialCategory> callback) {
+		service.update(entity, callback);
+	}
+
 }

@@ -7,33 +7,26 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACheckButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAResultSet;
 
-import com.google.gwt.event.logical.shared.ResizeEvent;
-import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
 import com.smartgwt.client.widgets.layout.HLayout;
-import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
  * @author emiliot
  * 
  */
-public class EiaTypeResultSet extends VLayout implements
-		EiaTypeSelectionProducer, ResizeHandler, GHAHideable, GHAClosable {
+public class EiaTypeResultSet extends GHAResultSet<EiaType> implements
+		EiaTypeSelectionProducer {
 	private List<EIATypeSelectionListener> listeners;
-	private GHALabel searchResultsLabel;
 	private EIATypeGrid grid;
 
 	{
@@ -45,12 +38,7 @@ public class EiaTypeResultSet extends VLayout implements
 	 * 
 	 */
 	public EiaTypeResultSet() {
-		super();
-		setHeight(GHAUiHelper.getBottomSectionHeight());
-		setStyleName("sides-padding padding-top");// Esto es VUDU!
-		setVisible(false);
-		searchResultsLabel = new GHALabel(GHAStrings.get("search-results"));
-		addMember(searchResultsLabel);
+		super(GHAStrings.get("search-results"));
 		HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(grid, GHAUiHelper.createBar(new GHACheckButton(
 				new ClickHandler() {
@@ -92,18 +80,6 @@ public class EiaTypeResultSet extends VLayout implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * com.google.gwt.event.logical.shared.ResizeHandler#onResize(com.google
-	 * .gwt.event.logical.shared.ResizeEvent)
-	 */
-	@Override
-	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getBottomSectionHeight());
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see org.fourgeeks.gha.webclient.client.eiatype.EiaTypeSelectionProducer#
 	 * removeEiaTypeSelectionListener
 	 * (org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener)
@@ -126,28 +102,24 @@ public class EiaTypeResultSet extends VLayout implements
 		}
 		notifyEiaType(selectedRecord.toEntity());
 		hide();
+		grid.removeSelectedData();
 	}
 
-	/**
-	 * this method set the list of records inside the grid
-	 * 
-	 * @param records
-	 */
+	@Override
 	public void setRecords(List<EiaType> records) {
 		mostrarCantResults(records);
-
 		// if only one record is on the list, notify the element and return
 		if (records.size() == 1) {
 			notifyEiaType(records.get(0));
-			this.hide();
+			hide();
 			return;
 		}
-
 		ListGridRecord[] array = EIATypeUtil.toGridRecords(records).toArray(
 				new EIATypeRecord[] {});
 		grid.setData(array);
-		// setAnimateAcceleration(AnimationAcceleration.NONE);
-		this.animateShow(AnimationEffect.FADE);
+		if (!isVisible())
+			this.animateShow(AnimationEffect.FADE);
+
 	}
 
 	/**
@@ -195,18 +167,8 @@ public class EiaTypeResultSet extends VLayout implements
 	}
 
 	@Override
-	public boolean canBeClosen() {
-		return true;
-	}
-
-	@Override
-	public void close() throws UnavailableToCloseException {
-		destroy();
-	}
-
-	@Override
-	public boolean canBeHidden() {
-		return true;
+	public void clean() {
+		grid.setData(new EIATypeRecord[] {});
 	}
 
 }

@@ -9,8 +9,8 @@ import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
+import org.fourgeeks.gha.webclient.client.UI.GHATopForm;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHABrandSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHACodeItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAEiaTypeSubTypeSelectItem;
@@ -21,21 +21,11 @@ import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 
-import com.google.gwt.event.logical.shared.ResizeEvent;
-import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.types.TitleOrientation;
-import com.smartgwt.client.types.VerticalAlignment;
-import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
-import com.smartgwt.client.widgets.form.fields.events.KeyUpEvent;
-import com.smartgwt.client.widgets.form.fields.events.KeyUpHandler;
-import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
@@ -43,8 +33,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret, emiliot
  * 
  */
-public class EIATypeTopForm extends HLayout implements
-		EIATypeSelectionListener, ResizeHandler, GHAHideable, GHAClosable {
+public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
+		implements EIATypeSelectionListener {
 
 	// private final EIATypeTab eiaTypeTab;
 	// private EIATypeSearchForm eiaTypeSearchForm;
@@ -63,7 +53,6 @@ public class EIATypeTopForm extends HLayout implements
 	private EIATypeTab eiaTypeTab;
 
 	{
-		// eiaTypeSearchForm = new EIATypeSearchForm();
 		codeItem = new GHACodeItem(230);
 		modelItem = new GHATextItem(GHAStrings.get("model"), 230);
 		nameItem = new GHATextItem(GHAStrings.get("name"), 460);
@@ -80,17 +69,8 @@ public class EIATypeTopForm extends HLayout implements
 	 * @param eiaTypeTab
 	 */
 	public EIATypeTopForm(EiaTypeResultSet resultSet, EIATypeTab eiaTypeTab) {
-		super();
-		this.resultSet = resultSet;
+		super(resultSet);
 		this.eiaTypeTab = eiaTypeTab;
-
-		GHAUiHelper.addGHAResizeHandler(this);
-		setStyleName("sides-padding padding-top");
-		setWidth100();
-		setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT + "px");
-		setBackgroundColor(GHAUiHelper.DEFAULT_BACKGROUND_COLOR);
-		setDefaultLayoutAlign(VerticalAlignment.CENTER);
-
 		DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(4);
@@ -137,16 +117,6 @@ public class EIATypeTopForm extends HLayout implements
 		// photoPanel.addMembers(photo, photoBotones);
 		// // Botones laterales del Panel
 
-		KeyUpHandler searchKeyUpHandler = new KeyUpHandler() {
-
-			@Override
-			public void onKeyUp(KeyUpEvent event) {
-				if (event.getKeyName().equals("Enter")) {
-					search();
-				}
-			}
-		};
-
 		codeItem.addKeyUpHandler(searchKeyUpHandler);
 		modelItem.addKeyUpHandler(searchKeyUpHandler);
 		nameItem.addKeyUpHandler(searchKeyUpHandler);
@@ -164,7 +134,7 @@ public class EIATypeTopForm extends HLayout implements
 		cleanImgButton = new GHACleanButton(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				clearFields();
+				clear();
 			}
 		});
 		deleteImgButton = new GHADeleteButton(new ClickHandler() {
@@ -213,7 +183,7 @@ public class EIATypeTopForm extends HLayout implements
 	// }
 	// });
 	// }
-
+	@Override
 	public void activate() {
 		codeItem.enable();
 		codeItem.focusInItem();
@@ -231,19 +201,7 @@ public class EIATypeTopForm extends HLayout implements
 	}
 
 	@Override
-	public boolean canBeClosen() {
-		return true;
-	}
-
-	@Override
-	public boolean canBeHidden() {
-		return true;
-	}
-
-	/**
-	 * 
-	 */
-	public void clearFields() {
+	public void clear() {
 		// first check if the topform is active for search
 		if (!this.activated)
 			return;
@@ -257,13 +215,6 @@ public class EIATypeTopForm extends HLayout implements
 	}
 
 	@Override
-	public void close() throws UnavailableToCloseException {
-		destroy();
-	}
-
-	/**
-	 * 
-	 */
 	public void deactivate() {
 		codeItem.disable();
 		nameItem.disable();
@@ -277,6 +228,7 @@ public class EIATypeTopForm extends HLayout implements
 		sideButtons.addMember(deleteImgButton, 0);
 		activated = false;
 	}
+
 
 	/**
 	 * Elimina el eiaType seleccionado
@@ -302,23 +254,7 @@ public class EIATypeTopForm extends HLayout implements
 					}
 				});
 	}
-
-	/**
-	 * @return wheter the component is activated
-	 */
-	public boolean isActivated() {
-		return activated;
-	}
-
 	@Override
-	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT + "px");
-	}
-
-	/**
-	 * Triggered from the topForm search icon, do the search and fill the result
-	 * set
-	 */
 	public void search() {
 		EiaType eiaType = new EiaType();
 		eiaType.setCode(codeItem.getValueAsString());
@@ -338,11 +274,7 @@ public class EIATypeTopForm extends HLayout implements
 		search(eiaType);
 	}
 
-	/**
-	 * Make the call to search and fill the resultSet with the result
-	 * 
-	 * @param eiaType
-	 */
+	@Override
 	public void search(EiaType eiaType) {
 		EIATypeModel.find(eiaType, new GHAAsyncCallback<List<EiaType>>() {
 			@Override

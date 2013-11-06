@@ -27,6 +27,8 @@ import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
+import com.smartgwt.client.widgets.grid.events.CellSavedEvent;
+import com.smartgwt.client.widgets.grid.events.CellSavedHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
@@ -37,7 +39,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class EIATypeUtilityGridPanel extends GHAVerticalLayout implements
 		EIATypeSelectionListener, GHAHideable, GHAClosable {
 
-	private EiaTypeUtilityGrid grid = new EiaTypeUtilityGrid();
+	private EiaTypeUtilityGrid grid;
 	private UtilitySearchForm searchForm;
 	private UtilityAddForm addForm;
 	private EiaType eiaType;
@@ -60,6 +62,23 @@ public class EIATypeUtilityGridPanel extends GHAVerticalLayout implements
 	};
 
 	{
+		grid = new EiaTypeUtilityGrid();
+		grid.getAmountGridField().addCellSavedHandler(new CellSavedHandler() {
+
+			@Override
+			public void onCellSaved(CellSavedEvent event) {
+				EiaTypeUtility entity = ((EIATypeUtilityRecord) event
+						.getRecord()).toEntity();
+				entity.setAmount((Integer) event.getNewValue());
+				EIATypeUtilityModel.update(entity,
+						new GHAAsyncCallback<EiaTypeUtility>() {
+
+							@Override
+							public void onSuccess(EiaTypeUtility result) {
+							}
+						});
+			}
+		});
 		addForm = new UtilityAddForm(GHAStrings.get("new-utility-service"));
 		addForm.addMaterialSelectionListener(materialSelectionListener);
 		searchForm = new UtilitySearchForm(

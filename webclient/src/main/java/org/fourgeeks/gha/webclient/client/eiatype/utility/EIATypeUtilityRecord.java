@@ -5,7 +5,7 @@ import org.fourgeeks.gha.domain.gmh.EiaTypeUtility;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 
 /**
- * @author sizturriaga
+ * @author sizturriaga, emiliot
  * 
  */
 public class EIATypeUtilityRecord extends GHAGridRecord<EiaTypeUtility> {
@@ -21,6 +21,7 @@ public class EIATypeUtilityRecord extends GHAGridRecord<EiaTypeUtility> {
 		setAttribute("description", materialCaterogy.getDescription());
 		setAttribute("model", materialCaterogy.getModel());
 		setAttribute("extCode", materialCaterogy.getExternalCode());
+		setAttribute("amount", eiaTypeUtility.getAmount());
 
 		if (materialCaterogy.getType() != null)
 			setAttribute("type", materialCaterogy.getType().toString());

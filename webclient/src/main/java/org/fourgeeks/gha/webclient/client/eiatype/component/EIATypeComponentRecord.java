@@ -29,6 +29,7 @@ public class EIATypeComponentRecord extends GHAGridRecord<EiaTypeComponent> {
 		// setManufacturer(eiaType.getManufacturer().getName());
 		setRequired(this.eiaTypeComponent.isComponentRequired());
 		setReplaceable(this.eiaTypeComponent.isComponentReplaceable());
+		setAmount(this.eiaTypeComponent.getAmount());
 	}
 
 	public void setName(String name) {
@@ -90,6 +91,14 @@ public class EIATypeComponentRecord extends GHAGridRecord<EiaTypeComponent> {
 	@Override
 	public EiaTypeComponent toEntity() {
 		return eiaTypeComponent;
+	}
+
+	public void setAmount(int amount) {
+		setAttribute("amount", amount);
+	}
+
+	public int getAmount(int amount) {
+		return getAttributeAsInt("amount");
 	}
 
 }

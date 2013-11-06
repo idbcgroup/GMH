@@ -33,7 +33,7 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
- * @author alacret
+ * @author alacret, emiliot
  * 
  */
 public class EIATypeEquipmentGridPanel extends GHAVerticalLayout implements

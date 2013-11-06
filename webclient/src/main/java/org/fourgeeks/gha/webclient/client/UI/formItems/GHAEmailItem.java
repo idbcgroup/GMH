@@ -9,7 +9,6 @@ import com.smartgwt.client.widgets.form.validator.RegExpValidator;
  * 
  */
 public class GHAEmailItem extends GHATextItem {
-	private RegExpValidator emailValidator;
 
 	/**
 	 * Creates a email text item with a regExpValidator for email fields.
@@ -74,7 +73,8 @@ public class GHAEmailItem extends GHATextItem {
 	}
 
 	private void initEmailValidator() {
-		emailValidator = new RegExpValidator();
+		setLength(256);
+		RegExpValidator emailValidator = new RegExpValidator();
 		emailValidator.setErrorMessage(GHAStrings.get("email-invalid-field"));
 		emailValidator
 				.setExpression("^([a-zA-Z0-9_.\\-+])+@(([a-zA-Z0-9\\-])+\\.)+[a-zA-Z0-9]{2,4}$");
