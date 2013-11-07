@@ -23,6 +23,7 @@ import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASearchForm;
 
+import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -108,6 +109,8 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 				+ "px");
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
 
+		resultSet.setHeight(resultSet.getHeight()-28);
+		
 		addMembers(formLayout,
 				GHAUiHelper
 						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
@@ -229,5 +232,12 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 		// Reload the Brand Select field, to prevent outdated cached list of
 		// brands
 		fillBrands(true);
+	}
+	
+	@Override
+	public void onResize(ResizeEvent event) {
+		// TODO Auto-generated method stub
+		super.onResize(event);
+		resultSet.setHeight(resultSet.getHeight()-28);
 	}
 }
