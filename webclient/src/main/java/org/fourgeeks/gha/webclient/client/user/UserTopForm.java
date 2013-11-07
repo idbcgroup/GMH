@@ -251,7 +251,7 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 
 	private void delete() {
 		GHANotification.confirm(GHAStrings.get("user"),
-				GHAStrings.get("ssoSser-delete-confirm"),
+				GHAStrings.get("ssoUser-delete-confirm"),
 				new BooleanCallback() {
 					@Override
 					public void execute(Boolean value) {
