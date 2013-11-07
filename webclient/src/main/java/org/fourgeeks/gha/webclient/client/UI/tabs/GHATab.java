@@ -7,7 +7,10 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToHideException;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableProducer;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableProducer;
 
 import com.smartgwt.client.widgets.layout.VLayout;
 
@@ -16,7 +19,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public abstract class GHATab extends VLayout implements ClosableListener,
-		HideableListener {
+		HideableListener, ClosableProducer, HideableProducer {
 
 	private String token;
 	protected GHATabHeader header;
@@ -80,17 +83,17 @@ public abstract class GHATab extends VLayout implements ClosableListener,
 	}
 
 	@Override
-	public boolean canBeHidden() {
+	public boolean canBeHidden(HideCloseAction hideAction) {
 		for (HideableListener hideable : hideables)
-			if (!hideable.canBeHidden())
+			if (!hideable.canBeHidden(hideAction))
 				return false;
 		return true;
 	}
 
 	@Override
-	public boolean canBeClosen() {
+	public boolean canBeClosen(HideCloseAction closeAction) {
 		for (ClosableListener closable : closables)
-			if (!closable.canBeClosen())
+			if (!closable.canBeClosen(closeAction))
 				return false;
 		return true;
 	}

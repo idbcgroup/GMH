@@ -12,7 +12,7 @@ public interface ClosableListener {
 	 * @param closeAction
 	 * @return if the component can be closen
 	 */
-	public boolean canBeClosen(CloseHideAction closeAction);
+	public boolean canBeClosen(HideCloseAction closeAction);
 
 	/**
 	 * @throws UnavailableToCloseException

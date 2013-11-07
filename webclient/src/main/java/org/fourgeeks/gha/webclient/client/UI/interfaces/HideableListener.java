@@ -12,7 +12,7 @@ public interface HideableListener {
 	 * @param closeAction
 	 * @return if the component can be set to hidden
 	 */
-	public boolean canBeHidden(CloseHideAction closeAction);
+	public boolean canBeHidden(HideCloseAction closeAction);
 
 	/**
 	 * @throws UnavailableToHideException
