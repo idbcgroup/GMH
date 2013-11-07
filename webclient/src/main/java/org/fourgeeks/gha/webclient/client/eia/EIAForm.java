@@ -450,6 +450,8 @@ public class EIAForm extends GHAVerticalLayout implements
 		else
 			eia = this.updateEntity;
 
+		// EXTRAYENDO LOS DATOS
+
 		// basic information
 		if (eiaTypeSelectItem.getValue() != null)
 			eia.setEiaType(new EiaType(eiaTypeSelectItem.getValueAsString()));
@@ -474,34 +476,37 @@ public class EIAForm extends GHAVerticalLayout implements
 			eia.setAcceptationDate(new Date(acceptationDateItem
 					.getValueAsDate().getTime()));
 
-		// adquisicion
-		eia.setPurchaseDate(purchaseDateItem.getValue() != null ? new Date(
-				purchaseDateItem.getValueAsDate().getTime()) : null);
+		// acquisition
+		eia.setPurchaseDate(purchaseDateItem.getValue() == null ? null
+				: new Date(purchaseDateItem.getValueAsDate().getTime()));
 
-		eia.setReceptionDate(receptionDateItem.getValue() != null ? new Date(
-				receptionDateItem.getValueAsDate().getTime()) : null);
+		eia.setReceptionDate(receptionDateItem.getValue() == null ? null
+				: new Date(receptionDateItem.getValueAsDate().getTime()));
 
-		eia.setInstallationDate(installationDateItem.getValue() != null ? new Date(
-				installationDateItem.getValueAsDate().getTime()) : null);
+		eia.setInstallationDate(installationDateItem.getValue() == null ? null
+				: new Date(installationDateItem.getValueAsDate().getTime()));
 
 		if (providerSelectItem.getValue() != null) {
 			eia.setProvider(new ExternalProvider(Integer
 					.valueOf(providerSelectItem.getValueAsString())));
 		}
+
 		eia.setPurchaseOrderNumber(purchaseOrderNumTextItem.getValueAsString());
+
 		eia.setPurchaseInvoiceNumber(purchaseInvoiceNumTextItem
 				.getValueAsString());
 
-		if (purchaseInvoiceDateItem.getValue() != null)
-			eia.setPurchaseInvoiceDate(new Date(purchaseInvoiceDateItem
-					.getValueAsDate().getTime()));
-		if (purchaseOrderDateItem.getValue() != null)
-			eia.setPurchaseOrderDate(new Date(purchaseOrderDateItem
-					.getValueAsDate().getTime()));
+		eia.setPurchaseInvoiceDate(purchaseInvoiceDateItem.getValue() == null ? null
+				: new Date(purchaseInvoiceDateItem.getValueAsDate().getTime()));
+
+		eia.setPurchaseOrderDate(purchaseOrderDateItem.getValue() == null ? null
+				: new Date(purchaseOrderDateItem.getValueAsDate().getTime()));
+
 		if (installationProviderSelectItem.getValue() != null) {
 			eia.setInstallationProvider(new ExternalProvider(Integer
 					.valueOf(installationProviderSelectItem.getValueAsString())));
 		}
+
 		if (locationTypeSelectItem.getValue() != null) {
 			if (locationTypeSelectItem.getValue().equals("0")) {
 				if (workingAreaLocationSelectItem.getValue() != null) {
@@ -627,6 +632,9 @@ public class EIAForm extends GHAVerticalLayout implements
 		// eia.setIpAddress(ipAddresTextItem.getValueAsString());
 		// eia.setMacAddress(macAddressTextItem.getValueAsString());
 
+		// --------------------------------------------------------------------
+
+		// VALIDANDO LOS DATOS
 		Set<ConstraintViolation<Eia>> violations = validator.validate(eia);
 
 		if (infoBasicaForm.validate() && adquisicionForm.validate()
@@ -1033,23 +1041,19 @@ public class EIAForm extends GHAVerticalLayout implements
 		if (eia.getAcceptationDate() != null)
 			acceptationDateItem.setValue(eia.getAcceptationDate());
 
-		// adquisition
-		if (eia.getPurchaseDate() != null)
-			purchaseDateItem.setValue(eia.getPurchaseDate());
-		if (eia.getReceptionDate() != null)
-			receptionDateItem.setValue(eia.getReceptionDate());
-		if (eia.getInstallationDate() != null)
-			installationDateItem.setValue(eia.getInstallationDate());
+		// acquisition
+		purchaseDateItem.setValue(eia.getPurchaseDate());
+		receptionDateItem.setValue(eia.getReceptionDate());
+		installationDateItem.setValue(eia.getInstallationDate());
+		purchaseInvoiceDateItem.setValue(eia.getPurchaseInvoiceDate());
+		purchaseOrderDateItem.setValue(eia.getPurchaseOrderDate());
+
 		if (eia.getProvider() != null)
 			providerSelectItem.setValue(eia.getProvider().getId());
 		if (eia.getPurchaseOrderNumber() != null)
 			purchaseOrderNumTextItem.setValue(eia.getPurchaseOrderNumber());
 		if (eia.getPurchaseInvoiceNumber() != null)
 			purchaseInvoiceNumTextItem.setValue(eia.getPurchaseInvoiceNumber());
-		if (eia.getPurchaseInvoiceDate() != null)
-			purchaseInvoiceDateItem.setValue(eia.getPurchaseInvoiceDate());
-		if (eia.getPurchaseOrderDate() != null)
-			purchaseOrderDateItem.setValue(eia.getPurchaseOrderDate());
 		if (eia.getInstallationProvider() != null)
 			installationProviderSelectItem.setValue(eia
 					.getInstallationProvider().getId());

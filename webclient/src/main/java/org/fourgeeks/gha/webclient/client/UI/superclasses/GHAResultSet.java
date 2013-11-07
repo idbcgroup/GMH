@@ -2,6 +2,7 @@ package org.fourgeeks.gha.webclient.client.UI.superclasses;
 
 import java.util.List;
 
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
@@ -61,10 +62,21 @@ public abstract class GHAResultSet<T> extends VLayout implements ResizeHandler,
 		return true;
 	}
 
+	protected void showResultsSize(List<?> results) {
+		String title = GHAStrings.get("search-results");
+		searchResultsLabel.setContents(title + ": "
+				+ (results == null ? 0 : results.size()) + " "
+				+ GHAStrings.get("results"));
+		searchResultsLabel.redraw();
+	}
+
 	/**
 	 * @param records
+	 * @param notifyIfOnlyOneResult
+	 *            TODO
 	 */
-	public abstract void setRecords(List<T> records);
+	public abstract void setRecords(List<T> records,
+			boolean notifyIfOnlyOneResult);
 
 	@Override
 	public void close() throws UnavailableToCloseException {

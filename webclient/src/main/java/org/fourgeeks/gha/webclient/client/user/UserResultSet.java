@@ -78,9 +78,9 @@ public class UserResultSet extends GHAResultSet<SSOUser> implements
 	}
 
 	@Override
-	public void setRecords(List<SSOUser> records) {
+	public void setRecords(List<SSOUser> records, boolean notifyIfOnlyOneResult) {
 		// if only one record is on the list, notify the element and return
-		if (records.size() == 1) {
+		if (notifyIfOnlyOneResult && records.size() == 1) {
 			notifyUser(records.get(0));
 			this.hide();
 			return;

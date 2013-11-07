@@ -72,54 +72,9 @@ public class EiaTypeResultSet extends GHAResultSet<EiaType> implements
 	}
 
 	@Override
-	public void notifyEiaType(EiaType eiaType) {
-		for (EIATypeSelectionListener listener : listeners)
-			listener.select(eiaType);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.fourgeeks.gha.webclient.client.eiatype.EiaTypeSelectionProducer#
-	 * removeEiaTypeSelectionListener
-	 * (org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener)
-	 */
-	@Override
-	public void removeEiaTypeSelectionListener(
-			EIATypeSelectionListener eIATypeSelectionListener) {
-		listeners.remove(eIATypeSelectionListener);
-
-	}
-
-	/**
-	 * notify selected eiaType from the grid
-	 */
-	private void notifySelectedEiaType() {
-		GHAGridRecord<EiaType> selectedRecord = grid.getSelectedRecord();
-		if (selectedRecord == null) {
-			GHANotification.alert("record-not-selected");
-			return;
-		}
-		notifyEiaType(selectedRecord.toEntity());
-		hide();
-		grid.removeSelectedData();
-	}
-
-	@Override
-	public void setRecords(List<EiaType> records) {
-		mostrarCantResults(records);
-		// if only one record is on the list, notify the element and return
-		if (records.size() == 1) {
-			notifyEiaType(records.get(0));
-			hide();
-			return;
-		}
-		ListGridRecord[] array = EIATypeUtil.toGridRecords(records).toArray(
-				new EIATypeRecord[] {});
-		grid.setData(array);
-		if (!isVisible())
-			this.animateShow(AnimationEffect.FADE);
-
+	public void clean() {
+		grid.setData(new EIATypeRecord[] {});
+		showResultsSize(null);
 	}
 
 	/**
@@ -152,23 +107,55 @@ public class EiaTypeResultSet extends GHAResultSet<EiaType> implements
 				});
 	}
 
+	@Override
+	public void notifyEiaType(EiaType eiaType) {
+		for (EIATypeSelectionListener listener : listeners)
+			listener.select(eiaType);
+	}
+
 	/**
-	 * Actualiza el mensaje de resultados de la busqueda para que muestre la
-	 * cantidad de elementos encontrados
-	 * 
-	 * @param datos
-	 *            lista con los elementos encontrados
+	 * notify selected eiaType from the grid
 	 */
-	private void mostrarCantResults(List<?> datos) {
-		String tituloSearchResults = GHAStrings.get("search-results");
-		searchResultsLabel.setContents(tituloSearchResults + ": "
-				+ datos.size() + " resultados");
-		searchResultsLabel.redraw();
+	private void notifySelectedEiaType() {
+		GHAGridRecord<EiaType> selectedRecord = grid.getSelectedRecord();
+		if (selectedRecord == null) {
+			GHANotification.alert("record-not-selected");
+			return;
+		}
+		notifyEiaType(selectedRecord.toEntity());
+		hide();
+		grid.removeSelectedData();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.eiatype.EiaTypeSelectionProducer#
+	 * removeEiaTypeSelectionListener
+	 * (org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener)
+	 */
+	@Override
+	public void removeEiaTypeSelectionListener(
+			EIATypeSelectionListener eIATypeSelectionListener) {
+		listeners.remove(eIATypeSelectionListener);
+
 	}
 
 	@Override
-	public void clean() {
-		grid.setData(new EIATypeRecord[] {});
+	public void setRecords(List<EiaType> records, boolean notifyIfOnlyOneResult) {
+		// if only one record is on the list, notify the element and return
+		if (notifyIfOnlyOneResult && records.size() == 1) {
+			notifyEiaType(records.get(0));
+			hide();
+			return;
+		}
+		showResultsSize(records);
+		ListGridRecord[] array = EIATypeUtil.toGridRecords(records).toArray(
+				new EIATypeRecord[] {});
+		grid.setData(array);
+		if (!isVisible())
+			this.animateShow(AnimationEffect.FADE);
+
 	}
 
 }

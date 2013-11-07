@@ -8,10 +8,10 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-@Constraint(validatedBy = EiaAdquisitionDatesOrderValidator.class)
+@Constraint(validatedBy = EiaAcquisitionDatesValidator.class)
 @Target(value = ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface EiaAdquisitionDatesOrderValidation {
+public @interface EiaAcquisitionDatesValidation {
 	String message() default "";
 
 	Class<?>[] groups() default {};
