@@ -150,6 +150,7 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 	public void show() {
 		super.show();
 		topForm.setVisibility(Visibility.VISIBLE);
+		// TODO
 	}
 
 }
