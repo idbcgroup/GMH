@@ -4,6 +4,7 @@ import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseExcept
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAResultSet;
+import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
@@ -21,6 +22,7 @@ import com.smartgwt.client.widgets.layout.HLayout;
 public abstract class GHATopForm<T extends GHAResultSet<E>, E> extends HLayout
 		implements ResizeHandler, GHAClosable, GHAHideable {
 	protected T resultSet;
+	protected GHATab containerTab;
 	protected boolean activated = false;
 
 	protected KeyUpHandler searchKeyUpHandler = new KeyUpHandler() {
@@ -33,12 +35,10 @@ public abstract class GHATopForm<T extends GHAResultSet<E>, E> extends HLayout
 		}
 	};
 
-	/**
-	 * @param resultSet
-	 * 
-	 */
-	public GHATopForm(T resultSet) {
+	public GHATopForm(T resultSet, GHATab containerTab) {
 		this.resultSet = resultSet;
+		this.containerTab = containerTab;
+
 		GHAUiHelper.addGHAResizeHandler(this);
 		setStyleName("sides-padding padding-top");
 		setWidth100();
@@ -107,5 +107,11 @@ public abstract class GHATopForm<T extends GHAResultSet<E>, E> extends HLayout
 	 * @param entity
 	 */
 	public abstract void search(E entity);
+
+	/**
+	 * borra la entidad seleccionada y permite regresar a la opcion por defecto
+	 * al abrir alguna aplicacion, siendo lo mas comun la opcion de buscar
+	 */
+	protected abstract void delete();
 
 }

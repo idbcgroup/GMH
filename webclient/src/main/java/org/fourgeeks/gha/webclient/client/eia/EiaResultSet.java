@@ -8,15 +8,11 @@ import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACheckButton;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAResultSet;
 
 import com.smartgwt.client.types.AnimationEffect;
-import com.smartgwt.client.widgets.drawing.events.ResizedEvent;
-import com.smartgwt.client.widgets.drawing.events.ResizedHandler;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
@@ -27,7 +23,7 @@ import com.smartgwt.client.widgets.layout.HLayout;
  * 
  */
 public class EiaResultSet extends GHAResultSet<Eia> implements
-		EiaSelectionProducer, ResizedHandler, GHAHideable, GHAClosable {
+		EiaSelectionProducer {
 	private List<EIASelectionListener> listeners;
 	private EIAGrid grid;
 
@@ -49,8 +45,8 @@ public class EiaResultSet extends GHAResultSet<Eia> implements
 					public void onClick(ClickEvent event) {
 						notifySelectedEia();
 					}
-				}), GHAUiHelper.verticalGraySeparator("2px"), new GHAImgButton(
-				"../resources/icons/delete.png", new ClickHandler() {
+				}), GHAUiHelper.verticalGraySeparator("2px"),
+				new GHADeleteButton(new ClickHandler() {
 
 					@Override
 					public void onClick(ClickEvent event) {
@@ -71,30 +67,6 @@ public class EiaResultSet extends GHAResultSet<Eia> implements
 	public void addEiaSelectionListener(
 			EIASelectionListener eiaSelectionListener) {
 		listeners.add(eiaSelectionListener);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable#canBeClosen
-	 * ()
-	 */
-	@Override
-	public boolean canBeClosen() {
-		return true;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable#canBeHidden
-	 * ()
-	 */
-	@Override
-	public boolean canBeHidden() {
-		return true;
 	}
 
 	@Override
@@ -122,18 +94,6 @@ public class EiaResultSet extends GHAResultSet<Eia> implements
 		notifyEia(((EIARecord) selectedRecord).toEntity());
 		hide();
 		// TODO: VALIDAR grid.removeSelectedData();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.smartgwt.client.widgets.drawing.events.ResizedHandler#onResized(com
-	 * .smartgwt.client.widgets.drawing.events.ResizedEvent)
-	 */
-	@Override
-	public void onResized(ResizedEvent event) {
-		setHeight(GHAUiHelper.getTabHeight() - 4 + "px");
 	}
 
 	@Override

@@ -54,6 +54,7 @@ public class EIATab extends GHATab implements EIASelectionListener,
 		});
 
 		resultSet = new EiaResultSet();
+		resultSet.setVisible(false);
 		addGHAHideableHandler(resultSet);
 		addGHAClosableHandler(resultSet);
 		resultSet.addEiaSelectionListener(this);
@@ -132,25 +133,19 @@ public class EIATab extends GHATab implements EIASelectionListener,
 		listeners.remove(eiaSelectionListener);
 	}
 
-	/**
-	 * 
-	 */
-	protected void search() {
-		if (topForm.isActivated()) {
+	@Override
+	public void search() {
+		if (topForm.isActivated())
 			return;
-		}
-		if (internalTabset.isVisible()) {
+		if (internalTabset.isVisible())
 			if (internalTabset.canBeHidden())
 				internalTabset.hide();
 			else
 				return;
-		}
-		if (addForm.isVisible()) {
+		if (addForm.isVisible())
 			addForm.hide();
-		}
-		if (resultSet.isVisible()) {
+		if (resultSet.isVisible())
 			resultSet.hide();
-		}
 		topForm.activate();
 		// GHANotification.info(GHAStrings.get("")); //TODO: Mensaje de
 		// informacion para indicar que se ha actividado el modo de busqueda
@@ -158,8 +153,7 @@ public class EIATab extends GHATab implements EIASelectionListener,
 
 	@Override
 	public void select(Eia eia) {
-		for (EIASelectionListener listener : listeners)
-			listener.select(eia);
+		notifyEia(eia);
 	}
 
 	@Override

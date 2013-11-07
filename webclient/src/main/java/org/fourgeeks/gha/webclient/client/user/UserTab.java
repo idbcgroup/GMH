@@ -123,7 +123,7 @@ public class UserTab extends GHATab implements UserSelectionListener,
 		listeners.remove(userSelectionListener);
 	}
 
-	protected void search() {
+	public void search() {
 		if (topForm.isActivated())
 			return;
 		if (internalTabSet.isVisible())

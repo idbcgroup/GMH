@@ -114,4 +114,9 @@ public abstract class GHATab extends VLayout implements GHAClosable,
 	public void addGHAHideableHandler(GHAHideable hideable) {
 		hideables.add(hideable);
 	}
+
+	/**
+	 * 
+	 */
+	public abstract void search();
 }

@@ -109,4 +109,10 @@ public class MaintenanceProtocolTab extends GHATab implements
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	public void search() {
+		// TODO Auto-generated method stub
+
+	}
 }

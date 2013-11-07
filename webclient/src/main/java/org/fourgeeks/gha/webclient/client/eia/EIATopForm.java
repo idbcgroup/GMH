@@ -12,6 +12,7 @@ import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
+import org.fourgeeks.gha.webclient.client.UI.GHATopForm;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHACodeItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHADateItem;
@@ -27,19 +28,14 @@ import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 
-import com.google.gwt.event.logical.shared.ResizeEvent;
-import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.types.VerticalAlignment;
 import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
-import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
@@ -47,8 +43,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret, emiliot
  * 
  */
-public class EIATopForm extends HLayout implements EIASelectionListener,
-		GHAClosable, GHAHideable, ResizeHandler {
+public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
+		EIASelectionListener {
 	private long selectedEiaId;
 
 	private GHATextItem serialNumber, fixedAssetIdentifier;
@@ -63,9 +59,7 @@ public class EIATopForm extends HLayout implements EIASelectionListener,
 	private GHAImgButton searchImgButton, deleteImgButton, cleanImgButton;
 	private VLayout sideButtons;
 
-	private EiaResultSet resultSet;
 	private boolean activated = false;
-	private EIATab eiaTab;
 
 	{
 		eiaTypeSelectItem = new GHAEiaTypeSelectItem(
@@ -112,9 +106,7 @@ public class EIATopForm extends HLayout implements EIASelectionListener,
 	 * @param eiaTab
 	 */
 	public EIATopForm(EiaResultSet resultSet, EIATab eiaTab) {
-		super();
-		this.resultSet = resultSet;
-		this.eiaTab = eiaTab;
+		super(resultSet, eiaTab);
 
 		GHAUiHelper.addGHAResizeHandler(this);
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
@@ -166,7 +158,7 @@ public class EIATopForm extends HLayout implements EIASelectionListener,
 		cleanImgButton = new GHACleanButton(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				clearFields();
+				clear();
 			}
 		});
 		deleteImgButton = new GHADeleteButton(new ClickHandler() {
@@ -218,24 +210,6 @@ public class EIATopForm extends HLayout implements EIASelectionListener,
 		return true;
 	}
 
-	public void clearFields() {
-		// first check if the topform is active for search
-		if (!this.activated)
-			return;
-
-		eiaTypeSelectItem.clearValue();
-		codeItem.clearValue();
-		serialNumber.clearValue();
-		fixedAssetIdentifier.clearValue();
-		stateSelectItem.clearValue();
-		workingAreaLocationSelectItem.clearValue();
-		facilityLocationSelectItem.clearValue();
-		obuSelectItem.clearValue();
-		baseRoleSelectItem.clearValue();
-		installationDateItem.clearValue();
-		acceptationDateItem.clearValue();
-	}
-
 	@Override
 	public void close() {
 		destroy();
@@ -259,7 +233,7 @@ public class EIATopForm extends HLayout implements EIASelectionListener,
 		activated = false;
 	}
 
-	private void delete() {
+	protected void delete() {
 		GHANotification.confirm(GHAStrings.get("eia"),
 				GHAStrings.get("eia-delete-confirm"), new BooleanCallback() {
 					@Override
@@ -269,8 +243,8 @@ public class EIATopForm extends HLayout implements EIASelectionListener,
 									new GHAAsyncCallback<Boolean>() {
 										@Override
 										public void onSuccess(Boolean result) {
-											eiaTab.search();
-											clearFields();
+											containerTab.search();
+											clear();
 											GHANotification
 													.alert("eia-delete-success");
 										}
@@ -280,18 +254,10 @@ public class EIATopForm extends HLayout implements EIASelectionListener,
 				});
 	}
 
-	public boolean isActivated() {
-		return activated;
-	}
-
-	@Override
-	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT + "px");
-	}
-
 	/**
 	 * 
 	 */
+	@Override
 	public void search() {
 		Eia eia = new Eia();
 		eia.setState(null);
@@ -341,10 +307,8 @@ public class EIATopForm extends HLayout implements EIASelectionListener,
 
 	public void search(Eia eia) {
 		EIAModel.find(eia, new GHAAsyncCallback<List<Eia>>() {
-
 			@Override
 			public void onSuccess(List<Eia> result) {
-				// Window.alert("Search eia: " + result.size() + "");
 				resultSet.setRecords(result, true);
 			}
 		});
@@ -382,5 +346,25 @@ public class EIATopForm extends HLayout implements EIASelectionListener,
 
 		// lock fields of the topform
 		deactivate();
+	}
+
+	@Override
+	public void clear() {
+		// first check if the topform is active for search
+		if (!this.activated)
+			return;
+
+		eiaTypeSelectItem.clearValue();
+		codeItem.clearValue();
+		serialNumber.clearValue();
+		fixedAssetIdentifier.clearValue();
+		stateSelectItem.clearValue();
+		workingAreaLocationSelectItem.clearValue();
+		facilityLocationSelectItem.clearValue();
+		obuSelectItem.clearValue();
+		baseRoleSelectItem.clearValue();
+		installationDateItem.clearValue();
+		acceptationDateItem.clearValue();
+
 	}
 }

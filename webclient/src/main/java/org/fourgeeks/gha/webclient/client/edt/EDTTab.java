@@ -59,4 +59,10 @@ public class EDTTab extends GHATab {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	public void search() {
+		// TODO Auto-generated method stub
+
+	}
 }

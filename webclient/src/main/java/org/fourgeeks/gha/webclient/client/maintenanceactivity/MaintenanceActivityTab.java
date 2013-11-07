@@ -119,4 +119,10 @@ public class MaintenanceActivityTab extends GHATab implements
 		return false;
 	}
 
+	@Override
+	public void search() {
+		// TODO Auto-generated method stub
+
+	}
+
 }

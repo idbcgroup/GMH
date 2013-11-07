@@ -38,7 +38,6 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 		UserSelectionListener {
 
 	private long selectedUserId;
-	private UserTab userTab;
 	private VLayout sideButtons;
 	private GHATextItem usernameItem, typeidSelectItem;
 	private GHASelectItem stateItem;
@@ -83,8 +82,7 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 	 * @param tab
 	 */
 	public UserTopForm(UserResultSet resultSet, UserTab userTab) {
-		super(resultSet);
-		this.userTab = userTab;
+		super(resultSet, userTab);
 		DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(6);
@@ -246,10 +244,10 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 		searchButton.setDisabled(false);
 		cleanButton.setDisabled(false);
 		activated = true;
-
 	}
 
-	private void delete() {
+	@Override
+	protected void delete() {
 		GHANotification.confirm(GHAStrings.get("user"),
 				GHAStrings.get("ssoUser-delete-confirm"),
 				new BooleanCallback() {
@@ -260,7 +258,7 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 									new GHAAsyncCallback<Void>() {
 										@Override
 										public void onSuccess(Void result) {
-											userTab.search();
+											containerTab.search();
 											clear();
 											GHANotification
 													.alert("ssoUser-delete-success");
