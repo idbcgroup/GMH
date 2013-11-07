@@ -1,6 +1,7 @@
 package org.fourgeeks.gha.ejb.gar;
 
 import java.util.List;
+import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -36,7 +37,16 @@ public class BpuFunctionService extends GHAEJBExceptionImpl implements
 		try {
 			query = em.createNamedQuery("BpuFunction.findByBpu",
 					BpuFunction.class).setParameter("bpu", bpu);
-			return query.getResultList();
+
+			List<BpuFunction> resultList = query.getResultList();
+
+			TreeSet<String> treeSet = new TreeSet<String>();
+			for (BpuFunction bpuFunction : resultList) {
+				treeSet.add(bpuFunction.getFunction().getCode());
+				System.out.println(bpuFunction.getFunction().getCode());
+			}
+
+			return resultList;
 		} catch (Exception e) {
 			logger.log(Level.INFO, "error retriving bpufunctions", e);
 			throw super.generateGHAEJBException(

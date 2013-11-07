@@ -1,3 +1,13 @@
+ModuleId,Screen,Token,View,Function,Description
+EIAT,ADM,eiat,MAIN,DELETE,Delete an eiatype
+EIAT,ADM,eiat,MAIN,ADD,Add an eiatype
+EIAT,ADM,eiat,EQUI,VIEW,Show the information of some equipment's type available in the system.
+EIAT,ADM,eiat,EQUI,EDIT,Edit the information of some equipment's type previously created.
+EIAT,ADM,eiat,EQUI,ADDS,Opens the view to add equipments.
+EIAT,ADM,eiat,EQUI,DELT,Delete the equipment selected from the category of equipment type.
+EIAT,ADM,eiat,COMP,VIEW,Show the information of some equipment's type that can be a component of another type of equipment.
+EIAT,ADM,eiat,COMP,ADDS,Opens the component search form (Components are equipment types).
+EIAT,ADM,eiat,COMP,DELT,Delete the equipment type selected as component from another equipment type.
 USER,ADM,user,INFO,VIEW,Shows the user's information on screen.
 USER,ADM,user,INFO,EDIT,Edit the user's information previously created.
 USER,ADM,user,CRED,VIEW,Shows the user's credentials on screen.
@@ -6,23 +16,16 @@ USER,ADM,user,LLOG,VIEW,Shows the user check register on screen.
 USER,ADM,user,SRCH.ADDS,Opens the view to add users.
 EIAT,ADM,eiat,INFO,VIEW,Shows the equipment type information on screen.
 EIAT,ADM,eiat,INFO,EDIT,Edit the equipment type information previously created.
-EIAT,ADM,eiat,EQUI,VIEW,Show the information of some equipment's type available in the system.
-EIAT,ADM,eiat,EQUI,EDIT,Edit the information of some equipment's type previously created.
-EIAT,ADM,eiat,EQUI,ADDS,Opens the view to add equipments.
-EIAT,ADM,eiat,EQUI,DELT,Delete the equipment selected from the category of equipment type.
-EIAT,ADM,eiat,COMP,VIEW,Show the information of some equipment's type that can be a component of another type of equipment.
-EIAT,ADM,eiat,COMP,ADDS,Opens the component search form (Components are equipment types).
-EIAT,ADM,eiat,COMP,DELT,Delete the equipment type selected as component from another equipment type.
 EIAT,ADM,eiat,MATE,VIEW,Show the information of some equipment's type that can be a material.
-EIAT,ADM,eiat,MATE,ADDS,Opens the material search view.														
-EIAT,ADM,eiat,MATE,DELT,Delete the equipment selected as material from another equipment type.										
+EIAT,ADM,eiat,MATE,ADDS,Opens the material search view.
+EIAT,ADM,eiat,MATE,DELT,Delete the equipment selected as material from another equipment type.
 EIAT,ADM,eiat,MATS.ADDS,Opens the view to add material
 EIAT,ADM,eiat,SERV,VIEW,Show the information of some equipment's type that can be a service.
-EIAT,ADM,eiat,SERV,ADDS,Opens the material search view.														
-EIAT,ADM,eiat,SERV,DELT,Delete the equipment selected as service from another equipment type.						
+EIAT,ADM,eiat,SERV,ADDS,Opens the material search view.
+EIAT,ADM,eiat,SERV,DELT,Delete the equipment selected as service from another equipment type.
 EIAT,ADM,eiat,MANT,VIEW,Show the information of maintenance plans associated to the equipment type.
-EIAT,ADM,eiat,MANT,ADDS,Opens the maintenance plans search view.														
-EIAT,ADM,eiat,MANT,DELT,Delete the maintenance plan selected associated to the equipment type.		
+EIAT,ADM,eiat,MANT,ADDS,Opens the maintenance plans search view.
+EIAT,ADM,eiat,MANT,DELT,Delete the maintenance plan selected associated to the equipment type.
 EIAT,ADM,eiat,SRCH.ADDS,Opens the view to add users.
 EQUP,ADM,equp,INFO,VIEW,Shows the equipment information on screen.
 EQUP,ADM,equp,INFO,EDIT,Edit the equipment information previously created.

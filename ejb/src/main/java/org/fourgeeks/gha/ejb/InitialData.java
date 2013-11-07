@@ -1,5 +1,10 @@
 package org.fourgeeks.gha.ejb;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -60,6 +65,8 @@ import org.fourgeeks.gha.domain.mix.LegalEntity;
 import org.fourgeeks.gha.domain.msg.GHAMessage;
 import org.fourgeeks.gha.domain.msg.UiString;
 import org.fourgeeks.gha.ejb.ess.FunctionServiceRemote;
+
+import au.com.bytecode.opencsv.CSVReader;
 
 /**
  * @author alacret, vivi.torresg
@@ -1604,6 +1611,34 @@ public class InitialData {
 	}
 
 	private void modules() {
+		InputStream resourceAsStream = InitialData.class
+				.getResourceAsStream("/codes.csv");
+
+//		BufferedReader bufferedReader;
+//		String readLine;
+		try {
+			// bufferedReader = new BufferedReader(new InputStreamReader(
+			// resourceAsStream, "UTF-8"));
+			CSVReader csvReader = new CSVReader(new InputStreamReader(resourceAsStream, "UTF-8"),',',);
+			// readLine = bufferedReader.readLine();// Skipping headers
+			// readLine = bufferedReader.readLine();
+			// while (readLine != null) {
+			// readLine.split(",");
+			//
+			// readLine = bufferedReader.readLine();
+			// }
+		} catch (UnsupportedEncodingException e3) {
+			logger.log(
+					Level.SEVERE,
+					"Error loading modules, screens, views and functions: incorrect file encoding",
+					e3);
+		} catch (IOException e2) {
+			logger.log(
+					Level.SEVERE,
+					"Error loading modules, screens, views and functions: error reading the codes.csv file",
+					e2);
+		}
+
 		String query = "SELECT t from Module t WHERE t.code ='"
 				+ ModulesCodes.USER + "'";
 		try {
