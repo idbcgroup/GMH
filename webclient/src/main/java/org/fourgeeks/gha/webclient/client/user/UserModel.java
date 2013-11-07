@@ -7,7 +7,10 @@ import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.bpu.GWTBpuService;
+import org.fourgeeks.gha.webclient.client.bpu.GWTBpuServiceAsync;
 import org.fourgeeks.gha.webclient.client.ssouser.GWTSSOUserService;
+import org.fourgeeks.gha.webclient.client.ssouser.GWTSSOUserServiceAsync;
+
 
 import com.google.gwt.core.client.GWT;
 
