@@ -27,7 +27,7 @@ public class MaintenanceProtocolTopSection extends HLayout implements
 	private GHATextItem nameItem, descriptionItem;
 
 	{
-		maintenanceProtocolSearchForm = new MaintenanceProtocolSearchForm();
+		maintenanceProtocolSearchForm = new MaintenanceProtocolSearchForm("Busqueda de Protocolos de Mantenimiento");
 
 		nameItem = new GHATextItem("Nombre", false);
 		descriptionItem = new GHATextItem("Descripcion", 420, false);

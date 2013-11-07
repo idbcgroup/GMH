@@ -43,7 +43,7 @@ public class EIATypeMaintenanceGridPanel extends VLayout implements
 	{
 		grid = new EiaTypeMaintenancePlanGrid();
 		grid.setMaintenancePlanFields();
-		searchForm = new MaintenancePlanSearchForm();
+		searchForm = new MaintenancePlanSearchForm("Busqueda de Planes de Mantenimiento");
 	}
 
 	/**

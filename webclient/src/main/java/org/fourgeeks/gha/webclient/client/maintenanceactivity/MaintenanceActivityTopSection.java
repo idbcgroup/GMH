@@ -27,7 +27,7 @@ public class MaintenanceActivityTopSection extends HLayout implements
 	private GHATextItem nameItem, descriptionItem;
 
 	{
-		maintenanceActivitySearchForm = new MaintenanceActivitySearchForm();
+		maintenanceActivitySearchForm = new MaintenanceActivitySearchForm("Busqueda de Actividades de Mantenimiento");
 
 		nameItem = new GHATextItem("Nombre", false);
 		descriptionItem = new GHATextItem("Descripcion", 420, false);

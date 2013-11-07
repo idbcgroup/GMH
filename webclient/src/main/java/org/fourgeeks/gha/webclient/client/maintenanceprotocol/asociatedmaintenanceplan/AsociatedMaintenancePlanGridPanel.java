@@ -40,7 +40,7 @@ public class AsociatedMaintenancePlanGridPanel extends VLayout implements
 	{
 		grid = new MaintenancePlanMaintenanceProtocolGrid();
 		grid.setMaintenancePlanFields();
-		searchForm = new MaintenancePlanSearchForm();
+		searchForm = new MaintenancePlanSearchForm("Busqueda de Planes de Mantenimiento");
 	}
 
 	/**

@@ -4,7 +4,6 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
 
-import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.smartgwt.client.types.AnimationEffect;
@@ -22,17 +21,12 @@ public abstract class GHASlideInWindow extends GHAVerticalLayout implements
 	 */
 	public GHASlideInWindow() {
 		setWidth100();
+		setHeight(GHAUiHelper.getTabHeight() - 5);
 		setLeft(-5);
 		setVisibility(Visibility.HIDDEN);
 		setAnimateTime(GHAUiHelper.DEFAULT_ANIMATION_TIME);
 		GHAUiHelper.addGHAResizeHandler(this);
 		setTop(GHAUiHelper.DEFAULT_TOP_SECTION_HEIGHT);
-		setHeight(GHAUiHelper.getTabHeight() - 5);
-	}
-
-	@Override
-	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getTabHeight() - 5);
 	}
 
 	@Override

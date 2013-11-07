@@ -12,9 +12,8 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASearchForm;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.types.TitleOrientation;
@@ -32,7 +31,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class MaintenancePlanSearchForm extends GHASlideInWindow implements
+public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan> implements
 		MaintenancePlanSelectionListener, MaintenancePlanSelectionProducer {
 
 	private MaintenancePlanGrid grid;
@@ -53,20 +52,15 @@ public class MaintenancePlanSearchForm extends GHASlideInWindow implements
 
 		grid = new MaintenancePlanGrid();
 
-		addForm = new MaintenancePlanAddForm();
+		addForm = new MaintenancePlanAddForm("Nuevo Plan de Mantenimiento");
 	}
 
 	/**
 	 * 
 	 */
-	public MaintenancePlanSearchForm() {
-		super();
-		setTop(GHAUiHelper.getTopSpace());
-		setHeight(GHAUiHelper.getTabHeight() - 4 + "px");
-
-		GHALabel title = new GHALabel("Busqueda de Planes de Mantenimiento");
-		addMember(title);
-
+	public MaintenancePlanSearchForm(String title) {
+		super(title);
+		
 		final DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(4);
@@ -119,7 +113,7 @@ public class MaintenancePlanSearchForm extends GHASlideInWindow implements
 		formLayout.setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT + "px");
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
 
-		addMembers(title, formLayout,
+		addMembers(formLayout,
 				GHAUiHelper
 						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
 								+ "px"));
@@ -155,7 +149,7 @@ public class MaintenancePlanSearchForm extends GHASlideInWindow implements
 		periodOfTimeSelectItem.setValueMap(TimePeriodEnum.toValueMap());
 	}
 
-	private void search() {
+	public void search() {
 		MaintenancePlan maintenancePlan = new MaintenancePlan();
 		if (nameItem.getValue() != null)
 			maintenancePlan.setName(nameItem.getValueAsString());

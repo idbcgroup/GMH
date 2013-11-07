@@ -6,12 +6,10 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAUpdateForm;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
-import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -23,15 +21,15 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author vivi.torresg, emiliot Update Eia Form
  * 
  */
-public class EIAUpdateForm extends GHASlideInWindow implements
+public class EIAUpdateForm extends GHAUpdateForm implements
 		EIATypeSelectionListener, EiaSelectionProducer, EIASelectionListener {
 	EIAForm form;
 
 	/**
 	 * 
 	 */
-	public EIAUpdateForm() {
-		super();
+	public EIAUpdateForm(String title) {
+		super(title);
 		form = new EIAForm();
 		initComponent();
 	}
@@ -40,8 +38,8 @@ public class EIAUpdateForm extends GHASlideInWindow implements
 	 * @param eiaType
 	 * 
 	 */
-	public EIAUpdateForm(EiaType eiaType) {
-		super();
+	public EIAUpdateForm(EiaType eiaType, String title) {
+		super(title);
 		form = new EIAForm();
 		form.select(eiaType);
 		initComponent();
@@ -117,12 +115,6 @@ public class EIAUpdateForm extends GHASlideInWindow implements
 	private void initComponent() {
 		form.addEiaSelectionListener(this);
 
-		GHAUiHelper.addGHAResizeHandler(this);
-		setHeight(GHAUiHelper.getBottomSectionHeight());
-		setTop(240);
-
-		GHALabel title = new GHALabel("Actualizar equipo");
-
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
 				"../resources/icons/save.png", new ClickHandler() {
 
@@ -157,11 +149,6 @@ public class EIAUpdateForm extends GHASlideInWindow implements
 	public void notifyEia(Eia eia) {
 		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getBottomSectionHeight());
 	}
 
 	/*

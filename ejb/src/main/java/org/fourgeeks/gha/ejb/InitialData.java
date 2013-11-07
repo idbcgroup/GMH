@@ -1531,8 +1531,12 @@ public class InitialData {
 				em.persist(new UiString(LanguageEnum.ES, "brand", "Marca"));
 				em.persist(new UiString(LanguageEnum.ES, "new-eia",
 						"Nuevo equipo"));
+				em.persist(new UiString(LanguageEnum.ES, "edit-eia",
+						"Modificar un equipo"));
 				em.persist(new UiString(LanguageEnum.ES, "new-eiatype",
 						"Nuevo tipo de equipo"));
+				em.persist(new UiString(LanguageEnum.ES, "edit-eiatype",
+						"Modificar un tipo de equipo"));
 				em.persist(new UiString(LanguageEnum.ES, "search-results",
 						"Resultados de la búsqueda"));
 				em.persist(new UiString(LanguageEnum.ES, "description",

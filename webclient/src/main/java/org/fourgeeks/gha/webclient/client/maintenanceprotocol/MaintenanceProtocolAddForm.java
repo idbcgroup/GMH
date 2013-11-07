@@ -3,8 +3,7 @@ package org.fourgeeks.gha.webclient.client.maintenanceprotocol;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAAddForm;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.types.AnimationEffect;
@@ -14,7 +13,7 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class MaintenanceProtocolAddForm extends GHASlideInWindow implements
+public class MaintenanceProtocolAddForm extends GHAAddForm implements
 		MaintenanceProtocolSelectionListener,
 		MaintenanceProtocolSelectionProducer {
 
@@ -23,13 +22,8 @@ public class MaintenanceProtocolAddForm extends GHASlideInWindow implements
 		maintenanceProtocolForm = new MaintenanceProtocolForm();
 	}
 
-	public MaintenanceProtocolAddForm() {
-		super();
-		setHeight(GHAUiHelper.getBottomSectionHeight());
-		setTop(240);
-
-		GHALabel title = new GHALabel("Nuevo Protocolo de Mantenimiento");
-		addMember(title);
+	public MaintenanceProtocolAddForm(String title) {
+		super(title);
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
 				"../resources/icons/save.png", new ClickHandler() {

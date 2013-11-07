@@ -9,9 +9,8 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASearchForm;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.types.VerticalAlignment;
@@ -26,7 +25,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class UserSearchForm extends GHASlideInWindow implements
+public class UserSearchForm extends GHASearchForm<SSOUser> implements
 		UserSelectionProducer, UserSelectionListener {
 
 	private UserGrid grid;
@@ -41,14 +40,9 @@ public class UserSearchForm extends GHASlideInWindow implements
 	/**
 * 
 */
-	public UserSearchForm() {
-		super();
+	public UserSearchForm(String title) {
+		super(title);
 		// userTopForm = new UserTopForm(new UserResultSet());
-		setTop(GHAUiHelper.getTopSpace());
-		setHeight(GHAUiHelper.getTabHeight() - 4 + "px");
-
-		GHALabel title = new GHALabel("Búsqueda de Usuarios");
-		addMember(title);
 
 		// Event Handlers
 		ClickHandler searchClickHandler = new ClickHandler() {
@@ -83,7 +77,7 @@ public class UserSearchForm extends GHASlideInWindow implements
 		formLayout.setDefaultLayoutAlign(VerticalAlignment.CENTER);
 		formLayout.addMembers(new LayoutSpacer(), sideButtons);
 
-		addMembers(title, formLayout,
+		addMembers(formLayout,
 				GHAUiHelper
 						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
 								+ "px"));
@@ -106,7 +100,7 @@ public class UserSearchForm extends GHASlideInWindow implements
 
 	}
 
-	private void search() {
+	public void search() {
 		// userTopForm.search();
 	}
 

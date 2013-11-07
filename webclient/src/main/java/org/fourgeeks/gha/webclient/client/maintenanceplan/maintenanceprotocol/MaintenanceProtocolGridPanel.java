@@ -37,7 +37,7 @@ public class MaintenanceProtocolGridPanel extends VLayout implements
 	{
 		grid = new MaintenancePlanMaintenanceProtocolGrid();
 		grid.setMaintenanceProtocolFields();
-		searchForm = new MaintenanceProtocolSearchForm();
+		searchForm = new MaintenanceProtocolSearchForm("Busqueda de Protocolos de Mantenimiento");
 	}
 
 	public MaintenanceProtocolGridPanel() {

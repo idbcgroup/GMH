@@ -49,7 +49,7 @@ public abstract class GHASearchForm<T> extends GHASlideInWindow {
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getTabHeight() - 5);
+		setHeight(GHAUiHelper.getTabHeight());
 	}
 
 	@Override

@@ -35,7 +35,7 @@ public class ProtocolActivitiesGridPanel extends VLayout implements
 
 	{
 		grid = new MaintenanceActivityMaintenanceProtocolGrid();
-		searchForm = new MaintenanceActivitySearchForm();
+		searchForm = new MaintenanceActivitySearchForm("Busqueda de Actividades de Mantenimiento");
 	}
 
 	public ProtocolActivitiesGridPanel() {

@@ -3,8 +3,7 @@ package org.fourgeeks.gha.webclient.client.maintenanceplan;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAAddForm;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.types.AnimationEffect;
@@ -14,7 +13,7 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class MaintenancePlanAddForm extends GHASlideInWindow implements
+public class MaintenancePlanAddForm extends GHAAddForm implements
 		MaintenancePlanSelectionProducer, MaintenancePlanSelectionListener {
 	private MaintenancePlanForm maintenancePlanForm;
 
@@ -22,13 +21,8 @@ public class MaintenancePlanAddForm extends GHASlideInWindow implements
 		maintenancePlanForm = new MaintenancePlanForm();
 	}
 
-	public MaintenancePlanAddForm() {
-		super();
-		setHeight(GHAUiHelper.getBottomSectionHeight());
-		setTop(240);
-
-		GHALabel title = new GHALabel("Nuevo Plan de Mantenimiento");
-		addMember(title);
+	public MaintenancePlanAddForm(String title) {
+		super(title);
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
 				"../resources/icons/save.png", new ClickHandler() {

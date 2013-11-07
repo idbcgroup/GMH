@@ -11,9 +11,8 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASearchForm;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.types.TitleOrientation;
@@ -32,7 +31,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class MaintenanceActivitySearchForm extends GHASlideInWindow implements
+public class MaintenanceActivitySearchForm extends GHASearchForm<MaintenanceActivity> implements
 		MaintenanceActivitySelectionListener,
 		MaintenanceActivitySelectionProducer {
 
@@ -51,20 +50,16 @@ public class MaintenanceActivitySearchForm extends GHASlideInWindow implements
 
 		grid = new MaintenanceActivityGrid();
 
-		addForm = new MaintenanceActivityAddForm();
+		addForm = new MaintenanceActivityAddForm("Nueva Actividad");
 	}
 
 	/**
 	 * 
 	 */
-	public MaintenanceActivitySearchForm() {
-		super();
+	public MaintenanceActivitySearchForm(String title) {
+		super(title);
 		setTop(GHAUiHelper.getTopSpace());
 		setHeight(GHAUiHelper.getTabHeight() - 4 + "px");
-
-		GHALabel title = new GHALabel(
-				"Busqueda de Actividades de Mantenimiento");
-		addMember(title);
 
 		final DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
@@ -118,7 +113,7 @@ public class MaintenanceActivitySearchForm extends GHASlideInWindow implements
 		formLayout.setDefaultLayoutAlign(VerticalAlignment.CENTER);
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
 
-		addMembers(title, formLayout,
+		addMembers(formLayout,
 				GHAUiHelper
 						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
 								+ "px"));
@@ -149,7 +144,7 @@ public class MaintenanceActivitySearchForm extends GHASlideInWindow implements
 		addForm.addMaintenanceActivitySelectionListener(this);
 	}
 
-	private void search() {
+	public void search() {
 		MaintenanceActivity maintenanceActivity = new MaintenanceActivity();
 		if (nameItem.getValue() != null)
 			maintenanceActivity.setName(nameItem.getValueAsString());

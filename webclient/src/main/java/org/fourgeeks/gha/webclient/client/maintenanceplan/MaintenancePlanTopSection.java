@@ -27,7 +27,7 @@ public class MaintenancePlanTopSection extends HLayout implements
 			descriptionItem;
 
 	{
-		maintenancePlanSearchForm = new MaintenancePlanSearchForm();
+		maintenancePlanSearchForm = new MaintenancePlanSearchForm("Busqueda de Planes de Mantenimiento");
 
 		nameItem = new GHATextItem("Nombre", false);
 		frequencyItem = new GHATextItem("Frecuencia", false);

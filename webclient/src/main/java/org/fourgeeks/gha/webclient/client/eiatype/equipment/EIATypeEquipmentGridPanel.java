@@ -48,7 +48,7 @@ public class EIATypeEquipmentGridPanel extends GHAVerticalLayout implements
 	{
 		grid = new EIAGrid();
 		eiaAddForm = new EIAAddForm(GHAStrings.get("new-eia"));
-		eiaUpdateForm = new EIAUpdateForm();
+		eiaUpdateForm = new EIAUpdateForm(GHAStrings.get("edit-eia"));
 	}
 
 	/**
