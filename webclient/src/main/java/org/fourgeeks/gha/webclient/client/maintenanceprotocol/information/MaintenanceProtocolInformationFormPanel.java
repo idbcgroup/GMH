@@ -6,8 +6,8 @@ import java.util.List;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolForm;
 import org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionListener;
 import org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolSelectionProducer;
@@ -25,7 +25,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class MaintenanceProtocolInformationFormPanel extends VLayout implements
-		GHAClosable, GHAHideable, MaintenanceProtocolSelectionListener,
+		ClosableListener, HideableListener, MaintenanceProtocolSelectionListener,
 		MaintenanceProtocolSelectionProducer {
 	private MaintenanceProtocolForm maintenanceProtocolForm;
 	private List<MaintenanceProtocolSelectionListener> listeners;

@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -18,10 +18,10 @@ import com.smartgwt.client.widgets.tab.TabSet;
  * 
  */
 public abstract class GHAInternalTabSet extends TabSet implements
-		ResizeHandler, GHAHideable, GHAClosable {
+		ResizeHandler, HideableListener, ClosableListener {
 
-	protected List<GHAHideable> hideables = new ArrayList<GHAHideable>();
-	protected List<GHAClosable> closables = new ArrayList<GHAClosable>();
+	protected List<HideableListener> hideables = new ArrayList<HideableListener>();
+	protected List<ClosableListener> closables = new ArrayList<ClosableListener>();
 
 	/**
 	 * @param tab
@@ -35,7 +35,7 @@ public abstract class GHAInternalTabSet extends TabSet implements
 
 	@Override
 	public boolean canBeClosen() {
-		for (GHAClosable closable : closables)
+		for (ClosableListener closable : closables)
 			if (!closable.canBeClosen())
 				return false;
 		return true;
@@ -43,7 +43,7 @@ public abstract class GHAInternalTabSet extends TabSet implements
 
 	@Override
 	public boolean canBeHidden() {
-		for (GHAHideable hideable : hideables)
+		for (HideableListener hideable : hideables)
 			if (!hideable.canBeHidden())
 				return false;
 		return true;
@@ -51,7 +51,7 @@ public abstract class GHAInternalTabSet extends TabSet implements
 
 	@Override
 	public void close() throws UnavailableToCloseException {
-		for (GHAClosable closable : closables)
+		for (ClosableListener closable : closables)
 			closable.close();
 		GHAUiHelper.removeGHAResizeHandler(this);
 		destroy();
@@ -59,7 +59,7 @@ public abstract class GHAInternalTabSet extends TabSet implements
 
 	@Override
 	public void hide() {
-		for (GHAHideable hideable : hideables)
+		for (HideableListener hideable : hideables)
 			hideable.hide();
 		super.hide();
 	}

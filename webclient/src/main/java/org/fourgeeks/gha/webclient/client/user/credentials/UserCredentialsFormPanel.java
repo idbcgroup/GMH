@@ -5,8 +5,8 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHACheckboxItem;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.user.UserTab;
 
@@ -23,8 +23,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class UserCredentialsFormPanel extends VLayout implements GHAClosable,
-		GHAHideable {
+public class UserCredentialsFormPanel extends VLayout implements ClosableListener,
+		HideableListener {
 
 	private GHACheckboxItem physicianItem, nurseItem, payerItem, patientItem,
 			admisionItem;

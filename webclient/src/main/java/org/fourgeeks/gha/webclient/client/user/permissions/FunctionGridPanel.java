@@ -8,8 +8,8 @@ import org.fourgeeks.gha.domain.ess.Function;
 import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridField;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.function.FunctionModel;
 import org.fourgeeks.gha.webclient.client.function.FunctionRecord;
@@ -25,8 +25,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class FunctionGridPanel extends VLayout implements GHAClosable,
-		GHAHideable {
+public class FunctionGridPanel extends VLayout implements ClosableListener,
+		HideableListener {
 
 	private FunctionGrid grid;
 	private SSOUser ssoUser;

@@ -4,8 +4,8 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACancelButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAEditButton;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
 import org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenancePlanMaintenanceProtocolGrid;
 
@@ -22,7 +22,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class EIATypeMaintenanceProtocolForm extends GHASlideInWindow implements
-		GHAClosable, GHAHideable, ResizeHandler {
+		ClosableListener, HideableListener, ResizeHandler {
 
 	private MaintenancePlanMaintenanceProtocolGrid maintenanceProtocolGrid = new MaintenancePlanMaintenanceProtocolGrid();
 

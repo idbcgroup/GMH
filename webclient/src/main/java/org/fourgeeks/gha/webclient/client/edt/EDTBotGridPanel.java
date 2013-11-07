@@ -2,7 +2,7 @@ package org.fourgeeks.gha.webclient.client.edt;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -10,7 +10,7 @@ import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EDTBotGridPanel extends VLayout implements GHAClosable {
+public class EDTBotGridPanel extends VLayout implements ClosableListener {
 
 	private EDTBotGrid botGrid;
 	{

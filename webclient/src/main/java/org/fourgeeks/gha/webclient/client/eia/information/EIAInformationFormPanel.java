@@ -5,8 +5,8 @@ import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAUndoButton;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.eia.EIAForm;
@@ -25,7 +25,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class EIAInformationFormPanel extends GHAVerticalLayout implements
-		GHAClosable, GHAHideable, EiaSelectionProducer, EIASelectionListener {
+		ClosableListener, HideableListener, EiaSelectionProducer, EIASelectionListener {
 
 	/**
 	 * @param eiaEquipmentSubTab

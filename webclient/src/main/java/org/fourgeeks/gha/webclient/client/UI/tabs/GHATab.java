@@ -6,8 +6,8 @@ import java.util.List;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToHideException;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 
 import com.smartgwt.client.widgets.layout.VLayout;
 
@@ -15,14 +15,14 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public abstract class GHATab extends VLayout implements GHAClosable,
-		GHAHideable {
+public abstract class GHATab extends VLayout implements ClosableListener,
+		HideableListener {
 
 	private String token;
 	protected GHATabHeader header;
 	protected VLayout verticalPanel = new VLayout();
-	private List<GHAClosable> closables = new ArrayList<GHAClosable>();
-	private List<GHAHideable> hideables = new ArrayList<GHAHideable>();
+	private List<ClosableListener> closables = new ArrayList<ClosableListener>();
+	private List<HideableListener> hideables = new ArrayList<HideableListener>();
 
 	/**
 	 * @param header
@@ -56,7 +56,7 @@ public abstract class GHATab extends VLayout implements GHAClosable,
 
 	@Override
 	public void close() throws UnavailableToCloseException {
-		for (GHAClosable closable : closables)
+		for (ClosableListener closable : closables)
 			try {
 				closable.close();
 			} catch (Exception e) {
@@ -68,7 +68,7 @@ public abstract class GHATab extends VLayout implements GHAClosable,
 
 	@Override
 	public void hide() throws UnavailableToHideException {
-		for (GHAHideable hideable : hideables)
+		for (HideableListener hideable : hideables)
 			try {
 				hideable.hide();
 			} catch (UnavailableToHideException e) {
@@ -81,7 +81,7 @@ public abstract class GHATab extends VLayout implements GHAClosable,
 
 	@Override
 	public boolean canBeHidden() {
-		for (GHAHideable hideable : hideables)
+		for (HideableListener hideable : hideables)
 			if (!hideable.canBeHidden())
 				return false;
 		return true;
@@ -89,7 +89,7 @@ public abstract class GHATab extends VLayout implements GHAClosable,
 
 	@Override
 	public boolean canBeClosen() {
-		for (GHAClosable closable : closables)
+		for (ClosableListener closable : closables)
 			if (!closable.canBeClosen())
 				return false;
 		return true;
@@ -104,14 +104,14 @@ public abstract class GHATab extends VLayout implements GHAClosable,
 	/**
 	 * @param closable
 	 */
-	public void addGHAClosableHandler(GHAClosable closable) {
+	public void addGHAClosableHandler(ClosableListener closable) {
 		closables.add(closable);
 	}
 
 	/**
 	 * @param hideable
 	 */
-	public void addGHAHideableHandler(GHAHideable hideable) {
+	public void addGHAHideableHandler(HideableListener hideable) {
 		hideables.add(hideable);
 	}
 

@@ -6,8 +6,8 @@ import java.util.List;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanForm;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionProducer;
@@ -26,7 +26,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  */
 public class MaintenancePlanInformationFormPanel extends VLayout implements
 		MaintenancePlanSelectionListener, MaintenancePlanSelectionProducer,
-		GHAClosable, GHAHideable {
+		ClosableListener, HideableListener {
 	private MaintenancePlanForm maintenancePlanForm;
 	private List<MaintenancePlanSelectionListener> listeners;
 

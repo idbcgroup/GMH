@@ -3,8 +3,8 @@ package org.fourgeeks.gha.webclient.client.eia.cost;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
@@ -15,7 +15,7 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class EIACostGridPanel extends VLayout implements
-		EIATypeSelectionListener, GHAClosable, GHAHideable {
+		EIATypeSelectionListener, ClosableListener, HideableListener {
 
 	private EIADeprecationGrid eiaDeprecationGrid = new EIADeprecationGrid();
 

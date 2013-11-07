@@ -1,8 +1,8 @@
 package org.fourgeeks.gha.webclient.client.user.uilog;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.user.loginlog.LogonLogGrid;
 
@@ -13,8 +13,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class UserUILogGridPanel extends VLayout implements GHAClosable,
-		GHAHideable {
+public class UserUILogGridPanel extends VLayout implements ClosableListener,
+		HideableListener {
 
 	private LogonLogGrid grid;
 	private EiaType eiaType;

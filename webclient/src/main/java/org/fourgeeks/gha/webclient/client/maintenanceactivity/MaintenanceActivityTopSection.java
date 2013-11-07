@@ -5,7 +5,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabSet;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -20,7 +20,7 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class MaintenanceActivityTopSection extends HLayout implements
-		MaintenanceActivitySelectionListener, GHAClosable, ResizeHandler {
+		MaintenanceActivitySelectionListener, ClosableListener, ResizeHandler {
 
 	private final MaintenanceActivityTab maintenanceActivityTab;
 	private MaintenanceActivitySearchForm maintenanceActivitySearchForm;

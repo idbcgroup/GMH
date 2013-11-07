@@ -7,8 +7,8 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.eia.EIAModel;
 import org.fourgeeks.gha.webclient.client.eia.EIARecord;
@@ -29,7 +29,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  */
 public class AsociatedMaintenanceProtocolsGridPanel extends VLayout implements
 		EIATypeSelectionListener,/* EiaSelectionProducer, */
-		EIASelectionListener, GHAClosable, GHAHideable {
+		EIASelectionListener, ClosableListener, HideableListener {
 
 	private MaintenancePlanMaintenanceProtocolGrid grid;
 	private EiaType eiaType;

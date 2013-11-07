@@ -6,7 +6,7 @@ import org.fourgeeks.gha.domain.msg.GHAMessage;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.message.GWTMessageService;
 import org.fourgeeks.gha.webclient.client.message.GWTMessageServiceAsync;
 
@@ -114,7 +114,7 @@ public class GHANotification {
 	}
 
 	public static class ModalNotification extends VLayout implements
-			ResizeHandler, GHAClosable {
+			ResizeHandler, ClosableListener {
 
 		private int width = 700;
 		private RootPanel backDivPanel = RootPanel.get("notificationsBackDiv");

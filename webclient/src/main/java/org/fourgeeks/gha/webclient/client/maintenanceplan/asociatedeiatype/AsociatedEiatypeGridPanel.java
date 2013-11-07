@@ -9,8 +9,8 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSearchForm;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
@@ -26,8 +26,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret, emiliot
  * 
  */
-public class AsociatedEiatypeGridPanel extends VLayout implements GHAClosable,
-		GHAHideable, MaintenancePlanSelectionListener, EIATypeSelectionListener {
+public class AsociatedEiatypeGridPanel extends VLayout implements ClosableListener,
+		HideableListener, MaintenancePlanSelectionListener, EIATypeSelectionListener {
 
 	private EiaTypeMaintenancePlanGrid grid;
 	private MaintenancePlan maintenancePlan;

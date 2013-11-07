@@ -9,8 +9,8 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACheckButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAResultSet;
 
@@ -26,7 +26,7 @@ import com.smartgwt.client.widgets.layout.HLayout;
  * 
  */
 public class UserResultSet extends GHAResultSet<SSOUser> implements
-		UserSelectionProducer, ResizeHandler, GHAHideable, GHAClosable {
+		UserSelectionProducer, ResizeHandler, HideableListener, ClosableListener {
 	private List<UserSelectionListener> listeners = new ArrayList<UserSelectionListener>();
 	private UserGrid grid = new UserGrid();
 

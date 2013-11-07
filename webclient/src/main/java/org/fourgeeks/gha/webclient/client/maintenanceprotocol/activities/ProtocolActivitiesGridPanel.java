@@ -8,8 +8,8 @@ import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySearchForm;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionListener;
@@ -26,7 +26,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class ProtocolActivitiesGridPanel extends VLayout implements
-		GHAClosable, GHAHideable, MaintenanceProtocolSelectionListener,
+		ClosableListener, HideableListener, MaintenanceProtocolSelectionListener,
 		MaintenanceActivitySelectionListener {
 
 	private MaintenanceActivityMaintenanceProtocolGrid grid;

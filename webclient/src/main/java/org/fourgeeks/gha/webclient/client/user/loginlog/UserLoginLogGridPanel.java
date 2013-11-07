@@ -5,8 +5,8 @@ import java.util.List;
 import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.domain.logs.LogonLog;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.logonlog.LogonLogModel;
 import org.fourgeeks.gha.webclient.client.logonlog.LogonLogRecord;
@@ -19,8 +19,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class UserLoginLogGridPanel extends VLayout implements GHAClosable,
-		GHAHideable {
+public class UserLoginLogGridPanel extends VLayout implements ClosableListener,
+		HideableListener {
 
 	private LogonLogGrid grid;
 	{

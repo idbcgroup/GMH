@@ -6,8 +6,8 @@ import java.util.List;
 import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.user.UserForm;
 import org.fourgeeks.gha.webclient.client.user.UserSelectionListener;
 import org.fourgeeks.gha.webclient.client.user.UserSelectionProducer;
@@ -23,8 +23,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class UserInformationFormPanel extends VLayout implements GHAClosable,
-		GHAHideable, UserSelectionProducer, UserSelectionListener {
+public class UserInformationFormPanel extends VLayout implements ClosableListener,
+		HideableListener, UserSelectionProducer, UserSelectionListener {
 
 	private UserForm userForm;
 	private List<UserSelectionListener> listeners;

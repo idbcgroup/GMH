@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 
 import com.google.gwt.event.dom.client.MouseOutEvent;
 import com.google.gwt.event.dom.client.MouseOutHandler;
@@ -22,7 +22,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class GHASectionForm extends HLayout implements GHAHideable, GHAClosable {
+public class GHASectionForm extends HLayout implements HideableListener, ClosableListener {
 
 	private VLayout options;
 	private VLayout mainSection;

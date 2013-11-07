@@ -2,8 +2,8 @@ package org.fourgeeks.gha.webclient.client.eia.reports;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASectionForm;
 
 import com.google.gwt.safehtml.shared.UriUtils;
@@ -18,7 +18,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author naramirez
  * 
  */
-public class EIAReportsFormPanel extends VLayout implements GHAClosable, GHAHideable {
+public class EIAReportsFormPanel extends VLayout implements ClosableListener, HideableListener {
 
 	private final String PATH_IMG_PRINT_BUTTON = "../resources/icons/check.png";
 	private final String PATH_IMG_CLEAN_BUTTON = "../resources/icons/clean.png";
