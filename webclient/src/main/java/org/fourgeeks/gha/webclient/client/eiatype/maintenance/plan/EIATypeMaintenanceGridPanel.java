@@ -11,9 +11,11 @@ import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAEditButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHANewButton;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSearchForm;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener;
@@ -32,8 +34,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author emiliot
  * 
  */
-public class EIATypeMaintenanceGridPanel extends VLayout implements
-		GHAClosable, GHAHideable, EIATypeSelectionListener,
+public class EIATypeMaintenanceGridPanel extends GHAVerticalLayout implements
+		ClosableListener, HideableListener, EIATypeSelectionListener,
 		MaintenancePlanSelectionListener {
 
 	private EiaTypeMaintenancePlanGrid grid;
@@ -65,34 +67,30 @@ public class EIATypeMaintenanceGridPanel extends VLayout implements
 					public void onClick(ClickEvent event) {
 						searchForm.open();
 					}
-				}), new GHAEditButton(
-				new ClickHandler() {
+				}), new GHAEditButton(new ClickHandler() {
 
-					@Override
-					public void onClick(ClickEvent event) {
-						// TODO Auto-generated method stub
+			@Override
+			public void onClick(ClickEvent event) {
+				// TODO Auto-generated method stub
 
-					}
-				}), new GHADeleteButton(
-				new ClickHandler() {
+			}
+		}), new GHADeleteButton(new ClickHandler() {
 
-					@Override
-					public void onClick(ClickEvent event) {
-						EiaTypeMaintenancePlan entity = grid
-								.getSelectedEntity();
-						EiaTypeMaintenancePlanModel.delete(entity.getId(),
-								new GHAAsyncCallback<Void>() {
+			@Override
+			public void onClick(ClickEvent event) {
+				EiaTypeMaintenancePlan entity = grid.getSelectedEntity();
+				EiaTypeMaintenancePlanModel.delete(entity.getId(),
+						new GHAAsyncCallback<Void>() {
 
-									@Override
-									public void onSuccess(Void result) {
-										loadData();
-									}
+							@Override
+							public void onSuccess(Void result) {
+								loadData();
+							}
 
-								});
+						});
 
-					}
-				}), GHAUiHelper.verticalGraySeparator("2px"), 
-				new GHAImgButton(
+			}
+		}), GHAUiHelper.verticalGraySeparator("2px"), new GHAImgButton(
 				"../resources/icons/set.png", new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
@@ -170,12 +168,12 @@ public class EIATypeMaintenanceGridPanel extends VLayout implements
 	}
 
 	@Override
-	public boolean canBeHidden() {
+	public boolean canBeHidden(HideCloseAction hideAction) {
 		return true;
 	}
 
 	@Override
-	public boolean canBeClosen() {
+	public boolean canBeClosen(HideCloseAction hideAction) {
 		return true;
 	}
 

@@ -6,12 +6,13 @@ import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToHideExcepti
  * @author alacret
  * 
  */
-public interface GHAHideable {
+public interface HideableListener {
 
 	/**
+	 * @param closeAction
 	 * @return if the component can be set to hidden
 	 */
-	public boolean canBeHidden();
+	public boolean canBeHidden(HideCloseAction closeAction);
 
 	/**
 	 * @throws UnavailableToHideException

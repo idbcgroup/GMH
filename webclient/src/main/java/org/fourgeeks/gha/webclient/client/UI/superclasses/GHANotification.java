@@ -6,7 +6,8 @@ import org.fourgeeks.gha.domain.msg.GHAMessage;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.message.GWTMessageService;
 import org.fourgeeks.gha.webclient.client.message.GWTMessageServiceAsync;
 
@@ -35,7 +36,7 @@ public class GHANotification {
 			.create(GWTMessageService.class);
 
 	public static final ModalNotification modalNotification = new ModalNotification();
-	
+
 	/*
 	 * public GHANotification() { setPosition(Positioning.ABSOLUTE);
 	 * setBottom(Window.getClientHeight()-20); setSize("280px", "*");
@@ -114,7 +115,7 @@ public class GHANotification {
 	}
 
 	public static class ModalNotification extends VLayout implements
-			ResizeHandler, GHAClosable {
+			ResizeHandler, ClosableListener {
 
 		private int width = 700;
 		private RootPanel backDivPanel = RootPanel.get("notificationsBackDiv");
@@ -122,13 +123,12 @@ public class GHANotification {
 		private GHALabel errorText;
 		{
 			titleText = new GHALabel("Información");
-//			titleText.setBackgroundColor("#CBCBCB");
+			// titleText.setBackgroundColor("#CBCBCB");
 			errorText = new GHALabel("default error text");
 			errorText.setStyleName("text-label");
 			errorText.setHeight("*");
 		}
-		
-		
+
 		public ModalNotification() {
 			super();
 			GHAUiHelper.addGHAResizeHandler(this);
@@ -136,7 +136,7 @@ public class GHANotification {
 			setWidth(width);
 			setHeight("*");
 			setLeft((Window.getClientWidth() / 2) - (width / 2));
-//			setTop(140);
+			// setTop(140);
 			setPosition(Positioning.ABSOLUTE);
 			setBackgroundColor("#E0E0E0");
 			setBorder("1px solid #E0E0E0");
@@ -148,12 +148,12 @@ public class GHANotification {
 			setShadowDepth(4);
 			setShowShadow(true);
 			setZIndex(444444);
-			
+
 			VLayout textLayout = new VLayout();
 			textLayout.setHeight("*");
-//			textLayout.setWidth100();
-//			textLayout.setStyleName("sides-padding padding-top padding-bot");
-//			textLayout.setAlign(Alignment.CENTER);
+			// textLayout.setWidth100();
+			// textLayout.setStyleName("sides-padding padding-top padding-bot");
+			// textLayout.setAlign(Alignment.CENTER);
 			textLayout.setDefaultLayoutAlign(Alignment.CENTER);
 			textLayout.setMembersMargin(10);
 			textLayout.addMembers(titleText, errorText);
@@ -173,17 +173,19 @@ public class GHANotification {
 			buttonsLayout.setAlign(VerticalAlignment.BOTTOM);
 			buttonsLayout.setDefaultLayoutAlign(Alignment.CENTER);
 			buttonsLayout.addMembers(acceptButton);
-			
+
 			HLayout mainLayout = new HLayout();
 			mainLayout.setHeight("*");
 			mainLayout.setWidth100();
 			mainLayout.setMembersMargin(10);
 			mainLayout.setBackgroundColor("#E0E0E0");
 			mainLayout.setStyleName("sides-padding padding-top padding-bot");
-			
-			mainLayout.addMembers(textLayout,buttonsLayout);
-						
-			addMembers(mainLayout,GHAUiHelper.verticalGraySeparatorImgBar("../resources/icons/notifications/closerBar.png", 18, 12, 12));
+
+			mainLayout.addMembers(textLayout, buttonsLayout);
+
+			addMembers(mainLayout, GHAUiHelper.verticalGraySeparatorImgBar(
+					"../resources/icons/notifications/closerBar.png", 18, 12,
+					12));
 		}
 
 		@Override
@@ -205,21 +207,20 @@ public class GHANotification {
 			backDivPanel.addStyleName("dim");
 			backDivPanel.getElement().getStyle().setZIndex(getZIndex() - 1);
 		}
-		
-		public void show(String title, String innerText){
+
+		public void show(String title, String innerText) {
 			setText(title, innerText);
-			show();		
+			show();
 		}
-		
-		private void setText(String tit, String text){
+
+		private void setText(String tit, String text) {
 			titleText.setContents(tit);
 			errorText.setContents(text);
 		}
 
 		@Override
-		public boolean canBeClosen() {
-			// TODO Auto-generated method stub
-			return false;
+		public boolean canBeClosen(HideCloseAction hideAction) {
+			return true;
 		}
 	}
 }

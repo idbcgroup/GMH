@@ -4,6 +4,7 @@ import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACancelButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAAddForm;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -120,14 +121,12 @@ public class UserAddForm extends GHAAddForm implements UserSelectionProducer {
 	// }
 
 	@Override
-	public boolean canBeClosen() {
-		// TODO Auto-generated method stub
+	public boolean canBeClosen(HideCloseAction hideAction) {
 		return false;
 	}
 
 	@Override
-	public boolean canBeHidden() {
-		// TODO Auto-generated method stub
+	public boolean canBeHidden(HideCloseAction hideAction) {
 		return false;
 	}
 

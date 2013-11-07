@@ -1,8 +1,9 @@
 package org.fourgeeks.gha.webclient.client.UI;
 
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAResultSet;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
 
@@ -20,7 +21,7 @@ import com.smartgwt.client.widgets.layout.HLayout;
  * 
  */
 public abstract class GHATopForm<T extends GHAResultSet<E>, E> extends HLayout
-		implements ResizeHandler, GHAClosable, GHAHideable {
+		implements ResizeHandler, ClosableListener, HideableListener {
 	protected T resultSet;
 	protected GHATab containerTab;
 	protected boolean activated = false;
@@ -66,12 +67,12 @@ public abstract class GHATopForm<T extends GHAResultSet<E>, E> extends HLayout
 	}
 
 	@Override
-	public boolean canBeClosen() {
+	public boolean canBeClosen(HideCloseAction hideAction) {
 		return true;
 	}
 
 	@Override
-	public boolean canBeHidden() {
+	public boolean canBeHidden(HideCloseAction hideAction) {
 		return true;
 	}
 

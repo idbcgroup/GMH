@@ -8,9 +8,11 @@ import org.fourgeeks.gha.domain.ess.Function;
 import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridField;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.function.FunctionModel;
 import org.fourgeeks.gha.webclient.client.function.FunctionRecord;
 import org.fourgeeks.gha.webclient.client.function.FunctionUtil;
@@ -19,14 +21,13 @@ import org.fourgeeks.gha.webclient.client.user.UserModel;
 import com.smartgwt.client.widgets.grid.events.CellSavedEvent;
 import com.smartgwt.client.widgets.grid.events.CellSavedHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
-import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
  * @author alacret
  * 
  */
-public class FunctionGridPanel extends VLayout implements GHAClosable,
-		GHAHideable {
+public class FunctionGridPanel extends GHAVerticalLayout implements
+		ClosableListener, HideableListener {
 
 	private FunctionGrid grid;
 	private SSOUser ssoUser;
@@ -39,10 +40,6 @@ public class FunctionGridPanel extends VLayout implements GHAClosable,
 	 */
 	public FunctionGridPanel(UserPermissionSubTab eIATypeEquipmentSubTab) {
 		super();
-		setStyleName("sides-padding padding-top");
-		setWidth100();
-		setBackgroundColor("#E0E0E0");
-
 		GHALabel title = new GHALabel("Permisos");
 		addMember(title);
 
@@ -132,15 +129,13 @@ public class FunctionGridPanel extends VLayout implements GHAClosable,
 	}
 
 	@Override
-	public boolean canBeHidden() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean canBeHidden(HideCloseAction hideAction) {
+		return true;
 	}
 
 	@Override
-	public boolean canBeClosen() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean canBeClosen(HideCloseAction hideAction) {
+		return true;
 	}
 
 }

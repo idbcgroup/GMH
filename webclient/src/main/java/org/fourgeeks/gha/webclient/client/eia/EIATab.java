@@ -6,6 +6,7 @@ import java.util.List;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader;
 
@@ -55,24 +56,24 @@ public class EIATab extends GHATab implements EIASelectionListener,
 
 		resultSet = new EiaResultSet();
 		resultSet.setVisible(false);
-		addGHAHideableHandler(resultSet);
-		addGHAClosableHandler(resultSet);
+		addHideableHandler(resultSet);
+		addClosableHandler(resultSet);
 		resultSet.addEiaSelectionListener(this);
 
 		topForm = new EIATopForm(resultSet, this);
 		topForm.activate();
-		addGHAHideableHandler(topForm);
-		addGHAClosableHandler(topForm);
+		addHideableHandler(topForm);
+		addClosableHandler(topForm);
 		addEiaSelectionListener(topForm);
 
 		internalTabset = new EIAInternalTabset(this);
-		addGHAHideableHandler(internalTabset);
-		addGHAClosableHandler(internalTabset);
+		addHideableHandler(internalTabset);
+		addClosableHandler(internalTabset);
 		addEiaSelectionListener(internalTabset);
 
 		addForm = new EIAAddForm(GHAStrings.get("new-eia"));
-		addGHAHideableHandler(addForm);
-		addGHAClosableHandler(addForm);
+		addHideableHandler(addForm);
+		addClosableHandler(addForm);
 		addForm.addEiaSelectionListener(this);
 
 		verticalPanel.addMember(topForm);
@@ -91,7 +92,7 @@ public class EIATab extends GHATab implements EIASelectionListener,
 			return;
 		}
 		if (internalTabset.isVisible()) {
-			if (internalTabset.canBeHidden())
+			if (internalTabset.canBeHidden(HideCloseAction.ASK))
 				internalTabset.hide();
 			else
 				return;
@@ -138,7 +139,7 @@ public class EIATab extends GHATab implements EIASelectionListener,
 		if (topForm.isActivated())
 			return;
 		if (internalTabset.isVisible())
-			if (internalTabset.canBeHidden())
+			if (internalTabset.canBeHidden(HideCloseAction.SAVE))
 				internalTabset.hide();
 			else
 				return;

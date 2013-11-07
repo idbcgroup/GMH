@@ -110,7 +110,8 @@ public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan> im
 
 		HLayout formLayout = new HLayout();
 		formLayout.setPadding(10);
-		formLayout.setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT + "px");
+		formLayout.setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT
+				+ "px");
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
 
 		addMembers(formLayout,
@@ -266,17 +267,5 @@ public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan> im
 		notifyMaintenancePlan(((MaintenancePlanRecord) selectedRecord)
 				.toEntity());
 		hide();
-	}
-
-	@Override
-	public boolean canBeClosen() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean canBeHidden() {
-		// TODO Auto-generated method stub
-		return false;
 	}
 }

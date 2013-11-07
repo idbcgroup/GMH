@@ -5,7 +5,6 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAAddForm;
 
-import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -65,16 +64,6 @@ public class MaintenanceActivityAddForm extends GHAAddForm implements
 	}
 
 	@Override
-	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getBottomSectionHeight());
-	}
-
-	@Override
-	public void close() {
-		destroy();
-	}
-
-	@Override
 	public void open() {
 		this.show();
 		animateShow(AnimationEffect.FLY);
@@ -125,15 +114,4 @@ public class MaintenanceActivityAddForm extends GHAAddForm implements
 				.removeMaintenanceActivitySelectionListener(maintenanceActivitySelectionListener);
 	}
 
-	@Override
-	public boolean canBeClosen() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean canBeHidden() {
-		// TODO Auto-generated method stub
-		return false;
-	}
 }

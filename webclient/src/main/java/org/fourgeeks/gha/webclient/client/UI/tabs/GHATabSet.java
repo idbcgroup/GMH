@@ -14,6 +14,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToHideException;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.menu.GHAMenu.GHAMenuBar;
 import org.fourgeeks.gha.webclient.client.UI.menu.GHAMenu.GHAMenuOption;
 
@@ -86,7 +87,11 @@ public final class GHATabSet {
 	}
 
 	private static void hideTab(GHATab tab) throws UnavailableToHideException {
-		if (tab.canBeHidden()) {
+		hideTab(tab, HideCloseAction.ASK);
+	}
+
+	private static void hideTab(GHATab tab, HideCloseAction hideAction) {
+		if (tab.canBeHidden(hideAction)) {
 			try {
 				tab.hide();
 			} catch (UnavailableToHideException e) {
@@ -99,11 +104,14 @@ public final class GHATabSet {
 	}
 
 	/**
+	 * @param hideAction
 	 * @throws UnavailableToHideException
 	 */
-	public static void hideCurrentTab() throws UnavailableToHideException {
-		hideTab(currentTab);
+	public static void hideCurrentTab(HideCloseAction hideAction)
+			throws UnavailableToHideException {
+		hideTab(currentTab, hideAction);
 		currentTab = null;
+		History.forward();
 	}
 
 	/**
@@ -126,12 +134,16 @@ public final class GHATabSet {
 	 * @param tab
 	 * @throws UnavailableToCloseException
 	 */
-	public static void closeTab(final GHATab tab)
+	public static void closeTab(final GHATab tab) {
+		closeTab(tab, HideCloseAction.ASK);
+	}
+
+	private static void closeTab(final GHATab tab, HideCloseAction closeAction)
 			throws UnavailableToCloseException {
 		if (tab == null)
 			return;
 
-		if (tab.canBeClosen()) {
+		if (tab.canBeClosen(closeAction)) {
 			try {
 				tab.close();
 			} catch (UnavailableToCloseException e) {

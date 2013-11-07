@@ -1,8 +1,9 @@
 package org.fourgeeks.gha.webclient.client.UI.superclasses;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -14,7 +15,7 @@ import com.smartgwt.client.widgets.AnimationCallback;
  * @author alacret a window that slide in
  */
 public abstract class GHASlideInWindow extends GHAVerticalLayout implements
-		ResizeHandler, GHAClosable, GHAHideable {
+		ResizeHandler, ClosableListener, HideableListener {
 
 	/**
 	 * 
@@ -78,6 +79,16 @@ public abstract class GHASlideInWindow extends GHAVerticalLayout implements
 				.setZIndex(-80000);
 
 		animateHide(AnimationEffect.FLY, callback);
+	}
+
+	@Override
+	public boolean canBeClosen(HideCloseAction closeAction) {
+		return true;
+	}
+
+	@Override
+	public boolean canBeHidden(HideCloseAction closeAction) {
+		return true;
 	}
 
 }

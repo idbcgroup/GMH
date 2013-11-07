@@ -6,14 +6,15 @@ import java.util.List;
 import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.user.UserForm;
 import org.fourgeeks.gha.webclient.client.user.UserSelectionListener;
 import org.fourgeeks.gha.webclient.client.user.UserSelectionProducer;
 import org.fourgeeks.gha.webclient.client.user.UserTab;
 
-import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -23,8 +24,9 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class UserInformationFormPanel extends VLayout implements GHAClosable,
-		GHAHideable, UserSelectionProducer, UserSelectionListener {
+public class UserInformationFormPanel extends GHAVerticalLayout implements
+		ClosableListener, HideableListener, UserSelectionProducer,
+		UserSelectionListener {
 
 	private UserForm userForm;
 	private List<UserSelectionListener> listeners;
@@ -42,12 +44,7 @@ public class UserInformationFormPanel extends VLayout implements GHAClosable,
 	 */
 	public UserInformationFormPanel(UserTab tab) {
 		activateForm(false);
-		tab.addGHAClosableHandler(this);
-
-		setWidth100();
-		setBackgroundColor("#E0E0E0");
-		setStyleName("sides-padding padding-top");// Esto es VUDU!
-		setAlign(Alignment.CENTER);
+		tab.addClosableHandler(this);
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
 				"../resources/icons/save.png", new ClickHandler() {
@@ -144,15 +141,13 @@ public class UserInformationFormPanel extends VLayout implements GHAClosable,
 	}
 
 	@Override
-	public boolean canBeHidden() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean canBeHidden(HideCloseAction hideAction) {
+		return true;
 	}
 
 	@Override
-	public boolean canBeClosen() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean canBeClosen(HideCloseAction hideAction) {
+		return true;
 	}
 
 	@Override
