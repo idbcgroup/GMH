@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 
 import com.google.gwt.event.dom.client.MouseOutEvent;
@@ -22,7 +23,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class GHASectionForm extends HLayout implements HideableListener, ClosableListener {
+public class GHASectionForm extends HLayout implements HideableListener,
+		ClosableListener {
 
 	private VLayout options;
 	private VLayout mainSection;
@@ -205,12 +207,12 @@ public class GHASectionForm extends HLayout implements HideableListener, Closabl
 	}
 
 	@Override
-	public boolean canBeClosen() {
+	public boolean canBeClosen(HideCloseAction hideAction) {
 		return true;
 	}
 
 	@Override
-	public boolean canBeHidden() {
+	public boolean canBeHidden(HideCloseAction hideAction) {
 		return true;
 	}
 }

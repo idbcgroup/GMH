@@ -6,6 +6,7 @@ import java.util.List;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
 
@@ -34,17 +35,17 @@ public abstract class GHAInternalTabSet extends TabSet implements
 	}
 
 	@Override
-	public boolean canBeClosen() {
+	public boolean canBeClosen(HideCloseAction hideAction) {
 		for (ClosableListener closable : closables)
-			if (!closable.canBeClosen())
+			if (!closable.canBeClosen(hideAction))
 				return false;
 		return true;
 	}
 
 	@Override
-	public boolean canBeHidden() {
+	public boolean canBeHidden(HideCloseAction hideAction) {
 		for (HideableListener hideable : hideables)
-			if (!hideable.canBeHidden())
+			if (!hideable.canBeHidden(hideAction))
 				return false;
 		return true;
 	}

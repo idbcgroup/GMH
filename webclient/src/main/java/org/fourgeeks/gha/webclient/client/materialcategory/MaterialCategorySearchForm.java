@@ -98,7 +98,8 @@ public class MaterialCategorySearchForm extends GHASearchForm<MaterialCategory>
 
 		HLayout formLayout = new HLayout();
 		formLayout.setPadding(10);
-		formLayout.setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT + "px");
+		formLayout.setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT
+				+ "px");
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
 
 		addMembers(formLayout,
@@ -211,16 +212,6 @@ public class MaterialCategorySearchForm extends GHASearchForm<MaterialCategory>
 	public void removeMaterialSelectionListener(
 			MaterialCategorySelectionListener materialSelectionListener) {
 		selectionListeners.remove(materialSelectionListener);
-	}
-
-	@Override
-	public boolean canBeClosen() {
-		return true;
-	}
-
-	@Override
-	public boolean canBeHidden() {
-		return true;
 	}
 
 	@Override

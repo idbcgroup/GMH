@@ -5,10 +5,13 @@ package org.fourgeeks.gha.webclient.client.UI.interfaces;
  * 
  */
 public interface HideableProducer {
-	public void addHideableHandler();
+	/**
+	 * @param hideableListener
+	 */
+	public void addHideableHandler(HideableListener hideableListener);
 
-	public void removeHideableHandler();
-
-	public void notifyHide();
-
+	/**
+	 * @param hideableListener
+	 */
+	public void removeHideableHandler(HideableListener hideableListener);
 }

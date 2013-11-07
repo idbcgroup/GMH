@@ -6,6 +6,7 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabSet;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -38,7 +39,7 @@ public class MaintenanceActivityTopSection extends HLayout implements
 	public MaintenanceActivityTopSection(MaintenanceActivityTab tab) {
 		super();
 		GHAUiHelper.addGHAResizeHandler(this);
-		tab.addGHAClosableHandler(this);
+		tab.addClosableHandler(this);
 
 		maintenanceActivityTab = tab;
 
@@ -46,8 +47,8 @@ public class MaintenanceActivityTopSection extends HLayout implements
 		maintenanceActivitySearchForm
 				.addMaintenanceActivitySelectionListener(tab);
 		tab.addMaintenanceActivitySelectionListener(this);
-		tab.addGHAHideableHandler(maintenanceActivitySearchForm);
-		tab.addGHAClosableHandler(maintenanceActivitySearchForm);
+		tab.addHideableHandler(maintenanceActivitySearchForm);
+		tab.addClosableHandler(maintenanceActivitySearchForm);
 
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		setWidth100();
@@ -108,9 +109,8 @@ public class MaintenanceActivityTopSection extends HLayout implements
 	}
 
 	@Override
-	public boolean canBeClosen() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean canBeClosen(HideCloseAction hideAction) {
+		return true;
 	}
 
 }

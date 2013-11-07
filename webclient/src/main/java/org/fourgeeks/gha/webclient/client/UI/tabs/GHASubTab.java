@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 
 import com.smartgwt.client.widgets.tab.Tab;
@@ -12,7 +13,8 @@ import com.smartgwt.client.widgets.tab.Tab;
  * @author alacret Subclase que representa un subtab de las pantallas
  * 
  */
-public class GHASubTab extends Tab implements ClosableListener, HideableListener {
+public class GHASubTab extends Tab implements ClosableListener,
+		HideableListener {
 	private List<ClosableListener> closables = new ArrayList<ClosableListener>();
 	private List<HideableListener> hideables = new ArrayList<HideableListener>();
 
@@ -21,8 +23,8 @@ public class GHASubTab extends Tab implements ClosableListener, HideableListener
 	 * @param tab
 	 */
 	public GHASubTab(String title, GHATab tab) {
-		tab.addGHAHideableHandler(this);
-		tab.addGHAClosableHandler(this);
+		tab.addHideableHandler(this);
+		tab.addClosableHandler(this);
 		setTitle(title);
 		setPaneMargin(0);
 	}
@@ -54,17 +56,17 @@ public class GHASubTab extends Tab implements ClosableListener, HideableListener
 	}
 
 	@Override
-	public boolean canBeHidden() {
+	public boolean canBeHidden(HideCloseAction hideAction) {
 		for (HideableListener hideable : hideables)
-			if (!hideable.canBeHidden())
+			if (!hideable.canBeHidden(hideAction))
 				return false;
 		return true;
 	}
 
 	@Override
-	public boolean canBeClosen() {
+	public boolean canBeClosen(HideCloseAction closeAction) {
 		for (ClosableListener closable : closables)
-			if (!closable.canBeClosen())
+			if (!closable.canBeClosen(closeAction))
 				return false;
 		return true;
 	}

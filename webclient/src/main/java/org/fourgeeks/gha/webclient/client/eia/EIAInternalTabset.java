@@ -7,6 +7,7 @@ import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.eia.component.EIAComponentSubTab;
 import org.fourgeeks.gha.webclient.client.eia.information.EIAInformationSubTab;
@@ -76,9 +77,9 @@ public class EIAInternalTabset extends TabSet implements ResizeHandler,
 	 * ()
 	 */
 	@Override
-	public boolean canBeClosen() {
+	public boolean canBeClosen(HideCloseAction hideAction) {
 		for (ClosableListener closable : closables)
-			if (!closable.canBeClosen())
+			if (!closable.canBeClosen(hideAction))
 				return false;
 		return true;
 	}
@@ -91,9 +92,9 @@ public class EIAInternalTabset extends TabSet implements ResizeHandler,
 	 * ()
 	 */
 	@Override
-	public boolean canBeHidden() {
+	public boolean canBeHidden(HideCloseAction hideAction) {
 		for (HideableListener hideable : hideables)
-			if (!hideable.canBeHidden())
+			if (!hideable.canBeHidden(hideAction))
 				return false;
 		return true;
 	}

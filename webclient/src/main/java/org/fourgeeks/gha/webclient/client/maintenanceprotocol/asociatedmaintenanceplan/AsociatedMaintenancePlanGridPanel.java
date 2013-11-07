@@ -9,7 +9,9 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanMaintenanceProtocolModel;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSearchForm;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener;
@@ -29,9 +31,9 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret, emiliot
  * 
  */
-public class AsociatedMaintenancePlanGridPanel extends VLayout implements
-		ClosableListener, HideableListener, MaintenanceProtocolSelectionListener,
-		MaintenancePlanSelectionListener {
+public class AsociatedMaintenancePlanGridPanel extends GHAVerticalLayout
+		implements ClosableListener, HideableListener,
+		MaintenanceProtocolSelectionListener, MaintenancePlanSelectionListener {
 
 	private MaintenancePlanMaintenanceProtocolGrid grid;
 	private MaintenanceProtocol maintenanceProtocol;
@@ -49,9 +51,6 @@ public class AsociatedMaintenancePlanGridPanel extends VLayout implements
 	public AsociatedMaintenancePlanGridPanel(
 			AsociatedMaintenancePlanSubTab subTab) {
 		super();
-		setStyleName("sides-padding padding-top");// Esto es VUDU!
-		setWidth100();
-		setBackgroundColor("#E0E0E0");
 
 		Label title = new Label(
 				"Planes de Mantenimiento contienen este Protocolo");
@@ -146,14 +145,12 @@ public class AsociatedMaintenancePlanGridPanel extends VLayout implements
 	}
 
 	@Override
-	public boolean canBeHidden() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean canBeHidden(HideCloseAction hideAction) {
+		return true;
 	}
 
 	@Override
-	public boolean canBeClosen() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean canBeClosen(HideCloseAction hideAction) {
+		return true;
 	}
 }

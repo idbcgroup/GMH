@@ -4,6 +4,7 @@ import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImg;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
@@ -165,8 +166,7 @@ public class UserDropdownMenu extends VLayout implements HideableListener,
 	}
 
 	@Override
-	public boolean canBeHidden() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean canBeHidden(HideCloseAction hideAction) {
+		return true;
 	}
 }

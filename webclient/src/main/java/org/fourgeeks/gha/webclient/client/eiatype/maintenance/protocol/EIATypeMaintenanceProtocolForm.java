@@ -9,7 +9,6 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
 import org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenancePlanMaintenanceProtocolGrid;
 
-import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -35,21 +34,22 @@ public class EIATypeMaintenanceProtocolForm extends GHASlideInWindow implements
 
 		Label title = new Label("Protocolos del Plan");
 
-		VLayout sideButtons = GHAUiHelper.createBar(new GHAEditButton(new ClickHandler() {
+		VLayout sideButtons = GHAUiHelper.createBar(new GHAEditButton(
+				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
 						// TODO Auto-generated method stub
-						
+
 					}
 				}), new GHADeleteButton(new ClickHandler() {
-					
-					@Override
-					public void onClick(ClickEvent event) {
-						// TODO Auto-generated method stub
-						
-					}
-				}), GHAUiHelper.verticalGraySeparator("2px"), 
-				new GHACancelButton(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				// TODO Auto-generated method stub
+
+			}
+		}), GHAUiHelper.verticalGraySeparator("2px"), new GHACancelButton(
+				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
 						hide();
@@ -65,27 +65,5 @@ public class EIATypeMaintenanceProtocolForm extends GHASlideInWindow implements
 	@Override
 	public void close() {
 		destroy();
-	}
-
-	@Override
-	public void hide() {
-		super.hide();
-	}
-
-	@Override
-	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getBottomSectionHeight() - 20);
-	}
-
-	@Override
-	public boolean canBeHidden() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean canBeClosen() {
-		// TODO Auto-generated method stub
-		return false;
 	}
 }

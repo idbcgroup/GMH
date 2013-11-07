@@ -2,6 +2,7 @@ package org.fourgeeks.gha.webclient.client.UI.superclasses;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -84,6 +85,16 @@ public abstract class GHASlideInWindow extends GHAVerticalLayout implements
 				.setZIndex(-80000);
 
 		animateHide(AnimationEffect.FLY, callback);
+	}
+
+	@Override
+	public boolean canBeClosen(HideCloseAction closeAction) {
+		return true;
+	}
+
+	@Override
+	public boolean canBeHidden(HideCloseAction closeAction) {
+		return true;
 	}
 
 }

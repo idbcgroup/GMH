@@ -137,15 +137,4 @@ public class MaintenancePlanAddForm extends GHASlideInWindow implements
 		cancel();
 	}
 
-	@Override
-	public boolean canBeClosen() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean canBeHidden() {
-		// TODO Auto-generated method stub
-		return false;
-	}
 }

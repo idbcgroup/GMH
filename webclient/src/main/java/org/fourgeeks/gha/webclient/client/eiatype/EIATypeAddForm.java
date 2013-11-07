@@ -6,6 +6,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACloseButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAAddForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 
@@ -63,7 +64,7 @@ public class EIATypeAddForm extends GHAAddForm implements
 	}
 
 	@Override
-	public boolean canBeClosen() {
+	public boolean canBeClosen(HideCloseAction hideAction) {// TODO
 		if (form.hasUnCommittedChanges()) {
 			GHANotification.confirm(GHAStrings.get("information"),
 					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
@@ -81,7 +82,7 @@ public class EIATypeAddForm extends GHAAddForm implements
 	}
 
 	@Override
-	public boolean canBeHidden() {
+	public boolean canBeHidden(HideCloseAction hideAction) {// TODO
 		if (form.hasUnCommittedChanges()) {
 			GHANotification.confirm(GHAStrings.get("information"),
 					GHAStrings.get("unsaved-changes"), new BooleanCallback() {

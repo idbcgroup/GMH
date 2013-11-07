@@ -6,7 +6,6 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
 import org.fourgeeks.gha.webclient.client.eia.EIAGrid;
 
-import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -57,22 +56,4 @@ public class EIADispatchmentForm extends GHASlideInWindow {
 						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
 								+ "px"), botPanel);
 	}
-
-	@Override
-	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getTabHeight() - 4);
-	}
-
-	@Override
-	public boolean canBeClosen() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean canBeHidden() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 }

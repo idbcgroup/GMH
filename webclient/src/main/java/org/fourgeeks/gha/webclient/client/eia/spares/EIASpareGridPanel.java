@@ -3,16 +3,18 @@ package org.fourgeeks.gha.webclient.client.eia.spares;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIASpareGridPanel extends VLayout implements ClosableListener,
-		HideableListener {
+public class EIASpareGridPanel extends GHAVerticalLayout implements
+		ClosableListener, HideableListener {
 
 	private EIASpareGrid eiaSpareGrid = new EIASpareGrid();
 
@@ -64,15 +66,13 @@ public class EIASpareGridPanel extends VLayout implements ClosableListener,
 	}
 
 	@Override
-	public boolean canBeHidden() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean canBeHidden(HideCloseAction hideAction) {
+		return true;
 	}
 
 	@Override
-	public boolean canBeClosen() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean canBeClosen(HideCloseAction hideAction) {
+		return true;
 	}
 
 }

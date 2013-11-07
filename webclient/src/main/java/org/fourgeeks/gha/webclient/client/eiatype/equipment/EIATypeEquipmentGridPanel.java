@@ -11,6 +11,7 @@ import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAEditButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHANewButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
@@ -180,12 +181,12 @@ public class EIATypeEquipmentGridPanel extends GHAVerticalLayout implements
 	}
 
 	@Override
-	public boolean canBeHidden() {
+	public boolean canBeHidden(HideCloseAction hideAction) {
 		return true;
 	}
 
 	@Override
-	public boolean canBeClosen() {
+	public boolean canBeClosen(HideCloseAction hideAction) {
 		return true;
 	}
 }

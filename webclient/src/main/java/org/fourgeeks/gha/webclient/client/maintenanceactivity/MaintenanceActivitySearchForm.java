@@ -11,6 +11,7 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
@@ -114,7 +115,8 @@ public class MaintenanceActivitySearchForm extends GHASlideInWindow implements
 
 		HLayout formLayout = new HLayout();
 		formLayout.setPadding(10);
-		formLayout.setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT + "px");
+		formLayout.setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT
+				+ "px");
 		formLayout.setDefaultLayoutAlign(VerticalAlignment.CENTER);
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
 
@@ -262,15 +264,13 @@ public class MaintenanceActivitySearchForm extends GHASlideInWindow implements
 	}
 
 	@Override
-	public boolean canBeClosen() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean canBeClosen(HideCloseAction hideAction) {
+		return true;
 	}
 
 	@Override
-	public boolean canBeHidden() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean canBeHidden(HideCloseAction hideAction) {
+		return true;
 	}
 
 }

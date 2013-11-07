@@ -116,7 +116,8 @@ public class MaintenancePlanSearchForm extends GHASlideInWindow implements
 
 		HLayout formLayout = new HLayout();
 		formLayout.setPadding(10);
-		formLayout.setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT + "px");
+		formLayout.setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT
+				+ "px");
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
 
 		addMembers(title, formLayout,
@@ -272,17 +273,5 @@ public class MaintenancePlanSearchForm extends GHASlideInWindow implements
 		notifyMaintenancePlan(((MaintenancePlanRecord) selectedRecord)
 				.toEntity());
 		hide();
-	}
-
-	@Override
-	public boolean canBeClosen() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean canBeHidden() {
-		// TODO Auto-generated method stub
-		return false;
 	}
 }

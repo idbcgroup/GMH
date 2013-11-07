@@ -6,6 +6,7 @@ import java.util.List;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader;
 
@@ -54,24 +55,24 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 
 		resultSet = new EiaTypeResultSet();
 		resultSet.setVisible(false);
-		addGHAHideableHandler(resultSet);
-		addGHAClosableHandler(resultSet);
+		addHideableHandler(resultSet);
+		addClosableHandler(resultSet);
 		resultSet.addEiaTypeSelectionListener(this);
 
 		topForm = new EIATypeTopForm(resultSet, this);
 		topForm.activate();
-		addGHAHideableHandler(topForm);
-		addGHAClosableHandler(topForm);
+		addHideableHandler(topForm);
+		addClosableHandler(topForm);
 		addEiaTypeSelectionListener(topForm);
 
 		internalTabSet = new EIATypeInternalTabSet(this);
-		addGHAHideableHandler(internalTabSet);
-		addGHAClosableHandler(internalTabSet);
+		addHideableHandler(internalTabSet);
+		addClosableHandler(internalTabSet);
 		addEiaTypeSelectionListener(internalTabSet);
 
 		addForm = new EIATypeAddForm(GHAStrings.get("new-eiatype"));
-		addGHAHideableHandler(addForm);
-		addGHAClosableHandler(addForm);
+		addHideableHandler(addForm);
+		addClosableHandler(addForm);
 		addForm.addEiaTypeSelectionListener(this);
 
 		verticalPanel.addMember(topForm);
@@ -87,7 +88,7 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 		if (addForm.isVisible())
 			return;
 		if (internalTabSet.isVisible())
-			if (internalTabSet.canBeHidden())
+			if (internalTabSet.canBeHidden(HideCloseAction.SAVE))
 				internalTabSet.hide();
 			else
 				return;
@@ -127,7 +128,7 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 		if (topForm.isActivated())
 			return;
 		if (internalTabSet.isVisible())
-			if (internalTabSet.canBeHidden())
+			if (internalTabSet.canBeHidden(HideCloseAction.SAVE))
 				internalTabSet.hide();
 			else
 				return;
@@ -150,4 +151,5 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 		super.show();
 		topForm.setVisibility(Visibility.VISIBLE);
 	}
+
 }

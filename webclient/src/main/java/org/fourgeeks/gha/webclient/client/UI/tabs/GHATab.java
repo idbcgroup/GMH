@@ -104,17 +104,23 @@ public abstract class GHATab extends VLayout implements ClosableListener,
 		getElement().removeClassName("hidden");
 	}
 
-	/**
-	 * @param closable
-	 */
-	public void addGHAClosableHandler(ClosableListener closable) {
+	@Override
+	public void removeClosableHandler(ClosableListener closable) {
+		closables.remove(closable);
+	}
+
+	@Override
+	public void removeHideableHandler(HideableListener hideable) {
+		hideables.remove(hideable);
+	}
+
+	@Override
+	public void addClosableHandler(ClosableListener closable) {
 		closables.add(closable);
 	}
 
-	/**
-	 * @param hideable
-	 */
-	public void addGHAHideableHandler(HideableListener hideable) {
+	@Override
+	public void addHideableHandler(HideableListener hideable) {
 		hideables.add(hideable);
 	}
 

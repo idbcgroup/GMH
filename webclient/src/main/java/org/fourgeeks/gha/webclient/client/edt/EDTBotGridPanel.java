@@ -1,22 +1,33 @@
 package org.fourgeeks.gha.webclient.client.edt;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EDTBotGridPanel extends VLayout implements ClosableListener {
+/**
+ * @author alacret
+ * 
+ */
+public class EDTBotGridPanel extends GHAVerticalLayout implements
+		ClosableListener {
 
 	private EDTBotGrid botGrid;
 	{
 		botGrid = new EDTBotGrid();
 	}
 
+	/**
+	 * 
+	 */
 	public EDTBotGridPanel() {
 		super();
 		setStyleName("sides-padding");// Esto es VUDU!
@@ -56,13 +67,13 @@ public class EDTBotGridPanel extends VLayout implements ClosableListener {
 	}
 
 	@Override
-	public void close() {
-		// TODO:Close the add forms
+	public boolean canBeClosen(HideCloseAction closeAction) {
+		return true;
 	}
 
 	@Override
-	public boolean canBeClosen() {
+	public void close() throws UnavailableToCloseException {
 		// TODO Auto-generated method stub
-		return false;
+
 	}
 }

@@ -5,10 +5,14 @@ package org.fourgeeks.gha.webclient.client.UI.interfaces;
  * 
  */
 public interface ClosableProducer {
-	public void addClosableHandler();
+	/**
+	 * @param closableListener
+	 */
+	public void addClosableHandler(ClosableListener closableListener);
 
-	public void removeClosableHandler();
-
-	public void notifyClose();
+	/**
+	 * @param closableListener
+	 */
+	public void removeClosableHandler(ClosableListener closableListener);
 
 }

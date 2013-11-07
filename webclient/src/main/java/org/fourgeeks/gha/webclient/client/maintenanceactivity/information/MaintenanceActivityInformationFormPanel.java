@@ -7,13 +7,14 @@ import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivityForm;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionListener;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionProducer;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivityTab;
 
-import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -24,8 +25,9 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class MaintenanceActivityInformationFormPanel extends VLayout implements
-		ClosableListener, HideableListener, MaintenanceActivitySelectionListener,
+public class MaintenanceActivityInformationFormPanel extends GHAVerticalLayout
+		implements ClosableListener, HideableListener,
+		MaintenanceActivitySelectionListener,
 		MaintenanceActivitySelectionProducer {
 
 	private MaintenanceActivityForm maintenanceActivityForm;
@@ -41,12 +43,7 @@ public class MaintenanceActivityInformationFormPanel extends VLayout implements
 
 	public MaintenanceActivityInformationFormPanel(MaintenanceActivityTab tab) {
 		activateForm(false);
-		tab.addGHAClosableHandler(this);
-
-		setWidth100();
-		setBackgroundColor("#E0E0E0");
-		setStyleName("sides-padding padding-top");// Esto es VUDU!
-		setAlign(Alignment.CENTER);
+		tab.addClosableHandler(this);
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
 				"../resources/icons/save.png", new ClickHandler() {
@@ -123,14 +120,12 @@ public class MaintenanceActivityInformationFormPanel extends VLayout implements
 	}
 
 	@Override
-	public boolean canBeHidden() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean canBeHidden(HideCloseAction hideAction) {
+		return true;
 	}
 
 	@Override
-	public boolean canBeClosen() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean canBeClosen(HideCloseAction hideAction) {
+		return true;
 	}
 }

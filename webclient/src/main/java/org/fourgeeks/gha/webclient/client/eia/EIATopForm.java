@@ -194,23 +194,6 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 	}
 
 	@Override
-	public boolean canBeClosen() {
-		return true;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable#canBeHidden
-	 * ()
-	 */
-	@Override
-	public boolean canBeHidden() {
-		return true;
-	}
-
-	@Override
 	public void close() {
 		destroy();
 	}

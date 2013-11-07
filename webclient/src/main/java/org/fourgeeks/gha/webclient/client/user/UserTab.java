@@ -6,6 +6,7 @@ import java.util.List;
 import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader;
 
@@ -54,24 +55,24 @@ public class UserTab extends GHATab implements UserSelectionListener,
 
 		resultSet = new UserResultSet();
 		resultSet.setVisible(false);
-		addGHAHideableHandler(resultSet);
-		addGHAClosableHandler(resultSet);
+		addHideableHandler(resultSet);
+		addClosableHandler(resultSet);
 		resultSet.addUserSelectionListener(this);
 
 		topForm = new UserTopForm(resultSet, this);
 		topForm.activate();
-		addGHAClosableHandler(topForm);
-		addGHAClosableHandler(topForm);
+		addClosableHandler(topForm);
+		addClosableHandler(topForm);
 		addUserSelectionListener(topForm);
 
 		internalTabSet = new UserInternalTabset(this);
-		addGHAHideableHandler(internalTabSet);
-		addGHAClosableHandler(internalTabSet);
+		addHideableHandler(internalTabSet);
+		addClosableHandler(internalTabSet);
 		addUserSelectionListener(internalTabSet);
 
 		addForm = new UserAddForm(GHAStrings.get("new-user"));
-		addGHAHideableHandler(addForm);
-		addGHAClosableHandler(addForm);
+		addHideableHandler(addForm);
+		addClosableHandler(addForm);
 		addForm.addUserSelectionListener(this);
 
 		verticalPanel.addMember(topForm);
@@ -87,7 +88,7 @@ public class UserTab extends GHATab implements UserSelectionListener,
 		if (addForm.isVisible())
 			return;
 		if (internalTabSet.isVisible())
-			if (internalTabSet.canBeHidden())
+			if (internalTabSet.canBeHidden(HideCloseAction.SAVE))
 				internalTabSet.hide();
 			else
 				return;
@@ -127,7 +128,7 @@ public class UserTab extends GHATab implements UserSelectionListener,
 		if (topForm.isActivated())
 			return;
 		if (internalTabSet.isVisible())
-			if (internalTabSet.canBeHidden())
+			if (internalTabSet.canBeHidden(HideCloseAction.SAVE))
 				internalTabSet.hide();
 			else
 				return;

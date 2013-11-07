@@ -5,9 +5,12 @@ import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanForm;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionProducer;
@@ -24,9 +27,9 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class MaintenancePlanInformationFormPanel extends VLayout implements
-		MaintenancePlanSelectionListener, MaintenancePlanSelectionProducer,
-		ClosableListener, HideableListener {
+public class MaintenancePlanInformationFormPanel extends GHAVerticalLayout
+		implements MaintenancePlanSelectionListener,
+		MaintenancePlanSelectionProducer, ClosableListener, HideableListener {
 	private MaintenancePlanForm maintenancePlanForm;
 	private List<MaintenancePlanSelectionListener> listeners;
 
@@ -40,7 +43,7 @@ public class MaintenancePlanInformationFormPanel extends VLayout implements
 
 	public MaintenancePlanInformationFormPanel(MaintenancePlanTab tab) {
 		activateForm(false);
-		tab.addGHAClosableHandler(this);
+		tab.addClosableHandler(this);
 
 		setWidth100();
 		setBackgroundColor("#E0E0E0");
@@ -84,16 +87,6 @@ public class MaintenancePlanInformationFormPanel extends VLayout implements
 
 	private void save() {
 		maintenancePlanForm.update();
-	}
-
-	@Override
-	public void close() {
-
-	}
-
-	@Override
-	public void hide() {
-
 	}
 
 	public void setMaintenancePlan(MaintenancePlan maintenancePlan) {
@@ -146,14 +139,18 @@ public class MaintenancePlanInformationFormPanel extends VLayout implements
 	}
 
 	@Override
-	public boolean canBeHidden() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean canBeHidden(HideCloseAction hideAction) {
+		return true;
 	}
 
 	@Override
-	public boolean canBeClosen() {
+	public boolean canBeClosen(HideCloseAction hideAction) {
+		return true;
+	}
+
+	@Override
+	public void close() throws UnavailableToCloseException {
 		// TODO Auto-generated method stub
-		return false;
+
 	}
 }

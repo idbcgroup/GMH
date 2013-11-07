@@ -3,8 +3,10 @@ package org.fourgeeks.gha.webclient.client.eia.reports;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASectionForm;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 
 import com.google.gwt.safehtml.shared.UriUtils;
 import com.google.gwt.user.client.Window;
@@ -18,7 +20,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author naramirez
  * 
  */
-public class EIAReportsFormPanel extends VLayout implements ClosableListener, HideableListener {
+public class EIAReportsFormPanel extends GHAVerticalLayout implements
+		ClosableListener, HideableListener {
 
 	private final String PATH_IMG_PRINT_BUTTON = "../resources/icons/check.png";
 	private final String PATH_IMG_CLEAN_BUTTON = "../resources/icons/clean.png";
@@ -49,9 +52,11 @@ public class EIAReportsFormPanel extends VLayout implements ClosableListener, Hi
 		secciones = new GHASectionForm();
 		secciones.addSection("Edo. y Ubic.", edoUbicReportForm);
 		secciones.addSection("Detalles de Equipos", detalleEquiposReportForm);
-		secciones.addSection("Listado Tipos de Equipo", listEiaTypesEiasReportForm);
+		secciones.addSection("Listado Tipos de Equipo",
+				listEiaTypesEiasReportForm);
 		secciones.addSection("Listado de Equipos", listEiasReportForm);
-		secciones.addSection("Tipos de Equipo y sus Comp.", listEiaTypeCompsReportForm);
+		secciones.addSection("Tipos de Equipo y sus Comp.",
+				listEiaTypeCompsReportForm);
 		secciones.openFirst();
 
 		// CREO EL SIDEBAR
@@ -101,14 +106,12 @@ public class EIAReportsFormPanel extends VLayout implements ClosableListener, Hi
 		secciones.deactivate();
 	}
 
-	public boolean canBeHidden() {
-		// TODO Auto-generated method stub
+	public boolean canBeHidden(HideCloseAction hideAction) {
 		return true;
 	}
 
 	@Override
-	public boolean canBeClosen() {
-		// TODO Auto-generated method stub
+	public boolean canBeClosen(HideCloseAction hideAction) {
 		return true;
 	}
 }

@@ -6,6 +6,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAUndoButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
@@ -25,7 +26,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class EIAInformationFormPanel extends GHAVerticalLayout implements
-		ClosableListener, HideableListener, EiaSelectionProducer, EIASelectionListener {
+		ClosableListener, HideableListener, EiaSelectionProducer,
+		EIASelectionListener {
 
 	/**
 	 * @param eiaEquipmentSubTab
@@ -82,7 +84,7 @@ public class EIAInformationFormPanel extends GHAVerticalLayout implements
 	}
 
 	@Override
-	public boolean canBeClosen() {
+	public boolean canBeClosen(HideCloseAction hideAction) { // TODO
 		if (form.hasUnCommittedChanges()) {
 			GHANotification.confirm(GHAStrings.get("information"),
 					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
@@ -100,7 +102,7 @@ public class EIAInformationFormPanel extends GHAVerticalLayout implements
 	}
 
 	@Override
-	public boolean canBeHidden() {
+	public boolean canBeHidden(HideCloseAction hideAction) { // TODO
 		if (form.hasUnCommittedChanges()) {
 			GHANotification.confirm(GHAStrings.get("information"),
 					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
