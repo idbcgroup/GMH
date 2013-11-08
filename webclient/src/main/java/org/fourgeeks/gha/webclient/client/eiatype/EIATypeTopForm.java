@@ -252,6 +252,7 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 
 	@Override
 	public void search() {
+		super.search();
 		EiaType eiaType = new EiaType();
 		eiaType.setCode(codeItem.getValueAsString());
 		eiaType.setName(nameItem.getValueAsString());
@@ -272,6 +273,7 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 
 	@Override
 	public void search(EiaType eiaType) {
+		super.search();
 		EIATypeModel.find(eiaType, new GHAAsyncCallback<List<EiaType>>() {
 			@Override
 			public void onSuccess(List<EiaType> result) {

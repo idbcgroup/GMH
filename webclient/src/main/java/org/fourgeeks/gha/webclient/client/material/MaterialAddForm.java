@@ -1,6 +1,6 @@
-package org.fourgeeks.gha.webclient.client.materialcategory;
+package org.fourgeeks.gha.webclient.client.material;
 
-import org.fourgeeks.gha.domain.glm.MaterialCategory;
+import org.fourgeeks.gha.domain.glm.Material;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
@@ -19,22 +19,20 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
- * @author alacret
+ * @author emiliot
  * 
  */
-public class MaterialCategoryAddForm extends GHAAddForm implements
-		MaterialCategorySelectionProducer {
-
-	protected MaterialCategoryForm form;
+public class MaterialAddForm extends GHAAddForm implements
+		MaterialSelectionProducer {
+	protected MaterialForm form;
 	{
-		form = new MaterialCategoryForm();
+		form = new MaterialForm();
 	}
 
 	/**
 	 * @param title
-	 * 
 	 */
-	public MaterialCategoryAddForm(String title) {
+	public MaterialAddForm(String title) {
 		super(title);
 		VLayout sideButtons = GHAUiHelper.createBar(new GHASaveButton(
 				new ClickHandler() {
@@ -56,9 +54,17 @@ public class MaterialCategoryAddForm extends GHAAddForm implements
 		addMember(gridPanel);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.material.MaterialSelectionProducer
+	 * #addMaterialSelectionListener
+	 * (org.fourgeeks.gha.webclient.client.material.MaterialSelectionListener)
+	 */
 	@Override
 	public void addMaterialSelectionListener(
-			MaterialCategorySelectionListener materialSelectionListener) {
+			MaterialSelectionListener materialSelectionListener) {
 		form.addMaterialSelectionListener(materialSelectionListener);
 	}
 
@@ -98,13 +104,6 @@ public class MaterialCategoryAddForm extends GHAAddForm implements
 		return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow#hide
-	 * ()
-	 */
 	@Override
 	public void hide() {
 		if (form.hasUnCommittedChanges()) {
@@ -116,7 +115,7 @@ public class MaterialCategoryAddForm extends GHAAddForm implements
 							if (value) {
 								form.undo();
 								form.hide();
-								MaterialCategoryAddForm.super.hide();
+								MaterialAddForm.super.hide();
 							}
 						}
 					});
@@ -126,15 +125,16 @@ public class MaterialCategoryAddForm extends GHAAddForm implements
 		super.hide();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.material.MaterialSelectionProducer
+	 * #notifyMaterial(org.fourgeeks.gha.domain.glm.Material)
+	 */
 	@Override
-	public void notifyMaterialCategory(MaterialCategory materialCategory) {
-		form.notifyMaterialCategory(materialCategory);
-	}
-
-	@Override
-	public void open() {
-		super.open();
-		form.show();
+	public void notifyMaterial(Material material) {
+		form.notifyMaterial(material);
 	}
 
 	@Override
@@ -143,17 +143,31 @@ public class MaterialCategoryAddForm extends GHAAddForm implements
 	}
 
 	@Override
+	public void open() {
+		super.open();
+		form.show();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.material.MaterialSelectionProducer
+	 * #removeMaterialSelectionListener
+	 * (org.fourgeeks.gha.webclient.client.material.MaterialSelectionListener)
+	 */
+	@Override
 	public void removeMaterialSelectionListener(
-			MaterialCategorySelectionListener materialSelectionListener) {
+			MaterialSelectionListener materialSelectionListener) {
 		form.addMaterialSelectionListener(materialSelectionListener);
 
 	}
 
 	private void save() {
-		form.save(new GHAAsyncCallback<MaterialCategory>() {
+		form.save(new GHAAsyncCallback<Material>() {
 
 			@Override
-			public void onSuccess(MaterialCategory arg0) {
+			public void onSuccess(Material arg0) {
 				GHANotification.alert("material-save-success");
 				form.cancel();
 				hide();

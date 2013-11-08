@@ -116,6 +116,7 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 
 	@Override
 	public void search() {
+		super.search();
 		SSOUser ssoUser = new SSOUser();
 		if (usernameItem.getValue() != null)
 			ssoUser.setUserName(usernameItem.getValueAsString());
@@ -147,6 +148,7 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 
 	@Override
 	public void search(final SSOUser ssoU) {
+		super.search();
 		UserModel.find(ssoU, new GHAAsyncCallback<List<SSOUser>>() {
 
 			@Override

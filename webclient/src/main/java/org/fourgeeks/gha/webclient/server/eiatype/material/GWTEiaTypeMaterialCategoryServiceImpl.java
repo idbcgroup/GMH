@@ -22,7 +22,7 @@ public class GWTEiaTypeMaterialCategoryServiceImpl extends RemoteServiceServlet
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@EJB(name = "gmh.EiaTypeMaterialService")
+	@EJB(name = "gmh.EiaTypeMaterialCategoryService")
 	private EiaTypeMaterialCategoryServiceRemote serviceRemote;
 
 	@Override
