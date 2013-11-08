@@ -74,4 +74,5 @@ public abstract class GHASearchForm<T> extends GHASlideInWindow {
 	public void filterBy(List<T> blackList) {
 		this.blackList = blackList;
 	}
+
 }

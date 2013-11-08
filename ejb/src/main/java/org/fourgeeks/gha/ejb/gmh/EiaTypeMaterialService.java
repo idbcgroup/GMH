@@ -10,27 +10,38 @@ import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.domain.gmh.EiaTypeMaterialCategory;
+import org.fourgeeks.gha.domain.gmh.EiaTypeMaterial;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 
-@Stateless(name = "gmh.EiaTypeMaterialCategoryService")
-public class EiaTypeMaterialCategoryService extends GHAEJBExceptionImpl
-		implements EiaTypeMaterialCategoryServiceRemote {
+/**
+ * @author emiliot
+ * 
+ */
 
+@Stateless(name = "gmh.EiaTypeMaterialService")
+public class EiaTypeMaterialService extends GHAEJBExceptionImpl implements
+		EiaTypeMaterialServiceRemote {
 	@PersistenceContext
 	private EntityManager em;
 
 	private final static Logger logger = Logger
-			.getLogger(EiaTypeMaterialCategoryService.class.getName());
+			.getLogger(EiaTypeMaterialService.class.getName());
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.EiaTypeMaterialServiceRemote#findByEiaType(
+	 * org.fourgeeks.gha.domain.gmh.EiaType)
+	 */
 	@Override
-	public List<EiaTypeMaterialCategory> findByEiaType(EiaType eiaType)
+	public List<EiaTypeMaterial> findByEiaType(EiaType eiaType)
 			throws GHAEJBException {
 		try {
 			return em
-					.createNamedQuery("EiaTypeMaterialCategory.findByEiaType",
-							EiaTypeMaterialCategory.class)
+					.createNamedQuery("EiaTypeMaterial.findByEiaType",
+							EiaTypeMaterial.class)
 					.setParameter("eiaType", eiaType).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all EiaTypeMaterial", ex);
@@ -40,14 +51,20 @@ public class EiaTypeMaterialCategoryService extends GHAEJBExceptionImpl
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.EiaTypeMaterialServiceRemote#save(org.fourgeeks
+	 * .gha.domain.gmh.EiaTypeMaterial)
+	 */
 	@Override
-	public EiaTypeMaterialCategory save(EiaTypeMaterialCategory eiaTypeMaterial)
+	public EiaTypeMaterial save(EiaTypeMaterial eiaTypeMaterial)
 			throws GHAEJBException {
 		try {
 			em.persist(eiaTypeMaterial);
 			em.flush();
-			return em.find(EiaTypeMaterialCategory.class,
-					eiaTypeMaterial.getId());
+			return em.find(EiaTypeMaterial.class, eiaTypeMaterial.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving eiaTypeMaterial", e);
 			// String message = null;
@@ -63,32 +80,36 @@ public class EiaTypeMaterialCategoryService extends GHAEJBExceptionImpl
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypeMaterialServiceRemote#delete(long)
+	 */
 	@Override
 	public void delete(long id) throws GHAEJBException {
 		try {
-			EiaTypeMaterialCategory entity = em.find(
-					EiaTypeMaterialCategory.class, id);
+			EiaTypeMaterial entity = em.find(EiaTypeMaterial.class, id);
 			em.remove(entity);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete eiatypematerial", e);
 			throw super.generateGHAEJBException("eiaTypeMaterial-delete-fail",
 					RuntimeParameters.getLang(), em);
 		}
+
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * org.fourgeeks.gha.ejb.gmh.EiaTypeMaterialCategoryServiceRemote#update
-	 * (org.fourgeeks.gha.domain.gmh.EiaTypeMaterialCategory)
+	 * org.fourgeeks.gha.ejb.gmh.EiaTypeMaterialServiceRemote#update(org.fourgeeks
+	 * .gha.domain.gmh.EiaTypeMaterial)
 	 */
 	@Override
-	public EiaTypeMaterialCategory update(
-			EiaTypeMaterialCategory eiaTypeMaterialCategory)
+	public EiaTypeMaterial update(EiaTypeMaterial eiaTypeMaterial)
 			throws GHAEJBException {
 		try {
-			EiaTypeMaterialCategory res = em.merge(eiaTypeMaterialCategory);
+			EiaTypeMaterial res = em.merge(eiaTypeMaterial);
 			em.flush();
 			return res;
 		} catch (Exception e) {
@@ -97,4 +118,5 @@ public class EiaTypeMaterialCategoryService extends GHAEJBExceptionImpl
 					RuntimeParameters.getLang(), em);
 		}
 	}
+
 }
