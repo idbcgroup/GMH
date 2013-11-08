@@ -1462,6 +1462,8 @@ public class InitialData {
 		} catch (NoResultException e) {
 			try {
 				logger.info("Creating uistrings test data");
+				em.persist(new UiString(LanguageEnum.ES, "yes", "Si"));
+				em.persist(new UiString(LanguageEnum.ES, "no", "No"));
 				em.persist(new UiString(LanguageEnum.ES, "new-user",
 						"Nuevo usuario"));
 				em.persist(new UiString(LanguageEnum.ES, "permissions",

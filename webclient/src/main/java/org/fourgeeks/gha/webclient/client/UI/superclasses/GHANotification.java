@@ -22,6 +22,10 @@ import com.smartgwt.client.types.Positioning;
 import com.smartgwt.client.types.VerticalAlignment;
 import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.util.SC;
+import com.smartgwt.client.widgets.Button;
+import com.smartgwt.client.widgets.Dialog;
+import com.smartgwt.client.widgets.events.ButtonClickEvent;
+import com.smartgwt.client.widgets.events.ButtonClickHandler;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -48,6 +52,41 @@ public class GHANotification {
 	 * 
 	 * addMember(GHAUiHelper.verticalGraySeparator("25px")); }
 	 */
+
+	/**
+	 * @param title
+	 * @param message
+	 * @param buttonYesHandler
+	 * @param buttonNoHandler
+	 * @param buttonCancelHandler
+	 */
+	public static void askYesNoCancel(final String title, String message,
+			final ClickHandler buttonYesHandler,
+			final ClickHandler buttonNoHandler,
+			final ClickHandler buttonCancelHandler) {
+		final Dialog dialog = new Dialog();
+		dialog.setMessage(message);
+		dialog.setIcon("[SKIN]ask.png");
+		Button buttonYes = new Button(GHAStrings.get("yes"));
+		if (buttonYesHandler != null)
+			buttonYes.addClickHandler(buttonYesHandler);
+		Button buttonNo = new Button(GHAStrings.get("no"));
+		if (buttonNoHandler != null)
+			buttonNo.addClickHandler(buttonNoHandler);
+		Button buttonCancel = new Button(GHAStrings.get("cancel"));
+		if (buttonCancelHandler != null)
+			buttonCancel.addClickHandler(buttonCancelHandler);
+		dialog.setButtons(buttonYes, buttonNo, buttonCancel);
+		dialog.addButtonClickHandler(new ButtonClickHandler() {
+
+			@Override
+			public void onButtonClick(ButtonClickEvent event) {
+				dialog.hide();
+				dialog.destroy();
+			}
+		});
+		dialog.show();
+	}
 
 	/**
 	 * @param message
@@ -114,6 +153,10 @@ public class GHANotification {
 		SC.say(ghaMessage.getText());
 	}
 
+	/**
+	 * @author alacret
+	 * 
+	 */
 	public static class ModalNotification extends VLayout implements
 			ResizeHandler, ClosableListener {
 

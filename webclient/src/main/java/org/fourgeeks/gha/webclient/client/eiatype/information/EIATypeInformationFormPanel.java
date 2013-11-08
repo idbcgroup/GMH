@@ -10,6 +10,7 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
+import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabSet;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.eiatype.EiaTypeForm;
 import org.fourgeeks.gha.webclient.client.eiatype.EiaTypeSelectionProducer;
@@ -301,18 +302,32 @@ public class EIATypeInformationFormPanel extends GHAVerticalLayout implements
 	}
 
 	@Override
-	public boolean canBeHidden(HideCloseAction hideAction) {// TODO
+	public boolean canBeHidden(HideCloseAction hideAction) {
+		if (hideAction.equals(HideCloseAction.DISCARD))
+			return true;
+
 		if (form.hasUnCommittedChanges()) {
-			GHANotification.confirm(GHAStrings.get("information"),
-					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
+			if (hideAction.equals(HideCloseAction.SAVE)) {
+				form.save();
+				return true;
+			}
+
+			GHANotification.askYesNoCancel(GHAStrings.get("information"),
+					GHAStrings.get("unsaved-changes"), new ClickHandler() {
 
 						@Override
-						public void execute(Boolean value) {
-							if (value) {
-								form.undo();
-							}
+						public void onClick(ClickEvent event) {
+							GHATabSet.hideCurrentTab(HideCloseAction.SAVE);
+
 						}
-					});
+					}, new ClickHandler() {
+
+						@Override
+						public void onClick(ClickEvent event) {
+							GHATabSet.hideCurrentTab(HideCloseAction.DISCARD);
+
+						}
+					}, null);
 			return false;
 		}
 		return true;
