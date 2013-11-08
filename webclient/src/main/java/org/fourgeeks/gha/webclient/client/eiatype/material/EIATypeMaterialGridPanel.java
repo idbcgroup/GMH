@@ -19,7 +19,6 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
-import org.fourgeeks.gha.webclient.client.eiatype.materialcategory.EIATypeMaterialCategoryModel;
 import org.fourgeeks.gha.webclient.client.material.MaterialAddForm;
 import org.fourgeeks.gha.webclient.client.material.MaterialSearchForm;
 import org.fourgeeks.gha.webclient.client.material.MaterialSelectionListener;
@@ -156,7 +155,7 @@ public class EIATypeMaterialGridPanel extends GHAVerticalLayout implements
 					@Override
 					public void execute(Boolean value) {
 						if (value) {
-							EIATypeMaterialCategoryModel.delete(
+							EIATypeMaterialModel.delete(
 									eiaTypeMaterial.getId(),
 									new GHAAsyncCallback<Void>() {
 

@@ -17,7 +17,7 @@ public class EiaTypeMaterialGrid extends GhaGrid<EiaTypeMaterial> {
 	private GHAGridField descriptionGridField;
 	private GHAGridField modelGridField;
 	private GHAGridField extCodeGridField;
-	private GHAGridField typeGridField;
+	// private GHAGridField typeGridField;
 	private GHAGridField amountGridField;
 
 	{
@@ -28,7 +28,7 @@ public class EiaTypeMaterialGrid extends GhaGrid<EiaTypeMaterial> {
 		modelGridField = new GHAGridField("model", GHAStrings.get("model"));
 		extCodeGridField = new GHAGridField("extCode",
 				GHAStrings.get("external-code"));
-		typeGridField = new GHAGridField("type", GHAStrings.get("type"));
+		// typeGridField = new GHAGridField("type", GHAStrings.get("type"));
 		amountGridField = new GHAGridField("amount", GHAStrings.get("amount"));
 		amountGridField.setCanEdit(true);
 		amountGridField.setType(ListGridFieldType.INTEGER);
@@ -38,8 +38,7 @@ public class EiaTypeMaterialGrid extends GhaGrid<EiaTypeMaterial> {
 		setEmptyMessage(GHAStrings.get("empty-material-grid"));
 
 		setFields(codeGridField, nameGridField, descriptionGridField,
-				modelGridField, extCodeGridField, typeGridField,
-				amountGridField);
+				modelGridField, extCodeGridField, amountGridField);
 	}
 
 	/**

@@ -11,8 +11,10 @@ import javax.validation.Validator;
 import org.fourgeeks.gha.domain.glm.Material;
 import org.fourgeeks.gha.domain.glm.MaterialCategory;
 import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
+import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHABrandSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHACodeItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextAreaItem;
@@ -35,6 +37,7 @@ public class MaterialForm extends GHAVerticalLayout implements
 	private List<MaterialSelectionListener> listeners;
 	private GHATextItem codeItem, externalCodeItem, nameItem, modelItem;
 	private GHATextAreaItem descriptionItem;
+	private GHABrandSelectItem brandItem;
 
 	private GHASelectItem typeItem;
 	private Validator validator;
@@ -57,9 +60,10 @@ public class MaterialForm extends GHAVerticalLayout implements
 		codeItem = new GHACodeItem(true, 450, changedHandler);
 		externalCodeItem = new GHATextItem(GHAStrings.get("external-code"),
 				450, false, changedHandler);
-		typeItem = new GHASelectItem(GHAStrings.get("type"), 450, true,
+		typeItem = new GHASelectItem(GHAStrings.get("type"), 300, true,
 				changedHandler);
-		modelItem = new GHATextItem(GHAStrings.get("model"), 450, false,
+		brandItem = new GHABrandSelectItem(300);
+		modelItem = new GHATextItem(GHAStrings.get("model"), 300, false,
 				changedHandler);
 		descriptionItem = new GHATextAreaItem(GHAStrings.get("description"),
 				900, changedHandler);
@@ -74,7 +78,7 @@ public class MaterialForm extends GHAVerticalLayout implements
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(2);
 		form.setItems(nameItem, codeItem, externalCodeItem, typeItem,
-				modelItem, descriptionItem);
+				brandItem, modelItem, descriptionItem);
 		addMember(form);
 		fill();
 	}
@@ -95,6 +99,7 @@ public class MaterialForm extends GHAVerticalLayout implements
 		if (!typeItem.isDisabled()) {
 			typeItem.clearValue();
 		}
+		brandItem.clearValue();
 	}
 
 	/**
@@ -102,6 +107,12 @@ public class MaterialForm extends GHAVerticalLayout implements
 	 */
 	private Material extract() {
 		final Material material = new Material();
+
+		if (brandItem.getValue() != null) {
+			material.setBrand(new Brand(Integer.valueOf(brandItem
+					.getValueAsString())));
+		}
+
 		final MaterialCategory materialCategory = new MaterialCategory();
 		materialCategory.setCode(codeItem.getValueAsString());
 		materialCategory.setExternalCode(externalCodeItem.getValueAsString());

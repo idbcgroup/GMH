@@ -22,8 +22,8 @@ public class EIATypeMaterialRecord extends GHAGridRecord<EiaTypeMaterial> {
 		setAttribute("description", materialCategory.getDescription());
 		setAttribute("model", materialCategory.getModel());
 		setAttribute("extCode", materialCategory.getExternalCode());
-		if (materialCategory.getType() != null)
-			setAttribute("type", materialCategory.getType().toString());
+		// if (materialCategory.getType() != null)
+		// setAttribute("type", materialCategory.getType().toString());
 		setAttribute("amount", eiaTypeMaterial.getAmount());
 
 	}
