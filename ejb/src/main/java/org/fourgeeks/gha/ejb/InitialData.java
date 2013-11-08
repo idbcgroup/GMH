@@ -116,6 +116,11 @@ public class InitialData {
 		} catch (NoResultException e) {
 			try {
 				logger.info("Creating message test data");
+				em.persist(new GHAMessage(LanguageEnum.ES, "id-type-not-null",
+						"Debe indicar el tipo de identificación"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"id-number-not-null",
+						"Debe indicar el número de identificación"));
 				em.persist(new GHAMessage(LanguageEnum.ES, "asset-id-not-null",
 						"Debe indicar el identificador del activo"));
 				em.persist(new GHAMessage(LanguageEnum.ES,
@@ -2071,6 +2076,7 @@ public class InitialData {
 					citizen.setFirstLastName(lastNames[i]);
 					citizen.setSecondLastName(lastNames[(i + 1) % 5]);
 					citizen.setIdType(DocumentTypeEnum.LOCAL);
+					citizen.setIdNumber("" + i);
 					citizen.setPrimaryEmail(names[i] + "@4geeks.co");
 					em.persist(citizen);
 				}

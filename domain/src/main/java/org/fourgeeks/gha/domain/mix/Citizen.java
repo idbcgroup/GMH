@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -22,6 +24,7 @@ import org.fourgeeks.gha.domain.enu.GenderTypeEnum;
  *         Entity that represents a citizen
  */
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "idNumber" }))
 @NamedQueries(value = {
 		@NamedQuery(name = "Citizen.getAll", query = "SELECT e from Citizen e order by e.firstLastName"),
 		@NamedQuery(name = "Citizen.findByCitizen", query = "SELECT e from Citizen e where e like :citizen order by e.firstLastName") })
@@ -37,11 +40,13 @@ public class Citizen extends AbstractEntity {
 	@JoinColumn(name = "legalEntityFk", nullable = false)
 	private LegalEntity legalEntity;
 
+	@NotNull(message = "id-type-not-null")
+	@Column(nullable = false)
 	private DocumentTypeEnum idType;
-	/** Tipo de documento de Identificación del ciudadano length =60 */
 
+	@NotNull(message = "id-number-not-null")
+	@Column(nullable = false)
 	private String idNumber;
-	/** No de documento de Identificación del ciudadano length =30 */
 
 	@Size(max = 20)
 	private String firstName;
