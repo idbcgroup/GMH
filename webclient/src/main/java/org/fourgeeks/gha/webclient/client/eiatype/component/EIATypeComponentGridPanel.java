@@ -10,8 +10,9 @@ import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
@@ -31,7 +32,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class EIATypeComponentGridPanel extends GHAVerticalLayout implements
-		EIATypeSelectionListener, GHAHideable, GHAClosable {
+		EIATypeSelectionListener, HideableListener, ClosableListener {
 
 	private EIATypeComponentGrid grid;
 	private EiaType eiaType;
@@ -129,14 +130,12 @@ public class EIATypeComponentGridPanel extends GHAVerticalLayout implements
 					}
 				}), new GHADeleteButton(new ClickHandler() {
 
-			@SuppressWarnings("deprecation")
 			@Override
 			public void onClick(ClickEvent event) {
 				EiaTypeComponent eiaTypeComponent = grid.getSelectedEntity();
 
 				if (eiaTypeComponent == null) {
-					GHANotification.oldAlert(GHAStrings
-							.get("record-not-selected"));
+					GHANotification.alert("record-not-selected");
 					return;
 				}
 
@@ -156,6 +155,26 @@ public class EIATypeComponentGridPanel extends GHAVerticalLayout implements
 		addMembers(title, gridContainer);
 	}
 
+	@Override
+	public boolean canBeClosen(HideCloseAction hideAction) {
+		return true;
+	}
+
+	@Override
+	public boolean canBeHidden(HideCloseAction closeAction) {
+		return true;
+	}
+
+	@Override
+	public void close() {
+		searchForm.close();
+	}
+
+	@Override
+	public void hide() {
+		searchForm.hide();
+	}
+
 	private void loadData() {
 		EIATypeComponentModel.findByParentEiaType(eiaType,
 				new GHAAsyncCallback<List<EiaTypeComponent>>() {
@@ -172,32 +191,6 @@ public class EIATypeComponentGridPanel extends GHAVerticalLayout implements
 				});
 	}
 
-	@Override
-	public void select(EiaType eiaType) {
-		this.eiaType = eiaType;
-		loadData();
-	}
-
-	@Override
-	public void close() {
-		searchForm.close();
-	}
-
-	@Override
-	public void hide() {
-		searchForm.hide();
-	}
-
-	@Override
-	public boolean canBeHidden() {
-		return true;
-	}
-
-	@Override
-	public boolean canBeClosen() {
-		return true;
-	}
-
 	private void search() {
 		ListGridRecord records[] = grid.getRecords();
 		List<EiaType> blackList = new ArrayList<EiaType>();
@@ -210,6 +203,12 @@ public class EIATypeComponentGridPanel extends GHAVerticalLayout implements
 
 		searchForm.filterBy(blackList);
 		searchForm.open();
+	}
+
+	@Override
+	public void select(EiaType eiaType) {
+		this.eiaType = eiaType;
+		loadData();
 	}
 
 }

@@ -22,8 +22,8 @@ public class ProtocolActivitiesSubTab extends GHASubTab implements
 		tab.addMaintenanceProtocolSelectionListener(this);
 
 		panel = new ProtocolActivitiesGridPanel();
-		addGHAClosableHandler(panel);
-		addGHAHideableHandler(panel);
+		addClosableHandler(panel);
+		addHideableHandler(panel);
 
 		setPane(panel);
 	}

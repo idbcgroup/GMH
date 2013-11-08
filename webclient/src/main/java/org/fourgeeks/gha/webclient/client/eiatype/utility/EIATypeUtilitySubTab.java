@@ -2,7 +2,7 @@ package org.fourgeeks.gha.webclient.client.eiatype.utility;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeTab;
@@ -12,7 +12,7 @@ import org.fourgeeks.gha.webclient.client.eiatype.EIATypeTab;
  * 
  */
 public class EIATypeUtilitySubTab extends GHASubTab implements
-		EIATypeSelectionListener, GHAClosable {
+		EIATypeSelectionListener, ClosableListener {
 
 	private EIATypeUtilityGridPanel eiaTypeServicesGridPanel;
 
@@ -23,8 +23,8 @@ public class EIATypeUtilitySubTab extends GHASubTab implements
 		super(GHAStrings.get("utility-services"), tab);
 
 		eiaTypeServicesGridPanel = new EIATypeUtilityGridPanel();
-		addGHAClosableHandler(eiaTypeServicesGridPanel);
-		addGHAHideableHandler(eiaTypeServicesGridPanel);
+		addClosableHandler(eiaTypeServicesGridPanel);
+		addHideableHandler(eiaTypeServicesGridPanel);
 
 		setPane(eiaTypeServicesGridPanel);
 

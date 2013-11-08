@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
-import javax.validation.Validator;
 
 import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
 import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
@@ -25,12 +24,10 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHAEiaTypeTypeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextAreaItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.brand.BrandModel;
 
-import com.google.gwt.user.client.Window;
-import com.google.gwt.validation.client.impl.Validation;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
@@ -42,8 +39,9 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
  * @author emiliot
  * 
  */
-public class EiaTypeForm extends GHAVerticalLayout implements
+public class EiaTypeForm extends GHAForm<EiaType> implements
 		EiaTypeSelectionProducer {
+	protected DynamicForm form = new DynamicForm();
 	private GHACodeItem codeItem;
 	private GHATextItem nameItem, modelItem, eiaUmdnsItem;
 	private GHATextAreaItem descriptionItem;
@@ -56,21 +54,8 @@ public class EiaTypeForm extends GHAVerticalLayout implements
 
 	private List<EIATypeSelectionListener> listeners;
 
-	private DynamicForm form;
-
-	/**
-	 * Used only for update purposes, to hold id and such values
-	 */
 	private EiaType updateEntity;
-	private boolean hasUnCommittedChanges = false;
-	private ChangedHandler changedHandler = new ChangedHandler() {
 
-		@Override
-		public void onChanged(ChangedEvent event) {
-			hasUnCommittedChanges = true;
-		}
-	};
-	private Validator validator;
 	{
 		codeItem = new GHACodeItem(true, 300, changedHandler);
 		codeItem.disable();
@@ -100,23 +85,19 @@ public class EiaTypeForm extends GHAVerticalLayout implements
 		mobilityItem = new GHASelectItem(GHAStrings.get("mobility"), 300, true,
 				changedHandler);
 		//
-		validator = Validation.buildDefaultValidatorFactory().getValidator();
 		listeners = new ArrayList<EIATypeSelectionListener>();
-		form = new DynamicForm();
 	}
 
 	/**
 	 * 
 	 */
 	public EiaTypeForm() {
+		super();
 		final HLayout gridPanel = new HLayout();
-
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(3);
-
 		// disable the brand select if no manufacturer is selected
 		brandItem.disable();
-
 		// set the handler for selected manufacturer
 		manItem.addChangedHandler(new ChangedHandler() {
 
@@ -151,10 +132,7 @@ public class EiaTypeForm extends GHAVerticalLayout implements
 
 	}
 
-	/**
-	 * Activate the form
-	 * 
-	 */
+	@Override
 	public void activate() {
 		toggleForm(true);
 	}
@@ -173,10 +151,8 @@ public class EiaTypeForm extends GHAVerticalLayout implements
 
 	}
 
-	/**
-	 * 
-	 */
-	public void cancel() {
+	@Override
+	public void clear() {
 		brandItem.clearValue();
 		brandItem.disable();
 		manItem.clearValue();
@@ -191,10 +167,7 @@ public class EiaTypeForm extends GHAVerticalLayout implements
 		subTypeItem.clearValue();
 	}
 
-	/**
-	 * Deactivate the form
-	 * 
-	 */
+	@Override
 	public void deactivate() {
 		toggleForm(false);
 	}
@@ -239,12 +212,7 @@ public class EiaTypeForm extends GHAVerticalLayout implements
 			eiaType.setSubtype(EiaSubTypeEnum.valueOf(subTypeItem
 					.getValueAsString()));
 		Set<ConstraintViolation<EiaType>> violations = null;
-		try {
-			violations = validator.validate(eiaType);
-		} catch (Exception e) {
-			Window.alert(e.getMessage());
-			e.printStackTrace();
-		}
+		violations = validator.validate(eiaType);
 		if (form.validate() && violations.isEmpty())
 			return eiaType;
 		else {
@@ -257,20 +225,21 @@ public class EiaTypeForm extends GHAVerticalLayout implements
 		return null;
 	}
 
-	private void fillBrands(boolean forceFromServer) {
-		GHACache.INSTANCE.getBrands(new GHAAsyncCallback<List<Brand>>() {
-
-			@Override
-			public void onSuccess(List<Brand> result) {
-				LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-				for (Brand brand : result)
-					valueMap.put(brand.getId() + "", brand.getName());
-				brandItem.setValueMap(valueMap);
-
-			}
-		}, forceFromServer);
-
-	}
+	// private void fillBrands(boolean forceFromServer) {
+	// GHACache.INSTANCE.getBrands(new GHAAsyncCallback<List<Brand>>() {
+	//
+	// @Override
+	// public void onSuccess(List<Brand> result) {
+	// LinkedHashMap<String, String> valueMap = new LinkedHashMap<String,
+	// String>();
+	// for (Brand brand : result)
+	// valueMap.put(brand.getId() + "", brand.getName());
+	// brandItem.setValueMap(valueMap);
+	//
+	// }
+	// }, forceFromServer);
+	//
+	// }
 
 	private void fillBrands(Manufacturer manufacturer) {
 		BrandModel.findByManufacturer(manufacturer,
@@ -311,18 +280,9 @@ public class EiaTypeForm extends GHAVerticalLayout implements
 				}, forceFromServer);
 	}
 
-	/**
-	 * @return the hasUnCommittedChanges
-	 */
-	public boolean hasUnCommittedChanges() {
-		return hasUnCommittedChanges;
-	}
-
 	// Producer stuff
 	@Override
 	public void notifyEiaType(EiaType eiaType) {
-		// notify user
-		GHANotification.alert("eiatype-save-success");
 		for (EIATypeSelectionListener listener : listeners)
 			listener.select(eiaType);
 	}
@@ -341,16 +301,7 @@ public class EiaTypeForm extends GHAVerticalLayout implements
 
 	}
 
-	/**
-	 * 
-	 */
-	public void save() {
-		save(null);
-	}
-
-	/**
-	 * @param callback
-	 */
+	@Override
 	public void save(final GHAAsyncCallback<EiaType> callback) {
 		EiaType eiaType = extract(false);
 
@@ -361,7 +312,7 @@ public class EiaTypeForm extends GHAVerticalLayout implements
 				public void onSuccess(EiaType result) {
 					hasUnCommittedChanges = false;
 					notifyEiaType(result);
-					cancel();
+					clear();
 					// reload manufacturers, possibly one new
 					fillMans(true);
 					brandItem.clearValue();
@@ -395,7 +346,6 @@ public class EiaTypeForm extends GHAVerticalLayout implements
 		if (eiaType.getSubtype() != null)
 			subTypeItem.setValue(eiaType.getSubtype().name());
 		// showPhotographics(eiaType);
-
 	}
 
 	private void fillMans(final Manufacturer manufacturer) {
@@ -433,14 +383,6 @@ public class EiaTypeForm extends GHAVerticalLayout implements
 	}
 
 	/**
-	 * @param hasUnCommittedChanges
-	 *            the hasUnCommittedChanges to set
-	 */
-	public void setHasUnCommittedChanges(boolean hasUnCommittedChanges) {
-		this.hasUnCommittedChanges = hasUnCommittedChanges;
-	}
-
-	/**
 	 * @param activate
 	 */
 	private void toggleForm(boolean activate) {
@@ -471,22 +413,17 @@ public class EiaTypeForm extends GHAVerticalLayout implements
 		subTypeItem.setDisabled(!activate);
 	}
 
-	/**
-	 * This method returns the form to the original entity or clean the form
-	 * if(updateEntity == null) cancel() else select(updateEntity)
-	 */
+	@Override
 	public void undo() {
 		if (updateEntity == null)
-			cancel();
+			clear();
 		else
 			this.setEiaType(updateEntity);
 		hasUnCommittedChanges = false;
 	}
 
-	/**
-	 * 
-	 */
-	public void update() {
+	@Override
+	public void update(final GHAAsyncCallback<EiaType> callback) {
 		EiaType eiaType = extract(true);
 
 		if (eiaType != null) {
@@ -496,9 +433,10 @@ public class EiaTypeForm extends GHAVerticalLayout implements
 				public void onSuccess(EiaType result) {
 					hasUnCommittedChanges = false;
 					notifyEiaType(result);
+					if (callback != null)
+						callback.onSuccess(result);
 				}
 			});
 		}
 	}
-
 }

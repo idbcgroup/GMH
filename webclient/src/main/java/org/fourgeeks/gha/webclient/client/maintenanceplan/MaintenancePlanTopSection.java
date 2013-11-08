@@ -4,7 +4,8 @@ import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabSet;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -19,7 +20,7 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class MaintenancePlanTopSection extends HLayout implements
-		MaintenancePlanSelectionListener, GHAClosable, ResizeHandler {
+		MaintenancePlanSelectionListener, ClosableListener, ResizeHandler {
 
 	private final MaintenancePlanTab maintenancePlanTab;
 	private MaintenancePlanSearchForm maintenancePlanSearchForm;
@@ -27,7 +28,7 @@ public class MaintenancePlanTopSection extends HLayout implements
 			descriptionItem;
 
 	{
-		maintenancePlanSearchForm = new MaintenancePlanSearchForm();
+		maintenancePlanSearchForm = new MaintenancePlanSearchForm("Busqueda de Planes de Mantenimiento");
 
 		nameItem = new GHATextItem("Nombre", false);
 		frequencyItem = new GHATextItem("Frecuencia", false);
@@ -42,14 +43,14 @@ public class MaintenancePlanTopSection extends HLayout implements
 		super();
 		GHAUiHelper.addGHAResizeHandler(this);
 
-		tab.addGHAClosableHandler(this);
+		tab.addClosableHandler(this);
 		this.maintenancePlanTab = tab;
 
 		// register tab as search listener, and topsection as tab listener
 		maintenancePlanSearchForm.addMaintenancePlanSelectionListener(tab);
 		tab.addMaintenancePlanSelectionListener(this);
-		tab.addGHAHideableHandler(maintenancePlanSearchForm);
-		tab.addGHAClosableHandler(maintenancePlanSearchForm);
+		tab.addHideableHandler(maintenancePlanSearchForm);
+		tab.addClosableHandler(maintenancePlanSearchForm);
 
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		setWidth100();
@@ -113,9 +114,8 @@ public class MaintenancePlanTopSection extends HLayout implements
 	}
 
 	@Override
-	public boolean canBeClosen() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean canBeClosen(HideCloseAction hideAction) {
+		return true;
 	}
 
 }

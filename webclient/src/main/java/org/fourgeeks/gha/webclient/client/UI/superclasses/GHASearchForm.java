@@ -3,6 +3,7 @@ package org.fourgeeks.gha.webclient.client.UI.superclasses;
 import java.util.List;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -49,16 +50,16 @@ public abstract class GHASearchForm<T> extends GHASlideInWindow {
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getTabHeight() - 5);
+		setHeight(GHAUiHelper.getTabHeight());
 	}
 
 	@Override
-	public boolean canBeClosen() {
+	public boolean canBeClosen(HideCloseAction hideAction) {
 		return true;
 	}
 
 	@Override
-	public boolean canBeHidden() {
+	public boolean canBeHidden(HideCloseAction hideAction) {
 		return true;
 	}
 

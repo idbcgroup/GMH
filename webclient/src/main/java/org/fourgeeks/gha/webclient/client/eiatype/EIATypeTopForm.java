@@ -18,10 +18,13 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHAEiaTypeTypeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAMobilitySelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 
 import com.smartgwt.client.types.TitleOrientation;
+import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
@@ -35,8 +38,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 		implements EIATypeSelectionListener {
 
-	// private final EIATypeTab eiaTypeTab;
 	// private EIATypeSearchForm eiaTypeSearchForm;
+	private EiaType selectedEiaType;
 	private GHATextItem nameItem, codeItem, modelItem;
 	private GHAEiaTypeTypeSelectItem typeItem;
 	private GHAEiaTypeSubTypeSelectItem subTypeItem;
@@ -45,8 +48,9 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 	// private List<EiaTypePicture> listEiaTypePictures;
 	// int index;
 	// private GHAImg photo;
-	private GHAImgButton cleanImgButton;
-	private GHAImgButton searchImgButton;
+	private boolean activated = false;
+	private GHAImgButton deleteImgButton, cleanImgButton, searchImgButton;
+	private VLayout sideButtons;
 
 	{
 		codeItem = new GHACodeItem(230);
@@ -62,9 +66,10 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 
 	/**
 	 * @param resultSet
+	 * @param eiaTypeTab
 	 */
-	public EIATypeTopForm(EiaTypeResultSet resultSet) {
-		super(resultSet);
+	public EIATypeTopForm(EiaTypeResultSet resultSet, EIATypeTab eiaTypeTab) {
+		super(resultSet, eiaTypeTab);
 		DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(4);
@@ -126,14 +131,19 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 			}
 		});
 		cleanImgButton = new GHACleanButton(new ClickHandler() {
-
 			@Override
 			public void onClick(ClickEvent event) {
 				clear();
 			}
 		});
-		VLayout sideButtons = GHAUiHelper.createBar(searchImgButton,
-				cleanImgButton);
+		deleteImgButton = new GHADeleteButton(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				delete();
+			}
+		});
+
+		sideButtons = GHAUiHelper.createBar(searchImgButton, cleanImgButton);
 		addMembers(form, /* new LayoutSpacer(), photoPanel, */
 				new LayoutSpacer(), sideButtons);
 		deactivate();
@@ -182,8 +192,10 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 		mobilityItem.enable();
 		typeItem.enable();
 		subTypeItem.enable();
-		searchImgButton.enable();
 		cleanImgButton.enable();
+		sideButtons.removeMember(deleteImgButton);
+		sideButtons.addMember(searchImgButton, 0);
+
 		activated = true;
 	}
 
@@ -210,13 +222,37 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 		mobilityItem.disable();
 		typeItem.disable();
 		subTypeItem.disable();
-		searchImgButton.disable();
 		cleanImgButton.disable();
+		sideButtons.removeMember(searchImgButton);
+		sideButtons.addMember(deleteImgButton, 0);
 		activated = false;
+	}
+
+	protected void delete() {
+		GHANotification.confirm(GHAStrings.get("eiatype"),
+				GHAStrings.get("eiatype-delete-confirm"),
+				new BooleanCallback() {
+					@Override
+					public void execute(Boolean value) {
+						if (value) {
+							EIATypeModel.delete(selectedEiaType.getCode(),
+									new GHAAsyncCallback<Void>() {
+										@Override
+										public void onSuccess(Void result) {
+											containerTab.search();
+											clear();
+											GHANotification
+													.alert("eiatype-delete-success");
+										}
+									});
+						}
+					}
+				});
 	}
 
 	@Override
 	public void search() {
+		super.search();
 		EiaType eiaType = new EiaType();
 		eiaType.setCode(codeItem.getValueAsString());
 		eiaType.setName(nameItem.getValueAsString());
@@ -237,10 +273,11 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 
 	@Override
 	public void search(EiaType eiaType) {
+		super.search();
 		EIATypeModel.find(eiaType, new GHAAsyncCallback<List<EiaType>>() {
 			@Override
 			public void onSuccess(List<EiaType> result) {
-				resultSet.setRecords(result);
+				resultSet.setRecords(result, true);
 			}
 
 		});
@@ -249,6 +286,7 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 	@Override
 	public void select(EiaType eiaType) {
 		// getEiaTypePicture(eiaType);
+		selectedEiaType = eiaType;
 		codeItem.setValue(eiaType.getCode());
 		nameItem.setValue(eiaType.getName());
 

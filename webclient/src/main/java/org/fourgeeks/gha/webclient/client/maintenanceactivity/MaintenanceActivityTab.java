@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
 
 import com.smartgwt.client.widgets.layout.VLayout;
@@ -108,15 +109,19 @@ public class MaintenanceActivityTab extends GHATab implements
 	}
 
 	@Override
-	public boolean canBeClosen() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean canBeClosen(HideCloseAction hideAction) {
+		return true;
 	}
 
 	@Override
-	public boolean canBeHidden() {
+	public boolean canBeHidden(HideCloseAction hideAction) {
+		return true;
+	}
+
+	@Override
+	public void search() {
 		// TODO Auto-generated method stub
-		return false;
+
 	}
 
 }

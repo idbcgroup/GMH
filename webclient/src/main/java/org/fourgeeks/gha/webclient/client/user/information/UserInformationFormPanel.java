@@ -4,16 +4,20 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.ess.SSOUser;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
+import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabSet;
 import org.fourgeeks.gha.webclient.client.user.UserForm;
 import org.fourgeeks.gha.webclient.client.user.UserSelectionListener;
 import org.fourgeeks.gha.webclient.client.user.UserSelectionProducer;
 import org.fourgeeks.gha.webclient.client.user.UserTab;
 
-import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -23,16 +27,17 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class UserInformationFormPanel extends VLayout implements GHAClosable,
-		GHAHideable, UserSelectionProducer, UserSelectionListener {
+public class UserInformationFormPanel extends GHAVerticalLayout implements
+		ClosableListener, HideableListener, UserSelectionProducer,
+		UserSelectionListener {
 
-	private UserForm userForm;
+	private UserForm form;
 	private List<UserSelectionListener> listeners;
 
 	private SSOUser originalSSOUser;
 
 	{
-		userForm = new UserForm();
+		form = new UserForm();
 		listeners = new LinkedList<UserSelectionListener>();
 		originalSSOUser = null;
 	}
@@ -42,12 +47,7 @@ public class UserInformationFormPanel extends VLayout implements GHAClosable,
 	 */
 	public UserInformationFormPanel(UserTab tab) {
 		activateForm(false);
-		tab.addGHAClosableHandler(this);
-
-		setWidth100();
-		setBackgroundColor("#E0E0E0");
-		setStyleName("sides-padding padding-top");// Esto es VUDU!
-		setAlign(Alignment.CENTER);
+		tab.addClosableHandler(this);
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
 				"../resources/icons/save.png", new ClickHandler() {
@@ -66,16 +66,16 @@ public class UserInformationFormPanel extends VLayout implements GHAClosable,
 				}));
 
 		HLayout gridPanel = new HLayout();
-		gridPanel.addMembers(userForm, sideButtons);
+		gridPanel.addMembers(form, sideButtons);
 
 		addMember(gridPanel);
 
 		// register as user selected listener from userForm
-		userForm.addUserSelectionListener(this);
+		form.addUserSelectionListener(this);
 	}
 
 	public void activateForm(boolean activate) {
-		userForm.activateForm(activate);
+		form.activate();
 	}
 
 	protected void undo() {
@@ -84,7 +84,7 @@ public class UserInformationFormPanel extends VLayout implements GHAClosable,
 	}
 
 	private void save() {
-		userForm.update();
+		form.update();
 	}
 
 	@Override
@@ -99,8 +99,8 @@ public class UserInformationFormPanel extends VLayout implements GHAClosable,
 
 	public void setSSOUser(SSOUser ssoUser) {
 		this.originalSSOUser = ssoUser;
-		userForm.setSSOUser(ssoUser);
-		userForm.activateForm(true);
+		form.setSSOUser(ssoUser);
+		form.activate();
 	}
 
 	// Producer/Consumer stuff
@@ -144,15 +144,67 @@ public class UserInformationFormPanel extends VLayout implements GHAClosable,
 	}
 
 	@Override
-	public boolean canBeHidden() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean canBeClosen(HideCloseAction hideAction) {
+		if (hideAction.equals(HideCloseAction.DISCARD))
+			return true;
+
+		if (form.hasUnCommittedChanges()) {
+			if (hideAction.equals(HideCloseAction.SAVE)) {
+				form.update();
+				return true;
+			}
+
+			GHANotification.askYesNoCancel(GHAStrings.get("information"),
+					GHAStrings.get("unsaved-changes"), new ClickHandler() {
+
+						@Override
+						public void onClick(ClickEvent event) {
+							GHATabSet.closeCurrentTab(HideCloseAction.SAVE);
+
+						}
+					}, new ClickHandler() {
+
+						@Override
+						public void onClick(ClickEvent event) {
+							GHATabSet.closeCurrentTab(HideCloseAction.DISCARD);
+
+						}
+					}, null);
+			return false;
+		}
+		return true;
 	}
 
 	@Override
-	public boolean canBeClosen() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean canBeHidden(HideCloseAction hideAction) {
+		if (hideAction.equals(HideCloseAction.DISCARD))
+			return true;
+
+		if (form.hasUnCommittedChanges()) {
+			if (hideAction.equals(HideCloseAction.SAVE)) {
+				form.update();
+				return true;
+			}
+
+			GHANotification.askYesNoCancel(GHAStrings.get("information"),
+					GHAStrings.get("unsaved-changes"), new ClickHandler() {
+
+						@Override
+						public void onClick(ClickEvent event) {
+							GHATabSet.hideCurrentTab(HideCloseAction.SAVE);
+
+						}
+					}, new ClickHandler() {
+
+						@Override
+						public void onClick(ClickEvent event) {
+							GHATabSet.hideCurrentTab(HideCloseAction.DISCARD);
+
+						}
+					}, null);
+			return false;
+		}
+		return true;
 	}
 
 	@Override

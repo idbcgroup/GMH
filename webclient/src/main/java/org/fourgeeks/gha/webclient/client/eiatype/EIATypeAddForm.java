@@ -6,6 +6,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACloseButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAAddForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 
@@ -37,6 +38,13 @@ public class EIATypeAddForm extends GHAAddForm implements
 	 */
 	public EIATypeAddForm(String title) {
 		super(title);
+		initComponent();
+	}
+
+	private void initComponent() {
+		GHAUiHelper.addGHAResizeHandler(this);
+		setHeight(GHAUiHelper.getBottomSectionHeight());
+
 		VLayout sideButtons = GHAUiHelper.createBar(new GHASaveButton(
 				new ClickHandler() {
 					@Override
@@ -47,7 +55,7 @@ public class EIATypeAddForm extends GHAAddForm implements
 
 			@Override
 			public void onClick(ClickEvent event) {
-				EIATypeAddForm.this.hide();
+				hide();
 			}
 		}));
 
@@ -63,7 +71,7 @@ public class EIATypeAddForm extends GHAAddForm implements
 	}
 
 	@Override
-	public boolean canBeClosen() {
+	public boolean canBeClosen(HideCloseAction hideAction) {// TODO
 		if (form.hasUnCommittedChanges()) {
 			GHANotification.confirm(GHAStrings.get("information"),
 					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
@@ -81,7 +89,7 @@ public class EIATypeAddForm extends GHAAddForm implements
 	}
 
 	@Override
-	public boolean canBeHidden() {
+	public boolean canBeHidden(HideCloseAction hideAction) {// TODO
 		if (form.hasUnCommittedChanges()) {
 			GHANotification.confirm(GHAStrings.get("information"),
 					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
@@ -118,7 +126,6 @@ public class EIATypeAddForm extends GHAAddForm implements
 						@Override
 						public void execute(Boolean value) {
 							if (value) {
-								// discard changes and hide
 								form.undo();
 								EIATypeAddForm.super.hide();
 							}
@@ -136,7 +143,7 @@ public class EIATypeAddForm extends GHAAddForm implements
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getTabHeight());
+		setHeight(GHAUiHelper.getBottomSectionHeight());
 	}
 
 	/*
@@ -164,12 +171,11 @@ public class EIATypeAddForm extends GHAAddForm implements
 
 			@Override
 			public void onSuccess(EiaType arg0) {
-				EIATypeAddForm.this.hide();
-
+				GHANotification.alert("eiatype-save-success");
+				hide();
 			}
 		});
 	}
-
 	/*
 	 * (non-Javadoc)
 	 * 

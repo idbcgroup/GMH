@@ -5,22 +5,23 @@ import java.util.List;
 import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.domain.logs.LogonLog;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.logonlog.LogonLogModel;
 import org.fourgeeks.gha.webclient.client.logonlog.LogonLogRecord;
 import org.fourgeeks.gha.webclient.client.logonlog.LogonLogUtil;
 
 import com.smartgwt.client.widgets.layout.HLayout;
-import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
  * @author alacret
  * 
  */
-public class UserLoginLogGridPanel extends VLayout implements GHAClosable,
-		GHAHideable {
+public class UserLoginLogGridPanel extends GHAVerticalLayout implements
+		ClosableListener, HideableListener {
 
 	private LogonLogGrid grid;
 	{
@@ -31,10 +32,6 @@ public class UserLoginLogGridPanel extends VLayout implements GHAClosable,
 	 */
 	public UserLoginLogGridPanel() {
 		super();
-		setStyleName("sides-padding padding-top");
-		setWidth100();
-		setBackgroundColor("#E0E0E0");
-
 		GHALabel title = new GHALabel("Log de Connecciones al Sistema");
 		addMember(title);
 
@@ -67,15 +64,13 @@ public class UserLoginLogGridPanel extends VLayout implements GHAClosable,
 	}
 
 	@Override
-	public boolean canBeHidden() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean canBeHidden(HideCloseAction hideAction) {
+		return true;
 	}
 
 	@Override
-	public boolean canBeClosen() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean canBeClosen(HideCloseAction hideAction) {
+		return true;
 	}
 
 }

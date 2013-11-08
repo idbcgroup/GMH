@@ -11,6 +11,7 @@ import org.fourgeeks.gha.webclient.client.bpu.GWTBpuServiceAsync;
 import org.fourgeeks.gha.webclient.client.ssouser.GWTSSOUserService;
 import org.fourgeeks.gha.webclient.client.ssouser.GWTSSOUserServiceAsync;
 
+
 import com.google.gwt.core.client.GWT;
 
 /**
@@ -63,6 +64,14 @@ public class UserModel {
 	public static void delete(BpuFunction bpuFunction,
 			GHAAsyncCallback<Void> callback) {
 		ssoUservice.delete(bpuFunction, callback);
+	}
+
+	/**
+	 * @param id
+	 * @param callback
+	 */
+	public static void delete(long id, GHAAsyncCallback<Void> callback) {
+		ssoUservice.delete(id, callback);
 	}
 
 	// TODO : Pasar a bpuFunctionmodel

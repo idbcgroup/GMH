@@ -1,9 +1,16 @@
 package org.fourgeeks.gha.webclient.client.UI;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.SearchListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.SearchsProducer;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAResultSet;
+import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
@@ -19,8 +26,11 @@ import com.smartgwt.client.widgets.layout.HLayout;
  * 
  */
 public abstract class GHATopForm<T extends GHAResultSet<E>, E> extends HLayout
-		implements ResizeHandler, GHAClosable, GHAHideable {
+		implements ResizeHandler, ClosableListener, HideableListener,
+		SearchsProducer {
+	List<SearchListener> searchListeners = new ArrayList<SearchListener>();
 	protected T resultSet;
+	protected GHATab containerTab;
 	protected boolean activated = false;
 
 	protected KeyUpHandler searchKeyUpHandler = new KeyUpHandler() {
@@ -35,10 +45,12 @@ public abstract class GHATopForm<T extends GHAResultSet<E>, E> extends HLayout
 
 	/**
 	 * @param resultSet
-	 * 
+	 * @param containerTab
 	 */
-	public GHATopForm(T resultSet) {
+	public GHATopForm(T resultSet, GHATab containerTab) {
 		this.resultSet = resultSet;
+		this.containerTab = containerTab;
+
 		GHAUiHelper.addGHAResizeHandler(this);
 		setStyleName("sides-padding padding-top");
 		setWidth100();
@@ -56,7 +68,7 @@ public abstract class GHATopForm<T extends GHAResultSet<E>, E> extends HLayout
 	 */
 	@Override
 	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getBottomSectionHeight());
+		setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT + "px");
 	}
 
 	@Override
@@ -66,12 +78,12 @@ public abstract class GHATopForm<T extends GHAResultSet<E>, E> extends HLayout
 	}
 
 	@Override
-	public boolean canBeClosen() {
+	public boolean canBeClosen(HideCloseAction hideAction) {
 		return true;
 	}
 
 	@Override
-	public boolean canBeHidden() {
+	public boolean canBeHidden(HideCloseAction hideAction) {
 		return true;
 	}
 
@@ -101,11 +113,31 @@ public abstract class GHATopForm<T extends GHAResultSet<E>, E> extends HLayout
 	/**
 	 * 
 	 */
-	public abstract void search();
+	public void search() {
+		for (SearchListener searchListener : searchListeners)
+			searchListener.onSearch();
+	}
+
+	@Override
+	public void addSearchListener(SearchListener listener) {
+		searchListeners.add(listener);
+
+	}
+
+	@Override
+	public void removeSearchListener(SearchListener listener) {
+		searchListeners.remove(listener);
+	}
 
 	/**
 	 * @param entity
 	 */
 	public abstract void search(E entity);
+
+	/**
+	 * borra la entidad seleccionada y permite regresar a la opcion por defecto
+	 * al abrir alguna aplicacion, siendo lo mas comun la opcion de buscar
+	 */
+	protected abstract void delete();
 
 }

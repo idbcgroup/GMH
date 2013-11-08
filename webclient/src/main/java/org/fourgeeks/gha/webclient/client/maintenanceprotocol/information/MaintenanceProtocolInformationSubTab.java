@@ -14,8 +14,8 @@ public class MaintenanceProtocolInformationSubTab extends GHASubTab implements
 		super("Información", tab);
 		
 		form = new MaintenanceProtocolInformationFormPanel(tab);
-		addGHAClosableHandler(form);
-		addGHAHideableHandler(form);
+		addClosableHandler(form);
+		addHideableHandler(form);
 		
 		setPane(form);
 		

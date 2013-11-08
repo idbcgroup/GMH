@@ -1,15 +1,20 @@
 package org.fourgeeks.gha.webclient.client.eia.component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaComponent;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.eia.EIASearchForm;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 
@@ -25,42 +30,41 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author emiliot
  * 
  */
-public class EIAComponentGridPanel extends VLayout implements GHAClosable,
-		GHAHideable, EIASelectionListener {
+public class EIAComponentGridPanel extends GHAVerticalLayout implements
+		ClosableListener, HideableListener, EIASelectionListener {
 
-	private EIAComponentGrid eiaComponentGrid;
+	private EIAComponentGrid grid;
 	private Eia eia;
-	private EIASearchForm eIASearchForm;
+	private EIASearchForm searchForm;
 
 	{
-		eiaComponentGrid = new EIAComponentGrid();
-		eiaComponentGrid.getComponentobsField().addCellSavedHandler(
-				new CellSavedHandler() {
+		grid = new EIAComponentGrid();
+		grid.getComponentobsField().addCellSavedHandler(new CellSavedHandler() {
 
-					@Override
-					public void onCellSaved(CellSavedEvent event) {
-						// TODO Auto-generated method stub
-						EiaComponent eiaComponent = ((EIAComponentRecord) event
-								.getRecord()).toEntity();
-						eiaComponent.setComponentObs((String) event
-								.getNewValue());
-						EIAComponentModel.update(eiaComponent,
-								new GHAAsyncCallback<EiaComponent>() {
+			@Override
+			public void onCellSaved(CellSavedEvent event) {
+				EiaComponent eiaComponent = ((EIAComponentRecord) event
+						.getRecord()).toEntity();
+				eiaComponent.setComponentObs((String) event.getNewValue());
+				EIAComponentModel.update(eiaComponent,
+						new GHAAsyncCallback<EiaComponent>() {
 
-									@Override
-									public void onSuccess(EiaComponent result) {
-									}
-								});
+							@Override
+							public void onSuccess(EiaComponent result) {
+							}
+						});
 
-					}
-				});
+			}
+		});
 
-		eIASearchForm = new EIASearchForm();
-		eIASearchForm.addEiaSelectionListener(new EIASelectionListener() {
+		searchForm = new EIASearchForm(GHAStrings.get("search-component"));
+		searchForm.addEiaSelectionListener(new EIASelectionListener() {
 
 			@Override
 			public void select(Eia eia) {
-				// TODO Auto-generated method stub
+				// clean the searchForm
+				EIAComponentGridPanel.this.searchForm.clean();
+
 				final EiaComponent eiaComponent = new EiaComponent();
 				eiaComponent.setParentEia(EIAComponentGridPanel.this.eia);
 				eiaComponent.setEia(eia);
@@ -70,9 +74,7 @@ public class EIAComponentGridPanel extends VLayout implements GHAClosable,
 
 							@Override
 							public void onSuccess(EiaComponent result) {
-								// TODO Auto-generated method stub
 								loadData();
-
 							}
 						});
 
@@ -81,31 +83,22 @@ public class EIAComponentGridPanel extends VLayout implements GHAClosable,
 	}
 
 	public EIAComponentGridPanel() {
-		setWidth100();
-		setBackgroundColor("#E0E0E0");
-		setStyleName("sides-padding padding-top");// Esto es VUDU!
-
+		super();
 		GHALabel title = new GHALabel("Componentes de Equipos");
 
 		// //////Botones laterales
-		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
-				"../resources/icons/new.png", new ClickHandler() {
+		VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
+				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						// TODO Auto-generated method stub
-						// form.animateShow(AnimationEffect.FLY);
-						eIASearchForm.open();
+						search();
 					}
 				}), new GHAImgButton("../resources/icons/delete.png",
 				new ClickHandler() {
 
 					@Override
 					public void onClick(ClickEvent event) {
-						// TODO Auto-generated method stub
-						// EiaComponent eiaComponent = ((EIAComponentRecord)
-						// eiaComponentGrid.getSelectedRecord()).toEntity();
-						EiaComponent eiaComponent = eiaComponentGrid
-								.getSelectedEntity();
+						EiaComponent eiaComponent = grid.getSelectedEntity();
 						EIAComponentModel.delete(eiaComponent.getId(),
 								new GHAAsyncCallback<Void>() {
 
@@ -119,28 +112,32 @@ public class EIAComponentGridPanel extends VLayout implements GHAClosable,
 				}));
 
 		HLayout mainPanel = new HLayout();
-		mainPanel.addMembers(eiaComponentGrid, sideButtons);
+		mainPanel.addMembers(grid, sideButtons);
 
 		addMembers(title, mainPanel);
 
 	}
 
 	@Override
+	public boolean canBeClosen(HideCloseAction hideAction) {
+		return true;
+	}
+
+	@Override
+	public boolean canBeHidden(HideCloseAction hideAction) {
+		return true;
+	}
+
+	@Override
 	public void close() {
-		eIASearchForm.close();
+		searchForm.close();
 
 	}
 
 	@Override
 	public void hide() {
-		eIASearchForm.hide();
+		searchForm.hide();
 
-	}
-
-	@Override
-	public void select(Eia eia) {
-		this.eia = eia;
-		loadData();
 	}
 
 	private void loadData() {
@@ -152,20 +149,29 @@ public class EIAComponentGridPanel extends VLayout implements GHAClosable,
 						ListGridRecord[] array = EIAComponentUtil
 								.toGridRecords(eiaComponents).toArray(
 										new EIAComponentRecord[] {});
-						eiaComponentGrid.setData(array);
+						grid.setData(array);
 					}
 
 				});
 
 	}
 
-	@Override
-	public boolean canBeHidden() {
-		return true;
+	private void search() {
+		ListGridRecord records[] = grid.getRecords();
+		List<Eia> blackList = new ArrayList<Eia>();
+		blackList.add(EIAComponentGridPanel.this.eia);
+
+		for (int i = 0; i < records.length; ++i)
+			blackList
+					.add(((EIAComponentRecord) records[i]).toEntity().getEia());
+
+		searchForm.filterBy(blackList);
+		searchForm.open();
 	}
 
 	@Override
-	public boolean canBeClosen() {
-		return true;
+	public void select(Eia eia) {
+		this.eia = eia;
+		loadData();
 	}
 }

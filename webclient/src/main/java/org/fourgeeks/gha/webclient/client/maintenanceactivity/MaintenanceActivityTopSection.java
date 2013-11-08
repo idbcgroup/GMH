@@ -5,7 +5,8 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabSet;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -20,14 +21,14 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class MaintenanceActivityTopSection extends HLayout implements
-		MaintenanceActivitySelectionListener, GHAClosable, ResizeHandler {
+		MaintenanceActivitySelectionListener, ClosableListener, ResizeHandler {
 
 	private final MaintenanceActivityTab maintenanceActivityTab;
 	private MaintenanceActivitySearchForm maintenanceActivitySearchForm;
 	private GHATextItem nameItem, descriptionItem;
 
 	{
-		maintenanceActivitySearchForm = new MaintenanceActivitySearchForm();
+		maintenanceActivitySearchForm = new MaintenanceActivitySearchForm("Busqueda de Actividades de Mantenimiento");
 
 		nameItem = new GHATextItem("Nombre", false);
 		descriptionItem = new GHATextItem("Descripcion", 420, false);
@@ -38,7 +39,7 @@ public class MaintenanceActivityTopSection extends HLayout implements
 	public MaintenanceActivityTopSection(MaintenanceActivityTab tab) {
 		super();
 		GHAUiHelper.addGHAResizeHandler(this);
-		tab.addGHAClosableHandler(this);
+		tab.addClosableHandler(this);
 
 		maintenanceActivityTab = tab;
 
@@ -46,8 +47,8 @@ public class MaintenanceActivityTopSection extends HLayout implements
 		maintenanceActivitySearchForm
 				.addMaintenanceActivitySelectionListener(tab);
 		tab.addMaintenanceActivitySelectionListener(this);
-		tab.addGHAHideableHandler(maintenanceActivitySearchForm);
-		tab.addGHAClosableHandler(maintenanceActivitySearchForm);
+		tab.addHideableHandler(maintenanceActivitySearchForm);
+		tab.addClosableHandler(maintenanceActivitySearchForm);
 
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		setWidth100();
@@ -108,9 +109,8 @@ public class MaintenanceActivityTopSection extends HLayout implements
 	}
 
 	@Override
-	public boolean canBeClosen() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean canBeClosen(HideCloseAction hideAction) {
+		return true;
 	}
 
 }

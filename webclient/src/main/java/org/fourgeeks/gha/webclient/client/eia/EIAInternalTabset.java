@@ -6,8 +6,9 @@ import java.util.List;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAHideable;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.eia.component.EIAComponentSubTab;
 import org.fourgeeks.gha.webclient.client.eia.information.EIAInformationSubTab;
 import org.fourgeeks.gha.webclient.client.eia.reports.EIAReportsSubTab;
@@ -22,7 +23,7 @@ import com.smartgwt.client.widgets.tab.TabSet;
  * 
  */
 public class EIAInternalTabset extends TabSet implements ResizeHandler,
-		GHAHideable, GHAClosable, EIASelectionListener {
+		HideableListener, ClosableListener, EIASelectionListener {
 
 	private EIAInformationSubTab infoSubTab;
 	private EIAComponentSubTab partsSubTab;
@@ -32,8 +33,8 @@ public class EIAInternalTabset extends TabSet implements ResizeHandler,
 	// private EIACostSubTab eiaCostsSubTab;
 	// private EIAMovementsSubTab eiaMovementsSubTab;
 
-	private List<GHAHideable> hideables = new ArrayList<GHAHideable>();
-	private List<GHAClosable> closables = new ArrayList<GHAClosable>();
+	private List<HideableListener> hideables = new ArrayList<HideableListener>();
+	private List<ClosableListener> closables = new ArrayList<ClosableListener>();
 
 	/**
 	 * @param eiaTab
@@ -76,9 +77,9 @@ public class EIAInternalTabset extends TabSet implements ResizeHandler,
 	 * ()
 	 */
 	@Override
-	public boolean canBeClosen() {
-		for (GHAClosable closable : closables)
-			if (!closable.canBeClosen())
+	public boolean canBeClosen(HideCloseAction hideAction) {
+		for (ClosableListener closable : closables)
+			if (!closable.canBeClosen(hideAction))
 				return false;
 		return true;
 	}
@@ -91,9 +92,9 @@ public class EIAInternalTabset extends TabSet implements ResizeHandler,
 	 * ()
 	 */
 	@Override
-	public boolean canBeHidden() {
-		for (GHAHideable hideable : hideables)
-			if (!hideable.canBeHidden())
+	public boolean canBeHidden(HideCloseAction hideAction) {
+		for (HideableListener hideable : hideables)
+			if (!hideable.canBeHidden(hideAction))
 				return false;
 		return true;
 	}
@@ -105,14 +106,14 @@ public class EIAInternalTabset extends TabSet implements ResizeHandler,
 	 */
 	@Override
 	public void close() throws UnavailableToCloseException {
-		for (GHAClosable closable : closables)
+		for (ClosableListener closable : closables)
 			closable.close();
 		destroy();
 	}
 
 	@Override
 	public void hide() {
-		for (GHAHideable hideable : hideables)
+		for (HideableListener hideable : hideables)
 			hideable.hide();
 		super.hide();
 	}

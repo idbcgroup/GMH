@@ -7,6 +7,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACloseButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAAddForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
@@ -60,7 +61,7 @@ public class EIAAddForm extends GHAAddForm implements EIATypeSelectionListener,
 	}
 
 	@Override
-	public boolean canBeClosen() {
+	public boolean canBeClosen(HideCloseAction hideAction) {// TODO
 		if (form.hasUnCommittedChanges()) {
 			GHANotification.confirm(GHAStrings.get("information"),
 					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
@@ -78,7 +79,7 @@ public class EIAAddForm extends GHAAddForm implements EIATypeSelectionListener,
 	}
 
 	@Override
-	public boolean canBeHidden() {
+	public boolean canBeHidden(HideCloseAction hideAction) {// TODO
 		if (form.hasUnCommittedChanges()) {
 			GHANotification.confirm(GHAStrings.get("information"),
 					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
@@ -120,6 +121,10 @@ public class EIAAddForm extends GHAAddForm implements EIATypeSelectionListener,
 	 * 
 	 */
 	private void initComponent() {
+
+		GHAUiHelper.addGHAResizeHandler(this);
+		setHeight(GHAUiHelper.getBottomSectionHeight());
+
 		VLayout sideButtons = GHAUiHelper.createBar(new GHASaveButton(
 				new ClickHandler() {
 					@Override
@@ -153,7 +158,7 @@ public class EIAAddForm extends GHAAddForm implements EIATypeSelectionListener,
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getTabHeight());
+		setHeight(GHAUiHelper.getBottomSectionHeight());
 	}
 
 	@Override
@@ -177,6 +182,7 @@ public class EIAAddForm extends GHAAddForm implements EIATypeSelectionListener,
 			@Override
 			public void onSuccess(Eia result) {
 				hide();
+				GHANotification.alert("eia-save-success");
 			}
 		});
 

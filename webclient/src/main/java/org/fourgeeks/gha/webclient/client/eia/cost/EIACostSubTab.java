@@ -24,8 +24,8 @@ public class EIACostSubTab extends GHASubTab implements EIASelectionListener{
 		super("Costos y Depreciación", tab);
 		setDisabled(true);
 		tab.addEiaSelectionListener(this);
-		addGHAClosableHandler(eiaCostGridPanel);
-		addGHAHideableHandler(eiaCostGridPanel);
+		addClosableHandler(eiaCostGridPanel);
+		addHideableHandler(eiaCostGridPanel);
 		setPane(eiaCostGridPanel);
 	}
 

@@ -6,6 +6,9 @@ import java.util.List;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.TabStatus;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.SearchListener;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader;
 
@@ -54,24 +57,31 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 
 		resultSet = new EiaTypeResultSet();
 		resultSet.setVisible(false);
-		addGHAHideableHandler(resultSet);
-		addGHAClosableHandler(resultSet);
+		addHideableHandler(resultSet);
+		addClosableHandler(resultSet);
 		resultSet.addEiaTypeSelectionListener(this);
 
-		topForm = new EIATypeTopForm(resultSet);
+		topForm = new EIATypeTopForm(resultSet, this);
 		topForm.activate();
-		addGHAHideableHandler(topForm);
-		addGHAClosableHandler(topForm);
+		addHideableHandler(topForm);
+		addClosableHandler(topForm);
 		addEiaTypeSelectionListener(topForm);
+		topForm.addSearchListener(new SearchListener() {
+
+			@Override
+			public void onSearch() {
+				currentStatus = TabStatus.SEARCH_RESULTS;
+			}
+		});
 
 		internalTabSet = new EIATypeInternalTabSet(this);
-		addGHAHideableHandler(internalTabSet);
-		addGHAClosableHandler(internalTabSet);
+		addHideableHandler(internalTabSet);
+		addClosableHandler(internalTabSet);
 		addEiaTypeSelectionListener(internalTabSet);
 
 		addForm = new EIATypeAddForm(GHAStrings.get("new-eiatype"));
-		addGHAHideableHandler(addForm);
-		addGHAClosableHandler(addForm);
+		addHideableHandler(addForm);
+		addClosableHandler(addForm);
 		addForm.addEiaTypeSelectionListener(this);
 
 		verticalPanel.addMember(topForm);
@@ -87,15 +97,18 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 		if (addForm.isVisible())
 			return;
 		if (internalTabSet.isVisible())
-			if (internalTabSet.canBeHidden())
+			if (internalTabSet.canBeHidden(HideCloseAction.SAVE))
 				internalTabSet.hide();
 			else
 				return;
-		if (topForm.isActivated())
+		if (topForm.isActivated()) {
 			topForm.deactivate();
+			topForm.clear();
+		}
 		if (resultSet.isVisible())
 			resultSet.hide();
 		addForm.open();
+		currentStatus = TabStatus.ADD;
 		// GHANotification.info(GHAStrings.get("")); //TODO: Mensaje de
 		// informacion para indicar que se ha actividado el modo de busqueda
 	}
@@ -123,11 +136,11 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 		listeners.remove(eIATypeSelectionListener);
 	}
 
-	protected void search() {
+	public void search() {
 		if (topForm.isActivated())
 			return;
 		if (internalTabSet.isVisible())
-			if (internalTabSet.canBeHidden())
+			if (internalTabSet.canBeHidden(HideCloseAction.SAVE))
 				internalTabSet.hide();
 			else
 				return;
@@ -136,6 +149,7 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 		if (resultSet.isVisible())
 			resultSet.hide();
 		topForm.activate();
+		currentStatus = TabStatus.SEARCH;
 		// GHANotification.info(GHAStrings.get("")); //TODO: Mensaje de
 		// informacion para indicar que se ha actividado el modo de busqueda
 	}
@@ -143,11 +157,21 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 	@Override
 	public void select(EiaType eiaType) {
 		notifyEiaType(eiaType);
+		currentStatus = TabStatus.ENTITY_SELECTED;
 	}
 
 	@Override
 	public void show() {
 		super.show();
 		topForm.setVisibility(Visibility.VISIBLE);
+		if (currentStatus.equals(TabStatus.ADD))
+			return;
+		if (currentStatus.equals(TabStatus.SEARCH))
+			return;
+
+		if (currentStatus.equals(TabStatus.ENTITY_SELECTED))
+			internalTabSet.show();
+		else
+			resultSet.show();
 	}
 }

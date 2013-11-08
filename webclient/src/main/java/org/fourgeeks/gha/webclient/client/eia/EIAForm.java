@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
-import javax.validation.Validator;
 
 import org.fourgeeks.gha.domain.enu.CurrencyTypeEnum;
 import org.fourgeeks.gha.domain.enu.DepreciationMethodEnum;
@@ -31,18 +30,15 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATitleTextItem;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASectionForm;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
-import com.google.gwt.validation.client.impl.Validation;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.form.fields.events.ChangeEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangeHandler;
-import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
-import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 //import org.fourgeeks.gha.domain.gar.BuildingLocation;
 //import org.fourgeeks.gha.webclient.client.UI.GHACheckboxItem;
 //import com.google.gwt.user.client.Window;
@@ -53,8 +49,8 @@ import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
  * @author alacret, vivi.torresg, emiliot
  * 
  */
-public class EIAForm extends GHAVerticalLayout implements
-		EIATypeSelectionListener, EiaSelectionProducer {
+public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
+		EiaSelectionProducer {
 	private GHATextItem codeTextItem, serialTextItem, fixedAssetIdTextItem,
 			purchaseOrderNumTextItem, purchaseInvoiceNumTextItem,
 			workingAreaLocationCodeTextItem, facilityLocationCodeTextItem,
@@ -92,23 +88,12 @@ public class EIAForm extends GHAVerticalLayout implements
 	private DynamicForm costosForm;
 	private DynamicForm garantiasMantForm;
 
-	private Validator validator;
 	private List<EIASelectionListener> listeners;
 	private Eia updateEntity;
-
-	private boolean hasUnCommittedChanges = false;
-	private ChangedHandler changedHandler = new ChangedHandler() {
-
-		@Override
-		public void onChanged(ChangedEvent event) {
-			hasUnCommittedChanges = true;
-		}
-	};
 
 	{ // Global
 		sectionForm = new GHASectionForm();
 		listeners = new ArrayList<EIASelectionListener>();
-		validator = Validation.buildDefaultValidatorFactory().getValidator();
 
 		// Information Form Items
 		eiaTypeSelectItem = new GHASelectItem("Tipo",
@@ -289,7 +274,7 @@ public class EIAForm extends GHAVerticalLayout implements
 	 * 
 	 */
 	public EIAForm() {
-
+		super();
 		infoBasicaForm = getInfoBasicaForm();
 		adquisicionForm = getAdquisicionForm();
 		ubicacionForm = getUbicacionForm();
@@ -320,9 +305,7 @@ public class EIAForm extends GHAVerticalLayout implements
 		// warrantyFunctionalities();
 	}
 
-	/**
-	 * 
-	 */
+	@Override
 	public void activate() {
 		toggleForm(true);
 	}
@@ -369,10 +352,8 @@ public class EIAForm extends GHAVerticalLayout implements
 		});
 	}
 
-	/**
-	 * 
-	 */
-	public void cancel() {
+	@Override
+	public void clear() {
 		this.updateEntity = null;
 		// clean text fields
 		codeTextItem.clearValue();
@@ -436,9 +417,7 @@ public class EIAForm extends GHAVerticalLayout implements
 		// isInMaintenanceItem.setValue(false);
 	}
 
-	/**
-	 * 
-	 */
+	@Override
 	public void deactivate() {
 		toggleForm(false);
 	}
@@ -449,6 +428,8 @@ public class EIAForm extends GHAVerticalLayout implements
 			eia = new Eia();
 		else
 			eia = this.updateEntity;
+
+		// EXTRAYENDO LOS DATOS
 
 		// basic information
 		if (eiaTypeSelectItem.getValue() != null)
@@ -474,34 +455,37 @@ public class EIAForm extends GHAVerticalLayout implements
 			eia.setAcceptationDate(new Date(acceptationDateItem
 					.getValueAsDate().getTime()));
 
-		// adquisicion
-		eia.setPurchaseDate(purchaseDateItem.getValue() != null ? new Date(
-				purchaseDateItem.getValueAsDate().getTime()) : null);
+		// acquisition
+		eia.setPurchaseDate(purchaseDateItem.getValue() == null ? null
+				: new Date(purchaseDateItem.getValueAsDate().getTime()));
 
-		eia.setReceptionDate(receptionDateItem.getValue() != null ? new Date(
-				receptionDateItem.getValueAsDate().getTime()) : null);
+		eia.setReceptionDate(receptionDateItem.getValue() == null ? null
+				: new Date(receptionDateItem.getValueAsDate().getTime()));
 
-		eia.setInstallationDate(installationDateItem.getValue() != null ? new Date(
-				installationDateItem.getValueAsDate().getTime()) : null);
+		eia.setInstallationDate(installationDateItem.getValue() == null ? null
+				: new Date(installationDateItem.getValueAsDate().getTime()));
 
 		if (providerSelectItem.getValue() != null) {
 			eia.setProvider(new ExternalProvider(Integer
 					.valueOf(providerSelectItem.getValueAsString())));
 		}
+
 		eia.setPurchaseOrderNumber(purchaseOrderNumTextItem.getValueAsString());
+
 		eia.setPurchaseInvoiceNumber(purchaseInvoiceNumTextItem
 				.getValueAsString());
 
-		if (purchaseInvoiceDateItem.getValue() != null)
-			eia.setPurchaseInvoiceDate(new Date(purchaseInvoiceDateItem
-					.getValueAsDate().getTime()));
-		if (purchaseOrderDateItem.getValue() != null)
-			eia.setPurchaseOrderDate(new Date(purchaseOrderDateItem
-					.getValueAsDate().getTime()));
+		eia.setPurchaseInvoiceDate(purchaseInvoiceDateItem.getValue() == null ? null
+				: new Date(purchaseInvoiceDateItem.getValueAsDate().getTime()));
+
+		eia.setPurchaseOrderDate(purchaseOrderDateItem.getValue() == null ? null
+				: new Date(purchaseOrderDateItem.getValueAsDate().getTime()));
+
 		if (installationProviderSelectItem.getValue() != null) {
 			eia.setInstallationProvider(new ExternalProvider(Integer
 					.valueOf(installationProviderSelectItem.getValueAsString())));
 		}
+
 		if (locationTypeSelectItem.getValue() != null) {
 			if (locationTypeSelectItem.getValue().equals("0")) {
 				if (workingAreaLocationSelectItem.getValue() != null) {
@@ -627,6 +611,9 @@ public class EIAForm extends GHAVerticalLayout implements
 		// eia.setIpAddress(ipAddresTextItem.getValueAsString());
 		// eia.setMacAddress(macAddressTextItem.getValueAsString());
 
+		// --------------------------------------------------------------------
+
+		// VALIDANDO LOS DATOS
 		Set<ConstraintViolation<Eia>> violations = validator.validate(eia);
 
 		if (infoBasicaForm.validate() && adquisicionForm.validate()
@@ -809,9 +796,6 @@ public class EIAForm extends GHAVerticalLayout implements
 				});
 	}
 
-	/**
-	 * @return
-	 */
 	private DynamicForm getAdquisicionForm() {
 		// //////Adquisicion Form
 		DynamicForm adquisicionForm = new DynamicForm();
@@ -831,9 +815,6 @@ public class EIAForm extends GHAVerticalLayout implements
 	// itTypeSelectItem.setValue(ItSystemEnum.COMPUTER.name());
 	// }
 
-	/**
-	 * @return
-	 */
 	private DynamicForm getCostosForm() {
 		DynamicForm res = new DynamicForm();
 		res.setTitleOrientation(TitleOrientation.TOP);
@@ -946,18 +927,8 @@ public class EIAForm extends GHAVerticalLayout implements
 		super.show();
 	}
 
-	// //Implementations
-
-	/**
-	 * @return the hasUnCommittedChanges
-	 */
-	public boolean hasUnCommittedChanges() {
-		return hasUnCommittedChanges;
-	}
-
 	@Override
 	public void notifyEia(Eia eia) {
-		GHANotification.alert("eia-save-success");
 		for (EIASelectionListener listener : listeners)
 			listener.select(eia);
 	}
@@ -968,16 +939,7 @@ public class EIAForm extends GHAVerticalLayout implements
 		listeners.remove(eiaSelectionListener);
 	}
 
-	/**
-	 * 
-	 */
-	public void save() {
-		save(null);
-	}
-
-	/**
-	 * @param callback
-	 */
+	@Override
 	public void save(final GHAAsyncCallback<Eia> callback) {
 		Eia eia = extract();
 		if (eia != null) {
@@ -986,7 +948,7 @@ public class EIAForm extends GHAVerticalLayout implements
 				public void onSuccess(Eia result) {
 					hasUnCommittedChanges = false;
 					notifyEia(result);
-					cancel();
+					clear();
 
 					if (callback != null)
 						callback.onSuccess(result);
@@ -995,13 +957,6 @@ public class EIAForm extends GHAVerticalLayout implements
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener#select
-	 * (org.fourgeeks.gha.domain.gmh.EiaType)
-	 */
 	@Override
 	public void select(EiaType eiaType) {
 		if (eiaType != null) {
@@ -1033,23 +988,19 @@ public class EIAForm extends GHAVerticalLayout implements
 		if (eia.getAcceptationDate() != null)
 			acceptationDateItem.setValue(eia.getAcceptationDate());
 
-		// adquisition
-		if (eia.getPurchaseDate() != null)
-			purchaseDateItem.setValue(eia.getPurchaseDate());
-		if (eia.getReceptionDate() != null)
-			receptionDateItem.setValue(eia.getReceptionDate());
-		if (eia.getInstallationDate() != null)
-			installationDateItem.setValue(eia.getInstallationDate());
+		// acquisition
+		purchaseDateItem.setValue(eia.getPurchaseDate());
+		receptionDateItem.setValue(eia.getReceptionDate());
+		installationDateItem.setValue(eia.getInstallationDate());
+		purchaseInvoiceDateItem.setValue(eia.getPurchaseInvoiceDate());
+		purchaseOrderDateItem.setValue(eia.getPurchaseOrderDate());
+
 		if (eia.getProvider() != null)
 			providerSelectItem.setValue(eia.getProvider().getId());
 		if (eia.getPurchaseOrderNumber() != null)
 			purchaseOrderNumTextItem.setValue(eia.getPurchaseOrderNumber());
 		if (eia.getPurchaseInvoiceNumber() != null)
 			purchaseInvoiceNumTextItem.setValue(eia.getPurchaseInvoiceNumber());
-		if (eia.getPurchaseInvoiceDate() != null)
-			purchaseInvoiceDateItem.setValue(eia.getPurchaseInvoiceDate());
-		if (eia.getPurchaseOrderDate() != null)
-			purchaseOrderDateItem.setValue(eia.getPurchaseOrderDate());
 		if (eia.getInstallationProvider() != null)
 			installationProviderSelectItem.setValue(eia
 					.getInstallationProvider().getId());
@@ -1218,25 +1169,16 @@ public class EIAForm extends GHAVerticalLayout implements
 		acceptationDateItem.setDisabled(!activate);
 	}
 
-	/**
-	 * This method returns the form to the original entity or clean the form
-	 * if(updateEntity == null) cancel() else select(updateEntity)
-	 */
+	@Override
 	public void undo() {
 		if (updateEntity == null)
-			cancel();
+			clear();
 		else
 			this.setEia(updateEntity);
 		hasUnCommittedChanges = false;
 	}
 
-	public void update() {
-		update(null);
-	}
-
-	/**
-	 * @param callback
-	 */
+	@Override
 	public void update(final GHAAsyncCallback<Eia> callback) {
 		Eia eia = extract();
 		if (eia != null) {

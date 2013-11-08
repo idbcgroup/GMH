@@ -23,6 +23,7 @@ import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASearchForm;
 
+import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -108,11 +109,33 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 				+ "px");
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
 
+		resultSet.setHeight(resultSet.getHeight()-28);
+		
 		addMembers(formLayout,
 				GHAUiHelper
 						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
 								+ "px"), resultSet);
 		fill();
+	}
+
+	@Override
+	public void addEiaTypeSelectionListener(
+			EIATypeSelectionListener eIATypeSelectionListener) {
+		resultSet.addEiaTypeSelectionListener(eIATypeSelectionListener);
+
+	}
+
+	/**
+	 * 
+	 */
+	public void clean() {
+		form.clearValues();
+		resultSet.clean();
+	}
+
+	@Override
+	public void close() {
+		destroy();
 	}
 
 	private void fill() {
@@ -138,16 +161,25 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 	}
 
 	@Override
+	public void hide() {
+		super.hide();
+	}
+
+	@Override
 	public void notifyEiaType(EiaType eiaType) {
 	}
 
 	@Override
-	public void select(EiaType eiaType) {
-		search(eiaType);
+	public void open() {
+		resultSet.setVisible(true);
+		super.open();
+	}
 
-		// Reload the Brand Select field, to prevent outdated cached list of
-		// brands
-		fillBrands(true);
+	@Override
+	public void removeEiaTypeSelectionListener(
+			EIATypeSelectionListener eIATypeSelectionListener) {
+		resultSet.removeEiaTypeSelectionListener(eIATypeSelectionListener);
+
 	}
 
 	@Override
@@ -187,47 +219,25 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 				} else
 					newList = results;
 
-				resultSet.setRecords(newList);
+				resultSet.setRecords(newList, false);
 
 			}
 		});
 	}
 
 	@Override
-	public void close() {
-		destroy();
-	}
+	public void select(EiaType eiaType) {
+		search(eiaType);
 
+		// Reload the Brand Select field, to prevent outdated cached list of
+		// brands
+		fillBrands(true);
+	}
+	
 	@Override
-	public void hide() {
-		super.hide();
-	}
-
-	@Override
-	public void addEiaTypeSelectionListener(
-			EIATypeSelectionListener eIATypeSelectionListener) {
-		resultSet.addEiaTypeSelectionListener(eIATypeSelectionListener);
-
-	}
-
-	@Override
-	public void removeEiaTypeSelectionListener(
-			EIATypeSelectionListener eIATypeSelectionListener) {
-		resultSet.removeEiaTypeSelectionListener(eIATypeSelectionListener);
-
-	}
-
-	/**
-	 * 
-	 */
-	public void clean() {
-		form.clearValues();
-		resultSet.clean();
-	}
-
-	@Override
-	public void open() {
-		resultSet.setVisible(true);
-		super.open();
+	public void onResize(ResizeEvent event) {
+		// TODO Auto-generated method stub
+		super.onResize(event);
+		resultSet.setHeight(resultSet.getHeight()-35);
 	}
 }

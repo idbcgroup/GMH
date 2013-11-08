@@ -2,7 +2,8 @@ package org.fourgeeks.gha.webclient.client.edt;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -10,7 +11,7 @@ import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EDTTopGridPanel extends VLayout implements GHAClosable {
+public class EDTTopGridPanel extends VLayout implements ClosableListener {
 
 	private EDTTopGrid topGrid;
 	{
@@ -58,12 +59,10 @@ public class EDTTopGridPanel extends VLayout implements GHAClosable {
 
 	@Override
 	public void close() {
-		// TODO:Close the add forms
 	}
 
 	@Override
-	public boolean canBeClosen() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean canBeClosen(HideCloseAction closeAction) {
+		return true;
 	}
 }

@@ -25,8 +25,8 @@ public class EIAMovementsSubTab extends GHASubTab implements
 		super("Movimientos", tab);
 		setDisabled(true);
 		tab.addEiaSelectionListener(this);
-		addGHAClosableHandler(eiaMovementsGridPanel);
-		addGHAHideableHandler(eiaMovementsGridPanel);
+		addClosableHandler(eiaMovementsGridPanel);
+		addHideableHandler(eiaMovementsGridPanel);
 		setPane(eiaMovementsGridPanel);
 	}
 

@@ -6,22 +6,26 @@ import org.fourgeeks.gha.domain.msg.GHAMessage;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.GHAClosable;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.message.GWTMessageService;
 import org.fourgeeks.gha.webclient.client.message.GWTMessageServiceAsync;
 
-import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.types.Positioning;
+import com.smartgwt.client.types.VerticalAlignment;
 import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.util.SC;
+import com.smartgwt.client.widgets.Button;
+import com.smartgwt.client.widgets.Dialog;
+import com.smartgwt.client.widgets.events.ButtonClickEvent;
+import com.smartgwt.client.widgets.events.ButtonClickHandler;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -35,6 +39,11 @@ public class GHANotification {
 	private static final GWTMessageServiceAsync messageService = GWT
 			.create(GWTMessageService.class);
 
+	/**
+	 * 
+	 */
+	public static final ModalNotification modalNotification = new ModalNotification();
+
 	/*
 	 * public GHANotification() { setPosition(Positioning.ABSOLUTE);
 	 * setBottom(Window.getClientHeight()-20); setSize("280px", "*");
@@ -46,6 +55,41 @@ public class GHANotification {
 	 * 
 	 * addMember(GHAUiHelper.verticalGraySeparator("25px")); }
 	 */
+
+	/**
+	 * @param title
+	 * @param message
+	 * @param buttonYesHandler
+	 * @param buttonNoHandler
+	 * @param buttonCancelHandler
+	 */
+	public static void askYesNoCancel(final String title, String message,
+			final ClickHandler buttonYesHandler,
+			final ClickHandler buttonNoHandler,
+			final ClickHandler buttonCancelHandler) {
+		final Dialog dialog = new Dialog();
+		dialog.setMessage(message);
+		dialog.setIcon("[SKIN]ask.png");
+		Button buttonYes = new Button(GHAStrings.get("yes"));
+		if (buttonYesHandler != null)
+			buttonYes.addClickHandler(buttonYesHandler);
+		Button buttonNo = new Button(GHAStrings.get("no"));
+		if (buttonNoHandler != null)
+			buttonNo.addClickHandler(buttonNoHandler);
+		Button buttonCancel = new Button(GHAStrings.get("cancel"));
+		if (buttonCancelHandler != null)
+			buttonCancel.addClickHandler(buttonCancelHandler);
+		dialog.setButtons(buttonYes, buttonNo, buttonCancel);
+		dialog.addButtonClickHandler(new ButtonClickHandler() {
+
+			@Override
+			public void onButtonClick(ButtonClickEvent event) {
+				dialog.hide();
+				dialog.destroy();
+			}
+		});
+		dialog.show();
+	}
 
 	/**
 	 * @param message
@@ -71,6 +115,22 @@ public class GHANotification {
 	 * @param key
 	 */
 	public static void alert(String key) {
+		messageService.find(key, new GHAAsyncCallback<GHAMessage>() {
+
+			@Override
+			public void onSuccess(GHAMessage result) {
+				SC.say(GHAStrings.get("information"), result.getText());
+			}
+		});
+
+	}
+
+	/**
+	 * this method receives a key to find and show the message from database
+	 * 
+	 * @param key
+	 */
+	public static void info(String key) {
 		messageService.find(key, new GHAAsyncCallback<GHAMessage>() {
 
 			@Override
@@ -112,53 +172,56 @@ public class GHANotification {
 		SC.say(ghaMessage.getText());
 	}
 
-	private static class ModalInfoNotification extends VLayout implements
-			ResizeHandler, GHAClosable {
+	/**
+	 * @author alacret
+	 * 
+	 */
+	public static class ModalNotification extends VLayout implements
+			ResizeHandler, ClosableListener {
 
-		private int width = 300;
-		private HTML backDiv = new HTML();
+		private int width = 700;
+		private RootPanel backDivPanel = RootPanel.get("notificationsBackDiv");
+		private GHALabel titleText;
+		private GHALabel errorText;
+		{
+			titleText = new GHALabel("Información");
+			// titleText.setBackgroundColor("#CBCBCB");
+			errorText = new GHALabel("default error text");
+			errorText.setStyleName("text-label");
+			errorText.setHeight("*");
+		}
 
-		public ModalInfoNotification(String title, String errorMessage) {
+		/**
+		 * 
+		 */
+		public ModalNotification() {
 			super();
 			GHAUiHelper.addGHAResizeHandler(this);
 
 			setWidth(width);
 			setHeight("*");
 			setLeft((Window.getClientWidth() / 2) - (width / 2));
-			setTop(140);
+			// setTop(140);
 			setPosition(Positioning.ABSOLUTE);
 			setBackgroundColor("#E0E0E0");
 			setBorder("1px solid #E0E0E0");
 			setDefaultLayoutAlign(Alignment.CENTER);
 			setMembersMargin(10);
 			setVisible(false);
-			setAnimateTime(60);
+			setAnimateTime(400);
 
 			setShadowDepth(4);
 			setShowShadow(true);
 			setZIndex(444444);
 
-			backDiv.setWidth("100%");
-			backDiv.setHeight("100%");
-			backDiv.setStyleName("backDivDim");
-			backDiv.setVisible(false);
-			// TITLE LAYOUT
-			HLayout titleLayout = GHAUiHelper.verticalGraySeparatorLabel(
-					"40px", "Informacion");
-
-			// LABEL LAYOUT
-			GHALabel errorText = new GHALabel(errorMessage);
-			errorText.setStyleName("text-label");
-
-			VLayout userdataLayout = new VLayout();
-			userdataLayout.setHeight("*");
-			userdataLayout.setWidth100();
-			userdataLayout
-					.setStyleName("sides-padding padding-top padding-bot");
-			userdataLayout.setBackgroundColor("#E0E0E0");
-			userdataLayout.setAlign(Alignment.CENTER);
-			userdataLayout.setDefaultLayoutAlign(Alignment.CENTER);
-			userdataLayout.setMembersMargin(10);
+			VLayout textLayout = new VLayout();
+			textLayout.setHeight("*");
+			// textLayout.setWidth100();
+			// textLayout.setStyleName("sides-padding padding-top padding-bot");
+			// textLayout.setAlign(Alignment.CENTER);
+			textLayout.setDefaultLayoutAlign(Alignment.CENTER);
+			textLayout.setMembersMargin(10);
+			textLayout.addMembers(titleText, errorText);
 
 			GHAButton acceptButton = new GHAButton("Aceptar",
 					new ClickHandler() {
@@ -168,21 +231,26 @@ public class GHANotification {
 						}
 					});
 
-			userdataLayout.addMembers(errorText, acceptButton);
+			VLayout buttonsLayout = new VLayout();
+			buttonsLayout.setHeight("*");
+			buttonsLayout.setWidth("100px");
+			buttonsLayout.setMembersMargin(10);
+			buttonsLayout.setAlign(VerticalAlignment.BOTTOM);
+			buttonsLayout.setDefaultLayoutAlign(Alignment.CENTER);
+			buttonsLayout.addMembers(acceptButton);
 
-			addMembers(titleLayout, userdataLayout);
+			HLayout mainLayout = new HLayout();
+			mainLayout.setHeight("*");
+			mainLayout.setWidth100();
+			mainLayout.setMembersMargin(10);
+			mainLayout.setBackgroundColor("#E0E0E0");
+			mainLayout.setStyleName("sides-padding padding-top padding-bot");
 
-			show();
-		}
+			mainLayout.addMembers(textLayout, buttonsLayout);
 
-		public ModalInfoNotification(int membersMargin) {
-			super(membersMargin);
-			// TODO Auto-generated constructor stub
-		}
-
-		public ModalInfoNotification(JavaScriptObject jsObj) {
-			super(jsObj);
-			// TODO Auto-generated constructor stub
+			addMembers(mainLayout, GHAUiHelper.verticalGraySeparatorImgBar(
+					"../resources/icons/notifications/closerBar.png", 18, 12,
+					12));
 		}
 
 		@Override
@@ -192,34 +260,36 @@ public class GHANotification {
 
 		@Override
 		public void close() {
-			// TODO Auto-generated method stub
-			RootPanel.get("notificationsBackDiv").removeStyleName("dim");
-			int windowZIndex = getZIndex();
-			RootPanel.get("notificationsBackDiv").getElement().getStyle()
-					.setZIndex(-80000);
+			backDivPanel.removeStyleName("dim");
+			backDivPanel.getElement().getStyle().setZIndex(-80000);
 
-			animateHide(AnimationEffect.FADE);
-			backDiv.setVisible(false);
+			animateHide(AnimationEffect.SLIDE);
 		}
 
 		@Override
 		public void show() {
-			// super.show();
-			RootPanel.get("notificationsBackDiv").addStyleName("dim");
-			int windowZIndex = getZIndex();
-			RootPanel.get("notificationsBackDiv").getElement().getStyle()
-					.setZIndex(windowZIndex - 1);
+			animateShow(AnimationEffect.SLIDE);
+			backDivPanel.addStyleName("dim");
+			backDivPanel.getElement().getStyle().setZIndex(getZIndex() - 1);
+		}
 
-			animateShow(AnimationEffect.FADE);
-			setVisible(true);
-			bringToFront();
+		/**
+		 * @param title
+		 * @param innerText
+		 */
+		public void show(String title, String innerText) {
+			setText(title, innerText);
+			show();
+		}
+
+		private void setText(String tit, String text) {
+			titleText.setContents(tit);
+			errorText.setContents(text);
 		}
 
 		@Override
-		public boolean canBeClosen() {
-			// TODO Auto-generated method stub
-			return false;
+		public boolean canBeClosen(HideCloseAction hideAction) {
+			return true;
 		}
 	}
-
 }

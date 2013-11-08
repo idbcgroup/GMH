@@ -327,6 +327,9 @@ public class InitialData {
 						"ssoUser-delete-fail",
 						"Fallo la eliminación del SSOUser"));
 				em.persist(new GHAMessage(LanguageEnum.ES,
+						"ssoUser-delete-success",
+						"Usuario eliminado exitosamente"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
 						"ssoUser-findBySsoUser-fail",
 						"Búsqueda fallida de SSOUser por ssoUser"));
 				em.persist(new GHAMessage(LanguageEnum.ES, "ssoUser-find-fail",
@@ -761,6 +764,9 @@ public class InitialData {
 				// eia service messages
 				em.persist(new GHAMessage(LanguageEnum.ES, "eia-delete-fail",
 						"Fallo la eliminación del Eia"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"eia-delete-success",
+						"El equipo a sido eliminado exitosamente"));
 				em.persist(new GHAMessage(LanguageEnum.ES,
 						"eia-findByEia-fail", "Búsqueda fallida de Eia por eia"));
 				em.persist(new GHAMessage(LanguageEnum.ES,
@@ -1463,6 +1469,8 @@ public class InitialData {
 		} catch (NoResultException e) {
 			try {
 				logger.info("Creating uistrings test data");
+				em.persist(new UiString(LanguageEnum.ES, "yes", "Si"));
+				em.persist(new UiString(LanguageEnum.ES, "no", "No"));
 				em.persist(new UiString(LanguageEnum.ES, "new-user",
 						"Nuevo usuario"));
 				em.persist(new UiString(LanguageEnum.ES, "permissions",
@@ -1532,8 +1540,12 @@ public class InitialData {
 				em.persist(new UiString(LanguageEnum.ES, "brand", "Marca"));
 				em.persist(new UiString(LanguageEnum.ES, "new-eia",
 						"Nuevo equipo"));
+				em.persist(new UiString(LanguageEnum.ES, "edit-eia",
+						"Modificar un equipo"));
 				em.persist(new UiString(LanguageEnum.ES, "new-eiatype",
 						"Nuevo tipo de equipo"));
+				em.persist(new UiString(LanguageEnum.ES, "edit-eiatype",
+						"Modificar un tipo de equipo"));
 				em.persist(new UiString(LanguageEnum.ES, "search-results",
 						"Resultados de la búsqueda"));
 				em.persist(new UiString(LanguageEnum.ES, "description",
@@ -1598,11 +1610,17 @@ public class InitialData {
 				em.persist(new UiString(LanguageEnum.ES,
 						"eiatype-delete-confirm",
 						"¿Desea eliminar el tipo de equipo?"));
+				em.persist(new UiString(LanguageEnum.ES, "eia-delete-confirm",
+						"¿Desea eliminar el equipo?"));
+				em.persist(new UiString(LanguageEnum.ES,
+						"ssoUser-delete-confirm", "¿Desea eliminar al usuario?"));
 				em.persist(new UiString(LanguageEnum.ES, "amount", "Cantidad"));
 				em.persist(new UiString(LanguageEnum.ES,
 						"empty-materialcategory-grid",
 						"No existen Materiales para mostrar"));
 
+				em.persist(new UiString(LanguageEnum.ES, "results",
+						"Resultados"));
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating uistrings test data", e1);

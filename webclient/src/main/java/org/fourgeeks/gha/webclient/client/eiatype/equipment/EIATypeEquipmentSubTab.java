@@ -22,8 +22,8 @@ public class EIATypeEquipmentSubTab extends GHASubTab implements
 		super(GHAStrings.get("equipments"), tab);
 
 		equiposGridPanel = new EIATypeEquipmentGridPanel();
-		addGHAClosableHandler(equiposGridPanel);
-		addGHAHideableHandler(equiposGridPanel);
+		addClosableHandler(equiposGridPanel);
+		addHideableHandler(equiposGridPanel);
 
 		setPane(equiposGridPanel);
 

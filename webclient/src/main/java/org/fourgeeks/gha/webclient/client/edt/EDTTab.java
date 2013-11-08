@@ -1,6 +1,7 @@
 package org.fourgeeks.gha.webclient.client.edt;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
 
 import com.smartgwt.client.widgets.layout.VLayout;
@@ -39,24 +40,22 @@ public class EDTTab extends GHATab {
 	}
 
 	@Override
-	protected void onDraw() {
-
-	}
-
-	@Override
 	public String getId() {
 		return ID;
 	}
 
 	@Override
-	public boolean canBeClosen() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean canBeClosen(HideCloseAction hideAction) {
+		return true;
 	}
 
 	@Override
-	public boolean canBeHidden() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean canBeHidden(HideCloseAction hideAction) {
+		return true;
 	}
+
+	@Override
+	public void search() {
+	}
+
 }

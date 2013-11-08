@@ -99,14 +99,8 @@ public class MaintenanceProtocolTab extends GHATab implements
 	}
 
 	@Override
-	public boolean canBeClosen() {
+	public void search() {
 		// TODO Auto-generated method stub
-		return false;
-	}
 
-	@Override
-	public boolean canBeHidden() {
-		// TODO Auto-generated method stub
-		return false;
 	}
 }

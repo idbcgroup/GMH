@@ -3,10 +3,8 @@ package org.fourgeeks.gha.webclient.client.maintenanceactivity;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAAddForm;
 
-import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -14,7 +12,7 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class MaintenanceActivityAddForm extends GHASlideInWindow implements
+public class MaintenanceActivityAddForm extends GHAAddForm implements
 		MaintenanceActivitySelectionProducer,
 		MaintenanceActivitySelectionListener {
 	private MaintenanceActivityForm maintenanceActivityForm;
@@ -22,13 +20,8 @@ public class MaintenanceActivityAddForm extends GHASlideInWindow implements
 		maintenanceActivityForm = new MaintenanceActivityForm();
 	}
 
-	public MaintenanceActivityAddForm() {
-		super();
-		setHeight(GHAUiHelper.getBottomSectionHeight());
-		setTop(240);
-
-		GHALabel title = new GHALabel("Nueva Actividad");
-		addMember(title);
+	public MaintenanceActivityAddForm(String title) {
+		super(title);
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
 				"../resources/icons/save.png", new ClickHandler() {
@@ -68,16 +61,6 @@ public class MaintenanceActivityAddForm extends GHASlideInWindow implements
 	public void show() {
 		super.show();
 		maintenanceActivityForm.show();
-	}
-
-	@Override
-	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getBottomSectionHeight());
-	}
-
-	@Override
-	public void close() {
-		destroy();
 	}
 
 	@Override
@@ -131,15 +114,4 @@ public class MaintenanceActivityAddForm extends GHASlideInWindow implements
 				.removeMaintenanceActivitySelectionListener(maintenanceActivitySelectionListener);
 	}
 
-	@Override
-	public boolean canBeClosen() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean canBeHidden() {
-		// TODO Auto-generated method stub
-		return false;
-	}
 }
