@@ -57,7 +57,7 @@ public abstract class GHATopForm<T extends GHAResultSet<E>, E> extends HLayout
 	 */
 	@Override
 	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getBottomSectionHeight());
+		setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT + "px");
 	}
 
 	@Override

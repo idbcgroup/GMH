@@ -238,6 +238,6 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 	public void onResize(ResizeEvent event) {
 		// TODO Auto-generated method stub
 		super.onResize(event);
-		resultSet.setHeight(resultSet.getHeight()-28);
+		resultSet.setHeight(resultSet.getHeight()-35);
 	}
 }
