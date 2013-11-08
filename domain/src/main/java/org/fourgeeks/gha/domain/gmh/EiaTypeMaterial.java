@@ -30,7 +30,7 @@ public class EiaTypeMaterial extends AbstractEntity {
 	private EiaType eiaType;
 
 	@ManyToOne
-	@JoinColumn(name = "materialFk", nullable = false, columnDefinition = "varchar(255) REFERENCES material(id) ON UPDATE CASCADE ON DELETE CASCADE")
+	@JoinColumn(name = "materialFk", nullable = false, columnDefinition = "bigserial REFERENCES material(id) ON UPDATE CASCADE ON DELETE CASCADE")
 	private Material material;
 
 	private int amount = 0;

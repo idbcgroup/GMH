@@ -127,24 +127,49 @@ public class MaterialSearchForm extends GHASearchForm<Material> implements
 		fillSelects();
 	}
 
+	@Override
+	public void addMaterialSelectionListener(
+			MaterialSelectionListener materialSelectionListener) {
+		listeners.add(materialSelectionListener);
+	}
+
+	/**
+	 * 
+	 */
+	public void clean() {
+		form.clearValues();
+		grid.setData(new ListGridRecord[] {});
+	}
+
 	private void fillSelects() {
 		typeSelectItem.setValueMap(MaterialTypeEnum.toValueMap());
 	}
 
-	private void selectMaterial() {
-		Material selectedEntity = grid.getSelectedEntity();
-		if (selectedEntity == null) {
-			GHANotification.alert("record-not-selected");
-			return;
-		}
-		notifyMaterial(selectedEntity);
-		hide();
-		grid.removeSelectedData();
+	/**
+	 * Actualiza el mensaje de resultados de la busqueda para que muestre la
+	 * cantidad de elementos encontrados
+	 * 
+	 * @param datos
+	 *            lista con los elementos encontrados
+	 */
+	private void mostrarCantResults(List<?> datos) { // TODO: MOVER A LA
+														// SUPERCLASE
+		String tituloSearchResults = GHAStrings.get("search-results");
+		searchResultsLabel.setContents(tituloSearchResults + ": "
+				+ datos.size() + " resultados");
+		searchResultsLabel.redraw();
 	}
 
 	@Override
-	public void select(Material material) {
-		search(material);
+	public void notifyMaterial(Material material) {
+		for (MaterialSelectionListener listener : listeners)
+			listener.select(material);
+	}
+
+	@Override
+	public void removeMaterialSelectionListener(
+			MaterialSelectionListener materialSelectionListener) {
+		listeners.remove(materialSelectionListener);
 	}
 
 	@Override
@@ -197,44 +222,19 @@ public class MaterialSearchForm extends GHASearchForm<Material> implements
 	}
 
 	@Override
-	public void addMaterialSelectionListener(
-			MaterialSelectionListener materialSelectionListener) {
-		listeners.add(materialSelectionListener);
+	public void select(Material material) {
+		search(material);
 	}
 
-	@Override
-	public void removeMaterialSelectionListener(
-			MaterialSelectionListener materialSelectionListener) {
-		listeners.remove(materialSelectionListener);
-	}
-
-	@Override
-	public void notifyMaterial(Material material) {
-		for (MaterialSelectionListener listener : listeners)
-			listener.select(material);
-	}
-
-	/**
-	 * 
-	 */
-	private void clean() {
-		form.clearValues();
-		grid.setData(new ListGridRecord[0]);
-	}
-
-	/**
-	 * Actualiza el mensaje de resultados de la busqueda para que muestre la
-	 * cantidad de elementos encontrados
-	 * 
-	 * @param datos
-	 *            lista con los elementos encontrados
-	 */
-	private void mostrarCantResults(List<?> datos) { // TODO: MOVER A LA
-														// SUPERCLASE
-		String tituloSearchResults = GHAStrings.get("search-results");
-		searchResultsLabel.setContents(tituloSearchResults + ": "
-				+ datos.size() + " resultados");
-		searchResultsLabel.redraw();
+	private void selectMaterial() {
+		Material selectedEntity = grid.getSelectedEntity();
+		if (selectedEntity == null) {
+			GHANotification.alert("record-not-selected");
+			return;
+		}
+		notifyMaterial(selectedEntity);
+		hide();
+		grid.removeSelectedData();
 	}
 
 }

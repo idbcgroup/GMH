@@ -1595,8 +1595,8 @@ public class InitialData {
 						"search-utility-material",
 						"Búsqueda de materiales utilitarios"));
 				em.persist(new UiString(LanguageEnum.ES,
-						"eiatype-material-category-delete-confirm",
-						"¿Desea eliminar la categoria de material asociada al tipo de equipo?"));
+						"eiatype-material-delete-confirm",
+						"¿Desea retirar el material asociado al tipo de equipo?"));
 				em.persist(new UiString(LanguageEnum.ES,
 						"eiatype-utility-service-delete-confirm",
 						"¿Desea eliminar el servicio utilitario asociado al tipo de equipo?"));

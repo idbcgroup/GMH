@@ -68,6 +68,9 @@ public class EIATypeMaterialGridPanel extends GHAVerticalLayout implements
 
 			@Override
 			public void select(Material material) {
+				// clean the search form
+				EIATypeMaterialGridPanel.this.searchForm.clean();
+
 				final EiaTypeMaterial eiaTypeMaterial = new EiaTypeMaterial();
 				eiaTypeMaterial
 						.setEiaType(EIATypeMaterialGridPanel.this.eiaType);
@@ -139,8 +142,7 @@ public class EIATypeMaterialGridPanel extends GHAVerticalLayout implements
 	 * 
 	 */
 	private void delete() {
-		final EiaTypeMaterial eiaTypeMaterial = grid
-				.getSelectedEntity();
+		final EiaTypeMaterial eiaTypeMaterial = grid.getSelectedEntity();
 
 		if (eiaTypeMaterial == null) {
 			GHANotification.alert("record-not-selected");
@@ -148,7 +150,7 @@ public class EIATypeMaterialGridPanel extends GHAVerticalLayout implements
 		}
 
 		GHANotification.confirm(GHAStrings.get("materials-category"),
-				GHAStrings.get("eiatype-material-category-delete-confirm"),
+				GHAStrings.get("eiatype-material-delete-confirm"),
 				new BooleanCallback() {
 
 					@Override
