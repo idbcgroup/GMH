@@ -3,6 +3,7 @@ package org.fourgeeks.gha.webclient.client.UI.formItems;
 import java.util.Map;
 
 import org.fourgeeks.gha.domain.HasKey;
+import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
 import com.smartgwt.client.widgets.form.fields.ComboBoxItem;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
@@ -20,7 +21,7 @@ public class GHAComboboxItem<T extends HasKey> extends ComboBoxItem {
 	public GHAComboboxItem() {
 		super();
 		setHeight(20);
-		setWidth(100);
+		setWidth(GHAUiHelper.DEFAULT_ITEM_SIZE);
 		setPickerIconHeight(20);
 		setTextBoxStyle("combobox");
 		setCellStyle("gha-form-cell");
