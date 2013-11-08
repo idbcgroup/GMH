@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.fourgeeks.gha.webclient.server.materialcategory;
+package org.fourgeeks.gha.webclient.server.material;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.glm.Material;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.ejb.glm.MaterialServiceRemote;
-import org.fourgeeks.gha.webclient.client.materialcategory.GWTMaterialService;
+import org.fourgeeks.gha.webclient.client.material.GWTMaterialService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 

@@ -1611,6 +1611,8 @@ public class InitialData {
 				em.persist(new UiString(LanguageEnum.ES,
 						"empty-materialcategory-grid",
 						"No existen Materiales para mostrar"));
+				em.persist(new UiString(LanguageEnum.ES, "empty-material-grid",
+						"No existen Materiales para mostrar"));
 
 				em.persist(new UiString(LanguageEnum.ES, "results",
 						"Resultados"));

@@ -8,7 +8,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import com.google.gwt.core.client.GWT;
 
 /**
- * @author alacret Model with the RPC Services for Materials
+ * @author alacret Model with the RPC Services for MaterialCategories
  */
 public class MaterialCategoryModel {
 
