@@ -16,8 +16,8 @@ public class AsociatedMaintenanceProtocolsSubTab extends GHASubTab implements
 		super("Protocolos de Mant.", tab);
 		
 		asociatedMaintenancePlanGridPanel = new AsociatedMaintenanceProtocolsGridPanel(this);
-		addGHAClosableHandler(asociatedMaintenancePlanGridPanel);
-		addGHAHideableHandler(asociatedMaintenancePlanGridPanel);
+		addClosableHandler(asociatedMaintenancePlanGridPanel);
+		addHideableHandler(asociatedMaintenancePlanGridPanel);
 		
 		setPane(asociatedMaintenancePlanGridPanel);
 	}

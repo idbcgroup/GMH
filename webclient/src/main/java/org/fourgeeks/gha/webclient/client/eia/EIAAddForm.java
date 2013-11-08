@@ -121,10 +121,10 @@ public class EIAAddForm extends GHAAddForm implements EIATypeSelectionListener,
 	 * 
 	 */
 	private void initComponent() {
-		
+
 		GHAUiHelper.addGHAResizeHandler(this);
 		setHeight(GHAUiHelper.getBottomSectionHeight());
-		
+
 		VLayout sideButtons = GHAUiHelper.createBar(new GHASaveButton(
 				new ClickHandler() {
 					@Override
@@ -182,6 +182,7 @@ public class EIAAddForm extends GHAAddForm implements EIATypeSelectionListener,
 			@Override
 			public void onSuccess(Eia result) {
 				hide();
+				GHANotification.alert("eia-save-success");
 			}
 		});
 

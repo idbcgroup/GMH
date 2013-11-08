@@ -22,8 +22,8 @@ public class EIAComponentSubTab extends GHASubTab implements
 		super(GHAStrings.get("components"), tab);
 
 		componentGridPanel = new EIAComponentGridPanel();
-		addGHAClosableHandler(componentGridPanel);
-		addGHAHideableHandler(componentGridPanel);
+		addClosableHandler(componentGridPanel);
+		addHideableHandler(componentGridPanel);
 
 		setPane(componentGridPanel);
 

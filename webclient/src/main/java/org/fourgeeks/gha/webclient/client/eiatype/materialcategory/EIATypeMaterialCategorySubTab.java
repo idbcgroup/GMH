@@ -22,8 +22,8 @@ public class EIATypeMaterialCategorySubTab extends GHASubTab implements
 		super(GHAStrings.get("materials"), tab);
 
 		eiaTypeMaterialGridPanel = new EIATypeMaterialCategoryGridPanel();
-		addGHAClosableHandler(eiaTypeMaterialGridPanel);
-		addGHAHideableHandler(eiaTypeMaterialGridPanel);
+		addClosableHandler(eiaTypeMaterialGridPanel);
+		addHideableHandler(eiaTypeMaterialGridPanel);
 
 		setPane(eiaTypeMaterialGridPanel);
 

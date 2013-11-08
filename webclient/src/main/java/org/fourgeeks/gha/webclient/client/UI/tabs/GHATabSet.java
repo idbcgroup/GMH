@@ -115,10 +115,12 @@ public final class GHATabSet {
 	}
 
 	/**
+	 * @param hideAction
 	 * @throws UnavailableToHideException
 	 */
-	public static void closeCurrentTab() throws UnavailableToHideException {
-		closeTab(currentTab);
+	public static void closeCurrentTab(HideCloseAction hideAction)
+			throws UnavailableToHideException {
+		closeTab(currentTab, hideAction);
 		currentTab = null;
 	}
 
