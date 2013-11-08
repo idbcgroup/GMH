@@ -1,9 +1,14 @@
 package org.fourgeeks.gha.webclient.client.UI;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.SearchListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.SearchsProducer;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAResultSet;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
 
@@ -21,7 +26,9 @@ import com.smartgwt.client.widgets.layout.HLayout;
  * 
  */
 public abstract class GHATopForm<T extends GHAResultSet<E>, E> extends HLayout
-		implements ResizeHandler, ClosableListener, HideableListener {
+		implements ResizeHandler, ClosableListener, HideableListener,
+		SearchsProducer {
+	List<SearchListener> searchListeners = new ArrayList<SearchListener>();
 	protected T resultSet;
 	protected GHATab containerTab;
 	protected boolean activated = false;
@@ -36,6 +43,10 @@ public abstract class GHATopForm<T extends GHAResultSet<E>, E> extends HLayout
 		}
 	};
 
+	/**
+	 * @param resultSet
+	 * @param containerTab
+	 */
 	public GHATopForm(T resultSet, GHATab containerTab) {
 		this.resultSet = resultSet;
 		this.containerTab = containerTab;
@@ -102,7 +113,21 @@ public abstract class GHATopForm<T extends GHAResultSet<E>, E> extends HLayout
 	/**
 	 * 
 	 */
-	public abstract void search();
+	public void search() {
+		for (SearchListener searchListener : searchListeners)
+			searchListener.onSearch();
+	}
+
+	@Override
+	public void addSearchListener(SearchListener listener) {
+		searchListeners.add(listener);
+
+	}
+
+	@Override
+	public void removeSearchListener(SearchListener listener) {
+		searchListeners.remove(listener);
+	}
 
 	/**
 	 * @param entity

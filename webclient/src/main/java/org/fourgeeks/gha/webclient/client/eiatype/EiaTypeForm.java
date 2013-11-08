@@ -28,6 +28,8 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.brand.BrandModel;
 
+import com.smartgwt.client.types.TitleOrientation;
+import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -39,6 +41,7 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
  */
 public class EiaTypeForm extends GHAForm<EiaType> implements
 		EiaTypeSelectionProducer {
+	protected DynamicForm form = new DynamicForm();
 	private GHACodeItem codeItem;
 	private GHATextItem nameItem, modelItem, eiaUmdnsItem;
 	private GHATextAreaItem descriptionItem;
@@ -91,7 +94,7 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 	public EiaTypeForm() {
 		super();
 		final HLayout gridPanel = new HLayout();
-
+		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(3);
 		// disable the brand select if no manufacturer is selected
 		brandItem.disable();

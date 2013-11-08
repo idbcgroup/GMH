@@ -1,9 +1,13 @@
 package org.fourgeeks.gha.webclient.client.UI.superclasses;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableProducer;
 
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -15,7 +19,8 @@ import com.smartgwt.client.widgets.AnimationCallback;
  * @author alacret a window that slide in
  */
 public abstract class GHASlideInWindow extends GHAVerticalLayout implements
-		ResizeHandler, ClosableListener, HideableListener {
+		ResizeHandler, ClosableListener, HideableListener, HideableProducer {
+	List<HideableListener> listeners = new ArrayList<HideableListener>();
 
 	/**
 	 * 
@@ -73,6 +78,8 @@ public abstract class GHASlideInWindow extends GHAVerticalLayout implements
 	 * @param callback
 	 */
 	public void hide(AnimationCallback callback) {
+		for (HideableListener listener : listeners)
+			listener.hide();
 		RootPanel.get("slideInWindowsBackDiv").removeStyleName("dim");
 		int windowZIndex = getZIndex();
 		RootPanel.get("slideInWindowsBackDiv").getElement().getStyle()
@@ -89,6 +96,16 @@ public abstract class GHASlideInWindow extends GHAVerticalLayout implements
 	@Override
 	public boolean canBeHidden(HideCloseAction closeAction) {
 		return true;
+	}
+
+	@Override
+	public void addHideableHandler(HideableListener hideableListener) {
+		listeners.add(hideableListener);
+	}
+
+	@Override
+	public void removeHideableHandler(HideableListener hideableListener) {
+		listeners.remove(hideableListener);
 	}
 
 }

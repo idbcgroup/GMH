@@ -55,7 +55,7 @@ public class EIATypeAddForm extends GHAAddForm implements
 
 			@Override
 			public void onClick(ClickEvent event) {
-				EIATypeAddForm.this.hide();
+				hide();
 			}
 		}));
 
@@ -126,7 +126,6 @@ public class EIATypeAddForm extends GHAAddForm implements
 						@Override
 						public void execute(Boolean value) {
 							if (value) {
-								// discard changes and hide
 								form.undo();
 								EIATypeAddForm.super.hide();
 							}
@@ -173,7 +172,7 @@ public class EIATypeAddForm extends GHAAddForm implements
 			@Override
 			public void onSuccess(EiaType arg0) {
 				GHANotification.alert("eiatype-save-success");
-				EIATypeAddForm.this.hide();
+				hide();
 			}
 		});
 	}

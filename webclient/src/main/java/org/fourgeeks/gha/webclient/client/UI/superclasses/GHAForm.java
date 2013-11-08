@@ -5,8 +5,6 @@ import javax.validation.Validator;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 
 import com.google.gwt.validation.client.impl.Validation;
-import com.smartgwt.client.types.TitleOrientation;
-import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 
@@ -17,7 +15,6 @@ import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
  */
 public abstract class GHAForm<T> extends GHAVerticalLayout {
 
-	protected DynamicForm form = new DynamicForm();
 	protected boolean hasUnCommittedChanges = false;
 	protected ChangedHandler changedHandler = new ChangedHandler() {
 
@@ -34,7 +31,6 @@ public abstract class GHAForm<T> extends GHAVerticalLayout {
 	 */
 	public GHAForm() {
 		super();
-		form.setTitleOrientation(TitleOrientation.TOP);
 	}
 
 	/**

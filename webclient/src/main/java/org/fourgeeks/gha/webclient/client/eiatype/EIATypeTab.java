@@ -6,7 +6,9 @@ import java.util.List;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.TabStatus;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.SearchListener;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader;
 
@@ -31,6 +33,7 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 	private List<EIATypeSelectionListener> listeners = new ArrayList<EIATypeSelectionListener>();
 	private EiaTypeResultSet resultSet;
 	private EIATypeTopForm topForm;
+	private TabStatus currentStatus = TabStatus.SEARCH;
 
 	/**
 	 * @param token
@@ -64,6 +67,13 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 		addHideableHandler(topForm);
 		addClosableHandler(topForm);
 		addEiaTypeSelectionListener(topForm);
+		topForm.addSearchListener(new SearchListener() {
+
+			@Override
+			public void onSearch() {
+				currentStatus = TabStatus.SEARCH_RESULTS;
+			}
+		});
 
 		internalTabSet = new EIATypeInternalTabSet(this);
 		addHideableHandler(internalTabSet);
@@ -99,6 +109,7 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 		if (resultSet.isVisible())
 			resultSet.hide();
 		addForm.open();
+		currentStatus = TabStatus.ADD;
 		// GHANotification.info(GHAStrings.get("")); //TODO: Mensaje de
 		// informacion para indicar que se ha actividado el modo de busqueda
 	}
@@ -139,6 +150,7 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 		if (resultSet.isVisible())
 			resultSet.hide();
 		topForm.activate();
+		currentStatus = TabStatus.SEARCH;
 		// GHANotification.info(GHAStrings.get("")); //TODO: Mensaje de
 		// informacion para indicar que se ha actividado el modo de busqueda
 	}
@@ -146,13 +158,21 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 	@Override
 	public void select(EiaType eiaType) {
 		notifyEiaType(eiaType);
+		currentStatus = TabStatus.ENTITY_SELECTED;
 	}
 
 	@Override
 	public void show() {
 		super.show();
 		topForm.setVisibility(Visibility.VISIBLE);
-		// TODO
-	}
+		if (currentStatus.equals(TabStatus.ADD))
+			return;
+		if (currentStatus.equals(TabStatus.SEARCH))
+			return;
 
+		if (currentStatus.equals(TabStatus.ENTITY_SELECTED))
+			internalTabSet.show();
+		else
+			resultSet.show();
+	}
 }
