@@ -10,7 +10,9 @@ import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Predicate;
@@ -141,68 +143,67 @@ public class MaterialService extends GHAEJBExceptionImpl implements
 	 */
 	@Override
 	public List<Material> find(Material entity) throws GHAEJBException {
-		return getAll();
-		// try {
-		// CriteriaBuilder cb = em.getCriteriaBuilder();
-		// CriteriaQuery<Material> cQuery = cb.createQuery(Material.class);
-		// Root<Material> root = cQuery.from(Material.class);
-		// Join<Material, MaterialCategory> category = root
-		// .join("materialCategory");
-		// cQuery.select(root);
-		// cQuery.orderBy(cb.asc(root.<String> get("id")));
-		//
-		// Predicate criteria = buildFilters(entity, cb, root, category);
-		// TypedQuery<Material> q;
-		//
-		// if (criteria.getExpressions().size() <= 0) {
-		// q = em.createQuery(cQuery);
-		// } else {
-		// cQuery.where(criteria);
-		// q = em.createQuery(cQuery);
-		//
-		// if (entity.getBrand() != null) {
-		// q.setParameter("brand", entity.getBrand());
-		// }
-		// if (entity.getMaterialCategory() != null) {
-		// final MaterialCategory materialCategory = entity
-		// .getMaterialCategory();
-		//
-		// if (materialCategory.getCode() != null) {
-		// q.setParameter("code", entity.getMaterialCategory()
-		// .getCode());
-		// }
-		// if (materialCategory.getExternalCode() != null) {
-		// q.setParameter("extCode", entity.getMaterialCategory()
-		// .getExternalCode());
-		// }
-		// if (materialCategory.getType() != null) {
-		// q.setParameter("type", materialCategory.getType());
-		// }
-		// if (materialCategory.getDescription() != null) {
-		// q.setParameter("description", "%"
-		// + materialCategory.getDescription()
-		// .toLowerCase() + "%");
-		// }
-		// if (materialCategory.getName() != null) {
-		// q.setParameter("name", "%"
-		// + materialCategory.getName().toLowerCase()
-		// + "%");
-		// }
-		// if (materialCategory.getModel() != null) {
-		// q.setParameter("model", "%"
-		// + materialCategory.getModel().toLowerCase()
-		// + "%");
-		// }
-		//
-		// }
-		// }
-		// return q.getResultList();
-		// } catch (Exception e) {
-		// logger.log(Level.SEVERE,
-		// "Error obteniendo los eiaTypes por eiatype", e);
-		// throw super.generateGHAEJBException("eiaType-find-fail",
-		// RuntimeParameters.getLang(), em);
-		// }
+		try {
+			CriteriaBuilder cb = em.getCriteriaBuilder();
+			CriteriaQuery<Material> cQuery = cb.createQuery(Material.class);
+			Root<Material> root = cQuery.from(Material.class);
+			Join<Material, MaterialCategory> category = root
+					.join("materialCategory");
+			cQuery.select(root);
+			cQuery.orderBy(cb.asc(root.<String> get("id")));
+
+			Predicate criteria = buildFilters(entity, cb, root, category);
+			TypedQuery<Material> q;
+
+			if (criteria.getExpressions().size() <= 0) {
+				q = em.createQuery(cQuery);
+			} else {
+				cQuery.where(criteria);
+				q = em.createQuery(cQuery);
+
+				if (entity.getBrand() != null) {
+					q.setParameter("brand", entity.getBrand());
+				}
+				if (entity.getMaterialCategory() != null) {
+					final MaterialCategory materialCategory = entity
+							.getMaterialCategory();
+
+					if (materialCategory.getCode() != null) {
+						q.setParameter("code", entity.getMaterialCategory()
+								.getCode());
+					}
+					if (materialCategory.getExternalCode() != null) {
+						q.setParameter("extCode", entity.getMaterialCategory()
+								.getExternalCode());
+					}
+					if (materialCategory.getType() != null) {
+						q.setParameter("type", materialCategory.getType());
+					}
+					if (materialCategory.getDescription() != null) {
+						q.setParameter("description", "%"
+								+ materialCategory.getDescription()
+										.toLowerCase() + "%");
+					}
+					if (materialCategory.getName() != null) {
+						q.setParameter("name", "%"
+								+ materialCategory.getName().toLowerCase()
+								+ "%");
+					}
+					if (materialCategory.getModel() != null) {
+						q.setParameter("model", "%"
+								+ materialCategory.getModel().toLowerCase()
+								+ "%");
+					}
+
+				}
+			}
+			return q.getResultList();
+		} catch (Exception e) {
+			logger.log(Level.SEVERE,
+					"Error obteniendo los eiaTypes por eiatype", e);
+			throw super.generateGHAEJBException("eiaType-find-fail",
+					RuntimeParameters.getLang(), em);
+		}
 	}
 
 	/*
