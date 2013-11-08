@@ -33,7 +33,6 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 	private List<EIATypeSelectionListener> listeners = new ArrayList<EIATypeSelectionListener>();
 	private EiaTypeResultSet resultSet;
 	private EIATypeTopForm topForm;
-	private TabStatus currentStatus = TabStatus.SEARCH;
 
 	/**
 	 * @param token

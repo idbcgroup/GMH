@@ -6,7 +6,9 @@ import java.util.List;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.TabStatus;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.SearchListener;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader;
 
@@ -29,7 +31,7 @@ public class EIATab extends GHATab implements EIASelectionListener,
 	private List<EIASelectionListener> listeners = new ArrayList<EIASelectionListener>();
 	private EIATopForm topForm;
 	private EIAAddForm addForm;
-	private EIAInternalTabset internalTabset;
+	private EIAInternalTabset internalTabSet;
 	private EiaResultSet resultSet;
 
 	/**
@@ -65,11 +67,18 @@ public class EIATab extends GHATab implements EIASelectionListener,
 		addHideableHandler(topForm);
 		addClosableHandler(topForm);
 		addEiaSelectionListener(topForm);
+		topForm.addSearchListener(new SearchListener() {
 
-		internalTabset = new EIAInternalTabset(this);
-		addHideableHandler(internalTabset);
-		addClosableHandler(internalTabset);
-		addEiaSelectionListener(internalTabset);
+			@Override
+			public void onSearch() {
+				currentStatus = TabStatus.SEARCH_RESULTS;
+			}
+		});
+
+		internalTabSet = new EIAInternalTabset(this);
+		addHideableHandler(internalTabSet);
+		addClosableHandler(internalTabSet);
+		addEiaSelectionListener(internalTabSet);
 
 		addForm = new EIAAddForm(GHAStrings.get("new-eia"));
 		addHideableHandler(addForm);
@@ -79,7 +88,7 @@ public class EIATab extends GHATab implements EIASelectionListener,
 		verticalPanel.addMember(topForm);
 		verticalPanel.addMember(GHAUiHelper
 				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
-		verticalPanel.addMember(internalTabset);
+		verticalPanel.addMember(internalTabSet);
 		verticalPanel.addMember(resultSet);
 		addMember(verticalPanel);
 	}
@@ -91,9 +100,9 @@ public class EIATab extends GHATab implements EIASelectionListener,
 		if (addForm.isVisible()) {
 			return;
 		}
-		if (internalTabset.isVisible()) {
-			if (internalTabset.canBeHidden(HideCloseAction.ASK))
-				internalTabset.hide();
+		if (internalTabSet.isVisible()) {
+			if (internalTabSet.canBeHidden(HideCloseAction.ASK))
+				internalTabSet.hide();
 			else
 				return;
 		}
@@ -102,6 +111,9 @@ public class EIATab extends GHATab implements EIASelectionListener,
 		if (resultSet.isVisible())
 			resultSet.hide();
 		addForm.open();
+		currentStatus = TabStatus.ADD;
+		// GHANotification.info(GHAStrings.get("")); //TODO: Mensaje de
+		// informacion para indicar que se ha actividado el modo de busqueda
 	}
 
 	@Override
@@ -138,9 +150,9 @@ public class EIATab extends GHATab implements EIASelectionListener,
 	public void search() {
 		if (topForm.isActivated())
 			return;
-		if (internalTabset.isVisible())
-			if (internalTabset.canBeHidden(HideCloseAction.SAVE))
-				internalTabset.hide();
+		if (internalTabSet.isVisible())
+			if (internalTabSet.canBeHidden(HideCloseAction.SAVE))
+				internalTabSet.hide();
 			else
 				return;
 		if (addForm.isVisible())
@@ -148,6 +160,9 @@ public class EIATab extends GHATab implements EIASelectionListener,
 		if (resultSet.isVisible())
 			resultSet.hide();
 		topForm.activate();
+		// GHANotification.info(GHAStrings.get("")); //TODO: Mensaje de
+		// informacion para indicar que se ha actividado el modo de busqueda
+		currentStatus = TabStatus.SEARCH;
 		// GHANotification.info(GHAStrings.get("")); //TODO: Mensaje de
 		// informacion para indicar que se ha actividado el modo de busqueda
 	}
@@ -161,6 +176,15 @@ public class EIATab extends GHATab implements EIASelectionListener,
 	public void show() {
 		super.show();
 		topForm.setVisibility(Visibility.VISIBLE);
+		if (currentStatus.equals(TabStatus.ADD))
+			return;
+		if (currentStatus.equals(TabStatus.SEARCH))
+			return;
+
+		if (currentStatus.equals(TabStatus.ENTITY_SELECTED))
+			internalTabSet.show();
+		else
+			resultSet.show();
 	}
 
 }
