@@ -19,7 +19,7 @@ public class GHASelectItem extends SelectItem {
 	public GHASelectItem() {
 		super();
 		setHeight(20);
-		setWidth(100);
+		setWidth("*");
 		setPickerIconHeight(20);
 		setOriginalStyle();
 		setShowFocused(false);
