@@ -1,6 +1,7 @@
 package org.fourgeeks.gha.webclient.client.eiatype.information;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
@@ -15,7 +16,6 @@ import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.eiatype.EiaTypeForm;
 import org.fourgeeks.gha.webclient.client.eiatype.EiaTypeSelectionProducer;
 
-import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -263,13 +263,6 @@ public class EIATypeInformationFormPanel extends GHAVerticalLayout implements
 		// form.addEiaTypeSelectionListener(this);
 	}
 
-	/**
-	 *	
-	 */
-	public void activate() {
-		form.activate();
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -284,18 +277,32 @@ public class EIATypeInformationFormPanel extends GHAVerticalLayout implements
 	}
 
 	@Override
-	public boolean canBeClosen(HideCloseAction hideAction) {// TODO
+	public boolean canBeClosen(HideCloseAction hideAction) {
+		if (hideAction.equals(HideCloseAction.DISCARD))
+			return true;
+
 		if (form.hasUnCommittedChanges()) {
-			GHANotification.confirm(GHAStrings.get("information"),
-					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
+			if (hideAction.equals(HideCloseAction.SAVE)) {
+				form.update();
+				return true;
+			}
+
+			GHANotification.askYesNoCancel(GHAStrings.get("information"),
+					GHAStrings.get("unsaved-changes"), new ClickHandler() {
 
 						@Override
-						public void execute(Boolean value) {
-							if (value) {
-								form.undo();
-							}
+						public void onClick(ClickEvent event) {
+							GHATabSet.closeCurrentTab(HideCloseAction.SAVE);
+
 						}
-					});
+					}, new ClickHandler() {
+
+						@Override
+						public void onClick(ClickEvent event) {
+							GHATabSet.closeCurrentTab(HideCloseAction.DISCARD);
+
+						}
+					}, null);
 			return false;
 		}
 		return true;
@@ -308,7 +315,7 @@ public class EIATypeInformationFormPanel extends GHAVerticalLayout implements
 
 		if (form.hasUnCommittedChanges()) {
 			if (hideAction.equals(HideCloseAction.SAVE)) {
-				form.save();
+				form.update();
 				return true;
 			}
 
@@ -416,7 +423,13 @@ public class EIATypeInformationFormPanel extends GHAVerticalLayout implements
 	// }
 
 	private void save() {
-		form.update();
+		form.update(new GHAAsyncCallback<EiaType>() {
+
+			@Override
+			public void onSuccess(EiaType result) {
+				GHANotification.alert("eiatype-save-success");
+			}
+		});
 		// if (this.eiaType == null)
 		// return;
 		// final EiaType eiaType = new EiaType();
@@ -522,8 +535,7 @@ public class EIATypeInformationFormPanel extends GHAVerticalLayout implements
 	 */
 	public void setEiaType(EiaType eiaType) {
 		form.setEiaType(eiaType);
-
-		activate();
+		// form.activate();
 		// showPhotographics(eiaType);
 	}
 

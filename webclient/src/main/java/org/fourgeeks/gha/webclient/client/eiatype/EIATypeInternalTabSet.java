@@ -5,13 +5,13 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAInternalTabSet;
 import org.fourgeeks.gha.webclient.client.eiatype.component.EIATypeComponentSubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.equipment.EIATypeEquipmentSubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.information.EIATypeInformationSubTab;
-import org.fourgeeks.gha.webclient.client.eiatype.materialcategory.EIATypeMaterialCategorySubTab;
+import org.fourgeeks.gha.webclient.client.eiatype.material.EIATypeMaterialSubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.utility.EIATypeUtilitySubTab;
 
 import com.smartgwt.client.types.AnimationEffect;
 
 /**
- * @author alacret
+ * @author alacret, emiliot
  * 
  */
 public class EIATypeInternalTabSet extends GHAInternalTabSet implements
@@ -20,7 +20,7 @@ public class EIATypeInternalTabSet extends GHAInternalTabSet implements
 	private EIATypeInformationSubTab infoSubTab;
 	private EIATypeEquipmentSubTab equipementsSubTab;
 	private EIATypeComponentSubTab partsSubTab;
-	private EIATypeMaterialCategorySubTab materialSubTab;
+	private EIATypeMaterialSubTab materialSubTab;
 	private EIATypeUtilitySubTab servicesSubTab;
 
 	// private EIATypeMaintenanceSubTab maintenanceSubTab;
@@ -39,7 +39,7 @@ public class EIATypeInternalTabSet extends GHAInternalTabSet implements
 		partsSubTab = new EIATypeComponentSubTab(tab);
 		hideables.add(partsSubTab);
 		closables.add(partsSubTab);
-		materialSubTab = new EIATypeMaterialCategorySubTab(tab);
+		materialSubTab = new EIATypeMaterialSubTab(tab);
 		hideables.add(materialSubTab);
 		closables.add(materialSubTab);
 		servicesSubTab = new EIATypeUtilitySubTab(tab);
@@ -60,7 +60,7 @@ public class EIATypeInternalTabSet extends GHAInternalTabSet implements
 	@Override
 	public void select(EiaType eiaType) {
 		animateShow(AnimationEffect.FADE);
-		selectTab(0);
+		// selectTab(0);
 	}
 
 }

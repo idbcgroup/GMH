@@ -14,8 +14,8 @@ public class ActivitiesSubTab extends GHASubTab implements
 		super("Actividades", tab);
 		
 		form = new ActivitiesGridPanel();
-		addGHAClosableHandler(form);
-		addGHAHideableHandler(form);
+		addClosableHandler(form);
+		addHideableHandler(form);
 		
 		setPane(form);
 	}

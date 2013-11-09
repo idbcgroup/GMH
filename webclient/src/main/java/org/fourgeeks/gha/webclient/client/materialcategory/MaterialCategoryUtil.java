@@ -6,7 +6,7 @@ import java.util.List;
 import org.fourgeeks.gha.domain.glm.MaterialCategory;
 
 /**
- * @author alacret Utilities for Materials
+ * @author alacret Utilities for MaterialCategories
  */
 public class MaterialCategoryUtil {
 

@@ -27,6 +27,7 @@ public class EIAUpdateForm extends GHAUpdateForm implements
 	EIAForm form;
 
 	/**
+	 * @param title
 	 * 
 	 */
 	public EIAUpdateForm(String title) {
@@ -37,6 +38,7 @@ public class EIAUpdateForm extends GHAUpdateForm implements
 
 	/**
 	 * @param eiaType
+	 * @param title
 	 * 
 	 */
 	public EIAUpdateForm(EiaType eiaType, String title) {
@@ -180,7 +182,7 @@ public class EIAUpdateForm extends GHAUpdateForm implements
 	 */
 	@Override
 	public void select(Eia eia) {
-		form.cancel();
+		form.clear();
 		hide();
 	}
 
@@ -210,6 +212,7 @@ public class EIAUpdateForm extends GHAUpdateForm implements
 			@Override
 			public void onSuccess(Eia result) {
 				hide();
+				GHANotification.info("eiatype-save-success");
 			}
 		});
 	}

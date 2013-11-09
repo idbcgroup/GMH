@@ -17,8 +17,8 @@ public class EIAReportsSubTab extends GHASubTab implements EIASelectionListener 
 		super(GHAStrings.get("reports"), eiaTab);
 
 		eiaReportsFormPanel = new EIAReportsFormPanel();
-		addGHAClosableHandler(eiaReportsFormPanel);
-		addGHAHideableHandler(eiaReportsFormPanel);
+		addClosableHandler(eiaReportsFormPanel);
+		addHideableHandler(eiaReportsFormPanel);
 
 		setPane(eiaReportsFormPanel);
 

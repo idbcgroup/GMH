@@ -31,7 +31,6 @@ import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 
 import com.smartgwt.client.types.TitleOrientation;
-import com.smartgwt.client.types.VerticalAlignment;
 import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -103,17 +102,11 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 	}
 
 	/**
+	 * @param resultSet
 	 * @param eiaTab
 	 */
 	public EIATopForm(EiaResultSet resultSet, EIATab eiaTab) {
 		super(resultSet, eiaTab);
-
-		GHAUiHelper.addGHAResizeHandler(this);
-		setStyleName("sides-padding padding-top");// Esto es VUDU!
-		setWidth100();
-		setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT + "px");
-		setDefaultLayoutAlign(VerticalAlignment.CENTER);
-		setBackgroundColor("#EAEAEA");
 
 		DynamicForm form = new DynamicForm();
 		// form.setWidth("100px");
@@ -242,6 +235,7 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 	 */
 	@Override
 	public void search() {
+		super.search();
 		Eia eia = new Eia();
 		eia.setState(null);
 
@@ -299,6 +293,7 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 
 	@Override
 	public void select(Eia eia) {
+		super.search();
 		this.selectedEiaId = eia.getId();
 
 		if (eia.getEiaType() != null)

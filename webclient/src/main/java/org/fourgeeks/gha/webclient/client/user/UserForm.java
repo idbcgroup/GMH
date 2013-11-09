@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
-import javax.validation.Validator;
 
 import org.fourgeeks.gha.domain.enu.DocumentTypeEnum;
 import org.fourgeeks.gha.domain.enu.GenderTypeEnum;
@@ -25,20 +24,19 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHADateItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAEmailItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 
-import com.google.gwt.validation.client.impl.Validation;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
-import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
  * @author alacret, emiliot
  * 
  */
-public class UserForm extends VLayout implements UserSelectionProducer {
+public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer {
 
 	private GHATextItem usernameItem, passwordItem, confirmPasswordItem,
 			idItem, firstNameItem, secondNameItem, lastNameItem,
@@ -55,8 +53,6 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 	 * bpu, bpi, citizen, legalentity, etc. is used only for update purposes
 	 */
 	private SSOUser updateUser;
-
-	private Validator validator;
 
 	{
 		usernameItem = new GHATextItem("Nombre de Usuario",
@@ -100,9 +96,9 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 		alternativeEmailItem.setLength(254);
 
 		typeidSelectItem = new GHASelectItem("Tipo ID",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, true, changedHandler);
 		idItem = new GHATextItem("No. Identificiación",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, true, changedHandler);
 		idItem.setLength(20);
 		idItem.setMask("####################");
 		genderSelectItem = new GHASelectItem("Género",
@@ -127,8 +123,6 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 		legalEntityIdentifierItem.setLength(16);
 		legalEntityIdentifierItem.setMask("AAAAAAAAAAAAAAAA");
 
-		validator = Validation.buildDefaultValidatorFactory().getValidator();
-
 		listeners = new ArrayList<UserSelectionListener>();
 
 		form = new DynamicForm();
@@ -140,7 +134,6 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 	public UserForm() {
 		final HLayout mainPanel = new HLayout();
 		form.setTitleOrientation(TitleOrientation.TOP);
-		// form.setCellPadding(1);
 		form.setNumCols(3);
 		form.setItems(usernameItem, passwordItem, confirmPasswordItem,
 				typeidSelectItem, idItem, genderSelectItem, firstNameItem,
@@ -171,10 +164,8 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 		}, false);
 	}
 
-	/**
-	 * 
-	 */
-	public void cancel() {
+	@Override
+	public void clear() {
 		usernameItem.clearValue();
 		passwordItem.clearValue();
 		confirmPasswordItem.clearValue();
@@ -193,9 +184,7 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 		alternativeEmailItem.clearValue();
 	}
 
-	/**
-	 * 
-	 */
+	@Override
 	public void save() {
 		SSOUser ssoUser = extract(false);
 
@@ -207,15 +196,13 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 			@Override
 			public void onSuccess(SSOUser result) {
 				notifyUser(result);
-				cancel();
+				clear();
 
 			}
 		});
 	}
 
-	/**
-	 * 
-	 */
+	@Override
 	public void update() {
 		SSOUser ssoUser = extract(true);
 		// if the validation fail, return
@@ -354,10 +341,20 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 		return null;
 	}
 
+	@Override
+	public void activate() {
+		toggleForm(true);
+	}
+
+	@Override
+	public void deactivate() {
+		toggleForm(false);
+	}
+
 	/**
 	 * @param activate
 	 */
-	public void activateForm(boolean activate) {
+	private void toggleForm(boolean activate) {
 		usernameItem.setDisabled(!activate);
 		passwordItem.setDisabled(!activate);
 		confirmPasswordItem.setDisabled(!activate);
@@ -479,6 +476,24 @@ public class UserForm extends VLayout implements UserSelectionProducer {
 	public void removeUserSelectionListener(
 			UserSelectionListener userSelectionListener) {
 		listeners.remove(userSelectionListener);
+	}
+
+	@Override
+	public void save(GHAAsyncCallback<SSOUser> callback) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void undo() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void update(GHAAsyncCallback<SSOUser> callback) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

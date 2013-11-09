@@ -1,5 +1,7 @@
 package org.fourgeeks.gha.webclient.client.UI.formItems;
 
+import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+
 import com.smartgwt.client.widgets.form.fields.SubmitItem;
 import com.smartgwt.client.widgets.form.fields.events.ClickHandler;
 
@@ -9,7 +11,7 @@ public class GHASubmitItem extends SubmitItem {
 //		setTextBoxStyle("input");
 		setHeight(20);
 		setCellStyle("gha-form-cell");
-		setWidth(100);
+		setWidth(GHAUiHelper.DEFAULT_ITEM_SIZE);
 //		setTitleStyle("input-title");
 	}
 

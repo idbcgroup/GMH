@@ -44,7 +44,7 @@ public class EIATypeAddForm extends GHAAddForm implements
 	private void initComponent() {
 		GHAUiHelper.addGHAResizeHandler(this);
 		setHeight(GHAUiHelper.getBottomSectionHeight());
-		
+
 		VLayout sideButtons = GHAUiHelper.createBar(new GHASaveButton(
 				new ClickHandler() {
 					@Override
@@ -55,7 +55,7 @@ public class EIATypeAddForm extends GHAAddForm implements
 
 			@Override
 			public void onClick(ClickEvent event) {
-				EIATypeAddForm.this.hide();
+				hide();
 			}
 		}));
 
@@ -63,7 +63,7 @@ public class EIATypeAddForm extends GHAAddForm implements
 		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
 		addMember(gridPanel);
 	}
-	
+
 	@Override
 	public void addEiaTypeSelectionListener(
 			EIATypeSelectionListener eIATypeSelectionListener) {
@@ -126,7 +126,6 @@ public class EIATypeAddForm extends GHAAddForm implements
 						@Override
 						public void execute(Boolean value) {
 							if (value) {
-								// discard changes and hide
 								form.undo();
 								EIATypeAddForm.super.hide();
 							}
@@ -172,12 +171,11 @@ public class EIATypeAddForm extends GHAAddForm implements
 
 			@Override
 			public void onSuccess(EiaType arg0) {
-				EIATypeAddForm.this.hide();
-
+				GHANotification.alert("eiatype-save-success");
+				hide();
 			}
 		});
 	}
-
 	/*
 	 * (non-Javadoc)
 	 * 

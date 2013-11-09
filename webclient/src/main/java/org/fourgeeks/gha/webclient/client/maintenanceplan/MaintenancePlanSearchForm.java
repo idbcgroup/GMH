@@ -38,18 +38,29 @@ public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan> im
 	private GHATextItem nameItem, descriptionItem, frequencyItem;
 	private GHASelectItem periodOfTimeSelectItem;
 
+	private final DynamicForm form;
 	private MaintenancePlanAddForm addForm;
 	private List<MaintenancePlanSelectionListener> listeners;
 
 	{
+		form = new DynamicForm();
+		
 		listeners = new LinkedList<MaintenancePlanSelectionListener>();
+		
 		nameItem = new GHATextItem("Nombre");
+		nameItem.setValue("PRUEBA!");
+//		nameItem.setWidth("400px");
 		nameItem.setLength(100);
 		frequencyItem = new GHATextItem("Frecuencia");
+//		frequencyItem.setWidth("*");
 		periodOfTimeSelectItem = new GHASelectItem("Periodo de Tiempo");
-		descriptionItem = new GHATextItem("Descripción", 420);
-		descriptionItem.setColSpan(4);
-
+//		periodOfTimeSelectItem.setWidth("*");
+		
+		descriptionItem = new GHATextItem("Descripción"/*, 420*/);
+		descriptionItem.setColSpan(3);
+//		descriptionItem.setWidth("*");
+		
+		
 		grid = new MaintenancePlanGrid();
 
 		addForm = new MaintenancePlanAddForm("Nuevo Plan de Mantenimiento");
@@ -61,12 +72,18 @@ public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan> im
 	public MaintenancePlanSearchForm(String title) {
 		super(title);
 		
-		final DynamicForm form = new DynamicForm();
+		form.setWidth(920);
 		form.setTitleOrientation(TitleOrientation.TOP);
-		form.setNumCols(4);
+		form.setNumCols(3);
+		form.setWrapItemTitles(false);
+//		form.setClipItemTitles(true);
+//		form.setFixedColWidths(true);
+		form.setColWidths("200px","200px","200px");
 
+//		nameItem.setWidth("400px");
+		
 		form.setItems(nameItem, frequencyItem, periodOfTimeSelectItem,
-				descriptionItem);
+					  descriptionItem);
 
 		// Event Handlers
 		ClickHandler searchClickHandler = new ClickHandler() {

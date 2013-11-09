@@ -18,6 +18,8 @@ import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
+import com.smartgwt.client.widgets.grid.events.CellDoubleClickEvent;
+import com.smartgwt.client.widgets.grid.events.CellDoubleClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 
 /**
@@ -32,6 +34,13 @@ public class EiaTypeResultSet extends GHAResultSet<EiaType> implements
 	{
 		listeners = new ArrayList<EIATypeSelectionListener>();
 		grid = new EIATypeGrid();
+		grid.addCellDoubleClickHandler(new CellDoubleClickHandler() {
+
+			@Override
+			public void onCellDoubleClick(CellDoubleClickEvent event) {
+				notifySelectedEiaType();
+			}
+		});
 	}
 
 	/**

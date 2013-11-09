@@ -16,6 +16,8 @@ import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
+import com.smartgwt.client.widgets.grid.events.CellDoubleClickEvent;
+import com.smartgwt.client.widgets.grid.events.CellDoubleClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 
 /**
@@ -30,6 +32,13 @@ public class EiaResultSet extends GHAResultSet<Eia> implements
 	{
 		listeners = new ArrayList<EIASelectionListener>();
 		grid = new EIAGrid();
+		grid.addCellDoubleClickHandler(new CellDoubleClickHandler() {
+
+			@Override
+			public void onCellDoubleClick(CellDoubleClickEvent event) {
+				notifySelectedEia();
+			}
+		});
 	}
 
 	/**

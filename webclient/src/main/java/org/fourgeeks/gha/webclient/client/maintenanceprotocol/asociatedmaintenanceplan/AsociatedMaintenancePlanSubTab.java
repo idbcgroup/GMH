@@ -22,8 +22,8 @@ public class AsociatedMaintenancePlanSubTab extends GHASubTab implements
 		tab.addMaintenanceProtocolSelectionListener(this);
 
 		panel = new AsociatedMaintenancePlanGridPanel(this);
-		addGHAClosableHandler(panel);
-		addGHAHideableHandler(panel);
+		addClosableHandler(panel);
+		addHideableHandler(panel);
 
 		setPane(panel);
 	}

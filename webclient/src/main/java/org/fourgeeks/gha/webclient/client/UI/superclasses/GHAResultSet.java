@@ -12,15 +12,14 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.types.AnimationEffect;
-import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
  * @author alacret
  * @param <T>
  * 
  */
-public abstract class GHAResultSet<T> extends VLayout implements ResizeHandler,
-		HideableListener, ClosableListener {
+public abstract class GHAResultSet<T> extends GHAVerticalLayout implements
+		ResizeHandler, HideableListener, ClosableListener {
 	protected GHALabel searchResultsLabel;
 
 	/**
@@ -30,7 +29,6 @@ public abstract class GHAResultSet<T> extends VLayout implements ResizeHandler,
 	public GHAResultSet(String label) {
 		super();
 		setHeight(GHAUiHelper.getBottomSectionHeight());
-		setStyleName("sides-padding padding-top");
 		GHAUiHelper.addGHAResizeHandler(this);
 		searchResultsLabel = new GHALabel(label);
 		addMember(searchResultsLabel);

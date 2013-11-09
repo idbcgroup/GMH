@@ -39,6 +39,9 @@ public class GHANotification {
 	private static final GWTMessageServiceAsync messageService = GWT
 			.create(GWTMessageService.class);
 
+	/**
+	 * 
+	 */
 	public static final ModalNotification modalNotification = new ModalNotification();
 
 	/*
@@ -123,6 +126,22 @@ public class GHANotification {
 	}
 
 	/**
+	 * this method receives a key to find and show the message from database
+	 * 
+	 * @param key
+	 */
+	public static void info(String key) {
+		messageService.find(key, new GHAAsyncCallback<GHAMessage>() {
+
+			@Override
+			public void onSuccess(GHAMessage result) {
+				SC.say(GHAStrings.get("information"), result.getText());
+			}
+		});
+
+	}
+
+	/**
 	 * this method receives a list of keys to find the messages and then show
 	 * them to the user
 	 * 
@@ -172,6 +191,9 @@ public class GHANotification {
 			errorText.setHeight("*");
 		}
 
+		/**
+		 * 
+		 */
 		public ModalNotification() {
 			super();
 			GHAUiHelper.addGHAResizeHandler(this);
@@ -251,6 +273,10 @@ public class GHANotification {
 			backDivPanel.getElement().getStyle().setZIndex(getZIndex() - 1);
 		}
 
+		/**
+		 * @param title
+		 * @param innerText
+		 */
 		public void show(String title, String innerText) {
 			setText(title, innerText);
 			show();

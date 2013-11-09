@@ -31,11 +31,15 @@ public class EiaTypeMaterialCategory extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 
 	@ManyToOne
-	@JoinColumn(name = "eiaTypeFk", nullable = false, columnDefinition = "varchar(255) REFERENCES eiatype(code) ON UPDATE CASCADE ON DELETE CASCADE")
+	@JoinColumn(name = "eiaTypeFk", nullable = false)
+	// , columnDefinition =
+	// "varchar(255) REFERENCES eiatype(code) ON UPDATE CASCADE ON DELETE CASCADE")
 	private EiaType eiaType;
 
 	@ManyToOne
-	@JoinColumn(name = "materialCategoryFk", nullable = false, columnDefinition = "varchar(255) REFERENCES materialcategory(code) ON UPDATE CASCADE ON DELETE CASCADE")
+	@JoinColumn(name = "materialCategoryFk", nullable = false)
+	// , columnDefinition =
+	// "varchar(255) REFERENCES materialcategory(code) ON UPDATE CASCADE ON DELETE CASCADE")
 	private MaterialCategory materialCategory;
 
 	private int amount = 0;

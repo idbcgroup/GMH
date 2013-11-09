@@ -13,7 +13,7 @@ import org.fourgeeks.gha.webclient.client.eiatype.EIATypeTab;
 public class EIATypeMaterialCategorySubTab extends GHASubTab implements
 		EIATypeSelectionListener {
 
-	private EIATypeMaterialCategoryGridPanel eiaTypeMaterialGridPanel;
+	private EIATypeMaterialCategoryGridPanel gridPanel;
 
 	/**
 	 * @param tab
@@ -21,17 +21,17 @@ public class EIATypeMaterialCategorySubTab extends GHASubTab implements
 	public EIATypeMaterialCategorySubTab(EIATypeTab tab) {
 		super(GHAStrings.get("materials"), tab);
 
-		eiaTypeMaterialGridPanel = new EIATypeMaterialCategoryGridPanel();
-		addGHAClosableHandler(eiaTypeMaterialGridPanel);
-		addGHAHideableHandler(eiaTypeMaterialGridPanel);
+		gridPanel = new EIATypeMaterialCategoryGridPanel();
+		addClosableHandler(gridPanel);
+		addHideableHandler(gridPanel);
 
-		setPane(eiaTypeMaterialGridPanel);
+		setPane(gridPanel);
 
 		tab.addEiaTypeSelectionListener(this);
 	}
 
 	@Override
 	public void select(EiaType eiaType) {
-		eiaTypeMaterialGridPanel.select(eiaType);
+		gridPanel.select(eiaType);
 	}
 }
