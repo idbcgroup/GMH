@@ -1,9 +1,9 @@
-package org.fourgeeks.gha.webclient.client.materialcategory;
+package org.fourgeeks.gha.webclient.client.material;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
-import org.fourgeeks.gha.domain.glm.MaterialCategory;
+import org.fourgeeks.gha.domain.glm.Material;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACheckButton;
@@ -15,17 +15,18 @@ import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 
-public class MaterialCategoryResultSet extends GHAResultSet<MaterialCategory>
-		implements MaterialCategorySelectionProducer {
-	private List<MaterialCategorySelectionListener> listeners;
-	private MaterialCategoryGrid grid;
+public class MaterialResultSet extends GHAResultSet<Material> implements
+		MaterialSelectionProducer {
+
+	private List<MaterialSelectionListener> listeners;
+	private MaterialGrid grid;
 
 	{
-		listeners = new ArrayList<MaterialCategorySelectionListener>();
-		grid = new MaterialCategoryGrid();
+		listeners = new LinkedList<MaterialSelectionListener>();
+		grid = new MaterialGrid();
 	}
 
-	public MaterialCategoryResultSet() {
+	public MaterialResultSet() {
 		super(GHAStrings.get("search-results"));
 		HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(grid,
@@ -33,7 +34,7 @@ public class MaterialCategoryResultSet extends GHAResultSet<MaterialCategory>
 
 					@Override
 					public void onClick(ClickEvent event) {
-						notifySelectMaterialCategory();
+						notifySelectMaterial();
 					}
 				})));
 		addMember(gridPanel);
@@ -41,57 +42,54 @@ public class MaterialCategoryResultSet extends GHAResultSet<MaterialCategory>
 
 	@Override
 	public void addMaterialSelectionListener(
-			MaterialCategorySelectionListener materialSelectionListener) {
+			MaterialSelectionListener materialSelectionListener) {
 		listeners.add(materialSelectionListener);
 	}
 
 	@Override
 	public void clean() {
-		grid.setData(new MaterialCategoryRecord[] {});
+		grid.setData(new MaterialRecord[] {});
 		showResultsSize(null, true);
 	}
 
 	@Override
-	public void notifyMaterialCategory(MaterialCategory materialCategory) {
-		for (MaterialCategorySelectionListener listener : listeners)
-			listener.select(materialCategory);
+	public void notifyMaterial(Material material) {
+		for (MaterialSelectionListener listener : listeners)
+			listener.select(material);
 	}
 
-	/**
-	 * notify selected {@link MaterialCategory} from the grid
-	 */
-	private void notifySelectMaterialCategory() {
-		MaterialCategory selectedEntity = grid.getSelectedEntity();
+	private void notifySelectMaterial() {
+		Material selectedEntity = grid.getSelectedEntity();
 		if (selectedEntity == null) {
 			GHANotification.alert("record-not-selected");
 			return;
 		}
-		notifyMaterialCategory(selectedEntity);
+		notifyMaterial(selectedEntity);
 		grid.removeSelectedData();
+
 	}
 
 	@Override
 	public void removeMaterialSelectionListener(
-			MaterialCategorySelectionListener materialSelectionListener) {
+			MaterialSelectionListener materialSelectionListener) {
 		listeners.remove(materialSelectionListener);
-
 	}
 
 	@Override
-	public void setRecords(List<MaterialCategory> records,
-			boolean notifyIfOnlyOneResult) {
+	public void setRecords(List<Material> records, boolean notifyIfOnlyOneResult) {
 		// if only one record is on the list, notify the element and return
 		if (notifyIfOnlyOneResult && records.size() == 1) {
-			notifyMaterialCategory(records.get(0));
+			notifyMaterial(records.get(0));
 			hide();
 			return;
 		}
 		showResultsSize(records, false);
-		MaterialCategoryRecord[] array = MaterialCategoryUtil.toGridRecords(
-				records).toArray(new MaterialCategoryRecord[] {});
+		MaterialRecord[] array = MaterialUtil.toGridRecords(records).toArray(
+				new MaterialRecord[] {});
 		grid.setData(array);
 		if (!isVisible())
 			this.animateShow(AnimationEffect.FADE);
+
 	}
 
 }
