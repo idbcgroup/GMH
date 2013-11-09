@@ -18,4 +18,10 @@ public class UtilitySearchForm extends MaterialCategorySearchForm {
 		typeSelectItem.setValue(MaterialTypeEnum.UTILITARIO.name());
 		typeSelectItem.setDisabled(true);
 	}
+
+	@Override
+	public void clean() {
+		super.clean();
+		typeSelectItem.setValue(MaterialTypeEnum.UTILITARIO.name());
+	}
 }

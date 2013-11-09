@@ -88,7 +88,6 @@ public class EIATypeMaterialCategoryGridPanel extends GHAVerticalLayout
 		addForm.addMaterialSelectionListener(materialSelectionListener);
 		searchForm = new MaterialCategorySearchForm(
 				GHAStrings.get("search-material"));
-
 		searchForm.addMaterialSelectionListener(materialSelectionListener);
 	}
 

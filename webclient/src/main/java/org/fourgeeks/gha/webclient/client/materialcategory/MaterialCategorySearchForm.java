@@ -1,7 +1,6 @@
 package org.fourgeeks.gha.webclient.client.materialcategory;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.AbstractCodeEntity;
@@ -35,7 +34,6 @@ public class MaterialCategorySearchForm extends GHASearchForm<MaterialCategory>
 		implements MaterialCategorySelectionListener,
 		MaterialCategorySelectionProducer {
 
-	private List<MaterialCategorySelectionListener> selectionListeners;
 	private GHATextItem codeTextItem, nameTextItem, descriptionTextItem,
 			modelTextItem, extCodeTextItem;
 	protected GHASelectItem typeSelectItem;
@@ -43,8 +41,6 @@ public class MaterialCategorySearchForm extends GHASearchForm<MaterialCategory>
 	private final DynamicForm form = new DynamicForm();
 
 	{
-		selectionListeners = new LinkedList<MaterialCategorySelectionListener>();
-		//
 		codeTextItem = new GHACodeItem(300);
 		nameTextItem = new GHATextItem(GHAStrings.get("name"), 300);
 		modelTextItem = new GHATextItem(GHAStrings.get("model"), 300);
@@ -117,7 +113,7 @@ public class MaterialCategorySearchForm extends GHASearchForm<MaterialCategory>
 	@Override
 	public void addMaterialSelectionListener(
 			MaterialCategorySelectionListener materialSelectionListener) {
-		selectionListeners.add(materialSelectionListener);
+		resultSet.addMaterialSelectionListener(materialSelectionListener);
 	}
 
 	/**
@@ -134,14 +130,12 @@ public class MaterialCategorySearchForm extends GHASearchForm<MaterialCategory>
 
 	@Override
 	public void notifyMaterialCategory(MaterialCategory materialCategory) {
-		for (MaterialCategorySelectionListener listener : selectionListeners)
-			listener.select(materialCategory);
 	}
 
 	@Override
 	public void removeMaterialSelectionListener(
 			MaterialCategorySelectionListener materialSelectionListener) {
-		selectionListeners.remove(materialSelectionListener);
+		resultSet.removeMaterialSelectionListener(materialSelectionListener);
 	}
 
 	public void search() {
