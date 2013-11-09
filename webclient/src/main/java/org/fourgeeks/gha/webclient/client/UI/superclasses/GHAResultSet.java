@@ -63,11 +63,12 @@ public abstract class GHAResultSet<T> extends VLayout implements ResizeHandler,
 		return true;
 	}
 
-	protected void showResultsSize(List<?> results) {
+	protected void showResultsSize(List<?> results, boolean isCleaning) {
 		String title = GHAStrings.get("search-results");
-		searchResultsLabel.setContents(title + ": "
-				+ (results == null ? 0 : results.size()) + " "
-				+ GHAStrings.get("results"));
+		if (!isCleaning)
+			searchResultsLabel.setContents(title + ": "
+					+ (results == null ? 0 : results.size()) + " "
+					+ GHAStrings.get("results"));
 		searchResultsLabel.redraw();
 	}
 

@@ -74,7 +74,7 @@ public class EiaTypeResultSet extends GHAResultSet<EiaType> implements
 	@Override
 	public void clean() {
 		grid.setData(new EIATypeRecord[] {});
-		showResultsSize(null);
+		showResultsSize(null, true);
 	}
 
 	/**
@@ -149,7 +149,7 @@ public class EiaTypeResultSet extends GHAResultSet<EiaType> implements
 			hide();
 			return;
 		}
-		showResultsSize(records);
+		showResultsSize(records, false);
 		ListGridRecord[] array = EIATypeUtil.toGridRecords(records).toArray(
 				new EIATypeRecord[] {});
 		grid.setData(array);

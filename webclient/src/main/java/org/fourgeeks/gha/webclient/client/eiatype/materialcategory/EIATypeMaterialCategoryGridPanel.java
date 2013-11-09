@@ -67,6 +67,8 @@ public class EIATypeMaterialCategoryGridPanel extends GHAVerticalLayout
 
 			@Override
 			public void select(MaterialCategory materialCategory) {
+				EIATypeMaterialCategoryGridPanel.this.searchForm.clean();
+
 				final EiaTypeMaterialCategory eiaTypeMaterialCategory = new EiaTypeMaterialCategory();
 				eiaTypeMaterialCategory
 						.setEiaType(EIATypeMaterialCategoryGridPanel.this.eiaType);
