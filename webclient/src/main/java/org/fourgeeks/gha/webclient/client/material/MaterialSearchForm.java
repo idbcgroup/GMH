@@ -14,11 +14,8 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUtil;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHACodeItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACancelButton;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHACheckButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASearchForm;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -26,7 +23,6 @@ import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
-import com.smartgwt.client.widgets.grid.ListGridRecord;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
@@ -40,7 +36,7 @@ public class MaterialSearchForm extends GHASearchForm<Material> implements
 
 	private GHATextItem codeTextItem, nameTextItem, descriptionTextItem,
 			modelTextItem, extCodeTextItem;
-	// protected GHASelectItem typeSelectItem;
+	protected MaterialTypeEnum fixedMaterial = MaterialTypeEnum.MATERIAL;
 	private MaterialResultSet resultSet = new MaterialResultSet();
 	private final DynamicForm form = new DynamicForm();
 
@@ -165,7 +161,7 @@ public class MaterialSearchForm extends GHASearchForm<Material> implements
 		// if (typeSelectItem.getValue() != null)
 		// materialCategory.setType(MaterialTypeEnum.valueOf(typeSelectItem
 		// .getValueAsString()));
-		materialCategory.setType(MaterialTypeEnum.MATERIAL);
+		materialCategory.setType(fixedMaterial);
 		material.setMaterialCategory(materialCategory);
 		search(material);
 	}

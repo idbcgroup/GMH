@@ -19,8 +19,8 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
-import org.fourgeeks.gha.webclient.client.material.MaterialAddForm;
-import org.fourgeeks.gha.webclient.client.material.MaterialSearchForm;
+import org.fourgeeks.gha.webclient.client.material.MaterialAddFormSub;
+import org.fourgeeks.gha.webclient.client.material.MaterialSearchFormSub;
 import org.fourgeeks.gha.webclient.client.material.MaterialSelectionListener;
 
 import com.smartgwt.client.util.BooleanCallback;
@@ -40,9 +40,9 @@ public class EIATypeMaterialGridPanel extends GHAVerticalLayout implements
 		EIATypeSelectionListener, HideableListener, ClosableListener {
 
 	private EiaTypeMaterialGrid grid;
-	private MaterialSearchForm searchForm;
+	private MaterialSearchFormSub searchForm;
 	private EiaType eiaType;
-	private MaterialAddForm addForm;
+	private MaterialAddFormSub addForm;
 
 	{
 		grid = new EiaTypeMaterialGrid();
@@ -85,9 +85,10 @@ public class EIATypeMaterialGridPanel extends GHAVerticalLayout implements
 						});
 			}
 		};
-		addForm = new MaterialAddForm(GHAStrings.get("new-material"));
+		addForm = new MaterialAddFormSub(GHAStrings.get("new-material"));
 		addForm.addMaterialSelectionListener(materialSelectionListener);
-		searchForm = new MaterialSearchForm(GHAStrings.get("search-material"));
+		searchForm = new MaterialSearchFormSub(
+				GHAStrings.get("search-material"));
 
 		searchForm.addMaterialSelectionListener(materialSelectionListener);
 	}

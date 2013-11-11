@@ -12,7 +12,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
-import org.fourgeeks.gha.domain.glm.MaterialCategory;
+import org.fourgeeks.gha.domain.glm.Material;
 
 /**
  * @author emiliot
@@ -30,8 +30,8 @@ public class EiaTypeUtility extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 
 	@ManyToOne
-	@JoinColumn(name = "materialFk", nullable = false, columnDefinition = "varchar(255) REFERENCES materialcategory(code) ON UPDATE CASCADE ON DELETE CASCADE")
-	private MaterialCategory materialCategory;
+	@JoinColumn(name = "materialFk", nullable = false, columnDefinition = "bigserial REFERENCES material(id) ON UPDATE CASCADE ON DELETE CASCADE")
+	private Material material;
 
 	@ManyToOne
 	@JoinColumn(name = "eiaTypeFk", nullable = false, columnDefinition = "varchar(255) REFERENCES eiatype(code) ON UPDATE CASCADE ON DELETE CASCADE")
@@ -39,12 +39,12 @@ public class EiaTypeUtility extends AbstractEntity {
 
 	private int amount;
 
-	public MaterialCategory getMaterialCategory() {
-		return materialCategory;
+	public Material getMaterial() {
+		return material;
 	}
 
-	public void setMaterialCategory(MaterialCategory materialCategory) {
-		this.materialCategory = materialCategory;
+	public void setMaterial(Material material) {
+		this.material = material;
 	}
 
 	public EiaType getEiaType() {

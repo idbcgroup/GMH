@@ -3,7 +3,7 @@ package org.fourgeeks.gha.webclient.client.eiatype.utility;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.fourgeeks.gha.domain.glm.MaterialCategory;
+import org.fourgeeks.gha.domain.glm.Material;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeUtility;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
@@ -19,7 +19,7 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
-import org.fourgeeks.gha.webclient.client.materialcategory.MaterialCategorySelectionListener;
+import org.fourgeeks.gha.webclient.client.material.MaterialSelectionListener;
 import org.fourgeeks.gha.webclient.client.utility.UtilityAddForm;
 import org.fourgeeks.gha.webclient.client.utility.UtilitySearchForm;
 
@@ -44,15 +44,15 @@ public class EIATypeUtilityGridPanel extends GHAVerticalLayout implements
 	private UtilitySearchForm searchForm;
 	private UtilityAddForm addForm;
 	private EiaType eiaType;
-	private MaterialCategorySelectionListener materialSelectionListener = new MaterialCategorySelectionListener() {
+	private MaterialSelectionListener materialSelectionListener = new MaterialSelectionListener() {
 
 		@Override
-		public void select(MaterialCategory material) {
+		public void select(Material material) {
 			EIATypeUtilityGridPanel.this.searchForm.clean();
 
 			EiaTypeUtility eiaTypeUtility = new EiaTypeUtility();
 			eiaTypeUtility.setEiaType(EIATypeUtilityGridPanel.this.eiaType);
-			eiaTypeUtility.setMaterialCategory(material);
+			eiaTypeUtility.setMaterial(material);
 			EIATypeUtilityModel.save(eiaTypeUtility,
 					new GHAAsyncCallback<EiaTypeUtility>() {
 
@@ -125,45 +125,8 @@ public class EIATypeUtilityGridPanel extends GHAVerticalLayout implements
 	}
 
 	@Override
-	public void select(EiaType eiaType) {
-		this.eiaType = eiaType;
-	}
-
-	@Override
-	public void close() {
-		hide();
-
-		searchForm.close();
-
-		addForm.close();
-	}
-
-	@Override
-	public void hide() {
-		if (searchForm.isVisible())
-			searchForm.hide();
-		if (addForm.isVisible())
-			addForm.hide();
-	}
-
-	private void loadData() {
-		EIATypeUtilityModel.findByEiaType(eiaType,
-				new AsyncCallback<List<EiaTypeUtility>>() {
-
-					@Override
-					public void onFailure(Throwable caught) {
-						// TODO Auto-generated method stub
-					}
-
-					@Override
-					public void onSuccess(List<EiaTypeUtility> result) {
-						ListGridRecord[] array = EIATypeUtilityUtil
-								.toGridRecords(result).toArray(
-										new EIATypeUtilityRecord[] {});
-						grid.setData(array);
-
-					}
-				});
+	public boolean canBeClosen(HideCloseAction hideAction) {
+		return true;
 	}
 
 	@Override
@@ -172,24 +135,10 @@ public class EIATypeUtilityGridPanel extends GHAVerticalLayout implements
 	}
 
 	@Override
-	public boolean canBeClosen(HideCloseAction hideAction) {
-		return true;
-	}
-
-	/**
-	 * 
-	 */
-	private void search() {
-		ListGridRecord[] records = grid.getRecords();
-		List<MaterialCategory> blackList = null;
-		if (records.length != 0) {
-			blackList = new ArrayList<MaterialCategory>();
-			for (int i = 0; i < records.length; i++)
-				blackList.add(((EIATypeUtilityRecord) records[i]).toEntity()
-						.getMaterialCategory());
-		}
-		searchForm.filterBy(blackList);
-		searchForm.open();
+	public void close() {
+		hide();
+		searchForm.close();
+		addForm.close();
 	}
 
 	/**
@@ -221,6 +170,57 @@ public class EIATypeUtilityGridPanel extends GHAVerticalLayout implements
 						}
 					}
 				});
+	}
+
+	@Override
+	public void hide() {
+		if (searchForm.isVisible())
+			searchForm.hide();
+		if (addForm.isVisible())
+			addForm.hide();
+	}
+
+	private void loadData() {
+		EIATypeUtilityModel.findByEiaType(eiaType,
+				new AsyncCallback<List<EiaTypeUtility>>() {
+
+					@Override
+					public void onSuccess(List<EiaTypeUtility> result) {
+						ListGridRecord[] array = EIATypeUtilityUtil
+								.toGridRecords(result).toArray(
+										new EIATypeUtilityRecord[] {});
+						grid.setData(array);
+
+					}
+
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+
+					}
+				});
+	}
+
+	/**
+	 * 
+	 */
+	private void search() {
+		ListGridRecord[] records = grid.getRecords();
+		List<Material> blackList = null;
+		if (records.length != 0) {
+			blackList = new ArrayList<Material>();
+			for (int i = 0; i < records.length; i++)
+				blackList.add(((EIATypeUtilityRecord) records[i]).toEntity()
+						.getMaterial());
+		}
+		searchForm.filterBy(blackList);
+		searchForm.open();
+	}
+
+	@Override
+	public void select(EiaType eiaType) {
+		this.eiaType = eiaType;
+		loadData();
 	}
 
 }
