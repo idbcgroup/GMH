@@ -1,7 +1,6 @@
 package org.fourgeeks.gha.webclient.client.material;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
@@ -15,18 +14,15 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUtil;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHACodeItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACancelButton;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHACheckButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASearchForm;
 
+import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
-import com.smartgwt.client.widgets.grid.ListGridRecord;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
@@ -38,17 +34,13 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class MaterialSearchForm extends GHASearchForm<Material> implements
 		MaterialSelectionListener, MaterialSelectionProducer {
 
-	private List<MaterialSelectionListener> listeners;
 	private GHATextItem codeTextItem, nameTextItem, descriptionTextItem,
 			modelTextItem, extCodeTextItem;
 	// protected GHASelectItem typeSelectItem;
-	private MaterialGrid grid;
-	private GHALabel searchResultsLabel;
-
+	private MaterialResultSet resultSet = new MaterialResultSet();
 	private final DynamicForm form = new DynamicForm();
 
 	{
-		listeners = new LinkedList<MaterialSelectionListener>();
 		//
 		codeTextItem = new GHACodeItem(300);
 		nameTextItem = new GHATextItem(GHAStrings.get("name"), 300);
@@ -59,6 +51,13 @@ public class MaterialSearchForm extends GHASearchForm<Material> implements
 		descriptionTextItem.setColSpan(2);
 		// selects
 		// typeSelectItem = new GHASelectItem(GHAStrings.get("type"), 300);
+		resultSet.addMaterialSelectionListener(new MaterialSelectionListener() {
+
+			@Override
+			public void select(Material material) {
+				hide();
+			}
+		});
 	}
 
 	/**
@@ -100,37 +99,20 @@ public class MaterialSearchForm extends GHASearchForm<Material> implements
 		formLayout.setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT
 				+ "px");
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
+		resultSet.setHeight(resultSet.getHeight() - 28);
 
 		addMembers(formLayout,
 				GHAUiHelper
 						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
-								+ "px"));
+								+ "px"), resultSet);
 
-		grid = new MaterialGrid();
-		HLayout gridLayout = new HLayout();
-
-		VLayout sideGridButtons = GHAUiHelper.createBar(new GHACheckButton(
-				new ClickHandler() {
-
-					@Override
-					public void onClick(ClickEvent event) {
-						selectMaterial();
-					}
-				}));
-
-		gridLayout.addMembers(grid, sideGridButtons);
-
-		searchResultsLabel = new GHALabel(GHAStrings.get("search-results"));
-
-		addMembers(GHAUiHelper.verticalSeparator("10px"), searchResultsLabel,
-				gridLayout);
 		fillSelects();
 	}
 
 	@Override
 	public void addMaterialSelectionListener(
 			MaterialSelectionListener materialSelectionListener) {
-		listeners.add(materialSelectionListener);
+		resultSet.addMaterialSelectionListener(materialSelectionListener);
 	}
 
 	/**
@@ -138,38 +120,33 @@ public class MaterialSearchForm extends GHASearchForm<Material> implements
 	 */
 	public void clean() {
 		form.clearValues();
-		grid.setData(new ListGridRecord[] {});
+		resultSet.clean();
 	}
 
 	private void fillSelects() {
 		// typeSelectItem.setValueMap(MaterialTypeEnum.toValueMap());
 	}
 
-	/**
-	 * Actualiza el mensaje de resultados de la busqueda para que muestre la
-	 * cantidad de elementos encontrados
-	 * 
-	 * @param datos
-	 *            lista con los elementos encontrados
-	 */
-	private void mostrarCantResults(List<?> datos) { // TODO: MOVER A LA
-														// SUPERCLASE
-		String tituloSearchResults = GHAStrings.get("search-results");
-		searchResultsLabel.setContents(tituloSearchResults + ": "
-				+ datos.size() + " resultados");
-		searchResultsLabel.redraw();
+	@Override
+	public void notifyMaterial(Material material) {
 	}
 
 	@Override
-	public void notifyMaterial(Material material) {
-		for (MaterialSelectionListener listener : listeners)
-			listener.select(material);
+	public void onResize(ResizeEvent event) {
+		super.onResize(event);
+		resultSet.setHeight(resultSet.getHeight() - 35);
+	}
+
+	@Override
+	public void open() {
+		resultSet.setVisible(true);
+		super.open();
 	}
 
 	@Override
 	public void removeMaterialSelectionListener(
 			MaterialSelectionListener materialSelectionListener) {
-		listeners.remove(materialSelectionListener);
+		resultSet.removeMaterialSelectionListener(materialSelectionListener);
 	}
 
 	@Override
@@ -207,17 +184,9 @@ public class MaterialSearchForm extends GHASearchForm<Material> implements
 					newList = newTmpList;
 				} else {
 					newList = results;
-					mostrarCantResults(results);
 				}
 
-				ListGridRecord[] array = MaterialUtil.toGridRecords(newList)
-						.toArray(new MaterialRecord[] {});
-				grid.setData(array);
-				if (material != null && material.getId() != 0)
-					for (ListGridRecord listGridRecord : grid.getRecords())
-						if (((MaterialRecord) listGridRecord).toEntity()
-								.getId() == material.getId())
-							grid.selectRecord(listGridRecord);
+				resultSet.setRecords(newList, false);
 			}
 		});
 	}
@@ -226,16 +195,4 @@ public class MaterialSearchForm extends GHASearchForm<Material> implements
 	public void select(Material material) {
 		search(material);
 	}
-
-	private void selectMaterial() {
-		Material selectedEntity = grid.getSelectedEntity();
-		if (selectedEntity == null) {
-			GHANotification.alert("record-not-selected");
-			return;
-		}
-		notifyMaterial(selectedEntity);
-		hide();
-		grid.removeSelectedData();
-	}
-
 }
