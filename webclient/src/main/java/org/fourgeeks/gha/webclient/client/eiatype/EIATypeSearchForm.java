@@ -170,6 +170,13 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 	}
 
 	@Override
+	public void onResize(ResizeEvent event) {
+		// TODO Auto-generated method stub
+		super.onResize(event);
+		resultSet.setHeight(resultSet.getHeight()-35);
+	}
+
+	@Override
 	public void open() {
 		resultSet.setVisible(true);
 		super.open();
@@ -224,7 +231,7 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 			}
 		});
 	}
-
+	
 	@Override
 	public void select(EiaType eiaType) {
 		search(eiaType);
@@ -232,12 +239,5 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 		// Reload the Brand Select field, to prevent outdated cached list of
 		// brands
 		fillBrands(true);
-	}
-	
-	@Override
-	public void onResize(ResizeEvent event) {
-		// TODO Auto-generated method stub
-		super.onResize(event);
-		resultSet.setHeight(resultSet.getHeight()-35);
 	}
 }
