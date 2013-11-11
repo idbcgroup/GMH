@@ -99,12 +99,12 @@ public abstract class GHASlideInWindow extends GHAVerticalLayout implements
 	}
 
 	@Override
-	public void addHideableHandler(HideableListener hideableListener) {
+	public void addHideableListener(HideableListener hideableListener) {
 		listeners.add(hideableListener);
 	}
 
 	@Override
-	public void removeHideableHandler(HideableListener hideableListener) {
+	public void removeHideableListener(HideableListener hideableListener) {
 		listeners.remove(hideableListener);
 	}
 

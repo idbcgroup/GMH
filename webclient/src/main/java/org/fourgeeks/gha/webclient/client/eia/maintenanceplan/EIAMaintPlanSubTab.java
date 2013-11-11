@@ -25,8 +25,8 @@ public class EIAMaintPlanSubTab extends GHASubTab implements
 		super("Planes Mantenimiento", tab);
 		setDisabled(true);
 		tab.addEiaSelectionListener(this);
-		addClosableHandler(eiaMaintPlanGridPanel);
-		addHideableHandler(eiaMaintPlanGridPanel);
+		addClosableListener(eiaMaintPlanGridPanel);
+		addHideableListener(eiaMaintPlanGridPanel);
 		setPane(eiaMaintPlanGridPanel);
 	}
 

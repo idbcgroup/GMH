@@ -67,6 +67,9 @@ public class EIATypeMaterialCategoryGridPanel extends GHAVerticalLayout
 
 			@Override
 			public void select(MaterialCategory materialCategory) {
+				// clean the search form
+				EIATypeMaterialCategoryGridPanel.this.searchForm.clean();
+
 				final EiaTypeMaterialCategory eiaTypeMaterialCategory = new EiaTypeMaterialCategory();
 				eiaTypeMaterialCategory
 						.setEiaType(EIATypeMaterialCategoryGridPanel.this.eiaType);
@@ -86,7 +89,6 @@ public class EIATypeMaterialCategoryGridPanel extends GHAVerticalLayout
 		addForm.addMaterialSelectionListener(materialSelectionListener);
 		searchForm = new MaterialCategorySearchForm(
 				GHAStrings.get("search-material"));
-
 		searchForm.addMaterialSelectionListener(materialSelectionListener);
 	}
 
@@ -122,44 +124,8 @@ public class EIATypeMaterialCategoryGridPanel extends GHAVerticalLayout
 	}
 
 	@Override
-	public void select(EiaType eiaType) {
-		this.eiaType = eiaType;
-		loadData();
-	}
-
-	private void loadData() {
-		EIATypeMaterialCategoryModel.find(eiaType,
-				new GHAAsyncCallback<List<EiaTypeMaterialCategory>>() {
-
-					@Override
-					public void onSuccess(List<EiaTypeMaterialCategory> list) {
-						List<EIATypeMaterialCategoryRecord> gridRecords = EIATypeMaterialCategoryUtil
-								.toGridRecords(list);
-						ListGridRecord[] array = gridRecords
-								.toArray(new EIATypeMaterialCategoryRecord[] {});
-						grid.setData(array);
-					}
-				});
-	}
-
-	@Override
-	public void close() {
-		hide();
-		searchForm.close();
-		addForm.close();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.smartgwt.client.widgets.Canvas#hide()
-	 */
-	@Override
-	public void hide() {
-		if (searchForm.isVisible())
-			searchForm.hide();
-		if (addForm.isVisible())
-			addForm.hide();
+	public boolean canBeClosen(HideCloseAction hideAction) {
+		return true;
 	}
 
 	@Override
@@ -168,21 +134,10 @@ public class EIATypeMaterialCategoryGridPanel extends GHAVerticalLayout
 	}
 
 	@Override
-	public boolean canBeClosen(HideCloseAction hideAction) {
-		return true;
-	}
-
-	private void search() {
-		ListGridRecord[] records = grid.getRecords();
-		List<MaterialCategory> blackList = null;
-		if (records.length != 0) {
-			blackList = new ArrayList<MaterialCategory>();
-			for (int i = 0; i < records.length; i++)
-				blackList.add(((EIATypeMaterialCategoryRecord) records[i])
-						.toEntity().getMaterialCategory());
-		}
-		searchForm.filterBy(blackList);
-		searchForm.open();
+	public void close() {
+		hide();
+		searchForm.close();
+		addForm.close();
 	}
 
 	/**
@@ -216,5 +171,52 @@ public class EIATypeMaterialCategoryGridPanel extends GHAVerticalLayout
 						}
 					}
 				});
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.smartgwt.client.widgets.Canvas#hide()
+	 */
+	@Override
+	public void hide() {
+		if (searchForm.isVisible())
+			searchForm.hide();
+		if (addForm.isVisible())
+			addForm.hide();
+	}
+
+	private void loadData() {
+		EIATypeMaterialCategoryModel.find(eiaType,
+				new GHAAsyncCallback<List<EiaTypeMaterialCategory>>() {
+
+					@Override
+					public void onSuccess(List<EiaTypeMaterialCategory> list) {
+						List<EIATypeMaterialCategoryRecord> gridRecords = EIATypeMaterialCategoryUtil
+								.toGridRecords(list);
+						ListGridRecord[] array = gridRecords
+								.toArray(new EIATypeMaterialCategoryRecord[] {});
+						grid.setData(array);
+					}
+				});
+	}
+
+	private void search() {
+		ListGridRecord[] records = grid.getRecords();
+		List<MaterialCategory> blackList = null;
+		if (records.length != 0) {
+			blackList = new ArrayList<MaterialCategory>();
+			for (int i = 0; i < records.length; i++)
+				blackList.add(((EIATypeMaterialCategoryRecord) records[i])
+						.toEntity().getMaterialCategory());
+		}
+		searchForm.filterBy(blackList);
+		searchForm.open();
+	}
+
+	@Override
+	public void select(EiaType eiaType) {
+		this.eiaType = eiaType;
+		loadData();
 	}
 }

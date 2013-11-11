@@ -22,8 +22,8 @@ public class AsociatedEiaTypeSubTab extends GHASubTab implements
 		tab.addMaintenancePlanSelectionListener(this);
 		
 		eiatypeGridPanel = new AsociatedEiatypeGridPanel(this);
-		addClosableHandler(eiatypeGridPanel);
-		addHideableHandler(eiatypeGridPanel);
+		addClosableListener(eiatypeGridPanel);
+		addHideableListener(eiatypeGridPanel);
 		
 		setPane(eiatypeGridPanel);
 	}

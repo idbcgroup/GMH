@@ -96,9 +96,9 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 		alternativeEmailItem.setLength(254);
 
 		typeidSelectItem = new GHASelectItem("Tipo ID",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, true, changedHandler);
 		idItem = new GHATextItem("No. Identificiación",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, true, changedHandler);
 		idItem.setLength(20);
 		idItem.setMask("####################");
 		genderSelectItem = new GHASelectItem("Género",

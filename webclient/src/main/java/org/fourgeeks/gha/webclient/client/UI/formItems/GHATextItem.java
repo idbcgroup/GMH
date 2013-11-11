@@ -2,8 +2,6 @@ package org.fourgeeks.gha.webclient.client.UI.formItems;
 
 import java.util.Date;
 
-import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-
 import com.smartgwt.client.widgets.form.fields.TextItem;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 import com.smartgwt.client.widgets.form.fields.events.EditorExitEvent;
@@ -22,7 +20,7 @@ public class GHATextItem extends TextItem {
 		super();
 		setHeight(20);
 		setOriginalStyle();
-		setWidth(GHAUiHelper.DEFAULT_ITEM_SIZE);
+		setWidth("*");
 		setLength(255);
 		
 		// setErrorOrientation(FormErrorOrientation.RIGHT);

@@ -46,7 +46,7 @@ public class UserCredentialsFormPanel extends GHAVerticalLayout implements
 		activateForm(false);
 		this.tab = tab;
 
-		tab.addClosableHandler(this);
+		tab.addClosableListener(this);
 
 		GHALabel title = new GHALabel("Credenciales del Usuario");
 		addMember(title);

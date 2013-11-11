@@ -47,6 +47,7 @@ import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Facility;
 import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
+import org.fourgeeks.gha.domain.glm.Material;
 import org.fourgeeks.gha.domain.glm.MaterialCategory;
 import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.domain.gmh.Brand;
@@ -122,6 +123,11 @@ public class InitialData {
 		} catch (NoResultException e) {
 			try {
 				logger.info("Creating message test data");
+				em.persist(new GHAMessage(LanguageEnum.ES, "id-type-not-null",
+						"Debe indicar el tipo de identificación"));
+				em.persist(new GHAMessage(LanguageEnum.ES,
+						"id-number-not-null",
+						"Debe indicar el número de identificación"));
 				em.persist(new GHAMessage(LanguageEnum.ES, "asset-id-not-null",
 						"Debe indicar el identificador del activo"));
 				em.persist(new GHAMessage(LanguageEnum.ES,
@@ -1469,6 +1475,8 @@ public class InitialData {
 		} catch (NoResultException e) {
 			try {
 				logger.info("Creating uistrings test data");
+				em.persist(new UiString(LanguageEnum.ES, "connection-problem",
+						"Imposible conectar al servidor"));
 				em.persist(new UiString(LanguageEnum.ES, "yes", "Si"));
 				em.persist(new UiString(LanguageEnum.ES, "no", "No"));
 				em.persist(new UiString(LanguageEnum.ES, "new-user",
@@ -1602,8 +1610,8 @@ public class InitialData {
 						"search-utility-material",
 						"Búsqueda de materiales utilitarios"));
 				em.persist(new UiString(LanguageEnum.ES,
-						"eiatype-material-category-delete-confirm",
-						"¿Desea eliminar la categoria de material asociada al tipo de equipo?"));
+						"eiatype-material-delete-confirm",
+						"¿Desea retirar el material asociado al tipo de equipo?"));
 				em.persist(new UiString(LanguageEnum.ES,
 						"eiatype-utility-service-delete-confirm",
 						"¿Desea eliminar el servicio utilitario asociado al tipo de equipo?"));
@@ -1617,6 +1625,8 @@ public class InitialData {
 				em.persist(new UiString(LanguageEnum.ES, "amount", "Cantidad"));
 				em.persist(new UiString(LanguageEnum.ES,
 						"empty-materialcategory-grid",
+						"No existen Materiales para mostrar"));
+				em.persist(new UiString(LanguageEnum.ES, "empty-material-grid",
 						"No existen Materiales para mostrar"));
 
 				em.persist(new UiString(LanguageEnum.ES, "results",
@@ -1854,7 +1864,7 @@ public class InitialData {
 		brandTestData();
 		externalProviderTestData();
 		materialCategoryTestData();
-		// materialTestData();
+		materialTestData();
 		facilityTestData();
 		// // TODO
 		eiaTypeTestData();
@@ -2103,6 +2113,7 @@ public class InitialData {
 					citizen.setFirstLastName(lastNames[i]);
 					citizen.setSecondLastName(lastNames[(i + 1) % 5]);
 					citizen.setIdType(DocumentTypeEnum.LOCAL);
+					citizen.setIdNumber("" + i);
 					citizen.setPrimaryEmail(names[i] + "@4geeks.co");
 					em.persist(citizen);
 				}
@@ -2161,20 +2172,25 @@ public class InitialData {
 	}
 
 	private void materialTestData() {
-		String query = "SELECT t from MaterialCategory t WHERE t.id = 1 ";
+		String query = "SELECT t from Material t WHERE t.id = 1 ";
 		try {
 			em.createQuery(query).getSingleResult();
 		} catch (NoResultException e) {
 			try {
 				logger.info("creating test data : material");
-				for (int j = 0; j < 3; j++) {
-					MaterialCategory next = new MaterialCategory("mat-00" + j,
-							"material-00" + j, MaterialTypeEnum.values()[j % 3]);
-					// next.setMaterialCategory(em.find(MaterialCategory.class,
-					// (long) (j + 1)));
-					em.persist(next);
+				List<MaterialCategory> categories = em.createNamedQuery(
+						"MaterialCategory.getAll", MaterialCategory.class)
+						.getResultList();
+				Brand brand = em.find(Brand.class, 1L);
+				for (MaterialCategory category : categories) {
+					for (int j = 0; j < 3; j++) {
+						Material material = new Material();
+						material.setMaterialCategory(category);
+						material.setBrand(brand);
+						em.persist(material);
+						em.flush();
+					}
 				}
-				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO,
 						"error creating test data: external provider", e);

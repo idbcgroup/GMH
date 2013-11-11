@@ -4,8 +4,8 @@ import org.fourgeeks.gha.domain.glm.MaterialCategory;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 
 /**
- * @author alacret Wrapper class for represent a Material as a Record for grid
- *         components
+ * @author alacret Wrapper class for represent a MaterialCategory as a Record
+ *         for grid components
  */
 public class MaterialCategoryRecord extends GHAGridRecord<MaterialCategory> {
 

@@ -887,11 +887,13 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		DynamicForm equipoForm = new DynamicForm();
 		equipoForm.setTitleOrientation(TitleOrientation.TOP);
 		equipoForm.setNumCols(3);
+			
 
 		equipoForm.setItems(eiaTypeSelectItem, new GHASpacerItem(2),
-				information_TitleItem, new GHASpacerItem(2), codeTextItem,
-				serialTextItem, fixedAssetIdTextItem, obuSelectItem,
-				baseRoleSelectItem, stateSelectItem, acceptationDateItem);
+				information_TitleItem, new GHASpacerItem(2), 
+				codeTextItem,serialTextItem, fixedAssetIdTextItem,
+				obuSelectItem,baseRoleSelectItem, stateSelectItem,
+				acceptationDateItem)	;
 		return equipoForm;
 	}
 

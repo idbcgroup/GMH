@@ -14,8 +14,8 @@ public class MaintenanceActivityInformationSubTab extends GHASubTab implements
 		super("Información", tab);
 
 		form = new MaintenanceActivityInformationFormPanel(tab);
-		addClosableHandler(form);
-		addHideableHandler(form);
+		addClosableListener(form);
+		addHideableListener(form);
 
 		setPane(form);
 

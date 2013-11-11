@@ -40,15 +40,15 @@ public class MaintenanceProtocolTopSection extends HLayout implements
 		super();
 		GHAUiHelper.addGHAResizeHandler(this);
 
-		tab.addClosableHandler(this);
+		tab.addClosableListener(this);
 		maintenanceProtocolTab = tab;
 
 		// register tab as search listener, and topsection as listener
 		maintenanceProtocolSearchForm
 				.addMaintenanceProtocolSelectionListener(tab);
 		tab.addMaintenanceProtocolSelectionListener(this);
-		tab.addHideableHandler(maintenanceProtocolSearchForm);
-		tab.addClosableHandler(maintenanceProtocolSearchForm);
+		tab.addHideableListener(maintenanceProtocolSearchForm);
+		tab.addClosableListener(maintenanceProtocolSearchForm);
 
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		setWidth100();

@@ -22,8 +22,8 @@ public class UserCredentialsSubTab extends GHASubTab implements
 		setDisabled(true);
 		tab.addUserSelectionListener(this);
 		form = new UserCredentialsFormPanel(tab);
-		addClosableHandler(form);
-		addHideableHandler(form);
+		addClosableListener(form);
+		addHideableListener(form);
 
 		setPane(form);
 	}
