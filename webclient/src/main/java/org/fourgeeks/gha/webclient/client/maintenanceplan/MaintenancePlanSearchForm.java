@@ -9,6 +9,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
@@ -44,20 +45,35 @@ public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan> im
 
 	{
 		form = new DynamicForm();
+		form.setWidth(920);
+		form.setTitleOrientation(TitleOrientation.TOP);
+		form.setNumCols(4);
+		form.setWrapItemTitles(false);
+		form.setMinColWidth(50);
+		form.setCanDragResize(true);
+		form.setShowEdges(true);
+		form.setColWidths(200);
+//		form.setClipItemTitles(true);
+//		form.setFixedColWidths(true);
+//		form.setColWidths("200px","200px","200px");
+
 		
 		listeners = new LinkedList<MaintenancePlanSelectionListener>();
 		
 		nameItem = new GHATextItem("Nombre");
 		nameItem.setValue("PRUEBA!");
-//		nameItem.setWidth("400px");
+//		nameItem.setWidth(250);
 		nameItem.setLength(100);
 		frequencyItem = new GHATextItem("Frecuencia");
+		frequencyItem.setValue("PRUEBAFREQ!");
+//		frequencyItem.setWidth(250);
 //		frequencyItem.setWidth("*");
 		periodOfTimeSelectItem = new GHASelectItem("Periodo de Tiempo");
+//		periodOfTimeSelectItem.setWidth(250);
 //		periodOfTimeSelectItem.setWidth("*");
 		
 		descriptionItem = new GHATextItem("Descripción"/*, 420*/);
-		descriptionItem.setColSpan(3);
+		descriptionItem.setColSpan(4);
 //		descriptionItem.setWidth("*");
 		
 		
@@ -72,17 +88,7 @@ public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan> im
 	public MaintenancePlanSearchForm(String title) {
 		super(title);
 		
-		form.setWidth(920);
-		form.setTitleOrientation(TitleOrientation.TOP);
-		form.setNumCols(3);
-		form.setWrapItemTitles(false);
-//		form.setClipItemTitles(true);
-//		form.setFixedColWidths(true);
-		form.setColWidths("200px","200px","200px");
-
-//		nameItem.setWidth("400px");
-		
-		form.setItems(nameItem, frequencyItem, periodOfTimeSelectItem,
+		form.setItems(nameItem, frequencyItem, periodOfTimeSelectItem,new GHASpacerItem(),
 					  descriptionItem);
 
 		// Event Handlers
