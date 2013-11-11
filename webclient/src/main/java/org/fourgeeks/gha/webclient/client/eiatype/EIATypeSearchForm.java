@@ -5,7 +5,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.AbstractCodeEntity;
-import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
 import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
 import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.gmh.Brand;
@@ -15,8 +14,9 @@ import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.GHAUtil;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHACodeItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHABrandSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHAEiaTypeSubTypeSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHAEiaTypeTypeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACancelButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
@@ -39,25 +39,21 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 		EIATypeSelectionListener, EiaTypeSelectionProducer {
 
-	private GHATextItem codeEIAItem, nameEIAItem, modelItem, umdnsCodeItem;
-	private GHASelectItem brandItem, mobilityItem, typeItem, subTypeItem;
+	private GHATextItem nameItem;
+	private GHATextItem modelItem;
+	private GHABrandSelectItem brandItem;
+	private GHAEiaTypeTypeSelectItem typeItem;
+	private GHAEiaTypeSubTypeSelectItem subTypeItem;
 	private EiaTypeResultSet resultSet = new EiaTypeResultSet();
 	private final DynamicForm form = new DynamicForm();
 
 	{
-		codeEIAItem = new GHACodeItem(225);
-		codeEIAItem.setMask("AAAAAAAAAAAAAAAAAAAA");
-		nameEIAItem = new GHATextItem(GHAStrings.get("name"), 215);
-		nameEIAItem.setLength(255);
-		brandItem = new GHASelectItem(GHAStrings.get("name"), 255);
-		modelItem = new GHATextItem(GHAStrings.get("model"), 225);
-		modelItem.setLength(20);
-		umdnsCodeItem = new GHATextItem("EIAUMDNS", 225);
-		umdnsCodeItem.setLength(16);
-		umdnsCodeItem.setMask("AAAAAAAAAAAAAAAAAAAA");
-		mobilityItem = new GHASelectItem(GHAStrings.get("mobility"), 225);
-		typeItem = new GHASelectItem(GHAStrings.get("eiatype"), 225);
-		subTypeItem = new GHASelectItem(GHAStrings.get("subtype"), 225);
+		typeItem = new GHAEiaTypeTypeSelectItem(230);
+		subTypeItem = new GHAEiaTypeSubTypeSelectItem(230);
+		nameItem = new GHATextItem(GHAStrings.get("name"), 460);
+		nameItem.setColSpan(2);
+		brandItem = new GHABrandSelectItem(230);
+		modelItem = new GHATextItem(GHAStrings.get("model"), 230);
 		//
 		resultSet.addEiaTypeSelectionListener(new EIATypeSelectionListener() {
 
@@ -76,16 +72,12 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 	public EIATypeSearchForm(String title) {
 		super(title);
 		form.setTitleOrientation(TitleOrientation.TOP);
-		form.setNumCols(4);
-		form.setItems(codeEIAItem, nameEIAItem, modelItem, umdnsCodeItem,
-				mobilityItem, typeItem, subTypeItem, brandItem);
+		form.setNumCols(3);
+		form.setItems(typeItem, subTypeItem, brandItem, nameItem, modelItem);
 
-		codeEIAItem.addKeyUpHandler(searchKeyUpHandler);
-		nameEIAItem.addKeyUpHandler(searchKeyUpHandler);
+		nameItem.addKeyUpHandler(searchKeyUpHandler);
 		brandItem.addKeyUpHandler(searchKeyUpHandler);
 		modelItem.addKeyUpHandler(searchKeyUpHandler);
-		umdnsCodeItem.addKeyUpHandler(searchKeyUpHandler);
-		mobilityItem.addKeyUpHandler(searchKeyUpHandler);
 		typeItem.addKeyUpHandler(searchKeyUpHandler);
 		subTypeItem.addKeyUpHandler(searchKeyUpHandler);
 		// ////////////////////////////
@@ -109,8 +101,8 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 				+ "px");
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
 
-		resultSet.setHeight(resultSet.getHeight()-28);
-		
+		resultSet.setHeight(resultSet.getHeight() - 28);
+
 		addMembers(formLayout,
 				GHAUiHelper
 						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
@@ -141,7 +133,6 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 	private void fill() {
 		typeItem.setValueMap(EiaTypeEnum.toValueMap());
 		subTypeItem.setValueMap(EiaSubTypeEnum.toValueMap());
-		mobilityItem.setValueMap(EiaMobilityEnum.toValueMap());
 
 		fillBrands(false);
 	}
@@ -185,15 +176,11 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 	@Override
 	public void search() {
 		EiaType eiaType = new EiaType();
-		eiaType.setCode(codeEIAItem.getValueAsString());
-		eiaType.setName(nameEIAItem.getValueAsString());
+		eiaType.setName(nameItem.getValueAsString());
 		if (brandItem.getValue() != null)
 			eiaType.setBrand(new Brand(Integer.valueOf(brandItem
 					.getValueAsString()), null));
 		eiaType.setModel(modelItem.getValueAsString());
-		if (mobilityItem.getValue() != null)
-			eiaType.setMobility(EiaMobilityEnum.valueOf(mobilityItem
-					.getValueAsString()));
 		if (typeItem.getValue() != null)
 			eiaType.setType(EiaTypeEnum.valueOf(typeItem.getValueAsString()));
 		if (subTypeItem.getValue() != null)
@@ -233,11 +220,11 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 		// brands
 		fillBrands(true);
 	}
-	
+
 	@Override
 	public void onResize(ResizeEvent event) {
 		// TODO Auto-generated method stub
 		super.onResize(event);
-		resultSet.setHeight(resultSet.getHeight()-35);
+		resultSet.setHeight(resultSet.getHeight() - 35);
 	}
 }

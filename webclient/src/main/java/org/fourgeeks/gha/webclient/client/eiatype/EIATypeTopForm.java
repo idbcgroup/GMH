@@ -2,7 +2,6 @@ package org.fourgeeks.gha.webclient.client.eiatype;
 
 import java.util.List;
 
-import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
 import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
 import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.gmh.Brand;
@@ -12,10 +11,8 @@ import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHATopForm;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHABrandSelectItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHACodeItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAEiaTypeSubTypeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAEiaTypeTypeSelectItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHAMobilitySelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
@@ -37,31 +34,27 @@ import com.smartgwt.client.widgets.layout.VLayout;
  */
 public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 		implements EIATypeSelectionListener {
-
-	// private EIATypeSearchForm eiaTypeSearchForm;
 	private EiaType selectedEiaType;
-	private GHATextItem nameItem, codeItem, modelItem;
+
+	private GHATextItem nameItem;
+	private GHATextItem modelItem;
+	private GHABrandSelectItem brandItem;
 	private GHAEiaTypeTypeSelectItem typeItem;
 	private GHAEiaTypeSubTypeSelectItem subTypeItem;
-	private GHABrandSelectItem brandItem;
-	private GHAMobilitySelectItem mobilityItem;
 	// private List<EiaTypePicture> listEiaTypePictures;
 	// int index;
 	// private GHAImg photo;
 	private boolean activated = false;
-	private GHAImgButton deleteImgButton, cleanImgButton, searchImgButton;
+	private GHAImgButton deleteButton, cleanButton, searchButton;
 	private VLayout sideButtons;
 
 	{
-		codeItem = new GHACodeItem(230);
-		modelItem = new GHATextItem(GHAStrings.get("model"), 230);
+		typeItem = new GHAEiaTypeTypeSelectItem(230);
+		subTypeItem = new GHAEiaTypeSubTypeSelectItem(230);
 		nameItem = new GHATextItem(GHAStrings.get("name"), 460);
 		nameItem.setColSpan(2);
 		brandItem = new GHABrandSelectItem(230);
-		mobilityItem = new GHAMobilitySelectItem(230);
-		typeItem = new GHAEiaTypeTypeSelectItem(230);
-		subTypeItem = new GHAEiaTypeSubTypeSelectItem(230);
-
+		modelItem = new GHATextItem(GHAStrings.get("model"), 230);
 	}
 
 	/**
@@ -72,9 +65,8 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 		super(resultSet, eiaTypeTab);
 		DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
-		form.setNumCols(4);
-		form.setItems(codeItem, modelItem, nameItem, brandItem, mobilityItem,
-				typeItem, subTypeItem);
+		form.setNumCols(3);
+		form.setItems(typeItem, subTypeItem, brandItem, nameItem, modelItem);
 		// Panel de la Fotografia
 		//
 		// HLayout photoPanel = new HLayout();
@@ -116,34 +108,32 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 		// photoPanel.addMembers(photo, photoBotones);
 		// // Botones laterales del Panel
 
-		codeItem.addKeyUpHandler(searchKeyUpHandler);
 		modelItem.addKeyUpHandler(searchKeyUpHandler);
 		nameItem.addKeyUpHandler(searchKeyUpHandler);
 		brandItem.addKeyUpHandler(searchKeyUpHandler);
-		mobilityItem.addKeyUpHandler(searchKeyUpHandler);
 		typeItem.addKeyUpHandler(searchKeyUpHandler);
 		subTypeItem.addKeyUpHandler(searchKeyUpHandler);
 
-		searchImgButton = new GHASearchButton(new ClickHandler() {
+		searchButton = new GHASearchButton(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				search();
 			}
 		});
-		cleanImgButton = new GHACleanButton(new ClickHandler() {
+		cleanButton = new GHACleanButton(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				clear();
 			}
 		});
-		deleteImgButton = new GHADeleteButton(new ClickHandler() {
+		deleteButton = new GHADeleteButton(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				delete();
 			}
 		});
 
-		sideButtons = GHAUiHelper.createBar(searchImgButton, cleanImgButton);
+		sideButtons = GHAUiHelper.createBar(searchButton, cleanButton);
 		addMembers(form, /* new LayoutSpacer(), photoPanel, */
 				new LayoutSpacer(), sideButtons);
 		deactivate();
@@ -184,17 +174,14 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 	// }
 	@Override
 	public void activate() {
-		codeItem.enable();
-		codeItem.focusInItem();
 		nameItem.enable();
 		brandItem.enable();
 		modelItem.enable();
-		mobilityItem.enable();
 		typeItem.enable();
 		subTypeItem.enable();
-		cleanImgButton.enable();
-		sideButtons.removeMember(deleteImgButton);
-		sideButtons.addMember(searchImgButton, 0);
+		cleanButton.enable();
+		sideButtons.removeMember(deleteButton);
+		sideButtons.addMember(searchButton, 0);
 
 		activated = true;
 	}
@@ -204,27 +191,23 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 		// first check if the topform is active for search
 		if (!this.activated)
 			return;
-		codeItem.clearValue();
 		nameItem.clearValue();
 		brandItem.clearValue();
 		modelItem.clearValue();
-		mobilityItem.clearValue();
 		typeItem.clearValue();
 		subTypeItem.clearValue();
 	}
 
 	@Override
 	public void deactivate() {
-		codeItem.disable();
 		nameItem.disable();
 		brandItem.disable();
 		modelItem.disable();
-		mobilityItem.disable();
 		typeItem.disable();
 		subTypeItem.disable();
-		cleanImgButton.disable();
-		sideButtons.removeMember(searchImgButton);
-		sideButtons.addMember(deleteImgButton, 0);
+		cleanButton.disable();
+		sideButtons.removeMember(searchButton);
+		sideButtons.addMember(deleteButton, 0);
 		activated = false;
 	}
 
@@ -254,15 +237,11 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 	public void search() {
 		super.search();
 		EiaType eiaType = new EiaType();
-		eiaType.setCode(codeItem.getValueAsString());
 		eiaType.setName(nameItem.getValueAsString());
 		if (brandItem.getValue() != null)
 			eiaType.setBrand(new Brand(Integer.valueOf(brandItem
 					.getValueAsString()), null));
 		eiaType.setModel(modelItem.getValueAsString());
-		if (mobilityItem.getValue() != null)
-			eiaType.setMobility(EiaMobilityEnum.valueOf(mobilityItem
-					.getValueAsString()));
 		if (typeItem.getValue() != null)
 			eiaType.setType(EiaTypeEnum.valueOf(typeItem.getValueAsString()));
 		if (subTypeItem.getValue() != null)
@@ -287,16 +266,12 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 	public void select(EiaType eiaType) {
 		// getEiaTypePicture(eiaType);
 		selectedEiaType = eiaType;
-		codeItem.setValue(eiaType.getCode());
+
 		nameItem.setValue(eiaType.getName());
+		modelItem.setValue(eiaType.getModel());
 
 		if (eiaType.getBrand() != null)
 			brandItem.setValue(eiaType.getBrand().getId());
-
-		modelItem.setValue(eiaType.getModel());
-
-		if (eiaType.getMobility() != null)
-			mobilityItem.setValue(eiaType.getMobility().name());
 
 		if (eiaType.getType() != null)
 			typeItem.setValue(eiaType.getType().name());
