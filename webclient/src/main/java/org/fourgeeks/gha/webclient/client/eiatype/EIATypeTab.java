@@ -57,14 +57,14 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 
 		resultSet = new EiaTypeResultSet();
 		resultSet.setVisible(false);
-		addHideableHandler(resultSet);
-		addClosableHandler(resultSet);
+		addHideableListener(resultSet);
+		addClosableListener(resultSet);
 		resultSet.addEiaTypeSelectionListener(this);
 
 		topForm = new EIATypeTopForm(resultSet, this);
 		topForm.activate();
-		addHideableHandler(topForm);
-		addClosableHandler(topForm);
+		addHideableListener(topForm);
+		addClosableListener(topForm);
 		addEiaTypeSelectionListener(topForm);
 		topForm.addSearchListener(new SearchListener() {
 
@@ -75,13 +75,13 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 		});
 
 		internalTabSet = new EIATypeInternalTabSet(this);
-		addHideableHandler(internalTabSet);
-		addClosableHandler(internalTabSet);
+		addHideableListener(internalTabSet);
+		addClosableListener(internalTabSet);
 		addEiaTypeSelectionListener(internalTabSet);
 
 		addForm = new EIATypeAddForm(GHAStrings.get("new-eiatype"));
-		addHideableHandler(addForm);
-		addClosableHandler(addForm);
+		addHideableListener(addForm);
+		addClosableListener(addForm);
 		addForm.addEiaTypeSelectionListener(this);
 
 		verticalPanel.addMember(topForm);

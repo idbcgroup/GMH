@@ -43,7 +43,7 @@ public class MaintenancePlanInformationFormPanel extends GHAVerticalLayout
 
 	public MaintenancePlanInformationFormPanel(MaintenancePlanTab tab) {
 		activateForm(false);
-		tab.addClosableHandler(this);
+		tab.addClosableListener(this);
 
 		setWidth100();
 		setBackgroundColor("#E0E0E0");

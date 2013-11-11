@@ -23,8 +23,8 @@ public class EIATypeUtilitySubTab extends GHASubTab implements
 		super(GHAStrings.get("utility-services"), tab);
 
 		eiaTypeServicesGridPanel = new EIATypeUtilityGridPanel();
-		addClosableHandler(eiaTypeServicesGridPanel);
-		addHideableHandler(eiaTypeServicesGridPanel);
+		addClosableListener(eiaTypeServicesGridPanel);
+		addHideableListener(eiaTypeServicesGridPanel);
 
 		setPane(eiaTypeServicesGridPanel);
 

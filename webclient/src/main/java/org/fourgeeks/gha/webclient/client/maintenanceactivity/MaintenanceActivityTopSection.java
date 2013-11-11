@@ -39,7 +39,7 @@ public class MaintenanceActivityTopSection extends HLayout implements
 	public MaintenanceActivityTopSection(MaintenanceActivityTab tab) {
 		super();
 		GHAUiHelper.addGHAResizeHandler(this);
-		tab.addClosableHandler(this);
+		tab.addClosableListener(this);
 
 		maintenanceActivityTab = tab;
 
@@ -47,8 +47,8 @@ public class MaintenanceActivityTopSection extends HLayout implements
 		maintenanceActivitySearchForm
 				.addMaintenanceActivitySelectionListener(tab);
 		tab.addMaintenanceActivitySelectionListener(this);
-		tab.addHideableHandler(maintenanceActivitySearchForm);
-		tab.addClosableHandler(maintenanceActivitySearchForm);
+		tab.addHideableListener(maintenanceActivitySearchForm);
+		tab.addClosableListener(maintenanceActivitySearchForm);
 
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		setWidth100();

@@ -43,7 +43,7 @@ public class MaintenanceActivityInformationFormPanel extends GHAVerticalLayout
 
 	public MaintenanceActivityInformationFormPanel(MaintenanceActivityTab tab) {
 		activateForm(false);
-		tab.addClosableHandler(this);
+		tab.addClosableListener(this);
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
 				"../resources/icons/save.png", new ClickHandler() {

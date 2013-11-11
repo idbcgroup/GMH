@@ -28,8 +28,8 @@ public class EIATypeMaintenanceSubTab extends GHASubTab implements
 		tab.addEiaTypeSelectionListener(this);
 
 		eiaTypeMaintenanceGridPanel = new EIATypeMaintenanceGridPanel();
-		addClosableHandler(eiaTypeMaintenanceGridPanel);
-		addHideableHandler(eiaTypeMaintenanceGridPanel);
+		addClosableListener(eiaTypeMaintenanceGridPanel);
+		addHideableListener(eiaTypeMaintenanceGridPanel);
 		setPane(eiaTypeMaintenanceGridPanel);
 
 		addTabDeselectedHandler(new TabDeselectedHandler() {
