@@ -1,5 +1,7 @@
 package org.fourgeeks.gha.webclient.client.UI.formItems;
 
+import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.widgets.form.fields.DateItem;
 
@@ -14,7 +16,7 @@ public class GHADateItem extends DateItem {
 	public GHADateItem() {
 		super();
 		setHeight(20);
-		setWidth(100);
+		setWidth(GHAUiHelper.DEFAULT_ITEM_SIZE);
 		setUseTextField(true);
 		setTextAlign(Alignment.LEFT);
 		setTextBoxStyle("dateItem");

@@ -20,7 +20,7 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
- * @author alacret
+ * @author alacret, jfuentes
  * 
  */
 public abstract class GHAUiHelper {
@@ -34,7 +34,6 @@ public abstract class GHAUiHelper {
 					if (handler != null)
 						handler.onResize(event);
 				}
-
 			}
 		});
 

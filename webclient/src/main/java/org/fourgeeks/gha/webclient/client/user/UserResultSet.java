@@ -26,7 +26,8 @@ import com.smartgwt.client.widgets.layout.HLayout;
  * 
  */
 public class UserResultSet extends GHAResultSet<SSOUser> implements
-		UserSelectionProducer, ResizeHandler, HideableListener, ClosableListener {
+		UserSelectionProducer, ResizeHandler, HideableListener,
+		ClosableListener {
 	private List<UserSelectionListener> listeners = new ArrayList<UserSelectionListener>();
 	private UserGrid grid = new UserGrid();
 
@@ -86,6 +87,7 @@ public class UserResultSet extends GHAResultSet<SSOUser> implements
 			return;
 		}
 
+		showResultsSize(records, false);
 		ListGridRecord[] array = UserUtil.toGridRecords(records).toArray(
 				new UserRecord[] {});
 		grid.setData(array);
@@ -110,6 +112,7 @@ public class UserResultSet extends GHAResultSet<SSOUser> implements
 	@Override
 	public void clean() {
 		grid.setData(new UserRecord[] {});
+		showResultsSize(null, true);
 	}
 
 }
