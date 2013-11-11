@@ -1468,6 +1468,8 @@ public class InitialData {
 		} catch (NoResultException e) {
 			try {
 				logger.info("Creating uistrings test data");
+				em.persist(new UiString(LanguageEnum.ES, "connection-problem",
+						"Imposible conectar al servidor"));
 				em.persist(new UiString(LanguageEnum.ES, "yes", "Si"));
 				em.persist(new UiString(LanguageEnum.ES, "no", "No"));
 				em.persist(new UiString(LanguageEnum.ES, "new-user",

@@ -22,8 +22,8 @@ public class UserInformationSubTab extends GHASubTab implements
 		super(GHAStrings.get("information"), tab);
 
 		form = new UserInformationFormPanel(tab);
-		addClosableHandler(form);
-		addHideableHandler(form);
+		addClosableListener(form);
+		addHideableListener(form);
 		setPane(form);
 
 		// register to listen for selected user

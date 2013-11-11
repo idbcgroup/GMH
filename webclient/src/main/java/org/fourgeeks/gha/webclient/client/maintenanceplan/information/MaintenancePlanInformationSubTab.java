@@ -13,8 +13,8 @@ public class MaintenancePlanInformationSubTab extends GHASubTab implements Maint
 		super("Información", tab);
 		
 		form = new MaintenancePlanInformationFormPanel(tab);
-		addClosableHandler(form);
-		addHideableHandler(form);
+		addClosableListener(form);
+		addHideableListener(form);
 		
 		setPane(form);
 		
