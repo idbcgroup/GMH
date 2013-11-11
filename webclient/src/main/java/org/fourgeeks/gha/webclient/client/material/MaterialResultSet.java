@@ -8,7 +8,6 @@ import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACheckButton;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAResultSet;
 
@@ -45,20 +44,12 @@ public class MaterialResultSet extends GHAResultSet<Material> implements
 	public MaterialResultSet() {
 		super(GHAStrings.get("search-results"));
 		HLayout gridPanel = new HLayout();
-		gridPanel.addMembers(grid, GHAUiHelper.createBar(new GHACheckButton(
-				new ClickHandler() {
+		gridPanel.addMembers(grid,
+				GHAUiHelper.createBar(new GHACheckButton(new ClickHandler() {
 
 					@Override
 					public void onClick(ClickEvent event) {
 						notifySelectedMaterial();
-
-					}
-				}), GHAUiHelper.verticalGraySeparator("2px"),
-				new GHADeleteButton(new ClickHandler() {
-
-					@Override
-					public void onClick(ClickEvent event) {
-						// TODO delete
 
 					}
 				})));
