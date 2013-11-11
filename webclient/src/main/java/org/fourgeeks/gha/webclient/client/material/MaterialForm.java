@@ -63,6 +63,8 @@ public class MaterialForm extends GHAVerticalLayout implements
 		typeItem = new GHASelectItem(GHAStrings.get("type"), 300, true,
 				changedHandler);
 		brandItem = new GHABrandSelectItem(300);
+		brandItem.setRequired(true);
+
 		modelItem = new GHATextItem(GHAStrings.get("model"), 300, false,
 				changedHandler);
 		descriptionItem = new GHATextAreaItem(GHAStrings.get("description"),
@@ -125,11 +127,13 @@ public class MaterialForm extends GHAVerticalLayout implements
 		Set<ConstraintViolation<MaterialCategory>> violations = validator
 				.validate(materialCategory);
 
-		// TODO: VALIDATE MATERIAL
-		// TODO: ADD BRAND TO THE MATERIAL
 		material.setMaterialCategory(materialCategory);
 
-		if (form.validate() && violations.isEmpty())
+		Set<ConstraintViolation<Material>> violationsMaterial = validator
+				.validate(material);
+
+		if (form.validate() && violations.isEmpty()
+				&& violationsMaterial.isEmpty())
 			return material;
 		else {
 			List<String> violationsList = new ArrayList<String>();
@@ -137,6 +141,10 @@ public class MaterialForm extends GHAVerticalLayout implements
 					.iterator(); it.hasNext();) {
 				violationsList.add(it.next().getMessage());
 			}
+
+			for (Iterator<ConstraintViolation<Material>> it = violationsMaterial
+					.iterator(); it.hasNext();)
+				violationsList.add(it.next().getMessage());
 			GHANotification.alert(violationsList);
 		}
 		return null;

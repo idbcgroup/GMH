@@ -266,6 +266,10 @@ public class InitialData {
 						"instanceLogon-getAll-fail",
 						"Hubo un fallo en la búsqueda de todos los InstanceLogon"));
 
+				// material
+				em.persist(new GHAMessage(LanguageEnum.ES, "brand-not-null",
+						"Debe indicar la marca"));
+
 				// ////>>>>>>>>>>>>>>>>>>>>>>>>>>>>HUMANIZACION HASTA ACA.
 
 				em.persist(new GHAMessage(LanguageEnum.ES,
