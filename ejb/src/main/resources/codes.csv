@@ -1,33 +1,39 @@
-USER,ADM,user,INFO,VIEW,Shows the user's information on screen.
-USER,ADM,user,INFO,EDIT,Edit the user's information previously created.
-USER,ADM,user,CRED,VIEW,Shows the user's credentials on screen.
-USER,ADM,user,CRED,EDIT,Edit the user's credentials  available previously created.
-USER,ADM,user,LLOG,VIEW,Shows the user check register on screen.
-USER,ADM,user,SRCH.ADDS,Opens the view to add users.
-EIAT,ADM,eiat,INFO,VIEW,Shows the equipment type information on screen.
-EIAT,ADM,eiat,INFO,EDIT,Edit the equipment type information previously created.
-EIAT,ADM,eiat,EQUI,VIEW,Show the information of some equipment's type available in the system.
-EIAT,ADM,eiat,EQUI,EDIT,Edit the information of some equipment's type previously created.
-EIAT,ADM,eiat,EQUI,ADDS,Opens the view to add equipments.
-EIAT,ADM,eiat,EQUI,DELT,Delete the equipment selected from the category of equipment type.
-EIAT,ADM,eiat,COMP,VIEW,Show the information of some equipment's type that can be a component of another type of equipment.
-EIAT,ADM,eiat,COMP,ADDS,Opens the component search form (Components are equipment types).
-EIAT,ADM,eiat,COMP,DELT,Delete the equipment type selected as component from another equipment type.
-EIAT,ADM,eiat,MATE,VIEW,Show the information of some equipment's type that can be a material.
-EIAT,ADM,eiat,MATE,ADDS,Opens the material search view.														
-EIAT,ADM,eiat,MATE,DELT,Delete the equipment selected as material from another equipment type.										
-EIAT,ADM,eiat,MATS.ADDS,Opens the view to add material
-EIAT,ADM,eiat,SERV,VIEW,Show the information of some equipment's type that can be a service.
-EIAT,ADM,eiat,SERV,ADDS,Opens the material search view.														
-EIAT,ADM,eiat,SERV,DELT,Delete the equipment selected as service from another equipment type.						
-EIAT,ADM,eiat,MANT,VIEW,Show the information of maintenance plans associated to the equipment type.
-EIAT,ADM,eiat,MANT,ADDS,Opens the maintenance plans search view.														
-EIAT,ADM,eiat,MANT,DELT,Delete the maintenance plan selected associated to the equipment type.		
-EIAT,ADM,eiat,SRCH.ADDS,Opens the view to add users.
-EQUP,ADM,equp,INFO,VIEW,Shows the equipment information on screen.
-EQUP,ADM,equp,INFO,EDIT,Edit the equipment information previously created.
-EQUP,ADM,equp,COMP,VIEW,Shows the information of some equipment that can be a component of another equipment.
-EQUP,ADM,equp,COMP,ADDS,Opens the component search form (Components are equipments).
-EQUP,ADM,equp,COMP,DELT,Delete the equipment selected as component from another equipment.
-EQUP,ADM,equp,REPO,VIEW,Shows selectable options to generate a report.
-EQUP,ADM,equp,REPO,CHCK,Generates a PDF file with the information selected.
+Submodule,SubmoduleCode,App(Form),Token,AppCode,View,ViewCode,ViewDescription,Function,FunctionCode,FunctionDescription
+GMH,70.01,eiatype,eiatype,A001,eiatype-search-view,SV01,search-view-for-type-of-equipment,eiatype-show,F001,shows-the-search-view-for-types-of-equipment
+GMH,70.01,eiatype,eiatype,A001,eiatype-search-view,SV01,search-view-for-type-of-equipment,eiatype-search,F002,searchs-general-or-especifics-types-of-equipment
+GMH,70.01,eiatype,eiatype,A001,eiatype-search-view,SV01,search-view-for-type-of-equipment,eiatype-delete,F003,deletes-a-type-of-equipment
+GMH,70.01,eiatype,eiatype,A001,eiatype-add-view,AV01,adds-view-for-type-of-equipment,eiatype-add,F004,adds-new-types-of-equipment
+GMH,70.01,eiatype,eiatype,A001,eiatype-information-subtab,IS01,information-view-for-type-of-equipment,eiatype-update,F005,edit-the-equipment-type-information-previously-created
+GMH,70.01,eiatype,eiatype,A001,eiatype-equipment-subtab,ES01,equipment-view-for-type-of-equipment,eiatype-equipment-show,F006,shows-the-equipment-view-for-types-of-equipment
+GMH,70.01,eiatype,eiatype,A001,eiatype-equipment-subtab,ES01,equipment-view-for-type-of-equipment,eiatype-equipment-add,F006,adds-new-equipments
+GMH,70.01,eiatype,eiatype,A001,eiatype-equipment-subtab,ES01,equipment-view-for-type-of-equipment,eiatype-equipment-delete,F007,delete-the-equipment-selected-from-the-category-of-equipment-type
+GMH,70.01,eiatype,eiatype,A001,eiatype-equipment-subtab,ES01,equipment-view-for-type-of-equipment,eiatype-equipment-update,F008,edit-the-information-of-some-equipments-type-previously-created
+GMH,70.01,eiatype,eiatype,A001,eiatype-component-subtab,CS01,component-view-for-type-of-equipment,eiatype-component-show,F009,shows-the-components-view-for-types-of-equipment
+GMH,70.01,eiatype,eiatype,A001,eiatype-component-subtab,CS01,component-view-for-type-of-equipment,eiatype-component-search,F010,searchs-and-adds-a-type-of-equipment-as-component
+GMH,70.01,eiatype,eiatype,A001,eiatype-component-subtab,CS01,component-view-for-type-of-equipment,eiatype-component-delete,F011,delete-the-component-selected-from-the-category-of-equipment-type
+GMH,70.01,eiatype,eiatype,A001,eiatype-material-subtab,MS01,material-view-for-type-of-equipment,eiatype-material-show,F012,shows-the-material-view-for-types-of-equipment
+GMH,70.01,eiatype,eiatype,A001,eiatype-material-subtab,MS01,material-view-for-type-of-equipment,eiatype-material-search,F013,searchs-and-adds-a-type-of-equipment-as-material
+GMH,70.01,eiatype,eiatype,A001,eiatype-material-subtab,MS01,material-view-for-type-of-equipment,eiatype-material-add,F014,adds-new-materials
+GMH,70.01,eiatype,eiatype,A001,eiatype-material-subtab,MS01,material-view-for-type-of-equipment,eiatype-material-delete,F015,delete-the-material-selected-from-the-category-of-equipment-type
+GMH,70.01,eiatype,eiatype,A001,eiatype-service-subtab,SS01,service-view-for-type-of-equipment,eiatype-service-show,F016,shows-the-material-view-for-types-of-equipment
+GMH,70.01,eiatype,eiatype,A001,eiatype-service-subtab,SS01,service-view-for-type-of-equipment,eiatype-service-search,F017,searchs-and-adds-a-type-of-equipment-as-service
+GMH,70.01,eiatype,eiatype,A001,eiatype-service-subtab,SS01,service-view-for-type-of-equipment,eiatype-service-add,F018,adds-new-services
+GMH,70.01,eiatype,eiatype,A001,eiatype-service-subtab,SS01,service-view-for-type-of-equipment,eiatype-service-delete,F019,delete-the-service-selected-from-the-category-of-equipment-type
+GMH,70.01,eia,eia,A002,eia-seach-view,SV02,search-view-for-equipment,eia-show,F020,shows-the-search-view-for-equipment
+GMH,70.01,eia,eia,A002,eia-seach-view,SV02,search-view-for-equipment,eia-search,F021,searchs-general-or-especifics-equipment
+GMH,70.01,eia,eia,A002,eia-seach-view,SV02,search-view-for-equipment,eia-delete,F022,deletes-an-equipment
+GMH,70.01,eia,eia,A002,eia-add-view,AV02,adds view-for-equipment,eia-add,F023,adds-new-equipments
+GMH,70.01,eia,eia,A002,eia-information-subtab,IS02,information-view-for-equipment,eia-update,F024,edit -the-equipments-information-previously-created
+GMH,70.01,eia,eia,A002,eia-component-subtab,CS02,component-view-for-equipment,eia-component-show,F025,shows-the-components-view -for-equipment
+GMH,70.01,eia,eia,A002,eia-component-subtab,CS02,component-view-for-equipment,eia-component-search,F026,searchs-and-adds-an-equipment-as-component
+GMH,70.01,eia,eia,A002,eia-component-subtab,CS02,component-view-for-equipment,eia-component-delete,F027,delete-the-component-selected-from-the-category-of-equipment
+GMH,70.01,eia,eia,A002,eia-report-subtab,RS02,report-view-for-equipment,eia-report-show,F028,shows-the-report-view-for-equipment
+GMH,70.01,eia,eia,A002,eia-report-subtab,RS02,report-view-for-equipment,eia-report-create,F029,create-a-report-of-equipments-using-filters-of-your-choice
+MIX,00.02,user,user,A003,users-each-view,SV03,search-view-for-user-administration,user-show,F030,shows-the-search-view-for-user-administrartion
+MIX,00.02,user,user,A003,users-each-view,SV03,search-view-for-user-administration,user-search,F031,searchs-general-or-especifics-users
+MIX,00.02,user,user,A003,users-each-view,SV03,search-view-for-user-administration,user-delete,F032,deletes-an-user
+MIX,00.02,user,user,A003,user-add-view,AV03,adds-view-for-user-administration,user-add,F033,adds-new-users
+MIX,00.02,user,user,A003,user-information-subtab,IS03,information-view-for-user-administration,user-update,F034,edit-the-users-information-previously-created
+MIX,00.02,user,user,A003,user-login-subtab,LS03,login-view-for-user-administration,user-login-show,F034,show-the-information-about-users-connected-in-a-period-of-time
+MIX,00.02,user,user,A003,user-credential-subtab,CS03,credential-view-for-user-administration,user-credential-show,F035,show-the-information-about-users-credentials
+MIX,00.02,user,user,A003,user-credential-subtab,CS03,credential-view-for-user-administration,user-credential-update,F036,edit-the-credentials-of-one-or-more-users

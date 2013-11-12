@@ -15,6 +15,7 @@ import junit.framework.Assert;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.ejb.GhaServiceTest;
+import org.fourgeeks.gha.ejb.ess.AppFormViewFunctionBpuServiceRemote;
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,7 +31,7 @@ public class BpuFunctionServiceTest extends GhaServiceTest {
 	EntityManager em;
 
 	@EJB(name = "gar.BpuFunctionService")
-	BpuFunctionServiceRemote service;
+	AppFormViewFunctionBpuServiceRemote service;
 
 	@Inject
 	UserTransaction ux;

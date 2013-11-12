@@ -69,8 +69,8 @@ public abstract class GHAResultSet<T> extends GHAVerticalLayout implements
 					+ ": "
 					+ res
 					+ " "
-					+ (res > 1 ? GHAStrings.get("results") : GHAStrings
-							.get("result"));
+					+ (res == 1 ? GHAStrings.get("result") : GHAStrings
+							.get("results"));
 		}
 
 		searchResultsLabel.setContents(title);

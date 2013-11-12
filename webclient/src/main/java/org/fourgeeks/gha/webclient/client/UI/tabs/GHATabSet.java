@@ -7,9 +7,10 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import org.fourgeeks.gha.domain.ess.BpuFunction;
+import org.fourgeeks.gha.domain.ess.ui.AppFormViewFunctionBpu;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.webclient.client.UI.GHASessionData;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToHideException;
@@ -193,18 +194,17 @@ public final class GHATabSet {
 	 * @return the list of menu option
 	 */
 	private static List<GHAMenuOption> getMenuOptions(Bpu loggedUser) {
-		List<BpuFunction> permissions = loggedUser.getPermissions();
+		List<AppFormViewFunctionBpu> permissions = loggedUser.getPermissions();
 		Map<String, String> permissionMap = new HashMap<String, String>();
-		for (BpuFunction bpuFunction : permissions)
-			permissionMap.put(bpuFunction.getFunction().getView().getScreen()
-					.getToken(), bpuFunction.getFunction().getView()
-					.getScreen().getName());
-
+		for (AppFormViewFunctionBpu function : permissions)
+			permissionMap.put(function.getAppForm().getToken(), function
+					.getAppForm().getName());
 		Set<Entry<String, String>> entrySet = permissionMap.entrySet();
 		List<GHAMenuOption> menuOptions = new ArrayList<GHAMenuOption>();
 		for (final Entry<String, String> entry : entrySet) {
-			menuOptions.add(new GHAMenuOption(entry.getValue(), entry.getKey(),
-					"../resources/icons/menu/" + entry.getKey() + ".png"));
+			menuOptions.add(new GHAMenuOption(GHAStrings.get(entry.getValue()),
+					entry.getKey(), "../resources/icons/menu/" + entry.getKey()
+							+ ".png"));
 		}
 		return menuOptions;
 	}

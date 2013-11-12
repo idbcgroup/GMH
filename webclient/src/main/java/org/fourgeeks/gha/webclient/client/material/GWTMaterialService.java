@@ -33,12 +33,19 @@ public interface GWTMaterialService extends RemoteService {
 	public List<Material> getAll(int offset, int size) throws GHAEJBException;
 
 	/**
+	 * @param code
+	 * @return the entity with this code
+	 * @throws GHAEJBException
+	 */
+	public Material find(String code) throws GHAEJBException;
+
+	/**
 	 * @param material
 	 * @return a list of materials that match the Criteria
 	 * @throws GHAEJBException
 	 */
 	public List<Material> find(Material material) throws GHAEJBException;
-	
+
 	/**
 	 * @param brand
 	 * @return a list of Materials filtered by brand

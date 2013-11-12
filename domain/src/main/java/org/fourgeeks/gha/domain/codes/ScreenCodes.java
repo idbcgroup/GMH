@@ -4,6 +4,7 @@ package org.fourgeeks.gha.domain.codes;
  * @author alacret
  * 
  */
+@Deprecated
 public interface ScreenCodes {
 	/**
 	 * Code for the user admin module

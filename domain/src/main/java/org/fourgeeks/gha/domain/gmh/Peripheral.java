@@ -11,7 +11,7 @@ import org.fourgeeks.gha.domain.AbstractEntity;
 
 /**
  * @author emiliot
- *
+ * 
  */
 @Entity
 public class Peripheral extends AbstractEntity {
@@ -20,17 +20,22 @@ public class Peripheral extends AbstractEntity {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@OneToOne
 	@JoinColumn(name = "eiaFk", nullable = false)
 	private Eia eia;
-	
-	private String name; /** Nombre del periférico en el sistema length =255 */
-	private String description; /** length =255 */
-	private String type; /** length =60 */
-	private String ipAddress; /** length =36 */
-	private String status; /** length =60 */
 
+	private String name;
+	/** Nombre del periférico en el sistema length =255 */
+	private String description;
+	/** length =255 */
+	private String type;
+	/** length =60 */
+	private String ipAddress;
+	/** length =36 */
+	private String status;
+
+	/** length =60 */
 
 	/**
 	 * @param eia
@@ -39,6 +44,15 @@ public class Peripheral extends AbstractEntity {
 		this.eia = eia;
 	}
 
+	/**
+	 * 
+	 */
+	public Peripheral() {
+	}
+
+	/**
+	 * @return the eia
+	 */
 	public Eia getEia() {
 		return eia;
 	}
@@ -87,5 +101,4 @@ public class Peripheral extends AbstractEntity {
 		this.status = status;
 	}
 
-	
 }

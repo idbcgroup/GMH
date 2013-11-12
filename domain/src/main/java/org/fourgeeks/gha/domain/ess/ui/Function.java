@@ -1,7 +1,6 @@
-package org.fourgeeks.gha.domain.ess;
+package org.fourgeeks.gha.domain.ess.ui;
 
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
@@ -21,9 +20,7 @@ public class Function extends AbstractCodeEntity {
 	private static final long serialVersionUID = 1L;
 
 	private String name;
-
-	@ManyToOne
-	private View view;
+	private String description;
 
 	/**
 	 * 
@@ -32,14 +29,14 @@ public class Function extends AbstractCodeEntity {
 	}
 
 	/**
-	 * @param view
 	 * @param name
 	 * @param code
+	 * @param description
 	 */
-	public Function(View view, String name, String code) {
-		this.view = view;
+	public Function(String code, String name, String description) {
 		this.name = name;
 		this.code = code;
+		this.description = description;
 	}
 
 	/**
@@ -57,10 +54,18 @@ public class Function extends AbstractCodeEntity {
 	}
 
 	/**
-	 * @return the view
+	 * @return the description
 	 */
-	public View getView() {
-		return view;
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * @param description
+	 *            the description to set
+	 */
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 }

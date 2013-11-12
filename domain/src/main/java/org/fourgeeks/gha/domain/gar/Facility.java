@@ -11,10 +11,12 @@ import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
 import org.fourgeeks.gha.domain.gmh.ServiceResource;
 
+/**
+ * @author alacret
+ * 
+ */
 @Entity
-@NamedQueries(value = {
-		@NamedQuery(name = "Facility.getAll", query = "SELECT e from Facility e order by e.name"),
-		@NamedQuery(name = "Facility.findByFacility", query = "SELECT e from Facility e where e like:facility order by e.name") })
+@NamedQueries(value = { @NamedQuery(name = "Facility.getAll", query = "SELECT e from Facility e order by e.name") })
 public class Facility extends AbstractEntity {
 
 	/**

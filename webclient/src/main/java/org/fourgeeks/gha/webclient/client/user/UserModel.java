@@ -2,7 +2,6 @@ package org.fourgeeks.gha.webclient.client.user;
 
 import java.util.List;
 
-import org.fourgeeks.gha.domain.ess.BpuFunction;
 import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
@@ -10,7 +9,6 @@ import org.fourgeeks.gha.webclient.client.bpu.GWTBpuService;
 import org.fourgeeks.gha.webclient.client.bpu.GWTBpuServiceAsync;
 import org.fourgeeks.gha.webclient.client.ssouser.GWTSSOUserService;
 import org.fourgeeks.gha.webclient.client.ssouser.GWTSSOUserServiceAsync;
-
 
 import com.google.gwt.core.client.GWT;
 
@@ -54,30 +52,12 @@ public class UserModel {
 		ssoUservice.save(ssoUser, callback);
 	}
 
-	// TODO : Pasar a bpuFunctionmodel
-	public static void save(BpuFunction bpuFunction,
-			GHAAsyncCallback<BpuFunction> callback) {
-		ssoUservice.save(bpuFunction, callback);
-	}
-
-	// TODO : Pasar a bpuFunctionmodel
-	public static void delete(BpuFunction bpuFunction,
-			GHAAsyncCallback<Void> callback) {
-		ssoUservice.delete(bpuFunction, callback);
-	}
-
 	/**
 	 * @param id
 	 * @param callback
 	 */
 	public static void delete(long id, GHAAsyncCallback<Void> callback) {
 		ssoUservice.delete(id, callback);
-	}
-
-	// TODO : Pasar a bpuFunctionmodel
-	public static void getFunctionsByBpu(Bpu bpu,
-			GHAAsyncCallback<List<BpuFunction>> callback) {
-		ssoUservice.getFunctionsByBpu(bpu, callback);
 	}
 
 	/**

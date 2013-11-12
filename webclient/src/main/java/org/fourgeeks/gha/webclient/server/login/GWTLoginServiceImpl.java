@@ -14,8 +14,8 @@ import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.logs.LogonLog;
 import org.fourgeeks.gha.domain.msg.GHAMessage;
+import org.fourgeeks.gha.ejb.ess.AppFormViewFunctionBpuServiceRemote;
 import org.fourgeeks.gha.ejb.ess.SSOUserServiceRemote;
-import org.fourgeeks.gha.ejb.gar.BpuFunctionServiceRemote;
 import org.fourgeeks.gha.ejb.log.LogonLogServiceRemote;
 import org.fourgeeks.gha.ejb.msg.MessageServiceRemote;
 import org.fourgeeks.gha.webclient.client.login.GWTLoginService;
@@ -40,8 +40,8 @@ public class GWTLoginServiceImpl extends RemoteServiceServlet implements
 	@EJB(name = "ess.SSOUserService")
 	SSOUserServiceRemote ssoUserService;
 
-	@EJB(name = "gar.BpuFunctionService")
-	BpuFunctionServiceRemote bpuFunctionService;
+	@EJB(name = "ess.AppFormViewFunctionBpuService")
+	AppFormViewFunctionBpuServiceRemote bpuFunctionService;
 
 	@EJB(name = "msg.MessageService")
 	MessageServiceRemote messageService;

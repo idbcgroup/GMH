@@ -1,6 +1,6 @@
 package org.fourgeeks.gha.webclient.client.eiatype.material;
 
-import org.fourgeeks.gha.domain.glm.MaterialCategory;
+import org.fourgeeks.gha.domain.glm.Material;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaterial;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 
@@ -13,15 +13,12 @@ public class EIATypeMaterialRecord extends GHAGridRecord<EiaTypeMaterial> {
 
 	public EIATypeMaterialRecord(EiaTypeMaterial eiaTypeMaterial) {
 		this.eiaTypeMaterial = eiaTypeMaterial;
-		MaterialCategory materialCategory = eiaTypeMaterial.getMaterial()
-				.getMaterialCategory();
-		if (materialCategory == null)
-			return;
-		setAttribute("code", materialCategory.getCode());
-		setAttribute("name", materialCategory.getName());
-		setAttribute("description", materialCategory.getDescription());
-		setAttribute("model", materialCategory.getModel());
-		setAttribute("extCode", materialCategory.getExternalCode());
+		Material material = eiaTypeMaterial.getMaterial();
+		setAttribute("code", material.getCode());
+		setAttribute("name", material.getName());
+		setAttribute("description", material.getDescription());
+		setAttribute("model", material.getModel());
+		setAttribute("extCode", material.getExternalCode());
 		// if (materialCategory.getType() != null)
 		// setAttribute("type", materialCategory.getType().toString());
 		setAttribute("amount", eiaTypeMaterial.getAmount());

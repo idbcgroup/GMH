@@ -17,7 +17,7 @@ import org.fourgeeks.gha.webclient.client.material.GWTMaterialService;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 /**
- * @author alacret
+ * @author alacret, emiliot
  * 
  */
 @WebServlet(urlPatterns = { "/webclient/material" })
@@ -69,16 +69,33 @@ public class GWTMaterialServiceImpl extends RemoteServiceServlet implements
 	public List<Material> getAllUtilities() throws GHAEJBException {
 		return materialServiceRemote.getAllUtilities();
 	}
-	
+
+	@Override
 	public Material save(Material material) throws GHAEJBException {
 		return materialServiceRemote.save(material);
-}
+	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.material.GWTMaterialService#findByBrand(org.fourgeeks.gha.domain.gmh.Brand)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.material.GWTMaterialService#findByBrand
+	 * (org.fourgeeks.gha.domain.gmh.Brand)
 	 */
 	@Override
 	public List<Material> findByBrand(Brand brand) throws GHAEJBException {
 		return materialServiceRemote.findByBrand(brand);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.material.GWTMaterialService#find(java
+	 * .lang.String)
+	 */
+	@Override
+	public Material find(String code) throws GHAEJBException {
+		return materialServiceRemote.find(code);
 	}
 }

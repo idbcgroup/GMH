@@ -3,6 +3,7 @@
  */
 package org.fourgeeks.gha.domain.glm;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -10,73 +11,167 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
 
-import org.fourgeeks.gha.domain.AbstractEntity;
+import org.fourgeeks.gha.domain.AbstractCodeEntity;
 import org.fourgeeks.gha.domain.gmh.Brand;
 
 /**
- * @author alacret
+ * @author alacret, emiliot
  * 
  */
 @Entity
 @NamedQueries(value = {
-		@NamedQuery(name = "Material.getAll", query = "SELECT m FROM Material m ORDER BY m.id"),
-		@NamedQuery(name = "Material.getByType", query = "SELECT m FROM Material m JOIN m.materialCategory c WHERE c.type = :materialTypeId ORDER BY c.name"),
-		@NamedQuery(name = "Material.findByName", query = "SELECT m FROM Material m JOIN m.materialCategory c WHERE LOWER(c.name) LIKE :name ORDER BY c.id"),
-		@NamedQuery(name = "Material.findByBrand", query = "SELECT m FROM Material m WHERE m.brand = :brand ORDER BY m.id") })
-public class Material extends AbstractEntity {
+		@NamedQuery(name = "Material.getAll", query = "SELECT m FROM Material m ORDER BY m.name"),
+		@NamedQuery(name = "Material.getByType", query = "SELECT m FROM Material m WHERE m.type = :type ORDER BY m.name"),
+		@NamedQuery(name = "Material.findByName", query = "SELECT m FROM Material m WHERE LOWER(m.name) LIKE :name ORDER BY m.code"),
+		@NamedQuery(name = "Material.findByBrand", query = "SELECT m FROM Material m WHERE m.brand = :brand ORDER BY m.name") })
+public class Material extends AbstractCodeEntity {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@ManyToOne
-	@JoinColumn(name = "materialCategoryFk", nullable = false)
-	private MaterialCategory materialCategory;
+	@NotNull(message = "material-type-not-null")
+	@Column(nullable = false)
+	private MaterialTypeEnum type;
 
-	@NotNull(message = "brand-not-null")
+	private String description;
+	private String name;
+	private String externalCode;
+	private String model;
+
 	@ManyToOne
-	@JoinColumn(name = "brandFk", nullable = false)
+	@JoinColumn(name = "brandFk")
 	private Brand brand;
-
-	//
-	// @ManyToOne
-	// @JoinColumn(name = "serviceResourceFk")
-	// private ServiceResource serviceResource;
 
 	private int amount;
 	private String barCode;
 
-	public MaterialCategory getMaterialCategory() {
-		return materialCategory;
+	/**
+	 * 
+	 */
+	public Material() {
+		super();
 	}
 
-	public void setMaterialCategory(MaterialCategory materialCategory) {
-		this.materialCategory = materialCategory;
+	/**
+	 * @return the type
+	 */
+	public MaterialTypeEnum getType() {
+		return type;
 	}
 
-	public int getAmount() {
-		return amount;
+	/**
+	 * @param type
+	 *            the type to set
+	 */
+	public void setType(MaterialTypeEnum type) {
+		this.type = type;
 	}
 
-	public void setAmount(int amount) {
-		this.amount = amount;
+	/**
+	 * @return the description
+	 */
+	public String getDescription() {
+		return description;
 	}
 
-	public String getBarCode() {
-		return barCode;
+	/**
+	 * @param description
+	 *            the description to set
+	 */
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
-	public void setBarCode(String barCode) {
-		this.barCode = barCode;
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
 	}
 
+	/**
+	 * @param name
+	 *            the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @return the externalCode
+	 */
+	public String getExternalCode() {
+		return externalCode;
+	}
+
+	/**
+	 * @param externalCode
+	 *            the externalCode to set
+	 */
+	public void setExternalCode(String externalCode) {
+		this.externalCode = externalCode;
+	}
+
+	/**
+	 * @return the model
+	 */
+	public String getModel() {
+		return model;
+	}
+
+	/**
+	 * @param model
+	 *            the model to set
+	 */
+	public void setModel(String model) {
+		this.model = model;
+	}
+
+	/**
+	 * @return the brand
+	 */
 	public Brand getBrand() {
 		return brand;
 	}
 
+	/**
+	 * @param brand
+	 *            the brand to set
+	 */
 	public void setBrand(Brand brand) {
 		this.brand = brand;
+	}
+
+	/**
+	 * @return the amount
+	 */
+	public int getAmount() {
+		return amount;
+	}
+
+	/**
+	 * @param amount
+	 *            the amount to set
+	 */
+	public void setAmount(int amount) {
+		this.amount = amount;
+	}
+
+	/**
+	 * @return the barCode
+	 */
+	public String getBarCode() {
+		return barCode;
+	}
+
+	/**
+	 * @param barCode
+	 *            the barCode to set
+	 */
+	public void setBarCode(String barCode) {
+		this.barCode = barCode;
 	}
 
 }

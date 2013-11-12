@@ -3,6 +3,7 @@ package org.fourgeeks.gha.domain.codes;
 /**
  * @author alacret Codes for the aplicacion modules
  */
+@Deprecated
 public interface ModulesCodes {
 
 	/**

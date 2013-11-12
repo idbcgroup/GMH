@@ -53,9 +53,15 @@ public class GHAMessageId implements Serializable {
 
 	@Override
 	public boolean equals(Object o) {
-		return ((o instanceof GHAMessageId)
-				&& code.equals(((GHAMessageId) o).getCode()) && language
-					.equals(((GHAMessageId) o).getLanguage()));
+		if (o == null)
+			return false;
+
+		if (!(o instanceof GHAMessageId))
+			return false;
+
+		GHAMessageId newO = (GHAMessageId) o;
+		return code.equals(newO.getCode())
+				&& language.equals(newO.getLanguage());
 	}
 
 	/*

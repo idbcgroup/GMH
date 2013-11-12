@@ -17,37 +17,41 @@ import org.fourgeeks.gha.domain.enu.EiaPictureStateEnum;
 
 /**
  * @author emiliot
- *
+ * 
  */
 
 @Entity
-@NamedQueries(value = {
-		@NamedQuery(name = "EiaPicture.findByEia", query = "SELECT e from EiaPicture e WHERE e.eia = :eia order by id")
-})
-public class EiaPicture extends AbstractEntity{
+@NamedQueries(value = { @NamedQuery(name = "EiaPicture.findByEia", query = "SELECT e from EiaPicture e WHERE e.eia = :eia order by e.id") })
+public class EiaPicture extends AbstractEntity {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@ManyToOne
-	@JoinColumn(name = "eiaFk", nullable=false)
+	@JoinColumn(name = "eiaFk", nullable = false)
 	private Eia eia;
-	
-	/**Attributes*/
-	private int number; /** Número de Foto tomada length =4 */
-	
+
+	/** Attributes */
+	private int number;
+	/** Número de Foto tomada length =4 */
+
 	@Column(nullable = false)
-	private String picture; /** URL de la Foto del Equipo o Instalación length = */
-	
-	private String description; /** Descripción del Equipo o Instalación length =255 */
-	
-	@Column(nullable=false)
-	private Date date; /** Fecha en que se tomo la foto length =22 */
-	
-	@Column(nullable=false)
-	private EiaPictureStateEnum pictureState; /** Estado de la foto length =60 */
+	private String picture;
+	/** URL de la Foto del Equipo o Instalación length = */
+
+	private String description;
+	/** Descripción del Equipo o Instalación length =255 */
+
+	@Column(nullable = false)
+	private Date date;
+	/** Fecha en que se tomo la foto length =22 */
+
+	@Column(nullable = false)
+	private EiaPictureStateEnum pictureState;
+
+	/** Estado de la foto length =60 */
 
 	/**
 	 * 
@@ -73,6 +77,9 @@ public class EiaPicture extends AbstractEntity{
 		this.pictureState = pictureState;
 	}
 
+	/**
+	 * @return the eia
+	 */
 	public Eia getEia() {
 		return eia;
 	}
@@ -120,6 +127,5 @@ public class EiaPicture extends AbstractEntity{
 	public void setPictureState(EiaPictureStateEnum pictureState) {
 		this.pictureState = pictureState;
 	}
-	
-	
+
 }

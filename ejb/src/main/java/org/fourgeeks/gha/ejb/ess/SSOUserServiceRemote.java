@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.ejb.Remote;
 
-import org.fourgeeks.gha.domain.ess.BpuFunction;
 import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 
@@ -63,8 +62,4 @@ public interface SSOUserServiceRemote {
 	 * @throws GHAEJBException
 	 */
 	public SSOUser update(SSOUser ssoUser) throws GHAEJBException;
-
-	public BpuFunction save(BpuFunction bpuFunction) throws GHAEJBException;
-
-	public void delete(BpuFunction bpuFunction) throws GHAEJBException;
 }
