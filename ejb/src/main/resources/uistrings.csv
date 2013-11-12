@@ -1,6 +1,86 @@
-0,name,Nombre
-0,equipments,Equipos
-0,password,Clave de Acceso
-0,username-not-null,Debe ingresar un usuario válido
-0,password-not-null,Debe ingresar una clave de acceso válida
-0,email-invalid-field,Debe ingresar un email válido
+ES,connection-problem,Imposible conectar al servidor
+ES,yes,Si
+ES,no,No
+ES,new-user,Nuevo usuario
+ES,permissions,Permisos
+ES,login-log,Registro de inicio de sesión
+ES,new-utility-service,Nuevo servicio utilitario
+ES,delete,Borrar
+ES,no-materials-to-show,No hay materiales para mostrar
+ES,save,Guardar
+ES,cancel,Cancelar
+ES,new,Agregar
+ES,select,Seleccionar
+ES,edit,Editar
+ES,materials-category,Categorias de materiales
+ES,new-material,Nuevo material
+ES,utility-services,Servicios utilitarios
+ES,external-code,Codigo externo
+ES,materials,Materiales
+ES,name,Nombre
+ES,mail,Correo
+ES,alternative-mail,Correo alternativo
+ES,genre,Género
+ES,components,Componentes
+ES,information,Información
+ES,reports,Reportes
+ES,equipments,Equipos
+ES,password,Clave de acceso
+ES,close,Cerrar
+ES,undo,Deshacer
+ES,add,Agregar
+ES,clean,Limpiar
+ES,search,Buscar
+ES,model,Modelo
+ES,email-invalid-field,Debe ingresar un email válido
+ES,none,Modelo
+ES,manufacturer,Fabricante
+ES,mobility,Movilidad
+ES,eiatype,Tipo de equipo
+ES,eiatypes,Tipos de equipo
+ES,subtype,Sub tipo
+ES,brand,Marca
+ES,new-eia,Nuevo equipo
+ES,edit-eia,Modificar un equipo
+ES,edit-eiatype,Modificar un tipo de equipo
+ES,search-results,Resultados de la búsqueda
+ES,description,Descripción
+ES,use,Uso
+ES,type,Tipo
+ES,users,Usuarios
+ES,second-name,Segundo nombre
+ES,first-lastname,Primer apellido
+ES,second-lastname,Segundo apellido
+ES,last-name,Apellido
+ES,id-type,Tipo de identificación
+ES,id-number,Numero de identificación
+ES,eiatype-select-item,Tipo de Equipo
+ES,eiastate-select-item,Estado
+ES,serialNumber-item,Serial
+ES,fixedAssetIdentifier-item,Id Activo Fijo
+ES,workingarea-select-item,Area de Trabajo
+ES,facility-select-item,Instalación
+ES,obu-select-item,Departamento Responsable
+ES,role-select-item,Rol Responsable
+ES,search-component,Búsqueda de componentes
+ES,search-material,Búsqueda de materiales
+ES,record-not-selected,Debe seleccionar un registro
+ES,search-utility-material,Búsqueda de materiales utilitarios
+ES,eiatype-material-delete-confirm,¿Desea retirar el material asociado al tipo de equipo?
+ES,eiatype-utility-service-delete-confirm,¿Desea eliminar el servicio utilitario asociado al tipo de equipo?
+ES,eiatype-delete-confirm,¿Desea eliminar el tipo de equipo?
+ES,eia-delete-confirm,¿Desea eliminar el equipo?
+ES,ssoUser-delete-confirm,¿Desea eliminar al usuario?
+ES,amount,Cantidad
+ES,empty-materialcategory-grid,No existen Materiales para mostrar
+ES,empty-material-grid,No existen Materiales para mostrar
+ES,results,Resultados
+ES,username-not-null,Debe ingresar un usuario válido
+ES,password-not-null,Debe ingresar una contraseña válida
+ES,code,Código
+ES,new-eiatype,Nuevo tipo de equipo
+ES,user,Usuario
+ES,state,Estado
+ES,first-name,Primer nombre
+ES,form-errors,Errores en el formulario
+ES,unsaved-changes,Tiene cambios sin guardar
