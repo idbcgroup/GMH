@@ -17,7 +17,7 @@ import org.fourgeeks.gha.domain.enu.LanguageEnum;
 @Entity
 @Table(schema = "msg", uniqueConstraints = @UniqueConstraint(columnNames = {
 		"language", "code" }))
-@NamedQueries(value = { @NamedQuery(name = "UiString.getByLanguage", query = "SELECT e from UiString e where language = :language order by e.code") })
+@NamedQueries(value = { @NamedQuery(name = "UiString.getByLanguage", query = "SELECT e from UiString e where e.language = :language order by e.code") })
 public class UiString extends AbstractCodeEntity {
 
 	/**

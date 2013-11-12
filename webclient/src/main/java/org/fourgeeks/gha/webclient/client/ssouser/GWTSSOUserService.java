@@ -5,10 +5,8 @@ package org.fourgeeks.gha.webclient.client.ssouser;
 
 import java.util.List;
 
-import org.fourgeeks.gha.domain.ess.BpuFunction;
 import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
-import org.fourgeeks.gha.domain.gar.Bpu;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -59,22 +57,4 @@ public interface GWTSSOUserService extends RemoteService {
 	 */
 	public SSOUser update(SSOUser ssoUser) throws GHAEJBException;
 
-	/**
-	 */
-	public BpuFunction save(BpuFunction bpuFunction) throws GHAEJBException; // TODO
-																				// Mover
-																				// a
-																				// gwtbpuservice
-
-	/**
-	 */
-	public void delete(BpuFunction bpuFunction) throws GHAEJBException;// TODO
-																		// Mover
-																		// a
-																		// gwtbpuservice
-
-	public List<BpuFunction> getFunctionsByBpu(Bpu bpu) throws GHAEJBException;// TODO
-																				// Mover
-																				// a
-																				// gwtbpuservice
 }

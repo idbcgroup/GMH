@@ -8,7 +8,6 @@ import javax.persistence.IdClass;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 import org.fourgeeks.gha.domain.enu.LanguageEnum;
@@ -19,8 +18,7 @@ import org.fourgeeks.gha.domain.enu.LanguageEnum;
  */
 @Entity
 @IdClass(GHAMessageId.class)
-@Table(schema = "msg", uniqueConstraints = @UniqueConstraint(columnNames = {
-		"language", "code" }))
+@Table(schema = "msg")
 @NamedQueries(value = { @NamedQuery(name = "GHAMessage.getAllByCodes", query = "SELECT e from GHAMessage e WHERE e.code IN (:codes) AND e.language = :language ORDER BY e.code") })
 public class GHAMessage implements Serializable {
 

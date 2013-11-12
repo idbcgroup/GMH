@@ -20,7 +20,7 @@ import org.fourgeeks.gha.domain.gmh.Brand;
 @NamedQueries(value = {
 		@NamedQuery(name = "Material.getAll", query = "SELECT m FROM Material m ORDER BY m.id"),
 		@NamedQuery(name = "Material.getByType", query = "SELECT m FROM Material m JOIN m.materialCategory c WHERE c.type = :materialTypeId ORDER BY c.name"),
-		@NamedQuery(name = "Material.findByName", query = "SELECT m FROM Material m JOIN m.materialCategory c WHERE LOWER(c.name) LIKE :name ORDER BY c.id"),
+		@NamedQuery(name = "Material.findByName", query = "SELECT m FROM Material m JOIN m.materialCategory c WHERE LOWER(c.name) LIKE :name ORDER BY c.name"),
 		@NamedQuery(name = "Material.findByBrand", query = "SELECT m FROM Material m WHERE m.brand = :brand ORDER BY m.id") })
 public class Material extends AbstractEntity {
 

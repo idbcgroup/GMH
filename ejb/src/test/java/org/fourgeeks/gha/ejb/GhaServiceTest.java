@@ -15,9 +15,9 @@ import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.enu.GenderTypeEnum;
 import org.fourgeeks.gha.domain.enu.LocationLevelEnum;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
-import org.fourgeeks.gha.domain.ess.BpuFunction;
-import org.fourgeeks.gha.domain.ess.Function;
 import org.fourgeeks.gha.domain.ess.Role;
+import org.fourgeeks.gha.domain.ess.ui.AppFormViewFunctionBpu;
+import org.fourgeeks.gha.domain.ess.ui.Function;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
@@ -41,9 +41,9 @@ import org.fourgeeks.gha.domain.mix.Citizen;
 import org.fourgeeks.gha.domain.mix.Institution;
 import org.fourgeeks.gha.domain.mix.LegalEntity;
 import org.fourgeeks.gha.domain.msg.GHAMessage;
-import org.fourgeeks.gha.ejb.ess.FunctionServiceRemote;
+import org.fourgeeks.gha.ejb.ess.AppFormViewFunctionBpuService;
+import org.fourgeeks.gha.ejb.ess.AppFormViewFunctionServiceRemote;
 import org.fourgeeks.gha.ejb.ess.InstanceLogonService;
-import org.fourgeeks.gha.ejb.gar.BpuFunctionService;
 import org.fourgeeks.gha.ejb.glm.ExternalProviderService;
 import org.fourgeeks.gha.ejb.gmh.BrandService;
 import org.fourgeeks.gha.ejb.language.LanguageService;
@@ -95,8 +95,8 @@ public class GhaServiceTest {
 				.addPackage(Bpa.class.getPackage())
 				.addPackage(BpaService.class.getPackage())
 				.addPackage(Bpu.class.getPackage())
-				.addPackage(BpuFunction.class.getPackage())
-				.addPackage(BpuFunctionService.class.getPackage())
+				.addPackage(AppFormViewFunctionBpu.class.getPackage())
+				.addPackage(AppFormViewFunctionBpuService.class.getPackage())
 				.addPackage(Brand.class.getPackage())
 				.addPackage(BrandService.class.getPackage())
 				.addPackage(DocumentTypeEnum.class.getPackage())
@@ -105,7 +105,7 @@ public class GhaServiceTest {
 				.addPackage(ExternalProviderService.class.getPackage())
 				.addPackage(Function.class.getPackage())
 				.addPackage(FunctionsCodes.class.getPackage())
-				.addPackage(FunctionServiceRemote.class.getPackage())
+				.addPackage(AppFormViewFunctionServiceRemote.class.getPackage())
 				.addPackage(GHAEJBException.class.getPackage())
 				.addPackage(GhaServiceTest.class.getPackage())
 				.addPackage(GHAMessage.class.getPackage())

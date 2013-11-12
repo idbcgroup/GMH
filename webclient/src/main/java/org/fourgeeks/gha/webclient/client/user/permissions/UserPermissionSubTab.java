@@ -13,7 +13,7 @@ import org.fourgeeks.gha.webclient.client.user.UserTab;
 public class UserPermissionSubTab extends GHASubTab implements
 		UserSelectionListener {
 
-	private FunctionGridPanel gridPanel;
+	private AppFormViewFunctionGridPanel gridPanel;
 
 	/**
 	 * @param tab
@@ -21,7 +21,7 @@ public class UserPermissionSubTab extends GHASubTab implements
 	public UserPermissionSubTab(UserTab tab) {
 		super(GHAStrings.get("permissions"), tab);
 		tab.addUserSelectionListener(this);
-		gridPanel = new FunctionGridPanel(this);
+		gridPanel = new AppFormViewFunctionGridPanel();
 		setPane(gridPanel);
 	}
 

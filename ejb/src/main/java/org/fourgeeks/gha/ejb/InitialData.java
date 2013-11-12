@@ -1,6 +1,5 @@
 package org.fourgeeks.gha.ejb;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -17,10 +16,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
-import org.fourgeeks.gha.domain.codes.FunctionsCodes;
-import org.fourgeeks.gha.domain.codes.ModulesCodes;
-import org.fourgeeks.gha.domain.codes.ScreenCodes;
-import org.fourgeeks.gha.domain.codes.ViewCodes;
 import org.fourgeeks.gha.domain.conf.Parameter;
 import org.fourgeeks.gha.domain.conf.ParameterGroup;
 import org.fourgeeks.gha.domain.conf.ParameterValue;
@@ -34,14 +29,16 @@ import org.fourgeeks.gha.domain.enu.LanguageEnum;
 import org.fourgeeks.gha.domain.enu.LocationLevelEnum;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.enu.UserLogonStatusEnum;
-import org.fourgeeks.gha.domain.ess.BpuFunction;
-import org.fourgeeks.gha.domain.ess.Function;
-import org.fourgeeks.gha.domain.ess.Module;
 import org.fourgeeks.gha.domain.ess.Role;
 import org.fourgeeks.gha.domain.ess.SSOUser;
-import org.fourgeeks.gha.domain.ess.Screen;
-import org.fourgeeks.gha.domain.ess.View;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
+import org.fourgeeks.gha.domain.ess.ui.AppForm;
+import org.fourgeeks.gha.domain.ess.ui.AppFormView;
+import org.fourgeeks.gha.domain.ess.ui.AppFormViewFunction;
+import org.fourgeeks.gha.domain.ess.ui.AppFormViewFunctionBpu;
+import org.fourgeeks.gha.domain.ess.ui.Function;
+import org.fourgeeks.gha.domain.ess.ui.Module;
+import org.fourgeeks.gha.domain.ess.ui.View;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Facility;
@@ -65,7 +62,7 @@ import org.fourgeeks.gha.domain.mix.Institution;
 import org.fourgeeks.gha.domain.mix.LegalEntity;
 import org.fourgeeks.gha.domain.msg.GHAMessage;
 import org.fourgeeks.gha.domain.msg.UiString;
-import org.fourgeeks.gha.ejb.ess.FunctionServiceRemote;
+import org.fourgeeks.gha.ejb.ess.AppFormViewFunctionServiceRemote;
 
 import au.com.bytecode.opencsv.CSVReader;
 
@@ -88,7 +85,11 @@ public class InitialData {
 	 */
 	@PostConstruct
 	public void inicializar() {
-		modules();
+		try {
+			modules();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		messages();
 		uiStrings();
 		parameter();
@@ -1638,210 +1639,75 @@ public class InitialData {
 		}
 	}
 
-	private void modules() {
+	private void modules() throws IOException {
 		InputStream resourceAsStream = InitialData.class
 				.getResourceAsStream("/codes.csv");
-
-//		BufferedReader bufferedReader;
-//		String readLine;
+		CSVReader csvReader = null;
 		try {
-			// bufferedReader = new BufferedReader(new InputStreamReader(
-			// resourceAsStream, "UTF-8"));
-			CSVReader csvReader = new CSVReader(new InputStreamReader(resourceAsStream, "UTF-8"),',',);
-			// readLine = bufferedReader.readLine();// Skipping headers
-			// readLine = bufferedReader.readLine();
-			// while (readLine != null) {
-			// readLine.split(",");
-			//
-			// readLine = bufferedReader.readLine();
-			// }
+			csvReader = new CSVReader(new InputStreamReader(resourceAsStream,
+					"UTF-8"), ',', '\'', 1);
+			List<String[]> readAll = csvReader.readAll();
+			Module module = null;
+			AppForm appForm = null;
+			View view = null;
+			AppFormView appFormView = null;
+			Function function = null;
+			AppFormViewFunction appFormViewFunction = null;
+
+			for (String[] strings : readAll) {
+				System.out.println(strings[0]);
+				System.out.println(strings[1]);
+				System.out.println(strings[2]);
+				System.out.println(strings[3]);
+				System.out.println(strings[4]);
+				System.out.println(strings[5]);
+				System.out.println(strings[6]);
+				System.out.println(strings[7]);
+				System.out.println(strings[8]);
+				System.out.println(strings[9]);
+				System.out.println(strings[10]);
+				String moduleName = strings[0];
+				String moduleCode = strings[1];
+				module = new Module(moduleName, moduleCode);
+				em.merge(module);
+				String appFormName = strings[2];
+				String appFormToken = strings[3];
+				String appFormCode = strings[4];
+				appForm = new AppForm(module, appFormName, appFormToken,
+						appFormCode);
+				em.merge(appForm);
+				String viewName = strings[5];
+				String viewCode = strings[6];
+				String viewDescription = strings[7];
+				view = new View(viewCode, viewName, viewDescription);
+				em.merge(view);
+				appFormView = new AppFormView(appForm, view);
+				em.merge(appFormView);
+				String functionName = strings[8];
+				String functionCode = strings[9];
+				String functionDescription = strings[10];
+				function = new Function(functionCode, functionName,
+						functionDescription);
+				em.merge(function);
+				appFormViewFunction = new AppFormViewFunction(appForm, view,
+						function);
+				em.merge(appFormViewFunction);
+			}
+			csvReader.close();
 		} catch (UnsupportedEncodingException e3) {
+			csvReader.close();
 			logger.log(
 					Level.SEVERE,
 					"Error loading modules, screens, views and functions: incorrect file encoding",
 					e3);
-		} catch (IOException e2) {
-			logger.log(
-					Level.SEVERE,
-					"Error loading modules, screens, views and functions: error reading the codes.csv file",
-					e2);
+		} finally {
+			csvReader.close();
 		}
-
-		String query = "SELECT t from Module t WHERE t.code ='"
-				+ ModulesCodes.USER + "'";
-		try {
-			em.createQuery(query).getSingleResult();
-		} catch (NoResultException e) {
-			try {
-				logger.info("creating test data : module, view, screen, functions");
-				Module moduleUser = new Module("Usuarios", ModulesCodes.USER);
-				em.persist(moduleUser);
-				Module moduleEiaType = new Module("Tipos de equipo",
-						ModulesCodes.EIATYPE);
-				em.persist(moduleEiaType);
-				Module moduleEia = new Module("Equipos", ModulesCodes.EIA);
-				em.persist(moduleEia);
-				Module moduleMainteancePlan = new Module("Planes de Mant.",
-						ModulesCodes.MPLAN);
-				em.persist(moduleMainteancePlan);
-				Module moduleMaintenanceProtocol = new Module(
-						"Protocolos de Mant.", ModulesCodes.MPROT);
-				em.persist(moduleMaintenanceProtocol);
-				Module maintenanceActivityModule = new Module(
-						"Actividades de Mant.", ModulesCodes.MACT);
-				em.persist(maintenanceActivityModule);
-				// Screen
-				Screen screenUsuer = new Screen(moduleUser, "Adm. de Usuarios",
-						ScreenCodes.USER_ADM, "user");
-				em.persist(screenUsuer);
-				Screen screenEiaType = new Screen(moduleEiaType,
-						"Tipos de equipo", ScreenCodes.EIATYPE_ADM, "eiatype");
-				em.persist(screenEiaType);
-				Screen screenEia = new Screen(moduleEia, "Equipos",
-						ScreenCodes.EIA_ADM, "eia");
-				em.persist(screenEia);
-				Screen screenMaintenancePlan = new Screen(moduleMainteancePlan,
-						"Planes de Mant.", ScreenCodes.MAINTENANCE_PLAN_ADM,
-						"mplan");
-				em.persist(screenMaintenancePlan);
-				Screen screenMaintenanceProtocol = new Screen(
-						moduleMaintenanceProtocol, "Protocolos de Mant.",
-						ScreenCodes.MAINTENANCE_PROTOCOL_ADM, "mprot");
-				em.persist(screenMaintenanceProtocol);
-
-				Screen maintenanceActivityScreen = new Screen(
-						maintenanceActivityModule, "Actividades de Mant.",
-						ScreenCodes.MAINTENANCE_ACTIVITY_ADM, "mact");
-				em.persist(maintenanceActivityScreen);
-
-				// View
-				View viewUserInfo = new View(screenUsuer, "Información",
-						ViewCodes.USER_ADM_INFO);
-				em.persist(viewUserInfo);
-				View viewUserCred = new View(screenUsuer, "Credenciales",
-						ViewCodes.USER_ADM_CRED);
-				em.persist(viewUserCred);
-				View viewUserLLog = new View(screenUsuer, "Logon log",
-						ViewCodes.USER_ADM_LLOG);
-				em.persist(viewUserLLog);
-				View viewEiaTypeInfo = new View(screenEiaType, "Información",
-						ViewCodes.EIATYPE_ADM_INFO);
-				em.persist(viewEiaTypeInfo);
-				View viewEiaTypeEquip = new View(screenEiaType, "Equipos",
-						ViewCodes.EIATYPE_ADM_EQUI);
-				em.persist(viewEiaTypeEquip);
-				View viewEiaTypeComp = new View(screenEiaType, "Componentes",
-						ViewCodes.EIATYPE_ADM_COMP);
-				em.persist(viewEiaTypeComp);
-				View viewEiaTypeMate = new View(screenEiaType, "Materiales",
-						ViewCodes.EIATYPE_ADM_MATE);
-				em.persist(viewEiaTypeMate);
-				View viewEiaTypeServ = new View(screenEiaType,
-						"Servicios utilitarios", ViewCodes.EIATYPE_ADM_SERV);
-				em.persist(viewEiaTypeServ);
-				View viewEiaInfo = new View(screenEia, "Información",
-						ViewCodes.EIA_ADM_INFO);
-				em.persist(viewEiaInfo);
-				View viewEiaComp = new View(screenEia, "Componentes",
-						ViewCodes.EIA_ADM_COMP);
-				em.persist(viewEiaComp);
-				View viewMaintenancePlanInfo = new View(screenMaintenancePlan,
-						"Información", ViewCodes.MAINTENANCE_PLAN_ADM_INFO);
-				em.persist(viewMaintenancePlanInfo);
-				View viewMaintenanceProtocol = new View(
-						screenMaintenanceProtocol, "Información",
-						ViewCodes.MAINTENANCE_PROTOCOL_ADM_INFO);
-				em.persist(viewMaintenanceProtocol);
-				View viewProtocolActivity = new View(screenMaintenanceProtocol,
-						"Actividades", ViewCodes.MAINTENANCE_PROTOCOL_ADM_ACT);
-				em.persist(viewProtocolActivity);
-				View maintenanceActivityView = new View(
-						maintenanceActivityScreen, "Información",
-						ViewCodes.MAINTENANCE_ACTIVITY_ADM_INFO);
-				em.persist(maintenanceActivityView);
-				// Function
-				Function function = new Function(viewUserInfo, "ver",
-						FunctionsCodes.USER_ADM_INFO_VIEW);
-				em.persist(function);
-				function = new Function(viewUserInfo, "editar",
-						FunctionsCodes.USER_ADM_INFO_EDIT);
-				em.persist(function);
-				function = new Function(viewUserCred, "ver",
-						FunctionsCodes.USER_ADM_CRED_VIEW);
-				em.persist(function);
-				function = new Function(viewUserCred, "editar",
-						FunctionsCodes.USER_ADM_CRED_EDIT);
-				em.persist(function);
-				function = new Function(viewUserLLog, "ver",
-						FunctionsCodes.USER_ADM_LLOG_VIEW);
-				em.persist(function);
-				function = new Function(viewUserLLog, "editar",
-						FunctionsCodes.USER_ADM_LLOG_EDIT);
-				em.persist(function);
-				function = new Function(viewEiaTypeEquip, "ver",
-						FunctionsCodes.EIATYPE_ADM_EQUI_VIEW);
-				em.persist(function);
-				function = new Function(viewEiaTypeEquip, "editar",
-						FunctionsCodes.EIATYPE_ADM_EQUI_EDIT);
-				em.persist(function);
-				function = new Function(viewEiaTypeComp, "ver",
-						FunctionsCodes.EIATYPE_ADM_COMP_VIEW);
-				em.persist(function);
-				function = new Function(viewEiaTypeComp, "editar",
-						FunctionsCodes.EIATYPE_ADM_COMP_EDIT);
-				em.persist(function);
-				function = new Function(viewEiaTypeMate, "ver",
-						FunctionsCodes.EIATYPE_ADM_MATE_VIEW);
-				em.persist(function);
-				function = new Function(viewEiaTypeMate, "editar",
-						FunctionsCodes.EIATYPE_ADM_MATE_EDIT);
-				em.persist(function);
-				function = new Function(viewEiaTypeServ, "ver",
-						FunctionsCodes.EIATYPE_ADM_SERV_VIEW);
-				em.persist(function);
-				function = new Function(viewEiaTypeServ, "editar",
-						FunctionsCodes.EIATYPE_ADM_SERV_EDIT);
-				em.persist(function);
-				function = new Function(viewEiaInfo, "ver",
-						FunctionsCodes.EIA_ADM_INFO_VIEW);
-				em.persist(function);
-				function = new Function(viewEiaInfo, "editar",
-						FunctionsCodes.EIA_ADM_INFO_EDIT);
-				em.persist(function);
-				function = new Function(viewEiaComp, "ver",
-						FunctionsCodes.EIA_ADM_COMP_VIEW);
-				em.persist(function);
-				function = new Function(viewEiaComp, "editar",
-						FunctionsCodes.EIA_ADM_COMP_EDIT);
-				em.persist(function);
-				function = new Function(viewMaintenancePlanInfo, "ver",
-						FunctionsCodes.MAINTENANCE_PLAN_ADM_INFO_VIEW);
-				em.persist(function);
-
-				function = new Function(viewMaintenanceProtocol, "ver",
-						FunctionsCodes.MAINTENANCE_PROTOCOL_ADM_INFO_VIEW);
-				em.persist(function);
-
-				function = new Function(viewProtocolActivity, "ver",
-						FunctionsCodes.MAINTENANCE_PROTOCOL_ADM_ACT_VIEW);
-				em.persist(function);
-
-				function = new Function(maintenanceActivityView, "ver",
-						FunctionsCodes.MAINTENANCE_ACTIVITY_ADM_VIEW);
-				em.persist(function);
-
-				em.flush();
-			} catch (Exception e1) {
-				logger.log(
-						Level.INFO,
-						"error creating test data: module, view, screen, functions",
-						e1);
-			}
-		}
+		resourceAsStream.close();
 	}
 
-	@EJB(name = "ess.FunctionService")
-	FunctionServiceRemote functionService;
+	@EJB(name = "ess.AppFormViewFunctionService")
+	AppFormViewFunctionServiceRemote functionService;
 
 	private void testData() {
 		legalEntityTestData();
@@ -2065,29 +1931,28 @@ public class InitialData {
 	 * 
 	 */
 	private void bpuFunctionTestData() {
-		String query = "SELECT t FROM BpuFunction t WHERE t.id = '1'";
 		try {
-			em.createQuery(query).getSingleResult();
-		} catch (NoResultException e) {
-			try {
-				logger.info("Creating bpufunction test data");
-				List<Function> all = functionService.getAll();
-				Bpu admin = em.find(Bpu.class, 1L);
-				Bpu gha = em.find(Bpu.class, 3L);
+			logger.info("Creating bpufunction test data");
+			List<AppFormViewFunction> all = functionService.getAll();
+			Bpu admin = em.find(Bpu.class, 1L);
+			for (AppFormViewFunction function : all)
+				em.merge(new AppFormViewFunctionBpu(admin, function
+						.getAppForm(), function.getView(), function
+						.getFunction()));
 
-				for (Function function : all) {
-					em.persist(new BpuFunction(admin, function));
-					if (function.getCode().matches(
-							"^EIATYPE-ADM-(EQUI|COMP)-(VIEW|EDIT)$")) {
-						// usuario base solo eiatype
-						em.persist(new BpuFunction(gha, function));
-					}
-				}
-				em.flush();
-			} catch (Exception e1) {
-				logger.log(Level.INFO, "error Creating bpufunction test data",
-						e1);
-			}
+			// Bpu gha = em.find(Bpu.class, 3L);
+			//
+			// for (Function function : all) {
+			// em.persist(new AppFormViewFunctionBpu(admin, function));
+			// if (function.getCode().matches(
+			// "^EIATYPE-ADM-(EQUI|COMP)-(VIEW|EDIT)$")) {
+			// // usuario base solo eiatype
+			// em.persist(new AppFormViewFunctionBpu(gha, function));
+			// }
+			// }
+			// em.flush();
+		} catch (Exception e1) {
+			logger.log(Level.INFO, "error Creating bpufunction test data", e1);
 		}
 	}
 

@@ -11,7 +11,6 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -22,7 +21,6 @@ import javax.persistence.criteria.Root;
 
 import org.fourgeeks.gha.domain.enu.GenderTypeEnum;
 import org.fourgeeks.gha.domain.enu.UserLogonStatusEnum;
-import org.fourgeeks.gha.domain.ess.BpuFunction;
 import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
@@ -337,33 +335,6 @@ public class SSOUserService extends GHAEJBExceptionImpl implements
 			logger.info("Error finding SSOUser by username. Error: "
 					+ ex.getMessage());
 			throw super.generateGHAEJBException("ssoUser-findByUsername-fail",
-					RuntimeParameters.getLang(), em);
-		}
-	}
-
-	@Override
-	public BpuFunction save(BpuFunction bpuFunction) throws GHAEJBException {
-		try {
-			em.persist(bpuFunction);
-			em.flush();
-			return em.find(BpuFunction.class, bpuFunction.getId());
-		} catch (Exception e) {
-			logger.log(Level.INFO, "ERROR: saving BpuFunction ", e);
-			throw super.generateGHAEJBException("bpuFunction-save-fail",
-					RuntimeParameters.getLang(), em);
-		}
-	}
-
-	@Override
-	public void delete(BpuFunction bpuFunction) throws GHAEJBException {
-		try {
-			Query query = em.createNamedQuery("BpuFunction.delete")
-					.setParameter("bpu", bpuFunction.getBpu())
-					.setParameter("function", bpuFunction.getFunction());
-			query.executeUpdate();
-		} catch (Exception e) {
-			logger.log(Level.INFO, "ERROR: delete BpuFunction ", e);
-			throw super.generateGHAEJBException("bpuFunction-delete-fail",
 					RuntimeParameters.getLang(), em);
 		}
 	}

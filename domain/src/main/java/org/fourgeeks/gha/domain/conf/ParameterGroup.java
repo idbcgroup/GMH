@@ -28,6 +28,13 @@ public class ParameterGroup extends AbstractEntity {
 	}
 
 	/**
+	 * 
+	 */
+	public ParameterGroup() {
+		super();
+	}
+
+	/**
 	 * @return the name
 	 */
 	public String getName() {

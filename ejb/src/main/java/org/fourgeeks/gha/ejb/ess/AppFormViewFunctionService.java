@@ -9,7 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import org.fourgeeks.gha.domain.ess.Function;
+import org.fourgeeks.gha.domain.ess.ui.AppFormViewFunction;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
@@ -18,21 +18,21 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * @author alacret
  * 
  */
-@Stateless(name = "ess.FunctionService")
-public class FunctionService extends GHAEJBExceptionImpl implements
-		FunctionServiceRemote {
+@Stateless(name = "ess.AppFormViewFunctionService")
+public class AppFormViewFunctionService extends GHAEJBExceptionImpl implements
+		AppFormViewFunctionServiceRemote {
 
 	@PersistenceContext
 	private EntityManager em;
 
-	private final static Logger logger = Logger.getLogger(FunctionService.class
-			.getName());
+	private final static Logger logger = Logger
+			.getLogger(AppFormViewFunctionService.class.getName());
 
 	@Override
-	public List<Function> getAll() throws GHAEJBException {
+	public List<AppFormViewFunction> getAll() throws GHAEJBException {
 		try {
-			TypedQuery<Function> query = em.createNamedQuery("Function.getAll",
-					Function.class);
+			TypedQuery<AppFormViewFunction> query = em.createNamedQuery(
+					"AppFormViewFunction.getAll", AppFormViewFunction.class);
 			return query.getResultList();
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "Error obteniendo todos los function", e);

@@ -29,7 +29,7 @@ public class FunctionServiceTest extends GhaServiceTest {
 	EntityManager em;
 
 	@EJB(name = "ess.FunctionService")
-	FunctionServiceRemote service;
+	AppFormViewFunctionServiceRemote service;
 
 	@Inject
 	UserTransaction ux;

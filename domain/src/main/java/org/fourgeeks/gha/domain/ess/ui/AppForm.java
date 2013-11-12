@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.domain.ess;
+package org.fourgeeks.gha.domain.ess.ui;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -10,7 +10,7 @@ import org.fourgeeks.gha.domain.AbstractCodeEntity;
  * 
  */
 @Entity
-public class Screen extends AbstractCodeEntity {
+public class AppForm extends AbstractCodeEntity {
 
 	/**
 	 * 
@@ -26,7 +26,7 @@ public class Screen extends AbstractCodeEntity {
 	/**
 	 * 
 	 */
-	public Screen() {
+	public AppForm() {
 	}
 
 	/**
@@ -35,7 +35,7 @@ public class Screen extends AbstractCodeEntity {
 	 * @param code
 	 * @param token
 	 */
-	public Screen(Module module, String name, String code, String token) {
+	public AppForm(Module module, String name, String token, String code) {
 		this.module = module;
 		this.name = name;
 		this.token = token;
@@ -43,7 +43,7 @@ public class Screen extends AbstractCodeEntity {
 	}
 
 	/**
-	 * @return
+	 * @return the name
 	 */
 	public String getName() {
 		return name;

@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.domain.ess;
+package org.fourgeeks.gha.domain.ess.ui;
 
 import javax.persistence.Entity;
 
