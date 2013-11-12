@@ -1,6 +1,5 @@
 package org.fourgeeks.gha.webclient.client.eia;
 
-import java.sql.Date;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
@@ -9,19 +8,16 @@ import org.fourgeeks.gha.domain.ess.WorkingArea;
 import org.fourgeeks.gha.domain.gar.Facility;
 import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.gmh.Eia;
-import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHATopForm;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHACodeItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHADateItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHABpiSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAEiaStateSelectItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHAEiaTypeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAFacilitySelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAObuSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHARoleSelectItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAWorkingAreaSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
@@ -44,61 +40,48 @@ import com.smartgwt.client.widgets.layout.VLayout;
  */
 public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 		EIASelectionListener {
-	private long selectedEiaId;
+	private final int ITEM_WIDTH = 200;
 
-	private GHATextItem serialNumber, fixedAssetIdentifier;
-	private GHACodeItem codeItem;
+	private GHATextItem serialNumber;
+	private GHATextItem fixedAssetIdentifier;
 	private GHAEiaStateSelectItem stateSelectItem;
 	private GHAObuSelectItem obuSelectItem;
+	private GHABpiSelectItem bpiObuSelectItem;
 	private GHARoleSelectItem baseRoleSelectItem;
 	private GHAWorkingAreaSelectItem workingAreaLocationSelectItem;
 	private GHAFacilitySelectItem facilityLocationSelectItem;
-	private GHAEiaTypeSelectItem eiaTypeSelectItem;
-	private GHADateItem acceptationDateItem, installationDateItem;
+
 	private GHAImgButton searchImgButton, deleteImgButton, cleanImgButton;
 	private VLayout sideButtons;
 
 	private boolean activated = false;
 
-	{
-		eiaTypeSelectItem = new GHAEiaTypeSelectItem(
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
-		eiaTypeSelectItem.disable();
+	private Eia selectedEia;
 
-		codeItem = new GHACodeItem(120);
-		codeItem.disable();
+	{
 
 		serialNumber = new GHATextItem(GHAStrings.get("serialNumber-item"),
-				120, false);
+				ITEM_WIDTH, false);
 		fixedAssetIdentifier = new GHATextItem(
-				GHAStrings.get("fixedAssetIdentifier-item"), 120, false);
+				GHAStrings.get("fixedAssetIdentifier-item"), ITEM_WIDTH, false);
 
-		stateSelectItem = new GHAEiaStateSelectItem(
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		stateSelectItem = new GHAEiaStateSelectItem(ITEM_WIDTH);
 		stateSelectItem.disable();
 
-		workingAreaLocationSelectItem = new GHAWorkingAreaSelectItem(
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		workingAreaLocationSelectItem = new GHAWorkingAreaSelectItem(ITEM_WIDTH);
 		workingAreaLocationSelectItem.disable();
 
-		facilityLocationSelectItem = new GHAFacilitySelectItem(
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		facilityLocationSelectItem = new GHAFacilitySelectItem(ITEM_WIDTH);
 		facilityLocationSelectItem.disable();
 
-		obuSelectItem = new GHAObuSelectItem(
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		obuSelectItem = new GHAObuSelectItem(ITEM_WIDTH);
 		obuSelectItem.disable();
 
-		baseRoleSelectItem = new GHARoleSelectItem(
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		bpiObuSelectItem = new GHABpiSelectItem(ITEM_WIDTH);
+		bpiObuSelectItem.disable();
+
+		baseRoleSelectItem = new GHARoleSelectItem(ITEM_WIDTH);
 		baseRoleSelectItem.disable();
-
-		installationDateItem = new GHADateItem("Instalación",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false);
-
-		acceptationDateItem = new GHADateItem("Fecha de Aceptación",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, false);
-
 	}
 
 	/**
@@ -111,12 +94,10 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 		DynamicForm form = new DynamicForm();
 		// form.setWidth("100px");
 		form.setTitleOrientation(TitleOrientation.TOP);
-		form.setNumCols(6);
-		form.setItems(eiaTypeSelectItem, codeItem, serialNumber,
-				fixedAssetIdentifier, stateSelectItem, new GHASpacerItem(),
-				workingAreaLocationSelectItem, facilityLocationSelectItem,
-				obuSelectItem, baseRoleSelectItem, acceptationDateItem,
-				installationDateItem);
+		form.setNumCols(4);
+		form.setItems(serialNumber, fixedAssetIdentifier, stateSelectItem,
+				bpiObuSelectItem, workingAreaLocationSelectItem,
+				facilityLocationSelectItem, obuSelectItem, baseRoleSelectItem);
 
 		// Panel de la Fotografia Equipos
 
@@ -168,17 +149,15 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 	}
 
 	public void activate() {
-		eiaTypeSelectItem.enable();
-		codeItem.enable();
 		serialNumber.enable();
 		fixedAssetIdentifier.enable();
 		stateSelectItem.enable();
 		workingAreaLocationSelectItem.enable();
 		facilityLocationSelectItem.enable();
 		obuSelectItem.enable();
+		bpiObuSelectItem.enable();
 		baseRoleSelectItem.enable();
-		installationDateItem.enable();
-		acceptationDateItem.enable();
+
 		cleanImgButton.enable();
 		sideButtons.removeMember(deleteImgButton);
 		sideButtons.addMember(searchImgButton, 0);
@@ -192,20 +171,19 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 	}
 
 	public void deactivate() {
-		eiaTypeSelectItem.disable();
-		codeItem.disable();
 		serialNumber.disable();
 		fixedAssetIdentifier.disable();
 		stateSelectItem.disable();
 		workingAreaLocationSelectItem.disable();
 		facilityLocationSelectItem.disable();
 		obuSelectItem.disable();
+		bpiObuSelectItem.disable();
 		baseRoleSelectItem.disable();
-		installationDateItem.disable();
-		acceptationDateItem.disable();
+
 		cleanImgButton.disable();
 		sideButtons.removeMember(searchImgButton);
 		sideButtons.addMember(deleteImgButton, 0);
+
 		activated = false;
 	}
 
@@ -215,7 +193,7 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 					@Override
 					public void execute(Boolean value) {
 						if (value) {
-							EIAModel.delete(selectedEiaId,
+							EIAModel.delete(selectedEia.getId(),
 									new GHAAsyncCallback<Boolean>() {
 										@Override
 										public void onSuccess(Boolean result) {
@@ -236,20 +214,21 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 	@Override
 	public void search() {
 		super.search();
+		Obu obu = new Obu();
 		Eia eia = new Eia();
 		eia.setState(null);
 
-		if (eiaTypeSelectItem.getValue() != null)
-			eia.setEiaType(new EiaType(eiaTypeSelectItem.getValueAsString()));
-		if (codeItem.getValue() != null)
-			eia.setCode(codeItem.getValueAsString());
 		if (serialNumber.getValue() != null)
 			eia.setSerialNumber(serialNumber.getValueAsString());
 		if (fixedAssetIdentifier != null)
 			eia.setFixedAssetIdentifier(fixedAssetIdentifier.getValueAsString());
 		if (obuSelectItem.getValue() != null) {
-			Obu obu = new Obu();
-			obu.setId(Integer.valueOf(obuSelectItem.getValueAsString()));
+			obu.setId(Long.valueOf(obuSelectItem.getValueAsString()));
+			eia.setObu(obu);
+		}
+		if (bpiObuSelectItem.getValue() != null) {
+			Bpi bpi = new Bpi(Long.valueOf(bpiObuSelectItem.getValueAsString()));
+			obu.setBpi(bpi);
 			eia.setObu(obu);
 		}
 		if (baseRoleSelectItem.getValue() != null) {
@@ -262,12 +241,6 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 			eia.setState(EiaStateEnum.valueOf(stateSelectItem
 					.getValueAsString()));
 		}
-		if (acceptationDateItem.getValue() != null)
-			eia.setAcceptationDate(new Date(acceptationDateItem
-					.getValueAsDate().getTime()));
-		if (installationDateItem.getValue() != null)
-			eia.setInstallationDate(new Date(installationDateItem
-					.getValueAsDate().getTime()));
 		if (facilityLocationSelectItem.getValue() != null) {
 			eia.setWorkingArea(null);
 			eia.setFacility(new Facility(Integer
@@ -279,7 +252,6 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 					.valueOf(workingAreaLocationSelectItem.getValueAsString())));
 		}
 		search(eia);
-
 	}
 
 	public void search(Eia eia) {
@@ -294,26 +266,22 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 	@Override
 	public void select(Eia eia) {
 		super.search();
-		this.selectedEiaId = eia.getId();
+		this.selectedEia = eia;
 
-		if (eia.getEiaType() != null)
-			eiaTypeSelectItem.setValue(eia.getEiaType().getCode());
-		if (eia.getCode() != null)
-			codeItem.setValue(eia.getCode());
 		if (eia.getSerialNumber() != null)
 			serialNumber.setValue(eia.getSerialNumber());
 		if (eia.getFixedAssetIdentifier() != null)
 			fixedAssetIdentifier.setValue(eia.getFixedAssetIdentifier());
-		if (eia.getObu() != null)
-			obuSelectItem.setValue(eia.getObu().getId());
+		if (eia.getObu() != null) {
+			Obu obu = eia.getObu();
+			obuSelectItem.setValue(obu.getId());
+			if (obu.getBpi() != null)
+				bpiObuSelectItem.setValue(obu.getBpi().getId());
+		}
 		if (eia.getResponsibleRole() != null)
 			baseRoleSelectItem.setValue(eia.getResponsibleRole().getId());
 		if (eia.getState() != null)
 			stateSelectItem.setValue(eia.getState().name());
-		if (eia.getAcceptationDate() != null)
-			acceptationDateItem.setValue(eia.getAcceptationDate());
-		if (eia.getInstallationDate() != null)
-			installationDateItem.setValue(eia.getInstallationDate());
 		if (eia.getWorkingArea() != null) {
 			workingAreaLocationSelectItem
 					.setValue(eia.getWorkingArea().getId());
@@ -332,17 +300,13 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 		if (!this.activated)
 			return;
 
-		eiaTypeSelectItem.clearValue();
-		codeItem.clearValue();
 		serialNumber.clearValue();
 		fixedAssetIdentifier.clearValue();
 		stateSelectItem.clearValue();
 		workingAreaLocationSelectItem.clearValue();
 		facilityLocationSelectItem.clearValue();
 		obuSelectItem.clearValue();
+		bpiObuSelectItem.clearValue();
 		baseRoleSelectItem.clearValue();
-		installationDateItem.clearValue();
-		acceptationDateItem.clearValue();
-
 	}
 }

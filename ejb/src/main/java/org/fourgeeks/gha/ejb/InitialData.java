@@ -1591,6 +1591,8 @@ public class InitialData {
 						"facility-select-item", "Instalación"));
 				em.persist(new UiString(LanguageEnum.ES, "obu-select-item",
 						"Departamento Responsable"));
+				em.persist(new UiString(LanguageEnum.ES, "bpi-select-item",
+						"Institución"));
 				em.persist(new UiString(LanguageEnum.ES, "role-select-item",
 						"Rol Responsable"));
 				em.persist(new UiString(LanguageEnum.ES, "form-errors",
