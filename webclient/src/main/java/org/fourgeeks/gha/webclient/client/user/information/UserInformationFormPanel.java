@@ -47,7 +47,7 @@ public class UserInformationFormPanel extends GHAVerticalLayout implements
 	 */
 	public UserInformationFormPanel(UserTab tab) {
 		activateForm(false);
-		tab.addClosableHandler(this);
+		tab.addClosableListener(this);
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
 				"../resources/icons/save.png", new ClickHandler() {

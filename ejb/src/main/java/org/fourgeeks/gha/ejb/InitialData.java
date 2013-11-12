@@ -266,6 +266,10 @@ public class InitialData {
 						"instanceLogon-getAll-fail",
 						"Hubo un fallo en la búsqueda de todos los InstanceLogon"));
 
+				// material
+				em.persist(new GHAMessage(LanguageEnum.ES, "brand-not-null",
+						"Debe indicar la marca"));
+
 				// ////>>>>>>>>>>>>>>>>>>>>>>>>>>>>HUMANIZACION HASTA ACA.
 
 				em.persist(new GHAMessage(LanguageEnum.ES,
@@ -1468,6 +1472,8 @@ public class InitialData {
 		} catch (NoResultException e) {
 			try {
 				logger.info("Creating uistrings test data");
+				em.persist(new UiString(LanguageEnum.ES, "connection-problem",
+						"Imposible conectar al servidor"));
 				em.persist(new UiString(LanguageEnum.ES, "yes", "Si"));
 				em.persist(new UiString(LanguageEnum.ES, "no", "No"));
 				em.persist(new UiString(LanguageEnum.ES, "new-user",
@@ -1620,8 +1626,8 @@ public class InitialData {
 				em.persist(new UiString(LanguageEnum.ES, "empty-material-grid",
 						"No existen Materiales para mostrar"));
 
-				em.persist(new UiString(LanguageEnum.ES, "results",
-						"Resultados"));
+				em.persist(new UiString(LanguageEnum.ES, "results", "Registros"));
+				em.persist(new UiString(LanguageEnum.ES, "result", "Registro"));
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error Creating uistrings test data", e1);

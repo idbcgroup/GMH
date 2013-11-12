@@ -55,24 +55,24 @@ public class UserTab extends GHATab implements UserSelectionListener,
 
 		resultSet = new UserResultSet();
 		resultSet.setVisible(false);
-		addHideableHandler(resultSet);
-		addClosableHandler(resultSet);
+		addHideableListener(resultSet);
+		addClosableListener(resultSet);
 		resultSet.addUserSelectionListener(this);
 
 		topForm = new UserTopForm(resultSet, this);
 		topForm.activate();
-		addClosableHandler(topForm);
-		addClosableHandler(topForm);
+		addClosableListener(topForm);
+		addClosableListener(topForm);
 		addUserSelectionListener(topForm);
 
 		internalTabSet = new UserInternalTabset(this);
-		addHideableHandler(internalTabSet);
-		addClosableHandler(internalTabSet);
+		addHideableListener(internalTabSet);
+		addClosableListener(internalTabSet);
 		addUserSelectionListener(internalTabSet);
 
 		addForm = new UserAddForm(GHAStrings.get("new-user"));
-		addHideableHandler(addForm);
-		addClosableHandler(addForm);
+		addHideableListener(addForm);
+		addClosableListener(addForm);
 		addForm.addUserSelectionListener(this);
 
 		verticalPanel.addMember(topForm);

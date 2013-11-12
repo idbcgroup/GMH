@@ -43,14 +43,14 @@ public class MaintenancePlanTopSection extends HLayout implements
 		super();
 		GHAUiHelper.addGHAResizeHandler(this);
 
-		tab.addClosableHandler(this);
+		tab.addClosableListener(this);
 		this.maintenancePlanTab = tab;
 
 		// register tab as search listener, and topsection as tab listener
 		maintenancePlanSearchForm.addMaintenancePlanSelectionListener(tab);
 		tab.addMaintenancePlanSelectionListener(this);
-		tab.addHideableHandler(maintenancePlanSearchForm);
-		tab.addClosableHandler(maintenancePlanSearchForm);
+		tab.addHideableListener(maintenancePlanSearchForm);
+		tab.addClosableListener(maintenancePlanSearchForm);
 
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		setWidth100();

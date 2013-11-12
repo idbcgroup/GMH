@@ -8,11 +8,11 @@ public interface ClosableProducer {
 	/**
 	 * @param closableListener
 	 */
-	public void addClosableHandler(ClosableListener closableListener);
+	public void addClosableListener(ClosableListener closableListener);
 
 	/**
 	 * @param closableListener
 	 */
-	public void removeClosableHandler(ClosableListener closableListener);
+	public void removeClosableListener(ClosableListener closableListener);
 
 }

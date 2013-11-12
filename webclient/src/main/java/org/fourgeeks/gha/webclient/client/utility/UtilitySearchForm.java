@@ -1,13 +1,13 @@
 package org.fourgeeks.gha.webclient.client.utility;
 
 import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
-import org.fourgeeks.gha.webclient.client.materialcategory.MaterialCategorySearchForm;
+import org.fourgeeks.gha.webclient.client.material.MaterialSearchForm;
 
 /**
  * @author alacret
  * 
  */
-public class UtilitySearchForm extends MaterialCategorySearchForm {
+public class UtilitySearchForm extends MaterialSearchForm {
 
 	/**
 	 * @param title
@@ -15,13 +15,6 @@ public class UtilitySearchForm extends MaterialCategorySearchForm {
 	 */
 	public UtilitySearchForm(String title) {
 		super(title);
-		typeSelectItem.setValue(MaterialTypeEnum.UTILITARIO.name());
-		typeSelectItem.setDisabled(true);
-	}
-
-	@Override
-	public void clean() {
-		super.clean();
-		typeSelectItem.setValue(MaterialTypeEnum.UTILITARIO.name());
+		fixedMaterial = MaterialTypeEnum.UTILITARIO;
 	}
 }

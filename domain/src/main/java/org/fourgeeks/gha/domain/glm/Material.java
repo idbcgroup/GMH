@@ -8,6 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.validation.constraints.NotNull;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.gmh.Brand;
@@ -33,6 +34,7 @@ public class Material extends AbstractEntity {
 	@JoinColumn(name = "materialCategoryFk", nullable = false)
 	private MaterialCategory materialCategory;
 
+	@NotNull(message = "brand-not-null")
 	@ManyToOne
 	@JoinColumn(name = "brandFk", nullable = false)
 	private Brand brand;

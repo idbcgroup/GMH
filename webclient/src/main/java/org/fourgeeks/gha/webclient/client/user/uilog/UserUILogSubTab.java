@@ -21,8 +21,8 @@ public class UserUILogSubTab extends GHASubTab implements UserSelectionListener 
 		setDisabled(true);
 		tab.addUserSelectionListener(this);
 		userUiLogGridPanel = new UserUILogGridPanel(this);
-		addClosableHandler(userUiLogGridPanel);
-		addHideableHandler(userUiLogGridPanel);
+		addClosableListener(userUiLogGridPanel);
+		addHideableListener(userUiLogGridPanel);
 
 		setPane(userUiLogGridPanel);
 	}

@@ -14,8 +14,8 @@ public class EIASpareSubTab extends GHASubTab implements EIASelectionListener{
 		setDisabled(true);
 		tab.addEiaSelectionListener(this);
 		eiaSpareGridPanel = new EIASpareGridPanel();
-		addClosableHandler(eiaSpareGridPanel);
-		addHideableHandler(eiaSpareGridPanel);
+		addClosableListener(eiaSpareGridPanel);
+		addHideableListener(eiaSpareGridPanel);
 		
 		setPane(eiaSpareGridPanel);
 	}

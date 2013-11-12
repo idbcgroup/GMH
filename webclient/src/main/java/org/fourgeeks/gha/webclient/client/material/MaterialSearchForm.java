@@ -18,6 +18,7 @@ import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASearchForm;
 
+import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -35,11 +36,11 @@ public class MaterialSearchForm extends GHASearchForm<Material> implements
 
 	private GHATextItem codeTextItem, nameTextItem, descriptionTextItem,
 			modelTextItem, extCodeTextItem;
+	protected MaterialTypeEnum fixedMaterial = MaterialTypeEnum.MATERIAL;
 	private MaterialResultSet resultSet = new MaterialResultSet();
 	private final DynamicForm form = new DynamicForm();
 
 	{
-
 		//
 		codeTextItem = new GHACodeItem(300);
 		nameTextItem = new GHATextItem(GHAStrings.get("name"), 300);
@@ -48,11 +49,12 @@ public class MaterialSearchForm extends GHASearchForm<Material> implements
 		descriptionTextItem = new GHATextItem(GHAStrings.get("description"),
 				600);
 		descriptionTextItem.setColSpan(2);
-		//
+		// selects
+		// typeSelectItem = new GHASelectItem(GHAStrings.get("type"), 300);
 		resultSet.addMaterialSelectionListener(new MaterialSelectionListener() {
+
 			@Override
 			public void select(Material material) {
-				notifyMaterial(material);
 				hide();
 			}
 		});
@@ -74,6 +76,7 @@ public class MaterialSearchForm extends GHASearchForm<Material> implements
 		modelTextItem.addKeyUpHandler(searchKeyUpHandler);
 		extCodeTextItem.addKeyUpHandler(searchKeyUpHandler);
 		descriptionTextItem.addKeyUpHandler(searchKeyUpHandler);
+		// typeSelectItem.addKeyUpHandler(searchKeyUpHandler);
 		// ////////////////////////////
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
@@ -96,13 +99,14 @@ public class MaterialSearchForm extends GHASearchForm<Material> implements
 		formLayout.setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT
 				+ "px");
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
-
 		resultSet.setHeight(resultSet.getHeight() - 28);
 
 		addMembers(formLayout,
 				GHAUiHelper
 						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
 								+ "px"), resultSet);
+
+		fillSelects();
 	}
 
 	@Override
@@ -119,8 +123,24 @@ public class MaterialSearchForm extends GHASearchForm<Material> implements
 		resultSet.clean();
 	}
 
+	private void fillSelects() {
+		// typeSelectItem.setValueMap(MaterialTypeEnum.toValueMap());
+	}
+
 	@Override
 	public void notifyMaterial(Material material) {
+	}
+
+	@Override
+	public void onResize(ResizeEvent event) {
+		super.onResize(event);
+		resultSet.setHeight(resultSet.getHeight() - 35);
+	}
+
+	@Override
+	public void open() {
+		resultSet.setVisible(true);
+		super.open();
 	}
 
 	@Override
@@ -141,7 +161,7 @@ public class MaterialSearchForm extends GHASearchForm<Material> implements
 		// if (typeSelectItem.getValue() != null)
 		// materialCategory.setType(MaterialTypeEnum.valueOf(typeSelectItem
 		// .getValueAsString()));
-		materialCategory.setType(MaterialTypeEnum.MATERIAL);
+		materialCategory.setType(fixedMaterial);
 		material.setMaterialCategory(materialCategory);
 		search(material);
 	}
@@ -162,8 +182,9 @@ public class MaterialSearchForm extends GHASearchForm<Material> implements
 					for (AbstractEntity abstractEntity : tmpList)
 						newTmpList.add((Material) abstractEntity);
 					newList = newTmpList;
-				} else
+				} else {
 					newList = results;
+				}
 
 				resultSet.setRecords(newList, false);
 			}

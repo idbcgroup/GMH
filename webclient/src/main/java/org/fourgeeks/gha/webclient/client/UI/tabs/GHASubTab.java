@@ -27,8 +27,8 @@ public class GHASubTab extends Tab implements ClosableListener,
 	 * @param tab
 	 */
 	public GHASubTab(String title, GHATab tab) {
-		tab.addHideableHandler(this);
-		tab.addClosableHandler(this);
+		tab.addHideableListener(this);
+		tab.addClosableListener(this);
 		setTitle(title);
 		setPaneMargin(0);
 		addTabDeselectedHandler(new TabDeselectedHandler() {
@@ -55,14 +55,14 @@ public class GHASubTab extends Tab implements ClosableListener,
 	/**
 	 * @param closable
 	 */
-	public void addClosableHandler(ClosableListener closable) {
+	public void addClosableListener(ClosableListener closable) {
 		closables.add(closable);
 	}
 
 	/**
 	 * @param hideable
 	 */
-	public void addHideableHandler(HideableListener hideable) {
+	public void addHideableListener(HideableListener hideable) {
 		hideables.add(hideable);
 	}
 
@@ -83,12 +83,12 @@ public class GHASubTab extends Tab implements ClosableListener,
 	}
 
 	@Override
-	public void removeHideableHandler(HideableListener hideableListener) {
+	public void removeHideableListener(HideableListener hideableListener) {
 		hideables.remove(hideableListener);
 	}
 
 	@Override
-	public void removeClosableHandler(ClosableListener closableListener) {
+	public void removeClosableListener(ClosableListener closableListener) {
 		closables.remove(closableListener);
 	}
 }

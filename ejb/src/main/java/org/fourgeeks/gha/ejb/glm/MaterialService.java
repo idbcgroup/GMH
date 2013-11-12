@@ -283,6 +283,16 @@ public class MaterialService extends GHAEJBExceptionImpl implements
 	@Override
 	public Material save(Material material) throws GHAEJBException {
 		try {
+			MaterialCategory category = material.getMaterialCategory();
+			if (category != null) { // TODO revisar con Carlos
+				if (category.getCode() != null
+						&& !category.getCode().equals("")) {
+					category = em.merge(category);
+				} else {
+					// if this material does not have a valid category
+					throw new Exception();
+				}
+			}
 			em.persist(material);
 			em.flush();
 			return em.find(Material.class, material.getId());

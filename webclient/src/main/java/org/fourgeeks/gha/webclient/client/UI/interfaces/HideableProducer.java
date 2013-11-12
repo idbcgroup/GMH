@@ -8,10 +8,10 @@ public interface HideableProducer {
 	/**
 	 * @param hideableListener
 	 */
-	public void addHideableHandler(HideableListener hideableListener);
+	public void addHideableListener(HideableListener hideableListener);
 
 	/**
 	 * @param hideableListener
 	 */
-	public void removeHideableHandler(HideableListener hideableListener);
+	public void removeHideableListener(HideableListener hideableListener);
 }
