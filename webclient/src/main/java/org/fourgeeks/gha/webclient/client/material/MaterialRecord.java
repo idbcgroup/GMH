@@ -1,11 +1,10 @@
 package org.fourgeeks.gha.webclient.client.material;
 
 import org.fourgeeks.gha.domain.glm.Material;
-import org.fourgeeks.gha.domain.glm.MaterialCategory;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 
 /**
- * @author emiliotWrapper class for represent a Material as a Record for grid
+ * @author emiliot Wrapper class for represent a Material as a Record for grid
  *         components
  * 
  */
@@ -17,14 +16,13 @@ public class MaterialRecord extends GHAGridRecord<Material> {
 	 */
 	public MaterialRecord(Material material) {
 		this.material = material;
-		final MaterialCategory materialCategory = material
-				.getMaterialCategory();
 
-		setAttribute("code", materialCategory.getCode());
-		setAttribute("name", materialCategory.getName());
-		setAttribute("description", materialCategory.getDescription());
-		setAttribute("model", materialCategory.getModel());
-		setAttribute("extCode", materialCategory.getExternalCode());
+		setAttribute("code", material.getCode());
+		setAttribute("name", material.getName());
+		setAttribute("description", material.getDescription());
+		setAttribute("model", material.getModel());
+		setAttribute("extCode", material.getExternalCode());
+		setAttribute("brand", material.getBrand());
 
 		// if (materialCategory.getType() != null)
 		// setAttribute("type", materialCategory.getType().toString());

@@ -9,17 +9,17 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASearchForm;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
-import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
-import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.form.fields.events.KeyUpEvent;
 import com.smartgwt.client.widgets.form.fields.events.KeyUpHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
@@ -38,28 +38,22 @@ public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan> im
 	private GHATextItem nameItem, descriptionItem, frequencyItem;
 	private GHASelectItem periodOfTimeSelectItem;
 
-	private final DynamicForm form;
+	private final GHADynamicForm form;
 	private MaintenancePlanAddForm addForm;
 	private List<MaintenancePlanSelectionListener> listeners;
 
 	{
-		form = new DynamicForm();
+		form = new GHADynamicForm(920,4);
 		
 		listeners = new LinkedList<MaintenancePlanSelectionListener>();
 		
 		nameItem = new GHATextItem("Nombre");
-		nameItem.setValue("PRUEBA!");
-//		nameItem.setWidth("400px");
 		nameItem.setLength(100);
 		frequencyItem = new GHATextItem("Frecuencia");
-//		frequencyItem.setWidth("*");
 		periodOfTimeSelectItem = new GHASelectItem("Periodo de Tiempo");
-//		periodOfTimeSelectItem.setWidth("*");
 		
 		descriptionItem = new GHATextItem("Descripción"/*, 420*/);
 		descriptionItem.setColSpan(3);
-//		descriptionItem.setWidth("*");
-		
 		
 		grid = new MaintenancePlanGrid();
 
@@ -72,17 +66,7 @@ public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan> im
 	public MaintenancePlanSearchForm(String title) {
 		super(title);
 		
-		form.setWidth(920);
-		form.setTitleOrientation(TitleOrientation.TOP);
-		form.setNumCols(3);
-		form.setWrapItemTitles(false);
-//		form.setClipItemTitles(true);
-//		form.setFixedColWidths(true);
-		form.setColWidths("200px","200px","200px");
-
-//		nameItem.setWidth("400px");
-		
-		form.setItems(nameItem, frequencyItem, periodOfTimeSelectItem,
+		form.setItems(nameItem, frequencyItem, periodOfTimeSelectItem,new GHASpacerItem(),
 					  descriptionItem);
 
 		// Event Handlers

@@ -1,13 +1,13 @@
 package org.fourgeeks.gha.webclient.client.utility;
 
 import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
-import org.fourgeeks.gha.webclient.client.materialcategory.MaterialCategoryAddForm;
+import org.fourgeeks.gha.webclient.client.material.MaterialAddForm;
 
 /**
  * @author alacret
  * 
  */
-public class UtilityAddForm extends MaterialCategoryAddForm {
+public class UtilityAddForm extends MaterialAddForm {
 
 	/**
 	 * @param title

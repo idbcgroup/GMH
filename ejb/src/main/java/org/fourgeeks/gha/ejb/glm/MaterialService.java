@@ -13,14 +13,12 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
 import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.glm.Material;
-import org.fourgeeks.gha.domain.glm.MaterialCategory;
 import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
@@ -40,8 +38,7 @@ public class MaterialService extends GHAEJBExceptionImpl implements
 			.getName());
 
 	private static Predicate buildFilters(Material material,
-			CriteriaBuilder cb, Root<Material> root,
-			Join<Material, MaterialCategory> category) {
+			CriteriaBuilder cb, Root<Material> root) {
 		Predicate predicate = cb.conjunction();
 
 		if (material.getBrand() != null) {
@@ -50,64 +47,51 @@ public class MaterialService extends GHAEJBExceptionImpl implements
 					cb.equal(root.<Brand> get("brand"), p));
 		}
 
-		if (material.getMaterialCategory() != null) {
-			final MaterialCategory materialCategory = material
-					.getMaterialCategory();
+		if (material.getType() != null) {
+			ParameterExpression<MaterialTypeEnum> p = cb.parameter(
+					MaterialTypeEnum.class, "type");
+			predicate = cb.and(predicate,
+					cb.equal(root.<MaterialTypeEnum> get("type"), p));
+		}
 
-			if (materialCategory.getType() != null) {
-				ParameterExpression<MaterialTypeEnum> p = cb.parameter(
-						MaterialTypeEnum.class, "type");
-				predicate = cb.and(predicate,
-						cb.equal(category.<MaterialTypeEnum> get("type"), p));
-			}
+		if (material.getDescription() != null) {
+			ParameterExpression<String> p = cb.parameter(String.class,
+					"description");
+			predicate = cb.and(predicate,
+					cb.like(cb.lower(root.<String> get("description")), p));
+		}
 
-			if (materialCategory.getDescription() != null) {
-				ParameterExpression<String> p = cb.parameter(String.class,
-						"description");
-				predicate = cb.and(predicate, cb.like(
-						cb.lower(category.<String> get("description")), p));
-			}
+		if (material.getName() != null) {
+			ParameterExpression<String> p = cb.parameter(String.class, "name");
+			predicate = cb.and(predicate,
+					cb.like(cb.lower(root.<String> get("name")), p));
+		}
 
-			if (materialCategory.getName() != null) {
-				ParameterExpression<String> p = cb.parameter(String.class,
-						"name");
-				predicate = cb.and(predicate,
-						cb.like(cb.lower(category.<String> get("name")), p));
-			}
+		if (material.getCode() != null) {
+			ParameterExpression<String> p = cb.parameter(String.class, "code");
+			predicate = cb.and(predicate,
+					cb.equal(root.<String> get("code"), p));
+		}
 
-			if (materialCategory.getCode() != null) {
-				ParameterExpression<String> p = cb.parameter(String.class,
-						"code");
-				predicate = cb.and(predicate,
-						cb.equal(category.<String> get("code"), p));
-			}
+		if (material.getExternalCode() != null) {
+			ParameterExpression<String> p = cb.parameter(String.class,
+					"extCode");
+			predicate = cb.and(predicate,
+					cb.equal(root.<String> get("extCode"), p));
+		}
 
-			if (materialCategory.getExternalCode() != null) {
-				ParameterExpression<String> p = cb.parameter(String.class,
-						"extCode");
-				predicate = cb.and(predicate,
-						cb.equal(category.<String> get("extCode"), p));
-			}
-
-			if (materialCategory.getModel() != null) {
-				ParameterExpression<String> p = cb.parameter(String.class,
-						"model");
-				predicate = cb.and(predicate,
-						cb.like(cb.lower(category.<String> get("model")), p));
-			}
+		if (material.getModel() != null) {
+			ParameterExpression<String> p = cb.parameter(String.class, "model");
+			predicate = cb.and(predicate,
+					cb.like(cb.lower(root.<String> get("model")), p));
 		}
 
 		return predicate;
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.fourgeeks.gha.ejb.gmh.MaterialServiceRemote#delete(long)
-	 */
 	@Override
-	public void delete(long Id) throws GHAEJBException {
+	public void delete(String Id) throws GHAEJBException {
 		try {
 			Material entity = em.find(Material.class, Id);
 			em.remove(entity);
@@ -118,13 +102,8 @@ public class MaterialService extends GHAEJBExceptionImpl implements
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.fourgeeks.gha.ejb.gmh.MaterialServiceRemote#find(long)
-	 */
 	@Override
-	public Material find(long Id) throws GHAEJBException {
+	public Material find(String Id) throws GHAEJBException {
 		try {
 			return em.find(Material.class, Id);
 		} catch (Exception e) {
@@ -147,12 +126,10 @@ public class MaterialService extends GHAEJBExceptionImpl implements
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<Material> cQuery = cb.createQuery(Material.class);
 			Root<Material> root = cQuery.from(Material.class);
-			Join<Material, MaterialCategory> category = root
-					.join("materialCategory");
 			cQuery.select(root);
-			cQuery.orderBy(cb.asc(root.<String> get("id")));
+			cQuery.orderBy(cb.asc(root.<String> get("name")));
 
-			Predicate criteria = buildFilters(entity, cb, root, category);
+			Predicate criteria = buildFilters(entity, cb, root);
 			TypedQuery<Material> q;
 
 			if (criteria.getExpressions().size() <= 0) {
@@ -164,38 +141,29 @@ public class MaterialService extends GHAEJBExceptionImpl implements
 				if (entity.getBrand() != null) {
 					q.setParameter("brand", entity.getBrand());
 				}
-				if (entity.getMaterialCategory() != null) {
-					final MaterialCategory materialCategory = entity
-							.getMaterialCategory();
 
-					if (materialCategory.getCode() != null) {
-						q.setParameter("code", entity.getMaterialCategory()
-								.getCode());
-					}
-					if (materialCategory.getExternalCode() != null) {
-						q.setParameter("extCode", entity.getMaterialCategory()
-								.getExternalCode());
-					}
-					if (materialCategory.getType() != null) {
-						q.setParameter("type", materialCategory.getType());
-					}
-					if (materialCategory.getDescription() != null) {
-						q.setParameter("description", "%"
-								+ materialCategory.getDescription()
-										.toLowerCase() + "%");
-					}
-					if (materialCategory.getName() != null) {
-						q.setParameter("name", "%"
-								+ materialCategory.getName().toLowerCase()
-								+ "%");
-					}
-					if (materialCategory.getModel() != null) {
-						q.setParameter("model", "%"
-								+ materialCategory.getModel().toLowerCase()
-								+ "%");
-					}
-
+				if (entity.getCode() != null) {
+					q.setParameter("code", entity.getCode());
 				}
+				if (entity.getExternalCode() != null) {
+					q.setParameter("extCode", entity.getExternalCode());
+				}
+				if (entity.getType() != null) {
+					q.setParameter("type", entity.getType());
+				}
+				if (entity.getDescription() != null) {
+					q.setParameter("description", "%"
+							+ entity.getDescription().toLowerCase() + "%");
+				}
+				if (entity.getName() != null) {
+					q.setParameter("name", "%" + entity.getName().toLowerCase()
+							+ "%");
+				}
+				if (entity.getModel() != null) {
+					q.setParameter("model", "%"
+							+ entity.getModel().toLowerCase() + "%");
+				}
+
 			}
 			return q.getResultList();
 		} catch (Exception e) {
@@ -243,9 +211,8 @@ public class MaterialService extends GHAEJBExceptionImpl implements
 	@Override
 	public List<Material> getAllUtilities() throws GHAEJBException {
 		try {
-			return em
-					.createNamedQuery("Material.getByType", Material.class)
-					.setParameter("materialTypeId", MaterialTypeEnum.UTILITARIO)
+			return em.createNamedQuery("Material.getByType", Material.class)
+					.setParameter("type", MaterialTypeEnum.UTILITARIO)
 					.getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE,
@@ -260,9 +227,8 @@ public class MaterialService extends GHAEJBExceptionImpl implements
 	public List<Material> getAllUtilities(int offset, int size)
 			throws GHAEJBException {
 		try {
-			return em
-					.createNamedQuery("Material.getByType", Material.class)
-					.setParameter("materialTypeId", MaterialTypeEnum.UTILITARIO)
+			return em.createNamedQuery("Material.getByType", Material.class)
+					.setParameter("type", MaterialTypeEnum.UTILITARIO)
 					.setFirstResult(offset).setMaxResults(size).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE,
@@ -283,9 +249,9 @@ public class MaterialService extends GHAEJBExceptionImpl implements
 	@Override
 	public Material save(Material material) throws GHAEJBException {
 		try {
-			em.persist(material);
+			Material res = em.merge(material);
 			em.flush();
-			return em.find(Material.class, material.getId());
+			return res;
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving Material ", e);
 			throw super.generateGHAEJBException("material-save-fail",

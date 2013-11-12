@@ -9,7 +9,6 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
 import org.fourgeeks.gha.domain.glm.Material;
-import org.fourgeeks.gha.domain.glm.MaterialCategory;
 import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
@@ -63,6 +62,7 @@ public class MaterialForm extends GHAVerticalLayout implements
 		typeItem = new GHASelectItem(GHAStrings.get("type"), 300, true,
 				changedHandler);
 		brandItem = new GHABrandSelectItem(300);
+
 		modelItem = new GHATextItem(GHAStrings.get("model"), 300, false,
 				changedHandler);
 		descriptionItem = new GHATextAreaItem(GHAStrings.get("description"),
@@ -113,30 +113,27 @@ public class MaterialForm extends GHAVerticalLayout implements
 					.getValueAsString())));
 		}
 
-		final MaterialCategory materialCategory = new MaterialCategory();
-		materialCategory.setCode(codeItem.getValueAsString());
-		materialCategory.setExternalCode(externalCodeItem.getValueAsString());
-		materialCategory.setName(nameItem.getValueAsString());
-		materialCategory.setDescription(descriptionItem.getValueAsString());
+		material.setCode(codeItem.getValueAsString());
+		material.setExternalCode(externalCodeItem.getValueAsString());
+		material.setName(nameItem.getValueAsString());
+		material.setDescription(descriptionItem.getValueAsString());
 		if (typeItem.getValue() != null)
-			materialCategory.setType(MaterialTypeEnum.valueOf(typeItem
+			material.setType(MaterialTypeEnum.valueOf(typeItem
 					.getValueAsString()));
-		materialCategory.setModel(modelItem.getValueAsString());
-		Set<ConstraintViolation<MaterialCategory>> violations = validator
-				.validate(materialCategory);
+		material.setModel(modelItem.getValueAsString());
 
-		// TODO: VALIDATE MATERIAL
-		// TODO: ADD BRAND TO THE MATERIAL
-		material.setMaterialCategory(materialCategory);
+		Set<ConstraintViolation<Material>> violations = validator
+				.validate(material);
 
 		if (form.validate() && violations.isEmpty())
 			return material;
 		else {
 			List<String> violationsList = new ArrayList<String>();
-			for (Iterator<ConstraintViolation<MaterialCategory>> it = violations
+			for (Iterator<ConstraintViolation<Material>> it = violations
 					.iterator(); it.hasNext();) {
 				violationsList.add(it.next().getMessage());
 			}
+
 			GHANotification.alert(violationsList);
 		}
 		return null;
@@ -200,21 +197,19 @@ public class MaterialForm extends GHAVerticalLayout implements
 	 */
 	public void setMaterial(Material material) {
 		this.updateEntity = material;
-		final MaterialCategory materialCategory = material
-				.getMaterialCategory();
 
-		codeItem.setValue(materialCategory.getCode());
-		externalCodeItem.setValue(materialCategory.getExternalCode());
-		nameItem.setValue(materialCategory.getName());
-		descriptionItem.setValue(materialCategory.getDescription());
+		codeItem.setValue(material.getCode());
+		externalCodeItem.setValue(material.getExternalCode());
+		nameItem.setValue(material.getName());
+		descriptionItem.setValue(material.getDescription());
 
-		if (materialCategory.getType() != null)
-			typeItem.setValue(materialCategory.getType().name());
+		if (material.getType() != null)
+			typeItem.setValue(material.getType().name());
 
 		if (typeItem.getValue() != null)
-			materialCategory.setType(MaterialTypeEnum.valueOf(typeItem
+			material.setType(MaterialTypeEnum.valueOf(typeItem
 					.getValueAsString()));
-		materialCategory.setModel(modelItem.getValueAsString());
+		material.setModel(modelItem.getValueAsString());
 	}
 
 	/**

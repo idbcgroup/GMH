@@ -631,24 +631,22 @@ public class InitialData {
 	}
 
 	private void materialTestData() {
-		String query = "SELECT t from Material t WHERE t.id = 1 ";
+		String query = "SELECT t from Material t WHERE t.code= 'material-test-001'";
 		try {
 			em.createQuery(query).getSingleResult();
 		} catch (NoResultException e) {
 			try {
 				logger.info("creating test data : material");
-				List<MaterialCategory> categories = em.createNamedQuery(
-						"MaterialCategory.getAll", MaterialCategory.class)
-						.getResultList();
-				Brand brand = em.find(Brand.class, 1L);
-				for (MaterialCategory category : categories) {
-					for (int j = 0; j < 3; j++) {
-						Material material = new Material();
-						material.setMaterialCategory(category);
-						material.setBrand(brand);
-						em.persist(material);
-						em.flush();
-					}
+				String names[] = { "aguja", "sutura", "inyectadora", "algodón",
+						"alcohol" };
+				int i = 1;
+				for (String name : names) {
+					Material next = new Material();
+					next.setName(name);
+					next.setCode("material-test-00" + i++);
+					next.setDescription(name);
+					next.setType(MaterialTypeEnum.values()[i % 3]);
+					em.persist(next);
 				}
 			} catch (Exception e1) {
 				logger.log(Level.INFO,

@@ -63,9 +63,15 @@ public abstract class GHAResultSet<T> extends GHAVerticalLayout implements
 
 	protected void showResultsSize(List<?> results, boolean isCleaning) {
 		String title = GHAStrings.get("search-results");
-		if (!isCleaning)
-			title = title + ": " + (results == null ? 0 : results.size()) + " "
-					+ GHAStrings.get("results");
+		if (!isCleaning) {
+			int res = results == null ? 0 : results.size();
+			title = title
+					+ ": "
+					+ res
+					+ " "
+					+ (res == 1 ? GHAStrings.get("result") : GHAStrings
+							.get("results"));
+		}
 
 		searchResultsLabel.setContents(title);
 		searchResultsLabel.redraw();
