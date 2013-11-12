@@ -3,9 +3,8 @@ package org.fourgeeks.gha.webclient.client.material;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.fourgeeks.gha.domain.AbstractEntity;
+import org.fourgeeks.gha.domain.AbstractCodeEntity;
 import org.fourgeeks.gha.domain.glm.Material;
-import org.fourgeeks.gha.domain.glm.MaterialCategory;
 import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
@@ -152,17 +151,15 @@ public class MaterialSearchForm extends GHASearchForm<Material> implements
 	@Override
 	public void search() {
 		Material material = new Material();
-		MaterialCategory materialCategory = new MaterialCategory();
-		materialCategory.setCode(codeTextItem.getValueAsString());
-		materialCategory.setName(nameTextItem.getValueAsString());
-		materialCategory.setDescription(descriptionTextItem.getValueAsString());
-		materialCategory.setModel(modelTextItem.getValueAsString());
-		materialCategory.setExternalCode(extCodeTextItem.getValueAsString());
+		material.setCode(codeTextItem.getValueAsString());
+		material.setName(nameTextItem.getValueAsString());
+		material.setDescription(descriptionTextItem.getValueAsString());
+		material.setModel(modelTextItem.getValueAsString());
+		material.setExternalCode(extCodeTextItem.getValueAsString());
 		// if (typeSelectItem.getValue() != null)
 		// materialCategory.setType(MaterialTypeEnum.valueOf(typeSelectItem
 		// .getValueAsString()));
-		materialCategory.setType(fixedMaterial);
-		material.setMaterialCategory(materialCategory);
+		material.setType(fixedMaterial);
 		search(material);
 	}
 
@@ -176,11 +173,11 @@ public class MaterialSearchForm extends GHASearchForm<Material> implements
 			public void onSuccess(List<Material> results) {
 				List<Material> newList = null;
 				if (blackList != null) {
-					List<AbstractEntity> tmpList = GHAUtil
-							.binarySearchFilterEntity(results, blackList);
+					List<AbstractCodeEntity> tmpList = GHAUtil
+							.binarySearchFilterCodeEntity(results, blackList);
 					List<Material> newTmpList = new ArrayList<Material>();
-					for (AbstractEntity abstractEntity : tmpList)
-						newTmpList.add((Material) abstractEntity);
+					for (AbstractCodeEntity abstractCodeEntity : tmpList)
+						newTmpList.add((Material) abstractCodeEntity);
 					newList = newTmpList;
 				} else {
 					newList = results;

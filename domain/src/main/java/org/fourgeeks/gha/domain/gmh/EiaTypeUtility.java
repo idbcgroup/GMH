@@ -30,7 +30,7 @@ public class EiaTypeUtility extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 
 	@ManyToOne
-	@JoinColumn(name = "materialFk", nullable = false, columnDefinition = "bigserial REFERENCES material(id) ON UPDATE CASCADE ON DELETE CASCADE")
+	@JoinColumn(name = "materialFk", nullable = false, columnDefinition = "varchar(255) REFERENCES material(code) ON UPDATE CASCADE ON DELETE CASCADE")
 	private Material material;
 
 	@ManyToOne

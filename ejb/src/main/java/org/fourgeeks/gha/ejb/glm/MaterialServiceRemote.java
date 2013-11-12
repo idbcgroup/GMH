@@ -12,7 +12,7 @@ import org.fourgeeks.gha.domain.glm.Material;
 import org.fourgeeks.gha.domain.gmh.Brand;
 
 /**
- * @author alacret
+ * @author alacret, emiliot
  * 
  */
 
@@ -22,7 +22,7 @@ public interface MaterialServiceRemote {
 	 * @param Id
 	 * @throws GHAEJBException
 	 */
-	public void delete(long Id) throws GHAEJBException;
+	public void delete(String Id) throws GHAEJBException;
 
 	/**
 	 * @param Material
@@ -36,8 +36,8 @@ public interface MaterialServiceRemote {
 	 * @return the Material
 	 * @throws GHAEJBException
 	 */
-	public Material find(long Id) throws GHAEJBException;
-	
+	public Material find(String Id) throws GHAEJBException;
+
 	/**
 	 * @param brand
 	 * @return a list of Materials filtered by brand
