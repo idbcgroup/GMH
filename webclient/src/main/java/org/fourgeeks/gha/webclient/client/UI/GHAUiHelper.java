@@ -82,11 +82,21 @@ public abstract class GHAUiHelper {
 	 */
 	public static final int MIN_GRID_SIZE = 120;
 
+
+	/**
+	 * The default Section Form
+	 */
+	public static final int SECTION_FORM_OPTION_WIDTH = 150;
+	
+	/**
+	 * The default form measures
+	 */
+	public static final int MIN_FORM_WIDTH = 400;
+	public static final int MIN_SECTION_FORM_FORM_WIDTH = 300;
 	/**
 	 * The default top section height
 	 */
-	public static final int DEFAULT_TOP_SECTION_HEIGHT = HEADER_HEIGTH
-			+ MENU_BAR_HEIGTH + 1;
+	public static final int DEFAULT_TOP_SECTION_HEIGHT = HEADER_HEIGTH + MENU_BAR_HEIGTH + 1;
 	public static final int DEFAULT_INNER_TOP_SECTION_HEIGHT = 110;
 	public static final int V_SEPARATOR_HEIGHT = 10;
 	/**
@@ -108,6 +118,118 @@ public abstract class GHAUiHelper {
 	public static final int DEFAULT_TEXT_AREA_ITEM_HEIGHT = 70;
 	public static final int DEFAULT_ANIMATION_TIME = 400;
 
+	/**
+	 * @return the height that a tab must have
+	 */
+	public static int getTabHeight() {
+		int rootPanelHeight = Window.getClientHeight();
+		int ret = rootPanelHeight - HEADER_HEIGTH - MENU_BAR_HEIGTH - 5;
+		if (ret < MIN_TAB_HEIGHT) {
+			return MIN_TAB_HEIGHT;
+		} else {
+			return ret;
+		}
+	}
+
+	/**
+	 * @return the height for the bottom section
+	 */
+	public static int getBottomSectionHeight() {
+		int biggerTabHeight = getTabHeight();
+		int innerTopSection = DEFAULT_INNER_TOP_SECTION_HEIGHT
+				+ V_SEPARATOR_HEIGHT;
+
+		int ret = biggerTabHeight - innerTopSection;
+		if (ret < MIN_BOTTOM_SECTION_HEIGHT) {
+			return MIN_BOTTOM_SECTION_HEIGHT;
+		} else {
+			return ret - 5;
+		}
+	}
+
+	/**
+	 * @return the width that a form must have
+	 */
+	public static int getNormalFormWidth(int buttonsSize) {
+		int rootPanelWidth = Window.getClientWidth();
+		int ret = rootPanelWidth - buttonsSize - 70;
+		if (ret < MIN_FORM_WIDTH) {
+			return MIN_FORM_WIDTH;
+		} else {
+			return ret;
+		}
+	}
+	
+	/**
+	 * @return the width that a form must have
+	 */
+	public static int getSectionFormFormWidth(int buttonsSize) {
+		int rootPanelWidth = Window.getClientWidth();
+		int ret = rootPanelWidth - (SECTION_FORM_OPTION_WIDTH + 50) - buttonsSize - 70;
+		if (ret < MIN_SECTION_FORM_FORM_WIDTH) {
+			return MIN_SECTION_FORM_FORM_WIDTH;
+		} else {
+			return ret;
+		}
+	}
+	
+	/**
+	 * @return the TOp space
+	 */
+	public static int getTopSpace() {
+		return HEADER_HEIGTH + MENU_BAR_HEIGTH + 1;
+	}
+
+	/**
+	 * @param extrasHeight
+	 * @return
+	 */
+	public static int getGridSize(int extrasHeight) {
+		int tabHeight = getTabHeight();
+		int titleHeight = 30;
+		int topExtras = extrasHeight + titleHeight + 35;
+
+		int ret = tabHeight - topExtras;
+		if (ret < MIN_GRID_SIZE) {
+			return MIN_GRID_SIZE;
+		} else {
+			return ret;
+		}
+	}
+
+	/**
+	 * @param extrasHeight
+	 * @return
+	 */
+	public static int getSubtabGridSize(int extrasHeight) {
+		int bottomSectionHeight = getBottomSectionHeight();
+		int titleHeight = 30;
+		int topExtras = extrasHeight + titleHeight + 35;
+
+		int ret = bottomSectionHeight - topExtras;
+		if (ret < MIN_GRID_SIZE) {
+			return MIN_GRID_SIZE;
+		} else {
+			return ret;
+		}
+	}
+
+	/**
+	 * @param extrasHeight
+	 * @return
+	 */
+	public static int getEDTGridSize(int extrasHeight) {
+		int tabHeight = getTabHeight();
+		int topExtras = extrasHeight + 30;
+
+		int ret = (tabHeight - topExtras) / 2;
+		if (ret < MIN_GRID_SIZE) {
+			return MIN_GRID_SIZE;
+		} else {
+			return ret;
+		}
+	}
+		
 	public static VLayout verticalGraySeparator(String height) {
 		VLayout separator = new VLayout();
 		separator.setWidth100();
@@ -166,92 +288,7 @@ public abstract class GHAUiHelper {
 		return separator;
 	}
 
-	/**
-	 * @return the height that a tab must have
-	 */
-	public static int getTabHeight() {
-		int rootPanelHeight = Window.getClientHeight();
-		int ret = rootPanelHeight - HEADER_HEIGTH - MENU_BAR_HEIGTH - 5;
-		if (ret < MIN_TAB_HEIGHT) {
-			return MIN_TAB_HEIGHT;
-		} else {
-			return ret;
-		}
-	}
-
-	/**
-	 * @return the height for the bottom section
-	 */
-	public static int getBottomSectionHeight() {
-		int biggerTabHeight = getTabHeight();
-		int innerTopSection = DEFAULT_INNER_TOP_SECTION_HEIGHT
-				+ V_SEPARATOR_HEIGHT;
-
-		int ret = biggerTabHeight - innerTopSection;
-		if (ret < MIN_BOTTOM_SECTION_HEIGHT) {
-			return MIN_BOTTOM_SECTION_HEIGHT;
-		} else {
-			return ret - 5;
-		}
-	}
-
-	/**
-	 * @return the TOp space
-	 */
-	public static int getTopSpace() {
-		return HEADER_HEIGTH + MENU_BAR_HEIGTH + 1;
-	}
-
-	/**
-	 * @param extrasHeight
-	 * @return
-	 */
-	public static int getGridSize(int extrasHeight) {
-		int tabHeight = getTabHeight();
-		int titleHeight = 30;
-		int topExtras = extrasHeight + titleHeight + 35;
-
-		int ret = tabHeight - topExtras;
-		if (ret < MIN_GRID_SIZE) {
-			return MIN_GRID_SIZE;
-		} else {
-			return ret;
-		}
-	}
-
-	/**
-	 * @param extrasHeight
-	 * @return
-	 */
-	public static int getSubtabGridSize(int extrasHeight) {
-		int bottomSectionHeight = getBottomSectionHeight();
-		int titleHeight = 30;
-		int topExtras = extrasHeight + titleHeight + 35;
-
-		int ret = bottomSectionHeight - topExtras;
-		if (ret < MIN_GRID_SIZE) {
-			return MIN_GRID_SIZE;
-		} else {
-			return ret;
-		}
-	}
-
-	/**
-	 * @param extrasHeight
-	 * @return
-	 */
-	public static int getEDTGridSize(int extrasHeight) {
-		int tabHeight = getTabHeight();
-		int topExtras = extrasHeight + 30;
-
-		int ret = (tabHeight - topExtras) / 2;
-		if (ret < MIN_GRID_SIZE) {
-			return MIN_GRID_SIZE;
-		} else {
-			return ret;
-		}
-	}
-
+	
 	/**
 	 * @param buttons
 	 * @return

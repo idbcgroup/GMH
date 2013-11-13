@@ -11,7 +11,7 @@ public class GHASubmitItem extends SubmitItem {
 //		setTextBoxStyle("input");
 		setHeight(20);
 		setCellStyle("gha-form-cell");
-		setWidth(GHAUiHelper.DEFAULT_ITEM_SIZE);
+		setWidth("*");
 //		setTitleStyle("input-title");
 	}
 

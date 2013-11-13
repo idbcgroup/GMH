@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHAUndoButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
@@ -33,7 +34,7 @@ public class GHASectionForm extends HLayout implements HideableListener,
 	{
 		optionList = new ArrayList<Option>();
 		options = new VLayout();
-		options.setWidth(150);
+		options.setWidth(GHAUiHelper.SECTION_FORM_OPTION_WIDTH);
 		options.setMembersMargin(3);
 		options.setStyleName("margin-right");
 		mainSection = new VLayout();

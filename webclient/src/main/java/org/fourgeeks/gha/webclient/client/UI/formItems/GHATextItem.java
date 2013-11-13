@@ -74,6 +74,18 @@ public class GHATextItem extends TextItem {
 		setRequired(required);
 		addChangedHandler(changedHandler);
 	}
+	
+	/**
+	 * @param title
+	 * @param required
+	 * @param changedHandler
+	 */
+	public GHATextItem(String title, boolean required,
+			ChangedHandler changedHandler) {
+		this(title);
+		setRequired(required);
+		addChangedHandler(changedHandler);
+	}
 
 	/**
 	 * @param width
