@@ -198,7 +198,7 @@ public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan> im
 	@Override
 	public void onResize(ResizeEvent event) {
 		setHeight(GHAUiHelper.getTabHeight() - 4 + "px");
-		form.setWidth(GHAUiHelper.getNormalFormWidth(30));
+		form.resize(GHAUiHelper.getNormalFormWidth(30),3);
 	}
 
 	// Producer/Consumer Stuff

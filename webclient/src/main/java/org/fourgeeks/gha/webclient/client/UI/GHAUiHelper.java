@@ -61,13 +61,6 @@ public abstract class GHAUiHelper {
 	/**
 	 * 
 	 */
-	public static final int THREE_COLUMN_FORMITEM_SIZE = 150;
-	/**
-	 * 
-	 */
-	@Deprecated
-	public static final int FOUR_COLUMN_FORMITEM_SIZE = 135;
-
 	private static final int HEADER_HEIGTH = 60;
 	private static final int MENU_BAR_HEIGTH = 30;
 
@@ -106,6 +99,10 @@ public abstract class GHAUiHelper {
 	/**
 	 * The size of a form item if none is specify
 	 */
+	@Deprecated
+	public static final int FOUR_COLUMN_FORMITEM_SIZE = 135;
+	@Deprecated
+	public static final int THREE_COLUMN_FORMITEM_SIZE = 150;
 	public static final int DEFAULT_ITEM_SIZE = 150;
 	/**
 	 * The default length for a code item

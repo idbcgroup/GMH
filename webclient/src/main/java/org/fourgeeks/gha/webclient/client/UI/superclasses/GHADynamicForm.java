@@ -1,15 +1,10 @@
 package org.fourgeeks.gha.webclient.client.UI.superclasses;
 
-import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-
 import com.google.gwt.core.client.JavaScriptObject;
-import com.google.gwt.event.logical.shared.ResizeEvent;
-import com.google.gwt.event.logical.shared.ResizeHandler;
-import com.google.gwt.user.client.Window;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.form.DynamicForm;
 
-public class GHADynamicForm extends DynamicForm implements ResizeHandler{
+public class GHADynamicForm extends DynamicForm{
 	
 	public GHADynamicForm(int formWidth, int numCols) {
 		initComponents(formWidth, numCols);
@@ -43,9 +38,10 @@ public class GHADynamicForm extends DynamicForm implements ResizeHandler{
 //		setShowEdges(true);
 	
 	}
-
-	@Override
-	public void onResize(ResizeEvent arg0) {
-		
-	}	
+	
+	public void resize(int formWidth, int numCols){
+		setWidth(formWidth);
+		int itemW = formWidth/numCols;
+		setColWidths(itemW);
+	}
 }
