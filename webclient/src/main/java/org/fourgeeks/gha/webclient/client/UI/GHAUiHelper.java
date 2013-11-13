@@ -57,9 +57,8 @@ public abstract class GHAUiHelper {
 		});
 		// RootPanel.get().addDomHandler(null, null)
 	}
-	// TextItem Sizes
 	/**
-	 * 
+	 * The Header Part Default Heights
 	 */
 	private static final int HEADER_HEIGTH = 60;
 	private static final int MENU_BAR_HEIGTH = 30;

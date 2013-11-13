@@ -1,7 +1,5 @@
 package org.fourgeeks.gha.webclient.client.UI.formItems;
 
-import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.VerticalAlignment;
 import com.smartgwt.client.widgets.form.fields.StaticTextItem;
@@ -32,5 +30,15 @@ public class GHATitleTextItem extends StaticTextItem {
 	public GHATitleTextItem(String title) {
 		this();
 		setDefaultValue(title);
+	}
+	
+	/**
+	 * @param title
+	 * @param colSpan
+	 */
+	public GHATitleTextItem(String title, int colSpan) {
+		this();
+		setDefaultValue(title);
+		setColSpan(colSpan);
 	}
 }
