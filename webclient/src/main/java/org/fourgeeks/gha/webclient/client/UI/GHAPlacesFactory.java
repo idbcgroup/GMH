@@ -1,5 +1,7 @@
 package org.fourgeeks.gha.webclient.client.UI;
 
+import org.fourgeeks.gha.webclient.client.UI.exceptions.LoginNeededException;
+import org.fourgeeks.gha.webclient.client.UI.exceptions.PermissionsNeededException;
 import org.fourgeeks.gha.webclient.client.edt.EDTPlace;
 import org.fourgeeks.gha.webclient.client.eia.EIAPlace;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypePlace;
@@ -56,7 +58,6 @@ public class GHAPlacesFactory {
 				@Override
 				public void onSuccess() {
 					new ForgottenPasswordPlace(token).show();
-					;
 				}
 
 				@Override
@@ -70,7 +71,11 @@ public class GHAPlacesFactory {
 
 				@Override
 				public void onSuccess() {
-					new HomePlace(token).show();
+					try {
+						new HomePlace(token).show();
+					} catch (LoginNeededException e) {
+						new LoginPlace(token).show();
+					}
 				}
 
 				@Override
@@ -83,7 +88,17 @@ public class GHAPlacesFactory {
 
 				@Override
 				public void onSuccess() {
-					new EIATypePlace(token).show();
+					try {
+						new EIATypePlace(token).show();
+					} catch (LoginNeededException e) {
+						new LoginPlace(token).show();
+					} catch (PermissionsNeededException e) {
+						try {
+							new HomePlace(token).show();
+						} catch (LoginNeededException e1) {
+							new LoginPlace(token).show();
+						}
+					}
 				}
 
 				@Override
@@ -96,7 +111,17 @@ public class GHAPlacesFactory {
 
 				@Override
 				public void onSuccess() {
-					new EIAPlace(token).show();
+					try {
+						new EIAPlace(token).show();
+					} catch (LoginNeededException e) {
+						new LoginPlace(token).show();
+					} catch (PermissionsNeededException e) {
+						try {
+							new HomePlace(token).show();
+						} catch (LoginNeededException e1) {
+							new LoginPlace(token).show();
+						}
+					}
 				}
 
 				@Override
@@ -109,7 +134,17 @@ public class GHAPlacesFactory {
 
 				@Override
 				public void onSuccess() {
-					new EDTPlace(token).show();
+					try {
+						new EDTPlace(token).show();
+					} catch (LoginNeededException e) {
+						new LoginPlace(token).show();
+					} catch (PermissionsNeededException e) {
+						try {
+							new HomePlace(token).show();
+						} catch (LoginNeededException e1) {
+							new LoginPlace(token).show();
+						}
+					}
 				}
 
 				@Override
@@ -122,7 +157,17 @@ public class GHAPlacesFactory {
 
 				@Override
 				public void onSuccess() {
-					new MaintenancePlanPlace(token).show();
+					try {
+						new MaintenancePlanPlace(token).show();
+					} catch (LoginNeededException e) {
+						new LoginPlace(token).show();
+					} catch (PermissionsNeededException e) {
+						try {
+							new HomePlace(token).show();
+						} catch (LoginNeededException e1) {
+							new LoginPlace(token).show();
+						}
+					}
 				}
 
 				@Override
@@ -135,7 +180,17 @@ public class GHAPlacesFactory {
 
 				@Override
 				public void onSuccess() {
-					new MaintenanceProtocolPlace(token).show();
+					try {
+						new MaintenanceProtocolPlace(token).show();
+					} catch (LoginNeededException e) {
+						new LoginPlace(token).show();
+					} catch (PermissionsNeededException e) {
+						try {
+							new HomePlace(token).show();
+						} catch (LoginNeededException e1) {
+							new LoginPlace(token).show();
+						}
+					}
 				}
 
 				@Override
@@ -148,7 +203,17 @@ public class GHAPlacesFactory {
 
 				@Override
 				public void onSuccess() {
-					new MaintenanceActivityPlace(token).show();
+					try {
+						new MaintenanceActivityPlace(token).show();
+					} catch (LoginNeededException e) {
+						new LoginPlace(token).show();
+					} catch (PermissionsNeededException e) {
+						try {
+							new HomePlace(token).show();
+						} catch (LoginNeededException e1) {
+							new LoginPlace(token).show();
+						}
+					}
 				}
 
 				@Override
@@ -161,7 +226,17 @@ public class GHAPlacesFactory {
 
 				@Override
 				public void onSuccess() {
-					new UserPlace(token).show();
+					try {
+						new UserPlace(token).show();
+					} catch (LoginNeededException e) {
+						new LoginPlace(token).show();
+					} catch (PermissionsNeededException e) {
+						try {
+							new HomePlace(token).show();
+						} catch (LoginNeededException e1) {
+							new LoginPlace(token).show();
+						}
+					}
 				}
 
 				@Override

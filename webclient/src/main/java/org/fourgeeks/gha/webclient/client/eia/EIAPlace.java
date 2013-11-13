@@ -1,7 +1,9 @@
 package org.fourgeeks.gha.webclient.client.eia;
 
+import org.fourgeeks.gha.webclient.client.UI.exceptions.LoginNeededException;
+import org.fourgeeks.gha.webclient.client.UI.exceptions.PermissionsNeededException;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToHideException;
-import org.fourgeeks.gha.webclient.client.UI.tabs.GHAPlace;
+import org.fourgeeks.gha.webclient.client.UI.places.NeedPermissionPlace;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabSet;
 
@@ -11,14 +13,17 @@ import com.google.gwt.user.client.History;
  * @author alacret
  * 
  */
-public class EIAPlace extends GHAPlace {
+public class EIAPlace extends NeedPermissionPlace {
 	private GHATab tab;
 
 	/**
 	 * @param token
+	 * @throws LoginNeededException
+	 * @throws PermissionsNeededException
 	 * 
 	 */
-	public EIAPlace(String token) {
+	public EIAPlace(String token) throws LoginNeededException,
+			PermissionsNeededException {
 		super(token);
 		tab = GHATabSet.getById(EIATab.ID);
 		if (tab == null)

@@ -1,6 +1,7 @@
-package org.fourgeeks.gha.webclient.client.UI.tabs;
+package org.fourgeeks.gha.webclient.client.UI.places;
 
 import org.fourgeeks.gha.webclient.client.UI.menu.GHAMenu.GHAMenuOption;
+import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabSet;
 
 import com.smartgwt.client.util.SC;
 

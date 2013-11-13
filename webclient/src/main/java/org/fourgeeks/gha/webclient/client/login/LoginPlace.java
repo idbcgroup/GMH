@@ -4,8 +4,8 @@ import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHASessionData;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
+import org.fourgeeks.gha.webclient.client.UI.places.GHAPlace;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
-import org.fourgeeks.gha.webclient.client.UI.tabs.GHAPlace;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
@@ -56,7 +56,7 @@ public class LoginPlace extends GHAPlace {
 		RootPanel.get("main-content").add(content);
 
 		// for Events
-		Element element = RootPanel.get("login-button").getElement();
+		Element loginButton = RootPanel.get("login-button").getElement();
 		Element pTextbox = RootPanel.get("password").getElement();
 		// Element recovery = RootPanel.get("recovery").getElement();
 
@@ -64,14 +64,11 @@ public class LoginPlace extends GHAPlace {
 				.getElementById("username");
 		final InputElement passTextbox = (InputElement) Document.get()
 				.getElementById("password");
-		// final LinkElement recoveryLink = (LinkElement) Document.get()
-		// .getElementById("recovery");
 
-		// Dar el foco al campo de user
 		userTextbox.focus();
 
-		DOM.sinkEvents(element, Event.ONCLICK);
-		DOM.setEventListener(element, new EventListener() {
+		DOM.sinkEvents(loginButton, Event.ONCLICK);
+		DOM.setEventListener(loginButton, new EventListener() {
 
 			@Override
 			public void onBrowserEvent(Event event) {
@@ -79,12 +76,14 @@ public class LoginPlace extends GHAPlace {
 				String password = passTextbox.getValue();
 
 				if (username == null || username.equals("")) {
-					GHANotification.oldAlert(GHAStrings.get("username-not-null"));
+					GHANotification.oldAlert(GHAStrings
+							.get("username-not-null"));
 					return;
 				}
 
 				if (password == null || password.equals("")) {
-					GHANotification.oldAlert(GHAStrings.get("password-not-null"));
+					GHANotification.oldAlert(GHAStrings
+							.get("password-not-null"));
 					return;
 				}
 

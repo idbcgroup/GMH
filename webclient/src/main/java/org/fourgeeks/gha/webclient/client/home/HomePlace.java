@@ -4,9 +4,11 @@ import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.webclient.client.UI.GHASessionData;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.dropdownmenus.UserDropdownMenu;
+import org.fourgeeks.gha.webclient.client.UI.exceptions.LoginNeededException;
+import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToHideException;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
+import org.fourgeeks.gha.webclient.client.UI.places.NeedLoginPlace;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
-import org.fourgeeks.gha.webclient.client.UI.tabs.GHAPlace;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabSet;
 
 import com.google.gwt.user.client.Window;
@@ -23,28 +25,32 @@ import com.smartgwt.client.widgets.layout.HLayout;
  * @author alacret
  * 
  */
-public class HomePlace extends GHAPlace {
+public class HomePlace extends NeedLoginPlace {
 
 	private static boolean HOME_HAS_BEEN_BUILT = false;
 
 	/**
 	 * @param token
+	 * @throws LoginNeededException
 	 * 
 	 */
 	// private EIADispatchmentForm dispatchmentForm = new EIADispatchmentForm();
 	// private EIAInstallationCertificateForm installationCertificateForm = new
 	// EIAInstallationCertificateForm();
 
-	public HomePlace(String token) {
+	public HomePlace(String token) throws LoginNeededException {
 		super(token);
 	}
 
 	@Override
 	public void show() {
-		GHATabSet.closeCurrentTab(HideCloseAction.ASK);
-		if (HOME_HAS_BEEN_BUILT) {
+		try {
+			GHATabSet.closeCurrentTab(HideCloseAction.ASK);
+		} catch (UnavailableToHideException e) {
 			return;
 		}
+		if (HOME_HAS_BEEN_BUILT)
+			return;
 		HOME_HAS_BEEN_BUILT = true;
 		// User box
 		RootPanel.get("main-content").clear();
