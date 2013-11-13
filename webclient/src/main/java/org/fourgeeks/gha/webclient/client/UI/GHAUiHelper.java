@@ -122,19 +122,27 @@ public abstract class GHAUiHelper {
 		separator.setHeight(height);
 		return separator;
 	}
-	
-	public static VLayout verticalGraySeparatorImgBar(String src, int imgW, int imgH, int height) {
-		GHAImg imgButton = new GHAImg(src,imgW,imgH);
-//		imgButton.setStyleName("iconTopPadding");
-		
+
+	/**
+	 * @param src
+	 * @param imgW
+	 * @param imgH
+	 * @param height
+	 * @return
+	 */
+	public static VLayout verticalGraySeparatorImgBar(String src, int imgW,
+			int imgH, int height) {
+		GHAImg imgButton = new GHAImg(src, imgW, imgH);
+		// imgButton.setStyleName("iconTopPadding");
+
 		VLayout separator = new VLayout();
 		separator.setWidth100();
 		separator.setHeight(height);
 		separator.setDefaultLayoutAlign(Alignment.CENTER);
 		separator.setBackgroundColor("#666666");
-		
+
 		separator.addMember(imgButton);
-		
+
 		return separator;
 	}
 

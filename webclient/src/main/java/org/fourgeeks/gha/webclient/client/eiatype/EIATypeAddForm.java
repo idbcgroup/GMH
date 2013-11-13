@@ -131,9 +131,8 @@ public class EIATypeAddForm extends GHAAddForm implements
 							}
 						}
 					});
-		} else {
+		} else
 			super.hide();
-		}
 	}
 
 	@Override

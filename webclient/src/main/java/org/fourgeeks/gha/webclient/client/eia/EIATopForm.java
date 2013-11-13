@@ -58,8 +58,6 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 	private GHAImgButton searchImgButton, deleteImgButton, cleanImgButton;
 	private VLayout sideButtons;
 
-	private boolean activated = false;
-
 	{
 		eiaTypeSelectItem = new GHAEiaTypeSelectItem(
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);

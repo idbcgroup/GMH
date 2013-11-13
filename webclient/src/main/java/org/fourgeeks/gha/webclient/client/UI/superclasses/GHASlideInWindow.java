@@ -38,7 +38,6 @@ public abstract class GHASlideInWindow extends GHAVerticalLayout implements
 	@Override
 	public void close() {
 		RootPanel.get("slideInWindowsBackDiv").removeStyleName("dim");
-		int windowZIndex = getZIndex();
 		RootPanel.get("slideInWindowsBackDiv").getElement().getStyle()
 				.setZIndex(-80000);
 
@@ -66,11 +65,11 @@ public abstract class GHASlideInWindow extends GHAVerticalLayout implements
 
 	@Override
 	public void hide() {
+		for (HideableListener listener : listeners)
+			listener.hide();
 		RootPanel.get("slideInWindowsBackDiv").removeStyleName("dim");
-		int windowZIndex = getZIndex();
 		RootPanel.get("slideInWindowsBackDiv").getElement().getStyle()
 				.setZIndex(-80000);
-
 		animateHide(AnimationEffect.FLY);
 	}
 
@@ -81,10 +80,8 @@ public abstract class GHASlideInWindow extends GHAVerticalLayout implements
 		for (HideableListener listener : listeners)
 			listener.hide();
 		RootPanel.get("slideInWindowsBackDiv").removeStyleName("dim");
-		int windowZIndex = getZIndex();
 		RootPanel.get("slideInWindowsBackDiv").getElement().getStyle()
 				.setZIndex(-80000);
-
 		animateHide(AnimationEffect.FLY, callback);
 	}
 

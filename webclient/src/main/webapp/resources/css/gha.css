@@ -488,6 +488,9 @@ div#header-bar.header-bar div#user-info.user-info div#isc_HLayout_0_wrapper div#
 .button-pointer{
 	cursor: pointer;
 }
+.tooltip{
+	width:0px;
+}
  
 /*OVERRIDES*/
 

@@ -18,7 +18,7 @@ public class GHADeleteButton extends GHAImgButton {
 	 */
 	public GHADeleteButton(ClickHandler clickHandler) {
 		super("../resources/icons/delete.png", clickHandler);
-		setTooltip(GHAStrings.get("delete"));
+		setPrompt(GHAStrings.get("delete"));
 	}
 
 }

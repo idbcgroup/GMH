@@ -16,7 +16,7 @@ public class GHACloseButton extends GHAImgButton {
 	 */
 	public GHACloseButton(ClickHandler clickHandler) {
 		super("../resources/icons/cancel.png", clickHandler);
-		setTooltip(GHAStrings.get("cancel"));
+		setPrompt(GHAStrings.get("cancel"));
 	}
 
 }

@@ -4,11 +4,18 @@ import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 
 import com.smartgwt.client.widgets.events.ClickHandler;
 
+/**
+ * @author alacret
+ * 
+ */
 public class GHASaveButton extends GHAImgButton {
 
+	/**
+	 * @param clickHandler
+	 */
 	public GHASaveButton(ClickHandler clickHandler) {
 		super("../resources/icons/save.png", clickHandler);
-		setTooltip(GHAStrings.get("save"));
+		setPrompt(GHAStrings.get("save"));
 	}
 
 }

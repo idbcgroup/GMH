@@ -11,10 +11,13 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.SearchListener;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader;
+import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader.Option;
 
 import com.smartgwt.client.types.Visibility;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
+import com.smartgwt.client.widgets.events.VisibilityChangedEvent;
+import com.smartgwt.client.widgets.events.VisibilityChangedHandler;
 
 /**
  * @author alacret
@@ -33,6 +36,8 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 	private List<EIATypeSelectionListener> listeners = new ArrayList<EIATypeSelectionListener>();
 	private EiaTypeResultSet resultSet;
 	private EIATypeTopForm topForm;
+	private Option searchOption;
+	private Option addOption;
 
 	/**
 	 * @param token
@@ -40,14 +45,14 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 	public EIATypeTab(String token) {
 		super(token);
 		header = new GHATabHeader(this, TITLE);
-		header.addSearchOption(new ClickHandler() {
+		searchOption = header.addSearchOption(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
 				search();
 			}
 		});
-		header.addAddOption(new ClickHandler() {
+		addOption = header.addAddOption(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
@@ -62,7 +67,7 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 		resultSet.addEiaTypeSelectionListener(this);
 
 		topForm = new EIATypeTopForm(resultSet, this);
-		topForm.activate();
+		// topForm.activate();
 		addHideableListener(topForm);
 		addClosableListener(topForm);
 		addEiaTypeSelectionListener(topForm);
@@ -83,6 +88,15 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 		addHideableListener(addForm);
 		addClosableListener(addForm);
 		addForm.addEiaTypeSelectionListener(this);
+		addForm.addVisibilityChangedHandler(new VisibilityChangedHandler() {
+
+			@Override
+			public void onVisibilityChanged(VisibilityChangedEvent event) {
+				if (!event.getIsVisible())
+					search();
+
+			}
+		});
 
 		verticalPanel.addMember(topForm);
 		verticalPanel.addMember(GHAUiHelper
@@ -91,6 +105,7 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 		verticalPanel.addMember(resultSet);
 
 		addMember(verticalPanel);
+		search();
 	}
 
 	protected void add() {
@@ -108,6 +123,8 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 		if (resultSet.isVisible())
 			resultSet.hide();
 		addForm.open();
+		header.unMarkAllButtons();
+		addOption.markSelected();
 		currentStatus = TabStatus.ADD;
 		// GHANotification.info(GHAStrings.get("")); //TODO: Mensaje de
 		// informacion para indicar que se ha actividado el modo de busqueda
@@ -149,6 +166,8 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 		if (resultSet.isVisible())
 			resultSet.hide();
 		topForm.activate();
+		header.unMarkAllButtons();
+		searchOption.markSelected();
 		currentStatus = TabStatus.SEARCH;
 		// GHANotification.info(GHAStrings.get("")); //TODO: Mensaje de
 		// informacion para indicar que se ha actividado el modo de busqueda

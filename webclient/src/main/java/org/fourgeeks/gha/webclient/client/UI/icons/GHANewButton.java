@@ -13,8 +13,11 @@ import com.smartgwt.client.widgets.events.ClickHandler;
  */
 public class GHANewButton extends GHAImgButton {
 
+	/**
+	 * @param clickHandler
+	 */
 	public GHANewButton(ClickHandler clickHandler) {
 		super("../resources/icons/new.png", clickHandler);
-		setTooltip(GHAStrings.get("new"));
+		setPrompt(GHAStrings.get("new"));
 	}
 }

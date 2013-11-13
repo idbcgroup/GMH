@@ -48,7 +48,6 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 	// private List<EiaTypePicture> listEiaTypePictures;
 	// int index;
 	// private GHAImg photo;
-	private boolean activated = false;
 	private GHAImgButton deleteImgButton, cleanImgButton, searchImgButton;
 	private VLayout sideButtons;
 
@@ -195,8 +194,8 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 		cleanImgButton.enable();
 		sideButtons.removeMember(deleteImgButton);
 		sideButtons.addMember(searchImgButton, 0);
-
 		activated = true;
+
 	}
 
 	@Override

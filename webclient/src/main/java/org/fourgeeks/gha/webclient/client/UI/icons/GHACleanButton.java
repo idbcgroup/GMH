@@ -16,7 +16,7 @@ public class GHACleanButton extends GHAImgButton {
 	 */
 	public GHACleanButton(ClickHandler clickHandler) {
 		super("../resources/icons/clean.png", clickHandler);
-		setTooltip(GHAStrings.get("clean"));
+		setPrompt(GHAStrings.get("clean"));
 	}
 
 }

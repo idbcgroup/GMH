@@ -12,9 +12,11 @@ public class GHAImgButton extends ImgButton {
 	 * @param src
 	 */
 	public GHAImgButton(String src) {
+		super();
 		setSrc(src);
 		setSize("20px", "20px");
 		setShowDown(false);
+		setHoverWidth(10);
 	}
 
 	/**

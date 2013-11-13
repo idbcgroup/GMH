@@ -16,7 +16,6 @@ public class GHASearchButton extends GHAImgButton {
 	public GHASearchButton(ClickHandler clickHandler) {
 		super("../resources/icons/search.png", clickHandler);
 		setPrompt(GHAStrings.get("search"));
-		setHoverWidth(10);
 	}
 
 }

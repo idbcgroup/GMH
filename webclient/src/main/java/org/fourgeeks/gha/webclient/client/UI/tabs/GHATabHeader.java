@@ -72,14 +72,16 @@ public class GHATabHeader extends HLayout implements ResizeHandler {
 	 * 
 	 * @param clickHandler
 	 *            the action to be taken when the user clicks
+	 * @return the clean option
 	 */
 	@Deprecated
-	public void addCleanOption(ClickHandler clickHandler) {
+	public Option addCleanOption(ClickHandler clickHandler) {
 		Option cleanOption = new Option(this, GHAStrings.get("clean") + "...",
 				90, true, "../resources/img/limpiarButton.png",
 				"../resources/img/limpiarButtonOver.png");
 		cleanOption.addClickHandler(clickHandler);
 		addMember(cleanOption, memberPos++);
+		return cleanOption;
 	}
 
 	/**
@@ -87,14 +89,16 @@ public class GHATabHeader extends HLayout implements ResizeHandler {
 	 * 
 	 * @param clickHandler
 	 *            the action to be taken when the user clicks
+	 * @return the add option
 	 */
-	public void addAddOption(ClickHandler clickHandler) {
+	public Option addAddOption(ClickHandler clickHandler) {
 		Option addOption = new Option(this, GHAStrings.get("add") + "...", 90,
 				true, "../resources/img/agregarButton.png",
 				"../resources/img/agregarButtonOver.png");
 		addOption.addClickHandler(clickHandler);
 		addMember(addOption, memberPos++);
 		selectables.add(addOption);
+		return addOption;
 	}
 
 	/**
@@ -102,23 +106,44 @@ public class GHATabHeader extends HLayout implements ResizeHandler {
 	 * 
 	 * @param clickHandler
 	 *            the action to be taken when the user clicks
+	 * @return the search option
 	 */
-	public void addSearchOption(ClickHandler clickHandler) {
-		Option searchOption = new Option(this,
-				GHAStrings.get("search") + "...", 90, true,
-				"../resources/img/buscarButton.png",
-				"../resources/img/buscarButtonOver.png");
-		searchOption.addClickHandler(clickHandler);
-		searchOption.selectButton();
-		addMember(searchOption, memberPos++);
-		selectables.add(searchOption);
+	public Option addSearchOption(ClickHandler clickHandler) {
+		return addOption(GHAStrings.get("search"), "buscarButton", clickHandler);
 	}
 
-	private static class Option extends Label {
+	/**
+	 * @param clickHandler
+	 * @param imgSrc
+	 * @return
+	 */
+	private Option addOption(String text, String imgSrc,
+			ClickHandler clickHandler) {
+		Option searchOption = new Option(this, text + "...", 90, true,
+				"../resources/img/" + imgSrc + ".png", "../resources/img/"
+						+ imgSrc + "Over.png");
+		searchOption.addClickHandler(clickHandler);
+		addMember(searchOption, memberPos++);
+		selectables.add(searchOption);
+		return searchOption;
+	}
+
+	/**
+	 * @author alacret
+	 * 
+	 */
+	public static class Option extends Label {
 		private String bgSrc;
 		private String bgSrcOver;
 		private boolean selected = false;
 
+		/**
+		 * @param tabHeader
+		 * @param width
+		 * @param hoverable
+		 * @param bgSrc
+		 * @param bgSrcOver
+		 */
 		public Option(final GHATabHeader tabHeader, int width,
 				boolean hoverable, final String bgSrc, final String bgSrcOver) {
 			super();
@@ -128,14 +153,13 @@ public class GHATabHeader extends HLayout implements ResizeHandler {
 			setWidth(width + "px");
 			setHeight("30px");
 
-			addClickHandler(new ClickHandler() {
-				@Override
-				public void onClick(ClickEvent event) {
-					for (Option button : tabHeader.selectables)
-						button.deselectButton();
-					selectButton();
-				}
-			});
+			// addClickHandler(new ClickHandler() {
+			// @Override
+			// public void onClick(ClickEvent event) {
+			// tabHeader.unMarkAllButtons();
+			// markSelected();
+			// }
+			// });
 
 			if (hoverable) {
 				setStyleName(getStyleName() + " button-pointer");
@@ -160,18 +184,32 @@ public class GHATabHeader extends HLayout implements ResizeHandler {
 			}
 		}
 
+		/**
+		 * @param tabHeader
+		 * @param text
+		 * @param width
+		 * @param hoverable
+		 * @param bg
+		 * @param bgOver
+		 */
 		public Option(GHATabHeader tabHeader, String text, int width,
 				boolean hoverable, String bg, String bgOver) {
 			this(tabHeader, width, hoverable, bg, bgOver);
 			setContents(text);
 		}
 
-		public void deselectButton() {
+		/**
+		 * 
+		 */
+		public void unMarkSelected() {
 			setBackgroundImage(bgSrc);
 			selected = false;
 		}
 
-		public void selectButton() {
+		/**
+		 * mark the button as selected
+		 */
+		public void markSelected() {
 			setBackgroundImage(bgSrcOver);
 			selected = true;
 		}
@@ -181,5 +219,13 @@ public class GHATabHeader extends HLayout implements ResizeHandler {
 	@Override
 	public void onResize(ResizeEvent event) {
 		setWidth(Window.getClientWidth() - 35);
+	}
+
+	/**
+	 * 
+	 */
+	public void unMarkAllButtons() {
+		for (Option button : selectables)
+			button.unMarkSelected();
 	}
 }
