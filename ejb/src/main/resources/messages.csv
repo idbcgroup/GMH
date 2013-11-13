@@ -51,6 +51,7 @@ EN,eiatype-findByMaintenancePlan-fail,Failed to find Equipment type by Maintenan
 EN,eiatype-save-fail,Failed to save Equipment type
 EN,eiatype-getAll-fail,Failed to get all Equipment types
 ES,error-eia-adquisition-dates-order,Las fechas de adquisicion deben estar en orden cronológico
+ES,error-eia-warranty-dates-order,Las fechas de garantia deben ser mayores que la fecha de compra
 ES,function-getAll-fail,Hubo un fallo en la búsqueda de todas las Funciones
 EN,function-getAll-fail,Failed to get all Functions
 ES,instanceLogon-delete-fail,Hubo un fallo en la eliminación del InstanceLogon

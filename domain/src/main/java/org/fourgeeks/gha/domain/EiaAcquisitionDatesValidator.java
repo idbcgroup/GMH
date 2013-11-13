@@ -26,7 +26,7 @@ public class EiaAcquisitionDatesValidator implements
 		if (purchaseOrderDate != null) {
 			if (purchaseDate == null)
 				return false;
-			if (purchaseDate.getTime() > purchaseOrderDate.getTime())
+			if (purchaseDate.getTime() < purchaseOrderDate.getTime())
 				return false;
 		}
 
@@ -34,7 +34,7 @@ public class EiaAcquisitionDatesValidator implements
 		if (purchaseInvoiceDate != null) {
 			if (purchaseDate == null)
 				return false;
-			if (purchaseDate.getTime() > purchaseInvoiceDate.getTime())
+			if (purchaseDate.getTime() != purchaseInvoiceDate.getTime())
 				return false;
 
 			if (purchaseOrderDate != null)

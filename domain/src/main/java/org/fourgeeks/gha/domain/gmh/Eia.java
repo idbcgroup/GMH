@@ -14,6 +14,7 @@ import javax.validation.constraints.Size;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.EiaAcquisitionDatesValidation;
+import org.fourgeeks.gha.domain.EiaWarrantyDatesValidation;
 import org.fourgeeks.gha.domain.enu.CurrencyTypeEnum;
 import org.fourgeeks.gha.domain.enu.DepreciationMethodEnum;
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
@@ -32,6 +33,7 @@ import org.fourgeeks.gha.domain.glm.ExternalProvider;
  */
 @Entity
 @EiaAcquisitionDatesValidation(message = "error-eia-adquisition-dates-order")
+@EiaWarrantyDatesValidation(message = "error-eia-warranty-dates-order")
 @NamedQueries(value = {
 		@NamedQuery(name = "Eia.getAll", query = "SELECT e from Eia e order by e.id"),
 		@NamedQuery(name = "Eia.findByEiaType", query = "SELECT e from Eia e WHERE e.eiaType = :eiaType order by e.id") })

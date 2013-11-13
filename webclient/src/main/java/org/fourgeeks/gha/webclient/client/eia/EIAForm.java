@@ -75,8 +75,7 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 			location_TitleItem, workingArea_TitleItem, facility_TitleItem,
 			adqCost_TitleItem, actualCost_TitleItem, depTime_TitleItem,
 			lifeTime_TitleItem, realWarranty_TitleItem,
-			intermedWarranty_TitleItem,
-			providers_TitleItem;
+			intermedWarranty_TitleItem, providers_TitleItem;
 	private GHADateItem acceptationDateItem, purchaseDateItem,
 			purchaseInvoiceDateItem, purchaseOrderDateItem, receptionDateItem,
 			installationDateItem, contabilizationDateItem,
@@ -107,15 +106,19 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		serialTextItem.setLength(20);
 		serialTextItem.setMask("AAAAAAAAAAAAAAAAAAAA");
 		serialTextItem.setRequired(true);
-		fixedAssetIdTextItem = new GHATextItem("Id Activo Fijo", true, changedHandler);
+		fixedAssetIdTextItem = new GHATextItem("Id Activo Fijo", true,
+				changedHandler);
 		fixedAssetIdTextItem.setLength(19);
 		fixedAssetIdTextItem.setMask("###################");
 		fixedAssetIdTextItem.setRequired(true);
-		obuSelectItem = new GHASelectItem("Departamento Responsable", true, changedHandler);
+		obuSelectItem = new GHASelectItem("Departamento Responsable", true,
+				changedHandler);
 		obuSelectItem.setRequired(true);
-		baseRoleSelectItem = new GHASelectItem("Rol Responsable", true, changedHandler);
+		baseRoleSelectItem = new GHASelectItem("Rol Responsable", true,
+				changedHandler);
 		baseRoleSelectItem.setRequired(true);
-		stateSelectItem = new GHASelectItem("Estado Equipo", true, changedHandler);
+		stateSelectItem = new GHASelectItem("Estado Equipo", true,
+				changedHandler);
 		stateSelectItem.setDefaultValue(EiaStateEnum.CREATED);
 		stateSelectItem.setRequired(true);
 		stateSelectItem.setDefaultValue(EiaStateEnum.CREATED.name());
@@ -123,18 +126,22 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		acceptationDateItem = new GHADateItem("Fecha de Aceptación", true);
 		acceptationDateItem.addChangedHandler(changedHandler);
 		providers_TitleItem = new GHATitleTextItem("Proveedores",3);
-		adqisitionProviderSelectItem = new GHASelectItem("Proveedor", true, changedHandler);
-		maintenanceProviderSelectItem = new GHASelectItem("Proveedor de Mant.", true, changedHandler);
-		
+		adqisitionProviderSelectItem = new GHASelectItem("Proveedor", true,
+				changedHandler);
+		maintenanceProviderSelectItem = new GHASelectItem("Proveedor de Mant.",
+				true, changedHandler);
+
 		// Adquisicion & Garantias Form Items
 			//Adquisicion
 		adquisition_TitleItem = new GHATitleTextItem("Adquisición:",4);
 		purchaseDateItem = new GHADateItem("Fecha de Compra", true);
 		purchaseDateItem.addChangedHandler(changedHandler);
-		purchaseOrderNumTextItem = new GHATextItem("No. Orden Compra", false, changedHandler);
+		purchaseOrderNumTextItem = new GHATextItem("No. Orden Compra", false,
+				changedHandler);
 		purchaseOrderNumTextItem.setLength(20);
 		purchaseOrderNumTextItem.setMask("####################");
-		purchaseInvoiceNumTextItem = new GHATextItem("No. Factura", false, changedHandler);
+		purchaseInvoiceNumTextItem = new GHATextItem("No. Factura", false,
+				changedHandler);
 		purchaseInvoiceNumTextItem.setLength(20);
 		purchaseInvoiceNumTextItem.setMask("####################");
 		receptionDateItem = new GHADateItem("Recepción", true);
@@ -144,10 +151,12 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		installationDateItem.addChangedHandler(changedHandler);
 		purchaseInvoiceDateItem = new GHADateItem("Fecha de Factura", true);
 		purchaseInvoiceDateItem.addChangedHandler(changedHandler);
-		purchaseOrderDateItem = new GHADateItem("Fecha de Orden de Compra", true);
+		purchaseOrderDateItem = new GHADateItem("Fecha de Orden de Compra",
+				true);
 		purchaseOrderDateItem.addChangedHandler(changedHandler);
 
-		installationProviderSelectItem = new GHASelectItem("Proveedor de Inst.",	false, changedHandler);
+		installationProviderSelectItem = new GHASelectItem(
+				"Proveedor de Inst.", false, changedHandler);
 		
 			//Garantia
 		realWarranty_TitleItem = new GHATitleTextItem("Garantía Real:",4);
@@ -179,16 +188,19 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		
 		// Ubicacion Form Items
 		location_TitleItem = new GHATitleTextItem("Ubicación:",3);
-		locationTypeSelectItem = new GHASelectItem("Tipo de Ubicación", false, changedHandler);
+		locationTypeSelectItem = new GHASelectItem("Tipo de Ubicación", false,
+				changedHandler);
 
 		workingArea_TitleItem = new GHATitleTextItem("Área de Trabajo:",3);
 		facility_TitleItem = new GHATitleTextItem("Servicio/Instalación:",3);
 		workingAreaLocationCodeTextItem = new GHATextItem("Código", false);
-		workingAreaLocationSelectItem = new GHASelectItem("Nombre", false, changedHandler);
+		workingAreaLocationSelectItem = new GHASelectItem("Nombre", false,
+				changedHandler);
 		workingAreaLocationSelectItem.setDisabled(true);
 
-		facilityLocationCodeTextItem = new GHATextItem("Código",false);
-		facilityLocationSelectItem = new GHASelectItem("Nombre", false, changedHandler);
+		facilityLocationCodeTextItem = new GHATextItem("Código", false);
+		facilityLocationSelectItem = new GHASelectItem("Nombre", false,
+				changedHandler);
 		facilityLocationSelectItem.setDisabled(true);
 
 		// Costos Form Items
@@ -196,35 +208,43 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		actualCost_TitleItem = new GHATitleTextItem("Costo Actual:",4);
 		depTime_TitleItem = new GHATitleTextItem("Tiempo de Depreciación:");
 		lifeTime_TitleItem = new GHATitleTextItem("Tiempo de Vida:");
-		adquisitionCostTextItem = new GHATextItem("Costo de Adq. del equipo", false, changedHandler);
+		adquisitionCostTextItem = new GHATextItem("Costo de Adq. del equipo",
+				false, changedHandler);
 		adquisitionCostTextItem.setLength(16);
 		adquisitionCostTextItem.setMask("################");
-		adquisitionCostCurrencySelectItem = new GHASelectItem("Moneda", false, changedHandler);
-		contabilizationDateItem = new GHADateItem("Fecha de Contabilización", true);
+		adquisitionCostCurrencySelectItem = new GHASelectItem("Moneda", false,
+				changedHandler);
+		contabilizationDateItem = new GHADateItem("Fecha de Contabilización",
+				true);
 		contabilizationDateItem.addChangedHandler(changedHandler);
 
-		adquisitionCostLocalTextItem = new GHATextItem("Costo de Adq. Local", false, changedHandler);
+		adquisitionCostLocalTextItem = new GHATextItem("Costo de Adq. Local",
+				false, changedHandler);
 		adquisitionCostLocalTextItem.setLength(16);
 		adquisitionCostLocalTextItem.setMask("################");
-		adquisitionCostCurrencyLocalSelectItem = new GHASelectItem("Moneda Local", false, changedHandler);
-		depreciationMethodSelectItem = new GHASelectItem("Metodo Depreciación", false, changedHandler);
-		depreciationTimeTextItem = new GHATextItem("Duración", false, changedHandler);
+		adquisitionCostCurrencyLocalSelectItem = new GHASelectItem(
+				"Moneda Local", false, changedHandler);
+		depreciationMethodSelectItem = new GHASelectItem("Metodo Depreciación",
+				false, changedHandler);
+		depreciationTimeTextItem = new GHATextItem("Duración", false,
+				changedHandler);
 		depreciationTimeTextItem.setLength(3);
 		depreciationTimeTextItem.setMask("###");
-		depreciationTimePotSelectItem = new GHASelectItem("Periodo de Tiempo", false, changedHandler);
+		depreciationTimePotSelectItem = new GHASelectItem("Periodo de Tiempo",
+				false, changedHandler);
 		lastDepreciationDate = new GHADateItem("Fecha Ult. Depreciación", true);
 		lastDepreciationDate.addChangedHandler(changedHandler);
 		lifeTimeTextItem = new GHATextItem("Duración", false, changedHandler);
 		lifeTimeTextItem.setLength(3);
 		lifeTimeTextItem.setMask("###");
-		lifeTimePotSelectItem = new GHASelectItem("Periodo de Tiempo",
-				 false, changedHandler);
-		actualCostTextItem = new GHATextItem("Costo Actual en libros",
-				 false, changedHandler);
+		lifeTimePotSelectItem = new GHASelectItem("Periodo de Tiempo", false,
+				changedHandler);
+		actualCostTextItem = new GHATextItem("Costo Actual en libros", false,
+				changedHandler);
 		actualCostTextItem.setLength(16);
 		actualCostTextItem.setMask("################");
-		actualCostCurrencySelectItem = new GHASelectItem("Moneda",
-				 false, changedHandler);
+		actualCostCurrencySelectItem = new GHASelectItem("Moneda", false,
+				changedHandler);
 	}
 
 	/**
@@ -416,13 +436,13 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 
 		// acquisition
 		eia.setPurchaseDate(purchaseDateItem.getValue() == null ? null
-				: new Date(purchaseDateItem.getValueAsDate().getTime()));
+				: EIAUtil.getLogicalDate(purchaseDateItem.getValueAsDate()));
 
 		eia.setReceptionDate(receptionDateItem.getValue() == null ? null
-				: new Date(receptionDateItem.getValueAsDate().getTime()));
+				: EIAUtil.getLogicalDate(receptionDateItem.getValueAsDate()));
 
 		eia.setInstallationDate(installationDateItem.getValue() == null ? null
-				: new Date(installationDateItem.getValueAsDate().getTime()));
+				: EIAUtil.getLogicalDate(installationDateItem.getValueAsDate()));
 
 		if (adqisitionProviderSelectItem.getValue() != null) {
 			eia.setProvider(new ExternalProvider(Integer
@@ -435,10 +455,11 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 				.getValueAsString());
 
 		eia.setPurchaseInvoiceDate(purchaseInvoiceDateItem.getValue() == null ? null
-				: new Date(purchaseInvoiceDateItem.getValueAsDate().getTime()));
+				: EIAUtil.getLogicalDate(purchaseInvoiceDateItem
+						.getValueAsDate()));
 
 		eia.setPurchaseOrderDate(purchaseOrderDateItem.getValue() == null ? null
-				: new Date(purchaseOrderDateItem.getValueAsDate().getTime()));
+				: EIAUtil.getLogicalDate(purchaseOrderDateItem.getValueAsDate()));
 
 		if (installationProviderSelectItem.getValue() != null) {
 			eia.setInstallationProvider(new ExternalProvider(Integer
@@ -526,10 +547,14 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		if (lifeTimePotSelectItem.getValue() != null)
 			eia.setLifeTimePoT(TimePeriodEnum.valueOf(lifeTimePotSelectItem
 					.getValueAsString()));
+
 		// guarantees
-		if (realWarrantyBeginDate.getValue() != null)
-			eia.setRealWarrantyBegin(new Date(realWarrantyBeginDate
-					.getValueAsDate().getTime()));
+		eia.setRealWarrantyBegin(realWarrantyBeginDate.getValue() == null ? null
+				: EIAUtil.getLogicalDate(realWarrantyBeginDate.getValueAsDate()));
+
+		eia.setIntWarrantyBegin(intWarrantyBeginDate.getValue() == null ? null
+				: EIAUtil.getLogicalDate(intWarrantyBeginDate.getValueAsDate()));
+
 		if (realWarrantyPotSelectItem.getValue() != null)
 			eia.setRealWarrantyPoT(TimePeriodEnum
 					.valueOf(realWarrantyPotSelectItem.getValueAsString()));
@@ -541,10 +566,6 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		if (realWarrantyTimeTextItem.getValue() != null)
 			eia.setRealWarrantyTime(Integer.valueOf(realWarrantyTimeTextItem
 					.getValueAsString()));
-
-		if (intWarrantyBeginDate.getValue() != null)
-			eia.setIntWarrantyBegin(new Date(intWarrantyBeginDate
-					.getValueAsDate().getTime()));
 
 		if (intWarrantyPotSelectItem.getValue() != null)
 			eia.setIntWarrantyPoT(TimePeriodEnum
@@ -560,7 +581,7 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		// eia.setMaintenanceLocation(new BuildingLocation(
 		// maintenanceLocationSelectItem.getValueAsString()));
 		if (maintenanceProviderSelectItem.getValue() != null)
-			eia.setMaintenanceProvider(new ExternalProvider(Integer
+			eia.setMaintenanceProvider(new ExternalProvider(Long
 					.valueOf(maintenanceProviderSelectItem.getValueAsString())));
 		// }
 
@@ -754,21 +775,22 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 					}
 				});
 	}
-	
+
 	/**
 	 * @return
 	 */
 	private GHADynamicForm getInfoBasicaForm() {
-		GHADynamicForm equipoForm = new GHADynamicForm(GHAUiHelper.getSectionFormFormWidth(30),3);
-		
+		GHADynamicForm equipoForm = new GHADynamicForm(
+				GHAUiHelper.getSectionFormFormWidth(30), 3);
+
 		equipoForm.setItems(information_TitleItem,  
 							eiaTypeSelectItem, new GHASpacerItem(2),
 							codeTextItem, serialTextItem, fixedAssetIdTextItem,
 							obuSelectItem, baseRoleSelectItem,  new GHASpacerItem(),
 							acceptationDateItem, stateSelectItem, new GHASpacerItem(),
 							providers_TitleItem, 
-							adqisitionProviderSelectItem, maintenanceProviderSelectItem);
-		
+				maintenanceProviderSelectItem);
+
 		return equipoForm;
 	}
 
@@ -789,29 +811,33 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 								intermedWarranty_TitleItem,
 								intWarrantySinceSelectItem,intWarrantyBeginDate,intWarrantyTimeTextItem, intWarrantyPotSelectItem);
 		
+				purchaseInvoiceDateItem, purchaseOrderDateItem,
+				new GHASpacerItem());
 		return adquisicionForm;
 	}
-	
+
 	/**
 	 * @return
 	 */
 	private GHADynamicForm getUbicacionForm() {
-		GHADynamicForm areaForm = new GHADynamicForm(GHAUiHelper.getSectionFormFormWidth(30),3);
-		
+		GHADynamicForm areaForm = new GHADynamicForm(
+				GHAUiHelper.getSectionFormFormWidth(30), 3);
+
 		areaForm.setItems(location_TitleItem, 
 				locationTypeSelectItem, new GHASpacerItem(2),
 				workingArea_TitleItem,
-				workingAreaLocationSelectItem, workingAreaLocationCodeTextItem,new GHASpacerItem(),
+				workingAreaLocationSelectItem, workingAreaLocationCodeTextItem,
 				facility_TitleItem,
 				facilityLocationSelectItem, facilityLocationCodeTextItem);
 		return areaForm;
 	}
-	
+
 	/**
 	 * @return
 	 */
 	private GHADynamicForm getCostosForm() {
 		GHADynamicForm res = new GHADynamicForm(GHAUiHelper.getSectionFormFormWidth(30),4);
+				GHAUiHelper.getSectionFormFormWidth(30), 3);
 		
 		res.setItems(adqCost_TitleItem, 
 					adquisitionCostTextItem, adquisitionCostCurrencySelectItem,	contabilizationDateItem,new GHASpacerItem(1),
@@ -823,7 +849,7 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 
 		return res;
 	}
-	
+
 //	/**
 //	 * @return
 //	 */
@@ -861,7 +887,7 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 	 * @Override public void onChange(ChangeEvent event) {
 	 * codeMant_WarrMant_TextItem.setValue(event.getValue()); } }); }
 	 */
-	
+
 	@Override
 	public void hide() {
 		super.hide();
@@ -1148,9 +1174,9 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 
 	@Override
 	public void onResize(ResizeEvent arg0) {
-		infoBasicaForm.resize(GHAUiHelper.getSectionFormFormWidth(30),3);
+		infoBasicaForm.resize(GHAUiHelper.getSectionFormFormWidth(30), 3);
 		adquisicionForm.resize(GHAUiHelper.getSectionFormFormWidth(30),4);
-		ubicacionForm.resize(GHAUiHelper.getSectionFormFormWidth(30),3);
+		ubicacionForm.resize(GHAUiHelper.getSectionFormFormWidth(30), 3);
 		costosForm.resize(GHAUiHelper.getSectionFormFormWidth(30),4);
 //		garantiasMantForm.resize(GHAUiHelper.getSectionFormFormWidth(30),3);
 	}

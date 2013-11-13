@@ -5,12 +5,15 @@ import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridField;
 import org.fourgeeks.gha.webclient.client.UI.grids.GhaGrid;
 
 import com.google.gwt.event.logical.shared.ResizeHandler;
+import com.smartgwt.client.data.Record;
+import com.smartgwt.client.widgets.Canvas;
 
 /**
  * @author alacret, emiliot
  * 
  */
 public class EIAGrid extends GhaGrid<Eia> implements ResizeHandler {
+	private EIADetailViewer detailViewer;
 
 	/**
 	 * 
@@ -19,15 +22,31 @@ public class EIAGrid extends GhaGrid<Eia> implements ResizeHandler {
 		setEmptyMessage("No existen Equipos para mostrar");
 
 		GHAGridField idGridField = new GHAGridField("id", "No");
-		GHAGridField codeGridField = new GHAGridField("code", "Codigo");
 		GHAGridField serialGridField = new GHAGridField("serialNumber",
 				"Serial");
-		GHAGridField nameGridField = new GHAGridField("name", "Nombre");
+		GHAGridField faiGridField = new GHAGridField("fai", "Id Activo Fijo");
 		GHAGridField locationGridField = new GHAGridField("location",
 				"Ubicación");
+		GHAGridField bpiGridField = new GHAGridField("bpi", "Institución");
 		GHAGridField statusGridField = new GHAGridField("state", "Estado");
 
-		setFields(idGridField, codeGridField, serialGridField, nameGridField,
-				locationGridField, statusGridField);
+		setFields(idGridField, serialGridField, faiGridField,
+				locationGridField, bpiGridField, statusGridField);
+
+		detailViewer = new EIADetailViewer();
+		detailViewer.setWidth(350);
+
+		setCanHover(true);
+		setShowHover(true);
+		setShowHoverComponents(true);
+	}
+
+	@Override
+	protected Canvas getCellHoverComponent(Record record, Integer rowNum,
+			Integer colNum) {
+
+		detailViewer.setData(new EIARecord[] { (EIARecord) record });
+
+		return detailViewer;
 	}
 }
