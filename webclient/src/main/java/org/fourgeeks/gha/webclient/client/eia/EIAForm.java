@@ -439,13 +439,13 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 
 		// acquisition
 		eia.setPurchaseDate(purchaseDateItem.getValue() == null ? null
-				: new Date(purchaseDateItem.getValueAsDate().getTime()));
+				: EIAUtil.getLogicalDate(purchaseDateItem.getValueAsDate()));
 
 		eia.setReceptionDate(receptionDateItem.getValue() == null ? null
-				: new Date(receptionDateItem.getValueAsDate().getTime()));
+				: EIAUtil.getLogicalDate(receptionDateItem.getValueAsDate()));
 
 		eia.setInstallationDate(installationDateItem.getValue() == null ? null
-				: new Date(installationDateItem.getValueAsDate().getTime()));
+				: EIAUtil.getLogicalDate(installationDateItem.getValueAsDate()));
 
 		if (adqisitionProviderSelectItem.getValue() != null) {
 			eia.setProvider(new ExternalProvider(Integer
@@ -458,10 +458,11 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 				.getValueAsString());
 
 		eia.setPurchaseInvoiceDate(purchaseInvoiceDateItem.getValue() == null ? null
-				: new Date(purchaseInvoiceDateItem.getValueAsDate().getTime()));
+				: EIAUtil.getLogicalDate(purchaseInvoiceDateItem
+						.getValueAsDate()));
 
 		eia.setPurchaseOrderDate(purchaseOrderDateItem.getValue() == null ? null
-				: new Date(purchaseOrderDateItem.getValueAsDate().getTime()));
+				: EIAUtil.getLogicalDate(purchaseOrderDateItem.getValueAsDate()));
 
 		if (installationProviderSelectItem.getValue() != null) {
 			eia.setInstallationProvider(new ExternalProvider(Integer
@@ -552,10 +553,10 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 
 		// guarantees
 		eia.setRealWarrantyBegin(realWarrantyBeginDate.getValue() == null ? null
-				: new Date(realWarrantyBeginDate.getValueAsDate().getTime()));
+				: EIAUtil.getLogicalDate(realWarrantyBeginDate.getValueAsDate()));
 
 		eia.setIntWarrantyBegin(intWarrantyBeginDate.getValue() == null ? null
-				: new Date(intWarrantyBeginDate.getValueAsDate().getTime()));
+				: EIAUtil.getLogicalDate(intWarrantyBeginDate.getValueAsDate()));
 
 		if (realWarrantyPotSelectItem.getValue() != null)
 			eia.setRealWarrantyPoT(TimePeriodEnum

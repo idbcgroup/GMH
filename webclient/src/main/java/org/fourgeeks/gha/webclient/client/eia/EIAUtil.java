@@ -1,9 +1,12 @@
 package org.fourgeeks.gha.webclient.client.eia;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.Eia;
+
+import com.smartgwt.client.util.DateUtil;
 
 public class EIAUtil {
 
@@ -23,4 +26,8 @@ public class EIAUtil {
 		return list;
 	}
 
+	public static Date getLogicalDate(java.util.Date date) {
+		long time = DateUtil.getLogicalDateOnly(date).getTime();
+		return new Date(time);
+	}
 }
