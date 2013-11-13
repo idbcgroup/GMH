@@ -116,20 +116,7 @@ public abstract class GHAUiHelper {
 	public static final int DEFAULT_ANIMATION_TIME = 400;
 
 	
-	/**
-	 * @param src
-	 * @param imgW
-	 * @param imgH
-	 * @param height
-	 * @return
-	 */
-	public static VLayout verticalGraySeparatorImgBar(String src, int imgW,
-			int imgH, int height) {
-		GHAImg imgButton = new GHAImg(src, imgW, imgH);
-		// imgButton.setStyleName("iconTopPadding");
-
-
-
+	
 	/**
 	 * @return the height that a tab must have
 	 */
@@ -257,6 +244,13 @@ public abstract class GHAUiHelper {
 		return separator;
 	}
 	
+	/**
+	 * @param src
+	 * @param imgW
+	 * @param imgH
+	 * @param height
+	 * @return
+	 */
 	public static VLayout verticalGraySeparatorImgBar(String src, int imgW, int imgH, int height) {
 		GHAImg imgButton = new GHAImg(src,imgW,imgH);
 //		imgButton.setStyleName("iconTopPadding");
