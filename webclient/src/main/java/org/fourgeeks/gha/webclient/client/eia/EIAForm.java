@@ -811,8 +811,6 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 								intermedWarranty_TitleItem,
 								intWarrantySinceSelectItem,intWarrantyBeginDate,intWarrantyTimeTextItem, intWarrantyPotSelectItem);
 		
-				purchaseInvoiceDateItem, purchaseOrderDateItem,
-				new GHASpacerItem());
 		return adquisicionForm;
 	}
 
@@ -837,7 +835,6 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 	 */
 	private GHADynamicForm getCostosForm() {
 		GHADynamicForm res = new GHADynamicForm(GHAUiHelper.getSectionFormFormWidth(30),4);
-				GHAUiHelper.getSectionFormFormWidth(30), 3);
 		
 		res.setItems(adqCost_TitleItem, 
 					adquisitionCostTextItem, adquisitionCostCurrencySelectItem,	contabilizationDateItem,new GHASpacerItem(1),
