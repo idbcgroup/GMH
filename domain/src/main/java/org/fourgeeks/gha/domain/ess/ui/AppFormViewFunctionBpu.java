@@ -19,7 +19,7 @@ import org.fourgeeks.gha.domain.gar.Bpu;
 @Entity
 @Table(name = "AppFormViewFunctionBpu")
 @IdClass(AppFormViewFunctionBpuId.class)
-@NamedQueries(value = { @NamedQuery(name = "AppFormViewFunctionBpu.findByBpu", query = "SELECT e from AppFormViewFunctionBpu e WHERE e.bpu = :bpu") })
+@NamedQueries(value = { @NamedQuery(name = "AppFormViewFunctionBpu.findByBpu", query = "SELECT e from AppFormViewFunctionBpu e WHERE e.bpu = :bpu order by e.function") })
 public class AppFormViewFunctionBpu implements Serializable {
 
 	/**

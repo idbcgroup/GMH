@@ -39,15 +39,7 @@ public class AppFormViewFunctionBpuService extends GHAEJBExceptionImpl
 		try {
 			query = em.createNamedQuery("AppFormViewFunctionBpu.findByBpu",
 					AppFormViewFunctionBpu.class).setParameter("bpu", bpu);
-
 			List<AppFormViewFunctionBpu> resultList = query.getResultList();
-
-			// TreeSet<String> treeSet = new TreeSet<String>();
-			// for (AppFormViewFunctionBpu bpuFunction : resultList) {
-			// treeSet.add(bpuFunction.getFunction().getCode());
-			// System.out.println(bpuFunction.getFunction().getCode());
-			// }
-
 			return resultList;
 		} catch (Exception e) {
 			logger.log(Level.INFO, "error retriving bpufunctions", e);
