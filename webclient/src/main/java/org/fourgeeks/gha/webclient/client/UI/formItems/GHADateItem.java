@@ -16,7 +16,7 @@ public class GHADateItem extends DateItem {
 	public GHADateItem() {
 		super();
 		setHeight(20);
-		setWidth(GHAUiHelper.DEFAULT_ITEM_SIZE);
+		setWidth("*");
 		setUseTextField(true);
 		setTextAlign(Alignment.LEFT);
 		setTextBoxStyle("dateItem");

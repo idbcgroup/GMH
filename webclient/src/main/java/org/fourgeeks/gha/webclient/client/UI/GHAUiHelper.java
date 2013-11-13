@@ -61,13 +61,6 @@ public abstract class GHAUiHelper {
 	/**
 	 * 
 	 */
-	public static final int THREE_COLUMN_FORMITEM_SIZE = 150;
-	/**
-	 * 
-	 */
-	@Deprecated
-	public static final int FOUR_COLUMN_FORMITEM_SIZE = 135;
-
 	private static final int HEADER_HEIGTH = 60;
 	private static final int MENU_BAR_HEIGTH = 30;
 
@@ -82,11 +75,21 @@ public abstract class GHAUiHelper {
 	 */
 	public static final int MIN_GRID_SIZE = 120;
 
+
+	/**
+	 * The default Section Form
+	 */
+	public static final int SECTION_FORM_OPTION_WIDTH = 150;
+	
+	/**
+	 * The default form measures
+	 */
+	public static final int MIN_FORM_WIDTH = 400;
+	public static final int MIN_SECTION_FORM_FORM_WIDTH = 300;
 	/**
 	 * The default top section height
 	 */
-	public static final int DEFAULT_TOP_SECTION_HEIGHT = HEADER_HEIGTH
-			+ MENU_BAR_HEIGTH + 1;
+	public static final int DEFAULT_TOP_SECTION_HEIGHT = HEADER_HEIGTH + MENU_BAR_HEIGTH + 1;
 	public static final int DEFAULT_INNER_TOP_SECTION_HEIGHT = 110;
 	public static final int V_SEPARATOR_HEIGHT = 10;
 	/**
@@ -96,6 +99,10 @@ public abstract class GHAUiHelper {
 	/**
 	 * The size of a form item if none is specify
 	 */
+	@Deprecated
+	public static final int FOUR_COLUMN_FORMITEM_SIZE = 135;
+	@Deprecated
+	public static final int THREE_COLUMN_FORMITEM_SIZE = 150;
 	public static final int DEFAULT_ITEM_SIZE = 150;
 	/**
 	 * The default length for a code item
@@ -108,21 +115,7 @@ public abstract class GHAUiHelper {
 	public static final int DEFAULT_TEXT_AREA_ITEM_HEIGHT = 70;
 	public static final int DEFAULT_ANIMATION_TIME = 400;
 
-	public static VLayout verticalGraySeparator(String height) {
-		VLayout separator = new VLayout();
-		separator.setWidth100();
-		separator.setBackgroundColor("#666666");
-		separator.setHeight(height);
-		return separator;
-	}
-
-	public static VLayout verticalSeparator(String height) {
-		VLayout separator = new VLayout();
-		separator.setWidth100();
-		separator.setHeight(height);
-		return separator;
-	}
-
+	
 	/**
 	 * @param src
 	 * @param imgW
@@ -135,44 +128,7 @@ public abstract class GHAUiHelper {
 		GHAImg imgButton = new GHAImg(src, imgW, imgH);
 		// imgButton.setStyleName("iconTopPadding");
 
-		VLayout separator = new VLayout();
-		separator.setWidth100();
-		separator.setHeight(height);
-		separator.setDefaultLayoutAlign(Alignment.CENTER);
-		separator.setBackgroundColor("#666666");
 
-		separator.addMember(imgButton);
-
-		return separator;
-	}
-
-	public static HLayout verticalGraySeparatorLabel(String height, String text) {
-		HLayout separator = new HLayout();
-		separator.setWidth100();
-		separator.setBackgroundColor("#666666");
-		separator.setHeight(height);
-		separator.setStyleName("sides-padding");
-
-		GHALabel title = new GHALabel(text);
-		title.setHeight(height);
-		title.setStyleName("separator-title-label");
-
-		separator.addMember(title);
-
-		return separator;
-	}
-
-	/**
-	 * @param width
-	 * @return an horizontal gray separator
-	 */
-	public static HLayout horizontalGraySeparator(String width) {
-		HLayout separator = new HLayout();
-		separator.setHeight100();
-		separator.setWidth(width);
-		separator.setBackgroundColor("#666666");
-		return separator;
-	}
 
 	/**
 	 * @return the height that a tab must have
@@ -203,6 +159,32 @@ public abstract class GHAUiHelper {
 		}
 	}
 
+	/**
+	 * @return the width that a form must have
+	 */
+	public static int getNormalFormWidth(int buttonsSize) {
+		int rootPanelWidth = Window.getClientWidth();
+		int ret = rootPanelWidth - buttonsSize - 70;
+		if (ret < MIN_FORM_WIDTH) {
+			return MIN_FORM_WIDTH;
+		} else {
+			return ret;
+		}
+	}
+	
+	/**
+	 * @return the width that a form must have
+	 */
+	public static int getSectionFormFormWidth(int buttonsSize) {
+		int rootPanelWidth = Window.getClientWidth();
+		int ret = rootPanelWidth - (SECTION_FORM_OPTION_WIDTH + 50) - buttonsSize - 70;
+		if (ret < MIN_SECTION_FORM_FORM_WIDTH) {
+			return MIN_SECTION_FORM_FORM_WIDTH;
+		} else {
+			return ret;
+		}
+	}
+	
 	/**
 	 * @return the TOp space
 	 */
@@ -259,7 +241,66 @@ public abstract class GHAUiHelper {
 			return ret;
 		}
 	}
+		
+	public static VLayout verticalGraySeparator(String height) {
+		VLayout separator = new VLayout();
+		separator.setWidth100();
+		separator.setBackgroundColor("#666666");
+		separator.setHeight(height);
+		return separator;
+	}
 
+	public static VLayout verticalSeparator(String height) {
+		VLayout separator = new VLayout();
+		separator.setWidth100();
+		separator.setHeight(height);
+		return separator;
+	}
+	
+	public static VLayout verticalGraySeparatorImgBar(String src, int imgW, int imgH, int height) {
+		GHAImg imgButton = new GHAImg(src,imgW,imgH);
+//		imgButton.setStyleName("iconTopPadding");
+		
+		VLayout separator = new VLayout();
+		separator.setWidth100();
+		separator.setHeight(height);
+		separator.setDefaultLayoutAlign(Alignment.CENTER);
+		separator.setBackgroundColor("#666666");
+		
+		separator.addMember(imgButton);
+		
+		return separator;
+	}
+
+	public static HLayout verticalGraySeparatorLabel(String height, String text) {
+		HLayout separator = new HLayout();
+		separator.setWidth100();
+		separator.setBackgroundColor("#666666");
+		separator.setHeight(height);
+		separator.setStyleName("sides-padding");
+
+		GHALabel title = new GHALabel(text);
+		title.setHeight(height);
+		title.setStyleName("separator-title-label");
+
+		separator.addMember(title);
+
+		return separator;
+	}
+
+	/**
+	 * @param width
+	 * @return an horizontal gray separator
+	 */
+	public static HLayout horizontalGraySeparator(String width) {
+		HLayout separator = new HLayout();
+		separator.setHeight100();
+		separator.setWidth(width);
+		separator.setBackgroundColor("#666666");
+		return separator;
+	}
+
+	
 	/**
 	 * @param buttons
 	 * @return

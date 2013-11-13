@@ -76,6 +76,17 @@ public class GHASelectItem extends SelectItem {
 		setRequired(required);
 		addChangedHandler(changedHandler);
 	}
+	
+	/**
+	 * @param title
+	 * @param changedHandler
+	 */
+	public GHASelectItem(String title, boolean required,
+			ChangedHandler changedHandler) {
+		this(title);
+		setRequired(required);
+		addChangedHandler(changedHandler);
+	}
 
 	/**
 	 * @param title

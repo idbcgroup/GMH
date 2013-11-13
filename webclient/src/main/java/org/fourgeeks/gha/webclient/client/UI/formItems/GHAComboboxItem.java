@@ -21,7 +21,7 @@ public class GHAComboboxItem<T extends HasKey> extends ComboBoxItem {
 	public GHAComboboxItem() {
 		super();
 		setHeight(20);
-		setWidth(GHAUiHelper.DEFAULT_ITEM_SIZE);
+		setWidth("*");
 		setPickerIconHeight(20);
 		setTextBoxStyle("combobox");
 		setCellStyle("gha-form-cell");

@@ -9,7 +9,7 @@ public class GHACheckboxItem extends CheckboxItem {
 	public GHACheckboxItem() {
 		super();
 		setHeight(20);
-		setWidth(GHAUiHelper.DEFAULT_ITEM_SIZE);
+		setWidth("*");
 		setCellStyle("gha-form-cell");
 		setShowTitle(false);
 		setTitleStyle("input-title");

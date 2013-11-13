@@ -18,6 +18,7 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASearchForm;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.fields.events.KeyUpEvent;
@@ -32,7 +33,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan> implements
-		MaintenancePlanSelectionListener, MaintenancePlanSelectionProducer {
+		MaintenancePlanSelectionListener, MaintenancePlanSelectionProducer, ResizeHandler {
 
 	private MaintenancePlanGrid grid;
 	private GHATextItem nameItem, descriptionItem, frequencyItem;
@@ -43,7 +44,7 @@ public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan> im
 	private List<MaintenancePlanSelectionListener> listeners;
 
 	{
-		form = new GHADynamicForm(920,4);
+		form = new GHADynamicForm(GHAUiHelper.getNormalFormWidth(30),3);
 		
 		listeners = new LinkedList<MaintenancePlanSelectionListener>();
 		
@@ -51,8 +52,7 @@ public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan> im
 		nameItem.setLength(100);
 		frequencyItem = new GHATextItem("Frecuencia");
 		periodOfTimeSelectItem = new GHASelectItem("Periodo de Tiempo");
-		
-		descriptionItem = new GHATextItem("Descripción"/*, 420*/);
+		descriptionItem = new GHATextItem("Descripción");
 		descriptionItem.setColSpan(3);
 		
 		grid = new MaintenancePlanGrid();
@@ -65,7 +65,7 @@ public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan> im
 	 */
 	public MaintenancePlanSearchForm(String title) {
 		super(title);
-		
+		GHAUiHelper.addGHAResizeHandler(this);
 		form.setItems(nameItem, frequencyItem, periodOfTimeSelectItem,new GHASpacerItem(),
 					  descriptionItem);
 
@@ -198,6 +198,7 @@ public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan> im
 	@Override
 	public void onResize(ResizeEvent event) {
 		setHeight(GHAUiHelper.getTabHeight() - 4 + "px");
+		form.resize(GHAUiHelper.getNormalFormWidth(30),3);
 	}
 
 	// Producer/Consumer Stuff
