@@ -7,18 +7,17 @@ import org.fourgeeks.gha.webclient.client.UI.grids.GhaGrid;
 public class EIATypeGrid extends GhaGrid<EiaType> {
 
 	public EIATypeGrid() {
-		
+
 		setEmptyMessage("No existen tipos de equipo para mostrar");
-		
-		GHAGridField codeGridField = new GHAGridField("code", "Codigo");
+
 		GHAGridField nameGridField = new GHAGridField("name", "Nombre");
 		GHAGridField brandGridField = new GHAGridField("brand", "Marca");
 		GHAGridField modelGridField = new GHAGridField("model", "Modelo");
-		GHAGridField makeGridField = new GHAGridField("manufacturer",
-				"Fabricante");
+		GHAGridField typeGridField = new GHAGridField("type", "Tipo");
+		GHAGridField subTypeGridField = new GHAGridField("subtype", " Sub tipo");
 
-		setFields(codeGridField, nameGridField, brandGridField,
-				modelGridField, makeGridField);
+		setFields(typeGridField, subTypeGridField, nameGridField,
+				brandGridField, modelGridField);
 	}
 
 }

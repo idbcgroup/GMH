@@ -14,7 +14,9 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.ParameterExpression;
+import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -27,6 +29,7 @@ import org.fourgeeks.gha.domain.gar.Obu;
 //import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 
@@ -44,67 +47,78 @@ public class EiaService extends GHAEJBExceptionImpl implements EiaServiceRemote 
 			.getName());
 
 	private final static Predicate buildFilters(Eia entity, CriteriaBuilder cb,
-			Root<Eia> root) {
-		Predicate criteria = cb.conjunction();
+			Root<Eia> root, Join<Eia, Obu> obuJoin) {
+		Predicate predicate = cb.conjunction();
 		if (entity.getResponsibleRole() != null) {
 			// logger.log(Level.INFO, "responsible role");
 			ParameterExpression<Role> p = cb.parameter(Role.class, "baseRole");
-			criteria = cb.and(criteria,
+			predicate = cb.and(predicate,
 					cb.equal(root.<Role> get("responsibleRole"), p));
 		}
 		if (entity.getCode() != null) {
 			// logger.log(Level.INFO, "code");
 			ParameterExpression<String> p = cb.parameter(String.class, "code");
-			criteria = cb.and(criteria, cb.equal(root.<String> get("code"), p));
+			predicate = cb.and(predicate,
+					cb.equal(root.<String> get("code"), p));
 		}
 		if (entity.getEiaType() != null) {
 			// logger.log(Level.INFO, "eiatype");
 			ParameterExpression<EiaType> p = cb.parameter(EiaType.class,
 					"eiaType");
-			criteria = cb.and(criteria,
+			predicate = cb.and(predicate,
 					cb.equal(root.<EiaType> get("eiaType"), p));
 		}
 		if (entity.getObu() != null) {
-			// logger.log(Level.INFO, "obu");
-			ParameterExpression<Obu> p = cb.parameter(Obu.class, "obu");
-			criteria = cb.and(criteria, cb.equal(root.<Obu> get("obu"), p));
+			final Obu obu = entity.getObu();
+			if (obu.getId() > 0) {
+				// logger.log(Level.INFO, "obu");
+				ParameterExpression<Long> p = cb.parameter(Long.class, "obuId");
+				Path<Long> obuId = obuJoin.<Long> get("id");
+				predicate = cb.and(predicate, cb.equal(obuId, p));
+			}
+			if (obu.getBpi() != null) {
+				// logger.log(Level.INFO, "obu.bpi");
+				ParameterExpression<Bpi> p = cb.parameter(Bpi.class, "obuBpi");
+				Path<Bpi> obuBpi = obuJoin.<Bpi> get("bpi");
+				predicate = cb.and(predicate, cb.equal(obuBpi, p));
+			}
 		}
 		if (entity.getSerialNumber() != null) {
 			// logger.log(Level.INFO, "serial");
 			ParameterExpression<String> p = cb.parameter(String.class,
 					"serialNumber");
-			criteria = cb.and(criteria,
+			predicate = cb.and(predicate,
 					cb.equal(root.<String> get("serialNumber"), p));
 		}
 		if (entity.getState() != null) {
 			// logger.log(Level.INFO, "state");
 			ParameterExpression<EiaStateEnum> p = cb.parameter(
 					EiaStateEnum.class, "state");
-			criteria = cb.and(criteria,
+			predicate = cb.and(predicate,
 					cb.equal(root.<EiaStateEnum> get("state"), p));
 		}
 		if (entity.getActualCost() != null) {
 			// logger.log(Level.INFO, "actualCost");
 			ParameterExpression<BigDecimal> p = cb.parameter(BigDecimal.class,
 					"actualCost");
-			criteria = cb.and(criteria,
+			predicate = cb.and(predicate,
 					cb.equal(root.<BigDecimal> get("actualCost"), p));
 		}
 		if (entity.getWorkingArea() != null) {
 			// logger.log(Level.INFO, "workingarea");
 			ParameterExpression<WorkingArea> p = cb.parameter(
 					WorkingArea.class, "workingArea");
-			criteria = cb.and(criteria,
+			predicate = cb.and(predicate,
 					cb.equal(root.<WorkingArea> get("workingArea"), p));
 		}
 		if (entity.getFacility() != null) {
 			// logger.log(Level.INFO, "facility");
 			ParameterExpression<Facility> p = cb.parameter(Facility.class,
 					"facility");
-			criteria = cb.and(criteria,
+			predicate = cb.and(predicate,
 					cb.equal(root.<Facility> get("facility"), p));
 		}
-		return criteria;
+		return predicate;
 	}
 
 	/*
@@ -140,9 +154,10 @@ public class EiaService extends GHAEJBExceptionImpl implements EiaServiceRemote 
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<Eia> cQuery = cb.createQuery(Eia.class);
 			Root<Eia> root = cQuery.from(Eia.class);
+			Join<Eia, Obu> obuJoin = root.join("obu");
 			cQuery.select(root);
 			cQuery.orderBy(cb.asc(root.get("id")));
-			Predicate criteria = buildFilters(entity, cb, root);
+			Predicate criteria = buildFilters(entity, cb, root, obuJoin);
 			TypedQuery<Eia> q;
 			if (criteria.getExpressions().size() <= 0) {
 				q = em.createQuery(cQuery);
@@ -160,7 +175,11 @@ public class EiaService extends GHAEJBExceptionImpl implements EiaServiceRemote 
 					q.setParameter("eiaType", entity.getEiaType());
 				}
 				if (entity.getObu() != null) {
-					q.setParameter("obu", entity.getObu());
+					final Obu obu = entity.getObu();
+					if (obu.getId() > 0)
+						q.setParameter("obuId", obu.getId());
+					if (obu.getBpi() != null)
+						q.setParameter("obuBpi", obu.getBpi());
 				}
 				if (entity.getSerialNumber() != null) {
 					q.setParameter("serialNumber", entity.getSerialNumber());
