@@ -11,7 +11,6 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.fourgeeks.gha.domain.ess.ui.AppFormViewFunctionBpu;
-import org.fourgeeks.gha.domain.ess.ui.AppFormViewFunctionBpuId;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
@@ -55,10 +54,7 @@ public class AppFormViewFunctionBpuService extends GHAEJBExceptionImpl
 		try {
 			em.persist(bpuFunction);
 			em.flush();
-			return em.find(AppFormViewFunctionBpu.class,
-					new AppFormViewFunctionBpuId(bpuFunction.getAppForm(),
-							bpuFunction.getView(), bpuFunction.getFunction(),
-							bpuFunction.getBpu()));
+			return em.find(AppFormViewFunctionBpu.class, bpuFunction.getCode());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving BpuFunction ", e);
 			throw super.generateGHAEJBException("bpuFunction-save-fail",
