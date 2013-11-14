@@ -14,6 +14,7 @@ import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.util.BooleanCallback;
+import com.smartgwt.client.widgets.AnimationCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -39,8 +40,6 @@ public class EIAAddForm extends GHAAddForm implements EIATypeSelectionListener,
 	 */
 	public EIAAddForm(EiaType eiaType, String title) {
 		super(title);
-		form = new EIAForm();
-		form.select(eiaType);
 		initComponent();
 	}
 
@@ -97,6 +96,17 @@ public class EIAAddForm extends GHAAddForm implements EIATypeSelectionListener,
 	}
 
 	@Override
+	public void close() {
+		hide(new AnimationCallback() {
+
+			@Override
+			public void execute(boolean earlyFinish) {
+				destroy();
+			}
+		});
+	}
+
+	@Override
 	public void hide() {
 		if (form.hasUnCommittedChanges()) {
 			GHANotification.confirm(GHAStrings.get("information"),
@@ -106,15 +116,12 @@ public class EIAAddForm extends GHAAddForm implements EIATypeSelectionListener,
 						public void execute(Boolean value) {
 							if (value) {
 								form.undo();
-								form.hide();
 								EIAAddForm.super.hide();
 							}
 						}
 					});
-			return;
-		}
-		form.hide();
-		super.hide();
+		} else
+			super.hide();
 	}
 
 	/**
@@ -144,13 +151,6 @@ public class EIAAddForm extends GHAAddForm implements EIATypeSelectionListener,
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.fourgeeks.gha.webclient.client.eia.EiaSelectionProducer#notifyEia
-	 * (org.fourgeeks.gha.domain.gmh.Eia)
-	 */
 	@Override
 	public void notifyEia(Eia eia) {
 		form.notifyEia(eia);
@@ -164,7 +164,7 @@ public class EIAAddForm extends GHAAddForm implements EIATypeSelectionListener,
 	@Override
 	public void open() {
 		super.open();
-		form.show();
+		form.activate();
 	}
 
 	@Override
@@ -181,8 +181,8 @@ public class EIAAddForm extends GHAAddForm implements EIATypeSelectionListener,
 
 			@Override
 			public void onSuccess(Eia result) {
-				hide();
 				GHANotification.alert("eia-save-success");
+				hide();
 			}
 		});
 
