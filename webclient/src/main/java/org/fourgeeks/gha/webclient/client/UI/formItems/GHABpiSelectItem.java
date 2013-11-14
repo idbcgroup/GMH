@@ -7,7 +7,6 @@ import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
-import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 
@@ -24,7 +23,8 @@ public class GHABpiSelectItem extends GHASelectItem {
 	 * 
 	 */
 	public GHABpiSelectItem() {
-		this(GHAUiHelper.DEFAULT_ITEM_SIZE);
+		super(GHAStrings.get("bpi-select-item"));
+		fill();
 	}
 
 	/**
@@ -36,6 +36,19 @@ public class GHABpiSelectItem extends GHASelectItem {
 	public GHABpiSelectItem(int width, boolean required,
 			ChangedHandler changedHandler) {
 		super(GHAStrings.get("bpi-select-item"), width);
+		setRequired(required);
+		addChangedHandler(changedHandler);
+		fill();
+	}
+	
+	/**
+	 * @param title
+	 * @param required
+	 * @param changedHandler
+	 */
+	public GHABpiSelectItem(boolean required,
+			ChangedHandler changedHandler) {
+		super(GHAStrings.get("bpi-select-item"));
 		setRequired(required);
 		addChangedHandler(changedHandler);
 		fill();

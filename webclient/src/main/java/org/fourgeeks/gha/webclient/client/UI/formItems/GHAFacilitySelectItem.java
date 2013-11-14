@@ -7,7 +7,6 @@ import org.fourgeeks.gha.domain.gar.Facility;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
-import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 
@@ -16,19 +15,21 @@ import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
  * 
  */
 public class GHAFacilitySelectItem extends GHASelectItem {
+	
+	/**
+	 * 
+	 */
+	public GHAFacilitySelectItem() {
+		super(GHAStrings.get("facility-select-item"));
+		fill();
+	}
+	
 	/**
 	 * @param width
 	 */
 	public GHAFacilitySelectItem(int width) {
 		super(GHAStrings.get("facility-select-item"), width);
 		fill();
-	}
-
-	/**
-	 * 
-	 */
-	public GHAFacilitySelectItem() {
-		this(GHAUiHelper.DEFAULT_ITEM_SIZE);
 	}
 
 	/**
@@ -45,6 +46,19 @@ public class GHAFacilitySelectItem extends GHASelectItem {
 		fill();
 	}
 
+	/**
+	 * @param title
+	 * @param required
+	 * @param changedHandler
+	 */
+	public GHAFacilitySelectItem(boolean required,
+			ChangedHandler changedHandler) {
+		super(GHAStrings.get("facility-select-item"));
+		setRequired(required);
+		addChangedHandler(changedHandler);
+		fill();
+	}
+	
 	public void fill() {
 		GHACache.INSTANCE.getFacilities(new GHAAsyncCallback<List<Facility>>() {
 

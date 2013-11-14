@@ -24,13 +24,13 @@ import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 
-import com.smartgwt.client.types.TitleOrientation;
+import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
-import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
@@ -40,7 +40,6 @@ import com.smartgwt.client.widgets.layout.VLayout;
  */
 public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 		EIASelectionListener {
-	private final int ITEM_WIDTH = 200;
 
 	private GHATextItem serialNumber;
 	private GHATextItem fixedAssetIdentifier;
@@ -53,35 +52,36 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 
 	private GHAImgButton searchImgButton, deleteImgButton, cleanImgButton;
 	private VLayout sideButtons;
+	
+	private GHADynamicForm form;
 
 	private boolean activated = false;
 
 	private Eia selectedEia;
 
 	{
+		serialNumber = new GHATextItem(GHAStrings.get("serialNumber-item"), false);
+		fixedAssetIdentifier = new GHATextItem(GHAStrings.get("fixedAssetIdentifier-item"), false);
 
-		serialNumber = new GHATextItem(GHAStrings.get("serialNumber-item"),
-				ITEM_WIDTH, false);
-		fixedAssetIdentifier = new GHATextItem(
-				GHAStrings.get("fixedAssetIdentifier-item"), ITEM_WIDTH, false);
-
-		stateSelectItem = new GHAEiaStateSelectItem(ITEM_WIDTH);
+		stateSelectItem = new GHAEiaStateSelectItem();
 		stateSelectItem.disable();
 
-		workingAreaLocationSelectItem = new GHAWorkingAreaSelectItem(ITEM_WIDTH);
+		workingAreaLocationSelectItem = new GHAWorkingAreaSelectItem();
 		workingAreaLocationSelectItem.disable();
 
-		facilityLocationSelectItem = new GHAFacilitySelectItem(ITEM_WIDTH);
+		facilityLocationSelectItem = new GHAFacilitySelectItem();
 		facilityLocationSelectItem.disable();
 
-		obuSelectItem = new GHAObuSelectItem(ITEM_WIDTH);
+		obuSelectItem = new GHAObuSelectItem();
 		obuSelectItem.disable();
 
-		bpiObuSelectItem = new GHABpiSelectItem(ITEM_WIDTH);
+		bpiObuSelectItem = new GHABpiSelectItem();
 		bpiObuSelectItem.disable();
 
-		baseRoleSelectItem = new GHARoleSelectItem(ITEM_WIDTH);
+		baseRoleSelectItem = new GHARoleSelectItem();
 		baseRoleSelectItem.disable();
+		
+		form = new GHADynamicForm(GHAUiHelper.getNormalFormWidth(30),4);
 	}
 
 	/**
@@ -91,10 +91,6 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 	public EIATopForm(EiaResultSet resultSet, EIATab eiaTab) {
 		super(resultSet, eiaTab);
 
-		DynamicForm form = new DynamicForm();
-		// form.setWidth("100px");
-		form.setTitleOrientation(TitleOrientation.TOP);
-		form.setNumCols(4);
 		form.setItems(serialNumber, fixedAssetIdentifier, stateSelectItem,
 				bpiObuSelectItem, workingAreaLocationSelectItem,
 				facilityLocationSelectItem, obuSelectItem, baseRoleSelectItem);
@@ -308,5 +304,11 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 		obuSelectItem.clearValue();
 		bpiObuSelectItem.clearValue();
 		baseRoleSelectItem.clearValue();
+	}
+	
+	@Override
+	public void onResize(ResizeEvent event) {
+		super.onResize(event);
+		form.resize(GHAUiHelper.getNormalFormWidth(30),4);
 	}
 }

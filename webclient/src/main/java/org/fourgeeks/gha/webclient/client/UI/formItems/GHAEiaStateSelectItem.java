@@ -12,19 +12,19 @@ import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 public class GHAEiaStateSelectItem extends GHASelectItem {
 
 	/**
+	 * 
+	 */
+	public GHAEiaStateSelectItem() {
+		super(GHAStrings.get("eiastate-select-item"));
+		setValueMap(EiaStateEnum.toValueMap());
+	}
+	
+	/**
 	 * @param width
 	 */
 	public GHAEiaStateSelectItem(int width) {
 		super(GHAStrings.get("eiastate-select-item"), width);
 		setValueMap(EiaStateEnum.toValueMap());
-	}
-
-	/**
-	 * 
-	 */
-	public GHAEiaStateSelectItem() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -36,6 +36,19 @@ public class GHAEiaStateSelectItem extends GHASelectItem {
 	public GHAEiaStateSelectItem(int width, boolean required,
 			ChangedHandler changedHandler) {
 		super(GHAStrings.get("eia-state-select-item"), width);
+		setRequired(required);
+		addChangedHandler(changedHandler);
+		setValueMap(EiaStateEnum.toValueMap());
+	}
+	
+	/**
+	 * @param title
+	 * @param required
+	 * @param changedHandler
+	 */
+	public GHAEiaStateSelectItem(boolean required,
+			ChangedHandler changedHandler) {
+		super(GHAStrings.get("eia-state-select-item"));
 		setRequired(required);
 		addChangedHandler(changedHandler);
 		setValueMap(EiaStateEnum.toValueMap());
