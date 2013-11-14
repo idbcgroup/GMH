@@ -7,7 +7,6 @@ import org.fourgeeks.gha.domain.ess.WorkingArea;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
-import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 
@@ -16,6 +15,7 @@ import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
  * 
  */
 public class GHAWorkingAreaSelectItem extends GHASelectItem {
+	
 	/**
 	 * @param width
 	 */
@@ -28,7 +28,8 @@ public class GHAWorkingAreaSelectItem extends GHASelectItem {
 	 * 
 	 */
 	public GHAWorkingAreaSelectItem() {
-		this(GHAUiHelper.DEFAULT_ITEM_SIZE);
+		super(GHAStrings.get("workingarea-select-item"));
+		fill();
 	}
 
 	/**
@@ -40,6 +41,19 @@ public class GHAWorkingAreaSelectItem extends GHASelectItem {
 	public GHAWorkingAreaSelectItem(int width, boolean required,
 			ChangedHandler changedHandler) {
 		super(GHAStrings.get("workingarea-select-item"), width);
+		setRequired(required);
+		addChangedHandler(changedHandler);
+		fill();
+	}
+	
+	/**
+	 * @param title
+	 * @param required
+	 * @param changedHandler
+	 */
+	public GHAWorkingAreaSelectItem(boolean required,
+			ChangedHandler changedHandler) {
+		super(GHAStrings.get("workingarea-select-item"));
 		setRequired(required);
 		addChangedHandler(changedHandler);
 		fill();

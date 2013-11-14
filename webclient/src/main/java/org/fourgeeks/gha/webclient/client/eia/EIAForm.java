@@ -250,6 +250,7 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 	public EIAForm() {
 		super();
 		GHAUiHelper.addGHAResizeHandler(this);
+		
 		infoBasicaForm = getInfoBasicaForm();
 		adquisicionForm = getAdquisicionForm();
 		ubicacionForm = getUbicacionForm();
