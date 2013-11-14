@@ -1,15 +1,15 @@
 package org.fourgeeks.gha.domain.ess.ui;
 
-import java.io.Serializable;
-
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
+import org.fourgeeks.gha.domain.AbstractCodeEntity;
 import org.fourgeeks.gha.domain.gar.Bpu;
 
 /**
@@ -17,10 +17,10 @@ import org.fourgeeks.gha.domain.gar.Bpu;
  * 
  */
 @Entity
-@Table(name = "AppFormViewFunctionBpu")
-@IdClass(AppFormViewFunctionBpuId.class)
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "appFormFk",
+		"viewFk", "functionFk", "bpuFk" }))
 @NamedQueries(value = { @NamedQuery(name = "AppFormViewFunctionBpu.findByBpu", query = "SELECT e from AppFormViewFunctionBpu e WHERE e.bpu = :bpu order by e.function") })
-public class AppFormViewFunctionBpu implements Serializable {
+public class AppFormViewFunctionBpu extends AbstractCodeEntity {
 
 	/**
 	 * @param bpu
@@ -31,6 +31,8 @@ public class AppFormViewFunctionBpu implements Serializable {
 	public AppFormViewFunctionBpu(Bpu bpu, AppForm appForm, View view,
 			Function function) {
 		super();
+		setCode(appForm.getCode() + view.getCode() + function.getCode()
+				+ bpu.getId());
 		this.bpu = bpu;
 		this.appForm = appForm;
 		this.view = view;
@@ -41,17 +43,21 @@ public class AppFormViewFunctionBpu implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@Id
 	@NotNull(message = "bpu-not-null")
+	@ManyToOne
+	@JoinColumn(name = "bpuFk", nullable = false)
 	private Bpu bpu;
-	@Id
 	@NotNull(message = "app-not-null")
+	@ManyToOne
+	@JoinColumn(name = "appFormFk", nullable = false)
 	private AppForm appForm;
-	@Id
 	@NotNull(message = "view-not-null")
+	@ManyToOne
+	@JoinColumn(name = "viewFk", nullable = false)
 	private View view;
-	@Id
 	@NotNull(message = "function-not-null")
+	@ManyToOne
+	@JoinColumn(name = "functionFk", nullable = false, columnDefinition = "varchar(255) REFERENCES function(code) ON UPDATE CASCADE ON DELETE CASCADE")
 	private Function function;
 
 	/**

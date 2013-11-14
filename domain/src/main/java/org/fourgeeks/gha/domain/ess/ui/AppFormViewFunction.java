@@ -1,34 +1,40 @@
 package org.fourgeeks.gha.domain.ess.ui;
 
-import java.io.Serializable;
-
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
+
+import org.fourgeeks.gha.domain.AbstractCodeEntity;
 
 /**
  * @author alacret
  * 
  */
 @Entity
-@IdClass(AppFormViewFunctionId.class)
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "appFormFk",
+		"viewFk", "functionFk" }))
 @NamedQueries(value = { @NamedQuery(name = "AppFormViewFunction.getAll", query = "SELECT e from AppFormViewFunction e order by e.appForm") })
-public class AppFormViewFunction implements Serializable {
+public class AppFormViewFunction extends AbstractCodeEntity {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@Id
 	@NotNull(message = "app-not-null")
+	@ManyToOne
+	@JoinColumn(name = "appFormFk", nullable = false)
 	private AppForm appForm;
-	@Id
 	@NotNull(message = "view-not-null")
+	@ManyToOne
+	@JoinColumn(name = "viewFk", nullable = false)
 	private View view;
-	@Id
 	@NotNull(message = "function-not-null")
+	@ManyToOne
+	@JoinColumn(name = "functionFk", nullable = false)
 	private Function function;
 
 	/**
@@ -43,6 +49,7 @@ public class AppFormViewFunction implements Serializable {
 	 * @param function
 	 */
 	public AppFormViewFunction(AppForm appForm, View view, Function function) {
+		setCode(appForm.getCode() + view.getCode() + function.getCode());
 		setAppForm(appForm);
 		setView(view);
 		setFunction(function);

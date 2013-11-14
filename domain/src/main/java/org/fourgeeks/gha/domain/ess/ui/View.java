@@ -19,6 +19,14 @@ public class View extends AbstractCodeEntity {
 	private String description;
 
 	/**
+	 * @param code
+	 * 
+	 */
+	public View(String code) {
+		setCode(code);
+	}
+
+	/**
 	 * 
 	 */
 	public View() {

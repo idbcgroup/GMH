@@ -24,6 +24,14 @@ public class AppForm extends AbstractCodeEntity {
 	private Module module;
 
 	/**
+	 * @param code
+	 * 
+	 */
+	public AppForm(String code) {
+		setCode(code);
+	}
+
+	/**
 	 * 
 	 */
 	public AppForm() {
