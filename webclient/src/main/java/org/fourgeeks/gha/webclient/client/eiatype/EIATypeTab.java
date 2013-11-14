@@ -67,7 +67,6 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 		resultSet.addEiaTypeSelectionListener(this);
 
 		topForm = new EIATypeTopForm(resultSet, this);
-		// topForm.activate();
 		addHideableListener(topForm);
 		addClosableListener(topForm);
 		addEiaTypeSelectionListener(topForm);

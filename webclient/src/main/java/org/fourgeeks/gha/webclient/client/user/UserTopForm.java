@@ -41,39 +41,35 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 	private VLayout sideButtons;
 	private GHATextItem usernameItem, typeidSelectItem;
 	private GHASelectItem stateItem;
-	private GHATextItem firstNameItem, secondNameItem, firstLastNameItem,
-			secondLastNameItem, emailItem, alterEmailItem, idItem;
+	private GHATextItem firstNameItem, firstLastNameItem, secondLastNameItem,
+			idItem;
+	private GHAEmailItem emailItem;
 	private GHASelectItem genderSelectItem;
 	private GHASearchButton searchButton;
 	private GHADeleteButton deleteButton;
 	private GHACleanButton cleanButton;
 	{
-		usernameItem = new GHAUserNameItem(300);
+		usernameItem = new GHAUserNameItem(350);
 		usernameItem.setColSpan(2);
 		firstNameItem = new GHANameItem(GHAStrings.get("first-name"), 150);
 		stateItem = new GHAUserStateSelectItem(150);
 		typeidSelectItem = new GHATextItem(GHAStrings.get("id-type"), 150);
 		idItem = new GHATextItem(GHAStrings.get("id-number"), 150);
-		secondNameItem = new GHANameItem(GHAStrings.get("second-name"), 150);
 		firstLastNameItem = new GHANameItem(GHAStrings.get("first-lastname"),
 				150);
 		secondLastNameItem = new GHANameItem(GHAStrings.get("second-lastname"),
 				150);
 		emailItem = new GHAEmailItem(GHAStrings.get("mail"), 150);
-		alterEmailItem = new GHAEmailItem(GHAStrings.get("alternative-mail"),
-				150);
 		idItem = new GHATextItem(GHAStrings.get("id-number"), 150);
 		idItem.setLength(20);
 		idItem.setMask("####################");
 		genderSelectItem = new GHAGenreSelectItem(150);
 		usernameItem.addKeyUpHandler(searchKeyUpHandler);
 		firstNameItem.addKeyUpHandler(searchKeyUpHandler);
-		secondNameItem.addKeyUpHandler(searchKeyUpHandler);
 		firstLastNameItem.addKeyUpHandler(searchKeyUpHandler);
 		secondLastNameItem.addKeyUpHandler(searchKeyUpHandler);
 		emailItem.addKeyUpHandler(searchKeyUpHandler);
 		genderSelectItem.addKeyUpHandler(searchKeyUpHandler);
-		alterEmailItem.addKeyUpHandler(searchKeyUpHandler);
 	}
 
 	/**
@@ -85,10 +81,10 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 		super(resultSet, userTab);
 		DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
-		form.setNumCols(6);
-		form.setItems(usernameItem, stateItem, firstNameItem, secondNameItem,
+		form.setNumCols(5);
+		form.setItems(usernameItem, stateItem, firstNameItem,
 				firstLastNameItem, secondLastNameItem, typeidSelectItem,
-				idItem, emailItem, alterEmailItem, genderSelectItem);
+				idItem, emailItem, genderSelectItem);
 
 		deleteButton = new GHADeleteButton(new ClickHandler() {
 			@Override
@@ -124,8 +120,6 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 		Citizen citizen = new Citizen();
 		if (firstNameItem.getValue() != null)
 			citizen.setFirstName(firstNameItem.getValueAsString());
-		if (secondNameItem.getValue() != null)
-			citizen.setSecondName(secondNameItem.getValueAsString());
 		if (firstLastNameItem.getValue() != null)
 			citizen.setFirstLastName(firstLastNameItem.getValueAsString());
 		if (secondLastNameItem.getValue() != null)
@@ -137,8 +131,6 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 					.getValueAsString()));
 		if (emailItem.getValue() != null)
 			citizen.setPrimaryEmail(emailItem.getValueAsString());
-		if (alterEmailItem.getValue() != null)
-			citizen.setAlternativeEmail(alterEmailItem.getValueAsString());
 
 		Bpu bpu = new Bpu();
 		bpu.setCitizen(citizen);
@@ -179,16 +171,12 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 					typeidSelectItem.setValue(citizen.getIdType().name());
 				if (citizen.getIdNumber() != null)
 					idItem.setValue(citizen.getIdNumber());
-				if (citizen.getSecondName() != null)
-					secondNameItem.setValue(citizen.getSecondName());
 				if (citizen.getFirstLastName() != null)
 					firstLastNameItem.setValue(citizen.getFirstLastName());
 				if (citizen.getSecondLastName() != null)
 					secondLastNameItem.setValue(citizen.getSecondLastName());
 				if (citizen.getPrimaryEmail() != null)
 					emailItem.setValue(citizen.getPrimaryEmail());
-				if (citizen.getAlternativeEmail() != null)
-					alterEmailItem.setValue(citizen.getAlternativeEmail());
 				if (citizen.getGender() != null)
 					genderSelectItem.setValue(citizen.getGender().name());
 
@@ -203,11 +191,9 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 		typeidSelectItem.setDisabled(disabled);
 		idItem.setDisabled(disabled);
 		firstNameItem.setDisabled(disabled);
-		secondNameItem.setDisabled(disabled);
 		firstLastNameItem.setDisabled(disabled);
 		secondLastNameItem.setDisabled(disabled);
 		emailItem.setDisabled(disabled);
-		alterEmailItem.setDisabled(disabled);
 		genderSelectItem.setDisabled(disabled);
 		cleanButton.setDisabled(disabled);
 		activated = !disabled;
@@ -237,11 +223,9 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 		typeidSelectItem.clearValue();
 		idItem.clearValue();
 		firstNameItem.clearValue();
-		secondNameItem.clearValue();
 		firstLastNameItem.clearValue();
 		secondLastNameItem.clearValue();
 		emailItem.clearValue();
-		alterEmailItem.clearValue();
 		genderSelectItem.clearValue();
 		searchButton.setDisabled(false);
 		cleanButton.setDisabled(false);
