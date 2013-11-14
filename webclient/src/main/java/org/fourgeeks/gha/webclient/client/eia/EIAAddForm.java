@@ -13,6 +13,7 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.user.client.Window;
 import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.AnimationCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -67,9 +68,8 @@ public class EIAAddForm extends GHAAddForm implements EIATypeSelectionListener,
 
 						@Override
 						public void execute(Boolean value) {
-							if (value) {
+							if (value)
 								form.undo();
-							}
 						}
 					});
 			return false;
@@ -85,9 +85,8 @@ public class EIAAddForm extends GHAAddForm implements EIATypeSelectionListener,
 
 						@Override
 						public void execute(Boolean value) {
-							if (value) {
+							if (value)
 								form.undo();
-							}
 						}
 					});
 			return false;
@@ -101,6 +100,7 @@ public class EIAAddForm extends GHAAddForm implements EIATypeSelectionListener,
 
 			@Override
 			public void execute(boolean earlyFinish) {
+				form.hide();
 				destroy();
 			}
 		});
@@ -115,13 +115,20 @@ public class EIAAddForm extends GHAAddForm implements EIATypeSelectionListener,
 						@Override
 						public void execute(Boolean value) {
 							if (value) {
+								Window.alert("1");
 								form.undo();
+								Window.alert("2");
+								form.hide();
+								Window.alert("3");
 								EIAAddForm.super.hide();
+								Window.alert("4");
 							}
 						}
 					});
-		} else
+		} else {
+			form.hide();
 			super.hide();
+		}
 	}
 
 	/**
@@ -165,6 +172,7 @@ public class EIAAddForm extends GHAAddForm implements EIATypeSelectionListener,
 	public void open() {
 		super.open();
 		form.activate();
+		form.show();
 	}
 
 	@Override

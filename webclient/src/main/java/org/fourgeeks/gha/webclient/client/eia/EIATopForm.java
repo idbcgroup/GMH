@@ -99,6 +99,8 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 				bpiObuSelectItem, workingAreaLocationSelectItem,
 				facilityLocationSelectItem, obuSelectItem, baseRoleSelectItem);
 
+		form.focusInItem(serialNumber);
+
 		// Panel de la Fotografia Equipos
 
 		// HLayout photoPanel = new HLayout();
