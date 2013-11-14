@@ -74,35 +74,8 @@ public class LoginPlace extends GHAPlace {
 			public void onBrowserEvent(Event event) {
 				String username = userTextbox.getValue();
 				String password = passTextbox.getValue();
+				doLogin(username, password);
 
-				if (username == null || username.equals("")) {
-					GHANotification.oldAlert(GHAStrings
-							.get("username-not-null"));
-					return;
-				}
-
-				if (password == null || password.equals("")) {
-					GHANotification.oldAlert(GHAStrings
-							.get("password-not-null"));
-					return;
-				}
-
-				final GWTLoginServiceAsync service = GWT
-						.create(GWTLoginService.class);
-				service.login(username, password, new GHAAsyncCallback<Bpu>() {
-					@Override
-					public void onSuccess(Bpu result) {
-						if (result != null) {
-							GHASessionData.setLoggedUser(result);
-							String token = History.getToken();
-							if (token.equals("home"))
-								History.fireCurrentHistoryState();
-							else
-								History.newItem("home");
-						}
-						History.fireCurrentHistoryState();
-					}
-				});
 			}
 		});
 
@@ -116,25 +89,7 @@ public class LoginPlace extends GHAPlace {
 				if (event.getKeyCode() == 13) {
 					String username = userTextbox.getValue();
 					String password = passTextbox.getValue();
-
-					final GWTLoginServiceAsync service = GWT
-							.create(GWTLoginService.class);
-
-					service.login(username, password,
-							new GHAAsyncCallback<Bpu>() {
-								@Override
-								public void onSuccess(Bpu result) {
-									if (result != null) {
-										GHASessionData.setLoggedUser(result);
-										String token = History.getToken();
-										if (token.equals("home"))
-											History.fireCurrentHistoryState();
-										else
-											History.newItem("home");
-									}
-									History.fireCurrentHistoryState();
-								}
-							});
+					doLogin(username, password);
 				}
 			}
 		});
@@ -149,5 +104,33 @@ public class LoginPlace extends GHAPlace {
 		// History.newItem("lostpass");
 		// }
 		// });
+	}
+
+	public void doLogin(String username, String password) {
+		if (username == null || username.equals("")) {
+			GHANotification.alert("username-not-null");
+			return;
+		}
+
+		if (password == null || password.equals("")) {
+			GHANotification.alert("password-not-null");
+			return;
+		}
+
+		final GWTLoginServiceAsync service = GWT.create(GWTLoginService.class);
+		service.login(username, password, new GHAAsyncCallback<Bpu>() {
+			@Override
+			public void onSuccess(Bpu result) {
+				if (result != null) {
+					GHASessionData.setLoggedUser(result);
+					String token = History.getToken();
+					if (token.equals("home"))
+						History.fireCurrentHistoryState();
+					else
+						History.newItem("home");
+				}
+				History.fireCurrentHistoryState();
+			}
+		});
 	}
 }
