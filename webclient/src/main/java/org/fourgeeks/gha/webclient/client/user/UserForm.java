@@ -23,12 +23,14 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHADateItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAEmailItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 
-import com.smartgwt.client.types.TitleOrientation;
-import com.smartgwt.client.widgets.form.DynamicForm;
+import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 
@@ -36,7 +38,7 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
  * @author alacret, emiliot
  * 
  */
-public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer {
+public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer, ResizeHandler {
 
 	private GHATextItem usernameItem, passwordItem, confirmPasswordItem,
 			idItem, firstNameItem, secondNameItem, lastNameItem,
@@ -46,7 +48,7 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 	private GHAEmailItem primaryEmailItem, alternativeEmailItem;
 
 	private List<UserSelectionListener> listeners;
-	private DynamicForm form;
+	private GHADynamicForm form;
 
 	/**
 	 * this is used to keep the id of the internal entities of ssouser named
@@ -55,91 +57,75 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 	private SSOUser updateUser;
 
 	{
-		usernameItem = new GHATextItem("Nombre de Usuario",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		usernameItem = new GHATextItem("Nombre de Usuario");
 		usernameItem.setRequired(true);
 		usernameItem.setLength(20);
 		usernameItem.setMask("AAAAAAAAAAAAAAAAAAAA");
-		passwordItem = new GHATextItem("Contraseña",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		passwordItem = new GHATextItem("Contraseña");
 		passwordItem.setRequired(true);
 		passwordItem.setLength(20);
-		confirmPasswordItem = new GHATextItem("Confirme contraseña",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		confirmPasswordItem = new GHATextItem("Confirme contraseña");
 		confirmPasswordItem.setRequired(true);
 		confirmPasswordItem.setLength(20);
-		firstNameItem = new GHATextItem("Primer Nombre",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		firstNameItem = new GHATextItem("Primer Nombre");
 		firstNameItem.setLength(20);
 		firstNameItem.setMask(">A<AAAAAAAAAAAAAAAAAAA");
-		secondNameItem = new GHATextItem("Segundo Nombre",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		secondNameItem = new GHATextItem("Segundo Nombre");
 		secondNameItem.setLength(20);
 		secondNameItem.setMask(">A<AAAAAAAAAAAAAAAAAAA");
 
-		lastNameItem = new GHATextItem("Apellido",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		lastNameItem = new GHATextItem("Apellido");
 		lastNameItem.setLength(20);
 		lastNameItem.setMask(">A<AAAAAAAAAAAAAAAAAAA");
 
-		secondLastNameItem = new GHATextItem("Segundo Apellido",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		secondLastNameItem = new GHATextItem("Segundo Apellido");
 		secondLastNameItem.setLength(20);
 		secondLastNameItem.setMask(">A<AAAAAAAAAAAAAAAAAAA");
 
-		primaryEmailItem = new GHAEmailItem("Email Primario",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		primaryEmailItem = new GHAEmailItem("Email Primario");
 		primaryEmailItem.setLength(254);
 
-		alternativeEmailItem = new GHAEmailItem("Email Secundario",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		alternativeEmailItem = new GHAEmailItem("Email Secundario");
 		alternativeEmailItem.setLength(254);
 
-		typeidSelectItem = new GHASelectItem("Tipo ID",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, true, changedHandler);
-		idItem = new GHATextItem("No. Identificiación",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE, true, changedHandler);
+		typeidSelectItem = new GHASelectItem("Tipo ID", true, changedHandler);
+		idItem = new GHATextItem("No. Identificiación", true, changedHandler);
 		idItem.setLength(20);
 		idItem.setMask("####################");
-		genderSelectItem = new GHASelectItem("Género",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		genderSelectItem = new GHASelectItem("Género");
 		genderSelectItem.setRequired(true);
-		nationalityItem = new GHATextItem("Nacionalidad",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		nationalityItem = new GHATextItem("Nacionalidad");
 		nationalityItem.setLength(60);
-		nationalityItem
-				.setMask("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-		birthDateItem = new GHADateItem("Fecha de Nac.",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		nationalityItem.setMask("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+		birthDateItem = new GHADateItem("Fecha de Nac.");
 		birthDateItem.setStartDate(new java.util.Date(50, 1, 1));
 		birthDateItem
-				.setEndDate(new java.util.Date(System.currentTimeMillis()));
+			.setEndDate(new java.util.Date(System.currentTimeMillis()));
 
-		bpiSelectItem = new GHASelectItem("Institución",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		bpiSelectItem = new GHASelectItem("Institución");
 		bpiSelectItem.setRequired(true);
-		legalEntityIdentifierItem = new GHATextItem("R.I.F.",
-				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
+		legalEntityIdentifierItem = new GHATextItem("R.I.F.");
 		legalEntityIdentifierItem.setLength(16);
 		legalEntityIdentifierItem.setMask("AAAAAAAAAAAAAAAA");
 
 		listeners = new ArrayList<UserSelectionListener>();
 
-		form = new DynamicForm();
+		form = new GHADynamicForm(GHAUiHelper.getNormalFormWidth(30), 4);
 	}
 
 	/**
 	 * 
 	 */
 	public UserForm() {
+		GHAUiHelper.addGHAResizeHandler(this);
 		final HLayout mainPanel = new HLayout();
-		form.setTitleOrientation(TitleOrientation.TOP);
-		form.setNumCols(3);
-		form.setItems(usernameItem, passwordItem, confirmPasswordItem,
-				typeidSelectItem, idItem, genderSelectItem, firstNameItem,
-				secondNameItem, lastNameItem, secondLastNameItem,
-				nationalityItem, birthDateItem, primaryEmailItem,
-				alternativeEmailItem, bpiSelectItem, legalEntityIdentifierItem);
+		
+		form.setItems(usernameItem, passwordItem, confirmPasswordItem,new GHASpacerItem(),
+					  typeidSelectItem, idItem, genderSelectItem,new GHASpacerItem(),
+					  firstNameItem,secondNameItem, lastNameItem,new GHASpacerItem(),
+					  secondLastNameItem,nationalityItem, birthDateItem,new GHASpacerItem(),
+					  primaryEmailItem,alternativeEmailItem, bpiSelectItem, new GHASpacerItem(),
+					  legalEntityIdentifierItem);
 
 		mainPanel.addMembers(form, new LayoutSpacer());
 		addMember(mainPanel);
@@ -494,6 +480,11 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 	public void update(GHAAsyncCallback<SSOUser> callback) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void onResize(ResizeEvent event) {
+		form.resize(GHAUiHelper.getNormalFormWidth(30), 4);		
 	}
 
 }

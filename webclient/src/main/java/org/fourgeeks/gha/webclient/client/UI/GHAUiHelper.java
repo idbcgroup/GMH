@@ -150,7 +150,7 @@ public abstract class GHAUiHelper {
 	 */
 	public static int getNormalFormWidth(int buttonsSize) {
 		int rootPanelWidth = Window.getClientWidth();
-		int ret = rootPanelWidth - buttonsSize - 70;
+		int ret = rootPanelWidth - buttonsSize - 100;
 		if (ret < MIN_FORM_WIDTH) {
 			return MIN_FORM_WIDTH;
 		} else {
@@ -163,7 +163,7 @@ public abstract class GHAUiHelper {
 	 */
 	public static int getSectionFormFormWidth(int buttonsSize) {
 		int rootPanelWidth = Window.getClientWidth();
-		int ret = rootPanelWidth - (SECTION_FORM_OPTION_WIDTH + 50) - buttonsSize - 70;
+		int ret = rootPanelWidth - (SECTION_FORM_OPTION_WIDTH + 50) - buttonsSize - 100;
 		if (ret < MIN_SECTION_FORM_FORM_WIDTH) {
 			return MIN_SECTION_FORM_FORM_WIDTH;
 		} else {
