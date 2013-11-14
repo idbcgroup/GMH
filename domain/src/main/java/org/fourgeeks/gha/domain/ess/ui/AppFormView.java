@@ -1,28 +1,34 @@
 package org.fourgeeks.gha.domain.ess.ui;
 
-import java.io.Serializable;
-
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
+
+import org.fourgeeks.gha.domain.AbstractCodeEntity;
 
 /**
  * @author alacret
  * 
  */
 @Entity
-@IdClass(AppFormViewId.class)
-public class AppFormView implements Serializable {
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "appFormFk",
+		"viewFk" }))
+public class AppFormView extends AbstractCodeEntity {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@Id
 	@NotNull(message = "app-not-null")
-	private AppForm appForm;
-	@Id
+	@ManyToOne
+	@JoinColumn(name = "appFormFk", nullable = false)
+	private AppForm appForm = null;
+
 	@NotNull(message = "view-not-null")
+	@ManyToOne
+	@JoinColumn(name = "viewFk", nullable = false)
 	private View view;
 
 	/**
@@ -36,6 +42,7 @@ public class AppFormView implements Serializable {
 	 * @param view
 	 */
 	public AppFormView(AppForm appForm, View view) {
+		setCode(appForm.getCode() + view.getCode());
 		setAppForm(appForm);
 		setView(view);
 	}
