@@ -95,8 +95,11 @@ public class EiaTypeResultSet extends GHAResultSet<EiaType> implements
 			return;
 		}
 
-		GHANotification.confirm(GHAStrings.get("eiatype"),
-				GHAStrings.get("eiatype-delete-confirm"),
+		String msj = grid.getSelectedRecords().length > 1 ? GHAStrings
+				.get("eiatypes-delete-confirm") : GHAStrings
+				.get("eiatype-delete-confirm");
+
+		GHANotification.confirm(GHAStrings.get("eiatype"), msj,
 				new BooleanCallback() {
 
 					@Override

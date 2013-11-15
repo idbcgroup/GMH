@@ -25,7 +25,7 @@ public class GWTEiaServiceImpl extends RemoteServiceServlet implements
 	private static final long serialVersionUID = 1L;
 
 	@EJB(name = "gmh.EiaService")
-	EiaServiceRemote eServiceRemote;
+	EiaServiceRemote eiaServiceRemote;
 
 	/*
 	 * (non-Javadoc)
@@ -34,7 +34,20 @@ public class GWTEiaServiceImpl extends RemoteServiceServlet implements
 	 */
 	@Override
 	public boolean delete(long Id) throws GHAEJBException {
-		return eServiceRemote.delete(Id);
+		return eiaServiceRemote.delete(Id);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.eia.GWTEiaService#delete(java.util
+	 * .List)
+	 */
+	@Override
+	public void delete(List<Eia> eias) throws GHAEJBException {
+		for (Eia eia : eias)
+			eiaServiceRemote.delete(eia.getId());
 	}
 
 	/*
@@ -46,7 +59,7 @@ public class GWTEiaServiceImpl extends RemoteServiceServlet implements
 	 */
 	@Override
 	public List<Eia> find(Eia eia) throws GHAEJBException {
-		return eServiceRemote.find(eia);
+		return eiaServiceRemote.find(eia);
 	}
 
 	/*
@@ -58,7 +71,7 @@ public class GWTEiaServiceImpl extends RemoteServiceServlet implements
 	 */
 	@Override
 	public List<Eia> findByEiaType(EiaType eiaType) throws GHAEJBException {
-		return eServiceRemote.findByEiaType(eiaType);
+		return eiaServiceRemote.findByEiaType(eiaType);
 	}
 
 	/*
@@ -68,7 +81,7 @@ public class GWTEiaServiceImpl extends RemoteServiceServlet implements
 	 */
 	@Override
 	public Eia find(long Id) throws GHAEJBException {
-		return eServiceRemote.find(Id);
+		return eiaServiceRemote.find(Id);
 	}
 
 	/*
@@ -78,7 +91,7 @@ public class GWTEiaServiceImpl extends RemoteServiceServlet implements
 	 */
 	@Override
 	public List<Eia> getAll() throws GHAEJBException {
-		return eServiceRemote.getAll();
+		return eiaServiceRemote.getAll();
 	}
 
 	/*
@@ -89,7 +102,7 @@ public class GWTEiaServiceImpl extends RemoteServiceServlet implements
 	 */
 	@Override
 	public List<Eia> getAll(int offset, int size) throws GHAEJBException {
-		return eServiceRemote.getAll(offset, size);
+		return eiaServiceRemote.getAll(offset, size);
 	}
 
 	/*
@@ -101,7 +114,7 @@ public class GWTEiaServiceImpl extends RemoteServiceServlet implements
 	 */
 	@Override
 	public Eia save(Eia eia) throws GHAEJBException {
-		return eServiceRemote.save(eia);
+		return eiaServiceRemote.save(eia);
 	}
 
 	/*
@@ -111,7 +124,6 @@ public class GWTEiaServiceImpl extends RemoteServiceServlet implements
 	 */
 	@Override
 	public Eia update(Eia eia) throws GHAEJBException {
-		return eServiceRemote.update(eia);
+		return eiaServiceRemote.update(eia);
 	}
-
 }

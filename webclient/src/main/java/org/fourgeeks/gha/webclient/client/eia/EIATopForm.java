@@ -52,7 +52,7 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 
 	private GHAImgButton searchImgButton, deleteImgButton, cleanImgButton;
 	private VLayout sideButtons;
-	
+
 	private GHADynamicForm form;
 
 	private boolean activated = false;
@@ -60,8 +60,10 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 	private Eia selectedEia;
 
 	{
-		serialNumber = new GHATextItem(GHAStrings.get("serialNumber-item"), false);
-		fixedAssetIdentifier = new GHATextItem(GHAStrings.get("fixedAssetIdentifier-item"), false);
+		serialNumber = new GHATextItem(GHAStrings.get("serialNumber-item"),
+				false);
+		fixedAssetIdentifier = new GHATextItem(
+				GHAStrings.get("fixedAssetIdentifier-item"), false);
 
 		stateSelectItem = new GHAEiaStateSelectItem();
 		stateSelectItem.disable();
@@ -80,8 +82,8 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 
 		baseRoleSelectItem = new GHARoleSelectItem();
 		baseRoleSelectItem.disable();
-		
-		form = new GHADynamicForm(GHAUiHelper.getNormalFormWidth(30),4);
+
+		form = new GHADynamicForm(GHAUiHelper.getNormalFormWidth(30), 4);
 	}
 
 	/**
@@ -94,8 +96,8 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 		form.setItems(serialNumber, fixedAssetIdentifier, stateSelectItem,
 				bpiObuSelectItem, workingAreaLocationSelectItem,
 				facilityLocationSelectItem, obuSelectItem, baseRoleSelectItem);
-
-		form.focusInItem(serialNumber);
+		form.setAutoFocus(true);
+		serialNumber.setSelectOnFocus(true);
 
 		// Panel de la Fotografia Equipos
 
@@ -307,10 +309,10 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 		bpiObuSelectItem.clearValue();
 		baseRoleSelectItem.clearValue();
 	}
-	
+
 	@Override
 	public void onResize(ResizeEvent event) {
 		super.onResize(event);
-		form.resize(GHAUiHelper.getNormalFormWidth(30),4);
+		form.resize(GHAUiHelper.getNormalFormWidth(30), 4);
 	}
 }

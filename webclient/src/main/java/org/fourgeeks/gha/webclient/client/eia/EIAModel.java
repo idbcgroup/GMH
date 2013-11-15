@@ -40,4 +40,9 @@ public class EIAModel {
 
 	}
 
+	public static void delete(List<Eia> eias, GHAAsyncCallback<Void> callback) {
+		eiaService.delete(eias, callback);
+
+	}
+
 }
