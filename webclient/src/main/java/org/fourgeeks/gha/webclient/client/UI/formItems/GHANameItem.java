@@ -8,6 +8,16 @@ import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
  */
 public class GHANameItem extends GHATextItem {
 
+	
+	/**
+	 * @param title
+	 */
+	public GHANameItem(String title) {
+		super(title);
+		setLength(20);
+		setMask(">A<AAAAAAAAAAAAAAAAAAA");
+	}
+	
 	/**
 	 * @param title
 	 * @param width
@@ -32,9 +42,7 @@ public class GHANameItem extends GHATextItem {
 	 * @param width
 	 */
 	public GHANameItem(String title, boolean required) {
-		super(title);
-		setLength(20);
-		setMask(">A<AAAAAAAAAAAAAAAAAAA");
+		this(title);
 		setRequired(required);
 	}
 
