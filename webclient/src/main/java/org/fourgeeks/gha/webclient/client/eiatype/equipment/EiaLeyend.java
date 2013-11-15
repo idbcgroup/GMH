@@ -35,8 +35,15 @@ public class EiaLeyend extends GHAVerticalLayout {
 			count[eia.getState().ordinal()]++;
 		}
 
-		// String builder = new StringBuilder();
-		// builder.append(EiaStateEnum.values()[0].name() + ": "
-		// + Integer.toString(count[0]));
+		StringBuilder builder = new StringBuilder();
+		builder.append(EiaStateEnum.values()[0].name() + ": "
+				+ Integer.toString(count[0]));
+
+		for (int i = 1; i < n; ++i) {
+			builder.append(EiaStateEnum.values()[i].name() + ": "
+					+ Integer.toString(count[i]));
+		}
+
+		label.setContents(builder.toString());
 	}
 }
