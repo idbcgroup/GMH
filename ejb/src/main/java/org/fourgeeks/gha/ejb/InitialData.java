@@ -529,10 +529,14 @@ public class InitialData {
 			logger.info("Creating bpufunction test data");
 			List<AppFormViewFunction> all = functionService.getAll();
 			Bpu admin = em.find(Bpu.class, 1L);
-			for (AppFormViewFunction function : all)
+			Bpu gha = em.find(Bpu.class, 3L);
+			for (AppFormViewFunction function : all) {
 				em.merge(new AppFormViewFunctionBpu(admin, function
 						.getAppForm(), function.getView(), function
 						.getFunction()));
+				em.merge(new AppFormViewFunctionBpu(gha, function.getAppForm(),
+						function.getView(), function.getFunction()));
+			}
 
 			// Bpu gha = em.find(Bpu.class, 3L);
 			//
