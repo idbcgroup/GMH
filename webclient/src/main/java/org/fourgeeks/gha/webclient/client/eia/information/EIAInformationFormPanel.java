@@ -1,6 +1,7 @@
 package org.fourgeeks.gha.webclient.client.eia.information;
 
 import org.fourgeeks.gha.domain.gmh.Eia;
+import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
@@ -26,13 +27,9 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class EIAInformationFormPanel extends GHAVerticalLayout implements
-		ClosableListener, HideableListener, EiaSelectionProducer,
-		EIASelectionListener {
+		EIASelectionListener, EiaSelectionProducer, HideableListener,
+		ClosableListener {
 
-	/**
-	 * @param eiaEquipmentSubTab
-	 * 
-	 */
 	private EIAForm form;
 
 	{
@@ -69,103 +66,11 @@ public class EIAInformationFormPanel extends GHAVerticalLayout implements
 
 	}
 
-	/**
-	 * 
-	 */
-	public void activate() {
-		form.activate();
-	}
-
 	@Override
 	public void addEiaSelectionListener(
 			EIASelectionListener eiaSelectionListener) {
 		form.addEiaSelectionListener(eiaSelectionListener);
 
-	}
-
-	// @Override
-	// public boolean canBeClosen(HideCloseAction hideAction) { // TODO
-	// if (form.hasUnCommittedChanges()) {
-	// GHANotification.confirm(GHAStrings.get("information"),
-	// GHAStrings.get("unsaved-changes"), new BooleanCallback() {
-	//
-	// @Override
-	// public void execute(Boolean value) {
-	// if (value) {
-	// form.undo();
-	// }
-	// }
-	// });
-	// return false;
-	// }
-	// return true;
-	// }
-	//
-	// @Override
-	// public boolean canBeHidden(HideCloseAction hideAction) { // TODO
-	// if (form.hasUnCommittedChanges()) {
-	// GHANotification.confirm(GHAStrings.get("information"),
-	// GHAStrings.get("unsaved-changes"), new BooleanCallback() {
-	//
-	// @Override
-	// public void execute(Boolean value) {
-	// if (value) {
-	// form.undo();
-	// }
-	// }
-	// });
-	// return false;
-	// }
-	// return true;
-	// }
-
-	@Override
-	public void close() {
-		destroy();
-	}
-
-	@Override
-	public void hide() {
-
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.fourgeeks.gha.webclient.client.eia.EiaSelectionProducer#notifyEia
-	 * (org.fourgeeks.gha.domain.gmh.Eia)
-	 */
-	@Override
-	public void notifyEia(Eia eia) {
-	}
-
-	@Override
-	public void removeEiaSelectionListener(
-			EIASelectionListener eiaSelectionListener) {
-		form.removeEiaSelectionListener(eiaSelectionListener);
-	}
-
-	protected void save() {
-		form.update();
-	}
-
-	@Override
-	public void select(Eia eia) {
-		notifyEia(eia);
-	}
-
-	/**
-	 * @param eia
-	 */
-	public void setEia(Eia eia) {
-		form.setEia(eia);
-
-		activate();
-	}
-
-	protected void undo() {
-		form.undo();
 	}
 
 	@Override
@@ -232,4 +137,63 @@ public class EIAInformationFormPanel extends GHAVerticalLayout implements
 		return true;
 	}
 
+	@Override
+	public void close() {
+		destroy();
+	}
+
+	@Override
+	public void hide() {
+		super.hide();
+		form.hide();
+	}
+
+	@Override
+	public void notifyEia(Eia eia) {
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.eia.EiaSelectionProducer#
+	 * removeEiaSelectionListener
+	 * (org.fourgeeks.gha.webclient.client.eia.EIASelectionListener)
+	 */
+	@Override
+	public void removeEiaSelectionListener(
+			EIASelectionListener eiaSelectionListener) {
+		form.removeEiaSelectionListener(eiaSelectionListener);
+	}
+
+	protected void save() {
+		form.update(new GHAAsyncCallback<Eia>() {
+
+			@Override
+			public void onSuccess(Eia result) {
+				GHANotification.alert("eia-save-success");
+			}
+		});
+	}
+
+	@Override
+	public void select(Eia eia) {
+		notifyEia(eia);
+	}
+
+	/**
+	 * @param eia
+	 */
+	public void setEia(Eia eia) {
+		form.setEia(eia);
+	}
+
+	@Override
+	public void show() {
+		form.show();
+		super.show();
+	}
+
+	protected void undo() {
+		form.undo();
+	}
 }

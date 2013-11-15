@@ -11,16 +11,16 @@ import org.fourgeeks.gha.webclient.client.eia.EIATab;
  * 
  */
 public class EIAReportsSubTab extends GHASubTab implements EIASelectionListener {
-	private EIAReportsFormPanel eiaReportsFormPanel;
+	private EIAReportsFormPanel form;
 
 	public EIAReportsSubTab(EIATab eiaTab) {
 		super(GHAStrings.get("reports"), eiaTab);
 
-		eiaReportsFormPanel = new EIAReportsFormPanel();
-		addClosableListener(eiaReportsFormPanel);
-		addHideableListener(eiaReportsFormPanel);
+		form = new EIAReportsFormPanel();
+		addClosableListener(form);
+		addHideableListener(form);
 
-		setPane(eiaReportsFormPanel);
+		setPane(form);
 
 		eiaTab.addEiaSelectionListener(this);
 	}
@@ -28,5 +28,11 @@ public class EIAReportsSubTab extends GHASubTab implements EIASelectionListener 
 	@Override
 	public void select(Eia eia) {
 		setDisabled(false);
+		form.show();
+	}
+
+	public void showSelectedSection() {
+		form.showSelectedSection();
+
 	}
 }

@@ -173,7 +173,8 @@ public class EIASearchForm extends GHASearchForm<Eia> implements
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getTabHeight() - 5 + "px");
+		super.onResize(event);
+		form.resize(GHAUiHelper.getNormalFormWidth(30), 4);
 	}
 
 	@Override

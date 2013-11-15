@@ -11,10 +11,13 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.SearchListener;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader;
+import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader.Option;
 
 import com.smartgwt.client.types.Visibility;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
+import com.smartgwt.client.widgets.events.VisibilityChangedEvent;
+import com.smartgwt.client.widgets.events.VisibilityChangedHandler;
 
 /**
  * @author alacret, emiliot
@@ -28,11 +31,13 @@ public class EIATab extends GHATab implements EIASelectionListener,
 	 */
 	public static final String ID = "eia";
 	private static final String TITLE = GHAStrings.get("equipments");
-	private List<EIASelectionListener> listeners = new ArrayList<EIASelectionListener>();
-	private EIATopForm topForm;
 	private EIAAddForm addForm;
 	private EIAInternalTabset internalTabSet;
+	private List<EIASelectionListener> listeners = new ArrayList<EIASelectionListener>();
+	private EIATopForm topForm;
 	private EiaResultSet resultSet;
+	private Option searchOption;
+	private Option addOption;
 
 	/**
 	 * @param token
@@ -41,14 +46,14 @@ public class EIATab extends GHATab implements EIASelectionListener,
 	public EIATab(String token) {
 		super(token);
 		header = new GHATabHeader(this, TITLE);
-		header.addSearchOption(new ClickHandler() {
+		searchOption = header.addSearchOption(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
 				search();
 			}
 		});
-		header.addAddOption(new ClickHandler() {
+		addOption = header.addAddOption(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
@@ -63,7 +68,6 @@ public class EIATab extends GHATab implements EIASelectionListener,
 		resultSet.addEiaSelectionListener(this);
 
 		topForm = new EIATopForm(resultSet, this);
-		topForm.activate();
 		addHideableListener(topForm);
 		addClosableListener(topForm);
 		addEiaSelectionListener(topForm);
@@ -84,13 +88,24 @@ public class EIATab extends GHATab implements EIASelectionListener,
 		addHideableListener(addForm);
 		addClosableListener(addForm);
 		addForm.addEiaSelectionListener(this);
+		addForm.addVisibilityChangedHandler(new VisibilityChangedHandler() {
+
+			@Override
+			public void onVisibilityChanged(VisibilityChangedEvent event) {
+				if (!event.getIsVisible())
+					search();
+
+			}
+		});
 
 		verticalPanel.addMember(topForm);
 		verticalPanel.addMember(GHAUiHelper
 				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
 		verticalPanel.addMember(internalTabSet);
 		verticalPanel.addMember(resultSet);
+
 		addMember(verticalPanel);
+		search();
 	}
 
 	/**
@@ -106,11 +121,15 @@ public class EIATab extends GHATab implements EIASelectionListener,
 			else
 				return;
 		}
-		if (topForm.isActivated())
+		if (topForm.isActivated()) {
 			topForm.deactivate();
+			topForm.clear();
+		}
 		if (resultSet.isVisible())
 			resultSet.hide();
 		addForm.open();
+		header.unMarkAllButtons();
+		addOption.markSelected();
 		currentStatus = TabStatus.ADD;
 		// GHANotification.info(GHAStrings.get("")); //TODO: Mensaje de
 		// informacion para indicar que se ha actividado el modo de busqueda
@@ -160,8 +179,8 @@ public class EIATab extends GHATab implements EIASelectionListener,
 		if (resultSet.isVisible())
 			resultSet.hide();
 		topForm.activate();
-		// GHANotification.info(GHAStrings.get("")); //TODO: Mensaje de
-		// informacion para indicar que se ha actividado el modo de busqueda
+		header.unMarkAllButtons();
+		searchOption.markSelected();
 		currentStatus = TabStatus.SEARCH;
 		// GHANotification.info(GHAStrings.get("")); //TODO: Mensaje de
 		// informacion para indicar que se ha actividado el modo de busqueda
@@ -170,6 +189,7 @@ public class EIATab extends GHATab implements EIASelectionListener,
 	@Override
 	public void select(Eia eia) {
 		notifyEia(eia);
+		currentStatus = TabStatus.ENTITY_SELECTED;
 	}
 
 	@Override

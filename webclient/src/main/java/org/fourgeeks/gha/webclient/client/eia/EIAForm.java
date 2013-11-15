@@ -250,7 +250,7 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 	public EIAForm() {
 		super();
 		GHAUiHelper.addGHAResizeHandler(this);
-		
+
 		infoBasicaForm = getInfoBasicaForm();
 		adquisicionForm = getAdquisicionForm();
 		ubicacionForm = getUbicacionForm();
@@ -279,6 +279,8 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		// Funcionalities
 		buildingLocFuncionalities();
 		// warrantyFunctionalities();
+
+		sectionForm.openFirst();
 	}
 
 	@Override
@@ -330,7 +332,8 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 
 	@Override
 	public void clear() {
-		this.updateEntity = null;
+		updateEntity = null;
+
 		// clean text fields
 		codeTextItem.clearValue();
 		serialTextItem.clearValue();
@@ -776,23 +779,6 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 	/**
 	 * @return
 	 */
-	private GHADynamicForm getInfoBasicaForm() {
-		GHADynamicForm equipoForm = new GHADynamicForm(
-				GHAUiHelper.getSectionFormFormWidth(30), 3);
-
-		equipoForm.setItems(information_TitleItem, eiaTypeSelectItem,
-				new GHASpacerItem(2), codeTextItem, serialTextItem,
-				fixedAssetIdTextItem, obuSelectItem, baseRoleSelectItem,
-				new GHASpacerItem(), acceptationDateItem, stateSelectItem,
-				new GHASpacerItem(), providers_TitleItem,
-				adqisitionProviderSelectItem, maintenanceProviderSelectItem);
-
-		return equipoForm;
-	}
-
-	/**
-	 * @return
-	 */
 	private GHADynamicForm getAdquisicionForm() {
 		// //////Adquisicion Form
 		GHADynamicForm adquisicionForm = new GHADynamicForm(
@@ -816,21 +802,6 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 	/**
 	 * @return
 	 */
-	private GHADynamicForm getUbicacionForm() {
-		GHADynamicForm areaForm = new GHADynamicForm(
-				GHAUiHelper.getSectionFormFormWidth(30), 3);
-
-		areaForm.setItems(location_TitleItem, locationTypeSelectItem,
-				new GHASpacerItem(2), workingArea_TitleItem,
-				workingAreaLocationSelectItem, workingAreaLocationCodeTextItem,
-				facility_TitleItem, facilityLocationSelectItem,
-				facilityLocationCodeTextItem);
-		return areaForm;
-	}
-
-	/**
-	 * @return
-	 */
 	private GHADynamicForm getCostosForm() {
 		GHADynamicForm res = new GHADynamicForm(
 				GHAUiHelper.getSectionFormFormWidth(30), 4);
@@ -847,6 +818,38 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 				lifeTimePotSelectItem);
 
 		return res;
+	}
+
+	/**
+	 * @return
+	 */
+	private GHADynamicForm getInfoBasicaForm() {
+		GHADynamicForm equipoForm = new GHADynamicForm(
+				GHAUiHelper.getSectionFormFormWidth(30), 3);
+
+		equipoForm.setItems(information_TitleItem, eiaTypeSelectItem,
+				new GHASpacerItem(2), codeTextItem, serialTextItem,
+				fixedAssetIdTextItem, obuSelectItem, baseRoleSelectItem,
+				new GHASpacerItem(), acceptationDateItem, stateSelectItem,
+				new GHASpacerItem(), providers_TitleItem,
+				adqisitionProviderSelectItem, maintenanceProviderSelectItem);
+
+		return equipoForm;
+	}
+
+	/**
+	 * @return
+	 */
+	private GHADynamicForm getUbicacionForm() {
+		GHADynamicForm areaForm = new GHADynamicForm(
+				GHAUiHelper.getSectionFormFormWidth(30), 3);
+
+		areaForm.setItems(location_TitleItem, locationTypeSelectItem,
+				new GHASpacerItem(2), workingArea_TitleItem,
+				workingAreaLocationSelectItem, workingAreaLocationCodeTextItem,
+				facility_TitleItem, facilityLocationSelectItem,
+				facilityLocationCodeTextItem);
+		return areaForm;
 	}
 
 	// /**
@@ -892,22 +895,22 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 	@Override
 	public void hide() {
 		super.hide();
-		sectionForm.deactivate();
-	}
-
-	@Override
-	public void show() {
-		if (hasUnCommittedChanges)
-			sectionForm.openSelectedSection();
-		else
-			sectionForm.openFirst();
-		super.show();
+		sectionForm.hide();
 	}
 
 	@Override
 	public void notifyEia(Eia eia) {
 		for (EIASelectionListener listener : listeners)
 			listener.select(eia);
+	}
+
+	@Override
+	public void onResize(ResizeEvent arg0) {
+		infoBasicaForm.resize(GHAUiHelper.getSectionFormFormWidth(30), 3);
+		adquisicionForm.resize(GHAUiHelper.getSectionFormFormWidth(30), 4);
+		ubicacionForm.resize(GHAUiHelper.getSectionFormFormWidth(30), 3);
+		costosForm.resize(GHAUiHelper.getSectionFormFormWidth(30), 4);
+		// garantiasMantForm.resize(GHAUiHelper.getSectionFormFormWidth(30),3);
 	}
 
 	@Override
@@ -926,7 +929,6 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 					hasUnCommittedChanges = false;
 					notifyEia(result);
 					clear();
-
 					if (callback != null)
 						callback.onSuccess(result);
 				}
@@ -1085,6 +1087,14 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		// ipAddresTextItem.setValue(eia.getIpAddress());
 		// if (eia.getMacAddress() != null)
 		// macAddressTextItem.setValue(eia.getMacAddress());
+
+		sectionForm.openFirst();
+	}
+
+	@Override
+	public void show() {
+		sectionForm.show();
+		super.show();
 	}
 
 	private void toggleForm(boolean activate) {
@@ -1172,14 +1182,4 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 			});
 		}
 	}
-
-	@Override
-	public void onResize(ResizeEvent arg0) {
-		infoBasicaForm.resize(GHAUiHelper.getSectionFormFormWidth(30), 3);
-		adquisicionForm.resize(GHAUiHelper.getSectionFormFormWidth(30), 4);
-		ubicacionForm.resize(GHAUiHelper.getSectionFormFormWidth(30), 3);
-		costosForm.resize(GHAUiHelper.getSectionFormFormWidth(30), 4);
-		// garantiasMantForm.resize(GHAUiHelper.getSectionFormFormWidth(30),3);
-	}
-
 }

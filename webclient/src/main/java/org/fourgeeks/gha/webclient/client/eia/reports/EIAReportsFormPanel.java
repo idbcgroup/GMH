@@ -30,7 +30,7 @@ public class EIAReportsFormPanel extends GHAVerticalLayout implements
 	private final EIAReportListEiaTypesEiasForm listEiaTypesEiasReportForm;
 	private final EIAReportListEiasForm listEiasReportForm;
 	private final EIAReportListEiaTypeCompsForm listEiaTypeCompsReportForm;
-	private final GHASectionForm secciones;
+	private final GHASectionForm sectionForm;
 
 	/**
 	 * Constructor
@@ -49,15 +49,15 @@ public class EIAReportsFormPanel extends GHAVerticalLayout implements
 		listEiaTypeCompsReportForm = new EIAReportListEiaTypeCompsForm();
 
 		// CREO EL SECTION FORM DONDE VAN A IR LOS FORMULARIOS
-		secciones = new GHASectionForm();
-		secciones.addSection("Edo. y Ubic.", edoUbicReportForm);
-		secciones.addSection("Detalles de Equipos", detalleEquiposReportForm);
-		secciones.addSection("Listado Tipos de Equipo",
+		sectionForm = new GHASectionForm();
+		sectionForm.addSection("Edo. y Ubic.", edoUbicReportForm);
+		sectionForm.addSection("Detalles de Equipos", detalleEquiposReportForm);
+		sectionForm.addSection("Listado Tipos de Equipo",
 				listEiaTypesEiasReportForm);
-		secciones.addSection("Listado de Equipos", listEiasReportForm);
-		secciones.addSection("Tipos de Equipo y sus Comp.",
+		sectionForm.addSection("Listado de Equipos", listEiasReportForm);
+		sectionForm.addSection("Tipos de Equipo y sus Comp.",
 				listEiaTypeCompsReportForm);
-		secciones.openFirst();
+		sectionForm.openFirst();
 
 		// CREO EL SIDEBAR
 		VLayout sideBarLayout = GHAUiHelper.createBar(
@@ -65,7 +65,7 @@ public class EIAReportsFormPanel extends GHAVerticalLayout implements
 				new GHAImgButton(PATH_IMG_PRINT_BUTTON, new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						Canvas form = secciones.getSelectedOptionForm();
+						Canvas form = sectionForm.getSelectedOptionForm();
 						GHAReportForm reportForm = (GHAReportForm) form;
 
 						String uri = reportForm.getReportURI();
@@ -76,7 +76,7 @@ public class EIAReportsFormPanel extends GHAVerticalLayout implements
 				new GHAImgButton(PATH_IMG_CLEAN_BUTTON, new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						Canvas form = secciones.getSelectedOptionForm();
+						Canvas form = sectionForm.getSelectedOptionForm();
 						GHAReportForm reportForm = (GHAReportForm) form;
 
 						reportForm.cleanItems();
@@ -84,9 +84,18 @@ public class EIAReportsFormPanel extends GHAVerticalLayout implements
 				}));
 
 		HLayout formPanel = new HLayout();
-		formPanel.addMembers(secciones, sideBarLayout);
+		formPanel.addMembers(sectionForm, sideBarLayout);
 
 		addMember(formPanel);
+	}
+
+	@Override
+	public boolean canBeClosen(HideCloseAction hideAction) {
+		return true;
+	}
+
+	public boolean canBeHidden(HideCloseAction hideAction) {
+		return true;
 	}
 
 	/*
@@ -102,16 +111,17 @@ public class EIAReportsFormPanel extends GHAVerticalLayout implements
 
 	@Override
 	public void hide() {
-		// super.hide();
-		secciones.deactivate();
-	}
-
-	public boolean canBeHidden(HideCloseAction hideAction) {
-		return true;
+		super.hide();
+		sectionForm.deactivate();
 	}
 
 	@Override
-	public boolean canBeClosen(HideCloseAction hideAction) {
-		return true;
+	public void show() {
+		sectionForm.openFirst();
+		super.show();
+	}
+
+	public void showSelectedSection() {
+		sectionForm.openSelectedSection();
 	}
 }
