@@ -25,13 +25,12 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHAWorkingAreaSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACancelButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASearchForm;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
-import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
-import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.form.fields.events.KeyUpEvent;
 import com.smartgwt.client.widgets.form.fields.events.KeyUpHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -44,7 +43,6 @@ import com.smartgwt.client.widgets.layout.VLayout;
  */
 public class EIASearchForm extends GHASearchForm<Eia> implements
 		EIASelectionListener, EiaSelectionProducer {
-	private final int ITEM_WIDTH = 200;
 
 	private GHATextItem serialNumber;
 	private GHATextItem fixedAssetIdentifier;
@@ -56,26 +54,27 @@ public class EIASearchForm extends GHASearchForm<Eia> implements
 	private GHAFacilitySelectItem facilityLocationSelectItem;
 
 	private EiaResultSet resultSet = new EiaResultSet();
-	private final DynamicForm form = new DynamicForm();
+	private GHADynamicForm form;
 
 	{
-		serialNumber = new GHATextItem(GHAStrings.get("serialNumber-item"),
-				ITEM_WIDTH);
+		serialNumber = new GHATextItem(GHAStrings.get("serialNumber-item"));
 		fixedAssetIdentifier = new GHATextItem(
-				GHAStrings.get("fixedAssetIdentifier-item"), ITEM_WIDTH);
-		stateSelectItem = new GHAEiaStateSelectItem(ITEM_WIDTH);
-		workingAreaLocationSelectItem = new GHAWorkingAreaSelectItem(ITEM_WIDTH);
-		facilityLocationSelectItem = new GHAFacilitySelectItem(ITEM_WIDTH);
-		obuSelectItem = new GHAObuSelectItem(ITEM_WIDTH);
-		bpiObuSelectItem = new GHABpiSelectItem(ITEM_WIDTH);
-		baseRoleSelectItem = new GHARoleSelectItem(ITEM_WIDTH);
-		resultSet.addEiaSelectionListener(new EIASelectionListener() {
+				GHAStrings.get("fixedAssetIdentifier-item"));
+		stateSelectItem = new GHAEiaStateSelectItem();
+		workingAreaLocationSelectItem = new GHAWorkingAreaSelectItem();
+		facilityLocationSelectItem = new GHAFacilitySelectItem();
+		obuSelectItem = new GHAObuSelectItem();
+		bpiObuSelectItem = new GHABpiSelectItem();
+		baseRoleSelectItem = new GHARoleSelectItem();
 
+		resultSet.addEiaSelectionListener(new EIASelectionListener() {
 			@Override
 			public void select(Eia eia) {
 				hide();
 			}
 		});
+
+		form = new GHADynamicForm(GHAUiHelper.getNormalFormWidth(30), 4);
 	}
 
 	/**
@@ -88,11 +87,11 @@ public class EIASearchForm extends GHASearchForm<Eia> implements
 
 		GHAUiHelper.addGHAResizeHandler(this);
 
-		form.setTitleOrientation(TitleOrientation.TOP);
-		form.setNumCols(4);
 		form.setItems(serialNumber, fixedAssetIdentifier, stateSelectItem,
 				bpiObuSelectItem, workingAreaLocationSelectItem,
 				facilityLocationSelectItem, obuSelectItem, baseRoleSelectItem);
+		form.setAutoFocus(true);
+		serialNumber.setSelectOnFocus(true);
 
 		KeyUpHandler searchKeyUpHandler = new KeyUpHandler() {
 
