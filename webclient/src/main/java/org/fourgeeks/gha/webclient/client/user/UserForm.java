@@ -74,7 +74,7 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 		typeidSelectItem = new GHASelectItem("Tipo ID", true, changedHandler);
 		idItem = new GHATextItem("No. Identificiación", true, changedHandler);
 		idItem.setLength(20);
-		idItem.setMask("####################");
+		// idItem.setMask("####################");
 		genderSelectItem = new GHASelectItem("Género", true, changedHandler);
 		nationalityItem = new GHATextItem("Nacionalidad", false, changedHandler);
 		nationalityItem.setLength(60);
@@ -189,7 +189,6 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 		ssoUser.setUserName(usernameItem.getValueAsString());
 		ssoUser.setPassword(passwordItem.getValueAsString());
 		ssoUser.setUserLogonStatus(UserLogonStatusEnum.STAYIN);
-
 		// citizen fields
 		citizen.setFirstName(firstNameItem.getValueAsString());
 		citizen.setSecondName(secondNameItem.getValueAsString());
@@ -222,7 +221,6 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 			legalEntity.setIdentifier(legalEntityIdentifierItem
 					.getValueAsString());
 		}
-
 		// build the ssoUser object
 		citizen.setLegalEntity(legalEntity);
 		bpu.setCitizen(citizen);
@@ -323,26 +321,8 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 	}
 
 	@Override
-	public void save() {
-		SSOUser ssoUser = extract(false);
-
-		// if the validation fail, return
-		if (ssoUser == null)
-			return;
-		UserModel.save(ssoUser, new GHAAsyncCallback<SSOUser>() {
-
-			@Override
-			public void onSuccess(SSOUser result) {
-				notifyUser(result);
-				clear();
-
-			}
-		});
-	}
-
-	@Override
 	public void save(final GHAAsyncCallback<SSOUser> callback) {
-		SSOUser ssoUser = extract(true);
+		SSOUser ssoUser = extract(false);
 		// if the validation fail, return
 		if (ssoUser == null)
 			return;
