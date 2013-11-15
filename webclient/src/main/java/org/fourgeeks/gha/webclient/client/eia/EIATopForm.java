@@ -55,8 +55,6 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 
 	private GHADynamicForm form;
 
-	private boolean activated = false;
-
 	private Eia selectedEia;
 
 	{
@@ -158,9 +156,7 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 		bpiObuSelectItem.enable();
 		baseRoleSelectItem.enable();
 
-		cleanImgButton.enable();
-		sideButtons.removeMember(deleteImgButton);
-		sideButtons.addMember(searchImgButton, 0);
+		toggleSideBarButtons(false);
 
 		activated = true;
 	}
@@ -180,11 +176,20 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 		bpiObuSelectItem.disable();
 		baseRoleSelectItem.disable();
 
-		cleanImgButton.disable();
-		sideButtons.removeMember(searchImgButton);
-		sideButtons.addMember(deleteImgButton, 0);
-
 		activated = false;
+	}
+
+	private void toggleSideBarButtons(boolean swich) {
+		if (swich) {
+			cleanImgButton.disable();
+			sideButtons.removeMember(searchImgButton);
+			sideButtons.addMember(deleteImgButton, 0);
+		} else {
+			cleanImgButton.enable();
+			sideButtons.removeMember(deleteImgButton);
+			sideButtons.addMember(searchImgButton, 0);
+		}
+
 	}
 
 	protected void delete() {
@@ -292,6 +297,7 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 
 		// lock fields of the topform
 		deactivate();
+		toggleSideBarButtons(true);
 	}
 
 	@Override
