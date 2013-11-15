@@ -73,7 +73,9 @@ ES,search-utility-material,Búsqueda de materiales utilitarios
 ES,eiatype-material-delete-confirm,¿Desea retirar el material asociado al tipo de equipo?
 ES,eiatype-utility-service-delete-confirm,¿Desea eliminar el servicio utilitario asociado al tipo de equipo?
 ES,eiatype-delete-confirm,¿Desea eliminar el tipo de equipo?
+ES,eiatypes-delete-confirm,¿Desea eliminar los tipos de equipo?
 ES,eia-delete-confirm,¿Desea eliminar el equipo?
+ES,eias-delete-confirm,¿Desea eliminar los equipos?
 ES,ssoUser-delete-confirm,¿Desea eliminar al usuario?
 ES,amount,Cantidad
 ES,empty-materialcategory-grid,No existen Materiales para mostrar

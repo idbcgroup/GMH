@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.Eia;
+import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
@@ -13,6 +14,7 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAResultSet;
 
 import com.smartgwt.client.types.AnimationEffect;
+import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
@@ -59,7 +61,7 @@ public class EiaResultSet extends GHAResultSet<Eia> implements
 
 					@Override
 					public void onClick(ClickEvent event) {
-						// TODO delete an selected eia
+						delete();
 					}
 				})));
 		addMember(gridPanel);
@@ -85,7 +87,33 @@ public class EiaResultSet extends GHAResultSet<Eia> implements
 	}
 
 	private void delete() {
-		// TODO: delete selected records on the grid
+		if (grid.getSelectedRecord() == null) {
+			GHANotification.alert("record-not-selected");
+			return;
+		}
+
+		String msj = grid.getSelectedRecords().length > 1 ? GHAStrings
+				.get("eias-delete-confirm") : GHAStrings
+				.get("eia-delete-confirm");
+
+		GHANotification.confirm(GHAStrings.get("eia"), msj,
+				new BooleanCallback() {
+
+					@Override
+					public void execute(Boolean value) {
+						if (value) {
+							List<Eia> entities = grid.getSelectedEntities();
+							EIAModel.delete(entities,
+									new GHAAsyncCallback<Void>() {
+
+										@Override
+										public void onSuccess(Void result) {
+											grid.removeSelectedData();
+										}
+									});
+						}
+					}
+				});
 	}
 
 	@Override
@@ -102,7 +130,7 @@ public class EiaResultSet extends GHAResultSet<Eia> implements
 		}
 		notifyEia(((EIARecord) selectedRecord).toEntity());
 		hide();
-		// TODO: VALIDAR grid.removeSelectedData();
+		grid.removeSelectedData();
 	}
 
 	@Override
