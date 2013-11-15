@@ -2,6 +2,7 @@ package org.fourgeeks.gha.webclient.client.UI.formItems;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 
+import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 import com.smartgwt.client.widgets.form.validator.RegExpValidator;
 
 /**
@@ -61,6 +62,17 @@ public class GHAEmailItem extends GHATextItem {
 	 */
 	public GHAEmailItem(String title) {
 		super(title);
+		initEmailValidator();
+	}
+
+	/**
+	 * Creates a email text item with a regExpValidator for email fields.
+	 * 
+	 * @param title
+	 */
+	public GHAEmailItem(String title, ChangedHandler chengedHandler) {
+		super(title);
+		addChangedHandler(chengedHandler);
 		initEmailValidator();
 	}
 

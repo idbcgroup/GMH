@@ -13,8 +13,9 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class MaintenancePlanAddForm extends GHAAddForm implements
-		MaintenancePlanSelectionProducer, MaintenancePlanSelectionListener {
+public class MaintenancePlanAddForm extends GHAAddForm<MaintenancePlan>
+		implements MaintenancePlanSelectionProducer,
+		MaintenancePlanSelectionListener {
 	private MaintenancePlanForm maintenancePlanForm;
 
 	{
@@ -51,7 +52,8 @@ public class MaintenancePlanAddForm extends GHAAddForm implements
 		fillExtras();
 	}
 
-	protected void cancel() {
+	@Override
+	public void hide() {
 		maintenancePlanForm.hide();
 		super.hide();
 	}

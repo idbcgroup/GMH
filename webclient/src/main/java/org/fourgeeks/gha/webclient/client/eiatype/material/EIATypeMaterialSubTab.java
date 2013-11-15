@@ -1,17 +1,14 @@
 package org.fourgeeks.gha.webclient.client.eiatype.material;
 
-import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
-import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeTab;
 
 /**
  * @author emiliot
  * 
  */
-public class EIATypeMaterialSubTab extends GHASubTab implements
-		EIATypeSelectionListener {
+public class EIATypeMaterialSubTab extends GHASubTab {
 
 	private EIATypeMaterialGridPanel gridPanel;
 
@@ -27,11 +24,6 @@ public class EIATypeMaterialSubTab extends GHASubTab implements
 
 		setPane(gridPanel);
 
-		tab.addEiaTypeSelectionListener(this);
-	}
-
-	@Override
-	public void select(EiaType eiaType) {
-		gridPanel.select(eiaType);
+		tab.addEiaTypeSelectionListener(gridPanel);
 	}
 }

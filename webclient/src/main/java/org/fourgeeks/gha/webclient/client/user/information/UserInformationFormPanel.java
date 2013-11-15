@@ -1,12 +1,11 @@
 package org.fourgeeks.gha.webclient.client.user.information;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import org.fourgeeks.gha.domain.ess.SSOUser;
+import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHAUndoButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
@@ -16,7 +15,6 @@ import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabSet;
 import org.fourgeeks.gha.webclient.client.user.UserForm;
 import org.fourgeeks.gha.webclient.client.user.UserSelectionListener;
 import org.fourgeeks.gha.webclient.client.user.UserSelectionProducer;
-import org.fourgeeks.gha.webclient.client.user.UserTab;
 
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -31,90 +29,29 @@ public class UserInformationFormPanel extends GHAVerticalLayout implements
 		ClosableListener, HideableListener, UserSelectionProducer,
 		UserSelectionListener {
 
-	private UserForm form;
-	private List<UserSelectionListener> listeners;
+	private UserForm form = new UserForm();
 
-	private SSOUser originalSSOUser;
-
-	{
-		form = new UserForm();
-		listeners = new LinkedList<UserSelectionListener>();
-		originalSSOUser = null;
-	}
-
-	/**
-	 * @param tab
-	 */
-	public UserInformationFormPanel(UserTab tab) {
-		activateForm(false);
-		tab.addClosableListener(this);
-
-		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
-				"../resources/icons/save.png", new ClickHandler() {
+	public UserInformationFormPanel() {
+		super();
+		VLayout sideButtons = GHAUiHelper.createBar(new GHASaveButton(
+				new ClickHandler() {
 
 					@Override
 					public void onClick(ClickEvent event) {
 						save();
 					}
-				}), new GHAImgButton("../resources/icons/undo.png",
-				new ClickHandler() {
+				}), new GHAUndoButton(new ClickHandler() {
 
-					@Override
-					public void onClick(ClickEvent event) {
-						undo();
-					}
-				}));
+			@Override
+			public void onClick(ClickEvent event) {
+				undo();
+			}
+		}));
 
 		HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(form, sideButtons);
 
 		addMember(gridPanel);
-
-		// register as user selected listener from userForm
-		form.addUserSelectionListener(this);
-	}
-
-	public void activateForm(boolean activate) {
-		form.activate();
-	}
-
-	protected void undo() {
-		select(this.originalSSOUser);
-		// save();
-	}
-
-	private void save() {
-		form.update();
-	}
-
-	@Override
-	public void close() {
-
-	}
-
-	@Override
-	public void hide() {
-
-	}
-
-	public void setSSOUser(SSOUser ssoUser) {
-		this.originalSSOUser = ssoUser;
-		form.setSSOUser(ssoUser);
-		form.activate();
-	}
-
-	// Producer/Consumer stuff
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.fourgeeks.gha.webclient.client.user.UserSelectionListener#select(
-	 * org.fourgeeks.gha.domain.ess.SSOUser)
-	 */
-	@Override
-	public void select(SSOUser ssoUser) {
-		notifyUser(ssoUser);
 	}
 
 	/*
@@ -127,20 +64,7 @@ public class UserInformationFormPanel extends GHAVerticalLayout implements
 	@Override
 	public void addUserSelectionListener(
 			UserSelectionListener userSelectionListener) {
-		listeners.add(userSelectionListener);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.fourgeeks.gha.webclient.client.user.UserSelectionProducer#
-	 * removeUserSelectionListener
-	 * (org.fourgeeks.gha.webclient.client.user.UserSelectionListener)
-	 */
-	@Override
-	public void removeUserSelectionListener(
-			UserSelectionListener userSelectionListener) {
-		listeners.remove(userSelectionListener);
+		form.addUserSelectionListener(userSelectionListener);
 	}
 
 	@Override
@@ -208,8 +132,53 @@ public class UserInformationFormPanel extends GHAVerticalLayout implements
 	}
 
 	@Override
+	public void close() {
+		destroy();
+	}
+
+	// Producer/Consumer stuff
+
+	@Override
 	public void notifyUser(SSOUser ssoUser) {
-		for (UserSelectionListener listener : listeners)
-			listener.select(ssoUser);
+		return;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.user.UserSelectionProducer#
+	 * removeUserSelectionListener
+	 * (org.fourgeeks.gha.webclient.client.user.UserSelectionListener)
+	 */
+	@Override
+	public void removeUserSelectionListener(
+			UserSelectionListener userSelectionListener) {
+		form.removeUserSelectionListener(userSelectionListener);
+	}
+
+	private void save() {
+		form.update(new GHAAsyncCallback<SSOUser>() {
+
+			@Override
+			public void onSuccess(SSOUser result) {
+				GHANotification.alert("user-save-success");
+			}
+		});
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.user.UserSelectionListener#select(
+	 * org.fourgeeks.gha.domain.ess.SSOUser)
+	 */
+	@Override
+	public void select(SSOUser ssoUser) {
+		form.set(ssoUser);
+	}
+
+	protected void undo() {
+		form.undo();
 	}
 }

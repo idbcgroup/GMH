@@ -10,6 +10,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHATopForm;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHADoumentTypeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAEmailItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAGenreSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHANameItem;
@@ -20,13 +21,13 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHAUserStateSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 
-import com.smartgwt.client.types.TitleOrientation;
+import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
-import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
@@ -37,54 +38,53 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 		UserSelectionListener {
 
-	private long selectedUserId;
+	private SSOUser selectedUser;
 	private VLayout sideButtons;
-	private GHATextItem usernameItem, typeidSelectItem;
+	private GHATextItem usernameItem;
+	private GHADoumentTypeSelectItem typeidSelectItem;
 	private GHASelectItem stateItem;
-	private GHATextItem firstNameItem, firstLastNameItem, secondLastNameItem,
-			idItem;
+	private GHANameItem firstNameItem, secondNameItem, firstLastNameItem, secondLastNameItem;
+	private GHATextItem	idItem;
 	private GHAEmailItem emailItem;
 	private GHASelectItem genderSelectItem;
 	private GHASearchButton searchButton;
 	private GHADeleteButton deleteButton;
 	private GHACleanButton cleanButton;
+	private GHADynamicForm form;
 	{
-		usernameItem = new GHAUserNameItem(350);
-		usernameItem.setColSpan(2);
-		firstNameItem = new GHANameItem(GHAStrings.get("first-name"), 150);
-		stateItem = new GHAUserStateSelectItem(150);
-		typeidSelectItem = new GHATextItem(GHAStrings.get("id-type"), 150);
-		idItem = new GHATextItem(GHAStrings.get("id-number"), 150);
-		firstLastNameItem = new GHANameItem(GHAStrings.get("first-lastname"),
-				150);
-		secondLastNameItem = new GHANameItem(GHAStrings.get("second-lastname"),
-				150);
-		emailItem = new GHAEmailItem(GHAStrings.get("mail"), 150);
-		idItem = new GHATextItem(GHAStrings.get("id-number"), 150);
+		usernameItem = new GHAUserNameItem();
+		stateItem = new GHAUserStateSelectItem();
+		firstNameItem = new GHANameItem(GHAStrings.get("first-name"));
+		secondNameItem = new GHANameItem("Segundo Nombre");
+		firstLastNameItem = new GHANameItem(GHAStrings.get("first-lastname"));
+		secondLastNameItem = new GHANameItem(GHAStrings.get("second-lastname"));
+		emailItem = new GHAEmailItem(GHAStrings.get("mail"));
+		typeidSelectItem = new GHADoumentTypeSelectItem();
+		idItem = new GHATextItem(GHAStrings.get("id-number"));
 		idItem.setLength(20);
 		idItem.setMask("####################");
-		genderSelectItem = new GHAGenreSelectItem(150);
+		genderSelectItem = new GHAGenreSelectItem();
+		
 		usernameItem.addKeyUpHandler(searchKeyUpHandler);
 		firstNameItem.addKeyUpHandler(searchKeyUpHandler);
+		secondNameItem.addKeyUpHandler(searchKeyUpHandler);
 		firstLastNameItem.addKeyUpHandler(searchKeyUpHandler);
 		secondLastNameItem.addKeyUpHandler(searchKeyUpHandler);
 		emailItem.addKeyUpHandler(searchKeyUpHandler);
 		genderSelectItem.addKeyUpHandler(searchKeyUpHandler);
+		
+		form = new GHADynamicForm(GHAUiHelper.getNormalFormWidth(30),5);
 	}
 
 	/**
 	 * @param resultSet
 	 * @param userTab
-	 * @param tab
 	 */
 	public UserTopForm(UserResultSet resultSet, UserTab userTab) {
 		super(resultSet, userTab);
-		DynamicForm form = new DynamicForm();
-		form.setTitleOrientation(TitleOrientation.TOP);
-		form.setNumCols(5);
-		form.setItems(usernameItem, stateItem, firstNameItem,
-				firstLastNameItem, secondLastNameItem, typeidSelectItem,
-				idItem, emailItem, genderSelectItem);
+		
+		form.setItems(usernameItem,  firstNameItem, secondNameItem, firstLastNameItem, secondLastNameItem,
+					  typeidSelectItem, idItem, emailItem, genderSelectItem, stateItem);
 
 		deleteButton = new GHADeleteButton(new ClickHandler() {
 			@Override
@@ -120,6 +120,8 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 		Citizen citizen = new Citizen();
 		if (firstNameItem.getValue() != null)
 			citizen.setFirstName(firstNameItem.getValueAsString());
+		if (secondNameItem.getValue() != null)
+			citizen.setSecondName(secondNameItem.getValueAsString());
 		if (firstLastNameItem.getValue() != null)
 			citizen.setFirstLastName(firstLastNameItem.getValueAsString());
 		if (secondLastNameItem.getValue() != null)
@@ -137,7 +139,7 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 		ssoUser.setBpu(bpu);
 		search(ssoUser);
 	}
-
+	
 	@Override
 	public void search(final SSOUser ssoU) {
 		super.search();
@@ -152,7 +154,7 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 
 	@Override
 	public void select(SSOUser ssoUser) {
-		selectedUserId = ssoUser.getId();
+		selectedUser = ssoUser;
 
 		if (ssoUser.getUserName() != null)
 			usernameItem.setValue(ssoUser.getUserName());
@@ -167,6 +169,8 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 				Citizen citizen = bpu.getCitizen();
 				if (citizen.getFirstName() != null)
 					firstNameItem.setValue(citizen.getFirstName());
+				if (citizen.getSecondName() != null)
+					secondNameItem.setValue(citizen.getSecondName());
 				if (citizen.getIdType() != null)
 					typeidSelectItem.setValue(citizen.getIdType().name());
 				if (citizen.getIdNumber() != null)
@@ -191,6 +195,7 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 		typeidSelectItem.setDisabled(disabled);
 		idItem.setDisabled(disabled);
 		firstNameItem.setDisabled(disabled);
+		secondNameItem.setDisabled(disabled);
 		firstLastNameItem.setDisabled(disabled);
 		secondLastNameItem.setDisabled(disabled);
 		emailItem.setDisabled(disabled);
@@ -223,6 +228,7 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 		typeidSelectItem.clearValue();
 		idItem.clearValue();
 		firstNameItem.clearValue();
+		secondNameItem.clearValue();
 		firstLastNameItem.clearValue();
 		secondLastNameItem.clearValue();
 		emailItem.clearValue();
@@ -230,6 +236,7 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 		searchButton.setDisabled(false);
 		cleanButton.setDisabled(false);
 		activated = true;
+		selectedUser = null;
 	}
 
 	@Override
@@ -240,7 +247,7 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 					@Override
 					public void execute(Boolean value) {
 						if (value) {
-							UserModel.delete(selectedUserId,
+							UserModel.delete(selectedUser.getId(),
 									new GHAAsyncCallback<Void>() {
 										@Override
 										public void onSuccess(Void result) {
@@ -253,5 +260,11 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 						}
 					}
 				});
+	}
+	
+	@Override
+	public void onResize(ResizeEvent event) {
+		super.onResize(event);
+		form.resize(GHAUiHelper.getNormalFormWidth(30), 5);
 	}
 }

@@ -1,6 +1,7 @@
 package org.fourgeeks.gha.webclient.client.user;
 
 import org.fourgeeks.gha.domain.ess.SSOUser;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.grids.GhaGrid;
 import org.fourgeeks.gha.webclient.client.UI.grids.tree.GHATreeGridField;
 
@@ -18,31 +19,24 @@ public class UserGrid extends GhaGrid<SSOUser> {
 		setEmptyMessage("No existen usuarios que mostrar.");
 
 		GHATreeGridField nameGridField = new GHATreeGridField("user",
-				"Nombre de Usuario");
-		// GHATreeGridField passGridField = new GHATreeGridField("pass",
-		// "Contraseña");
+				GHAStrings.get("user"));
 		GHATreeGridField blockGridField = new GHATreeGridField("block",
-				"Bloqueado");
+				GHAStrings.get("state"));
 		GHATreeGridField firstNameGridField = new GHATreeGridField("fname",
-				"Primer Nombre");
-		GHATreeGridField secondNameGridField = new GHATreeGridField("sname",
-				"Segundo Nombre");
+				GHAStrings.get("first-name"));
 		GHATreeGridField lastNameGridField = new GHATreeGridField("lname",
-				"Apellido");
-		GHATreeGridField secondLastNameGridField = new GHATreeGridField(
-				"slname", "Segundo Apellido");
+				GHAStrings.get("last-name"));
 		GHATreeGridField idGridField = new GHATreeGridField("id",
-				"No. Identificacion");
+				GHAStrings.get("id-number"));
 		GHATreeGridField genderGridField = new GHATreeGridField("gender",
-				"Género");
+				GHAStrings.get("genre"));
 		GHATreeGridField nationalityGridField = new GHATreeGridField("nac",
-				"Nacionalidad");
+				GHAStrings.get("nationality"));
 		GHATreeGridField birthDateGridField = new GHATreeGridField("bday",
-				"Fecha de Nac.");
+				GHAStrings.get("birthdate"));
 
-		setFields(nameGridField, /* passGridField, */blockGridField,
-				firstNameGridField, secondNameGridField, lastNameGridField,
-				secondLastNameGridField, idGridField, genderGridField,
+		setFields(nameGridField, blockGridField, firstNameGridField,
+				lastNameGridField, idGridField, genderGridField,
 				nationalityGridField, birthDateGridField);
 	}
 

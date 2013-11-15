@@ -37,3 +37,4 @@ MIX,00.02,user,user,A003,user-information-subtab,IS03,information-view-for-user-
 MIX,00.02,user,user,A003,user-login-subtab,LS03,login-view-for-user-administration,user-login-show,F034,show-the-information-about-users-connected-in-a-period-of-time
 MIX,00.02,user,user,A003,user-credential-subtab,CS03,credential-view-for-user-administration,user-credential-show,F035,show-the-information-about-users-credentials
 MIX,00.02,user,user,A003,user-credential-subtab,CS03,credential-view-for-user-administration,user-credential-update,F036,edit-the-credentials-of-one-or-more-users
+GMH,00.03,maintenance,mplan,M001,man-csearch-subtab,MS03,credential-view-for-man-administration,man-credential-update,M036,edit-the-actv-of-one-or-more-plan

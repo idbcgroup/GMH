@@ -89,5 +89,6 @@ ES,user,Usuario
 ES,state,Estado
 ES,first-name,Primer nombre
 ES,form-errors,Errores en el formulario
-ES,unsaved-changes,Tiene cambios sin guardar
+ES,unsaved-changes,Tiene cambios sin guardar. ¿Realmente desea salir?
 ES,bpi-select-item,Institución
+ES,maitenance,Mantenimiento

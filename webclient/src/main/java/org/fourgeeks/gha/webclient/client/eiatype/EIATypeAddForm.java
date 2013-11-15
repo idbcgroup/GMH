@@ -6,13 +6,10 @@ import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACloseButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAAddForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 
-import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.util.BooleanCallback;
-import com.smartgwt.client.widgets.AnimationCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -23,10 +20,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret, emiliot
  * 
  */
-public class EIATypeAddForm extends GHAAddForm implements
+public class EIATypeAddForm extends GHAAddForm<EiaType> implements
 		EiaTypeSelectionProducer {
-
-	private EiaTypeForm form;
 
 	{
 		form = new EiaTypeForm();
@@ -38,13 +33,6 @@ public class EIATypeAddForm extends GHAAddForm implements
 	 */
 	public EIATypeAddForm(String title) {
 		super(title);
-		initComponent();
-	}
-
-	private void initComponent() {
-		GHAUiHelper.addGHAResizeHandler(this);
-		setHeight(GHAUiHelper.getBottomSectionHeight());
-
 		VLayout sideButtons = GHAUiHelper.createBar(new GHASaveButton(
 				new ClickHandler() {
 					@Override
@@ -55,7 +43,7 @@ public class EIATypeAddForm extends GHAAddForm implements
 
 			@Override
 			public void onClick(ClickEvent event) {
-				hide();
+				cancel();
 			}
 		}));
 
@@ -67,58 +55,42 @@ public class EIATypeAddForm extends GHAAddForm implements
 	@Override
 	public void addEiaTypeSelectionListener(
 			EIATypeSelectionListener eIATypeSelectionListener) {
-		form.addEiaTypeSelectionListener(eIATypeSelectionListener);
+		((EiaTypeSelectionProducer) form)
+				.addEiaTypeSelectionListener(eIATypeSelectionListener);
 	}
 
 	@Override
-	public boolean canBeClosen(HideCloseAction hideAction) {// TODO
-		if (form.hasUnCommittedChanges()) {
-			GHANotification.confirm(GHAStrings.get("information"),
-					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
-
-						@Override
-						public void execute(Boolean value) {
-							if (value) {
-								form.undo();
-							}
-						}
-					});
-			return false;
-		}
-		return true;
+	public void notifyEiaType(EiaType eiaType) {
+		return;
 	}
 
 	@Override
-	public boolean canBeHidden(HideCloseAction hideAction) {// TODO
-		if (form.hasUnCommittedChanges()) {
-			GHANotification.confirm(GHAStrings.get("information"),
-					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
-
-						@Override
-						public void execute(Boolean value) {
-							if (value) {
-								form.undo();
-							}
-						}
-					});
-			return false;
-		}
-		return true;
+	public void open() {
+		super.open();
+		form.activate();
 	}
 
 	@Override
-	public void close() {
-		hide(new AnimationCallback() {
+	public void removeEiaTypeSelectionListener(
+			EIATypeSelectionListener eIATypeSelectionListener) {
+		((EiaTypeSelectionProducer) form)
+				.removeEiaTypeSelectionListener(eIATypeSelectionListener);
+
+	}
+
+	private void save() {
+		form.save(new GHAAsyncCallback<EiaType>() {
 
 			@Override
-			public void execute(boolean earlyFinish) {
-				destroy();
+			public void onSuccess(EiaType arg0) {
+				GHANotification.alert("eiatype-save-success");
+				hide();
 			}
 		});
 	}
 
 	@Override
-	public void hide() {
+	public void cancel() {
 		if (form.hasUnCommittedChanges()) {
 			GHANotification.confirm(GHAStrings.get("information"),
 					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
@@ -134,56 +106,4 @@ public class EIATypeAddForm extends GHAAddForm implements
 		} else
 			super.hide();
 	}
-
-	@Override
-	public void notifyEiaType(EiaType eiaType) {
-		form.notifyEiaType(eiaType);
-	}
-
-	@Override
-	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getBottomSectionHeight());
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow#open
-	 * ()
-	 */
-	@Override
-	public void open() {
-		super.open();
-		form.activate();
-	}
-
-	@Override
-	public void removeEiaTypeSelectionListener(
-			EIATypeSelectionListener eIATypeSelectionListener) {
-		form.removeEiaTypeSelectionListener(eIATypeSelectionListener);
-
-	}
-
-	private void save() {
-		form.save(new GHAAsyncCallback<EiaType>() {
-
-			@Override
-			public void onSuccess(EiaType arg0) {
-				GHANotification.alert("eiatype-save-success");
-				hide();
-			}
-		});
-	}
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener#select
-	 * (org.fourgeeks.gha.domain.gmh.EiaType)
-	 */
-	// @Override
-	// public void select(EiaType eiaType) {
-	// // cancel();
-	// }
 }

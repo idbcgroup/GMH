@@ -13,6 +13,7 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.logonlog.LogonLogModel;
 import org.fourgeeks.gha.webclient.client.logonlog.LogonLogRecord;
 import org.fourgeeks.gha.webclient.client.logonlog.LogonLogUtil;
+import org.fourgeeks.gha.webclient.client.user.UserSelectionListener;
 
 import com.smartgwt.client.widgets.layout.HLayout;
 
@@ -21,7 +22,7 @@ import com.smartgwt.client.widgets.layout.HLayout;
  * 
  */
 public class UserLoginLogGridPanel extends GHAVerticalLayout implements
-		ClosableListener, HideableListener {
+		ClosableListener, HideableListener, UserSelectionListener {
 
 	private LogonLogGrid grid;
 	{
@@ -45,10 +46,18 @@ public class UserLoginLogGridPanel extends GHAVerticalLayout implements
 
 	}
 
-	/**
-	 * @param ssoUser
-	 */
-	public void loadData(SSOUser ssoUser) {
+	@Override
+	public boolean canBeHidden(HideCloseAction hideAction) {
+		return true;
+	}
+
+	@Override
+	public boolean canBeClosen(HideCloseAction hideAction) {
+		return true;
+	}
+
+	@Override
+	public void select(SSOUser ssoUser) {
 		LogonLogModel.getLogsByBpu(ssoUser.getBpu(),
 				new GHAAsyncCallback<List<LogonLog>>() {
 
@@ -61,16 +70,6 @@ public class UserLoginLogGridPanel extends GHAVerticalLayout implements
 						grid.setData(array);
 					}
 				});
-	}
-
-	@Override
-	public boolean canBeHidden(HideCloseAction hideAction) {
-		return true;
-	}
-
-	@Override
-	public boolean canBeClosen(HideCloseAction hideAction) {
-		return true;
 	}
 
 }

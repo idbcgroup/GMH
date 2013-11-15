@@ -60,7 +60,6 @@ public class EIATypeInternalTabSet extends GHAInternalTabSet implements
 	@Override
 	public void select(EiaType eiaType) {
 		animateShow(AnimationEffect.FADE);
-		// selectTab(0);
 	}
 
 }
