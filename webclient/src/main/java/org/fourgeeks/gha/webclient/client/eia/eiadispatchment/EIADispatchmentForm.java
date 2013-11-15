@@ -60,7 +60,6 @@ public class EIADispatchmentForm extends GHASlideInWindow {
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		// TODO Auto-generated method stub
 		setHeight(GHAUiHelper.getTabHeight() - 4);
 	}
 }

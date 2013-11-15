@@ -13,8 +13,8 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class MaintenanceProtocolAddForm extends GHAAddForm implements
-		MaintenanceProtocolSelectionListener,
+public class MaintenanceProtocolAddForm extends GHAAddForm<MaintenanceProtocol>
+		implements MaintenanceProtocolSelectionListener,
 		MaintenanceProtocolSelectionProducer {
 
 	private MaintenanceProtocolForm maintenanceProtocolForm;
@@ -50,7 +50,8 @@ public class MaintenanceProtocolAddForm extends GHAAddForm implements
 		maintenanceProtocolForm.addMaintenanceProtocolSelectionListener(this);
 	}
 
-	protected void cancel() {
+	@Override
+	public void hide() {
 		maintenanceProtocolForm.hide();
 		super.hide();
 	}

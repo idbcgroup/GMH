@@ -203,7 +203,7 @@ public class EIAUpdateForm extends GHAUpdateForm implements
 	 * @param eia
 	 */
 	public void setEia(Eia eia) {
-		form.setEia(eia);
+		form.set(eia);
 	}
 
 	private void update() {

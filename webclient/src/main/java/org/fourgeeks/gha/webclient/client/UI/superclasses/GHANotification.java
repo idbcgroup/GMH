@@ -62,6 +62,8 @@ public class GHANotification {
 	 * @param buttonYesHandler
 	 * @param buttonNoHandler
 	 * @param buttonCancelHandler
+	 *            the cancelbutton handler, or null if you just want the dialog
+	 *            to disapear
 	 */
 	public static void askYesNoCancel(final String title, String message,
 			final ClickHandler buttonYesHandler,

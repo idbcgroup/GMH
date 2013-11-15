@@ -1,18 +1,14 @@
 package org.fourgeeks.gha.webclient.client.eiatype.utility;
 
-import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
-import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeTab;
 
 /**
  * @author alacret
  * 
  */
-public class EIATypeUtilitySubTab extends GHASubTab implements
-		EIATypeSelectionListener, ClosableListener {
+public class EIATypeUtilitySubTab extends GHASubTab {
 
 	private EIATypeUtilityGridPanel eiaTypeServicesGridPanel;
 
@@ -28,11 +24,7 @@ public class EIATypeUtilitySubTab extends GHASubTab implements
 
 		setPane(eiaTypeServicesGridPanel);
 
-		tab.addEiaTypeSelectionListener(this);
+		tab.addEiaTypeSelectionListener(eiaTypeServicesGridPanel);
 	}
 
-	@Override
-	public void select(EiaType eiaType) {
-		eiaTypeServicesGridPanel.select(eiaType);
-	}
 }

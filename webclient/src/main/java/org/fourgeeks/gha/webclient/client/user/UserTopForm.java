@@ -37,7 +37,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 		UserSelectionListener {
 
-	private long selectedUserId;
+	private SSOUser selectedUser;
 	private VLayout sideButtons;
 	private GHATextItem usernameItem, typeidSelectItem;
 	private GHASelectItem stateItem;
@@ -75,7 +75,6 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 	/**
 	 * @param resultSet
 	 * @param userTab
-	 * @param tab
 	 */
 	public UserTopForm(UserResultSet resultSet, UserTab userTab) {
 		super(resultSet, userTab);
@@ -152,7 +151,7 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 
 	@Override
 	public void select(SSOUser ssoUser) {
-		selectedUserId = ssoUser.getId();
+		selectedUser = ssoUser;
 
 		if (ssoUser.getUserName() != null)
 			usernameItem.setValue(ssoUser.getUserName());
@@ -230,6 +229,7 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 		searchButton.setDisabled(false);
 		cleanButton.setDisabled(false);
 		activated = true;
+		selectedUser = null;
 	}
 
 	@Override
@@ -240,7 +240,7 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 					@Override
 					public void execute(Boolean value) {
 						if (value) {
-							UserModel.delete(selectedUserId,
+							UserModel.delete(selectedUser.getId(),
 									new GHAAsyncCallback<Void>() {
 										@Override
 										public void onSuccess(Void result) {

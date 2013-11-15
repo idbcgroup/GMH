@@ -37,7 +37,6 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASectionForm;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
-import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.widgets.form.fields.events.ChangeEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangeHandler;
 //import org.fourgeeks.gha.domain.gar.BuildingLocation;
@@ -51,7 +50,7 @@ import com.smartgwt.client.widgets.form.fields.events.ChangeHandler;
  * 
  */
 public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
-		EiaSelectionProducer, ResizeHandler {
+		EiaSelectionProducer {
 	private GHATextItem codeTextItem, serialTextItem, fixedAssetIdTextItem,
 			purchaseOrderNumTextItem, purchaseInvoiceNumTextItem,
 			workingAreaLocationCodeTextItem, facilityLocationCodeTextItem,
@@ -89,7 +88,6 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 	// private GHADynamicForm garantiasMantForm;
 
 	private List<EIASelectionListener> listeners;
-	private Eia updateEntity;
 
 	{ // Global
 		sectionForm = new GHASectionForm();
@@ -250,7 +248,7 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 	public EIAForm() {
 		super();
 		GHAUiHelper.addGHAResizeHandler(this);
-		
+
 		infoBasicaForm = getInfoBasicaForm();
 		adquisicionForm = getAdquisicionForm();
 		ubicacionForm = getUbicacionForm();
@@ -330,7 +328,7 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 
 	@Override
 	public void clear() {
-		this.updateEntity = null;
+		super.clear();
 		// clean text fields
 		codeTextItem.clearValue();
 		serialTextItem.clearValue();
@@ -400,10 +398,10 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 
 	private Eia extract() {
 		Eia eia;
-		if (this.updateEntity == null)
+		if (this.originalEntity == null)
 			eia = new Eia();
 		else
-			eia = this.updateEntity;
+			eia = this.originalEntity;
 
 		// EXTRAYENDO LOS DATOS
 
@@ -945,8 +943,8 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 	/**
 	 * @param eia
 	 */
-	public void setEia(Eia eia) {
-		this.updateEntity = eia;
+	public void set(Eia eia) {
+		this.originalEntity = eia;
 		// basic information
 		if (eia.getEiaType() != null)
 			eiaTypeSelectItem.setValue(eia.getEiaType().getCode());
@@ -1148,10 +1146,10 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 
 	@Override
 	public void undo() {
-		if (updateEntity == null)
+		if (originalEntity == null)
 			clear();
 		else
-			this.setEia(updateEntity);
+			this.set(originalEntity);
 		hasUnCommittedChanges = false;
 	}
 
@@ -1162,7 +1160,7 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 			EIAModel.update(eia, new GHAAsyncCallback<Eia>() {
 				@Override
 				public void onSuccess(Eia result) {
-					EIAForm.this.updateEntity = result;
+					EIAForm.this.originalEntity = result;
 					hasUnCommittedChanges = false;
 					notifyEia(result);
 

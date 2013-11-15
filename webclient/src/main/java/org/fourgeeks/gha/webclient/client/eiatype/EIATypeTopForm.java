@@ -55,6 +55,11 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 		nameItem.setColSpan(2);
 		brandItem = new GHABrandSelectItem(230);
 		modelItem = new GHATextItem(GHAStrings.get("model"), 230);
+		modelItem.addKeyUpHandler(searchKeyUpHandler);
+		nameItem.addKeyUpHandler(searchKeyUpHandler);
+		brandItem.addKeyUpHandler(searchKeyUpHandler);
+		typeItem.addKeyUpHandler(searchKeyUpHandler);
+		subTypeItem.addKeyUpHandler(searchKeyUpHandler);
 	}
 
 	/**
@@ -67,52 +72,6 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(3);
 		form.setItems(typeItem, subTypeItem, brandItem, nameItem, modelItem);
-		// Panel de la Fotografia
-		//
-		// HLayout photoPanel = new HLayout();
-		// photoPanel.setMembersMargin(10);
-		// photoPanel.setWidth(130);
-		// // photoPanel.setDefaultLayoutAlign(Alignment.CENTER);
-		// photo = new GHAImg("../resources/img/Foto.jpg", 80, 80);
-		// // photo.setTop(8);
-		// photo.setStyleName("top-8");
-		//
-		// VLayout photoBotones = new VLayout();
-		// photoBotones.setWidth(30);
-		// photoBotones.setLayoutMargin(5);
-		// photoBotones.setMembersMargin(10);
-		// photoBotones.setDefaultLayoutAlign(Alignment.CENTER);
-		//
-		// GHAImgButton searchPhoto = new GHAImgButton(
-		// "../resources/icons/search.png");
-		// searchPhoto.addClickHandler(new ClickHandler() {
-		//
-		// @Override
-		// public void onClick(ClickEvent event) {
-		// EiaTypePicture picture = listEiaTypePictures.get(index);
-		// new PopupShowPicture("../webclient/picture/eiaType/"
-		// + picture.getPicture());
-		// }
-		// });
-		// GHAImgButton nextPhoto = new GHAImgButton(
-		// "../resources/icons/arrow.png");
-		// nextPhoto.addClickHandler(new ClickHandler() {
-		// @Override
-		// public void onClick(ClickEvent event) {
-		// next();
-		// }
-		// });
-		//
-		// photoBotones.addMembers(searchPhoto);
-		// photoBotones.addMembers(nextPhoto);
-		// photoPanel.addMembers(photo, photoBotones);
-		// // Botones laterales del Panel
-
-		modelItem.addKeyUpHandler(searchKeyUpHandler);
-		nameItem.addKeyUpHandler(searchKeyUpHandler);
-		brandItem.addKeyUpHandler(searchKeyUpHandler);
-		typeItem.addKeyUpHandler(searchKeyUpHandler);
-		subTypeItem.addKeyUpHandler(searchKeyUpHandler);
 
 		searchButton = new GHASearchButton(new ClickHandler() {
 			@Override
@@ -134,44 +93,10 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 		});
 
 		sideButtons = GHAUiHelper.createBar(searchButton, cleanButton);
-		addMembers(form, /* new LayoutSpacer(), photoPanel, */
-				new LayoutSpacer(), sideButtons);
+		addMembers(form, new LayoutSpacer(), sideButtons);
 		deactivate();
 	}
 
-	// private void next() {
-	// if (index < listEiaTypePictures.size()) {
-	// index++;
-	// EiaTypePicture picture = listEiaTypePictures.get(index);
-	// photo.setSrc("../webclient/picture/eiaType/" + picture.getPicture());
-	// } else {
-	// index = 0;
-	// EiaTypePicture picture = listEiaTypePictures.get(index);
-	// photo.setSrc("../webclient/picture/eiaType/" + picture.getPicture());
-	// }
-	//
-	// }
-
-	/**
-	 * Obtiene las fotografias de un EiaType
-	 * 
-	 * @param eiaType
-	 */
-	// private void getEiaTypePicture(EiaType eiaType) {
-	// index = 0;
-	// listEiaTypePictures = new ArrayList<EiaTypePicture>();
-	// EIATypePictureModel.findByEiaType(eiaType,
-	// new GHAAsyncCallback<List<EiaTypePicture>>() {
-	//
-	// @Override
-	// public void onSuccess(List<EiaTypePicture> result) {
-	// listEiaTypePictures = result;
-	// EiaTypePicture picture1 = result.get(0);
-	// photo.setSrc("../webclient/picture/eiaType/"
-	// + picture1.getPicture());
-	// }
-	// });
-	// }
 	@Override
 	public void activate() {
 		nameItem.enable();
@@ -197,6 +122,7 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 		modelItem.clearValue();
 		typeItem.clearValue();
 		subTypeItem.clearValue();
+		selectedEiaType = null;
 	}
 
 	@Override

@@ -25,6 +25,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
+// TODO: Esta clase no se usa en ningun lado
 public class UserSearchForm extends GHASearchForm<SSOUser> implements
 		UserSelectionProducer, UserSelectionListener {
 

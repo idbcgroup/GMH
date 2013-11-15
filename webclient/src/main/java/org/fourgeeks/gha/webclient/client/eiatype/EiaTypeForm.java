@@ -28,6 +28,7 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.brand.BrandModel;
 
+import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
@@ -53,8 +54,6 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 	private GHAComboboxItem<Manufacturer> manItem;
 
 	private List<EIATypeSelectionListener> listeners;
-
-	private EiaType updateEntity;
 
 	{
 		codeItem = new GHACodeItem(true, 300, changedHandler);
@@ -153,6 +152,7 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 
 	@Override
 	public void clear() {
+		super.clear();
 		brandItem.clearValue();
 		brandItem.disable();
 		manItem.clearValue();
@@ -175,7 +175,7 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 	private EiaType extract(boolean update) {
 		final EiaType eiaType = new EiaType();
 		if (update)
-			eiaType.setCode(this.updateEntity.getCode());
+			eiaType.setCode(this.originalEntity.getCode());
 
 		if (brandItem.getValue() != null) {
 			if (brandItem.getValueAsString().matches("[1-9]+\\d*")) {
@@ -241,6 +241,24 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 	//
 	// }
 
+	private void fillBrands(final Brand brand) {
+		Manufacturer manufacturer = brand.getManufacturer();
+		BrandModel.findByManufacturer(manufacturer,
+				new GHAAsyncCallback<List<Brand>>() {
+
+					@Override
+					public void onSuccess(List<Brand> result) {
+						LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+						for (Brand brand : result)
+							valueMap.put(brand.getId() + "", brand.getName());
+						brandItem.setValueMap(valueMap);
+						brandItem.setValue(brand.getId());
+					}
+
+				});
+
+	}
+
 	private void fillBrands(Manufacturer manufacturer) {
 		BrandModel.findByManufacturer(manufacturer,
 				new GHAAsyncCallback<List<Brand>>() {
@@ -280,6 +298,22 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 				}, forceFromServer);
 	}
 
+	private void fillMans(final Manufacturer manufacturer) {
+		GHACache.INSTANCE.getManufacturesrs(
+				new GHAAsyncCallback<List<Manufacturer>>() {
+
+					@Override
+					public void onSuccess(List<Manufacturer> result) {
+						LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+						for (Manufacturer manufacturer : result)
+							valueMap.put(manufacturer.getId() + "",
+									manufacturer.getName());
+						manItem.setValueMap(valueMap);
+						manItem.setValue(manufacturer.getId());
+					}
+				}, true);
+	}
+
 	// Producer stuff
 	@Override
 	public void notifyEiaType(EiaType eiaType) {
@@ -305,29 +339,30 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 	public void save(final GHAAsyncCallback<EiaType> callback) {
 		EiaType eiaType = extract(false);
 
-		if (eiaType != null)
-			EIATypeModel.save(eiaType, new GHAAsyncCallback<EiaType>() {
+		if (eiaType == null)
+			return;
+		EIATypeModel.save(eiaType, new GHAAsyncCallback<EiaType>() {
 
-				@Override
-				public void onSuccess(EiaType result) {
-					hasUnCommittedChanges = false;
-					notifyEiaType(result);
-					clear();
-					// reload manufacturers, possibly one new
-					fillMans(true);
-					brandItem.clearValue();
-					brandItem.disable();
-					if (callback != null)
-						callback.onSuccess(result);
-				}
-			});
+			@Override
+			public void onSuccess(EiaType result) {
+				hasUnCommittedChanges = false;
+				notifyEiaType(result);
+				clear();
+				// reload manufacturers, possibly one new
+				fillMans(true);
+				brandItem.clearValue();
+				brandItem.disable();
+				if (callback != null)
+					callback.onSuccess(result);
+			}
+		});
 	}
 
 	/**
 	 * @param eiaType
 	 */
-	public void setEiaType(EiaType eiaType) {
-		this.updateEntity = eiaType;
+	public void set(EiaType eiaType) {
+		this.originalEntity = eiaType;
 		if (eiaType.getBrand() != null) {
 			fillBrands(eiaType.getBrand());
 			fillMans(eiaType.getBrand().getManufacturer());
@@ -348,40 +383,6 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 		// showPhotographics(eiaType);
 	}
 
-	private void fillMans(final Manufacturer manufacturer) {
-		GHACache.INSTANCE.getManufacturesrs(
-				new GHAAsyncCallback<List<Manufacturer>>() {
-
-					@Override
-					public void onSuccess(List<Manufacturer> result) {
-						LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-						for (Manufacturer manufacturer : result)
-							valueMap.put(manufacturer.getId() + "",
-									manufacturer.getName());
-						manItem.setValueMap(valueMap);
-						manItem.setValue(manufacturer.getId());
-					}
-				}, true);
-	}
-
-	private void fillBrands(final Brand brand) {
-		Manufacturer manufacturer = brand.getManufacturer();
-		BrandModel.findByManufacturer(manufacturer,
-				new GHAAsyncCallback<List<Brand>>() {
-
-					@Override
-					public void onSuccess(List<Brand> result) {
-						LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-						for (Brand brand : result)
-							valueMap.put(brand.getId() + "", brand.getName());
-						brandItem.setValueMap(valueMap);
-						brandItem.setValue(brand.getId());
-					}
-
-				});
-
-	}
-
 	/**
 	 * @param activate
 	 */
@@ -398,7 +399,7 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 		manItem.setDisabled(!activate);
 
 		// this is to keep the code item disabled while update
-		if (updateEntity == null) // this is suposed to happen only on addform
+		if (originalEntity == null) // this is suposed to happen only on addform
 			codeItem.setDisabled(!activate);
 		else
 			codeItem.disable();
@@ -415,10 +416,10 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 
 	@Override
 	public void undo() {
-		if (updateEntity == null)
+		if (originalEntity == null)
 			clear();
 		else
-			this.setEiaType(updateEntity);
+			this.set(originalEntity);
 		hasUnCommittedChanges = false;
 	}
 
@@ -426,17 +427,24 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 	public void update(final GHAAsyncCallback<EiaType> callback) {
 		EiaType eiaType = extract(true);
 
-		if (eiaType != null) {
-			EIATypeModel.update(eiaType, new GHAAsyncCallback<EiaType>() {
+		if (eiaType == null)
+			return;
 
-				@Override
-				public void onSuccess(EiaType result) {
-					hasUnCommittedChanges = false;
-					notifyEiaType(result);
-					if (callback != null)
-						callback.onSuccess(result);
-				}
-			});
-		}
+		EIATypeModel.update(eiaType, new GHAAsyncCallback<EiaType>() {
+
+			@Override
+			public void onSuccess(EiaType result) {
+				hasUnCommittedChanges = false;
+				notifyEiaType(result);
+				if (callback != null)
+					callback.onSuccess(result);
+			}
+		});
+	}
+
+	@Override
+	public void onResize(ResizeEvent arg0) {
+		// TODO Auto-generated method stub
+
 	}
 }

@@ -19,6 +19,8 @@ import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
+import com.smartgwt.client.widgets.grid.events.CellDoubleClickEvent;
+import com.smartgwt.client.widgets.grid.events.CellDoubleClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 
 /**
@@ -30,6 +32,16 @@ public class UserResultSet extends GHAResultSet<SSOUser> implements
 		ClosableListener {
 	private List<UserSelectionListener> listeners = new ArrayList<UserSelectionListener>();
 	private UserGrid grid = new UserGrid();
+
+	{
+		grid.addCellDoubleClickHandler(new CellDoubleClickHandler() {
+
+			@Override
+			public void onCellDoubleClick(CellDoubleClickEvent event) {
+				notifySelectedUser();
+			}
+		});
+	}
 
 	/**
 	 * 

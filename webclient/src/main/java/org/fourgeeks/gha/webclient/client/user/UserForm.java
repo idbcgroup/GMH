@@ -19,18 +19,20 @@ import org.fourgeeks.gha.domain.mix.Citizen;
 import org.fourgeeks.gha.domain.mix.LegalEntity;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHADateItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAEmailItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHANameItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHAUserNameItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
-import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 
@@ -38,7 +40,7 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
  * @author alacret, emiliot
  * 
  */
-public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer, ResizeHandler {
+public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer {
 
 	private GHATextItem usernameItem, passwordItem, confirmPasswordItem,
 			idItem, firstNameItem, secondNameItem, lastNameItem,
@@ -50,61 +52,44 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer,
 	private List<UserSelectionListener> listeners;
 	private GHADynamicForm form;
 
-	/**
-	 * this is used to keep the id of the internal entities of ssouser named
-	 * bpu, bpi, citizen, legalentity, etc. is used only for update purposes
-	 */
-	private SSOUser updateUser;
-
 	{
-		usernameItem = new GHATextItem("Nombre de Usuario");
-		usernameItem.setRequired(true);
-		usernameItem.setLength(20);
-		usernameItem.setMask("AAAAAAAAAAAAAAAAAAAA");
-		passwordItem = new GHATextItem("Contraseña");
-		passwordItem.setRequired(true);
+		usernameItem = new GHAUserNameItem(true, changedHandler);
+
+		passwordItem = new GHATextItem(GHAStrings.get("password"), true,
+				changedHandler);
 		passwordItem.setLength(20);
-		confirmPasswordItem = new GHATextItem("Confirme contraseña");
-		confirmPasswordItem.setRequired(true);
+		confirmPasswordItem = new GHATextItem("Confirme contraseña", true,
+				changedHandler);
 		confirmPasswordItem.setLength(20);
-		firstNameItem = new GHATextItem("Primer Nombre");
-		firstNameItem.setLength(20);
-		firstNameItem.setMask(">A<AAAAAAAAAAAAAAAAAAA");
-		secondNameItem = new GHATextItem("Segundo Nombre");
-		secondNameItem.setLength(20);
-		secondNameItem.setMask(">A<AAAAAAAAAAAAAAAAAAA");
-
-		lastNameItem = new GHATextItem("Apellido");
-		lastNameItem.setLength(20);
-		lastNameItem.setMask(">A<AAAAAAAAAAAAAAAAAAA");
-
-		secondLastNameItem = new GHATextItem("Segundo Apellido");
-		secondLastNameItem.setLength(20);
-		secondLastNameItem.setMask(">A<AAAAAAAAAAAAAAAAAAA");
-
-		primaryEmailItem = new GHAEmailItem("Email Primario");
-		primaryEmailItem.setLength(254);
-
-		alternativeEmailItem = new GHAEmailItem("Email Secundario");
-		alternativeEmailItem.setLength(254);
+		firstNameItem = new GHANameItem("Primer Nombre", false, changedHandler);
+		secondNameItem = new GHANameItem("Segundo Nombre", false,
+				changedHandler);
+		lastNameItem = new GHANameItem("Apellido", false, changedHandler);
+		secondLastNameItem = new GHANameItem("Segundo Apellido", false,
+				changedHandler);
+		primaryEmailItem = new GHAEmailItem("Email Primario", changedHandler);
+		alternativeEmailItem = new GHAEmailItem("Email Secundario",
+				changedHandler);
 
 		typeidSelectItem = new GHASelectItem("Tipo ID", true, changedHandler);
 		idItem = new GHATextItem("No. Identificiación", true, changedHandler);
 		idItem.setLength(20);
 		idItem.setMask("####################");
-		genderSelectItem = new GHASelectItem("Género");
-		genderSelectItem.setRequired(true);
-		nationalityItem = new GHATextItem("Nacionalidad");
+		genderSelectItem = new GHASelectItem("Género", true, changedHandler);
+		nationalityItem = new GHATextItem("Nacionalidad", false, changedHandler);
 		nationalityItem.setLength(60);
-		nationalityItem.setMask("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-		birthDateItem = new GHADateItem("Fecha de Nac.");
+		nationalityItem
+				.setMask("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+		birthDateItem = new GHADateItem("Fecha de Nac.", changedHandler);
 		birthDateItem.setStartDate(new java.util.Date(50, 1, 1));
 		birthDateItem
-			.setEndDate(new java.util.Date(System.currentTimeMillis()));
+				.setEndDate(new java.util.Date(System.currentTimeMillis()));
 
 		bpiSelectItem = new GHASelectItem("Institución");
 		bpiSelectItem.setRequired(true);
-		legalEntityIdentifierItem = new GHATextItem("R.I.F.");
+		bpiSelectItem.addChangedHandler(changedHandler);
+		legalEntityIdentifierItem = new GHATextItem("R.I.F.", false,
+				changedHandler);
 		legalEntityIdentifierItem.setLength(16);
 		legalEntityIdentifierItem.setMask("AAAAAAAAAAAAAAAA");
 
@@ -117,41 +102,43 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer,
 	 * 
 	 */
 	public UserForm() {
-		GHAUiHelper.addGHAResizeHandler(this);
 		final HLayout mainPanel = new HLayout();
-		
-		form.setItems(usernameItem, passwordItem, confirmPasswordItem,new GHASpacerItem(),
-					  typeidSelectItem, idItem, genderSelectItem,new GHASpacerItem(),
-					  firstNameItem,secondNameItem, lastNameItem,new GHASpacerItem(),
-					  secondLastNameItem,nationalityItem, birthDateItem,new GHASpacerItem(),
-					  primaryEmailItem,alternativeEmailItem, bpiSelectItem, new GHASpacerItem(),
-					  legalEntityIdentifierItem);
+
+		form.setItems(usernameItem, passwordItem, confirmPasswordItem,
+				new GHASpacerItem(), typeidSelectItem, idItem,
+				genderSelectItem, new GHASpacerItem(), firstNameItem,
+				secondNameItem, lastNameItem, new GHASpacerItem(),
+				secondLastNameItem, nationalityItem, birthDateItem,
+				new GHASpacerItem(), primaryEmailItem, alternativeEmailItem,
+				bpiSelectItem, new GHASpacerItem(), legalEntityIdentifierItem);
 
 		mainPanel.addMembers(form, new LayoutSpacer());
 		addMember(mainPanel);
 		fill();
 	}
 
-	private void fill() {
-		typeidSelectItem.setValueMap(DocumentTypeEnum.toValueMap());
-		genderSelectItem.setValueMap(GenderTypeEnum.toValueMap());
+	@Override
+	public void activate() {
+		toggleForm(true);
+	}
 
-		GHACache.INSTANCE.getBpis(new GHAAsyncCallback<List<Bpi>>() {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.user.UserSelectionProducer#
+	 * addUserSelectionListener
+	 * (org.fourgeeks.gha.webclient.client.user.UserSelectionListener)
+	 */
+	@Override
+	public void addUserSelectionListener(
+			UserSelectionListener userSelectionListener) {
+		listeners.add(userSelectionListener);
 
-			@Override
-			public void onSuccess(List<Bpi> result) {
-				LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-				for (Bpi bpi : result) {
-					valueMap.put(bpi.getId() + "", bpi.getInstitution()
-							.getName());
-				}
-				bpiSelectItem.setValueMap(valueMap);
-			}
-		}, false);
 	}
 
 	@Override
 	public void clear() {
+		super.clear();
 		usernameItem.clearValue();
 		passwordItem.clearValue();
 		confirmPasswordItem.clearValue();
@@ -171,36 +158,8 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer,
 	}
 
 	@Override
-	public void save() {
-		SSOUser ssoUser = extract(false);
-
-		// if the validation fail, return
-		if (ssoUser == null)
-			return;
-		UserModel.save(ssoUser, new GHAAsyncCallback<SSOUser>() {
-
-			@Override
-			public void onSuccess(SSOUser result) {
-				notifyUser(result);
-				clear();
-
-			}
-		});
-	}
-
-	@Override
-	public void update() {
-		SSOUser ssoUser = extract(true);
-		// if the validation fail, return
-		if (ssoUser == null)
-			return;
-		UserModel.update(ssoUser, new GHAAsyncCallback<SSOUser>() {
-
-			@Override
-			public void onSuccess(SSOUser result) {
-				notifyUser(result);
-			}
-		});
+	public void deactivate() {
+		toggleForm(false);
 	}
 
 	/**
@@ -218,16 +177,14 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer,
 		final Citizen citizen = new Citizen();
 		final LegalEntity legalEntity = new LegalEntity();
 		final Bpi bpi = new Bpi();
-
 		if (update) {
-			ssoUser.setId(this.updateUser.getId());
-			bpu.setId(this.updateUser.getBpu().getId());
-			citizen.setId(this.updateUser.getBpu().getCitizen().getId());
-			legalEntity.setId(this.updateUser.getBpu().getCitizen()
+			ssoUser.setId(this.originalEntity.getId());
+			bpu.setId(this.originalEntity.getBpu().getId());
+			citizen.setId(this.originalEntity.getBpu().getCitizen().getId());
+			legalEntity.setId(this.originalEntity.getBpu().getCitizen()
 					.getLegalEntity().getId());
-			bpi.setId(this.updateUser.getBpu().getBpi().getId());
+			bpi.setId(this.originalEntity.getBpu().getBpi().getId());
 		}
-
 		// ssoUser fields
 		ssoUser.setUserName(usernameItem.getValueAsString());
 		ssoUser.setPassword(passwordItem.getValueAsString());
@@ -241,12 +198,10 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer,
 		citizen.setNationality(nationalityItem.getValueAsString());
 		citizen.setPrimaryEmail(primaryEmailItem.getValueAsString());
 		citizen.setAlternativeEmail(alternativeEmailItem.getValueAsString());
-
 		if (birthDateItem.getValue() != null) {
 			citizen.setBirthDate(new Date(birthDateItem.getValueAsDate()
 					.getTime()));
 		}
-
 		if (typeidSelectItem.getValue() != null) {
 			citizen.setIdType(DocumentTypeEnum.valueOf(typeidSelectItem
 					.getValueAsString()));
@@ -257,7 +212,6 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer,
 			citizen.setGender(GenderTypeEnum.valueOf(genderSelectItem
 					.getValueAsString()));
 		}
-
 		// bpu fields
 		if (bpiSelectItem.getValue() != null) {
 			bpi.setId(Long.valueOf(bpiSelectItem.getValueAsString()));
@@ -274,7 +228,6 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer,
 		bpu.setCitizen(citizen);
 		bpu.setBpi(bpi);
 		ssoUser.setBpu(bpu);
-
 		List<String> violationsList = new ArrayList<String>();
 
 		Set<ConstraintViolation<LegalEntity>> violationsLegalEntity = validator
@@ -327,36 +280,84 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer,
 		return null;
 	}
 
-	@Override
-	public void activate() {
-		toggleForm(true);
+	private void fill() {
+		typeidSelectItem.setValueMap(DocumentTypeEnum.toValueMap());
+		genderSelectItem.setValueMap(GenderTypeEnum.toValueMap());
+
+		GHACache.INSTANCE.getBpis(new GHAAsyncCallback<List<Bpi>>() {
+
+			@Override
+			public void onSuccess(List<Bpi> result) {
+				LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+				for (Bpi bpi : result) {
+					valueMap.put(bpi.getId() + "", bpi.getInstitution()
+							.getName());
+				}
+				bpiSelectItem.setValueMap(valueMap);
+			}
+		}, false);
 	}
 
 	@Override
-	public void deactivate() {
-		toggleForm(false);
+	public void notifyUser(SSOUser ssoUser) {
+		for (UserSelectionListener listener : listeners)
+			listener.select(ssoUser);
 	}
 
-	/**
-	 * @param activate
+	@Override
+	public void onResize(ResizeEvent event) {
+		form.resize(GHAUiHelper.getNormalFormWidth(30), 4);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.user.UserSelectionProducer#
+	 * removeUserSelectionListener
+	 * (org.fourgeeks.gha.webclient.client.user.UserSelectionListener)
 	 */
-	private void toggleForm(boolean activate) {
-		usernameItem.setDisabled(!activate);
-		passwordItem.setDisabled(!activate);
-		confirmPasswordItem.setDisabled(!activate);
-		firstNameItem.setDisabled(!activate);
-		secondNameItem.setDisabled(!activate);
-		lastNameItem.setDisabled(!activate);
-		secondLastNameItem.setDisabled(!activate);
-		typeidSelectItem.setDisabled(!activate);
-		idItem.setDisabled(!activate);
-		genderSelectItem.setDisabled(!activate);
-		nationalityItem.setDisabled(!activate);
-		birthDateItem.setDisabled(!activate);
-		bpiSelectItem.setDisabled(!activate);
-		legalEntityIdentifierItem.setDisabled(!activate);
-		primaryEmailItem.setDisabled(!activate);
-		alternativeEmailItem.setDisabled(!activate);
+	@Override
+	public void removeUserSelectionListener(
+			UserSelectionListener userSelectionListener) {
+		listeners.remove(userSelectionListener);
+	}
+
+	@Override
+	public void save() {
+		SSOUser ssoUser = extract(false);
+
+		// if the validation fail, return
+		if (ssoUser == null)
+			return;
+		UserModel.save(ssoUser, new GHAAsyncCallback<SSOUser>() {
+
+			@Override
+			public void onSuccess(SSOUser result) {
+				notifyUser(result);
+				clear();
+
+			}
+		});
+	}
+
+	@Override
+	public void save(final GHAAsyncCallback<SSOUser> callback) {
+		SSOUser ssoUser = extract(true);
+		// if the validation fail, return
+		if (ssoUser == null)
+			return;
+
+		UserModel.save(ssoUser, new GHAAsyncCallback<SSOUser>() {
+
+			@Override
+			public void onSuccess(SSOUser result) {
+				hasUnCommittedChanges = false;
+				notifyUser(result);
+				clear();
+				if (callback != null)
+					callback.onSuccess(result);
+			}
+		});
 	}
 
 	/**
@@ -364,8 +365,8 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer,
 	 * 
 	 * @param ssoUser
 	 */
-	public void setSSOUser(SSOUser ssoUser) {
-		this.updateUser = ssoUser;
+	public void set(SSOUser ssoUser) {
+		this.originalEntity = ssoUser;
 
 		if (ssoUser.getUserName() != null) {
 			usernameItem.setValue(ssoUser.getUserName());
@@ -374,9 +375,9 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer,
 			passwordItem.setValue(ssoUser.getPassword());
 			confirmPasswordItem.setValue(ssoUser.getPassword());
 		}
-		if (ssoUser.getUserLogonStatus() != null) {
-			// TODO: when is added to the interface
-		}
+		// if (ssoUser.getUserLogonStatus() != null) {
+		// // TODO: when is added to the interface
+		// }
 		if (ssoUser.getBpu() != null) {
 			Bpu bpu = ssoUser.getBpu();
 			if (bpu.getBpi() != null) {
@@ -429,62 +430,55 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer,
 
 	}
 
-	@Override
-	public void notifyUser(SSOUser ssoUser) {
-		GHANotification.alert("user-save-success");
-		for (UserSelectionListener listener : listeners) {
-			listener.select(ssoUser);
-		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.fourgeeks.gha.webclient.client.user.UserSelectionProducer#
-	 * addUserSelectionListener
-	 * (org.fourgeeks.gha.webclient.client.user.UserSelectionListener)
+	/**
+	 * @param activate
 	 */
-	@Override
-	public void addUserSelectionListener(
-			UserSelectionListener userSelectionListener) {
-		listeners.add(userSelectionListener);
-
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.fourgeeks.gha.webclient.client.user.UserSelectionProducer#
-	 * removeUserSelectionListener
-	 * (org.fourgeeks.gha.webclient.client.user.UserSelectionListener)
-	 */
-	@Override
-	public void removeUserSelectionListener(
-			UserSelectionListener userSelectionListener) {
-		listeners.remove(userSelectionListener);
-	}
-
-	@Override
-	public void save(GHAAsyncCallback<SSOUser> callback) {
-		// TODO Auto-generated method stub
-
+	private void toggleForm(boolean activate) {
+		usernameItem.setDisabled(!activate);
+		passwordItem.setDisabled(!activate);
+		confirmPasswordItem.setDisabled(!activate);
+		firstNameItem.setDisabled(!activate);
+		secondNameItem.setDisabled(!activate);
+		lastNameItem.setDisabled(!activate);
+		secondLastNameItem.setDisabled(!activate);
+		typeidSelectItem.setDisabled(!activate);
+		idItem.setDisabled(!activate);
+		genderSelectItem.setDisabled(!activate);
+		nationalityItem.setDisabled(!activate);
+		birthDateItem.setDisabled(!activate);
+		bpiSelectItem.setDisabled(!activate);
+		legalEntityIdentifierItem.setDisabled(!activate);
+		primaryEmailItem.setDisabled(!activate);
+		alternativeEmailItem.setDisabled(!activate);
 	}
 
 	@Override
 	public void undo() {
-		// TODO Auto-generated method stub
+		if (originalEntity == null)
+			clear();
+		else
+			this.set(originalEntity);
+		hasUnCommittedChanges = false;
 
 	}
 
 	@Override
-	public void update(GHAAsyncCallback<SSOUser> callback) {
-		// TODO Auto-generated method stub
+	public void update(final GHAAsyncCallback<SSOUser> callback) {
+		SSOUser ssoUser = extract(true);
+		// if the validation fail, return
+		if (ssoUser == null)
+			return;
 
-	}
+		UserModel.update(ssoUser, new GHAAsyncCallback<SSOUser>() {
 
-	@Override
-	public void onResize(ResizeEvent event) {
-		form.resize(GHAUiHelper.getNormalFormWidth(30), 4);		
+			@Override
+			public void onSuccess(SSOUser result) {
+				hasUnCommittedChanges = false;
+				notifyUser(result);
+				if (callback != null)
+					callback.onSuccess(result);
+			}
+		});
 	}
 
 }

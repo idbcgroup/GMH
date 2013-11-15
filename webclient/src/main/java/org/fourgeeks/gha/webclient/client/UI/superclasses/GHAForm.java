@@ -3,7 +3,9 @@ package org.fourgeeks.gha.webclient.client.UI.superclasses;
 import javax.validation.Validator;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
+import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
+import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.validation.client.impl.Validation;
 import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
@@ -13,8 +15,10 @@ import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
  * @param <T>
  * 
  */
-public abstract class GHAForm<T> extends GHAVerticalLayout {
+public abstract class GHAForm<T> extends GHAVerticalLayout implements
+		ResizeHandler {
 
+	protected T originalEntity = null;
 	protected boolean hasUnCommittedChanges = false;
 	protected ChangedHandler changedHandler = new ChangedHandler() {
 
@@ -31,6 +35,7 @@ public abstract class GHAForm<T> extends GHAVerticalLayout {
 	 */
 	public GHAForm() {
 		super();
+		GHAUiHelper.addGHAResizeHandler(this);
 	}
 
 	/**
@@ -46,7 +51,9 @@ public abstract class GHAForm<T> extends GHAVerticalLayout {
 	/**
 	 * clear the form fields
 	 */
-	public abstract void clear();
+	public void clear() {
+		originalEntity = null;
+	}
 
 	/**
 	 * @return wheter the form has uncommited changes
@@ -81,11 +88,25 @@ public abstract class GHAForm<T> extends GHAVerticalLayout {
 	 */
 	public abstract void update(final GHAAsyncCallback<T> callback);
 
+	public abstract void set(T entity);
+
 	/**
 	 * Update the entity
 	 */
 	public void update() {
 		update(null);
+	}
+
+	@Override
+	public void hide() {
+		super.hide();
+		GHAUiHelper.removeGHAResizeHandler(this);
+	}
+
+	@Override
+	public void destroy() {
+		GHAUiHelper.removeGHAResizeHandler(this);
+		super.destroy();
 	}
 
 }
