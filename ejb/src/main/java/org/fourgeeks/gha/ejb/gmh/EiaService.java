@@ -4,6 +4,7 @@
 package org.fourgeeks.gha.ejb.gmh;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -119,6 +120,25 @@ public class EiaService extends GHAEJBExceptionImpl implements EiaServiceRemote 
 					cb.equal(root.<Facility> get("facility"), p));
 		}
 		return predicate;
+	}
+
+	@Override
+	public List<Long> countByState() throws GHAEJBException {
+		// TODO: EXCEPCIONES
+		List<Long> res = new ArrayList<Long>(EiaStateEnum.values().length);
+		for (int i = 0; i < res.size(); ++i) {
+			long next = 0L;
+			try {
+				next = em.createNamedQuery("Eia.countByState", Long.class)
+						.setParameter("state", EiaStateEnum.values()[i])
+						.getSingleResult();
+			} catch (Exception e) {
+				next = 0;
+			} finally {
+				res.set(i, next);
+			}
+		}
+		return res;
 	}
 
 	/*

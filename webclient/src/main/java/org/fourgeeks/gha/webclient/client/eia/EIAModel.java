@@ -45,4 +45,8 @@ public class EIAModel {
 
 	}
 
+	public static void countByState(GHAAsyncCallback<List<Long>> callback) {
+		eiaService.countByState(callback);
+	}
+
 }
