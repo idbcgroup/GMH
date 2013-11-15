@@ -10,6 +10,14 @@ import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 public class GHAGenreSelectItem extends GHASelectItem {
 
 	/**
+	 * 
+	 */
+	public GHAGenreSelectItem() {
+		super(GHAStrings.get("genre"));
+		setValueMap(GenderTypeEnum.toValueMap());
+	}
+	
+	/**
 	 * @param width
 	 */
 	public GHAGenreSelectItem(int width) {
