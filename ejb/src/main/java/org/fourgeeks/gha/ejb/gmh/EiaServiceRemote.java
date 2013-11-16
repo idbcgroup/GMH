@@ -18,6 +18,12 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 
 @Remote
 public interface EiaServiceRemote {
+	/**
+	 * @return the count of eias by type, the list is filled in the same order
+	 *         as the EiaStateEnum
+	 * @throws GHAEJBException
+	 */
+	public List<Long> countByState() throws GHAEJBException;
 
 	/**
 	 * @param Id

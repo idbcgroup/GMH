@@ -36,7 +36,8 @@ import org.fourgeeks.gha.domain.glm.ExternalProvider;
 @EiaWarrantyDatesValidation(message = "error-eia-warranty-dates-order")
 @NamedQueries(value = {
 		@NamedQuery(name = "Eia.getAll", query = "SELECT e from Eia e order by e.id"),
-		@NamedQuery(name = "Eia.findByEiaType", query = "SELECT e from Eia e WHERE e.eiaType = :eiaType order by e.id") })
+		@NamedQuery(name = "Eia.findByEiaType", query = "SELECT e from Eia e WHERE e.eiaType = :eiaType order by e.id"),
+		@NamedQuery(name = "Eia.countByState", query = "SELECT Count(e) FROM Eia e WHERE e.state = :state") })
 public class Eia extends AbstractEntity {
 
 	/**
