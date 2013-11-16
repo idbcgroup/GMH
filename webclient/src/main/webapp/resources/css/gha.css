@@ -249,6 +249,10 @@ input[type="text"]:disabled,.inputDisabled {
 	color: black;
 	font-size: 12px;
 }
+.text-label-mini{
+	color:black;
+	font-size: 9px;
+}
 
 .title-label {
 	font-weight: bold;
