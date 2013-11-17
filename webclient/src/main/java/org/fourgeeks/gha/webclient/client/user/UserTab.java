@@ -13,6 +13,7 @@ import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader.Option;
 
+import com.google.gwt.user.client.Window;
 import com.smartgwt.client.types.Visibility;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -153,21 +154,27 @@ public class UserTab extends GHATab implements UserSelectionListener,
 	}
 
 	public void search() {
+		Window.alert("search1");
+		Window.alert("topform is activated: " + topForm.isActivated());
 		if (topForm.isActivated())
 			return;
+		Window.alert("search2");
 		if (internalTabSet.isVisible())
 			if (internalTabSet.canBeHidden(HideCloseAction.SAVE))
 				internalTabSet.hide();
 			else
 				return;
+		Window.alert("search3");
 		if (addForm.isVisible())
 			addForm.hide();
 		if (resultSet.isVisible())
 			resultSet.hide();
+		Window.alert("search4");
 		topForm.activate();
 		header.unMarkAllButtons();
 		searchOption.markSelected();
 		currentStatus = TabStatus.SEARCH;
+		Window.alert("search5");
 		// // GHANotification.info(GHAStrings.get("")); //TODO: Mensaje de
 		// // informacion para indicar que se ha actividado el modo de busqueda
 	}
