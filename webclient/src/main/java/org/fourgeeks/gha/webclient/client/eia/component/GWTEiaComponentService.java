@@ -14,22 +14,30 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 /**
  * @author emiliot
- *
+ * 
  */
 
 @RemoteServiceRelativePath("eiaComponent")
-public interface GWTEiaComponentService extends RemoteService{
+public interface GWTEiaComponentService extends RemoteService {
 	/**
 	 * @param Id
 	 * @throws GHAEJBException
 	 */
 	public void delete(long Id) throws GHAEJBException;
+
+	/**
+	 * @param eiaComponents
+	 * @throws GHAEJBException
+	 */
+	public void delete(List<EiaComponent> eiaComponents) throws GHAEJBException;
+
 	/**
 	 * @param eia
 	 * @return
 	 * @throws GHAEJBException
 	 */
 	public List<EiaComponent> findByParentEia(Eia eia) throws GHAEJBException;
+
 	/**
 	 * @param eia
 	 * @param offset
@@ -37,35 +45,43 @@ public interface GWTEiaComponentService extends RemoteService{
 	 * @return
 	 * @throws GHAEJBException
 	 */
-	public List<EiaComponent> findByParentEia(Eia eia, int offset, int size)throws GHAEJBException;
+	public List<EiaComponent> findByParentEia(Eia eia, int offset, int size)
+			throws GHAEJBException;
+
 	/**
 	 * @param Id
 	 * @return
 	 * @throws GHAEJBException
 	 */
 	public EiaComponent find(long Id) throws GHAEJBException;
+
 	/**
 	 * @return
 	 * @throws GHAEJBException
 	 */
 	public List<EiaComponent> getAll() throws GHAEJBException;
+
 	/**
 	 * @param offset
 	 * @param size
 	 * @return
 	 * @throws GHAEJBException
 	 */
-	public List<EiaComponent> getAll(int offset, int size) throws GHAEJBException;
+	public List<EiaComponent> getAll(int offset, int size)
+			throws GHAEJBException;
+
 	/**
 	 * @param eiaComponent
 	 * @return
 	 * @throws GHAEJBException
 	 */
 	public EiaComponent save(EiaComponent eiaComponent) throws GHAEJBException;
+
 	/**
 	 * @param eiaComponent
 	 * @return
 	 * @throws GHAEJBException
 	 */
-	public EiaComponent update(EiaComponent eiaComponent) throws GHAEJBException;
+	public EiaComponent update(EiaComponent eiaComponent)
+			throws GHAEJBException;
 }

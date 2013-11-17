@@ -34,7 +34,7 @@ public interface GWTEiaService extends RemoteService {
 
 	/**
 	 * 
-	 * @param eiaTypes
+	 * @param eias
 	 * @throws GHAEJBException
 	 */
 	public void delete(List<Eia> eias) throws GHAEJBException;

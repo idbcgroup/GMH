@@ -76,11 +76,14 @@ ES,eiatype-delete-confirm,¿Desea eliminar el tipo de equipo?
 ES,eiatypes-delete-confirm,¿Desea eliminar los tipos de equipo?
 ES,eia-delete-confirm,¿Desea eliminar el equipo?
 ES,eias-delete-confirm,¿Desea eliminar los equipos?
+ES,eiaComponent-delete-confirm,¿Desea eliminar el componente?
+ES,eiaComponents-delete-confirm,¿Desea eliminar los componentes?
 ES,ssoUser-delete-confirm,¿Desea eliminar al usuario?
 ES,amount,Cantidad
 ES,empty-materialcategory-grid,No existen Materiales para mostrar
 ES,empty-material-grid,No existen Materiales para mostrar
 ES,results,Resultados
+ES,result,Resultado
 ES,username-not-null,Debe ingresar un usuario válido
 ES,password-not-null,Debe ingresar una contraseña válida
 ES,code,Código
