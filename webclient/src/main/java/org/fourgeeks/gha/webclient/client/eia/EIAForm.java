@@ -946,23 +946,26 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 	 */
 	public void set(Eia eia) {
 		this.originalEntity = eia;
+
 		// basic information
+		codeTextItem.setValue(eia.getCode());
+		serialTextItem.setValue(eia.getSerialNumber());
+		fixedAssetIdTextItem.setValue(eia.getFixedAssetIdentifier());
+		acceptationDateItem.setValue(eia.getAcceptationDate());
+
+		eiaTypeSelectItem.clearValue();
+		obuSelectItem.clearValue();
+		baseRoleSelectItem.clearValue();
+		stateSelectItem.clearValue();
+
 		if (eia.getEiaType() != null)
 			eiaTypeSelectItem.setValue(eia.getEiaType().getCode());
-		if (eia.getCode() != null)
-			codeTextItem.setValue(eia.getCode());
-		if (eia.getSerialNumber() != null)
-			serialTextItem.setValue(eia.getSerialNumber());
-		if (eia.getFixedAssetIdentifier() != null)
-			fixedAssetIdTextItem.setValue(eia.getFixedAssetIdentifier());
 		if (eia.getObu() != null)
 			obuSelectItem.setValue(eia.getObu().getId());
 		if (eia.getResponsibleRole() != null)
 			baseRoleSelectItem.setValue(eia.getResponsibleRole().getId());
 		if (eia.getState() != null)
 			stateSelectItem.setValue(eia.getState().name());
-		if (eia.getAcceptationDate() != null)
-			acceptationDateItem.setValue(eia.getAcceptationDate());
 
 		// acquisition
 		purchaseDateItem.setValue(eia.getPurchaseDate());
@@ -970,16 +973,19 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		installationDateItem.setValue(eia.getInstallationDate());
 		purchaseInvoiceDateItem.setValue(eia.getPurchaseInvoiceDate());
 		purchaseOrderDateItem.setValue(eia.getPurchaseOrderDate());
+		purchaseOrderNumTextItem.setValue(eia.getPurchaseOrderNumber());
+		purchaseInvoiceNumTextItem.setValue(eia.getPurchaseInvoiceNumber());
+
+		adqisitionProviderSelectItem.clearValue();
+		installationProviderSelectItem.clearValue();
 
 		if (eia.getProvider() != null)
 			adqisitionProviderSelectItem.setValue(eia.getProvider().getId());
-		if (eia.getPurchaseOrderNumber() != null)
-			purchaseOrderNumTextItem.setValue(eia.getPurchaseOrderNumber());
-		if (eia.getPurchaseInvoiceNumber() != null)
-			purchaseInvoiceNumTextItem.setValue(eia.getPurchaseInvoiceNumber());
-		if (eia.getInstallationProvider() != null)
-			installationProviderSelectItem.setValue(eia
-					.getInstallationProvider().getId());
+
+		if (eia.getInstallationProvider() != null) {
+			ExternalProvider installProv = eia.getInstallationProvider();
+			installationProviderSelectItem.setValue(installProv.getId());
+		}
 
 		// // ubication
 		// boolean flag = true;
@@ -1000,6 +1006,10 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		// } else {
 		// sameLocationAttendedItem.setValue(false);
 		// }
+		locationTypeSelectItem.clearValue();
+		workingAreaLocationSelectItem.clearValue();
+		facilityLocationSelectItem.clearValue();
+
 		if (eia.getWorkingArea() != null) {
 			workingAreaLocationSelectItem.setDisabled(false);
 			workingAreaLocationSelectItem
@@ -1016,34 +1026,47 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		}
 
 		// costs
-		if (eia.getAdquisitionCost() != null)
-			adquisitionCostTextItem.setValue(eia.getAdquisitionCost());
+		adquisitionCostTextItem.setValue(eia.getAdquisitionCost());
+		contabilizationDateItem.setValue(eia.getContabilizationDate());
+		adquisitionCostLocalTextItem.setValue(eia.getAdquisitionCostLocal());
+		lastDepreciationDate.setValue(eia.getDateLastDepreciation());
+		actualCostTextItem.setValue(eia.getActualCost());
+		depreciationTimeTextItem.setValue(eia.getDepreciationTime());
+		lifeTimeTextItem.setValue(eia.getLifeTime());
+		realWarrantyBeginDate.setValue(eia.getRealWarrantyBegin());
+		realWarrantyTimeTextItem.setValue(eia.getRealWarrantyTime());
+		intWarrantyTimeTextItem.setValue(eia.getIntWarrantyTime());
+		intWarrantyBeginDate.setValue(eia.getIntWarrantyBegin());
+
+		adquisitionCostCurrencySelectItem.clearValue();
+		adquisitionCostCurrencyLocalSelectItem.clearValue();
+		depreciationMethodSelectItem.clearValue();
+		actualCostCurrencySelectItem.clearValue();
+		depreciationTimePotSelectItem.clearValue();
+		realWarrantySinceSelectItem.clearValue();
+		intWarrantySinceSelectItem.clearValue();
+		maintenanceProviderSelectItem.clearValue();
+
 		if (eia.getAdquisitionCostCurrency() != null)
 			adquisitionCostCurrencySelectItem.setValue(eia
 					.getAdquisitionCostCurrency().name());
-		if (eia.getContabilizationDate() != null)
-			contabilizationDateItem.setValue(eia.getContabilizationDate());
-		if (eia.getAdquisitionCostLocal() != null)
-			adquisitionCostLocalTextItem
-					.setValue(eia.getAdquisitionCostLocal());
+
 		if (eia.getAdquisitionCostCurrencyLocal() != null)
 			adquisitionCostCurrencyLocalSelectItem.setValue(eia
 					.getAdquisitionCostCurrencyLocal().name());
+
 		if (eia.getDepreciationMethod() != null)
 			depreciationMethodSelectItem.setValue(eia.getDepreciationMethod()
 					.name());
-		if (eia.getDateLastDepreciation() != null)
-			lastDepreciationDate.setValue(eia.getDateLastDepreciation());
-		if (eia.getActualCost() != null)
-			actualCostTextItem.setValue(eia.getActualCost());
+
 		if (eia.getActualCostCurrency() != null)
 			actualCostCurrencySelectItem.setValue(eia.getActualCostCurrency()
 					.name());
-		depreciationTimeTextItem.setValue(eia.getDepreciationTime());
+
 		if (eia.getDepreciationTimePoT() != null)
 			depreciationTimePotSelectItem.setValue(eia.getDepreciationTimePoT()
 					.name());
-		lifeTimeTextItem.setValue(eia.getLifeTime());
+
 		if (eia.getLifeTimePoT() != null)
 			lifeTimePotSelectItem.setValue(eia.getLifeTimePoT().name());
 
@@ -1051,16 +1074,14 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		if (eia.getRealWarrantySince() != null)
 			realWarrantySinceSelectItem.setValue(eia.getRealWarrantySince()
 					.name());
-		realWarrantyBeginDate.setValue(eia.getRealWarrantyBegin());
-		realWarrantyTimeTextItem.setValue(eia.getRealWarrantyTime());
+
 		if (eia.getRealWarrantyPoT() != null)
 			realWarrantyPotSelectItem.setValue(eia.getRealWarrantyPoT().name());
+
 		if (eia.getIntWarrantySince() != null)
 			intWarrantySinceSelectItem.setValue(eia.getIntWarrantySince()
 					.name());
-		if (eia.getIntWarrantyBegin() != null)
-			intWarrantyBeginDate.setValue(eia.getIntWarrantyBegin());
-		intWarrantyTimeTextItem.setValue(eia.getIntWarrantyTime());
+
 		if (eia.getIntWarrantyPoT() != null)
 			intWarrantyPotSelectItem.setValue(eia.getIntWarrantyPoT().name());
 
@@ -1084,14 +1105,16 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		// ipAddresTextItem.setValue(eia.getIpAddress());
 		// if (eia.getMacAddress() != null)
 		// macAddressTextItem.setValue(eia.getMacAddress());
-
-		sectionForm.openFirst();
 	}
 
 	@Override
 	public void show() {
 		sectionForm.show();
 		super.show();
+	}
+
+	public void openFirstSection() {
+		sectionForm.openFirst();
 	}
 
 	private void toggleForm(boolean activate) {

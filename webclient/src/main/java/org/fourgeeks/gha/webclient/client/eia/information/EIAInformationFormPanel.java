@@ -185,6 +185,7 @@ public class EIAInformationFormPanel extends GHAVerticalLayout implements
 	 */
 	public void setEia(Eia eia) {
 		form.set(eia);
+		form.openFirstSection();
 	}
 
 	@Override

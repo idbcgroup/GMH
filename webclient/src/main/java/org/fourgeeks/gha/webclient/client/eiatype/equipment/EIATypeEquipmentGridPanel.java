@@ -42,6 +42,7 @@ public class EIATypeEquipmentGridPanel extends GHAVerticalLayout implements
 		EIASelectionListener, HideableListener, ClosableListener {
 
 	private EIAGrid grid;
+	private EiaCountLabel eiaLabel;
 	private EiaType eiaType;
 
 	private EIAAddForm eiaAddForm;
@@ -50,6 +51,7 @@ public class EIATypeEquipmentGridPanel extends GHAVerticalLayout implements
 		grid = new EIAGrid();
 		eiaAddForm = new EIAAddForm(GHAStrings.get("new-eia"));
 		eiaUpdateForm = new EIAUpdateForm(GHAStrings.get("edit-eia"));
+		eiaLabel = new EiaCountLabel();
 	}
 
 	/**
@@ -124,9 +126,13 @@ public class EIATypeEquipmentGridPanel extends GHAVerticalLayout implements
 			}
 		}));
 
+		VLayout gridPanel = new VLayout();
+		gridPanel.setMembersMargin(10);
+		gridPanel.addMembers(grid, eiaLabel);
+
 		HLayout mainLayout = new HLayout();
-		mainLayout.addMembers(grid, sideButtons);
-		addMember(mainLayout);
+		mainLayout.addMembers(gridPanel, sideButtons);
+		addMembers(mainLayout);
 	}
 
 	@Override
@@ -149,7 +155,7 @@ public class EIATypeEquipmentGridPanel extends GHAVerticalLayout implements
 				ListGridRecord[] array = EIAUtil.toGridRecords(result).toArray(
 						new EIARecord[] {});
 				grid.setData(array);
-
+				EIATypeEquipmentGridPanel.this.eiaLabel.setEiaStateTotals(result);
 			}
 		});
 	}

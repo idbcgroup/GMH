@@ -8,16 +8,18 @@ import org.fourgeeks.gha.domain.gmh.EiaComponent;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.eia.EIASearchForm;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 
+import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
@@ -93,23 +95,15 @@ public class EIAComponentGridPanel extends GHAVerticalLayout implements
 					public void onClick(ClickEvent event) {
 						search();
 					}
-				}), new GHAImgButton("../resources/icons/delete.png",
-				new ClickHandler() {
+				}), new GHADeleteButton(new ClickHandler() {
 
-					@Override
-					public void onClick(ClickEvent event) {
-						EiaComponent eiaComponent = grid.getSelectedEntity();
-						EIAComponentModel.delete(eiaComponent.getId(),
-								new GHAAsyncCallback<Void>() {
+			@Override
+			public void onClick(ClickEvent event) {
+				delete();
 
-									@Override
-									public void onSuccess(Void result) {
-										loadData();
-									}
-								});
+			}
 
-					}
-				}));
+		}));
 
 		HLayout mainPanel = new HLayout();
 		mainPanel.addMembers(grid, sideButtons);
@@ -132,6 +126,36 @@ public class EIAComponentGridPanel extends GHAVerticalLayout implements
 	public void close() {
 		searchForm.close();
 
+	}
+
+	private void delete() {
+		if (grid.getSelectedRecord() == null) {
+			GHANotification.alert("record-not-selected");
+			return;
+		}
+
+		String msj = grid.getSelectedRecords().length > 1 ? GHAStrings
+				.get("eiaComponents-delete-confirm") : GHAStrings
+				.get("eiaComponent-delete-confirm");
+
+		GHANotification.confirm(GHAStrings.get("eia"), msj,
+				new BooleanCallback() {
+					@Override
+					public void execute(Boolean value) {
+						if (value) {
+							List<EiaComponent> entities = grid
+									.getSelectedEntities();
+
+							EIAComponentModel.delete(entities,
+									new GHAAsyncCallback<Void>() {
+										@Override
+										public void onSuccess(Void result) {
+											grid.removeSelectedData();
+										}
+									});
+						}
+					}
+				});
 	}
 
 	@Override

@@ -19,6 +19,13 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("eia")
 public interface GWTEiaService extends RemoteService {
 	/**
+	 * @return the count of eias by type, the list is filled in the same order
+	 *         as the EiaStateEnum
+	 * @throws GHAEJBException
+	 */
+	public List<Long> countByState() throws GHAEJBException;
+
+	/**
 	 * @param Id
 	 * @return a boolean with the result of the operation
 	 * @throws GHAEJBException
@@ -27,7 +34,7 @@ public interface GWTEiaService extends RemoteService {
 
 	/**
 	 * 
-	 * @param eiaTypes
+	 * @param eias
 	 * @throws GHAEJBException
 	 */
 	public void delete(List<Eia> eias) throws GHAEJBException;

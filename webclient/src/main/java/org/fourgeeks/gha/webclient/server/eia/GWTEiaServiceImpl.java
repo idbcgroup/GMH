@@ -126,4 +126,14 @@ public class GWTEiaServiceImpl extends RemoteServiceServlet implements
 	public Eia update(Eia eia) throws GHAEJBException {
 		return eiaServiceRemote.update(eia);
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.eia.GWTEiaService#countByState()
+	 */
+	@Override
+	public List<Long> countByState() throws GHAEJBException {
+		return eiaServiceRemote.countByState();
+	}
 }
