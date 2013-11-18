@@ -13,25 +13,25 @@ public class EiaDamageReportModel {
 	private static final GWTEiaDamageReportServiceAsync service = GWT
 			.create(GWTEiaDamageReportService.class);
 
-	public void delete(long Id, GHAAsyncCallback<Boolean> callback) {
+	public static void delete(long Id, GHAAsyncCallback<Boolean> callback) {
 		service.delete(Id, callback);
 	}
 
-	public void findByEiaType(EiaType eiaType,
+	public static void findByEiaType(EiaType eiaType,
 			GHAAsyncCallback<List<EiaDamageReport>> callback) {
 		service.findByEiaType(eiaType, callback);
 	}
 
-	public void getAll(GHAAsyncCallback<List<EiaDamageReport>> callback) {
+	public static void getAll(GHAAsyncCallback<List<EiaDamageReport>> callback) {
 		service.getAll(callback);
 	}
 
-	public void save(EiaDamageReport eiaDamageReport,
+	public static void save(EiaDamageReport eiaDamageReport,
 			GHAAsyncCallback<EiaDamageReport> callback) throws GHAEJBException {
 		service.save(eiaDamageReport, callback);
 	}
 
-	public void update(EiaDamageReport eiaDamageReport,
+	public static void update(EiaDamageReport eiaDamageReport,
 			GHAAsyncCallback<EiaDamageReport> callback) throws GHAEJBException {
 		service.update(eiaDamageReport, callback);
 	}
