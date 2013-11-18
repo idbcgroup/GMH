@@ -15,7 +15,8 @@ public class GHACodeItem extends GHATextItem {
 	 * 
 	 */
 	public GHACodeItem() {
-		this(GHAUiHelper.CODE_ITEM_LENGTH);
+		super(GHAStrings.get("code"));
+		setLength(GHAUiHelper.CODE_ITEM_LENGTH);
 	}
 
 	/**
@@ -51,6 +52,15 @@ public class GHACodeItem extends GHATextItem {
 	 */
 	public GHACodeItem(boolean required, int width, ChangedHandler changeHandler) {
 		this(required, width);
+		addChangedHandler(changeHandler);
+	}
+	
+	/**
+	 * @param required
+	 * @param changeHandler
+	 */
+	public GHACodeItem(boolean required, ChangedHandler changeHandler) {
+		this(required);
 		addChangedHandler(changeHandler);
 	}
 
