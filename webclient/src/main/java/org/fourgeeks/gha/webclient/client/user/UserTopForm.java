@@ -43,8 +43,9 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 	private GHATextItem usernameItem;
 	private GHADoumentTypeSelectItem typeidSelectItem;
 	private GHASelectItem stateItem;
-	private GHANameItem firstNameItem, secondNameItem, firstLastNameItem, secondLastNameItem;
-	private GHATextItem	idItem;
+	private GHANameItem firstNameItem, secondNameItem, firstLastNameItem,
+			secondLastNameItem;
+	private GHATextItem idItem;
 	private GHAEmailItem emailItem;
 	private GHASelectItem genderSelectItem;
 	private GHASearchButton searchButton;
@@ -64,7 +65,7 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 		idItem.setLength(20);
 		idItem.setMask("####################");
 		genderSelectItem = new GHAGenreSelectItem();
-		
+
 		usernameItem.addKeyUpHandler(searchKeyUpHandler);
 		firstNameItem.addKeyUpHandler(searchKeyUpHandler);
 		secondNameItem.addKeyUpHandler(searchKeyUpHandler);
@@ -72,8 +73,8 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 		secondLastNameItem.addKeyUpHandler(searchKeyUpHandler);
 		emailItem.addKeyUpHandler(searchKeyUpHandler);
 		genderSelectItem.addKeyUpHandler(searchKeyUpHandler);
-		
-		form = new GHADynamicForm(GHAUiHelper.getNormalFormWidth(30),5);
+
+		form = new GHADynamicForm(GHAUiHelper.getNormalFormWidth(30), 5);
 	}
 
 	/**
@@ -82,9 +83,10 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 	 */
 	public UserTopForm(UserResultSet resultSet, UserTab userTab) {
 		super(resultSet, userTab);
-		
-		form.setItems(usernameItem,  firstNameItem, secondNameItem, firstLastNameItem, secondLastNameItem,
-					  typeidSelectItem, idItem, emailItem, genderSelectItem, stateItem);
+
+		form.setItems(usernameItem, firstNameItem, secondNameItem,
+				firstLastNameItem, secondLastNameItem, typeidSelectItem,
+				idItem, emailItem, genderSelectItem, stateItem);
 
 		deleteButton = new GHADeleteButton(new ClickHandler() {
 			@Override
@@ -139,7 +141,7 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 		ssoUser.setBpu(bpu);
 		search(ssoUser);
 	}
-	
+
 	@Override
 	public void search(final SSOUser ssoU) {
 		super.search();
@@ -210,6 +212,7 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 			sideButtons.addMember(searchButton, 0);
 
 		}
+		activated = !false;
 	}
 
 	public void deactivate() {
@@ -261,7 +264,7 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 					}
 				});
 	}
-	
+
 	@Override
 	public void onResize(ResizeEvent event) {
 		super.onResize(event);
