@@ -133,4 +133,10 @@ public class MaintenancePlanAddForm extends GHAAddForm<MaintenancePlan>
 		cancel();
 	}
 
+	@Override
+	public void notifyMaintenancePlan(MaintenancePlan maintenancePlan) {
+		// TODO Auto-generated method stub
+
+	}
+
 }

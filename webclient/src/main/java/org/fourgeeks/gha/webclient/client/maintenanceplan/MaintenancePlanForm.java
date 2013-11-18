@@ -202,8 +202,8 @@ public class MaintenancePlanForm extends VLayout implements
 		descriptionItem.setDisabled(!activate);
 	}
 
-	// Producer Stuff
-	private void notifyMaintenancePlan(MaintenancePlan plan) {
+	@Override
+	public void notifyMaintenancePlan(MaintenancePlan plan) {
 		GHANotification.alert("mplan-save-success");
 		for (MaintenancePlanSelectionListener listener : listeners) {
 			listener.select(plan);

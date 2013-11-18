@@ -41,13 +41,8 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 	private GHABrandSelectItem brandItem;
 	private GHAEiaTypeTypeSelectItem typeItem;
 	private GHAEiaTypeSubTypeSelectItem subTypeItem;
-	// private List<EiaTypePicture> listEiaTypePictures;
-	// int index;
-	// private GHAImg photo;
-	private boolean activated = false;
 	private GHAImgButton deleteButton, cleanButton, searchButton;
 	private VLayout sideButtons;
-
 	{
 		typeItem = new GHAEiaTypeTypeSelectItem(230);
 		subTypeItem = new GHAEiaTypeSubTypeSelectItem(230);
@@ -191,7 +186,6 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 
 	@Override
 	public void select(EiaType eiaType) {
-		// getEiaTypePicture(eiaType);
 		selectedEiaType = eiaType;
 
 		nameItem.setValue(eiaType.getName());

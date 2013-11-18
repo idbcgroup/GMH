@@ -4,10 +4,20 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.TabStatus;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.SearchListener;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
+import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader;
+import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader.Option;
 
-import com.smartgwt.client.widgets.layout.VLayout;
+import com.smartgwt.client.types.Visibility;
+import com.smartgwt.client.widgets.events.ClickEvent;
+import com.smartgwt.client.widgets.events.ClickHandler;
+import com.smartgwt.client.widgets.events.VisibilityChangedEvent;
+import com.smartgwt.client.widgets.events.VisibilityChangedHandler;
 
 /**
  * @author alacret
@@ -18,42 +28,103 @@ public class MaintenancePlanTab extends GHATab implements
 
 	public static final String ID = "mplan";
 	private static final String TITLE = "Planes De Mantenimiento";
-	private MaintenancePlanTopSection topSection;
-	private MaintenancePlanInternalTabset internalTabset;
-	private List<MaintenancePlanSelectionListener> listeners;
-
+	private MaintenancePlanTopForm topForm;
+	private MaintenancePlanInternalTabset internalTabSet;
+	private List<MaintenancePlanSelectionListener> listeners = new LinkedList<MaintenancePlanSelectionListener>();
 	private MaintenancePlan plan;
-
-	{
-		listeners = new LinkedList<MaintenancePlanSelectionListener>();
-	}
+	private Option searchOption;
+	private Option addOption;
+	private MaintenancePlanResultSet resultSet;
+	private MaintenancePlanAddForm addForm;
 
 	/**
 	 * @param token
 	 */
 	public MaintenancePlanTab(String token) {
 		super(token);
-		// getHeader().setTitle(TITLE);
+		header = new GHATabHeader(this, TITLE);
+		searchOption = header.addSearchOption(new ClickHandler() {
 
-		topSection = new MaintenancePlanTopSection(this);
-		internalTabset = new MaintenancePlanInternalTabset(this);
+			@Override
+			public void onClick(ClickEvent event) {
+				search();
+			}
+		});
+		addOption = header.addAddOption(new ClickHandler() {
 
-		// Creacion de la tab de EIA
-		VLayout verticalPanel = new VLayout();
-		verticalPanel.setBackgroundColor("#E0E0E0");
+			@Override
+			public void onClick(ClickEvent event) {
+				add();
+			}
+		});
 
-		verticalPanel.addMember(topSection);
+		resultSet = new MaintenancePlanResultSet();
+		resultSet.setVisible(false);
+		addHideableListener(resultSet);
+		addClosableListener(resultSet);
+		resultSet.addMaintenancePlanSelectionListener(this);
+
+		topForm = new MaintenancePlanTopForm(resultSet, this);
+		addHideableListener(topForm);
+		addClosableListener(topForm);
+		addMaintenancePlanSelectionListener(topForm);
+		topForm.addSearchListener(new SearchListener() {
+
+			@Override
+			public void onSearch() {
+				currentStatus = TabStatus.SEARCH_RESULTS;
+			}
+		});
+
+		internalTabSet = new MaintenancePlanInternalTabset(this);
+		addHideableListener(internalTabSet);
+		addClosableListener(internalTabSet);
+		addMaintenancePlanSelectionListener(internalTabSet);
+
+		addForm = new MaintenancePlanAddForm(
+				GHAStrings.get("new-maintenance-plan"));
+		addHideableListener(addForm);
+		addClosableListener(addForm);
+		addForm.addMaintenancePlanSelectionListener(this);
+		addForm.addVisibilityChangedHandler(new VisibilityChangedHandler() {
+
+			@Override
+			public void onVisibilityChanged(VisibilityChangedEvent event) {
+				if (!event.getIsVisible())
+					search();
+
+			}
+		});
+
+		verticalPanel.addMember(topForm);
 		verticalPanel.addMember(GHAUiHelper
 				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
-		verticalPanel.addMember(internalTabset);
+		verticalPanel.addMember(internalTabSet);
+		verticalPanel.addMember(resultSet);
 		addMember(verticalPanel);
-
+		search();
 	}
 
-	@Override
-	protected void onDraw() {
-		if (plan == null)
-			topSection.search();
+	protected void add() {
+		if (addForm.isVisible())
+			return;
+		if (internalTabSet.isVisible())
+			if (internalTabSet.canBeHidden(HideCloseAction.SAVE))
+				internalTabSet.hide();
+			else
+				return;
+		if (topForm.isActivated()) {
+			topForm.deactivate();
+			topForm.clear();
+		}
+		if (resultSet.isVisible())
+			resultSet.hide();
+		addForm.open();
+		header.unMarkAllButtons();
+		addOption.markSelected();
+		currentStatus = TabStatus.ADD;
+		// GHANotification.info(GHAStrings.get("")); //TODO: Mensaje de
+		// informacion para indicar que se ha actividado el modo de busqueda
 	}
 
 	@Override
@@ -61,53 +132,64 @@ public class MaintenancePlanTab extends GHATab implements
 		return ID;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.
-	 * MaintenancePlanSelectionProducer
-	 * #addMaintenancePlanSelectionListener(org.fourgeeks
-	 * .gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener)
-	 */
 	@Override
 	public void addMaintenancePlanSelectionListener(
 			MaintenancePlanSelectionListener maintenancePlanSelectionListener) {
 		listeners.add(maintenancePlanSelectionListener);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.
-	 * MaintenancePlanSelectionProducer
-	 * #removeMaintenancePlanSelectionListener(org
-	 * .fourgeeks.gha.webclient.client
-	 * .maintenanceplan.MaintenancePlanSelectionListener)
-	 */
 	@Override
 	public void removeMaintenancePlanSelectionListener(
 			MaintenancePlanSelectionListener maintenancePlanSelectionListener) {
 		listeners.remove(maintenancePlanSelectionListener);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.
-	 * MaintenancePlanSelectionListener
-	 * #select(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
-	 */
 	@Override
 	public void select(MaintenancePlan maintenancePlan) {
-		for (MaintenancePlanSelectionListener listener : listeners) {
-			listener.select(maintenancePlan);
-		}
+		notifyMaintenancePlan(maintenancePlan);
+		currentStatus = TabStatus.ENTITY_SELECTED;
 	}
 
 	@Override
 	public void search() {
-		// TODO Auto-generated method stub
+		if (topForm.isActivated())
+			return;
+		if (internalTabSet.isVisible())
+			if (internalTabSet.canBeHidden(HideCloseAction.SAVE))
+				internalTabSet.hide();
+			else
+				return;
+		if (addForm.isVisible())
+			addForm.hide();
+		if (resultSet.isVisible())
+			resultSet.hide();
+		topForm.activate();
+		header.unMarkAllButtons();
+		searchOption.markSelected();
+		currentStatus = TabStatus.SEARCH;
+		// GHANotification.info(GHAStrings.get("")); //TODO: Mensaje de
+		// informacion para indicar que se ha actividado el modo de busqueda
+	}
 
+	@Override
+	public void notifyMaintenancePlan(MaintenancePlan maintenancePlan) {
+		for (MaintenancePlanSelectionListener listener : listeners)
+			listener.select(maintenancePlan);
+	}
+
+	@Override
+	public void show() {
+		super.show();
+		topForm.setVisibility(Visibility.VISIBLE);
+		if (currentStatus.equals(TabStatus.ADD))
+			return;
+		if (currentStatus.equals(TabStatus.SEARCH))
+			return;
+
+		if (currentStatus.equals(TabStatus.ENTITY_SELECTED))
+			internalTabSet.show();
+		else
+			resultSet.show();
 	}
 
 }

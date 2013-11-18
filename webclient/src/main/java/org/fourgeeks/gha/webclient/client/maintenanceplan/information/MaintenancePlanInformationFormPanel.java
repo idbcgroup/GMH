@@ -153,4 +153,10 @@ public class MaintenancePlanInformationFormPanel extends GHAVerticalLayout
 		// TODO Auto-generated method stub
 
 	}
+
+	@Override
+	public void notifyMaintenancePlan(MaintenancePlan maintenancePlan) {
+		// TODO Auto-generated method stub
+
+	}
 }
