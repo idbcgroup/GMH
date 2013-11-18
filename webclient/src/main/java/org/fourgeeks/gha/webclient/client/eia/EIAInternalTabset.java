@@ -60,6 +60,7 @@ public class EIAInternalTabset extends GHAInternalTabSet implements
 	 */
 	@Override
 	public void select(Eia eia) {
+		selectTab(infoSubTab);
 
 		// forza al panel del tab a mostrarse sy es el seleccionado
 		if (getSelectedTab() == infoSubTab)
