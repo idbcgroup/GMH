@@ -17,20 +17,21 @@ import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
+import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHACodeItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAComboboxItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAEiaTypeSubTypeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAEiaTypeTypeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextAreaItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.brand.BrandModel;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
-import com.smartgwt.client.types.TitleOrientation;
-import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -42,7 +43,8 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
  */
 public class EiaTypeForm extends GHAForm<EiaType> implements
 		EiaTypeSelectionProducer {
-	protected DynamicForm form = new DynamicForm();
+	
+	protected GHADynamicForm form;
 	private GHACodeItem codeItem;
 	private GHATextItem nameItem, modelItem, eiaUmdnsItem;
 	private GHATextAreaItem descriptionItem;
@@ -56,35 +58,30 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 	private List<EIATypeSelectionListener> listeners;
 
 	{
-		codeItem = new GHACodeItem(true, 300, changedHandler);
+		codeItem = new GHACodeItem(true, changedHandler);
 		codeItem.disable();
 
-		nameItem = new GHATextItem(GHAStrings.get("name"), 300, true,
-				changedHandler);
-		typeItem = new GHAEiaTypeTypeSelectItem(300, true, changedHandler);
+		nameItem = new GHATextItem(GHAStrings.get("name"), true, changedHandler);
+		typeItem = new GHAEiaTypeTypeSelectItem(true, changedHandler);
 		//
-		subTypeItem = new GHAEiaTypeSubTypeSelectItem(300, changedHandler);
-		eiaUmdnsItem = new GHATextItem("EIAUMDNS", 300, false, changedHandler);
+		subTypeItem = new GHAEiaTypeSubTypeSelectItem(changedHandler);
+		eiaUmdnsItem = new GHATextItem("EIAUMDNS", false, changedHandler);
 		eiaUmdnsItem.setLength(16);
-		modelItem = new GHATextItem(GHAStrings.get("model"), 300, false,
-				changedHandler);
+		modelItem = new GHATextItem(GHAStrings.get("model"), false,	changedHandler);
 		modelItem.setLength(20);
 		//
-		descriptionItem = new GHATextAreaItem(GHAStrings.get("description"),
-				900, changedHandler);
+		descriptionItem = new GHATextAreaItem(GHAStrings.get("description"), changedHandler);
 		descriptionItem.setColSpan(3);
-		useDescriptionItem = new GHATextAreaItem(GHAStrings.get("use"), 900,
-				changedHandler);
+		useDescriptionItem = new GHATextAreaItem(GHAStrings.get("use"),changedHandler);
 		useDescriptionItem.setColSpan(3);
 		//
-		manItem = new GHAComboboxItem<Manufacturer>(
-				GHAStrings.get("manufacturer"), 300, changedHandler);
-		brandItem = new GHAComboboxItem<Brand>(GHAStrings.get("brand"), 300,
-				changedHandler);
-		mobilityItem = new GHASelectItem(GHAStrings.get("mobility"), 300, true,
-				changedHandler);
+		manItem = new GHAComboboxItem<Manufacturer>(GHAStrings.get("manufacturer"), changedHandler);
+		brandItem = new GHAComboboxItem<Brand>(GHAStrings.get("brand"),changedHandler);
+		mobilityItem = new GHASelectItem(GHAStrings.get("mobility"), true,	changedHandler);
 		//
 		listeners = new ArrayList<EIATypeSelectionListener>();
+		
+		form = new GHADynamicForm(GHAUiHelper.getNormalFormWidth(30),4);
 	}
 
 	/**
@@ -93,8 +90,6 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 	public EiaTypeForm() {
 		super();
 		final HLayout gridPanel = new HLayout();
-		form.setTitleOrientation(TitleOrientation.TOP);
-		form.setNumCols(3);
 		// disable the brand select if no manufacturer is selected
 		brandItem.disable();
 		// set the handler for selected manufacturer
@@ -117,12 +112,11 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 			}
 		});
 
-		form.setItems(codeItem, nameItem, typeItem, subTypeItem, eiaUmdnsItem,
-				modelItem,
-
-				mobilityItem, manItem, brandItem,
-
-				descriptionItem, useDescriptionItem);
+		form.setItems(codeItem, nameItem, typeItem, new GHASpacerItem(),
+				subTypeItem, eiaUmdnsItem, modelItem,  new GHASpacerItem(),
+				mobilityItem, manItem, brandItem, new GHASpacerItem(),
+				descriptionItem, new GHASpacerItem(),
+				useDescriptionItem);
 
 		gridPanel.addMembers(form, new LayoutSpacer());
 		addMember(gridPanel);
@@ -444,7 +438,6 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 
 	@Override
 	public void onResize(ResizeEvent arg0) {
-		// TODO Auto-generated method stub
-
+		form.resize(GHAUiHelper.getNormalFormWidth(30),4);
 	}
 }
