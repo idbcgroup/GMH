@@ -7,6 +7,7 @@ import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACheckButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
@@ -21,6 +22,7 @@ import com.smartgwt.client.widgets.grid.ListGridRecord;
 import com.smartgwt.client.widgets.grid.events.CellDoubleClickEvent;
 import com.smartgwt.client.widgets.grid.events.CellDoubleClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
+import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
  * @author emiliot
@@ -46,24 +48,31 @@ public class EiaResultSet extends GHAResultSet<Eia> implements
 	/**
 	 * 
 	 */
-	public EiaResultSet() {
+	public EiaResultSet(ResultSetContainerType container) {
 		super(GHAStrings.get("search-results"));
 		HLayout gridPanel = new HLayout();
-		gridPanel.addMembers(grid, GHAUiHelper.createBar(new GHACheckButton(
-				new ClickHandler() {
+		VLayout sideBar;
 
-					@Override
-					public void onClick(ClickEvent event) {
-						notifySelectedEia();
-					}
-				}), GHAUiHelper.verticalGraySeparator("2px"),
-				new GHADeleteButton(new ClickHandler() {
+		GHACheckButton checkButton = new GHACheckButton(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				notifySelectedEia();
+			}
+		});
 
-					@Override
-					public void onClick(ClickEvent event) {
-						delete();
-					}
-				})));
+		if (container == ResultSetContainerType.TAB) {
+			sideBar = GHAUiHelper.createBar(checkButton,
+					GHAUiHelper.verticalGraySeparator("2px"),
+					new GHADeleteButton(new ClickHandler() {
+						@Override
+						public void onClick(ClickEvent event) {
+							delete();
+						}
+					}));
+		} else
+			sideBar = GHAUiHelper.createBar(checkButton);
+
+		gridPanel.addMembers(grid, sideBar);
 		addMember(gridPanel);
 	}
 

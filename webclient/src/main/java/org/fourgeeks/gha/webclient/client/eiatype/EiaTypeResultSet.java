@@ -7,6 +7,7 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACheckButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
@@ -21,6 +22,7 @@ import com.smartgwt.client.widgets.grid.ListGridRecord;
 import com.smartgwt.client.widgets.grid.events.CellDoubleClickEvent;
 import com.smartgwt.client.widgets.grid.events.CellDoubleClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
+import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
  * @author emiliot
@@ -46,24 +48,35 @@ public class EiaTypeResultSet extends GHAResultSet<EiaType> implements
 	/**
 	 * 
 	 */
-	public EiaTypeResultSet() {
+	public EiaTypeResultSet(ResultSetContainerType container) {
 		super(GHAStrings.get("search-results"));
 		HLayout gridPanel = new HLayout();
-		gridPanel.addMembers(grid, GHAUiHelper.createBar(new GHACheckButton(
-				new ClickHandler() {
+		VLayout sideBar;
 
-					@Override
-					public void onClick(ClickEvent event) {
-						notifySelectedEiaType();
-					}
-				}), GHAUiHelper.verticalGraySeparator("2px"),
-				new GHADeleteButton(new ClickHandler() {
+		GHACheckButton checkButton = new GHACheckButton(new ClickHandler() {
 
-					@Override
-					public void onClick(ClickEvent event) {
-						delete();
-					}
-				})));
+			@Override
+			public void onClick(ClickEvent event) {
+				notifySelectedEiaType();
+			}
+		});
+
+		if (container == ResultSetContainerType.TAB) {
+			VLayout separator = GHAUiHelper.verticalGraySeparator("2px");
+			GHADeleteButton deleteButton = new GHADeleteButton(
+					new ClickHandler() {
+						@Override
+						public void onClick(ClickEvent event) {
+							delete();
+						}
+					});
+
+			sideBar = GHAUiHelper.createBar(checkButton, separator,
+					deleteButton);
+		} else
+			sideBar = GHAUiHelper.createBar(checkButton);
+
+		gridPanel.addMembers(grid, sideBar);
 		addMember(gridPanel);
 	}
 

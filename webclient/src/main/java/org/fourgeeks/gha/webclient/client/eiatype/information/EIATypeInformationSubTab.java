@@ -28,4 +28,7 @@ public class EIATypeInformationSubTab extends GHASubTab {
 		tab.addEiaTypeSelectionListener(form);
 	}
 
+	public void show() {
+		form.show();
+	}
 }
