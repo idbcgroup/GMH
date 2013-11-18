@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.gmh.Eia;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 
 /**
@@ -31,12 +32,13 @@ public class EiaCountLabel extends GHALabel {
 
 		// TODO: INTERNACIONALIZAR EL NAME DE CADA EIASTATEENUM
 		StringBuilder builder = new StringBuilder();
-		builder.append(EiaStateEnum.values()[0].name() + ": "
-				+ Integer.toString(count[0]));
+		builder.append(GHAStrings.get(EiaStateEnum.getUiKey(EiaStateEnum
+				.values()[0])) + ": " + Integer.toString(count[0]));
 
 		for (int i = 1; i < n; ++i) {
-			builder.append(", " + EiaStateEnum.values()[i].name() + ": "
-					+ Integer.toString(count[i]));
+			builder.append(", "
+					+ GHAStrings.get(EiaStateEnum.getUiKey(EiaStateEnum
+							.values()[i])) + ": " + Integer.toString(count[i]));
 		}
 
 		setContents(builder.toString());

@@ -95,3 +95,16 @@ ES,form-errors,Errores en el formulario
 ES,unsaved-changes,Tiene cambios sin guardar. ¿Realmente desea salir?
 ES,bpi-select-item,Institución
 ES,maintenance,Mantenimiento
+ES,eiastate-created,Creados
+ES,eiastate-acquired,Adquiridos
+ES,eiastate-received,Recibidos
+ES,eiastate-delivered,Entregados
+ES,eiastate-toinstall,Por Instalar
+ES,eiastate-installed,Instalados
+ES,eiastate-lost,Perdidos
+ES,eiastate-inoperation,En Operación
+ES,eiastate-damaged,Dañados
+ES,eiastate-maintenance,En Mantenimiento
+ES,eiastate-inacceptance,Por Aceptar
+ES,eiastate-disincorporated,Desincorporados
+ES,eiastate-majordamaged,Dañados Gravemente
