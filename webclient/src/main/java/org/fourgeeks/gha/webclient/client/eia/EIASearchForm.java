@@ -15,6 +15,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.GHAUtil;
+import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHABpiSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAEiaStateSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAFacilitySelectItem;
@@ -53,7 +54,8 @@ public class EIASearchForm extends GHASearchForm<Eia> implements
 	private GHAWorkingAreaSelectItem workingAreaLocationSelectItem;
 	private GHAFacilitySelectItem facilityLocationSelectItem;
 
-	private EiaResultSet resultSet = new EiaResultSet();
+	private EiaResultSet resultSet = new EiaResultSet(
+			ResultSetContainerType.SEARCH_FORM);
 	private GHADynamicForm form;
 
 	{

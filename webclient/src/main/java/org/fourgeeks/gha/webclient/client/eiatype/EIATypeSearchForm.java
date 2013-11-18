@@ -14,6 +14,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.GHAUtil;
+import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHABrandSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAEiaTypeSubTypeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAEiaTypeTypeSelectItem;
@@ -44,7 +45,8 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 	private GHABrandSelectItem brandItem;
 	private GHAEiaTypeTypeSelectItem typeItem;
 	private GHAEiaTypeSubTypeSelectItem subTypeItem;
-	private EiaTypeResultSet resultSet = new EiaTypeResultSet();
+	private EiaTypeResultSet resultSet = new EiaTypeResultSet(
+			ResultSetContainerType.SEARCH_FORM);
 	private final DynamicForm form = new DynamicForm();
 
 	{
@@ -164,7 +166,7 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 	public void onResize(ResizeEvent event) {
 		// TODO Auto-generated method stub
 		super.onResize(event);
-		resultSet.setHeight(resultSet.getHeight()-35);
+		resultSet.setHeight(resultSet.getHeight() - 35);
 	}
 
 	@Override
@@ -218,7 +220,7 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 			}
 		});
 	}
-	
+
 	@Override
 	public void select(EiaType eiaType) {
 		search(eiaType);
