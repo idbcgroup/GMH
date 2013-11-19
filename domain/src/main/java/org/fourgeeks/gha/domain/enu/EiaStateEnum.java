@@ -15,50 +15,54 @@ public enum EiaStateEnum {
 	/**
 	 * 
 	 */
-	CREATED("Nuevo"), /**
+	CREATED("Nuevo", "eiastate-created"), /**
 	 * 
 	 */
-	ACQUIRED("Adquirido"), /**
+	ACQUIRED("Adquirido", "eiastate-acquired"), /**
 	 * 
 	 */
-	RECIBIDO("Recibido"), /**
+	RECIBIDO("Recibido", "eiastate-received"), /**
 	 * 
 	 */
-	DELIVERED("Entregado"), /**
+	DELIVERED("Entregado", "eiastate-delivered"), /**
 			 * 
 			 */
-	TO_INSTALL("Por instalar"), /**
+	TO_INSTALL("Por instalar", "eiastate-toinstall"), /**
 			 * 
 			 */
-	INSTALLED("Instalado"), /**
+	INSTALLED("Instalado", "eiastate-installed"), /**
 			 * 
 			 */
-	LOST("Perdido"), /**
+	LOST("Perdido", "eiastate-lost"), /**
 			 * 
 			 */
-	IN_OPERATION("En operación"), /**
+	IN_OPERATION("En operación", "eiastate-inoperation"), /**
 			 * 
 			 */
-	DAMAGED("Dañado"), /**
+	DAMAGED("Dañado", "eiastate-damaged"), /**
 			 * 
 			 */
-	MAINTENANCE("En mantenimiento"), /**
+	MAINTENANCE("En mantenimiento", "eiastate-maintenance"), /**
 			 * 
 			 */
-	IN_ACCEPTANCE("En espera por aceptaci'on en mantenimiento"), /**
+	IN_ACCEPTANCE("En espera por aceptaci'on en mantenimiento",
+			"eiastate-inacceptance"), /**
 	 * 
 	 */
-	DISINCORPORATED("Desincorporado"), /**
+	DISINCORPORATED("Desincorporado", "eiastate-disincorporated"), /**
 			 * 
 			 */
-	MAYOR_DAMAGED("Dañado severamente");
+	MAYOR_DAMAGED("Dañado severamente", "eiastate-majordamaged");
 
 	private String name;
+	private String uiKey;
 
-	EiaStateEnum(String name) {
+	EiaStateEnum(String name, String uiKey) {
 		this.name = name;
+		this.uiKey = uiKey;
 	}
 
+	@Override
 	public String toString() {
 		return this.name;
 	}
@@ -94,5 +98,9 @@ public enum EiaStateEnum {
 	 */
 	public static List<EiaStateEnum> valuesList() {
 		return Arrays.asList(EiaStateEnum.values());
+	}
+
+	public static String getUiKey(EiaStateEnum state) {
+		return state.uiKey;
 	}
 }

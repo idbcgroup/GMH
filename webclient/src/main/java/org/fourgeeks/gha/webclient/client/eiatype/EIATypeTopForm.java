@@ -13,18 +13,19 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHABrandSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAEiaTypeSubTypeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAEiaTypeTypeSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 
-import com.smartgwt.client.types.TitleOrientation;
+import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
-import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
@@ -41,20 +42,24 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 	private GHABrandSelectItem brandItem;
 	private GHAEiaTypeTypeSelectItem typeItem;
 	private GHAEiaTypeSubTypeSelectItem subTypeItem;
+	private GHADynamicForm form;
 	private GHAImgButton deleteButton, cleanButton, searchButton;
 	private VLayout sideButtons;
 	{
-		typeItem = new GHAEiaTypeTypeSelectItem(230);
-		subTypeItem = new GHAEiaTypeSubTypeSelectItem(230);
-		nameItem = new GHATextItem(GHAStrings.get("name"), 460);
+		typeItem = new GHAEiaTypeTypeSelectItem();
+		subTypeItem = new GHAEiaTypeSubTypeSelectItem();
+		nameItem = new GHATextItem(GHAStrings.get("name"));
 		nameItem.setColSpan(2);
-		brandItem = new GHABrandSelectItem(230);
-		modelItem = new GHATextItem(GHAStrings.get("model"), 230);
+		brandItem = new GHABrandSelectItem();
+		modelItem = new GHATextItem(GHAStrings.get("model"));
+		
 		modelItem.addKeyUpHandler(searchKeyUpHandler);
 		nameItem.addKeyUpHandler(searchKeyUpHandler);
 		brandItem.addKeyUpHandler(searchKeyUpHandler);
 		typeItem.addKeyUpHandler(searchKeyUpHandler);
 		subTypeItem.addKeyUpHandler(searchKeyUpHandler);
+		
+		form = new GHADynamicForm(GHAUiHelper.getNormalFormWidth(30),4);
 	}
 
 	/**
@@ -63,10 +68,10 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 	 */
 	public EIATypeTopForm(EiaTypeResultSet resultSet, EIATypeTab eiaTypeTab) {
 		super(resultSet, eiaTypeTab);
-		DynamicForm form = new DynamicForm();
-		form.setTitleOrientation(TitleOrientation.TOP);
-		form.setNumCols(3);
-		form.setItems(typeItem, subTypeItem, brandItem, nameItem, modelItem);
+		
+		
+		form.setItems(typeItem, subTypeItem, brandItem,new GHASpacerItem(),
+				      nameItem, modelItem);
 
 		searchButton = new GHASearchButton(new ClickHandler() {
 			@Override
@@ -204,4 +209,9 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 		deactivate();
 	}
 
+	@Override
+	public void onResize(ResizeEvent event) {
+		super.onResize(event);
+		form.resize(GHAUiHelper.getNormalFormWidth(30), 4);
+	}
 }

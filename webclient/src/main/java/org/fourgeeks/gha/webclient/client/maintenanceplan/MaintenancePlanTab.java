@@ -27,11 +27,10 @@ public class MaintenancePlanTab extends GHATab implements
 		MaintenancePlanSelectionListener, MaintenancePlanSelectionProducer {
 
 	public static final String ID = "mplan";
-	private static final String TITLE = "Planes De Mantenimiento";
+	private static final String TITLE = GHAStrings.get("maintenance-plans");
 	private MaintenancePlanTopForm topForm;
 	private MaintenancePlanInternalTabset internalTabSet;
 	private List<MaintenancePlanSelectionListener> listeners = new LinkedList<MaintenancePlanSelectionListener>();
-	private MaintenancePlan plan;
 	private Option searchOption;
 	private Option addOption;
 	private MaintenancePlanResultSet resultSet;

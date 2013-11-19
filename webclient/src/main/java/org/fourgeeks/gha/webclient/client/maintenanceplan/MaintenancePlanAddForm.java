@@ -2,11 +2,10 @@ package org.fourgeeks.gha.webclient.client.maintenanceplan;
 
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHACloseButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAAddForm;
 
-import com.google.gwt.event.logical.shared.ResizeEvent;
-import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -16,78 +15,54 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class MaintenancePlanAddForm extends GHAAddForm<MaintenancePlan>
 		implements MaintenancePlanSelectionProducer,
 		MaintenancePlanSelectionListener {
-	private MaintenancePlanForm maintenancePlanForm;
-
 	{
-		maintenancePlanForm = new MaintenancePlanForm();
+		form = new MaintenancePlanForm();
 	}
 
 	public MaintenancePlanAddForm(String title) {
 		super(title);
 
-		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
-				"../resources/icons/save.png", new ClickHandler() {
+		VLayout sideButtons = GHAUiHelper.createBar(new GHASaveButton(
+				new ClickHandler() {
 
 					@Override
 					public void onClick(ClickEvent event) {
 						save();
 					}
-				}), new GHAImgButton("../resources/icons/cancel.png",
-				new ClickHandler() {
+				}), new GHACloseButton(new ClickHandler() {
 
-					@Override
-					public void onClick(ClickEvent event) {
-						cancel();
-					}
-				}));
+			@Override
+			public void onClick(ClickEvent event) {
+				cancel();
+			}
+		}));
 
 		HLayout gridPanel = new HLayout();
-		gridPanel.addMembers(maintenancePlanForm, new LayoutSpacer(),
-				sideButtons);
+		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
 		addMember(gridPanel);
-
-		// register as listener to the maintenancePlanForm
-		maintenancePlanForm.addMaintenancePlanSelectionListener(this);
-
-		fillExtras();
-	}
-
-	@Override
-	public void hide() {
-		maintenancePlanForm.hide();
-		super.hide();
 	}
 
 	private void save() {
-		maintenancePlanForm.save();
+		form.save();
 	}
 
-	private void fillExtras() {
-		// TODO:
-	}
-
-	@Override
-	public void show() {
-		super.show();
-		maintenancePlanForm.show();
-	}
-
-	@Override
-	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getBottomSectionHeight());
-	}
-
-	@Override
-	public void close() {
-		maintenancePlanForm.destroy();
-		destroy();
-	}
-
-	@Override
-	public void open() {
-		this.show();
-		animateShow(AnimationEffect.FLY);
-	}
+	// @Override
+	// public void show() {
+	// super.show();
+	// maintenancePlanForm.show();
+	// }
+	//
+	// @Override
+	// public void close() {
+	// maintenancePlanForm.destroy();
+	// destroy();
+	// }
+	//
+	// @Override
+	// public void open() {
+	// this.show();
+	// animateShow(AnimationEffect.FLY);
+	// }
 
 	// Producer/Consumer stuff
 	/*
@@ -101,7 +76,7 @@ public class MaintenancePlanAddForm extends GHAAddForm<MaintenancePlan>
 	@Override
 	public void addMaintenancePlanSelectionListener(
 			MaintenancePlanSelectionListener maintenancePlanSelectionListener) {
-		maintenancePlanForm
+		((MaintenancePlanSelectionProducer) form)
 				.addMaintenancePlanSelectionListener(maintenancePlanSelectionListener);
 	}
 
@@ -116,7 +91,7 @@ public class MaintenancePlanAddForm extends GHAAddForm<MaintenancePlan>
 	@Override
 	public void removeMaintenancePlanSelectionListener(
 			MaintenancePlanSelectionListener maintenancePlanSelectionListener) {
-		maintenancePlanForm
+		((MaintenancePlanSelectionProducer) form)
 				.removeMaintenancePlanSelectionListener(maintenancePlanSelectionListener);
 	}
 

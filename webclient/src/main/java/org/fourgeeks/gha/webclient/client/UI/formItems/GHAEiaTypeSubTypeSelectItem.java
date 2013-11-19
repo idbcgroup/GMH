@@ -2,7 +2,6 @@ package org.fourgeeks.gha.webclient.client.UI.formItems;
 
 import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
-import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 
@@ -30,12 +29,23 @@ public class GHAEiaTypeSubTypeSelectItem extends GHASelectItem {
 		setValueMap(EiaSubTypeEnum.toValueMap());
 		addChangedHandler(changedHandler);
 	}
+	
+	/**
+	 * @param changedHandler
+	 * 
+	 */
+	public GHAEiaTypeSubTypeSelectItem(ChangedHandler changedHandler) {
+		super(GHAStrings.get("subtype"));
+		setValueMap(EiaSubTypeEnum.toValueMap());
+		addChangedHandler(changedHandler);
+	}
 
 	/**
 	 * 
 	 */
 	public GHAEiaTypeSubTypeSelectItem() {
-		this(GHAUiHelper.DEFAULT_ITEM_SIZE);
+		super(GHAStrings.get("subtype"));
+		setValueMap(EiaSubTypeEnum.toValueMap());
 	}
 
 	// public EiaSubTypeEnum getValue() {

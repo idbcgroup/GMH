@@ -7,7 +7,6 @@ import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
-import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
 /**
  * @author alacret A select item with the mobility items
@@ -48,7 +47,8 @@ public class GHABrandSelectItem extends GHASelectItem {
 	 * 
 	 */
 	public GHABrandSelectItem() {
-		this(GHAUiHelper.DEFAULT_ITEM_SIZE);
+		super(GHAStrings.get("brand"));
+		fill(false);
 	}
 
 	// public boolean isNull() {

@@ -14,15 +14,12 @@ public abstract class GHAAsyncCallback<T> implements AsyncCallback<T> {
 
 	@Override
 	public void onFailure(Throwable t) {
-		String message = t.getMessage().trim();
-		if (message.equals("0")) {
-			GHANotification.oldAlert(GHAStrings.get("connection-problem"));
-			return;
-		}
-
+		String message = t.getMessage();
 		if (t instanceof GHAEJBException)
 			GHANotification.alert(((GHAEJBException) t).getGhaMessage());
-		else
+		else if (message != null && message.trim().equals("0")) {
+			GHANotification.alert("connection-problem");
+		} else
 			GHANotification.oldAlert(message);
 	}
 }

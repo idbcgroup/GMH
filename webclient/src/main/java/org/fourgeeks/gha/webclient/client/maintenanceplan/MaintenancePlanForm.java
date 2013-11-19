@@ -18,20 +18,21 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 
+import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.validation.client.impl.Validation;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
-import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
  * @author emiliot
  * 
  */
-public class MaintenancePlanForm extends VLayout implements
+public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 		MaintenancePlanSelectionProducer {
 
 	private List<MaintenancePlanSelectionListener> listeners;
@@ -236,6 +237,48 @@ public class MaintenancePlanForm extends VLayout implements
 	public void removeMaintenancePlanSelectionListener(
 			MaintenancePlanSelectionListener maintenancePlanSelectionListener) {
 		listeners.remove(maintenancePlanSelectionListener);
+	}
+
+	@Override
+	public void onResize(ResizeEvent event) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void activate() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void deactivate() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void save(GHAAsyncCallback<MaintenancePlan> callback) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void undo() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void update(GHAAsyncCallback<MaintenancePlan> callback) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void set(MaintenancePlan entity) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

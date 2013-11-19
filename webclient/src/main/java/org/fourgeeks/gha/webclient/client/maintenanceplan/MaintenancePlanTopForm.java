@@ -8,19 +8,19 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHATopForm;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHAPeriodOfTimeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabSet;
 
-import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
-import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
@@ -28,8 +28,9 @@ public class MaintenancePlanTopForm extends
 		GHATopForm<MaintenancePlanResultSet, MaintenancePlan> implements
 		MaintenancePlanSelectionListener {
 
-	private GHATextItem nameItem, frequencyItem, periodOfTimeItem,
-			descriptionItem;
+	private GHATextItem nameItem, frequencyItem, descriptionItem;
+	private GHAPeriodOfTimeSelectItem periodOfTimeItem;
+
 	private GHASearchButton searchButton;
 	private GHACleanButton cleanButton;
 	private GHADeleteButton deleteButton;
@@ -38,11 +39,10 @@ public class MaintenancePlanTopForm extends
 
 	{
 		nameItem = new GHATextItem(GHAStrings.get("name"), false);
+		nameItem.setColSpan(2);
 		frequencyItem = new GHATextItem(GHAStrings.get("frecuency"), false);
-		periodOfTimeItem = new GHATextItem(GHAStrings.get("period-of-time"),
-				false);
-		descriptionItem = new GHATextItem(GHAStrings.get("description"), 420,
-				false);
+		periodOfTimeItem = new GHAPeriodOfTimeSelectItem();
+		descriptionItem = new GHATextItem(GHAStrings.get("description"), false);
 		descriptionItem.setColSpan(4);
 	}
 
@@ -50,9 +50,8 @@ public class MaintenancePlanTopForm extends
 			MaintenancePlanTab tab) {
 		super(resultSet, tab);
 
-		DynamicForm form = new DynamicForm();
-		form.setTitleOrientation(TitleOrientation.TOP);
-		form.setNumCols(4);
+		GHADynamicForm form = new GHADynamicForm(
+				GHAUiHelper.getNormalFormWidth(30), 4);
 		form.setItems(nameItem, frequencyItem, periodOfTimeItem,
 				descriptionItem);
 

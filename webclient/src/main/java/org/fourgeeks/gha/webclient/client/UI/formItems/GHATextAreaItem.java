@@ -45,5 +45,15 @@ public class GHATextAreaItem extends TextAreaItem {
 		setWidth(width);
 		addChangedHandler(changedHandler);
 	}
+	
+	/**
+	 * @param name
+	 * @param changedHandler
+	 */
+	public GHATextAreaItem(String name, ChangedHandler changedHandler) {
+		this();
+		setTitle(name);
+		addChangedHandler(changedHandler);
+	}
 
 }

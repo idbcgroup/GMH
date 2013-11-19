@@ -97,8 +97,22 @@ ES,form-errors,Errores en el formulario
 ES,unsaved-changes,Tiene cambios sin guardar. ¿Realmente desea salir?
 ES,bpi-select-item,Institución
 ES,maintenance,Mantenimiento
-ES,maintenance-plan,Plane de mantenimiento
+ES,maintenance-plans,Planes de mantenimiento
 ES,no-results-to-show,No hay resultados para mostrar
 ES,maitenance-plan-search,Busqueda de Planes de Mantenimiento
 ES,frecuency,Frecuencia
 ES,period-of-time,Periodo de tiempo
+ES,eiastate-created,Creados
+ES,eiastate-acquired,Adquiridos
+ES,eiastate-received,Recibidos
+ES,eiastate-delivered,Entregados
+ES,eiastate-toinstall,Por Instalar
+ES,eiastate-installed,Instalados
+ES,eiastate-lost,Perdidos
+ES,eiastate-inoperation,En Operación
+ES,eiastate-damaged,Dañados
+ES,eiastate-maintenance,En Mantenimiento
+ES,eiastate-inacceptance,Por Aceptar
+ES,eiastate-disincorporated,Desincorporados
+ES,eiastate-majordamaged,Dañados Gravemente
+ES,new-maintenance-plan,Nuevo plan de mantenimiento
