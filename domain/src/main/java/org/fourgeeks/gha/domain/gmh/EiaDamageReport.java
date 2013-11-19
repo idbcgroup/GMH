@@ -11,7 +11,7 @@ import javax.persistence.NamedQuery;
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.EiaDamagePriorityEnum;
 import org.fourgeeks.gha.domain.enu.EiaDamageStatusEnum;
-import org.fourgeeks.gha.domain.ess.SSOUser;
+import org.fourgeeks.gha.domain.gar.Bpu;
 
 @Entity
 @NamedQueries(value = { @NamedQuery(name = "EiaDamageReport.getAll", query = "SELECT edr from EiaDamageReport edr order by edr.id") })
@@ -35,12 +35,12 @@ public class EiaDamageReport extends AbstractEntity {
 	/** Persona que reportó la falla o daño */
 	@ManyToOne
 	@JoinColumn(name = "userWhoReportedFk", nullable = false)
-	private SSOUser userWhoReported;
+	private Bpu userWhoReported;
 
 	/** Persona que hizo el registro de la falla o daño */
 	@ManyToOne
 	@JoinColumn(name = "userWhoRegisteredFk", nullable = false)
-	private SSOUser userWhoRegistered;
+	private Bpu userWhoRegistered;
 
 	/** Prioridad del daño o falla: Normal, Alta */
 	private EiaDamagePriorityEnum priority;
@@ -81,19 +81,19 @@ public class EiaDamageReport extends AbstractEntity {
 		this.dateTimeDamage = dateTimeDamage;
 	}
 
-	public SSOUser getUserWhoReported() {
+	public Bpu getUserWhoReported() {
 		return userWhoReported;
 	}
 
-	public void setUserWhoReported(SSOUser userWhoReported) {
+	public void setUserWhoReported(Bpu userWhoReported) {
 		this.userWhoReported = userWhoReported;
 	}
 
-	public SSOUser getUserWhoRegistered() {
+	public Bpu getUserWhoRegistered() {
 		return userWhoRegistered;
 	}
 
-	public void setUserWhoRegistered(SSOUser userWhoRegistered) {
+	public void setUserWhoRegistered(Bpu userWhoRegistered) {
 		this.userWhoRegistered = userWhoRegistered;
 	}
 

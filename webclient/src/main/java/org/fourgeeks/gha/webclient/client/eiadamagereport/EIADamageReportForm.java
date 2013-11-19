@@ -1,34 +1,42 @@
 package org.fourgeeks.gha.webclient.client.eiadamagereport;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import org.fourgeeks.gha.domain.enu.EiaDamagePriorityEnum;
+import org.fourgeeks.gha.domain.enu.EiaDamageStatusEnum;
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
 import org.fourgeeks.gha.domain.ess.Role;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
+import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.gar.Facility;
 import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.domain.mix.Citizen;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHADateItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextAreaItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATitleTextItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASectionForm;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
+import org.fourgeeks.gha.webclient.client.user.UserModel;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.smartgwt.client.widgets.form.fields.TimeItem;
 import com.smartgwt.client.widgets.form.fields.events.ChangeEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangeHandler;
 
@@ -47,16 +55,20 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 			workingArea_TitleItem, facility_TitleItem, report_TitleItem,
 			realWarranty_TitleItem, intermedWarranty_TitleItem,
 			providers_TitleItem;
-	private GHADateItem acceptationDateItem,
+	private GHADateItem acceptationDateItem, realWarrantyBeginDate,
+			intWarrantyBeginDate;
+	// datos del reporte
+	private GHADateItem damageDateItem;
+	private GHATextAreaItem damageMotiveTextItem;
+	private TimeItem damageTimeItem;
+	private GHASelectItem damageStatusSelectItem, damagePrioritySelectItem,
+			userWhoRegistedSelectItem, userWhoReportedSelectItem;
 
-	realWarrantyBeginDate, intWarrantyBeginDate;
-	// private GHACheckboxItem sameLocationAttendedItem, isInMaintenanceItem;
 	private GHASectionForm sectionForm;
 	private GHADynamicForm infoBasicaForm;
 	private GHADynamicForm garantiasForm;
 	private GHADynamicForm ubicacionForm;
 	private GHADynamicForm reportForm;
-	// private GHADynamicForm garantiasMantForm;
 
 	private List<EiaDamageReportSelectionListener> listeners;
 	private Eia eia;
@@ -64,6 +76,23 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 	{ // Global
 		sectionForm = new GHASectionForm();
 		listeners = new ArrayList<EiaDamageReportSelectionListener>();
+
+		// report data Form Items
+		damageDateItem = new GHADateItem("Fecha del daño o falla",
+				changedHandler);
+		damageTimeItem = new TimeItem();
+		damageTimeItem.setTitle("Hora del daño o falla");
+		damageStatusSelectItem = new GHASelectItem("Estatus", false,
+				changedHandler);
+		damagePrioritySelectItem = new GHASelectItem("Prioridad", false,
+				changedHandler);
+		userWhoReportedSelectItem = new GHASelectItem("Usuario que lo reportó",
+				false, changedHandler);
+		userWhoRegistedSelectItem = new GHASelectItem(
+				"Usuario que lo registró", false, changedHandler);
+		damageMotiveTextItem = new GHATextAreaItem("Motivo del daño o falla",
+				changedHandler);
+		damageMotiveTextItem.setColSpan(2);
 
 		// Information Form Items
 		eiaTypeSelectItem = new GHASelectItem("Tipo", false, changedHandler);
@@ -167,6 +196,7 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 		fillLocationTypeSelect();
 		fillLocationsSelects();
 		fillWarrantySelects();
+		fillReportDataSelects();
 
 		// Funcionalities
 		buildingLocFuncionalities();
@@ -251,6 +281,15 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 		realWarrantyBeginDate.clearValue();
 		intWarrantyBeginDate.clearValue();
 		acceptationDateItem.clearValue();
+
+		// report data items
+		damageDateItem.clearValue();
+		damageTimeItem.clearValue();
+		damageStatusSelectItem.clearValue();
+		damagePrioritySelectItem.clearValue();
+		userWhoReportedSelectItem.clearValue();
+		userWhoRegistedSelectItem.clearValue();
+		damageMotiveTextItem.clearValue();
 	}
 
 	@Override
@@ -263,6 +302,20 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 
 		eia.setState(EiaStateEnum.DAMAGED);
 		eiaDamageReport.setEia(eia);
+
+		eiaDamageReport
+				.setDamageMotive(damageMotiveTextItem.getValueAsString());
+		eiaDamageReport.setDamageStatus(EiaDamageStatusEnum
+				.valueOf(damageStatusSelectItem.getValueAsString()));
+		eiaDamageReport.setPriority(EiaDamagePriorityEnum
+				.valueOf(damagePrioritySelectItem.getValueAsString()));
+
+		Date time = damageTimeItem.getValue() != null ? null
+				: (Date) damageTimeItem.getValue();
+		Date date = damageDateItem.getValue() != null ? null
+				: (Date) damageDateItem.getValueAsDate();
+		Date datetime = EiaDamageReportUtil.getDatetime(date, time);
+		eiaDamageReport.setDateTimeDamage(datetime);
 
 		return eiaDamageReport;
 	}
@@ -357,6 +410,27 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 		locationTypeSelectItem.setValueMap(valueMapLocationType);
 	}
 
+	private void fillReportDataSelects() {
+		UserModel.getAll(new GHAAsyncCallback<List<Bpu>>() {
+			@Override
+			public void onSuccess(List<Bpu> result) {
+				LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+				for (Bpu bpu : result) {
+					Citizen citizen = bpu.getCitizen();
+					valueMap.put(bpu.getId() + "", citizen.getFirstName()
+							+ citizen.getFirstLastName());
+				}
+
+				userWhoRegistedSelectItem.setValueMap(valueMap);
+				userWhoReportedSelectItem.setValueMap(valueMap);
+			}
+		});
+
+		damageStatusSelectItem.setValueMap(EiaDamageStatusEnum.toValueMap());
+		damagePrioritySelectItem
+				.setValueMap(EiaDamagePriorityEnum.toValueMap());
+	}
+
 	private void fillWarrantySelects() {
 		realWarrantySinceSelectItem.setValueMap(WarrantySinceEnum.toValueMap());
 		realWarrantySinceSelectItem.setValue(WarrantySinceEnum.PURCHASE.name());
@@ -438,7 +512,12 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 		GHADynamicForm res = new GHADynamicForm(
 				GHAUiHelper.getSectionFormFormWidth(30), 4);
 
-		res.setItems(report_TitleItem);
+		res.setItems(report_TitleItem, damageStatusSelectItem,
+				damagePrioritySelectItem, new GHASpacerItem(2), damageDateItem,
+				damageTimeItem, new GHASpacerItem(2),
+				userWhoReportedSelectItem, userWhoRegistedSelectItem,
+				new GHASpacerItem(2), damageMotiveTextItem,
+				new GHASpacerItem(2));
 
 		return res;
 	}

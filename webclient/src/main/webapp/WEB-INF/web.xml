@@ -116,3 +116,4 @@
     <env-entry-type>java.lang.String</env-entry-type>
     <env-entry-value>/home/</env-entry-value>
   </env-entry>
+</web-app>
