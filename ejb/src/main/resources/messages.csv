@@ -30,6 +30,7 @@ ES,record-not-selected,Debe seleccionar un registro
 ES,frecuency-not-null,Debe indicar la frecuencia
 ES,time-period-not-null,Debe indicar el periodo de tiempo
 ES,eia-save-success,El equipo ha sido guardado exitosamente
+ES,maintenance-plan-save-success,El plan de mantenimiento ha sido guardado exitosamente
 ES,eiatype-save-success,El Tipo de Equipo ha sido guardado exitosamente
 ES,eiatype-delete-success,El tipo de equipo ha sido eliminado exitosamente
 ES,eiatypes-delete-success,Los tipos de equipo ha sido eliminado exitosamente

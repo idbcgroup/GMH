@@ -91,7 +91,7 @@ public class MaintenancePlanInformationFormPanel extends GHAVerticalLayout
 
 	public void setMaintenancePlan(MaintenancePlan maintenancePlan) {
 		this.originalMaintenancePlan = maintenancePlan;
-		maintenancePlanForm.setMaintenancePlan(maintenancePlan);
+		maintenancePlanForm.set(maintenancePlan);
 		maintenancePlanForm.activateForm(true);
 	}
 
@@ -150,6 +150,12 @@ public class MaintenancePlanInformationFormPanel extends GHAVerticalLayout
 
 	@Override
 	public void close() throws UnavailableToCloseException {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void notifyMaintenancePlan(MaintenancePlan maintenancePlan) {
 		// TODO Auto-generated method stub
 
 	}

@@ -44,7 +44,8 @@ public class GHATabHeader extends HLayout implements ResizeHandler {
 		setMembersMargin(6);
 		setStyleName("sides-padding tab-header");
 
-		titulo = new Option(this, title, 150, false, "", "");
+		titulo = new Option(this, title, GHAUiHelper.DEFAULT_TAB_HEADER_WIDTH,
+				false, "", "");
 
 		addMember(titulo);
 
@@ -227,5 +228,12 @@ public class GHATabHeader extends HLayout implements ResizeHandler {
 	public void unMarkAllButtons() {
 		for (Option button : selectables)
 			button.unMarkSelected();
+	}
+
+	@Override
+	protected void onDetach() {
+		GHAUiHelper.removeGHAResizeHandler(this);
+		super.onDetach();
+
 	}
 }

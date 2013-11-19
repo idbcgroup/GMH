@@ -43,7 +43,7 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
  */
 public class EiaTypeForm extends GHAForm<EiaType> implements
 		EiaTypeSelectionProducer {
-	
+
 	protected GHADynamicForm form;
 	private GHACodeItem codeItem;
 	private GHATextItem nameItem, modelItem, eiaUmdnsItem;
@@ -67,21 +67,27 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 		subTypeItem = new GHAEiaTypeSubTypeSelectItem(changedHandler);
 		eiaUmdnsItem = new GHATextItem("EIAUMDNS", false, changedHandler);
 		eiaUmdnsItem.setLength(16);
-		modelItem = new GHATextItem(GHAStrings.get("model"), false,	changedHandler);
+		modelItem = new GHATextItem(GHAStrings.get("model"), false,
+				changedHandler);
 		modelItem.setLength(20);
 		//
-		descriptionItem = new GHATextAreaItem(GHAStrings.get("description"), changedHandler);
+		descriptionItem = new GHATextAreaItem(GHAStrings.get("description"),
+				changedHandler);
 		descriptionItem.setColSpan(3);
-		useDescriptionItem = new GHATextAreaItem(GHAStrings.get("use"),changedHandler);
+		useDescriptionItem = new GHATextAreaItem(GHAStrings.get("use"),
+				changedHandler);
 		useDescriptionItem.setColSpan(3);
 		//
-		manItem = new GHAComboboxItem<Manufacturer>(GHAStrings.get("manufacturer"), changedHandler);
-		brandItem = new GHAComboboxItem<Brand>(GHAStrings.get("brand"),changedHandler);
-		mobilityItem = new GHASelectItem(GHAStrings.get("mobility"), true,	changedHandler);
+		manItem = new GHAComboboxItem<Manufacturer>(
+				GHAStrings.get("manufacturer"), changedHandler);
+		brandItem = new GHAComboboxItem<Brand>(GHAStrings.get("brand"),
+				changedHandler);
+		mobilityItem = new GHASelectItem(GHAStrings.get("mobility"), true,
+				changedHandler);
 		//
 		listeners = new ArrayList<EIATypeSelectionListener>();
-		
-		form = new GHADynamicForm(GHAUiHelper.getNormalFormWidth(30),4);
+
+		form = new GHADynamicForm(GHAUiHelper.getNormalFormWidth(30), 4);
 	}
 
 	/**
@@ -113,10 +119,9 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 		});
 
 		form.setItems(codeItem, nameItem, typeItem, new GHASpacerItem(),
-				subTypeItem, eiaUmdnsItem, modelItem,  new GHASpacerItem(),
+				subTypeItem, eiaUmdnsItem, modelItem, new GHASpacerItem(),
 				mobilityItem, manItem, brandItem, new GHASpacerItem(),
-				descriptionItem, new GHASpacerItem(),
-				useDescriptionItem);
+				descriptionItem, new GHASpacerItem(), useDescriptionItem);
 
 		gridPanel.addMembers(form, new LayoutSpacer());
 		addMember(gridPanel);
@@ -130,13 +135,6 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 		toggleForm(true);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.fourgeeks.gha.webclient.client.eiatype.EiaTypeSelectionProducer#
-	 * addEiaTypeSelectionListener
-	 * (org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener)
-	 */
 	@Override
 	public void addEiaTypeSelectionListener(
 			EIATypeSelectionListener eIATypeSelectionListener) {
@@ -218,22 +216,6 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 		}
 		return null;
 	}
-
-	// private void fillBrands(boolean forceFromServer) {
-	// GHACache.INSTANCE.getBrands(new GHAAsyncCallback<List<Brand>>() {
-	//
-	// @Override
-	// public void onSuccess(List<Brand> result) {
-	// LinkedHashMap<String, String> valueMap = new LinkedHashMap<String,
-	// String>();
-	// for (Brand brand : result)
-	// valueMap.put(brand.getId() + "", brand.getName());
-	// brandItem.setValueMap(valueMap);
-	//
-	// }
-	// }, forceFromServer);
-	//
-	// }
 
 	private void fillBrands(final Brand brand) {
 		Manufacturer manufacturer = brand.getManufacturer();
@@ -409,15 +391,6 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 	}
 
 	@Override
-	public void undo() {
-		if (originalEntity == null)
-			clear();
-		else
-			this.set(originalEntity);
-		hasUnCommittedChanges = false;
-	}
-
-	@Override
 	public void update(final GHAAsyncCallback<EiaType> callback) {
 		EiaType eiaType = extract(true);
 
@@ -438,6 +411,6 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 
 	@Override
 	public void onResize(ResizeEvent arg0) {
-		form.resize(GHAUiHelper.getNormalFormWidth(30),4);
+		form.resize(GHAUiHelper.getNormalFormWidth(30), 4);
 	}
 }

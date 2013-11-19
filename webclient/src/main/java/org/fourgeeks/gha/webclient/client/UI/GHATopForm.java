@@ -47,9 +47,9 @@ public abstract class GHATopForm<T extends GHAResultSet<E>, E> extends HLayout
 	 * @param resultSet
 	 * @param containerTab
 	 */
-	public GHATopForm(T resultSet, GHATab containerTab) {
+	public GHATopForm(T resultSet, GHATab tab) {
 		this.resultSet = resultSet;
-		this.containerTab = containerTab;
+		this.containerTab = tab;
 
 		GHAUiHelper.addGHAResizeHandler(this);
 		setStyleName("sides-padding padding-top");

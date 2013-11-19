@@ -52,18 +52,24 @@ public class GWTLoginServiceImpl extends RemoteServiceServlet implements
 	 */
 	@Override
 	public boolean isLogged() {
-		HttpServletRequest request = this.perThreadRequest.get();
+		HttpServletRequest request = getThreadLocalRequest();
 		return !(request.getUserPrincipal() == null);
 	}
 
 	@Override
 	public Bpu login(String user, String password) throws GHAEJBException {
-		HttpServletRequest request = this.perThreadRequest.get();
+		HttpServletRequest request = getThreadLocalRequest();
 		String ipAdd = request.getRemoteAddr().toString();
 
 		HttpSession session = request.getSession();
-		if (session != null)
+		if (session != null) {
+			try {
+				request.logout();
+			} catch (ServletException e) {
+				e.printStackTrace();
+			}
 			session.invalidate();
+		}
 
 		SSOUser ssoUser = null;
 		try {
@@ -89,10 +95,8 @@ public class GWTLoginServiceImpl extends RemoteServiceServlet implements
 			return bpu;
 		} catch (ServletException e) {
 			GHAMessage ghaMessage = messageService.find("LOGIN002");
-
 			logService.log(new LogonLog(ssoUser.getBpu(), ghaMessage, ipAdd));
 			throw new GHAEJBException(ghaMessage);
-
 		} catch (Exception e) {
 			GHAMessage ghaMessage = messageService.find("LOGIN005");
 			logService.log(new LogonLog(ssoUser.getBpu(), ghaMessage, ipAdd));
