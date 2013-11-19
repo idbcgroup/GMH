@@ -40,8 +40,7 @@ public class EiaTypeUtilityGrid extends GhaGrid<EiaTypeUtility> {
 	public EiaTypeUtilityGrid() {
 		setEmptyMessage(GHAStrings.get("empty-materialcategory-grid"));
 		setFields(codeGridField, nameGridField, descriptionGridField,
-				modelGridField, extCodeGridField, extCodeGridField,
-				amountGridField);
+				modelGridField, extCodeGridField, amountGridField);
 	}
 
 	/**
