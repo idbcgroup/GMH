@@ -6,32 +6,30 @@ import java.util.List;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
-import javax.validation.Validator;
 
 import org.fourgeeks.gha.domain.glm.Material;
 import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
+import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHABrandSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHACodeItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextAreaItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 
-import com.google.gwt.validation.client.impl.Validation;
-import com.smartgwt.client.types.TitleOrientation;
-import com.smartgwt.client.widgets.form.DynamicForm;
-import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
-import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
+import com.google.gwt.event.logical.shared.ResizeEvent;
 
 /**
  * @author emiliot
  * 
  */
-public class MaterialForm extends GHAVerticalLayout implements
+public class MaterialForm extends GHAForm<Material> implements
 		MaterialSelectionProducer {
 	private List<MaterialSelectionListener> listeners;
 	private GHATextItem codeItem, externalCodeItem, nameItem, modelItem;
@@ -39,46 +37,32 @@ public class MaterialForm extends GHAVerticalLayout implements
 	private GHABrandSelectItem brandItem;
 
 	private GHASelectItem typeItem;
-	private Validator validator;
-	private DynamicForm form;
-	private boolean hasUnCommittedChanges = false;
-	private ChangedHandler changedHandler = new ChangedHandler() {
-
-		@Override
-		public void onChanged(ChangedEvent event) {
-			hasUnCommittedChanges = true;
-		}
-	};
-	private Material updateEntity;
-
+	private GHADynamicForm form;
+	
 	{
 		listeners = new ArrayList<MaterialSelectionListener>();
-		nameItem = new GHATextItem(GHAStrings.get("name"), 900, false,
-				changedHandler);
+		nameItem = new GHATextItem(GHAStrings.get("name"), false,	changedHandler);
 		nameItem.setColSpan(2);
-		codeItem = new GHACodeItem(true, 450, changedHandler);
-		externalCodeItem = new GHATextItem(GHAStrings.get("external-code"),
-				450, false, changedHandler);
-		typeItem = new GHASelectItem(GHAStrings.get("type"), 300, true,
-				changedHandler);
-		brandItem = new GHABrandSelectItem(300);
+		codeItem = new GHACodeItem(true, changedHandler);
+		externalCodeItem = new GHATextItem(GHAStrings.get("external-code"), false, changedHandler);
+		typeItem = new GHASelectItem(GHAStrings.get("type"), true,	changedHandler);
+		brandItem = new GHABrandSelectItem();
 
-		modelItem = new GHATextItem(GHAStrings.get("model"), 300, false,
-				changedHandler);
-		descriptionItem = new GHATextAreaItem(GHAStrings.get("description"),
-				900, changedHandler);
+		modelItem = new GHATextItem(GHAStrings.get("model"), false,changedHandler);
+		descriptionItem = new GHATextAreaItem(GHAStrings.get("description"), changedHandler);
 		descriptionItem.setColSpan(2);
+				
+		form = new GHADynamicForm(GHAUiHelper.getNormalFormWidth(3),3);
 
-		validator = Validation.buildDefaultValidatorFactory().getValidator();
 	}
 
 	public MaterialForm() {
 		super();
-		form = new DynamicForm();
-		form.setTitleOrientation(TitleOrientation.TOP);
-		form.setNumCols(2);
-		form.setItems(nameItem, codeItem, externalCodeItem, typeItem,
-				brandItem, modelItem, descriptionItem);
+		form.setItems(nameItem, new GHASpacerItem(),
+				codeItem, externalCodeItem,new GHASpacerItem(1),
+				typeItem,brandItem,new GHASpacerItem(),
+				modelItem,new GHASpacerItem(2),
+				descriptionItem);
 		addMember(form);
 		fill();
 	}
@@ -146,12 +130,6 @@ public class MaterialForm extends GHAVerticalLayout implements
 		typeItem.setValueMap(MaterialTypeEnum.toValueMap());
 	}
 
-	/**
-	 * @return the hasUnCommittedChanges
-	 */
-	public boolean hasUnCommittedChanges() {
-		return hasUnCommittedChanges;
-	}
 
 	@Override
 	public void notifyMaterial(Material material) {
@@ -164,13 +142,6 @@ public class MaterialForm extends GHAVerticalLayout implements
 			MaterialSelectionListener materialSelectionListener) {
 		listeners.remove(materialSelectionListener);
 
-	}
-
-	/**
-	 * 
-	 */
-	public void save() {
-		save(null);
 	}
 
 	/**
@@ -195,8 +166,8 @@ public class MaterialForm extends GHAVerticalLayout implements
 	/**
 	 * @param materialCategory
 	 */
-	public void setMaterial(Material material) {
-		this.updateEntity = material;
+	public void set(Material material) {
+		this.originalEntity = material;
 
 		codeItem.setValue(material.getCode());
 		externalCodeItem.setValue(material.getExternalCode());
@@ -222,14 +193,39 @@ public class MaterialForm extends GHAVerticalLayout implements
 
 	/**
 	 * This method returns the form to the original entity or clean the form
-	 * if(updateEntity == null) cancel() else select(updateEntity)
+	 * if(originalEntity == null) cancel() else select(originalEntity)
 	 */
 	public void undo() {
-		if (updateEntity == null)
+		if (originalEntity == null)
 			cancel();
 		else
-			this.setMaterial(updateEntity);
+			this.set(originalEntity);
 		hasUnCommittedChanges = false;
 	}
 
+	@Override
+	public void onResize(ResizeEvent event) {
+		// TODO Auto-generated method stub
+		form.resize(GHAUiHelper.getNormalFormWidth(3),3);
+	}
+
+	@Override
+	public void activate() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deactivate() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update(GHAAsyncCallback<Material> callback) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
 }
