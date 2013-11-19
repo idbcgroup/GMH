@@ -647,9 +647,11 @@ public class InitialData {
 				for (String name : names) {
 					Material next = new Material();
 					next.setName(name);
-					next.setCode("material-test-00" + i++);
+					next.setCode("material-test-00" + i);
 					next.setDescription(name);
 					next.setType(MaterialTypeEnum.values()[i % 3]);
+					next.setExternalCode("ex-code-00" + i);
+					i++;
 					em.persist(next);
 				}
 			} catch (Exception e1) {

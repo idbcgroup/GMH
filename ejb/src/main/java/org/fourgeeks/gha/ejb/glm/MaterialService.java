@@ -77,7 +77,7 @@ public class MaterialService extends GHAEJBExceptionImpl implements
 			ParameterExpression<String> p = cb.parameter(String.class,
 					"extCode");
 			predicate = cb.and(predicate,
-					cb.equal(root.<String> get("extCode"), p));
+					cb.equal(root.<String> get("externalCode"), p));
 		}
 
 		if (material.getModel() != null) {
