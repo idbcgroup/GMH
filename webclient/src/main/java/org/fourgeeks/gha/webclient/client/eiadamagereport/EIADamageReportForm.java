@@ -80,16 +80,18 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 		// report data Form Items
 		damageDateItem = new GHADateItem("Fecha del daño o falla",
 				changedHandler);
+		damageDateItem.setRequired(true);
 		damageTimeItem = new TimeItem();
 		damageTimeItem.setTitle("Hora del daño o falla");
-		damageStatusSelectItem = new GHASelectItem("Estatus", false,
+		damageDateItem.setRequired(true);
+		damageStatusSelectItem = new GHASelectItem("Estatus", true,
 				changedHandler);
-		damagePrioritySelectItem = new GHASelectItem("Prioridad", false,
+		damagePrioritySelectItem = new GHASelectItem("Prioridad", true,
 				changedHandler);
 		userWhoReportedSelectItem = new GHASelectItem("Usuario que lo reportó",
-				false, changedHandler);
+				true, changedHandler);
 		userWhoRegistedSelectItem = new GHASelectItem(
-				"Usuario que lo registró", false, changedHandler);
+				"Usuario que lo registró", true, changedHandler);
 		damageMotiveTextItem = new GHATextAreaItem("Motivo del daño o falla",
 				changedHandler);
 		damageMotiveTextItem.setColSpan(2);
@@ -309,6 +311,19 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 				.valueOf(damageStatusSelectItem.getValueAsString()));
 		eiaDamageReport.setPriority(EiaDamagePriorityEnum
 				.valueOf(damagePrioritySelectItem.getValueAsString()));
+
+		if (userWhoRegistedSelectItem.getValueAsString() != null) {
+			Bpu userWhoRegistered = new Bpu();
+			userWhoRegistered.setId(Long.valueOf(userWhoRegistedSelectItem
+					.getValueAsString()));
+			eiaDamageReport.setUserWhoRegistered(userWhoRegistered);
+		}
+		if (userWhoReportedSelectItem.getValueAsString() != null) {
+			Bpu userWhoReported = new Bpu();
+			userWhoReported.setId(Long.valueOf(userWhoReportedSelectItem
+					.getValueAsString()));
+			eiaDamageReport.setUserWhoReported(userWhoReported);
+		}
 
 		Date time = damageTimeItem.getValue() != null ? null
 				: (Date) damageTimeItem.getValue();
