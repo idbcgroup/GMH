@@ -9,11 +9,11 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHANewButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.eia.EIASearchForm;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
@@ -22,6 +22,8 @@ import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
+import com.smartgwt.client.widgets.layout.HLayout;
+import com.smartgwt.client.widgets.layout.VLayout;
 
 public class EiaDamageReportGridPanel extends GHAVerticalLayout implements
 		EIATypeSelectionListener, HideableListener, ClosableListener {
@@ -39,25 +41,26 @@ public class EiaDamageReportGridPanel extends GHAVerticalLayout implements
 		searchForm.addEiaSelectionListener(new EIASelectionListener() {
 			@Override
 			public void select(Eia eia) {
+				addForm.select(eia);
+				addForm.open();
 			}
 		});
 	}
 
 	public EiaDamageReportGridPanel() {
 		super();
-		GHAUiHelper.createBar(new GHANewButton(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				searchForm.search();
+		VLayout sideButtons = GHAUiHelper.createBar(new GHANewButton(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						searchForm.open();
+					}
+				}));
 
-			}
-		}), new GHADeleteButton(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				// TODO Auto-generated method stub
+		HLayout mainPanel = new HLayout();
+		mainPanel.addMembers(grid, sideButtons);
 
-			}
-		}));
+		addMembers(new GHALabel(GHAStrings.get("materials")), mainPanel);
 	}
 
 	@Override

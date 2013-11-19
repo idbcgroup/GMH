@@ -1,5 +1,6 @@
 package org.fourgeeks.gha.ejb.gmh;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -8,7 +9,9 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
+import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
@@ -46,16 +49,47 @@ public class EiaDamageReportService extends GHAEJBExceptionImpl implements
 	public List<EiaDamageReport> findByEiaType(EiaType eiaType)
 			throws GHAEJBException {
 		try {
-			return em
-					.createNamedQuery("EiaDamageReport.findByEiaType",
-							EiaDamageReport.class)
-					.setParameter("eiaType", eiaType).getResultList();
+			ArrayList<EiaStateEnum> stateList = new ArrayList<EiaStateEnum>();
+			stateList.add(EiaStateEnum.DAMAGED);
+			stateList.add(EiaStateEnum.MAINTENANCE);
+
+			String stringQuery = "SELECT edr, eia FROM EiaDamageReport edr RIGHT JOIN edr.eia eia WHERE eia.eiaType = :eiaType AND eia.state IN :eiaStates order by edr.id";
+			List<?> resultList = em.createQuery(stringQuery)
+					.setParameter("eiaType", eiaType)
+					.setParameter("eiaStates", stateList).getResultList();
+
+			List<EiaDamageReport> edrList = toEiaDamageReportList(resultList);
+			return edrList;
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding eiaDamageReport by eiatype",
 					e);
 			throw super.generateGHAEJBException("eia-findByEiaType-fail",
 					RuntimeParameters.getLang(), em);
 		}
+	}
+
+	private List<EiaDamageReport> toEiaDamageReportList(List<?> resultList) {
+		ArrayList<EiaDamageReport> edrList = new ArrayList<EiaDamageReport>();
+
+		for (Object elem : resultList) {
+			Object[] aux = (Object[]) elem;
+
+			EiaDamageReport edrFinal = new EiaDamageReport();
+			edrFinal.setEia((Eia) aux[1]);
+			if (aux[0] != null) {
+				EiaDamageReport edr = (EiaDamageReport) aux[0];
+				edrFinal.setDamageMotive(edr.getDamageMotive());
+				edrFinal.setDamageStatus(edr.getDamageStatus());
+				edrFinal.setDateTimeDamage(edr.getDateTimeDamage());
+				edrFinal.setId(edr.getId());
+				edrFinal.setPriority(edr.getPriority());
+				edrFinal.setUserWhoRegistered(edr.getUserWhoRegistered());
+				edrFinal.setUserWhoReported(edr.getUserWhoReported());
+			}
+
+			edrList.add(edrFinal);
+		}
+		return edrList;
 	}
 
 	@Override

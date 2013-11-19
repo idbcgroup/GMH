@@ -14,8 +14,7 @@ import org.fourgeeks.gha.domain.enu.EiaDamageStatusEnum;
 import org.fourgeeks.gha.domain.ess.SSOUser;
 
 @Entity
-@NamedQuery(name = "EiaDamageReport.getAll", query = "SELECT edr from EiaDamageReport edr order by edr.id")
-@NamedQueries(value = { @NamedQuery(name = "EiaDamageReport.findByEiaType", query = "SELECT edr from EiaDamageReport edr join Eia eia WHERE eia.eiaType = :eiaType order by edr.id") })
+@NamedQueries(value = { @NamedQuery(name = "EiaDamageReport.getAll", query = "SELECT edr from EiaDamageReport edr order by edr.id") })
 public class EiaDamageReport extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 
