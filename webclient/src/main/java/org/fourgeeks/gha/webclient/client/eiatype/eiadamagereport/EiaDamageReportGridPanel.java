@@ -69,7 +69,7 @@ public class EiaDamageReportGridPanel extends GHAVerticalLayout implements
 		HLayout mainPanel = new HLayout();
 		mainPanel.addMembers(grid, sideButtons);
 
-		addMembers(new GHALabel(GHAStrings.get("materials")), mainPanel);
+		addMembers(new GHALabel(GHAStrings.get("eiaDamageReport")), mainPanel);
 	}
 
 	@Override

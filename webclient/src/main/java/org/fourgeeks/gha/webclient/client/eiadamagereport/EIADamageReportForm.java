@@ -1,5 +1,6 @@
 package org.fourgeeks.gha.webclient.client.eiadamagereport;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -62,6 +63,7 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 
 	{ // Global
 		sectionForm = new GHASectionForm();
+		listeners = new ArrayList<EiaDamageReportSelectionListener>();
 
 		// Information Form Items
 		eiaTypeSelectItem = new GHASelectItem("Tipo", false, changedHandler);
@@ -538,7 +540,6 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 		facilityLocationSelectItem.clearValue();
 
 		if (eia.getWorkingArea() != null) {
-			workingAreaLocationSelectItem.setDisabled(false);
 			workingAreaLocationSelectItem
 					.setValue(eia.getWorkingArea().getId());
 			workingAreaLocationCodeTextItem.setValue(eia.getWorkingArea()
@@ -546,7 +547,6 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 			locationTypeSelectItem.setValue("0");
 		}
 		if (eia.getFacility() != null) {
-			facilityLocationSelectItem.setDisabled(false);
 			facilityLocationSelectItem.setValue(eia.getFacility().getId());
 			facilityLocationCodeTextItem.setValue(eia.getFacility().getId());
 			locationTypeSelectItem.setValue("1");
@@ -581,6 +581,8 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 				&& eia.getMaintenanceProvider().getInstitution() != null)
 			maintenanceProviderSelectItem.setValue(eia.getMaintenanceProvider()
 					.getId());
+
+		sectionForm.openFirst();
 	}
 
 	@Override
