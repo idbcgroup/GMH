@@ -2,7 +2,6 @@ package org.fourgeeks.gha.webclient.client.eiadamagereport;
 
 import java.util.List;
 
-import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
@@ -27,12 +26,12 @@ public class EiaDamageReportModel {
 	}
 
 	public static void save(EiaDamageReport eiaDamageReport,
-			GHAAsyncCallback<EiaDamageReport> callback) throws GHAEJBException {
+			GHAAsyncCallback<EiaDamageReport> callback) {
 		service.save(eiaDamageReport, callback);
 	}
 
 	public static void update(EiaDamageReport eiaDamageReport,
-			GHAAsyncCallback<EiaDamageReport> callback) throws GHAEJBException {
+			GHAAsyncCallback<EiaDamageReport> callback) {
 		service.update(eiaDamageReport, callback);
 	}
 }

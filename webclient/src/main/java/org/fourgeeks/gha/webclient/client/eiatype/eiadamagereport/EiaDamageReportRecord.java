@@ -17,7 +17,9 @@ public class EiaDamageReportRecord extends GHAGridRecord<EiaDamageReport> {
 		this.eiaDamageReport = eiaDamageReport;
 		Eia eia = eiaDamageReport.getEia();
 
-		setAttribute("reportId", eiaDamageReport.getId());
+		setAttribute("reportId", eiaDamageReport.getId() == 0 ? ""
+				: eiaDamageReport.getId());
+
 		setAttribute("id", eia.getId());
 		setAttribute("serialNumber", eia.getSerialNumber());
 		setAttribute("fai", eia.getFixedAssetIdentifier());

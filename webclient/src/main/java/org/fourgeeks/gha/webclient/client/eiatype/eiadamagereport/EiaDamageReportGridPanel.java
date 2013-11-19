@@ -17,7 +17,10 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.eia.EIASearchForm;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
+import org.fourgeeks.gha.webclient.client.eiadamagereport.EIADamageReportAddForm;
 import org.fourgeeks.gha.webclient.client.eiadamagereport.EiaDamageReportModel;
+import org.fourgeeks.gha.webclient.client.eiadamagereport.EiaDamageReportSelectionListener;
+import org.fourgeeks.gha.webclient.client.eiadamagereport.EiaDamageReportUtil;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -31,12 +34,18 @@ public class EiaDamageReportGridPanel extends GHAVerticalLayout implements
 	private EiaDamageReportGrid grid;
 	private EIASearchForm searchForm;
 	private EiaType eiaType;
-	private EiaDamageReportAddForm addForm;
+	private EIADamageReportAddForm addForm;
 
 	{
 		grid = new EiaDamageReportGrid();
 		searchForm = new EIASearchForm(GHAStrings.get("search-eia"));
-		addForm = new EiaDamageReportAddForm();
+		addForm = new EIADamageReportAddForm();
+		addForm.addEiaDamageReportSelectionListener(new EiaDamageReportSelectionListener() {
+			@Override
+			public void select(EiaDamageReport eiaDamageReport) {
+				loadData();
+			}
+		});
 
 		searchForm.addEiaSelectionListener(new EIASelectionListener() {
 			@Override
