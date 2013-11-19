@@ -174,10 +174,16 @@ public class EiaService extends GHAEJBExceptionImpl implements EiaServiceRemote 
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<Eia> cQuery = cb.createQuery(Eia.class);
 			Root<Eia> root = cQuery.from(Eia.class);
-			Join<Eia, Obu> obuJoin = root.join("obu");
 			cQuery.select(root);
 			cQuery.orderBy(cb.asc(root.get("id")));
-			Predicate criteria = buildFilters(entity, cb, root, obuJoin);
+
+			Predicate criteria;
+			if (entity.getObu() != null) {
+				Join<Eia, Obu> obuJoin = root.join("obu");
+				criteria = buildFilters(entity, cb, root, obuJoin);
+			} else
+				criteria = buildFilters(entity, cb, root, null);
+
 			TypedQuery<Eia> q;
 			if (criteria.getExpressions().size() <= 0) {
 				q = em.createQuery(cQuery);
