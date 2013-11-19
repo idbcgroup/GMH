@@ -1,20 +1,15 @@
 package org.fourgeeks.gha.webclient.client.eiatype.maintenance;
 
-import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
-import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeTab;
 import org.fourgeeks.gha.webclient.client.eiatype.maintenance.plan.EIATypeMaintenanceGridPanel;
-
-import com.smartgwt.client.widgets.tab.events.TabDeselectedEvent;
-import com.smartgwt.client.widgets.tab.events.TabDeselectedHandler;
 
 /**
  * @author alacret, emiliot
  * 
  */
-public class EIATypeMaintenanceSubTab extends GHASubTab implements
-		EIATypeSelectionListener {
+public class EIATypeMaintenanceSubTab extends GHASubTab {
 
 	private EIATypeMaintenanceGridPanel eiaTypeMaintenanceGridPanel;
 
@@ -22,28 +17,12 @@ public class EIATypeMaintenanceSubTab extends GHASubTab implements
 	 * @param tab
 	 */
 	public EIATypeMaintenanceSubTab(EIATypeTab tab) {
-		super("Mantenimiento", tab);
-		setDisabled(true);
-
-		tab.addEiaTypeSelectionListener(this);
+		super(GHAStrings.get("maintenance"), tab);
 
 		eiaTypeMaintenanceGridPanel = new EIATypeMaintenanceGridPanel();
 		addClosableListener(eiaTypeMaintenanceGridPanel);
 		addHideableListener(eiaTypeMaintenanceGridPanel);
+
 		setPane(eiaTypeMaintenanceGridPanel);
-
-		addTabDeselectedHandler(new TabDeselectedHandler() {
-			@Override
-			public void onTabDeselected(TabDeselectedEvent event) {
-				eiaTypeMaintenanceGridPanel.hide();
-			}
-		});
 	}
-
-	@Override
-	public void select(EiaType eiaType) {
-		eiaTypeMaintenanceGridPanel.select(eiaType);
-		setDisabled(false);
-	}
-
 }

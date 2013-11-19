@@ -6,17 +6,18 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHAEditButton;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHANewButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
+import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanAddForm;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSearchForm;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype.EiaTypeMaintenancePlanGrid;
@@ -24,6 +25,7 @@ import org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype.EiaTy
 import org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype.EiaTypeMaintenancePlanRecord;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype.EiaTypeMaintenancePlanUtil;
 
+import com.google.gwt.user.client.Window;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
@@ -35,17 +37,31 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class EIATypeMaintenanceGridPanel extends GHAVerticalLayout implements
-		ClosableListener, HideableListener, EIATypeSelectionListener,
-		MaintenancePlanSelectionListener {
+		ClosableListener, HideableListener, EIATypeSelectionListener {
 
 	private EiaTypeMaintenancePlanGrid grid;
 	private EiaType eiaType;
 	private MaintenancePlanSearchForm searchForm;
+	private MaintenancePlanAddForm addForm;
+
+	private MaintenancePlanSelectionListener maintenancePlanSelectionListener = new MaintenancePlanSelectionListener() {
+
+		@Override
+		public void select(MaintenancePlan maintenancePlan) {
+			// TODO ADD BEHAVIOR WHEN A PLAN IS SELECTED
+		}
+	};
 
 	{
 		grid = new EiaTypeMaintenancePlanGrid();
 		grid.setMaintenancePlanFields();
-		searchForm = new MaintenancePlanSearchForm("Busqueda de Planes de Mantenimiento");
+		searchForm = new MaintenancePlanSearchForm(
+				GHAStrings.get("search-maintenance-plan"));
+		searchForm
+				.addMaintenancePlanSelectionListener(maintenancePlanSelectionListener);
+		addForm = new MaintenancePlanAddForm(
+				GHAStrings.get("new-maintenance-plan"));
+		addForm.addMaintenancePlanSelectionListener(maintenancePlanSelectionListener);
 	}
 
 	/**
@@ -53,58 +69,60 @@ public class EIATypeMaintenanceGridPanel extends GHAVerticalLayout implements
 	 */
 	public EIATypeMaintenanceGridPanel() {
 		super();
-		setStyleName("sides-padding padding-top");// Esto es VUDU!
-		setWidth100();
-		setBackgroundColor("#E0E0E0");
-
-		GHALabel title = new GHALabel(
-				"Planes de Mantenimiento asociados al tipo de equipo");
-		addMember(title);
-
-		VLayout sideButtons = GHAUiHelper.createBar(new GHANewButton(
+		GHALabel title = new GHALabel(GHAStrings.get("maintenance-plan"));
+		VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
 				new ClickHandler() {
+
 					@Override
 					public void onClick(ClickEvent event) {
-						searchForm.open();
+						Window.alert("search maintenance plan");
+
 					}
-				}), new GHAEditButton(new ClickHandler() {
+				}), new GHANewButton(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				// TODO Auto-generated method stub
+				Window.alert("new maintenance plan");
 
 			}
 		}), new GHADeleteButton(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				EiaTypeMaintenancePlan entity = grid.getSelectedEntity();
-				EiaTypeMaintenancePlanModel.delete(entity.getId(),
-						new GHAAsyncCallback<Void>() {
-
-							@Override
-							public void onSuccess(Void result) {
-								loadData();
-							}
-
-						});
+				Window.alert("delete maintenance plan");
 
 			}
-		}), GHAUiHelper.verticalGraySeparator("2px"), new GHAImgButton(
-				"../resources/icons/set.png", new ClickHandler() {
-					@Override
-					public void onClick(ClickEvent event) {
-						// mainenanceProtocolForm.animateShow(AnimationEffect.FLY);
-					}
-				}));
+		}));
 
 		HLayout mainPanel = new HLayout();
 		mainPanel.addMembers(grid, sideButtons);
 
-		addMembers(mainPanel);
+		addMembers(title, mainPanel);
+	}
 
-		// register as listener to the maintenance plan search form
-		this.searchForm.addMaintenancePlanSelectionListener(this);
+	@Override
+	public boolean canBeClosen(HideCloseAction hideAction) {
+		return true;
+	}
+
+	@Override
+	public boolean canBeHidden(HideCloseAction hideAction) {
+		return true;
+	}
+
+	@Override
+	public void close() {
+		hide();
+		searchForm.close();
+		addForm.close();
+	}
+
+	@Override
+	public void hide() {
+		if (searchForm.isVisible())
+			searchForm.hide();
+		if (addForm.isVisible())
+			addForm.hide();
 	}
 
 	private void loadData() {
@@ -121,16 +139,6 @@ public class EIATypeMaintenanceGridPanel extends GHAVerticalLayout implements
 				});
 	}
 
-	@Override
-	public void close() {
-		searchForm.close();
-	}
-
-	@Override
-	public void hide() {
-		searchForm.hide();
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -142,39 +150,6 @@ public class EIATypeMaintenanceGridPanel extends GHAVerticalLayout implements
 	public void select(EiaType eiaType) {
 		this.eiaType = eiaType;
 		loadData();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.
-	 * MaintenancePlanSelectionListener
-	 * #select(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
-	 */
-	@Override
-	public void select(MaintenancePlan maintenancePlan) {
-		final EiaTypeMaintenancePlan eiaTypeMaintenancePlan = new EiaTypeMaintenancePlan();
-		eiaTypeMaintenancePlan.setEiaType(this.eiaType);
-		eiaTypeMaintenancePlan.setMaintenancePlan(maintenancePlan);
-
-		EiaTypeMaintenancePlanModel.save(eiaTypeMaintenancePlan,
-				new GHAAsyncCallback<EiaTypeMaintenancePlan>() {
-
-					@Override
-					public void onSuccess(EiaTypeMaintenancePlan result) {
-						loadData();
-					}
-				});
-	}
-
-	@Override
-	public boolean canBeHidden(HideCloseAction hideAction) {
-		return true;
-	}
-
-	@Override
-	public boolean canBeClosen(HideCloseAction hideAction) {
-		return true;
 	}
 
 }
