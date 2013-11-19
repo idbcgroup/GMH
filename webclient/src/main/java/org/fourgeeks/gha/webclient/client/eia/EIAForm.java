@@ -119,8 +119,6 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 				changedHandler);
 		stateSelectItem.setDefaultValue(EiaStateEnum.CREATED.name());
 		stateSelectItem.setAllowEmptyValue(false);
-		acceptationDateItem = new GHADateItem("Fecha de Aceptación", true);
-		acceptationDateItem.addChangedHandler(changedHandler);
 		providers_TitleItem = new GHATitleTextItem("Proveedores", 3);
 		adqisitionProviderSelectItem = new GHASelectItem("Proveedor de Adq.",
 				true, changedHandler);
@@ -143,6 +141,9 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		receptionDateItem = new GHADateItem("Recepción", true);
 		receptionDateItem.addChangedHandler(changedHandler);
 
+		acceptationDateItem = new GHADateItem("Fecha de Aceptación", true);
+		acceptationDateItem.addChangedHandler(changedHandler);
+		
 		installationDateItem = new GHADateItem("Instalación", true);
 		installationDateItem.addChangedHandler(changedHandler);
 		purchaseInvoiceDateItem = new GHADateItem("Fecha de Factura", true);
@@ -781,17 +782,16 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		GHADynamicForm adquisicionForm = new GHADynamicForm(
 				GHAUiHelper.getSectionFormFormWidth(30), 4);
 
-		adquisicionForm.setItems(adquisition_TitleItem, purchaseDateItem,
-				receptionDateItem, installationDateItem,
-				installationProviderSelectItem, purchaseOrderNumTextItem,
-				purchaseInvoiceNumTextItem, purchaseInvoiceDateItem,
-				purchaseOrderDateItem, new GHASpacerItem(4),
-				realWarranty_TitleItem, realWarrantySinceSelectItem,
-				realWarrantyBeginDate, realWarrantyTimeTextItem,
-				realWarrantyPotSelectItem, new GHASpacerItem(4),
-				intermedWarranty_TitleItem, intWarrantySinceSelectItem,
-				intWarrantyBeginDate, intWarrantyTimeTextItem,
-				intWarrantyPotSelectItem);
+		adquisicionForm.setItems(
+				adquisition_TitleItem,
+				purchaseDateItem,receptionDateItem, installationDateItem,new GHASpacerItem(),
+				purchaseInvoiceNumTextItem,purchaseInvoiceDateItem,installationProviderSelectItem,new GHASpacerItem(),
+				purchaseOrderNumTextItem,purchaseOrderDateItem, acceptationDateItem,
+				new GHASpacerItem(),
+				realWarranty_TitleItem, 
+				realWarrantySinceSelectItem,realWarrantyBeginDate, realWarrantyTimeTextItem,realWarrantyPotSelectItem, 
+				intermedWarranty_TitleItem, 
+				intWarrantySinceSelectItem,intWarrantyBeginDate, intWarrantyTimeTextItem,intWarrantyPotSelectItem);
 
 		return adquisicionForm;
 	}
@@ -824,11 +824,12 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		GHADynamicForm equipoForm = new GHADynamicForm(
 				GHAUiHelper.getSectionFormFormWidth(30), 3);
 
-		equipoForm.setItems(information_TitleItem, eiaTypeSelectItem,
-				new GHASpacerItem(2), codeTextItem, serialTextItem,
-				fixedAssetIdTextItem, obuSelectItem, baseRoleSelectItem,
-				new GHASpacerItem(), acceptationDateItem, stateSelectItem,
-				new GHASpacerItem(), providers_TitleItem,
+		equipoForm.setItems(information_TitleItem,
+				eiaTypeSelectItem,new GHASpacerItem(2),
+				codeTextItem, serialTextItem,fixedAssetIdTextItem,
+				obuSelectItem, baseRoleSelectItem, stateSelectItem,
+				new GHASpacerItem(),
+				providers_TitleItem,
 				adqisitionProviderSelectItem, maintenanceProviderSelectItem);
 
 		return equipoForm;
