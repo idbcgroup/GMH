@@ -79,7 +79,13 @@ public abstract class GHAForm<T> extends GHAVerticalLayout implements
 	/**
 	 * undo the changes to the entity
 	 */
-	public abstract void undo();
+	public void undo() {
+		if (originalEntity == null)
+			clear();
+		else
+			this.set(originalEntity);
+		hasUnCommittedChanges = false;
+	}
 
 	/**
 	 * Update the entity providing a callback
@@ -100,7 +106,6 @@ public abstract class GHAForm<T> extends GHAVerticalLayout implements
 	@Override
 	public void hide() {
 		super.hide();
-		GHAUiHelper.removeGHAResizeHandler(this);
 	}
 
 	@Override

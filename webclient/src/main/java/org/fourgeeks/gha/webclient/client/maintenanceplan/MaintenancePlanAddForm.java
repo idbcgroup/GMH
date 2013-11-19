@@ -1,10 +1,12 @@
 package org.fourgeeks.gha.webclient.client.maintenanceplan;
 
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
+import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACloseButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAAddForm;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -13,8 +15,7 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class MaintenancePlanAddForm extends GHAAddForm<MaintenancePlan>
-		implements MaintenancePlanSelectionProducer,
-		MaintenancePlanSelectionListener {
+		implements MaintenancePlanSelectionProducer {
 	{
 		form = new MaintenancePlanForm();
 	}
@@ -42,37 +43,6 @@ public class MaintenancePlanAddForm extends GHAAddForm<MaintenancePlan>
 		addMember(gridPanel);
 	}
 
-	private void save() {
-		form.save();
-	}
-
-	// @Override
-	// public void show() {
-	// super.show();
-	// maintenancePlanForm.show();
-	// }
-	//
-	// @Override
-	// public void close() {
-	// maintenancePlanForm.destroy();
-	// destroy();
-	// }
-	//
-	// @Override
-	// public void open() {
-	// this.show();
-	// animateShow(AnimationEffect.FLY);
-	// }
-
-	// Producer/Consumer stuff
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.
-	 * MaintenancePlanSelectionProducer
-	 * #addMaintenancePlanSelectionListener(org.fourgeeks
-	 * .gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener)
-	 */
 	@Override
 	public void addMaintenancePlanSelectionListener(
 			MaintenancePlanSelectionListener maintenancePlanSelectionListener) {
@@ -80,14 +50,11 @@ public class MaintenancePlanAddForm extends GHAAddForm<MaintenancePlan>
 				.addMaintenancePlanSelectionListener(maintenancePlanSelectionListener);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.
-	 * MaintenancePlanSelectionProducer
-	 * #removeMaintenancePlanSelectionListener(org
-	 * .fourgeeks.gha.domain.gmh.MaintenancePlan)
-	 */
+	@Override
+	public void notifyMaintenancePlan(MaintenancePlan maintenancePlan) {
+		return;
+	}
+
 	@Override
 	public void removeMaintenancePlanSelectionListener(
 			MaintenancePlanSelectionListener maintenancePlanSelectionListener) {
@@ -95,23 +62,15 @@ public class MaintenancePlanAddForm extends GHAAddForm<MaintenancePlan>
 				.removeMaintenancePlanSelectionListener(maintenancePlanSelectionListener);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.
-	 * MaintenancePlanSelectionListener
-	 * #select(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
-	 */
-	@Override
-	public void select(MaintenancePlan maintenancePlan) {
-		// called when the maintenanceplanform finish saving new entity
-		cancel();
-	}
+	private void save() {
+		form.save(new GHAAsyncCallback<MaintenancePlan>() {
 
-	@Override
-	public void notifyMaintenancePlan(MaintenancePlan maintenancePlan) {
-		// TODO Auto-generated method stub
-
+			@Override
+			public void onSuccess(MaintenancePlan arg0) {
+				GHANotification.alert("maintenance-plan-save-success");
+				hide();
+			}
+		});
 	}
 
 }

@@ -91,7 +91,7 @@ public class MaintenancePlanInformationFormPanel extends GHAVerticalLayout
 
 	public void setMaintenancePlan(MaintenancePlan maintenancePlan) {
 		this.originalMaintenancePlan = maintenancePlan;
-		maintenancePlanForm.setMaintenancePlan(maintenancePlan);
+		maintenancePlanForm.set(maintenancePlan);
 		maintenancePlanForm.activateForm(true);
 	}
 
