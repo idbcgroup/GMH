@@ -4,65 +4,72 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
 
 import org.fourgeeks.gha.domain.enu.EiaDamagePriorityEnum;
 import org.fourgeeks.gha.domain.enu.EiaDamageStatusEnum;
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
-import org.fourgeeks.gha.domain.ess.Role;
-import org.fourgeeks.gha.domain.ess.WorkingArea;
 import org.fourgeeks.gha.domain.gar.Bpu;
-import org.fourgeeks.gha.domain.gar.Facility;
 import org.fourgeeks.gha.domain.gar.Obu;
-import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.domain.mix.Citizen;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHABpuSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHADateItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHAEiaStateSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHAExternalProviderSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHAFacilitySelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHAObuSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHARoleSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextAreaItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHATimeItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATitleTextItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHAWorkingAreaSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASectionForm;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
-import org.fourgeeks.gha.webclient.client.user.UserModel;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
-import com.smartgwt.client.widgets.form.fields.TimeItem;
-import com.smartgwt.client.widgets.form.fields.events.ChangeEvent;
-import com.smartgwt.client.widgets.form.fields.events.ChangeHandler;
 
 public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 		EIASelectionListener, EiaDamageReportSelectionProducer {
 	private GHATextItem codeTextItem, serialTextItem, fixedAssetIdTextItem,
-			workingAreaLocationCodeTextItem, facilityLocationCodeTextItem,
+			workingAreaLocationCodeTextItem, facilityCodeTextItem,
 			realWarrantyTimeTextItem, intWarrantyTimeTextItem;
-	private GHASelectItem obuSelectItem, baseRoleSelectItem, stateSelectItem,
-			adqisitionProviderSelectItem, locationTypeSelectItem,
-			workingAreaLocationSelectItem, facilityLocationSelectItem,
+	private GHAWorkingAreaSelectItem workingAreaSelectItem;
+	private GHAFacilitySelectItem facilitySelectItem;
+	private GHARoleSelectItem baseRoleSelectItem;
+	private GHAObuSelectItem obuSelectItem;
+	private GHAExternalProviderSelectItem adqisitionProviderSelectItem,
+			maintenanceProviderSelectItem;
+	private GHASelectItem stateSelectItem, locationTypeSelectItem,
 			realWarrantySinceSelectItem, realWarrantyPotSelectItem,
 			intWarrantyPotSelectItem, intWarrantySinceSelectItem,
-			maintenanceProviderSelectItem, eiaTypeSelectItem;
+			eiaTypeSelectItem;
 	private GHATitleTextItem information_TitleItem, location_TitleItem,
 			workingArea_TitleItem, facility_TitleItem, report_TitleItem,
 			realWarranty_TitleItem, intermedWarranty_TitleItem,
 			providers_TitleItem;
-	private GHADateItem acceptationDateItem, realWarrantyBeginDate,
-			intWarrantyBeginDate;
+	private GHADateItem realWarrantyBeginDate, intWarrantyBeginDate;
 	// datos del reporte
 	private GHADateItem damageDateItem;
-	private GHATextAreaItem damageMotiveTextItem;
-	private TimeItem damageTimeItem;
-	private GHASelectItem damageStatusSelectItem, damagePrioritySelectItem,
-			userWhoRegistedSelectItem, userWhoReportedSelectItem;
+	private GHATimeItem damageTimeItem;
+	private GHATextAreaItem damageMotiveTextAreaItem;
+	private GHABpuSelectItem userWhoRegistedSelectItem,
+			userWhoReportedSelectItem;
+	private GHASelectItem damageStatusSelectItem, damagePrioritySelectItem;
 
 	private GHASectionForm sectionForm;
 	private GHADynamicForm infoBasicaForm;
@@ -78,97 +85,76 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 		listeners = new ArrayList<EiaDamageReportSelectionListener>();
 
 		// report data Form Items
+		report_TitleItem = new GHATitleTextItem(
+				"Datos del Reporte de Equipo Dañado:", 3);
 		damageDateItem = new GHADateItem("Fecha del daño o falla",
 				changedHandler);
-		damageDateItem.setRequired(true);
-		damageTimeItem = new TimeItem();
-		damageTimeItem.setTitle("Hora del daño o falla");
-		damageDateItem.setRequired(true);
+		damageTimeItem = new GHATimeItem("Hora del daño o falla",
+				changedHandler);
 		damageStatusSelectItem = new GHASelectItem("Estatus", true,
 				changedHandler);
 		damagePrioritySelectItem = new GHASelectItem("Prioridad", true,
 				changedHandler);
-		userWhoReportedSelectItem = new GHASelectItem("Usuario que lo reportó",
-				true, changedHandler);
-		userWhoRegistedSelectItem = new GHASelectItem(
+		userWhoReportedSelectItem = new GHABpuSelectItem(
+				"Usuario que lo reportó", true, changedHandler);
+		userWhoRegistedSelectItem = new GHABpuSelectItem(
 				"Usuario que lo registró", true, changedHandler);
-		damageMotiveTextItem = new GHATextAreaItem("Motivo del daño o falla",
-				changedHandler);
-		damageMotiveTextItem.setColSpan(2);
+		damageMotiveTextAreaItem = new GHATextAreaItem(
+				"Motivo del daño o falla", changedHandler);
+		damageMotiveTextAreaItem.setColSpan(2);
 
 		// Information Form Items
-		eiaTypeSelectItem = new GHASelectItem("Tipo", false, changedHandler);
+		eiaTypeSelectItem = new GHASelectItem("Tipo", false);
 		information_TitleItem = new GHATitleTextItem("Información:", 3);
-		codeTextItem = new GHATextItem("Código", false, changedHandler);
+		codeTextItem = new GHATextItem("Código", false);
 		codeTextItem.setLength(20);
-		serialTextItem = new GHATextItem("Serial", false, changedHandler);
+		serialTextItem = new GHATextItem("Serial", false);
 		serialTextItem.setLength(20);
-		fixedAssetIdTextItem = new GHATextItem("Id Activo Fijo", false,
-				changedHandler);
+		fixedAssetIdTextItem = new GHATextItem("Id Activo Fijo", false);
 		fixedAssetIdTextItem.setLength(19);
-		obuSelectItem = new GHASelectItem("Departamento Responsable", false,
-				changedHandler);
-		baseRoleSelectItem = new GHASelectItem("Rol Responsable", false,
-				changedHandler);
-		stateSelectItem = new GHASelectItem("Estado Equipo", false,
-				changedHandler);
-		stateSelectItem.setDefaultValue(EiaStateEnum.CREATED.name());
-		stateSelectItem.setAllowEmptyValue(false);
-		acceptationDateItem = new GHADateItem("Fecha de Aceptación", false);
-		acceptationDateItem.addChangedHandler(changedHandler);
+		obuSelectItem = new GHAObuSelectItem();
+		obuSelectItem.setDisabled(true);
+		baseRoleSelectItem = new GHARoleSelectItem();
+		baseRoleSelectItem.setDisabled(true);
+		stateSelectItem = new GHAEiaStateSelectItem();
 		providers_TitleItem = new GHATitleTextItem("Proveedores", 3);
-		adqisitionProviderSelectItem = new GHASelectItem("Proveedor de Adq.",
-				false, changedHandler);
-		maintenanceProviderSelectItem = new GHASelectItem("Proveedor de Mant.",
-				false, changedHandler);
+		adqisitionProviderSelectItem = new GHAExternalProviderSelectItem(
+				"Proveedor de Adq.", false);
+		maintenanceProviderSelectItem = new GHAExternalProviderSelectItem(
+				"Proveedor de Mant.", false);
 
 		// Garantias Form Items
-		// Garantia
 		realWarranty_TitleItem = new GHATitleTextItem("Garantía Real:", 4);
 		intermedWarranty_TitleItem = new GHATitleTextItem(
 				"Garantía del Intermediario:", 4);
-		realWarrantySinceSelectItem = new GHASelectItem("Desde", false,
-				changedHandler);
-		realWarrantyTimeTextItem = new GHATextItem("Duración", false,
-				changedHandler);
+		realWarrantySinceSelectItem = new GHASelectItem("Desde", false);
+		realWarrantyTimeTextItem = new GHATextItem("Duración", false);
 		realWarrantyTimeTextItem.setLength(3);
 		realWarrantyPotSelectItem = new GHASelectItem("Periodo de Tiempo",
-				false, changedHandler);
+				false);
 		realWarrantyBeginDate = new GHADateItem("Fecha Inicio", false);
-		realWarrantyBeginDate.addChangedHandler(changedHandler);
-
-		intWarrantySinceSelectItem = new GHASelectItem("Desde", false,
-				changedHandler);
-		intWarrantyTimeTextItem = new GHATextItem("Duración", false,
-				changedHandler);
+		intWarrantySinceSelectItem = new GHASelectItem("Desde", false);
+		intWarrantyTimeTextItem = new GHATextItem("Duración", false);
 		intWarrantyTimeTextItem.setLength(3);
-		intWarrantyPotSelectItem = new GHASelectItem("Periodo de Tiempo",
-				false, changedHandler);
-		intWarrantyBeginDate = new GHADateItem("Fecha Inicio", true);
-		intWarrantyBeginDate.addChangedHandler(changedHandler);
+		intWarrantyPotSelectItem = new GHASelectItem("Periodo de Tiempo", false);
+		intWarrantyBeginDate = new GHADateItem("Fecha Inicio", false);
 
 		// Ubicacion Form Items
 		location_TitleItem = new GHATitleTextItem("Ubicación:", 3);
 		locationTypeSelectItem = new GHASelectItem("Tipo de Ubicación", false,
 				changedHandler);
+		locationTypeSelectItem.setDisabled(true);
 
 		workingArea_TitleItem = new GHATitleTextItem("Área de Trabajo:", 3);
 		facility_TitleItem = new GHATitleTextItem("Servicio/Instalación:", 3);
+
 		workingAreaLocationCodeTextItem = new GHATextItem("Código", false);
-		workingAreaLocationSelectItem = new GHASelectItem("Nombre", false,
-				changedHandler);
-		workingAreaLocationSelectItem.setDisabled(true);
+		workingAreaSelectItem = new GHAWorkingAreaSelectItem("Nombre");
+		workingAreaSelectItem.setDisabled(true);
 
-		facilityLocationCodeTextItem = new GHATextItem("Código", false);
-		facilityLocationSelectItem = new GHASelectItem("Nombre", false,
-				changedHandler);
-		facilityLocationSelectItem.setDisabled(true);
-
-		// DamageReport Form Items
-		report_TitleItem = new GHATitleTextItem(
-				"Datos del Reporte de Equipo Dañado:", 4);
-
-		deactivate();
+		facilityCodeTextItem = new GHATextItem("Código", false);
+		facilitySelectItem = new GHAFacilitySelectItem("Nombre");
+		facilitySelectItem.setDisabled(true);
 	}
 
 	/**
@@ -194,14 +180,9 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 
 		// Fillers
 		fillInformationSelects();
-		fillAdquisitionSelects();
 		fillLocationTypeSelect();
-		fillLocationsSelects();
 		fillWarrantySelects();
 		fillReportDataSelects();
-
-		// Funcionalities
-		buildingLocFuncionalities();
 
 		sectionForm.openFirst();
 	}
@@ -217,41 +198,6 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 		listeners.add(eiaDamageReportSelectionListener);
 	}
 
-	// ///Funcionalities
-	private void buildingLocFuncionalities() {
-		workingAreaLocationSelectItem.addChangeHandler(new ChangeHandler() {
-			@Override
-			public void onChange(ChangeEvent event) {
-				workingAreaLocationCodeTextItem.setValue(event.getValue());
-			}
-		});
-
-		facilityLocationSelectItem.addChangeHandler(new ChangeHandler() {
-			@Override
-			public void onChange(ChangeEvent event) {
-				facilityLocationCodeTextItem.setValue(event.getValue());
-			}
-		});
-
-		locationTypeSelectItem.addChangeHandler(new ChangeHandler() {
-			@Override
-			public void onChange(ChangeEvent event) {
-				// type selected
-				if (event.getValue().equals("0")) {
-					workingAreaLocationSelectItem.setDisabled(false);
-					facilityLocationSelectItem.setDisabled(true);
-					facilityLocationSelectItem.clearValue();
-					facilityLocationCodeTextItem.clearValue();
-				} else if (event.getValue().equals("1")) {
-					facilityLocationSelectItem.setDisabled(false);
-					workingAreaLocationSelectItem.setDisabled(true);
-					workingAreaLocationSelectItem.clearValue();
-					workingAreaLocationCodeTextItem.clearValue();
-				}
-			}
-		});
-	}
-
 	@Override
 	public void clear() {
 		super.clear();
@@ -260,7 +206,7 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 		serialTextItem.clearValue();
 		serialTextItem.validate();
 		fixedAssetIdTextItem.clearValue();
-		facilityLocationCodeTextItem.clearValue();
+		facilityCodeTextItem.clearValue();
 		realWarrantyTimeTextItem.clearValue();
 		intWarrantyTimeTextItem.clearValue();
 
@@ -271,18 +217,16 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 		baseRoleSelectItem.clearValue();
 		adqisitionProviderSelectItem.clearValue();
 		locationTypeSelectItem.clearValue();
-		workingAreaLocationSelectItem.clearValue();
-		facilityLocationSelectItem.clearValue();
+		workingAreaSelectItem.clearValue();
+		facilitySelectItem.clearValue();
 		realWarrantySinceSelectItem.clearValue();
 		realWarrantyPotSelectItem.clearValue();
 		intWarrantySinceSelectItem.clearValue();
 		intWarrantyPotSelectItem.clearValue();
 		maintenanceProviderSelectItem.clearValue();
 
-		acceptationDateItem.clearValue();
 		realWarrantyBeginDate.clearValue();
 		intWarrantyBeginDate.clearValue();
-		acceptationDateItem.clearValue();
 
 		// report data items
 		damageDateItem.clearValue();
@@ -291,7 +235,7 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 		damagePrioritySelectItem.clearValue();
 		userWhoReportedSelectItem.clearValue();
 		userWhoRegistedSelectItem.clearValue();
-		damageMotiveTextItem.clearValue();
+		damageMotiveTextAreaItem.clearValue();
 	}
 
 	@Override
@@ -305,12 +249,16 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 		eia.setState(EiaStateEnum.DAMAGED);
 		eiaDamageReport.setEia(eia);
 
-		eiaDamageReport
-				.setDamageMotive(damageMotiveTextItem.getValueAsString());
-		eiaDamageReport.setDamageStatus(EiaDamageStatusEnum
-				.valueOf(damageStatusSelectItem.getValueAsString()));
-		eiaDamageReport.setPriority(EiaDamagePriorityEnum
-				.valueOf(damagePrioritySelectItem.getValueAsString()));
+		eiaDamageReport.setDamageMotive(damageMotiveTextAreaItem
+				.getValueAsString());
+
+		if (damageStatusSelectItem.getValueAsString() != null)
+			eiaDamageReport.setDamageStatus(EiaDamageStatusEnum
+					.valueOf(damageStatusSelectItem.getValueAsString()));
+
+		if (damagePrioritySelectItem.getValueAsString() != null)
+			eiaDamageReport.setPriority(EiaDamagePriorityEnum
+					.valueOf(damagePrioritySelectItem.getValueAsString()));
 
 		if (userWhoRegistedSelectItem.getValueAsString() != null) {
 			Bpu userWhoRegistered = new Bpu();
@@ -332,21 +280,18 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 		Date datetime = EiaDamageReportUtil.getDatetime(date, time);
 		eiaDamageReport.setDateTimeDamage(datetime);
 
-		return eiaDamageReport;
-	}
-
-	private void fillAdquisitionSelects() {
-		GHACache.INSTANCE
-				.getExternalProviders(new GHAAsyncCallback<List<ExternalProvider>>() {
-					@Override
-					public void onSuccess(List<ExternalProvider> result) {
-						LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-						for (ExternalProvider entity : result)
-							valueMap.put(entity.getId() + "", entity
-									.getInstitution().getName() + "");
-						adqisitionProviderSelectItem.setValueMap(valueMap);
-					}
-				});
+		// VALIDANDO LOS DATOS
+		Set<ConstraintViolation<EiaDamageReport>> violations = null;
+		violations = validator.validate(eiaDamageReport);
+		if (reportForm.validate() && violations.isEmpty())
+			return eiaDamageReport;
+		else {
+			List<String> violationsList = new ArrayList<String>();
+			for (ConstraintViolation<EiaDamageReport> violation : violations)
+				violationsList.add(violation.getMessage());
+			GHANotification.alert(violationsList);
+		}
+		return null;
 	}
 
 	// Fillers
@@ -373,49 +318,8 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 			}
 		});
 
-		GHACache.INSTANCE.getBaseRoles(new GHAAsyncCallback<List<Role>>() {
-			@Override
-			public void onSuccess(List<Role> result) {
-				LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-				for (Role entity : result)
-					valueMap.put(entity.getId() + "", entity.getName() + "");
-				baseRoleSelectItem.setValueMap(valueMap);
-			}
-		});
-
 		stateSelectItem.setValueMap(EiaStateEnum.toValueMap());
 		// stateSelectItem.setValue(EiaStateEnum.CREATED.name());
-	}
-
-	private void fillLocationsSelects() {
-		GHACache.INSTANCE
-				.getWorkingAreas(new GHAAsyncCallback<List<WorkingArea>>() {
-					@Override
-					public void onSuccess(List<WorkingArea> result) {
-						LinkedHashMap<String, String> valueMapWorkingArea = new LinkedHashMap<String, String>();
-
-						for (WorkingArea entity : result) {
-							valueMapWorkingArea.put(entity.getId() + "",
-									entity.getName());
-						}
-
-						workingAreaLocationSelectItem
-								.setValueMap(valueMapWorkingArea);
-					}
-				});
-		GHACache.INSTANCE.getFacilities(new GHAAsyncCallback<List<Facility>>() {
-			@Override
-			public void onSuccess(List<Facility> result) {
-				LinkedHashMap<String, String> valueMapFacility = new LinkedHashMap<String, String>();
-
-				for (Facility entity : result) {
-					valueMapFacility.put(entity.getId() + "", entity.getName());
-				}
-
-				facilityLocationSelectItem.setValueMap(valueMapFacility);
-			}
-		});
-
 	}
 
 	private void fillLocationTypeSelect() {
@@ -426,21 +330,6 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 	}
 
 	private void fillReportDataSelects() {
-		UserModel.getAll(new GHAAsyncCallback<List<Bpu>>() {
-			@Override
-			public void onSuccess(List<Bpu> result) {
-				LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-				for (Bpu bpu : result) {
-					Citizen citizen = bpu.getCitizen();
-					valueMap.put(bpu.getId() + "", citizen.getFirstName()
-							+ citizen.getFirstLastName());
-				}
-
-				userWhoRegistedSelectItem.setValueMap(valueMap);
-				userWhoReportedSelectItem.setValueMap(valueMap);
-			}
-		});
-
 		damageStatusSelectItem.setValueMap(EiaDamageStatusEnum.toValueMap());
 		damagePrioritySelectItem
 				.setValueMap(EiaDamagePriorityEnum.toValueMap());
@@ -457,32 +346,6 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 		intWarrantyPotSelectItem.setValueMap(TimePeriodEnum.toValueMap());
 		intWarrantyPotSelectItem.setValue(TimePeriodEnum.HOURS.name());
 
-		// GHACache.INSTANCE
-		// .getBuildingLocations(new GHAAsyncCallback<List<BuildingLocation>>()
-		// {
-		// @Override
-		// public void onSuccess(List<BuildingLocation> result) {
-		// LinkedHashMap<String, String> valueMap = new LinkedHashMap<String,
-		// String>();
-		// for (BuildingLocation entity : result)
-		// valueMap.put(entity.getCode() + "",
-		// entity.getName());
-		// maintenanceLocationSelectItem.setValueMap(valueMap);
-		// }
-		// });
-
-		GHACache.INSTANCE
-				.getExternalProviders(new GHAAsyncCallback<List<ExternalProvider>>() {
-					@Override
-					public void onSuccess(List<ExternalProvider> result) {
-						LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-						for (ExternalProvider entity : result) {
-							valueMap.put(entity.getId() + "", entity
-									.getInstitution().getName() + "");
-						}
-						maintenanceProviderSelectItem.setValueMap(valueMap);
-					}
-				});
 	}
 
 	/**
@@ -513,8 +376,7 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 		equipoForm.setItems(information_TitleItem, eiaTypeSelectItem,
 				new GHASpacerItem(2), codeTextItem, serialTextItem,
 				fixedAssetIdTextItem, obuSelectItem, baseRoleSelectItem,
-				new GHASpacerItem(), acceptationDateItem, stateSelectItem,
-				new GHASpacerItem(), providers_TitleItem,
+				stateSelectItem, new GHASpacerItem(), providers_TitleItem,
 				adqisitionProviderSelectItem, maintenanceProviderSelectItem);
 
 		return equipoForm;
@@ -524,17 +386,16 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 	 * @return
 	 */
 	private GHADynamicForm getReportForm() {
-		GHADynamicForm res = new GHADynamicForm(
-				GHAUiHelper.getSectionFormFormWidth(30), 4);
+		GHADynamicForm reportForm = new GHADynamicForm(
+				GHAUiHelper.getSectionFormFormWidth(30), 3);
 
-		res.setItems(report_TitleItem, damageStatusSelectItem,
-				damagePrioritySelectItem, new GHASpacerItem(2), damageDateItem,
-				damageTimeItem, new GHASpacerItem(2),
-				userWhoReportedSelectItem, userWhoRegistedSelectItem,
-				new GHASpacerItem(2), damageMotiveTextItem,
-				new GHASpacerItem(2));
+		reportForm.setItems(report_TitleItem, damageStatusSelectItem,
+				damagePrioritySelectItem, new GHASpacerItem(), damageDateItem,
+				damageTimeItem, new GHASpacerItem(), userWhoReportedSelectItem,
+				userWhoRegistedSelectItem, new GHASpacerItem(),
+				damageMotiveTextAreaItem, new GHASpacerItem());
 
-		return res;
+		return reportForm;
 	}
 
 	/**
@@ -546,9 +407,8 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 
 		areaForm.setItems(location_TitleItem, locationTypeSelectItem,
 				new GHASpacerItem(2), workingArea_TitleItem,
-				workingAreaLocationSelectItem, workingAreaLocationCodeTextItem,
-				facility_TitleItem, facilityLocationSelectItem,
-				facilityLocationCodeTextItem);
+				workingAreaSelectItem, workingAreaLocationCodeTextItem,
+				facility_TitleItem, facilitySelectItem, facilityCodeTextItem);
 		return areaForm;
 	}
 
@@ -569,7 +429,7 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 		infoBasicaForm.resize(GHAUiHelper.getSectionFormFormWidth(30), 3);
 		garantiasForm.resize(GHAUiHelper.getSectionFormFormWidth(30), 4);
 		ubicacionForm.resize(GHAUiHelper.getSectionFormFormWidth(30), 3);
-		reportForm.resize(GHAUiHelper.getSectionFormFormWidth(30), 4);
+		reportForm.resize(GHAUiHelper.getSectionFormFormWidth(30), 3);
 	}
 
 	public void openFirstSection() {
@@ -607,7 +467,6 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 		codeTextItem.setValue(eia.getCode());
 		serialTextItem.setValue(eia.getSerialNumber());
 		fixedAssetIdTextItem.setValue(eia.getFixedAssetIdentifier());
-		acceptationDateItem.setValue(eia.getAcceptationDate());
 
 		eiaTypeSelectItem.clearValue();
 		obuSelectItem.clearValue();
@@ -630,19 +489,18 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 			adqisitionProviderSelectItem.setValue(eia.getProvider().getId());
 
 		locationTypeSelectItem.clearValue();
-		workingAreaLocationSelectItem.clearValue();
-		facilityLocationSelectItem.clearValue();
+		workingAreaSelectItem.clearValue();
+		facilitySelectItem.clearValue();
 
 		if (eia.getWorkingArea() != null) {
-			workingAreaLocationSelectItem
-					.setValue(eia.getWorkingArea().getId());
+			workingAreaSelectItem.setValue(eia.getWorkingArea().getId());
 			workingAreaLocationCodeTextItem.setValue(eia.getWorkingArea()
 					.getId());
 			locationTypeSelectItem.setValue("0");
 		}
 		if (eia.getFacility() != null) {
-			facilityLocationSelectItem.setValue(eia.getFacility().getId());
-			facilityLocationCodeTextItem.setValue(eia.getFacility().getId());
+			facilitySelectItem.setValue(eia.getFacility().getId());
+			facilityCodeTextItem.setValue(eia.getFacility().getId());
 			locationTypeSelectItem.setValue("1");
 		}
 
@@ -690,33 +548,13 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 	}
 
 	private void toggleForm(boolean activate) {
-		codeTextItem.setDisabled(!activate);
-		serialTextItem.setDisabled(!activate);
-		fixedAssetIdTextItem.setDisabled(!activate);
-		workingAreaLocationCodeTextItem.setDisabled(!activate);
-		facilityLocationCodeTextItem.setDisabled(!activate);
-		realWarrantyTimeTextItem.setDisabled(!activate);
-		intWarrantyTimeTextItem.setDisabled(!activate);
-
-		// clean select fields
-		eiaTypeSelectItem.setDisabled(!activate);
-		obuSelectItem.setDisabled(!activate);
-		baseRoleSelectItem.setDisabled(!activate);
-		stateSelectItem.setDisabled(!activate);
-		adqisitionProviderSelectItem.setDisabled(!activate);
-		locationTypeSelectItem.setDisabled(!activate);
-		workingAreaLocationSelectItem.setDisabled(!activate);
-		facilityLocationSelectItem.setDisabled(!activate);
-		realWarrantySinceSelectItem.setDisabled(!activate);
-		realWarrantyPotSelectItem.setDisabled(!activate);
-		intWarrantySinceSelectItem.setDisabled(!activate);
-		intWarrantyPotSelectItem.setDisabled(!activate);
-		maintenanceProviderSelectItem.setDisabled(!activate);
-
-		acceptationDateItem.setDisabled(!activate);
-		realWarrantyBeginDate.setDisabled(!activate);
-		intWarrantyBeginDate.setDisabled(!activate);
-		acceptationDateItem.setDisabled(!activate);
+		damageDateItem.setDisabled(!activate);
+		damageTimeItem.setDisabled(!activate);
+		damageStatusSelectItem.setDisabled(!activate);
+		damagePrioritySelectItem.setDisabled(!activate);
+		userWhoReportedSelectItem.setDisabled(!activate);
+		userWhoRegistedSelectItem.setDisabled(!activate);
+		damageMotiveTextAreaItem.setDisabled(!activate);
 	}
 
 	@Override

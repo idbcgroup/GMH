@@ -15,7 +15,7 @@ import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
  * 
  */
 public class GHAFacilitySelectItem extends GHASelectItem {
-	
+
 	/**
 	 * 
 	 */
@@ -23,7 +23,12 @@ public class GHAFacilitySelectItem extends GHASelectItem {
 		super(GHAStrings.get("facility-select-item"));
 		fill();
 	}
-	
+
+	public GHAFacilitySelectItem(String title) {
+		super(title);
+		fill();
+	}
+
 	/**
 	 * @param width
 	 */
@@ -51,14 +56,13 @@ public class GHAFacilitySelectItem extends GHASelectItem {
 	 * @param required
 	 * @param changedHandler
 	 */
-	public GHAFacilitySelectItem(boolean required,
-			ChangedHandler changedHandler) {
+	public GHAFacilitySelectItem(boolean required, ChangedHandler changedHandler) {
 		super(GHAStrings.get("facility-select-item"));
 		setRequired(required);
 		addChangedHandler(changedHandler);
 		fill();
 	}
-	
+
 	public void fill() {
 		GHACache.INSTANCE.getFacilities(new GHAAsyncCallback<List<Facility>>() {
 

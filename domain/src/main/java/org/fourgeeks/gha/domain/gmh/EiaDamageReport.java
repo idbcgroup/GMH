@@ -7,6 +7,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.validation.constraints.NotNull;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.EiaDamagePriorityEnum;
@@ -24,6 +25,7 @@ public class EiaDamageReport extends AbstractEntity {
 	private Eia eia;
 
 	/** Estatus del daño: Equipo con falla, Equipo dañado */
+	@NotNull(message = "Debe seleccionar un estado para el equipo dañado o con falla")
 	private EiaDamageStatusEnum damageStatus;
 
 	/** Motivo del daño */
@@ -33,16 +35,19 @@ public class EiaDamageReport extends AbstractEntity {
 	private Date dateTimeDamage;
 
 	/** Persona que reportó la falla o daño */
+	@NotNull(message = "Debe seleccionar el usuario que reporto la falla o daño")
 	@ManyToOne
 	@JoinColumn(name = "userWhoReportedFk", nullable = false)
 	private Bpu userWhoReported;
 
 	/** Persona que hizo el registro de la falla o daño */
+	@NotNull(message = "Debe seleccionar el usuario que registró la falla o daño")
 	@ManyToOne
 	@JoinColumn(name = "userWhoRegisteredFk", nullable = false)
 	private Bpu userWhoRegistered;
 
 	/** Prioridad del daño o falla: Normal, Alta */
+	@NotNull(message = "Debe seleccionar una prioridad para el equipo dañado o con falla")
 	private EiaDamagePriorityEnum priority;
 
 	public EiaDamageReport() {

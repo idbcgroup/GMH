@@ -23,6 +23,12 @@ public class GHADateItem extends DateItem {
 		setTitleStyle("input-title");
 	}
 
+	public GHADateItem(int width) {
+		this();
+		setShowTitle(false);
+		setWidth(width);
+	}
+
 	/**
 	 * TODO
 	 * 
@@ -31,6 +37,11 @@ public class GHADateItem extends DateItem {
 	public GHADateItem(String title) {
 		this();
 		setTitle(title);
+	}
+
+	public GHADateItem(String title, boolean active) {
+		this(title);
+		setDisabled(!active);
 	}
 
 	/**
@@ -47,20 +58,9 @@ public class GHADateItem extends DateItem {
 		setWidth(width);
 	}
 
-	public GHADateItem(int width) {
-		this();
-		setShowTitle(false);
-		setWidth(width);
-	}
-
 	public GHADateItem(String title, int width, boolean active) {
 		this(title);
 		setWidth(width);
-		setDisabled(!active);
-	}
-
-	public GHADateItem(String title, boolean active) {
-		this(title);
 		setDisabled(!active);
 	}
 

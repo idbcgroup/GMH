@@ -11,7 +11,6 @@ import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.ejb.gmh.EiaDamageReportServiceRemote;
-import org.fourgeeks.gha.ejb.gmh.EiaServiceRemote;
 import org.fourgeeks.gha.webclient.client.eiadamagereport.GWTEiaDamageReportService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -27,9 +26,6 @@ public class GWTEiaDamageReportServiceImpl extends RemoteServiceServlet
 
 	@EJB(name = "gmh.EiaDamageReportService")
 	EiaDamageReportServiceRemote serviceRemote;
-
-	@EJB(name = "gmh.EiaService")
-	EiaServiceRemote eiaServiceRemote;
 
 	@Override
 	public boolean delete(long Id) throws GHAEJBException {
@@ -55,7 +51,6 @@ public class GWTEiaDamageReportServiceImpl extends RemoteServiceServlet
 	@Override
 	public EiaDamageReport save(EiaDamageReport eiaDamageReport)
 			throws GHAEJBException {
-		eiaServiceRemote.update(eiaDamageReport.getEia());
 		EiaDamageReport savedDamageReport = serviceRemote.save(eiaDamageReport);
 		return savedDamageReport;
 	}
