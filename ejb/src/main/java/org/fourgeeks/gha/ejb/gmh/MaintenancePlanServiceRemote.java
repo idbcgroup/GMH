@@ -23,6 +23,11 @@ public interface MaintenancePlanServiceRemote {
 	 * @throws GHAEJBException
 	 */
 	public void delete(long Id) throws GHAEJBException;
+	/**
+	 * Delete a Maintenance Plan's list from database
+	 * @throws GHAEJBException
+	 */
+	public void delete(List<MaintenancePlan> maintenancePlans) throws GHAEJBException;
 
 	/**
 	 * @param eiaType

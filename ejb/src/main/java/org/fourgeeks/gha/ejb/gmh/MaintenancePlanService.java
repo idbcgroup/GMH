@@ -90,6 +90,16 @@ public class MaintenancePlanService extends GHAEJBExceptionImpl implements
 					RuntimeParameters.getLang(), em);
 		}
 	}
+	/*
+ 	* (non-Javadoc)
+ 	* @see org.fourgeeks.gha.ejb.gmh.MaintenancePlanServiceRemote#delete(java.util.List)
+ 	*/
+	@Override
+	public void delete(List<MaintenancePlan> maintenancePlans)
+			throws GHAEJBException {
+		// TODO Auto-generated method stub
+		
+	}
 
 	/*
 	 * (non-Javadoc)
