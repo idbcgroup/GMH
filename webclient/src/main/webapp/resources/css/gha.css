@@ -299,27 +299,13 @@ input[type=text].round,input[type=password].round {
 	font-size: small !important;
 }
 
-.tabButtonTopSelected {
-	background-color: #F4F4F4 !important;
-	background-image: none;
-	color: #000000 !important;
-	padding: 3px 7px !important;
-	font-size: small !important;
-}
-
-.tabButtonTopDown {
-	color: #000000 !important;
-	padding: 3px 7px !important;
-	font-size: small !important;
-}
-
-.tabButtonTopOver {
+.tabButtonTopDown, .tabButtonTopOver {
 	color: #00A0F6 !important;
 	padding: 3px 7px !important;
 	font-size: small !important;
 }
 
-.tabButtonTopSelectedOver {
+.tabButtonTopSelected, .tabButtonTopSelectedOver, .tabButtonTopSelectedDown  {
 	background-color: #F4F4F4 !important;
 	background-image: none;
 	color: #00A0F6 !important;

@@ -64,8 +64,8 @@ public abstract class GHAUiHelper {
 	private static final int MENU_BAR_HEIGTH = 30;
 
 	// NO ESTAN TOTALMENTE MEDIDAS CON LA INTERFAZ
-	private static final int MIN_TAB_HEIGHT = 500;
-	private static final int MIN_BOTTOM_SECTION_HEIGHT = 260;
+	private static final int MIN_TAB_HEIGHT = 400;
+	private static final int MIN_BOTTOM_SECTION_HEIGHT = 250;
 
 	// NO ESTAN TOTALMENTE MEDIDAS CON LA INTERFAZ
 
@@ -132,8 +132,7 @@ public abstract class GHAUiHelper {
 	 */
 	public static int getBottomSectionHeight() {
 		int biggerTabHeight = getTabHeight();
-		int innerTopSection = DEFAULT_INNER_TOP_SECTION_HEIGHT
-				+ V_SEPARATOR_HEIGHT;
+		int innerTopSection = DEFAULT_INNER_TOP_SECTION_HEIGHT + V_SEPARATOR_HEIGHT;
 
 		int ret = biggerTabHeight - innerTopSection;
 		if (ret < MIN_BOTTOM_SECTION_HEIGHT) {
