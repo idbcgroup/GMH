@@ -111,15 +111,12 @@ public class EiaDamageReportService extends GHAEJBExceptionImpl implements
 		Eia eia = eiaDamageReport.getEia();
 
 		try {
-			em.getTransaction().begin();
 			em.merge(eia);
 			em.persist(eiaDamageReport);
-			em.getTransaction().commit();
-
 			em.flush();
+			
 			return em.find(EiaDamageReport.class, eiaDamageReport.getId());
 		} catch (Exception e) {
-			em.getTransaction().rollback();
 
 			logger.log(Level.INFO, "ERROR: saving eiaDamageReport ", e);
 			throw super.generateGHAEJBException("eia-save-fail",
