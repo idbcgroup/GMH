@@ -11,17 +11,17 @@ import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.GHAUtil;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHACodeItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACancelButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASearchForm;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
-import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
-import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
@@ -37,19 +37,18 @@ public class MaterialSearchForm extends GHASearchForm<Material> implements
 			modelTextItem, extCodeTextItem;
 	protected MaterialTypeEnum fixedMaterial = MaterialTypeEnum.MATERIAL;
 	private MaterialResultSet resultSet = new MaterialResultSet();
-	private final DynamicForm form = new DynamicForm();
+	private final GHADynamicForm form;
 
 	{
 		//
-		codeTextItem = new GHACodeItem(300);
-		nameTextItem = new GHATextItem(GHAStrings.get("name"), 300);
-		modelTextItem = new GHATextItem(GHAStrings.get("model"), 300);
-		extCodeTextItem = new GHATextItem(GHAStrings.get("external-code"), 300);
-		descriptionTextItem = new GHATextItem(GHAStrings.get("description"),
-				600);
+		codeTextItem = new GHACodeItem();
+		nameTextItem = new GHATextItem(GHAStrings.get("name"));
+		modelTextItem = new GHATextItem(GHAStrings.get("model"));
+		extCodeTextItem = new GHATextItem(GHAStrings.get("external-code"));
+		descriptionTextItem = new GHATextItem(GHAStrings.get("description"));
 		descriptionTextItem.setColSpan(2);
 		// selects
-		// typeSelectItem = new GHASelectItem(GHAStrings.get("type"), 300);
+		// typeSelectItem = new GHASelectItem(GHAStrings.get("type"));
 		resultSet.addMaterialSelectionListener(new MaterialSelectionListener() {
 
 			@Override
@@ -57,6 +56,7 @@ public class MaterialSearchForm extends GHASearchForm<Material> implements
 				hide();
 			}
 		});
+		form = new GHADynamicForm(GHAUiHelper.getNormalFormWidth(30),4);
 	}
 
 	/**
@@ -65,9 +65,7 @@ public class MaterialSearchForm extends GHASearchForm<Material> implements
 	public MaterialSearchForm(String title) {
 		super(title);
 
-		form.setTitleOrientation(TitleOrientation.TOP);
-		form.setNumCols(3);
-		form.setItems(codeTextItem, nameTextItem, modelTextItem,
+		form.setItems(codeTextItem, nameTextItem, modelTextItem, new GHASpacerItem(),
 				extCodeTextItem, descriptionTextItem);
 
 		codeTextItem.addKeyUpHandler(searchKeyUpHandler);
@@ -133,6 +131,7 @@ public class MaterialSearchForm extends GHASearchForm<Material> implements
 	@Override
 	public void onResize(ResizeEvent event) {
 		super.onResize(event);
+		form.resize(GHAUiHelper.getNormalFormWidth(30),4);
 		resultSet.setHeight(resultSet.getHeight() - 35);
 	}
 
