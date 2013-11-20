@@ -71,7 +71,7 @@ public class EIATypeMaintenanceGridPanel extends GHAVerticalLayout implements
 		grid = new EiaTypeMaintenancePlanGrid();
 		grid.setMaintenancePlanFields();
 		searchForm = new MaintenancePlanSearchForm(
-				GHAStrings.get("search-maintenance-plan"));
+				GHAStrings.get("maintenance-plan"));
 		searchForm
 				.addMaintenancePlanSelectionListener(maintenancePlanSelectionListener);
 		addForm = new MaintenancePlanAddForm(
