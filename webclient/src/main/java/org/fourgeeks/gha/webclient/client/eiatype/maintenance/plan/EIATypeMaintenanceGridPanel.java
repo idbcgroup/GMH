@@ -1,5 +1,6 @@
 package org.fourgeeks.gha.webclient.client.eiatype.maintenance.plan;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
@@ -15,6 +16,7 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanAddForm;
@@ -25,7 +27,7 @@ import org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype.EiaTy
 import org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype.EiaTypeMaintenancePlanRecord;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype.EiaTypeMaintenancePlanUtil;
 
-import com.google.gwt.user.client.Window;
+import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
@@ -48,7 +50,20 @@ public class EIATypeMaintenanceGridPanel extends GHAVerticalLayout implements
 
 		@Override
 		public void select(MaintenancePlan maintenancePlan) {
-			// TODO ADD BEHAVIOR WHEN A PLAN IS SELECTED
+			EIATypeMaintenanceGridPanel.this.searchForm.clean();
+
+			EiaTypeMaintenancePlan entity = new EiaTypeMaintenancePlan();
+
+			entity.setEiaType(EIATypeMaintenanceGridPanel.this.eiaType);
+			entity.setMaintenancePlan(maintenancePlan);
+			EiaTypeMaintenancePlanModel.save(entity,
+					new GHAAsyncCallback<EiaTypeMaintenancePlan>() {
+
+						@Override
+						public void onSuccess(EiaTypeMaintenancePlan result) {
+							loadData();
+						}
+					});
 		}
 	};
 
@@ -75,21 +90,21 @@ public class EIATypeMaintenanceGridPanel extends GHAVerticalLayout implements
 
 					@Override
 					public void onClick(ClickEvent event) {
-						Window.alert("search maintenance plan");
+						search();
 
 					}
 				}), new GHANewButton(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				Window.alert("new maintenance plan");
+				addForm.open();
 
 			}
 		}), new GHADeleteButton(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				Window.alert("delete maintenance plan");
+				delete();
 
 			}
 		}));
@@ -117,6 +132,33 @@ public class EIATypeMaintenanceGridPanel extends GHAVerticalLayout implements
 		addForm.close();
 	}
 
+	private void delete() {
+		final EiaTypeMaintenancePlan entity = grid.getSelectedEntity();
+		if (entity == null) {
+			GHANotification.alert("record-not-selected");
+			return;
+		}
+		GHANotification.confirm(GHAStrings.get("maintenance-plan"),
+				GHAStrings.get("eiatype-maintenance-plan-delete-confirm"),
+				new BooleanCallback() {
+
+					@Override
+					public void execute(Boolean value) {
+						if (value) {
+							EiaTypeMaintenancePlanModel.delete(entity.getId(),
+									new GHAAsyncCallback<Void>() {
+
+										@Override
+										public void onSuccess(Void result) {
+											grid.removeSelectedData();
+										}
+									});
+						}
+
+					}
+				});
+	}
+
 	@Override
 	public void hide() {
 		if (searchForm.isVisible())
@@ -139,13 +181,20 @@ public class EIATypeMaintenanceGridPanel extends GHAVerticalLayout implements
 				});
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener#select
-	 * (org.fourgeeks.gha.domain.gmh.EiaType)
-	 */
+	private void search() {
+		ListGridRecord records[] = grid.getRecords();
+		List<MaintenancePlan> blackList = null;
+		if (records.length != 0) {
+			blackList = new ArrayList<MaintenancePlan>();
+			for (int i = 0; i < records.length; ++i) {
+				blackList.add(((EiaTypeMaintenancePlanRecord) records[i])
+						.toEntity().getMaintenancePlan());
+			}
+		}
+		searchForm.filterBy(blackList);
+		searchForm.open();
+	}
+
 	@Override
 	public void select(EiaType eiaType) {
 		this.eiaType = eiaType;

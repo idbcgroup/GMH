@@ -55,7 +55,7 @@ public class EIATypeInternalTabSet extends GHAInternalTabSet implements
 		addTab(partsSubTab);
 		addTab(materialSubTab);
 		addTab(servicesSubTab);
-		// addTab(maintenanceSubTab);
+		addTab(maintenanceSubTab);
 	}
 
 	@Override

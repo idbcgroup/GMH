@@ -24,5 +24,6 @@ public class EIATypeMaintenanceSubTab extends GHASubTab {
 		addHideableListener(eiaTypeMaintenanceGridPanel);
 
 		setPane(eiaTypeMaintenanceGridPanel);
+		tab.addEiaTypeSelectionListener(eiaTypeMaintenanceGridPanel);
 	}
 }

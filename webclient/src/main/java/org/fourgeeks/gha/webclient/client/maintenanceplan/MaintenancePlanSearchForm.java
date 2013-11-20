@@ -1,63 +1,63 @@
 package org.fourgeeks.gha.webclient.client.maintenanceplan;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
+import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.GHAUtil;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
-import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHACancelButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASearchForm;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
-import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
-import com.smartgwt.client.widgets.form.fields.events.KeyUpEvent;
-import com.smartgwt.client.widgets.form.fields.events.KeyUpHandler;
-import com.smartgwt.client.widgets.grid.ListGridRecord;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
- * @author alacret
+ * @author alacret, emiliot
  * 
  */
-public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan> implements
-		MaintenancePlanSelectionListener, MaintenancePlanSelectionProducer, ResizeHandler {
+public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan>
+		implements MaintenancePlanSelectionListener,
+		MaintenancePlanSelectionProducer {
 
-	private MaintenancePlanGrid grid;
 	private GHATextItem nameItem, descriptionItem, frequencyItem;
 	private GHASelectItem periodOfTimeSelectItem;
 
+	private MaintenancePlanResultSet resultSet = new MaintenancePlanResultSet();
 	private final GHADynamicForm form;
-	private MaintenancePlanAddForm addForm;
-	private List<MaintenancePlanSelectionListener> listeners;
-
 	{
-		form = new GHADynamicForm(GHAUiHelper.getNormalFormWidth(30),3);
-		
-		listeners = new LinkedList<MaintenancePlanSelectionListener>();
-		
-		nameItem = new GHATextItem("Nombre");
-		nameItem.setLength(100);
-		frequencyItem = new GHATextItem("Frecuencia");
-		periodOfTimeSelectItem = new GHASelectItem("Periodo de Tiempo");
-		descriptionItem = new GHATextItem("Descripción");
-		descriptionItem.setColSpan(3);
-		
-		grid = new MaintenancePlanGrid();
+		form = new GHADynamicForm(GHAUiHelper.getNormalFormWidth(30), 3);
 
-		addForm = new MaintenancePlanAddForm("Nuevo Plan de Mantenimiento");
+		nameItem = new GHATextItem(GHAStrings.get("name"));
+		nameItem.setLength(100);
+		frequencyItem = new GHATextItem(GHAStrings.get("frequency"));
+		periodOfTimeSelectItem = new GHASelectItem(
+				GHAStrings.get("time-period"));
+		descriptionItem = new GHATextItem(GHAStrings.get("description"));
+		descriptionItem.setColSpan(3);
+
+		resultSet
+				.addMaintenancePlanSelectionListener(new MaintenancePlanSelectionListener() {
+
+					@Override
+					public void select(MaintenancePlan maintenancePlan) {
+						hide();
+					}
+				});
 	}
 
 	/**
@@ -65,92 +65,90 @@ public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan> im
 	 */
 	public MaintenancePlanSearchForm(String title) {
 		super(title);
-		GHAUiHelper.addGHAResizeHandler(this);
-		form.setItems(nameItem, frequencyItem, periodOfTimeSelectItem,new GHASpacerItem(),
-					  descriptionItem);
 
-		// Event Handlers
-		ClickHandler searchClickHandler = new ClickHandler() {
+		form.setItems(nameItem, frequencyItem, periodOfTimeSelectItem,
+				new GHASpacerItem(), descriptionItem);
 
-			@Override
-			public void onClick(ClickEvent event) {
-				search();
-			}
-		};
-		KeyUpHandler searchKeyUpHandler = new KeyUpHandler() {
-
-			@Override
-			public void onKeyUp(KeyUpEvent event) {
-				if (event.getKeyName().equals("Enter")) {
-					search();
-				}
-			}
-		};
 		nameItem.addKeyUpHandler(searchKeyUpHandler);
 		frequencyItem.addKeyUpHandler(searchKeyUpHandler);
 		periodOfTimeSelectItem.addKeyUpHandler(searchKeyUpHandler);
 
-		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
-				"../resources/icons/search.png", searchClickHandler),
-				new GHAImgButton("../resources/icons/clean.png",
-						new ClickHandler() {
+		VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
+				searchClickHandler), new GHACleanButton(new ClickHandler() {
 
-							@Override
-							public void onClick(ClickEvent event) {
-								form.clearValues();
-								grid.setData(new ListGridRecord[0]);
-							}
-						}), new GHAImgButton("../resources/icons/cancel.png",
-						new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				clean();
 
-							@Override
-							public void onClick(ClickEvent event) {
-								hide();
-							}
-						}));
+			}
+		}), new GHACancelButton(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				hide();
+			}
+		}));
 
 		HLayout formLayout = new HLayout();
 		formLayout.setPadding(10);
 		formLayout.setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT
 				+ "px");
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
+		resultSet.setHeight(resultSet.getHeight() - 28);
 
 		addMembers(formLayout,
 				GHAUiHelper
 						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
-								+ "px"));
+								+ "px"), resultSet);
 
-		HLayout gridLayout = new HLayout();
-		gridLayout.setPadding(10);
-
-		VLayout sideGridButtons = GHAUiHelper.createBar(new GHAImgButton(
-				"../resources/icons/check.png", new ClickHandler() {
-
-					@Override
-					public void onClick(ClickEvent event) {
-						selectMaintenancePlan();
-					}
-				}), GHAUiHelper.verticalGraySeparator("2px"), new GHAImgButton(
-				"../resources/icons/new.png", new ClickHandler() {
-
-					@Override
-					public void onClick(ClickEvent event) {
-						addForm.open();
-					}
-				}));
-
-		gridLayout.addMembers(grid, sideGridButtons);
-		addMember(gridLayout);
-		fillExtras();
-
-		// register as listener to the addForm producer
-		addForm.addMaintenancePlanSelectionListener(this);
+		fillSelects();
 	}
 
-	private void fillExtras() {
+	@Override
+	public void addMaintenancePlanSelectionListener(
+			MaintenancePlanSelectionListener maintenancePlanSelectionListener) {
+		resultSet
+				.addMaintenancePlanSelectionListener(maintenancePlanSelectionListener);
+
+	}
+
+	public void clean() {
+		form.clearValues();
+		resultSet.clean();
+	}
+
+	private void fillSelects() {
 		periodOfTimeSelectItem.setValueMap(TimePeriodEnum.toValueMap());
 	}
 
+	/**
+	 * @param maintenancePlan
+	 */
+	@Override
+	public void notifyMaintenancePlan(MaintenancePlan maintenancePlan) {
+	}
+
+	@Override
+	public void onResize(ResizeEvent event) {
+		super.onResize(event);
+		setHeight(GHAUiHelper.getTabHeight() - 4 + "px");
+		form.resize(GHAUiHelper.getNormalFormWidth(30), 3);
+	}
+
+	@Override
+	public void open() {
+		resultSet.setVisible(true);
+		super.open();
+	}
+
+	@Override
+	public void removeMaintenancePlanSelectionListener(
+			MaintenancePlanSelectionListener maintenancePlanSelectionListener) {
+		resultSet
+				.removeMaintenancePlanSelectionListener(maintenancePlanSelectionListener);
+	}
+
+	@Override
 	public void search() {
 		MaintenancePlan maintenancePlan = new MaintenancePlan();
 		if (nameItem.getValue() != null)
@@ -172,102 +170,24 @@ public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan> im
 
 					@Override
 					public void onSuccess(List<MaintenancePlan> result) {
-						ListGridRecord array[] = MaintenancePlanUtil
-								.toGridRecords(result).toArray(
-										new MaintenancePlanRecord[] {});
-						grid.setData(array);
+						List<MaintenancePlan> newList = null;
+						if (blackList != null) {
+							List<AbstractEntity> tmpList = GHAUtil
+									.binarySearchFilterEntity(result, blackList);
+							List<MaintenancePlan> newTmpList = new ArrayList<MaintenancePlan>();
+							for (AbstractEntity entity : tmpList)
+								newTmpList.add((MaintenancePlan) entity);
+							newList = newTmpList;
+						} else
+							newList = result;
 
-						// TODO: seleccionar un elemento si coincide exactamente
-						// con el de busqueda
+						resultSet.setRecords(newList, false);
 					}
 				});
 	}
 
 	@Override
-	public void close() {
-		addForm.destroy();
-		destroy();
-	}
-
-	@Override
-	public void hide() {
-		addForm.hide();
-		super.hide();
-	}
-
-	@Override
-	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getTabHeight() - 4 + "px");
-		form.resize(GHAUiHelper.getNormalFormWidth(30),3);
-	}
-
-	// Producer/Consumer Stuff
-	/**
-	 * @param maintenancePlan
-	 */
-	public void notifyMaintenancePlan(MaintenancePlan maintenancePlan) {
-		for (MaintenancePlanSelectionListener listener : listeners)
-			listener.select(maintenancePlan);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.
-	 * MaintenancePlanSelectionProducer
-	 * #addMaintenancePlanSelectionListener(org.fourgeeks
-	 * .gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener)
-	 */
-	@Override
-	public void addMaintenancePlanSelectionListener(
-			MaintenancePlanSelectionListener maintenancePlanSelectionListener) {
-		listeners.add(maintenancePlanSelectionListener);
-
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.
-	 * MaintenancePlanSelectionProducer
-	 * #removeMaintenancePlanSelectionListener(org
-	 * .fourgeeks.gha.webclient.client
-	 * .maintenanceplan.MaintenancePlanSelectionListener)
-	 */
-	@Override
-	public void removeMaintenancePlanSelectionListener(
-			MaintenancePlanSelectionListener maintenancePlanSelectionListener) {
-		listeners.remove(maintenancePlanSelectionListener);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.
-	 * MaintenancePlanSelectionListener
-	 * #select(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
-	 */
-	@Override
 	public void select(MaintenancePlan maintenancePlan) {
-		MaintenancePlanRecord gridRecord = MaintenancePlanUtil
-				.toGridRecord(maintenancePlan);
-		ListGridRecord array[] = { gridRecord };
-		grid.setData(array);
-		grid.selectRecord(gridRecord);
-	}
-
-	/**
-	 * 
-	 */
-	private void selectMaintenancePlan() {
-		GHAGridRecord<MaintenancePlan> selectedRecord = grid
-				.getSelectedRecord();
-		if (selectedRecord == null) {
-			GHANotification.oldAlert(GHAStrings.get("record-not-selected"));
-			return;
-		}
-		notifyMaintenancePlan(((MaintenancePlanRecord) selectedRecord)
-				.toEntity());
-		hide();
+		search(maintenancePlan);
 	}
 }
