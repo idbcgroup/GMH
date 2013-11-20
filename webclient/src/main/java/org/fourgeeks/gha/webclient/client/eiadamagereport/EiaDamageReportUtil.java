@@ -20,15 +20,12 @@ public class EiaDamageReportUtil {
 		return list;
 	}
 
-	public static Date getDatetime(Date date, Date time) {
+	public static Date getDatetime(LogicalDate date, LogicalTime time) {
 		if (date == null)
 			return null;
 
-		LogicalDate logicalDate = DateUtil.getLogicalDateOnly(date);
-		LogicalTime logicalTime = DateUtil.getLogicalTimeOnly(time);
-
-		Date datetime = (Date) DateUtil.combineLogicalDateAndTime(logicalDate,
-				logicalTime);
+		Date datetime = new Date(DateUtil.combineLogicalDateAndTime(date, time)
+				.getTime());
 
 		return datetime;
 	}

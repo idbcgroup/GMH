@@ -1,6 +1,7 @@
 package org.fourgeeks.gha.webclient.client.UI.formItems;
 
 import com.smartgwt.client.types.Alignment;
+import com.smartgwt.client.util.LogicalDate;
 import com.smartgwt.client.widgets.form.fields.DateItem;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 
@@ -67,6 +68,13 @@ public class GHADateItem extends DateItem {
 	@Override
 	public void setDisabled(Boolean disabled) {
 		super.setDisabled(disabled);
+	}
+
+	public LogicalDate getValueAsLogicalDate() {
+		Object value = getValue();
+		if (value != null)
+			return (LogicalDate) value;
+		return null;
 	}
 
 }

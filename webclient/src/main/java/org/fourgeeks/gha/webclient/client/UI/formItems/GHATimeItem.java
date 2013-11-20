@@ -1,6 +1,7 @@
 package org.fourgeeks.gha.webclient.client.UI.formItems;
 
 import com.smartgwt.client.types.TimeDisplayFormat;
+import com.smartgwt.client.util.LogicalTime;
 import com.smartgwt.client.widgets.form.fields.TextItem;
 import com.smartgwt.client.widgets.form.fields.TimeItem;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
@@ -47,5 +48,13 @@ public class GHATimeItem extends TimeItem {
 		this();
 		setTitle(title);
 		addChangedHandler(changeHandler);
+	}
+
+	public LogicalTime getValueAsLogicalTime() {
+		Object value = getValue();
+		if (value != null)
+			return (LogicalTime) value;
+
+		return null;
 	}
 }

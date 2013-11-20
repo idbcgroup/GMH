@@ -42,6 +42,8 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASectionForm;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.smartgwt.client.util.LogicalDate;
+import com.smartgwt.client.util.LogicalTime;
 
 public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 		EIASelectionListener, EiaDamageReportSelectionProducer {
@@ -117,6 +119,7 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 		baseRoleSelectItem = new GHARoleSelectItem();
 		baseRoleSelectItem.setDisabled(true);
 		stateSelectItem = new GHAEiaStateSelectItem();
+		stateSelectItem.setDisabled(true);
 		providers_TitleItem = new GHATitleTextItem("Proveedores", 3);
 		adqisitionProviderSelectItem = new GHAExternalProviderSelectItem(
 				"Proveedor de Adq.", false);
@@ -273,10 +276,8 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 			eiaDamageReport.setUserWhoReported(userWhoReported);
 		}
 
-		Date time = damageTimeItem.getValue() != null ? null
-				: (Date) damageTimeItem.getValue();
-		Date date = damageDateItem.getValue() != null ? null
-				: (Date) damageDateItem.getValueAsDate();
+		LogicalTime time = damageTimeItem.getValueAsLogicalTime();
+		LogicalDate date = damageDateItem.getValueAsLogicalDate();
 		Date datetime = EiaDamageReportUtil.getDatetime(date, time);
 		eiaDamageReport.setDateTimeDamage(datetime);
 
@@ -319,7 +320,6 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 		});
 
 		stateSelectItem.setValueMap(EiaStateEnum.toValueMap());
-		// stateSelectItem.setValue(EiaStateEnum.CREATED.name());
 	}
 
 	private void fillLocationTypeSelect() {
@@ -451,9 +451,12 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 						@Override
 						public void onSuccess(EiaDamageReport result) {
 							hasUnCommittedChanges = false;
+							notifyEiaDamageReport(result);
 							clear();
-							if (callback != null)
+							if (callback != null) {
 								callback.onSuccess(result);
+							}
+
 						}
 					});
 		}
