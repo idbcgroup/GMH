@@ -109,7 +109,6 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 
 		sideButtons = GHAUiHelper.createBar(searchButton, cleanButton);
 		addMembers(form, new LayoutSpacer(), sideButtons);
-		deactivate();
 	}
 
 	@Override
@@ -210,9 +209,8 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 		} else {
 			sideButtons.removeMember(deleteButton);
 			sideButtons.addMember(searchButton, 0);
-
 		}
-		activated = !false;
+		activated = !disabled;
 	}
 
 	public void deactivate() {
