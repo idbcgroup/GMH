@@ -5,6 +5,7 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAInternalTabSet;
 import org.fourgeeks.gha.webclient.client.eiatype.component.EIATypeComponentSubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.equipment.EIATypeEquipmentSubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.information.EIATypeInformationSubTab;
+import org.fourgeeks.gha.webclient.client.eiatype.maintenance.EIATypeMaintenanceSubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.material.EIATypeMaterialSubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.utility.EIATypeUtilitySubTab;
 
@@ -23,7 +24,7 @@ public class EIATypeInternalTabSet extends GHAInternalTabSet implements
 	private EIATypeMaterialSubTab materialSubTab;
 	private EIATypeUtilitySubTab servicesSubTab;
 
-	// private EIATypeMaintenanceSubTab maintenanceSubTab;
+	private EIATypeMaintenanceSubTab maintenanceSubTab;
 
 	/**
 	 * @param tab
@@ -45,16 +46,16 @@ public class EIATypeInternalTabSet extends GHAInternalTabSet implements
 		servicesSubTab = new EIATypeUtilitySubTab(tab);
 		hideables.add(servicesSubTab);
 		closables.add(servicesSubTab);
-		// maintenanceSubTab = new EIATypeMaintenanceSubTab(tab);
-		// hideables.add(maintenanceSubTab);
-		// closables.add(maintenanceSubTab);
+		maintenanceSubTab = new EIATypeMaintenanceSubTab(tab);
+		hideables.add(maintenanceSubTab);
+		closables.add(maintenanceSubTab);
 		// Agregando las Subtabs
 		addTab(infoSubTab);
 		addTab(equipementsSubTab);
 		addTab(partsSubTab);
 		addTab(materialSubTab);
 		addTab(servicesSubTab);
-		// addTab(maintenanceSubTab);
+		addTab(maintenanceSubTab);
 	}
 
 	@Override
