@@ -103,7 +103,7 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 				+ "px");
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
 
-		resultSet.setHeight(resultSet.getHeight() - 28);
+		resultSet.setHeight(resultSet.getHeight() - 35);
 
 		addMembers(formLayout,
 				GHAUiHelper

@@ -59,8 +59,6 @@ public class MaintenanceActivitySearchForm extends GHASearchForm<MaintenanceActi
 	 */
 	public MaintenanceActivitySearchForm(String title) {
 		super(title);
-		setTop(GHAUiHelper.getTopSpace());
-		setHeight(GHAUiHelper.getTabHeight() - 4 + "px");
 
 		final DynamicForm form = new DynamicForm();
 		form.setTitleOrientation(TitleOrientation.TOP);
@@ -186,7 +184,7 @@ public class MaintenanceActivitySearchForm extends GHASearchForm<MaintenanceActi
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getTabHeight() - 4 + "px");
+		super.onResize(event);
 	}
 
 	// Producer/Consumer stuff
