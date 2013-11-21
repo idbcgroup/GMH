@@ -30,6 +30,7 @@ ES,record-not-selected,Debe seleccionar un registro
 ES,frecuency-not-null,Debe indicar la frecuencia
 ES,time-period-not-null,Debe indicar el periodo de tiempo
 ES,eia-save-success,El equipo ha sido guardado exitosamente
+ES,eiaDamageReport-save-success,El Reporte de Equipo Dañado ha sido guardado exitosamente
 ES,maintenance-plan-save-success,El plan de mantenimiento ha sido guardado exitosamente
 ES,eiatype-save-success,El Tipo de Equipo ha sido guardado exitosamente
 ES,eiatype-delete-success,El tipo de equipo ha sido eliminado exitosamente
@@ -469,3 +470,7 @@ EN,systemInstance-save-fail,Failed to save SystemInstance
 EN,systemInstance-update-fail,Failed to update SystemInstance
 ES,message-find-fail,Búsqueda fallida de Message
 EN,message-find-fail,Failed to find Message
+ES,damageStatus-not-null,Debe indicar el estado del daño o falla
+ES,damagePriority-not-null,Debe indicar la prioridad del daño o falla
+ES,userWhoReported-not-null,Debe indicar el usuario que reportó el daño o falla
+ES,userWhoRegistered-not-null,Debe indicar el usuario que registró el daño o falla

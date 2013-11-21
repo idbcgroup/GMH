@@ -9,7 +9,7 @@ public class EIADamageReportSubTab extends GHASubTab {
 	private EiaDamageReportGridPanel damageReportPanel;
 
 	public EIADamageReportSubTab(EIATypeTab tab) {
-		super(GHAStrings.get("maintenance"), tab);
+		super(GHAStrings.get("eiaDamageReport"), tab);
 
 		damageReportPanel = new EiaDamageReportGridPanel();
 
@@ -19,6 +19,10 @@ public class EIADamageReportSubTab extends GHASubTab {
 		setPane(damageReportPanel);
 
 		tab.addEiaTypeSelectionListener(damageReportPanel);
+	}
+
+	public void show() {
+		damageReportPanel.show();
 	}
 
 }

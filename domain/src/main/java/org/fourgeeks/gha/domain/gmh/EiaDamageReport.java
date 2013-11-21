@@ -25,30 +25,30 @@ public class EiaDamageReport extends AbstractEntity {
 	private Eia eia;
 
 	/** Estatus del daño: Equipo con falla, Equipo dañado */
-	@NotNull(message = "Debe seleccionar un estado para el equipo dañado o con falla")
+	@NotNull(message = "damageStatus-not-null")
 	private EiaDamageStatusEnum damageStatus;
+
+	/** Prioridad del daño o falla: Normal, Alta */
+	@NotNull(message = "damagePriority-not-null")
+	private EiaDamagePriorityEnum priority;
+
+	/** Persona que reportó la falla o daño */
+	@ManyToOne
+	@NotNull(message = "userWhoReported-not-null")
+	@JoinColumn(name = "userWhoReportedFk", nullable = false)
+	private Bpu userWhoReported;
+
+	/** Persona que hizo el registro de la falla o daño */
+	@ManyToOne
+	@NotNull(message = "userWhoRegistered-not-null")
+	@JoinColumn(name = "userWhoRegisteredFk", nullable = false)
+	private Bpu userWhoRegistered;
 
 	/** Motivo del daño */
 	private String damageMotive;
 
 	/** Fecha y hora de la falla o daño */
 	private Date dateTimeDamage;
-
-	/** Persona que reportó la falla o daño */
-	@NotNull(message = "Debe seleccionar el usuario que reporto la falla o daño")
-	@ManyToOne
-	@JoinColumn(name = "userWhoReportedFk", nullable = false)
-	private Bpu userWhoReported;
-
-	/** Persona que hizo el registro de la falla o daño */
-	@NotNull(message = "Debe seleccionar el usuario que registró la falla o daño")
-	@ManyToOne
-	@JoinColumn(name = "userWhoRegisteredFk", nullable = false)
-	private Bpu userWhoRegistered;
-
-	/** Prioridad del daño o falla: Normal, Alta */
-	@NotNull(message = "Debe seleccionar una prioridad para el equipo dañado o con falla")
-	private EiaDamagePriorityEnum priority;
 
 	public EiaDamageReport() {
 		// TODO Auto-generated constructor stub

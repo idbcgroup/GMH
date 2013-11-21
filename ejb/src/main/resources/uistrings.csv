@@ -116,3 +116,6 @@ ES,eiastate-inacceptance,Por Aceptar
 ES,eiastate-disincorporated,Desincorporados
 ES,eiastate-majordamaged,Dañados Gravemente
 ES,new-maintenance-plan,Nuevo plan de mantenimiento
+ES,eiaDamageReport,Reporte de equipo dañado
+ES,search-eia,Búsqueda de equipos
+ES,new-eiaDamageReport,Nuevo reporte de equipo dañado

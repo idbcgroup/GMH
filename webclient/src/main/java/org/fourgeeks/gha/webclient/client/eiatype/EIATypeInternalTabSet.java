@@ -73,9 +73,11 @@ public class EIATypeInternalTabSet extends GHAInternalTabSet implements
 
 	@Override
 	public void show() {
-		// forza al panel del tab a mostrarse sy es el seleccionado
+		// forza al panel del subtab a mostrarse sy es el seleccionado
 		if (getSelectedTab() == infoSubTab)
 			infoSubTab.show();
+		if (getSelectedTab() == damageReportSubTab)
+			damageReportSubTab.show();
 		super.show();
 	}
 }
