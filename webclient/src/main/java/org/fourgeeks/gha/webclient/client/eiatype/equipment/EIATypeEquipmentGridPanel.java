@@ -52,7 +52,7 @@ public class EIATypeEquipmentGridPanel extends GHAVerticalLayout implements
 	private EIAUpdateForm eiaUpdateForm;
 	{
 		grid = new EIAGrid();
-		eiaAddForm = new EIAAddForm(GHAStrings.get("new-eia"));
+		eiaAddForm = new EIAAddForm(GHAStrings.get("new-eia"),true);
 		eiaUpdateForm = new EIAUpdateForm(GHAStrings.get("edit-eia"));
 		eiaLabel = new EiaCountLabel();
 	}

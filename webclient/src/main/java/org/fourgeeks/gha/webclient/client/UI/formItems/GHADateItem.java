@@ -1,6 +1,7 @@
 package org.fourgeeks.gha.webclient.client.UI.formItems;
 
 import com.smartgwt.client.types.Alignment;
+import com.smartgwt.client.types.DateDisplayFormat;
 import com.smartgwt.client.util.LogicalDate;
 import com.smartgwt.client.widgets.form.fields.DateItem;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
@@ -22,6 +23,7 @@ public class GHADateItem extends DateItem {
 		setTextBoxStyle("dateItem");
 		setCellStyle("gha-form-cell");
 		setTitleStyle("input-title");
+		setDisplayFormat(DateDisplayFormat.TOEUROPEANSHORTDATE);
 	}
 
 	public GHADateItem(int width) {

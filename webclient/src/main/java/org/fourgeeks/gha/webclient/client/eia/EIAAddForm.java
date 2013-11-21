@@ -25,16 +25,13 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class EIAAddForm extends GHAAddForm<Eia> implements
 		EIATypeSelectionListener, EiaSelectionProducer {
 
-	{
-		form = new EIAForm();
-	}
-
 	/**
 	 * @param title
 	 * 
 	 */
-	public EIAAddForm(String title) {
+	public EIAAddForm(String title,boolean eiatypeSelected) {
 		super(title);
+		form = new EIAForm(eiatypeSelected);
 		VLayout sideButtons = GHAUiHelper.createBar(new GHASaveButton(
 				new ClickHandler() {
 					@Override

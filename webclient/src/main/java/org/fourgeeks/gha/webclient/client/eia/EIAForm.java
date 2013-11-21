@@ -68,7 +68,7 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 			realWarrantySinceSelectItem, realWarrantyPotSelectItem,
 			intWarrantyPotSelectItem, intWarrantySinceSelectItem,
 			// maintenanceLocationSelectItem,
-			maintenanceProviderSelectItem, eiaTypeSelectItem,
+			maintenanceProviderSelectItem,eiaTypeSelectItem,
 			installationProviderSelectItem;
 	private GHATitleTextItem information_TitleItem, adquisition_TitleItem,
 			location_TitleItem, workingArea_TitleItem, facility_TitleItem,
@@ -88,6 +88,8 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 	// private GHADynamicForm garantiasMantForm;
 
 	private List<EIASelectionListener> listeners;
+	
+	private boolean eiatypeSel = false;
 
 	{ // Global
 		sectionForm = new GHASectionForm();
@@ -95,7 +97,6 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 
 		// Information Form Items
 		eiaTypeSelectItem = new GHASelectItem("Tipo", true, changedHandler);
-		eiaTypeSelectItem.setRequired(true);
 		information_TitleItem = new GHATitleTextItem("Información:", 3);
 		codeTextItem = new GHATextItem("Código", false, changedHandler);
 		codeTextItem.setLength(20);
@@ -246,10 +247,16 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 	 * @param eiaType
 	 * 
 	 */
-	public EIAForm() {
+	public EIAForm(boolean eiatypeSelected) {
 		super();
 		GHAUiHelper.addGHAResizeHandler(this);
-
+		
+		if(eiatypeSelected){
+			eiatypeSel = eiatypeSelected;
+//			eiaTypeSelectItem.setRequired(false);
+			eiaTypeSelectItem.setDisabled(true);
+		}		
+		
 		infoBasicaForm = getInfoBasicaForm();
 		adquisicionForm = getAdquisicionForm();
 		ubicacionForm = getUbicacionForm();
@@ -281,7 +288,7 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 
 		sectionForm.openFirst();
 	}
-
+	
 	@Override
 	public void activate() {
 		toggleForm(true);
@@ -354,7 +361,8 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		// machineNameTextItem.clearValue();
 
 		// clean select fields
-		eiaTypeSelectItem.clearValue();
+		if(!eiatypeSel)
+			eiaTypeSelectItem.clearValue();
 		stateSelectItem.clearValue();
 		obuSelectItem.clearValue();
 		baseRoleSelectItem.clearValue();
@@ -1139,7 +1147,9 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		// machineNameTextItem.setDisabled(!activate);
 
 		// clean select fields
-		eiaTypeSelectItem.setDisabled(!activate);
+		if(!eiatypeSel)
+			eiaTypeSelectItem.setDisabled(!activate);
+		
 		obuSelectItem.setDisabled(!activate);
 		baseRoleSelectItem.setDisabled(!activate);
 		stateSelectItem.setDisabled(!activate);
