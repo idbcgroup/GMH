@@ -30,11 +30,11 @@ public class GWTEiaServiceImpl extends RemoteServiceServlet implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.fourgeeks.gha.webclient.client.eia.GWTEiaService#delete(long)
+	 * @see org.fourgeeks.gha.webclient.client.eia.GWTEiaService#countByState()
 	 */
 	@Override
-	public boolean delete(long Id) throws GHAEJBException {
-		return eiaServiceRemote.delete(Id);
+	public List<Long> countByState() throws GHAEJBException {
+		return eiaServiceRemote.countByState();
 	}
 
 	/*
@@ -53,6 +53,16 @@ public class GWTEiaServiceImpl extends RemoteServiceServlet implements
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see org.fourgeeks.gha.webclient.client.eia.GWTEiaService#delete(long)
+	 */
+	@Override
+	public boolean delete(long Id) throws GHAEJBException {
+		return eiaServiceRemote.delete(Id);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see
 	 * org.fourgeeks.gha.webclient.client.eia.GWTEiaService#find(org.fourgeeks
 	 * .gha.domain.gmh.Eia)
@@ -60,6 +70,16 @@ public class GWTEiaServiceImpl extends RemoteServiceServlet implements
 	@Override
 	public List<Eia> find(Eia eia) throws GHAEJBException {
 		return eiaServiceRemote.find(eia);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.eia.GWTEiaService#find(long)
+	 */
+	@Override
+	public Eia find(long Id) throws GHAEJBException {
+		return eiaServiceRemote.find(Id);
 	}
 
 	/*
@@ -77,11 +97,13 @@ public class GWTEiaServiceImpl extends RemoteServiceServlet implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.fourgeeks.gha.webclient.client.eia.GWTEiaService#find(long)
+	 * @see org.fourgeeks.gha.webclient.client.eia.GWTEiaService#
+	 * findDamagedAndInMaintenance(org.fourgeeks.gha.domain.gmh.EiaType)
 	 */
 	@Override
-	public Eia find(long Id) throws GHAEJBException {
-		return eiaServiceRemote.find(Id);
+	public List<Eia> findDamagedAndInMaintenance(EiaType eiaType)
+			throws GHAEJBException {
+		return eiaServiceRemote.findDamagedAndInMaintenance(eiaType);
 	}
 
 	/*
@@ -125,15 +147,5 @@ public class GWTEiaServiceImpl extends RemoteServiceServlet implements
 	@Override
 	public Eia update(Eia eia) throws GHAEJBException {
 		return eiaServiceRemote.update(eia);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.fourgeeks.gha.webclient.client.eia.GWTEiaService#countByState()
-	 */
-	@Override
-	public List<Long> countByState() throws GHAEJBException {
-		return eiaServiceRemote.countByState();
 	}
 }

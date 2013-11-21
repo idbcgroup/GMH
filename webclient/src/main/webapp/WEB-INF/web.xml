@@ -33,6 +33,14 @@
     <url-pattern>/webclient/eiaType</url-pattern>
   </servlet-mapping>
   <servlet>
+		<servlet-name>GWTEiaDamageReportService</servlet-name>
+		<servlet-class>org.fourgeeks.gha.webclient.server.eiadamagereport.GWTEiaDamageReportServiceImpl</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GWTEiaDamageReportService</servlet-name>
+		<url-pattern>/webclient/eiaDamageReport</url-pattern>
+	</servlet-mapping>
+	<servlet>
     <servlet-name>GWTEiaService</servlet-name>
     <servlet-class>org.fourgeeks.gha.webclient.server.eia.GWTEiaServiceImpl</servlet-class>
   </servlet>

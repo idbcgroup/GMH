@@ -92,7 +92,9 @@ public class GHASectionForm extends HLayout implements HideableListener,
 	 */
 	public void addSection(String name, final Canvas sect) {
 		HLayout section = new HLayout();
+		// Window.alert("2X");
 		section.addMembers(sect, new LayoutSpacer());
+		// Window.alert("3X");
 
 		mainSection.addMembers(section);
 		section.setVisibility(Visibility.HIDDEN);

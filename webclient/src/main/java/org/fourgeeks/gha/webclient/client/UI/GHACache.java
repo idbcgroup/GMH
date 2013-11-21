@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.fourgeeks.gha.domain.ess.Role;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
+import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Facility;
 import org.fourgeeks.gha.domain.gar.Obu;
@@ -23,6 +24,7 @@ import org.fourgeeks.gha.webclient.client.facility.FacilityModel;
 import org.fourgeeks.gha.webclient.client.manufacturer.ManufacturerModel;
 import org.fourgeeks.gha.webclient.client.obu.ObuModel;
 import org.fourgeeks.gha.webclient.client.rolebase.RoleModel;
+import org.fourgeeks.gha.webclient.client.user.UserModel;
 import org.fourgeeks.gha.webclient.client.workingarea.WorkingAreaModel;
 
 import com.google.gwt.user.client.Timer;
@@ -52,6 +54,7 @@ public enum GHACache {
 	private List<WorkingArea> workingAreas;
 	private List<Facility> facilities;
 	private List<Bpi> bpis;
+	private List<Bpu> bpus;
 
 	{
 		// Inititalization of the invalidation policy
@@ -337,6 +340,29 @@ public enum GHACache {
 			@Override
 			public void onSuccess(List<Bpi> result) {
 				bpis = result;
+				// Avoiding synchronization problems
+				callback.onSuccess(result);
+			}
+		});
+	}
+
+	/**
+	 * @param callback
+	 */
+	public void getBpus(GHAAsyncCallback<List<Bpu>> callback,
+			boolean forceFromServer) {
+		if (forceFromServer || bpus == null)
+			getBpusFromServer(callback);
+		else {
+			callback.onSuccess(bpus);
+		}
+	}
+
+	private void getBpusFromServer(final GHAAsyncCallback<List<Bpu>> callback) {
+		UserModel.getAll(new GHAAsyncCallback<List<Bpu>>() {
+			@Override
+			public void onSuccess(List<Bpu> result) {
+				bpus = result;
 				// Avoiding synchronization problems
 				callback.onSuccess(result);
 			}

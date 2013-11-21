@@ -4,17 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
-import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACheckButton;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAResultSet;
 
 import com.smartgwt.client.types.AnimationEffect;
-import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
@@ -40,19 +37,12 @@ public class MaintenancePlanResultSet extends GHAResultSet<MaintenancePlan>
 	public MaintenancePlanResultSet() {
 		super(GHAStrings.get("search-results"));
 		HLayout gridPanel = new HLayout();
-		gridPanel.addMembers(grid, GHAUiHelper.createBar(new GHACheckButton(
-				new ClickHandler() {
+		gridPanel.addMembers(grid,
+				GHAUiHelper.createBar(new GHACheckButton(new ClickHandler() {
 
 					@Override
 					public void onClick(ClickEvent event) {
 						notifyMSelectedMaintenancePlan();
-					}
-				}), GHAUiHelper.verticalGraySeparator("2px"),
-				new GHADeleteButton(new ClickHandler() {
-
-					@Override
-					public void onClick(ClickEvent event) {
-						delete();
 					}
 				})));
 		addMember(gridPanel);
@@ -69,37 +59,6 @@ public class MaintenancePlanResultSet extends GHAResultSet<MaintenancePlan>
 	public void clean() {
 		grid.setData(new MaintenancePlanRecord[] {});
 		showResultsSize(null, true);
-	}
-
-	protected void delete() {
-		if (grid.getSelectedRecord() == null) {
-			GHANotification.alert("record-not-selected");
-			return;
-		}
-
-		String msj = grid.getSelectedRecords().length > 1 ? GHAStrings
-				.get("maintenances-plan-delete-confirm") : GHAStrings
-				.get("maintenance-plan-delete-confirm");
-
-		GHANotification.confirm(GHAStrings.get("maintenance-plan"), msj,
-				new BooleanCallback() {
-
-					@Override
-					public void execute(Boolean value) {
-						if (value) {
-							List<MaintenancePlan> entities = grid
-									.getSelectedEntities();
-							MaintenancePlanModel.delete(entities,
-									new GHAAsyncCallback<Void>() {
-
-										@Override
-										public void onSuccess(Void result) {
-											grid.removeSelectedData();
-										}
-									});
-						}
-					}
-				});
 	}
 
 	@Override

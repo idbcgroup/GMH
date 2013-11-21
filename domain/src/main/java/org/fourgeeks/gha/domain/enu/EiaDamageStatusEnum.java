@@ -1,27 +1,19 @@
-/**
- * 
- */
 package org.fourgeeks.gha.domain.enu;
 
 import java.util.LinkedHashMap;
 
-/**
- * @author alacret
- * 
- */
-public enum TimePeriodEnum {
-	HOURS("hours"), DAYS("days"), WEEKS("weeks"), MONTHS("months"), SEMESTERS(
-			"semesters"), YEARS("years");
+public enum EiaDamageStatusEnum {
+	FAILURE("Equipo con Falla"), DAMAGE("Equipo Dañado");
 
 	private String name;
 
-	TimePeriodEnum(String name) {
+	private EiaDamageStatusEnum(String name) {
 		this.name = name;
 	}
 
 	@Override
 	public String toString() {
-		return this.name;
+		return name;
 	}
 
 	/**
@@ -29,8 +21,8 @@ public enum TimePeriodEnum {
 	 */
 	public static LinkedHashMap<String, String> toValueMap() {
 		LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-		for (TimePeriodEnum timePeriod : TimePeriodEnum.values())
-			valueMap.put(timePeriod.name() + "", timePeriod.toString());
+		for (EiaDamageStatusEnum status : EiaDamageStatusEnum.values())
+			valueMap.put(status.name() + "", status.toString());
 		return valueMap;
 	}
 }

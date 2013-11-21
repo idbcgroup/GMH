@@ -2,6 +2,7 @@ package org.fourgeeks.gha.webclient.client.UI.formItems;
 
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.DateDisplayFormat;
+import com.smartgwt.client.util.LogicalDate;
 import com.smartgwt.client.widgets.form.fields.DateItem;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 
@@ -25,6 +26,12 @@ public class GHADateItem extends DateItem {
 		setDisplayFormat(DateDisplayFormat.TOEUROPEANSHORTDATE);
 	}
 
+	public GHADateItem(int width) {
+		this();
+		setShowTitle(false);
+		setWidth(width);
+	}
+
 	/**
 	 * TODO
 	 * 
@@ -33,6 +40,11 @@ public class GHADateItem extends DateItem {
 	public GHADateItem(String title) {
 		this();
 		setTitle(title);
+	}
+
+	public GHADateItem(String title, boolean active) {
+		this(title);
+		setDisabled(!active);
 	}
 
 	/**
@@ -49,26 +61,22 @@ public class GHADateItem extends DateItem {
 		setWidth(width);
 	}
 
-	public GHADateItem(int width) {
-		this();
-		setShowTitle(false);
-		setWidth(width);
-	}
-
 	public GHADateItem(String title, int width, boolean active) {
 		this(title);
 		setWidth(width);
 		setDisabled(!active);
 	}
 
-	public GHADateItem(String title, boolean active) {
-		this(title);
-		setDisabled(!active);
-	}
-
 	@Override
 	public void setDisabled(Boolean disabled) {
 		super.setDisabled(disabled);
+	}
+
+	public LogicalDate getValueAsLogicalDate() {
+		Object value = getValue();
+		if (value != null)
+			return (LogicalDate) value;
+		return null;
 	}
 
 }

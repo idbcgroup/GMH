@@ -15,7 +15,7 @@ import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
  * 
  */
 public class GHAWorkingAreaSelectItem extends GHASelectItem {
-	
+
 	/**
 	 * @param width
 	 */
@@ -32,6 +32,11 @@ public class GHAWorkingAreaSelectItem extends GHASelectItem {
 		fill();
 	}
 
+	public GHAWorkingAreaSelectItem(String title) {
+		super(title);
+		fill();
+	}
+
 	/**
 	 * @param title
 	 * @param width
@@ -45,7 +50,7 @@ public class GHAWorkingAreaSelectItem extends GHASelectItem {
 		addChangedHandler(changedHandler);
 		fill();
 	}
-	
+
 	/**
 	 * @param title
 	 * @param required
