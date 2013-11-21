@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
+import org.fourgeeks.gha.domain.glm.ExternalProvider;
 
 /**
  * @author emiliot
@@ -29,6 +30,9 @@ public class EiaMaintenancePlanification extends AbstractEntity {
 	private Eia eia;
 
 	private Date scheduledDate;
+	private ExternalProvider provider;
+	private Date deliverDate;
+	private Date acceptationDate;
 
 	/**
 	 * 
@@ -51,5 +55,50 @@ public class EiaMaintenancePlanification extends AbstractEntity {
 
 	public void setScheduledDate(Date scheduledDate) {
 		this.scheduledDate = scheduledDate;
+	}
+
+	/**
+	 * @return the provider
+	 */
+	public ExternalProvider getProvider() {
+		return provider;
+	}
+
+	/**
+	 * @param provider
+	 *            the provider to set
+	 */
+	public void setProvider(ExternalProvider provider) {
+		this.provider = provider;
+	}
+
+	/**
+	 * @return the deliverDate
+	 */
+	public Date getDeliverDate() {
+		return deliverDate;
+	}
+
+	/**
+	 * @param deliverDate
+	 *            the deliverDate to set
+	 */
+	public void setDeliverDate(Date deliverDate) {
+		this.deliverDate = deliverDate;
+	}
+
+	/**
+	 * @return the acceptationDate
+	 */
+	public Date getAcceptationDate() {
+		return acceptationDate;
+	}
+
+	/**
+	 * @param acceptationDate
+	 *            the acceptationDate to set
+	 */
+	public void setAcceptationDate(Date acceptationDate) {
+		this.acceptationDate = acceptationDate;
 	}
 }
