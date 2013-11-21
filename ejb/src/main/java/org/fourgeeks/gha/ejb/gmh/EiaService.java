@@ -254,6 +254,27 @@ public class EiaService extends GHAEJBExceptionImpl implements EiaServiceRemote 
 		}
 	}
 
+	public List<Eia> findDamagedAndInMaintenance(EiaType eiaType)
+			throws GHAEJBException {
+		try {
+			ArrayList<EiaStateEnum> stateList = new ArrayList<EiaStateEnum>();
+			stateList.add(EiaStateEnum.DAMAGED);
+			stateList.add(EiaStateEnum.MAINTENANCE);
+
+			String stringQuery = "SELECT e FROM Eia e WHERE e.eiaType = :eiaType AND e.state IN :eiaStates order by e.id";
+			List<Eia> resultList = em.createQuery(stringQuery, Eia.class)
+					.setParameter("eiaType", eiaType)
+					.setParameter("eiaStates", stateList).getResultList();
+
+			return resultList;
+		} catch (Exception e) {
+			String stringException = "Error: finding eia by eiatype and state DAMAGED or MAINTENANCE";
+			logger.log(Level.INFO, stringException, e);
+			throw super.generateGHAEJBException("eia-findByEiaType-fail",
+					RuntimeParameters.getLang(), em);
+		}
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 

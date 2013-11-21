@@ -25,6 +25,11 @@ public class EIAModel {
 		eiaService.find(eia, eias);
 	}
 
+	public static void findDamagedAndInMaintenance(EiaType eiaType,
+			GHAAsyncCallback<List<Eia>> eias) {
+		eiaService.findDamagedAndInMaintenance(eiaType, eias);
+	}
+
 	public static void save(Eia eia, GHAAsyncCallback<Eia> callback) {
 		eiaService.save(eia, callback);
 

@@ -16,12 +16,14 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
+import org.fourgeeks.gha.webclient.client.eia.EIAGrid;
+import org.fourgeeks.gha.webclient.client.eia.EIAModel;
+import org.fourgeeks.gha.webclient.client.eia.EIARecord;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
+import org.fourgeeks.gha.webclient.client.eia.EIAUtil;
 import org.fourgeeks.gha.webclient.client.eiadamagereport.EIADamageReportAddForm;
 import org.fourgeeks.gha.webclient.client.eiadamagereport.EIADamageReportSearchForm;
-import org.fourgeeks.gha.webclient.client.eiadamagereport.EiaDamageReportModel;
 import org.fourgeeks.gha.webclient.client.eiadamagereport.EiaDamageReportSelectionListener;
-import org.fourgeeks.gha.webclient.client.eiadamagereport.EiaDamageReportUtil;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -33,13 +35,13 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class EiaDamageReportGridPanel extends GHAVerticalLayout implements
 		EIATypeSelectionListener, HideableListener, ClosableListener {
 
-	private EiaDamageReportGrid grid;
+	private EIAGrid grid;
 	private EIADamageReportSearchForm searchForm;
 	private EiaType eiaType;
 	private EIADamageReportAddForm addForm;
 
 	{
-		grid = new EiaDamageReportGrid();
+		grid = new EIAGrid();
 		searchForm = new EIADamageReportSearchForm(GHAStrings.get("search-eia"));
 		addForm = new EIADamageReportAddForm();
 		addForm.addEiaDamageReportSelectionListener(new EiaDamageReportSelectionListener() {
@@ -93,14 +95,14 @@ public class EiaDamageReportGridPanel extends GHAVerticalLayout implements
 	}
 
 	private void loadData() {
-		EiaDamageReportModel.findByEiaType(eiaType,
-				new GHAAsyncCallback<List<EiaDamageReport>>() {
+		EIAModel.findDamagedAndInMaintenance(eiaType,
+				new GHAAsyncCallback<List<Eia>>() {
 					@Override
-					public void onSuccess(List<EiaDamageReport> result) {
-						List<EiaDamageReportRecord> gridRecords = EiaDamageReportUtil
+					public void onSuccess(List<Eia> result) {
+						List<EIARecord> gridRecords = EIAUtil
 								.toGridRecords(result);
-						EiaDamageReportRecord[] array = gridRecords
-								.toArray(new EiaDamageReportRecord[] {});
+						EIARecord[] array = gridRecords
+								.toArray(new EIARecord[] {});
 						grid.setData(array);
 					}
 				});
@@ -111,8 +113,8 @@ public class EiaDamageReportGridPanel extends GHAVerticalLayout implements
 		List<Eia> blackList = new ArrayList<Eia>();
 
 		for (int i = 0; i < records.length; ++i) {
-			EiaDamageReportRecord edrRecord = (EiaDamageReportRecord) records[i];
-			blackList.add(edrRecord.toEntity().getEia());
+			EIARecord eiaRecord = (EIARecord) records[i];
+			blackList.add(eiaRecord.toEntity());
 		}
 
 		searchForm.filterBy(blackList);
