@@ -37,6 +37,15 @@ public class GWTMaintenancePlanServiceImpl extends RemoteServiceServlet implemen
 	public void delete(long Id) throws GHAEJBException {
 		ejbService.delete(Id);
 	}
+	/*
+	 * (non-Javadoc)
+	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.plan.GWTMaintenancePlanService#delete(java.util.List)
+	 */
+	@Override
+	public void delete(List<MaintenancePlan> maintenancePlans)
+			throws GHAEJBException {
+		ejbService.delete(maintenancePlans);
+	}
 	/* (non-Javadoc)
 	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.plan.GWTMaintenancePlanService#findByEiaType(org.fourgeeks.gha.domain.gmh.EiaType)
 	 */

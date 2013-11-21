@@ -97,8 +97,16 @@ public class MaintenancePlanService extends GHAEJBExceptionImpl implements
 	@Override
 	public void delete(List<MaintenancePlan> maintenancePlans)
 			throws GHAEJBException {
-		// TODO Auto-generated method stub
-		
+		try {
+			for (MaintenancePlan maintenancePlan : maintenancePlans) {
+				MaintenancePlan entity = em.find(MaintenancePlan.class, maintenancePlan.getId());
+				em.remove(entity);
+			}
+		} catch (Exception e) {
+			logger.log(Level.INFO, "ERROR: unable to delete MaintenancePlan", e);
+			throw super.generateGHAEJBException("maintenancePlan-delete-fail",
+					RuntimeParameters.getLang(), em);
+		}
 	}
 
 	/*
