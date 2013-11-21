@@ -3,7 +3,6 @@ package org.fourgeeks.gha.webclient.client.eiatype.eiapreventivemaintenanceplani
 import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.Eia;
-import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
 import org.fourgeeks.gha.domain.gmh.EiaPreventiveMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
@@ -17,10 +16,10 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
-import org.fourgeeks.gha.webclient.client.eiadamagereport.EIADamageReportAddForm;
 import org.fourgeeks.gha.webclient.client.eiadamagereport.EIADamageReportSearchForm;
-import org.fourgeeks.gha.webclient.client.eiadamagereport.EiaDamageReportSelectionListener;
+import org.fourgeeks.gha.webclient.client.eiapreventivemaintenanceplanification.EIAPreventiveMaintenancePlanificationAddForm;
 import org.fourgeeks.gha.webclient.client.eiapreventivemaintenanceplanification.EiaPreventiveMaintenancePlanificationModel;
+import org.fourgeeks.gha.webclient.client.eiapreventivemaintenanceplanification.PreventivePlanificationSelectionListener;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -35,16 +34,18 @@ public class EIAPreventiveMaintenancePlanificationGridPanel extends
 	private EIAPreventiveMaintenancePlanificationGrid grid;
 	private EIADamageReportSearchForm searchForm;
 	private EiaType eiaType;
-	private EIADamageReportAddForm addForm;
+	private EIAPreventiveMaintenancePlanificationAddForm addForm;
 
 	{
 		grid = new EIAPreventiveMaintenancePlanificationGrid();
 		searchForm = new EIADamageReportSearchForm(GHAStrings.get("search-eia"));
-		addForm = new EIADamageReportAddForm();
-		addForm.addEiaDamageReportSelectionListener(new EiaDamageReportSelectionListener() {
+		addForm = new EIAPreventiveMaintenancePlanificationAddForm();
+		addForm.addPreventivePlanificationSelectionListener(new PreventivePlanificationSelectionListener() {
 			@Override
-			public void select(EiaDamageReport eiaDamageReport) {
+			public void select(
+					EiaPreventiveMaintenancePlanification preventivePlanif) {
 				loadData();
+
 			}
 		});
 
@@ -74,7 +75,8 @@ public class EIAPreventiveMaintenancePlanificationGridPanel extends
 		HLayout mainPanel = new HLayout();
 		mainPanel.addMembers(grid, sideButtons);
 
-		addMembers(new GHALabel(GHAStrings.get("eiaDamageReport")), mainPanel);
+		String title = GHAStrings.get("eiaPreventiveMaintenancePlanification");
+		addMembers(new GHALabel(title), mainPanel);
 	}
 
 	@Override
