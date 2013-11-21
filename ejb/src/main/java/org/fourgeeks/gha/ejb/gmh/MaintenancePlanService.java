@@ -17,6 +17,8 @@ import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.fourgeeks.gha.domain.enu.MaintenancePlanState;
+import org.fourgeeks.gha.domain.enu.MaintenancePlanType;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.EiaType;
@@ -44,7 +46,7 @@ public class MaintenancePlanService extends GHAEJBExceptionImpl implements
 	 * @param root
 	 * @return
 	 */
-	private Predicate buildFilters(MaintenancePlan maintenancePlan,
+	private static Predicate buildFilters(MaintenancePlan maintenancePlan,
 			CriteriaBuilder cb, Root<MaintenancePlan> root) {
 		Predicate predicate = cb.conjunction();
 		if (maintenancePlan.getName() != null) {
@@ -69,6 +71,20 @@ public class MaintenancePlanService extends GHAEJBExceptionImpl implements
 					"frequency");
 			predicate = cb.and(predicate,
 					cb.equal(root.<Integer> get("frequency"), p));
+		}
+
+		if (maintenancePlan.getState() != null) {
+			ParameterExpression<MaintenancePlanState> p = cb.parameter(
+					MaintenancePlanState.class, "state");
+			predicate = cb.and(predicate,
+					cb.equal(root.<MaintenancePlanState> get("state"), p));
+		}
+
+		if (maintenancePlan.getType() != null) {
+			ParameterExpression<MaintenancePlanType> p = cb.parameter(
+					MaintenancePlanType.class, "type");
+			predicate = cb.and(predicate,
+					cb.equal(root.<MaintenancePlanType> get("type"), p));
 		}
 
 		return predicate;
@@ -174,6 +190,10 @@ public class MaintenancePlanService extends GHAEJBExceptionImpl implements
 				q.setParameter("pot", maintenancePlan.getPot());
 			if (maintenancePlan.getFrequency() > 0)
 				q.setParameter("frequency", maintenancePlan.getFrequency());
+			if (maintenancePlan.getState() != null)
+				q.setParameter("state", maintenancePlan.getState());
+			if (maintenancePlan.getType() != null)
+				q.setParameter("type", maintenancePlan.getType());
 
 			return q.getResultList();
 

@@ -117,3 +117,5 @@ ES,eiastate-inacceptance,Por Aceptar
 ES,eiastate-disincorporated,Desincorporados
 ES,eiastate-majordamaged,Dañados Gravemente
 ES,new-maintenance-plan,Nuevo plan de mantenimiento
+ES,plan-type,Tipo de plan
+ES,plan-state,Estado del plan
