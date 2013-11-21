@@ -3,7 +3,7 @@ package org.fourgeeks.gha.webclient.client.eiatype;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAInternalTabSet;
 import org.fourgeeks.gha.webclient.client.eiatype.component.EIATypeComponentSubTab;
-import org.fourgeeks.gha.webclient.client.eiatype.eiadamagereport.EIADamageReportSubTab;
+import org.fourgeeks.gha.webclient.client.eiatype.damageandplanification.EIADamageAndPlanificationSubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.equipment.EIATypeEquipmentSubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.information.EIATypeInformationSubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.maintenance.EIATypeMaintenanceSubTab;
@@ -24,7 +24,7 @@ public class EIATypeInternalTabSet extends GHAInternalTabSet implements
 	private EIATypeComponentSubTab partsSubTab;
 	private EIATypeMaterialSubTab materialSubTab;
 	private EIATypeUtilitySubTab servicesSubTab;
-	private EIADamageReportSubTab damageReportSubTab;
+	private EIADamageAndPlanificationSubTab damageReportSubTab;
 
 	private EIATypeMaintenanceSubTab maintenanceSubTab;
 
@@ -48,7 +48,7 @@ public class EIATypeInternalTabSet extends GHAInternalTabSet implements
 		servicesSubTab = new EIATypeUtilitySubTab(tab);
 		hideables.add(servicesSubTab);
 		closables.add(servicesSubTab);
-		damageReportSubTab = new EIADamageReportSubTab(tab);
+		damageReportSubTab = new EIADamageAndPlanificationSubTab(tab);
 		damageReportSubTab
 				.addEiaDamageReportSelectionListener(equipementsSubTab);
 		hideables.add(damageReportSubTab);
