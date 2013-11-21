@@ -66,10 +66,11 @@ ES,workingarea-select-item,Area de Trabajo
 ES,facility-select-item,Instalación
 ES,obu-select-item,Departamento Responsable
 ES,role-select-item,Rol Responsable
-ES,search-component,Búsqueda de componentes
-ES,search-material,Búsqueda de materiales
+ES,search-component-eia,Búsqueda de componentes para equipos
+ES,search-component-eiatype,Búsqueda de componentes para tipos de equipo
+ES,search-material,Búsqueda de materiales para tipos de equipo
 ES,record-not-selected,Debe seleccionar un registro
-ES,search-utility-material,Búsqueda de materiales utilitarios
+ES,search-utility-material,Búsqueda de materiales utilitarios para tipos de equipo
 ES,eiatype-material-delete-confirm,¿Desea retirar el material asociado al tipo de equipo?
 ES,eiatype-utility-service-delete-confirm,¿Desea eliminar el servicio utilitario asociado al tipo de equipo?
 ES,eiatype-delete-confirm,¿Desea eliminar el tipo de equipo?

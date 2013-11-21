@@ -59,7 +59,7 @@ public class EIAComponentGridPanel extends GHAVerticalLayout implements
 			}
 		});
 
-		searchForm = new EIASearchForm(GHAStrings.get("search-component"));
+		searchForm = new EIASearchForm(GHAStrings.get("search-component-eia"));
 		searchForm.addEiaSelectionListener(new EIASelectionListener() {
 
 			@Override
