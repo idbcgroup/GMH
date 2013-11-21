@@ -23,7 +23,6 @@ import org.fourgeeks.gha.webclient.client.material.MaterialSelectionListener;
 import org.fourgeeks.gha.webclient.client.utility.UtilityAddForm;
 import org.fourgeeks.gha.webclient.client.utility.UtilitySearchForm;
 
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -182,7 +181,7 @@ public class EIATypeUtilityGridPanel extends GHAVerticalLayout implements
 
 	private void loadData() {
 		EIATypeUtilityModel.findByEiaType(eiaType,
-				new AsyncCallback<List<EiaTypeUtility>>() {
+				new GHAAsyncCallback<List<EiaTypeUtility>>() {
 
 					@Override
 					public void onSuccess(List<EiaTypeUtility> result) {
@@ -190,12 +189,6 @@ public class EIATypeUtilityGridPanel extends GHAVerticalLayout implements
 								.toGridRecords(result).toArray(
 										new EIATypeUtilityRecord[] {});
 						grid.setData(array);
-
-					}
-
-					@Override
-					public void onFailure(Throwable caught) {
-						// TODO Auto-generated method stub
 
 					}
 				});
