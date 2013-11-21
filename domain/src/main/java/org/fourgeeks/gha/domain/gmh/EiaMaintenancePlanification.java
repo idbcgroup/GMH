@@ -10,10 +10,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
+import org.fourgeeks.gha.domain.glm.ExternalProvider;
 
 /**
  * @author emiliot
- *
+ * 
  */
 
 @Entity
@@ -23,26 +24,21 @@ public class EiaMaintenancePlanification extends AbstractEntity {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	@ManyToOne
-	@JoinColumn(name = "eiaTypeMaintenancePlanFk")
-	private EiaTypeMaintenancePlan maintenancePlan;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "eiaFk")
 	private Eia eia;
-	
+
 	private Date scheduledDate;
-	
+	private ExternalProvider provider;
+	private Date deliverDate;
+	private Date acceptationDate;
+
 	/**
 	 * 
 	 */
 	public EiaMaintenancePlanification() {
 		// TODO Auto-generated constructor stub
-	}
-
-	public EiaTypeMaintenancePlan getMaintenancePlan() {
-		return maintenancePlan;
 	}
 
 	public Eia getEia() {
@@ -53,15 +49,56 @@ public class EiaMaintenancePlanification extends AbstractEntity {
 		return scheduledDate;
 	}
 
-	public void setMaintenancePlan(EiaTypeMaintenancePlan maintenancePlan) {
-		this.maintenancePlan = maintenancePlan;
-	}
-
 	public void setEia(Eia eia) {
 		this.eia = eia;
 	}
 
 	public void setScheduledDate(Date scheduledDate) {
 		this.scheduledDate = scheduledDate;
+	}
+
+	/**
+	 * @return the provider
+	 */
+	public ExternalProvider getProvider() {
+		return provider;
+	}
+
+	/**
+	 * @param provider
+	 *            the provider to set
+	 */
+	public void setProvider(ExternalProvider provider) {
+		this.provider = provider;
+	}
+
+	/**
+	 * @return the deliverDate
+	 */
+	public Date getDeliverDate() {
+		return deliverDate;
+	}
+
+	/**
+	 * @param deliverDate
+	 *            the deliverDate to set
+	 */
+	public void setDeliverDate(Date deliverDate) {
+		this.deliverDate = deliverDate;
+	}
+
+	/**
+	 * @return the acceptationDate
+	 */
+	public Date getAcceptationDate() {
+		return acceptationDate;
+	}
+
+	/**
+	 * @param acceptationDate
+	 *            the acceptationDate to set
+	 */
+	public void setAcceptationDate(Date acceptationDate) {
+		this.acceptationDate = acceptationDate;
 	}
 }

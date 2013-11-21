@@ -174,10 +174,16 @@ public class EiaService extends GHAEJBExceptionImpl implements EiaServiceRemote 
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<Eia> cQuery = cb.createQuery(Eia.class);
 			Root<Eia> root = cQuery.from(Eia.class);
-			Join<Eia, Obu> obuJoin = root.join("obu");
 			cQuery.select(root);
 			cQuery.orderBy(cb.asc(root.get("id")));
-			Predicate criteria = buildFilters(entity, cb, root, obuJoin);
+
+			Predicate criteria;
+			if (entity.getObu() != null) {
+				Join<Eia, Obu> obuJoin = root.join("obu");
+				criteria = buildFilters(entity, cb, root, obuJoin);
+			} else
+				criteria = buildFilters(entity, cb, root, null);
+
 			TypedQuery<Eia> q;
 			if (criteria.getExpressions().size() <= 0) {
 				q = em.createQuery(cQuery);
@@ -243,6 +249,27 @@ public class EiaService extends GHAEJBExceptionImpl implements EiaServiceRemote 
 					.setParameter("eiaType", eiaType).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding eia by eiatype", e);
+			throw super.generateGHAEJBException("eia-findByEiaType-fail",
+					RuntimeParameters.getLang(), em);
+		}
+	}
+
+	public List<Eia> findDamagedAndInMaintenance(EiaType eiaType)
+			throws GHAEJBException {
+		try {
+			ArrayList<EiaStateEnum> stateList = new ArrayList<EiaStateEnum>();
+			stateList.add(EiaStateEnum.DAMAGED);
+			stateList.add(EiaStateEnum.MAINTENANCE);
+
+			String stringQuery = "SELECT e FROM Eia e WHERE e.eiaType = :eiaType AND e.state IN :eiaStates order by e.id";
+			List<Eia> resultList = em.createQuery(stringQuery, Eia.class)
+					.setParameter("eiaType", eiaType)
+					.setParameter("eiaStates", stateList).getResultList();
+
+			return resultList;
+		} catch (Exception e) {
+			String stringException = "Error: finding eia by eiatype and state DAMAGED or MAINTENANCE";
+			logger.log(Level.INFO, stringException, e);
 			throw super.generateGHAEJBException("eia-findByEiaType-fail",
 					RuntimeParameters.getLang(), em);
 		}

@@ -119,3 +119,16 @@ ES,eiastate-majordamaged,Dañados Gravemente
 ES,new-maintenance-plan,Nuevo plan de mantenimiento
 ES,plan-type,Tipo de plan
 ES,plan-state,Estado del plan
+ES,eiaDamageReport,Reporte de equipo dañado y Solicitud de Mantenimiento
+ES,search-eia,Búsqueda de equipos
+ES,new-eiaDamageReport,Nuevo reporte de equipo dañado
+ES,maintenance-plan,Plan de Mantenimiento
+ES,frequency,Frecuencia
+ES,time-period,Período de Tiempo
+ES,months,Meses
+ES,days,Días
+ES,hours,Horas
+ES,weeks,Semanas
+ES,semesters,Semestres
+ES,years,Años
+ES,eia-type-on-maintenance-plan,Tipos de equipos asociados al plan de mantenimiento

@@ -49,6 +49,15 @@ public interface EiaServiceRemote {
 	public List<Eia> findByEiaType(EiaType eiaType) throws GHAEJBException;
 
 	/**
+	 * @param eiaType
+	 * @return a list with eias that have the state DAMAGED or MAINTENANCE for
+	 *         the given eiaType
+	 * @throws GHAEJBException
+	 */
+	public List<Eia> findDamagedAndInMaintenance(EiaType eiaType)
+			throws GHAEJBException;
+
+	/**
 	 * @param Id
 	 * @return Find an eia By Id
 	 * @throws GHAEJBException

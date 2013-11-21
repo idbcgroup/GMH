@@ -25,13 +25,6 @@ public class MaintenancePlanInformationSubTab extends GHASubTab implements
 		form.addMaintenancePlanSelectionListener(tab);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.
-	 * MaintenancePlanSelectionListener
-	 * #select(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
-	 */
 	@Override
 	public void select(MaintenancePlan maintenancePlan) {
 		form.select(maintenancePlan);

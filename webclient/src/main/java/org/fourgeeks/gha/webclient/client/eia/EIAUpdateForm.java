@@ -32,7 +32,7 @@ public class EIAUpdateForm extends GHAUpdateForm implements
 	 */
 	public EIAUpdateForm(String title) {
 		super(title);
-		form = new EIAForm();
+		form = new EIAForm(true);
 		initComponent();
 	}
 
@@ -43,7 +43,7 @@ public class EIAUpdateForm extends GHAUpdateForm implements
 	 */
 	public EIAUpdateForm(EiaType eiaType, String title) {
 		super(title);
-		form = new EIAForm();
+		form = new EIAForm(true);
 		form.select(eiaType);
 		initComponent();
 	}

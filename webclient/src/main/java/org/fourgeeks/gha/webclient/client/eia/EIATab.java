@@ -85,7 +85,7 @@ public class EIATab extends GHATab implements EIASelectionListener,
 		addClosableListener(internalTabSet);
 		addEiaSelectionListener(internalTabSet);
 
-		addForm = new EIAAddForm(GHAStrings.get("new-eia"));
+		addForm = new EIAAddForm(GHAStrings.get("new-eia"),false);
 		addHideableListener(addForm);
 		addClosableListener(addForm);
 		addForm.addEiaSelectionListener(this);
