@@ -29,6 +29,8 @@ import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.enu.GenderTypeEnum;
 import org.fourgeeks.gha.domain.enu.LanguageEnum;
 import org.fourgeeks.gha.domain.enu.LocationLevelEnum;
+import org.fourgeeks.gha.domain.enu.MaintenancePlanState;
+import org.fourgeeks.gha.domain.enu.MaintenancePlanType;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.enu.UserLogonStatusEnum;
 import org.fourgeeks.gha.domain.ess.Role;
@@ -485,14 +487,11 @@ public class InitialData {
 				int planFrequency[] = { 1, 3 };
 				TimePeriodEnum planTimePeriod[] = { TimePeriodEnum.MONTHS,
 						TimePeriodEnum.SEMESTERS };
-				for (int i = 0; i < 2; ++i) {
-					MaintenancePlan entity = new MaintenancePlan();
-					entity.setName(planName[i]);
-					entity.setDescription(planDesc[i]);
-					entity.setFrequency(planFrequency[i]);
-					entity.setPot(planTimePeriod[i]);
-					em.persist(entity);
-				}
+				for (int i = 0; i < 2; ++i)
+					em.persist(new MaintenancePlan(planName[i], planDesc[i],
+							planFrequency[i], planTimePeriod[i],
+							MaintenancePlanType.OVERHAUL,
+							MaintenancePlanState.ACTIVE));
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO,

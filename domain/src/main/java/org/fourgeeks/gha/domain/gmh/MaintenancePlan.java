@@ -3,6 +3,7 @@
  */
 package org.fourgeeks.gha.domain.gmh;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -10,6 +11,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
+import org.fourgeeks.gha.domain.enu.MaintenancePlanState;
+import org.fourgeeks.gha.domain.enu.MaintenancePlanType;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 
 /**
@@ -30,21 +33,43 @@ public class MaintenancePlan extends AbstractEntity {
 
 	@Size(max = 100)
 	@NotNull(message = "name-not-null")
-	// @Column(nullable = false)
+	@Column(nullable = false)
 	private String name;
 	private String description;
 	// @Size(max = 3)
 	@NotNull(message = "frecuency-not-null")
-	// @Column(nullable = false)
+	@Column(nullable = false)
 	private int frequency;
 	@NotNull(message = "time-period-not-null")
-	// @Column(nullable = false)
+	@Column(nullable = false)
 	private TimePeriodEnum pot;
+	@NotNull(message = "type-not-null")
+	@Column(nullable = false)
+	private MaintenancePlanType type;
+	@NotNull(message = "state-not-null")
+	@Column(nullable = false)
+	private MaintenancePlanState state;
 
 	/**
 	 * 
 	 */
 	public MaintenancePlan() {
+	}
+
+	public MaintenancePlanType getType() {
+		return type;
+	}
+
+	public void setType(MaintenancePlanType type) {
+		this.type = type;
+	}
+
+	public MaintenancePlanState getState() {
+		return state;
+	}
+
+	public void setState(MaintenancePlanState state) {
+		this.state = state;
 	}
 
 	/**
@@ -54,11 +79,14 @@ public class MaintenancePlan extends AbstractEntity {
 	 * @param pot
 	 */
 	public MaintenancePlan(String name, String description, int frequency,
-			TimePeriodEnum pot) {
+			TimePeriodEnum pot, MaintenancePlanType type,
+			MaintenancePlanState state) {
 		this.name = name;
 		this.description = description;
 		this.frequency = frequency;
 		this.pot = pot;
+		this.type = type;
+		this.state = state;
 	}
 
 	/**
