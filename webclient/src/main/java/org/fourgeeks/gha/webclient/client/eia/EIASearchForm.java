@@ -84,8 +84,6 @@ public class EIASearchForm extends GHASearchForm<Eia> implements
 	 */
 	public EIASearchForm(String title) {
 		super(title);
-		setTop(GHAUiHelper.DEFAULT_TOP_SECTION_HEIGHT);
-		setHeight(GHAUiHelper.getTabHeight() - 5 + "px");
 
 		GHAUiHelper.addGHAResizeHandler(this);
 
@@ -134,6 +132,8 @@ public class EIASearchForm extends GHASearchForm<Eia> implements
 		formLayout.setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT
 				+ "px");
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
+		
+		resultSet.setHeight(resultSet.getHeight() - 35);
 
 		addMembers(formLayout,
 				GHAUiHelper
@@ -176,6 +176,7 @@ public class EIASearchForm extends GHASearchForm<Eia> implements
 	@Override
 	public void onResize(ResizeEvent event) {
 		super.onResize(event);
+		resultSet.setHeight(resultSet.getHeight() - 35);
 		form.resize(GHAUiHelper.getNormalFormWidth(30), 4);
 	}
 

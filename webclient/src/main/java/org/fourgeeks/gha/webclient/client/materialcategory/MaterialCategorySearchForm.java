@@ -18,6 +18,7 @@ import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASearchForm;
 
+import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -101,7 +102,7 @@ public class MaterialCategorySearchForm extends GHASearchForm<MaterialCategory>
 				+ "px");
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
 
-		resultSet.setHeight(resultSet.getHeight() - 28);
+		resultSet.setHeight(resultSet.getHeight() - 35);
 
 		addMembers(formLayout,
 				GHAUiHelper
@@ -182,5 +183,11 @@ public class MaterialCategorySearchForm extends GHASearchForm<MaterialCategory>
 	@Override
 	public void select(MaterialCategory materialCategory) {
 		search(materialCategory);
+	}
+	
+	@Override
+	public void onResize(ResizeEvent event) {
+		super.onResize(event);
+		resultSet.setHeight(resultSet.getHeight() - 35);
 	}
 }
