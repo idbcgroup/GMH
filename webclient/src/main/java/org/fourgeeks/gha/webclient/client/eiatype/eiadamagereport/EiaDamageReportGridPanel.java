@@ -24,6 +24,7 @@ import org.fourgeeks.gha.webclient.client.eia.EIAUtil;
 import org.fourgeeks.gha.webclient.client.eiadamagereport.EIADamageReportAddForm;
 import org.fourgeeks.gha.webclient.client.eiadamagereport.EIADamageReportSearchForm;
 import org.fourgeeks.gha.webclient.client.eiadamagereport.EiaDamageReportSelectionListener;
+import org.fourgeeks.gha.webclient.client.eiadamagereport.EiaDamageReportSelectionProducer;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -33,7 +34,8 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class EiaDamageReportGridPanel extends GHAVerticalLayout implements
-		EIATypeSelectionListener, HideableListener, ClosableListener {
+		EIATypeSelectionListener, EiaDamageReportSelectionProducer,
+		HideableListener, ClosableListener {
 
 	private EIAGrid grid;
 	private EIADamageReportSearchForm searchForm;
@@ -44,12 +46,6 @@ public class EiaDamageReportGridPanel extends GHAVerticalLayout implements
 		grid = new EIAGrid();
 		searchForm = new EIADamageReportSearchForm(GHAStrings.get("search-eia"));
 		addForm = new EIADamageReportAddForm();
-		addForm.addEiaDamageReportSelectionListener(new EiaDamageReportSelectionListener() {
-			@Override
-			public void select(EiaDamageReport eiaDamageReport) {
-				loadData();
-			}
-		});
 
 		searchForm.addEiaSelectionListener(new EIASelectionListener() {
 			@Override
@@ -57,6 +53,13 @@ public class EiaDamageReportGridPanel extends GHAVerticalLayout implements
 				searchForm.clean();
 				addForm.select(eia);
 				addForm.open();
+			}
+		});
+
+		addEiaDamageReportSelectionListener(new EiaDamageReportSelectionListener() {
+			@Override
+			public void select(EiaDamageReport eiaDamageReport) {
+				loadData();
 			}
 		});
 	}
@@ -127,6 +130,24 @@ public class EiaDamageReportGridPanel extends GHAVerticalLayout implements
 		this.eiaType = eiaType;
 		searchForm.select(eiaType);
 		loadData();
+	}
+
+	@Override
+	public void addEiaDamageReportSelectionListener(
+			EiaDamageReportSelectionListener eiaDamageReportSelectionListener) {
+		addForm.addEiaDamageReportSelectionListener(eiaDamageReportSelectionListener);
+
+	}
+
+	@Override
+	public void removeEiaDamageReportSelectionListener(
+			EiaDamageReportSelectionListener eiaDamageReportSelectionListener) {
+		addForm.removeEiaDamageReportSelectionListener(eiaDamageReportSelectionListener);
+
+	}
+
+	@Override
+	public void notifyEiaDamageReport(EiaDamageReport eiaDamageReport) {
 	}
 
 }

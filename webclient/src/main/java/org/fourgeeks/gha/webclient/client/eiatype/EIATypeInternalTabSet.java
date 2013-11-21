@@ -48,6 +48,8 @@ public class EIATypeInternalTabSet extends GHAInternalTabSet implements
 		hideables.add(servicesSubTab);
 		closables.add(servicesSubTab);
 		damageReportSubTab = new EIADamageReportSubTab(tab);
+		damageReportSubTab
+				.addEiaDamageReportSelectionListener(equipementsSubTab);
 		hideables.add(damageReportSubTab);
 		closables.add(damageReportSubTab);
 		// maintenanceSubTab = new EIATypeMaintenanceSubTab(tab);

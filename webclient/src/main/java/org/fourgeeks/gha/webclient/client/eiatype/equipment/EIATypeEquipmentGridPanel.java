@@ -3,6 +3,7 @@ package org.fourgeeks.gha.webclient.client.eiatype.equipment;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.Eia;
+import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
@@ -23,6 +24,7 @@ import org.fourgeeks.gha.webclient.client.eia.EIARecord;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 import org.fourgeeks.gha.webclient.client.eia.EIAUpdateForm;
 import org.fourgeeks.gha.webclient.client.eia.EIAUtil;
+import org.fourgeeks.gha.webclient.client.eiadamagereport.EiaDamageReportSelectionListener;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.smartgwt.client.types.AnimationEffect;
@@ -39,7 +41,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  */
 public class EIATypeEquipmentGridPanel extends GHAVerticalLayout implements
 		EIATypeSelectionListener,/* EiaSelectionProducer, */
-		EIASelectionListener, HideableListener, ClosableListener {
+		EIASelectionListener, EiaDamageReportSelectionListener,
+		HideableListener, ClosableListener {
 
 	private EIAGrid grid;
 	private EiaCountLabel eiaLabel;
@@ -155,7 +158,8 @@ public class EIATypeEquipmentGridPanel extends GHAVerticalLayout implements
 				ListGridRecord[] array = EIAUtil.toGridRecords(result).toArray(
 						new EIARecord[] {});
 				grid.setData(array);
-				EIATypeEquipmentGridPanel.this.eiaLabel.setEiaStateTotals(result);
+				EIATypeEquipmentGridPanel.this.eiaLabel
+						.setEiaStateTotals(result);
 			}
 		});
 	}
@@ -194,5 +198,10 @@ public class EIATypeEquipmentGridPanel extends GHAVerticalLayout implements
 	@Override
 	public boolean canBeClosen(HideCloseAction hideAction) {
 		return true;
+	}
+
+	@Override
+	public void select(EiaDamageReport eiaDamageReport) {
+		loadData(eiaType);
 	}
 }
