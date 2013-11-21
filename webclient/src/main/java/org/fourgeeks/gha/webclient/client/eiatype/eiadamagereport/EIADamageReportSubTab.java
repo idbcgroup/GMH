@@ -1,7 +1,6 @@
 package org.fourgeeks.gha.webclient.client.eiatype.eiadamagereport;
 
 import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
-import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASectionForm;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
 import org.fourgeeks.gha.webclient.client.eiadamagereport.EiaDamageReportSelectionListener;
@@ -25,7 +24,7 @@ public class EIADamageReportSubTab extends GHASubTab implements
 	}
 
 	public EIADamageReportSubTab(EIATypeTab tab) {
-		super(GHAStrings.get("maintenance"), tab);
+		super("Equipos dañados", tab);
 
 		addClosableListener(damageReportPanel);
 		addHideableListener(damageReportPanel);
