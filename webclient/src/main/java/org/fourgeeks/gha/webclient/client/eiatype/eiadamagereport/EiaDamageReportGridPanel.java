@@ -66,6 +66,8 @@ public class EiaDamageReportGridPanel extends GHAVerticalLayout implements
 
 	public EiaDamageReportGridPanel() {
 		super();
+		setWidth("100%");
+
 		VLayout sideButtons = GHAUiHelper.createBar(new GHANewButton(
 				new ClickHandler() {
 					@Override
@@ -149,5 +151,4 @@ public class EiaDamageReportGridPanel extends GHAVerticalLayout implements
 	@Override
 	public void notifyEiaDamageReport(EiaDamageReport eiaDamageReport) {
 	}
-
 }
