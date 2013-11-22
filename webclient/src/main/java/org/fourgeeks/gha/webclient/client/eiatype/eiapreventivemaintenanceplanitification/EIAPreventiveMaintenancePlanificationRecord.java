@@ -21,7 +21,7 @@ public class EIAPreventiveMaintenancePlanificationRecord extends
 
 		setAttribute("id", planification.getId());
 		setAttribute("initDate", planification.getScheduledDate());
-		setAttribute("eia", eia == null ? "" : eia.getCode());
+		setAttribute("eia", eia == null ? "" : eia.getSerialNumber());
 		setAttribute("plan", plan == null ? "" : plan.getMaintenancePlan()
 				.getName());
 	}

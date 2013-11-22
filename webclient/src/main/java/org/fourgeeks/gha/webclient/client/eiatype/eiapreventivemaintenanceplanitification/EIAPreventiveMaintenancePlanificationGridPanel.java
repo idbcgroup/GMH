@@ -5,6 +5,7 @@ import java.util.List;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaPreventiveMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
@@ -14,6 +15,7 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 import org.fourgeeks.gha.webclient.client.eiadamagereport.EIADamageReportSearchForm;
@@ -21,6 +23,7 @@ import org.fourgeeks.gha.webclient.client.eiapreventivemaintenanceplanification.
 import org.fourgeeks.gha.webclient.client.eiapreventivemaintenanceplanification.EiaPreventiveMaintenancePlanificationModel;
 import org.fourgeeks.gha.webclient.client.eiapreventivemaintenanceplanification.PreventivePlanificationSelectionListener;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
+import org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype.EiaTypeMaintenancePlanModel;
 
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -122,7 +125,17 @@ public class EIAPreventiveMaintenancePlanificationGridPanel extends
 		// }
 		//
 		// searchForm.filterBy(blackList);
-		searchForm.open();
+		EiaTypeMaintenancePlanModel.findByEiaType(eiaType,
+				new GHAAsyncCallback<List<EiaTypeMaintenancePlan>>() {
+					@Override
+					public void onSuccess(List<EiaTypeMaintenancePlan> result) {
+						if (!result.isEmpty())
+							searchForm.open();
+						else
+							GHANotification
+									.oldAlert("No existen planes de mantenimiento para este tipo de equipo");
+					}
+				});
 
 	}
 
@@ -130,6 +143,7 @@ public class EIAPreventiveMaintenancePlanificationGridPanel extends
 	public void select(EiaType eiaType) {
 		this.eiaType = eiaType;
 		searchForm.select(eiaType);
+		addForm.select(eiaType);
 		loadData();
 	}
 }

@@ -24,7 +24,7 @@ public class EIATypeInternalTabSet extends GHAInternalTabSet implements
 	private EIATypeComponentSubTab partsSubTab;
 	private EIATypeMaterialSubTab materialSubTab;
 	private EIATypeUtilitySubTab servicesSubTab;
-	private EIADamageAndPlanificationSubTab damageReportSubTab;
+	private EIADamageAndPlanificationSubTab damageAndPlanificationSubTab;
 
 	private EIATypeMaintenanceSubTab maintenanceSubTab;
 
@@ -48,11 +48,11 @@ public class EIATypeInternalTabSet extends GHAInternalTabSet implements
 		servicesSubTab = new EIATypeUtilitySubTab(tab);
 		hideables.add(servicesSubTab);
 		closables.add(servicesSubTab);
-		damageReportSubTab = new EIADamageAndPlanificationSubTab(tab);
-		damageReportSubTab
+		damageAndPlanificationSubTab = new EIADamageAndPlanificationSubTab(tab);
+		damageAndPlanificationSubTab
 				.addEiaDamageReportSelectionListener(equipementsSubTab);
-		hideables.add(damageReportSubTab);
-		closables.add(damageReportSubTab);
+		hideables.add(damageAndPlanificationSubTab);
+		closables.add(damageAndPlanificationSubTab);
 		maintenanceSubTab = new EIATypeMaintenanceSubTab(tab);
 		hideables.add(maintenanceSubTab);
 		closables.add(maintenanceSubTab);
@@ -62,7 +62,7 @@ public class EIATypeInternalTabSet extends GHAInternalTabSet implements
 		addTab(partsSubTab);
 		addTab(materialSubTab);
 		addTab(servicesSubTab);
-		addTab(damageReportSubTab);
+		addTab(damageAndPlanificationSubTab);
 		addTab(maintenanceSubTab);
 	}
 
@@ -71,6 +71,8 @@ public class EIATypeInternalTabSet extends GHAInternalTabSet implements
 		selectTab(infoSubTab);
 		if (getSelectedTab() == infoSubTab)
 			infoSubTab.show();
+		if (getSelectedTab() == damageAndPlanificationSubTab)
+			damageAndPlanificationSubTab.show();
 		animateShow(AnimationEffect.FADE);
 	}
 
@@ -79,8 +81,8 @@ public class EIATypeInternalTabSet extends GHAInternalTabSet implements
 		// forza al panel del subtab a mostrarse sy es el seleccionado
 		if (getSelectedTab() == infoSubTab)
 			infoSubTab.show();
-		if (getSelectedTab() == damageReportSubTab)
-			damageReportSubTab.show();
+		if (getSelectedTab() == damageAndPlanificationSubTab)
+			damageAndPlanificationSubTab.show();
 		super.show();
 	}
 }

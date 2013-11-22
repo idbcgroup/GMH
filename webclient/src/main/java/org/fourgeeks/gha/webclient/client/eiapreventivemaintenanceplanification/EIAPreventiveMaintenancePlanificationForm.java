@@ -51,12 +51,12 @@ public class EIAPreventiveMaintenancePlanificationForm extends
 	{
 		listeners = new ArrayList<PreventivePlanificationSelectionListener>();
 
-		providerSelectItem = new GHAExternalProviderSelectItem();
-		providerSelectItem.addChangedHandler(changedHandler);
 		roleSelectItem = new GHARoleSelectItem();
 		roleSelectItem.addChangedHandler(changedHandler);
 		statusSelectItem = new GHASelectItem("Estatus", false, changedHandler);
 		stateSelectItem = new GHASelectItem("Estado", false, changedHandler);
+		providerSelectItem = new GHAExternalProviderSelectItem("Proveedor",
+				false, changedHandler);
 		maintenacePlanSelectItem = new GHASelectItem("Plan de mantenimiento",
 				true, changedHandler);
 		maintenacePlanSelectItem.setColSpan(2);
@@ -67,16 +67,16 @@ public class EIAPreventiveMaintenancePlanificationForm extends
 		acceptationDateDateItem = new GHADateItem("Fecha de aceptacion",
 				changedHandler);
 
-		form = new GHADynamicForm(GHAUiHelper.getNormalFormWidth(30), 3);
+		form = new GHADynamicForm(GHAUiHelper.getNormalFormWidth(30), 4);
 	}
 
 	public EIAPreventiveMaintenancePlanificationForm() {
 		final HLayout mainPanel = new HLayout();
 		form.setItems(scheduledDateDateItem, deliverDateDateItem,
-				acceptationDateDateItem, maintenacePlanSelectItem,
-				new GHASpacerItem(), providerSelectItem, roleSelectItem,
-				new GHASpacerItem(), statusSelectItem, stateSelectItem,
-				new GHASpacerItem());
+				acceptationDateDateItem, new GHASpacerItem(),
+				maintenacePlanSelectItem, new GHASpacerItem(2),
+				providerSelectItem, roleSelectItem, new GHASpacerItem(2),
+				statusSelectItem, stateSelectItem, new GHASpacerItem(2));
 
 		fill();
 		mainPanel.addMembers(form, new LayoutSpacer());
@@ -101,10 +101,8 @@ public class EIAPreventiveMaintenancePlanificationForm extends
 
 	private EiaPreventiveMaintenancePlanification extract() {
 		EiaPreventiveMaintenancePlanification entity = new EiaPreventiveMaintenancePlanification();
-		EiaTypeMaintenancePlan plan = new EiaTypeMaintenancePlan();
 		EiaMaintenancePlanification planification = new EiaMaintenancePlanification();
 		planification.setEia(selectedEia);
-		entity.setPlan(plan);
 		entity.setPlanification(planification);
 
 		if (providerSelectItem.getValue() != null) {
@@ -112,22 +110,33 @@ public class EIAPreventiveMaintenancePlanificationForm extends
 					Long.valueOf(providerSelectItem.getValueAsString()));
 			planification.setProvider(provider);
 		}
+
 		if (roleSelectItem.getValue() != null) {
 			Role role = new Role(
 					Long.valueOf(roleSelectItem.getValueAsString()));
 			planification.setRole(role);
 		}
+
+		if (maintenacePlanSelectItem.getValue() != null) {
+			EiaTypeMaintenancePlan plan = new EiaTypeMaintenancePlan();
+			plan.setId(Long.valueOf(maintenacePlanSelectItem.getValueAsString()));
+			entity.setPlan(plan);
+		}
+
 		planification.setScheduledDate(EIAUtil
 				.getLogicalDate(scheduledDateDateItem.getValueAsDate()));
+
 		planification.setDeliverDate(EIAUtil.getLogicalDate(deliverDateDateItem
 				.getValueAsDate()));
+
 		planification.setAcceptationDate(EIAUtil
 				.getLogicalDate(acceptationDateDateItem.getValueAsDate()));
+
 		planification.setState(MaintenancePlanificationState
-				.valueOf(statusSelectItem.getValueAsString()));
-		planification.setStatus(MaintenancePlanificationStatus
 				.valueOf(stateSelectItem.getValueAsString()));
-		plan.setId(Long.valueOf(maintenacePlanSelectItem.getValueAsString()));
+
+		planification.setStatus(MaintenancePlanificationStatus
+				.valueOf(statusSelectItem.getValueAsString()));
 
 		return entity;
 	}
@@ -147,7 +156,7 @@ public class EIAPreventiveMaintenancePlanificationForm extends
 
 	@Override
 	public void onResize(ResizeEvent arg0) {
-		form.resize(GHAUiHelper.getNormalFormWidth(30), 3);
+		form.resize(GHAUiHelper.getNormalFormWidth(30), 4);
 	}
 
 	@Override

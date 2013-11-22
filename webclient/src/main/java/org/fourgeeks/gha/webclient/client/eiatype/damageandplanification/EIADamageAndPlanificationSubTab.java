@@ -47,14 +47,14 @@ public class EIADamageAndPlanificationSubTab extends GHASubTab implements
 		addTabSelectedHandler(new TabSelectedHandler() {
 			@Override
 			public void onTabSelected(TabSelectedEvent event) {
-				sectionForm.show();
+				show();
 			}
 		});
 
 		addTabDeselectedHandler(new TabDeselectedHandler() {
 			@Override
 			public void onTabDeselected(TabDeselectedEvent event) {
-				sectionForm.hide();
+				hide();
 			}
 		});
 	}

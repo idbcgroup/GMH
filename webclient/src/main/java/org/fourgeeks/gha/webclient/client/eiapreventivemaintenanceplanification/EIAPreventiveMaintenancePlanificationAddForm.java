@@ -2,6 +2,7 @@ package org.fourgeeks.gha.webclient.client.eiapreventivemaintenanceplanification
 
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaPreventiveMaintenancePlanification;
+import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
@@ -10,6 +11,7 @@ import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAAddForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
+import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -19,14 +21,15 @@ import com.smartgwt.client.widgets.layout.VLayout;
 
 public class EIAPreventiveMaintenancePlanificationAddForm extends
 		GHAAddForm<EiaPreventiveMaintenancePlanification> implements
-		EIASelectionListener, PreventivePlanificationSelectionProducer {
+		EIASelectionListener, EIATypeSelectionListener,
+		PreventivePlanificationSelectionProducer {
 
 	{
 		form = new EIAPreventiveMaintenancePlanificationForm();
 	}
 
 	public EIAPreventiveMaintenancePlanificationAddForm() {
-		super(GHAStrings.get("new-eiaDamageReport"));
+		super(GHAStrings.get("new-eiaPreventiveMaintenancePlanification"));
 		VLayout sideButtons = GHAUiHelper.createBar(new GHASaveButton(
 				new ClickHandler() {
 					@Override
@@ -83,7 +86,8 @@ public class EIAPreventiveMaintenancePlanificationAddForm extends
 		form.save(new GHAAsyncCallback<EiaPreventiveMaintenancePlanification>() {
 			@Override
 			public void onSuccess(EiaPreventiveMaintenancePlanification result) {
-				GHANotification.alert("eiaDamageReport-save-success");
+				GHANotification
+						.alert("eiaPreventiveMaintenancePlanification-save-success");
 				hide();
 			}
 		});
@@ -92,7 +96,11 @@ public class EIAPreventiveMaintenancePlanificationAddForm extends
 	@Override
 	public void select(Eia eia) {
 		((EIASelectionListener) form).select(eia);
+	}
 
+	@Override
+	public void select(EiaType eiaType) {
+		((EIATypeSelectionListener) form).select(eiaType);
 	}
 
 }
