@@ -39,7 +39,7 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
- * @author alacret, emiliot
+ * @author alacret, emiliot, jfuentes
  * 
  */
 public class EIASearchForm extends GHASearchForm<Eia> implements
@@ -133,8 +133,6 @@ public class EIASearchForm extends GHASearchForm<Eia> implements
 				+ "px");
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
 		
-		resultSet.setHeight(resultSet.getHeight() - 35);
-
 		addMembers(formLayout,
 				GHAUiHelper
 						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
@@ -176,7 +174,6 @@ public class EIASearchForm extends GHASearchForm<Eia> implements
 	@Override
 	public void onResize(ResizeEvent event) {
 		super.onResize(event);
-		resultSet.setHeight(resultSet.getHeight() - 35);
 		form.resize(GHAUiHelper.getNormalFormWidth(30), 4);
 	}
 

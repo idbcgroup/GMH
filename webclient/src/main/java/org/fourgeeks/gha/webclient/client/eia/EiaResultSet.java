@@ -14,6 +14,7 @@ import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAResultSet;
 
+import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -32,6 +33,7 @@ public class EiaResultSet extends GHAResultSet<Eia> implements
 		EiaSelectionProducer {
 	private List<EIASelectionListener> listeners;
 	private EIAGrid grid;
+	private ResultSetContainerType containerType;
 
 	{
 		listeners = new ArrayList<EIASelectionListener>();
@@ -50,6 +52,8 @@ public class EiaResultSet extends GHAResultSet<Eia> implements
 	 */
 	public EiaResultSet(ResultSetContainerType container) {
 		super(GHAStrings.get("search-results"));
+		this.containerType = container;
+		
 		HLayout gridPanel = new HLayout();
 		VLayout sideBar;
 
@@ -60,7 +64,7 @@ public class EiaResultSet extends GHAResultSet<Eia> implements
 			}
 		});
 
-		if (container == ResultSetContainerType.TAB) {
+		if (containerType == ResultSetContainerType.TAB) {
 			sideBar = GHAUiHelper.createBar(checkButton,
 					GHAUiHelper.verticalGraySeparator("2px"),
 					new GHADeleteButton(new ClickHandler() {
@@ -69,9 +73,11 @@ public class EiaResultSet extends GHAResultSet<Eia> implements
 							delete();
 						}
 					}));
-		} else
+		} else{
 			sideBar = GHAUiHelper.createBar(checkButton);
-
+			setHeight(getHeight() - 35);
+		}
+			
 		gridPanel.addMembers(grid, sideBar);
 		addMember(gridPanel);
 	}
@@ -164,4 +170,12 @@ public class EiaResultSet extends GHAResultSet<Eia> implements
 			this.animateShow(AnimationEffect.FADE);
 	}
 
+	@Override
+	public void onResize(ResizeEvent event) {
+		super.onResize(event);
+		if (containerType == ResultSetContainerType.SEARCH_FORM) {
+			setHeight(getHeight() - 35);
+		}
+	}
+	
 }

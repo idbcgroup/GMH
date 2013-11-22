@@ -10,6 +10,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.GHAUtil;
+import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHACodeItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
@@ -18,7 +19,6 @@ import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASearchForm;
 
-import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -38,7 +38,7 @@ public class MaterialCategorySearchForm extends GHASearchForm<MaterialCategory>
 	private GHATextItem codeTextItem, nameTextItem, descriptionTextItem,
 			modelTextItem, extCodeTextItem;
 	protected GHASelectItem typeSelectItem;
-	private MaterialCategoryResultSet resultSet = new MaterialCategoryResultSet();
+	private MaterialCategoryResultSet resultSet = new MaterialCategoryResultSet(ResultSetContainerType.SEARCH_FORM);
 	private final DynamicForm form = new DynamicForm();
 
 	{
@@ -101,8 +101,6 @@ public class MaterialCategorySearchForm extends GHASearchForm<MaterialCategory>
 		formLayout.setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT
 				+ "px");
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
-
-		resultSet.setHeight(resultSet.getHeight() - 35);
 
 		addMembers(formLayout,
 				GHAUiHelper
@@ -185,9 +183,4 @@ public class MaterialCategorySearchForm extends GHASearchForm<MaterialCategory>
 		search(materialCategory);
 	}
 	
-	@Override
-	public void onResize(ResizeEvent event) {
-		super.onResize(event);
-		resultSet.setHeight(resultSet.getHeight() - 35);
-	}
 }

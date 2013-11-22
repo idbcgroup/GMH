@@ -1,5 +1,7 @@
 package org.fourgeeks.gha.webclient.client.UI.formItems;
 
+import java.util.LinkedHashMap;
+
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 
@@ -16,7 +18,8 @@ public class GHAPeriodOfTimeSelectItem extends GHASelectItem {
 	 */
 	public GHAPeriodOfTimeSelectItem() {
 		super(GHAStrings.get("period-of-time"));
-		setValueMap(TimePeriodEnum.toValueMap());
+		setValueMap(getValueMap());
+		setDefaultValue(TimePeriodEnum.HOURS.name());
 	}
 
 	/**
@@ -26,18 +29,13 @@ public class GHAPeriodOfTimeSelectItem extends GHASelectItem {
 		this();
 		setWidth(width);
 	}
-
+	
 	/**
-	 * @param title
-	 * @param width
 	 * @param required
-	 * @param changedHandler
 	 */
-	public GHAPeriodOfTimeSelectItem(int width, boolean required,
-			ChangedHandler changedHandler) {
-		this(width);
+	public GHAPeriodOfTimeSelectItem(boolean required) {
+		this();
 		setRequired(required);
-		addChangedHandler(changedHandler);
 	}
 
 	/**
@@ -50,6 +48,29 @@ public class GHAPeriodOfTimeSelectItem extends GHASelectItem {
 		this();
 		setRequired(required);
 		addChangedHandler(changedHandler);
+	}
+	
+	/**
+	 * @param title
+	 * @param width
+	 * @param required
+	 * @param changedHandler
+	 */
+	public GHAPeriodOfTimeSelectItem(int width, boolean required,ChangedHandler changedHandler) {
+		this(width);
+		setRequired(required);
+		addChangedHandler(changedHandler);
+	}
+	
+	/**
+	 * @return a valueMap to fill the select
+	 */
+	public static LinkedHashMap<String, String> getValueMap() {
+		LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+		for (TimePeriodEnum timePeriod : TimePeriodEnum.values()){
+			valueMap.put(timePeriod.name()+"",GHAStrings.get(timePeriod.name().toLowerCase()));
+		}
+		return valueMap;
 	}
 
 }

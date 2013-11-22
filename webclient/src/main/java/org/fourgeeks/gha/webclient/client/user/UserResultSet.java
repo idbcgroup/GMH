@@ -6,6 +6,7 @@ import java.util.List;
 import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACheckButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
@@ -14,6 +15,7 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAResultSet;
 
+import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -32,6 +34,7 @@ public class UserResultSet extends GHAResultSet<SSOUser> implements
 		ClosableListener {
 	private List<UserSelectionListener> listeners = new ArrayList<UserSelectionListener>();
 	private UserGrid grid = new UserGrid();
+	private ResultSetContainerType containerType;
 
 	{
 		grid.addCellDoubleClickHandler(new CellDoubleClickHandler() {
@@ -46,8 +49,9 @@ public class UserResultSet extends GHAResultSet<SSOUser> implements
 	/**
 	 * 
 	 */
-	public UserResultSet() {
+	public UserResultSet(ResultSetContainerType container) {
 		super(GHAStrings.get("search-results"));
+		this.containerType = container;
 		HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(grid, GHAUiHelper.createBar(new GHACheckButton(
 				new ClickHandler() {
@@ -64,6 +68,10 @@ public class UserResultSet extends GHAResultSet<SSOUser> implements
 						delete();
 					}
 				})));
+		
+		if (containerType == ResultSetContainerType.SEARCH_FORM) {
+			setHeight(getHeight() - 35);
+		}
 		addMember(gridPanel);
 	}
 
@@ -125,6 +133,14 @@ public class UserResultSet extends GHAResultSet<SSOUser> implements
 	public void clean() {
 		grid.setData(new UserRecord[] {});
 		showResultsSize(null, true);
+	}
+	
+	@Override
+	public void onResize(ResizeEvent event) {
+		super.onResize(event);
+		if (containerType == ResultSetContainerType.SEARCH_FORM) {
+			setHeight(getHeight() - 35);
+		}
 	}
 
 }

@@ -6,10 +6,12 @@ import java.util.List;
 import org.fourgeeks.gha.domain.glm.MaterialCategory;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACheckButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAResultSet;
 
+import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -19,14 +21,16 @@ public class MaterialCategoryResultSet extends GHAResultSet<MaterialCategory>
 		implements MaterialCategorySelectionProducer {
 	private List<MaterialCategorySelectionListener> listeners;
 	private MaterialCategoryGrid grid;
+	private ResultSetContainerType containerType;
 
 	{
 		listeners = new ArrayList<MaterialCategorySelectionListener>();
 		grid = new MaterialCategoryGrid();
 	}
 
-	public MaterialCategoryResultSet() {
+	public MaterialCategoryResultSet(ResultSetContainerType container) {
 		super(GHAStrings.get("search-results"));
+		this.containerType = container;
 		HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(grid,
 				GHAUiHelper.createBar(new GHACheckButton(new ClickHandler() {
@@ -36,6 +40,11 @@ public class MaterialCategoryResultSet extends GHAResultSet<MaterialCategory>
 						notifySelectMaterialCategory();
 					}
 				})));
+		
+		if (containerType == ResultSetContainerType.SEARCH_FORM) {
+			setHeight(getHeight() - 35);
+		}
+		
 		addMember(gridPanel);
 	}
 
@@ -94,4 +103,11 @@ public class MaterialCategoryResultSet extends GHAResultSet<MaterialCategory>
 			this.animateShow(AnimationEffect.FADE);
 	}
 
+	@Override
+	public void onResize(ResizeEvent event) {
+		super.onResize(event);
+		if (containerType == ResultSetContainerType.SEARCH_FORM) {
+			setHeight(getHeight() - 35);
+		}
+	}
 }
