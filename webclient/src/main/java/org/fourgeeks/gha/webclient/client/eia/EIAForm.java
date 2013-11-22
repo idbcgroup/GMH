@@ -83,10 +83,10 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 	private GHAPeriodOfTimeSelectItem depreciationTimePotSelectItem,lifeTimePotSelectItem, 
 									  intWarrantyPotSelectItem,realWarrantyPotSelectItem;
 	private GHASectionForm sectionForm;
-	private GHADynamicForm infoBasicaForm;
-	private GHADynamicForm adquisicionForm;
-	private GHADynamicForm ubicacionForm;
-	private GHADynamicForm costosForm;
+	private final GHADynamicForm infoBasicaForm;
+	private final GHADynamicForm adquisicionForm;
+	private final GHADynamicForm ubicacionForm;
+	private final GHADynamicForm costosForm;
 	// private GHADynamicForm garantiasMantForm;
 
 	private List<EIASelectionListener> listeners;
@@ -98,31 +98,37 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		listeners = new ArrayList<EIASelectionListener>();
 
 		// Information Form Items
-		eiaTypeSelectItem = new GHASelectItem("Tipo", true, changedHandler);
-		information_TitleItem = new GHATitleTextItem("Información:", 3);
-		codeTextItem = new GHATextItem("Código", false, changedHandler);
+		eiaTypeSelectItem = new GHASelectItem(GHAStrings.get("type"), true,
+				changedHandler);
+		information_TitleItem = new GHATitleTextItem(
+				GHAStrings.get("information"), 3);
+		codeTextItem = new GHATextItem(GHAStrings.get("code"), false,
+				changedHandler);
 		codeTextItem.setLength(20);
 		codeTextItem.setMask("####################");
-		serialTextItem = new GHATextItem("Serial", true, changedHandler);
+		serialTextItem = new GHATextItem(GHAStrings.get("serial"), true,
+				changedHandler);
 		serialTextItem.setLength(20);
 		serialTextItem.setMask("AAAAAAAAAAAAAAAAAAAA");
 		serialTextItem.setRequired(true);
-		fixedAssetIdTextItem = new GHATextItem("Id Activo Fijo", true,
+		fixedAssetIdTextItem = new GHATextItem(
+				GHAStrings.get("fixed-asset-identifier-item"), true,
 				changedHandler);
 		fixedAssetIdTextItem.setLength(19);
 		fixedAssetIdTextItem.setMask("###################");
 		fixedAssetIdTextItem.setRequired(true);
-		obuSelectItem = new GHASelectItem("Departamento Responsable", true,
+		obuSelectItem = new GHASelectItem(GHAStrings.get("obu"), true,
 				changedHandler);
 		obuSelectItem.setRequired(true);
 		baseRoleSelectItem = new GHASelectItem(
 				GHAStrings.get("responsible-role"), true, changedHandler);
 		baseRoleSelectItem.setRequired(true);
-		stateSelectItem = new GHASelectItem("Estado Equipo", true,
+		stateSelectItem = new GHASelectItem(GHAStrings.get("state"), true,
 				changedHandler);
 		stateSelectItem.setDefaultValue(EiaStateEnum.CREATED.name());
 		stateSelectItem.setAllowEmptyValue(false);
-		providers_TitleItem = new GHATitleTextItem("Proveedores", 3);
+		providers_TitleItem = new GHATitleTextItem(GHAStrings.get("providers"),
+				3);
 		adqisitionProviderSelectItem = new GHASelectItem(
 				GHAStrings.get("adquisition-provider"), true, changedHandler);
 		maintenanceProviderSelectItem = new GHASelectItem(
@@ -161,7 +167,7 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		// Garantia
 		realWarranty_TitleItem = new GHATitleTextItem("Garantía Real:", 4);
 		intermedWarranty_TitleItem = new GHATitleTextItem(
-				"Garantía del Intermediario:", 4);
+				GHAStrings.get("intermediate-warranty"), 4);
 		realWarrantySinceSelectItem = new GHASelectItem("Desde", false,
 				changedHandler);
 		realWarrantyTimeTextItem = new GHATextItem("Duración", false,

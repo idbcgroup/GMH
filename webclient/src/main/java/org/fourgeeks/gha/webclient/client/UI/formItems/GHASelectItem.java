@@ -76,7 +76,7 @@ public class GHASelectItem extends SelectItem {
 		setRequired(required);
 		addChangedHandler(changedHandler);
 	}
-	
+
 	/**
 	 * @param title
 	 * @param changedHandler
@@ -197,13 +197,5 @@ public class GHASelectItem extends SelectItem {
 			setTextBoxStyle("select required");
 
 		// setOriginalNullValue(null);
-	}
-
-	/**
-	 * @param object
-	 */
-	private void setOriginalNullValue(Object object) {
-		setValue(object);
-
 	}
 }
