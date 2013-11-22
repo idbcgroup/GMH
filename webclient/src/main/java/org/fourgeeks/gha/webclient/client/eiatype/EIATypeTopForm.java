@@ -52,14 +52,14 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 		nameItem.setColSpan(2);
 		brandItem = new GHABrandSelectItem();
 		modelItem = new GHATextItem(GHAStrings.get("model"));
-		
+
 		modelItem.addKeyUpHandler(searchKeyUpHandler);
 		nameItem.addKeyUpHandler(searchKeyUpHandler);
 		brandItem.addKeyUpHandler(searchKeyUpHandler);
 		typeItem.addKeyUpHandler(searchKeyUpHandler);
 		subTypeItem.addKeyUpHandler(searchKeyUpHandler);
-		
-		form = new GHADynamicForm(GHAUiHelper.getNormalFormWidth(30),4);
+
+		form = new GHADynamicForm(GHAUiHelper.getNormalFormWidth(30), 4);
 	}
 
 	/**
@@ -68,10 +68,9 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 	 */
 	public EIATypeTopForm(EiaTypeResultSet resultSet, EIATypeTab eiaTypeTab) {
 		super(resultSet, eiaTypeTab);
-		
-		
-		form.setItems(typeItem, subTypeItem, brandItem,new GHASpacerItem(),
-				      nameItem, modelItem);
+
+		form.setItems(typeItem, subTypeItem, brandItem, new GHASpacerItem(),
+				nameItem, modelItem);
 
 		searchButton = new GHASearchButton(new ClickHandler() {
 			@Override
@@ -100,7 +99,11 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 	@Override
 	public void activate() {
 		nameItem.enable();
+
+		brandItem.fill(true);
+		brandItem.redraw();
 		brandItem.enable();
+
 		modelItem.enable();
 		typeItem.enable();
 		subTypeItem.enable();
@@ -138,6 +141,7 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 		activated = false;
 	}
 
+	@Override
 	protected void delete() {
 		GHANotification.confirm(GHAStrings.get("eiatype"),
 				GHAStrings.get("eiatype-delete-confirm"),
