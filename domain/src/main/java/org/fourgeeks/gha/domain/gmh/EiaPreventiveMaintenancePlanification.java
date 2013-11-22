@@ -20,11 +20,11 @@ public class EiaPreventiveMaintenancePlanification extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 
 	@ManyToOne
-	@JoinColumn(name = "eiaTypeMaintenancePlanFk")
+	@JoinColumn(name = "eiaTypeMaintenancePlanFk", nullable = false)
 	private EiaTypeMaintenancePlan plan;
 
 	@OneToOne
-	@JoinColumn(name = "eiaMaintenancePlanificationFk")
+	@JoinColumn(name = "eiaMaintenancePlanificationFk", nullable = false)
 	private EiaMaintenancePlanification planification;
 
 	/**

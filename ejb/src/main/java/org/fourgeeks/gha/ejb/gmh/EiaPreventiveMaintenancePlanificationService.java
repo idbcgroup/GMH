@@ -42,7 +42,6 @@ public class EiaPreventiveMaintenancePlanificationService extends
 			return em.find(EiaPreventiveMaintenancePlanification.class,
 					preventivePlanif.getId());
 		} catch (Exception e) {
-
 			logger.log(Level.INFO,
 					"ERROR: saving EiaPreventiveMaintenancePlanification ", e);
 			throw super.generateGHAEJBException("eia-save-fail",

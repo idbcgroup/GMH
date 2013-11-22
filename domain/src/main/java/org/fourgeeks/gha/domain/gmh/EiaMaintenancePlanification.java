@@ -42,7 +42,6 @@ public class EiaMaintenancePlanification extends AbstractEntity {
 	private Date deliverDate;
 	private Date acceptationDate;
 	private MaintenancePlanificationState state;
-	@SuppressWarnings("unused")
 	private MaintenancePlanificationStatus status;
 
 	/**
@@ -127,5 +126,13 @@ public class EiaMaintenancePlanification extends AbstractEntity {
 
 	public void setState(MaintenancePlanificationState state) {
 		this.state = state;
+	}
+
+	public MaintenancePlanificationStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(MaintenancePlanificationStatus status) {
+		this.status = status;
 	}
 }
