@@ -34,6 +34,8 @@ import org.fourgeeks.gha.webclient.client.brand.BrandModel;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
+import com.smartgwt.client.widgets.form.fields.events.FocusEvent;
+import com.smartgwt.client.widgets.form.fields.events.FocusHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 
@@ -98,6 +100,19 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 		final HLayout gridPanel = new HLayout();
 		// disable the brand select if no manufacturer is selected
 		brandItem.disable();
+		brandItem.addFocusHandler(new FocusHandler() {
+
+			@Override
+			public void onFocus(FocusEvent event) {
+				String manItemValue = manItem.getValueAsString();
+				if (manItemValue.matches("[1-9]+\\d*")) {
+					fillBrands(new Manufacturer(Integer.valueOf(manItemValue),
+							null));
+				}
+				brandItem.setValue("");
+
+			}
+		});
 		// set the handler for selected manufacturer
 		manItem.addChangedHandler(new ChangedHandler() {
 
@@ -108,11 +123,6 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 					brandItem.disable();
 					brandItem.setValue("");
 				} else {
-					if (manItemValue.matches("[1-9]+\\d*")) {
-						fillBrands(new Manufacturer(Integer
-								.valueOf(manItemValue), null));
-					}
-					brandItem.setValue("");
 					brandItem.enable();
 				}
 			}
@@ -236,15 +246,19 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 	}
 
 	private void fillBrands(Manufacturer manufacturer) {
+		final LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+		brandItem.setValueMap(valueMap);
+		brandItem.redraw();
+
 		BrandModel.findByManufacturer(manufacturer,
 				new GHAAsyncCallback<List<Brand>>() {
 
 					@Override
 					public void onSuccess(List<Brand> result) {
-						LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
 						for (Brand brand : result)
 							valueMap.put(brand.getId() + "", brand.getName());
 						brandItem.setValueMap(valueMap);
+						brandItem.redraw();
 					}
 
 				});
@@ -270,6 +284,7 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 							valueMap.put(manufacturer.getId() + "",
 									manufacturer.getName());
 						manItem.setValueMap(valueMap);
+						manItem.redraw();
 					}
 				}, forceFromServer);
 	}
@@ -290,20 +305,12 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 				}, true);
 	}
 
-	// Producer stuff
 	@Override
 	public void notifyEiaType(EiaType eiaType) {
 		for (EIATypeSelectionListener listener : listeners)
 			listener.select(eiaType);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.fourgeeks.gha.webclient.client.eiatype.EiaTypeSelectionProducer#
-	 * removeEiaTypeSelectionListener
-	 * (org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener)
-	 */
 	@Override
 	public void removeEiaTypeSelectionListener(
 			EIATypeSelectionListener eIATypeSelectionListener) {
@@ -337,6 +344,7 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 	/**
 	 * @param eiaType
 	 */
+	@Override
 	public void set(EiaType eiaType) {
 		this.originalEntity = eiaType;
 		if (eiaType.getBrand() != null) {
