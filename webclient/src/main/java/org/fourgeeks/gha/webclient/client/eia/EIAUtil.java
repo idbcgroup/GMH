@@ -27,6 +27,9 @@ public class EIAUtil {
 	}
 
 	public static Date getLogicalDate(java.util.Date date) {
+		if (date == null)
+			return null;
+
 		long time = DateUtil.getLogicalDateOnly(date).getTime();
 		return new Date(time);
 	}

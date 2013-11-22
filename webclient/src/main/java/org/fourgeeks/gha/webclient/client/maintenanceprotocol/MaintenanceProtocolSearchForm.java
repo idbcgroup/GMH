@@ -156,7 +156,7 @@ public class MaintenanceProtocolSearchForm extends GHASearchForm<MaintenanceProt
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getTabHeight() - 4 + "px");
+		super.onResize(event);
 	}
 
 	public void search() {

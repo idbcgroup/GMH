@@ -11,7 +11,6 @@ import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.GHAUtil;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACancelButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
@@ -66,8 +65,7 @@ public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan>
 	public MaintenancePlanSearchForm(String title) {
 		super(title);
 
-		form.setItems(nameItem, frequencyItem, periodOfTimeSelectItem,
-				new GHASpacerItem(), descriptionItem);
+		form.setItems(nameItem, frequencyItem, periodOfTimeSelectItem, descriptionItem);
 
 		nameItem.addKeyUpHandler(searchKeyUpHandler);
 		frequencyItem.addKeyUpHandler(searchKeyUpHandler);
@@ -94,7 +92,8 @@ public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan>
 		formLayout.setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT
 				+ "px");
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
-		resultSet.setHeight(resultSet.getHeight() - 28);
+
+		resultSet.setHeight(resultSet.getHeight() - 35);
 
 		addMembers(formLayout,
 				GHAUiHelper
@@ -131,7 +130,7 @@ public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan>
 	@Override
 	public void onResize(ResizeEvent event) {
 		super.onResize(event);
-		setHeight(GHAUiHelper.getTabHeight() - 4 + "px");
+		resultSet.setHeight(resultSet.getHeight() - 35);
 		form.resize(GHAUiHelper.getNormalFormWidth(30), 3);
 	}
 

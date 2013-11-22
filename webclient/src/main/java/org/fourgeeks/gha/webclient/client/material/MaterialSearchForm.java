@@ -96,7 +96,8 @@ public class MaterialSearchForm extends GHASearchForm<Material> implements
 		formLayout.setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT
 				+ "px");
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
-		resultSet.setHeight(resultSet.getHeight() - 28);
+
+		resultSet.setHeight(resultSet.getHeight() - 35);
 
 		addMembers(formLayout,
 				GHAUiHelper
@@ -131,8 +132,9 @@ public class MaterialSearchForm extends GHASearchForm<Material> implements
 	@Override
 	public void onResize(ResizeEvent event) {
 		super.onResize(event);
-		form.resize(GHAUiHelper.getNormalFormWidth(30),4);
 		resultSet.setHeight(resultSet.getHeight() - 35);
+		form.resize(GHAUiHelper.getNormalFormWidth(30),4);
+
 	}
 
 	@Override

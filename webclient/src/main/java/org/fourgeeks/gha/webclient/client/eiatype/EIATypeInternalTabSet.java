@@ -3,7 +3,7 @@ package org.fourgeeks.gha.webclient.client.eiatype;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAInternalTabSet;
 import org.fourgeeks.gha.webclient.client.eiatype.component.EIATypeComponentSubTab;
-import org.fourgeeks.gha.webclient.client.eiatype.eiadamagereport.EIADamageReportSubTab;
+import org.fourgeeks.gha.webclient.client.eiatype.damageandplanification.EIADamageAndPlanificationSubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.equipment.EIATypeEquipmentSubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.information.EIATypeInformationSubTab;
 import org.fourgeeks.gha.webclient.client.eiatype.maintenance.EIATypeMaintenanceSubTab;
@@ -24,7 +24,7 @@ public class EIATypeInternalTabSet extends GHAInternalTabSet implements
 	private EIATypeComponentSubTab partsSubTab;
 	private EIATypeMaterialSubTab materialSubTab;
 	private EIATypeUtilitySubTab servicesSubTab;
-	private EIADamageReportSubTab damageReportSubTab;
+	private EIADamageAndPlanificationSubTab damageAndPlanificationSubTab;
 
 	private EIATypeMaintenanceSubTab maintenanceSubTab;
 
@@ -48,11 +48,11 @@ public class EIATypeInternalTabSet extends GHAInternalTabSet implements
 		servicesSubTab = new EIATypeUtilitySubTab(tab);
 		hideables.add(servicesSubTab);
 		closables.add(servicesSubTab);
-		damageReportSubTab = new EIADamageReportSubTab(tab);
-		damageReportSubTab
+		damageAndPlanificationSubTab = new EIADamageAndPlanificationSubTab(tab);
+		damageAndPlanificationSubTab
 				.addEiaDamageReportSelectionListener(equipementsSubTab);
-		hideables.add(damageReportSubTab);
-		closables.add(damageReportSubTab);
+		hideables.add(damageAndPlanificationSubTab);
+		closables.add(damageAndPlanificationSubTab);
 		maintenanceSubTab = new EIATypeMaintenanceSubTab(tab);
 		hideables.add(maintenanceSubTab);
 		closables.add(maintenanceSubTab);
@@ -62,7 +62,7 @@ public class EIATypeInternalTabSet extends GHAInternalTabSet implements
 		addTab(partsSubTab);
 		addTab(materialSubTab);
 		addTab(servicesSubTab);
-		addTab(damageReportSubTab);
+		addTab(damageAndPlanificationSubTab);
 		addTab(maintenanceSubTab);
 	}
 
@@ -71,6 +71,11 @@ public class EIATypeInternalTabSet extends GHAInternalTabSet implements
 		selectTab(infoSubTab);
 		if (getSelectedTab() == infoSubTab)
 			infoSubTab.show();
+		if (getSelectedTab() == damageAndPlanificationSubTab) {
+			damageAndPlanificationSubTab.show();
+			damageAndPlanificationSubTab.openFirstSection();
+		}
+
 		animateShow(AnimationEffect.FADE);
 	}
 
@@ -79,8 +84,8 @@ public class EIATypeInternalTabSet extends GHAInternalTabSet implements
 		// forza al panel del subtab a mostrarse sy es el seleccionado
 		if (getSelectedTab() == infoSubTab)
 			infoSubTab.show();
-		if (getSelectedTab() == damageReportSubTab)
-			damageReportSubTab.show();
+		if (getSelectedTab() == damageAndPlanificationSubTab)
+			damageAndPlanificationSubTab.show();
 		super.show();
 	}
 }

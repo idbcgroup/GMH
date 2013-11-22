@@ -474,3 +474,6 @@ ES,damageStatus-not-null,Debe indicar el estado del daño o falla
 ES,damagePriority-not-null,Debe indicar la prioridad del daño o falla
 ES,userWhoReported-not-null,Debe indicar el usuario que reportó el daño o falla
 ES,userWhoRegistered-not-null,Debe indicar el usuario que registró el daño o falla
+ES,no-eiatype-maintenance-plans,No existen planes de mantenimiento para este tipo de equipo
+ES,eiaPreventiveMaintenancePlanification-save-success,La Planificación de Mantenimiento Preventivo ha sido guardada exitosamente
+ES,eiatype-maintenance-plan-not-null,Debe indicar el plan de mantenimiento  

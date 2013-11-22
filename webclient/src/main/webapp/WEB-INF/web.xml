@@ -33,14 +33,14 @@
     <url-pattern>/webclient/eiaType</url-pattern>
   </servlet-mapping>
   <servlet>
-		<servlet-name>GWTEiaDamageReportService</servlet-name>
-		<servlet-class>org.fourgeeks.gha.webclient.server.eiadamagereport.GWTEiaDamageReportServiceImpl</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>GWTEiaDamageReportService</servlet-name>
-		<url-pattern>/webclient/eiaDamageReport</url-pattern>
-	</servlet-mapping>
-	<servlet>
+	<servlet-name>GWTEiaDamageReportService</servlet-name>
+	<servlet-class>org.fourgeeks.gha.webclient.server.eiadamagereport.GWTEiaDamageReportServiceImpl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>GWTEiaDamageReportService</servlet-name>
+	<url-pattern>/webclient/eiaDamageReport</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>GWTEiaService</servlet-name>
     <servlet-class>org.fourgeeks.gha.webclient.server.eia.GWTEiaServiceImpl</servlet-class>
   </servlet>
@@ -95,6 +95,14 @@
   <servlet-mapping>
     <servlet-name>GWTEiaComponentService</servlet-name>
     <url-pattern>/webclient/eiaComponent</url-pattern>
+  </servlet-mapping>
+  <servlet>
+	<servlet-name>GWTEiaPreventiveMaintenancePlanificationService</servlet-name>
+	<servlet-class>org.fourgeeks.gha.webclient.server.eiapreventivemaintenanceplanification.GWTEiaPreventiveMaintenancePlanificationImpl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>GWTEiaPreventiveMaintenancePlanificationService</servlet-name>
+	<url-pattern>/webclient/EiaPreventiveMaintenancePlanification</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
     <welcome-file>gha.html</welcome-file>

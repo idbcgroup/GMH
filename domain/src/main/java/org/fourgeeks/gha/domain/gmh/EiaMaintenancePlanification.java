@@ -10,6 +10,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
+import org.fourgeeks.gha.domain.enu.MaintenancePlanificationState;
+import org.fourgeeks.gha.domain.enu.MaintenancePlanificationStatus;
+import org.fourgeeks.gha.domain.ess.Role;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
 
 /**
@@ -28,11 +31,18 @@ public class EiaMaintenancePlanification extends AbstractEntity {
 	@ManyToOne
 	@JoinColumn(name = "eiaFk")
 	private Eia eia;
+	@ManyToOne
+	@JoinColumn(name = "providerFk")
+	private ExternalProvider provider;
+	@ManyToOne
+	@JoinColumn(name = "roleFk")
+	private Role role;
 
 	private Date scheduledDate;
-	private ExternalProvider provider;
 	private Date deliverDate;
 	private Date acceptationDate;
+	private MaintenancePlanificationState state;
+	private MaintenancePlanificationStatus status;
 
 	/**
 	 * 
@@ -100,5 +110,29 @@ public class EiaMaintenancePlanification extends AbstractEntity {
 	 */
 	public void setAcceptationDate(Date acceptationDate) {
 		this.acceptationDate = acceptationDate;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+	public MaintenancePlanificationState getState() {
+		return state;
+	}
+
+	public void setState(MaintenancePlanificationState state) {
+		this.state = state;
+	}
+
+	public MaintenancePlanificationStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(MaintenancePlanificationStatus status) {
+		this.status = status;
 	}
 }
