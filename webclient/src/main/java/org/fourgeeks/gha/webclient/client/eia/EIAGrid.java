@@ -5,15 +5,16 @@ import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridField;
 import org.fourgeeks.gha.webclient.client.UI.grids.GhaGrid;
 
 import com.google.gwt.event.logical.shared.ResizeHandler;
-import com.smartgwt.client.data.Record;
-import com.smartgwt.client.widgets.Canvas;
+import com.smartgwt.client.widgets.menu.MenuItem;
+import com.smartgwt.client.widgets.menu.events.ClickHandler;
+import com.smartgwt.client.widgets.menu.events.MenuItemClickEvent;
 
 /**
  * @author alacret, emiliot
  * 
  */
 public class EIAGrid extends GhaGrid<Eia> implements ResizeHandler {
-	private EIADetailViewer detailViewer;
+	private MenuItem[] headerMenuItems;
 
 	/**
 	 * 
@@ -30,11 +31,25 @@ public class EIAGrid extends GhaGrid<Eia> implements ResizeHandler {
 		GHAGridField bpiGridField = new GHAGridField("bpi", "Institución");
 		GHAGridField statusGridField = new GHAGridField("state", "Estado");
 
-		setFields(idGridField, serialGridField, faiGridField,
-				locationGridField, bpiGridField, statusGridField);
+		// los que van ocultos por defecto
+		GHAGridField obuGridField = new GHAGridField("obu", "Dept. Responsable");
+		obuGridField.setHidden(true);
+		GHAGridField roleGridField = new GHAGridField("role", "Rol Responsable");
+		roleGridField.setHidden(true);
+		GHAGridField typeFiled = new GHAGridField("type", "Tipo de equipo");
+		typeFiled.setHidden(true);
+		GHAGridField brandFiled = new GHAGridField("brand", "Marca");
+		brandFiled.setHidden(true);
+		GHAGridField modelFiled = new GHAGridField("model", "Modelo");
+		modelFiled.setHidden(true);
 
-		detailViewer = new EIADetailViewer();
-		detailViewer.setWidth(350);
+		setFields(idGridField, serialGridField, faiGridField,
+				locationGridField, bpiGridField, statusGridField, obuGridField,
+				roleGridField, typeFiled, brandFiled, modelFiled);
+
+		headerMenuItems = generateHeaderMenuItems(idGridField, serialGridField,
+				faiGridField, locationGridField, bpiGridField, statusGridField,
+				obuGridField, roleGridField, typeFiled, brandFiled, modelFiled);
 
 		setCanHover(true);
 		setShowHover(true);
@@ -42,11 +57,35 @@ public class EIAGrid extends GhaGrid<Eia> implements ResizeHandler {
 	}
 
 	@Override
-	protected Canvas getCellHoverComponent(Record record, Integer rowNum,
-			Integer colNum) {
+	protected MenuItem[] getHeaderContextMenuItems(Integer fieldNum) {
+		return headerMenuItems;
+	}
 
-		detailViewer.setData(new EIARecord[] { (EIARecord) record });
+	private MenuItem[] generateHeaderMenuItems(GHAGridField... fields) {
+		MenuItem[] menuItems = new MenuItem[fields.length];
 
-		return detailViewer;
+		for (int i = 0; i < fields.length; i++) {
+			MenuItem menuItem = getShowFildMenuItem(fields[i]);
+			menuItems[i] = menuItem;
+		}
+
+		return menuItems;
+	}
+
+	private MenuItem getShowFildMenuItem(final GHAGridField field) {
+		final MenuItem menuItem = new MenuItem(field.getTitle());
+		menuItem.setChecked(!field.getIsHidden());
+
+		menuItem.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(MenuItemClickEvent event) {
+				menuItem.setChecked(!menuItem.getChecked());
+				if (menuItem.getChecked())
+					EIAGrid.this.showField(field.getName());
+				else
+					EIAGrid.this.hideField(field.getName());
+			}
+		});
+		return menuItem;
 	}
 }
