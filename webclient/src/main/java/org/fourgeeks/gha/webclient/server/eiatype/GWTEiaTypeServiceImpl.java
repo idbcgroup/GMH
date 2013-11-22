@@ -6,6 +6,7 @@ package org.fourgeeks.gha.webclient.server.eiatype;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.servlet.annotation.WebServlet;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.EiaType;
@@ -19,7 +20,9 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  * @author emiliot
  * 
  */
-public class GWTEiaTypeServiceImpl extends RemoteServiceServlet implements GWTEiaTypeService {
+@WebServlet(urlPatterns = { "/webclient/eiaType" })
+public class GWTEiaTypeServiceImpl extends RemoteServiceServlet implements
+		GWTEiaTypeService {
 
 	/**
 	 * 
@@ -127,7 +130,8 @@ public class GWTEiaTypeServiceImpl extends RemoteServiceServlet implements GWTEi
 	 * .gha.domain.gmh.EiaType, int, int)
 	 */
 	@Override
-	public List<EiaType> find(EiaType eiaType, int offset, int size) throws GHAEJBException {
+	public List<EiaType> find(EiaType eiaType, int offset, int size)
+			throws GHAEJBException {
 		return eiaTypeServiceRemote.find(eiaType, offset, size);
 	}
 
