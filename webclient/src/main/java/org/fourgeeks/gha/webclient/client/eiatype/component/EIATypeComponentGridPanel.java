@@ -19,6 +19,7 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSearchForm;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
+import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
@@ -91,7 +92,8 @@ public class EIATypeComponentGridPanel extends GHAVerticalLayout implements
 			}
 		});
 
-		searchForm = new EIATypeSearchForm(GHAStrings.get("search-component-eiatype"));
+		searchForm = new EIATypeSearchForm(
+				GHAStrings.get("search-component-eiatype"));
 		searchForm.addEiaTypeSelectionListener(new EIATypeSelectionListener() {
 
 			@Override
@@ -132,21 +134,7 @@ public class EIATypeComponentGridPanel extends GHAVerticalLayout implements
 
 			@Override
 			public void onClick(ClickEvent event) {
-				EiaTypeComponent eiaTypeComponent = grid.getSelectedEntity();
-
-				if (eiaTypeComponent == null) {
-					GHANotification.alert("record-not-selected");
-					return;
-				}
-
-				EIATypeComponentModel.delete(eiaTypeComponent.getId(),
-						new GHAAsyncCallback<Void>() {
-
-							@Override
-							public void onSuccess(Void result) {
-								loadData();
-							}
-						});
+				delete();
 			}
 		}));
 		final HLayout gridContainer = new HLayout();
@@ -168,6 +156,35 @@ public class EIATypeComponentGridPanel extends GHAVerticalLayout implements
 	@Override
 	public void close() {
 		searchForm.close();
+	}
+
+	private void delete() {
+		final EiaTypeComponent eiaTypeComponent = grid.getSelectedEntity();
+
+		if (eiaTypeComponent == null) {
+			GHANotification.alert("record-not-selected");
+			return;
+		}
+
+		GHANotification.confirm(GHAStrings.get("eiatype-component"),
+				GHAStrings.get("eiatype-component-delete-confirm"),
+				new BooleanCallback() {
+
+					@Override
+					public void execute(Boolean value) {
+						if (value)
+							EIATypeComponentModel.delete(
+									eiaTypeComponent.getId(),
+									new GHAAsyncCallback<Void>() {
+
+										@Override
+										public void onSuccess(Void result) {
+											loadData();
+										}
+									});
+					}
+				});
+
 	}
 
 	@Override

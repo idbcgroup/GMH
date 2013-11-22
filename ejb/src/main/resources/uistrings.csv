@@ -129,3 +129,8 @@ ES,hours,Horas
 ES,weeks,Semanas
 ES,semesters,Semestres
 ES,years,Años
+ES,responsible-role,Cargo Responsable
+ES,adquisition-provider,Proveedor de Equipo
+ES,maintenance-provider,Proveedor de Mantenimiento
+ES,eiatype-component,Componentes para un EiaType
+ES,eiatype-component-delete-confirm,Confirme si desea eliminar el componente seleccionado
