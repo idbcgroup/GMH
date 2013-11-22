@@ -3,6 +3,7 @@ package org.fourgeeks.gha.webclient.server.eia;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.servlet.annotation.WebServlet;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.Eia;
@@ -16,6 +17,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  * @author alacret
  * 
  */
+@WebServlet(urlPatterns = { "/webclient/eia" })
 public class GWTEiaServiceImpl extends RemoteServiceServlet implements
 		GWTEiaService {
 

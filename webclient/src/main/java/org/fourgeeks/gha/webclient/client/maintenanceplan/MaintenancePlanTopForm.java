@@ -2,6 +2,8 @@ package org.fourgeeks.gha.webclient.client.maintenanceplan;
 
 import java.util.List;
 
+import org.fourgeeks.gha.domain.enu.MaintenancePlanState;
+import org.fourgeeks.gha.domain.enu.MaintenancePlanType;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
@@ -10,6 +12,8 @@ import org.fourgeeks.gha.webclient.client.UI.GHATopForm;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAPeriodOfTimeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenancePlanStateSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenancePlanTypeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
@@ -31,10 +35,12 @@ public class MaintenancePlanTopForm extends
 	private GHATextItem nameItem, frequencyItem, descriptionItem;
 	private GHAPeriodOfTimeSelectItem periodOfTimeItem;
 
-	private GHASearchButton searchButton;
-	private GHACleanButton cleanButton;
-	private GHADeleteButton deleteButton;
-	private VLayout sideButtons;
+	private final GHASearchButton searchButton;
+	private final GHACleanButton cleanButton;
+	private final GHADeleteButton deleteButton;
+	private GHAMaintenancePlanTypeSelectItem typeItem;
+	private GHAMaintenancePlanStateSelectItem stateItem;
+	private final VLayout sideButtons;
 	protected MaintenancePlan selectedMaintenancePlan;
 
 	{
@@ -42,8 +48,12 @@ public class MaintenancePlanTopForm extends
 		nameItem.setColSpan(2);
 		frequencyItem = new GHATextItem(GHAStrings.get("frecuency"), false);
 		periodOfTimeItem = new GHAPeriodOfTimeSelectItem();
+		typeItem = new GHAMaintenancePlanTypeSelectItem();
+		// typeItem.setDefaultValue(MaintenancePlanType.PREVENTIVE);
+		stateItem = new GHAMaintenancePlanStateSelectItem();
+		// stateItem.setDefaultValue(MaintenancePlanState.ACTIVE);
 		descriptionItem = new GHATextItem(GHAStrings.get("description"), false);
-		descriptionItem.setColSpan(4);
+		descriptionItem.setColSpan(2);
 	}
 
 	public MaintenancePlanTopForm(MaintenancePlanResultSet resultSet,
@@ -52,8 +62,8 @@ public class MaintenancePlanTopForm extends
 
 		GHADynamicForm form = new GHADynamicForm(
 				GHAUiHelper.getNormalFormWidth(30), 4);
-		form.setItems(nameItem, frequencyItem, periodOfTimeItem,
-				descriptionItem);
+		form.setItems(nameItem, typeItem, stateItem, descriptionItem,
+				frequencyItem, periodOfTimeItem);
 
 		searchButton = new GHASearchButton(new ClickHandler() {
 			@Override
@@ -94,6 +104,8 @@ public class MaintenancePlanTopForm extends
 		frequencyItem.setDisabled(!active);
 		periodOfTimeItem.setDisabled(!active);
 		descriptionItem.setDisabled(!active);
+		stateItem.setDisabled(!active);
+		typeItem.setDisabled(!active);
 		activated = active;
 	}
 
@@ -110,6 +122,8 @@ public class MaintenancePlanTopForm extends
 		frequencyItem.clearValue();
 		periodOfTimeItem.clearValue();
 		descriptionItem.clearValue();
+		typeItem.clearValue();
+		stateItem.clearValue();
 	}
 
 	@Override
@@ -143,6 +157,7 @@ public class MaintenancePlanTopForm extends
 				});
 	}
 
+	@Override
 	public void search() {
 		super.search();
 		MaintenancePlan maintenancePlan = new MaintenancePlan();
@@ -156,6 +171,13 @@ public class MaintenancePlanTopForm extends
 		if (periodOfTimeItem.getValue() != null)
 			maintenancePlan.setPot(TimePeriodEnum.valueOf(periodOfTimeItem
 					.getValueAsString()));
+		if (stateItem.getValue() != null)
+			maintenancePlan.setState(MaintenancePlanState.valueOf(stateItem
+					.getValueAsString()));
+		if (typeItem.getValue() != null)
+			maintenancePlan.setType(MaintenancePlanType.valueOf(stateItem
+					.getValueAsString()));
+
 		search(maintenancePlan);
 	}
 
@@ -185,6 +207,8 @@ public class MaintenancePlanTopForm extends
 		descriptionItem.setValue(maintenancePlan.getDescription());
 		frequencyItem.setValue(maintenancePlan.getFrequency());
 		periodOfTimeItem.setValue(maintenancePlan.getPot());
+		stateItem.setValue(maintenancePlan.getState());
+		typeItem.setValue(maintenancePlan.getType());
 		deactivate();
 	}
 

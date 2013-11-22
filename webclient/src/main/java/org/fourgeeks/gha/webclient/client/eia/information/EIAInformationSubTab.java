@@ -17,7 +17,7 @@ import com.smartgwt.client.widgets.tab.events.TabSelectedHandler;
 public class EIAInformationSubTab extends GHASubTab implements
 		EIASelectionListener {
 
-	private EIAInformationFormPanel form;
+	private final EIAInformationFormPanel form;
 
 	/**
 	 * @param tab
@@ -58,7 +58,7 @@ public class EIAInformationSubTab extends GHASubTab implements
 
 	@Override
 	public void select(Eia eia) {
-		form.setEia(eia);
+		form.select(eia);
 	}
 
 	public void show() {

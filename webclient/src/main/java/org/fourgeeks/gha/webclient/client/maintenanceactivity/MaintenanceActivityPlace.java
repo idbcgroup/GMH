@@ -10,6 +10,7 @@ import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabSet;
  * @author alacret
  * 
  */
+@Deprecated
 public class MaintenanceActivityPlace extends NeedPermissionPlace {
 	private GHATab tab;
 

@@ -58,14 +58,13 @@ ES,second-lastname,Segundo apellido
 ES,last-name,Apellido
 ES,id-type,Tipo de identificación
 ES,id-number,Numero de identificación
-ES,eiatype-select-item,Tipo de Equipo
-ES,eiastate-select-item,Estado
-ES,serialNumber-item,Serial
-ES,fixedAssetIdentifier-item,Id Activo Fijo
-ES,workingarea-select-item,Area de Trabajo
-ES,facility-select-item,Instalación
-ES,obu-select-item,Departamento Responsable
-ES,role-select-item,Rol Responsable
+ES,state,Estado
+ES,serial,Serial
+ES,fixed-asset-identifier-item,Número Activo Fijo
+ES,workingarea,Area de Trabajo
+ES,facility,Instalación
+ES,obu,Departamento Responsable
+ES,role,Rol Responsable
 ES,search-component-eia,Búsqueda de componentes para equipos
 ES,search-component-eiatype,Búsqueda de componentes para tipos de equipo
 ES,search-material,Búsqueda de materiales para tipos de equipo
@@ -96,7 +95,7 @@ ES,state,Estado
 ES,first-name,Primer nombre
 ES,form-errors,Errores en el formulario
 ES,unsaved-changes,Tiene cambios sin guardar. ¿Realmente desea salir?
-ES,bpi-select-item,Institución
+ES,bpi,Institución
 ES,maintenance,Mantenimiento
 ES,maintenance-plans,Planes de mantenimiento
 ES,no-results-to-show,No hay resultados para mostrar
@@ -117,6 +116,8 @@ ES,eiastate-inacceptance,Por Aceptar
 ES,eiastate-disincorporated,Desincorporados
 ES,eiastate-majordamaged,Dañados Gravemente
 ES,new-maintenance-plan,Nuevo plan de mantenimiento
+ES,plan-type,Tipo de plan
+ES,plan-state,Estado del plan
 ES,eiaDamageReport,Reporte de equipo dañado y Solicitud de Mantenimiento
 ES,search-eia,Búsqueda de equipos
 ES,new-eiaDamageReport,Nuevo reporte de equipo dañado
@@ -129,6 +130,7 @@ ES,hours,Horas
 ES,weeks,Semanas
 ES,semesters,Semestres
 ES,years,Años
+ES,eia-type-on-maintenance-plan,Tipos de equipos asociados al plan de mantenimiento
 ES,responsible-role,Cargo Responsable
 ES,adquisition-provider,Proveedor de Equipo
 ES,maintenance-provider,Proveedor de Mantenimiento
@@ -136,3 +138,5 @@ ES,eiatype-component,Componentes para un EiaType
 ES,eiatype-component-delete-confirm,Confirme si desea eliminar el componente seleccionado
 ES,new-eia-preventive-maintenance-planification,Nueva Planificación de Mantenimiento Preventivo
 ES,eia-preventive-maintenance-planification,Planificación de Mantenimiento Preventivo
+ES,providers,Proveedores
+ES,intermediate-warranty,Garantía intermedia

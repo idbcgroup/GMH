@@ -25,6 +25,12 @@ public interface GWTMaintenancePlanService extends RemoteService{
 	public void delete(long Id) throws GHAEJBException;
 
 	/**
+	 * @param maintenancePlans
+	 * @throws GHAEJBException
+	 */
+	public void delete(List<MaintenancePlan> maintenancePlans) throws GHAEJBException;
+
+	/**
 	 * @param eiaType
 	 * @return a list with the maintenance plans associated with this eiatype
 	 * @throws GHAEJBException

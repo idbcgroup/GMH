@@ -6,6 +6,7 @@ package org.fourgeeks.gha.webclient.server.externalprovider;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.servlet.annotation.WebServlet;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
@@ -18,6 +19,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  * @author alacret
  * 
  */
+@WebServlet(urlPatterns = { "/webclient/externalProvider" })
 public class GWTExternalProviderServiceImpl extends RemoteServiceServlet
 		implements GWTExternalProviderService {
 

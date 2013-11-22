@@ -7,30 +7,35 @@ import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanTab;
 
 /**
  * @author emiliot
- *
+ * 
  */
+@Deprecated
 public class MaintenanceProtocolSubTab extends GHASubTab implements
-		MaintenancePlanSelectionListener{
+		MaintenancePlanSelectionListener {
 
-	private MaintenanceProtocolGridPanel panel;
+	private final MaintenanceProtocolGridPanel panel;
 
 	public MaintenanceProtocolSubTab(MaintenancePlanTab tab) {
 		super("Protocolos", tab);
 		setDisabled(true);
-		
+
 		// register as maintenanceplan listener with the tab
 		tab.addMaintenancePlanSelectionListener(this);
-		
+
 		panel = new MaintenanceProtocolGridPanel();
 		addClosableListener(panel);
 		addHideableListener(panel);
-		
+
 		setPane(panel);
 	}
 
-	//Consumer stuff
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener#select(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
+	// Consumer stuff
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.
+	 * MaintenancePlanSelectionListener
+	 * #select(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
 	 */
 	@Override
 	public void select(MaintenancePlan maintenancePlan) {

@@ -15,10 +15,11 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
+
 public class ActivitiesGridPanel extends VLayout implements ClosableListener,
 		HideableListener {
 
-	private MaintenanceActivityGrid maintenanceActivityGrid = new MaintenanceActivityGrid();
+	private final MaintenanceActivityGrid maintenanceActivityGrid = new MaintenanceActivityGrid();
 
 	public ActivitiesGridPanel() {
 		super();

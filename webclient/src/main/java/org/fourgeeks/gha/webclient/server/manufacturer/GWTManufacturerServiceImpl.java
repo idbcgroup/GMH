@@ -6,6 +6,7 @@ package org.fourgeeks.gha.webclient.server.manufacturer;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.servlet.annotation.WebServlet;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
@@ -18,6 +19,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  * @author emiliot
  * 
  */
+@WebServlet(urlPatterns = { "/webclient/manufacturer" })
 public class GWTManufacturerServiceImpl extends RemoteServiceServlet implements
 		GWTManufacturerService {
 
@@ -35,7 +37,8 @@ public class GWTManufacturerServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public List<Manufacturer> getAll(int offset, int size) throws GHAEJBException {
+	public List<Manufacturer> getAll(int offset, int size)
+			throws GHAEJBException {
 		// TODO Auto-generated method stub
 		return service.getAll();
 	}

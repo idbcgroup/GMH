@@ -6,6 +6,7 @@ package org.fourgeeks.gha.webclient.server.eiapreventivemaintenanceplanification
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.servlet.annotation.WebServlet;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.EiaPreventiveMaintenancePlanification;
@@ -19,6 +20,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  * @author emiliot
  * 
  */
+@WebServlet(urlPatterns = { "/webclient/EiaPreventiveMaintenancePlanification" })
 public class GWTEiaPreventiveMaintenancePlanificationImpl extends
 		RemoteServiceServlet implements
 		GWTEiaPreventiveMaintenancePlanificationService {

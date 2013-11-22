@@ -11,6 +11,8 @@ import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
+import org.fourgeeks.gha.domain.enu.MaintenancePlanState;
+import org.fourgeeks.gha.domain.enu.MaintenancePlanType;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
@@ -19,7 +21,10 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAPeriodOfTimeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextAreaItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenancePlanStateSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenancePlanTypeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
@@ -38,28 +43,32 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 
 	private List<MaintenancePlanSelectionListener> listeners;
 
-	private GHATextItem nameItem, frequencyItem, descriptionItem;
+	private GHATextItem nameItem, frequencyItem;
+	private GHATextAreaItem descriptionItem;
 	private GHASelectItem periodOfTimeItem;
+	private GHAMaintenancePlanTypeSelectItem typeItem;
+	private GHAMaintenancePlanStateSelectItem stateItem;
 	private Validator validator;
 
 	private GHADynamicForm form;
 
 	{
-		nameItem = new GHATextItem(GHAStrings.get("name"));
+		nameItem = new GHATextItem(GHAStrings.get("name"), true, changedHandler);
 		nameItem.setLength(100);
-		nameItem.setRequired(true);
-		frequencyItem = new GHATextItem(GHAStrings.get("frecuency"));
-		frequencyItem.setRequired(true);
+		frequencyItem = new GHATextItem(GHAStrings.get("frecuency"), true,
+				changedHandler);
 		frequencyItem.setLength(3);
-		periodOfTimeItem = new GHAPeriodOfTimeSelectItem();
-		periodOfTimeItem.setRequired(true);
-		descriptionItem = new GHATextItem(GHAStrings.get("description"));
-		descriptionItem.setColSpan(4);
+		periodOfTimeItem = new GHAPeriodOfTimeSelectItem(true, changedHandler);
+		descriptionItem = new GHATextAreaItem(GHAStrings.get("description"),
+				changedHandler);
+		descriptionItem.setColSpan(3);
+		typeItem = new GHAMaintenancePlanTypeSelectItem(true, changedHandler);
+		stateItem = new GHAMaintenancePlanStateSelectItem(true, changedHandler);
 
 		validator = Validation.buildDefaultValidatorFactory().getValidator();
 		listeners = new ArrayList<MaintenancePlanSelectionListener>();
 
-		form = new GHADynamicForm(GHAUiHelper.getNormalFormWidth(30), 3);
+		form = new GHADynamicForm(GHAUiHelper.getNormalFormWidth(30), 4);
 	}
 
 	/**
@@ -68,7 +77,8 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 	public MaintenancePlanForm() {
 		final HLayout mainPanel = new HLayout();
 		form.setItems(nameItem, frequencyItem, periodOfTimeItem,
-				new GHASpacerItem(), descriptionItem);
+				new GHASpacerItem(), typeItem, stateItem, descriptionItem,
+				new GHASpacerItem());
 		mainPanel.addMembers(form, new LayoutSpacer());
 		addMember(mainPanel);
 	}
@@ -76,16 +86,6 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 	@Override
 	public void activate() {
 		toggleForm(true);
-	}
-
-	/**
-	 * @param activate
-	 */
-	public void activateForm(boolean activate) {
-		nameItem.setDisabled(!activate);
-		frequencyItem.setDisabled(!activate);
-		periodOfTimeItem.setDisabled(!activate);
-		descriptionItem.setDisabled(!activate);
 	}
 
 	@Override
@@ -101,6 +101,8 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 		frequencyItem.clearValue();
 		periodOfTimeItem.clearValue();
 		descriptionItem.clearValue();
+		stateItem.clearValue();
+		typeItem.clearValue();
 	}
 
 	@Override
@@ -126,10 +128,16 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 			maintenancePlan.setFrequency(Integer.valueOf(frequencyItem
 					.getValueAsString()));
 		}
-		if (periodOfTimeItem.getValue() != null) {
+		if (periodOfTimeItem.getValue() != null)
 			maintenancePlan.setPot(TimePeriodEnum.valueOf(periodOfTimeItem
 					.getValueAsString()));
-		}
+
+		if (typeItem.getValue() != null)
+			maintenancePlan.setType(MaintenancePlanType.valueOf(typeItem
+					.getValueAsString()));
+		if (stateItem.getValue() != null)
+			maintenancePlan.setState(MaintenancePlanState.valueOf(stateItem
+					.getValueAsString()));
 
 		Set<ConstraintViolation<MaintenancePlan>> violations = validator
 				.validate(maintenancePlan);
@@ -148,9 +156,8 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 
 	@Override
 	public void notifyMaintenancePlan(MaintenancePlan plan) {
-		for (MaintenancePlanSelectionListener listener : listeners) {
+		for (MaintenancePlanSelectionListener listener : listeners)
 			listener.select(plan);
-		}
 	}
 
 	@Override
@@ -186,6 +193,8 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 		descriptionItem.setValue(maintenancePlan.getDescription());
 		frequencyItem.setValue(maintenancePlan.getFrequency());
 		periodOfTimeItem.setValue(maintenancePlan.getPot().name());
+		typeItem.setValue(maintenancePlan.getType().name());
+		stateItem.setValue(maintenancePlan.getState().name());
 	}
 
 	private void toggleForm(boolean active) {
@@ -193,6 +202,8 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 		frequencyItem.setDisabled(!active);
 		periodOfTimeItem.setDisabled(!active);
 		descriptionItem.setDisabled(!active);
+		typeItem.setDisabled(!active);
+		stateItem.setDisabled(!active);
 	}
 
 	@Override

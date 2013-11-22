@@ -6,6 +6,7 @@ package org.fourgeeks.gha.webclient.server.eiadamagereport;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.servlet.annotation.WebServlet;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
@@ -19,6 +20,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  * @author emiliot
  * 
  */
+@WebServlet(urlPatterns = { "/webclient/eiaDamageReport" })
 public class GWTEiaDamageReportServiceImpl extends RemoteServiceServlet
 		implements GWTEiaDamageReportService {
 
