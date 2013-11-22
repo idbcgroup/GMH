@@ -78,7 +78,8 @@ public class EIAPreventiveMaintenancePlanificationGridPanel extends
 		HLayout mainPanel = new HLayout();
 		mainPanel.addMembers(grid, sideButtons);
 
-		String title = GHAStrings.get("eiaPreventiveMaintenancePlanification");
+		String title = GHAStrings
+				.get("eia-preventive-maintenance-planification");
 		addMembers(new GHALabel(title), mainPanel);
 	}
 
@@ -116,15 +117,6 @@ public class EIAPreventiveMaintenancePlanificationGridPanel extends
 	}
 
 	private void search() {
-		// ListGridRecord records[] = grid.getRecords();
-		// List<Eia> blackList = new ArrayList<Eia>();
-		//
-		// for (int i = 0; i < records.length; ++i) {
-		// EIARecord eiaRecord = (EIARecord) records[i];
-		// blackList.add(eiaRecord.toEntity());
-		// }
-		//
-		// searchForm.filterBy(blackList);
 		EiaTypeMaintenancePlanModel.findByEiaType(eiaType,
 				new GHAAsyncCallback<List<EiaTypeMaintenancePlan>>() {
 					@Override
@@ -133,7 +125,7 @@ public class EIAPreventiveMaintenancePlanificationGridPanel extends
 							searchForm.open();
 						else
 							GHANotification
-									.oldAlert("No existen planes de mantenimiento para este tipo de equipo");
+									.alert("no-eiatype-maintenance-plans");
 					}
 				});
 

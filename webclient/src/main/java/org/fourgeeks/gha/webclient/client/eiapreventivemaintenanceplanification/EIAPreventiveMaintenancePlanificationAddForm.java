@@ -29,7 +29,7 @@ public class EIAPreventiveMaintenancePlanificationAddForm extends
 	}
 
 	public EIAPreventiveMaintenancePlanificationAddForm() {
-		super(GHAStrings.get("new-eiaPreventiveMaintenancePlanification"));
+		super(GHAStrings.get("new-eia-preventive-maintenance-planification"));
 		VLayout sideButtons = GHAUiHelper.createBar(new GHASaveButton(
 				new ClickHandler() {
 					@Override

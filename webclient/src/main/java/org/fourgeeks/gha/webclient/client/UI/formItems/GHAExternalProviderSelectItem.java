@@ -16,7 +16,7 @@ public class GHAExternalProviderSelectItem extends GHASelectItem {
 	 * @param width
 	 */
 	public GHAExternalProviderSelectItem(int width) {
-		super(GHAStrings.get("externalProvider-select-item"), width);
+		super(GHAStrings.get("maintenance-provider"), width);
 		fill();
 	}
 
@@ -24,7 +24,7 @@ public class GHAExternalProviderSelectItem extends GHASelectItem {
 	 * 
 	 */
 	public GHAExternalProviderSelectItem() {
-		super(GHAStrings.get("externalProvider-select-item"));
+		super(GHAStrings.get("maintenance-provider"));
 		fill();
 	}
 
@@ -35,7 +35,7 @@ public class GHAExternalProviderSelectItem extends GHASelectItem {
 	 */
 	public GHAExternalProviderSelectItem(boolean required,
 			ChangedHandler changedHandler) {
-		super(GHAStrings.get("externalProvider-select-item"));
+		super(GHAStrings.get("maintenance-provider"));
 		setRequired(required);
 		addChangedHandler(changedHandler);
 		fill();

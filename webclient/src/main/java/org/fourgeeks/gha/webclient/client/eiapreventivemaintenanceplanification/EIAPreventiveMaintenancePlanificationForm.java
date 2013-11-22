@@ -3,6 +3,9 @@ package org.fourgeeks.gha.webclient.client.eiapreventivemaintenanceplanification
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
 
 import org.fourgeeks.gha.domain.enu.MaintenancePlanificationState;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanificationStatus;
@@ -23,6 +26,7 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 import org.fourgeeks.gha.webclient.client.eia.EIAUtil;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
@@ -138,7 +142,18 @@ public class EIAPreventiveMaintenancePlanificationForm extends
 		planification.setStatus(MaintenancePlanificationStatus
 				.valueOf(statusSelectItem.getValueAsString()));
 
-		return entity;
+		// VALIDANDO LOS DATOS
+		Set<ConstraintViolation<EiaPreventiveMaintenancePlanification>> violations = null;
+		violations = validator.validate(entity);
+		if (form.validate() && violations.isEmpty())
+			return entity;
+		else {
+			List<String> violationsList = new ArrayList<String>();
+			for (ConstraintViolation<EiaPreventiveMaintenancePlanification> violation : violations)
+				violationsList.add(violation.getMessage());
+			GHANotification.alert(violationsList);
+		}
+		return null;
 	}
 
 	private void fill() {
@@ -168,11 +183,11 @@ public class EIAPreventiveMaintenancePlanificationForm extends
 	@Override
 	public void save(
 			final GHAAsyncCallback<EiaPreventiveMaintenancePlanification> callback) {
-		EiaPreventiveMaintenancePlanification maintenance = extract();
-		if (maintenance == null)
+		EiaPreventiveMaintenancePlanification entity = extract();
+		if (entity == null)
 			return;
 
-		EiaPreventiveMaintenancePlanificationModel.save(maintenance,
+		EiaPreventiveMaintenancePlanificationModel.save(entity,
 				new GHAAsyncCallback<EiaPreventiveMaintenancePlanification>() {
 					@Override
 					public void onSuccess(

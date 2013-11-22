@@ -134,3 +134,5 @@ ES,adquisition-provider,Proveedor de Equipo
 ES,maintenance-provider,Proveedor de Mantenimiento
 ES,eiatype-component,Componentes para un EiaType
 ES,eiatype-component-delete-confirm,Confirme si desea eliminar el componente seleccionado
+ES,new-eia-preventive-maintenance-planification,Nueva Planificación de Mantenimiento Preventivo
+ES,eia-preventive-maintenance-planification,Planificación de Mantenimiento Preventivo

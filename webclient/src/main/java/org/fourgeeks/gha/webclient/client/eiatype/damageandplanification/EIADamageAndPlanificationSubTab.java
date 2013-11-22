@@ -71,6 +71,10 @@ public class EIADamageAndPlanificationSubTab extends GHASubTab implements
 		preventivePlanifPanel.show();
 	}
 
+	public void openFirstSection() {
+		sectionForm.openFirst();
+	}
+
 	@Override
 	public void addEiaDamageReportSelectionListener(
 			EiaDamageReportSelectionListener eiaDamageReportSelectionListener) {

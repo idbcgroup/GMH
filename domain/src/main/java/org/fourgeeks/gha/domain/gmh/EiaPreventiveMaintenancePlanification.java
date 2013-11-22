@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 
@@ -20,6 +21,7 @@ public class EiaPreventiveMaintenancePlanification extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 
 	@ManyToOne
+	@NotNull(message = "eiatype-maintenance-plan-not-null")
 	@JoinColumn(name = "eiaTypeMaintenancePlanFk", nullable = false)
 	private EiaTypeMaintenancePlan plan;
 
