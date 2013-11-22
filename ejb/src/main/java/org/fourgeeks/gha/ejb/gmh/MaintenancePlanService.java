@@ -106,6 +106,24 @@ public class MaintenancePlanService extends GHAEJBExceptionImpl implements
 					RuntimeParameters.getLang(), em);
 		}
 	}
+	/*
+ 	* (non-Javadoc)
+ 	* @see org.fourgeeks.gha.ejb.gmh.MaintenancePlanServiceRemote#delete(java.util.List)
+ 	*/
+	@Override
+	public void delete(List<MaintenancePlan> maintenancePlans)
+			throws GHAEJBException {
+		try {
+			for (MaintenancePlan maintenancePlan : maintenancePlans) {
+				MaintenancePlan entity = em.find(MaintenancePlan.class, maintenancePlan.getId());
+				em.remove(entity);
+			}
+		} catch (Exception e) {
+			logger.log(Level.INFO, "ERROR: unable to delete MaintenancePlan", e);
+			throw super.generateGHAEJBException("maintenancePlan-delete-fail",
+					RuntimeParameters.getLang(), em);
+		}
+	}
 
 	/*
 	 * (non-Javadoc)
