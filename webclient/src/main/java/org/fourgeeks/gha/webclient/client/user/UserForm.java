@@ -21,6 +21,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHABirthDateItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHADateItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAEmailItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHANameItem;
@@ -33,6 +34,7 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.user.client.Window;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 
@@ -80,11 +82,8 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 		nationalityItem.setLength(60);
 		nationalityItem
 				.setMask("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-		birthDateItem = new GHADateItem("Fecha de Nac.", changedHandler);
-		birthDateItem.setStartDate(new java.util.Date(50, 1, 1));
-		birthDateItem
-				.setEndDate(new java.util.Date(System.currentTimeMillis()));
-
+		birthDateItem = new GHABirthDateItem(GHAStrings.get("birthdate"),
+				changedHandler);
 		bpiSelectItem = new GHASelectItem("Institución");
 		bpiSelectItem.setRequired(true);
 		bpiSelectItem.addChangedHandler(changedHandler);
@@ -298,8 +297,10 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 
 	@Override
 	public void notifyUser(SSOUser ssoUser) {
-		for (UserSelectionListener listener : listeners)
+		for (UserSelectionListener listener : listeners) {
+			Window.alert("notify");
 			listener.select(ssoUser);
+		}
 	}
 
 	@Override
@@ -345,6 +346,7 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 	 * 
 	 * @param ssoUser
 	 */
+	@Override
 	public void set(SSOUser ssoUser) {
 		this.originalEntity = ssoUser;
 

@@ -54,14 +54,14 @@ public class EIASearchForm extends GHASearchForm<Eia> implements
 	private GHAWorkingAreaSelectItem workingAreaLocationSelectItem;
 	private GHAFacilitySelectItem facilityLocationSelectItem;
 
-	private EiaResultSet resultSet = new EiaResultSet(
+	protected final EiaResultSet resultSet = new EiaResultSet(
 			ResultSetContainerType.SEARCH_FORM);
 	private GHADynamicForm form;
 
 	{
-		serialNumber = new GHATextItem(GHAStrings.get("serialNumber-item"));
+		serialNumber = new GHATextItem(GHAStrings.get("serial"));
 		fixedAssetIdentifier = new GHATextItem(
-				GHAStrings.get("fixedAssetIdentifier-item"));
+				GHAStrings.get("fixed-asset-identifier"));
 		stateSelectItem = new GHAEiaStateSelectItem();
 		workingAreaLocationSelectItem = new GHAWorkingAreaSelectItem();
 		facilityLocationSelectItem = new GHAFacilitySelectItem();
@@ -132,7 +132,7 @@ public class EIASearchForm extends GHASearchForm<Eia> implements
 		formLayout.setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT
 				+ "px");
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
-		
+
 		resultSet.setHeight(resultSet.getHeight() - 35);
 
 		addMembers(formLayout,
@@ -234,7 +234,7 @@ public class EIASearchForm extends GHASearchForm<Eia> implements
 		search(eia);
 	}
 
-	private void search(final Eia eia) {
+	protected void search(final Eia eia) {
 		EIAModel.find(eia, new GHAAsyncCallback<List<Eia>>() {
 
 			@Override

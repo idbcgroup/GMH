@@ -32,13 +32,13 @@ public class EIATab extends GHATab implements EIASelectionListener,
 	 */
 	public static final String ID = "eia";
 	private static final String TITLE = GHAStrings.get("equipments");
-	private EIAAddForm addForm;
-	private EIAInternalTabset internalTabSet;
-	private List<EIASelectionListener> listeners = new ArrayList<EIASelectionListener>();
-	private EIATopForm topForm;
-	private EiaResultSet resultSet;
-	private Option searchOption;
-	private Option addOption;
+	private final EIAAddForm addForm;
+	private final EIAInternalTabset internalTabSet;
+	private final List<EIASelectionListener> listeners = new ArrayList<EIASelectionListener>();
+	private final EIATopForm topForm;
+	private final EiaResultSet resultSet;
+	private final Option searchOption;
+	private final Option addOption;
 
 	/**
 	 * @param token
@@ -85,7 +85,7 @@ public class EIATab extends GHATab implements EIASelectionListener,
 		addClosableListener(internalTabSet);
 		addEiaSelectionListener(internalTabSet);
 
-		addForm = new EIAAddForm(GHAStrings.get("new-eia"),false);
+		addForm = new EIAAddForm(GHAStrings.get("new-eia"));
 		addHideableListener(addForm);
 		addClosableListener(addForm);
 		addForm.addEiaSelectionListener(this);

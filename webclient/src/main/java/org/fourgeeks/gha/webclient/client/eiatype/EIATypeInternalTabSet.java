@@ -19,14 +19,14 @@ import com.smartgwt.client.types.AnimationEffect;
 public class EIATypeInternalTabSet extends GHAInternalTabSet implements
 		EIATypeSelectionListener {
 
-	private EIATypeInformationSubTab infoSubTab;
-	private EIATypeEquipmentSubTab equipementsSubTab;
-	private EIATypeComponentSubTab partsSubTab;
-	private EIATypeMaterialSubTab materialSubTab;
-	private EIATypeUtilitySubTab servicesSubTab;
-	private EIADamageAndPlanificationSubTab damageAndPlanificationSubTab;
+	private final EIATypeInformationSubTab infoSubTab;
+	private final EIATypeEquipmentSubTab equipementsSubTab;
+	private final EIATypeComponentSubTab partsSubTab;
+	private final EIATypeMaterialSubTab materialSubTab;
+	private final EIATypeUtilitySubTab servicesSubTab;
+	private final EIADamageAndPlanificationSubTab damageAndPlanificationSubTab;
 
-	private EIATypeMaintenanceSubTab maintenanceSubTab;
+	private final EIATypeMaintenanceSubTab maintenanceSubTab;
 
 	/**
 	 * @param tab
@@ -68,15 +68,22 @@ public class EIATypeInternalTabSet extends GHAInternalTabSet implements
 
 	@Override
 	public void select(EiaType eiaType) {
-		selectTab(infoSubTab);
-		if (getSelectedTab() == infoSubTab)
-			infoSubTab.show();
-		if (getSelectedTab() == damageAndPlanificationSubTab) {
-			damageAndPlanificationSubTab.show();
-			damageAndPlanificationSubTab.openFirstSection();
-		}
-
-		animateShow(AnimationEffect.FADE);
+		// selectTab(infoSubTab);
+		// if (getSelectedTab() == infoSubTab)
+		// infoSubTab.show();
+		// if (getSelectedTab() == damageAndPlanificationSubTab) {
+		// damageAndPlanificationSubTab.show();
+		// damageAndPlanificationSubTab.openFirstSection();
+		// }
+		// El subtab esta configurado para autoguardarse si hay cambios sin
+		// guardar y el usuario cambia de tab. una vez que sucede esto el tab es
+		// notificado de que el usuario se actualizo, y vuelve a notificar a
+		// todos los Listeners que hay una entidad, es decir, este metodo se
+		// vuelve a ejecutar. Con tus cambios, cuando yo cambio algo y no lo
+		// guardo, y luego paso a otro tab, pasa esto, y el tab de informatcion
+		// se vuelve a seleccionar
+		if (!isVisible())
+			animateShow(AnimationEffect.FADE);
 	}
 
 	@Override

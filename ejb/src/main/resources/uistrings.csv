@@ -16,6 +16,7 @@ ES,cancel,Cancelar
 ES,new,Agregar
 ES,select,Seleccionar
 ES,edit,Editar
+ES,birthdate,Fecha de nacimiento
 ES,materials-category,Categorias de materiales
 ES,new-material,Nuevo material
 ES,utility-services,Servicios utilitarios
@@ -60,7 +61,7 @@ ES,id-type,Tipo de identificación
 ES,id-number,Numero de identificación
 ES,state,Estado
 ES,serial,Serial
-ES,fixed-asset-identifier-item,Número Activo Fijo
+ES,fixed-asset-identifier,Número Activo Fijo
 ES,workingarea,Area de Trabajo
 ES,facility,Instalación
 ES,obu,Departamento Responsable
@@ -140,3 +141,4 @@ ES,new-eia-preventive-maintenance-planification,Nueva Planificación de Mantenim
 ES,eia-preventive-maintenance-planification,Planificación de Mantenimiento Preventivo
 ES,providers,Proveedores
 ES,intermediate-warranty,Garantía intermedia
+ES,date-must-be-lower-than-today,La fecha debe ser menor a la fecha de hoy

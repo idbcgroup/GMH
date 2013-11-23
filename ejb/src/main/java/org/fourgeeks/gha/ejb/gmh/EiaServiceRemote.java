@@ -94,4 +94,15 @@ public interface EiaServiceRemote {
 	 */
 	public Eia update(Eia eia) throws GHAEJBException;
 
+	/**
+	 * 
+	 * @param eia
+	 * @param eiaType
+	 * @return a list of eia available as components for this eiatype, filtering
+	 *         by this eia
+	 * @throws GHAEJBException
+	 */
+	public List<Eia> findComponents(Eia eia, EiaType eiaType)
+			throws GHAEJBException;
+
 }

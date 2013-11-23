@@ -36,7 +36,7 @@ public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan>
 	private GHATextItem nameItem, descriptionItem, frequencyItem;
 	private GHASelectItem periodOfTimeSelectItem;
 
-	private MaintenancePlanResultSet resultSet = new MaintenancePlanResultSet();
+	private final MaintenancePlanResultSet resultSet = new MaintenancePlanResultSet();
 	private final GHADynamicForm form;
 	{
 		form = new GHADynamicForm(GHAUiHelper.getNormalFormWidth(30), 3);
@@ -65,7 +65,8 @@ public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan>
 	public MaintenancePlanSearchForm(String title) {
 		super(title);
 
-		form.setItems(nameItem, frequencyItem, periodOfTimeSelectItem, descriptionItem);
+		form.setItems(nameItem, frequencyItem, periodOfTimeSelectItem,
+				descriptionItem);
 
 		nameItem.addKeyUpHandler(searchKeyUpHandler);
 		frequencyItem.addKeyUpHandler(searchKeyUpHandler);

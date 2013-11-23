@@ -45,7 +45,7 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 	private GHABrandSelectItem brandItem;
 	private GHAEiaTypeTypeSelectItem typeItem;
 	private GHAEiaTypeSubTypeSelectItem subTypeItem;
-	private EiaTypeResultSet resultSet = new EiaTypeResultSet(
+	private final EiaTypeResultSet resultSet = new EiaTypeResultSet(
 			ResultSetContainerType.SEARCH_FORM);
 	private final GHADynamicForm form;
 
@@ -56,8 +56,8 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 		nameItem.setColSpan(2);
 		brandItem = new GHABrandSelectItem();
 		modelItem = new GHATextItem(GHAStrings.get("model"));
-		
-		form = new GHADynamicForm(GHAUiHelper.getNormalFormWidth(30),4);
+
+		form = new GHADynamicForm(GHAUiHelper.getNormalFormWidth(30), 4);
 		//
 		resultSet.addEiaTypeSelectionListener(new EIATypeSelectionListener() {
 
@@ -74,8 +74,9 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 	 */
 	public EIATypeSearchForm(String title) {
 		super(title);
-		
-		form.setItems(typeItem, subTypeItem, brandItem, new GHASpacerItem(), nameItem, modelItem);
+
+		form.setItems(typeItem, subTypeItem, brandItem, new GHASpacerItem(),
+				nameItem, modelItem);
 
 		nameItem.addKeyUpHandler(searchKeyUpHandler);
 		brandItem.addKeyUpHandler(searchKeyUpHandler);
@@ -167,7 +168,7 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 		// TODO Auto-generated method stub
 		super.onResize(event);
 		resultSet.setHeight(resultSet.getHeight() - 35);
-		form.resize(GHAUiHelper.getNormalFormWidth(30),4);
+		form.resize(GHAUiHelper.getNormalFormWidth(30), 4);
 	}
 
 	@Override

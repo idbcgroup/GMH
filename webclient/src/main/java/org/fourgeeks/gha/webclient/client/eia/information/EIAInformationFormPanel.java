@@ -33,7 +33,7 @@ public class EIAInformationFormPanel extends GHAVerticalLayout implements
 	private EIAForm form;
 
 	{
-		form = new EIAForm(false);
+		form = new EIAForm();
 	}
 
 	/**

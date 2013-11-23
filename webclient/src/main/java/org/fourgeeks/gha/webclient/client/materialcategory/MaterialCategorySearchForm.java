@@ -38,7 +38,7 @@ public class MaterialCategorySearchForm extends GHASearchForm<MaterialCategory>
 	private GHATextItem codeTextItem, nameTextItem, descriptionTextItem,
 			modelTextItem, extCodeTextItem;
 	protected GHASelectItem typeSelectItem;
-	private MaterialCategoryResultSet resultSet = new MaterialCategoryResultSet();
+	private final MaterialCategoryResultSet resultSet = new MaterialCategoryResultSet();
 	private final DynamicForm form = new DynamicForm();
 
 	{
@@ -139,6 +139,7 @@ public class MaterialCategorySearchForm extends GHASearchForm<MaterialCategory>
 		resultSet.removeMaterialSelectionListener(materialSelectionListener);
 	}
 
+	@Override
 	public void search() {
 		MaterialCategory material = new MaterialCategory();
 		material.setCode(codeTextItem.getValueAsString());
@@ -184,7 +185,7 @@ public class MaterialCategorySearchForm extends GHASearchForm<MaterialCategory>
 	public void select(MaterialCategory materialCategory) {
 		search(materialCategory);
 	}
-	
+
 	@Override
 	public void onResize(ResizeEvent event) {
 		super.onResize(event);

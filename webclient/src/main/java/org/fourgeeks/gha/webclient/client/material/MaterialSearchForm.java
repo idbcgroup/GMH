@@ -36,7 +36,7 @@ public class MaterialSearchForm extends GHASearchForm<Material> implements
 	private GHATextItem codeTextItem, nameTextItem, descriptionTextItem,
 			modelTextItem, extCodeTextItem;
 	protected MaterialTypeEnum fixedMaterial = MaterialTypeEnum.MATERIAL;
-	private MaterialResultSet resultSet = new MaterialResultSet();
+	private final MaterialResultSet resultSet = new MaterialResultSet();
 	private final GHADynamicForm form;
 
 	{
@@ -56,7 +56,7 @@ public class MaterialSearchForm extends GHASearchForm<Material> implements
 				hide();
 			}
 		});
-		form = new GHADynamicForm(GHAUiHelper.getNormalFormWidth(30),4);
+		form = new GHADynamicForm(GHAUiHelper.getNormalFormWidth(30), 4);
 	}
 
 	/**
@@ -65,8 +65,8 @@ public class MaterialSearchForm extends GHASearchForm<Material> implements
 	public MaterialSearchForm(String title) {
 		super(title);
 
-		form.setItems(codeTextItem, nameTextItem, modelTextItem, new GHASpacerItem(),
-				extCodeTextItem, descriptionTextItem);
+		form.setItems(codeTextItem, nameTextItem, modelTextItem,
+				new GHASpacerItem(), extCodeTextItem, descriptionTextItem);
 
 		codeTextItem.addKeyUpHandler(searchKeyUpHandler);
 		nameTextItem.addKeyUpHandler(searchKeyUpHandler);
@@ -133,7 +133,7 @@ public class MaterialSearchForm extends GHASearchForm<Material> implements
 	public void onResize(ResizeEvent event) {
 		super.onResize(event);
 		resultSet.setHeight(resultSet.getHeight() - 35);
-		form.resize(GHAUiHelper.getNormalFormWidth(30),4);
+		form.resize(GHAUiHelper.getNormalFormWidth(30), 4);
 
 	}
 
