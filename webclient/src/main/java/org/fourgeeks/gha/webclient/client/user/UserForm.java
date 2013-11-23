@@ -51,6 +51,7 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 	private GHAEmailItem primaryEmailItem, alternativeEmailItem;
 
 	private List<UserSelectionListener> listeners;
+	private List<Bpi> bpis;
 	private GHADynamicForm form;
 
 	{
@@ -174,7 +175,8 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 		final Bpu bpu = new Bpu();
 		final Citizen citizen = new Citizen();
 		final LegalEntity legalEntity = new LegalEntity();
-		final Bpi bpi = new Bpi();
+		Bpi bpi = new Bpi();
+
 		if (update) {
 			ssoUser.setId(this.originalEntity.getId());
 			bpu.setId(this.originalEntity.getBpu().getId());
@@ -213,7 +215,13 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 		}
 		// bpu fields
 		if (bpiSelectItem.getValue() != null) {
-			bpi.setId(Long.valueOf(bpiSelectItem.getValueAsString()));
+			long bpiId = Long.valueOf(bpiSelectItem.getValueAsString());
+			for (Bpi next : bpis) {
+				if (next.getId() == bpiId) {
+					bpi = next;
+					break;
+				}
+			}
 		}
 
 		// legalentity fields
@@ -297,6 +305,7 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 							.getName());
 				}
 				bpiSelectItem.setValueMap(valueMap);
+				bpis = result;
 			}
 		}, false);
 	}
