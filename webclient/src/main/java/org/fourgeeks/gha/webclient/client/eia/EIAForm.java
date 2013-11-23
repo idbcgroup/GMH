@@ -80,8 +80,9 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 			installationDateItem, contabilizationDateItem,
 			lastDepreciationDate, realWarrantyBeginDate, intWarrantyBeginDate;
 	// private GHACheckboxItem sameLocationAttendedItem, isInMaintenanceItem;
-	private GHAPeriodOfTimeSelectItem depreciationTimePotSelectItem,lifeTimePotSelectItem, 
-									  intWarrantyPotSelectItem,realWarrantyPotSelectItem;
+	private GHAPeriodOfTimeSelectItem depreciationTimePotSelectItem,
+			lifeTimePotSelectItem, intWarrantyPotSelectItem,
+			realWarrantyPotSelectItem;
 	private GHASectionForm sectionForm;
 	private final GHADynamicForm infoBasicaForm;
 	private final GHADynamicForm adquisicionForm;
@@ -112,8 +113,7 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		serialTextItem.setMask("AAAAAAAAAAAAAAAAAAAA");
 		serialTextItem.setRequired(true);
 		fixedAssetIdTextItem = new GHATextItem(
-				GHAStrings.get("fixed-asset-identifier-item"), true,
-				changedHandler);
+				GHAStrings.get("fixed-asset-identifier"), true, changedHandler);
 		fixedAssetIdTextItem.setLength(19);
 		fixedAssetIdTextItem.setMask("###################");
 		fixedAssetIdTextItem.setRequired(true);
@@ -174,7 +174,8 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 				changedHandler);
 		realWarrantyTimeTextItem.setLength(3);
 		realWarrantyTimeTextItem.setMask("###");
-		realWarrantyPotSelectItem = new GHAPeriodOfTimeSelectItem(false, changedHandler);
+		realWarrantyPotSelectItem = new GHAPeriodOfTimeSelectItem(false,
+				changedHandler);
 		realWarrantyBeginDate = new GHADateItem("Fecha Inicio", true);
 		realWarrantyBeginDate.addChangedHandler(changedHandler);
 
@@ -184,7 +185,8 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 				changedHandler);
 		intWarrantyTimeTextItem.setLength(3);
 		intWarrantyTimeTextItem.setMask("###");
-		intWarrantyPotSelectItem = new GHAPeriodOfTimeSelectItem(false, changedHandler);
+		intWarrantyPotSelectItem = new GHAPeriodOfTimeSelectItem(false,
+				changedHandler);
 		intWarrantyBeginDate = new GHADateItem("Fecha Inicio", true);
 		intWarrantyBeginDate.addChangedHandler(changedHandler);
 
@@ -232,13 +234,15 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 				changedHandler);
 		depreciationTimeTextItem.setLength(3);
 		depreciationTimeTextItem.setMask("###");
-		depreciationTimePotSelectItem = new GHAPeriodOfTimeSelectItem(false, changedHandler);
+		depreciationTimePotSelectItem = new GHAPeriodOfTimeSelectItem(false,
+				changedHandler);
 		lastDepreciationDate = new GHADateItem("Fecha Ult. Depreciación", true);
 		lastDepreciationDate.addChangedHandler(changedHandler);
 		lifeTimeTextItem = new GHATextItem("Duración", false, changedHandler);
 		lifeTimeTextItem.setLength(3);
 		lifeTimeTextItem.setMask("###");
-		lifeTimePotSelectItem = new GHAPeriodOfTimeSelectItem(false,changedHandler);
+		lifeTimePotSelectItem = new GHAPeriodOfTimeSelectItem(false,
+				changedHandler);
 		actualCostTextItem = new GHATextItem("Costo Actual en libros", false,
 				changedHandler);
 		actualCostTextItem.setLength(16);

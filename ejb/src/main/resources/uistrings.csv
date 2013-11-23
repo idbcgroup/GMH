@@ -63,7 +63,7 @@ ES,id-type,Tipo de identificación
 ES,id-number,Numero de identificación
 ES,state,Estado
 ES,serial,Serial
-ES,fixed-asset-identifier-item,Número Activo Fijo
+ES,fixed-asset-identifier,Número Activo Fijo
 ES,workingarea,Area de Trabajo
 ES,facility,Instalación
 ES,obu,Departamento Responsable

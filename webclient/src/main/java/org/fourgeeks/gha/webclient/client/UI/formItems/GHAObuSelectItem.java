@@ -15,11 +15,13 @@ import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
  * 
  */
 public class GHAObuSelectItem extends GHASelectItem {
+	public static final String labelKey = "obu";
+
 	/**
 	 * @param width
 	 */
 	public GHAObuSelectItem(int width) {
-		super(GHAStrings.get("obu-select-item"), width);
+		super(GHAStrings.get(labelKey), width);
 		fill();
 	}
 
@@ -27,7 +29,7 @@ public class GHAObuSelectItem extends GHASelectItem {
 	 * 
 	 */
 	public GHAObuSelectItem() {
-		super(GHAStrings.get("obu-select-item"));
+		super(GHAStrings.get(labelKey));
 		fill();
 	}
 
@@ -39,20 +41,19 @@ public class GHAObuSelectItem extends GHASelectItem {
 	 */
 	public GHAObuSelectItem(int width, boolean required,
 			ChangedHandler changedHandler) {
-		super(GHAStrings.get("obu-select-item"), width);
+		super(GHAStrings.get(labelKey), width);
 		setRequired(required);
 		addChangedHandler(changedHandler);
 		fill();
 	}
-	
+
 	/**
 	 * @param title
 	 * @param required
 	 * @param changedHandler
 	 */
-	public GHAObuSelectItem(boolean required,
-			ChangedHandler changedHandler) {
-		super(GHAStrings.get("obu-select-item"));
+	public GHAObuSelectItem(boolean required, ChangedHandler changedHandler) {
+		super(GHAStrings.get(labelKey));
 		setRequired(required);
 		addChangedHandler(changedHandler);
 		fill();
