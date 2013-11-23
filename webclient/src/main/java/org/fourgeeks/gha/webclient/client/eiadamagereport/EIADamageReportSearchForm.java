@@ -114,8 +114,6 @@ public class EIADamageReportSearchForm extends GHASearchForm<Eia> implements
 				+ "px");
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
 
-		resultSet.setHeight(resultSet.getHeight() - 35);
-
 		addMembers(formLayout,
 				GHAUiHelper
 						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
@@ -157,7 +155,6 @@ public class EIADamageReportSearchForm extends GHASearchForm<Eia> implements
 	@Override
 	public void onResize(ResizeEvent event) {
 		super.onResize(event);
-		resultSet.setHeight(resultSet.getHeight() - 35);
 		form.resize(GHAUiHelper.getNormalFormWidth(30), 3);
 	}
 

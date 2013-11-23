@@ -104,8 +104,6 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 				+ "px");
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
 
-		resultSet.setHeight(resultSet.getHeight() - 35);
-
 		addMembers(formLayout,
 				GHAUiHelper
 						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
@@ -167,7 +165,6 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 	public void onResize(ResizeEvent event) {
 		// TODO Auto-generated method stub
 		super.onResize(event);
-		resultSet.setHeight(resultSet.getHeight() - 35);
 		form.resize(GHAUiHelper.getNormalFormWidth(30), 4);
 	}
 

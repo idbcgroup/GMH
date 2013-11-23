@@ -15,7 +15,7 @@ public class GHAEiaTypeSubTypeSelectItem extends GHASelectItem {
 	 * 
 	 */
 	public GHAEiaTypeSubTypeSelectItem(int width) {
-		super(GHAStrings.get("subtype"), width);
+		super(GHAStrings.get("eiatype-subtype"), width);
 		setValueMap(EiaSubTypeEnum.toValueMap());
 	}
 
@@ -25,17 +25,17 @@ public class GHAEiaTypeSubTypeSelectItem extends GHASelectItem {
 	 * 
 	 */
 	public GHAEiaTypeSubTypeSelectItem(int width, ChangedHandler changedHandler) {
-		super(GHAStrings.get("subtype"), width);
+		super(GHAStrings.get("eiatype-subtype"), width);
 		setValueMap(EiaSubTypeEnum.toValueMap());
 		addChangedHandler(changedHandler);
 	}
-	
+
 	/**
 	 * @param changedHandler
 	 * 
 	 */
 	public GHAEiaTypeSubTypeSelectItem(ChangedHandler changedHandler) {
-		super(GHAStrings.get("subtype"));
+		super(GHAStrings.get("eiatype-subtype"));
 		setValueMap(EiaSubTypeEnum.toValueMap());
 		addChangedHandler(changedHandler);
 	}
@@ -44,7 +44,7 @@ public class GHAEiaTypeSubTypeSelectItem extends GHASelectItem {
 	 * 
 	 */
 	public GHAEiaTypeSubTypeSelectItem() {
-		super(GHAStrings.get("subtype"));
+		super(GHAStrings.get("eiatype-subtype"));
 		setValueMap(EiaSubTypeEnum.toValueMap());
 	}
 

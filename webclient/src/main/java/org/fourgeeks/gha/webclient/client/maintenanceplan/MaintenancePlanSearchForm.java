@@ -10,7 +10,8 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.GHAUtil;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
+import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHAPeriodOfTimeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACancelButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
@@ -34,9 +35,9 @@ public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan>
 		MaintenancePlanSelectionProducer {
 
 	private GHATextItem nameItem, descriptionItem, frequencyItem;
-	private GHASelectItem periodOfTimeSelectItem;
+	private GHAPeriodOfTimeSelectItem periodOfTimeSelectItem;
 
-	private final MaintenancePlanResultSet resultSet = new MaintenancePlanResultSet();
+	private MaintenancePlanResultSet resultSet = new MaintenancePlanResultSet(ResultSetContainerType.SEARCH_FORM);
 	private final GHADynamicForm form;
 	{
 		form = new GHADynamicForm(GHAUiHelper.getNormalFormWidth(30), 3);
@@ -44,8 +45,7 @@ public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan>
 		nameItem = new GHATextItem(GHAStrings.get("name"));
 		nameItem.setLength(100);
 		frequencyItem = new GHATextItem(GHAStrings.get("frequency"));
-		periodOfTimeSelectItem = new GHASelectItem(
-				GHAStrings.get("time-period"));
+		periodOfTimeSelectItem = new GHAPeriodOfTimeSelectItem();
 		descriptionItem = new GHATextItem(GHAStrings.get("description"));
 		descriptionItem.setColSpan(3);
 
@@ -94,14 +94,10 @@ public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan>
 				+ "px");
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
 
-		resultSet.setHeight(resultSet.getHeight() - 35);
-
 		addMembers(formLayout,
 				GHAUiHelper
 						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
 								+ "px"), resultSet);
-
-		fillSelects();
 	}
 
 	@Override
@@ -117,10 +113,6 @@ public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan>
 		resultSet.clean();
 	}
 
-	private void fillSelects() {
-		periodOfTimeSelectItem.setValueMap(TimePeriodEnum.toValueMap());
-	}
-
 	/**
 	 * @param maintenancePlan
 	 */
@@ -131,7 +123,6 @@ public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan>
 	@Override
 	public void onResize(ResizeEvent event) {
 		super.onResize(event);
-		resultSet.setHeight(resultSet.getHeight() - 35);
 		form.resize(GHAUiHelper.getNormalFormWidth(30), 3);
 	}
 

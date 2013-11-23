@@ -6,11 +6,13 @@ import java.util.List;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACheckButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAResultSet;
 
+import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -23,6 +25,7 @@ public class MaintenancePlanResultSet extends GHAResultSet<MaintenancePlan>
 		implements MaintenancePlanSelectionProducer {
 	private List<MaintenancePlanSelectionListener> listeners = new ArrayList<MaintenancePlanSelectionListener>();
 	private MaintenancePlanGrid grid = new MaintenancePlanGrid();
+	private ResultSetContainerType containerType;
 
 	{
 		grid.addCellDoubleClickHandler(new CellDoubleClickHandler() {
@@ -34,8 +37,9 @@ public class MaintenancePlanResultSet extends GHAResultSet<MaintenancePlan>
 		});
 	}
 
-	public MaintenancePlanResultSet() {
+	public MaintenancePlanResultSet(ResultSetContainerType container) {
 		super(GHAStrings.get("search-results"));
+		this.containerType = container;
 		HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(grid,
 				GHAUiHelper.createBar(new GHACheckButton(new ClickHandler() {
@@ -45,6 +49,10 @@ public class MaintenancePlanResultSet extends GHAResultSet<MaintenancePlan>
 						notifyMSelectedMaintenancePlan();
 					}
 				})));
+		if (containerType == ResultSetContainerType.SEARCH_FORM) {
+			setHeight(getHeight() - 35);
+		}
+		
 		addMember(gridPanel);
 	}
 
@@ -103,4 +111,12 @@ public class MaintenancePlanResultSet extends GHAResultSet<MaintenancePlan>
 			this.animateShow(AnimationEffect.FADE);
 	}
 
+	@Override
+	public void onResize(ResizeEvent event) {
+		super.onResize(event);
+		if (containerType == ResultSetContainerType.SEARCH_FORM) {
+			setHeight(getHeight() - 35);
+		}
+	}
+	
 }

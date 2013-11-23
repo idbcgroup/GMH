@@ -11,7 +11,6 @@ import javax.validation.ConstraintViolation;
 import org.fourgeeks.gha.domain.enu.EiaDamagePriorityEnum;
 import org.fourgeeks.gha.domain.enu.EiaDamageStatusEnum;
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
-import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.gar.Obu;
@@ -27,6 +26,7 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHAEiaStateSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAExternalProviderSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAFacilitySelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAObuSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHAPeriodOfTimeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHARoleSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
@@ -57,8 +57,7 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 	private GHAExternalProviderSelectItem adqisitionProviderSelectItem,
 			maintenanceProviderSelectItem;
 	private GHASelectItem stateSelectItem, locationTypeSelectItem,
-			realWarrantySinceSelectItem, realWarrantyPotSelectItem,
-			intWarrantyPotSelectItem, intWarrantySinceSelectItem,
+			realWarrantySinceSelectItem,intWarrantySinceSelectItem,
 			eiaTypeSelectItem;
 	private GHATitleTextItem information_TitleItem, location_TitleItem,
 			workingArea_TitleItem, facility_TitleItem, report_TitleItem,
@@ -71,6 +70,7 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 	private GHATextAreaItem damageMotiveTextAreaItem;
 	private GHABpuSelectItem userWhoRegistedSelectItem,
 			userWhoReportedSelectItem;
+	private GHAPeriodOfTimeSelectItem realWarrantyPotSelectItem,intWarrantyPotSelectItem;
 	private GHASelectItem damageStatusSelectItem, damagePrioritySelectItem;
 
 	private GHASectionForm sectionForm;
@@ -133,13 +133,12 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 		realWarrantySinceSelectItem = new GHASelectItem("Desde", false);
 		realWarrantyTimeTextItem = new GHATextItem("Duración", false);
 		realWarrantyTimeTextItem.setLength(3);
-		realWarrantyPotSelectItem = new GHASelectItem("Periodo de Tiempo",
-				false);
+		realWarrantyPotSelectItem = new GHAPeriodOfTimeSelectItem(false);
 		realWarrantyBeginDate = new GHADateItem("Fecha Inicio", false);
 		intWarrantySinceSelectItem = new GHASelectItem("Desde", false);
 		intWarrantyTimeTextItem = new GHATextItem("Duración", false);
 		intWarrantyTimeTextItem.setLength(3);
-		intWarrantyPotSelectItem = new GHASelectItem("Periodo de Tiempo", false);
+		intWarrantyPotSelectItem = new GHAPeriodOfTimeSelectItem(false);
 		intWarrantyBeginDate = new GHADateItem("Fecha Inicio", false);
 
 		// Ubicacion Form Items
@@ -340,12 +339,6 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 		realWarrantySinceSelectItem.setValue(WarrantySinceEnum.PURCHASE.name());
 		intWarrantySinceSelectItem.setValueMap(WarrantySinceEnum.toValueMap());
 		intWarrantySinceSelectItem.setValue(WarrantySinceEnum.PURCHASE.name());
-
-		realWarrantyPotSelectItem.setValueMap(TimePeriodEnum.toValueMap());
-		realWarrantyPotSelectItem.setValue(TimePeriodEnum.HOURS.name());
-		intWarrantyPotSelectItem.setValueMap(TimePeriodEnum.toValueMap());
-		intWarrantyPotSelectItem.setValue(TimePeriodEnum.HOURS.name());
-
 	}
 
 	/**

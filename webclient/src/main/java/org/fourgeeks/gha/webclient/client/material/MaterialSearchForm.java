@@ -10,6 +10,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.GHAUtil;
+import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHACodeItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
@@ -36,7 +37,7 @@ public class MaterialSearchForm extends GHASearchForm<Material> implements
 	private GHATextItem codeTextItem, nameTextItem, descriptionTextItem,
 			modelTextItem, extCodeTextItem;
 	protected MaterialTypeEnum fixedMaterial = MaterialTypeEnum.MATERIAL;
-	private final MaterialResultSet resultSet = new MaterialResultSet();
+	private MaterialResultSet resultSet = new MaterialResultSet(ResultSetContainerType.SEARCH_FORM);
 	private final GHADynamicForm form;
 
 	{
@@ -97,8 +98,6 @@ public class MaterialSearchForm extends GHASearchForm<Material> implements
 				+ "px");
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
 
-		resultSet.setHeight(resultSet.getHeight() - 35);
-
 		addMembers(formLayout,
 				GHAUiHelper
 						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
@@ -132,7 +131,6 @@ public class MaterialSearchForm extends GHASearchForm<Material> implements
 	@Override
 	public void onResize(ResizeEvent event) {
 		super.onResize(event);
-		resultSet.setHeight(resultSet.getHeight() - 35);
 		form.resize(GHAUiHelper.getNormalFormWidth(30), 4);
 
 	}

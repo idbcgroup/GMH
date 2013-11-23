@@ -14,6 +14,7 @@ import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAResultSet;
 
+import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -32,6 +33,7 @@ public class EiaTypeResultSet extends GHAResultSet<EiaType> implements
 		EiaTypeSelectionProducer {
 	private List<EIATypeSelectionListener> listeners;
 	private EIATypeGrid grid;
+	private ResultSetContainerType containerType;
 
 	{
 		listeners = new ArrayList<EIATypeSelectionListener>();
@@ -50,6 +52,7 @@ public class EiaTypeResultSet extends GHAResultSet<EiaType> implements
 	 */
 	public EiaTypeResultSet(ResultSetContainerType container) {
 		super(GHAStrings.get("search-results"));
+		this.containerType = container;
 		HLayout gridPanel = new HLayout();
 		VLayout sideBar;
 
@@ -61,7 +64,7 @@ public class EiaTypeResultSet extends GHAResultSet<EiaType> implements
 			}
 		});
 
-		if (container == ResultSetContainerType.TAB) {
+		if (containerType == ResultSetContainerType.TAB) {
 			VLayout separator = GHAUiHelper.verticalGraySeparator("2px");
 			GHADeleteButton deleteButton = new GHADeleteButton(
 					new ClickHandler() {
@@ -73,9 +76,10 @@ public class EiaTypeResultSet extends GHAResultSet<EiaType> implements
 
 			sideBar = GHAUiHelper.createBar(checkButton, separator,
 					deleteButton);
-		} else
+		} else {
 			sideBar = GHAUiHelper.createBar(checkButton);
-
+			setHeight(getHeight() - 35);
+		}
 		gridPanel.addMembers(grid, sideBar);
 		addMember(gridPanel);
 	}
@@ -181,6 +185,14 @@ public class EiaTypeResultSet extends GHAResultSet<EiaType> implements
 		if (!isVisible())
 			this.animateShow(AnimationEffect.FADE);
 
+	}
+	
+	@Override
+	public void onResize(ResizeEvent event) {
+		super.onResize(event);
+		if (containerType == ResultSetContainerType.SEARCH_FORM) {
+			setHeight(getHeight() - 35);
+		}
 	}
 
 }

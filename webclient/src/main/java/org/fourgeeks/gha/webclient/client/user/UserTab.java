@@ -6,6 +6,7 @@ import java.util.List;
 import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
 import org.fourgeeks.gha.webclient.client.UI.TabStatus;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.SearchListener;
@@ -13,7 +14,6 @@ import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader.Option;
 
-import com.google.gwt.user.client.Window;
 import com.smartgwt.client.types.Visibility;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -61,7 +61,7 @@ public class UserTab extends GHATab implements UserSelectionListener,
 			}
 		});
 
-		resultSet = new UserResultSet();
+		resultSet = new UserResultSet(ResultSetContainerType.TAB);
 		resultSet.setVisible(false);
 		addHideableListener(resultSet);
 		addClosableListener(resultSet);
