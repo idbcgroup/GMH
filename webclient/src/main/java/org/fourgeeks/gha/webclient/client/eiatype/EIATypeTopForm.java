@@ -48,7 +48,7 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 	{
 		typeItem = new GHAEiaTypeTypeSelectItem();
 		subTypeItem = new GHAEiaTypeSubTypeSelectItem();
-		nameItem = new GHATextItem(GHAStrings.get("name"));
+		nameItem = new GHATextItem(GHAStrings.get("eiatype-name"));
 		nameItem.setColSpan(2);
 		brandItem = new GHABrandSelectItem();
 		modelItem = new GHATextItem(GHAStrings.get("model"));

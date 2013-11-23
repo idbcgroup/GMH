@@ -204,6 +204,8 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 		if (typeidSelectItem.getValue() != null) {
 			citizen.setIdType(DocumentTypeEnum.valueOf(typeidSelectItem
 					.getValueAsString()));
+		}
+		if (idItem.getValue() != null) {
 			citizen.setIdNumber(idItem.getValueAsString());
 		}
 
@@ -345,6 +347,7 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 	 * 
 	 * @param ssoUser
 	 */
+	@Override
 	public void set(SSOUser ssoUser) {
 		this.originalEntity = ssoUser;
 
