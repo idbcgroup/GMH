@@ -54,7 +54,6 @@ public abstract class GHAAddForm<T> extends GHASlideInWindow {
 
 					@Override
 					public void onClick(ClickEvent event) {
-						hide();
 					}
 				}, null);
 
