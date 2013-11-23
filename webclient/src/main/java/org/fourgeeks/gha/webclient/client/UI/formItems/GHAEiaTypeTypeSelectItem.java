@@ -15,7 +15,7 @@ public class GHAEiaTypeTypeSelectItem extends GHASelectItem {
 	 * 
 	 */
 	public GHAEiaTypeTypeSelectItem(int width) {
-		super(GHAStrings.get("eiatype"), width);
+		super(GHAStrings.get("eiatype-type"), width);
 
 		setValueMap(EiaTypeEnum.toValueMap());
 	}
@@ -28,12 +28,12 @@ public class GHAEiaTypeTypeSelectItem extends GHASelectItem {
 	 */
 	public GHAEiaTypeTypeSelectItem(int width, boolean required,
 			ChangedHandler changedHandler) {
-		super(GHAStrings.get("eiatype"), width);
+		super(GHAStrings.get("eiatype-type"), width);
 		setRequired(required);
 		addChangedHandler(changedHandler);
 		setValueMap(EiaTypeEnum.toValueMap());
 	}
-	
+
 	/**
 	 * @param required
 	 * @param changedHandler
@@ -41,7 +41,7 @@ public class GHAEiaTypeTypeSelectItem extends GHASelectItem {
 	 */
 	public GHAEiaTypeTypeSelectItem(boolean required,
 			ChangedHandler changedHandler) {
-		super(GHAStrings.get("eiatype"));
+		super(GHAStrings.get("eiatype-type"));
 		setRequired(required);
 		addChangedHandler(changedHandler);
 		setValueMap(EiaTypeEnum.toValueMap());
@@ -51,7 +51,7 @@ public class GHAEiaTypeTypeSelectItem extends GHASelectItem {
 	 * 
 	 */
 	public GHAEiaTypeTypeSelectItem() {
-		super(GHAStrings.get("eiatype"));
+		super(GHAStrings.get("eiatype-type"));
 		setValueMap(EiaTypeEnum.toValueMap());
 	}
 

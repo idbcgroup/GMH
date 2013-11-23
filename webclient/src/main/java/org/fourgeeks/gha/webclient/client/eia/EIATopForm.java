@@ -58,10 +58,9 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 	private Eia selectedEia;
 
 	{
-		serialNumber = new GHATextItem(GHAStrings.get("serialNumber-item"),
-				false);
+		serialNumber = new GHATextItem(GHAStrings.get("serial"), false);
 		fixedAssetIdentifier = new GHATextItem(
-				GHAStrings.get("fixedAssetIdentifier-item"), false);
+				GHAStrings.get("fixed-asset-identifier"), false);
 
 		stateSelectItem = new GHAEiaStateSelectItem();
 		stateSelectItem.disable();
@@ -146,6 +145,7 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 		deactivate();
 	}
 
+	@Override
 	public void activate() {
 		serialNumber.enable();
 		fixedAssetIdentifier.enable();
@@ -166,6 +166,7 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 		destroy();
 	}
 
+	@Override
 	public void deactivate() {
 		serialNumber.disable();
 		fixedAssetIdentifier.disable();
@@ -192,6 +193,7 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 
 	}
 
+	@Override
 	protected void delete() {
 		GHANotification.confirm(GHAStrings.get("eia"),
 				GHAStrings.get("eia-delete-confirm"), new BooleanCallback() {
@@ -259,6 +261,7 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 		search(eia);
 	}
 
+	@Override
 	public void search(Eia eia) {
 		EIAModel.find(eia, new GHAAsyncCallback<List<Eia>>() {
 			@Override

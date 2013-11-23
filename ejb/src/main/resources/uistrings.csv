@@ -42,7 +42,10 @@ ES,manufacturer,Fabricante
 ES,mobility,Movilidad
 ES,eiatype,Tipo de equipo
 ES,eiatypes,Tipos de equipo
+ES,eiatype-name,Nombre de Tipo de Equipo
 ES,subtype,Sub tipo
+ES,eiatype-subtype,Subcategoría de Equipo
+ES,eiatype-type,Categoría de Equipo
 ES,brand,Marca
 ES,new-eia,Nuevo equipo
 ES,edit-eia,Modificar un equipo
@@ -60,7 +63,7 @@ ES,id-type,Tipo de identificación
 ES,id-number,Numero de identificación
 ES,state,Estado
 ES,serial,Serial
-ES,fixed-asset-identifier-item,Número Activo Fijo
+ES,fixed-asset-identifier,Número Activo Fijo
 ES,workingarea,Area de Trabajo
 ES,facility,Instalación
 ES,obu,Departamento Responsable
