@@ -11,11 +11,13 @@ import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 
 public class GHABpiSelectItem extends GHASelectItem {
+	public static final String labelKey = "bpi";
+
 	/**
 	 * @param width
 	 */
 	public GHABpiSelectItem(int width) {
-		super(GHAStrings.get("bpi-select-item"), width);
+		super(GHAStrings.get(labelKey), width);
 		fill();
 	}
 
@@ -23,7 +25,7 @@ public class GHABpiSelectItem extends GHASelectItem {
 	 * 
 	 */
 	public GHABpiSelectItem() {
-		super(GHAStrings.get("bpi-select-item"));
+		super(GHAStrings.get(labelKey));
 		fill();
 	}
 
@@ -35,20 +37,19 @@ public class GHABpiSelectItem extends GHASelectItem {
 	 */
 	public GHABpiSelectItem(int width, boolean required,
 			ChangedHandler changedHandler) {
-		super(GHAStrings.get("bpi-select-item"), width);
+		super(GHAStrings.get(labelKey), width);
 		setRequired(required);
 		addChangedHandler(changedHandler);
 		fill();
 	}
-	
+
 	/**
 	 * @param title
 	 * @param required
 	 * @param changedHandler
 	 */
-	public GHABpiSelectItem(boolean required,
-			ChangedHandler changedHandler) {
-		super(GHAStrings.get("bpi-select-item"));
+	public GHABpiSelectItem(boolean required, ChangedHandler changedHandler) {
+		super(GHAStrings.get(labelKey));
 		setRequired(required);
 		addChangedHandler(changedHandler);
 		fill();

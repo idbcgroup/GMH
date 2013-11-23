@@ -15,12 +15,13 @@ import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
  * 
  */
 public class GHAWorkingAreaSelectItem extends GHASelectItem {
+	public static final String labelKey = "workingarea";
 
 	/**
 	 * @param width
 	 */
 	public GHAWorkingAreaSelectItem(int width) {
-		super(GHAStrings.get("workingarea-select-item"), width);
+		super(GHAStrings.get(labelKey), width);
 		fill();
 	}
 
@@ -28,7 +29,7 @@ public class GHAWorkingAreaSelectItem extends GHASelectItem {
 	 * 
 	 */
 	public GHAWorkingAreaSelectItem() {
-		super(GHAStrings.get("workingarea-select-item"));
+		super(GHAStrings.get(labelKey));
 		fill();
 	}
 
@@ -45,7 +46,7 @@ public class GHAWorkingAreaSelectItem extends GHASelectItem {
 	 */
 	public GHAWorkingAreaSelectItem(int width, boolean required,
 			ChangedHandler changedHandler) {
-		super(GHAStrings.get("workingarea-select-item"), width);
+		super(GHAStrings.get(labelKey), width);
 		setRequired(required);
 		addChangedHandler(changedHandler);
 		fill();
@@ -58,7 +59,7 @@ public class GHAWorkingAreaSelectItem extends GHASelectItem {
 	 */
 	public GHAWorkingAreaSelectItem(boolean required,
 			ChangedHandler changedHandler) {
-		super(GHAStrings.get("workingarea-select-item"));
+		super(GHAStrings.get(labelKey));
 		setRequired(required);
 		addChangedHandler(changedHandler);
 		fill();
