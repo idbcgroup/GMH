@@ -50,8 +50,9 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 	private GHAWorkingAreaSelectItem workingAreaLocationSelectItem;
 	private GHAFacilitySelectItem facilityLocationSelectItem;
 
-	private GHAImgButton searchImgButton, deleteImgButton, cleanImgButton;
-	private VLayout sideButtons;
+	private final GHAImgButton searchImgButton, deleteImgButton,
+			cleanImgButton;
+	private final VLayout sideButtons;
 
 	private GHADynamicForm form;
 
@@ -142,7 +143,6 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 		sideButtons = GHAUiHelper.createBar(searchImgButton, cleanImgButton);
 
 		addMembers(form, /* photoPanel, */new LayoutSpacer(), sideButtons);
-		deactivate();
 	}
 
 	@Override

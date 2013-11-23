@@ -89,7 +89,6 @@ public class MaintenancePlanTopForm extends
 		sideButtons = GHAUiHelper.createBar(searchButton, cleanButton,
 				deleteButton);
 		addMembers(form, new LayoutSpacer(), sideButtons);
-		deactivate();
 	}
 
 	@Override

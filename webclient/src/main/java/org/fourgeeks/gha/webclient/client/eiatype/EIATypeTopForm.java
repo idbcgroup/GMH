@@ -43,8 +43,8 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 	private GHAEiaTypeTypeSelectItem typeItem;
 	private GHAEiaTypeSubTypeSelectItem subTypeItem;
 	private GHADynamicForm form;
-	private GHAImgButton deleteButton, cleanButton, searchButton;
-	private VLayout sideButtons;
+	private final GHAImgButton deleteButton, cleanButton, searchButton;
+	private final VLayout sideButtons;
 	{
 		typeItem = new GHAEiaTypeTypeSelectItem();
 		subTypeItem = new GHAEiaTypeSubTypeSelectItem();
@@ -93,7 +93,6 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 
 		sideButtons = GHAUiHelper.createBar(searchButton, cleanButton);
 		addMembers(form, new LayoutSpacer(), sideButtons);
-		deactivate();
 	}
 
 	@Override

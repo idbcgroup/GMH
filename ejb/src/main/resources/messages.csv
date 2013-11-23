@@ -477,4 +477,5 @@ ES,userWhoReported-not-null,Debe indicar el usuario que reportó el daño o fall
 ES,userWhoRegistered-not-null,Debe indicar el usuario que registró el daño o falla
 ES,no-eiatype-maintenance-plans,No existen planes de mantenimiento para este tipo de equipo
 ES,eiaPreventiveMaintenancePlanification-save-success,La Planificación de Mantenimiento Preventivo ha sido guardada exitosamente
-ES,eiatype-maintenance-plan-not-null,Debe indicar el plan de mantenimiento  
+ES,eiatype-maintenance-plan-not-null,Debe indicar el plan de mantenimiento
+ES,password-missmatch,Las claves de acceso no coinciden  

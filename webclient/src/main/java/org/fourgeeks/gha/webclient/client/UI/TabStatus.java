@@ -5,6 +5,11 @@ package org.fourgeeks.gha.webclient.client.UI;
  */
 public enum TabStatus {
 	/**
+	 * the tab is just have been created, this state is the default state, never
+	 * got seted
+	 */
+	INIT,
+	/**
 	 * the tab is in search mode, but whitout the result set open
 	 */
 	SEARCH, /**

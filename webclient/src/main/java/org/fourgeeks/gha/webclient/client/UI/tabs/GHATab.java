@@ -22,12 +22,12 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public abstract class GHATab extends VLayout implements ClosableListener,
 		HideableListener, ClosableProducer, HideableProducer {
 
-	private String token;
+	private final String token;
 	protected GHATabHeader header;
 	protected VLayout verticalPanel = new VLayout();
-	private List<ClosableListener> closables = new ArrayList<ClosableListener>();
-	private List<HideableListener> hideables = new ArrayList<HideableListener>();
-	protected TabStatus currentStatus = TabStatus.SEARCH;
+	private final List<ClosableListener> closables = new ArrayList<ClosableListener>();
+	private final List<HideableListener> hideables = new ArrayList<HideableListener>();
+	protected TabStatus currentStatus = TabStatus.INIT;
 
 	/**
 	 * @param header
