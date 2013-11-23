@@ -137,6 +137,7 @@ public class MaterialCategorySearchForm extends GHASearchForm<MaterialCategory>
 		resultSet.removeMaterialSelectionListener(materialSelectionListener);
 	}
 
+	@Override
 	public void search() {
 		MaterialCategory material = new MaterialCategory();
 		material.setCode(codeTextItem.getValueAsString());
@@ -182,5 +183,5 @@ public class MaterialCategorySearchForm extends GHASearchForm<MaterialCategory>
 	public void select(MaterialCategory materialCategory) {
 		search(materialCategory);
 	}
-	
+
 }

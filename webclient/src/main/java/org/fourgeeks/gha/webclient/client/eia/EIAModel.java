@@ -25,6 +25,11 @@ public class EIAModel {
 		eiaService.find(eia, eias);
 	}
 
+	public static void findComponents(Eia eia, EiaType eiaType,
+			GHAAsyncCallback<List<Eia>> eias) {
+		eiaService.findComponents(eia, eiaType, eias);
+	}
+
 	public static void findDamagedAndInMaintenance(EiaType eiaType,
 			GHAAsyncCallback<List<Eia>> eias) {
 		eiaService.findDamagedAndInMaintenance(eiaType, eias);

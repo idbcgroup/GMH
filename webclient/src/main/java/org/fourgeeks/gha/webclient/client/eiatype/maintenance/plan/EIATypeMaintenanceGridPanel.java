@@ -10,7 +10,6 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHANewButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
@@ -93,14 +92,14 @@ public class EIATypeMaintenanceGridPanel extends GHAVerticalLayout implements
 						search();
 
 					}
-				}), new GHANewButton(new ClickHandler() {
+				}),/* new GHANewButton(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
 				addForm.open();
 
 			}
-		}), new GHADeleteButton(new ClickHandler() {
+		}),*/ new GHADeleteButton(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {

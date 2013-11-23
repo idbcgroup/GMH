@@ -39,7 +39,7 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 		UserSelectionListener {
 
 	private SSOUser selectedUser;
-	private VLayout sideButtons;
+	private final VLayout sideButtons;
 	private GHATextItem usernameItem;
 	private GHADoumentTypeSelectItem typeidSelectItem;
 	private GHASelectItem stateItem;
@@ -48,9 +48,9 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 	private GHATextItem idItem;
 	private GHAEmailItem emailItem;
 	private GHASelectItem genderSelectItem;
-	private GHASearchButton searchButton;
-	private GHADeleteButton deleteButton;
-	private GHACleanButton cleanButton;
+	private final GHASearchButton searchButton;
+	private final GHADeleteButton deleteButton;
+	private final GHACleanButton cleanButton;
 	private GHADynamicForm form;
 	{
 		usernameItem = new GHAUserNameItem();
@@ -213,10 +213,12 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 		activated = !disabled;
 	}
 
+	@Override
 	public void deactivate() {
 		toggleForm(true);
 	}
 
+	@Override
 	public void activate() {
 		toggleForm(false);
 		usernameItem.focusInItem();

@@ -47,6 +47,16 @@ public interface GWTEiaService extends RemoteService {
 	public List<Eia> find(Eia eia) throws GHAEJBException;
 
 	/**
+	 * @param eia
+	 * @param eiaType
+	 * @return a List with Eia that can be components of this respective
+	 *         eiatype,using an Eia as a filter
+	 * @throws GHAEJBException
+	 */
+	public List<Eia> findComponents(Eia eia, EiaType eiaType)
+			throws GHAEJBException;
+
+	/**
 	 * @param eiaType
 	 * @return a List with Eia searching by EiaType
 	 * @throws GHAEJBException

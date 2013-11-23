@@ -57,7 +57,7 @@ public class MaterialSearchForm extends GHASearchForm<Material> implements
 				hide();
 			}
 		});
-		form = new GHADynamicForm(GHAUiHelper.getNormalFormWidth(30),4);
+		form = new GHADynamicForm(GHAUiHelper.getNormalFormWidth(30), 4);
 	}
 
 	/**
@@ -66,8 +66,8 @@ public class MaterialSearchForm extends GHASearchForm<Material> implements
 	public MaterialSearchForm(String title) {
 		super(title);
 
-		form.setItems(codeTextItem, nameTextItem, modelTextItem, new GHASpacerItem(),
-				extCodeTextItem, descriptionTextItem);
+		form.setItems(codeTextItem, nameTextItem, modelTextItem,
+				new GHASpacerItem(), extCodeTextItem, descriptionTextItem);
 
 		codeTextItem.addKeyUpHandler(searchKeyUpHandler);
 		nameTextItem.addKeyUpHandler(searchKeyUpHandler);
@@ -131,7 +131,7 @@ public class MaterialSearchForm extends GHASearchForm<Material> implements
 	@Override
 	public void onResize(ResizeEvent event) {
 		super.onResize(event);
-		form.resize(GHAUiHelper.getNormalFormWidth(30),4);
+		form.resize(GHAUiHelper.getNormalFormWidth(30), 4);
 
 	}
 

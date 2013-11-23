@@ -8,7 +8,9 @@ import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
 import org.fourgeeks.gha.webclient.client.UI.TabStatus;
+import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToHideException;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.SearchListener;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader;
@@ -17,8 +19,6 @@ import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader.Option;
 import com.smartgwt.client.types.Visibility;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
-import com.smartgwt.client.widgets.events.VisibilityChangedEvent;
-import com.smartgwt.client.widgets.events.VisibilityChangedHandler;
 
 /**
  * @author alacret
@@ -31,7 +31,7 @@ public class MaintenancePlanTab extends GHATab implements
 	private static final String TITLE = GHAStrings.get("maintenance-plans");
 	private MaintenancePlanTopForm topForm;
 	private MaintenancePlanInternalTabset internalTabSet;
-	private List<MaintenancePlanSelectionListener> listeners = new LinkedList<MaintenancePlanSelectionListener>();
+	private final List<MaintenancePlanSelectionListener> listeners = new LinkedList<MaintenancePlanSelectionListener>();
 	private Option searchOption;
 	private Option addOption;
 	private MaintenancePlanResultSet resultSet;
@@ -86,13 +86,19 @@ public class MaintenancePlanTab extends GHATab implements
 		addHideableListener(addForm);
 		addClosableListener(addForm);
 		addForm.addMaintenancePlanSelectionListener(this);
-		addForm.addVisibilityChangedHandler(new VisibilityChangedHandler() {
+		addForm.addHideableListener(new HideableListener() {
 
 			@Override
-			public void onVisibilityChanged(VisibilityChangedEvent event) {
-				if (!event.getIsVisible())
+			public void hide() throws UnavailableToHideException {
+				if (TabStatus.ENTITY_SELECTED.equals(currentStatus))
+					return;
+				else
 					search();
+			}
 
+			@Override
+			public boolean canBeHidden(HideCloseAction closeAction) {
+				return true;
 			}
 		});
 
@@ -106,8 +112,8 @@ public class MaintenancePlanTab extends GHATab implements
 	}
 
 	protected void add() {
-		if (addForm.isVisible())
-			return;
+		// if (addForm.isVisible())
+		// return;
 		if (internalTabSet.isVisible())
 			if (internalTabSet.canBeHidden(HideCloseAction.SAVE))
 				internalTabSet.hide();
@@ -152,15 +158,15 @@ public class MaintenancePlanTab extends GHATab implements
 
 	@Override
 	public void search() {
-		if (topForm.isActivated())
+		if (currentStatus.equals(TabStatus.SEARCH))
 			return;
 		if (internalTabSet.isVisible())
 			if (internalTabSet.canBeHidden(HideCloseAction.SAVE))
 				internalTabSet.hide();
 			else
 				return;
-		if (addForm.isVisible())
-			addForm.hide();
+		// if (addForm.isVisible())
+		// addForm.hide();
 		if (resultSet.isVisible())
 			resultSet.hide();
 		topForm.activate();

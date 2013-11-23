@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -30,6 +31,7 @@ import org.fourgeeks.gha.domain.gar.Obu;
 //import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.domain.gmh.EiaTypeComponent;
 import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
@@ -43,6 +45,9 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
 public class EiaService extends GHAEJBExceptionImpl implements EiaServiceRemote {
 	@PersistenceContext
 	EntityManager em;
+
+	@EJB(name = "gmh.EiaTypeComponentService")
+	EiaTypeComponentServiceRemote eiaTypeComponentService;
 
 	private final static Logger logger = Logger.getLogger(EiaService.class
 			.getName());
@@ -254,6 +259,7 @@ public class EiaService extends GHAEJBExceptionImpl implements EiaServiceRemote 
 		}
 	}
 
+	@Override
 	public List<Eia> findDamagedAndInMaintenance(EiaType eiaType)
 			throws GHAEJBException {
 		try {
@@ -361,5 +367,21 @@ public class EiaService extends GHAEJBExceptionImpl implements EiaServiceRemote 
 			throw super.generateGHAEJBException("eia-update-fail",
 					RuntimeParameters.getLang(), em);
 		}
+	}
+
+	@Override
+	public List<Eia> findComponents(Eia entity, EiaType eiaType)
+			throws GHAEJBException {
+		List<EiaTypeComponent> eiatypes = eiaTypeComponentService
+				.findByParentEiaType(eiaType);
+		List<Eia> eias = find(entity);
+		List<Eia> result = new ArrayList<Eia>();
+		for (Eia eia : eias)
+			for (EiaTypeComponent eiaType2 : eiatypes)
+				if (eiaType2.getEiaType().getCode()
+						.equals(eia.getEiaType().getCode()))
+					result.add(eia);
+		return result;
+
 	}
 }

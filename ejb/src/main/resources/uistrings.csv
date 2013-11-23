@@ -16,6 +16,7 @@ ES,cancel,Cancelar
 ES,new,Agregar
 ES,select,Seleccionar
 ES,edit,Editar
+ES,birthdate,Fecha de nacimiento
 ES,materials-category,Categorias de materiales
 ES,new-material,Nuevo material
 ES,utility-services,Servicios utilitarios
@@ -23,6 +24,7 @@ ES,external-code,Codigo externo
 ES,materials,Materiales
 ES,name,Nombre
 ES,mail,Correo
+ES,nationality,Nacionalidad
 ES,alternative-mail,Correo alternativo
 ES,genre,Género
 ES,components,Componentes
@@ -97,7 +99,7 @@ ES,user,Usuario
 ES,state,Estado
 ES,first-name,Primer nombre
 ES,form-errors,Errores en el formulario
-ES,unsaved-changes,Tiene cambios sin guardar. ¿Realmente desea salir?
+ES,unsaved-changes,Existen algunos cambios sin guardar. ¿Realmente desea salir?
 ES,bpi,Institución
 ES,maintenance,Mantenimiento
 ES,maintenance-plans,Planes de mantenimiento
@@ -143,3 +145,4 @@ ES,new-eia-preventive-maintenance-planification,Nueva Planificación de Mantenim
 ES,eia-preventive-maintenance-planification,Planificación de Mantenimiento Preventivo
 ES,providers,Proveedores
 ES,intermediate-warranty,Garantía intermedia
+ES,date-must-be-lower-than-today,La fecha debe ser menor a la fecha de hoy

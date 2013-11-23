@@ -8,7 +8,9 @@ import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
 import org.fourgeeks.gha.webclient.client.UI.TabStatus;
+import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToHideException;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.SearchListener;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader;
@@ -17,8 +19,6 @@ import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader.Option;
 import com.smartgwt.client.types.Visibility;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
-import com.smartgwt.client.widgets.events.VisibilityChangedEvent;
-import com.smartgwt.client.widgets.events.VisibilityChangedHandler;
 
 /**
  * @author alacret
@@ -32,13 +32,13 @@ public class UserTab extends GHATab implements UserSelectionListener,
 	 */
 	public static final String ID = "user";
 	private static final String TITLE = GHAStrings.get("users");
-	private UserAddForm addForm;
-	private UserInternalTabset internalTabSet;
-	private List<UserSelectionListener> listeners = new ArrayList<UserSelectionListener>();
-	private UserResultSet resultSet;
-	private UserTopForm topForm;
-	private Option searchOption;
-	private Option addOption;
+	private final UserAddForm addForm;
+	private final UserInternalTabset internalTabSet;
+	private final List<UserSelectionListener> listeners = new ArrayList<UserSelectionListener>();
+	private final UserResultSet resultSet;
+	private final UserTopForm topForm;
+	private final Option searchOption;
+	private final Option addOption;
 
 	/**
 	 * @param token
@@ -88,13 +88,19 @@ public class UserTab extends GHATab implements UserSelectionListener,
 		addHideableListener(addForm);
 		addClosableListener(addForm);
 		addForm.addUserSelectionListener(this);
-		addForm.addVisibilityChangedHandler(new VisibilityChangedHandler() {
+		addForm.addHideableListener(new HideableListener() {
 
 			@Override
-			public void onVisibilityChanged(VisibilityChangedEvent event) {
-				if (!event.getIsVisible())
+			public void hide() throws UnavailableToHideException {
+				if (TabStatus.ENTITY_SELECTED.equals(currentStatus))
+					return;
+				else
 					search();
+			}
 
+			@Override
+			public boolean canBeHidden(HideCloseAction closeAction) {
+				return true;
 			}
 		});
 
@@ -109,8 +115,8 @@ public class UserTab extends GHATab implements UserSelectionListener,
 	}
 
 	protected void add() {
-		if (addForm.isVisible())
-			return;
+		// if (addForm.isVisible())
+		// return;
 		if (internalTabSet.isVisible())
 			if (internalTabSet.canBeHidden(HideCloseAction.SAVE))
 				internalTabSet.hide();
@@ -155,15 +161,15 @@ public class UserTab extends GHATab implements UserSelectionListener,
 
 	@Override
 	public void search() {
-		if (topForm.isActivated())
+		if (currentStatus.equals(TabStatus.SEARCH))
 			return;
 		if (internalTabSet.isVisible())
 			if (internalTabSet.canBeHidden(HideCloseAction.SAVE))
 				internalTabSet.hide();
 			else
 				return;
-		if (addForm.isVisible())
-			addForm.hide();
+		// if (addForm.isVisible())
+		// addForm.hide();
 		if (resultSet.isVisible())
 			resultSet.hide();
 		topForm.activate();

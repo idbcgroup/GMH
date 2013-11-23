@@ -65,7 +65,8 @@ public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan>
 	public MaintenancePlanSearchForm(String title) {
 		super(title);
 
-		form.setItems(nameItem, frequencyItem, periodOfTimeSelectItem, descriptionItem);
+		form.setItems(nameItem, frequencyItem, periodOfTimeSelectItem,
+				descriptionItem);
 
 		nameItem.addKeyUpHandler(searchKeyUpHandler);
 		frequencyItem.addKeyUpHandler(searchKeyUpHandler);

@@ -16,8 +16,8 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
-import org.fourgeeks.gha.webclient.client.eia.EIASearchForm;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
+import org.fourgeeks.gha.webclient.client.eia.EIaComponentsSearchForm;
 
 import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -37,7 +37,7 @@ public class EIAComponentGridPanel extends GHAVerticalLayout implements
 
 	private EIAComponentGrid grid;
 	private Eia eia;
-	private EIASearchForm searchForm;
+	private EIaComponentsSearchForm searchForm;
 
 	{
 		grid = new EIAComponentGrid();
@@ -59,7 +59,8 @@ public class EIAComponentGridPanel extends GHAVerticalLayout implements
 			}
 		});
 
-		searchForm = new EIASearchForm(GHAStrings.get("search-component-eia"));
+		searchForm = new EIaComponentsSearchForm(
+				GHAStrings.get("search-component-eia"));
 		searchForm.addEiaSelectionListener(new EIASelectionListener() {
 
 			@Override
@@ -197,5 +198,6 @@ public class EIAComponentGridPanel extends GHAVerticalLayout implements
 	public void select(Eia eia) {
 		this.eia = eia;
 		loadData();
+		searchForm.setEiaType(eia.getEiaType());
 	}
 }

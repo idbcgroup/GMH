@@ -29,9 +29,9 @@ public class EIAAddForm extends GHAAddForm<Eia> implements
 	 * @param title
 	 * 
 	 */
-	public EIAAddForm(String title,boolean eiatypeSelected) {
+	public EIAAddForm(String title) {
 		super(title);
-		form = new EIAForm(eiatypeSelected);
+		form = new EIAForm();
 		VLayout sideButtons = GHAUiHelper.createBar(new GHASaveButton(
 				new ClickHandler() {
 					@Override

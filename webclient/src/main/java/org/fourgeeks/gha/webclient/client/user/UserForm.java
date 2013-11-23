@@ -21,6 +21,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHABirthDateItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHADateItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAEmailItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHANameItem;
@@ -80,11 +81,8 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 		nationalityItem.setLength(60);
 		nationalityItem
 				.setMask("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-		birthDateItem = new GHADateItem("Fecha de Nac.", changedHandler);
-		birthDateItem.setStartDate(new java.util.Date(50, 1, 1));
-		birthDateItem
-				.setEndDate(new java.util.Date(System.currentTimeMillis()));
-
+		birthDateItem = new GHABirthDateItem(GHAStrings.get("birthdate"),
+				changedHandler);
 		bpiSelectItem = new GHASelectItem("Institución");
 		bpiSelectItem.setRequired(true);
 		bpiSelectItem.addChangedHandler(changedHandler);
@@ -237,6 +235,7 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 		Set<ConstraintViolation<Bpu>> violationsBpu = validator.validate(bpu);
 		Set<ConstraintViolation<SSOUser>> violationsSSOUser = validator
 				.validate(ssoUser);
+		Set<ConstraintViolation<Bpi>> violationsBpi = validator.validate(bpi);
 
 		if (violationsLegalEntity.isEmpty()) {
 			for (Iterator<ConstraintViolation<LegalEntity>> it = violationsLegalEntity
@@ -262,9 +261,13 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 				violationsList.add(it.next().getMessage());
 		}
 
-		if (passwordItem.getValue() == null) {
+		if (!violationsBpi.isEmpty())
+			for (Iterator<ConstraintViolation<Bpi>> it = violationsBpi
+					.iterator(); it.hasNext();)
+				violationsList.add(it.next().getMessage());
+
+		if (passwordItem.getValue() == null)
 			violationsList.add("password-not-null");
-		}
 
 		if (passwordItem.getValueAsString() != confirmPasswordItem
 				.getValueAsString()) {

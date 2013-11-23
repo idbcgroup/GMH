@@ -150,4 +150,10 @@ public class GWTEiaServiceImpl extends RemoteServiceServlet implements
 	public Eia update(Eia eia) throws GHAEJBException {
 		return eiaServiceRemote.update(eia);
 	}
+
+	@Override
+	public List<Eia> findComponents(Eia eia, EiaType eiaType)
+			throws GHAEJBException {
+		return eiaServiceRemote.findComponents(eia, eiaType);
+	}
 }

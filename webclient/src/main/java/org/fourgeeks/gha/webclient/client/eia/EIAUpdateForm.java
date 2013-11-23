@@ -32,7 +32,7 @@ public class EIAUpdateForm extends GHAUpdateForm implements
 	 */
 	public EIAUpdateForm(String title) {
 		super(title);
-		form = new EIAForm(true);
+		form = new EIAForm();
 		initComponent();
 	}
 
@@ -43,7 +43,7 @@ public class EIAUpdateForm extends GHAUpdateForm implements
 	 */
 	public EIAUpdateForm(EiaType eiaType, String title) {
 		super(title);
-		form = new EIAForm(true);
+		form = new EIAForm();
 		form.select(eiaType);
 		initComponent();
 	}
@@ -196,7 +196,6 @@ public class EIAUpdateForm extends GHAUpdateForm implements
 	@Override
 	public void select(EiaType eiaType) {
 		form.select(eiaType);
-
 	}
 
 	/**

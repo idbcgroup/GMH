@@ -14,14 +14,13 @@ import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
  */
 public class EIARecord extends GHAGridRecord<Eia> {
 
-	private Eia eia;
+	private final Eia eia;
 
 	/**
 	 * @param eia
 	 */
 	public EIARecord(Eia eia) {
 		this.eia = eia;
-
 		setAttribute("id", eia.getId());
 		setAttribute("serialNumber", eia.getSerialNumber());
 		setAttribute("fai", eia.getFixedAssetIdentifier());

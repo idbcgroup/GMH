@@ -8,7 +8,9 @@ import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
 import org.fourgeeks.gha.webclient.client.UI.TabStatus;
+import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToHideException;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.SearchListener;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader;
@@ -17,8 +19,6 @@ import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader.Option;
 import com.smartgwt.client.types.Visibility;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
-import com.smartgwt.client.widgets.events.VisibilityChangedEvent;
-import com.smartgwt.client.widgets.events.VisibilityChangedHandler;
 
 /**
  * @author alacret, emiliot
@@ -32,13 +32,13 @@ public class EIATab extends GHATab implements EIASelectionListener,
 	 */
 	public static final String ID = "eia";
 	private static final String TITLE = GHAStrings.get("equipments");
-	private EIAAddForm addForm;
-	private EIAInternalTabset internalTabSet;
-	private List<EIASelectionListener> listeners = new ArrayList<EIASelectionListener>();
-	private EIATopForm topForm;
-	private EiaResultSet resultSet;
-	private Option searchOption;
-	private Option addOption;
+	private final EIAAddForm addForm;
+	private final EIAInternalTabset internalTabSet;
+	private final List<EIASelectionListener> listeners = new ArrayList<EIASelectionListener>();
+	private final EIATopForm topForm;
+	private final EiaResultSet resultSet;
+	private final Option searchOption;
+	private final Option addOption;
 
 	/**
 	 * @param token
@@ -85,17 +85,23 @@ public class EIATab extends GHATab implements EIASelectionListener,
 		addClosableListener(internalTabSet);
 		addEiaSelectionListener(internalTabSet);
 
-		addForm = new EIAAddForm(GHAStrings.get("new-eia"),false);
+		addForm = new EIAAddForm(GHAStrings.get("new-eia"));
 		addHideableListener(addForm);
 		addClosableListener(addForm);
 		addForm.addEiaSelectionListener(this);
-		addForm.addVisibilityChangedHandler(new VisibilityChangedHandler() {
+		addForm.addHideableListener(new HideableListener() {
 
 			@Override
-			public void onVisibilityChanged(VisibilityChangedEvent event) {
-				if (!event.getIsVisible())
+			public void hide() throws UnavailableToHideException {
+				if (TabStatus.ENTITY_SELECTED.equals(currentStatus))
+					return;
+				else
 					search();
+			}
 
+			@Override
+			public boolean canBeHidden(HideCloseAction closeAction) {
+				return true;
 			}
 		});
 
@@ -113,9 +119,9 @@ public class EIATab extends GHATab implements EIASelectionListener,
 	 * 
 	 */
 	protected void add() {
-		if (addForm.isVisible()) {
-			return;
-		}
+		// if (addForm.isVisible()) {
+		// return;
+		// }
 		if (internalTabSet.isVisible()) {
 			if (internalTabSet.canBeHidden(HideCloseAction.ASK))
 				internalTabSet.hide();
@@ -168,15 +174,15 @@ public class EIATab extends GHATab implements EIASelectionListener,
 
 	@Override
 	public void search() {
-		if (topForm.isActivated())
+		if (currentStatus.equals(TabStatus.SEARCH))
 			return;
 		if (internalTabSet.isVisible())
 			if (internalTabSet.canBeHidden(HideCloseAction.SAVE))
 				internalTabSet.hide();
 			else
 				return;
-		if (addForm.isVisible())
-			addForm.hide();
+		// if (addForm.isVisible())
+		// addForm.hide();
 		if (resultSet.isVisible())
 			resultSet.hide();
 		topForm.activate();

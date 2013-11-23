@@ -47,7 +47,7 @@ public class EIADamageReportSearchForm extends GHASearchForm<Eia> implements
 	private GHAWorkingAreaSelectItem workingAreaLocationSelectItem;
 	private GHAFacilitySelectItem facilityLocationSelectItem;
 
-	private EiaResultSet resultSet = new EiaResultSet(
+	private final EiaResultSet resultSet = new EiaResultSet(
 			ResultSetContainerType.SEARCH_FORM);
 	private GHADynamicForm form;
 	private EiaType eiaType;
@@ -113,7 +113,7 @@ public class EIADamageReportSearchForm extends GHASearchForm<Eia> implements
 		formLayout.setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT
 				+ "px");
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
-		
+
 		addMembers(formLayout,
 				GHAUiHelper
 						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT

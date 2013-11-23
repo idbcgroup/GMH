@@ -12,10 +12,7 @@ import org.fourgeeks.gha.domain.AbstractEntity;
  * @author alacret
  * 
  */
-public final class GHAUtil {
-
-	private GHAUtil() {
-	}
+public abstract class GHAUtil {
 
 	/**
 	 * @param all
