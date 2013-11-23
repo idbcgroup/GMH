@@ -98,7 +98,7 @@ ES,user,Usuario
 ES,state,Estado
 ES,first-name,Primer nombre
 ES,form-errors,Errores en el formulario
-ES,unsaved-changes,Tiene cambios sin guardar. ¿Realmente desea salir?
+ES,unsaved-changes,Existen algunos cambios sin guardar. ¿Realmente desea salir?
 ES,bpi,Institución
 ES,maintenance,Mantenimiento
 ES,maintenance-plans,Planes de mantenimiento
