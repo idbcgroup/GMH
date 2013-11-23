@@ -21,6 +21,7 @@ ES,obu-not-null,Debe indicar la organización
 ES,state-not-null,Debe indicar el estado
 ES,gender-not-null,Debe indicar el genero
 ES,bpi-not-null,Debe indicar la institución
+ES,institution-not-null,Debe indicar la institución
 ES,username-not-null,Debe indicar el usuario
 ES,password-not-null,Debe indicar la clave
 ES,code-not-null,Debe indicar el código

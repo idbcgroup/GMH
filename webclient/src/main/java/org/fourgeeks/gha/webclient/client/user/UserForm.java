@@ -34,7 +34,6 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
-import com.google.gwt.user.client.Window;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 
@@ -236,6 +235,7 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 		Set<ConstraintViolation<Bpu>> violationsBpu = validator.validate(bpu);
 		Set<ConstraintViolation<SSOUser>> violationsSSOUser = validator
 				.validate(ssoUser);
+		Set<ConstraintViolation<Bpi>> violationsBpi = validator.validate(bpi);
 
 		if (violationsLegalEntity.isEmpty()) {
 			for (Iterator<ConstraintViolation<LegalEntity>> it = violationsLegalEntity
@@ -261,9 +261,13 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 				violationsList.add(it.next().getMessage());
 		}
 
-		if (passwordItem.getValue() == null) {
+		if (!violationsBpi.isEmpty())
+			for (Iterator<ConstraintViolation<Bpi>> it = violationsBpi
+					.iterator(); it.hasNext();)
+				violationsList.add(it.next().getMessage());
+
+		if (passwordItem.getValue() == null)
 			violationsList.add("password-not-null");
-		}
 
 		if (passwordItem.getValueAsString() != confirmPasswordItem
 				.getValueAsString()) {
@@ -299,10 +303,8 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 
 	@Override
 	public void notifyUser(SSOUser ssoUser) {
-		for (UserSelectionListener listener : listeners) {
-			Window.alert("notify");
+		for (UserSelectionListener listener : listeners)
 			listener.select(ssoUser);
-		}
 	}
 
 	@Override

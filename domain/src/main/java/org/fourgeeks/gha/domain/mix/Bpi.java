@@ -5,6 +5,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.validation.constraints.NotNull;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.BpiInstitutionRelationTypeEnum;
@@ -24,6 +25,7 @@ public class Bpi extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 	@ManyToOne
 	@JoinColumn(name = "institutionFk", nullable = false)
+	@NotNull(message = "institution-not-null")
 	private Institution institution;
 
 	/** Attributes */
@@ -65,7 +67,7 @@ public class Bpi extends AbstractEntity {
 	private BpiRiskEnum bpiRisk;
 	/** Riesgo Institución length =60 */
 	private Long institutionId;
-	
+
 	/**
 	 * 
 	 */
