@@ -8,41 +8,51 @@ import org.fourgeeks.gha.webclient.client.user.loginlog.UserLoginLogSubTab;
 import com.smartgwt.client.types.AnimationEffect;
 
 /**
- * @author alacret
+ * @author alacret, emiliot
  * 
  */
 public class UserInternalTabset extends GHAInternalTabSet implements
 		UserSelectionListener {
 
-	private UserInformationSubTab userInformationSubTab;
+	private UserInformationSubTab infoSubTab;
 	// private UserCredentialsSubTab userCredentialsSubTab;
-	private UserLoginLogSubTab userLoginLogSubTab;
+	private UserLoginLogSubTab loginLogSubTab;
 
 	// private UserPermissionSubTab permissionSubTab;
-
 	// private UserUILogSubTab userUILogSubTab;
 
 	/**
-	 * @param userTab
+	 * @param tab
 	 */
-	public UserInternalTabset(UserTab userTab) {
-		super(userTab);
-		// TODO normalize
-		userInformationSubTab = new UserInformationSubTab(userTab);
+	public UserInternalTabset(UserTab tab) {
+		super(tab);
+		infoSubTab = new UserInformationSubTab(tab);
+		hideables.add(infoSubTab);
+		closables.add(infoSubTab);
+
 		// userCredentialsSubTab = new UserCredentialsSubTab(userTab);
-		userLoginLogSubTab = new UserLoginLogSubTab(userTab);
+
+		loginLogSubTab = new UserLoginLogSubTab(tab);
+		hideables.add(loginLogSubTab);
+		closables.add(loginLogSubTab);
+
 		// permissionSubTab = new UserPermissionSubTab(userTab);
+
 		// userUILogSubTab = new UserUILogSubTab(userTab);
 
-		addTab(userInformationSubTab);
+		addTab(infoSubTab);
 		// addTab(userCredentialsSubTab);
-		addTab(userLoginLogSubTab);
+		addTab(loginLogSubTab);
 		// addTab(permissionSubTab);
 		// addTab(userUILogSubTab);
 	}
 
 	@Override
 	public void select(SSOUser ssoUser) {
+		selectTab(infoSubTab);
+		if (getSelectedTab() == infoSubTab)
+			infoSubTab.show();
+
 		animateShow(AnimationEffect.FADE);
 	}
 
