@@ -5,7 +5,7 @@ import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
 import org.fourgeeks.gha.webclient.client.user.UserTab;
 
 /**
- * @author alacret
+ * @author alacret, emiliot
  * 
  */
 public class UserInformationSubTab extends GHASubTab {
@@ -23,8 +23,11 @@ public class UserInformationSubTab extends GHASubTab {
 		addHideableListener(form);
 		setPane(form);
 
-		// register to listen for selected user
 		tab.addUserSelectionListener(form);
 		form.addUserSelectionListener(tab);
+	}
+
+	public void show() {
+		form.show();
 	}
 }
