@@ -171,6 +171,7 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 	 * @return the SSOUser to save/update
 	 */
 	private SSOUser extract(boolean update) {
+		final List<String> violationsList = new ArrayList<String>();
 		final SSOUser ssoUser = new SSOUser();
 		final Bpu bpu = new Bpu();
 		final Citizen citizen = new Citizen();
@@ -195,8 +196,19 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 		citizen.setFirstLastName(lastNameItem.getValueAsString());
 		citizen.setSecondLastName(secondLastNameItem.getValueAsString());
 		citizen.setNationality(nationalityItem.getValueAsString());
-		citizen.setPrimaryEmail(primaryEmailItem.getValueAsString());
-		citizen.setAlternativeEmail(alternativeEmailItem.getValueAsString());
+
+		if (primaryEmailItem.getValue() != null) {
+			if (!primaryEmailItem.validate())
+				violationsList.add("email-invalid-field");
+			citizen.setPrimaryEmail(primaryEmailItem.getValueAsString());
+		}
+
+		if (alternativeEmailItem.getValue() != null) {
+			if (!alternativeEmailItem.validate())
+				violationsList.add("email-invalid-field");
+			citizen.setAlternativeEmail(alternativeEmailItem.getValueAsString());
+		}
+
 		if (birthDateItem.getValue() != null) {
 			citizen.setBirthDate(new Date(birthDateItem.getValueAsDate()
 					.getTime()));
@@ -234,7 +246,6 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 		bpu.setCitizen(citizen);
 		bpu.setBpi(bpi);
 		ssoUser.setBpu(bpu);
-		List<String> violationsList = new ArrayList<String>();
 
 		Set<ConstraintViolation<LegalEntity>> violationsLegalEntity = validator
 				.validate(legalEntity);
