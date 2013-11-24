@@ -19,6 +19,7 @@ import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.fourgeeks.gha.domain.enu.DocumentTypeEnum;
 import org.fourgeeks.gha.domain.enu.GenderTypeEnum;
 import org.fourgeeks.gha.domain.enu.UserLogonStatusEnum;
 import org.fourgeeks.gha.domain.ess.SSOUser;
@@ -59,6 +60,13 @@ public class SSOUserService extends GHAEJBExceptionImpl implements
 					cb.like(cb.lower(root.<String> get("userName")), p));
 		}
 
+		if (ssoUser.getUserLogonStatus() != null) {
+			ParameterExpression<UserLogonStatusEnum> p = cb.parameter(
+					UserLogonStatusEnum.class, "status");
+			predicate = cb.and(predicate, cb.equal(
+					root.<UserLogonStatusEnum> get("userLogonStatus"), p));
+		}
+
 		if (ssoUser.getBpu() != null) {
 			Bpu bpu = ssoUser.getBpu();
 			Join<SSOUser, Bpu> joinBpu = root.join("bpu");
@@ -95,6 +103,13 @@ public class SSOUserService extends GHAEJBExceptionImpl implements
 					predicate = cb.and(predicate, cb.like(cb.lower(joinCitizen
 							.<String> get("secondLastName")), p));
 				}
+				if (citizen.getIdType() != null) {
+					ParameterExpression<DocumentTypeEnum> p = cb.parameter(
+							DocumentTypeEnum.class, "idType");
+					predicate = cb.and(predicate, cb.equal(
+							joinCitizen.<DocumentTypeEnum> get("idType"), p));
+				}
+
 				if (citizen.getIdNumber() != null) {
 					ParameterExpression<String> p = cb.parameter(String.class,
 							"idNumber");
@@ -168,6 +183,8 @@ public class SSOUserService extends GHAEJBExceptionImpl implements
 
 			if (ssoUser.getUserName() != null)
 				q.setParameter("userName", "%" + ssoUser.getUserName() + "%");
+			if (ssoUser.getUserLogonStatus() != null)
+				q.setParameter("status", ssoUser.getUserLogonStatus());
 
 			if (ssoUser.getBpu() != null) {
 				Bpu bpu = ssoUser.getBpu();
@@ -192,6 +209,8 @@ public class SSOUserService extends GHAEJBExceptionImpl implements
 						q.setParameter("secondLastName", "%"
 								+ citizen.getSecondLastName().toLowerCase()
 								+ "%");
+					if (citizen.getIdType() != null)
+						q.setParameter("idType", citizen.getIdType());
 					if (citizen.getIdNumber() != null)
 						q.setParameter("idNumber", "%"
 								+ citizen.getIdNumber().toLowerCase() + "%");

@@ -2,7 +2,9 @@ package org.fourgeeks.gha.webclient.client.user;
 
 import java.util.List;
 
+import org.fourgeeks.gha.domain.enu.DocumentTypeEnum;
 import org.fourgeeks.gha.domain.enu.GenderTypeEnum;
+import org.fourgeeks.gha.domain.enu.UserLogonStatusEnum;
 import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.mix.Citizen;
@@ -41,7 +43,7 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 	private SSOUser selectedUser;
 	private final VLayout sideButtons;
 	private GHATextItem usernameItem;
-	private GHADoumentTypeSelectItem typeidSelectItem;
+	private GHADoumentTypeSelectItem idTypeSelectItem;
 	private GHASelectItem stateItem;
 	private GHANameItem firstNameItem, secondNameItem, firstLastNameItem,
 			secondLastNameItem;
@@ -60,7 +62,7 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 		firstLastNameItem = new GHANameItem(GHAStrings.get("first-lastname"));
 		secondLastNameItem = new GHANameItem(GHAStrings.get("second-lastname"));
 		emailItem = new GHAEmailItem(GHAStrings.get("mail"));
-		typeidSelectItem = new GHADoumentTypeSelectItem();
+		idTypeSelectItem = new GHADoumentTypeSelectItem();
 		idItem = new GHATextItem(GHAStrings.get("id-number"));
 		idItem.setLength(20);
 		idItem.setMask("####################");
@@ -85,7 +87,7 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 		super(resultSet, userTab);
 
 		form.setItems(usernameItem, firstNameItem, secondNameItem,
-				firstLastNameItem, secondLastNameItem, typeidSelectItem,
+				firstLastNameItem, secondLastNameItem, idTypeSelectItem,
 				idItem, emailItem, genderSelectItem, stateItem);
 
 		deleteButton = new GHADeleteButton(new ClickHandler() {
@@ -117,6 +119,9 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 		SSOUser ssoUser = new SSOUser();
 		if (usernameItem.getValue() != null)
 			ssoUser.setUserName(usernameItem.getValueAsString());
+		if (stateItem.getValue() != null)
+			ssoUser.setUserLogonStatus(UserLogonStatusEnum.valueOf(stateItem
+					.getValueAsString()));
 
 		Citizen citizen = new Citizen();
 		if (firstNameItem.getValue() != null)
@@ -127,6 +132,10 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 			citizen.setFirstLastName(firstLastNameItem.getValueAsString());
 		if (secondLastNameItem.getValue() != null)
 			citizen.setSecondLastName(secondLastNameItem.getValueAsString());
+		if (idTypeSelectItem.getValue() != null) {
+			citizen.setIdType(DocumentTypeEnum.valueOf(idTypeSelectItem
+					.getValueAsString()));
+		}
 		if (idItem.getValue() != null)
 			citizen.setIdNumber(idItem.getValueAsString());
 		if (genderSelectItem.getValue() != null)
@@ -173,7 +182,7 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 				if (citizen.getSecondName() != null)
 					secondNameItem.setValue(citizen.getSecondName());
 				if (citizen.getIdType() != null)
-					typeidSelectItem.setValue(citizen.getIdType().name());
+					idTypeSelectItem.setValue(citizen.getIdType().name());
 				if (citizen.getIdNumber() != null)
 					idItem.setValue(citizen.getIdNumber());
 				if (citizen.getFirstLastName() != null)
@@ -193,7 +202,7 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 	private void toggleForm(boolean disabled) {
 		usernameItem.setDisabled(disabled);
 		stateItem.setDisabled(disabled);
-		typeidSelectItem.setDisabled(disabled);
+		idTypeSelectItem.setDisabled(disabled);
 		idItem.setDisabled(disabled);
 		firstNameItem.setDisabled(disabled);
 		secondNameItem.setDisabled(disabled);
@@ -228,7 +237,7 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 	public void clear() {
 		usernameItem.clearValue();
 		stateItem.clearValue();
-		typeidSelectItem.clearValue();
+		idTypeSelectItem.clearValue();
 		idItem.clearValue();
 		firstNameItem.clearValue();
 		secondNameItem.clearValue();
