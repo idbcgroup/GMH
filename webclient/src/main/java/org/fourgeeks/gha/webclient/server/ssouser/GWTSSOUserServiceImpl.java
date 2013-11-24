@@ -103,4 +103,11 @@ public class GWTSSOUserServiceImpl extends RemoteServiceServlet implements
 		return service.update(ssoUser);
 	}
 
+	@Override
+	public void delete(List<SSOUser> entities) throws GHAEJBException {
+		for (SSOUser entity : entities)
+			delete(entity.getId());
+
+	}
+
 }

@@ -13,7 +13,7 @@ import org.fourgeeks.gha.webclient.client.ssouser.GWTSSOUserServiceAsync;
 import com.google.gwt.core.client.GWT;
 
 /**
- * @author alacret
+ * @author alacret, emiliot
  * 
  */
 public class UserModel {
@@ -53,11 +53,20 @@ public class UserModel {
 	}
 
 	/**
-	 * @param id
+	 * @param entities
 	 * @param callback
 	 */
-	public static void delete(long id, GHAAsyncCallback<Void> callback) {
-		ssoUservice.delete(id, callback);
+	public static void delete(List<SSOUser> entities,
+			GHAAsyncCallback<Void> callback) {
+		ssoUservice.delete(entities, callback);
+	}
+
+	/**
+	 * @param entities
+	 * @param callback
+	 */
+	public static void delete(long Id, GHAAsyncCallback<Void> callback) {
+		ssoUservice.delete(Id, callback);
 	}
 
 	/**

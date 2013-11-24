@@ -27,6 +27,7 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.user.client.Window;
 import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -253,12 +254,14 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 
 	@Override
 	protected void delete() {
+		Window.alert("delete");
 		GHANotification.confirm(GHAStrings.get("user"),
 				GHAStrings.get("ssoUser-delete-confirm"),
 				new BooleanCallback() {
 					@Override
 					public void execute(Boolean value) {
 						if (value) {
+							Window.alert((selectedUser == null) + "");
 							UserModel.delete(selectedUser.getId(),
 									new GHAAsyncCallback<Void>() {
 										@Override

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.ess.SSOUser;
+import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
@@ -18,15 +19,17 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAResultSet;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.types.AnimationEffect;
+import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
 import com.smartgwt.client.widgets.grid.events.CellDoubleClickEvent;
 import com.smartgwt.client.widgets.grid.events.CellDoubleClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
+import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
- * @author alacret
+ * @author alacret, emiliot
  * 
  */
 public class UserResultSet extends GHAResultSet<SSOUser> implements
@@ -53,30 +56,85 @@ public class UserResultSet extends GHAResultSet<SSOUser> implements
 		super(GHAStrings.get("search-results"));
 		this.containerType = container;
 		HLayout gridPanel = new HLayout();
-		gridPanel.addMembers(grid, GHAUiHelper.createBar(new GHACheckButton(
-				new ClickHandler() {
+		VLayout sideBar;
 
-					@Override
-					public void onClick(ClickEvent event) {
-						notifySelectedUser();
-					}
-				}), GHAUiHelper.verticalGraySeparator("2px"),
-				new GHADeleteButton(new ClickHandler() {
+		GHACheckButton checkButton = new GHACheckButton(new ClickHandler() {
 
-					@Override
-					public void onClick(ClickEvent event) {
-						delete();
-					}
-				})));
-		
-		if (containerType == ResultSetContainerType.SEARCH_FORM) {
+			@Override
+			public void onClick(ClickEvent event) {
+				notifySelectedUser();
+			}
+		});
+
+		if (containerType == ResultSetContainerType.TAB) {
+			VLayout separator = GHAUiHelper.verticalGraySeparator("2px");
+			GHADeleteButton deleteButton = new GHADeleteButton(
+					new ClickHandler() {
+
+						@Override
+						public void onClick(ClickEvent event) {
+							delete();
+						}
+					});
+			sideBar = GHAUiHelper.createBar(checkButton, separator,
+					deleteButton);
+		} else {
+			sideBar = GHAUiHelper.createBar(checkButton);
 			setHeight(getHeight() - 35);
 		}
+		gridPanel.addMembers(grid, sideBar);
+
+		// gridPanel.addMembers(grid, GHAUiHelper.createBar(new GHACheckButton(
+		// new ClickHandler() {
+		//
+		// @Override
+		// public void onClick(ClickEvent event) {
+		// notifySelectedUser();
+		// }
+		// }), GHAUiHelper.verticalGraySeparator("2px"),
+		// new GHADeleteButton(new ClickHandler() {
+		//
+		// @Override
+		// public void onClick(ClickEvent event) {
+		// delete();
+		// }
+		// })));
+		//
+		// if (containerType == ResultSetContainerType.SEARCH_FORM) {
+		// setHeight(getHeight() - 35);
+		// }
 		addMember(gridPanel);
 	}
 
 	protected void delete() {
-		// TODO Auto-generated method stub
+		if (grid.getSelectedRecord() == null) {
+			GHANotification.alert("record-not-selected");
+			return;
+		}
+
+		String msj = grid.getSelectedRecords().length > 1 ? GHAStrings
+				.get("users-delete-confirm") : GHAStrings
+				.get("user-delete-confirm");
+		GHANotification.confirm(GHAStrings.get("user"), msj,
+				new BooleanCallback() {
+
+					@Override
+					public void execute(Boolean value) {
+						if (value) {
+							List<SSOUser> entities = grid.getSelectedEntities();
+							UserModel.delete(entities,
+									new GHAAsyncCallback<Void>() {
+
+										@Override
+										public void onSuccess(Void arg0) {
+											grid.removeSelectedData();
+
+										}
+
+									});
+						}
+					}
+				});
 	}
 
 	@Override
@@ -134,7 +192,7 @@ public class UserResultSet extends GHAResultSet<SSOUser> implements
 		grid.setData(new UserRecord[] {});
 		showResultsSize(null, true);
 	}
-	
+
 	@Override
 	public void onResize(ResizeEvent event) {
 		super.onResize(event);

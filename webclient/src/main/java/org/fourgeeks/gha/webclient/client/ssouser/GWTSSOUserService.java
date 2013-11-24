@@ -24,6 +24,12 @@ public interface GWTSSOUserService extends RemoteService {
 	public void delete(long Id) throws GHAEJBException;
 
 	/**
+	 * @param entities
+	 * @throws GHAEJBException
+	 */
+	public void delete(List<SSOUser> entities) throws GHAEJBException;
+
+	/**
 	 * @param ssoUser
 	 * @return the list of ssoUsers
 	 * @throws GHAEJBException
