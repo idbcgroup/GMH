@@ -7,6 +7,7 @@ import org.fourgeeks.gha.webclient.client.maintenanceplan.information.Maintenanc
 
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.types.AnimationEffect;
+import com.smartgwt.client.widgets.tab.Tab;
 
 public class MaintenancePlanInternalTabset extends GHAInternalTabSet implements
 		ResizeHandler, MaintenancePlanSelectionListener {
@@ -32,6 +33,14 @@ public class MaintenancePlanInternalTabset extends GHAInternalTabSet implements
 
 	@Override
 	public void select(MaintenancePlan maintenancePlan) {
+		show();
+	}
+
+	@Override
+	public void show() {
+		Tab selectedTab = getSelectedTab();
+		if (selectedTab == maintenancePlanInformationSubTab)
+			maintenancePlanInformationSubTab.show();
 		animateShow(AnimationEffect.FADE);
 	}
 }

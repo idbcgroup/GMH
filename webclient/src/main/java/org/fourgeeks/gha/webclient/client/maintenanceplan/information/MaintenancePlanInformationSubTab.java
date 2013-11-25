@@ -29,4 +29,8 @@ public class MaintenancePlanInformationSubTab extends GHASubTab implements
 	public void select(MaintenancePlan maintenancePlan) {
 		form.select(maintenancePlan);
 	}
+
+	public void show() {
+		form.show();
+	}
 }

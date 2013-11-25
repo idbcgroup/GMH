@@ -129,6 +129,8 @@ public class EiaTypeResultSet extends GHAResultSet<EiaType> implements
 										@Override
 										public void onSuccess(Void result) {
 											grid.removeSelectedData();
+											refreshResultsSize(grid
+													.getRecords().length);
 										}
 									});
 						}
@@ -186,7 +188,7 @@ public class EiaTypeResultSet extends GHAResultSet<EiaType> implements
 			this.animateShow(AnimationEffect.FADE);
 
 	}
-	
+
 	@Override
 	public void onResize(ResizeEvent event) {
 		super.onResize(event);
@@ -194,5 +196,4 @@ public class EiaTypeResultSet extends GHAResultSet<EiaType> implements
 			setHeight(getHeight() - 35);
 		}
 	}
-
 }

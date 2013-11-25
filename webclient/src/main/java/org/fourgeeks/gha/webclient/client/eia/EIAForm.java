@@ -1113,6 +1113,7 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 	@Override
 	public void show() {
 		sectionForm.show();
+		sectionForm.openSelectedSection();
 		super.show();
 	}
 
