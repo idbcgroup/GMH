@@ -11,6 +11,7 @@ import org.fourgeeks.gha.webclient.client.eiatype.material.EIATypeMaterialSubTab
 import org.fourgeeks.gha.webclient.client.eiatype.utility.EIATypeUtilitySubTab;
 
 import com.smartgwt.client.types.AnimationEffect;
+import com.smartgwt.client.widgets.tab.Tab;
 
 /**
  * @author alacret, emiliot
@@ -75,13 +76,6 @@ public class EIATypeInternalTabSet extends GHAInternalTabSet implements
 
 	@Override
 	public void select(EiaType eiaType) {
-		// selectTab(infoSubTab);
-		// if (getSelectedTab() == infoSubTab)
-		// infoSubTab.show();
-		// if (getSelectedTab() == damageAndPlanificationSubTab) {
-		// damageAndPlanificationSubTab.show();
-		// damageAndPlanificationSubTab.openFirstSection();
-		// }
 		// El subtab esta configurado para autoguardarse si hay cambios sin
 		// guardar y el usuario cambia de tab. una vez que sucede esto el tab es
 		// notificado de que el usuario se actualizo, y vuelve a notificar a
@@ -89,17 +83,18 @@ public class EIATypeInternalTabSet extends GHAInternalTabSet implements
 		// vuelve a ejecutar. Con tus cambios, cuando yo cambio algo y no lo
 		// guardo, y luego paso a otro tab, pasa esto, y el tab de informatcion
 		// se vuelve a seleccionar
-		if (!isVisible())
-			animateShow(AnimationEffect.FADE);
+		show();
 	}
 
 	@Override
 	public void show() {
-		// forza al panel del subtab a mostrarse sy es el seleccionado
-		if (getSelectedTab() == infoSubTab)
+		Tab selectedTab = getSelectedTab();
+		if (selectedTab == infoSubTab)
 			infoSubTab.show();
-		if (getSelectedTab() == damageAndPlanificationSubTab)
+		else if (selectedTab == damageAndPlanificationSubTab) {
 			damageAndPlanificationSubTab.show();
-		super.show();
+			damageAndPlanificationSubTab.openFirstSection();
+		}
+		animateShow(AnimationEffect.FADE);
 	}
 }

@@ -112,17 +112,13 @@ public class MaintenancePlanTab extends GHATab implements
 	}
 
 	protected void add() {
-		// if (addForm.isVisible())
-		// return;
 		if (internalTabSet.isVisible())
 			if (internalTabSet.canBeHidden(HideCloseAction.SAVE))
 				internalTabSet.hide();
 			else
 				return;
-		if (topForm.isActivated()) {
-			topForm.deactivate();
-			topForm.clear();
-		}
+		topForm.deactivate();
+		topForm.clear();
 		if (resultSet.isVisible())
 			resultSet.hide();
 		addForm.open();
@@ -165,8 +161,6 @@ public class MaintenancePlanTab extends GHATab implements
 				internalTabSet.hide();
 			else
 				return;
-		// if (addForm.isVisible())
-		// addForm.hide();
 		if (resultSet.isVisible())
 			resultSet.hide();
 		topForm.activate();

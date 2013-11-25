@@ -6,6 +6,7 @@ import org.fourgeeks.gha.webclient.client.user.information.UserInformationSubTab
 import org.fourgeeks.gha.webclient.client.user.loginlog.UserLoginLogSubTab;
 
 import com.smartgwt.client.types.AnimationEffect;
+import com.smartgwt.client.widgets.tab.Tab;
 
 /**
  * @author alacret, emiliot
@@ -14,9 +15,9 @@ import com.smartgwt.client.types.AnimationEffect;
 public class UserInternalTabset extends GHAInternalTabSet implements
 		UserSelectionListener {
 
-	private UserInformationSubTab infoSubTab;
+	private final UserInformationSubTab infoSubTab;
 	// private UserCredentialsSubTab userCredentialsSubTab;
-	private UserLoginLogSubTab loginLogSubTab;
+	private final UserLoginLogSubTab loginLogSubTab;
 
 	// private UserPermissionSubTab permissionSubTab;
 	// private UserUILogSubTab userUILogSubTab;
@@ -49,10 +50,14 @@ public class UserInternalTabset extends GHAInternalTabSet implements
 
 	@Override
 	public void select(SSOUser ssoUser) {
-		selectTab(infoSubTab);
-		if (getSelectedTab() == infoSubTab)
-			infoSubTab.show();
+		show();
+	}
 
+	@Override
+	public void show() {
+		Tab selectedTab = getSelectedTab();
+		if (selectedTab == infoSubTab)
+			infoSubTab.show();
 		animateShow(AnimationEffect.FADE);
 	}
 
