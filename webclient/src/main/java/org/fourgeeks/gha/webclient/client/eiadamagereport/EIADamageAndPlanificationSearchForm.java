@@ -40,7 +40,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret, emiliot
  * 
  */
-public class EIADamageReportSearchForm extends GHASearchForm<Eia> implements
+public class EIADamageAndPlanificationSearchForm extends GHASearchForm<Eia> implements
 		EIATypeSelectionListener, EIASelectionListener, EiaSelectionProducer {
 
 	private GHATextItem serialNumber;
@@ -70,7 +70,7 @@ public class EIADamageReportSearchForm extends GHASearchForm<Eia> implements
 	/**
 	 * 
 	 */
-	public EIADamageReportSearchForm(String title) {
+	public EIADamageAndPlanificationSearchForm(String title) {
 		super(title);
 
 		GHAUiHelper.addGHAResizeHandler(this);

@@ -22,7 +22,7 @@ import org.fourgeeks.gha.webclient.client.eia.EIARecord;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 import org.fourgeeks.gha.webclient.client.eia.EIAUtil;
 import org.fourgeeks.gha.webclient.client.eiadamagereport.EIADamageReportAddForm;
-import org.fourgeeks.gha.webclient.client.eiadamagereport.EIADamageReportSearchForm;
+import org.fourgeeks.gha.webclient.client.eiadamagereport.EIADamageAndPlanificationSearchForm;
 import org.fourgeeks.gha.webclient.client.eiadamagereport.EiaDamageReportSelectionListener;
 import org.fourgeeks.gha.webclient.client.eiadamagereport.EiaDamageReportSelectionProducer;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
@@ -38,13 +38,13 @@ public class EiaDamageReportGridPanel extends GHAVerticalLayout implements
 		HideableListener, ClosableListener {
 
 	private EIAGrid grid;
-	private EIADamageReportSearchForm searchForm;
+	private EIADamageAndPlanificationSearchForm searchForm;
 	private EiaType eiaType;
 	private EIADamageReportAddForm addForm;
 
 	{
 		grid = new EIAGrid();
-		searchForm = new EIADamageReportSearchForm(GHAStrings.get("search-eia"));
+		searchForm = new EIADamageAndPlanificationSearchForm(GHAStrings.get("search-eia"));
 		addForm = new EIADamageReportAddForm();
 
 		searchForm.addEiaSelectionListener(new EIASelectionListener() {

@@ -30,17 +30,16 @@ import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIAPreventiveMaintenancePlanificationGridPanel extends
-		GHAVerticalLayout implements EIATypeSelectionListener,
-		HideableListener, ClosableListener {
+public class EIAMaintenancePlanificationGridPanel extends GHAVerticalLayout
+		implements EIATypeSelectionListener, HideableListener, ClosableListener {
 
-	private EIAPreventiveMaintenancePlanificationGrid grid;
+	private EIAMaintenancePlanificationGrid grid;
 	private EIADamageAndPlanificationSearchForm searchForm;
 	private EiaType eiaType;
 	private EIAPreventiveMaintenancePlanificationAddForm addForm;
 
 	{
-		grid = new EIAPreventiveMaintenancePlanificationGrid();
+		grid = new EIAMaintenancePlanificationGrid();
 		searchForm = new EIADamageAndPlanificationSearchForm(GHAStrings.get("search-eia"));
 		addForm = new EIAPreventiveMaintenancePlanificationAddForm();
 		addForm.addPreventivePlanificationSelectionListener(new PreventivePlanificationSelectionListener() {
@@ -63,7 +62,7 @@ public class EIAPreventiveMaintenancePlanificationGridPanel extends
 
 	}
 
-	public EIAPreventiveMaintenancePlanificationGridPanel() {
+	public EIAMaintenancePlanificationGridPanel() {
 		super();
 		setWidth("100%");
 

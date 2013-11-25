@@ -13,7 +13,6 @@ import org.fourgeeks.gha.domain.gmh.EiaCorrectiveMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaPreventiveMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.ejb.gmh.EiaMaintenancePlanificationService;
 import org.fourgeeks.gha.ejb.gmh.EiaMaintenancePlanificationServiceRemote;
 import org.fourgeeks.gha.webclient.client.eiamaintenanceplanification.GWTEiaMaintenancePlanificationService;
 
@@ -43,7 +42,7 @@ public class GWTEiaMaintenancePlanificationServiceImpl extends
 
 	@Override
 	public EiaCorrectiveMaintenancePlanification getCorrectiveMaintenancePlanification(
-			EiaMaintenancePlanificationService entity) throws GHAEJBException {
+			EiaMaintenancePlanification entity) throws GHAEJBException {
 
 		EiaCorrectiveMaintenancePlanification correctiveMaintenance = serviceRemote
 				.getCorrectiveMaintenancePlanification(entity);
@@ -52,7 +51,7 @@ public class GWTEiaMaintenancePlanificationServiceImpl extends
 
 	@Override
 	public EiaPreventiveMaintenancePlanification getPreventiveMaintenancePlanification(
-			EiaMaintenancePlanificationService entity) throws GHAEJBException {
+			EiaMaintenancePlanification entity) throws GHAEJBException {
 
 		EiaPreventiveMaintenancePlanification preventiveMaintenance = serviceRemote
 				.getPreventiveMaintenancePlanification(entity);
@@ -77,5 +76,25 @@ public class GWTEiaMaintenancePlanificationServiceImpl extends
 		EiaPreventiveMaintenancePlanification savedEntity = serviceRemote
 				.savePreventiveMaintenance(entity);
 		return savedEntity;
+	}
+
+	@Override
+	public EiaCorrectiveMaintenancePlanification updateCorrectiveMaintenance(
+			EiaCorrectiveMaintenancePlanification entity)
+			throws GHAEJBException {
+
+		EiaCorrectiveMaintenancePlanification updatedEntity = serviceRemote
+				.updateCorrectiveMaintenance(entity);
+		return updatedEntity;
+	}
+
+	@Override
+	public EiaPreventiveMaintenancePlanification updatePreventiveMaintenance(
+			EiaPreventiveMaintenancePlanification entity)
+			throws GHAEJBException {
+
+		EiaPreventiveMaintenancePlanification updatedEntity = serviceRemote
+				.updatePreventiveMaintenance(entity);
+		return updatedEntity;
 	}
 }

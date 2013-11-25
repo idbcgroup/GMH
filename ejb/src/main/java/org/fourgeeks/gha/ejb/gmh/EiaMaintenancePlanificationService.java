@@ -63,7 +63,7 @@ public class EiaMaintenancePlanificationService extends GHAEJBExceptionImpl
 	 */
 	@Override
 	public EiaCorrectiveMaintenancePlanification getCorrectiveMaintenancePlanification(
-			EiaMaintenancePlanificationService entity) throws GHAEJBException {
+			EiaMaintenancePlanification entity) throws GHAEJBException {
 		try {
 			String stringQuery = "SELECT cmp FROM EiaCorrectiveMaintenancePlanification cmp WHERE cmp.plan = :plan";
 			EiaCorrectiveMaintenancePlanification result = em
@@ -91,7 +91,7 @@ public class EiaMaintenancePlanificationService extends GHAEJBExceptionImpl
 	 */
 	@Override
 	public EiaPreventiveMaintenancePlanification getPreventiveMaintenancePlanification(
-			EiaMaintenancePlanificationService entity) throws GHAEJBException {
+			EiaMaintenancePlanification entity) throws GHAEJBException {
 		try {
 			String stringQuery = "SELECT pmp FROM EiaPreventiveMaintenancePlanification pmp WHERE pmp.plan = :plan";
 			EiaPreventiveMaintenancePlanification result = em
@@ -166,6 +166,60 @@ public class EiaMaintenancePlanificationService extends GHAEJBExceptionImpl
 
 		}
 
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.EiaMaintenancePlanificationServiceRemote#update
+	 * (org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification)
+	 */
+	@Override
+	public EiaPreventiveMaintenancePlanification updatePreventiveMaintenance(
+			EiaPreventiveMaintenancePlanification entity)
+			throws GHAEJBException {
+		try {
+			em.merge(entity.getPlanification());
+			EiaPreventiveMaintenancePlanification res = em.merge(entity);
+			// TODO agregar a tabla log: actualizacion de mantenimiento
+
+			return res;
+		} catch (Exception e) {
+			logger.log(
+					Level.INFO,
+					"ERROR: unable to update EiaPreventiveMaintenancePlanification ",
+					e);
+			throw super.generateGHAEJBException("eia-update-fail",
+					RuntimeParameters.getLang(), em);
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.EiaMaintenancePlanificationServiceRemote#update
+	 * (org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification)
+	 */
+	@Override
+	public EiaCorrectiveMaintenancePlanification updateCorrectiveMaintenance(
+			EiaCorrectiveMaintenancePlanification entity)
+			throws GHAEJBException {
+		try {
+			em.merge(entity.getPlanification());
+			EiaCorrectiveMaintenancePlanification res = em.merge(entity);
+			// TODO agregar a tabla log: actualizacion de mantenimiento
+
+			return res;
+		} catch (Exception e) {
+			logger.log(
+					Level.INFO,
+					"ERROR: unable to update EiaCorrectiveMaintenancePlanification ",
+					e);
+			throw super.generateGHAEJBException("eia-update-fail",
+					RuntimeParameters.getLang(), em);
+		}
 	}
 
 }

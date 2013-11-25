@@ -28,7 +28,7 @@ public interface EiaMaintenancePlanificationServiceRemote {
 	 * @throws GHAEJBException
 	 */
 	public EiaCorrectiveMaintenancePlanification getCorrectiveMaintenancePlanification(
-			EiaMaintenancePlanificationService entity) throws GHAEJBException;
+			EiaMaintenancePlanification entity) throws GHAEJBException;
 
 	/**
 	 * @param entity
@@ -37,7 +37,7 @@ public interface EiaMaintenancePlanificationServiceRemote {
 	 * @throws GHAEJBException
 	 */
 	public EiaPreventiveMaintenancePlanification getPreventiveMaintenancePlanification(
-			EiaMaintenancePlanificationService entity) throws GHAEJBException;
+			EiaMaintenancePlanification entity) throws GHAEJBException;
 
 	/**
 	 * Save a new corrective maintenace planification and its maintenance
@@ -63,5 +63,29 @@ public interface EiaMaintenancePlanificationServiceRemote {
 	 */
 	public EiaPreventiveMaintenancePlanification savePreventiveMaintenance(
 			EiaPreventiveMaintenancePlanification entity)
+			throws GHAEJBException;
+
+	/**
+	 * Update a preventive maintenace planification instance and its related
+	 * maintenance planification
+	 * 
+	 * @param entity
+	 * @return the updated preventive maintenace planification instance
+	 * @throws GHAEJBException
+	 */
+	public EiaPreventiveMaintenancePlanification updatePreventiveMaintenance(
+			EiaPreventiveMaintenancePlanification entity)
+			throws GHAEJBException;
+
+	/**
+	 * Update a corrective maintenace planification instance and its related
+	 * maintenance planification
+	 * 
+	 * @param entity
+	 * @return the updated corrective maintenace planification instance
+	 * @throws GHAEJBException
+	 */
+	public EiaCorrectiveMaintenancePlanification updateCorrectiveMaintenance(
+			EiaCorrectiveMaintenancePlanification entity)
 			throws GHAEJBException;
 }
