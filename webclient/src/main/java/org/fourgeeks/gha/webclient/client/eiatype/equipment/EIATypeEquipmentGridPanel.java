@@ -27,6 +27,7 @@ import org.fourgeeks.gha.webclient.client.eia.EIAUtil;
 import org.fourgeeks.gha.webclient.client.eiadamagereport.EiaDamageReportSelectionListener;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
+import com.google.gwt.user.client.Window;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -140,6 +141,7 @@ public class EIATypeEquipmentGridPanel extends GHAVerticalLayout implements
 
 	@Override
 	public void select(EiaType eiaType) {
+		Window.alert("select on gridpanel");
 		this.eiaType = eiaType;
 		eiaAddForm.select(eiaType);
 		eiaUpdateForm.select(eiaType);

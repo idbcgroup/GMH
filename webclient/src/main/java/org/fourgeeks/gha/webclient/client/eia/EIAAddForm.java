@@ -94,7 +94,6 @@ public class EIAAddForm extends GHAAddForm<Eia> implements
 	@Override
 	public void open() {
 		super.open();
-		form.activate();
 		form.show();
 	}
 
