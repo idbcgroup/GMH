@@ -6,8 +6,6 @@ import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
 import org.fourgeeks.gha.webclient.client.eiadamagereport.EiaDamageReportSelectionListener;
 import org.fourgeeks.gha.webclient.client.eiadamagereport.EiaDamageReportSelectionProducer;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeTab;
-import org.fourgeeks.gha.webclient.client.eiatype.eiadamagereport.EiaDamageReportGridPanel;
-import org.fourgeeks.gha.webclient.client.eiatype.eiapreventivemaintenanceplanitification.EIAPreventiveMaintenancePlanificationGridPanel;
 
 import com.smartgwt.client.widgets.tab.events.TabDeselectedEvent;
 import com.smartgwt.client.widgets.tab.events.TabDeselectedHandler;

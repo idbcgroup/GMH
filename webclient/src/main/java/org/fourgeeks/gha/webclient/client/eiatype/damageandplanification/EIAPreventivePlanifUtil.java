@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eiatype.eiapreventivemaintenanceplanitification;
+package org.fourgeeks.gha.webclient.client.eiatype.damageandplanification;
 
 import java.sql.Date;
 import java.util.ArrayList;

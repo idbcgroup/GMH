@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
-import org.fourgeeks.gha.webclient.client.eiatype.eiadamagereport.EiaDamageReportRecord;
+import org.fourgeeks.gha.webclient.client.eiatype.damageandplanification.EiaDamageReportRecord;
 
 import com.smartgwt.client.util.DateUtil;
 import com.smartgwt.client.util.LogicalDate;

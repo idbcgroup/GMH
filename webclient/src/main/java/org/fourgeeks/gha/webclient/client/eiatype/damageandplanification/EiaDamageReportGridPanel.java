@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eiatype.eiadamagereport;
+package org.fourgeeks.gha.webclient.client.eiatype.damageandplanification;
 
 import java.util.ArrayList;
 import java.util.List;

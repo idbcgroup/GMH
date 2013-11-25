@@ -160,8 +160,12 @@ public class EIAPreventiveMaintenancePlanificationForm extends
 
 	private void fill() {
 		stateSelectItem.setValueMap(MaintenancePlanificationState.toValueMap());
-		statusSelectItem.setValueMap(MaintenancePlanificationStatus
-				.toValueMap());
+		statusSelectItem.setValueMap(MaintenancePlanificationStatus.toValueMap(
+				MaintenancePlanificationStatus.ASOCIATED,
+				MaintenancePlanificationStatus.PLANIFICATED,
+				MaintenancePlanificationStatus.INICIATED,
+				MaintenancePlanificationStatus.CANCELED,
+				MaintenancePlanificationStatus.INACTIVE));
 	}
 
 	@Override
