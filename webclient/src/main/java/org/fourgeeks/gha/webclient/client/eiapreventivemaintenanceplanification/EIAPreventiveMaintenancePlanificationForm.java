@@ -9,6 +9,7 @@ import javax.validation.ConstraintViolation;
 
 import org.fourgeeks.gha.domain.enu.MaintenancePlanificationState;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanificationStatus;
+import org.fourgeeks.gha.domain.enu.MaintenancePlanificationType;
 import org.fourgeeks.gha.domain.ess.Role;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.gmh.Eia;
@@ -107,6 +108,7 @@ public class EIAPreventiveMaintenancePlanificationForm extends
 		EiaPreventiveMaintenancePlanification entity = new EiaPreventiveMaintenancePlanification();
 		EiaMaintenancePlanification planification = new EiaMaintenancePlanification();
 		planification.setEia(selectedEia);
+		planification.setType(MaintenancePlanificationType.PREVENTIVE);
 		entity.setPlanification(planification);
 
 		if (providerSelectItem.getValue() != null) {

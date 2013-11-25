@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
+import org.fourgeeks.gha.domain.enu.MaintenancePlanificationType;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaCorrectiveMaintenancePlanification;
@@ -92,6 +93,8 @@ public class EiaDamageReportService extends GHAEJBExceptionImpl implements
 		java.util.Date date = new java.util.Date();
 		maintenancePlanification.setScheduledDate(new Date(date.getTime()));
 		planification.setPlanification(maintenancePlanification);
+		maintenancePlanification
+				.setType(MaintenancePlanificationType.CORRECTIVE);
 
 		return planification;
 	}
@@ -107,6 +110,7 @@ public class EiaDamageReportService extends GHAEJBExceptionImpl implements
 			em.persist(eiaDamageReport);
 			em.persist(cmp.getPlanification());
 			em.persist(cmp);
+			// TODO agregar en tabla log: se creo un mantenimiento correctivo
 			em.flush();
 
 			return em.find(EiaDamageReport.class, eiaDamageReport.getId());

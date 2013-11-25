@@ -8,10 +8,13 @@ import java.sql.Date;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanificationState;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanificationStatus;
+import org.fourgeeks.gha.domain.enu.MaintenancePlanificationType;
 import org.fourgeeks.gha.domain.ess.Role;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
 
@@ -21,11 +24,8 @@ import org.fourgeeks.gha.domain.glm.ExternalProvider;
  */
 
 @Entity
+@NamedQueries(value = { @NamedQuery(name = "findByEiaType", query = "SELECT emp FROM EiaMaintenancePlanification emp JOIN emp.eia eia WHERE eia.eiaType = :eiaType ORDER BY emp.id") })
 public class EiaMaintenancePlanification extends AbstractEntity {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@ManyToOne
@@ -43,12 +43,9 @@ public class EiaMaintenancePlanification extends AbstractEntity {
 	private Date acceptationDate;
 	private MaintenancePlanificationState state;
 	private MaintenancePlanificationStatus status;
+	private MaintenancePlanificationType type;
 
-	/**
-	 * 
-	 */
 	public EiaMaintenancePlanification() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public Eia getEia() {
@@ -134,5 +131,13 @@ public class EiaMaintenancePlanification extends AbstractEntity {
 
 	public void setStatus(MaintenancePlanificationStatus status) {
 		this.status = status;
+	}
+
+	public MaintenancePlanificationType getType() {
+		return type;
+	}
+
+	public void setType(MaintenancePlanificationType type) {
+		this.type = type;
 	}
 }

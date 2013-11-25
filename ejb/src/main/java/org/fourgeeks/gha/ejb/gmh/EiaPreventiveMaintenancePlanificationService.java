@@ -28,28 +28,8 @@ public class EiaPreventiveMaintenancePlanificationService extends
 	EntityManager em;
 
 	private final static Logger logger = Logger
-			.getLogger(EiaDamageReportService.class.getName());
-
-	@Override
-	public EiaPreventiveMaintenancePlanification save(
-			EiaPreventiveMaintenancePlanification preventivePlanif)
-			throws GHAEJBException {
-		try {
-			em.persist(preventivePlanif.getPlanification());
-			em.persist(preventivePlanif);
-			em.flush();
-
-			return em.find(EiaPreventiveMaintenancePlanification.class,
-					preventivePlanif.getId());
-		} catch (Exception e) {
-			logger.log(Level.INFO,
-					"ERROR: saving EiaPreventiveMaintenancePlanification ", e);
-			throw super.generateGHAEJBException("eia-save-fail",
-					RuntimeParameters.getLang(), em);
-
-		}
-
-	}
+			.getLogger(EiaPreventiveMaintenancePlanificationService.class
+					.getName());
 
 	public List<EiaPreventiveMaintenancePlanification> find(EiaType eiaType)
 			throws GHAEJBException {
@@ -73,5 +53,27 @@ public class EiaPreventiveMaintenancePlanificationService extends
 			throw super.generateGHAEJBException("eia-findByEiaType-fail",
 					RuntimeParameters.getLang(), em);
 		}
+	}
+
+	@Override
+	public EiaPreventiveMaintenancePlanification save(
+			EiaPreventiveMaintenancePlanification preventivePlanif)
+			throws GHAEJBException {
+		try {
+			em.persist(preventivePlanif.getPlanification());
+			em.persist(preventivePlanif);
+			// TODO agregar en tabla log: se creo un mantenimiento preventivo
+			em.flush();
+
+			return em.find(EiaPreventiveMaintenancePlanification.class,
+					preventivePlanif.getId());
+		} catch (Exception e) {
+			logger.log(Level.INFO,
+					"ERROR: saving EiaPreventiveMaintenancePlanification ", e);
+			throw super.generateGHAEJBException("eia-save-fail",
+					RuntimeParameters.getLang(), em);
+
+		}
+
 	}
 }
