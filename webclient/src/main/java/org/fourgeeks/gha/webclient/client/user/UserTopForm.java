@@ -213,25 +213,22 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 		genderSelectItem.setDisabled(disabled);
 		cleanButton.setDisabled(disabled);
 		activated = !disabled;
-		if (disabled) {
-			sideButtons.removeMember(searchButton);
-			sideButtons.addMember(deleteButton, 0);
-		} else {
-			sideButtons.removeMember(deleteButton);
-			sideButtons.addMember(searchButton, 0);
-		}
-		activated = !disabled;
 	}
 
 	@Override
 	public void deactivate() {
 		toggleForm(true);
+		sideButtons.removeMembers(searchButton, cleanButton);
+		sideButtons.addMember(deleteButton, 0);
 	}
 
 	@Override
 	public void activate() {
 		toggleForm(false);
 		usernameItem.focusInItem();
+		sideButtons.removeMember(deleteButton);
+		sideButtons.addMember(cleanButton, 0);
+		sideButtons.addMember(searchButton, 0);
 	}
 
 	@Override

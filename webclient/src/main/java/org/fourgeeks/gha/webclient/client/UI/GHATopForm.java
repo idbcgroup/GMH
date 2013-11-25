@@ -50,7 +50,6 @@ public abstract class GHATopForm<T extends GHAResultSet<E>, E> extends HLayout
 	public GHATopForm(T resultSet, GHATab tab) {
 		this.resultSet = resultSet;
 		this.containerTab = tab;
-
 		GHAUiHelper.addGHAResizeHandler(this);
 		setStyleName("sides-padding padding-top");
 		setWidth100();
@@ -95,6 +94,7 @@ public abstract class GHATopForm<T extends GHAResultSet<E>, E> extends HLayout
 	/**
 	 * clear the values of this form
 	 */
+	@Override
 	public abstract void clear();
 
 	/**
@@ -113,6 +113,7 @@ public abstract class GHATopForm<T extends GHAResultSet<E>, E> extends HLayout
 	/**
 	 * 
 	 */
+	@Override
 	public void search() {
 		for (SearchListener searchListener : searchListeners)
 			searchListener.onSearch();

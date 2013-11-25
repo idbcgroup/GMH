@@ -50,8 +50,7 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 	private GHAWorkingAreaSelectItem workingAreaLocationSelectItem;
 	private GHAFacilitySelectItem facilityLocationSelectItem;
 
-	private final GHAImgButton searchImgButton, deleteImgButton,
-			cleanImgButton;
+	private final GHAImgButton searchButton, deleteButton, cleanButton;
 	private final VLayout sideButtons;
 
 	private GHADynamicForm form;
@@ -97,68 +96,49 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 		form.setAutoFocus(true);
 		serialNumber.setSelectOnFocus(true);
 
-		// Panel de la Fotografia Equipos
-
-		// HLayout photoPanel = new HLayout();
-		// photoPanel.setMembersMargin(10);
-		// photoPanel.setWidth(130);
-		// // photoPanel.setDefaultLayoutAlign(Alignment.CENTER);
-		// GHAImg photo = new GHAImg("../resources/img/Foto.jpg", 80, 80);
-		// // photo.setTop(8);
-		// photo.setStyleName("top-8");
-		//
-		// VLayout photoBotones = new VLayout();
-		// photoBotones.setWidth(30);
-		// photoBotones.setLayoutMargin(5);
-		// photoBotones.setMembersMargin(10);
-		// photoBotones.setDefaultLayoutAlign(Alignment.CENTER);
-		//
-		// GHAImgButton searchPhoto = new GHAImgButton(
-		// "../resources/icons/search.png");
-		// // GHAButton cleanPhoto = new
-		// GHAButton("../resources/icons/clean.png");
-		// photoBotones.addMembers(searchPhoto);
-		//
-		// photoPanel.addMembers(photo, photoBotones);
-
-		searchImgButton = new GHASearchButton(new ClickHandler() {
+		searchButton = new GHASearchButton(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				search();
 			}
 		});
-		cleanImgButton = new GHACleanButton(new ClickHandler() {
+		cleanButton = new GHACleanButton(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				clear();
 			}
 		});
-		deleteImgButton = new GHADeleteButton(new ClickHandler() {
+		deleteButton = new GHADeleteButton(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				delete();
 
 			}
 		});
-		sideButtons = GHAUiHelper.createBar(searchImgButton, cleanImgButton);
+		sideButtons = GHAUiHelper.createBar(searchButton, cleanButton);
 
-		addMembers(form, /* photoPanel, */new LayoutSpacer(), sideButtons);
+		addMembers(form, new LayoutSpacer(), sideButtons);
+	}
+
+	private void toggleForm(boolean disabled) {
+		serialNumber.setDisabled(disabled);
+		fixedAssetIdentifier.setDisabled(disabled);
+		stateSelectItem.setDisabled(disabled);
+		workingAreaLocationSelectItem.setDisabled(disabled);
+		facilityLocationSelectItem.setDisabled(disabled);
+		obuSelectItem.setDisabled(disabled);
+		bpiObuSelectItem.setDisabled(disabled);
+		baseRoleSelectItem.setDisabled(disabled);
+		activated = !disabled;
 	}
 
 	@Override
 	public void activate() {
-		serialNumber.enable();
-		fixedAssetIdentifier.enable();
-		stateSelectItem.enable();
-		workingAreaLocationSelectItem.enable();
-		facilityLocationSelectItem.enable();
-		obuSelectItem.enable();
-		bpiObuSelectItem.enable();
-		baseRoleSelectItem.enable();
+		toggleForm(false);
+		sideButtons.removeMember(deleteButton);
+		sideButtons.addMember(cleanButton, 0);
+		sideButtons.addMember(searchButton, 0);
 
-		toggleSideBarButtons(false);
-
-		activated = true;
 	}
 
 	@Override
@@ -168,29 +148,9 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 
 	@Override
 	public void deactivate() {
-		serialNumber.disable();
-		fixedAssetIdentifier.disable();
-		stateSelectItem.disable();
-		workingAreaLocationSelectItem.disable();
-		facilityLocationSelectItem.disable();
-		obuSelectItem.disable();
-		bpiObuSelectItem.disable();
-		baseRoleSelectItem.disable();
-
-		activated = false;
-	}
-
-	private void toggleSideBarButtons(boolean swich) {
-		if (swich) {
-			cleanImgButton.disable();
-			sideButtons.removeMember(searchImgButton);
-			sideButtons.addMember(deleteImgButton, 0);
-		} else {
-			cleanImgButton.enable();
-			sideButtons.removeMember(deleteImgButton);
-			sideButtons.addMember(searchImgButton, 0);
-		}
-
+		toggleForm(true);
+		sideButtons.removeMembers(searchButton, cleanButton);
+		sideButtons.addMember(deleteButton, 0);
 	}
 
 	@Override
@@ -300,7 +260,6 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 
 		// lock fields of the topform
 		deactivate();
-		toggleSideBarButtons(true);
 	}
 
 	@Override

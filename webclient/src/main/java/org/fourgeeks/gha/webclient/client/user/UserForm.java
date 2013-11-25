@@ -376,6 +376,7 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 
 		if (ssoUser.getUserName() != null) {
 			usernameItem.setValue(ssoUser.getUserName());
+			usernameItem.setDisabled(true);
 		}
 		if (ssoUser.getPassword() != null) {
 			passwordItem.setValue(ssoUser.getPassword());

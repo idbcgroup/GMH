@@ -95,6 +95,7 @@ public class MaintenancePlanTopForm extends
 	public void activate() {
 		toggleForm(true);
 		sideButtons.removeMember(deleteButton);
+		sideButtons.addMember(cleanButton, 0);
 		sideButtons.addMember(searchButton, 0);
 	}
 
@@ -128,7 +129,7 @@ public class MaintenancePlanTopForm extends
 	@Override
 	public void deactivate() {
 		toggleForm(false);
-		sideButtons.removeMember(searchButton);
+		sideButtons.removeMembers(searchButton, cleanButton);
 		sideButtons.addMember(deleteButton, 0);
 	}
 

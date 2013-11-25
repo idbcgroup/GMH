@@ -95,30 +95,27 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 		addMembers(form, new LayoutSpacer(), sideButtons);
 	}
 
+	private void toggleForm(boolean disabled) {
+		nameItem.setDisabled(disabled);
+		brandItem.setDisabled(disabled);
+		modelItem.setDisabled(disabled);
+		typeItem.setDisabled(disabled);
+		subTypeItem.setDisabled(disabled);
+		cleanButton.setDisabled(disabled);
+	}
+
 	@Override
 	public void activate() {
-		nameItem.enable();
-
 		brandItem.fill(true);
 		brandItem.redraw();
-		brandItem.enable();
-
-		modelItem.enable();
-		typeItem.enable();
-		subTypeItem.enable();
-		cleanButton.enable();
+		toggleForm(false);
 		sideButtons.removeMember(deleteButton);
+		sideButtons.addMember(cleanButton, 0);
 		sideButtons.addMember(searchButton, 0);
-
-		activated = true;
-
 	}
 
 	@Override
 	public void clear() {
-		// first check if the topform is active for search
-		if (!this.activated)
-			return;
 		nameItem.clearValue();
 		brandItem.clearValue();
 		modelItem.clearValue();
@@ -129,15 +126,9 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 
 	@Override
 	public void deactivate() {
-		nameItem.disable();
-		brandItem.disable();
-		modelItem.disable();
-		typeItem.disable();
-		subTypeItem.disable();
-		cleanButton.disable();
-		sideButtons.removeMember(searchButton);
+		toggleForm(true);
+		sideButtons.removeMembers(searchButton, cleanButton, deleteButton);
 		sideButtons.addMember(deleteButton, 0);
-		activated = false;
 	}
 
 	@Override
