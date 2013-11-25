@@ -177,6 +177,7 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 	@Override
 	public void select(EiaType eiaType) {
 		notifyEiaType(eiaType);
+		header.unMarkAllButtons();
 		currentStatus = TabStatus.ENTITY_SELECTED;
 	}
 

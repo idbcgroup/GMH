@@ -149,6 +149,7 @@ public class MaintenancePlanTab extends GHATab implements
 	@Override
 	public void select(MaintenancePlan maintenancePlan) {
 		notifyMaintenancePlan(maintenancePlan);
+		header.unMarkAllButtons();
 		currentStatus = TabStatus.ENTITY_SELECTED;
 	}
 

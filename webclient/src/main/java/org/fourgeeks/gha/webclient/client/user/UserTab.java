@@ -177,6 +177,7 @@ public class UserTab extends GHATab implements UserSelectionListener,
 	@Override
 	public void select(SSOUser ssoUser) {
 		notifyUser(ssoUser);
+		header.unMarkAllButtons();
 		currentStatus = TabStatus.ENTITY_SELECTED;
 	}
 
