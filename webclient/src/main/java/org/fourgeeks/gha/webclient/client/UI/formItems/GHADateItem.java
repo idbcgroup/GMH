@@ -29,7 +29,7 @@ public class GHADateItem extends DateItem {
 		setCellStyle("gha-form-cell");
 		setTitleStyle("input-title");
 		setDisplayFormat(DateDisplayFormat.TOEUROPEANSHORTDATE);
-		
+		setHoverWidth(100);
 		
 //		CustomValidator customValidator = getStandardValidator();
 //		setValidators(customValidator);
