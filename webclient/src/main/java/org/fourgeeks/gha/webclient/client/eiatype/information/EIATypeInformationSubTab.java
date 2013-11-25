@@ -10,7 +10,7 @@ import org.fourgeeks.gha.webclient.client.eiatype.EIATypeTab;
  */
 public class EIATypeInformationSubTab extends GHASubTab {
 
-	private EIATypeInformationFormPanel form;
+	private final EIATypeInformationFormPanel form;
 
 	/**
 	 * @param tab

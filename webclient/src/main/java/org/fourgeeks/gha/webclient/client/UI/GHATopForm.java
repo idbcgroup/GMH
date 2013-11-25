@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
@@ -15,9 +19,12 @@ import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.types.VerticalAlignment;
+import com.smartgwt.client.widgets.events.ClickEvent;
+import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.fields.events.KeyUpEvent;
 import com.smartgwt.client.widgets.form.fields.events.KeyUpHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
+import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
  * @author alacret
@@ -42,6 +49,8 @@ public abstract class GHATopForm<T extends GHAResultSet<E>, E> extends HLayout
 			}
 		}
 	};
+	protected final GHAImgButton searchButton, deleteButton, cleanButton;
+	protected final VLayout sideButtons = GHAUiHelper.createBar();
 
 	/**
 	 * @param resultSet
@@ -56,6 +65,26 @@ public abstract class GHATopForm<T extends GHAResultSet<E>, E> extends HLayout
 		setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT + "px");
 		setBackgroundColor(GHAUiHelper.DEFAULT_BACKGROUND_COLOR);
 		setDefaultLayoutAlign(VerticalAlignment.CENTER);
+
+		searchButton = new GHASearchButton(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				search();
+			}
+		});
+		cleanButton = new GHACleanButton(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				clear();
+			}
+		});
+		deleteButton = new GHADeleteButton(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				delete();
+
+			}
+		});
 	}
 
 	/*
@@ -87,9 +116,14 @@ public abstract class GHATopForm<T extends GHAResultSet<E>, E> extends HLayout
 	}
 
 	/**
-	 * activate the form for searches
+	 * activate the form for searches, this method should set the buttons for
+	 * searches, and remove the deletebutton
 	 */
-	public abstract void activate();
+	public void activate() {
+		sideButtons.removeMembers(searchButton, cleanButton, deleteButton);
+		sideButtons.addMember(cleanButton, 0);
+		sideButtons.addMember(searchButton, 0);
+	};
 
 	/**
 	 * clear the values of this form

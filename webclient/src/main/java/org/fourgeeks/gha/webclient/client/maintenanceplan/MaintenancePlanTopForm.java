@@ -14,19 +14,12 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHAPeriodOfTimeSelectItem
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenancePlanStateSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenancePlanTypeSelectItem;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
-import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabSet;
 
 import com.smartgwt.client.util.BooleanCallback;
-import com.smartgwt.client.widgets.events.ClickEvent;
-import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
-import com.smartgwt.client.widgets.layout.VLayout;
 
 public class MaintenancePlanTopForm extends
 		GHATopForm<MaintenancePlanResultSet, MaintenancePlan> implements
@@ -35,12 +28,8 @@ public class MaintenancePlanTopForm extends
 	private GHATextItem nameItem, frequencyItem, descriptionItem;
 	private GHAPeriodOfTimeSelectItem periodOfTimeItem;
 
-	private final GHASearchButton searchButton;
-	private final GHACleanButton cleanButton;
-	private final GHADeleteButton deleteButton;
 	private GHAMaintenancePlanTypeSelectItem typeItem;
 	private GHAMaintenancePlanStateSelectItem stateItem;
-	private final VLayout sideButtons;
 	protected MaintenancePlan selectedMaintenancePlan;
 
 	{
@@ -65,38 +54,13 @@ public class MaintenancePlanTopForm extends
 		form.setItems(nameItem, typeItem, stateItem, descriptionItem,
 				frequencyItem, periodOfTimeItem);
 
-		searchButton = new GHASearchButton(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				search();
-			}
-		});
-		cleanButton = new GHACleanButton(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				clear();
-			}
-		});
-
-		deleteButton = new GHADeleteButton(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				GHATabSet.closeTab(containerTab);
-			}
-		});
-
-		sideButtons = GHAUiHelper.createBar(searchButton, cleanButton,
-				deleteButton);
 		addMembers(form, new LayoutSpacer(), sideButtons);
 	}
 
 	@Override
 	public void activate() {
 		toggleForm(true);
-		sideButtons.removeMember(deleteButton);
-		sideButtons.addMember(cleanButton, 0);
-		sideButtons.addMember(searchButton, 0);
+		super.activate();
 	}
 
 	private void toggleForm(boolean active) {
@@ -116,8 +80,6 @@ public class MaintenancePlanTopForm extends
 
 	@Override
 	public void clear() {
-		if (!this.activated)
-			return;
 		nameItem.clearValue();
 		frequencyItem.clearValue();
 		periodOfTimeItem.clearValue();
@@ -129,8 +91,7 @@ public class MaintenancePlanTopForm extends
 	@Override
 	public void deactivate() {
 		toggleForm(false);
-		sideButtons.removeMembers(searchButton, cleanButton);
-		sideButtons.addMember(deleteButton, 0);
+		sideButtons.removeMembers(searchButton, cleanButton, deleteButton);
 	}
 
 	@Override
@@ -210,6 +171,7 @@ public class MaintenancePlanTopForm extends
 		stateItem.setValue(maintenancePlan.getState());
 		typeItem.setValue(maintenancePlan.getType());
 		deactivate();
+		sideButtons.addMember(deleteButton, 0);
 	}
 
 }

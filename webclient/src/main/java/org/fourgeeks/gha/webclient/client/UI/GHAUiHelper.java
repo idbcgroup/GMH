@@ -132,7 +132,8 @@ public abstract class GHAUiHelper {
 	 */
 	public static int getBottomSectionHeight() {
 		int biggerTabHeight = getTabHeight();
-		int innerTopSection = DEFAULT_INNER_TOP_SECTION_HEIGHT + V_SEPARATOR_HEIGHT;
+		int innerTopSection = DEFAULT_INNER_TOP_SECTION_HEIGHT
+				+ V_SEPARATOR_HEIGHT;
 
 		int ret = biggerTabHeight - innerTopSection;
 		if (ret < MIN_BOTTOM_SECTION_HEIGHT) {
@@ -302,7 +303,8 @@ public abstract class GHAUiHelper {
 		sideButtons.setLayoutMargin(5);
 		sideButtons.setMembersMargin(10);
 		sideButtons.setDefaultLayoutAlign(Alignment.CENTER);
-		sideButtons.addMembers(buttons);
+		if (buttons.length > 0)
+			sideButtons.addMembers(buttons);
 		return sideButtons;
 	}
 
