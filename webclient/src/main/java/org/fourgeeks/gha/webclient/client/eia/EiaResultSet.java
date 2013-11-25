@@ -53,7 +53,7 @@ public class EiaResultSet extends GHAResultSet<Eia> implements
 	public EiaResultSet(ResultSetContainerType container) {
 		super(GHAStrings.get("search-results"));
 		this.containerType = container;
-		
+
 		HLayout gridPanel = new HLayout();
 		VLayout sideBar;
 
@@ -73,11 +73,11 @@ public class EiaResultSet extends GHAResultSet<Eia> implements
 							delete();
 						}
 					}));
-		} else{
+		} else {
 			sideBar = GHAUiHelper.createBar(checkButton);
 			setHeight(getHeight() - 35);
 		}
-			
+
 		gridPanel.addMembers(grid, sideBar);
 		addMember(gridPanel);
 	}
@@ -124,6 +124,8 @@ public class EiaResultSet extends GHAResultSet<Eia> implements
 										@Override
 										public void onSuccess(Void result) {
 											grid.removeSelectedData();
+											refreshResultsSize(grid
+													.getRecords().length);
 										}
 									});
 						}
@@ -177,5 +179,5 @@ public class EiaResultSet extends GHAResultSet<Eia> implements
 			setHeight(getHeight() - 35);
 		}
 	}
-	
+
 }

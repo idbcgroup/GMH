@@ -20,19 +20,12 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHAObuSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHARoleSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAWorkingAreaSelectItem;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.util.BooleanCallback;
-import com.smartgwt.client.widgets.events.ClickEvent;
-import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
-import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
  * @author alacret, emiliot
@@ -49,10 +42,6 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 	private GHARoleSelectItem baseRoleSelectItem;
 	private GHAWorkingAreaSelectItem workingAreaLocationSelectItem;
 	private GHAFacilitySelectItem facilityLocationSelectItem;
-
-	private final GHAImgButton searchButton, deleteButton, cleanButton;
-	private final VLayout sideButtons;
-
 	private GHADynamicForm form;
 
 	private Eia selectedEia;
@@ -95,28 +84,6 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 				facilityLocationSelectItem, obuSelectItem, baseRoleSelectItem);
 		form.setAutoFocus(true);
 		serialNumber.setSelectOnFocus(true);
-
-		searchButton = new GHASearchButton(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				search();
-			}
-		});
-		cleanButton = new GHACleanButton(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				clear();
-			}
-		});
-		deleteButton = new GHADeleteButton(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				delete();
-
-			}
-		});
-		sideButtons = GHAUiHelper.createBar(searchButton, cleanButton);
-
 		addMembers(form, new LayoutSpacer(), sideButtons);
 	}
 
@@ -135,9 +102,7 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 	@Override
 	public void activate() {
 		toggleForm(false);
-		sideButtons.removeMember(deleteButton);
-		sideButtons.addMember(cleanButton, 0);
-		sideButtons.addMember(searchButton, 0);
+		super.activate();
 
 	}
 
@@ -149,8 +114,7 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 	@Override
 	public void deactivate() {
 		toggleForm(true);
-		sideButtons.removeMembers(searchButton, cleanButton);
-		sideButtons.addMember(deleteButton, 0);
+		sideButtons.removeMembers(searchButton, cleanButton, deleteButton);
 	}
 
 	@Override
@@ -260,6 +224,7 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 
 		// lock fields of the topform
 		deactivate();
+		sideButtons.addMember(deleteButton, 0);
 	}
 
 	@Override

@@ -61,6 +61,22 @@ public abstract class GHAResultSet<T> extends GHAVerticalLayout implements
 		return true;
 	}
 
+	/**
+	 * this method is used to refresh the label with the amount of elements in
+	 * the resultset
+	 */
+	protected void refreshResultsSize(int elements) {
+		String title = GHAStrings.get("search-results")
+				+ ": "
+				+ elements
+				+ " "
+				+ (elements == 1 ? GHAStrings.get("result") : GHAStrings
+						.get("results"));
+
+		searchResultsLabel.setContents(title);
+		searchResultsLabel.redraw();
+	}
+
 	protected void showResultsSize(List<?> results, boolean isCleaning) {
 		String title = GHAStrings.get("search-results");
 		if (!isCleaning) {

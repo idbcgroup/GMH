@@ -5,7 +5,7 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAInternalTabSet;
 import org.fourgeeks.gha.webclient.client.eia.component.EIAComponentSubTab;
 import org.fourgeeks.gha.webclient.client.eia.information.EIAInformationSubTab;
 
-import com.smartgwt.client.types.AnimationEffect;
+import com.smartgwt.client.widgets.tab.Tab;
 
 /**
  * @author alacret, emiliot
@@ -72,14 +72,13 @@ public class EIAInternalTabset extends GHAInternalTabSet implements
 		// vuelve a ejecutar. Con tus cambios, cuando yo cambio algo y no lo
 		// guardo, y luego paso a otro tab, pasa esto, y el tab de informatcion
 		// se vuelve a seleccionar
-		if (!isVisible())
-			animateShow(AnimationEffect.FADE);
+		show();
 	}
 
 	@Override
 	public void show() {
-		// forza al panel del tab a mostrarse sy es el seleccionado
-		if (getSelectedTab() == infoSubTab)
+		Tab selectedTab = getSelectedTab();
+		if (selectedTab == infoSubTab)
 			infoSubTab.show();
 
 		super.show();

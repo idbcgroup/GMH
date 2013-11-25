@@ -115,17 +115,13 @@ public class UserTab extends GHATab implements UserSelectionListener,
 	}
 
 	protected void add() {
-		// if (addForm.isVisible())
-		// return;
 		if (internalTabSet.isVisible())
 			if (internalTabSet.canBeHidden(HideCloseAction.SAVE))
 				internalTabSet.hide();
 			else
 				return;
-		if (topForm.isActivated()) {
-			topForm.deactivate();
-			topForm.clear();
-		}
+		topForm.deactivate();
+		topForm.clear();
 		if (resultSet.isVisible())
 			resultSet.hide();
 		addForm.open();
@@ -168,8 +164,6 @@ public class UserTab extends GHATab implements UserSelectionListener,
 				internalTabSet.hide();
 			else
 				return;
-		// if (addForm.isVisible())
-		// addForm.hide();
 		if (resultSet.isVisible())
 			resultSet.hide();
 		topForm.activate();
