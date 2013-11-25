@@ -2,28 +2,26 @@ package org.fourgeeks.gha.webclient.client.eiatype.damageandplanification;
 
 import java.util.List;
 
-import org.fourgeeks.gha.domain.gmh.Eia;
+import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaPreventiveMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHANewButton;
+import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHAEditButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
-import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
-import org.fourgeeks.gha.webclient.client.eiadamagereport.EIADamageAndPlanificationSearchForm;
-import org.fourgeeks.gha.webclient.client.eiapreventivemaintenanceplanification.EIAPreventiveMaintenancePlanificationAddForm;
+import org.fourgeeks.gha.webclient.client.eiamaintenanceplanification.EIAMaintenancePlanificationUpdateForm;
+import org.fourgeeks.gha.webclient.client.eiamaintenanceplanification.EiaMaintenancePlanificationSelectionListener;
 import org.fourgeeks.gha.webclient.client.eiapreventivemaintenanceplanification.EiaPreventiveMaintenancePlanificationModel;
-import org.fourgeeks.gha.webclient.client.eiapreventivemaintenanceplanification.PreventivePlanificationSelectionListener;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
-import org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype.EiaTypeMaintenancePlanModel;
 
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -34,45 +32,37 @@ public class EIAMaintenancePlanificationGridPanel extends GHAVerticalLayout
 		implements EIATypeSelectionListener, HideableListener, ClosableListener {
 
 	private EIAMaintenancePlanificationGrid grid;
-	private EIADamageAndPlanificationSearchForm searchForm;
 	private EiaType eiaType;
-	private EIAPreventiveMaintenancePlanificationAddForm addForm;
+	private EIAMaintenancePlanificationUpdateForm updateForm;
 
 	{
 		grid = new EIAMaintenancePlanificationGrid();
-		searchForm = new EIADamageAndPlanificationSearchForm(GHAStrings.get("search-eia"));
-		addForm = new EIAPreventiveMaintenancePlanificationAddForm();
-		addForm.addPreventivePlanificationSelectionListener(new PreventivePlanificationSelectionListener() {
-			@Override
-			public void select(
-					EiaPreventiveMaintenancePlanification preventivePlanif) {
-				loadData();
-
-			}
-		});
-
-		searchForm.addEiaSelectionListener(new EIASelectionListener() {
-			@Override
-			public void select(Eia eia) {
-				searchForm.clean();
-				addForm.select(eia);
-				addForm.open();
-			}
-		});
-
+		updateForm = new EIAMaintenancePlanificationUpdateForm();
+		updateForm
+				.addEiaMaintenancePlanificationSelectionListener(new EiaMaintenancePlanificationSelectionListener() {
+					@Override
+					public void select(EiaMaintenancePlanification entity) {
+						loadData();
+					}
+				});
 	}
 
 	public EIAMaintenancePlanificationGridPanel() {
 		super();
 		setWidth("100%");
 
-		VLayout sideButtons = GHAUiHelper.createBar(new GHANewButton(
+		VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						search();
+						view();
 					}
-				}));
+				}), new GHAEditButton(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				update();
+			}
+		}));
 
 		HLayout mainPanel = new HLayout();
 		mainPanel.addMembers(grid, sideButtons);
@@ -95,8 +85,7 @@ public class EIAMaintenancePlanificationGridPanel extends GHAVerticalLayout
 	@Override
 	public void close() throws UnavailableToCloseException {
 		hide();
-		searchForm.close();
-		addForm.close();
+		updateForm.close();
 	}
 
 	private void loadData() {
@@ -115,26 +104,39 @@ public class EIAMaintenancePlanificationGridPanel extends GHAVerticalLayout
 						});
 	}
 
-	private void search() {
-		EiaTypeMaintenancePlanModel.findByEiaType(eiaType,
-				new GHAAsyncCallback<List<EiaTypeMaintenancePlan>>() {
-					@Override
-					public void onSuccess(List<EiaTypeMaintenancePlan> result) {
-						if (!result.isEmpty())
-							searchForm.open();
-						else
-							GHANotification
-									.alert("no-eiatype-maintenance-plans");
-					}
-				});
-
-	}
-
 	@Override
 	public void select(EiaType eiaType) {
 		this.eiaType = eiaType;
-		searchForm.select(eiaType);
-		addForm.select(eiaType);
+		updateForm.select(eiaType);
 		loadData();
+	}
+
+	private void update() {
+		GHAGridRecord<EiaMaintenancePlanification> selectedRecord = grid
+				.getSelectedRecord();
+
+		if (selectedRecord == null)
+			GHANotification.alert("record-not-selected");
+		else {
+			EiaMaintenancePlanification entity = selectedRecord.toEntity();
+			updateForm.select(entity);
+			updateForm.activate();
+			updateForm.open();
+		}
+	}
+
+	private void view() {
+		GHAGridRecord<EiaMaintenancePlanification> selectedRecord = grid
+				.getSelectedRecord();
+
+		if (selectedRecord == null)
+			GHANotification.alert("record-not-selected");
+		else {
+			EiaMaintenancePlanification entity = selectedRecord.toEntity();
+			updateForm.select(entity);
+			updateForm.deactivate();
+			updateForm.open();
+		}
+
 	}
 }

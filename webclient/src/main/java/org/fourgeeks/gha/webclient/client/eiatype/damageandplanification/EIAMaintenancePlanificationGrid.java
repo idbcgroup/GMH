@@ -1,10 +1,11 @@
 package org.fourgeeks.gha.webclient.client.eiatype.damageandplanification;
 
-import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
+import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridField;
 import org.fourgeeks.gha.webclient.client.UI.grids.GhaGrid;
 
-public class EIAMaintenancePlanificationGrid extends GhaGrid<EiaDamageReport> {
+public class EIAMaintenancePlanificationGrid extends
+		GhaGrid<EiaMaintenancePlanification> {
 
 	public EIAMaintenancePlanificationGrid() {
 		setEmptyMessage("No existen Equipos con Planificaciones de Mantenimiento Preventivo para mostrar");
