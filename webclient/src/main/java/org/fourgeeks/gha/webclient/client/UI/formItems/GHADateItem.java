@@ -7,8 +7,7 @@ import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.DateDisplayFormat;
 import com.smartgwt.client.util.LogicalDate;
 import com.smartgwt.client.widgets.form.fields.DateItem;
-import com.smartgwt.client.widgets.form.fields.events.ChangeEvent;
-import com.smartgwt.client.widgets.form.fields.events.ChangeHandler;
+import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 import com.smartgwt.client.widgets.form.validator.CustomValidator;
 
@@ -32,10 +31,9 @@ public class GHADateItem extends DateItem {
 		setDisplayFormat(DateDisplayFormat.TOEUROPEANSHORTDATE);
 		CustomValidator customValidator = getStandardValidator();
 		setValidators(customValidator);
-		addChangeHandler(new ChangeHandler() {
-
+		addChangedHandler(new ChangedHandler() {
 			@Override
-			public void onChange(ChangeEvent event) {
+			public void onChanged(ChangedEvent event) {
 				validate();
 			}
 		});
@@ -43,19 +41,20 @@ public class GHADateItem extends DateItem {
 
 	protected static CustomValidator getStandardValidator() {
 		CustomValidator customValidator = new CustomValidator() {
-
 			@Override
 			protected boolean condition(Object value) {
 				DateTimeFormat dtf = DateTimeFormat.getFormat("dd/MM/yyyy");
 				try {
-					dtf.parseStrict((String) value);
+					dtf.parseStrict(value.toString());
+					return true;
 				} catch (IllegalArgumentException e) {
 					return false;
 				}
-				return false;
+//				Window.alert("after trycatch");
+//				return false;
 			}
 		};
-		customValidator.setErrorMessage(GHAStrings.get("date-no-valid"));
+		customValidator.setErrorMessage(GHAStrings.get("date-not-valid"));
 		return customValidator;
 	}
 
