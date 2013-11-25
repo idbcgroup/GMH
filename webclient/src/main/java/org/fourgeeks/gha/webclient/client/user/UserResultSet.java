@@ -128,7 +128,8 @@ public class UserResultSet extends GHAResultSet<SSOUser> implements
 										@Override
 										public void onSuccess(Void arg0) {
 											grid.removeSelectedData();
-
+											refreshResultsSize(grid
+													.getRecords().length);
 										}
 
 									});
