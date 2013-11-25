@@ -3,11 +3,11 @@ package org.fourgeeks.gha.webclient.client.UI.formItems;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.user.client.Window;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.DateDisplayFormat;
 import com.smartgwt.client.util.LogicalDate;
 import com.smartgwt.client.widgets.form.fields.DateItem;
-import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 import com.smartgwt.client.widgets.form.validator.CustomValidator;
 
@@ -29,14 +29,17 @@ public class GHADateItem extends DateItem {
 		setCellStyle("gha-form-cell");
 		setTitleStyle("input-title");
 		setDisplayFormat(DateDisplayFormat.TOEUROPEANSHORTDATE);
-		CustomValidator customValidator = getStandardValidator();
-		setValidators(customValidator);
-		addChangedHandler(new ChangedHandler() {
-			@Override
-			public void onChanged(ChangedEvent event) {
-				validate();
-			}
-		});
+		
+		
+//		CustomValidator customValidator = getStandardValidator();
+//		setValidators(customValidator);
+//		setValidateOnChange(true);
+//		addChangedHandler(new ChangedHandler() {
+//			@Override
+//			public void onChanged(ChangedEvent event) {
+//				validate();
+//			}
+//		});
 	}
 
 	protected static CustomValidator getStandardValidator() {
@@ -45,13 +48,12 @@ public class GHADateItem extends DateItem {
 			protected boolean condition(Object value) {
 				DateTimeFormat dtf = DateTimeFormat.getFormat("dd/MM/yyyy");
 				try {
-					dtf.parseStrict(value.toString());
+					Window.alert(dtf.parseStrict(value.toString())+"");
+//					dtf.parseStrict(value.toString());
 					return true;
 				} catch (IllegalArgumentException e) {
 					return false;
 				}
-//				Window.alert("after trycatch");
-//				return false;
 			}
 		};
 		customValidator.setErrorMessage(GHAStrings.get("date-not-valid"));
