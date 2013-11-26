@@ -1093,8 +1093,7 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		// if (eia.getMaintenanceLocation() != null)
 		// maintenanceLocationSelectItem.setValue(eia
 		// .getMaintenanceLocation().getCode());
-		if (eia.getMaintenanceProvider() != null
-				&& eia.getMaintenanceProvider().getInstitution() != null)
+		if (eia.getMaintenanceProvider() != null)
 			maintenanceProviderSelectItem.setValue(eia.getMaintenanceProvider()
 					.getId());
 		// }
