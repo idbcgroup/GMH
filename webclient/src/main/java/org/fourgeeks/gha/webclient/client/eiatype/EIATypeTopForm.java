@@ -78,7 +78,6 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 	@Override
 	public void activate() {
 		brandItem.fill(true);
-		brandItem.redraw();
 		toggleForm(false);
 		super.activate();
 
@@ -159,8 +158,10 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 		nameItem.setValue(eiaType.getName());
 		modelItem.setValue(eiaType.getModel());
 
-		if (eiaType.getBrand() != null)
+		if (eiaType.getBrand() != null) {
+			brandItem.fill(true);
 			brandItem.setValue(eiaType.getBrand().getId());
+		}
 
 		if (eiaType.getType() != null)
 			typeItem.setValue(eiaType.getType().name());

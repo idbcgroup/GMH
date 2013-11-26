@@ -120,7 +120,7 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		baseRoleSelectItem = new GHASelectItem(
 				GHAStrings.get("responsible-role"), true, changedHandler);
 		baseRoleSelectItem.setRequired(true);
-		stateSelectItem = new GHASelectItem(GHAStrings.get("state"), true,
+		stateSelectItem = new GHASelectItem(GHAStrings.get("state"), false,
 				changedHandler);
 		stateSelectItem.setDefaultValue(EiaStateEnum.CREATED.name());
 		stateSelectItem.setAllowEmptyValue(false);
@@ -1093,8 +1093,7 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		// if (eia.getMaintenanceLocation() != null)
 		// maintenanceLocationSelectItem.setValue(eia
 		// .getMaintenanceLocation().getCode());
-		if (eia.getMaintenanceProvider() != null
-				&& eia.getMaintenanceProvider().getInstitution() != null)
+		if (eia.getMaintenanceProvider() != null)
 			maintenanceProviderSelectItem.setValue(eia.getMaintenanceProvider()
 					.getId());
 		// }

@@ -34,10 +34,10 @@ public class GHABrandSelectItem extends GHASelectItem {
 			@Override
 			public void onSuccess(List<Brand> result) {
 				LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-				// valueMap.put(GHAStrings.get("none"), null);
 				for (Brand brand : result)
 					valueMap.put(brand.getId() + "", brand.getName());
 				setValueMap(valueMap);
+				redraw();
 
 			}
 		}, forceFromServer);

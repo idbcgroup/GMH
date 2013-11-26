@@ -65,7 +65,9 @@ public class EIATypeAddForm extends GHAAddForm<EiaType> implements
 	@Override
 	public void open() {
 		super.open();
-		form.activate();
+		// form.activate();//TODO lo quite por que se activa el formulario, aun
+		// cuando deberia estar bloqueado el eiatype cuando este es seteado. No
+		// se si esto en algun lado hace falta
 	}
 
 	@Override

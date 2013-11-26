@@ -13,7 +13,7 @@ import org.fourgeeks.gha.webclient.client.eiatype.EIATypeTab;
 public class EIATypeEquipmentSubTab extends GHASubTab implements
 		EiaDamageReportSelectionListener {
 
-	private EIATypeEquipmentGridPanel equiposGridPanel;
+	private final EIATypeEquipmentGridPanel equiposGridPanel;
 
 	/**
 	 * @param tab
@@ -33,7 +33,6 @@ public class EIATypeEquipmentSubTab extends GHASubTab implements
 	@Override
 	public void select(EiaDamageReport eiaDamageReport) {
 		equiposGridPanel.select(eiaDamageReport);
-
 	}
 
 }

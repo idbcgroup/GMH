@@ -4,8 +4,6 @@ import java.util.Date;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 
-import com.smartgwt.client.widgets.form.fields.events.ChangeEvent;
-import com.smartgwt.client.widgets.form.fields.events.ChangeHandler;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 import com.smartgwt.client.widgets.form.validator.DateRangeValidator;
 
@@ -29,13 +27,17 @@ public class GHABirthDateItem extends GHADateItem {
 		drv.setValidateOnChange(true);
 		setValidateOnChange(true);
 		drv.setErrorMessage(GHAStrings.get("date-must-be-lower-than-today"));
-		addChangeHandler(new ChangeHandler() {
-
-			@Override
-			public void onChange(ChangeEvent event) {
-				GHABirthDateItem.this.validate();
-			}
-		});
+		setHoverWidth(150);
+		
+		setValidateOnChange(true);
+		
+//		addChangeHandler(new ChangeHandler() {
+//
+//			@Override
+//			public void onChange(ChangeEvent event) {
+//				GHABirthDateItem.this.validate();
+//			}
+//		});
 	}
 
 }
