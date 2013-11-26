@@ -61,7 +61,6 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 
 	{
 		codeItem = new GHACodeItem(true, changedHandler);
-		codeItem.disable();
 
 		nameItem = new GHATextItem(GHAStrings.get("name"), true, changedHandler);
 		typeItem = new GHAEiaTypeTypeSelectItem(true, changedHandler);
