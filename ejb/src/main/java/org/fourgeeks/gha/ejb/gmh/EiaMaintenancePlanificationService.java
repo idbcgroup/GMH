@@ -65,11 +65,11 @@ public class EiaMaintenancePlanificationService extends GHAEJBExceptionImpl
 	public EiaCorrectiveMaintenancePlanification getCorrectiveMaintenancePlanification(
 			EiaMaintenancePlanification entity) throws GHAEJBException {
 		try {
-			String stringQuery = "SELECT cmp FROM EiaCorrectiveMaintenancePlanification cmp WHERE cmp.plan = :plan";
+			String stringQuery = "SELECT cmp FROM EiaCorrectiveMaintenancePlanification cmp WHERE cmp.planification = :planification";
 			EiaCorrectiveMaintenancePlanification result = em
 					.createQuery(stringQuery,
 							EiaCorrectiveMaintenancePlanification.class)
-					.setParameter("plan", entity).getSingleResult();
+					.setParameter("planification", entity).getSingleResult();
 
 			return result;
 		} catch (Exception e) {
@@ -93,11 +93,11 @@ public class EiaMaintenancePlanificationService extends GHAEJBExceptionImpl
 	public EiaPreventiveMaintenancePlanification getPreventiveMaintenancePlanification(
 			EiaMaintenancePlanification entity) throws GHAEJBException {
 		try {
-			String stringQuery = "SELECT pmp FROM EiaPreventiveMaintenancePlanification pmp WHERE pmp.plan = :plan";
+			String stringQuery = "SELECT pmp FROM EiaPreventiveMaintenancePlanification pmp WHERE pmp.planification = :planification";
 			EiaPreventiveMaintenancePlanification result = em
 					.createQuery(stringQuery,
 							EiaPreventiveMaintenancePlanification.class)
-					.setParameter("plan", entity).getSingleResult();
+					.setParameter("planification", entity).getSingleResult();
 
 			return result;
 		} catch (Exception e) {

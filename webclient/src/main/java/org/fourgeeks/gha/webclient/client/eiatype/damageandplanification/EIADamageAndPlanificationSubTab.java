@@ -16,12 +16,14 @@ public class EIADamageAndPlanificationSubTab extends GHASubTab implements
 		EiaDamageReportSelectionProducer {
 
 	private EiaDamageReportGridPanel damageReportPanel;
+	private EIAMaintenancePlanificationGridPanel maintenancePlanifPanel;
 	private EIAPreventiveMaintenancePlanificationGridPanel preventivePlanifPanel;
 	private GHASectionForm sectionForm;
 
 	{
 		sectionForm = new GHASectionForm();
 		damageReportPanel = new EiaDamageReportGridPanel();
+		maintenancePlanifPanel = new EIAMaintenancePlanificationGridPanel();
 		preventivePlanifPanel = new EIAPreventiveMaintenancePlanificationGridPanel();
 	}
 
@@ -30,16 +32,21 @@ public class EIADamageAndPlanificationSubTab extends GHASubTab implements
 
 		addClosableListener(damageReportPanel);
 		addHideableListener(damageReportPanel);
+		addClosableListener(maintenancePlanifPanel);
+		addHideableListener(maintenancePlanifPanel);
 		addClosableListener(preventivePlanifPanel);
 		addHideableListener(preventivePlanifPanel);
 
 		sectionForm.addSection("Reporte Equipo Dañado", damageReportPanel);
+		sectionForm.addSection("Mantenimiento Realizado",
+				maintenancePlanifPanel);
 		sectionForm.addSection("Planificación Mantemiento",
 				preventivePlanifPanel);
 
 		setPane(sectionForm);
 
 		tab.addEiaTypeSelectionListener(damageReportPanel);
+		tab.addEiaTypeSelectionListener(maintenancePlanifPanel);
 		tab.addEiaTypeSelectionListener(preventivePlanifPanel);
 
 		addTabSelectedHandler(new TabSelectedHandler() {
@@ -66,6 +73,7 @@ public class EIADamageAndPlanificationSubTab extends GHASubTab implements
 	public void show() {
 		sectionForm.show();
 		damageReportPanel.show();
+		maintenancePlanifPanel.show();
 		preventivePlanifPanel.show();
 	}
 

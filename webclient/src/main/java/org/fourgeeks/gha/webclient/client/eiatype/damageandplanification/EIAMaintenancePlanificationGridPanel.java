@@ -3,10 +3,8 @@ package org.fourgeeks.gha.webclient.client.eiatype.damageandplanification;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
-import org.fourgeeks.gha.domain.gmh.EiaPreventiveMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
-import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
@@ -19,8 +17,8 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.eiamaintenanceplanification.EIAMaintenancePlanificationUpdateForm;
+import org.fourgeeks.gha.webclient.client.eiamaintenanceplanification.EiaMaintenancePlanificationModel;
 import org.fourgeeks.gha.webclient.client.eiamaintenanceplanification.EiaMaintenancePlanificationSelectionListener;
-import org.fourgeeks.gha.webclient.client.eiapreventivemaintenanceplanification.EiaPreventiveMaintenancePlanificationModel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -67,8 +65,8 @@ public class EIAMaintenancePlanificationGridPanel extends GHAVerticalLayout
 		HLayout mainPanel = new HLayout();
 		mainPanel.addMembers(grid, sideButtons);
 
-		String title = GHAStrings
-				.get("eia-preventive-maintenance-planification");
+		String title = "Reporte de Mantenimiento Realizado, Cancelado o Diferido - Cronologia";
+		// TODO agregar el titulo al ustring.csv (pensar en una buena clave)
 		addMembers(new GHALabel(title), mainPanel);
 	}
 
@@ -89,19 +87,18 @@ public class EIAMaintenancePlanificationGridPanel extends GHAVerticalLayout
 	}
 
 	private void loadData() {
-		EiaPreventiveMaintenancePlanificationModel
-				.find(eiaType,
-						new GHAAsyncCallback<List<EiaPreventiveMaintenancePlanification>>() {
-							@Override
-							public void onSuccess(
-									List<EiaPreventiveMaintenancePlanification> result) {
-								List<EIAPreventiveMaintenancePlanificationRecord> gridRecords = EIADamageAndPlanificationUtil
-										.toPreventiveMaintenanceGridRecords(result);
-								EIAPreventiveMaintenancePlanificationRecord[] array = gridRecords
-										.toArray(new EIAPreventiveMaintenancePlanificationRecord[] {});
-								grid.setData(array);
-							}
-						});
+		EiaMaintenancePlanificationModel.find(eiaType,
+				new GHAAsyncCallback<List<EiaMaintenancePlanification>>() {
+					@Override
+					public void onSuccess(
+							List<EiaMaintenancePlanification> result) {
+						List<EIAMaintenancePlanificationRecord> gridRecords = EIADamageAndPlanificationUtil
+								.toMaintenanceGridRecords(result);
+						EIAMaintenancePlanificationRecord[] array = gridRecords
+								.toArray(new EIAMaintenancePlanificationRecord[] {});
+						grid.setData(array);
+					}
+				});
 	}
 
 	@Override

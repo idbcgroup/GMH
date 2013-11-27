@@ -12,10 +12,9 @@ public class EIAMaintenancePlanificationGrid extends
 
 		GHAGridField idGridField = new GHAGridField("id", "No");
 		GHAGridField initDateGridField = new GHAGridField("initDate",
-				"Fecha de inicio");
+				"Fecha inicio");
 		GHAGridField eiaCodeGridField = new GHAGridField("eia", "Equipo");
-		GHAGridField typeGridField = new GHAGridField("type",
-				"Tipo de mantenimiento");
+		GHAGridField typeGridField = new GHAGridField("type", "Tipo de Mant.");
 		GHAGridField statusGridField = new GHAGridField("status", "Estado");
 
 		setFields(idGridField, typeGridField, statusGridField,

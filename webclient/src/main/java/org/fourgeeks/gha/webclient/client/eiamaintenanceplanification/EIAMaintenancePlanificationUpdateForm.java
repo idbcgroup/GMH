@@ -27,7 +27,7 @@ public class EIAMaintenancePlanificationUpdateForm extends
 	}
 
 	public EIAMaintenancePlanificationUpdateForm() {
-		super(GHAStrings.get("new-eia-preventive-maintenance-planification"));
+		super(GHAStrings.get("edit-eia-maintenance-planification"));
 		VLayout sideButtons = GHAUiHelper.createBar(new GHASaveButton(
 				new ClickHandler() {
 					@Override
@@ -99,11 +99,11 @@ public class EIAMaintenancePlanificationUpdateForm extends
 	}
 
 	private void update() {
-		form.save(new GHAAsyncCallback<EiaMaintenancePlanification>() {
+		form.update(new GHAAsyncCallback<EiaMaintenancePlanification>() {
 			@Override
 			public void onSuccess(EiaMaintenancePlanification result) {
 				GHANotification
-						.alert("eiaMaintenancePlanification-save-success");
+						.alert("eia-maintenance-planification-update-success");
 				hide();
 			}
 		});
