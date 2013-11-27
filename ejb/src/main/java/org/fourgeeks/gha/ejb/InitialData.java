@@ -172,12 +172,14 @@ public class InitialData {
 
 		} finally {
 			try {
-				reader.close();
+				if (reader != null)
+					reader.close();
 			} catch (IOException e) {
 				logger.log(Level.SEVERE, "ERROR in ghamessage", e);
 			}
 			try {
-				in.close();
+				if (in != null)
+					in.close();
 			} catch (IOException e) {
 				logger.log(Level.SEVERE, "ERROR in ghamessage", e);
 			}
@@ -233,12 +235,14 @@ public class InitialData {
 
 		} finally {
 			try {
-				reader.close();
+				if (reader != null)
+					reader.close();
 			} catch (IOException e) {
 				logger.log(Level.SEVERE, "ERROR in UisTrings", e);
 			}
 			try {
-				in.close();
+				if (in != null)
+					in.close();
 			} catch (IOException e) {
 				logger.log(Level.SEVERE, "ERROR in UisTrings", e);
 			}
@@ -297,7 +301,8 @@ public class InitialData {
 					"Error loading modules, screens, views and functions: incorrect file encoding",
 					e3);
 		} finally {
-			csvReader.close();
+			if (csvReader != null)
+				csvReader.close();
 		}
 		resourceAsStream.close();
 	}

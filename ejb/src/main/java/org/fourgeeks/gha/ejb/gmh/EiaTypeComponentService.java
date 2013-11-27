@@ -8,6 +8,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -24,7 +26,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 @Stateless(name = "gmh.EiaTypeComponentService")
 public class EiaTypeComponentService extends GHAEJBExceptionImpl implements
-		EiaTypeComponentServiceRemote {
+		EiaTypeComponentServiceRemote, EiaTypeComponentServiceLocal {
 	@PersistenceContext
 	EntityManager em;
 
@@ -74,6 +76,7 @@ public class EiaTypeComponentService extends GHAEJBExceptionImpl implements
 	 * (org.fourgeeks.gha.domain.gmh.EiaType)
 	 */
 	@Override
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 	public List<EiaTypeComponent> findByParentEiaType(EiaType eiaType)
 			throws GHAEJBException {
 		try {

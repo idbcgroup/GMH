@@ -20,8 +20,8 @@ import javax.sql.DataSource;
 @Singleton
 public class DatabaseConstraints {
 
-	private final static Logger logger = Logger.getLogger(DatabaseConstraints.class
-			.getName());
+	private final static Logger logger = Logger
+			.getLogger(DatabaseConstraints.class.getName());
 
 	@Resource(mappedName = "java:/jdbc/gha")
 	DataSource dataSource;
@@ -82,7 +82,8 @@ public class DatabaseConstraints {
 					"Error getting the connection to create the indexes", e);
 		} finally {
 			try {
-				con.close();
+				if (con != null)
+					con.close();
 			} catch (SQLException e1) {
 				logger.log(Level.INFO,
 						"ERROR: unable to close manual datasource connection",
@@ -94,7 +95,6 @@ public class DatabaseConstraints {
 	}
 
 	private void createChecks() {
-
 		logger.info("Creating checks...");
 		Connection con = null;
 		try {
@@ -117,7 +117,8 @@ public class DatabaseConstraints {
 					"Error getting the connection to create the checks", e);
 		} finally {
 			try {
-				con.close();
+				if (con != null)
+					con.close();
 			} catch (SQLException e1) {
 				logger.log(Level.INFO,
 						"ERROR: unable to close manual datasource connection",

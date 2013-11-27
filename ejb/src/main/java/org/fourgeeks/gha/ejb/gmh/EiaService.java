@@ -11,6 +11,8 @@ import java.util.logging.Logger;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -47,7 +49,7 @@ public class EiaService extends GHAEJBExceptionImpl implements EiaServiceRemote 
 	EntityManager em;
 
 	@EJB(name = "gmh.EiaTypeComponentService")
-	EiaTypeComponentServiceRemote eiaTypeComponentService;
+	EiaTypeComponentServiceLocal eiaTypeComponentService;
 
 	private final static Logger logger = Logger.getLogger(EiaService.class
 			.getName());
@@ -370,6 +372,7 @@ public class EiaService extends GHAEJBExceptionImpl implements EiaServiceRemote 
 	}
 
 	@Override
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 	public List<Eia> findComponents(Eia entity, EiaType eiaType)
 			throws GHAEJBException {
 		List<EiaTypeComponent> eiatypes = eiaTypeComponentService

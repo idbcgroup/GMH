@@ -12,7 +12,7 @@ import org.fourgeeks.gha.domain.gmh.ServiceResourceCategory;
 
 /**
  * @author emiliot
- *
+ * 
  */
 @Entity
 public class FacilityCategory extends AbstractEntity {
@@ -21,7 +21,7 @@ public class FacilityCategory extends AbstractEntity {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "serviceResourceCategoryFk")
 	private ServiceResourceCategory sRCategory;
@@ -30,15 +30,20 @@ public class FacilityCategory extends AbstractEntity {
 	 * 
 	 */
 	public FacilityCategory() {
-		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * @return the service Resource Category
+	 */
 	public ServiceResourceCategory getsRCategory() {
 		return sRCategory;
 	}
 
+	/**
+	 * @param sRCategory
+	 */
 	public void setsRCategory(ServiceResourceCategory sRCategory) {
 		this.sRCategory = sRCategory;
 	}
-	
+
 }
