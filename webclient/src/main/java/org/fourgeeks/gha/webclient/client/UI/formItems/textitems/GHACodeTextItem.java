@@ -1,7 +1,8 @@
-package org.fourgeeks.gha.webclient.client.UI.formItems;
+package org.fourgeeks.gha.webclient.client.UI.formItems.textitems;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 
@@ -9,12 +10,12 @@ import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
  * @author alacret
  * 
  */
-public class GHACodeItem extends GHATextItem {
+public class GHACodeTextItem extends GHATextItem {
 
 	/**
 	 * 
 	 */
-	public GHACodeItem() {
+	public GHACodeTextItem() {
 		super(GHAStrings.get("code"));
 		setLength(GHAUiHelper.CODE_ITEM_LENGTH);
 	}
@@ -23,7 +24,7 @@ public class GHACodeItem extends GHATextItem {
 	 * @param width
 	 * 
 	 */
-	public GHACodeItem(int width) {
+	public GHACodeTextItem(int width) {
 		super(GHAStrings.get("code"), width);
 		setLength(GHAUiHelper.CODE_ITEM_LENGTH);
 	}
@@ -31,7 +32,7 @@ public class GHACodeItem extends GHATextItem {
 	/**
 	 * @param required
 	 */
-	public GHACodeItem(boolean required) {
+	public GHACodeTextItem(boolean required) {
 		this();
 		setRequired(required);
 	}
@@ -40,7 +41,7 @@ public class GHACodeItem extends GHATextItem {
 	 * @param required
 	 * @param width
 	 */
-	public GHACodeItem(boolean required, int width) {
+	public GHACodeTextItem(boolean required, int width) {
 		this(required);
 		setWidth(width);
 	}
@@ -50,7 +51,7 @@ public class GHACodeItem extends GHATextItem {
 	 * @param width
 	 * @param changeHandler
 	 */
-	public GHACodeItem(boolean required, int width, ChangedHandler changeHandler) {
+	public GHACodeTextItem(boolean required, int width, ChangedHandler changeHandler) {
 		this(required, width);
 		addChangedHandler(changeHandler);
 	}
@@ -59,7 +60,7 @@ public class GHACodeItem extends GHATextItem {
 	 * @param required
 	 * @param changeHandler
 	 */
-	public GHACodeItem(boolean required, ChangedHandler changeHandler) {
+	public GHACodeTextItem(boolean required, ChangedHandler changeHandler) {
 		this(required);
 		addChangedHandler(changeHandler);
 	}

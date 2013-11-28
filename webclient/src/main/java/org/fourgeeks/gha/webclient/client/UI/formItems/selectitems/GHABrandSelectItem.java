@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.UI.formItems;
+package org.fourgeeks.gha.webclient.client.UI.formItems.selectitems;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -7,6 +7,7 @@ import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 
 /**
  * @author alacret A select item with the mobility items

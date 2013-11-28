@@ -1,6 +1,7 @@
-package org.fourgeeks.gha.webclient.client.UI.formItems;
+package org.fourgeeks.gha.webclient.client.UI.formItems.textitems;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 
@@ -8,12 +9,12 @@ import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
  * @author alacret
  * 
  */
-public class GHAUserNameItem extends GHATextItem {
+public class GHAUserNameTextItem extends GHATextItem {
 
 	/**
 	 * @param width
 	 */
-	public GHAUserNameItem(int width) {
+	public GHAUserNameTextItem(int width) {
 		super(GHAStrings.get("user"), width);
 		setLength(20);
 		setMask("AAAAAAAAAAAAAAAAAAAA");
@@ -22,7 +23,7 @@ public class GHAUserNameItem extends GHATextItem {
 	/**
 	 * @param width
 	 */
-	public GHAUserNameItem() {
+	public GHAUserNameTextItem() {
 		super(GHAStrings.get("user"));
 		setLength(20);
 		setMask("AAAAAAAAAAAAAAAAAAAA");
@@ -31,7 +32,7 @@ public class GHAUserNameItem extends GHATextItem {
 	/**
 	 * @param width
 	 */
-	public GHAUserNameItem(int width, boolean required) {
+	public GHAUserNameTextItem(int width, boolean required) {
 		this(width);
 		setRequired(required);
 	}
@@ -39,7 +40,7 @@ public class GHAUserNameItem extends GHATextItem {
 	/**
 	 * @param width
 	 */
-	public GHAUserNameItem(boolean required) {
+	public GHAUserNameTextItem(boolean required) {
 		this();
 		setRequired(required);
 	}
@@ -47,7 +48,7 @@ public class GHAUserNameItem extends GHATextItem {
 	/**
 	 * @param width
 	 */
-	public GHAUserNameItem(int width, boolean required,
+	public GHAUserNameTextItem(int width, boolean required,
 			ChangedHandler changedHandler) {
 		this(width, required);
 		addChangedHandler(changedHandler);
@@ -56,7 +57,7 @@ public class GHAUserNameItem extends GHATextItem {
 	/**
 	 * @param width
 	 */
-	public GHAUserNameItem(boolean required, ChangedHandler changedHandler) {
+	public GHAUserNameTextItem(boolean required, ChangedHandler changedHandler) {
 		this(required);
 		addChangedHandler(changedHandler);
 	}

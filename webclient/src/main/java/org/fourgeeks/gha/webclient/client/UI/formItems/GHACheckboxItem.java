@@ -1,7 +1,5 @@
 package org.fourgeeks.gha.webclient.client.UI.formItems;
 
-import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-
 import com.smartgwt.client.widgets.form.fields.CheckboxItem;
 
 public class GHACheckboxItem extends CheckboxItem {
@@ -10,9 +8,13 @@ public class GHACheckboxItem extends CheckboxItem {
 		super();
 		setHeight(20);
 		setWidth("*");
-		setCellStyle("gha-form-cell");
+		
 		setShowTitle(false);
+		setCellStyle("gha-form-cell");
 		setTitleStyle("input-title");
+		
+		// setErrorOrientation(FormErrorOrientation.RIGHT);
+		setShowErrorIcon(false);
 	}
 
 	public GHACheckboxItem(String title) {

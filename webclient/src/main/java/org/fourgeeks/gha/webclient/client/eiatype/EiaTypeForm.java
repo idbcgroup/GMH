@@ -18,14 +18,14 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHACodeItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAComboboxItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHAEiaTypeSubTypeSelectItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHAEiaTypeTypeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextAreaItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAEiaTypeSubTypeSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAEiaTypeTypeSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHACodeTextItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
@@ -47,7 +47,7 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 		EiaTypeSelectionProducer {
 
 	protected GHADynamicForm form;
-	private GHACodeItem codeItem;
+	private GHACodeTextItem codeItem;
 	private GHATextItem nameItem, modelItem, eiaUmdnsItem;
 	private GHATextAreaItem descriptionItem;
 	private GHATextAreaItem useDescriptionItem;
@@ -60,7 +60,7 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 	private List<EIATypeSelectionListener> listeners;
 
 	{
-		codeItem = new GHACodeItem(true, changedHandler);
+		codeItem = new GHACodeTextItem(true, changedHandler);
 
 		nameItem = new GHATextItem(GHAStrings.get("name"), true, changedHandler);
 		typeItem = new GHAEiaTypeTypeSelectItem(true, changedHandler);

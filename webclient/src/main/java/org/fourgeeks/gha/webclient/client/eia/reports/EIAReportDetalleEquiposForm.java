@@ -15,7 +15,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHARadioGroupItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHATitleTextItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHATitletextItem;
 
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.form.DynamicForm;
@@ -28,7 +28,7 @@ public class EIAReportDetalleEquiposForm extends GHAReportForm {
 	private static final String VAL_ORDER_BY_UBIC_EIATYPE = "true";
 	private static final String VAL_ORDER_BY_EIATYPE_UBIC = "false";
 
-	private GHATitleTextItem filtersTitleItem, orderByTitleItem;
+	private GHATitletextItem filtersTitleItem, orderByTitleItem;
 	private GHARadioGroupItem filtersRadioGroupItem;
 	private GHARadioGroupItem orderByRadioGroupItem;
 	private GHASelectItem eiasSelectItem, facilsSelectItem, workAreasSelectItem,
@@ -48,7 +48,7 @@ public class EIAReportDetalleEquiposForm extends GHAReportForm {
 		formOrderBy.setNumCols(1);
 
 		// CREANDO LOS ITEMS
-		filtersTitleItem = new GHATitleTextItem("Filtros");
+		filtersTitleItem = new GHATitletextItem("Filtros");
 
 		filtersRadioGroupItem = new GHARadioGroupItem(300, false);
 
@@ -67,7 +67,7 @@ public class EIAReportDetalleEquiposForm extends GHAReportForm {
 		eiaStatesSelectItem = new GHASelectItem("Estado", GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		eiaStatesSelectItem.setDisabled(true);
 
-		orderByTitleItem = new GHATitleTextItem("Ordenar por");
+		orderByTitleItem = new GHATitletextItem("Ordenar por");
 
 		orderByRadioGroupItem = new GHARadioGroupItem(350, false);
 

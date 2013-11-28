@@ -22,13 +22,24 @@ public class GHAComboboxItem<T extends HasKey> extends ComboBoxItem {
 		setHeight(20);
 		setWidth("*");
 		setPickerIconHeight(20);
+		setOriginalStyle();
+		
+		setShowFocused(false);
+		setAllowEmptyValue(true);
+		
+		// setErrorOrientation(FormErrorOrientation.RIGHT);
+		setShowErrorIcon(false);
+	}
+
+	/**
+	 * 
+	 */
+	private void setOriginalStyle() {
 		setTextBoxStyle("combobox");
 		setCellStyle("gha-form-cell");
 		setTitleStyle("input-title");
-		setShowFocused(false);
-		setAllowEmptyValue(true);
 	}
-
+	
 	/**
 	 * @param title
 	 * @param width

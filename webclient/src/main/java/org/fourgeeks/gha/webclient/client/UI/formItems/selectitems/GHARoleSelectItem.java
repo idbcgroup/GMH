@@ -1,12 +1,13 @@
-package org.fourgeeks.gha.webclient.client.UI.formItems;
+package org.fourgeeks.gha.webclient.client.UI.formItems.selectitems;
 
 import java.util.LinkedHashMap;
 import java.util.List;
 
-import org.fourgeeks.gha.domain.gar.Facility;
+import org.fourgeeks.gha.domain.ess.Role;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 
@@ -14,27 +15,22 @@ import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
  * @author emiliot
  * 
  */
-public class GHAFacilitySelectItem extends GHASelectItem {
-	public static final String labelKey = "facility";
-
-	/**
-	 * 
-	 */
-	public GHAFacilitySelectItem() {
-		super(GHAStrings.get(labelKey));
-		fill();
-	}
-
-	public GHAFacilitySelectItem(String title) {
-		super(title);
-		fill();
-	}
+public class GHARoleSelectItem extends GHASelectItem {
+	public static final String labelKey = "responsible-role";
 
 	/**
 	 * @param width
 	 */
-	public GHAFacilitySelectItem(int width) {
+	public GHARoleSelectItem(int width) {
 		super(GHAStrings.get(labelKey), width);
+		fill();
+	}
+
+	/**
+	 * 
+	 */
+	public GHARoleSelectItem() {
+		super(GHAStrings.get(labelKey));
 		fill();
 	}
 
@@ -44,7 +40,7 @@ public class GHAFacilitySelectItem extends GHASelectItem {
 	 * @param required
 	 * @param changedHandler
 	 */
-	public GHAFacilitySelectItem(int width, boolean required,
+	public GHARoleSelectItem(int width, boolean required,
 			ChangedHandler changedHandler) {
 		super(GHAStrings.get(labelKey), width);
 		setRequired(required);
@@ -57,7 +53,7 @@ public class GHAFacilitySelectItem extends GHASelectItem {
 	 * @param required
 	 * @param changedHandler
 	 */
-	public GHAFacilitySelectItem(boolean required, ChangedHandler changedHandler) {
+	public GHARoleSelectItem(boolean required, ChangedHandler changedHandler) {
 		super(GHAStrings.get(labelKey));
 		setRequired(required);
 		addChangedHandler(changedHandler);
@@ -65,13 +61,13 @@ public class GHAFacilitySelectItem extends GHASelectItem {
 	}
 
 	public void fill() {
-		GHACache.INSTANCE.getFacilities(new GHAAsyncCallback<List<Facility>>() {
+		GHACache.INSTANCE.getBaseRoles(new GHAAsyncCallback<List<Role>>() {
 
 			@Override
-			public void onSuccess(List<Facility> result) {
+			public void onSuccess(List<Role> result) {
 				LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-				for (Facility facility : result)
-					valueMap.put(facility.getId() + "", facility.getName());
+				for (Role role : result)
+					valueMap.put(role.getId() + "", role.getName());
 				setValueMap(valueMap);
 
 			}

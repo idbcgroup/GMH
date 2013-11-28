@@ -10,6 +10,9 @@ public class GHATimeItem extends TimeItem {
 
 	public GHATimeItem() {
 		super();
+		setHeight(20);
+		setWidth("*");
+
 		setUseTextField(true);
 		setTimeFormatter(TimeDisplayFormat.TOSHORTPADDED24HOURTIME);
 
@@ -19,8 +22,6 @@ public class GHATimeItem extends TimeItem {
 		textItemProperties.setTextBoxStyle("input");
 		setTextFieldProperties(textItemProperties);
 
-		setHeight(20);
-		setWidth("*");
 		setCellStyle("gha-form-cell");
 		setTitleStyle("input-title");
 
