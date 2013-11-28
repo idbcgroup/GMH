@@ -7,8 +7,8 @@ import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACloseButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAAddForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAUpdateForm;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -18,7 +18,7 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class EIAMaintenancePlanificationUpdateForm extends
-		GHAAddForm<EiaMaintenancePlanification> implements
+		GHAUpdateForm<EiaMaintenancePlanification> implements
 		EiaMaintenancePlanificationSelectionListener, EIATypeSelectionListener,
 		EiaMaintenancePlanificationSelectionProducer {
 
@@ -98,7 +98,8 @@ public class EIAMaintenancePlanificationUpdateForm extends
 		((EIATypeSelectionListener) form).select(eiaType);
 	}
 
-	private void update() {
+	@Override
+	protected void update() {
 		form.update(new GHAAsyncCallback<EiaMaintenancePlanification>() {
 			@Override
 			public void onSuccess(EiaMaintenancePlanification result) {

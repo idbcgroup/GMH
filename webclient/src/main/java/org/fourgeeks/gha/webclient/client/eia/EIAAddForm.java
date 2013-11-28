@@ -104,10 +104,8 @@ public class EIAAddForm extends GHAAddForm<Eia> implements
 				.removeEiaSelectionListener(eiaSelectionListener);
 	}
 
-	/**
-	 * 
-	 */
-	private void save() {
+	@Override
+	protected void save() {
 		form.save(new GHAAsyncCallback<Eia>() {
 
 			@Override

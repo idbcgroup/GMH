@@ -77,7 +77,8 @@ public class EIADamageReportAddForm extends GHAAddForm<EiaDamageReport>
 
 	}
 
-	private void save() {
+	@Override
+	protected void save() {
 		form.save(new GHAAsyncCallback<EiaDamageReport>() {
 			@Override
 			public void onSuccess(EiaDamageReport result) {

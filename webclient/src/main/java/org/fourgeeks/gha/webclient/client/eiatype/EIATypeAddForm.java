@@ -78,7 +78,8 @@ public class EIATypeAddForm extends GHAAddForm<EiaType> implements
 
 	}
 
-	private void save() {
+	@Override
+	protected void save() {
 		form.save(new GHAAsyncCallback<EiaType>() {
 
 			@Override

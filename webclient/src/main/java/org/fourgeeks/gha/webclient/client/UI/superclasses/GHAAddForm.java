@@ -28,11 +28,6 @@ public abstract class GHAAddForm<T> extends GHASlideInWindow {
 		addMember(label);
 	}
 
-	@Override
-	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getBottomSectionHeight());
-	}
-
 	/**
 	 * cancel the add operation
 	 */
@@ -58,4 +53,11 @@ public abstract class GHAAddForm<T> extends GHASlideInWindow {
 				}, null);
 
 	}
+
+	@Override
+	public void onResize(ResizeEvent event) {
+		setHeight(GHAUiHelper.getBottomSectionHeight());
+	}
+
+	protected abstract void save();
 }

@@ -81,7 +81,8 @@ public class UserAddForm extends GHAAddForm<SSOUser> implements
 				.removeUserSelectionListener(userSelectionListener);
 	}
 
-	private void save() {
+	@Override
+	protected void save() {
 		form.save(new GHAAsyncCallback<SSOUser>() {
 
 			@Override

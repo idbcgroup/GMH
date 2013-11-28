@@ -65,10 +65,12 @@ public class EIAMaintenancePlanificationForm extends
 			finalEiaStateSelectItem;
 	private GHASelectItem maintenanceStatusSelectItem,
 			maintenacePlanSelectItem;
-	private GHATextAreaItem failureDescriptionTextItem;
+	private GHATextAreaItem failureDescriptionTextAreaItem;
 	private GHATextItem estimatedMaintenanceTimeTextItem;
 	private GHAPeriodOfTimeSelectItem estimatedMaintenancePoTSelectedItem;
 	private GHADateItem deliverDateItem, acceptationDateItem;
+	private GHATextItem durationPlanTextItem;
+	private GHAPeriodOfTimeSelectItem durationPlanPoTSelectItem;
 
 	{
 		sectionForm = new GHASectionForm();
@@ -96,8 +98,9 @@ public class EIAMaintenancePlanificationForm extends
 				"Estado inicial del equipo", false, changedHandler);
 		finalEiaStateSelectItem = new GHAEiaStateSelectItem(
 				"Estado final del equipo", false, changedHandler);
-		failureDescriptionTextItem = new GHATextAreaItem(
+		failureDescriptionTextAreaItem = new GHATextAreaItem(
 				"Descripción de daño, Motivo de falla", changedHandler);
+		failureDescriptionTextAreaItem.setColSpan(2);
 		estimatedMaintenanceTimeTextItem = new GHATextItem(
 				"Tiempo estimado sin el equipo", false, changedHandler);
 		estimatedMaintenancePoTSelectedItem = new GHAPeriodOfTimeSelectItem(
@@ -105,6 +108,9 @@ public class EIAMaintenancePlanificationForm extends
 		deliverDateItem = new GHADateItem("Fecha de entrega", changedHandler);
 		acceptationDateItem = new GHADateItem("Fecha de aceptación",
 				changedHandler);
+		durationPlanTextItem = new GHATextItem("Tiempo de duración", false,
+				changedHandler);
+		durationPlanPoTSelectItem = new GHAPeriodOfTimeSelectItem();
 		roleSelectItem = new GHARoleSelectItem();
 		roleSelectItem.addChangedHandler(changedHandler);
 		maintenanceStatusSelectItem = new GHASelectItem("Estatus", false,
@@ -165,9 +171,12 @@ public class EIAMaintenancePlanificationForm extends
 				GHAUiHelper.getNormalFormWidth(30), 4);
 
 		form.setItems(preventiveMaintenance_TitleItem,
-				maintenacePlanSelectItem, new GHASpacerItem(3),
-				providerSelectItem, roleSelectItem, new GHASpacerItem(2),
-				maintenanceStatusSelectItem, new GHASpacerItem(2));
+				maintenacePlanSelectItem, new GHASpacerItem(2),
+				durationPlanTextItem, durationPlanPoTSelectItem,
+				new GHASpacerItem(2), correctiveMaintenance_TitleItem,
+				estimatedMaintenanceTimeTextItem,
+				estimatedMaintenancePoTSelectedItem, new GHASpacerItem(2),
+				failureDescriptionTextAreaItem, new GHASpacerItem(2));
 
 		return form;
 	}
@@ -178,8 +187,8 @@ public class EIAMaintenancePlanificationForm extends
 
 		form.setItems(beginningDateItem, beginningTimeItem, finishDateItem,
 				finishTimeItem, effectiveTimeTextItem, effectivePoTSelectItem,
-				new GHASpacerItem(2), estimatedMaintenanceTimeTextItem,
-				estimatedMaintenancePoTSelectedItem, new GHASpacerItem(2));
+				new GHASpacerItem(2), deliverDateItem, acceptationDateItem,
+				new GHASpacerItem(2));
 
 		return form;
 	}
@@ -290,6 +299,8 @@ public class EIAMaintenancePlanificationForm extends
 	@Override
 	public void onResize(ResizeEvent arg0) {
 		basicInfoForm.resize(GHAUiHelper.getNormalFormWidth(30), 4);
+		timesAndDatesForm.resize(GHAUiHelper.getNormalFormWidth(30), 4);
+		maintenanceTypeForm.resize(GHAUiHelper.getNormalFormWidth(30), 4);
 	}
 
 	@Override
@@ -307,6 +318,8 @@ public class EIAMaintenancePlanificationForm extends
 	public void select(EiaMaintenancePlanification entity) {
 		selectedMaintenance = entity;
 		set(selectedMaintenance);
+
+		sectionForm.openFirst();
 
 		if (selectedMaintenance.getType() == MaintenancePlanificationType.CORRECTIVE)
 			EiaMaintenancePlanificationModel
@@ -332,6 +345,7 @@ public class EIAMaintenancePlanificationForm extends
 											.getId());
 								}
 							});
+
 	}
 
 	@Override
