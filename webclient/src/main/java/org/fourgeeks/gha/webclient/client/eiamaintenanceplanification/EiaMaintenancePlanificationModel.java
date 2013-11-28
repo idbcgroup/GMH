@@ -21,14 +21,14 @@ public class EiaMaintenancePlanificationModel {
 		service.find(eiaType, callback);
 	}
 
-	public static void getCorrectiveMaintenancePlanification(
+	public static void getCorrectiveMaintenance(
 			EiaMaintenancePlanification entity,
 			GHAAsyncCallback<EiaCorrectiveMaintenancePlanification> callback) {
 
 		service.getCorrectiveMaintenancePlanification(entity, callback);
 	}
 
-	public static void getPreventiveMaintenancePlanification(
+	public static void getPreventiveMaintenance(
 			EiaMaintenancePlanification entity,
 			GHAAsyncCallback<EiaPreventiveMaintenancePlanification> callback) {
 

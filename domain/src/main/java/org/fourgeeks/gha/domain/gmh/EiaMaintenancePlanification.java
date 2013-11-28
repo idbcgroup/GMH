@@ -24,7 +24,7 @@ import org.fourgeeks.gha.domain.glm.ExternalProvider;
  */
 
 @Entity
-@NamedQueries(value = { @NamedQuery(name = "findByEiaType", query = "SELECT emp FROM EiaMaintenancePlanification emp JOIN emp.eia eia WHERE eia.eiaType = :eiaType ORDER BY emp.id") })
+@NamedQueries(value = { @NamedQuery(name = "findByEiaType", query = "SELECT emp FROM EiaMaintenancePlanification emp JOIN emp.eia empeia WHERE empeia.eiaType = :eiaType ORDER BY emp.id") })
 public class EiaMaintenancePlanification extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 
