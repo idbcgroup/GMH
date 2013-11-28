@@ -3,6 +3,10 @@ package org.fourgeeks.gha.webclient.client.UI.superclasses;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.form.DynamicForm;
 
+/**
+ * @author alacret
+ * 
+ */
 public class GHADynamicForm extends DynamicForm {
 
 	public GHADynamicForm(int formWidth, int numCols) {
