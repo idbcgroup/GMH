@@ -54,4 +54,17 @@ public class GHAEiaStateSelectItem extends GHASelectItem {
 		setValueMap(EiaStateEnum.toValueMap());
 	}
 
+	/**
+	 * @param title
+	 * @param required
+	 * @param changedHandler
+	 */
+	public GHAEiaStateSelectItem(String title, boolean required,
+			ChangedHandler changedHandler) {
+		super(title);
+		setRequired(required);
+		addChangedHandler(changedHandler);
+		setValueMap(EiaStateEnum.toValueMap());
+	}
+
 }

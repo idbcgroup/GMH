@@ -19,19 +19,21 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHADateItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAEiaStateSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAExternalProviderSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHAPeriodOfTimeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHARoleSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextAreaItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATimeItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHATitleTextItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASectionForm;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype.EiaTypeMaintenancePlanModel;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
-import com.smartgwt.client.widgets.layout.HLayout;
-import com.smartgwt.client.widgets.layout.LayoutSpacer;
 
 public class EIAMaintenancePlanificationForm extends
 		GHAForm<EiaMaintenancePlanification> implements
@@ -43,47 +45,95 @@ public class EIAMaintenancePlanificationForm extends
 	private EiaPreventiveMaintenancePlanification selectedPreventiveMaintenance;
 	private EiaCorrectiveMaintenancePlanification selectedCorrectiveMaintenance;
 
-	private GHADynamicForm form;
+	private GHASectionForm sectionForm;
+	private GHADynamicForm basicInfoForm;
+	private GHADynamicForm timesAndDatesForm;
+	private GHADynamicForm maintenanceTypeForm;
+
+	private GHATitleTextItem preventiveMaintenance_TitleItem,
+			correctiveMaintenance_TitleItem;
 	private GHATextItem idNumberTextItem;
 	private GHATextItem requestNumberTextItem;
 	private GHATextItem technicianNameTextItem;
 	private GHAExternalProviderSelectItem providerSelectItem;
 	private GHARoleSelectItem roleSelectItem;
-	private GHADateItem beginningDateItem, finishDateDateItem;
-	private GHATimeItem biginningTimeItem, finishTimeItem;
-	private GHATextItem efectiveTimeTextItem;
-	private GHASelectItem effectivePoTSelectItem;
-	private GHAEiaStateSelectItem eiaInitStateSelectItem,
-			eiaFinalStateSelectItem;
-	private GHASelectItem statusSelectItem, maintenacePlanSelectItem;
-	private GHATextItem failureMotive;
-	private GHATextItem estimatedTimeWithoutEiaTextItem;
-	private GHASelectItem estimatedPoTWithoutEiaSelectedItem;
+	private GHADateItem beginningDateItem, finishDateItem;
+	private GHATimeItem beginningTimeItem, finishTimeItem;
+	private GHATextItem effectiveTimeTextItem;
+	private GHAPeriodOfTimeSelectItem effectivePoTSelectItem;
+	private GHAEiaStateSelectItem initialEiaStateSelectItem,
+			finalEiaStateSelectItem;
+	private GHASelectItem maintenanceStatusSelectItem,
+			maintenacePlanSelectItem;
+	private GHATextAreaItem failureDescriptionTextItem;
+	private GHATextItem estimatedMaintenanceTimeTextItem;
+	private GHAPeriodOfTimeSelectItem estimatedMaintenancePoTSelectedItem;
+	private GHADateItem deliverDateItem, acceptationDateItem;
 
 	{
+		sectionForm = new GHASectionForm();
 		listeners = new ArrayList<EiaMaintenancePlanificationSelectionListener>();
 
+		idNumberTextItem = new GHATextItem("Numero de informe", false);
+
+		requestNumberTextItem = new GHATextItem("Numero de solicitud", false,
+				changedHandler);
+		technicianNameTextItem = new GHATextItem("Técnico del mant.", false,
+				changedHandler);
+		beginningDateItem = new GHADateItem("Fecha de inicio del mant.",
+				changedHandler);
+		beginningTimeItem = new GHATimeItem("Hora de inicio del mant.",
+				changedHandler);
+		finishDateItem = new GHADateItem("Fecha de finalización del mant.",
+				changedHandler);
+		finishTimeItem = new GHATimeItem("Hora de finalización del mant.",
+				changedHandler);
+		effectiveTimeTextItem = new GHATextItem("Tiempo efectivo empleado",
+				false, changedHandler);
+		effectivePoTSelectItem = new GHAPeriodOfTimeSelectItem(false,
+				changedHandler);
+		initialEiaStateSelectItem = new GHAEiaStateSelectItem(
+				"Estado inicial del equipo", false, changedHandler);
+		finalEiaStateSelectItem = new GHAEiaStateSelectItem(
+				"Estado final del equipo", false, changedHandler);
+		failureDescriptionTextItem = new GHATextAreaItem(
+				"Descripción de daño, Motivo de falla", changedHandler);
+		estimatedMaintenanceTimeTextItem = new GHATextItem(
+				"Tiempo estimado sin el equipo", false, changedHandler);
+		estimatedMaintenancePoTSelectedItem = new GHAPeriodOfTimeSelectItem(
+				false, changedHandler);
+		deliverDateItem = new GHADateItem("Fecha de entrega", changedHandler);
+		acceptationDateItem = new GHADateItem("Fecha de aceptación",
+				changedHandler);
 		roleSelectItem = new GHARoleSelectItem();
 		roleSelectItem.addChangedHandler(changedHandler);
-		statusSelectItem = new GHASelectItem("Estatus", false, changedHandler);
+		maintenanceStatusSelectItem = new GHASelectItem("Estatus", false,
+				changedHandler);
 		providerSelectItem = new GHAExternalProviderSelectItem("Proveedor",
 				false, changedHandler);
 		maintenacePlanSelectItem = new GHASelectItem("Plan de mantenimiento",
 				true, changedHandler);
 		maintenacePlanSelectItem.setColSpan(2);
 
-		form = new GHADynamicForm(GHAUiHelper.getNormalFormWidth(30), 4);
+		preventiveMaintenance_TitleItem = new GHATitleTextItem(
+				"Mantenimiento Preventivo", 4);
+		correctiveMaintenance_TitleItem = new GHATitleTextItem(
+				"Mantenimiento Correctivo", 4);
 	}
 
 	public EIAMaintenancePlanificationForm() {
-		final HLayout mainPanel = new HLayout();
-		form.setItems(new GHASpacerItem(), maintenacePlanSelectItem,
-				new GHASpacerItem(2), providerSelectItem, roleSelectItem,
-				new GHASpacerItem(2), statusSelectItem, new GHASpacerItem(2));
+		basicInfoForm = buildAndGetBasicInfoForm();
+		timesAndDatesForm = buildAndGetTimesAndDatesForm();
+		maintenanceTypeForm = buildAndGetMaintenanceTypeForm();
+
+		sectionForm.addSection("Información basica", basicInfoForm);
+		sectionForm.addSection("Horas y fechas", timesAndDatesForm);
+		sectionForm.addSection("Tipo de Mantenimiento", maintenanceTypeForm);
+
+		addMember(sectionForm);
+		sectionForm.openFirst();
 
 		fill();
-		mainPanel.addMembers(form, new LayoutSpacer());
-		addMember(mainPanel);
 	}
 
 	@Override
@@ -97,9 +147,60 @@ public class EIAMaintenancePlanificationForm extends
 		listeners.add(listener);
 	}
 
+	private GHADynamicForm buildAndGetBasicInfoForm() {
+		GHADynamicForm form = new GHADynamicForm(
+				GHAUiHelper.getNormalFormWidth(30), 4);
+
+		form.setItems(idNumberTextItem, requestNumberTextItem,
+				maintenanceStatusSelectItem, new GHASpacerItem(),
+				technicianNameTextItem, providerSelectItem, roleSelectItem,
+				new GHASpacerItem(), initialEiaStateSelectItem,
+				finalEiaStateSelectItem, new GHASpacerItem(2));
+
+		return form;
+	}
+
+	private GHADynamicForm buildAndGetMaintenanceTypeForm() {
+		GHADynamicForm form = new GHADynamicForm(
+				GHAUiHelper.getNormalFormWidth(30), 4);
+
+		form.setItems(preventiveMaintenance_TitleItem,
+				maintenacePlanSelectItem, new GHASpacerItem(3),
+				providerSelectItem, roleSelectItem, new GHASpacerItem(2),
+				maintenanceStatusSelectItem, new GHASpacerItem(2));
+
+		return form;
+	}
+
+	private GHADynamicForm buildAndGetTimesAndDatesForm() {
+		GHADynamicForm form = new GHADynamicForm(
+				GHAUiHelper.getNormalFormWidth(30), 4);
+
+		form.setItems(beginningDateItem, beginningTimeItem, finishDateItem,
+				finishTimeItem, effectiveTimeTextItem, effectivePoTSelectItem,
+				new GHASpacerItem(2), estimatedMaintenanceTimeTextItem,
+				estimatedMaintenancePoTSelectedItem, new GHASpacerItem(2));
+
+		return form;
+	}
+
 	@Override
 	public void deactivate() {
 		toggleForm(false);
+	}
+
+	private EiaCorrectiveMaintenancePlanification extractCorrectiveMaintenance(
+			EiaMaintenancePlanification planif) {
+
+		EiaCorrectiveMaintenancePlanification entity = null;
+		if (selectedCorrectiveMaintenance == null)
+			entity = new EiaCorrectiveMaintenancePlanification();
+		else
+			entity = selectedCorrectiveMaintenance;
+
+		// TODO faltan atributos por obtener
+
+		return entity;
 	}
 
 	private EiaMaintenancePlanification extractMaintenance() {
@@ -108,7 +209,7 @@ public class EIAMaintenancePlanificationForm extends
 		planification = selectedMaintenance;
 
 		planification.setStatus(MaintenancePlanificationStatus
-				.valueOf(statusSelectItem.getValueAsString()));
+				.valueOf(maintenanceStatusSelectItem.getValueAsString()));
 
 		if (providerSelectItem.getValue() != null) {
 			ExternalProvider provider = new ExternalProvider(
@@ -138,20 +239,6 @@ public class EIAMaintenancePlanificationForm extends
 		return null;
 	}
 
-	private EiaCorrectiveMaintenancePlanification extractCorrectiveMaintenance(
-			EiaMaintenancePlanification planif) {
-
-		EiaCorrectiveMaintenancePlanification entity = null;
-		if (selectedCorrectiveMaintenance == null)
-			entity = new EiaCorrectiveMaintenancePlanification();
-		else
-			entity = selectedCorrectiveMaintenance;
-
-		// TODO faltan atributos por obtener
-
-		return entity;
-	}
-
 	private EiaPreventiveMaintenancePlanification extractPreventiveMaintenance(
 			EiaMaintenancePlanification planification) {
 
@@ -173,13 +260,24 @@ public class EIAMaintenancePlanificationForm extends
 	}
 
 	private void fill() {
-		statusSelectItem.setValueMap(MaintenancePlanificationStatus.toValueMap(
-				MaintenancePlanificationStatus.ACCOMPLISHED,
-				MaintenancePlanificationStatus.CANCELED,
-				MaintenancePlanificationStatus.DEFERRED,
-				MaintenancePlanificationStatus.EIA_DAMAGE));
+		if (selectedMaintenance.getType() == MaintenancePlanificationType.PREVENTIVE)
+			maintenanceStatusSelectItem
+					.setValueMap(MaintenancePlanificationStatus.toValueMap(
+							MaintenancePlanificationStatus.ACCOMPLISHED,
+							MaintenancePlanificationStatus.CANCELED,
+							MaintenancePlanificationStatus.DEFERRED));
+		else
+			maintenanceStatusSelectItem
+					.setValueMap(MaintenancePlanificationStatus
+							.toValueMap(MaintenancePlanificationStatus.EIA_DAMAGE));
 
 		// TODO cargar otros items si es necesario
+	}
+
+	@Override
+	public void hide() {
+		sectionForm.hide();
+		super.hide();
 	}
 
 	@Override
@@ -191,7 +289,7 @@ public class EIAMaintenancePlanificationForm extends
 
 	@Override
 	public void onResize(ResizeEvent arg0) {
-		form.resize(GHAUiHelper.getNormalFormWidth(30), 4);
+		basicInfoForm.resize(GHAUiHelper.getNormalFormWidth(30), 4);
 	}
 
 	@Override
@@ -256,7 +354,8 @@ public class EIAMaintenancePlanificationForm extends
 	public void set(EiaMaintenancePlanification entity) {
 
 		MaintenancePlanificationStatus status = entity.getStatus();
-		statusSelectItem.setValue(status == null ? null : status.name());
+		maintenanceStatusSelectItem.setValue(status == null ? null : status
+				.name());
 
 		Role role = entity.getRole();
 		roleSelectItem.setValue(role == null ? null : role.getId());
@@ -265,11 +364,17 @@ public class EIAMaintenancePlanificationForm extends
 		providerSelectItem.setValue(provider == null ? null : provider.getId());
 	}
 
+	@Override
+	public void show() {
+		sectionForm.show();
+		super.show();
+	}
+
 	private void toggleForm(boolean active) {
 		maintenacePlanSelectItem.setDisabled(!active);
 		providerSelectItem.setDisabled(!active);
 		roleSelectItem.setDisabled(!active);
-		statusSelectItem.setDisabled(!active);
+		maintenanceStatusSelectItem.setDisabled(!active);
 	}
 
 	@Override

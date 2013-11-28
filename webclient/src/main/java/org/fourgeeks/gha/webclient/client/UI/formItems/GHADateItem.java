@@ -84,10 +84,10 @@ public class GHADateItem extends DateItem {
 	/**
 	 * @param title
 	 */
-	public GHADateItem(String title, ChangedHandler changeHandler) {
+	public GHADateItem(String title, ChangedHandler changedHandler) {
 		this();
 		setTitle(title);
-		addChangedHandler(changeHandler);
+		addChangedHandler(changedHandler);
 	}
 
 	public GHADateItem(String title, int width) {

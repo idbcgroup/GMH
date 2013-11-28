@@ -12,7 +12,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
-import org.fourgeeks.gha.domain.enu.MaintenancePlanificationState;
+import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanificationStatus;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanificationType;
 import org.fourgeeks.gha.domain.ess.Role;
@@ -38,10 +38,15 @@ public class EiaMaintenancePlanification extends AbstractEntity {
 	@JoinColumn(name = "roleFk")
 	private Role role;
 
+	private String requestNumber;
+	private String technicianName;
 	private Date scheduledDate;
 	private Date deliverDate;
 	private Date acceptationDate;
-	private MaintenancePlanificationState state;
+	private Date beginningDate;
+	private Date finishDate;
+	private EiaStateEnum initialEiaState;
+	private EiaStateEnum finalEiaState;
 	private MaintenancePlanificationStatus status;
 	private MaintenancePlanificationType type;
 
@@ -117,14 +122,6 @@ public class EiaMaintenancePlanification extends AbstractEntity {
 		this.role = role;
 	}
 
-	public MaintenancePlanificationState getState() {
-		return state;
-	}
-
-	public void setState(MaintenancePlanificationState state) {
-		this.state = state;
-	}
-
 	public MaintenancePlanificationStatus getStatus() {
 		return status;
 	}
@@ -139,5 +136,53 @@ public class EiaMaintenancePlanification extends AbstractEntity {
 
 	public void setType(MaintenancePlanificationType type) {
 		this.type = type;
+	}
+
+	public String getRequestNumber() {
+		return requestNumber;
+	}
+
+	public void setRequestNumber(String requestNumber) {
+		this.requestNumber = requestNumber;
+	}
+
+	public String getTechnicianName() {
+		return technicianName;
+	}
+
+	public void setTechnicianName(String technicianName) {
+		this.technicianName = technicianName;
+	}
+
+	public Date getBeginningDate() {
+		return beginningDate;
+	}
+
+	public void setBeginningDate(Date beginningDate) {
+		this.beginningDate = beginningDate;
+	}
+
+	public Date getFinishDate() {
+		return finishDate;
+	}
+
+	public void setFinishDate(Date finishDate) {
+		this.finishDate = finishDate;
+	}
+
+	public EiaStateEnum getInitialEiaState() {
+		return initialEiaState;
+	}
+
+	public void setInitialEiaState(EiaStateEnum initialEiaState) {
+		this.initialEiaState = initialEiaState;
+	}
+
+	public EiaStateEnum getFinalEiaState() {
+		return finalEiaState;
+	}
+
+	public void setFinalEiaState(EiaStateEnum finalEiaState) {
+		this.finalEiaState = finalEiaState;
 	}
 }

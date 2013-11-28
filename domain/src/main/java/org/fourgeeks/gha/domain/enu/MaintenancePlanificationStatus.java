@@ -3,9 +3,8 @@ package org.fourgeeks.gha.domain.enu;
 import java.util.LinkedHashMap;
 
 public enum MaintenancePlanificationStatus {
-	ASOCIATED("Asociado"), PLANIFICATED("Planificado"), INICIATED("Iniciado"), CANCELED(
-			"Cancelado"), INACTIVE("Inactivo"), ACCOMPLISHED("Realizado"), DEFERRED(
-			"Diferido"), EIA_DAMAGE("Daño Equipo");
+	ACCOMPLISHED("Realizado"), CANCELED("Cancelado"), DEFERRED("Diferido"), EIA_DAMAGE(
+			"Daño Equipo");
 
 	private String name;
 

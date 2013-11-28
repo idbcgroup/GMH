@@ -44,10 +44,10 @@ public class GHATimeItem extends TimeItem {
 	/**
 	 * @param title
 	 */
-	public GHATimeItem(String title, ChangedHandler changeHandler) {
+	public GHATimeItem(String title, ChangedHandler changedHandler) {
 		this();
 		setTitle(title);
-		addChangedHandler(changeHandler);
+		addChangedHandler(changedHandler);
 	}
 
 	public LogicalTime getValueAsLogicalTime() {
