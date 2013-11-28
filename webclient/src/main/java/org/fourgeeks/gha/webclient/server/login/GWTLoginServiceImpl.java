@@ -19,6 +19,7 @@ import org.fourgeeks.gha.ejb.ess.SSOUserServiceRemote;
 import org.fourgeeks.gha.ejb.log.LogonLogServiceRemote;
 import org.fourgeeks.gha.ejb.msg.MessageServiceRemote;
 import org.fourgeeks.gha.webclient.client.login.GWTLoginService;
+import org.jfree.util.Log;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -31,6 +32,7 @@ public class GWTLoginServiceImpl extends RemoteServiceServlet implements
 		GWTLoginService {
 
 	private static final long serialVersionUID = 1L;
+	private Bpu bpu;
 	private final static Logger logger = Logger
 			.getLogger(GWTLoginServiceImpl.class.getName());
 
@@ -53,7 +55,10 @@ public class GWTLoginServiceImpl extends RemoteServiceServlet implements
 	@Override
 	public boolean isLogged() {
 		HttpServletRequest request = getThreadLocalRequest();
-		return !(request.getUserPrincipal() == null);
+		logger.info("isLogged: "
+				+ !(request.getSession().getAttribute("user") == null));
+		// return !(request.getUserPrincipal() == null);
+		return !(request.getSession().getAttribute("user") == null);
 	}
 
 	@Override
@@ -62,14 +67,14 @@ public class GWTLoginServiceImpl extends RemoteServiceServlet implements
 		String ipAdd = request.getRemoteAddr().toString();
 
 		HttpSession session = request.getSession();
-		if (session != null) {
-			try {
-				request.logout();
-			} catch (ServletException e) {
-				e.printStackTrace();
-			}
-			session.invalidate();
-		}
+		// if (session != null) {
+		// try {
+		// request.logout();
+		// } catch (ServletException e) {
+		// e.printStackTrace();
+		// }
+		// session.invalidate();
+		// }
 
 		SSOUser ssoUser = null;
 		try {
@@ -87,10 +92,13 @@ public class GWTLoginServiceImpl extends RemoteServiceServlet implements
 		// }
 
 		try {
+			session.setAttribute("user", user);
 			request.login(user, password);
+
 			logService.log(new LogonLog(ssoUser.getBpu(), new GHAMessage(
 					"LOGIN001", LanguageEnum.ES), ipAdd));
-			Bpu bpu = ssoUser.getBpu();
+			bpu = ssoUser.getBpu();
+			bpu.setSessionId(session.getId());
 			bpu.setPermissions(bpuFunctionService.getFunctionsByBpu(bpu));
 			return bpu;
 		} catch (ServletException e) {
@@ -98,6 +106,7 @@ public class GWTLoginServiceImpl extends RemoteServiceServlet implements
 			logService.log(new LogonLog(ssoUser.getBpu(), ghaMessage, ipAdd));
 			throw new GHAEJBException(ghaMessage);
 		} catch (Exception e) {
+			logger.info("e.toString(): " + e.toString());
 			GHAMessage ghaMessage = messageService.find("LOGIN005");
 			logService.log(new LogonLog(ssoUser.getBpu(), ghaMessage, ipAdd));
 			throw new GHAEJBException(ghaMessage);
@@ -107,10 +116,18 @@ public class GWTLoginServiceImpl extends RemoteServiceServlet implements
 	@Override
 	public void logOut() {
 		HttpServletRequest request = this.perThreadRequest.get();
+		bpu = null;
 		try {
+	        HttpSession session = request.getSession();
+	        session.removeAttribute("user");
 			request.logout();
 		} catch (ServletException e) {
 			logger.info(e.getMessage());
 		}
+	}
+
+	@Override
+	public Bpu userLogged() {
+		return bpu;
 	}
 }
