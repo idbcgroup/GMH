@@ -12,14 +12,14 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHATopForm;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHADoumentTypeSelectItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHAEmailItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHAGenreSelectItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHANameItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHAUserNameItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHAUserStateSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHADoumentTypeSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAGenreSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAUserStateSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHAEmailTextItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHANameTextItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHAUserNameTextItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 
@@ -38,20 +38,20 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 	private GHATextItem usernameItem;
 	private GHADoumentTypeSelectItem idTypeSelectItem;
 	private GHASelectItem stateItem;
-	private GHANameItem firstNameItem, secondNameItem, firstLastNameItem,
+	private GHANameTextItem firstNameItem, secondNameItem, firstLastNameItem,
 			secondLastNameItem;
 	private GHATextItem idItem;
-	private GHAEmailItem emailItem;
+	private GHAEmailTextItem emailItem;
 	private GHASelectItem genderSelectItem;
 	private GHADynamicForm form;
 	{
-		usernameItem = new GHAUserNameItem();
+		usernameItem = new GHAUserNameTextItem();
 		stateItem = new GHAUserStateSelectItem();
-		firstNameItem = new GHANameItem(GHAStrings.get("first-name"));
-		secondNameItem = new GHANameItem("Segundo Nombre");
-		firstLastNameItem = new GHANameItem(GHAStrings.get("first-lastname"));
-		secondLastNameItem = new GHANameItem(GHAStrings.get("second-lastname"));
-		emailItem = new GHAEmailItem(GHAStrings.get("mail"));
+		firstNameItem = new GHANameTextItem(GHAStrings.get("first-name"));
+		secondNameItem = new GHANameTextItem("Segundo Nombre");
+		firstLastNameItem = new GHANameTextItem(GHAStrings.get("first-lastname"));
+		secondLastNameItem = new GHANameTextItem(GHAStrings.get("second-lastname"));
+		emailItem = new GHAEmailTextItem(GHAStrings.get("mail"));
 		idTypeSelectItem = new GHADoumentTypeSelectItem();
 		idItem = new GHATextItem(GHAStrings.get("id-number"));
 		idItem.setLength(20);

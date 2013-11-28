@@ -9,8 +9,12 @@ public class GHARadioGroupItem extends RadioGroupItem {
 
 		setHeight(20);
 		setWidth(200);
+		
 		setShowTitle(false);
 		setVertical(false);
+		
+		// setErrorOrientation(FormErrorOrientation.RIGHT);
+		setShowErrorIcon(false);
 	}
 
 	public GHARadioGroupItem(int width) {

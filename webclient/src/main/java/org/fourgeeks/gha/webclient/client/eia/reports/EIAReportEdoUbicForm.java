@@ -14,7 +14,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHASessionData;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHARadioGroupItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHATitleTextItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHATitletextItem;
 
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.form.DynamicForm;
@@ -22,7 +22,7 @@ import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 
 public class EIAReportEdoUbicForm extends GHAReportForm {
-	private GHATitleTextItem filtersTitleItem, agrupTypeTitleItem;
+	private GHATitletextItem filtersTitleItem, agrupTypeTitleItem;
 	private GHARadioGroupItem filterTypeRadioGroupItem;
 	private GHASelectItem estadoSelectItem, facilitySelectItem, workingAreaSelectItem,
 			agrupTypeSelectItem;
@@ -33,9 +33,9 @@ public class EIAReportEdoUbicForm extends GHAReportForm {
 		form.setNumCols(1);
 
 		// CREANDO LOS ITEMS
-		filtersTitleItem = new GHATitleTextItem("Filtros");
+		filtersTitleItem = new GHATitletextItem("Filtros");
 
-		agrupTypeTitleItem = new GHATitleTextItem("Agrupación");
+		agrupTypeTitleItem = new GHATitletextItem("Agrupación");
 
 		filterTypeRadioGroupItem = new GHARadioGroupItem(350, false);
 

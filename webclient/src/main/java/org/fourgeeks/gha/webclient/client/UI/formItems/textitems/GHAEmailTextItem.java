@@ -1,6 +1,7 @@
-package org.fourgeeks.gha.webclient.client.UI.formItems;
+package org.fourgeeks.gha.webclient.client.UI.formItems.textitems;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 import com.smartgwt.client.widgets.form.validator.RegExpValidator;
@@ -9,14 +10,14 @@ import com.smartgwt.client.widgets.form.validator.RegExpValidator;
  * @author emiliot
  * 
  */
-public class GHAEmailItem extends GHATextItem {
+public class GHAEmailTextItem extends GHATextItem {
 
 	/**
 	 * Creates a email text item with a regExpValidator for email fields.
 	 * 
 	 * @param width
 	 */
-	public GHAEmailItem(int width) {
+	public GHAEmailTextItem(int width) {
 		super(width);
 		initEmailValidator();
 	}
@@ -27,7 +28,7 @@ public class GHAEmailItem extends GHATextItem {
 	 * @param title
 	 * @param active
 	 */
-	public GHAEmailItem(String title, boolean active) {
+	public GHAEmailTextItem(String title, boolean active) {
 		super(title, active);
 		initEmailValidator();
 	}
@@ -39,7 +40,7 @@ public class GHAEmailItem extends GHATextItem {
 	 * @param width
 	 * @param active
 	 */
-	public GHAEmailItem(String title, int width, boolean active) {
+	public GHAEmailTextItem(String title, int width, boolean active) {
 		super(title, width, active);
 		initEmailValidator();
 	}
@@ -50,7 +51,7 @@ public class GHAEmailItem extends GHATextItem {
 	 * @param title
 	 * @param width
 	 */
-	public GHAEmailItem(String title, int width) {
+	public GHAEmailTextItem(String title, int width) {
 		super(title, width);
 		initEmailValidator();
 	}
@@ -60,7 +61,7 @@ public class GHAEmailItem extends GHATextItem {
 	 * 
 	 * @param title
 	 */
-	public GHAEmailItem(String title) {
+	public GHAEmailTextItem(String title) {
 		super(title);
 		initEmailValidator();
 	}
@@ -70,7 +71,7 @@ public class GHAEmailItem extends GHATextItem {
 	 * 
 	 * @param title
 	 */
-	public GHAEmailItem(String title, ChangedHandler chengedHandler) {
+	public GHAEmailTextItem(String title, ChangedHandler chengedHandler) {
 		super(title);
 		addChangedHandler(chengedHandler);
 		initEmailValidator();
@@ -79,7 +80,7 @@ public class GHAEmailItem extends GHATextItem {
 	/**
 	 * Creates a email text item with a regExpValidator for email fields.
 	 */
-	public GHAEmailItem() {
+	public GHAEmailTextItem() {
 		super();
 		initEmailValidator();
 	}

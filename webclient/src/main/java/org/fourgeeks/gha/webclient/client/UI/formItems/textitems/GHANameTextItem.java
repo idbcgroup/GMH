@@ -1,4 +1,6 @@
-package org.fourgeeks.gha.webclient.client.UI.formItems;
+package org.fourgeeks.gha.webclient.client.UI.formItems.textitems;
+
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 
@@ -6,13 +8,13 @@ import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
  * @author alacret
  * 
  */
-public class GHANameItem extends GHATextItem {
+public class GHANameTextItem extends GHATextItem {
 
 	
 	/**
 	 * @param title
 	 */
-	public GHANameItem(String title) {
+	public GHANameTextItem(String title) {
 		super(title);
 		setLength(20);
 		setMask(">A<AAAAAAAAAAAAAAAAAAA");
@@ -22,7 +24,7 @@ public class GHANameItem extends GHATextItem {
 	 * @param title
 	 * @param width
 	 */
-	public GHANameItem(String title, int width) {
+	public GHANameTextItem(String title, int width) {
 		super(title, width);
 		setLength(20);
 		setMask(">A<AAAAAAAAAAAAAAAAAAA");
@@ -32,7 +34,7 @@ public class GHANameItem extends GHATextItem {
 	 * @param title
 	 * @param width
 	 */
-	public GHANameItem(String title, int width, boolean required) {
+	public GHANameTextItem(String title, int width, boolean required) {
 		this(title, width);
 		setRequired(required);
 	}
@@ -41,12 +43,12 @@ public class GHANameItem extends GHATextItem {
 	 * @param title
 	 * @param width
 	 */
-	public GHANameItem(String title, boolean required) {
+	public GHANameTextItem(String title, boolean required) {
 		this(title);
 		setRequired(required);
 	}
 
-	public GHANameItem(String title, boolean required,
+	public GHANameTextItem(String title, boolean required,
 			ChangedHandler changedHandler) {
 		this(title, required);
 		addChangedHandler(changedHandler);

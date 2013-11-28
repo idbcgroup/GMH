@@ -21,6 +21,7 @@ public class GHASelectItem extends SelectItem {
 		setHeight(20);
 		setWidth("*");
 		setPickerIconHeight(20);
+		
 		setOriginalStyle();
 		setShowFocused(false);
 		setAllowEmptyValue(true);
@@ -56,6 +57,23 @@ public class GHASelectItem extends SelectItem {
 	}
 
 	/**
+	 * @param width
+	 */
+	public GHASelectItem(int width) {
+		this();
+		setShowTitle(false);
+		setWidth(width);
+	}
+
+	/**
+	 * @param title
+	 */
+	public GHASelectItem(String title) {
+		this();
+		setTitle(title);
+	}
+	
+	/**
 	 * @param title
 	 * @param width
 	 */
@@ -71,8 +89,7 @@ public class GHASelectItem extends SelectItem {
 	 */
 	public GHASelectItem(String title, int width, boolean required,
 			ChangedHandler changedHandler) {
-		this(title);
-		setWidth(width);
+		this(title,width);
 		setRequired(required);
 		addChangedHandler(changedHandler);
 	}
@@ -99,24 +116,7 @@ public class GHASelectItem extends SelectItem {
 		setDisabled(!active);
 	}
 
-	/**
-	 * @param width
-	 */
-	public GHASelectItem(int width) {
-		this();
-		setShowTitle(false);
-		setWidth(width);
-	}
-
-	/**
-	 * @param title
-	 */
-	public GHASelectItem(String title) {
-		this();
-		setTitle(title);
-	}
-
-	/**
+		/**
 	 * @param title
 	 * @param enabled
 	 */
