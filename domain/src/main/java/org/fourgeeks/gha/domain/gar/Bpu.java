@@ -68,6 +68,8 @@ public class Bpu extends AbstractEntity {
 	@Transient
 	private List<AppFormViewFunctionBpu> permissions;
 
+	private String sessionId;
+
 	// @ManyToOne
 	// @JoinColumn(name = "jobFk")
 	// private Job job;
@@ -132,5 +134,22 @@ public class Bpu extends AbstractEntity {
 	 */
 	public void setPermissions(List<AppFormViewFunctionBpu> permissions) {
 		this.permissions = permissions;
+	}
+
+	/**
+	 * 
+	 * @return the Id from session
+	 */
+	public String getSessionId() {
+		return sessionId;
+	}
+
+	/**
+	 * 
+	 * @param sessionId
+	 *            the Id from session
+	 */
+	public void setSessionId(String sessionId) {
+		this.sessionId = sessionId;
 	}
 }

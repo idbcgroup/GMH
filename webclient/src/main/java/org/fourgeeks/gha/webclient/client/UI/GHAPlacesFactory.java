@@ -7,6 +7,7 @@ import org.fourgeeks.gha.webclient.client.eia.EIAPlace;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypePlace;
 import org.fourgeeks.gha.webclient.client.home.HomePlace;
 import org.fourgeeks.gha.webclient.client.login.LoginPlace;
+//import org.fourgeeks.gha.webclient.client.login.LoginPlace;
 import org.fourgeeks.gha.webclient.client.login.ForgottenPassword.ForgottenPasswordPlace;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivityPlace;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanPlace;
@@ -15,6 +16,7 @@ import org.fourgeeks.gha.webclient.client.user.UserPlace;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.RunAsyncCallback;
+import com.google.gwt.user.client.Window;
 
 /**
  * @author alacret
