@@ -34,7 +34,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * 
  */
 
-@Stateless(name = "ess.SSOUserService")
+@Stateless
 public class SSOUserService extends GHAEJBExceptionImpl implements
 		SSOUserServiceRemote {
 	@PersistenceContext

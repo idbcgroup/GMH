@@ -2,14 +2,14 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>gha</groupId>
-		<artifactId>gha</artifactId>
-		<version>1</version>
-		<!-- <relativePath>../gha</relativePath> -->
-		<relativePath>../pom.xml</relativePath>
-	</parent>
-
+<!-- 	<parent> -->
+<!-- 		<groupId>gha</groupId> -->
+<!-- 		<artifactId>gha</artifactId> -->
+<!-- 		<version>1</version> -->
+<!-- 		<relativePath>../pom.xml</relativePath> -->
+<!-- 	</parent> -->
+	<groupId>gha</groupId>
+	<version>1</version>
 	<artifactId>webclient</artifactId>
 	<packaging>war</packaging>
 
@@ -19,6 +19,15 @@
 	</properties>
 
 
+	<!-- reporitorio local dentro del proyecto para acceder a los fonts del 
+		los reportes y a librerias dentro de la carpeta lib-->
+	<repositories>
+		<repository>
+			<id>gha-local-repository</id>
+			<name>Repositorio local del sistema GHA</name>
+			<url>file://${basedir}/../lib</url>
+		</repository>
+	</repositories>
 
 	<dependencies>
 		<dependency>
@@ -82,17 +91,6 @@
 			<version>4.1.0.Final</version>
 			<classifier>sources</classifier>
 		</dependency>
-		<!-- <dependency> -->
-		<!-- <groupId>jboss</groupId> -->
-		<!-- <artifactId>jboss-ejb3x</artifactId> -->
-		<!-- <version>4.2.2.GA</version> -->
-		<!-- <scope>provided</scope> -->
-		<!-- </dependency> -->
-		<!-- <dependency> -->
-		<!-- <groupId>org.fourgeeks.buenosaires</groupId> -->
-		<!-- <artifactId>buenosaires-common</artifactId> -->
-		<!-- <version>1.0</version> -->
-		<!-- </dependency> -->
 		<dependency>
 			<groupId>gha</groupId>
 			<artifactId>ejb</artifactId>
@@ -148,37 +146,10 @@
 			<version>4</version>
 			<scope>system</scope>
 			<systemPath>${basedir}/../lib/smartgwt.jar</systemPath>
-			<!-- <systemPath>${basedir}/../lib/smartgwt-3.1.jar</systemPath> -->
 		</dependency>
-
-		<!-- <dependency> -->
-		<!-- <groupId>javax.servlet</groupId> -->
-		<!-- <artifactId>javax.servlet-api</artifactId> -->
-		<!-- <version>3.0.1</version> -->
-		<!-- <scope>provided</scope> -->
-		<!-- </dependency> -->
 	</dependencies>
 
 	<build>
-		<!-- Generate compiled stuff in the folder used for developing mode -->
-		<!-- <outputDirectory>${webappDirectory}/WEB-INF/classes</outputDirectory> -->
-		<!-- <resources> -->
-		<!-- <resource> -->
-		<!-- <directory>${core.source}/src/main/java</directory> -->
-		<!-- </resource> -->
-		<!-- <resource> -->
-		<!-- <directory>${core.source}/src/main/resources</directory> -->
-		<!-- </resource> -->
-		<!-- <resource> -->
-		<!-- <directory>${common.source}/src/main/java</directory> -->
-		<!-- </resource> -->
-		<!-- <resource> -->
-		<!-- <directory>${common.source}/src/main/resources</directory> -->
-		<!-- </resource> -->
-		<!-- <resource> -->
-		<!-- <directory>/home/alacret/workspace/ba/buenosaires-fe/src/main/resources</directory> -->
-		<!-- </resource> -->
-		<!-- </resources> -->
 		<plugins>
 			<!-- GWT Maven Plugin -->
 			<plugin>
@@ -195,33 +166,7 @@
 						</goals>
 					</execution>
 				</executions>
-				<configuration>
-					<!-- <compileSourcesArtifacts> -->
-					<!-- <compileSourcesArtifact>org.fourgeeks.buenosaires:buenosaires-core</compileSourcesArtifact> -->
-					<!-- <compileSourcesArtifact>org.fourgeeks.buenosaires:buenosaires-common</compileSourcesArtifact> -->
-					<!-- </compileSourcesArtifacts> -->
-				</configuration>
 			</plugin>
-			<!-- Copy static web files before executing gwt:run -->
-			<!-- <plugin> -->
-			<!-- <groupId>org.apache.maven.plugins</groupId> -->
-			<!-- <artifactId>maven-war-plugin</artifactId> -->
-			<!-- <version>2.1.1</version> -->
-			<!-- Include GWT compiler output in the war -->
-			<!-- <configuration> -->
-			<!-- <webappDirectory>${webappDirectory}</webappDirectory> -->
-			<!-- <webResources> -->
-			<!-- <resource> -->
-			<!-- This is relative to the pom.xml directory, it's the GWT compiler 
-				output -->
-			<!-- <directory>${webappDirectory}</directory> -->
-			<!-- Override the destination directory (WEB-INF/classes) for this resource -->
-			<!-- <targetPath>${gwt.module.alias}</targetPath> -->
-			<!-- </resource> -->
-			<!-- </webResources> -->
-			<!-- </configuration> -->
-			<!-- </plugin> -->
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -248,8 +193,20 @@
 					</execution>
 				</executions>
 			</plugin>
-
-
+			<plugin>
+				<groupId>org.jboss.as.plugins</groupId>
+				<artifactId>jboss-as-maven-plugin</artifactId>
+				<version>7.4.Final</version>
+				<executions>
+					<execution>
+						<phase>install</phase>
+						<goals>
+<!-- 							<goal>undeploy</goal> -->
+							<goal>deploy</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 

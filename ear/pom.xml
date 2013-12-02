@@ -27,56 +27,6 @@
 				<version>2.4.1</version>
 				<configuration>
 					<defaultLibBundleDir>/lib</defaultLibBundleDir>
-					<modules>
-						<!-- <ejbModule> -->
-						<!-- <groupId>gha</groupId> -->
-						<!-- <artifactId>ejb</artifactId> -->
-						<!-- <bundleFileName>ejb-1.jar</bundleFileName> -->
-						<!-- </ejbModule> -->
-						<!-- <webModule> -->
-						<!-- <groupId>ve.org.petrociencia.ssgti</groupId> -->
-						<!-- <artifactId>ssgti-usuario</artifactId> -->
-						<!-- <contextRoot>/ssgti-usuario</contextRoot> -->
-						<!-- <bundleFileName>ssgti-usuario.war</bundleFileName> -->
-						<!-- </webModule> -->
-						<!-- <webModule> -->
-						<!-- <groupId>ve.org.petrociencia.ssgti</groupId> -->
-						<!-- <artifactId>ssgti-analista</artifactId> -->
-						<!-- <contextRoot>/ssgti-analista</contextRoot> -->
-						<!-- <bundleFileName>ssgti-analista.war</bundleFileName> -->
-						<!-- </webModule> -->
-						<!-- <webModule> -->
-						<!-- <groupId>ve.org.petrociencia.ssgti</groupId> -->
-						<!-- <artifactId>ssgti-admin</artifactId> -->
-						<!-- <contextRoot>/ssgti-admin</contextRoot> -->
-						<!-- <bundleFileName>ssgti-admin.war</bundleFileName> -->
-						<!-- </webModule> -->
-						<!-- <jarModule> -->
-						<!-- <groupId>com.google.gwt</groupId> -->
-						<!-- <artifactId>gwt-servlet</artifactId> -->
-						<!-- <bundleDir>lib</bundleDir> -->
-						<!-- </jarModule> -->
-						<!-- <jarModule> -->
-						<!-- <groupId>ve.org.petrociencia.ssgti</groupId> -->
-						<!-- <artifactId>ssgti-bootstrap</artifactId> -->
-						<!-- <bundleDir>lib</bundleDir> -->
-						<!-- </jarModule> -->
-						<!-- <jarModule> -->
-						<!-- <groupId>org.freemarker</groupId> -->
-						<!-- <artifactId>freemarker</artifactId> -->
-						<!-- <bundleDir>lib</bundleDir> -->
-						<!-- </jarModule> -->
-						<!-- <jarModule> -->
-						<!-- <groupId>commons-io</groupId> -->
-						<!-- <artifactId>commons-io</artifactId> -->
-						<!-- <bundleDir>lib</bundleDir> -->
-						<!-- </jarModule> -->
-						<!-- <jarModule> -->
-						<!-- <groupId>commons-fileupload</groupId> -->
-						<!-- <artifactId>commons-fileupload</artifactId> -->
-						<!-- <bundleDir>lib</bundleDir> -->
-						<!-- </jarModule> -->
-					</modules>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -103,12 +53,12 @@
 			<version>1</version>
 			<type>ejb</type>
 		</dependency>
-		<dependency>
-			<groupId>gha</groupId>
-			<artifactId>webclient</artifactId>
-			<version>1</version>
-			<type>war</type>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>gha</groupId> -->
+<!-- 			<artifactId>webclient</artifactId> -->
+<!-- 			<version>1</version> -->
+<!-- 			<type>war</type> -->
+<!-- 		</dependency> -->
 		<dependency>
 			<groupId>gha</groupId>
 			<artifactId>domain</artifactId>

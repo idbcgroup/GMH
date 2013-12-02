@@ -6,7 +6,6 @@ import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 
 import org.fourgeeks.gha.domain.ess.Role;
-import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.ejb.ess.RoleServiceRemote;
 import org.fourgeeks.gha.webclient.client.rolebase.GWTRoleService;
 
@@ -25,16 +24,16 @@ public class GWTRoleServiceImpl extends RemoteServiceServlet implements
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@EJB(name = "ess.RoleService")
+	@EJB
 	RoleServiceRemote service;
 
 	@Override
-	public List<Role> getAll() throws GHAEJBException {
+	public List<Role> getAll() {
 		return service.getAll();
 	}
 
 	@Override
-	public List<Role> getAll(int offset, int size) throws GHAEJBException {
+	public List<Role> getAll(int offset, int size) {
 		return service.getAll();
 	}
 }

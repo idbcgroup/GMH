@@ -21,7 +21,7 @@ public interface GWTRoleService extends RemoteService {
 	 * @return a List with all the Roles
 	 * @throws GHAEJBException
 	 */
-	public List<Role> getAll() throws GHAEJBException;
+	public List<Role> getAll();
 
 	/**
 	 * @param offset
@@ -29,5 +29,5 @@ public interface GWTRoleService extends RemoteService {
 	 * @return a List with size Roles starting from offset
 	 * @throws GHAEJBException
 	 */
-	public List<Role> getAll(int offset, int size) throws GHAEJBException;
+	public List<Role> getAll(int offset, int size);
 }

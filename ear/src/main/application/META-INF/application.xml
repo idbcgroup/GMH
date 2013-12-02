@@ -7,10 +7,10 @@
   <module>
     <ejb>ejb-1.jar</ejb>
   </module>
-  <module>
-    <web>
-      <web-uri>webclient-1.war</web-uri>
-      <context-root>/gha</context-root>
-    </web>
-  </module>
+<!--   <module> -->
+<!--     <web> -->
+<!--       <web-uri>webclient-1.war</web-uri> -->
+<!--       <context-root>/gha</context-root> -->
+<!--     </web> -->
+<!--   </module> -->
 </application>

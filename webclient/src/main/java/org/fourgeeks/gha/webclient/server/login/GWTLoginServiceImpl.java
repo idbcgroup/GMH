@@ -37,7 +37,8 @@ public class GWTLoginServiceImpl extends RemoteServiceServlet implements
 	@EJB(name = "log.LogonLogService")
 	LogonLogServiceRemote logService;
 
-	@EJB(name = "ess.SSOUserService")
+	@EJB
+	/* (name = "ess.SSOUserService") */
 	SSOUserServiceRemote ssoUserService;
 
 	@EJB(name = "ess.AppFormViewFunctionBpuService")
