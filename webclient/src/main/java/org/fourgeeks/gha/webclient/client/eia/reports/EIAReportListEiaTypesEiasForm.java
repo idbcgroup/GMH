@@ -16,7 +16,7 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHACheckboxItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHARadioGroupItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHATitleTextItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHATitletextItem;
 
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.form.DynamicForm;
@@ -27,7 +27,7 @@ public class EIAReportListEiaTypesEiasForm extends GHAReportForm {
 	private static final String VAL_SOME_EIATYPES = "someEiaTypes";
 	private static final String VAL_ALL_EIATYPES = "allEiaTypes";
 
-	private GHATitleTextItem filtersTitleItem;
+	private GHATitletextItem filtersTitleItem;
 	private GHARadioGroupItem filtersRadioGroupItem;
 	private GHACheckboxItem showEiasCheckboxItem;
 	private GHASelectItem eiaTypesSelectItem, facilsSelectItem, workAreasSelectItem,
@@ -43,7 +43,7 @@ public class EIAReportListEiaTypesEiasForm extends GHAReportForm {
 		form.setNumCols(2);
 
 		// CREANDO LOS ITEMS
-		filtersTitleItem = new GHATitleTextItem("Filtros");
+		filtersTitleItem = new GHATitletextItem("Filtros");
 
 		filtersRadioGroupItem = new GHARadioGroupItem(350, false);
 

@@ -15,11 +15,11 @@ import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.GHAUtil;
 import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHABrandSelectItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHAEiaTypeSubTypeSelectItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHAEiaTypeTypeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHABrandSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAEiaTypeSubTypeSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAEiaTypeTypeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACancelButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
@@ -95,6 +95,7 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 			@Override
 			public void onClick(ClickEvent event) {
 				hide();
+				clean();
 			}
 		}));
 

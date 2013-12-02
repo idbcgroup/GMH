@@ -23,11 +23,11 @@ public class GHADateItem extends DateItem {
 		super();
 		setHeight(20);
 		setWidth("*");
+		
 		setUseTextField(true);
 		setTextAlign(Alignment.LEFT);
-		setTextBoxStyle("dateItem");
-		setCellStyle("gha-form-cell");
-		setTitleStyle("input-title");
+		setOriginalStyle();
+
 		setDisplayFormat(DateDisplayFormat.TOEUROPEANSHORTDATE);
 		setHoverWidth(100);
 		
@@ -40,6 +40,15 @@ public class GHADateItem extends DateItem {
 //				validate();
 //			}
 //		});
+	}
+	
+	/**
+	 * 
+	 */
+	private void setOriginalStyle() {
+		setTextBoxStyle("dateItem");
+		setCellStyle("gha-form-cell");
+		setTitleStyle("input-title");
 	}
 
 	protected static CustomValidator getStandardValidator() {

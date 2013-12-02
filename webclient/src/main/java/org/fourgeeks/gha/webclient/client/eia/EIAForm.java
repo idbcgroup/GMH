@@ -27,11 +27,11 @@ import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHADateItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHAPeriodOfTimeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHATitleTextItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHATitletextItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAPeriodOfTimeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
@@ -70,7 +70,7 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 			// maintenanceLocationSelectItem,
 			maintenanceProviderSelectItem, eiaTypeSelectItem,
 			installationProviderSelectItem;
-	private GHATitleTextItem information_TitleItem, adquisition_TitleItem,
+	private GHATitletextItem information_TitleItem, adquisition_TitleItem,
 			location_TitleItem, workingArea_TitleItem, facility_TitleItem,
 			adqCost_TitleItem, actualCost_TitleItem, depTime_TitleItem,
 			lifeTime_TitleItem, realWarranty_TitleItem,
@@ -99,7 +99,7 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		// Information Form Items
 		eiaTypeSelectItem = new GHASelectItem(GHAStrings.get("type"), true,
 				changedHandler);
-		information_TitleItem = new GHATitleTextItem(
+		information_TitleItem = new GHATitletextItem(
 				GHAStrings.get("information"), 3);
 		codeTextItem = new GHATextItem(GHAStrings.get("code"), false,
 				changedHandler);
@@ -124,7 +124,7 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 				changedHandler);
 		stateSelectItem.setDefaultValue(EiaStateEnum.CREATED.name());
 		stateSelectItem.setAllowEmptyValue(false);
-		providers_TitleItem = new GHATitleTextItem(GHAStrings.get("providers"),
+		providers_TitleItem = new GHATitletextItem(GHAStrings.get("providers"),
 				3);
 		adqisitionProviderSelectItem = new GHASelectItem(
 				GHAStrings.get("adquisition-provider"), true, changedHandler);
@@ -133,7 +133,7 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 
 		// Adquisicion & Garantias Form Items
 		// Adquisicion
-		adquisition_TitleItem = new GHATitleTextItem("Adquisición:", 4);
+		adquisition_TitleItem = new GHATitletextItem("Adquisición:", 4);
 		purchaseDateItem = new GHADateItem("Fecha de Compra", true);
 		purchaseDateItem.addChangedHandler(changedHandler);
 		purchaseOrderNumTextItem = new GHATextItem("No. Orden Compra", false,
@@ -162,8 +162,8 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 				"Proveedor de Inst.", false, changedHandler);
 
 		// Garantia
-		realWarranty_TitleItem = new GHATitleTextItem("Garantía Real:", 4);
-		intermedWarranty_TitleItem = new GHATitleTextItem(
+		realWarranty_TitleItem = new GHATitletextItem("Garantía Real:", 4);
+		intermedWarranty_TitleItem = new GHATitletextItem(
 				GHAStrings.get("intermediate-warranty"), 4);
 		realWarrantySinceSelectItem = new GHASelectItem("Desde", false,
 				changedHandler);
@@ -188,12 +188,12 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		intWarrantyBeginDate.addChangedHandler(changedHandler);
 
 		// Ubicacion Form Items
-		location_TitleItem = new GHATitleTextItem("Ubicación:", 3);
+		location_TitleItem = new GHATitletextItem("Ubicación:", 3);
 		locationTypeSelectItem = new GHASelectItem("Tipo de Ubicación", false,
 				changedHandler);
 
-		workingArea_TitleItem = new GHATitleTextItem("Área de Trabajo:", 3);
-		facility_TitleItem = new GHATitleTextItem("Servicio/Instalación:", 3);
+		workingArea_TitleItem = new GHATitletextItem("Área de Trabajo:", 3);
+		facility_TitleItem = new GHATitletextItem("Servicio/Instalación:", 3);
 		workingAreaLocationCodeTextItem = new GHATextItem("Código", false);
 		workingAreaLocationSelectItem = new GHASelectItem("Nombre", false,
 				changedHandler);
@@ -205,10 +205,10 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		facilityLocationSelectItem.setDisabled(true);
 
 		// Costos Form Items
-		adqCost_TitleItem = new GHATitleTextItem("Costo Adquisición:", 4);
-		actualCost_TitleItem = new GHATitleTextItem("Costo Actual:", 4);
-		depTime_TitleItem = new GHATitleTextItem("Tiempo de Depreciación:");
-		lifeTime_TitleItem = new GHATitleTextItem("Tiempo de Vida:");
+		adqCost_TitleItem = new GHATitletextItem("Costo Adquisición:", 4);
+		actualCost_TitleItem = new GHATitletextItem("Costo Actual:", 4);
+		depTime_TitleItem = new GHATitletextItem("Tiempo de Depreciación:");
+		lifeTime_TitleItem = new GHATitletextItem("Tiempo de Vida:");
 		adquisitionCostTextItem = new GHATextItem("Costo de Adq. del equipo",
 				false, changedHandler);
 		adquisitionCostTextItem.setLength(16);

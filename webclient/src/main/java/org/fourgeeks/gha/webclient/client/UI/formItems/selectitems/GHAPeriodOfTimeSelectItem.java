@@ -1,9 +1,10 @@
-package org.fourgeeks.gha.webclient.client.UI.formItems;
+package org.fourgeeks.gha.webclient.client.UI.formItems.selectitems;
 
 import java.util.LinkedHashMap;
 
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 
@@ -19,7 +20,7 @@ public class GHAPeriodOfTimeSelectItem extends GHASelectItem {
 	public GHAPeriodOfTimeSelectItem() {
 		super(GHAStrings.get("period-of-time"));
 		setValueMap(getValueMap());
-		setDefaultValue(TimePeriodEnum.HOURS.name());
+		setDefaultValue(TimePeriodEnum.YEARS.name());
 	}
 
 	/**
@@ -37,6 +38,15 @@ public class GHAPeriodOfTimeSelectItem extends GHASelectItem {
 		this();
 		setRequired(required);
 	}
+	
+	/**
+	 * @param width
+	 * @param required
+	 */
+	public GHAPeriodOfTimeSelectItem(int width, boolean required) {
+		this(width);
+		setRequired(required);
+	}
 
 	/**
 	 * @param title
@@ -45,8 +55,7 @@ public class GHAPeriodOfTimeSelectItem extends GHASelectItem {
 	 */
 	public GHAPeriodOfTimeSelectItem(boolean required,
 			ChangedHandler changedHandler) {
-		this();
-		setRequired(required);
+		this(required);
 		addChangedHandler(changedHandler);
 	}
 	
@@ -57,8 +66,7 @@ public class GHAPeriodOfTimeSelectItem extends GHASelectItem {
 	 * @param changedHandler
 	 */
 	public GHAPeriodOfTimeSelectItem(int width, boolean required,ChangedHandler changedHandler) {
-		this(width);
-		setRequired(required);
+		this(width,required);
 		addChangedHandler(changedHandler);
 	}
 	

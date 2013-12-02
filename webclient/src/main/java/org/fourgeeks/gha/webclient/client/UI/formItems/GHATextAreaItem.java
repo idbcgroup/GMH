@@ -17,13 +17,21 @@ public class GHATextAreaItem extends TextAreaItem {
 	public GHATextAreaItem() {
 		super();
 		setHeight(GHAUiHelper.DEFAULT_TEXT_AREA_ITEM_HEIGHT);
-		setTextBoxStyle("input");
-		setCellStyle("gha-form-cell");
 		setWidth("*");
-		setTitleStyle("input-title");
+
+		setOriginalStyle();
 		setLength(255);
 	}
 
+	/**
+	 * 
+	 */
+	private void setOriginalStyle() {
+		setTextBoxStyle("input");
+		setCellStyle("gha-form-cell");
+		setTitleStyle("input-title");
+	}
+	
 	/**
 	 * @param name
 	 * @param width

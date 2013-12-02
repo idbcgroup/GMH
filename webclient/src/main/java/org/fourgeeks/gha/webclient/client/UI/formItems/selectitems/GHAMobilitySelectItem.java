@@ -1,8 +1,9 @@
-package org.fourgeeks.gha.webclient.client.UI.formItems;
+package org.fourgeeks.gha.webclient.client.UI.formItems.selectitems;
 
 import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 
 /**
  * @author alacret A select item with the mobility items

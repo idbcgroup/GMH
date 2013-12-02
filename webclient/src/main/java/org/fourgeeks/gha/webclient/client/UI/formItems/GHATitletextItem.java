@@ -8,12 +8,12 @@ import com.smartgwt.client.widgets.form.fields.StaticTextItem;
  * @author alacret
  * 
  */
-public class GHATitleTextItem extends StaticTextItem {
+public class GHATitletextItem extends StaticTextItem {
 
 	/**
 	 * 
 	 */
-	public GHATitleTextItem() {
+	public GHATitletextItem() {
 		super();
 		setAlign(Alignment.LEFT);
 		setVAlign(VerticalAlignment.BOTTOM);
@@ -27,7 +27,7 @@ public class GHATitleTextItem extends StaticTextItem {
 	/**
 	 * @param title
 	 */
-	public GHATitleTextItem(String title) {
+	public GHATitletextItem(String title) {
 		this();
 		setDefaultValue(title);
 	}
@@ -36,7 +36,7 @@ public class GHATitleTextItem extends StaticTextItem {
 	 * @param title
 	 * @param colSpan
 	 */
-	public GHATitleTextItem(String title, int colSpan) {
+	public GHATitletextItem(String title, int colSpan) {
 		this();
 		setDefaultValue(title);
 		setColSpan(colSpan);
