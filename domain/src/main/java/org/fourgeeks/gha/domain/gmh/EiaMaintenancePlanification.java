@@ -15,6 +15,7 @@ import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanificationStatus;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanificationType;
+import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.ess.Role;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
 
@@ -45,6 +46,8 @@ public class EiaMaintenancePlanification extends AbstractEntity {
 	private Date acceptationDate;
 	private Date beginningDate;
 	private Date finishDate;
+	private int effectiveTime;
+	private TimePeriodEnum effectivePoT;
 	private EiaStateEnum initialEiaState;
 	private EiaStateEnum finalEiaState;
 	private MaintenancePlanificationStatus status;
@@ -53,35 +56,15 @@ public class EiaMaintenancePlanification extends AbstractEntity {
 	public EiaMaintenancePlanification() {
 	}
 
-	public Eia getEia() {
-		return eia;
-	}
-
-	public Date getScheduledDate() {
-		return scheduledDate;
-	}
-
-	public void setEia(Eia eia) {
-		this.eia = eia;
-	}
-
-	public void setScheduledDate(Date scheduledDate) {
-		this.scheduledDate = scheduledDate;
-	}
-
 	/**
-	 * @return the provider
+	 * @return the acceptationDate
 	 */
-	public ExternalProvider getProvider() {
-		return provider;
+	public Date getAcceptationDate() {
+		return acceptationDate;
 	}
 
-	/**
-	 * @param provider
-	 *            the provider to set
-	 */
-	public void setProvider(ExternalProvider provider) {
-		this.provider = provider;
+	public Date getBeginningDate() {
+		return beginningDate;
 	}
 
 	/**
@@ -91,19 +74,59 @@ public class EiaMaintenancePlanification extends AbstractEntity {
 		return deliverDate;
 	}
 
-	/**
-	 * @param deliverDate
-	 *            the deliverDate to set
-	 */
-	public void setDeliverDate(Date deliverDate) {
-		this.deliverDate = deliverDate;
+	public TimePeriodEnum getEffectivePoT() {
+		return effectivePoT;
+	}
+
+	public int getEffectiveTime() {
+		return effectiveTime;
+	}
+
+	public Eia getEia() {
+		return eia;
+	}
+
+	public EiaStateEnum getFinalEiaState() {
+		return finalEiaState;
+	}
+
+	public Date getFinishDate() {
+		return finishDate;
+	}
+
+	public EiaStateEnum getInitialEiaState() {
+		return initialEiaState;
 	}
 
 	/**
-	 * @return the acceptationDate
+	 * @return the provider
 	 */
-	public Date getAcceptationDate() {
-		return acceptationDate;
+	public ExternalProvider getProvider() {
+		return provider;
+	}
+
+	public String getRequestNumber() {
+		return requestNumber;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public Date getScheduledDate() {
+		return scheduledDate;
+	}
+
+	public MaintenancePlanificationStatus getStatus() {
+		return status;
+	}
+
+	public String getTechnicianName() {
+		return technicianName;
+	}
+
+	public MaintenancePlanificationType getType() {
+		return type;
 	}
 
 	/**
@@ -114,75 +137,71 @@ public class EiaMaintenancePlanification extends AbstractEntity {
 		this.acceptationDate = acceptationDate;
 	}
 
-	public Role getRole() {
-		return role;
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
-	}
-
-	public MaintenancePlanificationStatus getStatus() {
-		return status;
-	}
-
-	public void setStatus(MaintenancePlanificationStatus status) {
-		this.status = status;
-	}
-
-	public MaintenancePlanificationType getType() {
-		return type;
-	}
-
-	public void setType(MaintenancePlanificationType type) {
-		this.type = type;
-	}
-
-	public String getRequestNumber() {
-		return requestNumber;
-	}
-
-	public void setRequestNumber(String requestNumber) {
-		this.requestNumber = requestNumber;
-	}
-
-	public String getTechnicianName() {
-		return technicianName;
-	}
-
-	public void setTechnicianName(String technicianName) {
-		this.technicianName = technicianName;
-	}
-
-	public Date getBeginningDate() {
-		return beginningDate;
-	}
-
 	public void setBeginningDate(Date beginningDate) {
 		this.beginningDate = beginningDate;
 	}
 
-	public Date getFinishDate() {
-		return finishDate;
+	/**
+	 * @param deliverDate
+	 *            the deliverDate to set
+	 */
+	public void setDeliverDate(Date deliverDate) {
+		this.deliverDate = deliverDate;
+	}
+
+	public void setEffectivePoT(TimePeriodEnum effectivePoT) {
+		this.effectivePoT = effectivePoT;
+	}
+
+	public void setEffectiveTime(int effectiveTime) {
+		this.effectiveTime = effectiveTime;
+	}
+
+	public void setEia(Eia eia) {
+		this.eia = eia;
+	}
+
+	public void setFinalEiaState(EiaStateEnum finalEiaState) {
+		this.finalEiaState = finalEiaState;
 	}
 
 	public void setFinishDate(Date finishDate) {
 		this.finishDate = finishDate;
 	}
 
-	public EiaStateEnum getInitialEiaState() {
-		return initialEiaState;
-	}
-
 	public void setInitialEiaState(EiaStateEnum initialEiaState) {
 		this.initialEiaState = initialEiaState;
 	}
 
-	public EiaStateEnum getFinalEiaState() {
-		return finalEiaState;
+	/**
+	 * @param provider
+	 *            the provider to set
+	 */
+	public void setProvider(ExternalProvider provider) {
+		this.provider = provider;
 	}
 
-	public void setFinalEiaState(EiaStateEnum finalEiaState) {
-		this.finalEiaState = finalEiaState;
+	public void setRequestNumber(String requestNumber) {
+		this.requestNumber = requestNumber;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+	public void setScheduledDate(Date scheduledDate) {
+		this.scheduledDate = scheduledDate;
+	}
+
+	public void setStatus(MaintenancePlanificationStatus status) {
+		this.status = status;
+	}
+
+	public void setTechnicianName(String technicianName) {
+		this.technicianName = technicianName;
+	}
+
+	public void setType(MaintenancePlanificationType type) {
+		this.type = type;
 	}
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanificationStatus;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanificationType;
 import org.fourgeeks.gha.domain.ess.Role;
@@ -386,6 +387,26 @@ public class EIAMaintenancePlanificationForm extends
 
 	@Override
 	public void set(EiaMaintenancePlanification entity) {
+		idNumberTextItem.setValue(entity.getId());
+		requestNumberTextItem.setValue(entity.getRequestNumber());
+		technicianNameTextItem.setValue(entity.getTechnicianName());
+		beginningDateItem.setValue(entity.getBeginningDate());
+		beginningTimeItem.setValue(entity.getBeginningDate());
+		finishDateItem.setValue(entity.getFinishDate());
+		finishTimeItem.setValue(entity.getFinishDate());
+		deliverDateItem.setValue(entity.getDeliverDate());
+		acceptationDateItem.setValue(entity.getAcceptationDate());
+		effectiveTimeTextItem.setValue(entity.getEffectiveTime());
+		effectivePoTSelectItem.setValue(entity.getEffectivePoT().name());
+
+		EiaStateEnum initialEiaState = entity.getInitialEiaState();
+		initialEiaStateSelectItem.setValue(initialEiaState == null ? null
+				: initialEiaState.name());
+
+		EiaStateEnum finalEiaState = entity.getFinalEiaState();
+		finalEiaStateSelectItem.setValue(finalEiaState == null ? null
+				: finalEiaState.name());
+
 		maintenanceStatusSelectItem.setValue(entity.getStatus() == null ? null
 				: entity.getStatus().name());
 
@@ -397,12 +418,19 @@ public class EIAMaintenancePlanificationForm extends
 	}
 
 	private void set(EiaCorrectiveMaintenancePlanification entity) {
-		// TODO faltan campos por llenar
+		estimatedMaintenanceTimeTextItem.setValue(entity
+				.getEstimatedMaintenance());
+		estimatedMaintenancePoTSelectedItem.setValue(entity
+				.getEstimatedMaintenancePoT().name());
+		failureDescriptionTextAreaItem.setValue(entity.getDescription());
 	}
 
 	private void set(EiaPreventiveMaintenancePlanification entity) {
+		EiaTypeMaintenancePlan plan = entity.getPlan();
+
 		maintenacePlanSelectItem.setValue(entity.getId());
-		// TODO faltan campos por llenar
+		durationPlanTextItem.setValue(plan.getMaintenancePlan().getFrequency());
+		durationPlanPoTSelectItem.setValue(plan.getMaintenancePlan().getPot());
 	}
 
 	@Override
