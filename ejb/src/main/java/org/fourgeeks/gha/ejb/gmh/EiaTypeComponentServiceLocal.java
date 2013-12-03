@@ -12,10 +12,9 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeComponent;
 
 /**
- * @author emiliot
+ * @author alacret
  * 
  */
-
 @Local
 public interface EiaTypeComponentServiceLocal {
 
