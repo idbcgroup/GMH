@@ -21,9 +21,10 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeComponentReportEntity;
 import org.fourgeeks.gha.domain.gmh.EiaTypeCompsEiasReportEntity;
 
-@Stateless(name = "gmh.EiaReportsService")
+@Stateless
 public class EiaReportsService implements EiaReportsServiceRemote {
-	private final static Logger logger = Logger.getLogger(EiaReportsService.class.getName());
+	private final static Logger logger = Logger
+			.getLogger(EiaReportsService.class.getName());
 
 	@PersistenceContext
 	EntityManager em;
@@ -43,7 +44,8 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 	 * @return String de la consulta con el parametro deseado en la clausula
 	 *         where
 	 */
-	private String buildWhere(String query, Object elem, String campo, String op, String param) {
+	private String buildWhere(String query, Object elem, String campo,
+			String op, String param) {
 
 		if (elem != null) {
 			query += query.isEmpty() ? " where " : " and ";
@@ -61,8 +63,9 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 	 * boolean)
 	 */
 	@Override
-	public List<Eia> findAllEias(List<Long> facilityIds, List<Long> workAreaIds,
-			EiaStateEnum eiaState, EiaReportOrderByEnum orderBy) throws GHAEJBException {
+	public List<Eia> findAllEias(List<Long> facilityIds,
+			List<Long> workAreaIds, EiaStateEnum eiaState,
+			EiaReportOrderByEnum orderBy) throws GHAEJBException {
 
 		// CONSTRUYENDO QUERY
 		String queryStr = "select eia from Eia eia join eia.eiaType as eiatype "
@@ -70,8 +73,10 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 				+ " left join eia.facility as facility ";
 
 		String whereStr = "";
-		whereStr = buildWhere(whereStr, facilityIds, "facility.id", "in", ":facilityIds");
-		whereStr = buildWhere(whereStr, workAreaIds, "workingarea.id", "in", ":workAreaIds");
+		whereStr = buildWhere(whereStr, facilityIds, "facility.id", "in",
+				":facilityIds");
+		whereStr = buildWhere(whereStr, workAreaIds, "workingarea.id", "in",
+				":workAreaIds");
 		whereStr = buildWhere(whereStr, eiaState, "eia.state", "=", ":eiaState");
 
 		queryStr += whereStr;
@@ -116,15 +121,17 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 	 * (java.util.List)
 	 */
 	@Override
-	public List<EiaTypeComponentReportEntity> findComponentsByEiaTypes(List<String> eiaTypeIds,
-			EiaReportOrderByEnum orderBy) throws GHAEJBException {
+	public List<EiaTypeComponentReportEntity> findComponentsByEiaTypes(
+			List<String> eiaTypeIds, EiaReportOrderByEnum orderBy)
+			throws GHAEJBException {
 
 		// CONSTRUYENDO QUERY
 		String queryStr = "select new EiaTypeComponentReportEntity(comp,parent,eiatype) from EiaTypeComponent comp "
 				+ "join comp.eiaType eiatype right join comp.parentEiaType parent";
 
 		String whereStr = "";
-		whereStr = buildWhere(whereStr, eiaTypeIds, "parent.code", "in", ":eiaTypeIds");
+		whereStr = buildWhere(whereStr, eiaTypeIds, "parent.code", "in",
+				":eiaTypeIds");
 
 		queryStr += whereStr;
 
@@ -135,8 +142,8 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 
 		// EJECUTANDO QUERY
 		try {
-			TypedQuery<EiaTypeComponentReportEntity> query = em.createQuery(queryStr,
-					EiaTypeComponentReportEntity.class);
+			TypedQuery<EiaTypeComponentReportEntity> query = em.createQuery(
+					queryStr, EiaTypeComponentReportEntity.class);
 			if (eiaTypeIds != null)
 				query.setParameter("eiaTypeIds", eiaTypeIds);
 
@@ -145,9 +152,11 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 		} catch (NoResultException ex) {
 			logger.log(Level.INFO, "No results", ex);
 		} catch (Exception ex) {
-			logger.log(Level.INFO, "Error en metodo EJB findComponentsByEiaTypes", ex);
-			throw new GHAEJBException("Error en metodo EJB findComponentsByEiaTypes: "
-					+ ex.getCause().getMessage());
+			logger.log(Level.INFO,
+					"Error en metodo EJB findComponentsByEiaTypes", ex);
+			throw new GHAEJBException(
+					"Error en metodo EJB findComponentsByEiaTypes: "
+							+ ex.getCause().getMessage());
 		}
 
 		return null;
@@ -195,7 +204,8 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 			logger.log(Level.INFO, "No results", ex);
 		} catch (Exception ex) {
 			logger.log(Level.INFO, "Error en metodo EJB findEias", ex);
-			throw new GHAEJBException("Error en metodo EJB findEias: " + ex.getCause().getMessage());
+			throw new GHAEJBException("Error en metodo EJB findEias: "
+					+ ex.getCause().getMessage());
 		}
 
 		return null;
@@ -211,8 +221,9 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 	 * org.fourgeeks.gha.domain.enu.EiaReportOrderByEnum)
 	 */
 	@Override
-	public List<Eia> findEiasByEiaType(String eiaTypeCode, List<Long> facilityIds,
-			List<Long> workAreaIds, EiaStateEnum eiaState, EiaReportOrderByEnum orderBy)
+	public List<Eia> findEiasByEiaType(String eiaTypeCode,
+			List<Long> facilityIds, List<Long> workAreaIds,
+			EiaStateEnum eiaState, EiaReportOrderByEnum orderBy)
 			throws GHAEJBException {
 
 		// CONSTRUYENDO QUERY
@@ -221,9 +232,12 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 				+ " left join eia.facility as facility ";
 
 		String whereStr = "";
-		whereStr = buildWhere(whereStr, eiaTypeCode, "eiatype.code", "=", ":eiaTypeCode");
-		whereStr = buildWhere(whereStr, facilityIds, "facility.id", "in", ":facilityIds");
-		whereStr = buildWhere(whereStr, workAreaIds, "workingarea.id", "in", ":workAreaIds");
+		whereStr = buildWhere(whereStr, eiaTypeCode, "eiatype.code", "=",
+				":eiaTypeCode");
+		whereStr = buildWhere(whereStr, facilityIds, "facility.id", "in",
+				":facilityIds");
+		whereStr = buildWhere(whereStr, workAreaIds, "workingarea.id", "in",
+				":workAreaIds");
 		whereStr = buildWhere(whereStr, eiaState, "eia.state", "=", ":eiaState");
 
 		queryStr += whereStr;
@@ -272,8 +286,9 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 	 * org.fourgeeks.gha.domain.enu.EiaReportOrderByEnum)
 	 */
 	@Override
-	public List<EiaTypeCompsEiasReportEntity> findEiasByEiaTypeComponents(List<String> eiaTypeIds,
-			Long componentId, EiaReportOrderByEnum orderBy) throws GHAEJBException {
+	public List<EiaTypeCompsEiasReportEntity> findEiasByEiaTypeComponents(
+			List<String> eiaTypeIds, Long componentId,
+			EiaReportOrderByEnum orderBy) throws GHAEJBException {
 		// CONSTRUYENDO QUERY
 		String queryStr = "SELECT eia.code, eia.serialnumber, eia.state, facility.name as facilidad, "
 				+ " workingarea.name as areaTrabajo, eiaTypeComp.name as nombreComponente, eiaTypeParent.name as nombreEiaType "
@@ -285,7 +300,8 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 				+ "  LEFT JOIN workingarea on eia.workingareafk = workingarea.id ";
 
 		String whereStr = "";
-		whereStr = buildWhere(whereStr, eiaTypeIds, "eiaTypeParent.code", "in", "?1");
+		whereStr = buildWhere(whereStr, eiaTypeIds, "eiaTypeParent.code", "in",
+				"?1");
 		whereStr = buildWhere(whereStr, componentId, "comp.id", "=", "?1");
 
 		queryStr += whereStr;
@@ -314,14 +330,17 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 		} catch (NoResultException ex) {
 			logger.log(Level.INFO, "No results", ex);
 		} catch (Exception ex) {
-			logger.log(Level.INFO, "Error en metodo EJB findEiasByEiaTypeComponents", ex);
-			throw new GHAEJBException("Error en metodo EJB findEiasByEiaTypeComponents: "
-					+ ex.getCause().getMessage());
+			logger.log(Level.INFO,
+					"Error en metodo EJB findEiasByEiaTypeComponents", ex);
+			throw new GHAEJBException(
+					"Error en metodo EJB findEiasByEiaTypeComponents: "
+							+ ex.getCause().getMessage());
 		}
 		return null;
 	}
 
-	private List<EiaTypeCompsEiasReportEntity> toEiaTypeCompsEiasReportEntityList(List<?> resultList) {
+	private List<EiaTypeCompsEiasReportEntity> toEiaTypeCompsEiasReportEntityList(
+			List<?> resultList) {
 		List<EiaTypeCompsEiasReportEntity> list = new ArrayList<EiaTypeCompsEiasReportEntity>();
 		for (Object registro : resultList) {
 			Object[] vals = (Object[]) registro;
@@ -350,8 +369,8 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 	 */
 	@Override
 	public List<EiaReportEntity> findEiasByEiaTypes(List<String> eiaTypeIds,
-			List<Long> facilityIds, List<Long> workAreaIds, EiaStateEnum eiaState)
-			throws GHAEJBException {
+			List<Long> facilityIds, List<Long> workAreaIds,
+			EiaStateEnum eiaState) throws GHAEJBException {
 
 		// CONSTRUYENDO QUERY
 		String queryStr = "select new EiaReportEntity(eia,eiatype) from Eia eia "
@@ -360,9 +379,12 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 				+ " left join eia.facility as facility ";
 
 		String whereStr = "";
-		whereStr = buildWhere(whereStr, eiaTypeIds, "eiatype.code", "in", ":eiaTypeIds");
-		whereStr = buildWhere(whereStr, facilityIds, "facility.id", "in", ":facilityIds");
-		whereStr = buildWhere(whereStr, workAreaIds, "workingarea.id", "in", ":workAreaIds");
+		whereStr = buildWhere(whereStr, eiaTypeIds, "eiatype.code", "in",
+				":eiaTypeIds");
+		whereStr = buildWhere(whereStr, facilityIds, "facility.id", "in",
+				":facilityIds");
+		whereStr = buildWhere(whereStr, workAreaIds, "workingarea.id", "in",
+				":workAreaIds");
 		whereStr = buildWhere(whereStr, eiaState, "eia.state", "=", ":eiaState");
 
 		queryStr += whereStr;
@@ -373,7 +395,8 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 		// EJECUTANDO QUERY
 		try {
 			// creo el query y le asigno los parametros
-			TypedQuery<EiaReportEntity> query = em.createQuery(queryStr, EiaReportEntity.class);
+			TypedQuery<EiaReportEntity> query = em.createQuery(queryStr,
+					EiaReportEntity.class);
 			if (eiaTypeIds != null)
 				query.setParameter("eiaTypeIds", eiaTypeIds);
 			if (facilityIds != null)
@@ -390,8 +413,9 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 			logger.log(Level.INFO, "No results", ex);
 		} catch (Exception ex) {
 			logger.log(Level.INFO, "Error en metodo EJB findEiasByEiaTypes", ex);
-			throw new GHAEJBException("Error en metodo EJB findEiasByEiaTypes: "
-					+ ex.getCause().getMessage());
+			throw new GHAEJBException(
+					"Error en metodo EJB findEiasByEiaTypes: "
+							+ ex.getCause().getMessage());
 		}
 
 		return null;
@@ -405,11 +429,13 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 	 * .List)
 	 */
 	@Override
-	public List<EiaType> findEiaTypes(List<String> eiaTypeCodes) throws GHAEJBException {
+	public List<EiaType> findEiaTypes(List<String> eiaTypeCodes)
+			throws GHAEJBException {
 		try {
 			if (eiaTypeCodes == null) {
 				String stringQuery = "SELECT e from EiaType e order by e.name";
-				return em.createQuery(stringQuery, EiaType.class).getResultList();
+				return em.createQuery(stringQuery, EiaType.class)
+						.getResultList();
 			} else {
 				String queryString = "SELECT e from EiaType e where e.code in :codeList order by e.name";
 				return em.createQuery(queryString, EiaType.class)
@@ -418,7 +444,8 @@ public class EiaReportsService implements EiaReportsServiceRemote {
 		} catch (NoResultException ex) {
 			logger.log(Level.INFO, "No results", ex);
 		} catch (Exception ex) {
-			logger.log(Level.SEVERE, "Error en metodo EJB findEiasByEiaTypes", ex);
+			logger.log(Level.SEVERE, "Error en metodo EJB findEiasByEiaTypes",
+					ex);
 			throw new GHAEJBException("Error obteniendo todos los eiaTypes:"
 					+ ex.getCause().getMessage());
 		}

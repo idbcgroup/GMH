@@ -31,7 +31,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * 
  */
 
-@Stateless(name = "gmh.maintenancePlanService")
+@Stateless
 public class MaintenancePlanService extends GHAEJBExceptionImpl implements
 		MaintenancePlanServiceRemote {
 	@PersistenceContext
@@ -106,16 +106,21 @@ public class MaintenancePlanService extends GHAEJBExceptionImpl implements
 					RuntimeParameters.getLang(), em);
 		}
 	}
+
 	/*
- 	* (non-Javadoc)
- 	* @see org.fourgeeks.gha.ejb.gmh.MaintenancePlanServiceRemote#delete(java.util.List)
- 	*/
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.MaintenancePlanServiceRemote#delete(java.util
+	 * .List)
+	 */
 	@Override
 	public void delete(List<MaintenancePlan> maintenancePlans)
 			throws GHAEJBException {
 		try {
 			for (MaintenancePlan maintenancePlan : maintenancePlans) {
-				MaintenancePlan entity = em.find(MaintenancePlan.class, maintenancePlan.getId());
+				MaintenancePlan entity = em.find(MaintenancePlan.class,
+						maintenancePlan.getId());
 				em.remove(entity);
 			}
 		} catch (Exception e) {

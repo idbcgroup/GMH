@@ -21,7 +21,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * 
  *         BpuFunction service
  */
-@Stateless(name = "ess.AppFormViewFunctionBpuService")
+@Stateless
 public class AppFormViewFunctionBpuService extends GHAEJBExceptionImpl
 		implements AppFormViewFunctionBpuServiceRemote {
 

@@ -18,7 +18,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * @author alacret, vivi.torresg, emiliot
  * 
  */
-@Stateless(name = "gmh.EiaTypeUtilityService")
+@Stateless
 public class EiaTypeUtilityService extends GHAEJBExceptionImpl implements
 		EiaTypeUtilityServiceRemote {
 

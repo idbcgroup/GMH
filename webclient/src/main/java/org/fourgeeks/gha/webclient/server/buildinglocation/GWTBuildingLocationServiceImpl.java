@@ -23,7 +23,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class GWTBuildingLocationServiceImpl extends RemoteServiceServlet
 		implements GWTBuildingLocationService {
 
-	@EJB(name = "gmh.BuildingLocationService")
+	@EJB(lookup = "java:global/ear-1/ejb-1/BuildingLocationService")
 	BuildingLocationServiceRemote service;
 
 	/**

@@ -121,6 +121,7 @@
 						<clientExclude>**/InitialData.class</clientExclude>
 						<clientExclude>**/*Test.class</clientExclude>
 						<clientExclude>**/TestData.class</clientExclude>
+						<clientExclude>**/DatabaseConstraints.class</clientExclude>
 					</clientExcludes>
 				</configuration>
 			</plugin>

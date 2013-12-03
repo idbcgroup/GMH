@@ -36,11 +36,13 @@ public class ReportEquiposEdoUbicServelt extends ReportEiaServelt {
 	private static final String LOGO_DIR = "/resources/img/logoReport.jpg";
 
 	// parametros de la URI
-	private static final String PARAM_GROUP = "group", PARAM_GROUPDESC = "groupdesc",
-			PARAM_FILTER = "filter", PARAM_FILTERTYPE = "filtertype", PARAM_USER = "user",
-			PARAM_FILTERTYPEDESC = "filtertypedesc", PARAM_FILTERDESC = "filterdesc";
+	private static final String PARAM_GROUP = "group",
+			PARAM_GROUPDESC = "groupdesc", PARAM_FILTER = "filter",
+			PARAM_FILTERTYPE = "filtertype", PARAM_USER = "user",
+			PARAM_FILTERTYPEDESC = "filtertypedesc",
+			PARAM_FILTERDESC = "filterdesc";
 
-	@EJB(name = "gmh.EiaService", beanInterface = EiaServiceRemote.class)
+	@EJB(lookup = "java:global/ear-1/ejb-1/EiaService")
 	EiaServiceRemote service;
 
 	/*
@@ -51,8 +53,8 @@ public class ReportEquiposEdoUbicServelt extends ReportEiaServelt {
 	 * , javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
-			IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
 
 		try {
 			Eia eiaFilter = generateEiaForReport(req);
@@ -64,27 +66,32 @@ public class ReportEquiposEdoUbicServelt extends ReportEiaServelt {
 			String group = req.getParameter(PARAM_GROUP);
 			if (group.equals("noAgrup")) {
 				dataSource = new EiaDataSource(eiaList);
-				reportFileRealPath = getServletContext().getRealPath(REPORT_FILE_DIR);
+				reportFileRealPath = getServletContext().getRealPath(
+						REPORT_FILE_DIR);
 			} else {
 				dataSource = new EiaDataSource(eiaList, group);
-				reportFileRealPath = getServletContext().getRealPath(REPORT_GROUP_FILE_DIR);
+				reportFileRealPath = getServletContext().getRealPath(
+						REPORT_GROUP_FILE_DIR);
 			}
 
 			Map<String, Object> paramsReport = generateParamsMap(req);
 
-			JasperPrint fillReport = JasperFillManager.fillReport(reportFileRealPath, paramsReport,
-					dataSource);
+			JasperPrint fillReport = JasperFillManager.fillReport(
+					reportFileRealPath, paramsReport, dataSource);
 
 			exportAsPDF(resp, fillReport, "equipos-edo-ubic.pdf");
 
 		} catch (GHAEJBException e) {
-			LOG.log(Level.ERROR, "Problema al obtener los datos para el reporte", e);
+			LOG.log(Level.ERROR,
+					"Problema al obtener los datos para el reporte", e);
 
 		} catch (JRException e) {
-			LOG.log(Level.ERROR, "Problema al generar el reporte de JasperReport", e);
+			LOG.log(Level.ERROR,
+					"Problema al generar el reporte de JasperReport", e);
 
 		} catch (ClassNotFoundException e) {
-			LOG.log(Level.ERROR, "No existe la clase para agrupar los datos del reporte", e);
+			LOG.log(Level.ERROR,
+					"No existe la clase para agrupar los datos del reporte", e);
 		}
 	}
 
@@ -121,10 +128,12 @@ public class ReportEquiposEdoUbicServelt extends ReportEiaServelt {
 	 *            objeto con los parametros de la peticionO
 	 * @return Mapa con los parametros que recibe el reporte
 	 */
+	@Override
 	protected Map<String, Object> generateParamsMap(HttpServletRequest req) {
 
 		// logo del sistema que ha de aparecer como parte del reporte
-		Image logoImage = new ImageIcon(getServletContext().getRealPath(LOGO_DIR)).getImage();
+		Image logoImage = new ImageIcon(getServletContext().getRealPath(
+				LOGO_DIR)).getImage();
 
 		String user = req.getParameter(PARAM_USER);
 		String filterTypeDesc = req.getParameter(PARAM_FILTERTYPEDESC);
@@ -160,7 +169,9 @@ public class ReportEquiposEdoUbicServelt extends ReportEiaServelt {
 	 * searchInService(javax.servlet.http.HttpServletRequest)
 	 */
 	@Override
-	protected Map<String, Object> searchInService(HttpServletRequest req) throws GHAEJBException {
-		throw new UnsupportedOperationException("El metodo no esta inplementado para esta clase");
+	protected Map<String, Object> searchInService(HttpServletRequest req)
+			throws GHAEJBException {
+		throw new UnsupportedOperationException(
+				"El metodo no esta inplementado para esta clase");
 	}
 }

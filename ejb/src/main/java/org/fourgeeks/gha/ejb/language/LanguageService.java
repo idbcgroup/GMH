@@ -14,7 +14,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * @author alacret
  * 
  */
-@Stateless(name = "language.LanguageService")
+@Stateless
 public class LanguageService implements LanguageServiceRemote {
 
 	@PersistenceContext

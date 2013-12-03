@@ -23,7 +23,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
 /**
  * Session Bean implementation class EiaDamageReportService
  */
-@Stateless(name = "gmh.EiaDamageReportService")
+@Stateless
 public class EiaDamageReportService extends GHAEJBExceptionImpl implements
 		EiaDamageReportServiceRemote {
 	@PersistenceContext

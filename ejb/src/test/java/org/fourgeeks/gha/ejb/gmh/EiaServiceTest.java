@@ -29,7 +29,7 @@ public class EiaServiceTest extends GhaServiceTest {
 	@PersistenceContext
 	EntityManager em;
 
-	@EJB(name = "gmh.EiaService")
+	@EJB(lookup = "java:global/ear-1/ejb-1/EiaService")
 	EiaServiceRemote service;
 
 	@Inject

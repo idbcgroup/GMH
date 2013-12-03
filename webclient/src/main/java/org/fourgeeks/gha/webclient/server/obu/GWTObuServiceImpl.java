@@ -20,7 +20,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class GWTObuServiceImpl extends RemoteServiceServlet implements
 		GWTObuService {
 
-	@EJB(name = "gar.ObuService")
+	@EJB(lookup = "java:global/ear-1/ejb-1/ObuService")
 	ObuServiceRemote service;
 	/**
 	 * 

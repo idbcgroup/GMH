@@ -26,7 +26,7 @@ public class GWTEiaTypeMaterialServiceImpl extends RemoteServiceServlet
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@EJB(name = "gmh.EiaTypeMaterialService")
+	@EJB(lookup = "java:global/ear-1/ejb-1/EiaTypeMaterialService")
 	private EiaTypeMaterialServiceRemote serviceRemote;
 
 	/*

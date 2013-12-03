@@ -178,10 +178,12 @@
 			</plugin>
 
 			<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
-				<version>2.1.1</version>
+				<version>2.4</version>
 				<configuration>
-					<packagingExcludes>WEB-INF/lib/domain-1.jar</packagingExcludes>
+					<warSourceExcludes>WEB-INF/lib/domain-1.jar/**/*.xml</warSourceExcludes>
+					<packagingExcludes>WEB-INF/lib/domain-1.jar/**/*.xml</packagingExcludes>
 				</configuration>
 				<executions>
 					<execution>

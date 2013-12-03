@@ -24,7 +24,7 @@ public class GWTLogonLogServiceImpl extends RemoteServiceServlet implements
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@EJB(name = "log.LogonLogService")
+	@EJB(lookup = "java:global/ear-1/ejb-1/LogonLogService")
 	LogonLogServiceRemote logService;
 
 	@Override

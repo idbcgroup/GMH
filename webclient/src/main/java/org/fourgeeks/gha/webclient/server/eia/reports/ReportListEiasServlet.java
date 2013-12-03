@@ -35,13 +35,14 @@ public class ReportListEiasServlet extends ReportEiaServelt {
 	private static final String LOGO_DIR = "/resources/img/logoReport.jpg";
 
 	private static final String PARAM_EIA = "eia", PARAM_EIATYPE = "eiatype",
-			PARAM_FACILS = "facils", PARAM_WORKAREAS = "workareas", PARAM_EDOEIA = "edoeia",
-			PARAM_USER = "user", PARAM_ORDEN = "orden";
+			PARAM_FACILS = "facils", PARAM_WORKAREAS = "workareas",
+			PARAM_EDOEIA = "edoeia", PARAM_USER = "user",
+			PARAM_ORDEN = "orden";
 
-	@EJB(name = "gmh.EiaReportsService", beanInterface = EiaReportsServiceRemote.class)
+	@EJB(lookup = "java:global/ear-1/ejb-1/EiaReportsService")
 	EiaReportsServiceRemote serviceEiaReport;
 
-	@EJB(name = "gmh.EiaService", beanInterface = EiaServiceRemote.class)
+	@EJB(lookup = "java:global/ear-1/ejb-1/EiaService")
 	EiaServiceRemote serviceEia;
 
 	/*
@@ -53,8 +54,8 @@ public class ReportListEiasServlet extends ReportEiaServelt {
 	 */
 	@Override
 	@SuppressWarnings("unchecked")
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
-			IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
 		try {
 			Map<String, Object> searchMap = searchInService(req);
 
@@ -66,16 +67,18 @@ public class ReportListEiasServlet extends ReportEiaServelt {
 
 			Map<String, Object> paramsReport = generateParamsMap(req);
 
-			JasperPrint fillReport = JasperFillManager.fillReport(reportFileRealPath, paramsReport,
-					dataSource);
+			JasperPrint fillReport = JasperFillManager.fillReport(
+					reportFileRealPath, paramsReport, dataSource);
 
 			exportAsPDF(resp, fillReport, "detalle-equipos.pdf");
 
 		} catch (GHAEJBException e) {
-			LOG.log(Level.ERROR, "Problema al obtener los datos para el reporte", e);
+			LOG.log(Level.ERROR,
+					"Problema al obtener los datos para el reporte", e);
 
 		} catch (JRException e) {
-			LOG.log(Level.ERROR, "Problema al generar el reporte de JasperReport", e);
+			LOG.log(Level.ERROR,
+					"Problema al generar el reporte de JasperReport", e);
 
 		}
 
@@ -87,7 +90,9 @@ public class ReportListEiasServlet extends ReportEiaServelt {
 	 * @see org.fourgeeks.gha.webclient.server.eia.reports.ReportEiaServelt#
 	 * searchInService(javax.servlet.http.HttpServletRequest)
 	 */
-	protected Map<String, Object> searchInService(HttpServletRequest req) throws GHAEJBException {
+	@Override
+	protected Map<String, Object> searchInService(HttpServletRequest req)
+			throws GHAEJBException {
 		QueryParamsContainer qpc = new QueryParamsContainer(req);
 		List<Eia> eiaList = null;
 		String reportPath = null;
@@ -101,13 +106,14 @@ public class ReportListEiasServlet extends ReportEiaServelt {
 		} else if (qpc.eiaTypeCode == null) {
 			// todos los equipos
 			reportPath = getServletContext().getRealPath(REPORT_FILE_DIR_1);
-			eiaList = serviceEiaReport.findAllEias(qpc.facilsIds, qpc.workingAreasIds,
-					qpc.eiaState, qpc.orden);
+			eiaList = serviceEiaReport.findAllEias(qpc.facilsIds,
+					qpc.workingAreasIds, qpc.eiaState, qpc.orden);
 		} else {
 			// equipos por tipo de equipo
 			reportPath = getServletContext().getRealPath(REPORT_FILE_DIR_2);
-			eiaList = serviceEiaReport.findEiasByEiaType(qpc.eiaTypeCode, qpc.facilsIds,
-					qpc.workingAreasIds, qpc.eiaState, qpc.orden);
+			eiaList = serviceEiaReport
+					.findEiasByEiaType(qpc.eiaTypeCode, qpc.facilsIds,
+							qpc.workingAreasIds, qpc.eiaState, qpc.orden);
 		}
 
 		HashMap<String, Object> mapa = new HashMap<String, Object>();
@@ -126,7 +132,8 @@ public class ReportListEiasServlet extends ReportEiaServelt {
 	@Override
 	protected Map<String, Object> generateParamsMap(HttpServletRequest req) {
 		// logo del sistema que ha de aparecer como parte del reporte
-		Image logoImage = new ImageIcon(getServletContext().getRealPath(LOGO_DIR)).getImage();
+		Image logoImage = new ImageIcon(getServletContext().getRealPath(
+				LOGO_DIR)).getImage();
 
 		String user = req.getParameter(PARAM_USER);
 		String datetimeReport = genDatetimeTimezoneStrRep();
@@ -148,10 +155,10 @@ public class ReportListEiasServlet extends ReportEiaServelt {
 	private class QueryParamsContainer {
 		private Long eiaId;
 		private String eiaTypeCode;
-		private List<Long> facilsIds;
-		private List<Long> workingAreasIds;
+		private final List<Long> facilsIds;
+		private final List<Long> workingAreasIds;
 		private EiaStateEnum eiaState;
-		private EiaReportOrderByEnum orden;
+		private final EiaReportOrderByEnum orden;
 
 		/**
 		 * @param req
@@ -182,7 +189,8 @@ public class ReportListEiasServlet extends ReportEiaServelt {
 			String workAreasValue = req.getParameter(PARAM_WORKAREAS);
 			workingAreasIds = toList(workAreasValue);
 
-			Boolean orderByUbicEiaType = Boolean.valueOf(req.getParameter(PARAM_ORDEN));
+			Boolean orderByUbicEiaType = Boolean.valueOf(req
+					.getParameter(PARAM_ORDEN));
 			orden = orderByUbicEiaType ? EiaReportOrderByEnum.UBIC_EIA
 					: EiaReportOrderByEnum.EIA_UBIC;
 		}

@@ -26,7 +26,7 @@ public class GWTEiaDamageReportServiceImpl extends RemoteServiceServlet
 
 	private static final long serialVersionUID = 1L;
 
-	@EJB(name = "gmh.EiaDamageReportService")
+	@EJB(lookup = "java:global/ear-1/ejb-1/EiaDamageReportService")
 	EiaDamageReportServiceRemote serviceRemote;
 
 	@Override

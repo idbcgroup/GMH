@@ -21,7 +21,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * 
  */
 
-@Stateless(name = "mix.BpiService")
+@Stateless
 public class BpiService extends GHAEJBExceptionImpl implements BpiServiceRemote {
 	@PersistenceContext
 	private EntityManager em;

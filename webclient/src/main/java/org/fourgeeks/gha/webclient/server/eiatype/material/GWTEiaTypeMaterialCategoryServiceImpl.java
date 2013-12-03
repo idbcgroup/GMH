@@ -13,6 +13,10 @@ import org.fourgeeks.gha.webclient.client.eiatype.materialcategory.GWTEiaTypeMat
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
+/**
+ * @author alacret
+ * 
+ */
 @WebServlet(urlPatterns = { "/webclient/eiaTypeMaterialCategory" })
 public class GWTEiaTypeMaterialCategoryServiceImpl extends RemoteServiceServlet
 		implements GWTEiaTypeMaterialCategoryService {
@@ -22,7 +26,7 @@ public class GWTEiaTypeMaterialCategoryServiceImpl extends RemoteServiceServlet
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@EJB(name = "gmh.EiaTypeMaterialCategoryService")
+	@EJB(lookup = "java:global/ear-1/ejb-1/EiaTypeMaterialCategoryService")
 	private EiaTypeMaterialCategoryServiceRemote serviceRemote;
 
 	@Override

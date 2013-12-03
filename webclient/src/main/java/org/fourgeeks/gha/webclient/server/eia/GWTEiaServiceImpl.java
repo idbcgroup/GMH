@@ -26,7 +26,7 @@ public class GWTEiaServiceImpl extends RemoteServiceServlet implements
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@EJB(name = "gmh.EiaService")
+	@EJB(lookup = "java:global/ear-1/ejb-1/EiaService")
 	EiaServiceRemote eiaServiceRemote;
 
 	/*

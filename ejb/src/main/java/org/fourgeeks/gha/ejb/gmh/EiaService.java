@@ -43,12 +43,12 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * 
  */
 
-@Stateless(name = "gmh.EiaService")
+@Stateless
 public class EiaService extends GHAEJBExceptionImpl implements EiaServiceRemote {
 	@PersistenceContext
 	EntityManager em;
 
-	@EJB(name = "gmh.EiaTypeComponentService")
+	@EJB
 	EiaTypeComponentServiceLocal eiaTypeComponentService;
 
 	private final static Logger logger = Logger.getLogger(EiaService.class

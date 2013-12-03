@@ -17,59 +17,85 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 /**
  * @author emiliot
- *
+ * 
  */
-@WebServlet(urlPatterns = {"/webclient/institution"})
-public class GWTInstitutionServiceImpl extends RemoteServiceServlet implements GWTInstitutionService {
-	@EJB(name = "mix.InstitutionService")
+@WebServlet(urlPatterns = { "/webclient/institution" })
+public class GWTInstitutionServiceImpl extends RemoteServiceServlet implements
+		GWTInstitutionService {
+	@EJB(lookup = "java:global/ear-1/ejb-1/InstitutionService")
 	InstitutionServiceRemote service;
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.institution.GWTInstitutionService#delete(long)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.institution.GWTInstitutionService#
+	 * delete(long)
 	 */
 	@Override
 	public void delete(long Id) throws GHAEJBException {
 		service.delete(Id);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.institution.GWTInstitutionService#find(org.fourgeeks.gha.domain.mix.Institution)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.institution.GWTInstitutionService#
+	 * find(org.fourgeeks.gha.domain.mix.Institution)
 	 */
 	@Override
-	public List<Institution> find(Institution institution) throws GHAEJBException {
+	public List<Institution> find(Institution institution)
+			throws GHAEJBException {
 		return service.find(institution);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.institution.GWTInstitutionService#find(long)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.institution.GWTInstitutionService#
+	 * find(long)
 	 */
 	@Override
 	public Institution find(long Id) throws GHAEJBException {
 		return service.find(Id);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.institution.GWTInstitutionService#getAll()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.institution.GWTInstitutionService#
+	 * getAll()
 	 */
 	@Override
 	public List<Institution> getAll() throws GHAEJBException {
 		return service.getAll();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.institution.GWTInstitutionService#save(org.fourgeeks.gha.domain.mix.Institution)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.institution.GWTInstitutionService#
+	 * save(org.fourgeeks.gha.domain.mix.Institution)
 	 */
 	@Override
 	public Institution save(Institution institution) throws GHAEJBException {
 		return service.save(institution);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.institution.GWTInstitutionService#update(org.fourgeeks.gha.domain.mix.Institution)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.institution.GWTInstitutionService#
+	 * update(org.fourgeeks.gha.domain.mix.Institution)
 	 */
 	@Override
 	public Institution update(Institution institution) throws GHAEJBException {

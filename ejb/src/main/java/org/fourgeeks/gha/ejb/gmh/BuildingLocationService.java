@@ -25,7 +25,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * @author alacret, vivi.torresg
  * 
  */
-@Stateless(name = "gmh.BuildingLocationService")
+@Stateless
 public class BuildingLocationService extends GHAEJBExceptionImpl implements
 		BuildingLocationServiceRemote {
 	@PersistenceContext

@@ -21,7 +21,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * @author emiliot, vivi.torresg
  * 
  */
-@Stateless(name = "msg.messageService")
+@Stateless
 public class MessageService extends GHAEJBExceptionImpl implements
 		MessageServiceRemote {
 	@PersistenceContext

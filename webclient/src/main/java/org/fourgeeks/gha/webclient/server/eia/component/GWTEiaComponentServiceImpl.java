@@ -29,7 +29,7 @@ public class GWTEiaComponentServiceImpl extends RemoteServiceServlet implements
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@EJB(name = "gmh.EiaComponentService")
+	@EJB(lookup = "java:global/ear-1/ejb-1/EiaComponentService")
 	EiaComponentServiceRemote serviceRemote;
 
 	/*

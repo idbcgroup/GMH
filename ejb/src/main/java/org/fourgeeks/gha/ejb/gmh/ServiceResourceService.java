@@ -22,7 +22,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * 
  */
 
-@Stateless(name = "gmh.serviceResourceService")
+@Stateless
 public class ServiceResourceService extends GHAEJBExceptionImpl implements
 		ServiceResourceServiceRemote {
 	@PersistenceContext

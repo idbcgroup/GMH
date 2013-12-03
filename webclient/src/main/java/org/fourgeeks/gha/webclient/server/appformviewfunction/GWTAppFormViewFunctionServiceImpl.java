@@ -25,7 +25,7 @@ public class GWTAppFormViewFunctionServiceImpl extends RemoteServiceServlet
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@EJB(name = "ess.AppFormViewFunctionService")
+	@EJB(lookup = "java:global/ear-1/ejb-1/AppFormViewFunctionService")
 	AppFormViewFunctionServiceRemote service;
 
 	@Override

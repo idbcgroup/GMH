@@ -17,18 +17,21 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 /**
  * @author emiliot
- *
+ * 
  */
 @WebServlet(urlPatterns = { "/webclient/bpa" })
-public class GWTBpaServiceImpl extends RemoteServiceServlet implements GWTBpaService {
-	@EJB(name = "mix.BpaService")
+public class GWTBpaServiceImpl extends RemoteServiceServlet implements
+		GWTBpaService {
+	@EJB(lookup = "java:global/ear-1/ejb-1/BpaService")
 	BpaServiceRemote service;
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.webclient.client.bpa.GWTBpaService#delete(long)
 	 */
 	@Override
@@ -36,15 +39,21 @@ public class GWTBpaServiceImpl extends RemoteServiceServlet implements GWTBpaSer
 		service.delete(Id);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.bpa.GWTBpaService#find(org.fourgeeks.gha.domain.mix.Bpa)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.bpa.GWTBpaService#find(org.fourgeeks
+	 * .gha.domain.mix.Bpa)
 	 */
 	@Override
 	public List<Bpa> find(Bpa bpa) throws GHAEJBException {
 		return service.find(bpa);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.webclient.client.bpa.GWTBpaService#find(long)
 	 */
 	@Override
@@ -52,7 +61,9 @@ public class GWTBpaServiceImpl extends RemoteServiceServlet implements GWTBpaSer
 		return service.find(Id);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.webclient.client.bpa.GWTBpaService#getAll()
 	 */
 	@Override
@@ -60,16 +71,24 @@ public class GWTBpaServiceImpl extends RemoteServiceServlet implements GWTBpaSer
 		return service.getAll();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.bpa.GWTBpaService#save(org.fourgeeks.gha.domain.mix.Bpa)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.bpa.GWTBpaService#save(org.fourgeeks
+	 * .gha.domain.mix.Bpa)
 	 */
 	@Override
 	public Bpa save(Bpa bpa) throws GHAEJBException {
 		return service.save(bpa);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.bpa.GWTBpaService#update(org.fourgeeks.gha.domain.mix.Bpa)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.bpa.GWTBpaService#update(org.fourgeeks
+	 * .gha.domain.mix.Bpa)
 	 */
 	@Override
 	public Bpa update(Bpa bpa) throws GHAEJBException {

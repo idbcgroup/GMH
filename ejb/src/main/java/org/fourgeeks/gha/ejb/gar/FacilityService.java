@@ -20,7 +20,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * @author emiliot, vivi.torresg
  * 
  */
-@Stateless(name = "ess.FacilityService")
+@Stateless
 public class FacilityService extends GHAEJBExceptionImpl implements
 		FacilityServiceRemote {
 	@PersistenceContext

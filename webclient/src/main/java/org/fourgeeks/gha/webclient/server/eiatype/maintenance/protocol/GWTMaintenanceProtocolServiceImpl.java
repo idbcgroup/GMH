@@ -18,30 +18,37 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 /**
  * @author emiliot
- *
+ * 
  */
 
-@WebServlet(urlPatterns = {"/webclient/maintenanceProtocolService"})
-public class GWTMaintenanceProtocolServiceImpl extends RemoteServiceServlet implements
-	GWTMaintenanceProtocolService {
+@WebServlet(urlPatterns = { "/webclient/maintenanceProtocolService" })
+public class GWTMaintenanceProtocolServiceImpl extends RemoteServiceServlet
+		implements GWTMaintenanceProtocolService {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	@EJB(name = "gmh.maintenanceProtocolService")
+
+	@EJB(lookup = "java:global/ear-1/ejb-1/MaintenanceProtocolService")
 	MaintenanceProtocolServiceRemote mantProtocolService;
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.GWTMaintenanceProtocolService#delete(long)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.
+	 * GWTMaintenanceProtocolService#delete(long)
 	 */
 	@Override
 	public void delete(long Id) throws GHAEJBException {
 		mantProtocolService.delete(Id);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.GWTMaintenanceProtocolService#findByMaintenancePlan(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.
+	 * GWTMaintenanceProtocolService
+	 * #findByMaintenancePlan(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
 	 */
 	@Override
 	public List<MaintenanceProtocol> findByMaintenancePlan(
@@ -49,8 +56,13 @@ public class GWTMaintenanceProtocolServiceImpl extends RemoteServiceServlet impl
 		return mantProtocolService.findByMaintenancePlan(maintenancePlan);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.GWTMaintenanceProtocolService#findByMaintenancePlan(org.fourgeeks.gha.domain.gmh.MaintenancePlan, int, int)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.
+	 * GWTMaintenanceProtocolService
+	 * #findByMaintenancePlan(org.fourgeeks.gha.domain.gmh.MaintenancePlan, int,
+	 * int)
 	 */
 	@Override
 	public List<MaintenanceProtocol> findByMaintenancePlan(
@@ -58,9 +70,14 @@ public class GWTMaintenanceProtocolServiceImpl extends RemoteServiceServlet impl
 			throws GHAEJBException {
 		return mantProtocolService.findByMaintenancePlan(maintenancePlan);
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol.GWTMaintenanceProtocolService#find(org.fourgeeks.gha.domain.gmh.MaintenanceProtocol)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol
+	 * .GWTMaintenanceProtocolService
+	 * #find(org.fourgeeks.gha.domain.gmh.MaintenanceProtocol)
 	 */
 	@Override
 	public List<MaintenanceProtocol> find(
@@ -68,24 +85,33 @@ public class GWTMaintenanceProtocolServiceImpl extends RemoteServiceServlet impl
 		return mantProtocolService.find(maintenanceProtocol);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.GWTMaintenanceProtocolService#find(long)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.
+	 * GWTMaintenanceProtocolService#find(long)
 	 */
 	@Override
 	public MaintenanceProtocol find(long Id) throws GHAEJBException {
 		return mantProtocolService.find(Id);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.GWTMaintenanceProtocolService#getAll()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.
+	 * GWTMaintenanceProtocolService#getAll()
 	 */
 	@Override
 	public List<MaintenanceProtocol> getAll() throws GHAEJBException {
 		return mantProtocolService.getAll();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.GWTMaintenanceProtocolService#getAll(int, int)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.
+	 * GWTMaintenanceProtocolService#getAll(int, int)
 	 */
 	@Override
 	public List<MaintenanceProtocol> getAll(int offset, int size)
@@ -93,21 +119,29 @@ public class GWTMaintenanceProtocolServiceImpl extends RemoteServiceServlet impl
 		return mantProtocolService.getAll(offset, size);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.GWTMaintenanceProtocolService#save(org.fourgeeks.gha.domain.gmh.MaintenanceProtocol)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.
+	 * GWTMaintenanceProtocolService
+	 * #save(org.fourgeeks.gha.domain.gmh.MaintenanceProtocol)
 	 */
 	@Override
-	public MaintenanceProtocol save(
-			MaintenanceProtocol maintenanceProtocol) throws GHAEJBException {
+	public MaintenanceProtocol save(MaintenanceProtocol maintenanceProtocol)
+			throws GHAEJBException {
 		return mantProtocolService.save(maintenanceProtocol);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.GWTMaintenanceProtocolService#update(org.fourgeeks.gha.domain.gmh.MaintenanceProtocol)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.
+	 * GWTMaintenanceProtocolService
+	 * #update(org.fourgeeks.gha.domain.gmh.MaintenanceProtocol)
 	 */
 	@Override
-	public MaintenanceProtocol update(
-			MaintenanceProtocol maintenanceProtocol) throws GHAEJBException {
+	public MaintenanceProtocol update(MaintenanceProtocol maintenanceProtocol)
+			throws GHAEJBException {
 		return mantProtocolService.update(maintenanceProtocol);
 	}
 

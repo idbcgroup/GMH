@@ -21,7 +21,7 @@ public interface EiaTypeComponentServiceLocal {
 
 	/**
 	 * @param eiaType
-	 * @return
+	 * @return a list with the eiatypes of this eiatype
 	 * @throws GHAEJBException
 	 */
 	public List<EiaTypeComponent> findByParentEiaType(EiaType eiaType)

@@ -13,7 +13,7 @@ import org.fourgeeks.gha.domain.logs.LogonLog;
  * @author alacret
  * 
  */
-@Stateless(name = "log.LogonLogService")
+@Stateless
 public class LogonLogService implements LogonLogServiceRemote {
 
 	@PersistenceContext

@@ -28,7 +28,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * 
  */
 
-@Stateless(name = "glm.MaterialCategoryService")
+@Stateless
 public class MaterialCategoryService extends GHAEJBExceptionImpl implements
 		MaterialCategoryServiceRemote {
 	@PersistenceContext

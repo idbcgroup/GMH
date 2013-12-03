@@ -20,7 +20,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * Session Bean implementation class
  * EiaPreventiveMaintenancePlanificationService
  */
-@Stateless(name = "gmh.EiaPreventiveMaintenancePlanificationService")
+@Stateless
 public class EiaPreventiveMaintenancePlanificationService extends
 		GHAEJBExceptionImpl implements
 		EiaPreventiveMaintenancePlanificationServiceRemote {
@@ -51,6 +51,7 @@ public class EiaPreventiveMaintenancePlanificationService extends
 
 	}
 
+	@Override
 	public List<EiaPreventiveMaintenancePlanification> find(EiaType eiaType)
 			throws GHAEJBException {
 		try {

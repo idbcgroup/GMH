@@ -19,29 +19,38 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 /**
  * @author emiliot
- *
+ * 
  */
 
-@WebServlet(urlPatterns = {"/webclient/maintenancePlanMaintenanceProtocolService"})
-public class GWTMaintenancePlanMaintenanceProtocolServiceImpl extends RemoteServiceServlet implements GWTMaintenancePlanMaintenanceProtocolService {
+@WebServlet(urlPatterns = { "/webclient/maintenancePlanMaintenanceProtocolService" })
+public class GWTMaintenancePlanMaintenanceProtocolServiceImpl extends
+		RemoteServiceServlet implements
+		GWTMaintenancePlanMaintenanceProtocolService {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@EJB(name = "gmh.maintenancePlanMaintenanceProtocolService")
+	@EJB(lookup = "java:global/ear-1/ejb-1/MaintenancePlanMaintenanceProtocolService")
 	MaintenancePlanMaintenanceProtocolServiceRemote ejbService;
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.GWTMaintenancePlanMaintenanceProtocolService#delete(long)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.
+	 * GWTMaintenancePlanMaintenanceProtocolService#delete(long)
 	 */
 	@Override
 	public void delete(long Id) throws GHAEJBException {
 		ejbService.delete(Id);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.GWTMaintenancePlanMaintenanceProtocolService#save(org.fourgeeks.gha.domain.gmh.MaintenancePlanMaintenanceProtocol)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.
+	 * GWTMaintenancePlanMaintenanceProtocolService
+	 * #save(org.fourgeeks.gha.domain.gmh.MaintenancePlanMaintenanceProtocol)
 	 */
 	@Override
 	public MaintenancePlanMaintenanceProtocol save(
@@ -50,8 +59,13 @@ public class GWTMaintenancePlanMaintenanceProtocolServiceImpl extends RemoteServ
 		return ejbService.save(maintenancePlanMaintenanceProtocol);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.GWTMaintenancePlanMaintenanceProtocolService#findByMaintenanceProtocol(org.fourgeeks.gha.domain.gmh.MaintenanceProtocol)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.
+	 * GWTMaintenancePlanMaintenanceProtocolService
+	 * #findByMaintenanceProtocol(org
+	 * .fourgeeks.gha.domain.gmh.MaintenanceProtocol)
 	 */
 	@Override
 	public List<MaintenancePlanMaintenanceProtocol> findByMaintenanceProtocol(
@@ -59,8 +73,12 @@ public class GWTMaintenancePlanMaintenanceProtocolServiceImpl extends RemoteServ
 		return ejbService.findByMaintenanceProtocol(maintenanceProtocol);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.GWTMaintenancePlanMaintenanceProtocolService#findByMaintenancePlan(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.
+	 * GWTMaintenancePlanMaintenanceProtocolService
+	 * #findByMaintenancePlan(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
 	 */
 	@Override
 	public List<MaintenancePlanMaintenanceProtocol> findByMaintenancePlan(

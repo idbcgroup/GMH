@@ -26,7 +26,7 @@ public class GWTAppFormViewFunctionServiceBpuImpl extends RemoteServiceServlet
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@EJB(name = "ess.AppFormViewFunctionBpuService")
+	@EJB(lookup = "java:global/ear-1/ejb-1/AppFormViewFunctionBpuService")
 	AppFormViewFunctionBpuServiceRemote service;
 
 	@Override

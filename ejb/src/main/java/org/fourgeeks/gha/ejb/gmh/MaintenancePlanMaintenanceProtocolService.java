@@ -23,7 +23,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * 
  */
 
-@Stateless(name = "gmh.maintenancePlanMaintenanceProtocolService")
+@Stateless
 public class MaintenancePlanMaintenanceProtocolService extends
 		GHAEJBExceptionImpl implements
 		MaintenancePlanMaintenanceProtocolServiceRemote {

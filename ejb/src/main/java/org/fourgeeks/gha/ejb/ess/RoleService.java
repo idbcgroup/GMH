@@ -21,8 +21,10 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * 
  */
 @Stateless
+// @Remote(RoleServiceRemote.class)
+// @Local(RoleServiceLocal.class)
 public class RoleService extends GHAEJBExceptionImpl implements
-		RoleServiceRemote {
+		RoleServiceRemote/* , RoleServiceLocal */{
 	@PersistenceContext
 	EntityManager em;
 

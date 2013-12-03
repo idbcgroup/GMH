@@ -21,7 +21,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * @author emiliot, vivi.torresg
  * 
  */
-@Stateless(name = "gmh.BrandService")
+@Stateless
 public class BrandService extends GHAEJBExceptionImpl implements
 		BrandServiceRemote {
 	@PersistenceContext

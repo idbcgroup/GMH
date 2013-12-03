@@ -21,7 +21,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * 
  */
 
-@Stateless(name = "ess.WorkingAreaService")
+@Stateless
 public class WorkingAreaService extends GHAEJBExceptionImpl implements
 		WorkingAreaServiceRemote {
 	@PersistenceContext
