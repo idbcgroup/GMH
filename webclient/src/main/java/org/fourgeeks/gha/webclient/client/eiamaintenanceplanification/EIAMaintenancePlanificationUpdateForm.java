@@ -17,6 +17,10 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
+/**
+ * @author nelson
+ * 
+ */
 public class EIAMaintenancePlanificationUpdateForm extends
 		GHAUpdateForm<EiaMaintenancePlanification> implements
 		EiaMaintenancePlanificationSelectionListener, EIATypeSelectionListener,
@@ -26,6 +30,9 @@ public class EIAMaintenancePlanificationUpdateForm extends
 		form = new EIAMaintenancePlanificationForm();
 	}
 
+	/**
+	 * Constructor del formulario para planificacion de mantenimiento
+	 */
 	public EIAMaintenancePlanificationUpdateForm() {
 		super(GHAStrings.get("edit-eia-maintenance-planification"));
 		VLayout sideButtons = GHAUiHelper.createBar(new GHASaveButton(
@@ -46,10 +53,22 @@ public class EIAMaintenancePlanificationUpdateForm extends
 		addMember(gridPanel);
 	}
 
+	/**
+	 * Activate the form
+	 */
 	public void activate() {
 		form.activate();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.eiamaintenanceplanification.
+	 * EiaMaintenancePlanificationSelectionProducer
+	 * #addEiaMaintenancePlanificationSelectionListener
+	 * (org.fourgeeks.gha.webclient.client.eiamaintenanceplanification.
+	 * EiaMaintenancePlanificationSelectionListener)
+	 */
 	@Override
 	public void addEiaMaintenancePlanificationSelectionListener(
 			EiaMaintenancePlanificationSelectionListener preventivePlanifSelectionListener) {
@@ -58,28 +77,62 @@ public class EIAMaintenancePlanificationUpdateForm extends
 				.addEiaMaintenancePlanificationSelectionListener(preventivePlanifSelectionListener);
 	}
 
+	/**
+	 * Deactivate the form
+	 */
 	public void deactivate() {
 		form.deactivate();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow#hide
+	 * ()
+	 */
 	@Override
 	public void hide() {
 		super.hide();
 		form.hide();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.eiamaintenanceplanification.
+	 * EiaMaintenancePlanificationSelectionProducer
+	 * #notifyEiaMaintenancePlanification
+	 * (org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification)
+	 */
 	@Override
 	public void notifyEiaMaintenancePlanification(
 			EiaMaintenancePlanification entity) {
 		return;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow#open
+	 * ()
+	 */
 	@Override
 	public void open() {
 		super.open();
 		form.show();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.eiamaintenanceplanification.
+	 * EiaMaintenancePlanificationSelectionProducer
+	 * #removeEiaMaintenancePlanificationSelectionListener
+	 * (org.fourgeeks.gha.webclient.client.eiamaintenanceplanification.
+	 * EiaMaintenancePlanificationSelectionListener)
+	 */
 	@Override
 	public void removeEiaMaintenancePlanificationSelectionListener(
 			EiaMaintenancePlanificationSelectionListener listener) {
@@ -88,16 +141,36 @@ public class EIAMaintenancePlanificationUpdateForm extends
 				.removeEiaMaintenancePlanificationSelectionListener(listener);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.eiamaintenanceplanification.
+	 * EiaMaintenancePlanificationSelectionListener
+	 * #select(org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification)
+	 */
 	@Override
 	public void select(EiaMaintenancePlanification entity) {
 		((EiaMaintenancePlanificationSelectionListener) form).select(entity);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener#select
+	 * (org.fourgeeks.gha.domain.gmh.EiaType)
+	 */
 	@Override
 	public void select(EiaType eiaType) {
 		((EIATypeSelectionListener) form).select(eiaType);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.UI.superclasses.GHAUpdateForm#update()
+	 */
 	@Override
 	protected void update() {
 		form.update(new GHAAsyncCallback<EiaMaintenancePlanification>() {

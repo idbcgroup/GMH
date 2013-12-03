@@ -9,6 +9,7 @@ import com.smartgwt.client.widgets.events.ClickHandler;
 
 /**
  * @author alacret
+ * @param <T>
  * 
  */
 public abstract class GHAAddForm<T> extends GHASlideInWindow {

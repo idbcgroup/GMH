@@ -17,6 +17,10 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
+/**
+ * @author naramirez
+ * 
+ */
 public class EIADamageReportAddForm extends GHAAddForm<EiaDamageReport>
 		implements EIASelectionListener, EiaDamageReportSelectionProducer {
 
@@ -24,6 +28,9 @@ public class EIADamageReportAddForm extends GHAAddForm<EiaDamageReport>
 		form = new EIADamageReportForm();
 	}
 
+	/**
+	 * Constructor
+	 */
 	public EIADamageReportAddForm() {
 		super(GHAStrings.get("new-eiaDamageReport"));
 		VLayout sideButtons = GHAUiHelper.createBar(new GHASaveButton(
@@ -44,6 +51,14 @@ public class EIADamageReportAddForm extends GHAAddForm<EiaDamageReport>
 		addMember(gridPanel);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.eiadamagereport.
+	 * EiaDamageReportSelectionProducer
+	 * #addEiaDamageReportSelectionListener(org.fourgeeks
+	 * .gha.webclient.client.eiadamagereport.EiaDamageReportSelectionListener)
+	 */
 	@Override
 	public void addEiaDamageReportSelectionListener(
 			EiaDamageReportSelectionListener eiaDamageReportSelectionListener) {
@@ -52,23 +67,53 @@ public class EIADamageReportAddForm extends GHAAddForm<EiaDamageReport>
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow#hide
+	 * ()
+	 */
 	@Override
 	public void hide() {
 		super.hide();
 		form.hide();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.eiadamagereport.
+	 * EiaDamageReportSelectionProducer
+	 * #notifyEiaDamageReport(org.fourgeeks.gha.domain.gmh.EiaDamageReport)
+	 */
 	@Override
 	public void notifyEiaDamageReport(EiaDamageReport eiaDamageReport) {
 		return;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow#open
+	 * ()
+	 */
 	@Override
 	public void open() {
 		super.open();
 		form.show();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.eiadamagereport.
+	 * EiaDamageReportSelectionProducer
+	 * #removeEiaDamageReportSelectionListener(org
+	 * .fourgeeks.gha.webclient.client
+	 * .eiadamagereport.EiaDamageReportSelectionListener)
+	 */
 	@Override
 	public void removeEiaDamageReportSelectionListener(
 			EiaDamageReportSelectionListener eiaDamageReportSelectionListener) {
@@ -77,6 +122,11 @@ public class EIADamageReportAddForm extends GHAAddForm<EiaDamageReport>
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.UI.superclasses.GHAAddForm#save()
+	 */
 	@Override
 	protected void save() {
 		form.save(new GHAAsyncCallback<EiaDamageReport>() {
@@ -88,6 +138,13 @@ public class EIADamageReportAddForm extends GHAAddForm<EiaDamageReport>
 		});
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.eia.EIASelectionListener#select(org
+	 * .fourgeeks.gha.domain.gmh.Eia)
+	 */
 	@Override
 	public void select(Eia eia) {
 		((EIASelectionListener) form).select(eia);

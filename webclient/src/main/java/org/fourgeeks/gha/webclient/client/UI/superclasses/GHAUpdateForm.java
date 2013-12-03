@@ -8,7 +8,8 @@ import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 
 /**
- * @author alacret
+ * @author alacret, naramirez
+ * @param <T>
  * 
  */
 public abstract class GHAUpdateForm<T> extends GHASlideInWindow {

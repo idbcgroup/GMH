@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eiadamagereport;
+package org.fourgeeks.gha.webclient.client.eiatype.damageandplanification;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,11 +37,12 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
- * @author alacret, emiliot
+ * @author alacret, emiliot, naramirez
  * 
  */
-public class EIADamageAndPlanificationSearchForm extends GHASearchForm<Eia> implements
-		EIATypeSelectionListener, EIASelectionListener, EiaSelectionProducer {
+public class EIADamageAndPlanificationSearchForm extends GHASearchForm<Eia>
+		implements EIATypeSelectionListener, EIASelectionListener,
+		EiaSelectionProducer {
 
 	private GHATextItem serialNumber;
 	private GHAWorkingAreaSelectItem workingAreaLocationSelectItem;
@@ -69,6 +70,7 @@ public class EIADamageAndPlanificationSearchForm extends GHASearchForm<Eia> impl
 
 	/**
 	 * 
+	 * @param title
 	 */
 	public EIADamageAndPlanificationSearchForm(String title) {
 		super(title);
@@ -121,6 +123,13 @@ public class EIADamageAndPlanificationSearchForm extends GHASearchForm<Eia> impl
 		fill();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.eia.EiaSelectionProducer#
+	 * addEiaSelectionListener
+	 * (org.fourgeeks.gha.webclient.client.eia.EIASelectionListener)
+	 */
 	@Override
 	public void addEiaSelectionListener(
 			EIASelectionListener eiaSelectionListener) {
@@ -135,41 +144,92 @@ public class EIADamageAndPlanificationSearchForm extends GHASearchForm<Eia> impl
 		resultSet.clean();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow#close
+	 * ()
+	 */
 	@Override
 	public void close() {
 		destroy();
 	}
 
+	/**
+	 * 
+	 */
 	private void fill() {
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow#hide
+	 * ()
+	 */
 	@Override
 	public void hide() {
 		super.hide();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.eia.EiaSelectionProducer#notifyEia
+	 * (org.fourgeeks.gha.domain.gmh.Eia)
+	 */
 	@Override
 	public void notifyEia(Eia eia) {
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.UI.superclasses.GHASearchForm#onResize
+	 * (com.google.gwt.event.logical.shared.ResizeEvent)
+	 */
 	@Override
 	public void onResize(ResizeEvent event) {
 		super.onResize(event);
 		form.resize(GHAUiHelper.getNormalFormWidth(30), 3);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow#open
+	 * ()
+	 */
 	@Override
 	public void open() {
 		resultSet.setVisible(true);
 		super.open();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.eia.EiaSelectionProducer#
+	 * removeEiaSelectionListener
+	 * (org.fourgeeks.gha.webclient.client.eia.EIASelectionListener)
+	 */
 	@Override
 	public void removeEiaSelectionListener(
 			EIASelectionListener eiaSelectionListener) {
 		resultSet.removeEiaSelectionListener(eiaSelectionListener);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.UI.superclasses.GHASearchForm#search()
+	 */
 	@Override
 	public void search() {
 		Eia eia = new Eia();
@@ -192,6 +252,10 @@ public class EIADamageAndPlanificationSearchForm extends GHASearchForm<Eia> impl
 		search(eia);
 	}
 
+	/**
+	 * 
+	 * @param eia
+	 */
 	private void search(final Eia eia) {
 		EIAModel.find(eia, new GHAAsyncCallback<List<Eia>>() {
 
@@ -213,11 +277,25 @@ public class EIADamageAndPlanificationSearchForm extends GHASearchForm<Eia> impl
 		});
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.eia.EIASelectionListener#select(org
+	 * .fourgeeks.gha.domain.gmh.Eia)
+	 */
 	@Override
 	public void select(Eia eia) {
 		search(eia);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener#select
+	 * (org.fourgeeks.gha.domain.gmh.EiaType)
+	 */
 	@Override
 	public void select(EiaType eiaType) {
 		this.eiaType = eiaType;

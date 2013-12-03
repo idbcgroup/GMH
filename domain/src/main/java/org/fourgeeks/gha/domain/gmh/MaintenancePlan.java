@@ -56,27 +56,43 @@ public class MaintenancePlan extends AbstractEntity {
 	public MaintenancePlan() {
 	}
 
+	/**
+	 * @return the maintenance plan type
+	 */
 	public MaintenancePlanType getType() {
 		return type;
 	}
 
+	/**
+	 * @param type
+	 */
 	public void setType(MaintenancePlanType type) {
 		this.type = type;
 	}
 
+	/**
+	 * 
+	 * @return the maintanance plan state
+	 */
 	public MaintenancePlanState getState() {
 		return state;
 	}
 
+	/**
+	 * @param state
+	 */
 	public void setState(MaintenancePlanState state) {
 		this.state = state;
 	}
 
 	/**
+	 * 
 	 * @param name
 	 * @param description
 	 * @param frequency
 	 * @param pot
+	 * @param type
+	 * @param state
 	 */
 	public MaintenancePlan(String name, String description, int frequency,
 			TimePeriodEnum pot, MaintenancePlanType type,
@@ -96,30 +112,52 @@ public class MaintenancePlan extends AbstractEntity {
 		return description;
 	}
 
+	/**
+	 * @param description
+	 */
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
+	/**
+	 * @return the frecuency the plan is executed
+	 */
 	public int getFrequency() {
 		return frequency;
 	}
 
+	/**
+	 * @param frequency
+	 */
 	public void setFrequency(int frequency) {
 		this.frequency = frequency;
 	}
 
+	/**
+	 * 
+	 * @return the period of time the plan is executed
+	 */
 	public TimePeriodEnum getPot() {
 		return pot;
 	}
 
+	/**
+	 * @param pot
+	 */
 	public void setPot(TimePeriodEnum pot) {
 		this.pot = pot;
 	}
 
+	/**
+	 * @return the name of the plan
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * @param name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
