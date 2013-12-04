@@ -7,6 +7,8 @@ import org.fourgeeks.gha.webclient.client.eiadamagereport.EiaDamageReportSelecti
 import org.fourgeeks.gha.webclient.client.eiadamagereport.EiaDamageReportSelectionProducer;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeTab;
 
+import com.smartgwt.client.widgets.layout.HLayout;
+import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.tab.events.TabDeselectedEvent;
 import com.smartgwt.client.widgets.tab.events.TabDeselectedHandler;
 import com.smartgwt.client.widgets.tab.events.TabSelectedEvent;
@@ -38,6 +40,7 @@ public class EIADamageAndPlanificationSubTab extends GHASubTab implements
 	public EIADamageAndPlanificationSubTab(EIATypeTab tab) {
 		super("Reporte y Planificacion", tab);
 
+		// listeners
 		addClosableListener(damageReportPanel);
 		addHideableListener(damageReportPanel);
 		addClosableListener(maintenancePlanifPanel);
@@ -45,18 +48,28 @@ public class EIADamageAndPlanificationSubTab extends GHASubTab implements
 		addClosableListener(preventivePlanifPanel);
 		addHideableListener(preventivePlanifPanel);
 
+		tab.addEiaTypeSelectionListener(damageReportPanel);
+		tab.addEiaTypeSelectionListener(maintenancePlanifPanel);
+		tab.addEiaTypeSelectionListener(preventivePlanifPanel);
+
+		damageReportPanel
+				.addEiaDamageReportSelectionListener(maintenancePlanifPanel);
+		preventivePlanifPanel
+				.addPreventivePlanificationSelectionListener(maintenancePlanifPanel);
+
+		// section form
 		sectionForm.addSection("Reporte Equipo Dañado", damageReportPanel);
 		sectionForm.addSection("Mantenimiento Realizado",
 				maintenancePlanifPanel);
 		sectionForm.addSection("Planificación Mantemiento",
 				preventivePlanifPanel);
 
-		setPane(sectionForm);
+		HLayout mainLayout = new HLayout();
+		mainLayout.setMembers(sectionForm, new LayoutSpacer());
 
-		tab.addEiaTypeSelectionListener(damageReportPanel);
-		tab.addEiaTypeSelectionListener(maintenancePlanifPanel);
-		tab.addEiaTypeSelectionListener(preventivePlanifPanel);
+		setPane(mainLayout);
 
+		// handlers
 		addTabSelectedHandler(new TabSelectedHandler() {
 			@Override
 			public void onTabSelected(TabSelectedEvent event) {

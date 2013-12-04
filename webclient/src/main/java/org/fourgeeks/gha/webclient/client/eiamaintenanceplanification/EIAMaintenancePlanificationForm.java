@@ -32,9 +32,13 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHARoleSelect
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASectionForm;
+import org.fourgeeks.gha.webclient.client.eia.EIAUtil;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
+import org.fourgeeks.gha.webclient.client.eiatype.damageandplanification.EIADamageAndPlanificationUtil;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.smartgwt.client.util.LogicalDate;
+import com.smartgwt.client.util.LogicalTime;
 import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 
@@ -203,7 +207,7 @@ public class EIAMaintenancePlanificationForm extends
 	 */
 	private GHADynamicForm buildAndGetBasicInfoForm() {
 		final GHADynamicForm form = new GHADynamicForm(
-				GHAUiHelper.getNormalFormWidth(30), 3);
+				GHAUiHelper.getSectionFormFormWidth(30), 3);
 
 		form.setItems(idNumberTextItem, requestNumberTextItem,
 				maintenanceStatusSelectItem, technicianNameTextItem,
@@ -219,7 +223,7 @@ public class EIAMaintenancePlanificationForm extends
 	 */
 	private GHADynamicForm buildAndGetMaintenanceTypeForm() {
 		final GHADynamicForm form = new GHADynamicForm(
-				GHAUiHelper.getNormalFormWidth(30), 3);
+				GHAUiHelper.getSectionFormFormWidth(30), 3);
 
 		form.setItems(preventiveMaintenance_TitleItem,
 				maintenacePlanSelectItem, new GHASpacerItem(),
@@ -238,7 +242,7 @@ public class EIAMaintenancePlanificationForm extends
 	 */
 	private GHADynamicForm buildAndGetTimesAndDatesForm() {
 		final GHADynamicForm form = new GHADynamicForm(
-				GHAUiHelper.getNormalFormWidth(30), 3);
+				GHAUiHelper.getSectionFormFormWidth(30), 3);
 
 		form.setItems(beginningDateItem, beginningTimeItem,
 				new GHASpacerItem(), finishDateItem, finishTimeItem,
@@ -299,19 +303,16 @@ public class EIAMaintenancePlanificationForm extends
 	private EiaCorrectiveMaintenancePlanification extractCorrectiveMaintenance(
 			EiaMaintenancePlanification planif) {
 
-		EiaCorrectiveMaintenancePlanification entity = null;
-		if (selectedCorrectiveMaintenance == null)
-			entity = new EiaCorrectiveMaintenancePlanification();
-		else
-			entity = selectedCorrectiveMaintenance;
+		EiaCorrectiveMaintenancePlanification entity = selectedCorrectiveMaintenance;
+		entity.setPlanification(planif);
 
 		entity.setDescription(failureDescriptionTextAreaItem.getValueAsString());
 
-		entity.setEstimatedMaintenance(Integer
-				.valueOf(estimatedMaintenanceTimeTextItem.getValueAsString()));
+		String time = estimatedMaintenanceTimeTextItem.getValueAsString();
+		entity.setEstimatedMaintenance(Integer.valueOf(time));
 
-		entity.setEstimatedMaintenancePoT(TimePeriodEnum
-				.valueOf(estimatedMaintenancePoTSelectedItem.getValueAsString()));
+		String pot = estimatedMaintenancePoTSelectedItem.getValueAsString();
+		entity.setEstimatedMaintenancePoT(TimePeriodEnum.valueOf(pot));
 
 		return entity;
 	}
@@ -321,26 +322,61 @@ public class EIAMaintenancePlanificationForm extends
 	 * @return
 	 */
 	private EiaMaintenancePlanification extractMaintenance() {
-		EiaMaintenancePlanification planification = null;
 
-		planification = selectedMaintenance;
+		EiaMaintenancePlanification entity = selectedMaintenance;
 
-		planification.setStatus(MaintenancePlanificationStatus
+		entity.setStatus(MaintenancePlanificationStatus
 				.valueOf(maintenanceStatusSelectItem.getValueAsString()));
 
 		if (providerSelectItem.getValue() != null) {
 			final ExternalProvider provider = new ExternalProvider(
 					Long.valueOf(providerSelectItem.getValueAsString()));
-			planification.setProvider(provider);
+			entity.setProvider(provider);
 		}
 
 		if (roleSelectItem.getValue() != null) {
 			final Role role = new Role(Long.valueOf(roleSelectItem
 					.getValueAsString()));
-			planification.setRole(role);
+			entity.setRole(role);
 		}
 
-		// TODO faltan atributos por obtener
+		String requestNumber = requestNumberTextItem.getValueAsString();
+		entity.setRequestNumber(requestNumber);
+
+		String technicianName = technicianNameTextItem.getValueAsString();
+		entity.setTechnicianName(technicianName);
+
+		String initialState = initialEiaStateSelectItem.getValueAsString();
+		entity.setInitialEiaState(initialState == null ? null : EiaStateEnum
+				.valueOf(initialState));
+
+		String finalState = finalEiaStateSelectItem.getValueAsString();
+		entity.setFinalEiaState(finalState == null ? null : EiaStateEnum
+				.valueOf(finalState));
+
+		LogicalDate logicalDate = beginningDateItem.getValueAsLogicalDate();
+		LogicalTime logicalTime = beginningTimeItem.getValueAsLogicalTime();
+		entity.setBeginningTimestamp(EIADamageAndPlanificationUtil
+				.getTimestamp(logicalDate, logicalTime));
+
+		logicalDate = finishDateItem.getValueAsLogicalDate();
+
+		logicalTime = finishTimeItem.getValueAsLogicalTime();
+
+		entity.setFinishTimestamp(EIADamageAndPlanificationUtil.getTimestamp(
+				logicalDate, logicalTime));
+
+		entity.setEffectiveTime(Integer.valueOf(effectiveTimeTextItem
+				.getValueAsString()));
+
+		String pot = effectivePoTSelectItem.getValueAsString();
+		entity.setEffectivePoT(pot == null ? null : TimePeriodEnum.valueOf(pot));
+
+		entity.setDeliverDate(EIAUtil.getLogicalDate(deliverDateItem
+				.getValueAsDate()));
+
+		entity.setAcceptationDate(EIAUtil.getLogicalDate(acceptationDateItem
+				.getValueAsDate()));
 
 		// VALIDANDO LOS DATOS
 		// Set<ConstraintViolation<EiaMaintenancePlanification>> violations =
@@ -355,22 +391,19 @@ public class EIAMaintenancePlanificationForm extends
 		// violationsList.add(violation.getMessage());
 		// GHANotification.alert(violationsList);
 		// }
-		return null;
+		return entity;
 	}
 
 	/**
 	 * 
-	 * @param planification
+	 * @param planif
 	 * @return
 	 */
 	private EiaPreventiveMaintenancePlanification extractPreventiveMaintenance(
-			EiaMaintenancePlanification planification) {
+			EiaMaintenancePlanification planif) {
 
-		EiaPreventiveMaintenancePlanification entity = null;
-		if (selectedPreventiveMaintenance == null)
-			entity = new EiaPreventiveMaintenancePlanification();
-		else
-			entity = selectedPreventiveMaintenance;
+		EiaPreventiveMaintenancePlanification entity = selectedPreventiveMaintenance;
+		entity.setPlanification(planif);
 
 		if (maintenacePlanSelectItem.getValue() != null) {
 			EiaTypeMaintenancePlan plan = new EiaTypeMaintenancePlan();
@@ -378,8 +411,6 @@ public class EIAMaintenancePlanificationForm extends
 
 			entity.setPlan(plan);
 		}
-
-		// TODO faltan atributos por obtener
 
 		return entity;
 	}
@@ -554,10 +585,10 @@ public class EIAMaintenancePlanificationForm extends
 		idNumberTextItem.setValue(entity.getId());
 		requestNumberTextItem.setValue(entity.getRequestNumber());
 		technicianNameTextItem.setValue(entity.getTechnicianName());
-		beginningDateItem.setValue(entity.getBeginningDate());
-		beginningTimeItem.setValue(entity.getBeginningDate());
-		finishDateItem.setValue(entity.getFinishDate());
-		finishTimeItem.setValue(entity.getFinishDate());
+		beginningDateItem.setValue(entity.getBeginningTimestamp());
+		beginningTimeItem.setValue(entity.getBeginningTimestamp());
+		finishDateItem.setValue(entity.getFinishTimestamp());
+		finishTimeItem.setValue(entity.getFinishTimestamp());
 		deliverDateItem.setValue(entity.getDeliverDate());
 		acceptationDateItem.setValue(entity.getAcceptationDate());
 		effectiveTimeTextItem.setValue(entity.getEffectiveTime());
@@ -636,6 +667,15 @@ public class EIAMaintenancePlanificationForm extends
 		acceptationDateItem.setDisabled(!active);
 		providerSelectItem.setDisabled(!active);
 		roleSelectItem.setDisabled(!active);
+
+		if (active == false) {
+			// corrective maintenance
+			estimatedMaintenanceTimeTextItem.setDisabled(true);
+			estimatedMaintenancePoTSelectedItem.setDisabled(true);
+			failureDescriptionTextAreaItem.setDisabled(true);
+			// preventive maintenance
+			maintenacePlanSelectItem.setDisabled(true);
+		}
 	}
 
 	/**
@@ -672,10 +712,11 @@ public class EIAMaintenancePlanificationForm extends
 		if (entity == null)
 			return;
 
-		if (entity.getType() == MaintenancePlanificationType.PREVENTIVE)
+		if (entity.getType() == MaintenancePlanificationType.PREVENTIVE) {
 			updatePreventiveMaintenance(callback, entity);
-		else
+		} else {
 			updateCorrectiveMaintenance(callback, entity);
+		}
 	}
 
 	/**

@@ -135,7 +135,7 @@ public class EiaDamageReportService extends GHAEJBExceptionImpl implements
 				EiaDamageReport edr = (EiaDamageReport) aux[0];
 				edrFinal.setDamageMotive(edr.getDamageMotive());
 				edrFinal.setDamageStatus(edr.getDamageStatus());
-				edrFinal.setDateTimeDamage(edr.getDateTimeDamage());
+				edrFinal.setDateTimestamp(edr.getDateTimestamp());
 				edrFinal.setId(edr.getId());
 				edrFinal.setPriority(edr.getPriority());
 				edrFinal.setUserWhoRegistered(edr.getUserWhoRegistered());

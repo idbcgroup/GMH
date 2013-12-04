@@ -32,6 +32,10 @@ import com.smartgwt.client.widgets.grid.ListGridRecord;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
+/**
+ * @author naramirez
+ * 
+ */
 public class EiaDamageReportGridPanel extends GHAVerticalLayout implements
 		EIATypeSelectionListener, EiaDamageReportSelectionProducer,
 		HideableListener, ClosableListener {
@@ -43,7 +47,8 @@ public class EiaDamageReportGridPanel extends GHAVerticalLayout implements
 
 	{
 		grid = new EIAGrid();
-		searchForm = new EIADamageAndPlanificationSearchForm(GHAStrings.get("search-eia"));
+		searchForm = new EIADamageAndPlanificationSearchForm(
+				GHAStrings.get("search-eia"));
 		addForm = new EIADamageReportAddForm();
 
 		searchForm.addEiaSelectionListener(new EIASelectionListener() {
@@ -63,6 +68,9 @@ public class EiaDamageReportGridPanel extends GHAVerticalLayout implements
 		});
 	}
 
+	/**
+	 * 
+	 */
 	public EiaDamageReportGridPanel() {
 		super();
 		setWidth("100%");

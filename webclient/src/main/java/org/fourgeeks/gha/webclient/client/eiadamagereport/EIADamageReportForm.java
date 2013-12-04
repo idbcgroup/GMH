@@ -1,6 +1,6 @@
 package org.fourgeeks.gha.webclient.client.eiadamagereport;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -40,6 +40,7 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASectionForm;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
+import org.fourgeeks.gha.webclient.client.eiatype.damageandplanification.EIADamageAndPlanificationUtil;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.util.LogicalDate;
@@ -281,8 +282,9 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 
 		LogicalTime time = damageTimeItem.getValueAsLogicalTime();
 		LogicalDate date = damageDateItem.getValueAsLogicalDate();
-		Date datetime = EiaDamageReportUtil.getDatetime(date, time);
-		eiaDamageReport.setDateTimeDamage(datetime);
+		Timestamp timestamp = EIADamageAndPlanificationUtil.getTimestamp(date,
+				time);
+		eiaDamageReport.setDateTimestamp(timestamp);
 
 		// VALIDANDO LOS DATOS
 		Set<ConstraintViolation<EiaDamageReport>> violations = null;

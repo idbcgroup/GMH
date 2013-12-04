@@ -150,8 +150,10 @@ public class EiaMaintenancePlanificationService extends GHAEJBExceptionImpl
 	public EiaPreventiveMaintenancePlanification savePreventiveMaintenance(
 			EiaPreventiveMaintenancePlanification entity)
 			throws GHAEJBException {
+
+		EiaMaintenancePlanification planif = entity.getPlanification();
 		try {
-			em.persist(entity.getPlanification());
+			em.persist(planif);
 			em.persist(entity);
 			// TODO agregar en tabla log: se creo un mantenimiento preventivo
 			em.flush();
@@ -179,10 +181,12 @@ public class EiaMaintenancePlanificationService extends GHAEJBExceptionImpl
 	public EiaPreventiveMaintenancePlanification updatePreventiveMaintenance(
 			EiaPreventiveMaintenancePlanification entity)
 			throws GHAEJBException {
+
 		try {
 			em.merge(entity.getPlanification());
 			EiaPreventiveMaintenancePlanification res = em.merge(entity);
 			// TODO agregar a tabla log: actualizacion de mantenimiento
+			em.flush();
 
 			return res;
 		} catch (Exception e) {
@@ -206,10 +210,12 @@ public class EiaMaintenancePlanificationService extends GHAEJBExceptionImpl
 	public EiaCorrectiveMaintenancePlanification updateCorrectiveMaintenance(
 			EiaCorrectiveMaintenancePlanification entity)
 			throws GHAEJBException {
+
 		try {
+			// TODO agregar a tabla log: actualizacion de mantenimiento
 			em.merge(entity.getPlanification());
 			EiaCorrectiveMaintenancePlanification res = em.merge(entity);
-			// TODO agregar a tabla log: actualizacion de mantenimiento
+			em.flush();
 
 			return res;
 		} catch (Exception e) {

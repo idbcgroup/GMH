@@ -3,7 +3,6 @@ package org.fourgeeks.gha.webclient.client.eiamaintenanceplanification;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
-import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACloseButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
@@ -34,7 +33,7 @@ public class EIAMaintenancePlanificationUpdateForm extends
 	 * Constructor del formulario para planificacion de mantenimiento
 	 */
 	public EIAMaintenancePlanificationUpdateForm() {
-		super(GHAStrings.get("edit-eia-maintenance-planification"));
+		super("Planificación de Mantenimiento");
 		VLayout sideButtons = GHAUiHelper.createBar(new GHASaveButton(
 				new ClickHandler() {
 					@Override
@@ -48,9 +47,9 @@ public class EIAMaintenancePlanificationUpdateForm extends
 			}
 		}));
 
-		HLayout gridPanel = new HLayout();
-		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
-		addMember(gridPanel);
+		HLayout mainLayout = new HLayout();
+		mainLayout.addMembers(form, new LayoutSpacer(), sideButtons);
+		addMember(mainLayout);
 	}
 
 	/**

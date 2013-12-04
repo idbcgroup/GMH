@@ -21,6 +21,7 @@ import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 import org.fourgeeks.gha.webclient.client.eiapreventivemaintenanceplanification.EIAPreventiveMaintenancePlanificationAddForm;
 import org.fourgeeks.gha.webclient.client.eiapreventivemaintenanceplanification.EiaPreventiveMaintenancePlanificationModel;
 import org.fourgeeks.gha.webclient.client.eiapreventivemaintenanceplanification.PreventivePlanificationSelectionListener;
+import org.fourgeeks.gha.webclient.client.eiapreventivemaintenanceplanification.PreventivePlanificationSelectionProducer;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype.EiaTypeMaintenancePlanModel;
 
@@ -29,9 +30,14 @@ import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
+/**
+ * @author naramirez
+ * 
+ */
 public class EIAPreventiveMaintenancePlanificationGridPanel extends
 		GHAVerticalLayout implements EIATypeSelectionListener,
-		HideableListener, ClosableListener {
+		PreventivePlanificationSelectionProducer, HideableListener,
+		ClosableListener {
 
 	private EIAPreventiveMaintenancePlanificationGrid grid;
 	private EIADamageAndPlanificationSearchForm searchForm;
@@ -40,7 +46,8 @@ public class EIAPreventiveMaintenancePlanificationGridPanel extends
 
 	{
 		grid = new EIAPreventiveMaintenancePlanificationGrid();
-		searchForm = new EIADamageAndPlanificationSearchForm(GHAStrings.get("search-eia"));
+		searchForm = new EIADamageAndPlanificationSearchForm(
+				GHAStrings.get("search-eia"));
 		addForm = new EIAPreventiveMaintenancePlanificationAddForm();
 		addForm.addPreventivePlanificationSelectionListener(new PreventivePlanificationSelectionListener() {
 			@Override
@@ -62,6 +69,9 @@ public class EIAPreventiveMaintenancePlanificationGridPanel extends
 
 	}
 
+	/**
+	 * Constructor
+	 */
 	public EIAPreventiveMaintenancePlanificationGridPanel() {
 		super();
 		setWidth("100%");
@@ -136,5 +146,24 @@ public class EIAPreventiveMaintenancePlanificationGridPanel extends
 		searchForm.select(eiaType);
 		addForm.select(eiaType);
 		loadData();
+	}
+
+	@Override
+	public void addPreventivePlanificationSelectionListener(
+			PreventivePlanificationSelectionListener preventivePlanifSelectionListener) {
+		addForm.addPreventivePlanificationSelectionListener(preventivePlanifSelectionListener);
+
+	}
+
+	@Override
+	public void removePreventivePlanificationSelectionListener(
+			PreventivePlanificationSelectionListener preventivePlanifSelectionListener) {
+		addForm.removePreventivePlanificationSelectionListener(preventivePlanifSelectionListener);
+
+	}
+
+	@Override
+	public void notifyPreventiveMaintenancePlanification(
+			EiaPreventiveMaintenancePlanification preventivePlanif) {
 	}
 }
