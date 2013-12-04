@@ -11,12 +11,12 @@ import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
  * 
  */
 public class GHAMaintenancePlanTypeSelectItem extends GHASelectItem {
-
+	public static final String labelKey = "plan-type";
 	/**
 	 * 
 	 */
 	public GHAMaintenancePlanTypeSelectItem() {
-		super(GHAStrings.get("plan-type"));
+		super(GHAStrings.get(labelKey));
 		setValueMap(MaintenancePlanType.toValueMap());
 	}
 

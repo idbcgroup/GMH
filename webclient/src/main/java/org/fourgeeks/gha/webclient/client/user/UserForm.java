@@ -63,11 +63,11 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 		confirmPasswordItem = new GHATextItem("Confirme contraseña", true,
 				changedHandler);
 		confirmPasswordItem.setLength(20);
-		firstNameItem = new GHANameTextItem("Primer Nombre", false, changedHandler);
-		secondNameItem = new GHANameTextItem("Segundo Nombre", false,
+		firstNameItem = new GHANameTextItem(GHAStrings.get("first-name"), false, changedHandler);
+		secondNameItem = new GHANameTextItem(GHAStrings.get("second-name"), false,
 				changedHandler);
-		lastNameItem = new GHANameTextItem("Apellido", false, changedHandler);
-		secondLastNameItem = new GHANameTextItem("Segundo Apellido", false,
+		lastNameItem = new GHANameTextItem(GHAStrings.get("first-lastname"), false, changedHandler);
+		secondLastNameItem = new GHANameTextItem(GHAStrings.get("second-lastname"), false,
 				changedHandler);
 		primaryEmailItem = new GHAEmailTextItem("Email Primario", changedHandler);
 		alternativeEmailItem = new GHAEmailTextItem("Email Secundario",

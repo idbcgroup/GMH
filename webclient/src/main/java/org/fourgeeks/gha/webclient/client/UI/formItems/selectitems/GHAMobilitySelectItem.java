@@ -9,13 +9,14 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
  * @author alacret A select item with the mobility items
  */
 public class GHAMobilitySelectItem extends GHASelectItem {
-
+	public static final String labelKey = "mobility";
+	
 	/**
 	 * @param width
 	 * 
 	 */
 	public GHAMobilitySelectItem(int width) {
-		super(GHAStrings.get("mobility"), width);
+		super(GHAStrings.get(labelKey), width);
 		setValueMap(EiaMobilityEnum.toValueMap());
 	}
 

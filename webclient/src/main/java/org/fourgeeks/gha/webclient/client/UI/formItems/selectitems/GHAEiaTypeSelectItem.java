@@ -17,11 +17,12 @@ import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
  * 
  */
 public class GHAEiaTypeSelectItem extends GHASelectItem {
+	public static final String labelKey = "eiatype-select-item";
 	/**
 	 * @param width
 	 */
 	public GHAEiaTypeSelectItem(int width) {
-		super(GHAStrings.get("eiatype-select-item"), width);
+		super(GHAStrings.get(labelKey), width);
 		fill(true);
 	}
 
@@ -40,7 +41,7 @@ public class GHAEiaTypeSelectItem extends GHASelectItem {
 	 */
 	public GHAEiaTypeSelectItem(int width, boolean required,
 			ChangedHandler changedHandler) {
-		super(GHAStrings.get("eiatype-select-item"), width);
+		super(GHAStrings.get(labelKey), width);
 		setRequired(required);
 		addChangedHandler(changedHandler);
 		fill(true);

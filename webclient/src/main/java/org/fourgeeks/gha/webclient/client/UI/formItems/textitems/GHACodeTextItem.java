@@ -42,8 +42,8 @@ public class GHACodeTextItem extends GHATextItem {
 	 * @param width
 	 */
 	public GHACodeTextItem(boolean required, int width) {
-		this(required);
-		setWidth(width);
+		this(width);
+		setRequired(required);
 	}
 
 	/**

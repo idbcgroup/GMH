@@ -1,5 +1,6 @@
 package org.fourgeeks.gha.webclient.client.UI.formItems.textitems;
 
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
@@ -10,6 +11,14 @@ import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
  */
 public class GHANameTextItem extends GHATextItem {
 
+	/**
+	 * @param title
+	 */
+	public GHANameTextItem() {
+		super(GHAStrings.get("name"));
+		setLength(20);
+		setMask(">A<AAAAAAAAAAAAAAAAAAA");
+	}
 	
 	/**
 	 * @param title

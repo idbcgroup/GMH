@@ -11,12 +11,13 @@ import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
  * 
  */
 public class GHADoumentTypeSelectItem extends GHASelectItem {
-
+	public static final String labelKey = "id-type";
+	
 	/**
 	 * 
 	 */
 	public GHADoumentTypeSelectItem() {
-		super(GHAStrings.get("id-type"));
+		super(GHAStrings.get(labelKey));
 		setValueMap(DocumentTypeEnum.toValueMap());
 	}
 	
@@ -24,7 +25,7 @@ public class GHADoumentTypeSelectItem extends GHASelectItem {
 	 * @param width
 	 */
 	public GHADoumentTypeSelectItem(int width) {
-		super(GHAStrings.get("id-type"), width);
+		super(GHAStrings.get(labelKey), width);
 		setValueMap(DocumentTypeEnum.toValueMap());
 	}
 
@@ -36,7 +37,7 @@ public class GHADoumentTypeSelectItem extends GHASelectItem {
 	 */
 	public GHADoumentTypeSelectItem(int width, boolean required,
 			ChangedHandler changedHandler) {
-		super(GHAStrings.get("id-type"), width);
+		super(GHAStrings.get(labelKey), width);
 		setRequired(required);
 		addChangedHandler(changedHandler);
 		setValueMap(DocumentTypeEnum.toValueMap());
@@ -49,7 +50,7 @@ public class GHADoumentTypeSelectItem extends GHASelectItem {
 	 */
 	public GHADoumentTypeSelectItem(boolean required,
 			ChangedHandler changedHandler) {
-		super(GHAStrings.get("id-type"));
+		super(GHAStrings.get(labelKey));
 		setRequired(required);
 		addChangedHandler(changedHandler);
 		setValueMap(DocumentTypeEnum.toValueMap());

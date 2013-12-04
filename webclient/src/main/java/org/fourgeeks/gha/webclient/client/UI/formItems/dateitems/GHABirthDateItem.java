@@ -19,19 +19,12 @@ public class GHABirthDateItem extends GHADateItem {
 	public GHABirthDateItem(String title, ChangedHandler changeHandler) {
 		super(title);
 		addChangedHandler(changeHandler);
-		DateRangeValidator drv = new DateRangeValidator();
-		drv.setMin(new java.util.Date(0));
-		long currentTimeMillis = System.currentTimeMillis();
-		Date endDate = new Date(currentTimeMillis);
-		drv.setMax(endDate);
-		setValidators(drv);
-		drv.setValidateOnChange(true);
-		setValidateOnChange(true);
-		drv.setErrorMessage(GHAStrings.get("date-must-be-lower-than-today"));
-		setHoverWidth(150);
 		
 		setValidateOnChange(true);
+		setHoverWidth(150);		
 		
+		setValidators(getValidator());
+				
 //		addChangeHandler(new ChangeHandler() {
 //
 //			@Override
@@ -39,6 +32,18 @@ public class GHABirthDateItem extends GHADateItem {
 //				GHABirthDateItem.this.validate();
 //			}
 //		});
+	}
+	
+	public DateRangeValidator getValidator(){
+		DateRangeValidator drv = new DateRangeValidator();
+		drv.setMin(new java.util.Date(0));
+		long currentTimeMillis = System.currentTimeMillis();
+		Date endDate = new Date(currentTimeMillis);
+		drv.setMax(endDate);
+		drv.setErrorMessage(GHAStrings.get("date-must-be-lower-than-today"));
+		drv.setValidateOnChange(true);
+		
+		return drv;
 	}
 
 }

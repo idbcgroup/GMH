@@ -12,12 +12,13 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 
 public class GHAExternalProviderSelectItem extends GHASelectItem {
-
+	public static final String labelKey = "maintenance-provider";
+	
 	/**
 	 * @param width
 	 */
 	public GHAExternalProviderSelectItem(int width) {
-		super(GHAStrings.get("maintenance-provider"), width);
+		super(GHAStrings.get(labelKey), width);
 		fill();
 	}
 
@@ -25,7 +26,7 @@ public class GHAExternalProviderSelectItem extends GHASelectItem {
 	 * 
 	 */
 	public GHAExternalProviderSelectItem() {
-		super(GHAStrings.get("maintenance-provider"));
+		super(GHAStrings.get(labelKey));
 		fill();
 	}
 
@@ -36,7 +37,7 @@ public class GHAExternalProviderSelectItem extends GHASelectItem {
 	 */
 	public GHAExternalProviderSelectItem(boolean required,
 			ChangedHandler changedHandler) {
-		super(GHAStrings.get("maintenance-provider"));
+		super(GHAStrings.get(labelKey));
 		setRequired(required);
 		addChangedHandler(changedHandler);
 		fill();

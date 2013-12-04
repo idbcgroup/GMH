@@ -10,13 +10,13 @@ import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
  * @author alacret A select item with the mobility items
  */
 public class GHAEiaTypeTypeSelectItem extends GHASelectItem {
-
+	public static final String labelKey = "eiatype-type";
 	/**
 	 * @param width
 	 * 
 	 */
 	public GHAEiaTypeTypeSelectItem(int width) {
-		super(GHAStrings.get("eiatype-type"), width);
+		super(GHAStrings.get(labelKey), width);
 
 		setValueMap(EiaTypeEnum.toValueMap());
 	}
@@ -29,7 +29,7 @@ public class GHAEiaTypeTypeSelectItem extends GHASelectItem {
 	 */
 	public GHAEiaTypeTypeSelectItem(int width, boolean required,
 			ChangedHandler changedHandler) {
-		super(GHAStrings.get("eiatype-type"), width);
+		super(GHAStrings.get(labelKey), width);
 		setRequired(required);
 		addChangedHandler(changedHandler);
 		setValueMap(EiaTypeEnum.toValueMap());
@@ -42,7 +42,7 @@ public class GHAEiaTypeTypeSelectItem extends GHASelectItem {
 	 */
 	public GHAEiaTypeTypeSelectItem(boolean required,
 			ChangedHandler changedHandler) {
-		super(GHAStrings.get("eiatype-type"));
+		super(GHAStrings.get(labelKey));
 		setRequired(required);
 		addChangedHandler(changedHandler);
 		setValueMap(EiaTypeEnum.toValueMap());
@@ -52,7 +52,7 @@ public class GHAEiaTypeTypeSelectItem extends GHASelectItem {
 	 * 
 	 */
 	public GHAEiaTypeTypeSelectItem() {
-		super(GHAStrings.get("eiatype-type"));
+		super(GHAStrings.get(labelKey));
 		setValueMap(EiaTypeEnum.toValueMap());
 	}
 

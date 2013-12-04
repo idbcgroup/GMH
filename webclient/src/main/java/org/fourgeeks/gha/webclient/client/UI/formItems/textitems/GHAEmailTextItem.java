@@ -12,13 +12,22 @@ import com.smartgwt.client.widgets.form.validator.RegExpValidator;
  */
 public class GHAEmailTextItem extends GHATextItem {
 
+
+	/**
+	 * Creates a email text item with a regExpValidator for email fields.
+	 */
+	public GHAEmailTextItem() {
+		super(GHAStrings.get("mail"));
+		initEmailValidator();
+	}
+	
 	/**
 	 * Creates a email text item with a regExpValidator for email fields.
 	 * 
 	 * @param width
 	 */
 	public GHAEmailTextItem(int width) {
-		super(width);
+		super(GHAStrings.get("mail"),width);
 		initEmailValidator();
 	}
 
@@ -29,7 +38,7 @@ public class GHAEmailTextItem extends GHATextItem {
 	 * @param active
 	 */
 	public GHAEmailTextItem(String title, boolean active) {
-		super(title, active);
+		super(GHAStrings.get("mail"), active);
 		initEmailValidator();
 	}
 
@@ -41,7 +50,7 @@ public class GHAEmailTextItem extends GHATextItem {
 	 * @param active
 	 */
 	public GHAEmailTextItem(String title, int width, boolean active) {
-		super(title, width, active);
+		super(GHAStrings.get("mail"), width, active);
 		initEmailValidator();
 	}
 
@@ -77,13 +86,6 @@ public class GHAEmailTextItem extends GHATextItem {
 		initEmailValidator();
 	}
 
-	/**
-	 * Creates a email text item with a regExpValidator for email fields.
-	 */
-	public GHAEmailTextItem() {
-		super();
-		initEmailValidator();
-	}
 
 	private void initEmailValidator() {
 		setLength(256);

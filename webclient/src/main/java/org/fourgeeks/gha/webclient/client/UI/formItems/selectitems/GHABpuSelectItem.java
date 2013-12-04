@@ -13,11 +13,13 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 
 public class GHABpuSelectItem extends GHASelectItem {
+	public static final String labelKey = "bpu-select-item";
+	
 	/**
 	 * @param width
 	 */
 	public GHABpuSelectItem(int width) {
-		super(GHAStrings.get("bpu-select-item"), width);
+		super(GHAStrings.get(labelKey), width);
 		fill();
 	}
 
@@ -25,7 +27,7 @@ public class GHABpuSelectItem extends GHASelectItem {
 	 * 
 	 */
 	public GHABpuSelectItem() {
-		super(GHAStrings.get("bpu-select-item"));
+		super(GHAStrings.get(labelKey));
 		fill();
 	}
 
@@ -54,7 +56,7 @@ public class GHABpuSelectItem extends GHASelectItem {
 	 */
 	public GHABpuSelectItem(int width, boolean required,
 			ChangedHandler changedHandler) {
-		super(GHAStrings.get("bpu-select-item"), width);
+		super(GHAStrings.get(labelKey), width);
 		setRequired(required);
 		addChangedHandler(changedHandler);
 		fill();
@@ -66,7 +68,7 @@ public class GHABpuSelectItem extends GHASelectItem {
 	 * @param changedHandler
 	 */
 	public GHABpuSelectItem(boolean required, ChangedHandler changedHandler) {
-		super(GHAStrings.get("bpu-select-item"));
+		super(GHAStrings.get(labelKey));
 		setRequired(required);
 		addChangedHandler(changedHandler);
 		fill();

@@ -12,6 +12,15 @@ import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 public class GHAUserNameTextItem extends GHATextItem {
 
 	/**
+	 * 
+	 */
+	public GHAUserNameTextItem() {
+		super(GHAStrings.get("user"));
+		setLength(20);
+		setMask("AAAAAAAAAAAAAAAAAAAA");
+	}
+	
+	/**
 	 * @param width
 	 */
 	public GHAUserNameTextItem(int width) {
@@ -23,25 +32,16 @@ public class GHAUserNameTextItem extends GHATextItem {
 	/**
 	 * @param width
 	 */
-	public GHAUserNameTextItem() {
-		super(GHAStrings.get("user"));
-		setLength(20);
-		setMask("AAAAAAAAAAAAAAAAAAAA");
+	public GHAUserNameTextItem(boolean required) {
+		this();
+		setRequired(required);
 	}
-
+	
 	/**
 	 * @param width
 	 */
 	public GHAUserNameTextItem(int width, boolean required) {
 		this(width);
-		setRequired(required);
-	}
-
-	/**
-	 * @param width
-	 */
-	public GHAUserNameTextItem(boolean required) {
-		this();
 		setRequired(required);
 	}
 

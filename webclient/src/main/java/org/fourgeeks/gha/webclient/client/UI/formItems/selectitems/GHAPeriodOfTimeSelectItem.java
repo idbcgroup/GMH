@@ -13,12 +13,13 @@ import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
  * 
  */
 public class GHAPeriodOfTimeSelectItem extends GHASelectItem {
-
+	public static final String labelKey = "period-of-time";
+	
 	/**
 	 * 
 	 */
 	public GHAPeriodOfTimeSelectItem() {
-		super(GHAStrings.get("period-of-time"));
+		super(GHAStrings.get(labelKey));
 		setValueMap(getValueMap());
 		setDefaultValue(TimePeriodEnum.YEARS.name());
 	}

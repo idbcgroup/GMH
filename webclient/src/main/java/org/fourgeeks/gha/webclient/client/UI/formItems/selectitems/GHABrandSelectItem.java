@@ -13,13 +13,14 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
  * @author alacret A select item with the mobility items
  */
 public class GHABrandSelectItem extends GHASelectItem {
-
+	public static final String labelKey = "brand";
+	
 	/**
 	 * @param width
 	 * 
 	 */
 	public GHABrandSelectItem(int width) {
-		super(GHAStrings.get("brand"), width);
+		super(GHAStrings.get(labelKey), width);
 		fill(false);
 	}
 
@@ -48,7 +49,7 @@ public class GHABrandSelectItem extends GHASelectItem {
 	 * 
 	 */
 	public GHABrandSelectItem() {
-		super(GHAStrings.get("brand"));
+		super(GHAStrings.get(labelKey));
 		fill(false);
 	}
 

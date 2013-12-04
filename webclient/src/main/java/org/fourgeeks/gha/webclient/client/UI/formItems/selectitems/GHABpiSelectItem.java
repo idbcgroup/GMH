@@ -38,7 +38,7 @@ public class GHABpiSelectItem extends GHASelectItem {
 	 */
 	public GHABpiSelectItem(int width, boolean required,
 			ChangedHandler changedHandler) {
-		super(GHAStrings.get(labelKey), width);
+		super(GHAStrings.get(labelKey), width,required);
 		setRequired(required);
 		addChangedHandler(changedHandler);
 		fill();

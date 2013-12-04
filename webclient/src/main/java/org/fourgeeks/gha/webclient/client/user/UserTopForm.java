@@ -48,10 +48,10 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 		usernameItem = new GHAUserNameTextItem();
 		stateItem = new GHAUserStateSelectItem();
 		firstNameItem = new GHANameTextItem(GHAStrings.get("first-name"));
-		secondNameItem = new GHANameTextItem("Segundo Nombre");
+		secondNameItem = new GHANameTextItem(GHAStrings.get("second-name"));
 		firstLastNameItem = new GHANameTextItem(GHAStrings.get("first-lastname"));
 		secondLastNameItem = new GHANameTextItem(GHAStrings.get("second-lastname"));
-		emailItem = new GHAEmailTextItem(GHAStrings.get("mail"));
+		emailItem = new GHAEmailTextItem();
 		idTypeSelectItem = new GHADoumentTypeSelectItem();
 		idItem = new GHATextItem(GHAStrings.get("id-number"));
 		idItem.setLength(20);
