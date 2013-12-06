@@ -9,6 +9,7 @@ import com.smartgwt.client.widgets.events.ClickHandler;
 
 /**
  * @author alacret
+ * @param <T>
  * 
  */
 public abstract class GHAAddForm<T> extends GHASlideInWindow {
@@ -26,11 +27,6 @@ public abstract class GHAAddForm<T> extends GHASlideInWindow {
 				+ GHAUiHelper.V_SEPARATOR_HEIGHT + 1);
 		label = new GHALabel(title);
 		addMember(label);
-	}
-
-	@Override
-	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getBottomSectionHeight());
 	}
 
 	/**
@@ -58,4 +54,11 @@ public abstract class GHAAddForm<T> extends GHASlideInWindow {
 				}, null);
 
 	}
+
+	@Override
+	public void onResize(ResizeEvent event) {
+		setHeight(GHAUiHelper.getBottomSectionHeight());
+	}
+
+	protected abstract void save();
 }

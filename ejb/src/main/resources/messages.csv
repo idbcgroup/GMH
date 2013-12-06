@@ -480,3 +480,4 @@ ES,eiaPreventiveMaintenancePlanification-save-success,La Planificación de Mante
 ES,eiatype-maintenance-plan-not-null,Debe indicar el plan de mantenimiento
 ES,password-missmatch,Las claves de acceso no coinciden
 ES,email-invalid-field,Debe ingresar un email válido
+ES,eia-maintenance-planification-details-register-success,Los detalles de la Planificación de Mantenimiento se registraron exitosamente 

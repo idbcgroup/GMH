@@ -163,7 +163,8 @@ public class MaterialAddForm extends GHAAddForm<Material> implements
 
 	}
 
-	private void save() {
+	@Override
+	protected void save() {
 		form.save(new GHAAsyncCallback<Material>() {
 
 			@Override

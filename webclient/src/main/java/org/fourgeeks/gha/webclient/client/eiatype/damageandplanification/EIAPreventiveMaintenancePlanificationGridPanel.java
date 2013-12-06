@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eiatype.eiapreventivemaintenanceplanitification;
+package org.fourgeeks.gha.webclient.client.eiatype.damageandplanification;
 
 import java.util.List;
 
@@ -18,10 +18,10 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
-import org.fourgeeks.gha.webclient.client.eiadamagereport.EIADamageReportSearchForm;
 import org.fourgeeks.gha.webclient.client.eiapreventivemaintenanceplanification.EIAPreventiveMaintenancePlanificationAddForm;
 import org.fourgeeks.gha.webclient.client.eiapreventivemaintenanceplanification.EiaPreventiveMaintenancePlanificationModel;
 import org.fourgeeks.gha.webclient.client.eiapreventivemaintenanceplanification.PreventivePlanificationSelectionListener;
+import org.fourgeeks.gha.webclient.client.eiapreventivemaintenanceplanification.PreventivePlanificationSelectionProducer;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype.EiaTypeMaintenancePlanModel;
 
@@ -30,18 +30,24 @@ import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
+/**
+ * @author naramirez
+ * 
+ */
 public class EIAPreventiveMaintenancePlanificationGridPanel extends
 		GHAVerticalLayout implements EIATypeSelectionListener,
-		HideableListener, ClosableListener {
+		PreventivePlanificationSelectionProducer, HideableListener,
+		ClosableListener {
 
 	private EIAPreventiveMaintenancePlanificationGrid grid;
-	private EIADamageReportSearchForm searchForm;
+	private EIADamageAndPlanificationSearchForm searchForm;
 	private EiaType eiaType;
 	private EIAPreventiveMaintenancePlanificationAddForm addForm;
 
 	{
 		grid = new EIAPreventiveMaintenancePlanificationGrid();
-		searchForm = new EIADamageReportSearchForm(GHAStrings.get("search-eia"));
+		searchForm = new EIADamageAndPlanificationSearchForm(
+				GHAStrings.get("search-eia"));
 		addForm = new EIAPreventiveMaintenancePlanificationAddForm();
 		addForm.addPreventivePlanificationSelectionListener(new PreventivePlanificationSelectionListener() {
 			@Override
@@ -63,6 +69,9 @@ public class EIAPreventiveMaintenancePlanificationGridPanel extends
 
 	}
 
+	/**
+	 * Constructor
+	 */
 	public EIAPreventiveMaintenancePlanificationGridPanel() {
 		super();
 		setWidth("100%");
@@ -107,8 +116,8 @@ public class EIAPreventiveMaintenancePlanificationGridPanel extends
 							@Override
 							public void onSuccess(
 									List<EiaPreventiveMaintenancePlanification> result) {
-								List<EIAPreventiveMaintenancePlanificationRecord> gridRecords = EIAPreventivePlanifUtil
-										.toGridRecords(result);
+								List<EIAPreventiveMaintenancePlanificationRecord> gridRecords = EIADamageAndPlanificationUtil
+										.toPreventiveMaintenanceGridRecords(result);
 								EIAPreventiveMaintenancePlanificationRecord[] array = gridRecords
 										.toArray(new EIAPreventiveMaintenancePlanificationRecord[] {});
 								grid.setData(array);
@@ -137,5 +146,24 @@ public class EIAPreventiveMaintenancePlanificationGridPanel extends
 		searchForm.select(eiaType);
 		addForm.select(eiaType);
 		loadData();
+	}
+
+	@Override
+	public void addPreventivePlanificationSelectionListener(
+			PreventivePlanificationSelectionListener preventivePlanifSelectionListener) {
+		addForm.addPreventivePlanificationSelectionListener(preventivePlanifSelectionListener);
+
+	}
+
+	@Override
+	public void removePreventivePlanificationSelectionListener(
+			PreventivePlanificationSelectionListener preventivePlanifSelectionListener) {
+		addForm.removePreventivePlanificationSelectionListener(preventivePlanifSelectionListener);
+
+	}
+
+	@Override
+	public void notifyPreventiveMaintenancePlanification(
+			EiaPreventiveMaintenancePlanification preventivePlanif) {
 	}
 }

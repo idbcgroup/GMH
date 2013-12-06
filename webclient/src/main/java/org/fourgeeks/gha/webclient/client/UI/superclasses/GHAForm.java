@@ -94,6 +94,9 @@ public abstract class GHAForm<T> extends GHAVerticalLayout implements
 	 */
 	public abstract void update(final GHAAsyncCallback<T> callback);
 
+	/**
+	 * @param entity
+	 */
 	public abstract void set(T entity);
 
 	/**

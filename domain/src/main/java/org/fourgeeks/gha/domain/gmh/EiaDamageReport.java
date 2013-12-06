@@ -1,6 +1,6 @@
 package org.fourgeeks.gha.domain.gmh;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -14,6 +14,10 @@ import org.fourgeeks.gha.domain.enu.EiaDamagePriorityEnum;
 import org.fourgeeks.gha.domain.enu.EiaDamageStatusEnum;
 import org.fourgeeks.gha.domain.gar.Bpu;
 
+/**
+ * @author naramirez
+ * 
+ */
 @Entity
 @NamedQueries(value = { @NamedQuery(name = "EiaDamageReport.getAll", query = "SELECT edr from EiaDamageReport edr order by edr.id") })
 public class EiaDamageReport extends AbstractEntity {
@@ -48,65 +52,117 @@ public class EiaDamageReport extends AbstractEntity {
 	private String damageMotive;
 
 	/** Fecha y hora de la falla o daño */
-	private Date dateTimeDamage;
+	private Timestamp dateTimestamp;
 
+	/**
+	 * 
+	 */
 	public EiaDamageReport() {
-		// TODO Auto-generated constructor stub
 	}
 
-	public Eia getEia() {
-		return eia;
-	}
-
-	public void setEia(Eia eia) {
-		this.eia = eia;
-	}
-
-	public EiaDamageStatusEnum getDamageStatus() {
-		return damageStatus;
-	}
-
-	public void setDamageStatus(EiaDamageStatusEnum damageStatus) {
-		this.damageStatus = damageStatus;
-	}
-
+	/**
+	 * @return the damageMotive
+	 */
 	public String getDamageMotive() {
 		return damageMotive;
 	}
 
-	public void setDamageMotive(String damageMotive) {
-		this.damageMotive = damageMotive;
+	/**
+	 * @return the damageStatus
+	 */
+	public EiaDamageStatusEnum getDamageStatus() {
+		return damageStatus;
 	}
 
-	public Date getDateTimeDamage() {
-		return dateTimeDamage;
+	/**
+	 * @return the dateTimestamp
+	 */
+	public Timestamp getDateTimestamp() {
+		return dateTimestamp;
 	}
 
-	public void setDateTimeDamage(Date dateTimeDamage) {
-		this.dateTimeDamage = dateTimeDamage;
+	/**
+	 * @return the eia
+	 */
+	public Eia getEia() {
+		return eia;
 	}
 
-	public Bpu getUserWhoReported() {
-		return userWhoReported;
-	}
-
-	public void setUserWhoReported(Bpu userWhoReported) {
-		this.userWhoReported = userWhoReported;
-	}
-
-	public Bpu getUserWhoRegistered() {
-		return userWhoRegistered;
-	}
-
-	public void setUserWhoRegistered(Bpu userWhoRegistered) {
-		this.userWhoRegistered = userWhoRegistered;
-	}
-
+	/**
+	 * @return the priority
+	 */
 	public EiaDamagePriorityEnum getPriority() {
 		return priority;
 	}
 
+	/**
+	 * @return the userWhoRegistered
+	 */
+	public Bpu getUserWhoRegistered() {
+		return userWhoRegistered;
+	}
+
+	/**
+	 * @return the userWhoReported
+	 */
+	public Bpu getUserWhoReported() {
+		return userWhoReported;
+	}
+
+	/**
+	 * @param damageMotive
+	 *            the damageMotive to set
+	 */
+	public void setDamageMotive(String damageMotive) {
+		this.damageMotive = damageMotive;
+	}
+
+	/**
+	 * @param damageStatus
+	 *            the damageStatus to set
+	 */
+	public void setDamageStatus(EiaDamageStatusEnum damageStatus) {
+		this.damageStatus = damageStatus;
+	}
+
+	/**
+	 * @param dateTimestamp
+	 *            the dateTimestamp to set
+	 */
+	public void setDateTimestamp(Timestamp dateTimestamp) {
+		this.dateTimestamp = dateTimestamp;
+	}
+
+	/**
+	 * @param eia
+	 *            the eia to set
+	 */
+	public void setEia(Eia eia) {
+		this.eia = eia;
+	}
+
+	/**
+	 * @param priority
+	 *            the priority to set
+	 */
 	public void setPriority(EiaDamagePriorityEnum priority) {
 		this.priority = priority;
 	}
+
+	/**
+	 * @param userWhoRegistered
+	 *            the userWhoRegistered to set
+	 */
+	public void setUserWhoRegistered(Bpu userWhoRegistered) {
+		this.userWhoRegistered = userWhoRegistered;
+	}
+
+	/**
+	 * @param userWhoReported
+	 *            the userWhoReported to set
+	 */
+	public void setUserWhoReported(Bpu userWhoReported) {
+		this.userWhoReported = userWhoReported;
+	}
+
 }
