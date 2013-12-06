@@ -1,6 +1,9 @@
 package org.fourgeeks.gha.webclient.client.UI.formItems;
 
+import java.util.Date;
+
 import com.smartgwt.client.types.TimeDisplayFormat;
+import com.smartgwt.client.util.DateUtil;
 import com.smartgwt.client.util.LogicalTime;
 import com.smartgwt.client.widgets.form.fields.TextItem;
 import com.smartgwt.client.widgets.form.fields.TimeItem;
@@ -45,16 +48,16 @@ public class GHATimeItem extends TimeItem {
 	/**
 	 * @param title
 	 */
-	public GHATimeItem(String title, ChangedHandler changeHandler) {
+	public GHATimeItem(String title, ChangedHandler changedHandler) {
 		this();
 		setTitle(title);
-		addChangedHandler(changeHandler);
+		addChangedHandler(changedHandler);
 	}
 
 	public LogicalTime getValueAsLogicalTime() {
-		Object value = getValue();
+		Date value = (Date) getValue();
 		if (value != null)
-			return (LogicalTime) value;
+			return DateUtil.getLogicalTimeOnly(value);
 
 		return null;
 	}

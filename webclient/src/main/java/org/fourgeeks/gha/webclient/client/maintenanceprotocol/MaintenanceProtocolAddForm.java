@@ -56,7 +56,8 @@ public class MaintenanceProtocolAddForm extends GHAAddForm<MaintenanceProtocol>
 		super.hide();
 	}
 
-	private void save() {
+	@Override
+	protected void save() {
 		maintenanceProtocolForm.save();
 	}
 

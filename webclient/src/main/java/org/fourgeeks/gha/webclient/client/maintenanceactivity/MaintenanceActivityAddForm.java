@@ -54,7 +54,8 @@ public class MaintenanceActivityAddForm extends GHAAddForm<MaintenanceActivity>
 		super.hide();
 	}
 
-	private void save() {
+	@Override
+	protected void save() {
 		maintenanceActivityForm.save();
 	}
 

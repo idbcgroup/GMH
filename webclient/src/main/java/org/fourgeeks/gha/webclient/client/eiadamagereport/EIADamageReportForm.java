@@ -1,6 +1,6 @@
 package org.fourgeeks.gha.webclient.client.eiadamagereport;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -40,11 +40,16 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASectionForm;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
+import org.fourgeeks.gha.webclient.client.eiatype.damageandplanification.EIADamageAndPlanificationUtil;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.util.LogicalDate;
 import com.smartgwt.client.util.LogicalTime;
 
+/**
+ * @author naramirez
+ * 
+ */
 public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 		EIASelectionListener, EiaDamageReportSelectionProducer {
 	private GHATextItem codeTextItem, serialTextItem, fixedAssetIdTextItem,
@@ -57,7 +62,7 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 	private GHAExternalProviderSelectItem adqisitionProviderSelectItem,
 			maintenanceProviderSelectItem;
 	private GHASelectItem stateSelectItem, locationTypeSelectItem,
-			realWarrantySinceSelectItem,intWarrantySinceSelectItem,
+			realWarrantySinceSelectItem, intWarrantySinceSelectItem,
 			eiaTypeSelectItem;
 	private GHATitletextItem information_TitleItem, location_TitleItem,
 			workingArea_TitleItem, facility_TitleItem, report_TitleItem,
@@ -70,7 +75,8 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 	private GHATextAreaItem damageMotiveTextAreaItem;
 	private GHABpuSelectItem userWhoRegistedSelectItem,
 			userWhoReportedSelectItem;
-	private GHAPeriodOfTimeSelectItem realWarrantyPotSelectItem,intWarrantyPotSelectItem;
+	private GHAPeriodOfTimeSelectItem realWarrantyPotSelectItem,
+			intWarrantyPotSelectItem;
 	private GHASelectItem damageStatusSelectItem, damagePrioritySelectItem;
 
 	private GHASectionForm sectionForm;
@@ -160,8 +166,7 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 	}
 
 	/**
-	 * @param eiaType
-	 * 
+	 * Constructor
 	 */
 	public EIADamageReportForm() {
 		super();
@@ -277,8 +282,9 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 
 		LogicalTime time = damageTimeItem.getValueAsLogicalTime();
 		LogicalDate date = damageDateItem.getValueAsLogicalDate();
-		Date datetime = EiaDamageReportUtil.getDatetime(date, time);
-		eiaDamageReport.setDateTimeDamage(datetime);
+		Timestamp timestamp = EIADamageAndPlanificationUtil.getTimestamp(date,
+				time);
+		eiaDamageReport.setDateTimestamp(timestamp);
 
 		// VALIDANDO LOS DATOS
 		Set<ConstraintViolation<EiaDamageReport>> violations = null;
@@ -425,6 +431,9 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 		reportForm.resize(GHAUiHelper.getSectionFormFormWidth(30), 3);
 	}
 
+	/**
+	 * Open the first section (view) of the sectionForm
+	 */
 	public void openFirstSection() {
 		sectionForm.openFirst();
 	}

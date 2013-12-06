@@ -82,7 +82,8 @@ public class EIAPreventiveMaintenancePlanificationAddForm extends
 
 	}
 
-	private void save() {
+	@Override
+	protected void save() {
 		form.save(new GHAAsyncCallback<EiaPreventiveMaintenancePlanification>() {
 			@Override
 			public void onSuccess(EiaPreventiveMaintenancePlanification result) {

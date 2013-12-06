@@ -62,7 +62,8 @@ public class MaintenancePlanAddForm extends GHAAddForm<MaintenancePlan>
 				.removeMaintenancePlanSelectionListener(maintenancePlanSelectionListener);
 	}
 
-	private void save() {
+	@Override
+	protected void save() {
 		form.save(new GHAAsyncCallback<MaintenancePlan>() {
 
 			@Override
