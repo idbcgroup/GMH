@@ -26,115 +26,115 @@ import com.google.gwt.user.client.ui.RootPanel;
  * @author alacret
  * 
  */
-public class LoginPlace extends GHAPlace {
-
-	/**
-	 * @param token
-	 * 
-	 */
-	public LoginPlace(String token) {
-		super(token);
-	}
-
-	@Override
-	public void show() {
-		RootPanel.get("main-content").clear();
-		RootPanel.get("user-info").clear();
-		RootPanel.get("menu-bar").clear();
-
-		RootPanel.get("main-content").addStyleName("white-background");
-
-		StringBuilder html = new StringBuilder();
-		html.append("<div class='login-panel'>");
-		html.append("<div class='logo login-logo'></div>");
-		html.append("<h1 class='login-titulo'>Iniciar Sesion</h1>");
-		// html.append("<div class='smallfont full'>Ubicado en:<span id='ubicacion'>Sotano enfermeria</span></div>");
-		html.append("<form class='centered'>");
-		html.append("<input maxlength='20' class='round' id='username' type='text' placeholder='Nombre de usuario'><br/>");
-		html.append("<input maxlength='20' class='round' id='password' type='password' placeholder='"
-				+ GHAStrings.get("password") + "'> <br/>");
-		html.append("<input id='login-button' type='button' value='Iniciar Sesion' class='GHAButton'>");
-		// html.append("<div class='smallfont'><input type='checkbox'>Recordar mis datos</div><br/>");
-		// html.append("<div id='recovery'><a  class='smallfont'>¿Olvidaste tu contraseña?</a></div></form></div>");
-		HTML content = new HTML(html.toString());
-		RootPanel.get("main-content").add(content);
-
-		// for Events
-		Element loginButton = RootPanel.get("login-button").getElement();
-		Element pTextbox = RootPanel.get("password").getElement();
-		// Element recovery = RootPanel.get("recovery").getElement();
-
-		final InputElement userTextbox = (InputElement) Document.get()
-				.getElementById("username");
-		final InputElement passTextbox = (InputElement) Document.get()
-				.getElementById("password");
-
-		userTextbox.focus();
-
-		DOM.sinkEvents(loginButton, Event.ONCLICK);
-		DOM.setEventListener(loginButton, new EventListener() {
-
-			@Override
-			public void onBrowserEvent(Event event) {
-				String username = userTextbox.getValue();
-				String password = passTextbox.getValue();
-				doLogin(username, password);
-
-			}
-		});
-
-		// PASS keyup
-
-		DOM.sinkEvents(pTextbox, Event.ONKEYUP);
-		DOM.setEventListener(pTextbox, new EventListener() {
-
-			@Override
-			public void onBrowserEvent(Event event) {
-				if (event.getKeyCode() == 13) {
-					String username = userTextbox.getValue();
-					String password = passTextbox.getValue();
-					doLogin(username, password);
-				}
-			}
-		});
-
-		// RECOVERY
-
-		// DOM.sinkEvents(recovery, Event.ONCLICK);
-		// DOM.setEventListener(recovery, new EventListener() {
-		//
-		// @Override
-		// public void onBrowserEvent(Event event) {
-		// History.newItem("lostpass");
-		// }
-		// });
-	}
-
-	public void doLogin(String username, String password) {
-		if (username == null || username.equals("")) {
-			GHANotification.alert("username-not-null");
-			return;
-		}
-
-		if (password == null || password.equals("")) {
-			GHANotification.alert("password-not-null");
-			return;
-		}
-
-		final GWTLoginServiceAsync service = GWT.create(GWTLoginService.class);
-		service.login(username, password, new GHAAsyncCallback<Bpu>() {
-			@Override
-			public void onSuccess(Bpu result) {
-				if (result != null) {
-					GHASessionData.setLoggedUser(result);
-					String token = History.getToken();
-					if (token.equals("home"))
-						History.fireCurrentHistoryState();
-					else
-						History.newItem("home");
-				}
-				History.fireCurrentHistoryState();
-			}
-		});
-	}
-}
+//public class LoginPlace extends GHAPlace {
+//
+//	/**
+//	 * @param token
+//	 * 
+//	 */
+//	public LoginPlace(String token) {
+//		super(token);
+//	}
+//
+//	@Override
+//	public void show() {
+//		RootPanel.get("main-content").clear();
+//		RootPanel.get("user-info").clear();
+//		RootPanel.get("menu-bar").clear();
+//
+//		RootPanel.get("main-content").addStyleName("white-background");
+//
+//		StringBuilder html = new StringBuilder();
+//		html.append("<div class='login-panel'>");
+//		html.append("<div class='logo login-logo'></div>");
+//		html.append("<h1 class='login-titulo'>Iniciar Sesion</h1>");
+//		// html.append("<div class='smallfont full'>Ubicado en:<span id='ubicacion'>Sotano enfermeria</span></div>");
+//		html.append("<form class='centered'>");
+//		html.append("<input maxlength='20' class='round' id='username' type='text' placeholder='Nombre de usuario'><br/>");
+//		html.append("<input maxlength='20' class='round' id='password' type='password' placeholder='"
+//				+ GHAStrings.get("password") + "'> <br/>");
+//		html.append("<input id='login-button' type='button' value='Iniciar Sesion' class='GHAButton'>");
+//		// html.append("<div class='smallfont'><input type='checkbox'>Recordar mis datos</div><br/>");
+//		// html.append("<div id='recovery'><a  class='smallfont'>¿Olvidaste tu contraseña?</a></div></form></div>");
+//		HTML content = new HTML(html.toString());
+//		RootPanel.get("main-content").add(content);
+//
+//		// for Events
+//		Element loginButton = RootPanel.get("login-button").getElement();
+//		Element pTextbox = RootPanel.get("password").getElement();
+//		// Element recovery = RootPanel.get("recovery").getElement();
+//
+//		final InputElement userTextbox = (InputElement) Document.get()
+//				.getElementById("username");
+//		final InputElement passTextbox = (InputElement) Document.get()
+//				.getElementById("password");
+//
+//		userTextbox.focus();
+//
+//		DOM.sinkEvents(loginButton, Event.ONCLICK);
+//		DOM.setEventListener(loginButton, new EventListener() {
+//
+//			@Override
+//			public void onBrowserEvent(Event event) {
+//				String username = userTextbox.getValue();
+//				String password = passTextbox.getValue();
+//				doLogin(username, password);
+//
+//			}
+//		});
+//
+//		// PASS keyup
+//
+//		DOM.sinkEvents(pTextbox, Event.ONKEYUP);
+//		DOM.setEventListener(pTextbox, new EventListener() {
+//
+//			@Override
+//			public void onBrowserEvent(Event event) {
+//				if (event.getKeyCode() == 13) {
+//					String username = userTextbox.getValue();
+//					String password = passTextbox.getValue();
+//					doLogin(username, password);
+//				}
+//			}
+//		});
+//
+//		// RECOVERY
+//
+//		// DOM.sinkEvents(recovery, Event.ONCLICK);
+//		// DOM.setEventListener(recovery, new EventListener() {
+//		//
+//		// @Override
+//		// public void onBrowserEvent(Event event) {
+//		// History.newItem("lostpass");
+//		// }
+//		// });
+//	}
+//
+//	public void doLogin(String username, String password) {
+//		if (username == null || username.equals("")) {
+//			GHANotification.alert("username-not-null");
+//			return;
+//		}
+//
+//		if (password == null || password.equals("")) {
+//			GHANotification.alert("password-not-null");
+//			return;
+//		}
+//
+//		final GWTLoginServiceAsync service = GWT.create(GWTLoginService.class);
+//		service.login(username, password, new GHAAsyncCallback<Bpu>() {
+//			@Override
+//			public void onSuccess(Bpu result) {
+//				if (result != null) {
+//					GHASessionData.setLoggedUser(result);
+//					String token = History.getToken();
+//					if (token.equals("home"))
+//						History.fireCurrentHistoryState();
+//					else
+//						History.newItem("home");
+//				}
+//				History.fireCurrentHistoryState();
+//			}
+//		});
+//	}
+//}

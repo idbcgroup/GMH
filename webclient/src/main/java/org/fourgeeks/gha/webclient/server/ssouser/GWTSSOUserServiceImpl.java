@@ -4,6 +4,7 @@
 package org.fourgeeks.gha.webclient.server.ssouser;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
@@ -23,6 +24,8 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 @WebServlet(urlPatterns = { "/webclient/ssouser" })
 public class GWTSSOUserServiceImpl extends RemoteServiceServlet implements
 		GWTSSOUserService {
+	private final static Logger logger = Logger
+			.getLogger(GWTSSOUserServiceImpl.class.getName());
 	@EJB(name = "ess.SSOUserService")
 	SSOUserServiceRemote service;
 
@@ -54,6 +57,7 @@ public class GWTSSOUserServiceImpl extends RemoteServiceServlet implements
 	 */
 	@Override
 	public List<SSOUser> find(SSOUser ssoUser) throws GHAEJBException {
+		logger.info("findSSO");
 		return service.find(ssoUser);
 	}
 

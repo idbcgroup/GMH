@@ -1,7 +1,5 @@
 package org.fourgeeks.gha.webclient.client;
 
-import java.util.Date;
-
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAPlacesFactory;
@@ -16,9 +14,7 @@ import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
-import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.History;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 
 /**
@@ -30,41 +26,56 @@ public class Gha implements EntryPoint {
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
-
-		
 		History.addValueChangeHandler(new ValueChangeHandler<String>() {
 			@Override
 			public void onValueChange(ValueChangeEvent<String> event) {
 				final String historyToken = event.getValue();
 				if (historyToken == null)
 					return;
-				
-				final GWTLoginServiceAsync service1 = GWT.create(GWTLoginService.class);
-				service1.userLogged(new GHAAsyncCallback<Bpu>() {
-					@Override
-					public void onSuccess(Bpu result) {
-						if (result != null) 
-							GHASessionData.setLoggedUser(result);
-						GHAPlacesFactory.createPlace(historyToken);
-					}
-				});
+
+				if (GHASessionData.getLoggedUser() != null)
+					GHAPlacesFactory.createPlace(historyToken);
 			}
 		});
 
 		final GWTLoginServiceAsync service = GWT.create(GWTLoginService.class);
-		service.isLogged(new GHAAsyncCallback<Boolean>() {
+		service.getLoggedUser(new GHAAsyncCallback<Bpu>() {
 			@Override
-			public void onSuccess(Boolean result) {
-				if (!result) {
-					String token = History.getToken();
-					if (token.equals("login"))
-						History.fireCurrentHistoryState();
-					else
-						History.newItem("login");
-				} else
+			public void onSuccess(Bpu result) {
+				if (History.getToken().equals("")) {
+					History.newItem("home");
 					History.fireCurrentHistoryState();
+				}
+
+				if (result != null) {
+					GHASessionData.setLoggedUser(result);
+
+					// Cuando se recarga la pagina, se debe crear de nuevo el
+					// "home" antes de crear el "place" actual.
+					if (!History.getToken().equals("home"))
+						GHAPlacesFactory.createPlace("home");
+					GHAPlacesFactory.createPlace(History.getToken());
+				}
 			}
 		});
+
+		// final GWTLoginServiceAsync service =
+		// GWT.create(GWTLoginService.class);
+		// service.isLogged(new GHAAsyncCallback<Boolean>() {
+		// @Override
+		// public void onSuccess(Boolean result) {
+		// String token = History.getToken();
+		//
+		// if (!result) {
+		// if (token.equals("login"))
+		// History.fireCurrentHistoryState();
+		// else
+		// History.newItem("login");
+		// } else {
+		// History.fireCurrentHistoryState();
+		// }
+		// }
+		// });
 
 		RootPanel.get("main-content").setHeight(
 				GHAUiHelper.getTabHeight() + "px");
