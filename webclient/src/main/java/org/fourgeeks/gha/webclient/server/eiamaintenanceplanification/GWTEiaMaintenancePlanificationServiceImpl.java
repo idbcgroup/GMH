@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.fourgeeks.gha.webclient.server.eiapreventivemaintenanceplanification;
+package org.fourgeeks.gha.webclient.server.eiamaintenanceplanification;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ import org.fourgeeks.gha.webclient.client.eiamaintenanceplanification.GWTEiaMain
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 /**
- * @author emiliot
+ * @author emiliot, naramirez
  * 
  */
 @WebServlet(urlPatterns = { "/webclient/EiaMaintenancePlanification" })
@@ -28,7 +28,7 @@ public class GWTEiaMaintenancePlanificationServiceImpl extends
 
 	private static final long serialVersionUID = 1L;
 
-	@EJB(name = "gmh.EiaMaintenancePlanificationService")
+	@EJB(lookup = "java:global/ear-1/ejb-1/EiaMaintenancePlanificationService")
 	EiaMaintenancePlanificationServiceRemote serviceRemote;
 
 	@Override
