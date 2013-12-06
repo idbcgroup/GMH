@@ -21,7 +21,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
 /**
  * Session Bean implementation class EiaMaintenancePlanification
  */
-@Stateless(name = "gmh.EiaMaintenancePlanification")
+@Stateless
 public class EiaMaintenancePlanificationService extends GHAEJBExceptionImpl
 		implements EiaMaintenancePlanificationServiceRemote {
 	@PersistenceContext
