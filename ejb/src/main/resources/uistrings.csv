@@ -148,3 +148,5 @@ ES,intermediate-warranty,Garantía intermedia
 ES,date-must-be-lower-than-today,La fecha debe ser menor a la fecha de hoy
 ES,date-not-valid,Fecha no válida
 ES,tooltip-date-item,Mostrar Calendario
+ES,eia-maintenance-planification-details,Detalles del Mantenimiento
+ES,eia-maintenance-planification-details-register,Registrar detalles del Mantenimiento

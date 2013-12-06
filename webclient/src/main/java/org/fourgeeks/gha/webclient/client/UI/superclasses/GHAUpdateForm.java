@@ -60,5 +60,12 @@ public abstract class GHAUpdateForm<T> extends GHASlideInWindow {
 		setHeight(GHAUiHelper.getBottomSectionHeight());
 	}
 
+	/**
+	 * @param title
+	 */
+	public void setFormTitle(String title) {
+		label.setContents(title);
+	}
+
 	protected abstract void update();
 }

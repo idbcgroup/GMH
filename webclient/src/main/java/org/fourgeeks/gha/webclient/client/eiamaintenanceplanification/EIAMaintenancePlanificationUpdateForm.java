@@ -3,6 +3,7 @@ package org.fourgeeks.gha.webclient.client.eiamaintenanceplanification;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACloseButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
@@ -17,13 +18,17 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
- * @author nelson
+ * @author naramirez
  * 
  */
 public class EIAMaintenancePlanificationUpdateForm extends
 		GHAUpdateForm<EiaMaintenancePlanification> implements
 		EiaMaintenancePlanificationSelectionListener, EIATypeSelectionListener,
 		EiaMaintenancePlanificationSelectionProducer {
+
+	protected VLayout sideBar;
+	protected GHASaveButton saveButton;
+	protected GHACloseButton closeButton;
 
 	{
 		form = new EIAMaintenancePlanificationForm();
@@ -33,29 +38,28 @@ public class EIAMaintenancePlanificationUpdateForm extends
 	 * Constructor del formulario para planificacion de mantenimiento
 	 */
 	public EIAMaintenancePlanificationUpdateForm() {
-		super("Planificación de Mantenimiento");
-		VLayout sideButtons = GHAUiHelper.createBar(new GHASaveButton(
-				new ClickHandler() {
-					@Override
-					public void onClick(ClickEvent event) {
-						update();
-					}
-				}), new GHACloseButton(new ClickHandler() {
+		super(GHAStrings.get("eia-maintenance-planification-details-register"));
+
+		saveButton = new GHASaveButton(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				update();
+			}
+		});
+
+		closeButton = new GHACloseButton(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				cancel();
 			}
-		}));
+		});
+
+		sideBar = GHAUiHelper.createBar(saveButton, closeButton);
 
 		HLayout mainLayout = new HLayout();
-		mainLayout.addMembers(form, new LayoutSpacer(), sideButtons);
+		mainLayout.addMembers(form, new LayoutSpacer(), sideBar);
 		addMember(mainLayout);
-	}
 
-	/**
-	 * Activate the form
-	 */
-	public void activate() {
 		form.activate();
 	}
 
@@ -74,13 +78,6 @@ public class EIAMaintenancePlanificationUpdateForm extends
 
 		((EiaMaintenancePlanificationSelectionProducer) form)
 				.addEiaMaintenancePlanificationSelectionListener(preventivePlanifSelectionListener);
-	}
-
-	/**
-	 * Deactivate the form
-	 */
-	public void deactivate() {
-		form.deactivate();
 	}
 
 	/*
@@ -176,7 +173,7 @@ public class EIAMaintenancePlanificationUpdateForm extends
 			@Override
 			public void onSuccess(EiaMaintenancePlanification result) {
 				GHANotification
-						.alert("eia-maintenance-planification-update-success");
+						.alert("eia-maintenance-planification-details-register-success");
 				hide();
 			}
 		});

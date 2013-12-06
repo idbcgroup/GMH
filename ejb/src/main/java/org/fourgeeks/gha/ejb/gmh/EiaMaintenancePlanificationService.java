@@ -8,7 +8,9 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
+import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaCorrectiveMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaPreventiveMaintenancePlanification;
@@ -183,9 +185,21 @@ public class EiaMaintenancePlanificationService extends GHAEJBExceptionImpl
 			throws GHAEJBException {
 
 		try {
-			em.merge(entity.getPlanification());
+			EiaMaintenancePlanification planif = entity.getPlanification();
+			EiaStateEnum finalEiaState = planif.getFinalEiaState();
+
+			if (finalEiaState != null) {
+				Eia eia = planif.getEia();
+				if (!eia.getState().equals(finalEiaState)) {
+					eia.setState(finalEiaState);
+					em.merge(eia);
+					// TODO agregar a tabla log: cambio del estado del eia
+					// generado por el mantenimiento
+				}
+			}
+
+			em.merge(planif);
 			EiaPreventiveMaintenancePlanification res = em.merge(entity);
-			// TODO agregar a tabla log: actualizacion de mantenimiento
 			em.flush();
 
 			return res;
@@ -212,8 +226,20 @@ public class EiaMaintenancePlanificationService extends GHAEJBExceptionImpl
 			throws GHAEJBException {
 
 		try {
-			// TODO agregar a tabla log: actualizacion de mantenimiento
-			em.merge(entity.getPlanification());
+			EiaMaintenancePlanification planif = entity.getPlanification();
+			EiaStateEnum finalEiaState = planif.getFinalEiaState();
+
+			if (finalEiaState != null) {
+				Eia eia = planif.getEia();
+				if (!eia.getState().equals(finalEiaState)) {
+					eia.setState(finalEiaState);
+					em.merge(eia);
+					// TODO agregar a tabla log: cambio del estado del eia
+					// generado por el mantenimiento
+				}
+			}
+
+			em.merge(planif);
 			EiaCorrectiveMaintenancePlanification res = em.merge(entity);
 			em.flush();
 

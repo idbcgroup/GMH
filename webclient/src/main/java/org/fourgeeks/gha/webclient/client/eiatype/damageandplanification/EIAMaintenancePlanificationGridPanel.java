@@ -20,6 +20,7 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.eiadamagereport.EiaDamageReportSelectionListener;
 import org.fourgeeks.gha.webclient.client.eiamaintenanceplanification.EIAMaintenancePlanificationUpdateForm;
+import org.fourgeeks.gha.webclient.client.eiamaintenanceplanification.EiaMaintenancePlanificationDisplayForm;
 import org.fourgeeks.gha.webclient.client.eiamaintenanceplanification.EiaMaintenancePlanificationModel;
 import org.fourgeeks.gha.webclient.client.eiamaintenanceplanification.EiaMaintenancePlanificationSelectionListener;
 import org.fourgeeks.gha.webclient.client.eiapreventivemaintenanceplanification.PreventivePlanificationSelectionListener;
@@ -42,9 +43,12 @@ public class EIAMaintenancePlanificationGridPanel extends GHAVerticalLayout
 	private EIAMaintenancePlanificationGrid grid;
 	private EiaType eiaType;
 	private EIAMaintenancePlanificationUpdateForm updateForm;
+	private EiaMaintenancePlanificationDisplayForm displayForm;
 
 	{
 		grid = new EIAMaintenancePlanificationGrid();
+
+		displayForm = new EiaMaintenancePlanificationDisplayForm();
 		updateForm = new EIAMaintenancePlanificationUpdateForm();
 		updateForm
 				.addEiaMaintenancePlanificationSelectionListener(new EiaMaintenancePlanificationSelectionListener() {
@@ -66,7 +70,7 @@ public class EIAMaintenancePlanificationGridPanel extends GHAVerticalLayout
 				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						view();
+						display();
 					}
 				}), new GHAEditButton(new ClickHandler() {
 			@Override
@@ -130,12 +134,11 @@ public class EIAMaintenancePlanificationGridPanel extends GHAVerticalLayout
 		else {
 			EiaMaintenancePlanification entity = selectedRecord.toEntity();
 			updateForm.select(entity);
-			updateForm.activate();
 			updateForm.open();
 		}
 	}
 
-	private void view() {
+	private void display() {
 		GHAGridRecord<EiaMaintenancePlanification> selectedRecord = grid
 				.getSelectedRecord();
 
@@ -143,9 +146,8 @@ public class EIAMaintenancePlanificationGridPanel extends GHAVerticalLayout
 			GHANotification.alert("record-not-selected");
 		else {
 			EiaMaintenancePlanification entity = selectedRecord.toEntity();
-			updateForm.select(entity);
-			updateForm.deactivate();
-			updateForm.open();
+			displayForm.select(entity);
+			displayForm.open();
 		}
 
 	}
