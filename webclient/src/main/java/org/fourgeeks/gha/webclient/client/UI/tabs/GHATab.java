@@ -22,7 +22,6 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public abstract class GHATab extends VLayout implements ClosableListener,
 		HideableListener, ClosableProducer, HideableProducer {
 
-	private final String token;
 	protected GHATabHeader header;
 	protected VLayout verticalPanel = new VLayout();
 	private final List<ClosableListener> closables = new ArrayList<ClosableListener>();
@@ -34,8 +33,7 @@ public abstract class GHATab extends VLayout implements ClosableListener,
 	 * @param token
 	 * 
 	 */
-	public GHATab(String token) {
-		this.token = token;
+	public GHATab() {
 		setWidth100();
 		setBackgroundColor(GHAUiHelper.DEFAULT_BACKGROUND_COLOR);
 	}
@@ -51,13 +49,6 @@ public abstract class GHATab extends VLayout implements ClosableListener,
 	public GHATabHeader getHeader() {
 		return header;
 	}
-
-	/**
-	 * @return the token
-	 */
-	public String getToken() {
-		return token;
-	};
 
 	@Override
 	public void close() throws UnavailableToCloseException {

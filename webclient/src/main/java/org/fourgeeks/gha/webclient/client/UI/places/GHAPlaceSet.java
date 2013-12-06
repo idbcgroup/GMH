@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.UI.tabs;
+package org.fourgeeks.gha.webclient.client.UI.places;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,10 +18,8 @@ import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.menu.GHAMenu.GHAMenuBar;
 import org.fourgeeks.gha.webclient.client.UI.menu.GHAMenu.GHAMenuOption;
-import org.fourgeeks.gha.webclient.client.UI.places.GHAPlace;
 
 import com.google.gwt.user.client.History;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -33,73 +31,70 @@ import com.smartgwt.client.widgets.events.ClickHandler;
  * @author alacret
  * 
  */
-public final class GHATabSet {
+public final class GHAPlaceSet {
 
-	private static Map<String, GHATab> tabs;
-	private static GHATab currentTab;
+	private static Map<String, GHAPlace> places;
+	private static GHAPlace currentPlace;
 	private static HorizontalPanel hPanel;
 	private static GHAMenuBar verticalMenu;
 	static {
-		tabs = new HashMap<String, GHATab>();
+		places = new HashMap<String, GHAPlace>();
 		hPanel = new HorizontalPanel();
-		hPanel.setHeight("30px");
+		hPanel.setHeight(GHAUiHelper.MENU_BAR_HEIGTH + "px");
 		hPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		RootPanel.get("menu-bar").add(hPanel);
 	}
 
-	private GHATabSet() {
-		throw new UnsupportedOperationException("Esta clase no es instanciable");
+	private GHAPlaceSet() {
+		throw new UnsupportedOperationException(
+				"this class can be instantiaded");
 	}
 
-	private static void addTab(final GHATab tab) {
-		tabs.put(tab.getId(), tab);
+	private static void addPlace(final GHAPlace place) {
+		places.put(place.getId(), place);
 		RootPanel rootPanel = RootPanel.get("main-content");
-		try {
-			rootPanel.add(tab);
-		} catch (Exception e) {
-			Window.alert("error tring to add the tab to the manin content");
-			Window.alert(e.getMessage());
-		}
+		rootPanel.add(place);
 	}
 
 	/**
-	 * @param tab
+	 * @param place
 	 * @throws UnavailableToHideException
 	 */
-	public static void showTab(GHATab tab) throws UnavailableToHideException {
-		if (tab == null)
+	public static void showPlace(GHAPlace place)
+			throws UnavailableToHideException {
+		if (place == null)
 			return;
-		if (tab == currentTab)
+		if (place == currentPlace)
 			return;
-		if (currentTab != null)
+		if (currentPlace != null)
 			try {
-				hideTab(currentTab);
+				hidePlace(currentPlace);
 			} catch (UnavailableToHideException e) {
 				throw new UnavailableToHideException(e);
 			}
 
-		if (tabs.get(tab.getId()) == null) {
-			addTab(tab);
-		} else {
-			tab.show();
-		}
+		if (places.get(place.getId()) == null)
+			addPlace(place);
+		else
+			place.show();
 
-		hPanel.add(tab.getHeader());
-		currentTab = tab;
+		hPanel.add(place.getHeader());
+		currentPlace = place;
 	}
 
-	private static void hideTab(GHATab tab) throws UnavailableToHideException {
-		hideTab(tab, HideCloseAction.ASK);
+	private static void hidePlace(GHAPlace tab)
+			throws UnavailableToHideException {
+		hidePlace(tab, HideCloseAction.ASK);
 	}
 
-	private static void hideTab(GHATab tab, HideCloseAction hideAction) {
-		if (tab.canBeHidden(hideAction)) {
+	private static void hidePlace(GHAPlace place, HideCloseAction hideAction) {
+		if (place.canBeHidden(hideAction)) {
 			try {
-				tab.hide();
+				place.hide();
 			} catch (UnavailableToHideException e) {
 				throw new UnavailableToHideException(e);
 			}
-			hPanel.remove(tab.getHeader());
+			hPanel.remove(place.getHeader());
 			return;
 		}
 		throw new UnavailableToHideException(null);
@@ -109,10 +104,10 @@ public final class GHATabSet {
 	 * @param hideAction
 	 * @throws UnavailableToHideException
 	 */
-	public static void hideCurrentTab(HideCloseAction hideAction)
+	public static void hideCurrentPlace(HideCloseAction hideAction)
 			throws UnavailableToHideException {
-		hideTab(currentTab, hideAction);
-		currentTab = null;
+		hidePlace(currentPlace, hideAction);
+		currentPlace = null;
 		History.forward();
 	}
 
@@ -120,41 +115,41 @@ public final class GHATabSet {
 	 * @param hideAction
 	 * @throws UnavailableToHideException
 	 */
-	public static void closeCurrentTab(HideCloseAction hideAction)
+	public static void closeCurrentPlace(HideCloseAction hideAction)
 			throws UnavailableToHideException {
-		closeTab(currentTab, hideAction);
-		currentTab = null;
+		closePlace(currentPlace, hideAction);
+		currentPlace = null;
 	}
 
 	/**
 	 * @param id
 	 * @return the tab with that ID
 	 */
-	public static GHATab getById(String id) {
-		return tabs.get(id);
+	public static GHAPlace getById(String id) {
+		return places.get(id);
 	}
 
 	/**
-	 * @param tab
+	 * @param place
 	 * @throws UnavailableToCloseException
 	 */
-	public static void closeTab(final GHATab tab) {
-		closeTab(tab, HideCloseAction.ASK);
+	public static void closePlace(final GHAPlace place) {
+		closePlace(place, HideCloseAction.ASK);
 	}
 
-	private static void closeTab(final GHATab tab, HideCloseAction closeAction)
-			throws UnavailableToCloseException {
-		if (tab == null)
+	private static void closePlace(final GHAPlace place,
+			HideCloseAction closeAction) throws UnavailableToCloseException {
+		if (place == null)
 			return;
 
-		if (tab.canBeClosen(closeAction)) {
+		if (place.canBeClosen(closeAction)) {
 			try {
-				tab.close();
+				place.close();
 			} catch (UnavailableToCloseException e) {
 				throw new UnavailableToCloseException(e);
 			}
-			tabs.remove(tab.getId());
-			hPanel.remove(tab.getHeader());
+			places.remove(place.getId());
+			hPanel.remove(place.getHeader());
 			History.newItem("home");
 			return;
 		}
@@ -213,31 +208,4 @@ public final class GHATabSet {
 
 	}
 
-	// /**
-	// * @return the currentTab
-	// */
-	// public static GHATab getCurrentTab() {
-	// return currentTab;
-	// }
-	//
-	// /**
-	// * @param currentTab
-	// */
-	// public static void setCurrentTab(GHATab currentTab) {
-	// GHATabSet.currentTab = currentTab;
-	// }
-
-	/**
-	 * @param token
-	 * @return the ghamenuoption of this token or null if is not found
-	 */
-	@Deprecated
-	public static GHAMenuOption getGHAMenuOptionByToken(String token) {
-		return verticalMenu.getByToken(token);
-	}
-
-	public static void closePlace(GHAPlace place) {
-		// TODO Auto-generated method stub
-
-	}
 }

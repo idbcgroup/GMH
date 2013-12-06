@@ -43,8 +43,8 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 	/**
 	 * @param token
 	 */
-	public EIATypeTab(String token) {
-		super(token);
+	public EIATypeTab() {
+		super();
 		header = new GHATabHeader(this, TITLE);
 		searchOption = header.addSearchOption(new ClickHandler() {
 

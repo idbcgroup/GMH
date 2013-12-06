@@ -31,7 +31,7 @@ public class Gha implements EntryPoint {
 				final String historyToken = event.getValue();
 				if (historyToken == null)
 					return;
-				GHAPlacesFactory.createPlace(historyToken);
+				GHAPlacesFactory.showPlace(historyToken);
 			}
 		});
 

@@ -1,49 +1,62 @@
 package org.fourgeeks.gha.webclient.client.UI;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.fourgeeks.gha.webclient.client.UI.exceptions.LoginNeededException;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.PermissionsNeededException;
+import org.fourgeeks.gha.webclient.client.UI.places.GHAPlace;
 import org.fourgeeks.gha.webclient.client.edt.EDTPlace;
 import org.fourgeeks.gha.webclient.client.eia.EIAPlace;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypePlace;
 import org.fourgeeks.gha.webclient.client.home.HomePlace;
 import org.fourgeeks.gha.webclient.client.login.LoginPlace;
 import org.fourgeeks.gha.webclient.client.login.ForgottenPassword.ForgottenPasswordPlace;
-import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivityPlace;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanPlace;
-import org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenanceProtocolPlace;
 import org.fourgeeks.gha.webclient.client.user.UserPlace;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.RunAsyncCallback;
+import com.google.gwt.user.client.History;
 
 /**
  * @author alacret
  * 
  */
 public class GHAPlacesFactory {
-	/*
-	 * private UIPlacesFactory() throws UnavailableException{ throw new
-	 * UnavailableException("This class does not supposed to be instantiated");
-	 * }
-	 */
+	private static Map<String, GHAPlace> places = new HashMap<String, GHAPlace>();
+
+	private GHAPlacesFactory() throws UnsupportedOperationException {
+		throw new UnsupportedOperationException(
+				"This class does not supposed to be instantiated");
+	}
 
 	/**
 	 * @param token
 	 */
-	public static void createPlace(final String token) {
+	public static void showPlace(final String token) {
 		int indexOf = token.indexOf("/");
-		String stripToken = null;
+		final String stripToken;
 		if (indexOf == -1)
 			stripToken = token;
 		else
 			stripToken = token.substring(0, indexOf);
+
+		// Whether the place has already been open
+		GHAPlace place = places.get(stripToken);
+		if (place != null) {
+			place.show();
+			return;
+		}
 
 		if (stripToken.equals("login"))
 			GWT.runAsync(new RunAsyncCallback() {
 
 				@Override
 				public void onSuccess() {
-					new LoginPlace(token).show();
+					LoginPlace place = new LoginPlace(token);
+					place.show();
+					places.put(stripToken, place);
 				}
 
 				@Override
@@ -57,7 +70,10 @@ public class GHAPlacesFactory {
 
 				@Override
 				public void onSuccess() {
-					new ForgottenPasswordPlace(token).show();
+					ForgottenPasswordPlace place = new ForgottenPasswordPlace(
+							token);
+					place.show();
+					places.put(stripToken, place);
 				}
 
 				@Override
@@ -72,9 +88,11 @@ public class GHAPlacesFactory {
 				@Override
 				public void onSuccess() {
 					try {
-						new HomePlace(token).show();
+						HomePlace place = new HomePlace(token);
+						place.show();
+						places.put(stripToken, place);
 					} catch (LoginNeededException e) {
-						new LoginPlace(token).show();
+						History.newItem("login");
 					}
 				}
 
@@ -89,15 +107,13 @@ public class GHAPlacesFactory {
 				@Override
 				public void onSuccess() {
 					try {
-						new EIATypePlace(token).show();
+						EIATypePlace place = new EIATypePlace(token);
+						place.show();
+						places.put(stripToken, place);
 					} catch (LoginNeededException e) {
-						new LoginPlace(token).show();
+						History.newItem("login");
 					} catch (PermissionsNeededException e) {
-						try {
-							new HomePlace(token).show();
-						} catch (LoginNeededException e1) {
-							new LoginPlace(token).show();
-						}
+						History.newItem("home");
 					}
 				}
 
@@ -112,15 +128,13 @@ public class GHAPlacesFactory {
 				@Override
 				public void onSuccess() {
 					try {
-						new EIAPlace(token).show();
+						EIAPlace place = new EIAPlace(token);
+						place.show();
+						places.put(stripToken, place);
 					} catch (LoginNeededException e) {
-						new LoginPlace(token).show();
+						History.newItem("login");
 					} catch (PermissionsNeededException e) {
-						try {
-							new HomePlace(token).show();
-						} catch (LoginNeededException e1) {
-							new LoginPlace(token).show();
-						}
+						History.newItem("home");
 					}
 				}
 
@@ -135,15 +149,13 @@ public class GHAPlacesFactory {
 				@Override
 				public void onSuccess() {
 					try {
-						new EDTPlace(token).show();
+						EDTPlace place = new EDTPlace(token);
+						place.show();
+						places.put(stripToken, place);
 					} catch (LoginNeededException e) {
-						new LoginPlace(token).show();
+						History.newItem("login");
 					} catch (PermissionsNeededException e) {
-						try {
-							new HomePlace(token).show();
-						} catch (LoginNeededException e1) {
-							new LoginPlace(token).show();
-						}
+						History.newItem("home");
 					}
 				}
 
@@ -158,61 +170,14 @@ public class GHAPlacesFactory {
 				@Override
 				public void onSuccess() {
 					try {
-						new MaintenancePlanPlace(token).show();
+						MaintenancePlanPlace place = new MaintenancePlanPlace(
+								token);
+						place.show();
+						places.put(stripToken, place);
 					} catch (LoginNeededException e) {
-						new LoginPlace(token).show();
+						History.newItem("login");
 					} catch (PermissionsNeededException e) {
-						try {
-							new HomePlace(token).show();
-						} catch (LoginNeededException e1) {
-							new LoginPlace(token).show();
-						}
-					}
-				}
-
-				@Override
-				public void onFailure(Throwable reason) {
-
-				}
-			});
-		else if (stripToken.startsWith("mprot"))
-			GWT.runAsync(new RunAsyncCallback() {
-
-				@Override
-				public void onSuccess() {
-					try {
-						new MaintenanceProtocolPlace(token).show();
-					} catch (LoginNeededException e) {
-						new LoginPlace(token).show();
-					} catch (PermissionsNeededException e) {
-						try {
-							new HomePlace(token).show();
-						} catch (LoginNeededException e1) {
-							new LoginPlace(token).show();
-						}
-					}
-				}
-
-				@Override
-				public void onFailure(Throwable reason) {
-
-				}
-			});
-		else if (stripToken.startsWith("mact"))
-			GWT.runAsync(new RunAsyncCallback() {
-
-				@Override
-				public void onSuccess() {
-					try {
-						new MaintenanceActivityPlace(token).show();
-					} catch (LoginNeededException e) {
-						new LoginPlace(token).show();
-					} catch (PermissionsNeededException e) {
-						try {
-							new HomePlace(token).show();
-						} catch (LoginNeededException e1) {
-							new LoginPlace(token).show();
-						}
+						History.newItem("home");
 					}
 				}
 
@@ -227,15 +192,13 @@ public class GHAPlacesFactory {
 				@Override
 				public void onSuccess() {
 					try {
-						new UserPlace(token).show();
+						UserPlace place = new UserPlace(token);
+						place.show();
+						places.put(stripToken, place);
 					} catch (LoginNeededException e) {
-						new LoginPlace(token).show();
+						History.newItem("login");
 					} catch (PermissionsNeededException e) {
-						try {
-							new HomePlace(token).show();
-						} catch (LoginNeededException e1) {
-							new LoginPlace(token).show();
-						}
+						History.newItem("home");
 					}
 				}
 

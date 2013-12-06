@@ -61,7 +61,10 @@ public abstract class GHAUiHelper {
 	 * The Header Part Default Heights
 	 */
 	private static final int HEADER_HEIGTH = 60;
-	private static final int MENU_BAR_HEIGTH = 30;
+	/**
+	 * 
+	 */
+	public static final int MENU_BAR_HEIGTH = 30;
 
 	// NO ESTAN TOTALMENTE MEDIDAS CON LA INTERFAZ
 	private static final int MIN_TAB_HEIGHT = 400;
@@ -113,6 +116,18 @@ public abstract class GHAUiHelper {
 	public static final String HIGHLIGHTED_BACKGROUND_COLOR = "#F4F4F4";
 	public static final int DEFAULT_TEXT_AREA_ITEM_HEIGHT = 70;
 	public static final int DEFAULT_ANIMATION_TIME = 400;
+	/**
+	 * width for the place eyelash
+	 */
+	public static final int DEFAULT_PLACE_EYELASH_WIDTH = 200;
+	/**
+	 * height for the place eyelash
+	 */
+	public static final int DEFAULT_PLACE_EYELASH_HEIGHT = 30;
+	/**
+	 * 
+	 */
+	public static final String DEFAULT_PLACES_BAR_BACKGROUND_COLOR = "#e0e0df";
 
 	/**
 	 * @return the height that a tab must have
