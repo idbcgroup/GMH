@@ -7,7 +7,6 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
-import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabSet;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
@@ -28,7 +27,8 @@ public class MaintenanceProtocolTopSection extends HLayout implements
 	private GHATextItem nameItem, descriptionItem;
 
 	{
-		maintenanceProtocolSearchForm = new MaintenanceProtocolSearchForm("Busqueda de Protocolos de Mantenimiento");
+		maintenanceProtocolSearchForm = new MaintenanceProtocolSearchForm(
+				"Busqueda de Protocolos de Mantenimiento");
 
 		nameItem = new GHATextItem("Nombre", false);
 		descriptionItem = new GHATextItem("Descripcion", 420, false);
@@ -73,7 +73,7 @@ public class MaintenanceProtocolTopSection extends HLayout implements
 						new ClickHandler() {
 							@Override
 							public void onClick(ClickEvent event) {
-								GHATabSet.closeTab(maintenanceProtocolTab);
+								// GHATabSet.closeTab(maintenanceProtocolTab);
 							}
 						}));
 

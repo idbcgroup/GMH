@@ -4,7 +4,6 @@ import org.fourgeeks.gha.webclient.client.UI.exceptions.LoginNeededException;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.PermissionsNeededException;
 import org.fourgeeks.gha.webclient.client.UI.places.NeedPermissionPlace;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
-import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabSet;
 
 /**
  * @author alacret
@@ -22,13 +21,15 @@ public class MaintenanceActivityPlace extends NeedPermissionPlace {
 	public MaintenanceActivityPlace(String token) throws LoginNeededException,
 			PermissionsNeededException {
 		super(token);
-		tab = GHATabSet.getById(MaintenanceActivityTab.ID);
-		if (tab == null)
-			tab = new MaintenanceActivityTab(token);
 	}
 
 	@Override
 	public void show() {
-		GHATabSet.showTab(tab);
+	}
+
+	@Override
+	public String getId() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

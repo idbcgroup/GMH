@@ -118,7 +118,8 @@ public abstract class GHATab extends VLayout implements ClosableListener,
 	}
 
 	/**
-	 * 
+	 * Futures refactor will remove this method from here
 	 */
+	@Deprecated
 	public abstract void search();
 }

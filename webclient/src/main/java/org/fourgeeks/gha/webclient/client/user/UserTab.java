@@ -43,8 +43,8 @@ public class UserTab extends GHATab implements UserSelectionListener,
 	/**
 	 * @param token
 	 */
-	public UserTab(String token) {
-		super(token);
+	public UserTab() {
+		super();
 		header = new GHATabHeader(this, TITLE);
 		searchOption = header.addSearchOption(new ClickHandler() {
 

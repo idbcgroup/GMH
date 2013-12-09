@@ -2,7 +2,6 @@ package org.fourgeeks.gha.webclient.client.UI.places;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
-import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabSet;
 
 import com.smartgwt.client.types.BackgroundRepeat;
 import com.smartgwt.client.widgets.Label;
@@ -55,7 +54,7 @@ public class GHAPlaceHeader extends Label {
 			@Override
 			public void onClick(ClickEvent event) {
 				try {
-					GHATabSet.closePlace(place);
+					GHAPlaceSet.closePlace(place);
 				} catch (UnavailableToCloseException e) {
 					return;
 				}

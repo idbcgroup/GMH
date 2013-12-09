@@ -106,6 +106,10 @@ public class LoginPlace extends GHAPlace {
 		// });
 	}
 
+	/**
+	 * @param username
+	 * @param password
+	 */
 	public void doLogin(String username, String password) {
 		if (username == null || username.equals("")) {
 			GHANotification.alert("username-not-null");
@@ -132,5 +136,10 @@ public class LoginPlace extends GHAPlace {
 				History.fireCurrentHistoryState();
 			}
 		});
+	}
+
+	@Override
+	public String getId() {
+		return "login";
 	}
 }

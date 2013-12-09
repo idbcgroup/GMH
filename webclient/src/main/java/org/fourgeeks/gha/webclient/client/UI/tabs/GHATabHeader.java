@@ -30,7 +30,7 @@ public class GHATabHeader extends HLayout implements ResizeHandler {
 
 	private Option titulo;
 	private int memberPos = 2;
-	private List<Option> selectables = new LinkedList<Option>();
+	private final List<Option> selectables = new LinkedList<Option>();
 
 	/**
 	 * @param tab
@@ -58,7 +58,7 @@ public class GHATabHeader extends HLayout implements ResizeHandler {
 			@Override
 			public void onClick(ClickEvent event) {
 				try {
-					GHATabSet.closeTab(tab);
+					// GHAPlaceSet.closeTab(tab);TODO
 				} catch (UnavailableToCloseException e) {
 					return;
 				}
@@ -134,8 +134,8 @@ public class GHATabHeader extends HLayout implements ResizeHandler {
 	 * 
 	 */
 	public static class Option extends Label {
-		private String bgSrc;
-		private String bgSrcOver;
+		private final String bgSrc;
+		private final String bgSrcOver;
 		private boolean selected = false;
 
 		/**

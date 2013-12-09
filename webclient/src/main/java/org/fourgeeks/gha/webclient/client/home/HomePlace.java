@@ -7,9 +7,9 @@ import org.fourgeeks.gha.webclient.client.UI.dropdownmenus.UserDropdownMenu;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.LoginNeededException;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToHideException;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
+import org.fourgeeks.gha.webclient.client.UI.places.GHAPlaceSet;
 import org.fourgeeks.gha.webclient.client.UI.places.NeedLoginPlace;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
-import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabSet;
 
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -45,7 +45,7 @@ public class HomePlace extends NeedLoginPlace {
 	@Override
 	public void show() {
 		try {
-			GHATabSet.closeCurrentTab(HideCloseAction.ASK);
+			GHAPlaceSet.closeCurrentPlace(HideCloseAction.ASK);
 		} catch (UnavailableToHideException e) {
 			return;
 		}
@@ -126,6 +126,11 @@ public class HomePlace extends NeedLoginPlace {
 
 		RootPanel.get("user-info").add(userInfo);
 
-		GHATabSet.buildMenu();
+		GHAPlaceSet.buildMenu();
+	}
+
+	@Override
+	public String getId() {
+		return "home";
 	}
 }
