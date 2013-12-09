@@ -9,21 +9,21 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
  * 
  */
 public class GHAGenreSelectItem extends GHASelectItem {
-	public static final String labelKey = "genre";
+
 	/**
 	 * 
 	 */
 	public GHAGenreSelectItem() {
-		super(GHAStrings.get(labelKey));
+		super(GHAStrings.get("genre"));
 		setValueMap(GenderTypeEnum.toValueMap());
 	}
-	
+
 	/**
 	 * @param width
 	 */
 	public GHAGenreSelectItem(int width) {
-		super(GHAStrings.get(labelKey), width);
-		setValueMap(GenderTypeEnum.toValueMap());
+		this();
+		setWidth(width);
 	}
 
 }
