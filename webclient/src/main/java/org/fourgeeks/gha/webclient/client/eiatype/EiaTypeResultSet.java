@@ -78,7 +78,7 @@ public class EiaTypeResultSet extends GHAResultSet<EiaType> implements
 					deleteButton);
 		} else {
 			sideBar = GHAUiHelper.createBar(checkButton);
-			setHeight(getHeight() - 35);
+			setHeight(getHeight() - 42);
 		}
 		gridPanel.addMembers(grid, sideBar);
 		addMember(gridPanel);

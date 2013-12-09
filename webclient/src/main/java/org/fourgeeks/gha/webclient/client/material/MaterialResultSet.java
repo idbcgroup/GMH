@@ -58,7 +58,7 @@ public class MaterialResultSet extends GHAResultSet<Material> implements
 					}
 				})));
 		if (containerType == ResultSetContainerType.SEARCH_FORM) {
-			setHeight(getHeight() - 35);
+			setHeight(getHeight() - 42);
 		}
 		addMember(gridPanel);
 
