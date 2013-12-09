@@ -16,6 +16,7 @@ import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.EventListener;
+import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
 import com.smartgwt.client.core.Rectangle;
 import com.smartgwt.client.types.AnimationEffect;
@@ -95,7 +96,8 @@ public class UserDropdownMenu extends VLayout implements HideableListener,
 
 							@Override
 							public void onSuccess(Void result) {
-								Window.Location.reload();
+//								Window.Location.reload();
+								Window.Location.assign("");
 							}
 						});
 						UserDropdownMenu.this.hide();

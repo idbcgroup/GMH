@@ -27,5 +27,11 @@ public interface GWTLoginService extends RemoteService {
 	 * @return the Bpu represented by the username
 	 * @throws GHAEJBException
 	 */
-	public Bpu login(String user, String password) throws GHAEJBException;
+//	public Bpu login(String user, String password) throws GHAEJBException;
+	
+	/**
+	 * 
+	 * @return the Bpu represented by the username
+	 */
+	public Bpu getLoggedUser() throws GHAEJBException;
 }
