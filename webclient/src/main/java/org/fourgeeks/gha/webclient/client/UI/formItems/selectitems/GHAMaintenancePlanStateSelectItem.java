@@ -11,12 +11,12 @@ import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
  * 
  */
 public class GHAMaintenancePlanStateSelectItem extends GHASelectItem {
-
+	public static final String labelKey = "plan-state";
 	/**
 	 * 
 	 */
 	public GHAMaintenancePlanStateSelectItem() {
-		super(GHAStrings.get("plan-state"));
+		super(GHAStrings.get(labelKey));
 		setValueMap(MaintenancePlanState.toValueMap());
 	}
 

@@ -23,7 +23,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class GWTExternalProviderServiceImpl extends RemoteServiceServlet
 		implements GWTExternalProviderService {
 
-	@EJB(name = "glm.ExternalProviderService")
+	@EJB(lookup = "java:global/ear-1/ejb-1/ExternalProviderService")
 	ExternalProviderServiceRemote service;
 
 	/**

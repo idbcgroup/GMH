@@ -9,7 +9,6 @@
 	<modules>
 		<module>domain</module>
 		<module>ejb</module>
-		<module>webclient</module>
 		<module>ear</module>
 	</modules>
 	<properties>
@@ -29,15 +28,6 @@
 		</dependency>
 	</dependencies>
 
-	<!-- reporitorio local dentro del proyecto para acceder a los fonts del 
-		los reportes y a librerias dentro de la carpeta lib-->
-	<repositories>
-		<repository>
-			<id>gha-local-repository</id>
-			<name>Repositorio local del sistema GHA</name>
-			<url>file://${basedir}/../lib</url>
-		</repository>
-	</repositories>
 
 	<build>
 		<plugins>
@@ -70,12 +60,6 @@
 							<artifactId>ejb</artifactId>
 							<bundleFileName>ejb-1.jar</bundleFileName>
 						</ejbModule>
-						<webModule>
-							<groupId>gha</groupId>
-							<artifactId>webclient</artifactId>
-							<contextRoot>/gha</contextRoot>
-							<bundleFileName>webclient-1.war</bundleFileName>
-						</webModule>
 						<jarModule>
 							<groupId>gha</groupId>
 							<artifactId>domain</artifactId>

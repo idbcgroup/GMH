@@ -21,7 +21,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * @author emiliot, vivi.torresg
  * 
  */
-@Stateless(name = "gmh.EiaComponentService")
+@Stateless
 public class EiaComponentService extends GHAEJBExceptionImpl implements
 		EiaComponentServiceRemote {
 	@PersistenceContext

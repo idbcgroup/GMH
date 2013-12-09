@@ -20,7 +20,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * @author emiliot, vivi.torresg
  * 
  */
-@Stateless(name = "gar.BpuService")
+@Stateless
 public class BpuService extends GHAEJBExceptionImpl implements BpuServiceRemote {
 	@PersistenceContext
 	private EntityManager em;

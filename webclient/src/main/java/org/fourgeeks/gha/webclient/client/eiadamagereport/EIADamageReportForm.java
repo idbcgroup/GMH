@@ -1,6 +1,6 @@
 package org.fourgeeks.gha.webclient.client.eiadamagereport;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -20,31 +20,36 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHABpuSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHADateItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHAEiaStateSelectItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHAExternalProviderSelectItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHAFacilitySelectItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHAObuSelectItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHAPeriodOfTimeSelectItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHARoleSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextAreaItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATimeItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHATitleTextItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHAWorkingAreaSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHATitletextItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHABpuSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAEiaStateSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAExternalProviderSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAFacilitySelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAObuSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAPeriodOfTimeSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHARoleSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAWorkingAreaSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASectionForm;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
+import org.fourgeeks.gha.webclient.client.eiatype.damageandplanification.EIADamageAndPlanificationUtil;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.util.LogicalDate;
 import com.smartgwt.client.util.LogicalTime;
 
+/**
+ * @author naramirez
+ * 
+ */
 public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 		EIASelectionListener, EiaDamageReportSelectionProducer {
 	private GHATextItem codeTextItem, serialTextItem, fixedAssetIdTextItem,
@@ -57,9 +62,9 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 	private GHAExternalProviderSelectItem adqisitionProviderSelectItem,
 			maintenanceProviderSelectItem;
 	private GHASelectItem stateSelectItem, locationTypeSelectItem,
-			realWarrantySinceSelectItem,intWarrantySinceSelectItem,
+			realWarrantySinceSelectItem, intWarrantySinceSelectItem,
 			eiaTypeSelectItem;
-	private GHATitleTextItem information_TitleItem, location_TitleItem,
+	private GHATitletextItem information_TitleItem, location_TitleItem,
 			workingArea_TitleItem, facility_TitleItem, report_TitleItem,
 			realWarranty_TitleItem, intermedWarranty_TitleItem,
 			providers_TitleItem;
@@ -70,7 +75,8 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 	private GHATextAreaItem damageMotiveTextAreaItem;
 	private GHABpuSelectItem userWhoRegistedSelectItem,
 			userWhoReportedSelectItem;
-	private GHAPeriodOfTimeSelectItem realWarrantyPotSelectItem,intWarrantyPotSelectItem;
+	private GHAPeriodOfTimeSelectItem realWarrantyPotSelectItem,
+			intWarrantyPotSelectItem;
 	private GHASelectItem damageStatusSelectItem, damagePrioritySelectItem;
 
 	private GHASectionForm sectionForm;
@@ -87,7 +93,7 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 		listeners = new ArrayList<EiaDamageReportSelectionListener>();
 
 		// report data Form Items
-		report_TitleItem = new GHATitleTextItem(
+		report_TitleItem = new GHATitletextItem(
 				"Datos del Reporte de Equipo Dañado:", 3);
 		damageDateItem = new GHADateItem("Fecha del daño o falla",
 				changedHandler);
@@ -107,7 +113,7 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 
 		// Information Form Items
 		eiaTypeSelectItem = new GHASelectItem("Tipo", false);
-		information_TitleItem = new GHATitleTextItem("Información:", 3);
+		information_TitleItem = new GHATitletextItem("Información:", 3);
 		codeTextItem = new GHATextItem("Código", false);
 		codeTextItem.setLength(20);
 		serialTextItem = new GHATextItem("Serial", false);
@@ -120,15 +126,15 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 		baseRoleSelectItem.setDisabled(true);
 		stateSelectItem = new GHAEiaStateSelectItem();
 		stateSelectItem.setDisabled(true);
-		providers_TitleItem = new GHATitleTextItem("Proveedores", 3);
+		providers_TitleItem = new GHATitletextItem("Proveedores", 3);
 		adqisitionProviderSelectItem = new GHAExternalProviderSelectItem(
 				"Proveedor de Adq.", false);
 		maintenanceProviderSelectItem = new GHAExternalProviderSelectItem(
 				"Proveedor de Mant.", false);
 
 		// Garantias Form Items
-		realWarranty_TitleItem = new GHATitleTextItem("Garantía Real:", 4);
-		intermedWarranty_TitleItem = new GHATitleTextItem(
+		realWarranty_TitleItem = new GHATitletextItem("Garantía Real:", 4);
+		intermedWarranty_TitleItem = new GHATitletextItem(
 				"Garantía del Intermediario:", 4);
 		realWarrantySinceSelectItem = new GHASelectItem("Desde", false);
 		realWarrantyTimeTextItem = new GHATextItem("Duración", false);
@@ -142,13 +148,13 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 		intWarrantyBeginDate = new GHADateItem("Fecha Inicio", false);
 
 		// Ubicacion Form Items
-		location_TitleItem = new GHATitleTextItem("Ubicación:", 3);
+		location_TitleItem = new GHATitletextItem("Ubicación:", 3);
 		locationTypeSelectItem = new GHASelectItem("Tipo de Ubicación", false,
 				changedHandler);
 		locationTypeSelectItem.setDisabled(true);
 
-		workingArea_TitleItem = new GHATitleTextItem("Área de Trabajo:", 3);
-		facility_TitleItem = new GHATitleTextItem("Servicio/Instalación:", 3);
+		workingArea_TitleItem = new GHATitletextItem("Área de Trabajo:", 3);
+		facility_TitleItem = new GHATitletextItem("Servicio/Instalación:", 3);
 
 		workingAreaLocationCodeTextItem = new GHATextItem("Código", false);
 		workingAreaSelectItem = new GHAWorkingAreaSelectItem("Nombre");
@@ -160,8 +166,7 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 	}
 
 	/**
-	 * @param eiaType
-	 * 
+	 * Constructor
 	 */
 	public EIADamageReportForm() {
 		super();
@@ -277,8 +282,9 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 
 		LogicalTime time = damageTimeItem.getValueAsLogicalTime();
 		LogicalDate date = damageDateItem.getValueAsLogicalDate();
-		Date datetime = EiaDamageReportUtil.getDatetime(date, time);
-		eiaDamageReport.setDateTimeDamage(datetime);
+		Timestamp timestamp = EIADamageAndPlanificationUtil.getTimestamp(date,
+				time);
+		eiaDamageReport.setDateTimestamp(timestamp);
 
 		// VALIDANDO LOS DATOS
 		Set<ConstraintViolation<EiaDamageReport>> violations = null;
@@ -425,6 +431,9 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 		reportForm.resize(GHAUiHelper.getSectionFormFormWidth(30), 3);
 	}
 
+	/**
+	 * Open the first section (view) of the sectionForm
+	 */
 	public void openFirstSection() {
 		sectionForm.openFirst();
 	}

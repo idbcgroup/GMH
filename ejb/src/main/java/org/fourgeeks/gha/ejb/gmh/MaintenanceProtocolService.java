@@ -28,7 +28,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * 
  */
 
-@Stateless(name = "gmh.maintenanceProtocolService")
+@Stateless
 public class MaintenanceProtocolService extends GHAEJBExceptionImpl implements
 		MaintenanceProtocolServiceRemote {
 	@PersistenceContext

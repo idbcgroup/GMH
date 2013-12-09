@@ -28,7 +28,7 @@ public class GWTMaterialCategoryServiceImpl extends RemoteServiceServlet
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@EJB(name = "glm.MaterialCategoryService")
+	@EJB(lookup = "java:global/ear-1/ejb-1/MaterialCategoryService")
 	MaterialCategoryServiceRemote ejbService;
 
 	/*

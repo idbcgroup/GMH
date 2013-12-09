@@ -11,9 +11,9 @@ import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.GHAUtil;
 import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHACodeItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHACodeTextItem;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACancelButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
@@ -42,7 +42,7 @@ public class MaterialCategorySearchForm extends GHASearchForm<MaterialCategory>
 	private final DynamicForm form = new DynamicForm();
 
 	{
-		codeTextItem = new GHACodeItem(300);
+		codeTextItem = new GHACodeTextItem(300);
 		nameTextItem = new GHATextItem(GHAStrings.get("name"), 300);
 		modelTextItem = new GHATextItem(GHAStrings.get("model"), 300);
 		extCodeTextItem = new GHATextItem(GHAStrings.get("external-code"), 300);

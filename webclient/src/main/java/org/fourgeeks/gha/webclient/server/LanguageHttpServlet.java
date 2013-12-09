@@ -28,7 +28,7 @@ public class LanguageHttpServlet extends HttpServlet {
 	// private static final Logger LOG = Logger
 	// .getLogger(LanguageHttpServlet.class);
 
-	@EJB(name = "language.LanguageService")
+	@EJB(lookup = "java:global/ear-1/ejb-1/LanguageService")
 	LanguageServiceRemote service;
 
 	@Override

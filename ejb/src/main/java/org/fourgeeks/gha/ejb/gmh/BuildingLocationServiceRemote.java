@@ -26,8 +26,9 @@ public interface BuildingLocationServiceRemote {
 	 * @param root
 	 * @return a predicate with the filters used to search by eia
 	 */
-	public Predicate buildFilters(BuildingLocation entity, CriteriaBuilder cb, Root<BuildingLocation> root);
-	
+	public Predicate buildFilters(BuildingLocation entity, CriteriaBuilder cb,
+			Root<BuildingLocation> root);
+
 	/**
 	 * 
 	 * @param id
@@ -37,8 +38,8 @@ public interface BuildingLocationServiceRemote {
 
 	/**
 	 * 
-	 * @param brand
-	 * @return
+	 * @param buildingLocation
+	 * @return a list of building locations based on the passed one
 	 * @throws GHAEJBException
 	 */
 	public List<BuildingLocation> find(BuildingLocation buildingLocation)
@@ -47,31 +48,31 @@ public interface BuildingLocationServiceRemote {
 	/**
 	 * 
 	 * @param id
-	 * @return
+	 * @return a building location with the specified ID
 	 * @throws GHAEJBException
+	 *             if the entity is not found
 	 */
 	public BuildingLocation find(String id) throws GHAEJBException;
 
 	/**
 	 * 
-	 * @return
+	 * @return a complete list of all building locations in the database
 	 * @throws GHAEJBException
 	 */
 	public List<BuildingLocation> getAll() throws GHAEJBException;
 
 	/**
 	 * 
-	 * @param brand
-	 * @return
+	 * @param buildingLocation
+	 * @return the saved version of the building location
 	 * @throws GHAEJBException
 	 */
 	public BuildingLocation save(BuildingLocation buildingLocation)
 			throws GHAEJBException;
 
 	/**
-	 * 
-	 * @param brand
-	 * @return
+	 * @param buildingLocation
+	 * @return the update version of the building location
 	 * @throws GHAEJBException
 	 */
 	public BuildingLocation update(BuildingLocation buildingLocation)

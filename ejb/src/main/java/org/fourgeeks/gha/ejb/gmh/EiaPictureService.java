@@ -23,7 +23,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * 
  */
 
-@Stateless(name = "gmh.EiaPictureService")
+@Stateless
 public class EiaPictureService extends GHAEJBExceptionImpl implements
 		EiaPictureServiceRemote {
 	@PersistenceContext

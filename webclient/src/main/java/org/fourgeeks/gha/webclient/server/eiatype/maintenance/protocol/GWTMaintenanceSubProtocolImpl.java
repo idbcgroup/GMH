@@ -18,30 +18,37 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 /**
  * @author emiliot
- *
+ * 
  */
-@WebServlet(urlPatterns = {"/webclient/maintenanceSubProtocol"})
-public class GWTMaintenanceSubProtocolImpl extends RemoteServiceServlet implements
-		GWTMaintenanceSubProtocolService {
+@WebServlet(urlPatterns = { "/webclient/maintenanceSubProtocol" })
+public class GWTMaintenanceSubProtocolImpl extends RemoteServiceServlet
+		implements GWTMaintenanceSubProtocolService {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	@EJB(name = "gmh.maintenanceSubProtocolService")
+
+	@EJB(lookup = "java:global/ear-1/ejb-1/MaintenanceSubProtocolService")
 	MaintenanceSubProtocolServiceRemote service;
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.GWTMaintenanceSubProtocolService#delete(long)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.
+	 * GWTMaintenanceSubProtocolService#delete(long)
 	 */
 	@Override
 	public void delete(long Id) throws GHAEJBException {
 		service.delete(Id);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.GWTMaintenanceSubProtocolService#findByProtocolActivity(org.fourgeeks.gha.domain.gmh.ProtocolActivity)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.
+	 * GWTMaintenanceSubProtocolService
+	 * #findByProtocolActivity(org.fourgeeks.gha.domain.gmh.ProtocolActivity)
 	 */
 	@Override
 	public List<MaintenanceSubProtocol> findByMaintenanceActivity(
@@ -49,24 +56,33 @@ public class GWTMaintenanceSubProtocolImpl extends RemoteServiceServlet implemen
 		return service.findByMaintenanceActivity(maintenanceActivity);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.GWTMaintenanceSubProtocolService#find(long)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.
+	 * GWTMaintenanceSubProtocolService#find(long)
 	 */
 	@Override
 	public MaintenanceSubProtocol find(long Id) throws GHAEJBException {
 		return service.find(Id);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.GWTMaintenanceSubProtocolService#getAll()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.
+	 * GWTMaintenanceSubProtocolService#getAll()
 	 */
 	@Override
 	public List<MaintenanceSubProtocol> getAll() throws GHAEJBException {
 		return service.getAll();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.GWTMaintenanceSubProtocolService#getAll(int, int)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.
+	 * GWTMaintenanceSubProtocolService#getAll(int, int)
 	 */
 	@Override
 	public List<MaintenanceSubProtocol> getAll(int offset, int size)
@@ -74,8 +90,12 @@ public class GWTMaintenanceSubProtocolImpl extends RemoteServiceServlet implemen
 		return service.getAll(offset, size);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.GWTMaintenanceSubProtocolService#save(org.fourgeeks.gha.domain.gmh.MaintenanceSubProtocol)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.
+	 * GWTMaintenanceSubProtocolService
+	 * #save(org.fourgeeks.gha.domain.gmh.MaintenanceSubProtocol)
 	 */
 	@Override
 	public MaintenanceSubProtocol save(
@@ -84,8 +104,12 @@ public class GWTMaintenanceSubProtocolImpl extends RemoteServiceServlet implemen
 		return service.save(maintenanceSubProtocol);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.GWTMaintenanceSubProtocolService#update(org.fourgeeks.gha.domain.gmh.MaintenanceSubProtocol)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.
+	 * GWTMaintenanceSubProtocolService
+	 * #update(org.fourgeeks.gha.domain.gmh.MaintenanceSubProtocol)
 	 */
 	@Override
 	public MaintenanceSubProtocol update(

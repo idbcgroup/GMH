@@ -19,8 +19,8 @@ public class GHATextItem extends TextItem {
 	public GHATextItem() {
 		super();
 		setHeight(20);
-		setOriginalStyle();
 		setWidth("*");
+		setOriginalStyle();
 		setLength(255);
 		
 		// setErrorOrientation(FormErrorOrientation.RIGHT);
@@ -52,6 +52,14 @@ public class GHATextItem extends TextItem {
 		setCellStyle("gha-form-cell");
 		setTitleStyle("input-title");
 	}
+	
+	/**
+	 * @param title
+	 */
+	public GHATextItem(String title) {
+		this();
+		setTitle(title);
+	}
 
 	/**
 	 * @param title
@@ -61,7 +69,7 @@ public class GHATextItem extends TextItem {
 		this(title);
 		setWidth(width);
 	}
-
+	
 	/**
 	 * @param title
 	 * @param width
@@ -104,14 +112,6 @@ public class GHATextItem extends TextItem {
 	public GHATextItem(String title, int width, boolean active) {
 		this(title, width);
 		setDisabled(!active);
-	}
-
-	/**
-	 * @param title
-	 */
-	public GHATextItem(String title) {
-		this();
-		setTitle(title);
 	}
 
 	/**

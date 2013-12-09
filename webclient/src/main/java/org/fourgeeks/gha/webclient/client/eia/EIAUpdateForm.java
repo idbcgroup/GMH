@@ -22,9 +22,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author vivi.torresg, emiliot Update Eia Form
  * 
  */
-public class EIAUpdateForm extends GHAUpdateForm implements
+public class EIAUpdateForm extends GHAUpdateForm<Eia> implements
 		EIATypeSelectionListener, EiaSelectionProducer, EIASelectionListener {
-	EIAForm form;
 
 	/**
 	 * @param title
@@ -44,14 +43,15 @@ public class EIAUpdateForm extends GHAUpdateForm implements
 	public EIAUpdateForm(EiaType eiaType, String title) {
 		super(title);
 		form = new EIAForm();
-		form.select(eiaType);
+		((EIATypeSelectionListener) form).select(eiaType);
 		initComponent();
 	}
 
 	@Override
 	public void addEiaSelectionListener(
 			EIASelectionListener eiaSelectionListener) {
-		form.addEiaSelectionListener(eiaSelectionListener);
+		((EiaSelectionProducer) form)
+				.addEiaSelectionListener(eiaSelectionListener);
 	}
 
 	@Override
@@ -116,7 +116,7 @@ public class EIAUpdateForm extends GHAUpdateForm implements
 	 * 
 	 */
 	private void initComponent() {
-		form.addEiaSelectionListener(this);
+		((EiaSelectionProducer) form).addEiaSelectionListener(this);
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
 				"../resources/icons/save.png", new ClickHandler() {
@@ -170,7 +170,8 @@ public class EIAUpdateForm extends GHAUpdateForm implements
 	@Override
 	public void removeEiaSelectionListener(
 			EIASelectionListener eiaSelectionListener) {
-		form.removeEiaSelectionListener(eiaSelectionListener);
+		((EiaSelectionProducer) form)
+				.removeEiaSelectionListener(eiaSelectionListener);
 	}
 
 	/*
@@ -195,7 +196,7 @@ public class EIAUpdateForm extends GHAUpdateForm implements
 	 */
 	@Override
 	public void select(EiaType eiaType) {
-		form.select(eiaType);
+		((EIATypeSelectionListener) form).select(eiaType);
 	}
 
 	/**
@@ -205,7 +206,8 @@ public class EIAUpdateForm extends GHAUpdateForm implements
 		form.set(eia);
 	}
 
-	private void update() {
+	@Override
+	protected void update() {
 		form.update(new GHAAsyncCallback<Eia>() {
 
 			@Override

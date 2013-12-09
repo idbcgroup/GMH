@@ -23,7 +23,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class GWTManufacturerServiceImpl extends RemoteServiceServlet implements
 		GWTManufacturerService {
 
-	@EJB(name = "gmh.ManufacturerService")
+	@EJB(lookup = "java:global/ear-1/ejb-1/ManufacturerService")
 	ManufacturerServiceRemote service;
 
 	/**

@@ -12,10 +12,10 @@ import org.fourgeeks.gha.domain.glm.MaterialCategory;
 import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHACodeItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextAreaItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHACodeTextItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 
@@ -54,7 +54,7 @@ public class MaterialCategoryForm extends GHAVerticalLayout implements
 		nameItem = new GHATextItem(GHAStrings.get("name"), 900, false,
 				changedHandler);
 		nameItem.setColSpan(2);
-		codeItem = new GHACodeItem(true, 450, changedHandler);
+		codeItem = new GHACodeTextItem(true, 450, changedHandler);
 		externalCodeItem = new GHATextItem(GHAStrings.get("external-code"),
 				450, false, changedHandler);
 		typeItem = new GHASelectItem(GHAStrings.get("type"), 450, true,

@@ -82,6 +82,7 @@ public abstract class GHAUtil {
 		return keyArray;
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private static boolean binarySearch(Comparable[] all, Comparable key) {
 		int low = 0, high = all.length;
 		while (low < high) {

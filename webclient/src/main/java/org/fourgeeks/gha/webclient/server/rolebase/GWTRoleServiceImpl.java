@@ -25,7 +25,15 @@ public class GWTRoleServiceImpl extends RemoteServiceServlet implements
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@EJB(name = "ess.RoleService")
+	// @EJB(lookup =
+	// "java:jboss/exported/ear-1/ejb-1/RoleService!org.fourgeeks.gha.ejb.ess.RoleServiceRemote")
+	// (lookup =
+	// "java:module/RoleService!org.fourgeeks.gha.ejb.ess.RoleServiceRemote")
+	// java:jboss/exported/ear-1/ejb-1/RoleService!org.fourgeeks.gha.ejb.ess.RoleServiceRemote
+	// java:global/ear-1/ejb-1/RoleService
+	// java:app/ejb-1/RoleService
+	// java:module/RoleService
+	@EJB(lookup = "java:global/ear-1/ejb-1/RoleService")
 	RoleServiceRemote service;
 
 	@Override
@@ -34,7 +42,7 @@ public class GWTRoleServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public List<Role> getAll(int offset, int size) throws GHAEJBException {
+	public List<Role> getAll(int offset, int size) throws GHAEJBException{
 		return service.getAll();
 	}
 }

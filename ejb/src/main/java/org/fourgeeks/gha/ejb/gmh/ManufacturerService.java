@@ -21,7 +21,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * 
  */
 
-@Stateless(name = "gmh.ManufacturerService")
+@Stateless
 public class ManufacturerService extends GHAEJBExceptionImpl implements
 		ManufacturerServiceRemote {
 	@PersistenceContext

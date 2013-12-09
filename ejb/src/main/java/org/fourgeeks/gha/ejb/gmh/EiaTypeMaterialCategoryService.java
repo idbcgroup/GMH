@@ -14,7 +14,11 @@ import org.fourgeeks.gha.domain.gmh.EiaTypeMaterialCategory;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 
-@Stateless(name = "gmh.EiaTypeMaterialCategoryService")
+/**
+ * @author alacret
+ * 
+ */
+@Stateless
 public class EiaTypeMaterialCategoryService extends GHAEJBExceptionImpl
 		implements EiaTypeMaterialCategoryServiceRemote {
 

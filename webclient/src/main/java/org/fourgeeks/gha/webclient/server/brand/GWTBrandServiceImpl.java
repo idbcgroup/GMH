@@ -24,7 +24,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class GWTBrandServiceImpl extends RemoteServiceServlet implements
 		GWTBrandService {
 
-	@EJB(name = "gmh.BrandService")
+	@EJB(lookup = "java:global/ear-1/ejb-1/BrandService")
 	BrandServiceRemote service;
 
 	/**
@@ -43,8 +43,12 @@ public class GWTBrandServiceImpl extends RemoteServiceServlet implements
 		return service.getAll();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.brand.GWTBrandService#findByManufacturer(org.fourgeeks.gha.domain.gmh.Manufacturer)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.brand.GWTBrandService#findByManufacturer
+	 * (org.fourgeeks.gha.domain.gmh.Manufacturer)
 	 */
 	@Override
 	public List<Brand> findByManufacturer(Manufacturer manufacturer)

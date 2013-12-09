@@ -33,7 +33,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * @author alacret, vivi.torresg
  * 
  */
-@Stateless(name = "glm.ExternalProviderService")
+@Stateless
 public class ExternalProviderService extends GHAEJBExceptionImpl implements
 		ExternalProviderServiceRemote {
 	@PersistenceContext

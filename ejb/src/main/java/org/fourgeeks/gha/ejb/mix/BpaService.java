@@ -21,7 +21,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * 
  */
 
-@Stateless(name = "mix.BpaService")
+@Stateless
 public class BpaService extends GHAEJBExceptionImpl implements BpaServiceRemote {
 	@PersistenceContext
 	private EntityManager em;

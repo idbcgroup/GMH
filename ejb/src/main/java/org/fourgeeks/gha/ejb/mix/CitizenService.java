@@ -21,7 +21,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * 
  */
 
-@Stateless(name = "mix.CitizenService")
+@Stateless
 public class CitizenService extends GHAEJBExceptionImpl implements
 		CitizenServiceRemote {
 	@PersistenceContext

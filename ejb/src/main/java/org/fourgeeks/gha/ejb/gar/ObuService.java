@@ -27,7 +27,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * @author alacret, vivi.torresg
  * 
  */
-@Stateless(name = "gar.ObuService")
+@Stateless
 public class ObuService extends GHAEJBExceptionImpl implements ObuServiceRemote {
 	@PersistenceContext
 	EntityManager em;

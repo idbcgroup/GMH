@@ -13,7 +13,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHASessionData;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHARadioGroupItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHATitleTextItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHATitletextItem;
 import org.fourgeeks.gha.webclient.client.eiatype.component.EIATypeComponentModel;
 
 import com.smartgwt.client.types.TitleOrientation;
@@ -25,7 +25,7 @@ public class EIAReportListEiaTypeCompsForm extends GHAReportForm {
 	private static final String VAL_ORDER_BY_EIATYPE_AND_COMPS = "true";
 	private static final String VAL_ORDER_BY_COMPS_AND_EIATYPE = "false";
 
-	private GHATitleTextItem filtersTitleItem, orderByTitleItem;
+	private GHATitletextItem filtersTitleItem, orderByTitleItem;
 	private GHARadioGroupItem filtersRadioGroupItem;
 	private GHARadioGroupItem orderByRadioGroupItem;
 	private GHASelectItem eiaTypesSelectItem, eiaTypeSelectItem, eiaTypesComponentSelectItem,
@@ -38,7 +38,7 @@ public class EIAReportListEiaTypeCompsForm extends GHAReportForm {
 		form.setNumCols(2);
 
 		// CREANDO LOS ITEMS
-		filtersTitleItem = new GHATitleTextItem("Filtros");
+		filtersTitleItem = new GHATitletextItem("Filtros");
 		filtersTitleItem.setColSpan(2);
 
 		filtersRadioGroupItem = new GHARadioGroupItem(370, false);
@@ -58,7 +58,7 @@ public class EIAReportListEiaTypeCompsForm extends GHAReportForm {
 				GHAUiHelper.THREE_COLUMN_FORMITEM_SIZE);
 		eiaTypeComponentSelectItem.setDisabled(true);
 
-		orderByTitleItem = new GHATitleTextItem("Ordenar por");
+		orderByTitleItem = new GHATitletextItem("Ordenar por");
 		orderByTitleItem.setColSpan(2);
 
 		orderByRadioGroupItem = new GHARadioGroupItem(350, false);

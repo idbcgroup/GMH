@@ -20,7 +20,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * @author emiliot, vivi.torresg
  * 
  */
-@Stateless(name = "mix.SystemInstanceService")
+@Stateless
 public class SystemInstanceService extends GHAEJBExceptionImpl implements
 		SystemInstanceServiceRemote {
 	@PersistenceContext

@@ -35,16 +35,16 @@ public class GWTLoginServiceImpl extends RemoteServiceServlet implements
 	private final static Logger logger = Logger
 			.getLogger(GWTLoginServiceImpl.class.getName());
 
-	@EJB(name = "log.LogonLogService")
+	@EJB(lookup = "java:global/ear-1/ejb-1/LogonLogService")
 	LogonLogServiceRemote logService;
 
-	@EJB(name = "ess.SSOUserService")
+	@EJB(lookup = "java:global/ear-1/ejb-1/SSOUserService")
 	SSOUserServiceRemote ssoUserService;
 
-	@EJB(name = "ess.AppFormViewFunctionBpuService")
+	@EJB(lookup = "java:global/ear-1/ejb-1/AppFormViewFunctionBpuService")
 	AppFormViewFunctionBpuServiceRemote bpuFunctionService;
 
-	@EJB(name = "msg.MessageService")
+	@EJB(lookup = "java:global/ear-1/ejb-1/MessageService")
 	MessageServiceRemote messageService;
 
 	/**

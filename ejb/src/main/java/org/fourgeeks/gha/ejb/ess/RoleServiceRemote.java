@@ -40,7 +40,7 @@ public interface RoleServiceRemote {
 	 * @return the list of BaseRoles
 	 * @throws GHAEJBException
 	 */
-	public List<Role> getAll() throws GHAEJBException;
+	public List<Role> getAll();
 
 	/**
 	 * @param entity

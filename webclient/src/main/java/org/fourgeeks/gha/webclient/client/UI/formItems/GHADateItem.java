@@ -1,11 +1,14 @@
 package org.fourgeeks.gha.webclient.client.UI.formItems;
 
+import java.util.Date;
+
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Window;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.DateDisplayFormat;
+import com.smartgwt.client.util.DateUtil;
 import com.smartgwt.client.util.LogicalDate;
 import com.smartgwt.client.widgets.form.fields.DateItem;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
@@ -23,23 +26,32 @@ public class GHADateItem extends DateItem {
 		super();
 		setHeight(20);
 		setWidth("*");
+
 		setUseTextField(true);
 		setTextAlign(Alignment.LEFT);
+		setOriginalStyle();
+
+		setDisplayFormat(DateDisplayFormat.TOEUROPEANSHORTDATE);
+		setHoverWidth(100);
+
+		// CustomValidator customValidator = getStandardValidator();
+		// setValidators(customValidator);
+		// setValidateOnChange(true);
+		// addChangedHandler(new ChangedHandler() {
+		// @Override
+		// public void onChanged(ChangedEvent event) {
+		// validate();
+		// }
+		// });
+	}
+
+	/**
+	 * 
+	 */
+	private void setOriginalStyle() {
 		setTextBoxStyle("dateItem");
 		setCellStyle("gha-form-cell");
 		setTitleStyle("input-title");
-		setDisplayFormat(DateDisplayFormat.TOEUROPEANSHORTDATE);
-		setHoverWidth(100);
-		
-//		CustomValidator customValidator = getStandardValidator();
-//		setValidators(customValidator);
-//		setValidateOnChange(true);
-//		addChangedHandler(new ChangedHandler() {
-//			@Override
-//			public void onChanged(ChangedEvent event) {
-//				validate();
-//			}
-//		});
 	}
 
 	protected static CustomValidator getStandardValidator() {
@@ -48,8 +60,8 @@ public class GHADateItem extends DateItem {
 			protected boolean condition(Object value) {
 				DateTimeFormat dtf = DateTimeFormat.getFormat("dd/MM/yyyy");
 				try {
-					Window.alert(dtf.parseStrict(value.toString())+"");
-//					dtf.parseStrict(value.toString());
+					Window.alert(dtf.parseStrict(value.toString()) + "");
+					// dtf.parseStrict(value.toString());
 					return true;
 				} catch (IllegalArgumentException e) {
 					return false;
@@ -84,10 +96,10 @@ public class GHADateItem extends DateItem {
 	/**
 	 * @param title
 	 */
-	public GHADateItem(String title, ChangedHandler changeHandler) {
+	public GHADateItem(String title, ChangedHandler changedHandler) {
 		this();
 		setTitle(title);
-		addChangedHandler(changeHandler);
+		addChangedHandler(changedHandler);
 	}
 
 	public GHADateItem(String title, int width) {
@@ -107,9 +119,10 @@ public class GHADateItem extends DateItem {
 	}
 
 	public LogicalDate getValueAsLogicalDate() {
-		Object value = getValue();
+		Date value = (Date) getValue();
 		if (value != null)
-			return (LogicalDate) value;
+			return DateUtil.getLogicalDateOnly(value);
+
 		return null;
 	}
 

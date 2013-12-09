@@ -21,14 +21,14 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHABirthDateItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHADateItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHAEmailItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHANameItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHAUserNameItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.dateitems.GHABirthDateItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHAEmailTextItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHANameTextItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHAUserNameTextItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
@@ -48,14 +48,14 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 			secondLastNameItem, nationalityItem, legalEntityIdentifierItem;
 	private GHASelectItem typeidSelectItem, genderSelectItem, bpiSelectItem;
 	private GHADateItem birthDateItem;
-	private GHAEmailItem primaryEmailItem, alternativeEmailItem;
+	private GHAEmailTextItem primaryEmailItem, alternativeEmailItem;
 
 	private List<UserSelectionListener> listeners;
 	private List<Bpi> bpis;
 	private GHADynamicForm form;
 
 	{
-		usernameItem = new GHAUserNameItem(true, changedHandler);
+		usernameItem = new GHAUserNameTextItem(true, changedHandler);
 
 		passwordItem = new GHATextItem(GHAStrings.get("password"), true,
 				changedHandler);
@@ -63,14 +63,14 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 		confirmPasswordItem = new GHATextItem("Confirme contraseña", true,
 				changedHandler);
 		confirmPasswordItem.setLength(20);
-		firstNameItem = new GHANameItem("Primer Nombre", false, changedHandler);
-		secondNameItem = new GHANameItem("Segundo Nombre", false,
+		firstNameItem = new GHANameTextItem(GHAStrings.get("first-name"), false, changedHandler);
+		secondNameItem = new GHANameTextItem(GHAStrings.get("second-name"), false,
 				changedHandler);
-		lastNameItem = new GHANameItem("Apellido", false, changedHandler);
-		secondLastNameItem = new GHANameItem("Segundo Apellido", false,
+		lastNameItem = new GHANameTextItem(GHAStrings.get("first-lastname"), false, changedHandler);
+		secondLastNameItem = new GHANameTextItem(GHAStrings.get("second-lastname"), false,
 				changedHandler);
-		primaryEmailItem = new GHAEmailItem("Email Primario", changedHandler);
-		alternativeEmailItem = new GHAEmailItem("Email Secundario",
+		primaryEmailItem = new GHAEmailTextItem("Email Primario", changedHandler);
+		alternativeEmailItem = new GHAEmailTextItem("Email Secundario",
 				changedHandler);
 
 		typeidSelectItem = new GHASelectItem("Tipo ID", true, changedHandler);

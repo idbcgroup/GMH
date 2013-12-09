@@ -28,7 +28,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * @author emiliot, vivi.torresg
  * 
  */
-@Stateless(name = "gmh.maintenanceActivityService")
+@Stateless
 public class MaintenanceActivityService extends GHAEJBExceptionImpl implements
 		MaintenanceActivityServiceRemote {
 	@PersistenceContext

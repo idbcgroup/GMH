@@ -23,7 +23,7 @@ public class GWTEiaTypeUtilityServiceImpl extends RemoteServiceServlet
 
 	private static final long serialVersionUID = 1L;
 
-	@EJB(name = "gmh.EiaTypeUtilityService")
+	@EJB(lookup = "java:global/ear-1/ejb-1/EiaTypeUtilityService")
 	private EiaTypeUtilityServiceRemote serviceRemote;
 
 	@Override

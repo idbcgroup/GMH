@@ -20,7 +20,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * @author emiliot, vivi.torresg
  * 
  */
-@Stateless(name = "mix.LegalEntityService")
+@Stateless
 public class LegalEntityService extends GHAEJBExceptionImpl implements
 		LegalEntityServiceRemote {
 	@PersistenceContext

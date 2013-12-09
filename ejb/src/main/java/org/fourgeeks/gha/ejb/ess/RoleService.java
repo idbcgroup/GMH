@@ -20,9 +20,11 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * @author alacret
  * 
  */
-@Stateless(name = "ess.RoleService")
+@Stateless
+// @Remote(RoleServiceRemote.class)
+// @Local(RoleServiceLocal.class)
 public class RoleService extends GHAEJBExceptionImpl implements
-		RoleServiceRemote {
+		RoleServiceRemote/* , RoleServiceLocal */{
 	@PersistenceContext
 	EntityManager em;
 
@@ -66,14 +68,15 @@ public class RoleService extends GHAEJBExceptionImpl implements
 	}
 
 	@Override
-	public List<Role> getAll() throws GHAEJBException {
+	public List<Role> getAll() {
 		try {
 			return em.createNamedQuery("Role.getAll", Role.class)
 					.getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all Role", ex);
-			throw super.generateGHAEJBException("role-getAll-fail",
-					RuntimeParameters.getLang(), em);
+			// throw super.generateGHAEJBException("role-getAll-fail",
+			// RuntimeParameters.getLang(), em);
+			return null;
 		}
 	}
 

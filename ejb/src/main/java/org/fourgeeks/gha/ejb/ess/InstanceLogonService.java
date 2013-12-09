@@ -21,7 +21,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * 
  */
 
-@Stateless(name = "ess.InstanceLogonService")
+@Stateless
 public class InstanceLogonService extends GHAEJBExceptionImpl implements
 		InstanceLogonServiceRemote {
 	@PersistenceContext

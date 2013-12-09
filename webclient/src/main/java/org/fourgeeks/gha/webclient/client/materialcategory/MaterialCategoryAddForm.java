@@ -22,8 +22,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class MaterialCategoryAddForm extends GHAAddForm implements
-		MaterialCategorySelectionProducer {
+public class MaterialCategoryAddForm extends GHAAddForm<MaterialCategory>
+		implements MaterialCategorySelectionProducer {
 
 	protected MaterialCategoryForm form;
 	{
@@ -149,7 +149,8 @@ public class MaterialCategoryAddForm extends GHAAddForm implements
 
 	}
 
-	private void save() {
+	@Override
+	protected void save() {
 		form.save(new GHAAsyncCallback<MaterialCategory>() {
 
 			@Override

@@ -17,18 +17,21 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 /**
  * @author emiliot
- *
+ * 
  */
 @WebServlet(urlPatterns = { "/webclient/bpu" })
-public class GWTBpuServiceImpl extends RemoteServiceServlet implements GWTBpuService {
-	@EJB(name = "gar.BpuService")
+public class GWTBpuServiceImpl extends RemoteServiceServlet implements
+		GWTBpuService {
+	@EJB(lookup = "java:global/ear-1/ejb-1/BpuService")
 	BpuServiceRemote service;
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.webclient.client.bpu.GWTBpuService#delete(long)
 	 */
 	@Override
@@ -36,15 +39,21 @@ public class GWTBpuServiceImpl extends RemoteServiceServlet implements GWTBpuSer
 		service.delete(Id);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.bpu.GWTBpuService#find(org.fourgeeks.gha.domain.gar.Bpu)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.bpu.GWTBpuService#find(org.fourgeeks
+	 * .gha.domain.gar.Bpu)
 	 */
 	@Override
 	public List<Bpu> find(Bpu bpu) throws GHAEJBException {
 		return service.find(bpu);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.webclient.client.bpu.GWTBpuService#find(long)
 	 */
 	@Override
@@ -52,7 +61,9 @@ public class GWTBpuServiceImpl extends RemoteServiceServlet implements GWTBpuSer
 		return service.find(Id);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.webclient.client.bpu.GWTBpuService#getAll()
 	 */
 	@Override
@@ -60,16 +71,24 @@ public class GWTBpuServiceImpl extends RemoteServiceServlet implements GWTBpuSer
 		return service.getAll();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.bpu.GWTBpuService#save(org.fourgeeks.gha.domain.gar.Bpu)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.bpu.GWTBpuService#save(org.fourgeeks
+	 * .gha.domain.gar.Bpu)
 	 */
 	@Override
 	public Bpu save(Bpu bpu) throws GHAEJBException {
 		return service.save(bpu);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.bpu.GWTBpuService#update(org.fourgeeks.gha.domain.gar.Bpu)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.bpu.GWTBpuService#update(org.fourgeeks
+	 * .gha.domain.gar.Bpu)
 	 */
 	@Override
 	public Bpu update(Bpu bpu) throws GHAEJBException {

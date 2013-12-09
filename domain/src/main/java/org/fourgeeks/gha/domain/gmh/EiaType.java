@@ -241,16 +241,4 @@ public class EiaType extends AbstractCodeEntity {
 		this.serviceResource = serviceResource;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (obj instanceof EiaType && ((EiaType) (obj)).code.equals(this.code))
-			return true;
-		return false;
-	}
-
 }

@@ -17,27 +17,36 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 /**
  * @author emiliot
- *
+ * 
  */
 @WebServlet(urlPatterns = { "/webclient/instanceLogon" })
-public class GWTInstanceLogonServiceImpl extends RemoteServiceServlet implements GWTInstanceLogonService {
-	@EJB(name = "ess.InstanceLogonService")
+public class GWTInstanceLogonServiceImpl extends RemoteServiceServlet implements
+		GWTInstanceLogonService {
+	@EJB(lookup = "java:global/ear-1/ejb-1/InstanceLogonService")
 	InstanceLogonServiceRemote service;
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.instancelogon.GWTInstanceLogonService#delete(long)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.instancelogon.GWTInstanceLogonService
+	 * #delete(long)
 	 */
 	@Override
 	public void delete(long Id) throws GHAEJBException {
 		service.delete(Id);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.instancelogon.GWTInstanceLogonService#find(org.fourgeeks.gha.domain.ess.InstanceLogon)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.instancelogon.GWTInstanceLogonService
+	 * #find(org.fourgeeks.gha.domain.ess.InstanceLogon)
 	 */
 	@Override
 	public List<InstanceLogon> find(InstanceLogon instanceLogon)
@@ -45,32 +54,49 @@ public class GWTInstanceLogonServiceImpl extends RemoteServiceServlet implements
 		return service.find(instanceLogon);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.instancelogon.GWTInstanceLogonService#find(long)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.instancelogon.GWTInstanceLogonService
+	 * #find(long)
 	 */
 	@Override
 	public InstanceLogon find(long Id) throws GHAEJBException {
 		return service.find(Id);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.instancelogon.GWTInstanceLogonService#getAll()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.instancelogon.GWTInstanceLogonService
+	 * #getAll()
 	 */
 	@Override
 	public List<InstanceLogon> getAll() throws GHAEJBException {
 		return service.getAll();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.instancelogon.GWTInstanceLogonService#save(org.fourgeeks.gha.domain.ess.InstanceLogon)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.instancelogon.GWTInstanceLogonService
+	 * #save(org.fourgeeks.gha.domain.ess.InstanceLogon)
 	 */
 	@Override
-	public InstanceLogon save(InstanceLogon instanceLogon) throws GHAEJBException {
+	public InstanceLogon save(InstanceLogon instanceLogon)
+			throws GHAEJBException {
 		return service.save(instanceLogon);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fourgeeks.gha.webclient.client.instancelogon.GWTInstanceLogonService#update(org.fourgeeks.gha.domain.ess.InstanceLogon)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.instancelogon.GWTInstanceLogonService
+	 * #update(org.fourgeeks.gha.domain.ess.InstanceLogon)
 	 */
 	@Override
 	public InstanceLogon update(InstanceLogon instanceLogon)

@@ -42,11 +42,12 @@ public class ReportListEiaTypesEiasServlet extends ReportEiaServelt {
 
 	private static final String LOGO_DIR = "/resources/img/logoReport.jpg";
 
-	private static final String PARAM_EIATYPES = "eiatypes", PARAM_FACILS = "facils",
-			PARAM_WORKAREAS = "workareas", PARAM_EDOEIA = "edoeia", PARAM_SHOWEIAS = "showeias",
+	private static final String PARAM_EIATYPES = "eiatypes",
+			PARAM_FACILS = "facils", PARAM_WORKAREAS = "workareas",
+			PARAM_EDOEIA = "edoeia", PARAM_SHOWEIAS = "showeias",
 			PARAM_USER = "user";
 
-	@EJB(name = "gmh.EiaReportsService", beanInterface = EiaReportsServiceRemote.class)
+	@EJB(lookup = "java:global/ear-1/ejb-1/EiaReportsService")
 	EiaReportsServiceRemote service;
 
 	/*
@@ -57,29 +58,34 @@ public class ReportListEiaTypesEiasServlet extends ReportEiaServelt {
 	 * , javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
-			IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
 		try {
 
 			Map<String, Object> searchMap = searchInService(req);
-			EiaDataSource eiaDataSource = (EiaDataSource) searchMap.get("eiaDS");
-			EiaTypeDataSource eiaTypeDataSource = (EiaTypeDataSource) searchMap.get("eiaTypeDS");
+			EiaDataSource eiaDataSource = (EiaDataSource) searchMap
+					.get("eiaDS");
+			EiaTypeDataSource eiaTypeDataSource = (EiaTypeDataSource) searchMap
+					.get("eiaTypeDS");
 
-			String reportFileRealPath = getServletContext().getRealPath(REPORT_FILE_DIR);
+			String reportFileRealPath = getServletContext().getRealPath(
+					REPORT_FILE_DIR);
 
 			Map<String, Object> paramsReport = generateParamsMap(req);
 			paramsReport.put("subReportDataSource", eiaDataSource);
 
-			JasperPrint fillReport = JasperFillManager.fillReport(reportFileRealPath, paramsReport,
-					eiaTypeDataSource);
+			JasperPrint fillReport = JasperFillManager.fillReport(
+					reportFileRealPath, paramsReport, eiaTypeDataSource);
 
 			exportAsPDF(resp, fillReport, "detalle-equipos.pdf");
 
 		} catch (GHAEJBException e) {
-			LOG.log(Level.ERROR, "Problema al obtener los datos para el reporte", e);
+			LOG.log(Level.ERROR,
+					"Problema al obtener los datos para el reporte", e);
 
 		} catch (JRException e) {
-			LOG.log(Level.ERROR, "Problema al generar el reporte de JasperReport", e);
+			LOG.log(Level.ERROR,
+					"Problema al generar el reporte de JasperReport", e);
 
 		}
 
@@ -94,12 +100,14 @@ public class ReportListEiaTypesEiasServlet extends ReportEiaServelt {
 	@Override
 	protected Map<String, Object> generateParamsMap(HttpServletRequest req) {
 		// logo del sistema que ha de aparecer como parte del reporte
-		Image logoImage = new ImageIcon(getServletContext().getRealPath(LOGO_DIR)).getImage();
+		Image logoImage = new ImageIcon(getServletContext().getRealPath(
+				LOGO_DIR)).getImage();
 
 		String user = req.getParameter(PARAM_USER);
 		String showEias = req.getParameter(PARAM_SHOWEIAS);
 		String datetimeReport = genDatetimeTimezoneStrRep();
-		String subReportRealPath = getServletContext().getRealPath(SUBREPORT_FILE_DIR);
+		String subReportRealPath = getServletContext().getRealPath(
+				SUBREPORT_FILE_DIR);
 
 		Map<String, Object> paramsMap = new HashMap<String, Object>();
 		paramsMap.put("logo", logoImage);
@@ -117,7 +125,9 @@ public class ReportListEiaTypesEiasServlet extends ReportEiaServelt {
 	 * @see org.fourgeeks.gha.webclient.server.eia.reports.ReportEiaServelt#
 	 * searchInService(javax.servlet.http.HttpServletRequest)
 	 */
-	protected Map<String, Object> searchInService(HttpServletRequest req) throws GHAEJBException {
+	@Override
+	protected Map<String, Object> searchInService(HttpServletRequest req)
+			throws GHAEJBException {
 		QueryParamsContainer qpc = new QueryParamsContainer(req);
 		List<EiaReportEntity> eiaList = null;
 		List<EiaType> eiaTypeList = null;
@@ -126,8 +136,8 @@ public class ReportListEiaTypesEiasServlet extends ReportEiaServelt {
 			eiaTypeList = service.findEiaTypes(qpc.eiaTypeCodes);
 
 			List<String> eiaTypeCodeList = toCodeList(eiaTypeList);
-			eiaList = service.findEiasByEiaTypes(eiaTypeCodeList, qpc.facilsIds,
-					qpc.workingAreasIds, qpc.eiaState);
+			eiaList = service.findEiasByEiaTypes(eiaTypeCodeList,
+					qpc.facilsIds, qpc.workingAreasIds, qpc.eiaState);
 
 			LOG.log(Level.INFO, "eiaList.size() = " + eiaList.size());
 			Eia eia = eiaList.get(0).getEia();
@@ -168,11 +178,11 @@ public class ReportListEiaTypesEiasServlet extends ReportEiaServelt {
 	 * @author naramirez
 	 */
 	private class QueryParamsContainer {
-		private List<String> eiaTypeCodes;
-		private List<Long> facilsIds;
-		private List<Long> workingAreasIds;
+		private final List<String> eiaTypeCodes;
+		private final List<Long> facilsIds;
+		private final List<Long> workingAreasIds;
 		private EiaStateEnum eiaState;
-		private boolean showEias;
+		private final boolean showEias;
 
 		/**
 		 * @param req

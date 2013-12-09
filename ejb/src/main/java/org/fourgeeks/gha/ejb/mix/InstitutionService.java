@@ -21,7 +21,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * 
  */
 
-@Stateless(name = "mix.InstitutionService")
+@Stateless
 public class InstitutionService extends GHAEJBExceptionImpl implements
 		InstitutionServiceRemote {
 	@PersistenceContext

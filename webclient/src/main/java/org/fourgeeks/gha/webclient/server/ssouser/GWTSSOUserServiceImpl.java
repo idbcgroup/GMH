@@ -24,12 +24,10 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 @WebServlet(urlPatterns = { "/webclient/ssouser" })
 public class GWTSSOUserServiceImpl extends RemoteServiceServlet implements
 		GWTSSOUserService {
-	private final static Logger logger = Logger
-			.getLogger(GWTSSOUserServiceImpl.class.getName());
-	@EJB(name = "ess.SSOUserService")
+	@EJB(lookup = "java:global/ear-1/ejb-1/SSOUserService")
 	SSOUserServiceRemote service;
 
-	@EJB(name = "gar.BpuFunctionService")
+	@EJB(lookup = "java:global/ear-1/ejb-1/AppFormViewFunctionBpuService")
 	AppFormViewFunctionBpuServiceRemote bpuFunctionService;
 
 	/**
@@ -57,7 +55,6 @@ public class GWTSSOUserServiceImpl extends RemoteServiceServlet implements
 	 */
 	@Override
 	public List<SSOUser> find(SSOUser ssoUser) throws GHAEJBException {
-		logger.info("findSSO");
 		return service.find(ssoUser);
 	}
 

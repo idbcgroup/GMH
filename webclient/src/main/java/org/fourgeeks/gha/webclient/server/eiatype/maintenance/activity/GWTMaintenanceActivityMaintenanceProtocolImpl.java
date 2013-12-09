@@ -27,7 +27,7 @@ public class GWTMaintenanceActivityMaintenanceProtocolImpl extends
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@EJB(name = "gmh.maintenanceActivityMaintenanceProtocolService")
+	@EJB(lookup = "java:global/ear-1/ejb-1/MaintenanceActivityMaintenanceProtocolService")
 	MaintenanceActivityMaintenanceProtocolServiceRemote ejbService;
 
 	@Override

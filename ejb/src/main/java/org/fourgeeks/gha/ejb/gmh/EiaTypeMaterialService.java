@@ -19,7 +19,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * 
  */
 
-@Stateless(name = "gmh.EiaTypeMaterialService")
+@Stateless
 public class EiaTypeMaterialService extends GHAEJBExceptionImpl implements
 		EiaTypeMaterialServiceRemote {
 	@PersistenceContext

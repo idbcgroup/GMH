@@ -38,13 +38,14 @@ public class ReportListEiaTypeCompsServlet extends ReportEiaServelt {
 	private static final String REPORT_FILE_DIR_2 = "/resources/reportes/compilados/GMH.LCRD.02.jasper";
 	private static final String LOGO_DIR = "/resources/img/logoReport.jpg";
 
-	private static final String PARAM_EIATYPES = "eiatypes", PARAM_COMPONENT = "component",
-			PARAM_FILTER = "filter", PARAM_USER = "user", PARAM_ORDEN = "orden";
+	private static final String PARAM_EIATYPES = "eiatypes",
+			PARAM_COMPONENT = "component", PARAM_FILTER = "filter",
+			PARAM_USER = "user", PARAM_ORDEN = "orden";
 
-	@EJB(name = "gmh.EiaReportsService", beanInterface = EiaReportsServiceRemote.class)
+	@EJB(lookup = "java:global/ear-1/ejb-1/EiaReportsService")
 	EiaReportsServiceRemote serviceReport;
 
-	@EJB(name = "gmh.EiaTypeComponentService", beanInterface = EiaTypeComponentServiceRemote.class)
+	@EJB(lookup = "java:global/ear-1/ejb-1/EiaTypeComponentService!org.fourgeeks.gha.ejb.gmh.EiaTypeComponentServiceRemote")
 	EiaTypeComponentServiceRemote serviceEiaTypeComponent;
 
 	/*
@@ -55,8 +56,8 @@ public class ReportListEiaTypeCompsServlet extends ReportEiaServelt {
 	 * , javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
-			IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
 		try {
 			Map<String, Object> searchMap = searchInService(req);
 
@@ -68,16 +69,18 @@ public class ReportListEiaTypeCompsServlet extends ReportEiaServelt {
 
 			Map<String, Object> paramsReport = generateParamsMap(req);
 
-			JasperPrint fillReport = JasperFillManager.fillReport(reportFileRealPath, paramsReport,
-					dataSource);
+			JasperPrint fillReport = JasperFillManager.fillReport(
+					reportFileRealPath, paramsReport, dataSource);
 
 			exportAsPDF(resp, fillReport, "detalle-equipos.pdf");
 
 		} catch (GHAEJBException e) {
-			LOG.log(Level.ERROR, "Problema al obtener los datos para el reporte", e);
+			LOG.log(Level.ERROR,
+					"Problema al obtener los datos para el reporte", e);
 
 		} catch (JRException e) {
-			LOG.log(Level.ERROR, "Problema al generar el reporte de JasperReport", e);
+			LOG.log(Level.ERROR,
+					"Problema al generar el reporte de JasperReport", e);
 
 		}
 
@@ -89,7 +92,9 @@ public class ReportListEiaTypeCompsServlet extends ReportEiaServelt {
 	 * @see org.fourgeeks.gha.webclient.server.eia.reports.ReportEiaServelt#
 	 * searchInService(javax.servlet.http.HttpServletRequest)
 	 */
-	protected Map<String, Object> searchInService(HttpServletRequest req) throws GHAEJBException {
+	@Override
+	protected Map<String, Object> searchInService(HttpServletRequest req)
+			throws GHAEJBException {
 		QueryParamsContainer qpc = new QueryParamsContainer(req);
 		List<EiaTypeCompsEiasReportEntity> eiaList = null;
 		List<EiaTypeComponentReportEntity> eiaTypeCompList = null;
@@ -101,25 +106,28 @@ public class ReportListEiaTypeCompsServlet extends ReportEiaServelt {
 		if (qpc.filter == EiaReportFiltersEnum.EIATYPE_AND_COMPONENTS) {
 			if (qpc.componentId == null) {
 				// Componentes de uno, varios o todos los tipos de equipo
-				eiaTypeCompList = serviceReport.findComponentsByEiaTypes(qpc.eiaTypeCodes,
-						qpc.orden);
+				eiaTypeCompList = serviceReport.findComponentsByEiaTypes(
+						qpc.eiaTypeCodes, qpc.orden);
 			} else {
 				// un componente especifico de un tipo de equipo
 				eiaTypeCompList = new ArrayList<EiaTypeComponentReportEntity>();
-				EiaTypeComponent comp = serviceEiaTypeComponent.find(qpc.componentId);
+				EiaTypeComponent comp = serviceEiaTypeComponent
+						.find(qpc.componentId);
 				eiaTypeCompList.add(new EiaTypeComponentReportEntity(comp));
 			}
 
-			JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(eiaTypeCompList);
+			JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(
+					eiaTypeCompList);
 			mapa.put("dataSource", dataSource);
 			reportPath = getServletContext().getRealPath(REPORT_FILE_DIR_1);
 		}
 		// COMPONENTES Y LOS EQUIPOS QUE LO TIENEN DEFINIDO
 		else if (qpc.filter == EiaReportFiltersEnum.COMPONENTS_AND_EIA) {
-			eiaList = serviceReport.findEiasByEiaTypeComponents(qpc.eiaTypeCodes, qpc.componentId,
-					qpc.orden);
+			eiaList = serviceReport.findEiasByEiaTypeComponents(
+					qpc.eiaTypeCodes, qpc.componentId, qpc.orden);
 
-			JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(eiaList);
+			JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(
+					eiaList);
 			mapa.put("dataSource", dataSource);
 			reportPath = getServletContext().getRealPath(REPORT_FILE_DIR_2);
 		}
@@ -138,7 +146,8 @@ public class ReportListEiaTypeCompsServlet extends ReportEiaServelt {
 	@Override
 	protected Map<String, Object> generateParamsMap(HttpServletRequest req) {
 		// logo del sistema que ha de aparecer como parte del reporte
-		Image logoImage = new ImageIcon(getServletContext().getRealPath(LOGO_DIR)).getImage();
+		Image logoImage = new ImageIcon(getServletContext().getRealPath(
+				LOGO_DIR)).getImage();
 
 		String user = req.getParameter(PARAM_USER);
 		String datetimeReport = genDatetimeTimezoneStrRep();
@@ -158,10 +167,10 @@ public class ReportListEiaTypeCompsServlet extends ReportEiaServelt {
 	 * @author naramirez
 	 */
 	private class QueryParamsContainer {
-		private List<String> eiaTypeCodes;
-		private Long componentId;
-		private EiaReportFiltersEnum filter;
-		private EiaReportOrderByEnum orden;
+		private final List<String> eiaTypeCodes;
+		private final Long componentId;
+		private final EiaReportFiltersEnum filter;
+		private final EiaReportOrderByEnum orden;
 
 		/**
 		 * @param req
@@ -179,7 +188,8 @@ public class ReportListEiaTypeCompsServlet extends ReportEiaServelt {
 			String compValue = req.getParameter(PARAM_COMPONENT);
 			componentId = validateToLong(compValue);
 
-			Boolean orderByUbicEiaType = Boolean.valueOf(req.getParameter(PARAM_ORDEN));
+			Boolean orderByUbicEiaType = Boolean.valueOf(req
+					.getParameter(PARAM_ORDEN));
 			orden = orderByUbicEiaType ? EiaReportOrderByEnum.EIATYPE_COMPONENT
 					: EiaReportOrderByEnum.COMPONENT_EIATYPE;
 		}

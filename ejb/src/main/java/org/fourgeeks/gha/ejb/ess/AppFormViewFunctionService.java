@@ -18,7 +18,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * @author alacret
  * 
  */
-@Stateless(name = "ess.AppFormViewFunctionService")
+@Stateless
 public class AppFormViewFunctionService extends GHAEJBExceptionImpl implements
 		AppFormViewFunctionServiceRemote {
 
