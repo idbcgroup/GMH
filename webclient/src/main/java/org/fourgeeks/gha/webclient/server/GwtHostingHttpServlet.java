@@ -190,9 +190,7 @@ public class GwtHostingHttpServlet extends HttpServlet {
 			}
 
 			logService.log(new LogonLog(ssoUser.getBpu(), ghaMessage, ipAdd));
-			logger.info("antes");
 			req.getSession().setAttribute("cause", ghaMessage.getText());
-			logger.info("despues");
 			doGet(req, resp);
 		}
 	}
