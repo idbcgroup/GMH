@@ -35,13 +35,13 @@ public class GwtHostingHttpServlet extends HttpServlet {
 	private final static Logger logger = Logger
 			.getLogger(GwtHostingHttpServlet.class.getName());
 
-	@EJB(name = "log.LogonLogService")
+	@EJB(lookup = "java:global/ear-1/ejb-1/LogonLogService")
 	LogonLogServiceRemote logService;
 
-	@EJB(name = "ess.SSOUserService")
+	@EJB(lookup = "java:global/ear-1/ejb-1/SSOUserService")
 	SSOUserServiceRemote ssoUserService;
 
-	@EJB(name = "msg.MessageService")
+	@EJB(lookup = "java:global/ear-1/ejb-1/MessageService")
 	MessageServiceRemote messageService;
 
 	@Override
@@ -190,7 +190,9 @@ public class GwtHostingHttpServlet extends HttpServlet {
 			}
 
 			logService.log(new LogonLog(ssoUser.getBpu(), ghaMessage, ipAdd));
+			logger.info("antes");
 			req.getSession().setAttribute("cause", ghaMessage.getText());
+			logger.info("despues");
 			doGet(req, resp);
 		}
 	}
