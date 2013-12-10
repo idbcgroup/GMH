@@ -24,9 +24,8 @@ public class GHAUserNameTextItem extends GHATextItem {
 	 * @param width
 	 */
 	public GHAUserNameTextItem(int width) {
-		super(GHAStrings.get("user"), width);
-		setLength(20);
-		setMask("AAAAAAAAAAAAAAAAAAAA");
+		this();
+		setWidth(width);
 	}
 
 	/**
