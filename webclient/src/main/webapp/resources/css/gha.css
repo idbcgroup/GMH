@@ -10,10 +10,19 @@ b {
 }
 
 body {
-	background-color: white;
-/* 	min-width: 1024px; */
-/* 	min-height: 768px; */
+	background-color: #F2F2F2;
+	min-width: 1024px;
+	min-height: 768px;
 }
+
+#main-content {
+	width: 100%;
+ 	height: 100%; 
+	background-color: #F2F2F2;
+	min-height: 678px;
+	min-width: 1024px;
+}
+
 /*.top-bar{
 	width: 100%;
 	height: 15px;
@@ -90,14 +99,6 @@ body {
 	background-color: #E0E0DF;
 	/*background-repeat: repeat-x;	*/
 	min-width: 1024px;
-}
-
-#main-content {
-	width: 100%;
-	height: 100%;
-	background-color: #F2F2F2;
-/* 	min-height: 678px; */
-/* 	min-width: 1024px; */
 }
 
 .white-background {
