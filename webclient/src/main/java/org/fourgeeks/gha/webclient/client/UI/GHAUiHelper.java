@@ -64,8 +64,8 @@ public abstract class GHAUiHelper {
 	private static final int MENU_BAR_HEIGTH = 30;
 
 	// NO ESTAN TOTALMENTE MEDIDAS CON LA INTERFAZ
-	private static final int MIN_TAB_HEIGHT = 400;
-	private static final int MIN_BOTTOM_SECTION_HEIGHT = 250;
+	private static final int MIN_TAB_HEIGHT = 678	;
+	private static final int MIN_BOTTOM_SECTION_HEIGHT = 556;
 
 	// NO ESTAN TOTALMENTE MEDIDAS CON LA INTERFAZ
 
@@ -139,7 +139,7 @@ public abstract class GHAUiHelper {
 		if (ret < MIN_BOTTOM_SECTION_HEIGHT) {
 			return MIN_BOTTOM_SECTION_HEIGHT;
 		} else {
-			return ret - 5;
+			return ret;
 		}
 	}
 

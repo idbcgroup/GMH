@@ -21,7 +21,7 @@ public abstract class GHAAddForm<T> extends GHASlideInWindow {
 	 */
 	public GHAAddForm(String title) {
 		super();
-		setHeight(GHAUiHelper.getBottomSectionHeight());
+		setHeight(GHAUiHelper.getBottomSectionHeight()-5);
 		setTop(GHAUiHelper.DEFAULT_TOP_SECTION_HEIGHT
 				+ GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT
 				+ GHAUiHelper.V_SEPARATOR_HEIGHT + 1);
@@ -57,7 +57,7 @@ public abstract class GHAAddForm<T> extends GHASlideInWindow {
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getBottomSectionHeight());
+		setHeight(GHAUiHelper.getBottomSectionHeight()-5);
 	}
 
 	protected abstract void save();

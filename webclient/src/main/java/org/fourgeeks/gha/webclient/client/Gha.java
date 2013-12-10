@@ -15,6 +15,7 @@ import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 
 /**
@@ -83,6 +84,15 @@ public class Gha implements EntryPoint {
 		GHAUiHelper.addGHAResizeHandler(new ResizeHandler() {
 			@Override
 			public void onResize(ResizeEvent event) {
+				if(Window.getClientWidth()<1024)
+					RootPanel.get().setWidth("1024px");
+				else
+					RootPanel.get().setWidth(Window.getClientWidth()+"px");
+				if(Window.getClientHeight()<768)
+					RootPanel.get().setHeight("768px");
+				else
+					RootPanel.get().setHeight(Window.getClientHeight()+"px");
+				
 				RootPanel.get("main-content").setHeight(
 						GHAUiHelper.getTabHeight() + "px");
 			}

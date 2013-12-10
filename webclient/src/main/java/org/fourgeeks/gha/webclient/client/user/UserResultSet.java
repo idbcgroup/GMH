@@ -80,7 +80,7 @@ public class UserResultSet extends GHAResultSet<SSOUser> implements
 					deleteButton);
 		} else {
 			sideBar = GHAUiHelper.createBar(checkButton);
-			setHeight(getHeight() - 35);
+			setHeight(getHeight() - 42);
 		}
 		gridPanel.addMembers(grid, sideBar);
 
