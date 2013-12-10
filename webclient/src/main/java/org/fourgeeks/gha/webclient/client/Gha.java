@@ -78,23 +78,12 @@ public class Gha implements EntryPoint {
 		// }
 		// });
 
-		RootPanel.get("main-content").setHeight(
-				GHAUiHelper.getTabHeight() + "px");
+		resize();
 
 		GHAUiHelper.addGHAResizeHandler(new ResizeHandler() {
 			@Override
 			public void onResize(ResizeEvent event) {
-				if(Window.getClientWidth()<1024)
-					RootPanel.get().setWidth("1024px");
-				else
-					RootPanel.get().setWidth(Window.getClientWidth()+"px");
-				if(Window.getClientHeight()<768)
-					RootPanel.get().setHeight("768px");
-				else
-					RootPanel.get().setHeight(Window.getClientHeight()+"px");
-				
-				RootPanel.get("main-content").setHeight(
-						GHAUiHelper.getTabHeight() + "px");
+				resize();
 			}
 		});
 
@@ -106,4 +95,20 @@ public class Gha implements EntryPoint {
 		// }
 		// });
 	}
+	
+	private void resize(){
+		if(Window.getClientWidth()<1024)
+			RootPanel.get("body").setWidth("1024px");
+		else
+			RootPanel.get("body").setWidth(Window.getClientWidth()+"px");
+		
+		if(Window.getClientHeight()<768)
+			RootPanel.get("body").setHeight("768px");
+		else
+			RootPanel.get("body").setHeight(Window.getClientHeight()+"px");
+		
+		RootPanel.get("main-content").setHeight(
+				GHAUiHelper.getTabHeight() + "px");
+	}
+	
 }
