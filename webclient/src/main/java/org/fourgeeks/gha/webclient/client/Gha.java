@@ -23,6 +23,7 @@ public class Gha implements EntryPoint {
 	/**
 	 * This is the entry point method.
 	 */
+	@Override
 	public void onModuleLoad() {
 
 		History.addValueChangeHandler(new ValueChangeHandler<String>() {
@@ -32,6 +33,7 @@ public class Gha implements EntryPoint {
 				if (historyToken == null)
 					return;
 				GHAPlacesFactory.showPlace(historyToken);
+				// GHAPlaceSet.showPlace(historyToken);
 			}
 		});
 

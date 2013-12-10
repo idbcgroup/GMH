@@ -24,7 +24,7 @@ public class MaintenanceActivityPlace extends NeedPermissionPlace {
 	}
 
 	@Override
-	public void show() {
+	public void showPlace() {
 	}
 
 	@Override

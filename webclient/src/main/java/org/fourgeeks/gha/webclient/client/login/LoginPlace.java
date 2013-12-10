@@ -15,6 +15,7 @@ import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.EventListener;
 import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
 
@@ -33,12 +34,13 @@ public class LoginPlace extends GHAPlace {
 	}
 
 	@Override
-	public void show() {
-		RootPanel.get("main-content").clear();
+	public void showPlace() {
+		RootPanel rootPanel = RootPanel.get("main-content");
+		rootPanel.clear();
 		RootPanel.get("user-info").clear();
 		RootPanel.get("menu-bar").clear();
 
-		RootPanel.get("main-content").addStyleName("white-background");
+		// rootPanel.addStyleName("white-background");
 
 		StringBuilder html = new StringBuilder();
 		html.append("<div class='login-panel'>");
@@ -53,7 +55,8 @@ public class LoginPlace extends GHAPlace {
 		// html.append("<div class='smallfont'><input type='checkbox'>Recordar mis datos</div><br/>");
 		// html.append("<div id='recovery'><a  class='smallfont'>¿Olvidaste tu contraseña?</a></div></form></div>");
 		HTML content = new HTML(html.toString());
-		RootPanel.get("main-content").add(content);
+		Window.alert(content.getHTML());
+		rootPanel.add(content);
 
 		// for Events
 		Element loginButton = RootPanel.get("login-button").getElement();

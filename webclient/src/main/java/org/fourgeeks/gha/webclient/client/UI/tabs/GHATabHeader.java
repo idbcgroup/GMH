@@ -6,6 +6,8 @@ import java.util.List;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
+import org.fourgeeks.gha.webclient.client.UI.places.GHAPlaceSet;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
@@ -28,8 +30,7 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
  */
 public class GHATabHeader extends HLayout implements ResizeHandler {
 
-	private Option titulo;
-	private int memberPos = 2;
+	private int memberPos = 1;
 	private final List<Option> selectables = new LinkedList<Option>();
 
 	/**
@@ -38,16 +39,10 @@ public class GHATabHeader extends HLayout implements ResizeHandler {
 	 */
 	public GHATabHeader(final GHATab tab, String title) {
 		GHAUiHelper.addGHAResizeHandler(this);
-		setWidth(Window.getClientWidth() - 35);
+		setWidth100();
 		setHeight(30);
 		setDefaultLayoutAlign(VerticalAlignment.TOP);
 		setMembersMargin(6);
-		setStyleName("sides-padding tab-header");
-
-		titulo = new Option(this, title, GHAUiHelper.DEFAULT_TAB_HEADER_WIDTH,
-				false, "", "");
-
-		addMember(titulo);
 
 		addMember(new LayoutSpacer());
 		Option closeOption = new Option(this, GHAStrings.get("close"), 90,
@@ -58,7 +53,7 @@ public class GHATabHeader extends HLayout implements ResizeHandler {
 			@Override
 			public void onClick(ClickEvent event) {
 				try {
-					// GHAPlaceSet.closeTab(tab);TODO
+					GHAPlaceSet.closeCurrentPlace(HideCloseAction.SAVE);
 				} catch (UnavailableToCloseException e) {
 					return;
 				}

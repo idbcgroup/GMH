@@ -3,7 +3,7 @@ package org.fourgeeks.gha.webclient.client.UI.places;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
 
-import com.smartgwt.client.types.BackgroundRepeat;
+import com.google.gwt.user.client.History;
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -23,21 +23,21 @@ public class GHAPlaceHeader extends Label {
 	/**
 	 * @param place
 	 * @param title
+	 * @param token
 	 */
-	public GHAPlaceHeader(final GHAPlace place, String title) {
+	public GHAPlaceHeader(final GHAPlace place, String title, final String token) {
 		super();
 		setContents(title);
 		setWidth(GHAUiHelper.DEFAULT_PLACE_EYELASH_WIDTH);
-		setStyleName("tab-header-title");
+		// setStyleName("tab-header-title");
 		setHeight(GHAUiHelper.DEFAULT_PLACE_EYELASH_HEIGHT);
-		setStyleName(getStyleName() + " button-pointer");
-		setBackgroundRepeat(BackgroundRepeat.NO_REPEAT);
+		setStyleName("tab-header-title button-pointer");
 
 		addMouseOverHandler(new MouseOverHandler() {
 			@Override
 			public void onMouseOver(MouseOverEvent event) {
 				if (!selected)
-					setBackgroundImage(GHAUiHelper.DEFAULT_BACKGROUND_COLOR);
+					setBackgroundColor(GHAUiHelper.DEFAULT_BACKGROUND_COLOR);
 			}
 		});
 		addMouseOutHandler(new MouseOutHandler() {
@@ -54,7 +54,7 @@ public class GHAPlaceHeader extends Label {
 			@Override
 			public void onClick(ClickEvent event) {
 				try {
-					GHAPlaceSet.closePlace(place);
+					History.newItem(token);
 				} catch (UnavailableToCloseException e) {
 					return;
 				}
@@ -74,7 +74,7 @@ public class GHAPlaceHeader extends Label {
 	 * mark the button as selected
 	 */
 	public void markSelected() {
-		setBackgroundImage(GHAUiHelper.DEFAULT_BACKGROUND_COLOR);
+		setBackgroundColor(GHAUiHelper.DEFAULT_BACKGROUND_COLOR);
 		selected = true;
 	}
 

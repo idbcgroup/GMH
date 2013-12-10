@@ -8,6 +8,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import org.fourgeeks.gha.domain.gar.Bpu;
+import org.fourgeeks.gha.webclient.client.UI.GHAPlacesFactory;
 import org.fourgeeks.gha.webclient.client.UI.GHASessionData;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
@@ -20,6 +21,7 @@ import org.fourgeeks.gha.webclient.client.UI.menu.GHAMenu.GHAMenuBar;
 import org.fourgeeks.gha.webclient.client.UI.menu.GHAMenu.GHAMenuOption;
 
 import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -51,9 +53,11 @@ public final class GHAPlaceSet {
 	}
 
 	private static void addPlace(final GHAPlace place) {
+		Window.alert("add place");
 		places.put(place.getId(), place);
 		RootPanel rootPanel = RootPanel.get("main-content");
 		rootPanel.add(place);
+		Window.alert("end add place");
 	}
 
 	/**
@@ -76,9 +80,11 @@ public final class GHAPlaceSet {
 		if (places.get(place.getId()) == null)
 			addPlace(place);
 		else
-			place.show();
+			place.showPlace();
 
-		hPanel.add(place.getHeader());
+		GHAPlaceHeader header = place.getHeader();
+		if (header != null)
+			hPanel.add(header);
 		currentPlace = place;
 	}
 
@@ -174,9 +180,7 @@ public final class GHAPlaceSet {
 				}
 			}
 		});
-
 		hPanel.add(menu);
-
 		verticalMenu = new GHAMenuBar(menu);
 		GHAUiHelper.addGHAResizeHandler(verticalMenu);
 
@@ -206,6 +210,29 @@ public final class GHAPlaceSet {
 			return menuOptions;
 		}
 
+	}
+
+	/**
+	 * @param historyToken
+	 */
+	public static void showPlace(String historyToken) {
+		int indexOf = historyToken.indexOf("/");
+		final String token;
+		if (indexOf == -1)
+			token = historyToken;
+		else
+			token = historyToken.substring(0, indexOf);
+
+		// if (token.equals("login")) {
+		// new LoginPlace(token).showPlace();
+		// return;
+		// }
+
+		GHAPlace place = places.get(token);
+		if (place == null)
+			GHAPlacesFactory.showPlace(token);
+		else
+			place.showPlace();
 	}
 
 }

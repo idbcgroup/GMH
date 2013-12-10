@@ -20,7 +20,7 @@ public class ForgottenPasswordPlace extends GHAPlace {
 	}
 
 	@Override
-	public void show() {
+	public void showPlace() {
 		RootPanel.get("main-content").clear();
 		RootPanel.get("main-content").addStyleName("white-background");
 		RootPanel.get("main-content").add(mailCheckPanel);

@@ -3,6 +3,7 @@ package org.fourgeeks.gha.webclient.client.UI.places;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToHideException;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
@@ -11,6 +12,9 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableProducer;
 
+import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.event.logical.shared.ResizeHandler;
+import com.google.gwt.user.client.Window;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
@@ -18,18 +22,20 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public abstract class GHAPlace extends VLayout implements HideableListener,
-		ClosableListener, HideableProducer, ClosableProducer {
+		ClosableListener, HideableProducer, ClosableProducer, ResizeHandler {
 
 	private final List<ClosableListener> closables = new ArrayList<ClosableListener>();
 	private final List<HideableListener> hideables = new ArrayList<HideableListener>();
 	protected final String token;
-	private GHAPlaceHeader header;
+	protected GHAPlaceHeader header;
 
 	/**
 	 * @param token
 	 */
 	public GHAPlace(String token) {
 		this.token = token;
+		setWidth(Window.getClientWidth());
+		GHAUiHelper.addGHAResizeHandler(this);
 	}
 
 	/**
@@ -52,6 +58,7 @@ public abstract class GHAPlace extends VLayout implements HideableListener,
 			} catch (Exception e) {
 				throw new UnavailableToCloseException(e);
 			}
+		GHAUiHelper.removeGHAResizeHandler(this);
 		removeFromParent();
 		destroy();
 	}
@@ -91,6 +98,11 @@ public abstract class GHAPlace extends VLayout implements HideableListener,
 		// getElement().removeClassName("hidden");
 	}
 
+	/**
+	 * Handles the mechanism to show a place
+	 */
+	public abstract void showPlace();
+
 	@Override
 	public void removeClosableListener(ClosableListener closable) {
 		closables.remove(closable);
@@ -111,4 +123,8 @@ public abstract class GHAPlace extends VLayout implements HideableListener,
 		hideables.add(hideable);
 	}
 
+	@Override
+	public void onResize(ResizeEvent event) {
+		setWidth(Window.getClientWidth());
+	}
 }

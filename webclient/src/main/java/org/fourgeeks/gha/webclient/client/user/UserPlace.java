@@ -28,7 +28,7 @@ public class UserPlace extends NeedPermissionPlace {
 	}
 
 	@Override
-	public void show() {
+	public void showPlace() {
 		try {
 			GHAPlaceSet.showPlace(this);
 		} catch (UnavailableToHideException e) {
