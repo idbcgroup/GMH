@@ -2,7 +2,6 @@ package org.fourgeeks.gha.webclient.client.home;
 
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.webclient.client.UI.GHASessionData;
-import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.dropdownmenus.UserDropdownMenu;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.LoginNeededException;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToHideException;
@@ -53,8 +52,8 @@ public class HomePlace extends NeedLoginPlace {
 		HOME_HAS_BEEN_BUILT = true;
 		// User box
 		RootPanel.get("main-content").clear();
-		RootPanel.get("main-content").setHeight(
-				GHAUiHelper.getTabHeight() + "px");
+		// RootPanel.get("main-content").setHeight(GHAUiHelper.getTabHeight() +
+		// "px");
 		// RootPanel.get("user-info").clear();
 		// RootPanel.get("menu-bar").clear();
 		// RootPanel.get("main-content").removeStyleName("white-background");

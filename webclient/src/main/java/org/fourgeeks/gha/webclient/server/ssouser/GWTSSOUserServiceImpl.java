@@ -4,6 +4,7 @@
 package org.fourgeeks.gha.webclient.server.ssouser;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;

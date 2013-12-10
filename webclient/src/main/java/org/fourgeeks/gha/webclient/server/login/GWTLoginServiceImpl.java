@@ -8,12 +8,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.fourgeeks.gha.domain.enu.LanguageEnum;
 import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.logs.LogonLog;
-import org.fourgeeks.gha.domain.msg.GHAMessage;
 import org.fourgeeks.gha.ejb.ess.AppFormViewFunctionBpuServiceRemote;
 import org.fourgeeks.gha.ejb.ess.SSOUserServiceRemote;
 import org.fourgeeks.gha.ejb.log.LogonLogServiceRemote;
@@ -31,6 +29,7 @@ public class GWTLoginServiceImpl extends RemoteServiceServlet implements
 		GWTLoginService {
 
 	private static final long serialVersionUID = 1L;
+	private Bpu bpu;
 	private final static Logger logger = Logger
 			.getLogger(GWTLoginServiceImpl.class.getName());
 
@@ -53,64 +52,40 @@ public class GWTLoginServiceImpl extends RemoteServiceServlet implements
 	@Override
 	public boolean isLogged() {
 		HttpServletRequest request = getThreadLocalRequest();
-		return !(request.getUserPrincipal() == null);
-	}
-
-	@Override
-	public Bpu login(String user, String password) throws GHAEJBException {
-		HttpServletRequest request = getThreadLocalRequest();
-		String ipAdd = request.getRemoteAddr().toString();
-
-		HttpSession session = request.getSession();
-		if (session != null) {
-			try {
-				request.logout();
-			} catch (ServletException e) {
-				e.printStackTrace();
-			}
-			session.invalidate();
-		}
-
-		SSOUser ssoUser = null;
-		try {
-			ssoUser = ssoUserService.findByUsername(user);
-		} catch (GHAEJBException e1) {
-			logService.log(new LogonLog(null, e1.getGhaMessage(), ipAdd));
-			throw e1;
-		}
-
-		// if (ssoUser.getUserLogonStatus().equals(UserLogonStatusEnum.BLOCKED))
-		// {
-		// logService.log(new LogonLog(ssoUser.getBpu(), new GHAMessage(
-		// "LOGIN003"), ipAdd));
-		// throw new GHAEJBException("Usuario bloqueado.");
-		// }
-
-		try {
-			request.login(user, password);
-			logService.log(new LogonLog(ssoUser.getBpu(), new GHAMessage(
-					"LOGIN001", LanguageEnum.ES), ipAdd));
-			Bpu bpu = ssoUser.getBpu();
-			bpu.setPermissions(bpuFunctionService.getFunctionsByBpu(bpu));
-			return bpu;
-		} catch (ServletException e) {
-			GHAMessage ghaMessage = messageService.find("LOGIN002");
-			logService.log(new LogonLog(ssoUser.getBpu(), ghaMessage, ipAdd));
-			throw new GHAEJBException(ghaMessage);
-		} catch (Exception e) {
-			GHAMessage ghaMessage = messageService.find("LOGIN005");
-			logService.log(new LogonLog(ssoUser.getBpu(), ghaMessage, ipAdd));
-			throw new GHAEJBException(ghaMessage);
-		}
+		return !(request.getSession().getAttribute("user") == null);
 	}
 
 	@Override
 	public void logOut() {
 		HttpServletRequest request = this.perThreadRequest.get();
+		bpu = null;
 		try {
+			HttpSession session = request.getSession();
+			session.removeAttribute("user");
+			session.removeAttribute("cause");
 			request.logout();
 		} catch (ServletException e) {
 			logger.info(e.getMessage());
 		}
+	}
+
+	@Override
+	public Bpu getLoggedUser() throws GHAEJBException {
+		HttpServletRequest request = getThreadLocalRequest();
+		String ipAdd = request.getRemoteAddr().toString();
+
+		HttpSession session = request.getSession();
+		SSOUser ssoUser = null;
+		try {
+			ssoUser = ssoUserService.findByUsername((String) session
+					.getAttribute("user"));
+		} catch (GHAEJBException e1) {
+			logService.log(new LogonLog(null, e1.getGhaMessage(), ipAdd));
+			throw e1;
+		}
+		bpu = ssoUser.getBpu();
+		bpu.setSessionId(session.getId());
+		bpu.setPermissions(bpuFunctionService.getFunctionsByBpu(bpu));
+		return bpu;
 	}
 }

@@ -21,7 +21,6 @@ import org.fourgeeks.gha.webclient.client.UI.menu.GHAMenu.GHAMenuBar;
 import org.fourgeeks.gha.webclient.client.UI.menu.GHAMenu.GHAMenuOption;
 
 import com.google.gwt.user.client.History;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -53,11 +52,9 @@ public final class GHAPlaceSet {
 	}
 
 	private static void addPlace(final GHAPlace place) {
-		Window.alert("add place");
 		places.put(place.getId(), place);
 		RootPanel rootPanel = RootPanel.get("main-content");
 		rootPanel.add(place);
-		Window.alert("end add place");
 	}
 
 	/**

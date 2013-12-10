@@ -7,7 +7,6 @@ import org.fourgeeks.gha.webclient.client.edt.EDTPlace;
 import org.fourgeeks.gha.webclient.client.eia.EIAPlace;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypePlace;
 import org.fourgeeks.gha.webclient.client.home.HomePlace;
-import org.fourgeeks.gha.webclient.client.login.LoginPlace;
 import org.fourgeeks.gha.webclient.client.login.ForgottenPassword.ForgottenPasswordPlace;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanPlace;
 import org.fourgeeks.gha.webclient.client.user.UserPlace;
@@ -39,21 +38,7 @@ public class GHAPlacesFactory {
 		else
 			token = Htoken.substring(0, indexOf);
 
-		if (token.equals("login"))
-			GWT.runAsync(new RunAsyncCallback() {
-
-				@Override
-				public void onSuccess() {
-					new LoginPlace(token).showPlace();
-				}
-
-				@Override
-				public void onFailure(Throwable reason) {
-
-				}
-			});
-
-		else if (token.equals("lostpass"))
+		if (token.equals("lostpass"))
 			GWT.runAsync(new RunAsyncCallback() {
 
 				@Override
@@ -73,8 +58,9 @@ public class GHAPlacesFactory {
 				@Override
 				public void onSuccess() {
 					try {
-						HomePlace homePlace = new HomePlace(token);
-						GHAPlaceSet.showPlace(homePlace);
+						HomePlace place = new HomePlace(token);
+						// place.showPlace();
+						GHAPlaceSet.showPlace(place);
 					} catch (LoginNeededException e) {
 						History.newItem("login");
 					}
@@ -94,8 +80,10 @@ public class GHAPlacesFactory {
 						new EIATypePlace(token).showPlace();
 					} catch (LoginNeededException e) {
 						History.newItem("login");
+						// new LoginPlace(token).show();
 					} catch (PermissionsNeededException e) {
 						History.newItem("home");
+						// new LoginPlace(token).show();
 					}
 				}
 
@@ -113,8 +101,10 @@ public class GHAPlacesFactory {
 						new EIAPlace(token).showPlace();
 					} catch (LoginNeededException e) {
 						History.newItem("login");
+						// new LoginPlace(token).show();
 					} catch (PermissionsNeededException e) {
 						History.newItem("home");
+						// new LoginPlace(token).show();
 					}
 				}
 
@@ -132,8 +122,10 @@ public class GHAPlacesFactory {
 						new EDTPlace(token).showPlace();
 					} catch (LoginNeededException e) {
 						History.newItem("login");
+						// new LoginPlace(token).show();
 					} catch (PermissionsNeededException e) {
 						History.newItem("home");
+						// new LoginPlace(token).show();
 					}
 				}
 
@@ -151,8 +143,10 @@ public class GHAPlacesFactory {
 						new MaintenancePlanPlace(token).showPlace();
 					} catch (LoginNeededException e) {
 						History.newItem("login");
+						// new LoginPlace(token).show();
 					} catch (PermissionsNeededException e) {
 						History.newItem("home");
+						// new LoginPlace(token).show();
 					}
 				}
 
@@ -170,8 +164,10 @@ public class GHAPlacesFactory {
 						new UserPlace(token).showPlace();
 					} catch (LoginNeededException e) {
 						History.newItem("login");
+						// new LoginPlace(token).show();
 					} catch (PermissionsNeededException e) {
 						History.newItem("home");
+						// new LoginPlace(token).show();
 					}
 				}
 
