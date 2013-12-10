@@ -5,15 +5,20 @@ package org.fourgeeks.gha.domain.gmh;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
+import org.fourgeeks.gha.domain.enu.MaintenancePlanCancelationOption;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanState;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanType;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
+import org.fourgeeks.gha.domain.ess.Role;
+import org.fourgeeks.gha.domain.glm.ExternalProvider;
 
 /**
  * @author emiliot
@@ -49,44 +54,21 @@ public class MaintenancePlan extends AbstractEntity {
 	@NotNull(message = "state-not-null")
 	@Column(nullable = false)
 	private MaintenancePlanState state;
+	@NotNull(message = "cancelation-option-not-null")
+	@Column(nullable = false)
+	private MaintenancePlanCancelationOption cancelationOption;
+	@ManyToOne
+	@JoinColumn(name = "providerFk")
+	private ExternalProvider provider;
+	@ManyToOne
+	@JoinColumn(name = "roleFk")
+	private Role role;
 
-	/**
-	 * 
-	 */
+	/** */
 	public MaintenancePlan() {
 	}
 
 	/**
-	 * @return the maintenance plan type
-	 */
-	public MaintenancePlanType getType() {
-		return type;
-	}
-
-	/**
-	 * @param type
-	 */
-	public void setType(MaintenancePlanType type) {
-		this.type = type;
-	}
-
-	/**
-	 * 
-	 * @return the maintanance plan state
-	 */
-	public MaintenancePlanState getState() {
-		return state;
-	}
-
-	/**
-	 * @param state
-	 */
-	public void setState(MaintenancePlanState state) {
-		this.state = state;
-	}
-
-	/**
-	 * 
 	 * @param name
 	 * @param description
 	 * @param frequency
@@ -106,17 +88,17 @@ public class MaintenancePlan extends AbstractEntity {
 	}
 
 	/**
+	 * @return the cancelationOption
+	 */
+	public MaintenancePlanCancelationOption getCancelationOption() {
+		return cancelationOption;
+	}
+
+	/**
 	 * @return the description
 	 */
 	public String getDescription() {
 		return description;
-	}
-
-	/**
-	 * @param description
-	 */
-	public void setDescription(String description) {
-		this.description = description;
 	}
 
 	/**
@@ -127,10 +109,10 @@ public class MaintenancePlan extends AbstractEntity {
 	}
 
 	/**
-	 * @param frequency
+	 * @return the name of the plan
 	 */
-	public void setFrequency(int frequency) {
-		this.frequency = frequency;
+	public String getName() {
+		return name;
 	}
 
 	/**
@@ -142,17 +124,55 @@ public class MaintenancePlan extends AbstractEntity {
 	}
 
 	/**
-	 * @param pot
+	 * @return the provider
 	 */
-	public void setPot(TimePeriodEnum pot) {
-		this.pot = pot;
+	public ExternalProvider getProvider() {
+		return provider;
 	}
 
 	/**
-	 * @return the name of the plan
+	 * @return the role
 	 */
-	public String getName() {
-		return name;
+	public Role getRole() {
+		return role;
+	}
+
+	/**
+	 * 
+	 * @return the maintanance plan state
+	 */
+	public MaintenancePlanState getState() {
+		return state;
+	}
+
+	/**
+	 * @return the maintenance plan type
+	 */
+	public MaintenancePlanType getType() {
+		return type;
+	}
+
+	/**
+	 * @param cancelationOption
+	 *            the cancelationOption to set
+	 */
+	public void setCancelationOption(
+			MaintenancePlanCancelationOption cancelationOption) {
+		this.cancelationOption = cancelationOption;
+	}
+
+	/**
+	 * @param description
+	 */
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	/**
+	 * @param frequency
+	 */
+	public void setFrequency(int frequency) {
+		this.frequency = frequency;
 	}
 
 	/**
@@ -160,6 +180,43 @@ public class MaintenancePlan extends AbstractEntity {
 	 */
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	/**
+	 * @param pot
+	 */
+	public void setPot(TimePeriodEnum pot) {
+		this.pot = pot;
+	}
+
+	/**
+	 * @param provider
+	 *            the provider to set
+	 */
+	public void setProvider(ExternalProvider provider) {
+		this.provider = provider;
+	}
+
+	/**
+	 * @param role
+	 *            the role to set
+	 */
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+	/**
+	 * @param state
+	 */
+	public void setState(MaintenancePlanState state) {
+		this.state = state;
+	}
+
+	/**
+	 * @param type
+	 */
+	public void setType(MaintenancePlanType type) {
+		this.type = type;
 	}
 
 }
