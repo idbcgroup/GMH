@@ -30,7 +30,7 @@ public class EIATypeMaintenanceProtocolForm extends GHASlideInWindow implements
 		super();
 		GHAUiHelper.addGHAResizeHandler(this);
 		setWidth100();
-		setHeight(GHAUiHelper.getBottomSectionHeight() - 20);
+		setHeight(GHAUiHelper.getBottomSectionHeight()-5);
 		setTop(260);
 
 		Label title = new Label("Protocolos del Plan");
@@ -71,6 +71,6 @@ public class EIATypeMaintenanceProtocolForm extends GHASlideInWindow implements
 	@Override
 	public void onResize(ResizeEvent event) {
 		// TODO Auto-generated method stub
-		setHeight(GHAUiHelper.getBottomSectionHeight() - 20);
+		setHeight(GHAUiHelper.getBottomSectionHeight()-5);
 	}
 }

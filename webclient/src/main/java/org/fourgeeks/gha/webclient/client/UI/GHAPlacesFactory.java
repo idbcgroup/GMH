@@ -6,7 +6,7 @@ import org.fourgeeks.gha.webclient.client.edt.EDTPlace;
 import org.fourgeeks.gha.webclient.client.eia.EIAPlace;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypePlace;
 import org.fourgeeks.gha.webclient.client.home.HomePlace;
-import org.fourgeeks.gha.webclient.client.login.LoginPlace;
+//import org.fourgeeks.gha.webclient.client.login.LoginPlace;
 import org.fourgeeks.gha.webclient.client.login.ForgottenPassword.ForgottenPasswordPlace;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivityPlace;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanPlace;
@@ -15,6 +15,7 @@ import org.fourgeeks.gha.webclient.client.user.UserPlace;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.RunAsyncCallback;
+import com.google.gwt.user.client.Window;
 
 /**
  * @author alacret
@@ -37,22 +38,22 @@ public class GHAPlacesFactory {
 			stripToken = token;
 		else
 			stripToken = token.substring(0, indexOf);
+//		if (stripToken.equals("login"))
+//			GWT.runAsync(new RunAsyncCallback() {
+//
+//				@Override
+//				public void onSuccess() {
+//					new LoginPlace(token).show();
+//				}
+//
+//				@Override
+//				public void onFailure(Throwable reason) {
+//
+//				}
+//			});
 
-		if (stripToken.equals("login"))
-			GWT.runAsync(new RunAsyncCallback() {
-
-				@Override
-				public void onSuccess() {
-					new LoginPlace(token).show();
-				}
-
-				@Override
-				public void onFailure(Throwable reason) {
-
-				}
-			});
-
-		else if (stripToken.equals("lostpass"))
+//		else 
+			if (stripToken.equals("lostpass"))
 			GWT.runAsync(new RunAsyncCallback() {
 
 				@Override
@@ -74,7 +75,8 @@ public class GHAPlacesFactory {
 					try {
 						new HomePlace(token).show();
 					} catch (LoginNeededException e) {
-						new LoginPlace(token).show();
+						Window.alert("LoginNeededException");
+//						new LoginPlace(token).show();
 					}
 				}
 
@@ -91,12 +93,14 @@ public class GHAPlacesFactory {
 					try {
 						new EIATypePlace(token).show();
 					} catch (LoginNeededException e) {
-						new LoginPlace(token).show();
+						Window.alert("LoginNeededException");
+//						new LoginPlace(token).show();
 					} catch (PermissionsNeededException e) {
 						try {
 							new HomePlace(token).show();
 						} catch (LoginNeededException e1) {
-							new LoginPlace(token).show();
+							Window.alert("LoginNeededException");
+//							new LoginPlace(token).show();
 						}
 					}
 				}
@@ -114,12 +118,15 @@ public class GHAPlacesFactory {
 					try {
 						new EIAPlace(token).show();
 					} catch (LoginNeededException e) {
-						new LoginPlace(token).show();
+						Window.alert("LoginNeededException");
+//						new LoginPlace(token).show();
 					} catch (PermissionsNeededException e) {
+						Window.alert("LoginNeededException");
 						try {
 							new HomePlace(token).show();
 						} catch (LoginNeededException e1) {
-							new LoginPlace(token).show();
+							Window.alert("LoginNeededException");
+//							new LoginPlace(token).show();
 						}
 					}
 				}
@@ -137,12 +144,14 @@ public class GHAPlacesFactory {
 					try {
 						new EDTPlace(token).show();
 					} catch (LoginNeededException e) {
-						new LoginPlace(token).show();
+						Window.alert("LoginNeededException");
+//						new LoginPlace(token).show();
 					} catch (PermissionsNeededException e) {
 						try {
 							new HomePlace(token).show();
 						} catch (LoginNeededException e1) {
-							new LoginPlace(token).show();
+							Window.alert("LoginNeededException");
+//							new LoginPlace(token).show();
 						}
 					}
 				}
@@ -160,12 +169,14 @@ public class GHAPlacesFactory {
 					try {
 						new MaintenancePlanPlace(token).show();
 					} catch (LoginNeededException e) {
-						new LoginPlace(token).show();
+						Window.alert("LoginNeededException");
+//						new LoginPlace(token).show();
 					} catch (PermissionsNeededException e) {
 						try {
 							new HomePlace(token).show();
 						} catch (LoginNeededException e1) {
-							new LoginPlace(token).show();
+							Window.alert("LoginNeededException");
+//							new LoginPlace(token).show();
 						}
 					}
 				}
@@ -183,12 +194,14 @@ public class GHAPlacesFactory {
 					try {
 						new MaintenanceProtocolPlace(token).show();
 					} catch (LoginNeededException e) {
-						new LoginPlace(token).show();
+						Window.alert("LoginNeededException");
+//						new LoginPlace(token).show();
 					} catch (PermissionsNeededException e) {
 						try {
 							new HomePlace(token).show();
 						} catch (LoginNeededException e1) {
-							new LoginPlace(token).show();
+							Window.alert("LoginNeededException");
+//							new LoginPlace(token).show();
 						}
 					}
 				}
@@ -206,12 +219,14 @@ public class GHAPlacesFactory {
 					try {
 						new MaintenanceActivityPlace(token).show();
 					} catch (LoginNeededException e) {
-						new LoginPlace(token).show();
+						Window.alert("LoginNeededException");
+//						new LoginPlace(token).show();
 					} catch (PermissionsNeededException e) {
 						try {
 							new HomePlace(token).show();
 						} catch (LoginNeededException e1) {
-							new LoginPlace(token).show();
+							Window.alert("LoginNeededException");
+//							new LoginPlace(token).show();
 						}
 					}
 				}
@@ -229,12 +244,14 @@ public class GHAPlacesFactory {
 					try {
 						new UserPlace(token).show();
 					} catch (LoginNeededException e) {
-						new LoginPlace(token).show();
+						Window.alert("LoginNeededException");
+//						new LoginPlace(token).show();
 					} catch (PermissionsNeededException e) {
 						try {
 							new HomePlace(token).show();
 						} catch (LoginNeededException e1) {
-							new LoginPlace(token).show();
+							Window.alert("LoginNeededException");
+//							new LoginPlace(token).show();
 						}
 					}
 				}

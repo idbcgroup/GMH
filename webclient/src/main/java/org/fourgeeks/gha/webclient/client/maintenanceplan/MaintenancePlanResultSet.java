@@ -50,7 +50,7 @@ public class MaintenancePlanResultSet extends GHAResultSet<MaintenancePlan>
 					}
 				})));
 		if (containerType == ResultSetContainerType.SEARCH_FORM) {
-			setHeight(getHeight() - 35);
+			setHeight(getHeight() - 42);
 		}
 		
 		addMember(gridPanel);
