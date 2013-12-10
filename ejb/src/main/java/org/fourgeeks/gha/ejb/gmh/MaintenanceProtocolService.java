@@ -28,6 +28,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * 
  */
 
+@Deprecated
 @Stateless
 public class MaintenanceProtocolService extends GHAEJBExceptionImpl implements
 		MaintenanceProtocolServiceRemote {

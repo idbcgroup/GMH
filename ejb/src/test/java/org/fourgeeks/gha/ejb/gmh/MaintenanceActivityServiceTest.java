@@ -58,30 +58,7 @@ public class MaintenanceActivityServiceTest extends GhaServiceTest {
 				+ service.find(entity.getId()).getId() + " "
 				+ service.find(entity.getId()).getDescription());
 		// Assert.assertEquals(entity, service.find(entity.getId()));
-		Assert.assertTrue(service.findByMaintenanceProtocol(super
-				.getMaintenanceActivityMaintenanceProtocol(em, entity,
-						super.getMaintenanceProtocol(em)).getProtocol()) != null
-				&& service.findByMaintenanceProtocol(
-						super.getMaintenanceActivityMaintenanceProtocol(em,
-								entity, super.getMaintenanceProtocol(em))
-								.getProtocol()).size() >= 1);
-		Assert.assertTrue(service.findByMaintenanceProtocol(
-				super.getMaintenanceActivityMaintenanceProtocol(em, entity,
-						super.getMaintenanceProtocol(em)).getProtocol(), 0, 10) != null
-				&& service.findByMaintenanceProtocol(
-						super.getMaintenanceActivityMaintenanceProtocol(em,
-								entity, super.getMaintenanceProtocol(em))
-								.getProtocol(), 0, 10).size() >= 1);
-		em.remove(super.getMaintenanceActivityMaintenanceProtocol(em, entity,
-				super.getMaintenanceProtocol(em)));
-		em.flush();
-		Assert.assertTrue(service.findByMaintenanceProtocol(super
-				.getMaintenanceActivityMaintenanceProtocol(em, entity,
-						super.getMaintenanceProtocol(em)).getProtocol()) == null
-				|| service.findByMaintenanceProtocol(
-						super.getMaintenanceActivityMaintenanceProtocol(em,
-								entity, super.getMaintenanceProtocol(em))
-								.getProtocol(), 0, 10).size() == 0);
+
 		Assert.assertTrue(service.findByServiceResource(super
 				.getMaintenanceActivityServiceResource(em, entity,
 						super.getServiceResource(em)).getServiceResource()) != null
