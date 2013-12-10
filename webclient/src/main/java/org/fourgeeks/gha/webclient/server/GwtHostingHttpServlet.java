@@ -176,6 +176,7 @@ public class GwtHostingHttpServlet extends HttpServlet {
 		}
 		try {
 			req.login(user, password);
+			req.getSession().setMaxInactiveInterval(-1);
 			req.getSession().setAttribute("user", user);
 			logService.log(new LogonLog(ssoUser.getBpu(), new GHAMessage(
 					"LOGIN001", LanguageEnum.ES), ipAdd));
