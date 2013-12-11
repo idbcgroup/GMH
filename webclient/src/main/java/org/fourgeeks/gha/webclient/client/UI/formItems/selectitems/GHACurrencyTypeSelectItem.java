@@ -1,31 +1,29 @@
 package org.fourgeeks.gha.webclient.client.UI.formItems.selectitems;
 
-import org.fourgeeks.gha.domain.enu.MaintenancePlanState;
+import org.fourgeeks.gha.domain.enu.CurrencyTypeEnum;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 
 /**
- * @author jfuentes A select item with the Document Types
- * 
+ * @author naramirez
  */
-public class GHAMaintenancePlanStateSelectItem extends GHASelectItem {
+public class GHACurrencyTypeSelectItem extends GHASelectItem {
 	/** */
-	public static final String labelKey = "plan-state";
+	public static final String labelKey = "currency";
 
-	/**
-	 * 
-	 */
-	public GHAMaintenancePlanStateSelectItem() {
+	/** */
+	public GHACurrencyTypeSelectItem() {
 		super(GHAStrings.get(labelKey));
-		setValueMap(MaintenancePlanState.toValueMap());
+		setValueMap(CurrencyTypeEnum.toValueMap());
+		setDefaultValue(CurrencyTypeEnum.BS.name());
 	}
 
 	/**
 	 * @param width
 	 */
-	public GHAMaintenancePlanStateSelectItem(int width) {
+	public GHACurrencyTypeSelectItem(int width) {
 		this();
 		setWidth(width);
 	}
@@ -35,7 +33,7 @@ public class GHAMaintenancePlanStateSelectItem extends GHASelectItem {
 	 * @param required
 	 * @param changedHandler
 	 */
-	public GHAMaintenancePlanStateSelectItem(int width, boolean required,
+	public GHACurrencyTypeSelectItem(int width, boolean required,
 			ChangedHandler changedHandler) {
 		this(width);
 		setRequired(required);
@@ -46,11 +44,10 @@ public class GHAMaintenancePlanStateSelectItem extends GHASelectItem {
 	 * @param required
 	 * @param changedHandler
 	 */
-	public GHAMaintenancePlanStateSelectItem(boolean required,
+	public GHACurrencyTypeSelectItem(boolean required,
 			ChangedHandler changedHandler) {
 		this();
 		setRequired(required);
 		addChangedHandler(changedHandler);
 	}
-
 }

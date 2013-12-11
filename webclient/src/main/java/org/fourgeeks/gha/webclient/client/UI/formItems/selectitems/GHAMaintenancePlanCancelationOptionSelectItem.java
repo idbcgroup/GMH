@@ -1,31 +1,30 @@
 package org.fourgeeks.gha.webclient.client.UI.formItems.selectitems;
 
-import org.fourgeeks.gha.domain.enu.MaintenancePlanState;
+import org.fourgeeks.gha.domain.enu.MaintenancePlanCancelationOption;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 
 /**
- * @author jfuentes A select item with the Document Types
- * 
+ * @author naramirez
  */
-public class GHAMaintenancePlanStateSelectItem extends GHASelectItem {
+public class GHAMaintenancePlanCancelationOptionSelectItem extends
+		GHASelectItem {
 	/** */
-	public static final String labelKey = "plan-state";
+	public static final String labelKey = "cancelation-option";
 
-	/**
-	 * 
-	 */
-	public GHAMaintenancePlanStateSelectItem() {
+	/** */
+	public GHAMaintenancePlanCancelationOptionSelectItem() {
 		super(GHAStrings.get(labelKey));
-		setValueMap(MaintenancePlanState.toValueMap());
+		setValueMap(MaintenancePlanCancelationOption.toValueMap());
+		setDefaultValue(MaintenancePlanCancelationOption.NOT_DEFERRABLE.name());
 	}
 
 	/**
 	 * @param width
 	 */
-	public GHAMaintenancePlanStateSelectItem(int width) {
+	public GHAMaintenancePlanCancelationOptionSelectItem(int width) {
 		this();
 		setWidth(width);
 	}
@@ -35,8 +34,8 @@ public class GHAMaintenancePlanStateSelectItem extends GHASelectItem {
 	 * @param required
 	 * @param changedHandler
 	 */
-	public GHAMaintenancePlanStateSelectItem(int width, boolean required,
-			ChangedHandler changedHandler) {
+	public GHAMaintenancePlanCancelationOptionSelectItem(int width,
+			boolean required, ChangedHandler changedHandler) {
 		this(width);
 		setRequired(required);
 		addChangedHandler(changedHandler);
@@ -46,11 +45,10 @@ public class GHAMaintenancePlanStateSelectItem extends GHASelectItem {
 	 * @param required
 	 * @param changedHandler
 	 */
-	public GHAMaintenancePlanStateSelectItem(boolean required,
+	public GHAMaintenancePlanCancelationOptionSelectItem(boolean required,
 			ChangedHandler changedHandler) {
 		this();
 		setRequired(required);
 		addChangedHandler(changedHandler);
 	}
-
 }

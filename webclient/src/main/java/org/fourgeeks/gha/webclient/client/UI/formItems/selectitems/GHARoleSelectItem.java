@@ -12,10 +12,11 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 
 /**
- * @author emiliot
+ * @author emiliot, naramirez
  * 
  */
 public class GHARoleSelectItem extends GHASelectItem {
+	/** */
 	public static final String labelKey = "responsible-role";
 
 	/**
@@ -35,7 +36,6 @@ public class GHARoleSelectItem extends GHASelectItem {
 	}
 
 	/**
-	 * @param title
 	 * @param width
 	 * @param required
 	 * @param changedHandler
@@ -49,7 +49,6 @@ public class GHARoleSelectItem extends GHASelectItem {
 	}
 
 	/**
-	 * @param title
 	 * @param required
 	 * @param changedHandler
 	 */
@@ -60,6 +59,9 @@ public class GHARoleSelectItem extends GHASelectItem {
 		fill();
 	}
 
+	/**
+	 * 
+	 */
 	public void fill() {
 		GHACache.INSTANCE.getBaseRoles(new GHAAsyncCallback<List<Role>>() {
 
