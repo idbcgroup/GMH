@@ -75,16 +75,19 @@ public class MaintenancePlan extends AbstractEntity {
 	 * @param pot
 	 * @param type
 	 * @param state
+	 * @param cancelationOption
 	 */
 	public MaintenancePlan(String name, String description, int frequency,
 			TimePeriodEnum pot, MaintenancePlanType type,
-			MaintenancePlanState state) {
+			MaintenancePlanState state,
+			MaintenancePlanCancelationOption cancelationOption) {
 		this.name = name;
 		this.description = description;
 		this.frequency = frequency;
 		this.pot = pot;
 		this.type = type;
 		this.state = state;
+		this.cancelationOption = cancelationOption;
 	}
 
 	/**

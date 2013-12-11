@@ -2,7 +2,11 @@ package org.fourgeeks.gha.domain.enu;
 
 import java.util.LinkedHashMap;
 
+/**
+ * @author naramirez
+ */
 public enum MaintenancePlanCancelationOption {
+	/** cancelation option: No Postergable */
 	NOT_DEFERRABLE("No Postergable");
 	// TODO faltan las otras opciones de cancelacion
 
