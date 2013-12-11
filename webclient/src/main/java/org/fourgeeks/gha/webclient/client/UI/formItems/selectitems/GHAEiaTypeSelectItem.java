@@ -7,46 +7,52 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
-import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 
 /**
- * @author emiliot
+ * @author emiliot,jfuentes
  * 
  */
 public class GHAEiaTypeSelectItem extends GHASelectItem {
-	public static final String labelKey = "eiatype-select-item";
+	
 	/**
-	 * @param width
+	 * 
 	 */
-	public GHAEiaTypeSelectItem(int width) {
-		super(GHAStrings.get(labelKey), width);
-		fill(true);
-	}
-
+	public static final String labelKey = "eiatype-select-item";
+	
 	/**
 	 * 
 	 */
 	public GHAEiaTypeSelectItem() {
-		this(GHAUiHelper.DEFAULT_ITEM_SIZE);
+		super(GHAStrings.get("eiatype-select-item"));
+		fill(true);
+	}
+	
+	/**
+	 * @param width
+	 */
+	public GHAEiaTypeSelectItem(int width) {
+		this();
+		setWidth(width);
 	}
 
 	/**
-	 * @param title
 	 * @param width
 	 * @param required
 	 * @param changedHandler
 	 */
 	public GHAEiaTypeSelectItem(int width, boolean required,
 			ChangedHandler changedHandler) {
-		super(GHAStrings.get(labelKey), width);
+		this(width);
 		setRequired(required);
 		addChangedHandler(changedHandler);
-		fill(true);
 	}
 
+	/**
+	 * @param forceFromServer
+	 */
 	public void fill(boolean forceFromServer) {
 		GHACache.INSTANCE.getEiaTypes(new GHAAsyncCallback<List<EiaType>>() {
 
