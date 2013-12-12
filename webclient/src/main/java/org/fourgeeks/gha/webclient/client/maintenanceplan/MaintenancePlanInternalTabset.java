@@ -21,13 +21,13 @@ public class MaintenancePlanInternalTabset extends GHAInternalTabSet implements
 	// private final MaintenanceProtocolSubTab maintenanceProtocolSubTab;
 
 	/**
-	 * @param tab
+	 * @param panel
 	 */
-	public MaintenancePlanInternalTabset(MaintenancePlanTab tab) {
-		super(tab);
+	public MaintenancePlanInternalTabset(MaintenancePlanPanel panel) {
+		super(panel);
 		maintenancePlanInformationSubTab = new MaintenancePlanInformationSubTab(
-				tab);
-		maintenancePlanEquipmentSubTab = new AsociatedEiaTypeSubTab(tab);
+				panel);
+		maintenancePlanEquipmentSubTab = new AsociatedEiaTypeSubTab(panel);
 		// maintenanceProtocolSubTab = new MaintenanceProtocolSubTab(mpTab);
 
 		// Agregando las Subtabs
