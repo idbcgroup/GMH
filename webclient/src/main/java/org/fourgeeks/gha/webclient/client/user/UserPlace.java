@@ -3,15 +3,15 @@ package org.fourgeeks.gha.webclient.client.user;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.LoginNeededException;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.PermissionsNeededException;
+import org.fourgeeks.gha.webclient.client.UI.places.GHAPlaceHeader;
 import org.fourgeeks.gha.webclient.client.UI.places.NeedPermissionPlace;
-import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
 
 /**
  * @author alacret
  * 
  */
 public class UserPlace extends NeedPermissionPlace {
-	private final GHATab tab = new UserTab();
+	private final UserTab tab = new UserTab();
 
 	/**
 	 * @param token
@@ -21,6 +21,10 @@ public class UserPlace extends NeedPermissionPlace {
 	public UserPlace(String token) throws LoginNeededException,
 			PermissionsNeededException {
 		super(token);
+		header = new GHAPlaceHeader(this);
+		addHideableListener(tab);
+		addClosableListener(tab);
+		addMember(tab.getHeader());
 		addMember(tab);
 	}
 
@@ -32,5 +36,12 @@ public class UserPlace extends NeedPermissionPlace {
 	@Override
 	public String getAcronym() {
 		return GHAStrings.get("users");
+	}
+
+	@Override
+	public void show() {
+		super.show();
+		tab.show();
+		tab.getHeader().show();
 	}
 }

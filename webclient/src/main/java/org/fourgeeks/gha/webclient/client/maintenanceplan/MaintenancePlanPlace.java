@@ -3,15 +3,15 @@ package org.fourgeeks.gha.webclient.client.maintenanceplan;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.LoginNeededException;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.PermissionsNeededException;
+import org.fourgeeks.gha.webclient.client.UI.places.GHAPlaceHeader;
 import org.fourgeeks.gha.webclient.client.UI.places.NeedPermissionPlace;
-import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
 
 /**
  * @author alacret
  * 
  */
 public class MaintenancePlanPlace extends NeedPermissionPlace {
-	private final GHATab tab = new MaintenancePlanTab();
+	private final MaintenancePlanTab tab = new MaintenancePlanTab();
 
 	/**
 	 * @param token
@@ -21,12 +21,23 @@ public class MaintenancePlanPlace extends NeedPermissionPlace {
 	public MaintenancePlanPlace(String token) throws LoginNeededException,
 			PermissionsNeededException {
 		super(token);
+		header = new GHAPlaceHeader(this);
+		addHideableListener(tab);
+		addClosableListener(tab);
+		addMember(tab.getHeader());
 		addMember(tab);
 	}
 
 	@Override
 	public String getId() {
 		return "mplan";
+	}
+
+	@Override
+	public void show() {
+		super.show();
+		tab.show();
+		tab.getHeader().show();
 	}
 
 	@Override
