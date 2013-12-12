@@ -11,7 +11,7 @@ import org.fourgeeks.gha.webclient.client.UI.places.NeedPermissionPlace;
  * 
  */
 public class EIAPlace extends NeedPermissionPlace {
-	private final EIATab tab = new EIATab();
+	private final EIAPanel tab = new EIAPanel();
 
 	/**
 	 * @param token

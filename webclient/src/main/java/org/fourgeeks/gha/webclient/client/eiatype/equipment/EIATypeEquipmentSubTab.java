@@ -4,7 +4,7 @@ import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
 import org.fourgeeks.gha.webclient.client.eiadamagereport.EiaDamageReportSelectionListener;
-import org.fourgeeks.gha.webclient.client.eiatype.EIATypeTab;
+import org.fourgeeks.gha.webclient.client.eiatype.EIATypePanel;
 
 /**
  * @author alacret
@@ -18,7 +18,7 @@ public class EIATypeEquipmentSubTab extends GHASubTab implements
 	/**
 	 * @param tab
 	 */
-	public EIATypeEquipmentSubTab(EIATypeTab tab) {
+	public EIATypeEquipmentSubTab(EIATypePanel tab) {
 		super(GHAStrings.get("equipments"), tab);
 
 		equiposGridPanel = new EIATypeEquipmentGridPanel();

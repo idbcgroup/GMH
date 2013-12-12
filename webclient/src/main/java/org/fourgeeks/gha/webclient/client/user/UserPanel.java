@@ -1,9 +1,9 @@
-package org.fourgeeks.gha.webclient.client.maintenanceplan;
+package org.fourgeeks.gha.webclient.client.user;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
-import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
+import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
@@ -12,9 +12,9 @@ import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToHideExcepti
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.SearchListener;
-import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
-import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader;
-import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader.Option;
+import org.fourgeeks.gha.webclient.client.UI.panels.GHAPanel;
+import org.fourgeeks.gha.webclient.client.UI.panels.GHAPanelHeader;
+import org.fourgeeks.gha.webclient.client.UI.panels.GHAPanelHeader.Option;
 
 import com.smartgwt.client.types.Visibility;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -24,25 +24,24 @@ import com.smartgwt.client.widgets.events.ClickHandler;
  * @author alacret
  * 
  */
-public class MaintenancePlanTab extends GHATab implements
-		MaintenancePlanSelectionListener, MaintenancePlanSelectionProducer {
+public class UserPanel extends GHAPanel implements UserSelectionListener,
+		UserSelectionProducer {
 
-	public static final String ID = "mplan";
-	private static final String TITLE = GHAStrings.get("maintenance-plans");
-	private MaintenancePlanTopForm topForm;
-	private MaintenancePlanInternalTabset internalTabSet;
-	private final List<MaintenancePlanSelectionListener> listeners = new LinkedList<MaintenancePlanSelectionListener>();
-	private Option searchOption;
-	private Option addOption;
-	private MaintenancePlanResultSet resultSet;
-	private MaintenancePlanAddForm addForm;
+	private static final String TITLE = GHAStrings.get("users");
+	private final UserAddForm addForm;
+	private final UserInternalTabset internalTabSet;
+	private final List<UserSelectionListener> listeners = new ArrayList<UserSelectionListener>();
+	private final UserResultSet resultSet;
+	private final UserTopForm topForm;
+	private final Option searchOption;
+	private final Option addOption;
 
 	/**
 	 * @param token
 	 */
-	public MaintenancePlanTab() {
+	public UserPanel() {
 		super();
-		header = new GHATabHeader(this, TITLE);
+		header = new GHAPanelHeader(this, TITLE);
 		searchOption = header.addSearchOption(new ClickHandler() {
 
 			@Override
@@ -58,16 +57,16 @@ public class MaintenancePlanTab extends GHATab implements
 			}
 		});
 
-		resultSet = new MaintenancePlanResultSet(ResultSetContainerType.TAB);
+		resultSet = new UserResultSet(ResultSetContainerType.TAB);
 		resultSet.setVisible(false);
 		addHideableListener(resultSet);
 		addClosableListener(resultSet);
-		resultSet.addMaintenancePlanSelectionListener(this);
+		resultSet.addUserSelectionListener(this);
 
-		topForm = new MaintenancePlanTopForm(resultSet, this);
-		addHideableListener(topForm);
+		topForm = new UserTopForm(resultSet, this);
 		addClosableListener(topForm);
-		addMaintenancePlanSelectionListener(topForm);
+		addClosableListener(topForm);
+		addUserSelectionListener(topForm);
 		topForm.addSearchListener(new SearchListener() {
 
 			@Override
@@ -76,16 +75,15 @@ public class MaintenancePlanTab extends GHATab implements
 			}
 		});
 
-		internalTabSet = new MaintenancePlanInternalTabset(this);
+		internalTabSet = new UserInternalTabset(this);
 		addHideableListener(internalTabSet);
 		addClosableListener(internalTabSet);
-		addMaintenancePlanSelectionListener(internalTabSet);
+		addUserSelectionListener(internalTabSet);
 
-		addForm = new MaintenancePlanAddForm(
-				GHAStrings.get("new-maintenance-plan"));
+		addForm = new UserAddForm(GHAStrings.get("new-user"));
 		addHideableListener(addForm);
 		addClosableListener(addForm);
-		addForm.addMaintenancePlanSelectionListener(this);
+		addForm.addUserSelectionListener(this);
 		addForm.addHideableListener(new HideableListener() {
 
 			@Override
@@ -107,6 +105,7 @@ public class MaintenancePlanTab extends GHATab implements
 				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT + "px"));
 		verticalPanel.addMember(internalTabSet);
 		verticalPanel.addMember(resultSet);
+
 		addMember(verticalPanel);
 		search();
 	}
@@ -130,27 +129,21 @@ public class MaintenancePlanTab extends GHATab implements
 	}
 
 	@Override
-	public String getId() {
-		return ID;
+	public void addUserSelectionListener(
+			UserSelectionListener userSelectionListener) {
+		listeners.add(userSelectionListener);
 	}
 
 	@Override
-	public void addMaintenancePlanSelectionListener(
-			MaintenancePlanSelectionListener maintenancePlanSelectionListener) {
-		listeners.add(maintenancePlanSelectionListener);
+	public void notifyUser(SSOUser ssoUser) {
+		for (UserSelectionListener userSelectionListener : listeners)
+			userSelectionListener.select(ssoUser);
 	}
 
 	@Override
-	public void removeMaintenancePlanSelectionListener(
-			MaintenancePlanSelectionListener maintenancePlanSelectionListener) {
-		listeners.remove(maintenancePlanSelectionListener);
-	}
-
-	@Override
-	public void select(MaintenancePlan maintenancePlan) {
-		notifyMaintenancePlan(maintenancePlan);
-		header.unMarkAllButtons();
-		currentStatus = TabStatus.ENTITY_SELECTED;
+	public void removeUserSelectionListener(
+			UserSelectionListener userSelectionListener) {
+		listeners.remove(userSelectionListener);
 	}
 
 	@Override
@@ -168,14 +161,15 @@ public class MaintenancePlanTab extends GHATab implements
 		header.unMarkAllButtons();
 		searchOption.markSelected();
 		currentStatus = TabStatus.SEARCH;
-		// GHANotification.info(GHAStrings.get("")); //TODO: Mensaje de
-		// informacion para indicar que se ha actividado el modo de busqueda
+		// // GHANotification.info(GHAStrings.get("")); //TODO: Mensaje de
+		// // informacion para indicar que se ha actividado el modo de busqueda
 	}
 
 	@Override
-	public void notifyMaintenancePlan(MaintenancePlan maintenancePlan) {
-		for (MaintenancePlanSelectionListener listener : listeners)
-			listener.select(maintenancePlan);
+	public void select(SSOUser ssoUser) {
+		notifyUser(ssoUser);
+		header.unMarkAllButtons();
+		currentStatus = TabStatus.ENTITY_SELECTED;
 	}
 
 	@Override
@@ -192,5 +186,4 @@ public class MaintenancePlanTab extends GHATab implements
 		else
 			resultSet.show();
 	}
-
 }

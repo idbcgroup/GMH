@@ -4,14 +4,14 @@ import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener;
-import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanTab;
+import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanPanel;
 
 public class MaintenancePlanInformationSubTab extends GHASubTab implements
 		MaintenancePlanSelectionListener {
 
 	private final MaintenancePlanInformationFormPanel form;
 
-	public MaintenancePlanInformationSubTab(MaintenancePlanTab tab) {
+	public MaintenancePlanInformationSubTab(MaintenancePlanPanel tab) {
 		super(GHAStrings.get("information"), tab);
 
 		form = new MaintenancePlanInformationFormPanel();

@@ -3,14 +3,14 @@ package org.fourgeeks.gha.webclient.client.eia.material;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
-import org.fourgeeks.gha.webclient.client.eia.EIATab;
+import org.fourgeeks.gha.webclient.client.eia.EIAPanel;
 
 public class EIAMaterialSubTab extends GHASubTab implements
 		EIASelectionListener {
 
 	private EIAMaterialGridPanel eiaMaterialGridPanel;
 
-	public EIAMaterialSubTab(EIATab tab) {
+	public EIAMaterialSubTab(EIAPanel tab) {
 		super("Materiales", tab);
 		setDisabled(true);
 		tab.addEiaSelectionListener(this);

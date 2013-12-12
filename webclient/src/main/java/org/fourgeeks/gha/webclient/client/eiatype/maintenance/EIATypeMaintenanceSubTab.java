@@ -2,7 +2,7 @@ package org.fourgeeks.gha.webclient.client.eiatype.maintenance;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
-import org.fourgeeks.gha.webclient.client.eiatype.EIATypeTab;
+import org.fourgeeks.gha.webclient.client.eiatype.EIATypePanel;
 import org.fourgeeks.gha.webclient.client.eiatype.maintenance.plan.EIATypeMaintenanceGridPanel;
 
 /**
@@ -16,7 +16,7 @@ public class EIATypeMaintenanceSubTab extends GHASubTab {
 	/**
 	 * @param tab
 	 */
-	public EIATypeMaintenanceSubTab(EIATypeTab tab) {
+	public EIATypeMaintenanceSubTab(EIATypePanel tab) {
 		super(GHAStrings.get("maintenance"), tab);
 
 		eiaTypeMaintenanceGridPanel = new EIATypeMaintenanceGridPanel();

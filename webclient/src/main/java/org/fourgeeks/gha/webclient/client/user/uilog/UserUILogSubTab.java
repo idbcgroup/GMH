@@ -3,7 +3,7 @@ package org.fourgeeks.gha.webclient.client.user.uilog;
 import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
 import org.fourgeeks.gha.webclient.client.user.UserSelectionListener;
-import org.fourgeeks.gha.webclient.client.user.UserTab;
+import org.fourgeeks.gha.webclient.client.user.UserPanel;
 
 /**
  * @author alacret
@@ -16,7 +16,7 @@ public class UserUILogSubTab extends GHASubTab implements UserSelectionListener 
 	/**
 	 * @param tab
 	 */
-	public UserUILogSubTab(UserTab tab) {
+	public UserUILogSubTab(UserPanel tab) {
 		super("UI Log", tab);
 		setDisabled(true);
 		tab.addUserSelectionListener(this);

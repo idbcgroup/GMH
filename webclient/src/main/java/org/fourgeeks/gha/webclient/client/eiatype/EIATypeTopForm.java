@@ -57,7 +57,7 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 	 * @param resultSet
 	 * @param eiaTypeTab
 	 */
-	public EIATypeTopForm(EiaTypeResultSet resultSet, EIATypeTab eiaTypeTab) {
+	public EIATypeTopForm(EiaTypeResultSet resultSet, EIATypePanel eiaTypeTab) {
 		super(resultSet, eiaTypeTab);
 
 		form.setItems(typeItem, subTypeItem, brandItem, new GHASpacerItem(),

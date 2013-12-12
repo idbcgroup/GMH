@@ -4,7 +4,7 @@ import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
-import org.fourgeeks.gha.webclient.client.eia.EIATab;
+import org.fourgeeks.gha.webclient.client.eia.EIAPanel;
 
 /**
  * @author naramirez
@@ -13,7 +13,7 @@ import org.fourgeeks.gha.webclient.client.eia.EIATab;
 public class EIAReportsSubTab extends GHASubTab implements EIASelectionListener {
 	private EIAReportsFormPanel form;
 
-	public EIAReportsSubTab(EIATab eiaTab) {
+	public EIAReportsSubTab(EIAPanel eiaTab) {
 		super(GHAStrings.get("reports"), eiaTab);
 
 		form = new EIAReportsFormPanel();

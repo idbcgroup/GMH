@@ -8,7 +8,7 @@ import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseExcept
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
-import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
+import org.fourgeeks.gha.webclient.client.UI.panels.GHAPanel;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
@@ -27,7 +27,7 @@ public abstract class GHAInternalTabSet extends TabSet implements
 	/**
 	 * @param tab
 	 */
-	public GHAInternalTabSet(GHATab tab) {
+	public GHAInternalTabSet(GHAPanel tab) {
 		GHAUiHelper.addGHAResizeHandler(this);
 		setWidth100();
 		setHeight(GHAUiHelper.getBottomSectionHeight());

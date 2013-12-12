@@ -13,8 +13,8 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.SearchListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.SearchsProducer;
+import org.fourgeeks.gha.webclient.client.UI.panels.GHAPanel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAResultSet;
-import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
@@ -37,7 +37,7 @@ public abstract class GHATopForm<T extends GHAResultSet<E>, E> extends HLayout
 		SearchsProducer {
 	List<SearchListener> searchListeners = new ArrayList<SearchListener>();
 	protected T resultSet;
-	protected GHATab containerTab;
+	protected GHAPanel containerTab;
 	protected boolean activated = false;
 
 	protected KeyUpHandler searchKeyUpHandler = new KeyUpHandler() {
@@ -56,7 +56,7 @@ public abstract class GHATopForm<T extends GHAResultSet<E>, E> extends HLayout
 	 * @param resultSet
 	 * @param containerTab
 	 */
-	public GHATopForm(T resultSet, GHATab tab) {
+	public GHATopForm(T resultSet, GHAPanel tab) {
 		this.resultSet = resultSet;
 		this.containerTab = tab;
 		GHAUiHelper.addGHAResizeHandler(this);

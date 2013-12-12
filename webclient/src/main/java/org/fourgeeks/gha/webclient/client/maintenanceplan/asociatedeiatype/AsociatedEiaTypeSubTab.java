@@ -4,7 +4,7 @@ import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener;
-import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanTab;
+import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanPanel;
 
 /**
  * @author emiliot
@@ -15,7 +15,7 @@ public class AsociatedEiaTypeSubTab extends GHASubTab implements
 
 	private final AsociatedEiatypeGridPanel eiatypeGridPanel;
 
-	public AsociatedEiaTypeSubTab(MaintenancePlanTab tab) {
+	public AsociatedEiaTypeSubTab(MaintenancePlanPanel tab) {
 		super(GHAStrings.get("eiatype"), tab);
 
 		eiatypeGridPanel = new AsociatedEiatypeGridPanel();

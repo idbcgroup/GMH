@@ -2,7 +2,7 @@ package org.fourgeeks.gha.webclient.client.user.information;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
-import org.fourgeeks.gha.webclient.client.user.UserTab;
+import org.fourgeeks.gha.webclient.client.user.UserPanel;
 
 /**
  * @author alacret, emiliot
@@ -15,7 +15,7 @@ public class UserInformationSubTab extends GHASubTab {
 	/**
 	 * @param tab
 	 */
-	public UserInformationSubTab(UserTab tab) {
+	public UserInformationSubTab(UserPanel tab) {
 		super(GHAStrings.get("information"), tab);
 
 		form = new UserInformationFormPanel();
