@@ -7,6 +7,7 @@ import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
@@ -14,6 +15,7 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener;
 
+import com.google.gwt.user.client.Window;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
@@ -41,14 +43,21 @@ public class AsociatedEiatypeGridPanel extends GHAVerticalLayout implements
 		GHALabel title = new GHALabel("eia-type-on-maintenance-plan");
 		addMember(title);
 
-		VLayout sideButtons = GHAUiHelper.createBar(new GHADeleteButton(
+		VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
 				new ClickHandler() {
+
 					@Override
 					public void onClick(ClickEvent event) {
-						deleteSelected();
-					}
+						search();
 
-				}));
+					}
+				}), new GHADeleteButton(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				deleteSelected();
+			}
+
+		}));
 
 		HLayout mainLayout = new HLayout();
 		mainLayout.addMembers(grid, sideButtons);
@@ -88,6 +97,10 @@ public class AsociatedEiatypeGridPanel extends GHAVerticalLayout implements
 	@Override
 	public boolean canBeClosen(HideCloseAction hideAction) {
 		return true;
+	}
+
+	private void search() {
+		Window.alert("Entró al search");
 	}
 
 	private void deleteSelected() {
