@@ -19,6 +19,7 @@ import org.fourgeeks.gha.domain.enu.MaintenancePlanType;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.ess.Role;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
+import org.fourgeeks.gha.domain.mix.Bpi;
 
 /**
  * @author emiliot
@@ -40,8 +41,6 @@ public class MaintenancePlan extends AbstractEntity {
 	@NotNull(message = "name-not-null")
 	@Column(nullable = false)
 	private String name;
-	private String description;
-	// @Size(max = 3)
 	@NotNull(message = "frecuency-not-null")
 	@Column(nullable = false)
 	private int frequency;
@@ -63,6 +62,11 @@ public class MaintenancePlan extends AbstractEntity {
 	@ManyToOne
 	@JoinColumn(name = "roleFk")
 	private Role role;
+	@ManyToOne
+	@JoinColumn(name = "bpiFk")
+	private Bpi institution;
+
+	private String description;
 
 	/** */
 	public MaintenancePlan() {
@@ -109,6 +113,13 @@ public class MaintenancePlan extends AbstractEntity {
 	 */
 	public int getFrequency() {
 		return frequency;
+	}
+
+	/**
+	 * @return the institution
+	 */
+	public Bpi getInstitution() {
+		return institution;
 	}
 
 	/**
@@ -176,6 +187,14 @@ public class MaintenancePlan extends AbstractEntity {
 	 */
 	public void setFrequency(int frequency) {
 		this.frequency = frequency;
+	}
+
+	/**
+	 * @param institution
+	 *            the institution to set
+	 */
+	public void setInstitution(Bpi institution) {
+		this.institution = institution;
 	}
 
 	/**

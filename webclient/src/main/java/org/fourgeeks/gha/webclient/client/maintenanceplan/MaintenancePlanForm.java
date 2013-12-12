@@ -3,6 +3,8 @@
  */
 package org.fourgeeks.gha.webclient.client.maintenanceplan;
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -11,6 +13,7 @@ import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
+import org.fourgeeks.gha.domain.enu.CurrencyTypeEnum;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanCancelationOption;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanState;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanType;
@@ -19,6 +22,7 @@ import org.fourgeeks.gha.domain.ess.Role;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlanStadisticData;
+import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
@@ -27,6 +31,7 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextAreaItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATitletextItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHABpiSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHACurrencyTypeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAExternalProviderSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenancePlanCancelationOptionSelectItem;
@@ -39,7 +44,6 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.validation.client.impl.Validation;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
@@ -59,19 +63,21 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 			eiasWithThisPlanItem;
 	private GHATextAreaItem descriptionItem;
 	private GHAPeriodOfTimeSelectItem frecuencyPoTItem;
-	private GHAPeriodOfTimeSelectItem estimatedTimePoTItem;
+	private GHAPeriodOfTimeSelectItem estimatedTimePoTSelectItem;
 	private GHAMaintenancePlanTypeSelectItem typeItem;
 	private GHAMaintenancePlanStateSelectItem stateItem;
 	private GHAMaintenancePlanCancelationOptionSelectItem cancelationOptionItem;
 	private GHARoleSelectItem roleSelectItem;
 	private GHAExternalProviderSelectItem providerSelectItem;
 	private GHACurrencyTypeSelectItem estimatedCostCurrencyItem;
+	private GHABpiSelectItem bpiSelectItem;
 	private GHADateItem lastEffectuatedDateItem;
 	private Validator validator;
 
 	private GHADynamicForm form;
 
 	{
+		bpiSelectItem = new GHABpiSelectItem();
 		nameItem = new GHATextItem(GHAStrings.get("name"), true, changedHandler);
 		nameItem.setLength(100);
 		frequencyItem = new GHATextItem(GHAStrings.get("frecuency"), true,
@@ -90,8 +96,8 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 		roleSelectItem = new GHARoleSelectItem(false, changedHandler);
 
 		estimatedTimeItem = new GHATextItem("Tiempo estimado", false);
-		estimatedTimePoTItem = new GHAPeriodOfTimeSelectItem();
-		estimatedTimePoTItem.setDisabled(true);
+		estimatedTimePoTSelectItem = new GHAPeriodOfTimeSelectItem();
+		estimatedTimePoTSelectItem.setDisabled(true);
 		protocolActivitiesItem = new GHATextItem("Actividades del protocolo",
 				false);
 		estimatedCostItem = new GHATextItem("Costo estimado", false);
@@ -107,7 +113,7 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 		planStadistics_TitleItem.setVisible(false);
 		protocolActivitiesItem.setVisible(false);
 		estimatedTimeItem.setVisible(false);
-		estimatedTimePoTItem.setVisible(false);
+		estimatedTimePoTSelectItem.setVisible(false);
 		estimatedCostItem.setVisible(false);
 		estimatedCostCurrencyItem.setVisible(false);
 		effectuatedTimesItem.setVisible(false);
@@ -125,17 +131,17 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 	 */
 	public MaintenancePlanForm() {
 		final HLayout mainPanel = new HLayout();
-		form.setItems(nameItem, frequencyItem, frecuencyPoTItem,
-				new GHASpacerItem(), typeItem, stateItem,
-				cancelationOptionItem, new GHASpacerItem(), descriptionItem,
-				new GHASpacerItem(), providerSelectItem, roleSelectItem,
-				new GHASpacerItem(2), new GHASpacerItem(4),
+		form.setItems(bpiSelectItem, new GHASpacerItem(3), nameItem,
+				frequencyItem, frecuencyPoTItem, new GHASpacerItem(), typeItem,
+				stateItem, cancelationOptionItem, new GHASpacerItem(),
+				descriptionItem, new GHASpacerItem(), providerSelectItem,
+				roleSelectItem, new GHASpacerItem(2), new GHASpacerItem(4),
 				planStadistics_TitleItem, protocolActivitiesItem,
-				estimatedTimeItem, estimatedTimePoTItem, new GHASpacerItem(),
-				estimatedCostItem, estimatedCostCurrencyItem,
-				new GHASpacerItem(2), effectuatedTimesItem,
-				eiasWithThisPlanItem, new GHASpacerItem(2),
-				lastEffectuatedDateItem);
+				estimatedTimeItem, estimatedTimePoTSelectItem,
+				new GHASpacerItem(), estimatedCostItem,
+				estimatedCostCurrencyItem, new GHASpacerItem(2),
+				effectuatedTimesItem, eiasWithThisPlanItem,
+				new GHASpacerItem(2), lastEffectuatedDateItem);
 
 		mainPanel.addMembers(form, new LayoutSpacer());
 		addMember(mainPanel);
@@ -177,6 +183,10 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 			maintenancePlan.setId(this.originalEntity.getId());
 		}
 
+		if (bpiSelectItem.getValue() != null) {
+			Bpi bpi = new Bpi(Long.valueOf(bpiSelectItem.getValueAsString()));
+			maintenancePlan.setInstitution(bpi);
+		}
 		if (nameItem.getValue() != null) {
 			maintenancePlan.setName(nameItem.getValueAsString());
 		}
@@ -277,6 +287,9 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 		stateItem.setValue(maintenancePlan.getState().name());
 		cancelationOptionItem.setValue(maintenancePlan.getCancelationOption()
 				.name());
+
+		if (maintenancePlan.getInstitution() != null)
+			bpiSelectItem.setValue(maintenancePlan.getInstitution().getId());
 		if (maintenancePlan.getRole() != null)
 			roleSelectItem.setValue(maintenancePlan.getRole().getId());
 		if (maintenancePlan.getProvider() != null)
@@ -286,7 +299,28 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 				new GHAAsyncCallback<MaintenancePlanStadisticData>() {
 					@Override
 					public void onSuccess(MaintenancePlanStadisticData result) {
-						Window.alert("I'm back!");
+						long numActivities = result.getNumberActivities();
+						protocolActivitiesItem.setValue(numActivities);
+
+						long estimatedDuration = result.getEstimatedDuration();
+						estimatedTimeItem.setValue(estimatedDuration);
+
+						String potName = result.getPot().name();
+						estimatedTimePoTSelectItem.setValue(potName);
+
+						long numberOfEias = result.getNumberOfEias();
+						eiasWithThisPlanItem.setValue(numberOfEias);
+
+						long timesEffectuated = result.getTimesEffectuated();
+						effectuatedTimesItem.setValue(timesEffectuated);
+
+						BigDecimal estimatedCost = result.getEstimatedCost();
+						estimatedCostItem.setValue(estimatedCost);
+
+						estimatedCostCurrencyItem.setValue(CurrencyTypeEnum.BS);
+
+						Timestamp time = result.getLastTimeEffectuated();
+						lastEffectuatedDateItem.setValue(time);
 					}
 				});
 
@@ -297,7 +331,7 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 		planStadistics_TitleItem.show();
 		protocolActivitiesItem.show();
 		estimatedTimeItem.show();
-		estimatedTimePoTItem.show();
+		estimatedTimePoTSelectItem.show();
 		estimatedCostItem.show();
 		estimatedCostCurrencyItem.show();
 		effectuatedTimesItem.show();
@@ -331,7 +365,6 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 					public void onSuccess(MaintenancePlan result) {
 						hasUnCommittedChanges = false;
 						notifyMaintenancePlan(result);
-						clear();
 						if (callback != null)
 							callback.onSuccess(result);
 					}

@@ -149,7 +149,7 @@ public class EiaPreventiveMaintenancePlanificationService extends
 					+ "JOIN pmp.plan plan "
 					+ "JOIN pmp.planification planif "
 					+ "WHERE plan.maintenancePlan = :maintenancePlan AND planif.status = :status AND planif.finishTimestamp IS NOT NULL "
-					+ "ORDER BY planif.finishTimestamp asc";
+					+ "ORDER BY planif.finishTimestamp desc";
 
 			List<EiaMaintenancePlanification> resultList = em
 					.createQuery(stringQuery, EiaMaintenancePlanification.class)
