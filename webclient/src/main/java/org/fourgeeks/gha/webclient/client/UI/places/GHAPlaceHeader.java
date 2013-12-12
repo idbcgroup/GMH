@@ -1,7 +1,6 @@
 package org.fourgeeks.gha.webclient.client.UI.places;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
 
 import com.google.gwt.user.client.History;
 import com.smartgwt.client.widgets.Label;
@@ -25,13 +24,12 @@ public class GHAPlaceHeader extends Label {
 	 * @param title
 	 * @param token
 	 */
-	public GHAPlaceHeader(final GHAPlace place, String title, final String token) {
+	public GHAPlaceHeader(final GHAPlace place) {
 		super();
-		setContents(title);
+		setContents(place.getAcronym());
 		setWidth(GHAUiHelper.DEFAULT_PLACE_EYELASH_WIDTH);
-		// setStyleName("tab-header-title");
 		setHeight(GHAUiHelper.DEFAULT_PLACE_EYELASH_HEIGHT);
-		setStyleName("tab-header-title button-pointer");
+		setStyleName("place-header-title button-pointer");
 
 		addMouseOverHandler(new MouseOverHandler() {
 			@Override
@@ -53,11 +51,7 @@ public class GHAPlaceHeader extends Label {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				try {
-					History.newItem(token);
-				} catch (UnavailableToCloseException e) {
-					return;
-				}
+				History.newItem(place.getId());
 			}
 		});
 	}

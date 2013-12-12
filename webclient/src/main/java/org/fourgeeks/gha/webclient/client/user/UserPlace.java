@@ -1,13 +1,10 @@
 package org.fourgeeks.gha.webclient.client.user;
 
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.LoginNeededException;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.PermissionsNeededException;
-import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToHideException;
-import org.fourgeeks.gha.webclient.client.UI.places.GHAPlaceSet;
 import org.fourgeeks.gha.webclient.client.UI.places.NeedPermissionPlace;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
-
-import com.google.gwt.user.client.History;
 
 /**
  * @author alacret
@@ -28,16 +25,12 @@ public class UserPlace extends NeedPermissionPlace {
 	}
 
 	@Override
-	public void showPlace() {
-		try {
-			GHAPlaceSet.showPlace(this);
-		} catch (UnavailableToHideException e) {
-			History.back();
-		}
+	public String getId() {
+		return "user";
 	}
 
 	@Override
-	public String getId() {
-		return "user";
+	public String getAcronym() {
+		return GHAStrings.get("users");
 	}
 }

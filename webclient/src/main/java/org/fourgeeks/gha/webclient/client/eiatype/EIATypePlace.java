@@ -3,20 +3,15 @@ package org.fourgeeks.gha.webclient.client.eiatype;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.LoginNeededException;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.PermissionsNeededException;
-import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToHideException;
 import org.fourgeeks.gha.webclient.client.UI.places.GHAPlaceHeader;
-import org.fourgeeks.gha.webclient.client.UI.places.GHAPlaceSet;
 import org.fourgeeks.gha.webclient.client.UI.places.NeedPermissionPlace;
-import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
-
-import com.google.gwt.user.client.History;
 
 /**
  * @author alacret
  * 
  */
 public class EIATypePlace extends NeedPermissionPlace {
-	private final GHATab tab = new EIATypeTab();
+	private final EIATypeTab tab = new EIATypeTab();
 
 	/**
 	 * @param token
@@ -26,7 +21,11 @@ public class EIATypePlace extends NeedPermissionPlace {
 	public EIATypePlace(String token) throws LoginNeededException,
 			PermissionsNeededException {
 		super(token);
-		header = new GHAPlaceHeader(this, GHAStrings.get("eiatype"), getId());
+		header = new GHAPlaceHeader(this);
+		addHideableListener(tab);
+		addClosableListener(tab);
+		// addHideableListener(tabHeader);
+		// addClosableListener(tabHeader);
 		addMember(tab.getHeader());
 		addMember(tab);
 	}
@@ -37,12 +36,14 @@ public class EIATypePlace extends NeedPermissionPlace {
 	}
 
 	@Override
-	public void showPlace() {
-		try {
-			GHAPlaceSet.showPlace(this);
-			header.markSelected();
-		} catch (UnavailableToHideException e) {
-			History.back();
-		}
+	public void show() {
+		super.show();
+		tab.show();
+		tab.getHeader().show();
+	}
+
+	@Override
+	public String getAcronym() {
+		return GHAStrings.get("eiatype");
 	}
 }

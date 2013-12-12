@@ -1,20 +1,16 @@
 package org.fourgeeks.gha.webclient.client.edt;
 
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.LoginNeededException;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.PermissionsNeededException;
-import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToHideException;
-import org.fourgeeks.gha.webclient.client.UI.places.GHAPlaceSet;
 import org.fourgeeks.gha.webclient.client.UI.places.NeedPermissionPlace;
-import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
-
-import com.google.gwt.user.client.History;
 
 /**
  * @author alacret
  * 
  */
 public class EDTPlace extends NeedPermissionPlace {
-	private final GHATab tab = new EDTTab();
+	private final EDTTab tab = new EDTTab();
 
 	/**
 	 * @param token
@@ -28,16 +24,12 @@ public class EDTPlace extends NeedPermissionPlace {
 	}
 
 	@Override
-	public void showPlace() {
-		try {
-			GHAPlaceSet.showPlace(this);
-		} catch (UnavailableToHideException e) {
-			History.back();
-		}
+	public String getId() {
+		return "edt";
 	}
 
 	@Override
-	public String getId() {
-		return "edt";
+	public String getAcronym() {
+		return GHAStrings.get("edt");
 	}
 }

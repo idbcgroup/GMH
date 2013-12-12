@@ -72,7 +72,6 @@ public abstract class GHATab extends VLayout implements ClosableListener,
 			}
 
 		super.hide();
-		getElement().addClassName("hidden");
 	}
 
 	@Override
@@ -89,12 +88,6 @@ public abstract class GHATab extends VLayout implements ClosableListener,
 			if (!closable.canBeClosen(closeAction))
 				return false;
 		return true;
-	}
-
-	@Override
-	public void show() {
-		super.show();
-		getElement().removeClassName("hidden");
 	}
 
 	@Override

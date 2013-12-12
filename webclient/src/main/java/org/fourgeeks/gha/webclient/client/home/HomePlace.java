@@ -12,6 +12,7 @@ import com.google.gwt.user.client.ui.RootPanel;
  * @author alacret
  * 
  */
+@Deprecated
 public class HomePlace extends NeedLoginPlace {
 	/**
 	 * @param token
@@ -21,13 +22,13 @@ public class HomePlace extends NeedLoginPlace {
 	// private EIADispatchmentForm dispatchmentForm = new EIADispatchmentForm();
 	// private EIAInstallationCertificateForm installationCertificateForm = new
 	// EIAInstallationCertificateForm();
-
+	@Deprecated
 	public HomePlace(String token) throws LoginNeededException {
 		super(token);
 	}
 
 	@Override
-	public void showPlace() {
+	public void show() {
 		try {
 			GHAPlaceSet.closeCurrentPlace(HideCloseAction.ASK);
 		} catch (UnavailableToHideException e) {
@@ -40,4 +41,11 @@ public class HomePlace extends NeedLoginPlace {
 	public String getId() {
 		return "home";
 	}
+
+	@Override
+	public String getAcronym() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -71,9 +71,9 @@ public abstract class GHAPlace extends VLayout implements HideableListener,
 			} catch (UnavailableToHideException e) {
 				throw new UnavailableToHideException(e);
 			}
-
-		super.hide();
-		// getElement().addClassName("hidden");
+		// super.hide();
+		header.unMarkSelected();
+		getElement().addClassName("hidden");
 	}
 
 	@Override
@@ -94,14 +94,10 @@ public abstract class GHAPlace extends VLayout implements HideableListener,
 
 	@Override
 	public void show() {
-		super.show();
-		// getElement().removeClassName("hidden");
+		// super.show();
+		header.markSelected();
+		getElement().removeClassName("hidden");
 	}
-
-	/**
-	 * Handles the mechanism to show a place
-	 */
-	public abstract void showPlace();
 
 	@Override
 	public void removeClosableListener(ClosableListener closable) {
@@ -127,4 +123,9 @@ public abstract class GHAPlace extends VLayout implements HideableListener,
 	public void onResize(ResizeEvent event) {
 		setWidth(Window.getClientWidth());
 	}
+
+	/**
+	 * @return the Acronym for this tab. to be put in the eyelash
+	 */
+	public abstract String getAcronym();
 }

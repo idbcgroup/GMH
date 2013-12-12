@@ -8,7 +8,6 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import org.fourgeeks.gha.domain.gar.Bpu;
-import org.fourgeeks.gha.webclient.client.UI.GHAPlacesFactory;
 import org.fourgeeks.gha.webclient.client.UI.GHASessionData;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
@@ -34,9 +33,9 @@ import com.smartgwt.client.widgets.events.ClickHandler;
  */
 public final class GHAPlaceSet {
 
-	private static Map<String, GHAPlace> places;
+	private final static Map<String, GHAPlace> places;
 	private static GHAPlace currentPlace;
-	private static HorizontalPanel hPanel;
+	private final static HorizontalPanel hPanel;
 	private static GHAMenuBar verticalMenu;
 	static {
 		places = new HashMap<String, GHAPlace>();
@@ -55,6 +54,9 @@ public final class GHAPlaceSet {
 		places.put(place.getId(), place);
 		RootPanel rootPanel = RootPanel.get("main-content");
 		rootPanel.add(place);
+		GHAPlaceHeader header = place.getHeader();
+		if (header != null)
+			hPanel.add(header);
 	}
 
 	/**
@@ -76,12 +78,8 @@ public final class GHAPlaceSet {
 
 		if (places.get(place.getId()) == null)
 			addPlace(place);
-		else
-			place.showPlace();
 
-		GHAPlaceHeader header = place.getHeader();
-		if (header != null)
-			hPanel.add(header);
+		place.show();
 		currentPlace = place;
 	}
 
@@ -97,7 +95,6 @@ public final class GHAPlaceSet {
 			} catch (UnavailableToHideException e) {
 				throw new UnavailableToHideException(e);
 			}
-			hPanel.remove(place.getHeader());
 			return;
 		}
 		throw new UnavailableToHideException(null);
@@ -153,7 +150,12 @@ public final class GHAPlaceSet {
 			}
 			places.remove(place.getId());
 			hPanel.remove(place.getHeader());
-			History.newItem("home");
+			// showing the last tab open
+			Set<String> keySet = places.keySet();
+			if (keySet.isEmpty())
+				History.newItem("home");
+			else
+				History.newItem(keySet.iterator().next());
 			return;
 		}
 		throw new UnavailableToCloseException(null);
@@ -220,16 +222,11 @@ public final class GHAPlaceSet {
 		else
 			token = historyToken.substring(0, indexOf);
 
-		// if (token.equals("login")) {
-		// new LoginPlace(token).showPlace();
-		// return;
-		// }
-
 		GHAPlace place = places.get(token);
 		if (place == null)
 			GHAPlacesFactory.showPlace(token);
 		else
-			place.showPlace();
+			showPlace(place);
 	}
 
 }

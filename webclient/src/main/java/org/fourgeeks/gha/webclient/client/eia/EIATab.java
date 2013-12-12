@@ -168,6 +168,7 @@ public class EIATab extends GHATab implements EIASelectionListener,
 	/**
 	 * 
 	 */
+	@Override
 	public void search() {
 		if (currentStatus.equals(TabStatus.SEARCH))
 			return;
@@ -197,11 +198,10 @@ public class EIATab extends GHATab implements EIASelectionListener,
 	public void show() {
 		super.show();
 		topForm.setVisibility(Visibility.VISIBLE);
-		if (currentStatus.equals(TabStatus.ADD))
+		if (currentStatus.equals(TabStatus.ADD)
+				|| (currentStatus.equals(TabStatus.SEARCH))
+				|| (currentStatus.equals(TabStatus.INIT)))
 			return;
-		if (currentStatus.equals(TabStatus.SEARCH))
-			return;
-
 		if (currentStatus.equals(TabStatus.ENTITY_SELECTED))
 			internalTabSet.show();
 		else

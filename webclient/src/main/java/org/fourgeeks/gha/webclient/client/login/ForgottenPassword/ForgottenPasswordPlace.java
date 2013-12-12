@@ -20,7 +20,8 @@ public class ForgottenPasswordPlace extends GHAPlace {
 	}
 
 	@Override
-	public void showPlace() {
+	public void show() {
+		super.show();
 		RootPanel.get("main-content").clear();
 		RootPanel.get("main-content").addStyleName("white-background");
 		RootPanel.get("main-content").add(mailCheckPanel);
@@ -28,6 +29,12 @@ public class ForgottenPasswordPlace extends GHAPlace {
 
 	@Override
 	public String getId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getAcronym() {
 		// TODO Auto-generated method stub
 		return null;
 	}

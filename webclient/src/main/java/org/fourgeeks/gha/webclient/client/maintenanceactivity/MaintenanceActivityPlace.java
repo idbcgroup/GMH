@@ -24,11 +24,13 @@ public class MaintenanceActivityPlace extends NeedPermissionPlace {
 	}
 
 	@Override
-	public void showPlace() {
+	public String getId() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	public String getId() {
+	public String getAcronym() {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -67,7 +67,7 @@ public abstract class GHAUiHelper {
 	public static final int MENU_BAR_HEIGTH = 30;
 
 	// NO ESTAN TOTALMENTE MEDIDAS CON LA INTERFAZ
-	private static final int MIN_TAB_HEIGHT = 678	;
+	private static final int MIN_TAB_HEIGHT = 678;
 	private static final int MIN_BOTTOM_SECTION_HEIGHT = 556;
 
 	// NO ESTAN TOTALMENTE MEDIDAS CON LA INTERFAZ
@@ -119,7 +119,7 @@ public abstract class GHAUiHelper {
 	/**
 	 * width for the place eyelash
 	 */
-	public static final int DEFAULT_PLACE_EYELASH_WIDTH = 200;
+	public static final int DEFAULT_PLACE_EYELASH_WIDTH = 120;
 	/**
 	 * height for the place eyelash
 	 */
