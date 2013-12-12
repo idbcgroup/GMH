@@ -21,6 +21,9 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 
+/**
+ * @author naramirez
+ */
 public class MaintenancePlanTopForm extends
 		GHATopForm<MaintenancePlanResultSet, MaintenancePlan> implements
 		MaintenancePlanSelectionListener {
@@ -45,6 +48,10 @@ public class MaintenancePlanTopForm extends
 		descriptionItem.setColSpan(2);
 	}
 
+	/**
+	 * @param resultSet
+	 * @param tab
+	 */
 	public MaintenancePlanTopForm(MaintenancePlanResultSet resultSet,
 			MaintenancePlanPanel tab) {
 		super(resultSet, tab);
@@ -122,6 +129,7 @@ public class MaintenancePlanTopForm extends
 	public void search() {
 		super.search();
 		MaintenancePlan maintenancePlan = new MaintenancePlan();
+
 		if (nameItem.getValue() != null)
 			maintenancePlan.setName(nameItem.getValueAsString());
 		if (descriptionItem.getValue() != null)
@@ -136,7 +144,7 @@ public class MaintenancePlanTopForm extends
 			maintenancePlan.setState(MaintenancePlanState.valueOf(stateItem
 					.getValueAsString()));
 		if (typeItem.getValue() != null)
-			maintenancePlan.setType(MaintenancePlanType.valueOf(stateItem
+			maintenancePlan.setType(MaintenancePlanType.valueOf(typeItem
 					.getValueAsString()));
 
 		search(maintenancePlan);
@@ -146,7 +154,6 @@ public class MaintenancePlanTopForm extends
 	public void search(MaintenancePlan maintenancePlan) {
 		MaintenancePlanModel.find(maintenancePlan,
 				new GHAAsyncCallback<List<MaintenancePlan>>() {
-
 					@Override
 					public void onSuccess(List<MaintenancePlan> result) {
 						resultSet.setRecords(result, true);
