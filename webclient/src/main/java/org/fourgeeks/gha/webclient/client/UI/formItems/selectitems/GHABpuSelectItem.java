@@ -16,63 +16,58 @@ public class GHABpuSelectItem extends GHASelectItem {
 	public static final String labelKey = "bpu-select-item";
 	
 	/**
-	 * @param width
-	 */
-	public GHABpuSelectItem(int width) {
-		super(GHAStrings.get(labelKey), width);
-		fill();
-	}
-
-	/**
 	 * 
 	 */
 	public GHABpuSelectItem() {
-		super(GHAStrings.get(labelKey));
+		super(GHAStrings.get("bpu-select-item"));
 		fill();
 	}
-
+	
 	public GHABpuSelectItem(String title) {
 		super(title);
 		fill();
 	}
+	
+	/**
+	 * @param width
+	 */
+	public GHABpuSelectItem(int width) {
+		this();
+		setWidth(width);
+	}
 
 	/**
 	 * @param title
-	 * @param width
 	 * @param required
 	 * @param changedHandler
 	 */
 	public GHABpuSelectItem(String title, boolean required,
 			ChangedHandler changedHandler) {
-		super(title, required, changedHandler);
-		fill();
+		this(title);
+		setRequired(required);
+		addChangedHandler(changedHandler);
+	}
+	
+	/**
+	 * @param required
+	 * @param changedHandler
+	 */
+	public GHABpuSelectItem(boolean required, ChangedHandler changedHandler) {
+		this();
+		setRequired(required);
+		addChangedHandler(changedHandler);
 	}
 
 	/**
-	 * @param title
 	 * @param width
 	 * @param required
 	 * @param changedHandler
 	 */
 	public GHABpuSelectItem(int width, boolean required,
 			ChangedHandler changedHandler) {
-		super(GHAStrings.get(labelKey), width);
-		setRequired(required);
-		addChangedHandler(changedHandler);
-		fill();
-	}
-
-	/**
-	 * @param title
-	 * @param required
-	 * @param changedHandler
-	 */
-	public GHABpuSelectItem(boolean required, ChangedHandler changedHandler) {
-		super(GHAStrings.get(labelKey));
-		setRequired(required);
-		addChangedHandler(changedHandler);
-		fill();
-	}
+		this(required,changedHandler);
+		setWidth(width);
+	}	
 
 	public void fill() {
 		GHACache.INSTANCE.getBpus(new GHAAsyncCallback<List<Bpu>>() {

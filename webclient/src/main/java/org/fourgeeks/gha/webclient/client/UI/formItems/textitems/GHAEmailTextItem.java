@@ -11,8 +11,6 @@ import com.smartgwt.client.widgets.form.validator.RegExpValidator;
  * 
  */
 public class GHAEmailTextItem extends GHATextItem {
-
-
 	/**
 	 * Creates a email text item with a regExpValidator for email fields.
 	 */
@@ -24,11 +22,21 @@ public class GHAEmailTextItem extends GHATextItem {
 	/**
 	 * Creates a email text item with a regExpValidator for email fields.
 	 * 
+	 * @param title
+	 */
+	public GHAEmailTextItem(String title) {
+		super(title);
+		initEmailValidator();
+	}
+	
+	/**
+	 * Creates a email text item with a regExpValidator for email fields.
+	 * 
 	 * @param width
 	 */
 	public GHAEmailTextItem(int width) {
-		super(GHAStrings.get("mail"),width);
-		initEmailValidator();
+		this();
+		setWidth(width);
 	}
 
 	/**
@@ -38,20 +46,8 @@ public class GHAEmailTextItem extends GHATextItem {
 	 * @param active
 	 */
 	public GHAEmailTextItem(String title, boolean active) {
-		super(GHAStrings.get("mail"), active);
-		initEmailValidator();
-	}
-
-	/**
-	 * Creates a email text item with a regExpValidator for email fields.
-	 * 
-	 * @param title
-	 * @param width
-	 * @param active
-	 */
-	public GHAEmailTextItem(String title, int width, boolean active) {
-		super(GHAStrings.get("mail"), width, active);
-		initEmailValidator();
+		this(title);
+		setDisabled(!active);
 	}
 
 	/**
@@ -61,18 +57,20 @@ public class GHAEmailTextItem extends GHATextItem {
 	 * @param width
 	 */
 	public GHAEmailTextItem(String title, int width) {
-		super(title, width);
-		initEmailValidator();
+		this(title);
+		setWidth(width);
 	}
-
+	
 	/**
 	 * Creates a email text item with a regExpValidator for email fields.
 	 * 
 	 * @param title
+	 * @param width
+	 * @param active
 	 */
-	public GHAEmailTextItem(String title) {
-		super(title);
-		initEmailValidator();
+	public GHAEmailTextItem(String title, int width, boolean active) {
+		this(title, active);
+		setWidth(width);
 	}
 
 	/**
@@ -81,9 +79,8 @@ public class GHAEmailTextItem extends GHATextItem {
 	 * @param title
 	 */
 	public GHAEmailTextItem(String title, ChangedHandler chengedHandler) {
-		super(title);
+		this(title);
 		addChangedHandler(chengedHandler);
-		initEmailValidator();
 	}
 
 
@@ -91,8 +88,7 @@ public class GHAEmailTextItem extends GHATextItem {
 		setLength(256);
 		RegExpValidator emailValidator = new RegExpValidator();
 		emailValidator.setErrorMessage(GHAStrings.get("email-invalid-field"));
-		emailValidator
-				.setExpression("^([a-zA-Z0-9_.\\-+])+@(([a-zA-Z0-9\\-])+\\.)+[a-zA-Z0-9]{2,4}$");
+		emailValidator.setExpression("^([a-zA-Z0-9_.\\-+])+@(([a-zA-Z0-9\\-])+\\.)+[a-zA-Z0-9]{2,4}$");
 		this.setValidators(emailValidator);
 	}
 

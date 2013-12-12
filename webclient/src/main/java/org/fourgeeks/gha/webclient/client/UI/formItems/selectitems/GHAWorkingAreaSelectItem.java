@@ -12,45 +12,44 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 
 /**
- * @author emiliot
+ * @author emiliot,jfuentes
  * 
  */
 public class GHAWorkingAreaSelectItem extends GHASelectItem {
-	public static final String labelKey = "workingarea";
-
-	/**
-	 * @param width
-	 */
-	public GHAWorkingAreaSelectItem(int width) {
-		super(GHAStrings.get(labelKey), width);
-		fill();
-	}
-
 	/**
 	 * 
 	 */
 	public GHAWorkingAreaSelectItem() {
-		super(GHAStrings.get(labelKey));
+		super(GHAStrings.get("workingarea"));
 		fill();
 	}
-
+	
+	/**
+	 * @param title
+	 */
 	public GHAWorkingAreaSelectItem(String title) {
 		super(title);
 		fill();
 	}
+	
+	/**
+	 * @param width
+	 */
+	public GHAWorkingAreaSelectItem(int width) {
+		this();
+		setWidth(width);
+	}
 
 	/**
-	 * @param title
 	 * @param width
 	 * @param required
 	 * @param changedHandler
 	 */
 	public GHAWorkingAreaSelectItem(int width, boolean required,
 			ChangedHandler changedHandler) {
-		super(GHAStrings.get(labelKey), width);
+		this(width);
 		setRequired(required);
 		addChangedHandler(changedHandler);
-		fill();
 	}
 
 	/**
@@ -60,10 +59,9 @@ public class GHAWorkingAreaSelectItem extends GHASelectItem {
 	 */
 	public GHAWorkingAreaSelectItem(boolean required,
 			ChangedHandler changedHandler) {
-		super(GHAStrings.get(labelKey));
+		this();
 		setRequired(required);
 		addChangedHandler(changedHandler);
-		fill();
 	}
 
 	public void fill() {
