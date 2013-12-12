@@ -5,7 +5,7 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASectionForm;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
 import org.fourgeeks.gha.webclient.client.eiadamagereport.EiaDamageReportSelectionListener;
 import org.fourgeeks.gha.webclient.client.eiadamagereport.EiaDamageReportSelectionProducer;
-import org.fourgeeks.gha.webclient.client.eiatype.EIATypeTab;
+import org.fourgeeks.gha.webclient.client.eiatype.EIATypePanel;
 
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
@@ -37,7 +37,7 @@ public class EIADamageAndPlanificationSubTab extends GHASubTab implements
 	/**
 	 * @param tab
 	 */
-	public EIADamageAndPlanificationSubTab(EIATypeTab tab) {
+	public EIADamageAndPlanificationSubTab(EIATypePanel tab) {
 		super("Reporte y Planificacion", tab);
 
 		// listeners

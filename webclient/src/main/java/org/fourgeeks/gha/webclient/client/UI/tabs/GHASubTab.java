@@ -8,6 +8,7 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableProducer;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableProducer;
+import org.fourgeeks.gha.webclient.client.UI.panels.GHAPanel;
 
 import com.smartgwt.client.widgets.tab.Tab;
 import com.smartgwt.client.widgets.tab.events.TabDeselectedEvent;
@@ -26,7 +27,7 @@ public class GHASubTab extends Tab implements ClosableListener,
 	 * @param title
 	 * @param tab
 	 */
-	public GHASubTab(String title, GHATab tab) {
+	public GHASubTab(String title, GHAPanel tab) {
 		tab.addHideableListener(this);
 		tab.addClosableListener(this);
 		setTitle(title);

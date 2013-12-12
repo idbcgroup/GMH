@@ -3,13 +3,13 @@ package org.fourgeeks.gha.webclient.client.eia.spares;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
-import org.fourgeeks.gha.webclient.client.eia.EIATab;
+import org.fourgeeks.gha.webclient.client.eia.EIAPanel;
 
 public class EIASpareSubTab extends GHASubTab implements EIASelectionListener{
 	
 	private EIASpareGridPanel eiaSpareGridPanel = null;
 	
-	public EIASpareSubTab(EIATab tab) {
+	public EIASpareSubTab(EIAPanel tab) {
 		super("Repuestos", tab);
 		setDisabled(true);
 		tab.addEiaSelectionListener(this);

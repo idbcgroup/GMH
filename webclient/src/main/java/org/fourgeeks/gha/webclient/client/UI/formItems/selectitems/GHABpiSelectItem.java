@@ -12,22 +12,31 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 
 public class GHABpiSelectItem extends GHASelectItem {
-	public static final String labelKey = "bpi";
+	/**
+	 * 
+	 */
+	public GHABpiSelectItem() {
+		super(GHAStrings.get("bpi"));
+		fill();
+	}
 
 	/**
 	 * @param width
 	 */
 	public GHABpiSelectItem(int width) {
-		super(GHAStrings.get(labelKey), width);
-		fill();
+		this();
+		setWidth(width);
 	}
 
 	/**
-	 * 
+	 * @param title
+	 * @param required
+	 * @param changedHandler
 	 */
-	public GHABpiSelectItem() {
-		super(GHAStrings.get(labelKey));
-		fill();
+	public GHABpiSelectItem(boolean required, ChangedHandler changedHandler) {
+		this();
+		setRequired(required);
+		addChangedHandler(changedHandler);
 	}
 
 	/**
@@ -38,22 +47,8 @@ public class GHABpiSelectItem extends GHASelectItem {
 	 */
 	public GHABpiSelectItem(int width, boolean required,
 			ChangedHandler changedHandler) {
-		super(GHAStrings.get(labelKey), width,required);
-		setRequired(required);
-		addChangedHandler(changedHandler);
-		fill();
-	}
-
-	/**
-	 * @param title
-	 * @param required
-	 * @param changedHandler
-	 */
-	public GHABpiSelectItem(boolean required, ChangedHandler changedHandler) {
-		super(GHAStrings.get(labelKey));
-		setRequired(required);
-		addChangedHandler(changedHandler);
-		fill();
+		this(required,changedHandler);
+		setWidth(width);
 	}
 
 	public void fill() {

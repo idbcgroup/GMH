@@ -12,9 +12,9 @@ import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToHideExcepti
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.SearchListener;
-import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
-import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader;
-import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader.Option;
+import org.fourgeeks.gha.webclient.client.UI.panels.GHAPanel;
+import org.fourgeeks.gha.webclient.client.UI.panels.GHAPanelHeader;
+import org.fourgeeks.gha.webclient.client.UI.panels.GHAPanelHeader.Option;
 
 import com.smartgwt.client.types.Visibility;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -24,13 +24,9 @@ import com.smartgwt.client.widgets.events.ClickHandler;
  * @author alacret
  * 
  */
-public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
+public class EIATypePanel extends GHAPanel implements EIATypeSelectionListener,
 		EiaTypeSelectionProducer {
 
-	/**
-	 * The ID of the Tab
-	 */
-	public static final String ID = "eiatype";
 	private static final String TITLE = GHAStrings.get("eiatypes");
 	private EIATypeAddForm addForm;
 	private EIATypeInternalTabSet internalTabSet;
@@ -43,9 +39,9 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 	/**
 	 * @param token
 	 */
-	public EIATypeTab(String token) {
-		super(token);
-		header = new GHATabHeader(this, TITLE);
+	public EIATypePanel() {
+		super();
+		header = new GHAPanelHeader(this, TITLE);
 		searchOption = header.addSearchOption(new ClickHandler() {
 
 			@Override
@@ -139,11 +135,6 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 	}
 
 	@Override
-	public String getId() {
-		return ID;
-	}
-
-	@Override
 	public void notifyEiaType(EiaType eiaType) {
 		for (EIATypeSelectionListener listener : listeners)
 			listener.select(eiaType);
@@ -185,11 +176,10 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 	public void show() {
 		super.show();
 		topForm.setVisibility(Visibility.VISIBLE);
-		if (currentStatus.equals(TabStatus.ADD))
+		if (currentStatus.equals(TabStatus.ADD)
+				|| (currentStatus.equals(TabStatus.SEARCH))
+				|| (currentStatus.equals(TabStatus.INIT)))
 			return;
-		if (currentStatus.equals(TabStatus.SEARCH))
-			return;
-
 		if (currentStatus.equals(TabStatus.ENTITY_SELECTED))
 			internalTabSet.show();
 		else

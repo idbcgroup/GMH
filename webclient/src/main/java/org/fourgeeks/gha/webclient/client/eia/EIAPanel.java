@@ -1,9 +1,9 @@
-package org.fourgeeks.gha.webclient.client.user;
+package org.fourgeeks.gha.webclient.client.eia;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.fourgeeks.gha.domain.ess.SSOUser;
+import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
@@ -12,40 +12,35 @@ import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToHideExcepti
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.SearchListener;
-import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
-import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader;
-import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader.Option;
+import org.fourgeeks.gha.webclient.client.UI.panels.GHAPanel;
+import org.fourgeeks.gha.webclient.client.UI.panels.GHAPanelHeader;
+import org.fourgeeks.gha.webclient.client.UI.panels.GHAPanelHeader.Option;
 
 import com.smartgwt.client.types.Visibility;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 
 /**
- * @author alacret
+ * @author alacret, emiliot
  * 
  */
-public class UserTab extends GHATab implements UserSelectionListener,
-		UserSelectionProducer {
+public class EIAPanel extends GHAPanel implements EIASelectionListener,
+		EiaSelectionProducer {
 
-	/**
-	 * The ID of the Tab
-	 */
-	public static final String ID = "user";
-	private static final String TITLE = GHAStrings.get("users");
-	private final UserAddForm addForm;
-	private final UserInternalTabset internalTabSet;
-	private final List<UserSelectionListener> listeners = new ArrayList<UserSelectionListener>();
-	private final UserResultSet resultSet;
-	private final UserTopForm topForm;
+	private final EIAAddForm addForm;
+	private final EIAInternalTabset internalTabSet;
+	private final List<EIASelectionListener> listeners = new ArrayList<EIASelectionListener>();
+	private final EIATopForm topForm;
+	private final EiaResultSet resultSet;
 	private final Option searchOption;
 	private final Option addOption;
 
 	/**
 	 * @param token
+	 * 
 	 */
-	public UserTab(String token) {
-		super(token);
-		header = new GHATabHeader(this, TITLE);
+	public EIAPanel() {
+		header = new GHAPanelHeader(this, GHAStrings.get("equipments"));
 		searchOption = header.addSearchOption(new ClickHandler() {
 
 			@Override
@@ -61,16 +56,16 @@ public class UserTab extends GHATab implements UserSelectionListener,
 			}
 		});
 
-		resultSet = new UserResultSet(ResultSetContainerType.TAB);
+		resultSet = new EiaResultSet(ResultSetContainerType.TAB);
 		resultSet.setVisible(false);
 		addHideableListener(resultSet);
 		addClosableListener(resultSet);
-		resultSet.addUserSelectionListener(this);
+		resultSet.addEiaSelectionListener(this);
 
-		topForm = new UserTopForm(resultSet, this);
+		topForm = new EIATopForm(resultSet, this);
+		addHideableListener(topForm);
 		addClosableListener(topForm);
-		addClosableListener(topForm);
-		addUserSelectionListener(topForm);
+		addEiaSelectionListener(topForm);
 		topForm.addSearchListener(new SearchListener() {
 
 			@Override
@@ -79,15 +74,15 @@ public class UserTab extends GHATab implements UserSelectionListener,
 			}
 		});
 
-		internalTabSet = new UserInternalTabset(this);
+		internalTabSet = new EIAInternalTabset(this);
 		addHideableListener(internalTabSet);
 		addClosableListener(internalTabSet);
-		addUserSelectionListener(internalTabSet);
+		addEiaSelectionListener(internalTabSet);
 
-		addForm = new UserAddForm(GHAStrings.get("new-user"));
+		addForm = new EIAAddForm(GHAStrings.get("new-eia"));
 		addHideableListener(addForm);
 		addClosableListener(addForm);
-		addForm.addUserSelectionListener(this);
+		addForm.addEiaSelectionListener(this);
 		addForm.addHideableListener(new HideableListener() {
 
 			@Override
@@ -114,12 +109,16 @@ public class UserTab extends GHATab implements UserSelectionListener,
 		search();
 	}
 
+	/**
+	 * 
+	 */
 	protected void add() {
-		if (internalTabSet.isVisible())
-			if (internalTabSet.canBeHidden(HideCloseAction.SAVE))
+		if (internalTabSet.isVisible()) {
+			if (internalTabSet.canBeHidden(HideCloseAction.ASK))
 				internalTabSet.hide();
 			else
 				return;
+		}
 		topForm.deactivate();
 		topForm.clear();
 		if (resultSet.isVisible())
@@ -133,28 +132,33 @@ public class UserTab extends GHATab implements UserSelectionListener,
 	}
 
 	@Override
-	public void addUserSelectionListener(
-			UserSelectionListener userSelectionListener) {
-		listeners.add(userSelectionListener);
+	public void addEiaSelectionListener(
+			EIASelectionListener eiaSelectionListener) {
+		listeners.add(eiaSelectionListener);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.eia.EiaSelectionProducer#notifyEia
+	 * (org.fourgeeks.gha.domain.gmh.Eia)
+	 */
+	@Override
+	public void notifyEia(Eia eia) {
+		for (EIASelectionListener listener : listeners)
+			listener.select(eia);
 	}
 
 	@Override
-	public String getId() {
-		return ID;
+	public void removeEiaSelectionListener(
+			EIASelectionListener eiaSelectionListener) {
+		listeners.remove(eiaSelectionListener);
 	}
 
-	@Override
-	public void notifyUser(SSOUser ssoUser) {
-		for (UserSelectionListener userSelectionListener : listeners)
-			userSelectionListener.select(ssoUser);
-	}
-
-	@Override
-	public void removeUserSelectionListener(
-			UserSelectionListener userSelectionListener) {
-		listeners.remove(userSelectionListener);
-	}
-
+	/**
+	 * 
+	 */
 	@Override
 	public void search() {
 		if (currentStatus.equals(TabStatus.SEARCH))
@@ -170,13 +174,13 @@ public class UserTab extends GHATab implements UserSelectionListener,
 		header.unMarkAllButtons();
 		searchOption.markSelected();
 		currentStatus = TabStatus.SEARCH;
-		// // GHANotification.info(GHAStrings.get("")); //TODO: Mensaje de
-		// // informacion para indicar que se ha actividado el modo de busqueda
+		// GHANotification.info(GHAStrings.get("")); //TODO: Mensaje de
+		// informacion para indicar que se ha actividado el modo de busqueda
 	}
 
 	@Override
-	public void select(SSOUser ssoUser) {
-		notifyUser(ssoUser);
+	public void select(Eia eia) {
+		notifyEia(eia);
 		header.unMarkAllButtons();
 		currentStatus = TabStatus.ENTITY_SELECTED;
 	}
@@ -185,14 +189,14 @@ public class UserTab extends GHATab implements UserSelectionListener,
 	public void show() {
 		super.show();
 		topForm.setVisibility(Visibility.VISIBLE);
-		if (currentStatus.equals(TabStatus.ADD))
+		if (currentStatus.equals(TabStatus.ADD)
+				|| (currentStatus.equals(TabStatus.SEARCH))
+				|| (currentStatus.equals(TabStatus.INIT)))
 			return;
-		if (currentStatus.equals(TabStatus.SEARCH))
-			return;
-
 		if (currentStatus.equals(TabStatus.ENTITY_SELECTED))
 			internalTabSet.show();
 		else
 			resultSet.show();
 	}
+
 }

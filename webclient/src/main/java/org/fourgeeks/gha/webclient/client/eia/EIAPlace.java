@@ -1,20 +1,17 @@
 package org.fourgeeks.gha.webclient.client.eia;
 
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.LoginNeededException;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.PermissionsNeededException;
-import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToHideException;
+import org.fourgeeks.gha.webclient.client.UI.places.GHAPlaceHeader;
 import org.fourgeeks.gha.webclient.client.UI.places.NeedPermissionPlace;
-import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
-import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabSet;
-
-import com.google.gwt.user.client.History;
 
 /**
  * @author alacret
  * 
  */
 public class EIAPlace extends NeedPermissionPlace {
-	private GHATab tab;
+	private final EIAPanel tab = new EIAPanel();
 
 	/**
 	 * @param token
@@ -25,17 +22,27 @@ public class EIAPlace extends NeedPermissionPlace {
 	public EIAPlace(String token) throws LoginNeededException,
 			PermissionsNeededException {
 		super(token);
-		tab = GHATabSet.getById(EIATab.ID);
-		if (tab == null)
-			tab = new EIATab(token);
+		header = new GHAPlaceHeader(this);
+		addHideableListener(tab);
+		addClosableListener(tab);
+		addMember(tab.getHeader());
+		addMember(tab);
+	}
+
+	@Override
+	public String getId() {
+		return "eia";
 	}
 
 	@Override
 	public void show() {
-		try {
-			GHATabSet.showTab(tab);
-		} catch (UnavailableToHideException e) {
-			History.back();
-		}
+		super.show();
+		tab.show();
+		tab.getHeader().show();
+	}
+
+	@Override
+	public String getAcronym() {
+		return GHAStrings.get("eia");
 	}
 }

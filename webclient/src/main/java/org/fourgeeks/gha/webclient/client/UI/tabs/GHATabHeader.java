@@ -6,6 +6,11 @@ import java.util.List;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
+import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
+import org.fourgeeks.gha.webclient.client.UI.panels.GHAPanel;
+import org.fourgeeks.gha.webclient.client.UI.places.GHAPlaceSet;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
@@ -26,39 +31,34 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
  * @author alacret
  * 
  */
-public class GHATabHeader extends HLayout implements ResizeHandler {
+public class GHATabHeader extends HLayout implements ResizeHandler,
+		HideableListener, ClosableListener {
 
-	private Option titulo;
-	private int memberPos = 2;
-	private List<Option> selectables = new LinkedList<Option>();
+	private static final int OPTION_WIDTH = 90;
+	private int memberPos = 1;
+	private final List<Option> selectables = new LinkedList<Option>();
 
 	/**
 	 * @param tab
 	 * @param title
 	 */
-	public GHATabHeader(final GHATab tab, String title) {
+	public GHATabHeader(final GHAPanel tab, String title) {
 		GHAUiHelper.addGHAResizeHandler(this);
-		setWidth(Window.getClientWidth() - 35);
+		setWidth100();
 		setHeight(30);
 		setDefaultLayoutAlign(VerticalAlignment.TOP);
 		setMembersMargin(6);
-		setStyleName("sides-padding tab-header");
-
-		titulo = new Option(this, title, GHAUiHelper.DEFAULT_TAB_HEADER_WIDTH,
-				false, "", "");
-
-		addMember(titulo);
 
 		addMember(new LayoutSpacer());
-		Option closeOption = new Option(this, GHAStrings.get("close"), 90,
-				true, "../resources/img/cerrarButton.png",
+		Option closeOption = new Option(this, GHAStrings.get("close"),
+				OPTION_WIDTH, true, "../resources/img/cerrarButton.png",
 				"../resources/img/cerrarButtonOver.png");
 		closeOption.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
 				try {
-					GHATabSet.closeTab(tab);
+					GHAPlaceSet.closeCurrentPlace(HideCloseAction.SAVE);
 				} catch (UnavailableToCloseException e) {
 					return;
 				}
@@ -78,7 +78,7 @@ public class GHATabHeader extends HLayout implements ResizeHandler {
 	@Deprecated
 	public Option addCleanOption(ClickHandler clickHandler) {
 		Option cleanOption = new Option(this, GHAStrings.get("clean") + "...",
-				90, true, "../resources/img/limpiarButton.png",
+				OPTION_WIDTH, true, "../resources/img/limpiarButton.png",
 				"../resources/img/limpiarButtonOver.png");
 		cleanOption.addClickHandler(clickHandler);
 		addMember(cleanOption, memberPos++);
@@ -93,8 +93,8 @@ public class GHATabHeader extends HLayout implements ResizeHandler {
 	 * @return the add option
 	 */
 	public Option addAddOption(ClickHandler clickHandler) {
-		Option addOption = new Option(this, GHAStrings.get("add") + "...", 90,
-				true, "../resources/img/agregarButton.png",
+		Option addOption = new Option(this, GHAStrings.get("add") + "...",
+				OPTION_WIDTH, true, "../resources/img/agregarButton.png",
 				"../resources/img/agregarButtonOver.png");
 		addOption.addClickHandler(clickHandler);
 		addMember(addOption, memberPos++);
@@ -120,9 +120,9 @@ public class GHATabHeader extends HLayout implements ResizeHandler {
 	 */
 	private Option addOption(String text, String imgSrc,
 			ClickHandler clickHandler) {
-		Option searchOption = new Option(this, text + "...", 90, true,
-				"../resources/img/" + imgSrc + ".png", "../resources/img/"
-						+ imgSrc + "Over.png");
+		Option searchOption = new Option(this, text + "...", OPTION_WIDTH,
+				true, "../resources/img/" + imgSrc + ".png",
+				"../resources/img/" + imgSrc + "Over.png");
 		searchOption.addClickHandler(clickHandler);
 		addMember(searchOption, memberPos++);
 		selectables.add(searchOption);
@@ -134,8 +134,8 @@ public class GHATabHeader extends HLayout implements ResizeHandler {
 	 * 
 	 */
 	public static class Option extends Label {
-		private String bgSrc;
-		private String bgSrcOver;
+		private final String bgSrc;
+		private final String bgSrcOver;
 		private boolean selected = false;
 
 		/**
@@ -231,9 +231,18 @@ public class GHATabHeader extends HLayout implements ResizeHandler {
 	}
 
 	@Override
-	protected void onDetach() {
-		GHAUiHelper.removeGHAResizeHandler(this);
-		super.onDetach();
+	public boolean canBeClosen(HideCloseAction closeAction) {
+		return true;
+	}
 
+	@Override
+	public void close() throws UnavailableToCloseException {
+		GHAUiHelper.removeGHAResizeHandler(this);
+		destroy();
+	}
+
+	@Override
+	public boolean canBeHidden(HideCloseAction closeAction) {
+		return true;
 	}
 }

@@ -12,6 +12,7 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableProducer;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableProducer;
+import org.fourgeeks.gha.webclient.client.UI.panels.GHAPanelHeader;
 
 import com.smartgwt.client.widgets.layout.VLayout;
 
@@ -22,8 +23,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public abstract class GHATab extends VLayout implements ClosableListener,
 		HideableListener, ClosableProducer, HideableProducer {
 
-	private final String token;
-	protected GHATabHeader header;
+	protected GHAPanelHeader header;
 	protected VLayout verticalPanel = new VLayout();
 	private final List<ClosableListener> closables = new ArrayList<ClosableListener>();
 	private final List<HideableListener> hideables = new ArrayList<HideableListener>();
@@ -34,8 +34,7 @@ public abstract class GHATab extends VLayout implements ClosableListener,
 	 * @param token
 	 * 
 	 */
-	public GHATab(String token) {
-		this.token = token;
+	public GHATab() {
 		setWidth100();
 		setBackgroundColor(GHAUiHelper.DEFAULT_BACKGROUND_COLOR);
 	}
@@ -48,16 +47,9 @@ public abstract class GHATab extends VLayout implements ClosableListener,
 	/**
 	 * @return the header
 	 */
-	public GHATabHeader getHeader() {
+	public GHAPanelHeader getHeader() {
 		return header;
 	}
-
-	/**
-	 * @return the token
-	 */
-	public String getToken() {
-		return token;
-	};
 
 	@Override
 	public void close() throws UnavailableToCloseException {
@@ -81,7 +73,6 @@ public abstract class GHATab extends VLayout implements ClosableListener,
 			}
 
 		super.hide();
-		getElement().addClassName("hidden");
 	}
 
 	@Override
@@ -98,12 +89,6 @@ public abstract class GHATab extends VLayout implements ClosableListener,
 			if (!closable.canBeClosen(closeAction))
 				return false;
 		return true;
-	}
-
-	@Override
-	public void show() {
-		super.show();
-		getElement().removeClassName("hidden");
 	}
 
 	@Override
@@ -127,7 +112,8 @@ public abstract class GHATab extends VLayout implements ClosableListener,
 	}
 
 	/**
-	 * 
+	 * Futures refactor will remove this method from here
 	 */
+	@Deprecated
 	public abstract void search();
 }

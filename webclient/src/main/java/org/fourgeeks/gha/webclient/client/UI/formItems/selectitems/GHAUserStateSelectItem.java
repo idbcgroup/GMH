@@ -9,22 +9,23 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
  */
 public class GHAUserStateSelectItem extends GHASelectItem {
 	public static final String labelKey = "state";
+
+	/**
+	 * 
+	 */
+	public GHAUserStateSelectItem() {
+		super(GHAStrings.get("state"));
+		setValueMap(UserLogonStatusEnum.toValueMap());
+	}
 	
 	/**
 	 * @param width
 	 * 
 	 */
 	public GHAUserStateSelectItem(int width) {
-		super(GHAStrings.get(labelKey), width);
-		setValueMap(UserLogonStatusEnum.toValueMap());
+		this();
+		setWidth(width);
 	}
 
-	/**
-	 * 
-	 */
-	public GHAUserStateSelectItem() {
-		super(GHAStrings.get(labelKey));
-		setValueMap(UserLogonStatusEnum.toValueMap());
-	}
 
 }

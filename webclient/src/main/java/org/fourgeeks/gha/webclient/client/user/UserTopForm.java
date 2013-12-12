@@ -73,7 +73,7 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 	 * @param resultSet
 	 * @param userTab
 	 */
-	public UserTopForm(UserResultSet resultSet, UserTab userTab) {
+	public UserTopForm(UserResultSet resultSet, UserPanel userTab) {
 		super(resultSet, userTab);
 
 		form.setItems(usernameItem, firstNameItem, secondNameItem,

@@ -12,9 +12,9 @@ import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToHideExcepti
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.SearchListener;
-import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
-import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader;
-import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader.Option;
+import org.fourgeeks.gha.webclient.client.UI.panels.GHAPanel;
+import org.fourgeeks.gha.webclient.client.UI.panels.GHAPanelHeader;
+import org.fourgeeks.gha.webclient.client.UI.panels.GHAPanelHeader.Option;
 
 import com.smartgwt.client.types.Visibility;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -24,10 +24,9 @@ import com.smartgwt.client.widgets.events.ClickHandler;
  * @author alacret
  * 
  */
-public class MaintenancePlanTab extends GHATab implements
+public class MaintenancePlanPanel extends GHAPanel implements
 		MaintenancePlanSelectionListener, MaintenancePlanSelectionProducer {
 
-	public static final String ID = "mplan";
 	private static final String TITLE = GHAStrings.get("maintenance-plans");
 	private MaintenancePlanTopForm topForm;
 	private MaintenancePlanInternalTabset internalTabSet;
@@ -40,9 +39,9 @@ public class MaintenancePlanTab extends GHATab implements
 	/**
 	 * @param token
 	 */
-	public MaintenancePlanTab(String token) {
-		super(token);
-		header = new GHATabHeader(this, TITLE);
+	public MaintenancePlanPanel() {
+		super();
+		header = new GHAPanelHeader(this, TITLE);
 		searchOption = header.addSearchOption(new ClickHandler() {
 
 			@Override
@@ -127,11 +126,6 @@ public class MaintenancePlanTab extends GHATab implements
 		currentStatus = TabStatus.ADD;
 		// GHANotification.info(GHAStrings.get("")); //TODO: Mensaje de
 		// informacion para indicar que se ha actividado el modo de busqueda
-	}
-
-	@Override
-	public String getId() {
-		return ID;
 	}
 
 	@Override

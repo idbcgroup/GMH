@@ -10,7 +10,7 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
-import org.fourgeeks.gha.webclient.client.user.UserTab;
+import org.fourgeeks.gha.webclient.client.user.UserPanel;
 
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -30,7 +30,7 @@ public class UserCredentialsFormPanel extends GHAVerticalLayout implements
 	private GHACheckboxItem physicianItem, nurseItem, payerItem, patientItem,
 			admisionItem;
 	private EiaType eiaType, orginalEiaType;
-	private UserTab tab;
+	private UserPanel tab;
 
 	{
 		physicianItem = new GHACheckboxItem(
@@ -42,7 +42,7 @@ public class UserCredentialsFormPanel extends GHAVerticalLayout implements
 				CredentialTypeEnum.ADMISSION_AGENT.toString());
 	}
 
-	public UserCredentialsFormPanel(UserTab tab) {
+	public UserCredentialsFormPanel(UserPanel tab) {
 		activateForm(false);
 		this.tab = tab;
 

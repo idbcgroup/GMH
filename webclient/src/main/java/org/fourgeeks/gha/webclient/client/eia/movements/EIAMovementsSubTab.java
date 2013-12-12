@@ -3,7 +3,7 @@ package org.fourgeeks.gha.webclient.client.eia.movements;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
-import org.fourgeeks.gha.webclient.client.eia.EIATab;
+import org.fourgeeks.gha.webclient.client.eia.EIAPanel;
 
 /**
  * @author alacret
@@ -21,7 +21,7 @@ public class EIAMovementsSubTab extends GHASubTab implements
 	/**
 	 * @param tab
 	 */
-	public EIAMovementsSubTab(EIATab tab) {
+	public EIAMovementsSubTab(EIAPanel tab) {
 		super("Movimientos", tab);
 		setDisabled(true);
 		tab.addEiaSelectionListener(this);

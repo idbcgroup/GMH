@@ -1,32 +1,17 @@
 package org.fourgeeks.gha.webclient.client.UI.tabs;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 
-import org.fourgeeks.gha.domain.gar.Bpu;
-import org.fourgeeks.gha.webclient.client.UI.GHASessionData;
-import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
-import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.exceptions.LoginNeededException;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToHideException;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
-import org.fourgeeks.gha.webclient.client.UI.menu.GHAMenu.GHAMenuBar;
-import org.fourgeeks.gha.webclient.client.UI.menu.GHAMenu.GHAMenuOption;
 
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.smartgwt.client.types.AnimationEffect;
-import com.smartgwt.client.widgets.events.ClickEvent;
-import com.smartgwt.client.widgets.events.ClickHandler;
 
 /**
  * @author alacret
@@ -34,23 +19,21 @@ import com.smartgwt.client.widgets.events.ClickHandler;
  */
 public final class GHATabSet {
 
-	private static Map<String, GHATab> tabs;
-	private static GHATab currentTab;
-	private static HorizontalPanel hPanel;
-	private static GHAMenuBar verticalMenu;
-	static {
+	private Map<String, GHATab> tabs;
+	private GHATab currentTab;
+	private HorizontalPanel hPanel;
+	{
 		tabs = new HashMap<String, GHATab>();
 		hPanel = new HorizontalPanel();
 		hPanel.setHeight("30px");
 		hPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-		RootPanel.get("menu-bar").add(hPanel);
+		// RootPanel.get("menu-bar").add(hPanel);//TODO
 	}
 
 	private GHATabSet() {
-		throw new UnsupportedOperationException("Esta clase no es instanciable");
 	}
 
-	private static void addTab(final GHATab tab) {
+	private void addTab(final GHATab tab) {
 		tabs.put(tab.getId(), tab);
 		RootPanel rootPanel = RootPanel.get("main-content");
 		try {
@@ -65,7 +48,7 @@ public final class GHATabSet {
 	 * @param tab
 	 * @throws UnavailableToHideException
 	 */
-	public static void showTab(GHATab tab) throws UnavailableToHideException {
+	public void showTab(GHATab tab) throws UnavailableToHideException {
 		if (tab == null)
 			return;
 		if (tab == currentTab)
@@ -87,11 +70,11 @@ public final class GHATabSet {
 		currentTab = tab;
 	}
 
-	private static void hideTab(GHATab tab) throws UnavailableToHideException {
+	private void hideTab(GHATab tab) throws UnavailableToHideException {
 		hideTab(tab, HideCloseAction.ASK);
 	}
 
-	private static void hideTab(GHATab tab, HideCloseAction hideAction) {
+	private void hideTab(GHATab tab, HideCloseAction hideAction) {
 		if (tab.canBeHidden(hideAction)) {
 			try {
 				tab.hide();
@@ -108,7 +91,7 @@ public final class GHATabSet {
 	 * @param hideAction
 	 * @throws UnavailableToHideException
 	 */
-	public static void hideCurrentTab(HideCloseAction hideAction)
+	public void hideCurrentTab(HideCloseAction hideAction)
 			throws UnavailableToHideException {
 		hideTab(currentTab, hideAction);
 		currentTab = null;
@@ -119,7 +102,7 @@ public final class GHATabSet {
 	 * @param hideAction
 	 * @throws UnavailableToHideException
 	 */
-	public static void closeCurrentTab(HideCloseAction hideAction)
+	public void closeCurrentTab(HideCloseAction hideAction)
 			throws UnavailableToHideException {
 		closeTab(currentTab, hideAction);
 		currentTab = null;
@@ -129,7 +112,7 @@ public final class GHATabSet {
 	 * @param id
 	 * @return the tab with that ID
 	 */
-	public static GHATab getById(String id) {
+	public GHATab getById(String id) {
 		return tabs.get(id);
 	}
 
@@ -137,11 +120,11 @@ public final class GHATabSet {
 	 * @param tab
 	 * @throws UnavailableToCloseException
 	 */
-	public static void closeTab(final GHATab tab) {
+	public void closeTab(final GHATab tab) {
 		closeTab(tab, HideCloseAction.ASK);
 	}
 
-	private static void closeTab(final GHATab tab, HideCloseAction closeAction)
+	private void closeTab(final GHATab tab, HideCloseAction closeAction)
 			throws UnavailableToCloseException {
 		if (tab == null)
 			return;
@@ -160,77 +143,4 @@ public final class GHATabSet {
 		throw new UnavailableToCloseException(null);
 	}
 
-	/**
-	 * Build the Menu
-	 */
-	public static void buildMenu() {
-		GHAImgButton menu = new GHAImgButton("../resources/icons/menu.png");
-		menu.setSize("34px", "22px");
-		menu.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				verticalMenu.bringToFront();
-				if (!verticalMenu.isVisible()) {
-					verticalMenu.open();
-				} else {
-					verticalMenu.animateHide(AnimationEffect.FLY);
-					GHAUiHelper.removeDocumentMouseOverHandler(verticalMenu);
-				}
-			}
-		});
-
-		hPanel.add(menu);
-
-		verticalMenu = new GHAMenuBar(menu);
-		GHAUiHelper.addGHAResizeHandler(verticalMenu);
-
-		Bpu user = GHASessionData.getLoggedUser();
-		List<GHAMenuOption> menuOptions = getMenuOptions(user);
-		for (GHAMenuOption ghaMenuOption : menuOptions)
-			verticalMenu.addOption(ghaMenuOption);
-	}
-
-	/**
-	 * @return the list of menu option
-	 */
-	private static List<GHAMenuOption> getMenuOptions(Bpu loggedUser) {
-		List<GHAMenuOption> menuOptions = new ArrayList<GHAMenuOption>();
-		try {
-			Map<String, String> permissionMap = GHASessionData
-					.getPermissionMap();
-			Set<Entry<String, String>> entrySet = permissionMap.entrySet();
-
-			for (final Entry<String, String> entry : entrySet) {
-				menuOptions.add(new GHAMenuOption(GHAStrings.get(entry
-						.getValue()), entry.getKey(),
-						"../resources/icons/menu/" + entry.getKey() + ".png"));
-			}
-			return menuOptions;
-		} catch (LoginNeededException e) {
-			return menuOptions;
-		}
-
-	}
-
-	// /**
-	// * @return the currentTab
-	// */
-	// public static GHATab getCurrentTab() {
-	// return currentTab;
-	// }
-	//
-	// /**
-	// * @param currentTab
-	// */
-	// public static void setCurrentTab(GHATab currentTab) {
-	// GHATabSet.currentTab = currentTab;
-	// }
-
-	/**
-	 * @param token
-	 * @return the ghamenuoption of this token or null if is not found
-	 */
-	public static GHAMenuOption getGHAMenuOptionByToken(String token) {
-		return verticalMenu.getByToken(token);
-	}
 }

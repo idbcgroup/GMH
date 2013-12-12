@@ -2,7 +2,7 @@ package org.fourgeeks.gha.webclient.client.eiatype.information;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
-import org.fourgeeks.gha.webclient.client.eiatype.EIATypeTab;
+import org.fourgeeks.gha.webclient.client.eiatype.EIATypePanel;
 
 /**
  * @author alacret
@@ -15,7 +15,7 @@ public class EIATypeInformationSubTab extends GHASubTab {
 	/**
 	 * @param tab
 	 */
-	public EIATypeInformationSubTab(EIATypeTab tab) {
+	public EIATypeInformationSubTab(EIATypePanel tab) {
 		super(GHAStrings.get("information"), tab);
 
 		form = new EIATypeInformationFormPanel();

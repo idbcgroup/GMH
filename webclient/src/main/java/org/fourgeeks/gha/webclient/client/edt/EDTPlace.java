@@ -1,17 +1,16 @@
 package org.fourgeeks.gha.webclient.client.edt;
 
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.LoginNeededException;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.PermissionsNeededException;
 import org.fourgeeks.gha.webclient.client.UI.places.NeedPermissionPlace;
-import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
-import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabSet;
 
 /**
  * @author alacret
  * 
  */
 public class EDTPlace extends NeedPermissionPlace {
-	private GHATab tab;
+	private final EDTTab tab = new EDTTab();
 
 	/**
 	 * @param token
@@ -21,13 +20,16 @@ public class EDTPlace extends NeedPermissionPlace {
 	public EDTPlace(String token) throws LoginNeededException,
 			PermissionsNeededException {
 		super(token);
-		tab = GHATabSet.getById(EDTTab.ID);
-		if (tab == null)
-			tab = new EDTTab(token);
+		addMember(tab);
 	}
 
 	@Override
-	public void show() {
-		GHATabSet.showTab(tab);
+	public String getId() {
+		return "edt";
+	}
+
+	@Override
+	public String getAcronym() {
+		return GHAStrings.get("edt");
 	}
 }
