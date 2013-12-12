@@ -118,7 +118,6 @@ public final class GHAPlaceSet {
 	public static void closeCurrentPlace(HideCloseAction hideAction)
 			throws UnavailableToHideException {
 		closePlace(currentPlace, hideAction);
-		currentPlace = null;
 	}
 
 	/**
@@ -152,10 +151,14 @@ public final class GHAPlaceSet {
 			hPanel.remove(place.getHeader());
 			// showing the last tab open
 			Set<String> keySet = places.keySet();
-			if (keySet.isEmpty())
-				History.newItem("home");
-			else
-				History.newItem(keySet.iterator().next());
+			if (keySet.isEmpty()) {
+				History.newItem("");
+				currentPlace = null;
+			} else {
+				String next = keySet.iterator().next();
+				History.newItem(next);
+				currentPlace = places.get(next);
+			}
 			return;
 		}
 		throw new UnavailableToCloseException(null);
