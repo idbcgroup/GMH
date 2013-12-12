@@ -5,7 +5,6 @@ package org.fourgeeks.gha.ejb.gmh;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,6 +27,7 @@ import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
+import org.fourgeeks.gha.domain.gmh.MaintenancePlanStadisticData;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
@@ -346,16 +346,16 @@ public class MaintenancePlanService extends GHAEJBExceptionImpl implements
 	 * (org.fourgeeks.gha.domain.gmh.MaintenancePlan)
 	 */
 	@Override
-	public HashMap<String, Object> getStadisticInfo(
+	public MaintenancePlanStadisticData getStadisticInfo(
 			MaintenancePlan mantenancePlan) throws GHAEJBException {
 
 		try {
-			HashMap<String, Object> map = new HashMap<String, Object>();
+			MaintenancePlanStadisticData data = new MaintenancePlanStadisticData();
 
-			Long timesEffectuated = preventivePlanifServiceLocal
+			long timesEffectuated = preventivePlanifServiceLocal
 					.getEffectuatedPlanificationsCount(mantenancePlan);
 
-			Long numberOfEias = preventivePlanifServiceLocal
+			long numberOfEias = preventivePlanifServiceLocal
 					.getPlanificationsCount(mantenancePlan);
 
 			Timestamp lastTimeEffectuated = preventivePlanifServiceLocal
@@ -364,30 +364,32 @@ public class MaintenancePlanService extends GHAEJBExceptionImpl implements
 			List<MaintenanceProtocols> protocol = protocolsServiceRemote
 					.findByMaintenancePlan(mantenancePlan);
 
-			map.put("number-activities", protocol.size());
-			map.put("estimated-cost", getPlanEstimatedCost(protocol));
-			map.put("estimated-time", getPlanEstimatedDurationDays(protocol));
-			map.put("number-eias", numberOfEias);
-			map.put("times-effectuated", timesEffectuated);
-			map.put("last-time-effect", lastTimeEffectuated);
+			data.setNumberActivities(protocol.size());
+			data.setEstimatedCost(getPlanEstimatedCost(protocol));
+			data.setEstimatedDuration(getPlanEstimatedDurationDays(protocol));
+			data.setNumberOfEias(numberOfEias);
+			data.setTimesEffectuated(timesEffectuated);
+			data.setLastTimeEffectuated(lastTimeEffectuated);
 
-			return map;
+			return data;
 		} catch (Exception e) {
-			logger.log(Level.INFO, "ERROR: unable to update MaintenancePlan ",
+			logger.log(
+					Level.INFO,
+					"ERROR: unable to get stadistic info from the MaintenancePlan ",
 					e);
 			throw super.generateGHAEJBException("maintenancePlan-update-fail",
 					RuntimeParameters.getLang(), em);
 		}
 	}
 
-	private double getPlanEstimatedCost(List<MaintenanceProtocols> protocol) {
+	private BigDecimal getPlanEstimatedCost(List<MaintenanceProtocols> protocol) {
 		double acum = 0;
 		for (MaintenanceProtocols entity : protocol) {
 			MaintenanceActivity activity = entity.getMaintenanceActivity();
 			BigDecimal estimatedCost = activity.getEstimatedCost();
 			acum += estimatedCost.doubleValue();
 		}
-		return acum;
+		return BigDecimal.valueOf(acum);
 	}
 
 	private int getPlanEstimatedDurationDays(List<MaintenanceProtocols> protocol) {

@@ -148,7 +148,7 @@ public class EiaPreventiveMaintenancePlanificationService extends
 			String stringQuery = "SELECT planif FROM EiaPreventiveMaintenancePlanification pmp "
 					+ "JOIN pmp.plan plan "
 					+ "JOIN pmp.planification planif "
-					+ "WHERE plan.maintenancePlan = :maintenancePlan AND planif.status = :status AND planif.finishTimestamp IS NOT NULL"
+					+ "WHERE plan.maintenancePlan = :maintenancePlan AND planif.status = :status AND planif.finishTimestamp IS NOT NULL "
 					+ "ORDER BY planif.finishTimestamp asc";
 
 			List<EiaMaintenancePlanification> resultList = em

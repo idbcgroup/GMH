@@ -3,7 +3,6 @@
  */
 package org.fourgeeks.gha.ejb.gmh;
 
-import java.util.HashMap;
 import java.util.List;
 
 import javax.ejb.Remote;
@@ -11,6 +10,7 @@ import javax.ejb.Remote;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
+import org.fourgeeks.gha.domain.gmh.MaintenancePlanStadisticData;
 
 /**
  * @author emiliot
@@ -108,15 +108,9 @@ public interface MaintenancePlanServiceRemote {
 	 * plan, last time effectuated
 	 * 
 	 * @param mantenancePlan
-	 * @return A map with the stadistic information. The keys of the map are:<br>
-	 *         - number-activities <br>
-	 *         - estimated-cost <br>
-	 *         - estimated-time <br>
-	 *         - times-effectuated <br>
-	 *         - number-eias <br>
-	 *         - last-time-effect <br>
+	 * @return the stadistic information
 	 * @throws GHAEJBException
 	 */
-	public HashMap<String, Object> getStadisticInfo(
+	public MaintenancePlanStadisticData getStadisticInfo(
 			MaintenancePlan mantenancePlan) throws GHAEJBException;
 }

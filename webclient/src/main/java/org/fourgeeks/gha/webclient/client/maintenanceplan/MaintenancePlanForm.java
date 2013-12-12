@@ -18,6 +18,7 @@ import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.ess.Role;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
+import org.fourgeeks.gha.domain.gmh.MaintenancePlanStadisticData;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
@@ -38,6 +39,7 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.validation.client.impl.Validation;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
@@ -279,6 +281,14 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 			roleSelectItem.setValue(maintenancePlan.getRole().getId());
 		if (maintenancePlan.getProvider() != null)
 			providerSelectItem.setValue(maintenancePlan.getProvider().getId());
+
+		MaintenancePlanModel.getStadisticInfo(maintenancePlan,
+				new GHAAsyncCallback<MaintenancePlanStadisticData>() {
+					@Override
+					public void onSuccess(MaintenancePlanStadisticData result) {
+						Window.alert("I'm back!");
+					}
+				});
 
 		showPlanStadisticsItems();
 	}
