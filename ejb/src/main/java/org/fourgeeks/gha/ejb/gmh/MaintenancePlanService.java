@@ -361,11 +361,12 @@ public class MaintenancePlanService extends GHAEJBExceptionImpl implements
 			Timestamp lastTimeEffectuated = preventivePlanifServiceLocal
 					.getLastEffectuatedPlanificationDate(mantenancePlan);
 
-			List<MaintenanceProtocols> protocols = protocolsServiceRemote
+			List<MaintenanceProtocols> protocol = protocolsServiceRemote
 					.findByMaintenancePlan(mantenancePlan);
 
-			map.put("number-activities", protocols.size());
-			map.put("estimated-cost", getPlanEstimatedCost(protocols));
+			map.put("number-activities", protocol.size());
+			map.put("estimated-cost", getPlanEstimatedCost(protocol));
+			map.put("estimated-time", getPlanEstimatedDurationDays(protocol));
 			map.put("number-eias", numberOfEias);
 			map.put("times-effectuated", timesEffectuated);
 			map.put("last-time-effect", lastTimeEffectuated);
@@ -379,9 +380,9 @@ public class MaintenancePlanService extends GHAEJBExceptionImpl implements
 		}
 	}
 
-	private double getPlanEstimatedCost(List<MaintenanceProtocols> protocols) {
+	private double getPlanEstimatedCost(List<MaintenanceProtocols> protocol) {
 		double acum = 0;
-		for (MaintenanceProtocols entity : protocols) {
+		for (MaintenanceProtocols entity : protocol) {
 			MaintenanceActivity activity = entity.getMaintenanceActivity();
 			BigDecimal estimatedCost = activity.getEstimatedCost();
 			acum += estimatedCost.doubleValue();
@@ -389,28 +390,34 @@ public class MaintenancePlanService extends GHAEJBExceptionImpl implements
 		return acum;
 	}
 
-	private int getPlanEstimatedDuration(List<MaintenanceProtocols> protocols,
-			TimePeriodEnum pot) {
-		int acum = 0;
-		int acumHOURS, acumDAYS, acumWEEKS, acumMONTHS, acumSEMESTERS, acumYEARS;
-		acumHOURS = acumDAYS = acumWEEKS = acumMONTHS = acumSEMESTERS = acumYEARS = 0;
+	private int getPlanEstimatedDurationDays(List<MaintenanceProtocols> protocol) {
+		final double DAY = 24.0, WEEK = 7.0, MONTH = 30.4368499, SEMESTER = 182.621099, YEAR = 365.242199;
 
-		for (MaintenanceProtocols entity : protocols) {
+		double totalDays = 0;
+		int hours, days, weeks, months, semesters, years;
+		hours = days = weeks = months = semesters = years = 0;
+
+		for (MaintenanceProtocols entity : protocol) {
 			MaintenanceActivity activity = entity.getMaintenanceActivity();
 			TimePeriodEnum periodOfTime = activity.getEstimatedDurationPoT();
 			if (periodOfTime == TimePeriodEnum.HOURS)
-				acumHOURS += activity.getEstimatedDuration().intValue();
+				hours += activity.getEstimatedDuration().intValue();
 			else if (periodOfTime == TimePeriodEnum.DAYS)
-				acumDAYS += activity.getEstimatedDuration().intValue();
+				days += activity.getEstimatedDuration().intValue();
 			else if (periodOfTime == TimePeriodEnum.WEEKS)
-				acumWEEKS += activity.getEstimatedDuration().intValue();
+				weeks += activity.getEstimatedDuration().intValue();
 			else if (periodOfTime == TimePeriodEnum.MONTHS)
-				acumMONTHS += activity.getEstimatedDuration().intValue();
+				months += activity.getEstimatedDuration().intValue();
 			else if (periodOfTime == TimePeriodEnum.SEMESTERS)
-				acumSEMESTERS += activity.getEstimatedDuration().intValue();
+				semesters += activity.getEstimatedDuration().intValue();
 			else if (periodOfTime == TimePeriodEnum.YEARS)
-				acumYEARS += activity.getEstimatedDuration().intValue();
+				years += activity.getEstimatedDuration().intValue();
 		}
-		return acum;
+
+		totalDays += (hours / DAY) + days + (weeks * WEEK) + (months * MONTH)
+				+ (semesters * SEMESTER) + (years * YEAR);
+
+		int totalEstimatedDays = (int) Math.ceil(totalDays);
+		return totalEstimatedDays;
 	}
 }
