@@ -3,6 +3,7 @@
  */
 package org.fourgeeks.gha.ejb.gmh;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.ejb.Remote;
@@ -13,28 +14,35 @@ import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 
 /**
  * @author emiliot
- *
+ * 
  */
 
 @Remote
 public interface MaintenancePlanServiceRemote {
 	/**
 	 * Delete a Maintenance Plan from database by Id
+	 * 
+	 * @param Id
 	 * @throws GHAEJBException
 	 */
 	public void delete(long Id) throws GHAEJBException;
+
 	/**
 	 * Delete a Maintenance Plan's list from database
+	 * 
+	 * @param maintenancePlans
 	 * @throws GHAEJBException
 	 */
-	public void delete(List<MaintenancePlan> maintenancePlans) throws GHAEJBException;
+	public void delete(List<MaintenancePlan> maintenancePlans)
+			throws GHAEJBException;
 
 	/**
 	 * @param eiaType
 	 * @return a list with the maintenance plan related to the eiaType
 	 * @throws GHAEJBException
 	 */
-	public List<MaintenancePlan> findByEiaType(EiaType eiaType) throws GHAEJBException;
+	public List<MaintenancePlan> findByEiaType(EiaType eiaType)
+			throws GHAEJBException;
 
 	/**
 	 * @param eiaType
@@ -43,15 +51,16 @@ public interface MaintenancePlanServiceRemote {
 	 * @return a list with the maintenance plans related to eiaType
 	 * @throws GHAEJBException
 	 */
-	public List<MaintenancePlan> findByEiaType(EiaType eiaType, int offset, int size)
-			throws GHAEJBException;
-	
+	public List<MaintenancePlan> findByEiaType(EiaType eiaType, int offset,
+			int size) throws GHAEJBException;
+
 	/**
 	 * @param maintenancePlan
 	 * @return the list of maintenance plans like the parameter
-	 * @throws GHAEJBException 
+	 * @throws GHAEJBException
 	 */
-	public List<MaintenancePlan> find(MaintenancePlan maintenancePlan) throws GHAEJBException;
+	public List<MaintenancePlan> find(MaintenancePlan maintenancePlan)
+			throws GHAEJBException;
 
 	/**
 	 * @param Id
@@ -72,20 +81,42 @@ public interface MaintenancePlanServiceRemote {
 	 * @return List of MaintenancePlans beginning in offset up to size
 	 * @throws GHAEJBException
 	 */
-	public List<MaintenancePlan> getAll(int offset, int size) throws GHAEJBException;
+	public List<MaintenancePlan> getAll(int offset, int size)
+			throws GHAEJBException;
 
 	/**
-	 * @param MaintenancePlan the plan to be saved on database
+	 * @param maintenancePlan
+	 *            the plan to be saved on database
 	 * @throws GHAEJBException
 	 * @return MaintenancePlan saved
 	 */
-	public MaintenancePlan save(MaintenancePlan maintenancePlan) throws GHAEJBException;
+	public MaintenancePlan save(MaintenancePlan maintenancePlan)
+			throws GHAEJBException;
 
 	/**
-	 * @param MaintenancePlan
+	 * @param maintenancePlan
 	 *            the MaintenancePlan to be updated
 	 * @return MaintenancePlan updated
 	 * @throws GHAEJBException
 	 */
-	public MaintenancePlan update(MaintenancePlan maintenancePlan) throws GHAEJBException;
+	public MaintenancePlan update(MaintenancePlan maintenancePlan)
+			throws GHAEJBException;
+
+	/**
+	 * Retur Stadistic information about the maintenance plan like: number of
+	 * activities, estimated cost, times effectuated, number of eias with this
+	 * plan, last time effectuated
+	 * 
+	 * @param mantenancePlan
+	 * @return A map with the stadistic information. The keys of the map are:<br>
+	 *         - number-activities <br>
+	 *         - estimated-cost <br>
+	 *         - estimated-time <br>
+	 *         - times-effectuated <br>
+	 *         - number-eias <br>
+	 *         - last-time-effect <br>
+	 * @throws GHAEJBException
+	 */
+	public HashMap<String, Object> getStadisticInfo(
+			MaintenancePlan mantenancePlan) throws GHAEJBException;
 }

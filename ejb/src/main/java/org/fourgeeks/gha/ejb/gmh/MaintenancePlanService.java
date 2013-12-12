@@ -3,10 +3,14 @@
  */
 package org.fourgeeks.gha.ejb.gmh;
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -22,7 +26,9 @@ import org.fourgeeks.gha.domain.enu.MaintenancePlanType;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 
@@ -36,6 +42,11 @@ public class MaintenancePlanService extends GHAEJBExceptionImpl implements
 		MaintenancePlanServiceRemote {
 	@PersistenceContext
 	EntityManager em;
+
+	@EJB
+	EiaPreventiveMaintenancePlanificationServiceLocal preventivePlanifServiceLocal;
+	@EJB
+	MaintenanceProtocolsServiceRemote protocolsServiceRemote;
 
 	private final static Logger logger = Logger
 			.getLogger(MaintenancePlanService.class.getName());
@@ -325,5 +336,81 @@ public class MaintenancePlanService extends GHAEJBExceptionImpl implements
 			throw super.generateGHAEJBException("maintenancePlan-update-fail",
 					RuntimeParameters.getLang(), em);
 		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.MaintenancePlanServiceRemote#getStadisticInfo
+	 * (org.fourgeeks.gha.domain.gmh.MaintenancePlan)
+	 */
+	@Override
+	public HashMap<String, Object> getStadisticInfo(
+			MaintenancePlan mantenancePlan) throws GHAEJBException {
+
+		try {
+			HashMap<String, Object> map = new HashMap<String, Object>();
+
+			Long timesEffectuated = preventivePlanifServiceLocal
+					.getEffectuatedPlanificationsCount(mantenancePlan);
+
+			Long numberOfEias = preventivePlanifServiceLocal
+					.getPlanificationsCount(mantenancePlan);
+
+			Timestamp lastTimeEffectuated = preventivePlanifServiceLocal
+					.getLastEffectuatedPlanificationDate(mantenancePlan);
+
+			List<MaintenanceProtocols> protocols = protocolsServiceRemote
+					.findByMaintenancePlan(mantenancePlan);
+
+			map.put("number-activities", protocols.size());
+			map.put("estimated-cost", getPlanEstimatedCost(protocols));
+			map.put("number-eias", numberOfEias);
+			map.put("times-effectuated", timesEffectuated);
+			map.put("last-time-effect", lastTimeEffectuated);
+
+			return map;
+		} catch (Exception e) {
+			logger.log(Level.INFO, "ERROR: unable to update MaintenancePlan ",
+					e);
+			throw super.generateGHAEJBException("maintenancePlan-update-fail",
+					RuntimeParameters.getLang(), em);
+		}
+	}
+
+	private double getPlanEstimatedCost(List<MaintenanceProtocols> protocols) {
+		double acum = 0;
+		for (MaintenanceProtocols entity : protocols) {
+			MaintenanceActivity activity = entity.getMaintenanceActivity();
+			BigDecimal estimatedCost = activity.getEstimatedCost();
+			acum += estimatedCost.doubleValue();
+		}
+		return acum;
+	}
+
+	private int getPlanEstimatedDuration(List<MaintenanceProtocols> protocols,
+			TimePeriodEnum pot) {
+		int acum = 0;
+		int acumHOURS, acumDAYS, acumWEEKS, acumMONTHS, acumSEMESTERS, acumYEARS;
+		acumHOURS = acumDAYS = acumWEEKS = acumMONTHS = acumSEMESTERS = acumYEARS = 0;
+
+		for (MaintenanceProtocols entity : protocols) {
+			MaintenanceActivity activity = entity.getMaintenanceActivity();
+			TimePeriodEnum periodOfTime = activity.getEstimatedDurationPoT();
+			if (periodOfTime == TimePeriodEnum.HOURS)
+				acumHOURS += activity.getEstimatedDuration().intValue();
+			else if (periodOfTime == TimePeriodEnum.DAYS)
+				acumDAYS += activity.getEstimatedDuration().intValue();
+			else if (periodOfTime == TimePeriodEnum.WEEKS)
+				acumWEEKS += activity.getEstimatedDuration().intValue();
+			else if (periodOfTime == TimePeriodEnum.MONTHS)
+				acumMONTHS += activity.getEstimatedDuration().intValue();
+			else if (periodOfTime == TimePeriodEnum.SEMESTERS)
+				acumSEMESTERS += activity.getEstimatedDuration().intValue();
+			else if (periodOfTime == TimePeriodEnum.YEARS)
+				acumYEARS += activity.getEstimatedDuration().intValue();
+		}
+		return acum;
 	}
 }
