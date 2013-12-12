@@ -4,7 +4,7 @@ import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
-import org.fourgeeks.gha.webclient.client.eia.EIATab;
+import org.fourgeeks.gha.webclient.client.eia.EIAPanel;
 
 /**
  * @author alacret
@@ -18,7 +18,7 @@ public class EIAComponentSubTab extends GHASubTab implements
 	/**
 	 * @param tab
 	 */
-	public EIAComponentSubTab(EIATab tab) {
+	public EIAComponentSubTab(EIAPanel tab) {
 		super(GHAStrings.get("components"), tab);
 
 		componentGridPanel = new EIAComponentGridPanel();

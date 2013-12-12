@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.UI.tabs;
+package org.fourgeeks.gha.webclient.client.UI.panels;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,6 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableProducer;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableProducer;
-import org.fourgeeks.gha.webclient.client.UI.panels.GHAPanelHeader;
 
 import com.smartgwt.client.widgets.layout.VLayout;
 
@@ -20,7 +19,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public abstract class GHATab extends VLayout implements ClosableListener,
+public abstract class GHAPanel extends VLayout implements ClosableListener,
 		HideableListener, ClosableProducer, HideableProducer {
 
 	protected GHAPanelHeader header;
@@ -34,15 +33,10 @@ public abstract class GHATab extends VLayout implements ClosableListener,
 	 * @param token
 	 * 
 	 */
-	public GHATab() {
+	public GHAPanel() {
 		setWidth100();
 		setBackgroundColor(GHAUiHelper.DEFAULT_BACKGROUND_COLOR);
 	}
-
-	/**
-	 * @return the id of the tab
-	 */
-	public abstract String getId();
 
 	/**
 	 * @return the header

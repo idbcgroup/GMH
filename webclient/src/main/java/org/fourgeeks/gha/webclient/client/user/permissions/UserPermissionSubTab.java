@@ -4,7 +4,7 @@ import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
 import org.fourgeeks.gha.webclient.client.user.UserSelectionListener;
-import org.fourgeeks.gha.webclient.client.user.UserTab;
+import org.fourgeeks.gha.webclient.client.user.UserPanel;
 
 /**
  * @author alacret
@@ -18,7 +18,7 @@ public class UserPermissionSubTab extends GHASubTab implements
 	/**
 	 * @param tab
 	 */
-	public UserPermissionSubTab(UserTab tab) {
+	public UserPermissionSubTab(UserPanel tab) {
 		super(GHAStrings.get("permissions"), tab);
 		tab.addUserSelectionListener(this);
 		gridPanel = new AppFormViewFunctionGridPanel();

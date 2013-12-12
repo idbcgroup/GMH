@@ -6,7 +6,7 @@ import java.util.List;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
-import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
+import org.fourgeeks.gha.webclient.client.UI.panels.GHAPanel;
 
 import com.smartgwt.client.widgets.layout.VLayout;
 
@@ -14,12 +14,10 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class MaintenanceActivityTab extends GHATab implements
+public class MaintenanceActivityTab extends GHAPanel implements
 		MaintenanceActivitySelectionListener,
 		MaintenanceActivitySelectionProducer {
 
-	public static final String ID = "mact";
-	// private static final String TITLE = "Actividades De Mant.";
 	private final MaintenanceActivityTopSection topSection;
 	private final MaintenanceActivityInternalTabset internalTabset;
 	List<MaintenanceActivitySelectionListener> listeners;
@@ -57,11 +55,6 @@ public class MaintenanceActivityTab extends GHATab implements
 	protected void onDraw() {
 		if (activity == null)
 			topSection.search();
-	}
-
-	@Override
-	public String getId() {
-		return ID;
 	}
 
 	/*

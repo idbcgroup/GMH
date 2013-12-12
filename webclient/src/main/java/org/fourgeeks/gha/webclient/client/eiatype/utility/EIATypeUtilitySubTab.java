@@ -2,7 +2,7 @@ package org.fourgeeks.gha.webclient.client.eiatype.utility;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
-import org.fourgeeks.gha.webclient.client.eiatype.EIATypeTab;
+import org.fourgeeks.gha.webclient.client.eiatype.EIATypePanel;
 
 /**
  * @author alacret
@@ -15,7 +15,7 @@ public class EIATypeUtilitySubTab extends GHASubTab {
 	/**
 	 * @param tab
 	 */
-	public EIATypeUtilitySubTab(EIATypeTab tab) {
+	public EIATypeUtilitySubTab(EIATypePanel tab) {
 		super(GHAStrings.get("utility-services"), tab);
 
 		eiaTypeServicesGridPanel = new EIATypeUtilityGridPanel();

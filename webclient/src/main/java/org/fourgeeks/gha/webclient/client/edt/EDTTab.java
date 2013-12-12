@@ -3,8 +3,8 @@ package org.fourgeeks.gha.webclient.client.edt;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
-import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
-import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader;
+import org.fourgeeks.gha.webclient.client.UI.panels.GHAPanel;
+import org.fourgeeks.gha.webclient.client.UI.panels.GHAPanelHeader;
 
 import com.smartgwt.client.widgets.layout.VLayout;
 
@@ -12,7 +12,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class EDTTab extends GHATab {
+public class EDTTab extends GHAPanel {
 
 	private final EDTTopMenu topMenu = new EDTTopMenu();
 	private final EDTTopGridPanel topGridPanel = new EDTTopGridPanel();
@@ -23,7 +23,7 @@ public class EDTTab extends GHATab {
 	 */
 	public EDTTab() {
 		super();
-		header = new GHATabHeader(this, GHAStrings.get("workstation"));
+		header = new GHAPanelHeader(this, GHAStrings.get("workstation"));
 		// Creacion de la tab de EDT
 		VLayout verticalPanel = new VLayout();
 		verticalPanel.setBackgroundColor("#E0E0E0");
@@ -35,11 +35,6 @@ public class EDTTab extends GHATab {
 		verticalPanel.addMember(botGridPanel);
 
 		addMember(verticalPanel);
-	}
-
-	@Override
-	public String getId() {
-		return "";
 	}
 
 	@Override

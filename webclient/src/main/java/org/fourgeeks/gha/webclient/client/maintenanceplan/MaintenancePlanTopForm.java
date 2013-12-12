@@ -46,7 +46,7 @@ public class MaintenancePlanTopForm extends
 	}
 
 	public MaintenancePlanTopForm(MaintenancePlanResultSet resultSet,
-			MaintenancePlanTab tab) {
+			MaintenancePlanPanel tab) {
 		super(resultSet, tab);
 
 		GHADynamicForm form = new GHADynamicForm(
