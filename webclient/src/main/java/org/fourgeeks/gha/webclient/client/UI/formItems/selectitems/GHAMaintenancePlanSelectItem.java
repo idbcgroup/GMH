@@ -8,6 +8,7 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype.EiaTypeMaintenancePlanModel;
 
@@ -24,20 +25,23 @@ public class GHAMaintenancePlanSelectItem extends GHASelectItem {
 		entities = new HashMap<String, MaintenancePlan>();
 	}
 
+
+	/**
+	 * 
+	 */
+	public GHAMaintenancePlanSelectItem() {
+		super(GHAStrings.get("maintenance-plan"));
+	}
+	
 	/**
 	 * @param required
 	 * @param changedHandler
 	 */
 	public GHAMaintenancePlanSelectItem(boolean required,
 			ChangedHandler changedHandler) {
-		super("Plan de mantenimiento", required, changedHandler);
-	}
-
-	/**
-	 * 
-	 */
-	public GHAMaintenancePlanSelectItem() {
-		super("Plan de mantenimiento");
+		this();
+		setRequired(required);
+		addChangedHandler(changedHandler);
 	}
 
 	/**

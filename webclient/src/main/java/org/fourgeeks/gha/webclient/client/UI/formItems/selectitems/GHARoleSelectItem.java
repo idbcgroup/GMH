@@ -16,48 +16,43 @@ import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
  * 
  */
 public class GHARoleSelectItem extends GHASelectItem {
-	public static final String labelKey = "responsible-role";
-
-	/**
-	 * @param width
-	 */
-	public GHARoleSelectItem(int width) {
-		super(GHAStrings.get(labelKey), width);
-		fill();
-	}
 
 	/**
 	 * 
 	 */
 	public GHARoleSelectItem() {
-		super(GHAStrings.get(labelKey));
+		super(GHAStrings.get("responsible-role"));
 		fill();
 	}
 
 	/**
-	 * @param title
+	 * @param width
+	 */
+	public GHARoleSelectItem(int width) {
+		this();
+		setWidth(width);
+	}
+
+	/**
 	 * @param width
 	 * @param required
 	 * @param changedHandler
 	 */
 	public GHARoleSelectItem(int width, boolean required,
 			ChangedHandler changedHandler) {
-		super(GHAStrings.get(labelKey), width);
+		this(width);
 		setRequired(required);
 		addChangedHandler(changedHandler);
-		fill();
 	}
 
 	/**
-	 * @param title
 	 * @param required
 	 * @param changedHandler
 	 */
 	public GHARoleSelectItem(boolean required, ChangedHandler changedHandler) {
-		super(GHAStrings.get(labelKey));
+		this();
 		setRequired(required);
 		addChangedHandler(changedHandler);
-		fill();
 	}
 
 	public void fill() {

@@ -31,7 +31,6 @@ public class EIATab extends GHATab implements EIASelectionListener,
 	 * The ID of the Tab in the app managers
 	 */
 	public static final String ID = "eia";
-	private static final String TITLE = GHAStrings.get("equipments");
 	private final EIAAddForm addForm;
 	private final EIAInternalTabset internalTabSet;
 	private final List<EIASelectionListener> listeners = new ArrayList<EIASelectionListener>();
@@ -44,9 +43,8 @@ public class EIATab extends GHATab implements EIASelectionListener,
 	 * @param token
 	 * 
 	 */
-	public EIATab(String token) {
-		super(token);
-		header = new GHATabHeader(this, TITLE);
+	public EIATab() {
+		header = new GHATabHeader(this, GHAStrings.get("equipments"));
 		searchOption = header.addSearchOption(new ClickHandler() {
 
 			@Override
@@ -167,6 +165,9 @@ public class EIATab extends GHATab implements EIASelectionListener,
 		listeners.remove(eiaSelectionListener);
 	}
 
+	/**
+	 * 
+	 */
 	@Override
 	public void search() {
 		if (currentStatus.equals(TabStatus.SEARCH))
@@ -197,11 +198,10 @@ public class EIATab extends GHATab implements EIASelectionListener,
 	public void show() {
 		super.show();
 		topForm.setVisibility(Visibility.VISIBLE);
-		if (currentStatus.equals(TabStatus.ADD))
+		if (currentStatus.equals(TabStatus.ADD)
+				|| (currentStatus.equals(TabStatus.SEARCH))
+				|| (currentStatus.equals(TabStatus.INIT)))
 			return;
-		if (currentStatus.equals(TabStatus.SEARCH))
-			return;
-
 		if (currentStatus.equals(TabStatus.ENTITY_SELECTED))
 			internalTabSet.show();
 		else

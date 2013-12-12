@@ -10,7 +10,7 @@ import com.google.gwt.user.client.ui.RootPanel;
  */
 public class ForgottenPasswordPlace extends GHAPlace {
 
-	private mailCheckPanel mailCheckPanel = new mailCheckPanel();
+	private final mailCheckPanel mailCheckPanel = new mailCheckPanel();
 
 	/**
 	 * @param token
@@ -21,8 +21,21 @@ public class ForgottenPasswordPlace extends GHAPlace {
 
 	@Override
 	public void show() {
+		super.show();
 		RootPanel.get("main-content").clear();
 		RootPanel.get("main-content").addStyleName("white-background");
 		RootPanel.get("main-content").add(mailCheckPanel);
+	}
+
+	@Override
+	public String getId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getAcronym() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

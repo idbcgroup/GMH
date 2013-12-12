@@ -12,23 +12,28 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 
 public class GHAExternalProviderSelectItem extends GHASelectItem {
-	public static final String labelKey = "maintenance-provider";
-	
-	/**
-	 * @param width
-	 */
-	public GHAExternalProviderSelectItem(int width) {
-		super(GHAStrings.get(labelKey), width);
-		fill();
-	}
 
 	/**
 	 * 
 	 */
 	public GHAExternalProviderSelectItem() {
-		super(GHAStrings.get(labelKey));
+		super(GHAStrings.get("maintenance-provider"));
 		fill();
 	}
+	
+	public GHAExternalProviderSelectItem(String title) {
+		super(title);
+		fill();
+	}
+	
+	/**
+	 * @param width
+	 */
+	public GHAExternalProviderSelectItem(int width) {
+		this();
+		setWidth(width);
+	}
+
 
 	/**
 	 * @param title
@@ -37,22 +42,15 @@ public class GHAExternalProviderSelectItem extends GHASelectItem {
 	 */
 	public GHAExternalProviderSelectItem(boolean required,
 			ChangedHandler changedHandler) {
-		super(GHAStrings.get(labelKey));
+		this();
 		setRequired(required);
 		addChangedHandler(changedHandler);
-		fill();
 	}
-
-	public GHAExternalProviderSelectItem(String title, boolean required,
-			ChangedHandler changedHandler) {
-		super(title, required, changedHandler);
-		fill();
-	}
-
+	
 	public GHAExternalProviderSelectItem(String title, boolean enabled) {
-		super(title, enabled);
-		fill();
-	}
+		this(title);
+		setDisabled(!enabled);
+	}	
 
 	private void fill() {
 		GHACache.INSTANCE

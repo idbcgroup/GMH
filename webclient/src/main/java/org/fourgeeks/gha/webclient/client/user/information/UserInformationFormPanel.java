@@ -9,9 +9,9 @@ import org.fourgeeks.gha.webclient.client.UI.icons.GHAUndoButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
+import org.fourgeeks.gha.webclient.client.UI.places.GHAPlaceSet;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
-import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabSet;
 import org.fourgeeks.gha.webclient.client.user.UserForm;
 import org.fourgeeks.gha.webclient.client.user.UserSelectionListener;
 import org.fourgeeks.gha.webclient.client.user.UserSelectionProducer;
@@ -29,7 +29,7 @@ public class UserInformationFormPanel extends GHAVerticalLayout implements
 		ClosableListener, HideableListener, UserSelectionProducer,
 		UserSelectionListener {
 
-	private UserForm form = new UserForm();
+	private final UserForm form = new UserForm();
 
 	public UserInformationFormPanel() {
 		super();
@@ -83,14 +83,15 @@ public class UserInformationFormPanel extends GHAVerticalLayout implements
 
 						@Override
 						public void onClick(ClickEvent event) {
-							GHATabSet.closeCurrentTab(HideCloseAction.SAVE);
+							GHAPlaceSet.closeCurrentPlace(HideCloseAction.SAVE);
 
 						}
 					}, new ClickHandler() {
 
 						@Override
 						public void onClick(ClickEvent event) {
-							GHATabSet.closeCurrentTab(HideCloseAction.DISCARD);
+							GHAPlaceSet
+									.closeCurrentPlace(HideCloseAction.DISCARD);
 
 						}
 					}, null);
@@ -115,14 +116,15 @@ public class UserInformationFormPanel extends GHAVerticalLayout implements
 
 						@Override
 						public void onClick(ClickEvent event) {
-							GHATabSet.hideCurrentTab(HideCloseAction.SAVE);
+							GHAPlaceSet.hideCurrentPlace(HideCloseAction.SAVE);
 
 						}
 					}, new ClickHandler() {
 
 						@Override
 						public void onClick(ClickEvent event) {
-							GHATabSet.hideCurrentTab(HideCloseAction.DISCARD);
+							GHAPlaceSet
+									.hideCurrentPlace(HideCloseAction.DISCARD);
 
 						}
 					}, null);

@@ -17,7 +17,15 @@ public class GHAEiaStateSelectItem extends GHASelectItem {
 	 * 
 	 */
 	public GHAEiaStateSelectItem() {
-		super(GHAStrings.get(labelKey));
+		super(GHAStrings.get("state"));
+		setValueMap(EiaStateEnum.toValueMap());
+	}
+	
+	/**
+	 * 
+	 */
+	public GHAEiaStateSelectItem(String title) {
+		super(title);
 		setValueMap(EiaStateEnum.toValueMap());
 	}
 
@@ -25,34 +33,29 @@ public class GHAEiaStateSelectItem extends GHASelectItem {
 	 * @param width
 	 */
 	public GHAEiaStateSelectItem(int width) {
-		super(GHAStrings.get(labelKey), width);
-		setValueMap(EiaStateEnum.toValueMap());
+		this();
+		setWidth(width);
 	}
 
 	/**
-	 * @param title
+	 * @param required
+	 * @param changedHandler
+	 */
+	public GHAEiaStateSelectItem(boolean required, ChangedHandler changedHandler) {
+		this();
+		setRequired(required);
+		addChangedHandler(changedHandler);
+	}
+	
+	/**
 	 * @param width
 	 * @param required
 	 * @param changedHandler
 	 */
 	public GHAEiaStateSelectItem(int width, boolean required,
 			ChangedHandler changedHandler) {
-		super(GHAStrings.get(labelKey), width);
-		setRequired(required);
-		addChangedHandler(changedHandler);
-		setValueMap(EiaStateEnum.toValueMap());
-	}
-
-	/**
-	 * @param title
-	 * @param required
-	 * @param changedHandler
-	 */
-	public GHAEiaStateSelectItem(boolean required, ChangedHandler changedHandler) {
-		super(GHAStrings.get(labelKey));
-		setRequired(required);
-		addChangedHandler(changedHandler);
-		setValueMap(EiaStateEnum.toValueMap());
+		this(required,changedHandler);
+		setWidth(width);
 	}
 
 	/**
@@ -62,10 +65,9 @@ public class GHAEiaStateSelectItem extends GHASelectItem {
 	 */
 	public GHAEiaStateSelectItem(String title, boolean required,
 			ChangedHandler changedHandler) {
-		super(title);
+		this(title);
 		setRequired(required);
 		addChangedHandler(changedHandler);
-		setValueMap(EiaStateEnum.toValueMap());
 	}
 
 }

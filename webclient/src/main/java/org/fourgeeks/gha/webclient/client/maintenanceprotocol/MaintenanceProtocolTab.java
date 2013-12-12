@@ -11,14 +11,15 @@ import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
  * @author alacret
  * 
  */
+@Deprecated
 public class MaintenanceProtocolTab extends GHATab implements
 		MaintenanceProtocolSelectionListener,
 		MaintenanceProtocolSelectionProducer {
 
 	public static final String ID = "mprot";
 	private static final String TITLE = "Protocolos De Mant.";
-	private MaintenanceProtocolTopSection topSection;
-	private MaintenanceProtocolInternalTabset internalTabset;
+	private final MaintenanceProtocolTopSection topSection;
+	private final MaintenanceProtocolInternalTabset internalTabset;
 	private List<MaintenanceProtocolSelectionListener> listeners;
 
 	private MaintenanceProtocol protocol;
@@ -31,7 +32,7 @@ public class MaintenanceProtocolTab extends GHATab implements
 	 * @param token
 	 */
 	public MaintenanceProtocolTab(String token) {
-		super(token);
+		super();
 		// getHeader().setTitle(TITLE);
 		topSection = new MaintenanceProtocolTopSection(this);
 		internalTabset = new MaintenanceProtocolInternalTabset(this);

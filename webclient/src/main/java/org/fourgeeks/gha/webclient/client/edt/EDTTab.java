@@ -1,8 +1,10 @@
 package org.fourgeeks.gha.webclient.client.edt;
 
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
+import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader;
 
 import com.smartgwt.client.widgets.layout.VLayout;
 
@@ -12,20 +14,16 @@ import com.smartgwt.client.widgets.layout.VLayout;
  */
 public class EDTTab extends GHATab {
 
-	public static final String ID = "edt";
-	private static final String TITLE = "Estacion De Trabajo";
-
-	private EDTTopMenu topMenu = new EDTTopMenu();
-	private EDTTopGridPanel topGridPanel = new EDTTopGridPanel();
-	private EDTBotGridPanel botGridPanel = new EDTBotGridPanel();
+	private final EDTTopMenu topMenu = new EDTTopMenu();
+	private final EDTTopGridPanel topGridPanel = new EDTTopGridPanel();
+	private final EDTBotGridPanel botGridPanel = new EDTBotGridPanel();
 
 	/**
 	 * @param token
 	 */
-	public EDTTab(String token) {
-		super(token);
-		// getHeader().setTitle(TITLE);
-
+	public EDTTab() {
+		super();
+		header = new GHATabHeader(this, GHAStrings.get("workstation"));
 		// Creacion de la tab de EDT
 		VLayout verticalPanel = new VLayout();
 		verticalPanel.setBackgroundColor("#E0E0E0");
@@ -41,7 +39,7 @@ public class EDTTab extends GHATab {
 
 	@Override
 	public String getId() {
-		return ID;
+		return "";
 	}
 
 	@Override
@@ -56,6 +54,8 @@ public class EDTTab extends GHATab {
 
 	@Override
 	public void search() {
+		// TODO Auto-generated method stub
+
 	}
 
 }

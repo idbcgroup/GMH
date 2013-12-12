@@ -38,7 +38,6 @@ public class mailCheckPanel extends VLayout implements ResizeHandler{
 					com.smartgwt.client.widgets.form.fields.events.ClickEvent event) {
 				//Send password to user
 				SC.say("En pocos minutos recibirá un correo a la dirección especificada con su contraseña.");
-				History.newItem("login");
 			}
 		});
 		submitButton.setWidth(190);

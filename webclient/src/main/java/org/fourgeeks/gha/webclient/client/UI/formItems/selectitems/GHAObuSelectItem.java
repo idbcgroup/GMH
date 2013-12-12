@@ -19,19 +19,19 @@ public class GHAObuSelectItem extends GHASelectItem {
 	public static final String labelKey = "obu";
 
 	/**
-	 * @param width
-	 */
-	public GHAObuSelectItem(int width) {
-		super(GHAStrings.get(labelKey), width);
-		fill();
-	}
-
-	/**
 	 * 
 	 */
 	public GHAObuSelectItem() {
-		super(GHAStrings.get(labelKey));
+		super(GHAStrings.get("obu"));
 		fill();
+	}
+	
+	/**
+	 * @param width
+	 */
+	public GHAObuSelectItem(int width) {
+		this();
+		setWidth(width);
 	}
 
 	/**
@@ -42,10 +42,9 @@ public class GHAObuSelectItem extends GHASelectItem {
 	 */
 	public GHAObuSelectItem(int width, boolean required,
 			ChangedHandler changedHandler) {
-		super(GHAStrings.get(labelKey), width);
+		this(width);
 		setRequired(required);
 		addChangedHandler(changedHandler);
-		fill();
 	}
 
 	/**
@@ -54,10 +53,9 @@ public class GHAObuSelectItem extends GHASelectItem {
 	 * @param changedHandler
 	 */
 	public GHAObuSelectItem(boolean required, ChangedHandler changedHandler) {
-		super(GHAStrings.get(labelKey));
+		this();
 		setRequired(required);
 		addChangedHandler(changedHandler);
-		fill();
 	}
 
 	public void fill() {

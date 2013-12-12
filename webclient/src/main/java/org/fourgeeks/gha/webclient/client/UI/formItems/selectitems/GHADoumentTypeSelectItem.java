@@ -17,7 +17,7 @@ public class GHADoumentTypeSelectItem extends GHASelectItem {
 	 * 
 	 */
 	public GHADoumentTypeSelectItem() {
-		super(GHAStrings.get(labelKey));
+		super(GHAStrings.get("id-type"));
 		setValueMap(DocumentTypeEnum.toValueMap());
 	}
 	
@@ -25,10 +25,22 @@ public class GHADoumentTypeSelectItem extends GHASelectItem {
 	 * @param width
 	 */
 	public GHADoumentTypeSelectItem(int width) {
-		super(GHAStrings.get(labelKey), width);
-		setValueMap(DocumentTypeEnum.toValueMap());
+		this();
+		setWidth(width);
 	}
 
+	/**
+	 * @param title
+	 * @param required
+	 * @param changedHandler
+	 */
+	public GHADoumentTypeSelectItem(boolean required,
+			ChangedHandler changedHandler) {
+		this();
+		setRequired(required);
+		addChangedHandler(changedHandler);
+	}
+	
 	/**
 	 * @param title
 	 * @param width
@@ -37,23 +49,9 @@ public class GHADoumentTypeSelectItem extends GHASelectItem {
 	 */
 	public GHADoumentTypeSelectItem(int width, boolean required,
 			ChangedHandler changedHandler) {
-		super(GHAStrings.get(labelKey), width);
-		setRequired(required);
-		addChangedHandler(changedHandler);
-		setValueMap(DocumentTypeEnum.toValueMap());
+		this(required,changedHandler);
+		setWidth(width);
 	}
 	
-	/**
-	 * @param title
-	 * @param required
-	 * @param changedHandler
-	 */
-	public GHADoumentTypeSelectItem(boolean required,
-			ChangedHandler changedHandler) {
-		super(GHAStrings.get(labelKey));
-		setRequired(required);
-		addChangedHandler(changedHandler);
-		setValueMap(DocumentTypeEnum.toValueMap());
-	}
 
 }

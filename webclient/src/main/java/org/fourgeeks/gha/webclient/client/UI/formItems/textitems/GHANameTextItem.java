@@ -34,9 +34,8 @@ public class GHANameTextItem extends GHATextItem {
 	 * @param width
 	 */
 	public GHANameTextItem(String title, int width) {
-		super(title, width);
-		setLength(20);
-		setMask(">A<AAAAAAAAAAAAAAAAAAA");
+		this(title);
+		setWidth(width);
 	}
 
 	/**

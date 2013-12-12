@@ -1,20 +1,17 @@
 package org.fourgeeks.gha.webclient.client.user;
 
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.LoginNeededException;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.PermissionsNeededException;
-import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToHideException;
+import org.fourgeeks.gha.webclient.client.UI.places.GHAPlaceHeader;
 import org.fourgeeks.gha.webclient.client.UI.places.NeedPermissionPlace;
-import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
-import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabSet;
-
-import com.google.gwt.user.client.History;
 
 /**
  * @author alacret
  * 
  */
 public class UserPlace extends NeedPermissionPlace {
-	private GHATab tab;
+	private final UserTab tab = new UserTab();
 
 	/**
 	 * @param token
@@ -24,17 +21,27 @@ public class UserPlace extends NeedPermissionPlace {
 	public UserPlace(String token) throws LoginNeededException,
 			PermissionsNeededException {
 		super(token);
-		tab = GHATabSet.getById(UserTab.ID);
-		if (tab == null)
-			tab = new UserTab(token);
+		header = new GHAPlaceHeader(this);
+		addHideableListener(tab);
+		addClosableListener(tab);
+		addMember(tab.getHeader());
+		addMember(tab);
+	}
+
+	@Override
+	public String getId() {
+		return "user";
+	}
+
+	@Override
+	public String getAcronym() {
+		return GHAStrings.get("users");
 	}
 
 	@Override
 	public void show() {
-		try {
-			GHATabSet.showTab(tab);
-		} catch (UnavailableToHideException e) {
-			History.back();
-		}
+		super.show();
+		tab.show();
+		tab.getHeader().show();
 	}
 }

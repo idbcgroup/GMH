@@ -40,8 +40,8 @@ public class MaintenancePlanTab extends GHATab implements
 	/**
 	 * @param token
 	 */
-	public MaintenancePlanTab(String token) {
-		super(token);
+	public MaintenancePlanTab() {
+		super();
 		header = new GHATabHeader(this, TITLE);
 		searchOption = header.addSearchOption(new ClickHandler() {
 

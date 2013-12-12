@@ -1,170 +1,170 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
-  <filter>
-   <description>Requires user to log in as a member</description>
-    <filter-name>MemberLoginFilter</filter-name>
-    <filter-class>org.fourgeeks.gha.webclient.server.MemberLoginFilter</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>MemberLoginFilter</filter-name>
-    <url-pattern>/webclient/ssouser</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>MemberLoginFilter</filter-name>
-    <url-pattern>/webclient/appFormViewFunction</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>MemberLoginFilter</filter-name>
-    <url-pattern>/webclient/appFormViewFunctionBpu</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>MemberLoginFilter</filter-name>
-    <url-pattern>/webclient/bpa</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>MemberLoginFilter</filter-name>
-    <url-pattern>/webclient/bpi</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>MemberLoginFilter</filter-name>
-    <url-pattern>/webclient/bpu</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>MemberLoginFilter</filter-name>
-    <url-pattern>/webclient/brand</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>MemberLoginFilter</filter-name>
-    <url-pattern>/webclient/buildingLocation</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>MemberLoginFilter</filter-name>
-    <url-pattern>/webclient/citizen</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>MemberLoginFilter</filter-name>
-    <url-pattern>/webclient/eia</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>MemberLoginFilter</filter-name>
-    <url-pattern>/webclient/eiaComponent</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>MemberLoginFilter</filter-name>
-    <url-pattern>/webclient/eiaDamageReport</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>MemberLoginFilter</filter-name>
-    <url-pattern>/webclient/EiaPreventiveMaintenancePlanification</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>MemberLoginFilter</filter-name>
-    <url-pattern>/webclient/eiaType</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>MemberLoginFilter</filter-name>
-    <url-pattern>/webclient/eiaTypeComponent</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>MemberLoginFilter</filter-name>
-    <url-pattern>/webclient/maintenanceActivityMaintenanceProtocolService</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>MemberLoginFilter</filter-name>
-    <url-pattern>/webclient/eiaTypeMaintenancePlanService</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>MemberLoginFilter</filter-name>
-    <url-pattern>/webclient/maintenancePlanMaintenanceProtocolService</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>MemberLoginFilter</filter-name>
-    <url-pattern>/webclient/maintenancePlanService</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>MemberLoginFilter</filter-name>
-    <url-pattern>/webclient/maintenanceActivityService</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>MemberLoginFilter</filter-name>
-    <url-pattern>/webclient/maintenanceProtocolService</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>MemberLoginFilter</filter-name>
-    <url-pattern>/webclient/maintenanceSubProtocol</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>MemberLoginFilter</filter-name>
-    <url-pattern>/webclient/eiaTypeMaterialCategory</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>MemberLoginFilter</filter-name>
-    <url-pattern>/webclient/eiaTypeMaterial</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>MemberLoginFilter</filter-name>
-    <url-pattern>/webclient/eiaTypeUtility</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>MemberLoginFilter</filter-name>
-    <url-pattern>/webclient/externalProvider</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>MemberLoginFilter</filter-name>
-    <url-pattern>/webclient/facility</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>MemberLoginFilter</filter-name>
-    <url-pattern>/webclient/instanceLogon</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>MemberLoginFilter</filter-name>
-    <url-pattern>/webclient/institution</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>MemberLoginFilter</filter-name>
-    <url-pattern>/webclient/legalEntity</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>MemberLoginFilter</filter-name>
-    <url-pattern>/webclient/logonlog</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>MemberLoginFilter</filter-name>
-    <url-pattern>/webclient/manufacturer</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>MemberLoginFilter</filter-name>
-    <url-pattern>/webclient/material</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>MemberLoginFilter</filter-name>
-    <url-pattern>/webclient/materialCategory</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>MemberLoginFilter</filter-name>
-    <url-pattern>/webclient/messageService</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>MemberLoginFilter</filter-name>
-    <url-pattern>/webclient/obu</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>MemberLoginFilter</filter-name>
-    <url-pattern>/webclient/serviceResource</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>MemberLoginFilter</filter-name>
-    <url-pattern>/webclient/role</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>MemberLoginFilter</filter-name>
-    <url-pattern>/webclient/systemInstance</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>MemberLoginFilter</filter-name>
-    <url-pattern>/webclient/workingArea</url-pattern>
-  </filter-mapping>
+<!--   <filter> -->
+<!--    <description>Requires user to log in as a member</description> -->
+<!--     <filter-name>MemberLoginFilter</filter-name> -->
+<!--     <filter-class>org.fourgeeks.gha.webclient.server.MemberLoginFilter</filter-class> -->
+<!--   </filter> -->
+<!--   <filter-mapping> -->
+<!--     <filter-name>MemberLoginFilter</filter-name> -->
+<!--     <url-pattern>/webclient/ssouser</url-pattern> -->
+<!--   </filter-mapping> -->
+<!--   <filter-mapping> -->
+<!--     <filter-name>MemberLoginFilter</filter-name> -->
+<!--     <url-pattern>/webclient/appFormViewFunction</url-pattern> -->
+<!--   </filter-mapping> -->
+<!--   <filter-mapping> -->
+<!--     <filter-name>MemberLoginFilter</filter-name> -->
+<!--     <url-pattern>/webclient/appFormViewFunctionBpu</url-pattern> -->
+<!--   </filter-mapping> -->
+<!--   <filter-mapping> -->
+<!--     <filter-name>MemberLoginFilter</filter-name> -->
+<!--     <url-pattern>/webclient/bpa</url-pattern> -->
+<!--   </filter-mapping> -->
+<!--   <filter-mapping> -->
+<!--     <filter-name>MemberLoginFilter</filter-name> -->
+<!--     <url-pattern>/webclient/bpi</url-pattern> -->
+<!--   </filter-mapping> -->
+<!--   <filter-mapping> -->
+<!--     <filter-name>MemberLoginFilter</filter-name> -->
+<!--     <url-pattern>/webclient/bpu</url-pattern> -->
+<!--   </filter-mapping> -->
+<!--   <filter-mapping> -->
+<!--     <filter-name>MemberLoginFilter</filter-name> -->
+<!--     <url-pattern>/webclient/brand</url-pattern> -->
+<!--   </filter-mapping> -->
+<!--   <filter-mapping> -->
+<!--     <filter-name>MemberLoginFilter</filter-name> -->
+<!--     <url-pattern>/webclient/buildingLocation</url-pattern> -->
+<!--   </filter-mapping> -->
+<!--   <filter-mapping> -->
+<!--     <filter-name>MemberLoginFilter</filter-name> -->
+<!--     <url-pattern>/webclient/citizen</url-pattern> -->
+<!--   </filter-mapping> -->
+<!--   <filter-mapping> -->
+<!--     <filter-name>MemberLoginFilter</filter-name> -->
+<!--     <url-pattern>/webclient/eia</url-pattern> -->
+<!--   </filter-mapping> -->
+<!--   <filter-mapping> -->
+<!--     <filter-name>MemberLoginFilter</filter-name> -->
+<!--     <url-pattern>/webclient/eiaComponent</url-pattern> -->
+<!--   </filter-mapping> -->
+<!--   <filter-mapping> -->
+<!--     <filter-name>MemberLoginFilter</filter-name> -->
+<!--     <url-pattern>/webclient/eiaDamageReport</url-pattern> -->
+<!--   </filter-mapping> -->
+<!--   <filter-mapping> -->
+<!--     <filter-name>MemberLoginFilter</filter-name> -->
+<!--     <url-pattern>/webclient/EiaPreventiveMaintenancePlanification</url-pattern> -->
+<!--   </filter-mapping> -->
+<!--   <filter-mapping> -->
+<!--     <filter-name>MemberLoginFilter</filter-name> -->
+<!--     <url-pattern>/webclient/eiaType</url-pattern> -->
+<!--   </filter-mapping> -->
+<!--   <filter-mapping> -->
+<!--     <filter-name>MemberLoginFilter</filter-name> -->
+<!--     <url-pattern>/webclient/eiaTypeComponent</url-pattern> -->
+<!--   </filter-mapping> -->
+<!--   <filter-mapping> -->
+<!--     <filter-name>MemberLoginFilter</filter-name> -->
+<!--     <url-pattern>/webclient/maintenanceActivityMaintenanceProtocolService</url-pattern> -->
+<!--   </filter-mapping> -->
+<!--   <filter-mapping> -->
+<!--     <filter-name>MemberLoginFilter</filter-name> -->
+<!--     <url-pattern>/webclient/eiaTypeMaintenancePlanService</url-pattern> -->
+<!--   </filter-mapping> -->
+<!--   <filter-mapping> -->
+<!--     <filter-name>MemberLoginFilter</filter-name> -->
+<!--     <url-pattern>/webclient/maintenancePlanMaintenanceProtocolService</url-pattern> -->
+<!--   </filter-mapping> -->
+<!--   <filter-mapping> -->
+<!--     <filter-name>MemberLoginFilter</filter-name> -->
+<!--     <url-pattern>/webclient/maintenancePlanService</url-pattern> -->
+<!--   </filter-mapping> -->
+<!--   <filter-mapping> -->
+<!--     <filter-name>MemberLoginFilter</filter-name> -->
+<!--     <url-pattern>/webclient/maintenanceActivityService</url-pattern> -->
+<!--   </filter-mapping> -->
+<!--   <filter-mapping> -->
+<!--     <filter-name>MemberLoginFilter</filter-name> -->
+<!--     <url-pattern>/webclient/maintenanceProtocolService</url-pattern> -->
+<!--   </filter-mapping> -->
+<!--   <filter-mapping> -->
+<!--     <filter-name>MemberLoginFilter</filter-name> -->
+<!--     <url-pattern>/webclient/maintenanceSubProtocol</url-pattern> -->
+<!--   </filter-mapping> -->
+<!--   <filter-mapping> -->
+<!--     <filter-name>MemberLoginFilter</filter-name> -->
+<!--     <url-pattern>/webclient/eiaTypeMaterialCategory</url-pattern> -->
+<!--   </filter-mapping> -->
+<!--   <filter-mapping> -->
+<!--     <filter-name>MemberLoginFilter</filter-name> -->
+<!--     <url-pattern>/webclient/eiaTypeMaterial</url-pattern> -->
+<!--   </filter-mapping> -->
+<!--   <filter-mapping> -->
+<!--     <filter-name>MemberLoginFilter</filter-name> -->
+<!--     <url-pattern>/webclient/eiaTypeUtility</url-pattern> -->
+<!--   </filter-mapping> -->
+<!--   <filter-mapping> -->
+<!--     <filter-name>MemberLoginFilter</filter-name> -->
+<!--     <url-pattern>/webclient/externalProvider</url-pattern> -->
+<!--   </filter-mapping> -->
+<!--   <filter-mapping> -->
+<!--     <filter-name>MemberLoginFilter</filter-name> -->
+<!--     <url-pattern>/webclient/facility</url-pattern> -->
+<!--   </filter-mapping> -->
+<!--   <filter-mapping> -->
+<!--     <filter-name>MemberLoginFilter</filter-name> -->
+<!--     <url-pattern>/webclient/instanceLogon</url-pattern> -->
+<!--   </filter-mapping> -->
+<!--   <filter-mapping> -->
+<!--     <filter-name>MemberLoginFilter</filter-name> -->
+<!--     <url-pattern>/webclient/institution</url-pattern> -->
+<!--   </filter-mapping> -->
+<!--   <filter-mapping> -->
+<!--     <filter-name>MemberLoginFilter</filter-name> -->
+<!--     <url-pattern>/webclient/legalEntity</url-pattern> -->
+<!--   </filter-mapping> -->
+<!--   <filter-mapping> -->
+<!--     <filter-name>MemberLoginFilter</filter-name> -->
+<!--     <url-pattern>/webclient/logonlog</url-pattern> -->
+<!--   </filter-mapping> -->
+<!--   <filter-mapping> -->
+<!--     <filter-name>MemberLoginFilter</filter-name> -->
+<!--     <url-pattern>/webclient/manufacturer</url-pattern> -->
+<!--   </filter-mapping> -->
+<!--   <filter-mapping> -->
+<!--     <filter-name>MemberLoginFilter</filter-name> -->
+<!--     <url-pattern>/webclient/material</url-pattern> -->
+<!--   </filter-mapping> -->
+<!--   <filter-mapping> -->
+<!--     <filter-name>MemberLoginFilter</filter-name> -->
+<!--     <url-pattern>/webclient/materialCategory</url-pattern> -->
+<!--   </filter-mapping> -->
+<!--   <filter-mapping> -->
+<!--     <filter-name>MemberLoginFilter</filter-name> -->
+<!--     <url-pattern>/webclient/messageService</url-pattern> -->
+<!--   </filter-mapping> -->
+<!--   <filter-mapping> -->
+<!--     <filter-name>MemberLoginFilter</filter-name> -->
+<!--     <url-pattern>/webclient/obu</url-pattern> -->
+<!--   </filter-mapping> -->
+<!--   <filter-mapping> -->
+<!--     <filter-name>MemberLoginFilter</filter-name> -->
+<!--     <url-pattern>/webclient/serviceResource</url-pattern> -->
+<!--   </filter-mapping> -->
+<!--   <filter-mapping> -->
+<!--     <filter-name>MemberLoginFilter</filter-name> -->
+<!--     <url-pattern>/webclient/role</url-pattern> -->
+<!--   </filter-mapping> -->
+<!--   <filter-mapping> -->
+<!--     <filter-name>MemberLoginFilter</filter-name> -->
+<!--     <url-pattern>/webclient/systemInstance</url-pattern> -->
+<!--   </filter-mapping> -->
+<!--   <filter-mapping> -->
+<!--     <filter-name>MemberLoginFilter</filter-name> -->
+<!--     <url-pattern>/webclient/workingArea</url-pattern> -->
+<!--   </filter-mapping> -->
 
   <context-param>
     <param-name>maxSize</param-name>

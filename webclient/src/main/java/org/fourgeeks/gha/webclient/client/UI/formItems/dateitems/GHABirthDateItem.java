@@ -13,18 +13,13 @@ import com.smartgwt.client.widgets.form.validator.DateRangeValidator;
  */
 public class GHABirthDateItem extends GHADateItem {
 
-	/**
-	 * 
-	 */
-	public GHABirthDateItem(String title, ChangedHandler changeHandler) {
+	public GHABirthDateItem(String title){
 		super(title);
-		addChangedHandler(changeHandler);
-		
 		setValidateOnChange(true);
-		setHoverWidth(150);		
+		setHoverWidth(150);	
 		
 		setValidators(getValidator());
-				
+		
 //		addChangeHandler(new ChangeHandler() {
 //
 //			@Override
@@ -32,6 +27,19 @@ public class GHABirthDateItem extends GHADateItem {
 //				GHABirthDateItem.this.validate();
 //			}
 //		});
+	}
+	
+	/**
+	 * 
+	 */
+	public GHABirthDateItem(String title, ChangedHandler changeHandler) {
+		this(title);
+		addChangedHandler(changeHandler);
+		
+		setValidateOnChange(true);
+		setHoverWidth(150);		
+		
+		setValidators(getValidator());
 	}
 	
 	public DateRangeValidator getValidator(){

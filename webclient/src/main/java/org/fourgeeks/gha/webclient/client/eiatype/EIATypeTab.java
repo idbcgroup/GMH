@@ -43,8 +43,8 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 	/**
 	 * @param token
 	 */
-	public EIATypeTab(String token) {
-		super(token);
+	public EIATypeTab() {
+		super();
 		header = new GHATabHeader(this, TITLE);
 		searchOption = header.addSearchOption(new ClickHandler() {
 
@@ -185,11 +185,10 @@ public class EIATypeTab extends GHATab implements EIATypeSelectionListener,
 	public void show() {
 		super.show();
 		topForm.setVisibility(Visibility.VISIBLE);
-		if (currentStatus.equals(TabStatus.ADD))
+		if (currentStatus.equals(TabStatus.ADD)
+				|| (currentStatus.equals(TabStatus.SEARCH))
+				|| (currentStatus.equals(TabStatus.INIT)))
 			return;
-		if (currentStatus.equals(TabStatus.SEARCH))
-			return;
-
 		if (currentStatus.equals(TabStatus.ENTITY_SELECTED))
 			internalTabSet.show();
 		else
