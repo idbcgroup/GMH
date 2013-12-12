@@ -3,7 +3,7 @@ package org.fourgeeks.gha.webclient.client.eia.cost;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
-import org.fourgeeks.gha.webclient.client.eia.EIATab;
+import org.fourgeeks.gha.webclient.client.eia.EIAPanel;
 
 /**
  * @author alacret
@@ -20,7 +20,7 @@ public class EIACostSubTab extends GHASubTab implements EIASelectionListener{
 	/**
 	 * @param tab
 	 */
-	public EIACostSubTab(EIATab tab) {
+	public EIACostSubTab(EIAPanel tab) {
 		super("Costos y Depreciación", tab);
 		setDisabled(true);
 		tab.addEiaSelectionListener(this);

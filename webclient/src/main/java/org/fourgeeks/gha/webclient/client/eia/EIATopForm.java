@@ -76,7 +76,7 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 	 * @param resultSet
 	 * @param eiaTab
 	 */
-	public EIATopForm(EiaResultSet resultSet, EIATab eiaTab) {
+	public EIATopForm(EiaResultSet resultSet, EIAPanel eiaTab) {
 		super(resultSet, eiaTab);
 
 		form.setItems(serialNumber, fixedAssetIdentifier, stateSelectItem,

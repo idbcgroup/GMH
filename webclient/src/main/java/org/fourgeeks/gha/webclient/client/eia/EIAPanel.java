@@ -12,9 +12,9 @@ import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToHideExcepti
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.SearchListener;
-import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
-import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader;
-import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader.Option;
+import org.fourgeeks.gha.webclient.client.UI.panels.GHAPanel;
+import org.fourgeeks.gha.webclient.client.UI.panels.GHAPanelHeader;
+import org.fourgeeks.gha.webclient.client.UI.panels.GHAPanelHeader.Option;
 
 import com.smartgwt.client.types.Visibility;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -24,13 +24,9 @@ import com.smartgwt.client.widgets.events.ClickHandler;
  * @author alacret, emiliot
  * 
  */
-public class EIATab extends GHATab implements EIASelectionListener,
+public class EIAPanel extends GHAPanel implements EIASelectionListener,
 		EiaSelectionProducer {
 
-	/**
-	 * The ID of the Tab in the app managers
-	 */
-	public static final String ID = "eia";
 	private final EIAAddForm addForm;
 	private final EIAInternalTabset internalTabSet;
 	private final List<EIASelectionListener> listeners = new ArrayList<EIASelectionListener>();
@@ -43,8 +39,8 @@ public class EIATab extends GHATab implements EIASelectionListener,
 	 * @param token
 	 * 
 	 */
-	public EIATab() {
-		header = new GHATabHeader(this, GHAStrings.get("equipments"));
+	public EIAPanel() {
+		header = new GHAPanelHeader(this, GHAStrings.get("equipments"));
 		searchOption = header.addSearchOption(new ClickHandler() {
 
 			@Override
@@ -139,11 +135,6 @@ public class EIATab extends GHATab implements EIASelectionListener,
 	public void addEiaSelectionListener(
 			EIASelectionListener eiaSelectionListener) {
 		listeners.add(eiaSelectionListener);
-	}
-
-	@Override
-	public String getId() {
-		return ID;
 	}
 
 	/*

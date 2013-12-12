@@ -11,7 +11,7 @@ import org.fourgeeks.gha.webclient.client.UI.places.NeedPermissionPlace;
  * 
  */
 public class UserPlace extends NeedPermissionPlace {
-	private final UserTab tab = new UserTab();
+	private final UserPanel tab = new UserPanel();
 
 	/**
 	 * @param token

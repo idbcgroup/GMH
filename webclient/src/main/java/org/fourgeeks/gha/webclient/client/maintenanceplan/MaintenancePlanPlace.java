@@ -11,7 +11,7 @@ import org.fourgeeks.gha.webclient.client.UI.places.NeedPermissionPlace;
  * 
  */
 public class MaintenancePlanPlace extends NeedPermissionPlace {
-	private final MaintenancePlanTab tab = new MaintenancePlanTab();
+	private final MaintenancePlanPanel tab = new MaintenancePlanPanel();
 
 	/**
 	 * @param token

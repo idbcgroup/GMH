@@ -4,7 +4,7 @@ import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
-import org.fourgeeks.gha.webclient.client.eia.EIATab;
+import org.fourgeeks.gha.webclient.client.eia.EIAPanel;
 
 import com.smartgwt.client.widgets.tab.events.TabDeselectedEvent;
 import com.smartgwt.client.widgets.tab.events.TabDeselectedHandler;
@@ -23,7 +23,7 @@ public class EIAInformationSubTab extends GHASubTab implements
 	 * @param tab
 	 * 
 	 */
-	public EIAInformationSubTab(EIATab tab) {
+	public EIAInformationSubTab(EIAPanel tab) {
 		super(GHAStrings.get("information"), tab);
 
 		form = new EIAInformationFormPanel();

@@ -3,7 +3,7 @@ package org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener;
-import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanTab;
+import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanPanel;
 
 /**
  * @author emiliot
@@ -15,7 +15,7 @@ public class MaintenanceProtocolSubTab extends GHASubTab implements
 
 	private final MaintenanceProtocolGridPanel panel;
 
-	public MaintenanceProtocolSubTab(MaintenancePlanTab tab) {
+	public MaintenanceProtocolSubTab(MaintenancePlanPanel tab) {
 		super("Protocolos", tab);
 		setDisabled(true);
 

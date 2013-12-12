@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.UI.tabs;
+package org.fourgeeks.gha.webclient.client.UI.panels;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -9,7 +9,6 @@ import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseExcept
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
-import org.fourgeeks.gha.webclient.client.UI.panels.GHAPanel;
 import org.fourgeeks.gha.webclient.client.UI.places.GHAPlaceSet;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -31,7 +30,7 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
  * @author alacret
  * 
  */
-public class GHATabHeader extends HLayout implements ResizeHandler,
+public class GHAPanelHeader extends HLayout implements ResizeHandler,
 		HideableListener, ClosableListener {
 
 	private static final int OPTION_WIDTH = 90;
@@ -42,7 +41,7 @@ public class GHATabHeader extends HLayout implements ResizeHandler,
 	 * @param tab
 	 * @param title
 	 */
-	public GHATabHeader(final GHAPanel tab, String title) {
+	public GHAPanelHeader(final GHAPanel tab, String title) {
 		GHAUiHelper.addGHAResizeHandler(this);
 		setWidth100();
 		setHeight(30);
@@ -145,7 +144,7 @@ public class GHATabHeader extends HLayout implements ResizeHandler,
 		 * @param bgSrc
 		 * @param bgSrcOver
 		 */
-		public Option(final GHATabHeader tabHeader, int width,
+		public Option(final GHAPanelHeader tabHeader, int width,
 				boolean hoverable, final String bgSrc, final String bgSrcOver) {
 			super();
 			this.bgSrc = bgSrc;
@@ -193,7 +192,7 @@ public class GHATabHeader extends HLayout implements ResizeHandler,
 		 * @param bg
 		 * @param bgOver
 		 */
-		public Option(GHATabHeader tabHeader, String text, int width,
+		public Option(GHAPanelHeader tabHeader, String text, int width,
 				boolean hoverable, String bg, String bgOver) {
 			this(tabHeader, width, hoverable, bg, bgOver);
 			setContents(text);

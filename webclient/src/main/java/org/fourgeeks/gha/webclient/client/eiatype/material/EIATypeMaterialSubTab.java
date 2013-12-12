@@ -2,7 +2,7 @@ package org.fourgeeks.gha.webclient.client.eiatype.material;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
-import org.fourgeeks.gha.webclient.client.eiatype.EIATypeTab;
+import org.fourgeeks.gha.webclient.client.eiatype.EIATypePanel;
 
 /**
  * @author emiliot
@@ -15,7 +15,7 @@ public class EIATypeMaterialSubTab extends GHASubTab {
 	/**
 	 * @param tab
 	 */
-	public EIATypeMaterialSubTab(EIATypeTab tab) {
+	public EIATypeMaterialSubTab(EIATypePanel tab) {
 		super(GHAStrings.get("materials"), tab);
 
 		gridPanel = new EIATypeMaterialGridPanel();

@@ -25,7 +25,7 @@ public class UserInternalTabset extends GHAInternalTabSet implements
 	/**
 	 * @param tab
 	 */
-	public UserInternalTabset(UserTab tab) {
+	public UserInternalTabset(UserPanel tab) {
 		super(tab);
 		infoSubTab = new UserInformationSubTab(tab);
 		hideables.add(infoSubTab);

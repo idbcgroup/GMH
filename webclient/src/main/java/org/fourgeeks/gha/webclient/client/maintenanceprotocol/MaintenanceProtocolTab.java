@@ -5,19 +5,17 @@ import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
+import org.fourgeeks.gha.webclient.client.UI.panels.GHAPanel;
 
 /**
  * @author alacret
  * 
  */
 @Deprecated
-public class MaintenanceProtocolTab extends GHATab implements
+public class MaintenanceProtocolTab extends GHAPanel implements
 		MaintenanceProtocolSelectionListener,
 		MaintenanceProtocolSelectionProducer {
 
-	public static final String ID = "mprot";
-	private static final String TITLE = "Protocolos De Mant.";
 	private final MaintenanceProtocolTopSection topSection;
 	private final MaintenanceProtocolInternalTabset internalTabset;
 	private List<MaintenanceProtocolSelectionListener> listeners;
@@ -49,11 +47,6 @@ public class MaintenanceProtocolTab extends GHATab implements
 	protected void onDraw() {
 		if (protocol == null)
 			topSection.search();
-	}
-
-	@Override
-	public String getId() {
-		return ID;
 	}
 
 	/*
