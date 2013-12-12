@@ -143,8 +143,7 @@ public class EIAMaintenancePlanificationForm extends
 		roleSelectItem.addChangedHandler(changedHandler);
 		maintenanceStatusSelectItem = new GHASelectItem("Estatus", false,
 				changedHandler);
-		providerSelectItem = new GHAExternalProviderSelectItem("Proveedor",
-				false, changedHandler);
+		providerSelectItem = new GHAExternalProviderSelectItem(false, changedHandler);
 
 		maintenacePlanSelectItem = new GHAMaintenancePlanSelectItem();
 		maintenacePlanSelectItem.addChangedHandler(mPlanChangedHandler);

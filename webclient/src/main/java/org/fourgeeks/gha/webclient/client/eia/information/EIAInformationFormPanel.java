@@ -9,9 +9,9 @@ import org.fourgeeks.gha.webclient.client.UI.icons.GHAUndoButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
+import org.fourgeeks.gha.webclient.client.UI.places.GHAPlaceSet;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
-import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabSet;
 import org.fourgeeks.gha.webclient.client.eia.EIAForm;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 import org.fourgeeks.gha.webclient.client.eia.EiaSelectionProducer;
@@ -89,14 +89,15 @@ public class EIAInformationFormPanel extends GHAVerticalLayout implements
 
 						@Override
 						public void onClick(ClickEvent event) {
-							GHATabSet.closeCurrentTab(HideCloseAction.SAVE);
+							GHAPlaceSet.closeCurrentPlace(HideCloseAction.SAVE);
 
 						}
 					}, new ClickHandler() {
 
 						@Override
 						public void onClick(ClickEvent event) {
-							GHATabSet.closeCurrentTab(HideCloseAction.DISCARD);
+							GHAPlaceSet
+									.closeCurrentPlace(HideCloseAction.DISCARD);
 
 						}
 					}, null);
@@ -121,14 +122,15 @@ public class EIAInformationFormPanel extends GHAVerticalLayout implements
 
 						@Override
 						public void onClick(ClickEvent event) {
-							GHATabSet.hideCurrentTab(HideCloseAction.SAVE);
+							GHAPlaceSet.hideCurrentPlace(HideCloseAction.SAVE);
 
 						}
 					}, new ClickHandler() {
 
 						@Override
 						public void onClick(ClickEvent event) {
-							GHATabSet.hideCurrentTab(HideCloseAction.DISCARD);
+							GHAPlaceSet
+									.hideCurrentPlace(HideCloseAction.DISCARD);
 
 						}
 					}, null);

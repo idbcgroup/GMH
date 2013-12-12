@@ -1,17 +1,17 @@
 package org.fourgeeks.gha.webclient.client.maintenanceplan;
 
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.LoginNeededException;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.PermissionsNeededException;
+import org.fourgeeks.gha.webclient.client.UI.places.GHAPlaceHeader;
 import org.fourgeeks.gha.webclient.client.UI.places.NeedPermissionPlace;
-import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
-import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabSet;
 
 /**
  * @author alacret
  * 
  */
 public class MaintenancePlanPlace extends NeedPermissionPlace {
-	private GHATab tab;
+	private final MaintenancePlanTab tab = new MaintenancePlanTab();
 
 	/**
 	 * @param token
@@ -21,13 +21,27 @@ public class MaintenancePlanPlace extends NeedPermissionPlace {
 	public MaintenancePlanPlace(String token) throws LoginNeededException,
 			PermissionsNeededException {
 		super(token);
-		tab = GHATabSet.getById(MaintenancePlanTab.ID);
-		if (tab == null)
-			tab = new MaintenancePlanTab(token);
+		header = new GHAPlaceHeader(this);
+		addHideableListener(tab);
+		addClosableListener(tab);
+		addMember(tab.getHeader());
+		addMember(tab);
+	}
+
+	@Override
+	public String getId() {
+		return "mplan";
 	}
 
 	@Override
 	public void show() {
-		GHATabSet.showTab(tab);
+		super.show();
+		tab.show();
+		tab.getHeader().show();
+	}
+
+	@Override
+	public String getAcronym() {
+		return GHAStrings.get("maintenance");
 	}
 }

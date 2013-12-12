@@ -11,14 +11,11 @@ import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
  * 
  */
 public class GHAMaintenancePlanStateSelectItem extends GHASelectItem {
-	/** */
-	public static final String labelKey = "plan-state";
-
 	/**
 	 * 
 	 */
 	public GHAMaintenancePlanStateSelectItem() {
-		super(GHAStrings.get(labelKey));
+		super(GHAStrings.get("plan-state"));
 		setValueMap(MaintenancePlanState.toValueMap());
 	}
 
@@ -31,6 +28,17 @@ public class GHAMaintenancePlanStateSelectItem extends GHASelectItem {
 	}
 
 	/**
+	 * @param required
+	 * @param changedHandler
+	 */
+	public GHAMaintenancePlanStateSelectItem(boolean required,
+			ChangedHandler changedHandler) {
+		this();
+		setRequired(required);
+		addChangedHandler(changedHandler);
+	}
+
+	/**
 	 * @param width
 	 * @param required
 	 * @param changedHandler
@@ -38,17 +46,6 @@ public class GHAMaintenancePlanStateSelectItem extends GHASelectItem {
 	public GHAMaintenancePlanStateSelectItem(int width, boolean required,
 			ChangedHandler changedHandler) {
 		this(width);
-		setRequired(required);
-		addChangedHandler(changedHandler);
-	}
-
-	/**
-	 * @param required
-	 * @param changedHandler
-	 */
-	public GHAMaintenancePlanStateSelectItem(boolean required,
-			ChangedHandler changedHandler) {
-		this();
 		setRequired(required);
 		addChangedHandler(changedHandler);
 	}

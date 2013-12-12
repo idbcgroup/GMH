@@ -149,6 +149,15 @@ body {
 		background-color: #EAEAEA;
 		cursor: pointer;
 	}*/
+.place-header-title {
+	/*padding-left: 6px;*/
+	color: #666666;
+	font-size: 12px;
+	font-weight: bold;
+	text-transform: uppercase;
+	/*line-height: 30px;*/
+	text-align: center;
+}
 .tab-header-title {
 	padding-left: 6px;
 	color: #666666;
@@ -156,13 +165,14 @@ body {
 	font-weight: bold;
 	text-transform: capitalize;
 	line-height: 30px;
+	text-align: left;
 }
 
-.tab-header-close-button {
+/*.tab-header-close-button {
 	text-align: center;
 	vertical-align: middle;
 	padding-top: 5px;
-}
+}*/
 
 .login-panel {
 	width: 300px;

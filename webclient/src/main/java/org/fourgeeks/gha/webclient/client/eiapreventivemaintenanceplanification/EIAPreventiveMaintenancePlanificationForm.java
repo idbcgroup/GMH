@@ -63,10 +63,8 @@ public class EIAPreventiveMaintenancePlanificationForm extends
 		planStatusSelectItem = new GHASelectItem("Estatus", false,
 				changedHandler);
 		planStateSelectItem = new GHASelectItem("Estado", false, changedHandler);
-		providerSelectItem = new GHAExternalProviderSelectItem("Proveedor",
-				false, changedHandler);
-		maintenacePlanSelectItem = new GHAMaintenancePlanSelectItem(true,
-				changedHandler);
+		providerSelectItem = new GHAExternalProviderSelectItem(false, changedHandler);
+		maintenacePlanSelectItem = new GHAMaintenancePlanSelectItem(true, changedHandler);
 		maintenacePlanSelectItem.setColSpan(2);
 		scheduledDateDateItem = new GHADateItem("Fecha de inicio",
 				changedHandler);

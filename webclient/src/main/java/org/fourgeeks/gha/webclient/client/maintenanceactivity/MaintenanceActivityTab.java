@@ -20,8 +20,8 @@ public class MaintenanceActivityTab extends GHATab implements
 
 	public static final String ID = "mact";
 	// private static final String TITLE = "Actividades De Mant.";
-	private MaintenanceActivityTopSection topSection;
-	private MaintenanceActivityInternalTabset internalTabset;
+	private final MaintenanceActivityTopSection topSection;
+	private final MaintenanceActivityInternalTabset internalTabset;
 	List<MaintenanceActivitySelectionListener> listeners;
 
 	private MaintenanceActivity activity;
@@ -35,7 +35,7 @@ public class MaintenanceActivityTab extends GHATab implements
 	 * 
 	 */
 	public MaintenanceActivityTab(String token) {
-		super(token);
+		super();
 		// getHeader().setTitle(TITLE);
 
 		topSection = new MaintenanceActivityTopSection(this);

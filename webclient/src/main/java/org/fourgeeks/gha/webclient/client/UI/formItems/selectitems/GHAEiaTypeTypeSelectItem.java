@@ -11,14 +11,22 @@ import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
  */
 public class GHAEiaTypeTypeSelectItem extends GHASelectItem {
 	public static final String labelKey = "eiatype-type";
+
+	/**
+	 * 
+	 */
+	public GHAEiaTypeTypeSelectItem() {
+		super(GHAStrings.get("eiatype-type"));
+		setValueMap(EiaTypeEnum.toValueMap());
+	}
+	
 	/**
 	 * @param width
 	 * 
 	 */
 	public GHAEiaTypeTypeSelectItem(int width) {
-		super(GHAStrings.get(labelKey), width);
-
-		setValueMap(EiaTypeEnum.toValueMap());
+		this();
+		setWidth(width);
 	}
 
 	/**
@@ -29,31 +37,20 @@ public class GHAEiaTypeTypeSelectItem extends GHASelectItem {
 	 */
 	public GHAEiaTypeTypeSelectItem(int width, boolean required,
 			ChangedHandler changedHandler) {
-		super(GHAStrings.get(labelKey), width);
+		super(width);
 		setRequired(required);
 		addChangedHandler(changedHandler);
-		setValueMap(EiaTypeEnum.toValueMap());
 	}
 
 	/**
 	 * @param required
 	 * @param changedHandler
-	 * 
 	 */
 	public GHAEiaTypeTypeSelectItem(boolean required,
 			ChangedHandler changedHandler) {
-		super(GHAStrings.get(labelKey));
+		this();
 		setRequired(required);
 		addChangedHandler(changedHandler);
-		setValueMap(EiaTypeEnum.toValueMap());
-	}
-
-	/**
-	 * 
-	 */
-	public GHAEiaTypeTypeSelectItem() {
-		super(GHAStrings.get(labelKey));
-		setValueMap(EiaTypeEnum.toValueMap());
 	}
 
 	// public EiaTypeEnum getValue() {
