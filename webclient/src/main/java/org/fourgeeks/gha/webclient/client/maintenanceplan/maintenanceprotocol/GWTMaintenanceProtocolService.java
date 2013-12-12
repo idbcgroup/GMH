@@ -14,11 +14,12 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 /**
  * @author emiliot
- *
+ * 
  */
 
+@Deprecated
 @RemoteServiceRelativePath("maintenanceProtocolService")
-public interface GWTMaintenanceProtocolService extends RemoteService{
+public interface GWTMaintenanceProtocolService extends RemoteService {
 	/**
 	 * Delete a Maintenance Protocol from database by Id
 	 * 
@@ -46,12 +47,15 @@ public interface GWTMaintenanceProtocolService extends RemoteService{
 	public List<MaintenanceProtocol> findByMaintenancePlan(
 			MaintenancePlan maintenancePlan, int offset, int size)
 			throws GHAEJBException;
+
 	/**
 	 * @param maintenanceProtocol
 	 * @return the list of Protocols that are alike the parameter
 	 * @throws GHAEJBException
 	 */
-	public List<MaintenanceProtocol> find(MaintenanceProtocol maintenanceProtocol)throws GHAEJBException;
+	public List<MaintenanceProtocol> find(
+			MaintenanceProtocol maintenanceProtocol) throws GHAEJBException;
+
 	/**
 	 * @param code
 	 * @return the EiaTypeMaintenanceProtocol with this Id
@@ -68,7 +72,8 @@ public interface GWTMaintenanceProtocolService extends RemoteService{
 	/**
 	 * @param offset
 	 * @param size
-	 * @return List of EiaTypeMaintenanceProtocol beginning in offset up to size elements
+	 * @return List of EiaTypeMaintenanceProtocol beginning in offset up to size
+	 *         elements
 	 * @throws GHAEJBException
 	 */
 	public List<MaintenanceProtocol> getAll(int offset, int size)
