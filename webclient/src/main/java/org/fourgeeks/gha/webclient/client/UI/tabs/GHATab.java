@@ -12,7 +12,6 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableProducer;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableProducer;
-import org.fourgeeks.gha.webclient.client.UI.panels.GHAPanelHeader;
 
 import com.smartgwt.client.widgets.layout.VLayout;
 
@@ -23,7 +22,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public abstract class GHATab extends VLayout implements ClosableListener,
 		HideableListener, ClosableProducer, HideableProducer {
 
-	protected GHAPanelHeader header;
+	protected GHATabHeader header;
 	protected VLayout verticalPanel = new VLayout();
 	private final List<ClosableListener> closables = new ArrayList<ClosableListener>();
 	private final List<HideableListener> hideables = new ArrayList<HideableListener>();
@@ -47,7 +46,7 @@ public abstract class GHATab extends VLayout implements ClosableListener,
 	/**
 	 * @return the header
 	 */
-	public GHAPanelHeader getHeader() {
+	public GHATabHeader getHeader() {
 		return header;
 	}
 
@@ -116,4 +115,9 @@ public abstract class GHATab extends VLayout implements ClosableListener,
 	 */
 	@Deprecated
 	public abstract void search();
+
+	/**
+	 * @return the title to put in the header
+	 */
+	public abstract String getTitleForHeader();
 }
