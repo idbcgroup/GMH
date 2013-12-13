@@ -9,6 +9,9 @@ import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.types.AnimationEffect;
 import com.smartgwt.client.widgets.tab.Tab;
 
+/**
+ * @author emiliot, naramirez
+ */
 public class MaintenancePlanInternalTabset extends GHAInternalTabSet implements
 		ResizeHandler, MaintenancePlanSelectionListener {
 
@@ -17,11 +20,14 @@ public class MaintenancePlanInternalTabset extends GHAInternalTabSet implements
 
 	// private final MaintenanceProtocolSubTab maintenanceProtocolSubTab;
 
-	public MaintenancePlanInternalTabset(MaintenancePlanPanel mpTab) {
-		super(mpTab);
+	/**
+	 * @param panel
+	 */
+	public MaintenancePlanInternalTabset(MaintenancePlanPanel panel) {
+		super(panel);
 		maintenancePlanInformationSubTab = new MaintenancePlanInformationSubTab(
-				mpTab);
-		maintenancePlanEquipmentSubTab = new AsociatedEiaTypeSubTab(mpTab);
+				panel);
+		maintenancePlanEquipmentSubTab = new AsociatedEiaTypeSubTab(panel);
 		// maintenanceProtocolSubTab = new MaintenanceProtocolSubTab(mpTab);
 
 		// Agregando las Subtabs
