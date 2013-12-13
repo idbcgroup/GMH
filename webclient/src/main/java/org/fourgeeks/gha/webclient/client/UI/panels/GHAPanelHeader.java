@@ -149,7 +149,7 @@ public class GHAPanelHeader extends HLayout implements ResizeHandler,
 			super();
 			this.bgSrc = bgSrc;
 			this.bgSrcOver = bgSrcOver;
-			setStyleName("tab-header-title");
+			setStyleName("panel-header-title");
 			setWidth(width + "px");
 			setHeight("30px");
 
