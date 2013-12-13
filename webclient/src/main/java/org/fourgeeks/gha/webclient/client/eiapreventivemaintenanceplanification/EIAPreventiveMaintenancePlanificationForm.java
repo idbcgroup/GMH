@@ -1,7 +1,6 @@
 package org.fourgeeks.gha.webclient.client.eiapreventivemaintenanceplanification;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -17,13 +16,13 @@ import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaPreventiveMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
-import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHADateItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAExternalProviderSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenancePlanSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHARoleSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
@@ -31,12 +30,14 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 import org.fourgeeks.gha.webclient.client.eia.EIAUtil;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
-import org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype.EiaTypeMaintenancePlanModel;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 
+/**
+ * @author naramirez
+ */
 public class EIAPreventiveMaintenancePlanificationForm extends
 		GHAForm<EiaPreventiveMaintenancePlanification> implements
 		EIASelectionListener, EIATypeSelectionListener,
@@ -50,8 +51,9 @@ public class EIAPreventiveMaintenancePlanificationForm extends
 	private GHARoleSelectItem roleSelectItem;
 	private GHADateItem scheduledDateDateItem, deliverDateDateItem,
 			acceptationDateDateItem;
-	private GHASelectItem planStatusSelectItem, planStateSelectItem,
-			maintenacePlanSelectItem;
+	private GHASelectItem planStatusSelectItem, planStateSelectItem;
+	private GHAMaintenancePlanSelectItem maintenacePlanSelectItem;
+	private EiaType selectedEiaType;
 
 	{
 		listeners = new ArrayList<PreventivePlanificationSelectionListener>();
@@ -60,11 +62,9 @@ public class EIAPreventiveMaintenancePlanificationForm extends
 		roleSelectItem.addChangedHandler(changedHandler);
 		planStatusSelectItem = new GHASelectItem("Estatus", false,
 				changedHandler);
-		planStateSelectItem = new GHASelectItem("Estado", false,
-				changedHandler);
+		planStateSelectItem = new GHASelectItem("Estado", false, changedHandler);
 		providerSelectItem = new GHAExternalProviderSelectItem(false, changedHandler);
-		maintenacePlanSelectItem = new GHASelectItem("Plan de mantenimiento",
-				true, changedHandler);
+		maintenacePlanSelectItem = new GHAMaintenancePlanSelectItem(true, changedHandler);
 		maintenacePlanSelectItem.setColSpan(2);
 		scheduledDateDateItem = new GHADateItem("Fecha de inicio",
 				changedHandler);
@@ -76,14 +76,14 @@ public class EIAPreventiveMaintenancePlanificationForm extends
 		form = new GHADynamicForm(GHAUiHelper.getNormalFormWidth(30), 4);
 	}
 
+	/** */
 	public EIAPreventiveMaintenancePlanificationForm() {
 		final HLayout mainPanel = new HLayout();
 		form.setItems(scheduledDateDateItem, deliverDateDateItem,
 				acceptationDateDateItem, new GHASpacerItem(),
 				maintenacePlanSelectItem, new GHASpacerItem(2),
 				providerSelectItem, roleSelectItem, new GHASpacerItem(2),
-				planStatusSelectItem, planStateSelectItem,
-				new GHASpacerItem(2));
+				planStatusSelectItem, planStateSelectItem, new GHASpacerItem(2));
 
 		fill();
 		mainPanel.addMembers(form, new LayoutSpacer());
@@ -99,6 +99,20 @@ public class EIAPreventiveMaintenancePlanificationForm extends
 	public void addPreventivePlanificationSelectionListener(
 			PreventivePlanificationSelectionListener eiaDamageReportSelectionListener) {
 		listeners.add(eiaDamageReportSelectionListener);
+	}
+
+	@Override
+	public void clear() {
+		super.clear();
+
+		scheduledDateDateItem.clearValue();
+		deliverDateDateItem.clearValue();
+		acceptationDateDateItem.clearValue();
+		maintenacePlanSelectItem.clearValue();
+		providerSelectItem.clearValue();
+		roleSelectItem.clearValue();
+		planStatusSelectItem.clearValue();
+		planStateSelectItem.clearValue();
 	}
 
 	@Override
@@ -140,8 +154,8 @@ public class EIAPreventiveMaintenancePlanificationForm extends
 		planification.setAcceptationDate(EIAUtil
 				.getLogicalDate(acceptationDateDateItem.getValueAsDate()));
 
-		entity.setEiaPlanState(MaintenancePlanState
-				.valueOf(planStateSelectItem.getValueAsString()));
+		entity.setEiaPlanState(MaintenancePlanState.valueOf(planStateSelectItem
+				.getValueAsString()));
 
 		entity.setEiaPlanStatus(MaintenancePlanStatus
 				.valueOf(planStatusSelectItem.getValueAsString()));
@@ -208,6 +222,8 @@ public class EIAPreventiveMaintenancePlanificationForm extends
 	@Override
 	public void select(Eia eia) {
 		selectedEia = eia;
+		maintenacePlanSelectItem.fillByEiaType(selectedEiaType);
+
 		if (eia.getProvider() != null)
 			providerSelectItem.setValue(eia.getProvider().getId());
 
@@ -217,18 +233,7 @@ public class EIAPreventiveMaintenancePlanificationForm extends
 
 	@Override
 	public void select(EiaType eiaType) {
-		EiaTypeMaintenancePlanModel.findByEiaType(eiaType,
-				new GHAAsyncCallback<List<EiaTypeMaintenancePlan>>() {
-					@Override
-					public void onSuccess(List<EiaTypeMaintenancePlan> result) {
-						LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
-						for (EiaTypeMaintenancePlan plan : result) {
-							MaintenancePlan mPlan = plan.getMaintenancePlan();
-							map.put(plan.getId() + "", mPlan.getName());
-						}
-						maintenacePlanSelectItem.setValueMap(map);
-					}
-				});
+		this.selectedEiaType = eiaType;
 	}
 
 	@Override

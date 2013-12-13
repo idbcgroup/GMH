@@ -3,10 +3,13 @@
  */
 package org.fourgeeks.gha.ejb.gmh;
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -22,7 +25,10 @@ import org.fourgeeks.gha.domain.enu.MaintenancePlanType;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
+import org.fourgeeks.gha.domain.gmh.MaintenancePlanStadisticData;
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 
@@ -36,6 +42,11 @@ public class MaintenancePlanService extends GHAEJBExceptionImpl implements
 		MaintenancePlanServiceRemote {
 	@PersistenceContext
 	EntityManager em;
+
+	@EJB
+	EiaPreventiveMaintenancePlanificationServiceLocal preventivePlanifServiceLocal;
+	@EJB
+	MaintenanceProtocolsServiceRemote protocolsServiceRemote;
 
 	private final static Logger logger = Logger
 			.getLogger(MaintenancePlanService.class.getName());
@@ -325,5 +336,90 @@ public class MaintenancePlanService extends GHAEJBExceptionImpl implements
 			throw super.generateGHAEJBException("maintenancePlan-update-fail",
 					RuntimeParameters.getLang(), em);
 		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.MaintenancePlanServiceRemote#getStadisticInfo
+	 * (org.fourgeeks.gha.domain.gmh.MaintenancePlan)
+	 */
+	@Override
+	public MaintenancePlanStadisticData getStadisticInfo(
+			MaintenancePlan mantenancePlan) throws GHAEJBException {
+
+		try {
+			MaintenancePlanStadisticData data = new MaintenancePlanStadisticData();
+
+			long timesEffectuated = preventivePlanifServiceLocal
+					.getEffectuatedPlanificationsCount(mantenancePlan);
+
+			long numberOfEias = preventivePlanifServiceLocal
+					.getPlanificationsCount(mantenancePlan);
+
+			Timestamp lastTimeEffectuated = preventivePlanifServiceLocal
+					.getLastEffectuatedPlanificationDate(mantenancePlan);
+
+			List<MaintenanceProtocols> protocol = protocolsServiceRemote
+					.findByMaintenancePlan(mantenancePlan);
+
+			data.setNumberActivities(protocol.size());
+			data.setEstimatedCost(getPlanEstimatedCost(protocol));
+			data.setEstimatedDuration(getPlanEstimatedDurationDays(protocol));
+			data.setNumberOfEias(numberOfEias);
+			data.setTimesEffectuated(timesEffectuated);
+			data.setLastTimeEffectuated(lastTimeEffectuated);
+
+			return data;
+		} catch (Exception e) {
+			logger.log(
+					Level.INFO,
+					"ERROR: unable to get stadistic info from the MaintenancePlan ",
+					e);
+			throw super.generateGHAEJBException("maintenancePlan-update-fail",
+					RuntimeParameters.getLang(), em);
+		}
+	}
+
+	private BigDecimal getPlanEstimatedCost(List<MaintenanceProtocols> protocol) {
+		double acum = 0;
+		for (MaintenanceProtocols entity : protocol) {
+			MaintenanceActivity activity = entity.getMaintenanceActivity();
+			BigDecimal estimatedCost = activity.getEstimatedCost();
+			acum += estimatedCost.doubleValue();
+		}
+		return BigDecimal.valueOf(acum);
+	}
+
+	private int getPlanEstimatedDurationDays(List<MaintenanceProtocols> protocol) {
+		final double DAY = 24.0, WEEK = 7.0, MONTH = 30.4368499, SEMESTER = 182.621099, YEAR = 365.242199;
+
+		double totalDays = 0;
+		int hours, days, weeks, months, semesters, years;
+		hours = days = weeks = months = semesters = years = 0;
+
+		for (MaintenanceProtocols entity : protocol) {
+			MaintenanceActivity activity = entity.getMaintenanceActivity();
+			TimePeriodEnum periodOfTime = activity.getEstimatedDurationPoT();
+			if (periodOfTime == TimePeriodEnum.HOURS)
+				hours += activity.getEstimatedDuration().intValue();
+			else if (periodOfTime == TimePeriodEnum.DAYS)
+				days += activity.getEstimatedDuration().intValue();
+			else if (periodOfTime == TimePeriodEnum.WEEKS)
+				weeks += activity.getEstimatedDuration().intValue();
+			else if (periodOfTime == TimePeriodEnum.MONTHS)
+				months += activity.getEstimatedDuration().intValue();
+			else if (periodOfTime == TimePeriodEnum.SEMESTERS)
+				semesters += activity.getEstimatedDuration().intValue();
+			else if (periodOfTime == TimePeriodEnum.YEARS)
+				years += activity.getEstimatedDuration().intValue();
+		}
+
+		totalDays += (hours / DAY) + days + (weeks * WEEK) + (months * MONTH)
+				+ (semesters * SEMESTER) + (years * YEAR);
+
+		int totalEstimatedDays = (int) Math.ceil(totalDays);
+		return totalEstimatedDays;
 	}
 }

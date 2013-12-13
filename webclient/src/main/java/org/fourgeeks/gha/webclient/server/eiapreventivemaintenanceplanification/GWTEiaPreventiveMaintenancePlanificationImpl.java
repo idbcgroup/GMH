@@ -27,7 +27,8 @@ public class GWTEiaPreventiveMaintenancePlanificationImpl extends
 
 	private static final long serialVersionUID = 1L;
 
-	@EJB(lookup = "java:global/ear-1/ejb-1/EiaPreventiveMaintenancePlanificationService")
+	@EJB(lookup = "java:global/ear-1/ejb-1/EiaPreventiveMaintenancePlanificationService!"
+			+ "org.fourgeeks.gha.ejb.gmh.EiaPreventiveMaintenancePlanificationServiceRemote")
 	EiaPreventiveMaintenancePlanificationServiceRemote serviceRemote;
 
 	@Override
