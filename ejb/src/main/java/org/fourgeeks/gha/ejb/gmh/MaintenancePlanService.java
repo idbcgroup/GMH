@@ -33,7 +33,7 @@ import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
- * @author emiliot, vivi.torresg
+ * @author emiliot, vivi.torresg, naramirez
  * 
  */
 
@@ -104,23 +104,6 @@ public class MaintenancePlanService extends GHAEJBExceptionImpl implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.fourgeeks.gha.ejb.gmh.MaintenancePlanServiceRemote#delete(long)
-	 */
-	@Override
-	public void delete(long Id) throws GHAEJBException {
-		try {
-			MaintenancePlan entity = em.find(MaintenancePlan.class, Id);
-			em.remove(entity);
-		} catch (Exception e) {
-			logger.log(Level.INFO, "ERROR: unable to delete MaintenancePlan", e);
-			throw super.generateGHAEJBException("maintenancePlan-delete-fail",
-					RuntimeParameters.getLang(), em);
-		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see
 	 * org.fourgeeks.gha.ejb.gmh.MaintenancePlanServiceRemote#delete(java.util
 	 * .List)
@@ -144,22 +127,16 @@ public class MaintenancePlanService extends GHAEJBExceptionImpl implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.fourgeeks.gha.ejb.gmh.MaintenancePlanServiceRemote#find(org.fourgeeks
-	 * .gha.domain.gmh.EiaType)
+	 * @see org.fourgeeks.gha.ejb.gmh.MaintenancePlanServiceRemote#delete(long)
 	 */
 	@Override
-	public List<MaintenancePlan> findByEiaType(EiaType eiaType)
-			throws GHAEJBException {
+	public void delete(long Id) throws GHAEJBException {
 		try {
-			return em
-					.createNamedQuery("MaintenancePlan.findByEiaType",
-							MaintenancePlan.class)
-					.setParameter("eiaType", eiaType).getResultList();
+			MaintenancePlan entity = em.find(MaintenancePlan.class, Id);
+			em.remove(entity);
 		} catch (Exception e) {
-			logger.log(Level.INFO, "Error: finding by MaintenancePlan", e);
-			throw super.generateGHAEJBException(
-					"maintenancePlan-findByEiaType-fail",
+			logger.log(Level.INFO, "ERROR: unable to delete MaintenancePlan", e);
+			throw super.generateGHAEJBException("maintenancePlan-delete-fail",
 					RuntimeParameters.getLang(), em);
 		}
 	}
@@ -167,23 +144,15 @@ public class MaintenancePlanService extends GHAEJBExceptionImpl implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.fourgeeks.gha.ejb.gmh.MaintenancePlanServiceRemote#find(org.fourgeeks
-	 * .gha.domain.gmh.EiaType, int, int)
+	 * @see org.fourgeeks.gha.ejb.gmh.MaintenancePlanServiceRemote#find(long)
 	 */
 	@Override
-	public List<MaintenancePlan> findByEiaType(EiaType eiaType, int offset,
-			int size) throws GHAEJBException {
+	public MaintenancePlan find(long Id) throws GHAEJBException {
 		try {
-			return em
-					.createNamedQuery("MaintenancePlan.findByEiaType",
-							MaintenancePlan.class)
-					.setParameter("eiaType", eiaType).setFirstResult(offset)
-					.setMaxResults(size).getResultList();
+			return em.find(MaintenancePlan.class, Id);
 		} catch (Exception e) {
-			logger.log(Level.INFO, "Error: finding by MaintenancePlan", e);
-			throw super.generateGHAEJBException(
-					"maintenancePlan-findByEiaType-fail",
+			logger.log(Level.INFO, "ERROR: finding MaintenancePlan", e);
+			throw super.generateGHAEJBException("maintenancePlan-find-fail",
 					RuntimeParameters.getLang(), em);
 		}
 	}
@@ -244,15 +213,46 @@ public class MaintenancePlanService extends GHAEJBExceptionImpl implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.fourgeeks.gha.ejb.gmh.MaintenancePlanServiceRemote#find(long)
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.MaintenancePlanServiceRemote#find(org.fourgeeks
+	 * .gha.domain.gmh.EiaType)
 	 */
 	@Override
-	public MaintenancePlan find(long Id) throws GHAEJBException {
+	public List<MaintenancePlan> findByEiaType(EiaType eiaType)
+			throws GHAEJBException {
 		try {
-			return em.find(MaintenancePlan.class, Id);
+			return em
+					.createNamedQuery("MaintenancePlan.findByEiaType",
+							MaintenancePlan.class)
+					.setParameter("eiaType", eiaType).getResultList();
 		} catch (Exception e) {
-			logger.log(Level.INFO, "ERROR: finding MaintenancePlan", e);
-			throw super.generateGHAEJBException("maintenancePlan-find-fail",
+			logger.log(Level.INFO, "Error: finding by MaintenancePlan", e);
+			throw super.generateGHAEJBException(
+					"maintenancePlan-findByEiaType-fail",
+					RuntimeParameters.getLang(), em);
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.MaintenancePlanServiceRemote#find(org.fourgeeks
+	 * .gha.domain.gmh.EiaType, int, int)
+	 */
+	@Override
+	public List<MaintenancePlan> findByEiaType(EiaType eiaType, int offset,
+			int size) throws GHAEJBException {
+		try {
+			return em
+					.createNamedQuery("MaintenancePlan.findByEiaType",
+							MaintenancePlan.class)
+					.setParameter("eiaType", eiaType).setFirstResult(offset)
+					.setMaxResults(size).getResultList();
+		} catch (Exception e) {
+			logger.log(Level.INFO, "Error: finding by MaintenancePlan", e);
+			throw super.generateGHAEJBException(
+					"maintenancePlan-findByEiaType-fail",
 					RuntimeParameters.getLang(), em);
 		}
 	}
@@ -295,47 +295,63 @@ public class MaintenancePlanService extends GHAEJBExceptionImpl implements
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Get the estimated cost of a plan based on its activities, not taking into
+	 * account the diferences in currency
 	 * 
-	 * @see
-	 * org.fourgeeks.gha.ejb.gmh.MaintenancePlanServiceRemote#save(org.fourgeeks
-	 * .gha.domain.gmh.MaintenancePlan)
+	 * @param protocol
+	 *            the list with the maintenance activities of the plan (the
+	 *            protocol)
+	 * @return the value of the estimated cost of the plan
 	 */
-	@Override
-	public MaintenancePlan save(MaintenancePlan maintenancePlan)
-			throws GHAEJBException {
-		try {
-			em.persist(maintenancePlan);
-			em.flush();
-			return em.find(MaintenancePlan.class, maintenancePlan.getId());
-		} catch (Exception e) {
-			logger.log(Level.INFO, "ERROR: saving MaintenancePlan ", e);
-			throw super.generateGHAEJBException("maintenancePlan-save-fail",
-					RuntimeParameters.getLang(), em);
+	private BigDecimal getPlanEstimatedCost(List<MaintenanceProtocols> protocol) {
+		double acum = 0;
+		for (MaintenanceProtocols entity : protocol) {
+			MaintenanceActivity activity = entity.getMaintenanceActivity();
+			BigDecimal estimatedCost = activity.getEstimatedCost();
+			acum += estimatedCost.doubleValue();
 		}
+		return BigDecimal.valueOf(acum);
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Get the estimated duration of a plan based on its activities in a period
+	 * of days
 	 * 
-	 * @see
-	 * org.fourgeeks.gha.ejb.gmh.MaintenancePlanServiceRemote#update(org.fourgeeks
-	 * .gha.domain.gmh.MaintenancePlan)
+	 * @param protocol
+	 *            the list with the maintenance activities of the plan (the
+	 *            protocol)
+	 * @return the ceil value of the estimated duration
 	 */
-	@Override
-	public MaintenancePlan update(MaintenancePlan maintenancePlan)
-			throws GHAEJBException {
-		try {
-			MaintenancePlan res = em.merge(maintenancePlan);
-			em.flush();
-			return res;
-		} catch (Exception e) {
-			logger.log(Level.INFO, "ERROR: unable to update MaintenancePlan ",
-					e);
-			throw super.generateGHAEJBException("maintenancePlan-update-fail",
-					RuntimeParameters.getLang(), em);
+	private int getPlanEstimatedDurationDays(List<MaintenanceProtocols> protocol) {
+		final double DAY = 24.0, WEEK = 7.0, MONTH = 30.4368499, SEMESTER = 182.621099, YEAR = 365.242199;
+
+		double totalDays = 0;
+		int hours, days, weeks, months, semesters, years;
+		hours = days = weeks = months = semesters = years = 0;
+
+		for (MaintenanceProtocols entity : protocol) {
+			MaintenanceActivity activity = entity.getMaintenanceActivity();
+			TimePeriodEnum periodOfTime = activity.getEstimatedDurationPoT();
+			if (periodOfTime == TimePeriodEnum.HOURS)
+				hours += activity.getEstimatedDuration().intValue();
+			else if (periodOfTime == TimePeriodEnum.DAYS)
+				days += activity.getEstimatedDuration().intValue();
+			else if (periodOfTime == TimePeriodEnum.WEEKS)
+				weeks += activity.getEstimatedDuration().intValue();
+			else if (periodOfTime == TimePeriodEnum.MONTHS)
+				months += activity.getEstimatedDuration().intValue();
+			else if (periodOfTime == TimePeriodEnum.SEMESTERS)
+				semesters += activity.getEstimatedDuration().intValue();
+			else if (periodOfTime == TimePeriodEnum.YEARS)
+				years += activity.getEstimatedDuration().intValue();
 		}
+
+		totalDays += (hours / DAY) + days + (weeks * WEEK) + (months * MONTH)
+				+ (semesters * SEMESTER) + (years * YEAR);
+
+		int totalEstimatedDays = (int) Math.ceil(totalDays);
+		return totalEstimatedDays;
 	}
 
 	/*
@@ -382,44 +398,46 @@ public class MaintenancePlanService extends GHAEJBExceptionImpl implements
 		}
 	}
 
-	private BigDecimal getPlanEstimatedCost(List<MaintenanceProtocols> protocol) {
-		double acum = 0;
-		for (MaintenanceProtocols entity : protocol) {
-			MaintenanceActivity activity = entity.getMaintenanceActivity();
-			BigDecimal estimatedCost = activity.getEstimatedCost();
-			acum += estimatedCost.doubleValue();
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.MaintenancePlanServiceRemote#save(org.fourgeeks
+	 * .gha.domain.gmh.MaintenancePlan)
+	 */
+	@Override
+	public MaintenancePlan save(MaintenancePlan maintenancePlan)
+			throws GHAEJBException {
+		try {
+			em.persist(maintenancePlan);
+			em.flush();
+			return em.find(MaintenancePlan.class, maintenancePlan.getId());
+		} catch (Exception e) {
+			logger.log(Level.INFO, "ERROR: saving MaintenancePlan ", e);
+			throw super.generateGHAEJBException("maintenancePlan-save-fail",
+					RuntimeParameters.getLang(), em);
 		}
-		return BigDecimal.valueOf(acum);
 	}
 
-	private int getPlanEstimatedDurationDays(List<MaintenanceProtocols> protocol) {
-		final double DAY = 24.0, WEEK = 7.0, MONTH = 30.4368499, SEMESTER = 182.621099, YEAR = 365.242199;
-
-		double totalDays = 0;
-		int hours, days, weeks, months, semesters, years;
-		hours = days = weeks = months = semesters = years = 0;
-
-		for (MaintenanceProtocols entity : protocol) {
-			MaintenanceActivity activity = entity.getMaintenanceActivity();
-			TimePeriodEnum periodOfTime = activity.getEstimatedDurationPoT();
-			if (periodOfTime == TimePeriodEnum.HOURS)
-				hours += activity.getEstimatedDuration().intValue();
-			else if (periodOfTime == TimePeriodEnum.DAYS)
-				days += activity.getEstimatedDuration().intValue();
-			else if (periodOfTime == TimePeriodEnum.WEEKS)
-				weeks += activity.getEstimatedDuration().intValue();
-			else if (periodOfTime == TimePeriodEnum.MONTHS)
-				months += activity.getEstimatedDuration().intValue();
-			else if (periodOfTime == TimePeriodEnum.SEMESTERS)
-				semesters += activity.getEstimatedDuration().intValue();
-			else if (periodOfTime == TimePeriodEnum.YEARS)
-				years += activity.getEstimatedDuration().intValue();
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.MaintenancePlanServiceRemote#update(org.fourgeeks
+	 * .gha.domain.gmh.MaintenancePlan)
+	 */
+	@Override
+	public MaintenancePlan update(MaintenancePlan maintenancePlan)
+			throws GHAEJBException {
+		try {
+			MaintenancePlan res = em.merge(maintenancePlan);
+			em.flush();
+			return res;
+		} catch (Exception e) {
+			logger.log(Level.INFO, "ERROR: unable to update MaintenancePlan ",
+					e);
+			throw super.generateGHAEJBException("maintenancePlan-update-fail",
+					RuntimeParameters.getLang(), em);
 		}
-
-		totalDays += (hours / DAY) + days + (weeks * WEEK) + (months * MONTH)
-				+ (semesters * SEMESTER) + (years * YEAR);
-
-		int totalEstimatedDays = (int) Math.ceil(totalDays);
-		return totalEstimatedDays;
 	}
 }

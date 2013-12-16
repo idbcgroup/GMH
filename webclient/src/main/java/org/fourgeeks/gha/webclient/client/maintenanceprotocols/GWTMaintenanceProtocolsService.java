@@ -1,8 +1,6 @@
-package org.fourgeeks.gha.ejb.gmh;
+package org.fourgeeks.gha.webclient.client.maintenanceprotocols;
 
 import java.util.List;
-
-import javax.ejb.Remote;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
@@ -10,11 +8,14 @@ import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocolStadisticData;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
 
+import com.google.gwt.user.client.rpc.RemoteService;
+import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
+
 /**
  * @author naramirez
  */
-@Remote
-public interface MaintenanceProtocolsServiceRemote {
+@RemoteServiceRelativePath("maintenanceProtocolsService")
+public interface GWTMaintenanceProtocolsService extends RemoteService {
 
 	/**
 	 * Copy the activities from a mantenance plan to other maintenance plan
@@ -43,7 +44,7 @@ public interface MaintenanceProtocolsServiceRemote {
 	 * the maintenance activities associated with the plan)
 	 * 
 	 * @param plan
-	 * @return
+	 * @return the number of entities deleted
 	 * @throws GHAEJBException
 	 */
 	public int deleteByMaintenancePlan(MaintenancePlan plan)

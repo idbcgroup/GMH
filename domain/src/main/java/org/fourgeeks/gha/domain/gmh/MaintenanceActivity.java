@@ -25,7 +25,8 @@ import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 		@NamedQuery(name = "MaintenanceActivity.getAll", query = "SELECT e from MaintenanceActivity e order by e.id"),
 		@NamedQuery(name = "MaintenanceActivity.findByMaintenanceProtocol", query = "SELECT a FROM MaintenanceActivityMaintenanceProtocol e JOIN e.activity a WHERE e.protocol = :maintenanceProtocol order by e.ordinal"),
 		@NamedQuery(name = "MaintenanceActivity.findByServiceResource", query = "SELECT p FROM  MaintenanceActivityServiceResource e JOIN e.maintenanceActivity p WHERE e.serviceResource = :serviceResource") })
-public class MaintenanceActivity extends AbstractEntity {
+public class MaintenanceActivity extends AbstractEntity implements
+		Comparable<MaintenanceActivity> {
 	/** */
 	private static final long serialVersionUID = 1L;
 
@@ -222,5 +223,12 @@ public class MaintenanceActivity extends AbstractEntity {
 	 */
 	public void setType(MaintenanceActivityTypeEnum type) {
 		this.type = type;
+	}
+
+	@Override
+	public int compareTo(MaintenanceActivity activity) {
+		if (activity.getId() != this.getId())
+			return 1;
+		return 0;
 	}
 }
