@@ -158,6 +158,16 @@ body {
 	/*line-height: 30px;*/
 	text-align: center;
 }
+.panel-header-title {
+	padding-left: 6px;
+	color: #666666;
+	font-size: 12px;
+	font-weight: bold;
+	text-transform: capitalize;
+	line-height: 30px;
+	text-align: left;
+}
+
 .tab-header-title {
 	padding-left: 6px;
 	color: #666666;

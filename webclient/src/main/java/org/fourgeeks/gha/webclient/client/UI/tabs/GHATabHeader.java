@@ -69,23 +69,6 @@ public class GHATabHeader extends HLayout implements ResizeHandler,
 	}
 
 	/**
-	 * Add the clean option
-	 * 
-	 * @param clickHandler
-	 *            the action to be taken when the user clicks
-	 * @return the clean option
-	 */
-	@Deprecated
-	public Option addCleanOption(ClickHandler clickHandler) {
-		Option cleanOption = new Option(this, GHAStrings.get("clean") + "...",
-				OPTION_WIDTH, true, "../resources/img/limpiarButton.png",
-				"../resources/img/limpiarButtonOver.png");
-		cleanOption.addClickHandler(clickHandler);
-		addMember(cleanOption, memberPos++);
-		return cleanOption;
-	}
-
-	/**
 	 * Add the add option
 	 * 
 	 * @param clickHandler
@@ -93,13 +76,7 @@ public class GHATabHeader extends HLayout implements ResizeHandler,
 	 * @return the add option
 	 */
 	public Option addAddOption(ClickHandler clickHandler) {
-		Option addOption = new Option(this, GHAStrings.get("add") + "...",
-				OPTION_WIDTH, true, "../resources/img/agregarButton.png",
-				"../resources/img/agregarButtonOver.png");
-		addOption.addClickHandler(clickHandler);
-		addMember(addOption, memberPos++);
-		selectables.add(addOption);
-		return addOption;
+		return addOption(GHAStrings.get("add"), "agregarButton", clickHandler);
 	}
 
 	/**
@@ -120,13 +97,13 @@ public class GHATabHeader extends HLayout implements ResizeHandler,
 	 */
 	private Option addOption(String text, String imgSrc,
 			ClickHandler clickHandler) {
-		Option searchOption = new Option(this, text + "...", OPTION_WIDTH,
-				true, "../resources/img/" + imgSrc + ".png",
-				"../resources/img/" + imgSrc + "Over.png");
-		searchOption.addClickHandler(clickHandler);
-		addMember(searchOption, memberPos++);
-		selectables.add(searchOption);
-		return searchOption;
+		Option option = new Option(this, text + "...", OPTION_WIDTH, true,
+				"../resources/img/" + imgSrc + ".png", "../resources/img/"
+						+ imgSrc + "Over.png");
+		option.addClickHandler(clickHandler);
+		addMember(option, memberPos++);
+		selectables.add(option);
+		return option;
 	}
 
 	/**
