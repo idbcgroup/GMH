@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -31,6 +32,9 @@ public class MaintenanceProtocolsService extends GHAEJBExceptionImpl implements
 
 	@PersistenceContext
 	EntityManager em;
+
+	@EJB
+	MaintenanceSubProtocolServiceLocal subProtocolService;
 
 	/*
 	 * (non-Javadoc)
@@ -164,7 +168,19 @@ public class MaintenanceProtocolsService extends GHAEJBExceptionImpl implements
 	@Override
 	public MaintenanceProtocolStadisticData getStadisticInfo(
 			MaintenancePlan mantenancePlan) throws GHAEJBException {
-		return null;
+		try {
+			MaintenanceProtocolStadisticData data = new MaintenanceProtocolStadisticData();
+			// TODO falta parte del codigo
+			return data;
+
+		} catch (Exception e) {
+			String stringMsg = "ERROR: geting stadistic information from the MaintenanceProtocol";
+			logger.log(Level.INFO, stringMsg, e);
+
+			String messageCode = "maintenanceProtocol-getStadisticInfo-fail";
+			throw super.generateGHAEJBException(messageCode,
+					RuntimeParameters.getLang(), em);
+		}
 	}
 
 	/*
