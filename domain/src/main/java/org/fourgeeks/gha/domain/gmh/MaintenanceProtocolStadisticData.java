@@ -2,7 +2,6 @@ package org.fourgeeks.gha.domain.gmh;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 
@@ -15,17 +14,30 @@ import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 public class MaintenanceProtocolStadisticData implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private long numberActivities;
 	private BigDecimal estimatedCost;
 	private long estimatedDuration;
+	private long numberActivities;
+	private long numberSubProtocols;
+	private long numberSubProtocolsActivities;
 	private TimePeriodEnum pot;
-	private long numberOfEias;
-	private long timesEffectuated;
-	private Timestamp lastTimeEffectuated;
 
 	/** */
 	public MaintenanceProtocolStadisticData() {
 		pot = TimePeriodEnum.DAYS;
+	}
+
+	/**
+	 * @return the estimatedCost
+	 */
+	public BigDecimal getEstimatedCost() {
+		return estimatedCost;
+	}
+
+	/**
+	 * @return the estimatedDuration
+	 */
+	public long getEstimatedDuration() {
+		return estimatedDuration;
 	}
 
 	/**
@@ -36,18 +48,26 @@ public class MaintenanceProtocolStadisticData implements Serializable {
 	}
 
 	/**
-	 * @param numberActivities
-	 *            the numberActivities to set
+	 * 
+	 * @return the number of sub-protocols
 	 */
-	public void setNumberActivities(long numberActivities) {
-		this.numberActivities = numberActivities;
+	public long getNumberSubProtocols() {
+		return numberSubProtocols;
 	}
 
 	/**
-	 * @return the estimatedCost
+	 * 
+	 * @return the number of subprotocol's activities
 	 */
-	public BigDecimal getEstimatedCost() {
-		return estimatedCost;
+	public long getNumberSubProtocolsActivities() {
+		return numberSubProtocolsActivities;
+	}
+
+	/**
+	 * @return the pot
+	 */
+	public TimePeriodEnum getPot() {
+		return pot;
 	}
 
 	/**
@@ -59,13 +79,6 @@ public class MaintenanceProtocolStadisticData implements Serializable {
 	}
 
 	/**
-	 * @return the estimatedDuration
-	 */
-	public long getEstimatedDuration() {
-		return estimatedDuration;
-	}
-
-	/**
 	 * @param estimatedDuration
 	 *            the estimatedDuration to set
 	 */
@@ -74,10 +87,28 @@ public class MaintenanceProtocolStadisticData implements Serializable {
 	}
 
 	/**
-	 * @return the pot
+	 * @param numberActivities
+	 *            the numberActivities to set
 	 */
-	public TimePeriodEnum getPot() {
-		return pot;
+	public void setNumberActivities(long numberActivities) {
+		this.numberActivities = numberActivities;
+	}
+
+	/**
+	 * @param numberSubProtocols
+	 *            the number of sub-protocols to set
+	 */
+	public void setNumberSubProtocols(long numberSubProtocols) {
+		this.numberSubProtocols = numberSubProtocols;
+	}
+
+	/**
+	 * @param numberSubProtocolsActivities
+	 *            the number of sub-protocol's activities to set
+	 */
+	public void setNumberSubProtocolsActivities(
+			long numberSubProtocolsActivities) {
+		this.numberSubProtocolsActivities = numberSubProtocolsActivities;
 	}
 
 	/**
@@ -86,51 +117,6 @@ public class MaintenanceProtocolStadisticData implements Serializable {
 	 */
 	public void setPot(TimePeriodEnum pot) {
 		this.pot = pot;
-	}
-
-	/**
-	 * @return the numberOfEias
-	 */
-	public long getNumberOfEias() {
-		return numberOfEias;
-	}
-
-	/**
-	 * @param numberOfEias
-	 *            the numberOfEias to set
-	 */
-	public void setNumberOfEias(long numberOfEias) {
-		this.numberOfEias = numberOfEias;
-	}
-
-	/**
-	 * @return the timesEffectuated
-	 */
-	public long getTimesEffectuated() {
-		return timesEffectuated;
-	}
-
-	/**
-	 * @param timesEffectuated
-	 *            the timesEffectuated to set
-	 */
-	public void setTimesEffectuated(long timesEffectuated) {
-		this.timesEffectuated = timesEffectuated;
-	}
-
-	/**
-	 * @return the lastTimeEffectuated
-	 */
-	public Timestamp getLastTimeEffectuated() {
-		return lastTimeEffectuated;
-	}
-
-	/**
-	 * @param lastTimeEffectuated
-	 *            the lastTimeEffectuated to set
-	 */
-	public void setLastTimeEffectuated(Timestamp lastTimeEffectuated) {
-		this.lastTimeEffectuated = lastTimeEffectuated;
 	}
 
 }

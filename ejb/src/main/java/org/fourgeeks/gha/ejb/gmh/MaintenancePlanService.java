@@ -363,22 +363,22 @@ public class MaintenancePlanService extends GHAEJBExceptionImpl implements
 	 */
 	@Override
 	public MaintenancePlanStadisticData getStadisticInfo(
-			MaintenancePlan mantenancePlan) throws GHAEJBException {
+			MaintenancePlan maintenancePlan) throws GHAEJBException {
 
 		try {
 			MaintenancePlanStadisticData data = new MaintenancePlanStadisticData();
 
 			long timesEffectuated = preventivePlanifServiceLocal
-					.getEffectuatedPlanificationsCount(mantenancePlan);
+					.getEffectuatedPlanificationsCount(maintenancePlan);
 
 			long numberOfEias = preventivePlanifServiceLocal
-					.getPlanificationsCount(mantenancePlan);
+					.getPlanificationsCount(maintenancePlan);
 
 			Timestamp lastTimeEffectuated = preventivePlanifServiceLocal
-					.getLastEffectuatedPlanificationDate(mantenancePlan);
+					.getLastEffectuatedPlanificationDate(maintenancePlan);
 
 			List<MaintenanceProtocols> protocol = protocolsServiceRemote
-					.findByMaintenancePlan(mantenancePlan);
+					.findByMaintenancePlan(maintenancePlan);
 
 			data.setNumberActivities(protocol.size());
 			data.setEstimatedCost(getPlanEstimatedCost(protocol));

@@ -63,12 +63,16 @@ public class MaintenanceActivity extends AbstractEntity implements
 	@Column(nullable = false)
 	private CurrencyTypeEnum estimatedCostCurrency;
 
+	@Column(nullable = false)
+	private boolean isSubProtocol;
+
 	private String description;
 
 	private String instructionsAndObservations;
 
 	/** */
 	public MaintenanceActivity() {
+		isSubProtocol = false;
 	}
 
 	/**
@@ -223,6 +227,21 @@ public class MaintenanceActivity extends AbstractEntity implements
 	 */
 	public void setType(MaintenanceActivityTypeEnum type) {
 		this.type = type;
+	}
+
+	/**
+	 * @return the isSubProtocol
+	 */
+	public boolean getIsSubProtocol() {
+		return isSubProtocol;
+	}
+
+	/**
+	 * @param isSubProtocol
+	 *            the isSubProtocol to set
+	 */
+	public void setIsSubProtocol(boolean isSubProtocol) {
+		this.isSubProtocol = isSubProtocol;
 	}
 
 	@Override

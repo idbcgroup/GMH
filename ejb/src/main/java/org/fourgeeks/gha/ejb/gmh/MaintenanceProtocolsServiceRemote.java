@@ -60,8 +60,8 @@ public interface MaintenanceProtocolsServiceRemote {
 
 	/**
 	 * Return Stadistic information about the protocol of the plan like:
-	 * estimated duration (activities and subprotocols), estimated cost
-	 * (activities and subprotocols), number of activities, number of
+	 * estimated duration (activities with subprotocols), estimated cost
+	 * (activities with subprotocols), number of activities, number of
 	 * subprotocols (and its activities)
 	 * 
 	 * @param mantenancePlan
