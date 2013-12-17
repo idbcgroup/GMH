@@ -47,6 +47,9 @@ public class MaintenancePlanInternalTabset extends GHAInternalTabSet implements
 		Tab selectedTab = getSelectedTab();
 		if (selectedTab == maintenancePlanInformationSubTab)
 			maintenancePlanInformationSubTab.show();
+		else if (selectedTab == maintenancePlanEquipmentSubTab) {
+			maintenancePlanEquipmentSubTab.getPane().show();
+		}
 		animateShow(AnimationEffect.FADE);
 	}
 }
