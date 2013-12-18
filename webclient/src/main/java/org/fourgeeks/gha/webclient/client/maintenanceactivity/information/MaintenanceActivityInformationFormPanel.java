@@ -128,4 +128,11 @@ public class MaintenanceActivityInformationFormPanel extends GHAVerticalLayout
 	public boolean canBeClosen(HideCloseAction hideAction) {
 		return true;
 	}
+
+	@Override
+	public void notifyMaintenanceActivity(
+			MaintenanceActivity maintenanceActivity) {
+		// TODO Auto-generated method stub
+
+	}
 }

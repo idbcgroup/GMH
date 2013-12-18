@@ -12,6 +12,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.fourgeeks.gha.domain.enu.CurrencyTypeEnum;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
@@ -199,6 +200,7 @@ public class MaintenanceProtocolsService extends GHAEJBExceptionImpl implements
 
 			MaintenanceProtocolStadisticData data = new MaintenanceProtocolStadisticData();
 			data.setEstimatedCost(totalCost);
+			data.setCurrency(CurrencyTypeEnum.BS);
 			data.setEstimatedDuration(totalDuration);
 			data.setPot(TimePeriodEnum.DAYS);
 			data.setNumberActivities(numberActivities);

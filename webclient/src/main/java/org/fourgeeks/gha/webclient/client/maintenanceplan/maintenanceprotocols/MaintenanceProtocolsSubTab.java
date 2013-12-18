@@ -19,7 +19,7 @@ public class MaintenanceProtocolsSubTab extends GHASubTab implements
 	 * @param tab
 	 */
 	public MaintenanceProtocolsSubTab(MaintenancePlanPanel tab) {
-		super(GHAStrings.get("manteiance-protocol"), tab);
+		super(GHAStrings.get("protocol"), tab);
 
 		maintenanceProtocolsGridPanel = new MaintenanceProtocolsGridPanel();
 		addClosableListener(maintenanceProtocolsGridPanel);

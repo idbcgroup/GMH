@@ -3,6 +3,7 @@ package org.fourgeeks.gha.domain.gmh;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import org.fourgeeks.gha.domain.enu.CurrencyTypeEnum;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 
 /**
@@ -20,6 +21,7 @@ public class MaintenanceProtocolStadisticData implements Serializable {
 	private long numberSubProtocols;
 	private long numberSubProtocolsActivities;
 	private TimePeriodEnum pot;
+	private CurrencyTypeEnum currency;
 
 	/** */
 	public MaintenanceProtocolStadisticData() {
@@ -117,6 +119,21 @@ public class MaintenanceProtocolStadisticData implements Serializable {
 	 */
 	public void setPot(TimePeriodEnum pot) {
 		this.pot = pot;
+	}
+
+	/**
+	 * @return the currency of the estimated cost
+	 */
+	public CurrencyTypeEnum getCurrency() {
+		return currency;
+	}
+
+	/**
+	 * @param currency
+	 *            the currency of the estimated cost to set
+	 */
+	public void setCurrency(CurrencyTypeEnum currency) {
+		this.currency = currency;
 	}
 
 }

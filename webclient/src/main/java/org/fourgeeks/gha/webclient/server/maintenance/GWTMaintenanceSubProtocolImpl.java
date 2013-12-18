@@ -29,7 +29,8 @@ public class GWTMaintenanceSubProtocolImpl extends RemoteServiceServlet
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@EJB(lookup = "java:global/ear-1/ejb-1/MaintenanceSubProtocolService")
+	@EJB(lookup = "java:global/ear-1/ejb-1/MaintenanceSubProtocolService!"
+			+ "org.fourgeeks.gha.ejb.gmh.MaintenanceSubProtocolServiceRemote")
 	MaintenanceSubProtocolServiceRemote service;
 
 	/*

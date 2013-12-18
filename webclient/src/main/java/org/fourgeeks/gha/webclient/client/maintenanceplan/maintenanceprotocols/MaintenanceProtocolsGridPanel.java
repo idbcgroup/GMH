@@ -24,7 +24,6 @@ import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSearchF
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener;
 import org.fourgeeks.gha.webclient.client.maintenanceprotocols.MaintenanceProtocolsModel;
 
-import com.google.gwt.user.client.Window;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
@@ -41,14 +40,16 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 	private MaintenanceProtocolsGrid grid;
 	private MaintenancePlanSearchForm planSearchForm;
 	private MaintenanceActivitySearchForm activitySearchForm;
+	private MaintenanceProtocolStadisticDataLabel stadisticDataLabel;
 
 	private MaintenancePlan maintenancePlan;
 
 	{
 		grid = new MaintenanceProtocolsGrid();
+		stadisticDataLabel = new MaintenanceProtocolStadisticDataLabel();
 
 		planSearchForm = new MaintenancePlanSearchForm(
-				GHAStrings.get("search-maintenance-plan"));
+				GHAStrings.get("maintenance-plan"));
 		planSearchForm
 				.addMaintenancePlanSelectionListener(new MaintenancePlanSelectionListener() {
 					@Override
@@ -65,7 +66,7 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 				});
 
 		activitySearchForm = new MaintenanceActivitySearchForm(
-				GHAStrings.get("search-maintenance-activity"));
+				GHAStrings.get("maintenance-activity"));
 		activitySearchForm
 				.addMaintenanceActivitySelectionListener(new MaintenanceActivitySelectionListener() {
 					@Override
@@ -94,7 +95,7 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 	 */
 	public MaintenanceProtocolsGridPanel() {
 		super();
-		String stringKey = "maintenanceplan-associated-protocol-activities";
+		String stringKey = "maintenance-plan-associated-protocol-activities";
 		addMember(new GHALabel(GHAStrings.get(stringKey)));
 
 		GHASearchButton searchButton = new GHASearchButton(new ClickHandler() {
@@ -119,8 +120,12 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 		VLayout sideButtons = GHAUiHelper.createBar(searchButton, deleteButton,
 				copyButton);
 
+		VLayout gridLayout = new VLayout(10);
+		gridLayout.addMembers(grid, stadisticDataLabel);
+
 		HLayout mainLayout = new HLayout();
-		mainLayout.addMembers(grid, sideButtons);
+		mainLayout.addMembers(gridLayout, sideButtons);
+
 		addMember(mainLayout);
 	}
 
@@ -167,7 +172,7 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 					@Override
 					public void onSuccess(
 							MaintenanceProtocolStadisticData result) {
-						Window.alert("Hi bitch!!!");
+						stadisticDataLabel.setStadisticInfo(result);
 					}
 				});
 	}

@@ -7,6 +7,7 @@ import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridField;
 import org.fourgeeks.gha.webclient.client.UI.grids.GhaGrid;
 
+import com.smartgwt.client.types.ListGridFieldType;
 import com.smartgwt.client.widgets.menu.MenuItem;
 import com.smartgwt.client.widgets.menu.events.ClickHandler;
 import com.smartgwt.client.widgets.menu.events.MenuItemClickEvent;
@@ -31,6 +32,7 @@ public class MaintenanceProtocolsGrid extends GhaGrid<MaintenanceProtocols> {
 		final GHAGridField descGridField = new GHAGridField("desc",
 				"Descripción");
 
+		// campos ocultos
 		final GHAGridField materialsGridField = new GHAGridField("materials",
 				"Materiales", true);
 		final GHAGridField toolsGridField = new GHAGridField("tools",
@@ -45,6 +47,15 @@ public class MaintenanceProtocolsGrid extends GhaGrid<MaintenanceProtocols> {
 				true);
 		final GHAGridField currencyGridField = new GHAGridField("currency",
 				"Moneda", true);
+
+		isSubProtocolGridField.setType(ListGridFieldType.BOOLEAN);
+		isSubProtocolGridField.setCanEdit(false);
+		materialsGridField.setType(ListGridFieldType.BOOLEAN);
+		materialsGridField.setCanEdit(false);
+		toolsGridField.setType(ListGridFieldType.BOOLEAN);
+		toolsGridField.setCanEdit(false);
+		equipsGridField.setType(ListGridFieldType.BOOLEAN);
+		equipsGridField.setCanEdit(false);
 
 		setEmptyMessage("No existen actividades o sub-protocolos para mostrar");
 

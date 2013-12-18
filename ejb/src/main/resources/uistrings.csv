@@ -153,3 +153,13 @@ ES,eia-maintenance-planification-details-register,Registrar detalles del Manteni
 ES,cancelation-option,Opción de cancelación
 ES,currency,Moneda
 ES,edt,edt
+ES,maintenance-plan-associated-protocol-activities,Protocolo de Actividades asociadas al Plan de Mantenimiento
+ES,protocol,Protocolo
+ES,maintenance-activity,Actividad de Mantenimiento
+ES,activity,Actividad
+ES,totals,Totales
+ES,activities,Actividades
+ES,subprotocols,Sub-Protocolos
+ES,subprotocol,Sub-Protocolo
+ES,total-time,Tiempo total
+ES,total-cost,Costo total
