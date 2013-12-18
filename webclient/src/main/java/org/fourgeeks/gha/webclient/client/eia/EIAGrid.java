@@ -32,16 +32,11 @@ public class EIAGrid extends GhaGrid<Eia> implements ResizeHandler {
 		GHAGridField statusGridField = new GHAGridField("state", "Estado");
 
 		// los que van ocultos por defecto
-		GHAGridField obuGridField = new GHAGridField("obu", "Dept. Responsable");
-		obuGridField.setHidden(true);
-		GHAGridField roleGridField = new GHAGridField("role", "Rol Responsable");
-		roleGridField.setHidden(true);
-		GHAGridField typeFiled = new GHAGridField("type", "Tipo de equipo");
-		typeFiled.setHidden(true);
-		GHAGridField brandFiled = new GHAGridField("brand", "Marca");
-		brandFiled.setHidden(true);
-		GHAGridField modelFiled = new GHAGridField("model", "Modelo");
-		modelFiled.setHidden(true);
+		GHAGridField obuGridField = new GHAGridField("obu", "Dept. Responsable", true);
+		GHAGridField roleGridField = new GHAGridField("role", "Rol Responsable", true);
+		GHAGridField typeFiled = new GHAGridField("type", "Tipo de equipo", true);
+		GHAGridField brandFiled = new GHAGridField("brand", "Marca", true);
+		GHAGridField modelFiled = new GHAGridField("model", "Modelo", true);
 
 		setFields(idGridField, serialGridField, faiGridField,
 				locationGridField, bpiGridField, statusGridField, obuGridField,

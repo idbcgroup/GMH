@@ -67,8 +67,10 @@ public class MaintenanceActivity extends AbstractEntity implements
 	private boolean isSubProtocol;
 
 	private String description;
-
 	private String instructionsAndObservations;
+	private boolean materialsRequired;
+	private boolean toolsRequired;
+	private boolean equipsRequired;
 
 	/** */
 	public MaintenanceActivity() {
@@ -244,6 +246,58 @@ public class MaintenanceActivity extends AbstractEntity implements
 		this.isSubProtocol = isSubProtocol;
 	}
 
+	/**
+	 * @return true if Materials are required for this activity, false in other
+	 *         case
+	 */
+	public boolean getIsMaterialsRequired() {
+		return materialsRequired;
+	}
+
+	/**
+	 * @param materialsRequired
+	 *            Are Materials required for this activity?
+	 */
+	public void setMaterialsRequired(boolean materialsRequired) {
+		this.materialsRequired = materialsRequired;
+	}
+
+	/**
+	 * @return true if Tools are required for this activity, false in other case
+	 */
+	public boolean getIsToolsRequired() {
+		return toolsRequired;
+	}
+
+	/**
+	 * @param toolsRequired
+	 *            Are Tools required for this activity?
+	 */
+	public void setToolsRequired(boolean toolsRequired) {
+		this.toolsRequired = toolsRequired;
+	}
+
+	/**
+	 * @return true if Work Equips are required for this activity, false in
+	 *         other case
+	 */
+	public boolean getIsEquipsRequired() {
+		return equipsRequired;
+	}
+
+	/**
+	 * @param equipsRequired
+	 *            Are Work Equips required for this activity?
+	 */
+	public void setEquipsRequired(boolean equipsRequired) {
+		this.equipsRequired = equipsRequired;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 */
 	@Override
 	public int compareTo(MaintenanceActivity activity) {
 		if (activity.getId() != this.getId())

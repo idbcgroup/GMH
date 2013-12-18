@@ -4,6 +4,7 @@ import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAInternalTabSet;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype.AsociatedEiaTypeSubTab;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.information.MaintenancePlanInformationSubTab;
+import org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocols.MaintenanceProtocolsSubTab;
 
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.types.AnimationEffect;
@@ -17,8 +18,7 @@ public class MaintenancePlanInternalTabset extends GHAInternalTabSet implements
 
 	private final MaintenancePlanInformationSubTab maintenancePlanInformationSubTab;
 	private final AsociatedEiaTypeSubTab maintenancePlanEquipmentSubTab;
-
-	// private final MaintenanceProtocolSubTab maintenanceProtocolSubTab;
+	private final MaintenanceProtocolsSubTab maintenancePlanProtocolsSubTab;
 
 	/**
 	 * @param panel
@@ -28,12 +28,12 @@ public class MaintenancePlanInternalTabset extends GHAInternalTabSet implements
 		maintenancePlanInformationSubTab = new MaintenancePlanInformationSubTab(
 				panel);
 		maintenancePlanEquipmentSubTab = new AsociatedEiaTypeSubTab(panel);
-		// maintenanceProtocolSubTab = new MaintenanceProtocolSubTab(mpTab);
+		maintenancePlanProtocolsSubTab = new MaintenanceProtocolsSubTab(panel);
 
 		// Agregando las Subtabs
 		addTab(maintenancePlanInformationSubTab);
 		addTab(maintenancePlanEquipmentSubTab);
-		// addTab(maintenanceProtocolSubTab);
+		addTab(maintenancePlanProtocolsSubTab);
 
 	}
 
@@ -47,9 +47,11 @@ public class MaintenancePlanInternalTabset extends GHAInternalTabSet implements
 		Tab selectedTab = getSelectedTab();
 		if (selectedTab == maintenancePlanInformationSubTab)
 			maintenancePlanInformationSubTab.show();
-		else if (selectedTab == maintenancePlanEquipmentSubTab) {
+		else if (selectedTab == maintenancePlanEquipmentSubTab)
 			maintenancePlanEquipmentSubTab.getPane().show();
-		}
+		else if (selectedTab == maintenancePlanProtocolsSubTab)
+			maintenancePlanProtocolsSubTab.getPane().show();
+
 		animateShow(AnimationEffect.FADE);
 	}
 }
