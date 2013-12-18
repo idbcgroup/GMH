@@ -34,11 +34,12 @@ public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan>
 		implements MaintenancePlanSelectionListener,
 		MaintenancePlanSelectionProducer {
 
-	private GHATextItem nameItem, descriptionItem, frequencyItem;
-	private GHAPeriodOfTimeSelectItem periodOfTimeSelectItem;
-
-	private MaintenancePlanResultSet resultSet = new MaintenancePlanResultSet(ResultSetContainerType.SEARCH_FORM);
 	private final GHADynamicForm form;
+	private GHATextItem nameItem, descriptionItem, frequencyItem;
+
+	private GHAPeriodOfTimeSelectItem periodOfTimeSelectItem;
+	private final MaintenancePlanResultSet resultSet;
+
 	{
 		form = new GHADynamicForm(GHAUiHelper.getNormalFormWidth(30), 3);
 
@@ -49,6 +50,8 @@ public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan>
 		descriptionItem = new GHATextItem(GHAStrings.get("description"));
 		descriptionItem.setColSpan(3);
 
+		resultSet = new MaintenancePlanResultSet(
+				ResultSetContainerType.SEARCH_FORM);
 		resultSet
 				.addMaintenancePlanSelectionListener(new MaintenancePlanSelectionListener() {
 
@@ -60,7 +63,10 @@ public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan>
 	}
 
 	/**
+	 * Create a search form to select a MaintenancePlan
 	 * 
+	 * @param title
+	 *            the title of the search form
 	 */
 	public MaintenancePlanSearchForm(String title) {
 		super(title);
@@ -74,14 +80,11 @@ public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan>
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
 				searchClickHandler), new GHACleanButton(new ClickHandler() {
-
 			@Override
 			public void onClick(ClickEvent event) {
 				clean();
-
 			}
 		}), new GHACancelButton(new ClickHandler() {
-
 			@Override
 			public void onClick(ClickEvent event) {
 				hide();
@@ -108,6 +111,9 @@ public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan>
 
 	}
 
+	/**
+	 * clean the form item and the data of the grid
+	 */
 	public void clean() {
 		form.clearValues();
 		resultSet.clean();
@@ -158,7 +164,6 @@ public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan>
 	private void search(final MaintenancePlan maintenancePlan) {
 		MaintenancePlanModel.find(maintenancePlan,
 				new GHAAsyncCallback<List<MaintenancePlan>>() {
-
 					@Override
 					public void onSuccess(List<MaintenancePlan> result) {
 						List<MaintenancePlan> newList = null;
