@@ -2,7 +2,6 @@ package org.fourgeeks.gha.webclient.client.maintenanceprotocols;
 
 import java.util.List;
 
-import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocolStadisticData;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
@@ -90,19 +89,15 @@ public class MaintenanceProtocolsModel {
 	/**
 	 * Associate an activity to a maintenance plan
 	 * 
-	 * @param activity
-	 *            the activity that is going to be associated to the maintenance
-	 *            plan
-	 * @param plan
-	 *            the plan that the activity is going to be associated
-	 * @param ordinal
-	 *            the order of the activity in the maintenance plan
+	 * @param entity
+	 *            the entity whit the associated plan and activity
+	 * 
 	 * @param callback
 	 *            the response callback with a {@link MaintenanceProtocols}
 	 *            entity that have the associated activity and plan
 	 */
-	public static void save(MaintenanceActivity activity, MaintenancePlan plan,
-			int ordinal, GHAAsyncCallback<MaintenanceProtocols> callback) {
-		service.save(activity, plan, ordinal, callback);
+	public static void save(MaintenanceProtocols entity,
+			GHAAsyncCallback<MaintenanceProtocols> callback) {
+		service.save(entity, callback);
 	}
 }

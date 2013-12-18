@@ -222,22 +222,17 @@ public class MaintenanceProtocolsService extends GHAEJBExceptionImpl implements
 	 * 
 	 * @see
 	 * org.fourgeeks.gha.ejb.gmh.MaintenanceProtocolsServiceRemote#save(org.
-	 * fourgeeks.gha.domain.gmh.MaintenanceActivity,
-	 * org.fourgeeks.gha.domain.gmh.MaintenancePlan, int)
+	 * fourgeeks.gha.domain.gmh.MaintenanceProtocols)
 	 */
 	@Override
-	public MaintenanceProtocols save(MaintenanceActivity activity,
-			MaintenancePlan plan, int ordinal) throws GHAEJBException {
+	public MaintenanceProtocols save(MaintenanceProtocols entity)
+			throws GHAEJBException {
 		try {
-			MaintenanceProtocols protocol = new MaintenanceProtocols();
-			protocol.setMaintenanceActivity(activity);
-			protocol.setMaintenancePlan(plan);
-			protocol.setOrdinal(ordinal);
 
-			em.persist(protocol);
+			em.persist(entity);
 			em.flush();
 
-			return em.find(MaintenanceProtocols.class, protocol.getId());
+			return em.find(MaintenanceProtocols.class, entity.getId());
 
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving MaintenanceProtocol ", e);

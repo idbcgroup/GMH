@@ -10,13 +10,13 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHACheckButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASearchForm;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
-import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.types.VerticalAlignment;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -32,15 +32,14 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class MaintenanceActivitySearchForm extends GHASearchForm<MaintenanceActivity> implements
+public class MaintenanceActivitySearchForm extends
+		GHASearchForm<MaintenanceActivity> implements
 		MaintenanceActivitySelectionListener,
 		MaintenanceActivitySelectionProducer {
 
 	private List<MaintenanceActivitySelectionListener> listeners;
 	private MaintenanceActivityGrid grid;
 	private GHATextItem nameItem, descriptionItem;
-
-	private MaintenanceActivityAddForm addForm;
 
 	{
 		listeners = new LinkedList<MaintenanceActivitySelectionListener>();
@@ -51,7 +50,6 @@ public class MaintenanceActivitySearchForm extends GHASearchForm<MaintenanceActi
 
 		grid = new MaintenanceActivityGrid();
 
-		addForm = new MaintenanceActivityAddForm("Nueva Actividad");
 	}
 
 	/**
@@ -61,7 +59,6 @@ public class MaintenanceActivitySearchForm extends GHASearchForm<MaintenanceActi
 		super(title);
 
 		final DynamicForm form = new DynamicForm();
-		form.setTitleOrientation(TitleOrientation.TOP);
 		form.setNumCols(4);
 
 		form.setItems(nameItem, new GHASpacerItem(2), descriptionItem);
@@ -121,19 +118,11 @@ public class MaintenanceActivitySearchForm extends GHASearchForm<MaintenanceActi
 		HLayout gridLayout = new HLayout();
 		gridLayout.setPadding(10);
 
-		VLayout sideGridButtons = GHAUiHelper.createBar(new GHAImgButton(
-				"../resources/icons/check.png", new ClickHandler() {
-
+		VLayout sideGridButtons = GHAUiHelper.createBar(new GHACheckButton(
+				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
 						selectMaintenanceActivity();
-					}
-				}), GHAUiHelper.verticalGraySeparator("2px"), new GHAImgButton(
-				"../resources/icons/new.png", new ClickHandler() {
-
-					@Override
-					public void onClick(ClickEvent event) {
-						addForm.open();
 					}
 				}));
 
@@ -141,9 +130,9 @@ public class MaintenanceActivitySearchForm extends GHASearchForm<MaintenanceActi
 		addMember(gridLayout);
 
 		// register as listener to the addform producer
-		addForm.addMaintenanceActivitySelectionListener(this);
 	}
 
+	@Override
 	public void search() {
 		MaintenanceActivity maintenanceActivity = new MaintenanceActivity();
 		if (nameItem.getValue() != null)
@@ -173,13 +162,11 @@ public class MaintenanceActivitySearchForm extends GHASearchForm<MaintenanceActi
 	@Override
 	public void close() {
 		destroy();
-		addForm.destroy();
 	}
 
 	@Override
 	public void hide() {
 		super.hide();
-		addForm.hide();
 	}
 
 	@Override

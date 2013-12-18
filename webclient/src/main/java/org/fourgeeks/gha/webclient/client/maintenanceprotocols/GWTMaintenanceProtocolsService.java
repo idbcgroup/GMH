@@ -3,7 +3,6 @@ package org.fourgeeks.gha.webclient.client.maintenanceprotocols;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
-import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocolStadisticData;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
@@ -76,17 +75,13 @@ public interface GWTMaintenanceProtocolsService extends RemoteService {
 	/**
 	 * Associate an activity to a maintenance plan
 	 * 
-	 * @param activity
-	 *            the activity that is going to be associated to the maintenance
-	 *            plan
-	 * @param plan
-	 *            the plan that the activity is going to be associated
-	 * @param ordinal
-	 *            the order of the activity in the maintenance plan
+	 * @param entity
+	 *            the entity whit the associated plan and activity
+	 * 
 	 * @return A {@link MaintenanceProtocols} entity with the associated
 	 *         activity and plan
 	 * @throws GHAEJBException
 	 */
-	public MaintenanceProtocols save(MaintenanceActivity activity,
-			MaintenancePlan plan, int ordinal) throws GHAEJBException;
+	public MaintenanceProtocols save(MaintenanceProtocols entity)
+			throws GHAEJBException;
 }

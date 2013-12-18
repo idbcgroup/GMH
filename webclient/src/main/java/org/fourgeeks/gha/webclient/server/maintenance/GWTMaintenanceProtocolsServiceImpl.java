@@ -9,7 +9,6 @@ import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
-import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocolStadisticData;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
@@ -56,6 +55,13 @@ public class GWTMaintenanceProtocolsServiceImpl extends RemoteServiceServlet
 		service.delete(Id);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceprotocols.
+	 * GWTMaintenanceProtocolsService
+	 * #deleteByMaintenancePlan(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
+	 */
 	@Override
 	public int deleteByMaintenancePlan(MaintenancePlan plan)
 			throws GHAEJBException {
@@ -63,6 +69,13 @@ public class GWTMaintenanceProtocolsServiceImpl extends RemoteServiceServlet
 		return entitiesDeleted;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceprotocols.
+	 * GWTMaintenanceProtocolsService
+	 * #findByMaintenancePlan(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
+	 */
 	@Override
 	public List<MaintenanceProtocols> findByMaintenancePlan(MaintenancePlan plan)
 			throws GHAEJBException {
@@ -71,6 +84,13 @@ public class GWTMaintenanceProtocolsServiceImpl extends RemoteServiceServlet
 		return protocol;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceprotocols.
+	 * GWTMaintenanceProtocolsService
+	 * #getStadisticInfo(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
+	 */
 	@Override
 	public MaintenanceProtocolStadisticData getStadisticInfo(
 			MaintenancePlan mantenancePlan) throws GHAEJBException {
@@ -79,10 +99,17 @@ public class GWTMaintenanceProtocolsServiceImpl extends RemoteServiceServlet
 		return stadisticInfo;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceprotocols.
+	 * GWTMaintenanceProtocolsService
+	 * #save(org.fourgeeks.gha.domain.gmh.MaintenanceProtocols)
+	 */
 	@Override
-	public MaintenanceProtocols save(MaintenanceActivity activity,
-			MaintenancePlan plan, int ordinal) throws GHAEJBException {
-		MaintenanceProtocols entitiy = service.save(activity, plan, ordinal);
+	public MaintenanceProtocols save(MaintenanceProtocols entity)
+			throws GHAEJBException {
+		MaintenanceProtocols entitiy = service.save(entity);
 		return entitiy;
 	}
 
