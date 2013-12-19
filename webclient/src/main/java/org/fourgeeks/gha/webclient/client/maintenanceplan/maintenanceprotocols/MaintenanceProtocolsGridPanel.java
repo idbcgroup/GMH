@@ -204,7 +204,7 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 	}
 
 	private void save(MaintenanceActivity activity) {
-		int ordinal = grid.getRecords().length;
+		int ordinal = grid.getRecords().length + 1;
 
 		MaintenanceProtocols entity = new MaintenanceProtocols();
 		entity.setMaintenanceActivity(activity);
