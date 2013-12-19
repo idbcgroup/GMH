@@ -90,7 +90,7 @@ public class MaintenancePlanResultSet extends GHAResultSet<MaintenancePlan>
 		}
 		notifyMaintenancePlan(selectedRecord.toEntity());
 		hide();
-		grid.removeSelectedData();
+		clean();
 	}
 
 	@Override

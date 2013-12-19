@@ -34,10 +34,9 @@ public class MaintenanceActivityResultSet extends
 
 	{
 		grid.addCellDoubleClickHandler(new CellDoubleClickHandler() {
-
 			@Override
 			public void onCellDoubleClick(CellDoubleClickEvent event) {
-				notifySelectedMaintenancePlan();
+				notifySelectedMaintenanceActivity();
 			}
 		});
 	}
@@ -54,7 +53,7 @@ public class MaintenanceActivityResultSet extends
 
 					@Override
 					public void onClick(ClickEvent event) {
-						notifySelectedMaintenancePlan();
+						notifySelectedMaintenanceActivity();
 					}
 				})));
 		if (containerType == ResultSetContainerType.SEARCH_FORM) {
@@ -84,7 +83,7 @@ public class MaintenanceActivityResultSet extends
 			listener.select(maintenanceActivity);
 	}
 
-	protected void notifySelectedMaintenancePlan() {
+	protected void notifySelectedMaintenanceActivity() {
 		GHAGridRecord<MaintenanceActivity> selectedRecord = grid
 				.getSelectedRecord();
 		if (selectedRecord == null) {

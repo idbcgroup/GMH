@@ -146,6 +146,12 @@ public class MaintenanceActivitySearchForm extends
 		form.resize(GHAUiHelper.getNormalFormWidth(30), 3);
 	}
 
+	@Override
+	public void open() {
+		resultSet.setVisible(true);
+		super.open();
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
