@@ -92,7 +92,7 @@ public class MaintenanceActivityResultSet extends
 		}
 		notifyMaintenanceActivity(selectedRecord.toEntity());
 		hide();
-		grid.removeSelectedData();
+		clean();
 	}
 
 	@Override
