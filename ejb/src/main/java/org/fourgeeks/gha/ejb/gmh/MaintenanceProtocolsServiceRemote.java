@@ -28,6 +28,17 @@ public interface MaintenanceProtocolsServiceRemote {
 			throws GHAEJBException;
 
 	/**
+	 * Delete a group of {@link MaintenanceProtocols} entities (This mean unlink
+	 * the activities from the maintenance plan)
+	 * 
+	 * @param entities
+	 *            the entities to delete
+	 * @throws GHAEJBException
+	 */
+	public void delete(List<MaintenanceProtocols> entities)
+			throws GHAEJBException;
+
+	/**
 	 * Delete a activity from the {@link MaintenanceProtocols} table given the
 	 * ID. (This mean unlink the activity from a maintenance plan)
 	 * 

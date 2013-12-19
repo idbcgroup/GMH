@@ -8,6 +8,8 @@ import org.fourgeeks.gha.domain.gmh.MaintenanceProtocolStadisticData;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 
+import com.smartgwt.client.types.Alignment;
+
 /**
  * @author naramirez
  */
@@ -20,7 +22,8 @@ public class MaintenanceProtocolStadisticDataLabel extends GHALabel {
 	 */
 	public MaintenanceProtocolStadisticDataLabel() {
 		super("");
-		setStyleName("text-label-mini");
+		setStyleName("text-label");
+		setAlign(Alignment.RIGHT);
 	}
 
 	/**
@@ -41,16 +44,15 @@ public class MaintenanceProtocolStadisticDataLabel extends GHALabel {
 		String totalTimeStr = GHAStrings.get("total-time");
 		String totalCostStr = GHAStrings.get("total-cost");
 
-		String totalsString = totalsStr + TWO_POINTS + numActiv + ONE_SPACE
-				+ activitiesStr + SIGN + numSubProtoc + OPEN_PARENTESIS
-				+ numSubProtocActiv + CLOSE_PARENTESIS + subprotocolsStr;
+		String totalsString = totalsStr + ": " + numActiv + " " + activitiesStr
+				+ " - " + numSubProtoc + "(" + numSubProtocActiv + ") "
+				+ subprotocolsStr;
 
-		String timeAndCostStirng = totalTimeStr + TWO_POINTS + time + ONE_SPACE
-				+ pot + SIGN + totalCostStr + TWO_POINTS + cost + ONE_SPACE
-				+ currency;
+		String timeAndCostStirng = totalTimeStr + ": " + time + " " + pot
+				+ " - " + totalCostStr + ": " + cost + " " + currency;
 
 		StringBuilder builder = new StringBuilder();
-		builder.append(totalsString).append(timeAndCostStirng);
+		builder.append(totalsString).append(" || ").append(timeAndCostStirng);
 
 		setContents(builder.toString());
 	}

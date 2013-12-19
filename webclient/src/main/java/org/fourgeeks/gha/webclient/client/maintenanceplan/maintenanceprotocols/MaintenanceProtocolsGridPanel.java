@@ -17,6 +17,7 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySearchForm;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionListener;
@@ -24,6 +25,7 @@ import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSearchF
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener;
 import org.fourgeeks.gha.webclient.client.maintenanceprotocols.MaintenanceProtocolsModel;
 
+import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
@@ -37,12 +39,12 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 		ClosableListener, HideableListener, MaintenancePlanSelectionListener {
 
-	private MaintenanceProtocolsGrid grid;
-	private MaintenancePlanSearchForm planSearchForm;
 	private MaintenanceActivitySearchForm activitySearchForm;
-	private MaintenanceProtocolStadisticDataLabel stadisticDataLabel;
-
+	private MaintenanceProtocolsGrid grid;
 	private MaintenancePlan maintenancePlan;
+	private MaintenancePlanSearchForm planSearchForm;
+
+	private MaintenanceProtocolStadisticDataLabel stadisticDataLabel;
 
 	{
 		grid = new MaintenanceProtocolsGrid();
@@ -54,15 +56,9 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 				.addMaintenancePlanSelectionListener(new MaintenancePlanSelectionListener() {
 					@Override
 					public void select(MaintenancePlan planFrom) {
-						MaintenanceProtocolsModel.copyActivities(planFrom,
-								maintenancePlan, new GHAAsyncCallback<Void>() {
-									@Override
-									public void onSuccess(Void result) {
-										loadData();
-									}
-								});
-
+						save(planFrom);
 					}
+
 				});
 
 		activitySearchForm = new MaintenanceActivitySearchForm(
@@ -71,21 +67,7 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 				.addMaintenanceActivitySelectionListener(new MaintenanceActivitySelectionListener() {
 					@Override
 					public void select(MaintenanceActivity activity) {
-						int ordinal = grid.getRecords().length;
-
-						MaintenanceProtocols entity = new MaintenanceProtocols();
-						entity.setMaintenanceActivity(activity);
-						entity.setMaintenancePlan(maintenancePlan);
-						entity.setOrdinal(ordinal);
-
-						MaintenanceProtocolsModel.save(entity,
-								new GHAAsyncCallback<MaintenanceProtocols>() {
-									@Override
-									public void onSuccess(
-											MaintenanceProtocols result) {
-										loadData();
-									}
-								});
+						save(activity);
 					}
 				});
 	}
@@ -107,7 +89,7 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 		GHADeleteButton deleteButton = new GHADeleteButton(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				deleteSelected();
+				delete();
 			}
 		});
 		GHAEditButton copyButton = new GHAEditButton(new ClickHandler() {
@@ -145,13 +127,57 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 		destroy();
 	}
 
-	private void deleteSelected() {
-		MaintenanceProtocols entity = grid.getSelectedEntity();
-		MaintenanceProtocolsModel.delete(entity.getId(),
+	private void delete() {
+		final List<MaintenanceProtocols> selectedEntities = grid
+				.getSelectedEntities();
+		if (selectedEntities == null) {
+			GHANotification.confirm(GHAStrings.get("protocol"),
+					GHAStrings.get("maintenance-protocol-delete-confirm"),
+					new BooleanCallback() {
+						@Override
+						public void execute(Boolean value) {
+							if (value)
+								deleteByMaintenancePlan();
+						}
+					});
+		} else {
+			String msg = null;
+			if (selectedEntities.size() == 1)
+				msg = GHAStrings.get("activity-delete-confirm");
+			else
+				msg = GHAStrings.get("activities-delete-confirm");
+
+			GHANotification.confirm(GHAStrings.get("protocol"), msg,
+					new BooleanCallback() {
+						@Override
+						public void execute(Boolean value) {
+							if (value)
+								deleteSelectedEntities(selectedEntities);
+						}
+					});
+		}
+	}
+
+	private void deleteByMaintenancePlan() {
+		MaintenanceProtocolsModel.deleteByMaintenancePlan(maintenancePlan,
+				new GHAAsyncCallback<Integer>() {
+					@Override
+					public void onSuccess(Integer result) {
+						loadData();
+						GHANotification
+								.alert("delete-protocol-activities-success");
+					}
+				});
+	}
+
+	private void deleteSelectedEntities(
+			final List<MaintenanceProtocols> selectedEntities) {
+		MaintenanceProtocolsModel.delete(selectedEntities,
 				new GHAAsyncCallback<Void>() {
 					@Override
 					public void onSuccess(Void result) {
-						grid.removeSelectedData();
+						loadData();
+						GHANotification.alert("delete-activities-success");
 					}
 				});
 	}
@@ -173,6 +199,33 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 					public void onSuccess(
 							MaintenanceProtocolStadisticData result) {
 						stadisticDataLabel.setStadisticInfo(result);
+					}
+				});
+	}
+
+	private void save(MaintenanceActivity activity) {
+		int ordinal = grid.getRecords().length;
+
+		MaintenanceProtocols entity = new MaintenanceProtocols();
+		entity.setMaintenanceActivity(activity);
+		entity.setMaintenancePlan(maintenancePlan);
+		entity.setOrdinal(ordinal);
+
+		MaintenanceProtocolsModel.save(entity,
+				new GHAAsyncCallback<MaintenanceProtocols>() {
+					@Override
+					public void onSuccess(MaintenanceProtocols result) {
+						loadData();
+					}
+				});
+	}
+
+	private void save(MaintenancePlan planFrom) {
+		MaintenanceProtocolsModel.copyActivities(planFrom, maintenancePlan,
+				new GHAAsyncCallback<Void>() {
+					@Override
+					public void onSuccess(Void result) {
+						loadData();
 					}
 				});
 	}

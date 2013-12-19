@@ -1,8 +1,6 @@
 package org.fourgeeks.gha.ejb.gmh;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -11,7 +9,9 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
+import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.CurrencyTypeEnum;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
@@ -21,6 +21,7 @@ import org.fourgeeks.gha.domain.gmh.MaintenancePlanStadisticData;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocolStadisticData;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.GHAUtil;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
@@ -38,10 +39,10 @@ public class MaintenanceProtocolsService extends GHAEJBExceptionImpl implements
 	EntityManager em;
 
 	@EJB
-	MaintenanceSubProtocolServiceLocal subProtocolService;
+	MaintenancePlanServiceRemote planService;
 
 	@EJB
-	MaintenancePlanServiceRemote planService;
+	MaintenanceSubProtocolServiceLocal subProtocolService;
 
 	/*
 	 * (non-Javadoc)
@@ -55,44 +56,92 @@ public class MaintenanceProtocolsService extends GHAEJBExceptionImpl implements
 	public void copyActivities(MaintenancePlan planFrom, MaintenancePlan planTo)
 			throws GHAEJBException {
 		try {
-			List<MaintenanceProtocols> protocolForm = findByMaintenancePlan(planFrom);
-			List<MaintenanceProtocols> protocolTo = findByMaintenancePlan(planTo);
+			// obtengo las listas de actividades de los planes
+			TypedQuery<MaintenanceActivity> queryAct = em.createNamedQuery(
+					"MaintenanceActivity.findByMaintenancePlan",
+					MaintenanceActivity.class);
 
-			// busco el ordinal de la ultima actividad del plan
-			int maxOrdinal = Integer.MIN_VALUE;
-			for (MaintenanceProtocols entity : protocolTo)
-				if (entity.getOrdinal() > maxOrdinal)
-					maxOrdinal = entity.getOrdinal();
+			List<MaintenanceActivity> activitiesTo = queryAct.setParameter(
+					"plan", planTo).getResultList();
 
-			// obtengo la lista de activiades que voy a copiar y la ordeno
-			List<MaintenanceActivity> activities = new ArrayList<MaintenanceActivity>();
-			for (MaintenanceProtocols entity : protocolForm)
-				activities.add(entity.getMaintenanceActivity());
-			Collections.sort(activities);
+			List<MaintenanceActivity> activitiesFrom = queryAct.setParameter(
+					"plan", planFrom).getResultList();
 
-			// verifico que la actividad no este ya agregada y la agrego
-			for (MaintenanceProtocols entity : protocolForm) {
-				MaintenanceActivity activity = entity.getMaintenanceActivity();
-				int result = Collections.binarySearch(activities, activity);
+			// filtro la lista de actividades a copiar para descartar
+			// concidencias
+			List<AbstractEntity> entitiesToCopy = GHAUtil
+					.binarySearchFilterEntity(activitiesFrom, activitiesTo);
 
-				if (result == 0) {
-					MaintenanceProtocols protocol = new MaintenanceProtocols();
-					protocol.setMaintenanceActivity(activity);
-					protocol.setMaintenancePlan(planTo);
-					protocol.setOrdinal(++maxOrdinal);
+			// obtengo el ultimo ordinal del protocolo del plan
+			TypedQuery<Integer> queryOrd = em.createNamedQuery(
+					"MaintenanceProtocols.getLastOrdinal", Integer.class);
 
-					em.persist(protocol);
-				}
+			List<Integer> ordinalList = queryOrd.setParameter("plan", planTo)
+					.getResultList();
+
+			int ordinal = ordinalList.isEmpty() ? 0 : ordinalList.get(0);
+
+			// agrego las actividades al plan deseado
+			for (AbstractEntity entity : entitiesToCopy) {
+				ordinal++;
+				MaintenanceActivity activity = (MaintenanceActivity) entity;
+				MaintenanceProtocols protocol = new MaintenanceProtocols(
+						planTo, activity, ordinal);
+				em.persist(protocol);
 			}
 
-			em.flush();
+			em.flush(); // sincronizo con la BD
 
 		} catch (Exception e) {
-			logger.log(Level.INFO, "Error: finding by MaintenanceProtocols", e);
-			throw super.generateGHAEJBException(
-					"MaintenanceProtocols-findByMaintenancePlan-fail",
+			final String msgError = "Error: copying the activities of a MaintenancePlan to another MaintenancePlan";
+			logger.log(Level.INFO, msgError, e);
+
+			final String messageCode = "maintenanceProtocol-copyActivities-fail";
+			throw super.generateGHAEJBException(messageCode,
 					RuntimeParameters.getLang(), em);
 		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.MaintenanceProtocolsServiceRemote#delete(java
+	 * .util.List)
+	 */
+	@Override
+	public void delete(List<MaintenanceProtocols> entities)
+			throws GHAEJBException {
+		try {
+			if (entities.isEmpty())
+				return;
+
+			// elimino las activiades seleccionadas
+			MaintenancePlan plan = entities.get(0).getMaintenancePlan();
+			for (MaintenanceProtocols entity : entities) {
+				MaintenanceProtocols ent = em.find(MaintenanceProtocols.class,
+						entity.getId());
+				em.remove(ent);
+			}
+
+			// actualizo el orden de las actividades restantes
+			final List<MaintenanceProtocols> remainEntities = findByMaintenancePlan(plan);
+			for (int i = 0, ord = 1, size = remainEntities.size(); i < size; i++, ord++) {
+				MaintenanceProtocols entity = remainEntities.get(i);
+				entity.setOrdinal(ord);
+				em.merge(entity);
+			}
+			em.flush(); // sincronizo con la BD
+
+		} catch (Exception e) {
+			final String msgError = "ERROR: unable to delete the list of MaintenanceProtocol";
+			logger.log(Level.INFO, msgError, e);
+
+			final String messageCode = "maintenanceProtocol-delete-fail";
+			throw super.generateGHAEJBException(messageCode,
+					RuntimeParameters.getLang(), em);
+		}
+
 	}
 
 	/*
@@ -104,14 +153,26 @@ public class MaintenanceProtocolsService extends GHAEJBExceptionImpl implements
 	@Override
 	public void delete(long id) throws GHAEJBException {
 		try {
-			MaintenanceProtocols entity = em.find(MaintenanceProtocols.class,
-					id);
-			em.remove(entity);
+			MaintenanceProtocols ent = em.find(MaintenanceProtocols.class, id);
+			final MaintenancePlan plan = ent.getMaintenancePlan();
+
+			em.remove(ent);
+
+			// actualizo el orden de las actividades restantes
+			final List<MaintenanceProtocols> remainEntities = findByMaintenancePlan(plan);
+			for (int i = 0, ord = 1, size = remainEntities.size(); i < size; i++, ord++) {
+				MaintenanceProtocols entity = remainEntities.get(i);
+				entity.setOrdinal(ord);
+				em.merge(entity);
+			}
+			em.flush(); // sincronizo con la BD
+
 		} catch (Exception e) {
-			logger.log(Level.INFO,
-					"ERROR: unable to delete MaintenanceProtocol", e);
-			throw super.generateGHAEJBException(
-					"aintenanceProtocol-delete-fail",
+			final String msgError = "ERROR: unable to delete MaintenanceProtocol";
+			logger.log(Level.INFO, msgError, e);
+
+			final String messageCode = "maintenanceProtocol-delete-fail";
+			throw super.generateGHAEJBException(messageCode,
 					RuntimeParameters.getLang(), em);
 		}
 	}
@@ -127,17 +188,16 @@ public class MaintenanceProtocolsService extends GHAEJBExceptionImpl implements
 			throws GHAEJBException {
 		try {
 			String stringQuery = "DELETE FROM MaintenanceProtocols mp WHERE mp.maintenancePlan = :plan";
-			int entitiesDeleted = em.createQuery(stringQuery)
+			int deletedEntities = em.createQuery(stringQuery)
 					.setParameter("plan", plan).executeUpdate();
 
-			return entitiesDeleted;
+			return deletedEntities;
 		} catch (Exception e) {
-			logger.log(
-					Level.INFO,
-					"ERROR: unable to delete MaintenanceProtocol by MaintenancePlan",
-					e);
-			throw super.generateGHAEJBException(
-					"maintenanceProtocol-delete-fail",
+			final String msgError = "ERROR: unable to delete MaintenanceProtocol by MaintenancePlan";
+			logger.log(Level.INFO, msgError, e);
+
+			final String messageCode = "maintenanceProtocol-delete-fail";
+			throw super.generateGHAEJBException(messageCode,
 					RuntimeParameters.getLang(), em);
 		}
 	}
@@ -152,15 +212,16 @@ public class MaintenanceProtocolsService extends GHAEJBExceptionImpl implements
 	public List<MaintenanceProtocols> findByMaintenancePlan(MaintenancePlan plan)
 			throws GHAEJBException {
 		try {
-			return em
-					.createNamedQuery(
-							"MaintenanceProtocols.findByMaintenancePlan",
-							MaintenanceProtocols.class)
-					.setParameter("maintenancePlan", plan).getResultList();
+			final TypedQuery<MaintenanceProtocols> query = em.createNamedQuery(
+					"MaintenanceProtocols.findByMaintenancePlan",
+					MaintenanceProtocols.class);
+
+			return query.setParameter("plan", plan).getResultList();
+
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding by MaintenanceProtocols", e);
 			throw super.generateGHAEJBException(
-					"MaintenanceProtocols-findByMaintenancePlan-fail",
+					"maintenanceProtocol-findByMaintenancePlan-fail",
 					RuntimeParameters.getLang(), em);
 		}
 	}
@@ -237,10 +298,13 @@ public class MaintenanceProtocolsService extends GHAEJBExceptionImpl implements
 			return em.find(MaintenanceProtocols.class, entity.getId());
 
 		} catch (Exception e) {
-			logger.log(Level.INFO, "ERROR: saving MaintenanceProtocol ", e);
-			throw super.generateGHAEJBException(
-					"maintenanceProtocol-save-fail",
+			final String msgError = "ERROR: saving Maintenance Protocol ";
+			logger.log(Level.INFO, msgError, e);
+
+			final String messageCode = "maintenanceProtocol-save-fail";
+			throw super.generateGHAEJBException(messageCode,
 					RuntimeParameters.getLang(), em);
 		}
 	}
+
 }

@@ -47,6 +47,18 @@ public class GWTMaintenanceProtocolsServiceImpl extends RemoteServiceServlet
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceprotocols.
+	 * GWTMaintenanceProtocolsService#delete(java.util.List)
+	 */
+	@Override
+	public void delete(List<MaintenanceProtocols> entities)
+			throws GHAEJBException {
+		service.delete(entities);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.
 	 * GWTMaintenanceActivityService#delete(long)
 	 */

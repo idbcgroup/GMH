@@ -23,7 +23,7 @@ import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 @Entity
 @NamedQueries(value = {
 		@NamedQuery(name = "MaintenanceActivity.getAll", query = "SELECT e from MaintenanceActivity e order by e.id"),
-		@NamedQuery(name = "MaintenanceActivity.findByMaintenanceProtocol", query = "SELECT a FROM MaintenanceActivityMaintenanceProtocol e JOIN e.activity a WHERE e.protocol = :maintenanceProtocol order by e.ordinal"),
+		@NamedQuery(name = "MaintenanceActivity.findByMaintenancePlan", query = "SELECT act FROM MaintenanceProtocols mp JOIN mp.maintenanceActivity act WHERE mp.maintenancePlan = :plan order by act.id"),
 		@NamedQuery(name = "MaintenanceActivity.findByServiceResource", query = "SELECT p FROM  MaintenanceActivityServiceResource e JOIN e.maintenanceActivity p WHERE e.serviceResource = :serviceResource") })
 public class MaintenanceActivity extends AbstractEntity implements
 		Comparable<MaintenanceActivity> {
@@ -300,8 +300,10 @@ public class MaintenanceActivity extends AbstractEntity implements
 	 */
 	@Override
 	public int compareTo(MaintenanceActivity activity) {
-		if (activity.getId() != this.getId())
+		if (activity.getId() > this.getId())
 			return 1;
+		if (activity.getId() < this.getId())
+			return -1;
 		return 0;
 	}
 }

@@ -32,6 +32,20 @@ public class MaintenanceProtocolsModel {
 	}
 
 	/**
+	 * Delete a group of {@link MaintenanceProtocols} entities (This mean unlink
+	 * the activities from the maintenance plan)
+	 * 
+	 * @param entities
+	 *            the entities to delete
+	 * @param callback
+	 *            the response callback
+	 */
+	public static void delete(List<MaintenanceProtocols> entities,
+			GHAAsyncCallback<Void> callback) {
+		service.delete(entities, callback);
+	}
+
+	/**
 	 * Delete a activity from the {@link MaintenanceProtocols} table given the
 	 * ID. (This mean unlink the activity from a maintenance plan)
 	 * 
