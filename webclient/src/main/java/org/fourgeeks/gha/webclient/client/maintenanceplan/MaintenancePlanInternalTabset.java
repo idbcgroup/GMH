@@ -16,7 +16,7 @@ import com.smartgwt.client.widgets.tab.Tab;
 public class MaintenancePlanInternalTabset extends GHAInternalTabSet implements
 		ResizeHandler, MaintenancePlanSelectionListener {
 
-	private final MaintenancePlanInformationSubTab maintenancePlanInformationSubTab;
+	private final MaintenancePlanInformationSubTab maintenancePlanInfoSubTab;
 	private final AsociatedEiaTypeSubTab maintenancePlanEquipmentSubTab;
 	private final MaintenanceProtocolsSubTab maintenancePlanProtocolsSubTab;
 
@@ -25,15 +25,17 @@ public class MaintenancePlanInternalTabset extends GHAInternalTabSet implements
 	 */
 	public MaintenancePlanInternalTabset(MaintenancePlanPanel panel) {
 		super(panel);
-		maintenancePlanInformationSubTab = new MaintenancePlanInformationSubTab(
-				panel);
+		maintenancePlanInfoSubTab = new MaintenancePlanInformationSubTab(panel);
 		maintenancePlanEquipmentSubTab = new AsociatedEiaTypeSubTab(panel);
 		maintenancePlanProtocolsSubTab = new MaintenanceProtocolsSubTab(panel);
 
+		maintenancePlanProtocolsSubTab
+				.addMaintenanceProtocolsSelectionListener(maintenancePlanInfoSubTab);
+
 		// Agregando las Subtabs
-		addTab(maintenancePlanInformationSubTab);
-		addTab(maintenancePlanEquipmentSubTab);
+		addTab(maintenancePlanInfoSubTab);
 		addTab(maintenancePlanProtocolsSubTab);
+		addTab(maintenancePlanEquipmentSubTab);
 
 	}
 
@@ -45,8 +47,8 @@ public class MaintenancePlanInternalTabset extends GHAInternalTabSet implements
 	@Override
 	public void show() {
 		Tab selectedTab = getSelectedTab();
-		if (selectedTab == maintenancePlanInformationSubTab)
-			maintenancePlanInformationSubTab.show();
+		if (selectedTab == maintenancePlanInfoSubTab)
+			maintenancePlanInfoSubTab.show();
 		else if (selectedTab == maintenancePlanEquipmentSubTab)
 			maintenancePlanEquipmentSubTab.getPane().show();
 		else if (selectedTab == maintenancePlanProtocolsSubTab)

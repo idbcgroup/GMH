@@ -24,6 +24,8 @@ import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivit
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSearchForm;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener;
 import org.fourgeeks.gha.webclient.client.maintenanceprotocols.MaintenanceProtocolsModel;
+import org.fourgeeks.gha.webclient.client.maintenanceprotocols.MaintenanceProtocolsSelectionListener;
+import org.fourgeeks.gha.webclient.client.maintenanceprotocols.MaintenanceProtocolsSelectionProducer;
 
 import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -37,7 +39,10 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
-		ClosableListener, HideableListener, MaintenancePlanSelectionListener {
+		MaintenanceProtocolsSelectionProducer, ClosableListener,
+		HideableListener, MaintenancePlanSelectionListener {
+
+	private List<MaintenanceProtocolsSelectionListener> listeners;
 
 	private MaintenanceActivitySearchForm activitySearchForm;
 	private MaintenanceProtocolsGrid grid;
@@ -47,6 +52,8 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 	private MaintenanceProtocolStadisticDataLabel stadisticDataLabel;
 
 	{
+		listeners = new ArrayList<MaintenanceProtocolsSelectionListener>();
+
 		grid = new MaintenanceProtocolsGrid();
 		stadisticDataLabel = new MaintenanceProtocolStadisticDataLabel();
 
@@ -112,6 +119,12 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 	}
 
 	@Override
+	public void addMaintenanceProtocolsSelectionListener(
+			MaintenanceProtocolsSelectionListener selectionListener) {
+		listeners.add(selectionListener);
+	}
+
+	@Override
 	public boolean canBeClosen(HideCloseAction hideAction) {
 		return true;
 	}
@@ -141,13 +154,11 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 						}
 					});
 		} else {
-			String msg = null;
-			if (selectedEntities.size() == 1)
-				msg = GHAStrings.get("activity-delete-confirm");
-			else
-				msg = GHAStrings.get("activities-delete-confirm");
+			String message = selectedEntities.size() == 1 ? GHAStrings
+					.get("activity-delete-confirm") : GHAStrings
+					.get("activities-delete-confirm");
 
-			GHANotification.confirm(GHAStrings.get("protocol"), msg,
+			GHANotification.confirm(GHAStrings.get("protocol"), message,
 					new BooleanCallback() {
 						@Override
 						public void execute(Boolean value) {
@@ -164,6 +175,7 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 					@Override
 					public void onSuccess(Integer result) {
 						loadData();
+						notifyMaintenanceProtocols(null);
 						GHANotification
 								.alert("delete-protocol-activities-success");
 					}
@@ -177,6 +189,7 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 					@Override
 					public void onSuccess(Void result) {
 						loadData();
+						notifyMaintenanceProtocols(null);
 						GHANotification.alert("delete-activities-success");
 					}
 				});
@@ -203,6 +216,18 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 				});
 	}
 
+	@Override
+	public void notifyMaintenanceProtocols(MaintenanceProtocols entity) {
+		for (MaintenanceProtocolsSelectionListener listener : listeners)
+			listener.select(entity);
+	}
+
+	@Override
+	public void removeMaintenanceProtocolsSelectionListener(
+			MaintenanceProtocolsSelectionListener selectionListener) {
+		listeners.remove(selectionListener);
+	}
+
 	private void save(MaintenanceActivity activity) {
 		int ordinal = grid.getRecords().length + 1;
 
@@ -216,6 +241,7 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 					@Override
 					public void onSuccess(MaintenanceProtocols result) {
 						loadData();
+						notifyMaintenanceProtocols(result);
 					}
 				});
 	}
@@ -226,6 +252,7 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 					@Override
 					public void onSuccess(Void result) {
 						loadData();
+						notifyMaintenanceProtocols(null);
 					}
 				});
 	}

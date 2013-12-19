@@ -1,16 +1,18 @@
 package org.fourgeeks.gha.webclient.client.maintenanceplan.information;
 
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanPanel;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener;
+import org.fourgeeks.gha.webclient.client.maintenanceprotocols.MaintenanceProtocolsSelectionListener;
 
 /**
  * @author naramirez
  */
 public class MaintenancePlanInformationSubTab extends GHASubTab implements
-		MaintenancePlanSelectionListener {
+		MaintenanceProtocolsSelectionListener, MaintenancePlanSelectionListener {
 
 	private final MaintenancePlanInformationFormPanel form;
 
@@ -34,6 +36,11 @@ public class MaintenancePlanInformationSubTab extends GHASubTab implements
 	@Override
 	public void select(MaintenancePlan maintenancePlan) {
 		form.select(maintenancePlan);
+	}
+
+	@Override
+	public void select(MaintenanceProtocols entity) {
+		form.select(entity);
 	}
 
 	/**
