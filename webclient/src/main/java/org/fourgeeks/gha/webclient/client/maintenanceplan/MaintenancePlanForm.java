@@ -22,6 +22,7 @@ import org.fourgeeks.gha.domain.ess.Role;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlanStadisticData;
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
 import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
@@ -42,6 +43,7 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHARoleSelect
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
+import org.fourgeeks.gha.webclient.client.maintenanceprotocols.MaintenanceProtocolsSelectionListener;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.validation.client.impl.Validation;
@@ -53,7 +55,7 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
  * 
  */
 public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
-		MaintenancePlanSelectionProducer {
+		MaintenanceProtocolsSelectionListener, MaintenancePlanSelectionProducer {
 
 	private List<MaintenancePlanSelectionListener> listeners;
 
@@ -251,6 +253,11 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 	}
 
 	@Override
+	public void onResize(ResizeEvent arg0) {
+		form.resize(GHAUiHelper.getNormalFormWidth(30), 4);
+	}
+
+	@Override
 	public void removeMaintenancePlanSelectionListener(
 			MaintenancePlanSelectionListener maintenancePlanSelectionListener) {
 		listeners.remove(maintenancePlanSelectionListener);
@@ -277,25 +284,8 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 	}
 
 	@Override
-	public void set(MaintenancePlan maintenancePlan) {
-		this.originalEntity = maintenancePlan;
-		nameItem.setValue(maintenancePlan.getName());
-		descriptionItem.setValue(maintenancePlan.getDescription());
-		frequencyItem.setValue(maintenancePlan.getFrequency());
-		frecuencyPoTItem.setValue(maintenancePlan.getPot().name());
-		typeItem.setValue(maintenancePlan.getType().name());
-		stateItem.setValue(maintenancePlan.getState().name());
-		cancelationOptionItem.setValue(maintenancePlan.getCancelationOption()
-				.name());
-
-		if (maintenancePlan.getInstitution() != null)
-			bpiSelectItem.setValue(maintenancePlan.getInstitution().getId());
-		if (maintenancePlan.getRole() != null)
-			roleSelectItem.setValue(maintenancePlan.getRole().getId());
-		if (maintenancePlan.getProvider() != null)
-			providerSelectItem.setValue(maintenancePlan.getProvider().getId());
-
-		MaintenancePlanModel.getStadisticInfo(maintenancePlan,
+	public void select(MaintenanceProtocols entity) {
+		MaintenancePlanModel.getStadisticInfo(originalEntity,
 				new GHAAsyncCallback<MaintenancePlanStadisticData>() {
 					@Override
 					public void onSuccess(MaintenancePlanStadisticData result) {
@@ -323,6 +313,29 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 						lastEffectuatedDateItem.setValue(time);
 					}
 				});
+
+	}
+
+	@Override
+	public void set(MaintenancePlan maintenancePlan) {
+		this.originalEntity = maintenancePlan;
+		nameItem.setValue(maintenancePlan.getName());
+		descriptionItem.setValue(maintenancePlan.getDescription());
+		frequencyItem.setValue(maintenancePlan.getFrequency());
+		frecuencyPoTItem.setValue(maintenancePlan.getPot().name());
+		typeItem.setValue(maintenancePlan.getType().name());
+		stateItem.setValue(maintenancePlan.getState().name());
+		cancelationOptionItem.setValue(maintenancePlan.getCancelationOption()
+				.name());
+
+		if (maintenancePlan.getInstitution() != null)
+			bpiSelectItem.setValue(maintenancePlan.getInstitution().getId());
+		if (maintenancePlan.getRole() != null)
+			roleSelectItem.setValue(maintenancePlan.getRole().getId());
+		if (maintenancePlan.getProvider() != null)
+			providerSelectItem.setValue(maintenancePlan.getProvider().getId());
+
+		select(null);
 
 		showPlanStadisticsItems();
 	}
@@ -369,11 +382,6 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 							callback.onSuccess(result);
 					}
 				});
-	}
-
-	@Override
-	public void onResize(ResizeEvent arg0) {
-		form.resize(GHAUiHelper.getNormalFormWidth(30), 4);
 	}
 
 }
