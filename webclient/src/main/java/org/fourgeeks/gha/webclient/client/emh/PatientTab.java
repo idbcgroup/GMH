@@ -3,10 +3,13 @@ package org.fourgeeks.gha.webclient.client.emh;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader;
 
+import com.google.gwt.user.client.History;
 import com.smartgwt.client.types.Overflow;
 import com.smartgwt.client.types.VisibilityMode;
 import com.smartgwt.client.widgets.HTMLFlow;
 import com.smartgwt.client.widgets.Img;
+import com.smartgwt.client.widgets.events.ClickEvent;
+import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.SectionStack;
 import com.smartgwt.client.widgets.layout.SectionStackSection;
@@ -23,9 +26,16 @@ public class PatientTab extends GHATab {
 	 * @param patientId
 	 * 
 	 */
-	public PatientTab(String patientId) {
+	public PatientTab(final String patientId) {
 		this.patientId = patientId;
 		header = new GHATabHeader(this);
+		header.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				History.newItem("emh/" + patientId);
+			}
+		});
 		addStyleName("sides-padding");
 
 		HTMLFlow htmlFlow = new HTMLFlow();
@@ -47,7 +57,7 @@ public class PatientTab extends GHATab {
 		sectionStack.setHeight(350);
 
 		SectionStackSection section1 = new SectionStackSection(
-				"Situacion actual");
+				"Situacion actual paciente: " + patientId);
 		section1.setExpanded(true);
 		section1.addItem(new Img("pieces/48/pawn_blue.png", 48, 48));
 		sectionStack.addSection(section1);
@@ -80,13 +90,11 @@ public class PatientTab extends GHATab {
 
 	@Override
 	public String getId() {
-		// TODO Auto-generated method stub
-		return null;
+		return patientId;
 	}
 
 	@Override
 	public void search() {
-		// TODO Auto-generated method stub
 
 	}
 

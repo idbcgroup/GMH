@@ -3,7 +3,6 @@ package org.fourgeeks.gha.webclient.client.UI.tabs;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.TabStatus;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToHideException;
@@ -12,6 +11,7 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableProducer;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableProducer;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 
 import com.smartgwt.client.widgets.layout.VLayout;
 
@@ -19,8 +19,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public abstract class GHATab extends VLayout implements ClosableListener,
-		HideableListener, ClosableProducer, HideableProducer {
+public abstract class GHATab extends GHAVerticalLayout implements
+		ClosableListener, HideableListener, ClosableProducer, HideableProducer {
 
 	protected GHATabHeader header;
 	protected VLayout verticalPanel = new VLayout();
@@ -34,8 +34,8 @@ public abstract class GHATab extends VLayout implements ClosableListener,
 	 * 
 	 */
 	public GHATab() {
+		super();
 		setWidth100();
-		setBackgroundColor(GHAUiHelper.DEFAULT_BACKGROUND_COLOR);
 	}
 
 	/**
@@ -70,7 +70,7 @@ public abstract class GHATab extends VLayout implements ClosableListener,
 			} catch (UnavailableToHideException e) {
 				throw new UnavailableToHideException(e);
 			}
-
+		header.unMarkSelected();
 		super.hide();
 	}
 
@@ -120,4 +120,10 @@ public abstract class GHATab extends VLayout implements ClosableListener,
 	 * @return the title to put in the header
 	 */
 	public abstract String getTitleForHeader();
+
+	@Override
+	public void show() {
+		super.show();
+		header.markSelected();
+	}
 }

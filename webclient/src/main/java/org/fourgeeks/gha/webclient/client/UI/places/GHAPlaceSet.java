@@ -67,8 +67,10 @@ public final class GHAPlaceSet {
 			throws UnavailableToHideException {
 		if (place == null)
 			return;
-		if (place == currentPlace)
+		if (place == currentPlace) {
+			place.updateToken(History.getToken());
 			return;
+		}
 		if (currentPlace != null)
 			try {
 				hidePlace(currentPlace);
@@ -80,6 +82,7 @@ public final class GHAPlaceSet {
 			addPlace(place);
 
 		place.show();
+		place.updateToken(History.getToken());
 		currentPlace = place;
 	}
 
@@ -224,7 +227,6 @@ public final class GHAPlaceSet {
 			token = historyToken;
 		else
 			token = historyToken.substring(0, indexOf);
-
 		GHAPlace place = places.get(token);
 		if (place == null)
 			GHAPlacesFactory.showPlace(token);
