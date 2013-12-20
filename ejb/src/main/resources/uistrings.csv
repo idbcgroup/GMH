@@ -166,3 +166,6 @@ ES,total-cost,Costo total
 ES,activity-delete-confirm,¿Desea eliminar la actividad?
 ES,activities-delete-confirm,¿Desea eliminar las actividades?
 ES,maintenance-protocol-delete-confirm,¿Desea eliminar todas las actividades de este Plan de Mantenimiento?
+ES,emh,Historia médica
+ES,gmh,gmh
+ES,hme,gmh
