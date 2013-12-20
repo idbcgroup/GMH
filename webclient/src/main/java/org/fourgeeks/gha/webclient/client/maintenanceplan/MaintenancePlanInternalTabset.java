@@ -2,8 +2,8 @@ package org.fourgeeks.gha.webclient.client.maintenanceplan;
 
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAInternalTabSet;
+import org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeia.AsociatedEiaSubTab;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype.AsociatedEiaTypeSubTab;
-import org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedtype.AsociatedEiaSubTab;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.information.MaintenancePlanInformationSubTab;
 
 import com.google.gwt.event.logical.shared.ResizeHandler;

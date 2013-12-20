@@ -21,6 +21,7 @@ import org.fourgeeks.gha.domain.enu.MaintenancePlanState;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanType;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
+import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
@@ -126,6 +127,29 @@ public class MaintenancePlanService extends GHAEJBExceptionImpl implements
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete MaintenancePlan", e);
 			throw super.generateGHAEJBException("maintenancePlan-delete-fail",
+					RuntimeParameters.getLang(), em);
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.MaintenancePlanServiceRemote#findEiaByEiaType
+	 * (org.fourgeeks.gha.domain.gmh.MaintenancePlan)
+	 */
+	@Override
+	public List<EiaMaintenancePlanification> findEiaByMaintenancePlan(
+			MaintenancePlan maintenancePlan) throws GHAEJBException {
+		try {
+			return em
+					.createNamedQuery("MaintenancePlan.findEiaByMaintenancePlan",
+							EiaMaintenancePlanification.class)
+					.setParameter("plan", maintenancePlan).getResultList();
+		} catch (Exception e) {
+			logger.log(Level.INFO, "Error: finding by MaintenancePlan", e);
+			throw super.generateGHAEJBException(
+					"maintenancePlan-findEiaByEiaType-fail",
 					RuntimeParameters.getLang(), em);
 		}
 	}

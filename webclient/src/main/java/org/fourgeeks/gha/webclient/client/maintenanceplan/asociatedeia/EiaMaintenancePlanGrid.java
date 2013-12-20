@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedtype;
+package org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeia;
 
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridField;

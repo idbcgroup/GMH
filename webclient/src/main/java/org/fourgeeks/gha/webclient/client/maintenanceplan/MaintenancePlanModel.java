@@ -5,13 +5,13 @@ package org.fourgeeks.gha.webclient.client.maintenanceplan;
 
 import java.util.List;
 
+import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.eiatype.maintenance.plan.GWTMaintenancePlanService;
 import org.fourgeeks.gha.webclient.client.eiatype.maintenance.plan.GWTMaintenancePlanServiceAsync;
 
 import com.google.gwt.core.shared.GWT;
-import com.google.gwt.user.client.Window;
 
 /**
  * @author emiliot
@@ -56,5 +56,15 @@ public class MaintenancePlanModel {
 	public static void update(MaintenancePlan maintenancePlan,
 			GHAAsyncCallback<MaintenancePlan> callback) {
 		service.update(maintenancePlan, callback);
+	}
+	
+	/**
+	 * 
+	 * @param maintenancePlan
+	 * @param callback
+	 */
+	public static void findEiaByMaintenancePlan(MaintenancePlan maintenancePlan, 
+			GHAAsyncCallback<List<EiaMaintenancePlanification>> callback){
+		service.findEiaByMaintenancePlan(maintenancePlan, callback);
 	}
 }

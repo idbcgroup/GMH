@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedtype;
+package org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeia;
 
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;

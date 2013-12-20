@@ -9,6 +9,7 @@ import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
+import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.ejb.gmh.MaintenancePlanServiceRemote;
@@ -151,5 +152,17 @@ public class GWTMaintenancePlanServiceImpl extends RemoteServiceServlet
 	public List<MaintenancePlan> find(MaintenancePlan maintenancePlan)
 			throws GHAEJBException {
 		return ejbService.find(maintenancePlan);
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.plan.
+	 * GWTMaintenancePlanService#findEiaByMaintenancePlan
+	 * (org.fourgeeks.gha.domain.gmh.MaintenancePlan)
+	 */
+	@Override
+	public List<EiaMaintenancePlanification> findEiaByMaintenancePlan(
+			MaintenancePlan maintenancePlan) throws GHAEJBException {
+		return ejbService.findEiaByMaintenancePlan(maintenancePlan);
 	}
 }
