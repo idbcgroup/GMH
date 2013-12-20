@@ -26,7 +26,7 @@ import org.fourgeeks.gha.domain.enu.ProviderTypeEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.mix.Institution;
-import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
@@ -34,7 +34,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * 
  */
 @Stateless
-public class ExternalProviderService extends GHAEJBExceptionImpl implements
+public class ExternalProviderService extends GHAEJBExceptionService implements
 		ExternalProviderServiceRemote {
 	@PersistenceContext
 	EntityManager em;

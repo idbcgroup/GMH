@@ -20,7 +20,7 @@ import javax.persistence.criteria.Root;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
-import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
@@ -30,7 +30,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 @Deprecated
 @Stateless
-public class MaintenanceProtocolService extends GHAEJBExceptionImpl implements
+public class MaintenanceProtocolService extends GHAEJBExceptionService implements
 		MaintenanceProtocolServiceRemote {
 	@PersistenceContext
 	EntityManager em;

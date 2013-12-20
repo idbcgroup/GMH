@@ -18,7 +18,7 @@ import org.fourgeeks.gha.domain.enu.LocationLevelEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.mix.Bpi;
-import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
@@ -26,7 +26,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * 
  */
 @Stateless
-public class BuildingLocationService extends GHAEJBExceptionImpl implements
+public class BuildingLocationService extends GHAEJBExceptionService implements
 		BuildingLocationServiceRemote {
 	@PersistenceContext
 	EntityManager em;

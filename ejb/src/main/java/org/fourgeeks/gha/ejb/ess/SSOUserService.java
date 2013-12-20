@@ -26,7 +26,7 @@ import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.mix.Citizen;
-import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
@@ -35,7 +35,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  */
 
 @Stateless
-public class SSOUserService extends GHAEJBExceptionImpl implements
+public class SSOUserService extends GHAEJBExceptionService implements
 		SSOUserServiceRemote {
 	@PersistenceContext
 	private EntityManager em;

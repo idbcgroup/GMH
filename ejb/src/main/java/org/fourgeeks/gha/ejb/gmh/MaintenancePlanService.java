@@ -29,7 +29,7 @@ import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlanStadisticData;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
-import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
@@ -38,7 +38,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  */
 
 @Stateless
-public class MaintenancePlanService extends GHAEJBExceptionImpl implements
+public class MaintenancePlanService extends GHAEJBExceptionService implements
 		MaintenancePlanServiceRemote {
 	@PersistenceContext
 	EntityManager em;
