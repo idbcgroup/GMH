@@ -85,6 +85,7 @@ public class MaintenanceProtocolsGrid extends GhaGrid<MaintenanceProtocols> {
 				toolsGridField, equipsGridField, timeGridField,
 				periodOfTimeGridField, costGridField, currencyGridField);
 
+		setCanFocus(true);
 		setCanHover(true);
 		setShowHover(true);
 		setShowHoverComponents(true);

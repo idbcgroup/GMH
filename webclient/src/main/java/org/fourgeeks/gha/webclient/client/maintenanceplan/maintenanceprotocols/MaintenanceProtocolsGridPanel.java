@@ -143,6 +143,7 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 	private void delete() {
 		final List<MaintenanceProtocols> selectedEntities = grid
 				.getSelectedEntities();
+
 		if (selectedEntities == null) {
 			GHANotification.confirm(GHAStrings.get("protocol"),
 					GHAStrings.get("maintenance-protocol-delete-confirm"),
@@ -151,6 +152,7 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 						public void execute(Boolean value) {
 							if (value)
 								deleteByMaintenancePlan();
+							grid.focus();
 						}
 					});
 		} else {
@@ -164,6 +166,7 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 						public void execute(Boolean value) {
 							if (value)
 								deleteSelectedEntities(selectedEntities);
+							grid.focus();
 						}
 					});
 		}
