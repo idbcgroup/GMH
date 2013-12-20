@@ -15,6 +15,8 @@ import com.smartgwt.client.types.DragDataAction;
 import com.smartgwt.client.types.ListGridFieldType;
 import com.smartgwt.client.widgets.events.DropCompleteEvent;
 import com.smartgwt.client.widgets.events.DropCompleteHandler;
+import com.smartgwt.client.widgets.events.KeyPressEvent;
+import com.smartgwt.client.widgets.events.KeyPressHandler;
 import com.smartgwt.client.widgets.menu.MenuItem;
 import com.smartgwt.client.widgets.menu.events.ClickHandler;
 import com.smartgwt.client.widgets.menu.events.MenuItemClickEvent;
@@ -95,16 +97,24 @@ public class MaintenanceProtocolsGrid extends GhaGrid<MaintenanceProtocols> {
 		addDropCompleteHandler(new DropCompleteHandler() {
 			@Override
 			public void onDropComplete(DropCompleteEvent event) {
-				final MaintenanceProtocolsGrid grid = MaintenanceProtocolsGrid.this;
-				final List<MaintenanceProtocols> entities = grid.getEntities();
+				final List<MaintenanceProtocols> entities = getEntities();
 
-				int size = grid.getRecords().length;
+				int size = getRecords().length;
 				for (int i = 0, ordinal = 1; i < size; i++, ordinal++) {
-					grid.getRecord(i).setAttribute("ordinal", ordinal);
+					getRecord(i).setAttribute("ordinal", ordinal);
 					entities.get(i).setOrdinal(ordinal);
 				}
 
 				MaintenanceProtocolsModel.update(entities, callback);
+			}
+		});
+
+		addKeyPressHandler(new KeyPressHandler() {
+			@Override
+			public void onKeyPress(KeyPressEvent event) {
+				if (event.getKeyName().equals("Escape")) {
+					deselectRecords(getSelectedRecords());
+				}
 			}
 		});
 	}
