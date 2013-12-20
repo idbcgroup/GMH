@@ -18,7 +18,7 @@ public class MaintenancePlanInternalTabset extends GHAInternalTabSet implements
 		ResizeHandler, MaintenancePlanSelectionListener {
 
 	private final MaintenancePlanInformationSubTab maintenancePlanInfoSubTab;
-	private final AsociatedEiaTypeSubTab maintenancePlanEquipmentSubTab;
+	private final AsociatedEiaTypeSubTab maintenancePlanEquipmentTypeSubTab;
 	private final MaintenanceProtocolsSubTab maintenancePlanProtocolsSubTab;
 	private final AsociatedEiaSubTab maintenancePlanEquipmentSubTab;
 
@@ -55,7 +55,7 @@ public class MaintenancePlanInternalTabset extends GHAInternalTabSet implements
 			maintenancePlanInfoSubTab.show();
 		else if (selectedTab == maintenancePlanEquipmentSubTab)
 			maintenancePlanEquipmentSubTab.getPane().show();
-		else if (selectedTab == maintenancePlanEquipmentTypeSubTab) 
+		else if (selectedTab == maintenancePlanEquipmentTypeSubTab)
 			maintenancePlanEquipmentTypeSubTab.getPane().show();
 		else if (selectedTab == maintenancePlanProtocolsSubTab)
 			maintenancePlanProtocolsSubTab.getPane().show();

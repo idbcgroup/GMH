@@ -18,7 +18,7 @@ import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenanceSubProtocol;
-import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
@@ -27,7 +27,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  */
 
 @Stateless
-public class MaintenanceSubProtocolService extends GHAEJBExceptionImpl
+public class MaintenanceSubProtocolService extends GHAEJBExceptionService
 		implements MaintenanceSubProtocolServiceRemote,
 		MaintenanceSubProtocolServiceLocal {
 	@PersistenceContext

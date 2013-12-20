@@ -3,11 +3,18 @@
  */
 package org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocols;
 
+import java.util.List;
+
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
+import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridField;
 import org.fourgeeks.gha.webclient.client.UI.grids.GhaGrid;
+import org.fourgeeks.gha.webclient.client.maintenanceprotocols.MaintenanceProtocolsModel;
 
+import com.smartgwt.client.types.DragDataAction;
 import com.smartgwt.client.types.ListGridFieldType;
+import com.smartgwt.client.widgets.events.DropCompleteEvent;
+import com.smartgwt.client.widgets.events.DropCompleteHandler;
 import com.smartgwt.client.widgets.menu.MenuItem;
 import com.smartgwt.client.widgets.menu.events.ClickHandler;
 import com.smartgwt.client.widgets.menu.events.MenuItemClickEvent;
@@ -18,6 +25,11 @@ import com.smartgwt.client.widgets.menu.events.MenuItemClickEvent;
  */
 public class MaintenanceProtocolsGrid extends GhaGrid<MaintenanceProtocols> {
 	private final MenuItem[] headerMenuItems;
+	private final GHAAsyncCallback<Void> callback = new GHAAsyncCallback<Void>() {
+		@Override
+		public void onSuccess(Void result) {
+		}
+	};
 
 	/** */
 	public MaintenanceProtocolsGrid() {
@@ -74,6 +86,27 @@ public class MaintenanceProtocolsGrid extends GhaGrid<MaintenanceProtocols> {
 		setCanHover(true);
 		setShowHover(true);
 		setShowHoverComponents(true);
+		setCanSort(false);
+
+		setCanReorderRecords(true);
+		setCanAcceptDroppedRecords(true);
+		setCanDragRecordsOut(true);
+		setDragDataAction(DragDataAction.MOVE);
+		addDropCompleteHandler(new DropCompleteHandler() {
+			@Override
+			public void onDropComplete(DropCompleteEvent event) {
+				final MaintenanceProtocolsGrid grid = MaintenanceProtocolsGrid.this;
+				final List<MaintenanceProtocols> entities = grid.getEntities();
+
+				int size = grid.getRecords().length;
+				for (int i = 0, ordinal = 1; i < size; i++, ordinal++) {
+					grid.getRecord(i).setAttribute("ordinal", ordinal);
+					entities.get(i).setOrdinal(ordinal);
+				}
+
+				MaintenanceProtocolsModel.update(entities, callback);
+			}
+		});
 	}
 
 	@Override
@@ -108,4 +141,5 @@ public class MaintenanceProtocolsGrid extends GhaGrid<MaintenanceProtocols> {
 		});
 		return menuItem;
 	}
+
 }

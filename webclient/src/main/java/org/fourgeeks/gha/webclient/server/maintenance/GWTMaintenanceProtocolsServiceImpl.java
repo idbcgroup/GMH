@@ -125,4 +125,16 @@ public class GWTMaintenanceProtocolsServiceImpl extends RemoteServiceServlet
 		return entitiy;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceprotocols.
+	 * GWTMaintenanceProtocolsService#update(java.util.List)
+	 */
+	@Override
+	public void update(List<MaintenanceProtocols> entities)
+			throws GHAEJBException {
+		service.update(entities);
+	}
+
 }

@@ -114,4 +114,17 @@ public class MaintenanceProtocolsModel {
 			GHAAsyncCallback<MaintenanceProtocols> callback) {
 		service.save(entity, callback);
 	}
+
+	/**
+	 * Update the given {@link MaintenanceProtocols} entities
+	 * 
+	 * @param entities
+	 *            list with the {@link MaintenanceProtocols} entities to update
+	 * @param callback
+	 *            the response callback
+	 */
+	public static void update(List<MaintenanceProtocols> entities,
+			GHAAsyncCallback<Void> callback) {
+		service.update(entities, callback);
+	}
 }

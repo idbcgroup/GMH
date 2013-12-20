@@ -95,4 +95,14 @@ public interface MaintenanceProtocolsServiceRemote {
 	 */
 	public MaintenanceProtocols save(MaintenanceProtocols entity)
 			throws GHAEJBException;
+
+	/**
+	 * Update the given {@link MaintenanceProtocols} entities
+	 * 
+	 * @param entities
+	 *            list with the {@link MaintenanceProtocols} entities to update
+	 * @throws GHAEJBException
+	 */
+	public void update(List<MaintenanceProtocols> entities)
+			throws GHAEJBException;
 }

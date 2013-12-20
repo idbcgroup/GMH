@@ -80,6 +80,25 @@ public class GhaGrid<T> extends ListGrid implements ResizeHandler {
 		return lista;
 	}
 
+	/**
+	 * @return the entities displayed in the grid
+	 */
+	@SuppressWarnings("unchecked")
+	public List<T> getEntities() {
+		ListGridRecord[] records = super.getRecords();
+
+		if (records == null)
+			return null;
+
+		ArrayList<T> list = new ArrayList<T>();
+		for (ListGridRecord record : records) {
+			GHAGridRecord<T> ghaRecord = (GHAGridRecord<T>) record;
+			list.add(ghaRecord.toEntity());
+		}
+
+		return list;
+	}
+
 	@Override
 	public void onResize(ResizeEvent event) {
 		setHeight(GHAUiHelper.getSubtabGridSize(30));

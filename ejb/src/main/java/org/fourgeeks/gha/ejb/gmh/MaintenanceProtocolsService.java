@@ -20,7 +20,7 @@ import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlanStadisticData;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocolStadisticData;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
-import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.GHAUtil;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 
@@ -30,8 +30,8 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * @author naramirez
  */
 @Stateless
-public class MaintenanceProtocolsService extends GHAEJBExceptionService implements
-		MaintenanceProtocolsServiceRemote {
+public class MaintenanceProtocolsService extends GHAEJBExceptionService
+		implements MaintenanceProtocolsServiceRemote {
 	private final static Logger logger = Logger
 			.getLogger(MaintenanceProtocolsService.class.getName());
 
@@ -275,6 +275,37 @@ public class MaintenanceProtocolsService extends GHAEJBExceptionService implemen
 			logger.log(Level.INFO, stringMsg, e);
 
 			String messageCode = "maintenanceProtocol-getStadisticInfo-fail";
+			throw super.generateGHAEJBException(messageCode,
+					RuntimeParameters.getLang(), em);
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.MaintenanceProtocolsServiceRemote#update(java
+	 * .util.List)
+	 */
+	@Override
+	public void update(List<MaintenanceProtocols> entities)
+			throws GHAEJBException {
+		try {
+			if (entities == null)
+				return;
+			if (entities.isEmpty())
+				return;
+
+			for (MaintenanceProtocols entity : entities) {
+				em.merge(entity);
+			}
+			em.flush();
+
+		} catch (Exception e) {
+			final String msgError = "ERROR: saving Maintenance Protocol ";
+			logger.log(Level.INFO, msgError, e);
+
+			final String messageCode = "maintenanceProtocol-save-fail";
 			throw super.generateGHAEJBException(messageCode,
 					RuntimeParameters.getLang(), em);
 		}
