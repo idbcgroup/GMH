@@ -10,8 +10,9 @@ import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.GHAUtil;
 import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenanceActivitySubTypeSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenanceActivityTypeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACancelButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
@@ -35,6 +36,8 @@ public class MaintenanceActivitySearchForm extends
 		MaintenanceActivitySelectionProducer {
 
 	private GHATextItem nameItem, descriptionItem;
+	private GHAMaintenanceActivityTypeSelectItem typeSelectItem;
+	private GHAMaintenanceActivitySubTypeSelectItem subTypeSelectItem;
 
 	private final GHADynamicForm form;
 	private final MaintenanceActivityResultSet resultSet;
@@ -44,8 +47,10 @@ public class MaintenanceActivitySearchForm extends
 
 		nameItem = new GHATextItem(GHAStrings.get("name"));
 		nameItem.setLength(100);
-		descriptionItem = new GHATextItem(GHAStrings.get("description"), 420);
-		descriptionItem.setColSpan(4);
+		descriptionItem = new GHATextItem(GHAStrings.get("description"));
+		descriptionItem.setColSpan(3);
+		typeSelectItem = new GHAMaintenanceActivityTypeSelectItem();
+		subTypeSelectItem = new GHAMaintenanceActivitySubTypeSelectItem();
 
 		resultSet = new MaintenanceActivityResultSet(
 				ResultSetContainerType.SEARCH_FORM);
@@ -67,7 +72,8 @@ public class MaintenanceActivitySearchForm extends
 	public MaintenanceActivitySearchForm(String title) {
 		super(title);
 
-		form.setItems(nameItem, new GHASpacerItem(2), descriptionItem);
+		form.setItems(nameItem, typeSelectItem, subTypeSelectItem,
+				descriptionItem);
 
 		nameItem.addKeyUpHandler(searchKeyUpHandler);
 		descriptionItem.addKeyUpHandler(searchKeyUpHandler);
