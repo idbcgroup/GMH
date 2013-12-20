@@ -125,9 +125,18 @@ public abstract class GHAUiHelper {
 	 */
 	public static final int DEFAULT_PLACE_EYELASH_HEIGHT = 30;
 	/**
+	 * height for the tab eyelash
+	 */
+	public static final int DEFAULT_TAB_EYELASH_HEIGHT = 30;
+	/**
 	 * 
 	 */
 	public static final String DEFAULT_PLACES_BAR_BACKGROUND_COLOR = "#e0e0df";
+	/**
+	 * Default widht for the header option
+	 */
+	public static final int DEFAULT_HEADER_OPTION_WIDTH = 90;
+	public static final int DEFAULT_TAB_SET_HEIGHT = 30;
 
 	/**
 	 * @return the height that a tab must have

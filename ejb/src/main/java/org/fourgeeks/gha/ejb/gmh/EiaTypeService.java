@@ -25,7 +25,7 @@ import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
-import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
@@ -34,7 +34,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  */
 
 @Stateless
-public class EiaTypeService extends GHAEJBExceptionImpl implements
+public class EiaTypeService extends GHAEJBExceptionService implements
 		EiaTypeServiceRemote {
 	@PersistenceContext
 	EntityManager em;
@@ -207,7 +207,7 @@ public class EiaTypeService extends GHAEJBExceptionImpl implements
 		} catch (Exception e) {
 			logger.log(Level.SEVERE,
 					"Error obteniendo los eiaTypes por eiatype", e);
-			throw super.generateGHAEJBException("eiaType-find-fail",
+			throw super.generateGHAEJBException("eiatype-find-fail",
 					RuntimeParameters.getLang(), em);
 		}
 	}
@@ -292,8 +292,8 @@ public class EiaTypeService extends GHAEJBExceptionImpl implements
 			return q.getResultList();
 		} catch (Exception e) {
 			logger.log(Level.SEVERE,
-					"Error obteniendo buscando los eiaTypes por eiatype", e);
-			throw super.generateGHAEJBException("eiaType-find-fail",
+					"Error obteniendo buscando los eiatypes por eiatype", e);
+			throw super.generateGHAEJBException("eiatype-find-fail",
 					RuntimeParameters.getLang(), em);
 		}
 	}
@@ -309,7 +309,7 @@ public class EiaTypeService extends GHAEJBExceptionImpl implements
 			return em.find(EiaType.class, code);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error buscando Eiatype por Id ", e);
-			throw super.generateGHAEJBException("eiaType-find-fail",
+			throw super.generateGHAEJBException("eiatype-find-fail",
 					RuntimeParameters.getLang(), em);
 		}
 	}
@@ -326,7 +326,7 @@ public class EiaTypeService extends GHAEJBExceptionImpl implements
 					.getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all eiatypes", ex);
-			throw super.generateGHAEJBException("eiaType-getAll-fail",
+			throw super.generateGHAEJBException("eiatype-getAll-fail",
 					RuntimeParameters.getLang(), em);
 		}
 	}
@@ -343,7 +343,7 @@ public class EiaTypeService extends GHAEJBExceptionImpl implements
 					.setFirstResult(offset).setMaxResults(size).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retriving all EitaTypes", ex);
-			throw super.generateGHAEJBException("eiaType-getAll-fail",
+			throw super.generateGHAEJBException("eiatype-getAll-fail",
 					RuntimeParameters.getLang(), em);
 		}
 	}
@@ -372,7 +372,7 @@ public class EiaTypeService extends GHAEJBExceptionImpl implements
 			return em.find(EiaType.class, eiaType.getCode());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving eiatype", e);
-			throw super.generateGHAEJBException("eiaType-save-fail",
+			throw super.generateGHAEJBException("eiatype-save-fail",
 					RuntimeParameters.getLang(), em);
 		}
 	}
@@ -400,7 +400,7 @@ public class EiaTypeService extends GHAEJBExceptionImpl implements
 			return res;
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to update eiatype", e);
-			throw super.generateGHAEJBException("eiaType-update-fail",
+			throw super.generateGHAEJBException("eiatype-update-fail",
 					RuntimeParameters.getLang(), em);
 		}
 	}
@@ -425,7 +425,7 @@ public class EiaTypeService extends GHAEJBExceptionImpl implements
 			logger.log(Level.SEVERE,
 					"Error retriving all EitaTypes by maintenancePlan", ex);
 			throw super.generateGHAEJBException(
-					"eiaType-findByMaintenancePlan-fail",
+					"eiatype-findByMaintenancePlan-fail",
 					RuntimeParameters.getLang(), em);
 		}
 	}

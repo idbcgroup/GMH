@@ -13,7 +13,7 @@ import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.ess.InstanceLogon;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
-import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
@@ -22,7 +22,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  */
 
 @Stateless
-public class InstanceLogonService extends GHAEJBExceptionImpl implements
+public class InstanceLogonService extends GHAEJBExceptionService implements
 		InstanceLogonServiceRemote {
 	@PersistenceContext
 	private EntityManager em;

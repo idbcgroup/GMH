@@ -9,7 +9,6 @@ import javax.ejb.Remote;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
-import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.ServiceResource;
 
 /**
@@ -22,36 +21,20 @@ public interface MaintenanceActivityServiceRemote {
 	/**
 	 * Delete a MaintenanceActivity from database by Id
 	 * 
+	 * @param Id
+	 * 
 	 * @throws GHAEJBException
 	 */
 	public void delete(long Id) throws GHAEJBException;
 
 	/**
-	 * @param maintenanceProtocol
-	 * @return a list with the activities associated with the protocol
-	 * @throws GHAEJBException
-	 */
-	public List<MaintenanceActivity> findByMaintenanceProtocol(
-			MaintenanceProtocol maintenanceProtocol)
-					throws GHAEJBException;
-
-	/**
-	 * @param maintenanceProtocol
-	 * @param offset
-	 * @param size
-	 * @return a list with the activities associated with the protocol
-	 * @throws GHAEJBException
-	 */
-	public List<MaintenanceActivity> findByMaintenanceProtocol(
-			MaintenanceProtocol maintenanceProtocol, int offset,
-			int size) throws GHAEJBException;
-
-	/**
 	 * @param serviceResource
-	 * @return the list of maintenanceActivities that use the resource/service given
+	 * @return the list of maintenanceActivities that use the resource/service
+	 *         given
 	 * @throws GHAEJBException
 	 */
-	public List<MaintenanceActivity> findByServiceResource(ServiceResource serviceResource) throws GHAEJBException;
+	public List<MaintenanceActivity> findByServiceResource(
+			ServiceResource serviceResource) throws GHAEJBException;
 
 	/**
 	 * @param Id
@@ -59,12 +42,15 @@ public interface MaintenanceActivityServiceRemote {
 	 * @throws GHAEJBException
 	 */
 	public MaintenanceActivity find(long Id) throws GHAEJBException;
+
 	/**
 	 * @param maintenanceActivity
-	 * @return a list with the maintenance activities that are like the parameter
+	 * @return a list with the maintenance activities that are like the
+	 *         parameter
 	 * @throws GHAEJBException
 	 */
-	public List<MaintenanceActivity> find(MaintenanceActivity maintenanceActivity) throws GHAEJBException;
+	public List<MaintenanceActivity> find(
+			MaintenanceActivity maintenanceActivity) throws GHAEJBException;
 
 	/**
 	 * @return the list with all maintenanceActivity Objects
@@ -82,7 +68,7 @@ public interface MaintenanceActivityServiceRemote {
 			throws GHAEJBException;
 
 	/**
-	 * @param MaintenanceActivity
+	 * @param maintenanceActivity
 	 *            the maintenanceActivity to be saved on database
 	 * @throws GHAEJBException
 	 * @return maintenanceActivity saved
@@ -91,7 +77,7 @@ public interface MaintenanceActivityServiceRemote {
 			throws GHAEJBException;
 
 	/**
-	 * @param MaintenanceActivity
+	 * @param maintenanceActivity
 	 *            the maintenanceActivity to be updated
 	 * @return maintenanceActivity updated
 	 * @throws GHAEJBException

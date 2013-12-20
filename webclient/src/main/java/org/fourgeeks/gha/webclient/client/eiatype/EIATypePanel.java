@@ -14,7 +14,7 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.SearchListener;
 import org.fourgeeks.gha.webclient.client.UI.panels.GHAPanel;
 import org.fourgeeks.gha.webclient.client.UI.panels.GHAPanelHeader;
-import org.fourgeeks.gha.webclient.client.UI.panels.GHAPanelHeader.Option;
+import org.fourgeeks.gha.webclient.client.UI.panels.GHAHeaderOption;
 
 import com.smartgwt.client.types.Visibility;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -33,8 +33,8 @@ public class EIATypePanel extends GHAPanel implements EIATypeSelectionListener,
 	private final List<EIATypeSelectionListener> listeners = new ArrayList<EIATypeSelectionListener>();
 	private EiaTypeResultSet resultSet;
 	private EIATypeTopForm topForm;
-	private Option searchOption;
-	private Option addOption;
+	private GHAHeaderOption searchOption;
+	private GHAHeaderOption addOption;
 
 	/**
 	 * @param token

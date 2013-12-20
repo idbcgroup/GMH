@@ -32,6 +32,7 @@ public class MaintenancePlanInformationFormPanel extends GHAVerticalLayout
 		MaintenancePlanSelectionProducer, ClosableListener, HideableListener {
 	private final MaintenancePlanForm form = new MaintenancePlanForm();
 
+	/** */
 	public MaintenancePlanInformationFormPanel() {
 		VLayout sideButtons = GHAUiHelper.createBar(new GHASaveButton(
 				new ClickHandler() {

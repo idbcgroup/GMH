@@ -28,7 +28,6 @@ public class GHAMaintenancePlanStateSelectItem extends GHASelectItem {
 	}
 
 	/**
-	 * @param title
 	 * @param required
 	 * @param changedHandler
 	 */
@@ -40,7 +39,6 @@ public class GHAMaintenancePlanStateSelectItem extends GHASelectItem {
 	}
 
 	/**
-	 * @param title
 	 * @param width
 	 * @param required
 	 * @param changedHandler

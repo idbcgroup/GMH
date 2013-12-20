@@ -10,7 +10,6 @@ import javax.servlet.annotation.WebServlet;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
-import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.ServiceResource;
 import org.fourgeeks.gha.ejb.gmh.MaintenanceActivityServiceRemote;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol.GWTMaintenanceActivityService;
@@ -52,38 +51,6 @@ public class GWTMaintenanceActivityServiceImpl extends RemoteServiceServlet
 	@Override
 	public MaintenanceActivity find(long Id) throws GHAEJBException {
 		return ejbService.find(Id);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol
-	 * .GWTMaintenanceActivityService
-	 * #findByMaintenanceProtocol(org.fourgeeks.gha
-	 * .domain.gmh.MaintenanceProtocol)
-	 */
-	@Override
-	public List<MaintenanceActivity> findByMaintenanceProtocol(
-			MaintenanceProtocol maintenanceProtocol) throws GHAEJBException {
-		return ejbService.findByMaintenanceProtocol(maintenanceProtocol);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol
-	 * .GWTMaintenanceActivityService
-	 * #findByMaintenanceProtocol(org.fourgeeks.gha
-	 * .domain.gmh.MaintenanceProtocol, int, int)
-	 */
-	@Override
-	public List<MaintenanceActivity> findByMaintenanceProtocol(
-			MaintenanceProtocol maintenanceProtocol, int offset, int size)
-			throws GHAEJBException {
-		return ejbService.findByMaintenanceProtocol(maintenanceProtocol,
-				offset, size);
 	}
 
 	/*

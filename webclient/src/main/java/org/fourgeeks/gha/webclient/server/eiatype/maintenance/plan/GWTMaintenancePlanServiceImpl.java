@@ -12,6 +12,7 @@ import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
+import org.fourgeeks.gha.domain.gmh.MaintenancePlanStadisticData;
 import org.fourgeeks.gha.ejb.gmh.MaintenancePlanServiceRemote;
 import org.fourgeeks.gha.webclient.client.eiatype.maintenance.plan.GWTMaintenancePlanService;
 
@@ -36,6 +37,18 @@ public class GWTMaintenancePlanServiceImpl extends RemoteServiceServlet
 	 * (non-Javadoc)
 	 * 
 	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.plan.
+	 * GWTMaintenancePlanService#delete(java.util.List)
+	 */
+	@Override
+	public void delete(List<MaintenancePlan> maintenancePlans)
+			throws GHAEJBException {
+		ejbService.delete(maintenancePlans);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.plan.
 	 * GWTMaintenancePlanService#delete(long)
 	 */
 	@Override
@@ -47,12 +60,24 @@ public class GWTMaintenancePlanServiceImpl extends RemoteServiceServlet
 	 * (non-Javadoc)
 	 * 
 	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.plan.
-	 * GWTMaintenancePlanService#delete(java.util.List)
+	 * GWTMaintenancePlanService#find(long)
 	 */
 	@Override
-	public void delete(List<MaintenancePlan> maintenancePlans)
+	public MaintenancePlan find(long Id) throws GHAEJBException {
+		return ejbService.find(Id);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.plan.
+	 * GWTMaintenancePlanService
+	 * #find(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
+	 */
+	@Override
+	public List<MaintenancePlan> find(MaintenancePlan maintenancePlan)
 			throws GHAEJBException {
-		ejbService.delete(maintenancePlans);
+		return ejbService.find(maintenancePlan);
 	}
 
 	/*
@@ -79,17 +104,6 @@ public class GWTMaintenancePlanServiceImpl extends RemoteServiceServlet
 	public List<MaintenancePlan> findByEiaType(EiaType eiaType, int offset,
 			int size) throws GHAEJBException {
 		return ejbService.findByEiaType(eiaType, offset, size);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.plan.
-	 * GWTMaintenancePlanService#find(long)
-	 */
-	@Override
-	public MaintenancePlan find(long Id) throws GHAEJBException {
-		return ejbService.find(Id);
 	}
 
 	/*
@@ -146,12 +160,12 @@ public class GWTMaintenancePlanServiceImpl extends RemoteServiceServlet
 	 * 
 	 * @see org.fourgeeks.gha.webclient.client.eiatype.maintenance.plan.
 	 * GWTMaintenancePlanService
-	 * #find(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
+	 * #getStadisticInfo(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
 	 */
 	@Override
-	public List<MaintenancePlan> find(MaintenancePlan maintenancePlan)
-			throws GHAEJBException {
-		return ejbService.find(maintenancePlan);
+	public MaintenancePlanStadisticData getStadisticInfo(
+			MaintenancePlan maintenancePlan) throws GHAEJBException {
+		return ejbService.getStadisticInfo(maintenancePlan);
 	}
 	
 	/*

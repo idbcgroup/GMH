@@ -17,6 +17,7 @@ import org.fourgeeks.gha.domain.AbstractEntity;
  * 
  */
 
+@Deprecated
 @Entity
 @NamedQueries(value = {
 		@NamedQuery(name = "MaintenanceProtocol.findByMaintenancePlan", query = "SELECT prot from MaintenancePlanMaintenanceProtocol e JOIN e.maintenanceProtocol prot WHERE e.maintenancePlan = :maintenancePlan ORDER BY e.id"),

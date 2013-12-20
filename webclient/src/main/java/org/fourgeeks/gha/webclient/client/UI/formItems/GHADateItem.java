@@ -88,6 +88,10 @@ public class GHADateItem extends DateItem {
 		setTitle(title);
 	}
 
+	/**
+	 * @param title
+	 * @param active
+	 */
 	public GHADateItem(String title, boolean active) {
 		this(title);
 		setDisabled(!active);
