@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeia;
+package org.fourgeeks.gha.webclient.client.maintenanceplan.eiaplanification;
 
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
@@ -11,14 +11,15 @@ import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
  * @author emiliot
  * 
  */
-public class EiaMaintenancePlanRecord extends GHAGridRecord<Eia> {
+public class EiaMaintenanceRecord extends GHAGridRecord<Eia> {
 	private Eia eiaEntity;
 	private EiaMaintenancePlanification planificationEntity;
 
 	/**
 	 * @param eiaEntity
+	 * @param planificationEntity 
 	 */
-	public EiaMaintenancePlanRecord(Eia eiaEntity,
+	public EiaMaintenanceRecord(Eia eiaEntity,
 			EiaMaintenancePlanification planificationEntity) {
 		this.eiaEntity = eiaEntity;
 		this.planificationEntity = planificationEntity;
