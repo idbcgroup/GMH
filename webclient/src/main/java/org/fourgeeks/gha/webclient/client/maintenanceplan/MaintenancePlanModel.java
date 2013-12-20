@@ -97,6 +97,7 @@ public class MaintenancePlanModel {
 	public static void getStadisticInfo(MaintenancePlan mantenancePlan,
 			GHAAsyncCallback<MaintenancePlanStadisticData> callback) {
 		service.getStadisticInfo(mantenancePlan, callback);
+	}
 	
 	/**
 	 * 
