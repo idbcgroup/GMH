@@ -129,6 +129,11 @@ public abstract class GHAUiHelper {
 	 */
 	public static final String DEFAULT_PLACES_BAR_BACKGROUND_COLOR = "#e0e0df";
 
+	public static final int DEFAULT_NOTIFICATION_WIDTH = 250;
+	public static final int DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT = 130;
+	public static final int DEFAULT_NOTIFICATION_BUTTONS_HEIGHT = 150;
+	
+	
 	/**
 	 * @return the height that a tab must have
 	 */

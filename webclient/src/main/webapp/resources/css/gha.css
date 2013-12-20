@@ -13,6 +13,7 @@ body {
 	background-color: #F2F2F2;
 	min-width: 1024px;
 	min-height: 768px;
+	overflow: hidden;
 }
 
 #main-content {
@@ -516,4 +517,27 @@ div#header-bar.header-bar div#user-info.user-info div#isc_HLayout_0_wrapper div#
 .headerButton {
 	/*background: none !important;*/
 	
+}
+
+/*Notifications testing*/
+
+.windowBackground, 
+.dialogBackground,
+.dialogStyle{
+	border-radius: 5px 5px 5px 5px !important;
+	box-shadow: none !important;
+}
+
+.windowBody, 
+.dialogBody, 
+.dialogBodyStyle{
+/* 	left: 0px !important; */
+/* 	width: 100% !important; */
+	border: none !important;
+    box-shadow: none !important;
+}
+
+.windowHeaderText, .dialogHeaderText{ 
+	color: #FFFFFF !important;
+	text-transform: uppercase;
 }

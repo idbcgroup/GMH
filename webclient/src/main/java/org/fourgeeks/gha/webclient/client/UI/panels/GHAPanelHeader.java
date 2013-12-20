@@ -10,6 +10,7 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.places.GHAPlaceSet;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
@@ -65,10 +66,16 @@ public class GHAPanelHeader extends HLayout implements ResizeHandler,
 		});
 
 		addMember(closeOption);
+		addDebugOption("Notif", new ClickHandler() {			
+			@Override
+			public void onClick(ClickEvent event) {
+				GHANotification.testDialog("Mensaje standard de error Código#1238012");
+			}
+		});
 	}
-
+	
 	/**
-	 * Add the clean option
+	 * Add the clean optionst
 	 * 
 	 * @param clickHandler
 	 *            the action to be taken when the user clicks
@@ -84,6 +91,22 @@ public class GHAPanelHeader extends HLayout implements ResizeHandler,
 		return cleanOption;
 	}
 
+	/**
+	 * Add a Debug option
+	 * 
+	 * @param clickHandler
+	 *            the action to be taken when the user clicks
+	 * @return the Debug Option
+	 */
+	public Option addDebugOption(String title, ClickHandler clickHandler) {
+		Option debugOption = new Option(this, title + "...",
+				OPTION_WIDTH, true, "../resources/img/limpiarButton.png",
+				"../resources/img/limpiarButtonOver.png");
+		debugOption.addClickHandler(clickHandler);
+		addMember(debugOption, memberPos++);
+		return debugOption;
+	}	
+	
 	/**
 	 * Add the add option
 	 * 

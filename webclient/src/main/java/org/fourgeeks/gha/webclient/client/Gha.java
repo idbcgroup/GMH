@@ -54,7 +54,7 @@ public class Gha implements EntryPoint {
 		});
 
 		resize();
-
+		
 		GHAUiHelper.addGHAResizeHandler(new ResizeHandler() {
 			@Override
 			public void onResize(ResizeEvent event) {
@@ -62,7 +62,7 @@ public class Gha implements EntryPoint {
 			}
 		});
 	}
-
+	
 	private void resize() {
 		RootPanel.get("main-content").setHeight(
 				GHAUiHelper.getTabHeight() + "px");
