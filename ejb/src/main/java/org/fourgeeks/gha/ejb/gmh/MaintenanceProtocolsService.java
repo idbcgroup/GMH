@@ -30,7 +30,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * @author naramirez
  */
 @Stateless
-public class MaintenanceProtocolsService extends GHAEJBExceptionImpl implements
+public class MaintenanceProtocolsService extends GHAEJBExceptionService implements
 		MaintenanceProtocolsServiceRemote {
 	private final static Logger logger = Logger
 			.getLogger(MaintenanceProtocolsService.class.getName());

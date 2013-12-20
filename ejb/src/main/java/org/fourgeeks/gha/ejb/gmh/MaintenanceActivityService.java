@@ -22,7 +22,7 @@ import org.fourgeeks.gha.domain.enu.MaintenanceActivityTypeEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.ServiceResource;
-import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
@@ -30,7 +30,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * 
  */
 @Stateless
-public class MaintenanceActivityService extends GHAEJBExceptionImpl implements
+public class MaintenanceActivityService extends GHAEJBExceptionService implements
 		MaintenanceActivityServiceRemote {
 	@PersistenceContext
 	EntityManager em;

@@ -29,7 +29,10 @@ import org.fourgeeks.gha.domain.mix.Bpi;
 @Entity
 @NamedQueries(value = {
 		@NamedQuery(name = "MaintenancePlan.getAll", query = "SELECT e from MaintenancePlan e order by e.id"),
-		@NamedQuery(name = "MaintenancePlan.findByEiaType", query = "SELECT mnt from EiaTypeMaintenancePlan e JOIN e.maintenancePlan mnt WHERE e.eiaType = :eiaType order by e.id") })
+		@NamedQuery(name = "MaintenancePlan.findByEiaType", query = "SELECT mnt from EiaTypeMaintenancePlan e JOIN e.maintenancePlan mnt WHERE e.eiaType = :eiaType order by e.id"),
+		@NamedQuery(name = "MaintenancePlan.findEiaByMaintenancePlan", query = "SELECT pmp.planification FROM EiaPreventiveMaintenancePlanification pmp JOIN pmp.plan mp WHERE mp.maintenancePlan = :plan")
+		})
+		
 public class MaintenancePlan extends AbstractEntity {
 
 	/**

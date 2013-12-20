@@ -113,8 +113,7 @@ public class AsociatedMaintenancePlanGridPanel extends GHAVerticalLayout
 									List<MaintenancePlanMaintenanceProtocol> result) {
 								ListGridRecord array[] = MaintenancePlanMaintenanceProtocolUtil
 										.toPlanRecords(result)
-										.toArray(
-												new MaintenancePlanMaintenanceProtocolGridRecord[] {});
+										.toArray(new MaintenancePlanMaintenanceProtocolGridRecord[] {});
 								grid.setData(array);
 							}
 

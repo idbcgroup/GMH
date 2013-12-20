@@ -20,7 +20,7 @@ import javax.persistence.criteria.Root;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.glm.MaterialCategory;
 import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
-import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
@@ -29,7 +29,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  */
 
 @Stateless
-public class MaterialCategoryService extends GHAEJBExceptionImpl implements
+public class MaterialCategoryService extends GHAEJBExceptionService implements
 		MaterialCategoryServiceRemote {
 	@PersistenceContext
 	private EntityManager em;
