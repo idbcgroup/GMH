@@ -8,6 +8,7 @@ import java.util.List;
 import javax.ejb.Remote;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
+import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlanStadisticData;
@@ -34,6 +35,15 @@ public interface MaintenancePlanServiceRemote {
 	 * @throws GHAEJBException
 	 */
 	public void delete(List<MaintenancePlan> maintenancePlans)
+			throws GHAEJBException;
+
+	/**
+	 * 
+	 * @param maintenancePlan
+	 * @return the list of maintenance planifications related to the parameter
+	 * @throws GHAEJBException
+	 */
+	public List<EiaMaintenancePlanification> findEiaByMaintenancePlan(MaintenancePlan maintenancePlan)
 			throws GHAEJBException;
 
 	/**

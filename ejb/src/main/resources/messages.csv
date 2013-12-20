@@ -335,6 +335,7 @@ EN,maintenancePlanMaintenanceProtocol-findByMaintenanceProtocol-fail,Failed to f
 EN,maintenancePlanMaintenanceProtocol-save-fail,Failed to save MaintenancePlanMaintenanceProtocol
 ES,maintenancePlan-delete-fail,Fallo la eliminación del MaintenancePlan
 ES,maintenancePlan-findByEiaType-fail,Búsqueda fallida de MaintenancePlan por eiaType
+ES,maintenancePlan-findEiaByEiaType-fail,Búsqueda fallida de EiaMaintenancePlanification por maintenancePlan
 ES,maintenancePlan-findByMaintenancePlan-fail,Búsqueda fallida de MaintenancePlan por maintenancePlan
 ES,maintenancePlan-find-fail,Búsqueda fallida de MaintenancePlan
 ES,maintenancePlan-getAll-fail,Búsqueda fallida de todos los MaintenancePlan
@@ -342,6 +343,7 @@ ES,maintenancePlan-save-fail,Guardado fallido de MaintenancePlan
 ES,maintenancePlan-update-fail,Actualización fallida de MaintenancePlan
 EN,maintenancePlan-delete-fail,Failed to delete MaintenancePlan
 EN,maintenancePlan-findByEiaType-fail,Failed to find MaintenancePlan by eiaType
+EN,maintenancePlan-findEiaByEiaType-fail,Failed to find EiaMaintenancePlanification by maintenancePlan
 EN,maintenancePlan-findByMaintenancePlan-fail,Failed to find MaintenancePlan by maintenancePlan
 EN,maintenancePlan-find-fail,Failed to find MaintenancePlan
 EN,maintenancePlan-getAll-fail,Failed to get all MaintenancePlan

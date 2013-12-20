@@ -2,6 +2,7 @@ package org.fourgeeks.gha.webclient.client.maintenanceplan;
 
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAInternalTabSet;
+import org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeia.AsociatedEiaSubTab;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype.AsociatedEiaTypeSubTab;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.information.MaintenancePlanInformationSubTab;
 
@@ -16,7 +17,8 @@ public class MaintenancePlanInternalTabset extends GHAInternalTabSet implements
 		ResizeHandler, MaintenancePlanSelectionListener {
 
 	private final MaintenancePlanInformationSubTab maintenancePlanInformationSubTab;
-	private final AsociatedEiaTypeSubTab maintenancePlanEquipmentSubTab;
+	private final AsociatedEiaTypeSubTab maintenancePlanEquipmentTypeSubTab;
+	private final AsociatedEiaSubTab maintenancePlanEquipmentSubTab;
 
 	// private final MaintenanceProtocolSubTab maintenanceProtocolSubTab;
 
@@ -27,11 +29,13 @@ public class MaintenancePlanInternalTabset extends GHAInternalTabSet implements
 		super(panel);
 		maintenancePlanInformationSubTab = new MaintenancePlanInformationSubTab(
 				panel);
-		maintenancePlanEquipmentSubTab = new AsociatedEiaTypeSubTab(panel);
+		maintenancePlanEquipmentTypeSubTab = new AsociatedEiaTypeSubTab(panel);
+		maintenancePlanEquipmentSubTab = new AsociatedEiaSubTab(panel);
 		// maintenanceProtocolSubTab = new MaintenanceProtocolSubTab(mpTab);
 
 		// Agregando las Subtabs
 		addTab(maintenancePlanInformationSubTab);
+		addTab(maintenancePlanEquipmentTypeSubTab);
 		addTab(maintenancePlanEquipmentSubTab);
 		// addTab(maintenanceProtocolSubTab);
 
@@ -47,6 +51,9 @@ public class MaintenancePlanInternalTabset extends GHAInternalTabSet implements
 		Tab selectedTab = getSelectedTab();
 		if (selectedTab == maintenancePlanInformationSubTab)
 			maintenancePlanInformationSubTab.show();
+		else if (selectedTab == maintenancePlanEquipmentTypeSubTab) {
+			maintenancePlanEquipmentTypeSubTab.getPane().show();
+		}
 		else if (selectedTab == maintenancePlanEquipmentSubTab) {
 			maintenancePlanEquipmentSubTab.getPane().show();
 		}
