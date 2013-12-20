@@ -7,6 +7,7 @@ import org.fourgeeks.gha.webclient.client.UI.places.GHAPlaceHeader;
 import org.fourgeeks.gha.webclient.client.UI.places.NeedPermissionPlace;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabPanel;
+import org.fourgeeks.gha.webclient.client.emh.patient.PatientTab;
 
 import com.google.gwt.user.client.History;
 import com.smartgwt.client.widgets.events.ClickEvent;
