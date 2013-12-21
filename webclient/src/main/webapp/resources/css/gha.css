@@ -301,11 +301,21 @@ input[type="text"]:disabled,.inputDisabled {
 	font-size: 9px;
 }
 
-.title-label {
+.gha-label {
 	font-weight: bold;
 	color: black;
 	font-size: 14px;
-	/* 	padding: 0px 0px 0px 5px; */
+}
+
+.gha-title-label {
+	font-weight: bold;
+	color: #008EFE;
+	font-size: 10px;
+}
+
+.gha-text-label {
+	color: black;
+	font-size: 10px;
 }
 
 .iconTopPadding {

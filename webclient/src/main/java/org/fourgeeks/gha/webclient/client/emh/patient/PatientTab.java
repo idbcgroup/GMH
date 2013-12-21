@@ -43,6 +43,7 @@ public class PatientTab extends GHATab {
 
 		addMember(bodyLayout);
 		addMember(new HMETools());
+
 		bodyLayout.addMember(new PatientTopForm());
 
 		HTMLFlow htmlFlow = new HTMLFlow();
@@ -92,7 +93,7 @@ public class PatientTab extends GHATab {
 		layout.setMembersMargin(20);
 		layout.addMember(sectionStack);
 
-		addMember(layout);
+		bodyLayout.addMember(layout);
 	}
 
 	@Override

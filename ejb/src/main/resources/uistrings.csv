@@ -156,3 +156,11 @@ ES,edt,edt
 ES,emh,Historia médica
 ES,gmh,gmh
 ES,hme,gmh
+ES,gender,sexo
+ES,city,ciudad
+ES,age,edad
+ES,document-type,tipo de documento
+ES,document-number,número de documento
+ES,diagnosis,Diágnostico
+ES,weight,peso
+ES,height,altura
