@@ -14,7 +14,7 @@ import javax.persistence.PersistenceContext;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.msg.GHAMessage;
 import org.fourgeeks.gha.domain.msg.GHAMessageId;
-import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
@@ -22,7 +22,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * 
  */
 @Stateless
-public class MessageService extends GHAEJBExceptionImpl implements
+public class MessageService extends GHAEJBExceptionService implements
 		MessageServiceRemote {
 	@PersistenceContext
 	private EntityManager em;

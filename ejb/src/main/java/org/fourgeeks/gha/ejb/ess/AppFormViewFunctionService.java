@@ -11,7 +11,7 @@ import javax.persistence.TypedQuery;
 
 import org.fourgeeks.gha.domain.ess.ui.AppFormViewFunction;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
-import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
@@ -19,7 +19,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * 
  */
 @Stateless
-public class AppFormViewFunctionService extends GHAEJBExceptionImpl implements
+public class AppFormViewFunctionService extends GHAEJBExceptionService implements
 		AppFormViewFunctionServiceRemote {
 
 	@PersistenceContext

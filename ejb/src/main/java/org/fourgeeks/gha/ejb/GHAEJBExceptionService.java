@@ -1,6 +1,7 @@
 package org.fourgeeks.gha.ejb;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 
 import org.fourgeeks.gha.domain.enu.LanguageEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
@@ -11,7 +12,7 @@ import org.fourgeeks.gha.domain.msg.GHAMessageId;
  * @author vivi.torresg
  * 
  */
-public class GHAEJBExceptionImpl {
+public class GHAEJBExceptionService {
 
 	/**
 	 * @param messageCode
@@ -25,6 +26,15 @@ public class GHAEJBExceptionImpl {
 		try {
 			ghaejbException.setGhaMessage(em.find(GHAMessage.class,
 					new GHAMessageId(messageCode, lang)));
+		} catch (NoResultException e) {
+			try {
+				ghaejbException.setGhaMessage(em.find(GHAMessage.class,
+						new GHAMessageId("message-find-fail", lang)));
+			} catch (Exception e1) {
+				ghaejbException.setGhaMessage(new GHAMessage(lang,
+						"generic-error-msg",
+						"Unknow system failure, please contact IT support"));
+			}
 		} catch (Exception e1) {
 			ghaejbException.setGhaMessage(new GHAMessage(lang,
 					"generic-error-msg",

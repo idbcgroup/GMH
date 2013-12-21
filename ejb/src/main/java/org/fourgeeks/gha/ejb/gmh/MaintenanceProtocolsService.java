@@ -12,7 +12,7 @@ import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
-import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
@@ -21,7 +21,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * @author naramirez
  */
 @Stateless
-public class MaintenanceProtocolsService extends GHAEJBExceptionImpl implements
+public class MaintenanceProtocolsService extends GHAEJBExceptionService implements
 		MaintenanceProtocolsServiceRemote {
 	private final static Logger logger = Logger
 			.getLogger(MaintenanceProtocolsService.class.getName());

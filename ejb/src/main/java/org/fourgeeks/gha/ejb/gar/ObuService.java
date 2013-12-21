@@ -20,7 +20,7 @@ import javax.persistence.criteria.Root;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.mix.Bpi;
-import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
@@ -28,7 +28,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * 
  */
 @Stateless
-public class ObuService extends GHAEJBExceptionImpl implements ObuServiceRemote {
+public class ObuService extends GHAEJBExceptionService implements ObuServiceRemote {
 	@PersistenceContext
 	EntityManager em;
 

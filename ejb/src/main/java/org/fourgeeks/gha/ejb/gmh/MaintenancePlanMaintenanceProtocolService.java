@@ -15,7 +15,7 @@ import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlanMaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
-import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
@@ -26,7 +26,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
 @Deprecated
 @Stateless
 public class MaintenancePlanMaintenanceProtocolService extends
-		GHAEJBExceptionImpl implements
+		GHAEJBExceptionService implements
 		MaintenancePlanMaintenanceProtocolServiceRemote {
 	@PersistenceContext
 	EntityManager em;
