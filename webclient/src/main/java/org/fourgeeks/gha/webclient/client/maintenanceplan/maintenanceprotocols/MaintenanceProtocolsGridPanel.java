@@ -11,7 +11,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHAEditButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHANewButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
@@ -80,17 +80,23 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 	}
 
 	/**
-	 * 
+	 * Create a {@link MaintenanceProtocolsGridPanel}
 	 */
 	public MaintenanceProtocolsGridPanel() {
 		super();
 		String stringKey = "maintenance-plan-associated-protocol-activities";
 		addMember(new GHALabel(GHAStrings.get(stringKey)));
 
-		GHASearchButton searchButton = new GHASearchButton(new ClickHandler() {
+		GHANewButton addButton = new GHANewButton(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				searchActivity();
+				addActivity();
+			}
+		});
+		GHASearchButton copyButton = new GHASearchButton(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				coyActivities();
 			}
 		});
 		GHADeleteButton deleteButton = new GHADeleteButton(new ClickHandler() {
@@ -99,15 +105,9 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 				delete();
 			}
 		});
-		GHAEditButton copyButton = new GHAEditButton(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				searchOtherPlan();
-			}
-		});
 
-		VLayout sideButtons = GHAUiHelper.createBar(searchButton, deleteButton,
-				copyButton);
+		VLayout sideButtons = GHAUiHelper.createBar(addButton, copyButton,
+				deleteButton);
 
 		VLayout gridLayout = new VLayout(10);
 		gridLayout.addMembers(grid, stadisticDataLabel);
@@ -118,28 +118,87 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 		addMember(mainLayout);
 	}
 
+	/**
+	 * Add an activity to the maintenance plan protocol
+	 */
+	private void addActivity() {
+		ListGridRecord records[] = grid.getRecords();
+		List<MaintenanceActivity> blackList = new ArrayList<MaintenanceActivity>();
+
+		for (int i = 0; i < records.length; i++) {
+			MaintenanceProtocolsRecord record = (MaintenanceProtocolsRecord) records[i];
+			blackList.add(record.toEntity().getMaintenanceActivity());
+		}
+
+		activitySearchForm.filterBy(blackList);
+		activitySearchForm.open();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceprotocols.
+	 * MaintenanceProtocolsSelectionProducer
+	 * #addMaintenanceProtocolsSelectionListener
+	 * (org.fourgeeks.gha.webclient.client
+	 * .maintenanceprotocols.MaintenanceProtocolsSelectionListener)
+	 */
 	@Override
 	public void addMaintenanceProtocolsSelectionListener(
 			MaintenanceProtocolsSelectionListener selectionListener) {
 		listeners.add(selectionListener);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener#canBeClosen
+	 * (org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction)
+	 */
 	@Override
 	public boolean canBeClosen(HideCloseAction hideAction) {
 		return true;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener#canBeHidden
+	 * (org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction)
+	 */
 	@Override
 	public boolean canBeHidden(HideCloseAction hideAction) {
 		return true;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener#close()
+	 */
 	@Override
 	public void close() {
 		grid.destroy();
 		destroy();
 	}
 
+	/**
+	 * Copy activites from other maintenance plan
+	 */
+	private void coyActivities() {
+		ArrayList<MaintenancePlan> list = new ArrayList<MaintenancePlan>();
+		list.add(maintenancePlan);
+
+		planSearchForm.filterBy(list);
+		planSearchForm.open();
+	}
+
+	/**
+	 * Delete a selected record(s) or all the activities of the protocol
+	 */
 	private void delete() {
 		final List<MaintenanceProtocols> selectedEntities = grid
 				.getSelectedEntities();
@@ -172,6 +231,9 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 		}
 	}
 
+	/**
+	 * Delete all the activities of the protocol
+	 */
 	private void deleteByMaintenancePlan() {
 		MaintenanceProtocolsModel.deleteByMaintenancePlan(maintenancePlan,
 				new GHAAsyncCallback<Integer>() {
@@ -185,6 +247,12 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 				});
 	}
 
+	/**
+	 * Delete the selected entities
+	 * 
+	 * @param selectedEntities
+	 *            the list of selected entities
+	 */
 	private void deleteSelectedEntities(
 			final List<MaintenanceProtocols> selectedEntities) {
 		MaintenanceProtocolsModel.delete(selectedEntities,
@@ -198,6 +266,9 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 				});
 	}
 
+	/**
+	 * Load the data of the grid and other info of the form
+	 */
 	private void loadData() {
 		MaintenanceProtocolsModel.findByMaintenancePlan(maintenancePlan,
 				new GHAAsyncCallback<List<MaintenanceProtocols>>() {
@@ -219,18 +290,42 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 				});
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceprotocols.
+	 * MaintenanceProtocolsSelectionProducer
+	 * #notifyMaintenanceProtocols(org.fourgeeks
+	 * .gha.domain.gmh.MaintenanceProtocols)
+	 */
 	@Override
 	public void notifyMaintenanceProtocols(MaintenanceProtocols entity) {
 		for (MaintenanceProtocolsSelectionListener listener : listeners)
 			listener.select(entity);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceprotocols.
+	 * MaintenanceProtocolsSelectionProducer
+	 * #removeMaintenanceProtocolsSelectionListener
+	 * (org.fourgeeks.gha.webclient.client
+	 * .maintenanceprotocols.MaintenanceProtocolsSelectionListener)
+	 */
 	@Override
 	public void removeMaintenanceProtocolsSelectionListener(
 			MaintenanceProtocolsSelectionListener selectionListener) {
 		listeners.remove(selectionListener);
 	}
 
+	/**
+	 * save {@link MaintenanceProtocols} entity in the DB (associate an activity
+	 * to the current maintenance plan)
+	 * 
+	 * @param activity
+	 *            the activity to associate
+	 */
 	private void save(MaintenanceActivity activity) {
 		int ordinal = grid.getRecords().length + 1;
 
@@ -249,6 +344,13 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 				});
 	}
 
+	/**
+	 * add in the DB the activities of a maintenance plan to the current
+	 * maintenance plan
+	 * 
+	 * @param planFrom
+	 *            the plan with the activities to copy
+	 */
 	private void save(MaintenancePlan planFrom) {
 		MaintenanceProtocolsModel.copyActivities(planFrom, maintenancePlan,
 				new GHAAsyncCallback<Void>() {
@@ -260,27 +362,13 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 				});
 	}
 
-	private void searchActivity() {
-		ListGridRecord records[] = grid.getRecords();
-		List<MaintenanceActivity> blackList = new ArrayList<MaintenanceActivity>();
-
-		for (int i = 0; i < records.length; i++) {
-			MaintenanceProtocolsRecord record = (MaintenanceProtocolsRecord) records[i];
-			blackList.add(record.toEntity().getMaintenanceActivity());
-		}
-
-		activitySearchForm.filterBy(blackList);
-		activitySearchForm.open();
-	}
-
-	private void searchOtherPlan() {
-		ArrayList<MaintenancePlan> list = new ArrayList<MaintenancePlan>();
-		list.add(maintenancePlan);
-
-		planSearchForm.filterBy(list);
-		planSearchForm.open();
-	}
-
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.
+	 * MaintenancePlanSelectionListener
+	 * #select(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
+	 */
 	@Override
 	public void select(MaintenancePlan maintenancePlan) {
 		this.maintenancePlan = maintenancePlan;
