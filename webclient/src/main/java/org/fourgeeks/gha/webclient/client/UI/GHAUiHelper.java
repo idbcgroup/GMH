@@ -137,6 +137,10 @@ public abstract class GHAUiHelper {
 	 */
 	public static final int DEFAULT_HEADER_OPTION_WIDTH = 90;
 	public static final int DEFAULT_TAB_SET_HEIGHT = 30;
+	/**
+	 * the default height for the pation top component
+	 */
+	public static final int DEFAULT_PATIENT_TOP_HEIGHT = 100;
 
 	/**
 	 * @return the height that a tab must have
@@ -319,7 +323,7 @@ public abstract class GHAUiHelper {
 
 	/**
 	 * @param buttons
-	 * @return
+	 * @return the bar with the buttons
 	 */
 	public static VLayout createBar(Canvas... buttons) {
 		VLayout sideButtons = new VLayout();

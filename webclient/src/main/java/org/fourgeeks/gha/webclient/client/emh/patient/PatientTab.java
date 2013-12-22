@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.emh;
+package org.fourgeeks.gha.webclient.client.emh.patient;
 
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader;
@@ -13,6 +13,7 @@ import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.SectionStack;
 import com.smartgwt.client.widgets.layout.SectionStackSection;
+import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
  * @author alacret
@@ -36,7 +37,14 @@ public class PatientTab extends GHATab {
 				History.newItem("emh/" + patientId);
 			}
 		});
-		addStyleName("sides-padding");
+		setVertical(false);
+
+		VLayout bodyLayout = new VLayout();
+
+		addMember(bodyLayout);
+		addMember(new HMETools());
+
+		bodyLayout.addMember(new PatientTopForm());
 
 		HTMLFlow htmlFlow = new HTMLFlow();
 		htmlFlow.setOverflow(Overflow.AUTO);
@@ -85,7 +93,7 @@ public class PatientTab extends GHATab {
 		layout.setMembersMargin(20);
 		layout.addMember(sectionStack);
 
-		addMember(layout);
+		bodyLayout.addMember(layout);
 	}
 
 	@Override

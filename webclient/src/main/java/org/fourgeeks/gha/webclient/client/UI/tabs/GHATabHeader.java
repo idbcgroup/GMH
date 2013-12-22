@@ -17,6 +17,7 @@ import com.smartgwt.client.widgets.events.MouseOverHandler;
  */
 public class GHATabHeader extends Label {
 
+	private static final String STYLE = "tab-header-title button-pointer";
 	private boolean selected = false;
 
 	/**
@@ -27,8 +28,8 @@ public class GHATabHeader extends Label {
 		setContents(tab.getTitleForHeader());
 		setWidth(GHAUiHelper.DEFAULT_PLACE_EYELASH_WIDTH);
 		setHeight(GHAUiHelper.DEFAULT_TAB_EYELASH_HEIGHT + "px");
-		setStyleName("tab-header-title button-pointer");
-		setBaseStyle("tab-header-title button-pointer");
+		setStyleName(STYLE);
+		setBaseStyle(STYLE);
 
 		addMouseOverHandler(new MouseOverHandler() {
 			@Override
@@ -60,6 +61,8 @@ public class GHATabHeader extends Label {
 		 */
 	public void unMarkSelected() {
 		setBackgroundColor(GHAUiHelper.DEFAULT_PLACES_BAR_BACKGROUND_COLOR);
+		setStyleName(STYLE);
+		setBaseStyle(STYLE);
 		selected = false;
 	}
 
@@ -68,6 +71,8 @@ public class GHATabHeader extends Label {
 	 */
 	public void markSelected() {
 		setBackgroundColor(GHAUiHelper.DEFAULT_BACKGROUND_COLOR);
+		setStyleName(STYLE + "tab-header-title-selected");
+		setBaseStyle(STYLE + "tab-header-title-selected");
 		selected = true;
 	}
 

@@ -6,16 +6,15 @@ import com.smartgwt.client.widgets.Label;
  * @author alacret
  * 
  */
-public class GHALabel extends Label {
-
+public class GHATitleLabel extends Label {
 	/**
 	 * @param title
 	 */
-	public GHALabel(String title) {
+	public GHATitleLabel(String title) {
 		super();
 		setContents(title);
 		setHeight("25px");
 		setWidth100();
-		setStyleName("gha-label");
+		setStyleName("gha-title-label");
 	}
 }

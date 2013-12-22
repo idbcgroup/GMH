@@ -6,6 +6,7 @@ import org.fourgeeks.gha.domain.msg.GHAMessage;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.message.GWTMessageService;
@@ -181,8 +182,9 @@ public class GHANotification {
 	public static class ModalNotification extends VLayout implements
 			ResizeHandler, ClosableListener {
 
-		private int width = 700;
-		private RootPanel backDivPanel = RootPanel.get("notificationsBackDiv");
+		private final int width = 700;
+		private final RootPanel backDivPanel = RootPanel
+				.get("notificationsBackDiv");
 		private GHALabel titleText;
 		private GHALabel errorText;
 		{
@@ -225,7 +227,7 @@ public class GHANotification {
 			textLayout.setMembersMargin(10);
 			textLayout.addMembers(titleText, errorText);
 
-			GHAButton acceptButton = new GHAButton("Aceptar",
+			GHAImgButton acceptButton = new GHAImgButton("Aceptar",
 					new ClickHandler() {
 						@Override
 						public void onClick(ClickEvent event) {
