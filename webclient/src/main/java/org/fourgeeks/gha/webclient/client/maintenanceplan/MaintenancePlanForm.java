@@ -79,7 +79,7 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 	private GHADynamicForm form;
 
 	{
-		bpiSelectItem = new GHABpiSelectItem();
+		bpiSelectItem = new GHABpiSelectItem(false, changedHandler);
 		nameItem = new GHATextItem(GHAStrings.get("name"), true, changedHandler);
 		nameItem.setLength(100);
 		frequencyItem = new GHATextItem(GHAStrings.get("frecuency"), true,
@@ -172,6 +172,9 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 		cancelationOptionItem.clearValue();
 		roleSelectItem.clearValue();
 		providerSelectItem.clearValue();
+		bpiSelectItem.clearValue();
+		cancelationOptionItem.clearValue();
+		frecuencyPoTItem.clearValue();
 	}
 
 	@Override
@@ -362,6 +365,7 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 		cancelationOptionItem.setDisabled(!active);
 		roleSelectItem.setDisabled(!active);
 		providerSelectItem.setDisabled(!active);
+		bpiSelectItem.setDisabled(!active);
 	}
 
 	@Override

@@ -14,30 +14,26 @@ import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
  */
 public class GHAMaintenancePlanTypeSelectItem extends GHASelectItem {
 	/**
-	 * 
+	 * @return a valueMap to fill the select
 	 */
-	public GHAMaintenancePlanTypeSelectItem() {
-		super(GHAStrings.get("plan-type"));
-
+	public static LinkedHashMap<String, String> getValueMap() {
 		LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
 		for (MaintenancePlanType value : MaintenancePlanType.values()) {
 			String key = value.name().toLowerCase();
 			valueMap.put(value.name() + "", GHAStrings.get(key));
 		}
-
-		setValueMap(valueMap);
+		return valueMap;
 	}
 
 	/**
-	 * @param width
+	 * 
 	 */
-	public GHAMaintenancePlanTypeSelectItem(int width) {
-		this();
-		setWidth(width);
+	public GHAMaintenancePlanTypeSelectItem() {
+		super(GHAStrings.get("plan-type"));
+		setValueMap(getValueMap());
 	}
 
 	/**
-	 * @param title
 	 * @param required
 	 * @param changedHandler
 	 */
@@ -49,7 +45,14 @@ public class GHAMaintenancePlanTypeSelectItem extends GHASelectItem {
 	}
 
 	/**
-	 * @param title
+	 * @param width
+	 */
+	public GHAMaintenancePlanTypeSelectItem(int width) {
+		this();
+		setWidth(width);
+	}
+
+	/**
 	 * @param width
 	 * @param required
 	 * @param changedHandler

@@ -11,14 +11,24 @@ import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
  */
 public class GHAMaintenancePlanCancelationOptionSelectItem extends
 		GHASelectItem {
-	/** */
-	public static final String labelKey = "cancelation-option";
 
 	/** */
 	public GHAMaintenancePlanCancelationOptionSelectItem() {
-		super(GHAStrings.get(labelKey));
+		super(GHAStrings.get("cancelation-option"));
+
 		setValueMap(MaintenancePlanCancelationOption.toValueMap());
 		setDefaultValue(MaintenancePlanCancelationOption.NOT_DEFERRABLE.name());
+	}
+
+	/**
+	 * @param required
+	 * @param changedHandler
+	 */
+	public GHAMaintenancePlanCancelationOptionSelectItem(boolean required,
+			ChangedHandler changedHandler) {
+		this();
+		setRequired(required);
+		addChangedHandler(changedHandler);
 	}
 
 	/**
@@ -37,17 +47,6 @@ public class GHAMaintenancePlanCancelationOptionSelectItem extends
 	public GHAMaintenancePlanCancelationOptionSelectItem(int width,
 			boolean required, ChangedHandler changedHandler) {
 		this(width);
-		setRequired(required);
-		addChangedHandler(changedHandler);
-	}
-
-	/**
-	 * @param required
-	 * @param changedHandler
-	 */
-	public GHAMaintenancePlanCancelationOptionSelectItem(boolean required,
-			ChangedHandler changedHandler) {
-		this();
 		setRequired(required);
 		addChangedHandler(changedHandler);
 	}
