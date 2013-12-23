@@ -15,14 +15,14 @@ import org.fourgeeks.gha.domain.gmh.EiaCorrectiveMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaPreventiveMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
  * Session Bean implementation class EiaMaintenancePlanification
  */
 @Stateless
-public class EiaMaintenancePlanificationService extends GHAEJBExceptionImpl
+public class EiaMaintenancePlanificationService extends GHAEJBExceptionService
 		implements EiaMaintenancePlanificationServiceRemote {
 	@PersistenceContext
 	EntityManager em;

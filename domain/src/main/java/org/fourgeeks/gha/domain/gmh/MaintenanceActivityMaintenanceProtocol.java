@@ -18,6 +18,7 @@ import org.fourgeeks.gha.domain.AbstractEntity;
  * 
  */
 
+@Deprecated
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "protocolFk",
 		"activityFk", "ordinal" }))

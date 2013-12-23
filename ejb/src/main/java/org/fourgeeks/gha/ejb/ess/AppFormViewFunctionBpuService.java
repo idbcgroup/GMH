@@ -13,7 +13,7 @@ import javax.persistence.TypedQuery;
 import org.fourgeeks.gha.domain.ess.ui.AppFormViewFunctionBpu;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
-import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
@@ -22,7 +22,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  *         BpuFunction service
  */
 @Stateless
-public class AppFormViewFunctionBpuService extends GHAEJBExceptionImpl
+public class AppFormViewFunctionBpuService extends GHAEJBExceptionService
 		implements AppFormViewFunctionBpuServiceRemote {
 
 	private final static Logger logger = Logger

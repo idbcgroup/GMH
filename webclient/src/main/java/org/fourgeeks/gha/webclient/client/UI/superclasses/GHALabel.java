@@ -1,27 +1,22 @@
 package org.fourgeeks.gha.webclient.client.UI.superclasses;
 
-import com.google.gwt.core.client.JavaScriptObject;
 import com.smartgwt.client.widgets.Label;
 
+/**
+ * @author alacret
+ * 
+ */
 public class GHALabel extends Label {
 
+	/**
+	 * @param title
+	 */
 	public GHALabel(String title) {
-		this();
+		super();
 		setContents(title);
 		setHeight("25px");
 		setWidth100();
 		setMinWidth(1024);
-		setStyleName("title-label");
+		setStyleName("gha-label");
 	}
-
-	public GHALabel() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public GHALabel(JavaScriptObject jsObj) {
-		super(jsObj);
-		// TODO Auto-generated constructor stub
-	}
-
 }

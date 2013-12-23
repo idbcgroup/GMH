@@ -21,11 +21,14 @@ import com.smartgwt.client.widgets.grid.events.CellDoubleClickEvent;
 import com.smartgwt.client.widgets.grid.events.CellDoubleClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 
+/**
+ * @author naramirez
+ */
 public class MaintenancePlanResultSet extends GHAResultSet<MaintenancePlan>
 		implements MaintenancePlanSelectionProducer {
-	private List<MaintenancePlanSelectionListener> listeners = new ArrayList<MaintenancePlanSelectionListener>();
-	private MaintenancePlanGrid grid = new MaintenancePlanGrid();
-	private ResultSetContainerType containerType;
+	private final List<MaintenancePlanSelectionListener> listeners = new ArrayList<MaintenancePlanSelectionListener>();
+	private final MaintenancePlanGrid grid = new MaintenancePlanGrid();
+	private final ResultSetContainerType containerType;
 
 	{
 		grid.addCellDoubleClickHandler(new CellDoubleClickHandler() {
@@ -37,6 +40,9 @@ public class MaintenancePlanResultSet extends GHAResultSet<MaintenancePlan>
 		});
 	}
 
+	/**
+	 * @param container
+	 */
 	public MaintenancePlanResultSet(ResultSetContainerType container) {
 		super(GHAStrings.get("search-results"));
 		this.containerType = container;
@@ -52,7 +58,7 @@ public class MaintenancePlanResultSet extends GHAResultSet<MaintenancePlan>
 		if (containerType == ResultSetContainerType.SEARCH_FORM) {
 			setHeight(getHeight() - 42);
 		}
-		
+
 		addMember(gridPanel);
 	}
 
@@ -84,7 +90,7 @@ public class MaintenancePlanResultSet extends GHAResultSet<MaintenancePlan>
 		}
 		notifyMaintenancePlan(selectedRecord.toEntity());
 		hide();
-		grid.removeSelectedData();
+		clean();
 	}
 
 	@Override
@@ -118,5 +124,5 @@ public class MaintenancePlanResultSet extends GHAResultSet<MaintenancePlan>
 			setHeight(getHeight() - 35);
 		}
 	}
-	
+
 }

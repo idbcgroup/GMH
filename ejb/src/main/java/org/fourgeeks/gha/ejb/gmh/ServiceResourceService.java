@@ -14,7 +14,7 @@ import javax.persistence.PersistenceContext;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.ServiceResource;
-import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
@@ -23,7 +23,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  */
 
 @Stateless
-public class ServiceResourceService extends GHAEJBExceptionImpl implements
+public class ServiceResourceService extends GHAEJBExceptionService implements
 		ServiceResourceServiceRemote {
 	@PersistenceContext
 	EntityManager em;

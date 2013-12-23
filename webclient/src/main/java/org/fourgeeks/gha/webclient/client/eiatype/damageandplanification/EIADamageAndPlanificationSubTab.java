@@ -2,13 +2,12 @@ package org.fourgeeks.gha.webclient.client.eiatype.damageandplanification;
 
 import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASectionForm;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
 import org.fourgeeks.gha.webclient.client.eiadamagereport.EiaDamageReportSelectionListener;
 import org.fourgeeks.gha.webclient.client.eiadamagereport.EiaDamageReportSelectionProducer;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypePanel;
 
-import com.smartgwt.client.widgets.layout.HLayout;
-import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.tab.events.TabDeselectedEvent;
 import com.smartgwt.client.widgets.tab.events.TabDeselectedHandler;
 import com.smartgwt.client.widgets.tab.events.TabSelectedEvent;
@@ -64,9 +63,12 @@ public class EIADamageAndPlanificationSubTab extends GHASubTab implements
 		sectionForm.addSection("Planificación Mantemiento",
 				preventivePlanifPanel);
 
-		HLayout mainLayout = new HLayout();
-		mainLayout.setMembers(sectionForm, new LayoutSpacer());
+		// HLayout mainLayout = new HLayout();
+		// mainLayout.setMembers(sectionForm, new LayoutSpacer());
+		GHAVerticalLayout mainLayout = new GHAVerticalLayout() {
+		};
 
+		mainLayout.addMember(sectionForm);
 		setPane(mainLayout);
 
 		// handlers

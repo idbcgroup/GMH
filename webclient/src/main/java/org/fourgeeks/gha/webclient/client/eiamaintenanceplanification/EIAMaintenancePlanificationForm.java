@@ -144,7 +144,8 @@ public class EIAMaintenancePlanificationForm extends
 		roleSelectItem.addChangedHandler(changedHandler);
 		maintenanceStatusSelectItem = new GHASelectItem("Estatus", false,
 				changedHandler);
-		providerSelectItem = new GHAExternalProviderSelectItem(false, changedHandler);
+		providerSelectItem = new GHAExternalProviderSelectItem(false,
+				changedHandler);
 
 		maintenacePlanSelectItem = new GHAMaintenancePlanSelectItem();
 		maintenacePlanSelectItem.addChangedHandler(mPlanChangedHandler);
@@ -495,12 +496,11 @@ public class EIAMaintenancePlanificationForm extends
 		if (formIsActive)
 			toogleTypeSection(selectedMaintenance.getType());
 
+		if (selectedEiaType != null)
+			maintenacePlanSelectItem.fillByEiaType(selectedEiaType);
+
 		if (entity.getType() == MaintenancePlanificationType.CORRECTIVE) {
 			selectCorrectiveMaintenance(selectedMaintenance);
-
-			if (selectedEiaType != null)
-				maintenacePlanSelectItem.fillByEiaType(selectedEiaType);
-
 			maintenanceStatusSelectItem
 					.setValueMap(MaintenancePlanificationStatus
 							.toValueMap(MaintenancePlanificationStatus.EIA_DAMAGE));
@@ -633,7 +633,7 @@ public class EIAMaintenancePlanificationForm extends
 	private void set(EiaPreventiveMaintenancePlanification entity) {
 		EiaTypeMaintenancePlan plan = entity.getPlan();
 
-		maintenacePlanSelectItem.setValue(entity.getId());
+		maintenacePlanSelectItem.setValue(plan.getId());
 		durationPlanTextItem.setValue(plan.getMaintenancePlan().getFrequency());
 		durationPlanPoTSelectItem.setValue(plan.getMaintenancePlan().getPot());
 	}

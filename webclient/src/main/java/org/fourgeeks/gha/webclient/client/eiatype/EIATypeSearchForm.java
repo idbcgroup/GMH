@@ -217,7 +217,7 @@ public class EIATypeSearchForm extends GHASearchForm<EiaType> implements
 					newList = results;
 
 				resultSet.setRecords(newList, false);
-
+				
 			}
 		});
 	}

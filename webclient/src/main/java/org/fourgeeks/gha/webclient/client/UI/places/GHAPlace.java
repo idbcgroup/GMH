@@ -25,7 +25,7 @@ public abstract class GHAPlace extends VLayout implements HideableListener,
 
 	private final List<ClosableListener> closables = new ArrayList<ClosableListener>();
 	private final List<HideableListener> hideables = new ArrayList<HideableListener>();
-	protected final String token;
+	protected String token;
 	protected GHAPlaceHeader header;
 
 	/**
@@ -95,10 +95,17 @@ public abstract class GHAPlace extends VLayout implements HideableListener,
 
 	@Override
 	public void show() {
-		// super.show();
 		header.markSelected();
 		getElement().removeClassName("hidden");
 	}
+
+	// /**
+	// * @param token
+	// */
+	// public void show(String token) {
+	// show();
+	// updateToken(token);
+	// }
 
 	@Override
 	public void removeClosableListener(ClosableListener closable) {
@@ -129,4 +136,12 @@ public abstract class GHAPlace extends VLayout implements HideableListener,
 	 * @return the Acronym for this tab. to be put in the eyelash
 	 */
 	public abstract String getAcronym();
+
+	/**
+	 * @param token
+	 */
+	public void updateToken(String token) {
+		this.token = token;
+	}
+
 }

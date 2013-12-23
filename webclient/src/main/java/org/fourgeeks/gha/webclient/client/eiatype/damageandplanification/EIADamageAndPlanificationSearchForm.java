@@ -13,6 +13,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.GHAUtil;
 import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAFacilitySelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAWorkingAreaSelectItem;
@@ -55,7 +56,8 @@ public class EIADamageAndPlanificationSearchForm extends GHASearchForm<Eia>
 	private EiaType eiaType;
 
 	{
-		serialNumber = new GHATextItem(GHAStrings.get("serialNumber-item"));
+		serialNumber = new GHATextItem(GHAStrings.get("serial"));
+		serialNumber.setColSpan(2);
 		workingAreaLocationSelectItem = new GHAWorkingAreaSelectItem();
 		facilityLocationSelectItem = new GHAFacilitySelectItem();
 
@@ -78,8 +80,8 @@ public class EIADamageAndPlanificationSearchForm extends GHASearchForm<Eia>
 
 		GHAUiHelper.addGHAResizeHandler(this);
 
-		form.setItems(serialNumber, workingAreaLocationSelectItem,
-				facilityLocationSelectItem);
+		form.setItems(serialNumber, new GHASpacerItem(),
+				workingAreaLocationSelectItem, facilityLocationSelectItem);
 
 		form.setAutoFocus(true);
 		serialNumber.setSelectOnFocus(true);

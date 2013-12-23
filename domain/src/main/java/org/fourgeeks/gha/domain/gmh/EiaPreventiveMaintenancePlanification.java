@@ -74,18 +74,32 @@ public class EiaPreventiveMaintenancePlanification extends AbstractEntity {
 		this.planification = planification;
 	}
 
+	/**
+	 * @return the eiaPlanStatus
+	 */
 	public MaintenancePlanStatus getEiaPlanStatus() {
 		return eiaPlanStatus;
 	}
 
+	/**
+	 * @param planStatus
+	 *            the planStatus to set
+	 */
 	public void setEiaPlanStatus(MaintenancePlanStatus planStatus) {
 		this.eiaPlanStatus = planStatus;
 	}
 
+	/**
+	 * @return the eiaPlanState
+	 */
 	public MaintenancePlanState getEiaPlanState() {
 		return eiaPlanState;
 	}
 
+	/**
+	 * @param eiaPlanState
+	 *            the eiaPlanState to set
+	 */
 	public void setEiaPlanState(MaintenancePlanState eiaPlanState) {
 		this.eiaPlanState = eiaPlanState;
 	}

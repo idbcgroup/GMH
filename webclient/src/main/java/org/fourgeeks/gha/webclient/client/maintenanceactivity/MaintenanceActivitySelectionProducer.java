@@ -3,20 +3,29 @@
  */
 package org.fourgeeks.gha.webclient.client.maintenanceactivity;
 
+import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 
 /**
  * @author emiliot
- *
+ * 
  */
 public interface MaintenanceActivitySelectionProducer {
 	/**
-	 * @param maintenanceActivity
+	 * @param selectionListener
 	 */
 	public void addMaintenanceActivitySelectionListener(
-			MaintenanceActivitySelectionListener maintenanceActivitySelectionListener);
+			MaintenanceActivitySelectionListener selectionListener);
+
 	/**
-	 * @param maintenanceActivity
+	 * @param selectionListener
 	 */
 	public void removeMaintenanceActivitySelectionListener(
-			MaintenanceActivitySelectionListener maintenanceActivitySelectionListener);
+			MaintenanceActivitySelectionListener selectionListener);
+
+	/**
+	 * 
+	 * @param maintenanceActivity
+	 */
+	public void notifyMaintenanceActivity(
+			MaintenanceActivity maintenanceActivity);
 }

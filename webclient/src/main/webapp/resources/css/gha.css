@@ -158,7 +158,7 @@ body {
 	/*line-height: 30px;*/
 	text-align: center;
 }
-.tab-header-title {
+.panel-header-title {
 	padding-left: 6px;
 	color: #666666;
 	font-size: 12px;
@@ -167,6 +167,38 @@ body {
 	line-height: 30px;
 	text-align: left;
 }
+
+.tabset-header-title {
+	padding-left: 6px;
+	color: #666666;
+	font-size: 12px;
+	font-weight: bold;
+	text-transform: capitalize;
+	line-height: 30px;
+	text-align: left;
+}
+/* html body section#main-content.main-content div#isc_EMHPlace_0_wrapper div#isc_7.normal div#isc_8 div#isc_9.normal div#isc_A div#isc_B.gha-tab-set div#isc_C div#isc_F div#isc_G table tbody tr td.base-style */
+
+/* div.gha-tab-set div#isc_C div#isc_D{ */
+/* 	margin-top:5px; */
+/* } */
+
+.tab-header-title {
+	padding-left: 6px;
+	color: #666666;
+	font-size: 12px;
+	font-weight: bold;
+/* 	text-transform: capitalize; */
+/* 	line-height: 25px; */
+	text-align: left;
+/* 	margin-top: 5px; */
+}
+
+.tab-header-title-selected {
+	border-top: 1px solid blue;
+	border-right: 1px solid blue;
+}
+
 
 /*.tab-header-close-button {
 	text-align: center;
@@ -269,11 +301,21 @@ input[type="text"]:disabled,.inputDisabled {
 	font-size: 9px;
 }
 
-.title-label {
+.gha-label {
 	font-weight: bold;
 	color: black;
 	font-size: 14px;
-	/* 	padding: 0px 0px 0px 5px; */
+}
+
+.gha-title-label {
+	font-weight: bold;
+	color: #008EFE;
+	font-size: 10px;
+}
+
+.gha-text-label {
+	color: black;
+	font-size: 10px;
 }
 
 .iconTopPadding {

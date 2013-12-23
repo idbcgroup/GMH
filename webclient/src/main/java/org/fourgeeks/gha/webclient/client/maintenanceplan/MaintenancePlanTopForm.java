@@ -22,15 +22,18 @@ import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 
+/**
+ * @author naramirez
+ */
 public class MaintenancePlanTopForm extends
 		GHATopForm<MaintenancePlanResultSet, MaintenancePlan> implements
 		MaintenancePlanSelectionListener {
 
 	private GHATextItem nameItem, frequencyItem, descriptionItem;
 	private GHAPeriodOfTimeSelectItem periodOfTimeItem;
-
 	private GHAMaintenancePlanTypeSelectItem typeItem;
 	private GHAMaintenancePlanStateSelectItem stateItem;
+
 	protected MaintenancePlan selectedMaintenancePlan;
 	private GHADynamicForm form;
 
@@ -40,20 +43,31 @@ public class MaintenancePlanTopForm extends
 		frequencyItem = new GHATextItem(GHAStrings.get("frecuency"), false);
 		periodOfTimeItem = new GHAPeriodOfTimeSelectItem();
 		typeItem = new GHAMaintenancePlanTypeSelectItem();
-		// typeItem.setDefaultValue(MaintenancePlanType.PREVENTIVE);
 		stateItem = new GHAMaintenancePlanStateSelectItem();
-		// stateItem.setDefaultValue(MaintenancePlanState.ACTIVE);
 		descriptionItem = new GHATextItem(GHAStrings.get("description"), false);
 		descriptionItem.setColSpan(2);
 		form = new GHADynamicForm(4,FormType.NORMAL_FORM);
+		nameItem.addKeyUpHandler(searchKeyUpHandler);
+		frequencyItem.addKeyUpHandler(searchKeyUpHandler);
+		periodOfTimeItem.addKeyUpHandler(searchKeyUpHandler);
+		typeItem.addKeyUpHandler(searchKeyUpHandler);
+		stateItem.addKeyUpHandler(searchKeyUpHandler);
+		descriptionItem.addKeyUpHandler(searchKeyUpHandler);
 	}
 
+	/**
+	 * @param resultSet
+	 * @param tab
+	 */
 	public MaintenancePlanTopForm(MaintenancePlanResultSet resultSet,
 			MaintenancePlanPanel tab) {
 		super(resultSet, tab);
 
 		form.setItems(nameItem, typeItem, stateItem, descriptionItem,
 				frequencyItem, periodOfTimeItem);
+
+		form.setAutoFocus(true);
+		nameItem.setSelectOnFocus(true);
 
 		addMembers(form, new LayoutSpacer(), sideButtons);
 	}
@@ -123,6 +137,7 @@ public class MaintenancePlanTopForm extends
 	public void search() {
 		super.search();
 		MaintenancePlan maintenancePlan = new MaintenancePlan();
+
 		if (nameItem.getValue() != null)
 			maintenancePlan.setName(nameItem.getValueAsString());
 		if (descriptionItem.getValue() != null)
@@ -137,7 +152,7 @@ public class MaintenancePlanTopForm extends
 			maintenancePlan.setState(MaintenancePlanState.valueOf(stateItem
 					.getValueAsString()));
 		if (typeItem.getValue() != null)
-			maintenancePlan.setType(MaintenancePlanType.valueOf(stateItem
+			maintenancePlan.setType(MaintenancePlanType.valueOf(typeItem
 					.getValueAsString()));
 
 		search(maintenancePlan);
@@ -147,7 +162,6 @@ public class MaintenancePlanTopForm extends
 	public void search(MaintenancePlan maintenancePlan) {
 		MaintenancePlanModel.find(maintenancePlan,
 				new GHAAsyncCallback<List<MaintenancePlan>>() {
-
 					@Override
 					public void onSuccess(List<MaintenancePlan> result) {
 						resultSet.setRecords(result, true);

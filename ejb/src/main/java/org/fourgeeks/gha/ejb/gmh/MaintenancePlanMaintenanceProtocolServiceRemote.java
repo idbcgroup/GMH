@@ -14,33 +14,42 @@ import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 
 /**
  * @author emiliot
- *
+ * 
  */
 
+@Deprecated
 @Remote
 public interface MaintenancePlanMaintenanceProtocolServiceRemote {
 	/**
 	 * Delete a MaintenancePlanMaintenanceProtocol from database by Id
+	 * 
 	 * @throws GHAEJBException
 	 */
 	public void delete(long Id) throws GHAEJBException;
+
 	/**
 	 * @param maintenancePlanMaintenanceProtocol
 	 * @return the persistent entity
 	 * @throws GHAEJBException
 	 */
-	public MaintenancePlanMaintenanceProtocol save(MaintenancePlanMaintenanceProtocol maintenancePlanMaintenanceProtocol) throws GHAEJBException;
-	
+	public MaintenancePlanMaintenanceProtocol save(
+			MaintenancePlanMaintenanceProtocol maintenancePlanMaintenanceProtocol)
+			throws GHAEJBException;
+
 	/**
 	 * @param MaintenanceProtocol
-	 * @return the MaintenancePlanMaintenanceProtocols associated with the protocol
+	 * @return the MaintenancePlanMaintenanceProtocols associated with the
+	 *         protocol
 	 * @throws GHAEJBException
 	 */
-	public List<MaintenancePlanMaintenanceProtocol> findByMaintenanceProtocol(MaintenanceProtocol maintenanceProtocol) throws GHAEJBException;
+	public List<MaintenancePlanMaintenanceProtocol> findByMaintenanceProtocol(
+			MaintenanceProtocol maintenanceProtocol) throws GHAEJBException;
+
 	/**
 	 * @param maintenancePlan
 	 * @return the MaintenancePlanMaintenanceProtocol associated with the plan
 	 * @throws GHAEJBException
 	 */
-	public List<MaintenancePlanMaintenanceProtocol> findByMaintenancePlan(MaintenancePlan maintenancePlan) throws GHAEJBException;
+	public List<MaintenancePlanMaintenanceProtocol> findByMaintenancePlan(
+			MaintenancePlan maintenancePlan) throws GHAEJBException;
 }
