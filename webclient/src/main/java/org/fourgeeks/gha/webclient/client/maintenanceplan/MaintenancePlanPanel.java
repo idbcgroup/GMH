@@ -14,7 +14,7 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.SearchListener;
 import org.fourgeeks.gha.webclient.client.UI.panels.GHAPanel;
 import org.fourgeeks.gha.webclient.client.UI.panels.GHAPanelHeader;
-import org.fourgeeks.gha.webclient.client.UI.panels.GHAPanelHeader.Option;
+import org.fourgeeks.gha.webclient.client.UI.panels.GHAHeaderOption;
 
 import com.smartgwt.client.types.Visibility;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -31,8 +31,8 @@ public class MaintenancePlanPanel extends GHAPanel implements
 	private MaintenancePlanTopForm topForm;
 	private MaintenancePlanInternalTabset internalTabSet;
 	private final List<MaintenancePlanSelectionListener> listeners = new LinkedList<MaintenancePlanSelectionListener>();
-	private Option searchOption;
-	private Option addOption;
+	private GHAHeaderOption searchOption;
+	private GHAHeaderOption addOption;
 	private MaintenancePlanResultSet resultSet;
 	private MaintenancePlanAddForm addForm;
 

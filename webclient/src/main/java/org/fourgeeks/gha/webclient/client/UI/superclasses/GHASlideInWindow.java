@@ -27,6 +27,7 @@ public abstract class GHASlideInWindow extends GHAVerticalLayout implements
 	 */
 	public GHASlideInWindow() {
 		setWidth100();
+		setMinWidth(1024);
 		setHeight(GHAUiHelper.getTabHeight() - 5);
 		setLeft(-5);
 		setVisibility(Visibility.HIDDEN);

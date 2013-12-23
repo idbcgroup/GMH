@@ -11,16 +11,27 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
+/**
+ * @author naramirez
+ */
 public class EiaMaintenancePlanificationModel {
 	private static final GWTEiaMaintenancePlanificationServiceAsync service = GWT
 			.create(GWTEiaMaintenancePlanificationService.class);
 
+	/**
+	 * @param eiaType
+	 * @param callback
+	 */
 	public static void find(EiaType eiaType,
 			GHAAsyncCallback<List<EiaMaintenancePlanification>> callback) {
 
 		service.find(eiaType, callback);
 	}
 
+	/**
+	 * @param entity
+	 * @param callback
+	 */
 	public static void getCorrectiveMaintenance(
 			EiaMaintenancePlanification entity,
 			GHAAsyncCallback<EiaCorrectiveMaintenancePlanification> callback) {
@@ -28,6 +39,10 @@ public class EiaMaintenancePlanificationModel {
 		service.getCorrectiveMaintenancePlanification(entity, callback);
 	}
 
+	/**
+	 * @param entity
+	 * @param callback
+	 */
 	public static void getPreventiveMaintenance(
 			EiaMaintenancePlanification entity,
 			GHAAsyncCallback<EiaPreventiveMaintenancePlanification> callback) {
@@ -35,6 +50,10 @@ public class EiaMaintenancePlanificationModel {
 		service.getPreventiveMaintenancePlanification(entity, callback);
 	}
 
+	/**
+	 * @param entity
+	 * @param callback
+	 */
 	public static void saveCorrectiveMaintenance(
 			EiaCorrectiveMaintenancePlanification entity,
 			AsyncCallback<EiaCorrectiveMaintenancePlanification> callback) {
@@ -42,6 +61,10 @@ public class EiaMaintenancePlanificationModel {
 		service.saveCorrectiveMaintenance(entity, callback);
 	}
 
+	/**
+	 * @param entity
+	 * @param callback
+	 */
 	public static void savePreventiveMaintenance(
 			EiaPreventiveMaintenancePlanification entity,
 			AsyncCallback<EiaPreventiveMaintenancePlanification> callback) {
@@ -49,6 +72,10 @@ public class EiaMaintenancePlanificationModel {
 		service.savePreventiveMaintenance(entity, callback);
 	}
 
+	/**
+	 * @param entity
+	 * @param callback
+	 */
 	public static void updateCorrectiveMaintenance(
 			EiaCorrectiveMaintenancePlanification entity,
 			AsyncCallback<EiaCorrectiveMaintenancePlanification> callback) {
@@ -56,6 +83,10 @@ public class EiaMaintenancePlanificationModel {
 		service.updateCorrectiveMaintenance(entity, callback);
 	}
 
+	/**
+	 * @param entity
+	 * @param callback
+	 */
 	public static void updatePreventiveMaintenance(
 			EiaPreventiveMaintenancePlanification entity,
 			AsyncCallback<EiaPreventiveMaintenancePlanification> callback) {

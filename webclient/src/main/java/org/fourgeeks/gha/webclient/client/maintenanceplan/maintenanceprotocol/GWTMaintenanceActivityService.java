@@ -7,7 +7,6 @@ import java.util.List;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
-import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.ServiceResource;
 
 import com.google.gwt.user.client.rpc.RemoteService;
@@ -15,44 +14,28 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 /**
  * @author emiliot
- *
+ * 
  */
 
 @RemoteServiceRelativePath("maintenanceActivityService")
-public interface GWTMaintenanceActivityService extends RemoteService{
+public interface GWTMaintenanceActivityService extends RemoteService {
 	/**
 	 * Delete a MaintenanceActivity from database by Id
+	 * 
+	 * @param Id
 	 * 
 	 * @throws GHAEJBException
 	 */
 	public void delete(long Id) throws GHAEJBException;
 
 	/**
-	 * @param maintenanceProtocol
-	 * @return a list with the activities associated with the protocol
-	 * @throws GHAEJBException
-	 */
-	public List<MaintenanceActivity> findByMaintenanceProtocol(
-			MaintenanceProtocol maintenanceProtocol)
-					throws GHAEJBException;
-
-	/**
-	 * @param maintenanceProtocol
-	 * @param offset
-	 * @param size
-	 * @return a list with the activities associated with the protocol
-	 * @throws GHAEJBException
-	 */
-	public List<MaintenanceActivity> findByMaintenanceProtocol(
-			MaintenanceProtocol maintenanceProtocol, int offset,
-			int size) throws GHAEJBException;
-
-	/**
 	 * @param serviceResource
-	 * @return the list of MaintenanceActivities that use the resource/service given
+	 * @return the list of MaintenanceActivities that use the resource/service
+	 *         given
 	 * @throws GHAEJBException
 	 */
-	public List<MaintenanceActivity> findByServiceResource(ServiceResource serviceResource) throws GHAEJBException;
+	public List<MaintenanceActivity> findByServiceResource(
+			ServiceResource serviceResource) throws GHAEJBException;
 
 	/**
 	 * @param Id
@@ -60,12 +43,15 @@ public interface GWTMaintenanceActivityService extends RemoteService{
 	 * @throws GHAEJBException
 	 */
 	public MaintenanceActivity find(long Id) throws GHAEJBException;
+
 	/**
 	 * @param maintenanceActivity
-	 * @return a list with the maintenance activities that are like the parameter
+	 * @return a list with the maintenance activities that are like the
+	 *         parameter
 	 * @throws GHAEJBException
 	 */
-	public List<MaintenanceActivity> find(MaintenanceActivity maintenanceActivity) throws GHAEJBException;
+	public List<MaintenanceActivity> find(
+			MaintenanceActivity maintenanceActivity) throws GHAEJBException;
 
 	/**
 	 * @return the list with all MaintenanceActivity Objects
@@ -83,7 +69,7 @@ public interface GWTMaintenanceActivityService extends RemoteService{
 			throws GHAEJBException;
 
 	/**
-	 * @param MaintenanceActivity
+	 * @param maintenanceActivity
 	 *            the MaintenanceActivity to be saved on database
 	 * @throws GHAEJBException
 	 * @return MaintenanceActivity saved
@@ -92,7 +78,7 @@ public interface GWTMaintenanceActivityService extends RemoteService{
 			throws GHAEJBException;
 
 	/**
-	 * @param MaintenanceActivity
+	 * @param maintenanceActivity
 	 *            the MaintenanceActivity to be updated
 	 * @return MaintenanceActivity updated
 	 * @throws GHAEJBException

@@ -20,7 +20,6 @@ import org.fourgeeks.gha.domain.mix.LegalEntity;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
-import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHADateItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
@@ -30,6 +29,7 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHAEmailTextIte
 import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHANameTextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHAUserNameTextItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 
@@ -94,7 +94,7 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 
 		listeners = new ArrayList<UserSelectionListener>();
 
-		form = new GHADynamicForm(GHAUiHelper.getNormalFormWidth(30), 4);
+		form = new GHADynamicForm(4,FormType.NORMAL_FORM);
 	}
 
 	/**
@@ -329,7 +329,7 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		form.resize(GHAUiHelper.getNormalFormWidth(30), 4);
+		form.resize();
 	}
 
 	/*

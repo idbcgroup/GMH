@@ -13,7 +13,7 @@ import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.ess.Role;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
-import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
@@ -23,7 +23,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
 @Stateless
 // @Remote(RoleServiceRemote.class)
 // @Local(RoleServiceLocal.class)
-public class RoleService extends GHAEJBExceptionImpl implements
+public class RoleService extends GHAEJBExceptionService implements
 		RoleServiceRemote/* , RoleServiceLocal */{
 	@PersistenceContext
 	EntityManager em;

@@ -14,7 +14,7 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.SearchListener;
 import org.fourgeeks.gha.webclient.client.UI.panels.GHAPanel;
 import org.fourgeeks.gha.webclient.client.UI.panels.GHAPanelHeader;
-import org.fourgeeks.gha.webclient.client.UI.panels.GHAPanelHeader.Option;
+import org.fourgeeks.gha.webclient.client.UI.panels.GHAHeaderOption;
 
 import com.smartgwt.client.types.Visibility;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -33,8 +33,8 @@ public class UserPanel extends GHAPanel implements UserSelectionListener,
 	private final List<UserSelectionListener> listeners = new ArrayList<UserSelectionListener>();
 	private final UserResultSet resultSet;
 	private final UserTopForm topForm;
-	private final Option searchOption;
-	private final Option addOption;
+	private final GHAHeaderOption searchOption;
+	private final GHAHeaderOption addOption;
 
 	/**
 	 * @param token

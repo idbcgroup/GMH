@@ -11,7 +11,7 @@ import javax.persistence.PersistenceContext;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaterialCategory;
-import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
@@ -19,7 +19,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * 
  */
 @Stateless
-public class EiaTypeMaterialCategoryService extends GHAEJBExceptionImpl
+public class EiaTypeMaterialCategoryService extends GHAEJBExceptionService
 		implements EiaTypeMaterialCategoryServiceRemote {
 
 	@PersistenceContext

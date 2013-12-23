@@ -10,6 +10,7 @@ public class EDTTopMenu extends HLayout{
 	public EDTTopMenu() {
 		
 		setWidth100();
+		setMinWidth(1024);
 		setHeight("40px");
 		setMembersMargin(8);
 		setStyleName("sides-padding");

@@ -19,7 +19,7 @@ import org.fourgeeks.gha.domain.AbstractEntity;
 		"maintenanceActivityFk", "parentMaintenanceActivityFk" }))
 @NamedQueries(value = {
 		@NamedQuery(name = "MaintenanceSubProtocol.getAll", query = "SELECT e from MaintenanceSubProtocol e order by e.id"),
-		@NamedQuery(name = "MaintenanceSubProtocol.findByProtocolActivity", query = "SELECT e FROM  MaintenanceSubProtocol e WHERE e.parentMaintenanceActivity = :parentMaintenanceActivity ORDER BY e.ordinal") })
+		@NamedQuery(name = "MaintenanceSubProtocol.findBySubProtocolActivity", query = "SELECT e FROM  MaintenanceSubProtocol e WHERE e.parentProtocolActivity = :activity ORDER BY e.ordinal") })
 public class MaintenanceSubProtocol extends AbstractEntity {
 
 	/**
@@ -33,7 +33,7 @@ public class MaintenanceSubProtocol extends AbstractEntity {
 
 	@ManyToOne
 	@JoinColumn(name = "parentMaintenanceActivityFk")
-	private MaintenanceActivity parentMaintenanceActivity;
+	private MaintenanceActivity parentProtocolActivity;
 
 	/**
 	 * Number of order for activity
@@ -46,27 +46,60 @@ public class MaintenanceSubProtocol extends AbstractEntity {
 	public MaintenanceSubProtocol() {
 	}
 
+	/**
+	 * @param maintenanceActivity
+	 * @param parentProtocolActivity
+	 * @param ordinal
+	 */
+	public MaintenanceSubProtocol(MaintenanceActivity parentProtocolActivity,
+			MaintenanceActivity maintenanceActivity, int ordinal) {
+		this.maintenanceActivity = maintenanceActivity;
+		this.parentProtocolActivity = parentProtocolActivity;
+		this.ordinal = ordinal;
+	}
+
+	/**
+	 * @return the maintenance actvity
+	 */
 	public MaintenanceActivity getMaintenanceActivity() {
 		return maintenanceActivity;
 	}
 
+	/**
+	 * @return the parent protocol maintenance activity
+	 */
 	public MaintenanceActivity getParentProtocolActivity() {
-		return parentMaintenanceActivity;
+		return parentProtocolActivity;
 	}
 
+	/**
+	 * @return the ordinal
+	 */
 	public int getOrdinal() {
 		return ordinal;
 	}
 
+	/**
+	 * @param maintenanceActivity
+	 *            the maintenance activity
+	 */
 	public void setMaintenanceActivity(MaintenanceActivity maintenanceActivity) {
 		this.maintenanceActivity = maintenanceActivity;
 	}
 
+	/**
+	 * @param parentMaintenanceActivity
+	 *            the parent protocol maintenance activity
+	 */
 	public void setParentProtocolActivity(
 			MaintenanceActivity parentMaintenanceActivity) {
-		this.parentMaintenanceActivity = parentMaintenanceActivity;
+		this.parentProtocolActivity = parentMaintenanceActivity;
 	}
 
+	/**
+	 * @param ordinal
+	 *            the ordinal
+	 */
 	public void setOrdinal(int ordinal) {
 		this.ordinal = ordinal;
 	}

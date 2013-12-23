@@ -30,6 +30,7 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenanc
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAPeriodOfTimeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHARoleSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASectionForm;
 import org.fourgeeks.gha.webclient.client.eia.EIAUtil;
@@ -143,7 +144,8 @@ public class EIAMaintenancePlanificationForm extends
 		roleSelectItem.addChangedHandler(changedHandler);
 		maintenanceStatusSelectItem = new GHASelectItem("Estatus", false,
 				changedHandler);
-		providerSelectItem = new GHAExternalProviderSelectItem(false, changedHandler);
+		providerSelectItem = new GHAExternalProviderSelectItem(false,
+				changedHandler);
 
 		maintenacePlanSelectItem = new GHAMaintenancePlanSelectItem();
 		maintenacePlanSelectItem.addChangedHandler(mPlanChangedHandler);
@@ -206,8 +208,7 @@ public class EIAMaintenancePlanificationForm extends
 	 * @return
 	 */
 	private GHADynamicForm buildAndGetBasicInfoForm() {
-		final GHADynamicForm form = new GHADynamicForm(
-				GHAUiHelper.getSectionFormFormWidth(30), 3);
+		final GHADynamicForm form = new GHADynamicForm(3,FormType.SECTIONFORM_FORM);
 
 		form.setItems(idNumberTextItem, requestNumberTextItem,
 				maintenanceStatusSelectItem, technicianNameTextItem,
@@ -222,8 +223,7 @@ public class EIAMaintenancePlanificationForm extends
 	 * @return
 	 */
 	private GHADynamicForm buildAndGetMaintenanceTypeForm() {
-		final GHADynamicForm form = new GHADynamicForm(
-				GHAUiHelper.getSectionFormFormWidth(30), 3);
+		final GHADynamicForm form = new GHADynamicForm(3,FormType.SECTIONFORM_FORM);
 
 		form.setItems(preventiveMaintenance_TitleItem,
 				maintenacePlanSelectItem, new GHASpacerItem(),
@@ -241,8 +241,7 @@ public class EIAMaintenancePlanificationForm extends
 	 * @return
 	 */
 	private GHADynamicForm buildAndGetTimesAndDatesForm() {
-		final GHADynamicForm form = new GHADynamicForm(
-				GHAUiHelper.getSectionFormFormWidth(30), 3);
+		final GHADynamicForm form = new GHADynamicForm(3,FormType.SECTIONFORM_FORM);
 
 		form.setItems(beginningDateItem, beginningTimeItem,
 				new GHASpacerItem(), finishDateItem, finishTimeItem,
@@ -450,9 +449,9 @@ public class EIAMaintenancePlanificationForm extends
 	 */
 	@Override
 	public void onResize(final ResizeEvent arg0) {
-		basicInfoForm.resize(GHAUiHelper.getSectionFormFormWidth(30), 3);
-		timesAndDatesForm.resize(GHAUiHelper.getSectionFormFormWidth(30), 3);
-		maintenanceTypeForm.resize(GHAUiHelper.getSectionFormFormWidth(30), 3);
+		basicInfoForm.resize();
+		timesAndDatesForm.resize();
+		maintenanceTypeForm.resize();
 	}
 
 	/*
@@ -497,12 +496,11 @@ public class EIAMaintenancePlanificationForm extends
 		if (formIsActive)
 			toogleTypeSection(selectedMaintenance.getType());
 
+		if (selectedEiaType != null)
+			maintenacePlanSelectItem.fillByEiaType(selectedEiaType);
+
 		if (entity.getType() == MaintenancePlanificationType.CORRECTIVE) {
 			selectCorrectiveMaintenance(selectedMaintenance);
-
-			if (selectedEiaType != null)
-				maintenacePlanSelectItem.fillByEiaType(selectedEiaType);
-
 			maintenanceStatusSelectItem
 					.setValueMap(MaintenancePlanificationStatus
 							.toValueMap(MaintenancePlanificationStatus.EIA_DAMAGE));
@@ -635,7 +633,7 @@ public class EIAMaintenancePlanificationForm extends
 	private void set(EiaPreventiveMaintenancePlanification entity) {
 		EiaTypeMaintenancePlan plan = entity.getPlan();
 
-		maintenacePlanSelectItem.setValue(entity.getId());
+		maintenacePlanSelectItem.setValue(plan.getId());
 		durationPlanTextItem.setValue(plan.getMaintenancePlan().getFrequency());
 		durationPlanPoTSelectItem.setValue(plan.getMaintenancePlan().getPot());
 	}

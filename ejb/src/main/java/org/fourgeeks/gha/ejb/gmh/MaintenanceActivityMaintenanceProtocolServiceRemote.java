@@ -14,6 +14,7 @@ import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
  * 
  */
 
+@Deprecated
 @Remote
 public interface MaintenanceActivityMaintenanceProtocolServiceRemote {
 	/**

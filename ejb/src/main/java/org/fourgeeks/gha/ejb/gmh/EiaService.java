@@ -35,7 +35,7 @@ import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeComponent;
 import org.fourgeeks.gha.domain.mix.Bpi;
-import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
@@ -44,7 +44,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  */
 
 @Stateless
-public class EiaService extends GHAEJBExceptionImpl implements EiaServiceRemote {
+public class EiaService extends GHAEJBExceptionService implements EiaServiceRemote {
 	@PersistenceContext
 	EntityManager em;
 

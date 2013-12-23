@@ -1,5 +1,7 @@
 package org.fourgeeks.gha.webclient.client.UI.formItems.selectitems;
 
+import java.util.LinkedHashMap;
+
 import org.fourgeeks.gha.domain.enu.MaintenancePlanType;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
@@ -12,23 +14,26 @@ import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
  */
 public class GHAMaintenancePlanTypeSelectItem extends GHASelectItem {
 	/**
+	 * @return a valueMap to fill the select
+	 */
+	public static LinkedHashMap<String, String> getValueMap() {
+		LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+		for (MaintenancePlanType value : MaintenancePlanType.values()) {
+			String key = value.name().toLowerCase();
+			valueMap.put(value.name() + "", GHAStrings.get(key));
+		}
+		return valueMap;
+	}
+
+	/**
 	 * 
 	 */
 	public GHAMaintenancePlanTypeSelectItem() {
 		super(GHAStrings.get("plan-type"));
-		setValueMap(MaintenancePlanType.toValueMap());
+		setValueMap(getValueMap());
 	}
 
 	/**
-	 * @param width
-	 */
-	public GHAMaintenancePlanTypeSelectItem(int width) {
-		this();
-		setWidth(width);
-	}
-	
-	/**
-	 * @param title
 	 * @param required
 	 * @param changedHandler
 	 */
@@ -40,7 +45,14 @@ public class GHAMaintenancePlanTypeSelectItem extends GHASelectItem {
 	}
 
 	/**
-	 * @param title
+	 * @param width
+	 */
+	public GHAMaintenancePlanTypeSelectItem(int width) {
+		this();
+		setWidth(width);
+	}
+
+	/**
 	 * @param width
 	 * @param required
 	 * @param changedHandler
@@ -50,6 +62,6 @@ public class GHAMaintenancePlanTypeSelectItem extends GHASelectItem {
 		this(width);
 		setRequired(required);
 		addChangedHandler(changedHandler);
-	}	
+	}
 
 }

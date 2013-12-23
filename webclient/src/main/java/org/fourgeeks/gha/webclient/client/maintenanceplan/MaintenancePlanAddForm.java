@@ -14,12 +14,18 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
+/**
+ * @author naramirez
+ */
 public class MaintenancePlanAddForm extends GHAAddForm<MaintenancePlan>
 		implements MaintenancePlanSelectionProducer {
 	{
 		form = new MaintenancePlanForm();
 	}
 
+	/**
+	 * @param title
+	 */
 	public MaintenancePlanAddForm(String title) {
 		super(title);
 

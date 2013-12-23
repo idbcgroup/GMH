@@ -11,7 +11,6 @@ import org.fourgeeks.gha.domain.mix.Citizen;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHATopForm;
-import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHADoumentTypeSelectItem;
@@ -21,6 +20,7 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHAEmailTextIte
 import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHANameTextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHAUserNameTextItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -66,7 +66,7 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 		emailItem.addKeyUpHandler(searchKeyUpHandler);
 		genderSelectItem.addKeyUpHandler(searchKeyUpHandler);
 
-		form = new GHADynamicForm(GHAUiHelper.getNormalFormWidth(30), 5);
+		form = new GHADynamicForm(5,FormType.NORMAL_FORM);
 	}
 
 	/**
@@ -242,6 +242,6 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 	@Override
 	public void onResize(ResizeEvent event) {
 		super.onResize(event);
-		form.resize(GHAUiHelper.getNormalFormWidth(30), 5);
+		form.resize();
 	}
 }

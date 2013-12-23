@@ -16,7 +16,7 @@ import javax.persistence.PersistenceContext;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeComponent;
-import org.fourgeeks.gha.ejb.GHAEJBExceptionImpl;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
@@ -25,7 +25,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  */
 
 @Stateless(name = "EiaTypeComponentService")
-public class EiaTypeComponentService extends GHAEJBExceptionImpl implements
+public class EiaTypeComponentService extends GHAEJBExceptionService implements
 		EiaTypeComponentServiceRemote, EiaTypeComponentServiceLocal {
 	@PersistenceContext
 	EntityManager em;

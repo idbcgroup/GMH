@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol;
 
 import java.util.List;
@@ -14,20 +11,23 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 /**
  * @author emiliot
- *
+ * 
  */
 
+@Deprecated
 @RemoteServiceRelativePath("maintenanceProtocolService")
-public interface GWTMaintenanceProtocolService extends RemoteService{
+public interface GWTMaintenanceProtocolService extends RemoteService {
 	/**
 	 * Delete a Maintenance Protocol from database by Id
+	 * 
+	 * @param Id
 	 * 
 	 * @throws GHAEJBException
 	 */
 	public void delete(long Id) throws GHAEJBException;
 
 	/**
-	 * @param MaintenancePlan
+	 * @param maintenancePlan
 	 * @return a list with the maintenance protocols related to the maintenance
 	 *         plan
 	 * @throws GHAEJBException
@@ -46,14 +46,17 @@ public interface GWTMaintenanceProtocolService extends RemoteService{
 	public List<MaintenanceProtocol> findByMaintenancePlan(
 			MaintenancePlan maintenancePlan, int offset, int size)
 			throws GHAEJBException;
+
 	/**
 	 * @param maintenanceProtocol
 	 * @return the list of Protocols that are alike the parameter
 	 * @throws GHAEJBException
 	 */
-	public List<MaintenanceProtocol> find(MaintenanceProtocol maintenanceProtocol)throws GHAEJBException;
+	public List<MaintenanceProtocol> find(
+			MaintenanceProtocol maintenanceProtocol) throws GHAEJBException;
+
 	/**
-	 * @param code
+	 * @param Id
 	 * @return the EiaTypeMaintenanceProtocol with this Id
 	 * @throws GHAEJBException
 	 */
@@ -68,14 +71,15 @@ public interface GWTMaintenanceProtocolService extends RemoteService{
 	/**
 	 * @param offset
 	 * @param size
-	 * @return List of EiaTypeMaintenanceProtocol beginning in offset up to size elements
+	 * @return List of EiaTypeMaintenanceProtocol beginning in offset up to size
+	 *         elements
 	 * @throws GHAEJBException
 	 */
 	public List<MaintenanceProtocol> getAll(int offset, int size)
 			throws GHAEJBException;
 
 	/**
-	 * @param MaintenanceProtocol
+	 * @param maintenanceProtocol
 	 *            the plan to be saved on database
 	 * @throws GHAEJBException
 	 * @return EiaTypeMaintenanceProtocol saved
@@ -84,7 +88,7 @@ public interface GWTMaintenanceProtocolService extends RemoteService{
 			throws GHAEJBException;
 
 	/**
-	 * @param MaintenanceProtocol
+	 * @param maintenanceProtocol
 	 *            the EiaTypeMaintenanceProtocol to be updated
 	 * @return EiaTypeMaintenanceProtocol updated
 	 * @throws GHAEJBException

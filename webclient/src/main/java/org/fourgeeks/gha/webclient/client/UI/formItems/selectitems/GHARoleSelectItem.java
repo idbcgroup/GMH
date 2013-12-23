@@ -12,7 +12,7 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 
 /**
- * @author emiliot
+ * @author emiliot, naramirez
  * 
  */
 public class GHARoleSelectItem extends GHASelectItem {
@@ -55,6 +55,9 @@ public class GHARoleSelectItem extends GHASelectItem {
 		addChangedHandler(changedHandler);
 	}
 
+	/**
+	 * 
+	 */
 	public void fill() {
 		GHACache.INSTANCE.getBaseRoles(new GHAAsyncCallback<List<Role>>() {
 

@@ -14,6 +14,7 @@ public class MaintenanceActivityInternalTabset extends TabSet implements ResizeH
 	public MaintenanceActivityInternalTabset(MaintenanceActivityTab mpTab) {
 		super();
 		setWidth100();
+		setMinWidth(1024);
 		setHeight(GHAUiHelper.getBottomSectionHeight());
 
 		GHAUiHelper.addGHAResizeHandler(this);

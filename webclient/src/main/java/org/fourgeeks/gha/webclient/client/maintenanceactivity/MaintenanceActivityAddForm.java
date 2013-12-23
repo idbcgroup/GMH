@@ -116,4 +116,9 @@ public class MaintenanceActivityAddForm extends GHAAddForm<MaintenanceActivity>
 				.removeMaintenanceActivitySelectionListener(maintenanceActivitySelectionListener);
 	}
 
+	@Override
+	public void notifyMaintenanceActivity(
+			MaintenanceActivity maintenanceActivity) {
+	}
+
 }

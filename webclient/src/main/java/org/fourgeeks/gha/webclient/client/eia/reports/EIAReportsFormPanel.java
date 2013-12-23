@@ -38,6 +38,7 @@ public class EIAReportsFormPanel extends GHAVerticalLayout implements
 	public EIAReportsFormPanel() {
 		super();
 		setWidth100();
+		setMinWidth(1024);
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding padding-top");
 

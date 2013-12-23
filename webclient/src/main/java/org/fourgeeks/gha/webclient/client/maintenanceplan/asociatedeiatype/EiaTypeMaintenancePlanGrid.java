@@ -33,7 +33,7 @@ public class EiaTypeMaintenancePlanGrid extends GhaGrid<EiaTypeMaintenancePlan> 
 	public EiaTypeMaintenancePlanGrid() {
 		
 		
-		codeGridField = new GHAGridField("code", "Codigo");
+		codeGridField = new GHAGridField("code", "Código");
 		nameGridField = new GHAGridField("name", "Nombre");
 		brandGridField = new GHAGridField("brand", "Marca");
 		modelGridField = new GHAGridField("model", "Modelo");

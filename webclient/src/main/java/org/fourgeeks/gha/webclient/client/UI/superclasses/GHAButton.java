@@ -4,6 +4,10 @@ import com.google.gwt.core.client.JavaScriptObject;
 import com.smartgwt.client.widgets.IButton;
 import com.smartgwt.client.widgets.events.ClickHandler;
 
+/**
+ * @author alacret
+ * 
+ */
 public class GHAButton extends IButton {
 
 	public GHAButton() {
