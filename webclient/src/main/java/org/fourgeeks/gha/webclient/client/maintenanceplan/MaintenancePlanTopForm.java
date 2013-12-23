@@ -41,9 +41,7 @@ public class MaintenancePlanTopForm extends
 		frequencyItem = new GHATextItem(GHAStrings.get("frecuency"), false);
 		periodOfTimeItem = new GHAPeriodOfTimeSelectItem();
 		typeItem = new GHAMaintenancePlanTypeSelectItem();
-		// typeItem.setDefaultValue(MaintenancePlanType.PREVENTIVE);
 		stateItem = new GHAMaintenancePlanStateSelectItem();
-		// stateItem.setDefaultValue(MaintenancePlanState.ACTIVE);
 		descriptionItem = new GHATextItem(GHAStrings.get("description"), false);
 		descriptionItem.setColSpan(2);
 	}

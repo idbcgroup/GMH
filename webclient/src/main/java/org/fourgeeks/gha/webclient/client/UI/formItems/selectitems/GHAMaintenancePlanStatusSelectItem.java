@@ -2,25 +2,24 @@ package org.fourgeeks.gha.webclient.client.UI.formItems.selectitems;
 
 import java.util.LinkedHashMap;
 
-import org.fourgeeks.gha.domain.enu.MaintenancePlanState;
+import org.fourgeeks.gha.domain.enu.MaintenancePlanStatus;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 
 /**
- * @author jfuentes A select item with the Document Types
- * 
+ * @author naramirez
  */
-public class GHAMaintenancePlanStateSelectItem extends GHASelectItem {
+public class GHAMaintenancePlanStatusSelectItem extends GHASelectItem {
 	/**
 	 * 
 	 */
-	public GHAMaintenancePlanStateSelectItem() {
-		super(GHAStrings.get("plan-state"));
+	public GHAMaintenancePlanStatusSelectItem() {
+		super(GHAStrings.get("plan-status"));
 
 		LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-		for (MaintenancePlanState value : MaintenancePlanState.values()) {
+		for (MaintenancePlanStatus value : MaintenancePlanStatus.values()) {
 			String key = value.name().toLowerCase();
 			valueMap.put(value.name() + "", GHAStrings.get(key));
 		}
@@ -31,7 +30,7 @@ public class GHAMaintenancePlanStateSelectItem extends GHASelectItem {
 	/**
 	 * @param width
 	 */
-	public GHAMaintenancePlanStateSelectItem(int width) {
+	public GHAMaintenancePlanStatusSelectItem(int width) {
 		this();
 		setWidth(width);
 	}
@@ -40,7 +39,7 @@ public class GHAMaintenancePlanStateSelectItem extends GHASelectItem {
 	 * @param required
 	 * @param changedHandler
 	 */
-	public GHAMaintenancePlanStateSelectItem(boolean required,
+	public GHAMaintenancePlanStatusSelectItem(boolean required,
 			ChangedHandler changedHandler) {
 		this();
 		setRequired(required);
@@ -52,11 +51,10 @@ public class GHAMaintenancePlanStateSelectItem extends GHASelectItem {
 	 * @param required
 	 * @param changedHandler
 	 */
-	public GHAMaintenancePlanStateSelectItem(int width, boolean required,
+	public GHAMaintenancePlanStatusSelectItem(int width, boolean required,
 			ChangedHandler changedHandler) {
 		this(width);
 		setRequired(required);
 		addChangedHandler(changedHandler);
 	}
-
 }

@@ -4,6 +4,7 @@
 package org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype;
 
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 
 /**
@@ -22,6 +23,9 @@ public class EiaTypeMaintenancePlanRecord extends
 
 	}
 
+	/**
+	 * 
+	 */
 	public void setEiaTypeAttributes() {
 		setAttribute("name", this.eiaTypeMaintenancePlan.getEiaType().getName());
 		setAttribute("code", this.eiaTypeMaintenancePlan.getEiaType().getCode());
@@ -38,15 +42,20 @@ public class EiaTypeMaintenancePlanRecord extends
 				.getModel());
 	}
 
+	/**
+	 * 
+	 */
 	public void setMaintenancePlanAttributes() {
 		setAttribute("name", this.eiaTypeMaintenancePlan.getMaintenancePlan()
 				.getName());
 		setAttribute("desc", this.eiaTypeMaintenancePlan.getMaintenancePlan()
 				.getDescription());
-		setAttribute("pot", this.eiaTypeMaintenancePlan.getMaintenancePlan()
-				.getPot().name());
 		setAttribute("freq", this.eiaTypeMaintenancePlan.getMaintenancePlan()
 				.getFrequency());
+
+		final String key = this.eiaTypeMaintenancePlan.getMaintenancePlan()
+				.getPot().name().toLowerCase();
+		setAttribute("pot", GHAStrings.get(key));
 	}
 
 	/*

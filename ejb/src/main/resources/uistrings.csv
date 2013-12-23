@@ -123,6 +123,7 @@ ES,eiastate-majordamaged,Dañados Gravemente
 ES,new-maintenance-plan,Nuevo plan de mantenimiento
 ES,plan-type,Tipo de plan
 ES,plan-state,Estado del plan
+ES,plan-status,Estatus del plan
 ES,eiaDamageReport,Reporte de equipo dañado y Solicitud de Mantenimiento
 ES,search-eia,Búsqueda de equipos
 ES,new-eiaDamageReport,Nuevo reporte de equipo dañado
@@ -177,3 +178,11 @@ ES,document-number,número de documento
 ES,diagnosis,Diágnostico
 ES,weight,peso
 ES,height,altura
+ES,active,Activo
+ES,inactive,Inactivo
+ES,preventive,Preventivo
+ES,overhaul,Exhaustivo
+ES,asociated,Asociado
+ES,planificated,Planificado
+ES,iniciated,Iniciado
+ES,canceled,Cancelado

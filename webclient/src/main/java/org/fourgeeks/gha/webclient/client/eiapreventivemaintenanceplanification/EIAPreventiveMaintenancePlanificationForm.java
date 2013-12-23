@@ -19,10 +19,11 @@ import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHADateItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAExternalProviderSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenancePlanSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenancePlanStateSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenancePlanStatusSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHARoleSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
@@ -51,7 +52,8 @@ public class EIAPreventiveMaintenancePlanificationForm extends
 	private GHARoleSelectItem roleSelectItem;
 	private GHADateItem scheduledDateDateItem, deliverDateDateItem,
 			acceptationDateDateItem;
-	private GHASelectItem planStatusSelectItem, planStateSelectItem;
+	private GHAMaintenancePlanStateSelectItem planStateSelectItem;
+	private GHAMaintenancePlanStatusSelectItem planStatusSelectItem;
 	private GHAMaintenancePlanSelectItem maintenacePlanSelectItem;
 	private EiaType selectedEiaType;
 
@@ -60,11 +62,14 @@ public class EIAPreventiveMaintenancePlanificationForm extends
 
 		roleSelectItem = new GHARoleSelectItem();
 		roleSelectItem.addChangedHandler(changedHandler);
-		planStatusSelectItem = new GHASelectItem("Estatus", false,
+		planStatusSelectItem = new GHAMaintenancePlanStatusSelectItem(false,
 				changedHandler);
-		planStateSelectItem = new GHASelectItem("Estado", false, changedHandler);
-		providerSelectItem = new GHAExternalProviderSelectItem(false, changedHandler);
-		maintenacePlanSelectItem = new GHAMaintenancePlanSelectItem(true, changedHandler);
+		planStateSelectItem = new GHAMaintenancePlanStateSelectItem(false,
+				changedHandler);
+		providerSelectItem = new GHAExternalProviderSelectItem(false,
+				changedHandler);
+		maintenacePlanSelectItem = new GHAMaintenancePlanSelectItem(true,
+				changedHandler);
 		maintenacePlanSelectItem.setColSpan(2);
 		scheduledDateDateItem = new GHADateItem("Fecha de inicio",
 				changedHandler);
@@ -85,7 +90,6 @@ public class EIAPreventiveMaintenancePlanificationForm extends
 				providerSelectItem, roleSelectItem, new GHASpacerItem(2),
 				planStatusSelectItem, planStateSelectItem, new GHASpacerItem(2));
 
-		fill();
 		mainPanel.addMembers(form, new LayoutSpacer());
 		addMember(mainPanel);
 	}
@@ -172,11 +176,6 @@ public class EIAPreventiveMaintenancePlanificationForm extends
 			GHANotification.alert(violationsList);
 		}
 		return null;
-	}
-
-	private void fill() {
-		planStateSelectItem.setValueMap(MaintenancePlanState.toValueMap());
-		planStatusSelectItem.setValueMap(MaintenancePlanStatus.toValueMap());
 	}
 
 	@Override

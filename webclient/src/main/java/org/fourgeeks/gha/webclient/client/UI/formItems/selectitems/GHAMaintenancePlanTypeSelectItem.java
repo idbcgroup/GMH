@@ -1,5 +1,7 @@
 package org.fourgeeks.gha.webclient.client.UI.formItems.selectitems;
 
+import java.util.LinkedHashMap;
+
 import org.fourgeeks.gha.domain.enu.MaintenancePlanType;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
@@ -16,7 +18,14 @@ public class GHAMaintenancePlanTypeSelectItem extends GHASelectItem {
 	 */
 	public GHAMaintenancePlanTypeSelectItem() {
 		super(GHAStrings.get("plan-type"));
-		setValueMap(MaintenancePlanType.toValueMap());
+
+		LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+		for (MaintenancePlanType value : MaintenancePlanType.values()) {
+			String key = value.name().toLowerCase();
+			valueMap.put(value.name() + "", GHAStrings.get(key));
+		}
+
+		setValueMap(valueMap);
 	}
 
 	/**
@@ -26,7 +35,7 @@ public class GHAMaintenancePlanTypeSelectItem extends GHASelectItem {
 		this();
 		setWidth(width);
 	}
-	
+
 	/**
 	 * @param title
 	 * @param required
@@ -50,6 +59,6 @@ public class GHAMaintenancePlanTypeSelectItem extends GHASelectItem {
 		this(width);
 		setRequired(required);
 		addChangedHandler(changedHandler);
-	}	
+	}
 
 }

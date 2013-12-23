@@ -2,21 +2,24 @@ package org.fourgeeks.gha.domain.enu;
 
 import java.util.LinkedHashMap;
 
+/**
+ * @author naramirez
+ */
 public enum MaintenancePlanStatus {
-	ASOCIATED("Asociado"), PLANIFICATED("Planificado"), INICIATED("Iniciado"), CANCELED(
-			"Cancelado"), INACTIVE("Inactivo");
+	/** Asociado */
+	ASOCIATED,
+	/** Planificado */
+	PLANIFICATED,
+	/** Iniciado */
+	INICIATED,
+	/** Cancelado */
+	CANCELED,
+	/** Inactivo */
+	INACTIVE;
 
-	private String name;
-
-	private MaintenancePlanStatus(String name) {
-		this.name = name;
-	}
-
-	@Override
-	public String toString() {
-		return name;
-	}
-
+	/**
+	 * @return the value map
+	 */
 	public static LinkedHashMap<String, String> toValueMap() {
 		LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
 		for (MaintenancePlanStatus val : MaintenancePlanStatus.values())
