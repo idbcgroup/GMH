@@ -16,7 +16,6 @@ import com.smartgwt.client.widgets.events.MouseOverHandler;
  * 
  */
 public class GHATabHeader extends Label {
-		setMinWidth(1024);
 
 	private static final String STYLE = "tab-header-title button-pointer";
 	private boolean selected = false;

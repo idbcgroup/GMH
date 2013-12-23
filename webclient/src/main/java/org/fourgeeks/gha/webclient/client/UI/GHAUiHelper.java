@@ -86,11 +86,11 @@ public abstract class GHAUiHelper {
 	/**
 	 * The minimum width of a GHADynamicForm that is on a normal panel (for width 100%).
 	 */
-	public static final int MIN_NORMAL_FORM_WIDTH = 890;
+	public static final int MIN_NORMAL_FORM_WIDTH = 900;
 	/**
 	 * The minimum width of a GHADynamicForm that is embedded on a GHASectionForm.
 	 */
-	public static final int MIN_SECTION_FORM_FORM_WIDTH = 690;
+	public static final int MIN_SECTION_FORM_FORM_WIDTH = 700;
 	/**
 	 * The default top section height.
 	 */

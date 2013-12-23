@@ -257,7 +257,7 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 
 	@Override
 	public void onResize(ResizeEvent arg0) {
-		form.resize(GHAUiHelper.getNormalFormWidth(30), 4);
+		form.resize();
 	}
 
 	@Override
