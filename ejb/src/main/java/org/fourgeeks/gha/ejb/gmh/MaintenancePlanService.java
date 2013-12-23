@@ -78,7 +78,7 @@ public class MaintenancePlanService extends GHAEJBExceptionService implements
 			predicate = cb.and(predicate,
 					cb.equal(root.<TimePeriodEnum> get("pot"), p));
 		}
-		if (maintenancePlan.getFrequency() > 0) {
+		if (maintenancePlan.getFrequency() != null) {
 			ParameterExpression<Integer> p = cb.parameter(Integer.class,
 					"frequency");
 			predicate = cb.and(predicate,
@@ -137,7 +137,8 @@ public class MaintenancePlanService extends GHAEJBExceptionService implements
 			MaintenancePlan maintenancePlan) throws GHAEJBException {
 		try {
 			return em
-					.createNamedQuery("MaintenancePlan.findEiaByMaintenancePlan",
+					.createNamedQuery(
+							"MaintenancePlan.findEiaByMaintenancePlan",
 							EiaMaintenancePlanification.class)
 					.setParameter("plan", maintenancePlan).getResultList();
 		} catch (Exception e) {
@@ -215,7 +216,7 @@ public class MaintenancePlanService extends GHAEJBExceptionService implements
 						+ maintenancePlan.getDescription().toLowerCase() + "%");
 			if (maintenancePlan.getPot() != null)
 				q.setParameter("pot", maintenancePlan.getPot());
-			if (maintenancePlan.getFrequency() > 0)
+			if (maintenancePlan.getFrequency() != null)
 				q.setParameter("frequency", maintenancePlan.getFrequency());
 			if (maintenancePlan.getState() != null)
 				q.setParameter("state", maintenancePlan.getState());

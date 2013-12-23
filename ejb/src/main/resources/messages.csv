@@ -491,3 +491,4 @@ ES,maintenanceProtocol-copyActivities-fail,Fallo al copiar las actividades de un
 ES,maintenanceProtocol-getStadisticInfo-fail,Fallo al obtener información estadistica sobre el protocolo del plan de mantenimiento  
 ES,delete-activities-success,Las actividades se eliminaron exitosamente
 ES,delete-protocol-activities-success,Las actividades del protocolo se eliminaron exitosamente
+ES,cancelation-option-not-null,Debe indicar la opción de cancelación 
