@@ -50,6 +50,11 @@ public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan>
 		descriptionItem = new GHATextItem(GHAStrings.get("description"));
 		descriptionItem.setColSpan(3);
 
+		nameItem.addKeyUpHandler(searchKeyUpHandler);
+		frequencyItem.addKeyUpHandler(searchKeyUpHandler);
+		periodOfTimeSelectItem.addKeyUpHandler(searchKeyUpHandler);
+		descriptionItem.addKeyUpHandler(searchKeyUpHandler);
+
 		resultSet = new MaintenancePlanResultSet(
 				ResultSetContainerType.SEARCH_FORM);
 		resultSet
@@ -77,6 +82,9 @@ public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan>
 		nameItem.addKeyUpHandler(searchKeyUpHandler);
 		frequencyItem.addKeyUpHandler(searchKeyUpHandler);
 		periodOfTimeSelectItem.addKeyUpHandler(searchKeyUpHandler);
+
+		form.setAutoFocus(true);
+		nameItem.setSelectOnFocus(true);
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
 				searchClickHandler), new GHACleanButton(new ClickHandler() {

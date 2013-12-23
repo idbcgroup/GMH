@@ -30,9 +30,9 @@ public class MaintenancePlanTopForm extends
 
 	private GHATextItem nameItem, frequencyItem, descriptionItem;
 	private GHAPeriodOfTimeSelectItem periodOfTimeItem;
-
 	private GHAMaintenancePlanTypeSelectItem typeItem;
 	private GHAMaintenancePlanStateSelectItem stateItem;
+
 	protected MaintenancePlan selectedMaintenancePlan;
 
 	{
@@ -44,6 +44,13 @@ public class MaintenancePlanTopForm extends
 		stateItem = new GHAMaintenancePlanStateSelectItem();
 		descriptionItem = new GHATextItem(GHAStrings.get("description"), false);
 		descriptionItem.setColSpan(2);
+
+		nameItem.addKeyUpHandler(searchKeyUpHandler);
+		frequencyItem.addKeyUpHandler(searchKeyUpHandler);
+		periodOfTimeItem.addKeyUpHandler(searchKeyUpHandler);
+		typeItem.addKeyUpHandler(searchKeyUpHandler);
+		stateItem.addKeyUpHandler(searchKeyUpHandler);
+		descriptionItem.addKeyUpHandler(searchKeyUpHandler);
 	}
 
 	/**
@@ -58,6 +65,9 @@ public class MaintenancePlanTopForm extends
 				GHAUiHelper.getNormalFormWidth(30), 4);
 		form.setItems(nameItem, typeItem, stateItem, descriptionItem,
 				frequencyItem, periodOfTimeItem);
+
+		form.setAutoFocus(true);
+		nameItem.setSelectOnFocus(true);
 
 		addMembers(form, new LayoutSpacer(), sideButtons);
 	}
