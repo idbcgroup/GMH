@@ -252,7 +252,7 @@ public abstract class GHAUiHelper {
 
 	/**
 	 * @param extrasHeight
-	 * @return
+	 * @return the height of the grid.
 	 */
 	public static int getEDTGridSize(int extrasHeight) {
 		int tabHeight = getTabHeight();
@@ -266,6 +266,10 @@ public abstract class GHAUiHelper {
 		}
 	}
 
+	/**
+	 * @param height
+	 * @return the separator
+	 */
 	public static VLayout verticalGraySeparator(String height) {
 		VLayout separator = new VLayout();
 		separator.setWidth100();
@@ -275,6 +279,10 @@ public abstract class GHAUiHelper {
 		return separator;
 	}
 
+	/**
+	 * @param height
+	 * @return the separator
+	 */
 	public static VLayout verticalSeparator(String height) {
 		VLayout separator = new VLayout();
 		separator.setWidth100();
@@ -307,6 +315,11 @@ public abstract class GHAUiHelper {
 		return separator;
 	}
 
+	/**
+	 * @param height
+	 * @param text 
+	 * @return the separator label.
+	 */
 	public static HLayout verticalGraySeparatorLabel(String height, String text) {
 		HLayout separator = new HLayout();
 		separator.setWidth100();

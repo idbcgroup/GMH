@@ -96,14 +96,15 @@ public class GHAPanelHeader extends HLayout implements ResizeHandler,
 
 	/**
 	 * Add a Debug option
-	 * 
+	 * @param title 	 * 
 	 * @param clickHandler
 	 *            the action to be taken when the user clicks
 	 * @return the Debug Option
 	 */
-	public Option addDebugOption(String title, ClickHandler clickHandler) {
-		Option debugOption = new Option(this, title + "...",
-				OPTION_WIDTH, true, "../resources/img/limpiarButton.png",
+	public GHAHeaderOption addDebugOption(String title, ClickHandler clickHandler) {
+		GHAHeaderOption debugOption = new GHAHeaderOption(title + "...",
+				GHAUiHelper.DEFAULT_HEADER_OPTION_WIDTH,true,
+				"../resources/img/limpiarButton.png",
 				"../resources/img/limpiarButtonOver.png");
 		debugOption.addClickHandler(clickHandler);
 		addMember(debugOption, memberPos++);
