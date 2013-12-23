@@ -15,7 +15,6 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.eia.EIAGrid;
 import org.fourgeeks.gha.webclient.client.eia.EIAModel;
 import org.fourgeeks.gha.webclient.client.eia.EIARecord;
@@ -36,7 +35,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author naramirez
  * 
  */
-public class EiaDamageReportGridPanel extends GHAVerticalLayout implements
+public class EiaDamageReportGridPanel extends VLayout implements
 		EIATypeSelectionListener, EiaDamageReportSelectionProducer,
 		HideableListener, ClosableListener {
 
@@ -73,7 +72,7 @@ public class EiaDamageReportGridPanel extends GHAVerticalLayout implements
 	 */
 	public EiaDamageReportGridPanel() {
 		super();
-		setWidth("100%");
+		setWidth100();
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
 				new ClickHandler() {

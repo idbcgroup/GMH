@@ -17,7 +17,6 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.eiadamagereport.EiaDamageReportSelectionListener;
 import org.fourgeeks.gha.webclient.client.eiamaintenanceplanification.EIAMaintenancePlanificationUpdateForm;
 import org.fourgeeks.gha.webclient.client.eiamaintenanceplanification.EiaMaintenancePlanificationDisplayForm;
@@ -35,8 +34,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author naramirez
  * 
  */
-public class EIAMaintenancePlanificationGridPanel extends GHAVerticalLayout
-		implements EIATypeSelectionListener, EiaDamageReportSelectionListener,
+public class EIAMaintenancePlanificationGridPanel extends VLayout implements
+		EIATypeSelectionListener, EiaDamageReportSelectionListener,
 		PreventivePlanificationSelectionListener, HideableListener,
 		ClosableListener {
 
@@ -64,7 +63,7 @@ public class EIAMaintenancePlanificationGridPanel extends GHAVerticalLayout
 	 */
 	public EIAMaintenancePlanificationGridPanel() {
 		super();
-		setWidth("100%");
+		setWidth100();
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
 				new ClickHandler() {
