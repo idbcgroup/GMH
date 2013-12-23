@@ -48,6 +48,7 @@ public class AsociatedMaintenanceProtocolsGridPanel extends GHAVerticalLayout
 
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		setWidth100();
+		setMinWidth(1024);
 		setBackgroundColor("#E0E0E0");
 
 		GHALabel title = new GHALabel(

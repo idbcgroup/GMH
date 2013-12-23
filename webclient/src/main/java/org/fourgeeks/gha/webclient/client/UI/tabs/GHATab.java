@@ -36,6 +36,7 @@ public abstract class GHATab extends VLayout implements ClosableListener,
 	 */
 	public GHATab() {
 		setWidth100();
+		setMinWidth(1024);
 		setBackgroundColor(GHAUiHelper.DEFAULT_BACKGROUND_COLOR);
 	}
 

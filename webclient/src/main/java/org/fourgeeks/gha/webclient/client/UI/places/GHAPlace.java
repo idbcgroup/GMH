@@ -14,7 +14,6 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableProducer;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
-import com.google.gwt.user.client.Window;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
@@ -34,7 +33,9 @@ public abstract class GHAPlace extends VLayout implements HideableListener,
 	 */
 	public GHAPlace(String token) {
 		this.token = token;
-		setWidth(Window.getClientWidth());
+		setWidth100();
+		setMinWidth(1024);
+		setHeight(GHAUiHelper.getTabHeight());
 		GHAUiHelper.addGHAResizeHandler(this);
 	}
 
@@ -121,7 +122,7 @@ public abstract class GHAPlace extends VLayout implements HideableListener,
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		setWidth(Window.getClientWidth());
+		setHeight(GHAUiHelper.getTabHeight());
 	}
 
 	/**

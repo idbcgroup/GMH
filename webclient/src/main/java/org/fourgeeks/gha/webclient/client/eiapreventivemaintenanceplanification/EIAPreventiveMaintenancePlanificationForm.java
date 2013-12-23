@@ -19,13 +19,13 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
-import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHADateItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAExternalProviderSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHARoleSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
@@ -73,7 +73,7 @@ public class EIAPreventiveMaintenancePlanificationForm extends
 		acceptationDateDateItem = new GHADateItem("Fecha de aceptacion",
 				changedHandler);
 
-		form = new GHADynamicForm(GHAUiHelper.getNormalFormWidth(30), 4);
+		form = new GHADynamicForm(4, FormType.NORMAL_FORM);
 	}
 
 	public EIAPreventiveMaintenancePlanificationForm() {
@@ -174,7 +174,7 @@ public class EIAPreventiveMaintenancePlanificationForm extends
 
 	@Override
 	public void onResize(ResizeEvent arg0) {
-		form.resize(GHAUiHelper.getNormalFormWidth(30), 4);
+		form.resize();
 	}
 
 	@Override

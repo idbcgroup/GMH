@@ -21,6 +21,7 @@ public class EDTTopGridPanel extends VLayout implements ClosableListener {
 	public EDTTopGridPanel() {
 		super();
 		setWidth100();
+		setMinWidth(1024);
 		setStyleName("sides-padding");// Esto es VUDU!
 
 		setBackgroundColor("#E0E0E0");

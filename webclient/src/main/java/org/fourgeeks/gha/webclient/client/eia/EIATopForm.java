@@ -12,7 +12,6 @@ import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHATopForm;
-import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHABpiSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAEiaStateSelectItem;
@@ -21,6 +20,7 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAObuSelectI
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHARoleSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAWorkingAreaSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -69,7 +69,7 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 		baseRoleSelectItem = new GHARoleSelectItem();
 		baseRoleSelectItem.disable();
 
-		form = new GHADynamicForm(GHAUiHelper.getNormalFormWidth(30), 4);
+		form = new GHADynamicForm(4,FormType.NORMAL_FORM);
 	}
 
 	/**
@@ -246,6 +246,6 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 	@Override
 	public void onResize(ResizeEvent event) {
 		super.onResize(event);
-		form.resize(GHAUiHelper.getNormalFormWidth(30), 4);
+		form.resize();
 	}
 }

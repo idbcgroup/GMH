@@ -30,6 +30,7 @@ public abstract class GHAInternalTabSet extends TabSet implements
 	public GHAInternalTabSet(GHAPanel tab) {
 		GHAUiHelper.addGHAResizeHandler(this);
 		setWidth100();
+		setMinWidth(1024);
 		setHeight(GHAUiHelper.getBottomSectionHeight());
 		setVisible(false);
 	}

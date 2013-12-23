@@ -17,7 +17,6 @@ import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
-import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAComboboxItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
@@ -27,6 +26,7 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAEiaTypeSub
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAEiaTypeTypeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHACodeTextItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.brand.BrandModel;
@@ -88,7 +88,7 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 		//
 		listeners = new ArrayList<EIATypeSelectionListener>();
 
-		form = new GHADynamicForm(GHAUiHelper.getNormalFormWidth(30), 4);
+		form = new GHADynamicForm(4,FormType.NORMAL_FORM);
 	}
 
 	/**
@@ -418,6 +418,6 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 
 	@Override
 	public void onResize(ResizeEvent arg0) {
-		form.resize(GHAUiHelper.getNormalFormWidth(30), 4);
+		form.resize();
 	}
 }

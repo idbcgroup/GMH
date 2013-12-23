@@ -17,7 +17,6 @@ import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
-import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextAreaItem;
@@ -26,6 +25,7 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenanc
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenancePlanTypeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAPeriodOfTimeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 
@@ -68,7 +68,7 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 		validator = Validation.buildDefaultValidatorFactory().getValidator();
 		listeners = new ArrayList<MaintenancePlanSelectionListener>();
 
-		form = new GHADynamicForm(GHAUiHelper.getNormalFormWidth(30), 4);
+		form = new GHADynamicForm(4, FormType.NORMAL_FORM);
 	}
 
 	/**
@@ -229,7 +229,7 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 
 	@Override
 	public void onResize(ResizeEvent arg0) {
-		form.resize(GHAUiHelper.getNormalFormWidth(30), 4);
+		form.resize();
 	}
 
 }

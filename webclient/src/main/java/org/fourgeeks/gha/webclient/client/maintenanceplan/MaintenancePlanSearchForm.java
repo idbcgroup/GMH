@@ -17,6 +17,7 @@ import org.fourgeeks.gha.webclient.client.UI.icons.GHACancelButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASearchForm;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -40,7 +41,7 @@ public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan>
 	private MaintenancePlanResultSet resultSet = new MaintenancePlanResultSet(ResultSetContainerType.SEARCH_FORM);
 	private final GHADynamicForm form;
 	{
-		form = new GHADynamicForm(GHAUiHelper.getNormalFormWidth(30), 3);
+		form = new GHADynamicForm(3,FormType.NORMAL_FORM);
 
 		nameItem = new GHATextItem(GHAStrings.get("name"));
 		nameItem.setLength(100);
@@ -123,7 +124,7 @@ public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan>
 	@Override
 	public void onResize(ResizeEvent event) {
 		super.onResize(event);
-		form.resize(GHAUiHelper.getNormalFormWidth(30), 3);
+		form.resize();
 	}
 
 	@Override

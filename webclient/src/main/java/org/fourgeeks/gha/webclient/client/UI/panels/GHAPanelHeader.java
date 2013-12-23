@@ -44,6 +44,7 @@ public class GHAPanelHeader extends HLayout implements ResizeHandler,
 	public GHAPanelHeader(final GHAPanel tab, String title) {
 		GHAUiHelper.addGHAResizeHandler(this);
 		setWidth100();
+		setMinWidth(1024);
 		setHeight(30);
 		setDefaultLayoutAlign(VerticalAlignment.TOP);
 		setMembersMargin(6);

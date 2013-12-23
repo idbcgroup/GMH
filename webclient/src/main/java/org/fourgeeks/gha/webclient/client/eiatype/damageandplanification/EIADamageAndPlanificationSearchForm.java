@@ -20,6 +20,7 @@ import org.fourgeeks.gha.webclient.client.UI.icons.GHACancelButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASearchForm;
 import org.fourgeeks.gha.webclient.client.eia.EIAModel;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
@@ -65,7 +66,7 @@ public class EIADamageAndPlanificationSearchForm extends GHASearchForm<Eia>
 			}
 		});
 
-		form = new GHADynamicForm(GHAUiHelper.getNormalFormWidth(30), 3);
+		form = new GHADynamicForm(3,FormType.SECTIONFORM_FORM);
 	}
 
 	/**
@@ -195,7 +196,7 @@ public class EIADamageAndPlanificationSearchForm extends GHASearchForm<Eia>
 	@Override
 	public void onResize(ResizeEvent event) {
 		super.onResize(event);
-		form.resize(GHAUiHelper.getNormalFormWidth(30), 3);
+		form.resize();
 	}
 
 	/*
