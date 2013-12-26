@@ -22,6 +22,7 @@ public class GHATabPanel extends VLayout {
 	public GHATabPanel(String title) {
 		tabset = new GHATabSet(title, this);
 		addMember(tabset);
+		setBackgroundColor("green");
 	}
 
 	private void addTab(GHATab tab) {

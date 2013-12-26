@@ -30,7 +30,7 @@ public class EMHPlace extends NeedPermissionPlace {
 		super(token);
 		header = new GHAPlaceHeader(this);
 		addMember(tabPanel);
-
+		setBackgroundColor("red");
 		tabPanel.addHeaderOption(GHAStrings.get("search"), "buscarButton",
 				new ClickHandler() {
 

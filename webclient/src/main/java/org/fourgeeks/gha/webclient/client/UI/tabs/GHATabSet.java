@@ -25,6 +25,7 @@ final class GHATabSet extends HLayout {
 	public GHATabSet(GHATabPanel tabPanel) {
 		super();
 		addMember(new LayoutSpacer());
+		setBackgroundColor("yellow");
 	}
 
 	/**
