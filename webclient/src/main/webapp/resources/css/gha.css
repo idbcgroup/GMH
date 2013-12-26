@@ -4,7 +4,9 @@
 	font-size: small;
 	font-family: Helvetica !important;
 }
-
+.margin{
+	margin-right:10px;
+}
 b {
 	font-weight: normal !important;
 }
@@ -310,12 +312,14 @@ input[type="text"]:disabled,.inputDisabled {
 .gha-title-label {
 	font-weight: bold;
 	color: #008EFE;
-	font-size: 10px;
+	font-size: 12px;
+	text-transform: capitalize;
 }
 
 .gha-text-label {
 	color: black;
-	font-size: 10px;
+	font-size: 12px;
+	text-transform: capitalize;
 }
 
 .iconTopPadding {
@@ -503,6 +507,9 @@ table.GHAupload-button tbody tr td form div.upld-form-elements div.DecoratedFile
 	/* 	visibility: hidden; */
 	/* 	z-index: -1; */
 	display: none;
+}
+.bold{
+	font-weight: bold;
 }
 
 .side-option {

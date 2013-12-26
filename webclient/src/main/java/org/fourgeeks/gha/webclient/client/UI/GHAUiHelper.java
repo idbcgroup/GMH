@@ -141,6 +141,10 @@ public abstract class GHAUiHelper {
 	 * the default height for the pation top component
 	 */
 	public static final int DEFAULT_PATIENT_TOP_HEIGHT = 100;
+	/**
+	 * a blank space
+	 */
+	public static final String BLANK_SPACE = "&nbsp";
 
 	/**
 	 * @return the height that a tab must have
