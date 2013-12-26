@@ -33,7 +33,7 @@ public abstract class GHASlideInWindow extends GHAVerticalLayout implements
 		setVisibility(Visibility.HIDDEN);
 		setAnimateTime(GHAUiHelper.DEFAULT_ANIMATION_TIME);
 		GHAUiHelper.addGHAResizeHandler(this);
-		setTop(GHAUiHelper.DEFAULT_TOP_SECTION_HEIGHT);
+		setTop(GHAUiHelper.DEFAULT_TOP_HEADER_TAB_HEIGHT);
 	}
 
 	@Override

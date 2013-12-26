@@ -22,7 +22,7 @@ public abstract class GHAUpdateForm<T> extends GHASlideInWindow {
 	public GHAUpdateForm(String title) {
 		super();
 		setHeight(GHAUiHelper.getBottomSectionHeight()-5);
-		setTop(GHAUiHelper.DEFAULT_TOP_SECTION_HEIGHT
+		setTop(GHAUiHelper.DEFAULT_TOP_HEADER_PANEL_HEIGHT
 				+ GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT
 				+ GHAUiHelper.V_SEPARATOR_HEIGHT + 1);
 		label = new GHALabel(title);

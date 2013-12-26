@@ -14,7 +14,6 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
-import com.google.gwt.user.client.Window;
 import com.smartgwt.client.types.VerticalAlignment;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -39,7 +38,7 @@ public class GHAPanelHeader extends HLayout implements ResizeHandler,
 		GHAUiHelper.addGHAResizeHandler(this);
 		setWidth100();
 		setMinWidth(1024);
-		setHeight(30);
+		setHeight(GHAUiHelper.MENU_BAR_HEIGTH);
 		setDefaultLayoutAlign(VerticalAlignment.TOP);
 		setMembersMargin(6);
 
@@ -159,7 +158,7 @@ public class GHAPanelHeader extends HLayout implements ResizeHandler,
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		setWidth(Window.getClientWidth() - 35);
+		
 	}
 
 	/**

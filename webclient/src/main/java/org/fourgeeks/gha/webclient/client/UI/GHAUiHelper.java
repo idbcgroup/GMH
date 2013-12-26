@@ -69,7 +69,8 @@ public abstract class GHAUiHelper {
 
 	// NO ESTAN TOTALMENTE MEDIDAS CON LA INTERFAZ
 	private static final int MIN_TAB_HEIGHT = 678;
-	private static final int MIN_BOTTOM_SECTION_HEIGHT = 556;
+	private static final int MIN_PANEL_HEIGHT = 648;
+	private static final int MIN_BOTTOM_SECTION_HEIGHT = 528;
 
 	// NO ESTAN TOTALMENTE MEDIDAS CON LA INTERFAZ
 
@@ -92,10 +93,13 @@ public abstract class GHAUiHelper {
 	 */
 	public static final int MIN_SECTION_FORM_FORM_WIDTH = 700;
 	/**
-	 * The default top section height.
+	 * The default top header height (with the tabs bar).
 	 */
-	public static final int DEFAULT_TOP_SECTION_HEIGHT = HEADER_HEIGTH
-			+ MENU_BAR_HEIGTH + 1;
+	public static final int DEFAULT_TOP_HEADER_TAB_HEIGHT = HEADER_HEIGTH + MENU_BAR_HEIGTH;
+	/**
+	 * The default top header height (with the tabs and the panel bars).
+	 */
+	public static final int DEFAULT_TOP_HEADER_PANEL_HEIGHT = HEADER_HEIGTH + MENU_BAR_HEIGTH + MENU_BAR_HEIGTH ;
 	/**
 	 *  The default height of the inner part of the top section (TopForms and such).
 	 */
@@ -162,19 +166,32 @@ public abstract class GHAUiHelper {
 	 */
 	public static int getTabHeight() {
 		int rootPanelHeight = Window.getClientHeight();
-		int ret = rootPanelHeight - HEADER_HEIGTH - MENU_BAR_HEIGTH - 5;
+		int ret = rootPanelHeight - DEFAULT_TOP_HEADER_TAB_HEIGHT;
 		if (ret < MIN_TAB_HEIGHT) {
 			return MIN_TAB_HEIGHT;
 		} else {
 			return ret;
 		}
 	}
-
+	
+	/**
+	 * @return the height that a Panel must have
+	 */
+	public static int getPanelHeight() {
+		int tabHeight = getTabHeight();
+		int ret = tabHeight - MENU_BAR_HEIGTH;
+		if (ret < MIN_PANEL_HEIGHT) {
+			return MIN_PANEL_HEIGHT;
+		} else {
+			return ret;
+		}
+	}
+	
 	/**
 	 * @return the height for the bottom section
 	 */
 	public static int getBottomSectionHeight() {
-		int biggerTabHeight = getTabHeight();
+		int biggerTabHeight = getPanelHeight();
 		int innerTopSection = DEFAULT_INNER_TOP_SECTION_HEIGHT
 				+ V_SEPARATOR_HEIGHT;
 
@@ -195,13 +212,13 @@ public abstract class GHAUiHelper {
 		int rootPanelWidth = Window.getClientWidth();
 		int ret;
 		if(type==FormType.NORMAL_FORM){
-			ret = rootPanelWidth - buttonsSize - 80;
+			ret = rootPanelWidth - buttonsSize - 100;
 			if(ret < MIN_NORMAL_FORM_WIDTH)
 				return MIN_NORMAL_FORM_WIDTH;
 			else
 				return ret;
 		}else{
-			ret = rootPanelWidth - (SECTION_FORM_OPTION_WIDTH + 50)	- buttonsSize - 80;
+			ret = rootPanelWidth - (SECTION_FORM_OPTION_WIDTH + 50)	- buttonsSize - 100;
 			if(ret < MIN_SECTION_FORM_FORM_WIDTH)
 				return MIN_SECTION_FORM_FORM_WIDTH;
 			else
@@ -221,7 +238,7 @@ public abstract class GHAUiHelper {
 	 * @return the grid size.
 	 */
 	public static int getGridSize(int extrasHeight) {
-		int tabHeight = getTabHeight();
+		int tabHeight = getPanelHeight();
 		int titleHeight = 30;
 		int topExtras = extrasHeight + titleHeight + 35;
 
@@ -255,7 +272,7 @@ public abstract class GHAUiHelper {
 	 * @return the height of the grid.
 	 */
 	public static int getEDTGridSize(int extrasHeight) {
-		int tabHeight = getTabHeight();
+		int tabHeight = getPanelHeight();
 		int topExtras = extrasHeight + 30;
 
 		int ret = (tabHeight - topExtras) / 2;

@@ -44,7 +44,7 @@ public abstract class GHASearchForm<T> extends GHASlideInWindow {
 		setWidth100();
 		setMinWidth(1024);
 		setHeight(GHAUiHelper.getTabHeight()-5);
-		setTop(GHAUiHelper.DEFAULT_TOP_SECTION_HEIGHT);
+		setTop(GHAUiHelper.DEFAULT_TOP_HEADER_TAB_HEIGHT - GHAUiHelper.MENU_BAR_HEIGTH);
 		label = new GHALabel(title);
 		addMember(label);
 	}
