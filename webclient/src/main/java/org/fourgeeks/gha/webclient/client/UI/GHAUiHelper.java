@@ -6,6 +6,7 @@ import java.util.List;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImg;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow.SlideInWindowType;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
@@ -61,7 +62,7 @@ public abstract class GHAUiHelper {
 	/**
 	 * The Header Part Default Heights
 	 */
-	private static final int HEADER_HEIGTH = 60;
+	public static final int HEADER_HEIGTH = 60;
 	/**
 	 * 
 	 */
@@ -229,8 +230,13 @@ public abstract class GHAUiHelper {
 	/**
 	 * @return the Top space
 	 */
-	public static int getTopSpace() {
-		return HEADER_HEIGTH + MENU_BAR_HEIGTH + 1;
+	public static int getTopSpace(SlideInWindowType type) {
+		if(type==SlideInWindowType.SEARCH)
+			return DEFAULT_TOP_HEADER_TAB_HEIGHT;
+		else
+			return (DEFAULT_TOP_HEADER_PANEL_HEIGHT
+					+ DEFAULT_INNER_TOP_SECTION_HEIGHT
+					+ V_SEPARATOR_HEIGHT);
 	}
 
 	/**
