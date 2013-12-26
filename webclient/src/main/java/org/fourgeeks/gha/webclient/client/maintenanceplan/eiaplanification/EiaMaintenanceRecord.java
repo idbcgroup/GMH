@@ -33,8 +33,9 @@ public class EiaMaintenanceRecord extends GHAGridRecord<Eia> {
 		setAttribute("type", eiaEntity.getEiaType().getName());
 		setAttribute("code", eiaEntity.getCode());
 		setAttribute("name", eiaEntity.getSerialNumber());
-		setAttribute("quantity", planificationEntity.getEffectiveTime());
-		setAttribute("cost", planificationEntity.getStatus());
+		//TODO Calcular los valores de "quantity" y "cost"
+		setAttribute("quantity", 0);
+		setAttribute("cost", 0);
 	}
 
 	/*
