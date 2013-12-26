@@ -53,6 +53,7 @@ public class MaintenancePlanTopForm extends
 		typeItem.addKeyUpHandler(searchKeyUpHandler);
 		stateItem.addKeyUpHandler(searchKeyUpHandler);
 		descriptionItem.addKeyUpHandler(searchKeyUpHandler);
+		periodOfTimeItem.setDefaultValue((String) null);
 	}
 
 	/**
