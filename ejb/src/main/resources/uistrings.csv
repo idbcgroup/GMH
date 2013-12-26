@@ -122,6 +122,7 @@ ES,eiastate-majordamaged,Dañados Gravemente
 ES,new-maintenance-plan,Nuevo plan de mantenimiento
 ES,plan-type,Tipo de plan
 ES,plan-state,Estado del plan
+ES,plan-status,Estatus del plan
 ES,eiaDamageReport,Reporte de equipo dañado y Solicitud de Mantenimiento
 ES,search-eia,Búsqueda de equipos
 ES,new-eiaDamageReport,Nuevo reporte de equipo dañado
@@ -157,6 +158,35 @@ ES,eia-maintenance-planification-details-register,Registrar detalles del Manteni
 ES,cancelation-option,Opción de cancelación
 ES,currency,Moneda
 ES,edt,edt
+ES,maintenance-plan-associated-protocol-activities,Protocolo de Actividades asociadas al Plan de Mantenimiento
+ES,protocol,Protocolo
+ES,maintenance-activity,Actividad de Mantenimiento
+ES,activity,Actividad
+ES,totals,Totales
+ES,activities,Actividades
+ES,subprotocols,Sub-Protocolos
+ES,subprotocol,Sub-Protocolo
+ES,total-time,Tiempo total
+ES,total-cost,Costo total
+ES,activity-delete-confirm,¿Desea eliminar la actividad?
+ES,activities-delete-confirm,¿Desea eliminar las actividades?
+ES,maintenance-protocol-delete-confirm,¿Desea eliminar todas las actividades de este Plan de Mantenimiento?
 ES,emh,Historia médica
 ES,gmh,gmh
 ES,hme,gmh
+ES,gender,sexo
+ES,city,ciudad
+ES,age,edad
+ES,document-type,tipo de documento
+ES,document-number,número de documento
+ES,diagnosis,Diágnostico
+ES,weight,peso
+ES,height,altura
+ES,active,Activo
+ES,inactive,Inactivo
+ES,preventive,Preventivo
+ES,overhaul,Exhaustivo
+ES,asociated,Asociado
+ES,planificated,Planificado
+ES,iniciated,Iniciado
+ES,canceled,Cancelado

@@ -34,6 +34,8 @@ public abstract class GHAPlace extends VLayout implements HideableListener,
 	public GHAPlace(String token) {
 		this.token = token;
 		setWidth100();
+		setMinWidth(1024);
+		setHeight(GHAUiHelper.getTabHeight());
 		GHAUiHelper.addGHAResizeHandler(this);
 	}
 
@@ -127,7 +129,7 @@ public abstract class GHAPlace extends VLayout implements HideableListener,
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		// TODO resize
+		setHeight(GHAUiHelper.getTabHeight());
 	}
 
 	/**

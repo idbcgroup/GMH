@@ -30,9 +30,7 @@ import org.fourgeeks.gha.domain.mix.Bpi;
 @NamedQueries(value = {
 		@NamedQuery(name = "MaintenancePlan.getAll", query = "SELECT e from MaintenancePlan e order by e.id"),
 		@NamedQuery(name = "MaintenancePlan.findByEiaType", query = "SELECT mnt from EiaTypeMaintenancePlan e JOIN e.maintenancePlan mnt WHERE e.eiaType = :eiaType order by e.id"),
-		@NamedQuery(name = "MaintenancePlan.findEiaByMaintenancePlan", query = "SELECT pmp.planification FROM EiaPreventiveMaintenancePlanification pmp JOIN pmp.plan mp WHERE mp.maintenancePlan = :plan")
-		})
-		
+		@NamedQuery(name = "MaintenancePlan.findEiaByMaintenancePlan", query = "SELECT pmp.planification FROM EiaPreventiveMaintenancePlanification pmp JOIN pmp.plan mp WHERE mp.maintenancePlan = :plan") })
 public class MaintenancePlan extends AbstractEntity {
 
 	/**
@@ -46,7 +44,7 @@ public class MaintenancePlan extends AbstractEntity {
 	private String name;
 	@NotNull(message = "frecuency-not-null")
 	@Column(nullable = false)
-	private int frequency;
+	private Integer frequency;
 	@NotNull(message = "time-period-not-null")
 	@Column(nullable = false)
 	private TimePeriodEnum pot;
@@ -84,7 +82,7 @@ public class MaintenancePlan extends AbstractEntity {
 	 * @param state
 	 * @param cancelationOption
 	 */
-	public MaintenancePlan(String name, String description, int frequency,
+	public MaintenancePlan(String name, String description, Integer frequency,
 			TimePeriodEnum pot, MaintenancePlanType type,
 			MaintenancePlanState state,
 			MaintenancePlanCancelationOption cancelationOption) {
@@ -114,7 +112,7 @@ public class MaintenancePlan extends AbstractEntity {
 	/**
 	 * @return the frecuency the plan is executed
 	 */
-	public int getFrequency() {
+	public Integer getFrequency() {
 		return frequency;
 	}
 
@@ -188,7 +186,7 @@ public class MaintenancePlan extends AbstractEntity {
 	/**
 	 * @param frequency
 	 */
-	public void setFrequency(int frequency) {
+	public void setFrequency(Integer frequency) {
 		this.frequency = frequency;
 	}
 

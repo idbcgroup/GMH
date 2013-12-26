@@ -18,14 +18,12 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
 final class GHATabSet extends HLayout {
 
 	private final List<GHATabHeader> headers = new ArrayList<GHATabHeader>();
-	private final GHATabPanel tabPanel;
 	private int optionPos = 1;
 	private int tabPos = 0;
 
+	// TODO, see wheter the tabPanel is necesary
 	public GHATabSet(GHATabPanel tabPanel) {
 		super();
-		this.tabPanel = tabPanel;
-		setHeight(GHAUiHelper.DEFAULT_TAB_SET_HEIGHT);
 		addMember(new LayoutSpacer());
 	}
 

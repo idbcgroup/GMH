@@ -36,6 +36,7 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAPeriodOfTi
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHARoleSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAWorkingAreaSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASectionForm;
@@ -352,8 +353,7 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 	 */
 	private GHADynamicForm getAdquisicionForm() {
 		// //////Adquisicion Form
-		GHADynamicForm adquisicionForm = new GHADynamicForm(
-				GHAUiHelper.getSectionFormFormWidth(30), 4);
+		GHADynamicForm adquisicionForm = new GHADynamicForm(4,FormType.SECTIONFORM_FORM);
 
 		adquisicionForm.setItems(realWarranty_TitleItem,
 				realWarrantySinceSelectItem, realWarrantyBeginDate,
@@ -369,8 +369,7 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 	 * @return
 	 */
 	private GHADynamicForm getInfoBasicaForm() {
-		GHADynamicForm equipoForm = new GHADynamicForm(
-				GHAUiHelper.getSectionFormFormWidth(30), 3);
+		GHADynamicForm equipoForm = new GHADynamicForm(3,FormType.SECTIONFORM_FORM);
 
 		equipoForm.setItems(information_TitleItem, eiaTypeSelectItem,
 				new GHASpacerItem(2), codeTextItem, serialTextItem,
@@ -385,8 +384,7 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 	 * @return
 	 */
 	private GHADynamicForm getReportForm() {
-		GHADynamicForm reportForm = new GHADynamicForm(
-				GHAUiHelper.getSectionFormFormWidth(30), 3);
+		GHADynamicForm reportForm = new GHADynamicForm(3,FormType.SECTIONFORM_FORM);
 
 		reportForm.setItems(report_TitleItem, damageStatusSelectItem,
 				damagePrioritySelectItem, new GHASpacerItem(), damageDateItem,
@@ -401,8 +399,7 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 	 * @return
 	 */
 	private GHADynamicForm getUbicacionForm() {
-		GHADynamicForm areaForm = new GHADynamicForm(
-				GHAUiHelper.getSectionFormFormWidth(30), 3);
+		GHADynamicForm areaForm = new GHADynamicForm(3,FormType.SECTIONFORM_FORM);
 
 		areaForm.setItems(location_TitleItem, locationTypeSelectItem,
 				new GHASpacerItem(2), workingArea_TitleItem,
@@ -425,10 +422,10 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 
 	@Override
 	public void onResize(ResizeEvent arg0) {
-		infoBasicaForm.resize(GHAUiHelper.getSectionFormFormWidth(30), 3);
-		garantiasForm.resize(GHAUiHelper.getSectionFormFormWidth(30), 4);
-		ubicacionForm.resize(GHAUiHelper.getSectionFormFormWidth(30), 3);
-		reportForm.resize(GHAUiHelper.getSectionFormFormWidth(30), 3);
+		infoBasicaForm.resize();
+		garantiasForm.resize();
+		ubicacionForm.resize();
+		reportForm.resize();
 	}
 
 	/**

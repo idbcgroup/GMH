@@ -17,6 +17,7 @@ import org.fourgeeks.gha.webclient.client.UI.icons.GHACancelButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASearchForm;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -34,13 +35,14 @@ public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan>
 		implements MaintenancePlanSelectionListener,
 		MaintenancePlanSelectionProducer {
 
-	private GHATextItem nameItem, descriptionItem, frequencyItem;
-	private GHAPeriodOfTimeSelectItem periodOfTimeSelectItem;
-
-	private MaintenancePlanResultSet resultSet = new MaintenancePlanResultSet(ResultSetContainerType.SEARCH_FORM);
 	private final GHADynamicForm form;
+	private GHATextItem nameItem, descriptionItem, frequencyItem;
+
+	private GHAPeriodOfTimeSelectItem periodOfTimeSelectItem;
+	private final MaintenancePlanResultSet resultSet;
+
 	{
-		form = new GHADynamicForm(GHAUiHelper.getNormalFormWidth(30), 3);
+		form = new GHADynamicForm(3,FormType.NORMAL_FORM);
 
 		nameItem = new GHATextItem(GHAStrings.get("name"));
 		nameItem.setLength(100);
@@ -49,6 +51,13 @@ public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan>
 		descriptionItem = new GHATextItem(GHAStrings.get("description"));
 		descriptionItem.setColSpan(3);
 
+		nameItem.addKeyUpHandler(searchKeyUpHandler);
+		frequencyItem.addKeyUpHandler(searchKeyUpHandler);
+		periodOfTimeSelectItem.addKeyUpHandler(searchKeyUpHandler);
+		descriptionItem.addKeyUpHandler(searchKeyUpHandler);
+
+		resultSet = new MaintenancePlanResultSet(
+				ResultSetContainerType.SEARCH_FORM);
 		resultSet
 				.addMaintenancePlanSelectionListener(new MaintenancePlanSelectionListener() {
 
@@ -60,7 +69,10 @@ public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan>
 	}
 
 	/**
+	 * Create a search form to select a MaintenancePlan
 	 * 
+	 * @param title
+	 *            the title of the search form
 	 */
 	public MaintenancePlanSearchForm(String title) {
 		super(title);
@@ -72,16 +84,16 @@ public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan>
 		frequencyItem.addKeyUpHandler(searchKeyUpHandler);
 		periodOfTimeSelectItem.addKeyUpHandler(searchKeyUpHandler);
 
+		form.setAutoFocus(true);
+		nameItem.setSelectOnFocus(true);
+
 		VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
 				searchClickHandler), new GHACleanButton(new ClickHandler() {
-
 			@Override
 			public void onClick(ClickEvent event) {
 				clean();
-
 			}
 		}), new GHACancelButton(new ClickHandler() {
-
 			@Override
 			public void onClick(ClickEvent event) {
 				hide();
@@ -108,6 +120,9 @@ public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan>
 
 	}
 
+	/**
+	 * clean the form item and the data of the grid
+	 */
 	public void clean() {
 		form.clearValues();
 		resultSet.clean();
@@ -123,7 +138,7 @@ public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan>
 	@Override
 	public void onResize(ResizeEvent event) {
 		super.onResize(event);
-		form.resize(GHAUiHelper.getNormalFormWidth(30), 3);
+		form.resize();
 	}
 
 	@Override
@@ -158,7 +173,6 @@ public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan>
 	private void search(final MaintenancePlan maintenancePlan) {
 		MaintenancePlanModel.find(maintenancePlan,
 				new GHAAsyncCallback<List<MaintenancePlan>>() {
-
 					@Override
 					public void onSuccess(List<MaintenancePlan> result) {
 						List<MaintenancePlan> newList = null;

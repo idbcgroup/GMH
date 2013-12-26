@@ -349,19 +349,19 @@ EN,maintenancePlan-find-fail,Failed to find MaintenancePlan
 EN,maintenancePlan-getAll-fail,Failed to get all MaintenancePlan
 EN,maintenancePlan-save-fail,Failed to save MaintenancePlan
 EN,maintenancePlan-update-fail,Failed to update MaintenancePlan
-ES,maintenanceProtocol-delete-fail,Fallo la eliminación del MaintenanceProtocol
-ES,maintenanceProtocol-findByMaintenancePlan-fail,Búsqueda fallida de MaintenanceProtocol por plan de mantenimiento
+ES,maintenanceProtocol-delete-fail,Fallo al eliminar actividades del Protocolo de Actividades 
+ES,maintenanceProtocol-findByMaintenancePlan-fail,Fallo al buscar las actividades asociadas al Plan de Mantenimiento
 ES,maintenanceProtocol-findByMaintenanceProtocol-fail,Búsqueda fallida de MaintenanceProtocol por maintenanceProtocol
 ES,maintenanceProtocol-find-fail,Búsqueda fallida de MaintenanceProtocol
 ES,maintenanceProtocol-getAll-fail,Búsqueda fallida de todos los MaintenanceProtocol
-ES,maintenanceProtocol-save-fail,Guardado fallido de MaintenanceProtocol
+ES,maintenanceProtocol-save-fail,Fallo al asociar la Actividad al Plan de Matenimiento
 ES,maintenanceProtocol-update-fail,Actualización fallida de MaintenanceProtocol
-EN,maintenanceProtocol-delete-fail,Failed to delete MaintenanceProtocol
-EN,maintenanceProtocol-findByMaintenancePlan-fail,Failed to find MaintenanceProtocol by maintenancePlan
+EN,maintenanceProtocol-delete-fail,Failed to delete Activities of the Maintenance Plan
+EN,maintenanceProtocol-findByMaintenancePlan-fail,Failed to find tha activities associated to the Maintenance Plan
 EN,maintenanceProtocol-findByMaintenanceProtocol-fail,Failed to find MaintenanceProtocol by maintenanceProtocol
 EN,maintenanceProtocol-find-fail,Failed to find MaintenanceProtocol
 EN,maintenanceProtocol-getAll-fail,Failed to get all MaintenanceProtocol
-EN,maintenanceProtocol-save-fail,Failed to save MaintenanceProtocol
+EN,maintenanceProtocol-save-fail,Failed to associate the Activity to the Maintenance Plan
 EN,maintenanceProtocol-update-fail,Failed to update MaintenanceProtocol
 ES,maintenanceSubProtocol-delete-fail,Fallo la eliminación del MaintenanceSubProtocol
 ES,maintenanceSubProtocol-findByMaintenanceActivity-fail,Búsqueda fallida de MaintenanceSubProtocol por maintenanceActivity
@@ -487,3 +487,8 @@ ES,maintenance-activity-subtype-not-null,Debe indicar el sub-tipo o sub-categori
 ES,estimated-duration-time-not-null,Debe indicar el tiempo de duración estimado
 ES,estimated-cost-not-null,Debe indicar el costo estimado
 ES,currency-not-null,Debe indicar la moneda
+ES,maintenanceProtocol-copyActivities-fail,Fallo al copiar las actividades de un plan de mantenimiento a otro
+ES,maintenanceProtocol-getStadisticInfo-fail,Fallo al obtener información estadistica sobre el protocolo del plan de mantenimiento  
+ES,delete-activities-success,Las actividades se eliminaron exitosamente
+ES,delete-protocol-activities-success,Las actividades del protocolo se eliminaron exitosamente
+ES,cancelation-option-not-null,Debe indicar la opción de cancelación 

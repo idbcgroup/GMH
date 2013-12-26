@@ -7,7 +7,6 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
-import com.google.gwt.user.client.History;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.util.SC;
@@ -18,6 +17,7 @@ public class mailCheckPanel extends VLayout implements ResizeHandler{
 
 	public mailCheckPanel() {
 		setWidth100();
+		setMinWidth(1024);
 		setStyleName("padding-top-recovery");
 		setHeight(GHAUiHelper.getTabHeight());
 		setDefaultLayoutAlign(Alignment.CENTER);

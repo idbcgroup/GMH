@@ -23,9 +23,10 @@ import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 @Entity
 @NamedQueries(value = {
 		@NamedQuery(name = "MaintenanceActivity.getAll", query = "SELECT e from MaintenanceActivity e order by e.id"),
-		@NamedQuery(name = "MaintenanceActivity.findByMaintenanceProtocol", query = "SELECT a FROM MaintenanceActivityMaintenanceProtocol e JOIN e.activity a WHERE e.protocol = :maintenanceProtocol order by e.ordinal"),
+		@NamedQuery(name = "MaintenanceActivity.findByMaintenancePlan", query = "SELECT act FROM MaintenanceProtocols mp JOIN mp.maintenanceActivity act WHERE mp.maintenancePlan = :plan order by act.id"),
 		@NamedQuery(name = "MaintenanceActivity.findByServiceResource", query = "SELECT p FROM  MaintenanceActivityServiceResource e JOIN e.maintenanceActivity p WHERE e.serviceResource = :serviceResource") })
-public class MaintenanceActivity extends AbstractEntity {
+public class MaintenanceActivity extends AbstractEntity implements
+		Comparable<MaintenanceActivity> {
 	/** */
 	private static final long serialVersionUID = 1L;
 
@@ -62,12 +63,18 @@ public class MaintenanceActivity extends AbstractEntity {
 	@Column(nullable = false)
 	private CurrencyTypeEnum estimatedCostCurrency;
 
-	private String description;
+	@Column(nullable = false)
+	private boolean isSubProtocol;
 
+	private String description;
 	private String instructionsAndObservations;
+	private boolean materialsRequired;
+	private boolean toolsRequired;
+	private boolean equipsRequired;
 
 	/** */
 	public MaintenanceActivity() {
+		isSubProtocol = false;
 	}
 
 	/**
@@ -222,5 +229,81 @@ public class MaintenanceActivity extends AbstractEntity {
 	 */
 	public void setType(MaintenanceActivityTypeEnum type) {
 		this.type = type;
+	}
+
+	/**
+	 * @return the isSubProtocol
+	 */
+	public boolean getIsSubProtocol() {
+		return isSubProtocol;
+	}
+
+	/**
+	 * @param isSubProtocol
+	 *            the isSubProtocol to set
+	 */
+	public void setIsSubProtocol(boolean isSubProtocol) {
+		this.isSubProtocol = isSubProtocol;
+	}
+
+	/**
+	 * @return true if Materials are required for this activity, false in other
+	 *         case
+	 */
+	public boolean getIsMaterialsRequired() {
+		return materialsRequired;
+	}
+
+	/**
+	 * @param materialsRequired
+	 *            Are Materials required for this activity?
+	 */
+	public void setMaterialsRequired(boolean materialsRequired) {
+		this.materialsRequired = materialsRequired;
+	}
+
+	/**
+	 * @return true if Tools are required for this activity, false in other case
+	 */
+	public boolean getIsToolsRequired() {
+		return toolsRequired;
+	}
+
+	/**
+	 * @param toolsRequired
+	 *            Are Tools required for this activity?
+	 */
+	public void setToolsRequired(boolean toolsRequired) {
+		this.toolsRequired = toolsRequired;
+	}
+
+	/**
+	 * @return true if Work Equips are required for this activity, false in
+	 *         other case
+	 */
+	public boolean getIsEquipsRequired() {
+		return equipsRequired;
+	}
+
+	/**
+	 * @param equipsRequired
+	 *            Are Work Equips required for this activity?
+	 */
+	public void setEquipsRequired(boolean equipsRequired) {
+		this.equipsRequired = equipsRequired;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 */
+	@Override
+	public int compareTo(MaintenanceActivity activity) {
+		if (activity.getId() > this.getId())
+			return 1;
+		if (activity.getId() < this.getId())
+			return -1;
+		return 0;
 	}
 }

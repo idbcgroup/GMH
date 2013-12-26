@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.fourgeeks.gha.webclient.server.eiamaintenanceplanification;
+package org.fourgeeks.gha.webclient.server.maintenanceplanification;
 
 import java.util.List;
 

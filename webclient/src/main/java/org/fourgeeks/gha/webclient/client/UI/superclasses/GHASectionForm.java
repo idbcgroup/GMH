@@ -46,6 +46,7 @@ public class GHASectionForm extends HLayout implements HideableListener,
 	public GHASectionForm() {
 		addStyleName("padding-top");
 		setWidth100();
+		setMinWidth(1024);
 		setMembersMargin(10);
 		addMember(options);
 		addMember(GHAUiHelper.horizontalGraySeparator("3px"));

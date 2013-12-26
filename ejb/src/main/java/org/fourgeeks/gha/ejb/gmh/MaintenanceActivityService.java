@@ -17,6 +17,8 @@ import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.fourgeeks.gha.domain.enu.MaintenanceActivitySubTypeEnum;
+import org.fourgeeks.gha.domain.enu.MaintenanceActivityTypeEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.ServiceResource;
@@ -55,6 +57,19 @@ public class MaintenanceActivityService extends GHAEJBExceptionService implement
 					"description");
 			predicate = cb.and(predicate,
 					cb.like(cb.lower(root.<String> get("description")), p));
+		}
+		if (maintenanceActivity.getType() != null) {
+			ParameterExpression<MaintenanceActivityTypeEnum> p = cb.parameter(
+					MaintenanceActivityTypeEnum.class, "type");
+			predicate = cb
+					.and(predicate, cb.equal(
+							root.<MaintenanceActivityTypeEnum> get("type"), p));
+		}
+		if (maintenanceActivity.getSubType() != null) {
+			ParameterExpression<MaintenanceActivitySubTypeEnum> p = cb
+					.parameter(MaintenanceActivitySubTypeEnum.class, "subType");
+			predicate = cb.and(predicate, cb.equal(
+					root.<MaintenanceActivitySubTypeEnum> get("subType"), p));
 		}
 		return predicate;
 	}

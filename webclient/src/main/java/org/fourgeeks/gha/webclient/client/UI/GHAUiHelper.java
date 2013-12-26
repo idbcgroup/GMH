@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImg;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -78,24 +79,33 @@ public abstract class GHAUiHelper {
 	public static final int MIN_GRID_SIZE = 120;
 
 	/**
-	 * The default Section Form
+	 * The default Section Form option width.
 	 */
 	public static final int SECTION_FORM_OPTION_WIDTH = 150;
 
 	/**
-	 * The default form measures
+	 * The minimum width of a GHADynamicForm that is on a normal panel (for width 100%).
 	 */
-	public static final int MIN_FORM_WIDTH = 400;
-	public static final int MIN_SECTION_FORM_FORM_WIDTH = 300;
+	public static final int MIN_NORMAL_FORM_WIDTH = 900;
 	/**
-	 * The default top section height
+	 * The minimum width of a GHADynamicForm that is embedded on a GHASectionForm.
+	 */
+	public static final int MIN_SECTION_FORM_FORM_WIDTH = 700;
+	/**
+	 * The default top section height.
 	 */
 	public static final int DEFAULT_TOP_SECTION_HEIGHT = HEADER_HEIGTH
 			+ MENU_BAR_HEIGTH + 1;
+	/**
+	 *  The default height of the inner part of the top section (TopForms and such).
+	 */
 	public static final int DEFAULT_INNER_TOP_SECTION_HEIGHT = 110;
+	/**
+	 * Default height of a vertical separator
+	 */
 	public static final int V_SEPARATOR_HEIGHT = 10;
 	/**
-	 * the background color for the tabs y components
+	 * The background color for the tabs and components.
 	 */
 	public static final String DEFAULT_BACKGROUND_COLOR = "#F4F4F4";
 	/**
@@ -137,6 +147,10 @@ public abstract class GHAUiHelper {
 	 */
 	public static final int DEFAULT_HEADER_OPTION_WIDTH = 90;
 	public static final int DEFAULT_TAB_SET_HEIGHT = 30;
+	/**
+	 * the default height for the pation top component
+	 */
+	public static final int DEFAULT_PATIENT_TOP_HEIGHT = 100;
 
 	/**
 	 * @return the height that a tab must have
@@ -168,34 +182,30 @@ public abstract class GHAUiHelper {
 	}
 
 	/**
-	 * @return the width that a form must have
+	 * @param type 
+	 * @param buttonsSize 
+	 * @return the width that a form must have, depending on its type.
 	 */
-	public static int getNormalFormWidth(int buttonsSize) {
+	public static int getFormWidth(FormType type, int buttonsSize) {
 		int rootPanelWidth = Window.getClientWidth();
-		int ret = rootPanelWidth - buttonsSize - 100;
-		if (ret < MIN_FORM_WIDTH) {
-			return MIN_FORM_WIDTH;
-		} else {
-			return ret;
-		}
+		int ret;
+		if(type==FormType.NORMAL_FORM){
+			ret = rootPanelWidth - buttonsSize - 80;
+			if(ret < MIN_NORMAL_FORM_WIDTH)
+				return MIN_NORMAL_FORM_WIDTH;
+			else
+				return ret;
+		}else{
+			ret = rootPanelWidth - (SECTION_FORM_OPTION_WIDTH + 50)	- buttonsSize - 80;
+			if(ret < MIN_SECTION_FORM_FORM_WIDTH)
+				return MIN_SECTION_FORM_FORM_WIDTH;
+			else
+				return ret;
+		}		
 	}
 
 	/**
-	 * @return the width that a form must have
-	 */
-	public static int getSectionFormFormWidth(int buttonsSize) {
-		int rootPanelWidth = Window.getClientWidth();
-		int ret = rootPanelWidth - (SECTION_FORM_OPTION_WIDTH + 50)
-				- buttonsSize - 100;
-		if (ret < MIN_SECTION_FORM_FORM_WIDTH) {
-			return MIN_SECTION_FORM_FORM_WIDTH;
-		} else {
-			return ret;
-		}
-	}
-
-	/**
-	 * @return the TOp space
+	 * @return the Top space
 	 */
 	public static int getTopSpace() {
 		return HEADER_HEIGTH + MENU_BAR_HEIGTH + 1;
@@ -203,7 +213,7 @@ public abstract class GHAUiHelper {
 
 	/**
 	 * @param extrasHeight
-	 * @return
+	 * @return the grid size.
 	 */
 	public static int getGridSize(int extrasHeight) {
 		int tabHeight = getTabHeight();
@@ -220,7 +230,7 @@ public abstract class GHAUiHelper {
 
 	/**
 	 * @param extrasHeight
-	 * @return
+	 * @return the grid size
 	 */
 	public static int getSubtabGridSize(int extrasHeight) {
 		int bottomSectionHeight = getBottomSectionHeight();
@@ -254,6 +264,7 @@ public abstract class GHAUiHelper {
 	public static VLayout verticalGraySeparator(String height) {
 		VLayout separator = new VLayout();
 		separator.setWidth100();
+		separator.setMinWidth(1024);
 		separator.setBackgroundColor("#666666");
 		separator.setHeight(height);
 		return separator;
@@ -262,6 +273,7 @@ public abstract class GHAUiHelper {
 	public static VLayout verticalSeparator(String height) {
 		VLayout separator = new VLayout();
 		separator.setWidth100();
+		separator.setMinWidth(1024);
 		separator.setHeight(height);
 		return separator;
 	}
@@ -280,6 +292,7 @@ public abstract class GHAUiHelper {
 
 		VLayout separator = new VLayout();
 		separator.setWidth100();
+		separator.setMinWidth(1024);
 		separator.setHeight(height);
 		separator.setDefaultLayoutAlign(Alignment.CENTER);
 		separator.setBackgroundColor("#666666");
@@ -292,6 +305,7 @@ public abstract class GHAUiHelper {
 	public static HLayout verticalGraySeparatorLabel(String height, String text) {
 		HLayout separator = new HLayout();
 		separator.setWidth100();
+		separator.setMinWidth(1024);
 		separator.setBackgroundColor("#666666");
 		separator.setHeight(height);
 		separator.setStyleName("sides-padding");
@@ -319,7 +333,7 @@ public abstract class GHAUiHelper {
 
 	/**
 	 * @param buttons
-	 * @return
+	 * @return the bar with the buttons
 	 */
 	public static VLayout createBar(Canvas... buttons) {
 		VLayout sideButtons = new VLayout();

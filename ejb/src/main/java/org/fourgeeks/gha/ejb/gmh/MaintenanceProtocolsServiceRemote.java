@@ -5,8 +5,8 @@ import java.util.List;
 import javax.ejb.Remote;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
-import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocolStadisticData;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
 
 /**
@@ -14,6 +14,29 @@ import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
  */
 @Remote
 public interface MaintenanceProtocolsServiceRemote {
+
+	/**
+	 * Copy the activities from a mantenance plan to other maintenance plan
+	 * 
+	 * @param planFrom
+	 *            the plan with the activities that are going to be copyed
+	 * @param planTo
+	 *            the plan who is going to recive the new activites
+	 * @throws GHAEJBException
+	 */
+	public void copyActivities(MaintenancePlan planFrom, MaintenancePlan planTo)
+			throws GHAEJBException;
+
+	/**
+	 * Delete a group of {@link MaintenanceProtocols} entities (This mean unlink
+	 * the activities from the maintenance plan)
+	 * 
+	 * @param entities
+	 *            the entities to delete
+	 * @throws GHAEJBException
+	 */
+	public void delete(List<MaintenanceProtocols> entities)
+			throws GHAEJBException;
 
 	/**
 	 * Delete a activity from the {@link MaintenanceProtocols} table given the
@@ -30,9 +53,11 @@ public interface MaintenanceProtocolsServiceRemote {
 	 * the maintenance activities associated with the plan)
 	 * 
 	 * @param plan
+	 *            the maintenance plan
+	 * @return the number of deleted records
 	 * @throws GHAEJBException
 	 */
-	public void deleteByMaintenancePlan(MaintenancePlan plan)
+	public int deleteByMaintenancePlan(MaintenancePlan plan)
 			throws GHAEJBException;
 
 	/**
@@ -45,19 +70,39 @@ public interface MaintenanceProtocolsServiceRemote {
 			throws GHAEJBException;
 
 	/**
+	 * Return Stadistic information about the protocol of the plan like:
+	 * estimated duration (activities with subprotocols), estimated cost
+	 * (activities with subprotocols), number of activities, number of
+	 * subprotocols (and its activities)
+	 * 
+	 * @param mantenancePlan
+	 *            the maintenance plan
+	 * @return the stadistic information
+	 * @throws GHAEJBException
+	 */
+	public MaintenanceProtocolStadisticData getStadisticInfo(
+			MaintenancePlan mantenancePlan) throws GHAEJBException;
+
+	/**
 	 * Associate an activity to a maintenance plan
 	 * 
-	 * @param activity
-	 *            the activity that is going to be associated to the maintenance
-	 *            plan
-	 * @param plan
-	 *            the plan that the activity is going to be associated
-	 * @param ordinal
-	 *            the order of the activity in the maintenance plan
+	 * @param entity
+	 *            the entity whit the associated plan and activity
+	 * 
 	 * @return A {@link MaintenanceProtocols} entity with the associated
 	 *         activity and plan
 	 * @throws GHAEJBException
 	 */
-	public MaintenanceProtocols save(MaintenanceActivity activity,
-			MaintenancePlan plan, int ordinal) throws GHAEJBException;
+	public MaintenanceProtocols save(MaintenanceProtocols entity)
+			throws GHAEJBException;
+
+	/**
+	 * Update the given {@link MaintenanceProtocols} entities
+	 * 
+	 * @param entities
+	 *            list with the {@link MaintenanceProtocols} entities to update
+	 * @throws GHAEJBException
+	 */
+	public void update(List<MaintenanceProtocols> entities)
+			throws GHAEJBException;
 }

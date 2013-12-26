@@ -30,6 +30,7 @@ public class EIATypeMaintenanceProtocolForm extends GHASlideInWindow implements
 		super();
 		GHAUiHelper.addGHAResizeHandler(this);
 		setWidth100();
+		setMinWidth(1024);
 		setHeight(GHAUiHelper.getBottomSectionHeight()-5);
 		setTop(260);
 

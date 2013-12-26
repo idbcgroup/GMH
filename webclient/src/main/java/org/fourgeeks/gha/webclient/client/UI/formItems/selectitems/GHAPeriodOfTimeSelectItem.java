@@ -14,11 +14,42 @@ import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
  */
 public class GHAPeriodOfTimeSelectItem extends GHASelectItem {
 	/**
+	 * @return a valueMap to fill the select
+	 */
+	public static LinkedHashMap<String, String> getValueMap() {
+		LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+		for (TimePeriodEnum timePeriod : TimePeriodEnum.values()) {
+			valueMap.put(timePeriod.name() + "",
+					GHAStrings.get(timePeriod.name().toLowerCase()));
+		}
+		return valueMap;
+	}
+
+	/**
 	 * 
 	 */
 	public GHAPeriodOfTimeSelectItem() {
 		super(GHAStrings.get("period-of-time"));
 		setValueMap(getValueMap());
+	}
+
+	/**
+	 * @param required
+	 */
+	public GHAPeriodOfTimeSelectItem(boolean required) {
+		this();
+		setRequired(required);
+	}
+
+	/**
+	 * @param required
+	 * @param changedHandler
+	 */
+	public GHAPeriodOfTimeSelectItem(boolean required,
+			ChangedHandler changedHandler) {
+		this();
+		setRequired(required);
+		addChangedHandler(changedHandler);
 	}
 
 	/**
@@ -28,15 +59,7 @@ public class GHAPeriodOfTimeSelectItem extends GHASelectItem {
 		this();
 		setWidth(width);
 	}
-	
-	/**
-	 * @param required
-	 */
-	public GHAPeriodOfTimeSelectItem(boolean required) {
-		this();
-		setRequired(required);
-	}
-	
+
 	/**
 	 * @param width
 	 * @param required
@@ -47,36 +70,15 @@ public class GHAPeriodOfTimeSelectItem extends GHASelectItem {
 	}
 
 	/**
-	 * @param title
-	 * @param required
-	 * @param changedHandler
-	 */
-	public GHAPeriodOfTimeSelectItem(boolean required,
-			ChangedHandler changedHandler) {
-		this(required);
-		addChangedHandler(changedHandler);
-	}
-	
-	/**
-	 * @param title
 	 * @param width
 	 * @param required
 	 * @param changedHandler
 	 */
-	public GHAPeriodOfTimeSelectItem(int width, boolean required,ChangedHandler changedHandler) {
-		this(width,required);
+	public GHAPeriodOfTimeSelectItem(int width, boolean required,
+			ChangedHandler changedHandler) {
+		this(width);
+		setRequired(required);
 		addChangedHandler(changedHandler);
-	}
-	
-	/**
-	 * @return a valueMap to fill the select
-	 */
-	public static LinkedHashMap<String, String> getValueMap() {
-		LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-		for (TimePeriodEnum timePeriod : TimePeriodEnum.values()){
-			valueMap.put(timePeriod.name()+"",GHAStrings.get(timePeriod.name().toLowerCase()));
-		}
-		return valueMap;
 	}
 
 }

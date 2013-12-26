@@ -23,6 +23,7 @@ public class EIACostGridPanel extends GHAVerticalLayout implements
 
 	public EIACostGridPanel() {
 		setWidth100();
+		setMinWidth(1024);
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 
