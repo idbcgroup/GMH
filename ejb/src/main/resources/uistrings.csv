@@ -1,6 +1,5 @@
 ES,record,registro
 ES,eia,Equipo
-ES,eia,Equipo
 ES,records,registros
 ES,connection-problem,Imposible conectar al servidor
 ES,yes,Si
@@ -136,7 +135,12 @@ ES,hours,Horas
 ES,weeks,Semanas
 ES,semesters,Semestres
 ES,years,Años
+ES,eia-maintenance-plan,Equipos con plan de mantenimiento
+ES,eia-on-maintenance-plan,Planificación de mantenimiento de equipos con este plan de mantenimiento
+ES,asociated-eiatype-maintenance-plan,Tipos de equipo asociados
 ES,eia-type-on-maintenance-plan,Tipos de equipos asociados al plan de mantenimiento
+ES,eia-on-maintenance,Equipos en mantenimiento
+ES,eia-on-pending-maintenance,Equipos con este plan de mantenimiento pendiente o en ejecución - equipos sin prestar servicio
 ES,responsible-role,Cargo Responsable
 ES,adquisition-provider,Proveedor de Equipo
 ES,maintenance-provider,Proveedor de Mantenimiento
