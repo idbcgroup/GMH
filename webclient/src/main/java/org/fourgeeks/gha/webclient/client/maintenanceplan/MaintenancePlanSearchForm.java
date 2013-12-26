@@ -42,12 +42,13 @@ public class MaintenancePlanSearchForm extends GHASearchForm<MaintenancePlan>
 	private final MaintenancePlanResultSet resultSet;
 
 	{
-		form = new GHADynamicForm(3,FormType.NORMAL_FORM);
+		form = new GHADynamicForm(3, FormType.NORMAL_FORM);
 
 		nameItem = new GHATextItem(GHAStrings.get("name"));
 		nameItem.setLength(100);
 		frequencyItem = new GHATextItem(GHAStrings.get("frequency"));
 		periodOfTimeSelectItem = new GHAPeriodOfTimeSelectItem();
+		periodOfTimeSelectItem.setDefaultValue((String) null);
 		descriptionItem = new GHATextItem(GHAStrings.get("description"));
 		descriptionItem.setColSpan(3);
 
