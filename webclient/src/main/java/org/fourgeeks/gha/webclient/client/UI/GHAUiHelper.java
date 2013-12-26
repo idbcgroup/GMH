@@ -6,6 +6,7 @@ import java.util.List;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImg;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow.SlideInWindowType;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
@@ -61,7 +62,7 @@ public abstract class GHAUiHelper {
 	/**
 	 * The Header Part Default Heights
 	 */
-	private static final int HEADER_HEIGTH = 60;
+	public static final int HEADER_HEIGTH = 60;
 	/**
 	 * 
 	 */
@@ -69,7 +70,8 @@ public abstract class GHAUiHelper {
 
 	// NO ESTAN TOTALMENTE MEDIDAS CON LA INTERFAZ
 	private static final int MIN_TAB_HEIGHT = 678;
-	private static final int MIN_BOTTOM_SECTION_HEIGHT = 556;
+	private static final int MIN_PANEL_HEIGHT = 648;
+	private static final int MIN_BOTTOM_SECTION_HEIGHT = 528;
 
 	// NO ESTAN TOTALMENTE MEDIDAS CON LA INTERFAZ
 
@@ -92,10 +94,13 @@ public abstract class GHAUiHelper {
 	 */
 	public static final int MIN_SECTION_FORM_FORM_WIDTH = 700;
 	/**
-	 * The default top section height.
+	 * The default top header height (with the tabs bar).
 	 */
-	public static final int DEFAULT_TOP_SECTION_HEIGHT = HEADER_HEIGTH
-			+ MENU_BAR_HEIGTH + 1;
+	public static final int DEFAULT_TOP_HEADER_TAB_HEIGHT = HEADER_HEIGTH + MENU_BAR_HEIGTH;
+	/**
+	 * The default top header height (with the tabs and the panel bars).
+	 */
+	public static final int DEFAULT_TOP_HEADER_PANEL_HEIGHT = HEADER_HEIGTH + MENU_BAR_HEIGTH + MENU_BAR_HEIGTH ;
 	/**
 	 *  The default height of the inner part of the top section (TopForms and such).
 	 */
@@ -151,25 +156,47 @@ public abstract class GHAUiHelper {
 	 * the default height for the pation top component
 	 */
 	public static final int DEFAULT_PATIENT_TOP_HEIGHT = 100;
+	/**
+	 * a blank space
+	 */
+	public static final String BLANK_SPACE = "&nbsp";
 
+	public static final int DEFAULT_NOTIFICATION_WIDTH = 250;
+	public static final int DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT = 130;
+	public static final int DEFAULT_NOTIFICATION_BUTTONS_HEIGHT = 150;
+	
+	
 	/**
 	 * @return the height that a tab must have
 	 */
 	public static int getTabHeight() {
 		int rootPanelHeight = Window.getClientHeight();
-		int ret = rootPanelHeight - HEADER_HEIGTH - MENU_BAR_HEIGTH - 5;
+		int ret = rootPanelHeight - DEFAULT_TOP_HEADER_TAB_HEIGHT;
 		if (ret < MIN_TAB_HEIGHT) {
 			return MIN_TAB_HEIGHT;
 		} else {
 			return ret;
 		}
 	}
-
+	
+	/**
+	 * @return the height that a Panel must have
+	 */
+	public static int getPanelHeight() {
+		int tabHeight = getTabHeight();
+		int ret = tabHeight - MENU_BAR_HEIGTH;
+		if (ret < MIN_PANEL_HEIGHT) {
+			return MIN_PANEL_HEIGHT;
+		} else {
+			return ret;
+		}
+	}
+	
 	/**
 	 * @return the height for the bottom section
 	 */
 	public static int getBottomSectionHeight() {
-		int biggerTabHeight = getTabHeight();
+		int biggerTabHeight = getPanelHeight();
 		int innerTopSection = DEFAULT_INNER_TOP_SECTION_HEIGHT
 				+ V_SEPARATOR_HEIGHT;
 
@@ -190,13 +217,13 @@ public abstract class GHAUiHelper {
 		int rootPanelWidth = Window.getClientWidth();
 		int ret;
 		if(type==FormType.NORMAL_FORM){
-			ret = rootPanelWidth - buttonsSize - 80;
+			ret = rootPanelWidth - buttonsSize - 100;
 			if(ret < MIN_NORMAL_FORM_WIDTH)
 				return MIN_NORMAL_FORM_WIDTH;
 			else
 				return ret;
 		}else{
-			ret = rootPanelWidth - (SECTION_FORM_OPTION_WIDTH + 50)	- buttonsSize - 80;
+			ret = rootPanelWidth - (SECTION_FORM_OPTION_WIDTH + 50)	- buttonsSize - 100;
 			if(ret < MIN_SECTION_FORM_FORM_WIDTH)
 				return MIN_SECTION_FORM_FORM_WIDTH;
 			else
@@ -207,8 +234,13 @@ public abstract class GHAUiHelper {
 	/**
 	 * @return the Top space
 	 */
-	public static int getTopSpace() {
-		return HEADER_HEIGTH + MENU_BAR_HEIGTH + 1;
+	public static int getTopSpace(SlideInWindowType type) {
+		if(type==SlideInWindowType.SEARCH)
+			return DEFAULT_TOP_HEADER_TAB_HEIGHT;
+		else
+			return (DEFAULT_TOP_HEADER_PANEL_HEIGHT
+					+ DEFAULT_INNER_TOP_SECTION_HEIGHT
+					+ V_SEPARATOR_HEIGHT);
 	}
 
 	/**
@@ -216,7 +248,7 @@ public abstract class GHAUiHelper {
 	 * @return the grid size.
 	 */
 	public static int getGridSize(int extrasHeight) {
-		int tabHeight = getTabHeight();
+		int tabHeight = getPanelHeight();
 		int titleHeight = 30;
 		int topExtras = extrasHeight + titleHeight + 35;
 
@@ -247,10 +279,10 @@ public abstract class GHAUiHelper {
 
 	/**
 	 * @param extrasHeight
-	 * @return
+	 * @return the height of the grid.
 	 */
 	public static int getEDTGridSize(int extrasHeight) {
-		int tabHeight = getTabHeight();
+		int tabHeight = getPanelHeight();
 		int topExtras = extrasHeight + 30;
 
 		int ret = (tabHeight - topExtras) / 2;
@@ -261,6 +293,10 @@ public abstract class GHAUiHelper {
 		}
 	}
 
+	/**
+	 * @param height
+	 * @return the separator
+	 */
 	public static VLayout verticalGraySeparator(String height) {
 		VLayout separator = new VLayout();
 		separator.setWidth100();
@@ -270,6 +306,10 @@ public abstract class GHAUiHelper {
 		return separator;
 	}
 
+	/**
+	 * @param height
+	 * @return the separator
+	 */
 	public static VLayout verticalSeparator(String height) {
 		VLayout separator = new VLayout();
 		separator.setWidth100();
@@ -302,6 +342,11 @@ public abstract class GHAUiHelper {
 		return separator;
 	}
 
+	/**
+	 * @param height
+	 * @param text 
+	 * @return the separator label.
+	 */
 	public static HLayout verticalGraySeparatorLabel(String height, String text) {
 		HLayout separator = new HLayout();
 		separator.setWidth100();

@@ -57,7 +57,7 @@ public class GHAMenu {
 			setHeight(GHAUiHelper.getTabHeight() + 15 + "px");
 			setMembersMargin(10);
 			setLeft(0);
-			setTop(60);
+			setTop(GHAUiHelper.HEADER_HEIGTH);
 			setVisible(false);
 			setAnimateTime(GHAUiHelper.DEFAULT_ANIMATION_TIME);
 			setBackgroundColor("#FFFFFF");

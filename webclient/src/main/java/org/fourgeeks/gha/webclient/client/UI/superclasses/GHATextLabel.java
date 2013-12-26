@@ -14,7 +14,17 @@ public class GHATextLabel extends Label {
 		super();
 		setContents(title);
 		setHeight("25px");
-		setWidth100();
+		setAutoFit(true);
 		setStyleName("gha-text-label");
+	}
+
+	/**
+	 * add the text style for bold
+	 * 
+	 * @return the label with the style bold added
+	 */
+	public GHATextLabel bold() {
+		addStyleName("bold");
+		return this;
 	}
 }
