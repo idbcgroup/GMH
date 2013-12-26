@@ -1,6 +1,5 @@
 ES,record,registro
 ES,eia,Equipo
-ES,eia,Equipo
 ES,records,registros
 ES,connection-problem,Imposible conectar al servidor
 ES,yes,Si
@@ -16,6 +15,7 @@ ES,cancel,Cancelar
 ES,new,Agregar
 ES,select,Seleccionar
 ES,edit,Editar
+ES,birth,nacimiento
 ES,birthdate,Fecha de nacimiento
 ES,materials-category,Categorias de materiales
 ES,new-material,Nuevo material
@@ -100,7 +100,7 @@ ES,state,Estado
 ES,first-name,Primer nombre
 ES,form-errors,Errores en el formulario
 ES,unsaved-changes,Existen algunos cambios sin guardar. ¿Realmente desea salir?
-ES,bpi,Institución
+ES,bpi,institución
 ES,maintenance,Mantenimiento
 ES,maintenance-plans,Planes de mantenimiento
 ES,no-results-to-show,No hay resultados para mostrar
@@ -136,7 +136,12 @@ ES,hours,Horas
 ES,weeks,Semanas
 ES,semesters,Semestres
 ES,years,Años
+ES,eia-maintenance-plan,Equipos con plan de mantenimiento
+ES,eia-on-maintenance-plan,Planificación de mantenimiento de equipos con este plan de mantenimiento
+ES,asociated-eiatype-maintenance-plan,Tipos de equipo asociados
 ES,eia-type-on-maintenance-plan,Tipos de equipos asociados al plan de mantenimiento
+ES,eia-on-maintenance,Equipos en mantenimiento
+ES,eia-on-pending-maintenance,Equipos con este plan de mantenimiento pendiente o en ejecución - equipos sin prestar servicio
 ES,responsible-role,Cargo Responsable
 ES,adquisition-provider,Proveedor de Equipo
 ES,maintenance-provider,Proveedor de Mantenimiento
@@ -176,8 +181,13 @@ ES,age,edad
 ES,document-type,tipo de documento
 ES,document-number,número de documento
 ES,diagnosis,Diágnostico
+ES,main-diagnosis,diágnostico principal
 ES,weight,peso
 ES,height,altura
+ES,btype,g.sanguineo
+ES,bsa,bsa
+ES,bmi,bmi
+ES,new-encounter,nuevo encuentro
 ES,active,Activo
 ES,inactive,Inactivo
 ES,preventive,Preventivo

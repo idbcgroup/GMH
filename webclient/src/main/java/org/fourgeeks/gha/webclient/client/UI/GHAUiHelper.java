@@ -156,6 +156,10 @@ public abstract class GHAUiHelper {
 	 * the default height for the pation top component
 	 */
 	public static final int DEFAULT_PATIENT_TOP_HEIGHT = 100;
+	/**
+	 * a blank space
+	 */
+	public static final String BLANK_SPACE = "&nbsp";
 
 	public static final int DEFAULT_NOTIFICATION_WIDTH = 250;
 	public static final int DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT = 130;

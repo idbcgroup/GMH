@@ -48,8 +48,9 @@ public class MaintenanceProtocolStadisticDataLabel extends GHALabel {
 				+ " - " + numSubProtoc + "(" + numSubProtocActiv + ") "
 				+ subprotocolsStr;
 
-		String timeAndCostStirng = totalTimeStr + ": " + time + " " + pot
-				+ " - " + totalCostStr + ": " + cost + " " + currency;
+		String timeAndCostStirng = totalTimeStr + ": " + time + " "
+				+ GHAStrings.get(pot.name().toLowerCase()) + " - "
+				+ totalCostStr + ": " + cost + " " + currency;
 
 		StringBuilder builder = new StringBuilder();
 		builder.append(totalsString).append(" || ").append(timeAndCostStirng);

@@ -31,7 +31,6 @@ public class GHAPeriodOfTimeSelectItem extends GHASelectItem {
 	public GHAPeriodOfTimeSelectItem() {
 		super(GHAStrings.get("period-of-time"));
 		setValueMap(getValueMap());
-		setDefaultValue(TimePeriodEnum.YEARS.name());
 	}
 
 	/**

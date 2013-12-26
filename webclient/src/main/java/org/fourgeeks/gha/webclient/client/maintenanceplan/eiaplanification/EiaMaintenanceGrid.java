@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeia;
+package org.fourgeeks.gha.webclient.client.maintenanceplan.eiaplanification;
 
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridField;
@@ -11,7 +11,7 @@ import org.fourgeeks.gha.webclient.client.UI.grids.GhaGrid;
  * @author caparicio
  * 
  */
-public class EiaMaintenancePlanGrid extends GhaGrid<EiaTypeMaintenancePlan> {
+public class EiaMaintenanceGrid extends GhaGrid<EiaTypeMaintenancePlan> {
 
 	final GHAGridField numberGridField;
 	final GHAGridField typeGridField;
@@ -23,7 +23,7 @@ public class EiaMaintenancePlanGrid extends GhaGrid<EiaTypeMaintenancePlan> {
 	/**
 	 * 
 	 */
-	public EiaMaintenancePlanGrid() {
+	public EiaMaintenanceGrid() {
 
 		numberGridField = new GHAGridField("number", "No");
 		typeGridField = new GHAGridField("type", "Tipo");
