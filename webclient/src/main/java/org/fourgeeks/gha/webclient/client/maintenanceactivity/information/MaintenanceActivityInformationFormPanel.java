@@ -1,19 +1,20 @@
 package org.fourgeeks.gha.webclient.client.maintenanceactivity.information;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
+import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHAUndoButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
+import org.fourgeeks.gha.webclient.client.UI.places.GHAPlaceSet;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivityForm;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionListener;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionProducer;
-import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivityTab;
 
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -30,109 +31,128 @@ public class MaintenanceActivityInformationFormPanel extends GHAVerticalLayout
 		MaintenanceActivitySelectionListener,
 		MaintenanceActivitySelectionProducer {
 
-	private MaintenanceActivityForm maintenanceActivityForm;
-	private List<MaintenanceActivitySelectionListener> listeners;
+	private final MaintenanceActivityForm form = new MaintenanceActivityForm();
 
-	private MaintenanceActivity originalMaintenanceActivity;
+	/**
+	 * 
+	 */
+	public MaintenanceActivityInformationFormPanel() {
 
-	{
-		maintenanceActivityForm = new MaintenanceActivityForm();
-		listeners = new LinkedList<MaintenanceActivitySelectionListener>();
-		this.originalMaintenanceActivity = null;
-	}
-
-	public MaintenanceActivityInformationFormPanel(MaintenanceActivityTab tab) {
-		activateForm(false);
-		tab.addClosableListener(this);
-
-		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
-				"../resources/icons/save.png", new ClickHandler() {
-
+		VLayout sideButtons = GHAUiHelper.createBar(new GHASaveButton(
+				new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
 						save();
 					}
-				}), new GHAImgButton("../resources/icons/undo.png",
-				new ClickHandler() {
-
-					@Override
-					public void onClick(ClickEvent event) {
-						undo();
-					}
-				}));
+				}), new GHAUndoButton(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				undo();
+			}
+		}));
 
 		HLayout gridPanel = new HLayout();
-		gridPanel.addMembers(maintenanceActivityForm, new LayoutSpacer(),
-				sideButtons);
+		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
 
 		addMember(gridPanel);
-
-		// register as maintenanceActivitySelectionListener with the form
-		maintenanceActivityForm.addMaintenanceActivitySelectionListener(this);
 	}
 
-	public void activateForm(boolean activate) {
-		maintenanceActivityForm.activateForm(activate);
-	}
-
-	@Override
-	public void close() {
-
-	}
-
-	@Override
-	public void hide() {
-
-	}
-
-	private void save() {
-		maintenanceActivityForm.update();
-	}
-
-	protected void undo() {
-		select(this.originalMaintenanceActivity);
-		// save();
-	}
-
-	public void setMaintenanceActivity(MaintenanceActivity maintenanceActivity) {
-		this.originalMaintenanceActivity = maintenanceActivity;
-		maintenanceActivityForm.setMaintenanceActivity(maintenanceActivity);
-		maintenanceActivityForm.activateForm(true);
-	}
-
-	// Producer/Consumer stuff
 	@Override
 	public void addMaintenanceActivitySelectionListener(
-			MaintenanceActivitySelectionListener maintenanceActivitySelectionListener) {
-		listeners.add(maintenanceActivitySelectionListener);
-	}
-
-	@Override
-	public void removeMaintenanceActivitySelectionListener(
-			MaintenanceActivitySelectionListener maintenanceActivitySelectionListener) {
-		listeners.remove(maintenanceActivitySelectionListener);
-	}
-
-	@Override
-	public void select(MaintenanceActivity maintenanceActivity) {
-		for (MaintenanceActivitySelectionListener listener : listeners)
-			listener.select(maintenanceActivity);
-	}
-
-	@Override
-	public boolean canBeHidden(HideCloseAction hideAction) {
-		return true;
+			MaintenanceActivitySelectionListener listener) {
+		form.addMaintenanceActivitySelectionListener(listener);
 	}
 
 	@Override
 	public boolean canBeClosen(HideCloseAction hideAction) {
+		if (hideAction.equals(HideCloseAction.DISCARD))
+			return true;
+
+		if (form.hasUnCommittedChanges()) {
+			if (hideAction.equals(HideCloseAction.SAVE)) {
+				form.update();
+				return true;
+			}
+
+			GHANotification.askYesNoCancel(GHAStrings.get("information"),
+					GHAStrings.get("unsaved-changes"), new ClickHandler() {
+						@Override
+						public void onClick(ClickEvent event) {
+							GHAPlaceSet.closeCurrentPlace(HideCloseAction.SAVE);
+						}
+					}, new ClickHandler() {
+						@Override
+						public void onClick(ClickEvent event) {
+							GHAPlaceSet
+									.closeCurrentPlace(HideCloseAction.DISCARD);
+						}
+					}, null);
+			return false;
+		}
 		return true;
 	}
 
 	@Override
-	public void notifyMaintenanceActivity(
-			MaintenanceActivity maintenanceActivity) {
-		// TODO Auto-generated method stub
+	public boolean canBeHidden(HideCloseAction hideAction) {
+		if (hideAction.equals(HideCloseAction.DISCARD))
+			return true;
 
+		if (form.hasUnCommittedChanges()) {
+			if (hideAction.equals(HideCloseAction.SAVE)) {
+				form.update();
+				return true;
+			}
+
+			GHANotification.askYesNoCancel(GHAStrings.get("information"),
+					GHAStrings.get("unsaved-changes"), new ClickHandler() {
+						@Override
+						public void onClick(ClickEvent event) {
+							GHAPlaceSet.hideCurrentPlace(HideCloseAction.SAVE);
+						}
+					}, new ClickHandler() {
+						@Override
+						public void onClick(ClickEvent event) {
+							GHAPlaceSet
+									.hideCurrentPlace(HideCloseAction.DISCARD);
+						}
+					}, null);
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public void close() {
+		destroy();
+		form.destroy();
+	}
+
+	@Override
+	public void notifyMaintenanceActivity(MaintenanceActivity activity) {
+		return;
+	}
+
+	@Override
+	public void removeMaintenanceActivitySelectionListener(
+			MaintenanceActivitySelectionListener listener) {
+		form.removeMaintenanceActivitySelectionListener(listener);
+	}
+
+	private void save() {
+		form.update(new GHAAsyncCallback<MaintenanceActivity>() {
+			@Override
+			public void onSuccess(MaintenanceActivity result) {
+				GHANotification.alert("maintenance-activity-save-success");
+			}
+		});
+	}
+
+	@Override
+	public void select(MaintenanceActivity maintenanceActivity) {
+		form.set(maintenanceActivity);
+	}
+
+	protected void undo() {
+		form.undo();
 	}
 }

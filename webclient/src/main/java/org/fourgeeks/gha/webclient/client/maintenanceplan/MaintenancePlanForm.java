@@ -256,7 +256,7 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 	}
 
 	@Override
-	public void onResize(ResizeEvent arg0) {
+	public void onResize(ResizeEvent event) {
 		form.resize();
 	}
 
@@ -377,7 +377,6 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 
 		MaintenancePlanModel.update(maintenancePlan,
 				new GHAAsyncCallback<MaintenancePlan>() {
-
 					@Override
 					public void onSuccess(MaintenancePlan result) {
 						hasUnCommittedChanges = false;

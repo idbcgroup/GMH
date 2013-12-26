@@ -15,26 +15,27 @@ import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 
+import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.validation.client.impl.Validation;
-import com.smartgwt.client.types.TitleOrientation;
-import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
-import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
  * @author emiliot
  * 
  */
-public class MaintenanceActivityForm extends VLayout implements
-		MaintenanceActivitySelectionProducer {
+public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
+		implements MaintenanceActivitySelectionProducer {
 	private List<MaintenanceActivitySelectionListener> listeners;
 	private GHATextItem nameItem, descriptionItem;
 	private Validator validator;
 
-	private DynamicForm form;
+	private GHADynamicForm form;
 
 	/**
 	 * this is used to keep the id of the persistent entity in order to update,
@@ -52,7 +53,7 @@ public class MaintenanceActivityForm extends VLayout implements
 		validator = Validation.buildDefaultValidatorFactory().getValidator();
 		listeners = new ArrayList<MaintenanceActivitySelectionListener>();
 
-		form = new DynamicForm();
+		form = new GHADynamicForm(4, FormType.SECTIONFORM_FORM);
 	}
 
 	/**
@@ -60,37 +61,43 @@ public class MaintenanceActivityForm extends VLayout implements
 	 */
 	public MaintenanceActivityForm() {
 		final HLayout mainPanel = new HLayout();
-
-		form.setTitleOrientation(TitleOrientation.TOP);
-		form.setNumCols(4);
 		form.setItems(nameItem, new GHASpacerItem(3), descriptionItem);
 
 		mainPanel.addMembers(form, new LayoutSpacer());
 		addMember(mainPanel);
 	}
 
-	public void cancel() {
+	@Override
+	public void activate() {
+		toogleForm(true);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceactivity.
+	 * MaintenanceActivitySelectionProducer
+	 * #addMaintenanceActivitySelectionListener
+	 * (org.fourgeeks.gha.webclient.client
+	 * .maintenanceactivity.MaintenanceActivitySelectionListener)
+	 */
+	@Override
+	public void addMaintenanceActivitySelectionListener(
+			MaintenanceActivitySelectionListener maintenanceActivitySelectionListener) {
+		listeners.add(maintenanceActivitySelectionListener);
+
+	}
+
+	@Override
+	public void clear() {
+		super.clear();
 		nameItem.clearValue();
 		descriptionItem.clearValue();
 	}
 
-	/**
-	 * 
-	 */
-	public void save() {
-		MaintenanceActivity maintenanceActivity = extract(false);
-
-		if (maintenanceActivity == null)
-			return;
-		MaintenanceActivityModel.save(maintenanceActivity,
-				new GHAAsyncCallback<MaintenanceActivity>() {
-
-					@Override
-					public void onSuccess(MaintenanceActivity result) {
-						notifyMaintenanceActivity(result);
-						cancel();
-					}
-				});
+	@Override
+	public void deactivate() {
+		toogleForm(false);
 	}
 
 	/**
@@ -125,75 +132,75 @@ public class MaintenanceActivityForm extends VLayout implements
 		return null;
 	}
 
-	/**
-	 * 
-	 */
-	public void update() {
-		MaintenanceActivity maintenanceActivity = extract(true);
-		if (maintenanceActivity == null)
-			return;
-		MaintenanceActivityModel.update(maintenanceActivity,
-				new GHAAsyncCallback<MaintenanceActivity>() {
-
-					@Override
-					public void onSuccess(MaintenanceActivity result) {
-						notifyMaintenanceActivity(result);
-					}
-				});
+	// Producer Stuff
+	@Override
+	public void notifyMaintenanceActivity(MaintenanceActivity activity) {
+		for (MaintenanceActivitySelectionListener listener : listeners) {
+			listener.select(activity);
+		}
 	}
 
-	/**
-	 * @param activate
-	 */
-	public void activateForm(boolean activate) {
+	@Override
+	public void onResize(ResizeEvent event) {
+		form.resize();
+	}
+
+	@Override
+	public void removeMaintenanceActivitySelectionListener(
+			MaintenanceActivitySelectionListener listener) {
+		listeners.remove(listener);
+	}
+
+	@Override
+	public void save(final GHAAsyncCallback<MaintenanceActivity> callback) {
+		MaintenanceActivity maintenanceActivity = extract(false);
+
+		if (maintenanceActivity == null)
+			return;
+		MaintenanceActivityModel.save(maintenanceActivity,
+				new GHAAsyncCallback<MaintenanceActivity>() {
+					@Override
+					public void onSuccess(MaintenanceActivity result) {
+						hasUnCommittedChanges = false;
+						notifyMaintenanceActivity(result);
+						clear();
+						if (callback != null)
+							callback.onSuccess(result);
+					}
+				});
+
+	}
+
+	@Override
+	public void set(MaintenanceActivity entity) {
+		this.originalEntity = entity;
+
+		nameItem.setValue(entity.getName());
+		descriptionItem.setValue(entity.getDescription());
+	}
+
+	private void toogleForm(boolean activate) {
 		nameItem.setDisabled(!activate);
 		descriptionItem.setDisabled(!activate);
 	}
 
-	public void setMaintenanceActivity(MaintenanceActivity maintenanceActivity) {
-		this.updateActivity = maintenanceActivity;
-		nameItem.setValue(maintenanceActivity.getName());
-		descriptionItem.setValue(maintenanceActivity.getDescription());
-	}
-
-	// Producer Stuff
-	public void notifyMaintenanceActivity(
-			MaintenanceActivity maintenanceActivity) {
-		GHANotification.alert("mact-save-success");
-		for (MaintenanceActivitySelectionListener listener : listeners) {
-			listener.select(maintenanceActivity);
-		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.fourgeeks.gha.webclient.client.maintenanceactivity.
-	 * MaintenanceActivitySelectionProducer
-	 * #addMaintenanceActivitySelectionListener
-	 * (org.fourgeeks.gha.webclient.client
-	 * .maintenanceactivity.MaintenanceActivitySelectionListener)
-	 */
 	@Override
-	public void addMaintenanceActivitySelectionListener(
-			MaintenanceActivitySelectionListener maintenanceActivitySelectionListener) {
-		listeners.add(maintenanceActivitySelectionListener);
+	public void update(final GHAAsyncCallback<MaintenanceActivity> callback) {
+		MaintenanceActivity entity = extract(true);
 
-	}
+		if (entity == null)
+			return;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.fourgeeks.gha.webclient.client.maintenanceactivity.
-	 * MaintenanceActivitySelectionProducer
-	 * #removeMaintenanceActivitySelectionListener
-	 * (org.fourgeeks.gha.webclient.client
-	 * .maintenanceactivity.MaintenanceActivitySelectionListener)
-	 */
-	@Override
-	public void removeMaintenanceActivitySelectionListener(
-			MaintenanceActivitySelectionListener maintenanceActivitySelectionListener) {
-		listeners.remove(maintenanceActivitySelectionListener);
+		MaintenanceActivityModel.update(entity,
+				new GHAAsyncCallback<MaintenanceActivity>() {
+					@Override
+					public void onSuccess(MaintenanceActivity result) {
+						hasUnCommittedChanges = false;
+						notifyMaintenanceActivity(result);
+						if (callback != null)
+							callback.onSuccess(result);
+					}
+				});
 	}
 
 }

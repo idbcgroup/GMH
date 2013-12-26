@@ -1,7 +1,7 @@
 package org.fourgeeks.gha.webclient.client.maintenanceactivity;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.maintenanceactivity.information.MaintenanceActivityInformationSubTab;
+import org.fourgeeks.gha.webclient.client.maintenanceactivity.information.MaintenanceActivitySubTab;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
@@ -9,7 +9,7 @@ import com.smartgwt.client.widgets.tab.TabSet;
 
 public class MaintenanceActivityInternalTabset extends TabSet implements ResizeHandler {
 
-	private MaintenanceActivityInformationSubTab maintenanceActivityInformationSubTab;
+	private MaintenanceActivitySubTab maintenanceActivityInformationSubTab;
 
 	public MaintenanceActivityInternalTabset(MaintenanceActivityTab mpTab) {
 		super();
@@ -18,7 +18,7 @@ public class MaintenanceActivityInternalTabset extends TabSet implements ResizeH
 		setHeight(GHAUiHelper.getBottomSectionHeight());
 
 		GHAUiHelper.addGHAResizeHandler(this);
-		maintenanceActivityInformationSubTab = new MaintenanceActivityInformationSubTab(mpTab);
+		maintenanceActivityInformationSubTab = new MaintenanceActivitySubTab(mpTab);
 
 		// Agregando las Subtabs
 		addTab(maintenanceActivityInformationSubTab);
