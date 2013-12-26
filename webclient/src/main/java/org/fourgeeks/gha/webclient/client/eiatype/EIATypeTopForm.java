@@ -9,13 +9,13 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHATopForm;
-import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHABrandSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAEiaTypeSubTypeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAEiaTypeTypeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -50,7 +50,7 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 		typeItem.addKeyUpHandler(searchKeyUpHandler);
 		subTypeItem.addKeyUpHandler(searchKeyUpHandler);
 
-		form = new GHADynamicForm(GHAUiHelper.getNormalFormWidth(30), 4);
+		form = new GHADynamicForm(4,FormType.NORMAL_FORM);
 	}
 
 	/**
@@ -176,6 +176,6 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 	@Override
 	public void onResize(ResizeEvent event) {
 		super.onResize(event);
-		form.resize(GHAUiHelper.getNormalFormWidth(30), 4);
+		form.resize();
 	}
 }

@@ -114,7 +114,12 @@ public class MaintenanceActivityTab extends GHAPanel implements
 	@Override
 	public void search() {
 		// TODO Auto-generated method stub
+	}
 
+	@Override
+	public void notifyMaintenanceActivity(
+			MaintenanceActivity maintenanceActivity) {
+		// TODO Auto-generated method stub
 	}
 
 }

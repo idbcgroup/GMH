@@ -21,6 +21,15 @@ import org.fourgeeks.gha.domain.gmh.MaintenancePlanStadisticData;
 @Remote
 public interface MaintenancePlanServiceRemote {
 	/**
+	 * Delete a Maintenance Plan's list from database
+	 * 
+	 * @param maintenancePlans
+	 * @throws GHAEJBException
+	 */
+	public void delete(List<MaintenancePlan> maintenancePlans)
+			throws GHAEJBException;
+
+	/**
 	 * Delete a Maintenance Plan from database by Id
 	 * 
 	 * @param Id
@@ -29,12 +38,18 @@ public interface MaintenancePlanServiceRemote {
 	public void delete(long Id) throws GHAEJBException;
 
 	/**
-	 * Delete a Maintenance Plan's list from database
-	 * 
-	 * @param maintenancePlans
+	 * @param Id
+	 * @return the MaintenancePlan with this Id
 	 * @throws GHAEJBException
 	 */
-	public void delete(List<MaintenancePlan> maintenancePlans)
+	public MaintenancePlan find(long Id) throws GHAEJBException;
+
+	/**
+	 * @param maintenancePlan
+	 * @return the list of maintenance plans like the parameter
+	 * @throws GHAEJBException
+	 */
+	public List<MaintenancePlan> find(MaintenancePlan maintenancePlan)
 			throws GHAEJBException;
 
 	/**
@@ -65,21 +80,6 @@ public interface MaintenancePlanServiceRemote {
 			int size) throws GHAEJBException;
 
 	/**
-	 * @param maintenancePlan
-	 * @return the list of maintenance plans like the parameter
-	 * @throws GHAEJBException
-	 */
-	public List<MaintenancePlan> find(MaintenancePlan maintenancePlan)
-			throws GHAEJBException;
-
-	/**
-	 * @param Id
-	 * @return the MaintenancePlan with this Id
-	 * @throws GHAEJBException
-	 */
-	public MaintenancePlan find(long Id) throws GHAEJBException;
-
-	/**
 	 * @return the list with all MaintenancePlan Objects
 	 * @throws GHAEJBException
 	 */
@@ -93,6 +93,19 @@ public interface MaintenancePlanServiceRemote {
 	 */
 	public List<MaintenancePlan> getAll(int offset, int size)
 			throws GHAEJBException;
+
+	/**
+	 * Return Stadistic information about the maintenance plan like: number of
+	 * activities, estimated cost, times effectuated, number of eias with this
+	 * plan, last time effectuated
+	 * 
+	 * @param mantenancePlan
+	 *            the maintenance plan
+	 * @return the stadistic information
+	 * @throws GHAEJBException
+	 */
+	public MaintenancePlanStadisticData getStadisticInfo(
+			MaintenancePlan mantenancePlan) throws GHAEJBException;
 
 	/**
 	 * @param maintenancePlan
@@ -111,16 +124,4 @@ public interface MaintenancePlanServiceRemote {
 	 */
 	public MaintenancePlan update(MaintenancePlan maintenancePlan)
 			throws GHAEJBException;
-
-	/**
-	 * Retur Stadistic information about the maintenance plan like: number of
-	 * activities, estimated cost, times effectuated, number of eias with this
-	 * plan, last time effectuated
-	 * 
-	 * @param mantenancePlan
-	 * @return the stadistic information
-	 * @throws GHAEJBException
-	 */
-	public MaintenancePlanStadisticData getStadisticInfo(
-			MaintenancePlan mantenancePlan) throws GHAEJBException;
 }

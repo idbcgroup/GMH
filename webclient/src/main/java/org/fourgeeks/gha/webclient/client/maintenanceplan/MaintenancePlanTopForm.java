@@ -9,15 +9,16 @@ import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHATopForm;
-import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenancePlanStateSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenancePlanTypeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAPeriodOfTimeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 
+import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 
@@ -30,10 +31,11 @@ public class MaintenancePlanTopForm extends
 
 	private GHATextItem nameItem, frequencyItem, descriptionItem;
 	private GHAPeriodOfTimeSelectItem periodOfTimeItem;
-
 	private GHAMaintenancePlanTypeSelectItem typeItem;
 	private GHAMaintenancePlanStateSelectItem stateItem;
+
 	protected MaintenancePlan selectedMaintenancePlan;
+	private GHADynamicForm form;
 
 	{
 		nameItem = new GHATextItem(GHAStrings.get("name"), false);
@@ -41,11 +43,16 @@ public class MaintenancePlanTopForm extends
 		frequencyItem = new GHATextItem(GHAStrings.get("frecuency"), false);
 		periodOfTimeItem = new GHAPeriodOfTimeSelectItem();
 		typeItem = new GHAMaintenancePlanTypeSelectItem();
-		// typeItem.setDefaultValue(MaintenancePlanType.PREVENTIVE);
 		stateItem = new GHAMaintenancePlanStateSelectItem();
-		// stateItem.setDefaultValue(MaintenancePlanState.ACTIVE);
 		descriptionItem = new GHATextItem(GHAStrings.get("description"), false);
 		descriptionItem.setColSpan(2);
+		form = new GHADynamicForm(4,FormType.NORMAL_FORM);
+		nameItem.addKeyUpHandler(searchKeyUpHandler);
+		frequencyItem.addKeyUpHandler(searchKeyUpHandler);
+		periodOfTimeItem.addKeyUpHandler(searchKeyUpHandler);
+		typeItem.addKeyUpHandler(searchKeyUpHandler);
+		stateItem.addKeyUpHandler(searchKeyUpHandler);
+		descriptionItem.addKeyUpHandler(searchKeyUpHandler);
 	}
 
 	/**
@@ -56,10 +63,11 @@ public class MaintenancePlanTopForm extends
 			MaintenancePlanPanel tab) {
 		super(resultSet, tab);
 
-		GHADynamicForm form = new GHADynamicForm(
-				GHAUiHelper.getNormalFormWidth(30), 4);
 		form.setItems(nameItem, typeItem, stateItem, descriptionItem,
 				frequencyItem, periodOfTimeItem);
+
+		form.setAutoFocus(true);
+		nameItem.setSelectOnFocus(true);
 
 		addMembers(form, new LayoutSpacer(), sideButtons);
 	}
@@ -179,6 +187,12 @@ public class MaintenancePlanTopForm extends
 		typeItem.setValue(maintenancePlan.getType());
 		deactivate();
 		sideButtons.addMember(deleteButton, 0);
+	}
+	
+	@Override
+	public void onResize(ResizeEvent event) {
+		super.onResize(event);
+		form.resize();
 	}
 
 }

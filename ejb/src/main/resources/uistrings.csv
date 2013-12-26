@@ -1,6 +1,5 @@
 ES,record,registro
 ES,eia,Equipo
-ES,eia,Equipo
 ES,records,registros
 ES,connection-problem,Imposible conectar al servidor
 ES,yes,Si
@@ -124,6 +123,7 @@ ES,eiastate-majordamaged,Dañados Gravemente
 ES,new-maintenance-plan,Nuevo plan de mantenimiento
 ES,plan-type,Tipo de plan
 ES,plan-state,Estado del plan
+ES,plan-status,Estatus del plan
 ES,eiaDamageReport,Reporte de equipo dañado y Solicitud de Mantenimiento
 ES,search-eia,Búsqueda de equipos
 ES,new-eiaDamageReport,Nuevo reporte de equipo dañado
@@ -136,7 +136,12 @@ ES,hours,Horas
 ES,weeks,Semanas
 ES,semesters,Semestres
 ES,years,Años
+ES,eia-maintenance-plan,Equipos con plan de mantenimiento
+ES,eia-on-maintenance-plan,Planificación de mantenimiento de equipos con este plan de mantenimiento
+ES,asociated-eiatype-maintenance-plan,Tipos de equipo asociados
 ES,eia-type-on-maintenance-plan,Tipos de equipos asociados al plan de mantenimiento
+ES,eia-on-maintenance,Equipos en mantenimiento
+ES,eia-on-pending-maintenance,Equipos con este plan de mantenimiento pendiente o en ejecución - equipos sin prestar servicio
 ES,responsible-role,Cargo Responsable
 ES,adquisition-provider,Proveedor de Equipo
 ES,maintenance-provider,Proveedor de Mantenimiento
@@ -154,6 +159,19 @@ ES,eia-maintenance-planification-details-register,Registrar detalles del Manteni
 ES,cancelation-option,Opción de cancelación
 ES,currency,Moneda
 ES,edt,edt
+ES,maintenance-plan-associated-protocol-activities,Protocolo de Actividades asociadas al Plan de Mantenimiento
+ES,protocol,Protocolo
+ES,maintenance-activity,Actividad de Mantenimiento
+ES,activity,Actividad
+ES,totals,Totales
+ES,activities,Actividades
+ES,subprotocols,Sub-Protocolos
+ES,subprotocol,Sub-Protocolo
+ES,total-time,Tiempo total
+ES,total-cost,Costo total
+ES,activity-delete-confirm,¿Desea eliminar la actividad?
+ES,activities-delete-confirm,¿Desea eliminar las actividades?
+ES,maintenance-protocol-delete-confirm,¿Desea eliminar todas las actividades de este Plan de Mantenimiento?
 ES,emh,Historia médica
 ES,gmh,gmh
 ES,hme,gmh
@@ -170,3 +188,11 @@ ES,btype,g.sanguineo
 ES,bsa,bsa
 ES,bmi,bmi
 ES,new-encounter,nuevo encuentro
+ES,active,Activo
+ES,inactive,Inactivo
+ES,preventive,Preventivo
+ES,overhaul,Exhaustivo
+ES,asociated,Asociado
+ES,planificated,Planificado
+ES,iniciated,Iniciado
+ES,canceled,Cancelado

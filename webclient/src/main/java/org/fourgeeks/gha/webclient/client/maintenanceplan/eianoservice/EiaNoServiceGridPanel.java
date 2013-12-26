@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeia;
+package org.fourgeeks.gha.webclient.client.maintenanceplan.eianoservice;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +15,9 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanModel;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener;
+import org.fourgeeks.gha.webclient.client.maintenanceplan.eiaplanification.EiaMaintenanceGrid;
+import org.fourgeeks.gha.webclient.client.maintenanceplan.eiaplanification.EiaMaintenanceRecord;
+import org.fourgeeks.gha.webclient.client.maintenanceplan.eiaplanification.EiaMaintenanceUtil;
 
 import com.smartgwt.client.widgets.grid.ListGridRecord;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -23,21 +26,21 @@ import com.smartgwt.client.widgets.layout.HLayout;
  * @author caparicio
  * 
  */
-public class AsociatedEiaGridPanel extends GHAVerticalLayout implements
+public class EiaNoServiceGridPanel extends GHAVerticalLayout implements
 		ClosableListener, HideableListener, MaintenancePlanSelectionListener {
 
-	private EiaMaintenancePlanGrid grid;
+	private EiaMaintenanceGrid grid;
 	private MaintenancePlan maintenancePlan;
 	{
-		grid = new EiaMaintenancePlanGrid();
+		grid = new EiaMaintenanceGrid();
 	}
 
 	/**
-	 * @param eIATypeEquipmentSubTab
+	 * 
 	 */
-	public AsociatedEiaGridPanel() {
+	public EiaNoServiceGridPanel() {
 		super();
-		GHALabel title = new GHALabel(GHAStrings.get("eia-on-maintenance-plan"));
+		GHALabel title = new GHALabel(GHAStrings.get("eia-on-pending-maintenance"));
 		addMember(title);
 
 		HLayout mainLayout = new HLayout();
@@ -59,10 +62,10 @@ public class AsociatedEiaGridPanel extends GHAVerticalLayout implements
 									.getEia());
 						}
 
-						ListGridRecord array[] = EiaMaintenancePlanUtil
+						ListGridRecord array[] = EiaMaintenanceUtil
 								.toEiaMaintenancePlanGridRecords(equipmentList,
 										result).toArray(
-										new EiaMaintenancePlanRecord[] {});
+										new EiaMaintenanceRecord[] {});
 						grid.setData(array);
 					}
 				});

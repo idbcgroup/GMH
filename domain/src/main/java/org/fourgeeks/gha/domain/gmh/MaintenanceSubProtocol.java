@@ -19,7 +19,7 @@ import org.fourgeeks.gha.domain.AbstractEntity;
 		"maintenanceActivityFk", "parentMaintenanceActivityFk" }))
 @NamedQueries(value = {
 		@NamedQuery(name = "MaintenanceSubProtocol.getAll", query = "SELECT e from MaintenanceSubProtocol e order by e.id"),
-		@NamedQuery(name = "MaintenanceSubProtocol.findByProtocolActivity", query = "SELECT e FROM  MaintenanceSubProtocol e WHERE e.parentProtocolActivity = :parentMaintenanceActivity ORDER BY e.ordinal") })
+		@NamedQuery(name = "MaintenanceSubProtocol.findBySubProtocolActivity", query = "SELECT e FROM  MaintenanceSubProtocol e WHERE e.parentProtocolActivity = :activity ORDER BY e.ordinal") })
 public class MaintenanceSubProtocol extends AbstractEntity {
 
 	/**

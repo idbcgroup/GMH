@@ -33,6 +33,7 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATitletextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAPeriodOfTimeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASectionForm;
@@ -782,8 +783,7 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 	 */
 	private GHADynamicForm getAdquisicionForm() {
 		// //////Adquisicion Form
-		GHADynamicForm adquisicionForm = new GHADynamicForm(
-				GHAUiHelper.getSectionFormFormWidth(30), 4);
+		GHADynamicForm adquisicionForm = new GHADynamicForm(4,FormType.SECTIONFORM_FORM);
 
 		adquisicionForm.setItems(adquisition_TitleItem, purchaseDateItem,
 				receptionDateItem, installationDateItem, new GHASpacerItem(),
@@ -804,8 +804,7 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 	 * @return
 	 */
 	private GHADynamicForm getCostosForm() {
-		GHADynamicForm res = new GHADynamicForm(
-				GHAUiHelper.getSectionFormFormWidth(30), 4);
+		GHADynamicForm res = new GHADynamicForm(4,FormType.SECTIONFORM_FORM);
 
 		res.setItems(adqCost_TitleItem, adquisitionCostTextItem,
 				adquisitionCostCurrencySelectItem, contabilizationDateItem,
@@ -825,8 +824,7 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 	 * @return
 	 */
 	private GHADynamicForm getInfoBasicaForm() {
-		GHADynamicForm equipoForm = new GHADynamicForm(
-				GHAUiHelper.getSectionFormFormWidth(30), 3);
+		GHADynamicForm equipoForm = new GHADynamicForm(3,FormType.SECTIONFORM_FORM);
 
 		equipoForm.setItems(information_TitleItem, eiaTypeSelectItem,
 				new GHASpacerItem(2), codeTextItem, serialTextItem,
@@ -841,8 +839,7 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 	 * @return
 	 */
 	private GHADynamicForm getUbicacionForm() {
-		GHADynamicForm areaForm = new GHADynamicForm(
-				GHAUiHelper.getSectionFormFormWidth(30), 3);
+		GHADynamicForm areaForm = new GHADynamicForm(3,FormType.SECTIONFORM_FORM);
 
 		areaForm.setItems(location_TitleItem, locationTypeSelectItem,
 				new GHASpacerItem(2), workingArea_TitleItem,
@@ -906,10 +903,10 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 
 	@Override
 	public void onResize(ResizeEvent arg0) {
-		infoBasicaForm.resize(GHAUiHelper.getSectionFormFormWidth(30), 3);
-		adquisicionForm.resize(GHAUiHelper.getSectionFormFormWidth(30), 4);
-		ubicacionForm.resize(GHAUiHelper.getSectionFormFormWidth(30), 3);
-		costosForm.resize(GHAUiHelper.getSectionFormFormWidth(30), 4);
+		infoBasicaForm.resize();
+		adquisicionForm.resize();
+		ubicacionForm.resize();
+		costosForm.resize();
 		// garantiasMantForm.resize(GHAUiHelper.getSectionFormFormWidth(30),3);
 	}
 

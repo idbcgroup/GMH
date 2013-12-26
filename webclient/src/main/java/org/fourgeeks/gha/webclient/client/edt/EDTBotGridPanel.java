@@ -32,6 +32,7 @@ public class EDTBotGridPanel extends GHAVerticalLayout implements
 		super();
 		setStyleName("sides-padding");// Esto es VUDU!
 		setWidth100();
+		setMinWidth(1024);
 
 		setBackgroundColor("#E0E0E0");
 

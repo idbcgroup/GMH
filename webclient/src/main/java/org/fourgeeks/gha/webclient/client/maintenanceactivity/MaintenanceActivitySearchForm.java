@@ -1,198 +1,107 @@
 package org.fourgeeks.gha.webclient.client.maintenanceactivity;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
+import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
+import org.fourgeeks.gha.webclient.client.UI.GHAUtil;
+import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
-import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
-import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenanceActivitySubTypeSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenanceActivityTypeSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHACancelButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASearchForm;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
-import com.smartgwt.client.types.TitleOrientation;
-import com.smartgwt.client.types.VerticalAlignment;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
-import com.smartgwt.client.widgets.form.DynamicForm;
-import com.smartgwt.client.widgets.form.fields.events.KeyUpEvent;
-import com.smartgwt.client.widgets.form.fields.events.KeyUpHandler;
-import com.smartgwt.client.widgets.grid.ListGridRecord;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
- * @author alacret
+ * @author alacret, naramirez
  * 
  */
-public class MaintenanceActivitySearchForm extends GHASearchForm<MaintenanceActivity> implements
+public class MaintenanceActivitySearchForm extends
+		GHASearchForm<MaintenanceActivity> implements
 		MaintenanceActivitySelectionListener,
 		MaintenanceActivitySelectionProducer {
 
-	private List<MaintenanceActivitySelectionListener> listeners;
-	private MaintenanceActivityGrid grid;
 	private GHATextItem nameItem, descriptionItem;
+	private GHAMaintenanceActivityTypeSelectItem typeSelectItem;
+	private GHAMaintenanceActivitySubTypeSelectItem subTypeSelectItem;
 
-	private MaintenanceActivityAddForm addForm;
+	private final GHADynamicForm form;
+	private final MaintenanceActivityResultSet resultSet;
 
 	{
-		listeners = new LinkedList<MaintenanceActivitySelectionListener>();
-		nameItem = new GHATextItem("Nombre");
+		form = new GHADynamicForm(3,FormType.NORMAL_FORM);
+
+		nameItem = new GHATextItem(GHAStrings.get("name"));
 		nameItem.setLength(100);
-		descriptionItem = new GHATextItem("Descripción", 420);
-		descriptionItem.setColSpan(4);
+		descriptionItem = new GHATextItem(GHAStrings.get("description"));
+		descriptionItem.setColSpan(3);
+		typeSelectItem = new GHAMaintenanceActivityTypeSelectItem();
+		subTypeSelectItem = new GHAMaintenanceActivitySubTypeSelectItem();
 
-		grid = new MaintenanceActivityGrid();
-
-		addForm = new MaintenanceActivityAddForm("Nueva Actividad");
+		resultSet = new MaintenanceActivityResultSet(
+				ResultSetContainerType.SEARCH_FORM);
+		resultSet
+				.addMaintenanceActivitySelectionListener(new MaintenanceActivitySelectionListener() {
+					@Override
+					public void select(MaintenanceActivity maintenanceActivity) {
+						hide();
+					}
+				});
 	}
 
 	/**
+	 * Create a search form to select a MaintenancePlan
 	 * 
+	 * @param title
+	 *            the title of the search form
 	 */
 	public MaintenanceActivitySearchForm(String title) {
 		super(title);
 
-		final DynamicForm form = new DynamicForm();
-		form.setTitleOrientation(TitleOrientation.TOP);
-		form.setNumCols(4);
-
-		form.setItems(nameItem, new GHASpacerItem(2), descriptionItem);
-
-		// Event Handlers
-		ClickHandler searchClickHandler = new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				search();
-			}
-		};
-		KeyUpHandler searchKeyUpHandler = new KeyUpHandler() {
-
-			@Override
-			public void onKeyUp(KeyUpEvent event) {
-				if (event.getKeyName().equals("Enter")) {
-					search();
-				}
-			}
-		};
+		form.setItems(nameItem, typeSelectItem, subTypeSelectItem,
+				descriptionItem);
 
 		nameItem.addKeyUpHandler(searchKeyUpHandler);
 		descriptionItem.addKeyUpHandler(searchKeyUpHandler);
 
-		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
-				"../resources/icons/search.png", searchClickHandler),
-				new GHAImgButton("../resources/icons/clean.png",
-						new ClickHandler() {
-
-							@Override
-							public void onClick(ClickEvent event) {
-								form.clearValues();
-								grid.setData(new ListGridRecord[0]);
-							}
-						}), new GHAImgButton("../resources/icons/cancel.png",
-						new ClickHandler() {
-
-							@Override
-							public void onClick(ClickEvent event) {
-								hide();
-							}
-						}));
+		VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
+				searchClickHandler), new GHACleanButton(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				clean();
+			}
+		}), new GHACancelButton(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				hide();
+			}
+		}));
 
 		HLayout formLayout = new HLayout();
 		formLayout.setPadding(10);
 		formLayout.setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT
 				+ "px");
-		formLayout.setDefaultLayoutAlign(VerticalAlignment.CENTER);
 		formLayout.addMembers(form, new LayoutSpacer(), sideButtons);
 
 		addMembers(formLayout,
 				GHAUiHelper
 						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
-								+ "px"));
-
-		HLayout gridLayout = new HLayout();
-		gridLayout.setPadding(10);
-
-		VLayout sideGridButtons = GHAUiHelper.createBar(new GHAImgButton(
-				"../resources/icons/check.png", new ClickHandler() {
-
-					@Override
-					public void onClick(ClickEvent event) {
-						selectMaintenanceActivity();
-					}
-				}), GHAUiHelper.verticalGraySeparator("2px"), new GHAImgButton(
-				"../resources/icons/new.png", new ClickHandler() {
-
-					@Override
-					public void onClick(ClickEvent event) {
-						addForm.open();
-					}
-				}));
-
-		gridLayout.addMembers(grid, sideGridButtons);
-		addMember(gridLayout);
-
-		// register as listener to the addform producer
-		addForm.addMaintenanceActivitySelectionListener(this);
-	}
-
-	public void search() {
-		MaintenanceActivity maintenanceActivity = new MaintenanceActivity();
-		if (nameItem.getValue() != null)
-			maintenanceActivity.setName(nameItem.getValueAsString());
-		if (descriptionItem.getValue() != null)
-			maintenanceActivity.setDescription(descriptionItem
-					.getValueAsString());
-		search(maintenanceActivity);
-	}
-
-	private void search(final MaintenanceActivity activity) {
-		MaintenanceActivityModel.find(activity,
-				new GHAAsyncCallback<List<MaintenanceActivity>>() {
-
-					@Override
-					public void onSuccess(List<MaintenanceActivity> result) {
-						ListGridRecord array[] = MaintenanceActivityUtil
-								.toGridRecords(result).toArray(
-										new MaintenanceActivityGridRecord[] {});
-						grid.setData(array);
-
-						// TODO: seleccionar un elemento si coincide exactamente
-					}
-				});
-	}
-
-	@Override
-	public void close() {
-		destroy();
-		addForm.destroy();
-	}
-
-	@Override
-	public void hide() {
-		super.hide();
-		addForm.hide();
-	}
-
-	@Override
-	public void onResize(ResizeEvent event) {
-		super.onResize(event);
-	}
-
-	// Producer/Consumer stuff
-	private void notifyMaintenanceActivity(
-			MaintenanceActivity maintenanceActivity) {
-		for (MaintenanceActivitySelectionListener listener : listeners) {
-			listener.select(maintenanceActivity);
-		}
+								+ "px"), resultSet);
 	}
 
 	/*
@@ -206,8 +115,48 @@ public class MaintenanceActivitySearchForm extends GHASearchForm<MaintenanceActi
 	 */
 	@Override
 	public void addMaintenanceActivitySelectionListener(
-			MaintenanceActivitySelectionListener maintenanceActivitySelectionListener) {
-		listeners.add(maintenanceActivitySelectionListener);
+			MaintenanceActivitySelectionListener selectionListener) {
+		resultSet.addMaintenanceActivitySelectionListener(selectionListener);
+	}
+
+	/**
+	 * clean the form item and the data of the grid
+	 */
+	public void clean() {
+		form.clearValues();
+		resultSet.clean();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceactivity.
+	 * MaintenanceActivitySelectionProducer
+	 * #notifyMaintenanceActivity(org.fourgeeks
+	 * .gha.domain.gmh.MaintenanceActivity)
+	 */
+	@Override
+	public void notifyMaintenanceActivity(
+			MaintenanceActivity maintenanceActivity) {
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.UI.superclasses.GHASearchForm#onResize
+	 * (com.google.gwt.event.logical.shared.ResizeEvent)
+	 */
+	@Override
+	public void onResize(ResizeEvent event) {
+		super.onResize(event);
+		form.resize();
+	}
+
+	@Override
+	public void open() {
+		resultSet.setVisible(true);
+		super.open();
 	}
 
 	/*
@@ -221,8 +170,53 @@ public class MaintenanceActivitySearchForm extends GHASearchForm<MaintenanceActi
 	 */
 	@Override
 	public void removeMaintenanceActivitySelectionListener(
-			MaintenanceActivitySelectionListener maintenanceActivitySelectionListener) {
-		listeners.remove(maintenanceActivitySelectionListener);
+			MaintenanceActivitySelectionListener selectionListener) {
+		resultSet.removeMaintenanceActivitySelectionListener(selectionListener);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.UI.superclasses.GHASearchForm#search()
+	 */
+	@Override
+	public void search() {
+		MaintenanceActivity maintenanceActivity = new MaintenanceActivity();
+		if (nameItem.getValue() != null)
+			maintenanceActivity.setName(nameItem.getValueAsString());
+		if (descriptionItem.getValue() != null)
+			maintenanceActivity.setDescription(descriptionItem
+					.getValueAsString());
+		search(maintenanceActivity);
+	}
+
+	/**
+	 * Search a list of {@link MaintenanceActivity} entities that match with the
+	 * values of the entity argument
+	 * 
+	 * @param activity
+	 *            the entity with the vaules
+	 */
+	private void search(final MaintenanceActivity activity) {
+		MaintenanceActivityModel.find(activity,
+				new GHAAsyncCallback<List<MaintenanceActivity>>() {
+					@Override
+					public void onSuccess(List<MaintenanceActivity> result) {
+						List<MaintenanceActivity> newList = null;
+						if (blackList != null) {
+							List<AbstractEntity> tmpList = GHAUtil
+									.binarySearchFilterEntity(result, blackList);
+							List<MaintenanceActivity> newTmpList = new ArrayList<MaintenanceActivity>();
+							for (AbstractEntity entity : tmpList)
+								newTmpList.add((MaintenanceActivity) entity);
+							newList = newTmpList;
+						} else
+							newList = result;
+
+						resultSet.setRecords(newList, false);
+					}
+				});
 	}
 
 	/*
@@ -234,36 +228,6 @@ public class MaintenanceActivitySearchForm extends GHASearchForm<MaintenanceActi
 	 */
 	@Override
 	public void select(MaintenanceActivity maintenanceActivity) {
-		MaintenanceActivityGridRecord gridRecord = MaintenanceActivityUtil
-				.toGridRecord(maintenanceActivity);
-		ListGridRecord array[] = { gridRecord };
-		grid.setData(array);
-		grid.selectRecord(gridRecord);
+		search(maintenanceActivity);
 	}
-
-	/**
-	 * 
-	 */
-	private void selectMaintenanceActivity() {
-		GHAGridRecord<MaintenanceActivity> selectedRecord = grid
-				.getSelectedRecord();
-		if (selectedRecord == null) {
-			GHANotification.oldAlert(GHAStrings.get("record-not-selected"));
-			return;
-		}
-		notifyMaintenanceActivity(((MaintenanceActivityGridRecord) selectedRecord)
-				.toEntity());
-		hide();
-	}
-
-	@Override
-	public boolean canBeClosen(HideCloseAction hideAction) {
-		return true;
-	}
-
-	@Override
-	public boolean canBeHidden(HideCloseAction hideAction) {
-		return true;
-	}
-
 }

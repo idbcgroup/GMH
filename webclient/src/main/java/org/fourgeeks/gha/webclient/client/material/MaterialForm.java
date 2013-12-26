@@ -12,7 +12,6 @@ import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
-import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextAreaItem;
@@ -20,6 +19,7 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHABrandSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHACodeTextItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
 
@@ -52,7 +52,7 @@ public class MaterialForm extends GHAForm<Material> implements
 		descriptionItem = new GHATextAreaItem(GHAStrings.get("description"), changedHandler);
 		descriptionItem.setColSpan(2);
 				
-		form = new GHADynamicForm(GHAUiHelper.getNormalFormWidth(3),3);
+		form = new GHADynamicForm(3,FormType.NORMAL_FORM);
 
 	}
 
@@ -206,7 +206,7 @@ public class MaterialForm extends GHAForm<Material> implements
 	@Override
 	public void onResize(ResizeEvent event) {
 		// TODO Auto-generated method stub
-		form.resize(GHAUiHelper.getNormalFormWidth(3),3);
+		form.resize();
 	}
 
 	@Override

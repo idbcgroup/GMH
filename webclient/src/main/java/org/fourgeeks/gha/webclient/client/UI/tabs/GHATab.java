@@ -36,6 +36,7 @@ public abstract class GHATab extends GHAVerticalLayout implements
 	public GHATab() {
 		super();
 		setWidth100();
+		setMinWidth(1024);
 		addStyleName("sides-padding");
 	}
 

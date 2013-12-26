@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeia;
+package org.fourgeeks.gha.webclient.client.maintenanceplan.eiaplanification;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,12 +13,12 @@ import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
  * @author emiliot
  * 
  */
-public class EiaMaintenancePlanUtil {
+public class EiaMaintenanceUtil {
 
 	/**
 	 * 
 	 */
-	private EiaMaintenancePlanUtil() {
+	private EiaMaintenanceUtil() {
 		throw new UnsupportedOperationException(
 				"Esta clase no debe ser instanciada");
 	}
@@ -42,12 +42,12 @@ public class EiaMaintenancePlanUtil {
 	 * @param empEntities 
 	 * @return list
 	 */
-	public static List<EiaMaintenancePlanRecord> toEiaMaintenancePlanGridRecords(
+	public static List<EiaMaintenanceRecord> toEiaMaintenancePlanGridRecords(
 			List<Eia> eiaEntities, List<EiaMaintenancePlanification> empEntities) {
-		List<EiaMaintenancePlanRecord> list = new ArrayList<EiaMaintenancePlanRecord>();
+		List<EiaMaintenanceRecord> list = new ArrayList<EiaMaintenanceRecord>();
 		
 		for (int i = 0; i < eiaEntities.size(); i++) {
-			EiaMaintenancePlanRecord record = new EiaMaintenancePlanRecord(
+			EiaMaintenanceRecord record = new EiaMaintenanceRecord(
 					eiaEntities.get(i), empEntities.get(i));
 			record.setEiaMaintenancePlanAttributes();
 			list.add(record);

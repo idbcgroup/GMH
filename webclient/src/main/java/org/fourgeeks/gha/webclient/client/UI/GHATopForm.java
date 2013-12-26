@@ -62,6 +62,7 @@ public abstract class GHATopForm<T extends GHAResultSet<E>, E> extends HLayout
 		GHAUiHelper.addGHAResizeHandler(this);
 		setStyleName("sides-padding padding-top");
 		setWidth100();
+		setMinWidth(1024);
 		setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT + "px");
 		setBackgroundColor(GHAUiHelper.DEFAULT_BACKGROUND_COLOR);
 		setDefaultLayoutAlign(VerticalAlignment.CENTER);

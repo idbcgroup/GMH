@@ -45,20 +45,27 @@ public class GhaGrid<T> extends ListGrid implements ResizeHandler {
 	}
 
 	/**
-	 * @return the entity selected
+	 * @return the selected entity
 	 */
+	@SuppressWarnings("unchecked")
 	public T getSelectedEntity() {
-		@SuppressWarnings("unchecked")
-		GHAGridRecord<T> selectedRecord = (GHAGridRecord<T>) super.getSelectedRecord();
+		GHAGridRecord<T> selectedRecord = (GHAGridRecord<T>) super
+				.getSelectedRecord();
+
 		if (selectedRecord == null) {
 			return null;
 		}
 		return selectedRecord.toEntity();
 	}
 
+	/**
+	 * @return the selected entities
+	 */
 	@SuppressWarnings("unchecked")
 	public List<T> getSelectedEntities() {
-		GHAGridRecord<T> selectedRecord = (GHAGridRecord<T>) super.getSelectedRecord();
+		GHAGridRecord<T> selectedRecord = (GHAGridRecord<T>) super
+				.getSelectedRecord();
+
 		if (selectedRecord == null)
 			return null;
 
@@ -71,6 +78,25 @@ public class GhaGrid<T> extends ListGrid implements ResizeHandler {
 		}
 
 		return lista;
+	}
+
+	/**
+	 * @return the entities displayed in the grid
+	 */
+	@SuppressWarnings("unchecked")
+	public List<T> getEntities() {
+		ListGridRecord[] records = super.getRecords();
+
+		if (records == null)
+			return null;
+
+		ArrayList<T> list = new ArrayList<T>();
+		for (ListGridRecord record : records) {
+			GHAGridRecord<T> ghaRecord = (GHAGridRecord<T>) record;
+			list.add(ghaRecord.toEntity());
+		}
+
+		return list;
 	}
 
 	@Override

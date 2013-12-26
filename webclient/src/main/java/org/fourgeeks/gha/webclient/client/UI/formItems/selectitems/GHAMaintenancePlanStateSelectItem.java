@@ -1,5 +1,7 @@
 package org.fourgeeks.gha.webclient.client.UI.formItems.selectitems;
 
+import java.util.LinkedHashMap;
+
 import org.fourgeeks.gha.domain.enu.MaintenancePlanState;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
@@ -16,7 +18,14 @@ public class GHAMaintenancePlanStateSelectItem extends GHASelectItem {
 	 */
 	public GHAMaintenancePlanStateSelectItem() {
 		super(GHAStrings.get("plan-state"));
-		setValueMap(MaintenancePlanState.toValueMap());
+
+		LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+		for (MaintenancePlanState value : MaintenancePlanState.values()) {
+			String key = value.name().toLowerCase();
+			valueMap.put(value.name() + "", GHAStrings.get(key));
+		}
+
+		setValueMap(valueMap);
 	}
 
 	/**

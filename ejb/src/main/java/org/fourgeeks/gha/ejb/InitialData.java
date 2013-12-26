@@ -542,6 +542,9 @@ public class InitialData {
 				double cost[] = { 1300.42, 200.0, 300.0, 1000.4, 42.5, 879.2,
 						2432.45, 123.0, 1200.0, 573.97 };
 
+				boolean isSubprotocol[] = { false, false, false, false, false,
+						false, true, false, false, false };
+
 				for (int i = 0; i < 10; ++i) {
 					MaintenanceActivity entity = new MaintenanceActivity();
 					entity.setName(activityNames[i]);
@@ -553,6 +556,7 @@ public class InitialData {
 					entity.setEstimatedDurationPoT(pots[i]);
 					entity.setEstimatedCost(new BigDecimal(cost[i]));
 					entity.setEstimatedCostCurrency(CurrencyTypeEnum.BS);
+					entity.setIsSubProtocol(isSubprotocol[i]);
 
 					em.persist(entity);
 				}
