@@ -11,7 +11,6 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.places.GHAPlaceSet;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivityForm;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionListener;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionProducer;
@@ -26,8 +25,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class MaintenanceActivityInformationFormPanel extends GHAVerticalLayout
-		implements ClosableListener, HideableListener,
+public class MaintenanceActivityDefinitionFormPanel extends VLayout implements
+		ClosableListener, HideableListener,
 		MaintenanceActivitySelectionListener,
 		MaintenanceActivitySelectionProducer {
 
@@ -36,7 +35,8 @@ public class MaintenanceActivityInformationFormPanel extends GHAVerticalLayout
 	/**
 	 * 
 	 */
-	public MaintenanceActivityInformationFormPanel() {
+	public MaintenanceActivityDefinitionFormPanel() {
+		setWidth100();
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHASaveButton(
 				new ClickHandler() {

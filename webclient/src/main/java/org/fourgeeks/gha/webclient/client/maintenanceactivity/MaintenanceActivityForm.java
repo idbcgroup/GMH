@@ -13,8 +13,13 @@ import javax.validation.Validator;
 
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHACheckboxItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextAreaItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenanceActivitySubTypeSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenanceActivityTypeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
@@ -32,7 +37,14 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
 public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 		implements MaintenanceActivitySelectionProducer {
 	private List<MaintenanceActivitySelectionListener> listeners;
-	private GHATextItem nameItem, descriptionItem;
+
+	private GHATextItem codeTextItem, nameTextItem;
+	private GHATextAreaItem descriptionTextAreaItem;
+	private GHAMaintenanceActivityStateSelectItem stateSelectItem;
+	private GHAMaintenanceActivityTypeSelectItem typeSelectItem;
+	private GHAMaintenanceActivitySubTypeSelectItem subTypeSelectItem;
+	private GHACheckboxItem isSubProtocolCheckboxItem;
+
 	private Validator validator;
 
 	private GHADynamicForm form;
@@ -44,11 +56,18 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 	private MaintenanceActivity updateActivity;
 
 	{
-		nameItem = new GHATextItem("Nombre de la Actividad", 150);
-		nameItem.setLength(100);
-		nameItem.setRequired(true);
-		descriptionItem = new GHATextItem("Descripción", 620);
-		descriptionItem.setColSpan(4);
+		codeTextItem = new GHATextItem(GHAStrings.get("code"), false);
+		nameTextItem = new GHATextItem(GHAStrings.get("activity-name"), true,
+				changedHandler);
+		descriptionTextAreaItem = new GHATextAreaItem(
+				GHAStrings.get("description"), changedHandler);
+		descriptionTextAreaItem.setColSpan(4);
+		stateSelectItem = new GHAMaintenanceActivityStateSelectItem(true,
+				changedHandler);
+		typeSelectItem = new GHAMaintenanceActivityTypeSelectItem(true,
+				changedHandler);
+		subTypeSelectItem = new GHAMaintenanceActivitySubTypeSelectItem(true,
+				changedHandler);
 
 		validator = Validation.buildDefaultValidatorFactory().getValidator();
 		listeners = new ArrayList<MaintenanceActivitySelectionListener>();
@@ -61,7 +80,8 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 	 */
 	public MaintenanceActivityForm() {
 		final HLayout mainPanel = new HLayout();
-		form.setItems(nameItem, new GHASpacerItem(3), descriptionItem);
+		form.setItems(nameTextItem, new GHASpacerItem(3),
+				descriptionTextAreaItem);
 
 		mainPanel.addMembers(form, new LayoutSpacer());
 		addMember(mainPanel);
@@ -91,8 +111,8 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 	@Override
 	public void clear() {
 		super.clear();
-		nameItem.clearValue();
-		descriptionItem.clearValue();
+		nameTextItem.clearValue();
+		descriptionTextAreaItem.clearValue();
 	}
 
 	@Override
@@ -110,11 +130,11 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 			maintenanceActivity.setId(this.updateActivity.getId());
 		}
 
-		if (nameItem.getValue() != null) {
-			maintenanceActivity.setName(nameItem.getValueAsString());
+		if (nameTextItem.getValue() != null) {
+			maintenanceActivity.setName(nameTextItem.getValueAsString());
 		}
-		if (descriptionItem.getValue() != null) {
-			maintenanceActivity.setDescription(descriptionItem
+		if (descriptionTextAreaItem.getValue() != null) {
+			maintenanceActivity.setDescription(descriptionTextAreaItem
 					.getValueAsString());
 		}
 
@@ -175,13 +195,13 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 	public void set(MaintenanceActivity entity) {
 		this.originalEntity = entity;
 
-		nameItem.setValue(entity.getName());
-		descriptionItem.setValue(entity.getDescription());
+		nameTextItem.setValue(entity.getName());
+		descriptionTextAreaItem.setValue(entity.getDescription());
 	}
 
 	private void toogleForm(boolean activate) {
-		nameItem.setDisabled(!activate);
-		descriptionItem.setDisabled(!activate);
+		nameTextItem.setDisabled(!activate);
+		descriptionTextAreaItem.setDisabled(!activate);
 	}
 
 	@Override
