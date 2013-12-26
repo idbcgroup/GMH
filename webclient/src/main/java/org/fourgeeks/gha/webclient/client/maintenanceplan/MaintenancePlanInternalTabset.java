@@ -34,6 +34,7 @@ public class MaintenancePlanInternalTabset extends GHAInternalTabSet implements
 		maintenancePlanEquipmentTypeSubTab = new AsociatedEiaTypeSubTab(panel);
 		maintenancePlanEquipmentSubTab = new EiaPlanificationSubTab(panel);
 		maintenancePlanEquipmentNoServiceSubTab = new EiaNoServiceSubTab(panel);
+		maintenancePlanProtocolsSubTab=new MaintenanceProtocolsSubTab(panel);
 		maintenancePlanProtocolsSubTab
 				.addMaintenanceProtocolsSelectionListener(maintenancePlanInfoSubTab);
 		// maintenanceProtocolSubTab = new MaintenanceProtocolSubTab(mpTab);
@@ -56,8 +57,8 @@ public class MaintenancePlanInternalTabset extends GHAInternalTabSet implements
 	@Override
 	public void show() {
 		Tab selectedTab = getSelectedTab();
-		if (selectedTab == maintenancePlanInformationSubTab)
-			maintenancePlanInformationSubTab.show();
+		if (selectedTab == maintenancePlanInfoSubTab)
+			maintenancePlanInfoSubTab.show();
 		else if (selectedTab == maintenancePlanEquipmentTypeSubTab) {
 			maintenancePlanEquipmentTypeSubTab.getPane().show();
 		} else if (selectedTab == maintenancePlanEquipmentSubTab) {
