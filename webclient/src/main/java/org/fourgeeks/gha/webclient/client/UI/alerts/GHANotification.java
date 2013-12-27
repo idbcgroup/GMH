@@ -125,6 +125,8 @@ public class GHANotification {
 			dialog.setShowMinimizeButton(false);
 			dialog.setShowMaximizeButton(false);
 			dialog.setAnimateTime(400);
+			
+			//Modal
 			dialog.setIsModal(true);
 			dialog.setShowModalMask(true);
 			dialog.setModalMaskOpacity(40);
