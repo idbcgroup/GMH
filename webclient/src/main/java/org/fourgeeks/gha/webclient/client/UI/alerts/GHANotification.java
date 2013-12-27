@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.UI.superclasses;
+package org.fourgeeks.gha.webclient.client.UI.alerts;
 
 import java.util.List;
 
@@ -9,6 +9,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.message.GWTMessageService;
 import org.fourgeeks.gha.webclient.client.message.GWTMessageServiceAsync;
 
@@ -19,16 +20,20 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.AnimationEffect;
+import com.smartgwt.client.types.Overflow;
 import com.smartgwt.client.types.Positioning;
 import com.smartgwt.client.types.VerticalAlignment;
 import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.util.SC;
+import com.smartgwt.client.widgets.AnimationCallback;
 import com.smartgwt.client.widgets.Button;
 import com.smartgwt.client.widgets.Dialog;
 import com.smartgwt.client.widgets.events.ButtonClickEvent;
 import com.smartgwt.client.widgets.events.ButtonClickHandler;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
+import com.smartgwt.client.widgets.events.CloseClickEvent;
+import com.smartgwt.client.widgets.events.CloseClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
@@ -101,7 +106,71 @@ public class GHANotification {
 	public static void oldAlert(String message) {
 		SC.say(GHAStrings.get("information"), message);
 	}
+	
+	/**
+	 * @param message
+	 */
+//	@Deprecated
+	public static void testDialog(String message) {
+		testModalNotif(GHAStrings.get("information"), message, true);
+	}
 
+	private static Dialog testModalNotif(String title,String message, boolean hasButtons)
+	{		
+			final Dialog dialog = new Dialog();
+			dialog.setWidth(GHAUiHelper.DEFAULT_NOTIFICATION_WIDTH);
+			
+			dialog.setOverflow(Overflow.AUTO);
+			dialog.setAutoCenter(false);
+			dialog.setShowMinimizeButton(false);
+			dialog.setShowMaximizeButton(false);
+			dialog.setAnimateTime(400);
+			
+			//Modal
+			dialog.setIsModal(true);
+			dialog.setShowModalMask(true);
+			dialog.setModalMaskOpacity(40);
+			
+			dialog.setBorder("1px solid #666666");
+			dialog.setBackgroundColor("#666666");
+			dialog.setStyleName("dialogStyle");
+			dialog.setBodyStyle("dialogBodyStyle");
+			
+			dialog.setTitle(title);
+			dialog.setMessage("Dialog Message: "+message);
+			dialog.setIcon("../resources/icons/cancel.png");
+			
+//			dialog.setMessageStyle(messageStyle);
+			
+			dialog.show();
+			dialog.setLeft(Window.getClientWidth()-(dialog.getWidth()+20));
+			dialog.setTop(Window.getClientHeight());
+			
+			if(hasButtons){
+				dialog.setHeight(GHAUiHelper.DEFAULT_NOTIFICATION_BUTTONS_HEIGHT);
+				dialog.getBody().setHeight(GHAUiHelper.DEFAULT_NOTIFICATION_BUTTONS_HEIGHT-27);
+				dialog.animateRect(null, Window.getClientHeight()-GHAUiHelper.DEFAULT_NOTIFICATION_BUTTONS_HEIGHT, null, null);
+				dialog.setButtons(Dialog.OK, Dialog.CANCEL);
+			}else{
+				dialog.setHeight(GHAUiHelper.DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT);
+				dialog.getBody().setHeight(GHAUiHelper.DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT-27);
+				dialog.animateRect(null, Window.getClientHeight()-GHAUiHelper.DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT, null, null);
+			}
+
+			dialog.addCloseClickHandler(new CloseClickHandler() {
+				@Override
+				public void onCloseClick(CloseClickEvent event) {
+					dialog.animateRect(null, Window.getClientHeight(), null, null, new AnimationCallback() {
+						@Override
+						public void execute(boolean earlyFinish) {
+							dialog.hide();							
+						}
+					},400);
+				}
+			});
+			return dialog;
+	}
+	
 	/**
 	 * @param title
 	 * @param message

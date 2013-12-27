@@ -1,7 +1,7 @@
 package org.fourgeeks.gha.webclient.client.UI;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.alerts.GHANotification;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 

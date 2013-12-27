@@ -4,7 +4,9 @@
 	font-size: small;
 	font-family: Helvetica !important;
 }
-
+.margin{
+	margin-right:10px;
+}
 b {
 	font-weight: normal !important;
 }
@@ -13,6 +15,7 @@ body {
 	background-color: #F2F2F2;
 	min-width: 1024px;
 	min-height: 768px;
+/* 	overflow: hidden; */
 }
 
 #main-content {
@@ -183,6 +186,9 @@ body {
 /* 	margin-top:5px; */
 /* } */
 
+.gha-tab-set{
+	height: 30px;
+}
 .tab-header-title {
 	padding-left: 6px;
 	color: #666666;
@@ -310,12 +316,14 @@ input[type="text"]:disabled,.inputDisabled {
 .gha-title-label {
 	font-weight: bold;
 	color: #008EFE;
-	font-size: 10px;
+	font-size: 12px;
+	text-transform: capitalize;
 }
 
 .gha-text-label {
 	color: black;
-	font-size: 10px;
+	font-size: 12px;
+	text-transform: capitalize;
 }
 
 .iconTopPadding {
@@ -509,6 +517,9 @@ table.GHAupload-button tbody tr td form div.upld-form-elements div.DecoratedFile
 	/* 	z-index: -1; */
 	display: none;
 }
+.bold{
+	font-weight: bold;
+}
 
 .side-option {
 	height: 10px;
@@ -563,4 +574,27 @@ div#header-bar.header-bar div#user-info.user-info div#isc_HLayout_0_wrapper div#
 .headerButton {
 	/*background: none !important;*/
 	
+}
+
+/*Notifications testing*/
+
+.windowBackground, 
+.dialogBackground,
+.dialogStyle{
+	border-radius: 5px 5px 5px 5px !important;
+	box-shadow: none !important;
+}
+
+.windowBody, 
+.dialogBody, 
+.dialogBodyStyle{
+/* 	left: 0px !important; */
+/* 	width: 100% !important; */
+	border: none !important;
+    box-shadow: none !important;
+}
+
+.windowHeaderText, .dialogHeaderText{ 
+	color: #FFFFFF !important;
+	text-transform: uppercase;
 }

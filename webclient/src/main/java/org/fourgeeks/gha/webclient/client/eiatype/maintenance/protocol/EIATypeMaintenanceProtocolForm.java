@@ -26,13 +26,17 @@ public class EIATypeMaintenanceProtocolForm extends GHASlideInWindow implements
 
 	private MaintenancePlanMaintenanceProtocolGrid maintenanceProtocolGrid = new MaintenancePlanMaintenanceProtocolGrid();
 
+	/**
+	 * 
+	 */
 	public EIATypeMaintenanceProtocolForm() {
 		super();
+		type=SlideInWindowType.ADD;
 		GHAUiHelper.addGHAResizeHandler(this);
 		setWidth100();
 		setMinWidth(1024);
 		setHeight(GHAUiHelper.getBottomSectionHeight()-5);
-		setTop(260);
+		setTop(GHAUiHelper.getTopSpace(type));
 
 		Label title = new Label("Protocolos del Plan");
 

@@ -27,9 +27,9 @@ public class EIATypePlace extends NeedPermissionPlace {
 		// addHideableListener(tabHeader);
 		// addClosableListener(tabHeader);
 		addMember(tab.getHeader());
-		addMember(tab);
+		addMember(tab);		
 	}
-
+	
 	@Override
 	public String getId() {
 		return "eiatype";

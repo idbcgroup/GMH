@@ -145,8 +145,8 @@ public class Eia extends AbstractEntity {
 	private String purchaseOrderNumber;
 	/** Fecha de Compra del Equipo length =22 */
 	private Date receptionDate;
-	/** Código asignado al Equipo o Instalación length =20 */
 	@NotNull(message = "serial-not-null")
+	@Size(max = 60)
 	private String serialNumber;
 	/** Nombre Departamento donde esta adjudicado el equipo length =255 */
 

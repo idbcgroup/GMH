@@ -2,6 +2,7 @@ package org.fourgeeks.gha.webclient.client.UI.superclasses;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.alerts.GHANotification;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -21,10 +22,9 @@ public abstract class GHAAddForm<T> extends GHASlideInWindow {
 	 */
 	public GHAAddForm(String title) {
 		super();
+		type=SlideInWindowType.ADD;
 		setHeight(GHAUiHelper.getBottomSectionHeight()-5);
-		setTop(GHAUiHelper.DEFAULT_TOP_SECTION_HEIGHT
-				+ GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT
-				+ GHAUiHelper.V_SEPARATOR_HEIGHT + 1);
+		setTop(GHAUiHelper.getTopSpace(type));
 		label = new GHALabel(title);
 		addMember(label);
 	}

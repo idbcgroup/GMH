@@ -13,7 +13,6 @@ import org.fourgeeks.gha.webclient.client.UI.places.GHAPlaceSet;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
-import com.google.gwt.user.client.Window;
 import com.smartgwt.client.types.VerticalAlignment;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -38,7 +37,7 @@ public class GHAPanelHeader extends HLayout implements ResizeHandler,
 		GHAUiHelper.addGHAResizeHandler(this);
 		setWidth100();
 		setMinWidth(1024);
-		setHeight(30);
+		setHeight(GHAUiHelper.MENU_BAR_HEIGTH);
 		setDefaultLayoutAlign(VerticalAlignment.TOP);
 		setMembersMargin(6);
 
@@ -67,9 +66,9 @@ public class GHAPanelHeader extends HLayout implements ResizeHandler,
 
 		addMember(closeOption);
 	}
-
+	
 	/**
-	 * Add the clean option
+	 * Add the clean optionst
 	 * 
 	 * @param clickHandler
 	 *            the action to be taken when the user clicks
@@ -87,6 +86,23 @@ public class GHAPanelHeader extends HLayout implements ResizeHandler,
 		return cleanOption;
 	}
 
+	/**
+	 * Add a Debug option
+	 * @param title 	 * 
+	 * @param clickHandler
+	 *            the action to be taken when the user clicks
+	 * @return the Debug Option
+	 */
+	public GHAHeaderOption addDebugOption(String title, ClickHandler clickHandler) {
+		GHAHeaderOption debugOption = new GHAHeaderOption(title + "...",
+				GHAUiHelper.DEFAULT_HEADER_OPTION_WIDTH,true,
+				"../resources/img/limpiarButton.png",
+				"../resources/img/limpiarButtonOver.png");
+		debugOption.addClickHandler(clickHandler);
+		addMember(debugOption, memberPos++);
+		return debugOption;
+	}	
+	
 	/**
 	 * Add the add option
 	 * 
@@ -135,7 +151,7 @@ public class GHAPanelHeader extends HLayout implements ResizeHandler,
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		setWidth(Window.getClientWidth() - 35);
+		
 	}
 
 	/**

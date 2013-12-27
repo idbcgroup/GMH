@@ -12,9 +12,9 @@ import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToHideExcepti
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.SearchListener;
+import org.fourgeeks.gha.webclient.client.UI.panels.GHAHeaderOption;
 import org.fourgeeks.gha.webclient.client.UI.panels.GHAPanel;
 import org.fourgeeks.gha.webclient.client.UI.panels.GHAPanelHeader;
-import org.fourgeeks.gha.webclient.client.UI.panels.GHAHeaderOption;
 
 import com.smartgwt.client.types.Visibility;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -42,6 +42,12 @@ public class EIATypePanel extends GHAPanel implements EIATypeSelectionListener,
 	public EIATypePanel() {
 		super();
 		header = new GHAPanelHeader(this, TITLE);
+//		header.addDebugOption("Notif", new ClickHandler() {			
+//			@Override
+//			public void onClick(ClickEvent event) {
+//				GHANotification.testDialog("Mensaje standard de error Código#1238012");
+//			}
+//		});
 		searchOption = header.addSearchOption(new ClickHandler() {
 
 			@Override
