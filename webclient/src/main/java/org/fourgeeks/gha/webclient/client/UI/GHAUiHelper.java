@@ -86,23 +86,28 @@ public abstract class GHAUiHelper {
 	public static final int SECTION_FORM_OPTION_WIDTH = 150;
 
 	/**
-	 * The minimum width of a GHADynamicForm that is on a normal panel (for width 100%).
+	 * The minimum width of a GHADynamicForm that is on a normal panel (for
+	 * width 100%).
 	 */
 	public static final int MIN_NORMAL_FORM_WIDTH = 900;
 	/**
-	 * The minimum width of a GHADynamicForm that is embedded on a GHASectionForm.
+	 * The minimum width of a GHADynamicForm that is embedded on a
+	 * GHASectionForm.
 	 */
 	public static final int MIN_SECTION_FORM_FORM_WIDTH = 700;
 	/**
 	 * The default top header height (with the tabs bar).
 	 */
-	public static final int DEFAULT_TOP_HEADER_TAB_HEIGHT = HEADER_HEIGTH + MENU_BAR_HEIGTH;
+	public static final int DEFAULT_TOP_HEADER_TAB_HEIGHT = HEADER_HEIGTH
+			+ MENU_BAR_HEIGTH;
 	/**
 	 * The default top header height (with the tabs and the panel bars).
 	 */
-	public static final int DEFAULT_TOP_HEADER_PANEL_HEIGHT = HEADER_HEIGTH + MENU_BAR_HEIGTH + MENU_BAR_HEIGTH ;
+	public static final int DEFAULT_TOP_HEADER_PANEL_HEIGHT = HEADER_HEIGTH
+			+ MENU_BAR_HEIGTH + MENU_BAR_HEIGTH;
 	/**
-	 *  The default height of the inner part of the top section (TopForms and such).
+	 * The default height of the inner part of the top section (TopForms and
+	 * such).
 	 */
 	public static final int DEFAULT_INNER_TOP_SECTION_HEIGHT = 110;
 	/**
@@ -155,7 +160,7 @@ public abstract class GHAUiHelper {
 	/**
 	 * the default height for the pation top component
 	 */
-	public static final int DEFAULT_PATIENT_TOP_HEIGHT = 100;
+	public static final int DEFAULT_PATIENT_TOP_HEIGHT = 80;
 	/**
 	 * a blank space
 	 */
@@ -164,8 +169,7 @@ public abstract class GHAUiHelper {
 	public static final int DEFAULT_NOTIFICATION_WIDTH = 250;
 	public static final int DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT = 130;
 	public static final int DEFAULT_NOTIFICATION_BUTTONS_HEIGHT = 150;
-	
-	
+
 	/**
 	 * @return the height that a tab must have
 	 */
@@ -178,7 +182,7 @@ public abstract class GHAUiHelper {
 			return ret;
 		}
 	}
-	
+
 	/**
 	 * @return the height that a Panel must have
 	 */
@@ -191,7 +195,7 @@ public abstract class GHAUiHelper {
 			return ret;
 		}
 	}
-	
+
 	/**
 	 * @return the height for the bottom section
 	 */
@@ -209,38 +213,38 @@ public abstract class GHAUiHelper {
 	}
 
 	/**
-	 * @param type 
-	 * @param buttonsSize 
+	 * @param type
+	 * @param buttonsSize
 	 * @return the width that a form must have, depending on its type.
 	 */
 	public static int getFormWidth(FormType type, int buttonsSize) {
 		int rootPanelWidth = Window.getClientWidth();
 		int ret;
-		if(type==FormType.NORMAL_FORM){
+		if (type == FormType.NORMAL_FORM) {
 			ret = rootPanelWidth - buttonsSize - 100;
-			if(ret < MIN_NORMAL_FORM_WIDTH)
+			if (ret < MIN_NORMAL_FORM_WIDTH)
 				return MIN_NORMAL_FORM_WIDTH;
 			else
 				return ret;
-		}else{
-			ret = rootPanelWidth - (SECTION_FORM_OPTION_WIDTH + 50)	- buttonsSize - 100;
-			if(ret < MIN_SECTION_FORM_FORM_WIDTH)
+		} else {
+			ret = rootPanelWidth - (SECTION_FORM_OPTION_WIDTH + 50)
+					- buttonsSize - 100;
+			if (ret < MIN_SECTION_FORM_FORM_WIDTH)
 				return MIN_SECTION_FORM_FORM_WIDTH;
 			else
 				return ret;
-		}		
+		}
 	}
 
 	/**
 	 * @return the Top space
 	 */
 	public static int getTopSpace(SlideInWindowType type) {
-		if(type==SlideInWindowType.SEARCH)
+		if (type == SlideInWindowType.SEARCH)
 			return DEFAULT_TOP_HEADER_TAB_HEIGHT;
 		else
 			return (DEFAULT_TOP_HEADER_PANEL_HEIGHT
-					+ DEFAULT_INNER_TOP_SECTION_HEIGHT
-					+ V_SEPARATOR_HEIGHT);
+					+ DEFAULT_INNER_TOP_SECTION_HEIGHT + V_SEPARATOR_HEIGHT);
 	}
 
 	/**
@@ -344,7 +348,7 @@ public abstract class GHAUiHelper {
 
 	/**
 	 * @param height
-	 * @param text 
+	 * @param text
 	 * @return the separator label.
 	 */
 	public static HLayout verticalGraySeparatorLabel(String height, String text) {

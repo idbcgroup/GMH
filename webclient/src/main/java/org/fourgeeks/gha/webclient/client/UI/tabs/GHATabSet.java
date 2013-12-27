@@ -27,7 +27,6 @@ final class GHATabSet extends HLayout {
 		setHeight(30);
 		setStyleName("gha-tab-set");
 		addMember(new LayoutSpacer());
-		setBackgroundColor("yellow");
 	}
 
 	/**
