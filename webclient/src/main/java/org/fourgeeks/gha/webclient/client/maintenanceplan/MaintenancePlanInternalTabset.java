@@ -69,7 +69,6 @@ public class MaintenancePlanInternalTabset extends GHAInternalTabSet implements
 			maintenancePlanProtocolsSubTab.getPane().show();
 		} else if (selectedTab == maintenanceActivitySubTab) {
 			maintenanceActivitySubTab.openFirstSection();
-		}
 		} else if (selectedTab == maintenancePlanEquipmentNoServiceSubTab) {
 			maintenancePlanEquipmentNoServiceSubTab.getPane().show();
 		}
