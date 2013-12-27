@@ -42,12 +42,6 @@ public class EIATypePanel extends GHAPanel implements EIATypeSelectionListener,
 	public EIATypePanel() {
 		super();
 		header = new GHAPanelHeader(this, TITLE);
-//		header.addDebugOption("Notif", new ClickHandler() {			
-//			@Override
-//			public void onClick(ClickEvent event) {
-//				GHANotification.testDialog("Mensaje standard de error Código#1238012");
-//			}
-//		});
 		searchOption = header.addSearchOption(new ClickHandler() {
 
 			@Override

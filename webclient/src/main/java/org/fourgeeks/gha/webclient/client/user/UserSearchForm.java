@@ -6,7 +6,7 @@ import java.util.List;
 import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
@@ -167,7 +167,7 @@ public class UserSearchForm extends GHASearchForm<SSOUser> implements
 	private void selectUser() {
 		GHAGridRecord<SSOUser> selectedRecord = grid.getSelectedRecord();
 		if (selectedRecord == null) {
-			GHANotification.oldAlert(GHAStrings.get("record-not-selected"));
+			GHAAlertManager.oldAlert(GHAStrings.get("record-not-selected"));
 			return;
 		}
 		notifyUser(((UserRecord) selectedRecord).toEntity());

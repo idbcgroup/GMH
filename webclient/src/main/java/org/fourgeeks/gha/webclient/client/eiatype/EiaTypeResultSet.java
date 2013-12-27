@@ -8,7 +8,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACheckButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
@@ -108,7 +108,7 @@ public class EiaTypeResultSet extends GHAResultSet<EiaType> implements
 	 */
 	private void delete() {
 		if (grid.getSelectedRecord() == null) {
-			GHANotification.alert("record-not-selected");
+			GHAAlertManager.alert("record-not-selected");
 			return;
 		}
 
@@ -116,7 +116,7 @@ public class EiaTypeResultSet extends GHAResultSet<EiaType> implements
 				.get("eiatypes-delete-confirm") : GHAStrings
 				.get("eiatype-delete-confirm");
 
-		GHANotification.confirm(GHAStrings.get("eiatype"), msj,
+		GHAAlertManager.confirm(GHAStrings.get("eiatype"), msj,
 				new BooleanCallback() {
 
 					@Override
@@ -150,7 +150,7 @@ public class EiaTypeResultSet extends GHAResultSet<EiaType> implements
 	private void notifySelectedEiaType() {
 		GHAGridRecord<EiaType> selectedRecord = grid.getSelectedRecord();
 		if (selectedRecord == null) {
-			GHANotification.alert("record-not-selected");
+			GHAAlertManager.alert("record-not-selected");
 			return;
 		}
 		notifyEiaType(selectedRecord.toEntity());

@@ -8,7 +8,7 @@ import org.fourgeeks.gha.domain.gmh.EiaComponent;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
@@ -131,7 +131,7 @@ public class EIAComponentGridPanel extends GHAVerticalLayout implements
 
 	private void delete() {
 		if (grid.getSelectedRecord() == null) {
-			GHANotification.alert("record-not-selected");
+			GHAAlertManager.alert("record-not-selected");
 			return;
 		}
 
@@ -139,7 +139,7 @@ public class EIAComponentGridPanel extends GHAVerticalLayout implements
 				.get("eiaComponents-delete-confirm") : GHAStrings
 				.get("eiaComponent-delete-confirm");
 
-		GHANotification.confirm(GHAStrings.get("eia"), msj,
+		GHAAlertManager.confirm(GHAStrings.get("eia"), msj,
 				new BooleanCallback() {
 					@Override
 					public void execute(Boolean value) {
