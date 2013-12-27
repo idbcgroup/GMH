@@ -19,7 +19,29 @@ import javax.servlet.http.HttpServletResponse;
  * @author caparicio
  * 
  */
-@WebFilter(urlPatterns = { "/webclient/brand" })
+@WebFilter(urlPatterns = { "/webclient/appFormViewFunction",
+		"/webclient/appFormViewFunctionBpu", "/webclient/bpa",
+		"/webclient/bpi", "/webclient/bpu", "/webclient/brand",
+		"/webclient/buildingLocation", "/webclient/citizen", "/webclient/eia",
+		"/webclient/eiaComponent", "/webclient/eiaDamageReport",
+		"/webclient/EiaPreventiveMaintenancePlanification",
+		"/webclient/eiaType", "/webclient/eiaTypeComponent",
+		"/webclient/maintenanceActivityMaintenanceProtocolService",
+		"/webclient/eiaTypeMaintenancePlanService",
+		"/webclient/maintenancePlanMaintenanceProtocolService",
+		"/webclient/maintenancePlanService",
+		"/webclient/maintenanceActivityService",
+		"/webclient/maintenanceProtocolService",
+		"/webclient/maintenanceSubProtocol",
+		"/webclient/eiaTypeMaterialCategory", "/webclient/eiaTypeMaterial",
+		"/webclient/eiaTypeUtility", "/webclient/externalProvider",
+		"/webclient/facility", "/webclient/instanceLogon",
+		"/webclient/institution", "/webclient/legalEntity",
+		"/webclient/logonlog", "/webclient/manufacturer",
+		"/webclient/material", "/webclient/materialCategory",
+		"/webclient/messageService", "/webclient/obu",
+		"/webclient/serviceResource", "/webclient/role",
+		"/webclient/systemInstance", "/webclient/workingArea" })
 public class MemberLoginFilter implements Filter {
 
 	private ServletContext servletContext;

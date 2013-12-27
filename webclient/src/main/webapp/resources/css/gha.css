@@ -186,6 +186,9 @@ body {
 /* 	margin-top:5px; */
 /* } */
 
+.gha-tab-set{
+	height: 30px;
+}
 .tab-header-title {
 	padding-left: 6px;
 	color: #666666;

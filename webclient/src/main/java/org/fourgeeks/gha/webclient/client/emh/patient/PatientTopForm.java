@@ -119,7 +119,7 @@ public class PatientTopForm extends HLayout {
 	}
 	private final VLayout centerLayout = new VLayout();
 	private final GHAHeaderOption addOption = new GHAHeaderOption(
-			GHAStrings.get("new-encounter") + "...",
+			GHAStrings.get("encounter") + "...",
 			GHAUiHelper.DEFAULT_HEADER_OPTION_WIDTH, true,
 			"../resources/img/agregarButton.png",
 			"../resources/img/agregarButtonOver.png");

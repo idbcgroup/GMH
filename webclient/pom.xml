@@ -147,6 +147,7 @@
 			<scope>system</scope>
 			<systemPath>${basedir}/../lib/smartgwt.jar</systemPath>
 		</dependency>
+            
 	</dependencies>
 
 	<build>
