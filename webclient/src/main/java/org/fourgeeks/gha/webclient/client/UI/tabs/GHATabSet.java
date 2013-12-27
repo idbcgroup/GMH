@@ -24,6 +24,8 @@ final class GHATabSet extends HLayout {
 	// TODO, see wheter the tabPanel is necesary
 	public GHATabSet(GHATabPanel tabPanel) {
 		super();
+		setHeight(30);
+		setStyleName("gha-tab-set");
 		addMember(new LayoutSpacer());
 		setBackgroundColor("yellow");
 	}
@@ -35,7 +37,6 @@ final class GHATabSet extends HLayout {
 	 */
 	public GHATabSet(String title, GHATabPanel tabPanel) {
 		this(tabPanel);
-		setStyleName("gha-tab-set");
 		Label label = new Label();
 		label.setContents(title);
 		label.setStyleName("tabset-header-title");
