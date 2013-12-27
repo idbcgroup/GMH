@@ -17,7 +17,7 @@ public class GHAMaintenanceActivityStateSelectItem extends GHASelectItem {
 	 * 
 	 */
 	public GHAMaintenanceActivityStateSelectItem() {
-		super(GHAStrings.get("activity-state"));
+		super(GHAStrings.get("state"));
 
 		LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
 		for (MaintenanceActivityState value : MaintenanceActivityState.values()) {

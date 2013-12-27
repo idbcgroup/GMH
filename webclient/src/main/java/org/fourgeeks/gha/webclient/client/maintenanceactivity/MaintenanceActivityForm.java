@@ -15,11 +15,17 @@ import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHACheckboxItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHADateItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextAreaItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHACurrencyTypeSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAEiaTypeSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAExternalProviderSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenanceActivitySubTypeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenanceActivityTypeSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAPeriodOfTimeSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHARoleSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
@@ -38,12 +44,23 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 		implements MaintenanceActivitySelectionProducer {
 	private List<MaintenanceActivitySelectionListener> listeners;
 
-	private GHATextItem codeTextItem, nameTextItem;
-	private GHATextAreaItem descriptionTextAreaItem;
+	private GHATextItem codeTextItem, nameTextItem, descriptionTextItem,
+			estimatedTimeTextItem, estimatedCostTextItem,
+			timesEffectuedTextItem, eiasWhitThisActivityTextItem,
+			lastEffectuedByTextItem;
+	private GHATextAreaItem instructionsAndObservationsTextAreaItem;
 	private GHAMaintenanceActivityStateSelectItem stateSelectItem;
 	private GHAMaintenanceActivityTypeSelectItem typeSelectItem;
 	private GHAMaintenanceActivitySubTypeSelectItem subTypeSelectItem;
-	private GHACheckboxItem isSubProtocolCheckboxItem;
+	private GHACheckboxItem isSubProtocolCheckboxItem,
+			materialsRequierdCheckboxItem, toolsRequierdCheckboxItem,
+			equipsRequiredCheckboxItem;
+	private GHAEiaTypeSelectItem eiaTypeSelectItem;
+	private GHAPeriodOfTimeSelectItem estimatedTimePoTSelectItem;
+	private GHACurrencyTypeSelectItem estimatedCostCurrencySelectItem;
+	private GHARoleSelectItem roleSelectItem;
+	private GHAExternalProviderSelectItem providerSelectItem;
+	private GHADateItem lastEffectuatedDateItem;
 
 	private Validator validator;
 
@@ -59,15 +76,49 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 		codeTextItem = new GHATextItem(GHAStrings.get("code"), false);
 		nameTextItem = new GHATextItem(GHAStrings.get("activity-name"), true,
 				changedHandler);
-		descriptionTextAreaItem = new GHATextAreaItem(
-				GHAStrings.get("description"), changedHandler);
-		descriptionTextAreaItem.setColSpan(4);
 		stateSelectItem = new GHAMaintenanceActivityStateSelectItem(true,
 				changedHandler);
 		typeSelectItem = new GHAMaintenanceActivityTypeSelectItem(true,
 				changedHandler);
 		subTypeSelectItem = new GHAMaintenanceActivitySubTypeSelectItem(true,
 				changedHandler);
+		eiaTypeSelectItem = new GHAEiaTypeSelectItem(false, changedHandler);
+		eiaTypeSelectItem.setTitle("Aplicar a tipo de equipo");
+		descriptionTextItem = new GHATextItem(GHAStrings.get("description"),
+				false, changedHandler);
+		descriptionTextItem.setColSpan(4);
+		isSubProtocolCheckboxItem = new GHACheckboxItem(
+				GHAStrings.get("activity-is-subprotocol"), changedHandler);
+		materialsRequierdCheckboxItem = new GHACheckboxItem(
+				GHAStrings.get("require-materials"), changedHandler);
+		toolsRequierdCheckboxItem = new GHACheckboxItem(
+				GHAStrings.get("require-tools"), changedHandler);
+		equipsRequiredCheckboxItem = new GHACheckboxItem(
+				GHAStrings.get("require-equips"), changedHandler);
+		instructionsAndObservationsTextAreaItem = new GHATextAreaItem(
+				GHAStrings.get("activity-instructions-and-observations"),
+				changedHandler);
+		estimatedTimeTextItem = new GHATextItem(
+				GHAStrings.get("estimated-time"), true, changedHandler);
+		estimatedTimePoTSelectItem = new GHAPeriodOfTimeSelectItem(true,
+				changedHandler);
+		estimatedCostTextItem = new GHATextItem(
+				GHAStrings.get("estimated-cost"), true, changedHandler);
+		estimatedCostCurrencySelectItem = new GHACurrencyTypeSelectItem(true,
+				changedHandler);
+		instructionsAndObservationsTextAreaItem.setColSpan(4);
+		providerSelectItem = new GHAExternalProviderSelectItem(false,
+				changedHandler);
+		roleSelectItem = new GHARoleSelectItem(false, changedHandler);
+
+		timesEffectuedTextItem = new GHATextItem(
+				GHAStrings.get("times-effectuated"), false);
+		eiasWhitThisActivityTextItem = new GHATextItem(
+				GHAStrings.get("eias-with-this-activity"), false);
+		lastEffectuatedDateItem = new GHADateItem(
+				GHAStrings.get("last-effectuated-date"), false);
+		lastEffectuedByTextItem = new GHATextItem(
+				GHAStrings.get("last-effectuated-by"), false);
 
 		validator = Validation.buildDefaultValidatorFactory().getValidator();
 		listeners = new ArrayList<MaintenanceActivitySelectionListener>();
@@ -80,8 +131,18 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 	 */
 	public MaintenanceActivityForm() {
 		final HLayout mainPanel = new HLayout();
-		form.setItems(nameTextItem, new GHASpacerItem(3),
-				descriptionTextAreaItem);
+
+		form.setItems(codeTextItem, nameTextItem, stateSelectItem,
+				new GHASpacerItem(), typeSelectItem, subTypeSelectItem,
+				eiaTypeSelectItem, new GHASpacerItem(), descriptionTextItem,
+				isSubProtocolCheckboxItem, materialsRequierdCheckboxItem,
+				toolsRequierdCheckboxItem, equipsRequiredCheckboxItem,
+				estimatedTimeTextItem, estimatedTimePoTSelectItem,
+				estimatedCostTextItem, estimatedCostCurrencySelectItem,
+				instructionsAndObservationsTextAreaItem, providerSelectItem,
+				roleSelectItem, new GHASpacerItem(2), timesEffectuedTextItem,
+				eiasWhitThisActivityTextItem, lastEffectuatedDateItem,
+				lastEffectuedByTextItem);
 
 		mainPanel.addMembers(form, new LayoutSpacer());
 		addMember(mainPanel);
@@ -112,7 +173,7 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 	public void clear() {
 		super.clear();
 		nameTextItem.clearValue();
-		descriptionTextAreaItem.clearValue();
+		descriptionTextItem.clearValue();
 	}
 
 	@Override
@@ -133,8 +194,8 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 		if (nameTextItem.getValue() != null) {
 			maintenanceActivity.setName(nameTextItem.getValueAsString());
 		}
-		if (descriptionTextAreaItem.getValue() != null) {
-			maintenanceActivity.setDescription(descriptionTextAreaItem
+		if (descriptionTextItem.getValue() != null) {
+			maintenanceActivity.setDescription(descriptionTextItem
 					.getValueAsString());
 		}
 
@@ -196,12 +257,12 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 		this.originalEntity = entity;
 
 		nameTextItem.setValue(entity.getName());
-		descriptionTextAreaItem.setValue(entity.getDescription());
+		descriptionTextItem.setValue(entity.getDescription());
 	}
 
 	private void toogleForm(boolean activate) {
 		nameTextItem.setDisabled(!activate);
-		descriptionTextAreaItem.setDisabled(!activate);
+		descriptionTextItem.setDisabled(!activate);
 	}
 
 	@Override

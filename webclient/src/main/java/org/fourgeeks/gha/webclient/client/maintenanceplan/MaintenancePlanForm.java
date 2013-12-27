@@ -97,20 +97,24 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 				changedHandler);
 		roleSelectItem = new GHARoleSelectItem(false, changedHandler);
 
-		estimatedTimeItem = new GHATextItem("Tiempo estimado", false);
+		estimatedTimeItem = new GHATextItem(GHAStrings.get("estimated-time"),
+				false);
 		estimatedTimePoTSelectItem = new GHAPeriodOfTimeSelectItem();
 		estimatedTimePoTSelectItem.setDisabled(true);
-		protocolActivitiesItem = new GHATextItem("Actividades del protocolo",
+		protocolActivitiesItem = new GHATextItem(
+				GHAStrings.get("protocol-activities"), false);
+		estimatedCostItem = new GHATextItem(GHAStrings.get("estimated-cost"),
 				false);
-		estimatedCostItem = new GHATextItem("Costo estimado", false);
 		estimatedCostCurrencyItem = new GHACurrencyTypeSelectItem();
 		estimatedCostCurrencyItem.setDisabled(true);
-		effectuatedTimesItem = new GHATextItem("Veces efectuado", false);
-		eiasWithThisPlanItem = new GHATextItem("Equipos con este plan", false);
-		lastEffectuatedDateItem = new GHADateItem("Ultima fecha Efectuado",
-				false);
+		effectuatedTimesItem = new GHATextItem(
+				GHAStrings.get("times-effectuated"), false);
+		eiasWithThisPlanItem = new GHATextItem(
+				GHAStrings.get("eias-with-this-plan"), false);
+		lastEffectuatedDateItem = new GHADateItem(
+				GHAStrings.get("last-effectuated-date"), false);
 		planStadistics_TitleItem = new GHATitletextItem(
-				"Estadisticas del plan de mantenimiento", 4);
+				GHAStrings.get("maintenance-plan-stadistics"), 4);
 
 		planStadistics_TitleItem.setVisible(false);
 		protocolActivitiesItem.setVisible(false);
