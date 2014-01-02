@@ -8,7 +8,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACheckButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
@@ -108,14 +108,14 @@ public class UserResultSet extends GHAResultSet<SSOUser> implements
 
 	protected void delete() {
 		if (grid.getSelectedRecord() == null) {
-			GHANotification.alert("record-not-selected");
+			GHAAlertManager.alert("record-not-selected");
 			return;
 		}
 
 		String msj = grid.getSelectedRecords().length > 1 ? GHAStrings
 				.get("users-delete-confirm") : GHAStrings
 				.get("user-delete-confirm");
-		GHANotification.confirm(GHAStrings.get("user"), msj,
+		GHAAlertManager.confirm(GHAStrings.get("user"), msj,
 				new BooleanCallback() {
 
 					@Override
@@ -150,7 +150,7 @@ public class UserResultSet extends GHAResultSet<SSOUser> implements
 	private void notifySelectedUser() {
 		GHAGridRecord<SSOUser> selectedRecord = grid.getSelectedRecord();
 		if (selectedRecord == null) {
-			GHANotification.alert(GHAStrings.get("record-not-selected"));
+			GHAAlertManager.alert(GHAStrings.get("record-not-selected"));
 			return;
 		}
 		notifyUser(selectedRecord.toEntity());

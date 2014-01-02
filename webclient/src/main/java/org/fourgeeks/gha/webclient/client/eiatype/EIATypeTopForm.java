@@ -9,7 +9,7 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHATopForm;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHABrandSelectItem;
@@ -101,7 +101,7 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 
 	@Override
 	protected void delete() {
-		GHANotification.confirm(GHAStrings.get("eiatype"),
+		GHAAlertManager.confirm(GHAStrings.get("eiatype"),
 				GHAStrings.get("eiatype-delete-confirm"),
 				new BooleanCallback() {
 					@Override
@@ -113,7 +113,7 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 										public void onSuccess(Void result) {
 											containerTab.search();
 											clear();
-											GHANotification
+											GHAAlertManager
 													.alert("eiatype-delete-success");
 										}
 									});

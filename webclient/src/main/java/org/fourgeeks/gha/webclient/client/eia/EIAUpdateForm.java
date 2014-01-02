@@ -5,7 +5,7 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAUpdateForm;
@@ -57,7 +57,7 @@ public class EIAUpdateForm extends GHAUpdateForm<Eia> implements
 	@Override
 	public boolean canBeClosen(HideCloseAction hideAction) { // TODO
 		if (form.hasUnCommittedChanges()) {
-			GHANotification.confirm(GHAStrings.get("information"),
+			GHAAlertManager.confirm(GHAStrings.get("information"),
 					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
 
 						@Override
@@ -75,7 +75,7 @@ public class EIAUpdateForm extends GHAUpdateForm<Eia> implements
 	@Override
 	public boolean canBeHidden(HideCloseAction hideAction) { // TODO
 		if (form.hasUnCommittedChanges()) {
-			GHANotification.confirm(GHAStrings.get("information"),
+			GHAAlertManager.confirm(GHAStrings.get("information"),
 					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
 
 						@Override
@@ -93,7 +93,7 @@ public class EIAUpdateForm extends GHAUpdateForm<Eia> implements
 	@Override
 	public void hide() {
 		if (form.hasUnCommittedChanges()) {
-			GHANotification.confirm(GHAStrings.get("information"),
+			GHAAlertManager.confirm(GHAStrings.get("information"),
 					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
 
 						@Override
@@ -213,7 +213,7 @@ public class EIAUpdateForm extends GHAUpdateForm<Eia> implements
 			@Override
 			public void onSuccess(Eia result) {
 				hide();
-				GHANotification.info("eiatype-save-success");
+				GHAAlertManager.info("eiatype-save-success");
 			}
 		});
 	}

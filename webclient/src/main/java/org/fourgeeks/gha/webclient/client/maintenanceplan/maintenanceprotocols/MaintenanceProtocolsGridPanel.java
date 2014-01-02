@@ -10,7 +10,7 @@ import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHANewButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
@@ -204,7 +204,7 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 				.getSelectedEntities();
 
 		if (selectedEntities == null) {
-			GHANotification.confirm(GHAStrings.get("protocol"),
+			GHAAlertManager.confirm(GHAStrings.get("protocol"),
 					GHAStrings.get("maintenance-protocol-delete-confirm"),
 					new BooleanCallback() {
 						@Override
@@ -219,7 +219,7 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 					.get("activity-delete-confirm") : GHAStrings
 					.get("activities-delete-confirm");
 
-			GHANotification.confirm(GHAStrings.get("protocol"), message,
+			GHAAlertManager.confirm(GHAStrings.get("protocol"), message,
 					new BooleanCallback() {
 						@Override
 						public void execute(Boolean value) {
@@ -241,7 +241,7 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 					public void onSuccess(Integer result) {
 						loadData();
 						notifyMaintenanceProtocols(null);
-						GHANotification
+						GHAAlertManager
 								.alert("delete-protocol-activities-success");
 					}
 				});
@@ -261,7 +261,7 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 					public void onSuccess(Void result) {
 						loadData();
 						notifyMaintenanceProtocols(null);
-						GHANotification.alert("delete-activities-success");
+						GHAAlertManager.alert("delete-activities-success");
 					}
 				});
 	}

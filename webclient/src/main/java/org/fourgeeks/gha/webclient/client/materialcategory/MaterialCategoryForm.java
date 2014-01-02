@@ -12,7 +12,7 @@ import org.fourgeeks.gha.domain.glm.MaterialCategory;
 import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextAreaItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
@@ -119,7 +119,7 @@ public class MaterialCategoryForm extends GHAVerticalLayout implements
 					.iterator(); it.hasNext();) {
 				violationsList.add(it.next().getMessage());
 			}
-			GHANotification.alert(violationsList);
+			GHAAlertManager.alert(violationsList);
 		}
 		return null;
 	}

@@ -4,7 +4,7 @@ import org.fourgeeks.gha.domain.glm.Material;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACancelButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
@@ -70,7 +70,7 @@ public class MaterialAddForm extends GHAAddForm<Material> implements
 	@Override
 	public boolean canBeClosen(HideCloseAction hideAction) {// TODO
 		if (form.hasUnCommittedChanges()) {
-			GHANotification.confirm(GHAStrings.get("information"),
+			GHAAlertManager.confirm(GHAStrings.get("information"),
 					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
 
 						@Override
@@ -88,7 +88,7 @@ public class MaterialAddForm extends GHAAddForm<Material> implements
 	@Override
 	public boolean canBeHidden(HideCloseAction hideAction) {// TODO
 		if (form.hasUnCommittedChanges()) {
-			GHANotification.confirm(GHAStrings.get("information"),
+			GHAAlertManager.confirm(GHAStrings.get("information"),
 					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
 
 						@Override
@@ -106,7 +106,7 @@ public class MaterialAddForm extends GHAAddForm<Material> implements
 	@Override
 	public void hide() {
 		if (form.hasUnCommittedChanges()) {
-			GHANotification.confirm(GHAStrings.get("information"),
+			GHAAlertManager.confirm(GHAStrings.get("information"),
 					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
 
 						@Override
@@ -163,7 +163,7 @@ public class MaterialAddForm extends GHAAddForm<Material> implements
 
 			@Override
 			public void onSuccess(Material arg0) {
-				GHANotification.alert("material-save-success");
+				GHAAlertManager.alert("material-save-success");
 				form.cancel();
 				hide();
 			}

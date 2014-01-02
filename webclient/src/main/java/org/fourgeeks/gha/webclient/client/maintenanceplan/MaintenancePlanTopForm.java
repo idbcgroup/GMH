@@ -9,7 +9,7 @@ import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHATopForm;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenancePlanStateSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenancePlanTypeSelectItem;
@@ -112,7 +112,7 @@ public class MaintenancePlanTopForm extends
 
 	@Override
 	protected void delete() {
-		GHANotification.confirm(GHAStrings.get("maitenance-plan"),
+		GHAAlertManager.confirm(GHAStrings.get("maitenance-plan"),
 				GHAStrings.get("maintenance-plan-delete-confirm"),
 				new BooleanCallback() {
 					@Override
@@ -125,7 +125,7 @@ public class MaintenancePlanTopForm extends
 										public void onSuccess(Void result) {
 											containerTab.search();
 											clear();
-											GHANotification
+											GHAAlertManager
 													.alert("maintenance-delete-success");
 										}
 									});

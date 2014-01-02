@@ -3,7 +3,7 @@ package org.fourgeeks.gha.webclient.client.maintenanceplan;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACloseButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAAddForm;
@@ -74,7 +74,7 @@ public class MaintenancePlanAddForm extends GHAAddForm<MaintenancePlan>
 
 			@Override
 			public void onSuccess(MaintenancePlan arg0) {
-				GHANotification.alert("maintenance-plan-save-success");
+				GHAAlertManager.alert("maintenance-plan-save-success");
 				hide();
 			}
 		});

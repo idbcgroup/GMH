@@ -25,7 +25,7 @@ public abstract class GHASlideInWindow extends GHAVerticalLayout implements
 	 */
 	public enum SlideInWindowType {
 		/**
-		 * Type for an Search Window
+		 * Type for a Search Window
 		 */
 		SEARCH, 
 		/**

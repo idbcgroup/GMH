@@ -9,7 +9,7 @@ import org.fourgeeks.gha.domain.gmh.EiaTypeUtility;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHANewButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
@@ -147,11 +147,11 @@ public class EIATypeUtilityGridPanel extends GHAVerticalLayout implements
 		final EiaTypeUtility eiaTypeUtility = grid.getSelectedEntity();
 
 		if (eiaTypeUtility == null) {
-			GHANotification.alert("record-not-selected");
+			GHAAlertManager.alert("record-not-selected");
 			return;
 		}
 
-		GHANotification.confirm(GHAStrings.get("material-category"),
+		GHAAlertManager.confirm(GHAStrings.get("material-category"),
 				GHAStrings.get("eiatype-utility-service-delete-confirm"),
 				new BooleanCallback() {
 

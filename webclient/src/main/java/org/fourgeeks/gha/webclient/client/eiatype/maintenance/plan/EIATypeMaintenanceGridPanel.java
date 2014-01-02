@@ -9,7 +9,7 @@ import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
@@ -134,10 +134,10 @@ public class EIATypeMaintenanceGridPanel extends GHAVerticalLayout implements
 	private void delete() {
 		final EiaTypeMaintenancePlan entity = grid.getSelectedEntity();
 		if (entity == null) {
-			GHANotification.alert("record-not-selected");
+			GHAAlertManager.alert("record-not-selected");
 			return;
 		}
-		GHANotification.confirm(GHAStrings.get("maintenance-plan"),
+		GHAAlertManager.confirm(GHAStrings.get("maintenance-plan"),
 				GHAStrings.get("eiatype-maintenance-plan-delete-confirm"),
 				new BooleanCallback() {
 

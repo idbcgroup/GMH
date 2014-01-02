@@ -17,7 +17,7 @@ import org.fourgeeks.gha.domain.gmh.EiaPreventiveMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHADateItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAExternalProviderSelectItem;
@@ -173,7 +173,7 @@ public class EIAPreventiveMaintenancePlanificationForm extends
 			List<String> violationsList = new ArrayList<String>();
 			for (ConstraintViolation<EiaPreventiveMaintenancePlanification> violation : violations)
 				violationsList.add(violation.getMessage());
-			GHANotification.alert(violationsList);
+			GHAAlertManager.alert(violationsList);
 		}
 		return null;
 	}

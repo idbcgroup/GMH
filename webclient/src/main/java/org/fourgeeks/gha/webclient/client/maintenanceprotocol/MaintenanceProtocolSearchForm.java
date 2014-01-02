@@ -7,7 +7,7 @@ import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
@@ -247,7 +247,7 @@ public class MaintenanceProtocolSearchForm extends GHASearchForm<MaintenanceProt
 		GHAGridRecord<MaintenanceProtocol> selectedRecord = grid
 				.getSelectedRecord();
 		if (selectedRecord == null) {
-			GHANotification.oldAlert(GHAStrings.get("record-not-selected"));
+			GHAAlertManager.oldAlert(GHAStrings.get("record-not-selected"));
 			return;
 		}
 		notifyMaintenanceProtocol(((MaintenanceProtocolGridRecord) selectedRecord)

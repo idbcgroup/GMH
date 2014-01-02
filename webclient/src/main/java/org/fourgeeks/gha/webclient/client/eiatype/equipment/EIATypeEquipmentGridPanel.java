@@ -8,7 +8,7 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAEditButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHANewButton;
@@ -85,11 +85,11 @@ public class EIATypeEquipmentGridPanel extends GHAVerticalLayout implements
 				final Eia selectedRecord = grid.getSelectedEntity();
 
 				if (selectedRecord == null) {
-					GHANotification.alert("record-not-selected");
+					GHAAlertManager.alert("record-not-selected");
 					return;
 				}
 
-				GHANotification.confirm("Equipo",
+				GHAAlertManager.confirm("Equipo",
 						"Confirme si desea eliminar el equipo seleccionado",
 						new BooleanCallback() {
 
@@ -119,7 +119,7 @@ public class EIATypeEquipmentGridPanel extends GHAVerticalLayout implements
 				final Eia selectedRecord = grid.getSelectedEntity();
 
 				if (selectedRecord == null) {
-					GHANotification.oldAlert(GHAStrings
+					GHAAlertManager.oldAlert(GHAStrings
 							.get("record-not-selected"));
 					return;
 				}

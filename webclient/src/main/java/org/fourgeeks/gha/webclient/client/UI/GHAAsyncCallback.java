@@ -1,7 +1,7 @@
 package org.fourgeeks.gha.webclient.client.UI;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
@@ -16,11 +16,11 @@ public abstract class GHAAsyncCallback<T> implements AsyncCallback<T> {
 	public void onFailure(Throwable t) {
 		String message = t.getMessage();
 		if (t instanceof GHAEJBException) {
-			GHANotification.alert(((GHAEJBException) t).getGhaMessage());
+			GHAAlertManager.alert(((GHAEJBException) t).getGhaMessage());
 		} else if (message != null && message.trim().equals("0")) {
-			GHANotification.alert("connection-problem");
+			GHAAlertManager.alert("connection-problem");
 		} else {
-			GHANotification.oldAlert(message);
+			GHAAlertManager.oldAlert(message);
 		}
 	}
 }
