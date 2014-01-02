@@ -188,6 +188,12 @@ body {
 
 .gha-tab-set{
 	height: 30px;
+	margin-bottom: 2px;
+}
+.gha-alert-label{
+font-weight: bold;
+text-align: center;
+margin:2px;	
 }
 .tab-header-title {
 	padding-left: 6px;
