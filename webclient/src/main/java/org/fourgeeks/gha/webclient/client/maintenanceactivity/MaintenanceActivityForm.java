@@ -14,10 +14,9 @@ import javax.validation.Validator;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHACheckboxItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHADateItem;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextAreaItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
@@ -217,6 +216,7 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 	// Producer Stuff
 	@Override
 	public void notifyMaintenanceActivity(MaintenanceActivity activity) {
+		GHAAlertManager.alert("mact-save-success");
 		for (MaintenanceActivitySelectionListener listener : listeners) {
 			listener.select(activity);
 		}
@@ -264,14 +264,6 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 	private void toogleForm(boolean activate) {
 		nameTextItem.setDisabled(!activate);
 		descriptionTextItem.setDisabled(!activate);
-	}
-	
-	public void notifyMaintenanceActivity(
-			MaintenanceActivity maintenanceActivity) {
-		GHAAlertManager.alert("mact-save-success");
-		for (MaintenanceActivitySelectionListener listener : listeners) {
-			listener.select(maintenanceActivity);
-		}
 	}
 
 	@Override

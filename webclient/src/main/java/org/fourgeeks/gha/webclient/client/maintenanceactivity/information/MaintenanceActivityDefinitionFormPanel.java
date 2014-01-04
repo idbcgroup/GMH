@@ -4,7 +4,11 @@ import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHACopyButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHAEditButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAUndoButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
@@ -38,18 +42,39 @@ public class MaintenanceActivityDefinitionFormPanel extends VLayout implements
 	public MaintenanceActivityDefinitionFormPanel() {
 		setWidth100();
 
-		VLayout sideButtons = GHAUiHelper.createBar(new GHASaveButton(
-				new ClickHandler() {
-					@Override
-					public void onClick(ClickEvent event) {
-						save();
-					}
-				}), new GHAUndoButton(new ClickHandler() {
+		GHASaveButton saveButton = new GHASaveButton(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				save();
+			}
+		});
+		GHAUndoButton undoButton = new GHAUndoButton(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				undo();
 			}
-		}));
+		});
+		GHADeleteButton deleteButton = new GHADeleteButton(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				// TODO Auto-generated method stub
+			}
+		});
+		GHAEditButton editButton = new GHAEditButton(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				// TODO Auto-generated method stub
+			}
+		});
+		GHAImgButton copyButton = new GHACopyButton(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				// TODO Auto-generated method stub
+			}
+		});
+
+		VLayout sideButtons = GHAUiHelper.createBar(saveButton, undoButton,
+				deleteButton, editButton, copyButton);
 
 		HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
@@ -74,7 +99,7 @@ public class MaintenanceActivityDefinitionFormPanel extends VLayout implements
 				return true;
 			}
 
-			GHANotification.askYesNoCancel(GHAStrings.get("information"),
+			GHAAlertManager.askYesNoCancel(GHAStrings.get("information"),
 					GHAStrings.get("unsaved-changes"), new ClickHandler() {
 						@Override
 						public void onClick(ClickEvent event) {
@@ -103,7 +128,7 @@ public class MaintenanceActivityDefinitionFormPanel extends VLayout implements
 				return true;
 			}
 
-			GHANotification.askYesNoCancel(GHAStrings.get("information"),
+			GHAAlertManager.askYesNoCancel(GHAStrings.get("information"),
 					GHAStrings.get("unsaved-changes"), new ClickHandler() {
 						@Override
 						public void onClick(ClickEvent event) {
@@ -142,7 +167,7 @@ public class MaintenanceActivityDefinitionFormPanel extends VLayout implements
 		form.update(new GHAAsyncCallback<MaintenanceActivity>() {
 			@Override
 			public void onSuccess(MaintenanceActivity result) {
-				GHANotification.alert("maintenance-activity-save-success");
+				GHAAlertManager.alert("maintenance-activity-save-success");
 			}
 		});
 	}
