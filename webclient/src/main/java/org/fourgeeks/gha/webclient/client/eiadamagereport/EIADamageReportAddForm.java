@@ -5,7 +5,7 @@ import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACloseButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAAddForm;
@@ -132,7 +132,7 @@ public class EIADamageReportAddForm extends GHAAddForm<EiaDamageReport>
 		form.save(new GHAAsyncCallback<EiaDamageReport>() {
 			@Override
 			public void onSuccess(EiaDamageReport result) {
-				GHANotification.alert("eiaDamageReport-save-success");
+				GHAAlertManager.alert("eiaDamageReport-save-success");
 				hide();
 			}
 		});

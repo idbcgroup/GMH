@@ -17,6 +17,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.alerts.GHANotification;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHACheckboxItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHADateItem;
+import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextAreaItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
@@ -208,7 +209,7 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 			for (Iterator<ConstraintViolation<MaintenanceActivity>> it = violations
 					.iterator(); it.hasNext();)
 				violationsList.add(it.next().getMessage());
-			GHANotification.alert(violationsList);
+			GHAAlertManager.alert(violationsList);
 		}
 		return null;
 	}
@@ -263,6 +264,14 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 	private void toogleForm(boolean activate) {
 		nameTextItem.setDisabled(!activate);
 		descriptionTextItem.setDisabled(!activate);
+	}
+	
+	public void notifyMaintenanceActivity(
+			MaintenanceActivity maintenanceActivity) {
+		GHAAlertManager.alert("mact-save-success");
+		for (MaintenanceActivitySelectionListener listener : listeners) {
+			listener.select(maintenanceActivity);
+		}
 	}
 
 	@Override

@@ -4,7 +4,7 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAUndoButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
@@ -75,7 +75,7 @@ public class EIATypeInformationFormPanel extends GHAVerticalLayout implements
 				return true;
 			}
 
-			GHANotification.askYesNoCancel(GHAStrings.get("information"),
+			GHAAlertManager.askYesNoCancel(GHAStrings.get("information"),
 					GHAStrings.get("unsaved-changes"), new ClickHandler() {
 
 						@Override
@@ -108,7 +108,7 @@ public class EIATypeInformationFormPanel extends GHAVerticalLayout implements
 				return true;
 			}
 
-			GHANotification.askYesNoCancel(GHAStrings.get("information"),
+			GHAAlertManager.askYesNoCancel(GHAStrings.get("information"),
 					GHAStrings.get("unsaved-changes"), new ClickHandler() {
 
 						@Override
@@ -151,7 +151,7 @@ public class EIATypeInformationFormPanel extends GHAVerticalLayout implements
 
 			@Override
 			public void onSuccess(EiaType result) {
-				GHANotification.alert("eiatype-save-success");
+				GHAAlertManager.alert("eiatype-save-success");
 			}
 		});
 	}

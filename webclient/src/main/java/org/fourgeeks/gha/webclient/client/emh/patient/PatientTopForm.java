@@ -4,6 +4,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImg;
 import org.fourgeeks.gha.webclient.client.UI.panels.GHAHeaderOption;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAAlertLabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATextLabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATitleLabel;
 
@@ -134,11 +135,15 @@ public class PatientTopForm extends HLayout {
 	private final HLayout rightSideLayout = new HLayout();
 	private final GHAImg photoImg = new GHAImg("../resources/img/photo.jpg",
 			70, 70);
+	private final VLayout alertLayout = new VLayout();
 	{
 		rightSideLayout.setPadding(5);
 		rightSideLayout.setWidth(220);
-		rightSideLayout.addMember(photoImg);
+		rightSideLayout.addMembers(photoImg, alertLayout);
 		rightSideLayout.setBackgroundColor("white");
+		alertLayout.addMembers(new GHAAlertLabel("Alergia", "yellow"),
+				new GHAAlertLabel("Cardiopata", "red"), new GHAAlertLabel(
+						"Diabetes", "green"));
 	}
 	{
 		firstHorizontalLayout.addMembers(documentTypeBox, nameBox, dobBox,

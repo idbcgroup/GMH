@@ -4,7 +4,7 @@ import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACloseButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
@@ -110,7 +110,7 @@ public class EIAAddForm extends GHAAddForm<Eia> implements
 
 			@Override
 			public void onSuccess(Eia result) {
-				GHANotification.alert("eia-save-success");
+				GHAAlertManager.alert("eia-save-success");
 				hide();
 			}
 		});

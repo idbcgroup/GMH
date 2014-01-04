@@ -9,7 +9,7 @@ import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHANewButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
@@ -132,7 +132,7 @@ public class EIAPreventiveMaintenancePlanificationGridPanel extends VLayout
 						if (!result.isEmpty())
 							searchForm.open();
 						else
-							GHANotification
+							GHAAlertManager
 									.alert("no-eiatype-maintenance-plans");
 					}
 				});

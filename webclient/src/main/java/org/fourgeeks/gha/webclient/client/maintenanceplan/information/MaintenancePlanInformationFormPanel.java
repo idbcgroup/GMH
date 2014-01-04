@@ -5,7 +5,7 @@ import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAUndoButton;
@@ -73,7 +73,7 @@ public class MaintenancePlanInformationFormPanel extends GHAVerticalLayout
 				return true;
 			}
 
-			GHANotification.askYesNoCancel(GHAStrings.get("information"),
+			GHAAlertManager.askYesNoCancel(GHAStrings.get("information"),
 					GHAStrings.get("unsaved-changes"), new ClickHandler() {
 						@Override
 						public void onClick(ClickEvent event) {
@@ -102,7 +102,7 @@ public class MaintenancePlanInformationFormPanel extends GHAVerticalLayout
 				return true;
 			}
 
-			GHANotification.askYesNoCancel(GHAStrings.get("information"),
+			GHAAlertManager.askYesNoCancel(GHAStrings.get("information"),
 					GHAStrings.get("unsaved-changes"), new ClickHandler() {
 						@Override
 						public void onClick(ClickEvent event) {
@@ -142,7 +142,7 @@ public class MaintenancePlanInformationFormPanel extends GHAVerticalLayout
 		form.update(new GHAAsyncCallback<MaintenancePlan>() {
 			@Override
 			public void onSuccess(MaintenancePlan result) {
-				GHANotification.alert("maintenance-plan-save-success");
+				GHAAlertManager.alert("maintenance-plan-save-success");
 			}
 		});
 	}

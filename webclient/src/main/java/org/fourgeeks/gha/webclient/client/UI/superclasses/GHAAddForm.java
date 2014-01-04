@@ -2,7 +2,7 @@ package org.fourgeeks.gha.webclient.client.UI.superclasses;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -38,7 +38,7 @@ public abstract class GHAAddForm<T> extends GHASlideInWindow {
 			return;
 		}
 
-		GHANotification.askYesNoCancel(GHAStrings.get("information"),
+		GHAAlertManager.askYesNoCancel(GHAStrings.get("information"),
 				GHAStrings.get("unsaved-changes"), new ClickHandler() {
 
 					@Override

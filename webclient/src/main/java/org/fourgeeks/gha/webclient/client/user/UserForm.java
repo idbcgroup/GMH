@@ -20,7 +20,7 @@ import org.fourgeeks.gha.domain.mix.LegalEntity;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHADateItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
@@ -296,7 +296,7 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 		if (form.validate() && violationsList.isEmpty()) {
 			return ssoUser;
 		} else {
-			GHANotification.alert(violationsList);
+			GHAAlertManager.alert(violationsList);
 		}
 
 		return null;
