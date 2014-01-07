@@ -9,7 +9,6 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 
-import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.types.AnimationEffect;
 
@@ -28,22 +27,10 @@ public abstract class GHAResultSet<T> extends GHAVerticalLayout implements
 	 */
 	public GHAResultSet(String label) {
 		super();
-		setHeight(GHAUiHelper.getBottomSectionHeight());
+//		setHeight(GHAUiHelper.getBottomSectionHeight());
 		GHAUiHelper.addGHAResizeHandler(this);
 		searchResultsLabel = new GHALabel(label);
 		addMember(searchResultsLabel);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.google.gwt.event.logical.shared.ResizeHandler#onResize(com.google
-	 * .gwt.event.logical.shared.ResizeEvent)
-	 */
-	@Override
-	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getBottomSectionHeight());
 	}
 
 	/**
