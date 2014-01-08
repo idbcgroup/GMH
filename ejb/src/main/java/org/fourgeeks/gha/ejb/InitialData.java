@@ -22,6 +22,7 @@ import javax.persistence.PersistenceContext;
 import org.fourgeeks.gha.domain.conf.Parameter;
 import org.fourgeeks.gha.domain.conf.ParameterGroup;
 import org.fourgeeks.gha.domain.conf.ParameterValue;
+import org.fourgeeks.gha.domain.enu.ActivityTypeEnum;
 import org.fourgeeks.gha.domain.enu.CurrencyTypeEnum;
 import org.fourgeeks.gha.domain.enu.DocumentTypeEnum;
 import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
@@ -57,6 +58,7 @@ import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.glm.Material;
 import org.fourgeeks.gha.domain.glm.MaterialCategory;
 import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
+import org.fourgeeks.gha.domain.gmh.Activity;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
@@ -513,10 +515,11 @@ public class InitialData {
 		} catch (NoResultException e) {
 			try {
 				logger.info("Creating test data: maintenance activity");
-				String activityNames[] = { "Desconectar", "Abrir", "Limpiar",
-						"Cerrar", "Conectar", "Reemplazar",
-						"subprotocol_activity", "activity_1", "activity_2",
-						"activity_3" };
+
+				final List<Activity> activitites = em
+						.createNamedQuery("Activity.findByType", Activity.class)
+						.setParameter("type", ActivityTypeEnum.MAINTENANCE)
+						.getResultList();
 
 				String activityDesc[] = {
 						"Desconecte el equipo de la corriente eléctrica",
@@ -547,7 +550,7 @@ public class InitialData {
 
 				for (int i = 0; i < 10; ++i) {
 					MaintenanceActivity entity = new MaintenanceActivity();
-					entity.setName(activityNames[i]);
+					entity.setActivity(activitites.get(i));
 					entity.setDescription(activityDesc[i]);
 					entity.setState(MaintenanceActivityState.ACTIVE);
 					entity.setType(MaintenanceActivityTypeEnum.MAINTENANCE);
@@ -1057,6 +1060,7 @@ public class InitialData {
 		eiaTypeTestData();
 		eiaTestData();
 		//
+		activityTestData();
 		maintenanceActivityTestData();
 		maintenanceSubprotocolTestData();
 		maintenancePlanTestData();
@@ -1066,6 +1070,44 @@ public class InitialData {
 		// MaintenancePlanMaintenanceProtocol();
 		// eiaTypeMaintenancePlanTestData();
 		// eiaMaintenancePlanificationTestData();
+	}
+
+	private void activityTestData() {
+		String query = "SELECT act from Activity act WHERE act.id = 1";
+		try {
+			em.createQuery(query).getSingleResult();
+		} catch (NoResultException e) {
+			try {
+				logger.info("Creating test data: activity");
+				String activityNames[] = { "Desconectar", "Abrir", "Limpiar",
+						"Cerrar", "Conectar", "Reemplazar",
+						"subprotocol_activity", "activity_1", "activity_2",
+						"activity_3" };
+
+				ActivityTypeEnum types[] = { ActivityTypeEnum.MAINTENANCE,
+						ActivityTypeEnum.MAINTENANCE,
+						ActivityTypeEnum.MAINTENANCE,
+						ActivityTypeEnum.MAINTENANCE,
+						ActivityTypeEnum.MAINTENANCE,
+						ActivityTypeEnum.MAINTENANCE,
+						ActivityTypeEnum.MAINTENANCE,
+						ActivityTypeEnum.MAINTENANCE,
+						ActivityTypeEnum.MAINTENANCE,
+						ActivityTypeEnum.MAINTENANCE };
+
+				for (int i = 0; i < 10; ++i) {
+					Activity entity = new Activity();
+					entity.setName(activityNames[i]);
+					entity.setType(types[i]);
+
+					em.persist(entity);
+				}
+				em.flush();
+			} catch (Exception e1) {
+				logger.log(Level.INFO, "error Creating Activity test data", e1);
+			}
+		}
+
 	}
 
 	private void uiStrings() {

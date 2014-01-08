@@ -4,10 +4,11 @@ import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.CurrencyTypeEnum;
@@ -30,10 +31,9 @@ public class MaintenanceActivity extends AbstractEntity implements
 	/** */
 	private static final long serialVersionUID = 1L;
 
-	@Size(max = 100)
-	@NotNull(message = "name-not-null")
-	@Column(nullable = false)
-	private String name;
+	@ManyToOne
+	@JoinColumn(name = "activityFk")
+	private Activity activity;
 
 	@NotNull(message = "maintenance-activity-state-not-null")
 	@Column(nullable = false)
@@ -75,6 +75,27 @@ public class MaintenanceActivity extends AbstractEntity implements
 	/** */
 	public MaintenanceActivity() {
 		isSubProtocol = false;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 */
+	@Override
+	public int compareTo(MaintenanceActivity activity) {
+		if (activity.getId() > this.getId())
+			return 1;
+		if (activity.getId() < this.getId())
+			return -1;
+		return 0;
+	}
+
+	/**
+	 * @return the activity
+	 */
+	public Activity getActivity() {
+		return activity;
 	}
 
 	/**
@@ -121,10 +142,33 @@ public class MaintenanceActivity extends AbstractEntity implements
 	}
 
 	/**
-	 * @return the name of the maintenance activity
+	 * @return true if Work Equips are required for this activity, false in
+	 *         other case
 	 */
-	public String getName() {
-		return name;
+	public boolean getIsEquipsRequired() {
+		return equipsRequired;
+	}
+
+	/**
+	 * @return true if Materials are required for this activity, false in other
+	 *         case
+	 */
+	public boolean getIsMaterialsRequired() {
+		return materialsRequired;
+	}
+
+	/**
+	 * @return the isSubProtocol
+	 */
+	public boolean getIsSubProtocol() {
+		return isSubProtocol;
+	}
+
+	/**
+	 * @return true if Tools are required for this activity, false in other case
+	 */
+	public boolean getIsToolsRequired() {
+		return toolsRequired;
 	}
 
 	/**
@@ -149,11 +193,27 @@ public class MaintenanceActivity extends AbstractEntity implements
 	}
 
 	/**
+	 * @param activity
+	 *            the activity to set
+	 */
+	public void setActivity(Activity activity) {
+		this.activity = activity;
+	}
+
+	/**
 	 * @param description
 	 *            the description of the maintenance activity
 	 */
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	/**
+	 * @param equipsRequired
+	 *            Are Work Equips required for this activity?
+	 */
+	public void setEquipsRequired(boolean equipsRequired) {
+		this.equipsRequired = equipsRequired;
 	}
 
 	/**
@@ -200,11 +260,19 @@ public class MaintenanceActivity extends AbstractEntity implements
 	}
 
 	/**
-	 * @param name
-	 *            the name of the maintenance activity
+	 * @param isSubProtocol
+	 *            the isSubProtocol to set
 	 */
-	public void setName(String name) {
-		this.name = name;
+	public void setIsSubProtocol(boolean isSubProtocol) {
+		this.isSubProtocol = isSubProtocol;
+	}
+
+	/**
+	 * @param materialsRequired
+	 *            Are Materials required for this activity?
+	 */
+	public void setMaterialsRequired(boolean materialsRequired) {
+		this.materialsRequired = materialsRequired;
 	}
 
 	/**
@@ -224,52 +292,6 @@ public class MaintenanceActivity extends AbstractEntity implements
 	}
 
 	/**
-	 * @param type
-	 *            the type or category of the maintenance activity
-	 */
-	public void setType(MaintenanceActivityTypeEnum type) {
-		this.type = type;
-	}
-
-	/**
-	 * @return the isSubProtocol
-	 */
-	public boolean getIsSubProtocol() {
-		return isSubProtocol;
-	}
-
-	/**
-	 * @param isSubProtocol
-	 *            the isSubProtocol to set
-	 */
-	public void setIsSubProtocol(boolean isSubProtocol) {
-		this.isSubProtocol = isSubProtocol;
-	}
-
-	/**
-	 * @return true if Materials are required for this activity, false in other
-	 *         case
-	 */
-	public boolean getIsMaterialsRequired() {
-		return materialsRequired;
-	}
-
-	/**
-	 * @param materialsRequired
-	 *            Are Materials required for this activity?
-	 */
-	public void setMaterialsRequired(boolean materialsRequired) {
-		this.materialsRequired = materialsRequired;
-	}
-
-	/**
-	 * @return true if Tools are required for this activity, false in other case
-	 */
-	public boolean getIsToolsRequired() {
-		return toolsRequired;
-	}
-
-	/**
 	 * @param toolsRequired
 	 *            Are Tools required for this activity?
 	 */
@@ -278,32 +300,10 @@ public class MaintenanceActivity extends AbstractEntity implements
 	}
 
 	/**
-	 * @return true if Work Equips are required for this activity, false in
-	 *         other case
+	 * @param type
+	 *            the type or category of the maintenance activity
 	 */
-	public boolean getIsEquipsRequired() {
-		return equipsRequired;
-	}
-
-	/**
-	 * @param equipsRequired
-	 *            Are Work Equips required for this activity?
-	 */
-	public void setEquipsRequired(boolean equipsRequired) {
-		this.equipsRequired = equipsRequired;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Comparable#compareTo(java.lang.Object)
-	 */
-	@Override
-	public int compareTo(MaintenanceActivity activity) {
-		if (activity.getId() > this.getId())
-			return 1;
-		if (activity.getId() < this.getId())
-			return -1;
-		return 0;
+	public void setType(MaintenanceActivityTypeEnum type) {
+		this.type = type;
 	}
 }

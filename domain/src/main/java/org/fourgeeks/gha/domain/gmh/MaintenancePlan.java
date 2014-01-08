@@ -17,9 +17,8 @@ import org.fourgeeks.gha.domain.enu.MaintenancePlanCancelationOption;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanState;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanType;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
-import org.fourgeeks.gha.domain.ess.Role;
+import org.fourgeeks.gha.domain.gar.Job;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
-import org.fourgeeks.gha.domain.mix.Bpi;
 
 /**
  * @author emiliot
@@ -62,10 +61,7 @@ public class MaintenancePlan extends AbstractEntity {
 	private ExternalProvider provider;
 	@ManyToOne
 	@JoinColumn(name = "roleFk")
-	private Role role;
-	@ManyToOne
-	@JoinColumn(name = "bpiFk")
-	private Bpi institution;
+	private Job role;
 
 	private String description;
 
@@ -117,13 +113,6 @@ public class MaintenancePlan extends AbstractEntity {
 	}
 
 	/**
-	 * @return the institution
-	 */
-	public Bpi getInstitution() {
-		return institution;
-	}
-
-	/**
 	 * @return the name of the plan
 	 */
 	public String getName() {
@@ -148,7 +137,7 @@ public class MaintenancePlan extends AbstractEntity {
 	/**
 	 * @return the role
 	 */
-	public Role getRole() {
+	public Job getRole() {
 		return role;
 	}
 
@@ -191,14 +180,6 @@ public class MaintenancePlan extends AbstractEntity {
 	}
 
 	/**
-	 * @param institution
-	 *            the institution to set
-	 */
-	public void setInstitution(Bpi institution) {
-		this.institution = institution;
-	}
-
-	/**
 	 * @param name
 	 */
 	public void setName(String name) {
@@ -224,7 +205,7 @@ public class MaintenancePlan extends AbstractEntity {
 	 * @param role
 	 *            the role to set
 	 */
-	public void setRole(Role role) {
+	public void setRole(Job role) {
 		this.role = role;
 	}
 
