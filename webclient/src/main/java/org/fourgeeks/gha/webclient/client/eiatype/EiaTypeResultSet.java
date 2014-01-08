@@ -37,14 +37,7 @@ public class EiaTypeResultSet extends GHAResultSet<EiaType> implements
 
 	{
 		listeners = new ArrayList<EIATypeSelectionListener>();
-		grid = new EIATypeGrid();
-		grid.addCellDoubleClickHandler(new CellDoubleClickHandler() {
-
-			@Override
-			public void onCellDoubleClick(CellDoubleClickEvent event) {
-				notifySelectedEiaType();
-			}
-		});
+		
 	}
 
 	/**
@@ -53,6 +46,24 @@ public class EiaTypeResultSet extends GHAResultSet<EiaType> implements
 	public EiaTypeResultSet(ResultSetContainerType container) {
 		super(GHAStrings.get("search-results"));
 		this.containerType = container;
+		
+		grid = new EIATypeGrid(){
+			@Override
+			public void onResize(ResizeEvent event) {
+				super.onResize(event);
+				grid.setHeight(GHAUiHelper.getResultSetGridSize(containerType));
+			}
+		};
+		grid.addCellDoubleClickHandler(new CellDoubleClickHandler() {
+
+			@Override
+			public void onCellDoubleClick(CellDoubleClickEvent event) {
+				notifySelectedEiaType();
+			}
+		});
+		grid.setHeight(GHAUiHelper.getResultSetGridSize(containerType));
+		
+		setHeight(GHAUiHelper.getResultSetHeight(containerType));
 		HLayout gridPanel = new HLayout();
 		VLayout sideBar;
 
@@ -78,7 +89,7 @@ public class EiaTypeResultSet extends GHAResultSet<EiaType> implements
 					deleteButton);
 		} else {
 			sideBar = GHAUiHelper.createBar(checkButton);
-			setHeight(getHeight() - 42);
+//			setHeight(getHeight() - 42);
 		}
 		gridPanel.addMembers(grid, sideBar);
 		addMember(gridPanel);
@@ -191,9 +202,6 @@ public class EiaTypeResultSet extends GHAResultSet<EiaType> implements
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		super.onResize(event);
-		if (containerType == ResultSetContainerType.SEARCH_FORM) {
-			setHeight(getHeight() - 35);
-		}
+		setHeight(GHAUiHelper.getResultSetHeight(containerType));
 	}
 }

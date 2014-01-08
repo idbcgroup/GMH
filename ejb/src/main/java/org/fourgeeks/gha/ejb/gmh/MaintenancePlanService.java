@@ -5,6 +5,7 @@ package org.fourgeeks.gha.ejb.gmh;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,10 +21,13 @@ import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanState;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanType;
+import org.fourgeeks.gha.domain.enu.MaintenancePlanificationStatus;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
+import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
@@ -142,9 +146,38 @@ public class MaintenancePlanService extends GHAEJBExceptionService implements
 							EiaMaintenancePlanification.class)
 					.setParameter("plan", maintenancePlan).getResultList();
 		} catch (Exception e) {
-			logger.log(Level.INFO, "Error: finding by MaintenancePlan", e);
+			logger.log(Level.SEVERE, "Error: finding Eia by MaintenancePlan", e);
 			throw super.generateGHAEJBException(
-					"maintenancePlan-findEiaByEiaType-fail",
+					"maintenancePlan-findEiaByMaintenancePlan-fail",
+					RuntimeParameters.getLang(), em);
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.ejb.gmh.MaintenancePlanServiceRemote#
+	 * findEiaByMaintenancePlan(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
+	 */
+	@Override
+	public List<Eia> findDamageEiaByMaintenancePlan(MaintenancePlan maintenancePlan) throws GHAEJBException {
+		try {
+			ArrayList<EiaStateEnum> states = new ArrayList<EiaStateEnum>();
+			states.add(EiaStateEnum.DAMAGED);
+			states.add(EiaStateEnum.MAINTENANCE);
+			states.add(EiaStateEnum.MAYOR_DAMAGED);
+			return em
+					.createNamedQuery(
+							"MaintenancePlan.findDamageEiaByMaintenancePlan",
+							Eia.class)
+					.setParameter("states",states)
+					.setParameter("status", MaintenancePlanificationStatus.DEFERRED)
+					.setParameter("plan", maintenancePlan)
+					.getResultList();
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "Error: finding damaged Eias by MaintenancePlan", e);
+			throw super.generateGHAEJBException(
+					"maintenancePlan-findDamagedEiaByMaintenancePlan-fail",
 					RuntimeParameters.getLang(), em);
 		}
 	}

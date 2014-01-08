@@ -9,6 +9,7 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableProducer;
 
+import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.smartgwt.client.types.AnimationEffect;
@@ -20,36 +21,35 @@ import com.smartgwt.client.widgets.AnimationCallback;
  */
 public abstract class GHASlideInWindow extends GHAVerticalLayout implements
 		ResizeHandler, ClosableListener, HideableListener, HideableProducer {
-	/**
-	 * 
-	 */
-	public enum SlideInWindowType {
-		/**
-		 * Type for a Search Window
-		 */
-		SEARCH, 
-		/**
-		 * Type for an Add Window
-		 */
-		ADD,
-		/**
-		 * Type for an Update Window
-		 */
-		UPDATE;
-	}
+//	/**
+//	 * 
+//	 */
+//	public enum SlideInWindowType {
+//		/**
+//		 * Type for a Search Window
+//		 */
+//		SEARCH, 
+//		/**
+//		 * Type for an Add Window
+//		 */
+//		ADD,
+//		/**
+//		 * Type for an Update Window
+//		 */
+//		UPDATE;
+//	}
 	
 	List<HideableListener> listeners = new ArrayList<HideableListener>();
-	protected SlideInWindowType type;
 	
 	public GHASlideInWindow() {
 		setWidth100();
 		setMinWidth(1024);
-		setHeight(GHAUiHelper.getTabHeight() - 5);
+		setTop(GHAUiHelper.getTopSpace());
+		setHeight(GHAUiHelper.getBottomSectionHeight()-5);
 		setLeft(-5);
 		setVisibility(Visibility.HIDDEN);
 		setAnimateTime(GHAUiHelper.DEFAULT_ANIMATION_TIME);
 		GHAUiHelper.addGHAResizeHandler(this);
-		setTop(GHAUiHelper.getTopSpace(SlideInWindowType.SEARCH));
 	}
 
 	@Override
@@ -120,6 +120,11 @@ public abstract class GHASlideInWindow extends GHAVerticalLayout implements
 	@Override
 	public void removeHideableListener(HideableListener hideableListener) {
 		listeners.remove(hideableListener);
+	}
+	
+	@Override
+	public void onResize(ResizeEvent event) {
+		setHeight(GHAUiHelper.getBottomSectionHeight()-5);		
 	}
 
 }

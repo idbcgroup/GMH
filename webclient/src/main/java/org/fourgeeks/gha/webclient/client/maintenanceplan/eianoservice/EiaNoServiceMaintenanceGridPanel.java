@@ -1,10 +1,8 @@
 package org.fourgeeks.gha.webclient.client.maintenanceplan.eianoservice;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.Eia;
-import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
@@ -15,10 +13,8 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanModel;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener;
-import org.fourgeeks.gha.webclient.client.maintenanceplan.eiaplanification.EiaMaintenanceGrid;
-import org.fourgeeks.gha.webclient.client.maintenanceplan.eiaplanification.EiaMaintenanceRecord;
-import org.fourgeeks.gha.webclient.client.maintenanceplan.eiaplanification.EiaMaintenanceUtil;
 
+import com.google.gwt.user.client.Window;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
 import com.smartgwt.client.widgets.layout.HLayout;
 
@@ -26,21 +22,23 @@ import com.smartgwt.client.widgets.layout.HLayout;
  * @author caparicio
  * 
  */
-public class EiaNoServiceGridPanel extends GHAVerticalLayout implements
-		ClosableListener, HideableListener, MaintenancePlanSelectionListener {
+public class EiaNoServiceMaintenanceGridPanel extends GHAVerticalLayout
+		implements ClosableListener, HideableListener,
+		MaintenancePlanSelectionListener {
 
-	private EiaMaintenanceGrid grid;
+	private EiaNoServiceMaintenanceGrid grid;
 	private MaintenancePlan maintenancePlan;
 	{
-		grid = new EiaMaintenanceGrid();
+		grid = new EiaNoServiceMaintenanceGrid();
 	}
 
 	/**
 	 * 
 	 */
-	public EiaNoServiceGridPanel() {
+	public EiaNoServiceMaintenanceGridPanel() {
 		super();
-		GHALabel title = new GHALabel(GHAStrings.get("eia-on-pending-maintenance"));
+		GHALabel title = new GHALabel(
+				GHAStrings.get("eia-on-pending-maintenance"));
 		addMember(title);
 
 		HLayout mainLayout = new HLayout();
@@ -49,24 +47,19 @@ public class EiaNoServiceGridPanel extends GHAVerticalLayout implements
 	}
 
 	private void loadData() {
-		MaintenancePlanModel.findEiaByMaintenancePlan(maintenancePlan,
-				new GHAAsyncCallback<List<EiaMaintenancePlanification>>() {
-
+		MaintenancePlanModel.findDamageEiaByMaintenancePlan(maintenancePlan,
+				new GHAAsyncCallback<List<Eia>>() {
 					@Override
-					public void onSuccess(
-							List<EiaMaintenancePlanification> result) {
-
-						List<Eia> equipmentList = new ArrayList<Eia>();
-						for (EiaMaintenancePlanification eiaMaintenancePlanification : result) {
-							equipmentList.add(eiaMaintenancePlanification
-									.getEia());
+					public void onSuccess(List<Eia> result) {
+						try {
+							List<EiaNoServiceMaintenanceRecord> list = EiaNoServiceMaintenanceUtil
+									.toEiaNoServiceMaintenancePlanGridRecords(result);
+							ListGridRecord array[] = list
+									.toArray(new EiaNoServiceMaintenanceRecord[] {});
+							grid.setData(array);
+						} catch (Exception e) {
+							Window.alert("Excepción: " + e);
 						}
-
-						ListGridRecord array[] = EiaMaintenanceUtil
-								.toEiaMaintenancePlanGridRecords(equipmentList,
-										result).toArray(
-										new EiaMaintenanceRecord[] {});
-						grid.setData(array);
 					}
 				});
 	}
