@@ -1,10 +1,8 @@
 package org.fourgeeks.gha.webclient.client.UI.superclasses;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
-import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 
-import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 
@@ -22,9 +20,6 @@ public abstract class GHAAddForm<T> extends GHASlideInWindow {
 	 */
 	public GHAAddForm(String title) {
 		super();
-		type=SlideInWindowType.ADD;
-		setHeight(GHAUiHelper.getBottomSectionHeight()-5);
-		setTop(GHAUiHelper.getTopSpace(type));
 		label = new GHALabel(title);
 		addMember(label);
 	}
@@ -38,7 +33,7 @@ public abstract class GHAAddForm<T> extends GHASlideInWindow {
 			return;
 		}
 
-		GHANotification.askYesNoCancel(GHAStrings.get("information"),
+		GHAAlertManager.askYesNoCancel(GHAStrings.get("information"),
 				GHAStrings.get("unsaved-changes"), new ClickHandler() {
 
 					@Override
@@ -53,11 +48,6 @@ public abstract class GHAAddForm<T> extends GHASlideInWindow {
 					}
 				}, null);
 
-	}
-
-	@Override
-	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getBottomSectionHeight()-5);
 	}
 
 	protected abstract void save();

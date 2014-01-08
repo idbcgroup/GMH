@@ -13,7 +13,7 @@ import javax.validation.Validator;
 
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 
@@ -120,7 +120,7 @@ public class MaintenanceActivityForm extends VLayout implements
 			for (Iterator<ConstraintViolation<MaintenanceActivity>> it = violations
 					.iterator(); it.hasNext();)
 				violationsList.add(it.next().getMessage());
-			GHANotification.alert(violationsList);
+			GHAAlertManager.alert(violationsList);
 		}
 		return null;
 	}
@@ -159,7 +159,7 @@ public class MaintenanceActivityForm extends VLayout implements
 	// Producer Stuff
 	public void notifyMaintenanceActivity(
 			MaintenanceActivity maintenanceActivity) {
-		GHANotification.alert("mact-save-success");
+		GHAAlertManager.alert("mact-save-success");
 		for (MaintenanceActivitySelectionListener listener : listeners) {
 			listener.select(maintenanceActivity);
 		}

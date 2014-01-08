@@ -9,7 +9,6 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow;
 import org.fourgeeks.gha.webclient.client.maintenanceprotocol.MaintenancePlanMaintenanceProtocolGrid;
 
-import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -31,12 +30,9 @@ public class EIATypeMaintenanceProtocolForm extends GHASlideInWindow implements
 	 */
 	public EIATypeMaintenanceProtocolForm() {
 		super();
-		type=SlideInWindowType.ADD;
 		GHAUiHelper.addGHAResizeHandler(this);
 		setWidth100();
 		setMinWidth(1024);
-		setHeight(GHAUiHelper.getBottomSectionHeight()-5);
-		setTop(GHAUiHelper.getTopSpace(type));
 
 		Label title = new Label("Protocolos del Plan");
 
@@ -71,11 +67,5 @@ public class EIATypeMaintenanceProtocolForm extends GHASlideInWindow implements
 	@Override
 	public void close() {
 		destroy();
-	}
-
-	@Override
-	public void onResize(ResizeEvent event) {
-		// TODO Auto-generated method stub
-		setHeight(GHAUiHelper.getBottomSectionHeight()-5);
 	}
 }

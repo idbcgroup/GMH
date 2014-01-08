@@ -9,7 +9,7 @@ import org.fourgeeks.gha.domain.gmh.EiaTypeMaterialCategory;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHANewButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
@@ -148,11 +148,11 @@ public class EIATypeMaterialCategoryGridPanel extends GHAVerticalLayout
 				.getSelectedEntity();
 
 		if (eiaTypeMaterialCategory == null) {
-			GHANotification.alert("record-not-selected");
+			GHAAlertManager.alert("record-not-selected");
 			return;
 		}
 
-		GHANotification.confirm(GHAStrings.get("materials-category"),
+		GHAAlertManager.confirm(GHAStrings.get("materials-category"),
 				GHAStrings.get("eiatype-material-category-delete-confirm"),
 				new BooleanCallback() {
 

@@ -8,7 +8,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACheckButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
@@ -37,14 +37,6 @@ public class EiaResultSet extends GHAResultSet<Eia> implements
 
 	{
 		listeners = new ArrayList<EIASelectionListener>();
-		grid = new EIAGrid();
-		grid.addCellDoubleClickHandler(new CellDoubleClickHandler() {
-
-			@Override
-			public void onCellDoubleClick(CellDoubleClickEvent event) {
-				notifySelectedEia();
-			}
-		});
 	}
 
 	/**
@@ -53,6 +45,23 @@ public class EiaResultSet extends GHAResultSet<Eia> implements
 	public EiaResultSet(ResultSetContainerType container) {
 		super(GHAStrings.get("search-results"));
 		this.containerType = container;
+		setHeight(GHAUiHelper.getResultSetHeight(containerType));
+		
+		grid = new EIAGrid(){
+			@Override
+			public void onResize(ResizeEvent event) {
+				super.onResize(event);
+				grid.setHeight(GHAUiHelper.getResultSetGridSize(containerType));
+			}
+		};
+		grid.addCellDoubleClickHandler(new CellDoubleClickHandler() {
+
+			@Override
+			public void onCellDoubleClick(CellDoubleClickEvent event) {
+				notifySelectedEia();
+			}
+		});
+		grid.setHeight(GHAUiHelper.getResultSetGridSize(containerType));
 
 		HLayout gridPanel = new HLayout();
 		VLayout sideBar;
@@ -75,7 +84,7 @@ public class EiaResultSet extends GHAResultSet<Eia> implements
 					}));
 		} else {
 			sideBar = GHAUiHelper.createBar(checkButton);
-			setHeight(getHeight() - 42);
+//			setHeight(getHeight() - 42);
 		}
 
 		gridPanel.addMembers(grid, sideBar);
@@ -103,7 +112,7 @@ public class EiaResultSet extends GHAResultSet<Eia> implements
 
 	private void delete() {
 		if (grid.getSelectedRecord() == null) {
-			GHANotification.alert("record-not-selected");
+			GHAAlertManager.alert("record-not-selected");
 			return;
 		}
 
@@ -111,7 +120,7 @@ public class EiaResultSet extends GHAResultSet<Eia> implements
 				.get("eias-delete-confirm") : GHAStrings
 				.get("eia-delete-confirm");
 
-		GHANotification.confirm(GHAStrings.get("eia"), msj,
+		GHAAlertManager.confirm(GHAStrings.get("eia"), msj,
 				new BooleanCallback() {
 
 					@Override
@@ -142,7 +151,7 @@ public class EiaResultSet extends GHAResultSet<Eia> implements
 	private void notifySelectedEia() {
 		GHAGridRecord<Eia> selectedRecord = grid.getSelectedRecord();
 		if (selectedRecord == null) {
-			GHANotification.alert(GHAStrings.get("record-not-selected"));
+			GHAAlertManager.alert(GHAStrings.get("record-not-selected"));
 			return;
 		}
 		notifyEia(((EIARecord) selectedRecord).toEntity());
@@ -174,10 +183,7 @@ public class EiaResultSet extends GHAResultSet<Eia> implements
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		super.onResize(event);
-		if (containerType == ResultSetContainerType.SEARCH_FORM) {
-			setHeight(getHeight() - 35);
-		}
+		setHeight(GHAUiHelper.getResultSetHeight(containerType));
 	}
 
 }

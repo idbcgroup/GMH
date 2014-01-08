@@ -3,7 +3,7 @@ package org.fourgeeks.gha.webclient.client.user;
 import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACancelButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
@@ -87,7 +87,7 @@ public class UserAddForm extends GHAAddForm<SSOUser> implements
 
 			@Override
 			public void onSuccess(SSOUser result) {
-				GHANotification.alert("user-save-success");
+				GHAAlertManager.alert("user-save-success");
 				hide();
 			}
 		});

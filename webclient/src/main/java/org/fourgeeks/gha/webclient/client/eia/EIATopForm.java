@@ -12,7 +12,7 @@ import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHATopForm;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHABpiSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAEiaStateSelectItem;
@@ -119,7 +119,7 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 
 	@Override
 	protected void delete() {
-		GHANotification.confirm(GHAStrings.get("eia"),
+		GHAAlertManager.confirm(GHAStrings.get("eia"),
 				GHAStrings.get("eia-delete-confirm"), new BooleanCallback() {
 					@Override
 					public void execute(Boolean value) {
@@ -130,7 +130,7 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 										public void onSuccess(Boolean result) {
 											containerTab.search();
 											clear();
-											GHANotification
+											GHAAlertManager
 													.alert("eia-delete-success");
 										}
 									});

@@ -14,7 +14,7 @@ import javax.validation.Validator;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 
 import com.google.gwt.validation.client.impl.Validation;
@@ -119,7 +119,7 @@ public class MaintenanceProtocolForm extends VLayout implements
 			for (Iterator<ConstraintViolation<MaintenanceProtocol>> it = violations
 					.iterator(); it.hasNext();)
 				violationsList.add(it.next().getMessage());
-			GHANotification.alert(violationsList);
+			GHAAlertManager.alert(violationsList);
 		}
 		return null;
 	}
@@ -156,7 +156,7 @@ public class MaintenanceProtocolForm extends VLayout implements
 	// Producer stuff
 	private void notifyMaintenanceProtocol(
 			MaintenanceProtocol maintenanceProtocol) {
-		GHANotification.alert("mprot-save-success");
+		GHAAlertManager.alert("mprot-save-success");
 		for (MaintenanceProtocolSelectionListener listener : listeners) {
 			listener.select(maintenanceProtocol);
 		}

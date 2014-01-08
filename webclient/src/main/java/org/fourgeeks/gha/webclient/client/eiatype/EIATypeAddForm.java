@@ -3,7 +3,7 @@ package org.fourgeeks.gha.webclient.client.eiatype;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACloseButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAAddForm;
@@ -84,7 +84,7 @@ public class EIATypeAddForm extends GHAAddForm<EiaType> implements
 
 			@Override
 			public void onSuccess(EiaType arg0) {
-				GHANotification.alert("eiatype-save-success");
+				GHAAlertManager.alert("eiatype-save-success");
 				hide();
 			}
 		});

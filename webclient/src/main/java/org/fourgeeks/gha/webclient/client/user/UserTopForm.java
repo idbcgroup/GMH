@@ -11,7 +11,7 @@ import org.fourgeeks.gha.domain.mix.Citizen;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHATopForm;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHADoumentTypeSelectItem;
@@ -218,7 +218,7 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 
 	@Override
 	protected void delete() {
-		GHANotification.confirm(GHAStrings.get("user"),
+		GHAAlertManager.confirm(GHAStrings.get("user"),
 				GHAStrings.get("ssoUser-delete-confirm"),
 				new BooleanCallback() {
 					@Override
@@ -230,7 +230,7 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 										public void onSuccess(Void result) {
 											containerTab.search();
 											clear();
-											GHANotification
+											GHAAlertManager
 													.alert("ssoUser-delete-success");
 										}
 									});

@@ -7,7 +7,7 @@ import org.fourgeeks.gha.domain.glm.MaterialCategory;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHANotification;
+import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACheckButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAResultSet;
 
@@ -17,6 +17,10 @@ import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 
+/**
+ * @author alacret
+ *
+ */
 public class MaterialCategoryResultSet extends GHAResultSet<MaterialCategory>
 		implements MaterialCategorySelectionProducer {
 	private List<MaterialCategorySelectionListener> listeners;
@@ -25,12 +29,22 @@ public class MaterialCategoryResultSet extends GHAResultSet<MaterialCategory>
 
 	{
 		listeners = new ArrayList<MaterialCategorySelectionListener>();
-		grid = new MaterialCategoryGrid();
 	}
 
 	public MaterialCategoryResultSet(ResultSetContainerType container) {
 		super(GHAStrings.get("search-results"));
 		this.containerType = container;
+		
+		grid = new MaterialCategoryGrid(){
+			@Override
+			public void onResize(ResizeEvent event) {
+				super.onResize(event);
+				grid.setHeight(GHAUiHelper.getResultSetGridSize(containerType));
+			}
+		};
+		grid.setHeight(GHAUiHelper.getResultSetGridSize(containerType));
+		
+		setHeight(GHAUiHelper.getResultSetHeight(containerType));
 		HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(grid,
 				GHAUiHelper.createBar(new GHACheckButton(new ClickHandler() {
@@ -41,9 +55,9 @@ public class MaterialCategoryResultSet extends GHAResultSet<MaterialCategory>
 					}
 				})));
 		
-		if (containerType == ResultSetContainerType.SEARCH_FORM) {
-			setHeight(getHeight() - 42);
-		}
+//		if (containerType == ResultSetContainerType.SEARCH_FORM) {
+//			setHeight(getHeight() - 42);
+//		}
 		
 		addMember(gridPanel);
 	}
@@ -72,7 +86,7 @@ public class MaterialCategoryResultSet extends GHAResultSet<MaterialCategory>
 	private void notifySelectMaterialCategory() {
 		MaterialCategory selectedEntity = grid.getSelectedEntity();
 		if (selectedEntity == null) {
-			GHANotification.alert("record-not-selected");
+			GHAAlertManager.alert("record-not-selected");
 			return;
 		}
 		notifyMaterialCategory(selectedEntity);
@@ -105,9 +119,6 @@ public class MaterialCategoryResultSet extends GHAResultSet<MaterialCategory>
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		super.onResize(event);
-		if (containerType == ResultSetContainerType.SEARCH_FORM) {
-			setHeight(getHeight() - 35);
-		}
+		setHeight(GHAUiHelper.getResultSetHeight(containerType));
 	}
 }
