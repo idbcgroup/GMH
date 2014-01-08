@@ -6,6 +6,7 @@ package org.fourgeeks.gha.webclient.client.eiatype.maintenance.plan;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
+import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
@@ -104,6 +105,14 @@ public interface GWTMaintenancePlanService extends RemoteService {
 	 * @throws GHAEJBException
 	 */
 	public List<EiaMaintenancePlanification> findEiaByMaintenancePlan(MaintenancePlan maintenancePlan)
+			throws GHAEJBException;
+
+	/**
+	 * @param maintenancePlan 
+	 * @return a list with the damaged and deferred Eias related to this maintenancePlan
+	 * @throws GHAEJBException
+	 */
+	public List<Eia> findDamageEiaByMaintenancePlan(MaintenancePlan maintenancePlan)
 			throws GHAEJBException;
 
 	/**

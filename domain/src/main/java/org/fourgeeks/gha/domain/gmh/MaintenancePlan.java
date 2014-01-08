@@ -30,7 +30,8 @@ import org.fourgeeks.gha.domain.mix.Bpi;
 @NamedQueries(value = {
 		@NamedQuery(name = "MaintenancePlan.getAll", query = "SELECT e from MaintenancePlan e order by e.id"),
 		@NamedQuery(name = "MaintenancePlan.findByEiaType", query = "SELECT mnt from EiaTypeMaintenancePlan e JOIN e.maintenancePlan mnt WHERE e.eiaType = :eiaType order by e.id"),
-		@NamedQuery(name = "MaintenancePlan.findEiaByMaintenancePlan", query = "SELECT pmp.planification FROM EiaPreventiveMaintenancePlanification pmp JOIN pmp.plan mp WHERE mp.maintenancePlan = :plan") })
+		@NamedQuery(name = "MaintenancePlan.findEiaByMaintenancePlan", query = "SELECT pmp.planification FROM EiaPreventiveMaintenancePlanification pmp JOIN pmp.plan mp WHERE mp.maintenancePlan = :plan"),
+		@NamedQuery(name = "MaintenancePlan.findDamageEiaByMaintenancePlan", query = "SELECT e FROM EiaPreventiveMaintenancePlanification pmp JOIN pmp.planification emp JOIN emp.eia e JOIN pmp.plan mp WHERE mp.maintenancePlan = :plan AND (e.state IN :states OR emp.status = :status)") })
 public class MaintenancePlan extends AbstractEntity {
 
 	/**

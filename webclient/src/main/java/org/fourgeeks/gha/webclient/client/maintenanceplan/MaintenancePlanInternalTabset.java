@@ -3,7 +3,7 @@ package org.fourgeeks.gha.webclient.client.maintenanceplan;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAInternalTabSet;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype.AsociatedEiaTypeSubTab;
-import org.fourgeeks.gha.webclient.client.maintenanceplan.eianoservice.EiaNoServiceSubTab;
+import org.fourgeeks.gha.webclient.client.maintenanceplan.eianoservice.EiaNoServiceMaintenanceSubTab;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.eiaplanification.EiaPlanificationSubTab;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.information.MaintenancePlanInformationSubTab;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocols.MaintenanceProtocolsSubTab;
@@ -21,7 +21,7 @@ public class MaintenancePlanInternalTabset extends GHAInternalTabSet implements
 	private final MaintenancePlanInformationSubTab maintenancePlanInfoSubTab;
 	private final AsociatedEiaTypeSubTab maintenancePlanEquipmentTypeSubTab;
 	private final EiaPlanificationSubTab maintenancePlanEquipmentSubTab;
-	private final EiaNoServiceSubTab maintenancePlanEquipmentNoServiceSubTab;
+	private final EiaNoServiceMaintenanceSubTab maintenancePlanEquipmentNoServiceSubTab;
 	private final MaintenanceProtocolsSubTab maintenancePlanProtocolsSubTab;
 
 	// private final MaintenanceProtocolSubTab maintenanceProtocolSubTab;
@@ -34,7 +34,7 @@ public class MaintenancePlanInternalTabset extends GHAInternalTabSet implements
 		maintenancePlanInfoSubTab = new MaintenancePlanInformationSubTab(panel);
 		maintenancePlanEquipmentTypeSubTab = new AsociatedEiaTypeSubTab(panel);
 		maintenancePlanEquipmentSubTab = new EiaPlanificationSubTab(panel);
-		maintenancePlanEquipmentNoServiceSubTab = new EiaNoServiceSubTab(panel);
+		maintenancePlanEquipmentNoServiceSubTab = new EiaNoServiceMaintenanceSubTab(panel);
 		maintenancePlanProtocolsSubTab = new MaintenanceProtocolsSubTab(panel);
 		maintenancePlanProtocolsSubTab
 				.addMaintenanceProtocolsSelectionListener(maintenancePlanInfoSubTab);
