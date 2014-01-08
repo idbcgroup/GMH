@@ -2,10 +2,8 @@ package org.fourgeeks.gha.webclient.client.UI.superclasses;
 
 import java.util.List;
 
-import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 
-import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.fields.events.KeyUpEvent;
@@ -41,18 +39,10 @@ public abstract class GHASearchForm<T> extends GHASlideInWindow {
 	 */
 	public GHASearchForm(String title) {
 		super();
-		type=SlideInWindowType.SEARCH;
 		setWidth100();
 		setMinWidth(1024);
-		setHeight(GHAUiHelper.getTabHeight()-5);
-		setTop(GHAUiHelper.getTopSpace(type));
 		label = new GHALabel(title);
 		addMember(label);
-	}
-
-	@Override
-	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getTabHeight()-5);
 	}
 
 	@Override

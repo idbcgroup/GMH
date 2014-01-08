@@ -11,19 +11,19 @@ import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelecti
  * @author caparicio
  * 
  */
-public class EiaNoServiceSubTab extends GHASubTab implements
+public class EiaNoServiceMaintenanceSubTab extends GHASubTab implements
 		MaintenancePlanSelectionListener {
 
-	private final EiaNoServiceGridPanel eiaGridPanel;
+	private final EiaNoServiceMaintenanceGridPanel eiaGridPanel;
 
 	/**
 	 * 
 	 * @param tab
 	 */
-	public EiaNoServiceSubTab(MaintenancePlanPanel tab) {
+	public EiaNoServiceMaintenanceSubTab(MaintenancePlanPanel tab) {
 		super(GHAStrings.get("eia-on-maintenance"), tab);
 
-		eiaGridPanel = new EiaNoServiceGridPanel();
+		eiaGridPanel = new EiaNoServiceMaintenanceGridPanel();
 		addClosableListener(eiaGridPanel);
 		addHideableListener(eiaGridPanel);
 

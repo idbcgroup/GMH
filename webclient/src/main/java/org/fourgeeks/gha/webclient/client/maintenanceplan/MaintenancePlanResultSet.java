@@ -27,18 +27,8 @@ import com.smartgwt.client.widgets.layout.HLayout;
 public class MaintenancePlanResultSet extends GHAResultSet<MaintenancePlan>
 		implements MaintenancePlanSelectionProducer {
 	private final List<MaintenancePlanSelectionListener> listeners = new ArrayList<MaintenancePlanSelectionListener>();
-	private final MaintenancePlanGrid grid = new MaintenancePlanGrid();
+	private final MaintenancePlanGrid grid;
 	private final ResultSetContainerType containerType;
-
-	{
-		grid.addCellDoubleClickHandler(new CellDoubleClickHandler() {
-
-			@Override
-			public void onCellDoubleClick(CellDoubleClickEvent event) {
-				notifyMSelectedMaintenancePlan();
-			}
-		});
-	}
 
 	/**
 	 * @param container
@@ -46,6 +36,24 @@ public class MaintenancePlanResultSet extends GHAResultSet<MaintenancePlan>
 	public MaintenancePlanResultSet(ResultSetContainerType container) {
 		super(GHAStrings.get("search-results"));
 		this.containerType = container;
+		
+		grid = new MaintenancePlanGrid(){
+			@Override
+			public void onResize(ResizeEvent event) {
+				super.onResize(event);
+				grid.setHeight(GHAUiHelper.getResultSetGridSize(containerType));
+			}
+		};
+		grid.addCellDoubleClickHandler(new CellDoubleClickHandler() {
+
+			@Override
+			public void onCellDoubleClick(CellDoubleClickEvent event) {
+				notifyMSelectedMaintenancePlan();
+			}
+		});
+		grid.setHeight(GHAUiHelper.getResultSetGridSize(containerType));
+		
+		setHeight(GHAUiHelper.getResultSetHeight(containerType));
 		HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(grid,
 				GHAUiHelper.createBar(new GHACheckButton(new ClickHandler() {
@@ -55,9 +63,9 @@ public class MaintenancePlanResultSet extends GHAResultSet<MaintenancePlan>
 						notifyMSelectedMaintenancePlan();
 					}
 				})));
-		if (containerType == ResultSetContainerType.SEARCH_FORM) {
-			setHeight(getHeight() - 42);
-		}
+//		if (containerType == ResultSetContainerType.SEARCH_FORM) {
+//			setHeight(getHeight() - 42);
+//		}
 
 		addMember(gridPanel);
 	}
@@ -119,10 +127,7 @@ public class MaintenancePlanResultSet extends GHAResultSet<MaintenancePlan>
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		super.onResize(event);
-		if (containerType == ResultSetContainerType.SEARCH_FORM) {
-			setHeight(getHeight() - 35);
-		}
+		setHeight(GHAUiHelper.getResultSetHeight(containerType));
 	}
 
 }

@@ -37,14 +37,6 @@ public class EiaResultSet extends GHAResultSet<Eia> implements
 
 	{
 		listeners = new ArrayList<EIASelectionListener>();
-		grid = new EIAGrid();
-		grid.addCellDoubleClickHandler(new CellDoubleClickHandler() {
-
-			@Override
-			public void onCellDoubleClick(CellDoubleClickEvent event) {
-				notifySelectedEia();
-			}
-		});
 	}
 
 	/**
@@ -53,6 +45,23 @@ public class EiaResultSet extends GHAResultSet<Eia> implements
 	public EiaResultSet(ResultSetContainerType container) {
 		super(GHAStrings.get("search-results"));
 		this.containerType = container;
+		setHeight(GHAUiHelper.getResultSetHeight(containerType));
+		
+		grid = new EIAGrid(){
+			@Override
+			public void onResize(ResizeEvent event) {
+				super.onResize(event);
+				grid.setHeight(GHAUiHelper.getResultSetGridSize(containerType));
+			}
+		};
+		grid.addCellDoubleClickHandler(new CellDoubleClickHandler() {
+
+			@Override
+			public void onCellDoubleClick(CellDoubleClickEvent event) {
+				notifySelectedEia();
+			}
+		});
+		grid.setHeight(GHAUiHelper.getResultSetGridSize(containerType));
 
 		HLayout gridPanel = new HLayout();
 		VLayout sideBar;
@@ -75,7 +84,7 @@ public class EiaResultSet extends GHAResultSet<Eia> implements
 					}));
 		} else {
 			sideBar = GHAUiHelper.createBar(checkButton);
-			setHeight(getHeight() - 42);
+//			setHeight(getHeight() - 42);
 		}
 
 		gridPanel.addMembers(grid, sideBar);
@@ -174,10 +183,7 @@ public class EiaResultSet extends GHAResultSet<Eia> implements
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		super.onResize(event);
-		if (containerType == ResultSetContainerType.SEARCH_FORM) {
-			setHeight(getHeight() - 35);
-		}
+		setHeight(GHAUiHelper.getResultSetHeight(containerType));
 	}
 
 }
