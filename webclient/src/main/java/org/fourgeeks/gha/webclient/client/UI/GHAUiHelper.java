@@ -6,7 +6,6 @@ import java.util.List;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImg;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASlideInWindow.SlideInWindowType;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
@@ -72,6 +71,7 @@ public abstract class GHAUiHelper {
 	private static final int MIN_TAB_HEIGHT = 678;
 	private static final int MIN_PANEL_HEIGHT = 648;
 	private static final int MIN_BOTTOM_SECTION_HEIGHT = 528;
+	private static final int MIN_RESULT_SET_HEIGHT = 360;
 
 	// NO ESTAN TOTALMENTE MEDIDAS CON LA INTERFAZ
 
@@ -211,6 +211,40 @@ public abstract class GHAUiHelper {
 			return ret;
 		}
 	}
+	
+	/**
+	 * 
+	 * @param type 
+	 * @return the height for the bottom section of a SearchForm (internal bottom section)
+	 */
+	public static int getResultSetHeight(ResultSetContainerType type) {
+		int containerHeight;
+		int innerTopSection;
+
+		int ret;
+		if(type == ResultSetContainerType.SEARCH_FORM){
+			containerHeight = getBottomSectionHeight();
+			innerTopSection = DEFAULT_INNER_TOP_SECTION_HEIGHT
+					+ V_SEPARATOR_HEIGHT;
+			ret = containerHeight - innerTopSection - 42;
+			if (ret < MIN_RESULT_SET_HEIGHT) {
+//				Window.alert("Searchform result set(minimun):"+MIN_RESULT_SET_HEIGHT);
+				return MIN_RESULT_SET_HEIGHT;
+			} else {
+//				Window.alert("Bottom section height:"+containerHeight+" Searchform result set:"+ret);
+				return ret;
+			}
+		}else{
+			ret = getBottomSectionHeight() - 42;
+			if (ret < (MIN_BOTTOM_SECTION_HEIGHT - 10)) {
+//				Window.alert("Bottomsection result set(minimun):"+(MIN_BOTTOM_SECTION_HEIGHT - 10));
+				return (MIN_BOTTOM_SECTION_HEIGHT - 10);
+			} else {
+//				Window.alert("Bottomsection result set:"+ret);
+				return ret;
+			}
+		}
+	}
 
 	/**
 	 * @param type
@@ -239,12 +273,9 @@ public abstract class GHAUiHelper {
 	/**
 	 * @return the Top space
 	 */
-	public static int getTopSpace(SlideInWindowType type) {
-		if (type == SlideInWindowType.SEARCH)
-			return DEFAULT_TOP_HEADER_TAB_HEIGHT;
-		else
-			return (DEFAULT_TOP_HEADER_PANEL_HEIGHT
-					+ DEFAULT_INNER_TOP_SECTION_HEIGHT + V_SEPARATOR_HEIGHT);
+	public static int getTopSpace() {
+		return (DEFAULT_TOP_HEADER_PANEL_HEIGHT
+				+ DEFAULT_INNER_TOP_SECTION_HEIGHT + V_SEPARATOR_HEIGHT);
 	}
 
 	/**
@@ -274,6 +305,22 @@ public abstract class GHAUiHelper {
 		int topExtras = extrasHeight + titleHeight + 35;
 
 		int ret = bottomSectionHeight - topExtras;
+		if (ret < MIN_GRID_SIZE) {
+			return MIN_GRID_SIZE;
+		} else {
+			return ret;
+		}
+	}
+	
+	/**
+	 * @param extrasHeight
+	 * @return the grid size
+	 */
+	public static int getResultSetGridSize(ResultSetContainerType type) {
+		int resultSetHeight = getResultSetHeight(type);
+		int titleHeight = 60;
+
+		int ret = resultSetHeight - (titleHeight + 20);
 		if (ret < MIN_GRID_SIZE) {
 			return MIN_GRID_SIZE;
 		} else {

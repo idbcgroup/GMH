@@ -430,6 +430,8 @@ table.GHAupload-button tbody tr td form div.upld-form-elements div.DecoratedFile
 	position: absolute;
 	top: 0px;
 	left: 0px;
+	min-width: 1024px;
+	min-height: 768px;
 	width: 100%;
 	height: 100%;
 	z-index: -60000;

@@ -36,10 +36,24 @@ public class UserResultSet extends GHAResultSet<SSOUser> implements
 		UserSelectionProducer, ResizeHandler, HideableListener,
 		ClosableListener {
 	private List<UserSelectionListener> listeners = new ArrayList<UserSelectionListener>();
-	private UserGrid grid = new UserGrid();
+	private UserGrid grid;
 	private ResultSetContainerType containerType;
 
-	{
+	/**
+	 * @param container 
+	 * 
+	 */
+	public UserResultSet(ResultSetContainerType container) {
+		super(GHAStrings.get("search-results"));
+		this.containerType = container;
+		
+		grid = new UserGrid(){
+			@Override
+			public void onResize(ResizeEvent event) {
+				super.onResize(event);
+				grid.setHeight(GHAUiHelper.getResultSetGridSize(containerType));
+			}
+		};
 		grid.addCellDoubleClickHandler(new CellDoubleClickHandler() {
 
 			@Override
@@ -47,14 +61,9 @@ public class UserResultSet extends GHAResultSet<SSOUser> implements
 				notifySelectedUser();
 			}
 		});
-	}
-
-	/**
-	 * 
-	 */
-	public UserResultSet(ResultSetContainerType container) {
-		super(GHAStrings.get("search-results"));
-		this.containerType = container;
+		grid.setHeight(GHAUiHelper.getResultSetGridSize(containerType));
+		
+		setHeight(GHAUiHelper.getResultSetHeight(containerType));
 		HLayout gridPanel = new HLayout();
 		VLayout sideBar;
 
@@ -80,7 +89,7 @@ public class UserResultSet extends GHAResultSet<SSOUser> implements
 					deleteButton);
 		} else {
 			sideBar = GHAUiHelper.createBar(checkButton);
-			setHeight(getHeight() - 42);
+//			setHeight(getHeight() - 42);
 		}
 		gridPanel.addMembers(grid, sideBar);
 
@@ -196,10 +205,7 @@ public class UserResultSet extends GHAResultSet<SSOUser> implements
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		super.onResize(event);
-		if (containerType == ResultSetContainerType.SEARCH_FORM) {
-			setHeight(getHeight() - 35);
-		}
+		setHeight(GHAUiHelper.getResultSetHeight(containerType));
 	}
 
 }

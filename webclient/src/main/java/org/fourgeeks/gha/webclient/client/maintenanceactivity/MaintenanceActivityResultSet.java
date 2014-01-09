@@ -29,17 +29,8 @@ public class MaintenanceActivityResultSet extends
 		GHAResultSet<MaintenanceActivity> implements
 		MaintenanceActivitySelectionProducer {
 	private final List<MaintenanceActivitySelectionListener> listeners = new ArrayList<MaintenanceActivitySelectionListener>();
-	private final MaintenanceActivityGrid grid = new MaintenanceActivityGrid();
+	private final MaintenanceActivityGrid grid;
 	private final ResultSetContainerType containerType;
-
-	{
-		grid.addCellDoubleClickHandler(new CellDoubleClickHandler() {
-			@Override
-			public void onCellDoubleClick(CellDoubleClickEvent event) {
-				notifySelectedMaintenanceActivity();
-			}
-		});
-	}
 
 	/**
 	 * @param container
@@ -47,6 +38,23 @@ public class MaintenanceActivityResultSet extends
 	public MaintenanceActivityResultSet(ResultSetContainerType container) {
 		super(GHAStrings.get("search-results"));
 		this.containerType = container;
+		
+		grid = new MaintenanceActivityGrid(){
+			@Override
+			public void onResize(ResizeEvent event) {
+				super.onResize(event);
+				grid.setHeight(GHAUiHelper.getResultSetGridSize(containerType));
+			}
+		};
+		grid.addCellDoubleClickHandler(new CellDoubleClickHandler() {
+			@Override
+			public void onCellDoubleClick(CellDoubleClickEvent event) {
+				notifySelectedMaintenanceActivity();
+			}
+		});
+		grid.setHeight(GHAUiHelper.getResultSetGridSize(containerType));
+		
+		setHeight(GHAUiHelper.getResultSetHeight(containerType));
 		HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(grid,
 				GHAUiHelper.createBar(new GHACheckButton(new ClickHandler() {
@@ -56,9 +64,9 @@ public class MaintenanceActivityResultSet extends
 						notifySelectedMaintenanceActivity();
 					}
 				})));
-		if (containerType == ResultSetContainerType.SEARCH_FORM) {
-			setHeight(getHeight() - 42);
-		}
+//		if (containerType == ResultSetContainerType.SEARCH_FORM) {
+//			setHeight(getHeight() - 42);
+//		}
 
 		addMember(gridPanel);
 	}
@@ -121,10 +129,7 @@ public class MaintenanceActivityResultSet extends
 
 	@Override
 	public void onResize(ResizeEvent event) {
-		super.onResize(event);
-		if (containerType == ResultSetContainerType.SEARCH_FORM) {
-			setHeight(getHeight() - 35);
-		}
+		setHeight(GHAUiHelper.getResultSetHeight(containerType));
 	}
 
 }

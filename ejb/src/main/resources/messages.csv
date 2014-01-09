@@ -341,6 +341,10 @@ ES,maintenancePlan-find-fail,Búsqueda fallida de MaintenancePlan
 ES,maintenancePlan-getAll-fail,Búsqueda fallida de todos los MaintenancePlan
 ES,maintenancePlan-save-fail,Guardado fallido de MaintenancePlan
 ES,maintenancePlan-update-fail,Actualización fallida de MaintenancePlan
+ES,maintenancePlan-findEiaByMaintenancePlan-fail,Búsqueda fallida de Eia por maintenancePlan
+ES,maintenancePlan-findDamagedEiaByMaintenancePlan-fail,Búsqueda fallida de Eia dañados por maintenancePlan
+EN,maintenancePlan-findDamagedEiaByMaintenancePlan-fail,Failed to find damaged Eia by maintenancePlan
+EN,maintenancePlan-findEiaByMaintenancePlan-fail,Failed to find Eia by maintenancePlan
 EN,maintenancePlan-delete-fail,Failed to delete MaintenancePlan
 EN,maintenancePlan-findByEiaType-fail,Failed to find MaintenancePlan by eiaType
 EN,maintenancePlan-findEiaByEiaType-fail,Failed to find EiaMaintenancePlanification by maintenancePlan
