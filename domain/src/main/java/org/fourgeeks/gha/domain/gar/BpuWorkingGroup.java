@@ -6,6 +6,7 @@ package org.fourgeeks.gha.domain.gar;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 
@@ -15,19 +16,25 @@ import org.fourgeeks.gha.domain.AbstractEntity;
  */
 
 @Entity
-public class Shift extends AbstractEntity {
+public class BpuWorkingGroup extends AbstractEntity {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@ManyToOne
-	@JoinColumn(name = "horaryDefinitionFk")
-	private HoraryDefinition horaryDefinition;
+	/**
+	 * This BPU represents the group
+	 */
+	@OneToOne
+	@JoinColumn(name = "bpuGroupFk")
+	private Bpu bpuGroup;
 
+	/**
+	 * The Bpu
+	 */
 	@ManyToOne
-	@JoinColumn(name = "shiftGroupFk")
-	private ShiftGroup shiftGroup;
+	@JoinColumn(name = "bpuFk")
+	private Bpu bpu;
 
 }
