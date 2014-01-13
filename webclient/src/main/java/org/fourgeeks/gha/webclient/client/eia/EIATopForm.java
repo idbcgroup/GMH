@@ -267,6 +267,8 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 		obuSelectItem.clearValue();
 		bpiObuSelectItem.clearValue();
 		baseRoleSelectItem.clearValue();
+		warrantyState.clearValue();
+		warrantyTimeLeft.clearValue();
 	}
 
 	@Override
