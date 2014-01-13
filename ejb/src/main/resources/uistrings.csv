@@ -101,7 +101,7 @@ ES,state,Estado
 ES,first-name,Primer nombre
 ES,form-errors,Errores en el formulario
 ES,unsaved-changes,Existen algunos cambios sin guardar. ¿Realmente desea salir?
-ES,bpi,institución
+ES,bpi,Institución
 ES,maintenance,Mantenimiento
 ES,maintenance-plans,Planes de mantenimiento
 ES,no-results-to-show,No hay resultados para mostrar
@@ -198,3 +198,23 @@ ES,asociated,Asociado
 ES,planificated,Planificado
 ES,iniciated,Iniciado
 ES,canceled,Cancelado
+ES,activity-definition,Definición de actividades
+ES,undeferrable,No postergable
+ES,deferrable,Postergable
+ES,last-effectuated-date,Ultima fecha efectuado
+ES,eias-with-this-plan,Equipos con este plan
+ES,eias-with-this-activity,Equipos con este actividad
+ES,times-effectuated,Veces efectuado
+ES,activity-name,Nombre de actividad
+ES,activity-is-subprotocol,Es un Sub-Protocolo
+ES,require-materials,Requiere materiales
+ES,require-tools,Requiere materiales
+ES,require-equips,Requiere equipos de trabajo, Calibración, etc
+ES,activity-instructions-and-observations,Instrucciones y observaciones para la realización de la actividad
+ES,estimated-time,Tiempo estimado
+ES,estimated-cost,Costo estimado
+ES,last-effectuated-by,Ultimo efectuado por
+ES,protocol-activities,Actividades del protocolo
+ES,maintenance-plan-stadistics,Estadisticas del plan de mantenimiento 
+ES,copy,Copiar
+ES,cost,Costo

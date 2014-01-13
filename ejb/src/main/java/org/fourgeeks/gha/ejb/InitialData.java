@@ -624,7 +624,7 @@ public class InitialData {
 							planFrequency[i], planTimePeriod[i],
 							MaintenancePlanType.OVERHAUL,
 							MaintenancePlanState.ACTIVE,
-							MaintenancePlanCancelationOption.NOT_DEFERRABLE));
+							MaintenancePlanCancelationOption.UNDEFERRABLE));
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO,

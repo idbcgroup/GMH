@@ -1,23 +1,23 @@
-package org.fourgeeks.gha.webclient.client.maintenanceplan.information;
+package org.fourgeeks.gha.webclient.client.maintenanceactivity.information;
 
-import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
-import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
+import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
-import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHACopyButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHAEditButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAUndoButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.places.GHAPlaceSet;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
-import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanForm;
-import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener;
-import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionProducer;
-import org.fourgeeks.gha.webclient.client.maintenanceprotocols.MaintenanceProtocolsSelectionListener;
+import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivityForm;
+import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionListener;
+import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionProducer;
 
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -29,26 +29,52 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class MaintenancePlanInformationFormPanel extends GHAVerticalLayout
-		implements MaintenancePlanSelectionListener,
-		MaintenanceProtocolsSelectionListener,
-		MaintenancePlanSelectionProducer, ClosableListener, HideableListener {
-	private final MaintenancePlanForm form = new MaintenancePlanForm();
+public class MaintenanceActivityDefinitionFormPanel extends VLayout implements
+		ClosableListener, HideableListener,
+		MaintenanceActivitySelectionListener,
+		MaintenanceActivitySelectionProducer {
 
-	/** */
-	public MaintenancePlanInformationFormPanel() {
-		VLayout sideButtons = GHAUiHelper.createBar(new GHASaveButton(
-				new ClickHandler() {
-					@Override
-					public void onClick(ClickEvent event) {
-						save();
-					}
-				}), new GHAUndoButton(new ClickHandler() {
+	private final MaintenanceActivityForm form = new MaintenanceActivityForm();
+
+	/**
+	 * 
+	 */
+	public MaintenanceActivityDefinitionFormPanel() {
+		setWidth100();
+
+		GHASaveButton saveButton = new GHASaveButton(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				save();
+			}
+		});
+		GHAUndoButton undoButton = new GHAUndoButton(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				undo();
 			}
-		}));
+		});
+		GHADeleteButton deleteButton = new GHADeleteButton(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				// TODO Auto-generated method stub
+			}
+		});
+		GHAEditButton editButton = new GHAEditButton(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				// TODO Auto-generated method stub
+			}
+		});
+		GHAImgButton copyButton = new GHACopyButton(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				// TODO Auto-generated method stub
+			}
+		});
+
+		VLayout sideButtons = GHAUiHelper.createBar(saveButton, undoButton,
+				deleteButton, editButton, copyButton);
 
 		HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
@@ -57,9 +83,9 @@ public class MaintenancePlanInformationFormPanel extends GHAVerticalLayout
 	}
 
 	@Override
-	public void addMaintenancePlanSelectionListener(
-			MaintenancePlanSelectionListener listener) {
-		form.addMaintenancePlanSelectionListener(listener);
+	public void addMaintenanceActivitySelectionListener(
+			MaintenanceActivitySelectionListener listener) {
+		form.addMaintenanceActivitySelectionListener(listener);
 	}
 
 	@Override
@@ -121,40 +147,34 @@ public class MaintenancePlanInformationFormPanel extends GHAVerticalLayout
 	}
 
 	@Override
-	public void close() throws UnavailableToCloseException {
+	public void close() {
 		destroy();
 		form.destroy();
 	}
 
 	@Override
-	public void notifyMaintenancePlan(MaintenancePlan maintenancePlan) {
+	public void notifyMaintenanceActivity(MaintenanceActivity activity) {
 		return;
 	}
 
 	@Override
-	public void removeMaintenancePlanSelectionListener(
-			MaintenancePlanSelectionListener listener) {
-		form.removeMaintenancePlanSelectionListener(listener);
-
+	public void removeMaintenanceActivitySelectionListener(
+			MaintenanceActivitySelectionListener listener) {
+		form.removeMaintenanceActivitySelectionListener(listener);
 	}
 
 	private void save() {
-		form.update(new GHAAsyncCallback<MaintenancePlan>() {
+		form.update(new GHAAsyncCallback<MaintenanceActivity>() {
 			@Override
-			public void onSuccess(MaintenancePlan result) {
-				GHAAlertManager.alert("maintenance-plan-save-success");
+			public void onSuccess(MaintenanceActivity result) {
+				GHAAlertManager.alert("maintenance-activity-save-success");
 			}
 		});
 	}
 
 	@Override
-	public void select(MaintenancePlan maintenancePlan) {
-		form.set(maintenancePlan);
-	}
-
-	@Override
-	public void select(MaintenanceProtocols entity) {
-		form.select(entity);
+	public void select(MaintenanceActivity maintenanceActivity) {
+		form.set(maintenanceActivity);
 	}
 
 	protected void undo() {

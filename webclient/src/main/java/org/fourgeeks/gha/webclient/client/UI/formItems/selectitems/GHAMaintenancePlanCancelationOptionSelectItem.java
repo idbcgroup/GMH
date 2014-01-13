@@ -1,5 +1,7 @@
 package org.fourgeeks.gha.webclient.client.UI.formItems.selectitems;
 
+import java.util.LinkedHashMap;
+
 import org.fourgeeks.gha.domain.enu.MaintenancePlanCancelationOption;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
@@ -16,8 +18,8 @@ public class GHAMaintenancePlanCancelationOptionSelectItem extends
 	public GHAMaintenancePlanCancelationOptionSelectItem() {
 		super(GHAStrings.get("cancelation-option"));
 
-		setValueMap(MaintenancePlanCancelationOption.toValueMap());
-		setDefaultValue(MaintenancePlanCancelationOption.NOT_DEFERRABLE.name());
+		setValueMap(toValueMap());
+		setDefaultValue(MaintenancePlanCancelationOption.UNDEFERRABLE.name());
 	}
 
 	/**
@@ -49,5 +51,19 @@ public class GHAMaintenancePlanCancelationOptionSelectItem extends
 		this(width);
 		setRequired(required);
 		addChangedHandler(changedHandler);
+	}
+
+	/**
+	 * @return a valueMap with this Enum values
+	 */
+	private LinkedHashMap<String, String> toValueMap() {
+		LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+		for (MaintenancePlanCancelationOption type : MaintenancePlanCancelationOption
+				.values()) {
+			final String key = type.name().toLowerCase();
+			valueMap.put(type.name() + "", GHAStrings.get(key));
+		}
+
+		return valueMap;
 	}
 }

@@ -63,8 +63,6 @@ public class EIADamageAndPlanificationSubTab extends GHASubTab implements
 		sectionForm.addSection("Planificación Mantemiento",
 				preventivePlanifPanel);
 
-		// HLayout mainLayout = new HLayout();
-		// mainLayout.setMembers(sectionForm, new LayoutSpacer());
 		GHAVerticalLayout mainLayout = new GHAVerticalLayout() {
 		};
 
@@ -90,34 +88,6 @@ public class EIADamageAndPlanificationSubTab extends GHASubTab implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab#hide()
-	 */
-	@Override
-	public void hide() {
-		super.hide();
-		sectionForm.hide();
-	}
-
-	/**
-	 * 
-	 */
-	public void show() {
-		sectionForm.show();
-		damageReportPanel.show();
-		maintenancePlanifPanel.show();
-		preventivePlanifPanel.show();
-	}
-
-	/**
-	 * 
-	 */
-	public void openFirstSection() {
-		sectionForm.openFirst();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see org.fourgeeks.gha.webclient.client.eiadamagereport.
 	 * EiaDamageReportSelectionProducer
 	 * #addEiaDamageReportSelectionListener(org.fourgeeks
@@ -129,6 +99,36 @@ public class EIADamageAndPlanificationSubTab extends GHASubTab implements
 		damageReportPanel
 				.addEiaDamageReportSelectionListener(eiaDamageReportSelectionListener);
 
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab#hide()
+	 */
+	@Override
+	public void hide() {
+		super.hide();
+		sectionForm.hide();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.eiadamagereport.
+	 * EiaDamageReportSelectionProducer
+	 * #notifyEiaDamageReport(org.fourgeeks.gha.domain.gmh.EiaDamageReport)
+	 */
+	@Override
+	public void notifyEiaDamageReport(EiaDamageReport eiaDamageReport) {
+	}
+
+	/**
+	 * 
+	 */
+	public void openFirstSection() {
+		sectionForm.openFirst();
+		show();
 	}
 
 	/*
@@ -147,14 +147,13 @@ public class EIADamageAndPlanificationSubTab extends GHASubTab implements
 				.removeEiaDamageReportSelectionListener(eiaDamageReportSelectionListener);
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
 	 * 
-	 * @see org.fourgeeks.gha.webclient.client.eiadamagereport.
-	 * EiaDamageReportSelectionProducer
-	 * #notifyEiaDamageReport(org.fourgeeks.gha.domain.gmh.EiaDamageReport)
 	 */
-	@Override
-	public void notifyEiaDamageReport(EiaDamageReport eiaDamageReport) {
+	public void show() {
+		sectionForm.show();
+		damageReportPanel.show();
+		maintenancePlanifPanel.show();
+		preventivePlanifPanel.show();
 	}
 }
