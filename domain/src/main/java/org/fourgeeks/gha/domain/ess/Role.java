@@ -16,12 +16,9 @@ import org.fourgeeks.gha.domain.AbstractEntity;
  */
 
 @Entity
-@NamedQueries(value = { 
-		@NamedQuery(name = "Role.getAll", 
-				query = "SELECT e from Role e order by e.name"),
-		@NamedQuery(name = "Role.findByName",
-				query = "SELECT e from Role e where lower(e.name) like :name order by e.id")
-})
+@NamedQueries(value = {
+		@NamedQuery(name = "Role.getAll", query = "SELECT e from Role e order by e.name"),
+		@NamedQuery(name = "Role.findByName", query = "SELECT e from Role e where lower(e.name) like :name order by e.id") })
 public class Role extends AbstractEntity {
 
 	/**
@@ -37,7 +34,7 @@ public class Role extends AbstractEntity {
 	 */
 	public Role() {
 	}
-	
+
 	public Role(long id) {
 		setId(id);
 	}

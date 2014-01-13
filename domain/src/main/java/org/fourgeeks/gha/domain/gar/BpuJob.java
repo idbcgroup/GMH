@@ -15,7 +15,7 @@ import org.fourgeeks.gha.domain.AbstractEntity;
  */
 
 @Entity
-public class Shift extends AbstractEntity {
+public class BpuJob extends AbstractEntity {
 
 	/**
 	 * 
@@ -23,11 +23,11 @@ public class Shift extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 
 	@ManyToOne
-	@JoinColumn(name = "horaryDefinitionFk")
-	private HoraryDefinition horaryDefinition;
+	@JoinColumn(name = "jobFk")
+	private Job job;
 
 	@ManyToOne
-	@JoinColumn(name = "shiftGroupFk")
-	private ShiftGroup shiftGroup;
+	@JoinColumn(name = "bpuFk")
+	private Bpu bpu;
 
 }
