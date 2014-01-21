@@ -142,7 +142,7 @@ ES,eia-on-maintenance-plan,Planificación de mantenimiento de equipos con este p
 ES,asociated-eiatype-maintenance-plan,Tipos de equipo asociados
 ES,eia-type-on-maintenance-plan,Tipos de equipos asociados al plan de mantenimiento
 ES,eia-on-maintenance,Equipos en mantenimiento
-ES,eia-on-pending-maintenance,Equipos con este plan de mantenimiento pendiente o en ejecución - equipos sin prestar servicio
+ES,eia-on-pending-maintenance,Equipos con este plan de mantenimiento pendiente o en ejecución - equipos dañados en mantenimiento correctivo o dañados permanente
 ES,responsible-role,Cargo Responsable
 ES,adquisition-provider,Proveedor de Equipo
 ES,maintenance-provider,Proveedor de Mantenimiento
@@ -198,3 +198,9 @@ ES,asociated,Asociado
 ES,planificated,Planificado
 ES,iniciated,Iniciado
 ES,canceled,Cancelado
+ES,warranty-state,Estado de garantía
+ES,on-warranty,En garantía
+ES,month(s),mes(es)
+ES,eia-existing-warranty,Está en garantía
+ES,eia-expired-warranty,Garantía vencida
+ES,N/A,N/A

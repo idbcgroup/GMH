@@ -53,15 +53,7 @@ public class Bpu extends AbstractEntity {
 	private Citizen citizen; // TODO : No debe ir aqui, los citizen son BPA,
 								// debe haber una relacion con BPA
 
-	@ManyToOne
-	@JoinColumn(name = "shiftFk")
-	private Shift shift;
-
-	@ManyToOne
-	@JoinColumn(name = "onDutyPlanFk")
-	private OnDutyPlan onDutyPlan;
-
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name = "jobPositionFk")
 	private JobPosition jobPosition;
 
@@ -69,10 +61,6 @@ public class Bpu extends AbstractEntity {
 	private List<AppFormViewFunctionBpu> permissions;
 
 	private String sessionId;
-
-	// @ManyToOne
-	// @JoinColumn(name = "jobFk")
-	// private Job job;
 
 	/**
 	 * 
@@ -93,32 +81,12 @@ public class Bpu extends AbstractEntity {
 		return bpi;
 	}
 
-	public void setBpi(Bpi bpi) {
-		this.bpi = bpi;
-	}
-
 	public Citizen getCitizen() {
 		return citizen;
 	}
 
-	public void setCitizen(Citizen citizen) {
-		this.citizen = citizen;
-	}
-
-	public Shift getShift() {
-		return shift;
-	}
-
-	public void setShift(Shift shift) {
-		this.shift = shift;
-	}
-
 	public JobPosition getJobPosition() {
 		return jobPosition;
-	}
-
-	public void setJobPosition(JobPosition jobPosition) {
-		this.jobPosition = jobPosition;
 	}
 
 	/**
@@ -126,6 +94,26 @@ public class Bpu extends AbstractEntity {
 	 */
 	public List<AppFormViewFunctionBpu> getPermissions() {
 		return permissions;
+	}
+
+	/**
+	 * 
+	 * @return the Id from session
+	 */
+	public String getSessionId() {
+		return sessionId;
+	}
+
+	public void setBpi(Bpi bpi) {
+		this.bpi = bpi;
+	}
+
+	public void setCitizen(Citizen citizen) {
+		this.citizen = citizen;
+	}
+
+	public void setJobPosition(JobPosition jobPosition) {
+		this.jobPosition = jobPosition;
 	}
 
 	/**
@@ -138,18 +126,11 @@ public class Bpu extends AbstractEntity {
 
 	/**
 	 * 
-	 * @return the Id from session
-	 */
-	public String getSessionId() {
-		return sessionId;
-	}
-
-	/**
-	 * 
 	 * @param sessionId
 	 *            the Id from session
 	 */
 	public void setSessionId(String sessionId) {
 		this.sessionId = sessionId;
 	}
+
 }

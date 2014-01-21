@@ -5,6 +5,7 @@ package org.fourgeeks.gha.webclient.client.maintenanceplan;
 
 import java.util.List;
 
+import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlanStadisticData;
@@ -107,5 +108,14 @@ public class MaintenancePlanModel {
 	public static void findEiaByMaintenancePlan(MaintenancePlan maintenancePlan, 
 			GHAAsyncCallback<List<EiaMaintenancePlanification>> callback){
 		service.findEiaByMaintenancePlan(maintenancePlan, callback);
+	}
+	
+	/**
+	 * 
+	 * @param maintenancePlan 
+	 * @param callback
+	 */
+	public static void findDamageEiaByMaintenancePlan(MaintenancePlan maintenancePlan, GHAAsyncCallback<List<Eia>> callback){
+		service.findDamageEiaByMaintenancePlan(maintenancePlan,callback);
 	}
 }
