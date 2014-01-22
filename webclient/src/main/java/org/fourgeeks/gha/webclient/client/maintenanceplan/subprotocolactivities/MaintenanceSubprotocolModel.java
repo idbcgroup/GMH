@@ -24,7 +24,7 @@ public class MaintenanceSubprotocolModel {
 	 * 
 	 * @throws GHAEJBException
 	 */
-	public void delete(long Id, GHAAsyncCallback<Void> callback) {
+	public static void delete(long Id, GHAAsyncCallback<Void> callback) {
 		service.delete(Id, callback);
 	}
 
@@ -34,7 +34,7 @@ public class MaintenanceSubprotocolModel {
 	 *         maintenanceActivity
 	 * @throws GHAEJBException
 	 */
-	public void findByMaintenanceActivity(
+	public static void findByMaintenanceActivity(
 			MaintenanceActivity maintenanceActivity,
 			GHAAsyncCallback<List<MaintenanceSubProtocol>> callback) {
 		service.findByMaintenanceActivity(maintenanceActivity, callback);
@@ -45,7 +45,7 @@ public class MaintenanceSubprotocolModel {
 	 * @return the MaintenanceSubProtocol with this Id
 	 * @throws GHAEJBException
 	 */
-	public void find(long Id, GHAAsyncCallback<MaintenanceSubProtocol> callback) {
+	public static void find(long Id, GHAAsyncCallback<MaintenanceSubProtocol> callback) {
 		service.find(Id, callback);
 	}
 
@@ -53,7 +53,7 @@ public class MaintenanceSubprotocolModel {
 	 * @return the list with all MaintenanceSubProtocols Objects
 	 * @throws GHAEJBException
 	 */
-	public void getAll(GHAAsyncCallback<List<MaintenanceSubProtocol>> callback) {
+	public static void getAll(GHAAsyncCallback<List<MaintenanceSubProtocol>> callback) {
 		service.getAll(callback);
 	}
 
@@ -63,7 +63,7 @@ public class MaintenanceSubprotocolModel {
 	 * @return List of MaintenanceSubProtocols beginning in offset up to size
 	 * @throws GHAEJBException
 	 */
-	public void getAll(int offset, int size,
+	public static void getAll(int offset, int size,
 			GHAAsyncCallback<List<MaintenanceSubProtocol>> callback) {
 		service.getAll(offset, size, callback);
 	}
@@ -74,7 +74,7 @@ public class MaintenanceSubprotocolModel {
 	 * @throws GHAEJBException
 	 * @return MaintenanceSubProtocol saved
 	 */
-	public void save(MaintenanceSubProtocol maintenanceSubProtocol,
+	public static void save(MaintenanceSubProtocol maintenanceSubProtocol,
 			GHAAsyncCallback<MaintenanceSubProtocol> callback) {
 		service.save(maintenanceSubProtocol, callback);
 	}
@@ -85,7 +85,7 @@ public class MaintenanceSubprotocolModel {
 	 * @return MaintenanceSubProtocol updated
 	 * @throws GHAEJBException
 	 */
-	public void update(MaintenanceSubProtocol maintenanceSubProtocol,
+	public static void update(MaintenanceSubProtocol maintenanceSubProtocol,
 			GHAAsyncCallback<MaintenanceSubProtocol> callback) {
 		service.update(maintenanceSubProtocol, callback);
 	}

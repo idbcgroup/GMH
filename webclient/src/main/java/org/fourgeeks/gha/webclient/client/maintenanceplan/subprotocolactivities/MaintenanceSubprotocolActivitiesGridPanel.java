@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
+import org.fourgeeks.gha.domain.gmh.MaintenanceSubProtocol;
+import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHANewButton;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
@@ -18,7 +21,6 @@ import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivit
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionProducer;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocols.MaintenanceProtocolsRecord;
 
-import com.google.gwt.user.client.Window;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
@@ -34,6 +36,7 @@ public class MaintenanceSubprotocolActivitiesGridPanel extends
 		MaintenanceActivitySelectionProducer,
 		MaintenanceActivitySelectionListener {
 
+	private MaintenanceActivitySearchForm subProtocolSearchForm;
 	private MaintenanceActivitySearchForm activitySearchForm;
 	private MaintenanceSubprotocolActivitiesGrid grid;
 	private List<MaintenanceActivitySelectionListener> listeners;
@@ -41,17 +44,40 @@ public class MaintenanceSubprotocolActivitiesGridPanel extends
 
 	{
 		grid = new MaintenanceSubprotocolActivitiesGrid();
+		subProtocolSearchForm = new MaintenanceActivitySearchForm(
+				"Buscar subprotocolo", true);
 		activitySearchForm = new MaintenanceActivitySearchForm(
 				GHAStrings.get("maintenance-activity"));
+
+		subProtocolSearchForm
+				.addMaintenanceActivitySelectionListener(new MaintenanceActivitySelectionListener() {
+					@Override
+					public void select(MaintenanceActivity activity) {
+						MaintenanceSubprotocolModel
+								.findByMaintenanceActivity(
+										maintenanceActivity,
+										new GHAAsyncCallback<List<MaintenanceSubProtocol>>() {
+
+											@Override
+											public void onSuccess(
+													List<MaintenanceSubProtocol> result) {
+
+											}
+										});
+					}
+				});
 		activitySearchForm
 				.addMaintenanceActivitySelectionListener(new MaintenanceActivitySelectionListener() {
 					@Override
 					public void select(MaintenanceActivity activity) {
-						Window.alert("Guardar");
+						// TODO
 					}
 				});
 	}
 
+	/**
+	 * 
+	 */
 	public MaintenanceSubprotocolActivitiesGridPanel() {
 		addMember(new GHALabel("Actividades de subprotocolo"));
 
@@ -62,7 +88,14 @@ public class MaintenanceSubprotocolActivitiesGridPanel extends
 			}
 		});
 
-		VLayout sideButtons = GHAUiHelper.createBar(addButton);
+		GHASearchButton searchButton = new GHASearchButton(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				searchSubProtocol();
+			}
+		});
+
+		VLayout sideButtons = GHAUiHelper.createBar(addButton, searchButton);
 
 		VLayout gridLayout = new VLayout(10);
 		gridLayout.addMembers(grid);
@@ -87,12 +120,18 @@ public class MaintenanceSubprotocolActivitiesGridPanel extends
 	}
 
 	@Override
-	public boolean canBeHidden(HideCloseAction closeAction) {
-		return true;
+	public void addMaintenanceActivitySelectionListener(
+			MaintenanceActivitySelectionListener selectionListener) {
+		listeners.add(selectionListener);
 	}
 
 	@Override
 	public boolean canBeClosen(HideCloseAction closeAction) {
+		return true;
+	}
+
+	@Override
+	public boolean canBeHidden(HideCloseAction closeAction) {
 		return true;
 	}
 
@@ -103,27 +142,22 @@ public class MaintenanceSubprotocolActivitiesGridPanel extends
 	}
 
 	private void loadData() {
-//		MaintenanceSubprotocolModel.find(maintenanceActivity,
-//				new GHAAsyncCallback<List<MaintenanceActivity>>() {
-//					@Override
-//					public void onSuccess(List<MaintenanceActivity> result) {
-//						MaintenanceActivityRecord array[] = MaintenanceProtocolsUtil
-//								.toGridRecordsArray(result);
-//						grid.setData(array);
-//					}
-//				});
+		// MaintenanceSubprotocolModel.find(maintenanceActivity,
+		// new GHAAsyncCallback<List<MaintenanceActivity>>() {
+		// @Override
+		// public void onSuccess(List<MaintenanceActivity> result) {
+		// MaintenanceActivityRecord array[] = MaintenanceProtocolsUtil
+		// .toGridRecordsArray(result);
+		// grid.setData(array);
+		// }
+		// });
 	}
 
 	@Override
-	public void select(MaintenanceActivity maintenanceActivity) {
-		this.maintenanceActivity = maintenanceActivity;
-		loadData();
-	}
-
-	@Override
-	public void addMaintenanceActivitySelectionListener(
-			MaintenanceActivitySelectionListener selectionListener) {
-		listeners.add(selectionListener);
+	public void notifyMaintenanceActivity(
+			MaintenanceActivity maintenanceActivity) {
+		for (MaintenanceActivitySelectionListener listener : listeners)
+			listener.select(maintenanceActivity);
 	}
 
 	@Override
@@ -132,10 +166,13 @@ public class MaintenanceSubprotocolActivitiesGridPanel extends
 		listeners.remove(selectionListener);
 	}
 
+	private void searchSubProtocol() {
+		subProtocolSearchForm.open();
+	}
+
 	@Override
-	public void notifyMaintenanceActivity(
-			MaintenanceActivity maintenanceActivity) {
-		for (MaintenanceActivitySelectionListener listener : listeners)
-			listener.select(maintenanceActivity);
+	public void select(MaintenanceActivity maintenanceActivity) {
+		this.maintenanceActivity = maintenanceActivity;
+		loadData();
 	}
 }

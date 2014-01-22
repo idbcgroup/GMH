@@ -14,27 +14,28 @@ import org.fourgeeks.gha.webclient.client.UI.grids.GhaGrid;
 public class MaintenanceSubprotocolActivitiesGrid extends
 		GhaGrid<EiaTypeMaintenancePlan> {
 
-	final GHAGridField numberGridField;
-	final GHAGridField typeGridField;
-	final GHAGridField codeGridField;
-	final GHAGridField nameGridField;
-	final GHAGridField durationGridField;
-	final GHAGridField costGridField;
-
 	/**
 	 * 
 	 */
 	public MaintenanceSubprotocolActivitiesGrid() {
 
-		numberGridField = new GHAGridField("number", "No");
-		typeGridField = new GHAGridField("type", "Tipo");
-		codeGridField = new GHAGridField("code", "Código");
-		nameGridField = new GHAGridField("name", "Nombre");
-		durationGridField = new GHAGridField("duration", "Duración");
-		costGridField = new GHAGridField("cost", "Costo");
+		final GHAGridField ordinalGridField = new GHAGridField("ordinal",
+				"Secuencia");
+		final GHAGridField typeGridField = new GHAGridField("type", "Tipo");
+		final GHAGridField codeGridField = new GHAGridField("code", "Código");
+		final GHAGridField nameGridField = new GHAGridField("name", "Nombre");
 
-		setEmptyMessage("No existen equipos para mostrar");
-		setFields(numberGridField, typeGridField, codeGridField, nameGridField,
-				durationGridField, costGridField);
+		final GHAGridField timeGridField = new GHAGridField("time", "Duración");
+		final GHAGridField periodOfTimeGridField = new GHAGridField("pot",
+				"Periodo de Tiempo");
+		final GHAGridField costGridField = new GHAGridField("cost", "Costo");
+		final GHAGridField currencyGridField = new GHAGridField("currency",
+				"Moneda");
+
+		setEmptyMessage("No existen actividades para mostrar");
+
+		setFields(ordinalGridField, typeGridField, codeGridField,
+				nameGridField, timeGridField, periodOfTimeGridField,
+				costGridField, currencyGridField);
 	}
 }
