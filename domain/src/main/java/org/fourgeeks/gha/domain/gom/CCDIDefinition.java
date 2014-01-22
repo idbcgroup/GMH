@@ -3,6 +3,8 @@ package org.fourgeeks.gha.domain.gom;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -16,6 +18,7 @@ import org.fourgeeks.gha.domain.enu.CodeTypeEnum;
  */
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "code" }))
+@NamedQueries(value = { @NamedQuery(name = "CCDIDefinition.findByCode", query = "SELECT e from CCDIDefinition e WHERE e.code=:code") })
 public class CCDIDefinition extends AbstractEntity {
 
 	/**
@@ -42,6 +45,31 @@ public class CCDIDefinition extends AbstractEntity {
 	 */
 	public CCDIDefinition() {
 		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @param code
+	 * @param name
+	 * @param length
+	 * @param levels
+	 * @param status
+	 * @param concept
+	 * @param type
+	 * @param verification
+	 * @param verificationMethod
+	 */
+	public CCDIDefinition(String code, String name, int length, int levels,
+			CCDIStatusEnum status, Concept concept, CodeTypeEnum type,
+			boolean verification, String verificationMethod) {
+		this.code = code;
+		this.name = name;
+		this.length = length;
+		this.levels = levels;
+		this.status = status;
+		this.concept = concept;
+		this.type = type;
+		this.verification = verification;
+		this.verificationMethod = verificationMethod;
 	}
 
 	/**

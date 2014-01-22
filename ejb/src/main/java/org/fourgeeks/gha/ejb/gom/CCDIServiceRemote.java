@@ -2,6 +2,7 @@ package org.fourgeeks.gha.ejb.gom;
 
 import javax.ejb.Remote;
 
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gom.Concept;
 
 /**
@@ -26,10 +27,12 @@ public interface CCDIServiceRemote {
 	 * @param addVerify
 	 * @param verificationMethod
 	 * @return the code of the CCDI definition
+	 * @throws GHAEJBException
 	 */
 	public String CCDICreateDefinition(String code, String name, int length,
 			int levels, String status, Concept concept, String type,
-			boolean addVerify, String verificationMethod);
+			boolean addVerify, String verificationMethod)
+			throws GHAEJBException;
 
 	/**
 	 * This method defines a new CCDI Level definition, the params are used to
@@ -56,7 +59,8 @@ public interface CCDIServiceRemote {
 
 	/**
 	 * @param code
-	 * @return the next value available for a given category
+	 *            CCDILevelDefinitionCode
+	 * @return the next value available for a given level
 	 */
 	public String CCDIGetNextValue(String code);
 }
