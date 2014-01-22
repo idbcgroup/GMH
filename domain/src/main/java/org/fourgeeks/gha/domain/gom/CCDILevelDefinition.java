@@ -1,7 +1,3 @@
-/**
- * @author emiliot
- *
- */
 package org.fourgeeks.gha.domain.gom;
 
 import javax.persistence.Entity;
@@ -19,8 +15,8 @@ import org.fourgeeks.gha.domain.enu.CCDIValueTypeEnum;
  * 
  */
 @Entity
-@Table(name = "ccdileveldefinition", uniqueConstraints = @UniqueConstraint(columnNames = {
-		"definitionFk", "level" }))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "definitionFk",
+		"level" }))
 public class CCDILevelDefinition extends AbstractEntity {
 
 	/**
@@ -32,10 +28,11 @@ public class CCDILevelDefinition extends AbstractEntity {
 	@JoinColumn(name = "definitionFk")
 	private CCDIDefinition definition;
 
+	private String code;
 	private int level;
 
 	private String name;
-	private int levelLength;
+	private int length;
 	private CCDIValueTypeEnum valueType;
 	// private Variable variableName; TODO: use this to add a variable to the
 	// code
@@ -50,6 +47,13 @@ public class CCDILevelDefinition extends AbstractEntity {
 	 */
 	public CCDILevelDefinition() {
 		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @return the code
+	 */
+	public String getCode() {
+		return code;
 	}
 
 	/**
@@ -81,17 +85,17 @@ public class CCDILevelDefinition extends AbstractEntity {
 	}
 
 	/**
+	 * @return the length
+	 */
+	public int getLength() {
+		return length;
+	}
+
+	/**
 	 * @return the level
 	 */
 	public int getLevel() {
 		return level;
-	}
-
-	/**
-	 * @return the levelLength
-	 */
-	public int getLevelLength() {
-		return levelLength;
 	}
 
 	/**
@@ -120,6 +124,14 @@ public class CCDILevelDefinition extends AbstractEntity {
 	 */
 	public CCDIValueTypeEnum getValueType() {
 		return valueType;
+	}
+
+	/**
+	 * @param code
+	 *            the code to set
+	 */
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 	/**
@@ -155,19 +167,19 @@ public class CCDILevelDefinition extends AbstractEntity {
 	}
 
 	/**
+	 * @param length
+	 *            the length to set
+	 */
+	public void setLength(int length) {
+		this.length = length;
+	}
+
+	/**
 	 * @param level
 	 *            the level to set
 	 */
 	public void setLevel(int level) {
 		this.level = level;
-	}
-
-	/**
-	 * @param levelLength
-	 *            the levelLength to set
-	 */
-	public void setLevelLength(int levelLength) {
-		this.levelLength = levelLength;
 	}
 
 	/**

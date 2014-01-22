@@ -24,7 +24,6 @@ public class CCDILevelValue extends AbstractEntity {
 	@JoinColumn(name = "ccdiLevelDefinitionFk")
 	private CCDILevelDefinition levelDefinition;
 
-	private String code;
 	private String name;
 	private String nextValue;
 	private CCDIValueStatusEnum status;
@@ -34,13 +33,6 @@ public class CCDILevelValue extends AbstractEntity {
 	 */
 	public CCDILevelValue() {
 		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @return the code
-	 */
-	public String getCode() {
-		return code;
 	}
 
 	/**
@@ -69,14 +61,6 @@ public class CCDILevelValue extends AbstractEntity {
 	 */
 	public CCDIValueStatusEnum getStatus() {
 		return status;
-	}
-
-	/**
-	 * @param code
-	 *            the code to set
-	 */
-	public void setCode(String code) {
-		this.code = code;
 	}
 
 	/**
