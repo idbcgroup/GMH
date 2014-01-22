@@ -29,7 +29,96 @@ public class GHAAlertManager {
 	 * 
 	 */
 	public static GHADialog messageDialog = null;
-	
+
+	/**
+	 * @param ghaMessage
+	 */
+	public static void alert(GHAMessage ghaMessage) {
+		final Button buttonOK = new Button(GHAStrings.get("accept"));
+		buttonOK.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				messageDialog.close();
+			}
+		});
+		//		SC.say(ghaMessage.getText());
+		messageDialog = new GHANonModalDialog(DialogType.INFORMATION, false, ghaMessage.getText(), buttonOK);
+	}
+
+	/**
+	 * this method receives a list of keys to find the messages and then show
+	 * them to the user
+	 * 
+	 * @param keys
+	 */
+	public static void alert(List<String> keys) {
+		final Button buttonOK = new Button(GHAStrings.get("accept"));
+		buttonOK.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				messageDialog.close();
+			}
+		});
+		if (keys.isEmpty()) {
+			alert("form-errors");
+			return;
+		}
+		messageService.find(keys, new GHAAsyncCallback<List<GHAMessage>>() {
+
+			@Override
+			public void onSuccess(List<GHAMessage> result) {
+				StringBuilder builder = new StringBuilder();
+				for (GHAMessage msg : result) {
+					builder.append(msg.getText()).append("<br>");
+				}
+				//				SC.say(GHAStrings.get("information"), builder.toString());
+				messageDialog = new GHANonModalDialog(DialogType.INFORMATION, false,GHAStrings.get("information"), builder.toString(), buttonOK);
+			}
+		});
+	}
+
+	/**
+	 * this method receives a key to find and show the message from database
+	 * 
+	 * @param key
+	 */
+	public static void alert(String key) {
+		final Button buttonOK = new Button(GHAStrings.get("accept"));
+		buttonOK.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				messageDialog.close();
+			}
+		});
+		messageService.find(key, new GHAAsyncCallback<GHAMessage>() {
+
+			@Override
+			public void onSuccess(GHAMessage result) {
+				//				SC.say(GHAStrings.get("information"), result.getText());
+				messageDialog = new GHANonModalDialog(DialogType.INFORMATION, false, GHAStrings.get("information"), result.getText(), buttonOK);
+			}
+		});
+
+	}
+
+	/**
+	 * shows a custom debug information alert to the user with the message and title specified
+	 * @param title 
+	 * @param message 
+	 * @param callback 
+	 */
+	public static void alert(String title, String message) {
+		final Button buttonOK = new Button(GHAStrings.get("accept"));
+		buttonOK.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				messageDialog.close();
+			}
+		});
+		//		SC.say(ghaMessage.getText());
+		messageDialog = new GHANonModalDialog(DialogType.INFORMATION, false, title, message, buttonOK);
+	}
+
 	/**
 	 * @param title
 	 * @param message
@@ -74,21 +163,13 @@ public class GHAAlertManager {
 	}
 
 	/**
-	 * @param message
-	 */
-	@Deprecated
-	public static void oldAlert(String message) {
-		SC.say(GHAStrings.get("information"), message);
-	}
-	
-	/**
 	 * @param title
 	 * @param message
 	 * @param callback
 	 */
 	public static void confirm(String title, String message,
 			final BooleanCallback callback) {
-//		SC.ask(title, message, callback);
+		//		SC.ask(title, message, callback);
 		Button buttonYes = new Button(GHAStrings.get("yes"));
 		buttonYes.addClickHandler(new ClickHandler() {
 			@Override
@@ -125,7 +206,7 @@ public class GHAAlertManager {
 
 			@Override
 			public void onSuccess(GHAMessage result) {
-//				SC.say(GHAStrings.get("information"), result.getText());
+				//				SC.say(GHAStrings.get("information"), result.getText());
 				messageDialog = new GHANonModalDialog(DialogType.INFORMATION, false,GHAStrings.get("information"), result.getText(), buttonOK);
 			}
 		});
@@ -133,74 +214,11 @@ public class GHAAlertManager {
 	}
 
 	/**
-	 * this method receives a key to find and show the message from database
-	 * 
-	 * @param key
+	 * @param message
 	 */
-	public static void alert(String key) {
-		final Button buttonOK = new Button(GHAStrings.get("accept"));
-		buttonOK.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				messageDialog.close();
-			}
-		});
-		messageService.find(key, new GHAAsyncCallback<GHAMessage>() {
-
-			@Override
-			public void onSuccess(GHAMessage result) {
-//				SC.say(GHAStrings.get("information"), result.getText());
-				messageDialog = new GHANonModalDialog(DialogType.INFORMATION, false, GHAStrings.get("information"), result.getText(), buttonOK);
-			}
-		});
-
-	}
-
-	/**
-	 * this method receives a list of keys to find the messages and then show
-	 * them to the user
-	 * 
-	 * @param keys
-	 */
-	public static void alert(List<String> keys) {
-		final Button buttonOK = new Button(GHAStrings.get("accept"));
-		buttonOK.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				messageDialog.close();
-			}
-		});
-		if (keys.isEmpty()) {
-			alert("form-errors");
-			return;
-		}
-		messageService.find(keys, new GHAAsyncCallback<List<GHAMessage>>() {
-
-			@Override
-			public void onSuccess(List<GHAMessage> result) {
-				StringBuilder builder = new StringBuilder();
-				for (GHAMessage msg : result) {
-					builder.append(msg.getText()).append("<br>");
-				}
-//				SC.say(GHAStrings.get("information"), builder.toString());
-				messageDialog = new GHANonModalDialog(DialogType.INFORMATION, false,GHAStrings.get("information"), builder.toString(), buttonOK);
-			}
-		});
-	}
-
-	/**
-	 * @param ghaMessage
-	 */
-	public static void alert(GHAMessage ghaMessage) {
-		final Button buttonOK = new Button(GHAStrings.get("accept"));
-		buttonOK.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				messageDialog.close();
-			}
-		});
-//		SC.say(ghaMessage.getText());
-		messageDialog = new GHANonModalDialog(DialogType.INFORMATION, false, ghaMessage.getText(), buttonOK);
+	@Deprecated
+	public static void oldAlert(String message) {
+		SC.say(GHAStrings.get("information"), message);
 	}
 
 	/**
