@@ -23,7 +23,7 @@ public class MaintenanceActivitySubTab extends GHASubTab {
 
 	{
 		activityDefinitionForm = new MaintenanceActivityDefinitionFormPanel();
-		subprotocolActivitiesGridPanel=new MaintenanceSubprotocolActivitiesGridPanel();
+		subprotocolActivitiesGridPanel = new MaintenanceSubprotocolActivitiesGridPanel();
 		sectionForm = new GHASectionForm();
 	}
 
@@ -40,9 +40,12 @@ public class MaintenanceActivitySubTab extends GHASubTab {
 
 		sectionForm.addSection(GHAStrings.get("activity-definition"),
 				activityDefinitionForm);
-		sectionForm.addSection("Actividades de subprotocolo",
+		sectionForm.addSection("Actividades del Subprotocolo",
 				subprotocolActivitiesGridPanel);
-		
+
+		activityDefinitionForm
+				.addMaintenanceActivitySelectionListener(subprotocolActivitiesGridPanel);
+
 		GHAVerticalLayout mainLayout = new GHAVerticalLayout() {
 		};
 
@@ -74,6 +77,7 @@ public class MaintenanceActivitySubTab extends GHASubTab {
 	public void hide() {
 		super.hide();
 		sectionForm.hide();
+		subprotocolActivitiesGridPanel.hide();
 	}
 
 	/**
@@ -90,5 +94,6 @@ public class MaintenanceActivitySubTab extends GHASubTab {
 	public void show() {
 		sectionForm.show();
 		activityDefinitionForm.show();
+		subprotocolActivitiesGridPanel.show();
 	}
 }
