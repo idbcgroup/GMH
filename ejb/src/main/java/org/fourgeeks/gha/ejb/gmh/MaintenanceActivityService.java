@@ -30,8 +30,8 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * 
  */
 @Stateless
-public class MaintenanceActivityService extends GHAEJBExceptionService implements
-		MaintenanceActivityServiceRemote {
+public class MaintenanceActivityService extends GHAEJBExceptionService
+		implements MaintenanceActivityServiceRemote {
 	@PersistenceContext
 	EntityManager em;
 
@@ -70,6 +70,12 @@ public class MaintenanceActivityService extends GHAEJBExceptionService implement
 					.parameter(MaintenanceActivitySubTypeEnum.class, "subType");
 			predicate = cb.and(predicate, cb.equal(
 					root.<MaintenanceActivitySubTypeEnum> get("subType"), p));
+		}
+		if (maintenanceActivity.getIsSubProtocol() == true) {
+			ParameterExpression<Boolean> p = cb.parameter(Boolean.class,
+					"isSubProtocol");
+			predicate = cb.and(predicate,
+					cb.equal(root.<Boolean> get("isSubProtocol"), p));
 		}
 		return predicate;
 	}
@@ -146,6 +152,16 @@ public class MaintenanceActivityService extends GHAEJBExceptionService implement
 				q.setParameter("description", "%"
 						+ maintenanceActivity.getDescription().toLowerCase()
 						+ "%");
+			if (maintenanceActivity.getType() != null)
+				q.setParameter("type", maintenanceActivity.getType());
+
+			if (maintenanceActivity.getSubType() != null)
+				q.setParameter("subType", maintenanceActivity.getSubType());
+
+			if (maintenanceActivity.getIsSubProtocol() == true) {
+				q.setParameter("isSubProtocol",
+						maintenanceActivity.getIsSubProtocol());
+			}
 
 			return q.getResultList();
 

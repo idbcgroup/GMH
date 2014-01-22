@@ -16,6 +16,7 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.places.GHAPlaceSet;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivityForm;
+import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySearchForm;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionListener;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionProducer;
 
@@ -31,10 +32,23 @@ import com.smartgwt.client.widgets.layout.VLayout;
  */
 public class MaintenanceActivityDefinitionFormPanel extends VLayout implements
 		ClosableListener, HideableListener,
-		MaintenanceActivitySelectionListener,
 		MaintenanceActivitySelectionProducer {
 
 	private final MaintenanceActivityForm form = new MaintenanceActivityForm();
+	private MaintenanceActivitySearchForm activitySearchForm;
+
+	{
+		activitySearchForm = new MaintenanceActivitySearchForm(
+				GHAStrings.get("maintenance-activity"));
+
+		activitySearchForm
+				.addMaintenanceActivitySelectionListener(new MaintenanceActivitySelectionListener() {
+					@Override
+					public void select(MaintenanceActivity activity) {
+						form.set(maintenanceActivity);
+					}
+				});
+	}
 
 	/**
 	 * 
@@ -63,7 +77,7 @@ public class MaintenanceActivityDefinitionFormPanel extends VLayout implements
 		GHAEditButton editButton = new GHAEditButton(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				// TODO Auto-generated method stub
+				searchActivity();
 			}
 		});
 		GHAImgButton copyButton = new GHACopyButton(new ClickHandler() {
@@ -80,6 +94,10 @@ public class MaintenanceActivityDefinitionFormPanel extends VLayout implements
 		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
 
 		addMember(gridPanel);
+	}
+
+	protected void searchActivity() {
+		activitySearchForm.open();
 	}
 
 	@Override
@@ -170,11 +188,6 @@ public class MaintenanceActivityDefinitionFormPanel extends VLayout implements
 				GHAAlertManager.alert("maintenance-activity-save-success");
 			}
 		});
-	}
-
-	@Override
-	public void select(MaintenanceActivity maintenanceActivity) {
-		form.set(maintenanceActivity);
 	}
 
 	protected void undo() {

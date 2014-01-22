@@ -7,7 +7,7 @@ import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 
 /**
- * @author emiliot
+ * @author caparicio
  * 
  */
 public class EiaNoServiceMaintenanceRecord extends GHAGridRecord<Eia> {

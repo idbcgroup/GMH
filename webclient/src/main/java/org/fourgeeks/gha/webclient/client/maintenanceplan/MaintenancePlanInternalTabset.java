@@ -25,6 +25,7 @@ public class MaintenancePlanInternalTabset extends GHAInternalTabSet implements
 	private final EiaNoServiceMaintenanceSubTab maintenancePlanEquipmentNoServiceSubTab;
 	private final MaintenanceProtocolsSubTab maintenancePlanProtocolsSubTab;
 	private final MaintenanceActivitySubTab maintenanceActivitySubTab;
+//	private final MaintenanceSubprotocolActivitiesSubTab maintenanceSubprotocolSubTab;
 
 	/**
 	 * @param panel
@@ -34,9 +35,12 @@ public class MaintenancePlanInternalTabset extends GHAInternalTabSet implements
 		maintenancePlanInfoSubTab = new MaintenancePlanInformationSubTab(panel);
 		maintenancePlanEquipmentTypeSubTab = new AsociatedEiaTypeSubTab(panel);
 		maintenancePlanEquipmentSubTab = new EiaPlanificationSubTab(panel);
-		maintenancePlanEquipmentNoServiceSubTab = new EiaNoServiceMaintenanceSubTab(panel);
+		maintenancePlanEquipmentNoServiceSubTab = new EiaNoServiceMaintenanceSubTab(
+				panel);
 		maintenancePlanProtocolsSubTab = new MaintenanceProtocolsSubTab(panel);
 		maintenanceActivitySubTab = new MaintenanceActivitySubTab(panel);
+//		maintenanceSubprotocolSubTab = new MaintenanceSubprotocolActivitiesSubTab(
+//				panel);
 
 		maintenancePlanProtocolsSubTab
 				.addMaintenanceProtocolsSelectionListener(maintenancePlanInfoSubTab);
@@ -48,6 +52,7 @@ public class MaintenancePlanInternalTabset extends GHAInternalTabSet implements
 		addTab(maintenancePlanEquipmentTypeSubTab);
 		addTab(maintenancePlanEquipmentSubTab);
 		addTab(maintenancePlanEquipmentNoServiceSubTab);
+//		addTab(maintenanceSubprotocolSubTab);
 
 	}
 
@@ -71,7 +76,10 @@ public class MaintenancePlanInternalTabset extends GHAInternalTabSet implements
 			maintenanceActivitySubTab.openFirstSection();
 		} else if (selectedTab == maintenancePlanEquipmentNoServiceSubTab) {
 			maintenancePlanEquipmentNoServiceSubTab.getPane().show();
-		}
+		} 
+//		else if (selectedTab == maintenanceSubprotocolSubTab) {
+//			maintenanceSubprotocolSubTab.getPane().show();
+//		}
 
 		animateShow(AnimationEffect.FADE);
 	}

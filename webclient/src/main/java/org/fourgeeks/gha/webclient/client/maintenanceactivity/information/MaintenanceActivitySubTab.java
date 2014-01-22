@@ -5,6 +5,7 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASectionForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanPanel;
+import org.fourgeeks.gha.webclient.client.maintenanceplan.subprotocolactivities.MaintenanceSubprotocolActivitiesGridPanel;
 
 import com.smartgwt.client.widgets.tab.events.TabDeselectedEvent;
 import com.smartgwt.client.widgets.tab.events.TabDeselectedHandler;
@@ -17,10 +18,12 @@ import com.smartgwt.client.widgets.tab.events.TabSelectedHandler;
 public class MaintenanceActivitySubTab extends GHASubTab {
 
 	private final MaintenanceActivityDefinitionFormPanel activityDefinitionForm;
+	private final MaintenanceSubprotocolActivitiesGridPanel subprotocolActivitiesGridPanel;
 	private final GHASectionForm sectionForm;
 
 	{
 		activityDefinitionForm = new MaintenanceActivityDefinitionFormPanel();
+		subprotocolActivitiesGridPanel = new MaintenanceSubprotocolActivitiesGridPanel();
 		sectionForm = new GHASectionForm();
 	}
 
@@ -32,9 +35,16 @@ public class MaintenanceActivitySubTab extends GHASubTab {
 
 		addClosableListener(activityDefinitionForm);
 		addHideableListener(activityDefinitionForm);
+		addClosableListener(subprotocolActivitiesGridPanel);
+		addHideableListener(subprotocolActivitiesGridPanel);
 
 		sectionForm.addSection(GHAStrings.get("activity-definition"),
 				activityDefinitionForm);
+		sectionForm.addSection("Actividades del Subprotocolo",
+				subprotocolActivitiesGridPanel);
+
+		activityDefinitionForm
+				.addMaintenanceActivitySelectionListener(subprotocolActivitiesGridPanel);
 
 		GHAVerticalLayout mainLayout = new GHAVerticalLayout() {
 		};
@@ -67,6 +77,7 @@ public class MaintenanceActivitySubTab extends GHASubTab {
 	public void hide() {
 		super.hide();
 		sectionForm.hide();
+		subprotocolActivitiesGridPanel.hide();
 	}
 
 	/**
@@ -83,5 +94,6 @@ public class MaintenanceActivitySubTab extends GHASubTab {
 	public void show() {
 		sectionForm.show();
 		activityDefinitionForm.show();
+		subprotocolActivitiesGridPanel.show();
 	}
 }

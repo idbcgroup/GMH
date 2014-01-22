@@ -65,7 +65,6 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 					public void select(MaintenancePlan planFrom) {
 						save(planFrom);
 					}
-
 				});
 
 		activitySearchForm = new MaintenanceActivitySearchForm(
