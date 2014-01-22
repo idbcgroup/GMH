@@ -68,6 +68,7 @@ import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
 import org.fourgeeks.gha.domain.gmh.MaintenanceSubProtocol;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
+import org.fourgeeks.gha.domain.gom.CCDILevelDefinition;
 import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.domain.mix.Citizen;
 import org.fourgeeks.gha.domain.mix.Institution;
@@ -318,6 +319,54 @@ public class InitialData {
 			} catch (Exception e1) {
 				logger.log(Level.INFO,
 						"error Creating MaintenanceActivity test data", e1);
+			}
+		}
+	}
+
+	private void ccdiTestData() {
+		String query = "SELECT t from CCDILevelDefinition t WHERE t.code = '90001'"; //code?
+		try {
+			em.createQuery(query).getSingleResult();
+		} catch (NoResultException e) {
+			try {
+				logger.info("creating test ccdiLevelDefinition");
+
+				CCDILevelDefinition hipodermicas = new CCDILevelDefinition();
+				hipodermicas.setCode("90001");
+				hipodermicas.setIncValue(1);
+				hipodermicas.setName("HIPODERMICAS");
+				hipodermicas.setLevel(4);
+				hipodermicas.setInitialValue(0);
+				em.persist(hipodermicas);
+
+				CCDILevelDefinition puncion = new CCDILevelDefinition();
+				puncion.setCode("90002");
+				puncion.setIncValue(1);
+				puncion.setName("PUNCION");
+				puncion.setLevel(4);
+				puncion.setInitialValue(0);
+				em.persist(puncion);
+
+				CCDILevelDefinition insulina = new CCDILevelDefinition();
+				insulina.setCode("90003");
+				insulina.setIncValue(1);
+				insulina.setName("INSULINA");
+				insulina.setLevel(4);
+				insulina.setInitialValue(0);
+				em.persist(insulina);
+
+				CCDILevelDefinition penicilina = new CCDILevelDefinition();
+				penicilina.setCode("90004");
+				penicilina.setIncValue(1);
+				penicilina.setName("PENICILINA");
+				penicilina.setLevel(4);
+				penicilina.setInitialValue(0);
+				em.persist(penicilina);
+
+				em.flush();
+
+			} catch (Exception e1) {
+				logger.log(Level.INFO, "error creating test ccdi definition", e);
 			}
 		}
 	}
@@ -1066,6 +1115,7 @@ public class InitialData {
 		// MaintenancePlanMaintenanceProtocol();
 		// eiaTypeMaintenancePlanTestData();
 		// eiaMaintenancePlanificationTestData();
+		ccdiTestData();
 	}
 
 	private void uiStrings() {
