@@ -170,30 +170,52 @@ public abstract class GHAUiHelper {
 	public static final int DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT = 130;
 	public static final int DEFAULT_NOTIFICATION_BUTTONS_HEIGHT = 150;
 
+	private static List<ResizeHandler> handlers = new ArrayList<ResizeHandler>();
+
+	private static List<EventListener> mouseOverHandlers = new ArrayList<EventListener>();
+
+	private static List<EventListener> clickHandlers = new ArrayList<EventListener>();
+
+	public static int DEFAULT_TAB_HEADER_WIDTH = 250;
+
 	/**
-	 * @return the height that a tab must have
+	 * Adds a click handler to the document click event
+	 * 
+	 * @param handler
 	 */
-	public static int getTabHeight() {
-		int rootPanelHeight = Window.getClientHeight();
-		int ret = rootPanelHeight - DEFAULT_TOP_HEADER_TAB_HEIGHT;
-		if (ret < MIN_TAB_HEIGHT) {
-			return MIN_TAB_HEIGHT;
-		} else {
-			return ret;
-		}
+	public static void addDocumentClickHandler(EventListener handler) {
+		clickHandlers.add(handler);
 	}
 
 	/**
-	 * @return the height that a Panel must have
+	 * Adds a click handler to the document mouse over event
+	 * 
+	 * @param handler
 	 */
-	public static int getPanelHeight() {
-		int tabHeight = getTabHeight();
-		int ret = tabHeight - MENU_BAR_HEIGTH;
-		if (ret < MIN_PANEL_HEIGHT) {
-			return MIN_PANEL_HEIGHT;
-		} else {
-			return ret;
-		}
+	public static void addDocumentMouseOverHandler(EventListener handler) {
+		mouseOverHandlers.add(handler);
+	}
+
+	/**
+	 * @param handler
+	 */
+	public static void addGHAResizeHandler(ResizeHandler handler) {
+		handlers.add(handler);
+	}
+
+	/**
+	 * @param buttons
+	 * @return the bar with the buttons
+	 */
+	public static VLayout createBar(Canvas... buttons) {
+		VLayout sideButtons = new VLayout();
+		sideButtons.setWidth(30);
+		sideButtons.setLayoutMargin(5);
+		sideButtons.setMembersMargin(10);
+		sideButtons.setDefaultLayoutAlign(Alignment.CENTER);
+		if (buttons.length > 0)
+			sideButtons.addMembers(buttons);
+		return sideButtons;
 	}
 
 	/**
@@ -211,38 +233,20 @@ public abstract class GHAUiHelper {
 			return ret;
 		}
 	}
-	
-	/**
-	 * 
-	 * @param type 
-	 * @return the height for the bottom section of a SearchForm (internal bottom section)
-	 */
-	public static int getResultSetHeight(ResultSetContainerType type) {
-		int containerHeight;
-		int innerTopSection;
 
-		int ret;
-		if(type == ResultSetContainerType.SEARCH_FORM){
-			containerHeight = getBottomSectionHeight();
-			innerTopSection = DEFAULT_INNER_TOP_SECTION_HEIGHT
-					+ V_SEPARATOR_HEIGHT;
-			ret = containerHeight - innerTopSection - 42;
-			if (ret < MIN_RESULT_SET_HEIGHT) {
-//				Window.alert("Searchform result set(minimun):"+MIN_RESULT_SET_HEIGHT);
-				return MIN_RESULT_SET_HEIGHT;
-			} else {
-//				Window.alert("Bottom section height:"+containerHeight+" Searchform result set:"+ret);
-				return ret;
-			}
-		}else{
-			ret = getBottomSectionHeight() - 42;
-			if (ret < (MIN_BOTTOM_SECTION_HEIGHT - 10)) {
-//				Window.alert("Bottomsection result set(minimun):"+(MIN_BOTTOM_SECTION_HEIGHT - 10));
-				return (MIN_BOTTOM_SECTION_HEIGHT - 10);
-			} else {
-//				Window.alert("Bottomsection result set:"+ret);
-				return ret;
-			}
+	/**
+	 * @param extrasHeight
+	 * @return the height of the grid.
+	 */
+	public static int getEDTGridSize(int extrasHeight) {
+		int tabHeight = getPanelHeight();
+		int topExtras = extrasHeight + 30;
+
+		int ret = (tabHeight - topExtras) / 2;
+		if (ret < MIN_GRID_SIZE) {
+			return MIN_GRID_SIZE;
+		} else {
+			return ret;
 		}
 	}
 
@@ -271,14 +275,6 @@ public abstract class GHAUiHelper {
 	}
 
 	/**
-	 * @return the Top space
-	 */
-	public static int getTopSpace() {
-		return (DEFAULT_TOP_HEADER_PANEL_HEIGHT
-				+ DEFAULT_INNER_TOP_SECTION_HEIGHT + V_SEPARATOR_HEIGHT);
-	}
-
-	/**
 	 * @param extrasHeight
 	 * @return the grid size.
 	 */
@@ -292,6 +288,69 @@ public abstract class GHAUiHelper {
 			return MIN_GRID_SIZE;
 		} else {
 			return ret;
+		}
+	}
+
+	/**
+	 * @return the height that a Panel must have
+	 */
+	public static int getPanelHeight() {
+		int tabHeight = getTabHeight();
+		int ret = tabHeight - MENU_BAR_HEIGTH;
+		if (ret < MIN_PANEL_HEIGHT) {
+			return MIN_PANEL_HEIGHT;
+		} else {
+			return ret;
+		}
+	}
+
+	/**
+	 * @param extrasHeight
+	 * @return the grid size
+	 */
+	public static int getResultSetGridSize(ResultSetContainerType type) {
+		int resultSetHeight = getResultSetHeight(type);
+		int titleHeight = 60;
+
+		int ret = resultSetHeight - (titleHeight + 20);
+		if (ret < MIN_GRID_SIZE) {
+			return MIN_GRID_SIZE;
+		} else {
+			return ret;
+		}
+	}
+
+	/**
+	 * 
+	 * @param type 
+	 * @return the height for the bottom section of a SearchForm (internal bottom section)
+	 */
+	public static int getResultSetHeight(ResultSetContainerType type) {
+		int containerHeight;
+		int innerTopSection;
+
+		int ret;
+		if(type == ResultSetContainerType.SEARCH_FORM){
+			containerHeight = getBottomSectionHeight();
+			innerTopSection = DEFAULT_INNER_TOP_SECTION_HEIGHT
+					+ V_SEPARATOR_HEIGHT;
+			ret = containerHeight - innerTopSection - 42;
+			if (ret < MIN_RESULT_SET_HEIGHT) {
+				//				Window.alert("Searchform result set(minimun):"+MIN_RESULT_SET_HEIGHT);
+				return MIN_RESULT_SET_HEIGHT;
+			} else {
+				//				Window.alert("Bottom section height:"+containerHeight+" Searchform result set:"+ret);
+				return ret;
+			}
+		}else{
+			ret = getBottomSectionHeight() - 42;
+			if (ret < (MIN_BOTTOM_SECTION_HEIGHT - 10)) {
+				//				Window.alert("Bottomsection result set(minimun):"+(MIN_BOTTOM_SECTION_HEIGHT - 10));
+				return (MIN_BOTTOM_SECTION_HEIGHT - 10);
+			} else {
+				//				Window.alert("Bottomsection result set:"+ret);
+				return ret;
+			}
 		}
 	}
 
@@ -311,37 +370,63 @@ public abstract class GHAUiHelper {
 			return ret;
 		}
 	}
-	
-	/**
-	 * @param extrasHeight
-	 * @return the grid size
-	 */
-	public static int getResultSetGridSize(ResultSetContainerType type) {
-		int resultSetHeight = getResultSetHeight(type);
-		int titleHeight = 60;
 
-		int ret = resultSetHeight - (titleHeight + 20);
-		if (ret < MIN_GRID_SIZE) {
-			return MIN_GRID_SIZE;
+	/**
+	 * @return the height that a tab must have
+	 */
+	public static int getTabHeight() {
+		int rootPanelHeight = Window.getClientHeight();
+		int ret = rootPanelHeight - DEFAULT_TOP_HEADER_TAB_HEIGHT;
+		if (ret < MIN_TAB_HEIGHT) {
+			return MIN_TAB_HEIGHT;
 		} else {
 			return ret;
 		}
 	}
 
 	/**
-	 * @param extrasHeight
-	 * @return the height of the grid.
+	 * @return the Top space
 	 */
-	public static int getEDTGridSize(int extrasHeight) {
-		int tabHeight = getPanelHeight();
-		int topExtras = extrasHeight + 30;
+	public static int getTopSpace() {
+		return (DEFAULT_TOP_HEADER_PANEL_HEIGHT
+				+ DEFAULT_INNER_TOP_SECTION_HEIGHT + V_SEPARATOR_HEIGHT);
+	}
 
-		int ret = (tabHeight - topExtras) / 2;
-		if (ret < MIN_GRID_SIZE) {
-			return MIN_GRID_SIZE;
-		} else {
-			return ret;
-		}
+	/**
+	 * @param width
+	 * @return an horizontal gray separator
+	 */
+	public static HLayout horizontalGraySeparator(String width) {
+		HLayout separator = new HLayout();
+		separator.setHeight100();
+		separator.setWidth(width);
+		separator.setBackgroundColor("#666666");
+		return separator;
+	}
+
+	/**
+	 * removes a click handler from the document click event
+	 * 
+	 * @param handler
+	 */
+	public static void removeDocumentClickHandler(EventListener handler) {
+		clickHandlers.remove(handler);
+	}
+
+	/**
+	 * removes a click handler from the document mouse over event
+	 * 
+	 * @param handler
+	 */
+	public static void removeDocumentMouseOverHandler(EventListener handler) {
+		mouseOverHandlers.remove(handler);
+	}
+
+	/**
+	 * @param handler
+	 */
+	public static void removeGHAResizeHandler(ResizeHandler handler) {
+		handlers.remove(handler);
 	}
 
 	/**
@@ -356,19 +441,6 @@ public abstract class GHAUiHelper {
 		separator.setHeight(height);
 		return separator;
 	}
-
-	/**
-	 * @param height
-	 * @return the separator
-	 */
-	public static VLayout verticalSeparator(String height) {
-		VLayout separator = new VLayout();
-		separator.setWidth100();
-		separator.setMinWidth(1024);
-		separator.setHeight(height);
-		return separator;
-	}
-
 	/**
 	 * @param src
 	 * @param imgW
@@ -416,87 +488,15 @@ public abstract class GHAUiHelper {
 	}
 
 	/**
-	 * @param width
-	 * @return an horizontal gray separator
+	 * @param height
+	 * @return the separator
 	 */
-	public static HLayout horizontalGraySeparator(String width) {
-		HLayout separator = new HLayout();
-		separator.setHeight100();
-		separator.setWidth(width);
-		separator.setBackgroundColor("#666666");
+	public static VLayout verticalSeparator(String height) {
+		VLayout separator = new VLayout();
+		separator.setWidth100();
+		separator.setMinWidth(1024);
+		separator.setHeight(height);
 		return separator;
-	}
-
-	/**
-	 * @param buttons
-	 * @return the bar with the buttons
-	 */
-	public static VLayout createBar(Canvas... buttons) {
-		VLayout sideButtons = new VLayout();
-		sideButtons.setWidth(30);
-		sideButtons.setLayoutMargin(5);
-		sideButtons.setMembersMargin(10);
-		sideButtons.setDefaultLayoutAlign(Alignment.CENTER);
-		if (buttons.length > 0)
-			sideButtons.addMembers(buttons);
-		return sideButtons;
-	}
-
-	private static List<ResizeHandler> handlers = new ArrayList<ResizeHandler>();
-
-	/**
-	 * @param handler
-	 */
-	public static void addGHAResizeHandler(ResizeHandler handler) {
-		handlers.add(handler);
-	}
-
-	/**
-	 * @param handler
-	 */
-	public static void removeGHAResizeHandler(ResizeHandler handler) {
-		handlers.remove(handler);
-	}
-
-	private static List<EventListener> mouseOverHandlers = new ArrayList<EventListener>();
-
-	/**
-	 * Adds a click handler to the document mouse over event
-	 * 
-	 * @param handler
-	 */
-	public static void addDocumentMouseOverHandler(EventListener handler) {
-		mouseOverHandlers.add(handler);
-	}
-
-	/**
-	 * removes a click handler from the document mouse over event
-	 * 
-	 * @param handler
-	 */
-	public static void removeDocumentMouseOverHandler(EventListener handler) {
-		mouseOverHandlers.remove(handler);
-	}
-
-	private static List<EventListener> clickHandlers = new ArrayList<EventListener>();
-	public static int DEFAULT_TAB_HEADER_WIDTH = 250;
-
-	/**
-	 * Adds a click handler to the document click event
-	 * 
-	 * @param handler
-	 */
-	public static void addDocumentClickHandler(EventListener handler) {
-		clickHandlers.add(handler);
-	}
-
-	/**
-	 * removes a click handler from the document click event
-	 * 
-	 * @param handler
-	 */
-	public static void removeDocumentClickHandler(EventListener handler) {
-		clickHandlers.remove(handler);
 	}
 
 }
