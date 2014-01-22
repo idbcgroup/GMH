@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.fourgeeks.gha.webclient.client.maintenanceplan.eianoservice;
+package org.fourgeeks.gha.webclient.client.maintenanceplan.subprotocolactivities;
 
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
@@ -10,13 +10,13 @@ import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
  * @author caparicio
  * 
  */
-public class EiaNoServiceMaintenanceRecord extends GHAGridRecord<Eia> {
+public class MaintenanceSubprotocolActivitiesRecord extends GHAGridRecord<Eia> {
 	private Eia eiaEntity;
 
 	/**
 	 * @param eiaEntity
 	 */
-	public EiaNoServiceMaintenanceRecord(Eia eiaEntity) {
+	public MaintenanceSubprotocolActivitiesRecord(Eia eiaEntity) {
 		this.eiaEntity = eiaEntity;
 	}
 
@@ -28,7 +28,6 @@ public class EiaNoServiceMaintenanceRecord extends GHAGridRecord<Eia> {
 		setAttribute("type", eiaEntity.getEiaType().getName());
 		setAttribute("code", eiaEntity.getCode());
 		setAttribute("name", eiaEntity.getSerialNumber());
-		setAttribute("state", eiaEntity.getState());
 		//TODO Calcular los valores de "quantity" y "cost"
 		setAttribute("quantity", 0);
 		setAttribute("cost", 0);

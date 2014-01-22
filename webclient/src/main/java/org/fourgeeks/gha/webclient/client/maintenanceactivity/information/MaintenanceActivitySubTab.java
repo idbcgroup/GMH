@@ -35,7 +35,7 @@ public class MaintenanceActivitySubTab extends GHASubTab {
 
 		sectionForm.addSection(GHAStrings.get("activity-definition"),
 				activityDefinitionForm);
-
+		
 		GHAVerticalLayout mainLayout = new GHAVerticalLayout() {
 		};
 
