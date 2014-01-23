@@ -45,7 +45,7 @@ public class MaintenanceActivityDefinitionFormPanel extends VLayout implements
 				.addMaintenanceActivitySelectionListener(new MaintenanceActivitySelectionListener() {
 					@Override
 					public void select(MaintenanceActivity activity) {
-						form.set(maintenanceActivity);
+						form.set(activity);
 					}
 				});
 	}

@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.activity;
+package org.fourgeeks.gha.webclient.client.maintenanceactivity;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -28,13 +28,13 @@ import com.smartgwt.client.widgets.events.ClickHandler;
  * @author caparicio
  * 
  */
-public class ActivityPanel extends GHAPanel implements
+public class MaintenanceActivityPanel extends GHAPanel implements
 		MaintenanceActivitySelectionListener,
 		MaintenanceActivitySelectionProducer {
 
 	private static final String TITLE = "Actividades de Mantenimiento";
-	private ActivityTopForm topForm;
-	private ActivityInternalTabset internalTabSet;
+	private MaintenanceActivityTopForm topForm;
+	private MaintenanceActivityInternalTabset internalTabSet;
 	private final List<MaintenanceActivitySelectionListener> listeners = new LinkedList<MaintenanceActivitySelectionListener>();
 	private GHAHeaderOption searchOption;
 	private GHAHeaderOption addOption;
@@ -44,7 +44,7 @@ public class ActivityPanel extends GHAPanel implements
 	/**
 	 * @param token
 	 */
-	public ActivityPanel() {
+	public MaintenanceActivityPanel() {
 		super();
 		header = new GHAPanelHeader(this, TITLE);
 		searchOption = header.addSearchOption(new ClickHandler() {
@@ -68,7 +68,7 @@ public class ActivityPanel extends GHAPanel implements
 		addClosableListener(resultSet);
 		resultSet.addMaintenanceActivitySelectionListener(this);
 
-		topForm = new ActivityTopForm(resultSet, this);
+		topForm = new MaintenanceActivityTopForm(resultSet, this);
 		addHideableListener(topForm);
 		addClosableListener(topForm);
 		addMaintenanceActivitySelectionListener(topForm);
@@ -80,7 +80,7 @@ public class ActivityPanel extends GHAPanel implements
 			}
 		});
 
-		internalTabSet = new ActivityInternalTabset(this);
+		internalTabSet = new MaintenanceActivityInternalTabset(this);
 		addHideableListener(internalTabSet);
 		addClosableListener(internalTabSet);
 		addMaintenanceActivitySelectionListener(internalTabSet);
