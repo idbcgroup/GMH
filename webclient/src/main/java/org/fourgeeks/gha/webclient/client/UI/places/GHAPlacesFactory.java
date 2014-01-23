@@ -2,6 +2,7 @@ package org.fourgeeks.gha.webclient.client.UI.places;
 
 import org.fourgeeks.gha.webclient.client.UI.exceptions.LoginNeededException;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.PermissionsNeededException;
+import org.fourgeeks.gha.webclient.client.activity.ActivityPlace;
 import org.fourgeeks.gha.webclient.client.edt.EDTPlace;
 import org.fourgeeks.gha.webclient.client.eia.EIAPlace;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypePlace;
@@ -124,6 +125,25 @@ public class GHAPlacesFactory {
 				public void onSuccess() {
 					try {
 						GHAPlaceSet.showPlace(new MaintenancePlanPlace(token));
+					} catch (LoginNeededException e) {
+						// TODO
+					} catch (PermissionsNeededException e) {
+						History.newItem("home");
+					}
+				}
+
+				@Override
+				public void onFailure(Throwable reason) {
+
+				}
+			});
+		else if (token.startsWith("activity"))
+			GWT.runAsync(new RunAsyncCallback() {
+
+				@Override
+				public void onSuccess() {
+					try {
+						GHAPlaceSet.showPlace(new ActivityPlace(token));
 					} catch (LoginNeededException e) {
 						// TODO
 					} catch (PermissionsNeededException e) {
