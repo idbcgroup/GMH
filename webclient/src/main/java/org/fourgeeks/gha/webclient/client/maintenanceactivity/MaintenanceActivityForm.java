@@ -144,9 +144,9 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 				toolsRequierdCheckboxItem, equipsRequiredCheckboxItem,
 				estimatedTimeTextItem, estimatedTimePoTSelectItem,
 				estimatedCostTextItem, estimatedCostCurrencySelectItem,
-				instructionsAndObsTextAreaItem, new GHASpacerItem(2),
-				timesEffectuedTextItem, eiasWhitThisActivityTextItem,
-				lastEffectuatedDateItem, lastEffectuedByTextItem);
+				instructionsAndObsTextAreaItem, timesEffectuedTextItem,
+				eiasWhitThisActivityTextItem, lastEffectuatedDateItem,
+				lastEffectuedByTextItem);
 
 		mainPanel.addMembers(form, new LayoutSpacer());
 		addMember(mainPanel);

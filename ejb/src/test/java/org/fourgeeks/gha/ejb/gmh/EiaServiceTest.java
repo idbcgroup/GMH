@@ -7,6 +7,9 @@ import junit.framework.Assert;
 import org.fourgeeks.gha.domain.AbstractCodeEntity;
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.HasKey;
+import org.fourgeeks.gha.domain.enu.ActivityCategoryEnum;
+import org.fourgeeks.gha.domain.enu.ActivityState;
+import org.fourgeeks.gha.domain.enu.ActivitySubCategoryEnum;
 import org.fourgeeks.gha.domain.enu.BpiInstitutionRelationTypeEnum;
 import org.fourgeeks.gha.domain.enu.BpiOriginEnum;
 import org.fourgeeks.gha.domain.enu.BpiRiskEnum;
@@ -23,9 +26,6 @@ import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.enu.GenderTypeEnum;
 import org.fourgeeks.gha.domain.enu.LanguageEnum;
 import org.fourgeeks.gha.domain.enu.LocationLevelEnum;
-import org.fourgeeks.gha.domain.enu.MaintenanceActivityState;
-import org.fourgeeks.gha.domain.enu.MaintenanceActivitySubTypeEnum;
-import org.fourgeeks.gha.domain.enu.MaintenanceActivityTypeEnum;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanCancelationOption;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanState;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanStatus;
@@ -193,11 +193,11 @@ public class EiaServiceTest {
 				.addClass(MaintenancePlanificationStatus.class)
 				.addClass(MaintenancePlanificationType.class)
 				.addClass(MaintenanceProtocols.class)
-				.addClass(MaintenanceActivityState.class)
-				.addClass(MaintenanceActivityTypeEnum.class)
+				.addClass(ActivityState.class)
+				.addClass(ActivityCategoryEnum.class)
 				.addClass(Manufacturer.class)
 				// .addClass(MaterialTypeEnum.class)
-				.addClass(MaintenanceActivitySubTypeEnum.class)
+				.addClass(ActivitySubCategoryEnum.class)
 				// .addClass(Material.class)
 				// .addClass(MaterialCategory.class)
 				.addClass(MaintenanceActivity.class)
