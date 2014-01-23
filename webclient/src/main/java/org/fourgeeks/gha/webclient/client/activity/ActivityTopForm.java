@@ -188,7 +188,7 @@ public class ActivityTopForm extends
 		// frequencyItem.setValue(maintenanceActivity.getFrequency());
 		// periodOfTimeItem.setValue(maintenanceActivity.getPot());
 		stateItem.setValue(maintenanceActivity.getState());
-		typeItem.setValue(maintenanceActivity.getType());
+		typeItem.setValue(maintenanceActivity.getCategory());
 		deactivate();
 		sideButtons.addMember(deleteButton, 0);
 	}

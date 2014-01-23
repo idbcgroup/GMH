@@ -248,12 +248,12 @@ public class MaintenanceActivityService extends GHAEJBExceptionService
 	 * .gha.domain.gmh.MaintenanceActivity)
 	 */
 	@Override
-	public MaintenanceActivity save(MaintenanceActivity protocolActivity)
+	public MaintenanceActivity save(MaintenanceActivity activity)
 			throws GHAEJBException {
 		try {
-			em.persist(protocolActivity);
+			em.persist(activity);
 			em.flush();
-			return em.find(MaintenanceActivity.class, protocolActivity.getId());
+			return em.find(MaintenanceActivity.class, activity.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving MaintenanceActivity ", e);
 			throw super.generateGHAEJBException(
@@ -270,10 +270,10 @@ public class MaintenanceActivityService extends GHAEJBExceptionService
 	 * .fourgeeks .gha.domain.gmh.MaintenanceActivity)
 	 */
 	@Override
-	public MaintenanceActivity update(MaintenanceActivity protocolActivity)
+	public MaintenanceActivity update(MaintenanceActivity activity)
 			throws GHAEJBException {
 		try {
-			MaintenanceActivity res = em.merge(protocolActivity);
+			MaintenanceActivity res = em.merge(activity);
 			em.flush();
 			return res;
 		} catch (Exception e) {

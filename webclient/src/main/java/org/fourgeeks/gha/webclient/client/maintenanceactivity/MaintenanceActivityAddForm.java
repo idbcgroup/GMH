@@ -71,7 +71,7 @@ public class MaintenanceActivityAddForm extends GHAAddForm<MaintenanceActivity>
 		form.save(new GHAAsyncCallback<MaintenanceActivity>() {
 			@Override
 			public void onSuccess(MaintenanceActivity result) {
-				GHAAlertManager.alert("maintenance-activity-save-success");
+				GHAAlertManager.alert("activity-save-success");
 				hide();
 			}
 		});

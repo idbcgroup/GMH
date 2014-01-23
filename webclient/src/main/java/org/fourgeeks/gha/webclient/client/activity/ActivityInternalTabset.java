@@ -3,6 +3,7 @@ package org.fourgeeks.gha.webclient.client.activity;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAInternalTabSet;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionListener;
+import org.fourgeeks.gha.webclient.client.maintenanceactivity.information.MaintenanceActivitySubTab;
 
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.types.AnimationEffect;
@@ -17,23 +18,22 @@ public class ActivityInternalTabset extends GHAInternalTabSet implements
 		ResizeHandler, MaintenanceActivitySelectionListener {
 
 	// private final MaintenanceProtocolsSubTab maintenancePlanProtocolsSubTab;
-	// private final MaintenanceActivitySubTab maintenanceActivitySubTab;
+	private final MaintenanceActivitySubTab maintenanceActivitySubTab;
 
 	/**
 	 * @param panel
 	 */
 	public ActivityInternalTabset(ActivityPanel panel) {
 		super(panel);
+
+		maintenanceActivitySubTab = new MaintenanceActivitySubTab(panel);
 		// maintenancePlanProtocolsSubTab = new
 		// MaintenanceProtocolsSubTab(panel);
-		// maintenanceActivitySubTab = new MaintenanceActivitySubTab(panel);
-		//
-		// maintenancePlanProtocolsSubTab
-		// .addMaintenanceProtocolsSelectionListener(maintenancePlanInfoSubTab);
-		//
+		// maintenancePlanProtocolsSubTab.addMaintenanceProtocolsSelectionListener(maintenancePlanInfoSubTab);
+
 		// // Agregando las Subtabs
+		addTab(maintenanceActivitySubTab);
 		// addTab(maintenancePlanProtocolsSubTab);
-		// addTab(maintenanceActivitySubTab);
 	}
 
 	@Override
@@ -44,10 +44,11 @@ public class ActivityInternalTabset extends GHAInternalTabSet implements
 	@Override
 	public void show() {
 		Tab selectedTab = getSelectedTab();
-		// if (selectedTab == maintenancePlanProtocolsSubTab) {
+
+		if (selectedTab == maintenanceActivitySubTab)
+			maintenanceActivitySubTab.show();
+		// else if (selectedTab == maintenancePlanProtocolsSubTab) {
 		// maintenancePlanProtocolsSubTab.getPane().show();
-		// } else if (selectedTab == maintenanceActivitySubTab) {
-		// maintenanceActivitySubTab.openFirstSection();
 		// }
 
 		animateShow(AnimationEffect.FADE);

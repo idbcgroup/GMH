@@ -323,6 +323,11 @@ public class MaintenanceProtocolsService extends GHAEJBExceptionService
 			throws GHAEJBException {
 		try {
 
+			// MaintenanceActivity activity = entity.getMaintenanceActivity();
+			// if (activity.getState() == ActivityState.CREATED)
+			// activity.setState(ActivityState.ACTIVE);
+			//
+			// em.persist(activity);
 			em.persist(entity);
 			em.flush();
 

@@ -5,18 +5,14 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHACopyButton;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHAEditButton;
-import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAUndoButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.places.GHAPlaceSet;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivityForm;
-import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySearchForm;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionListener;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionProducer;
 
@@ -30,75 +26,35 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class MaintenanceActivityDefinitionFormPanel extends VLayout implements
-		ClosableListener, HideableListener,
+public class MaintenanceActivityDefinitionFormPanel extends GHAVerticalLayout
+		implements ClosableListener, HideableListener,
 		MaintenanceActivitySelectionListener,
 		MaintenanceActivitySelectionProducer {
 
 	private final MaintenanceActivityForm form = new MaintenanceActivityForm();
-	private MaintenanceActivitySearchForm activitySearchForm;
-
-	{
-		activitySearchForm = new MaintenanceActivitySearchForm(
-				GHAStrings.get("maintenance-activity"));
-
-		activitySearchForm
-				.addMaintenanceActivitySelectionListener(new MaintenanceActivitySelectionListener() {
-					@Override
-					public void select(MaintenanceActivity activity) {
-
-					}
-				});
-	}
 
 	/**
 	 * 
 	 */
 	public MaintenanceActivityDefinitionFormPanel() {
-		setWidth100();
 
-		GHASaveButton saveButton = new GHASaveButton(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				save();
-			}
-		});
-		GHAUndoButton undoButton = new GHAUndoButton(new ClickHandler() {
+		VLayout sideButtons = GHAUiHelper.createBar(new GHASaveButton(
+				new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						update();
+					}
+				}), new GHAUndoButton(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				undo();
 			}
-		});
-		GHADeleteButton deleteButton = new GHADeleteButton(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				// TODO Auto-generated method stub
-			}
-		});
-		GHAEditButton editButton = new GHAEditButton(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				searchActivity();
-			}
-		});
-		GHAImgButton copyButton = new GHACopyButton(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				// TODO Auto-generated method stub
-			}
-		});
-
-		VLayout sideButtons = GHAUiHelper.createBar(saveButton, undoButton,
-				deleteButton, editButton, copyButton);
+		}));
 
 		HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
 
 		addMember(gridPanel);
-	}
-
-	protected void searchActivity() {
-		activitySearchForm.open();
 	}
 
 	@Override
@@ -182,11 +138,11 @@ public class MaintenanceActivityDefinitionFormPanel extends VLayout implements
 		form.removeMaintenanceActivitySelectionListener(listener);
 	}
 
-	private void save() {
-		form.save(new GHAAsyncCallback<MaintenanceActivity>() {
+	private void update() {
+		form.update(new GHAAsyncCallback<MaintenanceActivity>() {
 			@Override
 			public void onSuccess(MaintenanceActivity result) {
-				GHAAlertManager.alert("maintenance-activity-save-success");
+				GHAAlertManager.alert("activity-update-success");
 			}
 		});
 	}

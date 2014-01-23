@@ -2,7 +2,6 @@ package org.fourgeeks.gha.webclient.client.maintenanceplan;
 
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAInternalTabSet;
-import org.fourgeeks.gha.webclient.client.maintenanceactivity.information.MaintenanceActivitySubTab;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype.AsociatedEiaTypeSubTab;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.eianoservice.EiaNoServiceMaintenanceSubTab;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.eiaplanification.EiaPlanificationSubTab;
@@ -24,8 +23,9 @@ public class MaintenancePlanInternalTabset extends GHAInternalTabSet implements
 	private final EiaPlanificationSubTab maintenancePlanEquipmentSubTab;
 	private final EiaNoServiceMaintenanceSubTab maintenancePlanEquipmentNoServiceSubTab;
 	private final MaintenanceProtocolsSubTab maintenancePlanProtocolsSubTab;
-	private final MaintenanceActivitySubTab maintenanceActivitySubTab;
-//	private final MaintenanceSubprotocolActivitiesSubTab maintenanceSubprotocolSubTab;
+
+	// private final MaintenanceSubprotocolActivitiesSubTab
+	// maintenanceSubprotocolSubTab;
 
 	/**
 	 * @param panel
@@ -38,9 +38,9 @@ public class MaintenancePlanInternalTabset extends GHAInternalTabSet implements
 		maintenancePlanEquipmentNoServiceSubTab = new EiaNoServiceMaintenanceSubTab(
 				panel);
 		maintenancePlanProtocolsSubTab = new MaintenanceProtocolsSubTab(panel);
-		maintenanceActivitySubTab = new MaintenanceActivitySubTab(panel);
-//		maintenanceSubprotocolSubTab = new MaintenanceSubprotocolActivitiesSubTab(
-//				panel);
+		// maintenanceSubprotocolSubTab = new
+		// MaintenanceSubprotocolActivitiesSubTab(
+		// panel);
 
 		maintenancePlanProtocolsSubTab
 				.addMaintenanceProtocolsSelectionListener(maintenancePlanInfoSubTab);
@@ -48,11 +48,10 @@ public class MaintenancePlanInternalTabset extends GHAInternalTabSet implements
 		// Agregando las Subtabs
 		addTab(maintenancePlanInfoSubTab);
 		addTab(maintenancePlanProtocolsSubTab);
-		addTab(maintenanceActivitySubTab);
 		addTab(maintenancePlanEquipmentTypeSubTab);
 		addTab(maintenancePlanEquipmentSubTab);
 		addTab(maintenancePlanEquipmentNoServiceSubTab);
-//		addTab(maintenanceSubprotocolSubTab);
+		// addTab(maintenanceSubprotocolSubTab);
 
 	}
 
@@ -72,14 +71,12 @@ public class MaintenancePlanInternalTabset extends GHAInternalTabSet implements
 			maintenancePlanEquipmentSubTab.getPane().show();
 		} else if (selectedTab == maintenancePlanProtocolsSubTab) {
 			maintenancePlanProtocolsSubTab.getPane().show();
-		} else if (selectedTab == maintenanceActivitySubTab) {
-			maintenanceActivitySubTab.openFirstSection();
 		} else if (selectedTab == maintenancePlanEquipmentNoServiceSubTab) {
 			maintenancePlanEquipmentNoServiceSubTab.getPane().show();
-		} 
-//		else if (selectedTab == maintenanceSubprotocolSubTab) {
-//			maintenanceSubprotocolSubTab.getPane().show();
-//		}
+		}
+		// else if (selectedTab == maintenanceSubprotocolSubTab) {
+		// maintenanceSubprotocolSubTab.getPane().show();
+		// }
 
 		animateShow(AnimationEffect.FADE);
 	}

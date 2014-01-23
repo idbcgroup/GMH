@@ -37,6 +37,7 @@ public class MaintenancePlanInformationFormPanel extends GHAVerticalLayout
 
 	/** */
 	public MaintenancePlanInformationFormPanel() {
+
 		VLayout sideButtons = GHAUiHelper.createBar(new GHASaveButton(
 				new ClickHandler() {
 					@Override
