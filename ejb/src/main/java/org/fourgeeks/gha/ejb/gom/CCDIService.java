@@ -9,6 +9,7 @@ import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.enu.CCDIEndValueActionEnum;
 import org.fourgeeks.gha.domain.enu.CCDIStatusEnum;
+import org.fourgeeks.gha.domain.enu.CCDIValueStatusEnum;
 import org.fourgeeks.gha.domain.enu.CCDIValueTypeEnum;
 import org.fourgeeks.gha.domain.enu.CodeTypeEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
@@ -108,14 +109,40 @@ public class CCDIService extends GHAEJBExceptionService implements
 
 			levelDefinition = em.find(CCDILevelDefinition.class,
 					levelDefinition.getId());
-			CCDILevelValue levelValue = new CCDILevelValue();
+			return levelDefinition.getCode();
 
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: creating CCDI Level Definition", e);
 			throw super.generateGHAEJBException("ccdi-level-create-fail",
 					RuntimeParameters.getLang(), em);
 		}
-		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gom.CCDIServiceRemote#CCDICreateLevelValue(java
+	 * .lang.String, java.lang.String, java.lang.String, java.lang.String)
+	 */
+	@Override
+	public void CCDICreateLevelValue(String levelCode, String name,
+			String nextValue, String status) throws GHAEJBException {
+		try {
+			CCDILevelDefinition levelDefiniton = em
+					.createNamedQuery("CCDILevelDefinition.findByCode",
+							CCDILevelDefinition.class)
+					.setParameter("code", levelCode).getSingleResult();
+			CCDILevelValue levelValue = new CCDILevelValue(levelDefiniton,
+					name, Integer.toString(levelDefiniton.getInitialValue()),
+					CCDIValueStatusEnum.getByString(status));
+			em.persist(levelValue);
+
+		} catch (Exception e) {
+			logger.log(Level.INFO, "ERROR: creating CCDI Level Definition", e);
+			throw super.generateGHAEJBException("ccdi-level-value-create-fail",
+					RuntimeParameters.getLang(), em);
+		}
 	}
 
 	/*
@@ -126,9 +153,25 @@ public class CCDIService extends GHAEJBExceptionService implements
 	 * .String)
 	 */
 	@Override
-	public String CCDIGetNextValue(String code) {
-		// TODO Auto-generated method stub
-		return null;
+	public String CCDIGetNextValue(String code) throws GHAEJBException {
+		try {
+			CCDILevelDefinition levelDefiniton = em
+					.createNamedQuery("CCDILevelDefinition.findByCode",
+							CCDILevelDefinition.class)
+					.setParameter("code", code).getSingleResult();
+			CCDILevelValue levelValue = em
+					.createNamedQuery("CCDILevelValue.findByLevelDefinition",
+							CCDILevelValue.class)
+					.setParameter("levelDefinition", levelDefiniton)
+					.getSingleResult();
+
+			return "";
+
+		} catch (Exception e) {
+			logger.log(Level.INFO, "ERROR: creating CCDI Level Definition", e);
+			throw super.generateGHAEJBException("ccdi-level-value-create-fail",
+					RuntimeParameters.getLang(), em);
+		}
 	}
 
 }

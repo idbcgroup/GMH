@@ -36,9 +36,7 @@ public interface CCDIServiceRemote {
 
 	/**
 	 * This method defines a new CCDI Level definition, the params are used to
-	 * configurate such definition. Aditionally this method creates an entry
-	 * into the CCDILevelValues table in order to keep track of the values
-	 * generated
+	 * configurate such definition.
 	 * 
 	 * @param definition
 	 * @param level
@@ -59,9 +57,23 @@ public interface CCDIServiceRemote {
 			String valueAtEndAction) throws GHAEJBException;
 
 	/**
+	 * This method creates an entry into the ccdilevelvalues table in order to
+	 * keep track of the consecutives generated for the level
+	 * 
+	 * @param levelCode
+	 * @param name
+	 * @param nextValue
+	 * @param status
+	 * @throws GHAEJBException
+	 */
+	public void CCDICreateLevelValue(String levelCode, String name,
+			String nextValue, String status) throws GHAEJBException;
+
+	/**
 	 * @param code
 	 *            CCDILevelDefinitionCode
 	 * @return the next value available for a given level
+	 * @throws GHAEJBException
 	 */
-	public String CCDIGetNextValue(String code);
+	public String CCDIGetNextValue(String code) throws GHAEJBException;
 }
