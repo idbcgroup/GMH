@@ -2,6 +2,8 @@ package org.fourgeeks.gha.domain.gom;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
@@ -13,6 +15,7 @@ import org.fourgeeks.gha.domain.enu.CCDIValueStatusEnum;
  */
 
 @Entity
+@NamedQueries(value = { @NamedQuery(name = "CCDILevelValue.findByLevelDefinition", query = "SELECT e from CCDILevelValue e WHERE e.levelDefinition=:levelDefinition") })
 public class CCDILevelValue extends AbstractEntity {
 
 	/**
@@ -33,6 +36,20 @@ public class CCDILevelValue extends AbstractEntity {
 	 */
 	public CCDILevelValue() {
 		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @param levelDefinition
+	 * @param name
+	 * @param nextValue
+	 * @param status
+	 */
+	public CCDILevelValue(CCDILevelDefinition levelDefinition, String name,
+			String nextValue, CCDIValueStatusEnum status) {
+		this.levelDefinition = levelDefinition;
+		this.name = name;
+		this.nextValue = nextValue;
+		this.status = status;
 	}
 
 	/**

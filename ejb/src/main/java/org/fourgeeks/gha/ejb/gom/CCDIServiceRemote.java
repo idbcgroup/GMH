@@ -51,11 +51,12 @@ public interface CCDIServiceRemote {
 	 * @param separator
 	 * @param valueAtEndAction
 	 * @return the code of the CCDI level Definition
+	 * @throws GHAEJBException
 	 */
 	public String CCDICreateLevelDefinition(String definition, int level,
 			String name, int length, String valueType, String fixedValue,
 			int initialValue, int incValue, String separator,
-			String valueAtEndAction);
+			String valueAtEndAction) throws GHAEJBException;
 
 	/**
 	 * @param code

@@ -3,6 +3,8 @@ package org.fourgeeks.gha.domain.gom;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -16,7 +18,10 @@ import org.fourgeeks.gha.domain.enu.CCDIValueTypeEnum;
  */
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "definitionFk",
-		"level" }))
+		"level", "code" }))
+@NamedQueries(value = {
+		@NamedQuery(name = "CCDILevelDefinition.findBylevel", query = "SELECT e from CCDILevelDefinition e WHERE e.level=:level AND e.definition=:definition"),
+		@NamedQuery(name = "CCDILevelDefinition.findByCode", query = "SELECT e from CCDILevelDefinition e WHERE e.code=:code") })
 public class CCDILevelDefinition extends AbstractEntity {
 
 	/**
@@ -47,6 +52,36 @@ public class CCDILevelDefinition extends AbstractEntity {
 	 */
 	public CCDILevelDefinition() {
 		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @param definition
+	 * @param code
+	 * @param level
+	 * @param name
+	 * @param length
+	 * @param valueType
+	 * @param fixedValue
+	 * @param initialValue
+	 * @param incValue
+	 * @param separator
+	 * @param valueAtEndAction
+	 */
+	public CCDILevelDefinition(CCDIDefinition definition, String code,
+			int level, String name, int length, CCDIValueTypeEnum valueType,
+			String fixedValue, int initialValue, int incValue,
+			String separator, CCDIEndValueActionEnum valueAtEndAction) {
+		this.definition = definition;
+		this.code = code;
+		this.level = level;
+		this.name = name;
+		this.length = length;
+		this.valueType = valueType;
+		this.fixedValue = fixedValue;
+		this.initialValue = initialValue;
+		this.incValue = incValue;
+		this.separator = separator;
+		this.valueAtEndAction = valueAtEndAction;
 	}
 
 	/**
