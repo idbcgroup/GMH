@@ -60,15 +60,15 @@ public class MaintenanceActivityService extends GHAEJBExceptionService
 		}
 		if (maintenanceActivity.getCategory() != null) {
 			ParameterExpression<ActivityCategoryEnum> p = cb.parameter(
-					ActivityCategoryEnum.class, "type");
+					ActivityCategoryEnum.class, "category");
 			predicate = cb.and(predicate,
-					cb.equal(root.<ActivityCategoryEnum> get("type"), p));
+					cb.equal(root.<ActivityCategoryEnum> get("category"), p));
 		}
 		if (maintenanceActivity.getSubCategory() != null) {
 			ParameterExpression<ActivitySubCategoryEnum> p = cb.parameter(
-					ActivitySubCategoryEnum.class, "subType");
-			predicate = cb.and(predicate,
-					cb.equal(root.<ActivitySubCategoryEnum> get("subType"), p));
+					ActivitySubCategoryEnum.class, "subCategory");
+			predicate = cb.and(predicate, cb.equal(
+					root.<ActivitySubCategoryEnum> get("subCategory"), p));
 		}
 		if (maintenanceActivity.getIsSubProtocol() == true) {
 			ParameterExpression<Boolean> p = cb.parameter(Boolean.class,
@@ -152,10 +152,11 @@ public class MaintenanceActivityService extends GHAEJBExceptionService
 						+ maintenanceActivity.getDescription().toLowerCase()
 						+ "%");
 			if (maintenanceActivity.getCategory() != null)
-				q.setParameter("type", maintenanceActivity.getCategory());
+				q.setParameter("category", maintenanceActivity.getCategory());
 
 			if (maintenanceActivity.getSubCategory() != null)
-				q.setParameter("subType", maintenanceActivity.getSubCategory());
+				q.setParameter("subCategory",
+						maintenanceActivity.getSubCategory());
 
 			if (maintenanceActivity.getIsSubProtocol() == true) {
 				q.setParameter("isSubProtocol",

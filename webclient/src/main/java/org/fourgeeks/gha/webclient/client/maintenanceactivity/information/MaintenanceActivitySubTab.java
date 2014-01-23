@@ -2,7 +2,7 @@ package org.fourgeeks.gha.webclient.client.maintenanceactivity.information;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
-import org.fourgeeks.gha.webclient.client.activity.ActivityPanel;
+import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivityPanel;
 
 /**
  * @author naramirez
@@ -14,7 +14,7 @@ public class MaintenanceActivitySubTab extends GHASubTab {
 	/**
 	 * @param panel
 	 */
-	public MaintenanceActivitySubTab(ActivityPanel panel) {
+	public MaintenanceActivitySubTab(MaintenanceActivityPanel panel) {
 		super(GHAStrings.get("activity-definition"), panel);
 
 		formPanel = new MaintenanceActivityDefinitionFormPanel();

@@ -2,22 +2,19 @@ package org.fourgeeks.gha.webclient.client.maintenanceactivity;
 
 import java.util.List;
 
-import org.fourgeeks.gha.domain.enu.MaintenanceActivitySubTypeEnum;
-import org.fourgeeks.gha.domain.enu.MaintenanceActivityTypeEnum;
+import org.fourgeeks.gha.domain.enu.ActivityCategoryEnum;
+import org.fourgeeks.gha.domain.enu.ActivitySubCategoryEnum;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHATopForm;
 import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenanceActivitySubTypeSelectItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenanceActivityTypeSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAActivityCategorySelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAActivitySubCategorySelectItem;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
-import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivityModel;
-import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivityResultSet;
-import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionListener;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.util.BooleanCallback;
@@ -33,8 +30,8 @@ public class MaintenanceActivityTopForm extends
 		MaintenanceActivitySelectionListener {
 
 	private GHATextItem nameItem, descriptionItem;
-	private GHAMaintenanceActivityTypeSelectItem typeSelectItem;
-	private GHAMaintenanceActivitySubTypeSelectItem subTypeSelectItem;
+	private GHAActivityCategorySelectItem categorySelectItem;
+	private GHAActivitySubCategorySelectItem subCategorySelectItem;
 
 	protected MaintenanceActivity selectedActivity;
 	private GHADynamicForm form;
@@ -46,8 +43,8 @@ public class MaintenanceActivityTopForm extends
 		nameItem.setLength(100);
 		descriptionItem = new GHATextItem(GHAStrings.get("description"));
 		descriptionItem.setColSpan(3);
-		typeSelectItem = new GHAMaintenanceActivityTypeSelectItem();
-		subTypeSelectItem = new GHAMaintenanceActivitySubTypeSelectItem();
+		categorySelectItem = new GHAActivityCategorySelectItem();
+		subCategorySelectItem = new GHAActivitySubCategorySelectItem();
 	}
 
 	/**
@@ -58,7 +55,7 @@ public class MaintenanceActivityTopForm extends
 			MaintenanceActivityPanel tab) {
 		super(resultSet, tab);
 
-		form.setItems(nameItem, typeSelectItem, subTypeSelectItem,
+		form.setItems(nameItem, categorySelectItem, subCategorySelectItem,
 				descriptionItem);
 
 		nameItem.addKeyUpHandler(searchKeyUpHandler);
@@ -79,6 +76,8 @@ public class MaintenanceActivityTopForm extends
 	private void toggleForm(boolean active) {
 		nameItem.setDisabled(!active);
 		descriptionItem.setDisabled(!active);
+		categorySelectItem.setDisabled(!active);
+		subCategorySelectItem.setDisabled(!active);
 		activated = active;
 	}
 
@@ -91,6 +90,8 @@ public class MaintenanceActivityTopForm extends
 	public void clear() {
 		nameItem.clearValue();
 		descriptionItem.clearValue();
+		categorySelectItem.clearValue();
+		subCategorySelectItem.clearValue();
 	}
 
 	@Override
@@ -131,12 +132,12 @@ public class MaintenanceActivityTopForm extends
 		if (descriptionItem.getValue() != null)
 			maintenanceActivity.setDescription(descriptionItem
 					.getValueAsString());
-		if (subTypeSelectItem.getValue() != null)
-			maintenanceActivity.setSubType(MaintenanceActivitySubTypeEnum
-					.valueOf(subTypeSelectItem.getValueAsString()));
-		if (typeSelectItem.getValue() != null)
-			maintenanceActivity.setType(MaintenanceActivityTypeEnum
-					.valueOf(typeSelectItem.getValueAsString()));
+		if (subCategorySelectItem.getValue() != null)
+			maintenanceActivity.setSubCategory(ActivitySubCategoryEnum
+					.valueOf(subCategorySelectItem.getValueAsString()));
+		if (categorySelectItem.getValue() != null)
+			maintenanceActivity.setCategory(ActivityCategoryEnum
+					.valueOf(categorySelectItem.getValueAsString()));
 
 		search(maintenanceActivity);
 	}
@@ -163,11 +164,9 @@ public class MaintenanceActivityTopForm extends
 	public void select(MaintenanceActivity maintenanceActivity) {
 		selectedActivity = maintenanceActivity;
 		nameItem.setValue(maintenanceActivity.getName());
-		nameItem.setLength(100);
 		descriptionItem.setValue(maintenanceActivity.getDescription());
-		descriptionItem.setColSpan(3);
-		typeSelectItem.setValue(maintenanceActivity.getType());
-		subTypeSelectItem.setValue(maintenanceActivity.getSubType());
+		categorySelectItem.setValue(maintenanceActivity.getCategory());
+		subCategorySelectItem.setValue(maintenanceActivity.getSubCategory());
 
 		deactivate();
 		sideButtons.addMember(deleteButton, 0);
