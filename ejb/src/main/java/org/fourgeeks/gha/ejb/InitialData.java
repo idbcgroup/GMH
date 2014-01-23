@@ -22,6 +22,8 @@ import javax.persistence.PersistenceContext;
 import org.fourgeeks.gha.domain.conf.Parameter;
 import org.fourgeeks.gha.domain.conf.ParameterGroup;
 import org.fourgeeks.gha.domain.conf.ParameterValue;
+import org.fourgeeks.gha.domain.enu.CCDIStatusEnum;
+import org.fourgeeks.gha.domain.enu.CodeTypeEnum;
 import org.fourgeeks.gha.domain.enu.CurrencyTypeEnum;
 import org.fourgeeks.gha.domain.enu.DocumentTypeEnum;
 import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
@@ -68,7 +70,9 @@ import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
 import org.fourgeeks.gha.domain.gmh.MaintenanceSubProtocol;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
+import org.fourgeeks.gha.domain.gom.CCDIDefinition;
 import org.fourgeeks.gha.domain.gom.CCDILevelDefinition;
+import org.fourgeeks.gha.domain.gom.Concept;
 import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.domain.mix.Citizen;
 import org.fourgeeks.gha.domain.mix.Institution;
@@ -325,10 +329,17 @@ public class InitialData {
 
 	private void ccdiTestData() {
 		String query = "SELECT t from CCDILevelDefinition t WHERE t.code = '90001'"; //code?
+
 		try {
 			em.createQuery(query).getSingleResult();
 		} catch (NoResultException e) {
 			try {
+
+				CCDIDefinition material = new CCDIDefinition("80001", "MATERIAL", 1, 4, CCDIStatusEnum.ACTIVE, new Concept(), CodeTypeEnum.NUMERIC, false, "");
+				CCDIDefinition farmaco = new CCDIDefinition("80002", "FARMACO", 1, 4, CCDIStatusEnum.ACTIVE, new Concept(), CodeTypeEnum.NUMERIC, false, "");
+
+				em.persist(material);
+				em.persist(farmaco);
 				logger.info("creating test ccdiLevelDefinition");
 
 				CCDILevelDefinition hipodermicas = new CCDILevelDefinition();
@@ -337,6 +348,7 @@ public class InitialData {
 				hipodermicas.setName("HIPODERMICAS");
 				hipodermicas.setLevel(4);
 				hipodermicas.setInitialValue(0);
+				hipodermicas.setDefinition(material);
 				em.persist(hipodermicas);
 
 				CCDILevelDefinition puncion = new CCDILevelDefinition();
@@ -345,6 +357,7 @@ public class InitialData {
 				puncion.setName("PUNCION");
 				puncion.setLevel(4);
 				puncion.setInitialValue(0);
+				puncion.setDefinition(material);
 				em.persist(puncion);
 
 				CCDILevelDefinition insulina = new CCDILevelDefinition();
@@ -353,6 +366,7 @@ public class InitialData {
 				insulina.setName("INSULINA");
 				insulina.setLevel(4);
 				insulina.setInitialValue(0);
+				insulina.setDefinition(material);
 				em.persist(insulina);
 
 				CCDILevelDefinition penicilina = new CCDILevelDefinition();
@@ -361,6 +375,7 @@ public class InitialData {
 				penicilina.setName("PENICILINA");
 				penicilina.setLevel(4);
 				penicilina.setInitialValue(0);
+				penicilina.setDefinition(farmaco);
 				em.persist(penicilina);
 
 				em.flush();
