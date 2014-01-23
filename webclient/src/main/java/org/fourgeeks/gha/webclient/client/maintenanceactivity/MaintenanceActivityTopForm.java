@@ -1,16 +1,17 @@
-package org.fourgeeks.gha.webclient.client.activity;
+package org.fourgeeks.gha.webclient.client.maintenanceactivity;
 
 import java.util.List;
 
+import org.fourgeeks.gha.domain.enu.MaintenanceActivitySubTypeEnum;
+import org.fourgeeks.gha.domain.enu.MaintenanceActivityTypeEnum;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHATopForm;
 import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenancePlanStateSelectItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenancePlanTypeSelectItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAPeriodOfTimeSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenanceActivitySubTypeSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenanceActivityTypeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
@@ -27,47 +28,41 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
  * @author caparicio
  * 
  */
-public class ActivityTopForm extends
+public class MaintenanceActivityTopForm extends
 		GHATopForm<MaintenanceActivityResultSet, MaintenanceActivity> implements
 		MaintenanceActivitySelectionListener {
 
-	private GHATextItem nameItem, frequencyItem, descriptionItem;
-	private GHAPeriodOfTimeSelectItem periodOfTimeItem;
-	private GHAMaintenancePlanTypeSelectItem typeItem;
-	private GHAMaintenancePlanStateSelectItem stateItem;
+	private GHATextItem nameItem, descriptionItem;
+	private GHAMaintenanceActivityTypeSelectItem typeSelectItem;
+	private GHAMaintenanceActivitySubTypeSelectItem subTypeSelectItem;
 
 	protected MaintenanceActivity selectedActivity;
 	private GHADynamicForm form;
 
 	{
-		nameItem = new GHATextItem(GHAStrings.get("name"), false);
-		nameItem.setColSpan(2);
-		frequencyItem = new GHATextItem(GHAStrings.get("frecuency"), false);
-		periodOfTimeItem = new GHAPeriodOfTimeSelectItem();
-		typeItem = new GHAMaintenancePlanTypeSelectItem();
-		stateItem = new GHAMaintenancePlanStateSelectItem();
-		descriptionItem = new GHATextItem(GHAStrings.get("description"), false);
-		descriptionItem.setColSpan(2);
-		form = new GHADynamicForm(4, FormType.NORMAL_FORM);
-		nameItem.addKeyUpHandler(searchKeyUpHandler);
-		frequencyItem.addKeyUpHandler(searchKeyUpHandler);
-		periodOfTimeItem.addKeyUpHandler(searchKeyUpHandler);
-		typeItem.addKeyUpHandler(searchKeyUpHandler);
-		stateItem.addKeyUpHandler(searchKeyUpHandler);
-		descriptionItem.addKeyUpHandler(searchKeyUpHandler);
-		periodOfTimeItem.setDefaultValue((String) null);
+		form = new GHADynamicForm(3, FormType.NORMAL_FORM);
+
+		nameItem = new GHATextItem(GHAStrings.get("name"));
+		nameItem.setLength(100);
+		descriptionItem = new GHATextItem(GHAStrings.get("description"));
+		descriptionItem.setColSpan(3);
+		typeSelectItem = new GHAMaintenanceActivityTypeSelectItem();
+		subTypeSelectItem = new GHAMaintenanceActivitySubTypeSelectItem();
 	}
 
 	/**
 	 * @param resultSet
 	 * @param tab
 	 */
-	public ActivityTopForm(MaintenanceActivityResultSet resultSet,
-			ActivityPanel tab) {
+	public MaintenanceActivityTopForm(MaintenanceActivityResultSet resultSet,
+			MaintenanceActivityPanel tab) {
 		super(resultSet, tab);
 
-		form.setItems(nameItem, typeItem, stateItem, descriptionItem,
-				frequencyItem, periodOfTimeItem);
+		form.setItems(nameItem, typeSelectItem, subTypeSelectItem,
+				descriptionItem);
+
+		nameItem.addKeyUpHandler(searchKeyUpHandler);
+		descriptionItem.addKeyUpHandler(searchKeyUpHandler);
 
 		form.setAutoFocus(true);
 		nameItem.setSelectOnFocus(true);
@@ -83,11 +78,7 @@ public class ActivityTopForm extends
 
 	private void toggleForm(boolean active) {
 		nameItem.setDisabled(!active);
-		frequencyItem.setDisabled(!active);
-		periodOfTimeItem.setDisabled(!active);
 		descriptionItem.setDisabled(!active);
-		stateItem.setDisabled(!active);
-		typeItem.setDisabled(!active);
 		activated = active;
 	}
 
@@ -99,11 +90,7 @@ public class ActivityTopForm extends
 	@Override
 	public void clear() {
 		nameItem.clearValue();
-		frequencyItem.clearValue();
-		periodOfTimeItem.clearValue();
 		descriptionItem.clearValue();
-		typeItem.clearValue();
-		stateItem.clearValue();
 	}
 
 	@Override
@@ -138,26 +125,18 @@ public class ActivityTopForm extends
 
 	@Override
 	public void search() {
-		super.search();
 		MaintenanceActivity maintenanceActivity = new MaintenanceActivity();
-
 		if (nameItem.getValue() != null)
 			maintenanceActivity.setName(nameItem.getValueAsString());
 		if (descriptionItem.getValue() != null)
 			maintenanceActivity.setDescription(descriptionItem
 					.getValueAsString());
-		// if (frequencyItem.getValue() != null)
-		// maintenanceActivity.setFrequency(Integer.parseInt(frequencyItem
-		// .getValueAsString()));
-		// if (periodOfTimeItem.getValue() != null)
-		// maintenanceActivity.setPot(TimePeriodEnum.valueOf(periodOfTimeItem
-		// .getValueAsString()));
-		// if (stateItem.getValue() != null)
-		// maintenanceActivity.setState(MaintenancePlanState.valueOf(stateItem
-		// .getValueAsString()));
-		// if (typeItem.getValue() != null)
-		// maintenanceActivity.setType(MaintenancePlanType.valueOf(typeItem
-		// .getValueAsString()));
+		if (subTypeSelectItem.getValue() != null)
+			maintenanceActivity.setSubType(MaintenanceActivitySubTypeEnum
+					.valueOf(subTypeSelectItem.getValueAsString()));
+		if (typeSelectItem.getValue() != null)
+			maintenanceActivity.setType(MaintenanceActivityTypeEnum
+					.valueOf(typeSelectItem.getValueAsString()));
 
 		search(maintenanceActivity);
 	}
@@ -184,11 +163,12 @@ public class ActivityTopForm extends
 	public void select(MaintenanceActivity maintenanceActivity) {
 		selectedActivity = maintenanceActivity;
 		nameItem.setValue(maintenanceActivity.getName());
+		nameItem.setLength(100);
 		descriptionItem.setValue(maintenanceActivity.getDescription());
-		// frequencyItem.setValue(maintenanceActivity.getFrequency());
-		// periodOfTimeItem.setValue(maintenanceActivity.getPot());
-		stateItem.setValue(maintenanceActivity.getState());
-		typeItem.setValue(maintenanceActivity.getCategory());
+		descriptionItem.setColSpan(3);
+		typeSelectItem.setValue(maintenanceActivity.getType());
+		subTypeSelectItem.setValue(maintenanceActivity.getSubType());
+
 		deactivate();
 		sideButtons.addMember(deleteButton, 0);
 	}

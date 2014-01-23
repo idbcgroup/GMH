@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.activity;
+package org.fourgeeks.gha.webclient.client.maintenanceactivity;
 
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAInternalTabSet;
@@ -14,7 +14,7 @@ import com.smartgwt.client.widgets.tab.Tab;
  * @author caparicio
  * 
  */
-public class ActivityInternalTabset extends GHAInternalTabSet implements
+public class MaintenanceActivityInternalTabset extends GHAInternalTabSet implements
 		ResizeHandler, MaintenanceActivitySelectionListener {
 
 	// private final MaintenanceProtocolsSubTab maintenancePlanProtocolsSubTab;
@@ -23,7 +23,7 @@ public class ActivityInternalTabset extends GHAInternalTabSet implements
 	/**
 	 * @param panel
 	 */
-	public ActivityInternalTabset(ActivityPanel panel) {
+	public MaintenanceActivityInternalTabset(MaintenanceActivityPanel panel) {
 		super(panel);
 
 		maintenanceActivitySubTab = new MaintenanceActivitySubTab(panel);
