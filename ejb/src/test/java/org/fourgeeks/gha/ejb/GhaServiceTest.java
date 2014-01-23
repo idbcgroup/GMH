@@ -2,28 +2,25 @@ package org.fourgeeks.gha.ejb;
 
 import java.sql.Date;
 
-import javax.ejb.EJBException;
 import javax.persistence.EntityManager;
 
-import org.fourgeeks.gha.domain.AbstractEntity;
-import org.fourgeeks.gha.domain.codes.FunctionsCodes;
 import org.fourgeeks.gha.domain.conf.Parameter;
-import org.fourgeeks.gha.domain.enu.DocumentTypeEnum;
 import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
 import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
 import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.enu.GenderTypeEnum;
 import org.fourgeeks.gha.domain.enu.LocationLevelEnum;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
+import org.fourgeeks.gha.domain.ess.InstanceLogon;
+import org.fourgeeks.gha.domain.ess.ItSystem;
+import org.fourgeeks.gha.domain.ess.LocationType;
 import org.fourgeeks.gha.domain.ess.Role;
-import org.fourgeeks.gha.domain.ess.ui.AppFormViewFunctionBpu;
-import org.fourgeeks.gha.domain.ess.ui.Function;
-import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
+import org.fourgeeks.gha.domain.ess.SSOUser;
+import org.fourgeeks.gha.domain.ess.WorkingArea;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
-import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
@@ -34,27 +31,19 @@ import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.domain.gmh.ServiceResource;
-import org.fourgeeks.gha.domain.logs.LogonLog;
 import org.fourgeeks.gha.domain.mix.Bpa;
 import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.domain.mix.Citizen;
 import org.fourgeeks.gha.domain.mix.Institution;
 import org.fourgeeks.gha.domain.mix.LegalEntity;
-import org.fourgeeks.gha.domain.msg.GHAMessage;
-import org.fourgeeks.gha.ejb.ess.AppFormViewFunctionBpuService;
-import org.fourgeeks.gha.ejb.ess.AppFormViewFunctionServiceRemote;
-import org.fourgeeks.gha.ejb.ess.InstanceLogonService;
-import org.fourgeeks.gha.ejb.glm.ExternalProviderService;
-import org.fourgeeks.gha.ejb.gmh.BrandService;
-import org.fourgeeks.gha.ejb.language.LanguageService;
-import org.fourgeeks.gha.ejb.log.LogonLogServiceRemote;
-import org.fourgeeks.gha.ejb.mix.BpaService;
-import org.fourgeeks.gha.ejb.msg.MessageService;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+
+import au.com.bytecode.opencsv.CSVParser;
+import au.com.bytecode.opencsv.CSVReader;
 
 /**
  * @author alacret, vivi.torresg
@@ -91,29 +80,37 @@ public class GhaServiceTest {
 	public static Archive<?> createDeployment() {
 		return ShrinkWrap
 				.create(WebArchive.class, "test.war")
-				.addPackage(AbstractEntity.class.getPackage())
-				.addPackage(Bpa.class.getPackage())
-				.addPackage(BpaService.class.getPackage())
-				.addPackage(Bpu.class.getPackage())
-				.addPackage(AppFormViewFunctionBpu.class.getPackage())
-				.addPackage(AppFormViewFunctionBpuService.class.getPackage())
-				.addPackage(Brand.class.getPackage())
-				.addPackage(BrandService.class.getPackage())
-				.addPackage(DocumentTypeEnum.class.getPackage())
-				.addPackage(EJBException.class.getPackage())
-				.addPackage(ExternalProvider.class.getPackage())
-				.addPackage(ExternalProviderService.class.getPackage())
-				.addPackage(Function.class.getPackage())
-				.addPackage(FunctionsCodes.class.getPackage())
-				.addPackage(AppFormViewFunctionServiceRemote.class.getPackage())
-				.addPackage(GHAEJBException.class.getPackage())
-				.addPackage(GhaServiceTest.class.getPackage())
-				.addPackage(GHAMessage.class.getPackage())
-				.addPackage(InstanceLogonService.class.getPackage())
-				.addPackage(LanguageService.class.getPackage())
-				.addPackage(LogonLog.class.getPackage())
-				.addPackage(LogonLogServiceRemote.class.getPackage())
-				.addPackage(MessageService.class.getPackage())
+				// .addPackage(AbstractEntity.class.getPackage())
+				// .addPackage(Bpa.class.getPackage())
+				// .addPackage(BpaService.class.getPackage())
+				// .addPackage(Bpu.class.getPackage())
+				// .addPackage(AppFormViewFunctionBpu.class.getPackage())
+				// .addPackage(AppFormViewFunctionBpuService.class.getPackage())
+				// .addPackage(Brand.class.getPackage())
+				// .addPackage(BrandService.class.getPackage())
+				// .addPackage(DocumentTypeEnum.class.getPackage())
+				// .addPackage(EJBException.class.getPackage())
+				// .addPackage(ExternalProvider.class.getPackage())
+				// .addPackage(ExternalProviderService.class.getPackage())
+				// .addPackage(Function.class.getPackage())
+				// .addPackage(FunctionsCodes.class.getPackage())
+				// .addPackage(AppFormViewFunctionServiceRemote.class.getPackage())
+				// .addPackage(GHAEJBException.class.getPackage())
+				// .addPackage(GhaServiceTest.class.getPackage())
+				// .addPackage(GHAMessage.class.getPackage())
+				// .addPackage(InstanceLogonService.class.getPackage())
+				// .addPackage(LanguageService.class.getPackage())
+				// .addPackage(LogonLog.class.getPackage())
+				// .addPackage(LogonLogServiceRemote.class.getPackage())
+				// .addPackage(MessageService.class.getPackage())
+				.addClass(Role.class)
+				.addClass(WorkingArea.class)
+				.addClass(SSOUser.class)
+				.addClass(InstanceLogon.class)
+				.addClass(LocationType.class)
+				.addClass(ItSystem.class)
+				.addClass(CSVReader.class)
+				.addClass(CSVParser.class)
 				.addPackage(Parameter.class.getPackage())
 				.addAsResource("test-persistence.xml",
 						"META-INF/persistence.xml")

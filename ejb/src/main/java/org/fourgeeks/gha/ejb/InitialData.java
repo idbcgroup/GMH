@@ -79,7 +79,7 @@ import org.fourgeeks.gha.ejb.ess.AppFormViewFunctionServiceRemote;
 import au.com.bytecode.opencsv.CSVReader;
 
 /**
- * @author alacret, vivi.torresg
+ * @author alacret
  * 
  */
 @Startup

@@ -28,23 +28,16 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * 
  */
 @Stateless
-public class ObuService extends GHAEJBExceptionService implements ObuServiceRemote {
+public class ObuService extends GHAEJBExceptionService implements
+		ObuServiceRemote {
 	@PersistenceContext
 	EntityManager em;
 
 	private final static Logger logger = Logger.getLogger(ObuService.class
 			.getName());
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.fourgeeks.gha.ejb.gar.ObuServiceRemote#buildFilters(org.fourgeeks
-	 * .gha.domain.gmh.EiaType, javax.persistence.criteria.CriteriaBuilder,
-	 * javax.persistence.criteria.Root)
-	 */
-	@Override
-	public Predicate buildFilters(Obu entity, CriteriaBuilder cb, Root<Obu> root) {
+	private static Predicate buildFilters(Obu entity, CriteriaBuilder cb,
+			Root<Obu> root) {
 		Predicate criteria = cb.conjunction();
 
 		if (entity.getBpi() != null) {

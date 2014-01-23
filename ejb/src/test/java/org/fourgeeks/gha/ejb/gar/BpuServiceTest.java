@@ -19,15 +19,12 @@ import org.fourgeeks.gha.domain.ess.ui.AppFormViewFunctionBpu;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.ejb.GhaServiceTest;
-import org.jboss.arquillian.junit.Arquillian;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 
 /**
  * @author vivi.torresg
  * 
  */
-@RunWith(Arquillian.class)
+// @RunWith(Arquillian.class)
 public class BpuServiceTest extends GhaServiceTest {
 	@PersistenceContext
 	EntityManager em;
@@ -38,7 +35,7 @@ public class BpuServiceTest extends GhaServiceTest {
 	@Inject
 	UserTransaction ux;
 
-	@Test
+	// @Test
 	public void test() throws NotSupportedException, SystemException,
 			SecurityException, IllegalStateException, RollbackException,
 			HeuristicMixedException, HeuristicRollbackException,
