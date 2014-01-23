@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
-import org.fourgeeks.gha.domain.enu.MaintenanceActivitySubTypeEnum;
-import org.fourgeeks.gha.domain.enu.MaintenanceActivityTypeEnum;
+import org.fourgeeks.gha.domain.enu.ActivityCategoryEnum;
+import org.fourgeeks.gha.domain.enu.ActivitySubCategoryEnum;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
@@ -13,8 +13,8 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.GHAUtil;
 import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenanceActivitySubTypeSelectItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenanceActivityTypeSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAActivitySubCategorySelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAActivityCategorySelectItem;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACancelButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
@@ -40,8 +40,8 @@ public class MaintenanceActivitySearchForm extends
 
 	private boolean searchBySubProtocol;
 	private GHATextItem nameItem, descriptionItem;
-	private GHAMaintenanceActivityTypeSelectItem typeSelectItem;
-	private GHAMaintenanceActivitySubTypeSelectItem subTypeSelectItem;
+	private GHAActivityCategorySelectItem typeSelectItem;
+	private GHAActivitySubCategorySelectItem subTypeSelectItem;
 
 	private final GHADynamicForm form;
 	private final MaintenanceActivityResultSet resultSet;
@@ -54,8 +54,8 @@ public class MaintenanceActivitySearchForm extends
 		nameItem.setLength(100);
 		descriptionItem = new GHATextItem(GHAStrings.get("description"));
 		descriptionItem.setColSpan(3);
-		typeSelectItem = new GHAMaintenanceActivityTypeSelectItem();
-		subTypeSelectItem = new GHAMaintenanceActivitySubTypeSelectItem();
+		typeSelectItem = new GHAActivityCategorySelectItem();
+		subTypeSelectItem = new GHAActivitySubCategorySelectItem();
 
 		resultSet = new MaintenanceActivityResultSet(
 				ResultSetContainerType.SEARCH_FORM);
@@ -200,10 +200,10 @@ public class MaintenanceActivitySearchForm extends
 			maintenanceActivity.setDescription(descriptionItem
 					.getValueAsString());
 		if (subTypeSelectItem.getValue() != null)
-			maintenanceActivity.setSubType(MaintenanceActivitySubTypeEnum
+			maintenanceActivity.setSubCategory(ActivitySubCategoryEnum
 					.valueOf(subTypeSelectItem.getValueAsString()));
 		if (typeSelectItem.getValue() != null)
-			maintenanceActivity.setType(MaintenanceActivityTypeEnum
+			maintenanceActivity.setCategory(ActivityCategoryEnum
 					.valueOf(typeSelectItem.getValueAsString()));
 		if (searchBySubProtocol) {
 			maintenanceActivity.setIsSubProtocol(true);

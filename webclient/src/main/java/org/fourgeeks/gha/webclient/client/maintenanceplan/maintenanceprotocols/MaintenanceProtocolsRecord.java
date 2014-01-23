@@ -3,7 +3,7 @@
  */
 package org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocols;
 
-import org.fourgeeks.gha.domain.enu.MaintenanceActivityTypeEnum;
+import org.fourgeeks.gha.domain.enu.ActivityCategoryEnum;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
@@ -29,7 +29,7 @@ public class MaintenanceProtocolsRecord extends
 		MaintenanceActivity activity = entity.getMaintenanceActivity();
 
 		setAttribute("ordinal", entity.getOrdinal());
-		MaintenanceActivityTypeEnum type = activity.getType();
+		ActivityCategoryEnum type = activity.getCategory();
 		setAttribute("type", GHAStrings.get(type.name().toLowerCase()));
 		setAttribute("code", activity.getId());
 		setAttribute("subprotocol", activity.getIsSubProtocol());

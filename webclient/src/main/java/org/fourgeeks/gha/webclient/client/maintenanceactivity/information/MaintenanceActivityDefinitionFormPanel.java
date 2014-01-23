@@ -32,6 +32,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  */
 public class MaintenanceActivityDefinitionFormPanel extends VLayout implements
 		ClosableListener, HideableListener,
+		MaintenanceActivitySelectionListener,
 		MaintenanceActivitySelectionProducer {
 
 	private final MaintenanceActivityForm form = new MaintenanceActivityForm();
@@ -45,7 +46,7 @@ public class MaintenanceActivityDefinitionFormPanel extends VLayout implements
 				.addMaintenanceActivitySelectionListener(new MaintenanceActivitySelectionListener() {
 					@Override
 					public void select(MaintenanceActivity activity) {
-						form.set(maintenanceActivity);
+
 					}
 				});
 	}
@@ -182,7 +183,7 @@ public class MaintenanceActivityDefinitionFormPanel extends VLayout implements
 	}
 
 	private void save() {
-		form.update(new GHAAsyncCallback<MaintenanceActivity>() {
+		form.save(new GHAAsyncCallback<MaintenanceActivity>() {
 			@Override
 			public void onSuccess(MaintenanceActivity result) {
 				GHAAlertManager.alert("maintenance-activity-save-success");
@@ -192,5 +193,10 @@ public class MaintenanceActivityDefinitionFormPanel extends VLayout implements
 
 	protected void undo() {
 		form.undo();
+	}
+
+	@Override
+	public void select(MaintenanceActivity maintenanceActivity) {
+		form.set(maintenanceActivity);
 	}
 }

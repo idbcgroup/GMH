@@ -17,8 +17,8 @@ import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.fourgeeks.gha.domain.enu.MaintenanceActivitySubTypeEnum;
-import org.fourgeeks.gha.domain.enu.MaintenanceActivityTypeEnum;
+import org.fourgeeks.gha.domain.enu.ActivityCategoryEnum;
+import org.fourgeeks.gha.domain.enu.ActivitySubCategoryEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.ServiceResource;
@@ -58,18 +58,17 @@ public class MaintenanceActivityService extends GHAEJBExceptionService
 			predicate = cb.and(predicate,
 					cb.like(cb.lower(root.<String> get("description")), p));
 		}
-		if (maintenanceActivity.getType() != null) {
-			ParameterExpression<MaintenanceActivityTypeEnum> p = cb.parameter(
-					MaintenanceActivityTypeEnum.class, "type");
-			predicate = cb
-					.and(predicate, cb.equal(
-							root.<MaintenanceActivityTypeEnum> get("type"), p));
+		if (maintenanceActivity.getCategory() != null) {
+			ParameterExpression<ActivityCategoryEnum> p = cb.parameter(
+					ActivityCategoryEnum.class, "type");
+			predicate = cb.and(predicate,
+					cb.equal(root.<ActivityCategoryEnum> get("type"), p));
 		}
-		if (maintenanceActivity.getSubType() != null) {
-			ParameterExpression<MaintenanceActivitySubTypeEnum> p = cb
-					.parameter(MaintenanceActivitySubTypeEnum.class, "subType");
-			predicate = cb.and(predicate, cb.equal(
-					root.<MaintenanceActivitySubTypeEnum> get("subType"), p));
+		if (maintenanceActivity.getSubCategory() != null) {
+			ParameterExpression<ActivitySubCategoryEnum> p = cb.parameter(
+					ActivitySubCategoryEnum.class, "subType");
+			predicate = cb.and(predicate,
+					cb.equal(root.<ActivitySubCategoryEnum> get("subType"), p));
 		}
 		if (maintenanceActivity.getIsSubProtocol() == true) {
 			ParameterExpression<Boolean> p = cb.parameter(Boolean.class,
@@ -152,11 +151,11 @@ public class MaintenanceActivityService extends GHAEJBExceptionService
 				q.setParameter("description", "%"
 						+ maintenanceActivity.getDescription().toLowerCase()
 						+ "%");
-			if (maintenanceActivity.getType() != null)
-				q.setParameter("type", maintenanceActivity.getType());
+			if (maintenanceActivity.getCategory() != null)
+				q.setParameter("type", maintenanceActivity.getCategory());
 
-			if (maintenanceActivity.getSubType() != null)
-				q.setParameter("subType", maintenanceActivity.getSubType());
+			if (maintenanceActivity.getSubCategory() != null)
+				q.setParameter("subType", maintenanceActivity.getSubCategory());
 
 			if (maintenanceActivity.getIsSubProtocol() == true) {
 				q.setParameter("isSubProtocol",

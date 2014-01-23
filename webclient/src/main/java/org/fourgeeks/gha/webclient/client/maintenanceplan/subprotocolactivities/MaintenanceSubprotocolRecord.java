@@ -3,7 +3,7 @@
  */
 package org.fourgeeks.gha.webclient.client.maintenanceplan.subprotocolactivities;
 
-import org.fourgeeks.gha.domain.enu.MaintenanceActivityTypeEnum;
+import org.fourgeeks.gha.domain.enu.ActivityCategoryEnum;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenanceSubProtocol;
@@ -16,7 +16,7 @@ import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
  */
 public class MaintenanceSubprotocolRecord extends
 		GHAGridRecord<MaintenanceSubProtocol> {
-	private MaintenanceSubProtocol entity;
+	private final MaintenanceSubProtocol entity;
 
 	/**
 	 * @param eiaEntity
@@ -31,8 +31,8 @@ public class MaintenanceSubprotocolRecord extends
 	public void setEiaNoServiceMaintenancePlanAttributes() {
 		MaintenanceActivity activity = entity.getMaintenanceActivity();
 		setAttribute("ordinal", entity.getOrdinal());
-		MaintenanceActivityTypeEnum type = activity.getType();
-		setAttribute("type", GHAStrings.get(type.name().toLowerCase()));
+		ActivityCategoryEnum category = activity.getCategory();
+		setAttribute("type", GHAStrings.get(category.name().toLowerCase()));
 		setAttribute("code", activity.getId());
 		setAttribute("name", activity.getName());
 		setAttribute("time", activity.getEstimatedDuration());

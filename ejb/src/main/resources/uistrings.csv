@@ -224,3 +224,12 @@ ES,month(s),mes(es)
 ES,eia-existing-warranty,Está en garantía
 ES,eia-expired-warranty,Garantía vencida
 ES,N/A,N/A
+ES,category,Categoría
+ES,subcategory,Subcategoría
+ES,created,Creado
+ES,deleted,Eliminado
+ES,logistic,Logistica
+ES,operations,Operaciones
+ES,administrative,Administrativa
+ES,system,Sistema
+ES,calibration,Calibración
