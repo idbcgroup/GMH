@@ -26,7 +26,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  */
 // TODO: Esta clase no se usa en ningun lado
 public class UserSearchForm extends GHASearchForm<SSOUser> implements
-		UserSelectionProducer, UserSelectionListener {
+UserSelectionProducer, UserSelectionListener {
 
 	private UserGrid grid;
 	private List<UserSelectionListener> listeners;
@@ -38,8 +38,8 @@ public class UserSearchForm extends GHASearchForm<SSOUser> implements
 	}
 
 	/**
-* 
-*/
+	 * 
+	 */
 	public UserSearchForm(String title) {
 		super(title);
 		// userTopForm = new UserTopForm(new UserResultSet());
@@ -55,20 +55,20 @@ public class UserSearchForm extends GHASearchForm<SSOUser> implements
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
 				searchClickHandler), new GHAImgButton(
-				"../resources/icons/clean.png", new ClickHandler() {
+						"../resources/icons/clean.png", new ClickHandler() {
 
-					@Override
-					public void onClick(ClickEvent event) {
-						grid.setData(new ListGridRecord[0]);
-					}
-				}), new GHAImgButton("../resources/icons/cancel.png",
-				new ClickHandler() {
+							@Override
+							public void onClick(ClickEvent event) {
+								grid.setData(new ListGridRecord[0]);
+							}
+						}), new GHAImgButton("../resources/icons/cancel.png",
+								new ClickHandler() {
 
-					@Override
-					public void onClick(ClickEvent event) {
-						hide();
-					}
-				}));
+							@Override
+							public void onClick(ClickEvent event) {
+								hide();
+							}
+						}));
 
 		HLayout formLayout = new HLayout();
 		formLayout.setPadding(10);
@@ -79,8 +79,8 @@ public class UserSearchForm extends GHASearchForm<SSOUser> implements
 
 		addMembers(formLayout,
 				GHAUiHelper
-						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
-								+ "px"));
+				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
+						+ "px"));
 
 		HLayout gridLayout = new HLayout();
 		gridLayout.setPadding(10);
@@ -100,8 +100,17 @@ public class UserSearchForm extends GHASearchForm<SSOUser> implements
 
 	}
 
-	public void search() {
-		// userTopForm.search();
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.user.UserSelectionProducer#
+	 * addUserSelectionListener
+	 * (org.fourgeeks.gha.webclient.client.user.UserSelectionListener)
+	 */
+	@Override
+	public void addUserSelectionListener(
+			UserSelectionListener userSelectionListener) {
+		listeners.add(userSelectionListener);
 	}
 
 	@Override
@@ -124,19 +133,6 @@ public class UserSearchForm extends GHASearchForm<SSOUser> implements
 	 * (non-Javadoc)
 	 * 
 	 * @see org.fourgeeks.gha.webclient.client.user.UserSelectionProducer#
-	 * addUserSelectionListener
-	 * (org.fourgeeks.gha.webclient.client.user.UserSelectionListener)
-	 */
-	@Override
-	public void addUserSelectionListener(
-			UserSelectionListener userSelectionListener) {
-		listeners.add(userSelectionListener);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.fourgeeks.gha.webclient.client.user.UserSelectionProducer#
 	 * removeUserSelectionListener
 	 * (org.fourgeeks.gha.webclient.client.user.UserSelectionListener)
 	 */
@@ -144,6 +140,11 @@ public class UserSearchForm extends GHASearchForm<SSOUser> implements
 	public void removeUserSelectionListener(
 			UserSelectionListener userSelectionListener) {
 		listeners.add(userSelectionListener);
+	}
+
+	@Override
+	public void search() {
+		// userTopForm.search();
 	}
 
 	/*
@@ -167,7 +168,7 @@ public class UserSearchForm extends GHASearchForm<SSOUser> implements
 	private void selectUser() {
 		GHAGridRecord<SSOUser> selectedRecord = grid.getSelectedRecord();
 		if (selectedRecord == null) {
-			GHAAlertManager.oldAlert(GHAStrings.get("record-not-selected"));
+			GHAAlertManager.alert("INFORMATION",GHAStrings.get("information"),GHAStrings.get("record-not-selected"));
 			return;
 		}
 		notifyUser(((UserRecord) selectedRecord).toEntity());

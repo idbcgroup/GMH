@@ -73,6 +73,7 @@ import org.fourgeeks.gha.domain.mix.Citizen;
 import org.fourgeeks.gha.domain.mix.Institution;
 import org.fourgeeks.gha.domain.mix.LegalEntity;
 import org.fourgeeks.gha.domain.msg.GHAMessage;
+import org.fourgeeks.gha.domain.msg.GHAMessageType;
 import org.fourgeeks.gha.domain.msg.UiString;
 import org.fourgeeks.gha.ejb.ess.AppFormViewFunctionServiceRemote;
 
@@ -235,7 +236,7 @@ public class InitialData {
 			try {
 				logger.info("Creating Citizen test data");
 				String names[] = { "Rigoberto", "Angel", "Jorge", "Alejandro",
-						"Isaac" };
+				"Isaac" };
 				String lastNames[] = { "Sanchez", "Lacret", "Fuentes",
 						"Sanchez", "Casado" };
 				for (int i = 0; i < 5; ++i) {
@@ -419,6 +420,7 @@ public class InitialData {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		messageTypes();
 		messages();
 		uiStrings();
 		parameter();
@@ -516,7 +518,7 @@ public class InitialData {
 				String activityNames[] = { "Desconectar", "Abrir", "Limpiar",
 						"Cerrar", "Conectar", "Reemplazar",
 						"subprotocol_activity", "activity_1", "activity_2",
-						"activity_3" };
+				"activity_3" };
 
 				String activityDesc[] = {
 						"Desconecte el equipo de la corriente eléctrica",
@@ -528,7 +530,7 @@ public class InitialData {
 						"actividad de subprotocolo para pruebas",
 						"actividad de prueba 1 para la actividad de subprotocolo",
 						"actividad de prueba 2 para la actividad de subprotocolo",
-						"actividad de prueba 2 para la actividad de subprotocolo" };
+				"actividad de prueba 2 para la actividad de subprotocolo" };
 
 				int durations[] = { 1, 2, 2, 1, 4, 3, 5, 6, 8, 7 };
 
@@ -612,10 +614,10 @@ public class InitialData {
 			try {
 				logger.info("Creating test data: maintenance plan");
 				String planName[] = { "Plan de Mantenimiento Impresoras Tinta",
-						"Plan de Mantenimiento Impresoras Laser" };
+				"Plan de Mantenimiento Impresoras Laser" };
 				String planDesc[] = {
 						"plan de mantenimiento impresoras de tinta",
-						"plan de mantenimiento impresoras laser" };
+				"plan de mantenimiento impresoras laser" };
 				int planFrequency[] = { 1, 3 };
 				TimePeriodEnum planTimePeriod[] = { TimePeriodEnum.MONTHS,
 						TimePeriodEnum.SEMESTERS };
@@ -683,10 +685,10 @@ public class InitialData {
 				logger.info("Creating test data: MaintenanceProtocol");
 				String protocolNames[] = {
 						"Protocolo para Impresoras de Tinta",
-						"Protocolo para impresoras Laser" };
+				"Protocolo para impresoras Laser" };
 				String protocolDesc[] = {
 						"Protocolo para el mantenimiento de impresoras de tinta",
-						"Protocolo para el mantenimiento de impresoras laser" };
+				"Protocolo para el mantenimiento de impresoras laser" };
 				for (int i = 0; i < 2; ++i) {
 					MaintenanceProtocol protocol = new MaintenanceProtocol();
 					protocol.setDescription(protocolDesc[i]);
@@ -781,7 +783,7 @@ public class InitialData {
 				for (int j = 0; j < 3; j++) {
 					em.persist(new MaterialCategory("mat-cat-00" + j,
 							"material-category-00" + j, MaterialTypeEnum
-									.values()[j % 3]));
+							.values()[j % 3]));
 				}
 				em.flush();
 			} catch (Exception e1) {
@@ -799,7 +801,7 @@ public class InitialData {
 			try {
 				logger.info("creating test data : material");
 				String names[] = { "aguja", "sutura", "inyectadora", "algodón",
-						"alcohol" };
+				"alcohol" };
 				int i = 1;
 				for (String name : names) {
 					Material next = new Material();
@@ -823,6 +825,7 @@ public class InitialData {
 		logger.info("Creating ghamessage data");
 		InputStream in = null;
 		CSVReader reader = null;
+		GHAMessageType defaultType = em.find(GHAMessageType.class, 1l);
 		try {
 			in = InitialData.class.getResourceAsStream("/messages.csv");
 			reader = new CSVReader(new InputStreamReader(in, "UTF-8"), ',',
@@ -843,8 +846,17 @@ public class InitialData {
 				words.put(code + language, true);
 				lang = LanguageEnum.valueOf(strings[0]);
 				text = strings[2];
+				long type = 1l;
 				try {
-					em.merge(new GHAMessage(lang, code, text));
+					type = Long.valueOf(strings[3]);
+				} catch (Exception e) {
+					logger.info("no type info available in this line... Setting '1' by default");
+				}
+				try {
+					if(type == 1)
+						em.merge(new GHAMessage(lang, code, text, defaultType));
+					else
+						em.merge(new GHAMessage(lang, code, text, em.find(GHAMessageType.class, type)));
 
 				} catch (Exception e) {
 					logger.log(Level.SEVERE,
@@ -879,6 +891,60 @@ public class InitialData {
 					in.close();
 			} catch (IOException e) {
 				logger.log(Level.SEVERE, "ERROR in ghamessage", e);
+			}
+		}
+	}
+
+	private void messageTypes() {
+		String query = "SELECT t from GHAMessageType t WHERE t.id= 1";
+		try {
+			em.createQuery(query).getSingleResult();
+		} catch (NoResultException e) {
+			try {
+				logger.info("creating test data : message types");
+				String names[] = { "SAY", "CONFIRMATION", "ASKYESNO", "ERROR_HARD","ERROR_SOFT","WARNING","INFORMATION","FAILURE","SUCCESS","PROCESSING","NEW_MESSAGE"};
+				int i = 1;
+				for (String name : names) {
+					GHAMessageType next = new GHAMessageType();
+					if(name.equals("SAY")){
+						//Gray
+						next = new GHAMessageType(name, true, false);
+					}else if(name.equals("CONFIRMATION")){
+						//Gray
+						next = new GHAMessageType(name, false, true);
+					}else if(name.equals("ASKYESNO")){
+						//Gray
+						next = new GHAMessageType(name, false, true);
+					}else if(name.equals("ERROR_HARD")){
+						//Red
+						next = new GHAMessageType(name, false, true);
+					}else if(name.equals("ERROR_SOFT")){ 
+						//Yellow
+						next = new GHAMessageType(name, false, false);
+					}else if(name.equals("WARNING")){
+						//Blue
+						next = new GHAMessageType(name, false, false);
+					}else if(name.equals("INFORMATION")){
+						//Blue
+						next = new GHAMessageType(name, true, false);
+					}else if(name.equals("FAILURE")){ 
+						//Yellow
+						next = new GHAMessageType(name, false, false);
+					}else if(name.equals("SUCCESS")){
+						//Green
+						next = new GHAMessageType(name, true, false);
+					}else if(name.equals("PROCESSING")){
+						//Green
+						next = new GHAMessageType(name, false, false);
+					}else if(name.equals("NEW_MESSAGE")){
+						//Gray
+						next = new GHAMessageType(name, true, false);
+					}
+					em.persist(next);
+				}
+			} catch (Exception e1) {
+				logger.log(Level.INFO,
+						"error creating test data: Message Types", e);
 			}
 		}
 	}
@@ -948,7 +1014,7 @@ public class InitialData {
 			try {
 				logger.info("creating test data : obu");
 				String obuNames[] = { "Administración", "Medicina General",
-						"Dpto. de Nefrologia" };
+				"Dpto. de Nefrologia" };
 				Obu obu = null;
 				for (int i = 0; i < 3; i++) {
 					obu = new Obu();

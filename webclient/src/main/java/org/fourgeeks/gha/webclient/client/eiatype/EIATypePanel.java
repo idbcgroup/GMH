@@ -8,6 +8,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
 import org.fourgeeks.gha.webclient.client.UI.TabStatus;
+import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToHideException;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
@@ -56,13 +57,12 @@ EiaTypeSelectionProducer {
 				add();
 			}
 		});
-		//		header.addDebugOption("MensajeIT", new ClickHandler() {
-		//			@Override
-		//			public void onClick(ClickEvent event) {
-		//				GHAAlertManager.alert("Información",
-		//						"Se ha mostrado un Mensaje IT.");
-		//			}
-		//		});
+		header.addDebugOption("MensajeIT", new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				GHAAlertManager.alert("INFORMATION","Información","Se ha mostrado un Mensaje IT.");
+			}
+		});
 
 		resultSet = new EiaTypeResultSet(ResultSetContainerType.TAB);
 		resultSet.setVisible(false);
