@@ -29,7 +29,7 @@ public interface CCDIServiceRemote {
 	 * @return the code of the CCDI definition
 	 * @throws GHAEJBException
 	 */
-	public String CCDICreateDefinition(String code, String name, int length,
+	public String createCCDIDefinition(String code, String name, int length,
 			int levels, String status, Concept concept, String type,
 			boolean addVerify, String verificationMethod)
 			throws GHAEJBException;
@@ -51,23 +51,10 @@ public interface CCDIServiceRemote {
 	 * @return the code of the CCDI level Definition
 	 * @throws GHAEJBException
 	 */
-	public String CCDICreateLevelDefinition(String definition, int level,
+	public String createCCDILevelDefinition(String definition, int level,
 			String name, int length, String valueType, String fixedValue,
 			int initialValue, int incValue, String separator,
 			String valueAtEndAction) throws GHAEJBException;
-
-	/**
-	 * This method creates an entry into the ccdilevelvalues table in order to
-	 * keep track of the consecutives generated for the level
-	 * 
-	 * @param levelCode
-	 * @param name
-	 * @param nextValue
-	 * @param status
-	 * @throws GHAEJBException
-	 */
-	public void CCDICreateLevelValue(String levelCode, String name,
-			String nextValue, String status) throws GHAEJBException;
 
 	/**
 	 * @param code
@@ -75,5 +62,5 @@ public interface CCDIServiceRemote {
 	 * @return the next value available for a given level
 	 * @throws GHAEJBException
 	 */
-	public String CCDIGetNextValue(String code) throws GHAEJBException;
+	public String getNextCCDILevelValue(String code) throws GHAEJBException;
 }

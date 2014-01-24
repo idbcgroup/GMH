@@ -18,10 +18,8 @@ import org.fourgeeks.gha.domain.enu.CCDIValueTypeEnum;
  */
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "definitionFk",
-		"level", "code" }))
-@NamedQueries(value = {
-		@NamedQuery(name = "CCDILevelDefinition.findBylevel", query = "SELECT e from CCDILevelDefinition e WHERE e.level=:level AND e.definition=:definition"),
-		@NamedQuery(name = "CCDILevelDefinition.findByCode", query = "SELECT e from CCDILevelDefinition e WHERE e.code=:code") })
+		"level" }))
+@NamedQueries(value = { @NamedQuery(name = "CCDILevelDefinition.findBylevel", query = "SELECT e from CCDILevelDefinition e WHERE e.level=:level AND e.definition=:definition") })
 public class CCDILevelDefinition extends AbstractEntity {
 
 	/**
@@ -33,7 +31,6 @@ public class CCDILevelDefinition extends AbstractEntity {
 	@JoinColumn(name = "definitionFk")
 	private CCDIDefinition definition;
 
-	private String code;
 	private int level;
 
 	private String name;
@@ -56,7 +53,6 @@ public class CCDILevelDefinition extends AbstractEntity {
 
 	/**
 	 * @param definition
-	 * @param code
 	 * @param level
 	 * @param name
 	 * @param length
@@ -67,12 +63,11 @@ public class CCDILevelDefinition extends AbstractEntity {
 	 * @param separator
 	 * @param valueAtEndAction
 	 */
-	public CCDILevelDefinition(CCDIDefinition definition, String code,
-			int level, String name, int length, CCDIValueTypeEnum valueType,
+	public CCDILevelDefinition(CCDIDefinition definition, int level,
+			String name, int length, CCDIValueTypeEnum valueType,
 			String fixedValue, int initialValue, int incValue,
 			String separator, CCDIEndValueActionEnum valueAtEndAction) {
 		this.definition = definition;
-		this.code = code;
 		this.level = level;
 		this.name = name;
 		this.length = length;
@@ -82,13 +77,6 @@ public class CCDILevelDefinition extends AbstractEntity {
 		this.incValue = incValue;
 		this.separator = separator;
 		this.valueAtEndAction = valueAtEndAction;
-	}
-
-	/**
-	 * @return the code
-	 */
-	public String getCode() {
-		return code;
 	}
 
 	/**
@@ -159,14 +147,6 @@ public class CCDILevelDefinition extends AbstractEntity {
 	 */
 	public CCDIValueTypeEnum getValueType() {
 		return valueType;
-	}
-
-	/**
-	 * @param code
-	 *            the code to set
-	 */
-	public void setCode(String code) {
-		this.code = code;
 	}
 
 	/**
