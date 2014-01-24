@@ -328,7 +328,7 @@ public class InitialData {
 	}
 
 	private void ccdiTestData() {
-		String query = "SELECT t from CCDILevelDefinition t WHERE t.code = '90001'"; //code?
+		String query = "SELECT t from CCDIDefinition t WHERE t.code = '80001'"; //code?
 
 		try {
 			em.createQuery(query).getSingleResult();
@@ -381,7 +381,7 @@ public class InitialData {
 				em.flush();
 
 			} catch (Exception e1) {
-				logger.log(Level.INFO, "error creating test ccdi definition", e);
+				logger.log(Level.INFO, "error creating test ccdi definition", e1);
 			}
 		}
 	}
