@@ -42,6 +42,22 @@ public class CCDILevelValue extends AbstractEntity {
 	}
 
 	/**
+	 * @param levelDefinition
+	 * @param name
+	 * @param code
+	 * @param nextValue
+	 * @param status
+	 */
+	public CCDILevelValue(CCDILevelDefinition levelDefinition, String name,
+			String code, int nextValue, CCDIValueStatusEnum status) {
+		this.levelDefinition = levelDefinition;
+		this.name = name;
+		this.code = code;
+		this.nextValue = nextValue;
+		this.status = status;
+	}
+
+	/**
 	 * @return the code
 	 */
 	public String getCode() {
