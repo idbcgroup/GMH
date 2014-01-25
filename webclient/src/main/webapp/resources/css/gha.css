@@ -15,7 +15,7 @@ body {
 	background-color: #F2F2F2;
 	min-width: 1024px;
 	min-height: 768px;
- 	overflow: hidden; 
+ 	overflow: scroll; 
 }
 
 #main-content {

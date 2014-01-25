@@ -52,12 +52,26 @@ public class GHAMessage implements Serializable {
 	 * @param code
 	 * @param text
 	 */
-	public GHAMessage(LanguageEnum language, String code, String text, GHAMessageType type) {
+	public GHAMessage(LanguageEnum language, String code, String text,
+			GHAMessageType type) {
 		super();
 		this.language = language;
 		this.code = code;
 		this.text = text;
 		this.type = type;
+	}
+
+	/**
+	 * @param language
+	 * @param code
+	 * @param text
+	 * @param type
+	 */
+	public GHAMessage(LanguageEnum language, String code, String text) {
+		super();
+		this.language = language;
+		this.code = code;
+		this.text = text;
 	}
 
 	/**
@@ -98,7 +112,6 @@ public class GHAMessage implements Serializable {
 		return type;
 	}
 
-
 	/**
 	 * @param text
 	 *            the text to set
@@ -108,7 +121,8 @@ public class GHAMessage implements Serializable {
 	}
 
 	/**
-	 * @param type the type of message
+	 * @param type
+	 *            the type of message
 	 */
 	public void setType(GHAMessageType type) {
 		this.type = type;
