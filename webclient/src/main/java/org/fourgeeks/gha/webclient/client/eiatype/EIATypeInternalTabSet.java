@@ -93,7 +93,6 @@ public class EIATypeInternalTabSet extends GHAInternalTabSet implements
 			infoSubTab.show();
 		else if (selectedTab == damageAndPlanificationSubTab) {
 			damageAndPlanificationSubTab.openFirstSection();
-			damageAndPlanificationSubTab.show();
 		}
 		animateShow(AnimationEffect.FADE);
 	}

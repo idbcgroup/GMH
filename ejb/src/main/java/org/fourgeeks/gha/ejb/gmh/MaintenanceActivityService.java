@@ -17,8 +17,8 @@ import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.fourgeeks.gha.domain.enu.MaintenanceActivitySubTypeEnum;
-import org.fourgeeks.gha.domain.enu.MaintenanceActivityTypeEnum;
+import org.fourgeeks.gha.domain.enu.ActivityCategoryEnum;
+import org.fourgeeks.gha.domain.enu.ActivitySubCategoryEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.ServiceResource;
@@ -30,8 +30,8 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  * 
  */
 @Stateless
-public class MaintenanceActivityService extends GHAEJBExceptionService implements
-		MaintenanceActivityServiceRemote {
+public class MaintenanceActivityService extends GHAEJBExceptionService
+		implements MaintenanceActivityServiceRemote {
 	@PersistenceContext
 	EntityManager em;
 
@@ -58,18 +58,23 @@ public class MaintenanceActivityService extends GHAEJBExceptionService implement
 			predicate = cb.and(predicate,
 					cb.like(cb.lower(root.<String> get("description")), p));
 		}
-		if (maintenanceActivity.getType() != null) {
-			ParameterExpression<MaintenanceActivityTypeEnum> p = cb.parameter(
-					MaintenanceActivityTypeEnum.class, "type");
-			predicate = cb
-					.and(predicate, cb.equal(
-							root.<MaintenanceActivityTypeEnum> get("type"), p));
+		if (maintenanceActivity.getCategory() != null) {
+			ParameterExpression<ActivityCategoryEnum> p = cb.parameter(
+					ActivityCategoryEnum.class, "category");
+			predicate = cb.and(predicate,
+					cb.equal(root.<ActivityCategoryEnum> get("category"), p));
 		}
-		if (maintenanceActivity.getSubType() != null) {
-			ParameterExpression<MaintenanceActivitySubTypeEnum> p = cb
-					.parameter(MaintenanceActivitySubTypeEnum.class, "subType");
+		if (maintenanceActivity.getSubCategory() != null) {
+			ParameterExpression<ActivitySubCategoryEnum> p = cb.parameter(
+					ActivitySubCategoryEnum.class, "subCategory");
 			predicate = cb.and(predicate, cb.equal(
-					root.<MaintenanceActivitySubTypeEnum> get("subType"), p));
+					root.<ActivitySubCategoryEnum> get("subCategory"), p));
+		}
+		if (maintenanceActivity.getIsSubProtocol() == true) {
+			ParameterExpression<Boolean> p = cb.parameter(Boolean.class,
+					"isSubProtocol");
+			predicate = cb.and(predicate,
+					cb.equal(root.<Boolean> get("isSubProtocol"), p));
 		}
 		return predicate;
 	}
@@ -146,6 +151,17 @@ public class MaintenanceActivityService extends GHAEJBExceptionService implement
 				q.setParameter("description", "%"
 						+ maintenanceActivity.getDescription().toLowerCase()
 						+ "%");
+			if (maintenanceActivity.getCategory() != null)
+				q.setParameter("category", maintenanceActivity.getCategory());
+
+			if (maintenanceActivity.getSubCategory() != null)
+				q.setParameter("subCategory",
+						maintenanceActivity.getSubCategory());
+
+			if (maintenanceActivity.getIsSubProtocol() == true) {
+				q.setParameter("isSubProtocol",
+						maintenanceActivity.getIsSubProtocol());
+			}
 
 			return q.getResultList();
 
@@ -233,12 +249,12 @@ public class MaintenanceActivityService extends GHAEJBExceptionService implement
 	 * .gha.domain.gmh.MaintenanceActivity)
 	 */
 	@Override
-	public MaintenanceActivity save(MaintenanceActivity protocolActivity)
+	public MaintenanceActivity save(MaintenanceActivity activity)
 			throws GHAEJBException {
 		try {
-			em.persist(protocolActivity);
+			em.persist(activity);
 			em.flush();
-			return em.find(MaintenanceActivity.class, protocolActivity.getId());
+			return em.find(MaintenanceActivity.class, activity.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving MaintenanceActivity ", e);
 			throw super.generateGHAEJBException(
@@ -255,10 +271,10 @@ public class MaintenanceActivityService extends GHAEJBExceptionService implement
 	 * .fourgeeks .gha.domain.gmh.MaintenanceActivity)
 	 */
 	@Override
-	public MaintenanceActivity update(MaintenanceActivity protocolActivity)
+	public MaintenanceActivity update(MaintenanceActivity activity)
 			throws GHAEJBException {
 		try {
-			MaintenanceActivity res = em.merge(protocolActivity);
+			MaintenanceActivity res = em.merge(activity);
 			em.flush();
 			return res;
 		} catch (Exception e) {

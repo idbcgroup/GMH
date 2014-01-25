@@ -1,20 +1,24 @@
+/**
+ * 
+ */
 package org.fourgeeks.gha.domain.enu;
 
 import java.util.LinkedHashMap;
 
 /**
  * @author naramirez
+ * 
  */
-public enum MaintenanceActivityTypeEnum {
-	/** maintenance activity category or type: Mantenimiento */
-	MAINTENANCE;
+public enum ActivitySubCategoryEnum {
+	/** maintenance activity sub-category or sub-type: Calibración */
+	CALIBRATION;
 
 	/**
 	 * @return a valueMap with this Enum values
 	 */
 	public static LinkedHashMap<String, String> toValueMap() {
 		LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-		for (MaintenanceActivityTypeEnum value : MaintenanceActivityTypeEnum
+		for (ActivitySubCategoryEnum value : ActivitySubCategoryEnum
 				.values()) {
 			valueMap.put(value.name() + "", value.toString());
 		}

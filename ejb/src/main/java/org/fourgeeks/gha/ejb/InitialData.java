@@ -22,6 +22,10 @@ import javax.persistence.PersistenceContext;
 import org.fourgeeks.gha.domain.conf.Parameter;
 import org.fourgeeks.gha.domain.conf.ParameterGroup;
 import org.fourgeeks.gha.domain.conf.ParameterValue;
+import org.fourgeeks.gha.domain.enu.CCDIStatusEnum;
+import org.fourgeeks.gha.domain.enu.CCDIValueStatusEnum;
+import org.fourgeeks.gha.domain.enu.CCDIValueTypeEnum;
+import org.fourgeeks.gha.domain.enu.CodeTypeEnum;
 import org.fourgeeks.gha.domain.enu.CurrencyTypeEnum;
 import org.fourgeeks.gha.domain.enu.DocumentTypeEnum;
 import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
@@ -31,9 +35,9 @@ import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.enu.GenderTypeEnum;
 import org.fourgeeks.gha.domain.enu.LanguageEnum;
 import org.fourgeeks.gha.domain.enu.LocationLevelEnum;
-import org.fourgeeks.gha.domain.enu.MaintenanceActivityState;
-import org.fourgeeks.gha.domain.enu.MaintenanceActivitySubTypeEnum;
-import org.fourgeeks.gha.domain.enu.MaintenanceActivityTypeEnum;
+import org.fourgeeks.gha.domain.enu.ActivityState;
+import org.fourgeeks.gha.domain.enu.ActivitySubCategoryEnum;
+import org.fourgeeks.gha.domain.enu.ActivityCategoryEnum;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanCancelationOption;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanState;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanType;
@@ -68,6 +72,10 @@ import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
 import org.fourgeeks.gha.domain.gmh.MaintenanceSubProtocol;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
+import org.fourgeeks.gha.domain.gom.CCDIDefinition;
+import org.fourgeeks.gha.domain.gom.CCDILevelDefinition;
+import org.fourgeeks.gha.domain.gom.CCDILevelValue;
+import org.fourgeeks.gha.domain.gom.Concept;
 import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.domain.mix.Citizen;
 import org.fourgeeks.gha.domain.mix.Institution;
@@ -80,7 +88,7 @@ import org.fourgeeks.gha.ejb.ess.AppFormViewFunctionServiceRemote;
 import au.com.bytecode.opencsv.CSVReader;
 
 /**
- * @author alacret, vivi.torresg
+ * @author alacret
  * 
  */
 @Startup
@@ -221,6 +229,183 @@ public class InitialData {
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error creating test building location",
 						e);
+			}
+		}
+	}
+
+	/**
+	 * 
+	 */
+	private void ccdiLevelDefinitionTestData() {
+		String query;
+		query = "SELECT t from CCDILevelDefinition t WHERE t.id = 1";
+		try {
+			em.createQuery(query).getSingleResult();
+		} catch (NoResultException e) {
+			try {
+				logger.info("creating test ccdileveldefinition");
+
+				CCDIDefinition material = em.find(CCDIDefinition.class, 1L);
+				CCDIDefinition farmaco = em.find(CCDIDefinition.class, 2L);
+
+				CCDILevelDefinition materials = new CCDILevelDefinition(
+						material, 0, "Materiales", 1, CCDIValueTypeEnum.FIXED,
+						"0", 0, 1, "", null);
+				CCDILevelDefinition supplies = new CCDILevelDefinition(
+						material, 1, "Suministros", 1, CCDIValueTypeEnum.FIXED,
+						"1", 0, 1, "", null);
+				CCDILevelDefinition suppliesFamily = new CCDILevelDefinition(
+						material, 2, "Familia de Suministros", 2,
+						CCDIValueTypeEnum.TEXT, null, 0, 1, "", null);
+				CCDILevelDefinition subSuppliesFamily = new CCDILevelDefinition(
+						material, 3, "Sub Familia de Suministros", 2,
+						CCDIValueTypeEnum.TEXT, null, 0, 1, "", null);
+				CCDILevelDefinition supplies2 = new CCDILevelDefinition(
+						material, 4, "Suministro", 4, CCDIValueTypeEnum.TEXT,
+						null, 0, 1, "", null);
+
+				em.persist(materials);
+				em.persist(supplies);
+				em.persist(suppliesFamily);
+				em.persist(subSuppliesFamily);
+				em.persist(supplies2);
+
+				CCDILevelDefinition materials2 = new CCDILevelDefinition(
+						farmaco, 0, "Materiales", 1, CCDIValueTypeEnum.FIXED,
+						"0", 0, 1, "", null);
+				CCDILevelDefinition pharmacs = new CCDILevelDefinition(farmaco,
+						1, "Farmacos", 1, CCDIValueTypeEnum.FIXED, "4", 0, 1,
+						"", null);
+				CCDILevelDefinition pharmacsFamily = new CCDILevelDefinition(
+						farmaco, 2, "Familia de Farmacos", 2,
+						CCDIValueTypeEnum.TEXT, null, 0, 1, "", null);
+				CCDILevelDefinition subPharmacsFamily = new CCDILevelDefinition(
+						farmaco, 3, "Sub Familia de Farmacos", 2,
+						CCDIValueTypeEnum.TEXT, null, 0, 1, "", null);
+				CCDILevelDefinition pharmacs2 = new CCDILevelDefinition(
+						farmaco, 4, "Farmaco", 4, CCDIValueTypeEnum.TEXT, null,
+						0, 1, "", null);
+
+				em.persist(materials2);
+				em.persist(pharmacs);
+				em.persist(pharmacsFamily);
+				em.persist(subPharmacsFamily);
+				em.persist(pharmacs2);
+
+				em.flush();
+			} catch (Exception e1) {
+				logger.log(Level.INFO,
+						"error creating test ccdi level definition", e);
+			}
+
+		}
+	}
+
+	/**
+	 * 
+	 */
+	private void ccdiLevelValuesTestData() {
+		String query;
+		query = "SELECT t from CCDILevelValue t WHERE t.id = 1";
+		try {
+			em.createQuery(query).getSingleResult();
+		} catch (NoResultException e) {
+			try {
+				logger.info("creating test CCDILevelValue");
+
+				CCDILevelDefinition material0 = em.find(
+						CCDILevelDefinition.class, 1L);
+				CCDILevelValue materialValue0 = new CCDILevelValue(material0,
+						"MATERIALES", "0", 2, CCDIValueStatusEnum.ACTIVE);
+
+				CCDILevelDefinition material1 = em.find(
+						CCDILevelDefinition.class, 2L);
+				CCDILevelValue materialValue1 = new CCDILevelValue(material1,
+						"SUMINISTROS", "01", 2, CCDIValueStatusEnum.ACTIVE);
+
+				CCDILevelDefinition material2 = em.find(
+						CCDILevelDefinition.class, 3L);
+				CCDILevelValue materialValue2 = new CCDILevelValue(material2,
+						"AGUJAS", "0101", 2, CCDIValueStatusEnum.ACTIVE);
+
+				CCDILevelDefinition material3 = em.find(
+						CCDILevelDefinition.class, 4L);
+				CCDILevelValue materialValue3 = new CCDILevelValue(material3,
+						"HIPODERMICAS", "010101", 2, CCDIValueStatusEnum.ACTIVE);
+
+				CCDILevelDefinition material4 = em.find(
+						CCDILevelDefinition.class, 5L);
+				CCDILevelValue materialValue4 = new CCDILevelValue(material4,
+						"MATERIAL FINAL", "0101010001", 1,
+						CCDIValueStatusEnum.ACTIVE);
+
+				em.persist(materialValue0);
+				em.persist(materialValue1);
+				em.persist(materialValue2);
+				em.persist(materialValue3);
+				em.persist(materialValue4);
+
+				CCDILevelDefinition pharmac0 = em.find(
+						CCDILevelDefinition.class, 6L);
+				CCDILevelValue pharmacValue0 = new CCDILevelValue(pharmac0,
+						"FARMACOS", "0", 5, CCDIValueStatusEnum.ACTIVE);
+
+				CCDILevelDefinition pharmac1 = em.find(
+						CCDILevelDefinition.class, 7L);
+				CCDILevelValue pharmacValue1 = new CCDILevelValue(pharmac1,
+						"FARMACOS", "04", 2, CCDIValueStatusEnum.ACTIVE);
+
+				CCDILevelDefinition pharmac2 = em.find(
+						CCDILevelDefinition.class, 8L);
+				CCDILevelValue pharmacValue2 = new CCDILevelValue(pharmac2,
+						"Antibioticos", "0401", 2, CCDIValueStatusEnum.ACTIVE);
+
+				CCDILevelDefinition pharmac3 = em.find(
+						CCDILevelDefinition.class, 9L);
+				CCDILevelValue pharmacValue3 = new CCDILevelValue(pharmac3,
+						"Penicilina", "040101", 2, CCDIValueStatusEnum.ACTIVE);
+
+				CCDILevelDefinition pharmac4 = em.find(
+						CCDILevelDefinition.class, 10L);
+				CCDILevelValue pharmacValue4 = new CCDILevelValue(pharmac4,
+						"Farmaco Final", "0401010001", 1,
+						CCDIValueStatusEnum.ACTIVE);
+
+				em.persist(pharmacValue0);
+				em.persist(pharmacValue1);
+				em.persist(pharmacValue2);
+				em.persist(pharmacValue3);
+				em.persist(pharmacValue4);
+				em.flush();
+			} catch (Exception e1) {
+				logger.log(Level.INFO, "error creating test ccdi level values",
+						e);
+			}
+
+		}
+	}
+
+	private void ccdiTestData() {
+		String query = "SELECT t from CCDIDefinition t WHERE t.id = 1";
+
+		try {
+			em.createQuery(query).getSingleResult();
+		} catch (NoResultException e) {
+			try {
+				logger.info("creating test ccdiDefinition");
+				CCDIDefinition material = new CCDIDefinition("MATERIAL",
+						"MATERIAL", 10, 5, CCDIStatusEnum.ACTIVE,
+						new Concept(), CodeTypeEnum.ALPHANUMERIC, false, "");
+				CCDIDefinition farmaco = new CCDIDefinition("FARMACO",
+						"FARMACO", 10, 5, CCDIStatusEnum.ACTIVE, new Concept(),
+						CodeTypeEnum.ALPHANUMERIC, false, "");
+
+				em.persist(material);
+				em.persist(farmaco);
+				em.flush();
+
+			} catch (Exception e1) {
+				logger.log(Level.INFO, "error creating test ccdi definition", e);
 			}
 		}
 	}
@@ -551,9 +736,9 @@ public class InitialData {
 					MaintenanceActivity entity = new MaintenanceActivity();
 					entity.setName(activityNames[i]);
 					entity.setDescription(activityDesc[i]);
-					entity.setState(MaintenanceActivityState.ACTIVE);
-					entity.setType(MaintenanceActivityTypeEnum.MAINTENANCE);
-					entity.setSubType(MaintenanceActivitySubTypeEnum.CALIBRATION);
+					entity.setState(ActivityState.ACTIVE);
+					entity.setCategory(ActivityCategoryEnum.MAINTENANCE);
+					entity.setSubCategory(ActivitySubCategoryEnum.CALIBRATION);
 					entity.setEstimatedDuration(new BigDecimal(durations[i]));
 					entity.setEstimatedDurationPoT(pots[i]);
 					entity.setEstimatedCost(new BigDecimal(cost[i]));
@@ -626,7 +811,7 @@ public class InitialData {
 							planFrequency[i], planTimePeriod[i],
 							MaintenancePlanType.OVERHAUL,
 							MaintenancePlanState.ACTIVE,
-							MaintenancePlanCancelationOption.NOT_DEFERRABLE));
+							MaintenancePlanCancelationOption.UNDEFERRABLE));
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO,
@@ -800,8 +985,8 @@ public class InitialData {
 		} catch (NoResultException e) {
 			try {
 				logger.info("creating test data : material");
-				String names[] = { "aguja", "sutura", "inyectadora", "algodón",
-				"alcohol" };
+				String names[] = { "aguja", "sutura", "inyectadora",
+						"algodón", "alcohol" };
 				int i = 1;
 				for (String name : names) {
 					Material next = new Material();
@@ -1097,6 +1282,10 @@ public class InitialData {
 	}
 
 	private void testData() {
+		ccdiTestData();
+		ccdiLevelDefinitionTestData();
+		ccdiLevelValuesTestData();
+
 		legalEntityTestData();
 		institutionTestData();
 		citizenTestData();

@@ -37,6 +37,7 @@ public class MaintenancePlanInformationFormPanel extends GHAVerticalLayout
 
 	/** */
 	public MaintenancePlanInformationFormPanel() {
+
 		VLayout sideButtons = GHAUiHelper.createBar(new GHASaveButton(
 				new ClickHandler() {
 					@Override
@@ -56,18 +57,10 @@ public class MaintenancePlanInformationFormPanel extends GHAVerticalLayout
 		addMember(gridPanel);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.
-	 * MaintenancePlanSelectionProducer
-	 * #addMaintenancePlanSelectionListener(org.fourgeeks
-	 * .gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener)
-	 */
 	@Override
 	public void addMaintenancePlanSelectionListener(
-			MaintenancePlanSelectionListener maintenancePlanSelectionListener) {
-		form.addMaintenancePlanSelectionListener(maintenancePlanSelectionListener);
+			MaintenancePlanSelectionListener listener) {
+		form.addMaintenancePlanSelectionListener(listener);
 	}
 
 	@Override
@@ -139,19 +132,10 @@ public class MaintenancePlanInformationFormPanel extends GHAVerticalLayout
 		return;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.
-	 * MaintenancePlanSelectionProducer
-	 * #removeMaintenancePlanSelectionListener(org
-	 * .fourgeeks.gha.webclient.client
-	 * .maintenanceplan.MaintenancePlanSelectionListener)
-	 */
 	@Override
 	public void removeMaintenancePlanSelectionListener(
-			MaintenancePlanSelectionListener maintenancePlanSelectionListener) {
-		form.removeMaintenancePlanSelectionListener(maintenancePlanSelectionListener);
+			MaintenancePlanSelectionListener listener) {
+		form.removeMaintenancePlanSelectionListener(listener);
 
 	}
 
@@ -164,13 +148,6 @@ public class MaintenancePlanInformationFormPanel extends GHAVerticalLayout
 		});
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.fourgeeks.gha.webclient.client.maintenanceplan.
-	 * MaintenancePlanSelectionListener
-	 * #select(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
-	 */
 	@Override
 	public void select(MaintenancePlan maintenancePlan) {
 		form.set(maintenancePlan);

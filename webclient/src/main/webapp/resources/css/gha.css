@@ -362,6 +362,11 @@ input[type=text].round,input[type=password].round {
 	padding-left: 5px;
 }
 
+.checkbox{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
 /*//////////////////// */
 /* Internal Tabset */
 .tabButtonTop {

@@ -11,25 +11,48 @@ import com.google.gwt.core.shared.GWT;
 
 /**
  * @author emiliot
- *
+ * 
  */
 public class MaintenanceActivityModel {
-	private static final GWTMaintenanceActivityServiceAsync service = GWT.create(GWTMaintenanceActivityService.class);
+	private static final GWTMaintenanceActivityServiceAsync service = GWT
+			.create(GWTMaintenanceActivityService.class);
 
 	private MaintenanceActivityModel() {
-		throw new UnsupportedOperationException("Esta clase no debe ser instanciada");
+		throw new UnsupportedOperationException(
+				"Esta clase no debe ser instanciada");
 	}
 
-	public static void getAll(GHAAsyncCallback<List<MaintenanceActivity>> callback){
+	/**
+	 * @param callback
+	 */
+	public static void getAll(
+			GHAAsyncCallback<List<MaintenanceActivity>> callback) {
 		service.getAll(callback);
 	}
-	public static void save(MaintenanceActivity maintenanceActivity, GHAAsyncCallback<MaintenanceActivity> callback){
+
+	/**
+	 * @param maintenanceActivity
+	 * @param callback
+	 */
+	public static void save(MaintenanceActivity maintenanceActivity,
+			GHAAsyncCallback<MaintenanceActivity> callback) {
 		service.save(maintenanceActivity, callback);
 	}
-	public static void update(MaintenanceActivity maintenanceActivity, GHAAsyncCallback<MaintenanceActivity> callback){
+
+	/**
+	 * @param maintenanceActivity
+	 * @param callback
+	 */
+	public static void update(MaintenanceActivity maintenanceActivity,
+			GHAAsyncCallback<MaintenanceActivity> callback) {
 		service.update(maintenanceActivity, callback);
 	}
-	public static void delete(long id, GHAAsyncCallback<Void> callback){
+
+	/**
+	 * @param id
+	 * @param callback
+	 */
+	public static void delete(long id, GHAAsyncCallback<Void> callback) {
 		service.delete(id, callback);
 	}
 

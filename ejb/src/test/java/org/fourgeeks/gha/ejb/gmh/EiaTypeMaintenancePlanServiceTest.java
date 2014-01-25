@@ -16,15 +16,12 @@ import junit.framework.Assert;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.ejb.GhaServiceTest;
-import org.jboss.arquillian.junit.Arquillian;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 
 /**
  * @author vivi.torresg
  * 
  */
-@RunWith(Arquillian.class)
+// @RunWith(Arquillian.class)
 public class EiaTypeMaintenancePlanServiceTest extends GhaServiceTest {
 	@PersistenceContext
 	EntityManager em;
@@ -35,7 +32,7 @@ public class EiaTypeMaintenancePlanServiceTest extends GhaServiceTest {
 	@Inject
 	UserTransaction ux;
 
-	@Test
+	// @Test
 	public void test() throws NotSupportedException, SystemException,
 			SecurityException, IllegalStateException, RollbackException,
 			HeuristicMixedException, HeuristicRollbackException,

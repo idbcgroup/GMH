@@ -496,3 +496,5 @@ ES,maintenanceProtocol-getStadisticInfo-fail,Fallo al obtener información estad
 ES,delete-activities-success,Las actividades se eliminaron exitosamente,9
 ES,delete-protocol-activities-success,Las actividades del protocolo se eliminaron exitosamente,9
 ES,cancelation-option-not-null,Debe indicar la opción de cancelación ,6
+ES,activity-save-success,La actividad ha sido guardada exitosamente
+ES,activity-update-success,La actividad ha sido actualizada exitosamente
