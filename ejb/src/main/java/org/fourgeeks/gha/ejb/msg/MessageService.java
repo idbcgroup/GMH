@@ -39,6 +39,7 @@ public class MessageService extends GHAEJBExceptionService implements
 	@Override
 	public GHAMessage find(String Id) throws GHAEJBException {
 		try {
+			System.out.println(Id);
 			return em.find(GHAMessage.class, new GHAMessageId(Id,
 					RuntimeParameters.getLang()));
 		} catch (Exception e) {

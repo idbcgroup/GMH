@@ -33,7 +33,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class UserDropdownMenu extends VLayout implements HideableListener,
-		ResizeHandler, EventListener {
+ResizeHandler, EventListener {
 
 	int posX, picoPos;
 	private final int width = 280;
@@ -87,21 +87,21 @@ public class UserDropdownMenu extends VLayout implements HideableListener,
 
 		GHAButton logoutButton = new GHAButton("Cerrar Sesion",
 				new ClickHandler() {
-					@Override
-					public void onClick(ClickEvent event) {
-						final GWTLoginServiceAsync service = GWT
-								.create(GWTLoginService.class);
-						service.logOut(new GHAAsyncCallback<Void>() {
+			@Override
+			public void onClick(ClickEvent event) {
+				final GWTLoginServiceAsync service = GWT
+						.create(GWTLoginService.class);
+				service.logOut(new GHAAsyncCallback<Void>() {
 
-							@Override
-							public void onSuccess(Void result) {
-								// Window.Location.reload();
-								Window.Location.assign("");
-							}
-						});
-						UserDropdownMenu.this.hide();
+					@Override
+					public void onSuccess(Void result) {
+						// Window.Location.reload();
+						Window.Location.assign("");
 					}
 				});
+				UserDropdownMenu.this.hide();
+			}
+		});
 		// logoutButton.setSize("17px", "24px");
 		// logoutButton.setAlign(Alignment.RIGHT);
 		// logoutButton.setPadding(20);
@@ -118,19 +118,8 @@ public class UserDropdownMenu extends VLayout implements HideableListener,
 	}
 
 	@Override
-	public void show() {
-		setCanFocus(true);
-		animateShow(AnimationEffect.FADE, new AnimationCallback() {
-
-			@Override
-			public void execute(boolean earlyFinish) {
-				GHAUiHelper.addDocumentClickHandler(UserDropdownMenu.this);
-			}
-		});
-		setVisible(true);
-		pico.setVisible(true);
-		pico.animateShow(AnimationEffect.FADE);
-		bringToFront();
+	public boolean canBeHidden(HideCloseAction hideAction) {
+		return true;
 	}
 
 	@Override
@@ -141,14 +130,6 @@ public class UserDropdownMenu extends VLayout implements HideableListener,
 		pico.animateHide(AnimationEffect.FADE);
 		setCanFocus(false);
 		GHAUiHelper.removeDocumentClickHandler(UserDropdownMenu.this);
-	}
-
-	@Override
-	public void onResize(ResizeEvent event) {
-		posX = (Window.getClientWidth() - 20) - width;
-		picoPos = Window.getClientWidth() - 64;
-		setLeft(posX);
-		pico.setLeft(picoPos);
 	}
 
 	@Override
@@ -167,7 +148,26 @@ public class UserDropdownMenu extends VLayout implements HideableListener,
 	}
 
 	@Override
-	public boolean canBeHidden(HideCloseAction hideAction) {
-		return true;
+	public void onResize(ResizeEvent event) {
+		posX = (Window.getClientWidth() - 20) - width;
+		picoPos = Window.getClientWidth() - 64;
+		setLeft(posX);
+		pico.setLeft(picoPos);
+	}
+
+	@Override
+	public void show() {
+		setCanFocus(true);
+		animateShow(AnimationEffect.FADE, new AnimationCallback() {
+
+			@Override
+			public void execute(boolean earlyFinish) {
+				GHAUiHelper.addDocumentClickHandler(UserDropdownMenu.this);
+			}
+		});
+		setVisible(true);
+		pico.setVisible(true);
+		pico.animateShow(AnimationEffect.FADE);
+		bringToFront();
 	}
 }

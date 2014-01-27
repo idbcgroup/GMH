@@ -15,7 +15,7 @@ body {
 	background-color: #F2F2F2;
 	min-width: 1024px;
 	min-height: 768px;
- 	overflow: hidden; 
+ 	overflow: scroll; 
 }
 
 #main-content {
@@ -582,18 +582,33 @@ div#header-bar.header-bar div#user-info.user-info div#isc_HLayout_0_wrapper div#
 .dialogStyle{
 	border-radius: 5px 5px 5px 5px !important;
 	box-shadow: none !important;
+	max-height: 250px !important;
 }
 
 .windowBody, 
 .dialogBody, 
 .dialogBodyStyle{
-/* 	left: 0px !important; */
-/* 	width: 100% !important; */
+	left: 0px !important;
+	width: 100% !important;
+	max-height: 220px !important;
 	border: none !important;
     box-shadow: none !important;
 }
 
 .windowHeaderText, .dialogHeaderText{ 
-	color: #FFFFFF !important;
+	color: #000000 !important;
 	text-transform: uppercase;
+}
+
+.windowFooterText{
+	color: #000000 !important;
+	font-size: 10px;
+}
+
+.dialogHeaderStyle{
+	height: 30px important!;
+}
+
+.windowStatusBar{
+	border:none !important;
 }
