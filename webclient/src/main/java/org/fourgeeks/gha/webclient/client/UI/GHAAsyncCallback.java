@@ -20,7 +20,7 @@ public abstract class GHAAsyncCallback<T> implements AsyncCallback<T> {
 		} else if (message != null && message.trim().equals("0")) {
 			GHAAlertManager.alert("connection-problem");
 		} else {
-			GHAAlertManager.oldAlert(message);
+			GHAAlertManager.alert("INFORMATION",GHAStrings.get("information"),message);
 		}
 	}
 }

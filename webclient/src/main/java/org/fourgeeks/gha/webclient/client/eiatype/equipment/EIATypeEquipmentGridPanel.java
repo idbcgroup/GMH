@@ -40,9 +40,9 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class EIATypeEquipmentGridPanel extends GHAVerticalLayout implements
-		EIATypeSelectionListener,/* EiaSelectionProducer, */
-		EIASelectionListener, EiaDamageReportSelectionListener,
-		HideableListener, ClosableListener {
+EIATypeSelectionListener,/* EiaSelectionProducer, */
+EIASelectionListener, EiaDamageReportSelectionListener,
+HideableListener, ClosableListener {
 
 	private EIAGrid grid;
 	private EiaCountLabel eiaLabel;
@@ -79,19 +79,19 @@ public class EIATypeEquipmentGridPanel extends GHAVerticalLayout implements
 					}
 				}), new GHADeleteButton(new ClickHandler() {
 
-			@Override
-			public void onClick(ClickEvent event) {
+					@Override
+					public void onClick(ClickEvent event) {
 
-				final Eia selectedRecord = grid.getSelectedEntity();
+						final Eia selectedRecord = grid.getSelectedEntity();
 
-				if (selectedRecord == null) {
-					GHAAlertManager.alert("record-not-selected");
-					return;
-				}
+						if (selectedRecord == null) {
+							GHAAlertManager.alert("record-not-selected");
+							return;
+						}
 
-				GHAAlertManager.confirm("Equipo",
-						"Confirme si desea eliminar el equipo seleccionado",
-						new BooleanCallback() {
+						GHAAlertManager.confirm("Equipo",
+								"Confirme si desea eliminar el equipo seleccionado",
+								new BooleanCallback() {
 
 							@Override
 							public void execute(Boolean resultAsc) {
@@ -99,35 +99,34 @@ public class EIATypeEquipmentGridPanel extends GHAVerticalLayout implements
 									EIAModel.delete(selectedRecord.getId(),
 											new GHAAsyncCallback<Boolean>() {
 
-												@Override
-												public void onSuccess(
-														Boolean result) {
-													loadData(eiaType);
+										@Override
+										public void onSuccess(
+												Boolean result) {
+											loadData(eiaType);
 
-												}
+										}
 
-											});
+									});
 							}
 						});
 
-			}
+					}
 
-		}), new GHAEditButton(new ClickHandler() {
+				}), new GHAEditButton(new ClickHandler() {
 
-			@Override
-			public void onClick(ClickEvent event) {
-				final Eia selectedRecord = grid.getSelectedEntity();
+					@Override
+					public void onClick(ClickEvent event) {
+						final Eia selectedRecord = grid.getSelectedEntity();
 
-				if (selectedRecord == null) {
-					GHAAlertManager.oldAlert(GHAStrings
-							.get("record-not-selected"));
-					return;
-				}
+						if (selectedRecord == null) {
+							GHAAlertManager.alert("INFORMATION", GHAStrings.get("information"),GHAStrings.get("record-not-selected"));
+							return;
+						}
 
-				eiaUpdateForm.setEia(selectedRecord);
-				eiaUpdateForm.open();
-			}
-		}));
+						eiaUpdateForm.setEia(selectedRecord);
+						eiaUpdateForm.open();
+					}
+				}));
 
 		VLayout gridPanel = new VLayout();
 		gridPanel.setMembersMargin(10);
@@ -139,29 +138,13 @@ public class EIATypeEquipmentGridPanel extends GHAVerticalLayout implements
 	}
 
 	@Override
-	public void select(EiaType eiaType) {
-		this.eiaType = eiaType;
-		eiaAddForm.select(eiaType);
-		eiaUpdateForm.select(eiaType);
-		loadData(eiaType);
-
+	public boolean canBeClosen(HideCloseAction hideAction) {
+		return true;
 	}
 
-	/**
-	 * @param eiaType
-	 */
-	private void loadData(EiaType eiaType) {
-		EIAModel.find(eiaType, new GHAAsyncCallback<List<Eia>>() {
-
-			@Override
-			public void onSuccess(List<Eia> result) {
-				ListGridRecord[] array = EIAUtil.toGridRecords(result).toArray(
-						new EIARecord[] {});
-				grid.setData(array);
-				EIATypeEquipmentGridPanel.this.eiaLabel
-						.setEiaStateTotals(result);
-			}
-		});
+	@Override
+	public boolean canBeHidden(HideCloseAction hideAction) {
+		return true;
 	}
 
 	@Override
@@ -178,6 +161,23 @@ public class EIATypeEquipmentGridPanel extends GHAVerticalLayout implements
 			eiaUpdateForm.animateHide(AnimationEffect.FLY);
 	}
 
+	/**
+	 * @param eiaType
+	 */
+	private void loadData(EiaType eiaType) {
+		EIAModel.find(eiaType, new GHAAsyncCallback<List<Eia>>() {
+
+			@Override
+			public void onSuccess(List<Eia> result) {
+				ListGridRecord[] array = EIAUtil.toGridRecords(result).toArray(
+						new EIARecord[] {});
+				grid.setData(array);
+				EIATypeEquipmentGridPanel.this.eiaLabel
+				.setEiaStateTotals(result);
+			}
+		});
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -191,17 +191,16 @@ public class EIATypeEquipmentGridPanel extends GHAVerticalLayout implements
 	}
 
 	@Override
-	public boolean canBeHidden(HideCloseAction hideAction) {
-		return true;
-	}
-
-	@Override
-	public boolean canBeClosen(HideCloseAction hideAction) {
-		return true;
-	}
-
-	@Override
 	public void select(EiaDamageReport eiaDamageReport) {
 		loadData(eiaType);
+	}
+
+	@Override
+	public void select(EiaType eiaType) {
+		this.eiaType = eiaType;
+		eiaAddForm.select(eiaType);
+		eiaUpdateForm.select(eiaType);
+		loadData(eiaType);
+
 	}
 }

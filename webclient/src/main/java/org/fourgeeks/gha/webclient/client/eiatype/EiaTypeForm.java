@@ -88,7 +88,7 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 		//
 		listeners = new ArrayList<EIATypeSelectionListener>();
 
-		form = new GHADynamicForm(4,FormType.NORMAL_FORM);
+		form = new GHADynamicForm(4, FormType.NORMAL_FORM);
 	}
 
 	/**
@@ -214,7 +214,12 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 					.getValueAsString()));
 		Set<ConstraintViolation<EiaType>> violations = null;
 		violations = validator.validate(eiaType);
-		if (form.validate() && violations.isEmpty())
+		if (!form.validate()) {
+			GHAAlertManager.alert("form-errors");
+			return null;
+		}
+
+		if (violations.isEmpty())
 			return eiaType;
 		else {
 			List<String> violationsList = new ArrayList<String>();

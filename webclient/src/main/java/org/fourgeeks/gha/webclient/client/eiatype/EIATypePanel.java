@@ -25,7 +25,7 @@ import com.smartgwt.client.widgets.events.ClickHandler;
  * 
  */
 public class EIATypePanel extends GHAPanel implements EIATypeSelectionListener,
-EiaTypeSelectionProducer {
+		EiaTypeSelectionProducer {
 
 	private static final String TITLE = GHAStrings.get("eiatypes");
 	private EIATypeAddForm addForm;
@@ -56,13 +56,12 @@ EiaTypeSelectionProducer {
 				add();
 			}
 		});
-		//		header.addDebugOption("MensajeIT", new ClickHandler() {
-		//			@Override
-		//			public void onClick(ClickEvent event) {
-		//				GHAAlertManager.alert("Información",
-		//						"Se ha mostrado un Mensaje IT.");
-		//			}
-		//		});
+		// header.addDebugOption("MensajeIT", new ClickHandler() {
+		// @Override
+		// public void onClick(ClickEvent event) {
+		// GHAAlertManager.alert("INFORMATION","Información","Se ha mostrado un Mensaje IT.");
+		// }
+		// });
 
 		resultSet = new EiaTypeResultSet(ResultSetContainerType.TAB);
 		resultSet.setVisible(false);

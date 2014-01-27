@@ -415,6 +415,11 @@ public class EiaServiceTest {
 		}
 		Assert.assertNotNull(eia);
 		try {
+			Assert.assertEquals(1, service.getAll().size());
+		} catch (GHAEJBException e1) {
+			e1.printStackTrace();
+		}
+		try {
 			service.delete(eia.getId());
 		} catch (GHAEJBException e) {
 			e.printStackTrace();

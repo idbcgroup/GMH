@@ -13,7 +13,8 @@
 <!--     </container> -->
 <container qualifier="jbossas-managed" default="true">
         <configuration>
-            <property name="jbossHome">/home/alacret/apps/jboss-as-7.1.1.Final</property>
+<!--             <property name="jbossHome">C:/Users/emiliot/Documents/Apps/jboss-as-7.1.1.Final</property> -->
+<property name="jbossHome">${env.JBOSS_HOME}</property>
         </configuration>
     </container>
 </arquillian>
