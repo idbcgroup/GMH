@@ -1,0 +1,498 @@
+ES,id-type-not-null,Debe indicar el tipo de identificación
+ES,id-number-not-null,Debe indicar el número de identificación
+ES,asset-id-not-null,Debe indicar el identificador del activo
+ES,material-type-not-null,Debe indicar el tipo de material
+ES,unsaved-changes,Existen cambios sin guardar
+EN,info-tittle,Information
+ES,no-message,No existe un mensaje para su localidad
+EN,no-message,There is no message for your location
+ES,LOGIN001,Inicio de sesión exitoso
+ES,LOGIN002,La clave de acceso es incorrecta
+ES,LOGIN003,Debe suministrar nombre de usuario y contraseña
+ES,LOGIN004,Usuario deshabilitado
+ES,LOGIN005,Usuario no registrado en el sistema
+ES,type-not-null,Debe indicar el tipo
+ES,sub-type-not-null,Debe indicar el sub tipo
+ES,external-provider-not-null,Debe indicar el proveedor
+ES,name-not-null,Debe indicar el nombre
+ES,mobility-not-null,Debe indicar la movilidad
+ES,base-role-not-null,Debe indicar el rol
+ES,obu-not-null,Debe indicar la organización
+ES,state-not-null,Debe indicar el estado
+ES,gender-not-null,Debe indicar el genero
+ES,bpi-not-null,Debe indicar la institución
+ES,institution-not-null,Debe indicar la institución
+ES,username-not-null,Debe indicar el usuario
+ES,password-not-null,Debe indicar la clave
+ES,code-not-null,Debe indicar el código
+ES,serial-not-null,Debe indicar el serial
+ES,maintenance-provider-not-null,Debe indicar el proveedor de mantenimiento
+ES,record-not-selected,Debe seleccionar un registro
+ES,frecuency-not-null,Debe indicar la frecuencia
+ES,time-period-not-null,Debe indicar el periodo de tiempo
+ES,eia-save-success,El equipo ha sido guardado exitosamente
+ES,eiaDamageReport-save-success,El Reporte de Equipo Dañado ha sido guardado exitosamente
+ES,maintenance-plan-save-success,El plan de mantenimiento ha sido guardado exitosamente
+ES,eiatype-save-success,El Tipo de Equipo ha sido guardado exitosamente
+ES,eiatype-delete-success,El tipo de equipo ha sido eliminado exitosamente
+ES,eiatypes-delete-success,Los tipos de equipo ha sido eliminado exitosamente
+ES,material-save-success,El material ha sido guardado exitosamente
+ES,user-save-success,El usuario ha sido guardado exitosamente
+ES,mplan-save-success,El plan de mantenimiento ha sido guardado exitosamente
+ES,mprot-save-success,El protocolo de mantenimiento ha sido guardado exitosamente
+ES,mact-save-success,La actividad de mantenimiento ha sido guardada exitosamente
+ES,eiatype-delete-fail,Falló la eliminación del EiaType
+ES,eiatype-save-fail,El tipo de equipo no ha sido guardado
+ES,eiatype-update-fail,No se pudo actualizar el Tipo de Equipo
+ES,eiatype-find-fail,Hubo un fallo en la búsqueda de Tipos de Equipo
+ES,eiatype-findByMaintenancePlan-fail,Hubo un fallo en la búsqueda del Tipo de Equipo por Plan de Mantenimeinto
+ES,eiatype-getAll-fail,Hubo un fallo en la búsqueda de todos los Tipos de Equipo
+EN,eiatype-delete-fail,Failed to delete Equipment type
+EN,eiatype-update-fail,Failed to update Equipment type
+EN,eiatype-find-fail,Failed to find Equipment Type
+EN,eiatype-findByMaintenancePlan-fail,Failed to find Equipment type by Maintenance Plan
+EN,eiatype-save-fail,Failed to save Equipment type
+EN,eiatype-getAll-fail,Failed to get all Equipment types
+ES,error-eia-adquisition-dates-order,Las fechas de adquisicion deben estar en orden cronológico
+ES,error-eia-warranty-dates-order,Las fechas de garantia deben ser mayores que la fecha de compra
+ES,function-getAll-fail,Hubo un fallo en la búsqueda de todas las Funciones
+EN,function-getAll-fail,Failed to get all Functions
+ES,instanceLogon-delete-fail,Hubo un fallo en la eliminación del InstanceLogon
+ES,instanceLogon-findByInstanceLogon-fail,Hubo un fallo en la búsqueda de InstanceLogon por instanceLogon
+ES,instanceLogon-find-fail,Hubo un fallo en la búsqueda de InstanceLogon
+ES,instanceLogon-getAll-fail,Hubo un fallo en la búsqueda de todos los InstanceLogon
+ES,instanceLogon-save-fail,Guardado fallido de InstanceLogon
+ES,instanceLogon-update-fail,Actualización fallida de InstanceLogon
+EN,instanceLogon-delete-fail,Failed to delete InstanceLogon
+EN,instanceLogon-findByInstanceLogon-fail,Failed to find InstanceLogon by instanceLogon
+EN,instanceLogon-find-fail,Failed to find InstanceLogon
+EN,instanceLogon-getAll-fail,Failed to get all instanceLogon
+EN,instanceLogon-save-fail,Failed to save InstanceLogon
+EN,instanceLogon-update-fail,Failed to update InstanceLogon
+ES,role-delete-fail,Fallo la eliminación del Rol
+ES,role-findByRoleBase-fail,Búsqueda fallida de Rol por rol
+ES,role-find-fail,Búsqueda fallida de Rol
+ES,role-getAll-fail,Búsqueda fallida de todos los Rol
+ES,role-save-fail,Guardado fallido de Rol
+ES,role-update-fail,Actualización fallida de Rol
+EN,role-delete-fail,Failed to delete Role
+EN,role-findByRoleBase-fail,Failed to find Role by role
+EN,role-find-fail,Failed to find Role
+EN,role-getAll-fail,Failed to get all Role
+EN,role-save-fail,Failed to save Role
+EN,role-update-fail,Failed to update Role
+ES,ssoUser-delete-fail,Fallo la eliminación del SSOUser
+ES,ssoUser-delete-success,Usuario eliminado exitosamente
+ES,ssoUser-findBySsoUser-fail,Búsqueda fallida de SSOUser por ssoUser
+ES,ssoUser-find-fail,Búsqueda fallida de SSOUser
+ES,ssoUser-getAll-fail,Búsqueda fallida de todos los SSOUser
+ES,ssoUser-save-fail,Guardado fallido de SSOUser
+ES,ssoUser-update-fail,Actualización fallida de SSOUser
+ES,ssoUser-findByUserName-fail,Búsqueda fallida de SSOUser por userName
+EN,ssoUser-delete-fail,Failed to delete SSOUSer
+EN,ssoUser-findBySsoUser-fail,Failed to find SSOUser by ssoUser
+EN,ssoUser-find-fail,Failed to find SSOUser
+EN,ssoUser-getAll-fail,Failed to get all SSOUser
+EN,ssoUser-save-fail,Failed to save SSOUser
+EN,ssoUser-update-fail,Failed to update SSOUser
+EN,ssoUser-findByUserName-fail,Failed to find SSOUser by userName
+ES,bpuFunction-save-fail,Guardado fallido del BpuFunction
+ES,bpuFunction-delete-fail,Fallo la eliminación del BpuFunction
+ES,bpuFunction-getFunctionsByBpu-fail,Búsqueda fallida de BpuFunction por bpu
+EN,bpuFunction-save-fail,Failed to save BpuFunction
+EN,bpuFunction-delete-fail,Failed to delete BpuFunction
+EN,bpuFunction-getFunctionsByBpu-fail,Failed to get BpuFunction by bpu
+ES,workingArea-delete-fail,Fallo la eliminación del WorkingArea
+ES,workingArea-findByWorkingArea-fail,Búsqueda fallida de WorkingArea por workingArea
+ES,workingArea-find-fail,Búsqueda fallida de WorkingArea
+ES,workingArea-getAll-fail,Búsqueda fallida de todos los WorkingArea
+ES,workingArea-save-fail,Guardado fallido de WorkingArea
+ES,workingArea-update-fail,Actualización fallida de WorkingArea
+EN,workingArea-delete-fail,Failed to delete WorkingArea
+EN,workingArea-findByWorkingArea-fail,Failed to find WorkingArea by workingArea
+EN,workingArea-find-fail,Failed to find WorkingArea
+EN,workingArea-getAll-fail,Failed to get all WorkingArea
+EN,workingArea-save-fail,Failed to save WorkingArea
+EN,workingArea-update-fail,Failed to update WorkingArea
+ES,bpu-delete-fail,Fallo la eliminación del Bpu
+ES,bpu-findByBpu-fail,Búsqueda fallida de Bpu por bpu
+ES,bpu-find-fail,Búsqueda fallida de Bpu
+ES,bpu-getAll-fail,Búsqueda fallida de todos los Bpu
+ES,bpu-save-fail,Guardado fallido de Bpu
+ES,bpu-update-fail,Actualización fallida de Bpu
+EN,bpu-delete-fail,Failed to delete Bpu
+EN,bpu-findByBpu-fail,Failed to find Bpu by bpu
+EN,bpu-find-fail,Failed to find Bpu
+EN,bpu-getAll-fail,Failed to get all Bpu
+EN,bpu-save-fail,Failed to save Bpu
+EN,bpu-update-fail,Failed to update Bpu
+ES,facility-delete-fail,Fallo la eliminación del Facility
+ES,facility-findByFacility-fail,Búsqueda fallida de Facility por facility
+ES,facility-find-fail,Búsqueda fallida de Facility
+ES,facility-getAll-fail,Búsqueda fallida de todos los Facility
+ES,facility-save-fail,Guardado fallido de Facility
+ES,facility-update-fail,Actualización fallida de Facility
+EN,facility-delete-fail,Failed to delete Facility
+EN,facility-findByFacility-fail,Failed to find Facility by facility
+EN,facility-find-fail,Failed to find Facility
+EN,facility-getAll-fail,Failed to get all Facility
+EN,facility-save-fail,Failed to save Facility
+EN,facility-update-fail,Failed to update Facility
+ES,obu-delete-fail,Fallo la eliminación del Obu
+ES,obu-findByObu-fail,Búsqueda fallida de Obu por obu
+ES,obu-find-fail,Búsqueda fallida de Obu
+ES,obu-getAll-fail,Búsqueda fallida de todos los Obu
+ES,obu-save-fail,Guardado fallido de Obu
+ES,obu-update-fail,Actualización fallida de Obu
+EN,obu-delete-fail,Failed to delete Obu
+EN,obu-findByObu-fail,Failed to find Obu by obu
+EN,obu-find-fail,Failed to find Obu
+EN,obu-getAll-fail,Failed to get all Obu
+EN,obu-save-fail,Failed to save Obu
+EN,obu-update-fail,Failed to update Obu
+ES,externalProvider-delete-fail,Fallo la eliminación del ExternalProvider
+ES,externalProvider-findByExternalProvider-fail,Búsqueda fallida de ExternalProvider por externalProvider
+ES,externalProvider-find-fail,Búsqueda fallida de ExternalProvider
+ES,externalProvider-getAll-fail,Búsqueda fallida de todos los ExternalProvider
+ES,externalProvider-save-fail,Guardado fallido de ExternalProvider
+ES,externalProvider-update-fail,Actualización fallida de ExternalProvider
+EN,externalProvider-delete-fail,Failed to delete ExternalProvider
+EN,externalProvider-findByExternalProvider-fail,Failed to find ExternalProvider by externalProvider
+EN,externalProvider-find-fail,Failed to find ExternalProvider
+EN,externalProvider-getAll-fail,Failed to get all ExternalProvider
+EN,externalProvider-save-fail,Failed to save ExternalProvider
+EN,externalProvider-update-fail,Failed to update ExternalProvider
+ES,materialCategory-delete-fail,Fallo la eliminación del MaterialCategory
+ES,materialCategory-findByMaterialCategory-fail,Búsqueda fallida de MaterialCategory por materialCategory
+ES,materialCategory-find-fail,Búsqueda fallida de MaterialCategory
+ES,materialCategory-getAll-fail,Búsqueda fallida de todos los MaterialCategory
+ES,materialCategory-save-fail,Guardado fallido de MaterialCategory
+ES,materialCategory-update-fail,Actualización fallida de MaterialCategory
+EN,materialCategory-delete-fail,Failed to delete MaterialCategory
+EN,materialCategory-findByMaterialCategory-fail,Failed to find MaterialCategory by materialCategory
+EN,materialCategory-find-fail,Failed to find MaterialCategory
+EN,materialCategory-getAll-fail,Failed to get all MaterialCategory
+EN,materialCategory-save-fail,Failed to save MaterialCategory
+EN,materialCategory-update-fail,Failed to update MaterialCategory
+ES,material-delete-fail,Fallo la eliminación del Material
+ES,material-findByMaterial-fail,Búsqueda fallida de Material por material
+ES,material-find-fail,Búsqueda fallida de Material
+ES,material-findByType-fail,Búsqueda fallida de Material por Tipo
+ES,material-findByBrand-fail,Búsqueda fallida de Material por Brand
+ES,material-getAll-fail,Búsqueda fallida de todos los Material
+ES,material-save-fail,Guardado fallido de Material
+ES,material-update-fail,Actualización fallida de Material
+EN,material-delete-fail,Failed to delete Material
+EN,material-findByMaterial-fail,Failed to find Material by material
+EN,material-find-fail,Failed to find Material
+EN,material-findByType-fail,Failed to find Material by Type
+EN,material-findByBrand-fail,Falied to find Material by Brand
+EN,material-getAll-fail,Failed to get all Material
+EN,material-save-fail,Failed to save Material
+EN,material-update-fail,Failed to update Material
+ES,brand-delete-fail,Fallo la eliminación del Brand
+ES,brand-findByBrand-fail,Búsqueda fallida de Brand por brand
+ES,brand-find-fail,Búsqueda fallida de Brand
+ES,brand-findByManufacturer-fail,Búsqueda fallida de Brand por Manufacturer
+ES,brand-getAll-fail,Búsqueda fallida de todos los Brand
+ES,brand-save-fail,Guardado fallido de Brand
+ES,brand-update-fail,Actualización fallida de Brand
+EN,brand-delete-fail,Failed to delete Brand
+EN,brand-findByBrand-fail,Failed to find Brand by brand
+EN,brand-find-fail,Failed to find Brand
+EN,brand-findByManufacturer-fail,Failed to find Brand by Manufacturer
+EN,brand-getAll-fail,Failed to get all Brand
+EN,brand-save-fail,Failed to save Brand
+EN,brand-update-fail,Failed to update Brand
+ES,buildingLocation-delete-fail,Fallo la eliminación del BuildingLocation
+ES,buildingLocation-findByBuildingLocation-fail,Búsqueda fallida de BuildingLocation por buildingLocation
+ES,buildingLocation-find-fail,Búsqueda fallida de BuildingLocation
+ES,buildingLocation-getAll-fail,Búsqueda fallida de todos los BuildingLocation
+ES,buildingLocation-save-fail,Guardado fallido de BuildingLocation
+ES,buildingLocation-update-fail,Actualización fallida de BuildingLocation
+EN,buildingLocation-delete-fail,Failed to delete BuildingLocation
+EN,buildingLocation-findByBuildingLocation-fail,Failed to find BuildingLocation by buildingLocation
+EN,buildingLocation-find-fail,Failed to find BuildingLocation
+EN,buildingLocation-getAll-fail,Failed to get all BuildingLocation
+EN,buildingLocation-save-fail,Failed to save BuildingLocation
+EN,buildingLocation-update-fail,Failed to update BuildingLocation
+ES,eiaComponent-delete-fail,Fallo la eliminación del EiaComponent
+ES,eiaComponent-findByParentEia-fail,Búsqueda fallida de EiaComponent por parentEia
+ES,eiaComponent-find-fail,Búsqueda fallida de EiaComponent
+ES,eiaComponent-getAll-fail,Búsqueda fallida de todos los EiaComponent
+ES,eiaComponent-save-fail,Guardado fallido de EiaComponent
+ES,eiaComponent-update-fail,Actualización fallida de EiaComponent
+EN,eiaComponent-delete-fail,Failed to delete EiaComponent
+EN,eiaComponent-findByParentEia-fail,Failed to find EiaComponent by parentEia
+EN,eiaComponent-find-fail,Failed to find EiaComponent
+EN,eiaComponent-getAll-fail,Failed to get all EiaComponent
+EN,eiaComponent-save-fail,Failed to save EiaComponent
+EN,eiaComponent-update-fail,Failed to update EiaComponent
+ES,eiaPicture-delete-fail,Fallo la eliminación del EiaPicture
+ES,eiaPicture-findByEia-fail,Búsqueda fallida de EiaPicture por eia
+ES,eiaPicture-find-fail,Búsqueda fallida de EiaPicture
+ES,eiaPicture-getAll-fail,Búsqueda fallida de todos los EiaPicture
+ES,eiaPicture-save-fail,Guardado fallido de EiaPicture
+ES,eiaPicture-update-fail,Actualización fallida de EiaPicture
+EN,eiaPicture-delete-fail,Failed to delete EiaPicture
+EN,eiaPicture-findByEia-fail,Failed to find EiaPicture by eia
+EN,eiaPicture-find-fail,Failed to find EiaPicture
+EN,eiaPicture-getAll-fail,Failed to get all EiaPicture
+EN,eiaPicture-save-fail,Failed to save EiaPicture
+EN,eiaPicture-update-fail,Failed to update EiaPicture
+ES,eia-delete-fail,Fallo la eliminación del Eia
+ES,eia-delete-success,El equipo a sido eliminado exitosamente
+ES,eia-findByEia-fail,Búsqueda fallida de Eia por eia
+ES,eia-findByEiaType-fail,Búsqueda fallida de Eia por eiaType
+ES,eia-find-fail,Búsqueda fallida de Eia
+ES,eia-getAll-fail,Búsqueda fallida de todos los Eia
+ES,eia-save-fail,Guardado fallido de Eia
+ES,eia-update-fail,Actualización fallida de Eia
+EN,eia-delete-fail,Failed to delete Eia
+EN,eia-findByEia-fail,Failed to find Eia by eia
+EN,eia-findByEiaType-fail,Failed to find Eia by eiaType
+EN,eia-find-fail,Failed to find Eia
+EN,eia-getAll-fail,Failed to get all Eia
+EN,eia-save-fail,Failed to save Eia
+EN,eia-update-fail,Failed to update Eia
+ES,eiaTypeComponent-delete-fail,Fallo la eliminación del EiaTypeComponent
+ES,eiaTypeComponent-findByParentEiaType-fail,Búsqueda fallida de EiaTypeComponent por parentEiaType
+ES,eiaTypeComponent-find-fail,Búsqueda fallida de EiaTypeComponent
+ES,eiaTypeComponent-getAll-fail,Búsqueda fallida de todos los EiaTypeComponent
+ES,eiaTypeComponent-save-fail,Guardado fallido de EiaTypeComponent
+ES,eiaTypeComponent-update-fail,Actualización fallida de EiaTypeComponent
+EN,eiaTypeComponent-delete-fail,Failed to delete EiaTypeComponent
+EN,eiaTypeComponent-findByParentEiaType-fail,Failed to find EiaTypeComponent by parentEiaType
+EN,eiaTypeComponent-find-fail,Failed to find EiaTypeComponent
+EN,eiaTypeComponent-getAll-fail,Failed to get all EiaTypeComponent
+EN,eiaTypeComponent-save-fail,Failed to save EiaTypeComponent
+EN,eiaTypeComponent-update-fail,Failed to update EiaTypeComponent
+ES,eiaTypeMaintenancePlan-delete-fail,Fallo la eliminación del EiaTypeMaintenancePlan
+ES,eiaTypeMaintenancePlan-findByEiaType-fail,Búsqueda fallida de EiaTypeMaintenancePlan por eiaType
+ES,eiaTypeMaintenancePlan-findByMaintenancePlan-fail,Búsqueda fallida de EiaTypeMaintenancePlan po maintenancePlan
+ES,eiaTypeMaintenancePlan-save-fail,Guardado fallido de EiaTypeMaintenancePlan
+EN,eiaTypeMaintenancePlan-delete-fail,Failed to delete EiaTypeMaintenancePlan
+EN,eiaTypeMaintenancePlan-findByEiaType-fail,Failed to find EiaTypeMaintenancePlan by eiaType
+EN,eiaTypeMaintenancePlan-findByMaintenancePlan-fail,Failed to find EiaTypeMaintenancePlan by maintenancePlan
+EN,eiaTypeMaintenancePlan-save-fail,Failed to save EiaTypeMaintenancePlan
+ES,eiaTypeMaterial-delete-fail,Fallo la eliminación del EiaTypeMaterial
+ES,eiaTypeMaterial-findByEiaType-fail,Búsqueda fallida de EiaTypeMaterial por eiaType
+ES,eiaTypeMaterial-save-fail,Guardado fallido de EiaTypeMaterial
+EN,eiaTypeMaterial-delete-fail,Failed to delete EiaTypeMaterial
+EN,eiaTypeMaterial-findByEiaType-fail,Failed to find EiaTypeMaterial by eiaType
+EN,eiaTypeMaterial-save-fail,Failed to save EiaTypeMaterial
+ES,eiaTypeMaterial-update-fail,Actualización fallida de EiaTypeMaterial
+EN,eiaTypeMaterial-update-fail,Actualización fallida del EiaType y el Material
+ES,eiaTypePicture-delete-fail,Fallo la eliminación del EiaTypePicture
+ES,eiaTypePicture-findByEiaType-fail,Búsqueda fallida de EiaTypePicture por eiaType
+ES,eiaTypePicture-find-fail,Búsqueda fallida de EiaTypePicture
+ES,eiaTypePicture-save-fail,Guardado fallido de EiaTypePicture
+ES,eiaTypePicture-update-fail,Actualización fallida de EiaTypePicture
+EN,eiaTypePicture-delete-fail,Failed to delete EiaTypePicture
+EN,eiaTypePicture-findByEiaType-fail,Failed to find EiaTypePicture by eiaType
+EN,eiaTypePicture-find-fail,Failed to find EiaTypePicture
+EN,eiaTypePicture-save-fail,Failed to save EiaTypePicture
+EN,eiaTypePicture-update-fail,Failed to update EiaTypePicture
+ES,eiaTypeUtility-delete-fail,Fallo la eliminación del EiaTypeUtility
+ES,eiaTypeUtility-findByEiaType-fail,Búsqueda fallida de EiaTypeUtility por eiaType
+ES,eiaTypeUtility-save-fail,Guardado fallido de EiaTypeUtility
+EN,eiaTypeUtility-delete-fail,Failed to delete EiaTypeUtility
+EN,eiaTypeUtility-findByEiaType-fail,Failed to find EiaTypeUtility by eiaType
+EN,eiaTypeUtility-save-fail,Failed to save EiaTypeUtility
+EN,eiaTypeUtility-update-fail,Failed to save EiaTypeUtility
+ES,eiaTypeUtility-update-fail,Fallo la actualización del EiaType y el Servicio Utilitario
+ES,maintenanceActivityMaintenanceProtocol-delete-fail,Fallo la eliminación del MaintenanceActivityMaintenanceProtocol
+ES,maintenanceActivityMaintenanceProtocol-findByMaintenanceActivity-fail,Búsqueda fallida de MaintenanceActivityMaintenanceProtocol por actividad de mantenimiento
+ES,maintenanceActivityMaintenanceProtocol-findByMaintenanceProtocol-fail,Búsqueda fallida de MaintenanceActivityMaintenanceProtocol por protocolo de mantenimiento
+ES,maintenanceActivityMaintenanceProtocol-save-fail,Guardado fallido de MaintenanceActivityMaintenanceProtocol
+EN,maintenanceActivityMaintenanceProtocol-delete-fail,Failed to delete MaintenanceActivityMaintenanceProtocol
+EN,maintenanceActivityMaintenanceProtocol-findByMaintenanceActivity-fail,Failed to find MaintenanceActivityMaintenanceProtocol by maintenance activity
+EN,maintenanceActivityMaintenanceProtocol-findByMaintenanceProtocol-fail,Failed to find MaintenanceActivityMaintenanceProtocol by maintenance protocol
+EN,maintenanceActivityMaintenanceProtocol-save-fail,Failed to save MaintenanceActivityMaintenanceProtocol
+ES,maintenanceActivity-delete-fail,Fallo la eliminación del MaintenanceActivity
+ES,maintenanceActivity-findByMaintenanceProtocol-fail,Búsqueda fallida de MaintenanceActivity por protocolo de mantenimiento
+ES,maintenanceActivity-findByServiceResource-fail,Búsqueda fallida de MaintenanceActivity por serviceResource
+ES,maintenanceActivity-find-fail,Búsqueda fallida de MaintenanceActivity
+ES,maintenanceActivity-findByMaintenanceActivity-fail,Búsqueda fallida de MaintenanceActivity por maintenanceActivity
+ES,maintenanceActivity-getAll-fail,Búsqueda fallida de todos los MaintenanceActivity
+ES,maintenanceActivity-save-fail,Guardado fallido de MaintenanceActivity
+ES,maintenanceActivity-update-fail,Actualización fallida de MaintenanceActivity
+EN,maintenanceActivity-delete-fail,Failed to delete MaintenanceActivity
+EN,maintenanceActivity-findByMaintenanceProtocol-fail,Failed to find MaintenanceActivity by maintenance protocol
+EN,maintenanceActivity-findByServiceResource-fail,Failed to find MaintenanceActivity by serviceResource
+EN,maintenanceActivity-find-fail,Failed to find MaintenanceActivity
+EN,maintenanceActivity-findByMaintenanceActivity-fail,Failed to find MaintenanceActivity by maintenanceActivity
+EN,maintenanceActivity-getAll-fail,Failed to get all MaintenanceActivity
+EN,maintenanceActivity-save-fail,Failed to save MaintenanceActivity
+EN,maintenanceActivity-update-fail,Failed to update MaintenanceActivity
+ES,maintenancePlanMaintenanceProtocol-delete-fail,Fallo la eliminación del MaintenancePlanMaintenanceProtocol
+ES,maintenancePlanMaintenanceProtocol-findByMaintenancePlan-fail,Búsqueda fallida de MaintenancePlanMaintenanceProtocol por plan de mantenimiento
+ES,maintenancePlanMaintenanceProtocol-findByMaintenanceProtocol-fail,Búsqueda fallida de MaintenancePlanMaintenanceProtocol por protocolo de mantenimiento
+ES,maintenancePlanMaintenanceProtocol-save-fail,Guardado fallido de MaintenancePlanMaintenanceProtocol
+EN,maintenancePlanMaintenanceProtocol-delete-fail,Failed to delete MaintenancePlanMaintenanceProtocol
+EN,maintenancePlanMaintenanceProtocol-findByMaintenancePlan-fail,Failed to find MaintenancePlanMaintenanceProtocol by maintenance plan
+EN,maintenancePlanMaintenanceProtocol-findByMaintenanceProtocol-fail,Failed to find MaintenancePlanMaintenanceProtocol by maintenance protocol
+EN,maintenancePlanMaintenanceProtocol-save-fail,Failed to save MaintenancePlanMaintenanceProtocol
+ES,maintenancePlan-delete-fail,Fallo la eliminación del MaintenancePlan
+ES,maintenancePlan-findByEiaType-fail,Búsqueda fallida de MaintenancePlan por eiaType
+ES,maintenancePlan-findEiaByEiaType-fail,Búsqueda fallida de EiaMaintenancePlanification por maintenancePlan
+ES,maintenancePlan-findByMaintenancePlan-fail,Búsqueda fallida de MaintenancePlan por maintenancePlan
+ES,maintenancePlan-find-fail,Búsqueda fallida de MaintenancePlan
+ES,maintenancePlan-getAll-fail,Búsqueda fallida de todos los MaintenancePlan
+ES,maintenancePlan-save-fail,Guardado fallido de MaintenancePlan
+ES,maintenancePlan-update-fail,Actualización fallida de MaintenancePlan
+ES,maintenancePlan-findEiaByMaintenancePlan-fail,Búsqueda fallida de Eia por maintenancePlan
+ES,maintenancePlan-findDamagedEiaByMaintenancePlan-fail,Búsqueda fallida de Eia dañados por maintenancePlan
+EN,maintenancePlan-findDamagedEiaByMaintenancePlan-fail,Failed to find damaged Eia by maintenancePlan
+EN,maintenancePlan-findEiaByMaintenancePlan-fail,Failed to find Eia by maintenancePlan
+EN,maintenancePlan-delete-fail,Failed to delete MaintenancePlan
+EN,maintenancePlan-findByEiaType-fail,Failed to find MaintenancePlan by eiaType
+EN,maintenancePlan-findEiaByEiaType-fail,Failed to find EiaMaintenancePlanification by maintenancePlan
+EN,maintenancePlan-findByMaintenancePlan-fail,Failed to find MaintenancePlan by maintenancePlan
+EN,maintenancePlan-find-fail,Failed to find MaintenancePlan
+EN,maintenancePlan-getAll-fail,Failed to get all MaintenancePlan
+EN,maintenancePlan-save-fail,Failed to save MaintenancePlan
+EN,maintenancePlan-update-fail,Failed to update MaintenancePlan
+ES,maintenanceProtocol-delete-fail,Fallo al eliminar actividades del Protocolo de Actividades 
+ES,maintenanceProtocol-findByMaintenancePlan-fail,Fallo al buscar las actividades asociadas al Plan de Mantenimiento
+ES,maintenanceProtocol-findByMaintenanceProtocol-fail,Búsqueda fallida de MaintenanceProtocol por maintenanceProtocol
+ES,maintenanceProtocol-find-fail,Búsqueda fallida de MaintenanceProtocol
+ES,maintenanceProtocol-getAll-fail,Búsqueda fallida de todos los MaintenanceProtocol
+ES,maintenanceProtocol-save-fail,Fallo al asociar la Actividad al Plan de Matenimiento
+ES,maintenanceProtocol-update-fail,Actualización fallida de MaintenanceProtocol
+EN,maintenanceProtocol-delete-fail,Failed to delete Activities of the Maintenance Plan
+EN,maintenanceProtocol-findByMaintenancePlan-fail,Failed to find tha activities associated to the Maintenance Plan
+EN,maintenanceProtocol-findByMaintenanceProtocol-fail,Failed to find MaintenanceProtocol by maintenanceProtocol
+EN,maintenanceProtocol-find-fail,Failed to find MaintenanceProtocol
+EN,maintenanceProtocol-getAll-fail,Failed to get all MaintenanceProtocol
+EN,maintenanceProtocol-save-fail,Failed to associate the Activity to the Maintenance Plan
+EN,maintenanceProtocol-update-fail,Failed to update MaintenanceProtocol
+ES,maintenanceSubProtocol-delete-fail,Fallo la eliminación del MaintenanceSubProtocol
+ES,maintenanceSubProtocol-findByMaintenanceActivity-fail,Búsqueda fallida de MaintenanceSubProtocol por maintenanceActivity
+ES,maintenanceSubProtocol-find-fail,Búsqueda fallida de MaintenanceSubProtocol
+ES,maintenanceSubProtocol-getAll-fail,Búsqueda fallida de todos los MaintenanceSubProtocol
+ES,maintenanceSubProtocol-save-fail,Guardado fallido de MaintenanceSubProtocol
+ES,maintenanceSubProtocol-update-fail,Actualización fallida de MaintenanceSubProtocol
+EN,maintenanceSubProtocol-delete-fail,Failed to delete MaintenanceSubProtocol
+EN,maintenanceSubProtocol-findByMaintenanceActivity-fail,Failed to find MaintenanceSubProtocol by maintenanceActivity
+EN,maintenanceSubProtocol-find-fail,Failed to find MaintenanceSubProtocol
+EN,maintenanceSubProtocol-getAll-fail,Failed to get all MaintenanceSubProtocol
+EN,maintenanceSubProtocol-save-fail,Failed to save MaintenanceSubProtocol
+EN,maintenanceSubProtocol-update-fail,Failed to update MaintenanceSubProtocol
+ES,manufacturer-delete-fail,Fallo la eliminación del Manufacturer
+ES,manufacturer-findByManufacturer-fail,Búsqueda fallida de Manufacturer por manufacturer
+ES,manufacturer-find-fail,Búsqueda fallida de Manufacturer
+ES,manufacturer-getAll-fail,Búsqueda fallida de todos los Manufacturer
+ES,manufacturer-save-fail,Guardado fallido de Manufacturer
+ES,manufacturer-update-fail,Actualización fallida de Manufacturer
+EN,manufacturer-delete-fail,Failed to delete Manufacturer
+EN,manufacturer-findByManufacturer-fail,Failed to find Manufacturer by manufacturer
+EN,manufacturer-find-fail,Failed to find Manufacturer
+EN,manufacturer-getAll-fail,Failed to get all Manufacturer
+EN,manufacturer-save-fail,Failed to save Manufacturer
+EN,manufacturer-update-fail,Failed to update Manufacturer
+ES,serviceResource-delete-fail,Fallo la eliminación del ServiceResource
+ES,serviceResource-findByMaintenanceActivity-fail,Búsqueda fallida de ServiceResource por maintenanceActivity
+ES,serviceResource-find-fail,Búsqueda fallida de ServiceResource
+ES,serviceResource-getAll-fail,Búsqueda fallida de todos los ServiceResource
+ES,serviceResource-save-fail,Guardado fallido de ServiceResource
+ES,serviceResource-update-fail,Actualización fallida de ServiceResource
+EN,serviceResource-delete-fail,Failed to delete ServiceResource
+EN,serviceResource-findByMaintenanceActivity-fail,Failed to find ServiceResource by maintenanceActivity
+EN,serviceResource-find-fail,Failed to find ServiceResource
+EN,serviceResource-getAll-fail,Failed to get all ServiceResource
+EN,serviceResource-save-fail,Failed to save ServiceResource
+EN,serviceResource-update-fail,Failed to update ServiceResource
+ES,bpa-delete-fail,Fallo la eliminación del Bpa
+ES,bpa-findByBpa-fail,Búsqueda fallida de Bpa por bpa
+ES,bpa-find-fail,Búsqueda fallida de Bpa
+ES,bpa-getAll-fail,Búsqueda fallida de todos los Bpa
+ES,bpa-save-fail,Guardado fallido de Bpa
+ES,bpa-update-fail,Actualización fallida de Bpa
+EN,bpa-delete-fail,Failed to delete Bpa
+EN,bpa-findByBpa-fail,Failed to find Bpa by bpa
+EN,bpa-find-fail,Failed to find Bpa
+EN,bpa-getAll-fail,Failed to get all Bpa
+EN,bpa-save-fail,Failed to save Bpa
+EN,bpa-update-fail,Failed to update Bpa
+ES,bpi-delete-fail,Fallo la eliminación del Bpi
+ES,bpi-findByBpi-fail,Búsqueda fallida de Bpi por bpi
+ES,bpi-find-fail,Búsqueda fallida de Bpi
+ES,bpi-getAll-fail,Búsqueda fallida de todos los Bpi
+ES,bpi-save-fail,Guardado fallido de Bpi
+ES,bpi-update-fail,Actualización fallida de Bpi
+EN,bpi-delete-fail,Failed to delete Bpi
+EN,bpi-findByBpi-fail,Failed to find Bpi by bpi
+EN,bpi-find-fail,Failed to find Bpi
+EN,bpi-getAll-fail,Failed to get all Bpi
+EN,bpi-save-fail,Failed to save Bpi
+EN,bpi-update-fail,Failed to update Bpi
+ES,citizen-delete-fail,Fallo la eliminación del Citizen
+ES,citizen-findByCitizen-fail,Búsqueda fallida de Citizen por citizen
+ES,citizen-find-fail,Búsqueda fallida de Citizen
+ES,citizen-getAll-fail,Búsqueda fallida de todos los Citizen
+ES,citizen-save-fail,Guardado fallido de Citizen
+ES,citizen-update-fail,Actualización fallida de Citizen
+EN,citizen-delete-fail,Failed to delete Citizen
+EN,citizen-findByCitizen-fail,Failed to find Citizen by citizen
+EN,citizen-find-fail,Failed to find Citizen
+EN,citizen-getAll-fail,Failed to get all Citizen
+EN,citizen-save-fail,Failed to save Citizen
+EN,citizen-update-fail,Failed to update Citizen
+ES,institution-delete-fail,Fallo la eliminación del Institution
+ES,institution-findByInstitution-fail,Búsqueda fallida de Institution por institution
+ES,institution-find-fail,Búsqueda fallida de Institution
+ES,institution-getAll-fail,Búsqueda fallida de todos los Institution
+ES,institution-save-fail,Guardado fallido de Institution
+ES,institution-update-fail,Actualización fallida de Institution
+EN,institution-delete-fail,Failed to delete Institution
+EN,institution-findByInstitution-fail,Failed to find Institution by institution
+EN,institution-find-fail,Failed to find Institution
+EN,institution-getAll-fail,Failed to get all Institution
+EN,institution-save-fail,Failed to save Institution
+EN,institution-update-fail,Failed to update Institution
+ES,legalEntity-delete-fail,Fallo la eliminación del LegalEntity
+ES,legalEntity-findByLegalEntity-fail,Búsqueda fallida de LegalEntity por legalEntity
+ES,legalEntity-find-fail,Búsqueda fallida de LegalEntity
+ES,legalEntity-getAll-fail,Búsqueda fallida de todos los LegalEntity
+ES,legalEntity-save-fail,Guardado fallido de LegalEntity
+ES,legalEntity-update-fail,Actualización fallida de LegalEntity
+EN,legalEntity-delete-fail,Failed to delete LegalEntity
+EN,legalEntity-findByLegalEntity-fail,Failed to find LegalEntity by legalEntity
+EN,legalEntity-find-fail,Failed to find LegalEntity
+EN,legalEntity-getAll-fail,Failed to get all LegalEntity
+EN,legalEntity-save-fail,Failed to save LegalEntity
+EN,legalEntity-update-fail,Failed to update LegalEntity
+ES,systemInstance-delete-fail,Fallo la eliminación del SystemInstance
+ES,systemInstance-findBySystemInstance-fail,Búsqueda fallida de SystemInstance por systemInstance
+ES,systemInstance-find-fail,Búsqueda fallida de SystemInstance
+ES,systemInstance-getAll-fail,Búsqueda fallida de todos los SystemInstance
+ES,systemInstance-save-fail,Guardado fallido de SystemInstance
+ES,systemInstance-update-fail,Actualización fallida de SystemInstance
+EN,systemInstance-delete-fail,Failed to delete SystemInstance
+EN,systemInstance-findBySystemInstance-fail,Failed to find SystemInstance by systemInstance
+EN,systemInstance-find-fail,Failed to find SystemInstance
+EN,systemInstance-getAll-fail,Failed to get all SystemInstance
+EN,systemInstance-save-fail,Failed to save SystemInstance
+EN,systemInstance-update-fail,Failed to update SystemInstance
+ES,message-find-fail,Búsqueda fallida de Message
+EN,message-find-fail,Failed to find Message
+ES,damageStatus-not-null,Debe indicar el estado del daño o falla
+ES,damagePriority-not-null,Debe indicar la prioridad del daño o falla
+ES,userWhoReported-not-null,Debe indicar el usuario que reportó el daño o falla
+ES,userWhoRegistered-not-null,Debe indicar el usuario que registró el daño o falla
+ES,no-eiatype-maintenance-plans,No existen planes de mantenimiento para este tipo de equipo
+ES,eiaPreventiveMaintenancePlanification-save-success,La Planificación de Mantenimiento Preventivo ha sido guardada exitosamente
+ES,eiatype-maintenance-plan-not-null,Debe indicar el plan de mantenimiento
+ES,password-missmatch,Las claves de acceso no coinciden
+ES,email-invalid-field,Debe ingresar un email válido
+ES,eia-maintenance-planification-details-register-success,Los detalles de la Planificación de Mantenimiento se registraron exitosamente
+ES,maintenance-activity-subtype-not-null,Debe indicar el sub-tipo o sub-categoria de la Actividad de Mantenimiento
+ES,estimated-duration-time-not-null,Debe indicar el tiempo de duración estimado
+ES,estimated-cost-not-null,Debe indicar el costo estimado
+ES,currency-not-null,Debe indicar la moneda
+ES,maintenanceProtocol-copyActivities-fail,Fallo al copiar las actividades de un plan de mantenimiento a otro
+ES,maintenanceProtocol-getStadisticInfo-fail,Fallo al obtener información estadistica sobre el protocolo del plan de mantenimiento  
+ES,delete-activities-success,Las actividades se eliminaron exitosamente
+ES,delete-protocol-activities-success,Las actividades del protocolo se eliminaron exitosamente
+ES,cancelation-option-not-null,Debe indicar la opción de cancelación 

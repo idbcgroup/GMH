@@ -213,7 +213,7 @@ public class EIAUpdateForm extends GHAUpdateForm<Eia> implements
 			@Override
 			public void onSuccess(Eia result) {
 				hide();
-				GHAAlertManager.info("eiatype-save-success");
+				GHAAlertManager.inform("eiatype-save-success");
 			}
 		});
 	}

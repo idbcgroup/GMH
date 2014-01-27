@@ -3,8 +3,11 @@
  */
 package org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocols;
 
+import org.fourgeeks.gha.domain.enu.ActivityCategoryEnum;
+import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 
 /**
@@ -26,7 +29,8 @@ public class MaintenanceProtocolsRecord extends
 		MaintenanceActivity activity = entity.getMaintenanceActivity();
 
 		setAttribute("ordinal", entity.getOrdinal());
-		setAttribute("type", activity.getType());
+		ActivityCategoryEnum type = activity.getCategory();
+		setAttribute("type", GHAStrings.get(type.name().toLowerCase()));
 		setAttribute("code", activity.getId());
 		setAttribute("subprotocol", activity.getIsSubProtocol());
 		setAttribute("name", activity.getName());
@@ -35,10 +39,10 @@ public class MaintenanceProtocolsRecord extends
 		setAttribute("tools", activity.getIsToolsRequired());
 		setAttribute("equips", activity.getIsEquipsRequired());
 		setAttribute("time", activity.getEstimatedDuration());
-		setAttribute("pot", activity.getEstimatedDurationPoT());
+		TimePeriodEnum pot = activity.getEstimatedDurationPoT();
+		setAttribute("pot", GHAStrings.get(pot.name().toLowerCase()));
 		setAttribute("cost", activity.getEstimatedCost());
 		setAttribute("currency", activity.getEstimatedCostCurrency());
-
 	}
 
 	/*

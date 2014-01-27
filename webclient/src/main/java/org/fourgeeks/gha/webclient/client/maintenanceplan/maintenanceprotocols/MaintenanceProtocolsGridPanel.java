@@ -3,6 +3,7 @@ package org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocols;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.fourgeeks.gha.domain.enu.ActivityState;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocolStadisticData;
@@ -19,6 +20,7 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
+import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivityModel;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySearchForm;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionListener;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSearchForm;
@@ -65,7 +67,6 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 					public void select(MaintenancePlan planFrom) {
 						save(planFrom);
 					}
-
 				});
 
 		activitySearchForm = new MaintenanceActivitySearchForm(
@@ -326,7 +327,7 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 	 * @param activity
 	 *            the activity to associate
 	 */
-	private void save(MaintenanceActivity activity) {
+	private void save(final MaintenanceActivity activity) {
 		int ordinal = grid.getRecords().length + 1;
 
 		MaintenanceProtocols entity = new MaintenanceProtocols();
@@ -337,9 +338,19 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 		MaintenanceProtocolsModel.save(entity,
 				new GHAAsyncCallback<MaintenanceProtocols>() {
 					@Override
-					public void onSuccess(MaintenanceProtocols result) {
-						loadData();
-						notifyMaintenanceProtocols(result);
+					public void onSuccess(final MaintenanceProtocols result) {
+						if (activity.getState() == ActivityState.CREATED)
+							activity.setState(ActivityState.ACTIVE);
+
+						MaintenanceActivityModel.update(activity,
+								new GHAAsyncCallback<MaintenanceActivity>() {
+									@Override
+									public void onSuccess(
+											MaintenanceActivity resultActivity) {
+										loadData();
+										notifyMaintenanceProtocols(result);
+									}
+								});
 					}
 				});
 	}

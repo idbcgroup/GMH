@@ -38,8 +38,8 @@ public class MaintenanceActivityResultSet extends
 	public MaintenanceActivityResultSet(ResultSetContainerType container) {
 		super(GHAStrings.get("search-results"));
 		this.containerType = container;
-		
-		grid = new MaintenanceActivityGrid(){
+
+		grid = new MaintenanceActivityGrid() {
 			@Override
 			public void onResize(ResizeEvent event) {
 				super.onResize(event);
@@ -53,7 +53,7 @@ public class MaintenanceActivityResultSet extends
 			}
 		});
 		grid.setHeight(GHAUiHelper.getResultSetGridSize(containerType));
-		
+
 		setHeight(GHAUiHelper.getResultSetHeight(containerType));
 		HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(grid,
@@ -64,9 +64,9 @@ public class MaintenanceActivityResultSet extends
 						notifySelectedMaintenanceActivity();
 					}
 				})));
-//		if (containerType == ResultSetContainerType.SEARCH_FORM) {
-//			setHeight(getHeight() - 42);
-//		}
+		// if (containerType == ResultSetContainerType.SEARCH_FORM) {
+		// setHeight(getHeight() - 42);
+		// }
 
 		addMember(gridPanel);
 	}

@@ -15,15 +15,12 @@ import javax.transaction.UserTransaction;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.ejb.GhaServiceTest;
-import org.jboss.arquillian.junit.Arquillian;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 
 /**
  * @author alacret
  * 
  */
-@RunWith(Arquillian.class)
+// @RunWith(Arquillian.class)
 public class LogonLogServiceTest extends GhaServiceTest {
 
 	@PersistenceContext
@@ -45,10 +42,11 @@ public class LogonLogServiceTest extends GhaServiceTest {
 	 * @throws HeuristicRollbackException
 	 * @throws GHAEJBException
 	 */
-	@Test
+	// @Test
 	public void test() throws NotSupportedException, SystemException,
 			SecurityException, IllegalStateException, RollbackException,
-			HeuristicMixedException, HeuristicRollbackException, GHAEJBException {
+			HeuristicMixedException, HeuristicRollbackException,
+			GHAEJBException {
 		assertNotNull(em);
 		assertNotNull(service);
 

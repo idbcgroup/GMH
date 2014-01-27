@@ -11,10 +11,10 @@ import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
+import org.fourgeeks.gha.domain.enu.ActivityCategoryEnum;
+import org.fourgeeks.gha.domain.enu.ActivityState;
+import org.fourgeeks.gha.domain.enu.ActivitySubCategoryEnum;
 import org.fourgeeks.gha.domain.enu.CurrencyTypeEnum;
-import org.fourgeeks.gha.domain.enu.MaintenanceActivityState;
-import org.fourgeeks.gha.domain.enu.MaintenanceActivitySubTypeEnum;
-import org.fourgeeks.gha.domain.enu.MaintenanceActivityTypeEnum;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 
 /**
@@ -37,15 +37,15 @@ public class MaintenanceActivity extends AbstractEntity implements
 
 	@NotNull(message = "maintenance-activity-state-not-null")
 	@Column(nullable = false)
-	private MaintenanceActivityState state;
+	private ActivityState state;
 
 	@NotNull(message = "type-not-null")
 	@Column(nullable = false)
-	private MaintenanceActivityTypeEnum type;
+	private ActivityCategoryEnum category;
 
 	@NotNull(message = "sub-type-not-null")
 	@Column(nullable = false)
-	private MaintenanceActivitySubTypeEnum subType;
+	private ActivitySubCategoryEnum subCategory;
 
 	@NotNull(message = "estimated-duration-time-not-null")
 	@Column(nullable = false)
@@ -68,6 +68,7 @@ public class MaintenanceActivity extends AbstractEntity implements
 
 	private String description;
 	private String instructionsAndObservations;
+
 	private boolean materialsRequired;
 	private boolean toolsRequired;
 	private boolean equipsRequired;
@@ -92,10 +93,10 @@ public class MaintenanceActivity extends AbstractEntity implements
 	}
 
 	/**
-	 * @return the activity
+	 * @return the type of the maintenance activity
 	 */
-	public Activity getActivity() {
-		return activity;
+	public ActivityCategoryEnum getCategory() {
+		return category;
 	}
 
 	/**
@@ -172,24 +173,46 @@ public class MaintenanceActivity extends AbstractEntity implements
 	}
 
 	/**
+	 * @return the name of the maintenance activity
+	 */
+	public boolean getIsMaterialsRequired() {
+		return materialsRequired;
+	}
+
+	/**
+	 * @return the isSubProtocol
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @return true if Tools are required for this activity, false in other case
+	 */
+	public boolean getIsToolsRequired() {
+		return toolsRequired;
+	}
+
+	/**
 	 * @return the state of the maintenance activity
 	 */
-	public MaintenanceActivityState getState() {
+	public ActivityState getState() {
 		return state;
 	}
 
 	/**
-	 * @return the sub-type or sub-category of the maintenance activity
+	 * @return the subcategory of the maintenance activity
 	 */
-	public MaintenanceActivitySubTypeEnum getSubType() {
-		return subType;
+	public ActivitySubCategoryEnum getSubCategory() {
+		return subCategory;
 	}
 
 	/**
-	 * @return the type of the maintenance activity
+	 * @param category
+	 *            the category of the maintenance activity
 	 */
-	public MaintenanceActivityTypeEnum getType() {
-		return type;
+	public void setCategory(ActivityCategoryEnum category) {
+		this.category = category;
 	}
 
 	/**
@@ -276,19 +299,27 @@ public class MaintenanceActivity extends AbstractEntity implements
 	}
 
 	/**
+	 * @param name
+	 *            the name of the maintenance activity
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
 	 * @param state
 	 *            the state of the maintenance activity
 	 */
-	public void setState(MaintenanceActivityState state) {
+	public void setState(ActivityState state) {
 		this.state = state;
 	}
 
 	/**
-	 * @param subType
-	 *            the sub-type or sub-category of the maintenance activity
+	 * @param subCategory
+	 *            the subcategory of the maintenance activity
 	 */
-	public void setSubType(MaintenanceActivitySubTypeEnum subType) {
-		this.subType = subType;
+	public void setSubCategory(ActivitySubCategoryEnum subCategory) {
+		this.subCategory = subCategory;
 	}
 
 	/**
@@ -297,13 +328,5 @@ public class MaintenanceActivity extends AbstractEntity implements
 	 */
 	public void setToolsRequired(boolean toolsRequired) {
 		this.toolsRequired = toolsRequired;
-	}
-
-	/**
-	 * @param type
-	 *            the type or category of the maintenance activity
-	 */
-	public void setType(MaintenanceActivityTypeEnum type) {
-		this.type = type;
 	}
 }

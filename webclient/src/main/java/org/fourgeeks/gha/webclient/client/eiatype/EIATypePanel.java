@@ -56,6 +56,12 @@ public class EIATypePanel extends GHAPanel implements EIATypeSelectionListener,
 				add();
 			}
 		});
+		// header.addDebugOption("MensajeIT", new ClickHandler() {
+		// @Override
+		// public void onClick(ClickEvent event) {
+		// GHAAlertManager.alert("INFORMATION","Información","Se ha mostrado un Mensaje IT.");
+		// }
+		// });
 
 		resultSet = new EiaTypeResultSet(ResultSetContainerType.TAB);
 		resultSet.setVisible(false);
@@ -87,16 +93,16 @@ public class EIATypePanel extends GHAPanel implements EIATypeSelectionListener,
 		addForm.addHideableListener(new HideableListener() {
 
 			@Override
+			public boolean canBeHidden(HideCloseAction closeAction) {
+				return true;
+			}
+
+			@Override
 			public void hide() throws UnavailableToHideException {
 				if (TabStatus.ENTITY_SELECTED.equals(currentStatus))
 					return;
 				else
 					search();
-			}
-
-			@Override
-			public boolean canBeHidden(HideCloseAction closeAction) {
-				return true;
 			}
 		});
 
