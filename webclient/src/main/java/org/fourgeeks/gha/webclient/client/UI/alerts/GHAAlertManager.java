@@ -20,7 +20,6 @@ import org.fourgeeks.gha.webclient.client.message.GWTMessageService;
 import org.fourgeeks.gha.webclient.client.message.GWTMessageServiceAsync;
 
 import com.google.gwt.core.shared.GWT;
-import com.google.gwt.user.client.Window;
 import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.util.SC;
 import com.smartgwt.client.widgets.Button;
@@ -149,7 +148,6 @@ public class GHAAlertManager {
 	 * @param key
 	 */
 	public static void alert(String key) {
-		Window.alert("single key");
 		final Button buttonOK = new Button(GHAStrings.get("accept"));
 		buttonOK.addClickHandler(new ClickHandler() {
 			@Override
@@ -157,15 +155,10 @@ public class GHAAlertManager {
 				messageDialog.close();
 			}
 		});
-		Window.alert("1");
 		messageService.find(key, new GHAAsyncCallback<GHAMessage>() {
 
 			@Override
 			public void onSuccess(GHAMessage result) {
-				Window.alert("2");
-				Window.alert((result == null) ? "result is null"
-						: "result is not null");
-				Window.alert((result.getType() == null) + "");
 				if (result.getType().getType().equals("SAY"))
 					messageDialog = new GHASayDialog(GHAStrings
 							.get("information"), result.getText());
@@ -196,7 +189,6 @@ public class GHAAlertManager {
 				else
 					messageDialog = new GHAInformationDialog(GHAStrings
 							.get("information"), result.getText());
-				Window.alert("3");
 				messageDialog.show();
 			}
 		});
@@ -205,6 +197,8 @@ public class GHAAlertManager {
 	/**
 	 * shows a custom debug information alert to the user with the message and
 	 * title specified
+	 * 
+	 * @param type
 	 * 
 	 * @param title
 	 * @param message
