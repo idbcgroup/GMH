@@ -38,7 +38,6 @@ public class CCDIService extends GHAEJBExceptionService implements
 			int levels, String status, Concept concept, String type,
 			boolean addVerify, String verificationMethod)
 			throws GHAEJBException {
-		// TODO: TESTING
 		try {
 			CCDIDefinition definition = new CCDIDefinition(code, name, length,
 					levels, CCDIStatusEnum.getByString(status), null,
