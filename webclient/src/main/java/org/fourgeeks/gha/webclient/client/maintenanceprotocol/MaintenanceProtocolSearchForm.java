@@ -32,8 +32,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class MaintenanceProtocolSearchForm extends GHASearchForm<MaintenanceProtocol> implements
-		MaintenanceProtocolSelectionListener,
-		MaintenanceProtocolSelectionProducer {
+MaintenanceProtocolSelectionListener,
+MaintenanceProtocolSelectionProducer {
 
 	private MaintenanceProtocolGrid grid;
 	private GHATextItem nameItem, descriptionItem;
@@ -90,19 +90,19 @@ public class MaintenanceProtocolSearchForm extends GHASearchForm<MaintenanceProt
 				new GHAImgButton("../resources/icons/clean.png",
 						new ClickHandler() {
 
-							@Override
-							public void onClick(ClickEvent event) {
-								form.clearValues();
-								grid.setData(new ListGridRecord[0]);
-							}
-						}), new GHAImgButton("../resources/icons/cancel.png",
+					@Override
+					public void onClick(ClickEvent event) {
+						form.clearValues();
+						grid.setData(new ListGridRecord[0]);
+					}
+				}), new GHAImgButton("../resources/icons/cancel.png",
 						new ClickHandler() {
 
-							@Override
-							public void onClick(ClickEvent event) {
-								hide();
-							}
-						}));
+					@Override
+					public void onClick(ClickEvent event) {
+						hide();
+					}
+				}));
 
 		HLayout formLayout = new HLayout();
 		formLayout.setPadding(10);
@@ -113,8 +113,8 @@ public class MaintenanceProtocolSearchForm extends GHASearchForm<MaintenanceProt
 
 		addMembers(formLayout,
 				GHAUiHelper
-						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
-								+ "px"));
+				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
+						+ "px"));
 
 		HLayout gridLayout = new HLayout();
 		gridLayout.setPadding(10);
@@ -127,70 +127,19 @@ public class MaintenanceProtocolSearchForm extends GHASearchForm<MaintenanceProt
 						selectMaintenanceProtocol();
 					}
 				}), GHAUiHelper.verticalGraySeparator("2px"), new GHAImgButton(
-				"../resources/icons/new.png", new ClickHandler() {
+						"../resources/icons/new.png", new ClickHandler() {
 
-					@Override
-					public void onClick(ClickEvent event) {
-						addForm.open();
-					}
-				}));
+							@Override
+							public void onClick(ClickEvent event) {
+								addForm.open();
+							}
+						}));
 
 		gridLayout.addMembers(grid, sideGridButtons);
 		addMember(gridLayout);
 
 		// register as listener to the addform producer
 		addForm.addMaintenanceProtocolSelectionListener(this);
-	}
-
-	@Override
-	public void close() {
-		destroy();
-		addForm.destroy();
-	}
-
-	@Override
-	public void hide() {
-		super.hide();
-		addForm.hide();
-	}
-
-	@Override
-	public void onResize(ResizeEvent event) {
-		super.onResize(event);
-	}
-
-	public void search() {
-		MaintenanceProtocol maintenanceProtocol = new MaintenanceProtocol();
-		if (nameItem.getValue() != null)
-			maintenanceProtocol.setName(nameItem.getValueAsString());
-		if (descriptionItem.getValue() != null)
-			maintenanceProtocol.setDescription(descriptionItem
-					.getValueAsString());
-		search(maintenanceProtocol);
-	}
-
-	private void search(final MaintenanceProtocol protocol) {
-		MaintenanceProtocolModel.find(protocol,
-				new GHAAsyncCallback<List<MaintenanceProtocol>>() {
-
-					@Override
-					public void onSuccess(List<MaintenanceProtocol> result) {
-						ListGridRecord array[] = MaintenanceProtocolUtil
-								.toGridRecords(result).toArray(
-										new MaintenanceProtocolGridRecord[] {});
-						grid.setData(array);
-
-						// TODO: seleccionar un elemento si coincide exactamente
-						// con el de busqueda
-					}
-				});
-	}
-
-	// Producer/Consumer Stuff
-	private void notifyMaintenanceProtocol(
-			MaintenanceProtocol maintenanceProtocol) {
-		for (MaintenanceProtocolSelectionListener listener : listeners)
-			listener.select(maintenanceProtocol);
 	}
 
 	/*
@@ -209,6 +158,30 @@ public class MaintenanceProtocolSearchForm extends GHASearchForm<MaintenanceProt
 
 	}
 
+	@Override
+	public void close() {
+		destroy();
+		addForm.destroy();
+	}
+
+	@Override
+	public void hide() {
+		super.hide();
+		addForm.hide();
+	}
+
+	// Producer/Consumer Stuff
+	private void notifyMaintenanceProtocol(
+			MaintenanceProtocol maintenanceProtocol) {
+		for (MaintenanceProtocolSelectionListener listener : listeners)
+			listener.select(maintenanceProtocol);
+	}
+
+	@Override
+	public void onResize(ResizeEvent event) {
+		super.onResize(event);
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -222,6 +195,34 @@ public class MaintenanceProtocolSearchForm extends GHASearchForm<MaintenanceProt
 	public void removeMaintenanceProtocolSelectionListener(
 			MaintenanceProtocolSelectionListener maintenanceProtocolSelectionListener) {
 		listeners.remove(maintenanceProtocolSelectionListener);
+	}
+
+	@Override
+	public void search() {
+		MaintenanceProtocol maintenanceProtocol = new MaintenanceProtocol();
+		if (nameItem.getValue() != null)
+			maintenanceProtocol.setName(nameItem.getValueAsString());
+		if (descriptionItem.getValue() != null)
+			maintenanceProtocol.setDescription(descriptionItem
+					.getValueAsString());
+		search(maintenanceProtocol);
+	}
+
+	private void search(final MaintenanceProtocol protocol) {
+		MaintenanceProtocolModel.find(protocol,
+				new GHAAsyncCallback<List<MaintenanceProtocol>>() {
+
+			@Override
+			public void onSuccess(List<MaintenanceProtocol> result) {
+				ListGridRecord array[] = MaintenanceProtocolUtil
+						.toGridRecords(result).toArray(
+								new MaintenanceProtocolGridRecord[] {});
+				grid.setData(array);
+
+				// TODO: seleccionar un elemento si coincide exactamente
+				// con el de busqueda
+			}
+		});
 	}
 
 	/*
@@ -247,7 +248,7 @@ public class MaintenanceProtocolSearchForm extends GHASearchForm<MaintenanceProt
 		GHAGridRecord<MaintenanceProtocol> selectedRecord = grid
 				.getSelectedRecord();
 		if (selectedRecord == null) {
-			GHAAlertManager.oldAlert(GHAStrings.get("record-not-selected"));
+			GHAAlertManager.alert("INFORMATION",GHAStrings.get("information"),GHAStrings.get("record-not-selected"));
 			return;
 		}
 		notifyMaintenanceProtocol(((MaintenanceProtocolGridRecord) selectedRecord)
