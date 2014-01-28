@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
-import org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol.GWTMaintenanceActivityServiceAsync;
 
 import com.google.gwt.core.shared.GWT;
 

@@ -9,17 +9,20 @@ import javax.ejb.Remote;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
-import org.fourgeeks.gha.domain.gmh.MaintenanceSubProtocol;
+import org.fourgeeks.gha.domain.gmh.SubProtocolAndChecklist;
 
 /**
  * @author emiliot
- *
+ * 
  */
 
 @Remote
 public interface MaintenanceSubProtocolServiceRemote {
 	/**
 	 * Delete a MaintenanceSubProtocol from database by Id
+	 * 
+	 * @param Id
+	 * 
 	 * @throws GHAEJBException
 	 */
 	public void delete(long Id) throws GHAEJBException;
@@ -29,22 +32,21 @@ public interface MaintenanceSubProtocolServiceRemote {
 	 * @return a list with the MaintenanceSubProtocols of the protocolActivity
 	 * @throws GHAEJBException
 	 */
-	public List<MaintenanceSubProtocol> findByMaintenanceActivity(
-			MaintenanceActivity maintenanceActivity)
-			throws GHAEJBException;
+	public List<SubProtocolAndChecklist> findByMaintenanceActivity(
+			MaintenanceActivity maintenanceActivity) throws GHAEJBException;
 
 	/**
 	 * @param Id
 	 * @return the MaintenanceSubProtocol with this Id
 	 * @throws GHAEJBException
 	 */
-	public MaintenanceSubProtocol find(long Id) throws GHAEJBException;
+	public SubProtocolAndChecklist find(long Id) throws GHAEJBException;
 
 	/**
 	 * @return the list with all MaintenanceSubProtocols Objects
 	 * @throws GHAEJBException
 	 */
-	public List<MaintenanceSubProtocol> getAll() throws GHAEJBException;
+	public List<SubProtocolAndChecklist> getAll() throws GHAEJBException;
 
 	/**
 	 * @param offset
@@ -52,24 +54,24 @@ public interface MaintenanceSubProtocolServiceRemote {
 	 * @return List of MaintenanceSubProtocols beginning in offset up to size
 	 * @throws GHAEJBException
 	 */
-	public List<MaintenanceSubProtocol> getAll(int offset, int size)
+	public List<SubProtocolAndChecklist> getAll(int offset, int size)
 			throws GHAEJBException;
 
 	/**
-	 * @param MaintenanceSubProtocol
-	 *            the MaintenanceSubProtocol to be saved on database
+	 * @param subProtocol
+	 *            the SubProtocol to be saved on database
 	 * @throws GHAEJBException
 	 * @return MaintenanceSubProtocol saved
 	 */
-	public MaintenanceSubProtocol save(MaintenanceSubProtocol maintenanceSubProtocol)
+	public SubProtocolAndChecklist save(SubProtocolAndChecklist subProtocol)
 			throws GHAEJBException;
 
 	/**
-	 * @param MaintenanceSubProtocol
-	 *            the MaintenanceSubProtocol to be updated
+	 * @param subProtocol
+	 *            the SubProtocol to be updated
 	 * @return MaintenanceSubProtocol updated
 	 * @throws GHAEJBException
 	 */
-	public MaintenanceSubProtocol update(MaintenanceSubProtocol maintenanceSubProtocol)
+	public SubProtocolAndChecklist update(SubProtocolAndChecklist subProtocol)
 			throws GHAEJBException;
 }

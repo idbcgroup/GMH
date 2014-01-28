@@ -19,6 +19,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
+import org.fourgeeks.gha.domain.Activity;
 import org.fourgeeks.gha.domain.conf.Parameter;
 import org.fourgeeks.gha.domain.conf.ParameterGroup;
 import org.fourgeeks.gha.domain.conf.ParameterValue;
@@ -56,12 +57,13 @@ import org.fourgeeks.gha.domain.ess.ui.View;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Facility;
+import org.fourgeeks.gha.domain.gar.Job;
 import org.fourgeeks.gha.domain.gar.Obu;
+import org.fourgeeks.gha.domain.glm.Bsp;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.glm.Material;
 import org.fourgeeks.gha.domain.glm.MaterialCategory;
 import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
-import org.fourgeeks.gha.domain.gmh.Activity;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
@@ -69,8 +71,8 @@ import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
-import org.fourgeeks.gha.domain.gmh.MaintenanceSubProtocol;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
+import org.fourgeeks.gha.domain.gmh.SubProtocolAndChecklist;
 import org.fourgeeks.gha.domain.gom.CCDIDefinition;
 import org.fourgeeks.gha.domain.gom.CCDILevelDefinition;
 import org.fourgeeks.gha.domain.gom.CCDILevelValue;
@@ -207,6 +209,28 @@ public class InitialData {
 			logger.log(Level.INFO, "error creating test brands", e);
 		}
 
+	}
+
+	/**
+	 * 
+	 */
+	private void bspTestData() {
+		String query = "SELECT t from Bsp t WHERE t.id = 1 ";
+		try {
+			em.createQuery(query).getSingleResult();
+		} catch (NoResultException e) {
+			try {
+				logger.info("creating test data : bsp");
+				for (int i = 0; i < 2; i++) {
+					Bsp bsp = new Bsp();
+					bsp.setObu(new Obu(i + 1));
+					em.persist(bsp);
+				}
+				em.flush();
+			} catch (Exception e1) {
+				logger.log(Level.INFO, "error creating test data bsp", e);
+			}
+		}
 	}
 
 	private void buildingLocationsTestData() {
@@ -634,6 +658,31 @@ public class InitialData {
 		}
 	}
 
+	private void jobTestData() {
+		String query = "SELECT t from Job t WHERE t.id = 1 ";
+		try {
+			em.createQuery(query).getSingleResult();
+		} catch (NoResultException e) {
+			try {
+				logger.info("creating test data : job");
+				Job job = null;
+
+				job = new Job(new Obu(1), new Role(1));
+				em.persist(job);
+				job = new Job(new Obu(1), new Role(2));
+				em.persist(job);
+				job = new Job(new Obu(2), new Role(1));
+				em.persist(job);
+				job = new Job(new Obu(2), new Role(3));
+				em.persist(job);
+
+				em.flush();
+			} catch (Exception e1) {
+				logger.log(Level.INFO, "error creating test data job", e);
+			}
+		}
+	}
+
 	private void legalEntityTestData() {
 		String query = "SELECT t from LegalEntity t WHERE t.id = 1 ";
 		try {
@@ -783,34 +832,6 @@ public class InitialData {
 				// subprotocol activity
 				em.persist(new MaintenanceProtocols(plans.get(0), activities
 						.get(6), 6));
-
-				em.flush();
-			} catch (Exception e1) {
-				logger.log(Level.INFO,
-						"error Creating MaintenanceProtocols test data", e1);
-			}
-		}
-	}
-
-	private void maintenanceSubprotocolTestData() {
-		String query = "SELECT t from MaintenanceSubProtocol t WHERE t.id = 1";
-		try {
-			em.createQuery(query).getSingleResult();
-		} catch (NoResultException e) {
-			try {
-				logger.info("Creating test data: MaintenanceProtocols");
-				MaintenanceActivity parentActivity = em.find(
-						MaintenanceActivity.class, Long.valueOf(7));
-				List<MaintenanceActivity> activities = em
-						.createNamedQuery("MaintenanceActivity.getAll",
-								MaintenanceActivity.class).getResultList();
-
-				em.persist(new MaintenanceSubProtocol(parentActivity,
-						activities.get(7), 1));
-				em.persist(new MaintenanceSubProtocol(parentActivity,
-						activities.get(8), 2));
-				em.persist(new MaintenanceSubProtocol(parentActivity,
-						activities.get(9), 3));
 
 				em.flush();
 			} catch (Exception e1) {
@@ -1188,6 +1209,34 @@ public class InitialData {
 		}
 	}
 
+	private void subProtocolAndChecklistTestData() {
+		String query = "SELECT t from SubProtocolAndChecklist t WHERE t.id = 1";
+		try {
+			em.createQuery(query).getSingleResult();
+		} catch (NoResultException e) {
+			try {
+				logger.info("Creating test data: ProtocolsAndChecklist");
+				MaintenanceActivity parentActivity = em.find(
+						MaintenanceActivity.class, Long.valueOf(7));
+				List<MaintenanceActivity> activities = em
+						.createNamedQuery("MaintenanceActivity.getAll",
+								MaintenanceActivity.class).getResultList();
+
+				em.persist(new SubProtocolAndChecklist(parentActivity
+						.getActivity(), activities.get(7).getActivity(), 1));
+				em.persist(new SubProtocolAndChecklist(parentActivity
+						.getActivity(), activities.get(8).getActivity(), 2));
+				em.persist(new SubProtocolAndChecklist(parentActivity
+						.getActivity(), activities.get(9).getActivity(), 3));
+
+				em.flush();
+			} catch (Exception e1) {
+				logger.log(Level.INFO,
+						"error Creating SubProtocolAndChecklist test data", e1);
+			}
+		}
+	}
+
 	private void testData() {
 		ccdiTestData();
 		ccdiLevelDefinitionTestData();
@@ -1206,6 +1255,9 @@ public class InitialData {
 		obuTestData();
 		roleTestData();
 		buildingLocationsTestData();
+		bspTestData();
+		jobTestData();
+
 		//
 		ssoUserTestData();
 		//
@@ -1220,7 +1272,7 @@ public class InitialData {
 		eiaTestData();
 		//
 		maintenanceActivityTestData();
-		maintenanceSubprotocolTestData();
+		subProtocolAndChecklistTestData();
 		maintenancePlanTestData();
 		maintenanceProtocolsTestData();
 		// maintenanceProtocolTestData();

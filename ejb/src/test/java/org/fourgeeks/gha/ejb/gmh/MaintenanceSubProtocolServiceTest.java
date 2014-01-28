@@ -14,7 +14,7 @@ import javax.transaction.UserTransaction;
 import junit.framework.Assert;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
-import org.fourgeeks.gha.domain.gmh.MaintenanceSubProtocol;
+import org.fourgeeks.gha.domain.gmh.SubProtocolAndChecklist;
 import org.fourgeeks.gha.ejb.GhaServiceTest;
 
 /**
@@ -43,17 +43,17 @@ public class MaintenanceSubProtocolServiceTest extends GhaServiceTest {
 		ux.begin();
 		em.joinTransaction();
 
-		MaintenanceSubProtocol entity = new MaintenanceSubProtocol();
-		entity.setParentProtocolActivity(super.getMaintenanceActivity(em));
-		entity.setMaintenanceActivity(super.getMaintenanceActivity(em));
+		SubProtocolAndChecklist entity = new SubProtocolAndChecklist();
+		entity.setParentActivity(super.getMaintenanceActivity(em).getActivity());
+		entity.setActivity(super.getMaintenanceActivity(em).getActivity());
 
 		entity = service.save(entity);
 
 		Assert.assertNotNull(service.find(entity.getId()));
 		System.out.println("BEFORE " + entity.getId() + " "
-				+ entity.getMaintenanceActivity() + "\nAFTER "
+				+ entity.getActivity() + "\nAFTER "
 				+ service.find(entity.getId()).getId() + " "
-				+ service.find(entity.getId()).getMaintenanceActivity());
+				+ service.find(entity.getId()).getActivity());
 		// Assert.assertEquals(entity, service.find(entity.getId()));
 
 		Assert.assertTrue(service.findByMaintenanceActivity(super
@@ -65,12 +65,10 @@ public class MaintenanceSubProtocolServiceTest extends GhaServiceTest {
 		Assert.assertTrue(service.getAll(0, 10) != null
 				&& service.getAll(0, 10).size() >= 1);
 
-		Assert.assertNotNull(service.find(entity.getId())
-				.getMaintenanceActivity());
-		entity.setMaintenanceActivity(null);
+		Assert.assertNotNull(service.find(entity.getId()).getActivity());
+		entity.setActivity(null);
 		entity = service.update(entity);
-		Assert.assertEquals(null, service.find(entity.getId())
-				.getMaintenanceActivity());
+		Assert.assertEquals(null, service.find(entity.getId()).getActivity());
 		long id = entity.getId();
 		service.delete(entity.getId());
 		Assert.assertNull(service.find(id));

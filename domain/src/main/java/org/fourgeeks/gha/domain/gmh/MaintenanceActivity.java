@@ -7,6 +7,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
+import org.fourgeeks.gha.domain.Activity;
 
 /**
  * @author alacret

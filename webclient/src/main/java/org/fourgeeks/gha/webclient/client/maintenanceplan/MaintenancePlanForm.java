@@ -19,7 +19,7 @@ import org.fourgeeks.gha.domain.enu.MaintenancePlanState;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanType;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.gar.Job;
-import org.fourgeeks.gha.domain.glm.ExternalProvider;
+import org.fourgeeks.gha.domain.glm.Bsp;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlanStadisticData;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
@@ -222,12 +222,13 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 			Job job = new Job();
 			job.setId(Long.valueOf(id));
 
-			maintenancePlan.setRole(job);
+			maintenancePlan.setJob(job);
 		}
 
 		if (providerSelectItem.getValue() != null) {
 			String id = providerSelectItem.getValueAsString();
-			ExternalProvider provider = new ExternalProvider(Long.valueOf(id));
+			Bsp provider = new Bsp();
+			provider.setId(Long.valueOf(id));
 			maintenancePlan.setProvider(provider);
 		}
 

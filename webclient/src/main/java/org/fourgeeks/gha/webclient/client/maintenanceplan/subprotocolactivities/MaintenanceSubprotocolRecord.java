@@ -3,11 +3,10 @@
  */
 package org.fourgeeks.gha.webclient.client.maintenanceplan.subprotocolactivities;
 
+import org.fourgeeks.gha.domain.Activity;
 import org.fourgeeks.gha.domain.enu.ActivityCategoryEnum;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
-import org.fourgeeks.gha.domain.gmh.Activity;
-import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
-import org.fourgeeks.gha.domain.gmh.MaintenanceSubProtocol;
+import org.fourgeeks.gha.domain.gmh.SubProtocolAndChecklist;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 
@@ -16,13 +15,13 @@ import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
  * 
  */
 public class MaintenanceSubprotocolRecord extends
-		GHAGridRecord<MaintenanceSubProtocol> {
-	private final MaintenanceSubProtocol entity;
+		GHAGridRecord<SubProtocolAndChecklist> {
+	private final SubProtocolAndChecklist entity;
 
 	/**
 	 * @param eiaEntity
 	 */
-	public MaintenanceSubprotocolRecord(MaintenanceSubProtocol entity) {
+	public MaintenanceSubprotocolRecord(SubProtocolAndChecklist entity) {
 		this.entity = entity;
 	}
 
@@ -30,9 +29,7 @@ public class MaintenanceSubprotocolRecord extends
 	 * Method for populate the records
 	 */
 	public void setEiaNoServiceMaintenancePlanAttributes() {
-		MaintenanceActivity maintenanceActivity = entity
-				.getMaintenanceActivity();
-		final Activity activity = maintenanceActivity.getActivity();
+		Activity activity = entity.getActivity();
 
 		setAttribute("ordinal", entity.getOrdinal());
 		ActivityCategoryEnum category = activity.getCategory();
@@ -52,7 +49,7 @@ public class MaintenanceSubprotocolRecord extends
 	 * @see org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord#toEntity()
 	 */
 	@Override
-	public MaintenanceSubProtocol toEntity() {
+	public SubProtocolAndChecklist toEntity() {
 		return entity;
 	}
 

@@ -2,12 +2,11 @@ package org.fourgeeks.gha.webclient.client.maintenanceplan.subprotocolactivities
 
 import java.util.List;
 
-import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
-import org.fourgeeks.gha.domain.gmh.MaintenanceSubProtocol;
+import org.fourgeeks.gha.domain.gmh.SubProtocolAndChecklist;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
-import org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.GWTMaintenanceSubProtocolServiceAsync;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.subprotocol.GWTMaintenanceSubProtocolService;
+import org.fourgeeks.gha.webclient.client.maintenanceactivity.subprotocol.GWTMaintenanceSubProtocolServiceAsync;
 
 import com.google.gwt.core.shared.GWT;
 
@@ -22,71 +21,75 @@ public class MaintenanceSubprotocolModel {
 	/**
 	 * Delete a MaintenanceSubProtocol from database by Id
 	 * 
-	 * @throws GHAEJBException
+	 * @param Id
+	 * @param callback
 	 */
 	public static void delete(long Id, GHAAsyncCallback<Void> callback) {
 		service.delete(Id, callback);
 	}
 
 	/**
-	 * @param protocolActivity
-	 * @return a list with the MaintenanceSubProtocols of the
-	 *         maintenanceActivity
-	 * @throws GHAEJBException
+	 * @param maintenanceActivity
+	 * 
+	 * @param callback
+	 *            a list with the MaintenanceSubProtocols of the
+	 *            maintenanceActivity
 	 */
 	public static void findByMaintenanceActivity(
 			MaintenanceActivity maintenanceActivity,
-			GHAAsyncCallback<List<MaintenanceSubProtocol>> callback) {
+			GHAAsyncCallback<List<SubProtocolAndChecklist>> callback) {
 		service.findByMaintenanceActivity(maintenanceActivity, callback);
 	}
 
 	/**
 	 * @param Id
-	 * @return the MaintenanceSubProtocol with this Id
-	 * @throws GHAEJBException
+	 * @param callback
+	 *            the MaintenanceSubProtocol with this Id
 	 */
-	public static void find(long Id, GHAAsyncCallback<MaintenanceSubProtocol> callback) {
+	public static void find(long Id,
+			GHAAsyncCallback<SubProtocolAndChecklist> callback) {
 		service.find(Id, callback);
 	}
 
 	/**
-	 * @return the list with all MaintenanceSubProtocols Objects
-	 * @throws GHAEJBException
+	 * @param callback
+	 *            the list with all MaintenanceSubProtocols Objects
 	 */
-	public static void getAll(GHAAsyncCallback<List<MaintenanceSubProtocol>> callback) {
+	public static void getAll(
+			GHAAsyncCallback<List<SubProtocolAndChecklist>> callback) {
 		service.getAll(callback);
 	}
 
 	/**
 	 * @param offset
 	 * @param size
-	 * @return List of MaintenanceSubProtocols beginning in offset up to size
-	 * @throws GHAEJBException
+	 * @param callback
+	 *            List of MaintenanceSubProtocols beginning in offset up to size
 	 */
 	public static void getAll(int offset, int size,
-			GHAAsyncCallback<List<MaintenanceSubProtocol>> callback) {
+			GHAAsyncCallback<List<SubProtocolAndChecklist>> callback) {
 		service.getAll(offset, size, callback);
 	}
 
 	/**
-	 * @param MaintenanceSubProtocol
+	 * @param maintenanceSubProtocol
 	 *            the MaintenanceSubProtocol to be saved on database
-	 * @throws GHAEJBException
-	 * @return MaintenanceSubProtocol saved
+	 * @param callback
+	 *            MaintenanceSubProtocol saved
 	 */
-	public static void save(MaintenanceSubProtocol maintenanceSubProtocol,
-			GHAAsyncCallback<MaintenanceSubProtocol> callback) {
+	public static void save(SubProtocolAndChecklist maintenanceSubProtocol,
+			GHAAsyncCallback<SubProtocolAndChecklist> callback) {
 		service.save(maintenanceSubProtocol, callback);
 	}
 
 	/**
-	 * @param MaintenanceSubProtocol
+	 * @param maintenanceSubProtocol
 	 *            the MaintenanceSubProtocol to be updated
-	 * @return MaintenanceSubProtocol updated
-	 * @throws GHAEJBException
+	 * @param callback
+	 *            MaintenanceSubProtocol updated
 	 */
-	public static void update(MaintenanceSubProtocol maintenanceSubProtocol,
-			GHAAsyncCallback<MaintenanceSubProtocol> callback) {
+	public static void update(SubProtocolAndChecklist maintenanceSubProtocol,
+			GHAAsyncCallback<SubProtocolAndChecklist> callback) {
 		service.update(maintenanceSubProtocol, callback);
 	}
 }

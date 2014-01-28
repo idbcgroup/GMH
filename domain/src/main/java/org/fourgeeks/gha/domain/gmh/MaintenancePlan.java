@@ -58,10 +58,10 @@ public class MaintenancePlan extends AbstractEntity {
 	@Column(nullable = false)
 	private MaintenancePlanCancelationOption cancelationOption;
 	@ManyToOne
-	@JoinColumn(name = "providerFk")
+	@JoinColumn(name = "bspFk")
 	private Bsp provider;
 	@ManyToOne
-	@JoinColumn(name = "roleFk")
+	@JoinColumn(name = "jobFk")
 	private Job job;
 
 	private String description;

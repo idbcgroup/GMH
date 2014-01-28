@@ -12,12 +12,12 @@ import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
+import org.fourgeeks.gha.domain.Activity;
 import org.fourgeeks.gha.domain.enu.ActivityCategoryEnum;
 import org.fourgeeks.gha.domain.enu.ActivityState;
 import org.fourgeeks.gha.domain.enu.ActivitySubCategoryEnum;
 import org.fourgeeks.gha.domain.enu.CurrencyTypeEnum;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
-import org.fourgeeks.gha.domain.gmh.Activity;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
@@ -214,6 +214,7 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 
 		if (update) {
 			entity.setId(this.updateActivity.getId());
+			activity = this.updateActivity.getActivity();
 
 			if (stateSelectItem.getValue() != null) {
 				activity.setState(ActivityState.valueOf(stateSelectItem

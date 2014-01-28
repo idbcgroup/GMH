@@ -13,8 +13,8 @@ import javax.transaction.UserTransaction;
 
 import junit.framework.Assert;
 
+import org.fourgeeks.gha.domain.Activity;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
-import org.fourgeeks.gha.domain.gmh.Activity;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.ejb.GhaServiceTest;
 
