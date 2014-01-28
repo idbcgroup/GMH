@@ -34,9 +34,13 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAPeriodOfTi
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
+import org.fourgeeks.gha.webclient.client.maintenanceactivity.subprotocolactivities.MaintenanceActivitySubProtocolListener;
+import org.fourgeeks.gha.webclient.client.maintenanceactivity.subprotocolactivities.MaintenanceActivitySubProtocolProducer;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.validation.client.impl.Validation;
+import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
+import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 
@@ -45,8 +49,10 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
  * 
  */
 public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
-		implements MaintenanceActivitySelectionProducer {
+		implements MaintenanceActivitySelectionProducer,
+		MaintenanceActivitySubProtocolProducer {
 	private List<MaintenanceActivitySelectionListener> listeners;
+	private List<MaintenanceActivitySubProtocolListener> subProtocolListeners;
 
 	private GHATextItem codeTextItem, nameTextItem, estimatedTimeTextItem,
 			estimatedCostTextItem, timesEffectuedTextItem,
@@ -62,6 +68,7 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 	private GHAPeriodOfTimeSelectItem estimatedTimePoTSelectItem;
 	private GHACurrencyTypeSelectItem estimatedCostCurrencySelectItem;
 	private GHADateItem lastEffectuatedDateItem;
+	private boolean isSubProtocol;
 
 	// TODO evaluar si este dato: private GHARoleSelectItem roleSelectItem;
 	// TODO evaluar si este dato: private GHAExternalProviderSelectItem
@@ -75,7 +82,7 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 	 * this is used to keep the id of the persistent entity in order to update,
 	 * is only used with that purpose
 	 */
-	private MaintenanceActivity updateActivity;
+	// private MaintenanceActivity updateActivity;
 
 	{
 		codeTextItem = new GHATextItem(GHAStrings.get("code"), false);
@@ -127,8 +134,17 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 
 		validator = Validation.buildDefaultValidatorFactory().getValidator();
 		listeners = new ArrayList<MaintenanceActivitySelectionListener>();
+		subProtocolListeners = new ArrayList<MaintenanceActivitySubProtocolListener>();
 
 		form = new GHADynamicForm(4, FormType.NORMAL_FORM);
+
+		isSubProtocolCheckboxItem.addChangedHandler(new ChangedHandler() {
+			@Override
+			public void onChanged(ChangedEvent event) {
+				isSubProtocol = (Boolean) event.getValue();
+				notifyMaintenanceActivitySubProtocolSubTabs();
+			}
+		});
 	}
 
 	/**
@@ -210,15 +226,14 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 	private MaintenanceActivity extract(boolean update) {
 		final MaintenanceActivity activity = new MaintenanceActivity();
 		if (update) {
-			activity.setId(this.updateActivity.getId());
-
+			activity.setId(this.originalEntity.getId());
 			if (stateSelectItem.getValue() != null) {
 				activity.setState(ActivityState.valueOf(stateSelectItem
 						.getValueAsString()));
 			}
-		} else
+		} else {
 			activity.setState(ActivityState.CREATED);
-
+		}
 		if (nameTextItem.getValue() != null) {
 			activity.setName(nameTextItem.getValueAsString());
 		}
@@ -248,7 +263,8 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 		}
 		if (estimatedCostCurrencySelectItem.getValue() != null) {
 			String value = estimatedCostCurrencySelectItem.getValueAsString();
-			activity.setEstimatedCostCurrency(CurrencyTypeEnum.valueOf(value));
+			activity.setEstimatedCostCurrency(CurrencyTypeEnum
+					.getByString(value));
 		}
 		if (instructionsAndObsTextAreaItem.getValue() != null) {
 			String value = instructionsAndObsTextAreaItem.getValueAsString();
@@ -386,4 +402,22 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 				});
 	}
 
+	@Override
+	public void addMaintenanceActivitySubProtocolListener(
+			MaintenanceActivitySubProtocolListener listener) {
+		subProtocolListeners.add(listener);
+	}
+
+	@Override
+	public void removeMaintenanceActivitySubProtocolListener(
+			MaintenanceActivitySubProtocolListener listener) {
+		subProtocolListeners.remove(listener);
+	}
+
+	@Override
+	public void notifyMaintenanceActivitySubProtocolSubTabs() {
+		for (MaintenanceActivitySubProtocolListener listener : subProtocolListeners) {
+			listener.changeSubTabState(isSubProtocol);
+		}
+	}
 }

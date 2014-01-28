@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.fourgeeks.gha.webclient.client.maintenanceplan.subprotocolactivities;
+package org.fourgeeks.gha.webclient.client.maintenanceactivity.subprotocolactivities;
 
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridField;

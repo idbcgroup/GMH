@@ -3,6 +3,7 @@ package org.fourgeeks.gha.webclient.client.maintenanceactivity.information;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivityPanel;
+import org.fourgeeks.gha.webclient.client.maintenanceactivity.subprotocolactivities.MaintenanceActivitySubProtocolListener;
 
 /**
  * @author naramirez
@@ -25,6 +26,15 @@ public class MaintenanceActivitySubTab extends GHASubTab {
 
 		formPanel.addMaintenanceActivitySelectionListener(panel);
 		panel.addMaintenanceActivitySelectionListener(formPanel);
+	}
+
+	/**
+	 * 
+	 * @param listener
+	 */
+	public void addMaintenanceActivitySubProtocolListener(
+			MaintenanceActivitySubProtocolListener listener) {
+		formPanel.addMaintenanceActivitySubProtocolListener(listener);
 	}
 
 	/**

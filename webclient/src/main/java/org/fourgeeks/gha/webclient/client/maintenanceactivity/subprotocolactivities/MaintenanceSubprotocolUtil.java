@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.fourgeeks.gha.webclient.client.maintenanceplan.subprotocolactivities;
+package org.fourgeeks.gha.webclient.client.maintenanceactivity.subprotocolactivities;
 
 import java.util.ArrayList;
 import java.util.List;
