@@ -6,8 +6,8 @@ import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenanceSubProtocol;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
-import org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.GWTMaintenanceSubProtocolService;
 import org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.GWTMaintenanceSubProtocolServiceAsync;
+import org.fourgeeks.gha.webclient.client.maintenanceactivity.subprotocol.GWTMaintenanceSubProtocolService;
 
 import com.google.gwt.core.shared.GWT;
 

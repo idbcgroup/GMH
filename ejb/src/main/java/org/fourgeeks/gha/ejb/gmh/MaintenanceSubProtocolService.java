@@ -16,6 +16,7 @@ import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
+import org.fourgeeks.gha.domain.gmh.Activity;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenanceSubProtocol;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
@@ -290,7 +291,7 @@ public class MaintenanceSubProtocolService extends GHAEJBExceptionService
 	private BigDecimal getEstimatedCost(List<MaintenanceSubProtocol> subProtocol) {
 		double acum = 0;
 		for (MaintenanceSubProtocol entity : subProtocol) {
-			MaintenanceActivity activity = entity.getMaintenanceActivity();
+			Activity activity = entity.getMaintenanceActivity().getActivity();
 			BigDecimal estimatedCost = activity.getEstimatedCost();
 			acum += estimatedCost.doubleValue();
 		}
@@ -316,7 +317,7 @@ public class MaintenanceSubProtocolService extends GHAEJBExceptionService
 		hours = days = weeks = months = semesters = years = 0;
 
 		for (MaintenanceSubProtocol entity : subProtocol) {
-			MaintenanceActivity activity = entity.getMaintenanceActivity();
+			Activity activity = entity.getMaintenanceActivity().getActivity();
 			TimePeriodEnum periodOfTime = activity.getEstimatedDurationPoT();
 			if (periodOfTime == TimePeriodEnum.HOURS)
 				hours += activity.getEstimatedDuration().intValue();

@@ -5,6 +5,7 @@ package org.fourgeeks.gha.webclient.client.maintenanceplan.subprotocolactivities
 
 import org.fourgeeks.gha.domain.enu.ActivityCategoryEnum;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
+import org.fourgeeks.gha.domain.gmh.Activity;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenanceSubProtocol;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
@@ -29,7 +30,10 @@ public class MaintenanceSubprotocolRecord extends
 	 * Method for populate the records
 	 */
 	public void setEiaNoServiceMaintenancePlanAttributes() {
-		MaintenanceActivity activity = entity.getMaintenanceActivity();
+		MaintenanceActivity maintenanceActivity = entity
+				.getMaintenanceActivity();
+		final Activity activity = maintenanceActivity.getActivity();
+
 		setAttribute("ordinal", entity.getOrdinal());
 		ActivityCategoryEnum category = activity.getCategory();
 		setAttribute("type", GHAStrings.get(category.name().toLowerCase()));

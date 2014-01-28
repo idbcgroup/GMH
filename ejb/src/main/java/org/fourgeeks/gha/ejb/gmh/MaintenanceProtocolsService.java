@@ -15,6 +15,7 @@ import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.CurrencyTypeEnum;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
+import org.fourgeeks.gha.domain.gmh.Activity;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlanStadisticData;
@@ -249,12 +250,13 @@ public class MaintenanceProtocolsService extends GHAEJBExceptionService
 
 			List<MaintenanceProtocols> protocol = findByMaintenancePlan(mantenancePlan);
 			for (MaintenanceProtocols entity : protocol) {
-				MaintenanceActivity activity = entity.getMaintenanceActivity();
+				MaintenanceActivity mActivity = entity.getMaintenanceActivity();
+				Activity activity = mActivity.getActivity();
 
 				if (activity.getIsSubProtocol()) {
 					numberSubProtocols++;
 					numberSubProtocolActivities += subProtocolService
-							.getSubProtocolActivitiesCount(activity);
+							.getSubProtocolActivitiesCount(mActivity);
 				} else
 					numberActivities++;
 			}

@@ -2,6 +2,7 @@ package org.fourgeeks.gha.webclient.client.maintenanceactivity;
 
 import org.fourgeeks.gha.domain.enu.ActivityCategoryEnum;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
+import org.fourgeeks.gha.domain.gmh.Activity;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
@@ -17,8 +18,10 @@ public class MaintenanceActivityGridRecord extends
 	/**
 	 * @param activity
 	 */
-	public MaintenanceActivityGridRecord(MaintenanceActivity activity) {
-		this.maintenanceActivity = activity;
+	public MaintenanceActivityGridRecord(MaintenanceActivity entity) {
+		this.maintenanceActivity = entity;
+		Activity activity = entity.getActivity();
+
 		setAttribute("id", activity.getId());
 		ActivityCategoryEnum category = activity.getCategory();
 		setAttribute("type", GHAStrings.get(category.name().toLowerCase()));

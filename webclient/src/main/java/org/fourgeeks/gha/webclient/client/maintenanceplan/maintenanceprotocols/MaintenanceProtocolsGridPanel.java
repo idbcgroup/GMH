@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.enu.ActivityState;
+import org.fourgeeks.gha.domain.gmh.Activity;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocolStadisticData;
@@ -324,14 +325,14 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 	 * save {@link MaintenanceProtocols} entity in the DB (associate an activity
 	 * to the current maintenance plan)
 	 * 
-	 * @param activity
+	 * @param maintenanceActivity
 	 *            the activity to associate
 	 */
-	private void save(final MaintenanceActivity activity) {
+	private void save(final MaintenanceActivity maintenanceActivity) {
 		int ordinal = grid.getRecords().length + 1;
 
 		MaintenanceProtocols entity = new MaintenanceProtocols();
-		entity.setMaintenanceActivity(activity);
+		entity.setMaintenanceActivity(maintenanceActivity);
 		entity.setMaintenancePlan(maintenancePlan);
 		entity.setOrdinal(ordinal);
 
@@ -339,10 +340,11 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 				new GHAAsyncCallback<MaintenanceProtocols>() {
 					@Override
 					public void onSuccess(final MaintenanceProtocols result) {
+						Activity activity = maintenanceActivity.getActivity();
 						if (activity.getState() == ActivityState.CREATED)
 							activity.setState(ActivityState.ACTIVE);
 
-						MaintenanceActivityModel.update(activity,
+						MaintenanceActivityModel.update(maintenanceActivity,
 								new GHAAsyncCallback<MaintenanceActivity>() {
 									@Override
 									public void onSuccess(

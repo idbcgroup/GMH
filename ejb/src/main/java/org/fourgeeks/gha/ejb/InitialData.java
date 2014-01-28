@@ -22,7 +22,9 @@ import javax.persistence.PersistenceContext;
 import org.fourgeeks.gha.domain.conf.Parameter;
 import org.fourgeeks.gha.domain.conf.ParameterGroup;
 import org.fourgeeks.gha.domain.conf.ParameterValue;
-import org.fourgeeks.gha.domain.enu.ActivityTypeEnum;
+import org.fourgeeks.gha.domain.enu.ActivityCategoryEnum;
+import org.fourgeeks.gha.domain.enu.ActivityState;
+import org.fourgeeks.gha.domain.enu.ActivitySubCategoryEnum;
 import org.fourgeeks.gha.domain.enu.CCDIStatusEnum;
 import org.fourgeeks.gha.domain.enu.CCDIValueStatusEnum;
 import org.fourgeeks.gha.domain.enu.CCDIValueTypeEnum;
@@ -36,9 +38,6 @@ import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.enu.GenderTypeEnum;
 import org.fourgeeks.gha.domain.enu.LanguageEnum;
 import org.fourgeeks.gha.domain.enu.LocationLevelEnum;
-import org.fourgeeks.gha.domain.enu.ActivityState;
-import org.fourgeeks.gha.domain.enu.ActivitySubCategoryEnum;
-import org.fourgeeks.gha.domain.enu.ActivityCategoryEnum;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanCancelationOption;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanState;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanType;
@@ -68,9 +67,7 @@ import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
-import org.fourgeeks.gha.domain.gmh.MaintenanceActivityMaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
-import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
 import org.fourgeeks.gha.domain.gmh.MaintenanceSubProtocol;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
@@ -423,7 +420,7 @@ public class InitialData {
 			try {
 				logger.info("Creating Citizen test data");
 				String names[] = { "Rigoberto", "Angel", "Jorge", "Alejandro",
-				"Isaac" };
+						"Isaac" };
 				String lastNames[] = { "Sanchez", "Lacret", "Fuentes",
 						"Sanchez", "Casado" };
 				for (int i = 0; i < 5; ++i) {
@@ -658,43 +655,6 @@ public class InitialData {
 		}
 	}
 
-	/**
-	 * 
-	 */
-	private void maintenanceActivityProtocolTestData() {
-		String query = "SELECT t from MaintenanceActivityMaintenanceProtocol t WHERE t.id = 1";
-		try {
-			em.createQuery(query).getSingleResult();
-		} catch (NoResultException e) {
-			try {
-				logger.info("Creating test data: MaintenanceActivityMaintenanceProtocol");
-				List<MaintenanceProtocol> protocols = em
-						.createNamedQuery("MaintenanceProtocol.getAll",
-								MaintenanceProtocol.class).getResultList();
-				List<MaintenanceActivity> activities = em
-						.createNamedQuery("MaintenanceActivity.getAll",
-								MaintenanceActivity.class).getResultList();
-
-				for (int i = 0; i < 4; ++i) {
-					em.persist(new MaintenanceActivityMaintenanceProtocol(
-							protocols.get(0), activities.get(i), i + 1));
-					em.persist(new MaintenanceActivityMaintenanceProtocol(
-							protocols.get(1), activities.get(i), i + 1));
-				}
-
-				em.persist(new MaintenanceActivityMaintenanceProtocol(protocols
-						.get(0), activities.get(4), 5));
-				em.persist(new MaintenanceActivityMaintenanceProtocol(protocols
-						.get(1), activities.get(5), 5));
-
-				em.flush();
-			} catch (Exception e1) {
-				logger.log(Level.INFO,
-						"error Creating MaintenanceActivity test data", e1);
-			}
-		}
-	}
-
 	private void maintenanceActivityTestData() {
 		String query = "SELECT t from MaintenanceActivity t WHERE t.id = 1";
 		try {
@@ -703,15 +663,10 @@ public class InitialData {
 			try {
 				logger.info("Creating test data: maintenance activity");
 
-				final List<Activity> activitites = em
-						.createNamedQuery("Activity.findByType", Activity.class)
-						.setParameter("type", ActivityTypeEnum.MAINTENANCE)
-						.getResultList();
-
 				String activityNames[] = { "Desconectar", "Abrir", "Limpiar",
 						"Cerrar", "Conectar", "Reemplazar",
 						"subprotocol_activity", "activity_1", "activity_2",
-				"activity_3" };
+						"activity_3" };
 
 				String activityDesc[] = {
 						"Desconecte el equipo de la corriente eléctrica",
@@ -723,7 +678,7 @@ public class InitialData {
 						"actividad de subprotocolo para pruebas",
 						"actividad de prueba 1 para la actividad de subprotocolo",
 						"actividad de prueba 2 para la actividad de subprotocolo",
-				"actividad de prueba 2 para la actividad de subprotocolo" };
+						"actividad de prueba 2 para la actividad de subprotocolo" };
 
 				int durations[] = { 1, 2, 2, 1, 4, 3, 5, 6, 8, 7 };
 
@@ -741,57 +696,28 @@ public class InitialData {
 						false, true, false, false, false };
 
 				for (int i = 0; i < 10; ++i) {
-					MaintenanceActivity entity = new MaintenanceActivity();
-					entity.setActivity(activitites.get(i));
-					entity.setDescription(activityDesc[i]);
-					entity.setState(ActivityState.ACTIVE);
-					entity.setCategory(ActivityCategoryEnum.MAINTENANCE);
-					entity.setSubCategory(ActivitySubCategoryEnum.CALIBRATION);
-					entity.setEstimatedDuration(new BigDecimal(durations[i]));
-					entity.setEstimatedDurationPoT(pots[i]);
-					entity.setEstimatedCost(new BigDecimal(cost[i]));
-					entity.setEstimatedCostCurrency(CurrencyTypeEnum.BS);
-					entity.setIsSubProtocol(isSubprotocol[i]);
+					Activity activity = new Activity();
+					activity.setName(activityNames[i]);
+					activity.setDescription(activityDesc[i]);
+					activity.setState(ActivityState.CREATED);
+					activity.setCategory(ActivityCategoryEnum.MAINTENANCE);
+					activity.setSubCategory(ActivitySubCategoryEnum.CALIBRATION);
+					activity.setEstimatedDuration(new BigDecimal(durations[i]));
+					activity.setEstimatedDurationPoT(pots[i]);
+					activity.setEstimatedCost(new BigDecimal(cost[i]));
+					activity.setEstimatedCostCurrency(CurrencyTypeEnum.BS);
+					activity.setIsSubProtocol(isSubprotocol[i]);
 
-					em.persist(entity);
+					MaintenanceActivity maintenanceActivity = new MaintenanceActivity();
+					maintenanceActivity.setActivity(activity);
+
+					em.persist(activity);
+					em.persist(maintenanceActivity);
 				}
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO,
 						"error Creating MaintenanceActivity test data", e1);
-			}
-		}
-	}
-
-	/**
-	 * 
-	 */
-	private void MaintenancePlanMaintenanceProtocol() {
-		String query = "SELECT t from MaintenancePlanMaintenanceProtocol t WHERE t.id = 1";
-		try {
-			em.createQuery(query).getSingleResult();
-		} catch (NoResultException e) {
-			try {
-				logger.info("Creating test data: MaintenancePlanMaintenanceProtocol");
-				List<MaintenanceProtocol> protocols = em
-						.createNamedQuery("MaintenanceProtocol.getAll",
-								MaintenanceProtocol.class).getResultList();
-				List<MaintenancePlan> plans = em.createNamedQuery(
-						"MaintenancePlan.getAll", MaintenancePlan.class)
-						.getResultList();
-				for (MaintenancePlan plan : plans) {
-					int k = 1;
-					for (MaintenanceProtocol protocol : protocols) {
-						em.persist(new org.fourgeeks.gha.domain.gmh.MaintenancePlanMaintenanceProtocol(
-								plan, protocol, k++));
-					}
-					em.flush();
-				}
-			} catch (Exception e1) {
-				logger.log(
-						Level.INFO,
-						"error Creating MaintenancePlanMaintenanceProtocol test data",
-						e1);
 			}
 		}
 	}
@@ -807,10 +733,10 @@ public class InitialData {
 			try {
 				logger.info("Creating test data: maintenance plan");
 				String planName[] = { "Plan de Mantenimiento Impresoras Tinta",
-				"Plan de Mantenimiento Impresoras Laser" };
+						"Plan de Mantenimiento Impresoras Laser" };
 				String planDesc[] = {
 						"plan de mantenimiento impresoras de tinta",
-				"plan de mantenimiento impresoras laser" };
+						"plan de mantenimiento impresoras laser" };
 				int planFrequency[] = { 1, 3 };
 				TimePeriodEnum planTimePeriod[] = { TimePeriodEnum.MONTHS,
 						TimePeriodEnum.SEMESTERS };
@@ -838,9 +764,9 @@ public class InitialData {
 				List<MaintenancePlan> plans = em.createNamedQuery(
 						"MaintenancePlan.getAll", MaintenancePlan.class)
 						.getResultList();
-				List<MaintenanceActivity> activities = em
-						.createNamedQuery("MaintenanceActivity.getAll",
-								MaintenanceActivity.class).getResultList();
+				List<MaintenanceActivity> activities = em.createNamedQuery(
+						"Activity.getAll", MaintenanceActivity.class)
+						.getResultList();
 
 				for (int i = 0; i < 4; ++i) {
 					em.persist(new MaintenanceProtocols(plans.get(0),
@@ -862,36 +788,6 @@ public class InitialData {
 			} catch (Exception e1) {
 				logger.log(Level.INFO,
 						"error Creating MaintenanceProtocols test data", e1);
-			}
-		}
-	}
-
-	/**
-	 * 
-	 */
-	private void maintenanceProtocolTestData() {
-		String query = "SELECT t from MaintenanceProtocol t WHERE t.id = 1";
-		try {
-			em.createQuery(query).getSingleResult();
-		} catch (NoResultException e) {
-			try {
-				logger.info("Creating test data: MaintenanceProtocol");
-				String protocolNames[] = {
-						"Protocolo para Impresoras de Tinta",
-				"Protocolo para impresoras Laser" };
-				String protocolDesc[] = {
-						"Protocolo para el mantenimiento de impresoras de tinta",
-				"Protocolo para el mantenimiento de impresoras laser" };
-				for (int i = 0; i < 2; ++i) {
-					MaintenanceProtocol protocol = new MaintenanceProtocol();
-					protocol.setDescription(protocolDesc[i]);
-					protocol.setName(protocolNames[i]);
-					em.persist(protocol);
-				}
-				em.flush();
-			} catch (Exception e1) {
-				logger.log(Level.INFO,
-						"error Creating MaintenanceProtocol test data", e1);
 			}
 		}
 	}
@@ -976,7 +872,7 @@ public class InitialData {
 				for (int j = 0; j < 3; j++) {
 					em.persist(new MaterialCategory("mat-cat-00" + j,
 							"material-category-00" + j, MaterialTypeEnum
-							.values()[j % 3]));
+									.values()[j % 3]));
 				}
 				em.flush();
 			} catch (Exception e1) {
@@ -993,8 +889,8 @@ public class InitialData {
 		} catch (NoResultException e) {
 			try {
 				logger.info("creating test data : material");
-				String names[] = { "aguja", "sutura", "inyectadora",
-						"algodón", "alcohol" };
+				String names[] = { "aguja", "sutura", "inyectadora", "algodón",
+						"alcohol" };
 				int i = 1;
 				for (String name : names) {
 					Material next = new Material();
@@ -1046,10 +942,11 @@ public class InitialData {
 					logger.info("no type info available in this line... Setting '1' by default");
 				}
 				try {
-					if(type == 1)
+					if (type == 1)
 						em.merge(new GHAMessage(lang, code, text, defaultType));
 					else
-						em.merge(new GHAMessage(lang, code, text, em.find(GHAMessageType.class, type)));
+						em.merge(new GHAMessage(lang, code, text, em.find(
+								GHAMessageType.class, type)));
 
 				} catch (Exception e) {
 					logger.log(Level.SEVERE,
@@ -1095,42 +992,44 @@ public class InitialData {
 		} catch (NoResultException e) {
 			try {
 				logger.info("creating test data : message types");
-				String names[] = { "SAY", "CONFIRMATION", "ASKYESNO", "ERROR_HARD","ERROR_SOFT","WARNING","INFORMATION","FAILURE","SUCCESS","PROCESSING","NEW_MESSAGE"};
-				int i = 1;
+				String names[] = { "SAY", "CONFIRMATION", "ASKYESNO",
+						"ERROR_HARD", "ERROR_SOFT", "WARNING", "INFORMATION",
+						"FAILURE", "SUCCESS", "PROCESSING", "NEW_MESSAGE" };
+
 				for (String name : names) {
 					GHAMessageType next = new GHAMessageType();
-					if(name.equals("SAY")){
-						//Gray
+					if (name.equals("SAY")) {
+						// Gray
 						next = new GHAMessageType(name, true, false);
-					}else if(name.equals("CONFIRMATION")){
-						//Gray
+					} else if (name.equals("CONFIRMATION")) {
+						// Gray
 						next = new GHAMessageType(name, false, true);
-					}else if(name.equals("ASKYESNO")){
-						//Gray
+					} else if (name.equals("ASKYESNO")) {
+						// Gray
 						next = new GHAMessageType(name, false, true);
-					}else if(name.equals("ERROR_HARD")){
-						//Red
+					} else if (name.equals("ERROR_HARD")) {
+						// Red
 						next = new GHAMessageType(name, false, true);
-					}else if(name.equals("ERROR_SOFT")){ 
-						//Yellow
+					} else if (name.equals("ERROR_SOFT")) {
+						// Yellow
 						next = new GHAMessageType(name, false, false);
-					}else if(name.equals("WARNING")){
-						//Blue
+					} else if (name.equals("WARNING")) {
+						// Blue
 						next = new GHAMessageType(name, false, false);
-					}else if(name.equals("INFORMATION")){
-						//Blue
+					} else if (name.equals("INFORMATION")) {
+						// Blue
 						next = new GHAMessageType(name, true, false);
-					}else if(name.equals("FAILURE")){ 
-						//Yellow
+					} else if (name.equals("FAILURE")) {
+						// Yellow
 						next = new GHAMessageType(name, false, false);
-					}else if(name.equals("SUCCESS")){
-						//Green
+					} else if (name.equals("SUCCESS")) {
+						// Green
 						next = new GHAMessageType(name, true, false);
-					}else if(name.equals("PROCESSING")){
-						//Green
+					} else if (name.equals("PROCESSING")) {
+						// Green
 						next = new GHAMessageType(name, false, false);
-					}else if(name.equals("NEW_MESSAGE")){
-						//Gray
+					} else if (name.equals("NEW_MESSAGE")) {
+						// Gray
 						next = new GHAMessageType(name, true, false);
 					}
 					em.persist(next);
@@ -1207,7 +1106,7 @@ public class InitialData {
 			try {
 				logger.info("creating test data : obu");
 				String obuNames[] = { "Administración", "Medicina General",
-				"Dpto. de Nefrologia" };
+						"Dpto. de Nefrologia" };
 				Obu obu = null;
 				for (int i = 0; i < 3; i++) {
 					obu = new Obu();
@@ -1320,7 +1219,6 @@ public class InitialData {
 		eiaTypeTestData();
 		eiaTestData();
 		//
-		activityTestData();
 		maintenanceActivityTestData();
 		maintenanceSubprotocolTestData();
 		maintenancePlanTestData();
@@ -1330,44 +1228,6 @@ public class InitialData {
 		// MaintenancePlanMaintenanceProtocol();
 		// eiaTypeMaintenancePlanTestData();
 		// eiaMaintenancePlanificationTestData();
-	}
-
-	private void activityTestData() {
-		String query = "SELECT act from Activity act WHERE act.id = 1";
-		try {
-			em.createQuery(query).getSingleResult();
-		} catch (NoResultException e) {
-			try {
-				logger.info("Creating test data: activity");
-				String activityNames[] = { "Desconectar", "Abrir", "Limpiar",
-						"Cerrar", "Conectar", "Reemplazar",
-						"subprotocol_activity", "activity_1", "activity_2",
-						"activity_3" };
-
-				ActivityTypeEnum types[] = { ActivityTypeEnum.MAINTENANCE,
-						ActivityTypeEnum.MAINTENANCE,
-						ActivityTypeEnum.MAINTENANCE,
-						ActivityTypeEnum.MAINTENANCE,
-						ActivityTypeEnum.MAINTENANCE,
-						ActivityTypeEnum.MAINTENANCE,
-						ActivityTypeEnum.MAINTENANCE,
-						ActivityTypeEnum.MAINTENANCE,
-						ActivityTypeEnum.MAINTENANCE,
-						ActivityTypeEnum.MAINTENANCE };
-
-				for (int i = 0; i < 10; ++i) {
-					Activity entity = new Activity();
-					entity.setName(activityNames[i]);
-					entity.setType(types[i]);
-
-					em.persist(entity);
-				}
-				em.flush();
-			} catch (Exception e1) {
-				logger.log(Level.INFO, "error Creating Activity test data", e1);
-			}
-		}
-
 	}
 
 	private void uiStrings() {

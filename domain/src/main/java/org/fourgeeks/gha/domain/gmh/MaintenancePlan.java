@@ -18,7 +18,7 @@ import org.fourgeeks.gha.domain.enu.MaintenancePlanState;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanType;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.gar.Job;
-import org.fourgeeks.gha.domain.glm.ExternalProvider;
+import org.fourgeeks.gha.domain.glm.Bsp;
 
 /**
  * @author emiliot
@@ -59,10 +59,10 @@ public class MaintenancePlan extends AbstractEntity {
 	private MaintenancePlanCancelationOption cancelationOption;
 	@ManyToOne
 	@JoinColumn(name = "providerFk")
-	private ExternalProvider provider;
+	private Bsp provider;
 	@ManyToOne
 	@JoinColumn(name = "roleFk")
-	private Job role;
+	private Job job;
 
 	private String description;
 
@@ -131,7 +131,7 @@ public class MaintenancePlan extends AbstractEntity {
 	/**
 	 * @return the provider
 	 */
-	public ExternalProvider getProvider() {
+	public Bsp getProvider() {
 		return provider;
 	}
 
@@ -139,7 +139,7 @@ public class MaintenancePlan extends AbstractEntity {
 	 * @return the role
 	 */
 	public Job getRole() {
-		return role;
+		return job;
 	}
 
 	/**
@@ -198,16 +198,16 @@ public class MaintenancePlan extends AbstractEntity {
 	 * @param provider
 	 *            the provider to set
 	 */
-	public void setProvider(ExternalProvider provider) {
+	public void setProvider(Bsp provider) {
 		this.provider = provider;
 	}
 
 	/**
-	 * @param role
+	 * @param job
 	 *            the role to set
 	 */
-	public void setRole(Job role) {
-		this.role = role;
+	public void setJob(Job job) {
+		this.job = job;
 	}
 
 	/**

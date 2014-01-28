@@ -5,6 +5,7 @@ package org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocols;
 
 import org.fourgeeks.gha.domain.enu.ActivityCategoryEnum;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
+import org.fourgeeks.gha.domain.gmh.Activity;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
@@ -26,7 +27,8 @@ public class MaintenanceProtocolsRecord extends
 			throw new IllegalArgumentException("The argument can't be null");
 
 		this.entity = entity;
-		MaintenanceActivity activity = entity.getMaintenanceActivity();
+		MaintenanceActivity mActivity = entity.getMaintenanceActivity();
+		final Activity activity = mActivity.getActivity();
 
 		setAttribute("ordinal", entity.getOrdinal());
 		ActivityCategoryEnum type = activity.getCategory();

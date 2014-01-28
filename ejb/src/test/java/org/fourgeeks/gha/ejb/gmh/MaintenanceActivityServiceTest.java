@@ -14,6 +14,7 @@ import javax.transaction.UserTransaction;
 import junit.framework.Assert;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
+import org.fourgeeks.gha.domain.gmh.Activity;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.ejb.GhaServiceTest;
 
@@ -33,6 +34,16 @@ public class MaintenanceActivityServiceTest extends GhaServiceTest {
 	UserTransaction ux;
 
 	// @Test
+	/**
+	 * @throws NotSupportedException
+	 * @throws SystemException
+	 * @throws SecurityException
+	 * @throws IllegalStateException
+	 * @throws RollbackException
+	 * @throws HeuristicMixedException
+	 * @throws HeuristicRollbackException
+	 * @throws GHAEJBException
+	 */
 	public void test() throws NotSupportedException, SystemException,
 			SecurityException, IllegalStateException, RollbackException,
 			HeuristicMixedException, HeuristicRollbackException,
@@ -44,16 +55,18 @@ public class MaintenanceActivityServiceTest extends GhaServiceTest {
 		em.joinTransaction();
 
 		MaintenanceActivity entity = new MaintenanceActivity();
-		entity.setName("MaintenanceActivity test name");
-		entity.setDescription("MaintenanceActivity test description");
+		Activity activity = new Activity();
+		activity.setName("MaintenanceActivity test name");
+		activity.setDescription("MaintenanceActivity test description");
+		entity.setActivity(activity);
 
 		entity = service.save(entity);
 
 		Assert.assertNotNull(service.find(entity.getId()));
 		System.out.println("BEFORE " + entity.getId() + " "
-				+ entity.getDescription() + "\nAFTER "
+				+ activity.getDescription() + "\nAFTER "
 				+ service.find(entity.getId()).getId() + " "
-				+ service.find(entity.getId()).getDescription());
+				+ service.find(entity.getId()).getActivity().getDescription());
 		// Assert.assertEquals(entity, service.find(entity.getId()));
 
 		Assert.assertTrue(service.findByServiceResource(super
@@ -79,12 +92,13 @@ public class MaintenanceActivityServiceTest extends GhaServiceTest {
 				&& service.getAll().size() >= 1);
 		Assert.assertTrue(service.getAll(0, 10) != null
 				&& service.getAll(0, 10).size() >= 1);
-		entity.setDescription("MaintenanceActivity test description updated");
+		activity = entity.getActivity();
+		activity.setDescription("MaintenanceActivity test description updated");
 		entity = service.update(entity);
 		Assert.assertEquals("MaintenanceActivity test description updated",
-				service.find(entity.getId()).getDescription());
+				service.find(entity.getId()).getActivity().getDescription());
 		Assert.assertFalse("MaintenanceActivity test description" == service
-				.find(entity.getId()).getDescription());
+				.find(entity.getId()).getActivity().getDescription());
 		long id = entity.getId();
 		service.delete(entity.getId());
 		Assert.assertNull(service.find(id));
