@@ -96,7 +96,10 @@ public class MaintenanceActivityService extends GHAEJBExceptionService
 	public void delete(long Id) throws GHAEJBException {
 		try {
 			MaintenanceActivity entity = em.find(MaintenanceActivity.class, Id);
+			Activity activity = entity.getActivity();
+
 			em.remove(entity);
+			em.remove(activity);
 		} catch (Exception e) {
 			logger.log(Level.INFO,
 					"ERROR: unable to delete MaintenanceActivity", e);

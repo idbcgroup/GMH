@@ -813,24 +813,24 @@ public class InitialData {
 				List<MaintenancePlan> plans = em.createNamedQuery(
 						"MaintenancePlan.getAll", MaintenancePlan.class)
 						.getResultList();
-				List<MaintenanceActivity> activities = em.createNamedQuery(
-						"Activity.getAll", MaintenanceActivity.class)
-						.getResultList();
+				List<MaintenanceActivity> entities = em
+						.createNamedQuery("MaintenanceActivity.getAll",
+								MaintenanceActivity.class).getResultList();
 
 				for (int i = 0; i < 4; ++i) {
 					em.persist(new MaintenanceProtocols(plans.get(0),
-							activities.get(i), i + 1));
+							entities.get(i), i + 1));
 					em.persist(new MaintenanceProtocols(plans.get(1),
-							activities.get(i), i + 1));
+							entities.get(i), i + 1));
 				}
 
-				em.persist(new MaintenanceProtocols(plans.get(0), activities
+				em.persist(new MaintenanceProtocols(plans.get(0), entities
 						.get(4), 5));
-				em.persist(new MaintenanceProtocols(plans.get(1), activities
+				em.persist(new MaintenanceProtocols(plans.get(1), entities
 						.get(5), 5));
 
 				// subprotocol activity
-				em.persist(new MaintenanceProtocols(plans.get(0), activities
+				em.persist(new MaintenanceProtocols(plans.get(0), entities
 						.get(6), 6));
 
 				em.flush();
