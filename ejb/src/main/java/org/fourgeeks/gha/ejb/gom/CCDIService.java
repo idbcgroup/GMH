@@ -140,7 +140,7 @@ public class CCDIService extends GHAEJBExceptionService implements
 					.createNamedQuery("CCDIDefinition.findByCode",
 							CCDIDefinition.class).setParameter("code", code)
 					.getSingleResult();
-			em.remove(definition.getId());
+			em.remove(definition);
 
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: delete CCDIDefinition failed", e);
@@ -148,6 +148,22 @@ public class CCDIService extends GHAEJBExceptionService implements
 					RuntimeParameters.getLang(), em);
 		}
 
+	}
+
+	@Override
+	public CCDIDefinition findCCDIDefinitionByCode(String code)
+			throws GHAEJBException {
+		try {
+			return em
+					.createNamedQuery("CCDIDefinition.findByCode",
+							CCDIDefinition.class).setParameter("code", code)
+					.getSingleResult();
+
+		} catch (Exception e) {
+			logger.log(Level.INFO, "ERROR: delete CCDIDefinition failed", e);
+			throw super.generateGHAEJBException("ccdi-find-fail",
+					RuntimeParameters.getLang(), em);
+		}
 	}
 
 	/**

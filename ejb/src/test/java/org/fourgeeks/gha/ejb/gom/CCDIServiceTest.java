@@ -2,8 +2,6 @@ package org.fourgeeks.gha.ejb.gom;
 
 import javax.ejb.EJB;
 
-import junit.framework.Assert;
-
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.CCDIEndValueActionEnum;
 import org.fourgeeks.gha.domain.enu.CCDIStatusEnum;
@@ -28,6 +26,7 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -92,14 +91,35 @@ public class CCDIServiceTest {
 					"active", new Concept(), "numeric", false, "");
 		} catch (GHAEJBException e) {
 			System.out.println(e.getCause());
+			unset();
 			Assert.fail("failing creating ccdi definitions");
 		}
+
+		CCDIDefinition material = null, farmaco = null;
+		try {
+			material = ccdiService.findCCDIDefinitionByCode("MATERIAL-test");
+			farmaco = ccdiService.findCCDIDefinitionByCode("FARMACO-test");
+		} catch (GHAEJBException e) {
+			System.out.println(e.getCause());
+			unset();
+			Assert.fail("failing creating ccdi definitions");
+		}
+
+		Assert.assertNotNull(material);
+		Assert.assertNotNull(farmaco);
+		Assert.assertEquals("MATERIAL-test", material.getCode());
+		Assert.assertEquals("FARMACO-test", farmaco.getCode());
+
 	}
 
-	/**
-	 */
 	@After
 	public void unset() {
-
+		try {
+			ccdiService.delete("MATERIAL-test");
+			ccdiService.delete("FARMACO-test");
+		} catch (GHAEJBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

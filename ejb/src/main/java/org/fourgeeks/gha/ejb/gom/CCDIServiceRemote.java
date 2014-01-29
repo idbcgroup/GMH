@@ -3,6 +3,7 @@ package org.fourgeeks.gha.ejb.gom;
 import javax.ejb.Remote;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
+import org.fourgeeks.gha.domain.gom.CCDIDefinition;
 import org.fourgeeks.gha.domain.gom.Concept;
 
 /**
@@ -64,6 +65,14 @@ public interface CCDIServiceRemote {
 	 * @throws GHAEJBException
 	 */
 	public void delete(String code) throws GHAEJBException;
+
+	/**
+	 * @param code
+	 * @return
+	 * @throws GHAEJBException
+	 */
+	public CCDIDefinition findCCDIDefinitionByCode(String code)
+			throws GHAEJBException;
 
 	/**
 	 * @param code
