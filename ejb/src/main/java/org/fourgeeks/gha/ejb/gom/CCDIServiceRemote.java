@@ -57,6 +57,15 @@ public interface CCDIServiceRemote {
 			String valueAtEndAction) throws GHAEJBException;
 
 	/**
+	 * This method delete a CCDI definition plus all definition levels and
+	 * values
+	 * 
+	 * @param code
+	 * @throws GHAEJBException
+	 */
+	public void delete(String code) throws GHAEJBException;
+
+	/**
 	 * @param code
 	 *            CCDILevelDefinitionCode
 	 * @return the next value available for a given level
