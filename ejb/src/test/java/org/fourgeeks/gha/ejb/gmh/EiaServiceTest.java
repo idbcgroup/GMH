@@ -6,6 +6,7 @@ import junit.framework.Assert;
 
 import org.fourgeeks.gha.domain.AbstractCodeEntity;
 import org.fourgeeks.gha.domain.AbstractEntity;
+import org.fourgeeks.gha.domain.Activity;
 import org.fourgeeks.gha.domain.HasKey;
 import org.fourgeeks.gha.domain.enu.ActivityCategoryEnum;
 import org.fourgeeks.gha.domain.enu.ActivityState;
@@ -58,6 +59,7 @@ import org.fourgeeks.gha.domain.gar.Job;
 import org.fourgeeks.gha.domain.gar.JobCategory;
 import org.fourgeeks.gha.domain.gar.JobPosition;
 import org.fourgeeks.gha.domain.gar.Obu;
+import org.fourgeeks.gha.domain.glm.Bsp;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Eia;
@@ -81,6 +83,7 @@ import org.fourgeeks.gha.domain.mix.Institution;
 import org.fourgeeks.gha.domain.mix.LegalEntity;
 import org.fourgeeks.gha.domain.msg.GHAMessage;
 import org.fourgeeks.gha.domain.msg.GHAMessageId;
+import org.fourgeeks.gha.domain.msg.GHAMessageType;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 import org.fourgeeks.gha.ejb.ess.RoleService;
@@ -222,6 +225,9 @@ public class EiaServiceTest {
 				.addClass(View.class)
 				.addClass(WorkingArea.class)
 				.addClass(WarrantySinceEnum.class)
+				.addClass(GHAMessageType.class)
+				.addClass(Activity.class)
+				.addClass(Bsp.class)
 				.addAsResource("test-persistence.xml",
 						"META-INF/persistence.xml")
 				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
@@ -415,7 +421,7 @@ public class EiaServiceTest {
 		}
 		Assert.assertNotNull(eia);
 		try {
-			Assert.assertEquals(1, service.getAll().size());
+			Assert.assertEquals(4, service.getAll().size());
 		} catch (GHAEJBException e1) {
 			e1.printStackTrace();
 		}
