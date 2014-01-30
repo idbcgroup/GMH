@@ -3,7 +3,7 @@ package org.fourgeeks.gha.webclient.client.maintenanceactivity.information;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivityPanel;
-import org.fourgeeks.gha.webclient.client.maintenanceactivity.subprotocolactivities.MaintenanceActivitySubProtocolListener;
+import org.fourgeeks.gha.webclient.client.maintenanceactivity.subprotocol.MaintenanceActivitySubProtocolListener;
 
 /**
  * @author naramirez

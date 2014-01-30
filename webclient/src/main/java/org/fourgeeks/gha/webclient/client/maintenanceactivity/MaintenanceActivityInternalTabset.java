@@ -3,7 +3,7 @@ package org.fourgeeks.gha.webclient.client.maintenanceactivity;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAInternalTabSet;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.information.MaintenanceActivitySubTab;
-import org.fourgeeks.gha.webclient.client.maintenanceactivity.subprotocolactivities.MaintenanceSubprotocolActivitiesSubTab;
+import org.fourgeeks.gha.webclient.client.maintenanceactivity.subprotocol.MaintenanceSubprotocolActivitiesSubTab;
 
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.smartgwt.client.types.AnimationEffect;

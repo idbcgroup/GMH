@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.fourgeeks.gha.webclient.client.maintenanceactivity.subprotocolactivities;
+package org.fourgeeks.gha.webclient.client.maintenanceactivity.subprotocol;
 
 import org.fourgeeks.gha.domain.Activity;
 import org.fourgeeks.gha.domain.enu.ActivityCategoryEnum;

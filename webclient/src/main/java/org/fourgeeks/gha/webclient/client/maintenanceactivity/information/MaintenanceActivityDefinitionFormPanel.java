@@ -15,7 +15,7 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivityForm;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionListener;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionProducer;
-import org.fourgeeks.gha.webclient.client.maintenanceactivity.subprotocolactivities.MaintenanceActivitySubProtocolListener;
+import org.fourgeeks.gha.webclient.client.maintenanceactivity.subprotocol.MaintenanceActivitySubProtocolListener;
 
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;

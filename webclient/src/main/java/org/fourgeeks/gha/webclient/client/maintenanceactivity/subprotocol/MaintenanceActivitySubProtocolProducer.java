@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.maintenanceactivity.subprotocolactivities;
+package org.fourgeeks.gha.webclient.client.maintenanceactivity.subprotocol;
 
 /**
  * 

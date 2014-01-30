@@ -35,8 +35,8 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAPeriodOfTi
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
-import org.fourgeeks.gha.webclient.client.maintenanceactivity.subprotocolactivities.MaintenanceActivitySubProtocolListener;
-import org.fourgeeks.gha.webclient.client.maintenanceactivity.subprotocolactivities.MaintenanceActivitySubProtocolProducer;
+import org.fourgeeks.gha.webclient.client.maintenanceactivity.subprotocol.MaintenanceActivitySubProtocolListener;
+import org.fourgeeks.gha.webclient.client.maintenanceactivity.subprotocol.MaintenanceActivitySubProtocolProducer;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.validation.client.impl.Validation;
@@ -229,8 +229,8 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 		Activity activity = new Activity();
 
 		if (update) {
-			entity.setId(this.updateActivity.getId());
-			activity = this.updateActivity.getActivity();
+			entity.setId(this.originalEntity.getId());
+			activity = this.originalEntity.getActivity();
 
 			if (stateSelectItem.getValue() != null) {
 				activity.setState(ActivityState.valueOf(stateSelectItem
@@ -367,7 +367,7 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 		estimatedCostCurrencySelectItem.setValue(activity
 				.getEstimatedCostCurrency());
 
-		isSubProtocol = entity.getIsSubProtocol();
+		isSubProtocol = entity.getActivity().getIsSubProtocol();
 		notifyMaintenanceActivitySubProtocolSubTabs();
 
 		showPlanStadisticsItems();
