@@ -20,7 +20,7 @@ import org.fourgeeks.gha.domain.Activity;
 		"parentActivityFk" }))
 @NamedQueries(value = {
 		@NamedQuery(name = "SubProtocolAndChecklist.getAll", query = "SELECT e from SubProtocolAndChecklist e order by e.id"),
-		@NamedQuery(name = "SubProtocolAndChecklist.findBySubProtocolActivity", query = "SELECT e FROM  SubProtocolAndChecklist e WHERE e.parentActivity = :activity ORDER BY e.ordinal") })
+		@NamedQuery(name = "SubProtocolAndChecklist.findByParentActivity", query = "SELECT e FROM  SubProtocolAndChecklist e WHERE e.parentActivity = :activity ORDER BY e.ordinal") })
 public class SubProtocolAndChecklist extends AbstractEntity {
 
 	/**
