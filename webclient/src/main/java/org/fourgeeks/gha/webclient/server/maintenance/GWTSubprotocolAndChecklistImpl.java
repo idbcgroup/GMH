@@ -8,11 +8,11 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 
+import org.fourgeeks.gha.domain.Activity;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
-import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
-import org.fourgeeks.gha.domain.gmh.MaintenanceSubProtocol;
-import org.fourgeeks.gha.ejb.gmh.MaintenanceSubProtocolServiceRemote;
-import org.fourgeeks.gha.webclient.client.eiatype.maintenance.protocol.GWTMaintenanceSubProtocolService;
+import org.fourgeeks.gha.domain.gmh.SubProtocolAndChecklist;
+import org.fourgeeks.gha.ejb.gmh.SubProtocolAndCheklistServiceRemote;
+import org.fourgeeks.gha.webclient.client.maintenanceactivity.subprotocol.GWTSubProtocolAndChecklistService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -20,18 +20,18 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  * @author emiliot
  * 
  */
-@WebServlet(urlPatterns = { "/webclient/maintenanceSubProtocol" })
-public class GWTMaintenanceSubProtocolImpl extends RemoteServiceServlet
-		implements GWTMaintenanceSubProtocolService {
+@WebServlet(urlPatterns = { "/webclient/subProtocolAndCheklist" })
+public class GWTSubprotocolAndChecklistImpl extends RemoteServiceServlet
+		implements GWTSubProtocolAndChecklistService {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@EJB(lookup = "java:global/ear-1/ejb-1/MaintenanceSubProtocolService!"
-			+ "org.fourgeeks.gha.ejb.gmh.MaintenanceSubProtocolServiceRemote")
-	MaintenanceSubProtocolServiceRemote service;
+	@EJB(lookup = "java:global/ear-1/ejb-1/SubProtocolAndCheklistService!"
+			+ "org.fourgeeks.gha.ejb.gmh.SubProtocolAndCheklistServiceRemote")
+	SubProtocolAndCheklistServiceRemote service;
 
 	/*
 	 * (non-Javadoc)
@@ -52,9 +52,9 @@ public class GWTMaintenanceSubProtocolImpl extends RemoteServiceServlet
 	 * #findByProtocolActivity(org.fourgeeks.gha.domain.gmh.ProtocolActivity)
 	 */
 	@Override
-	public List<MaintenanceSubProtocol> findByMaintenanceActivity(
-			MaintenanceActivity maintenanceActivity) throws GHAEJBException {
-		return service.findByMaintenanceActivity(maintenanceActivity);
+	public List<SubProtocolAndChecklist> findByParentActivity(
+			Activity parentActivity) throws GHAEJBException {
+		return service.findByParentActivity(parentActivity);
 	}
 
 	/*
@@ -64,7 +64,7 @@ public class GWTMaintenanceSubProtocolImpl extends RemoteServiceServlet
 	 * GWTMaintenanceSubProtocolService#find(long)
 	 */
 	@Override
-	public MaintenanceSubProtocol find(long Id) throws GHAEJBException {
+	public SubProtocolAndChecklist find(long Id) throws GHAEJBException {
 		return service.find(Id);
 	}
 
@@ -75,7 +75,7 @@ public class GWTMaintenanceSubProtocolImpl extends RemoteServiceServlet
 	 * GWTMaintenanceSubProtocolService#getAll()
 	 */
 	@Override
-	public List<MaintenanceSubProtocol> getAll() throws GHAEJBException {
+	public List<SubProtocolAndChecklist> getAll() throws GHAEJBException {
 		return service.getAll();
 	}
 
@@ -86,7 +86,7 @@ public class GWTMaintenanceSubProtocolImpl extends RemoteServiceServlet
 	 * GWTMaintenanceSubProtocolService#getAll(int, int)
 	 */
 	@Override
-	public List<MaintenanceSubProtocol> getAll(int offset, int size)
+	public List<SubProtocolAndChecklist> getAll(int offset, int size)
 			throws GHAEJBException {
 		return service.getAll(offset, size);
 	}
@@ -99,8 +99,8 @@ public class GWTMaintenanceSubProtocolImpl extends RemoteServiceServlet
 	 * #save(org.fourgeeks.gha.domain.gmh.MaintenanceSubProtocol)
 	 */
 	@Override
-	public MaintenanceSubProtocol save(
-			MaintenanceSubProtocol maintenanceSubProtocol)
+	public SubProtocolAndChecklist save(
+			SubProtocolAndChecklist maintenanceSubProtocol)
 			throws GHAEJBException {
 		return service.save(maintenanceSubProtocol);
 	}
@@ -113,8 +113,8 @@ public class GWTMaintenanceSubProtocolImpl extends RemoteServiceServlet
 	 * #update(org.fourgeeks.gha.domain.gmh.MaintenanceSubProtocol)
 	 */
 	@Override
-	public MaintenanceSubProtocol update(
-			MaintenanceSubProtocol maintenanceSubProtocol)
+	public SubProtocolAndChecklist update(
+			SubProtocolAndChecklist maintenanceSubProtocol)
 			throws GHAEJBException {
 		return service.update(maintenanceSubProtocol);
 	}

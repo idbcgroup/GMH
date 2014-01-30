@@ -12,6 +12,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
+import org.fourgeeks.gha.domain.Activity;
 import org.fourgeeks.gha.domain.enu.CurrencyTypeEnum;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
@@ -42,7 +43,7 @@ public class MaintenanceProtocolsService extends GHAEJBExceptionService
 	MaintenancePlanServiceRemote planService;
 
 	@EJB
-	MaintenanceSubProtocolServiceLocal subProtocolService;
+	SubProtocolAndCheklistServiceLocal subProtocolService;
 
 	/*
 	 * (non-Javadoc)
@@ -249,7 +250,8 @@ public class MaintenanceProtocolsService extends GHAEJBExceptionService
 
 			List<MaintenanceProtocols> protocol = findByMaintenancePlan(mantenancePlan);
 			for (MaintenanceProtocols entity : protocol) {
-				MaintenanceActivity activity = entity.getMaintenanceActivity();
+				MaintenanceActivity mActivity = entity.getMaintenanceActivity();
+				Activity activity = mActivity.getActivity();
 
 				if (activity.getIsSubProtocol()) {
 					numberSubProtocols++;

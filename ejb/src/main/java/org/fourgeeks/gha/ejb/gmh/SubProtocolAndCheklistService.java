@@ -14,10 +14,10 @@ import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.fourgeeks.gha.domain.Activity;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
-import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
-import org.fourgeeks.gha.domain.gmh.MaintenanceSubProtocol;
+import org.fourgeeks.gha.domain.gmh.SubProtocolAndChecklist;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 
@@ -27,14 +27,14 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  */
 
 @Stateless
-public class MaintenanceSubProtocolService extends GHAEJBExceptionService
-		implements MaintenanceSubProtocolServiceRemote,
-		MaintenanceSubProtocolServiceLocal {
+public class SubProtocolAndCheklistService extends GHAEJBExceptionService
+		implements SubProtocolAndCheklistServiceRemote,
+		SubProtocolAndCheklistServiceLocal {
 	@PersistenceContext
 	EntityManager em;
 
 	private final static Logger logger = Logger
-			.getLogger(MaintenanceSubProtocolService.class.getName());
+			.getLogger(SubProtocolAndCheklistService.class.getName());
 
 	/*
 	 * (non-Javadoc)
@@ -46,8 +46,8 @@ public class MaintenanceSubProtocolService extends GHAEJBExceptionService
 	@Override
 	public void delete(long Id) throws GHAEJBException {
 		try {
-			MaintenanceSubProtocol entity = em.find(
-					MaintenanceSubProtocol.class, Id);
+			SubProtocolAndChecklist entity = em.find(
+					SubProtocolAndChecklist.class, Id);
 			em.remove(entity);
 		} catch (Exception e) {
 			logger.log(Level.INFO,
@@ -65,15 +65,14 @@ public class MaintenanceSubProtocolService extends GHAEJBExceptionService
 	 * findByProtocolActivity(org.fourgeeks.gha.domain.gmh.ProtocolActivity)
 	 */
 	@Override
-	public List<MaintenanceSubProtocol> findByMaintenanceActivity(
-			MaintenanceActivity maintenanceActivity) throws GHAEJBException {
+	public List<SubProtocolAndChecklist> findByParentActivity(Activity activity)
+			throws GHAEJBException {
 		try {
 			return em
 					.createNamedQuery(
-							"MaintenanceSubProtocol.findBySubProtocolActivity",
-							MaintenanceSubProtocol.class)
-					.setParameter("activity", maintenanceActivity)
-					.getResultList();
+							"SubProtocolAndChecklist.findByParentActivity",
+							SubProtocolAndChecklist.class)
+					.setParameter("activity", activity).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO,
 					"Error: finding sub-protocol activities by activity", e);
@@ -90,9 +89,9 @@ public class MaintenanceSubProtocolService extends GHAEJBExceptionService
 	 * org.fourgeeks.gha.ejb.gmh.MaintenanceSubProtocolServiceRemote#find(long)
 	 */
 	@Override
-	public MaintenanceSubProtocol find(long Id) throws GHAEJBException {
+	public SubProtocolAndChecklist find(long Id) throws GHAEJBException {
 		try {
-			return em.find(MaintenanceSubProtocol.class, Id);
+			return em.find(SubProtocolAndChecklist.class, Id);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: finding MaintenanceSubProtocol", e);
 			throw super.generateGHAEJBException(
@@ -108,10 +107,10 @@ public class MaintenanceSubProtocolService extends GHAEJBExceptionService
 	 * org.fourgeeks.gha.ejb.gmh.MaintenanceSubProtocolServiceRemote#getAll()
 	 */
 	@Override
-	public List<MaintenanceSubProtocol> getAll() throws GHAEJBException {
+	public List<SubProtocolAndChecklist> getAll() throws GHAEJBException {
 		try {
-			return em.createNamedQuery("MaintenanceSubProtocol.getAll",
-					MaintenanceSubProtocol.class).getResultList();
+			return em.createNamedQuery("SubProtocolAndChecklist.getAll",
+					SubProtocolAndChecklist.class).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding all MaintenanceSubProtocol",
 					e);
@@ -129,12 +128,12 @@ public class MaintenanceSubProtocolService extends GHAEJBExceptionService
 	 * int)
 	 */
 	@Override
-	public List<MaintenanceSubProtocol> getAll(int offset, int size)
+	public List<SubProtocolAndChecklist> getAll(int offset, int size)
 			throws GHAEJBException {
 		try {
 			return em
-					.createNamedQuery("MaintenanceSubProtocol.getAll",
-							MaintenanceSubProtocol.class)
+					.createNamedQuery("SubProtocolAndChecklist.getAll",
+							SubProtocolAndChecklist.class)
 					.setFirstResult(offset).setMaxResults(size).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding all MaintenanceSubProtocol",
@@ -153,13 +152,13 @@ public class MaintenanceSubProtocolService extends GHAEJBExceptionService
 	 * .fourgeeks.gha.domain.gmh.MaintenanceSubProtocol)
 	 */
 	@Override
-	public MaintenanceSubProtocol save(
-			MaintenanceSubProtocol maintenanceSubProtocol)
+	public SubProtocolAndChecklist save(
+			SubProtocolAndChecklist maintenanceSubProtocol)
 			throws GHAEJBException {
 		try {
 			em.persist(maintenanceSubProtocol);
 			em.flush();
-			return em.find(MaintenanceSubProtocol.class,
+			return em.find(SubProtocolAndChecklist.class,
 					maintenanceSubProtocol.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving MaintenanceSubProtocol ", e);
@@ -177,13 +176,13 @@ public class MaintenanceSubProtocolService extends GHAEJBExceptionService
 	 * org.fourgeeks.gha.domain.gmh.MaintenanceSubProtocol)
 	 */
 	@Override
-	public MaintenanceSubProtocol update(
-			MaintenanceSubProtocol maintenanceSubProtocol)
+	public SubProtocolAndChecklist update(
+			SubProtocolAndChecklist maintenanceSubProtocol)
 			throws GHAEJBException {
 		try {
 			em.merge(maintenanceSubProtocol);
 			em.flush();
-			return em.find(MaintenanceSubProtocol.class,
+			return em.find(SubProtocolAndChecklist.class,
 					maintenanceSubProtocol.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: updating MaintenanceSubProtocol ", e);
@@ -202,10 +201,10 @@ public class MaintenanceSubProtocolService extends GHAEJBExceptionService
 	 */
 	@Override
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public Long getSubProtocolActivitiesCount(MaintenanceActivity activity)
+	public Long getSubProtocolActivitiesCount(Activity activity)
 			throws GHAEJBException {
 		try {
-			String stringQuery = "SELECT COUNT(e) FROM MaintenanceSubProtocol e WHERE e.parentProtocolActivity = :activity";
+			String stringQuery = "SELECT COUNT(e) FROM SubProtocolAndChecklist e WHERE e.parentActivity = :activity";
 			Long result = em.createQuery(stringQuery, Long.class)
 					.setParameter("activity", activity).getSingleResult();
 
@@ -228,12 +227,12 @@ public class MaintenanceSubProtocolService extends GHAEJBExceptionService
 	 */
 	@Override
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public BigDecimal getSubProtocolCost(MaintenanceActivity activity)
+	public BigDecimal getSubProtocolCost(Activity activity)
 			throws GHAEJBException {
 		try {
-			String namedQuery = "MaintenanceSubProtocol.findBySubProtocolActivity";
-			List<MaintenanceSubProtocol> subProtocol = em
-					.createNamedQuery(namedQuery, MaintenanceSubProtocol.class)
+			String namedQuery = "SubProtocolAndChecklist.findByParentActivity";
+			List<SubProtocolAndChecklist> subProtocol = em
+					.createNamedQuery(namedQuery, SubProtocolAndChecklist.class)
 					.setParameter("activity", activity).getResultList();
 
 			BigDecimal estimatedCost = getEstimatedCost(subProtocol);
@@ -257,12 +256,11 @@ public class MaintenanceSubProtocolService extends GHAEJBExceptionService
 	 */
 	@Override
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public int getSubProtocolDuration(MaintenanceActivity activity)
-			throws GHAEJBException {
+	public int getSubProtocolDuration(Activity activity) throws GHAEJBException {
 		try {
-			String namedQuery = "MaintenanceSubProtocol.findBySubProtocolActivity";
-			List<MaintenanceSubProtocol> subProtocol = em
-					.createNamedQuery(namedQuery, MaintenanceSubProtocol.class)
+			String namedQuery = "SubProtocolAndChecklist.findByParentActivity";
+			List<SubProtocolAndChecklist> subProtocol = em
+					.createNamedQuery(namedQuery, SubProtocolAndChecklist.class)
 					.setParameter("activity", activity).getResultList();
 
 			int estimatedDuration = getEstimatedDurationDays(subProtocol);
@@ -287,10 +285,11 @@ public class MaintenanceSubProtocolService extends GHAEJBExceptionService
 	 *            protocol)
 	 * @return the value of the estimated cost of the plan
 	 */
-	private BigDecimal getEstimatedCost(List<MaintenanceSubProtocol> subProtocol) {
+	private BigDecimal getEstimatedCost(
+			List<SubProtocolAndChecklist> subProtocol) {
 		double acum = 0;
-		for (MaintenanceSubProtocol entity : subProtocol) {
-			MaintenanceActivity activity = entity.getMaintenanceActivity();
+		for (SubProtocolAndChecklist entity : subProtocol) {
+			Activity activity = entity.getActivity();
 			BigDecimal estimatedCost = activity.getEstimatedCost();
 			acum += estimatedCost.doubleValue();
 		}
@@ -308,15 +307,15 @@ public class MaintenanceSubProtocolService extends GHAEJBExceptionService
 	 * @return the ceil value of the estimated duration
 	 */
 	private int getEstimatedDurationDays(
-			List<MaintenanceSubProtocol> subProtocol) {
+			List<SubProtocolAndChecklist> subProtocol) {
 		final double DAY = 24.0, WEEK = 7.0, MONTH = 30.4368499, SEMESTER = 182.621099, YEAR = 365.242199;
 
 		double totalDays = 0;
 		int hours, days, weeks, months, semesters, years;
 		hours = days = weeks = months = semesters = years = 0;
 
-		for (MaintenanceSubProtocol entity : subProtocol) {
-			MaintenanceActivity activity = entity.getMaintenanceActivity();
+		for (SubProtocolAndChecklist entity : subProtocol) {
+			Activity activity = entity.getActivity();
 			TimePeriodEnum periodOfTime = activity.getEstimatedDurationPoT();
 			if (periodOfTime == TimePeriodEnum.HOURS)
 				hours += activity.getEstimatedDuration().intValue();

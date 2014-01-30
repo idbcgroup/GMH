@@ -18,12 +18,11 @@ import org.fourgeeks.gha.domain.enu.MaintenancePlanCancelationOption;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanState;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanType;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
-import org.fourgeeks.gha.domain.ess.Role;
-import org.fourgeeks.gha.domain.glm.ExternalProvider;
+import org.fourgeeks.gha.domain.gar.Job;
+import org.fourgeeks.gha.domain.glm.Bsp;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlanStadisticData;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
-import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
@@ -32,7 +31,6 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextAreaItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATitletextItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHABpiSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHACurrencyTypeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAExternalProviderSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenancePlanCancelationOptionSelectItem;
@@ -72,14 +70,12 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 	private GHARoleSelectItem roleSelectItem;
 	private GHAExternalProviderSelectItem providerSelectItem;
 	private GHACurrencyTypeSelectItem estimatedCostCurrencyItem;
-	private GHABpiSelectItem bpiSelectItem;
 	private GHADateItem lastEffectuatedDateItem;
 	private Validator validator;
 
 	private GHADynamicForm form;
 
 	{
-		bpiSelectItem = new GHABpiSelectItem(false, changedHandler);
 		nameItem = new GHATextItem(GHAStrings.get("name"), true, changedHandler);
 		nameItem.setLength(100);
 		frequencyItem = new GHATextItem(GHAStrings.get("frecuency"), true,
@@ -137,11 +133,11 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 	 */
 	public MaintenancePlanForm() {
 		final HLayout mainPanel = new HLayout();
-		form.setItems(bpiSelectItem, new GHASpacerItem(3), nameItem,
-				frequencyItem, frecuencyPoTItem, new GHASpacerItem(), typeItem,
-				stateItem, cancelationOptionItem, new GHASpacerItem(),
-				descriptionItem, new GHASpacerItem(), providerSelectItem,
-				roleSelectItem, new GHASpacerItem(2), new GHASpacerItem(4),
+		form.setItems(nameItem, frequencyItem, frecuencyPoTItem,
+				new GHASpacerItem(), typeItem, stateItem,
+				cancelationOptionItem, new GHASpacerItem(), descriptionItem,
+				new GHASpacerItem(), providerSelectItem, roleSelectItem,
+				new GHASpacerItem(2), new GHASpacerItem(4),
 				planStadistics_TitleItem, protocolActivitiesItem,
 				estimatedTimeItem, estimatedTimePoTSelectItem,
 				new GHASpacerItem(), estimatedCostItem,
@@ -176,7 +172,6 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 		cancelationOptionItem.clearValue();
 		roleSelectItem.clearValue();
 		providerSelectItem.clearValue();
-		bpiSelectItem.clearValue();
 		cancelationOptionItem.clearValue();
 		frecuencyPoTItem.clearValue();
 	}
@@ -192,10 +187,6 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 			maintenancePlan.setId(this.originalEntity.getId());
 		}
 
-		if (bpiSelectItem.getValue() != null) {
-			Bpi bpi = new Bpi(Long.valueOf(bpiSelectItem.getValueAsString()));
-			maintenancePlan.setInstitution(bpi);
-		}
 		if (nameItem.getValue() != null) {
 			maintenancePlan.setName(nameItem.getValueAsString());
 		}
@@ -228,13 +219,16 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 
 		if (roleSelectItem.getValue() != null) {
 			String id = roleSelectItem.getValueAsString();
-			Role role = new Role(Long.valueOf(id));
-			maintenancePlan.setRole(role);
+			Job job = new Job();
+			job.setId(Long.valueOf(id));
+
+			maintenancePlan.setJob(job);
 		}
 
 		if (providerSelectItem.getValue() != null) {
 			String id = providerSelectItem.getValueAsString();
-			ExternalProvider provider = new ExternalProvider(Long.valueOf(id));
+			Bsp provider = new Bsp();
+			provider.setId(Long.valueOf(id));
 			maintenancePlan.setProvider(provider);
 		}
 
@@ -335,8 +329,6 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 		cancelationOptionItem.setValue(maintenancePlan.getCancelationOption()
 				.name());
 
-		if (maintenancePlan.getInstitution() != null)
-			bpiSelectItem.setValue(maintenancePlan.getInstitution().getId());
 		if (maintenancePlan.getRole() != null)
 			roleSelectItem.setValue(maintenancePlan.getRole().getId());
 		if (maintenancePlan.getProvider() != null)
@@ -369,7 +361,6 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 		cancelationOptionItem.setDisabled(!active);
 		roleSelectItem.setDisabled(!active);
 		providerSelectItem.setDisabled(!active);
-		bpiSelectItem.setDisabled(!active);
 	}
 
 	@Override
