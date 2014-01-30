@@ -6,7 +6,7 @@ package org.fourgeeks.gha.webclient.client.maintenanceactivity.subprotocolactivi
 import java.util.ArrayList;
 import java.util.List;
 
-import org.fourgeeks.gha.domain.gmh.MaintenanceSubProtocol;
+import org.fourgeeks.gha.domain.gmh.SubProtocolAndChecklist;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocols.MaintenanceProtocolsRecord;
 
 /**
@@ -31,9 +31,9 @@ public class MaintenanceSubprotocolUtil {
 	 * @return a list of {@link MaintenanceProtocolsRecord}
 	 */
 	public static List<MaintenanceSubprotocolRecord> toGridRecordsList(
-			List<MaintenanceSubProtocol> entities) {
+			List<SubProtocolAndChecklist> entities) {
 		List<MaintenanceSubprotocolRecord> list = new ArrayList<MaintenanceSubprotocolRecord>();
-		for (MaintenanceSubProtocol entity : entities) {
+		for (SubProtocolAndChecklist entity : entities) {
 			MaintenanceSubprotocolRecord record = new MaintenanceSubprotocolRecord(
 					entity);
 			list.add(record);
@@ -48,7 +48,7 @@ public class MaintenanceSubprotocolUtil {
 	 * @return an array of {@link MaintenanceSubprotocolRecord}
 	 */
 	public static MaintenanceSubprotocolRecord[] toGridRecordsArray(
-			List<MaintenanceSubProtocol> entities) {
+			List<SubProtocolAndChecklist> entities) {
 		List<MaintenanceSubprotocolRecord> recordsList = toGridRecordsList(entities);
 
 		MaintenanceSubprotocolRecord[] array = recordsList

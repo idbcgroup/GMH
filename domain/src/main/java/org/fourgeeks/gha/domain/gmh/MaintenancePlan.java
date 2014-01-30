@@ -17,9 +17,8 @@ import org.fourgeeks.gha.domain.enu.MaintenancePlanCancelationOption;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanState;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanType;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
-import org.fourgeeks.gha.domain.ess.Role;
-import org.fourgeeks.gha.domain.glm.ExternalProvider;
-import org.fourgeeks.gha.domain.mix.Bpi;
+import org.fourgeeks.gha.domain.gar.Job;
+import org.fourgeeks.gha.domain.glm.Bsp;
 
 /**
  * @author emiliot
@@ -59,14 +58,11 @@ public class MaintenancePlan extends AbstractEntity {
 	@Column(nullable = false)
 	private MaintenancePlanCancelationOption cancelationOption;
 	@ManyToOne
-	@JoinColumn(name = "providerFk")
-	private ExternalProvider provider;
+	@JoinColumn(name = "bspFk")
+	private Bsp provider;
 	@ManyToOne
-	@JoinColumn(name = "roleFk")
-	private Role role;
-	@ManyToOne
-	@JoinColumn(name = "bpiFk")
-	private Bpi institution;
+	@JoinColumn(name = "jobFk")
+	private Job job;
 
 	private String description;
 
@@ -118,13 +114,6 @@ public class MaintenancePlan extends AbstractEntity {
 	}
 
 	/**
-	 * @return the institution
-	 */
-	public Bpi getInstitution() {
-		return institution;
-	}
-
-	/**
 	 * @return the name of the plan
 	 */
 	public String getName() {
@@ -142,15 +131,15 @@ public class MaintenancePlan extends AbstractEntity {
 	/**
 	 * @return the provider
 	 */
-	public ExternalProvider getProvider() {
+	public Bsp getProvider() {
 		return provider;
 	}
 
 	/**
 	 * @return the role
 	 */
-	public Role getRole() {
-		return role;
+	public Job getRole() {
+		return job;
 	}
 
 	/**
@@ -192,14 +181,6 @@ public class MaintenancePlan extends AbstractEntity {
 	}
 
 	/**
-	 * @param institution
-	 *            the institution to set
-	 */
-	public void setInstitution(Bpi institution) {
-		this.institution = institution;
-	}
-
-	/**
 	 * @param name
 	 */
 	public void setName(String name) {
@@ -217,16 +198,16 @@ public class MaintenancePlan extends AbstractEntity {
 	 * @param provider
 	 *            the provider to set
 	 */
-	public void setProvider(ExternalProvider provider) {
+	public void setProvider(Bsp provider) {
 		this.provider = provider;
 	}
 
 	/**
-	 * @param role
+	 * @param job
 	 *            the role to set
 	 */
-	public void setRole(Role role) {
-		this.role = role;
+	public void setJob(Job job) {
+		this.job = job;
 	}
 
 	/**
