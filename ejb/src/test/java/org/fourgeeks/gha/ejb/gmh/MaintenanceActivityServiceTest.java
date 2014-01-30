@@ -225,6 +225,7 @@ public class MaintenanceActivityServiceTest {
 				.addClass(Activity.class)
 				.addClass(Bsp.class)
 				.addClass(MaintenanceActivityServiceRemote.class)
+				.addClass(MaintenanceActivityService.class)
 				.addAsResource("test-persistence.xml",
 						"META-INF/persistence.xml")
 				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
@@ -261,22 +262,23 @@ public class MaintenanceActivityServiceTest {
 	/** */
 	@Test
 	public void test() {
-		System.out.println("TESTING MAINTENANCE ACTIVITY SERVICE\n\n\n");
+		final String sep = "\n---------------------------------------\n";
 
-		System.out.println("saveTest MaintenanceActivity");
-		saveTest();
-		System.out.println("getAllTest MaintenanceActivity");
+		System.out.println("TESTING MAINTENANCE ACTIVITY SERVICE\n");
+
+		System.out.println(sep + "getAllTest" + sep);
 		getAllTest();
-		System.out.println("getAllTest2 MaintenanceActivity");
+		System.out.println(sep + "getAllTest2" + sep);
 		getAllTest2();
-		System.out.println("findByMaintenanceActivityTest MaintenanceActivity");
+		System.out.println(sep + "findByMaintenanceActivityTest" + sep);
 		findByMaintenanceActivityTest();
-		System.out.println("findByIdTest MaintenanceActivity");
+		System.out.println(sep + "findByIdTest" + sep);
 		findByIdTest();
-
-		System.out.println("updateTest MaintenanceActivity");
+		System.out.println(sep + "saveTest" + sep);
+		saveTest();
+		System.out.println(sep+"updateTest"+sep);
 		updateTest();
-		System.out.println("deleteTest MaintenanceActivity");
+		System.out.println(sep+"deleteTest"+sep);
 		deleteTest();
 
 	}
@@ -296,7 +298,7 @@ public class MaintenanceActivityServiceTest {
 	private void deleteTest() {
 		try {
 			service.delete(maintenanceActivity.getId());
-			Assert.assertEquals(11, service.getAll().size());
+			Assert.assertEquals(10, service.getAll().size());
 		} catch (GHAEJBException e) {
 			e.printStackTrace();
 		}
