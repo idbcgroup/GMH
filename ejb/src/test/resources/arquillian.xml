@@ -14,7 +14,8 @@
 <container qualifier="jbossas-managed" default="true">
         <configuration>
 <!--             <property name="jbossHome">C:/Users/emiliot/Documents/Apps/jboss-as-7.1.1.Final</property> -->
-<property name="jbossHome">${env.JBOSS_HOME}</property>
+<!--  <property name="jbossHome">${env.JBOSS_HOME}</property>-->
+<property name="jbossHome">C:/jboss-as-7.1.1.Final/jboss-as-7.1.1.Final</property>
         </configuration>
     </container>
 </arquillian>
