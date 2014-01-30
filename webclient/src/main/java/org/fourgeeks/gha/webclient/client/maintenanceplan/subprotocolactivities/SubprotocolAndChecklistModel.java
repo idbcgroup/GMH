@@ -2,11 +2,11 @@ package org.fourgeeks.gha.webclient.client.maintenanceplan.subprotocolactivities
 
 import java.util.List;
 
-import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
+import org.fourgeeks.gha.domain.Activity;
 import org.fourgeeks.gha.domain.gmh.SubProtocolAndChecklist;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
-import org.fourgeeks.gha.webclient.client.maintenanceactivity.subprotocol.GWTMaintenanceSubProtocolService;
-import org.fourgeeks.gha.webclient.client.maintenanceactivity.subprotocol.GWTMaintenanceSubProtocolServiceAsync;
+import org.fourgeeks.gha.webclient.client.maintenanceactivity.subprotocol.GWTSubProtocolAndChecklistService;
+import org.fourgeeks.gha.webclient.client.maintenanceactivity.subprotocol.GWTSubProtocolAndChecklistServiceAsync;
 
 import com.google.gwt.core.shared.GWT;
 
@@ -14,9 +14,9 @@ import com.google.gwt.core.shared.GWT;
  * @author caparicio
  * 
  */
-public class MaintenanceSubprotocolModel {
-	private static final GWTMaintenanceSubProtocolServiceAsync service = GWT
-			.create(GWTMaintenanceSubProtocolService.class);
+public class SubprotocolAndChecklistModel {
+	private static final GWTSubProtocolAndChecklistServiceAsync service = GWT
+			.create(GWTSubProtocolAndChecklistService.class);
 
 	/**
 	 * Delete a MaintenanceSubProtocol from database by Id
@@ -29,16 +29,14 @@ public class MaintenanceSubprotocolModel {
 	}
 
 	/**
-	 * @param maintenanceActivity
+	 * @param parentActivity
 	 * 
 	 * @param callback
-	 *            a list with the MaintenanceSubProtocols of the
-	 *            maintenanceActivity
+	 *            a list with the MaintenanceSubProtocols of the parentActivity
 	 */
-	public static void findByMaintenanceActivity(
-			MaintenanceActivity maintenanceActivity,
+	public static void findByParentActivity(Activity parentActivity,
 			GHAAsyncCallback<List<SubProtocolAndChecklist>> callback) {
-		service.findByMaintenanceActivity(maintenanceActivity, callback);
+		service.findByParentActivity(parentActivity, callback);
 	}
 
 	/**

@@ -336,10 +336,11 @@ public class SubProtocolAndChecklistServiceTest {
 	}
 
 	private void getAllTest2() {
+		final int itemsExpected = 3;
 		try {
 			final List<SubProtocolAndChecklist> result = serviceRemote.getAll(
 					0, 3);
-			Assert.assertEquals(3, result.size());
+			Assert.assertEquals(itemsExpected, result.size());
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -356,46 +357,48 @@ public class SubProtocolAndChecklistServiceTest {
 	}
 
 	private void updateTest() {
+		final int ordinalExpected = 5;
 		try {
-			subProtocol.setOrdinal(5);
-			final int ordinalOriginal = subProtocol.getOrdinal();
-
+			subProtocol.setOrdinal(ordinalExpected);
 			SubProtocolAndChecklist result = serviceRemote.update(subProtocol);
 			final int ordinalResult = result.getOrdinal();
 
-			Assert.assertEquals(ordinalOriginal, ordinalResult);
-
+			Assert.assertEquals(ordinalExpected, ordinalResult);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	private void deleteTest() {
+		final int itemsExpected = 3;
 		try {
 			serviceRemote.delete(subProtocol.getId());
-			Assert.assertEquals(3, serviceRemote.getAll().size());
+
+			Assert.assertEquals(itemsExpected, serviceRemote.getAll().size());
 		} catch (GHAEJBException e) {
 			e.printStackTrace();
 		}
 	}
 
 	private void getSubProtocolActivitiesCountTest() {
+		final int countExpected = 3;
 		try {
 			final long result = serviceLocal
 					.getSubProtocolActivitiesCount(parentActivity);
 
-			Assert.assertEquals(3, result);
+			Assert.assertEquals(countExpected, result);
 		} catch (GHAEJBException e) {
 			e.printStackTrace();
 		}
 	}
 
 	private void getSubProtocolCostTest() {
+		final double costExpected = 1896.97;
 		try {
 			final BigDecimal result = serviceLocal
 					.getSubProtocolCost(parentActivity);
 
-			Assert.assertEquals(1896.97, result.doubleValue());
+			Assert.assertEquals(costExpected, result.doubleValue());
 		} catch (GHAEJBException e) {
 			e.printStackTrace();
 		}

@@ -43,7 +43,7 @@ public class MaintenanceProtocolsService extends GHAEJBExceptionService
 	MaintenancePlanServiceRemote planService;
 
 	@EJB
-	MaintenanceSubProtocolServiceLocal subProtocolService;
+	SubProtocolAndCheklistServiceLocal subProtocolService;
 
 	/*
 	 * (non-Javadoc)
@@ -256,7 +256,7 @@ public class MaintenanceProtocolsService extends GHAEJBExceptionService
 				if (activity.getIsSubProtocol()) {
 					numberSubProtocols++;
 					numberSubProtocolActivities += subProtocolService
-							.getSubProtocolActivitiesCount(mActivity);
+							.getSubProtocolActivitiesCount(activity);
 				} else
 					numberActivities++;
 			}

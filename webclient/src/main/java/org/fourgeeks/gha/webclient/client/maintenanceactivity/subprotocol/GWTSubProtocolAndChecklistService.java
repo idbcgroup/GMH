@@ -1,23 +1,24 @@
 /**
  * 
  */
-package org.fourgeeks.gha.ejb.gmh;
+package org.fourgeeks.gha.webclient.client.maintenanceactivity.subprotocol;
 
 import java.util.List;
 
-import javax.ejb.Remote;
-
+import org.fourgeeks.gha.domain.Activity;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
-import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.SubProtocolAndChecklist;
+
+import com.google.gwt.user.client.rpc.RemoteService;
+import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 /**
  * @author emiliot
  * 
  */
 
-@Remote
-public interface MaintenanceSubProtocolServiceRemote {
+@RemoteServiceRelativePath("maintenanceSubProtocol")
+public interface GWTSubProtocolAndChecklistService extends RemoteService {
 	/**
 	 * Delete a MaintenanceSubProtocol from database by Id
 	 * 
@@ -28,12 +29,13 @@ public interface MaintenanceSubProtocolServiceRemote {
 	public void delete(long Id) throws GHAEJBException;
 
 	/**
-	 * @param maintenanceActivity
-	 * @return a list with the MaintenanceSubProtocols of the protocolActivity
+	 * @param parentActivity
+	 * @return a list with the MaintenanceSubProtocols of the
+	 *         maintenanceActivity
 	 * @throws GHAEJBException
 	 */
-	public List<SubProtocolAndChecklist> findByMaintenanceActivity(
-			MaintenanceActivity maintenanceActivity) throws GHAEJBException;
+	public List<SubProtocolAndChecklist> findByParentActivity(
+			Activity parentActivity) throws GHAEJBException;
 
 	/**
 	 * @param Id
@@ -59,7 +61,7 @@ public interface MaintenanceSubProtocolServiceRemote {
 
 	/**
 	 * @param subProtocol
-	 *            the SubProtocol to be saved on database
+	 *            the MaintenanceSubProtocol to be saved on database
 	 * @throws GHAEJBException
 	 * @return MaintenanceSubProtocol saved
 	 */
@@ -68,7 +70,7 @@ public interface MaintenanceSubProtocolServiceRemote {
 
 	/**
 	 * @param subProtocol
-	 *            the SubProtocol to be updated
+	 *            the MaintenanceSubProtocol to be updated
 	 * @return MaintenanceSubProtocol updated
 	 * @throws GHAEJBException
 	 */
