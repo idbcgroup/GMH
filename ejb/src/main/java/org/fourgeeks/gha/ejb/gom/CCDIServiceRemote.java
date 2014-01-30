@@ -49,7 +49,7 @@ public interface CCDIServiceRemote {
 	 * @param incValue
 	 * @param separator
 	 * @param valueAtEndAction
-	 * @return the code of the CCDI level Definition
+	 * @return the code of the CCDI level value generated for this level
 	 * @throws GHAEJBException
 	 */
 	public String createCCDILevelDefinition(String definition, int level,

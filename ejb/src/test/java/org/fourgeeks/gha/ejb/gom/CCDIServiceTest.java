@@ -102,13 +102,43 @@ public class CCDIServiceTest {
 		} catch (GHAEJBException e) {
 			System.out.println(e.getCause());
 			unset();
-			Assert.fail("failing creating ccdi definitions");
+			Assert.fail("failed creating ccdi definitions");
 		}
 
 		Assert.assertNotNull(material);
 		Assert.assertNotNull(farmaco);
 		Assert.assertEquals("MATERIAL-test", material.getCode());
 		Assert.assertEquals("FARMACO-test", farmaco.getCode());
+
+		String m0, m1, m2, m3, m4;
+		m0 = m1 = m2 = m3 = m4 = "";
+
+		try {
+			m0 = ccdiService.createCCDILevelDefinition(material.getCode(), 0,
+					"Materiales", 1, "fixed", "0", 0, 1, "", "");
+			m1 = ccdiService.createCCDILevelDefinition(material.getCode(), 1,
+					"Suministros", 1, "fixed", "1", 0, 1, "", "");
+			// m2 = ccdiService.createCCDILevelDefinition(material.getCode(), 0,
+			// "Materiales", 1, "fixed", "0", 0, 1, "", "");
+			// m3 = ccdiService.createCCDILevelDefinition(material.getCode(), 0,
+			// "Materiales", 1, "fixed", "0", 0, 1, "", "");
+			// m4 = ccdiService.createCCDILevelDefinition(material.getCode(), 0,
+			// "Materiales", 1, "fixed", "0", 0, 1, "", "");
+
+		} catch (GHAEJBException e) {
+			System.out.println(e.getCause());
+			unset();
+			Assert.fail("failed creating ccdi level definitions");
+		}
+
+		Assert.assertNotNull(m0);
+		Assert.assertNotNull(m1);
+		// Assert.assertNotNull(m2);
+		// Assert.assertNotNull(m3);
+		// Assert.assertNotNull(m4);
+
+		System.out.println("M0: " + m0);
+		System.out.println("M1: " + m1);
 
 	}
 

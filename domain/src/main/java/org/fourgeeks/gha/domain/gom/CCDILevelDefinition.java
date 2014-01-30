@@ -19,7 +19,7 @@ import org.fourgeeks.gha.domain.enu.CCDIValueTypeEnum;
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "definitionFk",
 		"level" }))
-@NamedQueries(value = { @NamedQuery(name = "CCDILevelDefinition.findBylevel", query = "SELECT e from CCDILevelDefinition e WHERE e.level=:level AND e.definition=:definition") })
+@NamedQueries(value = { @NamedQuery(name = "CCDILevelDefinition.findByLevel", query = "SELECT e from CCDILevelDefinition e WHERE e.level=:level AND e.definition=:definition") })
 public class CCDILevelDefinition extends AbstractEntity {
 
 	/**
