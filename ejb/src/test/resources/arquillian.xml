@@ -13,7 +13,7 @@
 <!--     </container> -->
 <container qualifier="jbossas-managed" default="true">
         <configuration>
-            <property name="jbossHome">/home/alacret/apps/jboss-as-7.1.1.Final</property>
+            <property name="jbossHome">/home/caparicio/jboss</property>
         </configuration>
     </container>
 </arquillian>

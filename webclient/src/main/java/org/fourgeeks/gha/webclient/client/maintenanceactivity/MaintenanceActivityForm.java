@@ -357,6 +357,9 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 		estimatedCostCurrencySelectItem.setValue(entity
 				.getEstimatedCostCurrency());
 
+		isSubProtocol = entity.getIsSubProtocol();
+		notifyMaintenanceActivitySubProtocolSubTabs();
+
 		showPlanStadisticsItems();
 	}
 

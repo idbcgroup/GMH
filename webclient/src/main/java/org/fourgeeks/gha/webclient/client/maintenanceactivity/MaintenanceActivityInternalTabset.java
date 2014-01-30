@@ -33,6 +33,7 @@ public class MaintenanceActivityInternalTabset extends GHAInternalTabSet
 
 		maintenanceActivitySubTab
 				.addMaintenanceActivitySubProtocolListener(subprotocolActivitiesSubTab);
+
 		// maintenancePlanProtocolsSubTab = new
 		// MaintenanceProtocolsSubTab(panel);
 		// maintenancePlanProtocolsSubTab.addMaintenanceProtocolsSelectionListener(maintenancePlanInfoSubTab);

@@ -15,7 +15,6 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySearchForm;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionListener;
-import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionProducer;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocols.MaintenanceProtocolsRecord;
 
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -30,26 +29,18 @@ import com.smartgwt.client.widgets.layout.VLayout;
  */
 public class MaintenanceSubprotocolActivitiesGridPanel extends
 		GHAVerticalLayout implements ClosableListener, HideableListener,
-		MaintenanceActivitySelectionProducer,
 		MaintenanceActivitySelectionListener {
 
 	private MaintenanceActivitySearchForm activitySearchForm;
 	private MaintenanceSubprotocolActivitiesGrid grid;
-	private List<MaintenanceActivitySelectionListener> listeners;
 	private MaintenanceActivity maintenanceActivity;
 
 	{
 		grid = new MaintenanceSubprotocolActivitiesGrid();
+
 		activitySearchForm = new MaintenanceActivitySearchForm(
 				GHAStrings.get("maintenance-activity"));
 
-		activitySearchForm
-				.addMaintenanceActivitySelectionListener(new MaintenanceActivitySelectionListener() {
-					@Override
-					public void select(MaintenanceActivity activity) {
-						// TODO
-					}
-				});
 	}
 
 	/**
@@ -87,15 +78,9 @@ public class MaintenanceSubprotocolActivitiesGridPanel extends
 			MaintenanceProtocolsRecord record = (MaintenanceProtocolsRecord) records[i];
 			blackList.add(record.toEntity().getMaintenanceActivity());
 		}
-
+		blackList.add(maintenanceActivity);
 		activitySearchForm.filterBy(blackList);
 		activitySearchForm.open();
-	}
-
-	@Override
-	public void addMaintenanceActivitySelectionListener(
-			MaintenanceActivitySelectionListener selectionListener) {
-		listeners.add(selectionListener);
 	}
 
 	@Override
@@ -124,19 +109,6 @@ public class MaintenanceSubprotocolActivitiesGridPanel extends
 		// grid.setData(array);
 		// }
 		// });
-	}
-
-	@Override
-	public void notifyMaintenanceActivity(
-			MaintenanceActivity maintenanceActivity) {
-		for (MaintenanceActivitySelectionListener listener : listeners)
-			listener.select(maintenanceActivity);
-	}
-
-	@Override
-	public void removeMaintenanceActivitySelectionListener(
-			MaintenanceActivitySelectionListener selectionListener) {
-		listeners.remove(selectionListener);
 	}
 
 	@Override

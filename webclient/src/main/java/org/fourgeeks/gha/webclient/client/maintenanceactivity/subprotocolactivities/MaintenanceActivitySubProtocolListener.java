@@ -8,7 +8,7 @@ package org.fourgeeks.gha.webclient.client.maintenanceactivity.subprotocolactivi
 public interface MaintenanceActivitySubProtocolListener {
 	/**
 	 * 
-	 * @param enable
+	 * @param enabled
 	 */
-	public void changeSubTabState(boolean enable);
+	public void changeSubTabState(boolean enabled);
 }

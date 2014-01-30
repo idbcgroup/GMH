@@ -13,8 +13,8 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.GHAUtil;
 import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAActivitySubCategorySelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAActivityCategorySelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAActivitySubCategorySelectItem;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACancelButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
@@ -38,7 +38,6 @@ public class MaintenanceActivitySearchForm extends
 		MaintenanceActivitySelectionListener,
 		MaintenanceActivitySelectionProducer {
 
-	private boolean searchBySubProtocol;
 	private GHATextItem nameItem, descriptionItem;
 	private GHAActivityCategorySelectItem typeSelectItem;
 	private GHAActivitySubCategorySelectItem subTypeSelectItem;
@@ -47,7 +46,6 @@ public class MaintenanceActivitySearchForm extends
 	private final MaintenanceActivityResultSet resultSet;
 
 	{
-		searchBySubProtocol = false;
 		form = new GHADynamicForm(3, FormType.NORMAL_FORM);
 
 		nameItem = new GHATextItem(GHAStrings.get("name"));
@@ -64,15 +62,18 @@ public class MaintenanceActivitySearchForm extends
 					@Override
 					public void select(MaintenanceActivity maintenanceActivity) {
 						blackList = null;
-						searchBySubProtocol = false;
 						hide();
 					}
 				});
 	}
 
+	/**
+	 * 
+	 * @param title
+	 * @param isSubProtocol
+	 */
 	public MaintenanceActivitySearchForm(String title, boolean isSubProtocol) {
 		this(title);
-		searchBySubProtocol = isSubProtocol;
 	}
 
 	/**
@@ -99,6 +100,7 @@ public class MaintenanceActivitySearchForm extends
 		}), new GHACancelButton(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
+				clean();
 				hide();
 			}
 		}));
@@ -205,9 +207,6 @@ public class MaintenanceActivitySearchForm extends
 		if (typeSelectItem.getValue() != null)
 			maintenanceActivity.setCategory(ActivityCategoryEnum
 					.valueOf(typeSelectItem.getValueAsString()));
-		if (searchBySubProtocol) {
-			maintenanceActivity.setIsSubProtocol(true);
-		}
 
 		search(maintenanceActivity);
 	}

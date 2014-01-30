@@ -15,12 +15,14 @@ public class MaintenanceSubprotocolActivitiesSubTab extends GHASubTab implements
 
 	/**
 	 * 
-	 * @param tab
+	 * @param panel
 	 */
-	public MaintenanceSubprotocolActivitiesSubTab(MaintenanceActivityPanel tab) {
-		super("Sub-protocolos actividades", tab);
+	public MaintenanceSubprotocolActivitiesSubTab(MaintenanceActivityPanel panel) {
+		super("Sub-protocolos actividades", panel);
 		maintenanceSubprotocolGridPanel = new MaintenanceSubprotocolActivitiesGridPanel();
 		setPane(maintenanceSubprotocolGridPanel);
+
+		panel.addMaintenanceActivitySelectionListener(maintenanceSubprotocolGridPanel);
 	}
 
 	@Override
