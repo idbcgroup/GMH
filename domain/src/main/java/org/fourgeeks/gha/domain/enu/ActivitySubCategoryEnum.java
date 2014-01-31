@@ -10,7 +10,7 @@ import java.util.LinkedHashMap;
  * 
  */
 public enum ActivitySubCategoryEnum {
-	/** maintenance activity sub-category or sub-type: Calibración */
+	/** Calibración */
 	CALIBRATION;
 
 	/**
@@ -18,8 +18,7 @@ public enum ActivitySubCategoryEnum {
 	 */
 	public static LinkedHashMap<String, String> toValueMap() {
 		LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-		for (ActivitySubCategoryEnum value : ActivitySubCategoryEnum
-				.values()) {
+		for (ActivitySubCategoryEnum value : ActivitySubCategoryEnum.values()) {
 			valueMap.put(value.name() + "", value.toString());
 		}
 

@@ -87,11 +87,11 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 		bpiSelectItem = new GHASelectItem("Institución");
 		bpiSelectItem.setRequired(true);
 		bpiSelectItem.addChangedHandler(changedHandler);
-		legalEntityIdentifierItem = new GHATextItem("R.I.F.", false,
-				changedHandler);
-		legalEntityIdentifierItem.setLength(16);
-		legalEntityIdentifierItem.setMask("AAAAAAAAAAAAAAAA");
-
+		legalEntityIdentifierItem = new GHATextItem("R.I.F.", false,changedHandler);
+		legalEntityIdentifierItem.setLength(17);
+		legalEntityIdentifierItem.setMask(">[V|M|P|R|E|J|I|G]-[0-9|-][0-9|-][0-9|-][0-9|-][0-9|-][0-9|-][0-9|-][0-9|-][0-9|-][0-9|-][0-9|-][0-9|-][0-9|-][0-9|-][0-9|-]");
+		//VMPREJIG
+		
 		listeners = new ArrayList<UserSelectionListener>();
 
 		form = new GHADynamicForm(4,FormType.NORMAL_FORM);

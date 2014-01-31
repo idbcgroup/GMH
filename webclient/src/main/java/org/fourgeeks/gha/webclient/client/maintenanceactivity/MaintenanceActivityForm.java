@@ -12,6 +12,7 @@ import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
+import org.fourgeeks.gha.domain.Activity;
 import org.fourgeeks.gha.domain.enu.ActivityCategoryEnum;
 import org.fourgeeks.gha.domain.enu.ActivityState;
 import org.fourgeeks.gha.domain.enu.ActivitySubCategoryEnum;
@@ -208,9 +209,12 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 	 * @return
 	 */
 	private MaintenanceActivity extract(boolean update) {
-		final MaintenanceActivity activity = new MaintenanceActivity();
+		final MaintenanceActivity entity = new MaintenanceActivity();
+		Activity activity = new Activity();
+
 		if (update) {
-			activity.setId(this.updateActivity.getId());
+			entity.setId(this.updateActivity.getId());
+			activity = this.updateActivity.getActivity();
 
 			if (stateSelectItem.getValue() != null) {
 				activity.setState(ActivityState.valueOf(stateSelectItem
@@ -263,12 +267,15 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 				.getValueAsBoolean());
 		activity.setEquipsRequired(equipsRequiredCheckboxItem
 				.getValueAsBoolean());
-		activity.setToolsRequired(toolsRequierdCheckboxItem.getValueAsBoolean());
+		activity.setIsToolsRequired(toolsRequierdCheckboxItem
+				.getValueAsBoolean());
+
+		entity.setActivity(activity);
 
 		Set<ConstraintViolation<MaintenanceActivity>> violations = validator
-				.validate(activity);
+				.validate(entity);
 		if (form.validate() && violations.isEmpty())
-			return activity;
+			return entity;
 		else {
 			List<String> violationsList = new ArrayList<String>();
 			for (Iterator<ConstraintViolation<MaintenanceActivity>> it = violations
@@ -323,22 +330,24 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 	@Override
 	public void set(MaintenanceActivity entity) {
 		this.originalEntity = entity;
+		final Activity activity = entity.getActivity();
 
-		nameTextItem.setValue(entity.getName());
-		stateSelectItem.setValue(entity.getState());
-		categorySelectItem.setValue(entity.getCategory());
-		subCategorySelectItem.setValue(entity.getSubCategory());
-		descriptionTextItem.setValue(entity.getDescription());
-		isSubProtocolCheckboxItem.setValue(entity.getIsSubProtocol());
-		materialsRequierdCheckboxItem.setValue(entity.getIsMaterialsRequired());
-		toolsRequierdCheckboxItem.setValue(entity.getIsToolsRequired());
-		equipsRequiredCheckboxItem.setValue(entity.getIsEquipsRequired());
-		instructionsAndObsTextAreaItem.setValue(entity
+		nameTextItem.setValue(activity.getName());
+		stateSelectItem.setValue(activity.getState());
+		categorySelectItem.setValue(activity.getCategory());
+		subCategorySelectItem.setValue(activity.getSubCategory());
+		descriptionTextItem.setValue(activity.getDescription());
+		isSubProtocolCheckboxItem.setValue(activity.getIsSubProtocol());
+		materialsRequierdCheckboxItem.setValue(activity
+				.getIsMaterialsRequired());
+		toolsRequierdCheckboxItem.setValue(activity.getIsToolsRequired());
+		equipsRequiredCheckboxItem.setValue(activity.getIsEquipsRequired());
+		instructionsAndObsTextAreaItem.setValue(activity
 				.getInstructionsAndObservations());
-		estimatedTimeTextItem.setValue(entity.getEstimatedDuration());
-		estimatedTimePoTSelectItem.setValue(entity.getEstimatedDurationPoT());
-		estimatedCostTextItem.setValue(entity.getEstimatedCost());
-		estimatedCostCurrencySelectItem.setValue(entity
+		estimatedTimeTextItem.setValue(activity.getEstimatedDuration());
+		estimatedTimePoTSelectItem.setValue(activity.getEstimatedDurationPoT());
+		estimatedCostTextItem.setValue(activity.getEstimatedCost());
+		estimatedCostCurrencySelectItem.setValue(activity
 				.getEstimatedCostCurrency());
 
 		showPlanStadisticsItems();

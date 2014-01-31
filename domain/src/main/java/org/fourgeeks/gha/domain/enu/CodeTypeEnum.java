@@ -13,7 +13,7 @@ import java.util.List;
  * 
  */
 public enum CodeTypeEnum {
-	NUMERIC("numerico", "codetype-numeric"), ALPHANUMERIC("alfanumerico",
+	NUMERIC("numeric", "codetype-numeric"), ALPHANUMERIC("alphanumeric",
 			"codetype-alphanumeric"), BARCODE("barcode", "codetype-barcodes");
 	/**
 	 * @param string

@@ -21,6 +21,7 @@ import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.fourgeeks.gha.domain.Activity;
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanState;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanType;
@@ -30,7 +31,6 @@ import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlanStadisticData;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
@@ -160,7 +160,8 @@ public class MaintenancePlanService extends GHAEJBExceptionService implements
 	 * findEiaByMaintenancePlan(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
 	 */
 	@Override
-	public List<Eia> findDamageEiaByMaintenancePlan(MaintenancePlan maintenancePlan) throws GHAEJBException {
+	public List<Eia> findDamageEiaByMaintenancePlan(
+			MaintenancePlan maintenancePlan) throws GHAEJBException {
 		try {
 			ArrayList<EiaStateEnum> states = new ArrayList<EiaStateEnum>();
 			states.add(EiaStateEnum.DAMAGED);
@@ -170,12 +171,13 @@ public class MaintenancePlanService extends GHAEJBExceptionService implements
 					.createNamedQuery(
 							"MaintenancePlan.findDamageEiaByMaintenancePlan",
 							Eia.class)
-					.setParameter("states",states)
-					.setParameter("status", MaintenancePlanificationStatus.DEFERRED)
-					.setParameter("plan", maintenancePlan)
-					.getResultList();
+					.setParameter("states", states)
+					.setParameter("status",
+							MaintenancePlanificationStatus.DEFERRED)
+					.setParameter("plan", maintenancePlan).getResultList();
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, "Error: finding damaged Eias by MaintenancePlan", e);
+			logger.log(Level.SEVERE,
+					"Error: finding damaged Eias by MaintenancePlan", e);
 			throw super.generateGHAEJBException(
 					"maintenancePlan-findDamagedEiaByMaintenancePlan-fail",
 					RuntimeParameters.getLang(), em);
@@ -365,7 +367,7 @@ public class MaintenancePlanService extends GHAEJBExceptionService implements
 	private BigDecimal getPlanEstimatedCost(List<MaintenanceProtocols> protocol) {
 		double acum = 0;
 		for (MaintenanceProtocols entity : protocol) {
-			MaintenanceActivity activity = entity.getMaintenanceActivity();
+			Activity activity = entity.getMaintenanceActivity().getActivity();
 			BigDecimal estimatedCost = activity.getEstimatedCost();
 			acum += estimatedCost.doubleValue();
 		}
@@ -389,7 +391,7 @@ public class MaintenancePlanService extends GHAEJBExceptionService implements
 		hours = days = weeks = months = semesters = years = 0;
 
 		for (MaintenanceProtocols entity : protocol) {
-			MaintenanceActivity activity = entity.getMaintenanceActivity();
+			Activity activity = entity.getMaintenanceActivity().getActivity();
 			TimePeriodEnum periodOfTime = activity.getEstimatedDurationPoT();
 			if (periodOfTime == TimePeriodEnum.HOURS)
 				hours += activity.getEstimatedDuration().intValue();

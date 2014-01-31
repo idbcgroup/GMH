@@ -127,6 +127,45 @@ public class CCDIService extends GHAEJBExceptionService implements
 		return levelValue;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.ejb.gom.CCDIServiceRemote#delete(java.lang.String)
+	 */
+	@Override
+	public void delete(String code) throws GHAEJBException {
+
+		try {
+			CCDIDefinition definition = em
+					.createNamedQuery("CCDIDefinition.findByCode",
+							CCDIDefinition.class).setParameter("code", code)
+					.getSingleResult();
+			em.remove(definition);
+
+		} catch (Exception e) {
+			logger.log(Level.INFO, "ERROR: delete CCDIDefinition failed", e);
+			throw super.generateGHAEJBException("ccdi-delete-fail",
+					RuntimeParameters.getLang(), em);
+		}
+
+	}
+
+	@Override
+	public CCDIDefinition findCCDIDefinitionByCode(String code)
+			throws GHAEJBException {
+		try {
+			return em
+					.createNamedQuery("CCDIDefinition.findByCode",
+							CCDIDefinition.class).setParameter("code", code)
+					.getSingleResult();
+
+		} catch (Exception e) {
+			logger.log(Level.INFO, "ERROR: delete CCDIDefinition failed", e);
+			throw super.generateGHAEJBException("ccdi-find-fail",
+					RuntimeParameters.getLang(), em);
+		}
+	}
+
 	/**
 	 * @param next
 	 * @param levelDefinition
