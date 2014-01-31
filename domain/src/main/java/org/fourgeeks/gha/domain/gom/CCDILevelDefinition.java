@@ -36,8 +36,6 @@ public class CCDILevelDefinition extends AbstractEntity {
 	private String name;
 	private int length;
 	private CCDIValueTypeEnum valueType;
-	// private Variable variableName; TODO: use this to add a variable to the
-	// code
 	private String fixedValue;
 	private int initialValue;
 	private int incValue;

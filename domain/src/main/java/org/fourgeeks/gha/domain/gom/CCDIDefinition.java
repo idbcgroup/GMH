@@ -1,14 +1,10 @@
 package org.fourgeeks.gha.domain.gom;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -39,9 +35,6 @@ public class CCDIDefinition extends AbstractEntity {
 	@ManyToOne
 	@JoinColumn(name = "conceptFk")
 	private Concept concept;
-
-	@OneToMany(mappedBy = "definition", cascade = { CascadeType.ALL })
-	private List<CCDILevelDefinition> levelDefinitions;
 
 	private CodeTypeEnum type;
 	private boolean verification;

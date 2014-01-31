@@ -22,10 +22,9 @@ import javax.persistence.PersistenceContext;
 import org.fourgeeks.gha.domain.conf.Parameter;
 import org.fourgeeks.gha.domain.conf.ParameterGroup;
 import org.fourgeeks.gha.domain.conf.ParameterValue;
-import org.fourgeeks.gha.domain.enu.CCDIStatusEnum;
-import org.fourgeeks.gha.domain.enu.CCDIValueStatusEnum;
-import org.fourgeeks.gha.domain.enu.CCDIValueTypeEnum;
-import org.fourgeeks.gha.domain.enu.CodeTypeEnum;
+import org.fourgeeks.gha.domain.enu.ActivityCategoryEnum;
+import org.fourgeeks.gha.domain.enu.ActivityState;
+import org.fourgeeks.gha.domain.enu.ActivitySubCategoryEnum;
 import org.fourgeeks.gha.domain.enu.CurrencyTypeEnum;
 import org.fourgeeks.gha.domain.enu.DocumentTypeEnum;
 import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
@@ -35,9 +34,6 @@ import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.enu.GenderTypeEnum;
 import org.fourgeeks.gha.domain.enu.LanguageEnum;
 import org.fourgeeks.gha.domain.enu.LocationLevelEnum;
-import org.fourgeeks.gha.domain.enu.ActivityState;
-import org.fourgeeks.gha.domain.enu.ActivitySubCategoryEnum;
-import org.fourgeeks.gha.domain.enu.ActivityCategoryEnum;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanCancelationOption;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanState;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanType;
@@ -72,10 +68,6 @@ import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
 import org.fourgeeks.gha.domain.gmh.MaintenanceSubProtocol;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
-import org.fourgeeks.gha.domain.gom.CCDIDefinition;
-import org.fourgeeks.gha.domain.gom.CCDILevelDefinition;
-import org.fourgeeks.gha.domain.gom.CCDILevelValue;
-import org.fourgeeks.gha.domain.gom.Concept;
 import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.domain.mix.Citizen;
 import org.fourgeeks.gha.domain.mix.Institution;
@@ -243,56 +235,6 @@ public class InitialData {
 			em.createQuery(query).getSingleResult();
 		} catch (NoResultException e) {
 			try {
-				logger.info("creating test ccdileveldefinition");
-
-				CCDIDefinition material = em.find(CCDIDefinition.class, 1L);
-				CCDIDefinition farmaco = em.find(CCDIDefinition.class, 2L);
-
-				CCDILevelDefinition materials = new CCDILevelDefinition(
-						material, 0, "Materiales", 1, CCDIValueTypeEnum.FIXED,
-						"0", 0, 1, "", null);
-				CCDILevelDefinition supplies = new CCDILevelDefinition(
-						material, 1, "Suministros", 1, CCDIValueTypeEnum.FIXED,
-						"1", 0, 1, "", null);
-				CCDILevelDefinition suppliesFamily = new CCDILevelDefinition(
-						material, 2, "Familia de Suministros", 2,
-						CCDIValueTypeEnum.TEXT, null, 0, 1, "", null);
-				CCDILevelDefinition subSuppliesFamily = new CCDILevelDefinition(
-						material, 3, "Sub Familia de Suministros", 2,
-						CCDIValueTypeEnum.TEXT, null, 0, 1, "", null);
-				CCDILevelDefinition supplies2 = new CCDILevelDefinition(
-						material, 4, "Suministro", 4, CCDIValueTypeEnum.TEXT,
-						null, 0, 1, "", null);
-
-				em.persist(materials);
-				em.persist(supplies);
-				em.persist(suppliesFamily);
-				em.persist(subSuppliesFamily);
-				em.persist(supplies2);
-
-				CCDILevelDefinition materials2 = new CCDILevelDefinition(
-						farmaco, 0, "Materiales", 1, CCDIValueTypeEnum.FIXED,
-						"0", 0, 1, "", null);
-				CCDILevelDefinition pharmacs = new CCDILevelDefinition(farmaco,
-						1, "Farmacos", 1, CCDIValueTypeEnum.FIXED, "4", 0, 1,
-						"", null);
-				CCDILevelDefinition pharmacsFamily = new CCDILevelDefinition(
-						farmaco, 2, "Familia de Farmacos", 2,
-						CCDIValueTypeEnum.TEXT, null, 0, 1, "", null);
-				CCDILevelDefinition subPharmacsFamily = new CCDILevelDefinition(
-						farmaco, 3, "Sub Familia de Farmacos", 2,
-						CCDIValueTypeEnum.TEXT, null, 0, 1, "", null);
-				CCDILevelDefinition pharmacs2 = new CCDILevelDefinition(
-						farmaco, 4, "Farmaco", 4, CCDIValueTypeEnum.TEXT, null,
-						0, 1, "", null);
-
-				em.persist(materials2);
-				em.persist(pharmacs);
-				em.persist(pharmacsFamily);
-				em.persist(subPharmacsFamily);
-				em.persist(pharmacs2);
-
-				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO,
 						"error creating test ccdi level definition", e);
@@ -313,69 +255,6 @@ public class InitialData {
 			try {
 				logger.info("creating test CCDILevelValue");
 
-				CCDILevelDefinition material0 = em.find(
-						CCDILevelDefinition.class, 1L);
-				CCDILevelValue materialValue0 = new CCDILevelValue(material0,
-						"MATERIALES", "0", 2, CCDIValueStatusEnum.ACTIVE);
-
-				CCDILevelDefinition material1 = em.find(
-						CCDILevelDefinition.class, 2L);
-				CCDILevelValue materialValue1 = new CCDILevelValue(material1,
-						"SUMINISTROS", "01", 2, CCDIValueStatusEnum.ACTIVE);
-
-				CCDILevelDefinition material2 = em.find(
-						CCDILevelDefinition.class, 3L);
-				CCDILevelValue materialValue2 = new CCDILevelValue(material2,
-						"AGUJAS", "0101", 2, CCDIValueStatusEnum.ACTIVE);
-
-				CCDILevelDefinition material3 = em.find(
-						CCDILevelDefinition.class, 4L);
-				CCDILevelValue materialValue3 = new CCDILevelValue(material3,
-						"HIPODERMICAS", "010101", 2, CCDIValueStatusEnum.ACTIVE);
-
-				CCDILevelDefinition material4 = em.find(
-						CCDILevelDefinition.class, 5L);
-				CCDILevelValue materialValue4 = new CCDILevelValue(material4,
-						"MATERIAL FINAL", "0101010001", 1,
-						CCDIValueStatusEnum.ACTIVE);
-
-				em.persist(materialValue0);
-				em.persist(materialValue1);
-				em.persist(materialValue2);
-				em.persist(materialValue3);
-				em.persist(materialValue4);
-
-				CCDILevelDefinition pharmac0 = em.find(
-						CCDILevelDefinition.class, 6L);
-				CCDILevelValue pharmacValue0 = new CCDILevelValue(pharmac0,
-						"FARMACOS", "0", 5, CCDIValueStatusEnum.ACTIVE);
-
-				CCDILevelDefinition pharmac1 = em.find(
-						CCDILevelDefinition.class, 7L);
-				CCDILevelValue pharmacValue1 = new CCDILevelValue(pharmac1,
-						"FARMACOS", "04", 2, CCDIValueStatusEnum.ACTIVE);
-
-				CCDILevelDefinition pharmac2 = em.find(
-						CCDILevelDefinition.class, 8L);
-				CCDILevelValue pharmacValue2 = new CCDILevelValue(pharmac2,
-						"Antibioticos", "0401", 2, CCDIValueStatusEnum.ACTIVE);
-
-				CCDILevelDefinition pharmac3 = em.find(
-						CCDILevelDefinition.class, 9L);
-				CCDILevelValue pharmacValue3 = new CCDILevelValue(pharmac3,
-						"Penicilina", "040101", 2, CCDIValueStatusEnum.ACTIVE);
-
-				CCDILevelDefinition pharmac4 = em.find(
-						CCDILevelDefinition.class, 10L);
-				CCDILevelValue pharmacValue4 = new CCDILevelValue(pharmac4,
-						"Farmaco Final", "0401010001", 1,
-						CCDIValueStatusEnum.ACTIVE);
-
-				em.persist(pharmacValue0);
-				em.persist(pharmacValue1);
-				em.persist(pharmacValue2);
-				em.persist(pharmacValue3);
-				em.persist(pharmacValue4);
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error creating test ccdi level values",
@@ -393,16 +272,6 @@ public class InitialData {
 		} catch (NoResultException e) {
 			try {
 				logger.info("creating test ccdiDefinition");
-				CCDIDefinition material = new CCDIDefinition("MATERIAL",
-						"MATERIAL", 10, 5, CCDIStatusEnum.ACTIVE,
-						new Concept(), CodeTypeEnum.ALPHANUMERIC, false, "");
-				CCDIDefinition farmaco = new CCDIDefinition("FARMACO",
-						"FARMACO", 10, 5, CCDIStatusEnum.ACTIVE, new Concept(),
-						CodeTypeEnum.ALPHANUMERIC, false, "");
-
-				em.persist(material);
-				em.persist(farmaco);
-				em.flush();
 
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error creating test ccdi definition", e);
@@ -421,7 +290,7 @@ public class InitialData {
 			try {
 				logger.info("Creating Citizen test data");
 				String names[] = { "Rigoberto", "Angel", "Jorge", "Alejandro",
-				"Isaac" };
+						"Isaac" };
 				String lastNames[] = { "Sanchez", "Lacret", "Fuentes",
 						"Sanchez", "Casado" };
 				for (int i = 0; i < 5; ++i) {
@@ -703,7 +572,7 @@ public class InitialData {
 				String activityNames[] = { "Desconectar", "Abrir", "Limpiar",
 						"Cerrar", "Conectar", "Reemplazar",
 						"subprotocol_activity", "activity_1", "activity_2",
-				"activity_3" };
+						"activity_3" };
 
 				String activityDesc[] = {
 						"Desconecte el equipo de la corriente eléctrica",
@@ -715,7 +584,7 @@ public class InitialData {
 						"actividad de subprotocolo para pruebas",
 						"actividad de prueba 1 para la actividad de subprotocolo",
 						"actividad de prueba 2 para la actividad de subprotocolo",
-				"actividad de prueba 2 para la actividad de subprotocolo" };
+						"actividad de prueba 2 para la actividad de subprotocolo" };
 
 				int durations[] = { 1, 2, 2, 1, 4, 3, 5, 6, 8, 7 };
 
@@ -799,10 +668,10 @@ public class InitialData {
 			try {
 				logger.info("Creating test data: maintenance plan");
 				String planName[] = { "Plan de Mantenimiento Impresoras Tinta",
-				"Plan de Mantenimiento Impresoras Laser" };
+						"Plan de Mantenimiento Impresoras Laser" };
 				String planDesc[] = {
 						"plan de mantenimiento impresoras de tinta",
-				"plan de mantenimiento impresoras laser" };
+						"plan de mantenimiento impresoras laser" };
 				int planFrequency[] = { 1, 3 };
 				TimePeriodEnum planTimePeriod[] = { TimePeriodEnum.MONTHS,
 						TimePeriodEnum.SEMESTERS };
@@ -870,10 +739,10 @@ public class InitialData {
 				logger.info("Creating test data: MaintenanceProtocol");
 				String protocolNames[] = {
 						"Protocolo para Impresoras de Tinta",
-				"Protocolo para impresoras Laser" };
+						"Protocolo para impresoras Laser" };
 				String protocolDesc[] = {
 						"Protocolo para el mantenimiento de impresoras de tinta",
-				"Protocolo para el mantenimiento de impresoras laser" };
+						"Protocolo para el mantenimiento de impresoras laser" };
 				for (int i = 0; i < 2; ++i) {
 					MaintenanceProtocol protocol = new MaintenanceProtocol();
 					protocol.setDescription(protocolDesc[i]);
@@ -968,7 +837,7 @@ public class InitialData {
 				for (int j = 0; j < 3; j++) {
 					em.persist(new MaterialCategory("mat-cat-00" + j,
 							"material-category-00" + j, MaterialTypeEnum
-							.values()[j % 3]));
+									.values()[j % 3]));
 				}
 				em.flush();
 			} catch (Exception e1) {
@@ -1038,10 +907,11 @@ public class InitialData {
 					logger.info("no type info available in this line... Setting '1' by default");
 				}
 				try {
-					if(type == 1)
+					if (type == 1)
 						em.merge(new GHAMessage(lang, code, text, defaultType));
 					else
-						em.merge(new GHAMessage(lang, code, text, em.find(GHAMessageType.class, type)));
+						em.merge(new GHAMessage(lang, code, text, em.find(
+								GHAMessageType.class, type)));
 
 				} catch (Exception e) {
 					logger.log(Level.SEVERE,
@@ -1087,42 +957,44 @@ public class InitialData {
 		} catch (NoResultException e) {
 			try {
 				logger.info("creating test data : message types");
-				String names[] = { "SAY", "CONFIRMATION", "ASKYESNO", "ERROR_HARD","ERROR_SOFT","WARNING","INFORMATION","FAILURE","SUCCESS","PROCESSING","NEW_MESSAGE"};
+				String names[] = { "SAY", "CONFIRMATION", "ASKYESNO",
+						"ERROR_HARD", "ERROR_SOFT", "WARNING", "INFORMATION",
+						"FAILURE", "SUCCESS", "PROCESSING", "NEW_MESSAGE" };
 				int i = 1;
 				for (String name : names) {
 					GHAMessageType next = new GHAMessageType();
-					if(name.equals("SAY")){
-						//Gray
+					if (name.equals("SAY")) {
+						// Gray
 						next = new GHAMessageType(name, true, false);
-					}else if(name.equals("CONFIRMATION")){
-						//Gray
+					} else if (name.equals("CONFIRMATION")) {
+						// Gray
 						next = new GHAMessageType(name, false, true);
-					}else if(name.equals("ASKYESNO")){
-						//Gray
+					} else if (name.equals("ASKYESNO")) {
+						// Gray
 						next = new GHAMessageType(name, false, true);
-					}else if(name.equals("ERROR_HARD")){
-						//Red
+					} else if (name.equals("ERROR_HARD")) {
+						// Red
 						next = new GHAMessageType(name, false, true);
-					}else if(name.equals("ERROR_SOFT")){ 
-						//Yellow
+					} else if (name.equals("ERROR_SOFT")) {
+						// Yellow
 						next = new GHAMessageType(name, false, false);
-					}else if(name.equals("WARNING")){
-						//Blue
+					} else if (name.equals("WARNING")) {
+						// Blue
 						next = new GHAMessageType(name, false, false);
-					}else if(name.equals("INFORMATION")){
-						//Blue
+					} else if (name.equals("INFORMATION")) {
+						// Blue
 						next = new GHAMessageType(name, true, false);
-					}else if(name.equals("FAILURE")){ 
-						//Yellow
+					} else if (name.equals("FAILURE")) {
+						// Yellow
 						next = new GHAMessageType(name, false, false);
-					}else if(name.equals("SUCCESS")){
-						//Green
+					} else if (name.equals("SUCCESS")) {
+						// Green
 						next = new GHAMessageType(name, true, false);
-					}else if(name.equals("PROCESSING")){
-						//Green
+					} else if (name.equals("PROCESSING")) {
+						// Green
 						next = new GHAMessageType(name, false, false);
-					}else if(name.equals("NEW_MESSAGE")){
-						//Gray
+					} else if (name.equals("NEW_MESSAGE")) {
+						// Gray
 						next = new GHAMessageType(name, true, false);
 					}
 					em.persist(next);
@@ -1199,7 +1071,7 @@ public class InitialData {
 			try {
 				logger.info("creating test data : obu");
 				String obuNames[] = { "Administración", "Medicina General",
-				"Dpto. de Nefrologia" };
+						"Dpto. de Nefrologia" };
 				Obu obu = null;
 				for (int i = 0; i < 3; i++) {
 					obu = new Obu();

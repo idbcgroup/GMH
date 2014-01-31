@@ -5,6 +5,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.CCDIValueStatusEnum;
@@ -15,6 +17,8 @@ import org.fourgeeks.gha.domain.enu.CCDIValueStatusEnum;
  */
 
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {
+		"ccdiLevelDefinitionFk", "code" }))
 @NamedQueries(value = {
 		@NamedQuery(name = "CCDILevelValue.findByLevelDefinition", query = "SELECT e from CCDILevelValue e WHERE e.levelDefinition=:levelDefinition"),
 		@NamedQuery(name = "CCDILevelValue.findByCode", query = "SELECT e from CCDILevelValue e WHERE e.code=:code") })
