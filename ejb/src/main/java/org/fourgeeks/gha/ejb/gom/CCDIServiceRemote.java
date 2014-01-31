@@ -3,6 +3,7 @@ package org.fourgeeks.gha.ejb.gom;
 import javax.ejb.Remote;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
+import org.fourgeeks.gha.domain.gom.CCDIDefinition;
 import org.fourgeeks.gha.domain.gom.Concept;
 
 /**
@@ -55,6 +56,23 @@ public interface CCDIServiceRemote {
 			String name, int length, String valueType, String fixedValue,
 			int initialValue, int incValue, String separator,
 			String valueAtEndAction) throws GHAEJBException;
+
+	/**
+	 * This method delete a CCDI definition plus all definition levels and
+	 * values
+	 * 
+	 * @param code
+	 * @throws GHAEJBException
+	 */
+	public void delete(String code) throws GHAEJBException;
+
+	/**
+	 * @param code
+	 * @return
+	 * @throws GHAEJBException
+	 */
+	public CCDIDefinition findCCDIDefinitionByCode(String code)
+			throws GHAEJBException;
 
 	/**
 	 * @param code

@@ -3,6 +3,7 @@ package org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocols;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.fourgeeks.gha.domain.Activity;
 import org.fourgeeks.gha.domain.enu.ActivityState;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
@@ -331,14 +332,14 @@ HideableListener, MaintenancePlanSelectionListener {
 	 * save {@link MaintenanceProtocols} entity in the DB (associate an activity
 	 * to the current maintenance plan)
 	 * 
-	 * @param activity
+	 * @param maintenanceActivity
 	 *            the activity to associate
 	 */
-	private void save(final MaintenanceActivity activity) {
+	private void save(final MaintenanceActivity maintenanceActivity) {
 		int ordinal = grid.getRecords().length + 1;
 
 		MaintenanceProtocols entity = new MaintenanceProtocols();
-		entity.setMaintenanceActivity(activity);
+		entity.setMaintenanceActivity(maintenanceActivity);
 		entity.setMaintenancePlan(maintenancePlan);
 		entity.setOrdinal(ordinal);
 
@@ -346,6 +347,7 @@ HideableListener, MaintenancePlanSelectionListener {
 				new GHAAsyncCallback<MaintenanceProtocols>() {
 			@Override
 			public void onSuccess(final MaintenanceProtocols result) {
+						Activity activity = maintenanceActivity.getActivity();
 				if (activity.getState() == ActivityState.CREATED)
 					activity.setState(ActivityState.ACTIVE);
 

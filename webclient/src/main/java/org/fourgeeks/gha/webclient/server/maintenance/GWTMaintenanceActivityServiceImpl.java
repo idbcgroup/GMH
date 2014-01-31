@@ -12,7 +12,7 @@ import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.ServiceResource;
 import org.fourgeeks.gha.ejb.gmh.MaintenanceActivityServiceRemote;
-import org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocol.GWTMaintenanceActivityService;
+import org.fourgeeks.gha.webclient.client.maintenanceactivity.GWTMaintenanceActivityService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 

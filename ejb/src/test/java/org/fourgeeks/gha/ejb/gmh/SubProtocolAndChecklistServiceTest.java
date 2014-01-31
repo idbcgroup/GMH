@@ -1,5 +1,8 @@
 package org.fourgeeks.gha.ejb.gmh;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 import javax.ejb.EJB;
 
 import junit.framework.Assert;
@@ -77,6 +80,7 @@ import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.domain.gmh.ServiceResource;
 import org.fourgeeks.gha.domain.gmh.ServiceResourceCategory;
+import org.fourgeeks.gha.domain.gmh.SubProtocolAndChecklist;
 import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.domain.mix.Citizen;
 import org.fourgeeks.gha.domain.mix.Institution;
@@ -108,11 +112,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
- * @author vivi.torresg
+ * @author vivi.torresg, naramirez
  * 
  */
 @RunWith(Arquillian.class)
-public class EiaServiceTest {
+public class SubProtocolAndChecklistServiceTest {
 	/**
 	 * @return the deployment descriptor
 	 */
@@ -124,8 +128,6 @@ public class EiaServiceTest {
 				.addClass(AbstractCodeEntity.class)
 				.addClass(AppForm.class)
 				.addClass(AppFormViewFunction.class)
-				// .addClass(AppFormViewFunctionService.class)
-				// .addClass(AppFormViewFunctionServiceRemote.class)
 				.addClass(AppFormViewFunctionBpu.class)
 				.addClass(Bpi.class)
 				.addClass(BpiOriginEnum.class)
@@ -141,7 +143,6 @@ public class EiaServiceTest {
 				.addClass(DocumentTypeEnum.class)
 				.addClass(Eia.class)
 				.addClass(EiaStateEnum.class)
-				// .addClass(EiaPictureStateEnum.class)
 				.addClass(EiaDamageReport.class)
 				.addClass(EiaMaintenancePlanification.class)
 				.addClass(EiaDamageStatusEnum.class)
@@ -187,7 +188,6 @@ public class EiaServiceTest {
 				.addClass(LocationLevelEnum.class)
 				.addClass(LocationType.class)
 				.addClass(LanguageEnum.class)
-
 				.addClass(MaintenancePlan.class)
 				.addClass(MaintenancePlanStatus.class)
 				.addClass(MaintenancePlanCancelationOption.class)
@@ -199,11 +199,8 @@ public class EiaServiceTest {
 				.addClass(ActivityState.class)
 				.addClass(ActivityCategoryEnum.class)
 				.addClass(Manufacturer.class)
-				// .addClass(MaterialTypeEnum.class)
 				.addClass(ActivitySubCategoryEnum.class)
-				// .addClass(Material.class)
-				// .addClass(MaterialCategory.class)
-				.addClass(MaintenanceActivity.class)
+				.addClass(Activity.class)
 				.addClass(MaintenanceActivityServiceResource.class)
 				.addClass(Module.class)
 				.addClass(Obu.class)
@@ -228,205 +225,191 @@ public class EiaServiceTest {
 				.addClass(GHAMessageType.class)
 				.addClass(Activity.class)
 				.addClass(Bsp.class)
+				.addClass(SubProtocolAndChecklist.class)
+				.addClass(MaintenanceActivityService.class)
+				.addClass(MaintenanceActivityServiceRemote.class)
+				.addClass(SubProtocolAndCheklistService.class)
+				.addClass(SubProtocolAndCheklistServiceRemote.class)
+				.addClass(SubProtocolAndCheklistServiceLocal.class)
+				.addClass(MaintenanceActivity.class)
 				.addAsResource("test-persistence.xml",
 						"META-INF/persistence.xml")
 				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
-	private ExternalProvider externalProvider;
-	private long externalProviderId = 0l;
-	private long institutionId = 0l;
-	private long legalEntityId = 0l;
-	private Role role;
-	private final long roleId = 0l;
-	private Obu obu;
-	private EiaType eiaType;
+	@EJB(lookup = "java:global/test/SubProtocolAndCheklistService!"
+			+ "org.fourgeeks.gha.ejb.gmh.SubProtocolAndCheklistServiceRemote")
+	private SubProtocolAndCheklistServiceRemote serviceRemote;
 
-	@EJB(lookup = "java:global/test/EiaService")
-	EiaServiceRemote service;
+	@EJB(lookup = "java:global/test/SubProtocolAndCheklistService!"
+			+ "org.fourgeeks.gha.ejb.gmh.SubProtocolAndCheklistServiceLocal")
+	private SubProtocolAndCheklistServiceLocal serviceLocal;
 
-	@EJB(lookup = "java:global/test/EiaTypeService")
-	EiaTypeServiceRemote eiaTypeService;
+	private Activity activity;
+	private Activity parentActivity;
+	private SubProtocolAndChecklist subProtocol;
 
-	@EJB(lookup = "java:global/test/ObuService")
-	ObuServiceRemote obuService;
-
-	@EJB(lookup = "java:global/test/RoleService")
-	RoleServiceRemote roleService;
-
-	@EJB(lookup = "java:global/test/LegalEntityService")
-	LegalEntityServiceRemote legalEntityService;
-
-	@EJB(lookup = "java:global/test/InstitutionService")
-	InstitutionServiceRemote institutionService;
-
-	@EJB(lookup = "java:global/test/ExternalProviderService")
-	ExternalProviderServiceRemote externalProviderService;
-
-	/**
-	 */
+	/** */
 	@Before
 	public void set() {
-		// CREATING AN EIATYPE
-		String eiaTypeCode = "eiatype-code";
-		EiaType localEiaType = new EiaType();
-		localEiaType.setCode(eiaTypeCode);
-		localEiaType.setMobility(EiaMobilityEnum.FIXED);
-		localEiaType.setName("test eiatype");
-		localEiaType.setType(EiaTypeEnum.EQUIPMENT);
-		try {
-			eiaType = eiaTypeService.save(localEiaType);
-			System.out.println("AAAA\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-			System.out.println(eiaType.getCode());
-			eiaType = eiaTypeService.find(eiaTypeCode);
-			System.out.println("BBB\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-			System.out.println(eiaType.getCode());
-		} catch (GHAEJBException e) {
-			e.printStackTrace();
-			unset();
-			Assert.fail("failing creating the eiatype");
-		}
+		activity = new Activity();
+		activity.setId(1);
 
-		// CREATING AN OBU
-		String obuCode = "obu-code";
-		Obu localObu = new Obu();
-		localObu.setCode(obuCode);
-		localObu.setName("Obu test name");
+		parentActivity = new Activity();
+		parentActivity.setId(7);
 
-		try {
-			obu = obuService.save(localObu);
-		} catch (GHAEJBException e) {
-			e.printStackTrace();
-			unset();
-			Assert.fail("failing creating the obu");
-		}
-		//
-		// CREATING ROLE
-		Role localRole = new Role();
-		localRole.setName("Role test name");
-
-		try {
-			role = roleService.save(localRole);
-		} catch (GHAEJBException e) {
-			e.printStackTrace();
-			unset();
-			Assert.fail("failing creating the role");
-		}
-
-		// CREATING LEGAL ENTITY
-		LegalEntity localLegalEntity = null;
-		try {
-			localLegalEntity = legalEntityService.save(new LegalEntity());
-			legalEntityId = localLegalEntity.getId();
-		} catch (GHAEJBException e) {
-			e.printStackTrace();
-			unset();
-			Assert.fail("failing creating the legalentity");
-		}
-
-		// CREATING THE INSTITUTIoN
-		Institution localInstitution = new Institution();
-		localInstitution.setName("Institution name test");
-		localInstitution.setLegalEntity(localLegalEntity);
-		try {
-			localInstitution = institutionService.save(localInstitution);
-			institutionId = localInstitution.getId();
-		} catch (GHAEJBException e) {
-			e.printStackTrace();
-			unset();
-			Assert.fail("failing creating the intitution");
-		}
-		//
-		// CREATING THE EXTERNAL PROVIDER
-		ExternalProvider localExternalProvider = new ExternalProvider();
-		localExternalProvider.setInstitution(localInstitution);
-		try {
-			externalProvider = externalProviderService
-					.save(localExternalProvider);
-			externalProviderId = externalProvider.getId();
-		} catch (GHAEJBException e) {
-			e.printStackTrace();
-			unset();
-			Assert.fail("failing creating the intitution");
-		}
+		subProtocol = new SubProtocolAndChecklist();
+		subProtocol.setActivity(activity);
+		subProtocol.setParentActivity(parentActivity);
+		subProtocol.setOrdinal(4);
 	}
 
-	/**
-	 */
+	/** */
 	@After
 	public void unset() {
-		// DELETING THE EIATYPE
-		try {
-			eiaTypeService.delete(eiaType.getCode());
-		} catch (GHAEJBException e1) {
-			// e1.printStackTrace();
-		}
 
-		// DELETING THE OBU
-		try {
-			obuService.delete(obu.getId());
-		} catch (GHAEJBException e1) {
-			// e1.printStackTrace();
-		}
+	}
 
-		// DELETING THE ROLE
-		try {
-			roleService.delete(role.getId());
-		} catch (GHAEJBException e1) {
-			// e1.printStackTrace();
-		}
-		// DELETING THE EXTERNAL PROVIDER
-		try {
-			externalProviderService.delete(externalProviderId);
-		} catch (GHAEJBException e1) {
-			e1.printStackTrace();
-		}
+	/** */
+	@Test
+	public void test() {
+		final String sep = "\n---------------------------------------\n";
 
-		// DELETING THE InstiTUTION
-		try {
-			institutionService.delete(institutionId);
-		} catch (GHAEJBException e1) {
-			// e1.printStackTrace();
-		}
+		System.out.println("TESTING SUBPROTOCOL AND CHECKLIST SERVICE\n");
 
-		// DELETING THE LEGALENTITY
+		System.out.println(sep + "getAllTest" + sep);
+		getAllTest();
+		System.out.println(sep + "getAllTest2" + sep);
+		getAllTest2();
+		System.out.println(sep + "findByParentActivityTest" + sep);
+		findByParentActivityTest();
+		System.out.println(sep + "findByIdTest" + sep);
+		findByIdTest();
+		System.out.println(sep + "getSubProtocolActivitiesCountTest" + sep);
+		getSubProtocolActivitiesCountTest();
+		System.out.println(sep + "getSubProtocolCostTest" + sep);
+		getSubProtocolCostTest();
+		System.out.println(sep + "getSubProtocolDurationTest" + sep);
+		getSubProtocolDurationTest();
+		System.out.println(sep + "saveTest" + sep);
+		saveTest();
+		System.out.println(sep + "updateTest" + sep);
+		updateTest();
+		System.out.println(sep + "deleteTest" + sep);
+		deleteTest();
+	}
+
+	private void findByParentActivityTest() {
 		try {
-			legalEntityService.delete(legalEntityId);
-		} catch (GHAEJBException e1) {
-			// e1.printStackTrace();
+			Activity activity = new Activity();
+			activity.setId(7);
+
+			final List<SubProtocolAndChecklist> result = serviceRemote
+					.findByParentActivity(activity);
+
+			Assert.assertEquals(3, result.size());
+
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
 	}
 
-	/**
-	 */
-	@Test
-	public void test() {
-
-		System.out.println("CCCC\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-		System.out.println(eiaType.getCode());
-
-		Eia eia = new Eia();
-		eia.setEiaType(eiaType);
-		eia.setProvider(externalProvider);
-		eia.setMaintenanceProvider(externalProvider);
-		eia.setResponsibleRole(role);
-		eia.setObu(obu);
-		eia.setSerialNumber("eia-serial");
-		eia.setFixedAssetIdentifier("eia-fai");
+	private void findByIdTest() {
 		try {
-			eia = service.save(eia);
+			final SubProtocolAndChecklist result = serviceRemote.find(1);
+			Assert.assertNotNull(result);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void getAllTest() {
+		try {
+			final List<SubProtocolAndChecklist> result = serviceRemote.getAll();
+			Assert.assertEquals(3, result.size());
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void getAllTest2() {
+		final int itemsExpected = 3;
+		try {
+			final List<SubProtocolAndChecklist> result = serviceRemote.getAll(
+					0, 3);
+			Assert.assertEquals(itemsExpected, result.size());
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void saveTest() {
+		try {
+			subProtocol = serviceRemote.save(subProtocol);
+			Assert.assertNotNull(subProtocol);
 		} catch (GHAEJBException e) {
 			e.printStackTrace();
 		}
-		Assert.assertNotNull(eia);
+	}
+
+	private void updateTest() {
+		final int ordinalExpected = 5;
 		try {
-			Assert.assertEquals(4, service.getAll().size());
-		} catch (GHAEJBException e1) {
-			e1.printStackTrace();
+			subProtocol.setOrdinal(ordinalExpected);
+			SubProtocolAndChecklist result = serviceRemote.update(subProtocol);
+			final int ordinalResult = result.getOrdinal();
+
+			Assert.assertEquals(ordinalExpected, ordinalResult);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+	}
+
+	private void deleteTest() {
+		final int itemsExpected = 3;
 		try {
-			service.delete(eia.getId());
+			serviceRemote.delete(subProtocol.getId());
+
+			Assert.assertEquals(itemsExpected, serviceRemote.getAll().size());
+		} catch (GHAEJBException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void getSubProtocolActivitiesCountTest() {
+		final int countExpected = 3;
+		try {
+			final long result = serviceLocal
+					.getSubProtocolActivitiesCount(parentActivity);
+
+			Assert.assertEquals(countExpected, result);
+		} catch (GHAEJBException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void getSubProtocolCostTest() {
+		final double costExpected = 1896.97;
+		try {
+			final BigDecimal result = serviceLocal
+					.getSubProtocolCost(parentActivity);
+
+			Assert.assertEquals(costExpected, result.doubleValue());
+		} catch (GHAEJBException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void getSubProtocolDurationTest() {
+		try {
+			final int result = serviceLocal
+					.getSubProtocolDuration(parentActivity);
+
+			Assert.assertEquals(1, result);
 		} catch (GHAEJBException e) {
 			e.printStackTrace();
 		}

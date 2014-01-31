@@ -2,6 +2,7 @@ package org.fourgeeks.gha.webclient.client.maintenanceactivity;
 
 import java.util.List;
 
+import org.fourgeeks.gha.domain.Activity;
 import org.fourgeeks.gha.domain.enu.ActivityCategoryEnum;
 import org.fourgeeks.gha.domain.enu.ActivitySubCategoryEnum;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
@@ -124,17 +125,20 @@ MaintenanceActivitySelectionListener {
 	@Override
 	public void search() {
 		MaintenanceActivity maintenanceActivity = new MaintenanceActivity();
+		Activity activity = new Activity();
+
 		if (nameItem.getValue() != null)
-			maintenanceActivity.setName(nameItem.getValueAsString());
+			activity.setName(nameItem.getValueAsString());
 		if (descriptionItem.getValue() != null)
-			maintenanceActivity.setDescription(descriptionItem
-					.getValueAsString());
+			activity.setDescription(descriptionItem.getValueAsString());
 		if (subCategorySelectItem.getValue() != null)
-			maintenanceActivity.setSubCategory(ActivitySubCategoryEnum
+			activity.setSubCategory(ActivitySubCategoryEnum
 					.valueOf(subCategorySelectItem.getValueAsString()));
 		if (categorySelectItem.getValue() != null)
-			maintenanceActivity.setCategory(ActivityCategoryEnum
+			activity.setCategory(ActivityCategoryEnum
 					.valueOf(categorySelectItem.getValueAsString()));
+
+		maintenanceActivity.setActivity(activity);
 
 		search(maintenanceActivity);
 	}
@@ -160,10 +164,12 @@ MaintenanceActivitySelectionListener {
 	@Override
 	public void select(MaintenanceActivity maintenanceActivity) {
 		selectedActivity = maintenanceActivity;
-		nameItem.setValue(maintenanceActivity.getName());
-		descriptionItem.setValue(maintenanceActivity.getDescription());
-		categorySelectItem.setValue(maintenanceActivity.getCategory());
-		subCategorySelectItem.setValue(maintenanceActivity.getSubCategory());
+		Activity activity = selectedActivity.getActivity();
+
+		nameItem.setValue(activity.getName());
+		descriptionItem.setValue(activity.getDescription());
+		categorySelectItem.setValue(activity.getCategory());
+		subCategorySelectItem.setValue(activity.getSubCategory());
 
 		deactivate();
 		sideButtons.addMember(deleteButton, 0);

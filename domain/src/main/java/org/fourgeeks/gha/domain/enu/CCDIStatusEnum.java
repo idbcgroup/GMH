@@ -9,7 +9,7 @@ import java.util.List;
  * 
  */
 public enum CCDIStatusEnum {
-	ACTIVE("activo", "ccdistatus-active"), INACTIVE("inactive",
+	ACTIVE("active", "ccdistatus-active"), INACTIVE("inactive",
 			"ccdistatus-inactive");
 	/**
 	 * @param string
