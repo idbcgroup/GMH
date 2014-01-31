@@ -1,6 +1,6 @@
 package org.fourgeeks.gha.webclient.client.UI.alerts.modal;
 
-import org.fourgeeks.gha.domain.msg.GHAMessage;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.alerts.GHADialog;
 
 import com.smartgwt.client.widgets.Button;
@@ -14,23 +14,14 @@ import com.smartgwt.client.widgets.Button;
 public class GHAAskDialog extends GHADialog {
 
 	/**
-	 * @param ghaMessage
-	 * @param buttons 
-	 */
-	public GHAAskDialog(GHAMessage ghaMessage, Button... buttons){
-		//TODO: decodificador por el GHAMessage
-		super(DialogType.ASKYESNO,false,false,buttons);
-	}
-
-	/**
 	 * @param message 
 	 * @param buttons 
 	 */
 	public GHAAskDialog(String message, Button... buttons) {
-		super(DialogType.ASKYESNO,false,false,buttons);
+		super("ASKYESNO",false,false,buttons);
 		setMessage(message);
+		initByType();
 	}
-
 	/**
 	 * @param title
 	 * @param message
@@ -41,12 +32,27 @@ public class GHAAskDialog extends GHADialog {
 		setTitle(title);
 	}
 
+	/**
+	 * 
+	 */
+	private void initByType() {
+		initTypeParams();
+		confModalTimingSettings();
+	}
+
 	/* (non-Javadoc)
 	 * @see org.fourgeeks.gha.webclient.client.UI.alerts.GHADialog#initTypeParams()
 	 */
 	@Override
 	protected void initTypeParams() {
-		// TODO Auto-generated method stub
-
+		// Gray
+		dialogType = "ASKYESNO";
+		isTimed = false;
+		isModal = true;
+		setTitle(GHAStrings.get("confirm"));
+		setBorder("1px solid #BCBCBC");
+		setBackgroundColor("#BCBCBC");
+		setBodyColor("#EFEFEF");
+		setIcon("../resources/icons/msgIT/ask.png");
 	}
 }

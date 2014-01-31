@@ -32,14 +32,14 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
  * 
  */
 public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
-		UserSelectionListener {
+UserSelectionListener {
 
 	private SSOUser selectedUser;
 	private GHATextItem usernameItem;
 	private GHADoumentTypeSelectItem idTypeSelectItem;
 	private GHASelectItem stateItem;
 	private GHANameTextItem firstNameItem, secondNameItem, firstLastNameItem,
-			secondLastNameItem;
+	secondLastNameItem;
 	private GHATextItem idItem;
 	private GHAEmailTextItem emailItem;
 	private GHASelectItem genderSelectItem;
@@ -81,6 +81,65 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 				idItem, emailItem, genderSelectItem, stateItem);
 
 		addMembers(form, new LayoutSpacer(), sideButtons);
+	}
+
+	@Override
+	public void activate() {
+		toggleForm(false);
+		usernameItem.focusInItem();
+		super.activate();
+	}
+
+	@Override
+	public void clear() {
+		usernameItem.clearValue();
+		stateItem.clearValue();
+		idTypeSelectItem.clearValue();
+		idItem.clearValue();
+		firstNameItem.clearValue();
+		secondNameItem.clearValue();
+		firstLastNameItem.clearValue();
+		secondLastNameItem.clearValue();
+		emailItem.clearValue();
+		genderSelectItem.clearValue();
+		searchButton.setDisabled(false);
+		cleanButton.setDisabled(false);
+		activated = true;
+		selectedUser = null;
+	}
+
+	@Override
+	public void deactivate() {
+		toggleForm(true);
+		sideButtons.removeMembers(searchButton, cleanButton, deleteButton);
+	}
+
+	@Override
+	protected void delete() {
+		GHAAlertManager.confirm("ssoUser-delete-confirm",
+				new BooleanCallback() {
+			@Override
+			public void execute(Boolean value) {
+				if (value) {
+					UserModel.delete(selectedUser.getId(),
+							new GHAAsyncCallback<Void>() {
+						@Override
+						public void onSuccess(Void result) {
+							containerTab.search();
+							clear();
+							GHAAlertManager
+							.alert("ssoUser-delete-success");
+						}
+					});
+				}
+			}
+		});
+	}
+
+	@Override
+	public void onResize(ResizeEvent event) {
+		super.onResize(event);
+		form.resize();
 	}
 
 	@Override
@@ -183,65 +242,5 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 		genderSelectItem.setDisabled(disabled);
 		cleanButton.setDisabled(disabled);
 		activated = !disabled;
-	}
-
-	@Override
-	public void deactivate() {
-		toggleForm(true);
-		sideButtons.removeMembers(searchButton, cleanButton, deleteButton);
-	}
-
-	@Override
-	public void activate() {
-		toggleForm(false);
-		usernameItem.focusInItem();
-		super.activate();
-	}
-
-	@Override
-	public void clear() {
-		usernameItem.clearValue();
-		stateItem.clearValue();
-		idTypeSelectItem.clearValue();
-		idItem.clearValue();
-		firstNameItem.clearValue();
-		secondNameItem.clearValue();
-		firstLastNameItem.clearValue();
-		secondLastNameItem.clearValue();
-		emailItem.clearValue();
-		genderSelectItem.clearValue();
-		searchButton.setDisabled(false);
-		cleanButton.setDisabled(false);
-		activated = true;
-		selectedUser = null;
-	}
-
-	@Override
-	protected void delete() {
-		GHAAlertManager.confirm(GHAStrings.get("user"),
-				GHAStrings.get("ssoUser-delete-confirm"),
-				new BooleanCallback() {
-					@Override
-					public void execute(Boolean value) {
-						if (value) {
-							UserModel.delete(selectedUser.getId(),
-									new GHAAsyncCallback<Void>() {
-										@Override
-										public void onSuccess(Void result) {
-											containerTab.search();
-											clear();
-											GHAAlertManager
-													.alert("ssoUser-delete-success");
-										}
-									});
-						}
-					}
-				});
-	}
-
-	@Override
-	public void onResize(ResizeEvent event) {
-		super.onResize(event);
-		form.resize();
 	}
 }

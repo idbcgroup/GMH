@@ -2,7 +2,6 @@ package org.fourgeeks.gha.webclient.client.maintenanceactivity.information;
 
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
-import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
@@ -27,9 +26,9 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class MaintenanceActivityDefinitionFormPanel extends GHAVerticalLayout
-		implements ClosableListener, HideableListener,
-		MaintenanceActivitySelectionListener,
-		MaintenanceActivitySelectionProducer {
+implements ClosableListener, HideableListener,
+MaintenanceActivitySelectionListener,
+MaintenanceActivitySelectionProducer {
 
 	private final MaintenanceActivityForm form = new MaintenanceActivityForm();
 
@@ -45,11 +44,11 @@ public class MaintenanceActivityDefinitionFormPanel extends GHAVerticalLayout
 						update();
 					}
 				}), new GHAUndoButton(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				undo();
-			}
-		}));
+					@Override
+					public void onClick(ClickEvent event) {
+						undo();
+					}
+				}));
 
 		HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
@@ -74,19 +73,18 @@ public class MaintenanceActivityDefinitionFormPanel extends GHAVerticalLayout
 				return true;
 			}
 
-			GHAAlertManager.askYesNoCancel(GHAStrings.get("information"),
-					GHAStrings.get("unsaved-changes"), new ClickHandler() {
-						@Override
-						public void onClick(ClickEvent event) {
-							GHAPlaceSet.closeCurrentPlace(HideCloseAction.SAVE);
-						}
-					}, new ClickHandler() {
-						@Override
-						public void onClick(ClickEvent event) {
-							GHAPlaceSet
-									.closeCurrentPlace(HideCloseAction.DISCARD);
-						}
-					}, null);
+			GHAAlertManager.askYesNoCancel("unsaved-changes", new ClickHandler() {
+				@Override
+				public void onClick(ClickEvent event) {
+					GHAPlaceSet.closeCurrentPlace(HideCloseAction.SAVE);
+				}
+			}, new ClickHandler() {
+				@Override
+				public void onClick(ClickEvent event) {
+					GHAPlaceSet
+					.closeCurrentPlace(HideCloseAction.DISCARD);
+				}
+			}, null);
 			return false;
 		}
 		return true;
@@ -103,19 +101,18 @@ public class MaintenanceActivityDefinitionFormPanel extends GHAVerticalLayout
 				return true;
 			}
 
-			GHAAlertManager.askYesNoCancel(GHAStrings.get("information"),
-					GHAStrings.get("unsaved-changes"), new ClickHandler() {
-						@Override
-						public void onClick(ClickEvent event) {
-							GHAPlaceSet.hideCurrentPlace(HideCloseAction.SAVE);
-						}
-					}, new ClickHandler() {
-						@Override
-						public void onClick(ClickEvent event) {
-							GHAPlaceSet
-									.hideCurrentPlace(HideCloseAction.DISCARD);
-						}
-					}, null);
+			GHAAlertManager.askYesNoCancel("unsaved-changes", new ClickHandler() {
+				@Override
+				public void onClick(ClickEvent event) {
+					GHAPlaceSet.hideCurrentPlace(HideCloseAction.SAVE);
+				}
+			}, new ClickHandler() {
+				@Override
+				public void onClick(ClickEvent event) {
+					GHAPlaceSet
+					.hideCurrentPlace(HideCloseAction.DISCARD);
+				}
+			}, null);
 			return false;
 		}
 		return true;
@@ -138,6 +135,15 @@ public class MaintenanceActivityDefinitionFormPanel extends GHAVerticalLayout
 		form.removeMaintenanceActivitySelectionListener(listener);
 	}
 
+	@Override
+	public void select(MaintenanceActivity maintenanceActivity) {
+		form.set(maintenanceActivity);
+	}
+
+	protected void undo() {
+		form.undo();
+	}
+
 	private void update() {
 		form.update(new GHAAsyncCallback<MaintenanceActivity>() {
 			@Override
@@ -145,14 +151,5 @@ public class MaintenanceActivityDefinitionFormPanel extends GHAVerticalLayout
 				GHAAlertManager.alert("activity-update-success");
 			}
 		});
-	}
-
-	protected void undo() {
-		form.undo();
-	}
-
-	@Override
-	public void select(MaintenanceActivity maintenanceActivity) {
-		form.set(maintenanceActivity);
 	}
 }

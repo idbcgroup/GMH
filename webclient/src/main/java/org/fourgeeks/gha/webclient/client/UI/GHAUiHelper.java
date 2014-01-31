@@ -166,10 +166,6 @@ public abstract class GHAUiHelper {
 	 */
 	public static final String BLANK_SPACE = "&nbsp";
 
-	public static final int DEFAULT_NOTIFICATION_WIDTH = 280;
-	public static final int DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT = 120;
-	public static final int DEFAULT_NOTIFICATION_BUTTONS_HEIGHT = 140;
-
 	private static List<ResizeHandler> handlers = new ArrayList<ResizeHandler>();
 
 	private static List<EventListener> mouseOverHandlers = new ArrayList<EventListener>();

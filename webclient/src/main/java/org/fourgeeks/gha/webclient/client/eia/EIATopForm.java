@@ -35,7 +35,7 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
  * 
  */
 public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
-		EIASelectionListener {
+EIASelectionListener {
 
 	private GHATextItem serialNumber;
 	private GHATextItem fixedAssetIdentifier;
@@ -48,10 +48,10 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 	private GHAWorkingAreaSelectItem workingAreaLocationSelectItem;
 	private GHAFacilitySelectItem facilityLocationSelectItem;
 	private GHADynamicForm form;
-	private int HOURS_DAY = 24;
-	private int DAYS_WEEK = 7;
-	private int MONTHS_SEMESTER = 6;
-	private int MONTHS_YEAR = 12;
+	private final int HOURS_DAY = 24;
+	private final int DAYS_WEEK = 7;
+	private final int MONTHS_SEMESTER = 6;
+	private final int MONTHS_YEAR = 12;
 
 	private Eia selectedEia;
 
@@ -100,23 +100,29 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 		addMembers(form, new LayoutSpacer(), sideButtons);
 	}
 
-	private void toggleForm(boolean disabled) {
-		serialNumber.setDisabled(disabled);
-		fixedAssetIdentifier.setDisabled(disabled);
-		stateSelectItem.setDisabled(disabled);
-		workingAreaLocationSelectItem.setDisabled(disabled);
-		facilityLocationSelectItem.setDisabled(disabled);
-		obuSelectItem.setDisabled(disabled);
-		bpiObuSelectItem.setDisabled(disabled);
-		baseRoleSelectItem.setDisabled(disabled);
-		activated = !disabled;
-	}
-
 	@Override
 	public void activate() {
 		toggleForm(false);
 		super.activate();
 
+	}
+
+	@Override
+	public void clear() {
+		// first check if the topform is active for search
+		if (!this.activated)
+			return;
+
+		serialNumber.clearValue();
+		fixedAssetIdentifier.clearValue();
+		stateSelectItem.clearValue();
+		workingAreaLocationSelectItem.clearValue();
+		facilityLocationSelectItem.clearValue();
+		obuSelectItem.clearValue();
+		bpiObuSelectItem.clearValue();
+		baseRoleSelectItem.clearValue();
+		warrantyState.clearValue();
+		warrantyTimeLeft.clearValue();
 	}
 
 	@Override
@@ -132,24 +138,103 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 
 	@Override
 	protected void delete() {
-		GHAAlertManager.confirm(GHAStrings.get("eia"),
-				GHAStrings.get("eia-delete-success"), new BooleanCallback() {
-					@Override
-					public void execute(Boolean value) {
-						if (value) {
-							EIAModel.delete(selectedEia.getId(),
-									new GHAAsyncCallback<Boolean>() {
-										@Override
-										public void onSuccess(Boolean result) {
-											containerTab.search();
-											clear();
-											GHAAlertManager
-													.alert("eia-delete-success");
-										}
-									});
+		GHAAlertManager.confirm("eia-delete-confirm", new BooleanCallback() {
+			@Override
+			public void execute(Boolean value) {
+				if (value) {
+					EIAModel.delete(selectedEia.getId(),
+							new GHAAsyncCallback<Boolean>() {
+						@Override
+						public void onSuccess(Boolean result) {
+							containerTab.search();
+							clear();
+							GHAAlertManager
+							.alert("eia-delete-success");
 						}
-					}
-				});
+					});
+				}
+			}
+		});
+	}
+
+	private int getMonthsLeft(Date warranty, int warrantyTime,
+			TimePeriodEnum time) {
+		if (time == TimePeriodEnum.DAYS) {
+			CalendarUtil.addDaysToDate(warranty, warrantyTime);
+		} else if (time == TimePeriodEnum.MONTHS) {
+			CalendarUtil.addMonthsToDate(warranty, warrantyTime);
+		}
+		Date now = new Date();
+
+		int monthsLeft = (int) Math.ceil((double) (warranty.getTime() - now
+				.getTime()) / (1000L * 60 * 60 * 24 * 30));
+		return monthsLeft;
+	}
+
+	/**
+	 * Time left (in months) of the selected eia´s warranty
+	 * 
+	 * @return The time. <b>null</b> if some information to calculate the
+	 *         remaining time is missing.
+	 */
+	private Integer getWarrantyTimeLeft() {
+
+		if (selectedEia.getIntWarrantyBegin() == null
+				|| selectedEia.getRealWarrantyBegin() == null)
+			return null;
+
+		Date intWB = (Date) selectedEia.getIntWarrantyBegin().clone();
+		Date realWB = (Date) selectedEia.getRealWarrantyBegin().clone();
+		Date warrantyBegin;
+		TimePeriodEnum warrantyPot;
+		int warrantyTime;
+
+		if (intWB.equals(realWB)) {
+			warrantyBegin = realWB;
+			warrantyPot = selectedEia.getRealWarrantyPoT();
+			warrantyTime = selectedEia.getRealWarrantyTime();
+		} else {
+			warrantyBegin = intWB;
+			warrantyPot = selectedEia.getIntWarrantyPoT();
+			warrantyTime = selectedEia.getIntWarrantyTime();
+		}
+
+		int months = 0;
+		switch (warrantyPot) {
+		case HOURS:
+			int hoursToDays = (int) Math
+			.ceil((double) warrantyTime / HOURS_DAY);
+			months = getMonthsLeft(warrantyBegin, hoursToDays,
+					TimePeriodEnum.DAYS);
+			break;
+		case DAYS:
+			months = getMonthsLeft(warrantyBegin, warrantyTime,
+					TimePeriodEnum.DAYS);
+			break;
+		case WEEKS:
+			months = getMonthsLeft(warrantyBegin, DAYS_WEEK * warrantyTime,
+					TimePeriodEnum.DAYS);
+			break;
+		case MONTHS:
+			months = getMonthsLeft(warrantyBegin, warrantyTime,
+					TimePeriodEnum.MONTHS);
+			break;
+		case SEMESTERS:
+			months = getMonthsLeft(warrantyBegin, MONTHS_SEMESTER
+					* warrantyTime, TimePeriodEnum.MONTHS);
+			break;
+		case YEARS:
+			months = getMonthsLeft(warrantyBegin, MONTHS_YEAR * warrantyTime,
+					TimePeriodEnum.MONTHS);
+			break;
+		}
+		return new Integer(months);
+	}
+
+	@Override
+	public void onResize(ResizeEvent event) {
+		super.onResize(event);
+		form.resize();
 	}
 
 	/**
@@ -229,7 +314,7 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 			stateSelectItem.setValue(eia.getState().name());
 		if (eia.getWorkingArea() != null) {
 			workingAreaLocationSelectItem
-					.setValue(eia.getWorkingArea().getId());
+			.setValue(eia.getWorkingArea().getId());
 		}
 		if (eia.getFacility() != null) {
 			facilityLocationSelectItem.setValue(eia.getFacility().getId());
@@ -253,101 +338,15 @@ public class EIATopForm extends GHATopForm<EiaResultSet, Eia> implements
 		sideButtons.addMember(deleteButton, 0);
 	}
 
-	@Override
-	public void clear() {
-		// first check if the topform is active for search
-		if (!this.activated)
-			return;
-
-		serialNumber.clearValue();
-		fixedAssetIdentifier.clearValue();
-		stateSelectItem.clearValue();
-		workingAreaLocationSelectItem.clearValue();
-		facilityLocationSelectItem.clearValue();
-		obuSelectItem.clearValue();
-		bpiObuSelectItem.clearValue();
-		baseRoleSelectItem.clearValue();
-		warrantyState.clearValue();
-		warrantyTimeLeft.clearValue();
-	}
-
-	@Override
-	public void onResize(ResizeEvent event) {
-		super.onResize(event);
-		form.resize();
-	}
-
-	/**
-	 * Time left (in months) of the selected eia´s warranty
-	 * 
-	 * @return The time. <b>null</b> if some information to calculate the
-	 *         remaining time is missing.
-	 */
-	private Integer getWarrantyTimeLeft() {
-
-		if (selectedEia.getIntWarrantyBegin() == null
-				|| selectedEia.getRealWarrantyBegin() == null)
-			return null;
-
-		Date intWB = (Date) selectedEia.getIntWarrantyBegin().clone();
-		Date realWB = (Date) selectedEia.getRealWarrantyBegin().clone();
-		Date warrantyBegin;
-		TimePeriodEnum warrantyPot;
-		int warrantyTime;
-
-		if (intWB.equals(realWB)) {
-			warrantyBegin = realWB;
-			warrantyPot = selectedEia.getRealWarrantyPoT();
-			warrantyTime = selectedEia.getRealWarrantyTime();
-		} else {
-			warrantyBegin = intWB;
-			warrantyPot = selectedEia.getIntWarrantyPoT();
-			warrantyTime = selectedEia.getIntWarrantyTime();
-		}
-
-		int months = 0;
-		switch (warrantyPot) {
-		case HOURS:
-			int hoursToDays = (int) Math
-					.ceil((double) warrantyTime / HOURS_DAY);
-			months = getMonthsLeft(warrantyBegin, hoursToDays,
-					TimePeriodEnum.DAYS);
-			break;
-		case DAYS:
-			months = getMonthsLeft(warrantyBegin, warrantyTime,
-					TimePeriodEnum.DAYS);
-			break;
-		case WEEKS:
-			months = getMonthsLeft(warrantyBegin, DAYS_WEEK * warrantyTime,
-					TimePeriodEnum.DAYS);
-			break;
-		case MONTHS:
-			months = getMonthsLeft(warrantyBegin, warrantyTime,
-					TimePeriodEnum.MONTHS);
-			break;
-		case SEMESTERS:
-			months = getMonthsLeft(warrantyBegin, MONTHS_SEMESTER
-					* warrantyTime, TimePeriodEnum.MONTHS);
-			break;
-		case YEARS:
-			months = getMonthsLeft(warrantyBegin, MONTHS_YEAR * warrantyTime,
-					TimePeriodEnum.MONTHS);
-			break;
-		}
-		return new Integer(months);
-	}
-
-	private int getMonthsLeft(Date warranty, int warrantyTime,
-			TimePeriodEnum time) {
-		if (time == TimePeriodEnum.DAYS) {
-			CalendarUtil.addDaysToDate(warranty, warrantyTime);
-		} else if (time == TimePeriodEnum.MONTHS) {
-			CalendarUtil.addMonthsToDate(warranty, warrantyTime);
-		}
-		Date now = new Date();
-
-		int monthsLeft = (int) Math.ceil((double) (warranty.getTime() - now
-				.getTime()) / (1000L * 60 * 60 * 24 * 30));
-		return monthsLeft;
+	private void toggleForm(boolean disabled) {
+		serialNumber.setDisabled(disabled);
+		fixedAssetIdentifier.setDisabled(disabled);
+		stateSelectItem.setDisabled(disabled);
+		workingAreaLocationSelectItem.setDisabled(disabled);
+		facilityLocationSelectItem.setDisabled(disabled);
+		obuSelectItem.setDisabled(disabled);
+		bpiObuSelectItem.setDisabled(disabled);
+		baseRoleSelectItem.setDisabled(disabled);
+		activated = !disabled;
 	}
 }

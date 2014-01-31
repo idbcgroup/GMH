@@ -41,8 +41,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
-		MaintenanceProtocolsSelectionProducer, ClosableListener,
-		HideableListener, MaintenancePlanSelectionListener {
+MaintenanceProtocolsSelectionProducer, ClosableListener,
+HideableListener, MaintenancePlanSelectionListener {
 
 	private List<MaintenanceProtocolsSelectionListener> listeners;
 
@@ -62,22 +62,22 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 		planSearchForm = new MaintenancePlanSearchForm(
 				GHAStrings.get("maintenance-plan"));
 		planSearchForm
-				.addMaintenancePlanSelectionListener(new MaintenancePlanSelectionListener() {
-					@Override
-					public void select(MaintenancePlan planFrom) {
-						save(planFrom);
-					}
-				});
+		.addMaintenancePlanSelectionListener(new MaintenancePlanSelectionListener() {
+			@Override
+			public void select(MaintenancePlan planFrom) {
+				save(planFrom);
+			}
+		});
 
 		activitySearchForm = new MaintenanceActivitySearchForm(
 				GHAStrings.get("maintenance-activity"));
 		activitySearchForm
-				.addMaintenanceActivitySelectionListener(new MaintenanceActivitySelectionListener() {
-					@Override
-					public void select(MaintenanceActivity activity) {
-						save(activity);
-					}
-				});
+		.addMaintenanceActivitySelectionListener(new MaintenanceActivitySelectionListener() {
+			@Override
+			public void select(MaintenanceActivity activity) {
+				save(activity);
+			}
+		});
 	}
 
 	/**
@@ -205,30 +205,37 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 				.getSelectedEntities();
 
 		if (selectedEntities == null) {
-			GHAAlertManager.confirm(GHAStrings.get("protocol"),
-					GHAStrings.get("maintenance-protocol-delete-confirm"),
+			GHAAlertManager.confirm("maintenance-protocol-delete-confirm",
 					new BooleanCallback() {
-						@Override
-						public void execute(Boolean value) {
-							if (value)
-								deleteByMaintenancePlan();
-							grid.focus();
-						}
-					});
+				@Override
+				public void execute(Boolean value) {
+					if (value)
+						deleteByMaintenancePlan();
+					grid.focus();
+				}
+			});
 		} else {
-			String message = selectedEntities.size() == 1 ? GHAStrings
-					.get("activity-delete-confirm") : GHAStrings
-					.get("activities-delete-confirm");
-
-			GHAAlertManager.confirm(GHAStrings.get("protocol"), message,
-					new BooleanCallback() {
-						@Override
-						public void execute(Boolean value) {
-							if (value)
-								deleteSelectedEntities(selectedEntities);
-							grid.focus();
-						}
-					});
+			if(selectedEntities.size() == 1){
+				GHAAlertManager.confirm("activity-delete-confirm",
+						new BooleanCallback() {
+					@Override
+					public void execute(Boolean value) {
+						if (value)
+							deleteSelectedEntities(selectedEntities);
+						grid.focus();
+					}
+				});
+			}else{
+				GHAAlertManager.confirm("activities-delete-confirm",
+						new BooleanCallback() {
+					@Override
+					public void execute(Boolean value) {
+						if (value)
+							deleteSelectedEntities(selectedEntities);
+						grid.focus();
+					}
+				});
+			}
 		}
 	}
 
@@ -238,14 +245,14 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 	private void deleteByMaintenancePlan() {
 		MaintenanceProtocolsModel.deleteByMaintenancePlan(maintenancePlan,
 				new GHAAsyncCallback<Integer>() {
-					@Override
-					public void onSuccess(Integer result) {
-						loadData();
-						notifyMaintenanceProtocols(null);
-						GHAAlertManager
-								.alert("delete-protocol-activities-success");
-					}
-				});
+			@Override
+			public void onSuccess(Integer result) {
+				loadData();
+				notifyMaintenanceProtocols(null);
+				GHAAlertManager
+				.alert("delete-protocol-activities-success");
+			}
+		});
 	}
 
 	/**
@@ -258,13 +265,13 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 			final List<MaintenanceProtocols> selectedEntities) {
 		MaintenanceProtocolsModel.delete(selectedEntities,
 				new GHAAsyncCallback<Void>() {
-					@Override
-					public void onSuccess(Void result) {
-						loadData();
-						notifyMaintenanceProtocols(null);
-						GHAAlertManager.alert("delete-activities-success");
-					}
-				});
+			@Override
+			public void onSuccess(Void result) {
+				loadData();
+				notifyMaintenanceProtocols(null);
+				GHAAlertManager.alert("delete-activities-success");
+			}
+		});
 	}
 
 	/**
@@ -273,22 +280,22 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 	private void loadData() {
 		MaintenanceProtocolsModel.findByMaintenancePlan(maintenancePlan,
 				new GHAAsyncCallback<List<MaintenanceProtocols>>() {
-					@Override
-					public void onSuccess(List<MaintenanceProtocols> result) {
-						MaintenanceProtocolsRecord array[] = MaintenanceProtocolsUtil
-								.toGridRecordsArray(result);
-						grid.setData(array);
-					}
-				});
+			@Override
+			public void onSuccess(List<MaintenanceProtocols> result) {
+				MaintenanceProtocolsRecord array[] = MaintenanceProtocolsUtil
+						.toGridRecordsArray(result);
+				grid.setData(array);
+			}
+		});
 
 		MaintenanceProtocolsModel.getStadisticInfo(maintenancePlan,
 				new GHAAsyncCallback<MaintenanceProtocolStadisticData>() {
-					@Override
-					public void onSuccess(
-							MaintenanceProtocolStadisticData result) {
-						stadisticDataLabel.setStadisticInfo(result);
-					}
-				});
+			@Override
+			public void onSuccess(
+					MaintenanceProtocolStadisticData result) {
+				stadisticDataLabel.setStadisticInfo(result);
+			}
+		});
 	}
 
 	/*
@@ -337,22 +344,22 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 
 		MaintenanceProtocolsModel.save(entity,
 				new GHAAsyncCallback<MaintenanceProtocols>() {
-					@Override
-					public void onSuccess(final MaintenanceProtocols result) {
-						if (activity.getState() == ActivityState.CREATED)
-							activity.setState(ActivityState.ACTIVE);
+			@Override
+			public void onSuccess(final MaintenanceProtocols result) {
+				if (activity.getState() == ActivityState.CREATED)
+					activity.setState(ActivityState.ACTIVE);
 
-						MaintenanceActivityModel.update(activity,
-								new GHAAsyncCallback<MaintenanceActivity>() {
-									@Override
-									public void onSuccess(
-											MaintenanceActivity resultActivity) {
-										loadData();
-										notifyMaintenanceProtocols(result);
-									}
-								});
+				MaintenanceActivityModel.update(activity,
+						new GHAAsyncCallback<MaintenanceActivity>() {
+					@Override
+					public void onSuccess(
+							MaintenanceActivity resultActivity) {
+						loadData();
+						notifyMaintenanceProtocols(result);
 					}
 				});
+			}
+		});
 	}
 
 	/**
@@ -365,12 +372,12 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 	private void save(MaintenancePlan planFrom) {
 		MaintenanceProtocolsModel.copyActivities(planFrom, maintenancePlan,
 				new GHAAsyncCallback<Void>() {
-					@Override
-					public void onSuccess(Void result) {
-						loadData();
-						notifyMaintenanceProtocols(null);
-					}
-				});
+			@Override
+			public void onSuccess(Void result) {
+				loadData();
+				notifyMaintenanceProtocols(null);
+			}
+		});
 	}
 
 	/*

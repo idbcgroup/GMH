@@ -2,7 +2,6 @@ package org.fourgeeks.gha.webclient.client.eiatype.information;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
-import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASaveButton;
@@ -27,8 +26,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class EIATypeInformationFormPanel extends GHAVerticalLayout implements
-		EIATypeSelectionListener, EiaTypeSelectionProducer, HideableListener,
-		ClosableListener {
+EIATypeSelectionListener, EiaTypeSelectionProducer, HideableListener,
+ClosableListener {
 
 	private final EiaTypeForm form = new EiaTypeForm();
 
@@ -46,11 +45,11 @@ public class EIATypeInformationFormPanel extends GHAVerticalLayout implements
 					}
 				}), new GHAUndoButton(new ClickHandler() {
 
-			@Override
-			public void onClick(ClickEvent event) {
-				undo();
-			}
-		}));
+					@Override
+					public void onClick(ClickEvent event) {
+						undo();
+					}
+				}));
 
 		HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
@@ -75,23 +74,22 @@ public class EIATypeInformationFormPanel extends GHAVerticalLayout implements
 				return true;
 			}
 
-			GHAAlertManager.askYesNoCancel(GHAStrings.get("information"),
-					GHAStrings.get("unsaved-changes"), new ClickHandler() {
+			GHAAlertManager.askYesNoCancel("unsaved-changes", new ClickHandler() {
 
-						@Override
-						public void onClick(ClickEvent event) {
-							GHAPlaceSet.closeCurrentPlace(HideCloseAction.SAVE);
+				@Override
+				public void onClick(ClickEvent event) {
+					GHAPlaceSet.closeCurrentPlace(HideCloseAction.SAVE);
 
-						}
-					}, new ClickHandler() {
+				}
+			}, new ClickHandler() {
 
-						@Override
-						public void onClick(ClickEvent event) {
-							GHAPlaceSet
-									.closeCurrentPlace(HideCloseAction.DISCARD);
+				@Override
+				public void onClick(ClickEvent event) {
+					GHAPlaceSet
+					.closeCurrentPlace(HideCloseAction.DISCARD);
 
-						}
-					}, null);
+				}
+			}, null);
 			return false;
 		}
 		return true;
@@ -108,23 +106,22 @@ public class EIATypeInformationFormPanel extends GHAVerticalLayout implements
 				return true;
 			}
 
-			GHAAlertManager.askYesNoCancel(GHAStrings.get("information"),
-					GHAStrings.get("unsaved-changes"), new ClickHandler() {
+			GHAAlertManager.askYesNoCancel("unsaved-changes", new ClickHandler() {
 
-						@Override
-						public void onClick(ClickEvent event) {
-							GHAPlaceSet.hideCurrentPlace(HideCloseAction.SAVE);
+				@Override
+				public void onClick(ClickEvent event) {
+					GHAPlaceSet.hideCurrentPlace(HideCloseAction.SAVE);
 
-						}
-					}, new ClickHandler() {
+				}
+			}, new ClickHandler() {
 
-						@Override
-						public void onClick(ClickEvent event) {
-							GHAPlaceSet
-									.hideCurrentPlace(HideCloseAction.DISCARD);
+				@Override
+				public void onClick(ClickEvent event) {
+					GHAPlaceSet
+					.hideCurrentPlace(HideCloseAction.DISCARD);
 
-						}
-					}, null);
+				}
+			}, null);
 			return false;
 		}
 		return true;
