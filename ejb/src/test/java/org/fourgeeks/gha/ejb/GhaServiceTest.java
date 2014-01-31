@@ -4,6 +4,7 @@ import java.sql.Date;
 
 import javax.persistence.EntityManager;
 
+import org.fourgeeks.gha.domain.Activity;
 import org.fourgeeks.gha.domain.conf.Parameter;
 import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
 import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
@@ -25,10 +26,8 @@ import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
-import org.fourgeeks.gha.domain.gmh.MaintenanceActivityMaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivityServiceResource;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
-import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.domain.gmh.ServiceResource;
 import org.fourgeeks.gha.domain.mix.Bpa;
@@ -64,10 +63,8 @@ public class GhaServiceTest {
 	private Institution institution = null;
 	private LegalEntity legalEntity = null;
 	private MaintenanceActivity maintenanceActivity = null;
-	private MaintenanceActivityMaintenanceProtocol maintenanceActivityMaintenanceProtocol = null;
 	private MaintenanceActivityServiceResource maintenanceActivityServiceResource = null;
 	private MaintenancePlan maintenancePlan = null;
-	private MaintenanceProtocol maintenanceProtocol = null;
 	private Manufacturer manufacturer;
 	private Obu obu = null;
 	private Role role = null;
@@ -267,33 +264,17 @@ public class GhaServiceTest {
 	public MaintenanceActivity getMaintenanceActivity(EntityManager em) {
 		if (maintenanceActivity == null) {
 			MaintenanceActivity maintenanceActivity = new MaintenanceActivity();
-			maintenanceActivity.setName("MaintenanceActivity test name");
-			maintenanceActivity
-					.setDescription("MaintenanceActivity test description");
+			Activity activity = new Activity();
+			activity.setName("MaintenanceActivity test name");
+			activity.setDescription("MaintenanceActivity test description");
+
+			maintenanceActivity.setActivity(activity);
 			em.persist(maintenanceActivity);
 			em.flush();
 			this.maintenanceActivity = em.find(MaintenanceActivity.class,
 					maintenanceActivity.getId());
 		}
 		return maintenanceActivity;
-	}
-
-	public MaintenanceActivityMaintenanceProtocol getMaintenanceActivityMaintenanceProtocol(
-			EntityManager em, MaintenanceActivity maintenanceActivity,
-			MaintenanceProtocol maintenanceProtocol) {
-		if (maintenanceActivityMaintenanceProtocol == null) {
-			MaintenanceActivityMaintenanceProtocol maintenanceActivityMaintenanceProtocol = new MaintenanceActivityMaintenanceProtocol();
-			maintenanceActivityMaintenanceProtocol
-					.setActivity(maintenanceActivity);
-			maintenanceActivityMaintenanceProtocol
-					.setProtocol(maintenanceProtocol);
-			em.persist(maintenanceActivityMaintenanceProtocol);
-			em.flush();
-			this.maintenanceActivityMaintenanceProtocol = em.find(
-					MaintenanceActivityMaintenanceProtocol.class,
-					maintenanceActivityMaintenanceProtocol.getId());
-		}
-		return maintenanceActivityMaintenanceProtocol;
 	}
 
 	public MaintenanceActivityServiceResource getMaintenanceActivityServiceResource(
@@ -326,18 +307,6 @@ public class GhaServiceTest {
 					maintenancePlan.getId());
 		}
 		return maintenancePlan;
-	}
-
-	public MaintenanceProtocol getMaintenanceProtocol(EntityManager em) {
-		if (maintenanceProtocol == null) {
-			MaintenanceProtocol maintenanceProtocol = new MaintenanceProtocol();
-			maintenanceProtocol.setName("MaintenanceProtocol test name");
-			em.persist(maintenanceProtocol);
-			em.flush();
-			this.maintenanceProtocol = em.find(MaintenanceProtocol.class,
-					maintenanceProtocol.getId());
-		}
-		return maintenanceProtocol;
 	}
 
 	public Manufacturer getManufacturer(EntityManager em) {

@@ -4,23 +4,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
+import org.fourgeeks.gha.domain.Activity;
 import org.fourgeeks.gha.domain.enu.ActivityCategoryEnum;
 import org.fourgeeks.gha.domain.enu.ActivitySubCategoryEnum;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
+import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.GHAUtil;
 import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAActivitySubCategorySelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAActivityCategorySelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAActivitySubCategorySelectItem;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACancelButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASearchForm;
+import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -36,25 +39,23 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class MaintenanceActivitySearchForm extends
 		GHASearchForm<MaintenanceActivity> implements
 		MaintenanceActivitySelectionListener,
-		MaintenanceActivitySelectionProducer {
+		MaintenanceActivitySelectionProducer, MaintenancePlanSelectionListener {
 
-	private boolean searchBySubProtocol;
 	private GHATextItem nameItem, descriptionItem;
-	private GHAActivityCategorySelectItem typeSelectItem;
+	private GHAActivityCategorySelectItem categorySelectItem;
 	private GHAActivitySubCategorySelectItem subTypeSelectItem;
 
 	private final GHADynamicForm form;
 	private final MaintenanceActivityResultSet resultSet;
 
 	{
-		searchBySubProtocol = false;
 		form = new GHADynamicForm(3, FormType.NORMAL_FORM);
 
 		nameItem = new GHATextItem(GHAStrings.get("name"));
 		nameItem.setLength(100);
 		descriptionItem = new GHATextItem(GHAStrings.get("description"));
 		descriptionItem.setColSpan(3);
-		typeSelectItem = new GHAActivityCategorySelectItem();
+		categorySelectItem = new GHAActivityCategorySelectItem();
 		subTypeSelectItem = new GHAActivitySubCategorySelectItem();
 
 		resultSet = new MaintenanceActivityResultSet(
@@ -64,15 +65,9 @@ public class MaintenanceActivitySearchForm extends
 					@Override
 					public void select(MaintenanceActivity maintenanceActivity) {
 						blackList = null;
-						searchBySubProtocol = false;
 						hide();
 					}
 				});
-	}
-
-	public MaintenanceActivitySearchForm(String title, boolean isSubProtocol) {
-		this(title);
-		searchBySubProtocol = isSubProtocol;
 	}
 
 	/**
@@ -84,7 +79,7 @@ public class MaintenanceActivitySearchForm extends
 	public MaintenanceActivitySearchForm(String title) {
 		super(title);
 
-		form.setItems(nameItem, typeSelectItem, subTypeSelectItem,
+		form.setItems(nameItem, categorySelectItem, subTypeSelectItem,
 				descriptionItem);
 
 		nameItem.addKeyUpHandler(searchKeyUpHandler);
@@ -194,21 +189,20 @@ public class MaintenanceActivitySearchForm extends
 	@Override
 	public void search() {
 		MaintenanceActivity maintenanceActivity = new MaintenanceActivity();
-		if (nameItem.getValue() != null)
-			maintenanceActivity.setName(nameItem.getValueAsString());
-		if (descriptionItem.getValue() != null)
-			maintenanceActivity.setDescription(descriptionItem
-					.getValueAsString());
-		if (subTypeSelectItem.getValue() != null)
-			maintenanceActivity.setSubCategory(ActivitySubCategoryEnum
-					.valueOf(subTypeSelectItem.getValueAsString()));
-		if (typeSelectItem.getValue() != null)
-			maintenanceActivity.setCategory(ActivityCategoryEnum
-					.valueOf(typeSelectItem.getValueAsString()));
-		if (searchBySubProtocol) {
-			maintenanceActivity.setIsSubProtocol(true);
-		}
+		Activity activity = new Activity();
 
+		if (nameItem.getValue() != null)
+			activity.setName(nameItem.getValueAsString());
+		if (descriptionItem.getValue() != null)
+			activity.setDescription(descriptionItem.getValueAsString());
+		if (subTypeSelectItem.getValue() != null)
+			activity.setSubCategory(ActivitySubCategoryEnum
+					.valueOf(subTypeSelectItem.getValueAsString()));
+		if (categorySelectItem.getValue() != null)
+			activity.setCategory(ActivityCategoryEnum
+					.valueOf(categorySelectItem.getValueAsString()));
+
+		maintenanceActivity.setActivity(activity);
 		search(maintenanceActivity);
 	}
 
@@ -240,15 +234,14 @@ public class MaintenanceActivitySearchForm extends
 				});
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.fourgeeks.gha.webclient.client.maintenanceactivity.
-	 * MaintenanceActivitySelectionListener
-	 * #select(org.fourgeeks.gha.domain.gmh.MaintenanceActivity)
-	 */
 	@Override
 	public void select(MaintenanceActivity maintenanceActivity) {
 		search(maintenanceActivity);
+	}
+
+	@Override
+	public void select(MaintenancePlan maintenancePlan) {
+		categorySelectItem.setValue(ActivityCategoryEnum.MAINTENANCE);
+		categorySelectItem.setDisabled(true);
 	}
 }
