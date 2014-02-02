@@ -26,6 +26,11 @@ import org.fourgeeks.gha.domain.conf.ParameterValue;
 import org.fourgeeks.gha.domain.enu.ActivityCategoryEnum;
 import org.fourgeeks.gha.domain.enu.ActivityState;
 import org.fourgeeks.gha.domain.enu.ActivitySubCategoryEnum;
+import org.fourgeeks.gha.domain.enu.CCDICodeTypeEnum;
+import org.fourgeeks.gha.domain.enu.CCDIEndValueActionEnum;
+import org.fourgeeks.gha.domain.enu.CCDIStatusEnum;
+import org.fourgeeks.gha.domain.enu.CCDIValueStatusEnum;
+import org.fourgeeks.gha.domain.enu.CCDIValueTypeEnum;
 import org.fourgeeks.gha.domain.enu.CurrencyTypeEnum;
 import org.fourgeeks.gha.domain.enu.DocumentTypeEnum;
 import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
@@ -69,6 +74,10 @@ import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.domain.gmh.SubProtocolAndChecklist;
+import org.fourgeeks.gha.domain.gom.CCDIDefinition;
+import org.fourgeeks.gha.domain.gom.CCDILevelDefinition;
+import org.fourgeeks.gha.domain.gom.CCDILevelValue;
+import org.fourgeeks.gha.domain.gom.Concept;
 import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.domain.mix.Citizen;
 import org.fourgeeks.gha.domain.mix.Institution;
@@ -258,6 +267,40 @@ public class InitialData {
 			em.createQuery(query).getSingleResult();
 		} catch (NoResultException e) {
 			try {
+				CCDIDefinition definition = em
+						.createNamedQuery("CCDIDefinition.findByCode",
+								CCDIDefinition.class)
+						.setParameter("code", "MATERIAL").getSingleResult();
+
+				CCDILevelDefinition materiales = new CCDILevelDefinition(
+						definition, 0, "MATERIALES", 1,
+						CCDIValueTypeEnum.FIXED, 0, 0, "",
+						CCDIEndValueActionEnum.RESTART);
+				em.persist(materiales);
+
+				CCDILevelDefinition type = new CCDILevelDefinition(definition,
+						0, "TIPO", 1, CCDIValueTypeEnum.FIXED, 0, 0, "",
+						CCDIEndValueActionEnum.RESTART);
+				em.persist(type);
+
+				CCDILevelDefinition family = new CCDILevelDefinition(
+						definition, 2, "FAMILIA", 2,
+						CCDIValueTypeEnum.VARIABLE, 1, 1, "",
+						CCDIEndValueActionEnum.RESTART);
+				em.persist(family);
+
+				CCDILevelDefinition subFamily = new CCDILevelDefinition(
+						definition, 3, "SUB FAMILIA", 2,
+						CCDIValueTypeEnum.VARIABLE, 1, 1, "",
+						CCDIEndValueActionEnum.RESTART);
+				em.persist(subFamily);
+
+				CCDILevelDefinition element = new CCDILevelDefinition(
+						definition, 4, "ELEMENTOS", 4,
+						CCDIValueTypeEnum.VARIABLE, 1, 1, "",
+						CCDIEndValueActionEnum.RESTART);
+				em.persist(element);
+
 			} catch (Exception e1) {
 				logger.log(Level.INFO,
 						"error creating test ccdi level definition", e);
@@ -277,6 +320,148 @@ public class InitialData {
 		} catch (NoResultException e) {
 			try {
 				logger.info("creating test CCDILevelValue");
+				CCDIDefinition definition = em
+						.createNamedQuery("CCDIDefinition.findByCode",
+								CCDIDefinition.class)
+						.setParameter("code", "MATERIAL").getSingleResult();
+
+				CCDILevelDefinition material = em
+						.createNamedQuery("CCDILevelDefinition.findByLevel",
+								CCDILevelDefinition.class)
+						.setParameter("level", 0)
+						.setParameter("definition", definition)
+						.getSingleResult();
+				CCDILevelDefinition type = em
+						.createNamedQuery("CCDILevelDefinition.findByLevel",
+								CCDILevelDefinition.class)
+						.setParameter("level", 1)
+						.setParameter("definition", definition)
+						.getSingleResult();
+				CCDILevelDefinition family = em
+						.createNamedQuery("CCDILevelDefinition.findByLevel",
+								CCDILevelDefinition.class)
+						.setParameter("level", 2)
+						.setParameter("definition", definition)
+						.getSingleResult();
+				CCDILevelDefinition subFamily = em
+						.createNamedQuery("CCDILevelDefinition.findByLevel",
+								CCDILevelDefinition.class)
+						.setParameter("level", 3)
+						.setParameter("definition", definition)
+						.getSingleResult();
+				CCDILevelDefinition element = em
+						.createNamedQuery("CCDILevelDefinition.findByLevel",
+								CCDILevelDefinition.class)
+						.setParameter("level", 4)
+						.setParameter("definition", definition)
+						.getSingleResult();
+
+				CCDILevelValue materialValue = new CCDILevelValue(material,
+						null, "MATERIAL", "0", 0, "0",
+						CCDIValueStatusEnum.ACTIVE);
+				em.persist(materialValue);
+				em.flush();
+				materialValue = em
+						.createNamedQuery("CCDILevelValue.findByCode",
+								CCDILevelValue.class)
+						.setParameter("code", materialValue.getCode())
+						.getSingleResult();
+
+				CCDILevelValue supplies = new CCDILevelValue(type,
+						materialValue, "SUMINISTROS", "01", 3, "1",
+						CCDIValueStatusEnum.ACTIVE);
+				em.persist(supplies);
+				em.flush();
+				supplies = em
+						.createNamedQuery("CCDILevelValue.findByCode",
+								CCDILevelValue.class)
+						.setParameter("code", supplies.getCode())
+						.getSingleResult();
+
+				CCDILevelValue pharmacs = new CCDILevelValue(type,
+						materialValue, "FARMACOS", "04", 1, "4",
+						CCDIValueStatusEnum.ACTIVE);
+				em.persist(pharmacs);
+				em.flush();
+				pharmacs = em
+						.createNamedQuery("CCDILevelValue.findByCode",
+								CCDILevelValue.class)
+						.setParameter("code", pharmacs.getCode())
+						.getSingleResult();
+
+				CCDILevelValue needle = new CCDILevelValue(family, supplies,
+						"AGUJAS", "0101", 3, "", CCDIValueStatusEnum.ACTIVE);
+				em.persist(needle);
+				em.flush();
+				needle = em
+						.createNamedQuery("CCDILevelValue.findByCode",
+								CCDILevelValue.class)
+						.setParameter("code", needle.getCode())
+						.getSingleResult();
+
+				CCDILevelValue syringe = new CCDILevelValue(family, supplies,
+						"AGUJAS", "0102", 2, "", CCDIValueStatusEnum.ACTIVE);
+				em.persist(syringe);
+				em.flush();
+				syringe = em
+						.createNamedQuery("CCDILevelValue.findByCode",
+								CCDILevelValue.class)
+						.setParameter("code", syringe.getCode())
+						.getSingleResult();
+
+				CCDILevelValue antiBiotics = new CCDILevelValue(family,
+						pharmacs, "ANTIBIOTICOS", "0401", 2, "",
+						CCDIValueStatusEnum.ACTIVE);
+				em.persist(antiBiotics);
+				em.flush();
+				antiBiotics = em
+						.createNamedQuery("CCDILevelValue.findByCode",
+								CCDILevelValue.class)
+						.setParameter("code", antiBiotics.getCode())
+						.getSingleResult();
+
+				CCDILevelValue hypodermic = new CCDILevelValue(subFamily,
+						needle, "HIPODERMICAS", "010101", 1, "",
+						CCDIValueStatusEnum.ACTIVE);
+				em.persist(hypodermic);
+				em.flush();
+				hypodermic = em
+						.createNamedQuery("CCDILevelValue.findByCode",
+								CCDILevelValue.class)
+						.setParameter("code", hypodermic.getCode())
+						.getSingleResult();
+
+				CCDILevelValue puncture = new CCDILevelValue(subFamily, needle,
+						"PUNCION", "010102", 1, "", CCDIValueStatusEnum.ACTIVE);
+				em.persist(puncture);
+				em.flush();
+				puncture = em
+						.createNamedQuery("CCDILevelValue.findByCode",
+								CCDILevelValue.class)
+						.setParameter("code", puncture.getCode())
+						.getSingleResult();
+
+				CCDILevelValue insuline = new CCDILevelValue(subFamily,
+						syringe, "INSULINA", "010201", 1, "",
+						CCDIValueStatusEnum.ACTIVE);
+				em.persist(insuline);
+				em.flush();
+				insuline = em
+						.createNamedQuery("CCDILevelValue.findByCode",
+								CCDILevelValue.class)
+						.setParameter("code", insuline.getCode())
+						.getSingleResult();
+
+				CCDILevelValue penicillin = new CCDILevelValue(subFamily,
+						antiBiotics, "PENICILINA", "040101", 1, "",
+						CCDIValueStatusEnum.ACTIVE);
+				em.persist(penicillin);
+				em.flush();
+				penicillin = em
+						.createNamedQuery("CCDILevelValue.findByCode",
+								CCDILevelValue.class)
+						.setParameter("code", penicillin.getCode())
+						.getSingleResult();
 
 				em.flush();
 			} catch (Exception e1) {
@@ -295,6 +480,11 @@ public class InitialData {
 		} catch (NoResultException e) {
 			try {
 				logger.info("creating test ccdiDefinition");
+
+				CCDIDefinition material = new CCDIDefinition("MATERIAL",
+						"MATERIAL", 10, 5, CCDIStatusEnum.ACTIVE,
+						new Concept(), CCDICodeTypeEnum.ALPHANUMERIC, false, "");
+				em.persist(material);
 
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error creating test ccdi definition", e);
@@ -687,10 +877,10 @@ public class InitialData {
 								MaintenanceActivity.class).getResultList();
 
 				for (int i = 0; i < 4; ++i) {
-					em.persist(new MaintenanceProtocols(plans.get(0),
-							entities.get(i), i + 1));
-					em.persist(new MaintenanceProtocols(plans.get(1),
-							entities.get(i), i + 1));
+					em.persist(new MaintenanceProtocols(plans.get(0), entities
+							.get(i), i + 1));
+					em.persist(new MaintenanceProtocols(plans.get(1), entities
+							.get(i), i + 1));
 				}
 
 				em.persist(new MaintenanceProtocols(plans.get(0), entities
@@ -779,8 +969,8 @@ public class InitialData {
 		} catch (NoResultException e) {
 			try {
 				logger.info("creating test data : material");
-				String names[] = { "aguja", "sutura", "inyectadora", "algodón",
-						"alcohol" };
+				String names[] = { "aguja", "sutura", "inyectadora",
+						"algodón", "alcohol" };
 				int i = 1;
 				for (String name : names) {
 					Material next = new Material();

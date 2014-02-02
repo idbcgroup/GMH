@@ -7,7 +7,7 @@ import org.fourgeeks.gha.domain.enu.CCDIEndValueActionEnum;
 import org.fourgeeks.gha.domain.enu.CCDIStatusEnum;
 import org.fourgeeks.gha.domain.enu.CCDIValueStatusEnum;
 import org.fourgeeks.gha.domain.enu.CCDIValueTypeEnum;
-import org.fourgeeks.gha.domain.enu.CodeTypeEnum;
+import org.fourgeeks.gha.domain.enu.CCDICodeTypeEnum;
 import org.fourgeeks.gha.domain.enu.LanguageEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gom.CCDIDefinition;
@@ -44,7 +44,7 @@ public class CCDIServiceTest {
 		return ShrinkWrap
 				.create(WebArchive.class, "test.war")
 				.addClass(AbstractEntity.class)
-				.addClass(CodeTypeEnum.class)
+				.addClass(CCDICodeTypeEnum.class)
 				.addClass(LanguageEnum.class)
 				.addClass(RuntimeParameters.class)
 				.addClass(org.fourgeeks.gha.domain.gom.Concept.class)
@@ -143,8 +143,8 @@ public class CCDIServiceTest {
 	@After
 	public void unset() {
 		try {
-			ccdiService.delete("MATERIAL-test");
-			ccdiService.delete("FARMACO-test");
+			ccdiService.deleteByCode("MATERIAL-test");
+			ccdiService.deleteByCode("FARMACO-test");
 		} catch (GHAEJBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

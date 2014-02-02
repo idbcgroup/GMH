@@ -10,7 +10,7 @@ import javax.persistence.UniqueConstraint;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.CCDIStatusEnum;
-import org.fourgeeks.gha.domain.enu.CodeTypeEnum;
+import org.fourgeeks.gha.domain.enu.CCDICodeTypeEnum;
 
 /**
  * @author emiliot
@@ -36,7 +36,7 @@ public class CCDIDefinition extends AbstractEntity {
 	@JoinColumn(name = "conceptFk")
 	private Concept concept;
 
-	private CodeTypeEnum type;
+	private CCDICodeTypeEnum type;
 	private boolean verification;
 	private String verificationMethod;
 
@@ -59,7 +59,7 @@ public class CCDIDefinition extends AbstractEntity {
 	 * @param verificationMethod
 	 */
 	public CCDIDefinition(String code, String name, int length, int levels,
-			CCDIStatusEnum status, Concept concept, CodeTypeEnum type,
+			CCDIStatusEnum status, Concept concept, CCDICodeTypeEnum type,
 			boolean verification, String verificationMethod) {
 		this.code = code;
 		this.name = name;
@@ -117,7 +117,7 @@ public class CCDIDefinition extends AbstractEntity {
 	/**
 	 * @return the type
 	 */
-	public CodeTypeEnum getType() {
+	public CCDICodeTypeEnum getType() {
 		return type;
 	}
 
@@ -187,7 +187,7 @@ public class CCDIDefinition extends AbstractEntity {
 	 * @param type
 	 *            the type to set
 	 */
-	public void setType(CodeTypeEnum type) {
+	public void setType(CCDICodeTypeEnum type) {
 		this.type = type;
 	}
 

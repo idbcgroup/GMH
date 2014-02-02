@@ -2,9 +2,9 @@ package org.fourgeeks.gha.domain.gom;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -17,11 +17,8 @@ import org.fourgeeks.gha.domain.enu.CCDIValueStatusEnum;
  */
 
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {
-		"ccdiLevelDefinitionFk", "code" }))
-@NamedQueries(value = {
-		@NamedQuery(name = "CCDILevelValue.findByLevelDefinition", query = "SELECT e from CCDILevelValue e WHERE e.levelDefinition=:levelDefinition"),
-		@NamedQuery(name = "CCDILevelValue.findByCode", query = "SELECT e from CCDILevelValue e WHERE e.code=:code") })
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "code" }))
+@NamedQueries(value = { @NamedQuery(name = "CCDILevelValue.findByCode", query = "SELECT e from CCDILevelValue e WHERE e.code=:code") })
 public class CCDILevelValue extends AbstractEntity {
 
 	/**
@@ -29,13 +26,21 @@ public class CCDILevelValue extends AbstractEntity {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "ccdiLevelDefinitionFk")
 	private CCDILevelDefinition levelDefinition;
 
+	@ManyToOne
+	@JoinColumn(name = "parentValueFk")
+	private CCDILevelValue parentValue;
+
 	private String name;
+
 	private String code;
+
 	private int nextValue;
+	private String fixedValue;
+
 	private CCDIValueStatusEnum status;
 
 	/**
@@ -47,17 +52,22 @@ public class CCDILevelValue extends AbstractEntity {
 
 	/**
 	 * @param levelDefinition
+	 * @param parentValue
 	 * @param name
 	 * @param code
 	 * @param nextValue
+	 * @param fixedValue
 	 * @param status
 	 */
-	public CCDILevelValue(CCDILevelDefinition levelDefinition, String name,
-			String code, int nextValue, CCDIValueStatusEnum status) {
+	public CCDILevelValue(CCDILevelDefinition levelDefinition,
+			CCDILevelValue parentValue, String name, String code,
+			int nextValue, String fixedValue, CCDIValueStatusEnum status) {
 		this.levelDefinition = levelDefinition;
+		this.parentValue = parentValue;
 		this.name = name;
 		this.code = code;
 		this.nextValue = nextValue;
+		this.fixedValue = fixedValue;
 		this.status = status;
 	}
 
@@ -66,6 +76,13 @@ public class CCDILevelValue extends AbstractEntity {
 	 */
 	public String getCode() {
 		return code;
+	}
+
+	/**
+	 * @return the fixedValue
+	 */
+	public String getFixedValue() {
+		return fixedValue;
 	}
 
 	/**
@@ -90,6 +107,13 @@ public class CCDILevelValue extends AbstractEntity {
 	}
 
 	/**
+	 * @return the parentValue
+	 */
+	public CCDILevelValue getParentValue() {
+		return parentValue;
+	}
+
+	/**
 	 * @return the status
 	 */
 	public CCDIValueStatusEnum getStatus() {
@@ -102,6 +126,14 @@ public class CCDILevelValue extends AbstractEntity {
 	 */
 	public void setCode(String code) {
 		this.code = code;
+	}
+
+	/**
+	 * @param fixedValue
+	 *            the fixedValue to set
+	 */
+	public void setFixedValue(String fixedValue) {
+		this.fixedValue = fixedValue;
 	}
 
 	/**
@@ -126,6 +158,14 @@ public class CCDILevelValue extends AbstractEntity {
 	 */
 	public void setNextValue(int nextValue) {
 		this.nextValue = nextValue;
+	}
+
+	/**
+	 * @param parentValue
+	 *            the parentValue to set
+	 */
+	public void setParentValue(CCDILevelValue parentValue) {
+		this.parentValue = parentValue;
 	}
 
 	/**

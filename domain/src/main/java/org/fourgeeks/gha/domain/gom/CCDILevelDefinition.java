@@ -36,7 +36,6 @@ public class CCDILevelDefinition extends AbstractEntity {
 	private String name;
 	private int length;
 	private CCDIValueTypeEnum valueType;
-	private String fixedValue;
 	private int initialValue;
 	private int incValue;
 	private String separator;
@@ -55,7 +54,6 @@ public class CCDILevelDefinition extends AbstractEntity {
 	 * @param name
 	 * @param length
 	 * @param valueType
-	 * @param fixedValue
 	 * @param initialValue
 	 * @param incValue
 	 * @param separator
@@ -63,14 +61,13 @@ public class CCDILevelDefinition extends AbstractEntity {
 	 */
 	public CCDILevelDefinition(CCDIDefinition definition, int level,
 			String name, int length, CCDIValueTypeEnum valueType,
-			String fixedValue, int initialValue, int incValue,
-			String separator, CCDIEndValueActionEnum valueAtEndAction) {
+			int initialValue, int incValue, String separator,
+			CCDIEndValueActionEnum valueAtEndAction) {
 		this.definition = definition;
 		this.level = level;
 		this.name = name;
 		this.length = length;
 		this.valueType = valueType;
-		this.fixedValue = fixedValue;
 		this.initialValue = initialValue;
 		this.incValue = incValue;
 		this.separator = separator;
@@ -82,13 +79,6 @@ public class CCDILevelDefinition extends AbstractEntity {
 	 */
 	public CCDIDefinition getDefinition() {
 		return definition;
-	}
-
-	/**
-	 * @return the fixedValue
-	 */
-	public String getFixedValue() {
-		return fixedValue;
 	}
 
 	/**
@@ -153,14 +143,6 @@ public class CCDILevelDefinition extends AbstractEntity {
 	 */
 	public void setDefinition(CCDIDefinition definition) {
 		this.definition = definition;
-	}
-
-	/**
-	 * @param fixedValue
-	 *            the fixedValue to set
-	 */
-	public void setFixedValue(String fixedValue) {
-		this.fixedValue = fixedValue;
 	}
 
 	/**
