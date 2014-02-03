@@ -71,7 +71,7 @@ public class CCDIService extends GHAEJBExceptionService implements
 		try {
 			String valueCode = "";
 			if (levelDefinition.getLevel() > 0 && parentValue != null) {
-				valueCode.concat(parentValue.getCode());
+				valueCode += parentValue.getCode();
 			}
 
 			valueCode += levelDefinition.getSeparator()
@@ -81,8 +81,11 @@ public class CCDIService extends GHAEJBExceptionService implements
 							getNextCode(parentValue)));
 
 			levelValue.setCode(valueCode);
+			System.out.println("DEBUG: " + valueCode);
+
 			levelValue.setNextValue(levelDefinition.getInitialValue());
 			levelValue.setLevelDefinition(levelDefinition);
+			levelValue.setParentValue(parentValue);
 			em.persist(levelValue);
 			em.flush();
 			levelValue = em
@@ -158,7 +161,7 @@ public class CCDIService extends GHAEJBExceptionService implements
 	 *         leading zeroes
 	 */
 	private String formatCode(int length, int nextCode) {
-		String format = "%0" + Integer.toString(length);
+		String format = "%0" + Integer.toString(length) + "d";
 		return String.format(format, nextCode);
 	}
 
@@ -197,6 +200,10 @@ public class CCDIService extends GHAEJBExceptionService implements
 	 */
 	private int getNextCode(CCDILevelValue parentValue) {
 		// TODO HANDLE FIXED
+		parentValue = em
+				.createNamedQuery("CCDILevelValue.findByCode",
+						CCDILevelValue.class)
+				.setParameter("code", parentValue.getCode()).getSingleResult();
 
 		// TODO LOCK TABLE FOR THIS OPERATION
 		int next = parentValue.getNextValue();

@@ -115,7 +115,7 @@ public class CCDIServiceTest {
 				"MATERIALES-test", 2, CCDIValueTypeEnum.FIXED, 0, 0, "",
 				CCDIEndValueActionEnum.RESTART);
 		CCDILevelDefinition type = new CCDILevelDefinition(material, 1,
-				"TIPO-test", 1, CCDIValueTypeEnum.FIXED, 0, 0, "",
+				"TIPO-test", 1, CCDIValueTypeEnum.FIXED, 1, 1, "",
 				CCDIEndValueActionEnum.RESTART);
 		CCDILevelDefinition family = new CCDILevelDefinition(material, 2,
 				"FAMILIA-test", 2, CCDIValueTypeEnum.VARIABLE, 1, 1, "",
@@ -200,6 +200,86 @@ public class CCDIServiceTest {
 					materialValue);
 			Assert.assertNotNull(materialValue);
 			Assert.assertEquals("T0", materialValue.getCode());
+		} catch (Exception e1) {
+			System.out.println("error creating ccdilevelValue in test\n");
+		}
+
+		CCDILevelValue suppliesValue = new CCDILevelValue(null, null,
+				"SUMINISTROS", null, 1, "1", CCDIValueStatusEnum.ACTIVE);
+		CCDILevelValue pharmacsValue = new CCDILevelValue(null, null,
+				"FARMACOS", null, 1, "4", CCDIValueStatusEnum.ACTIVE);
+
+		try {
+			suppliesValue = ccdiService.createCCDILevelValue(type,
+					materialValue, suppliesValue);
+			Assert.assertNotNull(suppliesValue);
+			Assert.assertEquals("T01", suppliesValue.getCode());
+
+			pharmacsValue = ccdiService.createCCDILevelValue(type,
+					materialValue, pharmacsValue);
+			Assert.assertNotNull(pharmacsValue);
+			Assert.assertEquals("T04", pharmacsValue.getCode());
+		} catch (Exception e1) {
+			System.out.println("error creating ccdilevelValue in test\n");
+			Assert.fail(e1.getCause().getMessage());
+		}
+
+		CCDILevelValue needlesValue = new CCDILevelValue(null, null, "AGUJAS",
+				null, 1, null, CCDIValueStatusEnum.ACTIVE);
+		CCDILevelValue syringeValue = new CCDILevelValue(null, null,
+				"INYECTADORAS", null, 1, null, CCDIValueStatusEnum.ACTIVE);
+		CCDILevelValue antiBiotics = new CCDILevelValue(null, null,
+				"ANTIBIOTICOS", null, 1, null, CCDIValueStatusEnum.ACTIVE);
+
+		try {
+			needlesValue = ccdiService.createCCDILevelValue(family,
+					suppliesValue, needlesValue);
+			Assert.assertNotNull(needlesValue);
+			Assert.assertEquals("T0101", needlesValue.getCode());
+
+			syringeValue = ccdiService.createCCDILevelValue(family,
+					suppliesValue, syringeValue);
+			Assert.assertNotNull(syringeValue);
+			Assert.assertEquals("T0102", syringeValue.getCode());
+
+			antiBiotics = ccdiService.createCCDILevelValue(family,
+					pharmacsValue, antiBiotics);
+			Assert.assertNotNull(antiBiotics);
+			Assert.assertEquals("T0401", antiBiotics.getCode());
+		} catch (Exception e1) {
+			System.out.println("error creating ccdilevelValue in test\n");
+			Assert.fail(e1.getCause().getMessage());
+		}
+
+		CCDILevelValue hypodermic = new CCDILevelValue(null, null,
+				"HIPODERMICAS", null, 1, null, CCDIValueStatusEnum.ACTIVE);
+		CCDILevelValue puncture = new CCDILevelValue(null, null, "PUNCION",
+				null, 1, null, CCDIValueStatusEnum.ACTIVE);
+		CCDILevelValue insuline = new CCDILevelValue(null, null, "INSULINA",
+				null, 1, null, CCDIValueStatusEnum.ACTIVE);
+		CCDILevelValue penicilline = new CCDILevelValue(null, null,
+				"PENICILINA", null, 1, null, CCDIValueStatusEnum.ACTIVE);
+
+		try {
+			hypodermic = ccdiService.createCCDILevelValue(subFamily,
+					needlesValue, hypodermic);
+			Assert.assertNotNull(hypodermic);
+			Assert.assertEquals("T010101", hypodermic.getCode());
+
+			puncture = ccdiService.createCCDILevelValue(subFamily,
+					needlesValue, puncture);
+			Assert.assertNotNull(puncture);
+			Assert.assertEquals("T010102", puncture.getCode());
+
+			insuline = ccdiService.createCCDILevelValue(subFamily,
+					syringeValue, insuline);
+			Assert.assertNotNull(insuline);
+			Assert.assertEquals("T010201", insuline.getCode());
+
+			penicilline = ccdiService.createCCDILevelValue(subFamily,
+					antiBiotics, penicilline);
+			Assert.assertNotNull(penicilline);
+			Assert.assertEquals("T040101", penicilline.getCode());
 		} catch (Exception e1) {
 			System.out.println("error creating ccdilevelValue in test\n");
 			Assert.fail(e1.getCause().getMessage());
