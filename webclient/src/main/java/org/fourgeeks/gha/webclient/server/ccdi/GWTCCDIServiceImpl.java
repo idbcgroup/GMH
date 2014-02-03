@@ -4,7 +4,9 @@ import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
-import org.fourgeeks.gha.domain.gom.Concept;
+import org.fourgeeks.gha.domain.gom.CCDIDefinition;
+import org.fourgeeks.gha.domain.gom.CCDILevelDefinition;
+import org.fourgeeks.gha.domain.gom.CCDILevelValue;
 import org.fourgeeks.gha.ejb.gom.CCDIServiceRemote;
 import org.fourgeeks.gha.webclient.client.ccdi.GWTCCDIService;
 
@@ -17,26 +19,51 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 @WebServlet(urlPatterns = { "/webclient/ccdi" })
 public class GWTCCDIServiceImpl extends RemoteServiceServlet implements
 		GWTCCDIService {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@EJB(lookup = "java:global/ear-1/ejb-1/CCDIService")
 	CCDIServiceRemote ccdiServiceRemote;
 
 	@Override
-	public String createCCDIDefinition(String code, String name, int length,
-			int levels, String status, Concept concept, String type,
-			boolean addVerify, String verificationMethod)
+	public CCDIDefinition createCCDIDefinition(CCDIDefinition definition)
 			throws GHAEJBException {
-		return ccdiServiceRemote.createCCDIDefinition(code, name, length,
-				levels, status, concept, type, addVerify, verificationMethod);
+		return ccdiServiceRemote.createCCDIDefinition(definition);
 	}
 
 	@Override
-	public String createCCDILevelDefinition(String definition, int level,
-			String name, int length, String valueType, String fixedValue,
-			int initialValue, int incValue, String separator,
-			String valueAtEndAction) throws GHAEJBException {
-		return ccdiServiceRemote.createCCDILevelDefinition(definition, level,
-				name, length, valueType, fixedValue, initialValue, incValue,
-				separator, valueAtEndAction);
+	public CCDILevelDefinition createCCDILevelDefinition(
+			CCDIDefinition definition, CCDILevelDefinition levelDefinition)
+			throws GHAEJBException {
+		return ccdiServiceRemote.createCCDILevelDefinition(definition,
+				levelDefinition);
+	}
+
+	@Override
+	public CCDILevelValue createCCDILevelValue(
+			CCDILevelDefinition levelDefinition, CCDILevelValue parentValue,
+			CCDILevelValue levelValue) throws GHAEJBException {
+		return ccdiServiceRemote.createCCDILevelValue(levelDefinition,
+				parentValue, levelValue);
+	}
+
+	@Override
+	public void deleteByCode(String code) throws GHAEJBException {
+		ccdiServiceRemote.deleteByCode(code);
+	}
+
+	@Override
+	public CCDIDefinition findCCDIDefinitionByCode(String code)
+			throws GHAEJBException {
+		return ccdiServiceRemote.findCCDIDefinitionByCode(code);
+	}
+
+	@Override
+	public CCDILevelDefinition findCCDILevelDefinitionByLevel(
+			CCDIDefinition definition, int level) throws GHAEJBException {
+		return ccdiServiceRemote.findCCDILevelDefinitionByLevel(definition,
+				level);
 	}
 
 	@Override
