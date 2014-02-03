@@ -27,7 +27,7 @@ public class CCDILevelValue extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 
 	@ManyToOne
-	@JoinColumn(name = "ccdiLevelDefinitionFk")
+	@JoinColumn(name = "ccdiLevelDefinitionFk", columnDefinition = "bigint REFERENCES ccdileveldefinition(id) ON UPDATE CASCADE ON DELETE CASCADE")
 	private CCDILevelDefinition levelDefinition;
 
 	@ManyToOne

@@ -67,27 +67,36 @@ public class CCDIService extends GHAEJBExceptionService implements
 	@Override
 	public CCDILevelValue createCCDILevelValue(
 			CCDILevelDefinition levelDefinition, CCDILevelValue parentValue,
-			CCDILevelValue levelValue) {
-		String valueCode = "";
-		if (levelDefinition.getLevel() > 0 && parentValue != null) {
-			valueCode.concat(parentValue.getCode());
+			CCDILevelValue levelValue) throws GHAEJBException {
+		try {
+			String valueCode = "";
+			if (levelDefinition.getLevel() > 0 && parentValue != null) {
+				valueCode.concat(parentValue.getCode());
+			}
+
+			valueCode += levelDefinition.getSeparator()
+					+ (levelDefinition.getValueType() == CCDIValueTypeEnum.FIXED ? levelValue
+							.getFixedValue() : formatCode(
+							levelDefinition.getLength(),
+							getNextCode(parentValue)));
+
+			levelValue.setCode(valueCode);
+			levelValue.setNextValue(levelDefinition.getInitialValue());
+			levelValue.setLevelDefinition(levelDefinition);
+			em.persist(levelValue);
+			em.flush();
+			levelValue = em
+					.createNamedQuery("CCDILevelValue.findByCode",
+							CCDILevelValue.class)
+					.setParameter("code", levelValue.getCode())
+					.getSingleResult();
+
+			return levelValue;
+		} catch (Exception e) {
+			logger.log(Level.INFO, "ERROR: delete CCDIDefinition failed", e);
+			throw super.generateGHAEJBException("ccdi-delete-fail",
+					RuntimeParameters.getLang(), em);
 		}
-
-		valueCode
-				.concat(levelDefinition.getSeparator()
-						+ (levelDefinition.getValueType() == CCDIValueTypeEnum.FIXED ? levelValue
-								.getFixedValue() : formatCode(
-								levelDefinition.getLength(),
-								getNextCode(parentValue))));
-		levelValue.setNextValue(levelDefinition.getInitialValue());
-		em.persist(levelValue);
-		em.flush();
-		levelValue = em
-				.createNamedQuery("CCDILevelValue.findByCode",
-						CCDILevelValue.class)
-				.setParameter("code", levelValue.getCode()).getSingleResult();
-
-		return levelValue;
 	}
 
 	@Override
@@ -120,6 +129,24 @@ public class CCDIService extends GHAEJBExceptionService implements
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: delete CCDIDefinition failed", e);
 			throw super.generateGHAEJBException("ccdi-find-fail",
+					RuntimeParameters.getLang(), em);
+		}
+	}
+
+	@Override
+	public CCDILevelDefinition findCCDILevelDefinitionByLevel(
+			CCDIDefinition definition, int level) throws GHAEJBException {
+		try {
+			return em
+					.createNamedQuery("CCDILevelDefinition.findByLevel",
+							CCDILevelDefinition.class)
+					.setParameter("level", level)
+					.setParameter("definition", definition).getSingleResult();
+
+		} catch (Exception e) {
+			logger.log(Level.INFO, "ERROR: delete CCDIDefinition failed", e);
+			throw super.generateGHAEJBException(
+					"ccdi-level-definition-find-fail",
 					RuntimeParameters.getLang(), em);
 		}
 	}

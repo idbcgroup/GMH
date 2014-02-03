@@ -267,6 +267,8 @@ public class InitialData {
 			em.createQuery(query).getSingleResult();
 		} catch (NoResultException e) {
 			try {
+				logger.log(Level.INFO,
+						"CREATING CCDI LEVEL DEFINITION TEST DATA");
 				CCDIDefinition definition = em
 						.createNamedQuery("CCDIDefinition.findByCode",
 								CCDIDefinition.class)
@@ -279,7 +281,7 @@ public class InitialData {
 				em.persist(materiales);
 
 				CCDILevelDefinition type = new CCDILevelDefinition(definition,
-						0, "TIPO", 1, CCDIValueTypeEnum.FIXED, 0, 0, "",
+						1, "TIPO", 1, CCDIValueTypeEnum.FIXED, 0, 0, "",
 						CCDIEndValueActionEnum.RESTART);
 				em.persist(type);
 
@@ -480,10 +482,13 @@ public class InitialData {
 		} catch (NoResultException e) {
 			try {
 				logger.info("creating test ccdiDefinition");
+				em.persist(new Concept());
+				em.flush();
 
 				CCDIDefinition material = new CCDIDefinition("MATERIAL",
-						"MATERIAL", 10, 5, CCDIStatusEnum.ACTIVE,
-						new Concept(), CCDICodeTypeEnum.ALPHANUMERIC, false, "");
+						"MATERIAL", 10, 5, CCDIStatusEnum.ACTIVE, em.find(
+								Concept.class, 1L),
+						CCDICodeTypeEnum.ALPHANUMERIC, false, "");
 				em.persist(material);
 
 			} catch (Exception e1) {

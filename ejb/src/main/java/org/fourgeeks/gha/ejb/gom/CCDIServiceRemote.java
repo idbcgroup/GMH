@@ -38,10 +38,11 @@ public interface CCDIServiceRemote {
 	 * @param parentValue
 	 * @param levelValue
 	 * @return the new CCDILevelValue
+	 * @throws GHAEJBException
 	 */
 	public CCDILevelValue createCCDILevelValue(
 			CCDILevelDefinition levelDefinition, CCDILevelValue parentValue,
-			CCDILevelValue levelValue);
+			CCDILevelValue levelValue) throws GHAEJBException;
 
 	/**
 	 * This method delete a CCDI definition plus all definition levels and
@@ -59,6 +60,15 @@ public interface CCDIServiceRemote {
 	 */
 	public CCDIDefinition findCCDIDefinitionByCode(String code)
 			throws GHAEJBException;
+
+	/**
+	 * @param definition
+	 * @param level
+	 * @return the definition for the level
+	 * @throws GHAEJBException
+	 */
+	public CCDILevelDefinition findCCDILevelDefinitionByLevel(
+			CCDIDefinition definition, int level) throws GHAEJBException;
 
 	/**
 	 * @param code

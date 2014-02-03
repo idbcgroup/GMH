@@ -2,12 +2,14 @@ package org.fourgeeks.gha.ejb.gom;
 
 import javax.ejb.EJB;
 
+import junit.framework.Assert;
+
 import org.fourgeeks.gha.domain.AbstractEntity;
+import org.fourgeeks.gha.domain.enu.CCDICodeTypeEnum;
 import org.fourgeeks.gha.domain.enu.CCDIEndValueActionEnum;
 import org.fourgeeks.gha.domain.enu.CCDIStatusEnum;
 import org.fourgeeks.gha.domain.enu.CCDIValueStatusEnum;
 import org.fourgeeks.gha.domain.enu.CCDIValueTypeEnum;
-import org.fourgeeks.gha.domain.enu.CCDICodeTypeEnum;
 import org.fourgeeks.gha.domain.enu.LanguageEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gom.CCDIDefinition;
@@ -82,72 +84,134 @@ public class CCDIServiceTest {
 	public void test() {
 		System.out.println("TESTING CCDI SERVICE\n\n\n");
 
-		// try {
-		// ccdiService.createCCDIDefinition("MATERIAL-test", "Material", 10,
-		// 5, "active", new Concept(), "alphanumeric", false, "");
-		// ccdiService.createCCDIDefinition("FARMACO-test", "Farmaco", 10, 5,
-		// "active", new Concept(), "numeric", false, "");
-		// } catch (GHAEJBException e) {
-		// System.out.println(e.getCause());
-		// unset();
-		// Assert.fail("failing creating ccdi definitions");
-		// }
-		//
-		// CCDIDefinition material = null, farmaco = null;
-		// try {
-		// material = ccdiService.findCCDIDefinitionByCode("MATERIAL-test");
-		// farmaco = ccdiService.findCCDIDefinitionByCode("FARMACO-test");
-		// } catch (GHAEJBException e) {
-		// System.out.println(e.getCause());
-		// unset();
-		// Assert.fail("failed creating ccdi definitions");
-		// }
-		//
-		// Assert.assertNotNull(material);
-		// Assert.assertNotNull(farmaco);
-		// Assert.assertEquals("MATERIAL-test", material.getCode());
-		// Assert.assertEquals("FARMACO-test", farmaco.getCode());
-		//
-		// String m0, m1, m2, m3, m4;
-		// m0 = m1 = m2 = m3 = m4 = "";
-		//
-		// try {
-		// m0 = ccdiService.createCCDILevelDefinition(material.getCode(), 0,
-		// "Materiales", 1, "fixed", "0", 0, 1, "", "");
-		// m1 = ccdiService.createCCDILevelDefinition(material.getCode(), 1,
-		// "Suministros", 1, "fixed", "1", 0, 1, "", "");
-		// // m2 = ccdiService.createCCDILevelDefinition(material.getCode(), 0,
-		// // "Materiales", 1, "fixed", "0", 0, 1, "", "");
-		// // m3 = ccdiService.createCCDILevelDefinition(material.getCode(), 0,
-		// // "Materiales", 1, "fixed", "0", 0, 1, "", "");
-		// // m4 = ccdiService.createCCDILevelDefinition(material.getCode(), 0,
-		// // "Materiales", 1, "fixed", "0", 0, 1, "", "");
-		//
-		// } catch (GHAEJBException e) {
-		// System.out.println(e.getCause());
-		// unset();
-		// Assert.fail("failed creating ccdi level definitions");
-		// }
-		//
-		// Assert.assertNotNull(m0);
-		// Assert.assertNotNull(m1);
-		// // Assert.assertNotNull(m2);
-		// // Assert.assertNotNull(m3);
-		// // Assert.assertNotNull(m4);
-		//
-		// System.out.println("M0: " + m0);
-		// System.out.println("M1: " + m1);
+		CCDIDefinition material = null;
+		try {
+			material = new CCDIDefinition("MATERIAL-test", "MATERIAL", 11, 5,
+					CCDIStatusEnum.ACTIVE, null, CCDICodeTypeEnum.ALPHANUMERIC,
+					false, "");
 
+			CCDIDefinition material2 = ccdiService
+					.createCCDIDefinition(material);
+			Assert.assertNotNull(material2);
+			Assert.assertEquals("MATERIAL-test", material2.getCode());
+
+		} catch (Exception e1) {
+			System.out.println("error creating test ccdi definition in test\n");
+			Assert.fail(e1.getCause().getMessage());
+		}
+
+		material = null;
+		try {
+			material = ccdiService.findCCDIDefinitionByCode("MATERIAL-test");
+		} catch (Exception e1) {
+			System.out
+					.println("error getting ccdidefinition by code in test\n");
+			Assert.fail(e1.getCause().getMessage());
+		}
+		Assert.assertNotNull(material);
+		Assert.assertEquals("MATERIAL-test", material.getCode());
+
+		CCDILevelDefinition materiales = new CCDILevelDefinition(material, 0,
+				"MATERIALES-test", 2, CCDIValueTypeEnum.FIXED, 0, 0, "",
+				CCDIEndValueActionEnum.RESTART);
+		CCDILevelDefinition type = new CCDILevelDefinition(material, 1,
+				"TIPO-test", 1, CCDIValueTypeEnum.FIXED, 0, 0, "",
+				CCDIEndValueActionEnum.RESTART);
+		CCDILevelDefinition family = new CCDILevelDefinition(material, 2,
+				"FAMILIA-test", 2, CCDIValueTypeEnum.VARIABLE, 1, 1, "",
+				CCDIEndValueActionEnum.RESTART);
+		CCDILevelDefinition subFamily = new CCDILevelDefinition(material, 3,
+				"SUB FAMILIA-test", 2, CCDIValueTypeEnum.VARIABLE, 1, 1, "",
+				CCDIEndValueActionEnum.RESTART);
+		CCDILevelDefinition element = new CCDILevelDefinition(material, 4,
+				"ELEMENTOS-test", 4, CCDIValueTypeEnum.VARIABLE, 1, 1, "",
+				CCDIEndValueActionEnum.RESTART);
+
+		try {
+			CCDILevelDefinition materiales2 = ccdiService
+					.createCCDILevelDefinition(material, materiales);
+			Assert.assertNotNull(materiales2);
+			Assert.assertEquals("MATERIALES-test", materiales2.getName());
+
+			CCDILevelDefinition type2 = ccdiService.createCCDILevelDefinition(
+					material, type);
+			Assert.assertNotNull(type2);
+			Assert.assertEquals("TIPO-test", type2.getName());
+
+			CCDILevelDefinition family2 = ccdiService
+					.createCCDILevelDefinition(material, family);
+			Assert.assertNotNull(family2);
+			Assert.assertEquals("FAMILIA-test", family2.getName());
+
+			CCDILevelDefinition subFamily2 = ccdiService
+					.createCCDILevelDefinition(material, subFamily);
+			Assert.assertNotNull(subFamily2);
+			Assert.assertEquals("SUB FAMILIA-test", subFamily2.getName());
+
+			CCDILevelDefinition element2 = ccdiService
+					.createCCDILevelDefinition(material, element);
+			Assert.assertNotNull(element2);
+			Assert.assertEquals("ELEMENTOS-test", element2.getName());
+
+		} catch (Exception e1) {
+			System.out
+					.println("error creating test ccdi level definition in test\n");
+			Assert.fail(e1.getCause().getMessage());
+		}
+
+		materiales = null;
+		type = null;
+		family = null;
+		subFamily = null;
+		element = null;
+
+		try {
+			materiales = ccdiService
+					.findCCDILevelDefinitionByLevel(material, 0);
+			Assert.assertNotNull(materiales);
+			Assert.assertEquals("MATERIALES-test", materiales.getName());
+
+			type = ccdiService.findCCDILevelDefinitionByLevel(material, 1);
+			Assert.assertNotNull(type);
+			Assert.assertEquals("TIPO-test", type.getName());
+
+			family = ccdiService.findCCDILevelDefinitionByLevel(material, 2);
+			Assert.assertNotNull(family);
+			Assert.assertEquals("FAMILIA-test", family.getName());
+
+			subFamily = ccdiService.findCCDILevelDefinitionByLevel(material, 3);
+			Assert.assertNotNull(subFamily);
+			Assert.assertEquals("SUB FAMILIA-test", subFamily.getName());
+
+			element = ccdiService.findCCDILevelDefinitionByLevel(material, 4);
+			Assert.assertNotNull(element);
+			Assert.assertEquals("ELEMENTOS-test", element.getName());
+
+		} catch (Exception e1) {
+			System.out.println("error getting ccdi level definition in test\n");
+			Assert.fail(e1.getCause().getMessage());
+		}
+
+		CCDILevelValue materialValue = new CCDILevelValue(null, null,
+				"MATERIAL-test", null, 0, "T0", CCDIValueStatusEnum.ACTIVE);
+
+		try {
+			materialValue = ccdiService.createCCDILevelValue(materiales, null,
+					materialValue);
+			Assert.assertNotNull(materialValue);
+			Assert.assertEquals("T0", materialValue.getCode());
+		} catch (Exception e1) {
+			System.out.println("error creating ccdilevelValue in test\n");
+			Assert.fail(e1.getCause().getMessage());
+		}
 	}
 
 	@After
 	public void unset() {
 		try {
 			ccdiService.deleteByCode("MATERIAL-test");
-			ccdiService.deleteByCode("FARMACO-test");
 		} catch (GHAEJBException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Assert.fail(e.getCause().getMessage());
 		}
 	}
 }
