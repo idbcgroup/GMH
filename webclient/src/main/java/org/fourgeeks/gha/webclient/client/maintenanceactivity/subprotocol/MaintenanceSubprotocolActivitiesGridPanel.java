@@ -21,7 +21,6 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySearchForm;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionListener;
 
-import com.google.gwt.user.client.Window;
 import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -155,18 +154,16 @@ public class MaintenanceSubprotocolActivitiesGridPanel extends
 	}
 
 	private void delete() {
-		// TODO actualizar mensajes
 		final List<SubProtocolAndChecklist> selectedEntities = grid
 				.getSelectedEntities();
-
 		if (selectedEntities == null) {
-			Window.alert("Debe seleccionar al menos una actividad");
+			GHAAlertManager.alert("record-not-selected");
 		} else {
 			String message = selectedEntities.size() == 1 ? GHAStrings
 					.get("activity-delete-confirm") : GHAStrings
 					.get("activities-delete-confirm");
 
-			GHAAlertManager.confirm(GHAStrings.get("protocol"), message,
+			GHAAlertManager.confirm(GHAStrings.get("subprotocol"), message,
 					new BooleanCallback() {
 						@Override
 						public void execute(Boolean value) {
