@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.fourgeeks.gha.webclient.client.maintenanceplan.subprotocolactivities;
+package org.fourgeeks.gha.webclient.client.maintenanceactivity.subprotocol;
 
 import org.fourgeeks.gha.domain.Activity;
 import org.fourgeeks.gha.domain.enu.ActivityCategoryEnum;
@@ -19,18 +19,19 @@ public class MaintenanceSubprotocolRecord extends
 	private final SubProtocolAndChecklist entity;
 
 	/**
-	 * @param eiaEntity
+	 * 
+	 * @param entity
 	 */
 	public MaintenanceSubprotocolRecord(SubProtocolAndChecklist entity) {
 		this.entity = entity;
+		setSubProtocolAndChecklistAttributes();
 	}
 
 	/**
 	 * Method for populate the records
 	 */
-	public void setEiaNoServiceMaintenancePlanAttributes() {
+	private void setSubProtocolAndChecklistAttributes() {
 		Activity activity = entity.getActivity();
-
 		setAttribute("ordinal", entity.getOrdinal());
 		ActivityCategoryEnum category = activity.getCategory();
 		setAttribute("type", GHAStrings.get(category.name().toLowerCase()));

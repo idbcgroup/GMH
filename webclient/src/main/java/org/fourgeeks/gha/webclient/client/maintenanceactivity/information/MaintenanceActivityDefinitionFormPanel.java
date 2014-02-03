@@ -14,6 +14,7 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivityForm;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionListener;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionProducer;
+import org.fourgeeks.gha.webclient.client.maintenanceactivity.subprotocol.MaintenanceActivitySubProtocolListener;
 
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -94,7 +95,6 @@ MaintenanceActivitySelectionProducer {
 	public boolean canBeHidden(HideCloseAction hideAction) {
 		if (hideAction.equals(HideCloseAction.DISCARD))
 			return true;
-
 		if (form.hasUnCommittedChanges()) {
 			if (hideAction.equals(HideCloseAction.SAVE)) {
 				form.update();
@@ -135,15 +135,6 @@ MaintenanceActivitySelectionProducer {
 		form.removeMaintenanceActivitySelectionListener(listener);
 	}
 
-	@Override
-	public void select(MaintenanceActivity maintenanceActivity) {
-		form.set(maintenanceActivity);
-	}
-
-	protected void undo() {
-		form.undo();
-	}
-
 	private void update() {
 		form.update(new GHAAsyncCallback<MaintenanceActivity>() {
 			@Override
@@ -151,5 +142,23 @@ MaintenanceActivitySelectionProducer {
 				GHAAlertManager.alert("activity-update-success");
 			}
 		});
+	}
+
+	protected void undo() {
+		form.undo();
+	}
+
+	@Override
+	public void select(MaintenanceActivity maintenanceActivity) {
+		form.set(maintenanceActivity);
+	}
+
+	/**
+	 * 
+	 * @param listener
+	 */
+	public void addMaintenanceActivitySubProtocolListener(
+			MaintenanceActivitySubProtocolListener listener) {
+		form.addMaintenanceActivitySubProtocolListener(listener);
 	}
 }

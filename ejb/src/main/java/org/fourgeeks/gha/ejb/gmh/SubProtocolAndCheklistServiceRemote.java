@@ -28,6 +28,16 @@ public interface SubProtocolAndCheklistServiceRemote {
 	public void delete(long Id) throws GHAEJBException;
 
 	/**
+	 * Delete a list of SubProtocolAndChecklist from database
+	 * 
+	 * @param entities
+	 * @throws GHAEJBException
+	 * 
+	 */
+	public void delete(List<SubProtocolAndChecklist> entities)
+			throws GHAEJBException;
+
+	/**
 	 * @param maintenanceActivity
 	 * @return a list with the MaintenanceSubProtocols of the protocolActivity
 	 * @throws GHAEJBException
@@ -61,7 +71,7 @@ public interface SubProtocolAndCheklistServiceRemote {
 	 * @param subProtocol
 	 *            the SubProtocol to be saved on database
 	 * @throws GHAEJBException
-	 * @return MaintenanceSubProtocol saved
+	 * @return SubProtocolAndChecklist saved
 	 */
 	public SubProtocolAndChecklist save(SubProtocolAndChecklist subProtocol)
 			throws GHAEJBException;
@@ -69,9 +79,18 @@ public interface SubProtocolAndCheklistServiceRemote {
 	/**
 	 * @param subProtocol
 	 *            the SubProtocol to be updated
-	 * @return MaintenanceSubProtocol updated
+	 * @return SubProtocolAndChecklist updated
 	 * @throws GHAEJBException
 	 */
 	public SubProtocolAndChecklist update(SubProtocolAndChecklist subProtocol)
 			throws GHAEJBException;
+
+	/**
+	 * 
+	 * @param subProtocols
+	 * @return List of SubProtocolAndChecklist updated
+	 * @throws GHAEJBException
+	 */
+	public List<SubProtocolAndChecklist> update(
+			List<SubProtocolAndChecklist> subProtocols) throws GHAEJBException;
 }

@@ -42,8 +42,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
-MaintenanceProtocolsSelectionProducer, ClosableListener,
-HideableListener, MaintenancePlanSelectionListener {
+		MaintenanceProtocolsSelectionProducer, ClosableListener,
+		HideableListener, MaintenancePlanSelectionListener {
 
 	private List<MaintenanceProtocolsSelectionListener> listeners;
 
@@ -63,22 +63,22 @@ HideableListener, MaintenancePlanSelectionListener {
 		planSearchForm = new MaintenancePlanSearchForm(
 				GHAStrings.get("maintenance-plan"));
 		planSearchForm
-		.addMaintenancePlanSelectionListener(new MaintenancePlanSelectionListener() {
-			@Override
-			public void select(MaintenancePlan planFrom) {
-				save(planFrom);
-			}
-		});
+				.addMaintenancePlanSelectionListener(new MaintenancePlanSelectionListener() {
+					@Override
+					public void select(MaintenancePlan planFrom) {
+						save(planFrom);
+					}
+				});
 
 		activitySearchForm = new MaintenanceActivitySearchForm(
 				GHAStrings.get("maintenance-activity"));
 		activitySearchForm
-		.addMaintenanceActivitySelectionListener(new MaintenanceActivitySelectionListener() {
-			@Override
-			public void select(MaintenanceActivity activity) {
-				save(activity);
-			}
-		});
+				.addMaintenanceActivitySelectionListener(new MaintenanceActivitySelectionListener() {
+					@Override
+					public void select(MaintenanceActivity activity) {
+						save(activity);
+					}
+				});
 	}
 
 	/**
@@ -125,11 +125,13 @@ HideableListener, MaintenancePlanSelectionListener {
 	 */
 	private void addActivity() {
 		ListGridRecord records[] = grid.getRecords();
-		List<MaintenanceActivity> blackList = new ArrayList<MaintenanceActivity>();
+		List<Activity> blackList = new ArrayList<Activity>();
 
 		for (int i = 0; i < records.length; i++) {
 			MaintenanceProtocolsRecord record = (MaintenanceProtocolsRecord) records[i];
-			blackList.add(record.toEntity().getMaintenanceActivity());
+			MaintenanceActivity maintenanceActivity = record.toEntity()
+					.getMaintenanceActivity();
+			blackList.add(maintenanceActivity.getActivity());
 		}
 
 		activitySearchForm.filterBy(blackList);
@@ -208,34 +210,34 @@ HideableListener, MaintenancePlanSelectionListener {
 		if (selectedEntities == null) {
 			GHAAlertManager.confirm("maintenance-protocol-delete-confirm",
 					new BooleanCallback() {
-				@Override
-				public void execute(Boolean value) {
-					if (value)
-						deleteByMaintenancePlan();
-					grid.focus();
-				}
-			});
+						@Override
+						public void execute(Boolean value) {
+							if (value)
+								deleteByMaintenancePlan();
+							grid.focus();
+						}
+					});
 		} else {
-			if(selectedEntities.size() == 1){
+			if (selectedEntities.size() == 1) {
 				GHAAlertManager.confirm("activity-delete-confirm",
 						new BooleanCallback() {
-					@Override
-					public void execute(Boolean value) {
-						if (value)
-							deleteSelectedEntities(selectedEntities);
-						grid.focus();
-					}
-				});
-			}else{
+							@Override
+							public void execute(Boolean value) {
+								if (value)
+									deleteSelectedEntities(selectedEntities);
+								grid.focus();
+							}
+						});
+			} else {
 				GHAAlertManager.confirm("activities-delete-confirm",
 						new BooleanCallback() {
-					@Override
-					public void execute(Boolean value) {
-						if (value)
-							deleteSelectedEntities(selectedEntities);
-						grid.focus();
-					}
-				});
+							@Override
+							public void execute(Boolean value) {
+								if (value)
+									deleteSelectedEntities(selectedEntities);
+								grid.focus();
+							}
+						});
 			}
 		}
 	}
@@ -246,14 +248,14 @@ HideableListener, MaintenancePlanSelectionListener {
 	private void deleteByMaintenancePlan() {
 		MaintenanceProtocolsModel.deleteByMaintenancePlan(maintenancePlan,
 				new GHAAsyncCallback<Integer>() {
-			@Override
-			public void onSuccess(Integer result) {
-				loadData();
-				notifyMaintenanceProtocols(null);
-				GHAAlertManager
-				.alert("delete-protocol-activities-success");
-			}
-		});
+					@Override
+					public void onSuccess(Integer result) {
+						loadData();
+						notifyMaintenanceProtocols(null);
+						GHAAlertManager
+								.alert("delete-protocol-activities-success");
+					}
+				});
 	}
 
 	/**
@@ -266,13 +268,13 @@ HideableListener, MaintenancePlanSelectionListener {
 			final List<MaintenanceProtocols> selectedEntities) {
 		MaintenanceProtocolsModel.delete(selectedEntities,
 				new GHAAsyncCallback<Void>() {
-			@Override
-			public void onSuccess(Void result) {
-				loadData();
-				notifyMaintenanceProtocols(null);
-				GHAAlertManager.alert("delete-activities-success");
-			}
-		});
+					@Override
+					public void onSuccess(Void result) {
+						loadData();
+						notifyMaintenanceProtocols(null);
+						GHAAlertManager.alert("delete-activities-success");
+					}
+				});
 	}
 
 	/**
@@ -281,22 +283,22 @@ HideableListener, MaintenancePlanSelectionListener {
 	private void loadData() {
 		MaintenanceProtocolsModel.findByMaintenancePlan(maintenancePlan,
 				new GHAAsyncCallback<List<MaintenanceProtocols>>() {
-			@Override
-			public void onSuccess(List<MaintenanceProtocols> result) {
-				MaintenanceProtocolsRecord array[] = MaintenanceProtocolsUtil
-						.toGridRecordsArray(result);
-				grid.setData(array);
-			}
-		});
+					@Override
+					public void onSuccess(List<MaintenanceProtocols> result) {
+						MaintenanceProtocolsRecord array[] = MaintenanceProtocolsUtil
+								.toGridRecordsArray(result);
+						grid.setData(array);
+					}
+				});
 
 		MaintenanceProtocolsModel.getStadisticInfo(maintenancePlan,
 				new GHAAsyncCallback<MaintenanceProtocolStadisticData>() {
-			@Override
-			public void onSuccess(
-					MaintenanceProtocolStadisticData result) {
-				stadisticDataLabel.setStadisticInfo(result);
-			}
-		});
+					@Override
+					public void onSuccess(
+							MaintenanceProtocolStadisticData result) {
+						stadisticDataLabel.setStadisticInfo(result);
+					}
+				});
 	}
 
 	/*
@@ -345,23 +347,23 @@ HideableListener, MaintenancePlanSelectionListener {
 
 		MaintenanceProtocolsModel.save(entity,
 				new GHAAsyncCallback<MaintenanceProtocols>() {
-			@Override
-			public void onSuccess(final MaintenanceProtocols result) {
-						Activity activity = maintenanceActivity.getActivity();
-				if (activity.getState() == ActivityState.CREATED)
-					activity.setState(ActivityState.ACTIVE);
-
-				MaintenanceActivityModel.update(activity,
-						new GHAAsyncCallback<MaintenanceActivity>() {
 					@Override
-					public void onSuccess(
-							MaintenanceActivity resultActivity) {
-						loadData();
-						notifyMaintenanceProtocols(result);
+					public void onSuccess(final MaintenanceProtocols result) {
+						Activity activity = maintenanceActivity.getActivity();
+						if (activity.getState() == ActivityState.CREATED)
+							activity.setState(ActivityState.ACTIVE);
+
+						MaintenanceActivityModel.update(maintenanceActivity,
+								new GHAAsyncCallback<MaintenanceActivity>() {
+									@Override
+									public void onSuccess(
+											MaintenanceActivity resultActivity) {
+										loadData();
+										notifyMaintenanceProtocols(result);
+									}
+								});
 					}
 				});
-			}
-		});
 	}
 
 	/**
@@ -374,12 +376,12 @@ HideableListener, MaintenancePlanSelectionListener {
 	private void save(MaintenancePlan planFrom) {
 		MaintenanceProtocolsModel.copyActivities(planFrom, maintenancePlan,
 				new GHAAsyncCallback<Void>() {
-			@Override
-			public void onSuccess(Void result) {
-				loadData();
-				notifyMaintenanceProtocols(null);
-			}
-		});
+					@Override
+					public void onSuccess(Void result) {
+						loadData();
+						notifyMaintenanceProtocols(null);
+					}
+				});
 	}
 
 	/*
