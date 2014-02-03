@@ -3,10 +3,15 @@ package org.fourgeeks.gha.webclient.client.maintenanceactivity.subprotocol;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.fourgeeks.gha.domain.Activity;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
+import org.fourgeeks.gha.domain.gmh.SubProtocolAndChecklist;
+import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
+import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHANewButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
@@ -15,8 +20,9 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySearchForm;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionListener;
-import org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocols.MaintenanceProtocolsRecord;
 
+import com.google.gwt.user.client.Window;
+import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
@@ -40,6 +46,13 @@ public class MaintenanceSubprotocolActivitiesGridPanel extends
 
 		activitySearchForm = new MaintenanceActivitySearchForm(
 				GHAStrings.get("maintenance-activity"));
+		activitySearchForm
+				.addMaintenanceActivitySelectionListener(new MaintenanceActivitySelectionListener() {
+					@Override
+					public void select(MaintenanceActivity activity) {
+						save(activity);
+					}
+				});
 
 	}
 
@@ -58,8 +71,14 @@ public class MaintenanceSubprotocolActivitiesGridPanel extends
 				addActivity();
 			}
 		});
+		GHADeleteButton deleteButton = new GHADeleteButton(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				delete();
+			}
+		});
 
-		VLayout sideButtons = GHAUiHelper.createBar(addButton);
+		VLayout sideButtons = GHAUiHelper.createBar(addButton, deleteButton);
 
 		VLayout gridLayout = new VLayout(10);
 		gridLayout.addMembers(grid);
@@ -72,13 +91,13 @@ public class MaintenanceSubprotocolActivitiesGridPanel extends
 
 	private void addActivity() {
 		ListGridRecord records[] = grid.getRecords();
-		List<MaintenanceActivity> blackList = new ArrayList<MaintenanceActivity>();
-
+		List<Activity> blackList = new ArrayList<Activity>();
 		for (int i = 0; i < records.length; i++) {
-			MaintenanceProtocolsRecord record = (MaintenanceProtocolsRecord) records[i];
-			blackList.add(record.toEntity().getMaintenanceActivity());
+			MaintenanceSubprotocolRecord record = (MaintenanceSubprotocolRecord) records[i];
+			blackList.add(record.toEntity().getActivity());
 		}
-		blackList.add(maintenanceActivity);
+		blackList.add(maintenanceActivity.getActivity());
+
 		activitySearchForm.filterBy(blackList);
 		activitySearchForm.open();
 	}
@@ -100,20 +119,74 @@ public class MaintenanceSubprotocolActivitiesGridPanel extends
 	}
 
 	private void loadData() {
-		// MaintenanceSubprotocolModel.find(maintenanceActivity,
-		// new GHAAsyncCallback<List<MaintenanceActivity>>() {
-		// @Override
-		// public void onSuccess(List<MaintenanceActivity> result) {
-		// MaintenanceActivityRecord array[] = MaintenanceProtocolsUtil
-		// .toGridRecordsArray(result);
-		// grid.setData(array);
-		// }
-		// });
+		SubprotocolAndChecklistModel.findByParentActivity(
+				maintenanceActivity.getActivity(),
+				new GHAAsyncCallback<List<SubProtocolAndChecklist>>() {
+					@Override
+					public void onSuccess(List<SubProtocolAndChecklist> result) {
+						MaintenanceSubprotocolRecord array[] = MaintenanceSubprotocolUtil
+								.toGridRecordsArray(result);
+						grid.setData(array);
+					}
+				});
 	}
 
 	@Override
 	public void select(MaintenanceActivity maintenanceActivity) {
 		this.maintenanceActivity = maintenanceActivity;
 		loadData();
+	}
+
+	private void save(MaintenanceActivity activity) {
+		int ordinal = grid.getRecords().length + 1;
+
+		SubProtocolAndChecklist entity = new SubProtocolAndChecklist();
+		entity.setParentActivity(maintenanceActivity.getActivity());
+		entity.setActivity(activity.getActivity());
+		entity.setOrdinal(ordinal);
+
+		SubprotocolAndChecklistModel.save(entity,
+				new GHAAsyncCallback<SubProtocolAndChecklist>() {
+					@Override
+					public void onSuccess(final SubProtocolAndChecklist result) {
+						loadData();
+					}
+				});
+	}
+
+	private void delete() {
+		// TODO actualizar mensajes
+		final List<SubProtocolAndChecklist> selectedEntities = grid
+				.getSelectedEntities();
+
+		if (selectedEntities == null) {
+			Window.alert("Debe seleccionar al menos una actividad");
+		} else {
+			String message = selectedEntities.size() == 1 ? GHAStrings
+					.get("activity-delete-confirm") : GHAStrings
+					.get("activities-delete-confirm");
+
+			GHAAlertManager.confirm(GHAStrings.get("protocol"), message,
+					new BooleanCallback() {
+						@Override
+						public void execute(Boolean value) {
+							if (value)
+								deleteSelectedEntities(selectedEntities);
+							grid.focus();
+						}
+					});
+		}
+	}
+
+	private void deleteSelectedEntities(
+			List<SubProtocolAndChecklist> selectedEntities) {
+		SubprotocolAndChecklistModel.delete(selectedEntities,
+				new GHAAsyncCallback<Void>() {
+					@Override
+					public void onSuccess(Void result) {
+						loadData();
+						GHAAlertManager.alert("delete-activities-success");
+					}
+				});
 	}
 }

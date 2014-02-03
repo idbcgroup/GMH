@@ -19,18 +19,19 @@ public class MaintenanceSubprotocolRecord extends
 	private final SubProtocolAndChecklist entity;
 
 	/**
-	 * @param eiaEntity
+	 * 
+	 * @param entity
 	 */
 	public MaintenanceSubprotocolRecord(SubProtocolAndChecklist entity) {
 		this.entity = entity;
+		setSubProtocolAndChecklistAttributes();
 	}
 
 	/**
 	 * Method for populate the records
 	 */
-	public void setEiaNoServiceMaintenancePlanAttributes() {
+	private void setSubProtocolAndChecklistAttributes() {
 		Activity activity = entity.getActivity();
-
 		setAttribute("ordinal", entity.getOrdinal());
 		ActivityCategoryEnum category = activity.getCategory();
 		setAttribute("type", GHAStrings.get(category.name().toLowerCase()));

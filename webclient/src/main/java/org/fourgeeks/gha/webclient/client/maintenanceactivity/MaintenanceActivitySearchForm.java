@@ -36,9 +36,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret, naramirez
  * 
  */
-public class MaintenanceActivitySearchForm extends
-		GHASearchForm<MaintenanceActivity> implements
-		MaintenanceActivitySelectionListener,
+public class MaintenanceActivitySearchForm extends GHASearchForm<Activity>
+		implements MaintenanceActivitySelectionListener,
 		MaintenanceActivitySelectionProducer, MaintenancePlanSelectionListener {
 
 	private GHATextItem nameItem, descriptionItem;
@@ -211,11 +210,11 @@ public class MaintenanceActivitySearchForm extends
 	 * Search a list of {@link MaintenanceActivity} entities that match with the
 	 * values of the entity argument
 	 * 
-	 * @param activity
+	 * @param maintenanceActivity
 	 *            the entity with the vaules
 	 */
-	private void search(final MaintenanceActivity activity) {
-		MaintenanceActivityModel.find(activity,
+	private void search(final MaintenanceActivity maintenanceActivity) {
+		MaintenanceActivityModel.find(maintenanceActivity,
 				new GHAAsyncCallback<List<MaintenanceActivity>>() {
 					@Override
 					public void onSuccess(List<MaintenanceActivity> result) {

@@ -125,11 +125,13 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 	 */
 	private void addActivity() {
 		ListGridRecord records[] = grid.getRecords();
-		List<MaintenanceActivity> blackList = new ArrayList<MaintenanceActivity>();
+		List<Activity> blackList = new ArrayList<Activity>();
 
 		for (int i = 0; i < records.length; i++) {
 			MaintenanceProtocolsRecord record = (MaintenanceProtocolsRecord) records[i];
-			blackList.add(record.toEntity().getMaintenanceActivity());
+			MaintenanceActivity maintenanceActivity = record.toEntity()
+					.getMaintenanceActivity();
+			blackList.add(maintenanceActivity.getActivity());
 		}
 
 		activitySearchForm.filterBy(blackList);

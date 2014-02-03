@@ -24,7 +24,7 @@ public class MaintenanceSubprotocolUtil {
 	}
 
 	/**
-	 * Transform a list of {@link MaintenanceSubProtocol} to a list of
+	 * Transform a list of {@link SubProtocolAndChecklist} to a list of
 	 * {@link MaintenanceSubprotocolRecord}
 	 * 
 	 * @param entities
@@ -43,8 +43,8 @@ public class MaintenanceSubprotocolUtil {
 
 	/**
 	 * @param entities
-	 *            Transform a list of {@link MaintenanceSubProtocol} to an array
-	 *            of {@link MaintenanceSubprotocolRecord}
+	 *            Transform a list of {@link SubProtocolAndChecklist} to an
+	 *            array of {@link MaintenanceSubprotocolRecord}
 	 * @return an array of {@link MaintenanceSubprotocolRecord}
 	 */
 	public static MaintenanceSubprotocolRecord[] toGridRecordsArray(
