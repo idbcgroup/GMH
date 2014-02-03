@@ -1,6 +1,6 @@
 package org.fourgeeks.gha.webclient.client.UI.alerts.nonmodal;
 
-import org.fourgeeks.gha.domain.msg.GHAMessage;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.alerts.GHADialog;
 
 import com.smartgwt.client.widgets.Button;
@@ -10,39 +10,22 @@ import com.smartgwt.client.widgets.Button;
  *
  */
 public class GHAFailureDialog extends GHADialog {
-
-	/**
-	 * @param ghaMessage
-	 */
-	public GHAFailureDialog(GHAMessage ghaMessage){
-		//TODO: decodificador por el GHAMessage
-		super(DialogType.FAILURE,false,false);
-	}
-
-	/**
-	 * @param ghaMessage
-	 * @param buttons 
-	 */
-	public GHAFailureDialog(GHAMessage ghaMessage,Button... buttons){
-		//TODO: decodificador por el GHAMessage
-		super(DialogType.FAILURE,false,false,buttons);
-	}
-
 	/**
 	 * @param message
 	 */
 	public GHAFailureDialog(String message) {
-		super(DialogType.FAILURE,false,false);
+		super("FAILURE",false,false);
 		setMessage(message);
+		initByType();
 	}
-
 	/**
 	 * @param message
 	 * @param buttons 
 	 */
 	public GHAFailureDialog(String message, Button... buttons) {
-		super(DialogType.FAILURE,false,false,buttons);
+		super("FAILURE",false,false,buttons);
 		setMessage(message);
+		initByType();
 	}
 
 	/**
@@ -64,12 +47,27 @@ public class GHAFailureDialog extends GHADialog {
 		setTitle(title);
 	}
 
+	/**
+	 * 
+	 */
+	private void initByType() {
+		initTypeParams();
+		confModalTimingSettings();
+	}
+
 	/* (non-Javadoc)
 	 * @see org.fourgeeks.gha.webclient.client.UI.alerts.GHADialog#initTypeParams()
 	 */
 	@Override
 	protected void initTypeParams() {
-		// TODO Auto-generated method stub
-
+		// Yellow
+		dialogType = "FAILURE";
+		isTimed = false;
+		isModal = false;
+		setTitle(GHAStrings.get("failure"));
+		setBorder("1px solid #FCD14A");
+		setBackgroundColor("#FCD14A");
+		setBodyColor("#FCE499");
+		setIcon("../resources/icons/msgIT/warn.png");
 	}
 }

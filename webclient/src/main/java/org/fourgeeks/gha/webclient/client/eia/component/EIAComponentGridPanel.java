@@ -33,7 +33,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class EIAComponentGridPanel extends GHAVerticalLayout implements
-		ClosableListener, HideableListener, EIASelectionListener {
+ClosableListener, HideableListener, EIASelectionListener {
 
 	private EIAComponentGrid grid;
 	private Eia eia;
@@ -51,10 +51,10 @@ public class EIAComponentGridPanel extends GHAVerticalLayout implements
 				EIAComponentModel.update(eiaComponent,
 						new GHAAsyncCallback<EiaComponent>() {
 
-							@Override
-							public void onSuccess(EiaComponent result) {
-							}
-						});
+					@Override
+					public void onSuccess(EiaComponent result) {
+					}
+				});
 
 			}
 		});
@@ -75,11 +75,11 @@ public class EIAComponentGridPanel extends GHAVerticalLayout implements
 				EIAComponentModel.save(eiaComponent,
 						new GHAAsyncCallback<EiaComponent>() {
 
-							@Override
-							public void onSuccess(EiaComponent result) {
-								loadData();
-							}
-						});
+					@Override
+					public void onSuccess(EiaComponent result) {
+						loadData();
+					}
+				});
 
 			}
 		});
@@ -98,13 +98,13 @@ public class EIAComponentGridPanel extends GHAVerticalLayout implements
 					}
 				}), new GHADeleteButton(new ClickHandler() {
 
-			@Override
-			public void onClick(ClickEvent event) {
-				delete();
+					@Override
+					public void onClick(ClickEvent event) {
+						delete();
 
-			}
+					}
 
-		}));
+				}));
 
 		HLayout mainPanel = new HLayout();
 		mainPanel.addMembers(grid, sideButtons);
@@ -135,28 +135,46 @@ public class EIAComponentGridPanel extends GHAVerticalLayout implements
 			return;
 		}
 
-		String msj = grid.getSelectedRecords().length > 1 ? GHAStrings
-				.get("eiaComponents-delete-confirm") : GHAStrings
-				.get("eiaComponent-delete-confirm");
 
-		GHAAlertManager.confirm(GHAStrings.get("eia"), msj,
-				new BooleanCallback() {
-					@Override
-					public void execute(Boolean value) {
-						if (value) {
-							List<EiaComponent> entities = grid
-									.getSelectedEntities();
+		if(grid.getSelectedRecords().length > 1){
+			GHAAlertManager.confirm("eiaComponents-delete-confirm",
+					new BooleanCallback() {
+				@Override
+				public void execute(Boolean value) {
+					if (value) {
+						List<EiaComponent> entities = grid
+								.getSelectedEntities();
 
-							EIAComponentModel.delete(entities,
-									new GHAAsyncCallback<Void>() {
-										@Override
-										public void onSuccess(Void result) {
-											grid.removeSelectedData();
-										}
-									});
-						}
+						EIAComponentModel.delete(entities,
+								new GHAAsyncCallback<Void>() {
+							@Override
+							public void onSuccess(Void result) {
+								grid.removeSelectedData();
+							}
+						});
 					}
-				});
+				}
+			});
+		}else{
+			GHAAlertManager.confirm("eiaComponent-delete-confirm",
+					new BooleanCallback() {
+				@Override
+				public void execute(Boolean value) {
+					if (value) {
+						List<EiaComponent> entities = grid
+								.getSelectedEntities();
+
+						EIAComponentModel.delete(entities,
+								new GHAAsyncCallback<Void>() {
+							@Override
+							public void onSuccess(Void result) {
+								grid.removeSelectedData();
+							}
+						});
+					}
+				}
+			});
+		}
 	}
 
 	@Override
@@ -169,15 +187,15 @@ public class EIAComponentGridPanel extends GHAVerticalLayout implements
 		EIAComponentModel.findByEiaId(eia,
 				new GHAAsyncCallback<List<EiaComponent>>() {
 
-					@Override
-					public void onSuccess(List<EiaComponent> eiaComponents) {
-						ListGridRecord[] array = EIAComponentUtil
-								.toGridRecords(eiaComponents).toArray(
-										new EIAComponentRecord[] {});
-						grid.setData(array);
-					}
+			@Override
+			public void onSuccess(List<EiaComponent> eiaComponents) {
+				ListGridRecord[] array = EIAComponentUtil
+						.toGridRecords(eiaComponents).toArray(
+								new EIAComponentRecord[] {});
+				grid.setData(array);
+			}
 
-				});
+		});
 
 	}
 
@@ -188,7 +206,7 @@ public class EIAComponentGridPanel extends GHAVerticalLayout implements
 
 		for (int i = 0; i < records.length; ++i)
 			blackList
-					.add(((EIAComponentRecord) records[i]).toEntity().getEia());
+			.add(((EIAComponentRecord) records[i]).toEntity().getEia());
 
 		searchForm.filterBy(blackList);
 		searchForm.open();

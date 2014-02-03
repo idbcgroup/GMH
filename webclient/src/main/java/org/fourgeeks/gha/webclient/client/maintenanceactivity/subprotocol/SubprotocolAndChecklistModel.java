@@ -1,12 +1,10 @@
-package org.fourgeeks.gha.webclient.client.maintenanceplan.subprotocolactivities;
+package org.fourgeeks.gha.webclient.client.maintenanceactivity.subprotocol;
 
 import java.util.List;
 
 import org.fourgeeks.gha.domain.Activity;
 import org.fourgeeks.gha.domain.gmh.SubProtocolAndChecklist;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
-import org.fourgeeks.gha.webclient.client.maintenanceactivity.subprotocol.GWTSubProtocolAndChecklistService;
-import org.fourgeeks.gha.webclient.client.maintenanceactivity.subprotocol.GWTSubProtocolAndChecklistServiceAsync;
 
 import com.google.gwt.core.shared.GWT;
 
@@ -19,13 +17,25 @@ public class SubprotocolAndChecklistModel {
 			.create(GWTSubProtocolAndChecklistService.class);
 
 	/**
-	 * Delete a MaintenanceSubProtocol from database by Id
+	 * Delete a SubProtocolAndChecklist from database by Id
 	 * 
 	 * @param Id
 	 * @param callback
 	 */
 	public static void delete(long Id, GHAAsyncCallback<Void> callback) {
 		service.delete(Id, callback);
+	}
+
+	/**
+	 * Delete a list of SubProtocolAndChecklist from database
+	 * 
+	 * @param entities
+	 * @param callback
+	 * 
+	 */
+	public static void delete(List<SubProtocolAndChecklist> entities,
+			GHAAsyncCallback<Void> callback) {
+		service.delete(entities, callback);
 	}
 
 	/**
@@ -89,5 +99,16 @@ public class SubprotocolAndChecklistModel {
 	public static void update(SubProtocolAndChecklist maintenanceSubProtocol,
 			GHAAsyncCallback<SubProtocolAndChecklist> callback) {
 		service.update(maintenanceSubProtocol, callback);
+	}
+
+	/**
+	 * 
+	 * @param maintenanceSubProtocols
+	 * @param callback
+	 */
+	public static void update(
+			List<SubProtocolAndChecklist> maintenanceSubProtocols,
+			GHAAsyncCallback<List<SubProtocolAndChecklist>> callback) {
+		service.update(maintenanceSubProtocols, callback);
 	}
 }
