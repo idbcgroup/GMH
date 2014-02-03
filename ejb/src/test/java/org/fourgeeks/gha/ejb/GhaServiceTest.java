@@ -26,10 +26,10 @@ import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
-import org.fourgeeks.gha.domain.gmh.MaintenanceActivityServiceResource;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
-import org.fourgeeks.gha.domain.gmh.ServiceResource;
+import org.fourgeeks.gha.domain.gmh.RequiredResources;
+import org.fourgeeks.gha.domain.gmh.ServiceAndResource;
 import org.fourgeeks.gha.domain.mix.Bpa;
 import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.domain.mix.Citizen;
@@ -63,12 +63,12 @@ public class GhaServiceTest {
 	private Institution institution = null;
 	private LegalEntity legalEntity = null;
 	private MaintenanceActivity maintenanceActivity = null;
-	private MaintenanceActivityServiceResource maintenanceActivityServiceResource = null;
+	private RequiredResources maintenanceActivityServiceResource = null;
 	private MaintenancePlan maintenancePlan = null;
 	private Manufacturer manufacturer;
 	private Obu obu = null;
 	private Role role = null;
-	private ServiceResource serviceResource = null;
+	private ServiceAndResource serviceResource = null;
 
 	/**
 	 * @return the deployment descriptor
@@ -277,19 +277,18 @@ public class GhaServiceTest {
 		return maintenanceActivity;
 	}
 
-	public MaintenanceActivityServiceResource getMaintenanceActivityServiceResource(
+	public RequiredResources getMaintenanceActivityServiceResource(
 			EntityManager em, MaintenanceActivity maintenanceActivity,
-			ServiceResource serviceResource) {
+			ServiceAndResource serviceResource) {
 		if (maintenanceActivityServiceResource == null) {
-			MaintenanceActivityServiceResource maintenanceActivityServiceResource = new MaintenanceActivityServiceResource();
-			maintenanceActivityServiceResource
-					.setProtocolActivity(maintenanceActivity);
-			maintenanceActivityServiceResource
-					.setServiceResource(serviceResource);
+			RequiredResources maintenanceActivityServiceResource = new RequiredResources();
+			maintenanceActivityServiceResource.setActivity(maintenanceActivity
+					.getActivity());
+			maintenanceActivityServiceResource.setResource(serviceResource);
 			em.persist(maintenanceActivityServiceResource);
 			em.flush();
 			this.maintenanceActivityServiceResource = em.find(
-					MaintenanceActivityServiceResource.class,
+					RequiredResources.class,
 					maintenanceActivityServiceResource.getId());
 		}
 		return maintenanceActivityServiceResource;
@@ -344,13 +343,13 @@ public class GhaServiceTest {
 		return role;
 	}
 
-	public ServiceResource getServiceResource(EntityManager em) {
+	public ServiceAndResource getServiceResource(EntityManager em) {
 		if (serviceResource == null) {
-			ServiceResource serviceResource = new ServiceResource();
+			ServiceAndResource serviceResource = new ServiceAndResource();
 			serviceResource.setName("ServiceResource test name");
 			em.persist(serviceResource);
 			em.flush();
-			this.serviceResource = em.find(ServiceResource.class,
+			this.serviceResource = em.find(ServiceAndResource.class,
 					serviceResource.getId());
 		}
 		return serviceResource;

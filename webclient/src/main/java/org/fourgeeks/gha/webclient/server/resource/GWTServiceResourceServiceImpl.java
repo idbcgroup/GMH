@@ -10,7 +10,7 @@ import javax.servlet.annotation.WebServlet;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
-import org.fourgeeks.gha.domain.gmh.ServiceResource;
+import org.fourgeeks.gha.domain.gmh.ServiceAndResource;
 import org.fourgeeks.gha.ejb.gmh.ServiceResourceServiceRemote;
 import org.fourgeeks.gha.webclient.client.resource.GWTServiceResourceService;
 
@@ -50,9 +50,9 @@ public class GWTServiceResourceServiceImpl extends RemoteServiceServlet
 	 * findByProtocolActivity(org.fourgeeks.gha.domain.gmh.ProtocolActivity)
 	 */
 	@Override
-	public List<ServiceResource> findByProtocolActivity(
+	public List<ServiceAndResource> findByProtocolActivity(
 			MaintenanceActivity protocolActivity) throws GHAEJBException {
-		return ejbService.findByProtocolActivity(protocolActivity);
+		return ejbService.findByActivity(protocolActivity);
 	}
 
 	/*
@@ -62,7 +62,7 @@ public class GWTServiceResourceServiceImpl extends RemoteServiceServlet
 	 * org.fourgeeks.gha.webclient.client.resource.GWTResourceService#find(long)
 	 */
 	@Override
-	public ServiceResource find(long Id) throws GHAEJBException {
+	public ServiceAndResource find(long Id) throws GHAEJBException {
 		return ejbService.find(Id);
 	}
 
@@ -73,7 +73,7 @@ public class GWTServiceResourceServiceImpl extends RemoteServiceServlet
 	 * org.fourgeeks.gha.webclient.client.resource.GWTResourceService#getAll()
 	 */
 	@Override
-	public List<ServiceResource> getAll() throws GHAEJBException {
+	public List<ServiceAndResource> getAll() throws GHAEJBException {
 		return ejbService.getAll();
 	}
 
@@ -85,7 +85,7 @@ public class GWTServiceResourceServiceImpl extends RemoteServiceServlet
 	 * (int, int)
 	 */
 	@Override
-	public List<ServiceResource> getAll(int offset, int size)
+	public List<ServiceAndResource> getAll(int offset, int size)
 			throws GHAEJBException {
 		return ejbService.getAll(offset, size);
 	}
@@ -98,7 +98,7 @@ public class GWTServiceResourceServiceImpl extends RemoteServiceServlet
 	 * .fourgeeks.gha.domain.gmh.RaS)
 	 */
 	@Override
-	public ServiceResource save(ServiceResource ras) throws GHAEJBException {
+	public ServiceAndResource save(ServiceAndResource ras) throws GHAEJBException {
 		return ejbService.save(ras);
 	}
 
@@ -110,7 +110,7 @@ public class GWTServiceResourceServiceImpl extends RemoteServiceServlet
 	 * (org.fourgeeks.gha.domain.gmh.RaS)
 	 */
 	@Override
-	public ServiceResource update(ServiceResource ras) throws GHAEJBException {
+	public ServiceAndResource update(ServiceAndResource ras) throws GHAEJBException {
 		return ejbService.update(ras);
 	}
 

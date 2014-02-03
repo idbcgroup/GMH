@@ -7,33 +7,34 @@ import javax.persistence.NamedQuery;
 import org.fourgeeks.gha.domain.AbstractEntity;
 
 /**
- * @author emiliot
  * Entity to represent resources and services
+ * 
+ * @author emiliot, naramirez
  */
 @Entity
 @NamedQueries(value = {
-		@NamedQuery(name = "ServiceResource.getAll", query = "SELECT e from ServiceResource e order by e.name"),
-		@NamedQuery(name = "ServiceResource.findByMaintenanceActivity", query = "SELECT r FROM  MaintenanceActivityServiceResource e JOIN e.serviceResource r WHERE e.maintenanceActivity = :maintenanceActivity")})
-public class ServiceResource extends AbstractEntity {
+		@NamedQuery(name = "ServiceAndResource.getAll", query = "SELECT e from ServiceAndResource e order by e.name"),
+		@NamedQuery(name = "ServiceAndResource.findByActivity", query = "SELECT r FROM  RequiredResources e JOIN e.resource r WHERE e.activity = :activity") })
+public class ServiceAndResource extends AbstractEntity {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	private String name;
 
 	/**
 	 * 
 	 */
-	public ServiceResource() {
+	public ServiceAndResource() {
 		// TODO Auto-generated constructor stub
 	}
 
 	/**
 	 * @param name
 	 */
-	public ServiceResource(String name) {
+	public ServiceAndResource(String name) {
 		this.name = name;
 	}
 

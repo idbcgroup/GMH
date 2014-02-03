@@ -74,11 +74,11 @@ import org.fourgeeks.gha.domain.gmh.EiaTypeCategory;
 import org.fourgeeks.gha.domain.gmh.EiaTypeComponent;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
-import org.fourgeeks.gha.domain.gmh.MaintenanceActivityServiceResource;
+import org.fourgeeks.gha.domain.gmh.RequiredResources;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
-import org.fourgeeks.gha.domain.gmh.ServiceResource;
+import org.fourgeeks.gha.domain.gmh.ServiceAndResource;
 import org.fourgeeks.gha.domain.gmh.ServiceResourceCategory;
 import org.fourgeeks.gha.domain.gmh.SubProtocolAndChecklist;
 import org.fourgeeks.gha.domain.mix.Bpi;
@@ -201,7 +201,7 @@ public class SubProtocolAndChecklistServiceTest {
 				.addClass(Manufacturer.class)
 				.addClass(ActivitySubCategoryEnum.class)
 				.addClass(Activity.class)
-				.addClass(MaintenanceActivityServiceResource.class)
+				.addClass(RequiredResources.class)
 				.addClass(Module.class)
 				.addClass(Obu.class)
 				.addClass(ObuService.class)
@@ -216,7 +216,7 @@ public class SubProtocolAndChecklistServiceTest {
 				.addClass(RoleService.class)
 				.addClass(RoleServiceRemote.class)
 				.addClass(RuntimeParameters.class)
-				.addClass(ServiceResource.class)
+				.addClass(ServiceAndResource.class)
 				.addClass(ServiceResourceCategory.class)
 				.addClass(TimePeriodEnum.class)
 				.addClass(View.class)

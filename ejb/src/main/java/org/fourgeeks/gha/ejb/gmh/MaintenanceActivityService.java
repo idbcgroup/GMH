@@ -23,7 +23,6 @@ import org.fourgeeks.gha.domain.enu.ActivityCategoryEnum;
 import org.fourgeeks.gha.domain.enu.ActivitySubCategoryEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
-import org.fourgeeks.gha.domain.gmh.ServiceResource;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 
@@ -184,31 +183,6 @@ public class MaintenanceActivityService extends GHAEJBExceptionService
 					e);
 			throw super.generateGHAEJBException(
 					"maintenanceActivity-findByMaintenanceActivity-fail",
-					RuntimeParameters.getLang(), em);
-		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.fourgeeks.gha.ejb.gmh.MaintenanceActivityServiceRemote#findByResource
-	 * (org.fourgeeks.gha.domain.gmh.Resource)
-	 */
-	@Override
-	public List<MaintenanceActivity> findByServiceResource(
-			ServiceResource serviceResource) throws GHAEJBException {
-		try {
-			return em
-					.createNamedQuery(
-							"MaintenanceActivity.findByServiceResource",
-							MaintenanceActivity.class)
-					.setParameter("serviceResource", serviceResource)
-					.getResultList();
-		} catch (Exception e) {
-			logger.log(Level.INFO, "Error: finding by Resource/Service", e);
-			throw super.generateGHAEJBException(
-					"maintenanceActivity-findByServiceResource-fail",
 					RuntimeParameters.getLang(), em);
 		}
 	}

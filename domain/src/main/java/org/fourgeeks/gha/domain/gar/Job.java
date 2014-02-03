@@ -8,7 +8,7 @@ import javax.persistence.NamedQuery;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.ess.Role;
-import org.fourgeeks.gha.domain.gmh.ServiceResource;
+import org.fourgeeks.gha.domain.gmh.ServiceAndResource;
 
 /**
  * @author emiliot, naramirez
@@ -28,7 +28,7 @@ public class Job extends AbstractEntity {
 
 	@ManyToOne
 	@JoinColumn(name = "serviceResourceFk")
-	private ServiceResource serviceResource;
+	private ServiceAndResource serviceResource;
 
 	@ManyToOne
 	@JoinColumn(name = "roleFk")
@@ -71,14 +71,14 @@ public class Job extends AbstractEntity {
 	/**
 	 * @return
 	 */
-	public ServiceResource getServiceResource() {
+	public ServiceAndResource getServiceResource() {
 		return serviceResource;
 	}
 
 	/**
 	 * @param serviceResource
 	 */
-	public void setServiceResource(ServiceResource serviceResource) {
+	public void setServiceResource(ServiceAndResource serviceResource) {
 		this.serviceResource = serviceResource;
 	}
 

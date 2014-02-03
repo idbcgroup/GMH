@@ -391,18 +391,18 @@ EN,manufacturer-find-fail,Failed to find Manufacturer,8
 EN,manufacturer-getAll-fail,Failed to get all Manufacturer,8
 EN,manufacturer-save-fail,Failed to save Manufacturer,8
 EN,manufacturer-update-fail,Failed to update Manufacturer,8
-ES,serviceResource-delete-fail,Fallo la eliminación del ServiceResource,8
-ES,serviceResource-findByMaintenanceActivity-fail,Búsqueda fallida de ServiceResource por maintenanceActivity,8
-ES,serviceResource-find-fail,Búsqueda fallida de ServiceResource,8
-ES,serviceResource-getAll-fail,Búsqueda fallida de todos los ServiceResource,8
-ES,serviceResource-save-fail,Guardado fallido de ServiceResource,8
-ES,serviceResource-update-fail,Actualización fallida de ServiceResource,8
-EN,serviceResource-delete-fail,Failed to delete ServiceResource,8
-EN,serviceResource-findByMaintenanceActivity-fail,Failed to find ServiceResource by maintenanceActivity,8
-EN,serviceResource-find-fail,Failed to find ServiceResource,8
-EN,serviceResource-getAll-fail,Failed to get all ServiceResource,8
-EN,serviceResource-save-fail,Failed to save ServiceResource,8
-EN,serviceResource-update-fail,Failed to update ServiceResource,8
+ES,serviceAndResource-delete-fail,Fallo la eliminación del serviceAndResource,8
+ES,serviceAndResource-findByActivity-fail,Búsqueda fallida de ServiceAndResource por Activity,8
+ES,serviceAndResource-find-fail,Búsqueda fallida de serviceAndResource,8
+ES,serviceAndResource-getAll-fail,Búsqueda fallida de todos los serviceAndResource,8
+ES,serviceAndResource-save-fail,Guardado fallido de serviceAndResource,8
+ES,serviceAndResource-update-fail,Actualización fallida de serviceAndResource,8
+EN,serviceAndResource-delete-fail,Failed to delete serviceAndResource,8
+EN,serviceAndResource-findByActivity-fail,Failed to find ServiceAndResource by Activity,8
+EN,serviceAndResource-find-fail,Failed to find serviceAndResource,8
+EN,serviceAndResource-getAll-fail,Failed to get all serviceAndResource,8
+EN,serviceAndResource-save-fail,Failed to save serviceAndResource,8
+EN,serviceAndResource-update-fail,Failed to update serviceAndResource,8
 ES,bpa-delete-fail,Fallo la eliminación del Bpa,8
 ES,bpa-findByBpa-fail,Búsqueda fallida de Bpa por bpa,8
 ES,bpa-find-fail,Búsqueda fallida de Bpa,8

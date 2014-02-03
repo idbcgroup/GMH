@@ -14,7 +14,7 @@ import javax.transaction.UserTransaction;
 import junit.framework.Assert;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
-import org.fourgeeks.gha.domain.gmh.ServiceResource;
+import org.fourgeeks.gha.domain.gmh.ServiceAndResource;
 import org.fourgeeks.gha.ejb.GhaServiceTest;
 
 /**
@@ -22,7 +22,7 @@ import org.fourgeeks.gha.ejb.GhaServiceTest;
  * 
  */
 // @RunWith(Arquillian.class)
-public class ServiceResourceServiceTest extends GhaServiceTest {
+public class ServiceAndResourceServiceTest extends GhaServiceTest {
 	@PersistenceContext
 	EntityManager em;
 
@@ -43,7 +43,7 @@ public class ServiceResourceServiceTest extends GhaServiceTest {
 		ux.begin();
 		em.joinTransaction();
 
-		ServiceResource entity = new ServiceResource();
+		ServiceAndResource entity = new ServiceAndResource();
 		entity.setName("ServiceResorce test name");
 
 		entity = service.save(entity);
@@ -54,25 +54,25 @@ public class ServiceResourceServiceTest extends GhaServiceTest {
 				+ service.find(entity.getId()).getName());
 		// Assert.assertEquals(entity, service.find(entity.getId()));
 
-		Assert.assertTrue(service.findByProtocolActivity(super
+		Assert.assertTrue(service.findByActivity(super
 				.getMaintenanceActivityServiceResource(em,
 						super.getMaintenanceActivity(em), entity)
-				.getProtocolActivity()) != null
-				&& service.findByProtocolActivity(
+				.getActivity()) != null
+				&& service.findByActivity(
 						super.getMaintenanceActivityServiceResource(em,
 								super.getMaintenanceActivity(em), entity)
-								.getProtocolActivity()).size() >= 1);
+								.getActivity()).size() >= 1);
 		em.remove(super.getMaintenanceActivityServiceResource(em,
 				super.getMaintenanceActivity(em), entity));
 		em.flush();
-		Assert.assertTrue(service.findByProtocolActivity(super
+		Assert.assertTrue(service.findByActivity(super
 				.getMaintenanceActivityServiceResource(em,
 						super.getMaintenanceActivity(em), entity)
-				.getProtocolActivity()) == null
-				|| service.findByProtocolActivity(
+				.getActivity()) == null
+				|| service.findByActivity(
 						super.getMaintenanceActivityServiceResource(em,
 								super.getMaintenanceActivity(em), entity)
-								.getProtocolActivity()).size() == 0);
+								.getActivity()).size() == 0);
 
 		Assert.assertTrue(service.getAll() != null
 				&& service.getAll().size() >= 1);
