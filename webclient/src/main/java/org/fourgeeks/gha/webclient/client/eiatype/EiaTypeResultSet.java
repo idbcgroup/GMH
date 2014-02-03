@@ -30,23 +30,24 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class EiaTypeResultSet extends GHAResultSet<EiaType> implements
-		EiaTypeSelectionProducer {
+EiaTypeSelectionProducer {
 	private List<EIATypeSelectionListener> listeners;
-	private EIATypeGrid grid;
-	private ResultSetContainerType containerType;
+	private final EIATypeGrid grid;
+	private final ResultSetContainerType containerType;
 
 	{
 		listeners = new ArrayList<EIATypeSelectionListener>();
-		
+
 	}
 
 	/**
+	 * @param container 
 	 * 
 	 */
 	public EiaTypeResultSet(ResultSetContainerType container) {
 		super(GHAStrings.get("search-results"));
 		this.containerType = container;
-		
+
 		grid = new EIATypeGrid(){
 			@Override
 			public void onResize(ResizeEvent event) {
@@ -62,7 +63,7 @@ public class EiaTypeResultSet extends GHAResultSet<EiaType> implements
 			}
 		});
 		grid.setHeight(GHAUiHelper.getResultSetGridSize(containerType));
-		
+
 		setHeight(GHAUiHelper.getResultSetHeight(containerType));
 		HLayout gridPanel = new HLayout();
 		VLayout sideBar;
@@ -89,7 +90,7 @@ public class EiaTypeResultSet extends GHAResultSet<EiaType> implements
 					deleteButton);
 		} else {
 			sideBar = GHAUiHelper.createBar(checkButton);
-//			setHeight(getHeight() - 42);
+			//			setHeight(getHeight() - 42);
 		}
 		gridPanel.addMembers(grid, sideBar);
 		addMember(gridPanel);
@@ -123,30 +124,49 @@ public class EiaTypeResultSet extends GHAResultSet<EiaType> implements
 			return;
 		}
 
-		String msj = grid.getSelectedRecords().length > 1 ? GHAStrings
-				.get("eiatypes-delete-confirm") : GHAStrings
-				.get("eiatype-delete-confirm");
+		if(grid.getSelectedRecords().length > 1){
+			GHAAlertManager.confirm("eiatypes-delete-confirm",
+					new BooleanCallback() {
 
-		GHAAlertManager.confirm(GHAStrings.get("eiatype"), msj,
-				new BooleanCallback() {
+				@Override
+				public void execute(Boolean value) {
+					if (value) {
+						List<EiaType> entities = grid.getSelectedEntities();
+						EIATypeModel.delete(entities,
+								new GHAAsyncCallback<Void>() {
 
-					@Override
-					public void execute(Boolean value) {
-						if (value) {
-							List<EiaType> entities = grid.getSelectedEntities();
-							EIATypeModel.delete(entities,
-									new GHAAsyncCallback<Void>() {
-
-										@Override
-										public void onSuccess(Void result) {
-											grid.removeSelectedData();
-											refreshResultsSize(grid
-													.getRecords().length);
-										}
-									});
-						}
+							@Override
+							public void onSuccess(Void result) {
+								grid.removeSelectedData();
+								refreshResultsSize(grid
+										.getRecords().length);
+							}
+						});
 					}
-				});
+				}
+			});
+		}else{
+			GHAAlertManager.confirm("eiatype-delete-confirm",
+					new BooleanCallback() {
+
+				@Override
+				public void execute(Boolean value) {
+					if (value) {
+						List<EiaType> entities = grid.getSelectedEntities();
+						EIATypeModel.delete(entities,
+								new GHAAsyncCallback<Void>() {
+
+							@Override
+							public void onSuccess(Void result) {
+								grid.removeSelectedData();
+								refreshResultsSize(grid
+										.getRecords().length);
+							}
+						});
+					}
+				}
+			});
+		}
 	}
 
 	@Override
@@ -167,6 +187,11 @@ public class EiaTypeResultSet extends GHAResultSet<EiaType> implements
 		notifyEiaType(selectedRecord.toEntity());
 		hide();
 		grid.removeSelectedData();
+	}
+
+	@Override
+	public void onResize(ResizeEvent event) {
+		setHeight(GHAUiHelper.getResultSetHeight(containerType));
 	}
 
 	/*
@@ -198,10 +223,5 @@ public class EiaTypeResultSet extends GHAResultSet<EiaType> implements
 		if (!isVisible())
 			this.animateShow(AnimationEffect.FADE);
 
-	}
-
-	@Override
-	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getResultSetHeight(containerType));
 	}
 }

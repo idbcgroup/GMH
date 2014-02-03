@@ -38,14 +38,14 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class EIATypeMaintenanceGridPanel extends GHAVerticalLayout implements
-		ClosableListener, HideableListener, EIATypeSelectionListener {
+ClosableListener, HideableListener, EIATypeSelectionListener {
 
 	private EiaTypeMaintenancePlanGrid grid;
 	private EiaType eiaType;
 	private MaintenancePlanSearchForm searchForm;
 	private MaintenancePlanAddForm addForm;
 
-	private MaintenancePlanSelectionListener maintenancePlanSelectionListener = new MaintenancePlanSelectionListener() {
+	private final MaintenancePlanSelectionListener maintenancePlanSelectionListener = new MaintenancePlanSelectionListener() {
 
 		@Override
 		public void select(MaintenancePlan maintenancePlan) {
@@ -58,11 +58,11 @@ public class EIATypeMaintenanceGridPanel extends GHAVerticalLayout implements
 			EiaTypeMaintenancePlanModel.save(entity,
 					new GHAAsyncCallback<EiaTypeMaintenancePlan>() {
 
-						@Override
-						public void onSuccess(EiaTypeMaintenancePlan result) {
-							loadData();
-						}
-					});
+				@Override
+				public void onSuccess(EiaTypeMaintenancePlan result) {
+					loadData();
+				}
+			});
 		}
 	};
 
@@ -72,7 +72,7 @@ public class EIATypeMaintenanceGridPanel extends GHAVerticalLayout implements
 		searchForm = new MaintenancePlanSearchForm(
 				GHAStrings.get("maintenance-plan"));
 		searchForm
-				.addMaintenancePlanSelectionListener(maintenancePlanSelectionListener);
+		.addMaintenancePlanSelectionListener(maintenancePlanSelectionListener);
 		addForm = new MaintenancePlanAddForm(
 				GHAStrings.get("new-maintenance-plan"));
 		addForm.addMaintenancePlanSelectionListener(maintenancePlanSelectionListener);
@@ -137,25 +137,24 @@ public class EIATypeMaintenanceGridPanel extends GHAVerticalLayout implements
 			GHAAlertManager.alert("record-not-selected");
 			return;
 		}
-		GHAAlertManager.confirm(GHAStrings.get("maintenance-plan"),
-				GHAStrings.get("eiatype-maintenance-plan-delete-confirm"),
+		GHAAlertManager.confirm("eiatype-maintenance-plan-delete-confirm",
 				new BooleanCallback() {
 
-					@Override
-					public void execute(Boolean value) {
-						if (value) {
-							EiaTypeMaintenancePlanModel.delete(entity.getId(),
-									new GHAAsyncCallback<Void>() {
+			@Override
+			public void execute(Boolean value) {
+				if (value) {
+					EiaTypeMaintenancePlanModel.delete(entity.getId(),
+							new GHAAsyncCallback<Void>() {
 
-										@Override
-										public void onSuccess(Void result) {
-											grid.removeSelectedData();
-										}
-									});
+						@Override
+						public void onSuccess(Void result) {
+							grid.removeSelectedData();
 						}
+					});
+				}
 
-					}
-				});
+			}
+		});
 	}
 
 	@Override
@@ -170,14 +169,14 @@ public class EIATypeMaintenanceGridPanel extends GHAVerticalLayout implements
 		EiaTypeMaintenancePlanModel.findByEiaType(this.eiaType,
 				new GHAAsyncCallback<List<EiaTypeMaintenancePlan>>() {
 
-					@Override
-					public void onSuccess(List<EiaTypeMaintenancePlan> result) {
-						ListGridRecord array[] = EiaTypeMaintenancePlanUtil
-								.toMaintenancePlanGridRecords(result).toArray(
-										new EiaTypeMaintenancePlanRecord[] {});
-						grid.setData(array);
-					}
-				});
+			@Override
+			public void onSuccess(List<EiaTypeMaintenancePlan> result) {
+				ListGridRecord array[] = EiaTypeMaintenancePlanUtil
+						.toMaintenancePlanGridRecords(result).toArray(
+								new EiaTypeMaintenancePlanRecord[] {});
+				grid.setData(array);
+			}
+		});
 	}
 
 	private void search() {

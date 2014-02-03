@@ -76,17 +76,6 @@ ES,search-component-eiatype,Búsqueda de componentes para tipos de equipo
 ES,search-material,Búsqueda de materiales para tipos de equipo
 ES,record-not-selected,Debe seleccionar un registro
 ES,search-utility-material,Búsqueda de materiales utilitarios para tipos de equipo
-ES,eiatype-material-delete-confirm,¿Desea retirar el material asociado al tipo de equipo?
-ES,eiatype-utility-service-delete-confirm,¿Desea eliminar el servicio utilitario asociado al tipo de equipo?
-ES,eiatype-delete-confirm,¿Desea eliminar el tipo de equipo?
-ES,eiatypes-delete-confirm,¿Desea eliminar los tipos de equipo?
-ES,maintenance-plan-delete-confirm,¿Desea eliminar el plan de mantenimiento?
-ES,maintenances-plan-delete-confirm,¿Desea eliminar los planes de mantenimiento?
-ES,eia-delete-confirm,¿Desea eliminar el equipo?
-ES,eias-delete-confirm,¿Desea eliminar los equipos?
-ES,eiaComponent-delete-confirm,¿Desea eliminar el componente?
-ES,eiaComponents-delete-confirm,¿Desea eliminar los componentes?
-ES,ssoUser-delete-confirm,¿Desea eliminar al usuario?
 ES,amount,Cantidad
 ES,empty-materialcategory-grid,No existen Materiales para mostrar
 ES,empty-material-grid,No existen Materiales para mostrar
@@ -100,7 +89,6 @@ ES,user,Usuario
 ES,state,Estado
 ES,first-name,Primer nombre
 ES,form-errors,Errores en el formulario
-ES,unsaved-changes,Existen algunos cambios sin guardar. ¿Realmente desea salir?
 ES,bpi,Institución
 ES,maintenance,Mantenimiento
 ES,maintenance-plans,Planes de mantenimiento
@@ -147,7 +135,6 @@ ES,responsible-role,Cargo Responsable
 ES,adquisition-provider,Proveedor de Equipo
 ES,maintenance-provider,Proveedor de Mantenimiento
 ES,eiatype-component,Componentes para un EiaType
-ES,eiatype-component-delete-confirm,Confirme si desea eliminar el componente seleccionado
 ES,new-eia-preventive-maintenance-planification,Nueva Planificación de Mantenimiento Preventivo
 ES,eia-preventive-maintenance-planification,Planificación de Mantenimiento Preventivo
 ES,providers,Proveedores
@@ -170,9 +157,6 @@ ES,subprotocols,Sub-Protocolos
 ES,subprotocol,Sub-Protocolo
 ES,total-time,Tiempo total
 ES,total-cost,Costo total
-ES,activity-delete-confirm,¿Desea eliminar la actividad?
-ES,activities-delete-confirm,¿Desea eliminar las actividades?
-ES,maintenance-protocol-delete-confirm,¿Desea eliminar todas las actividades de este Plan de Mantenimiento?
 ES,emh,Historia médica
 ES,gmh,gmh
 ES,hme,gmh
@@ -185,7 +169,7 @@ ES,diagnosis,Diágnostico
 ES,main-diagnosis,diágnostico principal
 ES,weight,peso
 ES,height,altura
-ES,btype,g.sanguineo
+ES,btype,g. sanguineo
 ES,bsa,bsa
 ES,bmi,bmi
 ES,new-encounter,nuevo encuentro
@@ -203,7 +187,7 @@ ES,undeferrable,No postergable
 ES,deferrable,Postergable
 ES,last-effectuated-date,Ultima fecha efectuado
 ES,eias-with-this-plan,Equipos con este plan
-ES,eias-with-this-activity,Equipos con este actividad
+ES,eias-with-this-activity,Equipos con esta actividad
 ES,times-effectuated,Veces efectuado
 ES,activity-name,Nombre de actividad
 ES,activity-is-subprotocol,Es un Sub-Protocolo
@@ -233,3 +217,12 @@ ES,operations,Operaciones
 ES,administrative,Administrativa
 ES,system,Sistema
 ES,calibration,Calibración
+ES,message,Mensaje del Sistema
+ES,soft-error,Error Leve
+ES,hard-error,Error Grave
+ES,warning,Advertencia
+ES,failure,Operación Fallida
+ES,success,Éxito
+ES,processing,Operación en proceso
+ES,new-message-received,Nuevo Mensaje Recibido
+ES,confirm,Confirmación

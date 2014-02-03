@@ -27,8 +27,8 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
  * 
  */
 public class MaintenanceActivityTopForm extends
-		GHATopForm<MaintenanceActivityResultSet, MaintenanceActivity> implements
-		MaintenanceActivitySelectionListener {
+GHATopForm<MaintenanceActivityResultSet, MaintenanceActivity> implements
+MaintenanceActivitySelectionListener {
 
 	private GHATextItem nameItem, descriptionItem;
 	private GHAActivityCategorySelectItem categorySelectItem;
@@ -74,14 +74,6 @@ public class MaintenanceActivityTopForm extends
 		super.activate();
 	}
 
-	private void toggleForm(boolean active) {
-		nameItem.setDisabled(!active);
-		descriptionItem.setDisabled(!active);
-		categorySelectItem.setDisabled(!active);
-		subCategorySelectItem.setDisabled(!active);
-		activated = active;
-	}
-
 	@Override
 	public boolean canBeClosen(HideCloseAction hideAction) {
 		return true;
@@ -103,26 +95,31 @@ public class MaintenanceActivityTopForm extends
 
 	@Override
 	protected void delete() {
-		GHAAlertManager.confirm(GHAStrings.get("maitenance-plan"),
-				GHAStrings.get("maintenance-plan-delete-confirm"),
+		GHAAlertManager.confirm("maintenance-plan-delete-confirm",
 				new BooleanCallback() {
-					@Override
-					public void execute(Boolean value) {
-						if (value) {
-							MaintenanceActivityModel.delete(
-									selectedActivity.getId(),
-									new GHAAsyncCallback<Void>() {
-										@Override
-										public void onSuccess(Void result) {
-											containerTab.search();
-											clear();
-											GHAAlertManager
-													.alert("maintenance-delete-success");
-										}
-									});
-						}
-					}
-				});
+			@Override
+			public void execute(Boolean value) {
+				if (value) {
+					MaintenanceActivityModel.delete(
+							selectedActivity.getId(),
+							new GHAAsyncCallback<Void>() {
+								@Override
+								public void onSuccess(Void result) {
+									containerTab.search();
+									clear();
+									GHAAlertManager
+									.alert("maintenance-delete-success");
+								}
+							});
+				}
+			}
+		});
+	}
+
+	@Override
+	public void onResize(ResizeEvent event) {
+		super.onResize(event);
+		form.resize();
 	}
 
 	@Override
@@ -150,11 +147,11 @@ public class MaintenanceActivityTopForm extends
 	public void search(MaintenanceActivity maintenanceActivity) {
 		MaintenanceActivityModel.find(maintenanceActivity,
 				new GHAAsyncCallback<List<MaintenanceActivity>>() {
-					@Override
-					public void onSuccess(List<MaintenanceActivity> result) {
-						resultSet.setRecords(result, true);
-					}
-				});
+			@Override
+			public void onSuccess(List<MaintenanceActivity> result) {
+				resultSet.setRecords(result, true);
+			}
+		});
 	}
 
 	/*
@@ -178,10 +175,12 @@ public class MaintenanceActivityTopForm extends
 		sideButtons.addMember(deleteButton, 0);
 	}
 
-	@Override
-	public void onResize(ResizeEvent event) {
-		super.onResize(event);
-		form.resize();
+	private void toggleForm(boolean active) {
+		nameItem.setDisabled(!active);
+		descriptionItem.setDisabled(!active);
+		categorySelectItem.setDisabled(!active);
+		subCategorySelectItem.setDisabled(!active);
+		activated = active;
 	}
 
 }

@@ -37,13 +37,13 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class EIATypeUtilityGridPanel extends GHAVerticalLayout implements
-		EIATypeSelectionListener, HideableListener, ClosableListener {
+EIATypeSelectionListener, HideableListener, ClosableListener {
 
 	private EiaTypeUtilityGrid grid;
 	private UtilitySearchForm searchForm;
 	private UtilityAddForm addForm;
 	private EiaType eiaType;
-	private MaterialSelectionListener materialSelectionListener = new MaterialSelectionListener() {
+	private final MaterialSelectionListener materialSelectionListener = new MaterialSelectionListener() {
 
 		@Override
 		public void select(Material material) {
@@ -55,11 +55,11 @@ public class EIATypeUtilityGridPanel extends GHAVerticalLayout implements
 			EIATypeUtilityModel.save(eiaTypeUtility,
 					new GHAAsyncCallback<EiaTypeUtility>() {
 
-						@Override
-						public void onSuccess(EiaTypeUtility result) {
-							loadData();
-						}
-					});
+				@Override
+				public void onSuccess(EiaTypeUtility result) {
+					loadData();
+				}
+			});
 		}
 	};
 
@@ -75,10 +75,10 @@ public class EIATypeUtilityGridPanel extends GHAVerticalLayout implements
 				EIATypeUtilityModel.update(entity,
 						new GHAAsyncCallback<EiaTypeUtility>() {
 
-							@Override
-							public void onSuccess(EiaTypeUtility result) {
-							}
-						});
+					@Override
+					public void onSuccess(EiaTypeUtility result) {
+					}
+				});
 			}
 		});
 		addForm = new UtilityAddForm(GHAStrings.get("new-utility-service"));
@@ -105,17 +105,17 @@ public class EIATypeUtilityGridPanel extends GHAVerticalLayout implements
 					}
 				}), new GHANewButton(new ClickHandler() {
 
-			@Override
-			public void onClick(ClickEvent event) {
-				addForm.open();
-			}
-		}), new GHADeleteButton(new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						addForm.open();
+					}
+				}), new GHADeleteButton(new ClickHandler() {
 
-			@Override
-			public void onClick(ClickEvent event) {
-				delete();
-			}
-		}));
+					@Override
+					public void onClick(ClickEvent event) {
+						delete();
+					}
+				}));
 
 		HLayout mainPanel = new HLayout();
 		mainPanel.addMembers(grid, sideButtons);
@@ -151,24 +151,23 @@ public class EIATypeUtilityGridPanel extends GHAVerticalLayout implements
 			return;
 		}
 
-		GHAAlertManager.confirm(GHAStrings.get("material-category"),
-				GHAStrings.get("eiatype-utility-service-delete-confirm"),
+		GHAAlertManager.confirm("eiatype-utility-service-delete-confirm",
 				new BooleanCallback() {
 
-					@Override
-					public void execute(Boolean value) {
-						if (value) {
-							EIATypeUtilityModel.delete(eiaTypeUtility.getId(),
-									new GHAAsyncCallback<Void>() {
+			@Override
+			public void execute(Boolean value) {
+				if (value) {
+					EIATypeUtilityModel.delete(eiaTypeUtility.getId(),
+							new GHAAsyncCallback<Void>() {
 
-										@Override
-										public void onSuccess(Void result) {
-											grid.removeSelectedData();
-										}
-									});
+						@Override
+						public void onSuccess(Void result) {
+							grid.removeSelectedData();
 						}
-					}
-				});
+					});
+				}
+			}
+		});
 	}
 
 	@Override
@@ -183,15 +182,15 @@ public class EIATypeUtilityGridPanel extends GHAVerticalLayout implements
 		EIATypeUtilityModel.findByEiaType(eiaType,
 				new GHAAsyncCallback<List<EiaTypeUtility>>() {
 
-					@Override
-					public void onSuccess(List<EiaTypeUtility> result) {
-						ListGridRecord[] array = EIATypeUtilityUtil
-								.toGridRecords(result).toArray(
-										new EIATypeUtilityRecord[] {});
-						grid.setData(array);
+			@Override
+			public void onSuccess(List<EiaTypeUtility> result) {
+				ListGridRecord[] array = EIATypeUtilityUtil
+						.toGridRecords(result).toArray(
+								new EIATypeUtilityRecord[] {});
+				grid.setData(array);
 
-					}
-				});
+			}
+		});
 	}
 
 	/**

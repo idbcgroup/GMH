@@ -13,6 +13,7 @@ import org.fourgeeks.gha.webclient.client.UI.places.NeedPermissionPlace;
 public class MaintenanceActivityPlace extends NeedPermissionPlace {
 	private final MaintenanceActivityPanel tab = new MaintenanceActivityPanel();
 
+	// TODO Verificar dónde explota el código...
 	/**
 	 * @param token
 	 * @throws LoginNeededException

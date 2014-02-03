@@ -6,6 +6,7 @@ import com.smartgwt.client.widgets.form.fields.TextItem;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 import com.smartgwt.client.widgets.form.fields.events.EditorExitEvent;
 import com.smartgwt.client.widgets.form.fields.events.EditorExitHandler;
+import com.smartgwt.client.widgets.form.validator.RegExpValidator;
 
 /**
  * @author alacret
@@ -13,6 +14,9 @@ import com.smartgwt.client.widgets.form.fields.events.EditorExitHandler;
  */
 public class GHATextItem extends TextItem {
 
+	public static final RegExpValidator ALPHABETIC = new RegExpValidator("[a-z]*|[A-Z]*");
+	public static final RegExpValidator NUMERIC = new RegExpValidator("[0-9]*");
+	public static final RegExpValidator ALPHANUMERIC = new RegExpValidator("[a-z]*|[A-Z]*|[0-9]*|[.,; ]*");
 	/**
 	 * 
 	 */

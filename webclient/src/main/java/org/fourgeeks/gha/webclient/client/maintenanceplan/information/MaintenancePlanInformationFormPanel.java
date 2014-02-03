@@ -3,7 +3,6 @@ package org.fourgeeks.gha.webclient.client.maintenanceplan.information;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
-import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
@@ -30,9 +29,9 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class MaintenancePlanInformationFormPanel extends GHAVerticalLayout
-		implements MaintenancePlanSelectionListener,
-		MaintenanceProtocolsSelectionListener,
-		MaintenancePlanSelectionProducer, ClosableListener, HideableListener {
+implements MaintenancePlanSelectionListener,
+MaintenanceProtocolsSelectionListener,
+MaintenancePlanSelectionProducer, ClosableListener, HideableListener {
 	private final MaintenancePlanForm form = new MaintenancePlanForm();
 
 	/** */
@@ -45,11 +44,11 @@ public class MaintenancePlanInformationFormPanel extends GHAVerticalLayout
 						save();
 					}
 				}), new GHAUndoButton(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				undo();
-			}
-		}));
+					@Override
+					public void onClick(ClickEvent event) {
+						undo();
+					}
+				}));
 
 		HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
@@ -74,19 +73,18 @@ public class MaintenancePlanInformationFormPanel extends GHAVerticalLayout
 				return true;
 			}
 
-			GHAAlertManager.askYesNoCancel(GHAStrings.get("information"),
-					GHAStrings.get("unsaved-changes"), new ClickHandler() {
-						@Override
-						public void onClick(ClickEvent event) {
-							GHAPlaceSet.closeCurrentPlace(HideCloseAction.SAVE);
-						}
-					}, new ClickHandler() {
-						@Override
-						public void onClick(ClickEvent event) {
-							GHAPlaceSet
-									.closeCurrentPlace(HideCloseAction.DISCARD);
-						}
-					}, null);
+			GHAAlertManager.askYesNoCancel("unsaved-changes", new ClickHandler() {
+				@Override
+				public void onClick(ClickEvent event) {
+					GHAPlaceSet.closeCurrentPlace(HideCloseAction.SAVE);
+				}
+			}, new ClickHandler() {
+				@Override
+				public void onClick(ClickEvent event) {
+					GHAPlaceSet
+					.closeCurrentPlace(HideCloseAction.DISCARD);
+				}
+			}, null);
 			return false;
 		}
 		return true;
@@ -103,19 +101,18 @@ public class MaintenancePlanInformationFormPanel extends GHAVerticalLayout
 				return true;
 			}
 
-			GHAAlertManager.askYesNoCancel(GHAStrings.get("information"),
-					GHAStrings.get("unsaved-changes"), new ClickHandler() {
-						@Override
-						public void onClick(ClickEvent event) {
-							GHAPlaceSet.hideCurrentPlace(HideCloseAction.SAVE);
-						}
-					}, new ClickHandler() {
-						@Override
-						public void onClick(ClickEvent event) {
-							GHAPlaceSet
-									.hideCurrentPlace(HideCloseAction.DISCARD);
-						}
-					}, null);
+			GHAAlertManager.askYesNoCancel("unsaved-changes", new ClickHandler() {
+				@Override
+				public void onClick(ClickEvent event) {
+					GHAPlaceSet.hideCurrentPlace(HideCloseAction.SAVE);
+				}
+			}, new ClickHandler() {
+				@Override
+				public void onClick(ClickEvent event) {
+					GHAPlaceSet
+					.hideCurrentPlace(HideCloseAction.DISCARD);
+				}
+			}, null);
 			return false;
 		}
 		return true;

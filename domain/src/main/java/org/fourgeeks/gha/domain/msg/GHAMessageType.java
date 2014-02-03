@@ -21,7 +21,7 @@ public class GHAMessageType extends AbstractEntity {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private String type;
+	private String typeName;
 
 	private boolean isModal;
 
@@ -41,7 +41,7 @@ public class GHAMessageType extends AbstractEntity {
 	 */
 	public GHAMessageType(String type, boolean timed, boolean modal) {
 		super();
-		this.type = type;
+		this.typeName = type;
 		this.isModal = modal;
 		this.isTimed = timed;
 	}
@@ -49,8 +49,8 @@ public class GHAMessageType extends AbstractEntity {
 	/**
 	 * @return the name of the message type
 	 */
-	public String getType() {
-		return type;
+	public String getTypeName() {
+		return typeName;
 	}
 
 	/**
@@ -82,9 +82,9 @@ public class GHAMessageType extends AbstractEntity {
 	}
 
 	/**
-	 * @param type
+	 * @param typeName
 	 */
-	public void setType(String type) {
-		this.type = type;
+	public void setTypeName(String typeName) {
+		this.typeName = typeName;
 	}
 }

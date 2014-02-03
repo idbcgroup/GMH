@@ -1,6 +1,6 @@
 package org.fourgeeks.gha.webclient.client.UI.alerts.nonmodal;
 
-import org.fourgeeks.gha.domain.msg.GHAMessage;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.alerts.GHADialog;
 
 import com.smartgwt.client.widgets.Button;
@@ -10,29 +10,12 @@ import com.smartgwt.client.widgets.Button;
  *
  */
 public class GHAProgressDialog extends GHADialog {
-
-	/**
-	 * @param ghaMessage
-	 */
-	public GHAProgressDialog(GHAMessage ghaMessage){
-		//TODO: decodificador por el GHAMessage
-		super(DialogType.PROCESSING,false,true);
-	}
-
-	/**
-	 * @param ghaMessage
-	 * @param buttons 
-	 */
-	public GHAProgressDialog(GHAMessage ghaMessage,Button... buttons){
-		//TODO: decodificador por el GHAMessage
-		super(DialogType.PROCESSING,false,true,buttons);
-	}
-
 	/**
 	 * @param message
 	 */
 	public GHAProgressDialog(String message) {
-		super(DialogType.PROCESSING,false,true);
+		super("PROCESSING",false,true);
+		initByType();
 		setMessage(message);
 	}
 
@@ -41,7 +24,8 @@ public class GHAProgressDialog extends GHADialog {
 	 * @param buttons 
 	 */
 	public GHAProgressDialog(String message, Button... buttons) {
-		super(DialogType.PROCESSING,false,true,buttons);
+		super("PROCESSING",false,true,buttons);
+		initByType();
 		setMessage(message);
 	}
 
@@ -64,12 +48,27 @@ public class GHAProgressDialog extends GHADialog {
 		setTitle(title);
 	}
 
+	/**
+	 * 
+	 */
+	private void initByType() {
+		initTypeParams();
+		confModalTimingSettings();
+	}
+
 	/* (non-Javadoc)
 	 * @see org.fourgeeks.gha.webclient.client.UI.alerts.GHADialog#initTypeParams()
 	 */
 	@Override
 	protected void initTypeParams() {
-		// TODO Auto-generated method stub
-
+		// Green
+		dialogType = "PROCESSING";
+		isTimed = false;
+		isModal = false;
+		setTitle(GHAStrings.get("processsing"));
+		setBorder("1px solid #AAC475");
+		setBackgroundColor("#AAC475");
+		setBodyColor("#D4E1BA");
+		setIcon("../resources/icons/msgIT/process.png");
 	}
 }

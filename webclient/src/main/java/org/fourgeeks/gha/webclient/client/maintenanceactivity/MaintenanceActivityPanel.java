@@ -1,6 +1,6 @@
 package org.fourgeeks.gha.webclient.client.maintenanceactivity;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
@@ -14,10 +14,6 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.SearchListener;
 import org.fourgeeks.gha.webclient.client.UI.panels.GHAHeaderOption;
 import org.fourgeeks.gha.webclient.client.UI.panels.GHAPanel;
 import org.fourgeeks.gha.webclient.client.UI.panels.GHAPanelHeader;
-import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivityAddForm;
-import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivityResultSet;
-import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionListener;
-import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivitySelectionProducer;
 
 import com.smartgwt.client.types.Visibility;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -35,14 +31,14 @@ public class MaintenanceActivityPanel extends GHAPanel implements
 	private static final String TITLE = "Actividades de Mantenimiento";
 	private MaintenanceActivityTopForm topForm;
 	private MaintenanceActivityInternalTabset internalTabSet;
-	private final List<MaintenanceActivitySelectionListener> listeners = new LinkedList<MaintenanceActivitySelectionListener>();
+	private final List<MaintenanceActivitySelectionListener> listeners = new ArrayList<MaintenanceActivitySelectionListener>();
 	private GHAHeaderOption searchOption;
 	private GHAHeaderOption addOption;
 	private MaintenanceActivityResultSet resultSet;
 	private MaintenanceActivityAddForm addForm;
 
 	/**
-	 * @param token
+	 * 
 	 */
 	public MaintenanceActivityPanel() {
 		super();

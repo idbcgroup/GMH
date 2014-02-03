@@ -3,7 +3,6 @@ package org.fourgeeks.gha.webclient.client.eia;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
-import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
@@ -23,17 +22,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class EIAUpdateForm extends GHAUpdateForm<Eia> implements
-		EIATypeSelectionListener, EiaSelectionProducer, EIASelectionListener {
-
-	/**
-	 * @param title
-	 * 
-	 */
-	public EIAUpdateForm(String title) {
-		super(title);
-		form = new EIAForm();
-		initComponent();
-	}
+EIATypeSelectionListener, EiaSelectionProducer, EIASelectionListener {
 
 	/**
 	 * @param eiaType
@@ -47,26 +36,35 @@ public class EIAUpdateForm extends GHAUpdateForm<Eia> implements
 		initComponent();
 	}
 
+	/**
+	 * @param title
+	 * 
+	 */
+	public EIAUpdateForm(String title) {
+		super(title);
+		form = new EIAForm();
+		initComponent();
+	}
+
 	@Override
 	public void addEiaSelectionListener(
 			EIASelectionListener eiaSelectionListener) {
 		((EiaSelectionProducer) form)
-				.addEiaSelectionListener(eiaSelectionListener);
+		.addEiaSelectionListener(eiaSelectionListener);
 	}
 
 	@Override
 	public boolean canBeClosen(HideCloseAction hideAction) { // TODO
 		if (form.hasUnCommittedChanges()) {
-			GHAAlertManager.confirm(GHAStrings.get("information"),
-					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
+			GHAAlertManager.confirm("unsaved-changes", new BooleanCallback() {
 
-						@Override
-						public void execute(Boolean value) {
-							if (value) {
-								form.undo();
-							}
-						}
-					});
+				@Override
+				public void execute(Boolean value) {
+					if (value) {
+						form.undo();
+					}
+				}
+			});
 			return false;
 		}
 		return true;
@@ -75,16 +73,15 @@ public class EIAUpdateForm extends GHAUpdateForm<Eia> implements
 	@Override
 	public boolean canBeHidden(HideCloseAction hideAction) { // TODO
 		if (form.hasUnCommittedChanges()) {
-			GHAAlertManager.confirm(GHAStrings.get("information"),
-					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
+			GHAAlertManager.confirm("unsaved-changes", new BooleanCallback() {
 
-						@Override
-						public void execute(Boolean value) {
-							if (value) {
-								form.undo();
-							}
-						}
-					});
+				@Override
+				public void execute(Boolean value) {
+					if (value) {
+						form.undo();
+					}
+				}
+			});
 			return false;
 		}
 		return true;
@@ -93,18 +90,17 @@ public class EIAUpdateForm extends GHAUpdateForm<Eia> implements
 	@Override
 	public void hide() {
 		if (form.hasUnCommittedChanges()) {
-			GHAAlertManager.confirm(GHAStrings.get("information"),
-					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
+			GHAAlertManager.confirm("unsaved-changes", new BooleanCallback() {
 
-						@Override
-						public void execute(Boolean value) {
-							if (value) {
-								form.undo();
-								form.hide();
-								EIAUpdateForm.super.hide();
-							}
-						}
-					});
+				@Override
+				public void execute(Boolean value) {
+					if (value) {
+						form.undo();
+						form.hide();
+						EIAUpdateForm.super.hide();
+					}
+				}
+			});
 			return;
 		}
 
@@ -126,7 +122,7 @@ public class EIAUpdateForm extends GHAUpdateForm<Eia> implements
 						update();
 					}
 				}), new GHAImgButton("../resources/icons/cancel.png",
-				new ClickHandler() {
+						new ClickHandler() {
 
 					@Override
 					public void onClick(ClickEvent event) {
@@ -171,7 +167,7 @@ public class EIAUpdateForm extends GHAUpdateForm<Eia> implements
 	public void removeEiaSelectionListener(
 			EIASelectionListener eiaSelectionListener) {
 		((EiaSelectionProducer) form)
-				.removeEiaSelectionListener(eiaSelectionListener);
+		.removeEiaSelectionListener(eiaSelectionListener);
 	}
 
 	/*
@@ -213,7 +209,7 @@ public class EIAUpdateForm extends GHAUpdateForm<Eia> implements
 			@Override
 			public void onSuccess(Eia result) {
 				hide();
-				GHAAlertManager.inform("eiatype-save-success");
+				GHAAlertManager.alert("eiatype-save-success");
 			}
 		});
 	}

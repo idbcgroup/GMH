@@ -1,9 +1,11 @@
 package org.fourgeeks.gha.webclient.client.UI.alerts.modal;
 
-import org.fourgeeks.gha.domain.msg.GHAMessage;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.alerts.GHADialog;
 
 import com.smartgwt.client.widgets.Button;
+import com.smartgwt.client.widgets.events.ClickEvent;
+import com.smartgwt.client.widgets.events.ClickHandler;
 
 
 
@@ -12,33 +14,39 @@ import com.smartgwt.client.widgets.Button;
  *
  */
 public class GHASoftErrorDialog extends GHADialog {
-
-	/**
-	 * @param ghaMessage
-	 * @param buttons 
-	 */
-	public GHASoftErrorDialog(GHAMessage ghaMessage, Button... buttons){
-		//TODO: decodificador por el GHAMessage
-		super(DialogType.ERROR_SOFT,false,false,buttons);
+	static Button buttonOK = new Button(GHAStrings.get("accept"));
+	{
+		buttonOK.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				close();
+			}
+		});
 	}
-
 	/**
 	 * @param message 
-	 * @param buttons 
 	 */
-	public GHASoftErrorDialog(String message, Button... buttons) {
-		super(DialogType.ERROR_SOFT,false,false,buttons);
+	public GHASoftErrorDialog(String message) {
+		super("ERROR_SOFT",false,false,buttonOK);
 		setMessage(message);
+		initByType();
 	}
 
 	/**
 	 * @param title
 	 * @param message
-	 * @param buttons
 	 */
-	public GHASoftErrorDialog(String title, String message, Button... buttons){
-		this(message, buttons);
+	public GHASoftErrorDialog(String title, String message){
+		this(message);
 		setTitle(title);
+	}
+
+	/**
+	 * 
+	 */
+	private void initByType() {
+		initTypeParams();
+		confModalTimingSettings();
 	}
 
 	/* (non-Javadoc)
@@ -46,7 +54,14 @@ public class GHASoftErrorDialog extends GHADialog {
 	 */
 	@Override
 	protected void initTypeParams() {
-		// TODO Auto-generated method stub
-
+		// Yellow
+		dialogType = "ERROR_SOFT";
+		isTimed = false;
+		isModal = false;
+		setTitle(GHAStrings.get("soft-error"));
+		setBorder("1px solid #FCD14A");
+		setBackgroundColor("#FCD14A");
+		setBodyColor("#FCE499");
+		setIcon("../resources/icons/msgIT/error.png");
 	}
 }
