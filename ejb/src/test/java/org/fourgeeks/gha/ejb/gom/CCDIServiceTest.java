@@ -284,6 +284,29 @@ public class CCDIServiceTest {
 			System.out.println("error creating ccdilevelValue in test\n");
 			Assert.fail(e1.getCause().getMessage());
 		}
+
+		try {
+			String hypodermic1 = ccdiService.getNextCCDILevelValue("T010101");
+			Assert.assertNotNull(hypodermic1);
+			Assert.assertEquals("T0101010001", hypodermic1);
+
+			String hypodermic2 = ccdiService.getNextCCDILevelValue("T010101");
+			Assert.assertNotNull(hypodermic2);
+			Assert.assertEquals("T0101010002", hypodermic2);
+
+			String hypodermic3 = ccdiService.getNextCCDILevelValue("T010101");
+			Assert.assertNotNull(hypodermic3);
+			Assert.assertEquals("T0101010003", hypodermic3);
+
+			String hypodermic4 = ccdiService.getNextCCDILevelValue("T010101");
+			Assert.assertNotNull(hypodermic4);
+			Assert.assertEquals("T0101010004", hypodermic4);
+
+		} catch (GHAEJBException e) {
+			System.out.println("error getting ccdilevelValue in test\n");
+			Assert.fail(e.getCause().getMessage());
+		}
+
 	}
 
 	@After

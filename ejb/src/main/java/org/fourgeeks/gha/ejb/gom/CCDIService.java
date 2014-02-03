@@ -177,15 +177,15 @@ public class CCDIService extends GHAEJBExceptionService implements
 					.createNamedQuery("CCDILevelDefinition.findByLevel",
 							CCDILevelDefinition.class)
 					.setParameter("level",
-							levelValue.getLevelDefinition().getLevel())
+							levelValue.getLevelDefinition().getLevel() + 1)
 					.setParameter("definition",
 							levelValue.getLevelDefinition().getDefinition())
 					.getSingleResult();
-
-			return levelValue.getCode()
-					+ levelValue.getLevelDefinition().getSeparator()
+			String nextCode = levelValue.getCode()
+					+ nextLevelDefinition.getSeparator()
 					+ formatCode(nextLevelDefinition.getLength(),
 							getNextCode(levelValue));
+			return nextCode;
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: creating CCDI Level Definition", e);
 			throw super.generateGHAEJBException("ccdi-level-value-next-fail",
