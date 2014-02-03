@@ -481,7 +481,7 @@ ES,damageStatus-not-null,Debe indicar el estado del daño o falla,6
 ES,damagePriority-not-null,Debe indicar la prioridad del daño o falla,6
 ES,userWhoReported-not-null,Debe indicar el usuario que reportó el daño o falla,6
 ES,userWhoRegistered-not-null,Debe indicar el usuario que registró el daño o falla,6
-ES,no-eiatype-maintenance-plans,No existen planes de mantenimiento para este tipo de equipo,1
+ES,no-eiatype-maintenance-plans,No existen planes de mantenimiento para este tipo de equipo,7
 ES,eiaPreventiveMaintenancePlanification-save-success,La Planificación de Mantenimiento Preventivo ha sido guardada exitosamente,9
 ES,eiatype-maintenance-plan-not-null,Debe indicar el plan de mantenimiento,6
 ES,password-missmatch,Las claves de acceso no coinciden,6
@@ -496,6 +496,24 @@ ES,maintenanceProtocol-getStadisticInfo-fail,Fallo al obtener información estad
 ES,delete-activities-success,Las actividades se eliminaron exitosamente,9
 ES,delete-protocol-activities-success,Las actividades del protocolo se eliminaron exitosamente,9
 ES,cancelation-option-not-null,Debe indicar la opción de cancelación ,6
-ES,activity-save-success,La actividad ha sido guardada exitosamente,6
-ES,activity-update-success,La actividad ha sido actualizada exitosamente,6
+ES,activity-save-success,La actividad ha sido guardada exitosamente,9
+ES,activity-update-success,La actividad ha sido actualizada exitosamente,9
 ES,form-errors,El formulario contiene errores,6
+ES,eiatype-material-delete-confirm,¿Desea retirar el material asociado al tipo de equipo?,2
+ES,eiatype-utility-service-delete-confirm,¿Desea eliminar el servicio utilitario asociado al tipo de equipo?,2
+ES,eiatype-delete-confirm,¿Desea eliminar el tipo de equipo?,2
+ES,eiatypes-delete-confirm,¿Desea eliminar los tipos de equipo?,2
+ES,maintenance-plan-delete-confirm,¿Desea eliminar el plan de mantenimiento?,2
+ES,maintenances-plan-delete-confirm,¿Desea eliminar los planes de mantenimiento?,2
+ES,eia-delete-confirm,¿Desea eliminar el equipo?,2
+ES,eias-delete-confirm,¿Desea eliminar los equipos?,2
+ES,eiaComponent-delete-confirm,¿Desea eliminar el componente?,2
+ES,eiaComponents-delete-confirm,¿Desea eliminar los componentes?,2
+ES,ssoUser-delete-confirm,¿Desea eliminar al usuario?,2
+ES,unsaved-changes,Existen algunos cambios sin guardar ¿Realmente desea salir?,3
+ES,activity-delete-confirm,¿Desea eliminar la actividad?,2
+ES,activities-delete-confirm,¿Desea eliminar las actividades?,2
+ES,maintenance-protocol-delete-confirm,¿Desea eliminar todas las actividades de este Plan de Mantenimiento?,2
+ES,eiatype-component-delete-confirm,Confirme si desea eliminar el componente seleccionado,2
+ES,eiatype-maintenance-plan-delete-confirm, ¿Desea retirar el plan de mantenimeinto asociado al tipo de equipo?,2
+ES,eiatype-material-category-delete-confirm, ¿Desea retirar la categoria de material asociado al tipo de equipo?,2

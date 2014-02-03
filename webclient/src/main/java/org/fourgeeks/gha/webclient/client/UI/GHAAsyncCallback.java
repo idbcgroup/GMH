@@ -18,9 +18,9 @@ public abstract class GHAAsyncCallback<T> implements AsyncCallback<T> {
 		if (t instanceof GHAEJBException) {
 			GHAAlertManager.alert(((GHAEJBException) t).getGhaMessage());
 		} else if (message != null && message.trim().equals("0")) {
-			GHAAlertManager.alert("connection-problem");
+			GHAAlertManager.alert("ERROR-HARD",GHAStrings.get("hard-error"),GHAStrings.get("connection-problem"));
 		} else {
-			GHAAlertManager.alert("INFORMATION",GHAStrings.get("information"),message);
+			GHAAlertManager.alert("ERROR-HARD",GHAStrings.get("hard-error"),message);
 		}
 	}
 }

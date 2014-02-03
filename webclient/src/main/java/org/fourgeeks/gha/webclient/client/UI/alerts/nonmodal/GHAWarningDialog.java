@@ -1,6 +1,6 @@
 package org.fourgeeks.gha.webclient.client.UI.alerts.nonmodal;
 
-import org.fourgeeks.gha.domain.msg.GHAMessage;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.alerts.GHADialog;
 
 import com.smartgwt.client.widgets.Button;
@@ -10,39 +10,22 @@ import com.smartgwt.client.widgets.Button;
  *
  */
 public class GHAWarningDialog extends GHADialog {
-
-	/**
-	 * @param ghaMessage
-	 */
-	public GHAWarningDialog(GHAMessage ghaMessage){
-		//TODO: decodificador por el GHAMessage
-		super(DialogType.WARNING,false,false);
-	}
-
-	/**
-	 * @param ghaMessage
-	 * @param buttons 
-	 */
-	public GHAWarningDialog(GHAMessage ghaMessage,Button... buttons){
-		//TODO: decodificador por el GHAMessage
-		super(DialogType.WARNING,false,false,buttons);
-	}
-
 	/**
 	 * @param message
 	 */
 	public GHAWarningDialog(String message) {
-		super(DialogType.WARNING,false,false);
+		super("WARNING",false,false);
 		setMessage(message);
+		initByType();
 	}
-
 	/**
 	 * @param message
 	 * @param buttons 
 	 */
 	public GHAWarningDialog(String message, Button... buttons) {
-		super(DialogType.WARNING,false,false,buttons);
+		super("WARNING",false,false,buttons);
 		setMessage(message);
+		initByType();
 	}
 
 	/**
@@ -64,12 +47,27 @@ public class GHAWarningDialog extends GHADialog {
 		setTitle(title);
 	}
 
+	/**
+	 * 
+	 */
+	private void initByType() {
+		initTypeParams();
+		confModalTimingSettings();
+	}
+
 	/* (non-Javadoc)
 	 * @see org.fourgeeks.gha.webclient.client.UI.alerts.GHADialog#initTypeParams()
 	 */
 	@Override
 	protected void initTypeParams() {
-		// TODO Auto-generated method stub
-
+		// Blue
+		dialogType = "WARNING";
+		isTimed = true;
+		isModal = false;
+		setTitle(GHAStrings.get("warning"));
+		setBorder("1px solid #8CB1E0");
+		setBackgroundColor("#8CB1E0");
+		setBodyColor("#D9E3EF");
+		setIcon("../resources/icons/msgIT/warn.png");
 	}
 }

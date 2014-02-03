@@ -33,7 +33,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class EIATypeComponentGridPanel extends GHAVerticalLayout implements
-		EIATypeSelectionListener, HideableListener, ClosableListener {
+EIATypeSelectionListener, HideableListener, ClosableListener {
 
 	private EIATypeComponentGrid grid;
 	private EiaType eiaType;
@@ -52,10 +52,10 @@ public class EIATypeComponentGridPanel extends GHAVerticalLayout implements
 				EIATypeComponentModel.update(eiaTypeComponent,
 						new GHAAsyncCallback<EiaTypeComponent>() {
 
-							@Override
-							public void onSuccess(EiaTypeComponent result) {
-							}
-						});
+					@Override
+					public void onSuccess(EiaTypeComponent result) {
+					}
+				});
 			}
 		});
 		grid.getReplaceableField().addCellSavedHandler(new CellSavedHandler() {
@@ -69,10 +69,10 @@ public class EIATypeComponentGridPanel extends GHAVerticalLayout implements
 				EIATypeComponentModel.update(eiaTypeComponent,
 						new GHAAsyncCallback<EiaTypeComponent>() {
 
-							@Override
-							public void onSuccess(EiaTypeComponent result) {
-							}
-						});
+					@Override
+					public void onSuccess(EiaTypeComponent result) {
+					}
+				});
 			}
 		});
 		grid.getAmountField().addCellSavedHandler(new CellSavedHandler() {
@@ -85,10 +85,10 @@ public class EIATypeComponentGridPanel extends GHAVerticalLayout implements
 				EIATypeComponentModel.update(eiaTypeComponent,
 						new GHAAsyncCallback<EiaTypeComponent>() {
 
-							@Override
-							public void onSuccess(EiaTypeComponent result) {
-							}
-						});
+					@Override
+					public void onSuccess(EiaTypeComponent result) {
+					}
+				});
 			}
 		});
 
@@ -103,18 +103,18 @@ public class EIATypeComponentGridPanel extends GHAVerticalLayout implements
 
 				final EiaTypeComponent eiaTypeComponent = new EiaTypeComponent();
 				eiaTypeComponent
-						.setParentEiaType(EIATypeComponentGridPanel.this.eiaType);
+				.setParentEiaType(EIATypeComponentGridPanel.this.eiaType);
 				eiaTypeComponent.setEiaType(eiaType);
 				eiaTypeComponent.setComponentReplaceable(false);
 				eiaTypeComponent.setComponentRequired(false);
 				EIATypeComponentModel.save(eiaTypeComponent,
 						new GHAAsyncCallback<EiaTypeComponent>() {
 
-							@Override
-							public void onSuccess(EiaTypeComponent result) {
-								loadData();
-							}
-						});
+					@Override
+					public void onSuccess(EiaTypeComponent result) {
+						loadData();
+					}
+				});
 			}
 		});
 	}
@@ -132,11 +132,11 @@ public class EIATypeComponentGridPanel extends GHAVerticalLayout implements
 					}
 				}), new GHADeleteButton(new ClickHandler() {
 
-			@Override
-			public void onClick(ClickEvent event) {
-				delete();
-			}
-		}));
+					@Override
+					public void onClick(ClickEvent event) {
+						delete();
+					}
+				}));
 		final HLayout gridContainer = new HLayout();
 		gridContainer.addMembers(grid, sideButtons);
 
@@ -166,24 +166,23 @@ public class EIATypeComponentGridPanel extends GHAVerticalLayout implements
 			return;
 		}
 
-		GHAAlertManager.confirm(GHAStrings.get("eiatype-component"),
-				GHAStrings.get("eiatype-component-delete-confirm"),
+		GHAAlertManager.confirm("eiatype-component-delete-confirm",
 				new BooleanCallback() {
 
-					@Override
-					public void execute(Boolean value) {
-						if (value)
-							EIATypeComponentModel.delete(
-									eiaTypeComponent.getId(),
-									new GHAAsyncCallback<Void>() {
+			@Override
+			public void execute(Boolean value) {
+				if (value)
+					EIATypeComponentModel.delete(
+							eiaTypeComponent.getId(),
+							new GHAAsyncCallback<Void>() {
 
-										@Override
-										public void onSuccess(Void result) {
-											loadData();
-										}
-									});
-					}
-				});
+								@Override
+								public void onSuccess(Void result) {
+									loadData();
+								}
+							});
+			}
+		});
 
 	}
 
@@ -196,16 +195,16 @@ public class EIATypeComponentGridPanel extends GHAVerticalLayout implements
 		EIATypeComponentModel.findByParentEiaType(eiaType,
 				new GHAAsyncCallback<List<EiaTypeComponent>>() {
 
-					@Override
-					public void onSuccess(
-							List<EiaTypeComponent> eiaTypeComponents) {
-						ListGridRecord[] array = EIATypeComponentUtil
-								.toGridRecords(eiaTypeComponents).toArray(
-										new EIATypeComponentRecord[] {});
-						grid.setData(array);
-					}
+			@Override
+			public void onSuccess(
+					List<EiaTypeComponent> eiaTypeComponents) {
+				ListGridRecord[] array = EIATypeComponentUtil
+						.toGridRecords(eiaTypeComponents).toArray(
+								new EIATypeComponentRecord[] {});
+				grid.setData(array);
+			}
 
-				});
+		});
 	}
 
 	private void search() {
