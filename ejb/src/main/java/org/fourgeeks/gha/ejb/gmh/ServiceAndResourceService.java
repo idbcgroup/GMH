@@ -23,13 +23,13 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  */
 
 @Stateless
-public class ServiceResourceService extends GHAEJBExceptionService implements
-		ServiceResourceServiceRemote {
+public class ServiceAndResourceService extends GHAEJBExceptionService implements
+		ServiceAndResourceServiceRemote {
 	@PersistenceContext
 	EntityManager em;
 
 	private final static Logger logger = Logger
-			.getLogger(ServiceResourceService.class.getName());
+			.getLogger(ServiceAndResourceService.class.getName());
 
 	/*
 	 * (non-Javadoc)
@@ -44,7 +44,24 @@ public class ServiceResourceService extends GHAEJBExceptionService implements
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete Resource/Service",
 					e);
-			throw super.generateGHAEJBException("serviceResource-delete-fail",
+			throw super.generateGHAEJBException(
+					"serviceAndResource-delete-fail",
+					RuntimeParameters.getLang(), em);
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.ejb.gmh.ServiceResourceServiceRemote#find(long)
+	 */
+	@Override
+	public ServiceAndResource find(long Id) throws GHAEJBException {
+		try {
+			return em.find(ServiceAndResource.class, Id);
+		} catch (Exception e) {
+			logger.log(Level.INFO, "ERROR: finding Resource/Service", e);
+			throw super.generateGHAEJBException("serviceAndResource-find-fail",
 					RuntimeParameters.getLang(), em);
 		}
 	}
@@ -69,22 +86,6 @@ public class ServiceResourceService extends GHAEJBExceptionService implements
 					"Error: finding Resources/Services by Activity", e);
 			throw super.generateGHAEJBException(
 					"serviceAndResource-findByActivity-fail",
-					RuntimeParameters.getLang(), em);
-		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.fourgeeks.gha.ejb.gmh.ServiceResourceServiceRemote#find(long)
-	 */
-	@Override
-	public ServiceAndResource find(long Id) throws GHAEJBException {
-		try {
-			return em.find(ServiceAndResource.class, Id);
-		} catch (Exception e) {
-			logger.log(Level.INFO, "ERROR: finding Resource/Service", e);
-			throw super.generateGHAEJBException("serviceAndResource-find-fail",
 					RuntimeParameters.getLang(), em);
 		}
 	}
@@ -118,7 +119,7 @@ public class ServiceResourceService extends GHAEJBExceptionService implements
 			throws GHAEJBException {
 		try {
 			return em
-					.createNamedQuery("ServiceResource.getAll",
+					.createNamedQuery("ServiceAndResource.getAll",
 							ServiceAndResource.class).setFirstResult(offset)
 					.setMaxResults(size).getResultList();
 		} catch (Exception e) {

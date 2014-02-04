@@ -36,8 +36,8 @@ public class Facility extends AbstractEntity {
 	@JoinColumn(name = "facilityCategoryFk")
 	private FacilityCategory facilityCategory;
 
-	@ManyToOne
-	@JoinColumn(name = "serviceResourceFk")
+	@OneToOne
+	@JoinColumn(name = "resourceFk")
 	private ServiceAndResource serviceResource;
 
 	private String name;

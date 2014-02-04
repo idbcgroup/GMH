@@ -5,8 +5,8 @@ package org.fourgeeks.gha.webclient.client.resource;
 
 import java.util.List;
 
+import org.fourgeeks.gha.domain.Activity;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
-import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.ServiceAndResource;
 
 import com.google.gwt.user.client.rpc.RemoteService;
@@ -14,23 +14,27 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 /**
  * @author emiliot
- *
+ * 
  */
 
 @RemoteServiceRelativePath("serviceResource")
-public interface GWTServiceResourceService extends RemoteService{
+public interface GWTServiceResourceService extends RemoteService {
 	/**
 	 * Delete a Resource/Service from database by Id
+	 * 
+	 * @param Id
+	 * 
 	 * @throws GHAEJBException
 	 */
 	public void delete(long Id) throws GHAEJBException;
-	
+
 	/**
-	 * @param protocolActivity
-	 * @return the list of Resource/Service that used by the ProtocolActivity given
+	 * @param activity
+	 * @return the list of Resource/Service used by the given Activity
 	 * @throws GHAEJBException
 	 */
-	public List<ServiceAndResource> findByProtocolActivity(MaintenanceActivity protocolActivity) throws GHAEJBException;
+	public List<ServiceAndResource> findByActivity(Activity activity)
+			throws GHAEJBException;
 
 	/**
 	 * @param Id
@@ -55,20 +59,20 @@ public interface GWTServiceResourceService extends RemoteService{
 			throws GHAEJBException;
 
 	/**
-	 * @param ServiceAndResource
+	 * @param entity
 	 *            the Resource/Service to be saved on database
 	 * @throws GHAEJBException
 	 * @return Resource/Service saved
 	 */
-	public ServiceAndResource save(ServiceAndResource ras)
+	public ServiceAndResource save(ServiceAndResource entity)
 			throws GHAEJBException;
 
 	/**
-	 * @param ServiceAndResource
+	 * @param entity
 	 *            the Resource/Service to be updated
 	 * @return Resource/Service updated
 	 * @throws GHAEJBException
 	 */
-	public ServiceAndResource update(ServiceAndResource ras)
+	public ServiceAndResource update(ServiceAndResource entity)
 			throws GHAEJBException;
 }

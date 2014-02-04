@@ -5,6 +5,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.ess.Role;
@@ -26,9 +27,9 @@ public class Job extends AbstractEntity {
 	@JoinColumn(name = "jobCategoryFk")
 	private JobCategory jobCategory;
 
-	@ManyToOne
-	@JoinColumn(name = "serviceResourceFk")
-	private ServiceAndResource serviceResource;
+	@OneToOne
+	@JoinColumn(name = "resourceFk")
+	private ServiceAndResource resource;
 
 	@ManyToOne
 	@JoinColumn(name = "roleFk")
@@ -72,14 +73,14 @@ public class Job extends AbstractEntity {
 	 * @return
 	 */
 	public ServiceAndResource getServiceResource() {
-		return serviceResource;
+		return resource;
 	}
 
 	/**
 	 * @param serviceResource
 	 */
 	public void setServiceResource(ServiceAndResource serviceResource) {
-		this.serviceResource = serviceResource;
+		this.resource = serviceResource;
 	}
 
 	/**

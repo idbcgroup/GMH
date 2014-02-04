@@ -42,6 +42,7 @@ import org.fourgeeks.gha.domain.enu.ProviderRepresentEnum;
 import org.fourgeeks.gha.domain.enu.ProviderResourceTypeEnum;
 import org.fourgeeks.gha.domain.enu.ProviderServicesEnum;
 import org.fourgeeks.gha.domain.enu.ProviderTypeEnum;
+import org.fourgeeks.gha.domain.enu.ServiceAndResourceType;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
 import org.fourgeeks.gha.domain.ess.LocationType;
@@ -74,10 +75,10 @@ import org.fourgeeks.gha.domain.gmh.EiaTypeCategory;
 import org.fourgeeks.gha.domain.gmh.EiaTypeComponent;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
-import org.fourgeeks.gha.domain.gmh.RequiredResources;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
+import org.fourgeeks.gha.domain.gmh.RequiredResources;
 import org.fourgeeks.gha.domain.gmh.ServiceAndResource;
 import org.fourgeeks.gha.domain.gmh.ServiceResourceCategory;
 import org.fourgeeks.gha.domain.gmh.SubProtocolAndChecklist;
@@ -232,6 +233,9 @@ public class SubProtocolAndChecklistServiceTest {
 				.addClass(SubProtocolAndCheklistServiceRemote.class)
 				.addClass(SubProtocolAndCheklistServiceLocal.class)
 				.addClass(MaintenanceActivity.class)
+				.addClass(ServiceAndResourceType.class)
+				.addClass(ServiceAndResourceService.class)
+				.addClass(ServiceAndResourceServiceRemote.class)
 				.addAsResource("test-persistence.xml",
 						"META-INF/persistence.xml")
 				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");

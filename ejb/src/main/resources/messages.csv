@@ -2,7 +2,6 @@ ES,id-type-not-null,Debe indicar el tipo de identificación,6
 ES,id-number-not-null,Debe indicar el número de identificación,6
 ES,asset-id-not-null,Debe indicar el identificador del activo,6
 ES,material-type-not-null,Debe indicar el tipo de material,6
-ES,unsaved-changes,Existen cambios sin guardar,2
 EN,info-tittle,Information,7
 ES,no-message,No existe un mensaje para su localidad,6
 EN,no-message,There is no message for your location,6

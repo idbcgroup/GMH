@@ -20,11 +20,13 @@ import javax.persistence.criteria.Root;
 import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
 import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
 import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
+import org.fourgeeks.gha.domain.enu.ServiceAndResourceType;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
+import org.fourgeeks.gha.domain.gmh.ServiceAndResource;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 
@@ -367,6 +369,13 @@ public class EiaTypeService extends GHAEJBExceptionService implements
 				}
 				em.persist(brand);
 			}
+
+			ServiceAndResource resource = new ServiceAndResource(
+					eiaType.getCode(), ServiceAndResourceType.EQUIPS);
+
+			eiaType.setServiceResource(resource);
+
+			em.persist(resource);
 			em.persist(eiaType);
 			em.flush();
 			return em.find(EiaType.class, eiaType.getCode());

@@ -346,7 +346,7 @@ public class GhaServiceTest {
 	public ServiceAndResource getServiceResource(EntityManager em) {
 		if (serviceResource == null) {
 			ServiceAndResource serviceResource = new ServiceAndResource();
-			serviceResource.setName("ServiceResource test name");
+			serviceResource.setCode("ServiceResource test name");
 			em.persist(serviceResource);
 			em.flush();
 			this.serviceResource = em.find(ServiceAndResource.class,

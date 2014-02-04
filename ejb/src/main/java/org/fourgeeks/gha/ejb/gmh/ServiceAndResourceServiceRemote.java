@@ -16,7 +16,7 @@ import org.fourgeeks.gha.domain.gmh.ServiceAndResource;
  * 
  */
 @Remote
-public interface ServiceResourceServiceRemote {
+public interface ServiceAndResourceServiceRemote {
 	/**
 	 * Delete a Resource/Service from database by Id
 	 * 
@@ -26,19 +26,19 @@ public interface ServiceResourceServiceRemote {
 	public void delete(long Id) throws GHAEJBException;
 
 	/**
+	 * @param Id
+	 * @return the Resource/Service with this Id
+	 * @throws GHAEJBException
+	 */
+	public ServiceAndResource find(long Id) throws GHAEJBException;
+
+	/**
 	 * @param activity
 	 * @return the list of Resource/Service used by the given activity
 	 * @throws GHAEJBException
 	 */
 	public List<ServiceAndResource> findByActivity(Activity activity)
 			throws GHAEJBException;
-
-	/**
-	 * @param Id
-	 * @return the Resource/Service with this Id
-	 * @throws GHAEJBException
-	 */
-	public ServiceAndResource find(long Id) throws GHAEJBException;
 
 	/**
 	 * @return the list with all Resource/Service Objects
