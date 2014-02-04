@@ -6,6 +6,8 @@ package org.fourgeeks.gha.domain.logs;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import org.fourgeeks.gha.domain.gar.Bpu;
@@ -17,6 +19,7 @@ import org.fourgeeks.gha.domain.gar.Bpu;
 
 @Entity
 @Table(name = "UILog", schema = "log")
+@NamedQueries(value = { @NamedQuery(name = "UILog.getAll", query = "SELECT e from UILog e order by e.id") })
 public class UILog extends GHALog {
 
 	/**
@@ -32,14 +35,14 @@ public class UILog extends GHALog {
 	 * 
 	 */
 	public UILog() {
-		// TODO Auto-generated constructor stub
 	}
 
-	public Bpu getBpu() {
-		return bpu;
-	}
-
-	public void setBpu(Bpu bpu) {
+	/**
+	 * @param bpu
+	 * 
+	 */
+	public UILog(Bpu bpu) {
 		this.bpu = bpu;
 	}
+
 }

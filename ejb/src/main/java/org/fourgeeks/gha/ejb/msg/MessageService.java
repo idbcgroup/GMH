@@ -23,7 +23,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  */
 @Stateless
 public class MessageService extends GHAEJBExceptionService implements
-		MessageServiceRemote {
+		MessageServiceRemote, MessageServiceLocal {
 	@PersistenceContext
 	private EntityManager em;
 
@@ -42,10 +42,9 @@ public class MessageService extends GHAEJBExceptionService implements
 			System.out.println(Id);
 			return em.find(GHAMessage.class, new GHAMessageId(Id,
 					RuntimeParameters.getLang()));
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			logger.log(Level.INFO, "ERROR: finding GHAMessage", e);
-			throw super.generateGHAEJBException("message-find-fail",
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException("message-find-fail", em);
 		}
 	}
 
@@ -57,7 +56,7 @@ public class MessageService extends GHAEJBExceptionService implements
 	@Override
 	public List<GHAMessage> find(List<String> messages) throws GHAEJBException {
 		try {
-			List<GHAMessage> resultList = em
+			final List<GHAMessage> resultList = em
 					.createNamedQuery("GHAMessage.getAllByCodes",
 							GHAMessage.class).setParameter("codes", messages)
 					.setParameter("language", RuntimeParameters.getLang())
@@ -65,8 +64,8 @@ public class MessageService extends GHAEJBExceptionService implements
 
 			// if not all the messages are returned
 			if (messages.size() != resultList.size()) {
-				Map<String, Integer> keysFound = new TreeMap<String, Integer>();
-				List<GHAMessage> res = new ArrayList<GHAMessage>();
+				final Map<String, Integer> keysFound = new TreeMap<String, Integer>();
+				final List<GHAMessage> res = new ArrayList<GHAMessage>();
 
 				// build a map with the keys found, map code, pos
 				for (int i = 0; i < resultList.size(); ++i) {
@@ -74,16 +73,14 @@ public class MessageService extends GHAEJBExceptionService implements
 				}
 
 				// for each key to find
-				for (String key : messages) {
+				for (final String key : messages) {
 					// if it was found, add it to the final set
 					if (keysFound.containsKey(key)) {
 						res.add(resultList.get(keysFound.get(key)));
 					} else {
 						// else add a not found message with the key
-						GHAMessage next = super.generateGHAEJBException(
-								"message-find-fail",
-								RuntimeParameters.getLang(), em)
-								.getGhaMessage();
+						final GHAMessage next = super.generateGHAEJBException(
+								"message-find-fail", em).getGhaMessage();
 
 						// if it is not a generic message
 						if (next.getCode().equals("message-find-fail")) {
@@ -97,10 +94,40 @@ public class MessageService extends GHAEJBExceptionService implements
 			}
 			return resultList;
 
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			logger.log(Level.INFO, "ERROR: finding GHAMessages", e);
-			throw super.generateGHAEJBException("message-find-fail",
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException("message-find-fail", em);
+		}
+	}
+
+	@Override
+	// @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+	public GHAMessage save(GHAMessage ghaMessage) throws GHAEJBException {
+		try {
+			em.persist(ghaMessage);
+			em.flush();
+			return em
+					.find(GHAMessage.class,
+							new GHAMessageId(ghaMessage.getCode(), ghaMessage
+									.getLang()));
+		} catch (final Exception e) {
+			logger.log(Level.INFO, "ERROR: saving message", e);
+			throw super.generateGHAEJBException("message-save-fail", em);
+		}
+	}
+
+	@Override
+	// @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+	public void delete(GHAMessage entity) throws GHAEJBException {
+		try {
+			final GHAMessage mesg = em.find(GHAMessage.class, new GHAMessageId(
+					entity.getCode(), entity.getLang()));
+			em.remove(mesg);
+		} catch (final Exception e) {
+			logger.log(Level.INFO,
+					"ERROR: unable to delete =" + entity.getClass().getName()
+							+ " with id = " + entity.getCode(), e);
+			throw super.generateGHAEJBException("messague-delete-fail", em);
 		}
 	}
 }

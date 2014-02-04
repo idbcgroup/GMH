@@ -44,7 +44,8 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  */
 
 @Stateless
-public class EiaService extends GHAEJBExceptionService implements EiaServiceRemote {
+public class EiaService extends GHAEJBExceptionService implements
+		EiaServiceRemote {
 	@PersistenceContext
 	EntityManager em;
 
@@ -59,19 +60,21 @@ public class EiaService extends GHAEJBExceptionService implements EiaServiceRemo
 		Predicate predicate = cb.conjunction();
 		if (entity.getResponsibleRole() != null) {
 			// logger.log(Level.INFO, "responsible role");
-			ParameterExpression<Role> p = cb.parameter(Role.class, "baseRole");
+			final ParameterExpression<Role> p = cb.parameter(Role.class,
+					"baseRole");
 			predicate = cb.and(predicate,
 					cb.equal(root.<Role> get("responsibleRole"), p));
 		}
 		if (entity.getCode() != null) {
 			// logger.log(Level.INFO, "code");
-			ParameterExpression<String> p = cb.parameter(String.class, "code");
+			final ParameterExpression<String> p = cb.parameter(String.class,
+					"code");
 			predicate = cb.and(predicate,
 					cb.equal(root.<String> get("code"), p));
 		}
 		if (entity.getEiaType() != null) {
 			// logger.log(Level.INFO, "eiatype");
-			ParameterExpression<EiaType> p = cb.parameter(EiaType.class,
+			final ParameterExpression<EiaType> p = cb.parameter(EiaType.class,
 					"eiaType");
 			predicate = cb.and(predicate,
 					cb.equal(root.<EiaType> get("eiaType"), p));
@@ -80,49 +83,51 @@ public class EiaService extends GHAEJBExceptionService implements EiaServiceRemo
 			final Obu obu = entity.getObu();
 			if (obu.getId() > 0) {
 				// logger.log(Level.INFO, "obu");
-				ParameterExpression<Long> p = cb.parameter(Long.class, "obuId");
-				Path<Long> obuId = obuJoin.<Long> get("id");
+				final ParameterExpression<Long> p = cb.parameter(Long.class,
+						"obuId");
+				final Path<Long> obuId = obuJoin.<Long> get("id");
 				predicate = cb.and(predicate, cb.equal(obuId, p));
 			}
 			if (obu.getBpi() != null) {
 				// logger.log(Level.INFO, "obu.bpi");
-				ParameterExpression<Bpi> p = cb.parameter(Bpi.class, "obuBpi");
-				Path<Bpi> obuBpi = obuJoin.<Bpi> get("bpi");
+				final ParameterExpression<Bpi> p = cb.parameter(Bpi.class,
+						"obuBpi");
+				final Path<Bpi> obuBpi = obuJoin.<Bpi> get("bpi");
 				predicate = cb.and(predicate, cb.equal(obuBpi, p));
 			}
 		}
 		if (entity.getSerialNumber() != null) {
 			// logger.log(Level.INFO, "serial");
-			ParameterExpression<String> p = cb.parameter(String.class,
+			final ParameterExpression<String> p = cb.parameter(String.class,
 					"serialNumber");
 			predicate = cb.and(predicate,
 					cb.equal(root.<String> get("serialNumber"), p));
 		}
 		if (entity.getState() != null) {
 			// logger.log(Level.INFO, "state");
-			ParameterExpression<EiaStateEnum> p = cb.parameter(
+			final ParameterExpression<EiaStateEnum> p = cb.parameter(
 					EiaStateEnum.class, "state");
 			predicate = cb.and(predicate,
 					cb.equal(root.<EiaStateEnum> get("state"), p));
 		}
 		if (entity.getActualCost() != null) {
 			// logger.log(Level.INFO, "actualCost");
-			ParameterExpression<BigDecimal> p = cb.parameter(BigDecimal.class,
-					"actualCost");
+			final ParameterExpression<BigDecimal> p = cb.parameter(
+					BigDecimal.class, "actualCost");
 			predicate = cb.and(predicate,
 					cb.equal(root.<BigDecimal> get("actualCost"), p));
 		}
 		if (entity.getWorkingArea() != null) {
 			// logger.log(Level.INFO, "workingarea");
-			ParameterExpression<WorkingArea> p = cb.parameter(
+			final ParameterExpression<WorkingArea> p = cb.parameter(
 					WorkingArea.class, "workingArea");
 			predicate = cb.and(predicate,
 					cb.equal(root.<WorkingArea> get("workingArea"), p));
 		}
 		if (entity.getFacility() != null) {
 			// logger.log(Level.INFO, "facility");
-			ParameterExpression<Facility> p = cb.parameter(Facility.class,
-					"facility");
+			final ParameterExpression<Facility> p = cb.parameter(
+					Facility.class, "facility");
 			predicate = cb.and(predicate,
 					cb.equal(root.<Facility> get("facility"), p));
 		}
@@ -132,14 +137,14 @@ public class EiaService extends GHAEJBExceptionService implements EiaServiceRemo
 	@Override
 	public List<Long> countByState() throws GHAEJBException {
 		// TODO: EXCEPCIONES
-		List<Long> res = new ArrayList<Long>(EiaStateEnum.values().length);
+		final List<Long> res = new ArrayList<Long>(EiaStateEnum.values().length);
 		for (int i = 0; i < res.size(); ++i) {
 			long next = 0L;
 			try {
 				next = em.createNamedQuery("Eia.countByState", Long.class)
 						.setParameter("state", EiaStateEnum.values()[i])
 						.getSingleResult();
-			} catch (Exception e) {
+			} catch (final Exception e) {
 				next = 0;
 			} finally {
 				res.set(i, next);
@@ -156,15 +161,14 @@ public class EiaService extends GHAEJBExceptionService implements EiaServiceRemo
 	@Override
 	public boolean delete(long Id) throws GHAEJBException {
 		try {
-			Eia entity = em.find(Eia.class, Id);
+			final Eia entity = em.find(Eia.class, Id);
 			em.remove(entity);
 			return true;
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			logger.log(Level.INFO,
 					"ERROR: unable to delete eia=" + Eia.class.getName()
 							+ " with id=" + Long.toString(Id), e);
-			throw super.generateGHAEJBException("eia-delete-fail",
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException("eia-delete-fail", em);
 		}
 	}
 
@@ -178,15 +182,15 @@ public class EiaService extends GHAEJBExceptionService implements EiaServiceRemo
 	@Override
 	public List<Eia> find(Eia entity) throws GHAEJBException {
 		try {
-			CriteriaBuilder cb = em.getCriteriaBuilder();
-			CriteriaQuery<Eia> cQuery = cb.createQuery(Eia.class);
-			Root<Eia> root = cQuery.from(Eia.class);
+			final CriteriaBuilder cb = em.getCriteriaBuilder();
+			final CriteriaQuery<Eia> cQuery = cb.createQuery(Eia.class);
+			final Root<Eia> root = cQuery.from(Eia.class);
 			cQuery.select(root);
 			cQuery.orderBy(cb.asc(root.get("id")));
 
 			Predicate criteria;
 			if (entity.getObu() != null) {
-				Join<Eia, Obu> obuJoin = root.join("obu");
+				final Join<Eia, Obu> obuJoin = root.join("obu");
 				criteria = buildFilters(entity, cb, root, obuJoin);
 			} else
 				criteria = buildFilters(entity, cb, root, null);
@@ -234,7 +238,7 @@ public class EiaService extends GHAEJBExceptionService implements EiaServiceRemo
 				}
 			}
 			return q.getResultList();
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			logger.log(Level.SEVERE,
 					"Error obteniendo los Eia utilizando otro Eia", e);
 			throw super.generateGHAEJBException("eia-findByEia-fail",
@@ -254,7 +258,7 @@ public class EiaService extends GHAEJBExceptionService implements EiaServiceRemo
 		try {
 			return em.createNamedQuery("Eia.findByEiaType", Eia.class)
 					.setParameter("eiaType", eiaType).getResultList();
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			logger.log(Level.INFO, "Error: finding eia by eiatype", e);
 			throw super.generateGHAEJBException("eia-findByEiaType-fail",
 					RuntimeParameters.getLang(), em);
@@ -265,18 +269,18 @@ public class EiaService extends GHAEJBExceptionService implements EiaServiceRemo
 	public List<Eia> findDamagedAndInMaintenance(EiaType eiaType)
 			throws GHAEJBException {
 		try {
-			ArrayList<EiaStateEnum> stateList = new ArrayList<EiaStateEnum>();
+			final ArrayList<EiaStateEnum> stateList = new ArrayList<EiaStateEnum>();
 			stateList.add(EiaStateEnum.DAMAGED);
 			stateList.add(EiaStateEnum.MAINTENANCE);
 
-			String stringQuery = "SELECT e FROM Eia e WHERE e.eiaType = :eiaType AND e.state IN :eiaStates order by e.id";
-			List<Eia> resultList = em.createQuery(stringQuery, Eia.class)
+			final String stringQuery = "SELECT e FROM Eia e WHERE e.eiaType = :eiaType AND e.state IN :eiaStates order by e.id";
+			final List<Eia> resultList = em.createQuery(stringQuery, Eia.class)
 					.setParameter("eiaType", eiaType)
 					.setParameter("eiaStates", stateList).getResultList();
 
 			return resultList;
-		} catch (Exception e) {
-			String stringException = "Error: finding eia by eiatype and state DAMAGED or MAINTENANCE";
+		} catch (final Exception e) {
+			final String stringException = "Error: finding eia by eiatype and state DAMAGED or MAINTENANCE";
 			logger.log(Level.INFO, stringException, e);
 			throw super.generateGHAEJBException("eia-findByEiaType-fail",
 					RuntimeParameters.getLang(), em);
@@ -292,7 +296,7 @@ public class EiaService extends GHAEJBExceptionService implements EiaServiceRemo
 	public Eia find(long Id) throws GHAEJBException {
 		try {
 			return em.find(Eia.class, Id);
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			logger.log(Level.INFO, "ERROR: finding eia by id", e);
 			throw super.generateGHAEJBException("eia-find-fail",
 					RuntimeParameters.getLang(), em);
@@ -308,7 +312,7 @@ public class EiaService extends GHAEJBExceptionService implements EiaServiceRemo
 	public List<Eia> getAll() throws GHAEJBException {
 		try {
 			return em.createNamedQuery("Eia.getAll", Eia.class).getResultList();
-		} catch (Exception ex) {
+		} catch (final Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all eias", ex);
 			throw super.generateGHAEJBException("eia-getAll-fail",
 					RuntimeParameters.getLang(), em);
@@ -325,7 +329,7 @@ public class EiaService extends GHAEJBExceptionService implements EiaServiceRemo
 		try {
 			return em.createNamedQuery("Eia.getAll", Eia.class)
 					.setFirstResult(offset).setMaxResults(size).getResultList();
-		} catch (Exception ex) {
+		} catch (final Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all eias", ex);
 			throw super.generateGHAEJBException("eia-getAll-fail",
 					RuntimeParameters.getLang(), em);
@@ -345,7 +349,7 @@ public class EiaService extends GHAEJBExceptionService implements EiaServiceRemo
 			em.persist(eia);
 			em.flush();
 			return em.find(Eia.class, eia.getId());
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			logger.log(Level.INFO, "ERROR: saving eia ", e);
 			throw super.generateGHAEJBException("eia-save-fail",
 					RuntimeParameters.getLang(), em);
@@ -362,9 +366,9 @@ public class EiaService extends GHAEJBExceptionService implements EiaServiceRemo
 	@Override
 	public Eia update(Eia eia) throws GHAEJBException {
 		try {
-			Eia res = em.merge(eia);
+			final Eia res = em.merge(eia);
 			return res;
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to update eia ", e);
 			throw super.generateGHAEJBException("eia-update-fail",
 					RuntimeParameters.getLang(), em);
@@ -375,12 +379,12 @@ public class EiaService extends GHAEJBExceptionService implements EiaServiceRemo
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 	public List<Eia> findComponents(Eia entity, EiaType eiaType)
 			throws GHAEJBException {
-		List<EiaTypeComponent> eiatypes = eiaTypeComponentService
+		final List<EiaTypeComponent> eiatypes = eiaTypeComponentService
 				.findByParentEiaType(eiaType);
-		List<Eia> eias = find(entity);
-		List<Eia> result = new ArrayList<Eia>();
-		for (Eia eia : eias)
-			for (EiaTypeComponent eiaType2 : eiatypes)
+		final List<Eia> eias = find(entity);
+		final List<Eia> result = new ArrayList<Eia>();
+		for (final Eia eia : eias)
+			for (final EiaTypeComponent eiaType2 : eiatypes)
 				if (eiaType2.getEiaType().getCode()
 						.equals(eia.getEiaType().getCode()))
 					result.add(eia);

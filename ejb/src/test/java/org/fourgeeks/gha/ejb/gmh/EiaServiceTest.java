@@ -238,7 +238,6 @@ public class EiaServiceTest {
 	private long institutionId = 0l;
 	private long legalEntityId = 0l;
 	private Role role;
-	private final long roleId = 0l;
 	private Obu obu;
 	private EiaType eiaType;
 
@@ -268,46 +267,42 @@ public class EiaServiceTest {
 	@Before
 	public void set() {
 		// CREATING AN EIATYPE
-		String eiaTypeCode = "eiatype-code";
-		EiaType localEiaType = new EiaType();
+		final String eiaTypeCode = "eiatype-code";
+		final EiaType localEiaType = new EiaType();
 		localEiaType.setCode(eiaTypeCode);
 		localEiaType.setMobility(EiaMobilityEnum.FIXED);
 		localEiaType.setName("test eiatype");
 		localEiaType.setType(EiaTypeEnum.EQUIPMENT);
 		try {
 			eiaType = eiaTypeService.save(localEiaType);
-			System.out.println("AAAA\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-			System.out.println(eiaType.getCode());
 			eiaType = eiaTypeService.find(eiaTypeCode);
-			System.out.println("BBB\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-			System.out.println(eiaType.getCode());
-		} catch (GHAEJBException e) {
+		} catch (final GHAEJBException e) {
 			e.printStackTrace();
 			unset();
 			Assert.fail("failing creating the eiatype");
 		}
 
 		// CREATING AN OBU
-		String obuCode = "obu-code";
-		Obu localObu = new Obu();
+		final String obuCode = "obu-code";
+		final Obu localObu = new Obu();
 		localObu.setCode(obuCode);
 		localObu.setName("Obu test name");
 
 		try {
 			obu = obuService.save(localObu);
-		} catch (GHAEJBException e) {
+		} catch (final GHAEJBException e) {
 			e.printStackTrace();
 			unset();
 			Assert.fail("failing creating the obu");
 		}
 		//
 		// CREATING ROLE
-		Role localRole = new Role();
+		final Role localRole = new Role();
 		localRole.setName("Role test name");
 
 		try {
 			role = roleService.save(localRole);
-		} catch (GHAEJBException e) {
+		} catch (final GHAEJBException e) {
 			e.printStackTrace();
 			unset();
 			Assert.fail("failing creating the role");
@@ -318,7 +313,7 @@ public class EiaServiceTest {
 		try {
 			localLegalEntity = legalEntityService.save(new LegalEntity());
 			legalEntityId = localLegalEntity.getId();
-		} catch (GHAEJBException e) {
+		} catch (final GHAEJBException e) {
 			e.printStackTrace();
 			unset();
 			Assert.fail("failing creating the legalentity");
@@ -331,20 +326,20 @@ public class EiaServiceTest {
 		try {
 			localInstitution = institutionService.save(localInstitution);
 			institutionId = localInstitution.getId();
-		} catch (GHAEJBException e) {
+		} catch (final GHAEJBException e) {
 			e.printStackTrace();
 			unset();
 			Assert.fail("failing creating the intitution");
 		}
 		//
 		// CREATING THE EXTERNAL PROVIDER
-		ExternalProvider localExternalProvider = new ExternalProvider();
+		final ExternalProvider localExternalProvider = new ExternalProvider();
 		localExternalProvider.setInstitution(localInstitution);
 		try {
 			externalProvider = externalProviderService
 					.save(localExternalProvider);
 			externalProviderId = externalProvider.getId();
-		} catch (GHAEJBException e) {
+		} catch (final GHAEJBException e) {
 			e.printStackTrace();
 			unset();
 			Assert.fail("failing creating the intitution");
@@ -358,41 +353,41 @@ public class EiaServiceTest {
 		// DELETING THE EIATYPE
 		try {
 			eiaTypeService.delete(eiaType.getCode());
-		} catch (GHAEJBException e1) {
+		} catch (final GHAEJBException e1) {
 			// e1.printStackTrace();
 		}
 
 		// DELETING THE OBU
 		try {
 			obuService.delete(obu.getId());
-		} catch (GHAEJBException e1) {
+		} catch (final GHAEJBException e1) {
 			// e1.printStackTrace();
 		}
 
 		// DELETING THE ROLE
 		try {
 			roleService.delete(role.getId());
-		} catch (GHAEJBException e1) {
+		} catch (final GHAEJBException e1) {
 			// e1.printStackTrace();
 		}
 		// DELETING THE EXTERNAL PROVIDER
 		try {
 			externalProviderService.delete(externalProviderId);
-		} catch (GHAEJBException e1) {
+		} catch (final GHAEJBException e1) {
 			e1.printStackTrace();
 		}
 
 		// DELETING THE InstiTUTION
 		try {
 			institutionService.delete(institutionId);
-		} catch (GHAEJBException e1) {
+		} catch (final GHAEJBException e1) {
 			// e1.printStackTrace();
 		}
 
 		// DELETING THE LEGALENTITY
 		try {
 			legalEntityService.delete(legalEntityId);
-		} catch (GHAEJBException e1) {
+		} catch (final GHAEJBException e1) {
 			// e1.printStackTrace();
 		}
 
@@ -416,18 +411,18 @@ public class EiaServiceTest {
 		eia.setFixedAssetIdentifier("eia-fai");
 		try {
 			eia = service.save(eia);
-		} catch (GHAEJBException e) {
+		} catch (final GHAEJBException e) {
 			e.printStackTrace();
 		}
 		Assert.assertNotNull(eia);
 		try {
-			Assert.assertEquals(4, service.getAll().size());
-		} catch (GHAEJBException e1) {
+			Assert.assertEquals(1, service.getAll().size());
+		} catch (final GHAEJBException e1) {
 			e1.printStackTrace();
 		}
 		try {
 			service.delete(eia.getId());
-		} catch (GHAEJBException e) {
+		} catch (final GHAEJBException e) {
 			e.printStackTrace();
 		}
 	}
