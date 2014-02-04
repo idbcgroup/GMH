@@ -4,6 +4,7 @@
 package org.fourgeeks.gha.ejb.gmh;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -56,6 +57,48 @@ public class SubProtocolAndCheklistService extends GHAEJBExceptionService
 					"maintenanceSubProtocol-delete-fail",
 					RuntimeParameters.getLang(), em);
 		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.SubProtocolAndCheklistServiceRemote#delete(
+	 * java.util.List)
+	 */
+	@Override
+	public void delete(List<SubProtocolAndChecklist> entities)
+			throws GHAEJBException {
+		try {
+			if (entities.isEmpty())
+				return;
+
+			// elimino las activiades seleccionadas
+			Activity activity = entities.get(0).getParentActivity();
+			for (SubProtocolAndChecklist entity : entities) {
+				SubProtocolAndChecklist ent = em.find(
+						SubProtocolAndChecklist.class, entity.getId());
+				em.remove(ent);
+			}
+
+			// actualizo el orden de las actividades restantes
+			final List<SubProtocolAndChecklist> remainEntities = findByParentActivity(activity);
+			for (int i = 0, ord = 1, size = remainEntities.size(); i < size; i++, ord++) {
+				SubProtocolAndChecklist entity = remainEntities.get(i);
+				entity.setOrdinal(ord);
+				em.merge(entity);
+			}
+			em.flush(); // sincronizo con la BD
+
+		} catch (Exception e) {
+			final String msgError = "ERROR: unable to delete the list of SubProtocolAndChecklist";
+			logger.log(Level.INFO, msgError, e);
+
+			final String messageCode = "maintenanceSubProtocol-delete-fail";
+			throw super.generateGHAEJBException(messageCode,
+					RuntimeParameters.getLang(), em);
+		}
+
 	}
 
 	/*
@@ -336,6 +379,27 @@ public class SubProtocolAndCheklistService extends GHAEJBExceptionService
 
 		int totalEstimatedDays = (int) Math.ceil(totalDays);
 		return totalEstimatedDays;
+	}
+
+	@Override
+	public List<SubProtocolAndChecklist> update(
+			List<SubProtocolAndChecklist> subProtocols) throws GHAEJBException {
+		List<SubProtocolAndChecklist> updatedList = new ArrayList<SubProtocolAndChecklist>();
+		try {
+			for (SubProtocolAndChecklist subProtocolAndChecklist : subProtocols) {
+				em.merge(subProtocolAndChecklist);
+				em.flush();
+				updatedList.add(em.find(SubProtocolAndChecklist.class,
+						subProtocolAndChecklist.getId()));
+			}
+			return updatedList;
+		} catch (Exception e) {
+			logger.log(Level.INFO,
+					"ERROR: updating List of SubProtocolAndChecklist ", e);
+			throw super.generateGHAEJBException(
+					"maintenanceSubProtocol-update-fail",
+					RuntimeParameters.getLang(), em);
+		}
 	}
 
 }

@@ -119,4 +119,28 @@ public class GWTSubprotocolAndChecklistImpl extends RemoteServiceServlet
 		return service.update(maintenanceSubProtocol);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceactivity.subprotocol.
+	 * GWTSubProtocolAndChecklistService#update(java.util.List)
+	 */
+	@Override
+	public List<SubProtocolAndChecklist> update(
+			List<SubProtocolAndChecklist> maintenanceSubProtocols)
+			throws GHAEJBException {
+		return service.update(maintenanceSubProtocols);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.webclient.client.maintenanceactivity.subprotocol.
+	 * GWTSubProtocolAndChecklistService#delete(java.util.List)
+	 */
+	@Override
+	public void delete(List<SubProtocolAndChecklist> entities)
+			throws GHAEJBException {
+		service.delete(entities);
+	}
 }

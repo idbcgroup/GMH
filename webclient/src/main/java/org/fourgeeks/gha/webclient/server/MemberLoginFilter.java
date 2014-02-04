@@ -32,7 +32,7 @@ import javax.servlet.http.HttpServletResponse;
 		"/webclient/maintenancePlanService",
 		"/webclient/maintenanceActivityService",
 		"/webclient/maintenanceProtocolService",
-		"/webclient/maintenanceSubProtocol",
+		"/webclient/subProtocolAndCheklist",
 		"/webclient/eiaTypeMaterialCategory", "/webclient/eiaTypeMaterial",
 		"/webclient/eiaTypeUtility", "/webclient/externalProvider",
 		"/webclient/facility", "/webclient/instanceLogon",

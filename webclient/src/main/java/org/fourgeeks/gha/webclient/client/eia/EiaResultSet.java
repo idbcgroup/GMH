@@ -171,7 +171,7 @@ EiaSelectionProducer {
 	private void notifySelectedEia() {
 		GHAGridRecord<Eia> selectedRecord = grid.getSelectedRecord();
 		if (selectedRecord == null) {
-			GHAAlertManager.alert(GHAStrings.get("record-not-selected"));
+			GHAAlertManager.alert("record-not-selected");
 			return;
 		}
 		notifyEia(((EIARecord) selectedRecord).toEntity());

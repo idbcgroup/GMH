@@ -10,7 +10,7 @@ import java.util.LinkedHashMap;
  * 
  */
 public enum CurrencyTypeEnum {
-	BS("Bolivares fuertes"), DOLLARS("Dólares");
+	BS("Bolívares fuertes"), DOLLARS("Dólares");
 
 	private String name;
 

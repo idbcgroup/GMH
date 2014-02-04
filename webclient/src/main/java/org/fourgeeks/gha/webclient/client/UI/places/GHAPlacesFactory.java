@@ -14,6 +14,7 @@ import org.fourgeeks.gha.webclient.client.user.UserPlace;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.RunAsyncCallback;
 import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.Window;
 
 /**
  * @author alacret
@@ -147,8 +148,12 @@ public class GHAPlacesFactory {
 								token));
 					} catch (LoginNeededException e) {
 						// TODO
+						Window.alert(e.toString());
 					} catch (PermissionsNeededException e) {
 						History.newItem("home");
+						Window.alert(e.toString());
+					} catch (Exception e) {
+						Window.alert(e.toString());
 					}
 				}
 
