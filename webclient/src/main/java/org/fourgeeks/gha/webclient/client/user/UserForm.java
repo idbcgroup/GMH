@@ -114,6 +114,8 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 		mainPanel.addMembers(form, new LayoutSpacer());
 		addMember(mainPanel);
 		fill();
+		
+		firstNameItem.setValidators(GHATextItem.ALPHABETIC);
 	}
 
 	@Override

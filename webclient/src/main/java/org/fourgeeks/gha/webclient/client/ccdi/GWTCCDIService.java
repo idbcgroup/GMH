@@ -1,7 +1,9 @@
 package org.fourgeeks.gha.webclient.client.ccdi;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
-import org.fourgeeks.gha.domain.gom.Concept;
+import org.fourgeeks.gha.domain.gom.CCDIDefinition;
+import org.fourgeeks.gha.domain.gom.CCDILevelDefinition;
+import org.fourgeeks.gha.domain.gom.CCDILevelValue;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -14,47 +16,59 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("ccdi")
 public interface GWTCCDIService extends RemoteService {
 	/**
-	 * This method creates a CCDI definition, the params are used to configurate
-	 * such definition
-	 * 
-	 * @param code
-	 * @param name
-	 * @param length
-	 * @param levels
-	 * @param status
-	 * @param concept
-	 * @param type
-	 * @param addVerify
-	 * @param verificationMethod
-	 * @return the code of the CCDI definition
+	 * @param definition
+	 * @return a new CCDI definition
 	 * @throws GHAEJBException
 	 */
-	public String createCCDIDefinition(String code, String name, int length,
-			int levels, String status, Concept concept, String type,
-			boolean addVerify, String verificationMethod)
+	public CCDIDefinition createCCDIDefinition(CCDIDefinition definition)
 			throws GHAEJBException;
 
 	/**
-	 * This method defines a new CCDI Level definition, the params are used to
-	 * configurate such definition.
-	 * 
 	 * @param definition
-	 * @param level
-	 * @param name
-	 * @param length
-	 * @param valueType
-	 * @param fixedValue
-	 * @param initialValue
-	 * @param incValue
-	 * @param separator
-	 * @param valueAtEndAction
-	 * @return the code of the CCDI level Definition
+	 * @param levelDefinition
+	 * @return a new CCDI Level Definition
 	 * @throws GHAEJBException
 	 */
-	public String createCCDILevelDefinition(String definition, int level,
-			String name, int length, String valueType, String fixedValue,
-			int initialValue, int incValue, String separator,
-			String valueAtEndAction) throws GHAEJBException;
+	public CCDILevelDefinition createCCDILevelDefinition(
+			CCDIDefinition definition, CCDILevelDefinition levelDefinition)
+			throws GHAEJBException;
+
+	/**
+	 * @param levelDefinition
+	 * @param parentValue
+	 * @param levelValue
+	 * @return the new CCDILevelValue
+	 * @throws GHAEJBException
+	 */
+	public CCDILevelValue createCCDILevelValue(
+			CCDILevelDefinition levelDefinition, CCDILevelValue parentValue,
+			CCDILevelValue levelValue) throws GHAEJBException;
+
+	/**
+	 * This method delete a CCDI definition plus all definition levels and
+	 * values
+	 * 
+	 * @param code
+	 * @throws GHAEJBException
+	 */
+	public void deleteByCode(String code) throws GHAEJBException;
+
+	/**
+	 * @param code
+	 * @return
+	 * @throws GHAEJBException
+	 */
+	public CCDIDefinition findCCDIDefinitionByCode(String code)
+			throws GHAEJBException;
+
+	/**
+	 * @param definition
+	 * @param level
+	 * @return the definition for the level
+	 * @throws GHAEJBException
+	 */
+	public CCDILevelDefinition findCCDILevelDefinitionByLevel(
+			CCDIDefinition definition, int level) throws GHAEJBException;
 
 	/**
 	 * @param code
