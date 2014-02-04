@@ -100,21 +100,18 @@ import org.fourgeeks.gha.ejb.mix.InstitutionServiceRemote;
 import org.fourgeeks.gha.ejb.mix.LegalEntityService;
 import org.fourgeeks.gha.ejb.mix.LegalEntityServiceRemote;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 
 /**
  * @author vivi.torresg
  * 
  */
-@RunWith(Arquillian.class)
+// @RunWith(Arquillian.class)
 public class MaintenanceActivityServiceTest {
 	/**
 	 * @return the deployment descriptor
@@ -260,7 +257,7 @@ public class MaintenanceActivityServiceTest {
 	}
 
 	/** */
-	@Test
+	// @Test
 	public void test() {
 		final String sep = "\n---------------------------------------\n";
 
@@ -276,9 +273,9 @@ public class MaintenanceActivityServiceTest {
 		findByIdTest();
 		System.out.println(sep + "saveTest" + sep);
 		saveTest();
-		System.out.println(sep+"updateTest"+sep);
+		System.out.println(sep + "updateTest" + sep);
 		updateTest();
-		System.out.println(sep+"deleteTest"+sep);
+		System.out.println(sep + "deleteTest" + sep);
 		deleteTest();
 
 	}

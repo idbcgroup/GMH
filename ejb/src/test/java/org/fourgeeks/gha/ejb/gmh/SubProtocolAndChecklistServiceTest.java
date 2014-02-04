@@ -297,6 +297,8 @@ public class SubProtocolAndChecklistServiceTest {
 		updateTest();
 		System.out.println(sep + "deleteTest" + sep);
 		deleteTest();
+		System.out.println(sep + "deleteListTest" + sep);
+		// deleteListTest();
 	}
 
 	private void findByParentActivityTest() {
@@ -379,6 +381,23 @@ public class SubProtocolAndChecklistServiceTest {
 			e.printStackTrace();
 		}
 	}
+
+	// private void deleteListTest() {
+	// final int itemsExpected = 1;
+	// try {
+	// List<SubProtocolAndChecklist> subprotocolos = new
+	// ArrayList<SubProtocolAndChecklist>();
+	// for (int i = 0; i < 2; i++) {
+	// SubProtocolAndChecklist sp = new SubProtocolAndChecklist();
+	// sp.setId(i + 1);
+	// subprotocolos.add(sp);
+	// }
+	// serviceRemote.delete(subprotocolos);
+	// Assert.assertEquals(itemsExpected, serviceRemote.getAll().size());
+	// } catch (GHAEJBException e) {
+	// e.printStackTrace();
+	// }
+	// }
 
 	private void getSubProtocolActivitiesCountTest() {
 		final int countExpected = 3;
