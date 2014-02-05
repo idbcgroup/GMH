@@ -39,6 +39,7 @@ import org.fourgeeks.gha.domain.enu.ProviderRepresentEnum;
 import org.fourgeeks.gha.domain.enu.ProviderResourceTypeEnum;
 import org.fourgeeks.gha.domain.enu.ProviderServicesEnum;
 import org.fourgeeks.gha.domain.enu.ProviderTypeEnum;
+import org.fourgeeks.gha.domain.enu.ServiceAndResourceType;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
 import org.fourgeeks.gha.domain.ess.LocationType;
@@ -71,11 +72,11 @@ import org.fourgeeks.gha.domain.gmh.EiaTypeCategory;
 import org.fourgeeks.gha.domain.gmh.EiaTypeComponent;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
-import org.fourgeeks.gha.domain.gmh.MaintenanceActivityServiceResource;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
-import org.fourgeeks.gha.domain.gmh.ServiceResource;
+import org.fourgeeks.gha.domain.gmh.RequiredResources;
+import org.fourgeeks.gha.domain.gmh.ServiceAndResource;
 import org.fourgeeks.gha.domain.gmh.ServiceResourceCategory;
 import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.domain.mix.Citizen;
@@ -187,7 +188,6 @@ public class EiaServiceTest {
 				.addClass(LocationLevelEnum.class)
 				.addClass(LocationType.class)
 				.addClass(LanguageEnum.class)
-
 				.addClass(MaintenancePlan.class)
 				.addClass(MaintenancePlanStatus.class)
 				.addClass(MaintenancePlanCancelationOption.class)
@@ -204,7 +204,7 @@ public class EiaServiceTest {
 				// .addClass(Material.class)
 				// .addClass(MaterialCategory.class)
 				.addClass(MaintenanceActivity.class)
-				.addClass(MaintenanceActivityServiceResource.class)
+				.addClass(RequiredResources.class)
 				.addClass(Module.class)
 				.addClass(Obu.class)
 				.addClass(ObuService.class)
@@ -219,7 +219,7 @@ public class EiaServiceTest {
 				.addClass(RoleService.class)
 				.addClass(RoleServiceRemote.class)
 				.addClass(RuntimeParameters.class)
-				.addClass(ServiceResource.class)
+				.addClass(ServiceAndResource.class)
 				.addClass(ServiceResourceCategory.class)
 				.addClass(TimePeriodEnum.class)
 				.addClass(View.class)
@@ -228,6 +228,7 @@ public class EiaServiceTest {
 				.addClass(GHAMessageType.class)
 				.addClass(Activity.class)
 				.addClass(Bsp.class)
+				.addClass(ServiceAndResourceType.class)
 				.addAsResource("test-persistence.xml",
 						"META-INF/persistence.xml")
 				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
@@ -238,7 +239,6 @@ public class EiaServiceTest {
 	private long institutionId = 0l;
 	private long legalEntityId = 0l;
 	private Role role;
-	private final long roleId = 0l;
 	private Obu obu;
 	private EiaType eiaType;
 
@@ -268,46 +268,42 @@ public class EiaServiceTest {
 	@Before
 	public void set() {
 		// CREATING AN EIATYPE
-		String eiaTypeCode = "eiatype-code";
-		EiaType localEiaType = new EiaType();
+		final String eiaTypeCode = "eiatype-code";
+		final EiaType localEiaType = new EiaType();
 		localEiaType.setCode(eiaTypeCode);
 		localEiaType.setMobility(EiaMobilityEnum.FIXED);
 		localEiaType.setName("test eiatype");
 		localEiaType.setType(EiaTypeEnum.EQUIPMENT);
 		try {
 			eiaType = eiaTypeService.save(localEiaType);
-			System.out.println("AAAA\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-			System.out.println(eiaType.getCode());
 			eiaType = eiaTypeService.find(eiaTypeCode);
-			System.out.println("BBB\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-			System.out.println(eiaType.getCode());
-		} catch (GHAEJBException e) {
+		} catch (final GHAEJBException e) {
 			e.printStackTrace();
 			unset();
 			Assert.fail("failing creating the eiatype");
 		}
 
 		// CREATING AN OBU
-		String obuCode = "obu-code";
-		Obu localObu = new Obu();
+		final String obuCode = "obu-code";
+		final Obu localObu = new Obu();
 		localObu.setCode(obuCode);
 		localObu.setName("Obu test name");
 
 		try {
 			obu = obuService.save(localObu);
-		} catch (GHAEJBException e) {
+		} catch (final GHAEJBException e) {
 			e.printStackTrace();
 			unset();
 			Assert.fail("failing creating the obu");
 		}
 		//
 		// CREATING ROLE
-		Role localRole = new Role();
+		final Role localRole = new Role();
 		localRole.setName("Role test name");
 
 		try {
 			role = roleService.save(localRole);
-		} catch (GHAEJBException e) {
+		} catch (final GHAEJBException e) {
 			e.printStackTrace();
 			unset();
 			Assert.fail("failing creating the role");
@@ -318,7 +314,7 @@ public class EiaServiceTest {
 		try {
 			localLegalEntity = legalEntityService.save(new LegalEntity());
 			legalEntityId = localLegalEntity.getId();
-		} catch (GHAEJBException e) {
+		} catch (final GHAEJBException e) {
 			e.printStackTrace();
 			unset();
 			Assert.fail("failing creating the legalentity");
@@ -331,20 +327,20 @@ public class EiaServiceTest {
 		try {
 			localInstitution = institutionService.save(localInstitution);
 			institutionId = localInstitution.getId();
-		} catch (GHAEJBException e) {
+		} catch (final GHAEJBException e) {
 			e.printStackTrace();
 			unset();
 			Assert.fail("failing creating the intitution");
 		}
 		//
 		// CREATING THE EXTERNAL PROVIDER
-		ExternalProvider localExternalProvider = new ExternalProvider();
+		final ExternalProvider localExternalProvider = new ExternalProvider();
 		localExternalProvider.setInstitution(localInstitution);
 		try {
 			externalProvider = externalProviderService
 					.save(localExternalProvider);
 			externalProviderId = externalProvider.getId();
-		} catch (GHAEJBException e) {
+		} catch (final GHAEJBException e) {
 			e.printStackTrace();
 			unset();
 			Assert.fail("failing creating the intitution");
@@ -358,41 +354,41 @@ public class EiaServiceTest {
 		// DELETING THE EIATYPE
 		try {
 			eiaTypeService.delete(eiaType.getCode());
-		} catch (GHAEJBException e1) {
+		} catch (final GHAEJBException e1) {
 			// e1.printStackTrace();
 		}
 
 		// DELETING THE OBU
 		try {
 			obuService.delete(obu.getId());
-		} catch (GHAEJBException e1) {
+		} catch (final GHAEJBException e1) {
 			// e1.printStackTrace();
 		}
 
 		// DELETING THE ROLE
 		try {
 			roleService.delete(role.getId());
-		} catch (GHAEJBException e1) {
+		} catch (final GHAEJBException e1) {
 			// e1.printStackTrace();
 		}
 		// DELETING THE EXTERNAL PROVIDER
 		try {
 			externalProviderService.delete(externalProviderId);
-		} catch (GHAEJBException e1) {
+		} catch (final GHAEJBException e1) {
 			e1.printStackTrace();
 		}
 
 		// DELETING THE InstiTUTION
 		try {
 			institutionService.delete(institutionId);
-		} catch (GHAEJBException e1) {
+		} catch (final GHAEJBException e1) {
 			// e1.printStackTrace();
 		}
 
 		// DELETING THE LEGALENTITY
 		try {
 			legalEntityService.delete(legalEntityId);
-		} catch (GHAEJBException e1) {
+		} catch (final GHAEJBException e1) {
 			// e1.printStackTrace();
 		}
 
@@ -402,10 +398,6 @@ public class EiaServiceTest {
 	 */
 	@Test
 	public void test() {
-
-		System.out.println("CCCC\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-		System.out.println(eiaType.getCode());
-
 		Eia eia = new Eia();
 		eia.setEiaType(eiaType);
 		eia.setProvider(externalProvider);
@@ -416,18 +408,18 @@ public class EiaServiceTest {
 		eia.setFixedAssetIdentifier("eia-fai");
 		try {
 			eia = service.save(eia);
-		} catch (GHAEJBException e) {
+		} catch (final GHAEJBException e) {
 			e.printStackTrace();
 		}
 		Assert.assertNotNull(eia);
 		try {
-			Assert.assertEquals(4, service.getAll().size());
-		} catch (GHAEJBException e1) {
+			Assert.assertEquals(1, service.getAll().size());
+		} catch (final GHAEJBException e1) {
 			e1.printStackTrace();
 		}
 		try {
 			service.delete(eia.getId());
-		} catch (GHAEJBException e) {
+		} catch (final GHAEJBException e) {
 			e.printStackTrace();
 		}
 	}

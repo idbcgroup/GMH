@@ -2,7 +2,6 @@ ES,id-type-not-null,Debe indicar el tipo de identificación,6
 ES,id-number-not-null,Debe indicar el número de identificación,6
 ES,asset-id-not-null,Debe indicar el identificador del activo,6
 ES,material-type-not-null,Debe indicar el tipo de material,6
-ES,unsaved-changes,Existen cambios sin guardar,2
 EN,info-tittle,Information,7
 ES,no-message,No existe un mensaje para su localidad,6
 EN,no-message,There is no message for your location,6
@@ -47,6 +46,7 @@ ES,eiatype-update-fail,No se pudo actualizar el Tipo de Equipo,8
 ES,eiatype-find-fail,Hubo un fallo en la búsqueda de Tipos de Equipo,8
 ES,eiatype-findByMaintenancePlan-fail,Hubo un fallo en la búsqueda del Tipo de Equipo por Plan de Mantenimeinto,8
 ES,eiatype-getAll-fail,Hubo un fallo en la búsqueda de todos los Tipos de Equipo,8
+ES,uilog-getall-fail,Fallo al buscar todos los equipos,8
 EN,eiatype-delete-fail,Failed to delete Equipment type,8
 EN,eiatype-update-fail,Failed to update Equipment type,8
 EN,eiatype-find-fail,Failed to find Equipment Type,8
@@ -391,18 +391,18 @@ EN,manufacturer-find-fail,Failed to find Manufacturer,8
 EN,manufacturer-getAll-fail,Failed to get all Manufacturer,8
 EN,manufacturer-save-fail,Failed to save Manufacturer,8
 EN,manufacturer-update-fail,Failed to update Manufacturer,8
-ES,serviceResource-delete-fail,Fallo la eliminación del ServiceResource,8
-ES,serviceResource-findByMaintenanceActivity-fail,Búsqueda fallida de ServiceResource por maintenanceActivity,8
-ES,serviceResource-find-fail,Búsqueda fallida de ServiceResource,8
-ES,serviceResource-getAll-fail,Búsqueda fallida de todos los ServiceResource,8
-ES,serviceResource-save-fail,Guardado fallido de ServiceResource,8
-ES,serviceResource-update-fail,Actualización fallida de ServiceResource,8
-EN,serviceResource-delete-fail,Failed to delete ServiceResource,8
-EN,serviceResource-findByMaintenanceActivity-fail,Failed to find ServiceResource by maintenanceActivity,8
-EN,serviceResource-find-fail,Failed to find ServiceResource,8
-EN,serviceResource-getAll-fail,Failed to get all ServiceResource,8
-EN,serviceResource-save-fail,Failed to save ServiceResource,8
-EN,serviceResource-update-fail,Failed to update ServiceResource,8
+ES,serviceAndResource-delete-fail,Fallo la eliminación del serviceAndResource,8
+ES,serviceAndResource-findByActivity-fail,Búsqueda fallida de ServiceAndResource por Activity,8
+ES,serviceAndResource-find-fail,Búsqueda fallida de serviceAndResource,8
+ES,serviceAndResource-getAll-fail,Búsqueda fallida de todos los serviceAndResource,8
+ES,serviceAndResource-save-fail,Guardado fallido de serviceAndResource,8
+ES,serviceAndResource-update-fail,Actualización fallida de serviceAndResource,8
+EN,serviceAndResource-delete-fail,Failed to delete serviceAndResource,8
+EN,serviceAndResource-findByActivity-fail,Failed to find ServiceAndResource by Activity,8
+EN,serviceAndResource-find-fail,Failed to find serviceAndResource,8
+EN,serviceAndResource-getAll-fail,Failed to get all serviceAndResource,8
+EN,serviceAndResource-save-fail,Failed to save serviceAndResource,8
+EN,serviceAndResource-update-fail,Failed to update serviceAndResource,8
 ES,bpa-delete-fail,Fallo la eliminación del Bpa,8
 ES,bpa-findByBpa-fail,Búsqueda fallida de Bpa por bpa,8
 ES,bpa-find-fail,Búsqueda fallida de Bpa,8
@@ -481,7 +481,7 @@ ES,damageStatus-not-null,Debe indicar el estado del daño o falla,6
 ES,damagePriority-not-null,Debe indicar la prioridad del daño o falla,6
 ES,userWhoReported-not-null,Debe indicar el usuario que reportó el daño o falla,6
 ES,userWhoRegistered-not-null,Debe indicar el usuario que registró el daño o falla,6
-ES,no-eiatype-maintenance-plans,No existen planes de mantenimiento para este tipo de equipo,1
+ES,no-eiatype-maintenance-plans,No existen planes de mantenimiento para este tipo de equipo,7
 ES,eiaPreventiveMaintenancePlanification-save-success,La Planificación de Mantenimiento Preventivo ha sido guardada exitosamente,9
 ES,eiatype-maintenance-plan-not-null,Debe indicar el plan de mantenimiento,6
 ES,password-missmatch,Las claves de acceso no coinciden,6
@@ -496,6 +496,28 @@ ES,maintenanceProtocol-getStadisticInfo-fail,Fallo al obtener información estad
 ES,delete-activities-success,Las actividades se eliminaron exitosamente,9
 ES,delete-protocol-activities-success,Las actividades del protocolo se eliminaron exitosamente,9
 ES,cancelation-option-not-null,Debe indicar la opción de cancelación ,6
-ES,activity-save-success,La actividad ha sido guardada exitosamente,6
-ES,activity-update-success,La actividad ha sido actualizada exitosamente,6
+ES,activity-save-success,La actividad ha sido guardada exitosamente,9
+ES,activity-update-success,La actividad ha sido actualizada exitosamente,9
 ES,form-errors,El formulario contiene errores,6
+ES,eiatype-material-delete-confirm,¿Desea retirar el material asociado al tipo de equipo?,2
+ES,eiatype-utility-service-delete-confirm,¿Desea eliminar el servicio utilitario asociado al tipo de equipo?,2
+ES,eiatype-delete-confirm,¿Desea eliminar el tipo de equipo?,2
+ES,eiatypes-delete-confirm,¿Desea eliminar los tipos de equipo?,2
+ES,maintenance-plan-delete-confirm,¿Desea eliminar el plan de mantenimiento?,2
+ES,maintenances-plan-delete-confirm,¿Desea eliminar los planes de mantenimiento?,2
+ES,eia-delete-confirm,¿Desea eliminar el equipo?,2
+ES,eias-delete-confirm,¿Desea eliminar los equipos?,2
+ES,eiaComponent-delete-confirm,¿Desea eliminar el componente?,2
+ES,eiaComponents-delete-confirm,¿Desea eliminar los componentes?,2
+ES,ssoUser-delete-confirm,¿Desea eliminar al usuario?,2
+ES,unsaved-changes,Existen algunos cambios sin guardar ¿Realmente desea salir?,3
+ES,activity-delete-confirm,¿Desea eliminar la actividad?,2
+ES,activities-delete-confirm,¿Desea eliminar las actividades?,2
+ES,maintenance-protocol-delete-confirm,¿Desea eliminar todas las actividades de este Plan de Mantenimiento?,2
+ES,eiatype-component-delete-confirm,Confirme si desea eliminar el componente seleccionado,2
+ES,eiatype-maintenance-plan-delete-confirm, ¿Desea retirar el plan de mantenimeinto asociado al tipo de equipo?,2
+ES,eiatype-material-category-delete-confirm, ¿Desea retirar la categoria de material asociado al tipo de equipo?,2
+ES,server-error,Ha ocurrido un error inesperado con el servidor,4 
+ES,message-not-null,Debe indicar el mensaje,6
+ES,message-save-fail,Error al intentar salvar un mensaje,6
+ES,message-delete-fail,Error al intentar borrar un mensaje,6

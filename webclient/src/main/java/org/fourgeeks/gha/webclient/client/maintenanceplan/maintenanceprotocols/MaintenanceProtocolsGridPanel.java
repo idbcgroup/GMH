@@ -125,11 +125,13 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 	 */
 	private void addActivity() {
 		ListGridRecord records[] = grid.getRecords();
-		List<MaintenanceActivity> blackList = new ArrayList<MaintenanceActivity>();
+		List<Activity> blackList = new ArrayList<Activity>();
 
 		for (int i = 0; i < records.length; i++) {
 			MaintenanceProtocolsRecord record = (MaintenanceProtocolsRecord) records[i];
-			blackList.add(record.toEntity().getMaintenanceActivity());
+			MaintenanceActivity maintenanceActivity = record.toEntity()
+					.getMaintenanceActivity();
+			blackList.add(maintenanceActivity.getActivity());
 		}
 
 		activitySearchForm.filterBy(blackList);
@@ -206,8 +208,7 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 				.getSelectedEntities();
 
 		if (selectedEntities == null) {
-			GHAAlertManager.confirm(GHAStrings.get("protocol"),
-					GHAStrings.get("maintenance-protocol-delete-confirm"),
+			GHAAlertManager.confirm("maintenance-protocol-delete-confirm",
 					new BooleanCallback() {
 						@Override
 						public void execute(Boolean value) {
@@ -217,19 +218,27 @@ public class MaintenanceProtocolsGridPanel extends GHAVerticalLayout implements
 						}
 					});
 		} else {
-			String message = selectedEntities.size() == 1 ? GHAStrings
-					.get("activity-delete-confirm") : GHAStrings
-					.get("activities-delete-confirm");
-
-			GHAAlertManager.confirm(GHAStrings.get("protocol"), message,
-					new BooleanCallback() {
-						@Override
-						public void execute(Boolean value) {
-							if (value)
-								deleteSelectedEntities(selectedEntities);
-							grid.focus();
-						}
-					});
+			if (selectedEntities.size() == 1) {
+				GHAAlertManager.confirm("activity-delete-confirm",
+						new BooleanCallback() {
+							@Override
+							public void execute(Boolean value) {
+								if (value)
+									deleteSelectedEntities(selectedEntities);
+								grid.focus();
+							}
+						});
+			} else {
+				GHAAlertManager.confirm("activities-delete-confirm",
+						new BooleanCallback() {
+							@Override
+							public void execute(Boolean value) {
+								if (value)
+									deleteSelectedEntities(selectedEntities);
+								grid.focus();
+							}
+						});
+			}
 		}
 	}
 

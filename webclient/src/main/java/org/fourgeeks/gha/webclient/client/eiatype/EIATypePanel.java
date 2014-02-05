@@ -8,6 +8,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
 import org.fourgeeks.gha.webclient.client.UI.TabStatus;
+import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToHideException;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
@@ -25,7 +26,7 @@ import com.smartgwt.client.widgets.events.ClickHandler;
  * 
  */
 public class EIATypePanel extends GHAPanel implements EIATypeSelectionListener,
-		EiaTypeSelectionProducer {
+EiaTypeSelectionProducer {
 
 	private static final String TITLE = GHAStrings.get("eiatypes");
 	private EIATypeAddForm addForm;
@@ -56,12 +57,12 @@ public class EIATypePanel extends GHAPanel implements EIATypeSelectionListener,
 				add();
 			}
 		});
-		// header.addDebugOption("MensajeIT", new ClickHandler() {
-		// @Override
-		// public void onClick(ClickEvent event) {
-		// GHAAlertManager.alert("INFORMATION","Información","Se ha mostrado un Mensaje IT.");
-		// }
-		// });
+		header.addDebugOption("MIT:"+GHAAlertManager.getOpenMessagesCounter(), new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				GHAAlertManager.alert("ERROR-HARD","Información","Long message test: test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test ");
+			}
+		});
 
 		resultSet = new EiaTypeResultSet(ResultSetContainerType.TAB);
 		resultSet.setVisible(false);

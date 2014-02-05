@@ -9,7 +9,6 @@ import javax.ejb.Remote;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
-import org.fourgeeks.gha.domain.gmh.ServiceResource;
 
 /**
  * @author emiliot
@@ -26,15 +25,6 @@ public interface MaintenanceActivityServiceRemote {
 	 * @throws GHAEJBException
 	 */
 	public void delete(long Id) throws GHAEJBException;
-
-	/**
-	 * @param serviceResource
-	 * @return the list of maintenanceActivities that use the resource/service
-	 *         given
-	 * @throws GHAEJBException
-	 */
-	public List<MaintenanceActivity> findByServiceResource(
-			ServiceResource serviceResource) throws GHAEJBException;
 
 	/**
 	 * @param Id

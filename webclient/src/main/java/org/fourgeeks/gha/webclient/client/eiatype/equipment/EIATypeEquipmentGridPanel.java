@@ -89,8 +89,7 @@ HideableListener, ClosableListener {
 							return;
 						}
 
-						GHAAlertManager.confirm("Equipo",
-								"Confirme si desea eliminar el equipo seleccionado",
+						GHAAlertManager.confirm("eia-delete-confirm",
 								new BooleanCallback() {
 
 							@Override

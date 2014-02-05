@@ -27,7 +27,7 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
  * 
  */
 public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
-		implements EIATypeSelectionListener {
+implements EIATypeSelectionListener {
 	private EiaType selectedEiaType;
 
 	private GHATextItem nameItem;
@@ -65,16 +65,6 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 		addMembers(form, new LayoutSpacer(), sideButtons);
 	}
 
-	private void toggleForm(boolean disabled) {
-		nameItem.setDisabled(disabled);
-		brandItem.setDisabled(disabled);
-		modelItem.setDisabled(disabled);
-		typeItem.setDisabled(disabled);
-		subTypeItem.setDisabled(disabled);
-		cleanButton.setDisabled(disabled);
-		activated = !disabled;
-	}
-
 	@Override
 	public void activate() {
 		brandItem.fill(true);
@@ -101,25 +91,30 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 
 	@Override
 	protected void delete() {
-		GHAAlertManager.confirm(GHAStrings.get("eiatype"),
-				GHAStrings.get("eiatype-delete-confirm"),
+		GHAAlertManager.confirm("eiatype-delete-confirm",
 				new BooleanCallback() {
-					@Override
-					public void execute(Boolean value) {
-						if (value) {
-							EIATypeModel.delete(selectedEiaType.getCode(),
-									new GHAAsyncCallback<Void>() {
-										@Override
-										public void onSuccess(Void result) {
-											containerTab.search();
-											clear();
-											GHAAlertManager
-													.alert("eiatype-delete-success");
-										}
-									});
+			@Override
+			public void execute(Boolean value) {
+				if (value) {
+					EIATypeModel.delete(selectedEiaType.getCode(),
+							new GHAAsyncCallback<Void>() {
+						@Override
+						public void onSuccess(Void result) {
+							containerTab.search();
+							clear();
+							GHAAlertManager
+							.alert("eiatype-delete-success");
 						}
-					}
-				});
+					});
+				}
+			}
+		});
+	}
+
+	@Override
+	public void onResize(ResizeEvent event) {
+		super.onResize(event);
+		form.resize();
 	}
 
 	@Override
@@ -173,9 +168,13 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 		sideButtons.addMember(deleteButton, 0);
 	}
 
-	@Override
-	public void onResize(ResizeEvent event) {
-		super.onResize(event);
-		form.resize();
+	private void toggleForm(boolean disabled) {
+		nameItem.setDisabled(disabled);
+		brandItem.setDisabled(disabled);
+		modelItem.setDisabled(disabled);
+		typeItem.setDisabled(disabled);
+		subTypeItem.setDisabled(disabled);
+		cleanButton.setDisabled(disabled);
+		activated = !disabled;
 	}
 }

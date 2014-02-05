@@ -37,7 +37,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class EIATypeMaterialGridPanel extends GHAVerticalLayout implements
-		EIATypeSelectionListener, HideableListener, ClosableListener {
+EIATypeSelectionListener, HideableListener, ClosableListener {
 
 	private EiaTypeMaterialGrid grid;
 	private MaterialSearchFormSub searchForm;
@@ -56,10 +56,10 @@ public class EIATypeMaterialGridPanel extends GHAVerticalLayout implements
 				EIATypeMaterialModel.update(entity,
 						new GHAAsyncCallback<EiaTypeMaterial>() {
 
-							@Override
-							public void onSuccess(EiaTypeMaterial result) {
-							}
-						});
+					@Override
+					public void onSuccess(EiaTypeMaterial result) {
+					}
+				});
 			}
 		});
 
@@ -72,17 +72,17 @@ public class EIATypeMaterialGridPanel extends GHAVerticalLayout implements
 
 				final EiaTypeMaterial eiaTypeMaterial = new EiaTypeMaterial();
 				eiaTypeMaterial
-						.setEiaType(EIATypeMaterialGridPanel.this.eiaType);
+				.setEiaType(EIATypeMaterialGridPanel.this.eiaType);
 				eiaTypeMaterial.setMaterial(material);
 				EIATypeMaterialModel.save(eiaTypeMaterial,
 						new GHAAsyncCallback<EiaTypeMaterial>() {
 
-							@Override
-							public void onSuccess(EiaTypeMaterial result) {
-								loadData();
-							}
+					@Override
+					public void onSuccess(EiaTypeMaterial result) {
+						loadData();
+					}
 
-						});
+				});
 			}
 		};
 		addForm = new MaterialAddFormSub(GHAStrings.get("new-material"));
@@ -103,17 +103,17 @@ public class EIATypeMaterialGridPanel extends GHAVerticalLayout implements
 					}
 				}), new GHANewButton(new ClickHandler() {
 
-			@Override
-			public void onClick(ClickEvent event) {
-				addForm.open();
-			}
-		}), new GHADeleteButton(new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						addForm.open();
+					}
+				}), new GHADeleteButton(new ClickHandler() {
 
-			@Override
-			public void onClick(ClickEvent event) {
-				delete();
-			}
-		}));
+					@Override
+					public void onClick(ClickEvent event) {
+						delete();
+					}
+				}));
 
 		HLayout mainPanel = new HLayout();
 		mainPanel.addMembers(grid, sideButtons);
@@ -149,25 +149,24 @@ public class EIATypeMaterialGridPanel extends GHAVerticalLayout implements
 			return;
 		}
 
-		GHAAlertManager.confirm(GHAStrings.get("materials-category"),
-				GHAStrings.get("eiatype-material-delete-confirm"),
+		GHAAlertManager.confirm("eiatype-material-delete-confirm",
 				new BooleanCallback() {
 
-					@Override
-					public void execute(Boolean value) {
-						if (value) {
-							EIATypeMaterialModel.delete(
-									eiaTypeMaterial.getId(),
-									new GHAAsyncCallback<Void>() {
+			@Override
+			public void execute(Boolean value) {
+				if (value) {
+					EIATypeMaterialModel.delete(
+							eiaTypeMaterial.getId(),
+							new GHAAsyncCallback<Void>() {
 
-										@Override
-										public void onSuccess(Void result) {
-											grid.removeSelectedData();
-										}
-									});
-						}
-					}
-				});
+								@Override
+								public void onSuccess(Void result) {
+									grid.removeSelectedData();
+								}
+							});
+				}
+			}
+		});
 	}
 
 	/*
@@ -187,15 +186,15 @@ public class EIATypeMaterialGridPanel extends GHAVerticalLayout implements
 		EIATypeMaterialModel.find(eiaType,
 				new GHAAsyncCallback<List<EiaTypeMaterial>>() {
 
-					@Override
-					public void onSuccess(List<EiaTypeMaterial> list) {
-						List<EIATypeMaterialRecord> gridRecords = EIATypeMaterialUtil
-								.toGridRecords(list);
-						ListGridRecord[] array = gridRecords
-								.toArray(new EIATypeMaterialRecord[] {});
-						grid.setData(array);
-					}
-				});
+			@Override
+			public void onSuccess(List<EiaTypeMaterial> list) {
+				List<EIATypeMaterialRecord> gridRecords = EIATypeMaterialUtil
+						.toGridRecords(list);
+				ListGridRecord[] array = gridRecords
+						.toArray(new EIATypeMaterialRecord[] {});
+				grid.setData(array);
+			}
+		});
 	}
 
 	private void search() {

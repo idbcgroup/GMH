@@ -10,7 +10,7 @@ import javax.servlet.annotation.WebServlet;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
-import org.fourgeeks.gha.domain.gmh.ServiceResource;
+import org.fourgeeks.gha.domain.gmh.ServiceAndResource;
 import org.fourgeeks.gha.ejb.gmh.MaintenanceActivityServiceRemote;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.GWTMaintenanceActivityService;
 
@@ -63,8 +63,9 @@ public class GWTMaintenanceActivityServiceImpl extends RemoteServiceServlet
 	 */
 	@Override
 	public List<MaintenanceActivity> findByServiceResource(
-			ServiceResource serviceResource) throws GHAEJBException {
-		return ejbService.findByServiceResource(serviceResource);
+			ServiceAndResource serviceResource) throws GHAEJBException {
+		// return ejbService.findByServiceResource(serviceResource);
+		return null;
 	}
 
 	/*

@@ -51,15 +51,11 @@ public class EiaNoServiceMaintenanceGridPanel extends GHAVerticalLayout
 				new GHAAsyncCallback<List<Eia>>() {
 					@Override
 					public void onSuccess(List<Eia> result) {
-						try {
-							List<EiaNoServiceMaintenanceRecord> list = EiaNoServiceMaintenanceUtil
-									.toEiaNoServiceMaintenancePlanGridRecords(result);
-							ListGridRecord array[] = list
-									.toArray(new EiaNoServiceMaintenanceRecord[] {});
-							grid.setData(array);
-						} catch (Exception e) {
-							Window.alert("Excepción: " + e);
-						}
+						List<EiaNoServiceMaintenanceRecord> list = EiaNoServiceMaintenanceUtil
+								.toEiaNoServiceMaintenancePlanGridRecords(result);
+						ListGridRecord array[] = list
+								.toArray(new EiaNoServiceMaintenanceRecord[] {});
+						grid.setData(array);
 					}
 				});
 	}

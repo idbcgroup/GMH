@@ -17,7 +17,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
  * 
  */
 
-@RemoteServiceRelativePath("maintenanceSubProtocol")
+@RemoteServiceRelativePath("subProtocolAndCheklist")
 public interface GWTSubProtocolAndChecklistService extends RemoteService {
 	/**
 	 * Delete a MaintenanceSubProtocol from database by Id
@@ -27,6 +27,16 @@ public interface GWTSubProtocolAndChecklistService extends RemoteService {
 	 * @throws GHAEJBException
 	 */
 	public void delete(long Id) throws GHAEJBException;
+
+	/**
+	 * Delete a list of SubProtocolAndChecklist from database
+	 * 
+	 * @param entities
+	 * @throws GHAEJBException
+	 * 
+	 */
+	public void delete(List<SubProtocolAndChecklist> entities)
+			throws GHAEJBException;
 
 	/**
 	 * @param parentActivity
@@ -71,9 +81,19 @@ public interface GWTSubProtocolAndChecklistService extends RemoteService {
 	/**
 	 * @param subProtocol
 	 *            the MaintenanceSubProtocol to be updated
-	 * @return MaintenanceSubProtocol updated
+	 * @return SubProtocolAndChecklist updated
 	 * @throws GHAEJBException
 	 */
 	public SubProtocolAndChecklist update(SubProtocolAndChecklist subProtocol)
+			throws GHAEJBException;
+
+	/**
+	 * 
+	 * @param maintenanceSubProtocols
+	 * @return List of SubProtocolAndChecklist updated
+	 * @throws GHAEJBException
+	 */
+	public List<SubProtocolAndChecklist> update(
+			List<SubProtocolAndChecklist> maintenanceSubProtocols)
 			throws GHAEJBException;
 }

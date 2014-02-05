@@ -9,8 +9,8 @@ import java.util.List;
  * 
  */
 public enum CCDIValueTypeEnum {
-	FIXED("Fijo", "ccdi-valuetype-fixed"), TEXT("Fijo", "ccdi-valuetype-text"), VARIABLE(
-			"Fijo", "ccdi-valuetype-variable");
+	FIXED("Fixed", "ccdi-valuetype-fixed"), TEXT("Text", "ccdi-valuetype-text"), VARIABLE(
+			"Variable", "ccdi-valuetype-variable");
 
 	/**
 	 * @param string

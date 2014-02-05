@@ -1,20 +1,16 @@
 package org.fourgeeks.gha.domain.gom;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.CCDIStatusEnum;
-import org.fourgeeks.gha.domain.enu.CodeTypeEnum;
+import org.fourgeeks.gha.domain.enu.CCDICodeTypeEnum;
 
 /**
  * @author emiliot
@@ -40,10 +36,7 @@ public class CCDIDefinition extends AbstractEntity {
 	@JoinColumn(name = "conceptFk")
 	private Concept concept;
 
-	@OneToMany(mappedBy = "definition", cascade = { CascadeType.ALL })
-	private List<CCDILevelDefinition> levelDefinitions;
-
-	private CodeTypeEnum type;
+	private CCDICodeTypeEnum type;
 	private boolean verification;
 	private String verificationMethod;
 
@@ -66,7 +59,7 @@ public class CCDIDefinition extends AbstractEntity {
 	 * @param verificationMethod
 	 */
 	public CCDIDefinition(String code, String name, int length, int levels,
-			CCDIStatusEnum status, Concept concept, CodeTypeEnum type,
+			CCDIStatusEnum status, Concept concept, CCDICodeTypeEnum type,
 			boolean verification, String verificationMethod) {
 		this.code = code;
 		this.name = name;
@@ -124,7 +117,7 @@ public class CCDIDefinition extends AbstractEntity {
 	/**
 	 * @return the type
 	 */
-	public CodeTypeEnum getType() {
+	public CCDICodeTypeEnum getType() {
 		return type;
 	}
 
@@ -194,7 +187,7 @@ public class CCDIDefinition extends AbstractEntity {
 	 * @param type
 	 *            the type to set
 	 */
-	public void setType(CodeTypeEnum type) {
+	public void setType(CCDICodeTypeEnum type) {
 		this.type = type;
 	}
 

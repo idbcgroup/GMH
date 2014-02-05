@@ -1,6 +1,6 @@
 package org.fourgeeks.gha.webclient.client.UI.alerts.nonmodal;
 
-import org.fourgeeks.gha.domain.msg.GHAMessage;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.alerts.GHADialog;
 
 import com.smartgwt.client.widgets.Button;
@@ -10,39 +10,22 @@ import com.smartgwt.client.widgets.Button;
  *
  */
 public class GHASayDialog extends GHADialog {
-
-	/**
-	 * @param ghaMessage
-	 */
-	public GHASayDialog(GHAMessage ghaMessage){
-		//TODO: decodificador por el GHAMessage
-		super(DialogType.SAY,false,false);
-	}
-
-	/**
-	 * @param ghaMessage
-	 * @param buttons 
-	 */
-	public GHASayDialog(GHAMessage ghaMessage,Button... buttons){
-		//TODO: decodificador por el GHAMessage
-		super(DialogType.SAY,false,false,buttons);
-	}
-
 	/**
 	 * @param message
 	 */
 	public GHASayDialog(String message) {
-		super(DialogType.SAY,false,false);
+		super("SAY",false,false);
 		setMessage(message);
+		initByType();
 	}
-
 	/**
 	 * @param message
 	 * @param buttons 
 	 */
 	public GHASayDialog(String message, Button... buttons) {
-		super(DialogType.SAY,false,false,buttons);
+		super("SAY",false,false,buttons);
 		setMessage(message);
+		initByType();
 	}
 
 	/**
@@ -64,12 +47,27 @@ public class GHASayDialog extends GHADialog {
 		setTitle(title);
 	}
 
+	/**
+	 * 
+	 */
+	private void initByType() {
+		initTypeParams();
+		confModalTimingSettings();
+	}
+
 	/* (non-Javadoc)
 	 * @see org.fourgeeks.gha.webclient.client.UI.alerts.GHADialog#initTypeParams()
 	 */
 	@Override
 	protected void initTypeParams() {
-		// TODO Auto-generated method stub
-
+		// Gray
+		dialogType = "SAY";
+		isTimed = true;
+		isModal = false;
+		setTitle(GHAStrings.get("message"));
+		setBorder("1px solid #BCBCBC");
+		setBackgroundColor("#BCBCBC");
+		setBodyColor("#EFEFEF");
+		setIcon("../resources/icons/msgIT/say.png");
 	}
 }

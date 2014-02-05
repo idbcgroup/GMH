@@ -19,7 +19,7 @@ import org.fourgeeks.gha.domain.enu.CCDIValueTypeEnum;
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "definitionFk",
 		"level" }))
-@NamedQueries(value = { @NamedQuery(name = "CCDILevelDefinition.findBylevel", query = "SELECT e from CCDILevelDefinition e WHERE e.level=:level AND e.definition=:definition") })
+@NamedQueries(value = { @NamedQuery(name = "CCDILevelDefinition.findByLevel", query = "SELECT e from CCDILevelDefinition e WHERE e.level=:level AND e.definition=:definition") })
 public class CCDILevelDefinition extends AbstractEntity {
 
 	/**
@@ -28,7 +28,7 @@ public class CCDILevelDefinition extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 
 	@ManyToOne
-	@JoinColumn(name = "definitionFk")
+	@JoinColumn(name = "definitionFk", columnDefinition = "bigint REFERENCES ccdidefinition(id) ON UPDATE CASCADE ON DELETE CASCADE")
 	private CCDIDefinition definition;
 
 	private int level;
@@ -36,9 +36,6 @@ public class CCDILevelDefinition extends AbstractEntity {
 	private String name;
 	private int length;
 	private CCDIValueTypeEnum valueType;
-	// private Variable variableName; TODO: use this to add a variable to the
-	// code
-	private String fixedValue;
 	private int initialValue;
 	private int incValue;
 	private String separator;
@@ -57,7 +54,6 @@ public class CCDILevelDefinition extends AbstractEntity {
 	 * @param name
 	 * @param length
 	 * @param valueType
-	 * @param fixedValue
 	 * @param initialValue
 	 * @param incValue
 	 * @param separator
@@ -65,14 +61,13 @@ public class CCDILevelDefinition extends AbstractEntity {
 	 */
 	public CCDILevelDefinition(CCDIDefinition definition, int level,
 			String name, int length, CCDIValueTypeEnum valueType,
-			String fixedValue, int initialValue, int incValue,
-			String separator, CCDIEndValueActionEnum valueAtEndAction) {
+			int initialValue, int incValue, String separator,
+			CCDIEndValueActionEnum valueAtEndAction) {
 		this.definition = definition;
 		this.level = level;
 		this.name = name;
 		this.length = length;
 		this.valueType = valueType;
-		this.fixedValue = fixedValue;
 		this.initialValue = initialValue;
 		this.incValue = incValue;
 		this.separator = separator;
@@ -84,13 +79,6 @@ public class CCDILevelDefinition extends AbstractEntity {
 	 */
 	public CCDIDefinition getDefinition() {
 		return definition;
-	}
-
-	/**
-	 * @return the fixedValue
-	 */
-	public String getFixedValue() {
-		return fixedValue;
 	}
 
 	/**
@@ -155,14 +143,6 @@ public class CCDILevelDefinition extends AbstractEntity {
 	 */
 	public void setDefinition(CCDIDefinition definition) {
 		this.definition = definition;
-	}
-
-	/**
-	 * @param fixedValue
-	 *            the fixedValue to set
-	 */
-	public void setFixedValue(String fixedValue) {
-		this.fixedValue = fixedValue;
 	}
 
 	/**

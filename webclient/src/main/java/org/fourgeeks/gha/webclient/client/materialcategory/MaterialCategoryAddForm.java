@@ -2,7 +2,6 @@ package org.fourgeeks.gha.webclient.client.materialcategory;
 
 import org.fourgeeks.gha.domain.glm.MaterialCategory;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
-import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACancelButton;
@@ -22,7 +21,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class MaterialCategoryAddForm extends GHAAddForm<MaterialCategory>
-		implements MaterialCategorySelectionProducer {
+implements MaterialCategorySelectionProducer {
 
 	protected MaterialCategoryForm form;
 	{
@@ -44,11 +43,11 @@ public class MaterialCategoryAddForm extends GHAAddForm<MaterialCategory>
 					}
 				}), new GHACancelButton(new ClickHandler() {
 
-			@Override
-			public void onClick(ClickEvent event) {
-				hide();
-			}
-		}));
+					@Override
+					public void onClick(ClickEvent event) {
+						hide();
+					}
+				}));
 		HLayout gridPanel = new HLayout();
 		// gridPanel.setAlign(VerticalAlignment.TOP);
 		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
@@ -64,16 +63,15 @@ public class MaterialCategoryAddForm extends GHAAddForm<MaterialCategory>
 	@Override
 	public boolean canBeClosen(HideCloseAction hideAction) {// TODO
 		if (form.hasUnCommittedChanges()) {
-			GHAAlertManager.confirm(GHAStrings.get("information"),
-					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
+			GHAAlertManager.confirm("unsaved-changes", new BooleanCallback() {
 
-						@Override
-						public void execute(Boolean value) {
-							if (value) {
-								form.undo();
-							}
-						}
-					});
+				@Override
+				public void execute(Boolean value) {
+					if (value) {
+						form.undo();
+					}
+				}
+			});
 			return false;
 		}
 		return true;
@@ -82,16 +80,15 @@ public class MaterialCategoryAddForm extends GHAAddForm<MaterialCategory>
 	@Override
 	public boolean canBeHidden(HideCloseAction hideAction) {// TODO
 		if (form.hasUnCommittedChanges()) {
-			GHAAlertManager.confirm(GHAStrings.get("information"),
-					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
+			GHAAlertManager.confirm("unsaved-changes", new BooleanCallback() {
 
-						@Override
-						public void execute(Boolean value) {
-							if (value) {
-								form.undo();
-							}
-						}
-					});
+				@Override
+				public void execute(Boolean value) {
+					if (value) {
+						form.undo();
+					}
+				}
+			});
 			return false;
 		}
 		return true;
@@ -107,18 +104,17 @@ public class MaterialCategoryAddForm extends GHAAddForm<MaterialCategory>
 	@Override
 	public void hide() {
 		if (form.hasUnCommittedChanges()) {
-			GHAAlertManager.confirm(GHAStrings.get("information"),
-					GHAStrings.get("unsaved-changes"), new BooleanCallback() {
+			GHAAlertManager.confirm("unsaved-changes", new BooleanCallback() {
 
-						@Override
-						public void execute(Boolean value) {
-							if (value) {
-								form.undo();
-								form.hide();
-								MaterialCategoryAddForm.super.hide();
-							}
-						}
-					});
+				@Override
+				public void execute(Boolean value) {
+					if (value) {
+						form.undo();
+						form.hide();
+						MaterialCategoryAddForm.super.hide();
+					}
+				}
+			});
 			return;
 		}
 		form.hide();

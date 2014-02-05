@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
-import org.fourgeeks.gha.domain.gmh.ServiceResource;
+import org.fourgeeks.gha.domain.gmh.ServiceAndResource;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -35,7 +35,7 @@ public interface GWTMaintenanceActivityService extends RemoteService {
 	 * @throws GHAEJBException
 	 */
 	public List<MaintenanceActivity> findByServiceResource(
-			ServiceResource serviceResource) throws GHAEJBException;
+			ServiceAndResource serviceResource) throws GHAEJBException;
 
 	/**
 	 * @param Id

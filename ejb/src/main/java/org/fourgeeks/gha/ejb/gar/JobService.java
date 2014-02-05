@@ -22,7 +22,7 @@ import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Job;
 import org.fourgeeks.gha.domain.gar.JobCategory;
 import org.fourgeeks.gha.domain.gar.Obu;
-import org.fourgeeks.gha.domain.gmh.ServiceResource;
+import org.fourgeeks.gha.domain.gmh.ServiceAndResource;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 
@@ -61,10 +61,10 @@ public class JobService extends GHAEJBExceptionService implements
 		}
 
 		if (entity.getServiceResource() != null) {
-			ParameterExpression<ServiceResource> p = cb.parameter(
-					ServiceResource.class, "serv");
+			ParameterExpression<ServiceAndResource> p = cb.parameter(
+					ServiceAndResource.class, "serv");
 			criteria = cb.and(criteria,
-					cb.equal(root.<ServiceResource> get("serv"), p));
+					cb.equal(root.<ServiceAndResource> get("serv"), p));
 		}
 
 		return criteria;
