@@ -201,31 +201,24 @@ public class GHATextItem extends TextItem {
 	 *  Valida que solo se ingresen letras usando la expresion regular ^[a-zA-ZáéíóúAÉÍÓÚÑñ]+$
 	 *  recibe por parametro el mensaje de error que sera mostrado por el campo  
 	 */
-	public void validateWords(String messageError)
-	{
-		RegExpValidator textValidator = new RegExpValidator();  
-		textValidator.setErrorMessage(messageError);  
-		textValidator.setExpression("^[a-zA-ZáéíóúAÉÍÓÚÑñ]+$");  
-	    setValidators(textValidator);
-	    setShowErrorIcon(true);
-			
-	}
 	
-	/**
-	 * @author Guerere
-	 * 
-	 * @Metodo:
-	 *  
-	 *  Valida una expresion regular pasada por parametro
-	 * 
-	 */
-	public void validateCustomExpre(String messageError,String expresionReg)
-	{
+	public void validateCustomExpre(String messageError,String expresionReg) {
 		RegExpValidator textValidator = new RegExpValidator();  
 		textValidator.setErrorMessage(messageError);  
 		textValidator.setExpression(expresionReg);  
 	    setValidators(textValidator);
 	    setShowErrorIcon(true);
-			
+	}
+
+	public void validateWords(String messageError) {
+		validateCustomExpre(messageError, "^[a-zA-ZáéíóúÁÉÍÓÚÑñ ]+$");  
+	}
+
+	public void validateDates(String messageError) {
+		validateCustomExpre(messageError, "^[0-9]{2}/[0-9]{2}/[0-9]{4}$");
+	}
+
+	public void validateNumbers(String messageError) {
+		validateCustomExpre(messageError, "^[0-9]+$");
 	}
 }
