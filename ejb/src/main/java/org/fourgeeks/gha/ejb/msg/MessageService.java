@@ -45,7 +45,6 @@ public class MessageService extends GHAEJBExceptionService implements
 	@Override
 	public GHAMessage find(String Id) throws GHAEJBException {
 		try {
-
 			final GHAMessage find = em.find(GHAMessage.class, new GHAMessageId(
 					Id, RuntimeParameters.getLang()));
 			service.log(new UILog(null, find));

@@ -59,27 +59,28 @@ public class MessageServiceTest extends GhaServiceTest {
 		em.joinTransaction();
 
 		try {
-			String codes[] = { "test-code", "test-code2" };
-			String msgs[] = { "test msg", "test msg 2" };
+			final String codes[] = { "test-code", "test-code2" };
+			final String msgs[] = { "test msg", "test msg 2" };
 			em.persist(new GHAMessage(LanguageEnum.ES, codes[0], msgs[0]));
 			em.persist(new GHAMessage(LanguageEnum.ES, codes[1], msgs[1]));
 			em.flush();
 
-			GHAMessage msg = service.find(codes[0]);
+			final GHAMessage msg = service.find(codes[0]);
 			assertNotNull(msg);
 			assert (msg.getText().equals(msgs[0]));
 
-			ArrayList<String> param = new ArrayList<String>();
-			for (String s : codes)
+			final ArrayList<String> param = new ArrayList<String>();
+			for (final String s : codes)
 				param.add(s);
 
-			List<GHAMessage> test = service.find(param);
+			final List<GHAMessage> test = service.find(param);
 			assertNotNull(test);
 			int i = 0;
-			for (GHAMessage message : test) {
+			for (final GHAMessage message : test) {
 				assert (message.getText().equals(msgs[i++]));
 			}
-		} catch (Exception e) {
+
+		} catch (final Exception e) {
 			ux.rollback();
 			e.printStackTrace();
 		}

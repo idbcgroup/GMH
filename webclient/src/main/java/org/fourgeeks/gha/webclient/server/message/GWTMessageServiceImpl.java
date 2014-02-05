@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.msg.GHAMessage;
+import org.fourgeeks.gha.ejb.ess.SSOUserServiceRemote;
 import org.fourgeeks.gha.ejb.msg.MessageServiceRemote;
 import org.fourgeeks.gha.webclient.client.message.GWTMessageService;
 
@@ -28,6 +29,9 @@ public class GWTMessageServiceImpl extends RemoteServiceServlet implements
 	@EJB(lookup = "java:global/ear-1/ejb-1/MessageService")
 	MessageServiceRemote ejbService;
 
+	@EJB(lookup = "java:global/ear-1/ejb-1/SSOUserService")
+	SSOUserServiceRemote ssoUserService;
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -37,6 +41,8 @@ public class GWTMessageServiceImpl extends RemoteServiceServlet implements
 	 */
 	@Override
 	public GHAMessage find(String Id) throws GHAEJBException {
+		System.out.println(getThreadLocalRequest().getSession().getAttribute(
+				"user"));
 		return ejbService.find(Id);
 	}
 
