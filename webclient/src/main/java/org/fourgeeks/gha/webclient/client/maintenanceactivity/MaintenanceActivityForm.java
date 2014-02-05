@@ -269,7 +269,7 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 		if (estimatedCostCurrencySelectItem.getValue() != null) {
 			String value = estimatedCostCurrencySelectItem.getValueAsString();
 			activity.setEstimatedCostCurrency(CurrencyTypeEnum
-					.getByString(value));
+					.valueOf(value));
 		}
 		if (instructionsAndObsTextAreaItem.getValue() != null) {
 			String value = instructionsAndObsTextAreaItem.getValueAsString();
@@ -289,13 +289,13 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 
 		entity.setActivity(activity);
 
-		Set<ConstraintViolation<MaintenanceActivity>> violations = validator
-				.validate(entity);
+		Set<ConstraintViolation<Activity>> violations = validator
+				.validate(activity);
 		if (form.validate() && violations.isEmpty())
 			return entity;
 		else {
 			List<String> violationsList = new ArrayList<String>();
-			for (Iterator<ConstraintViolation<MaintenanceActivity>> it = violations
+			for (Iterator<ConstraintViolation<Activity>> it = violations
 					.iterator(); it.hasNext();)
 				violationsList.add(it.next().getMessage());
 			GHAAlertManager.alert(violationsList);
