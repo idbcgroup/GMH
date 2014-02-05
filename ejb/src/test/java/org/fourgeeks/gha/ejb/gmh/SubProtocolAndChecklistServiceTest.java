@@ -42,6 +42,7 @@ import org.fourgeeks.gha.domain.enu.ProviderRepresentEnum;
 import org.fourgeeks.gha.domain.enu.ProviderResourceTypeEnum;
 import org.fourgeeks.gha.domain.enu.ProviderServicesEnum;
 import org.fourgeeks.gha.domain.enu.ProviderTypeEnum;
+import org.fourgeeks.gha.domain.enu.ServiceAndResourceType;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
 import org.fourgeeks.gha.domain.ess.LocationType;
@@ -74,11 +75,11 @@ import org.fourgeeks.gha.domain.gmh.EiaTypeCategory;
 import org.fourgeeks.gha.domain.gmh.EiaTypeComponent;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
-import org.fourgeeks.gha.domain.gmh.MaintenanceActivityServiceResource;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
-import org.fourgeeks.gha.domain.gmh.ServiceResource;
+import org.fourgeeks.gha.domain.gmh.RequiredResources;
+import org.fourgeeks.gha.domain.gmh.ServiceAndResource;
 import org.fourgeeks.gha.domain.gmh.ServiceResourceCategory;
 import org.fourgeeks.gha.domain.gmh.SubProtocolAndChecklist;
 import org.fourgeeks.gha.domain.mix.Bpi;
@@ -201,7 +202,7 @@ public class SubProtocolAndChecklistServiceTest {
 				.addClass(Manufacturer.class)
 				.addClass(ActivitySubCategoryEnum.class)
 				.addClass(Activity.class)
-				.addClass(MaintenanceActivityServiceResource.class)
+				.addClass(RequiredResources.class)
 				.addClass(Module.class)
 				.addClass(Obu.class)
 				.addClass(ObuService.class)
@@ -216,7 +217,7 @@ public class SubProtocolAndChecklistServiceTest {
 				.addClass(RoleService.class)
 				.addClass(RoleServiceRemote.class)
 				.addClass(RuntimeParameters.class)
-				.addClass(ServiceResource.class)
+				.addClass(ServiceAndResource.class)
 				.addClass(ServiceResourceCategory.class)
 				.addClass(TimePeriodEnum.class)
 				.addClass(View.class)
@@ -232,6 +233,7 @@ public class SubProtocolAndChecklistServiceTest {
 				.addClass(SubProtocolAndCheklistServiceRemote.class)
 				.addClass(SubProtocolAndCheklistServiceLocal.class)
 				.addClass(MaintenanceActivity.class)
+				.addClass(ServiceAndResourceType.class)
 				.addAsResource("test-persistence.xml",
 						"META-INF/persistence.xml")
 				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
@@ -297,6 +299,8 @@ public class SubProtocolAndChecklistServiceTest {
 		updateTest();
 		System.out.println(sep + "deleteTest" + sep);
 		deleteTest();
+		// System.out.println(sep + "deleteListTest" + sep);
+		// deleteListTest();
 	}
 
 	private void findByParentActivityTest() {
@@ -379,6 +383,23 @@ public class SubProtocolAndChecklistServiceTest {
 			e.printStackTrace();
 		}
 	}
+
+	// private void deleteListTest() {
+	// final int itemsExpected = 1;
+	// try {
+	// List<SubProtocolAndChecklist> subprotocolos = new
+	// ArrayList<SubProtocolAndChecklist>();
+	// for (int i = 0; i < 2; i++) {
+	// SubProtocolAndChecklist sp = new SubProtocolAndChecklist();
+	// sp.setId(i + 1);
+	// subprotocolos.add(sp);
+	// }
+	// serviceRemote.delete(subprotocolos);
+	// Assert.assertEquals(itemsExpected, serviceRemote.getAll().size());
+	// } catch (GHAEJBException e) {
+	// e.printStackTrace();
+	// }
+	// }
 
 	private void getSubProtocolActivitiesCountTest() {
 		final int countExpected = 3;

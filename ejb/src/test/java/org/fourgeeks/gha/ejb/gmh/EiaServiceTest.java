@@ -39,6 +39,7 @@ import org.fourgeeks.gha.domain.enu.ProviderRepresentEnum;
 import org.fourgeeks.gha.domain.enu.ProviderResourceTypeEnum;
 import org.fourgeeks.gha.domain.enu.ProviderServicesEnum;
 import org.fourgeeks.gha.domain.enu.ProviderTypeEnum;
+import org.fourgeeks.gha.domain.enu.ServiceAndResourceType;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
 import org.fourgeeks.gha.domain.ess.LocationType;
@@ -71,11 +72,11 @@ import org.fourgeeks.gha.domain.gmh.EiaTypeCategory;
 import org.fourgeeks.gha.domain.gmh.EiaTypeComponent;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
-import org.fourgeeks.gha.domain.gmh.MaintenanceActivityServiceResource;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
-import org.fourgeeks.gha.domain.gmh.ServiceResource;
+import org.fourgeeks.gha.domain.gmh.RequiredResources;
+import org.fourgeeks.gha.domain.gmh.ServiceAndResource;
 import org.fourgeeks.gha.domain.gmh.ServiceResourceCategory;
 import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.domain.mix.Citizen;
@@ -97,21 +98,18 @@ import org.fourgeeks.gha.ejb.mix.InstitutionServiceRemote;
 import org.fourgeeks.gha.ejb.mix.LegalEntityService;
 import org.fourgeeks.gha.ejb.mix.LegalEntityServiceRemote;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 
 /**
  * @author vivi.torresg
  * 
  */
-@RunWith(Arquillian.class)
+// @RunWith(Arquillian.class)
 public class EiaServiceTest {
 	/**
 	 * @return the deployment descriptor
@@ -187,7 +185,6 @@ public class EiaServiceTest {
 				.addClass(LocationLevelEnum.class)
 				.addClass(LocationType.class)
 				.addClass(LanguageEnum.class)
-
 				.addClass(MaintenancePlan.class)
 				.addClass(MaintenancePlanStatus.class)
 				.addClass(MaintenancePlanCancelationOption.class)
@@ -204,7 +201,7 @@ public class EiaServiceTest {
 				// .addClass(Material.class)
 				// .addClass(MaterialCategory.class)
 				.addClass(MaintenanceActivity.class)
-				.addClass(MaintenanceActivityServiceResource.class)
+				.addClass(RequiredResources.class)
 				.addClass(Module.class)
 				.addClass(Obu.class)
 				.addClass(ObuService.class)
@@ -219,7 +216,7 @@ public class EiaServiceTest {
 				.addClass(RoleService.class)
 				.addClass(RoleServiceRemote.class)
 				.addClass(RuntimeParameters.class)
-				.addClass(ServiceResource.class)
+				.addClass(ServiceAndResource.class)
 				.addClass(ServiceResourceCategory.class)
 				.addClass(TimePeriodEnum.class)
 				.addClass(View.class)
@@ -228,6 +225,7 @@ public class EiaServiceTest {
 				.addClass(GHAMessageType.class)
 				.addClass(Activity.class)
 				.addClass(Bsp.class)
+				.addClass(ServiceAndResourceType.class)
 				.addAsResource("test-persistence.xml",
 						"META-INF/persistence.xml")
 				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
@@ -395,7 +393,7 @@ public class EiaServiceTest {
 
 	/**
 	 */
-	@Test
+	// @Test
 	public void test() {
 		Eia eia = new Eia();
 		eia.setEiaType(eiaType);

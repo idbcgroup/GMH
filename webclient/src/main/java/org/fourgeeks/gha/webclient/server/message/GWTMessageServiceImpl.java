@@ -26,7 +26,8 @@ public class GWTMessageServiceImpl extends RemoteServiceServlet implements
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@EJB(lookup = "java:global/ear-1/ejb-1/MessageService")
+	@EJB(lookup = "java:global/ear-1/ejb-1/MessageService!"
+			+ "org.fourgeeks.gha.ejb.msg.MessageServiceRemote")
 	MessageServiceRemote ejbService;
 
 	@EJB(lookup = "java:global/ear-1/ejb-1/SSOUserService")

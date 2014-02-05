@@ -42,7 +42,8 @@ public class GWTLoginServiceImpl extends RemoteServiceServlet implements
 	@EJB(lookup = "java:global/ear-1/ejb-1/AppFormViewFunctionBpuService")
 	AppFormViewFunctionBpuServiceRemote bpuFunctionService;
 
-	@EJB(lookup = "java:global/ear-1/ejb-1/MessageService")
+	@EJB(lookup = "java:global/ear-1/ejb-1/MessageService!"
+			+ "org.fourgeeks.gha.ejb.msg.MessageServiceRemote")
 	MessageServiceRemote messageService;
 
 	/**

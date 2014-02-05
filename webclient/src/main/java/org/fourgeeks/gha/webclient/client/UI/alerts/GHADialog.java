@@ -35,18 +35,19 @@ public abstract class GHADialog extends Dialog implements ResizeHandler {
 	//Internal Measures
 	private static final int DEFAULT_NOTIFICATION_WIDTH = 280;
 	private static final int DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT = 140;
-	private static final int DEFAULT_NOTIFICATION_BUTTONS_HEIGHT = 160;
+	private static final int DEFAULT_NOTIFICATION_BUTTONS_HEIGHT = 145;
 
 	private final int HEADER_HEIGHT = 20;
 	private final int FOOTER_HEIGHT = 15;
 	private final int RIGHT_MARGIN = 40;
-	private final int BORDER_SEPARATION = 7;
+	private final int BORDER_SEPARATION = 8;
 
 	protected boolean hasButtons;
 	protected String dialogType;
 	protected boolean isModal;
 	protected boolean isTimed;
-	protected int openedPositionOffset = 0;
+
+	protected int openedPosition = -1;
 
 	private final int DEFAULT_WAITING_TIME = 4000;
 	private final Timer waiter = new Timer() {
@@ -55,7 +56,7 @@ public abstract class GHADialog extends Dialog implements ResizeHandler {
 			close();
 		}
 	};
-	protected final int DEFAULT_ANIMATION_TIME = 400;
+	protected final int DEFAULT_ANIMATION_TIME = 300;
 
 	/**
 	 * 
@@ -127,12 +128,10 @@ public abstract class GHADialog extends Dialog implements ResizeHandler {
 	 * Closes and destroy the window
 	 */
 	public void close() {
-		if(!dialogType.equals("CONFIRMATION") && !dialogType.equals("ASKYESNO"))
-			GHAAlertManager.removeOpenMessageFromCounter();
+		GHAAlertManager.removeOpenMessageFromCounter();
+		GHAAlertManager.toggleMessagePosition(openedPosition);
 
-		GHAAlertManager.addOpenMessageOffset(-1*(getHeight()));
-
-		animateRect(null, Window.getClientHeight() - openedPositionOffset, null, null,
+		animateRect(null, Window.getClientHeight(), null, null,
 				new AnimationCallback() {
 			@Override
 			public void execute(boolean earlyFinish) {
@@ -228,10 +227,12 @@ public abstract class GHADialog extends Dialog implements ResizeHandler {
 			setMaxHeight(DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT);
 			bodyAC.setHeight(DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT - (HEADER_HEIGHT + FOOTER_HEIGHT));
 		}
+		//		bodyAC.setAlign(VerticalAlignment.CENTER);
+		//		bodyAC.setAlign(Alignment.CENTER);
 		changeAutoChildDefaults("body", bodyAC);
-		setAnimateTime(DEFAULT_ANIMATION_TIME);
-
-		//		setOverflow(Overflow.SCROLL);
+		Layout msgStack = new Layout();
+		msgStack.setStyleName("dialogMessageStack");
+		changeAutoChildDefaults("messageStack", msgStack);
 	}
 
 	protected abstract void initTypeParams();
@@ -241,10 +242,10 @@ public abstract class GHADialog extends Dialog implements ResizeHandler {
 		if (isVisible()) {
 			if (hasButtons) {
 				setLeft(Window.getClientWidth() - (getWidth() + RIGHT_MARGIN));
-				setTop(Window.getClientHeight() - (getHeight() + BORDER_SEPARATION + openedPositionOffset));
+				setTop(Window.getClientHeight() - (openedPosition+1)*(DEFAULT_NOTIFICATION_BUTTONS_HEIGHT + BORDER_SEPARATION));
 			} else {
 				setLeft(Window.getClientWidth() - (getWidth() + RIGHT_MARGIN));
-				setTop(Window.getClientHeight()	- (getHeight() + BORDER_SEPARATION + openedPositionOffset));
+				setTop(Window.getClientHeight()	- (openedPosition+1)*(DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT + BORDER_SEPARATION));
 			}
 		}
 	}
@@ -264,23 +265,29 @@ public abstract class GHADialog extends Dialog implements ResizeHandler {
 		setHeaderStyle("dialogHeaderStyle");
 		setStyleName("dialogStyle");
 		setBodyStyle("dialogBodyStyle");
+		setMessageStyle("dialogMessageStyle");
 	}
 
 	@Override
 	public void show() {
 		super.show();
-		GHAAlertManager.addOpenMessageToCounter();
-		openedPositionOffset = GHAAlertManager.getOpenMessagesOffset();
 
-		setLeft(Window.getClientWidth() - (getWidth() + RIGHT_MARGIN));
-		setTop(Window.getClientHeight() - openedPositionOffset);
+		openedPosition = GHAAlertManager.getFreeMessagePosition();
+		GHAAlertManager.toggleMessagePosition(openedPosition);
+		GHAAlertManager.addNewMessageToCounter();
 
-		GHAAlertManager.addOpenMessageOffset(getHeight()+ BORDER_SEPARATION);
+		getMessageStack().setHeight(40);
+		if(openedPosition >= 0){
+			setLeft(Window.getClientWidth() - (getWidth() + RIGHT_MARGIN));
+			setTop(Window.getClientHeight());
 
-		if (hasButtons) {
-			animateRect(null, Window.getClientHeight() - (DEFAULT_NOTIFICATION_BUTTONS_HEIGHT + BORDER_SEPARATION + openedPositionOffset),null, null);
-		} else {
-			animateRect(null, Window.getClientHeight() - (DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT + BORDER_SEPARATION + openedPositionOffset),null, null);
+			if (hasButtons) {
+				animateRect(null, Window.getClientHeight() - (DEFAULT_NOTIFICATION_BUTTONS_HEIGHT + BORDER_SEPARATION),null, null);
+			} else {
+				animateRect(null, Window.getClientHeight() - (openedPosition+1)*(DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT + BORDER_SEPARATION),null, null);
+			}
+		}else{
+			Window.alert("Error. no hay posiciones libres para mostrar alertas");
 		}
 	}
 }
