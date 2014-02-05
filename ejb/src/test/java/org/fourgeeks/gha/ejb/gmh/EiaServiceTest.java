@@ -397,10 +397,6 @@ public class EiaServiceTest {
 	 */
 	@Test
 	public void test() {
-
-		System.out.println("CCCC\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-		System.out.println(eiaType.getCode());
-
 		Eia eia = new Eia();
 		eia.setEiaType(eiaType);
 		eia.setProvider(externalProvider);

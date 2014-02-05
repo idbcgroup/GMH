@@ -28,8 +28,15 @@ public class UILogService extends GHAEJBExceptionService implements
 	private EntityManager em;
 
 	@Override
-	public void log(UILog log) {
-		em.persist(log);
+	public void log(UILog log) throws GHAEJBException {
+		try {
+			em.persist(log);
+		} catch (final Exception e) {
+			System.out.println(e);
+			// logger.log(Level.INFO, "ERROR: unable to delete ="
+			// + log.getClass().getName() + " with id = " + log.getId(), e);
+			// throw super.generateGHAEJBException("messague-delete-fail", em);
+		}
 	}
 
 	@Override

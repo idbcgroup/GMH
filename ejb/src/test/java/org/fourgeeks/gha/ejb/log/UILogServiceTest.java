@@ -89,6 +89,16 @@ import org.fourgeeks.gha.domain.msg.GHAMessageId;
 import org.fourgeeks.gha.domain.msg.GHAMessageType;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
+import org.fourgeeks.gha.ejb.gar.BpuService;
+import org.fourgeeks.gha.ejb.gar.BpuServiceRemote;
+import org.fourgeeks.gha.ejb.mix.BpiService;
+import org.fourgeeks.gha.ejb.mix.BpiServiceRemote;
+import org.fourgeeks.gha.ejb.mix.CitizenService;
+import org.fourgeeks.gha.ejb.mix.CitizenServiceRemote;
+import org.fourgeeks.gha.ejb.mix.InstitutionService;
+import org.fourgeeks.gha.ejb.mix.InstitutionServiceRemote;
+import org.fourgeeks.gha.ejb.mix.LegalEntityService;
+import org.fourgeeks.gha.ejb.mix.LegalEntityServiceRemote;
 import org.fourgeeks.gha.ejb.msg.MessageService;
 import org.fourgeeks.gha.ejb.msg.MessageServiceLocal;
 import org.fourgeeks.gha.ejb.msg.MessageServiceRemote;
@@ -125,8 +135,12 @@ public class UILogServiceTest {
 				.addClass(ActivityState.class)
 				.addClass(AppForm.class)
 				.addClass(Bpu.class)
+				.addClass(BpuService.class)
+				.addClass(BpuServiceRemote.class)
 				.addClass(Brand.class)
 				.addClass(Bpi.class)
+				.addClass(BpiService.class)
+				.addClass(BpiServiceRemote.class)
 				.addClass(Bsp.class)
 				.addClass(BpiOriginEnum.class)
 				.addClass(BpiTypeEnum.class)
@@ -134,6 +148,8 @@ public class UILogServiceTest {
 				.addClass(BpiRiskEnum.class)
 				.addClass(BuildingLocation.class)
 				.addClass(Citizen.class)
+				.addClass(CitizenServiceRemote.class)
+				.addClass(CitizenService.class)
 				.addClass(CurrencyTypeEnum.class)
 				.addClass(DepreciationMethodEnum.class)
 				.addClass(DocumentTypeEnum.class)
@@ -163,12 +179,16 @@ public class UILogServiceTest {
 				.addClass(GenderTypeEnum.class)
 				.addClass(HasKey.class)
 				.addClass(Institution.class)
+				.addClass(InstitutionService.class)
+				.addClass(InstitutionServiceRemote.class)
 				.addClass(Job.class)
 				.addClass(JobPosition.class)
 				.addClass(JobCategory.class)
 				.addClass(LanguageEnum.class)
 				.addClass(LocationLevelEnum.class)
 				.addClass(LegalEntity.class)
+				.addClass(LegalEntityService.class)
+				.addClass(LegalEntityServiceRemote.class)
 				.addClass(LocationType.class)
 				.addClass(MaintenanceActivity.class)
 				.addClass(MaintenanceProtocols.class)
@@ -220,23 +240,92 @@ public class UILogServiceTest {
 	@EJB(lookup = "java:global/test/MessageService!org.fourgeeks.gha.ejb.msg.MessageServiceLocal")
 	MessageServiceLocal messageServiceLocal;
 
+	@EJB(lookup = "java:global/test/BpuService")
+	BpuServiceRemote bpuServiceRemote;
+
+	@EJB(lookup = "java:global/test/CitizenService")
+	CitizenServiceRemote citizenServiceRemote;
+
+	@EJB(lookup = "java:global/test/LegalEntityService")
+	LegalEntityServiceRemote legalEntityServiceRemote;
+
+	@EJB(lookup = "java:global/test/InstitutionService")
+	InstitutionServiceRemote institutionServiceRemote;
+
+	@EJB(lookup = "java:global/test/BpiService")
+	BpiServiceRemote bpiServiceRemote;
+
 	private GHAMessage ghaMessage;
+	private Bpu bpu;
+
+	private Citizen citizen;
+
+	private LegalEntity legalEntity, legalEntity2;
+	private Institution institution;
+	private Bpi bpi;
 
 	/**
 	 * 
 	 */
 	@Before
 	public void set() {
-		ghaMessage = new GHAMessage(LanguageEnum.ES, "msg-test",
-				"Mensjae de prueba");
 		try {
-			messageServiceLocal.save(ghaMessage);
-		} catch (final GHAEJBException e) {
-			// unset();
-			// Assert.fail("failing creating the ghamessage: " +
-			// e.getMessage());
-
+			ghaMessage = messageServiceLocal.save(new GHAMessage(
+					LanguageEnum.ES, "msg-test" + Math.random(),
+					"Mensaje de prueba"));
+		} catch (final GHAEJBException e2) {
+			unset();
+			Assert.fail("failing creating the ghamessage");
 		}
+		try {
+			legalEntity = legalEntityServiceRemote.save(new LegalEntity());
+			legalEntity2 = legalEntityServiceRemote.save(new LegalEntity());
+		} catch (final GHAEJBException e) {
+			unset();
+			Assert.fail("failing creating the legalentity");
+		}
+
+		try {
+			final Citizen localCitizen = new Citizen();
+			localCitizen.setLegalEntity(legalEntity);
+			localCitizen.setIdNumber("id-number-legal-entity" + Math.random());
+			localCitizen.setIdType(DocumentTypeEnum.LOCAL);
+			localCitizen.setGender(GenderTypeEnum.FEMALE);
+			citizen = citizenServiceRemote.save(localCitizen);
+		} catch (final GHAEJBException e) {
+			unset();
+			Assert.fail("failing creating the bpu: " + e.getMessage());
+		}
+
+		final Institution localInstitution = new Institution();
+		localInstitution.setName("Institution name test");
+		localInstitution.setLegalEntity(legalEntity2);
+		try {
+			institution = institutionServiceRemote.save(localInstitution);
+		} catch (final GHAEJBException e) {
+			unset();
+			Assert.fail("failing creating the intitution");
+		}
+
+		try {
+			final Bpi localBpi = new Bpi();
+			localBpi.setInstitution(institution);
+			bpi = bpiServiceRemote.save(localBpi);
+		} catch (final GHAEJBException e1) {
+			unset();
+			Assert.fail("failing creating the bpi");
+		}
+
+		try {
+			final Bpu localBpu = new Bpu();
+			localBpu.setCitizen(citizen);
+			localBpu.setBpi(bpi);
+			bpu = bpuServiceRemote.save(localBpu);
+		} catch (final GHAEJBException e) {
+			unset();
+			Assert.fail("failing creating the bpu: " + e.getMessage());
+		}
+
 	}
 
 	/**
@@ -247,9 +336,14 @@ public class UILogServiceTest {
 		Assert.assertNotNull(uILogServiceRemote);
 		Assert.assertNotNull(uILogServiceLocal);
 		Assert.assertNotNull(ghaMessage);
-		final UILog uiLog = new UILog();
-		uiLog.setMessage(ghaMessage);
-		uILogServiceRemote.log(uiLog);
+
+		try {
+			final UILog uiLog = new UILog();
+			uiLog.setBpu(bpu);
+			uiLog.setMessage(ghaMessage);
+			uILogServiceRemote.log(uiLog);
+		} catch (final GHAEJBException e1) {
+		}
 
 		try {
 			final List<UILog> all = uILogServiceRemote.getAll();
@@ -262,12 +356,40 @@ public class UILogServiceTest {
 
 	}
 
+	/**
+	 * 
+	 */
 	@After
 	public void unset() {
 		try {
 			messageServiceLocal.delete(ghaMessage);
 		} catch (final GHAEJBException e) {
-			// System.out.println("AUN NO HE SOLUCIONADO EL PROBLEMA DEL BORRADO");
 		}
+		try {
+			bpuServiceRemote.delete(bpu.getId());
+		} catch (final GHAEJBException e) {
+		}
+
+		try {
+			citizenServiceRemote.delete(citizen.getId());
+		} catch (final GHAEJBException e) {
+		}
+
+		try {
+			bpiServiceRemote.delete(bpi.getId());
+		} catch (final GHAEJBException e) {
+		}
+
+		try {
+			institutionServiceRemote.delete(institution.getId());
+		} catch (final GHAEJBException e) {
+		}
+
+		try {
+			legalEntityServiceRemote.delete(legalEntity.getId());
+			legalEntityServiceRemote.delete(legalEntity2.getId());
+		} catch (final GHAEJBException e) {
+		}
+
 	}
 }

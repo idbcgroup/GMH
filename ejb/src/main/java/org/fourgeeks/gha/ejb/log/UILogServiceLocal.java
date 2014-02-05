@@ -11,6 +11,10 @@ import org.fourgeeks.gha.domain.logs.UILog;
  */
 @Local
 public interface UILogServiceLocal {
+	/**
+	 * @param log
+	 */
+	public void log(UILog log) throws GHAEJBException;
 
 	/**
 	 * @param log

@@ -7,15 +7,18 @@ import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
+import org.fourgeeks.gha.domain.logs.UILog;
 import org.fourgeeks.gha.domain.msg.GHAMessage;
 import org.fourgeeks.gha.domain.msg.GHAMessageId;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
+import org.fourgeeks.gha.ejb.log.UILogServiceLocal;
 
 /**
  * @author emiliot, vivi.torresg
@@ -30,6 +33,9 @@ public class MessageService extends GHAEJBExceptionService implements
 	private final static Logger logger = Logger.getLogger(MessageService.class
 			.getName());
 
+	@EJB
+	UILogServiceLocal service;
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -39,9 +45,11 @@ public class MessageService extends GHAEJBExceptionService implements
 	@Override
 	public GHAMessage find(String Id) throws GHAEJBException {
 		try {
-			System.out.println(Id);
-			return em.find(GHAMessage.class, new GHAMessageId(Id,
-					RuntimeParameters.getLang()));
+
+			final GHAMessage find = em.find(GHAMessage.class, new GHAMessageId(
+					Id, RuntimeParameters.getLang()));
+			service.log(new UILog(null, find));
+			return find;
 		} catch (final Exception e) {
 			logger.log(Level.INFO, "ERROR: finding GHAMessage", e);
 			throw super.generateGHAEJBException("message-find-fail", em);

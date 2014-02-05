@@ -11,6 +11,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import org.fourgeeks.gha.domain.gar.Bpu;
+import org.fourgeeks.gha.domain.msg.GHAMessage;
 
 /**
  * @author emiliot
@@ -39,9 +40,25 @@ public class UILog extends GHALog {
 
 	/**
 	 * @param bpu
+	 * @param message
 	 * 
 	 */
-	public UILog(Bpu bpu) {
+	public UILog(Bpu bpu, GHAMessage message) {
+		this.bpu = bpu;
+		this.message = message;
+	}
+
+	/**
+	 * @return the bpu
+	 */
+	public Bpu getBpu() {
+		return bpu;
+	}
+
+	/**
+	 * @param bpu
+	 */
+	public void setBpu(Bpu bpu) {
 		this.bpu = bpu;
 	}
 
