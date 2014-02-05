@@ -33,9 +33,6 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
 
-import com.smartgwt.client.widgets.form.fields.events.KeyPressEvent;
-import com.smartgwt.client.widgets.form.fields.events.KeyPressHandler;
-import com.smartgwt.client.widgets.form.validator.RegExpValidator;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
@@ -66,69 +63,79 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 		confirmPasswordItem = new GHATextItem("Confirme contraseña", true,
 				changedHandler);
 		confirmPasswordItem.setLength(20);
-		
-		firstNameItem = new GHANameTextItem(GHAStrings.get("first-name"), false, changedHandler);
-		
+
+		firstNameItem = new GHANameTextItem(GHAStrings.get("first-name"),
+				false, changedHandler);
+
 		firstNameItem.setLength(20);
-		
+
 		firstNameItem.validateWords(GHAStrings.get("user-error-formatter"));
-				
-		//firstNameItem.setMask("[a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ]");
-		
-		secondNameItem = new GHANameTextItem(GHAStrings.get("second-name"), false,
-				changedHandler);
+
+		// firstNameItem.setMask("[a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ]");
+
+		secondNameItem = new GHANameTextItem(GHAStrings.get("second-name"),
+				false, changedHandler);
 		secondNameItem.setLength(20);
-		//secondNameItem.setMask("[a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ]");
+		// secondNameItem.setMask("[a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ]");
 		secondNameItem.validateWords(GHAStrings.get("user-error-formatter"));
-		
-		lastNameItem = new GHANameTextItem(GHAStrings.get("first-lastname"), false, changedHandler);
+
+		lastNameItem = new GHANameTextItem(GHAStrings.get("first-lastname"),
+				false, changedHandler);
 		lastNameItem.setLength(20);
-		//lastNameItem.setMask("[a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ]");
+		// lastNameItem.setMask("[a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ]");
 		lastNameItem.validateWords(GHAStrings.get("user-error-formatter"));
-		
-		
-		secondLastNameItem = new GHANameTextItem(GHAStrings.get("second-lastname"), false,
-				changedHandler);
+
+		secondLastNameItem = new GHANameTextItem(
+				GHAStrings.get("second-lastname"), false, changedHandler);
 		secondLastNameItem.setLength(20);
-		//secondLastNameItem.setMask("[a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ]");
-		
-		secondLastNameItem.validateWords(GHAStrings.get("user-error-formatter"));
-		
-		primaryEmailItem = new GHAEmailTextItem("Email Primario", changedHandler);
+		// secondLastNameItem.setMask("[a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ]");
+
+		secondLastNameItem
+				.validateWords(GHAStrings.get("user-error-formatter"));
+
+		primaryEmailItem = new GHAEmailTextItem("Email Primario",
+				changedHandler);
 		alternativeEmailItem = new GHAEmailTextItem("Email Secundario",
 				changedHandler);
 
 		typeidSelectItem = new GHASelectItem("Tipo ID", true, changedHandler);
 		idItem = new GHATextItem("No. Identificiación", true, changedHandler);
 		idItem.setLength(20);
-		idItem.validateCustomExpre(GHAStrings.get("user-error-formatter-identification"), "^[a-zA-Z0-9|-]+$");
-		
+		idItem.validateCustomExpre(
+				GHAStrings.get("user-error-formatter-identification"),
+				"^[a-zA-Z0-9|-]+$");
+		idItem.setShowErrorIcon(false);
+
 		genderSelectItem = new GHASelectItem("Género", true, changedHandler);
 		nationalityItem = new GHATextItem("Nacionalidad", false, changedHandler);
 		nationalityItem.setLength(20);
-		//nationalityItem.setMask("[a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ]");
-		//[a-zA-ZáéíóúAÉÍÓÚÑñ]
+		// nationalityItem.setMask("[a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ]");
+		// [a-zA-ZáéíóúAÉÍÓÚÑñ]
 		nationalityItem.validateWords(GHAStrings.get("user-error-formatter"));
-		
-		birthDateItem = new GHABirthDateItem(GHAStrings.get("birthdate"),changedHandler);
+
+		birthDateItem = new GHABirthDateItem(GHAStrings.get("birthdate"),
+				changedHandler);
 		birthDateItem.setUseMask(true);
 		birthDateItem.setUseTextField(true);
-		birthDateItem.setInvalidDateStringMessage(GHAStrings.get("user-date-error-formatter"));			
-		
-		
+		birthDateItem.setInvalidDateStringMessage(GHAStrings
+				.get("user-date-error-formatter"));
+
 		bpiSelectItem = new GHASelectItem("Institución");
 		bpiSelectItem.setRequired(true);
 		bpiSelectItem.addChangedHandler(changedHandler);
-		legalEntityIdentifierItem = new GHATextItem("R.I.F.", false,changedHandler);
+		legalEntityIdentifierItem = new GHATextItem("R.I.F.", false,
+				changedHandler);
 		legalEntityIdentifierItem.setLength(17);
-		legalEntityIdentifierItem.validateCustomExpre(GHAStrings.get("user-error-formatter-rif"),"^[VvMmPprREeJjIiGg0-9|-]+$");
-		//setMask(">[V|M|P|R|E|J|I|G]-[0-9|-]");
-		
-		//VMPREJIG
-		
+		legalEntityIdentifierItem.validateCustomExpre(
+				GHAStrings.get("user-error-formatter-rif"),
+				"^[VvMmPprREeJjIiGg0-9|-]+$");
+		// setMask(">[V|M|P|R|E|J|I|G]-[0-9|-]");
+
+		// VMPREJIG
+
 		listeners = new ArrayList<UserSelectionListener>();
 
-		form = new GHADynamicForm(4,FormType.NORMAL_FORM);
+		form = new GHADynamicForm(4, FormType.NORMAL_FORM);
 	}
 
 	/**
@@ -148,8 +155,7 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 		mainPanel.addMembers(form, new LayoutSpacer());
 		addMember(mainPanel);
 		fill();
-		
-	
+
 	}
 
 	@Override
@@ -236,50 +242,49 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 		if (firstNameItem.getValue() != null) {
 			if (!firstNameItem.validate())
 				violationsList.add("user-fisrt-name-error-formatter");
-			
+
 		}
-		
+
 		if (secondNameItem.getValue() != null) {
 			if (!secondNameItem.validate())
 				violationsList.add("user-second-name-error-formatter");
-			
+
 		}
-		
+
 		if (lastNameItem.getValue() != null) {
 			if (!lastNameItem.validate())
 				violationsList.add("user-fisrt-last-name-error-formatter");
-			
+
 		}
-		
+
 		if (secondLastNameItem.getValue() != null) {
 			if (!secondLastNameItem.validate())
 				violationsList.add("user-second-last-name-error-formatter");
-			
+
 		}
 		if (nationalityItem.getValue() != null) {
 			if (!nationalityItem.validate())
 				violationsList.add("user-nationality-error-formatter");
-			
-		}		
-		
-		if (idItem.getValue() != null)
-		{
-			if (!idItem.validate())
-			{
-				violationsList.add("user-identification-error-formatte");
-				idItem.setShowErrorIcon(true);
-			}
-			citizen.setIdNumber(idItem.getValueAsString());
-			idItem.setShowErrorIcon(false);
+
 		}
-		
+
+		if (idItem.getValue() != null) {
+			if (!idItem.validate()) {
+				violationsList.add("user-identification-error-formatter");
+				idItem.setShowErrorIcon(true);
+			} else
+				idItem.setShowErrorIcon(false);
+			citizen.setIdNumber(idItem.getValueAsString());
+
+		}
+
 		if (legalEntityIdentifierItem.getValue() != null) {
 			if (!legalEntityIdentifierItem.validate())
 				violationsList.add("user-error-formatter-rif");
 			legalEntity.setIdentifier(legalEntityIdentifierItem
 					.getValueAsString());
 		}
-				
+
 		if (primaryEmailItem.getValue() != null) {
 			if (!primaryEmailItem.validate())
 				violationsList.add("email-invalid-field");
@@ -300,7 +305,6 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 			citizen.setIdType(DocumentTypeEnum.valueOf(typeidSelectItem
 					.getValueAsString()));
 		}
-		
 
 		if (genderSelectItem.getValue() != null) {
 			citizen.setGender(GenderTypeEnum.valueOf(genderSelectItem
@@ -317,7 +321,6 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 			}
 		}
 
-		
 		// build the ssoUser object
 		citizen.setLegalEntity(legalEntity);
 		bpu.setCitizen(citizen);
