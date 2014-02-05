@@ -137,9 +137,7 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 		fillMans(true);
 		fillExtras();
 		
-		nameItem.setValidators(GHATextItem.ALPHABETIC);
-		modelItem.setValidators(GHATextItem.ALPHABETIC);
-		eiaUmdnsItem.setValidators(GHATextItem.ALPHABETIC);
+		
 	}
 
 	@Override

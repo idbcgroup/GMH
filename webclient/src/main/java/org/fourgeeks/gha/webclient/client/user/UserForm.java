@@ -149,7 +149,7 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 		addMember(mainPanel);
 		fill();
 		
-		firstNameItem.setValidators(GHATextItem.ALPHABETIC);
+	
 	}
 
 	@Override
