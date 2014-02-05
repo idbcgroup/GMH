@@ -32,25 +32,22 @@ import com.smartgwt.client.widgets.events.ClickHandler;
  */
 public class GHAAlertManager {
 
-	private static final int MAX_MESSAGES = 10;
+
+	private static final int MAX_MESSAGES = 3;
+	private static boolean[] messagesPositionsOpen = new boolean[MAX_MESSAGES];
+
 	private static final GWTMessageServiceAsync messageService = GWT
 			.create(GWTMessageService.class);
 	private static int openMessagesCounter=0;
-	private static int totalOpenMessagesOffset=0;
 
-	/**
-	 * @param openMessageOffset 
-	 */
-	public static void addOpenMessageOffset(int openMessageOffset) {
-		GHAAlertManager.totalOpenMessagesOffset += openMessageOffset;
-	}
 
 	/**
 	 * 
 	 */
-	public static void addOpenMessageToCounter() {
+	public static void addNewMessageToCounter() {
 		GHAAlertManager.openMessagesCounter++;
 	}
+
 
 	/**
 	 * @param ghaMessage
@@ -312,6 +309,7 @@ public class GHAAlertManager {
 			}
 		});
 	}
+
 	/**
 	 * @param key 
 	 * @param buttonYesHandler
@@ -415,7 +413,6 @@ public class GHAAlertManager {
 	public static boolean canShowNewMessage(){
 		return openMessagesCounter < MAX_MESSAGES;
 	}
-
 	/**
 	 * @param ghaMessage 
 	 * @param callback
@@ -514,6 +511,7 @@ public class GHAAlertManager {
 			}
 		});
 	}
+
 	/**
 	 * @param title
 	 * @param message
@@ -545,14 +543,24 @@ public class GHAAlertManager {
 	}
 
 	/**
+	 * @return a position to set the message. Returns -1 if there is no space.
+	 */
+	public static int getFreeMessagePosition(){
+		int ret = -1;
+		for (int i = 0; i < messagesPositionsOpen.length; i++) {
+			if(!messagesPositionsOpen[i]){
+				ret=i;
+				break;
+			}
+		}
+		return ret;
+	}
+
+	/**
 	 * @return the openMessagesCounter
 	 */
 	public static int getOpenMessagesCounter() {
 		return openMessagesCounter;
-	}
-
-	public static int getOpenMessagesOffset() {
-		return totalOpenMessagesOffset;
 	}
 
 	/**
@@ -579,10 +587,20 @@ public class GHAAlertManager {
 	}
 
 	/**
-	 * @param openMessagesOffset
+	 * @param position 
 	 */
-	public static void setOpenMessagesOffset(int openMessagesOffset) {
-		GHAAlertManager.totalOpenMessagesOffset = openMessagesOffset;
+	public static void toggleMessagePosition(int position){
+		if(messagesPositionsOpen[position] == false){
+			messagesPositionsOpen[position] = true;
+		}else{
+			messagesPositionsOpen[position] = false;
+		}
+	}
+
+	{
+		for (int i = 0; i < messagesPositionsOpen.length; i++) {
+			messagesPositionsOpen[i]=false;
+		}
 	}
 
 }

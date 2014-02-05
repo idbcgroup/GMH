@@ -46,6 +46,7 @@ ES,eiatype-update-fail,No se pudo actualizar el Tipo de Equipo,8
 ES,eiatype-find-fail,Hubo un fallo en la búsqueda de Tipos de Equipo,8
 ES,eiatype-findByMaintenancePlan-fail,Hubo un fallo en la búsqueda del Tipo de Equipo por Plan de Mantenimeinto,8
 ES,eiatype-getAll-fail,Hubo un fallo en la búsqueda de todos los Tipos de Equipo,8
+ES,uilog-getall-fail,Fallo al buscar todos los equipos,8
 EN,eiatype-delete-fail,Failed to delete Equipment type,8
 EN,eiatype-update-fail,Failed to update Equipment type,8
 EN,eiatype-find-fail,Failed to find Equipment Type,8
@@ -516,3 +517,7 @@ ES,maintenance-protocol-delete-confirm,¿Desea eliminar todas las actividades de
 ES,eiatype-component-delete-confirm,Confirme si desea eliminar el componente seleccionado,2
 ES,eiatype-maintenance-plan-delete-confirm, ¿Desea retirar el plan de mantenimeinto asociado al tipo de equipo?,2
 ES,eiatype-material-category-delete-confirm, ¿Desea retirar la categoria de material asociado al tipo de equipo?,2
+ES,server-error,Ha ocurrido un error inesperado con el servidor,4 
+ES,message-not-null,Debe indicar el mensaje,6
+ES,message-save-fail,Error al intentar salvar un mensaje,6
+ES,message-delete-fail,Error al intentar borrar un mensaje,6

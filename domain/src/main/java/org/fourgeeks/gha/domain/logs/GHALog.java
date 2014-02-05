@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.NotNull;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.msg.GHAMessage;
@@ -29,9 +30,11 @@ public abstract class GHALog extends AbstractEntity {
 	protected Timestamp timestamp = new Timestamp(
 			new java.util.Date().getTime());
 
+	@NotNull(message = "message-not-null")
 	@ManyToOne
-	@JoinColumns({ @JoinColumn(name = "code", referencedColumnName = "code"),
-			@JoinColumn(name = "language", referencedColumnName = "language") })
+	@JoinColumns({
+			@JoinColumn(name = "code", referencedColumnName = "code", nullable = false),
+			@JoinColumn(name = "language", referencedColumnName = "language", nullable = false) })
 	protected GHAMessage message;
 
 	/**
