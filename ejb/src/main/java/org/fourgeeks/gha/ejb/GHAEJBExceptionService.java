@@ -20,22 +20,52 @@ public class GHAEJBExceptionService {
 	 * @param em
 	 * @return a ghaejbexception
 	 */
+	@Deprecated
 	public GHAEJBException generateGHAEJBException(String messageCode,
 			LanguageEnum lang, EntityManager em) {
-		GHAEJBException ghaejbException = new GHAEJBException();
+		final GHAEJBException ghaejbException = new GHAEJBException();
 		try {
 			ghaejbException.setGhaMessage(em.find(GHAMessage.class,
 					new GHAMessageId(messageCode, lang)));
-		} catch (NoResultException e) {
+		} catch (final NoResultException e) {
 			try {
 				ghaejbException.setGhaMessage(em.find(GHAMessage.class,
 						new GHAMessageId("message-find-fail", lang)));
-			} catch (Exception e1) {
+			} catch (final Exception e1) {
 				ghaejbException.setGhaMessage(new GHAMessage(lang,
 						"generic-error-msg",
 						"Unknow system failure, please contact IT support"));
 			}
-		} catch (Exception e1) {
+		} catch (final Exception e1) {
+			ghaejbException.setGhaMessage(new GHAMessage(lang,
+					"generic-error-msg",
+					"Unknow system failure, please contact IT support"));
+		}
+		return ghaejbException;
+	}
+
+	/**
+	 * @param messageCode
+	 * @param em
+	 * @return a ghaejbexception
+	 */
+	public GHAEJBException generateGHAEJBException(String messageCode,
+			EntityManager em) {
+		final GHAEJBException ghaejbException = new GHAEJBException();
+		final LanguageEnum lang = RuntimeParameters.getLang();
+		try {
+			ghaejbException.setGhaMessage(em.find(GHAMessage.class,
+					new GHAMessageId(messageCode, lang)));
+		} catch (final NoResultException e) {
+			try {
+				ghaejbException.setGhaMessage(em.find(GHAMessage.class,
+						new GHAMessageId("message-find-fail", lang)));
+			} catch (final Exception e1) {
+				ghaejbException.setGhaMessage(new GHAMessage(lang,
+						"generic-error-msg",
+						"Unknow system failure, please contact IT support"));
+			}
+		} catch (final Exception e1) {
 			ghaejbException.setGhaMessage(new GHAMessage(lang,
 					"generic-error-msg",
 					"Unknow system failure, please contact IT support"));

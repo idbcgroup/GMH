@@ -26,10 +26,11 @@ import org.fourgeeks.gha.domain.conf.ParameterValue;
 import org.fourgeeks.gha.domain.enu.ActivityCategoryEnum;
 import org.fourgeeks.gha.domain.enu.ActivityState;
 import org.fourgeeks.gha.domain.enu.ActivitySubCategoryEnum;
+import org.fourgeeks.gha.domain.enu.CCDICodeTypeEnum;
+import org.fourgeeks.gha.domain.enu.CCDIEndValueActionEnum;
 import org.fourgeeks.gha.domain.enu.CCDIStatusEnum;
 import org.fourgeeks.gha.domain.enu.CCDIValueStatusEnum;
 import org.fourgeeks.gha.domain.enu.CCDIValueTypeEnum;
-import org.fourgeeks.gha.domain.enu.CodeTypeEnum;
 import org.fourgeeks.gha.domain.enu.CurrencyTypeEnum;
 import org.fourgeeks.gha.domain.enu.DocumentTypeEnum;
 import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
@@ -266,56 +267,42 @@ public class InitialData {
 			em.createQuery(query).getSingleResult();
 		} catch (NoResultException e) {
 			try {
-				logger.info("creating test ccdileveldefinition");
+				logger.log(Level.INFO,
+						"CREATING CCDI LEVEL DEFINITION TEST DATA");
+				CCDIDefinition definition = em
+						.createNamedQuery("CCDIDefinition.findByCode",
+								CCDIDefinition.class)
+						.setParameter("code", "MATERIAL").getSingleResult();
 
-				CCDIDefinition material = em.find(CCDIDefinition.class, 1L);
-				CCDIDefinition farmaco = em.find(CCDIDefinition.class, 2L);
+				CCDILevelDefinition materiales = new CCDILevelDefinition(
+						definition, 0, "MATERIALES", 1,
+						CCDIValueTypeEnum.FIXED, 0, 0, "",
+						CCDIEndValueActionEnum.RESTART);
+				em.persist(materiales);
 
-				CCDILevelDefinition materials = new CCDILevelDefinition(
-						material, 0, "Materiales", 1, CCDIValueTypeEnum.FIXED,
-						"0", 0, 1, "", null);
-				CCDILevelDefinition supplies = new CCDILevelDefinition(
-						material, 1, "Suministros", 1, CCDIValueTypeEnum.FIXED,
-						"1", 0, 1, "", null);
-				CCDILevelDefinition suppliesFamily = new CCDILevelDefinition(
-						material, 2, "Familia de Suministros", 2,
-						CCDIValueTypeEnum.TEXT, null, 0, 1, "", null);
-				CCDILevelDefinition subSuppliesFamily = new CCDILevelDefinition(
-						material, 3, "Sub Familia de Suministros", 2,
-						CCDIValueTypeEnum.TEXT, null, 0, 1, "", null);
-				CCDILevelDefinition supplies2 = new CCDILevelDefinition(
-						material, 4, "Suministro", 4, CCDIValueTypeEnum.TEXT,
-						null, 0, 1, "", null);
+				CCDILevelDefinition type = new CCDILevelDefinition(definition,
+						1, "TIPO", 1, CCDIValueTypeEnum.FIXED, 0, 0, "",
+						CCDIEndValueActionEnum.RESTART);
+				em.persist(type);
 
-				em.persist(materials);
-				em.persist(supplies);
-				em.persist(suppliesFamily);
-				em.persist(subSuppliesFamily);
-				em.persist(supplies2);
+				CCDILevelDefinition family = new CCDILevelDefinition(
+						definition, 2, "FAMILIA", 2,
+						CCDIValueTypeEnum.VARIABLE, 1, 1, "",
+						CCDIEndValueActionEnum.RESTART);
+				em.persist(family);
 
-				CCDILevelDefinition materials2 = new CCDILevelDefinition(
-						farmaco, 0, "Materiales", 1, CCDIValueTypeEnum.FIXED,
-						"0", 0, 1, "", null);
-				CCDILevelDefinition pharmacs = new CCDILevelDefinition(farmaco,
-						1, "Farmacos", 1, CCDIValueTypeEnum.FIXED, "4", 0, 1,
-						"", null);
-				CCDILevelDefinition pharmacsFamily = new CCDILevelDefinition(
-						farmaco, 2, "Familia de Farmacos", 2,
-						CCDIValueTypeEnum.TEXT, null, 0, 1, "", null);
-				CCDILevelDefinition subPharmacsFamily = new CCDILevelDefinition(
-						farmaco, 3, "Sub Familia de Farmacos", 2,
-						CCDIValueTypeEnum.TEXT, null, 0, 1, "", null);
-				CCDILevelDefinition pharmacs2 = new CCDILevelDefinition(
-						farmaco, 4, "Farmaco", 4, CCDIValueTypeEnum.TEXT, null,
-						0, 1, "", null);
+				CCDILevelDefinition subFamily = new CCDILevelDefinition(
+						definition, 3, "SUB FAMILIA", 2,
+						CCDIValueTypeEnum.VARIABLE, 1, 1, "",
+						CCDIEndValueActionEnum.RESTART);
+				em.persist(subFamily);
 
-				em.persist(materials2);
-				em.persist(pharmacs);
-				em.persist(pharmacsFamily);
-				em.persist(subPharmacsFamily);
-				em.persist(pharmacs2);
+				CCDILevelDefinition element = new CCDILevelDefinition(
+						definition, 4, "ELEMENTOS", 4,
+						CCDIValueTypeEnum.VARIABLE, 1, 1, "",
+						CCDIEndValueActionEnum.RESTART);
+				em.persist(element);
 
-				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO,
 						"error creating test ccdi level definition", e);
@@ -335,70 +322,149 @@ public class InitialData {
 		} catch (NoResultException e) {
 			try {
 				logger.info("creating test CCDILevelValue");
+				CCDIDefinition definition = em
+						.createNamedQuery("CCDIDefinition.findByCode",
+								CCDIDefinition.class)
+						.setParameter("code", "MATERIAL").getSingleResult();
 
-				CCDILevelDefinition material0 = em.find(
-						CCDILevelDefinition.class, 1L);
-				CCDILevelValue materialValue0 = new CCDILevelValue(material0,
-						"MATERIALES", "0", 2, CCDIValueStatusEnum.ACTIVE);
+				CCDILevelDefinition material = em
+						.createNamedQuery("CCDILevelDefinition.findByLevel",
+								CCDILevelDefinition.class)
+						.setParameter("level", 0)
+						.setParameter("definition", definition)
+						.getSingleResult();
+				CCDILevelDefinition type = em
+						.createNamedQuery("CCDILevelDefinition.findByLevel",
+								CCDILevelDefinition.class)
+						.setParameter("level", 1)
+						.setParameter("definition", definition)
+						.getSingleResult();
+				CCDILevelDefinition family = em
+						.createNamedQuery("CCDILevelDefinition.findByLevel",
+								CCDILevelDefinition.class)
+						.setParameter("level", 2)
+						.setParameter("definition", definition)
+						.getSingleResult();
+				CCDILevelDefinition subFamily = em
+						.createNamedQuery("CCDILevelDefinition.findByLevel",
+								CCDILevelDefinition.class)
+						.setParameter("level", 3)
+						.setParameter("definition", definition)
+						.getSingleResult();
+				CCDILevelDefinition element = em
+						.createNamedQuery("CCDILevelDefinition.findByLevel",
+								CCDILevelDefinition.class)
+						.setParameter("level", 4)
+						.setParameter("definition", definition)
+						.getSingleResult();
 
-				CCDILevelDefinition material1 = em.find(
-						CCDILevelDefinition.class, 2L);
-				CCDILevelValue materialValue1 = new CCDILevelValue(material1,
-						"SUMINISTROS", "01", 2, CCDIValueStatusEnum.ACTIVE);
-
-				CCDILevelDefinition material2 = em.find(
-						CCDILevelDefinition.class, 3L);
-				CCDILevelValue materialValue2 = new CCDILevelValue(material2,
-						"AGUJAS", "0101", 2, CCDIValueStatusEnum.ACTIVE);
-
-				CCDILevelDefinition material3 = em.find(
-						CCDILevelDefinition.class, 4L);
-				CCDILevelValue materialValue3 = new CCDILevelValue(material3,
-						"HIPODERMICAS", "010101", 2, CCDIValueStatusEnum.ACTIVE);
-
-				CCDILevelDefinition material4 = em.find(
-						CCDILevelDefinition.class, 5L);
-				CCDILevelValue materialValue4 = new CCDILevelValue(material4,
-						"MATERIAL FINAL", "0101010001", 1,
+				CCDILevelValue materialValue = new CCDILevelValue(material,
+						null, "MATERIAL", "0", 0, "0",
 						CCDIValueStatusEnum.ACTIVE);
+				em.persist(materialValue);
+				em.flush();
+				materialValue = em
+						.createNamedQuery("CCDILevelValue.findByCode",
+								CCDILevelValue.class)
+						.setParameter("code", materialValue.getCode())
+						.getSingleResult();
 
-				em.persist(materialValue0);
-				em.persist(materialValue1);
-				em.persist(materialValue2);
-				em.persist(materialValue3);
-				em.persist(materialValue4);
-
-				CCDILevelDefinition pharmac0 = em.find(
-						CCDILevelDefinition.class, 6L);
-				CCDILevelValue pharmacValue0 = new CCDILevelValue(pharmac0,
-						"FARMACOS", "0", 5, CCDIValueStatusEnum.ACTIVE);
-
-				CCDILevelDefinition pharmac1 = em.find(
-						CCDILevelDefinition.class, 7L);
-				CCDILevelValue pharmacValue1 = new CCDILevelValue(pharmac1,
-						"FARMACOS", "04", 2, CCDIValueStatusEnum.ACTIVE);
-
-				CCDILevelDefinition pharmac2 = em.find(
-						CCDILevelDefinition.class, 8L);
-				CCDILevelValue pharmacValue2 = new CCDILevelValue(pharmac2,
-						"Antibioticos", "0401", 2, CCDIValueStatusEnum.ACTIVE);
-
-				CCDILevelDefinition pharmac3 = em.find(
-						CCDILevelDefinition.class, 9L);
-				CCDILevelValue pharmacValue3 = new CCDILevelValue(pharmac3,
-						"Penicilina", "040101", 2, CCDIValueStatusEnum.ACTIVE);
-
-				CCDILevelDefinition pharmac4 = em.find(
-						CCDILevelDefinition.class, 10L);
-				CCDILevelValue pharmacValue4 = new CCDILevelValue(pharmac4,
-						"Farmaco Final", "0401010001", 1,
+				CCDILevelValue supplies = new CCDILevelValue(type,
+						materialValue, "SUMINISTROS", "01", 3, "1",
 						CCDIValueStatusEnum.ACTIVE);
+				em.persist(supplies);
+				em.flush();
+				supplies = em
+						.createNamedQuery("CCDILevelValue.findByCode",
+								CCDILevelValue.class)
+						.setParameter("code", supplies.getCode())
+						.getSingleResult();
 
-				em.persist(pharmacValue0);
-				em.persist(pharmacValue1);
-				em.persist(pharmacValue2);
-				em.persist(pharmacValue3);
-				em.persist(pharmacValue4);
+				CCDILevelValue pharmacs = new CCDILevelValue(type,
+						materialValue, "FARMACOS", "04", 1, "4",
+						CCDIValueStatusEnum.ACTIVE);
+				em.persist(pharmacs);
+				em.flush();
+				pharmacs = em
+						.createNamedQuery("CCDILevelValue.findByCode",
+								CCDILevelValue.class)
+						.setParameter("code", pharmacs.getCode())
+						.getSingleResult();
+
+				CCDILevelValue needle = new CCDILevelValue(family, supplies,
+						"AGUJAS", "0101", 3, "", CCDIValueStatusEnum.ACTIVE);
+				em.persist(needle);
+				em.flush();
+				needle = em
+						.createNamedQuery("CCDILevelValue.findByCode",
+								CCDILevelValue.class)
+						.setParameter("code", needle.getCode())
+						.getSingleResult();
+
+				CCDILevelValue syringe = new CCDILevelValue(family, supplies,
+						"AGUJAS", "0102", 2, "", CCDIValueStatusEnum.ACTIVE);
+				em.persist(syringe);
+				em.flush();
+				syringe = em
+						.createNamedQuery("CCDILevelValue.findByCode",
+								CCDILevelValue.class)
+						.setParameter("code", syringe.getCode())
+						.getSingleResult();
+
+				CCDILevelValue antiBiotics = new CCDILevelValue(family,
+						pharmacs, "ANTIBIOTICOS", "0401", 2, "",
+						CCDIValueStatusEnum.ACTIVE);
+				em.persist(antiBiotics);
+				em.flush();
+				antiBiotics = em
+						.createNamedQuery("CCDILevelValue.findByCode",
+								CCDILevelValue.class)
+						.setParameter("code", antiBiotics.getCode())
+						.getSingleResult();
+
+				CCDILevelValue hypodermic = new CCDILevelValue(subFamily,
+						needle, "HIPODERMICAS", "010101", 1, "",
+						CCDIValueStatusEnum.ACTIVE);
+				em.persist(hypodermic);
+				em.flush();
+				hypodermic = em
+						.createNamedQuery("CCDILevelValue.findByCode",
+								CCDILevelValue.class)
+						.setParameter("code", hypodermic.getCode())
+						.getSingleResult();
+
+				CCDILevelValue puncture = new CCDILevelValue(subFamily, needle,
+						"PUNCION", "010102", 1, "", CCDIValueStatusEnum.ACTIVE);
+				em.persist(puncture);
+				em.flush();
+				puncture = em
+						.createNamedQuery("CCDILevelValue.findByCode",
+								CCDILevelValue.class)
+						.setParameter("code", puncture.getCode())
+						.getSingleResult();
+
+				CCDILevelValue insuline = new CCDILevelValue(subFamily,
+						syringe, "INSULINA", "010201", 1, "",
+						CCDIValueStatusEnum.ACTIVE);
+				em.persist(insuline);
+				em.flush();
+				insuline = em
+						.createNamedQuery("CCDILevelValue.findByCode",
+								CCDILevelValue.class)
+						.setParameter("code", insuline.getCode())
+						.getSingleResult();
+
+				CCDILevelValue penicillin = new CCDILevelValue(subFamily,
+						antiBiotics, "PENICILINA", "040101", 1, "",
+						CCDIValueStatusEnum.ACTIVE);
+				em.persist(penicillin);
+				em.flush();
+				penicillin = em
+						.createNamedQuery("CCDILevelValue.findByCode",
+								CCDILevelValue.class)
+						.setParameter("code", penicillin.getCode())
+						.getSingleResult();
+
 				em.flush();
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error creating test ccdi level values",
@@ -416,16 +482,14 @@ public class InitialData {
 		} catch (NoResultException e) {
 			try {
 				logger.info("creating test ccdiDefinition");
-				CCDIDefinition material = new CCDIDefinition("MATERIAL",
-						"MATERIAL", 10, 5, CCDIStatusEnum.ACTIVE,
-						new Concept(), CodeTypeEnum.ALPHANUMERIC, false, "");
-				CCDIDefinition farmaco = new CCDIDefinition("FARMACO",
-						"FARMACO", 10, 5, CCDIStatusEnum.ACTIVE, new Concept(),
-						CodeTypeEnum.ALPHANUMERIC, false, "");
-
-				em.persist(material);
-				em.persist(farmaco);
+				em.persist(new Concept());
 				em.flush();
+
+				CCDIDefinition material = new CCDIDefinition("MATERIAL",
+						"MATERIAL", 10, 5, CCDIStatusEnum.ACTIVE, em.find(
+								Concept.class, 1L),
+						CCDICodeTypeEnum.ALPHANUMERIC, false, "");
+				em.persist(material);
 
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error creating test ccdi definition", e);
@@ -818,10 +882,10 @@ public class InitialData {
 								MaintenanceActivity.class).getResultList();
 
 				for (int i = 0; i < 4; ++i) {
-					em.persist(new MaintenanceProtocols(plans.get(0),
-							entities.get(i), i + 1));
-					em.persist(new MaintenanceProtocols(plans.get(1),
-							entities.get(i), i + 1));
+					em.persist(new MaintenanceProtocols(plans.get(0), entities
+							.get(i), i + 1));
+					em.persist(new MaintenanceProtocols(plans.get(1), entities
+							.get(i), i + 1));
 				}
 
 				em.persist(new MaintenanceProtocols(plans.get(0), entities
@@ -910,8 +974,8 @@ public class InitialData {
 		} catch (NoResultException e) {
 			try {
 				logger.info("creating test data : material");
-				String names[] = { "aguja", "sutura", "inyectadora", "algodón",
-						"alcohol" };
+				String names[] = { "aguja", "sutura", "inyectadora",
+						"algodón", "alcohol" };
 				int i = 1;
 				for (String name : names) {
 					Material next = new Material();

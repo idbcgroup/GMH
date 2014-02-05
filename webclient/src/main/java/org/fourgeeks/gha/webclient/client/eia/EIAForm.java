@@ -306,7 +306,7 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		listeners.add(eiaSelectionListener);
 	}
 
-	// ///Funcionalities
+	// ///Functionalities
 	private void buildingLocFuncionalities() {
 		workingAreaLocationSelectItem.addChangeHandler(new ChangeHandler() {
 			@Override

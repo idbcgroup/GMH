@@ -1,4 +1,6 @@
-package org.fourgeeks.gha.ejb.gmh;
+package org.fourgeeks.gha.ejb.log;
+
+import java.util.List;
 
 import javax.ejb.EJB;
 
@@ -31,6 +33,7 @@ import org.fourgeeks.gha.domain.enu.MaintenancePlanCancelationOption;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanState;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanStatus;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanType;
+import org.fourgeeks.gha.domain.enu.MaintenancePlanificationState;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanificationStatus;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanificationType;
 import org.fourgeeks.gha.domain.enu.ProviderPreferenceEnum;
@@ -45,7 +48,6 @@ import org.fourgeeks.gha.domain.ess.LocationType;
 import org.fourgeeks.gha.domain.ess.Role;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
 import org.fourgeeks.gha.domain.ess.ui.AppForm;
-import org.fourgeeks.gha.domain.ess.ui.AppFormViewFunction;
 import org.fourgeeks.gha.domain.ess.ui.AppFormViewFunctionBpu;
 import org.fourgeeks.gha.domain.ess.ui.Function;
 import org.fourgeeks.gha.domain.ess.ui.Module;
@@ -68,7 +70,6 @@ import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaPreventiveMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeCategory;
-import org.fourgeeks.gha.domain.gmh.EiaTypeComponent;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivityServiceResource;
@@ -77,6 +78,8 @@ import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.domain.gmh.ServiceResource;
 import org.fourgeeks.gha.domain.gmh.ServiceResourceCategory;
+import org.fourgeeks.gha.domain.logs.GHALog;
+import org.fourgeeks.gha.domain.logs.UILog;
 import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.domain.mix.Citizen;
 import org.fourgeeks.gha.domain.mix.Institution;
@@ -86,16 +89,19 @@ import org.fourgeeks.gha.domain.msg.GHAMessageId;
 import org.fourgeeks.gha.domain.msg.GHAMessageType;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
-import org.fourgeeks.gha.ejb.ess.RoleService;
-import org.fourgeeks.gha.ejb.ess.RoleServiceRemote;
-import org.fourgeeks.gha.ejb.gar.ObuService;
-import org.fourgeeks.gha.ejb.gar.ObuServiceRemote;
-import org.fourgeeks.gha.ejb.glm.ExternalProviderService;
-import org.fourgeeks.gha.ejb.glm.ExternalProviderServiceRemote;
+import org.fourgeeks.gha.ejb.gar.BpuService;
+import org.fourgeeks.gha.ejb.gar.BpuServiceRemote;
+import org.fourgeeks.gha.ejb.mix.BpiService;
+import org.fourgeeks.gha.ejb.mix.BpiServiceRemote;
+import org.fourgeeks.gha.ejb.mix.CitizenService;
+import org.fourgeeks.gha.ejb.mix.CitizenServiceRemote;
 import org.fourgeeks.gha.ejb.mix.InstitutionService;
 import org.fourgeeks.gha.ejb.mix.InstitutionServiceRemote;
 import org.fourgeeks.gha.ejb.mix.LegalEntityService;
 import org.fourgeeks.gha.ejb.mix.LegalEntityServiceRemote;
+import org.fourgeeks.gha.ejb.msg.MessageService;
+import org.fourgeeks.gha.ejb.msg.MessageServiceLocal;
+import org.fourgeeks.gha.ejb.msg.MessageServiceRemote;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
@@ -108,11 +114,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
- * @author vivi.torresg
+ * @author alacret
  * 
  */
 @RunWith(Arquillian.class)
-public class EiaServiceTest {
+public class UILogServiceTest {
 	/**
 	 * @return the deployment descriptor
 	 */
@@ -122,304 +128,268 @@ public class EiaServiceTest {
 				.create(WebArchive.class, "test.war")
 				.addClass(AbstractEntity.class)
 				.addClass(AbstractCodeEntity.class)
-				.addClass(AppForm.class)
-				.addClass(AppFormViewFunction.class)
-				// .addClass(AppFormViewFunctionService.class)
-				// .addClass(AppFormViewFunctionServiceRemote.class)
+				.addClass(Activity.class)
+				.addClass(ActivityCategoryEnum.class)
+				.addClass(ActivitySubCategoryEnum.class)
 				.addClass(AppFormViewFunctionBpu.class)
-				.addClass(Bpi.class)
-				.addClass(BpiOriginEnum.class)
-				.addClass(BpiRiskEnum.class)
-				.addClass(BpiInstitutionRelationTypeEnum.class)
-				.addClass(BpiTypeEnum.class)
-				.addClass(Brand.class)
-				.addClass(BuildingLocation.class)
+				.addClass(ActivityState.class)
+				.addClass(AppForm.class)
 				.addClass(Bpu.class)
+				.addClass(BpuService.class)
+				.addClass(BpuServiceRemote.class)
+				.addClass(Brand.class)
+				.addClass(Bpi.class)
+				.addClass(BpiService.class)
+				.addClass(BpiServiceRemote.class)
+				.addClass(Bsp.class)
+				.addClass(BpiOriginEnum.class)
+				.addClass(BpiTypeEnum.class)
+				.addClass(BpiInstitutionRelationTypeEnum.class)
+				.addClass(BpiRiskEnum.class)
+				.addClass(BuildingLocation.class)
 				.addClass(Citizen.class)
+				.addClass(CitizenServiceRemote.class)
+				.addClass(CitizenService.class)
 				.addClass(CurrencyTypeEnum.class)
 				.addClass(DepreciationMethodEnum.class)
 				.addClass(DocumentTypeEnum.class)
 				.addClass(Eia.class)
 				.addClass(EiaStateEnum.class)
-				// .addClass(EiaPictureStateEnum.class)
 				.addClass(EiaDamageReport.class)
-				.addClass(EiaMaintenancePlanification.class)
-				.addClass(EiaDamageStatusEnum.class)
-				.addClass(EiaMobilityEnum.class)
-				.addClass(EiaTypeEnum.class)
-				.addClass(EiaSubTypeEnum.class)
-				.addClass(EiaTypeCategory.class)
-				.addClass(EiaType.class)
-				.addClass(EiaTypeComponent.class)
-				.addClass(EiaTypeMaintenancePlan.class)
-				.addClass(EiaTypeComponentService.class)
-				.addClass(EiaTypeComponentServiceLocal.class)
-				.addClass(EiaTypeComponentServiceRemote.class)
-				.addClass(EiaTypeService.class)
-				.addClass(EiaTypeServiceRemote.class)
 				.addClass(EiaDamagePriorityEnum.class)
-				.addClass(EiaService.class)
-				.addClass(ExternalProvider.class)
-				.addClass(ExternalProviderService.class)
-				.addClass(ExternalProviderServiceRemote.class)
-				.addClass(EiaServiceTest.class)
-				.addClass(EiaServiceRemote.class)
+				.addClass(EiaDamageStatusEnum.class)
+				.addClass(EiaSubTypeEnum.class)
 				.addClass(EiaPreventiveMaintenancePlanification.class)
+				.addClass(EiaType.class)
+				.addClass(EiaTypeCategory.class)
+				.addClass(EiaTypeEnum.class)
+				.addClass(EiaTypeMaintenancePlan.class)
+				.addClass(EiaMaintenancePlanification.class)
+				.addClass(EiaMobilityEnum.class)
 				.addClass(ExternalProvider.class)
 				.addClass(Facility.class)
 				.addClass(FacilityCategory.class)
 				.addClass(Function.class)
-				.addClass(GenderTypeEnum.class)
+				.addClass(GHALog.class)
 				.addClass(GHAEJBException.class)
 				.addClass(GHAMessage.class)
 				.addClass(GHAMessageId.class)
 				.addClass(GHAEJBExceptionService.class)
+				.addClass(GHAMessageType.class)
+				.addClass(GenderTypeEnum.class)
 				.addClass(HasKey.class)
 				.addClass(Institution.class)
 				.addClass(InstitutionService.class)
 				.addClass(InstitutionServiceRemote.class)
 				.addClass(Job.class)
-				.addClass(JobCategory.class)
 				.addClass(JobPosition.class)
+				.addClass(JobCategory.class)
+				.addClass(LanguageEnum.class)
+				.addClass(LocationLevelEnum.class)
 				.addClass(LegalEntity.class)
 				.addClass(LegalEntityService.class)
 				.addClass(LegalEntityServiceRemote.class)
-				.addClass(LocationLevelEnum.class)
 				.addClass(LocationType.class)
-				.addClass(LanguageEnum.class)
-
+				.addClass(MaintenanceActivity.class)
+				.addClass(MaintenanceProtocols.class)
+				.addClass(Manufacturer.class)
+				.addClass(MaintenanceActivityServiceResource.class)
 				.addClass(MaintenancePlan.class)
-				.addClass(MaintenancePlanStatus.class)
-				.addClass(MaintenancePlanCancelationOption.class)
-				.addClass(MaintenancePlanState.class)
-				.addClass(MaintenancePlanType.class)
+				.addClass(MaintenancePlanificationState.class)
 				.addClass(MaintenancePlanificationStatus.class)
 				.addClass(MaintenancePlanificationType.class)
-				.addClass(MaintenanceProtocols.class)
-				.addClass(ActivityState.class)
-				.addClass(ActivityCategoryEnum.class)
-				.addClass(Manufacturer.class)
-				// .addClass(MaterialTypeEnum.class)
-				.addClass(ActivitySubCategoryEnum.class)
-				// .addClass(Material.class)
-				// .addClass(MaterialCategory.class)
-				.addClass(MaintenanceActivity.class)
-				.addClass(MaintenanceActivityServiceResource.class)
+				.addClass(MaintenancePlanState.class)
+				.addClass(MaintenancePlanStatus.class)
+				.addClass(MaintenancePlanType.class)
+				.addClass(MaintenancePlanCancelationOption.class)
+				.addClass(MessageServiceRemote.class)
+				.addClass(MessageServiceLocal.class)
+				.addClass(MessageService.class)
 				.addClass(Module.class)
 				.addClass(Obu.class)
-				.addClass(ObuService.class)
-				.addClass(ObuServiceRemote.class)
 				.addClass(ProviderResourceTypeEnum.class)
-				.addClass(ProviderServicesEnum.class)
 				.addClass(ProviderPreferenceEnum.class)
 				.addClass(ProviderQualEnum.class)
-				.addClass(ProviderTypeEnum.class)
 				.addClass(ProviderRepresentEnum.class)
+				.addClass(ProviderServicesEnum.class)
+				.addClass(ProviderTypeEnum.class)
 				.addClass(Role.class)
-				.addClass(RoleService.class)
-				.addClass(RoleServiceRemote.class)
 				.addClass(RuntimeParameters.class)
 				.addClass(ServiceResource.class)
 				.addClass(ServiceResourceCategory.class)
 				.addClass(TimePeriodEnum.class)
+				.addClass(UILogService.class)
+				.addClass(UILogServiceRemote.class)
+				.addClass(UILogServiceLocal.class)
+				.addClass(UILog.class)
 				.addClass(View.class)
 				.addClass(WorkingArea.class)
 				.addClass(WarrantySinceEnum.class)
-				.addClass(GHAMessageType.class)
-				.addClass(Activity.class)
-				.addClass(Bsp.class)
+
 				.addAsResource("test-persistence.xml",
 						"META-INF/persistence.xml")
 				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
-	private ExternalProvider externalProvider;
-	private long externalProviderId = 0l;
-	private long institutionId = 0l;
-	private long legalEntityId = 0l;
-	private Role role;
-	private Obu obu;
-	private EiaType eiaType;
+	@EJB(lookup = "java:global/test/UILogService!org.fourgeeks.gha.ejb.log.UILogServiceRemote")
+	UILogServiceRemote uILogServiceRemote;
 
-	@EJB(lookup = "java:global/test/EiaService")
-	EiaServiceRemote service;
+	@EJB(lookup = "java:global/test/UILogService!org.fourgeeks.gha.ejb.log.UILogServiceLocal")
+	UILogServiceLocal uILogServiceLocal;
 
-	@EJB(lookup = "java:global/test/EiaTypeService")
-	EiaTypeServiceRemote eiaTypeService;
+	@EJB(lookup = "java:global/test/MessageService!org.fourgeeks.gha.ejb.msg.MessageServiceLocal")
+	MessageServiceLocal messageServiceLocal;
 
-	@EJB(lookup = "java:global/test/ObuService")
-	ObuServiceRemote obuService;
+	@EJB(lookup = "java:global/test/BpuService")
+	BpuServiceRemote bpuServiceRemote;
 
-	@EJB(lookup = "java:global/test/RoleService")
-	RoleServiceRemote roleService;
+	@EJB(lookup = "java:global/test/CitizenService")
+	CitizenServiceRemote citizenServiceRemote;
 
 	@EJB(lookup = "java:global/test/LegalEntityService")
-	LegalEntityServiceRemote legalEntityService;
+	LegalEntityServiceRemote legalEntityServiceRemote;
 
 	@EJB(lookup = "java:global/test/InstitutionService")
-	InstitutionServiceRemote institutionService;
+	InstitutionServiceRemote institutionServiceRemote;
 
-	@EJB(lookup = "java:global/test/ExternalProviderService")
-	ExternalProviderServiceRemote externalProviderService;
+	@EJB(lookup = "java:global/test/BpiService")
+	BpiServiceRemote bpiServiceRemote;
+
+	private GHAMessage ghaMessage;
+	private Bpu bpu;
+
+	private Citizen citizen;
+
+	private LegalEntity legalEntity, legalEntity2;
+	private Institution institution;
+	private Bpi bpi;
 
 	/**
+	 * 
 	 */
 	@Before
 	public void set() {
-		// CREATING AN EIATYPE
-		final String eiaTypeCode = "eiatype-code";
-		final EiaType localEiaType = new EiaType();
-		localEiaType.setCode(eiaTypeCode);
-		localEiaType.setMobility(EiaMobilityEnum.FIXED);
-		localEiaType.setName("test eiatype");
-		localEiaType.setType(EiaTypeEnum.EQUIPMENT);
 		try {
-			eiaType = eiaTypeService.save(localEiaType);
-			eiaType = eiaTypeService.find(eiaTypeCode);
-		} catch (final GHAEJBException e) {
-			e.printStackTrace();
+			ghaMessage = messageServiceLocal.save(new GHAMessage(
+					LanguageEnum.ES, "msg-test" + Math.random(),
+					"Mensaje de prueba"));
+		} catch (final GHAEJBException e2) {
 			unset();
-			Assert.fail("failing creating the eiatype");
+			Assert.fail("failing creating the ghamessage");
 		}
-
-		// CREATING AN OBU
-		final String obuCode = "obu-code";
-		final Obu localObu = new Obu();
-		localObu.setCode(obuCode);
-		localObu.setName("Obu test name");
-
 		try {
-			obu = obuService.save(localObu);
+			legalEntity = legalEntityServiceRemote.save(new LegalEntity());
+			legalEntity2 = legalEntityServiceRemote.save(new LegalEntity());
 		} catch (final GHAEJBException e) {
-			e.printStackTrace();
-			unset();
-			Assert.fail("failing creating the obu");
-		}
-		//
-		// CREATING ROLE
-		final Role localRole = new Role();
-		localRole.setName("Role test name");
-
-		try {
-			role = roleService.save(localRole);
-		} catch (final GHAEJBException e) {
-			e.printStackTrace();
-			unset();
-			Assert.fail("failing creating the role");
-		}
-
-		// CREATING LEGAL ENTITY
-		LegalEntity localLegalEntity = null;
-		try {
-			localLegalEntity = legalEntityService.save(new LegalEntity());
-			legalEntityId = localLegalEntity.getId();
-		} catch (final GHAEJBException e) {
-			e.printStackTrace();
 			unset();
 			Assert.fail("failing creating the legalentity");
 		}
 
-		// CREATING THE INSTITUTIoN
-		Institution localInstitution = new Institution();
+		try {
+			final Citizen localCitizen = new Citizen();
+			localCitizen.setLegalEntity(legalEntity);
+			localCitizen.setIdNumber("id-number-legal-entity" + Math.random());
+			localCitizen.setIdType(DocumentTypeEnum.LOCAL);
+			localCitizen.setGender(GenderTypeEnum.FEMALE);
+			citizen = citizenServiceRemote.save(localCitizen);
+		} catch (final GHAEJBException e) {
+			unset();
+			Assert.fail("failing creating the bpu: " + e.getMessage());
+		}
+
+		final Institution localInstitution = new Institution();
 		localInstitution.setName("Institution name test");
-		localInstitution.setLegalEntity(localLegalEntity);
+		localInstitution.setLegalEntity(legalEntity2);
 		try {
-			localInstitution = institutionService.save(localInstitution);
-			institutionId = localInstitution.getId();
+			institution = institutionServiceRemote.save(localInstitution);
 		} catch (final GHAEJBException e) {
-			e.printStackTrace();
 			unset();
 			Assert.fail("failing creating the intitution");
 		}
-		//
-		// CREATING THE EXTERNAL PROVIDER
-		final ExternalProvider localExternalProvider = new ExternalProvider();
-		localExternalProvider.setInstitution(localInstitution);
+
 		try {
-			externalProvider = externalProviderService
-					.save(localExternalProvider);
-			externalProviderId = externalProvider.getId();
-		} catch (final GHAEJBException e) {
-			e.printStackTrace();
+			final Bpi localBpi = new Bpi();
+			localBpi.setInstitution(institution);
+			bpi = bpiServiceRemote.save(localBpi);
+		} catch (final GHAEJBException e1) {
 			unset();
-			Assert.fail("failing creating the intitution");
-		}
-	}
-
-	/**
-	 */
-	@After
-	public void unset() {
-		// DELETING THE EIATYPE
-		try {
-			eiaTypeService.delete(eiaType.getCode());
-		} catch (final GHAEJBException e1) {
-			// e1.printStackTrace();
+			Assert.fail("failing creating the bpi");
 		}
 
-		// DELETING THE OBU
 		try {
-			obuService.delete(obu.getId());
-		} catch (final GHAEJBException e1) {
-			// e1.printStackTrace();
-		}
-
-		// DELETING THE ROLE
-		try {
-			roleService.delete(role.getId());
-		} catch (final GHAEJBException e1) {
-			// e1.printStackTrace();
-		}
-		// DELETING THE EXTERNAL PROVIDER
-		try {
-			externalProviderService.delete(externalProviderId);
-		} catch (final GHAEJBException e1) {
-			e1.printStackTrace();
-		}
-
-		// DELETING THE InstiTUTION
-		try {
-			institutionService.delete(institutionId);
-		} catch (final GHAEJBException e1) {
-			// e1.printStackTrace();
-		}
-
-		// DELETING THE LEGALENTITY
-		try {
-			legalEntityService.delete(legalEntityId);
-		} catch (final GHAEJBException e1) {
-			// e1.printStackTrace();
+			final Bpu localBpu = new Bpu();
+			localBpu.setCitizen(citizen);
+			localBpu.setBpi(bpi);
+			bpu = bpuServiceRemote.save(localBpu);
+		} catch (final GHAEJBException e) {
+			unset();
+			Assert.fail("failing creating the bpu: " + e.getMessage());
 		}
 
 	}
 
 	/**
+	 * 
 	 */
 	@Test
 	public void test() {
-		Eia eia = new Eia();
-		eia.setEiaType(eiaType);
-		eia.setProvider(externalProvider);
-		eia.setMaintenanceProvider(externalProvider);
-		eia.setResponsibleRole(role);
-		eia.setObu(obu);
-		eia.setSerialNumber("eia-serial");
-		eia.setFixedAssetIdentifier("eia-fai");
+		Assert.assertNotNull(uILogServiceRemote);
+		Assert.assertNotNull(uILogServiceLocal);
+		Assert.assertNotNull(ghaMessage);
+
 		try {
-			eia = service.save(eia);
-		} catch (final GHAEJBException e) {
-			e.printStackTrace();
-		}
-		Assert.assertNotNull(eia);
-		try {
-			Assert.assertEquals(1, service.getAll().size());
+			final UILog uiLog = new UILog();
+			uiLog.setBpu(bpu);
+			uiLog.setMessage(ghaMessage);
+			uILogServiceRemote.log(uiLog);
 		} catch (final GHAEJBException e1) {
-			e1.printStackTrace();
+		}
+
+		try {
+			final List<UILog> all = uILogServiceRemote.getAll();
+			Assert.assertEquals(1, all.size());
+			for (final UILog uiLog2 : all)
+				uILogServiceLocal.delete(uiLog2);
+		} catch (final GHAEJBException e) {
+			Assert.fail(e.getMessage());
+		}
+
+	}
+
+	/**
+	 * 
+	 */
+	@After
+	public void unset() {
+		try {
+			messageServiceLocal.delete(ghaMessage);
+		} catch (final GHAEJBException e) {
 		}
 		try {
-			service.delete(eia.getId());
+			bpuServiceRemote.delete(bpu.getId());
 		} catch (final GHAEJBException e) {
-			e.printStackTrace();
 		}
+
+		try {
+			citizenServiceRemote.delete(citizen.getId());
+		} catch (final GHAEJBException e) {
+		}
+
+		try {
+			bpiServiceRemote.delete(bpi.getId());
+		} catch (final GHAEJBException e) {
+		}
+
+		try {
+			institutionServiceRemote.delete(institution.getId());
+		} catch (final GHAEJBException e) {
+		}
+
+		try {
+			legalEntityServiceRemote.delete(legalEntity.getId());
+			legalEntityServiceRemote.delete(legalEntity2.getId());
+		} catch (final GHAEJBException e) {
+		}
+
 	}
 }

@@ -12,7 +12,7 @@ import java.util.List;
  * @author emiliot
  * 
  */
-public enum CodeTypeEnum {
+public enum CCDICodeTypeEnum {
 	NUMERIC("numeric", "codetype-numeric"), ALPHANUMERIC("alphanumeric",
 			"codetype-alphanumeric"), BARCODE("barcode", "codetype-barcodes");
 	/**
@@ -20,18 +20,18 @@ public enum CodeTypeEnum {
 	 * @return the CodeTypeEnum representated by this value, or null if it does
 	 *         not exist
 	 */
-	public static CodeTypeEnum getByString(String string) {
+	public static CCDICodeTypeEnum getByString(String string) {
 		if (string == null)
 			return null;
 
-		for (CodeTypeEnum e : CodeTypeEnum.values())
+		for (CCDICodeTypeEnum e : CCDICodeTypeEnum.values())
 			if (string.equals(e.toString()))
 				return e;
 
 		return null;
 	}
 
-	public static String getUiKey(CodeTypeEnum state) {
+	public static String getUiKey(CCDICodeTypeEnum state) {
 		return state.uiKey;
 	}
 
@@ -40,7 +40,7 @@ public enum CodeTypeEnum {
 	 */
 	public static LinkedHashMap<String, String> toValueMap() {
 		LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-		for (CodeTypeEnum type : CodeTypeEnum.values())
+		for (CCDICodeTypeEnum type : CCDICodeTypeEnum.values())
 			valueMap.put(type.name() + "", type.toString());
 		return valueMap;
 	}
@@ -48,8 +48,8 @@ public enum CodeTypeEnum {
 	/**
 	 * @return a {@link List} of {@link EiaStateEnum}
 	 */
-	public static List<CodeTypeEnum> valuesList() {
-		return Arrays.asList(CodeTypeEnum.values());
+	public static List<CCDICodeTypeEnum> valuesList() {
+		return Arrays.asList(CCDICodeTypeEnum.values());
 	}
 
 	private String name;
@@ -59,7 +59,7 @@ public enum CodeTypeEnum {
 	/**
 	 * 
 	 */
-	CodeTypeEnum(String name, String uiKey) {
+	CCDICodeTypeEnum(String name, String uiKey) {
 		this.name = name;
 		this.uiKey = uiKey;
 	}
