@@ -8,6 +8,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
 import org.fourgeeks.gha.webclient.client.UI.TabStatus;
+import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToHideException;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
@@ -56,12 +57,12 @@ EiaTypeSelectionProducer {
 				add();
 			}
 		});
-		//		header.addDebugOption("MIT:"+GHAAlertManager.getOpenMessagesCounter(), new ClickHandler() {
-		//			@Override
-		//			public void onClick(ClickEvent event) {
-		//				GHAAlertManager.alert("ERROR-HARD","Información","Long messagetest: test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test ");
-		//			}
-		//		});
+//		header.addDebugOption("MIT:"+GHAAlertManager.getOpenMessagesCounter(), new ClickHandler() {
+//			@Override
+//			public void onClick(ClickEvent event) {
+//				GHAAlertManager.alert("ERROR-HARD","Información","Long message test: test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test ");
+//			}
+//		});
 
 		resultSet = new EiaTypeResultSet(ResultSetContainerType.TAB);
 		resultSet.setVisible(false);

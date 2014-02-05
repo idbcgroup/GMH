@@ -4,27 +4,30 @@
 package org.fourgeeks.gha.domain.glm;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
-import org.fourgeeks.gha.domain.AbstractCodeEntity;
 import org.fourgeeks.gha.domain.gmh.Brand;
+import org.fourgeeks.gha.domain.gmh.ServiceAndResource;
 
 /**
  * @author alacret, emiliot
  * 
  */
 @Entity
+@DiscriminatorValue("material")
 @NamedQueries(value = {
 		@NamedQuery(name = "Material.getAll", query = "SELECT m FROM Material m ORDER BY m.name"),
 		@NamedQuery(name = "Material.getByType", query = "SELECT m FROM Material m WHERE m.type = :type ORDER BY m.name"),
 		@NamedQuery(name = "Material.findByName", query = "SELECT m FROM Material m WHERE LOWER(m.name) LIKE :name ORDER BY m.code"),
 		@NamedQuery(name = "Material.findByBrand", query = "SELECT m FROM Material m WHERE m.brand = :brand ORDER BY m.name") })
-public class Material extends AbstractCodeEntity {
+public class Material extends ServiceAndResource {
 
 	/**
 	 * 
@@ -43,6 +46,10 @@ public class Material extends AbstractCodeEntity {
 	@ManyToOne
 	@JoinColumn(name = "brandFk")
 	private Brand brand;
+
+	@OneToOne
+	@JoinColumn(name = "resourceFk")
+	private ServiceAndResource resource;
 
 	private int amount;
 	private String barCode;
