@@ -9,7 +9,7 @@ import javax.persistence.OneToOne;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
-import org.fourgeeks.gha.domain.gmh.ServiceResource;
+import org.fourgeeks.gha.domain.gmh.ServiceAndResource;
 
 /**
  * @author alacret
@@ -36,9 +36,9 @@ public class Facility extends AbstractEntity {
 	@JoinColumn(name = "facilityCategoryFk")
 	private FacilityCategory facilityCategory;
 
-	@ManyToOne
-	@JoinColumn(name = "serviceResourceFk")
-	private ServiceResource serviceResource;
+	@OneToOne
+	@JoinColumn(name = "resourceFk")
+	private ServiceAndResource serviceResource;
 
 	private String name;
 
@@ -85,11 +85,11 @@ public class Facility extends AbstractEntity {
 		this.facilityCategory = facilityCategory;
 	}
 
-	public ServiceResource getServiceResource() {
+	public ServiceAndResource getServiceResource() {
 		return serviceResource;
 	}
 
-	public void setServiceResource(ServiceResource serviceResource) {
+	public void setServiceResource(ServiceAndResource serviceResource) {
 		this.serviceResource = serviceResource;
 	}
 
