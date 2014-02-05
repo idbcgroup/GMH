@@ -1,3 +1,10 @@
+ES,user-fisrt-name-error-formatter,error de formato el primer nombre solo permite letras
+ES,user-second-name-error-formatter,error de formato el segundo nombre solo permite letras
+ES,user-fisrt-last-name-error-formatter,error de formato el primer apellido solo permite letras
+ES,user-second-last-name-error-formatter,error de formato el segundo apellido solo permite letras
+ES,user-nationality-error-formatter,error de formato la nacionalidad solo permite letras
+ES,user-identification-error-formatter,error de formato la identificacion solo permite letras
+ES,user-error-formatter-rif,error de formato en el rif no se permite tildes solo numeros y letras
 ES,id-type-not-null,Debe indicar el tipo de identificación
 ES,id-number-not-null,Debe indicar el número de identificación
 ES,asset-id-not-null,Debe indicar el identificador del activo

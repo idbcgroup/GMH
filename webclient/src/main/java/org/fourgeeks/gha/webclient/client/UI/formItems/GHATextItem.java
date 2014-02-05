@@ -6,6 +6,7 @@ import com.smartgwt.client.widgets.form.fields.TextItem;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 import com.smartgwt.client.widgets.form.fields.events.EditorExitEvent;
 import com.smartgwt.client.widgets.form.fields.events.EditorExitHandler;
+import com.smartgwt.client.widgets.form.validator.RegExpValidator;
 
 /**
  * @author alacret
@@ -192,5 +193,39 @@ public class GHATextItem extends TextItem {
 		setOriginalStyle();
 		if (required != null && required)
 			setTextBoxStyle("input required");
+	}
+	/**
+	 * @author Guerere
+	 * 
+	 * @Metodo:
+	 *  Valida que solo se ingresen letras usando la expresion regular ^[a-zA-ZáéíóúAÉÍÓÚÑñ]+$
+	 *  recibe por parametro el mensaje de error que sera mostrado por el campo  
+	 */
+	public void validateWords(String messageError)
+	{
+		RegExpValidator textValidator = new RegExpValidator();  
+		textValidator.setErrorMessage(messageError);  
+		textValidator.setExpression("^[a-zA-ZáéíóúAÉÍÓÚÑñ]+$");  
+	    setValidators(textValidator);
+	    setShowErrorIcon(true);
+			
+	}
+	
+	/**
+	 * @author Guerere
+	 * 
+	 * @Metodo:
+	 *  
+	 *  Valida una expresion regular pasada por parametro
+	 * 
+	 */
+	public void validateCustomExpre(String messageError,String expresionReg)
+	{
+		RegExpValidator textValidator = new RegExpValidator();  
+		textValidator.setErrorMessage(messageError);  
+		textValidator.setExpression(expresionReg);  
+	    setValidators(textValidator);
+	    setShowErrorIcon(true);
+			
 	}
 }

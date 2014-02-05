@@ -1,3 +1,7 @@
+ES,user-date-error-formatter, error de formato dia introducido invalido
+ES,user-error-formatter,error de formato solo se permite letras
+ES,user-error-formatter-rif,error de formato solo debe agregar numeros o letras sin tilde
+ES,user-error-formatter-identification,error de formato solo debe agregar numeros o letras sin tilde
 ES,record,registro
 ES,eia,Equipo
 ES,records,registros
