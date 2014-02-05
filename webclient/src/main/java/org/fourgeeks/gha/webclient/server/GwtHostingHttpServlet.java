@@ -41,7 +41,8 @@ public class GwtHostingHttpServlet extends HttpServlet {
 	@EJB(lookup = "java:global/ear-1/ejb-1/SSOUserService")
 	SSOUserServiceRemote ssoUserService;
 
-	@EJB(lookup = "java:global/ear-1/ejb-1/MessageService")
+	@EJB(lookup = "java:global/ear-1/ejb-1/MessageService!"
+			+ "org.fourgeeks.gha.ejb.msg.MessageServiceRemote")
 	MessageServiceRemote messageService;
 
 	@Override

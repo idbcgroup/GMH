@@ -72,11 +72,11 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeCategory;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
-import org.fourgeeks.gha.domain.gmh.MaintenanceActivityServiceResource;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
-import org.fourgeeks.gha.domain.gmh.ServiceResource;
+import org.fourgeeks.gha.domain.gmh.RequiredResources;
+import org.fourgeeks.gha.domain.gmh.ServiceAndResource;
 import org.fourgeeks.gha.domain.gmh.ServiceResourceCategory;
 import org.fourgeeks.gha.domain.logs.GHALog;
 import org.fourgeeks.gha.domain.logs.UILog;
@@ -193,7 +193,7 @@ public class UILogServiceTest {
 				.addClass(MaintenanceActivity.class)
 				.addClass(MaintenanceProtocols.class)
 				.addClass(Manufacturer.class)
-				.addClass(MaintenanceActivityServiceResource.class)
+				.addClass(RequiredResources.class)
 				.addClass(MaintenancePlan.class)
 				.addClass(MaintenancePlanificationState.class)
 				.addClass(MaintenancePlanificationStatus.class)
@@ -215,7 +215,7 @@ public class UILogServiceTest {
 				.addClass(ProviderTypeEnum.class)
 				.addClass(Role.class)
 				.addClass(RuntimeParameters.class)
-				.addClass(ServiceResource.class)
+				.addClass(ServiceAndResource.class)
 				.addClass(ServiceResourceCategory.class)
 				.addClass(TimePeriodEnum.class)
 				.addClass(UILogService.class)
