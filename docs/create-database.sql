@@ -1,4 +1,4 @@
-﻿Drop schema if exists public cascade; 
+﻿drop schema if exists public cascade; 
 create schema public;
 drop schema if exists log cascade;  
 create schema log;
