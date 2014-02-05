@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eiamaintenanceplanification;
+package org.fourgeeks.gha.webclient.client.eiamaintenance;
 
 import java.util.List;
 
@@ -7,6 +7,7 @@ import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaPreventiveMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
+import org.fourgeeks.gha.webclient.client.eiamaintenanceplanification.GWTEiaMaintenancePlanificationServiceAsync;
 
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -14,9 +15,9 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 /**
  * @author naramirez
  */
-public class EiaMaintenancePlanificationModel {
+public class EiaMaintenanceModel {
 	private static final GWTEiaMaintenancePlanificationServiceAsync service = GWT
-			.create(GWTEiaMaintenancePlanificationService.class);
+			.create(GWTEiaMaintenanceService.class);
 
 	/**
 	 * @param eiaType

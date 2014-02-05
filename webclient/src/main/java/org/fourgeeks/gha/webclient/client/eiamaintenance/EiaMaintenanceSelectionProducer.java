@@ -1,19 +1,19 @@
-package org.fourgeeks.gha.webclient.client.eiamaintenanceplanification;
+package org.fourgeeks.gha.webclient.client.eiamaintenance;
 
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 
-public interface EiaMaintenancePlanificationSelectionProducer {
+public interface EiaMaintenanceSelectionProducer {
 	/**
 	 * @param listener
 	 */
 	public void addEiaMaintenancePlanificationSelectionListener(
-			EiaMaintenancePlanificationSelectionListener listener);
+			EiaMaintenanceSelectionListener listener);
 
 	/**
 	 * @param listener
 	 */
 	public void removeEiaMaintenancePlanificationSelectionListener(
-			EiaMaintenancePlanificationSelectionListener listener);
+			EiaMaintenanceSelectionListener listener);
 
 	/**
 	 * @param entity

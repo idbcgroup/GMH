@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eiamaintenanceplanification;
+package org.fourgeeks.gha.webclient.client.eiamaintenance;
 
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaType;
@@ -21,23 +21,23 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author naramirez
  * 
  */
-public class EIAMaintenancePlanificationUpdateForm extends
+public class EIAMaintenanceUpdateForm extends
 		GHAUpdateForm<EiaMaintenancePlanification> implements
-		EiaMaintenancePlanificationSelectionListener, EIATypeSelectionListener,
-		EiaMaintenancePlanificationSelectionProducer {
+		EiaMaintenanceSelectionListener, EIATypeSelectionListener,
+		EiaMaintenanceSelectionProducer {
 
 	protected VLayout sideBar;
 	protected GHASaveButton saveButton;
 	protected GHACloseButton closeButton;
 
 	{
-		form = new EIAMaintenancePlanificationForm();
+		form = new EIAMaintenanceForm();
 	}
 
 	/**
 	 * Constructor del formulario para planificacion de mantenimiento
 	 */
-	public EIAMaintenancePlanificationUpdateForm() {
+	public EIAMaintenanceUpdateForm() {
 		super(GHAStrings.get("eia-maintenance-planification-details-register"));
 
 		saveButton = new GHASaveButton(new ClickHandler() {
@@ -74,9 +74,9 @@ public class EIAMaintenancePlanificationUpdateForm extends
 	 */
 	@Override
 	public void addEiaMaintenancePlanificationSelectionListener(
-			EiaMaintenancePlanificationSelectionListener preventivePlanifSelectionListener) {
+			EiaMaintenanceSelectionListener preventivePlanifSelectionListener) {
 
-		((EiaMaintenancePlanificationSelectionProducer) form)
+		((EiaMaintenanceSelectionProducer) form)
 				.addEiaMaintenancePlanificationSelectionListener(preventivePlanifSelectionListener);
 	}
 
@@ -131,9 +131,9 @@ public class EIAMaintenancePlanificationUpdateForm extends
 	 */
 	@Override
 	public void removeEiaMaintenancePlanificationSelectionListener(
-			EiaMaintenancePlanificationSelectionListener listener) {
+			EiaMaintenanceSelectionListener listener) {
 
-		((EiaMaintenancePlanificationSelectionProducer) form)
+		((EiaMaintenanceSelectionProducer) form)
 				.removeEiaMaintenancePlanificationSelectionListener(listener);
 	}
 
@@ -146,7 +146,7 @@ public class EIAMaintenancePlanificationUpdateForm extends
 	 */
 	@Override
 	public void select(EiaMaintenancePlanification entity) {
-		((EiaMaintenancePlanificationSelectionListener) form).select(entity);
+		((EiaMaintenanceSelectionListener) form).select(entity);
 	}
 
 	/*

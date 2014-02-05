@@ -6,16 +6,14 @@ import java.util.Set;
 
 import javax.validation.ConstraintViolation;
 
-import org.fourgeeks.gha.domain.enu.MaintenancePlanState;
-import org.fourgeeks.gha.domain.enu.MaintenancePlanStatus;
-import org.fourgeeks.gha.domain.enu.MaintenancePlanificationType;
-import org.fourgeeks.gha.domain.ess.Role;
-import org.fourgeeks.gha.domain.glm.ExternalProvider;
+import org.fourgeeks.gha.domain.enu.MaintenancePlanificationState;
+import org.fourgeeks.gha.domain.gar.Job;
+import org.fourgeeks.gha.domain.glm.Bsp;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
-import org.fourgeeks.gha.domain.gmh.EiaPreventiveMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
+import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHADateItem;
@@ -23,7 +21,7 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAExternalProviderSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenancePlanSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenancePlanStateSelectItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenancePlanStatusSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenancePlanificationStateSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHARoleSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
@@ -40,42 +38,37 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
  * @author naramirez
  */
 public class EIAPreventiveMaintenancePlanificationForm extends
-		GHAForm<EiaPreventiveMaintenancePlanification> implements
-		EIASelectionListener, EIATypeSelectionListener,
-		PreventivePlanificationSelectionProducer {
+		GHAForm<EiaMaintenancePlanification> implements EIASelectionListener,
+		EIATypeSelectionListener, MaintenancePlanificationSelectionProducer {
 
-	private List<PreventivePlanificationSelectionListener> listeners;
+	private List<MaintenancePlanificationSelectionListener> listeners;
 	private Eia selectedEia;
 
 	private GHADynamicForm form;
 	private GHAExternalProviderSelectItem providerSelectItem;
 	private GHARoleSelectItem roleSelectItem;
-	private GHADateItem scheduledDateDateItem, deliverDateDateItem,
-			acceptationDateDateItem;
+	private GHADateItem scheduledDateDateItem;
 	private GHAMaintenancePlanStateSelectItem planStateSelectItem;
-	private GHAMaintenancePlanStatusSelectItem planStatusSelectItem;
+	private GHAMaintenancePlanificationStateSelectItem planificationStateSelectItem;
 	private GHAMaintenancePlanSelectItem maintenacePlanSelectItem;
 	private EiaType selectedEiaType;
 
 	{
-		listeners = new ArrayList<PreventivePlanificationSelectionListener>();
+		listeners = new ArrayList<MaintenancePlanificationSelectionListener>();
 
 		roleSelectItem = new GHARoleSelectItem();
 		roleSelectItem.addChangedHandler(changedHandler);
-		planStatusSelectItem = new GHAMaintenancePlanStatusSelectItem(false,
-				changedHandler);
+		planificationStateSelectItem = new GHAMaintenancePlanificationStateSelectItem(
+				false, changedHandler);
 		planStateSelectItem = new GHAMaintenancePlanStateSelectItem(false,
 				changedHandler);
+		planStateSelectItem.setDisabled(true);
 		providerSelectItem = new GHAExternalProviderSelectItem(false,
 				changedHandler);
 		maintenacePlanSelectItem = new GHAMaintenancePlanSelectItem(true,
 				changedHandler);
 		maintenacePlanSelectItem.setColSpan(2);
 		scheduledDateDateItem = new GHADateItem("Fecha de inicio",
-				changedHandler);
-		deliverDateDateItem = new GHADateItem("Fecha de entrega",
-				changedHandler);
-		acceptationDateDateItem = new GHADateItem("Fecha de aceptacion",
 				changedHandler);
 
 		form = new GHADynamicForm(4, FormType.NORMAL_FORM);
@@ -84,11 +77,11 @@ public class EIAPreventiveMaintenancePlanificationForm extends
 	/** */
 	public EIAPreventiveMaintenancePlanificationForm() {
 		final HLayout mainPanel = new HLayout();
-		form.setItems(scheduledDateDateItem, deliverDateDateItem,
-				acceptationDateDateItem, new GHASpacerItem(),
+		form.setItems(scheduledDateDateItem, new GHASpacerItem(3),
 				maintenacePlanSelectItem, new GHASpacerItem(2),
 				providerSelectItem, roleSelectItem, new GHASpacerItem(2),
-				planStatusSelectItem, planStateSelectItem, new GHASpacerItem(2));
+				planificationStateSelectItem, planStateSelectItem,
+				new GHASpacerItem(2));
 
 		mainPanel.addMembers(form, new LayoutSpacer());
 		addMember(mainPanel);
@@ -101,7 +94,7 @@ public class EIAPreventiveMaintenancePlanificationForm extends
 
 	@Override
 	public void addPreventivePlanificationSelectionListener(
-			PreventivePlanificationSelectionListener eiaDamageReportSelectionListener) {
+			MaintenancePlanificationSelectionListener eiaDamageReportSelectionListener) {
 		listeners.add(eiaDamageReportSelectionListener);
 	}
 
@@ -110,12 +103,10 @@ public class EIAPreventiveMaintenancePlanificationForm extends
 		super.clear();
 
 		scheduledDateDateItem.clearValue();
-		deliverDateDateItem.clearValue();
-		acceptationDateDateItem.clearValue();
 		maintenacePlanSelectItem.clearValue();
 		providerSelectItem.clearValue();
 		roleSelectItem.clearValue();
-		planStatusSelectItem.clearValue();
+		planificationStateSelectItem.clearValue();
 		planStateSelectItem.clearValue();
 	}
 
@@ -124,23 +115,23 @@ public class EIAPreventiveMaintenancePlanificationForm extends
 		toggleForm(true);
 	}
 
-	private EiaPreventiveMaintenancePlanification extract() {
-		EiaPreventiveMaintenancePlanification entity = new EiaPreventiveMaintenancePlanification();
+	private EiaMaintenancePlanification extract() {
+		EiaMaintenancePlanification entity = new EiaMaintenancePlanification();
 		EiaMaintenancePlanification planification = new EiaMaintenancePlanification();
 		planification.setEia(selectedEia);
-		planification.setType(MaintenancePlanificationType.PREVENTIVE);
-		entity.setPlanification(planification);
 
 		if (providerSelectItem.getValue() != null) {
-			ExternalProvider provider = new ExternalProvider(
-					Long.valueOf(providerSelectItem.getValueAsString()));
-			planification.setProvider(provider);
+			Bsp maintenanceProvider = new Bsp();
+			maintenanceProvider.setId(Long.valueOf(providerSelectItem
+					.getValueAsString()));
+			planification.setMaintenanceProvider(maintenanceProvider);
 		}
 
 		if (roleSelectItem.getValue() != null) {
-			Role role = new Role(
-					Long.valueOf(roleSelectItem.getValueAsString()));
-			planification.setRole(role);
+			Job jobResponsable = new Job();
+			jobResponsable
+					.setId(Long.valueOf(roleSelectItem.getValueAsString()));
+			planification.setJobResponsable(jobResponsable);
 		}
 
 		if (maintenacePlanSelectItem.getValue() != null) {
@@ -152,26 +143,17 @@ public class EIAPreventiveMaintenancePlanificationForm extends
 		planification.setScheduledDate(EIAUtil
 				.getLogicalDate(scheduledDateDateItem.getValueAsDate()));
 
-		planification.setDeliverDate(EIAUtil.getLogicalDate(deliverDateDateItem
-				.getValueAsDate()));
-
-		planification.setAcceptationDate(EIAUtil
-				.getLogicalDate(acceptationDateDateItem.getValueAsDate()));
-
-		entity.setEiaPlanState(MaintenancePlanState.valueOf(planStateSelectItem
-				.getValueAsString()));
-
-		entity.setEiaPlanStatus(MaintenancePlanStatus
-				.valueOf(planStatusSelectItem.getValueAsString()));
+		entity.setPlanificationState(MaintenancePlanificationState
+				.valueOf(planStateSelectItem.getValueAsString()));
 
 		// VALIDANDO LOS DATOS
-		Set<ConstraintViolation<EiaPreventiveMaintenancePlanification>> violations = null;
+		Set<ConstraintViolation<EiaMaintenancePlanification>> violations = null;
 		violations = validator.validate(entity);
 		if (form.validate() && violations.isEmpty())
 			return entity;
 		else {
 			List<String> violationsList = new ArrayList<String>();
-			for (ConstraintViolation<EiaPreventiveMaintenancePlanification> violation : violations)
+			for (ConstraintViolation<EiaMaintenancePlanification> violation : violations)
 				violationsList.add(violation.getMessage());
 			GHAAlertManager.alert(violationsList);
 		}
@@ -180,8 +162,8 @@ public class EIAPreventiveMaintenancePlanificationForm extends
 
 	@Override
 	public void notifyPreventiveMaintenancePlanification(
-			EiaPreventiveMaintenancePlanification preventivePlanif) {
-		for (PreventivePlanificationSelectionListener listener : listeners)
+			EiaMaintenancePlanification preventivePlanif) {
+		for (MaintenancePlanificationSelectionListener listener : listeners)
 			listener.select(preventivePlanif);
 	}
 
@@ -192,22 +174,21 @@ public class EIAPreventiveMaintenancePlanificationForm extends
 
 	@Override
 	public void removePreventivePlanificationSelectionListener(
-			PreventivePlanificationSelectionListener eiaDamageReportSelectionListener) {
+			MaintenancePlanificationSelectionListener eiaDamageReportSelectionListener) {
 		listeners.remove(eiaDamageReportSelectionListener);
 	}
 
 	@Override
 	public void save(
-			final GHAAsyncCallback<EiaPreventiveMaintenancePlanification> callback) {
-		EiaPreventiveMaintenancePlanification entity = extract();
+			final GHAAsyncCallback<EiaMaintenancePlanification> callback) {
+		EiaMaintenancePlanification entity = extract();
 		if (entity == null)
 			return;
 
 		EiaPreventiveMaintenancePlanificationModel.save(entity,
-				new GHAAsyncCallback<EiaPreventiveMaintenancePlanification>() {
+				new GHAAsyncCallback<EiaMaintenancePlanification>() {
 					@Override
-					public void onSuccess(
-							EiaPreventiveMaintenancePlanification result) {
+					public void onSuccess(EiaMaintenancePlanification result) {
 						hasUnCommittedChanges = false;
 						notifyPreventiveMaintenancePlanification(result);
 						clear();
@@ -236,33 +217,27 @@ public class EIAPreventiveMaintenancePlanificationForm extends
 	}
 
 	@Override
-	public void set(EiaPreventiveMaintenancePlanification entity) {
-		EiaMaintenancePlanification planification = entity.getPlanification();
-		scheduledDateDateItem.setValue(planification.getScheduledDate());
-		deliverDateDateItem.setValue(planification.getDeliverDate());
-		acceptationDateDateItem.setValue(planification.getAcceptationDate());
-		providerSelectItem.setValue(planification.getProvider());
-		roleSelectItem.setValue(planification.getRole());
-		planStatusSelectItem.setValue(planification.getStatus().name());
-		planStateSelectItem.setValue(entity.getEiaPlanState().name());
-		EiaTypeMaintenancePlan plan = entity.getPlan();
+	public void set(EiaMaintenancePlanification entity) {
+		scheduledDateDateItem.setValue(entity.getScheduledDate());
+		providerSelectItem.setValue(entity.getMaintenanceProvider());
+		roleSelectItem.setValue(entity.getJobResponsable());
+		planificationStateSelectItem.setValue(entity.getPlanificationState());
+
+		final MaintenancePlan plan = entity.getPlan().getMaintenancePlan();
+		planStateSelectItem.setValue(plan.getState().name());
 		maintenacePlanSelectItem.setValue(plan.getId());
 	}
 
 	private void toggleForm(boolean active) {
 		scheduledDateDateItem.setDisabled(!active);
-		deliverDateDateItem.setDisabled(!active);
-		acceptationDateDateItem.setDisabled(!active);
 		maintenacePlanSelectItem.setDisabled(!active);
 		providerSelectItem.setDisabled(!active);
 		roleSelectItem.setDisabled(!active);
-		planStatusSelectItem.setDisabled(!active);
-		planStateSelectItem.setDisabled(!active);
+		planificationStateSelectItem.setDisabled(!active);
 	}
 
 	@Override
-	public void update(
-			GHAAsyncCallback<EiaPreventiveMaintenancePlanification> callback) {
+	public void update(GHAAsyncCallback<EiaMaintenancePlanification> callback) {
 		// TODO Auto-generated method stub
 	}
 

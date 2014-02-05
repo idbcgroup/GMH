@@ -41,29 +41,29 @@ public class EIADamageAndPlanificationUtil {
 	/**
 	 * @param preventivePlanif
 	 *            the {@link EiaPreventiveMaintenancePlanification} entity
-	 * @return A {@link EIAPreventiveMaintenancePlanificationRecord} whit the
+	 * @return A {@link EIAMaintenancePlanificationRecord} whit the
 	 *         data contained in the
 	 *         {@link EiaPreventiveMaintenancePlanification} entity
 	 */
-	public static EIAPreventiveMaintenancePlanificationRecord toPreventiveMaintenanceGridRecord(
+	public static EIAMaintenancePlanificationRecord toPreventiveMaintenanceGridRecord(
 			EiaPreventiveMaintenancePlanification preventivePlanif) {
-		return new EIAPreventiveMaintenancePlanificationRecord(preventivePlanif);
+		return new EIAMaintenancePlanificationRecord(preventivePlanif);
 	}
 
 	/**
 	 * @param preventivePlanifs
 	 *            the list of {@link EiaPreventiveMaintenancePlanification}
 	 *            entities
-	 * @return A list of {@link EIAPreventiveMaintenancePlanificationRecord}
+	 * @return A list of {@link EIAMaintenancePlanificationRecord}
 	 *         whit the data contained in the
 	 *         {@link EiaPreventiveMaintenancePlanification} entities
 	 */
-	public static List<EIAPreventiveMaintenancePlanificationRecord> toPreventiveMaintenanceGridRecords(
+	public static List<EIAMaintenancePlanificationRecord> toPreventiveMaintenanceGridRecords(
 			List<EiaPreventiveMaintenancePlanification> preventivePlanifs) {
-		List<EIAPreventiveMaintenancePlanificationRecord> list = new ArrayList<EIAPreventiveMaintenancePlanificationRecord>();
+		List<EIAMaintenancePlanificationRecord> list = new ArrayList<EIAMaintenancePlanificationRecord>();
 
 		for (EiaPreventiveMaintenancePlanification preventivePlanif : preventivePlanifs)
-			list.add(new EIAPreventiveMaintenancePlanificationRecord(
+			list.add(new EIAMaintenancePlanificationRecord(
 					preventivePlanif));
 		return list;
 	}
@@ -72,27 +72,27 @@ public class EIADamageAndPlanificationUtil {
 	 * 
 	 * @param maintenancePlanif
 	 *            the {@link EiaMaintenancePlanification} entity
-	 * @return A {@link EIAMaintenancePlanificationRecord} whit the data
+	 * @return A {@link EIAMaintenanceRecord} whit the data
 	 *         contained in the {@link EiaMaintenancePlanification} entity
 	 */
-	public static EIAMaintenancePlanificationRecord toMaintenanceGridRecord(
+	public static EIAMaintenanceRecord toMaintenanceGridRecord(
 			EiaMaintenancePlanification maintenancePlanif) {
-		return new EIAMaintenancePlanificationRecord(maintenancePlanif);
+		return new EIAMaintenanceRecord(maintenancePlanif);
 	}
 
 	/**
 	 * 
 	 * @param maintenancePlanifs
 	 *            the list of {@link EiaMaintenancePlanification} entities
-	 * @return A list of {@link EIAMaintenancePlanificationRecord} whit the data
+	 * @return A list of {@link EIAMaintenanceRecord} whit the data
 	 *         contained in the {@link EiaMaintenancePlanification} entities
 	 */
-	public static List<EIAMaintenancePlanificationRecord> toMaintenanceGridRecords(
+	public static List<EIAMaintenanceRecord> toMaintenanceGridRecords(
 			List<EiaMaintenancePlanification> maintenancePlanifs) {
-		List<EIAMaintenancePlanificationRecord> list = new ArrayList<EIAMaintenancePlanificationRecord>();
+		List<EIAMaintenanceRecord> list = new ArrayList<EIAMaintenanceRecord>();
 
 		for (EiaMaintenancePlanification entity : maintenancePlanifs)
-			list.add(new EIAMaintenancePlanificationRecord(entity));
+			list.add(new EIAMaintenanceRecord(entity));
 		return list;
 	}
 

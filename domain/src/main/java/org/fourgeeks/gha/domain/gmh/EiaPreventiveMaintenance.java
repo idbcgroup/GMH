@@ -15,7 +15,7 @@ import org.fourgeeks.gha.domain.enu.MaintenancePlanStatus;
  * 
  */
 @Entity
-public class EiaPreventiveMaintenancePlanification extends AbstractEntity {
+public class EiaPreventiveMaintenance extends AbstractEntity {
 
 	/**
 	 * 
@@ -40,7 +40,7 @@ public class EiaPreventiveMaintenancePlanification extends AbstractEntity {
 	/**
 	 * 
 	 */
-	public EiaPreventiveMaintenancePlanification() {
+	public EiaPreventiveMaintenance() {
 		super();
 	}
 

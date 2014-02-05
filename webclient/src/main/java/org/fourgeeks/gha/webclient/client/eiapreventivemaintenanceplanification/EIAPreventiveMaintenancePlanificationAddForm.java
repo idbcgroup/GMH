@@ -22,7 +22,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class EIAPreventiveMaintenancePlanificationAddForm extends
 		GHAAddForm<EiaPreventiveMaintenancePlanification> implements
 		EIASelectionListener, EIATypeSelectionListener,
-		PreventivePlanificationSelectionProducer {
+		MaintenancePlanificationSelectionProducer {
 
 	{
 		form = new EIAPreventiveMaintenancePlanificationForm();
@@ -50,8 +50,8 @@ public class EIAPreventiveMaintenancePlanificationAddForm extends
 
 	@Override
 	public void addPreventivePlanificationSelectionListener(
-			PreventivePlanificationSelectionListener preventivePlanifSelectionListener) {
-		((PreventivePlanificationSelectionProducer) form)
+			MaintenancePlanificationSelectionListener preventivePlanifSelectionListener) {
+		((MaintenancePlanificationSelectionProducer) form)
 				.addPreventivePlanificationSelectionListener(preventivePlanifSelectionListener);
 
 	}
@@ -76,8 +76,8 @@ public class EIAPreventiveMaintenancePlanificationAddForm extends
 
 	@Override
 	public void removePreventivePlanificationSelectionListener(
-			PreventivePlanificationSelectionListener eiaDamageReportSelectionListener) {
-		((PreventivePlanificationSelectionProducer) form)
+			MaintenancePlanificationSelectionListener eiaDamageReportSelectionListener) {
+		((MaintenancePlanificationSelectionProducer) form)
 				.removePreventivePlanificationSelectionListener(eiaDamageReportSelectionListener);
 
 	}

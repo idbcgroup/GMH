@@ -14,7 +14,7 @@ import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaPreventiveMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.ejb.gmh.EiaMaintenancePlanificationServiceRemote;
-import org.fourgeeks.gha.webclient.client.eiamaintenanceplanification.GWTEiaMaintenancePlanificationService;
+import org.fourgeeks.gha.webclient.client.eiamaintenance.GWTEiaMaintenanceService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -24,7 +24,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  */
 @WebServlet(urlPatterns = { "/webclient/EiaMaintenancePlanification" })
 public class GWTEiaMaintenancePlanificationServiceImpl extends
-		RemoteServiceServlet implements GWTEiaMaintenancePlanificationService {
+		RemoteServiceServlet implements GWTEiaMaintenanceService {
 
 	private static final long serialVersionUID = 1L;
 

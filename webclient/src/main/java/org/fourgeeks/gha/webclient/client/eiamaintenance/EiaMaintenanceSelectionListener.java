@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eiamaintenanceplanification;
+package org.fourgeeks.gha.webclient.client.eiamaintenance;
 
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 
@@ -6,7 +6,7 @@ import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
  * @author alacret
  * 
  */
-public interface EiaMaintenancePlanificationSelectionListener {
+public interface EiaMaintenanceSelectionListener {
 	/**
 	 * @param entity
 	 */

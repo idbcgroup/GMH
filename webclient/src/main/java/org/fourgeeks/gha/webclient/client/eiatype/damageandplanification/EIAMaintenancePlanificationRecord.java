@@ -1,32 +1,31 @@
 package org.fourgeeks.gha.webclient.client.eiatype.damageandplanification;
 
-import org.fourgeeks.gha.domain.enu.MaintenancePlanificationStatus;
-import org.fourgeeks.gha.domain.enu.MaintenancePlanificationType;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
+import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 
 public class EIAMaintenancePlanificationRecord extends
 		GHAGridRecord<EiaMaintenancePlanification> {
 
-	private EiaMaintenancePlanification entity;
+	private final EiaMaintenancePlanification preventivePlanif;
 
-	public EIAMaintenancePlanificationRecord(EiaMaintenancePlanification entity) {
-		this.entity = entity;
-		Eia eia = entity.getEia();
-		MaintenancePlanificationStatus status = entity.getStatus();
-		MaintenancePlanificationType type = entity.getType();
+	public EIAMaintenancePlanificationRecord(
+			EiaMaintenancePlanification preventivePlanif) {
+		this.preventivePlanif = preventivePlanif;
+		EiaTypeMaintenancePlan plan = preventivePlanif.getPlan();
+		Eia eia = preventivePlanif.getEia();
 
-		setAttribute("id", entity.getId());
-		setAttribute("initDate", entity.getScheduledDate());
+		setAttribute("id", preventivePlanif.getId());
+		setAttribute("initDate", preventivePlanif.getScheduledDate());
 		setAttribute("eia", eia == null ? "" : eia.getSerialNumber());
-		setAttribute("type", type == null ? "" : type);
-		setAttribute("status", status == null ? "" : status);
+		setAttribute("plan", plan == null ? "" : plan.getMaintenancePlan()
+				.getName());
 	}
 
 	@Override
 	public EiaMaintenancePlanification toEntity() {
-		return this.entity;
+		return this.preventivePlanif;
 	}
 
 }

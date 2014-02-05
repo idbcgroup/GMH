@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eiamaintenanceplanification;
+package org.fourgeeks.gha.webclient.client.eiamaintenance;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 @RemoteServiceRelativePath("EiaMaintenancePlanification")
-public interface GWTEiaMaintenancePlanificationService extends RemoteService {
+public interface GWTEiaMaintenanceService extends RemoteService {
 	/**
 	 * @param eiaType
 	 * @return A list of maintenance planifications (corrective and preventive)

@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eiamaintenanceplanification;
+package org.fourgeeks.gha.webclient.client.eiamaintenance;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,6 @@ import org.fourgeeks.gha.domain.ess.Role;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.gmh.EiaCorrectiveMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
-import org.fourgeeks.gha.domain.gmh.EiaPreventiveMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
@@ -45,14 +44,14 @@ import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
  * @author nelson
  * 
  */
-public class EIAMaintenancePlanificationForm extends
+public class EIAMaintenanceForm extends
 		GHAForm<EiaMaintenancePlanification> implements
-		EiaMaintenancePlanificationSelectionListener, EIATypeSelectionListener,
-		EiaMaintenancePlanificationSelectionProducer {
+		EiaMaintenanceSelectionListener, EIATypeSelectionListener,
+		EiaMaintenanceSelectionProducer {
 
-	private List<EiaMaintenancePlanificationSelectionListener> listeners;
+	private List<EiaMaintenanceSelectionListener> listeners;
 	private EiaMaintenancePlanification selectedMaintenance;
-	private EiaPreventiveMaintenancePlanification selectedPreventiveMaintenance;
+	private EiaMaintenancePlanification selectedPreventiveMaintenance;
 	private EiaCorrectiveMaintenancePlanification selectedCorrectiveMaintenance;
 	private boolean formIsActive;
 
@@ -87,7 +86,7 @@ public class EIAMaintenancePlanificationForm extends
 	{
 		formIsActive = true;
 		sectionForm = new GHASectionForm();
-		listeners = new ArrayList<EiaMaintenancePlanificationSelectionListener>();
+		listeners = new ArrayList<EiaMaintenanceSelectionListener>();
 		ChangedHandler mPlanChangedHandler = new ChangedHandler() {
 			@Override
 			public void onChanged(ChangedEvent event) {
@@ -160,7 +159,7 @@ public class EIAMaintenancePlanificationForm extends
 	/**
 	 * 
 	 */
-	public EIAMaintenancePlanificationForm() {
+	public EIAMaintenanceForm() {
 		super();
 		GHAUiHelper.addGHAResizeHandler(this);
 
@@ -199,7 +198,7 @@ public class EIAMaintenancePlanificationForm extends
 	 */
 	@Override
 	public void addEiaMaintenancePlanificationSelectionListener(
-			EiaMaintenancePlanificationSelectionListener listener) {
+			EiaMaintenanceSelectionListener listener) {
 		listeners.add(listener);
 	}
 
@@ -208,7 +207,8 @@ public class EIAMaintenancePlanificationForm extends
 	 * @return
 	 */
 	private GHADynamicForm buildAndGetBasicInfoForm() {
-		final GHADynamicForm form = new GHADynamicForm(3,FormType.SECTIONFORM_FORM);
+		final GHADynamicForm form = new GHADynamicForm(3,
+				FormType.SECTIONFORM_FORM);
 
 		form.setItems(idNumberTextItem, requestNumberTextItem,
 				maintenanceStatusSelectItem, technicianNameTextItem,
@@ -223,7 +223,8 @@ public class EIAMaintenancePlanificationForm extends
 	 * @return
 	 */
 	private GHADynamicForm buildAndGetMaintenanceTypeForm() {
-		final GHADynamicForm form = new GHADynamicForm(3,FormType.SECTIONFORM_FORM);
+		final GHADynamicForm form = new GHADynamicForm(3,
+				FormType.SECTIONFORM_FORM);
 
 		form.setItems(preventiveMaintenance_TitleItem,
 				maintenacePlanSelectItem, new GHASpacerItem(),
@@ -241,7 +242,8 @@ public class EIAMaintenancePlanificationForm extends
 	 * @return
 	 */
 	private GHADynamicForm buildAndGetTimesAndDatesForm() {
-		final GHADynamicForm form = new GHADynamicForm(3,FormType.SECTIONFORM_FORM);
+		final GHADynamicForm form = new GHADynamicForm(3,
+				FormType.SECTIONFORM_FORM);
 
 		form.setItems(beginningDateItem, beginningTimeItem,
 				new GHASpacerItem(), finishDateItem, finishTimeItem,
@@ -333,13 +335,13 @@ public class EIAMaintenancePlanificationForm extends
 		if (providerSelectItem.getValue() != null) {
 			final ExternalProvider provider = new ExternalProvider(
 					Long.valueOf(providerSelectItem.getValueAsString()));
-			entity.setProvider(provider);
+			entity.setMaintenanceProvider(provider);
 		}
 
 		if (roleSelectItem.getValue() != null) {
 			final Role role = new Role(Long.valueOf(roleSelectItem
 					.getValueAsString()));
-			entity.setRole(role);
+			entity.setJobResponsable(role);
 		}
 
 		String requestNumber = requestNumberTextItem.getValueAsString();
@@ -436,7 +438,7 @@ public class EIAMaintenancePlanificationForm extends
 	@Override
 	public void notifyEiaMaintenancePlanification(
 			EiaMaintenancePlanification entity) {
-		for (EiaMaintenancePlanificationSelectionListener listener : listeners)
+		for (EiaMaintenanceSelectionListener listener : listeners)
 			listener.select(entity);
 	}
 
@@ -465,7 +467,7 @@ public class EIAMaintenancePlanificationForm extends
 	 */
 	@Override
 	public void removeEiaMaintenancePlanificationSelectionListener(
-			EiaMaintenancePlanificationSelectionListener listener) {
+			EiaMaintenanceSelectionListener listener) {
 		listeners.remove(listener);
 	}
 
@@ -537,7 +539,7 @@ public class EIAMaintenancePlanificationForm extends
 	 * @param entity
 	 */
 	private void selectCorrectiveMaintenance(EiaMaintenancePlanification entity) {
-		EiaMaintenancePlanificationModel.getCorrectiveMaintenance(entity,
+		EiaMaintenanceModel.getCorrectiveMaintenance(entity,
 				new GHAAsyncCallback<EiaCorrectiveMaintenancePlanification>() {
 					@Override
 					public void onSuccess(
@@ -555,7 +557,7 @@ public class EIAMaintenancePlanificationForm extends
 	 * @param entity
 	 */
 	private void selectPreventiveMaintenance(EiaMaintenancePlanification entity) {
-		EiaMaintenancePlanificationModel.getPreventiveMaintenance(entity,
+		EiaMaintenanceModel.getPreventiveMaintenance(entity,
 				new GHAAsyncCallback<EiaPreventiveMaintenancePlanification>() {
 					@Override
 					public void onSuccess(
@@ -619,10 +621,10 @@ public class EIAMaintenancePlanificationForm extends
 		maintenanceStatusSelectItem.setValue(status == null ? null : status
 				.name());
 
-		Role role = entity.getRole();
+		Role role = entity.getJobResponsable();
 		roleSelectItem.setValue(role == null ? null : role.getId());
 
-		ExternalProvider provider = entity.getProvider();
+		ExternalProvider provider = entity.getMaintenanceProvider();
 		providerSelectItem.setValue(provider == null ? null : provider.getId());
 	}
 
@@ -738,7 +740,7 @@ public class EIAMaintenancePlanificationForm extends
 			final EiaMaintenancePlanification maintenance) {
 
 		EiaCorrectiveMaintenancePlanification entity = extractCorrectiveMaintenance(maintenance);
-		EiaMaintenancePlanificationModel.updateCorrectiveMaintenance(entity,
+		EiaMaintenanceModel.updateCorrectiveMaintenance(entity,
 				new GHAAsyncCallback<EiaCorrectiveMaintenancePlanification>() {
 					@Override
 					public void onSuccess(
@@ -768,7 +770,7 @@ public class EIAMaintenancePlanificationForm extends
 			final EiaMaintenancePlanification maintenance) {
 
 		final EiaPreventiveMaintenancePlanification entity = extractPreventiveMaintenance(maintenance);
-		EiaMaintenancePlanificationModel.updatePreventiveMaintenance(entity,
+		EiaMaintenanceModel.updatePreventiveMaintenance(entity,
 				new GHAAsyncCallback<EiaPreventiveMaintenancePlanification>() {
 					@Override
 					public void onSuccess(
