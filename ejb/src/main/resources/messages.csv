@@ -517,3 +517,4 @@ ES,maintenance-protocol-delete-confirm,¿Desea eliminar todas las actividades de
 ES,eiatype-component-delete-confirm,Confirme si desea eliminar el componente seleccionado,2
 ES,eiatype-maintenance-plan-delete-confirm, ¿Desea retirar el plan de mantenimeinto asociado al tipo de equipo?,2
 ES,eiatype-material-category-delete-confirm, ¿Desea retirar la categoria de material asociado al tipo de equipo?,2
+ES,server-error,Ha ocurrido un error inesperado con el servidor,4 
