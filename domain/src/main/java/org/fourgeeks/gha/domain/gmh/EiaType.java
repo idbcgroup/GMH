@@ -4,6 +4,7 @@
 package org.fourgeeks.gha.domain.gmh;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -13,7 +14,6 @@ import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.fourgeeks.gha.domain.AbstractCodeEntity;
 import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
 import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
 import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
@@ -24,10 +24,11 @@ import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
  */
 
 @Entity
+@DiscriminatorValue("eiatype")
 @NamedQueries(value = {
 		@NamedQuery(name = "EiaType.getAll", query = "SELECT e from EiaType e order by e.code"),
 		@NamedQuery(name = "EiaType.findByMaintenancePlan", query = "SELECT etype from EiaTypeMaintenancePlan e JOIN e.eiaType etype WHERE e.maintenancePlan = :maintenancePlan ORDER BY e.id") })
-public class EiaType extends AbstractCodeEntity {
+public class EiaType extends ServiceAndResource {
 
 	/**
 	 * 

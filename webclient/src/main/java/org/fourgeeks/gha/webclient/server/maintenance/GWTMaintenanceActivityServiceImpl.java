@@ -64,7 +64,8 @@ public class GWTMaintenanceActivityServiceImpl extends RemoteServiceServlet
 	@Override
 	public List<MaintenanceActivity> findByServiceResource(
 			ServiceAndResource serviceResource) throws GHAEJBException {
-		return ejbService.findByServiceResource(serviceResource);
+		// return ejbService.findByServiceResource(serviceResource);
+		return null;
 	}
 
 	/*

@@ -234,8 +234,6 @@ public class SubProtocolAndChecklistServiceTest {
 				.addClass(SubProtocolAndCheklistServiceLocal.class)
 				.addClass(MaintenanceActivity.class)
 				.addClass(ServiceAndResourceType.class)
-				.addClass(ServiceAndResourceService.class)
-				.addClass(ServiceAndResourceServiceRemote.class)
 				.addAsResource("test-persistence.xml",
 						"META-INF/persistence.xml")
 				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");

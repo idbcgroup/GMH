@@ -229,8 +229,6 @@ public class EiaServiceTest {
 				.addClass(Activity.class)
 				.addClass(Bsp.class)
 				.addClass(ServiceAndResourceType.class)
-				.addClass(ServiceAndResourceService.class)
-				.addClass(ServiceAndResourceServiceRemote.class)
 				.addAsResource("test-persistence.xml",
 						"META-INF/persistence.xml")
 				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
