@@ -297,7 +297,7 @@ public class SubProtocolAndChecklistServiceTest {
 		updateTest();
 		System.out.println(sep + "deleteTest" + sep);
 		deleteTest();
-		System.out.println(sep + "deleteListTest" + sep);
+		// System.out.println(sep + "deleteListTest" + sep);
 		// deleteListTest();
 	}
 
