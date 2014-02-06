@@ -250,31 +250,31 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 
 		//Regex!
 
-		serialTextItem.validateSerial(GHAStrings.get("eia-error-formatter-serial"));
+		serialTextItem.validateSerial();
 
-		codeTextItem.validateCodes(GHAStrings.get("eia-error-formatter-code"));
+		codeTextItem.validateCodes();
 
-		adquisitionCostTextItem.validateNumbers(GHAStrings.get("eia-error-formatter-code"));
+		adquisitionCostTextItem.validateNumbers();
 
-		adquisitionCostTextItem.validateNumbers(GHAStrings.get("eia-error-formatter-numeric"));
+		adquisitionCostTextItem.validateNumbers();
 
-		purchaseOrderNumTextItem.validateNumbers(GHAStrings.get("eia-error-formatter-numeric"));
+		purchaseOrderNumTextItem.validateNumbers();
 
-		purchaseInvoiceNumTextItem.validateNumbers(GHAStrings.get("eia-error-formatter-numeric"));
+		purchaseInvoiceNumTextItem.validateNumbers();
 
-			adquisitionCostTextItem.validateNumbers(GHAStrings.get("eia-error-formatter-numeric"));
+		adquisitionCostTextItem.validateNumbers();
 
-			adquisitionCostLocalTextItem.validateNumbers(GHAStrings.get("eia-error-formatter-numeric"));
+		adquisitionCostLocalTextItem.validateNumbers();
 
-			depreciationTimeTextItem.validateNumbers(GHAStrings.get("eia-error-formatter-numeric"));
+		depreciationTimeTextItem.validateNumbers();
 
-			lifeTimeTextItem.validateNumbers(GHAStrings.get("eia-error-formatter-numeric"));
+		lifeTimeTextItem.validateNumbers();
 
-			actualCostTextItem.validateNumbers(GHAStrings.get("eia-error-formatter-numeric"));
+		actualCostTextItem.validateNumbers();
 
-			realWarrantyTimeTextItem.validateNumbers(GHAStrings.get("eia-error-formatter-numeric"));
+		realWarrantyTimeTextItem.validateNumbers();
 
-			intWarrantyTimeTextItem.validateNumbers(GHAStrings.get("eia-error-formatter-numeric"));
+		intWarrantyTimeTextItem.validateNumbers();
 
 	}
 

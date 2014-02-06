@@ -1,13 +1,10 @@
-ES,user-date-error-formatter, error de formato dia introducido invalido
-ES,user-error-formatter,error de formato solo se permite letras
 ES,user-error-formatter-rif,error de formato
-ES,user-error-formatter-identification,error de formato solo debe agregar numeros o letras sin tilde ni caracteres especiales
-ES,eia-error-formatter-word,Error de formato: solo pueden incluirse letras
-ES,eia-error-formatter-alphanumeric,Error de formato: el texto no puede incluir caracteres 
-ES,eia-error-formatter-serial,Error de formato: el texto solo puede incluir numeros, letras o guiones
-ES,eia-error-formatter-code,Error de formato: El texto solo puede incluir numeros, letras o guiones sin espacios en blanco.
-ES,eia-error-formatter-number,Error de formato: El texto solo puede incluir numeros.
-ES,eiatype-error-formatter-word,Error de formato: solo pueden incluirse letras
+ES,formatter-error-words,Error de formato: El campo solo puede incluir letras
+ES,formatter-error-dates,Error de formato: El dia especificado es invalido
+ES,formatter-error-numbers,Error de formato: El campo solo puede incluir numeros
+ES,formatter-error-alphanumeric,Error de formato: El campo no puede incluir simbolos especiales
+ES,formatter-error-serial,Error de formato: El campo solo puede incluir numeros y guiones
+ES,formatter-error-codes,Error de formato: El campo no puede incluir simbolos especiales o espacios en blanco
 ES,record,registro
 ES,eia,Equipo
 ES,records,registros

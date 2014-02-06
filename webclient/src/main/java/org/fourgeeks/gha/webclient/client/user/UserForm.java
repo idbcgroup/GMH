@@ -69,7 +69,7 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 
 		firstNameItem.setLength(20);
 
-		firstNameItem.validateWords(GHAStrings.get("user-error-formatter"));
+		firstNameItem.validateWords();
 
 		// firstNameItem.setMask("[a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ]");
 
@@ -77,21 +77,20 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 				false, changedHandler);
 		secondNameItem.setLength(20);
 		// secondNameItem.setMask("[a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ]");
-		secondNameItem.validateWords(GHAStrings.get("user-error-formatter"));
+		secondNameItem.validateWords();
 
 		lastNameItem = new GHANameTextItem(GHAStrings.get("first-lastname"),
 				false, changedHandler);
 		lastNameItem.setLength(20);
 		// lastNameItem.setMask("[a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ]");
-		lastNameItem.validateWords(GHAStrings.get("user-error-formatter"));
+		lastNameItem.validateWords();
 
 		secondLastNameItem = new GHANameTextItem(
 				GHAStrings.get("second-lastname"), false, changedHandler);
 		secondLastNameItem.setLength(20);
 		// secondLastNameItem.setMask("[a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ]");
 
-		secondLastNameItem
-				.validateWords(GHAStrings.get("user-error-formatter"));
+		secondLastNameItem.validateWords();
 
 		primaryEmailItem = new GHAEmailTextItem("Email Primario",
 				changedHandler);
@@ -101,9 +100,7 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 		typeidSelectItem = new GHASelectItem("Tipo ID", true, changedHandler);
 		idItem = new GHATextItem("No. Identificiación", true, changedHandler);
 		idItem.setLength(20);
-		idItem.validateCustomExpre(
-				GHAStrings.get("user-error-formatter-identification"),
-				"^[a-zA-Z0-9|-]+$");
+		idItem.validateCodes();
 		idItem.setShowErrorIcon(false);
 		idItem.setValidateOnExit(false);
 		// idItem.setValidateOnChange(false);
@@ -113,7 +110,7 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 		nationalityItem.setLength(20);
 		// nationalityItem.setMask("[a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ]");
 		// [a-zA-ZáéíóúAÉÍÓÚÑñ]
-		nationalityItem.validateWords(GHAStrings.get("user-error-formatter"));
+		nationalityItem.validateWords();
 
 		birthDateItem = new GHABirthDateItem(GHAStrings.get("birthdate"),
 				changedHandler);
@@ -127,9 +124,7 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 		legalEntityIdentifierItem = new GHATextItem("R.I.F.", false,
 				changedHandler);
 		legalEntityIdentifierItem.setLength(17);
-		legalEntityIdentifierItem.validateCustomExpre(
-				GHAStrings.get("user-error-formatter-rif"),
-				"^[VvMmPprREeJjIiGg0-9|-]+$");
+		legalEntityIdentifierItem.validateRif();
 		// setMask(">[V|M|P|R|E|J|I|G]-[0-9|-]");
 
 		// VMPREJIG

@@ -92,12 +92,12 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 
 		//Regex!
 		
-		nameItem.validateWords(GHAStrings.get("eiatype-error-formatter-word"));
+		nameItem.validateWords();
 
-		modelItem.validateWords(GHAStrings.get("eiatype-error-formatter-word"));
+		modelItem.validateWords();
 
 		//Incierto si requiere validacion o no
-		//eiaUmdnsItem.validateWords(GHAStrings.get("eiatype-error-formatter-word"));
+		//eiaUmdnsItem.validateWords();
 	}
 
 	/**

@@ -210,27 +210,31 @@ public class GHATextItem extends TextItem {
 	    setShowErrorIcon(true);
 	}
 
-	public void validateWords(String messageError) {
-		validateCustomExpre(messageError, "^[a-zA-ZáéíóúÁÉÍÓÚÑñ ]+$");  
+	public void validateWords() {
+		validateCustomExpre(GHAStrings.get("formatter-error-words"), "^[a-zA-ZáéíóúÁÉÍÓÚÑñ ]+$");  
 	}
 
-	public void validateDates(String messageError) {
-		validateCustomExpre(messageError, "^[0-9]{2}/[0-9]{2}/[0-9]{4}$");
+	public void validateDates() {
+		validateCustomExpre(GHAStrings.get("formatter-error-dates"), "^[0-9]{2}/[0-9]{2}/[0-9]{4}$");
 	}
 
-	public void validateNumbers(String messageError) {
-		validateCustomExpre(messageError, "^[0-9]+$");
+	public void validateNumbers() {
+		validateCustomExpre(GHAStrings.get("formatter-error-numbers"), "^[0-9]+$");
 	}
 
-	public void validateAlphanumeric(String messageError) {
-		validateCustomExpre(messageError, "^[a-zA-ZáéíóúÁÉÍÓÚÑñ0-9 ]+$");
+	public void validateAlphanumeric() {
+		validateCustomExpre(GHAStrings.get("formatter-error-alphanumeric"), "^[a-zA-ZáéíóúÁÉÍÓÚÑñ0-9 ]+$");
 	}
 
-	public void validateSerial(String messageError) {
-		validateCustomExpre(messageError, "^[0-9-]+$");
+	public void validateSerial() {
+		validateCustomExpre(GHAStrings.get("formatter-error-serial"), "^[0-9-]+$");
 	}
 
-	public void validateCodes(String messageError) { //alfanumerico sin espacio
-		validateCustomExpre(messageError, "^[a-zA-ZáéíóúÁÉÍÓÚÑñ0-9]+$");
+	public void validateCodes() { //alfanumerico sin espacio
+		validateCustomExpre(GHAStrings.get("formatter-error-codes"), "^[a-zA-Z0-9]+$");
+	}
+
+	public void validateRif() {
+		validateCustomExpre(GHAStrings.get("user-error-formatter-rif"), "^[VvMmPprREeJjIiGg0-9|-]+$");
 	}
 }
