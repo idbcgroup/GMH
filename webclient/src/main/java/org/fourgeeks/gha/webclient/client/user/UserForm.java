@@ -56,49 +56,59 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 
 	{
 		usernameItem = new GHAUserNameTextItem(true, changedHandler);
+		usernameItem.setTooltip(GHAStrings.get("user-name-tooltip"));
 
 		passwordItem = new GHATextItem(GHAStrings.get("password"), true,
 				changedHandler);
+		passwordItem.setTooltip(GHAStrings.get("user-password-tooltip"));
 		passwordItem.setLength(20);
 		confirmPasswordItem = new GHATextItem("Confirme contraseña", true,
 				changedHandler);
 		confirmPasswordItem.setLength(20);
-
+		confirmPasswordItem.setTooltip(GHAStrings
+				.get("user-confirm-password-tooltip"));
 		firstNameItem = new GHANameTextItem(GHAStrings.get("first-name"),
 				false, changedHandler);
 
 		firstNameItem.setLength(20);
 
-		firstNameItem.validateWords(GHAStrings.get("user-error-formatter"));
-
-		// firstNameItem.setMask("[a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ]");
+		firstNameItem.validateWords();
+		firstNameItem.setTooltip(GHAStrings.get("user-tooltip-first-name"));
 
 		secondNameItem = new GHANameTextItem(GHAStrings.get("second-name"),
 				false, changedHandler);
 		secondNameItem.setLength(20);
-		// secondNameItem.setMask("[a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ]");
-		secondNameItem.validateWords(GHAStrings.get("user-error-formatter"));
+		secondNameItem.setTooltip(GHAStrings.get("user-tooltip-second-name"));
+
+		secondNameItem.validateWords();
 
 		lastNameItem = new GHANameTextItem(GHAStrings.get("first-lastname"),
 				false, changedHandler);
+		lastNameItem.setTooltip(GHAStrings.get("user-tooltip-last-name"));
 		lastNameItem.setLength(20);
 		// lastNameItem.setMask("[a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ]");
-		lastNameItem.validateWords(GHAStrings.get("user-error-formatter"));
+		lastNameItem.validateWords();
 
 		secondLastNameItem = new GHANameTextItem(
 				GHAStrings.get("second-lastname"), false, changedHandler);
 		secondLastNameItem.setLength(20);
-		// secondLastNameItem.setMask("[a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ]");
-
-		secondLastNameItem
-				.validateWords(GHAStrings.get("user-error-formatter"));
+		secondLastNameItem.setTooltip(GHAStrings
+				.get("user-tooltip-secondlast-name"));
+		secondLastNameItem.validateWords();
 
 		primaryEmailItem = new GHAEmailTextItem("Email Primario",
 				changedHandler);
+		primaryEmailItem.setTooltip(GHAStrings.get("user-tooltip-email"));
+
 		alternativeEmailItem = new GHAEmailTextItem("Email Secundario",
 				changedHandler);
 
+		alternativeEmailItem.setTooltip(GHAStrings
+				.get("user-tooltip-email-secundario"));
+
 		typeidSelectItem = new GHASelectItem("Tipo ID", true, changedHandler);
+		typeidSelectItem.setTooltip(GHAStrings.get("user-tooltip-tipo-id"));
+
 		idItem = new GHATextItem("No. Identificiación", true, changedHandler);
 		idItem.setLength(20);
 		idItem.validateCustomExpre(
@@ -106,28 +116,35 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 				"^[a-zA-Z0-9|-]+$");
 		idItem.setShowErrorIcon(false);
 		idItem.setValidateOnExit(false);
-		idItem.setTooltip(GHAStrings.get("user-formatter-identification"));
+		idItem.setTooltip(GHAStrings.get("user-tooltip-identification"));
 
 		genderSelectItem = new GHASelectItem("Género", true, changedHandler);
+		genderSelectItem.setTooltip(GHAStrings.get("user-tooltip-genero"));
+
 		nationalityItem = new GHATextItem("Nacionalidad", false, changedHandler);
 		nationalityItem.setLength(20);
-		nationalityItem.validateWords(GHAStrings.get("user-error-formatter"));
+		nationalityItem.setTooltip(GHAStrings.get("user-tooltip-genero"));
+		nationalityItem.validateWords();
 
 		birthDateItem = new GHABirthDateItem(GHAStrings.get("birthdate"),
 				changedHandler);
 		birthDateItem.setUseMask(true);
-
+		birthDateItem.setTooltip(GHAStrings.get("user-tooltip-birthdate"));
 		// GHAStrings.get("user-date-error-formatter")
-
 		bpiSelectItem = new GHASelectItem("Institución");
 		bpiSelectItem.setRequired(true);
 		bpiSelectItem.addChangedHandler(changedHandler);
+		bpiSelectItem.setTooltip(GHAStrings.get("user-tooltip-institution"));
+
 		legalEntityIdentifierItem = new GHATextItem("R.I.F.", false,
 				changedHandler);
 		legalEntityIdentifierItem.setLength(17);
 		legalEntityIdentifierItem.validateCustomExpre(
 				GHAStrings.get("user-error-formatter-rif"),
 				"^[VvMmPprREeJjIiGg0-9|-]+$");
+
+		legalEntityIdentifierItem
+				.setTooltip(GHAStrings.get("user-tooltip-rif"));
 
 		listeners = new ArrayList<UserSelectionListener>();
 

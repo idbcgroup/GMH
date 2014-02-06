@@ -1,4 +1,17 @@
-ES,user-formatter-identification, no debe ingresar caracteres especiales asi es permitido Ejemplo: V-123456
+ES,user-tooltip-first-name, Agregue su primer nombre. Ejmplo: Pedro
+ES,user-tooltip-second-name, Agregue su segundo nombre. Ejmplo: Jose
+ES,user-tooltip-last-name, Agregue su primer apellido. Ejmplo: Gonzales
+ES,user-tooltip-secondlast-name, Agregue su segundo apellido. Ejmplo: Barboza
+ES,user-tooltip-identification, Puede agregar cedula o pasaporte entre otros, Ejemplo: V-18722506 
+ES,user-tooltip-email, Agregue su correo Ejemplo: ejemplo@correo.com 
+ES,user-tooltip-email-secundario, Agregue su correo alternativo Ejemplo: alternativo@correo.com 
+ES,user-tooltip-genero, Debe seleccionar un genero Ejemplo: masculino o femenino 
+ES,user-tooltip-birthdate, Debe seleccionar o introducir una fecha 
+ES,user-tooltip-institution, Debe seleccionar una institucion
+ES,user-tooltip-rif, Debe agregar el rif. Ejemplo: J-1234567
+ES,user-name-tooltip, Agregue su nombre de Usuario. Ejemplo: Analista
+ES,user-password-tooltip, Agregue su clave de Usuario. Ejemplo: 123456
+ES,user-confirm-password-tooltip, Confirme su clave
 ES,user-date-error-formatter, error de formato dia introducido invalido
 ES,user-error-formatter,error de formato solo se permite letras
 ES,user-error-formatter-rif,error de formato
