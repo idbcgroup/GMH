@@ -23,7 +23,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 @WebServlet(urlPatterns = { "/webclient/ssouser" })
 public class GWTSSOUserServiceImpl extends RemoteServiceServlet implements
 		GWTSSOUserService {
-	@EJB(lookup = "java:global/ear-1/ejb-1/UILogService!org.fourgeeks.gha.ejb.log.UILogServiceRemote")
+	@EJB(lookup = "java:global/ear-1/ejb-1/SSOUserService")
 	SSOUserServiceRemote ssoUserService;
 
 	@EJB(lookup = "java:global/ear-1/ejb-1/AppFormViewFunctionBpuService")
