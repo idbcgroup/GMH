@@ -105,6 +105,8 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 				GHAStrings.get("user-error-formatter-identification"),
 				"^[a-zA-Z0-9|-]+$");
 		idItem.setShowErrorIcon(false);
+		idItem.setValidateOnExit(false);
+		// idItem.setValidateOnChange(false);
 
 		genderSelectItem = new GHASelectItem("Género", true, changedHandler);
 		nationalityItem = new GHATextItem("Nacionalidad", false, changedHandler);
@@ -116,9 +118,8 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 		birthDateItem = new GHABirthDateItem(GHAStrings.get("birthdate"),
 				changedHandler);
 		birthDateItem.setUseMask(true);
-		birthDateItem.setUseTextField(true);
-		birthDateItem.setInvalidDateStringMessage(GHAStrings
-				.get("user-date-error-formatter"));
+
+		// GHAStrings.get("user-date-error-formatter")
 
 		bpiSelectItem = new GHASelectItem("Institución");
 		bpiSelectItem.setRequired(true);
@@ -269,11 +270,8 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 		}
 
 		if (idItem.getValue() != null) {
-			if (!idItem.validate()) {
+			if (!idItem.validate())
 				violationsList.add("user-identification-error-formatter");
-				idItem.setShowErrorIcon(true);
-			} else
-				idItem.setShowErrorIcon(false);
 			citizen.setIdNumber(idItem.getValueAsString());
 
 		}
