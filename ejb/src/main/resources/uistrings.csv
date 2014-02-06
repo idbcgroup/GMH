@@ -1,3 +1,4 @@
+ES,user-formatter-identification, no debe ingresar caracteres especiales asi es permitido Ejemplo: V-123456
 ES,user-date-error-formatter, error de formato dia introducido invalido
 ES,user-error-formatter,error de formato solo se permite letras
 ES,user-error-formatter-rif,error de formato

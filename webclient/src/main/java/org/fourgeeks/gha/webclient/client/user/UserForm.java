@@ -106,13 +106,11 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 				"^[a-zA-Z0-9|-]+$");
 		idItem.setShowErrorIcon(false);
 		idItem.setValidateOnExit(false);
-		// idItem.setValidateOnChange(false);
+		idItem.setTooltip(GHAStrings.get("user-formatter-identification"));
 
 		genderSelectItem = new GHASelectItem("Género", true, changedHandler);
 		nationalityItem = new GHATextItem("Nacionalidad", false, changedHandler);
 		nationalityItem.setLength(20);
-		// nationalityItem.setMask("[a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ]");
-		// [a-zA-ZáéíóúAÉÍÓÚÑñ]
 		nationalityItem.validateWords(GHAStrings.get("user-error-formatter"));
 
 		birthDateItem = new GHABirthDateItem(GHAStrings.get("birthdate"),
@@ -130,9 +128,6 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 		legalEntityIdentifierItem.validateCustomExpre(
 				GHAStrings.get("user-error-formatter-rif"),
 				"^[VvMmPprREeJjIiGg0-9|-]+$");
-		// setMask(">[V|M|P|R|E|J|I|G]-[0-9|-]");
-
-		// VMPREJIG
 
 		listeners = new ArrayList<UserSelectionListener>();
 
