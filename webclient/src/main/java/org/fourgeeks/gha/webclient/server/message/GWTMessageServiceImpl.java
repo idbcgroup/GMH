@@ -1,13 +1,13 @@
 package org.fourgeeks.gha.webclient.server.message;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.msg.GHAMessage;
-import org.fourgeeks.gha.ejb.ess.SSOUserServiceRemote;
 import org.fourgeeks.gha.ejb.msg.MessageServiceRemote;
 import org.fourgeeks.gha.webclient.client.message.GWTMessageService;
 
@@ -22,6 +22,9 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class GWTMessageServiceImpl extends RemoteServiceServlet implements
 		GWTMessageService {
 
+	private final static Logger logger = Logger
+			.getLogger(GWTMessageServiceImpl.class.getName());
+
 	/**
 	 * 
 	 */
@@ -29,9 +32,6 @@ public class GWTMessageServiceImpl extends RemoteServiceServlet implements
 	@EJB(lookup = "java:global/ear-1/ejb-1/MessageService!"
 			+ "org.fourgeeks.gha.ejb.msg.MessageServiceRemote")
 	MessageServiceRemote ejbService;
-
-	@EJB(lookup = "java:global/ear-1/ejb-1/SSOUserService")
-	SSOUserServiceRemote ssoUserService;
 
 	/*
 	 * (non-Javadoc)
@@ -41,10 +41,15 @@ public class GWTMessageServiceImpl extends RemoteServiceServlet implements
 	 * .lang.String)
 	 */
 	@Override
-	public GHAMessage find(String Id) throws GHAEJBException {
-		System.out.println(getThreadLocalRequest().getSession().getAttribute(
-				"user"));
-		return ejbService.find(Id);
+	public GHAMessage find(String id) throws GHAEJBException {
+		try {
+			final String user = String.valueOf(getThreadLocalRequest()
+					.getSession().getAttribute("user"));
+			return ejbService.find(user, id);
+		} catch (final NullPointerException e) {
+			logger.info("ERROR:user not found where it should be found");
+			return ejbService.find(null, id);
+		}
 	}
 
 	/*
@@ -56,7 +61,14 @@ public class GWTMessageServiceImpl extends RemoteServiceServlet implements
 	 */
 	@Override
 	public List<GHAMessage> find(List<String> messages) throws GHAEJBException {
-		return ejbService.find(messages);
+		try {
+			final String user = String.valueOf(getThreadLocalRequest()
+					.getSession().getAttribute("user"));
+			return ejbService.find(user, messages);
+		} catch (final NullPointerException e) {
+			logger.info("ERROR:user not found where it should be found");
+			return ejbService.find(messages);
+		}
 	}
 
 }

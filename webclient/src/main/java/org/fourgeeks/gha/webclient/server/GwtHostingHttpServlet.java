@@ -40,8 +40,7 @@ public class GwtHostingHttpServlet extends HttpServlet {
 	@EJB(lookup = "java:global/ear-1/ejb-1/SSOUserService")
 	SSOUserServiceRemote ssoUserService;
 
-	@EJB(lookup = "java:global/ear-1/ejb-1/MessageService!"
-			+ "org.fourgeeks.gha.ejb.msg.MessageServiceRemote")
+	@EJB(lookup = "java:global/ear-1/ejb-1/MessageService!org.fourgeeks.gha.ejb.msg.MessageServiceRemote")
 	MessageServiceRemote messageService;
 
 	@Override
@@ -143,7 +142,7 @@ public class GwtHostingHttpServlet extends HttpServlet {
 		if (user == null || user.equals("")) {
 			GHAMessage ghaMessage = null;
 			try {
-				ghaMessage = messageService.find("LOGIN003");
+				ghaMessage = messageService.find(null, "LOGIN003");
 				req.getSession().setAttribute("cause", ghaMessage.getText());
 				doGet(req, resp);
 				return;
@@ -160,7 +159,7 @@ public class GwtHostingHttpServlet extends HttpServlet {
 		} catch (final GHAEJBException e1) {
 			GHAMessage ghaMessage = null;
 			try {
-				ghaMessage = messageService.find("LOGIN005");
+				ghaMessage = messageService.find(null, "LOGIN005");
 				req.getSession().setAttribute("cause", ghaMessage.getText());
 				doGet(req, resp);
 				return;
@@ -185,7 +184,7 @@ public class GwtHostingHttpServlet extends HttpServlet {
 		} catch (final ServletException e) {
 			GHAMessage ghaMessage = null;
 			try {
-				ghaMessage = messageService.find("LOGIN002");
+				ghaMessage = messageService.find(null, "LOGIN002");
 			} catch (final GHAEJBException e1) {
 				e1.printStackTrace();
 			}
