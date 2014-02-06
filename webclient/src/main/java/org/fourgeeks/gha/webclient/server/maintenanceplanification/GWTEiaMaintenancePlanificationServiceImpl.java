@@ -13,7 +13,7 @@ import org.fourgeeks.gha.domain.gmh.EiaCorrectiveMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaPreventiveMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.ejb.gmh.EiaMaintenancePlanificationServiceRemote;
+import org.fourgeeks.gha.ejb.gmh.EiaMaintenanceServiceRemote;
 import org.fourgeeks.gha.webclient.client.eiamaintenance.GWTEiaMaintenanceService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -29,7 +29,7 @@ public class GWTEiaMaintenancePlanificationServiceImpl extends
 	private static final long serialVersionUID = 1L;
 
 	@EJB(lookup = "java:global/ear-1/ejb-1/EiaMaintenancePlanificationService")
-	EiaMaintenancePlanificationServiceRemote serviceRemote;
+	EiaMaintenanceServiceRemote serviceRemote;
 
 	@Override
 	public List<EiaMaintenancePlanification> find(EiaType eiaType)
@@ -45,7 +45,7 @@ public class GWTEiaMaintenancePlanificationServiceImpl extends
 			EiaMaintenancePlanification entity) throws GHAEJBException {
 
 		EiaCorrectiveMaintenancePlanification correctiveMaintenance = serviceRemote
-				.getCorrectiveMaintenancePlanification(entity);
+				.getCorrectiveMaintenance(entity);
 		return correctiveMaintenance;
 	}
 
@@ -54,7 +54,7 @@ public class GWTEiaMaintenancePlanificationServiceImpl extends
 			EiaMaintenancePlanification entity) throws GHAEJBException {
 
 		EiaPreventiveMaintenancePlanification preventiveMaintenance = serviceRemote
-				.getPreventiveMaintenancePlanification(entity);
+				.getPreventiveMaintenance(entity);
 		return preventiveMaintenance;
 	}
 

@@ -49,7 +49,7 @@ public class MaintenancePlanService extends GHAEJBExceptionService implements
 	EntityManager em;
 
 	@EJB
-	EiaPreventiveMaintenancePlanificationServiceLocal preventivePlanifServiceLocal;
+	EiaMaintenancePlanificationServiceLocal preventivePlanifServiceLocal;
 	@EJB
 	MaintenanceProtocolsServiceRemote protocolsServiceRemote;
 

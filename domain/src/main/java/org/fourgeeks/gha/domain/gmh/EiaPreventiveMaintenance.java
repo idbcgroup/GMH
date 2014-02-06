@@ -6,6 +6,8 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  * @author emiliot
@@ -13,6 +15,7 @@ import javax.persistence.ManyToOne;
  */
 @Entity
 @DiscriminatorValue("preventive")
+@NamedQueries(value = { @NamedQuery(name = "EiaPreventiveMaintenance.findByEiaType", query = "SELECT ecm FROM EiaPreventiveMaintenance ecm JOIN ecm.planification planif WHERE planif.eia.eiaType = :eiaType ORDER BY ecm.id") })
 public class EiaPreventiveMaintenance extends EiaMaintenance {
 	private static final long serialVersionUID = 1L;
 

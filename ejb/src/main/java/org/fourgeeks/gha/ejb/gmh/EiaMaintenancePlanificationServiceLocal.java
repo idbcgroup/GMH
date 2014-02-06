@@ -6,14 +6,13 @@ import java.sql.Timestamp;
 import javax.ejb.Local;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
-import org.fourgeeks.gha.domain.gmh.EiaPreventiveMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 
 /**
  * @author naramirez
  */
 @Local
-public interface EiaPreventiveMaintenancePlanificationServiceLocal {
+public interface EiaMaintenancePlanificationServiceLocal {
 
 	/**
 	 * Return the number of effectued preventive maintenance planifications for
@@ -28,12 +27,12 @@ public interface EiaPreventiveMaintenancePlanificationServiceLocal {
 			MaintenancePlan maintenancePlan) throws GHAEJBException;
 
 	/**
-	 * Return the number of {@link EiaPreventiveMaintenancePlanification}
-	 * entities that are associated to this {@link MaintenancePlan}
+	 * Return the number of {@link MaintenancePlan} entities that are associated
+	 * to this {@link MaintenancePlan}
 	 * 
 	 * @param maintenancePlan
 	 *            the given {@link MaintenancePlan}
-	 * @return the number of {@link EiaPreventiveMaintenancePlanification}
+	 * @return the number of {@link MaintenancePlan}
 	 * @throws GHAEJBException
 	 */
 	public Long getPlanificationsCount(MaintenancePlan maintenancePlan)

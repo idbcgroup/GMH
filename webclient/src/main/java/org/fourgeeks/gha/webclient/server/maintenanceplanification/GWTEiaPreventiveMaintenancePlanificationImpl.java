@@ -11,7 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.EiaPreventiveMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaType;
-import org.fourgeeks.gha.ejb.gmh.EiaPreventiveMaintenancePlanificationServiceRemote;
+import org.fourgeeks.gha.ejb.gmh.EiaMaintenancePlanificationServiceRemote;
 import org.fourgeeks.gha.webclient.client.eiapreventivemaintenanceplanification.GWTMaintenancePlanificationService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -29,7 +29,7 @@ public class GWTEiaPreventiveMaintenancePlanificationImpl extends
 
 	@EJB(lookup = "java:global/ear-1/ejb-1/EiaPreventiveMaintenancePlanificationService!"
 			+ "org.fourgeeks.gha.ejb.gmh.EiaPreventiveMaintenancePlanificationServiceRemote")
-	EiaPreventiveMaintenancePlanificationServiceRemote serviceRemote;
+	EiaMaintenancePlanificationServiceRemote serviceRemote;
 
 	@Override
 	public List<EiaPreventiveMaintenancePlanification> find(EiaType eiaType)

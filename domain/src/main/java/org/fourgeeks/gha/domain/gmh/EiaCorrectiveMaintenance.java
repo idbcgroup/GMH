@@ -3,6 +3,8 @@ package org.fourgeeks.gha.domain.gmh;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
@@ -13,6 +15,7 @@ import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
  */
 @Entity
 @DiscriminatorValue("corrective")
+@NamedQueries(value = { @NamedQuery(name = "EiaCorrectiveMaintenance.findByEiaType", query = "SELECT ecm FROM EiaCorrectiveMaintenance ecm JOIN ecm.damageReport dm WHERE dm.eia.eiaType = :eiaType ORDER BY ecm.id") })
 public class EiaCorrectiveMaintenance extends EiaMaintenance {
 	private static final long serialVersionUID = 1L;
 
