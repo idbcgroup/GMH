@@ -34,7 +34,7 @@ import org.fourgeeks.gha.domain.enu.MaintenancePlanCancelationOption;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanState;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanStatus;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanType;
-import org.fourgeeks.gha.domain.enu.MaintenancePlanificationStatus;
+import org.fourgeeks.gha.domain.enu.EiaMaintenanceState;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanificationType;
 import org.fourgeeks.gha.domain.enu.ProviderPreferenceEnum;
 import org.fourgeeks.gha.domain.enu.ProviderQualEnum;
@@ -193,7 +193,7 @@ public class MaintenanceActivityServiceTest {
 				.addClass(MaintenancePlanCancelationOption.class)
 				.addClass(MaintenancePlanState.class)
 				.addClass(MaintenancePlanType.class)
-				.addClass(MaintenancePlanificationStatus.class)
+				.addClass(EiaMaintenanceState.class)
 				.addClass(MaintenancePlanificationType.class)
 				.addClass(MaintenanceProtocols.class)
 				.addClass(ActivityState.class)

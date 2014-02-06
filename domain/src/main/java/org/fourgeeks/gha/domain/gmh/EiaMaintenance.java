@@ -6,19 +6,22 @@ package org.fourgeeks.gha.domain.gmh;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
+import org.fourgeeks.gha.domain.enu.EiaMaintenanceState;
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
-import org.fourgeeks.gha.domain.enu.MaintenancePlanificationStatus;
+import org.fourgeeks.gha.domain.enu.MaintenanceCancelationCause;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanificationType;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
-import org.fourgeeks.gha.domain.ess.Role;
-import org.fourgeeks.gha.domain.glm.ExternalProvider;
+import org.fourgeeks.gha.domain.gar.Bpu;
+import org.fourgeeks.gha.domain.glm.Bsp;
 
 /**
  * @author emiliot
@@ -26,32 +29,34 @@ import org.fourgeeks.gha.domain.glm.ExternalProvider;
  */
 
 @Entity
-@NamedQueries(value = { @NamedQuery(name = "findByEiaType", query = "SELECT emp FROM EiaMaintenancePlanification emp JOIN emp.eia empeia WHERE empeia.eiaType = :eiaType ORDER BY emp.id") })
-public class EiaMaintenance extends AbstractEntity {
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "m_type", discriminatorType = DiscriminatorType.STRING)
+public abstract class EiaMaintenance extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 
+	private String requestNumber;
+	private EiaMaintenanceState state;
+	private MaintenanceCancelationCause cancelationCause;
+	private Date scheduledDate;
+	private Date nextMantenanceExecutionDate;
 	@ManyToOne
-	@JoinColumn(name = "eiaFk")
-	private Eia eia;
+	@JoinColumn(name = "cancelationResponsableFk")
+	private Bpu cancelationResponsable;
 	@ManyToOne
 	@JoinColumn(name = "providerFk")
-	private ExternalProvider provider;
+	private Bsp provider;
 	@ManyToOne
-	@JoinColumn(name = "roleFk")
-	private Role role;
-
-	private String requestNumber;
-	private String technicianName;
-	private Date scheduledDate;
-	private Date deliverDate;
-	private Date acceptationDate;
+	@JoinColumn(name = "technicianFk")
+	private Bpu technician;
 	private Timestamp beginningTimestamp;
 	private Timestamp finishTimestamp;
 	private int effectiveTime;
 	private TimePeriodEnum effectivePoT;
 	private EiaStateEnum initialEiaState;
 	private EiaStateEnum finalEiaState;
-	private MaintenancePlanificationStatus status;
+	private Date deliverDate;
+	private Date acceptationDate;
+
 	private MaintenancePlanificationType type;
 
 	/**
@@ -61,24 +66,9 @@ public class EiaMaintenance extends AbstractEntity {
 	}
 
 	/**
-	 * @return the eia
-	 */
-	public Eia getEia() {
-		return eia;
-	}
-
-	/**
-	 * @param eia
-	 *            the eia to set
-	 */
-	public void setEia(Eia eia) {
-		this.eia = eia;
-	}
-
-	/**
 	 * @return the provider
 	 */
-	public ExternalProvider getProvider() {
+	public Bsp getProvider() {
 		return provider;
 	}
 
@@ -86,23 +76,8 @@ public class EiaMaintenance extends AbstractEntity {
 	 * @param provider
 	 *            the provider to set
 	 */
-	public void setProvider(ExternalProvider provider) {
+	public void setProvider(Bsp provider) {
 		this.provider = provider;
-	}
-
-	/**
-	 * @return the role
-	 */
-	public Role getRole() {
-		return role;
-	}
-
-	/**
-	 * @param role
-	 *            the role to set
-	 */
-	public void setRole(Role role) {
-		this.role = role;
 	}
 
 	/**
@@ -121,18 +96,18 @@ public class EiaMaintenance extends AbstractEntity {
 	}
 
 	/**
-	 * @return the technicianName
+	 * @return the technician
 	 */
-	public String getTechnicianName() {
-		return technicianName;
+	public Bpu getTechnician() {
+		return technician;
 	}
 
 	/**
-	 * @param technicianName
-	 *            the technicianName to set
+	 * @param technician
+	 *            the technician to set
 	 */
-	public void setTechnicianName(String technicianName) {
-		this.technicianName = technicianName;
+	public void setTechnician(Bpu technician) {
+		this.technician = technician;
 	}
 
 	/**
@@ -273,16 +248,16 @@ public class EiaMaintenance extends AbstractEntity {
 	/**
 	 * @return the status
 	 */
-	public MaintenancePlanificationStatus getStatus() {
-		return status;
+	public EiaMaintenanceState getState() {
+		return state;
 	}
 
 	/**
-	 * @param status
+	 * @param state
 	 *            the status to set
 	 */
-	public void setStatus(MaintenancePlanificationStatus status) {
-		this.status = status;
+	public void setState(EiaMaintenanceState state) {
+		this.state = state;
 	}
 
 	/**
@@ -298,6 +273,30 @@ public class EiaMaintenance extends AbstractEntity {
 	 */
 	public void setType(MaintenancePlanificationType type) {
 		this.type = type;
+	}
+
+	public MaintenanceCancelationCause getCancelationCause() {
+		return cancelationCause;
+	}
+
+	public void setCancelationCause(MaintenanceCancelationCause cancelationCause) {
+		this.cancelationCause = cancelationCause;
+	}
+
+	public Bpu getCancelationResponsable() {
+		return cancelationResponsable;
+	}
+
+	public void setCancelationResponsable(Bpu cancelationResponsable) {
+		this.cancelationResponsable = cancelationResponsable;
+	}
+
+	public Date getNextMantenanceExecutionDate() {
+		return nextMantenanceExecutionDate;
+	}
+
+	public void setNextMantenanceExecutionDate(Date nextMantenanceExecutionDate) {
+		this.nextMantenanceExecutionDate = nextMantenanceExecutionDate;
 	}
 
 }

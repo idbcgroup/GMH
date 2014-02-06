@@ -140,7 +140,7 @@ public class EIAPreventiveMaintenancePlanificationForm extends
 			entity.setPlan(plan);
 		}
 
-		planification.setScheduledDate(EIAUtil
+		planification.setBeginningDate(EIAUtil
 				.getLogicalDate(scheduledDateDateItem.getValueAsDate()));
 
 		entity.setPlanificationState(MaintenancePlanificationState
@@ -218,7 +218,7 @@ public class EIAPreventiveMaintenancePlanificationForm extends
 
 	@Override
 	public void set(EiaMaintenancePlanification entity) {
-		scheduledDateDateItem.setValue(entity.getScheduledDate());
+		scheduledDateDateItem.setValue(entity.getBeginningDate());
 		providerSelectItem.setValue(entity.getMaintenanceProvider());
 		roleSelectItem.setValue(entity.getJobResponsable());
 		planificationStateSelectItem.setValue(entity.getPlanificationState());

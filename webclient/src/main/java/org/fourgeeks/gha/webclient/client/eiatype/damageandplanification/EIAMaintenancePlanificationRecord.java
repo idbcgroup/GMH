@@ -17,7 +17,7 @@ public class EIAMaintenancePlanificationRecord extends
 		Eia eia = preventivePlanif.getEia();
 
 		setAttribute("id", preventivePlanif.getId());
-		setAttribute("initDate", preventivePlanif.getScheduledDate());
+		setAttribute("initDate", preventivePlanif.getBeginningDate());
 		setAttribute("eia", eia == null ? "" : eia.getSerialNumber());
 		setAttribute("plan", plan == null ? "" : plan.getMaintenancePlan()
 				.getName());

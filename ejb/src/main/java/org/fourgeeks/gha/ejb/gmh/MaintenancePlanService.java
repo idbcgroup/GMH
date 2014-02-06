@@ -25,7 +25,7 @@ import org.fourgeeks.gha.domain.Activity;
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanState;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanType;
-import org.fourgeeks.gha.domain.enu.MaintenancePlanificationStatus;
+import org.fourgeeks.gha.domain.enu.EiaMaintenanceState;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.Eia;
@@ -173,7 +173,7 @@ public class MaintenancePlanService extends GHAEJBExceptionService implements
 							Eia.class)
 					.setParameter("states", states)
 					.setParameter("status",
-							MaintenancePlanificationStatus.DEFERRED)
+							EiaMaintenanceState.DEFERRED)
 					.setParameter("plan", maintenancePlan).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.SEVERE,

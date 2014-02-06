@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
-import org.fourgeeks.gha.domain.enu.MaintenancePlanificationStatus;
+import org.fourgeeks.gha.domain.enu.EiaMaintenanceState;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanificationType;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.ess.Role;
@@ -330,7 +330,7 @@ public class EIAMaintenanceForm extends
 
 		String mStatus = maintenanceStatusSelectItem.getValueAsString();
 		entity.setStatus(mStatus == null ? null
-				: MaintenancePlanificationStatus.valueOf(mStatus));
+				: EiaMaintenanceState.valueOf(mStatus));
 
 		if (providerSelectItem.getValue() != null) {
 			final ExternalProvider provider = new ExternalProvider(
@@ -504,15 +504,15 @@ public class EIAMaintenanceForm extends
 		if (entity.getType() == MaintenancePlanificationType.CORRECTIVE) {
 			selectCorrectiveMaintenance(selectedMaintenance);
 			maintenanceStatusSelectItem
-					.setValueMap(MaintenancePlanificationStatus
-							.toValueMap(MaintenancePlanificationStatus.EIA_DAMAGE));
+					.setValueMap(EiaMaintenanceState
+							.toValueMap(EiaMaintenanceState.EIA_DAMAGE));
 		} else {
 			selectPreventiveMaintenance(selectedMaintenance);
 			maintenanceStatusSelectItem
-					.setValueMap(MaintenancePlanificationStatus.toValueMap(
-							MaintenancePlanificationStatus.ACCOMPLISHED,
-							MaintenancePlanificationStatus.CANCELED,
-							MaintenancePlanificationStatus.DEFERRED));
+					.setValueMap(EiaMaintenanceState.toValueMap(
+							EiaMaintenanceState.ACCOMPLISHED,
+							EiaMaintenanceState.CANCELED,
+							EiaMaintenanceState.DEFERRED));
 		}
 
 		set(selectedMaintenance);
@@ -617,7 +617,7 @@ public class EIAMaintenanceForm extends
 		finalEiaStateSelectItem.setValue(finalEiaState == null ? null
 				: finalEiaState.name());
 
-		MaintenancePlanificationStatus status = entity.getStatus();
+		EiaMaintenanceState status = entity.getStatus();
 		maintenanceStatusSelectItem.setValue(status == null ? null : status
 				.name());
 

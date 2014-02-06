@@ -1,41 +1,36 @@
 package org.fourgeeks.gha.domain.gmh;
 
+import java.sql.Date;
+
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.validation.constraints.NotNull;
-
-import org.fourgeeks.gha.domain.AbstractEntity;
-import org.fourgeeks.gha.domain.enu.MaintenancePlanState;
-import org.fourgeeks.gha.domain.enu.MaintenancePlanStatus;
 
 /**
  * @author emiliot
  * 
  */
 @Entity
-public class EiaPreventiveMaintenance extends AbstractEntity {
-
-	/**
-	 * 
-	 */
+@DiscriminatorValue("preventive")
+public class EiaPreventiveMaintenance extends EiaMaintenance {
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * La planificacion de mantenimiento asociada al mantenimiento preventivo
+	 */
 	@ManyToOne
-	@NotNull(message = "eiatype-maintenance-plan-not-null")
-	@JoinColumn(name = "eiaTypeMaintenancePlanFk", nullable = false)
-	private EiaTypeMaintenancePlan plan;
-
-	@OneToOne
-	@JoinColumn(name = "eiaMaintenancePlanificationFk", nullable = false)
+	@JoinColumn(name = "maintenancePlanificationFk", nullable = false)
 	private EiaMaintenancePlanification planification;
 
-	/** status del plan de mantenimiento para el equipo */
-	private MaintenancePlanStatus eiaPlanStatus;
+	/**
+	 * Fecha programada para realizar el mantenimiento preventivo. es calculado
+	 * a partir de la fecha de inicio de la planificacion de mantenimiento y la
+	 * frecuencia del plan asociado a dicha planificación
+	 */
+	private Date scheduledDate;
 
-	/** estado del plan de mantenimiento para el equipo (activo, inactivo) */
-	private MaintenancePlanState eiaPlanState;
+	// TODO lista de consumibles y partes cambiadas al equipo
 
 	/**
 	 * 
@@ -45,25 +40,17 @@ public class EiaPreventiveMaintenance extends AbstractEntity {
 	}
 
 	/**
-	 * @return the plan
-	 */
-	public EiaTypeMaintenancePlan getPlan() {
-		return plan;
-	}
-
-	/**
-	 * @param plan
-	 *            the plan to set
-	 */
-	public void setPlan(EiaTypeMaintenancePlan plan) {
-		this.plan = plan;
-	}
-
-	/**
 	 * @return the planification
 	 */
 	public EiaMaintenancePlanification getPlanification() {
 		return planification;
+	}
+
+	/**
+	 * 
+	 */
+	public Date getScheduledDate() {
+		return scheduledDate;
 	}
 
 	/**
@@ -75,33 +62,9 @@ public class EiaPreventiveMaintenance extends AbstractEntity {
 	}
 
 	/**
-	 * @return the eiaPlanStatus
+	 * 
 	 */
-	public MaintenancePlanStatus getEiaPlanStatus() {
-		return eiaPlanStatus;
+	public void setScheduledDate(Date scheduledDate) {
+		this.scheduledDate = scheduledDate;
 	}
-
-	/**
-	 * @param planStatus
-	 *            the planStatus to set
-	 */
-	public void setEiaPlanStatus(MaintenancePlanStatus planStatus) {
-		this.eiaPlanStatus = planStatus;
-	}
-
-	/**
-	 * @return the eiaPlanState
-	 */
-	public MaintenancePlanState getEiaPlanState() {
-		return eiaPlanState;
-	}
-
-	/**
-	 * @param eiaPlanState
-	 *            the eiaPlanState to set
-	 */
-	public void setEiaPlanState(MaintenancePlanState eiaPlanState) {
-		this.eiaPlanState = eiaPlanState;
-	}
-
 }

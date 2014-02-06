@@ -11,10 +11,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
-import org.fourgeeks.gha.domain.enu.MaintenancePlanificationType;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.Eia;
-import org.fourgeeks.gha.domain.gmh.EiaCorrectiveMaintenancePlanification;
+import org.fourgeeks.gha.domain.gmh.EiaCorrectiveMaintenance;
 import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaType;
@@ -85,16 +84,14 @@ public class EiaDamageReportService extends GHAEJBExceptionService implements
 		}
 	}
 
-	private EiaCorrectiveMaintenancePlanification getEiaCorrectiveMaintenancePlanification(
+	private EiaCorrectiveMaintenance getEiaCorrectiveMaintenance(
 			Eia eia) {
-		EiaCorrectiveMaintenancePlanification planification = new EiaCorrectiveMaintenancePlanification();
+		EiaCorrectiveMaintenance planification = new EiaCorrectiveMaintenance();
 		EiaMaintenancePlanification maintenancePlanification = new EiaMaintenancePlanification();
 		maintenancePlanification.setEia(eia);
 		java.util.Date date = new java.util.Date();
-		maintenancePlanification.setScheduledDate(new Date(date.getTime()));
+		maintenancePlanification.setBeginningDate(new Date(date.getTime()));
 		planification.setPlanification(maintenancePlanification);
-		maintenancePlanification
-				.setType(MaintenancePlanificationType.CORRECTIVE);
 
 		return planification;
 	}
@@ -103,7 +100,7 @@ public class EiaDamageReportService extends GHAEJBExceptionService implements
 	public EiaDamageReport save(EiaDamageReport eiaDamageReport)
 			throws GHAEJBException {
 		Eia eia = eiaDamageReport.getEia();
-		EiaCorrectiveMaintenancePlanification cmp = getEiaCorrectiveMaintenancePlanification(eia);
+		EiaCorrectiveMaintenance cmp = getEiaCorrectiveMaintenance(eia);
 
 		try {
 			em.merge(eia);

@@ -2,13 +2,13 @@ package org.fourgeeks.gha.domain.enu;
 
 import java.util.LinkedHashMap;
 
-public enum MaintenancePlanificationStatus {
+public enum EiaMaintenanceState {
 	ACCOMPLISHED("Realizado"), CANCELED("Cancelado"), DEFERRED("Diferido"), EIA_DAMAGE(
 			"Daño Equipo");
 
 	private String name;
 
-	private MaintenancePlanificationStatus(String name) {
+	private EiaMaintenanceState(String name) {
 		this.name = name;
 	}
 
@@ -19,17 +19,17 @@ public enum MaintenancePlanificationStatus {
 
 	public static LinkedHashMap<String, String> toValueMap() {
 		LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-		for (MaintenancePlanificationStatus val : MaintenancePlanificationStatus
+		for (EiaMaintenanceState val : EiaMaintenanceState
 				.values())
 			valueMap.put(val.name() + "", val.toString());
 		return valueMap;
 	}
 
 	public static LinkedHashMap<String, String> toValueMap(
-			MaintenancePlanificationStatus... statuses) {
+			EiaMaintenanceState... statuses) {
 
 		LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-		for (MaintenancePlanificationStatus val : statuses)
+		for (EiaMaintenanceState val : statuses)
 			valueMap.put(val.name() + "", val.toString());
 		return valueMap;
 	}

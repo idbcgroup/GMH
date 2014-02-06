@@ -13,7 +13,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
-import org.fourgeeks.gha.domain.enu.MaintenancePlanificationStatus;
+import org.fourgeeks.gha.domain.enu.EiaMaintenanceState;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaPreventiveMaintenancePlanification;
@@ -99,7 +99,7 @@ public class EiaPreventiveMaintenancePlanificationService extends
 					.createQuery(stringQuery, Long.class)
 					.setParameter("maintenancePlan", maintenancePlan)
 					.setParameter("status",
-							MaintenancePlanificationStatus.ACCOMPLISHED)
+							EiaMaintenanceState.ACCOMPLISHED)
 					.getSingleResult();
 
 			return result;
@@ -155,7 +155,7 @@ public class EiaPreventiveMaintenancePlanificationService extends
 					.createQuery(stringQuery, EiaMaintenancePlanification.class)
 					.setParameter("maintenancePlan", maintenancePlan)
 					.setParameter("status",
-							MaintenancePlanificationStatus.ACCOMPLISHED)
+							EiaMaintenanceState.ACCOMPLISHED)
 					.getResultList();
 
 			if (resultList.isEmpty())

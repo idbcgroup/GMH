@@ -23,18 +23,41 @@ import org.fourgeeks.gha.domain.glm.Bsp;
  */
 
 @Entity
-@NamedQueries(value = { @NamedQuery(name = "findByEiaType", query = "SELECT emp FROM EiaMaintenancePlanification emp JOIN emp.eia empeia WHERE empeia.eiaType = :eiaType ORDER BY emp.id") })
+@NamedQueries(value = { @NamedQuery(name = "EiaMaintenancePlanification.findByEiaType", query = "SELECT emp FROM EiaMaintenancePlanification emp JOIN emp.plan plan WHERE plan.eiaType = :eiaType ORDER BY emp.id") })
 public class EiaMaintenancePlanification extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * El equipo al que se la aplicara el plan de mantenimiento
+	 */
 	@ManyToOne
 	@JoinColumn(name = "eiaFk")
 	private Eia eia;
 
+	/**
+	 * plan de mantenimiento que se asociará con el equipo para crear la
+	 * planificación de mantenimiento.
+	 */
 	@ManyToOne
 	@NotNull(message = "eiatype-maintenance-plan-not-null")
 	@JoinColumn(name = "eiaTypeMaintenancePlanFk", nullable = false)
 	private EiaTypeMaintenancePlan plan;
+
+	/**
+	 * Es el proveedor de servicio responsable de aplicar el plan de
+	 * mantenimiento al equipo.
+	 */
+	@ManyToOne
+	@JoinColumn(name = "maintenanceProviderFk")
+	private Bsp maintenanceProvider;
+
+	/**
+	 * Es el responsable de velar por la ejecución del plan mantenimiento al
+	 * equipo
+	 */
+	@ManyToOne
+	@JoinColumn(name = "jobResponsableFk")
+	private Job jobResponsable;
 
 	/**
 	 * Estado de la planificación de mantenimiento: permite activar o
@@ -42,19 +65,10 @@ public class EiaMaintenancePlanification extends AbstractEntity {
 	 */
 	private MaintenancePlanificationState planificationState;
 
-	private Date scheduledDate;
+	/** fecha en que ha de comenzar el mantenimiento. */
+	private Date beginningDate;
 
-	@ManyToOne
-	@JoinColumn(name = "maintenanceProviderFk")
-	private Bsp maintenanceProvider;
-
-	@ManyToOne
-	@JoinColumn(name = "jobResponsableFk")
-	private Job jobResponsable;
-
-	/**
-	 * 
-	 */
+	/** */
 	public EiaMaintenancePlanification() {
 	}
 
@@ -94,10 +108,10 @@ public class EiaMaintenancePlanification extends AbstractEntity {
 	}
 
 	/**
-	 * @return the scheduledDate
+	 * @return the beginningDate
 	 */
-	public Date getScheduledDate() {
-		return scheduledDate;
+	public Date getBeginningDate() {
+		return beginningDate;
 	}
 
 	/**
@@ -141,10 +155,10 @@ public class EiaMaintenancePlanification extends AbstractEntity {
 	}
 
 	/**
-	 * @param scheduledDate
-	 *            the scheduledDate to set
+	 * @param beginningDate
+	 *            the beginningDate to set
 	 */
-	public void setScheduledDate(Date scheduledDate) {
-		this.scheduledDate = scheduledDate;
+	public void setBeginningDate(Date beginningDate) {
+		this.beginningDate = beginningDate;
 	}
 }

@@ -34,7 +34,7 @@ import org.fourgeeks.gha.domain.enu.MaintenancePlanState;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanStatus;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanType;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanificationState;
-import org.fourgeeks.gha.domain.enu.MaintenancePlanificationStatus;
+import org.fourgeeks.gha.domain.enu.EiaMaintenanceState;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanificationType;
 import org.fourgeeks.gha.domain.enu.ProviderPreferenceEnum;
 import org.fourgeeks.gha.domain.enu.ProviderQualEnum;
@@ -196,7 +196,7 @@ public class UILogServiceTest {
 				.addClass(RequiredResources.class)
 				.addClass(MaintenancePlan.class)
 				.addClass(MaintenancePlanificationState.class)
-				.addClass(MaintenancePlanificationStatus.class)
+				.addClass(EiaMaintenanceState.class)
 				.addClass(MaintenancePlanificationType.class)
 				.addClass(MaintenancePlanState.class)
 				.addClass(MaintenancePlanStatus.class)
