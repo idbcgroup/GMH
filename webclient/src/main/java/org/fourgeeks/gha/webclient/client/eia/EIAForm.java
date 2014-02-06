@@ -247,6 +247,35 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		actualCostTextItem.setMask("################");
 		actualCostCurrencySelectItem = new GHASelectItem("Moneda", false,
 				changedHandler);
+
+		//Regex!
+
+		serialTextItem.validateSerial(GHAStrings.get("eia-error-formatter-serial"));
+
+		codeTextItem.validateCodes(GHAStrings.get("eia-error-formatter-code"));
+
+		adquisitionCostTextItem.validateNumbers(GHAStrings.get("eia-error-formatter-code"));
+
+		adquisitionCostTextItem.validateNumbers(GHAStrings.get("eia-error-formatter-numeric"));
+
+		purchaseOrderNumTextItem.valdateNumbers(GHAStrings.get("eia-error-formatter-numeric"));
+
+		purchaseInvoiceNumTextItem.validateNumbers(GHAStrings.get("eia-error-formatter-numeric"));
+
+			adquisitionCostTextItem.validateNumers(GHAStrings.get("eia-error-formatter-numeric"));
+
+			adquisitionCostLocalTextItem.validateNumers(GHAStrings.get("eia-error-formatter-numeric"));
+
+			depreciationTimeTextItem.validateNumers(GHAStrings.get("eia-error-formatter-numeric"));
+
+			lifeTimeTextItem.validateNumers(GHAStrings.get("eia-error-formatter-numeric"));
+
+			actualCostTextItem.validateNumers(GHAStrings.get("eia-error-formatter-numeric"));
+
+			realWarrantyTimeTextItem.validateNumers(GHAStrings.get("eia-error-formatter-numeric"));
+
+			intWarrantyTimeTextItem.validateNumers(GHAStrings.get("eia-error-formatter-numeric"));
+
 	}
 
 	/**
