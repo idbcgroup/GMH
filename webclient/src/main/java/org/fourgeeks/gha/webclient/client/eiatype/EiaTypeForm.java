@@ -89,6 +89,15 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 		listeners = new ArrayList<EIATypeSelectionListener>();
 
 		form = new GHADynamicForm(4, FormType.NORMAL_FORM);
+
+		//Regex!
+		
+		nameItem.validateWords(GHAStrings.get("eiatype-error-formatter-word"));
+
+		modelItem.validateWords(GHAStrings.get("eiatype-error-formatter-word"));
+
+		//Incierto si requiere validacion o no
+		//eiaUmdnsItem.validateWords(GHAStrings.get("eiatype-error-formatter-word"));
 	}
 
 	/**
