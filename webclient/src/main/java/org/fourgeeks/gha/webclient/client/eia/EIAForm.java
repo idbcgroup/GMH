@@ -539,9 +539,12 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		// }
 
 		// costs
-		if (adquisitionCostTextItem.getValue() != null)
+		if (adquisitionCostTextItem.getValue() != null) {
+			if (!adquisitionCostTextItem.validate())
+				violationsList.add("eia-cost-error-formatter");
 			eia.setAdquisitionCost(BigDecimal.valueOf(Double
 					.valueOf(adquisitionCostTextItem.getValueAsString())));
+		}
 		if (adquisitionCostCurrencySelectItem.getValue() != null)
 			eia.setAdquisitionCostCurrency(CurrencyTypeEnum
 					.valueOf(adquisitionCostCurrencySelectItem
@@ -550,9 +553,12 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		if (contabilizationDateItem.getValue() != null)
 			eia.setContabilizationDate(new Date(contabilizationDateItem
 					.getValueAsDate().getTime()));
-		if (adquisitionCostLocalTextItem.getValue() != null)
+		if (adquisitionCostLocalTextItem.getValue() != null) {
+			if (!adquisitionCostLocalTextItem.validate())
+				violationsList.add("eia-cost-local-error-formatter");
 			eia.setAdquisitionCostLocal(BigDecimal.valueOf(Double
 					.valueOf(adquisitionCostLocalTextItem.getValueAsString())));
+		}
 
 		if (adquisitionCostCurrencyLocalSelectItem.getValue() != null)
 			eia.setAdquisitionCostCurrencyLocal(CurrencyTypeEnum

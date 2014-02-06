@@ -237,7 +237,7 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 
 		if (firstNameItem.getValue() != null) {
 			if (!firstNameItem.validate())
-				violationsList.add("user-fisrt-name-error-formatter");
+				violationsList.add("user-first-name-error-formatter");
 
 		}
 
@@ -249,7 +249,7 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 
 		if (lastNameItem.getValue() != null) {
 			if (!lastNameItem.validate())
-				violationsList.add("user-fisrt-last-name-error-formatter");
+				violationsList.add("user-first-last-name-error-formatter");
 
 		}
 

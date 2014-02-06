@@ -1,3 +1,5 @@
+ES,eia-cost-error-formatter,Error de formato: El costo solo puede ser expresado en numeros
+ES,eia-cost-local-error-formatter,Error de formato: El costo local solo puede ser expresado en numeros
 ES,user-fisrt-name-error-formatter,error de formato el primer nombre solo permite letras
 ES,user-second-name-error-formatter,error de formato el segundo nombre solo permite letras
 ES,user-fisrt-last-name-error-formatter,error de formato el primer apellido solo permite letras

@@ -2,6 +2,8 @@ package org.fourgeeks.gha.webclient.client.UI.formItems;
 
 import java.util.Date;
 
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
+
 import com.smartgwt.client.widgets.form.fields.TextItem;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 import com.smartgwt.client.widgets.form.fields.events.EditorExitEvent;
