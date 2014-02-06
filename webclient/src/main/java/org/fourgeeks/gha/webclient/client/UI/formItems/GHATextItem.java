@@ -226,6 +226,10 @@ public class GHATextItem extends TextItem {
 		validateCustomExpre(messageError, "^[a-zA-ZáéíóúÁÉÍÓÚÑñ0-9 ]+$");
 	}
 
+	public void validateSerial(String messageError) {
+		validateCustomExpre(messageError, "^[0-9-]+$");
+	}
+
 	public void validateCodes(String messageError) { //alfanumerico sin espacio
 		validateCustomExpre(messageError, "^[a-zA-ZáéíóúÁÉÍÓÚÑñ0-9]+$");
 	}

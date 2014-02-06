@@ -105,11 +105,11 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		codeTextItem = new GHATextItem(GHAStrings.get("code"), false,
 				changedHandler);
 		codeTextItem.setLength(20);
-		codeTextItem.setMask("####################");
+		//codeTextItem.setMask("####################");
 		serialTextItem = new GHATextItem(GHAStrings.get("serial"), true,
 				changedHandler);
 		serialTextItem.setLength(20);
-		serialTextItem.setMask("AAAAAAAAAAAAAAAAAAAA");
+		//serialTextItem.setMask("AAAAAAAAAAAAAAAAAAAA");
 		serialTextItem.setRequired(true);
 		fixedAssetIdTextItem = new GHATextItem(
 				GHAStrings.get("fixed-asset-identifier"), true, changedHandler);
@@ -140,11 +140,11 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		purchaseOrderNumTextItem = new GHATextItem("No. Orden Compra", false,
 				changedHandler);
 		purchaseOrderNumTextItem.setLength(20);
-		purchaseOrderNumTextItem.setMask("####################");
+		//purchaseOrderNumTextItem.setMask("####################");
 		purchaseInvoiceNumTextItem = new GHATextItem("No. Factura", false,
 				changedHandler);
 		purchaseInvoiceNumTextItem.setLength(20);
-		purchaseInvoiceNumTextItem.setMask("####################");
+		//purchaseInvoiceNumTextItem.setMask("####################");
 		receptionDateItem = new GHADateItem("Recepción", true);
 		receptionDateItem.addChangedHandler(changedHandler);
 
@@ -171,7 +171,7 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		realWarrantyTimeTextItem = new GHATextItem("Duración", false,
 				changedHandler);
 		realWarrantyTimeTextItem.setLength(3);
-		realWarrantyTimeTextItem.setMask("###");
+		//realWarrantyTimeTextItem.setMask("###");
 		realWarrantyPotSelectItem = new GHAPeriodOfTimeSelectItem(false,
 				changedHandler);
 		realWarrantyBeginDate = new GHADateItem("Fecha Inicio", true);
@@ -182,7 +182,7 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		intWarrantyTimeTextItem = new GHATextItem("Duración", false,
 				changedHandler);
 		intWarrantyTimeTextItem.setLength(3);
-		intWarrantyTimeTextItem.setMask("###");
+		//intWarrantyTimeTextItem.setMask("###");
 		intWarrantyPotSelectItem = new GHAPeriodOfTimeSelectItem(false,
 				changedHandler);
 		intWarrantyBeginDate = new GHADateItem("Fecha Inicio", true);
@@ -213,7 +213,7 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		adquisitionCostTextItem = new GHATextItem("Costo de Adq. del equipo",
 				false, changedHandler);
 		adquisitionCostTextItem.setLength(16);
-		adquisitionCostTextItem.setMask("################");
+		//adquisitionCostTextItem.setMask("################");
 		adquisitionCostCurrencySelectItem = new GHASelectItem("Moneda", false,
 				changedHandler);
 		contabilizationDateItem = new GHADateItem("Fecha de Contabilización",
@@ -223,7 +223,7 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		adquisitionCostLocalTextItem = new GHATextItem("Costo de Adq. Local",
 				false, changedHandler);
 		adquisitionCostLocalTextItem.setLength(16);
-		adquisitionCostLocalTextItem.setMask("################");
+		//adquisitionCostLocalTextItem.setMask("################");
 		adquisitionCostCurrencyLocalSelectItem = new GHASelectItem(
 				"Moneda Local", false, changedHandler);
 		depreciationMethodSelectItem = new GHASelectItem("Metodo Depreciación",
@@ -231,20 +231,20 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		depreciationTimeTextItem = new GHATextItem("Duración", false,
 				changedHandler);
 		depreciationTimeTextItem.setLength(3);
-		depreciationTimeTextItem.setMask("###");
+		//depreciationTimeTextItem.setMask("###");
 		depreciationTimePotSelectItem = new GHAPeriodOfTimeSelectItem(false,
 				changedHandler);
 		lastDepreciationDate = new GHADateItem("Fecha Ult. Depreciación", true);
 		lastDepreciationDate.addChangedHandler(changedHandler);
 		lifeTimeTextItem = new GHATextItem("Duración", false, changedHandler);
 		lifeTimeTextItem.setLength(3);
-		lifeTimeTextItem.setMask("###");
+		//lifeTimeTextItem.setMask("###");
 		lifeTimePotSelectItem = new GHAPeriodOfTimeSelectItem(false,
 				changedHandler);
 		actualCostTextItem = new GHATextItem("Costo Actual en libros", false,
 				changedHandler);
 		actualCostTextItem.setLength(16);
-		actualCostTextItem.setMask("################");
+		//actualCostTextItem.setMask("################");
 		actualCostCurrencySelectItem = new GHASelectItem("Moneda", false,
 				changedHandler);
 
@@ -258,23 +258,23 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 
 		adquisitionCostTextItem.validateNumbers(GHAStrings.get("eia-error-formatter-numeric"));
 
-		purchaseOrderNumTextItem.valdateNumbers(GHAStrings.get("eia-error-formatter-numeric"));
+		purchaseOrderNumTextItem.validateNumbers(GHAStrings.get("eia-error-formatter-numeric"));
 
 		purchaseInvoiceNumTextItem.validateNumbers(GHAStrings.get("eia-error-formatter-numeric"));
 
-			adquisitionCostTextItem.validateNumers(GHAStrings.get("eia-error-formatter-numeric"));
+			adquisitionCostTextItem.validateNumbers(GHAStrings.get("eia-error-formatter-numeric"));
 
-			adquisitionCostLocalTextItem.validateNumers(GHAStrings.get("eia-error-formatter-numeric"));
+			adquisitionCostLocalTextItem.validateNumbers(GHAStrings.get("eia-error-formatter-numeric"));
 
-			depreciationTimeTextItem.validateNumers(GHAStrings.get("eia-error-formatter-numeric"));
+			depreciationTimeTextItem.validateNumbers(GHAStrings.get("eia-error-formatter-numeric"));
 
-			lifeTimeTextItem.validateNumers(GHAStrings.get("eia-error-formatter-numeric"));
+			lifeTimeTextItem.validateNumbers(GHAStrings.get("eia-error-formatter-numeric"));
 
-			actualCostTextItem.validateNumers(GHAStrings.get("eia-error-formatter-numeric"));
+			actualCostTextItem.validateNumbers(GHAStrings.get("eia-error-formatter-numeric"));
 
-			realWarrantyTimeTextItem.validateNumers(GHAStrings.get("eia-error-formatter-numeric"));
+			realWarrantyTimeTextItem.validateNumbers(GHAStrings.get("eia-error-formatter-numeric"));
 
-			intWarrantyTimeTextItem.validateNumers(GHAStrings.get("eia-error-formatter-numeric"));
+			intWarrantyTimeTextItem.validateNumbers(GHAStrings.get("eia-error-formatter-numeric"));
 
 	}
 
