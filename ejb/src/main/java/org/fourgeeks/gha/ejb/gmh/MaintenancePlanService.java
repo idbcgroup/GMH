@@ -22,10 +22,10 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.fourgeeks.gha.domain.Activity;
+import org.fourgeeks.gha.domain.enu.EiaMaintenanceState;
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanState;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanType;
-import org.fourgeeks.gha.domain.enu.EiaMaintenanceState;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.Eia;
@@ -35,7 +35,6 @@ import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlanStadisticData;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
-import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
  * @author emiliot, vivi.torresg, naramirez
@@ -125,7 +124,7 @@ public class MaintenancePlanService extends GHAEJBExceptionService implements
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete MaintenancePlan", e);
 			throw super.generateGHAEJBException("maintenancePlan-delete-fail",
-					RuntimeParameters.getLang(), em);
+					em);
 		}
 	}
 
@@ -148,8 +147,7 @@ public class MaintenancePlanService extends GHAEJBExceptionService implements
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "Error: finding Eia by MaintenancePlan", e);
 			throw super.generateGHAEJBException(
-					"maintenancePlan-findEiaByMaintenancePlan-fail",
-					RuntimeParameters.getLang(), em);
+					"maintenancePlan-findEiaByMaintenancePlan-fail", em);
 		}
 	}
 
@@ -170,17 +168,14 @@ public class MaintenancePlanService extends GHAEJBExceptionService implements
 			return em
 					.createNamedQuery(
 							"MaintenancePlan.findDamageEiaByMaintenancePlan",
-							Eia.class)
-					.setParameter("states", states)
-					.setParameter("status",
-							EiaMaintenanceState.DEFERRED)
+							Eia.class).setParameter("eiastates", states)
+					.setParameter("mstate", EiaMaintenanceState.DEFERRED)
 					.setParameter("plan", maintenancePlan).getResultList();
 		} catch (Exception e) {
 			logger.log(Level.SEVERE,
 					"Error: finding damaged Eias by MaintenancePlan", e);
 			throw super.generateGHAEJBException(
-					"maintenancePlan-findDamagedEiaByMaintenancePlan-fail",
-					RuntimeParameters.getLang(), em);
+					"maintenancePlan-findDamagedEiaByMaintenancePlan-fail", em);
 		}
 	}
 
@@ -197,7 +192,7 @@ public class MaintenancePlanService extends GHAEJBExceptionService implements
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete MaintenancePlan", e);
 			throw super.generateGHAEJBException("maintenancePlan-delete-fail",
-					RuntimeParameters.getLang(), em);
+					em);
 		}
 	}
 
@@ -212,8 +207,8 @@ public class MaintenancePlanService extends GHAEJBExceptionService implements
 			return em.find(MaintenancePlan.class, Id);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: finding MaintenancePlan", e);
-			throw super.generateGHAEJBException("maintenancePlan-find-fail",
-					RuntimeParameters.getLang(), em);
+			throw super
+					.generateGHAEJBException("maintenancePlan-find-fail", em);
 		}
 	}
 
@@ -265,8 +260,7 @@ public class MaintenancePlanService extends GHAEJBExceptionService implements
 					"Error obteniendo los maintenancePlan por maintenancePlan",
 					e);
 			throw super.generateGHAEJBException(
-					"maintenancePlan-findByMaintenancePlan-fail",
-					RuntimeParameters.getLang(), em);
+					"maintenancePlan-findByMaintenancePlan-fail", em);
 		}
 	}
 
@@ -288,8 +282,7 @@ public class MaintenancePlanService extends GHAEJBExceptionService implements
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding by MaintenancePlan", e);
 			throw super.generateGHAEJBException(
-					"maintenancePlan-findByEiaType-fail",
-					RuntimeParameters.getLang(), em);
+					"maintenancePlan-findByEiaType-fail", em);
 		}
 	}
 
@@ -312,8 +305,7 @@ public class MaintenancePlanService extends GHAEJBExceptionService implements
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding by MaintenancePlan", e);
 			throw super.generateGHAEJBException(
-					"maintenancePlan-findByEiaType-fail",
-					RuntimeParameters.getLang(), em);
+					"maintenancePlan-findByEiaType-fail", em);
 		}
 	}
 
@@ -330,7 +322,7 @@ public class MaintenancePlanService extends GHAEJBExceptionService implements
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding all MaintenancePlan", e);
 			throw super.generateGHAEJBException("maintenancePlan-getAll-fail",
-					RuntimeParameters.getLang(), em);
+					em);
 		}
 	}
 
@@ -351,7 +343,7 @@ public class MaintenancePlanService extends GHAEJBExceptionService implements
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding all MaintenancePlan", e);
 			throw super.generateGHAEJBException("maintenancePlan-getAll-fail",
-					RuntimeParameters.getLang(), em);
+					em);
 		}
 	}
 
@@ -454,7 +446,7 @@ public class MaintenancePlanService extends GHAEJBExceptionService implements
 					"ERROR: unable to get stadistic info from the MaintenancePlan ",
 					e);
 			throw super.generateGHAEJBException("maintenancePlan-update-fail",
-					RuntimeParameters.getLang(), em);
+					em);
 		}
 	}
 
@@ -474,8 +466,8 @@ public class MaintenancePlanService extends GHAEJBExceptionService implements
 			return em.find(MaintenancePlan.class, maintenancePlan.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving MaintenancePlan ", e);
-			throw super.generateGHAEJBException("maintenancePlan-save-fail",
-					RuntimeParameters.getLang(), em);
+			throw super
+					.generateGHAEJBException("maintenancePlan-save-fail", em);
 		}
 	}
 
@@ -497,7 +489,7 @@ public class MaintenancePlanService extends GHAEJBExceptionService implements
 			logger.log(Level.INFO, "ERROR: unable to update MaintenancePlan ",
 					e);
 			throw super.generateGHAEJBException("maintenancePlan-update-fail",
-					RuntimeParameters.getLang(), em);
+					em);
 		}
 	}
 }

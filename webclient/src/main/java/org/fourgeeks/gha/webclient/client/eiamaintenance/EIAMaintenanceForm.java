@@ -3,14 +3,18 @@ package org.fourgeeks.gha.webclient.client.eiamaintenance;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.enu.EiaMaintenanceState;
+import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanificationType;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
-import org.fourgeeks.gha.domain.ess.Role;
-import org.fourgeeks.gha.domain.glm.ExternalProvider;
-import org.fourgeeks.gha.domain.gmh.EiaCorrectiveMaintenancePlanification;
+import org.fourgeeks.gha.domain.gar.Bpu;
+import org.fourgeeks.gha.domain.glm.Bsp;
+import org.fourgeeks.gha.domain.gmh.Eia;
+import org.fourgeeks.gha.domain.gmh.EiaCorrectiveMaintenance;
+import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
+import org.fourgeeks.gha.domain.gmh.EiaMaintenance;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
+import org.fourgeeks.gha.domain.gmh.EiaPreventiveMaintenance;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
@@ -44,15 +48,12 @@ import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
  * @author nelson
  * 
  */
-public class EIAMaintenanceForm extends
-		GHAForm<EiaMaintenancePlanification> implements
+public class EIAMaintenanceForm extends GHAForm<EiaMaintenance> implements
 		EiaMaintenanceSelectionListener, EIATypeSelectionListener,
 		EiaMaintenanceSelectionProducer {
 
 	private List<EiaMaintenanceSelectionListener> listeners;
-	private EiaMaintenancePlanification selectedMaintenance;
-	private EiaMaintenancePlanification selectedPreventiveMaintenance;
-	private EiaCorrectiveMaintenancePlanification selectedCorrectiveMaintenance;
+	private EiaMaintenance selectedMaintenance;
 	private boolean formIsActive;
 
 	private final GHASectionForm sectionForm;
@@ -197,7 +198,7 @@ public class EIAMaintenanceForm extends
 	 * EiaMaintenancePlanificationSelectionListener)
 	 */
 	@Override
-	public void addEiaMaintenancePlanificationSelectionListener(
+	public void addEiaMaintenanceSelectionListener(
 			EiaMaintenanceSelectionListener listener) {
 		listeners.add(listener);
 	}
@@ -301,11 +302,10 @@ public class EIAMaintenanceForm extends
 	 * @param planif
 	 * @return
 	 */
-	private EiaCorrectiveMaintenancePlanification extractCorrectiveMaintenance(
+	private EiaCorrectiveMaintenance extractCorrectiveMaintenance(
 			EiaMaintenancePlanification planif) {
 
-		EiaCorrectiveMaintenancePlanification entity = selectedCorrectiveMaintenance;
-		entity.setPlanification(planif);
+		EiaCorrectiveMaintenance entity = (EiaCorrectiveMaintenance) selectedMaintenance;
 
 		entity.setDescription(failureDescriptionTextAreaItem.getValueAsString());
 
@@ -324,31 +324,28 @@ public class EIAMaintenanceForm extends
 	 * 
 	 * @return
 	 */
-	private EiaMaintenancePlanification extractMaintenance() {
+	private EiaMaintenance extractMaintenance() {
 
-		EiaMaintenancePlanification entity = selectedMaintenance;
+		EiaMaintenance entity = selectedMaintenance;
 
 		String mStatus = maintenanceStatusSelectItem.getValueAsString();
-		entity.setStatus(mStatus == null ? null
-				: EiaMaintenanceState.valueOf(mStatus));
+		entity.setState(mStatus == null ? null : EiaMaintenanceState
+				.valueOf(mStatus));
 
 		if (providerSelectItem.getValue() != null) {
-			final ExternalProvider provider = new ExternalProvider(
-					Long.valueOf(providerSelectItem.getValueAsString()));
-			entity.setMaintenanceProvider(provider);
+			final Bsp provider = new Bsp();
+			provider.setId(Long.valueOf(providerSelectItem.getValueAsString()));
+			entity.setProvider(provider);
 		}
 
 		if (roleSelectItem.getValue() != null) {
-			final Role role = new Role(Long.valueOf(roleSelectItem
-					.getValueAsString()));
-			entity.setJobResponsable(role);
+			final Bpu technician = new Bpu();
+			technician.setId(Long.valueOf(roleSelectItem.getValueAsString()));
+			entity.setTechnician(technician);
 		}
 
 		String requestNumber = requestNumberTextItem.getValueAsString();
 		entity.setRequestNumber(requestNumber);
-
-		String technicianName = technicianNameTextItem.getValueAsString();
-		entity.setTechnicianName(technicianName);
 
 		String initialState = initialEiaStateSelectItem.getValueAsString();
 		entity.setInitialEiaState(initialState == null ? null : EiaStateEnum
@@ -395,27 +392,6 @@ public class EIAMaintenanceForm extends
 		return entity;
 	}
 
-	/**
-	 * 
-	 * @param planif
-	 * @return
-	 */
-	private EiaPreventiveMaintenancePlanification extractPreventiveMaintenance(
-			EiaMaintenancePlanification planif) {
-
-		EiaPreventiveMaintenancePlanification entity = selectedPreventiveMaintenance;
-		entity.setPlanification(planif);
-
-		if (maintenacePlanSelectItem.getValue() != null) {
-			EiaTypeMaintenancePlan plan = new EiaTypeMaintenancePlan();
-			plan.setId(Long.valueOf(maintenacePlanSelectItem.getValueAsString()));
-
-			entity.setPlan(plan);
-		}
-
-		return entity;
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -436,8 +412,7 @@ public class EIAMaintenanceForm extends
 	 * (org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification)
 	 */
 	@Override
-	public void notifyEiaMaintenancePlanification(
-			EiaMaintenancePlanification entity) {
+	public void notifyEiaMaintenance(EiaMaintenance entity) {
 		for (EiaMaintenanceSelectionListener listener : listeners)
 			listener.select(entity);
 	}
@@ -466,7 +441,7 @@ public class EIAMaintenanceForm extends
 	 * EiaMaintenancePlanificationSelectionListener)
 	 */
 	@Override
-	public void removeEiaMaintenancePlanificationSelectionListener(
+	public void removeEiaMaintenanceSelectionListener(
 			EiaMaintenanceSelectionListener listener) {
 		listeners.remove(listener);
 	}
@@ -479,8 +454,7 @@ public class EIAMaintenanceForm extends
 	 * .gha.webclient.client.UI.GHAAsyncCallback)
 	 */
 	@Override
-	public void save(
-			final GHAAsyncCallback<EiaMaintenancePlanification> callback) {
+	public void save(final GHAAsyncCallback<EiaMaintenance> callback) {
 		// TODO agregarle funcionalidad cuando se vaya a utilizar
 	}
 
@@ -492,7 +466,7 @@ public class EIAMaintenanceForm extends
 	 * #select(org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification)
 	 */
 	@Override
-	public void select(EiaMaintenancePlanification entity) {
+	public void select(EiaMaintenance entity) {
 		selectedMaintenance = entity;
 
 		if (formIsActive)
@@ -502,15 +476,11 @@ public class EIAMaintenanceForm extends
 			maintenacePlanSelectItem.fillByEiaType(selectedEiaType);
 
 		if (entity.getType() == MaintenancePlanificationType.CORRECTIVE) {
-			selectCorrectiveMaintenance(selectedMaintenance);
-			maintenanceStatusSelectItem
-					.setValueMap(EiaMaintenanceState
-							.toValueMap(EiaMaintenanceState.EIA_DAMAGE));
+			maintenanceStatusSelectItem.setValueMap(EiaMaintenanceState
+					.toValueMap(EiaMaintenanceState.EIA_DAMAGE));
 		} else {
-			selectPreventiveMaintenance(selectedMaintenance);
-			maintenanceStatusSelectItem
-					.setValueMap(EiaMaintenanceState.toValueMap(
-							EiaMaintenanceState.ACCOMPLISHED,
+			maintenanceStatusSelectItem.setValueMap(EiaMaintenanceState
+					.toValueMap(EiaMaintenanceState.ACCOMPLISHED,
 							EiaMaintenanceState.CANCELED,
 							EiaMaintenanceState.DEFERRED));
 		}
@@ -533,51 +503,20 @@ public class EIAMaintenanceForm extends
 	}
 
 	/**
-	 * Find the Corrective Maintenance Planification for this Maintenance
-	 * Planification and fill the corresponded fields
 	 * 
 	 * @param entity
 	 */
-	private void selectCorrectiveMaintenance(EiaMaintenancePlanification entity) {
-		EiaMaintenanceModel.getCorrectiveMaintenance(entity,
-				new GHAAsyncCallback<EiaCorrectiveMaintenancePlanification>() {
-					@Override
-					public void onSuccess(
-							final EiaCorrectiveMaintenancePlanification result) {
-						selectedCorrectiveMaintenance = result;
-						set(selectedCorrectiveMaintenance);
-					}
-				});
-	}
-
-	/**
-	 * Find the Preventive Maintenance Planification for this Maintenance
-	 * Planification and fill the corresponded fields
-	 * 
-	 * @param entity
-	 */
-	private void selectPreventiveMaintenance(EiaMaintenancePlanification entity) {
-		EiaMaintenanceModel.getPreventiveMaintenance(entity,
-				new GHAAsyncCallback<EiaPreventiveMaintenancePlanification>() {
-					@Override
-					public void onSuccess(
-							final EiaPreventiveMaintenancePlanification result) {
-						selectedPreventiveMaintenance = result;
-						set(selectedPreventiveMaintenance);
-					}
-				});
-	}
-
-	/**
-	 * 
-	 * @param entity
-	 */
-	private void set(EiaCorrectiveMaintenancePlanification entity) {
+	private void set(EiaCorrectiveMaintenance entity) {
 		estimatedMaintenanceTimeTextItem.setValue(entity
 				.getEstimatedMaintenance());
 		estimatedMaintenancePoTSelectedItem.setValue(entity
 				.getEstimatedMaintenancePoT().name());
 		failureDescriptionTextAreaItem.setValue(entity.getDescription());
+
+		EiaDamageReport damageReport = entity.getDamageReport();
+		Eia eia = damageReport.getEia();
+
+		setInitialEiaState(entity, eia);
 	}
 
 	/*
@@ -588,10 +527,9 @@ public class EIAMaintenanceForm extends
 	 * .Object)
 	 */
 	@Override
-	public void set(EiaMaintenancePlanification entity) {
+	public void set(EiaMaintenance entity) {
 		idNumberTextItem.setValue(entity.getId());
 		requestNumberTextItem.setValue(entity.getRequestNumber());
-		technicianNameTextItem.setValue(entity.getTechnicianName());
 		beginningDateItem.setValue(entity.getBeginningTimestamp());
 		beginningTimeItem.setValue(entity.getBeginningTimestamp());
 		finishDateItem.setValue(entity.getFinishTimestamp());
@@ -604,40 +542,47 @@ public class EIAMaintenanceForm extends
 		effectivePoTSelectItem.setValue(effectivePoT == null ? null
 				: effectivePoT.name());
 
-		EiaStateEnum initialEiaState = entity.getInitialEiaState();
-		if (initialEiaState == null) {
-			EiaStateEnum eiaState = entity.getEia().getState();
-			initialEiaStateSelectItem.setValue(eiaState == null ? null
-					: eiaState.name());
-		} else {
-			initialEiaStateSelectItem.setValue(initialEiaState.name());
-		}
-
 		EiaStateEnum finalEiaState = entity.getFinalEiaState();
 		finalEiaStateSelectItem.setValue(finalEiaState == null ? null
 				: finalEiaState.name());
 
-		EiaMaintenanceState status = entity.getStatus();
+		EiaMaintenanceState status = entity.getState();
 		maintenanceStatusSelectItem.setValue(status == null ? null : status
 				.name());
 
-		Role role = entity.getJobResponsable();
-		roleSelectItem.setValue(role == null ? null : role.getId());
+		Bpu jobResponsable = entity.getTechnician();
+		roleSelectItem.setValue(jobResponsable == null ? null : jobResponsable
+				.getId());
 
-		ExternalProvider provider = entity.getMaintenanceProvider();
-		providerSelectItem.setValue(provider == null ? null : provider.getId());
+		Bsp maintenanceProvider = entity.getProvider();
+		providerSelectItem.setValue(maintenanceProvider == null ? null
+				: maintenanceProvider.getId());
 	}
 
 	/**
 	 * 
 	 * @param entity
 	 */
-	private void set(EiaPreventiveMaintenancePlanification entity) {
-		EiaTypeMaintenancePlan plan = entity.getPlan();
+	private void set(EiaPreventiveMaintenance entity) {
+		EiaMaintenancePlanification planification = entity.getPlanification();
+		EiaTypeMaintenancePlan plan = planification.getPlan();
 
 		maintenacePlanSelectItem.setValue(plan.getId());
 		durationPlanTextItem.setValue(plan.getMaintenancePlan().getFrequency());
 		durationPlanPoTSelectItem.setValue(plan.getMaintenancePlan().getPot());
+
+		setInitialEiaState(entity, planification.getEia());
+	}
+
+	private void setInitialEiaState(EiaMaintenance entity, Eia eia) {
+		EiaStateEnum initialEiaState = entity.getInitialEiaState();
+		if (initialEiaState == null) {
+			EiaStateEnum eiaState = eia.getState();
+			initialEiaStateSelectItem.setValue(eiaState == null ? null
+					: eiaState.name());
+		} else {
+			initialEiaStateSelectItem.setValue(initialEiaState.name());
+		}
 	}
 
 	/*
@@ -712,77 +657,55 @@ public class EIAMaintenanceForm extends
 	 * .fourgeeks.gha.webclient.client.UI.GHAAsyncCallback)
 	 */
 	@Override
-	public void update(
-			final GHAAsyncCallback<EiaMaintenancePlanification> callback) {
+	public void update(final GHAAsyncCallback<EiaMaintenance> callback) {
 
-		EiaMaintenancePlanification entity = extractMaintenance();
-		if (entity == null)
+		EiaMaintenance maintenance = extractMaintenance();
+		if (maintenance == null)
 			return;
 
-		if (entity.getType() == MaintenancePlanificationType.PREVENTIVE) {
-			updatePreventiveMaintenance(callback, entity);
+		if (maintenance instanceof EiaPreventiveMaintenance) {
+			final EiaPreventiveMaintenance entity = (EiaPreventiveMaintenance) maintenance;
+			update(callback, entity);
 		} else {
-			updateCorrectiveMaintenance(callback, entity);
+			final EiaCorrectiveMaintenance entity = (EiaCorrectiveMaintenance) maintenance;
+			update(callback, entity);
 		}
 	}
 
-	/**
-	 * Update the data of the corrective maintenance planification entity in DB
-	 * 
-	 * @param callback
-	 *            object who give the result of the trasaction back
-	 * @param maintenance
-	 *            the maintenance planification entity with the other data of
-	 *            the corrective maintenance planification
-	 */
-	private void updateCorrectiveMaintenance(
-			final GHAAsyncCallback<EiaMaintenancePlanification> callback,
-			final EiaMaintenancePlanification maintenance) {
+	private void update(final GHAAsyncCallback<EiaMaintenance> callback,
+			final EiaCorrectiveMaintenance entity) {
 
-		EiaCorrectiveMaintenancePlanification entity = extractCorrectiveMaintenance(maintenance);
 		EiaMaintenanceModel.updateCorrectiveMaintenance(entity,
-				new GHAAsyncCallback<EiaCorrectiveMaintenancePlanification>() {
+				new GHAAsyncCallback<EiaCorrectiveMaintenance>() {
 					@Override
-					public void onSuccess(
-							final EiaCorrectiveMaintenancePlanification result) {
+					public void onSuccess(EiaCorrectiveMaintenance result) {
 						hasUnCommittedChanges = false;
-						notifyEiaMaintenancePlanification(maintenance);
+						notifyEiaMaintenance(entity);
 						clear();
 
 						if (callback != null) {
-							callback.onSuccess(maintenance);
+							callback.onSuccess(entity);
 						}
 					}
 				});
 	}
 
-	/**
-	 * Update the data of the preventive maintenance planification entity in DB
-	 * 
-	 * @param callback
-	 *            object who give the result of the trasaction back
-	 * @param maintenance
-	 *            the maintenance planification entity with the other data of
-	 *            the preventive maintenance planification
-	 */
-	private void updatePreventiveMaintenance(
-			final GHAAsyncCallback<EiaMaintenancePlanification> callback,
-			final EiaMaintenancePlanification maintenance) {
+	private void update(final GHAAsyncCallback<EiaMaintenance> callback,
+			final EiaPreventiveMaintenance entity) {
 
-		final EiaPreventiveMaintenancePlanification entity = extractPreventiveMaintenance(maintenance);
 		EiaMaintenanceModel.updatePreventiveMaintenance(entity,
-				new GHAAsyncCallback<EiaPreventiveMaintenancePlanification>() {
+				new GHAAsyncCallback<EiaPreventiveMaintenance>() {
 					@Override
-					public void onSuccess(
-							final EiaPreventiveMaintenancePlanification result) {
+					public void onSuccess(final EiaPreventiveMaintenance result) {
 						hasUnCommittedChanges = false;
-						notifyEiaMaintenancePlanification(maintenance);
+						notifyEiaMaintenance(entity);
 						clear();
 
 						if (callback != null) {
-							callback.onSuccess(maintenance);
+							callback.onSuccess(entity);
 						}
 					}
 				});
 	}
+
 }

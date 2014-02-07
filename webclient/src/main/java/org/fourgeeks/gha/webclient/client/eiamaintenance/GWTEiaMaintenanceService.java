@@ -3,9 +3,9 @@ package org.fourgeeks.gha.webclient.client.eiamaintenance;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
-import org.fourgeeks.gha.domain.gmh.EiaCorrectiveMaintenancePlanification;
-import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
-import org.fourgeeks.gha.domain.gmh.EiaPreventiveMaintenancePlanification;
+import org.fourgeeks.gha.domain.gmh.EiaCorrectiveMaintenance;
+import org.fourgeeks.gha.domain.gmh.EiaMaintenance;
+import org.fourgeeks.gha.domain.gmh.EiaPreventiveMaintenance;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 
 import com.google.gwt.user.client.rpc.RemoteService;
@@ -19,26 +19,7 @@ public interface GWTEiaMaintenanceService extends RemoteService {
 	 *         for the eias of a eiaType
 	 * @throws GHAEJBException
 	 */
-	public List<EiaMaintenancePlanification> find(EiaType eiaType)
-			throws GHAEJBException;
-
-	/**
-	 * @param entity
-	 * @return the corrective maintenance planification associated with
-	 *         maintenance planification
-	 * @throws GHAEJBException
-	 */
-	public EiaCorrectiveMaintenancePlanification getCorrectiveMaintenancePlanification(
-			EiaMaintenancePlanification entity) throws GHAEJBException;
-
-	/**
-	 * @param entity
-	 * @return the preventive maintenance planification associated with
-	 *         maintenance planification
-	 * @throws GHAEJBException
-	 */
-	public EiaPreventiveMaintenancePlanification getPreventiveMaintenancePlanification(
-			EiaMaintenancePlanification entity) throws GHAEJBException;
+	public List<EiaMaintenance> find(EiaType eiaType) throws GHAEJBException;
 
 	/**
 	 * Save a new corrective maintenace planification and its maintenance
@@ -49,9 +30,8 @@ public interface GWTEiaMaintenanceService extends RemoteService {
 	 * @return the saved corrective maintenace planification
 	 * @throws GHAEJBException
 	 */
-	public EiaCorrectiveMaintenancePlanification saveCorrectiveMaintenance(
-			EiaCorrectiveMaintenancePlanification entity)
-			throws GHAEJBException;
+	public EiaCorrectiveMaintenance saveCorrectiveMaintenance(
+			EiaCorrectiveMaintenance entity) throws GHAEJBException;
 
 	/**
 	 * Save a new preventive maintenace planification and its maintenance
@@ -62,9 +42,8 @@ public interface GWTEiaMaintenanceService extends RemoteService {
 	 * @return the saved preventive maintenace planification
 	 * @throws GHAEJBException
 	 */
-	public EiaPreventiveMaintenancePlanification savePreventiveMaintenance(
-			EiaPreventiveMaintenancePlanification entity)
-			throws GHAEJBException;
+	public EiaPreventiveMaintenance savePreventiveMaintenance(
+			EiaPreventiveMaintenance entity) throws GHAEJBException;
 
 	/**
 	 * Update a preventive maintenace planification instance and its related
@@ -74,9 +53,8 @@ public interface GWTEiaMaintenanceService extends RemoteService {
 	 * @return the updated preventive maintenace planification instance
 	 * @throws GHAEJBException
 	 */
-	public EiaPreventiveMaintenancePlanification updatePreventiveMaintenance(
-			EiaPreventiveMaintenancePlanification entity)
-			throws GHAEJBException;
+	public EiaPreventiveMaintenance updatePreventiveMaintenance(
+			EiaPreventiveMaintenance entity) throws GHAEJBException;
 
 	/**
 	 * Update a corrective maintenace planification instance and its related
@@ -86,7 +64,6 @@ public interface GWTEiaMaintenanceService extends RemoteService {
 	 * @return the updated corrective maintenace planification instance
 	 * @throws GHAEJBException
 	 */
-	public EiaCorrectiveMaintenancePlanification updateCorrectiveMaintenance(
-			EiaCorrectiveMaintenancePlanification entity)
-			throws GHAEJBException;
+	public EiaCorrectiveMaintenance updateCorrectiveMaintenance(
+			EiaCorrectiveMaintenance entity) throws GHAEJBException;
 }

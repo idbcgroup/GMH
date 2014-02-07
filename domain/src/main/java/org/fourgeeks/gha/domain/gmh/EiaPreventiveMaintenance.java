@@ -15,7 +15,7 @@ import javax.persistence.NamedQuery;
  */
 @Entity
 @DiscriminatorValue("preventive")
-@NamedQueries(value = { @NamedQuery(name = "EiaPreventiveMaintenance.findByEiaType", query = "SELECT ecm FROM EiaPreventiveMaintenance ecm JOIN ecm.planification planif WHERE planif.eia.eiaType = :eiaType ORDER BY ecm.id") })
+@NamedQueries(value = { @NamedQuery(name = "EiaPreventiveMaintenance.findByEiaType", query = "SELECT epm FROM EiaPreventiveMaintenance epm JOIN epm.planification planif WHERE planif.eia.eiaType = :eiaType ORDER BY epm.id") })
 public class EiaPreventiveMaintenance extends EiaMaintenance {
 	private static final long serialVersionUID = 1L;
 

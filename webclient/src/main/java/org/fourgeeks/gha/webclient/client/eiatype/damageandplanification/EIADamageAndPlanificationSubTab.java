@@ -54,7 +54,7 @@ public class EIADamageAndPlanificationSubTab extends GHASubTab implements
 		damageReportPanel
 				.addEiaDamageReportSelectionListener(maintenancePlanifPanel);
 		preventivePlanifPanel
-				.addPreventivePlanificationSelectionListener(maintenancePlanifPanel);
+				.addMaintenancePlanificationSelectionListener(maintenancePlanifPanel);
 
 		// section form
 		sectionForm.addSection("Reporte Equipo Dañado", damageReportPanel);

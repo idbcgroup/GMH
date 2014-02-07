@@ -9,7 +9,7 @@ import org.fourgeeks.gha.domain.glm.Material;
 import org.fourgeeks.gha.domain.glm.MaterialCategory;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
-import org.fourgeeks.gha.domain.gmh.EiaPreventiveMaintenancePlanification;
+import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.mix.Bpi;
@@ -35,7 +35,7 @@ public final class GhaValidatorFactory extends AbstractGwtValidatorFactory {
 			MaterialCategory.class, SSOUser.class, Citizen.class,
 			LegalEntity.class, Bpu.class, Bpi.class, MaintenancePlan.class,
 			Activity.class, EiaDamageReport.class,
-			EiaPreventiveMaintenancePlanification.class })
+			EiaMaintenancePlanification.class })
 	public interface GwtValidator extends Validator {
 	}
 

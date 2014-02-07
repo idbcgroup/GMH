@@ -3,12 +3,12 @@ package org.fourgeeks.gha.webclient.client.eiapreventivemaintenanceplanification
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 
 /**
- * @author alacret
+ * @author alacret, naramirez
  * 
  */
 public interface MaintenancePlanificationSelectionListener {
 	/**
-	 * @param maintenancePlanif
+	 * @param planification
 	 */
-	public void select(EiaMaintenancePlanification maintenancePlanification);
+	public void select(EiaMaintenancePlanification planification);
 }

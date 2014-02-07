@@ -10,6 +10,9 @@ import org.fourgeeks.gha.domain.gmh.EiaMaintenance;
 import org.fourgeeks.gha.domain.gmh.EiaPreventiveMaintenance;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 
+/**
+ * @author naramirez
+ */
 @Remote
 public interface EiaMaintenanceServiceRemote {
 	/**

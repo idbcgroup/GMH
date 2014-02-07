@@ -2,12 +2,11 @@ package org.fourgeeks.gha.webclient.client.eiamaintenance;
 
 import java.util.List;
 
-import org.fourgeeks.gha.domain.gmh.EiaCorrectiveMaintenancePlanification;
-import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
-import org.fourgeeks.gha.domain.gmh.EiaPreventiveMaintenancePlanification;
+import org.fourgeeks.gha.domain.gmh.EiaCorrectiveMaintenance;
+import org.fourgeeks.gha.domain.gmh.EiaMaintenance;
+import org.fourgeeks.gha.domain.gmh.EiaPreventiveMaintenance;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
-import org.fourgeeks.gha.webclient.client.eiamaintenanceplanification.GWTEiaMaintenancePlanificationServiceAsync;
 
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -16,7 +15,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
  * @author naramirez
  */
 public class EiaMaintenanceModel {
-	private static final GWTEiaMaintenancePlanificationServiceAsync service = GWT
+	private static final GWTEiaMaintenanceServiceAsync service = GWT
 			.create(GWTEiaMaintenanceService.class);
 
 	/**
@@ -24,7 +23,7 @@ public class EiaMaintenanceModel {
 	 * @param callback
 	 */
 	public static void find(EiaType eiaType,
-			GHAAsyncCallback<List<EiaMaintenancePlanification>> callback) {
+			GHAAsyncCallback<List<EiaMaintenance>> callback) {
 
 		service.find(eiaType, callback);
 	}
@@ -33,31 +32,9 @@ public class EiaMaintenanceModel {
 	 * @param entity
 	 * @param callback
 	 */
-	public static void getCorrectiveMaintenance(
-			EiaMaintenancePlanification entity,
-			GHAAsyncCallback<EiaCorrectiveMaintenancePlanification> callback) {
-
-		service.getCorrectiveMaintenancePlanification(entity, callback);
-	}
-
-	/**
-	 * @param entity
-	 * @param callback
-	 */
-	public static void getPreventiveMaintenance(
-			EiaMaintenancePlanification entity,
-			GHAAsyncCallback<EiaPreventiveMaintenancePlanification> callback) {
-
-		service.getPreventiveMaintenancePlanification(entity, callback);
-	}
-
-	/**
-	 * @param entity
-	 * @param callback
-	 */
 	public static void saveCorrectiveMaintenance(
-			EiaCorrectiveMaintenancePlanification entity,
-			AsyncCallback<EiaCorrectiveMaintenancePlanification> callback) {
+			EiaCorrectiveMaintenance entity,
+			AsyncCallback<EiaCorrectiveMaintenance> callback) {
 
 		service.saveCorrectiveMaintenance(entity, callback);
 	}
@@ -67,8 +44,8 @@ public class EiaMaintenanceModel {
 	 * @param callback
 	 */
 	public static void savePreventiveMaintenance(
-			EiaPreventiveMaintenancePlanification entity,
-			AsyncCallback<EiaPreventiveMaintenancePlanification> callback) {
+			EiaPreventiveMaintenance entity,
+			AsyncCallback<EiaPreventiveMaintenance> callback) {
 
 		service.savePreventiveMaintenance(entity, callback);
 	}
@@ -78,8 +55,8 @@ public class EiaMaintenanceModel {
 	 * @param callback
 	 */
 	public static void updateCorrectiveMaintenance(
-			EiaCorrectiveMaintenancePlanification entity,
-			AsyncCallback<EiaCorrectiveMaintenancePlanification> callback) {
+			EiaCorrectiveMaintenance entity,
+			AsyncCallback<EiaCorrectiveMaintenance> callback) {
 
 		service.updateCorrectiveMaintenance(entity, callback);
 	}
@@ -89,8 +66,8 @@ public class EiaMaintenanceModel {
 	 * @param callback
 	 */
 	public static void updatePreventiveMaintenance(
-			EiaPreventiveMaintenancePlanification entity,
-			AsyncCallback<EiaPreventiveMaintenancePlanification> callback) {
+			EiaPreventiveMaintenance entity,
+			AsyncCallback<EiaPreventiveMaintenance> callback) {
 
 		service.updatePreventiveMaintenance(entity, callback);
 	}

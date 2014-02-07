@@ -3,7 +3,7 @@ package org.fourgeeks.gha.webclient.client.eiatype.damageandplanification;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.Eia;
-import org.fourgeeks.gha.domain.gmh.EiaPreventiveMaintenancePlanification;
+import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
@@ -17,8 +17,8 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
-import org.fourgeeks.gha.webclient.client.eiapreventivemaintenanceplanification.EIAPreventiveMaintenancePlanificationAddForm;
-import org.fourgeeks.gha.webclient.client.eiapreventivemaintenanceplanification.EiaPreventiveMaintenancePlanificationModel;
+import org.fourgeeks.gha.webclient.client.eiapreventivemaintenanceplanification.EIAMaintenancePlanificationAddForm;
+import org.fourgeeks.gha.webclient.client.eiapreventivemaintenanceplanification.EiaMaintenancePlanificationModel;
 import org.fourgeeks.gha.webclient.client.eiapreventivemaintenanceplanification.MaintenancePlanificationSelectionListener;
 import org.fourgeeks.gha.webclient.client.eiapreventivemaintenanceplanification.MaintenancePlanificationSelectionProducer;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
@@ -33,25 +33,23 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author naramirez
  * 
  */
-public class EIAMaintenancePlanificationGridPanel extends VLayout
-		implements EIATypeSelectionListener,
-		MaintenancePlanificationSelectionProducer, HideableListener,
-		ClosableListener {
+public class EIAMaintenancePlanificationGridPanel extends VLayout implements
+		EIATypeSelectionListener, MaintenancePlanificationSelectionProducer,
+		HideableListener, ClosableListener {
 
 	private EIAMaintenancePlanificationGrid grid;
 	private EIADamageAndPlanificationSearchForm searchForm;
 	private EiaType eiaType;
-	private EIAPreventiveMaintenancePlanificationAddForm addForm;
+	private EIAMaintenancePlanificationAddForm addForm;
 
 	{
 		grid = new EIAMaintenancePlanificationGrid();
 		searchForm = new EIADamageAndPlanificationSearchForm(
 				GHAStrings.get("search-eia"));
-		addForm = new EIAPreventiveMaintenancePlanificationAddForm();
-		addForm.addPreventivePlanificationSelectionListener(new MaintenancePlanificationSelectionListener() {
+		addForm = new EIAMaintenancePlanificationAddForm();
+		addForm.addMaintenancePlanificationSelectionListener(new MaintenancePlanificationSelectionListener() {
 			@Override
-			public void select(
-					EiaPreventiveMaintenancePlanification preventivePlanif) {
+			public void select(EiaMaintenancePlanification preventivePlanif) {
 				loadData();
 
 			}
@@ -109,19 +107,18 @@ public class EIAMaintenancePlanificationGridPanel extends VLayout
 	}
 
 	private void loadData() {
-		EiaPreventiveMaintenancePlanificationModel
-				.find(eiaType,
-						new GHAAsyncCallback<List<EiaPreventiveMaintenancePlanification>>() {
-							@Override
-							public void onSuccess(
-									List<EiaPreventiveMaintenancePlanification> result) {
-								List<EIAMaintenancePlanificationRecord> gridRecords = EIADamageAndPlanificationUtil
-										.toPreventiveMaintenanceGridRecords(result);
-								EIAMaintenancePlanificationRecord[] array = gridRecords
-										.toArray(new EIAMaintenancePlanificationRecord[] {});
-								grid.setData(array);
-							}
-						});
+		EiaMaintenancePlanificationModel.find(eiaType,
+				new GHAAsyncCallback<List<EiaMaintenancePlanification>>() {
+					@Override
+					public void onSuccess(
+							List<EiaMaintenancePlanification> result) {
+						List<EIAMaintenancePlanificationRecord> gridRecords = EIADamageAndPlanificationUtil
+								.toMaintenancePlanificationGridRecords(result);
+						EIAMaintenancePlanificationRecord[] array = gridRecords
+								.toArray(new EIAMaintenancePlanificationRecord[] {});
+						grid.setData(array);
+					}
+				});
 	}
 
 	private void search() {
@@ -148,21 +145,21 @@ public class EIAMaintenancePlanificationGridPanel extends VLayout
 	}
 
 	@Override
-	public void addPreventivePlanificationSelectionListener(
+	public void addMaintenancePlanificationSelectionListener(
 			MaintenancePlanificationSelectionListener preventivePlanifSelectionListener) {
-		addForm.addPreventivePlanificationSelectionListener(preventivePlanifSelectionListener);
+		addForm.addMaintenancePlanificationSelectionListener(preventivePlanifSelectionListener);
 
 	}
 
 	@Override
-	public void removePreventivePlanificationSelectionListener(
+	public void removeMaintenancePlanificationSelectionListener(
 			MaintenancePlanificationSelectionListener preventivePlanifSelectionListener) {
-		addForm.removePreventivePlanificationSelectionListener(preventivePlanifSelectionListener);
+		addForm.removeMaintenancePlanificationSelectionListener(preventivePlanifSelectionListener);
 
 	}
 
 	@Override
-	public void notifyPreventiveMaintenancePlanification(
-			EiaPreventiveMaintenancePlanification preventivePlanif) {
+	public void notifyMaintenancePlanification(
+			EiaMaintenancePlanification preventivePlanif) {
 	}
 }

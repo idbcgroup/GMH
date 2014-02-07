@@ -1,7 +1,7 @@
 package org.fourgeeks.gha.webclient.client.eiapreventivemaintenanceplanification;
 
 import org.fourgeeks.gha.domain.gmh.Eia;
-import org.fourgeeks.gha.domain.gmh.EiaPreventiveMaintenancePlanification;
+import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
@@ -19,16 +19,20 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class EIAPreventiveMaintenancePlanificationAddForm extends
-		GHAAddForm<EiaPreventiveMaintenancePlanification> implements
+/**
+ * @author naramirez
+ */
+public class EIAMaintenancePlanificationAddForm extends
+		GHAAddForm<EiaMaintenancePlanification> implements
 		EIASelectionListener, EIATypeSelectionListener,
 		MaintenancePlanificationSelectionProducer {
 
 	{
-		form = new EIAPreventiveMaintenancePlanificationForm();
+		form = new EIAMaintenancePlanificationForm();
 	}
 
-	public EIAPreventiveMaintenancePlanificationAddForm() {
+	/**	 */
+	public EIAMaintenancePlanificationAddForm() {
 		super(GHAStrings.get("new-eia-preventive-maintenance-planification"));
 		VLayout sideButtons = GHAUiHelper.createBar(new GHASaveButton(
 				new ClickHandler() {
@@ -49,10 +53,10 @@ public class EIAPreventiveMaintenancePlanificationAddForm extends
 	}
 
 	@Override
-	public void addPreventivePlanificationSelectionListener(
+	public void addMaintenancePlanificationSelectionListener(
 			MaintenancePlanificationSelectionListener preventivePlanifSelectionListener) {
 		((MaintenancePlanificationSelectionProducer) form)
-				.addPreventivePlanificationSelectionListener(preventivePlanifSelectionListener);
+				.addMaintenancePlanificationSelectionListener(preventivePlanifSelectionListener);
 
 	}
 
@@ -63,8 +67,8 @@ public class EIAPreventiveMaintenancePlanificationAddForm extends
 	}
 
 	@Override
-	public void notifyPreventiveMaintenancePlanification(
-			EiaPreventiveMaintenancePlanification preventivePlanif) {
+	public void notifyMaintenancePlanification(
+			EiaMaintenancePlanification preventivePlanif) {
 		return;
 	}
 
@@ -75,20 +79,20 @@ public class EIAPreventiveMaintenancePlanificationAddForm extends
 	}
 
 	@Override
-	public void removePreventivePlanificationSelectionListener(
+	public void removeMaintenancePlanificationSelectionListener(
 			MaintenancePlanificationSelectionListener eiaDamageReportSelectionListener) {
 		((MaintenancePlanificationSelectionProducer) form)
-				.removePreventivePlanificationSelectionListener(eiaDamageReportSelectionListener);
+				.removeMaintenancePlanificationSelectionListener(eiaDamageReportSelectionListener);
 
 	}
 
 	@Override
 	protected void save() {
-		form.save(new GHAAsyncCallback<EiaPreventiveMaintenancePlanification>() {
+		form.save(new GHAAsyncCallback<EiaMaintenancePlanification>() {
 			@Override
-			public void onSuccess(EiaPreventiveMaintenancePlanification result) {
+			public void onSuccess(EiaMaintenancePlanification result) {
 				GHAAlertManager
-						.alert("eiaPreventiveMaintenancePlanification-save-success");
+						.alert("eiaMaintenancePlanification-save-success");
 				hide();
 			}
 		});

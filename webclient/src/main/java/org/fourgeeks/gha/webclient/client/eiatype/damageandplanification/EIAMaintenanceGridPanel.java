@@ -3,8 +3,8 @@ package org.fourgeeks.gha.webclient.client.eiatype.damageandplanification;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
+import org.fourgeeks.gha.domain.gmh.EiaMaintenance;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
-import org.fourgeeks.gha.domain.gmh.EiaPreventiveMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
@@ -50,9 +50,9 @@ public class EIAMaintenanceGridPanel extends VLayout implements
 		displayForm = new EiaMaintenanceDisplayForm();
 		updateForm = new EIAMaintenanceUpdateForm();
 		updateForm
-				.addEiaMaintenancePlanificationSelectionListener(new EiaMaintenanceSelectionListener() {
+				.addEiaMaintenanceSelectionListener(new EiaMaintenanceSelectionListener() {
 					@Override
-					public void select(EiaMaintenancePlanification entity) {
+					public void select(EiaMaintenance entity) {
 						loadData();
 					}
 				});
@@ -104,10 +104,9 @@ public class EIAMaintenanceGridPanel extends VLayout implements
 
 	private void loadData() {
 		EiaMaintenanceModel.find(eiaType,
-				new GHAAsyncCallback<List<EiaMaintenancePlanification>>() {
+				new GHAAsyncCallback<List<EiaMaintenance>>() {
 					@Override
-					public void onSuccess(
-							List<EiaMaintenancePlanification> result) {
+					public void onSuccess(List<EiaMaintenance> result) {
 						List<EIAMaintenanceRecord> gridRecords = EIADamageAndPlanificationUtil
 								.toMaintenanceGridRecords(result);
 						EIAMaintenanceRecord[] array = gridRecords
@@ -125,26 +124,24 @@ public class EIAMaintenanceGridPanel extends VLayout implements
 	}
 
 	private void update() {
-		GHAGridRecord<EiaMaintenancePlanification> selectedRecord = grid
-				.getSelectedRecord();
+		GHAGridRecord<EiaMaintenance> selectedRecord = grid.getSelectedRecord();
 
 		if (selectedRecord == null)
 			GHAAlertManager.alert("record-not-selected");
 		else {
-			EiaMaintenancePlanification entity = selectedRecord.toEntity();
+			EiaMaintenance entity = selectedRecord.toEntity();
 			updateForm.select(entity);
 			updateForm.open();
 		}
 	}
 
 	private void display() {
-		GHAGridRecord<EiaMaintenancePlanification> selectedRecord = grid
-				.getSelectedRecord();
+		GHAGridRecord<EiaMaintenance> selectedRecord = grid.getSelectedRecord();
 
 		if (selectedRecord == null)
 			GHAAlertManager.alert("record-not-selected");
 		else {
-			EiaMaintenancePlanification entity = selectedRecord.toEntity();
+			EiaMaintenance entity = selectedRecord.toEntity();
 			displayForm.select(entity);
 			displayForm.open();
 		}
@@ -158,7 +155,7 @@ public class EIAMaintenanceGridPanel extends VLayout implements
 	}
 
 	@Override
-	public void select(EiaPreventiveMaintenancePlanification preventivePlanif) {
+	public void select(EiaMaintenancePlanification preventivePlanif) {
 		if (eiaType != null)
 			loadData();
 	}

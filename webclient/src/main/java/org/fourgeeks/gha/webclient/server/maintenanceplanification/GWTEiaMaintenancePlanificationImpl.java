@@ -9,7 +9,7 @@ import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
-import org.fourgeeks.gha.domain.gmh.EiaPreventiveMaintenancePlanification;
+import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.ejb.gmh.EiaMaintenancePlanificationServiceRemote;
 import org.fourgeeks.gha.webclient.client.eiapreventivemaintenanceplanification.GWTMaintenancePlanificationService;
@@ -20,31 +20,30 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  * @author emiliot
  * 
  */
-@WebServlet(urlPatterns = { "/webclient/EiaPreventiveMaintenancePlanification" })
-public class GWTEiaPreventiveMaintenancePlanificationImpl extends
-		RemoteServiceServlet implements
-		GWTMaintenancePlanificationService {
+@WebServlet(urlPatterns = { "/webclient/EiaMaintenancePlanification" })
+public class GWTEiaMaintenancePlanificationImpl extends RemoteServiceServlet
+		implements GWTMaintenancePlanificationService {
 
 	private static final long serialVersionUID = 1L;
 
-	@EJB(lookup = "java:global/ear-1/ejb-1/EiaPreventiveMaintenancePlanificationService!"
-			+ "org.fourgeeks.gha.ejb.gmh.EiaPreventiveMaintenancePlanificationServiceRemote")
+	@EJB(lookup = "java:global/ear-1/ejb-1/EiaMaintenancePlanificationService!"
+			+ "org.fourgeeks.gha.ejb.gmh.EiaMaintenancePlanificationServiceRemote")
 	EiaMaintenancePlanificationServiceRemote serviceRemote;
 
 	@Override
-	public List<EiaPreventiveMaintenancePlanification> find(EiaType eiaType)
+	public List<EiaMaintenancePlanification> find(EiaType eiaType)
 			throws GHAEJBException {
-		List<EiaPreventiveMaintenancePlanification> preventivePlanifs = serviceRemote
+		List<EiaMaintenancePlanification> preventivePlanifs = serviceRemote
 				.find(eiaType);
 
 		return preventivePlanifs;
 	}
 
 	@Override
-	public EiaPreventiveMaintenancePlanification save(
-			EiaPreventiveMaintenancePlanification preventivePlanif)
+	public EiaMaintenancePlanification save(
+			EiaMaintenancePlanification preventivePlanif)
 			throws GHAEJBException {
-		EiaPreventiveMaintenancePlanification savedDamageReport = serviceRemote
+		EiaMaintenancePlanification savedDamageReport = serviceRemote
 				.save(preventivePlanif);
 		return savedDamageReport;
 	}

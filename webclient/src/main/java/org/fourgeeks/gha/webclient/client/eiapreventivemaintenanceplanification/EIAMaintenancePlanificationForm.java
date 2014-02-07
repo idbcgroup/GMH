@@ -37,7 +37,7 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
 /**
  * @author naramirez
  */
-public class EIAPreventiveMaintenancePlanificationForm extends
+public class EIAMaintenancePlanificationForm extends
 		GHAForm<EiaMaintenancePlanification> implements EIASelectionListener,
 		EIATypeSelectionListener, MaintenancePlanificationSelectionProducer {
 
@@ -75,7 +75,7 @@ public class EIAPreventiveMaintenancePlanificationForm extends
 	}
 
 	/** */
-	public EIAPreventiveMaintenancePlanificationForm() {
+	public EIAMaintenancePlanificationForm() {
 		final HLayout mainPanel = new HLayout();
 		form.setItems(scheduledDateDateItem, new GHASpacerItem(3),
 				maintenacePlanSelectItem, new GHASpacerItem(2),
@@ -93,7 +93,7 @@ public class EIAPreventiveMaintenancePlanificationForm extends
 	}
 
 	@Override
-	public void addPreventivePlanificationSelectionListener(
+	public void addMaintenancePlanificationSelectionListener(
 			MaintenancePlanificationSelectionListener eiaDamageReportSelectionListener) {
 		listeners.add(eiaDamageReportSelectionListener);
 	}
@@ -161,7 +161,7 @@ public class EIAPreventiveMaintenancePlanificationForm extends
 	}
 
 	@Override
-	public void notifyPreventiveMaintenancePlanification(
+	public void notifyMaintenancePlanification(
 			EiaMaintenancePlanification preventivePlanif) {
 		for (MaintenancePlanificationSelectionListener listener : listeners)
 			listener.select(preventivePlanif);
@@ -173,7 +173,7 @@ public class EIAPreventiveMaintenancePlanificationForm extends
 	}
 
 	@Override
-	public void removePreventivePlanificationSelectionListener(
+	public void removeMaintenancePlanificationSelectionListener(
 			MaintenancePlanificationSelectionListener eiaDamageReportSelectionListener) {
 		listeners.remove(eiaDamageReportSelectionListener);
 	}
@@ -185,12 +185,12 @@ public class EIAPreventiveMaintenancePlanificationForm extends
 		if (entity == null)
 			return;
 
-		EiaPreventiveMaintenancePlanificationModel.save(entity,
+		EiaMaintenancePlanificationModel.save(entity,
 				new GHAAsyncCallback<EiaMaintenancePlanification>() {
 					@Override
 					public void onSuccess(EiaMaintenancePlanification result) {
 						hasUnCommittedChanges = false;
-						notifyPreventiveMaintenancePlanification(result);
+						notifyMaintenancePlanification(result);
 						clear();
 						if (callback != null)
 							callback.onSuccess(result);

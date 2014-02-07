@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
+import org.fourgeeks.gha.domain.gmh.EiaMaintenance;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
-import org.fourgeeks.gha.domain.gmh.EiaPreventiveMaintenancePlanification;
 
 import com.smartgwt.client.util.DateUtil;
 import com.smartgwt.client.util.LogicalDate;
@@ -40,31 +40,27 @@ public class EIADamageAndPlanificationUtil {
 
 	/**
 	 * @param preventivePlanif
-	 *            the {@link EiaPreventiveMaintenancePlanification} entity
-	 * @return A {@link EIAMaintenancePlanificationRecord} whit the
-	 *         data contained in the
-	 *         {@link EiaPreventiveMaintenancePlanification} entity
+	 *            the {@link EiaMaintenancePlanification} entity
+	 * @return A {@link EIAMaintenancePlanificationRecord} whit the data
+	 *         contained in the {@link EiaMaintenancePlanification} entity
 	 */
-	public static EIAMaintenancePlanificationRecord toPreventiveMaintenanceGridRecord(
-			EiaPreventiveMaintenancePlanification preventivePlanif) {
+	public static EIAMaintenancePlanificationRecord toMaintenancePlanificationGridRecord(
+			EiaMaintenancePlanification preventivePlanif) {
 		return new EIAMaintenancePlanificationRecord(preventivePlanif);
 	}
 
 	/**
 	 * @param preventivePlanifs
-	 *            the list of {@link EiaPreventiveMaintenancePlanification}
-	 *            entities
-	 * @return A list of {@link EIAMaintenancePlanificationRecord}
-	 *         whit the data contained in the
-	 *         {@link EiaPreventiveMaintenancePlanification} entities
+	 *            the list of {@link EiaMaintenancePlanification} entities
+	 * @return A list of {@link EIAMaintenancePlanificationRecord} whit the data
+	 *         contained in the {@link EiaMaintenancePlanification} entities
 	 */
-	public static List<EIAMaintenancePlanificationRecord> toPreventiveMaintenanceGridRecords(
-			List<EiaPreventiveMaintenancePlanification> preventivePlanifs) {
+	public static List<EIAMaintenancePlanificationRecord> toMaintenancePlanificationGridRecords(
+			List<EiaMaintenancePlanification> preventivePlanifs) {
 		List<EIAMaintenancePlanificationRecord> list = new ArrayList<EIAMaintenancePlanificationRecord>();
 
-		for (EiaPreventiveMaintenancePlanification preventivePlanif : preventivePlanifs)
-			list.add(new EIAMaintenancePlanificationRecord(
-					preventivePlanif));
+		for (EiaMaintenancePlanification preventivePlanif : preventivePlanifs)
+			list.add(new EIAMaintenancePlanificationRecord(preventivePlanif));
 		return list;
 	}
 
@@ -72,11 +68,11 @@ public class EIADamageAndPlanificationUtil {
 	 * 
 	 * @param maintenancePlanif
 	 *            the {@link EiaMaintenancePlanification} entity
-	 * @return A {@link EIAMaintenanceRecord} whit the data
-	 *         contained in the {@link EiaMaintenancePlanification} entity
+	 * @return A {@link EIAMaintenanceRecord} whit the data contained in the
+	 *         {@link EiaMaintenancePlanification} entity
 	 */
 	public static EIAMaintenanceRecord toMaintenanceGridRecord(
-			EiaMaintenancePlanification maintenancePlanif) {
+			EiaMaintenance maintenancePlanif) {
 		return new EIAMaintenanceRecord(maintenancePlanif);
 	}
 
@@ -84,14 +80,14 @@ public class EIADamageAndPlanificationUtil {
 	 * 
 	 * @param maintenancePlanifs
 	 *            the list of {@link EiaMaintenancePlanification} entities
-	 * @return A list of {@link EIAMaintenanceRecord} whit the data
-	 *         contained in the {@link EiaMaintenancePlanification} entities
+	 * @return A list of {@link EIAMaintenanceRecord} whit the data contained in
+	 *         the {@link EiaMaintenancePlanification} entities
 	 */
 	public static List<EIAMaintenanceRecord> toMaintenanceGridRecords(
-			List<EiaMaintenancePlanification> maintenancePlanifs) {
+			List<EiaMaintenance> maintenancePlanifs) {
 		List<EIAMaintenanceRecord> list = new ArrayList<EIAMaintenanceRecord>();
 
-		for (EiaMaintenancePlanification entity : maintenancePlanifs)
+		for (EiaMaintenance entity : maintenancePlanifs)
 			list.add(new EIAMaintenanceRecord(entity));
 		return list;
 	}

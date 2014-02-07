@@ -2,23 +2,27 @@ package org.fourgeeks.gha.webclient.client.eiapreventivemaintenanceplanification
 
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 
+/**
+ * @author naramirez
+ * 
+ */
 public interface MaintenancePlanificationSelectionProducer {
 	/**
-	 * @param eiaSelectionListener
+	 * @param listener
 	 */
-	public void addPreventivePlanificationSelectionListener(
-			MaintenancePlanificationSelectionListener preventivePlanifSelectionListener);
+	public void addMaintenancePlanificationSelectionListener(
+			MaintenancePlanificationSelectionListener listener);
 
 	/**
-	 * @param eiaSelectionListener
+	 * @param listener
 	 */
-	public void removePreventivePlanificationSelectionListener(
-			MaintenancePlanificationSelectionListener preventivePlanifSelectionListener);
+	public void removeMaintenancePlanificationSelectionListener(
+			MaintenancePlanificationSelectionListener listener);
 
 	/**
-	 * @param eiaDamageReport
+	 * @param panification
 	 */
-	public void notifyPreventiveMaintenancePlanification(
-			EiaMaintenancePlanification preventivePlanif);
+	public void notifyMaintenancePlanification(
+			EiaMaintenancePlanification panification);
 
 }

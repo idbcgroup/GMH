@@ -16,7 +16,10 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 public interface EiaMaintenancePlanificationServiceRemote {
 
 	/**
+	 * Save a EiaMaintenancePlanification in the DB
+	 * 
 	 * @param planif
+	 *            the EiaMaintenancePlanification to save
 	 * @return the saved EiaMaintenancePlanification
 	 * @throws GHAEJBException
 	 */
@@ -24,8 +27,10 @@ public interface EiaMaintenancePlanificationServiceRemote {
 			throws GHAEJBException;
 
 	/**
+	 * Return a list of EiaMaintenancePlanification given a EiaType
+	 * 
 	 * @param eiaType
-	 * @return a list of EiaPreventiveMaintenancePlanification entities
+	 * @return a list of EiaMaintenancePlanification entities
 	 * @throws GHAEJBException
 	 */
 	public List<EiaMaintenancePlanification> find(EiaType eiaType)

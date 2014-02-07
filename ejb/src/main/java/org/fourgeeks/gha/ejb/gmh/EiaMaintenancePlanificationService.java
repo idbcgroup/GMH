@@ -1,7 +1,6 @@
 package org.fourgeeks.gha.ejb.gmh;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,7 +12,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.enu.EiaMaintenanceState;
-import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaPreventiveMaintenance;
@@ -35,41 +33,49 @@ public class EiaMaintenancePlanificationService extends GHAEJBExceptionService
 	private final static Logger logger = Logger
 			.getLogger(EiaMaintenancePlanificationService.class.getName());
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.EiaMaintenancePlanificationServiceRemote#find
+	 * (org.fourgeeks.gha.domain.gmh.EiaType)
+	 */
 	@Override
 	public List<EiaMaintenancePlanification> find(EiaType eiaType)
 			throws GHAEJBException {
 		try {
-			ArrayList<EiaStateEnum> stateList = new ArrayList<EiaStateEnum>();
-			stateList.add(EiaStateEnum.DAMAGED);
-			stateList.add(EiaStateEnum.MAINTENANCE);
-
-			String stringQuery = "SELECT pmp FROM EiaPreventiveMaintenancePlanification pmp JOIN pmp.plan plan WHERE plan.eiaType = :eiaType order by pmp.id";
 			List<EiaMaintenancePlanification> resultList = em
-					.createQuery(stringQuery, EiaMaintenancePlanification.class)
+					.createNamedQuery(
+							"EiaMaintenancePlanification.findByEiaType",
+							EiaMaintenancePlanification.class)
 					.setParameter("eiaType", eiaType).getResultList();
 
 			return resultList;
 		} catch (Exception e) {
-			logger.log(
-					Level.INFO,
-					"Error: finding EiaPreventiveMaintenancePlanification by eiatype",
-					e);
+			logger.log(Level.INFO,
+					"Error: finding EiaMaintenancePlanification by eiatype", e);
 			throw super.generateGHAEJBException("eia-findByEiaType-fail", em);
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.EiaMaintenancePlanificationServiceRemote#save
+	 * (org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification)
+	 */
 	@Override
 	public EiaMaintenancePlanification save(EiaMaintenancePlanification planif)
 			throws GHAEJBException {
 		try {
 			em.persist(planif);
-			// TODO agregar en tabla log: se creo un mantenimiento preventivo
 			em.flush();
 
 			return em.find(EiaMaintenancePlanification.class, planif.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO,
-					"ERROR: saving EiaPreventiveMaintenancePlanification ", e);
+					"ERROR: saving EiaMaintenancePlanification ", e);
 			throw super.generateGHAEJBException("eia-save-fail", em);
 
 		}
@@ -81,21 +87,20 @@ public class EiaMaintenancePlanificationService extends GHAEJBExceptionService
 	public Long getEffectuatedPlanificationsCount(
 			MaintenancePlan maintenancePlan) throws GHAEJBException {
 		try {
-			String stringQuery = "SELECT COUNT(pmp) FROM EiaPreventiveMaintenancePlanification pmp "
-					+ "JOIN pmp.plan plan "
-					+ "JOIN pmp.planification planif "
-					+ "WHERE plan.maintenancePlan = :maintenancePlan AND planif.status = :status";
+			String stringQuery = "SELECT COUNT(epm) FROM EiaPreventiveMaintenance epm "
+					+ "JOIN epm.planification planif "
+					+ "WHERE planif.plan = :plan AND epm.state = :state";
 
 			Long result = em.createQuery(stringQuery, Long.class)
-					.setParameter("maintenancePlan", maintenancePlan)
-					.setParameter("status", EiaMaintenanceState.ACCOMPLISHED)
+					.setParameter("plan", maintenancePlan)
+					.setParameter("state", EiaMaintenanceState.ACCOMPLISHED)
 					.getSingleResult();
 
 			return result;
 		} catch (Exception e) {
 			logger.log(
 					Level.INFO,
-					"Error: geting the number of effectuated preventive planifications for the given maintenancePlan",
+					"Error: geting the number of effectuated preventive maintenance for the given maintenancePlan",
 					e);
 			throw super
 					.generateGHAEJBException(
@@ -109,19 +114,18 @@ public class EiaMaintenancePlanificationService extends GHAEJBExceptionService
 	public Long getPlanificationsCount(MaintenancePlan maintenancePlan)
 			throws GHAEJBException {
 		try {
-			String stringQuery = "SELECT COUNT(pmp) FROM EiaPreventiveMaintenance epm"
+			String stringQuery = "SELECT COUNT(epm) FROM EiaPreventiveMaintenance epm"
 					+ "JOIN epm.planification planif "
-					+ "WHERE planif.plan = :maintenancePlan";
+					+ "WHERE planif.plan = :plan";
 
 			Long result = em.createQuery(stringQuery, Long.class)
-					.setParameter("maintenancePlan", maintenancePlan)
-					.getSingleResult();
+					.setParameter("plan", maintenancePlan).getSingleResult();
 
 			return result;
 		} catch (Exception e) {
 			logger.log(
 					Level.INFO,
-					"Error: geting the number of preventive planifications associated to the given maintenancePlan",
+					"Error: geting the number of preventive maintenance associated to the given maintenancePlan",
 					e);
 			throw super.generateGHAEJBException(
 					"eiaPreventiveMaintenance-getPlanificationsCount-fail", em);
