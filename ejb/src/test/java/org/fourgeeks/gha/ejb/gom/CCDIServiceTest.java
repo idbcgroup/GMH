@@ -4,36 +4,76 @@ import javax.ejb.EJB;
 
 import junit.framework.Assert;
 
+import org.fourgeeks.gha.domain.AbstractCodeEntity;
 import org.fourgeeks.gha.domain.AbstractEntity;
+import org.fourgeeks.gha.domain.enu.BpiInstitutionRelationTypeEnum;
+import org.fourgeeks.gha.domain.enu.BpiOriginEnum;
+import org.fourgeeks.gha.domain.enu.BpiRiskEnum;
+import org.fourgeeks.gha.domain.enu.BpiTypeEnum;
 import org.fourgeeks.gha.domain.enu.CCDICodeTypeEnum;
 import org.fourgeeks.gha.domain.enu.CCDIEndValueActionEnum;
 import org.fourgeeks.gha.domain.enu.CCDIStatusEnum;
 import org.fourgeeks.gha.domain.enu.CCDIValueStatusEnum;
 import org.fourgeeks.gha.domain.enu.CCDIValueTypeEnum;
+import org.fourgeeks.gha.domain.enu.DocumentTypeEnum;
+import org.fourgeeks.gha.domain.enu.GenderTypeEnum;
 import org.fourgeeks.gha.domain.enu.LanguageEnum;
+import org.fourgeeks.gha.domain.enu.LocationLevelEnum;
+import org.fourgeeks.gha.domain.ess.LocationType;
+import org.fourgeeks.gha.domain.ess.Role;
+import org.fourgeeks.gha.domain.ess.WorkingArea;
+import org.fourgeeks.gha.domain.ess.ui.AppForm;
+import org.fourgeeks.gha.domain.ess.ui.AppFormView;
+import org.fourgeeks.gha.domain.ess.ui.AppFormViewFunction;
+import org.fourgeeks.gha.domain.ess.ui.AppFormViewFunctionBpu;
+import org.fourgeeks.gha.domain.ess.ui.Function;
+import org.fourgeeks.gha.domain.ess.ui.Module;
+import org.fourgeeks.gha.domain.ess.ui.View;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
+import org.fourgeeks.gha.domain.gar.Bpu;
+import org.fourgeeks.gha.domain.gar.BuildingLocation;
+import org.fourgeeks.gha.domain.gar.Facility;
+import org.fourgeeks.gha.domain.gar.FacilityCategory;
+import org.fourgeeks.gha.domain.gar.Job;
+import org.fourgeeks.gha.domain.gar.JobCategory;
+import org.fourgeeks.gha.domain.gar.JobPosition;
+import org.fourgeeks.gha.domain.gar.Obu;
+import org.fourgeeks.gha.domain.gmh.ServiceAndResource;
+import org.fourgeeks.gha.domain.gmh.ServiceResourceCategory;
 import org.fourgeeks.gha.domain.gom.CCDIDefinition;
 import org.fourgeeks.gha.domain.gom.CCDILevelDefinition;
 import org.fourgeeks.gha.domain.gom.CCDILevelValue;
+import org.fourgeeks.gha.domain.logs.GHALog;
+import org.fourgeeks.gha.domain.logs.UILog;
+import org.fourgeeks.gha.domain.mix.Bpi;
+import org.fourgeeks.gha.domain.mix.Citizen;
+import org.fourgeeks.gha.domain.mix.Institution;
+import org.fourgeeks.gha.domain.mix.LegalEntity;
 import org.fourgeeks.gha.domain.msg.GHAMessage;
 import org.fourgeeks.gha.domain.msg.GHAMessageId;
 import org.fourgeeks.gha.domain.msg.GHAMessageType;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
+import org.fourgeeks.gha.ejb.log.UILogService;
+import org.fourgeeks.gha.ejb.log.UILogServiceLocal;
+import org.fourgeeks.gha.ejb.log.UILogServiceRemote;
 import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
  * @author emiliot
  * 
  */
 
-// @RunWith(Arquillian.class)
+@RunWith(Arquillian.class)
 public class CCDIServiceTest {
 	/**
 	 * @return the deployment descriptor
@@ -43,12 +83,49 @@ public class CCDIServiceTest {
 		return ShrinkWrap
 				.create(WebArchive.class, "test.war")
 				.addClass(AbstractEntity.class)
+				.addClass(AbstractCodeEntity.class)
+				.addClass(View.class)
+				.addClass(Bpu.class)
+				.addClass(Institution.class)
+				.addClass(LegalEntity.class)
+				.addClass(Citizen.class)
+				.addClass(Job.class)
+				.addClass(JobPosition.class)
+				.addClass(BuildingLocation.class)
+				.addClass(LocationType.class)
+				.addClass(LocationLevelEnum.class)
+				.addClass(WorkingArea.class)
+				.addClass(Facility.class)
+				.addClass(Bpi.class)
+				.addClass(BpiTypeEnum.class)
+				.addClass(GHALog.class)
+				.addClass(UILog.class)
+				.addClass(FacilityCategory.class)
+				.addClass(UILogServiceLocal.class)
+				.addClass(ServiceResourceCategory.class)
+				.addClass(ServiceAndResource.class)
+				.addClass(AppFormView.class)
+				.addClass(AppFormViewFunction.class)
+				.addClass(AppFormViewFunctionBpu.class)
+				.addClass(Function.class)
+				.addClass(AppForm.class)
+				.addClass(Module.class)
+				.addClass(BpiInstitutionRelationTypeEnum.class)
+				.addClass(BpiOriginEnum.class)
+				.addClass(Role.class)
+				.addClass(JobCategory.class)
+				.addClass(BpiRiskEnum.class)
+				.addClass(GenderTypeEnum.class)
+				.addClass(DocumentTypeEnum.class)
+				.addClass(UILogServiceRemote.class)
+				.addClass(UILogService.class)
 				.addClass(CCDICodeTypeEnum.class)
 				.addClass(LanguageEnum.class)
 				.addClass(RuntimeParameters.class)
 				.addClass(org.fourgeeks.gha.domain.gom.Concept.class)
 				.addClass(CCDIDefinition.class)
 				.addClass(CCDILevelDefinition.class)
+				.addClass(Obu.class)
 				.addClass(CCDILevelValue.class)
 				.addClass(CCDIServiceRemote.class)
 				.addClass(CCDIService.class)
@@ -77,7 +154,7 @@ public class CCDIServiceTest {
 
 	/**
 	 */
-	// @Test
+	@Test
 	public void test() {
 		System.out.println("TESTING CCDI SERVICE\n\n\n");
 
