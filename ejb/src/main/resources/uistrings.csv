@@ -13,10 +13,6 @@ ES,eia-tooltip-date-reception, Debe seleccionar o introducir la fecha de recepci
 ES,eia-tooltip-date-aceptacion, Debe seleccionar o introducir la fecha de Aceptacion
 ES,eia-tooltip-date-installation, Debe seleccionar o introducir la fecha de instalacion del equipo
 ES,eia-tooltip-date-factura, Debe seleccionar o introducir la fecha de Facturacion del equipo
-
-
-
-
 ES,user-tooltip-first-name, Agregue su primer nombre. Ejmplo: Pedro
 ES,user-tooltip-second-name, Agregue su segundo nombre. Ejmplo: Jose
 ES,user-tooltip-last-name, Agregue su primer apellido. Ejmplo: Gonzales
@@ -35,12 +31,6 @@ ES,user-date-error-formatter, error de formato dia introducido invalido
 ES,user-error-formatter,error de formato solo se permite letras
 ES,user-error-formatter-rif,error de formato
 ES,user-error-formatter-identification,error de formato solo debe agregar numeros o letras sin tilde ni caracteres especiales
-ES,eia-error-formatter-word,Error de formato: solo pueden incluirse letras
-ES,eia-error-formatter-alphanumeric,Error de formato: el texto no puede incluir caracteres 
-ES,eia-error-formatter-serial,Error de formato: el texto solo puede incluir numeros, letras o guiones
-ES,eia-error-formatter-code,Error de formato: El texto solo puede incluir numeros, letras o guiones sin espacios en blanco.
-ES,eia-error-formatter-number,Error de formato: El texto solo puede incluir numeros.
-ES,eiatype-error-formatter-word,Error de formato: solo pueden incluirse letras
 ES,record,registro
 ES,eia,Equipo
 ES,records,registros
@@ -271,7 +261,7 @@ ES,processing,Operación en proceso
 ES,new-message-received,Nuevo Mensaje Recibido
 ES,confirm,Confirmación
 ES,eiatype-name-tooltip, El campo del nombre especifica el nombre del tipo del equipo, solo puede contener letras.
-ES,eiatype-name-tooltip, El campo del modelo especifica el modelo del tipo de equipo, solo puede contener letras, numeros o guiones.
+ES,eiatype-model-tooltip, El campo del modelo especifica el modelo del tipo de equipo, solo puede contener letras, numeros o guiones.
 ES,maintenance-plan-name-tooltip,Este campo asigna el nombre al plan de mantenimiento. Solo puede contener letras. Ej "Plan de Mantenimiento"
 ES,maintenance-plan-frequency-tooltip,Este campo asigna la frecuencia con la que se realiza el mantenimiento. Ej "48"
 ES,maintenance-plan-description-tooltip, Este campo especifica la descripcion del plan de mantenimiento
