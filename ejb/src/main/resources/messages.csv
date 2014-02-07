@@ -521,3 +521,4 @@ ES,server-error,Ha ocurrido un error inesperado con el servidor,4
 ES,message-not-null,Debe indicar el mensaje,6
 ES,message-save-fail,Error al intentar salvar un mensaje,6
 ES,message-delete-fail,Error al intentar borrar un mensaje,6
+ES,log-fail,error logueando,6
