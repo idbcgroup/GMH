@@ -11,7 +11,10 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
-@RemoteServiceRelativePath("EiaMaintenancePlanification")
+/**
+ * @author naramirez
+ */
+@RemoteServiceRelativePath("EiaMaintenance")
 public interface GWTEiaMaintenanceService extends RemoteService {
 	/**
 	 * @param eiaType
