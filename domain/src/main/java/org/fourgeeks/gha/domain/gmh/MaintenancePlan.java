@@ -29,8 +29,8 @@ import org.fourgeeks.gha.domain.glm.Bsp;
 @NamedQueries(value = {
 		@NamedQuery(name = "MaintenancePlan.getAll", query = "SELECT e from MaintenancePlan e order by e.id"),
 		@NamedQuery(name = "MaintenancePlan.findByEiaType", query = "SELECT mnt from EiaTypeMaintenancePlan e JOIN e.maintenancePlan mnt WHERE e.eiaType = :eiaType order by e.id"),
-		@NamedQuery(name = "MaintenancePlan.findEiaByMaintenancePlan", query = "SELECT emp FROM EiaMaintenancePlanification emp WHERE emp.plan = :plan"),
-		@NamedQuery(name = "MaintenancePlan.findDamageEiaByMaintenancePlan", query = "SELECT eia FROM EiaPreventiveMaintenance epm JOIN epm.planification planif JOIN planif.eia eia WHERE planif.plan = :plan AND (eia.state IN :eiastates OR epm.state = :mstate)") })
+		@NamedQuery(name = "MaintenancePlan.findEiaByMaintenancePlan", query = "SELECT emp FROM EiaMaintenancePlanification emp JOIN emp.plan p WHERE p.maintenancePlan = :plan"),
+		@NamedQuery(name = "MaintenancePlan.findDamageEiaByMaintenancePlan", query = "SELECT eia FROM EiaPreventiveMaintenance epm JOIN epm.planification planif JOIN planif.eia eia JOIN planif.plan plan WHERE plan.maintenancePlan = :plan AND (eia.state IN :eiastates OR epm.state = :mstate)") })
 public class MaintenancePlan extends AbstractEntity {
 
 	/**

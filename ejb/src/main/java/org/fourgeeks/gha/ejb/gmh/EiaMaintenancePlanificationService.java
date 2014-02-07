@@ -89,10 +89,11 @@ public class EiaMaintenancePlanificationService extends GHAEJBExceptionService
 		try {
 			String stringQuery = "SELECT COUNT(epm) FROM EiaPreventiveMaintenance epm "
 					+ "JOIN epm.planification planif "
-					+ "WHERE planif.plan = :plan AND epm.state = :state";
+					+ "JOIN planif.plan plan "
+					+ "WHERE plan.maintenancePlan = :maintenancePlan AND epm.state = :state";
 
 			Long result = em.createQuery(stringQuery, Long.class)
-					.setParameter("plan", maintenancePlan)
+					.setParameter("maintenancePlan", maintenancePlan)
 					.setParameter("state", EiaMaintenanceState.ACCOMPLISHED)
 					.getSingleResult();
 
@@ -114,12 +115,14 @@ public class EiaMaintenancePlanificationService extends GHAEJBExceptionService
 	public Long getPlanificationsCount(MaintenancePlan maintenancePlan)
 			throws GHAEJBException {
 		try {
-			String stringQuery = "SELECT COUNT(epm) FROM EiaPreventiveMaintenance epm"
+			String stringQuery = "SELECT COUNT(epm) FROM EiaPreventiveMaintenance epm "
 					+ "JOIN epm.planification planif "
-					+ "WHERE planif.plan = :plan";
+					+ "JOIN planif.plan plan "
+					+ "WHERE plan.maintenancePlan = :maintenancePlan ";
 
 			Long result = em.createQuery(stringQuery, Long.class)
-					.setParameter("plan", maintenancePlan).getSingleResult();
+					.setParameter("maintenancePlan", maintenancePlan)
+					.getSingleResult();
 
 			return result;
 		} catch (Exception e) {
@@ -139,8 +142,9 @@ public class EiaMaintenancePlanificationService extends GHAEJBExceptionService
 		try {
 			String stringQuery = "SELECT epm FROM EiaPreventiveMaintenance epm "
 					+ "JOIN epm.planification planif "
-					+ "WHERE planif.plan = :maintenancePlan AND epm.state = :status AND epm.finishTimestamp IS NOT NULL "
-					+ "ORDER BY epm.finishTimestamp desc";
+					+ "JOIN planif.plan plan "
+					+ "WHERE plan.maintenancePlan = :maintenancePlan AND epm.state = :status AND epm.finishTimestamp IS NOT NULL "
+					+ "ORDER BY epm.finishTimestamp desc ";
 
 			List<EiaPreventiveMaintenance> resultList = em
 					.createQuery(stringQuery, EiaPreventiveMaintenance.class)
