@@ -34,6 +34,8 @@ import org.fourgeeks.gha.webclient.client.brand.BrandModel;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
+import com.smartgwt.client.widgets.form.fields.events.EditorExitEvent;
+import com.smartgwt.client.widgets.form.fields.events.EditorExitHandler;
 import com.smartgwt.client.widgets.form.fields.events.FocusEvent;
 import com.smartgwt.client.widgets.form.fields.events.FocusHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -93,8 +95,10 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 		//Regex!
 		
 		nameItem.validateWords();
-
+		nameItem.setTooltip(GHAStrings.get("eiatype-name-tooltip"));
+		
 		modelItem.validateWords();
+		modelItem.setTooltip(GHAStrings.get("eiatype-model-tooltip"));
 
 		//Incierto si requiere validacion o no
 		//eiaUmdnsItem.validateWords();
@@ -184,6 +188,7 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 	}
 
 	private EiaType extract(boolean update) {
+		final List<String> violationsList = new ArrayList<String>();
 		final EiaType eiaType = new EiaType();
 		if (update)
 			eiaType.setCode(this.originalEntity.getCode());
@@ -224,15 +229,10 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 					.getValueAsString()));
 		Set<ConstraintViolation<EiaType>> violations = null;
 		violations = validator.validate(eiaType);
-		if (!form.validate()) {
-			GHAAlertManager.alert("form-errors");
-			return null;
-		}
 
-		if (violations.isEmpty())
+		if (violations.isEmpty() && form.validate())
 			return eiaType;
 		else {
-			List<String> violationsList = new ArrayList<String>();
 			for (Iterator<ConstraintViolation<EiaType>> it = violations
 					.iterator(); it.hasNext();)
 				violationsList.add(it.next().getMessage());
@@ -428,6 +428,7 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 				if (callback != null)
 					callback.onSuccess(result);
 			}
+
 		});
 	}
 
