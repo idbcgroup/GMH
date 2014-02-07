@@ -1,12 +1,3 @@
-ES,eia-cost-error-formatter,Error de formato: El costo solo puede ser expresado en numeros
-ES,eia-cost-local-error-formatter,Error de formato: El costo local solo puede ser expresado en numeros
-ES,user-fisrt-name-error-formatter,error de formato el primer nombre solo permite letras
-ES,user-second-name-error-formatter,error de formato el segundo nombre solo permite letras
-ES,user-fisrt-last-name-error-formatter,error de formato el primer apellido solo permite letras
-ES,user-second-last-name-error-formatter,error de formato el segundo apellido solo permite letras
-ES,user-nationality-error-formatter,error de formato la nacionalidad solo permite letras
-ES,user-identification-error-formatter,error de formato la identificacion solo permite letras
-ES,user-error-formatter-rif,error de formato en el rif no se permite tildes solo numeros y letras
 ES,id-type-not-null,Debe indicar el tipo de identificación,6
 ES,id-number-not-null,Debe indicar el número de identificación,6
 ES,asset-id-not-null,Debe indicar el identificador del activo,6
@@ -530,3 +521,5 @@ ES,server-error,Ha ocurrido un error inesperado con el servidor,4
 ES,message-not-null,Debe indicar el mensaje,6
 ES,message-save-fail,Error al intentar salvar un mensaje,6
 ES,message-delete-fail,Error al intentar borrar un mensaje,6
+ES,eiatype-name-error-formatter,Error de formato: El nombre solo puede contener letras
+ES,eiatype-model-error-formatter,Error de formato: El modelo solo puede contener letras, numeros y guiones.

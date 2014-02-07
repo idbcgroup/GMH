@@ -252,58 +252,20 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 		citizen.setSecondLastName(secondLastNameItem.getValueAsString());
 		citizen.setNationality(nationalityItem.getValueAsString());
 
-		if (firstNameItem.getValue() != null) {
-			if (!firstNameItem.validate())
-				violationsList.add("user-fisrt-name-error-formatter");
-
-		}
-
-		if (secondNameItem.getValue() != null) {
-			if (!secondNameItem.validate())
-				violationsList.add("user-second-name-error-formatter");
-
-		}
-
-		if (lastNameItem.getValue() != null) {
-			if (!lastNameItem.validate())
-				violationsList.add("user-fisrt-last-name-error-formatter");
-
-		}
-
-		if (secondLastNameItem.getValue() != null) {
-			if (!secondLastNameItem.validate())
-				violationsList.add("user-second-last-name-error-formatter");
-
-		}
-		if (nationalityItem.getValue() != null) {
-			if (!nationalityItem.validate())
-				violationsList.add("user-nationality-error-formatter");
-
-		}
-
 		if (idItem.getValue() != null) {
-			if (!idItem.validate())
-				violationsList.add("user-identification-error-formatter");
 			citizen.setIdNumber(idItem.getValueAsString());
-
 		}
 
 		if (legalEntityIdentifierItem.getValue() != null) {
-			if (!legalEntityIdentifierItem.validate())
-				violationsList.add("user-error-formatter-rif");
 			legalEntity.setIdentifier(legalEntityIdentifierItem
 					.getValueAsString());
 		}
 
 		if (primaryEmailItem.getValue() != null) {
-			if (!primaryEmailItem.validate())
-				violationsList.add("email-invalid-field");
 			citizen.setPrimaryEmail(primaryEmailItem.getValueAsString());
 		}
 
 		if (alternativeEmailItem.getValue() != null) {
-			if (!alternativeEmailItem.validate())
-				violationsList.add("email-invalid-field");
 			citizen.setAlternativeEmail(alternativeEmailItem.getValueAsString());
 		}
 

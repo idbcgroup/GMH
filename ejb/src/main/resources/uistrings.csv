@@ -270,3 +270,8 @@ ES,success,Éxito
 ES,processing,Operación en proceso
 ES,new-message-received,Nuevo Mensaje Recibido
 ES,confirm,Confirmación
+ES,eiatype-name-tooltip, El campo del nombre especifica el nombre del tipo del equipo, solo puede contener letras.
+ES,eiatype-name-tooltip, El campo del modelo especifica el modelo del tipo de equipo, solo puede contener letras, numeros o guiones.
+ES,maintenance-plan-name-tooltip,Este campo asigna el nombre al plan de mantenimiento. Solo puede contener letras. Ej "Plan de Mantenimiento"
+ES,maintenance-plan-frequency-tooltip,Este campo asigna la frecuencia con la que se realiza el mantenimiento. Ej "48"
+ES,maintenance-plan-description-tooltip, Este campo especifica la descripcion del plan de mantenimiento
