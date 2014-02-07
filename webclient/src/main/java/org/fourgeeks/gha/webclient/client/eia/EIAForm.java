@@ -323,8 +323,8 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		purchaseInvoiceDateItem.setTooltip(GHAStrings
 				.get("eia-tooltip-date-factura"));
 
-		installationProviderSelectItem = new GHASelectItem(
-				"Proveedor de Inst.", false, changedHandler);
+		installationProviderSelectItem.setTooltip(GHAStrings
+				.get("eia-tooltip-provider-inst"));
 
 		// Garantia
 		realWarranty_TitleItem = new GHATitletextItem("Garantía Real:", 4);
