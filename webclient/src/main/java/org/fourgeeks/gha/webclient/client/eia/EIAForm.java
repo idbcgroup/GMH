@@ -326,91 +326,96 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		installationProviderSelectItem.setTooltip(GHAStrings
 				.get("eia-tooltip-provider-inst"));
 
-		// Garantia
-		realWarranty_TitleItem = new GHATitletextItem("Garantía Real:", 4);
-		intermedWarranty_TitleItem = new GHATitletextItem(
-				GHAStrings.get("intermediate-warranty"), 4);
-		realWarrantySinceSelectItem = new GHASelectItem("Desde", false,
-				changedHandler);
-		realWarrantyTimeTextItem = new GHATextItem("Duración", false,
-				changedHandler);
-		realWarrantyTimeTextItem.setLength(3);
-		// realWarrantyTimeTextItem.setMask("###");
-		realWarrantyPotSelectItem = new GHAPeriodOfTimeSelectItem(false,
-				changedHandler);
-		realWarrantyBeginDate = new GHADateItem("Fecha Inicio", true);
-		realWarrantyBeginDate.addChangedHandler(changedHandler);
-
-		intWarrantySinceSelectItem = new GHASelectItem("Desde", false,
-				changedHandler);
-		intWarrantyTimeTextItem = new GHATextItem("Duración", false,
-				changedHandler);
-		intWarrantyTimeTextItem.setLength(3);
-		// intWarrantyTimeTextItem.setMask("###");
-		intWarrantyPotSelectItem = new GHAPeriodOfTimeSelectItem(false,
-				changedHandler);
-		intWarrantyBeginDate = new GHADateItem("Fecha Inicio", true);
-		intWarrantyBeginDate.addChangedHandler(changedHandler);
-
-		// Ubicacion Form Items
-		location_TitleItem = new GHATitletextItem("Ubicación:", 3);
-		locationTypeSelectItem = new GHASelectItem("Tipo de Ubicación", false,
-				changedHandler);
-
-		workingArea_TitleItem = new GHATitletextItem("Área de Trabajo:", 3);
-		facility_TitleItem = new GHATitletextItem("Servicio/Instalación:", 3);
-		workingAreaLocationCodeTextItem = new GHATextItem("Código", false);
-		workingAreaLocationSelectItem = new GHASelectItem("Nombre", false,
-				changedHandler);
-		workingAreaLocationSelectItem.setDisabled(true);
-
-		facilityLocationCodeTextItem = new GHATextItem("Código", false);
-		facilityLocationSelectItem = new GHASelectItem("Nombre", false,
-				changedHandler);
-		facilityLocationSelectItem.setDisabled(true);
-
-		// Costos Form Items
-		adqCost_TitleItem = new GHATitletextItem("Costo Adquisición:", 4);
-		actualCost_TitleItem = new GHATitletextItem("Costo Actual:", 4);
-		depTime_TitleItem = new GHATitletextItem("Tiempo de Depreciación:");
-		lifeTime_TitleItem = new GHATitletextItem("Tiempo de Vida:");
-		adquisitionCostTextItem = new GHATextItem("Costo de Adq. del equipo",
-				false, changedHandler);
-		adquisitionCostTextItem.setLength(16);
-		// adquisitionCostTextItem.setMask("################");
-		adquisitionCostCurrencySelectItem = new GHASelectItem("Moneda", false,
-				changedHandler);
-		contabilizationDateItem = new GHADateItem("Fecha de Contabilización",
-				true);
-		contabilizationDateItem.addChangedHandler(changedHandler);
-
-		adquisitionCostLocalTextItem = new GHATextItem("Costo de Adq. Local",
-				false, changedHandler);
-		adquisitionCostLocalTextItem.setLength(16);
-		// adquisitionCostLocalTextItem.setMask("################");
-		adquisitionCostCurrencyLocalSelectItem = new GHASelectItem(
-				"Moneda Local", false, changedHandler);
-		depreciationMethodSelectItem = new GHASelectItem("Metodo Depreciación",
-				false, changedHandler);
-		depreciationTimeTextItem = new GHATextItem("Duración", false,
-				changedHandler);
-		depreciationTimeTextItem.setLength(3);
-		// depreciationTimeTextItem.setMask("###");
-		depreciationTimePotSelectItem = new GHAPeriodOfTimeSelectItem(false,
-				changedHandler);
-		lastDepreciationDate = new GHADateItem("Fecha Ult. Depreciación", true);
-		lastDepreciationDate.addChangedHandler(changedHandler);
-		lifeTimeTextItem = new GHATextItem("Duración", false, changedHandler);
-		lifeTimeTextItem.setLength(3);
-		// lifeTimeTextItem.setMask("###");
-		lifeTimePotSelectItem = new GHAPeriodOfTimeSelectItem(false,
-				changedHandler);
-		actualCostTextItem = new GHATextItem("Costo Actual en libros", false,
-				changedHandler);
-		actualCostTextItem.setLength(16);
-		// actualCostTextItem.setMask("################");
-		actualCostCurrencySelectItem = new GHASelectItem("Moneda", false,
-				changedHandler);
+		// // Garantia
+		// intermedWarranty_TitleItem = new GHATitletextItem(
+		// GHAStrings.get("intermediate-warranty"), 4);
+		// realWarrantySinceSelectItem = new GHASelectItem("Desde", false,
+		// changedHandler);
+		// realWarrantyTimeTextItem = new GHATextItem("Duración", false,
+		// changedHandler);
+		// realWarrantyTimeTextItem.setLength(3);
+		// // realWarrantyTimeTextItem.setMask("###");
+		// realWarrantyPotSelectItem = new GHAPeriodOfTimeSelectItem(false,
+		// changedHandler);
+		// realWarrantyBeginDate = new GHADateItem("Fecha Inicio", true);
+		// realWarrantyBeginDate.addChangedHandler(changedHandler);
+		//
+		// intWarrantySinceSelectItem = new GHASelectItem("Desde", false,
+		// changedHandler);
+		// intWarrantyTimeTextItem = new GHATextItem("Duración", false,
+		// changedHandler);
+		// intWarrantyTimeTextItem.setLength(3);
+		// // intWarrantyTimeTextItem.setMask("###");
+		// intWarrantyPotSelectItem = new GHAPeriodOfTimeSelectItem(false,
+		// changedHandler);
+		// intWarrantyBeginDate = new GHADateItem("Fecha Inicio", true);
+		// intWarrantyBeginDate.addChangedHandler(changedHandler);
+		//
+		// // Ubicacion Form Items
+		// location_TitleItem = new GHATitletextItem("Ubicación:", 3);
+		// locationTypeSelectItem = new GHASelectItem("Tipo de Ubicación",
+		// false,
+		// changedHandler);
+		//
+		// workingArea_TitleItem = new GHATitletextItem("Área de Trabajo:", 3);
+		// facility_TitleItem = new GHATitletextItem("Servicio/Instalación:",
+		// 3);
+		// workingAreaLocationCodeTextItem = new GHATextItem("Código", false);
+		// workingAreaLocationSelectItem = new GHASelectItem("Nombre", false,
+		// changedHandler);
+		// workingAreaLocationSelectItem.setDisabled(true);
+		//
+		// facilityLocationCodeTextItem = new GHATextItem("Código", false);
+		// facilityLocationSelectItem = new GHASelectItem("Nombre", false,
+		// changedHandler);
+		// facilityLocationSelectItem.setDisabled(true);
+		//
+		// // Costos Form Items
+		// adqCost_TitleItem = new GHATitletextItem("Costo Adquisición:", 4);
+		// actualCost_TitleItem = new GHATitletextItem("Costo Actual:", 4);
+		// depTime_TitleItem = new GHATitletextItem("Tiempo de Depreciación:");
+		// lifeTime_TitleItem = new GHATitletextItem("Tiempo de Vida:");
+		// adquisitionCostTextItem = new GHATextItem("Costo de Adq. del equipo",
+		// false, changedHandler);
+		// adquisitionCostTextItem.setLength(16);
+		// // adquisitionCostTextItem.setMask("################");
+		// adquisitionCostCurrencySelectItem = new GHASelectItem("Moneda",
+		// false,
+		// changedHandler);
+		// contabilizationDateItem = new GHADateItem("Fecha de Contabilización",
+		// true);
+		// contabilizationDateItem.addChangedHandler(changedHandler);
+		//
+		// adquisitionCostLocalTextItem = new GHATextItem("Costo de Adq. Local",
+		// false, changedHandler);
+		// adquisitionCostLocalTextItem.setLength(16);
+		// // adquisitionCostLocalTextItem.setMask("################");
+		// adquisitionCostCurrencyLocalSelectItem = new GHASelectItem(
+		// "Moneda Local", false, changedHandler);
+		// depreciationMethodSelectItem = new
+		// GHASelectItem("Metodo Depreciación",
+		// false, changedHandler);
+		// depreciationTimeTextItem = new GHATextItem("Duración", false,
+		// changedHandler);
+		// depreciationTimeTextItem.setLength(3);
+		// // depreciationTimeTextItem.setMask("###");
+		// depreciationTimePotSelectItem = new GHAPeriodOfTimeSelectItem(false,
+		// changedHandler);
+		// lastDepreciationDate = new GHADateItem("Fecha Ult. Depreciación",
+		// true);
+		// lastDepreciationDate.addChangedHandler(changedHandler);
+		// lifeTimeTextItem = new GHATextItem("Duración", false,
+		// changedHandler);
+		// lifeTimeTextItem.setLength(3);
+		// // lifeTimeTextItem.setMask("###");
+		// lifeTimePotSelectItem = new GHAPeriodOfTimeSelectItem(false,
+		// changedHandler);
+		// actualCostTextItem = new GHATextItem("Costo Actual en libros", false,
+		// changedHandler);
+		// actualCostTextItem.setLength(16);
+		// // actualCostTextItem.setMask("################");
+		// actualCostCurrencySelectItem = new GHASelectItem("Moneda", false,
+		// changedHandler);
 
 	}
 
