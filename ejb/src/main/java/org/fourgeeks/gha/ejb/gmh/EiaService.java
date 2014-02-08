@@ -36,7 +36,6 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeComponent;
 import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
-import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
  * @author emiliot, vivi.torresg
@@ -241,8 +240,7 @@ public class EiaService extends GHAEJBExceptionService implements
 		} catch (final Exception e) {
 			logger.log(Level.SEVERE,
 					"Error obteniendo los Eia utilizando otro Eia", e);
-			throw super.generateGHAEJBException("eia-findByEia-fail",
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException("eia-findByEia-fail", em);
 		}
 	}
 
@@ -260,8 +258,7 @@ public class EiaService extends GHAEJBExceptionService implements
 					.setParameter("eiaType", eiaType).getResultList();
 		} catch (final Exception e) {
 			logger.log(Level.INFO, "Error: finding eia by eiatype", e);
-			throw super.generateGHAEJBException("eia-findByEiaType-fail",
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException("eia-findByEiaType-fail", em);
 		}
 	}
 
@@ -282,8 +279,7 @@ public class EiaService extends GHAEJBExceptionService implements
 		} catch (final Exception e) {
 			final String stringException = "Error: finding eia by eiatype and state DAMAGED or MAINTENANCE";
 			logger.log(Level.INFO, stringException, e);
-			throw super.generateGHAEJBException("eia-findByEiaType-fail",
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException("eia-findByEiaType-fail", em);
 		}
 	}
 
@@ -298,8 +294,7 @@ public class EiaService extends GHAEJBExceptionService implements
 			return em.find(Eia.class, Id);
 		} catch (final Exception e) {
 			logger.log(Level.INFO, "ERROR: finding eia by id", e);
-			throw super.generateGHAEJBException("eia-find-fail",
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException("eia-find-fail", em);
 		}
 	}
 
@@ -314,8 +309,7 @@ public class EiaService extends GHAEJBExceptionService implements
 			return em.createNamedQuery("Eia.getAll", Eia.class).getResultList();
 		} catch (final Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all eias", ex);
-			throw super.generateGHAEJBException("eia-getAll-fail",
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException("eia-getAll-fail", em);
 		}
 	}
 
@@ -331,8 +325,7 @@ public class EiaService extends GHAEJBExceptionService implements
 					.setFirstResult(offset).setMaxResults(size).getResultList();
 		} catch (final Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all eias", ex);
-			throw super.generateGHAEJBException("eia-getAll-fail",
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException("eia-getAll-fail", em);
 		}
 	}
 
@@ -351,8 +344,7 @@ public class EiaService extends GHAEJBExceptionService implements
 			return em.find(Eia.class, eia.getId());
 		} catch (final Exception e) {
 			logger.log(Level.INFO, "ERROR: saving eia ", e);
-			throw super.generateGHAEJBException("eia-save-fail",
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException("eia-save-fail", em);
 		}
 	}
 
@@ -370,8 +362,7 @@ public class EiaService extends GHAEJBExceptionService implements
 			return res;
 		} catch (final Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to update eia ", e);
-			throw super.generateGHAEJBException("eia-update-fail",
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException("eia-update-fail", em);
 		}
 	}
 

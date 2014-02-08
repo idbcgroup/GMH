@@ -284,8 +284,8 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 		}
 		// bpu fields
 		if (bpiSelectItem.getValue() != null) {
-			long bpiId = Long.valueOf(bpiSelectItem.getValueAsString());
-			for (Bpi next : bpis) {
+			final long bpiId = Long.valueOf(bpiSelectItem.getValueAsString());
+			for (final Bpi next : bpis) {
 				if (next.getId() == bpiId) {
 					bpi = next;
 					break;
@@ -299,41 +299,43 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 		bpu.setBpi(bpi);
 		ssoUser.setBpu(bpu);
 
-		Set<ConstraintViolation<LegalEntity>> violationsLegalEntity = validator
+		final Set<ConstraintViolation<LegalEntity>> violationsLegalEntity = validator
 				.validate(legalEntity);
-		Set<ConstraintViolation<Citizen>> violationsCitizen = validator
+		final Set<ConstraintViolation<Citizen>> violationsCitizen = validator
 				.validate(citizen);
-		Set<ConstraintViolation<Bpu>> violationsBpu = validator.validate(bpu);
-		Set<ConstraintViolation<SSOUser>> violationsSSOUser = validator
+		final Set<ConstraintViolation<Bpu>> violationsBpu = validator
+				.validate(bpu);
+		final Set<ConstraintViolation<SSOUser>> violationsSSOUser = validator
 				.validate(ssoUser);
-		Set<ConstraintViolation<Bpi>> violationsBpi = validator.validate(bpi);
+		final Set<ConstraintViolation<Bpi>> violationsBpi = validator
+				.validate(bpi);
 
 		if (violationsLegalEntity.isEmpty()) {
-			for (Iterator<ConstraintViolation<LegalEntity>> it = violationsLegalEntity
+			for (final Iterator<ConstraintViolation<LegalEntity>> it = violationsLegalEntity
 					.iterator(); it.hasNext();)
 				violationsList.add(it.next().getMessage());
 		}
 
 		if (!violationsCitizen.isEmpty()) {
-			for (Iterator<ConstraintViolation<Citizen>> it = violationsCitizen
+			for (final Iterator<ConstraintViolation<Citizen>> it = violationsCitizen
 					.iterator(); it.hasNext();)
 				violationsList.add(it.next().getMessage());
 		}
 
 		if (!violationsBpu.isEmpty()) {
-			for (Iterator<ConstraintViolation<Bpu>> it = violationsBpu
+			for (final Iterator<ConstraintViolation<Bpu>> it = violationsBpu
 					.iterator(); it.hasNext();)
 				violationsList.add(it.next().getMessage());
 		}
 
 		if (!violationsSSOUser.isEmpty()) {
-			for (Iterator<ConstraintViolation<SSOUser>> it = violationsSSOUser
+			for (final Iterator<ConstraintViolation<SSOUser>> it = violationsSSOUser
 					.iterator(); it.hasNext();)
 				violationsList.add(it.next().getMessage());
 		}
 
 		if (!violationsBpi.isEmpty())
-			for (Iterator<ConstraintViolation<Bpi>> it = violationsBpi
+			for (final Iterator<ConstraintViolation<Bpi>> it = violationsBpi
 					.iterator(); it.hasNext();)
 				violationsList.add(it.next().getMessage());
 
@@ -362,8 +364,8 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 
 			@Override
 			public void onSuccess(List<Bpi> result) {
-				LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-				for (Bpi bpi : result) {
+				final LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+				for (final Bpi bpi : result) {
 					valueMap.put(bpi.getId() + "", bpi.getInstitution()
 							.getName());
 				}
@@ -375,7 +377,7 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 
 	@Override
 	public void notifyUser(SSOUser ssoUser) {
-		for (UserSelectionListener listener : listeners)
+		for (final UserSelectionListener listener : listeners)
 			listener.select(ssoUser);
 	}
 
@@ -399,7 +401,7 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 
 	@Override
 	public void save(final GHAAsyncCallback<SSOUser> callback) {
-		SSOUser ssoUser = extract(false);
+		final SSOUser ssoUser = extract(false);
 		// if the validation fail, return
 		if (ssoUser == null)
 			return;
@@ -438,13 +440,13 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 		// // TODO: when is added to the interface
 		// }
 		if (ssoUser.getBpu() != null) {
-			Bpu bpu = ssoUser.getBpu();
+			final Bpu bpu = ssoUser.getBpu();
 			if (bpu.getBpi() != null) {
 				bpiSelectItem.setValue(bpu.getBpi().getId());
 			}
 
 			if (bpu.getCitizen() != null) {
-				Citizen citizen = bpu.getCitizen();
+				final Citizen citizen = bpu.getCitizen();
 				if (citizen.getFirstName() != null) {
 					firstNameItem.setValue(citizen.getFirstName());
 				}
@@ -523,11 +525,10 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 
 	@Override
 	public void update(final GHAAsyncCallback<SSOUser> callback) {
-		SSOUser ssoUser = extract(true);
+		final SSOUser ssoUser = extract(true);
 		// if the validation fail, return
 		if (ssoUser == null)
 			return;
-
 		UserModel.update(ssoUser, new GHAAsyncCallback<SSOUser>() {
 
 			@Override

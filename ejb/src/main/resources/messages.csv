@@ -521,5 +521,6 @@ ES,server-error,Ha ocurrido un error inesperado con el servidor,4
 ES,message-not-null,Debe indicar el mensaje,6
 ES,message-save-fail,Error al intentar salvar un mensaje,6
 ES,message-delete-fail,Error al intentar borrar un mensaje,6
-ES,eiatype-name-error-formatter,Error de formato: El nombre solo puede contener letras
-ES,eiatype-model-error-formatter,Error de formato: El modelo solo puede contener letras, numeros y guiones.
+ES,eiatype-name-error-formatter,Error de formato: El nombre solo puede contener letras,6
+ES,eiatype-model-error-formatter,Error de formato: El modelo solo puede contener letras, numeros y guiones,6
+ES,log-fail,error logueando,6
