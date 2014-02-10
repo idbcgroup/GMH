@@ -1,3 +1,4 @@
+ES,type, Tipo
 ES,eia-tooltip-type, Debe seleccionar un tipo de equipo
 ES,eia-tooltip-code, El codigo es un identificador para el equipo
 ES,eia-tooltip-serial, Debe agregar el serial del equipo
