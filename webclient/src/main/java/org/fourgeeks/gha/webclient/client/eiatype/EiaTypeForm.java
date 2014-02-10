@@ -149,8 +149,7 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 		addMember(gridPanel);
 		fillMans(true);
 		fillExtras();
-		
-		
+
 	}
 
 	@Override

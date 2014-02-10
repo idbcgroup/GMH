@@ -1,4 +1,4 @@
-ES,eia-tooltip-type, Debe seleccionar un tipo de equipo.
+ES,eia-tooltip-type, Debe seleccionar un tipo de equipo
 ES,eia-tooltip-code, El codigo es un identificador para el equipo
 ES,eia-tooltip-serial, Debe agregar el serial del equipo
 ES,eia-tooltip-fixed-asset-identifier, Debe agregar el identificador activo
@@ -13,19 +13,19 @@ ES,eia-tooltip-date-reception, Debe seleccionar o introducir la fecha de recepci
 ES,eia-tooltip-date-aceptacion, Debe seleccionar o introducir la fecha de Aceptacion
 ES,eia-tooltip-date-installation, Debe seleccionar o introducir la fecha de instalacion del equipo
 ES,eia-tooltip-date-factura, Debe seleccionar o introducir la fecha de Facturacion del equipo
-ES,user-tooltip-first-name, Agregue su primer nombre. Ejmplo: Pedro
-ES,user-tooltip-second-name, Agregue su segundo nombre. Ejmplo: Jose
-ES,user-tooltip-last-name, Agregue su primer apellido. Ejmplo: Gonzales
-ES,user-tooltip-secondlast-name, Agregue su segundo apellido. Ejmplo: Barboza
-ES,user-tooltip-identification, Puede agregar cedula o pasaporte entre otros, Ejemplo: V-18722506 
-ES,user-tooltip-email, Agregue su correo Ejemplo: ejemplo@correo.com 
-ES,user-tooltip-email-secundario, Agregue su correo alternativo Ejemplo: alternativo@correo.com 
-ES,user-tooltip-genero, Debe seleccionar un genero Ejemplo: masculino o femenino 
+ES,user-tooltip-first-name, Agregue su primer nombre Ejmplo Pedro
+ES,user-tooltip-second-name, Agregue su segundo nombre Ejmplo Jose
+ES,user-tooltip-last-name, Agregue su primer apellido Ejmplo Gonzales
+ES,user-tooltip-secondlast-name, Agregue su segundo apellido Ejmplo Barboza
+ES,user-tooltip-identification, Puede agregar cedula o pasaporte entre otros Ejemplo V-18722506 
+ES,user-tooltip-email, Agregue su correo Ejemplo ejemplocorreocom 
+ES,user-tooltip-email-secundario, Agregue su correo alternativo Ejemplo alternativocorreo.com 
+ES,user-tooltip-genero, Debe seleccionar un genero Ejemplo masculino o femenino 
 ES,user-tooltip-birthdate, Debe seleccionar o introducir una fecha 
 ES,user-tooltip-institution, Debe seleccionar una institucion
-ES,user-tooltip-rif, Debe agregar el rif. Ejemplo: J-1234567
-ES,user-name-tooltip, Agregue su nombre de Usuario. Ejemplo: Analista
-ES,user-password-tooltip, Agregue su clave de Usuario. Ejemplo: 123456
+ES,user-tooltip-rif, Debe agregar el rif Ejemplo J-1234567
+ES,user-name-tooltip, Agregue su nombre de Usuario Ejemplo Analista
+ES,user-password-tooltip, Agregue su clave de Usuario Ejemplo 123456
 ES,user-confirm-password-tooltip, Confirme su clave
 ES,user-date-error-formatter, error de formato dia introducido invalido
 ES,user-error-formatter,error de formato solo se permite letras
@@ -260,8 +260,8 @@ ES,success,Éxito
 ES,processing,Operación en proceso
 ES,new-message-received,Nuevo Mensaje Recibido
 ES,confirm,Confirmación
-ES,eiatype-name-tooltip, El campo del nombre especifica el nombre del tipo del equipo, solo puede contener letras.
-ES,eiatype-model-tooltip, El campo del modelo especifica el modelo del tipo de equipo, solo puede contener letras, numeros o guiones.
-ES,maintenance-plan-name-tooltip,Este campo asigna el nombre al plan de mantenimiento. Solo puede contener letras. Ej "Plan de Mantenimiento"
-ES,maintenance-plan-frequency-tooltip,Este campo asigna la frecuencia con la que se realiza el mantenimiento. Ej "48"
+ES,eiatype-name-tooltip, El campo del nombre especifica el nombre del tipo del equipo solo puede contener letras
+ES,eiatype-model-tooltip, El campo del modelo especifica el modelo del tipo de equipo solo puede contener letras numeros o guiones
+ES,maintenance-plan-name-tooltip,Este campo asigna el nombre al plan de mantenimiento Solo puede contener letras Ej Plan de Mantenimiento
+ES,maintenance-plan-frequency-tooltip,Este campo asigna la frecuencia con la que se realiza el mantenimiento Ej 48
 ES,maintenance-plan-description-tooltip, Este campo especifica la descripcion del plan de mantenimiento
