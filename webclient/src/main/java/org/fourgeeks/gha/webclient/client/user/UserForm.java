@@ -63,13 +63,16 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 		confirmPasswordItem = new GHATextItem("Confirme contraseña", true,
 				changedHandler);
 		confirmPasswordItem.setLength(20);
-		firstNameItem = new GHANameTextItem(GHAStrings.get("first-name"), false, changedHandler);
-		secondNameItem = new GHANameTextItem(GHAStrings.get("second-name"), false,
+		firstNameItem = new GHANameTextItem(GHAStrings.get("first-name"),
+				false, changedHandler);
+		secondNameItem = new GHANameTextItem(GHAStrings.get("second-name"),
+				false, changedHandler);
+		lastNameItem = new GHANameTextItem(GHAStrings.get("first-lastname"),
+				false, changedHandler);
+		secondLastNameItem = new GHANameTextItem(
+				GHAStrings.get("second-lastname"), false, changedHandler);
+		primaryEmailItem = new GHAEmailTextItem("Email Primario",
 				changedHandler);
-		lastNameItem = new GHANameTextItem(GHAStrings.get("first-lastname"), false, changedHandler);
-		secondLastNameItem = new GHANameTextItem(GHAStrings.get("second-lastname"), false,
-				changedHandler);
-		primaryEmailItem = new GHAEmailTextItem("Email Primario", changedHandler);
 		alternativeEmailItem = new GHAEmailTextItem("Email Secundario",
 				changedHandler);
 
@@ -87,14 +90,16 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 		bpiSelectItem = new GHASelectItem("Institución");
 		bpiSelectItem.setRequired(true);
 		bpiSelectItem.addChangedHandler(changedHandler);
-		legalEntityIdentifierItem = new GHATextItem("R.I.F.", false,changedHandler);
+		legalEntityIdentifierItem = new GHATextItem("R.I.F.", false,
+				changedHandler);
 		legalEntityIdentifierItem.setLength(17);
-		legalEntityIdentifierItem.setMask(">[V|M|P|R|E|J|I|G]-[0-9|-][0-9|-][0-9|-][0-9|-][0-9|-][0-9|-][0-9|-][0-9|-][0-9|-][0-9|-][0-9|-][0-9|-][0-9|-][0-9|-][0-9|-]");
-		//VMPREJIG
-		
+		legalEntityIdentifierItem
+				.setMask(">[V|M|P|R|E|J|I|G]-[0-9|-][0-9|-][0-9|-][0-9|-][0-9|-][0-9|-][0-9|-][0-9|-][0-9|-][0-9|-][0-9|-][0-9|-][0-9|-][0-9|-][0-9|-]");
+		// VMPREJIG
+
 		listeners = new ArrayList<UserSelectionListener>();
 
-		form = new GHADynamicForm(4,FormType.NORMAL_FORM);
+		form = new GHADynamicForm(4, FormType.NORMAL_FORM);
 	}
 
 	/**
@@ -114,7 +119,7 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 		mainPanel.addMembers(form, new LayoutSpacer());
 		addMember(mainPanel);
 		fill();
-		
+
 		firstNameItem.setValidators(GHATextItem.ALPHABETIC);
 	}
 

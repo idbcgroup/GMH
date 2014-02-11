@@ -25,16 +25,16 @@ public class MaintenanceSubprotocolUtil {
 
 	/**
 	 * Transform a list of {@link SubProtocolAndChecklist} to a list of
-	 * {@link MaintenanceSubprotocolRecord}
+	 * {@link MaintenanceActivitySubprotocolRecord}
 	 * 
 	 * @param entities
 	 * @return a list of {@link MaintenanceProtocolsRecord}
 	 */
-	public static List<MaintenanceSubprotocolRecord> toGridRecordsList(
+	public static List<MaintenanceActivitySubprotocolRecord> toGridRecordsList(
 			List<SubProtocolAndChecklist> entities) {
-		List<MaintenanceSubprotocolRecord> list = new ArrayList<MaintenanceSubprotocolRecord>();
+		List<MaintenanceActivitySubprotocolRecord> list = new ArrayList<MaintenanceActivitySubprotocolRecord>();
 		for (SubProtocolAndChecklist entity : entities) {
-			MaintenanceSubprotocolRecord record = new MaintenanceSubprotocolRecord(
+			MaintenanceActivitySubprotocolRecord record = new MaintenanceActivitySubprotocolRecord(
 					entity);
 			list.add(record);
 		}
@@ -44,15 +44,15 @@ public class MaintenanceSubprotocolUtil {
 	/**
 	 * @param entities
 	 *            Transform a list of {@link SubProtocolAndChecklist} to an
-	 *            array of {@link MaintenanceSubprotocolRecord}
-	 * @return an array of {@link MaintenanceSubprotocolRecord}
+	 *            array of {@link MaintenanceActivitySubprotocolRecord}
+	 * @return an array of {@link MaintenanceActivitySubprotocolRecord}
 	 */
-	public static MaintenanceSubprotocolRecord[] toGridRecordsArray(
+	public static MaintenanceActivitySubprotocolRecord[] toGridRecordsArray(
 			List<SubProtocolAndChecklist> entities) {
-		List<MaintenanceSubprotocolRecord> recordsList = toGridRecordsList(entities);
+		List<MaintenanceActivitySubprotocolRecord> recordsList = toGridRecordsList(entities);
 
-		MaintenanceSubprotocolRecord[] array = recordsList
-				.toArray(new MaintenanceSubprotocolRecord[] {});
+		MaintenanceActivitySubprotocolRecord[] array = recordsList
+				.toArray(new MaintenanceActivitySubprotocolRecord[] {});
 
 		return array;
 	}

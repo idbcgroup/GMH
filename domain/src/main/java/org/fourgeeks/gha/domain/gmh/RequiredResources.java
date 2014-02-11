@@ -6,6 +6,8 @@ package org.fourgeeks.gha.domain.gmh;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -13,12 +15,17 @@ import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.Activity;
 
 /**
- * @author emiliot ManyToMany between Resources and ProtocolActivities
+ * ManyToMany between Resources and ProtocolActivities
+ * 
+ * @author emiliot, caparicio
  * 
  */
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "activityFk",
 		"resourceFk" }))
+@NamedQueries(value = {
+		@NamedQuery(name = "RequiredResources.findByServiceAndResource", query = "SELECT rr FROM RequiredResources rr WHERE rr.resource = :resource ORDER BY rr.id"),
+		@NamedQuery(name = "RequiredResources.findByActivity", query = "SELECT rr FROM RequiredResources rr WHERE rr.activity = :activity ORDER BY rr.id") })
 public class RequiredResources extends AbstractEntity {
 
 	/**
@@ -34,6 +41,8 @@ public class RequiredResources extends AbstractEntity {
 	@JoinColumn(name = "resourceFk", nullable = false)
 	private ServiceAndResource resource;
 
+	private int quantity;
+
 	/**
 	 * 
 	 */
@@ -44,10 +53,13 @@ public class RequiredResources extends AbstractEntity {
 	/**
 	 * @param activity
 	 * @param resource
+	 * @param quantity
 	 */
-	public RequiredResources(Activity activity, ServiceAndResource resource) {
+	public RequiredResources(Activity activity, ServiceAndResource resource,
+			int quantity) {
 		this.activity = activity;
 		this.resource = resource;
+		this.setQuantity(quantity);
 	}
 
 	/**
@@ -67,6 +79,14 @@ public class RequiredResources extends AbstractEntity {
 
 	/**
 	 * 
+	 * @return the quantity of resources used in the activity
+	 */
+	public int getQuantity() {
+		return quantity;
+	}
+
+	/**
+	 * 
 	 * @param activity
 	 *            the activity that require the resource
 	 */
@@ -81,6 +101,15 @@ public class RequiredResources extends AbstractEntity {
 	 */
 	public void setResource(ServiceAndResource resource) {
 		this.resource = resource;
+	}
+
+	/**
+	 * 
+	 * @param quantity
+	 *            the quantity of resources used in the activity
+	 */
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 
 }

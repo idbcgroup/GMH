@@ -268,13 +268,21 @@ EN,eiaTypeComponent-getAll-fail,Failed to get all EiaTypeComponent,8
 EN,eiaTypeComponent-save-fail,Failed to save EiaTypeComponent,8
 EN,eiaTypeComponent-update-fail,Failed to update EiaTypeComponent,8
 ES,eiaTypeMaintenancePlan-delete-fail,Fallo la eliminación del EiaTypeMaintenancePlan,8
+ES,requiredResources-delete-fail,Fallo la eliminación del RequiredResources,8
 ES,eiaTypeMaintenancePlan-findByEiaType-fail,Búsqueda fallida de EiaTypeMaintenancePlan por eiaType,8
+ES,requiredResources-findByServiceAndResource-fail,Búsqueda fallida de RequiredResources por serviceAndResource,8
+ES,requiredResources-findByActivity-fail,Búsqueda fallida de RequiredResources por activity,8
 ES,eiaTypeMaintenancePlan-findByMaintenancePlan-fail,Búsqueda fallida de EiaTypeMaintenancePlan po maintenancePlan,8
 ES,eiaTypeMaintenancePlan-save-fail,Guardado fallido de EiaTypeMaintenancePlan,8
+ES,requiredResources-save-fail,Guardado fallido de RequiredResources,8
 EN,eiaTypeMaintenancePlan-delete-fail,Failed to delete EiaTypeMaintenancePlan,8
+EN,requiredResources-delete-fail,Failed to delete RequiredResources,8
 EN,eiaTypeMaintenancePlan-findByEiaType-fail,Failed to find EiaTypeMaintenancePlan by eiaType,8
+EN,requiredResources-findByServiceAndResource-fail,Failed to find RequiredResources by serviceAndResource,8
+EN,requiredResources-findByActivity-fail,Failed to find RequiredResources by activity,8
 EN,eiaTypeMaintenancePlan-findByMaintenancePlan-fail,Failed to find EiaTypeMaintenancePlan by maintenancePlan,8
 EN,eiaTypeMaintenancePlan-save-fail,Failed to save EiaTypeMaintenancePlan,8
+EN,requiredResources-save-fail,Failed to save RequiredResources,8
 ES,eiaTypeMaterial-delete-fail,Fallo la eliminación del EiaTypeMaterial,8
 ES,eiaTypeMaterial-findByEiaType-fail,Búsqueda fallida de EiaTypeMaterial por eiaType,8
 ES,eiaTypeMaterial-save-fail,Guardado fallido de EiaTypeMaterial,8

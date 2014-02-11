@@ -62,7 +62,7 @@ public class MaintenanceSubprotocolActivitiesGridPanel extends
 		super();
 		setWidth100();
 
-		addMember(new GHALabel("Actividades de subprotocolo"));
+		addMember(new GHALabel(GHAStrings.get("subprotocol-activities")));
 
 		GHANewButton addButton = new GHANewButton(new ClickHandler() {
 			@Override
@@ -92,7 +92,7 @@ public class MaintenanceSubprotocolActivitiesGridPanel extends
 		ListGridRecord records[] = grid.getRecords();
 		List<Activity> blackList = new ArrayList<Activity>();
 		for (int i = 0; i < records.length; i++) {
-			MaintenanceSubprotocolRecord record = (MaintenanceSubprotocolRecord) records[i];
+			MaintenanceActivitySubprotocolRecord record = (MaintenanceActivitySubprotocolRecord) records[i];
 			blackList.add(record.toEntity().getActivity());
 		}
 		blackList.add(maintenanceActivity.getActivity());
@@ -123,7 +123,7 @@ public class MaintenanceSubprotocolActivitiesGridPanel extends
 				new GHAAsyncCallback<List<SubProtocolAndChecklist>>() {
 					@Override
 					public void onSuccess(List<SubProtocolAndChecklist> result) {
-						MaintenanceSubprotocolRecord array[] = MaintenanceSubprotocolUtil
+						MaintenanceActivitySubprotocolRecord array[] = MaintenanceSubprotocolUtil
 								.toGridRecordsArray(result);
 						grid.setData(array);
 					}
