@@ -9,7 +9,6 @@ import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabPanel;
 import org.fourgeeks.gha.webclient.client.res.citizen.CitizenTab;
 
-import com.google.gwt.user.client.History;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 
@@ -30,14 +29,34 @@ public class RESPlace extends NeedPermissionPlace {
 		super(token);
 		header = new GHAPlaceHeader(this);
 		addMember(tabPanel);
-		tabPanel.addHeaderOption(GHAStrings.get("search"), "buscarButton",
+		tabPanel.addHeaderOption(GHAStrings.get("citizen-search"),
+				"buscarButton", new ClickHandler() {
+
+					@Override
+					public void onClick(ClickEvent event) {
+						// History.newItem("res/" + Math.round(Math.random() *
+						// 10));
+					}
+				});
+		tabPanel.addHeaderOption(GHAStrings.get("citizen-new"),
+				"agregarButton", new ClickHandler() {
+
+					@Override
+					public void onClick(ClickEvent event) {
+						// History.newItem("res/" + Math.round(Math.random() *
+						// 10));
+					}
+				});
+		tabPanel.addHeaderOption(GHAStrings.get("close"), "cerrarButton",
 				new ClickHandler() {
 
 					@Override
 					public void onClick(ClickEvent event) {
-						History.newItem("res/" + Math.round(Math.random() * 10));
+						// History.newItem("res/" + Math.round(Math.random() *
+						// 10));
 					}
 				});
+
 	}
 
 	@Override

@@ -31,26 +31,26 @@ public abstract class GHAUiHelper {
 
 			@Override
 			public void onResize(ResizeEvent event) {
-				for (ResizeHandler handler : handlers) {
+				for (final ResizeHandler handler : handlers) {
 					if (handler != null)
 						handler.onResize(event);
 				}
 			}
 		});
 
-		Element element = RootPanel.get().getElement();
+		final Element element = RootPanel.get().getElement();
 		DOM.sinkEvents(element, Event.MOUSEEVENTS);
 		DOM.setEventListener(element, new EventListener() {
 
 			@Override
 			public void onBrowserEvent(Event event) {
 				if (event.getType().equals("mousemove"))// mouse move
-					for (EventListener handler : mouseOverHandlers) {
+					for (final EventListener handler : mouseOverHandlers) {
 						if (handler != null)
 							handler.onBrowserEvent(event);
 					}
 				else if (event.getType().equals("mousedown"))// mouse down
-					for (EventListener handler : clickHandlers) {
+					for (final EventListener handler : clickHandlers) {
 						if (handler != null)
 							handler.onBrowserEvent(event);
 					}
@@ -139,7 +139,7 @@ public abstract class GHAUiHelper {
 	/**
 	 * width for the place eyelash
 	 */
-	public static final int DEFAULT_PLACE_EYELASH_WIDTH = 120;
+	public static final int DEFAULT_PLACE_EYELASH_WIDTH = 150;
 	/**
 	 * height for the place eyelash
 	 */
@@ -165,6 +165,10 @@ public abstract class GHAUiHelper {
 	 * a blank space
 	 */
 	public static final String BLANK_SPACE = "&nbsp";
+	/**
+	 * 
+	 */
+	public static final int DEFAULT_HEADER_OPTION_HEIGHT = 30;
 
 	private static List<ResizeHandler> handlers = new ArrayList<ResizeHandler>();
 
@@ -204,7 +208,7 @@ public abstract class GHAUiHelper {
 	 * @return the bar with the buttons
 	 */
 	public static VLayout createBar(Canvas... buttons) {
-		VLayout sideButtons = new VLayout();
+		final VLayout sideButtons = new VLayout();
 		sideButtons.setWidth(30);
 		sideButtons.setLayoutMargin(5);
 		sideButtons.setMembersMargin(10);
@@ -218,11 +222,11 @@ public abstract class GHAUiHelper {
 	 * @return the height for the bottom section
 	 */
 	public static int getBottomSectionHeight() {
-		int biggerTabHeight = getPanelHeight();
-		int innerTopSection = DEFAULT_INNER_TOP_SECTION_HEIGHT
+		final int biggerTabHeight = getPanelHeight();
+		final int innerTopSection = DEFAULT_INNER_TOP_SECTION_HEIGHT
 				+ V_SEPARATOR_HEIGHT;
 
-		int ret = biggerTabHeight - innerTopSection;
+		final int ret = biggerTabHeight - innerTopSection;
 		if (ret < MIN_BOTTOM_SECTION_HEIGHT) {
 			return MIN_BOTTOM_SECTION_HEIGHT;
 		} else {
@@ -235,10 +239,10 @@ public abstract class GHAUiHelper {
 	 * @return the height of the grid.
 	 */
 	public static int getEDTGridSize(int extrasHeight) {
-		int tabHeight = getPanelHeight();
-		int topExtras = extrasHeight + 30;
+		final int tabHeight = getPanelHeight();
+		final int topExtras = extrasHeight + 30;
 
-		int ret = (tabHeight - topExtras) / 2;
+		final int ret = (tabHeight - topExtras) / 2;
 		if (ret < MIN_GRID_SIZE) {
 			return MIN_GRID_SIZE;
 		} else {
@@ -252,7 +256,7 @@ public abstract class GHAUiHelper {
 	 * @return the width that a form must have, depending on its type.
 	 */
 	public static int getFormWidth(FormType type, int buttonsSize) {
-		int rootPanelWidth = Window.getClientWidth();
+		final int rootPanelWidth = Window.getClientWidth();
 		int ret;
 		if (type == FormType.NORMAL_FORM) {
 			ret = rootPanelWidth - buttonsSize - 100;
@@ -275,11 +279,11 @@ public abstract class GHAUiHelper {
 	 * @return the grid size.
 	 */
 	public static int getGridSize(int extrasHeight) {
-		int tabHeight = getPanelHeight();
-		int titleHeight = 30;
-		int topExtras = extrasHeight + titleHeight + 35;
+		final int tabHeight = getPanelHeight();
+		final int titleHeight = 30;
+		final int topExtras = extrasHeight + titleHeight + 35;
 
-		int ret = tabHeight - topExtras;
+		final int ret = tabHeight - topExtras;
 		if (ret < MIN_GRID_SIZE) {
 			return MIN_GRID_SIZE;
 		} else {
@@ -291,8 +295,8 @@ public abstract class GHAUiHelper {
 	 * @return the height that a Panel must have
 	 */
 	public static int getPanelHeight() {
-		int tabHeight = getTabHeight();
-		int ret = tabHeight - MENU_BAR_HEIGTH;
+		final int tabHeight = getTabHeight();
+		final int ret = tabHeight - MENU_BAR_HEIGTH;
 		if (ret < MIN_PANEL_HEIGHT) {
 			return MIN_PANEL_HEIGHT;
 		} else {
@@ -305,10 +309,10 @@ public abstract class GHAUiHelper {
 	 * @return the grid size
 	 */
 	public static int getResultSetGridSize(ResultSetContainerType type) {
-		int resultSetHeight = getResultSetHeight(type);
-		int titleHeight = 60;
+		final int resultSetHeight = getResultSetHeight(type);
+		final int titleHeight = 60;
 
-		int ret = resultSetHeight - (titleHeight + 20);
+		final int ret = resultSetHeight - (titleHeight + 20);
 		if (ret < MIN_GRID_SIZE) {
 			return MIN_GRID_SIZE;
 		} else {
@@ -318,33 +322,35 @@ public abstract class GHAUiHelper {
 
 	/**
 	 * 
-	 * @param type 
-	 * @return the height for the bottom section of a SearchForm (internal bottom section)
+	 * @param type
+	 * @return the height for the bottom section of a SearchForm (internal
+	 *         bottom section)
 	 */
 	public static int getResultSetHeight(ResultSetContainerType type) {
 		int containerHeight;
 		int innerTopSection;
 
 		int ret;
-		if(type == ResultSetContainerType.SEARCH_FORM){
+		if (type == ResultSetContainerType.SEARCH_FORM) {
 			containerHeight = getBottomSectionHeight();
 			innerTopSection = DEFAULT_INNER_TOP_SECTION_HEIGHT
 					+ V_SEPARATOR_HEIGHT;
 			ret = containerHeight - innerTopSection - 42;
 			if (ret < MIN_RESULT_SET_HEIGHT) {
-				//				Window.alert("Searchform result set(minimun):"+MIN_RESULT_SET_HEIGHT);
+				// Window.alert("Searchform result set(minimun):"+MIN_RESULT_SET_HEIGHT);
 				return MIN_RESULT_SET_HEIGHT;
 			} else {
-				//				Window.alert("Bottom section height:"+containerHeight+" Searchform result set:"+ret);
+				// Window.alert("Bottom section height:"+containerHeight+" Searchform result set:"+ret);
 				return ret;
 			}
-		}else{
+		} else {
 			ret = getBottomSectionHeight() - 42;
 			if (ret < (MIN_BOTTOM_SECTION_HEIGHT - 10)) {
-				//				Window.alert("Bottomsection result set(minimun):"+(MIN_BOTTOM_SECTION_HEIGHT - 10));
+				// Window.alert("Bottomsection result set(minimun):"+(MIN_BOTTOM_SECTION_HEIGHT
+				// - 10));
 				return (MIN_BOTTOM_SECTION_HEIGHT - 10);
 			} else {
-				//				Window.alert("Bottomsection result set:"+ret);
+				// Window.alert("Bottomsection result set:"+ret);
 				return ret;
 			}
 		}
@@ -355,11 +361,11 @@ public abstract class GHAUiHelper {
 	 * @return the grid size
 	 */
 	public static int getSubtabGridSize(int extrasHeight) {
-		int bottomSectionHeight = getBottomSectionHeight();
-		int titleHeight = 30;
-		int topExtras = extrasHeight + titleHeight + 35;
+		final int bottomSectionHeight = getBottomSectionHeight();
+		final int titleHeight = 30;
+		final int topExtras = extrasHeight + titleHeight + 35;
 
-		int ret = bottomSectionHeight - topExtras;
+		final int ret = bottomSectionHeight - topExtras;
 		if (ret < MIN_GRID_SIZE) {
 			return MIN_GRID_SIZE;
 		} else {
@@ -371,8 +377,8 @@ public abstract class GHAUiHelper {
 	 * @return the height that a tab must have
 	 */
 	public static int getTabHeight() {
-		int rootPanelHeight = Window.getClientHeight();
-		int ret = rootPanelHeight - DEFAULT_TOP_HEADER_TAB_HEIGHT;
+		final int rootPanelHeight = Window.getClientHeight();
+		final int ret = rootPanelHeight - DEFAULT_TOP_HEADER_TAB_HEIGHT;
 		if (ret < MIN_TAB_HEIGHT) {
 			return MIN_TAB_HEIGHT;
 		} else {
@@ -393,7 +399,7 @@ public abstract class GHAUiHelper {
 	 * @return an horizontal gray separator
 	 */
 	public static HLayout horizontalGraySeparator(String width) {
-		HLayout separator = new HLayout();
+		final HLayout separator = new HLayout();
 		separator.setHeight100();
 		separator.setWidth(width);
 		separator.setBackgroundColor("#666666");
@@ -430,13 +436,14 @@ public abstract class GHAUiHelper {
 	 * @return the separator
 	 */
 	public static VLayout verticalGraySeparator(String height) {
-		VLayout separator = new VLayout();
+		final VLayout separator = new VLayout();
 		separator.setWidth100();
 		separator.setMinWidth(1024);
 		separator.setBackgroundColor("#666666");
 		separator.setHeight(height);
 		return separator;
 	}
+
 	/**
 	 * @param src
 	 * @param imgW
@@ -446,10 +453,10 @@ public abstract class GHAUiHelper {
 	 */
 	public static VLayout verticalGraySeparatorImgBar(String src, int imgW,
 			int imgH, int height) {
-		GHAImg imgButton = new GHAImg(src, imgW, imgH);
+		final GHAImg imgButton = new GHAImg(src, imgW, imgH);
 		// imgButton.setStyleName("iconTopPadding");
 
-		VLayout separator = new VLayout();
+		final VLayout separator = new VLayout();
 		separator.setWidth100();
 		separator.setMinWidth(1024);
 		separator.setHeight(height);
@@ -467,14 +474,14 @@ public abstract class GHAUiHelper {
 	 * @return the separator label.
 	 */
 	public static HLayout verticalGraySeparatorLabel(String height, String text) {
-		HLayout separator = new HLayout();
+		final HLayout separator = new HLayout();
 		separator.setWidth100();
 		separator.setMinWidth(1024);
 		separator.setBackgroundColor("#666666");
 		separator.setHeight(height);
 		separator.setStyleName("sides-padding");
 
-		GHALabel title = new GHALabel(text);
+		final GHALabel title = new GHALabel(text);
 		title.setHeight(height);
 		title.setStyleName("separator-title-label");
 
@@ -488,7 +495,7 @@ public abstract class GHAUiHelper {
 	 * @return the separator
 	 */
 	public static VLayout verticalSeparator(String height) {
-		VLayout separator = new VLayout();
+		final VLayout separator = new VLayout();
 		separator.setWidth100();
 		separator.setMinWidth(1024);
 		separator.setHeight(height);
