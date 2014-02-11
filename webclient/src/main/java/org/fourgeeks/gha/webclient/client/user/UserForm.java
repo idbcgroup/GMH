@@ -123,14 +123,13 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 
 		nationalityItem = new GHATextItem("Nacionalidad", false, changedHandler);
 		nationalityItem.setLength(20);
-		nationalityItem.setTooltip(GHAStrings.get("user-tooltip-genero"));
+		nationalityItem.setTooltip(GHAStrings.get("user-tooltip-nacionalidad"));
 		nationalityItem.validateWords();
 
-		birthDateItem = new GHABirthDateItem(GHAStrings.get("birthdate"),
-				changedHandler);
+		birthDateItem = new GHABirthDateItem(GHAStrings.get("birthdate"),changedHandler);
 		birthDateItem.setUseMask(true);
 		birthDateItem.setTooltip(GHAStrings.get("user-tooltip-birthdate"));
-		// GHAStrings.get("user-date-error-formatter")
+		
 		bpiSelectItem = new GHASelectItem("Institución");
 		bpiSelectItem.setRequired(true);
 		bpiSelectItem.addChangedHandler(changedHandler);
@@ -149,6 +148,7 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 		listeners = new ArrayList<UserSelectionListener>();
 
 		form = new GHADynamicForm(4, FormType.NORMAL_FORM);
+		
 	}
 
 	/**
@@ -164,7 +164,7 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 				secondLastNameItem, nationalityItem, birthDateItem,
 				new GHASpacerItem(), primaryEmailItem, alternativeEmailItem,
 				bpiSelectItem, new GHASpacerItem(), legalEntityIdentifierItem);
-
+		
 		mainPanel.addMembers(form, new LayoutSpacer());
 		addMember(mainPanel);
 		fill();
