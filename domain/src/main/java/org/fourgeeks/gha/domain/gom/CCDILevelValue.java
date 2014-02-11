@@ -41,6 +41,8 @@ public class CCDILevelValue extends AbstractEntity {
 	private int nextValue;
 	private String fixedValue;
 
+	private int nextElement;
+
 	private CCDIValueStatusEnum status;
 
 	/**
@@ -69,6 +71,7 @@ public class CCDILevelValue extends AbstractEntity {
 		this.nextValue = nextValue;
 		this.fixedValue = fixedValue;
 		this.status = status;
+		this.nextElement = 1;
 	}
 
 	/**
@@ -97,6 +100,10 @@ public class CCDILevelValue extends AbstractEntity {
 	 */
 	public String getName() {
 		return name;
+	}
+
+	public int getNextElement() {
+		return nextElement;
 	}
 
 	/**
@@ -150,6 +157,10 @@ public class CCDILevelValue extends AbstractEntity {
 	 */
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public void setNextElement(int nextElement) {
+		this.nextElement = nextElement;
 	}
 
 	/**

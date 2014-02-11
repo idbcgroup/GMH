@@ -69,6 +69,13 @@ public class CCDIService extends GHAEJBExceptionService implements
 			CCDILevelDefinition levelDefinition, CCDILevelValue parentValue,
 			CCDILevelValue levelValue) throws GHAEJBException {
 		try {
+			if (levelDefinition.getLevel() >= levelDefinition.getDefinition()
+					.getLevels()) {
+				// ABORT CATEGORIES ARE NOT ALLOWED IN THIS LEVEL
+				throw new Exception(
+						"Categories not allowed in this level of CCDI");
+			}
+
 			String valueCode = "";
 			if (levelDefinition.getLevel() > 0 && parentValue != null) {
 				valueCode += parentValue.getCode();
@@ -81,7 +88,7 @@ public class CCDIService extends GHAEJBExceptionService implements
 							getNextCode(parentValue)));
 
 			levelValue.setCode(valueCode);
-			System.out.println("DEBUG: " + valueCode);
+			// System.out.println("DEBUG: " + valueCode);
 
 			levelValue.setNextValue(levelDefinition.getInitialValue());
 			levelValue.setLevelDefinition(levelDefinition);
@@ -165,34 +172,6 @@ public class CCDIService extends GHAEJBExceptionService implements
 		return String.format(format, nextCode);
 	}
 
-	@Override
-	public String getNextCCDILevelValue(String code) throws GHAEJBException {
-		try {
-			CCDILevelValue levelValue = em
-					.createNamedQuery("CCDILevelValue.findByCode",
-							CCDILevelValue.class).setParameter("code", code)
-					.getSingleResult();
-
-			CCDILevelDefinition nextLevelDefinition = em
-					.createNamedQuery("CCDILevelDefinition.findByLevel",
-							CCDILevelDefinition.class)
-					.setParameter("level",
-							levelValue.getLevelDefinition().getLevel() + 1)
-					.setParameter("definition",
-							levelValue.getLevelDefinition().getDefinition())
-					.getSingleResult();
-			String nextCode = levelValue.getCode()
-					+ nextLevelDefinition.getSeparator()
-					+ formatCode(nextLevelDefinition.getLength(),
-							getNextCode(levelValue));
-			return nextCode;
-		} catch (Exception e) {
-			logger.log(Level.INFO, "ERROR: creating CCDI Level Definition", e);
-			throw super.generateGHAEJBException("ccdi-level-value-next-fail",
-					RuntimeParameters.getLang(), em);
-		}
-	}
-
 	/**
 	 * @param parentValue
 	 * @return the next int available for a given ccdilevelvalue, this should be
@@ -205,12 +184,40 @@ public class CCDIService extends GHAEJBExceptionService implements
 						CCDILevelValue.class)
 				.setParameter("code", parentValue.getCode()).getSingleResult();
 
-		// TODO LOCK TABLE FOR THIS OPERATION
+		// TODO SYNCRONIZATION
 		int next = parentValue.getNextValue();
 		parentValue.setNextValue(next + 1);
 		em.merge(parentValue);
 
 		return next;
+	}
+
+	@Override
+	public String getNextElementCode(String code) throws GHAEJBException {
+		try {
+			CCDILevelValue levelValue = em
+					.createNamedQuery("CCDILevelValue.findByCode",
+							CCDILevelValue.class).setParameter("code", code)
+					.getSingleResult();
+			int nextElement = levelValue.getNextElement();
+
+			// TODO SYNCRONIZATION
+			levelValue.setNextElement(nextElement + 1);
+			em.merge(levelValue);
+
+			// TODO USE THE LAST LEVEL DEFINITION TO GENERATE ELEMENTS
+			String nextCode = levelValue.getCode()
+					+ formatCode(levelValue.getLevelDefinition()
+							.getDefinition().getLength()
+							- levelValue.getCode().length(), nextElement);
+			System.out.println("DEBUG: " + nextCode);
+			return nextCode;
+		} catch (Exception e) {
+			logger.log(Level.INFO, "ERROR: adding element to ccdilevelvalue", e);
+			throw super.generateGHAEJBException(
+					"ccdi-level-value-next-element-fail",
+					RuntimeParameters.getLang(), em);
+		}
 	}
 
 }

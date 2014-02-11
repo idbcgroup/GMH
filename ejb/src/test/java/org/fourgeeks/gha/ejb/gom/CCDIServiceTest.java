@@ -286,21 +286,26 @@ public class CCDIServiceTest {
 		}
 
 		try {
-			String hypodermic1 = ccdiService.getNextCCDILevelValue("T010101");
+			String hypodermic1 = ccdiService.getNextElementCode("T010101");
 			Assert.assertNotNull(hypodermic1);
 			Assert.assertEquals("T0101010001", hypodermic1);
 
-			String hypodermic2 = ccdiService.getNextCCDILevelValue("T010101");
+			String hypodermic2 = ccdiService.getNextElementCode("T010101");
 			Assert.assertNotNull(hypodermic2);
 			Assert.assertEquals("T0101010002", hypodermic2);
 
-			String hypodermic3 = ccdiService.getNextCCDILevelValue("T010101");
+			String hypodermic3 = ccdiService.getNextElementCode("T010101");
 			Assert.assertNotNull(hypodermic3);
 			Assert.assertEquals("T0101010003", hypodermic3);
 
-			String hypodermic4 = ccdiService.getNextCCDILevelValue("T010101");
+			String hypodermic4 = ccdiService.getNextElementCode("T010101");
 			Assert.assertNotNull(hypodermic4);
 			Assert.assertEquals("T0101010004", hypodermic4);
+
+			String farm01 = ccdiService.getNextElementCode(pharmacsValue
+					.getCode());
+			Assert.assertNotNull(farm01);
+			Assert.assertEquals("T0400000001", farm01);
 
 		} catch (GHAEJBException e) {
 			System.out.println("error getting ccdilevelValue in test\n");

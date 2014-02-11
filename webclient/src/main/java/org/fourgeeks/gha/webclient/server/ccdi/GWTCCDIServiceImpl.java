@@ -68,7 +68,7 @@ public class GWTCCDIServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public String getNextCCDILevelValue(String code) throws GHAEJBException {
-		return ccdiServiceRemote.getNextCCDILevelValue(code);
+		return ccdiServiceRemote.getNextCategoryValueCode(code);
 	}
 
 }
