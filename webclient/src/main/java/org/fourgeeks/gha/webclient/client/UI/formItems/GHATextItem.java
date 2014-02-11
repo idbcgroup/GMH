@@ -211,13 +211,13 @@ public class GHATextItem extends TextItem {
 		textValidator.setErrorMessage(messageError);
 		textValidator.setExpression(expresionReg);
 		setValidators(textValidator);
-		addEditorExitHandler(new EditorExitHandler() {
-
-			@Override
-			public void onEditorExit(EditorExitEvent event) {
-				validate();
-			}
-		});
+		// addEditorExitHandler(new EditorExitHandler() {
+		//
+		// @Override
+		// public void onEditorExit(EditorExitEvent event) {
+		// validate();
+		// }
+		// });
 		setShowErrorIcon(true);
 	}
 
