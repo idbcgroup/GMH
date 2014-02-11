@@ -15,7 +15,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
  * @author caparicio
  * 
  */
-@RemoteServiceRelativePath("requiredResourcesService")
+@RemoteServiceRelativePath("requiredResources")
 public interface GWTRequiredResourcesService extends RemoteService {
 	/**
 	 * 
