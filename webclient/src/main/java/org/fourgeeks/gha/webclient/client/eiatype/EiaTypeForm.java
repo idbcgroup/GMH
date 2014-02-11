@@ -34,8 +34,6 @@ import org.fourgeeks.gha.webclient.client.brand.BrandModel;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
-import com.smartgwt.client.widgets.form.fields.events.EditorExitEvent;
-import com.smartgwt.client.widgets.form.fields.events.EditorExitHandler;
 import com.smartgwt.client.widgets.form.fields.events.FocusEvent;
 import com.smartgwt.client.widgets.form.fields.events.FocusHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -92,16 +90,27 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 
 		form = new GHADynamicForm(4, FormType.NORMAL_FORM);
 
-		//Regex!
-		
+		// Regex!
+
 		nameItem.validateWords();
 		nameItem.setTooltip(GHAStrings.get("eiatype-name-tooltip"));
-		
+
 		modelItem.validateWords();
 		modelItem.setTooltip(GHAStrings.get("eiatype-model-tooltip"));
 
-		//Incierto si requiere validacion o no
-		//eiaUmdnsItem.validateWords();
+		typeItem.setTooltip(GHAStrings.get("eiatype-type-tooltip"));
+
+		subTypeItem.setTooltip(GHAStrings.get("eiatype-subtype-tooltip"));
+		mobilityItem.setTooltip(GHAStrings.get("eiatype-mobility-tooltip"));
+		manItem.setTooltip(GHAStrings.get("eiatype-manufacturer-tooltip"));
+		brandItem.setTooltip(GHAStrings.get("eiatype-brand-tooltip"));
+		descriptionItem.setTooltip(GHAStrings
+				.get("eiatype-description-tooltip"));
+
+		useDescriptionItem.setTooltip(GHAStrings
+				.get("eiatype-use-description-tooltip"));
+		// Incierto si requiere validacion o no
+		// eiaUmdnsItem.validateWords();
 	}
 
 	/**

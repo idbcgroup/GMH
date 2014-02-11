@@ -20,13 +20,6 @@ public class GHABirthDateItem extends GHADateItem {
 
 		setValidators(getValidator());
 
-		// addChangeHandler(new ChangeHandler() {
-		//
-		// @Override
-		// public void onChange(ChangeEvent event) {
-		// GHABirthDateItem.this.validate();
-		// }
-		// });
 	}
 
 	/**

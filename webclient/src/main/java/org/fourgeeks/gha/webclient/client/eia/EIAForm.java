@@ -138,6 +138,8 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		adquisition_TitleItem = new GHATitletextItem("Adquisición:", 4);
 		purchaseDateItem = new GHADateItem("Fecha de Compra", true);
 		purchaseDateItem.addChangedHandler(changedHandler);
+		purchaseDateItem.setUseMask(true);
+
 		purchaseOrderNumTextItem = new GHATextItem("No. Orden Compra", false,
 				changedHandler);
 		purchaseOrderNumTextItem.setLength(20);
@@ -306,11 +308,14 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 
 		purchaseDateItem.setTooltip(GHAStrings.get("eia-tooltip-fecha-compra"));
 
+		purchaseOrderDateItem.setTooltip(GHAStrings
+				.get("eia-tooltip-date-orden-compra"));
+
 		purchaseOrderNumTextItem.setTooltip(GHAStrings
 				.get("eia-tooltip-orden-compra"));
 
 		purchaseInvoiceNumTextItem.setTooltip(GHAStrings
-				.get("eia-tooltip-orden-compra"));
+				.get("eia-tooltip-orden-factura"));
 
 		receptionDateItem.setTooltip(GHAStrings
 				.get("eia-tooltip-date-reception"));
@@ -350,26 +355,22 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		// changedHandler);
 		// intWarrantyBeginDate = new GHADateItem("Fecha Inicio", true);
 		// intWarrantyBeginDate.addChangedHandler(changedHandler);
-		//
-		// // Ubicacion Form Items
-		// location_TitleItem = new GHATitletextItem("Ubicación:", 3);
-		// locationTypeSelectItem = new GHASelectItem("Tipo de Ubicación",
-		// false,
-		// changedHandler);
-		//
-		// workingArea_TitleItem = new GHATitletextItem("Área de Trabajo:", 3);
-		// facility_TitleItem = new GHATitletextItem("Servicio/Instalación:",
-		// 3);
-		// workingAreaLocationCodeTextItem = new GHATextItem("Código", false);
-		// workingAreaLocationSelectItem = new GHASelectItem("Nombre", false,
-		// changedHandler);
-		// workingAreaLocationSelectItem.setDisabled(true);
-		//
-		// facilityLocationCodeTextItem = new GHATextItem("Código", false);
-		// facilityLocationSelectItem = new GHASelectItem("Nombre", false,
-		// changedHandler);
-		// facilityLocationSelectItem.setDisabled(true);
-		//
+
+		// // TOOLSTIPs Ubicacion Form Items
+
+		locationTypeSelectItem.setTooltip(GHAStrings
+				.get("eia-tooltip-type-location"));
+
+		workingAreaLocationSelectItem.setTooltip(GHAStrings
+				.get("eia-tooltip-working-area-select"));
+		workingAreaLocationCodeTextItem.setTooltip(GHAStrings
+				.get("eia-tooltip-code-working-area-select"));
+		// TOOlTIP servicio o intalacion
+		facilityLocationSelectItem.setTooltip(GHAStrings
+				.get("eia-tooltip-facility-service-select"));
+		facilityLocationCodeTextItem.setTooltip(GHAStrings
+				.get("eia-tooltip-facility-service-code"));
+
 		// // Costos Form Items
 		// adqCost_TitleItem = new GHATitletextItem("Costo Adquisición:", 4);
 		// actualCost_TitleItem = new GHATitletextItem("Costo Actual:", 4);
