@@ -211,8 +211,6 @@ ES,subprotocol,Sub-Protocolo
 ES,total-time,Tiempo total
 ES,total-cost,Costo total
 ES,emh,Historia médica
-ES,gmh,gmh
-ES,hme,gmh
 ES,gender,sexo
 ES,city,ciudad
 ES,age,edad
@@ -284,3 +282,4 @@ ES,eiatype-model-tooltip, El campo del modelo especifica el modelo del tipo de e
 ES,maintenance-plan-name-tooltip,Este campo asigna el nombre al plan de mantenimiento Solo puede contener letras Ej Plan de Mantenimiento
 ES,maintenance-plan-frequency-tooltip,Este campo asigna la frecuencia con la que se realiza el mantenimiento Ej 48
 ES,maintenance-plan-description-tooltip, Este campo especifica la descripcion del plan de mantenimiento
+ES,res,registro de salud

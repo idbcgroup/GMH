@@ -19,12 +19,12 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class HMETools extends VLayout {
+public class EMHTools extends VLayout {
 
 	/**
 	 * 
 	 */
-	public HMETools() {
+	public EMHTools() {
 		setWidth(30);
 		setLayoutMargin(5);
 		setMembersMargin(10);

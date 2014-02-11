@@ -23,6 +23,8 @@ public interface MessageServiceRemote {
 	public GHAMessage find(String id) throws GHAEJBException;
 
 	/**
+	 * Find a ghamessage to show. Aditionally it logs in the UILOG the event
+	 * 
 	 * @param user
 	 * @param id
 	 * @return the message
@@ -39,6 +41,8 @@ public interface MessageServiceRemote {
 	public List<GHAMessage> find(List<String> messages) throws GHAEJBException;
 
 	/**
+	 * Find a ghamessage to show. Aditionally it logs in the UILOG the event
+	 * 
 	 * @param user
 	 * @param messages
 	 * @return a list with the gha messages according to the id's
