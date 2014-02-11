@@ -56,50 +56,99 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 
 	{
 		usernameItem = new GHAUserNameTextItem(true, changedHandler);
+		usernameItem.setTooltip(GHAStrings.get("user-name-tooltip"));
 
 		passwordItem = new GHATextItem(GHAStrings.get("password"), true,
 				changedHandler);
+		passwordItem.setTooltip(GHAStrings.get("user-password-tooltip"));
 		passwordItem.setLength(20);
 		confirmPasswordItem = new GHATextItem("Confirme contraseña", true,
 				changedHandler);
 		confirmPasswordItem.setLength(20);
+		confirmPasswordItem.setTooltip(GHAStrings
+				.get("user-confirm-password-tooltip"));
 		firstNameItem = new GHANameTextItem(GHAStrings.get("first-name"),
 				false, changedHandler);
+
+		firstNameItem.setLength(20);
+
+		firstNameItem.validateWords();
+		firstNameItem.setTooltip(GHAStrings.get("user-tooltip-first-name"));
+
 		secondNameItem = new GHANameTextItem(GHAStrings.get("second-name"),
 				false, changedHandler);
+		secondNameItem.setLength(20);
+		secondNameItem.setTooltip(GHAStrings.get("user-tooltip-second-name"));
+
+		secondNameItem.validateWords();
+
 		lastNameItem = new GHANameTextItem(GHAStrings.get("first-lastname"),
 				false, changedHandler);
+		lastNameItem.setTooltip(GHAStrings.get("user-tooltip-last-name"));
+		lastNameItem.setLength(20);
+		// lastNameItem.setMask("[a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ][a-zA-ZáéíóúAÉÍÓÚÑñ]");
+		lastNameItem.validateWords();
+
 		secondLastNameItem = new GHANameTextItem(
 				GHAStrings.get("second-lastname"), false, changedHandler);
+		secondLastNameItem.setLength(20);
+		secondLastNameItem.setTooltip(GHAStrings
+				.get("user-tooltip-secondlast-name"));
+		secondLastNameItem.validateWords();
+
 		primaryEmailItem = new GHAEmailTextItem("Email Primario",
 				changedHandler);
+		primaryEmailItem.setTooltip(GHAStrings.get("user-tooltip-email"));
+
 		alternativeEmailItem = new GHAEmailTextItem("Email Secundario",
 				changedHandler);
 
+		alternativeEmailItem.setTooltip(GHAStrings
+				.get("user-tooltip-email-secundario"));
+
 		typeidSelectItem = new GHASelectItem("Tipo ID", true, changedHandler);
+		typeidSelectItem.setTooltip(GHAStrings.get("user-tooltip-tipo-id"));
+
 		idItem = new GHATextItem("No. Identificiación", true, changedHandler);
 		idItem.setLength(20);
-		// idItem.setMask("####################");
+		idItem.validateCustomExpre(
+				GHAStrings.get("user-error-formatter-identification"),
+				"^[a-zA-Z0-9|-]+$");
+		idItem.setShowErrorIcon(false);
+		idItem.setValidateOnExit(false);
+		idItem.setTooltip(GHAStrings.get("user-tooltip-identification"));
+
 		genderSelectItem = new GHASelectItem("Género", true, changedHandler);
+		genderSelectItem.setTooltip(GHAStrings.get("user-tooltip-genero"));
+
 		nationalityItem = new GHATextItem("Nacionalidad", false, changedHandler);
-		nationalityItem.setLength(60);
-		nationalityItem
-				.setMask("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-		birthDateItem = new GHABirthDateItem(GHAStrings.get("birthdate"),
-				changedHandler);
+		nationalityItem.setLength(20);
+		nationalityItem.setTooltip(GHAStrings.get("user-tooltip-nacionalidad"));
+		nationalityItem.validateWords();
+
+		birthDateItem = new GHABirthDateItem(GHAStrings.get("birthdate"),changedHandler);
+		birthDateItem.setUseMask(true);
+		birthDateItem.setTooltip(GHAStrings.get("user-tooltip-birthdate"));
+		
 		bpiSelectItem = new GHASelectItem("Institución");
 		bpiSelectItem.setRequired(true);
 		bpiSelectItem.addChangedHandler(changedHandler);
+		bpiSelectItem.setTooltip(GHAStrings.get("user-tooltip-institution"));
+
 		legalEntityIdentifierItem = new GHATextItem("R.I.F.", false,
 				changedHandler);
 		legalEntityIdentifierItem.setLength(17);
+		legalEntityIdentifierItem.validateCustomExpre(
+				GHAStrings.get("user-error-formatter-rif"),
+				"^[VvMmPprREeJjIiGg0-9|-]+$");
+
 		legalEntityIdentifierItem
-				.setMask(">[V|M|P|R|E|J|I|G]-[0-9|-][0-9|-][0-9|-][0-9|-][0-9|-][0-9|-][0-9|-][0-9|-][0-9|-][0-9|-][0-9|-][0-9|-][0-9|-][0-9|-][0-9|-]");
-		// VMPREJIG
+				.setTooltip(GHAStrings.get("user-tooltip-rif"));
 
 		listeners = new ArrayList<UserSelectionListener>();
 
 		form = new GHADynamicForm(4, FormType.NORMAL_FORM);
+		
 	}
 
 	/**
@@ -115,12 +164,11 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 				secondLastNameItem, nationalityItem, birthDateItem,
 				new GHASpacerItem(), primaryEmailItem, alternativeEmailItem,
 				bpiSelectItem, new GHASpacerItem(), legalEntityIdentifierItem);
-
+		
 		mainPanel.addMembers(form, new LayoutSpacer());
 		addMember(mainPanel);
 		fill();
 
-		firstNameItem.setValidators(GHATextItem.ALPHABETIC);
 	}
 
 	@Override
@@ -204,15 +252,20 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 		citizen.setSecondLastName(secondLastNameItem.getValueAsString());
 		citizen.setNationality(nationalityItem.getValueAsString());
 
+		if (idItem.getValue() != null) {
+			citizen.setIdNumber(idItem.getValueAsString());
+		}
+
+		if (legalEntityIdentifierItem.getValue() != null) {
+			legalEntity.setIdentifier(legalEntityIdentifierItem
+					.getValueAsString());
+		}
+
 		if (primaryEmailItem.getValue() != null) {
-			if (!primaryEmailItem.validate())
-				violationsList.add("email-invalid-field");
 			citizen.setPrimaryEmail(primaryEmailItem.getValueAsString());
 		}
 
 		if (alternativeEmailItem.getValue() != null) {
-			if (!alternativeEmailItem.validate())
-				violationsList.add("email-invalid-field");
 			citizen.setAlternativeEmail(alternativeEmailItem.getValueAsString());
 		}
 
@@ -223,9 +276,6 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 		if (typeidSelectItem.getValue() != null) {
 			citizen.setIdType(DocumentTypeEnum.valueOf(typeidSelectItem
 					.getValueAsString()));
-		}
-		if (idItem.getValue() != null) {
-			citizen.setIdNumber(idItem.getValueAsString());
 		}
 
 		if (genderSelectItem.getValue() != null) {
@@ -243,11 +293,6 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 			}
 		}
 
-		// legalentity fields
-		if (legalEntityIdentifierItem.getValue() != null) {
-			legalEntity.setIdentifier(legalEntityIdentifierItem
-					.getValueAsString());
-		}
 		// build the ssoUser object
 		citizen.setLegalEntity(legalEntity);
 		bpu.setCitizen(citizen);
