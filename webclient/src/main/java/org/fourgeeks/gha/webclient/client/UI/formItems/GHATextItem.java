@@ -238,12 +238,12 @@ public class GHATextItem extends TextItem {
 
 	public void validateAlphanumeric() {
 		validateCustomExpre(GHAStrings.get("formatter-error-alphanumeric"),
-				"^[a-zA-ZáéíóúÁÉÍÓÚÑñ0-9 ]+$");
+				"^[a-zA-ZáéíóúÁÉÍÓÚÑñ0-9- ]+$");
 	}
 
 	public void validateSerial() {
 		validateCustomExpre(GHAStrings.get("formatter-error-serial"),
-				"^[0-9-]+$");
+				"^[a-zA-ZáéíóúÁÉÍÓÚÑñ0-9- ]+$");
 	}
 
 	public void validateCodes() { // alfanumerico sin espacio
