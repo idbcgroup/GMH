@@ -68,6 +68,7 @@ import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.domain.gmh.EiaTypeCategory;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
@@ -534,6 +535,35 @@ public class InitialData {
 
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error creating test eia", e1);
+			}
+		}
+	}
+
+	private void eiaTypeCategoryTestData() {
+		String query = "SELECT t from EiaTypeCategory t WHERE t.id = 1";
+		try {
+			em.createQuery(query).getSingleResult();
+		} catch (NoResultException e) {
+			try {
+				logger.info("Creating test data: EiaTypeCategory");
+				List<CCDILevelValue> ccdiCategories = em
+						.createNamedQuery(
+								"CCDILevelValue.findAllByDefinitionCode",
+								CCDILevelValue.class)
+						.setParameter("code", "EQUIPOS").getResultList();
+
+				for (CCDILevelValue ccdi : ccdiCategories) {
+					EiaTypeCategory category = new EiaTypeCategory();
+					category.setName(ccdi.getName());
+					category.setCode(ccdi.getCode());
+					em.persist(category);
+					em.flush();
+				}
+
+				em.flush();
+			} catch (Exception e1) {
+				logger.log(Level.INFO,
+						"error Creating SubProtocolAndChecklist test data", e1);
 			}
 		}
 	}
@@ -1310,6 +1340,8 @@ public class InitialData {
 		// MaintenancePlanMaintenanceProtocol();
 		// eiaTypeMaintenancePlanTestData();
 		// eiaMaintenancePlanificationTestData();
+
+		eiaTypeCategoryTestData();
 	}
 
 	private void uiStrings() {
