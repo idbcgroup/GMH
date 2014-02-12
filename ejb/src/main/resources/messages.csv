@@ -510,6 +510,8 @@ ES,eias-delete-confirm,¿Desea eliminar los equipos?,2
 ES,eiaComponent-delete-confirm,¿Desea eliminar el componente?,2
 ES,eiaComponents-delete-confirm,¿Desea eliminar los componentes?,2
 ES,ssoUser-delete-confirm,¿Desea eliminar al usuario?,2
+ES,citizen-delete-confirm,¿Desea eliminar al ciudadano?,2
+ES,citizens-delete-confirm,¿Desea eliminar estos ciudadanos?,2
 ES,unsaved-changes,Existen algunos cambios sin guardar ¿Realmente desea salir?,3
 ES,activity-delete-confirm,¿Desea eliminar la actividad?,2
 ES,activities-delete-confirm,¿Desea eliminar las actividades?,2

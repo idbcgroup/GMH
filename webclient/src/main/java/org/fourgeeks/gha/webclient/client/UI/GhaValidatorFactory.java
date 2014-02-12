@@ -32,7 +32,7 @@ public final class GhaValidatorFactory extends AbstractGwtValidatorFactory {
 	 * validated.
 	 */
 	@GwtValidation({ EiaType.class, Eia.class, Material.class,
-			MaterialCategory.class, SSOUser.class, Citizen.class,
+			MaterialCategory.class, SSOUser.class, SSOUser.class,
 			LegalEntity.class, Bpu.class, Bpi.class, MaintenancePlan.class,
 			Activity.class, EiaDamageReport.class,
 			EiaPreventiveMaintenancePlanification.class })

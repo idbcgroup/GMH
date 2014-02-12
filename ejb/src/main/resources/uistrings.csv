@@ -131,6 +131,8 @@ ES,search-utility-material,Búsqueda de materiales utilitarios para tipos de equ
 ES,amount,Cantidad
 ES,empty-materialcategory-grid,No existen Materiales para mostrar
 ES,empty-material-grid,No existen Materiales para mostrar
+ES,empty-citizen-grid,No existen ciudadanos para mostrar
+ES,empty-user-grid,No existen usuarios para mostrar
 ES,results,Resultados
 ES,result,Resultado
 ES,username-not-null,Debe ingresar un usuario válido

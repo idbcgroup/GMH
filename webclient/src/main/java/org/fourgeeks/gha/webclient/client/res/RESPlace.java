@@ -7,6 +7,8 @@ import org.fourgeeks.gha.webclient.client.UI.places.GHAPlaceHeader;
 import org.fourgeeks.gha.webclient.client.UI.places.NeedPermissionPlace;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabPanel;
+import org.fourgeeks.gha.webclient.client.citizen.CitizenAddForm;
+import org.fourgeeks.gha.webclient.client.citizen.CitizenSearchForm;
 import org.fourgeeks.gha.webclient.client.res.citizen.CitizenTab;
 
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -18,6 +20,10 @@ import com.smartgwt.client.widgets.events.ClickHandler;
  */
 public class RESPlace extends NeedPermissionPlace {
 	private final GHATabPanel tabPanel = new GHATabPanel(GHAStrings.get("res"));
+	private final CitizenAddForm citizenAddForm = new CitizenAddForm(
+			GHAStrings.get("citizen-new"));
+	private final CitizenSearchForm citizenSearchForm = new CitizenSearchForm(
+			GHAStrings.get("citizen-search"));
 
 	/**
 	 * @param token
@@ -34,8 +40,7 @@ public class RESPlace extends NeedPermissionPlace {
 
 					@Override
 					public void onClick(ClickEvent event) {
-						// History.newItem("res/" + Math.round(Math.random() *
-						// 10));
+						citizenSearchForm.open();
 					}
 				});
 		tabPanel.addHeaderOption(GHAStrings.get("citizen-new"),
@@ -43,8 +48,7 @@ public class RESPlace extends NeedPermissionPlace {
 
 					@Override
 					public void onClick(ClickEvent event) {
-						// History.newItem("res/" + Math.round(Math.random() *
-						// 10));
+						citizenAddForm.open();
 					}
 				});
 		tabPanel.addHeaderOption(GHAStrings.get("close"), "cerrarButton",

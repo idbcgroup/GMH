@@ -151,7 +151,7 @@ public class MessageServiceTest {
 				.addClass(BpiInstitutionRelationTypeEnum.class)
 				.addClass(BpiRiskEnum.class)
 				.addClass(BuildingLocation.class)
-				.addClass(Citizen.class)
+				.addClass(SSOUser.class)
 				.addClass(CitizenServiceRemote.class)
 				.addClass(CitizenService.class)
 				.addClass(CurrencyTypeEnum.class)

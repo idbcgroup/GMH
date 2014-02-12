@@ -1,5 +1,8 @@
 package org.fourgeeks.gha.ejb.mix;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -68,8 +71,10 @@ public class CitizenServiceTest extends GhaServiceTest {
 		Assert.assertEquals(service.find(entity.getId()).getGender(),
 				GenderTypeEnum.MALE);
 
-		long id = entity.getId();
-		service.delete(entity.getId());
+		final long id = entity.getId();
+		final List<Citizen> citizens = new ArrayList<Citizen>();
+		citizens.add(entity);
+		service.delete(citizens);
 		Assert.assertNull(service.find(id));
 
 		ux.commit();

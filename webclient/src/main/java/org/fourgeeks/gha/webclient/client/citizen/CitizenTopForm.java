@@ -1,12 +1,9 @@
-package org.fourgeeks.gha.webclient.client.user;
+package org.fourgeeks.gha.webclient.client.citizen;
 
 import java.util.List;
 
 import org.fourgeeks.gha.domain.enu.DocumentTypeEnum;
 import org.fourgeeks.gha.domain.enu.GenderTypeEnum;
-import org.fourgeeks.gha.domain.enu.UserLogonStatusEnum;
-import org.fourgeeks.gha.domain.ess.SSOUser;
-import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.mix.Citizen;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
@@ -16,12 +13,12 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHADoumentTypeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAGenreSelectItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAUserStateSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHAEmailTextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHANameTextItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHAUserNameTextItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
+import org.fourgeeks.gha.webclient.client.user.SSOUserModel;
+import org.fourgeeks.gha.webclient.client.user.UserPanel;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.util.BooleanCallback;
@@ -31,10 +28,10 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
  * @author alacret
  * 
  */
-public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
-		UserSelectionListener {
+public class CitizenTopForm extends GHATopForm<CitizenResultSet, Citizen>
+		implements CitizenSelectionListener {
 
-	private SSOUser selectedUser;
+	private Citizen selected;
 	private GHATextItem usernameItem;
 	private GHADoumentTypeSelectItem idTypeSelectItem;
 	private GHASelectItem stateItem;
@@ -45,8 +42,6 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 	private GHASelectItem genderSelectItem;
 	private GHADynamicForm form;
 	{
-		usernameItem = new GHAUserNameTextItem();
-		stateItem = new GHAUserStateSelectItem();
 		firstNameItem = new GHANameTextItem(GHAStrings.get("first-name"));
 		secondNameItem = new GHANameTextItem(GHAStrings.get("second-name"));
 		firstLastNameItem = new GHANameTextItem(
@@ -75,7 +70,7 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 	 * @param resultSet
 	 * @param userTab
 	 */
-	public UserTopForm(UserResultSet resultSet, UserPanel userTab) {
+	public CitizenTopForm(CitizenResultSet resultSet, UserPanel userTab) {
 		super(resultSet, userTab);
 
 		form.setItems(usernameItem, firstNameItem, secondNameItem,
@@ -107,7 +102,7 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 		searchButton.setDisabled(false);
 		cleanButton.setDisabled(false);
 		activated = true;
-		selectedUser = null;
+		selected = null;
 	}
 
 	@Override
@@ -123,7 +118,7 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 					@Override
 					public void execute(Boolean value) {
 						if (value) {
-							SSOUserModel.delete(selectedUser.getId(),
+							SSOUserModel.delete(selected.getId(),
 									new GHAAsyncCallback<Void>() {
 										@Override
 										public void onSuccess(Void result) {
@@ -147,13 +142,6 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 	@Override
 	public void search() {
 		super.search();
-		final SSOUser ssoUser = new SSOUser();
-		if (usernameItem.getValue() != null)
-			ssoUser.setUserName(usernameItem.getValueAsString());
-		if (stateItem.getValue() != null)
-			ssoUser.setUserLogonStatus(UserLogonStatusEnum.valueOf(stateItem
-					.getValueAsString()));
-
 		final Citizen citizen = new Citizen();
 		if (firstNameItem.getValue() != null)
 			citizen.setFirstName(firstNameItem.getValueAsString());
@@ -175,58 +163,48 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 		if (emailItem.getValue() != null)
 			citizen.setPrimaryEmail(emailItem.getValueAsString());
 
-		final Bpu bpu = new Bpu();
-		bpu.setCitizen(citizen);
-		ssoUser.setBpu(bpu);
-		search(ssoUser);
+		search(citizen);
 	}
 
+	/**
+	 * @param citizen
+	 */
 	@Override
-	public void search(final SSOUser ssoU) {
+	public void search(final Citizen citizen) {
 		super.search();
-		SSOUserModel.find(ssoU, new GHAAsyncCallback<List<SSOUser>>() {
+		CitizenModel.find(citizen, new GHAAsyncCallback<List<Citizen>>() {
 
 			@Override
-			public void onSuccess(List<SSOUser> ssoUsers) {
+			public void onSuccess(List<Citizen> ssoUsers) {
 				resultSet.setRecords(ssoUsers, true);
 			}
 		});
 	}
 
+	/**
+	 * @param citizen
+	 */
 	@Override
-	public void select(SSOUser ssoUser) {
-		selectedUser = ssoUser;
+	public void onCitizenSelect(Citizen citizen) {
+		selected = citizen;
 
-		if (ssoUser.getUserName() != null)
-			usernameItem.setValue(ssoUser.getUserName());
+		if (citizen.getFirstName() != null)
+			firstNameItem.setValue(citizen.getFirstName());
+		if (citizen.getSecondName() != null)
+			secondNameItem.setValue(citizen.getSecondName());
+		if (citizen.getIdType() != null)
+			idTypeSelectItem.setValue(citizen.getIdType().name());
+		if (citizen.getIdNumber() != null)
+			idItem.setValue(citizen.getIdNumber());
+		if (citizen.getFirstLastName() != null)
+			firstLastNameItem.setValue(citizen.getFirstLastName());
+		if (citizen.getSecondLastName() != null)
+			secondLastNameItem.setValue(citizen.getSecondLastName());
+		if (citizen.getPrimaryEmail() != null)
+			emailItem.setValue(citizen.getPrimaryEmail());
+		if (citizen.getGender() != null)
+			genderSelectItem.setValue(citizen.getGender().name());
 
-		if (ssoUser.getUserLogonStatus() != null)
-			stateItem.setValue(ssoUser.getUserLogonStatus().name());
-
-		if (ssoUser.getBpu() != null) {
-			final Bpu bpu = ssoUser.getBpu();
-
-			if (bpu.getCitizen() != null) {
-				final Citizen citizen = bpu.getCitizen();
-				if (citizen.getFirstName() != null)
-					firstNameItem.setValue(citizen.getFirstName());
-				if (citizen.getSecondName() != null)
-					secondNameItem.setValue(citizen.getSecondName());
-				if (citizen.getIdType() != null)
-					idTypeSelectItem.setValue(citizen.getIdType().name());
-				if (citizen.getIdNumber() != null)
-					idItem.setValue(citizen.getIdNumber());
-				if (citizen.getFirstLastName() != null)
-					firstLastNameItem.setValue(citizen.getFirstLastName());
-				if (citizen.getSecondLastName() != null)
-					secondLastNameItem.setValue(citizen.getSecondLastName());
-				if (citizen.getPrimaryEmail() != null)
-					emailItem.setValue(citizen.getPrimaryEmail());
-				if (citizen.getGender() != null)
-					genderSelectItem.setValue(citizen.getGender().name());
-
-			}
-		}
 		deactivate();
 		sideButtons.addMember(deleteButton, 0);
 	}
@@ -245,4 +223,5 @@ public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
 		cleanButton.setDisabled(disabled);
 		activated = !disabled;
 	}
+
 }

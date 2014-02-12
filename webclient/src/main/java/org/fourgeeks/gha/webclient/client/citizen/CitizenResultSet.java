@@ -1,9 +1,9 @@
-package org.fourgeeks.gha.webclient.client.user;
+package org.fourgeeks.gha.webclient.client.citizen;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.fourgeeks.gha.domain.ess.SSOUser;
+import org.fourgeeks.gha.domain.mix.Citizen;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
@@ -32,22 +32,22 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret, emiliot
  * 
  */
-public class UserResultSet extends GHAResultSet<SSOUser> implements
-		UserSelectionProducer, ResizeHandler, HideableListener,
+public class CitizenResultSet extends GHAResultSet<Citizen> implements
+		CitizenSelectionProducer, ResizeHandler, HideableListener,
 		ClosableListener {
-	private final List<UserSelectionListener> listeners = new ArrayList<UserSelectionListener>();
-	private final UserGrid grid;
+	private final List<CitizenSelectionListener> listeners = new ArrayList<CitizenSelectionListener>();
+	private final CitizenGrid grid;
 	private final ResultSetContainerType containerType;
 
 	/**
 	 * @param container
 	 * 
 	 */
-	public UserResultSet(ResultSetContainerType container) {
+	public CitizenResultSet(ResultSetContainerType container) {
 		super(GHAStrings.get("search-results"));
 		this.containerType = container;
 
-		grid = new UserGrid() {
+		grid = new CitizenGrid() {
 			@Override
 			public void onResize(ResizeEvent event) {
 				super.onResize(event);
@@ -58,7 +58,7 @@ public class UserResultSet extends GHAResultSet<SSOUser> implements
 
 			@Override
 			public void onCellDoubleClick(CellDoubleClickEvent event) {
-				notifySelectedUser();
+				notifySelectedCitizen();
 			}
 		});
 		grid.setHeight(GHAUiHelper.getResultSetGridSize(containerType));
@@ -72,7 +72,7 @@ public class UserResultSet extends GHAResultSet<SSOUser> implements
 
 					@Override
 					public void onClick(ClickEvent event) {
-						notifySelectedUser();
+						notifySelectedCitizen();
 					}
 				});
 
@@ -93,39 +93,19 @@ public class UserResultSet extends GHAResultSet<SSOUser> implements
 			// setHeight(getHeight() - 42);
 		}
 		gridPanel.addMembers(grid, sideBar);
-
-		// gridPanel.addMembers(grid, GHAUiHelper.createBar(new GHACheckButton(
-		// new ClickHandler() {
-		//
-		// @Override
-		// public void onClick(ClickEvent event) {
-		// notifySelectedUser();
-		// }
-		// }), GHAUiHelper.verticalGraySeparator("2px"),
-		// new GHADeleteButton(new ClickHandler() {
-		//
-		// @Override
-		// public void onClick(ClickEvent event) {
-		// delete();
-		// }
-		// })));
-		//
-		// if (containerType == ResultSetContainerType.SEARCH_FORM) {
-		// setHeight(getHeight() - 35);
-		// }
 		addMember(gridPanel);
 	}
 
 	@Override
-	public void addUserSelectionListener(
-			UserSelectionListener userSelectionListener) {
+	public void addCitizenSelectionListener(
+			CitizenSelectionListener userSelectionListener) {
 		listeners.add(userSelectionListener);
 
 	}
 
 	@Override
 	public void clean() {
-		grid.setData(new UserRecord[] {});
+		grid.setData(new CitizenRecord[] {});
 		showResultsSize(null, true);
 	}
 
@@ -136,15 +116,15 @@ public class UserResultSet extends GHAResultSet<SSOUser> implements
 		}
 
 		if (grid.getSelectedRecords().length > 1) {
-			GHAAlertManager.confirm("ssoUser-delete-confirm",
+			GHAAlertManager.confirm("citizens-delete-confirm",
 					new BooleanCallback() {
 
 						@Override
 						public void execute(Boolean value) {
 							if (value) {
-								final List<SSOUser> entities = grid
+								final List<Citizen> entities = grid
 										.getSelectedEntities();
-								SSOUserModel.delete(entities,
+								CitizenModel.delete(entities,
 										new GHAAsyncCallback<Void>() {
 
 											@Override
@@ -159,15 +139,15 @@ public class UserResultSet extends GHAResultSet<SSOUser> implements
 						}
 					});
 		} else {
-			GHAAlertManager.confirm("user-delete-confirm",
+			GHAAlertManager.confirm("citizen-delete-confirm",
 					new BooleanCallback() {
 
 						@Override
 						public void execute(Boolean value) {
 							if (value) {
-								final List<SSOUser> entities = grid
+								final List<Citizen> entities = grid
 										.getSelectedEntities();
-								SSOUserModel.delete(entities,
+								CitizenModel.delete(entities,
 										new GHAAsyncCallback<Void>() {
 
 											@Override
@@ -185,22 +165,23 @@ public class UserResultSet extends GHAResultSet<SSOUser> implements
 	}
 
 	/**
-	 * notify selected eiaType from the grid
+	 * notify selected citizen from the grid
 	 */
-	private void notifySelectedUser() {
-		final GHAGridRecord<SSOUser> selectedRecord = grid.getSelectedRecord();
+	private void notifySelectedCitizen() {
+		final GHAGridRecord<Citizen> selectedRecord = grid.getSelectedRecord();
+
 		if (selectedRecord == null) {
 			GHAAlertManager.alert("record-not-selected");
 			return;
 		}
-		notifyUser(selectedRecord.toEntity());
+		notifyCitizen(selectedRecord.toEntity());
 		hide();
 	}
 
 	@Override
-	public void notifyUser(SSOUser user) {
-		for (final UserSelectionListener listener : listeners)
-			listener.select(user);
+	public void notifyCitizen(Citizen citizen) {
+		for (final CitizenSelectionListener listener : listeners)
+			listener.onCitizenSelect(citizen);
 	}
 
 	@Override
@@ -209,24 +190,23 @@ public class UserResultSet extends GHAResultSet<SSOUser> implements
 	}
 
 	@Override
-	public void removeUserSelectionListener(
-			UserSelectionListener userSelectionListener) {
-		listeners.remove(userSelectionListener);
+	public void removeCitizenSelectionListener(CitizenSelectionListener listener) {
+		listeners.remove(listener);
 
 	}
 
 	@Override
-	public void setRecords(List<SSOUser> records, boolean notifyIfOnlyOneResult) {
+	public void setRecords(List<Citizen> records, boolean notifyIfOnlyOneResult) {
 		// if only one record is on the list, notify the element and return
 		if (notifyIfOnlyOneResult && records.size() == 1) {
-			notifyUser(records.get(0));
+			notifyCitizen(records.get(0));
 			this.hide();
 			return;
 		}
 
 		showResultsSize(records, false);
-		final ListGridRecord[] array = UserUtil.toGridRecords(records).toArray(
-				new UserRecord[] {});
+		final ListGridRecord[] array = CitizenUtil.toGridRecords(records)
+				.toArray(new CitizenRecord[] {});
 		grid.setData(array);
 		// setAnimateAcceleration(AnimationAcceleration.NONE);
 		this.animateShow(AnimationEffect.FADE);
