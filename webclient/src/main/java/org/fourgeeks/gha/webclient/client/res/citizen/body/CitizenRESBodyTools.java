@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.res.citizen;
+package org.fourgeeks.gha.webclient.client.res.citizen.body;
 
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACancelButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
@@ -19,17 +19,18 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class RESTools extends VLayout {
+public class CitizenRESBodyTools extends VLayout {
 
 	/**
 	 * 
 	 */
-	public RESTools() {
+	public CitizenRESBodyTools() {
 		setWidth(30);
 		setLayoutMargin(5);
 		setMembersMargin(10);
 		setDefaultLayoutAlign(Alignment.CENTER);
-		ClickHandler clickHandler = new ClickHandler() {
+		setBackgroundColor("#FF4D4D");
+		final ClickHandler clickHandler = new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {

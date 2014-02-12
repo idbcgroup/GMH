@@ -21,31 +21,34 @@ import com.smartgwt.client.widgets.AnimationCallback;
  */
 public abstract class GHASlideInWindow extends GHAVerticalLayout implements
 		ResizeHandler, ClosableListener, HideableListener, HideableProducer {
-//	/**
-//	 * 
-//	 */
-//	public enum SlideInWindowType {
-//		/**
-//		 * Type for a Search Window
-//		 */
-//		SEARCH, 
-//		/**
-//		 * Type for an Add Window
-//		 */
-//		ADD,
-//		/**
-//		 * Type for an Update Window
-//		 */
-//		UPDATE;
-//	}
-	
+	// /**
+	// *
+	// */
+	// public enum SlideInWindowType {
+	// /**
+	// * Type for a Search Window
+	// */
+	// SEARCH,
+	// /**
+	// * Type for an Add Window
+	// */
+	// ADD,
+	// /**
+	// * Type for an Update Window
+	// */
+	// UPDATE;
+	// }
+
 	List<HideableListener> listeners = new ArrayList<HideableListener>();
-	
+
+	/**
+	 * 
+	 */
 	public GHASlideInWindow() {
 		setWidth100();
 		setMinWidth(1024);
 		setTop(GHAUiHelper.getTopSpace());
-		setHeight(GHAUiHelper.getBottomSectionHeight()-5);
+		setHeight(GHAUiHelper.getBottomSectionHeight() - 5);
 		setLeft(-5);
 		setVisibility(Visibility.HIDDEN);
 		setAnimateTime(GHAUiHelper.DEFAULT_ANIMATION_TIME);
@@ -73,7 +76,7 @@ public abstract class GHASlideInWindow extends GHAVerticalLayout implements
 	 */
 	public void open() {
 		RootPanel.get("slideInWindowsBackDiv").addStyleName("dim");
-		int windowZIndex = getZIndex();
+		final int windowZIndex = getZIndex();
 		RootPanel.get("slideInWindowsBackDiv").getElement().getStyle()
 				.setZIndex(windowZIndex - 1);
 
@@ -82,7 +85,7 @@ public abstract class GHASlideInWindow extends GHAVerticalLayout implements
 
 	@Override
 	public void hide() {
-		for (HideableListener listener : listeners)
+		for (final HideableListener listener : listeners)
 			listener.hide();
 		RootPanel.get("slideInWindowsBackDiv").removeStyleName("dim");
 		RootPanel.get("slideInWindowsBackDiv").getElement().getStyle()
@@ -94,7 +97,7 @@ public abstract class GHASlideInWindow extends GHAVerticalLayout implements
 	 * @param callback
 	 */
 	public void hide(AnimationCallback callback) {
-		for (HideableListener listener : listeners)
+		for (final HideableListener listener : listeners)
 			listener.hide();
 		RootPanel.get("slideInWindowsBackDiv").removeStyleName("dim");
 		RootPanel.get("slideInWindowsBackDiv").getElement().getStyle()
@@ -121,10 +124,10 @@ public abstract class GHASlideInWindow extends GHAVerticalLayout implements
 	public void removeHideableListener(HideableListener hideableListener) {
 		listeners.remove(hideableListener);
 	}
-	
+
 	@Override
 	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getBottomSectionHeight()-5);		
+		setHeight(GHAUiHelper.getBottomSectionHeight() - 5);
 	}
 
 }
