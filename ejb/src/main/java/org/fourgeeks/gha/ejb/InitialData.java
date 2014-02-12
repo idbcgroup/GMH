@@ -261,53 +261,68 @@ public class InitialData {
 	 * 
 	 */
 	private void ccdiLevelDefinitionTestData() {
-		String query;
-		query = "SELECT t from CCDILevelDefinition t WHERE t.id = 1";
+		InputStream in = null;
+		CSVReader reader = null;
+
+		String query = "SELECT t from CCDILevelDefinition t WHERE t.id = 1";
 		try {
 			em.createQuery(query).getSingleResult();
 		} catch (NoResultException e) {
 			try {
-				logger.log(Level.INFO,
-						"CREATING CCDI LEVEL DEFINITION TEST DATA");
-				CCDIDefinition definition = em
-						.createNamedQuery("CCDIDefinition.findByCode",
-								CCDIDefinition.class)
-						.setParameter("code", "MATERIAL").getSingleResult();
+				logger.info("creating test ccdiLevelDefinition");
+				in = InitialData.class
+						.getResourceAsStream("/ccdiLevelDefinition.csv");
+				reader = new CSVReader(new InputStreamReader(in, "UTF-8"), ',',
+						'\'', 0);
+				List<String[]> readAll = reader.readAll();
 
-				CCDILevelDefinition materiales = new CCDILevelDefinition(
-						definition, 0, "MATERIALES", 1,
-						CCDIValueTypeEnum.FIXED, 0, 0, "",
-						CCDIEndValueActionEnum.RESTART);
-				em.persist(materiales);
+				for (String[] strings : readAll) {
+					if (strings[0].startsWith("#")
+							|| strings[0].startsWith("//"))
+						continue;
 
-				CCDILevelDefinition type = new CCDILevelDefinition(definition,
-						1, "TIPO", 1, CCDIValueTypeEnum.FIXED, 0, 0, "",
-						CCDIEndValueActionEnum.RESTART);
-				em.persist(type);
+					CCDIDefinition definition = em
+							.createNamedQuery("CCDIDefinition.findByCode",
+									CCDIDefinition.class)
+							.setParameter("code", strings[0]).getSingleResult();
 
-				CCDILevelDefinition family = new CCDILevelDefinition(
-						definition, 2, "FAMILIA", 2,
-						CCDIValueTypeEnum.VARIABLE, 1, 1, "",
-						CCDIEndValueActionEnum.RESTART);
-				em.persist(family);
+					CCDILevelDefinition levelDefinition = new CCDILevelDefinition();
+					levelDefinition.setDefinition(definition);
+					levelDefinition.setLevel(Integer.parseInt(strings[1]));
+					levelDefinition.setName(strings[2]);
+					levelDefinition.setLength(Integer.parseInt(strings[3]));
+					levelDefinition
+							.setValueType(CCDIValueTypeEnum.values()[Integer
+									.parseInt(strings[4])]);
+					levelDefinition.setInitialValue(Integer
+							.parseInt(strings[5]));
+					levelDefinition.setIncValue(Integer.parseInt(strings[6]));
+					levelDefinition.setSeparator(strings[7]);
+					levelDefinition.setValueAtEndAction(CCDIEndValueActionEnum
+							.values()[Integer.parseInt(strings[8])]);
 
-				CCDILevelDefinition subFamily = new CCDILevelDefinition(
-						definition, 3, "SUB FAMILIA", 2,
-						CCDIValueTypeEnum.VARIABLE, 1, 1, "",
-						CCDIEndValueActionEnum.RESTART);
-				em.persist(subFamily);
-
-				CCDILevelDefinition element = new CCDILevelDefinition(
-						definition, 4, "ELEMENTOS", 4,
-						CCDIValueTypeEnum.VARIABLE, 1, 1, "",
-						CCDIEndValueActionEnum.RESTART);
-				em.persist(element);
+					em.persist(levelDefinition);
+					em.flush();
+				}
 
 			} catch (Exception e1) {
 				logger.log(Level.INFO,
 						"error creating test ccdi level definition", e);
 			}
+		} finally {
+			try {
+				if (reader != null)
+					reader.close();
+			} catch (IOException e) {
+				logger.log(Level.SEVERE, "ERROR IN CCDI LEVEL DEFINITION");
+			}
 
+			try {
+				if (in != null)
+					in.close();
+			} catch (IOException e) {
+				logger.log(Level.SEVERE, "ERROR IN CCDI LEVEL DEFINITION");
+			}
 		}
 	}
 
@@ -315,184 +330,135 @@ public class InitialData {
 	 * 
 	 */
 	private void ccdiLevelValuesTestData() {
-		String query;
-		query = "SELECT t from CCDILevelValue t WHERE t.id = 1";
+		InputStream in = null;
+		CSVReader reader = null;
+
+		String query = "SELECT t from CCDILevelValue t WHERE t.id = 1";
 		try {
 			em.createQuery(query).getSingleResult();
 		} catch (NoResultException e) {
 			try {
-				logger.info("creating test CCDILevelValue");
-				CCDIDefinition definition = em
-						.createNamedQuery("CCDIDefinition.findByCode",
-								CCDIDefinition.class)
-						.setParameter("code", "MATERIAL").getSingleResult();
+				logger.info("creating test ccdiLevelValue");
+				in = InitialData.class
+						.getResourceAsStream("/ccdiLevelValue.csv");
+				reader = new CSVReader(new InputStreamReader(in, "UTF-8"), ',',
+						'\'', 0);
+				List<String[]> readAll = reader.readAll();
 
-				CCDILevelDefinition material = em
-						.createNamedQuery("CCDILevelDefinition.findByLevel",
-								CCDILevelDefinition.class)
-						.setParameter("level", 0)
-						.setParameter("definition", definition)
-						.getSingleResult();
-				CCDILevelDefinition type = em
-						.createNamedQuery("CCDILevelDefinition.findByLevel",
-								CCDILevelDefinition.class)
-						.setParameter("level", 1)
-						.setParameter("definition", definition)
-						.getSingleResult();
-				CCDILevelDefinition family = em
-						.createNamedQuery("CCDILevelDefinition.findByLevel",
-								CCDILevelDefinition.class)
-						.setParameter("level", 2)
-						.setParameter("definition", definition)
-						.getSingleResult();
-				CCDILevelDefinition subFamily = em
-						.createNamedQuery("CCDILevelDefinition.findByLevel",
-								CCDILevelDefinition.class)
-						.setParameter("level", 3)
-						.setParameter("definition", definition)
-						.getSingleResult();
-				CCDILevelDefinition element = em
-						.createNamedQuery("CCDILevelDefinition.findByLevel",
-								CCDILevelDefinition.class)
-						.setParameter("level", 4)
-						.setParameter("definition", definition)
-						.getSingleResult();
+				for (String[] strings : readAll) {
+					if (strings[0].startsWith("#")
+							|| strings[0].startsWith("//"))
+						continue;
 
-				CCDILevelValue materialValue = new CCDILevelValue(material,
-						null, "MATERIAL", "0", 0, "0",
-						CCDIValueStatusEnum.ACTIVE);
-				em.persist(materialValue);
-				em.flush();
-				materialValue = em
-						.createNamedQuery("CCDILevelValue.findByCode",
-								CCDILevelValue.class)
-						.setParameter("code", materialValue.getCode())
-						.getSingleResult();
+					CCDIDefinition definition = em
+							.createNamedQuery("CCDIDefinition.findByCode",
+									CCDIDefinition.class)
+							.setParameter("code", strings[0]).getSingleResult();
+					CCDILevelDefinition levelDefinition = em
+							.createNamedQuery(
+									"CCDILevelDefinition.findByLevel",
+									CCDILevelDefinition.class)
+							.setParameter("definition", definition)
+							.setParameter("level", Integer.parseInt(strings[1]))
+							.getSingleResult();
 
-				CCDILevelValue supplies = new CCDILevelValue(type,
-						materialValue, "SUMINISTROS", "01", 3, "1",
-						CCDIValueStatusEnum.ACTIVE);
-				em.persist(supplies);
-				em.flush();
-				supplies = em
-						.createNamedQuery("CCDILevelValue.findByCode",
-								CCDILevelValue.class)
-						.setParameter("code", supplies.getCode())
-						.getSingleResult();
+					CCDILevelValue levelValue = new CCDILevelValue();
+					levelValue.setLevelDefinition(levelDefinition);
 
-				CCDILevelValue pharmacs = new CCDILevelValue(type,
-						materialValue, "FARMACOS", "04", 1, "4",
-						CCDIValueStatusEnum.ACTIVE);
-				em.persist(pharmacs);
-				em.flush();
-				pharmacs = em
-						.createNamedQuery("CCDILevelValue.findByCode",
-								CCDILevelValue.class)
-						.setParameter("code", pharmacs.getCode())
-						.getSingleResult();
+					CCDILevelValue parentValue = strings[2].equals("") ? null
+							: em.createNamedQuery("CCDILevelValue.findByCode",
+									CCDILevelValue.class)
+									.setParameter("code", strings[2])
+									.getSingleResult();
+					levelValue.setParentValue(parentValue);
+					levelValue.setName(strings[3]);
+					levelValue.setCode(strings[4]);
+					levelValue.setNextValue(Integer.parseInt(strings[5]));
+					levelValue.setFixedValue(strings[6]);
+					levelValue.setStatus(CCDIValueStatusEnum.values()[Integer
+							.parseInt(strings[7])]);
 
-				CCDILevelValue needle = new CCDILevelValue(family, supplies,
-						"AGUJAS", "0101", 3, "", CCDIValueStatusEnum.ACTIVE);
-				em.persist(needle);
-				em.flush();
-				needle = em
-						.createNamedQuery("CCDILevelValue.findByCode",
-								CCDILevelValue.class)
-						.setParameter("code", needle.getCode())
-						.getSingleResult();
+					em.persist(levelValue);
+					em.flush();
+				}
 
-				CCDILevelValue syringe = new CCDILevelValue(family, supplies,
-						"AGUJAS", "0102", 2, "", CCDIValueStatusEnum.ACTIVE);
-				em.persist(syringe);
-				em.flush();
-				syringe = em
-						.createNamedQuery("CCDILevelValue.findByCode",
-								CCDILevelValue.class)
-						.setParameter("code", syringe.getCode())
-						.getSingleResult();
-
-				CCDILevelValue antiBiotics = new CCDILevelValue(family,
-						pharmacs, "ANTIBIOTICOS", "0401", 2, "",
-						CCDIValueStatusEnum.ACTIVE);
-				em.persist(antiBiotics);
-				em.flush();
-				antiBiotics = em
-						.createNamedQuery("CCDILevelValue.findByCode",
-								CCDILevelValue.class)
-						.setParameter("code", antiBiotics.getCode())
-						.getSingleResult();
-
-				CCDILevelValue hypodermic = new CCDILevelValue(subFamily,
-						needle, "HIPODERMICAS", "010101", 1, "",
-						CCDIValueStatusEnum.ACTIVE);
-				em.persist(hypodermic);
-				em.flush();
-				hypodermic = em
-						.createNamedQuery("CCDILevelValue.findByCode",
-								CCDILevelValue.class)
-						.setParameter("code", hypodermic.getCode())
-						.getSingleResult();
-
-				CCDILevelValue puncture = new CCDILevelValue(subFamily, needle,
-						"PUNCION", "010102", 1, "", CCDIValueStatusEnum.ACTIVE);
-				em.persist(puncture);
-				em.flush();
-				puncture = em
-						.createNamedQuery("CCDILevelValue.findByCode",
-								CCDILevelValue.class)
-						.setParameter("code", puncture.getCode())
-						.getSingleResult();
-
-				CCDILevelValue insuline = new CCDILevelValue(subFamily,
-						syringe, "INSULINA", "010201", 1, "",
-						CCDIValueStatusEnum.ACTIVE);
-				em.persist(insuline);
-				em.flush();
-				insuline = em
-						.createNamedQuery("CCDILevelValue.findByCode",
-								CCDILevelValue.class)
-						.setParameter("code", insuline.getCode())
-						.getSingleResult();
-
-				CCDILevelValue penicillin = new CCDILevelValue(subFamily,
-						antiBiotics, "PENICILINA", "040101", 1, "",
-						CCDIValueStatusEnum.ACTIVE);
-				em.persist(penicillin);
-				em.flush();
-				penicillin = em
-						.createNamedQuery("CCDILevelValue.findByCode",
-								CCDILevelValue.class)
-						.setParameter("code", penicillin.getCode())
-						.getSingleResult();
-
-				em.flush();
 			} catch (Exception e1) {
-				logger.log(Level.INFO, "error creating test ccdi level values",
+				logger.log(Level.INFO, "error creating test ccdi level value",
 						e);
 			}
+		} finally {
+			try {
+				if (reader != null)
+					reader.close();
+			} catch (IOException e) {
+				logger.log(Level.SEVERE, "ERROR IN CCDI LEVEL VALUE");
+			}
 
+			try {
+				if (in != null)
+					in.close();
+			} catch (IOException e) {
+				logger.log(Level.SEVERE, "ERROR IN CCDI LEVEL VALUE");
+			}
 		}
 	}
 
 	private void ccdiTestData() {
-		String query = "SELECT t from CCDIDefinition t WHERE t.id = 1";
+		InputStream in = null;
+		CSVReader reader = null;
 
+		String query = "SELECT t from CCDIDefinition t WHERE t.id = 1";
 		try {
 			em.createQuery(query).getSingleResult();
 		} catch (NoResultException e) {
 			try {
 				logger.info("creating test ccdiDefinition");
-				em.persist(new Concept());
-				em.flush();
+				in = InitialData.class
+						.getResourceAsStream("/ccdiDefinition.csv");
+				reader = new CSVReader(new InputStreamReader(in, "UTF-8"), ',',
+						'\'', 0);
+				List<String[]> readAll = reader.readAll();
 
-				CCDIDefinition material = new CCDIDefinition("MATERIAL",
-						"MATERIAL", 10, 5, CCDIStatusEnum.ACTIVE, em.find(
-								Concept.class, 1L),
-						CCDICodeTypeEnum.ALPHANUMERIC, false, "");
-				em.persist(material);
+				for (String[] strings : readAll) {
+					if (strings[0].startsWith("#")
+							|| strings[0].startsWith("//"))
+						continue;
+
+					CCDIDefinition definition = new CCDIDefinition();
+					definition.setCode(strings[0]);
+					definition.setName(strings[1]);
+					definition.setLength(Integer.parseInt(strings[2]));
+					definition.setLevels(Integer.parseInt(strings[3]));
+					definition.setStatus(CCDIStatusEnum.values()[Integer
+							.parseInt(strings[4])]);
+					definition.setConcept(em.find(Concept.class,
+							Long.parseLong(strings[5])));
+					definition.setType(CCDICodeTypeEnum.values()[Integer
+							.parseInt(strings[6])]);
+					definition
+							.setVerification(Boolean.parseBoolean(strings[7]));
+					definition.setVerificationMethod(strings[8]);
+
+					em.persist(definition);
+					em.flush();
+				}
 
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "error creating test ccdi definition", e);
+			}
+		} finally {
+			try {
+				if (reader != null)
+					reader.close();
+			} catch (IOException e) {
+				logger.log(Level.SEVERE, "ERROR IN CCDI DEFINITION");
+			}
+
+			try {
+				if (in != null)
+					in.close();
+			} catch (IOException e) {
+				logger.log(Level.SEVERE, "ERROR IN CCDI DEFINITION");
 			}
 		}
 	}
