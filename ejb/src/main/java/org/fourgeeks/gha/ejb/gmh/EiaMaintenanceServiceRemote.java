@@ -64,4 +64,20 @@ public interface EiaMaintenanceServiceRemote {
 	 */
 	public EiaCorrectiveMaintenance updateCorrectiveMaintenance(
 			EiaCorrectiveMaintenance entity) throws GHAEJBException;
+
+	/**
+	 * Delete a corrective maintenance
+	 * 
+	 * @param Id
+	 * @throws GHAEJBException
+	 */
+	public void deleteCorrectiveMaintenance(long Id) throws GHAEJBException;
+
+	/**
+	 * Delete a preventive maintenance
+	 * 
+	 * @param Id
+	 * @throws GHAEJBException
+	 */
+	public void deletePreventiveMaintenance(long Id) throws GHAEJBException;
 }

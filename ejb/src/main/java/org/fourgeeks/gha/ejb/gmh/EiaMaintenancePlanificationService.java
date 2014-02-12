@@ -115,9 +115,8 @@ public class EiaMaintenancePlanificationService extends GHAEJBExceptionService
 	public Long getPlanificationsCount(MaintenancePlan maintenancePlan)
 			throws GHAEJBException {
 		try {
-			String stringQuery = "SELECT COUNT(epm) FROM EiaPreventiveMaintenance epm "
-					+ "JOIN epm.planification planif "
-					+ "JOIN planif.plan plan "
+			String stringQuery = "SELECT COUNT(epm) FROM EiaMaintenancePlanification epm "
+					+ "JOIN epm.plan plan "
 					+ "WHERE plan.maintenancePlan = :maintenancePlan ";
 
 			Long result = em.createQuery(stringQuery, Long.class)
@@ -128,7 +127,7 @@ public class EiaMaintenancePlanificationService extends GHAEJBExceptionService
 		} catch (Exception e) {
 			logger.log(
 					Level.INFO,
-					"Error: geting the number of preventive maintenance associated to the given maintenancePlan",
+					"Error: geting the number of maintenance planifications associated to the given maintenancePlan",
 					e);
 			throw super.generateGHAEJBException(
 					"eiaPreventiveMaintenance-getPlanificationsCount-fail", em);
@@ -169,6 +168,20 @@ public class EiaMaintenancePlanificationService extends GHAEJBExceptionService
 					.generateGHAEJBException(
 							"eiaPreventiveMaintenance-getEffectuatedPlanificationsCount-fail",
 							em);
+		}
+	}
+
+	@Override
+	public void delete(long Id) throws GHAEJBException {
+		try {
+			EiaMaintenancePlanification entity = em.find(
+					EiaMaintenancePlanification.class, Id);
+			em.remove(entity);
+		} catch (Exception e) {
+			logger.log(Level.INFO,
+					"ERROR: unable to delete EiaMaintenancePlanification", e);
+			throw super.generateGHAEJBException(
+					"EiaMaintenancePlanification-delete-fail", em);
 		}
 	}
 }

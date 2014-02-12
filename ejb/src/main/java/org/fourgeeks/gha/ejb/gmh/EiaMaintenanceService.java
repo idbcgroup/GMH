@@ -78,9 +78,9 @@ public class EiaMaintenanceService extends GHAEJBExceptionService implements
 
 			return em.find(EiaCorrectiveMaintenance.class, entity.getId());
 		} catch (Exception e) {
-			logger.log(Level.INFO,
-					"ERROR: saving EiaCorrectiveMaintenancePlanification ", e);
-			throw super.generateGHAEJBException("eia-save-fail", em);
+			logger.log(Level.INFO, "ERROR: saving EiaCorrectiveMaintenance ", e);
+			throw super.generateGHAEJBException(
+					"EiaCorrectiveMaintenance-save-fail", em);
 
 		}
 
@@ -104,7 +104,8 @@ public class EiaMaintenanceService extends GHAEJBExceptionService implements
 			return em.find(EiaPreventiveMaintenance.class, entity.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving EiaPreventiveMaintenance ", e);
-			throw super.generateGHAEJBException("eia-save-fail", em);
+			throw super.generateGHAEJBException(
+					"EiaPreventiveMaintenance-save-fail", em);
 
 		}
 
@@ -156,4 +157,31 @@ public class EiaMaintenanceService extends GHAEJBExceptionService implements
 		}
 	}
 
+	@Override
+	public void deleteCorrectiveMaintenance(long Id) throws GHAEJBException {
+		try {
+			EiaCorrectiveMaintenance entity = em.find(
+					EiaCorrectiveMaintenance.class, Id);
+			em.remove(entity);
+		} catch (Exception e) {
+			logger.log(Level.INFO,
+					"ERROR: unable to delete EiaCorrectiveMaintenance", e);
+			throw super.generateGHAEJBException(
+					"EiaCorrectiveMaintenance-delete-fail", em);
+		}
+	}
+
+	@Override
+	public void deletePreventiveMaintenance(long Id) throws GHAEJBException {
+		try {
+			EiaPreventiveMaintenance entity = em.find(
+					EiaPreventiveMaintenance.class, Id);
+			em.remove(entity);
+		} catch (Exception e) {
+			logger.log(Level.INFO,
+					"ERROR: unable to delete EiaPreventiveMaintenance", e);
+			throw super.generateGHAEJBException(
+					"EiaPreventiveMaintenance-delete-fail", em);
+		}
+	}
 }

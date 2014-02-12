@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
@@ -23,6 +25,8 @@ import org.fourgeeks.gha.domain.glm.Bsp;
  */
 
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "eiaFk",
+		"eiaTypeMaintenancePlanFk" }))
 @NamedQueries(value = { @NamedQuery(name = "EiaMaintenancePlanification.findByEiaType", query = "SELECT emp FROM EiaMaintenancePlanification emp JOIN emp.plan plan WHERE plan.eiaType = :eiaType ORDER BY emp.id") })
 public class EiaMaintenancePlanification extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
@@ -70,6 +74,15 @@ public class EiaMaintenancePlanification extends AbstractEntity {
 
 	/** */
 	public EiaMaintenancePlanification() {
+	}
+
+	/**
+	 * @param eia
+	 * @param plan
+	 */
+	public EiaMaintenancePlanification(Eia eia, EiaTypeMaintenancePlan plan) {
+		this.eia = eia;
+		this.plan = plan;
 	}
 
 	/**

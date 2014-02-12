@@ -27,6 +27,12 @@ public interface EiaMaintenancePlanificationServiceRemote {
 			throws GHAEJBException;
 
 	/**
+	 * @param Id
+	 * @throws GHAEJBException
+	 */
+	public void delete(long Id) throws GHAEJBException;
+
+	/**
 	 * Return a list of EiaMaintenancePlanification given a EiaType
 	 * 
 	 * @param eiaType

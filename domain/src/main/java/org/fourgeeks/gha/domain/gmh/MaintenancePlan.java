@@ -93,6 +93,13 @@ public class MaintenancePlan extends AbstractEntity {
 	}
 
 	/**
+	 * @param id
+	 */
+	public MaintenancePlan(int id) {
+		this.id = id;
+	}
+
+	/**
 	 * @return the cancelationOption
 	 */
 	public MaintenancePlanCancelationOption getCancelationOption() {
