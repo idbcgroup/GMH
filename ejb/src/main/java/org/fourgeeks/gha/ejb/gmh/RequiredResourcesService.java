@@ -28,7 +28,7 @@ public class RequiredResourcesService extends GHAEJBExceptionService implements
 	EntityManager em;
 
 	private final static Logger logger = Logger
-			.getLogger(EiaTypeMaintenancePlanService.class.getName());
+			.getLogger(RequiredResourcesService.class.getName());
 
 	/*
 	 * (non-Javadoc)
@@ -61,11 +61,8 @@ public class RequiredResourcesService extends GHAEJBExceptionService implements
 	public RequiredResources save(RequiredResources requiredResources)
 			throws GHAEJBException {
 		try {
-			System.out.println("Aquí entró 2");
 			em.persist(requiredResources);
-			System.out.println("Aquí entró 3");
 			em.flush();
-			System.out.println("Aquí entró 4");
 			return em.find(RequiredResources.class, requiredResources.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving RequiredResources ", e);
@@ -100,24 +97,57 @@ public class RequiredResourcesService extends GHAEJBExceptionService implements
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.fourgeeks.gha.ejb.gmh.RequiredResourcesServiceRemote#findByActivity
-	 * (org.fourgeeks.gha.domain.Activity)
-	 */
 	@Override
-	public List<RequiredResources> findByActivity(Activity activity)
+	public void delete(List<RequiredResources> requiredResources)
+			throws GHAEJBException {
+		try {
+			for (RequiredResources rr : requiredResources) {
+				RequiredResources entity = em.find(RequiredResources.class,
+						rr.getId());
+				em.remove(entity);
+			}
+		} catch (Exception e) {
+			logger.log(Level.INFO, "ERROR: unable to delete RequiredResources",
+					e);
+			throw super.generateGHAEJBException(
+					"requiredResources-delete-fail",
+					RuntimeParameters.getLang(), em);
+		}
+	}
+
+	@Override
+	public List<RequiredResources> findEiaTypeByActivity(Activity activity)
 			throws GHAEJBException {
 		try {
 			return em
-					.createNamedQuery("RequiredResources.findByActivity",
+					.createNamedQuery(
+							"RequiredResources.findEiaTypeByActivity",
 							RequiredResources.class)
 					.setParameter("activity", activity).getResultList();
 		} catch (Exception ex) {
-			logger.log(Level.SEVERE,
-					"Error retriving all RequiredResources by findByActivity",
+			logger.log(
+					Level.SEVERE,
+					"Error retriving all RequiredResources by findEiaTypeByActivity",
+					ex);
+			throw super.generateGHAEJBException(
+					"requiredResources-findByActivity-fail",
+					RuntimeParameters.getLang(), em);
+		}
+	}
+
+	@Override
+	public List<RequiredResources> findMaterialByActivity(Activity activity)
+			throws GHAEJBException {
+		try {
+			return em
+					.createNamedQuery(
+							"RequiredResources.findMaterialByActivity",
+							RequiredResources.class)
+					.setParameter("activity", activity).getResultList();
+		} catch (Exception ex) {
+			logger.log(
+					Level.SEVERE,
+					"Error retriving all RequiredResources by findMaterialByActivity",
 					ex);
 			throw super.generateGHAEJBException(
 					"requiredResources-findByActivity-fail",

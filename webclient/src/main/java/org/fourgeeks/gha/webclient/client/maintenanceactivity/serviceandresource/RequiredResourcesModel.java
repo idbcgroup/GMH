@@ -43,6 +43,18 @@ public class RequiredResourcesModel {
 	}
 
 	/**
+	 * Delete a list of RequiredResources from database
+	 * 
+	 * @param entities
+	 * @param callback
+	 * 
+	 */
+	public static void delete(List<RequiredResources> entities,
+			GHAAsyncCallback<Void> callback) {
+		service.delete(entities, callback);
+	}
+
+	/**
 	 * 
 	 * @param resource
 	 * @param callback
@@ -57,8 +69,18 @@ public class RequiredResourcesModel {
 	 * @param activity
 	 * @param callback
 	 */
-	public static void findByActivity(Activity activity,
+	public static void findEiaTypeByActivity(Activity activity,
 			GHAAsyncCallback<List<RequiredResources>> callback) {
-		service.findByActivity(activity, callback);
+		service.findEiaTypeByActivity(activity, callback);
+	}
+
+	/**
+	 * 
+	 * @param activity
+	 * @param callback
+	 */
+	public static void findMaterialByActivity(Activity activity,
+			GHAAsyncCallback<List<RequiredResources>> callback) {
+		service.findMaterialByActivity(activity, callback);
 	}
 }

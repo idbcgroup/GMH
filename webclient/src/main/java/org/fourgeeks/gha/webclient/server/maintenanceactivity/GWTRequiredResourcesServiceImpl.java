@@ -52,13 +52,7 @@ public class GWTRequiredResourcesServiceImpl extends RemoteServiceServlet
 	@Override
 	public RequiredResources save(RequiredResources requiredResources)
 			throws GHAEJBException {
-		try {
-			System.out.println("Aquí entró 1");
-			return service.save(requiredResources);
-		} catch (Exception e) {
-			System.out.println(e.toString());
-			return null;
-		}
+		return service.save(requiredResources);
 	}
 
 	/*
@@ -81,13 +75,40 @@ public class GWTRequiredResourcesServiceImpl extends RemoteServiceServlet
 	 * 
 	 * @see
 	 * org.fourgeeks.gha.webclient.client.maintenanceactivity.serviceandresource
-	 * .
-	 * GWTRequiredResourcesService#findByActivity(org.fourgeeks.gha.domain.Activity
-	 * )
+	 * .GWTRequiredResourcesService#delete(java.util.List)
 	 */
 	@Override
-	public List<RequiredResources> findByActivity(Activity activity)
+	public void delete(List<RequiredResources> entities) throws GHAEJBException {
+		service.delete(entities);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.maintenanceactivity.serviceandresource
+	 * .
+	 * GWTRequiredResourcesService#findEiaTypeByActivity(org.fourgeeks.gha.domain
+	 * .Activity)
+	 */
+	@Override
+	public List<RequiredResources> findEiaTypeByActivity(Activity activity)
 			throws GHAEJBException {
-		return service.findByActivity(activity);
+		return service.findEiaTypeByActivity(activity);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.maintenanceactivity.serviceandresource
+	 * .
+	 * GWTRequiredResourcesService#findMaterialByActivity(org.fourgeeks.gha.domain
+	 * .Activity)
+	 */
+	@Override
+	public List<RequiredResources> findMaterialByActivity(Activity activity)
+			throws GHAEJBException {
+		return service.findMaterialByActivity(activity);
 	}
 }

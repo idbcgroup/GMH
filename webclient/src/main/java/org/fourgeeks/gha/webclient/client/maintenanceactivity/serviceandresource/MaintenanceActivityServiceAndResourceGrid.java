@@ -1,6 +1,6 @@
 package org.fourgeeks.gha.webclient.client.maintenanceactivity.serviceandresource;
 
-import org.fourgeeks.gha.domain.gmh.ServiceAndResource;
+import org.fourgeeks.gha.domain.gmh.RequiredResources;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridField;
 import org.fourgeeks.gha.webclient.client.UI.grids.GhaGrid;
 
@@ -10,7 +10,7 @@ import org.fourgeeks.gha.webclient.client.UI.grids.GhaGrid;
  * 
  */
 public class MaintenanceActivityServiceAndResourceGrid extends
-		GhaGrid<ServiceAndResource> {
+		GhaGrid<RequiredResources> {
 	/**
 	 * 
 	 */
@@ -21,6 +21,7 @@ public class MaintenanceActivityServiceAndResourceGrid extends
 		final GHAGridField quantityGridField = new GHAGridField("quantity",
 				"Cantidad");
 
+		quantityGridField.setCanEdit(true);
 		setEmptyMessage("No existen recursos para mostrar");
 
 		setFields(codigoGridField, nameGridField, quantityGridField);

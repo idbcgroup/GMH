@@ -25,6 +25,15 @@ public interface GWTRequiredResourcesService extends RemoteService {
 	public void delete(long id) throws GHAEJBException;
 
 	/**
+	 * Delete a list of RequiredResources from database
+	 * 
+	 * @param entities
+	 * @throws GHAEJBException
+	 * 
+	 */
+	public void delete(List<RequiredResources> entities) throws GHAEJBException;
+
+	/**
 	 * 
 	 * @param requiredResources
 	 * @return the persistent entity
@@ -45,10 +54,19 @@ public interface GWTRequiredResourcesService extends RemoteService {
 	/**
 	 * 
 	 * @param activity
-	 * @return the servicesandresources asociated with the activity
+	 * @return the servicesandresources (EiaType) asociated with the activity
 	 * @throws GHAEJBException
 	 */
-	public List<RequiredResources> findByActivity(Activity activity)
+	public List<RequiredResources> findEiaTypeByActivity(Activity activity)
+			throws GHAEJBException;
+
+	/**
+	 * 
+	 * @param activity
+	 * @return the servicesandresources (Material) asociated with the activity
+	 * @throws GHAEJBException
+	 */
+	public List<RequiredResources> findMaterialByActivity(Activity activity)
 			throws GHAEJBException;
 
 }

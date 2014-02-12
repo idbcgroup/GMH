@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.SubProtocolAndChecklist;
-import org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocols.MaintenanceProtocolsRecord;
 
 /**
  * @author caparicio
@@ -28,7 +27,7 @@ public class MaintenanceSubprotocolUtil {
 	 * {@link MaintenanceActivitySubprotocolRecord}
 	 * 
 	 * @param entities
-	 * @return a list of {@link MaintenanceProtocolsRecord}
+	 * @return a list of {@link MaintenanceActivitySubprotocolRecord}
 	 */
 	public static List<MaintenanceActivitySubprotocolRecord> toGridRecordsList(
 			List<SubProtocolAndChecklist> entities) {

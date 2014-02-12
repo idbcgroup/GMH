@@ -26,6 +26,14 @@ public interface RequiredResourcesServiceRemote {
 	/**
 	 * 
 	 * @param requiredResources
+	 * @throws GHAEJBException
+	 */
+	public void delete(List<RequiredResources> requiredResources)
+			throws GHAEJBException;
+
+	/**
+	 * 
+	 * @param requiredResources
 	 * @return the persistent entity
 	 * @throws GHAEJBException
 	 */
@@ -44,10 +52,19 @@ public interface RequiredResourcesServiceRemote {
 	/**
 	 * 
 	 * @param activity
-	 * @return the servicesandresources asociated with the activity
+	 * @return the servicesandresources (EiaType) asociated with the activity
 	 * @throws GHAEJBException
 	 */
-	public List<RequiredResources> findByActivity(Activity activity)
+	public List<RequiredResources> findEiaTypeByActivity(Activity activity)
+			throws GHAEJBException;
+
+	/**
+	 * 
+	 * @param activity
+	 * @return the servicesandresources (Material) asociated with the activity
+	 * @throws GHAEJBException
+	 */
+	public List<RequiredResources> findMaterialByActivity(Activity activity)
 			throws GHAEJBException;
 
 }

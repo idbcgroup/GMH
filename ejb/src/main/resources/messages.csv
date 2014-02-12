@@ -529,3 +529,6 @@ ES,server-error,Ha ocurrido un error inesperado con el servidor,4
 ES,message-not-null,Debe indicar el mensaje,6
 ES,message-save-fail,Error al intentar salvar un mensaje,6
 ES,message-delete-fail,Error al intentar borrar un mensaje,6
+ES,resource-delete-confirm,¿Desea eliminar el recurso?,2
+ES,resources-delete-confirm,¿Desea eliminar los recursos?,2
+ES,delete-resources-success,Los recursos se eliminaron exitosamente,9

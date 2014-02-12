@@ -25,7 +25,8 @@ import org.fourgeeks.gha.domain.Activity;
 		"resourceFk" }))
 @NamedQueries(value = {
 		@NamedQuery(name = "RequiredResources.findByServiceAndResource", query = "SELECT rr FROM RequiredResources rr WHERE rr.resource = :resource ORDER BY rr.id"),
-		@NamedQuery(name = "RequiredResources.findByActivity", query = "SELECT rr FROM RequiredResources rr WHERE rr.activity = :activity ORDER BY rr.id") })
+		@NamedQuery(name = "RequiredResources.findEiaTypeByActivity", query = "SELECT rr FROM RequiredResources rr JOIN rr.resource r WHERE rr.activity = :activity AND TYPE(r) = EiaType ORDER BY rr.id"),
+		@NamedQuery(name = "RequiredResources.findMaterialByActivity", query = "SELECT rr FROM RequiredResources rr JOIN rr.resource r WHERE rr.activity = :activity AND TYPE(r) = Material ORDER BY rr.id") })
 public class RequiredResources extends AbstractEntity {
 
 	/**
