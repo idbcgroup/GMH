@@ -135,121 +135,144 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 
 		// Adquisicion & Garantias Form Items
 		// Adquisicion
-		adquisition_TitleItem = new GHATitletextItem("Adquisición:", 4);
-		purchaseDateItem = new GHADateItem("Fecha de Compra", true);
+		adquisition_TitleItem = new GHATitletextItem(
+				GHAStrings.get("eia-adquisicion"), 4);
+		purchaseDateItem = new GHADateItem(GHAStrings.get("eia-fecha-compra"),
+				true);
 		purchaseDateItem.addChangedHandler(changedHandler);
 		purchaseDateItem.setUseMask(true);
 
-		purchaseOrderNumTextItem = new GHATextItem("No. Orden Compra", false,
-				changedHandler);
+		purchaseOrderNumTextItem = new GHATextItem(
+				GHAStrings.get("eia-nro-orden-compra"), false, changedHandler);
 		purchaseOrderNumTextItem.setLength(20);
 		// purchaseOrderNumTextItem.setMask("####################");
-		purchaseInvoiceNumTextItem = new GHATextItem("No. Factura", false,
-				changedHandler);
+		purchaseInvoiceNumTextItem = new GHATextItem(
+				GHAStrings.get("eia-nro-factura"), false, changedHandler);
 		purchaseInvoiceNumTextItem.setLength(20);
 		// purchaseInvoiceNumTextItem.setMask("####################");
-		receptionDateItem = new GHADateItem("Recepción", true);
+		receptionDateItem = new GHADateItem(GHAStrings.get("eia-recepcion"),
+				true);
 		receptionDateItem.addChangedHandler(changedHandler);
 
-		acceptationDateItem = new GHADateItem("Fecha de Aceptación", true);
+		acceptationDateItem = new GHADateItem(
+				GHAStrings.get("eia-fecha-aceptacion"), true);
 		acceptationDateItem.addChangedHandler(changedHandler);
 
-		installationDateItem = new GHADateItem("Instalación", true);
+		installationDateItem = new GHADateItem(
+				GHAStrings.get("eia-instalation"), true);
 		installationDateItem.addChangedHandler(changedHandler);
-		purchaseInvoiceDateItem = new GHADateItem("Fecha de Factura", true);
+		purchaseInvoiceDateItem = new GHADateItem(
+				GHAStrings.get("eia-fecha-factura"), true);
 		purchaseInvoiceDateItem.addChangedHandler(changedHandler);
-		purchaseOrderDateItem = new GHADateItem("Fecha de Orden de Compra",
-				true);
+		purchaseOrderDateItem = new GHADateItem(
+				GHAStrings.get("eia-fecha-orden-compra"), true);
 		purchaseOrderDateItem.addChangedHandler(changedHandler);
 
 		installationProviderSelectItem = new GHASelectItem(
-				"Proveedor de Inst.", false, changedHandler);
+				GHAStrings.get("eia-proveedor-institution"), false,
+				changedHandler);
 
 		// Garantia
-		realWarranty_TitleItem = new GHATitletextItem("Garantía Real:", 4);
+		realWarranty_TitleItem = new GHATitletextItem(
+				GHAStrings.get("eia-garantia-real"), 4);
 		intermedWarranty_TitleItem = new GHATitletextItem(
 				GHAStrings.get("intermediate-warranty"), 4);
-		realWarrantySinceSelectItem = new GHASelectItem("Desde", false,
-				changedHandler);
-		realWarrantyTimeTextItem = new GHATextItem("Duración", false,
-				changedHandler);
+		realWarrantySinceSelectItem = new GHASelectItem(
+				GHAStrings.get("eia-select-desde"), false, changedHandler);
+		realWarrantyTimeTextItem = new GHATextItem(
+				GHAStrings.get("eia-duracion"), false, changedHandler);
 		realWarrantyTimeTextItem.setLength(3);
 		// realWarrantyTimeTextItem.setMask("###");
 		realWarrantyPotSelectItem = new GHAPeriodOfTimeSelectItem(false,
 				changedHandler);
-		realWarrantyBeginDate = new GHADateItem("Fecha Inicio", true);
+		realWarrantyBeginDate = new GHADateItem(
+				GHAStrings.get("eia-fecha-inicio"), true);
 		realWarrantyBeginDate.addChangedHandler(changedHandler);
 
-		intWarrantySinceSelectItem = new GHASelectItem("Desde", false,
-				changedHandler);
-		intWarrantyTimeTextItem = new GHATextItem("Duración", false,
-				changedHandler);
+		intWarrantySinceSelectItem = new GHASelectItem(
+				GHAStrings.get("eia-select-desde"), false, changedHandler);
+		intWarrantyTimeTextItem = new GHATextItem(
+				GHAStrings.get("eia-duracion"), false, changedHandler);
 		intWarrantyTimeTextItem.setLength(3);
 		// intWarrantyTimeTextItem.setMask("###");
 		intWarrantyPotSelectItem = new GHAPeriodOfTimeSelectItem(false,
 				changedHandler);
-		intWarrantyBeginDate = new GHADateItem("Fecha Inicio", true);
+		intWarrantyBeginDate = new GHADateItem(
+				GHAStrings.get("eia-fecha-inicio"), true);
 		intWarrantyBeginDate.addChangedHandler(changedHandler);
 
 		// Ubicacion Form Items
-		location_TitleItem = new GHATitletextItem("Ubicación:", 3);
-		locationTypeSelectItem = new GHASelectItem("Tipo de Ubicación", false,
-				changedHandler);
+		location_TitleItem = new GHATitletextItem(
+				GHAStrings.get("eia-ubicacion"), 3);
+		locationTypeSelectItem = new GHASelectItem(
+				GHAStrings.get("eia-tipo-ubicacion"), false, changedHandler);
 
-		workingArea_TitleItem = new GHATitletextItem("Área de Trabajo:", 3);
-		facility_TitleItem = new GHATitletextItem("Servicio/Instalación:", 3);
-		workingAreaLocationCodeTextItem = new GHATextItem("Código", false);
-		workingAreaLocationSelectItem = new GHASelectItem("Nombre", false,
-				changedHandler);
+		workingArea_TitleItem = new GHATitletextItem(
+				GHAStrings.get("eia-area-trabajo"), 3);
+		facility_TitleItem = new GHATitletextItem(
+				GHAStrings.get("eia-servicio-instalacion"), 3);
+		workingAreaLocationCodeTextItem = new GHATextItem(
+				GHAStrings.get("eia-codigo"), false);
+		workingAreaLocationSelectItem = new GHASelectItem(
+				GHAStrings.get("eia-nombre"), false, changedHandler);
 		workingAreaLocationSelectItem.setDisabled(true);
 
-		facilityLocationCodeTextItem = new GHATextItem("Código", false);
-		facilityLocationSelectItem = new GHASelectItem("Nombre", false,
-				changedHandler);
+		facilityLocationCodeTextItem = new GHATextItem(
+				GHAStrings.get("eia-codigo"), false);
+		facilityLocationSelectItem = new GHASelectItem(
+				GHAStrings.get("eia-nombre"), false, changedHandler);
 		facilityLocationSelectItem.setDisabled(true);
 
 		// Costos Form Items
-		adqCost_TitleItem = new GHATitletextItem("Costo Adquisición:", 4);
-		actualCost_TitleItem = new GHATitletextItem("Costo Actual:", 4);
-		depTime_TitleItem = new GHATitletextItem("Tiempo de Depreciación:");
-		lifeTime_TitleItem = new GHATitletextItem("Tiempo de Vida:");
-		adquisitionCostTextItem = new GHATextItem("Costo de Adq. del equipo",
-				false, changedHandler);
+		adqCost_TitleItem = new GHATitletextItem(
+				GHAStrings.get("eia-costo-adquision"), 4);
+		actualCost_TitleItem = new GHATitletextItem(
+				GHAStrings.get("eia-costo-actual"), 4);
+		depTime_TitleItem = new GHATitletextItem(
+				GHAStrings.get("eia-tiempo-depreciacion"));
+		lifeTime_TitleItem = new GHATitletextItem(
+				GHAStrings.get("eia-tiempo-vida"));
+		adquisitionCostTextItem = new GHATextItem(
+				GHAStrings.get("eia-costo-adquiriencia"), false, changedHandler);
 		adquisitionCostTextItem.setLength(16);
 		// adquisitionCostTextItem.setMask("################");
-		adquisitionCostCurrencySelectItem = new GHASelectItem("Moneda", false,
-				changedHandler);
-		contabilizationDateItem = new GHADateItem("Fecha de Contabilización",
-				true);
+		adquisitionCostCurrencySelectItem = new GHASelectItem(
+				GHAStrings.get("eia-moneda"), false, changedHandler);
+		contabilizationDateItem = new GHADateItem(
+				GHAStrings.get("eia-date-contabilizacion"), true);
 		contabilizationDateItem.addChangedHandler(changedHandler);
 
-		adquisitionCostLocalTextItem = new GHATextItem("Costo de Adq. Local",
-				false, changedHandler);
+		adquisitionCostLocalTextItem = new GHATextItem(
+				GHAStrings.get("eia-costo-adq"), false, changedHandler);
 		adquisitionCostLocalTextItem.setLength(16);
 		// adquisitionCostLocalTextItem.setMask("################");
 		adquisitionCostCurrencyLocalSelectItem = new GHASelectItem(
-				"Moneda Local", false, changedHandler);
-		depreciationMethodSelectItem = new GHASelectItem("Metodo Depreciación",
-				false, changedHandler);
-		depreciationTimeTextItem = new GHATextItem("Duración", false,
+				GHAStrings.get("eia-moneda-local"), false, changedHandler);
+		depreciationMethodSelectItem = new GHASelectItem(
+				GHAStrings.get("eia-metodo-depreciacion"), false,
 				changedHandler);
+		depreciationTimeTextItem = new GHATextItem(
+				GHAStrings.get("eia-duracion"), false, changedHandler);
 		depreciationTimeTextItem.setLength(3);
 		// depreciationTimeTextItem.setMask("###");
 		depreciationTimePotSelectItem = new GHAPeriodOfTimeSelectItem(false,
 				changedHandler);
-		lastDepreciationDate = new GHADateItem("Fecha Ult. Depreciación", true);
+		lastDepreciationDate = new GHADateItem(
+				GHAStrings.get("eia-fecha-ultma-depreciacion"), true);
 		lastDepreciationDate.addChangedHandler(changedHandler);
-		lifeTimeTextItem = new GHATextItem("Duración", false, changedHandler);
+		lifeTimeTextItem = new GHATextItem(GHAStrings.get("eia-duracion"),
+				false, changedHandler);
 		lifeTimeTextItem.setLength(3);
 		// lifeTimeTextItem.setMask("###");
 		lifeTimePotSelectItem = new GHAPeriodOfTimeSelectItem(false,
 				changedHandler);
-		actualCostTextItem = new GHATextItem("Costo Actual en libros", false,
+		actualCostTextItem = new GHATextItem(
+				GHAStrings.get("eia-costo-actual-libros"), false,
 				changedHandler);
 		actualCostTextItem.setLength(16);
 		// actualCostTextItem.setMask("################");
-		actualCostCurrencySelectItem = new GHASelectItem("Moneda", false,
-				changedHandler);
+		actualCostCurrencySelectItem = new GHASelectItem(
+				GHAStrings.get("eia-moneda"), false, changedHandler);
 
 		// Regex!
 
