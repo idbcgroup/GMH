@@ -36,7 +36,7 @@ final class GHATabSet extends HLayout {
 	 */
 	public GHATabSet(String title, GHATabPanel tabPanel) {
 		this(tabPanel);
-		Label label = new Label();
+		final Label label = new Label();
 		label.setContents(title);
 		label.setStyleName("tabset-header-title");
 		label.setWidth("150px");
@@ -57,10 +57,11 @@ final class GHATabSet extends HLayout {
 	 * @param imgSrc
 	 */
 	public void addOption(String text, String imgSrc, ClickHandler clickHandler) {
-		GHAHeaderOption searchOption = new GHAHeaderOption(text + "...",
+		final GHAHeaderOption searchOption = new GHAHeaderOption(text + "...",
 				GHAUiHelper.DEFAULT_HEADER_OPTION_WIDTH, true,
 				"../resources/img/" + imgSrc + ".png", "../resources/img/"
 						+ imgSrc + "Over.png");
+		searchOption.setStyleName("tab-header-title-large");
 		searchOption.addClickHandler(clickHandler);
 		searchOption.unMarkSelected();
 		addMember(searchOption, tabPos + optionPos++);

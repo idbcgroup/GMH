@@ -109,7 +109,7 @@ import org.junit.Before;
  * @author vivi.torresg
  * 
  */
-// @RunWith(Arquillian.class)
+//@RunWith(Arquillian.class)
 public class EiaServiceTest {
 	/**
 	 * @return the deployment descriptor
@@ -228,7 +228,7 @@ public class EiaServiceTest {
 				.addClass(ServiceAndResourceType.class)
 				.addAsResource("test-persistence.xml",
 						"META-INF/persistence.xml")
-				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+						.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
 	private ExternalProvider externalProvider;
@@ -346,6 +346,36 @@ public class EiaServiceTest {
 
 	/**
 	 */
+	//	@Test
+	public void test() {
+		Eia eia = new Eia();
+		eia.setEiaType(eiaType);
+		eia.setProvider(externalProvider);
+		eia.setMaintenanceProvider(externalProvider);
+		eia.setResponsibleRole(role);
+		eia.setObu(obu);
+		eia.setSerialNumber("eia-serial");
+		eia.setFixedAssetIdentifier("eia-fai");
+		try {
+			eia = service.save(eia);
+		} catch (final GHAEJBException e) {
+			e.printStackTrace();
+		}
+		Assert.assertNotNull(eia);
+		try {
+			Assert.assertEquals(1, service.getAll().size());
+		} catch (final GHAEJBException e1) {
+			e1.printStackTrace();
+		}
+		try {
+			service.delete(eia.getId());
+		} catch (final GHAEJBException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 */
 	@After
 	public void unset() {
 		// DELETING THE EIATYPE
@@ -389,35 +419,5 @@ public class EiaServiceTest {
 			// e1.printStackTrace();
 		}
 
-	}
-
-	/**
-	 */
-	// @Test
-	public void test() {
-		Eia eia = new Eia();
-		eia.setEiaType(eiaType);
-		eia.setProvider(externalProvider);
-		eia.setMaintenanceProvider(externalProvider);
-		eia.setResponsibleRole(role);
-		eia.setObu(obu);
-		eia.setSerialNumber("eia-serial");
-		eia.setFixedAssetIdentifier("eia-fai");
-		try {
-			eia = service.save(eia);
-		} catch (final GHAEJBException e) {
-			e.printStackTrace();
-		}
-		Assert.assertNotNull(eia);
-		try {
-			Assert.assertEquals(1, service.getAll().size());
-		} catch (final GHAEJBException e1) {
-			e1.printStackTrace();
-		}
-		try {
-			service.delete(eia.getId());
-		} catch (final GHAEJBException e) {
-			e.printStackTrace();
-		}
 	}
 }

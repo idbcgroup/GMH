@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import org.fourgeeks.gha.domain.AbstractEntity;
 
 /**
- * @author glister
+ * @author jfuentes
  *
  */
 @Entity

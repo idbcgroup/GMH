@@ -1,18 +1,24 @@
 package org.fourgeeks.gha.ejb;
 
+import javax.ejb.EJB;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 
 import org.fourgeeks.gha.domain.enu.LanguageEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
+import org.fourgeeks.gha.domain.logs.UILog;
 import org.fourgeeks.gha.domain.msg.GHAMessage;
 import org.fourgeeks.gha.domain.msg.GHAMessageId;
+import org.fourgeeks.gha.ejb.log.UILogServiceLocal;
 
 /**
  * @author vivi.torresg
  * 
  */
 public class GHAEJBExceptionService {
+
+	@EJB
+	UILogServiceLocal service;
 
 	/**
 	 * @param messageCode
@@ -25,22 +31,41 @@ public class GHAEJBExceptionService {
 			LanguageEnum lang, EntityManager em) {
 		final GHAEJBException ghaejbException = new GHAEJBException();
 		try {
-			ghaejbException.setGhaMessage(em.find(GHAMessage.class,
-					new GHAMessageId(messageCode, lang)));
+			final GHAMessage message = em.find(GHAMessage.class,
+					new GHAMessageId(messageCode, lang));
+			service.log(new UILog(null, message));
+			ghaejbException.setGhaMessage(message);
 		} catch (final NoResultException e) {
 			try {
-				ghaejbException.setGhaMessage(em.find(GHAMessage.class,
-						new GHAMessageId("message-find-fail", lang)));
+				final GHAMessage message = em.find(GHAMessage.class,
+						new GHAMessageId("message-find-fail", lang));
+				service.log(new UILog(null, message));
+				ghaejbException.setGhaMessage(message);
 			} catch (final Exception e1) {
-				ghaejbException.setGhaMessage(new GHAMessage(lang,
+				final GHAMessage message = new GHAMessage(lang,
 						"generic-error-msg",
-						"Unknow system failure, please contact IT support"));
+						"Unknow system failure, please contact IT support");
+				try {
+					service.log(new UILog(null, message));
+				} catch (final GHAEJBException e2) {
+					System.out
+							.println("\n\n\nERROR1 trying logging the message\n\n\n");
+				}
+				ghaejbException.setGhaMessage(message);
 			}
 		} catch (final Exception e1) {
-			ghaejbException.setGhaMessage(new GHAMessage(lang,
+			final GHAMessage message = new GHAMessage(lang,
 					"generic-error-msg",
-					"Unknow system failure, please contact IT support"));
+					"Unknow system failure, please contact IT support");
+			try {
+				service.log(new UILog(null, message));
+			} catch (final GHAEJBException e2) {
+				System.out
+						.println("\n\n\nERROR2 trying logging the message\n\n\n");
+			}
+			ghaejbException.setGhaMessage(message);
 		}
+
 		return ghaejbException;
 	}
 

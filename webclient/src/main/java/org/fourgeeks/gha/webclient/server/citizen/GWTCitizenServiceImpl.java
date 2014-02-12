@@ -36,8 +36,8 @@ public class GWTCitizenServiceImpl extends RemoteServiceServlet implements
 	 * org.fourgeeks.gha.webclient.client.citizen.GWTCitizenService#delete(long)
 	 */
 	@Override
-	public void delete(long Id) throws GHAEJBException {
-		service.delete(Id);
+	public void delete(List<Citizen> citizens) throws GHAEJBException {
+		service.delete(citizens);
 	}
 
 	/*

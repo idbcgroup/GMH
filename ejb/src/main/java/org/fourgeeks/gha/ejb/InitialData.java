@@ -107,10 +107,10 @@ public class InitialData {
 	AppFormViewFunctionServiceRemote functionService;
 
 	private void bpiTestData() {
-		String query = "SELECT t from Bpi t WHERE t.id = 1 ";
+		final String query = "SELECT t from Bpi t WHERE t.id = 1 ";
 		try {
 			em.createQuery(query).getSingleResult();
-		} catch (NoResultException e) {
+		} catch (final NoResultException e) {
 			try {
 				logger.info("creating test data : bpi");
 				Bpi bpi = new Bpi();
@@ -122,7 +122,7 @@ public class InitialData {
 				em.persist(bpi);
 
 				em.flush();
-			} catch (Exception e1) {
+			} catch (final Exception e1) {
 				logger.log(Level.INFO, "error creating test data bpi", e);
 			}
 		}
@@ -134,10 +134,10 @@ public class InitialData {
 	private void bpuFunctionTestData() {
 		try {
 			logger.info("Creating bpufunction test data");
-			List<AppFormViewFunction> all = functionService.getAll();
-			Bpu admin = em.find(Bpu.class, 1L);
-			Bpu gha = em.find(Bpu.class, 3L);
-			for (AppFormViewFunction function : all) {
+			final List<AppFormViewFunction> all = functionService.getAll();
+			final Bpu admin = em.find(Bpu.class, 1L);
+			final Bpu gha = em.find(Bpu.class, 3L);
+			for (final AppFormViewFunction function : all) {
 				em.merge(new AppFormViewFunctionBpu(admin, function
 						.getAppForm(), function.getView(), function
 						.getFunction()));
@@ -156,7 +156,7 @@ public class InitialData {
 			// }
 			// }
 			// em.flush();
-		} catch (Exception e1) {
+		} catch (final Exception e1) {
 			logger.log(Level.INFO, "error Creating bpufunction test data", e1);
 		}
 	}
@@ -165,17 +165,17 @@ public class InitialData {
 	 * 
 	 */
 	private void bpuTestData() {
-		String query = "SELECT t FROM Bpu t WHERE t.id = '1'";
+		final String query = "SELECT t FROM Bpu t WHERE t.id = '1'";
 		try {
 			em.createQuery(query).getSingleResult();
-		} catch (NoResultException e) {
+		} catch (final NoResultException e) {
 			try {
 				logger.info("Creating bpu test data");
 				for (int i = 0; i < 5; ++i)
 					em.persist(new Bpu(em.find(Bpi.class, 1L), em.find(
 							Citizen.class, i + 1L)));
 				em.flush();
-			} catch (Exception e1) {
+			} catch (final Exception e1) {
 				logger.log(Level.INFO, "error Creating bpu test data", e1);
 			}
 		}
@@ -186,27 +186,27 @@ public class InitialData {
 	 */
 	private void brandTestData() {
 		try {
-			String query = "SELECT e from Brand e WHERE e.id = 1 ";
+			final String query = "SELECT e from Brand e WHERE e.id = 1 ";
 			try {
 				em.createQuery(query).getSingleResult();
-			} catch (NoResultException e) {
+			} catch (final NoResultException e) {
 				logger.log(Level.INFO, "creating test brands");
 
-				String brandNames[] = new String[] { "HP", "Epson", "Compaq",
-						"Dell", "Canon" };
-				List<Manufacturer> mans = em.createNamedQuery(
+				final String brandNames[] = new String[] { "HP", "Epson",
+						"Compaq", "Dell", "Canon" };
+				final List<Manufacturer> mans = em.createNamedQuery(
 						"Manufacturer.getAll", Manufacturer.class)
 						.getResultList();
 				int k = 0;
-				for (String brandName : brandNames) {
-					Brand next = new Brand();
+				for (final String brandName : brandNames) {
+					final Brand next = new Brand();
 					next.setName(brandName);
 					next.setManufacturer(mans.get(k++));
 					em.persist(next);
 					em.flush();
 				}
 			}
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			logger.log(Level.INFO, "error creating test brands", e);
 		}
 
@@ -216,41 +216,41 @@ public class InitialData {
 	 * 
 	 */
 	private void bspTestData() {
-		String query = "SELECT t from Bsp t WHERE t.id = 1 ";
+		final String query = "SELECT t from Bsp t WHERE t.id = 1 ";
 		try {
 			em.createQuery(query).getSingleResult();
-		} catch (NoResultException e) {
+		} catch (final NoResultException e) {
 			try {
 				logger.info("creating test data : bsp");
 				for (int i = 0; i < 2; i++) {
-					Bsp bsp = new Bsp();
+					final Bsp bsp = new Bsp();
 					bsp.setObu(new Obu(i + 1));
 					em.persist(bsp);
 				}
 				em.flush();
-			} catch (Exception e1) {
+			} catch (final Exception e1) {
 				logger.log(Level.INFO, "error creating test data bsp", e);
 			}
 		}
 	}
 
 	private void buildingLocationsTestData() {
-		String query = "SELECT t from BuildingLocation t WHERE t.code='Building 000'";
+		final String query = "SELECT t from BuildingLocation t WHERE t.code='Building 000'";
 		try {
 			em.createQuery(query).getSingleResult();
-		} catch (NoResultException e) {
+		} catch (final NoResultException e) {
 			try {
 				logger.info("creating eia building locations");
 
 				for (int i = 0; i < 5; i++) {
-					BuildingLocation buildingLocation = new BuildingLocation(
+					final BuildingLocation buildingLocation = new BuildingLocation(
 							em.find(Bpi.class, 1L), "Building 00" + i,
 							LocationLevelEnum.BUILDING,
 							"Building Location Name " + i);
 					em.persist(buildingLocation);
 				}
 				em.flush();
-			} catch (Exception e1) {
+			} catch (final Exception e1) {
 				logger.log(Level.INFO, "error creating test building location",
 						e);
 			}
@@ -265,45 +265,45 @@ public class InitialData {
 		query = "SELECT t from CCDILevelDefinition t WHERE t.id = 1";
 		try {
 			em.createQuery(query).getSingleResult();
-		} catch (NoResultException e) {
+		} catch (final NoResultException e) {
 			try {
 				logger.log(Level.INFO,
 						"CREATING CCDI LEVEL DEFINITION TEST DATA");
-				CCDIDefinition definition = em
+				final CCDIDefinition definition = em
 						.createNamedQuery("CCDIDefinition.findByCode",
 								CCDIDefinition.class)
 						.setParameter("code", "MATERIAL").getSingleResult();
 
-				CCDILevelDefinition materiales = new CCDILevelDefinition(
+				final CCDILevelDefinition materiales = new CCDILevelDefinition(
 						definition, 0, "MATERIALES", 1,
 						CCDIValueTypeEnum.FIXED, 0, 0, "",
 						CCDIEndValueActionEnum.RESTART);
 				em.persist(materiales);
 
-				CCDILevelDefinition type = new CCDILevelDefinition(definition,
-						1, "TIPO", 1, CCDIValueTypeEnum.FIXED, 0, 0, "",
-						CCDIEndValueActionEnum.RESTART);
+				final CCDILevelDefinition type = new CCDILevelDefinition(
+						definition, 1, "TIPO", 1, CCDIValueTypeEnum.FIXED, 0,
+						0, "", CCDIEndValueActionEnum.RESTART);
 				em.persist(type);
 
-				CCDILevelDefinition family = new CCDILevelDefinition(
+				final CCDILevelDefinition family = new CCDILevelDefinition(
 						definition, 2, "FAMILIA", 2,
 						CCDIValueTypeEnum.VARIABLE, 1, 1, "",
 						CCDIEndValueActionEnum.RESTART);
 				em.persist(family);
 
-				CCDILevelDefinition subFamily = new CCDILevelDefinition(
+				final CCDILevelDefinition subFamily = new CCDILevelDefinition(
 						definition, 3, "SUB FAMILIA", 2,
 						CCDIValueTypeEnum.VARIABLE, 1, 1, "",
 						CCDIEndValueActionEnum.RESTART);
 				em.persist(subFamily);
 
-				CCDILevelDefinition element = new CCDILevelDefinition(
+				final CCDILevelDefinition element = new CCDILevelDefinition(
 						definition, 4, "ELEMENTOS", 4,
 						CCDIValueTypeEnum.VARIABLE, 1, 1, "",
 						CCDIEndValueActionEnum.RESTART);
 				em.persist(element);
 
-			} catch (Exception e1) {
+			} catch (final Exception e1) {
 				logger.log(Level.INFO,
 						"error creating test ccdi level definition", e);
 			}
@@ -319,39 +319,39 @@ public class InitialData {
 		query = "SELECT t from CCDILevelValue t WHERE t.id = 1";
 		try {
 			em.createQuery(query).getSingleResult();
-		} catch (NoResultException e) {
+		} catch (final NoResultException e) {
 			try {
 				logger.info("creating test CCDILevelValue");
-				CCDIDefinition definition = em
+				final CCDIDefinition definition = em
 						.createNamedQuery("CCDIDefinition.findByCode",
 								CCDIDefinition.class)
 						.setParameter("code", "MATERIAL").getSingleResult();
 
-				CCDILevelDefinition material = em
+				final CCDILevelDefinition material = em
 						.createNamedQuery("CCDILevelDefinition.findByLevel",
 								CCDILevelDefinition.class)
 						.setParameter("level", 0)
 						.setParameter("definition", definition)
 						.getSingleResult();
-				CCDILevelDefinition type = em
+				final CCDILevelDefinition type = em
 						.createNamedQuery("CCDILevelDefinition.findByLevel",
 								CCDILevelDefinition.class)
 						.setParameter("level", 1)
 						.setParameter("definition", definition)
 						.getSingleResult();
-				CCDILevelDefinition family = em
+				final CCDILevelDefinition family = em
 						.createNamedQuery("CCDILevelDefinition.findByLevel",
 								CCDILevelDefinition.class)
 						.setParameter("level", 2)
 						.setParameter("definition", definition)
 						.getSingleResult();
-				CCDILevelDefinition subFamily = em
+				final CCDILevelDefinition subFamily = em
 						.createNamedQuery("CCDILevelDefinition.findByLevel",
 								CCDILevelDefinition.class)
 						.setParameter("level", 3)
 						.setParameter("definition", definition)
 						.getSingleResult();
-				CCDILevelDefinition element = em
+				final CCDILevelDefinition element = em
 						.createNamedQuery("CCDILevelDefinition.findByLevel",
 								CCDILevelDefinition.class)
 						.setParameter("level", 4)
@@ -466,7 +466,7 @@ public class InitialData {
 						.getSingleResult();
 
 				em.flush();
-			} catch (Exception e1) {
+			} catch (final Exception e1) {
 				logger.log(Level.INFO, "error creating test ccdi level values",
 						e);
 			}
@@ -475,23 +475,23 @@ public class InitialData {
 	}
 
 	private void ccdiTestData() {
-		String query = "SELECT t from CCDIDefinition t WHERE t.id = 1";
+		final String query = "SELECT t from CCDIDefinition t WHERE t.id = 1";
 
 		try {
 			em.createQuery(query).getSingleResult();
-		} catch (NoResultException e) {
+		} catch (final NoResultException e) {
 			try {
 				logger.info("creating test ccdiDefinition");
 				em.persist(new Concept());
 				em.flush();
 
-				CCDIDefinition material = new CCDIDefinition("MATERIAL",
+				final CCDIDefinition material = new CCDIDefinition("MATERIAL",
 						"MATERIAL", 10, 5, CCDIStatusEnum.ACTIVE, em.find(
 								Concept.class, 1L),
 						CCDICodeTypeEnum.ALPHANUMERIC, false, "");
 				em.persist(material);
 
-			} catch (Exception e1) {
+			} catch (final Exception e1) {
 				logger.log(Level.INFO, "error creating test ccdi definition", e);
 			}
 		}
@@ -501,19 +501,19 @@ public class InitialData {
 	 * 
 	 */
 	private void citizenTestData() {
-		String query = "SELECT t FROM Citizen t WHERE t.id = '1'";
+		final String query = "SELECT t FROM Citizen t WHERE t.id = '1'";
 		try {
 			em.createQuery(query).getSingleResult();
-		} catch (NoResultException e) {
+		} catch (final NoResultException e) {
 			try {
 				logger.info("Creating Citizen test data");
-				String names[] = { "Rigoberto", "Angel", "Jorge", "Alejandro",
-						"Isaac" };
-				String lastNames[] = { "Sanchez", "Lacret", "Fuentes",
+				final String names[] = { "Rigoberto", "Angel", "Jorge",
+						"Alejandro", "Isaac" };
+				final String lastNames[] = { "Sanchez", "Lacret", "Fuentes",
 						"Sanchez", "Casado" };
 				for (int i = 0; i < 5; ++i) {
-					Citizen citizen = new Citizen(em.find(LegalEntity.class,
-							i + 5L), GenderTypeEnum.MALE);
+					final Citizen citizen = new Citizen(em.find(
+							LegalEntity.class, i + 5L), GenderTypeEnum.MALE);
 					citizen.setFirstName(names[i]);
 					citizen.setSecondName(names[(i + 1) % 5]);
 					citizen.setFirstLastName(lastNames[i]);
@@ -524,7 +524,7 @@ public class InitialData {
 					em.persist(citizen);
 				}
 				em.flush();
-			} catch (Exception e1) {
+			} catch (final Exception e1) {
 				logger.log(Level.INFO, "error creating Citizen test data : ",
 						e1);
 			}
@@ -541,22 +541,22 @@ public class InitialData {
 	}
 
 	private void eiaTestData() {
-		String query = "SELECT t from Eia t WHERE t.id = 1 ";
+		final String query = "SELECT t from Eia t WHERE t.id = 1 ";
 		try {
 			em.createQuery(query).getSingleResult();
-		} catch (NoResultException e) {
+		} catch (final NoResultException e) {
 			try {
 				logger.info("creating test eia");
 
-				Facility facility = em.find(Facility.class, 1L);
-				Obu obu = em.find(Obu.class, 1L);
-				ExternalProvider eProvider = em
-						.find(ExternalProvider.class, 1L);
-				Role bRole = em.find(Role.class, 1L);
+				final Facility facility = em.find(Facility.class, 1L);
+				final Obu obu = em.find(Obu.class, 1L);
+				final ExternalProvider eProvider = em.find(
+						ExternalProvider.class, 1L);
+				final Role bRole = em.find(Role.class, 1L);
 
 				for (int i = 1; i < 4; ++i) {
-					Eia eia = new Eia(bRole, em.find(EiaType.class, "9000"
-							+ Long.toString(i)), obu,
+					final Eia eia = new Eia(bRole, em.find(EiaType.class,
+							"9000" + Long.toString(i)), obu,
 							EiaStateEnum.values()[i % 3], "GHAEQ-00" + i,
 							eProvider, "S9023423" + i);
 					eia.setCode("eia-00" + i);
@@ -566,7 +566,7 @@ public class InitialData {
 					em.flush();
 				}
 
-			} catch (Exception e1) {
+			} catch (final Exception e1) {
 				logger.log(Level.INFO, "error creating test eia", e1);
 			}
 		}
@@ -576,10 +576,10 @@ public class InitialData {
 	 * 
 	 */
 	private void eiaTypeMaintenancePlanTestData() {
-		String query = "SELECT t from EiaTypeMaintenancePlan t WHERE t.id = 1";
+		final String query = "SELECT t from EiaTypeMaintenancePlan t WHERE t.id = 1";
 		try {
 			em.createQuery(query).getSingleResult();
-		} catch (NoResultException e) {
+		} catch (final NoResultException e) {
 			try {
 				logger.info("Creating test data: EiaTypeMaintenancePlan");
 				em.persist(new EiaTypeMaintenancePlan(em.find(EiaType.class,
@@ -588,7 +588,7 @@ public class InitialData {
 						"90002"), em.find(MaintenancePlan.class, 2L)));
 				em.flush();
 
-			} catch (Exception e1) {
+			} catch (final Exception e1) {
 				logger.log(Level.INFO,
 						"error Creating MaintenanceActivity test data", e1);
 			}
@@ -596,10 +596,10 @@ public class InitialData {
 	}
 
 	private void eiaTypeTestData() {
-		String query = "SELECT t from EiaType t WHERE t.code = '90001'";
+		final String query = "SELECT t from EiaType t WHERE t.code = '90001'";
 		try {
 			em.createQuery(query).getSingleResult();
-		} catch (NoResultException e) {
+		} catch (final NoResultException e) {
 			try {
 				logger.info("creating test eiaType");
 				EiaType eiaType = new EiaType("90001",
@@ -631,17 +631,17 @@ public class InitialData {
 
 				em.flush();
 
-			} catch (Exception e1) {
+			} catch (final Exception e1) {
 				logger.log(Level.INFO, "error creating test eiatype", e);
 			}
 		}
 	}
 
 	private void externalProviderTestData() {
-		String query = "SELECT t from ExternalProvider t WHERE t.id = 1 ";
+		final String query = "SELECT t from ExternalProvider t WHERE t.id = 1 ";
 		try {
 			em.createQuery(query).getSingleResult();
-		} catch (NoResultException e) {
+		} catch (final NoResultException e) {
 			try {
 				logger.info("creating test data : external provider");
 				ExternalProvider eP = null;
@@ -653,7 +653,7 @@ public class InitialData {
 					em.persist(eP);
 				}
 				em.flush();
-			} catch (Exception e1) {
+			} catch (final Exception e1) {
 				logger.log(Level.INFO,
 						"error creating test data: external provider", e);
 			}
@@ -664,14 +664,15 @@ public class InitialData {
 	 * 
 	 */
 	private void facilityTestData() {
-		String query = "SELECT t from Facility t WHERE t.id = 1";
+		final String query = "SELECT t from Facility t WHERE t.id = 1";
 		try {
 			em.createQuery(query).getSingleResult();
-		} catch (NoResultException e) {
+		} catch (final NoResultException e) {
 			logger.info("Creating test data : facility");
-			String facilityNames[] = { "Sala 1 Rayos X", "Sala 1 Tomografía" };
+			final String facilityNames[] = { "Sala 1 Rayos X",
+					"Sala 1 Tomografía" };
 			for (int i = 3, j = 0; i < 5; ++i, ++j) {
-				Facility facility = new Facility();
+				final Facility facility = new Facility();
 				facility.setName(facilityNames[j]);
 				facility.setBuildingLocation(em.find(BuildingLocation.class,
 						"Building 00" + i));
@@ -689,7 +690,7 @@ public class InitialData {
 	public void inicializar() {
 		try {
 			modules();
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			e.printStackTrace();
 		}
 		messageTypes();
@@ -700,10 +701,10 @@ public class InitialData {
 	}
 
 	private void institutionTestData() {
-		String query = "SELECT t from Institution t WHERE t.id = 1 ";
+		final String query = "SELECT t from Institution t WHERE t.id = 1 ";
 		try {
 			em.createQuery(query).getSingleResult();
-		} catch (NoResultException e) {
+		} catch (final NoResultException e) {
 			try {
 				logger.info("creating test data : institution");
 				Institution institution = null;
@@ -715,7 +716,7 @@ public class InitialData {
 					em.persist(institution);
 				}
 				em.flush();
-			} catch (Exception e1) {
+			} catch (final Exception e1) {
 				logger.log(Level.INFO, "error creating test data institution",
 						e1);
 			}
@@ -723,10 +724,10 @@ public class InitialData {
 	}
 
 	private void jobTestData() {
-		String query = "SELECT t from Job t WHERE t.id = 1 ";
+		final String query = "SELECT t from Job t WHERE t.id = 1 ";
 		try {
 			em.createQuery(query).getSingleResult();
-		} catch (NoResultException e) {
+		} catch (final NoResultException e) {
 			try {
 				logger.info("creating test data : job");
 				Job job = null;
@@ -741,17 +742,17 @@ public class InitialData {
 				em.persist(job);
 
 				em.flush();
-			} catch (Exception e1) {
+			} catch (final Exception e1) {
 				logger.log(Level.INFO, "error creating test data job", e);
 			}
 		}
 	}
 
 	private void legalEntityTestData() {
-		String query = "SELECT t from LegalEntity t WHERE t.id = 1 ";
+		final String query = "SELECT t from LegalEntity t WHERE t.id = 1 ";
 		try {
 			em.createQuery(query).getSingleResult();
-		} catch (NoResultException e) {
+		} catch (final NoResultException e) {
 			try {
 				logger.info("creating test data : legal entity ");
 				for (int i = 0; i < 5; i++)
@@ -761,7 +762,7 @@ public class InitialData {
 					em.persist(new LegalEntity("V-000" + i));
 
 				em.flush();
-			} catch (Exception e1) {
+			} catch (final Exception e1) {
 				logger.log(Level.INFO, "error creating test data legal entity",
 						e);
 			}
@@ -769,19 +770,19 @@ public class InitialData {
 	}
 
 	private void maintenanceActivityTestData() {
-		String query = "SELECT t from MaintenanceActivity t WHERE t.id = 1";
+		final String query = "SELECT t from MaintenanceActivity t WHERE t.id = 1";
 		try {
 			em.createQuery(query).getSingleResult();
-		} catch (NoResultException e) {
+		} catch (final NoResultException e) {
 			try {
 				logger.info("Creating test data: maintenance activity");
 
-				String activityNames[] = { "Desconectar", "Abrir", "Limpiar",
-						"Cerrar", "Conectar", "Reemplazar",
+				final String activityNames[] = { "Desconectar", "Abrir",
+						"Limpiar", "Cerrar", "Conectar", "Reemplazar",
 						"subprotocol_activity", "activity_1", "activity_2",
 						"activity_3" };
 
-				String activityDesc[] = {
+				final String activityDesc[] = {
 						"Desconecte el equipo de la corriente eléctrica",
 						"Quite los tornillos y levante la tapa del equipo",
 						"Limpie cuidadosamente el interior del equipo, sin líquidos",
@@ -793,23 +794,23 @@ public class InitialData {
 						"actividad de prueba 2 para la actividad de subprotocolo",
 						"actividad de prueba 2 para la actividad de subprotocolo" };
 
-				int durations[] = { 1, 2, 2, 1, 4, 3, 5, 6, 8, 7 };
+				final int durations[] = { 1, 2, 2, 1, 4, 3, 5, 6, 8, 7 };
 
-				TimePeriodEnum pots[] = { TimePeriodEnum.DAYS,
+				final TimePeriodEnum pots[] = { TimePeriodEnum.DAYS,
 						TimePeriodEnum.HOURS, TimePeriodEnum.HOURS,
 						TimePeriodEnum.DAYS, TimePeriodEnum.HOURS,
 						TimePeriodEnum.HOURS, TimePeriodEnum.DAYS,
 						TimePeriodEnum.HOURS, TimePeriodEnum.HOURS,
 						TimePeriodEnum.HOURS };
 
-				double cost[] = { 1300.42, 200.0, 300.0, 1000.4, 42.5, 879.2,
-						2432.45, 123.0, 1200.0, 573.97 };
+				final double cost[] = { 1300.42, 200.0, 300.0, 1000.4, 42.5,
+						879.2, 2432.45, 123.0, 1200.0, 573.97 };
 
-				boolean isSubprotocol[] = { false, false, false, false, false,
-						false, true, false, false, false };
+				final boolean isSubprotocol[] = { false, false, false, false,
+						false, false, true, false, false, false };
 
 				for (int i = 0; i < 10; ++i) {
-					Activity activity = new Activity();
+					final Activity activity = new Activity();
 					activity.setName(activityNames[i]);
 					activity.setDescription(activityDesc[i]);
 					activity.setState(ActivityState.CREATED);
@@ -821,14 +822,14 @@ public class InitialData {
 					activity.setEstimatedCostCurrency(CurrencyTypeEnum.BS);
 					activity.setIsSubProtocol(isSubprotocol[i]);
 
-					MaintenanceActivity maintenanceActivity = new MaintenanceActivity();
+					final MaintenanceActivity maintenanceActivity = new MaintenanceActivity();
 					maintenanceActivity.setActivity(activity);
 
 					em.persist(activity);
 					em.persist(maintenanceActivity);
 				}
 				em.flush();
-			} catch (Exception e1) {
+			} catch (final Exception e1) {
 				logger.log(Level.INFO,
 						"error Creating MaintenanceActivity test data", e1);
 			}
@@ -839,20 +840,21 @@ public class InitialData {
 	 * 
 	 */
 	private void maintenancePlanTestData() {
-		String query = "SELECT t from MaintenancePlan t WHERE t.id = 1";
+		final String query = "SELECT t from MaintenancePlan t WHERE t.id = 1";
 		try {
 			em.createQuery(query).getSingleResult();
-		} catch (NoResultException e) {
+		} catch (final NoResultException e) {
 			try {
 				logger.info("Creating test data: maintenance plan");
-				String planName[] = { "Plan de Mantenimiento Impresoras Tinta",
+				final String planName[] = {
+						"Plan de Mantenimiento Impresoras Tinta",
 						"Plan de Mantenimiento Impresoras Laser" };
-				String planDesc[] = {
+				final String planDesc[] = {
 						"plan de mantenimiento impresoras de tinta",
 						"plan de mantenimiento impresoras laser" };
-				int planFrequency[] = { 1, 3 };
-				TimePeriodEnum planTimePeriod[] = { TimePeriodEnum.MONTHS,
-						TimePeriodEnum.SEMESTERS };
+				final int planFrequency[] = { 1, 3 };
+				final TimePeriodEnum planTimePeriod[] = {
+						TimePeriodEnum.MONTHS, TimePeriodEnum.SEMESTERS };
 				for (int i = 0; i < 2; ++i)
 					em.persist(new MaintenancePlan(planName[i], planDesc[i],
 							planFrequency[i], planTimePeriod[i],
@@ -860,7 +862,7 @@ public class InitialData {
 							MaintenancePlanState.ACTIVE,
 							MaintenancePlanCancelationOption.UNDEFERRABLE));
 				em.flush();
-			} catch (Exception e1) {
+			} catch (final Exception e1) {
 				logger.log(Level.INFO,
 						"error Creating MaintenancePlan test data", e1);
 			}
@@ -868,16 +870,16 @@ public class InitialData {
 	}
 
 	private void maintenanceProtocolsTestData() {
-		String query = "SELECT t from MaintenanceProtocols t WHERE t.id = 1";
+		final String query = "SELECT t from MaintenanceProtocols t WHERE t.id = 1";
 		try {
 			em.createQuery(query).getSingleResult();
-		} catch (NoResultException e) {
+		} catch (final NoResultException e) {
 			try {
 				logger.info("Creating test data: MaintenanceProtocols");
-				List<MaintenancePlan> plans = em.createNamedQuery(
+				final List<MaintenancePlan> plans = em.createNamedQuery(
 						"MaintenancePlan.getAll", MaintenancePlan.class)
 						.getResultList();
-				List<MaintenanceActivity> entities = em
+				final List<MaintenanceActivity> entities = em
 						.createNamedQuery("MaintenanceActivity.getAll",
 								MaintenanceActivity.class).getResultList();
 
@@ -898,7 +900,7 @@ public class InitialData {
 						.get(6), 6));
 
 				em.flush();
-			} catch (Exception e1) {
+			} catch (final Exception e1) {
 				logger.log(Level.INFO,
 						"error Creating MaintenanceProtocols test data", e1);
 			}
@@ -911,10 +913,10 @@ public class InitialData {
 	private void manufacturerTestData() {
 
 		try {
-			String query = "SELECT e from Manufacturer e WHERE e.id = 1 ";
+			final String query = "SELECT e from Manufacturer e WHERE e.id = 1 ";
 			try {
 				em.createQuery(query).getSingleResult();
-			} catch (NoResultException e) {
+			} catch (final NoResultException e) {
 				logger.log(Level.INFO, "creating test manufacturers");
 				Manufacturer manufacturer = new Manufacturer();
 				manufacturer.setName("AMD");
@@ -938,7 +940,7 @@ public class InitialData {
 
 				em.flush();
 			}
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			logger.log(Level.INFO, "error creating test manufacturers", e);
 		}
 
@@ -948,10 +950,10 @@ public class InitialData {
 	 * 
 	 */
 	private void materialCategoryTestData() {
-		String query = "SELECT t from MaterialCategory t WHERE t.code = 'mat-cat-000' ";
+		final String query = "SELECT t from MaterialCategory t WHERE t.code = 'mat-cat-000' ";
 		try {
 			em.createQuery(query).getSingleResult();
-		} catch (NoResultException e) {
+		} catch (final NoResultException e) {
 			try {
 				logger.info("creating test data : materialCategory");
 				for (int j = 0; j < 3; j++) {
@@ -960,7 +962,7 @@ public class InitialData {
 									.values()[j % 3]));
 				}
 				em.flush();
-			} catch (Exception e1) {
+			} catch (final Exception e1) {
 				logger.log(Level.INFO,
 						"error creating test data: external provider", e);
 			}
@@ -968,17 +970,17 @@ public class InitialData {
 	}
 
 	private void materialTestData() {
-		String query = "SELECT t from Material t WHERE t.code= 'material-test-001'";
+		final String query = "SELECT t from Material t WHERE t.code= 'material-test-001'";
 		try {
 			em.createQuery(query).getSingleResult();
-		} catch (NoResultException e) {
+		} catch (final NoResultException e) {
 			try {
 				logger.info("creating test data : material");
-				String names[] = { "aguja", "sutura", "inyectadora",
+				final String names[] = { "aguja", "sutura", "inyectadora",
 						"algodón", "alcohol" };
 				int i = 1;
-				for (String name : names) {
-					Material next = new Material();
+				for (final String name : names) {
+					final Material next = new Material();
 					next.setName(name);
 					next.setCode("material-test-00" + i);
 					next.setDescription(name);
@@ -987,7 +989,7 @@ public class InitialData {
 					i++;
 					em.persist(next);
 				}
-			} catch (Exception e1) {
+			} catch (final Exception e1) {
 				logger.log(Level.INFO,
 						"error creating test data: external provider", e);
 			}
@@ -999,17 +1001,17 @@ public class InitialData {
 		logger.info("Creating ghamessage data");
 		InputStream in = null;
 		CSVReader reader = null;
-		GHAMessageType defaultType = em.find(GHAMessageType.class, 1l);
+		final GHAMessageType defaultType = em.find(GHAMessageType.class, 1l);
 		try {
 			in = InitialData.class.getResourceAsStream("/messages.csv");
 			reader = new CSVReader(new InputStreamReader(in, "UTF-8"), ',',
 					'\'', 0);
-			List<String[]> readAll = reader.readAll();
+			final List<String[]> readAll = reader.readAll();
 			String code, text;
 			LanguageEnum lang = null;
-			Map<String, Boolean> words = new HashMap<String, Boolean>();
-			for (String[] strings : readAll) {
-				String language = strings[0];
+			final Map<String, Boolean> words = new HashMap<String, Boolean>();
+			for (final String[] strings : readAll) {
+				final String language = strings[0];
 				if (language.startsWith("#") || language.startsWith("//"))
 					continue;
 				code = strings[1];
@@ -1023,7 +1025,7 @@ public class InitialData {
 				long type = 1l;
 				try {
 					type = Long.valueOf(strings[3]);
-				} catch (Exception e) {
+				} catch (final Exception e) {
 					logger.info("no type info available in this line... Setting '1' by default");
 				}
 				try {
@@ -1033,7 +1035,7 @@ public class InitialData {
 						em.merge(new GHAMessage(lang, code, text, em.find(
 								GHAMessageType.class, type)));
 
-				} catch (Exception e) {
+				} catch (final Exception e) {
 					logger.log(Level.SEVERE,
 							"Error inserting/updating an ghamessage", e);
 				}
@@ -1041,15 +1043,15 @@ public class InitialData {
 			em.flush();
 			reader.close();
 			in.close();
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			try {
 				reader.close();
-			} catch (IOException e1) {
+			} catch (final IOException e1) {
 				logger.log(Level.SEVERE, "ERROR in ghamessage", e1);
 			}
 			try {
 				in.close();
-			} catch (IOException e1) {
+			} catch (final IOException e1) {
 				logger.log(Level.SEVERE, "ERROR in ghamessage", e1);
 			}
 			logger.log(Level.INFO, "error Reading file ghamessage test data", e);
@@ -1058,30 +1060,30 @@ public class InitialData {
 			try {
 				if (reader != null)
 					reader.close();
-			} catch (IOException e) {
+			} catch (final IOException e) {
 				logger.log(Level.SEVERE, "ERROR in ghamessage", e);
 			}
 			try {
 				if (in != null)
 					in.close();
-			} catch (IOException e) {
+			} catch (final IOException e) {
 				logger.log(Level.SEVERE, "ERROR in ghamessage", e);
 			}
 		}
 	}
 
 	private void messageTypes() {
-		String query = "SELECT t from GHAMessageType t WHERE t.id= 1";
+		final String query = "SELECT t from GHAMessageType t WHERE t.id= 1";
 		try {
 			em.createQuery(query).getSingleResult();
-		} catch (NoResultException e) {
+		} catch (final NoResultException e) {
 			try {
 				logger.info("creating test data : message types");
-				String names[] = { "SAY", "CONFIRMATION", "ASKYESNO",
+				final String names[] = { "SAY", "CONFIRMATION", "ASKYESNO",
 						"ERROR_HARD", "ERROR_SOFT", "WARNING", "INFORMATION",
 						"FAILURE", "SUCCESS", "PROCESSING", "NEW_MESSAGE" };
 
-				for (String name : names) {
+				for (final String name : names) {
 					GHAMessageType next = new GHAMessageType();
 					if (name.equals("SAY")) {
 						// Gray
@@ -1119,7 +1121,7 @@ public class InitialData {
 					}
 					em.persist(next);
 				}
-			} catch (Exception e1) {
+			} catch (final Exception e1) {
 				logger.log(Level.INFO,
 						"error creating test data: Message Types", e);
 			}
@@ -1127,13 +1129,13 @@ public class InitialData {
 	}
 
 	private void modules() throws IOException {
-		InputStream resourceAsStream = InitialData.class
+		final InputStream resourceAsStream = InitialData.class
 				.getResourceAsStream("/codes.csv");
 		CSVReader csvReader = null;
 		try {
 			csvReader = new CSVReader(new InputStreamReader(resourceAsStream,
 					"UTF-8"), ',', '\'', 1);
-			List<String[]> readAll = csvReader.readAll();
+			final List<String[]> readAll = csvReader.readAll();
 			Module module = null;
 			AppForm appForm = null;
 			View view = null;
@@ -1141,27 +1143,27 @@ public class InitialData {
 			Function function = null;
 			AppFormViewFunction appFormViewFunction = null;
 
-			for (String[] strings : readAll) {
-				String moduleName = strings[0];
-				String moduleCode = strings[1];
+			for (final String[] strings : readAll) {
+				final String moduleName = strings[0];
+				final String moduleCode = strings[1];
 				module = new Module(moduleName, moduleCode);
 				em.merge(module);
-				String appFormName = strings[2];
-				String appFormToken = strings[3];
-				String appFormCode = strings[4];
+				final String appFormName = strings[2];
+				final String appFormToken = strings[3];
+				final String appFormCode = strings[4];
 				appForm = new AppForm(module, appFormName, appFormToken,
 						appFormCode);
 				em.merge(appForm);
-				String viewName = strings[5];
-				String viewCode = strings[6];
-				String viewDescription = strings[7];
+				final String viewName = strings[5];
+				final String viewCode = strings[6];
+				final String viewDescription = strings[7];
 				view = new View(viewCode, viewName, viewDescription);
 				em.merge(view);
 				appFormView = new AppFormView(appForm, view);
 				em.merge(appFormView);
-				String functionName = strings[8];
-				String functionCode = strings[9];
-				String functionDescription = strings[10];
+				final String functionName = strings[8];
+				final String functionCode = strings[9];
+				final String functionDescription = strings[10];
 				function = new Function(functionCode, functionName,
 						functionDescription);
 				em.merge(function);
@@ -1170,7 +1172,7 @@ public class InitialData {
 				em.merge(appFormViewFunction);
 			}
 			csvReader.close();
-		} catch (UnsupportedEncodingException e3) {
+		} catch (final UnsupportedEncodingException e3) {
 			csvReader.close();
 			logger.log(
 					Level.SEVERE,
@@ -1184,14 +1186,14 @@ public class InitialData {
 	}
 
 	private void obuTestData() {
-		String query = "SELECT t from Obu t WHERE t.id = 1 ";
+		final String query = "SELECT t from Obu t WHERE t.id = 1 ";
 		try {
 			em.createQuery(query).getSingleResult();
-		} catch (NoResultException e) {
+		} catch (final NoResultException e) {
 			try {
 				logger.info("creating test data : obu");
-				String obuNames[] = { "Administración", "Medicina General",
-						"Dpto. de Nefrologia" };
+				final String obuNames[] = { "Administración",
+						"Medicina General", "Dpto. de Nefrologia" };
 				Obu obu = null;
 				for (int i = 0; i < 3; i++) {
 					obu = new Obu();
@@ -1201,38 +1203,38 @@ public class InitialData {
 					em.persist(obu);
 				}
 				em.flush();
-			} catch (Exception e1) {
+			} catch (final Exception e1) {
 				logger.log(Level.INFO, "error creating test data obu", e);
 			}
 		}
 	}
 
 	private void parameter() {
-		String query = "SELECT t FROM Parameter t WHERE t.code = 'P1'";
+		final String query = "SELECT t FROM Parameter t WHERE t.code = 'P1'";
 		try {
 			em.createQuery(query).getSingleResult();
-		} catch (NoResultException e) {
+		} catch (final NoResultException e) {
 			try {
 				logger.info("Creating parameter test data");
-				Parameter parameter = new Parameter("P1", "Lenguaje");
+				final Parameter parameter = new Parameter("P1", "Lenguaje");
 				em.persist(parameter);
-				ParameterGroup parameterGroup = new ParameterGroup(
+				final ParameterGroup parameterGroup = new ParameterGroup(
 						"Valores por defecto");
 				em.persist(parameterGroup);
 				em.persist(new ParameterValue(parameterGroup, parameter,
 						LanguageEnum.ES.name()));
 				em.flush();
-			} catch (Exception e1) {
+			} catch (final Exception e1) {
 				logger.log(Level.INFO, "error Creating parameter test data", e1);
 			}
 		}
 	}
 
 	private void roleTestData() {
-		String query = "SELECT t from Role t WHERE t.id = 1 ";
+		final String query = "SELECT t from Role t WHERE t.id = 1 ";
 		try {
 			em.createQuery(query).getSingleResult();
-		} catch (NoResultException e) {
+		} catch (final NoResultException e) {
 			try {
 				logger.info("creating test data : Role");
 				Role role = new Role();
@@ -1246,17 +1248,17 @@ public class InitialData {
 				em.persist(role);
 
 				em.flush();
-			} catch (Exception e1) {
+			} catch (final Exception e1) {
 				logger.log(Level.INFO, "error creating test data role", e);
 			}
 		}
 	}
 
 	private void ssoUserTestData() {
-		String query = "SELECT t from SSOUser t WHERE t.id = 1 ";
+		final String query = "SELECT t from SSOUser t WHERE t.id = 1 ";
 		try {
 			em.createQuery(query).getSingleResult();
-		} catch (NoResultException e) {
+		} catch (final NoResultException e) {
 			try {
 				logger.info("creating test data: users");
 				em.persist(new SSOUser(em.find(Bpu.class, 1L), "admin",
@@ -1267,22 +1269,22 @@ public class InitialData {
 						UserLogonStatusEnum.STAYIN));
 				em.flush();
 				logger.info("done creating test users");
-			} catch (Exception e1) {
+			} catch (final Exception e1) {
 				logger.log(Level.INFO, "error test data ssouser");
 			}
 		}
 	}
 
 	private void subProtocolAndChecklistTestData() {
-		String query = "SELECT t from SubProtocolAndChecklist t WHERE t.id = 1";
+		final String query = "SELECT t from SubProtocolAndChecklist t WHERE t.id = 1";
 		try {
 			em.createQuery(query).getSingleResult();
-		} catch (NoResultException e) {
+		} catch (final NoResultException e) {
 			try {
 				logger.info("Creating test data: ProtocolsAndChecklist");
-				MaintenanceActivity parentActivity = em.find(
+				final MaintenanceActivity parentActivity = em.find(
 						MaintenanceActivity.class, Long.valueOf(7));
-				List<MaintenanceActivity> activities = em
+				final List<MaintenanceActivity> activities = em
 						.createNamedQuery("MaintenanceActivity.getAll",
 								MaintenanceActivity.class).getResultList();
 
@@ -1294,7 +1296,7 @@ public class InitialData {
 						.getActivity(), activities.get(9).getActivity(), 3));
 
 				em.flush();
-			} catch (Exception e1) {
+			} catch (final Exception e1) {
 				logger.log(Level.INFO,
 						"error Creating SubProtocolAndChecklist test data", e1);
 			}
@@ -1354,12 +1356,12 @@ public class InitialData {
 			in = InitialData.class.getResourceAsStream("/uistrings.csv");
 			reader = new CSVReader(new InputStreamReader(in, "UTF-8"), ',',
 					'\'', 0);
-			List<String[]> readAll = reader.readAll();
+			final List<String[]> readAll = reader.readAll();
 			String code, text;
 			LanguageEnum lang = null;
-			Map<String, Boolean> words = new HashMap<String, Boolean>();
-			for (String[] strings : readAll) {
-				String language = strings[0];
+			final Map<String, Boolean> words = new HashMap<String, Boolean>();
+			for (final String[] strings : readAll) {
+				final String language = strings[0];
 				if (language.startsWith("#") || language.startsWith("//"))
 					continue;
 				code = strings[1];
@@ -1372,7 +1374,7 @@ public class InitialData {
 				text = strings[2];
 				try {
 					em.merge(new UiString(lang, code, text));
-				} catch (Exception e) {
+				} catch (final Exception e) {
 					logger.log(Level.SEVERE,
 							"Error inserting/updating an uistring", e);
 				}
@@ -1380,15 +1382,15 @@ public class InitialData {
 			em.flush();
 			reader.close();
 			in.close();
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			try {
 				reader.close();
-			} catch (IOException e1) {
+			} catch (final IOException e1) {
 				logger.log(Level.SEVERE, "ERROR in UisTrings", e1);
 			}
 			try {
 				in.close();
-			} catch (IOException e1) {
+			} catch (final IOException e1) {
 				logger.log(Level.SEVERE, "ERROR in UisTrings", e1);
 			}
 			logger.log(Level.INFO, "error Reading file uistrings test data", e);
@@ -1397,13 +1399,13 @@ public class InitialData {
 			try {
 				if (reader != null)
 					reader.close();
-			} catch (IOException e) {
+			} catch (final IOException e) {
 				logger.log(Level.SEVERE, "ERROR in UisTrings", e);
 			}
 			try {
 				if (in != null)
 					in.close();
-			} catch (IOException e) {
+			} catch (final IOException e) {
 				logger.log(Level.SEVERE, "ERROR in UisTrings", e);
 			}
 		}
@@ -1411,15 +1413,15 @@ public class InitialData {
 	}
 
 	private void workingAreaTestData() {
-		String query = "SELECT t from WorkingArea t WHERE t.id = 1";
+		final String query = "SELECT t from WorkingArea t WHERE t.id = 1";
 		try {
 			em.createQuery(query).getSingleResult();
-		} catch (NoResultException e) {
+		} catch (final NoResultException e) {
 			logger.info("Creating test data : WorkingArea");
-			String workingAreaNames[] = { "Enfermería Emergencia",
+			final String workingAreaNames[] = { "Enfermería Emergencia",
 					"Enfermería U.C.I", "Enfermería Pediatría" };
 			for (int i = 0; i < 3; ++i) {
-				WorkingArea entity = new WorkingArea();
+				final WorkingArea entity = new WorkingArea();
 				entity.setBuildingLocation(em.find(BuildingLocation.class,
 						"Building 00" + i));
 				entity.setName(workingAreaNames[i]);

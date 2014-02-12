@@ -32,14 +32,14 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
  * 
  */
 public class UserTopForm extends GHATopForm<UserResultSet, SSOUser> implements
-UserSelectionListener {
+		UserSelectionListener {
 
 	private SSOUser selectedUser;
 	private GHATextItem usernameItem;
 	private GHADoumentTypeSelectItem idTypeSelectItem;
 	private GHASelectItem stateItem;
 	private GHANameTextItem firstNameItem, secondNameItem, firstLastNameItem,
-	secondLastNameItem;
+			secondLastNameItem;
 	private GHATextItem idItem;
 	private GHAEmailTextItem emailItem;
 	private GHASelectItem genderSelectItem;
@@ -49,8 +49,10 @@ UserSelectionListener {
 		stateItem = new GHAUserStateSelectItem();
 		firstNameItem = new GHANameTextItem(GHAStrings.get("first-name"));
 		secondNameItem = new GHANameTextItem(GHAStrings.get("second-name"));
-		firstLastNameItem = new GHANameTextItem(GHAStrings.get("first-lastname"));
-		secondLastNameItem = new GHANameTextItem(GHAStrings.get("second-lastname"));
+		firstLastNameItem = new GHANameTextItem(
+				GHAStrings.get("first-lastname"));
+		secondLastNameItem = new GHANameTextItem(
+				GHAStrings.get("second-lastname"));
 		emailItem = new GHAEmailTextItem();
 		idTypeSelectItem = new GHADoumentTypeSelectItem();
 		idItem = new GHATextItem(GHAStrings.get("id-number"));
@@ -66,7 +68,7 @@ UserSelectionListener {
 		emailItem.addKeyUpHandler(searchKeyUpHandler);
 		genderSelectItem.addKeyUpHandler(searchKeyUpHandler);
 
-		form = new GHADynamicForm(5,FormType.NORMAL_FORM);
+		form = new GHADynamicForm(5, FormType.NORMAL_FORM);
 	}
 
 	/**
@@ -118,22 +120,22 @@ UserSelectionListener {
 	protected void delete() {
 		GHAAlertManager.confirm("ssoUser-delete-confirm",
 				new BooleanCallback() {
-			@Override
-			public void execute(Boolean value) {
-				if (value) {
-					UserModel.delete(selectedUser.getId(),
-							new GHAAsyncCallback<Void>() {
-						@Override
-						public void onSuccess(Void result) {
-							containerTab.search();
-							clear();
-							GHAAlertManager
-							.alert("ssoUser-delete-success");
+					@Override
+					public void execute(Boolean value) {
+						if (value) {
+							SSOUserModel.delete(selectedUser.getId(),
+									new GHAAsyncCallback<Void>() {
+										@Override
+										public void onSuccess(Void result) {
+											containerTab.search();
+											clear();
+											GHAAlertManager
+													.alert("ssoUser-delete-success");
+										}
+									});
 						}
-					});
-				}
-			}
-		});
+					}
+				});
 	}
 
 	@Override
@@ -145,14 +147,14 @@ UserSelectionListener {
 	@Override
 	public void search() {
 		super.search();
-		SSOUser ssoUser = new SSOUser();
+		final SSOUser ssoUser = new SSOUser();
 		if (usernameItem.getValue() != null)
 			ssoUser.setUserName(usernameItem.getValueAsString());
 		if (stateItem.getValue() != null)
 			ssoUser.setUserLogonStatus(UserLogonStatusEnum.valueOf(stateItem
 					.getValueAsString()));
 
-		Citizen citizen = new Citizen();
+		final Citizen citizen = new Citizen();
 		if (firstNameItem.getValue() != null)
 			citizen.setFirstName(firstNameItem.getValueAsString());
 		if (secondNameItem.getValue() != null)
@@ -173,7 +175,7 @@ UserSelectionListener {
 		if (emailItem.getValue() != null)
 			citizen.setPrimaryEmail(emailItem.getValueAsString());
 
-		Bpu bpu = new Bpu();
+		final Bpu bpu = new Bpu();
 		bpu.setCitizen(citizen);
 		ssoUser.setBpu(bpu);
 		search(ssoUser);
@@ -182,7 +184,7 @@ UserSelectionListener {
 	@Override
 	public void search(final SSOUser ssoU) {
 		super.search();
-		UserModel.find(ssoU, new GHAAsyncCallback<List<SSOUser>>() {
+		SSOUserModel.find(ssoU, new GHAAsyncCallback<List<SSOUser>>() {
 
 			@Override
 			public void onSuccess(List<SSOUser> ssoUsers) {
@@ -202,10 +204,10 @@ UserSelectionListener {
 			stateItem.setValue(ssoUser.getUserLogonStatus().name());
 
 		if (ssoUser.getBpu() != null) {
-			Bpu bpu = ssoUser.getBpu();
+			final Bpu bpu = ssoUser.getBpu();
 
 			if (bpu.getCitizen() != null) {
-				Citizen citizen = bpu.getCitizen();
+				final Citizen citizen = bpu.getCitizen();
 				if (citizen.getFirstName() != null)
 					firstNameItem.setValue(citizen.getFirstName());
 				if (citizen.getSecondName() != null)

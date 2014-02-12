@@ -119,7 +119,7 @@ public class GhaServiceTest {
 
 	public Bpa getBpa(EntityManager em) {
 		if (bpa == null) {
-			Bpa bpa = new Bpa();
+			final Bpa bpa = new Bpa();
 			em.persist(bpa);
 			em.flush();
 			this.bpa = em.find(Bpa.class, bpa.getId());
@@ -129,7 +129,7 @@ public class GhaServiceTest {
 
 	public Bpi getBpi(EntityManager em) {
 		if (bpi == null) {
-			Bpi bpi = new Bpi();
+			final Bpi bpi = new Bpi();
 			bpi.setInstitution(getInstitution(em));
 			em.persist(bpi);
 			em.flush();
@@ -140,7 +140,7 @@ public class GhaServiceTest {
 
 	public Bpu getBpu(EntityManager em) {
 		if (bpu == null) {
-			Bpu bpu = new Bpu();
+			final Bpu bpu = new Bpu();
 			bpu.setBpi(getBpi(em));
 			bpu.setCitizen(getCitizen(em));
 			em.persist(bpu);
@@ -152,7 +152,7 @@ public class GhaServiceTest {
 
 	public BuildingLocation getBuildingLocation(EntityManager em) {
 		if (buildingLocation == null) {
-			BuildingLocation buildingLocation = new BuildingLocation();
+			final BuildingLocation buildingLocation = new BuildingLocation();
 			buildingLocation.setCode("BuildingLocation test code");
 			buildingLocation.setLocationLevel(LocationLevelEnum.AREA_HALL);
 			buildingLocation.setBpi(getBpi(em));
@@ -166,7 +166,7 @@ public class GhaServiceTest {
 
 	public Citizen getCitizen(EntityManager em) {
 		if (citizen == null) {
-			Citizen citizen = new Citizen();
+			final Citizen citizen = new Citizen();
 			citizen.setLegalEntity(getLegalEntity(em));
 			citizen.setGender(GenderTypeEnum.FEMALE);
 			em.persist(citizen);
@@ -185,7 +185,7 @@ public class GhaServiceTest {
 
 	public Eia getEia(EntityManager em) {
 		if (eia == null) {
-			Eia eia = new Eia();
+			final Eia eia = new Eia();
 			eia.setEiaType(getEiaType(em));
 			eia.setObu(getObu(em));
 			eia.setProvider(getExternalProvider(em));
@@ -202,7 +202,7 @@ public class GhaServiceTest {
 
 	public EiaType getEiaType(EntityManager em) {
 		if (eiaType == null) {
-			EiaType eiaType = new EiaType();
+			final EiaType eiaType = new EiaType();
 			eiaType.setCode("EiaType test code");
 			eiaType.setMobility(EiaMobilityEnum.FIXED);
 			eiaType.setName("EiaType test name");
@@ -218,7 +218,7 @@ public class GhaServiceTest {
 	public EiaTypeMaintenancePlan getEiaTypeMaintenancePlan(EntityManager em,
 			EiaType eiaType, MaintenancePlan maintenancePlan) {
 		if (eiaTypeMaintenancePlan == null) {
-			EiaTypeMaintenancePlan eiaTypeMaintenancePlan = new EiaTypeMaintenancePlan();
+			final EiaTypeMaintenancePlan eiaTypeMaintenancePlan = new EiaTypeMaintenancePlan();
 			eiaTypeMaintenancePlan.setEiaType(eiaType);
 			eiaTypeMaintenancePlan.setMaintenancePlan(maintenancePlan);
 			em.persist(eiaTypeMaintenancePlan);
@@ -231,7 +231,7 @@ public class GhaServiceTest {
 
 	public ExternalProvider getExternalProvider(EntityManager em) {
 		if (externalProvider == null) {
-			ExternalProvider externalProvider = new ExternalProvider();
+			final ExternalProvider externalProvider = new ExternalProvider();
 			externalProvider.setInstitution(getInstitution(em));
 			em.persist(externalProvider);
 			em.flush();
@@ -243,7 +243,7 @@ public class GhaServiceTest {
 
 	public Institution getInstitution(EntityManager em) {
 		if (institution == null) {
-			Institution institution = new Institution();
+			final Institution institution = new Institution();
 			institution.setName("Institution name test");
 			institution.setLegalEntity(getLegalEntity(em));
 			em.persist(institution);
@@ -255,7 +255,7 @@ public class GhaServiceTest {
 
 	public LegalEntity getLegalEntity(EntityManager em) {
 		if (legalEntity == null) {
-			LegalEntity legalEntity = new LegalEntity();
+			final LegalEntity legalEntity = new LegalEntity();
 			em.persist(legalEntity);
 			em.flush();
 			this.legalEntity = em.find(LegalEntity.class, legalEntity.getId());
@@ -265,8 +265,8 @@ public class GhaServiceTest {
 
 	public MaintenanceActivity getMaintenanceActivity(EntityManager em) {
 		if (maintenanceActivity == null) {
-			MaintenanceActivity maintenanceActivity = new MaintenanceActivity();
-			Activity activity = new Activity();
+			final MaintenanceActivity maintenanceActivity = new MaintenanceActivity();
+			final Activity activity = new Activity();
 			activity.setName("MaintenanceActivity test name");
 			activity.setDescription("MaintenanceActivity test description");
 
@@ -283,7 +283,7 @@ public class GhaServiceTest {
 			EntityManager em, MaintenanceActivity maintenanceActivity,
 			ServiceAndResource serviceResource) {
 		if (maintenanceActivityServiceResource == null) {
-			RequiredResources maintenanceActivityServiceResource = new RequiredResources();
+			final RequiredResources maintenanceActivityServiceResource = new RequiredResources();
 			maintenanceActivityServiceResource.setActivity(maintenanceActivity
 					.getActivity());
 			maintenanceActivityServiceResource.setResource(serviceResource);
@@ -298,7 +298,7 @@ public class GhaServiceTest {
 
 	public MaintenancePlan getMaintenancePlan(EntityManager em) {
 		if (maintenancePlan == null) {
-			MaintenancePlan maintenancePlan = new MaintenancePlan();
+			final MaintenancePlan maintenancePlan = new MaintenancePlan();
 			maintenancePlan.setDescription("MaintenancePlan test description");
 			maintenancePlan.setName("MaintenancePlan teste name");
 			maintenancePlan.setPot(TimePeriodEnum.DAYS);
@@ -312,7 +312,7 @@ public class GhaServiceTest {
 
 	public Manufacturer getManufacturer(EntityManager em) {
 		if (manufacturer == null) {
-			Manufacturer manufacturer = new Manufacturer();
+			final Manufacturer manufacturer = new Manufacturer();
 			manufacturer.setName("Manufacturer test name");
 			em.persist(manufacturer);
 			em.flush();
@@ -324,7 +324,7 @@ public class GhaServiceTest {
 
 	public Obu getObu(EntityManager em) {
 		if (obu == null) {
-			Obu obu = new Obu();
+			final Obu obu = new Obu();
 			obu.setCode("Obu test code");
 			obu.setName("Obu test name");
 			em.persist(obu);
@@ -336,7 +336,7 @@ public class GhaServiceTest {
 
 	public Role getRole(EntityManager em) {
 		if (role == null) {
-			Role role = new Role();
+			final Role role = new Role();
 			role.setName("Role test name");
 			em.persist(role);
 			em.flush();

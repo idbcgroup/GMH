@@ -1,3 +1,55 @@
+ES,type, Tipo
+ES,user-error-date-invalido, Debe introducir una fecha valida
+ES,eia-tooltip-type, Debe seleccionar un tipo de equipo
+ES,eia-tooltip-code, El codigo es un identificador para el equipo
+ES,eia-tooltip-serial, Debe agregar el serial del equipo
+ES,eia-tooltip-fixed-asset-identifier, Debe agregar el identificador activo
+ES,eia-tooltip-obu, Debe seleccionar el departamento responsable
+ES,eia-tooltip-responsible-role, Debe seleccionar el cargo responsable
+ES,eia-tooltip-state, Debe seleccionar el estado en el que se encuentra el equipo
+ES,eia-tooltip-adquisition-provider, Debe seleccionar el proveedor del equipo
+ES,eia-tooltip-maintenance-provider, Debe seleccionar el proveedor de mantenimiento
+ES,eia-tooltip-fecha-compra, Debe seleccionar o introducir la fecha en que se compro el equipo
+ES,eia-tooltip-orden-compra, Debe agregar el numero de orden de compra del equipo
+ES,eia-tooltip-provider-inst, Debe seleccionar el proveedor de la institucion
+ES,eia-tooltip-date-orden-compra, Debe seleccionar o introducir la fecha de orden de compra
+ES,eia-tooltip-date-reception, Debe seleccionar o introducir la fecha de recepcion del equipo
+ES,eia-tooltip-date-aceptacion, Debe seleccionar o introducir la fecha de Aceptacion
+ES,eia-tooltip-date-installation, Debe seleccionar o introducir la fecha de instalacion del equipo
+ES,eia-tooltip-date-factura, Debe seleccionar o introducir la fecha de Facturacion del equipo
+ES,eia-tooltip-orden-factura, Debe introducir el numero de la factura
+ES,eia-tooltip-type-location, Debe seleccionar el tipo de localizacion
+ES,eia-tooltip-working-area-select, Debe seleccionar el nombre del area de trabajo
+ES,eia-tooltip-code-working-area-select, Codigo del area de trabajo
+ES,eia-tooltip-facility-service-select, Debe seleccionar el nombre del servicio o instalacion
+ES,eia-tooltip-facility-service-code, Codigo del servicio o instalacion
+ES,eiatype-type-tooltip, Debe Seleccionar la categoria del equipo
+ES,eiatype-subtype-tooltip, Debe Seleccionar la subcategoria del equipo
+ES,eiatype-mobility-tooltip, Debe Seleccionar la movilidad del tipo de equipo
+ES,eiatype-manufacturer-tooltip, Debe Seleccionar el fabricante
+ES,eiatype-brand-tooltip, Debe Seleccionar la marca del tipo de equipo
+ES,eiatype-description-tooltip, Debe agregar una descripcion breve del tipo de equipo
+ES,eiatype-use-description-tooltip, Debe agregar el uso del tipo de equipo
+ES,user-tooltip-first-name, Agregue su primer nombre Ejemplo Pedro
+ES,user-tooltip-second-name, Agregue su segundo nombre Ejemplo Jose
+ES,user-tooltip-last-name, Agregue su primer apellido Ejemplo Gonzales
+ES,user-tooltip-secondlast-name, Agregue su segundo apellido Ejemplo Barboza
+ES,user-tooltip-identification, Puede agregar cedula o pasaporte entre otros Ejemplo V-18722506 
+ES,user-tooltip-email, Agregue su correo Ejemplo: ejemplo@correo.com 
+ES,user-tooltip-email-secundario, Agregue su correo alternativo Ejemplo alternativocorreo.com 
+ES,user-tooltip-genero, Debe seleccionar un genero Ejemplo masculino o femenino 
+ES,user-tooltip-birthdate, Debe seleccionar o introducir una fecha 
+ES,user-tooltip-institution, Debe seleccionar una institucion
+ES,user-tooltip-rif, Debe agregar el rif Ejemplo J-1234567
+ES,user-tooltip-tipo-id, Debe seleccionar el tipo de identificacion
+ES,user-tooltip-nacionalidad, Debe agregar la nacionalidad
+ES,user-name-tooltip, Agregue su nombre de Usuario Ejemplo Analista
+ES,user-password-tooltip, Agregue su clave de Usuario Ejemplo 123456
+ES,user-confirm-password-tooltip, Confirme su clave
+ES,user-date-error-formatter, error de formato dia introducido invalido
+ES,user-error-formatter,error de formato solo se permite letras
+ES,user-error-formatter-rif,error de formato
+ES,user-error-formatter-identification,error de formato solo debe agregar numeros o letras sin tilde ni caracteres especiales
 ES,record,registro
 ES,eia,Equipo
 ES,records,registros
@@ -56,7 +108,7 @@ ES,edit-eiatype,Modificar un tipo de equipo
 ES,search-results,Resultados de la búsqueda
 ES,description,Descripción
 ES,use,Uso
-ES,type,Tipo
+ES,,Tipo
 ES,users,Usuarios
 ES,second-name,Segundo nombre
 ES,first-lastname,Primer apellido
@@ -79,6 +131,8 @@ ES,search-utility-material,Búsqueda de materiales utilitarios para tipos de equ
 ES,amount,Cantidad
 ES,empty-materialcategory-grid,No existen Materiales para mostrar
 ES,empty-material-grid,No existen Materiales para mostrar
+ES,empty-citizen-grid,No existen ciudadanos para mostrar
+ES,empty-user-grid,No existen usuarios para mostrar
 ES,results,Resultados
 ES,result,Resultado
 ES,username-not-null,Debe ingresar un usuario válido
@@ -159,8 +213,6 @@ ES,subprotocol,Sub-Protocolo
 ES,total-time,Tiempo total
 ES,total-cost,Costo total
 ES,emh,Historia médica
-ES,gmh,gmh
-ES,hme,gmh
 ES,gender,sexo
 ES,city,ciudad
 ES,age,edad
@@ -227,6 +279,14 @@ ES,success,Éxito
 ES,processing,Operación en proceso
 ES,new-message-received,Nuevo Mensaje Recibido
 ES,confirm,Confirmación
+ES,eiatype-name-tooltip, El campo del nombre especifica el nombre del tipo del equipo solo puede contener letras
+ES,eiatype-model-tooltip, El campo del modelo especifica el modelo del tipo de equipo solo puede contener letras numeros o guiones
+ES,maintenance-plan-name-tooltip,Este campo asigna el nombre al plan de mantenimiento Solo puede contener letras Ej Plan de Mantenimiento
+ES,maintenance-plan-frequency-tooltip,Este campo asigna la frecuencia con la que se realiza el mantenimiento Ej 48
+ES,maintenance-plan-description-tooltip, Este campo especifica la descripcion del plan de mantenimiento
+ES,res,registro de salud
+ES,citizen-search,buscar ciudadano
+ES,citizen-new,nuevo ciudadano
 ES,subprotocol-activities,Actividades del subprotocolo
 ES,report-and-planification,Reporte y Planificación
 ES,service-and-resource,Servicios y recursos

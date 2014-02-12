@@ -12,16 +12,18 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.logs.UILog;
 import org.fourgeeks.gha.domain.msg.GHAMessage;
 import org.fourgeeks.gha.domain.msg.GHAMessageId;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
+import org.fourgeeks.gha.ejb.ess.SSOUserServiceRemote;
 import org.fourgeeks.gha.ejb.log.UILogServiceLocal;
 
 /**
- * @author emiliot, vivi.torresg
+ * @author alacret
  * 
  */
 @Stateless
@@ -36,6 +38,9 @@ public class MessageService extends GHAEJBExceptionService implements
 	@EJB
 	UILogServiceLocal service;
 
+	@EJB
+	SSOUserServiceRemote ssoUserService;
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -43,16 +48,38 @@ public class MessageService extends GHAEJBExceptionService implements
 	 * org.fourgeeks.gha.ejb.message.MessageServiceRemote#find(java.lang.String)
 	 */
 	@Override
-	public GHAMessage find(String Id) throws GHAEJBException {
+	public GHAMessage find(String id) throws GHAEJBException {
 		try {
+			final GHAMessage message = em.find(GHAMessage.class,
+					new GHAMessageId(id, RuntimeParameters.getLang()));
+			service.log(new UILog(null, message));
+			return message;
+		} catch (final Exception e) {
+			logger.log(Level.INFO, "ERROR: finding GHAMessage", e);
+			throw super.generateGHAEJBException("message-find-fail", em);
+		}
+	}
 
+	@Override
+	public GHAMessage find(String user, String id) throws GHAEJBException {
+		try {
 			final GHAMessage find = em.find(GHAMessage.class, new GHAMessageId(
-					Id, RuntimeParameters.getLang()));
-			service.log(new UILog(null, find));
+					id, RuntimeParameters.getLang()));
+			log(user, find);
 			return find;
 		} catch (final Exception e) {
 			logger.log(Level.INFO, "ERROR: finding GHAMessage", e);
 			throw super.generateGHAEJBException("message-find-fail", em);
+		}
+	}
+
+	private void log(String user, final GHAMessage find) throws GHAEJBException {
+		try {
+			final SSOUser ssoUser = ssoUserService.findByUsername(user);
+			service.log(new UILog(ssoUser.getBpu(), find));
+		} catch (final Exception e) {
+			logger.info("ERROR:user not found where it should be found");
+			service.log(new UILog(null, find));
 		}
 	}
 
@@ -70,37 +97,88 @@ public class MessageService extends GHAEJBExceptionService implements
 					.setParameter("language", RuntimeParameters.getLang())
 					.getResultList();
 
+			if (messages.size() == resultList.size())
+				return resultList;
+
 			// if not all the messages are returned
-			if (messages.size() != resultList.size()) {
-				final Map<String, Integer> keysFound = new TreeMap<String, Integer>();
-				final List<GHAMessage> res = new ArrayList<GHAMessage>();
+			final Map<String, Integer> keysFound = new TreeMap<String, Integer>();
+			final List<GHAMessage> res = new ArrayList<GHAMessage>();
 
-				// build a map with the keys found, map code, pos
-				for (int i = 0; i < resultList.size(); ++i) {
-					keysFound.put(resultList.get(i).getCode(), i);
-				}
-
-				// for each key to find
-				for (final String key : messages) {
-					// if it was found, add it to the final set
-					if (keysFound.containsKey(key)) {
-						res.add(resultList.get(keysFound.get(key)));
-					} else {
-						// else add a not found message with the key
-						final GHAMessage next = super.generateGHAEJBException(
-								"message-find-fail", em).getGhaMessage();
-
-						// if it is not a generic message
-						if (next.getCode().equals("message-find-fail")) {
-							// add the key to the message
-							next.setText(next.getText() + " " + key);
-						}
-						res.add(next);
-					}
-				}
-				return res;
+			// build a map with the keys found, map code, pos
+			for (int i = 0; i < resultList.size(); ++i) {
+				keysFound.put(resultList.get(i).getCode(), i);
 			}
-			return resultList;
+
+			// for each key to find
+			for (final String key : messages) {
+				// if it was found, add it to the final set
+				if (keysFound.containsKey(key)) {
+					res.add(resultList.get(keysFound.get(key)));
+				} else {
+					// else add a not found message with the key
+					final GHAMessage next = super.generateGHAEJBException(
+							"message-find-fail", em).getGhaMessage();
+
+					// if it is not a generic message
+					if (next.getCode().equals("message-find-fail")) {
+						// add the key to the message
+						next.setText(next.getText() + " " + key);
+					}
+					res.add(next);
+				}
+			}
+			return res;
+
+		} catch (final Exception e) {
+			logger.log(Level.INFO, "ERROR: finding GHAMessages", e);
+			throw super.generateGHAEJBException("message-find-fail", em);
+		}
+	}
+
+	@Override
+	public List<GHAMessage> find(String user, List<String> messages)
+			throws GHAEJBException {
+		try {
+			final List<GHAMessage> resultList = em
+					.createNamedQuery("GHAMessage.getAllByCodes",
+							GHAMessage.class).setParameter("codes", messages)
+					.setParameter("language", RuntimeParameters.getLang())
+					.getResultList();
+
+			for (final GHAMessage ghaMessage : resultList)
+				log(user, ghaMessage);
+
+			if (messages.size() == resultList.size())
+				return resultList;
+
+			// if not all the messages are returned
+			final Map<String, Integer> keysFound = new TreeMap<String, Integer>();
+			final List<GHAMessage> res = new ArrayList<GHAMessage>();
+
+			// build a map with the keys found, map code, pos
+			for (int i = 0; i < resultList.size(); ++i) {
+				keysFound.put(resultList.get(i).getCode(), i);
+			}
+
+			// for each key to find
+			for (final String key : messages) {
+				// if it was found, add it to the final set
+				if (keysFound.containsKey(key)) {
+					res.add(resultList.get(keysFound.get(key)));
+				} else {
+					// else add a not found message with the key
+					final GHAMessage next = super.generateGHAEJBException(
+							"message-find-fail", em).getGhaMessage();
+
+					// if it is not a generic message
+					if (next.getCode().equals("message-find-fail")) {
+						// add the key to the message
+						next.setText(next.getText() + " " + key);
+					}
+					res.add(next);
+				}
+			}
+			return res;
 
 		} catch (final Exception e) {
 			logger.log(Level.INFO, "ERROR: finding GHAMessages", e);

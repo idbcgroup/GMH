@@ -42,7 +42,7 @@ public class PatientTab extends GHATab {
 		VLayout bodyLayout = new VLayout();
 
 		addMember(bodyLayout);
-		addMember(new HMETools());
+		addMember(new EMHTools());
 
 		bodyLayout.addMember(new PatientTopForm());
 

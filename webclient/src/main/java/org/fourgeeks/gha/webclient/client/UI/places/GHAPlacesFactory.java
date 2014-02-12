@@ -9,6 +9,7 @@ import org.fourgeeks.gha.webclient.client.emh.EMHPlace;
 import org.fourgeeks.gha.webclient.client.login.ForgottenPassword.ForgottenPasswordPlace;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivityPlace;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanPlace;
+import org.fourgeeks.gha.webclient.client.res.RESPlace;
 import org.fourgeeks.gha.webclient.client.user.UserPlace;
 
 import com.google.gwt.core.client.GWT;
@@ -69,9 +70,9 @@ public class GHAPlacesFactory {
 				public void onSuccess() {
 					try {
 						GHAPlaceSet.showPlace(new EIATypePlace(token));
-					} catch (LoginNeededException e) {
+					} catch (final LoginNeededException e) {
 						// TODO
-					} catch (PermissionsNeededException e) {
+					} catch (final PermissionsNeededException e) {
 						History.newItem("home");
 					}
 				}
@@ -88,9 +89,9 @@ public class GHAPlacesFactory {
 				public void onSuccess() {
 					try {
 						GHAPlaceSet.showPlace(new EIAPlace(token));
-					} catch (LoginNeededException e) {
+					} catch (final LoginNeededException e) {
 						// TODO
-					} catch (PermissionsNeededException e) {
+					} catch (final PermissionsNeededException e) {
 						History.newItem("home");
 					}
 				}
@@ -107,9 +108,9 @@ public class GHAPlacesFactory {
 				public void onSuccess() {
 					try {
 						GHAPlaceSet.showPlace(new EDTPlace(token));
-					} catch (LoginNeededException e) {
+					} catch (final LoginNeededException e) {
 						// TODO
-					} catch (PermissionsNeededException e) {
+					} catch (final PermissionsNeededException e) {
 						History.newItem("home");
 					}
 				}
@@ -126,9 +127,9 @@ public class GHAPlacesFactory {
 				public void onSuccess() {
 					try {
 						GHAPlaceSet.showPlace(new MaintenancePlanPlace(token));
-					} catch (LoginNeededException e) {
+					} catch (final LoginNeededException e) {
 						// TODO
-					} catch (PermissionsNeededException e) {
+					} catch (final PermissionsNeededException e) {
 						History.newItem("home");
 					}
 				}
@@ -146,13 +147,13 @@ public class GHAPlacesFactory {
 					try {
 						GHAPlaceSet.showPlace(new MaintenanceActivityPlace(
 								token));
-					} catch (LoginNeededException e) {
+					} catch (final LoginNeededException e) {
 						// TODO
 						Window.alert(e.toString());
-					} catch (PermissionsNeededException e) {
+					} catch (final PermissionsNeededException e) {
 						History.newItem("home");
 						Window.alert(e.toString());
-					} catch (Exception e) {
+					} catch (final Exception e) {
 						Window.alert(e.toString());
 					}
 				}
@@ -169,9 +170,9 @@ public class GHAPlacesFactory {
 				public void onSuccess() {
 					try {
 						GHAPlaceSet.showPlace(new UserPlace(token));
-					} catch (LoginNeededException e) {
+					} catch (final LoginNeededException e) {
 						// TODO
-					} catch (PermissionsNeededException e) {
+					} catch (final PermissionsNeededException e) {
 						History.newItem("home");
 					}
 				}
@@ -188,9 +189,28 @@ public class GHAPlacesFactory {
 				public void onSuccess() {
 					try {
 						GHAPlaceSet.showPlace(new EMHPlace(token));
-					} catch (LoginNeededException e) {
+					} catch (final LoginNeededException e) {
 						// TODO
-					} catch (PermissionsNeededException e) {
+					} catch (final PermissionsNeededException e) {
+						History.newItem("home");
+					}
+				}
+
+				@Override
+				public void onFailure(Throwable reason) {
+
+				}
+			});
+		else if (token.startsWith("res"))
+			GWT.runAsync(new RunAsyncCallback() {
+
+				@Override
+				public void onSuccess() {
+					try {
+						GHAPlaceSet.showPlace(new RESPlace(token));
+					} catch (final LoginNeededException e) {
+						// TODO
+					} catch (final PermissionsNeededException e) {
 						History.newItem("home");
 					}
 				}
