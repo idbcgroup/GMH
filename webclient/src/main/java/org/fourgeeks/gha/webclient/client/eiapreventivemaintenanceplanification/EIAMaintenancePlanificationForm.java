@@ -18,11 +18,11 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHADateItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAExternalProviderSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHABspSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAJobSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenancePlanSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenancePlanStateSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenancePlanificationStateSelectItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHARoleSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
@@ -31,6 +31,8 @@ import org.fourgeeks.gha.webclient.client.eia.EIAUtil;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
+import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 
@@ -45,8 +47,8 @@ public class EIAMaintenancePlanificationForm extends
 	private Eia selectedEia;
 
 	private GHADynamicForm form;
-	private GHAExternalProviderSelectItem providerSelectItem;
-	private GHARoleSelectItem roleSelectItem;
+	private GHABspSelectItem providerSelectItem;
+	private GHAJobSelectItem roleSelectItem;
 	private GHADateItem scheduledDateDateItem;
 	private GHAMaintenancePlanStateSelectItem planStateSelectItem;
 	private GHAMaintenancePlanificationStateSelectItem planificationStateSelectItem;
@@ -56,15 +58,14 @@ public class EIAMaintenancePlanificationForm extends
 	{
 		listeners = new ArrayList<MaintenancePlanificationSelectionListener>();
 
-		roleSelectItem = new GHARoleSelectItem();
+		roleSelectItem = new GHAJobSelectItem();
 		roleSelectItem.addChangedHandler(changedHandler);
 		planificationStateSelectItem = new GHAMaintenancePlanificationStateSelectItem(
 				false, changedHandler);
 		planStateSelectItem = new GHAMaintenancePlanStateSelectItem(false,
 				changedHandler);
 		planStateSelectItem.setDisabled(true);
-		providerSelectItem = new GHAExternalProviderSelectItem(false,
-				changedHandler);
+		providerSelectItem = new GHABspSelectItem();
 		maintenacePlanSelectItem = new GHAMaintenancePlanSelectItem(true,
 				changedHandler);
 		maintenacePlanSelectItem.setColSpan(2);
@@ -72,6 +73,14 @@ public class EIAMaintenancePlanificationForm extends
 				changedHandler);
 
 		form = new GHADynamicForm(4, FormType.NORMAL_FORM);
+
+		providerSelectItem.addChangedHandler(new ChangedHandler() {
+			@Override
+			public void onChanged(ChangedEvent event) {
+				changedHandler.onChanged(event);
+				roleSelectItem.fill(providerSelectItem.getValueAsBsp());
+			}
+		});
 	}
 
 	/** */
@@ -196,7 +205,6 @@ public class EIAMaintenancePlanificationForm extends
 							callback.onSuccess(result);
 					}
 				});
-
 	}
 
 	@Override

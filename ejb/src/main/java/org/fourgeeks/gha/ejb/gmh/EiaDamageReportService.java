@@ -12,6 +12,7 @@ import javax.persistence.PersistenceContext;
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.Eia;
+import org.fourgeeks.gha.domain.gmh.EiaCorrectiveMaintenance;
 import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
@@ -84,14 +85,14 @@ public class EiaDamageReportService extends GHAEJBExceptionService implements
 		Eia eia = eiaDamageReport.getEia();
 		eia.setState(EiaStateEnum.DAMAGED);
 
-		// EiaCorrectiveMaintenance cmp = new EiaCorrectiveMaintenance();
-		// cmp.setDamageReport(eiaDamageReport);
-		// cmp.setDescription(eiaDamageReport.getDamageMotive());
+		EiaCorrectiveMaintenance cmp = new EiaCorrectiveMaintenance();
+		cmp.setDamageReport(eiaDamageReport);
+		cmp.setDescription(eiaDamageReport.getDamageMotive());
 
 		try {
 			em.merge(eia);
 			em.persist(eiaDamageReport);
-			// em.persist(cmp);
+			em.persist(cmp);
 			em.flush();
 
 			return em.find(EiaDamageReport.class, eiaDamageReport.getId());

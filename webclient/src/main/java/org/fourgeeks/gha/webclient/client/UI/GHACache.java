@@ -8,6 +8,7 @@ import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Facility;
 import org.fourgeeks.gha.domain.gar.Obu;
+import org.fourgeeks.gha.domain.glm.Bsp;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Eia;
@@ -22,6 +23,7 @@ import org.fourgeeks.gha.webclient.client.eiatype.EIATypeModel;
 import org.fourgeeks.gha.webclient.client.externalprovider.ExternalProviderModel;
 import org.fourgeeks.gha.webclient.client.facility.FacilityModel;
 import org.fourgeeks.gha.webclient.client.manufacturer.ManufacturerModel;
+import org.fourgeeks.gha.webclient.client.obu.BspModel;
 import org.fourgeeks.gha.webclient.client.obu.ObuModel;
 import org.fourgeeks.gha.webclient.client.rolebase.RoleModel;
 import org.fourgeeks.gha.webclient.client.user.UserModel;
@@ -55,6 +57,7 @@ public enum GHACache {
 	private List<Facility> facilities;
 	private List<Bpi> bpis;
 	private List<Bpu> bpus;
+	private List<Bsp> bsps;
 
 	{
 		// Inititalization of the invalidation policy
@@ -214,6 +217,29 @@ public enum GHACache {
 						callback.onSuccess(result);
 					}
 				});
+	}
+
+	/**
+	 * @param callback
+	 */
+	public void getBsps(GHAAsyncCallback<List<Bsp>> callback) {
+		// Avoiding synchronization problems
+		if (bsps == null)
+			getBspsServer(callback);
+		else
+			callback.onSuccess(bsps);
+
+	}
+
+	private void getBspsServer(final GHAAsyncCallback<List<Bsp>> callback) {
+		BspModel.getAll(new GHAAsyncCallback<List<Bsp>>() {
+
+			@Override
+			public void onSuccess(List<Bsp> result) {
+				bsps = result;
+				callback.onSuccess(result);
+			}
+		});
 	}
 
 	/**
