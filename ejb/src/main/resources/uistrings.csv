@@ -283,7 +283,7 @@ ES,maintenance-plan-name-tooltip,Este campo asigna el nombre al plan de mantenim
 ES,maintenance-plan-frequency-tooltip,Este campo asigna la frecuencia con la que se realiza el mantenimiento Ej 48
 ES,maintenance-plan-description-tooltip, Este campo especifica la descripcion del plan de mantenimiento
 ES,res,registro de salud
-ES,user-password,Confirme contraseña
+ES,user-password,Confirmar Clave
 ES,user-email-primary,Email Primario
 ES,user-email-second,Email Secundario
 ES,user-type-id,Tipo ID
@@ -325,3 +325,8 @@ ES,eia-moneda-local,Moneda Local
 ES,eia-duracion,Duración
 ES,eia-fecha-ultma-depreciacion,Fecha Ult. Depreciación
 ES,eia-costo-actual-libros,Costo Actual en libros
+ES,formatter-error-words,Error de formato solo se permiten letras
+ES,formatter-error-numbers,Error de formato solo se permiten numeros
+ES,formatter-error-alphanumeric,Error de formato solo se permiten letras numeros o guiones
+ES,formatter-error-serial,Error de formato solo se permiten letras numeros o guiones
+ES,formatter-error-codes,Error de formato solo se permiten letras y numeros
