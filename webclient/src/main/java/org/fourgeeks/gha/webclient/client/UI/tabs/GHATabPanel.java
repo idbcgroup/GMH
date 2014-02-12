@@ -34,6 +34,7 @@ public class GHATabPanel extends VLayout {
 	 * @param text
 	 * @param clickHandler
 	 * @param imgSrc
+	 *            Known values: "limpiarButton", "agregarButton", "cerrarButton"
 	 */
 	public void addHeaderOption(String text, String imgSrc,
 			ClickHandler clickHandler) {
@@ -52,7 +53,7 @@ public class GHATabPanel extends VLayout {
 	 * @param id
 	 */
 	public void showTab(String id) {
-		GHATab tab = getTabById(id);
+		final GHATab tab = getTabById(id);
 		if (tab == null)
 			return;
 		if (currentTab != null)

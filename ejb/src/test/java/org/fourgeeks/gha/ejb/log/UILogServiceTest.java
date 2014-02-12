@@ -1,5 +1,6 @@
 package org.fourgeeks.gha.ejb.log;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -382,7 +383,9 @@ public class UILogServiceTest {
 		}
 
 		try {
-			citizenServiceRemote.delete(citizen.getId());
+			final List<Citizen> citizens = new ArrayList<Citizen>();
+			citizens.add(citizen);
+			citizenServiceRemote.delete(citizens);
 		} catch (final GHAEJBException e) {
 		}
 

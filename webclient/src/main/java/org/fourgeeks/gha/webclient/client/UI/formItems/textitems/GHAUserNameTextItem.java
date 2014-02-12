@@ -17,7 +17,6 @@ public class GHAUserNameTextItem extends GHATextItem {
 	public GHAUserNameTextItem() {
 		super(GHAStrings.get("user"));
 		setLength(20);
-		setMask("AAAAAAAAAAAAAAAAAAAA");
 	}
 	
 	/**

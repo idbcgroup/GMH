@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.emh.patient;
+package org.fourgeeks.gha.webclient.client.res.citizen;
 
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabHeader;
@@ -19,38 +19,38 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class PatientTab extends GHATab {
+public class CitizenTab extends GHATab {
 
 	private final String patientId;
 
 	/**
-	 * @param patientId
+	 * @param ctiizenId
 	 * 
 	 */
-	public PatientTab(final String patientId) {
-		this.patientId = patientId;
+	public CitizenTab(final String ctiizenId) {
+		this.patientId = ctiizenId;
 		header = new GHATabHeader(this);
 		header.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				History.newItem("emh/" + patientId);
+				History.newItem("res/" + ctiizenId);
 			}
 		});
 		setVertical(false);
 
-		VLayout bodyLayout = new VLayout();
+		final VLayout bodyLayout = new VLayout();
 
 		addMember(bodyLayout);
-		addMember(new EMHTools());
+		addMember(new RESTools());
 
-		bodyLayout.addMember(new PatientTopForm());
+		bodyLayout.addMember(new CitizenTopForm());
 
-		HTMLFlow htmlFlow = new HTMLFlow();
+		final HTMLFlow htmlFlow = new HTMLFlow();
 		htmlFlow.setOverflow(Overflow.AUTO);
 		htmlFlow.setPadding(10);
 
-		String contents = "<b>Severity 1</b> - Critical problem<br>System is unavailable in production or "
+		final String contents = "<b>Severity 1</b> - Critical problem<br>System is unavailable in production or "
 				+ "is corrupting data, and the error severely impacts the user's operations."
 				+ "<br><br><b>Severity 2</b> - Major problem<br>An important function of the system "
 				+ "is not available in production, and the user's operations are restricted."
@@ -64,32 +64,32 @@ public class PatientTab extends GHATab {
 		sectionStack.setWidth(300);
 		sectionStack.setHeight(350);
 
-		SectionStackSection section1 = new SectionStackSection(
-				"Situacion actual paciente: " + patientId);
+		final SectionStackSection section1 = new SectionStackSection(
+				"Situacion actual paciente: " + ctiizenId);
 		section1.setExpanded(true);
 		section1.addItem(new Img("pieces/48/pawn_blue.png", 48, 48));
 		sectionStack.addSection(section1);
 
-		SectionStackSection section2 = new SectionStackSection(
+		final SectionStackSection section2 = new SectionStackSection(
 				"Atencion medica");
 		section2.setExpanded(true);
 		section2.setCanCollapse(true);
 		section2.addItem(htmlFlow);
 		sectionStack.addSection(section2);
 
-		SectionStackSection section3 = new SectionStackSection(
+		final SectionStackSection section3 = new SectionStackSection(
 				"Ordenes medicas");
 		section3.setExpanded(true);
 		section3.setCanCollapse(false);
 		section3.addItem(new Img("pieces/48/pawn_green.png", 48, 48));
 		sectionStack.addSection(section3);
 
-		SectionStackSection section4 = new SectionStackSection("ORH");
+		final SectionStackSection section4 = new SectionStackSection("ORH");
 		section4.setExpanded(false);
 		section4.addItem(new Img("pieces/48/piece_yellow.png", 48, 48));
 		sectionStack.addSection(section4);
 
-		HLayout layout = new HLayout();
+		final HLayout layout = new HLayout();
 		layout.setMembersMargin(20);
 		layout.addMember(sectionStack);
 

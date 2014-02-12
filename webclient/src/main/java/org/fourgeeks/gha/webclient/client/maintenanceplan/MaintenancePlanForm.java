@@ -80,15 +80,26 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 	{
 		nameItem = new GHATextItem(GHAStrings.get("name"), true, changedHandler);
 		nameItem.setLength(100);
+		nameItem.validateWords();
+		nameItem.setTooltip(GHAStrings.get("maintenance-name-tooltip"));
+
 		frequencyItem = new GHATextItem(GHAStrings.get("frecuency"), true,
 				changedHandler);
 		frequencyItem.setLength(3);
+		frequencyItem.validateNumbers();
+		frequencyItem.setTooltip(GHAStrings.get("maintenance-plan-frequency-tooltip"));
+
 		frecuencyPoTItem = new GHAPeriodOfTimeSelectItem(true, changedHandler);
+
 		descriptionItem = new GHATextAreaItem(GHAStrings.get("description"),
 				changedHandler);
 		descriptionItem.setColSpan(3);
+		descriptionItem.setTooltip(GHAStrings.get("maintenance-plan-description-tooltip"));
+
 		typeItem = new GHAMaintenancePlanTypeSelectItem(true, changedHandler);
+
 		stateItem = new GHAMaintenancePlanStateSelectItem(true, changedHandler);
+
 		cancelationOptionItem = new GHAMaintenancePlanCancelationOptionSelectItem(
 				true, changedHandler);
 		providerSelectItem = new GHABspSelectItem();

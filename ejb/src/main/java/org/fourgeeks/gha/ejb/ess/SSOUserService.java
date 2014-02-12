@@ -74,7 +74,7 @@ public class SSOUserService extends GHAEJBExceptionService implements
 
 			if (bpu.getCitizen() != null) {
 				final Citizen citizen = bpu.getCitizen();
-				final Join<Bpu, Citizen> joinCitizen = joinBpu.join("citizen");
+				final Join<Bpu, SSOUser> joinCitizen = joinBpu.join("citizen");
 
 				if (citizen.getFirstName() != null) {
 					final ParameterExpression<String> p = cb.parameter(

@@ -10,7 +10,7 @@ ES,LOGIN002,La clave de acceso es incorrecta,6
 ES,LOGIN003,Debe suministrar nombre de usuario y contraseña,6
 ES,LOGIN004,Usuario deshabilitado,6
 ES,LOGIN005,Usuario no registrado en el sistema,6
-ES,type-not-null,Debe indicar el tipo,6
+ES,type-not-null,Debe indicar la categoria,6
 ES,sub-type-not-null,Debe indicar el sub tipo,6
 ES,external-provider-not-null,Debe indicar el proveedor,6
 ES,name-not-null,Debe indicar el nombre,6
@@ -510,6 +510,8 @@ ES,eias-delete-confirm,¿Desea eliminar los equipos?,2
 ES,eiaComponent-delete-confirm,¿Desea eliminar el componente?,2
 ES,eiaComponents-delete-confirm,¿Desea eliminar los componentes?,2
 ES,ssoUser-delete-confirm,¿Desea eliminar al usuario?,2
+ES,citizen-delete-confirm,¿Desea eliminar al ciudadano?,2
+ES,citizens-delete-confirm,¿Desea eliminar estos ciudadanos?,2
 ES,unsaved-changes,Existen algunos cambios sin guardar ¿Realmente desea salir?,3
 ES,activity-delete-confirm,¿Desea eliminar la actividad?,2
 ES,activities-delete-confirm,¿Desea eliminar las actividades?,2
@@ -521,4 +523,5 @@ ES,server-error,Ha ocurrido un error inesperado con el servidor,4
 ES,message-not-null,Debe indicar el mensaje,6
 ES,message-save-fail,Error al intentar salvar un mensaje,6
 ES,message-delete-fail,Error al intentar borrar un mensaje,6
-ES,log-fail,error logueando,6
+ES,eiatype-name-error-formatter,Error de formato: El nombre solo puede contener letras,6
+ES,eiatype-model-error-formatter,Error de formato: El modelo solo puede contener letras numeros y guiones,6

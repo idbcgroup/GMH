@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.emh;
+package org.fourgeeks.gha.webclient.client.res;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.LoginNeededException;
@@ -7,9 +7,10 @@ import org.fourgeeks.gha.webclient.client.UI.places.GHAPlaceHeader;
 import org.fourgeeks.gha.webclient.client.UI.places.NeedPermissionPlace;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabPanel;
-import org.fourgeeks.gha.webclient.client.emh.patient.PatientTab;
+import org.fourgeeks.gha.webclient.client.citizen.CitizenAddForm;
+import org.fourgeeks.gha.webclient.client.citizen.CitizenSearchForm;
+import org.fourgeeks.gha.webclient.client.res.citizen.CitizenTab;
 
-import com.google.gwt.user.client.History;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 
@@ -17,37 +18,59 @@ import com.smartgwt.client.widgets.events.ClickHandler;
  * @author alacret
  * 
  */
-public class EMHPlace extends NeedPermissionPlace {
-	private final GHATabPanel tabPanel = new GHATabPanel(GHAStrings.get("emh"));
+public class RESPlace extends NeedPermissionPlace {
+	private final GHATabPanel tabPanel = new GHATabPanel(GHAStrings.get("res"));
+	private final CitizenAddForm citizenAddForm = new CitizenAddForm(
+			GHAStrings.get("citizen-new"));
+	private final CitizenSearchForm citizenSearchForm = new CitizenSearchForm(
+			GHAStrings.get("citizen-search"));
 
 	/**
 	 * @param token
 	 * @throws PermissionsNeededException
 	 * @throws LoginNeededException
 	 */
-	public EMHPlace(String token) throws LoginNeededException,
+	public RESPlace(String token) throws LoginNeededException,
 			PermissionsNeededException {
 		super(token);
 		header = new GHAPlaceHeader(this);
 		addMember(tabPanel);
-		tabPanel.addHeaderOption(GHAStrings.get("search"), "buscarButton",
+		tabPanel.addHeaderOption(GHAStrings.get("citizen-search"),
+				"buscarButton", new ClickHandler() {
+
+					@Override
+					public void onClick(ClickEvent event) {
+						citizenSearchForm.open();
+					}
+				});
+		tabPanel.addHeaderOption(GHAStrings.get("citizen-new"),
+				"agregarButton", new ClickHandler() {
+
+					@Override
+					public void onClick(ClickEvent event) {
+						citizenAddForm.open();
+					}
+				});
+		tabPanel.addHeaderOption(GHAStrings.get("close"), "cerrarButton",
 				new ClickHandler() {
 
 					@Override
 					public void onClick(ClickEvent event) {
-						History.newItem("emh/" + Math.round(Math.random() * 10));
+						// History.newItem("res/" + Math.round(Math.random() *
+						// 10));
 					}
 				});
+
 	}
 
 	@Override
 	public String getId() {
-		return "emh";
+		return "res";
 	}
 
 	@Override
 	public String getAcronym() {
-		return GHAStrings.get("emh");
+		return GHAStrings.get("res");
 	}
 
 	@Override
@@ -60,7 +83,7 @@ public class EMHPlace extends NeedPermissionPlace {
 		if (tab != null)
 			tabPanel.showTab(patientId);
 		else
-			tabPanel.addAndShow(new PatientTab(patientId));
+			tabPanel.addAndShow(new CitizenTab(patientId));
 	}
 
 }

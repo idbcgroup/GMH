@@ -13,15 +13,15 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 /**
  * @author emiliot
- *
+ * 
  */
 @RemoteServiceRelativePath("citizen")
-public interface GWTCitizenService extends RemoteService{
+public interface GWTCitizenService extends RemoteService {
 	/**
-	 * @param Id
+	 * @param citizens
 	 * @throws GHAEJBException
 	 */
-	public void delete(long Id) throws GHAEJBException;
+	public void delete(List<Citizen> citizens) throws GHAEJBException;
 
 	/**
 	 * @param citizen
@@ -36,7 +36,7 @@ public interface GWTCitizenService extends RemoteService{
 	 * @throws GHAEJBException
 	 */
 	public Citizen find(long Id) throws GHAEJBException;
-	
+
 	/**
 	 * @return the list of Citizens
 	 * @throws GHAEJBException

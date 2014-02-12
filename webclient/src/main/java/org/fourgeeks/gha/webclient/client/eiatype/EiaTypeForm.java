@@ -89,6 +89,28 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 		listeners = new ArrayList<EIATypeSelectionListener>();
 
 		form = new GHADynamicForm(4, FormType.NORMAL_FORM);
+
+		// Regex!
+
+		nameItem.validateWords();
+		nameItem.setTooltip(GHAStrings.get("eiatype-name-tooltip"));
+
+		modelItem.validateWords();
+		modelItem.setTooltip(GHAStrings.get("eiatype-model-tooltip"));
+
+		typeItem.setTooltip(GHAStrings.get("eiatype-type-tooltip"));
+
+		subTypeItem.setTooltip(GHAStrings.get("eiatype-subtype-tooltip"));
+		mobilityItem.setTooltip(GHAStrings.get("eiatype-mobility-tooltip"));
+		manItem.setTooltip(GHAStrings.get("eiatype-manufacturer-tooltip"));
+		brandItem.setTooltip(GHAStrings.get("eiatype-brand-tooltip"));
+		descriptionItem.setTooltip(GHAStrings
+				.get("eiatype-description-tooltip"));
+
+		useDescriptionItem.setTooltip(GHAStrings
+				.get("eiatype-use-description-tooltip"));
+		// Incierto si requiere validacion o no
+		// eiaUmdnsItem.validateWords();
 	}
 
 	/**
@@ -136,10 +158,7 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 		addMember(gridPanel);
 		fillMans(true);
 		fillExtras();
-		
-		nameItem.setValidators(GHATextItem.ALPHABETIC);
-		modelItem.setValidators(GHATextItem.ALPHABETIC);
-		eiaUmdnsItem.setValidators(GHATextItem.ALPHABETIC);
+
 	}
 
 	@Override
@@ -177,6 +196,7 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 	}
 
 	private EiaType extract(boolean update) {
+		final List<String> violationsList = new ArrayList<String>();
 		final EiaType eiaType = new EiaType();
 		if (update)
 			eiaType.setCode(this.originalEntity.getCode());
@@ -217,15 +237,10 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 					.getValueAsString()));
 		Set<ConstraintViolation<EiaType>> violations = null;
 		violations = validator.validate(eiaType);
-		if (!form.validate()) {
-			GHAAlertManager.alert("form-errors");
-			return null;
-		}
 
-		if (violations.isEmpty())
+		if (violations.isEmpty() && form.validate())
 			return eiaType;
 		else {
-			List<String> violationsList = new ArrayList<String>();
 			for (Iterator<ConstraintViolation<EiaType>> it = violations
 					.iterator(); it.hasNext();)
 				violationsList.add(it.next().getMessage());
@@ -421,6 +436,7 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 				if (callback != null)
 					callback.onSuccess(result);
 			}
+
 		});
 	}
 

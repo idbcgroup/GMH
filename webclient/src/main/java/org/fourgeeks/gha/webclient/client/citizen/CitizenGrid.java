@@ -1,6 +1,6 @@
-package org.fourgeeks.gha.webclient.client.user;
+package org.fourgeeks.gha.webclient.client.citizen;
 
-import org.fourgeeks.gha.domain.ess.SSOUser;
+import org.fourgeeks.gha.domain.mix.Citizen;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.grids.GhaGrid;
 import org.fourgeeks.gha.webclient.client.UI.grids.tree.GHATreeGridField;
@@ -9,19 +9,15 @@ import org.fourgeeks.gha.webclient.client.UI.grids.tree.GHATreeGridField;
  * @author alacret
  * 
  */
-public class UserGrid extends GhaGrid<SSOUser> {
+public class CitizenGrid extends GhaGrid<Citizen> {
 
 	/**
 	 * 
 	 */
-	public UserGrid() {
+	public CitizenGrid() {
 
-		setEmptyMessage(GHAStrings.get("empty-user-grid"));
+		setEmptyMessage(GHAStrings.get("empty-citizen-grid"));
 
-		final GHATreeGridField nameGridField = new GHATreeGridField("user",
-				GHAStrings.get("user"));
-		final GHATreeGridField blockGridField = new GHATreeGridField("block",
-				GHAStrings.get("state"));
 		final GHATreeGridField firstNameGridField = new GHATreeGridField(
 				"fname", GHAStrings.get("first-name"));
 		final GHATreeGridField lastNameGridField = new GHATreeGridField(
@@ -35,9 +31,8 @@ public class UserGrid extends GhaGrid<SSOUser> {
 		final GHATreeGridField birthDateGridField = new GHATreeGridField(
 				"bday", GHAStrings.get("birthdate"));
 
-		setFields(nameGridField, blockGridField, firstNameGridField,
-				lastNameGridField, idGridField, genderGridField,
-				nationalityGridField, birthDateGridField);
+		setFields(firstNameGridField, lastNameGridField, idGridField,
+				genderGridField, nationalityGridField, birthDateGridField);
 	}
 
 }

@@ -16,6 +16,7 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.webclient.client.bpi.BpiModel;
+import org.fourgeeks.gha.webclient.client.bpu.BpuModel;
 import org.fourgeeks.gha.webclient.client.brand.BrandModel;
 import org.fourgeeks.gha.webclient.client.buildinglocation.BuildingLocationModel;
 import org.fourgeeks.gha.webclient.client.eia.EIAModel;
@@ -26,7 +27,6 @@ import org.fourgeeks.gha.webclient.client.manufacturer.ManufacturerModel;
 import org.fourgeeks.gha.webclient.client.obu.BspModel;
 import org.fourgeeks.gha.webclient.client.obu.ObuModel;
 import org.fourgeeks.gha.webclient.client.rolebase.RoleModel;
-import org.fourgeeks.gha.webclient.client.user.UserModel;
 import org.fourgeeks.gha.webclient.client.workingarea.WorkingAreaModel;
 
 import com.google.gwt.user.client.Timer;
@@ -61,7 +61,7 @@ public enum GHACache {
 
 	{
 		// Inititalization of the invalidation policy
-		Timer t = new Timer() {
+		final Timer t = new Timer() {
 			@Override
 			public void run() {
 				invalidateCache();
@@ -374,6 +374,7 @@ public enum GHACache {
 
 	/**
 	 * @param callback
+	 * @param forceFromServer
 	 */
 	public void getBpus(GHAAsyncCallback<List<Bpu>> callback,
 			boolean forceFromServer) {
@@ -385,7 +386,7 @@ public enum GHACache {
 	}
 
 	private void getBpusFromServer(final GHAAsyncCallback<List<Bpu>> callback) {
-		UserModel.getAll(new GHAAsyncCallback<List<Bpu>>() {
+		BpuModel.getAll(new GHAAsyncCallback<List<Bpu>>() {
 			@Override
 			public void onSuccess(List<Bpu> result) {
 				bpus = result;
