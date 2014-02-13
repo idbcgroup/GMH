@@ -4,6 +4,7 @@ import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAInternalTabSet;
 import org.fourgeeks.gha.webclient.client.eia.component.EIAComponentSubTab;
 import org.fourgeeks.gha.webclient.client.eia.information.EIAInformationSubTab;
+import org.fourgeeks.gha.webclient.client.eia.reports.EIAReportsSubTab;
 
 import com.smartgwt.client.widgets.tab.Tab;
 
@@ -17,7 +18,7 @@ public class EIAInternalTabset extends GHAInternalTabSet implements
 	private final EIAInformationSubTab infoSubTab;
 	private final EIAComponentSubTab partsSubTab;
 
-	// private EIAReportsSubTab reportsSubTab;
+	private EIAReportsSubTab reportsSubTab;
 
 	// private EIAMaintPlanSubTab eiaPlanSubTab;
 	// private EIACostSubTab eiaCostsSubTab;
@@ -34,9 +35,9 @@ public class EIAInternalTabset extends GHAInternalTabSet implements
 		partsSubTab = new EIAComponentSubTab(eiaTab);
 		hideables.add(partsSubTab);
 		closables.add(partsSubTab);
-		// reportsSubTab = new EIAReportsSubTab(eiaTab);
-		// hideables.add(reportsSubTab);
-		// closables.add(reportsSubTab);
+		reportsSubTab = new EIAReportsSubTab(eiaTab);
+		hideables.add(reportsSubTab);
+		closables.add(reportsSubTab);
 		// eiaPlanSubTab = new EIAMaintPlanSubTab(eiaTab);
 		// eiaCostsSubTab = new EIACostSubTab(eiaTab);
 		// eiaMovementsSubTab = new EIAMovementsSubTab(eiaTab);
@@ -44,7 +45,7 @@ public class EIAInternalTabset extends GHAInternalTabSet implements
 		// Agregando las Subtabs
 		addTab(infoSubTab);
 		addTab(partsSubTab);
-		// addTab(reportsSubTab);
+		addTab(reportsSubTab);
 		// addTab(eiaPlanSubTab);
 		// addTab(eiaCostsSubTab);
 		// addTab(eiaMovementsSubTab);
@@ -80,6 +81,8 @@ public class EIAInternalTabset extends GHAInternalTabSet implements
 		Tab selectedTab = getSelectedTab();
 		if (selectedTab == infoSubTab)
 			infoSubTab.show();
+		if (selectedTab == reportsSubTab)
+			reportsSubTab.getPane().show();
 
 		super.show();
 	}
