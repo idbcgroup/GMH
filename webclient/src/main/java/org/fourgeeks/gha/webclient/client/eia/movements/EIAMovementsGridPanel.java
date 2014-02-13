@@ -15,13 +15,13 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class EIAMovementsGridPanel extends VLayout implements
-		EIATypeSelectionListener, ClosableListener, HideableListener {
+EIATypeSelectionListener, ClosableListener, HideableListener {
 
 	private EIAMovementsGrid eiaMovementsGrid = new EIAMovementsGrid();
 
 	public EIAMovementsGridPanel() {
 		setWidth100();
-		setMinWidth(1024);
+		setMinWidth(GHAUiHelper.MIN_WIDTH);
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 
@@ -38,11 +38,11 @@ public class EIAMovementsGridPanel extends VLayout implements
 				new GHAImgButton("../resources/icons/delete.png"),
 				new GHAImgButton("../resources/icons/set.png",
 						new ClickHandler() {
-							@Override
-							public void onClick(ClickEvent event) {
-								// TODO Auto-generated method stub
-							}
-						}));
+					@Override
+					public void onClick(ClickEvent event) {
+						// TODO Auto-generated method stub
+					}
+				}));
 
 		HLayout mainPanel = new HLayout();
 		mainPanel.addMembers(eiaMovementsGrid, sideButtons);
@@ -51,9 +51,13 @@ public class EIAMovementsGridPanel extends VLayout implements
 	}
 
 	@Override
-	public void select(EiaType eiaType) {
-		// TODO Auto-generated method stub
+	public boolean canBeClosen(HideCloseAction hideAction) {
+		return true;
+	}
 
+	@Override
+	public boolean canBeHidden(HideCloseAction hideAction) {
+		return true;
 	}
 
 	@Override
@@ -69,13 +73,9 @@ public class EIAMovementsGridPanel extends VLayout implements
 	}
 
 	@Override
-	public boolean canBeHidden(HideCloseAction hideAction) {
-		return true;
-	}
+	public void select(EiaType eiaType) {
+		// TODO Auto-generated method stub
 
-	@Override
-	public boolean canBeClosen(HideCloseAction hideAction) {
-		return true;
 	}
 
 }

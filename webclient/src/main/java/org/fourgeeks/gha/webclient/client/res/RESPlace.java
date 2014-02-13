@@ -11,6 +11,7 @@ import org.fourgeeks.gha.webclient.client.citizen.CitizenAddForm;
 import org.fourgeeks.gha.webclient.client.citizen.CitizenSearchForm;
 import org.fourgeeks.gha.webclient.client.res.citizen.CitizenTab;
 
+import com.google.gwt.user.client.History;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 
@@ -48,7 +49,8 @@ public class RESPlace extends NeedPermissionPlace {
 
 					@Override
 					public void onClick(ClickEvent event) {
-						citizenAddForm.open();
+						// citizenAddForm.open();
+						History.newItem("res/" + Math.round(Math.random() * 10));
 					}
 				});
 		tabPanel.addHeaderOption(GHAStrings.get("close"), "cerrarButton",

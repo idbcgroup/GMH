@@ -19,7 +19,7 @@ import com.smartgwt.client.widgets.tab.TabSet;
  * 
  */
 public abstract class GHAInternalTabSet extends TabSet implements
-		ResizeHandler, HideableListener, ClosableListener {
+ResizeHandler, HideableListener, ClosableListener {
 
 	protected List<HideableListener> hideables = new ArrayList<HideableListener>();
 	protected List<ClosableListener> closables = new ArrayList<ClosableListener>();
@@ -30,7 +30,7 @@ public abstract class GHAInternalTabSet extends TabSet implements
 	public GHAInternalTabSet(GHAPanel tab) {
 		GHAUiHelper.addGHAResizeHandler(this);
 		setWidth100();
-		setMinWidth(1024);
+		setMinWidth(GHAUiHelper.MIN_WIDTH);
 		setHeight(GHAUiHelper.getBottomSectionHeight());
 		setVisible(false);
 	}
