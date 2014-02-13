@@ -128,7 +128,7 @@ public class CitizenRESTopForm extends GHAHorizontalLayout {
 	{
 
 		centerLayout.setPadding(5);
-		centerLayout.setWidth(200);
+		centerLayout.setWidth(100);
 		centerLayout.addMember(addOption);
 	}
 
@@ -139,7 +139,7 @@ public class CitizenRESTopForm extends GHAHorizontalLayout {
 	private final VLayout alertLayout = new VLayout();
 	{
 		rightSideLayout.setPadding(5);
-		rightSideLayout.setWidth(220);
+		rightSideLayout.setWidth(200);
 		rightSideLayout.addMembers(photoImg, alertLayout);
 		rightSideLayout.setBackgroundColor("white");
 		alertLayout.addMembers(new GHAAlertLabel("Alergia", "yellow"),
