@@ -23,15 +23,15 @@ public class EIADamageAndPlanificationSubTab extends GHASubTab implements
 		EiaDamageReportSelectionProducer {
 
 	private EiaDamageReportGridPanel damageReportPanel;
-	private EIAMaintenancePlanificationGridPanel maintenancePlanifPanel;
-	private EIAPreventiveMaintenancePlanificationGridPanel preventivePlanifPanel;
+	private EIAMaintenanceGridPanel maintenancePlanifPanel;
+	private EIAMaintenancePlanificationGridPanel preventivePlanifPanel;
 	private GHASectionForm sectionForm;
 
 	{
 		sectionForm = new GHASectionForm();
 		damageReportPanel = new EiaDamageReportGridPanel();
-		maintenancePlanifPanel = new EIAMaintenancePlanificationGridPanel();
-		preventivePlanifPanel = new EIAPreventiveMaintenancePlanificationGridPanel();
+		maintenancePlanifPanel = new EIAMaintenanceGridPanel();
+		preventivePlanifPanel = new EIAMaintenancePlanificationGridPanel();
 	}
 
 	/**
@@ -55,7 +55,7 @@ public class EIADamageAndPlanificationSubTab extends GHASubTab implements
 		damageReportPanel
 				.addEiaDamageReportSelectionListener(maintenancePlanifPanel);
 		preventivePlanifPanel
-				.addPreventivePlanificationSelectionListener(maintenancePlanifPanel);
+				.addMaintenancePlanificationSelectionListener(maintenancePlanifPanel);
 
 		// section form
 		sectionForm.addSection("Reporte Equipo Dañado", damageReportPanel);

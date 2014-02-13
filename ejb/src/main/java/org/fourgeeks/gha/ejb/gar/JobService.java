@@ -24,7 +24,6 @@ import org.fourgeeks.gha.domain.gar.JobCategory;
 import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.gmh.ServiceAndResource;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
-import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
  * @author alacret, vivi.torresg
@@ -77,8 +76,7 @@ public class JobService extends GHAEJBExceptionService implements
 			em.remove(entity);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete Job", e);
-			throw super.generateGHAEJBException("obu-delete-fail",
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException("obu-delete-fail", em);
 		}
 	}
 
@@ -88,8 +86,7 @@ public class JobService extends GHAEJBExceptionService implements
 			return em.find(Job.class, Id);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: finding Job", e);
-			throw super.generateGHAEJBException("job-find-fail",
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException("job-find-fail", em);
 		}
 	}
 
@@ -131,8 +128,7 @@ public class JobService extends GHAEJBExceptionService implements
 
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding Job by Job", e);
-			throw super.generateGHAEJBException("job-findByJob-fail",
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException("job-findByJob-fail", em);
 		}
 	}
 
@@ -142,8 +138,7 @@ public class JobService extends GHAEJBExceptionService implements
 			return em.createNamedQuery("Job.getAll", Job.class).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all Job", ex);
-			throw super.generateGHAEJBException("job-getAll-fail",
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException("job-getAll-fail", em);
 		}
 	}
 
@@ -155,8 +150,7 @@ public class JobService extends GHAEJBExceptionService implements
 			return em.find(Job.class, entity.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving Job ", e);
-			throw super.generateGHAEJBException("job-save-fail",
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException("job-save-fail", em);
 		}
 
 	}
@@ -169,8 +163,7 @@ public class JobService extends GHAEJBExceptionService implements
 			return res;
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to update Job ", e);
-			throw super.generateGHAEJBException("job-update-fail",
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException("job-update-fail", em);
 		}
 	}
 }

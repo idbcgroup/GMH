@@ -62,7 +62,7 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 				changedHandler);
 		passwordItem.setTooltip(GHAStrings.get("user-password-tooltip"));
 		passwordItem.setLength(20);
-		confirmPasswordItem = new GHATextItem("Confirme contraseña", true,
+		confirmPasswordItem = new GHATextItem(GHAStrings.get("user-password"), true,
 				changedHandler);
 		confirmPasswordItem.setLength(20);
 		confirmPasswordItem.setTooltip(GHAStrings
@@ -95,21 +95,23 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 		secondLastNameItem.setTooltip(GHAStrings
 				.get("user-tooltip-secondlast-name"));
 		secondLastNameItem.validateWords();
-
-		primaryEmailItem = new GHAEmailTextItem("Email Primario",
+		
+		primaryEmailItem = new GHAEmailTextItem(GHAStrings.get("user-email-primary"),
 				changedHandler);
 		primaryEmailItem.setTooltip(GHAStrings.get("user-tooltip-email"));
 
-		alternativeEmailItem = new GHAEmailTextItem("Email Secundario",
+		alternativeEmailItem = new GHAEmailTextItem(GHAStrings.get("user-email-second"),
 				changedHandler);
 
 		alternativeEmailItem.setTooltip(GHAStrings
 				.get("user-tooltip-email-secundario"));
 
-		typeidSelectItem = new GHASelectItem("Tipo ID", true, changedHandler);
+		typeidSelectItem = new GHASelectItem(GHAStrings
+				.get("user-type-id"), true, changedHandler);
 		typeidSelectItem.setTooltip(GHAStrings.get("user-tooltip-tipo-id"));
 
-		idItem = new GHATextItem("No. Identificiación", true, changedHandler);
+		idItem = new GHATextItem(GHAStrings
+				.get("user-identification"), true, changedHandler);
 		idItem.setLength(20);
 		idItem.validateCustomExpre(
 				GHAStrings.get("user-error-formatter-identification"),
@@ -118,10 +120,10 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 		idItem.setValidateOnExit(false);
 		idItem.setTooltip(GHAStrings.get("user-tooltip-identification"));
 
-		genderSelectItem = new GHASelectItem("Género", true, changedHandler);
+		genderSelectItem = new GHASelectItem(GHAStrings.get("user-genero"), true, changedHandler);
 		genderSelectItem.setTooltip(GHAStrings.get("user-tooltip-genero"));
 
-		nationalityItem = new GHATextItem("Nacionalidad", false, changedHandler);
+		nationalityItem = new GHATextItem(GHAStrings.get("user-nacionalidad"), false, changedHandler);
 		nationalityItem.setLength(20);
 		nationalityItem.setTooltip(GHAStrings.get("user-tooltip-nacionalidad"));
 		nationalityItem.validateWords();
@@ -130,12 +132,12 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 		birthDateItem.setUseMask(true);
 		birthDateItem.setTooltip(GHAStrings.get("user-tooltip-birthdate"));
 		
-		bpiSelectItem = new GHASelectItem("Institución");
+		bpiSelectItem = new GHASelectItem(GHAStrings.get("user-institution"));
 		bpiSelectItem.setRequired(true);
 		bpiSelectItem.addChangedHandler(changedHandler);
 		bpiSelectItem.setTooltip(GHAStrings.get("user-tooltip-institution"));
 
-		legalEntityIdentifierItem = new GHATextItem("R.I.F.", false,
+		legalEntityIdentifierItem = new GHATextItem(GHAStrings.get("user-rif"), false,
 				changedHandler);
 		legalEntityIdentifierItem.setLength(17);
 		legalEntityIdentifierItem.validateCustomExpre(

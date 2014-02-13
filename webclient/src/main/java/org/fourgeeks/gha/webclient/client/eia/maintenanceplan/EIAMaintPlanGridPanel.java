@@ -15,13 +15,13 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class EIAMaintPlanGridPanel extends VLayout implements
-		EIATypeSelectionListener, ClosableListener, HideableListener {
+EIATypeSelectionListener, ClosableListener, HideableListener {
 
 	private EIAMaintPlanGrid eiaTypeMaintenancePlanGrid = new EIAMaintPlanGrid();
 
 	public EIAMaintPlanGridPanel() {
 		setWidth100();
-		setMinWidth(1024);
+		setMinWidth(GHAUiHelper.MIN_WIDTH);
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 
@@ -35,7 +35,7 @@ public class EIAMaintPlanGridPanel extends VLayout implements
 					}
 				}), new GHAImgButton("../resources/icons/edit.png"),
 				new GHAImgButton("../resources/icons/delete.png"), GHAUiHelper
-						.verticalGraySeparator("2px"), new GHAImgButton(
+				.verticalGraySeparator("2px"), new GHAImgButton(
 						"../resources/icons/set.png", new ClickHandler() {
 							@Override
 							public void onClick(ClickEvent event) {
@@ -50,9 +50,13 @@ public class EIAMaintPlanGridPanel extends VLayout implements
 	}
 
 	@Override
-	public void select(EiaType eiaType) {
-		// TODO Auto-generated method stub
+	public boolean canBeClosen(HideCloseAction hideAction) {
+		return true;
+	}
 
+	@Override
+	public boolean canBeHidden(HideCloseAction hideAction) {
+		return true;
 	}
 
 	@Override
@@ -68,12 +72,8 @@ public class EIAMaintPlanGridPanel extends VLayout implements
 	}
 
 	@Override
-	public boolean canBeHidden(HideCloseAction hideAction) {
-		return true;
-	}
+	public void select(EiaType eiaType) {
+		// TODO Auto-generated method stub
 
-	@Override
-	public boolean canBeClosen(HideCloseAction hideAction) {
-		return true;
 	}
 }

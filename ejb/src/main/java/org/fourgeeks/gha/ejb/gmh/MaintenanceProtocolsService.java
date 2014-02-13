@@ -23,7 +23,6 @@ import org.fourgeeks.gha.domain.gmh.MaintenanceProtocolStadisticData;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.GHAUtil;
-import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
  * Session Bean implementation class MaintenanceProtocolsService
@@ -98,8 +97,7 @@ public class MaintenanceProtocolsService extends GHAEJBExceptionService
 			logger.log(Level.INFO, msgError, e);
 
 			final String messageCode = "maintenanceProtocol-copyActivities-fail";
-			throw super.generateGHAEJBException(messageCode,
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException(messageCode, em);
 		}
 	}
 
@@ -139,8 +137,7 @@ public class MaintenanceProtocolsService extends GHAEJBExceptionService
 			logger.log(Level.INFO, msgError, e);
 
 			final String messageCode = "maintenanceProtocol-delete-fail";
-			throw super.generateGHAEJBException(messageCode,
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException(messageCode, em);
 		}
 
 	}
@@ -173,8 +170,7 @@ public class MaintenanceProtocolsService extends GHAEJBExceptionService
 			logger.log(Level.INFO, msgError, e);
 
 			final String messageCode = "maintenanceProtocol-delete-fail";
-			throw super.generateGHAEJBException(messageCode,
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException(messageCode, em);
 		}
 	}
 
@@ -198,8 +194,7 @@ public class MaintenanceProtocolsService extends GHAEJBExceptionService
 			logger.log(Level.INFO, msgError, e);
 
 			final String messageCode = "maintenanceProtocol-delete-fail";
-			throw super.generateGHAEJBException(messageCode,
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException(messageCode, em);
 		}
 	}
 
@@ -222,8 +217,7 @@ public class MaintenanceProtocolsService extends GHAEJBExceptionService
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding by MaintenanceProtocols", e);
 			throw super.generateGHAEJBException(
-					"maintenanceProtocol-findByMaintenancePlan-fail",
-					RuntimeParameters.getLang(), em);
+					"maintenanceProtocol-findByMaintenancePlan-fail", em);
 		}
 	}
 
@@ -277,8 +271,7 @@ public class MaintenanceProtocolsService extends GHAEJBExceptionService
 			logger.log(Level.INFO, stringMsg, e);
 
 			String messageCode = "maintenanceProtocol-getStadisticInfo-fail";
-			throw super.generateGHAEJBException(messageCode,
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException(messageCode, em);
 		}
 	}
 
@@ -308,8 +301,7 @@ public class MaintenanceProtocolsService extends GHAEJBExceptionService
 			logger.log(Level.INFO, msgError, e);
 
 			final String messageCode = "maintenanceProtocol-save-fail";
-			throw super.generateGHAEJBException(messageCode,
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException(messageCode, em);
 		}
 	}
 
@@ -335,8 +327,7 @@ public class MaintenanceProtocolsService extends GHAEJBExceptionService
 			logger.log(Level.INFO, msgError, e);
 
 			final String messageCode = "maintenanceProtocol-save-fail";
-			throw super.generateGHAEJBException(messageCode,
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException(messageCode, em);
 		}
 	}
 

@@ -24,141 +24,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class GHASectionForm extends HLayout implements HideableListener,
-		ClosableListener {
-
-	private VLayout options;
-	private VLayout mainSection;
-	private Option selectedOption;
-	private List<Option> optionList;
-	{
-		optionList = new ArrayList<Option>();
-		options = new VLayout();
-		options.setWidth(GHAUiHelper.SECTION_FORM_OPTION_WIDTH);
-		options.setMembersMargin(3);
-		options.setStyleName("margin-right");
-		mainSection = new VLayout();
-		selectedOption = null;
-	}
-
-	/**
-	 * 
-	 */
-	public GHASectionForm() {
-		addStyleName("padding-top");
-		setWidth100();
-		setMinWidth(1024);
-		setMembersMargin(10);
-		addMember(options);
-		addMember(GHAUiHelper.horizontalGraySeparator("3px"));
-		addMember(mainSection);
-	}
-
-	/**
-	 * @param name
-	 * @param sect
-	 * @param open
-	 */
-	@Deprecated
-	public void addSection(String name, final Canvas sect, boolean open) {
-		HLayout section = new HLayout();
-		section.addMembers(sect, new LayoutSpacer());
-
-		mainSection.addMembers(section);
-		section.setVisibility(Visibility.HIDDEN);
-
-		final Option option = new Option(name, section);
-		option.addClickHandler(new com.google.gwt.event.dom.client.ClickHandler() {
-
-			@Override
-			public void onClick(com.google.gwt.event.dom.client.ClickEvent event) {
-				for (Option option : optionList)
-					option.deactivate();
-				option.activate();
-				selectedOption = option;
-			}
-		});
-		options.addMember(option);
-
-		if (open)
-			option.activate();
-
-		optionList.add(option);
-	}
-
-	/**
-	 * Adds a new section
-	 * 
-	 * @param name
-	 * @param sect
-	 */
-	public void addSection(String name, final Canvas sect) {
-		HLayout section = new HLayout();
-		// Window.alert("2X");
-		section.addMembers(sect, new LayoutSpacer());
-		// Window.alert("3X");
-
-		mainSection.addMembers(section);
-		section.setVisibility(Visibility.HIDDEN);
-
-		final Option option = new Option(name, section);
-		option.addClickHandler(new com.google.gwt.event.dom.client.ClickHandler() {
-			@Override
-			public void onClick(com.google.gwt.event.dom.client.ClickEvent event) {
-				for (Option option : optionList)
-					option.deactivate();
-				option.activate();
-				selectedOption = option;
-			}
-		});
-		options.addMember(option);
-		optionList.add(option);
-	}
-
-	/**
-	 * @return Seccion de la opcion seleccionada o null si no se selecciono
-	 *         ninguna opcion
-	 */
-	public Canvas getSelectedOptionForm() {
-		if (selectedOption != null)
-			return selectedOption.getSection().getChildren()[0];
-		return null;
-	}
-
-	/**
-	 * Open the first section
-	 */
-	public void openFirst() {
-		Option option = optionList.get(0);
-		if (option != null) {
-			option.activate();
-			selectedOption = option;
-		}
-	}
-
-	/**
-	 * 
-	 */
-	public void openSelectedSection() {
-		if (selectedOption != null)
-			selectedOption.activate();
-		else
-			openFirst();
-	}
-
-	/**
-	 * 
-	 */
-	public void addSectionSeparator() {
-		options.addMember(GHAUiHelper.verticalGraySeparator("2px"));
-	}
-
-	/**
-	 * 
-	 */
-	public void deactivate() {
-		for (Option option : optionList)
-			option.deactivate();
-	}
+ClosableListener {
 
 	static class Option extends HTML {
 		private Canvas section;
@@ -203,22 +69,100 @@ public class GHASectionForm extends HLayout implements HideableListener,
 		}
 
 	}
+	private VLayout options;
+	private VLayout mainSection;
+	private Option selectedOption;
+	private List<Option> optionList;
 
-	@Override
-	public void close() {
-		deactivate();
+	{
+		optionList = new ArrayList<Option>();
+		options = new VLayout();
+		options.setWidth(GHAUiHelper.SECTION_FORM_OPTION_WIDTH);
+		options.setMembersMargin(3);
+		options.setStyleName("margin-right");
+		mainSection = new VLayout();
+		selectedOption = null;
 	}
 
-	@Override
-	public void show() {
-		openSelectedSection();
-		super.show();
+	/**
+	 * 
+	 */
+	public GHASectionForm() {
+		addStyleName("padding-top");
+		setWidth100();
+		setMinWidth(GHAUiHelper.MIN_WIDTH);
+		setMembersMargin(10);
+		addMember(options);
+		addMember(GHAUiHelper.horizontalGraySeparator("3px"));
+		addMember(mainSection);
 	}
 
-	@Override
-	public void hide() {
-		deactivate();
-		super.hide();
+	/**
+	 * Adds a new section
+	 * 
+	 * @param name
+	 * @param sect
+	 */
+	public void addSection(String name, final Canvas sect) {
+		HLayout section = new HLayout();
+		// Window.alert("2X");
+		section.addMembers(sect, new LayoutSpacer());
+		// Window.alert("3X");
+
+		mainSection.addMembers(section);
+		section.setVisibility(Visibility.HIDDEN);
+
+		final Option option = new Option(name, section);
+		option.addClickHandler(new com.google.gwt.event.dom.client.ClickHandler() {
+			@Override
+			public void onClick(com.google.gwt.event.dom.client.ClickEvent event) {
+				for (Option option : optionList)
+					option.deactivate();
+				option.activate();
+				selectedOption = option;
+			}
+		});
+		options.addMember(option);
+		optionList.add(option);
+	}
+
+	/**
+	 * @param name
+	 * @param sect
+	 * @param open
+	 */
+	@Deprecated
+	public void addSection(String name, final Canvas sect, boolean open) {
+		HLayout section = new HLayout();
+		section.addMembers(sect, new LayoutSpacer());
+
+		mainSection.addMembers(section);
+		section.setVisibility(Visibility.HIDDEN);
+
+		final Option option = new Option(name, section);
+		option.addClickHandler(new com.google.gwt.event.dom.client.ClickHandler() {
+
+			@Override
+			public void onClick(com.google.gwt.event.dom.client.ClickEvent event) {
+				for (Option option : optionList)
+					option.deactivate();
+				option.activate();
+				selectedOption = option;
+			}
+		});
+		options.addMember(option);
+
+		if (open)
+			option.activate();
+
+		optionList.add(option);
+	}
+
+	/**
+	 * 
+	 */
+	public void addSectionSeparator() {
+		options.addMember(GHAUiHelper.verticalGraySeparator("2px"));
 	}
 
 	@Override
@@ -229,5 +173,61 @@ public class GHASectionForm extends HLayout implements HideableListener,
 	@Override
 	public boolean canBeHidden(HideCloseAction hideAction) {
 		return true;
+	}
+
+	@Override
+	public void close() {
+		deactivate();
+	}
+
+	/**
+	 * 
+	 */
+	public void deactivate() {
+		for (Option option : optionList)
+			option.deactivate();
+	}
+
+	/**
+	 * @return Seccion de la opcion seleccionada o null si no se selecciono
+	 *         ninguna opcion
+	 */
+	public Canvas getSelectedOptionForm() {
+		if (selectedOption != null)
+			return selectedOption.getSection().getChildren()[0];
+		return null;
+	}
+
+	@Override
+	public void hide() {
+		deactivate();
+		super.hide();
+	}
+
+	/**
+	 * Open the first section
+	 */
+	public void openFirst() {
+		Option option = optionList.get(0);
+		if (option != null) {
+			option.activate();
+			selectedOption = option;
+		}
+	}
+
+	/**
+	 * 
+	 */
+	public void openSelectedSection() {
+		if (selectedOption != null)
+			selectedOption.activate();
+		else
+			openFirst();
+	}
+
+	@Override
+	public void show() {
+		openSelectedSection();
+		super.show();
 	}
 }

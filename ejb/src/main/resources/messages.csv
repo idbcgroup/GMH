@@ -10,7 +10,7 @@ ES,LOGIN002,La clave de acceso es incorrecta,6
 ES,LOGIN003,Debe suministrar nombre de usuario y contraseña,6
 ES,LOGIN004,Usuario deshabilitado,6
 ES,LOGIN005,Usuario no registrado en el sistema,6
-ES,type-not-null,Debe indicar el tipo,6
+ES,type-not-null,Debe indicar la categoria,6
 ES,sub-type-not-null,Debe indicar el sub tipo,6
 ES,external-provider-not-null,Debe indicar el proveedor,6
 ES,name-not-null,Debe indicar el nombre,6
