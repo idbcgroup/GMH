@@ -240,6 +240,9 @@ public abstract class GHADialog extends Dialog implements ResizeHandler {
 	
 	@Override
 	public void onResize(ResizeEvent event) {
+		//
+		//
+		//
 		if (isVisible()) {
 			final int windowWidth = Window.getClientWidth() > GHAUiHelper.MIN_WIDTH ? Window
 					.getClientWidth() : GHAUiHelper.MIN_WIDTH;
