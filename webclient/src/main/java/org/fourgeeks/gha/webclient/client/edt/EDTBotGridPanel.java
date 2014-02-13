@@ -18,7 +18,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class EDTBotGridPanel extends GHAVerticalLayout implements
-		ClosableListener {
+ClosableListener {
 
 	private EDTBotGrid botGrid;
 	{
@@ -32,7 +32,7 @@ public class EDTBotGridPanel extends GHAVerticalLayout implements
 		super();
 		setStyleName("sides-padding");// Esto es VUDU!
 		setWidth100();
-		setMinWidth(1024);
+		setMinWidth(GHAUiHelper.MIN_WIDTH);
 
 		setBackgroundColor("#E0E0E0");
 
@@ -47,19 +47,19 @@ public class EDTBotGridPanel extends GHAVerticalLayout implements
 						// TODO: Funcion que guarde
 					}
 				}), new GHAImgButton("../resources/icons/undo.png",
-				new ClickHandler() {
+						new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
 						// TODO Auto-generated method stub
 
 					}
 				}), GHAUiHelper.verticalGraySeparator("2px"), new GHAImgButton(
-				"../resources/icons/new.png", new ClickHandler() {
-					@Override
-					public void onClick(ClickEvent event) {
-						// TODO: Funcion que agregue una actividad
-					}
-				}));
+						"../resources/icons/new.png", new ClickHandler() {
+							@Override
+							public void onClick(ClickEvent event) {
+								// TODO: Funcion que agregue una actividad
+							}
+						}));
 
 		HLayout mainpanel = new HLayout();
 		mainpanel.addMembers(botGrid, sideButtons);

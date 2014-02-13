@@ -1,10 +1,11 @@
-package org.fourgeeks.gha.webclient.client.res.citizen;
+package org.fourgeeks.gha.webclient.client.res.citizen.top;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImg;
 import org.fourgeeks.gha.webclient.client.UI.panels.GHAHeaderOption;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAAlertLabel;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAHorizontalLayout;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATextLabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATitleLabel;
 
@@ -16,7 +17,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class CitizenTopForm extends HLayout {
+public class CitizenRESTopForm extends GHAHorizontalLayout {
 	// labels
 	private final GHATitleLabel documentTypeTitleLabel = new GHATitleLabel(
 			"Cédula:" + GHAUiHelper.BLANK_SPACE);// TODO document type value
@@ -156,13 +157,13 @@ public class CitizenTopForm extends HLayout {
 	/**
 	 * 
 	 */
-	public CitizenTopForm() {
-		setWidth100();
+	public CitizenRESTopForm() {
 		setHeight(GHAUiHelper.DEFAULT_PATIENT_TOP_HEIGHT);
-		setBackgroundColor(GHAUiHelper.DEFAULT_BACKGROUND_COLOR);
+		setBackgroundColor("#FFFF4D");// TODO
 		addMember(leftSideLayout);
 		addMember(centerLayout);
 		addMember(rightSideLayout);
+		addMember(new CitizenRESTopTools());
 	}
 
 	private static class SmallBox extends HLayout {
