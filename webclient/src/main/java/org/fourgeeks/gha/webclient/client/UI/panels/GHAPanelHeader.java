@@ -36,18 +36,18 @@ HideableListener, ClosableListener {
 	public GHAPanelHeader(final GHAPanel tab, String title) {
 		GHAUiHelper.addGHAResizeHandler(this);
 		setWidth100();
-		setMinWidth(1024);
+		setMinWidth(GHAUiHelper.MIN_WIDTH);
 		setHeight(GHAUiHelper.MENU_BAR_HEIGTH);
 		setDefaultLayoutAlign(VerticalAlignment.TOP);
 		setMembersMargin(6);
 
-		GHAHeaderOption titulo = new GHAHeaderOption(title,
+		final GHAHeaderOption titulo = new GHAHeaderOption(title,
 				GHAUiHelper.DEFAULT_TAB_HEADER_WIDTH, false, "", "");
 
 		addMember(titulo);
 
 		addMember(new LayoutSpacer());
-		GHAHeaderOption closeOption = new GHAHeaderOption(
+		final GHAHeaderOption closeOption = new GHAHeaderOption(
 				GHAStrings.get("close"),
 				GHAUiHelper.DEFAULT_HEADER_OPTION_WIDTH, true,
 				"../resources/img/cerrarButton.png",
@@ -58,7 +58,7 @@ HideableListener, ClosableListener {
 			public void onClick(ClickEvent event) {
 				try {
 					GHAPlaceSet.closeCurrentPlace(HideCloseAction.SAVE);
-				} catch (UnavailableToCloseException e) {
+				} catch (final UnavailableToCloseException e) {
 					return;
 				}
 			}
@@ -75,8 +75,9 @@ HideableListener, ClosableListener {
 	 * @return the add option
 	 */
 	public GHAHeaderOption addAddOption(ClickHandler clickHandler) {
-		GHAHeaderOption addOption = new GHAHeaderOption(GHAStrings.get("add")
-				+ "...", GHAUiHelper.DEFAULT_HEADER_OPTION_WIDTH, true,
+		final GHAHeaderOption addOption = new GHAHeaderOption(
+				GHAStrings.get("add") + "...",
+				GHAUiHelper.DEFAULT_HEADER_OPTION_WIDTH, true,
 				"../resources/img/agregarButton.png",
 				"../resources/img/agregarButtonOver.png");
 		addOption.addClickHandler(clickHandler);
@@ -94,7 +95,7 @@ HideableListener, ClosableListener {
 	 */
 	@Deprecated
 	public GHAHeaderOption addCleanOption(ClickHandler clickHandler) {
-		GHAHeaderOption cleanOption = new GHAHeaderOption(
+		final GHAHeaderOption cleanOption = new GHAHeaderOption(
 				GHAStrings.get("clean") + "...",
 				GHAUiHelper.DEFAULT_HEADER_OPTION_WIDTH, true,
 				"../resources/img/limpiarButton.png",
@@ -102,18 +103,21 @@ HideableListener, ClosableListener {
 		cleanOption.addClickHandler(clickHandler);
 		addMember(cleanOption, memberPos++);
 		return cleanOption;
-	}	
+	}
 
 	/**
 	 * Add a Debug option
-	 * @param title 	 * 
+	 * 
+	 * @param title
+	 *            *
 	 * @param clickHandler
 	 *            the action to be taken when the user clicks
 	 * @return the Debug Option
 	 */
-	public GHAHeaderOption addDebugOption(String title, ClickHandler clickHandler) {
-		GHAHeaderOption debugOption = new GHAHeaderOption(title + "...",
-				GHAUiHelper.DEFAULT_HEADER_OPTION_WIDTH,true,
+	public GHAHeaderOption addDebugOption(String title,
+			ClickHandler clickHandler) {
+		final GHAHeaderOption debugOption = new GHAHeaderOption(title + "...",
+				GHAUiHelper.DEFAULT_HEADER_OPTION_WIDTH, true,
 				"../resources/img/limpiarButton.png",
 				"../resources/img/limpiarButtonOver.png");
 		debugOption.addClickHandler(clickHandler);
@@ -124,11 +128,12 @@ HideableListener, ClosableListener {
 	/**
 	 * @param clickHandler
 	 * @param imgSrc
+	 *            Known values: "limpiarButton", "agregarButton", "cerrarButton"
 	 * @return
 	 */
 	private GHAHeaderOption addOption(String text, String imgSrc,
 			ClickHandler clickHandler) {
-		GHAHeaderOption searchOption = new GHAHeaderOption(text + "...",
+		final GHAHeaderOption searchOption = new GHAHeaderOption(text + "...",
 				GHAUiHelper.DEFAULT_HEADER_OPTION_WIDTH, true,
 				"../resources/img/" + imgSrc + ".png", "../resources/img/"
 						+ imgSrc + "Over.png");
@@ -174,7 +179,7 @@ HideableListener, ClosableListener {
 	 * 
 	 */
 	public void unMarkAllButtons() {
-		for (GHAHeaderOption button : selectables)
+		for (final GHAHeaderOption button : selectables)
 			button.unMarkSelected();
 	}
 }

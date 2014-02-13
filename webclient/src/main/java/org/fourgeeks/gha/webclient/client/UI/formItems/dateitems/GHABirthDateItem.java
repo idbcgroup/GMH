@@ -13,36 +13,29 @@ import com.smartgwt.client.widgets.form.validator.DateRangeValidator;
  */
 public class GHABirthDateItem extends GHADateItem {
 
-	public GHABirthDateItem(String title){
+	public GHABirthDateItem(String title) {
 		super(title);
 		setValidateOnChange(true);
-		setHoverWidth(150);	
-		
+		setHoverWidth(150);
+
 		setValidators(getValidator());
-		
-//		addChangeHandler(new ChangeHandler() {
-//
-//			@Override
-//			public void onChange(ChangeEvent event) {
-//				GHABirthDateItem.this.validate();
-//			}
-//		});
+
 	}
-	
+
 	/**
 	 * 
 	 */
 	public GHABirthDateItem(String title, ChangedHandler changeHandler) {
 		this(title);
 		addChangedHandler(changeHandler);
-		
+
 		setValidateOnChange(true);
-		setHoverWidth(150);		
-		
-		setValidators(getValidator());
+		setHoverWidth(150);
+
+		setValidators(getStandardValidator());
 	}
-	
-	public DateRangeValidator getValidator(){
+
+	public DateRangeValidator getValidator() {
 		DateRangeValidator drv = new DateRangeValidator();
 		drv.setMin(new java.util.Date(0));
 		long currentTimeMillis = System.currentTimeMillis();
@@ -50,7 +43,7 @@ public class GHABirthDateItem extends GHADateItem {
 		drv.setMax(endDate);
 		drv.setErrorMessage(GHAStrings.get("date-must-be-lower-than-today"));
 		drv.setValidateOnChange(true);
-		
+
 		return drv;
 	}
 

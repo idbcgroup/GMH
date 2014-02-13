@@ -4,7 +4,6 @@
 package org.fourgeeks.gha.webclient.server.ssouser;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
@@ -25,7 +24,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class GWTSSOUserServiceImpl extends RemoteServiceServlet implements
 		GWTSSOUserService {
 	@EJB(lookup = "java:global/ear-1/ejb-1/SSOUserService")
-	SSOUserServiceRemote service;
+	SSOUserServiceRemote ssoUserService;
 
 	@EJB(lookup = "java:global/ear-1/ejb-1/AppFormViewFunctionBpuService")
 	AppFormViewFunctionBpuServiceRemote bpuFunctionService;
@@ -43,7 +42,7 @@ public class GWTSSOUserServiceImpl extends RemoteServiceServlet implements
 	 */
 	@Override
 	public void delete(long Id) throws GHAEJBException {
-		service.delete(Id);
+		ssoUserService.delete(Id);
 	}
 
 	/*
@@ -55,7 +54,7 @@ public class GWTSSOUserServiceImpl extends RemoteServiceServlet implements
 	 */
 	@Override
 	public List<SSOUser> find(SSOUser ssoUser) throws GHAEJBException {
-		return service.find(ssoUser);
+		return ssoUserService.find(ssoUser);
 	}
 
 	/*
@@ -66,7 +65,7 @@ public class GWTSSOUserServiceImpl extends RemoteServiceServlet implements
 	 */
 	@Override
 	public SSOUser find(long Id) throws GHAEJBException {
-		return service.find(Id);
+		return ssoUserService.find(Id);
 	}
 
 	/*
@@ -77,7 +76,7 @@ public class GWTSSOUserServiceImpl extends RemoteServiceServlet implements
 	 */
 	@Override
 	public List<SSOUser> getAll() throws GHAEJBException {
-		return service.getAll();
+		return ssoUserService.getAll();
 	}
 
 	/*
@@ -89,7 +88,7 @@ public class GWTSSOUserServiceImpl extends RemoteServiceServlet implements
 	 */
 	@Override
 	public SSOUser save(SSOUser ssoUser) throws GHAEJBException {
-		return service.save(ssoUser);
+		return ssoUserService.save(ssoUser);
 	}
 
 	/*
@@ -101,12 +100,12 @@ public class GWTSSOUserServiceImpl extends RemoteServiceServlet implements
 	 */
 	@Override
 	public SSOUser update(SSOUser ssoUser) throws GHAEJBException {
-		return service.update(ssoUser);
+		return ssoUserService.update(ssoUser);
 	}
 
 	@Override
 	public void delete(List<SSOUser> entities) throws GHAEJBException {
-		for (SSOUser entity : entities)
+		for (final SSOUser entity : entities)
 			delete(entity.getId());
 
 	}

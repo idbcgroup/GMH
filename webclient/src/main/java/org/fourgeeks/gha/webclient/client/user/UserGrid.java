@@ -16,24 +16,24 @@ public class UserGrid extends GhaGrid<SSOUser> {
 	 */
 	public UserGrid() {
 
-		setEmptyMessage("No existen usuarios que mostrar.");
+		setEmptyMessage(GHAStrings.get("empty-user-grid"));
 
-		GHATreeGridField nameGridField = new GHATreeGridField("user",
+		final GHATreeGridField nameGridField = new GHATreeGridField("user",
 				GHAStrings.get("user"));
-		GHATreeGridField blockGridField = new GHATreeGridField("block",
+		final GHATreeGridField blockGridField = new GHATreeGridField("block",
 				GHAStrings.get("state"));
-		GHATreeGridField firstNameGridField = new GHATreeGridField("fname",
-				GHAStrings.get("first-name"));
-		GHATreeGridField lastNameGridField = new GHATreeGridField("lname",
-				GHAStrings.get("last-name"));
-		GHATreeGridField idGridField = new GHATreeGridField("id",
+		final GHATreeGridField firstNameGridField = new GHATreeGridField(
+				"fname", GHAStrings.get("first-name"));
+		final GHATreeGridField lastNameGridField = new GHATreeGridField(
+				"lname", GHAStrings.get("last-name"));
+		final GHATreeGridField idGridField = new GHATreeGridField("id",
 				GHAStrings.get("id-number"));
-		GHATreeGridField genderGridField = new GHATreeGridField("gender",
+		final GHATreeGridField genderGridField = new GHATreeGridField("gender",
 				GHAStrings.get("genre"));
-		GHATreeGridField nationalityGridField = new GHATreeGridField("nac",
-				GHAStrings.get("nationality"));
-		GHATreeGridField birthDateGridField = new GHATreeGridField("bday",
-				GHAStrings.get("birthdate"));
+		final GHATreeGridField nationalityGridField = new GHATreeGridField(
+				"nac", GHAStrings.get("nationality"));
+		final GHATreeGridField birthDateGridField = new GHATreeGridField(
+				"bday", GHAStrings.get("birthdate"));
 
 		setFields(nameGridField, blockGridField, firstNameGridField,
 				lastNameGridField, idGridField, genderGridField,

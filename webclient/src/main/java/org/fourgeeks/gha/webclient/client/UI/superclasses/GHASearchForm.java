@@ -2,6 +2,7 @@ package org.fourgeeks.gha.webclient.client.UI.superclasses;
 
 import java.util.List;
 
+import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -40,7 +41,7 @@ public abstract class GHASearchForm<T> extends GHASlideInWindow {
 	public GHASearchForm(String title) {
 		super();
 		setWidth100();
-		setMinWidth(1024);
+		setMinWidth(GHAUiHelper.MIN_WIDTH);
 		label = new GHALabel(title);
 		addMember(label);
 	}
@@ -56,15 +57,15 @@ public abstract class GHASearchForm<T> extends GHASlideInWindow {
 	}
 
 	/**
-	 * 
-	 */
-	public abstract void search();
-
-	/**
 	 * @param blackList
 	 */
 	public void filterBy(List<T> blackList) {
 		this.blackList = blackList;
 	}
+
+	/**
+	 * 
+	 */
+	public abstract void search();
 
 }

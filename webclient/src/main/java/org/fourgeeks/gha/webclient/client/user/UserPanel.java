@@ -12,9 +12,9 @@ import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToHideExcepti
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.SearchListener;
+import org.fourgeeks.gha.webclient.client.UI.panels.GHAHeaderOption;
 import org.fourgeeks.gha.webclient.client.UI.panels.GHAPanel;
 import org.fourgeeks.gha.webclient.client.UI.panels.GHAPanelHeader;
-import org.fourgeeks.gha.webclient.client.UI.panels.GHAHeaderOption;
 
 import com.smartgwt.client.types.Visibility;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -136,7 +136,7 @@ public class UserPanel extends GHAPanel implements UserSelectionListener,
 
 	@Override
 	public void notifyUser(SSOUser ssoUser) {
-		for (UserSelectionListener userSelectionListener : listeners)
+		for (final UserSelectionListener userSelectionListener : listeners)
 			userSelectionListener.select(ssoUser);
 	}
 

@@ -16,6 +16,7 @@ public interface UILogServiceRemote {
 
 	/**
 	 * @param log
+	 * @throws GHAEJBException
 	 */
 	public void log(UILog log) throws GHAEJBException;
 

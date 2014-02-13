@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 import org.fourgeeks.gha.domain.enu.LanguageEnum;
 
 /**
- * @author alacret
+ * @author alacret, jfuentes
  * 
  */
 @Entity
@@ -53,13 +53,11 @@ public class GHAMessage implements Serializable {
 	 * @param text
 	 * @param type
 	 */
-	public GHAMessage(LanguageEnum language, String code, String text,
-			GHAMessageType type) {
+	public GHAMessage(LanguageEnum language, String code, String text) {
 		super();
 		this.language = language;
 		this.code = code;
 		this.text = text;
-		this.type = type;
 	}
 
 	/**
@@ -68,11 +66,13 @@ public class GHAMessage implements Serializable {
 	 * @param text
 	 * @param type
 	 */
-	public GHAMessage(LanguageEnum language, String code, String text) {
+	public GHAMessage(LanguageEnum language, String code, String text,
+			GHAMessageType type) {
 		super();
 		this.language = language;
 		this.code = code;
 		this.text = text;
+		this.type = type;
 	}
 
 	/**
@@ -100,6 +100,13 @@ public class GHAMessage implements Serializable {
 	}
 
 	/**
+	 * @return the lang
+	 */
+	public LanguageEnum getLang() {
+		return language;
+	}
+
+	/**
 	 * @return the text
 	 */
 	public String getText() {
@@ -111,13 +118,6 @@ public class GHAMessage implements Serializable {
 	 */
 	public GHAMessageType getType() {
 		return type;
-	}
-
-	/**
-	 * @return the lang
-	 */
-	public LanguageEnum getLang() {
-		return language;
 	}
 
 	/**

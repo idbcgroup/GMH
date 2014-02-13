@@ -2,7 +2,6 @@ package org.fourgeeks.gha.webclient.server;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Logger;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -32,8 +31,8 @@ import org.fourgeeks.gha.ejb.msg.MessageServiceRemote;
 public class GwtHostingHttpServlet extends HttpServlet {
 
 	private static final long serialVersionUID = -6458844147830623507L;
-	private final static Logger logger = Logger
-			.getLogger(GwtHostingHttpServlet.class.getName());
+	// private final static Logger logger = Logger
+	// .getLogger(GwtHostingHttpServlet.class.getName());
 
 	@EJB(lookup = "java:global/ear-1/ejb-1/LogonLogService")
 	LogonLogServiceRemote logService;
@@ -41,8 +40,7 @@ public class GwtHostingHttpServlet extends HttpServlet {
 	@EJB(lookup = "java:global/ear-1/ejb-1/SSOUserService")
 	SSOUserServiceRemote ssoUserService;
 
-	@EJB(lookup = "java:global/ear-1/ejb-1/MessageService!"
-			+ "org.fourgeeks.gha.ejb.msg.MessageServiceRemote")
+	@EJB(lookup = "java:global/ear-1/ejb-1/MessageService!org.fourgeeks.gha.ejb.msg.MessageServiceRemote")
 	MessageServiceRemote messageService;
 
 	@Override
@@ -54,9 +52,9 @@ public class GwtHostingHttpServlet extends HttpServlet {
 
 		// Print a simple HTML page including a <script> tag referencing your
 		// GWT module as the response
-		PrintWriter writer = resp.getWriter();
+		final PrintWriter writer = resp.getWriter();
 
-		HttpSession session = req.getSession();
+		final HttpSession session = req.getSession();
 		if (session.getAttribute("user") == null) {
 			writer.append("<!DOCTYPE html>");
 			writer.append("<html lang=\"en\">");
@@ -89,7 +87,7 @@ public class GwtHostingHttpServlet extends HttpServlet {
 			writer.append("<input maxlength='20' class='round' name=\"password\" id='password' type='password' placeholder='Clave de acceso'> <br/>");
 			writer.append("<input id='login-button' type='submit' value='Iniciar Sesion' class='GHAButton'>");
 
-			Object cause = session.getAttribute("cause");
+			final Object cause = session.getAttribute("cause");
 			if (cause != null)
 				writer.append("<h2 style=\"color:red;\">" + cause + "</h2>");
 
@@ -140,32 +138,32 @@ public class GwtHostingHttpServlet extends HttpServlet {
 		resp.setContentType("text/html");
 		resp.setCharacterEncoding("UTF-8");
 
-		String user = req.getParameter("username");
+		final String user = req.getParameter("username");
 		if (user == null || user.equals("")) {
 			GHAMessage ghaMessage = null;
 			try {
-				ghaMessage = messageService.find("LOGIN003");
+				ghaMessage = messageService.find(null, "LOGIN003");
 				req.getSession().setAttribute("cause", ghaMessage.getText());
 				doGet(req, resp);
 				return;
-			} catch (GHAEJBException e) {
+			} catch (final GHAEJBException e) {
 				e.printStackTrace();
 			}
 		}
-		String password = req.getParameter("password");
-		String ipAdd = req.getRemoteAddr().toString();
+		final String password = req.getParameter("password");
+		final String ipAdd = req.getRemoteAddr().toString();
 
 		SSOUser ssoUser = null;
 		try {
 			ssoUser = ssoUserService.findByUsername(user);
-		} catch (GHAEJBException e1) {
+		} catch (final GHAEJBException e1) {
 			GHAMessage ghaMessage = null;
 			try {
-				ghaMessage = messageService.find("LOGIN005");
+				ghaMessage = messageService.find(null, "LOGIN005");
 				req.getSession().setAttribute("cause", ghaMessage.getText());
 				doGet(req, resp);
 				return;
-			} catch (GHAEJBException e2) {
+			} catch (final GHAEJBException e2) {
 				e2.printStackTrace();
 			}
 			logService.log(new LogonLog(null, e1.getGhaMessage(), ipAdd));
@@ -183,11 +181,11 @@ public class GwtHostingHttpServlet extends HttpServlet {
 					"LOGIN001", LanguageEnum.ES), ipAdd));
 			req.getSession().removeAttribute("cause");
 			doGet(req, resp);
-		} catch (ServletException e) {
+		} catch (final ServletException e) {
 			GHAMessage ghaMessage = null;
 			try {
-				ghaMessage = messageService.find("LOGIN002");
-			} catch (GHAEJBException e1) {
+				ghaMessage = messageService.find(null, "LOGIN002");
+			} catch (final GHAEJBException e1) {
 				e1.printStackTrace();
 			}
 

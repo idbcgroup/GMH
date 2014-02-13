@@ -1,5 +1,6 @@
 package org.fourgeeks.gha.webclient.client.maintenanceactivity;
 
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.LoginNeededException;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.PermissionsNeededException;
 import org.fourgeeks.gha.webclient.client.UI.places.GHAPlaceHeader;
@@ -43,6 +44,6 @@ public class MaintenanceActivityPlace extends NeedPermissionPlace {
 
 	@Override
 	public String getAcronym() {
-		return "Actividad de mantenimiento";
+		return GHAStrings.get("maintenance-activity-tab");
 	}
 }

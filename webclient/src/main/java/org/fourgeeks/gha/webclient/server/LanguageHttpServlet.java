@@ -36,14 +36,15 @@ public class LanguageHttpServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		resp.setContentType("application/javascript");
-		List<UiString> languageStringsList = service.getLanguageStringsList();
+		final List<UiString> languageStringsList = service
+				.getLanguageStringsList();
 
-		StringBuilder stringBuilder = new StringBuilder();
-		for (UiString uiString : languageStringsList)
+		final StringBuilder stringBuilder = new StringBuilder();
+		for (final UiString uiString : languageStringsList)
 			stringBuilder.append("\"" + uiString.getCode() + "\":" + "\""
-					+ uiString.getText() + "\",");
+					+ uiString.getText() + "\"\n,");
 
-		PrintWriter writer = resp.getWriter();
+		final PrintWriter writer = resp.getWriter();
 		writer.write("var lang = {");
 		writer.write(stringBuilder.substring(0, stringBuilder.length() - 1));
 		writer.write("}");

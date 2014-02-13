@@ -8,6 +8,7 @@ import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Facility;
 import org.fourgeeks.gha.domain.gar.Obu;
+import org.fourgeeks.gha.domain.glm.Bsp;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Eia;
@@ -16,6 +17,7 @@ import org.fourgeeks.gha.domain.gmh.EiaTypeCategory;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.webclient.client.bpi.BpiModel;
+import org.fourgeeks.gha.webclient.client.bpu.BpuModel;
 import org.fourgeeks.gha.webclient.client.brand.BrandModel;
 import org.fourgeeks.gha.webclient.client.buildinglocation.BuildingLocationModel;
 import org.fourgeeks.gha.webclient.client.eia.EIAModel;
@@ -24,9 +26,9 @@ import org.fourgeeks.gha.webclient.client.eiatype.EiaTypeCategoryModel;
 import org.fourgeeks.gha.webclient.client.externalprovider.ExternalProviderModel;
 import org.fourgeeks.gha.webclient.client.facility.FacilityModel;
 import org.fourgeeks.gha.webclient.client.manufacturer.ManufacturerModel;
+import org.fourgeeks.gha.webclient.client.obu.BspModel;
 import org.fourgeeks.gha.webclient.client.obu.ObuModel;
 import org.fourgeeks.gha.webclient.client.rolebase.RoleModel;
-import org.fourgeeks.gha.webclient.client.user.UserModel;
 import org.fourgeeks.gha.webclient.client.workingarea.WorkingAreaModel;
 
 import com.google.gwt.user.client.Timer;
@@ -62,7 +64,7 @@ public enum GHACache {
 
 	{
 		// Inititalization of the invalidation policy
-		Timer t = new Timer() {
+		final Timer t = new Timer() {
 			@Override
 			public void run() {
 				invalidateCache();
@@ -293,6 +295,29 @@ public enum GHACache {
 	public void getFacilities(GHAAsyncCallback<List<Facility>> callback) {
 		if (facilities == null)
 			getFacilitiesFromServer(callback);
+	public void getBsps(GHAAsyncCallback<List<Bsp>> callback) {
+		// Avoiding synchronization problems
+		if (bsps == null)
+			getBspsServer(callback);
+		else
+			callback.onSuccess(bsps);
+
+	}
+
+	private void getBspsServer(final GHAAsyncCallback<List<Bsp>> callback) {
+		BspModel.getAll(new GHAAsyncCallback<List<Bsp>>() {
+
+			@Override
+			public void onSuccess(List<Bsp> result) {
+				bsps = result;
+				callback.onSuccess(result);
+			}
+		});
+	}
+
+	/**
+	 * @param callback
+	 */
 		else
 			callback.onSuccess(facilities);
 

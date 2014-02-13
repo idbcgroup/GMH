@@ -13,20 +13,23 @@ public class UserInformationSubTab extends GHASubTab {
 	private UserInformationFormPanel form;
 
 	/**
-	 * @param tab
+	 * @param panel
 	 */
-	public UserInformationSubTab(UserPanel tab) {
-		super(GHAStrings.get("information"), tab);
+	public UserInformationSubTab(UserPanel panel) {
+		super(GHAStrings.get("information"), panel);
 
 		form = new UserInformationFormPanel();
 		addClosableListener(form);
 		addHideableListener(form);
 		setPane(form);
 
-		tab.addUserSelectionListener(form);
-		form.addUserSelectionListener(tab);
+		panel.addUserSelectionListener(form);
+		form.addUserSelectionListener(panel);
 	}
 
+	/**
+	 * 
+	 */
 	public void show() {
 		form.show();
 	}
