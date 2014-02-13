@@ -113,12 +113,12 @@ public class EIAReportsFormPanel extends GHAVerticalLayout implements
 	@Override
 	public void hide() {
 		super.hide();
-		sectionForm.deactivate();
+		sectionForm.hide();
 	}
 
 	@Override
 	public void show() {
-		sectionForm.openFirst();
+		sectionForm.show();
 		super.show();
 	}
 
