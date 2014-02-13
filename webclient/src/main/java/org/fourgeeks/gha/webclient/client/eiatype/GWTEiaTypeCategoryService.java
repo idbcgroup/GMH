@@ -9,11 +9,13 @@ import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.EiaTypeCategory;
 
 import com.google.gwt.user.client.rpc.RemoteService;
+import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 /**
  * @author emiliot
  * 
  */
+@RemoteServiceRelativePath("eiaTypeCategory")
 public interface GWTEiaTypeCategoryService extends RemoteService {
 	/**
 	 * @return all the categories for eiatype

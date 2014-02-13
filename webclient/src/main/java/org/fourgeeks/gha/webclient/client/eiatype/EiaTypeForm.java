@@ -33,7 +33,6 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
 import org.fourgeeks.gha.webclient.client.brand.BrandModel;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
-import com.google.gwt.user.client.Window;
 import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 import com.smartgwt.client.widgets.form.fields.events.FocusEvent;
@@ -54,7 +53,7 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 	private GHATextAreaItem descriptionItem;
 	private GHATextAreaItem useDescriptionItem;
 	private GHASelectItem mobilityItem;
-	private GHASelectItem typeItem;
+	private GHAEiaTypeCategorySelectItem typeItem;
 	private GHAEiaTypeSubTypeSelectItem subTypeItem;
 	private GHAComboboxItem<Brand> brandItem;
 	private GHAComboboxItem<Manufacturer> manItem;
@@ -65,10 +64,8 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 		codeItem = new GHACodeTextItem(true, changedHandler);
 
 		nameItem = new GHATextItem(GHAStrings.get("name"), true, changedHandler);
-		Window.alert("1");
 		typeItem = new GHAEiaTypeCategorySelectItem(GHAStrings.get("category"),
 				true, changedHandler);
-		Window.alert("2");
 		subTypeItem = new GHAEiaTypeSubTypeSelectItem(changedHandler);
 		eiaUmdnsItem = new GHATextItem("EIAUMDNS", false, changedHandler);
 		eiaUmdnsItem.setLength(16);

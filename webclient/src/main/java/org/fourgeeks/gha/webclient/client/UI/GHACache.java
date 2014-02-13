@@ -249,13 +249,13 @@ public enum GHACache {
 
 	private void getEiaTypeCategoriesFromServer(
 			final GHAAsyncCallback<List<EiaTypeCategory>> callback) {
+		Window.alert("1.4");
 		EiaTypeCategoryModel
 				.getAll(new GHAAsyncCallback<List<EiaTypeCategory>>() {
 
 					@Override
 					public void onSuccess(List<EiaTypeCategory> result) {
 						eiaTypeCategories = result;
-						Window.alert("success");
 						callback.onSuccess(result);
 					}
 				});

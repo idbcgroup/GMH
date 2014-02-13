@@ -20,7 +20,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  * 
  */
 
-@WebServlet(urlPatterns = { "/webclient/eiatypecategory" })
+@WebServlet(urlPatterns = { "/webclient/eiaTypeCategory" })
 public class GWTEiaTypeCategoryServiceImpl extends RemoteServiceServlet
 		implements GWTEiaTypeCategoryService {
 
@@ -33,7 +33,6 @@ public class GWTEiaTypeCategoryServiceImpl extends RemoteServiceServlet
 
 	@Override
 	public List<EiaTypeCategory> getAll() throws GHAEJBException {
-		System.out.println("getting all categories");
 		return categoryService.getAll();
 	}
 

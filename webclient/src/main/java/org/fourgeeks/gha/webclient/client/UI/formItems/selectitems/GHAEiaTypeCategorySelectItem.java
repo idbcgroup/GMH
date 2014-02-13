@@ -11,6 +11,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 
+import com.google.gwt.user.client.Window;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 
 /**
@@ -104,6 +105,7 @@ public class GHAEiaTypeCategorySelectItem extends GHASelectItem {
 						for (EiaTypeCategory category : result)
 							valueMap.put(category.getCode(), category.getName());
 						setValueMap(valueMap);
+						Window.alert("value map set");
 					}
 				});
 	}

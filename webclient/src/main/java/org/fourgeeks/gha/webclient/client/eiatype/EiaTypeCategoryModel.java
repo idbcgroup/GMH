@@ -18,7 +18,7 @@ public class EiaTypeCategoryModel {
 	private static final GWTEiaTypeCategoryServiceAsync categoryService = GWT
 			.create(GWTEiaTypeCategoryService.class);
 
-	public static void getAll(GHAAsyncCallback<List<EiaTypeCategory>> categories) {
-		categoryService.getAll(categories);
+	public static void getAll(GHAAsyncCallback<List<EiaTypeCategory>> callback) {
+		categoryService.getAll(callback);
 	}
 }
