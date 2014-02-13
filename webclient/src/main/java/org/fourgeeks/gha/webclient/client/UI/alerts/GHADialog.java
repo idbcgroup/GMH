@@ -237,25 +237,26 @@ public abstract class GHADialog extends Dialog implements ResizeHandler {
 
 	protected abstract void initTypeParams();
 
-	
+
 	@Override
 	public void onResize(ResizeEvent event) {
-		//
-		//
-		//
 		if (isVisible()) {
 			final int windowWidth = Window.getClientWidth() > GHAUiHelper.MIN_WIDTH ? Window
 					.getClientWidth() : GHAUiHelper.MIN_WIDTH;
-			final int windowHeight = Window.getClientHeight() > GHAUiHelper.MIN_HEIGHT ? Window
-					.getClientHeight() : GHAUiHelper.MIN_HEIGHT;
+					final int windowHeight = Window.getClientHeight() > GHAUiHelper.MIN_HEIGHT ? Window
+							.getClientHeight() : GHAUiHelper.MIN_HEIGHT;
 
-			if (hasButtons) {
-				setLeft(windowWidth - (getWidth() + RIGHT_MARGIN));
-				setTop(windowHeight
-			} else {
-				setLeft(windowWidth - (getWidth() + RIGHT_MARGIN));
-				setTop(windowHeight
-			}
+							if (hasButtons) {
+								setLeft(windowWidth - (getWidth() + RIGHT_MARGIN));
+								setTop(windowHeight
+										- (openedPosition + 1)
+										* (DEFAULT_NOTIFICATION_BUTTONS_HEIGHT + BORDER_SEPARATION));
+							} else {
+								setLeft(windowWidth - (getWidth() + RIGHT_MARGIN));
+								setTop(windowHeight
+										- (openedPosition + 1)
+										* (DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT + BORDER_SEPARATION));
+							}
 		}
 	}
 
@@ -289,19 +290,26 @@ public abstract class GHADialog extends Dialog implements ResizeHandler {
 		if(openedPosition >= 0){
 			final int windowWidth = Window.getClientWidth() > GHAUiHelper.MIN_WIDTH ? Window
 					.getClientWidth() : GHAUiHelper.MIN_WIDTH;
-			final int windowHeight = Window.getClientHeight() > GHAUiHelper.MIN_HEIGHT ? Window
-					.getClientHeight() : GHAUiHelper.MIN_HEIGHT;
+					final int windowHeight = Window.getClientHeight() > GHAUiHelper.MIN_HEIGHT ? Window
+							.getClientHeight() : GHAUiHelper.MIN_HEIGHT;
 
-			setLeft(windowWidth - (getWidth() + RIGHT_MARGIN));
-			setTop(Window.getClientHeight());
+							setLeft(windowWidth - (getWidth() + RIGHT_MARGIN));
+							setTop(Window.getClientHeight());
 
-			if (hasButtons) {
-				animateRect(
-						windowHeight
-			} else {
-				animateRect(
-						windowHeight
-			}
+							if (hasButtons) {
+								animateRect(
+										null,
+										windowHeight
+										- (DEFAULT_NOTIFICATION_BUTTONS_HEIGHT + BORDER_SEPARATION),
+										null, null);
+							} else {
+								animateRect(
+										null,
+										windowHeight
+										- (openedPosition + 1)
+										* (DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT + BORDER_SEPARATION),
+										null, null);
+							}
 		}else{
 			Window.alert("Error. no hay posiciones libres para mostrar alertas");
 		}
