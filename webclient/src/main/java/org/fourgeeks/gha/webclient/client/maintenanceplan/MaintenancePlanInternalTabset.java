@@ -31,7 +31,7 @@ public class MaintenancePlanInternalTabset extends GHAInternalTabSet implements
 	 * @param panel
 	 */
 	public MaintenancePlanInternalTabset(MaintenancePlanPanel panel) {
-		super(panel);
+		super();
 		maintenancePlanInfoSubTab = new MaintenancePlanInformationSubTab(panel);
 		maintenancePlanEquipmentTypeSubTab = new AsociatedEiaTypeSubTab(panel);
 		maintenancePlanEquipmentSubTab = new EiaPlanificationSubTab(panel);
@@ -62,7 +62,7 @@ public class MaintenancePlanInternalTabset extends GHAInternalTabSet implements
 
 	@Override
 	public void show() {
-		Tab selectedTab = getSelectedTab();
+		final Tab selectedTab = getSelectedTab();
 		if (selectedTab == maintenancePlanInfoSubTab)
 			maintenancePlanInfoSubTab.show();
 		else if (selectedTab == maintenancePlanEquipmentTypeSubTab) {
