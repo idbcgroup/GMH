@@ -5,6 +5,7 @@ import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImg;
 import org.fourgeeks.gha.webclient.client.UI.panels.GHAHeaderOption;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAAlertLabel;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAHorizontalLayout;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATextLabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATitleLabel;
 
@@ -16,7 +17,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class CitizenRESTopForm extends HLayout {
+public class CitizenRESTopForm extends GHAHorizontalLayout {
 	// labels
 	private final GHATitleLabel documentTypeTitleLabel = new GHATitleLabel(
 			"Cédula:" + GHAUiHelper.BLANK_SPACE);// TODO document type value
@@ -157,9 +158,7 @@ public class CitizenRESTopForm extends HLayout {
 	 * 
 	 */
 	public CitizenRESTopForm() {
-		setWidth100();
 		setHeight(GHAUiHelper.DEFAULT_PATIENT_TOP_HEIGHT);
-		setBackgroundColor(GHAUiHelper.DEFAULT_BACKGROUND_COLOR);
 		setBackgroundColor("#FFFF4D");// TODO
 		addMember(leftSideLayout);
 		addMember(centerLayout);

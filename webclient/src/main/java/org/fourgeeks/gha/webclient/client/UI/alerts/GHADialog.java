@@ -241,15 +241,17 @@ public abstract class GHADialog extends Dialog implements ResizeHandler {
 	@Override
 	public void onResize(ResizeEvent event) {
 		if (isVisible()) {
-			int windowWidth = Window.getClientWidth() > GHAUiHelper.MIN_WIDTH ? Window.getClientWidth() : GHAUiHelper.MIN_WIDTH;
-			int windowHeight = Window.getClientHeight() > GHAUiHelper.MIN_HEIGHT ? Window.getClientHeight() : GHAUiHelper.MIN_HEIGHT;
+			final int windowWidth = Window.getClientWidth() > GHAUiHelper.MIN_WIDTH ? Window
+					.getClientWidth() : GHAUiHelper.MIN_WIDTH;
+			final int windowHeight = Window.getClientHeight() > GHAUiHelper.MIN_HEIGHT ? Window
+					.getClientHeight() : GHAUiHelper.MIN_HEIGHT;
 
 			if (hasButtons) {
 				setLeft(windowWidth - (getWidth() + RIGHT_MARGIN));
-				setTop(windowHeight - (openedPosition+1)*(DEFAULT_NOTIFICATION_BUTTONS_HEIGHT + BORDER_SEPARATION));
+				setTop(windowHeight
 			} else {
 				setLeft(windowWidth - (getWidth() + RIGHT_MARGIN));
-				setTop(windowHeight	- (openedPosition+1)*(DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT + BORDER_SEPARATION));
+				setTop(windowHeight
 			}
 		}
 	}
@@ -282,16 +284,20 @@ public abstract class GHADialog extends Dialog implements ResizeHandler {
 
 		getMessageStack().setHeight(40);
 		if(openedPosition >= 0){
-			int windowWidth = Window.getClientWidth() > GHAUiHelper.MIN_WIDTH ? Window.getClientWidth() : GHAUiHelper.MIN_WIDTH;
-			int windowHeight = Window.getClientHeight() > GHAUiHelper.MIN_HEIGHT ? Window.getClientHeight() : GHAUiHelper.MIN_HEIGHT;
+			final int windowWidth = Window.getClientWidth() > GHAUiHelper.MIN_WIDTH ? Window
+					.getClientWidth() : GHAUiHelper.MIN_WIDTH;
+			final int windowHeight = Window.getClientHeight() > GHAUiHelper.MIN_HEIGHT ? Window
+					.getClientHeight() : GHAUiHelper.MIN_HEIGHT;
 
 			setLeft(windowWidth - (getWidth() + RIGHT_MARGIN));
 			setTop(Window.getClientHeight());
 
 			if (hasButtons) {
-				animateRect(null, windowHeight - (DEFAULT_NOTIFICATION_BUTTONS_HEIGHT + BORDER_SEPARATION),null, null);
+				animateRect(
+						windowHeight
 			} else {
-				animateRect(null, windowHeight - (openedPosition+1)*(DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT + BORDER_SEPARATION),null, null);
+				animateRect(
+						windowHeight
 			}
 		}else{
 			Window.alert("Error. no hay posiciones libres para mostrar alertas");
