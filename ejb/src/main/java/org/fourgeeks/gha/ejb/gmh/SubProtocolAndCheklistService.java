@@ -20,7 +20,6 @@ import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.SubProtocolAndChecklist;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
-import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
  * @author emiliot, vivi.torresg
@@ -54,8 +53,7 @@ public class SubProtocolAndCheklistService extends GHAEJBExceptionService
 			logger.log(Level.INFO,
 					"ERROR: unable to delete MaintenanceSubProtocol", e);
 			throw super.generateGHAEJBException(
-					"maintenanceSubProtocol-delete-fail",
-					RuntimeParameters.getLang(), em);
+					"maintenanceSubProtocol-delete-fail", em);
 		}
 	}
 
@@ -95,8 +93,7 @@ public class SubProtocolAndCheklistService extends GHAEJBExceptionService
 			logger.log(Level.INFO, msgError, e);
 
 			final String messageCode = "maintenanceSubProtocol-delete-fail";
-			throw super.generateGHAEJBException(messageCode,
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException(messageCode, em);
 		}
 
 	}
@@ -120,8 +117,7 @@ public class SubProtocolAndCheklistService extends GHAEJBExceptionService
 			logger.log(Level.INFO,
 					"Error: finding sub-protocol activities by activity", e);
 			throw super.generateGHAEJBException(
-					"maintenanceSubProtocol-findByMaintenanceActvity-fail",
-					RuntimeParameters.getLang(), em);
+					"maintenanceSubProtocol-findByMaintenanceActvity-fail", em);
 		}
 	}
 
@@ -138,8 +134,7 @@ public class SubProtocolAndCheklistService extends GHAEJBExceptionService
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: finding MaintenanceSubProtocol", e);
 			throw super.generateGHAEJBException(
-					"maintenanceSubProtocol-find-fail",
-					RuntimeParameters.getLang(), em);
+					"maintenanceSubProtocol-find-fail", em);
 		}
 	}
 
@@ -158,8 +153,7 @@ public class SubProtocolAndCheklistService extends GHAEJBExceptionService
 			logger.log(Level.INFO, "Error: finding all MaintenanceSubProtocol",
 					e);
 			throw super.generateGHAEJBException(
-					"maintenanceSubProtocol-getAll-fail",
-					RuntimeParameters.getLang(), em);
+					"maintenanceSubProtocol-getAll-fail", em);
 		}
 	}
 
@@ -182,8 +176,7 @@ public class SubProtocolAndCheklistService extends GHAEJBExceptionService
 			logger.log(Level.INFO, "Error: finding all MaintenanceSubProtocol",
 					e);
 			throw super.generateGHAEJBException(
-					"maintenanceSubProtocol-getAll-fail",
-					RuntimeParameters.getLang(), em);
+					"maintenanceSubProtocol-getAll-fail", em);
 		}
 	}
 
@@ -206,8 +199,7 @@ public class SubProtocolAndCheklistService extends GHAEJBExceptionService
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving MaintenanceSubProtocol ", e);
 			throw super.generateGHAEJBException(
-					"maintenanceSubProtocol-save-fail",
-					RuntimeParameters.getLang(), em);
+					"maintenanceSubProtocol-save-fail", em);
 		}
 	}
 
@@ -230,8 +222,7 @@ public class SubProtocolAndCheklistService extends GHAEJBExceptionService
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: updating MaintenanceSubProtocol ", e);
 			throw super.generateGHAEJBException(
-					"maintenanceSubProtocol-update-fail",
-					RuntimeParameters.getLang(), em);
+					"maintenanceSubProtocol-update-fail", em);
 		}
 	}
 
@@ -257,8 +248,7 @@ public class SubProtocolAndCheklistService extends GHAEJBExceptionService
 			logger.log(Level.INFO, stringMsg, e);
 
 			String messageCode = "maintenanceSubProtocol-getSubProtocolActivitiesCount-fail";
-			throw super.generateGHAEJBException(messageCode,
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException(messageCode, em);
 		}
 	}
 
@@ -286,8 +276,7 @@ public class SubProtocolAndCheklistService extends GHAEJBExceptionService
 			logger.log(Level.INFO, stringMsg, e);
 
 			String messageCode = "maintenanceSubProtocol-getSubProtocolCost-fail";
-			throw super.generateGHAEJBException(messageCode,
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException(messageCode, em);
 		}
 	}
 
@@ -314,8 +303,7 @@ public class SubProtocolAndCheklistService extends GHAEJBExceptionService
 			logger.log(Level.INFO, stringMsg, e);
 
 			String messageCode = "maintenanceSubProtocol-getSubProtocolDuration-fail";
-			throw super.generateGHAEJBException(messageCode,
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException(messageCode, em);
 		}
 	}
 
@@ -397,8 +385,7 @@ public class SubProtocolAndCheklistService extends GHAEJBExceptionService
 			logger.log(Level.INFO,
 					"ERROR: updating List of SubProtocolAndChecklist ", e);
 			throw super.generateGHAEJBException(
-					"maintenanceSubProtocol-update-fail",
-					RuntimeParameters.getLang(), em);
+					"maintenanceSubProtocol-update-fail", em);
 		}
 	}
 

@@ -1,11 +1,12 @@
 package org.fourgeeks.gha.domain.gmh;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 
-import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 
 /**
@@ -13,53 +14,36 @@ import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
  * 
  */
 @Entity
-public class EiaCorrectiveMaintenancePlanification extends AbstractEntity {
-
-	/**
-	 * 
-	 */
+@DiscriminatorValue("corrective")
+@NamedQueries(value = { @NamedQuery(name = "EiaCorrectiveMaintenance.findByEiaType", query = "SELECT ecm FROM EiaCorrectiveMaintenance ecm JOIN ecm.damageReport dm WHERE dm.eia.eiaType = :eiaType ORDER BY ecm.id") })
+public class EiaCorrectiveMaintenance extends EiaMaintenance {
 	private static final long serialVersionUID = 1L;
 
 	@OneToOne
-	@JoinColumn(name = "eiaMaintenancePlanificationFk")
-	private EiaMaintenancePlanification planification;
-
-	@ManyToOne
 	@JoinColumn(name = "eiaDamageReportFk")
 	private EiaDamageReport damageReport;
 
-	private String description;
 	/**
-	 * Represents the time units estimated that the eia will be in this
-	 * maintenance
+	 * Sirve para describir el daño causado en el equipo y/o la causa de que el
+	 * equipo presente la falla o el daño.
+	 */
+	private String description;
+
+	/**
+	 * Tiempo estimado sin disponer del equipo.
 	 */
 	private int estimatedMaintenance;
+
 	/**
-	 * Represents the time period estimated that the eia will be in this
-	 * maintenance
+	 * periodo de tiempo sin disponer del equipo
 	 */
 	private TimePeriodEnum estimatedMaintenancePoT;
 
 	/**
 	 * 
 	 */
-	public EiaCorrectiveMaintenancePlanification() {
+	public EiaCorrectiveMaintenance() {
 		super();
-	}
-
-	/**
-	 * @return the planification
-	 */
-	public EiaMaintenancePlanification getPlanification() {
-		return planification;
-	}
-
-	/**
-	 * @param planification
-	 *            the planification to set
-	 */
-	public void setPlanification(EiaMaintenancePlanification planification) {
-		this.planification = planification;
 	}
 
 	/**

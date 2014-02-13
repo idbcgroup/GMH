@@ -1,6 +1,5 @@
 package org.fourgeeks.gha.ejb.gmh;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -126,12 +125,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
- * 
  * @author naramirez
  * 
  */
 @RunWith(Arquillian.class)
-public class SubProtocolAndChecklistServiceTest {
+public class EiaMaintenancePlanificationServiceTest {
 	/**
 	 * @return the deployment descriptor
 	 */
@@ -240,7 +238,6 @@ public class SubProtocolAndChecklistServiceTest {
 				.addClass(GHAMessageType.class)
 				.addClass(Activity.class)
 				.addClass(Bsp.class)
-				.addClass(ServiceAndResourceType.class)
 				.addClass(SubProtocolAndChecklist.class)
 				.addClass(MaintenanceActivity.class)
 				.addClass(MaintenanceActivityService.class)
@@ -248,6 +245,11 @@ public class SubProtocolAndChecklistServiceTest {
 				.addClass(SubProtocolAndCheklistService.class)
 				.addClass(SubProtocolAndCheklistServiceRemote.class)
 				.addClass(SubProtocolAndCheklistServiceLocal.class)
+				.addClass(EiaMaintenancePlanificationService.class)
+				.addClass(EiaMaintenancePlanificationServiceRemote.class)
+				.addClass(EiaMaintenancePlanificationServiceLocal.class)
+				.addClass(EiaTypeMaintenancePlanService.class)
+				.addClass(EiaTypeMaintenancePlanServiceRemote.class)
 				.addClass(UILog.class)
 				.addClass(UILogService.class)
 				.addClass(UILogServiceLocal.class)
@@ -255,122 +257,103 @@ public class SubProtocolAndChecklistServiceTest {
 				.addClass(SSOUser.class)
 				.addClass(SSOUserService.class)
 				.addClass(SSOUserServiceRemote.class)
+				.addClass(ServiceAndResourceType.class)
 				.addClass(GHALog.class)
 				.addClass(EiaCorrectiveMaintenance.class)
 				.addClass(EiaMaintenance.class)
 				.addClass(UserLogonStatusEnum.class)
 				.addClass(MaintenanceCancelationCause.class)
 				.addClass(MaintenancePlanificationState.class)
+				.addClass(EiaMaintenanceService.class)
+				.addClass(EiaMaintenanceServiceRemote.class)
 				.addAsResource("test-persistence.xml",
 						"META-INF/persistence.xml")
 				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
-	@EJB(lookup = "java:global/test/SubProtocolAndCheklistService!"
-			+ "org.fourgeeks.gha.ejb.gmh.SubProtocolAndCheklistServiceRemote")
-	private SubProtocolAndCheklistServiceRemote serviceRemote;
+	@EJB(lookup = "java:global/test/EiaMaintenancePlanificationService!"
+			+ "org.fourgeeks.gha.ejb.gmh.EiaMaintenancePlanificationServiceRemote")
+	private EiaMaintenancePlanificationServiceRemote serviceRemote;
 
-	@EJB(lookup = "java:global/test/SubProtocolAndCheklistService!"
-			+ "org.fourgeeks.gha.ejb.gmh.SubProtocolAndCheklistServiceLocal")
-	private SubProtocolAndCheklistServiceLocal serviceLocal;
+	@EJB(lookup = "java:global/test/EiaMaintenancePlanificationService!"
+			+ "org.fourgeeks.gha.ejb.gmh.EiaMaintenancePlanificationServiceLocal")
+	private EiaMaintenancePlanificationServiceLocal serviceLocal;
 
-	private Activity activity;
-	private Activity parentActivity;
-	private SubProtocolAndChecklist subProtocol;
+	@EJB(lookup = "java:global/test/EiaTypeMaintenancePlanService")
+	private EiaTypeMaintenancePlanServiceRemote eiaTypeMPlanService;
+
+	@EJB(lookup = "java:global/test/EiaService")
+	private EiaServiceRemote eiaService;
+
+	EiaTypeMaintenancePlan eiaTypeMPlan;
+	EiaType eiaType;
+	Eia eia;
 
 	/** */
 	@Before
 	public void set() {
-		activity = new Activity();
-		activity.setId(1);
+		try {
+			// obteniendo tipo de equipo
+			eiaType = new EiaType("90001");
+			List<EiaTypeMaintenancePlan> list = eiaTypeMPlanService
+					.findByEiaType(eiaType);
 
-		parentActivity = new Activity();
-		parentActivity.setId(7);
+			if (!list.isEmpty()) {
+				// obteniendo eia
+				eia = eiaService.findByEiaType(eiaType).get(0);
 
-		subProtocol = new SubProtocolAndChecklist();
-		subProtocol.setActivity(activity);
-		subProtocol.setParentActivity(parentActivity);
-		subProtocol.setOrdinal(4);
+				// obteniendo asociacion de plan a tipo de equipo
+				eiaTypeMPlan = list.get(0);
+
+			} else {
+				MaintenancePlan plan = null;
+
+				// obteniendo eia
+				eia = eiaService.findByEiaType(eiaType).get(0);
+
+				// asociando planes a tipos de equipo
+				plan = new MaintenancePlan(1);
+				eiaTypeMPlan = eiaTypeMPlanService
+						.save(new EiaTypeMaintenancePlan(eiaType, plan));
+			}
+
+		} catch (GHAEJBException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/** */
 	@After
 	public void unset() {
-
 	}
 
-	/** */
+	/**  */
 	@Test
 	public void test() {
+		EiaMaintenancePlanification planif = null;
 		final String sep = "\n---------------------------------------\n";
 
-		System.out.println("TESTING SUBPROTOCOL AND CHECKLIST SERVICE\n");
+		System.out.println("TESTING EIA MAINTENANCE PLANIFICATION SERVICE\n");
 
-		System.out.println(sep + "getAllTest" + sep);
-		getAllTest();
-		System.out.println(sep + "getAllTest2" + sep);
-		getAllTest2();
-		System.out.println(sep + "findByParentActivityTest" + sep);
-		findByParentActivityTest();
-		System.out.println(sep + "findByIdTest" + sep);
-		findByIdTest();
-		System.out.println(sep + "getSubProtocolActivitiesCountTest" + sep);
-		getSubProtocolActivitiesCountTest();
-		System.out.println(sep + "getSubProtocolCostTest" + sep);
-		getSubProtocolCostTest();
-		System.out.println(sep + "getSubProtocolDurationTest" + sep);
-		getSubProtocolDurationTest();
 		System.out.println(sep + "saveTest" + sep);
-		saveTest();
-		System.out.println(sep + "updateTest" + sep);
-		updateTest();
+		planif = saveTest();
+
+		System.out.println(sep + "findByEiaTypeTest" + sep);
+		findByEiaTypeTest();
+
+		System.out.println(sep + "getPlanificationsCountTest" + sep);
+		getPlanificationsCountTest();
+
 		System.out.println(sep + "deleteTest" + sep);
-		deleteTest();
-		// System.out.println(sep + "deleteListTest" + sep);
-		// deleteListTest();
+		deleteTest(planif);
 	}
 
-	private void findByParentActivityTest() {
+	private void findByEiaTypeTest() {
+		int itemsExpected = 1;
 		try {
-			Activity activity = new Activity();
-			activity.setId(7);
+			final List<EiaMaintenancePlanification> result = serviceRemote
+					.find(eiaType);
 
-			final List<SubProtocolAndChecklist> result = serviceRemote
-					.findByParentActivity(activity);
-
-			Assert.assertEquals(3, result.size());
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
-
-	private void findByIdTest() {
-		try {
-			final SubProtocolAndChecklist result = serviceRemote.find(1);
-			Assert.assertNotNull(result);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	private void getAllTest() {
-		try {
-			final List<SubProtocolAndChecklist> result = serviceRemote.getAll();
-			Assert.assertEquals(3, result.size());
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	private void getAllTest2() {
-		final int itemsExpected = 3;
-		try {
-			final List<SubProtocolAndChecklist> result = serviceRemote.getAll(
-					0, 3);
 			Assert.assertEquals(itemsExpected, result.size());
 
 		} catch (Exception e) {
@@ -378,44 +361,25 @@ public class SubProtocolAndChecklistServiceTest {
 		}
 	}
 
-	private void saveTest() {
+	private EiaMaintenancePlanification saveTest() {
 		try {
-			subProtocol = serviceRemote.save(subProtocol);
-			Assert.assertNotNull(subProtocol);
+			EiaMaintenancePlanification planif = serviceRemote
+					.save(new EiaMaintenancePlanification(eia, eiaTypeMPlan));
+
+			Assert.assertNotNull(planif);
+			return planif;
 		} catch (GHAEJBException e) {
 			e.printStackTrace();
 		}
+		return null;
 	}
 
-	private void updateTest() {
-		final int ordinalExpected = 5;
+	private void getPlanificationsCountTest() {
+		final long countExpected = 1;
 		try {
-			subProtocol.setOrdinal(ordinalExpected);
-			SubProtocolAndChecklist result = serviceRemote.update(subProtocol);
-			final int ordinalResult = result.getOrdinal();
-
-			Assert.assertEquals(ordinalExpected, ordinalResult);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	private void deleteTest() {
-		final int itemsExpected = 3;
-		try {
-			serviceRemote.delete(subProtocol.getId());
-
-			Assert.assertEquals(itemsExpected, serviceRemote.getAll().size());
-		} catch (GHAEJBException e) {
-			e.printStackTrace();
-		}
-	}
-
-	private void getSubProtocolActivitiesCountTest() {
-		final int countExpected = 3;
-		try {
+			MaintenancePlan maintenancePlan = new MaintenancePlan(1);
 			final long result = serviceLocal
-					.getSubProtocolActivitiesCount(parentActivity);
+					.getPlanificationsCount(maintenancePlan);
 
 			Assert.assertEquals(countExpected, result);
 		} catch (GHAEJBException e) {
@@ -423,24 +387,15 @@ public class SubProtocolAndChecklistServiceTest {
 		}
 	}
 
-	private void getSubProtocolCostTest() {
-		final double costExpected = 1896.97;
+	private void deleteTest(EiaMaintenancePlanification planif) {
+		final int itemsExpected = 0;
 		try {
-			final BigDecimal result = serviceLocal
-					.getSubProtocolCost(parentActivity);
+			serviceRemote.delete(planif.getId());
 
-			Assert.assertEquals(costExpected, result.doubleValue());
-		} catch (GHAEJBException e) {
-			e.printStackTrace();
-		}
-	}
+			List<EiaMaintenancePlanification> aux = serviceRemote.find(eiaType);
 
-	private void getSubProtocolDurationTest() {
-		try {
-			final int result = serviceLocal
-					.getSubProtocolDuration(parentActivity);
+			Assert.assertEquals(itemsExpected, aux.size());
 
-			Assert.assertEquals(1, result);
 		} catch (GHAEJBException e) {
 			e.printStackTrace();
 		}

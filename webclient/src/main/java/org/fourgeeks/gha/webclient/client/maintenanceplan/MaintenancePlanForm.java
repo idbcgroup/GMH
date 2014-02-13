@@ -31,13 +31,13 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextAreaItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATitletextItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHABspSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHACurrencyTypeSelectItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAExternalProviderSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAJobSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenancePlanCancelationOptionSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenancePlanStateSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAMaintenancePlanTypeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAPeriodOfTimeSelectItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHARoleSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
@@ -45,6 +45,8 @@ import org.fourgeeks.gha.webclient.client.maintenanceprotocols.MaintenanceProtoc
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.validation.client.impl.Validation;
+import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
+import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 
@@ -67,8 +69,8 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 	private GHAMaintenancePlanTypeSelectItem typeItem;
 	private GHAMaintenancePlanStateSelectItem stateItem;
 	private GHAMaintenancePlanCancelationOptionSelectItem cancelationOptionItem;
-	private GHARoleSelectItem roleSelectItem;
-	private GHAExternalProviderSelectItem providerSelectItem;
+	private GHAJobSelectItem roleSelectItem;
+	private GHABspSelectItem providerSelectItem;
 	private GHACurrencyTypeSelectItem estimatedCostCurrencyItem;
 	private GHADateItem lastEffectuatedDateItem;
 	private Validator validator;
@@ -100,9 +102,8 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 
 		cancelationOptionItem = new GHAMaintenancePlanCancelationOptionSelectItem(
 				true, changedHandler);
-		providerSelectItem = new GHAExternalProviderSelectItem(false,
-				changedHandler);
-		roleSelectItem = new GHARoleSelectItem(false, changedHandler);
+		providerSelectItem = new GHABspSelectItem();
+		roleSelectItem = new GHAJobSelectItem(false, changedHandler);
 
 		estimatedTimeItem = new GHATextItem(GHAStrings.get("estimated-time"),
 				false);
@@ -137,6 +138,14 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 		listeners = new ArrayList<MaintenancePlanSelectionListener>();
 
 		form = new GHADynamicForm(4, FormType.NORMAL_FORM);
+
+		providerSelectItem.addChangedHandler(new ChangedHandler() {
+			@Override
+			public void onChanged(ChangedEvent event) {
+				changedHandler.onChanged(event);
+				roleSelectItem.fill(providerSelectItem.getValueAsBsp());
+			}
+		});
 	}
 
 	/**

@@ -10,7 +10,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -93,10 +92,6 @@ public class EiaType extends ServiceAndResource {
 	@ManyToOne
 	@JoinColumn(name = "eiaTypeCategoryFk")
 	private EiaTypeCategory eiaTypeCategory;
-
-	@OneToOne
-	@JoinColumn(name = "resourceFk")
-	private ServiceAndResource serviceResource;
 
 	/**
 	 * 
@@ -234,13 +229,4 @@ public class EiaType extends ServiceAndResource {
 	public void setEiaTypeCategory(EiaTypeCategory eiaTypeCategory) {
 		this.eiaTypeCategory = eiaTypeCategory;
 	}
-
-	public ServiceAndResource getServiceResource() {
-		return serviceResource;
-	}
-
-	public void setServiceResource(ServiceAndResource serviceResource) {
-		this.serviceResource = serviceResource;
-	}
-
 }

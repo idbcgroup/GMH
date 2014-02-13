@@ -1,6 +1,6 @@
-package org.fourgeeks.gha.webclient.client.eiamaintenanceplanification;
+package org.fourgeeks.gha.webclient.client.eiamaintenance;
 
-import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
+import org.fourgeeks.gha.domain.gmh.EiaMaintenance;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
@@ -21,23 +21,22 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author naramirez
  * 
  */
-public class EIAMaintenancePlanificationUpdateForm extends
-		GHAUpdateForm<EiaMaintenancePlanification> implements
-		EiaMaintenancePlanificationSelectionListener, EIATypeSelectionListener,
-		EiaMaintenancePlanificationSelectionProducer {
+public class EIAMaintenanceUpdateForm extends GHAUpdateForm<EiaMaintenance>
+		implements EiaMaintenanceSelectionListener, EIATypeSelectionListener,
+		EiaMaintenanceSelectionProducer {
 
 	protected VLayout sideBar;
 	protected GHASaveButton saveButton;
 	protected GHACloseButton closeButton;
 
 	{
-		form = new EIAMaintenancePlanificationForm();
+		form = new EIAMaintenanceForm();
 	}
 
 	/**
 	 * Constructor del formulario para planificacion de mantenimiento
 	 */
-	public EIAMaintenancePlanificationUpdateForm() {
+	public EIAMaintenanceUpdateForm() {
 		super(GHAStrings.get("eia-maintenance-planification-details-register"));
 
 		saveButton = new GHASaveButton(new ClickHandler() {
@@ -73,11 +72,11 @@ public class EIAMaintenancePlanificationUpdateForm extends
 	 * EiaMaintenancePlanificationSelectionListener)
 	 */
 	@Override
-	public void addEiaMaintenancePlanificationSelectionListener(
-			EiaMaintenancePlanificationSelectionListener preventivePlanifSelectionListener) {
+	public void addEiaMaintenanceSelectionListener(
+			EiaMaintenanceSelectionListener preventivePlanifSelectionListener) {
 
-		((EiaMaintenancePlanificationSelectionProducer) form)
-				.addEiaMaintenancePlanificationSelectionListener(preventivePlanifSelectionListener);
+		((EiaMaintenanceSelectionProducer) form)
+				.addEiaMaintenanceSelectionListener(preventivePlanifSelectionListener);
 	}
 
 	/*
@@ -102,8 +101,7 @@ public class EIAMaintenancePlanificationUpdateForm extends
 	 * (org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification)
 	 */
 	@Override
-	public void notifyEiaMaintenancePlanification(
-			EiaMaintenancePlanification entity) {
+	public void notifyEiaMaintenance(EiaMaintenance entity) {
 		return;
 	}
 
@@ -130,11 +128,11 @@ public class EIAMaintenancePlanificationUpdateForm extends
 	 * EiaMaintenancePlanificationSelectionListener)
 	 */
 	@Override
-	public void removeEiaMaintenancePlanificationSelectionListener(
-			EiaMaintenancePlanificationSelectionListener listener) {
+	public void removeEiaMaintenanceSelectionListener(
+			EiaMaintenanceSelectionListener listener) {
 
-		((EiaMaintenancePlanificationSelectionProducer) form)
-				.removeEiaMaintenancePlanificationSelectionListener(listener);
+		((EiaMaintenanceSelectionProducer) form)
+				.removeEiaMaintenanceSelectionListener(listener);
 	}
 
 	/*
@@ -145,8 +143,8 @@ public class EIAMaintenancePlanificationUpdateForm extends
 	 * #select(org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification)
 	 */
 	@Override
-	public void select(EiaMaintenancePlanification entity) {
-		((EiaMaintenancePlanificationSelectionListener) form).select(entity);
+	public void select(EiaMaintenance entity) {
+		((EiaMaintenanceSelectionListener) form).select(entity);
 	}
 
 	/*
@@ -169,11 +167,11 @@ public class EIAMaintenancePlanificationUpdateForm extends
 	 */
 	@Override
 	protected void update() {
-		form.update(new GHAAsyncCallback<EiaMaintenancePlanification>() {
+		form.update(new GHAAsyncCallback<EiaMaintenance>() {
 			@Override
-			public void onSuccess(EiaMaintenancePlanification result) {
+			public void onSuccess(EiaMaintenance result) {
 				GHAAlertManager
-						.alert("eia-maintenance-planification-details-register-success");
+						.alert("eia-maintenance-details-register-success");
 				hide();
 			}
 		});

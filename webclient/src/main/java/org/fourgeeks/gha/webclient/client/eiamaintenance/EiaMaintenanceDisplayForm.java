@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eiamaintenanceplanification;
+package org.fourgeeks.gha.webclient.client.eiamaintenance;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 
@@ -6,13 +6,13 @@ import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
  * @author naramirez
  * 
  */
-public class EiaMaintenancePlanificationDisplayForm extends
-		EIAMaintenancePlanificationUpdateForm {
+public class EiaMaintenanceDisplayForm extends
+		EIAMaintenanceUpdateForm {
 
 	/**
 	 * Constructor
 	 */
-	public EiaMaintenancePlanificationDisplayForm() {
+	public EiaMaintenanceDisplayForm() {
 		super();
 		setFormTitle(GHAStrings.get("eia-maintenance-planification-details"));
 

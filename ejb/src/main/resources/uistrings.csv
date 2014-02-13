@@ -279,6 +279,7 @@ ES,success,Éxito
 ES,processing,Operación en proceso
 ES,new-message-received,Nuevo Mensaje Recibido
 ES,confirm,Confirmación
+ES,bsp,Proveedor de Servicio
 ES,eiatype-name-tooltip, El campo del nombre especifica el nombre del tipo del equipo solo puede contener letras
 ES,eiatype-model-tooltip, El campo del modelo especifica el modelo del tipo de equipo solo puede contener letras numeros o guiones
 ES,maintenance-plan-name-tooltip,Este campo asigna el nombre al plan de mantenimiento Solo puede contener letras Ej Plan de Mantenimiento
