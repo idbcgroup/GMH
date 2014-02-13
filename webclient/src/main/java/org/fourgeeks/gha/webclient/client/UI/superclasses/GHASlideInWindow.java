@@ -21,14 +21,26 @@ import com.smartgwt.client.widgets.AnimationCallback;
  */
 public abstract class GHASlideInWindow extends GHAVerticalLayout implements
 ResizeHandler, ClosableListener, HideableListener, HideableProducer {
+	//	/**
+	//	 *
+	//	 */
+	//	public enum SlideInWindowType {
+	//		/**
+	//		 * Type for a Search Window
+	//		 */
+	//		SEARCH,
+	//		/**
+	//		 * Type for an Add Window
+	//		 */
+	//		ADD,
+	//		/**
+	//		 * Type for an Update Window
+	//		 */
+	//		UPDATE;
+	//	}
 
 	List<HideableListener> listeners = new ArrayList<HideableListener>();
 
-	int windowZIndex = getZIndex();
-
-	/**
-	 * 
-	 */
 	public GHASlideInWindow() {
 		setWidth100();
 		setMinWidth(GHAUiHelper.MIN_WIDTH);
