@@ -21,31 +21,19 @@ import com.smartgwt.client.widgets.AnimationCallback;
  */
 public abstract class GHASlideInWindow extends GHAVerticalLayout implements
 ResizeHandler, ClosableListener, HideableListener, HideableProducer {
-	//	/**
-	//	 *
-	//	 */
-	//	public enum SlideInWindowType {
-	//		/**
-	//		 * Type for a Search Window
-	//		 */
-	//		SEARCH,
-	//		/**
-	//		 * Type for an Add Window
-	//		 */
-	//		ADD,
-	//		/**
-	//		 * Type for an Update Window
-	//		 */
-	//		UPDATE;
-	//	}
 
 	List<HideableListener> listeners = new ArrayList<HideableListener>();
 
+	int windowZIndex = getZIndex();
+
+	/**
+	 * 
+	 */
 	public GHASlideInWindow() {
 		setWidth100();
 		setMinWidth(GHAUiHelper.MIN_WIDTH);
 		setTop(GHAUiHelper.getTopSpace());
-		setHeight(GHAUiHelper.getBottomSectionHeight()-5);
+		setHeight(GHAUiHelper.getBottomSectionHeight() - 5);
 		setLeft(-5);
 		setVisibility(Visibility.HIDDEN);
 		setAnimateTime(GHAUiHelper.DEFAULT_ANIMATION_TIME);
@@ -82,10 +70,9 @@ ResizeHandler, ClosableListener, HideableListener, HideableProducer {
 			}
 		});
 	}
-
 	@Override
 	public void hide() {
-		for (HideableListener listener : listeners)
+		for (final HideableListener listener : listeners)
 			listener.hide();
 		RootPanel.get("slideInWindowsBackDiv").removeStyleName("dim");
 		RootPanel.get("slideInWindowsBackDiv").getElement().getStyle()
@@ -97,7 +84,7 @@ ResizeHandler, ClosableListener, HideableListener, HideableProducer {
 	 * @param callback
 	 */
 	public void hide(AnimationCallback callback) {
-		for (HideableListener listener : listeners)
+		for (final HideableListener listener : listeners)
 			listener.hide();
 		RootPanel.get("slideInWindowsBackDiv").removeStyleName("dim");
 		RootPanel.get("slideInWindowsBackDiv").getElement().getStyle()

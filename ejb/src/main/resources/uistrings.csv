@@ -287,3 +287,50 @@ ES,maintenance-plan-description-tooltip, Este campo especifica la descripcion de
 ES,res,registro de salud
 ES,citizen-search,buscar ciudadano
 ES,citizen-new,nuevo ciudadano
+ES,user-password,Confirmar Clave
+ES,user-email-primary,Email Primario
+ES,user-email-second,Email Secundario
+ES,user-type-id,Tipo ID
+ES,user-identification,No. Identificiación
+ES,user-genero,Género
+ES,user-nacionalidad,Nacionalidad
+ES,user-institution,Institución
+ES,user-rif,R.I.F.
+ES,eia-adquisicion,Adquisición:
+ES,eia-fecha-compra,Fecha de Compra
+ES,eia-nro-orden-compra,No. Orden Compra
+ES,eia-nro-factura,No. Factura
+ES,eia-recepcion,Fecha de Recepción
+ES,eia-fecha-aceptacion,Fecha de Aceptación
+ES,eia-instalation,Fecha de Instalación
+ES,eia-fecha-factura,Fecha de Factura
+ES,eia-fecha-orden-compra,Fecha de Orden de Compra
+ES,eia-proveedor-institution,Proveedor de Inst.
+ES,eia-garantia-real,Garantía Real
+ES,eia-select-desde,Desde
+ES,eia-duracion,Duración
+ES,eia-fecha-inicio,Fecha Inicio
+ES,eia-ubicacion,Ubicación:
+ES,eia-tipo-ubicacion,Tipo de Ubicación
+ES,eia-area-trabajo,Área de Trabajo:
+ES,eia-servicio-instalacion,Servicio/Instalación:
+ES,eia-codigo,Código
+ES,eia-nombre,Nombre
+ES,eia-costo-adquision,Costo Adquisición:
+ES,eia-costo-actual,Costo Actual:
+ES,eia-tiempo-depreciacion,Tiempo de Depreciación:
+ES,eia-tiempo-vida,Tiempo de Vida:
+ES,eia-costo-adquiriencia,Costo de Adq. del equipo
+ES,eia-moneda,Moneda
+ES,eia-date-contabilizacion,Fecha de Contabilización
+ES,eia-costo-adq,Costo de Adq. Local
+ES,eia-metodo-depreciacion,Metodo Depreciación
+ES,eia-moneda-local,Moneda Local
+ES,eia-duracion,Duración
+ES,eia-fecha-ultma-depreciacion,Fecha Ult. Depreciación
+ES,eia-costo-actual-libros,Costo Actual en libros
+ES,formatter-error-words,Error de formato solo se permiten letras
+ES,formatter-error-numbers,Error de formato solo se permiten numeros
+ES,formatter-error-alphanumeric,Error de formato solo se permiten letras numeros o guiones
+ES,formatter-error-serial,Error de formato solo se permiten letras numeros o guiones
+ES,formatter-error-codes,Error de formato solo se permiten letras y numeros

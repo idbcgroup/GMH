@@ -237,6 +237,7 @@ public abstract class GHADialog extends Dialog implements ResizeHandler {
 
 	protected abstract void initTypeParams();
 
+
 	@Override
 	public void onResize(ResizeEvent event) {
 		if (isVisible()) {
