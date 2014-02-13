@@ -154,4 +154,19 @@ public class RequiredResourcesService extends GHAEJBExceptionService implements
 					RuntimeParameters.getLang(), em);
 		}
 	}
+
+	@Override
+	public RequiredResources update(RequiredResources requiredResources)
+			throws GHAEJBException {
+		try {
+			em.merge(requiredResources);
+			em.flush();
+			return em.find(RequiredResources.class, requiredResources.getId());
+		} catch (Exception e) {
+			logger.log(Level.INFO, "ERROR: updating RequiredResources ", e);
+			throw super.generateGHAEJBException(
+					"requiredResources-update-fail",
+					RuntimeParameters.getLang(), em);
+		}
+	}
 }

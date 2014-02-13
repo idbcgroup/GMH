@@ -35,6 +35,16 @@ public class RequiredResourcesModel {
 
 	/**
 	 * 
+	 * @param requiredResources
+	 * @param callback
+	 */
+	public static void update(RequiredResources requiredResources,
+			GHAAsyncCallback<RequiredResources> callback) {
+		service.update(requiredResources, callback);
+	}
+
+	/**
+	 * 
 	 * @param id
 	 * @param callback
 	 */

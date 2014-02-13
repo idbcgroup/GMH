@@ -272,6 +272,7 @@ ES,requiredResources-delete-fail,Fallo la eliminación del RequiredResources,8
 ES,eiaTypeMaintenancePlan-findByEiaType-fail,Búsqueda fallida de EiaTypeMaintenancePlan por eiaType,8
 ES,requiredResources-findByServiceAndResource-fail,Búsqueda fallida de RequiredResources por serviceAndResource,8
 ES,requiredResources-findByActivity-fail,Búsqueda fallida de RequiredResources por activity,8
+ES,requiredResources-update-fail,Actualización fallida de RequiredResources,8
 ES,eiaTypeMaintenancePlan-findByMaintenancePlan-fail,Búsqueda fallida de EiaTypeMaintenancePlan po maintenancePlan,8
 ES,eiaTypeMaintenancePlan-save-fail,Guardado fallido de EiaTypeMaintenancePlan,8
 ES,requiredResources-save-fail,Guardado fallido de RequiredResources,8

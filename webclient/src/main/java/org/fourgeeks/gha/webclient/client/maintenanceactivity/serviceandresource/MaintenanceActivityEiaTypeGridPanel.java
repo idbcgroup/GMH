@@ -26,6 +26,8 @@ import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
+import com.smartgwt.client.widgets.grid.events.CellSavedEvent;
+import com.smartgwt.client.widgets.grid.events.CellSavedHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
@@ -44,6 +46,24 @@ public class MaintenanceActivityEiaTypeGridPanel extends GHAVerticalLayout
 
 	{
 		grid = new MaintenanceActivityServiceAndResourceGrid();
+		grid.getField("quantity").addCellSavedHandler(new CellSavedHandler() {
+			@Override
+			public void onCellSaved(CellSavedEvent event) {
+				MaintenanceActivityRequiredResourcesRecord rec = (MaintenanceActivityRequiredResourcesRecord) grid
+						.getRecord(event.getRowNum());
+				RequiredResources requiredR = rec.toRequiredResourcesEntity();
+				String valor = (String) grid.getEditedCell(event.getRowNum(),
+						event.getColNum());
+				requiredR.setQuantity(Integer.valueOf(valor));
+				RequiredResourcesModel.update(requiredR,
+						new GHAAsyncCallback<RequiredResources>() {
+							@Override
+							public void onSuccess(RequiredResources result) {
+								loadData();
+							}
+						});
+			}
+		});
 
 		eiaTypeSearchForm = new EIATypeSearchForm(GHAStrings.get("eiatype"));
 		eiaTypeSearchForm

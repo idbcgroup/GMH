@@ -67,4 +67,12 @@ public interface RequiredResourcesServiceRemote {
 	public List<RequiredResources> findMaterialByActivity(Activity activity)
 			throws GHAEJBException;
 
+	/**
+	 * 
+	 * @param requiredResources
+	 * @return the persistent entity
+	 * @throws GHAEJBException
+	 */
+	public RequiredResources update(RequiredResources requiredResources)
+			throws GHAEJBException;
 }

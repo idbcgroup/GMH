@@ -44,6 +44,15 @@ public interface GWTRequiredResourcesService extends RemoteService {
 
 	/**
 	 * 
+	 * @param requiredResources
+	 * @return the persistent entity
+	 * @throws GHAEJBException
+	 */
+	public RequiredResources update(RequiredResources requiredResources)
+			throws GHAEJBException;
+
+	/**
+	 * 
 	 * @param resource
 	 * @return the activities asociated with the serviceandresource
 	 * @throws GHAEJBException

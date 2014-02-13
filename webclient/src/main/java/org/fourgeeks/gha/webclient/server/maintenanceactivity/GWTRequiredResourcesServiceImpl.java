@@ -111,4 +111,10 @@ public class GWTRequiredResourcesServiceImpl extends RemoteServiceServlet
 			throws GHAEJBException {
 		return service.findMaterialByActivity(activity);
 	}
+
+	@Override
+	public RequiredResources update(RequiredResources requiredResources)
+			throws GHAEJBException {
+		return service.update(requiredResources);
+	}
 }
