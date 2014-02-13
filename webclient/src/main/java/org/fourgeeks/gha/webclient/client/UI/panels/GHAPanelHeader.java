@@ -24,7 +24,7 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
  * 
  */
 public class GHAPanelHeader extends HLayout implements ResizeHandler,
-		HideableListener, ClosableListener {
+HideableListener, ClosableListener {
 
 	private int memberPos = 2;
 	private final List<GHAHeaderOption> selectables = new LinkedList<GHAHeaderOption>();
@@ -36,7 +36,7 @@ public class GHAPanelHeader extends HLayout implements ResizeHandler,
 	public GHAPanelHeader(final GHAPanel tab, String title) {
 		GHAUiHelper.addGHAResizeHandler(this);
 		setWidth100();
-		setMinWidth(1024);
+		setMinWidth(GHAUiHelper.MIN_WIDTH);
 		setHeight(GHAUiHelper.MENU_BAR_HEIGTH);
 		setDefaultLayoutAlign(VerticalAlignment.TOP);
 		setMembersMargin(6);

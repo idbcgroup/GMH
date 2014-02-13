@@ -21,7 +21,7 @@ public class EDTTopGridPanel extends VLayout implements ClosableListener {
 	public EDTTopGridPanel() {
 		super();
 		setWidth100();
-		setMinWidth(1024);
+		setMinWidth(GHAUiHelper.MIN_WIDTH);
 		setStyleName("sides-padding");// Esto es VUDU!
 
 		setBackgroundColor("#E0E0E0");
@@ -38,19 +38,19 @@ public class EDTTopGridPanel extends VLayout implements ClosableListener {
 						// TODO: Funcion que guarde
 					}
 				}), new GHAImgButton("../resources/icons/undo.png",
-				new ClickHandler() {
+						new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
 						// TODO Auto-generated method stub
 
 					}
 				}), GHAUiHelper.verticalGraySeparator("2px"), new GHAImgButton(
-				"../resources/icons/new.png", new ClickHandler() {
-					@Override
-					public void onClick(ClickEvent event) {
-						// TODO: Funcion que agregue una actividad
-					}
-				}));
+						"../resources/icons/new.png", new ClickHandler() {
+							@Override
+							public void onClick(ClickEvent event) {
+								// TODO: Funcion que agregue una actividad
+							}
+						}));
 
 		HLayout mainpanel = new HLayout();
 		mainpanel.addMembers(topGrid, sideButtons);
@@ -59,11 +59,11 @@ public class EDTTopGridPanel extends VLayout implements ClosableListener {
 	}
 
 	@Override
-	public void close() {
+	public boolean canBeClosen(HideCloseAction closeAction) {
+		return true;
 	}
 
 	@Override
-	public boolean canBeClosen(HideCloseAction closeAction) {
-		return true;
+	public void close() {
 	}
 }

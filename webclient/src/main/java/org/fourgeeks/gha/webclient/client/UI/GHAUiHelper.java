@@ -58,6 +58,10 @@ public abstract class GHAUiHelper {
 		});
 		// RootPanel.get().addDomHandler(null, null)
 	}
+
+	public static final int MIN_WIDTH = 1024;
+	public static final int MIN_HEIGHT = 768;
+
 	/**
 	 * The Header Part Default Heights
 	 */
@@ -438,7 +442,7 @@ public abstract class GHAUiHelper {
 	public static VLayout verticalGraySeparator(String height) {
 		final VLayout separator = new VLayout();
 		separator.setWidth100();
-		separator.setMinWidth(1024);
+		separator.setMinWidth(MIN_WIDTH);
 		separator.setBackgroundColor("#666666");
 		separator.setHeight(height);
 		return separator;
@@ -458,7 +462,7 @@ public abstract class GHAUiHelper {
 
 		final VLayout separator = new VLayout();
 		separator.setWidth100();
-		separator.setMinWidth(1024);
+		separator.setMinWidth(MIN_WIDTH);
 		separator.setHeight(height);
 		separator.setDefaultLayoutAlign(Alignment.CENTER);
 		separator.setBackgroundColor("#666666");
@@ -476,7 +480,7 @@ public abstract class GHAUiHelper {
 	public static HLayout verticalGraySeparatorLabel(String height, String text) {
 		final HLayout separator = new HLayout();
 		separator.setWidth100();
-		separator.setMinWidth(1024);
+		separator.setMinWidth(MIN_WIDTH);
 		separator.setBackgroundColor("#666666");
 		separator.setHeight(height);
 		separator.setStyleName("sides-padding");
@@ -497,7 +501,7 @@ public abstract class GHAUiHelper {
 	public static VLayout verticalSeparator(String height) {
 		final VLayout separator = new VLayout();
 		separator.setWidth100();
-		separator.setMinWidth(1024);
+		separator.setMinWidth(MIN_WIDTH);
 		separator.setHeight(height);
 		return separator;
 	}

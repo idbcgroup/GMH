@@ -33,8 +33,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public abstract class GHATopForm<T extends GHAResultSet<E>, E> extends HLayout
-		implements ResizeHandler, ClosableListener, HideableListener,
-		SearchsProducer {
+implements ResizeHandler, ClosableListener, HideableListener,
+SearchsProducer {
 	List<SearchListener> searchListeners = new ArrayList<SearchListener>();
 	protected T resultSet;
 	protected GHAPanel containerTab;
@@ -62,7 +62,7 @@ public abstract class GHATopForm<T extends GHAResultSet<E>, E> extends HLayout
 		GHAUiHelper.addGHAResizeHandler(this);
 		setStyleName("sides-padding padding-top");
 		setWidth100();
-		setMinWidth(1024);
+		setMinWidth(GHAUiHelper.MIN_WIDTH);
 		setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT + "px");
 		setBackgroundColor(GHAUiHelper.DEFAULT_BACKGROUND_COLOR);
 		setDefaultLayoutAlign(VerticalAlignment.CENTER);
@@ -88,22 +88,20 @@ public abstract class GHATopForm<T extends GHAResultSet<E>, E> extends HLayout
 		});
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.google.gwt.event.logical.shared.ResizeHandler#onResize(com.google
-	 * .gwt.event.logical.shared.ResizeEvent)
+	/**
+	 * activate the form for searches, this method should set the buttons for
+	 * searches, and remove the deletebutton
 	 */
-	@Override
-	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT + "px");
+	public void activate() {
+		sideButtons.removeMembers(searchButton, cleanButton, deleteButton);
+		sideButtons.addMember(cleanButton, 0);
+		sideButtons.addMember(searchButton, 0);
 	}
 
 	@Override
-	public void close() throws UnavailableToCloseException {
-		GHAUiHelper.removeGHAResizeHandler(this);
-		destroy();
+	public void addSearchListener(SearchListener listener) {
+		searchListeners.add(listener);
+
 	}
 
 	@Override
@@ -117,20 +115,16 @@ public abstract class GHATopForm<T extends GHAResultSet<E>, E> extends HLayout
 	}
 
 	/**
-	 * activate the form for searches, this method should set the buttons for
-	 * searches, and remove the deletebutton
-	 */
-	public void activate() {
-		sideButtons.removeMembers(searchButton, cleanButton, deleteButton);
-		sideButtons.addMember(cleanButton, 0);
-		sideButtons.addMember(searchButton, 0);
-	};
-
-	/**
 	 * clear the values of this form
 	 */
 	@Override
-	public abstract void clear();
+	public abstract void clear();;
+
+	@Override
+	public void close() throws UnavailableToCloseException {
+		GHAUiHelper.removeGHAResizeHandler(this);
+		destroy();
+	}
 
 	/**
 	 * blocks the form for editing and funtionality
@@ -138,11 +132,34 @@ public abstract class GHATopForm<T extends GHAResultSet<E>, E> extends HLayout
 	public abstract void deactivate();
 
 	/**
+	 * borra la entidad seleccionada y permite regresar a la opcion por defecto
+	 * al abrir alguna aplicacion, siendo lo mas comun la opcion de buscar
+	 */
+	protected abstract void delete();
+
+	/**
 	 * @return wheter this form is activated or not
 	 * 
 	 */
 	public boolean isActivated() {
 		return activated;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.google.gwt.event.logical.shared.ResizeHandler#onResize(com.google
+	 * .gwt.event.logical.shared.ResizeEvent)
+	 */
+	@Override
+	public void onResize(ResizeEvent event) {
+		setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT + "px");
+	}
+
+	@Override
+	public void removeSearchListener(SearchListener listener) {
+		searchListeners.remove(listener);
 	}
 
 	/**
@@ -154,26 +171,9 @@ public abstract class GHATopForm<T extends GHAResultSet<E>, E> extends HLayout
 			searchListener.onSearch();
 	}
 
-	@Override
-	public void addSearchListener(SearchListener listener) {
-		searchListeners.add(listener);
-
-	}
-
-	@Override
-	public void removeSearchListener(SearchListener listener) {
-		searchListeners.remove(listener);
-	}
-
 	/**
 	 * @param entity
 	 */
 	public abstract void search(E entity);
-
-	/**
-	 * borra la entidad seleccionada y permite regresar a la opcion por defecto
-	 * al abrir alguna aplicacion, siendo lo mas comun la opcion de buscar
-	 */
-	protected abstract void delete();
 
 }
