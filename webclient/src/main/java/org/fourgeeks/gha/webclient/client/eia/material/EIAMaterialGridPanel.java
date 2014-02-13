@@ -21,7 +21,7 @@ public class EIAMaterialGridPanel extends VLayout {
 
 	public EIAMaterialGridPanel() {
 		setWidth100();
-		setMinWidth(1024);
+		setMinWidth(GHAUiHelper.MIN_WIDTH);
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 
@@ -32,19 +32,19 @@ public class EIAMaterialGridPanel extends VLayout {
 		VLayout sideButtons = GHAUiHelper.createBar(
 				new GHAImgButton("../resources/icons/new.png",
 						new ClickHandler() {
-							@Override
-							public void onClick(ClickEvent event) {
-								new MaterialCategorySearchForm(GHAStrings
-										.get("search-material")).open();
-							}
-						}), new GHAImgButton("../resources/icons/edit.png"),
+					@Override
+					public void onClick(ClickEvent event) {
+						new MaterialCategorySearchForm(GHAStrings
+								.get("search-material")).open();
+					}
+				}), new GHAImgButton("../resources/icons/edit.png"),
 				new GHAImgButton("../resources/icons/delete.png"),
 				new GHAImgButton("../resources/icons/set.png",
 						new ClickHandler() {
-							@Override
-							public void onClick(ClickEvent event) {
-							}
-						}));
+					@Override
+					public void onClick(ClickEvent event) {
+					}
+				}));
 
 		HLayout mainPanel = new HLayout();
 		mainPanel.addMembers(eiaMaterialGrid, sideButtons);

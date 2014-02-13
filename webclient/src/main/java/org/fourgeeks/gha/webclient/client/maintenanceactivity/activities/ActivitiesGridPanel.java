@@ -17,7 +17,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  */
 
 public class ActivitiesGridPanel extends VLayout implements ClosableListener,
-		HideableListener {
+HideableListener {
 
 	private final MaintenanceActivityGrid maintenanceActivityGrid = new MaintenanceActivityGrid();
 
@@ -25,20 +25,30 @@ public class ActivitiesGridPanel extends VLayout implements ClosableListener,
 		super();
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 		setWidth100();
-		setMinWidth(1024);
+		setMinWidth(GHAUiHelper.MIN_WIDTH);
 		setBackgroundColor("#E0E0E0");
 
 		GHALabel title = new GHALabel("Sub-Actividades");
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHAImgButton(
 				"../resources/icons/new.png"), new GHAImgButton(
-				"../resources/icons/edit.png"), new GHAImgButton(
-				"../resources/icons/delete.png"));
+						"../resources/icons/edit.png"), new GHAImgButton(
+								"../resources/icons/delete.png"));
 
 		HLayout mainPanel = new HLayout();
 		mainPanel.addMembers(maintenanceActivityGrid, sideButtons);
 
 		addMembers(title, mainPanel);
+	}
+
+	@Override
+	public boolean canBeClosen(HideCloseAction hideAction) {
+		return true;
+	}
+
+	@Override
+	public boolean canBeHidden(HideCloseAction hideAction) {
+		return true;
 	}
 
 	@Override
@@ -49,15 +59,5 @@ public class ActivitiesGridPanel extends VLayout implements ClosableListener,
 	@Override
 	public void hide() {
 		super.hide();
-	}
-
-	@Override
-	public boolean canBeHidden(HideCloseAction hideAction) {
-		return true;
-	}
-
-	@Override
-	public boolean canBeClosen(HideCloseAction hideAction) {
-		return true;
 	}
 }

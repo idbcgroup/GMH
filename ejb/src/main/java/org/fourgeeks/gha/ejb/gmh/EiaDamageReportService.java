@@ -1,6 +1,5 @@
 package org.fourgeeks.gha.ejb.gmh;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -11,12 +10,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
-import org.fourgeeks.gha.domain.enu.MaintenancePlanificationType;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.Eia;
-import org.fourgeeks.gha.domain.gmh.EiaCorrectiveMaintenancePlanification;
+import org.fourgeeks.gha.domain.gmh.EiaCorrectiveMaintenance;
 import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
-import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
@@ -44,8 +41,7 @@ public class EiaDamageReportService extends GHAEJBExceptionService implements
 					"ERROR: unable to delete eiaDamageReport = "
 							+ EiaDamageReport.class.getName() + " with id="
 							+ Long.toString(Id), e);
-			throw super.generateGHAEJBException("eia-delete-fail",
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException("eia-delete-fail", em);
 		}
 	}
 
@@ -67,8 +63,7 @@ public class EiaDamageReportService extends GHAEJBExceptionService implements
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding eiaDamageReport by eiatype",
 					e);
-			throw super.generateGHAEJBException("eia-findByEiaType-fail",
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException("eia-findByEiaType-fail", em);
 		}
 	}
 
@@ -80,45 +75,31 @@ public class EiaDamageReportService extends GHAEJBExceptionService implements
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all eiaDamageReports",
 					ex);
-			throw super.generateGHAEJBException("eia-getAll-fail",
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException("eia-getAll-fail", em);
 		}
-	}
-
-	private EiaCorrectiveMaintenancePlanification getEiaCorrectiveMaintenancePlanification(
-			Eia eia) {
-		EiaCorrectiveMaintenancePlanification planification = new EiaCorrectiveMaintenancePlanification();
-		EiaMaintenancePlanification maintenancePlanification = new EiaMaintenancePlanification();
-		maintenancePlanification.setEia(eia);
-		java.util.Date date = new java.util.Date();
-		maintenancePlanification.setScheduledDate(new Date(date.getTime()));
-		planification.setPlanification(maintenancePlanification);
-		maintenancePlanification
-				.setType(MaintenancePlanificationType.CORRECTIVE);
-
-		return planification;
 	}
 
 	@Override
 	public EiaDamageReport save(EiaDamageReport eiaDamageReport)
 			throws GHAEJBException {
 		Eia eia = eiaDamageReport.getEia();
-		EiaCorrectiveMaintenancePlanification cmp = getEiaCorrectiveMaintenancePlanification(eia);
+		eia.setState(EiaStateEnum.DAMAGED);
+
+		EiaCorrectiveMaintenance cmp = new EiaCorrectiveMaintenance();
+		cmp.setDamageReport(eiaDamageReport);
+		cmp.setDescription(eiaDamageReport.getDamageMotive());
 
 		try {
 			em.merge(eia);
 			em.persist(eiaDamageReport);
-			em.persist(cmp.getPlanification());
 			em.persist(cmp);
-			// TODO agregar en tabla log: se creo un mantenimiento correctivo
 			em.flush();
 
 			return em.find(EiaDamageReport.class, eiaDamageReport.getId());
 		} catch (Exception e) {
 
 			logger.log(Level.INFO, "ERROR: saving eiaDamageReport ", e);
-			throw super.generateGHAEJBException("eia-save-fail",
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException("eia-save-fail", em);
 
 		}
 	}

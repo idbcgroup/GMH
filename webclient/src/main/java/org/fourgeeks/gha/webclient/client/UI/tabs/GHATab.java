@@ -3,6 +3,7 @@ package org.fourgeeks.gha.webclient.client.UI.tabs;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.TabStatus;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToHideException;
@@ -20,7 +21,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public abstract class GHATab extends GHAVerticalLayout implements
-		ClosableListener, HideableListener, ClosableProducer, HideableProducer {
+ClosableListener, HideableListener, ClosableProducer, HideableProducer {
 
 	protected GHATabHeader header;
 	protected VLayout verticalPanel = new VLayout();
@@ -36,20 +37,34 @@ public abstract class GHATab extends GHAVerticalLayout implements
 	public GHATab() {
 		super();
 		setWidth100();
-		setMinWidth(1024);
+		setMinWidth(GHAUiHelper.MIN_WIDTH);
 		addStyleName("sides-padding");
 	}
 
-	/**
-	 * @return the id of the tab
-	 */
-	public abstract String getId();
+	@Override
+	public void addClosableListener(ClosableListener closable) {
+		closables.add(closable);
+	}
 
-	/**
-	 * @return the header
-	 */
-	public GHATabHeader getHeader() {
-		return header;
+	@Override
+	public void addHideableListener(HideableListener hideable) {
+		hideables.add(hideable);
+	}
+
+	@Override
+	public boolean canBeClosen(HideCloseAction closeAction) {
+		for (ClosableListener closable : closables)
+			if (!closable.canBeClosen(closeAction))
+				return false;
+		return true;
+	}
+
+	@Override
+	public boolean canBeHidden(HideCloseAction hideAction) {
+		for (HideableListener hideable : hideables)
+			if (!hideable.canBeHidden(hideAction))
+				return false;
+		return true;
 	}
 
 	@Override
@@ -64,6 +79,23 @@ public abstract class GHATab extends GHAVerticalLayout implements
 		destroy();
 	}
 
+	/**
+	 * @return the header
+	 */
+	public GHATabHeader getHeader() {
+		return header;
+	}
+
+	/**
+	 * @return the id of the tab
+	 */
+	public abstract String getId();
+
+	/**
+	 * @return the title to put in the header
+	 */
+	public abstract String getTitleForHeader();
+
 	@Override
 	public void hide() throws UnavailableToHideException {
 		for (HideableListener hideable : hideables)
@@ -77,22 +109,6 @@ public abstract class GHATab extends GHAVerticalLayout implements
 	}
 
 	@Override
-	public boolean canBeHidden(HideCloseAction hideAction) {
-		for (HideableListener hideable : hideables)
-			if (!hideable.canBeHidden(hideAction))
-				return false;
-		return true;
-	}
-
-	@Override
-	public boolean canBeClosen(HideCloseAction closeAction) {
-		for (ClosableListener closable : closables)
-			if (!closable.canBeClosen(closeAction))
-				return false;
-		return true;
-	}
-
-	@Override
 	public void removeClosableListener(ClosableListener closable) {
 		closables.remove(closable);
 	}
@@ -102,26 +118,11 @@ public abstract class GHATab extends GHAVerticalLayout implements
 		hideables.remove(hideable);
 	}
 
-	@Override
-	public void addClosableListener(ClosableListener closable) {
-		closables.add(closable);
-	}
-
-	@Override
-	public void addHideableListener(HideableListener hideable) {
-		hideables.add(hideable);
-	}
-
 	/**
 	 * Futures refactor will remove this method from here
 	 */
 	@Deprecated
 	public abstract void search();
-
-	/**
-	 * @return the title to put in the header
-	 */
-	public abstract String getTitleForHeader();
 
 	@Override
 	public void show() {
