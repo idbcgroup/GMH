@@ -17,10 +17,10 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
-import org.fourgeeks.gha.webclient.client.eiapreventivemaintenanceplanification.EIAMaintenancePlanificationAddForm;
-import org.fourgeeks.gha.webclient.client.eiapreventivemaintenanceplanification.EiaMaintenancePlanificationModel;
-import org.fourgeeks.gha.webclient.client.eiapreventivemaintenanceplanification.MaintenancePlanificationSelectionListener;
-import org.fourgeeks.gha.webclient.client.eiapreventivemaintenanceplanification.MaintenancePlanificationSelectionProducer;
+import org.fourgeeks.gha.webclient.client.eiamaintenanceplanification.EIAMaintenancePlanificationAddForm;
+import org.fourgeeks.gha.webclient.client.eiamaintenanceplanification.EiaMaintenancePlanificationModel;
+import org.fourgeeks.gha.webclient.client.eiamaintenanceplanification.MaintenancePlanificationSelectionListener;
+import org.fourgeeks.gha.webclient.client.eiamaintenanceplanification.MaintenancePlanificationSelectionProducer;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.asociatedeiatype.EiaTypeMaintenancePlanModel;
 
