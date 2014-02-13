@@ -13,6 +13,7 @@ import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
 import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.domain.gmh.EiaTypeCategory;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
@@ -23,8 +24,8 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextAreaItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAEiaTypeCategorySelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAEiaTypeSubTypeSelectItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAEiaTypeTypeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHACodeTextItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
@@ -32,6 +33,7 @@ import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAForm;
 import org.fourgeeks.gha.webclient.client.brand.BrandModel;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.user.client.Window;
 import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 import com.smartgwt.client.widgets.form.fields.events.FocusEvent;
@@ -52,7 +54,7 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 	private GHATextAreaItem descriptionItem;
 	private GHATextAreaItem useDescriptionItem;
 	private GHASelectItem mobilityItem;
-	private GHAEiaTypeTypeSelectItem typeItem;
+	private GHASelectItem typeItem;
 	private GHAEiaTypeSubTypeSelectItem subTypeItem;
 	private GHAComboboxItem<Brand> brandItem;
 	private GHAComboboxItem<Manufacturer> manItem;
@@ -63,8 +65,10 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 		codeItem = new GHACodeTextItem(true, changedHandler);
 
 		nameItem = new GHATextItem(GHAStrings.get("name"), true, changedHandler);
-		typeItem = new GHAEiaTypeTypeSelectItem(true, changedHandler);
-		//
+		Window.alert("1");
+		typeItem = new GHAEiaTypeCategorySelectItem(GHAStrings.get("category"),
+				true, changedHandler);
+		Window.alert("2");
 		subTypeItem = new GHAEiaTypeSubTypeSelectItem(changedHandler);
 		eiaUmdnsItem = new GHATextItem("EIAUMDNS", false, changedHandler);
 		eiaUmdnsItem.setLength(16);
@@ -136,7 +140,7 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 		addMember(gridPanel);
 		fillMans(true);
 		fillExtras();
-		
+
 		nameItem.setValidators(GHATextItem.ALPHABETIC);
 		modelItem.setValidators(GHATextItem.ALPHABETIC);
 		eiaUmdnsItem.setValidators(GHATextItem.ALPHABETIC);
@@ -211,7 +215,8 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 			eiaType.setMobility(EiaMobilityEnum.valueOf(mobilityItem
 					.getValueAsString()));
 		if (typeItem.getValue() != null)
-			eiaType.setType(EiaTypeEnum.valueOf(typeItem.getValueAsString()));
+			eiaType.setEiaTypeCategory(new EiaTypeCategory(typeItem
+					.getValueAsString()));
 		if (subTypeItem.getValue() != null)
 			eiaType.setSubtype(EiaSubTypeEnum.valueOf(subTypeItem
 					.getValueAsString()));
@@ -319,6 +324,11 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 	}
 
 	@Override
+	public void onResize(ResizeEvent arg0) {
+		form.resize();
+	}
+
+	@Override
 	public void removeEiaTypeSelectionListener(
 			EIATypeSelectionListener eIATypeSelectionListener) {
 		listeners.remove(eIATypeSelectionListener);
@@ -422,10 +432,5 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 					callback.onSuccess(result);
 			}
 		});
-	}
-
-	@Override
-	public void onResize(ResizeEvent arg0) {
-		form.resize();
 	}
 }
