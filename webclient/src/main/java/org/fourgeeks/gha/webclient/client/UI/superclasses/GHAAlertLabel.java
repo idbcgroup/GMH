@@ -15,7 +15,7 @@ public class GHAAlertLabel extends Label {
 		super();
 		setBackgroundColor(backgroundColor);
 		setContents(title);
-		setHeight("25px");
+		setHeight("15px");
 		setWidth100();
 		setStyleName("gha-alert-label");
 	}
