@@ -38,6 +38,10 @@ public class EiaTypeCategory extends AbstractEntity {
 		// TODO Auto-generated constructor stub
 	}
 
+	public EiaTypeCategory(String code) {
+		this.code = code;
+	}
+
 	public String getCode() {
 		return code;
 	}

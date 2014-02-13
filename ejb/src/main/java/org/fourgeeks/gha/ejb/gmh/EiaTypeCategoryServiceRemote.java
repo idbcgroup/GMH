@@ -13,5 +13,9 @@ import org.fourgeeks.gha.domain.gmh.EiaTypeCategory;
  * 
  */
 public interface EiaTypeCategoryServiceRemote {
+	/**
+	 * @return all the categories for eiatype
+	 * @throws GHAEJBException
+	 */
 	public List<EiaTypeCategory> getAll() throws GHAEJBException;
 }
