@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eiapreventivemaintenanceplanification;
+package org.fourgeeks.gha.webclient.client.eiamaintenanceplanification;
 
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;

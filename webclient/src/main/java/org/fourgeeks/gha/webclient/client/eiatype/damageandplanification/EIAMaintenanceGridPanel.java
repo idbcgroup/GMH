@@ -22,7 +22,7 @@ import org.fourgeeks.gha.webclient.client.eiamaintenance.EIAMaintenanceUpdateFor
 import org.fourgeeks.gha.webclient.client.eiamaintenance.EiaMaintenanceDisplayForm;
 import org.fourgeeks.gha.webclient.client.eiamaintenance.EiaMaintenanceModel;
 import org.fourgeeks.gha.webclient.client.eiamaintenance.EiaMaintenanceSelectionListener;
-import org.fourgeeks.gha.webclient.client.eiapreventivemaintenanceplanification.MaintenancePlanificationSelectionListener;
+import org.fourgeeks.gha.webclient.client.eiamaintenanceplanification.MaintenancePlanificationSelectionListener;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.smartgwt.client.widgets.events.ClickEvent;
