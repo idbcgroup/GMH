@@ -32,7 +32,7 @@ public class GHABirthDateItem extends GHADateItem {
 		setValidateOnChange(true);
 		setHoverWidth(150);
 
-		setValidators(getStandardValidator());
+		setValidators(getValidator());
 	}
 
 	public DateRangeValidator getValidator() {

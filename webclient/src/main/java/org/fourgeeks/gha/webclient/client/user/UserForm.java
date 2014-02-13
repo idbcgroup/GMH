@@ -62,8 +62,8 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 				changedHandler);
 		passwordItem.setTooltip(GHAStrings.get("user-password-tooltip"));
 		passwordItem.setLength(20);
-		confirmPasswordItem = new GHATextItem(GHAStrings.get("user-password"), true,
-				changedHandler);
+		confirmPasswordItem = new GHATextItem(GHAStrings.get("user-password"),
+				true, changedHandler);
 		confirmPasswordItem.setLength(20);
 		confirmPasswordItem.setTooltip(GHAStrings
 				.get("user-confirm-password-tooltip"));
@@ -95,23 +95,23 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 		secondLastNameItem.setTooltip(GHAStrings
 				.get("user-tooltip-secondlast-name"));
 		secondLastNameItem.validateWords();
-		
-		primaryEmailItem = new GHAEmailTextItem(GHAStrings.get("user-email-primary"),
-				changedHandler);
+
+		primaryEmailItem = new GHAEmailTextItem(
+				GHAStrings.get("user-email-primary"), changedHandler);
 		primaryEmailItem.setTooltip(GHAStrings.get("user-tooltip-email"));
 
-		alternativeEmailItem = new GHAEmailTextItem(GHAStrings.get("user-email-second"),
-				changedHandler);
+		alternativeEmailItem = new GHAEmailTextItem(
+				GHAStrings.get("user-email-second"), changedHandler);
 
 		alternativeEmailItem.setTooltip(GHAStrings
 				.get("user-tooltip-email-secundario"));
 
-		typeidSelectItem = new GHASelectItem(GHAStrings
-				.get("user-type-id"), true, changedHandler);
+		typeidSelectItem = new GHASelectItem(GHAStrings.get("user-type-id"),
+				true, changedHandler);
 		typeidSelectItem.setTooltip(GHAStrings.get("user-tooltip-tipo-id"));
 
-		idItem = new GHATextItem(GHAStrings
-				.get("user-identification"), true, changedHandler);
+		idItem = new GHATextItem(GHAStrings.get("user-identification"), true,
+				changedHandler);
 		idItem.setLength(20);
 		idItem.validateCustomExpre(
 				GHAStrings.get("user-error-formatter-identification"),
@@ -120,25 +120,28 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 		idItem.setValidateOnExit(false);
 		idItem.setTooltip(GHAStrings.get("user-tooltip-identification"));
 
-		genderSelectItem = new GHASelectItem(GHAStrings.get("user-genero"), true, changedHandler);
+		genderSelectItem = new GHASelectItem(GHAStrings.get("user-genero"),
+				true, changedHandler);
 		genderSelectItem.setTooltip(GHAStrings.get("user-tooltip-genero"));
 
-		nationalityItem = new GHATextItem(GHAStrings.get("user-nacionalidad"), false, changedHandler);
+		nationalityItem = new GHATextItem(GHAStrings.get("user-nacionalidad"),
+				false, changedHandler);
 		nationalityItem.setLength(20);
 		nationalityItem.setTooltip(GHAStrings.get("user-tooltip-nacionalidad"));
 		nationalityItem.validateWords();
 
-		birthDateItem = new GHABirthDateItem(GHAStrings.get("birthdate"),changedHandler);
+		birthDateItem = new GHABirthDateItem(GHAStrings.get("birthdate"),
+				changedHandler);
 		birthDateItem.setUseMask(true);
 		birthDateItem.setTooltip(GHAStrings.get("user-tooltip-birthdate"));
-		
+
 		bpiSelectItem = new GHASelectItem(GHAStrings.get("user-institution"));
 		bpiSelectItem.setRequired(true);
 		bpiSelectItem.addChangedHandler(changedHandler);
 		bpiSelectItem.setTooltip(GHAStrings.get("user-tooltip-institution"));
 
-		legalEntityIdentifierItem = new GHATextItem(GHAStrings.get("user-rif"), false,
-				changedHandler);
+		legalEntityIdentifierItem = new GHATextItem(GHAStrings.get("user-rif"),
+				false, changedHandler);
 		legalEntityIdentifierItem.setLength(17);
 		legalEntityIdentifierItem.validateCustomExpre(
 				GHAStrings.get("user-error-formatter-rif"),
@@ -150,7 +153,7 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 		listeners = new ArrayList<UserSelectionListener>();
 
 		form = new GHADynamicForm(4, FormType.NORMAL_FORM);
-		
+
 	}
 
 	/**
@@ -166,7 +169,7 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 				secondLastNameItem, nationalityItem, birthDateItem,
 				new GHASpacerItem(), primaryEmailItem, alternativeEmailItem,
 				bpiSelectItem, new GHASpacerItem(), legalEntityIdentifierItem);
-		
+
 		mainPanel.addMembers(form, new LayoutSpacer());
 		addMember(mainPanel);
 		fill();
@@ -228,6 +231,7 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 	 * @return the SSOUser to save/update
 	 */
 	private SSOUser extract(boolean update) {
+
 		final List<String> violationsList = new ArrayList<String>();
 		final SSOUser ssoUser = new SSOUser();
 		final Bpu bpu = new Bpu();

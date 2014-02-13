@@ -534,3 +534,5 @@ ES,message-save-fail,Error al intentar salvar un mensaje,6
 ES,message-delete-fail,Error al intentar borrar un mensaje,6
 ES,eiatype-name-error-formatter,Error de formato: El nombre solo puede contener letras,6
 ES,eiatype-model-error-formatter,Error de formato: El modelo solo puede contener letras numeros y guiones,6
+ES,users-delete-confirm,¿Desea eliminar a los usuarios?,2
+ES,user-delete-confirm,¿Desea eliminar al usuario?,2
