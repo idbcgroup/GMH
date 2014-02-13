@@ -17,13 +17,13 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class EIACostGridPanel extends GHAVerticalLayout implements
-		EIATypeSelectionListener, ClosableListener, HideableListener {
+EIATypeSelectionListener, ClosableListener, HideableListener {
 
 	private EIADeprecationGrid eiaDeprecationGrid = new EIADeprecationGrid();
 
 	public EIACostGridPanel() {
 		setWidth100();
-		setMinWidth(1024);
+		setMinWidth(GHAUiHelper.MIN_WIDTH);
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding padding-top");// Esto es VUDU!
 
@@ -41,11 +41,11 @@ public class EIACostGridPanel extends GHAVerticalLayout implements
 				new GHAImgButton("../resources/icons/delete.png"),
 				new GHAImgButton("../resources/icons/set.png",
 						new ClickHandler() {
-							@Override
-							public void onClick(ClickEvent event) {
-								// TODO Auto-generated method stub
-							}
-						}));
+					@Override
+					public void onClick(ClickEvent event) {
+						// TODO Auto-generated method stub
+					}
+				}));
 
 		HLayout mainPanel = new HLayout();
 		mainPanel.addMembers(eiaDeprecationGrid, sideButtons);
@@ -56,9 +56,13 @@ public class EIACostGridPanel extends GHAVerticalLayout implements
 	}
 
 	@Override
-	public void select(EiaType eiaType) {
-		// TODO Auto-generated method stub
+	public boolean canBeClosen(HideCloseAction hideAction) {
+		return true;
+	}
 
+	@Override
+	public boolean canBeHidden(HideCloseAction hideAction) {
+		return true;
 	}
 
 	@Override
@@ -74,13 +78,9 @@ public class EIACostGridPanel extends GHAVerticalLayout implements
 	}
 
 	@Override
-	public boolean canBeHidden(HideCloseAction hideAction) {
-		return true;
-	}
+	public void select(EiaType eiaType) {
+		// TODO Auto-generated method stub
 
-	@Override
-	public boolean canBeClosen(HideCloseAction hideAction) {
-		return true;
 	}
 
 }

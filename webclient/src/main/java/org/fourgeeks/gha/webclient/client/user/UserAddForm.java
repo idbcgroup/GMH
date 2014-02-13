@@ -31,7 +31,7 @@ public class UserAddForm extends GHAAddForm<SSOUser> implements
 	 */
 	public UserAddForm(String title) {
 		super(title);
-		VLayout sideButtons = GHAUiHelper.createBar(new GHASaveButton(
+		final VLayout sideButtons = GHAUiHelper.createBar(new GHASaveButton(
 				new ClickHandler() {
 
 					@Override
@@ -46,7 +46,7 @@ public class UserAddForm extends GHAAddForm<SSOUser> implements
 			}
 		}));
 
-		HLayout gridPanel = new HLayout();
+		final HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
 		addMember(gridPanel);
 
@@ -71,7 +71,7 @@ public class UserAddForm extends GHAAddForm<SSOUser> implements
 
 	@Override
 	public void notifyUser(SSOUser ssoUser) {
-		return;
+		// This is left in blank because is the form who notifys
 	}
 
 	@Override

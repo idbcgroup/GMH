@@ -17,7 +17,7 @@ public class GHANameTextItem extends GHATextItem {
 	public GHANameTextItem() {
 		super(GHAStrings.get("name"));
 		setLength(20);
-		setMask(">A<AAAAAAAAAAAAAAAAAAA");
+		//setMask(">A<AAAAAAAAAAAAAAAAAAA");
 	}
 	
 	/**
@@ -26,7 +26,7 @@ public class GHANameTextItem extends GHATextItem {
 	public GHANameTextItem(String title) {
 		super(title);
 		setLength(20);
-		setMask(">A<AAAAAAAAAAAAAAAAAAA");
+		//setMask(">A<AAAAAAAAAAAAAAAAAAA");
 	}
 	
 	/**

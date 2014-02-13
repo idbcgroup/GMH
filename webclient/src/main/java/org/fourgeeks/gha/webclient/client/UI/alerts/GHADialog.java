@@ -239,23 +239,29 @@ public abstract class GHADialog extends Dialog implements ResizeHandler {
 
 	protected abstract void initTypeParams();
 
+
 	@Override
 	public void onResize(ResizeEvent event) {
 		//
 		//
 		//
 		if (isVisible()) {
-			if (hasButtons) {
-				setLeft(Window.getClientWidth() - (getWidth() + RIGHT_MARGIN));
-				setTop(Window.getClientHeight()
-						- (openedPosition + 1)
-						* (DEFAULT_NOTIFICATION_BUTTONS_HEIGHT + BORDER_SEPARATION));
-			} else {
-				setLeft(Window.getClientWidth() - (getWidth() + RIGHT_MARGIN));
-				setTop(Window.getClientHeight()
-						- (openedPosition + 1)
-						* (DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT + BORDER_SEPARATION));
-			}
+			final int windowWidth = Window.getClientWidth() > GHAUiHelper.MIN_WIDTH ? Window
+					.getClientWidth() : GHAUiHelper.MIN_WIDTH;
+					final int windowHeight = Window.getClientHeight() > GHAUiHelper.MIN_HEIGHT ? Window
+							.getClientHeight() : GHAUiHelper.MIN_HEIGHT;
+
+							if (hasButtons) {
+								setLeft(windowWidth - (getWidth() + RIGHT_MARGIN));
+								setTop(windowHeight
+										- (openedPosition + 1)
+										* (DEFAULT_NOTIFICATION_BUTTONS_HEIGHT + BORDER_SEPARATION));
+							} else {
+								setLeft(windowWidth - (getWidth() + RIGHT_MARGIN));
+								setTop(windowHeight
+										- (openedPosition + 1)
+										* (DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT + BORDER_SEPARATION));
+							}
 		}
 	}
 
@@ -287,23 +293,28 @@ public abstract class GHADialog extends Dialog implements ResizeHandler {
 
 		getMessageStack().setHeight(40);
 		if (openedPosition >= 0) {
-			setLeft(Window.getClientWidth() - (getWidth() + RIGHT_MARGIN));
-			setTop(Window.getClientHeight());
+			final int windowWidth = Window.getClientWidth() > GHAUiHelper.MIN_WIDTH ? Window
+					.getClientWidth() : GHAUiHelper.MIN_WIDTH;
+					final int windowHeight = Window.getClientHeight() > GHAUiHelper.MIN_HEIGHT ? Window
+							.getClientHeight() : GHAUiHelper.MIN_HEIGHT;
 
-			if (hasButtons) {
-				animateRect(
-						null,
-						Window.getClientHeight()
-								- (DEFAULT_NOTIFICATION_BUTTONS_HEIGHT + BORDER_SEPARATION),
-						null, null);
-			} else {
-				animateRect(
-						null,
-						Window.getClientHeight()
-								- (openedPosition + 1)
-								* (DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT + BORDER_SEPARATION),
-						null, null);
-			}
+							setLeft(windowWidth - (getWidth() + RIGHT_MARGIN));
+							setTop(Window.getClientHeight());
+
+							if (hasButtons) {
+								animateRect(
+										null,
+										windowHeight
+										- (DEFAULT_NOTIFICATION_BUTTONS_HEIGHT + BORDER_SEPARATION),
+										null, null);
+							} else {
+								animateRect(
+										null,
+										windowHeight
+										- (openedPosition + 1)
+										* (DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT + BORDER_SEPARATION),
+										null, null);
+							}
 		} else {
 			Window.alert("Error. no hay posiciones libres para mostrar alertas");
 		}

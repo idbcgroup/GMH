@@ -40,3 +40,4 @@ MIX,00.02,user,user,A003,user-credential-subtab,CS03,credential-view-for-user-ad
 GMH,00.03,maintenance,mplan,M001,man-csearch-subtab,MS03,credential-view-for-man-administration,man-credential-update,M036,edit-the-actv-of-one-or-more-plan
 GMH,00.03,activity,activity,M002,man-csearch-subtab,MS03,credential-view-for-man-administration,man-credential-update,M036,edit-the-actv-of-one-or-more-plan
 GMH,00.03,emh,emh,H001,main-view,H001H,main-view-for-medical.history,view,H036,view
+GMH,00.03,res,res,R001,main-view,R001H,main-view-for-health,view,RES036,view

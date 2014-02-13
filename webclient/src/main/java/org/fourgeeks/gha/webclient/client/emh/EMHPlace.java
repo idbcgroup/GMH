@@ -47,16 +47,16 @@ public class EMHPlace extends NeedPermissionPlace {
 
 	@Override
 	public String getAcronym() {
-		return GHAStrings.get("hme");
+		return GHAStrings.get("emh");
 	}
 
 	@Override
 	public void updateToken(String token) {
-		int indexOf = token.indexOf("/");
+		final int indexOf = token.indexOf("/");
 		if (indexOf == -1)
 			return;
-		String patientId = token.substring(indexOf + 1);
-		GHATab tab = tabPanel.getTabById(patientId);
+		final String patientId = token.substring(indexOf + 1);
+		final GHATab tab = tabPanel.getTabById(patientId);
 		if (tab != null)
 			tabPanel.showTab(patientId);
 		else

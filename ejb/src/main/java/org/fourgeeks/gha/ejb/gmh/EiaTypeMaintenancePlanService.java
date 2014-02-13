@@ -16,7 +16,6 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
-import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
  * @author emiliot, vivi.torresg
@@ -50,8 +49,7 @@ public class EiaTypeMaintenancePlanService extends GHAEJBExceptionService
 			logger.log(Level.INFO,
 					"ERROR: unable to delete EiaTypeMaintenancePlan", e);
 			throw super.generateGHAEJBException(
-					"eiaTypeMaintenancePlan-delete-fail",
-					RuntimeParameters.getLang(), em);
+					"eiaTypeMaintenancePlan-delete-fail", em);
 		}
 	}
 
@@ -74,8 +72,7 @@ public class EiaTypeMaintenancePlanService extends GHAEJBExceptionService
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving EiaTypeMaintenancePlan ", e);
 			throw super.generateGHAEJBException(
-					"eiaTypeMaintenancePlan-save-fail",
-					RuntimeParameters.getLang(), em);
+					"eiaTypeMaintenancePlan-save-fail", em);
 		}
 	}
 
@@ -99,8 +96,7 @@ public class EiaTypeMaintenancePlanService extends GHAEJBExceptionService
 					"Error retriving all EiaTypeMaintenancePlans by eiatype",
 					ex);
 			throw super.generateGHAEJBException(
-					"eiaTypeMaintenancePlan-findByEiaType-fail",
-					RuntimeParameters.getLang(), em);
+					"eiaTypeMaintenancePlan-findByEiaType-fail", em);
 		}
 	}
 
@@ -126,8 +122,7 @@ public class EiaTypeMaintenancePlanService extends GHAEJBExceptionService
 					"Error retriving all EiaTypeMaintenancePlans by maintenancePlan",
 					ex);
 			throw super.generateGHAEJBException(
-					"eiaTypeMaintenancePlan-findByMaintenancePlan-fail",
-					RuntimeParameters.getLang(), em);
+					"eiaTypeMaintenancePlan-findByMaintenancePlan-fail", em);
 		}
 	}
 }

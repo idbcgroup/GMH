@@ -21,7 +21,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public abstract class GHAPlace extends VLayout implements HideableListener,
-		ClosableListener, HideableProducer, ClosableProducer, ResizeHandler {
+ClosableListener, HideableProducer, ClosableProducer, ResizeHandler {
 
 	private final List<ClosableListener> closables = new ArrayList<ClosableListener>();
 	private final List<HideableListener> hideables = new ArrayList<HideableListener>();
@@ -34,21 +34,35 @@ public abstract class GHAPlace extends VLayout implements HideableListener,
 	public GHAPlace(String token) {
 		this.token = token;
 		setWidth100();
-		setMinWidth(1024);
+		setMinWidth(GHAUiHelper.MIN_WIDTH);
 		setHeight(GHAUiHelper.getTabHeight());
 		GHAUiHelper.addGHAResizeHandler(this);
 	}
 
-	/**
-	 * @return the id of the tab
-	 */
-	public abstract String getId();
+	@Override
+	public void addClosableListener(ClosableListener closable) {
+		closables.add(closable);
+	}
 
-	/**
-	 * @return the header
-	 */
-	public GHAPlaceHeader getHeader() {
-		return header;
+	@Override
+	public void addHideableListener(HideableListener hideable) {
+		hideables.add(hideable);
+	}
+
+	@Override
+	public boolean canBeClosen(HideCloseAction closeAction) {
+		for (ClosableListener closable : closables)
+			if (!closable.canBeClosen(closeAction))
+				return false;
+		return true;
+	}
+
+	@Override
+	public boolean canBeHidden(HideCloseAction hideAction) {
+		for (HideableListener hideable : hideables)
+			if (!hideable.canBeHidden(hideAction))
+				return false;
+		return true;
 	}
 
 	@Override
@@ -64,6 +78,31 @@ public abstract class GHAPlace extends VLayout implements HideableListener,
 		destroy();
 	}
 
+	/**
+	 * @return the Acronym for this tab. to be put in the eyelash
+	 */
+	public abstract String getAcronym();
+
+	/**
+	 * @return the header
+	 */
+	public GHAPlaceHeader getHeader() {
+		return header;
+	}
+
+	// /**
+	// * @param token
+	// */
+	// public void show(String token) {
+	// show();
+	// updateToken(token);
+	// }
+
+	/**
+	 * @return the id of the tab
+	 */
+	public abstract String getId();
+
 	@Override
 	public void hide() throws UnavailableToHideException {
 		for (HideableListener hideable : hideables)
@@ -78,34 +117,9 @@ public abstract class GHAPlace extends VLayout implements HideableListener,
 	}
 
 	@Override
-	public boolean canBeHidden(HideCloseAction hideAction) {
-		for (HideableListener hideable : hideables)
-			if (!hideable.canBeHidden(hideAction))
-				return false;
-		return true;
+	public void onResize(ResizeEvent event) {
+		setHeight(GHAUiHelper.getTabHeight());
 	}
-
-	@Override
-	public boolean canBeClosen(HideCloseAction closeAction) {
-		for (ClosableListener closable : closables)
-			if (!closable.canBeClosen(closeAction))
-				return false;
-		return true;
-	}
-
-	@Override
-	public void show() {
-		header.markSelected();
-		getElement().removeClassName("hidden");
-	}
-
-	// /**
-	// * @param token
-	// */
-	// public void show(String token) {
-	// show();
-	// updateToken(token);
-	// }
 
 	@Override
 	public void removeClosableListener(ClosableListener closable) {
@@ -118,24 +132,10 @@ public abstract class GHAPlace extends VLayout implements HideableListener,
 	}
 
 	@Override
-	public void addClosableListener(ClosableListener closable) {
-		closables.add(closable);
+	public void show() {
+		header.markSelected();
+		getElement().removeClassName("hidden");
 	}
-
-	@Override
-	public void addHideableListener(HideableListener hideable) {
-		hideables.add(hideable);
-	}
-
-	@Override
-	public void onResize(ResizeEvent event) {
-		setHeight(GHAUiHelper.getTabHeight());
-	}
-
-	/**
-	 * @return the Acronym for this tab. to be put in the eyelash
-	 */
-	public abstract String getAcronym();
 
 	/**
 	 * @param token

@@ -33,21 +33,21 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class UserResultSet extends GHAResultSet<SSOUser> implements
-UserSelectionProducer, ResizeHandler, HideableListener,
-ClosableListener {
+		UserSelectionProducer, ResizeHandler, HideableListener,
+		ClosableListener {
 	private final List<UserSelectionListener> listeners = new ArrayList<UserSelectionListener>();
 	private final UserGrid grid;
 	private final ResultSetContainerType containerType;
 
 	/**
-	 * @param container 
+	 * @param container
 	 * 
 	 */
 	public UserResultSet(ResultSetContainerType container) {
 		super(GHAStrings.get("search-results"));
 		this.containerType = container;
 
-		grid = new UserGrid(){
+		grid = new UserGrid() {
 			@Override
 			public void onResize(ResizeEvent event) {
 				super.onResize(event);
@@ -64,20 +64,21 @@ ClosableListener {
 		grid.setHeight(GHAUiHelper.getResultSetGridSize(containerType));
 
 		setHeight(GHAUiHelper.getResultSetHeight(containerType));
-		HLayout gridPanel = new HLayout();
+		final HLayout gridPanel = new HLayout();
 		VLayout sideBar;
 
-		GHACheckButton checkButton = new GHACheckButton(new ClickHandler() {
+		final GHACheckButton checkButton = new GHACheckButton(
+				new ClickHandler() {
 
-			@Override
-			public void onClick(ClickEvent event) {
-				notifySelectedUser();
-			}
-		});
+					@Override
+					public void onClick(ClickEvent event) {
+						notifySelectedUser();
+					}
+				});
 
 		if (containerType == ResultSetContainerType.TAB) {
-			VLayout separator = GHAUiHelper.verticalGraySeparator("2px");
-			GHADeleteButton deleteButton = new GHADeleteButton(
+			final VLayout separator = GHAUiHelper.verticalGraySeparator("2px");
+			final GHADeleteButton deleteButton = new GHADeleteButton(
 					new ClickHandler() {
 
 						@Override
@@ -89,7 +90,7 @@ ClosableListener {
 					deleteButton);
 		} else {
 			sideBar = GHAUiHelper.createBar(checkButton);
-			//			setHeight(getHeight() - 42);
+			// setHeight(getHeight() - 42);
 		}
 		gridPanel.addMembers(grid, sideBar);
 
@@ -134,49 +135,52 @@ ClosableListener {
 			return;
 		}
 
-		if(grid.getSelectedRecords().length > 1){
-			GHAAlertManager.confirm("users-delete-confirm", new BooleanCallback() {
+		if (grid.getSelectedRecords().length > 1) {
+			GHAAlertManager.confirm("ssoUser-delete-confirm",
+					new BooleanCallback() {
 
-				@Override
-				public void execute(Boolean value) {
-					if (value) {
-						List<SSOUser> entities = grid.getSelectedEntities();
-						UserModel.delete(entities,
-								new GHAAsyncCallback<Void>() {
+						@Override
+						public void execute(Boolean value) {
+							if (value) {
+								final List<SSOUser> entities = grid
+										.getSelectedEntities();
+								SSOUserModel.delete(entities,
+										new GHAAsyncCallback<Void>() {
 
-							@Override
-							public void onSuccess(Void arg0) {
-								grid.removeSelectedData();
-								refreshResultsSize(grid
-										.getRecords().length);
+											@Override
+											public void onSuccess(Void arg0) {
+												grid.removeSelectedData();
+												refreshResultsSize(grid
+														.getRecords().length);
+											}
+
+										});
 							}
-
-						});
-					}
-				}
-			});
-		}else{
+						}
+					});
+		} else {
 			GHAAlertManager.confirm("user-delete-confirm",
 					new BooleanCallback() {
 
-				@Override
-				public void execute(Boolean value) {
-					if (value) {
-						List<SSOUser> entities = grid.getSelectedEntities();
-						UserModel.delete(entities,
-								new GHAAsyncCallback<Void>() {
+						@Override
+						public void execute(Boolean value) {
+							if (value) {
+								final List<SSOUser> entities = grid
+										.getSelectedEntities();
+								SSOUserModel.delete(entities,
+										new GHAAsyncCallback<Void>() {
 
-							@Override
-							public void onSuccess(Void arg0) {
-								grid.removeSelectedData();
-								refreshResultsSize(grid
-										.getRecords().length);
+											@Override
+											public void onSuccess(Void arg0) {
+												grid.removeSelectedData();
+												refreshResultsSize(grid
+														.getRecords().length);
+											}
+
+										});
 							}
-
-						});
-					}
-				}
-			});
+						}
+					});
 		}
 	}
 
@@ -184,7 +188,7 @@ ClosableListener {
 	 * notify selected eiaType from the grid
 	 */
 	private void notifySelectedUser() {
-		GHAGridRecord<SSOUser> selectedRecord = grid.getSelectedRecord();
+		final GHAGridRecord<SSOUser> selectedRecord = grid.getSelectedRecord();
 		if (selectedRecord == null) {
 			GHAAlertManager.alert("record-not-selected");
 			return;
@@ -195,7 +199,7 @@ ClosableListener {
 
 	@Override
 	public void notifyUser(SSOUser user) {
-		for (UserSelectionListener listener : listeners)
+		for (final UserSelectionListener listener : listeners)
 			listener.select(user);
 	}
 
@@ -221,7 +225,7 @@ ClosableListener {
 		}
 
 		showResultsSize(records, false);
-		ListGridRecord[] array = UserUtil.toGridRecords(records).toArray(
+		final ListGridRecord[] array = UserUtil.toGridRecords(records).toArray(
 				new UserRecord[] {});
 		grid.setData(array);
 		// setAnimateAcceleration(AnimationAcceleration.NONE);

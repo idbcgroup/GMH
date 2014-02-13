@@ -21,7 +21,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class EIAReportsFormPanel extends GHAVerticalLayout implements
-		ClosableListener, HideableListener {
+ClosableListener, HideableListener {
 
 	private final String PATH_IMG_PRINT_BUTTON = "../resources/icons/check.png";
 	private final String PATH_IMG_CLEAN_BUTTON = "../resources/icons/clean.png";
@@ -38,7 +38,7 @@ public class EIAReportsFormPanel extends GHAVerticalLayout implements
 	public EIAReportsFormPanel() {
 		super();
 		setWidth100();
-		setMinWidth(1024);
+		setMinWidth(GHAUiHelper.MIN_WIDTH);
 		setBackgroundColor("#E0E0E0");
 		setStyleName("sides-padding padding-top");
 
@@ -62,7 +62,7 @@ public class EIAReportsFormPanel extends GHAVerticalLayout implements
 
 		// CREO EL SIDEBAR
 		VLayout sideBarLayout = GHAUiHelper.createBar(
-		// boton generar reporte
+				// boton generar reporte
 				new GHAImgButton(PATH_IMG_PRINT_BUTTON, new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
@@ -95,6 +95,7 @@ public class EIAReportsFormPanel extends GHAVerticalLayout implements
 		return true;
 	}
 
+	@Override
 	public boolean canBeHidden(HideCloseAction hideAction) {
 		return true;
 	}
@@ -113,12 +114,12 @@ public class EIAReportsFormPanel extends GHAVerticalLayout implements
 	@Override
 	public void hide() {
 		super.hide();
-		sectionForm.deactivate();
+		sectionForm.hide();
 	}
 
 	@Override
 	public void show() {
-		sectionForm.openFirst();
+		sectionForm.show();
 		super.show();
 	}
 

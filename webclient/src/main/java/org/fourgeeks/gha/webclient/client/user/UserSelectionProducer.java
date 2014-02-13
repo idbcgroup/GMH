@@ -18,6 +18,9 @@ public interface UserSelectionProducer {
 	public void removeUserSelectionListener(
 			UserSelectionListener userSelectionListener);
 
+	/**
+	 * @param ssoUser
+	 */
 	public void notifyUser(SSOUser ssoUser);
 
 }

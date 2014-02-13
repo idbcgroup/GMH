@@ -32,10 +32,9 @@ public class UILogService extends GHAEJBExceptionService implements
 		try {
 			em.persist(log);
 		} catch (final Exception e) {
-			System.out.println(e);
-			// logger.log(Level.INFO, "ERROR: unable to delete ="
-			// + log.getClass().getName() + " with id = " + log.getId(), e);
-			// throw super.generateGHAEJBException("messague-delete-fail", em);
+			logger.log(Level.INFO, "ERROR: unable to log ="
+					+ log.getClass().getName() + " with id = " + log.getId(), e);
+			throw super.generateGHAEJBException("log-fail", em);
 		}
 	}
 
@@ -47,7 +46,7 @@ public class UILogService extends GHAEJBExceptionService implements
 		} catch (final Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete ="
 					+ log.getClass().getName() + " with id = " + log.getId(), e);
-			throw super.generateGHAEJBException("messague-delete-fail", em);
+			throw super.generateGHAEJBException("message-delete-fail", em);
 		}
 	}
 

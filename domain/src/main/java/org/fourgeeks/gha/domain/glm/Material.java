@@ -10,7 +10,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 import org.fourgeeks.gha.domain.gmh.Brand;
@@ -46,10 +45,6 @@ public class Material extends ServiceAndResource {
 	@ManyToOne
 	@JoinColumn(name = "brandFk")
 	private Brand brand;
-
-	@OneToOne
-	@JoinColumn(name = "resourceFk")
-	private ServiceAndResource resource;
 
 	private int amount;
 	private String barCode;

@@ -12,16 +12,16 @@ import org.fourgeeks.gha.domain.mix.Citizen;
 
 /**
  * @author emiliot
- *
+ * 
  */
 
 @Remote
 public interface CitizenServiceRemote {
 	/**
-	 * @param Id
+	 * @param citizens
 	 * @throws GHAEJBException
 	 */
-	public void delete(long Id) throws GHAEJBException;
+	public void delete(List<Citizen> citizens) throws GHAEJBException;
 
 	/**
 	 * @param citizen
@@ -36,7 +36,7 @@ public interface CitizenServiceRemote {
 	 * @throws GHAEJBException
 	 */
 	public Citizen find(long Id) throws GHAEJBException;
-	
+
 	/**
 	 * @return the list of Citizens
 	 * @throws GHAEJBException

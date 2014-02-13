@@ -33,10 +33,10 @@ public class UserLoginLogGridPanel extends GHAVerticalLayout implements
 	 */
 	public UserLoginLogGridPanel() {
 		super();
-		GHALabel title = new GHALabel("Log de Connecciones al Sistema");
+		final GHALabel title = new GHALabel("Log de Connecciones al Sistema");
 		addMember(title);
 
-		HLayout mainLayout = new HLayout();
+		final HLayout mainLayout = new HLayout();
 		mainLayout.addMembers(grid);
 		addMember(mainLayout);
 	}
@@ -63,9 +63,9 @@ public class UserLoginLogGridPanel extends GHAVerticalLayout implements
 
 					@Override
 					public void onSuccess(List<LogonLog> list) {
-						List<LogonLogRecord> gridRecords = LogonLogUtil
+						final List<LogonLogRecord> gridRecords = LogonLogUtil
 								.toGridRecords(list);
-						LogonLogRecord[] array = gridRecords
+						final LogonLogRecord[] array = gridRecords
 								.toArray(new LogonLogRecord[] {});
 						grid.setData(array);
 					}

@@ -1,5 +1,7 @@
 package org.fourgeeks.gha.webclient.client.UI.panels;
 
+import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+
 import com.smartgwt.client.types.BackgroundRepeat;
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.MouseOutEvent;
@@ -30,7 +32,7 @@ public class GHAHeaderOption extends Label {
 		this.bgSrcOver = bgSrcOver;
 		setStyleName("tab-header-title");
 		setWidth(width + "px");
-		setHeight("30px");
+		setHeight(GHAUiHelper.DEFAULT_HEADER_OPTION_HEIGHT + "px");
 
 		// addClickHandler(new ClickHandler() {
 		// @Override

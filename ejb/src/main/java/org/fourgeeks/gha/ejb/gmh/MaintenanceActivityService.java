@@ -103,8 +103,7 @@ public class MaintenanceActivityService extends GHAEJBExceptionService
 			logger.log(Level.INFO,
 					"ERROR: unable to delete MaintenanceActivity", e);
 			throw super.generateGHAEJBException(
-					"maintenanceActivity-delete-fail",
-					RuntimeParameters.getLang(), em);
+					"maintenanceActivity-delete-fail", em);
 		}
 	}
 
@@ -121,8 +120,7 @@ public class MaintenanceActivityService extends GHAEJBExceptionService
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: finding MaintenanceActivity", e);
 			throw super.generateGHAEJBException(
-					"maintenanceActivity-find-fail",
-					RuntimeParameters.getLang(), em);
+					"maintenanceActivity-find-fail", em);
 		}
 	}
 
@@ -182,8 +180,7 @@ public class MaintenanceActivityService extends GHAEJBExceptionService
 					"Error obteniendo los MaintenanceActivity por MaintenanceActivity",
 					e);
 			throw super.generateGHAEJBException(
-					"maintenanceActivity-findByMaintenanceActivity-fail",
-					RuntimeParameters.getLang(), em);
+					"maintenanceActivity-findByMaintenanceActivity-fail", em);
 		}
 	}
 
@@ -200,8 +197,7 @@ public class MaintenanceActivityService extends GHAEJBExceptionService
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding all MaintenanceActivity", e);
 			throw super.generateGHAEJBException(
-					"maintenanceActivity-getAll-fail",
-					RuntimeParameters.getLang(), em);
+					"maintenanceActivity-getAll-fail", em);
 		}
 	}
 
@@ -223,8 +219,7 @@ public class MaintenanceActivityService extends GHAEJBExceptionService
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding all MaintenanceActivity", e);
 			throw super.generateGHAEJBException(
-					"maintenanceActivity-getAll-fail",
-					RuntimeParameters.getLang(), em);
+					"maintenanceActivity-getAll-fail", em);
 		}
 	}
 
@@ -246,8 +241,7 @@ public class MaintenanceActivityService extends GHAEJBExceptionService
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving MaintenanceActivity ", e);
 			throw super.generateGHAEJBException(
-					"maintenanceActivity-save-fail",
-					RuntimeParameters.getLang(), em);
+					"maintenanceActivity-save-fail", em);
 		}
 	}
 

@@ -1,5 +1,7 @@
 package org.fourgeeks.gha.webclient.client.UI.superclasses;
 
+import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+
 import com.smartgwt.client.widgets.Label;
 
 /**
@@ -16,7 +18,7 @@ public class GHALabel extends Label {
 		setContents(title);
 		setHeight("25px");
 		setWidth100();
-		setMinWidth(1024);
+		setMinWidth(GHAUiHelper.MIN_WIDTH);
 		setStyleName("gha-label");
 	}
 }

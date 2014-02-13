@@ -1,5 +1,6 @@
 package org.fourgeeks.gha.ejb.log;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -22,6 +23,7 @@ import org.fourgeeks.gha.domain.enu.DepreciationMethodEnum;
 import org.fourgeeks.gha.domain.enu.DocumentTypeEnum;
 import org.fourgeeks.gha.domain.enu.EiaDamagePriorityEnum;
 import org.fourgeeks.gha.domain.enu.EiaDamageStatusEnum;
+import org.fourgeeks.gha.domain.enu.EiaMaintenanceState;
 import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
@@ -29,12 +31,12 @@ import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.enu.GenderTypeEnum;
 import org.fourgeeks.gha.domain.enu.LanguageEnum;
 import org.fourgeeks.gha.domain.enu.LocationLevelEnum;
+import org.fourgeeks.gha.domain.enu.MaintenanceCancelationCause;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanCancelationOption;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanState;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanStatus;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanType;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanificationState;
-import org.fourgeeks.gha.domain.enu.MaintenancePlanificationStatus;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanificationType;
 import org.fourgeeks.gha.domain.enu.ProviderPreferenceEnum;
 import org.fourgeeks.gha.domain.enu.ProviderQualEnum;
@@ -43,9 +45,11 @@ import org.fourgeeks.gha.domain.enu.ProviderResourceTypeEnum;
 import org.fourgeeks.gha.domain.enu.ProviderServicesEnum;
 import org.fourgeeks.gha.domain.enu.ProviderTypeEnum;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
+import org.fourgeeks.gha.domain.enu.UserLogonStatusEnum;
 import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
 import org.fourgeeks.gha.domain.ess.LocationType;
 import org.fourgeeks.gha.domain.ess.Role;
+import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
 import org.fourgeeks.gha.domain.ess.ui.AppForm;
 import org.fourgeeks.gha.domain.ess.ui.AppFormViewFunctionBpu;
@@ -65,9 +69,11 @@ import org.fourgeeks.gha.domain.glm.Bsp;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Eia;
+import org.fourgeeks.gha.domain.gmh.EiaCorrectiveMaintenance;
 import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
+import org.fourgeeks.gha.domain.gmh.EiaMaintenance;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
-import org.fourgeeks.gha.domain.gmh.EiaPreventiveMaintenancePlanification;
+import org.fourgeeks.gha.domain.gmh.EiaPreventiveMaintenance;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeCategory;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
@@ -89,6 +95,8 @@ import org.fourgeeks.gha.domain.msg.GHAMessageId;
 import org.fourgeeks.gha.domain.msg.GHAMessageType;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
+import org.fourgeeks.gha.ejb.ess.SSOUserService;
+import org.fourgeeks.gha.ejb.ess.SSOUserServiceRemote;
 import org.fourgeeks.gha.ejb.gar.BpuService;
 import org.fourgeeks.gha.ejb.gar.BpuServiceRemote;
 import org.fourgeeks.gha.ejb.mix.BpiService;
@@ -103,21 +111,18 @@ import org.fourgeeks.gha.ejb.msg.MessageService;
 import org.fourgeeks.gha.ejb.msg.MessageServiceLocal;
 import org.fourgeeks.gha.ejb.msg.MessageServiceRemote;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 
 /**
  * @author alacret
  * 
  */
-@RunWith(Arquillian.class)
+// @RunWith(Arquillian.class)
 public class UILogServiceTest {
 	/**
 	 * @return the deployment descriptor
@@ -159,7 +164,7 @@ public class UILogServiceTest {
 				.addClass(EiaDamagePriorityEnum.class)
 				.addClass(EiaDamageStatusEnum.class)
 				.addClass(EiaSubTypeEnum.class)
-				.addClass(EiaPreventiveMaintenancePlanification.class)
+				.addClass(EiaPreventiveMaintenance.class)
 				.addClass(EiaType.class)
 				.addClass(EiaTypeCategory.class)
 				.addClass(EiaTypeEnum.class)
@@ -196,7 +201,7 @@ public class UILogServiceTest {
 				.addClass(RequiredResources.class)
 				.addClass(MaintenancePlan.class)
 				.addClass(MaintenancePlanificationState.class)
-				.addClass(MaintenancePlanificationStatus.class)
+				.addClass(EiaMaintenanceState.class)
 				.addClass(MaintenancePlanificationType.class)
 				.addClass(MaintenancePlanState.class)
 				.addClass(MaintenancePlanStatus.class)
@@ -225,7 +230,14 @@ public class UILogServiceTest {
 				.addClass(View.class)
 				.addClass(WorkingArea.class)
 				.addClass(WarrantySinceEnum.class)
-
+				.addClass(EiaCorrectiveMaintenance.class)
+				.addClass(EiaMaintenance.class)
+				.addClass(SSOUser.class)
+				.addClass(SSOUserService.class)
+				.addClass(SSOUserServiceRemote.class)
+				.addClass(UserLogonStatusEnum.class)
+				.addClass(MaintenanceCancelationCause.class)
+				.addClass(MaintenancePlanificationState.class)
 				.addAsResource("test-persistence.xml",
 						"META-INF/persistence.xml")
 				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
@@ -331,7 +343,7 @@ public class UILogServiceTest {
 	/**
 	 * 
 	 */
-	@Test
+	// @Test
 	public void test() {
 		Assert.assertNotNull(uILogServiceRemote);
 		Assert.assertNotNull(uILogServiceLocal);
@@ -371,7 +383,9 @@ public class UILogServiceTest {
 		}
 
 		try {
-			citizenServiceRemote.delete(citizen.getId());
+			final List<Citizen> citizens = new ArrayList<Citizen>();
+			citizens.add(citizen);
+			citizenServiceRemote.delete(citizens);
 		} catch (final GHAEJBException e) {
 		}
 
