@@ -1,5 +1,6 @@
 package org.fourgeeks.gha.webclient.client.maintenanceactivity.subprotocol;
 
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivityPanel;
 
@@ -18,7 +19,7 @@ public class MaintenanceSubprotocolActivitiesSubTab extends GHASubTab implements
 	 * @param panel
 	 */
 	public MaintenanceSubprotocolActivitiesSubTab(MaintenanceActivityPanel panel) {
-		super("Sub-protocolos actividades", panel);
+		super(GHAStrings.get("subprotocol-activities"), panel);
 		maintenanceSubprotocolGridPanel = new MaintenanceSubprotocolActivitiesGridPanel();
 		setPane(maintenanceSubprotocolGridPanel);
 

@@ -335,3 +335,11 @@ ES,formatter-error-numbers,Error de formato solo se permiten numeros
 ES,formatter-error-alphanumeric,Error de formato solo se permiten letras numeros o guiones
 ES,formatter-error-serial,Error de formato solo se permiten letras numeros o guiones
 ES,formatter-error-codes,Error de formato solo se permiten letras y numeros
+ES,subprotocol-activities,Actividades del subprotocolo
+ES,report-and-planification,Reporte y Planificación
+ES,service-and-resource,Servicios y recursos
+ES,required-resources,Recursos requeridos
+ES,job-equipments,Equipos de trabajo
+ES,tools,Herramientas
+ES,required-eiatype,Equipos de trabajo requeridos
+ES,required-materials,Materiales requeridos
