@@ -290,8 +290,9 @@ public abstract class GHADialog extends Dialog implements ResizeHandler {
 		openedPosition = GHAAlertManager.getFreeMessagePosition();
 		GHAAlertManager.toggleMessagePosition(openedPosition);
 		GHAAlertManager.addNewMessageToCounter();
-
+		// set the height to the available message text space
 		getMessageStack().setHeight(40);
+
 		if (openedPosition >= 0) {
 			final int windowWidth = Window.getClientWidth() > GHAUiHelper.MIN_WIDTH ? Window
 					.getClientWidth() : GHAUiHelper.MIN_WIDTH;
