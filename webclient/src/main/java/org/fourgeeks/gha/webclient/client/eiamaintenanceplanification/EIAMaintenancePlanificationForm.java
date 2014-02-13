@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.eiapreventivemaintenanceplanification;
+package org.fourgeeks.gha.webclient.client.eiamaintenanceplanification;
 
 import java.util.ArrayList;
 import java.util.List;
