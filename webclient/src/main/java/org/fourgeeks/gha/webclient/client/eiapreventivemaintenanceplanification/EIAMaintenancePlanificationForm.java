@@ -12,6 +12,7 @@ import org.fourgeeks.gha.domain.glm.Bsp;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
@@ -52,7 +53,7 @@ public class EIAMaintenancePlanificationForm extends
 	private GHADateItem beginningDateDateItem;
 	private GHAMaintenancePlanStateSelectItem planStateSelectItem;
 	private GHAMaintenancePlanificationStateSelectItem planificationStateSelectItem;
-	private GHAMaintenancePlanSelectItem maintenacePlanSelectItem;
+	private GHAMaintenancePlanSelectItem planSelectItem;
 	private EiaType selectedEiaType;
 
 	{
@@ -66,9 +67,8 @@ public class EIAMaintenancePlanificationForm extends
 				changedHandler);
 		planStateSelectItem.setDisabled(true);
 		providerSelectItem = new GHABspSelectItem();
-		maintenacePlanSelectItem = new GHAMaintenancePlanSelectItem(true,
-				changedHandler);
-		maintenacePlanSelectItem.setColSpan(2);
+		planSelectItem = new GHAMaintenancePlanSelectItem(true, changedHandler);
+		planSelectItem.setColSpan(2);
 		beginningDateDateItem = new GHADateItem("Fecha de inicio",
 				changedHandler);
 
@@ -82,12 +82,12 @@ public class EIAMaintenancePlanificationForm extends
 			}
 		});
 
-		maintenacePlanSelectItem.addChangedHandler(new ChangedHandler() {
+		planSelectItem.addChangedHandler(new ChangedHandler() {
 			@Override
 			public void onChanged(ChangedEvent event) {
 				changedHandler.onChanged(event);
 
-				MaintenancePlan mPlan = maintenacePlanSelectItem
+				MaintenancePlan mPlan = planSelectItem
 						.getValueAsMaintenancePlan();
 				planStateSelectItem.setValue(mPlan.getState());
 			}
@@ -98,8 +98,8 @@ public class EIAMaintenancePlanificationForm extends
 	public EIAMaintenancePlanificationForm() {
 		final HLayout mainPanel = new HLayout();
 		form.setItems(beginningDateDateItem, new GHASpacerItem(3),
-				maintenacePlanSelectItem, new GHASpacerItem(2),
-				providerSelectItem, roleSelectItem, new GHASpacerItem(2),
+				planSelectItem, new GHASpacerItem(2), providerSelectItem,
+				roleSelectItem, new GHASpacerItem(2),
 				planificationStateSelectItem, planStateSelectItem,
 				new GHASpacerItem(2));
 
@@ -123,7 +123,7 @@ public class EIAMaintenancePlanificationForm extends
 		super.clear();
 
 		beginningDateDateItem.clearValue();
-		maintenacePlanSelectItem.clearValue();
+		planSelectItem.clearValue();
 		providerSelectItem.clearValue();
 		roleSelectItem.clearValue();
 		planificationStateSelectItem.clearValue();
@@ -138,6 +138,12 @@ public class EIAMaintenancePlanificationForm extends
 	private EiaMaintenancePlanification extract() {
 		EiaMaintenancePlanification planification = new EiaMaintenancePlanification();
 		planification.setEia(selectedEia);
+
+		if (planSelectItem.getValue() != null) {
+			EiaTypeMaintenancePlan mplan = new EiaTypeMaintenancePlan();
+			mplan.setId(Long.valueOf(planSelectItem.getValueAsString()));
+			planification.setPlan(mplan);
+		}
 
 		if (providerSelectItem.getValue() != null) {
 			Bsp bsp = new Bsp();
@@ -213,7 +219,7 @@ public class EIAMaintenancePlanificationForm extends
 	@Override
 	public void select(Eia eia) {
 		selectedEia = eia;
-		maintenacePlanSelectItem.fillByEiaType(selectedEiaType);
+		planSelectItem.fillByEiaType(selectedEiaType);
 
 		beginningDateDateItem.setValue(eia.getInstallationDate());
 
@@ -238,12 +244,12 @@ public class EIAMaintenancePlanificationForm extends
 
 		final MaintenancePlan plan = entity.getPlan().getMaintenancePlan();
 		planStateSelectItem.setValue(plan.getState().name());
-		maintenacePlanSelectItem.setValue(plan.getId());
+		planSelectItem.setValue(plan.getId());
 	}
 
 	private void toggleForm(boolean active) {
 		beginningDateDateItem.setDisabled(!active);
-		maintenacePlanSelectItem.setDisabled(!active);
+		planSelectItem.setDisabled(!active);
 		providerSelectItem.setDisabled(!active);
 		roleSelectItem.setDisabled(!active);
 		planificationStateSelectItem.setDisabled(!active);
