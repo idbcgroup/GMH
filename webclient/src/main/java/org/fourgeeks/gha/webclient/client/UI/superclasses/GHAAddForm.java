@@ -1,5 +1,6 @@
 package org.fourgeeks.gha.webclient.client.UI.superclasses;
 
+import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -19,6 +20,8 @@ public abstract class GHAAddForm<T> extends GHASlideInWindow {
 	 */
 	public GHAAddForm(String title) {
 		super();
+		setWidth100();
+		setMinWidth(GHAUiHelper.MIN_WIDTH);
 		label = new GHALabel(title);
 		addMember(label);
 	}
