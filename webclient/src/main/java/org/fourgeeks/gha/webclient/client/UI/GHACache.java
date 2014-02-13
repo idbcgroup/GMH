@@ -61,6 +61,7 @@ public enum GHACache {
 	private List<Bpi> bpis;
 	private List<Bpu> bpus;
 	private List<EiaTypeCategory> eiaTypeCategories;
+	private List<Bsp> bsps;
 
 	{
 		// Inititalization of the invalidation policy
@@ -137,7 +138,7 @@ public enum GHACache {
 	}
 
 	private void getBpusFromServer(final GHAAsyncCallback<List<Bpu>> callback) {
-		UserModel.getAll(new GHAAsyncCallback<List<Bpu>>() {
+		BpuModel.getAll(new GHAAsyncCallback<List<Bpu>>() {
 			@Override
 			public void onSuccess(List<Bpu> result) {
 				bpus = result;
@@ -170,6 +171,26 @@ public enum GHACache {
 						callback.onSuccess(result);
 					}
 				});
+	}
+
+	public void getBsps(GHAAsyncCallback<List<Bsp>> callback) {
+		// Avoiding synchronization problems
+		if (bsps == null)
+			getBspsServer(callback);
+		else
+			callback.onSuccess(bsps);
+
+	}
+
+	private void getBspsServer(final GHAAsyncCallback<List<Bsp>> callback) {
+		BspModel.getAll(new GHAAsyncCallback<List<Bsp>>() {
+
+			@Override
+			public void onSuccess(List<Bsp> result) {
+				bsps = result;
+				callback.onSuccess(result);
+			}
+		});
 	}
 
 	/**
@@ -295,33 +316,14 @@ public enum GHACache {
 	public void getFacilities(GHAAsyncCallback<List<Facility>> callback) {
 		if (facilities == null)
 			getFacilitiesFromServer(callback);
-	public void getBsps(GHAAsyncCallback<List<Bsp>> callback) {
-		// Avoiding synchronization problems
-		if (bsps == null)
-			getBspsServer(callback);
 		else
-			callback.onSuccess(bsps);
+			callback.onSuccess(facilities);
 
-	}
-
-	private void getBspsServer(final GHAAsyncCallback<List<Bsp>> callback) {
-		BspModel.getAll(new GHAAsyncCallback<List<Bsp>>() {
-
-			@Override
-			public void onSuccess(List<Bsp> result) {
-				bsps = result;
-				callback.onSuccess(result);
-			}
-		});
 	}
 
 	/**
 	 * @param callback
 	 */
-		else
-			callback.onSuccess(facilities);
-
-	}
 
 	private void getFacilitiesFromServer(
 			final GHAAsyncCallback<List<Facility>> callback) {
