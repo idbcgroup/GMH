@@ -165,7 +165,6 @@ public class CitizenRESTopForm extends HLayout {
 		addMember(centerLayout);
 		addMember(rightSideLayout);
 		addMember(new CitizenRESTopTools());
-
 	}
 
 	private static class SmallBox extends HLayout {

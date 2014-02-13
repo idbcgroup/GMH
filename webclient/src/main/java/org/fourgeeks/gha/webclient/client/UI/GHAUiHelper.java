@@ -14,6 +14,7 @@ import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.EventListener;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.Window.ScrollEvent;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.widgets.Canvas;
@@ -27,6 +28,16 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public abstract class GHAUiHelper {
 
 	static {
+		Window.addWindowScrollHandler(new Window.ScrollHandler() {
+
+			@Override
+			public void onWindowScroll(ScrollEvent event) {
+				for (final Window.ScrollHandler handler : scrollHandlers) {
+					if (handler != null)
+						handler.onWindowScroll(event);
+				}
+			}
+		});
 		Window.addResizeHandler(new ResizeHandler() {
 
 			@Override
@@ -506,4 +517,19 @@ public abstract class GHAUiHelper {
 		return separator;
 	}
 
+	private static List<Window.ScrollHandler> scrollHandlers = new ArrayList<Window.ScrollHandler>();
+
+	/**
+	 * @param scrollHandler
+	 */
+	public void addWindowScrollHandler(Window.ScrollHandler scrollHandler) {
+		scrollHandlers.add(scrollHandler);
+	}
+
+	/**
+	 * @param scrollHandler
+	 */
+	public void removeWindowScrollHandler(Window.ScrollHandler scrollHandler) {
+		scrollHandlers.remove(scrollHandler);
+	}
 }
