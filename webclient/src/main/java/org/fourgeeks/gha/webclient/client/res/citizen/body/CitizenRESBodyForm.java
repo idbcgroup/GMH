@@ -1,13 +1,14 @@
 package org.fourgeeks.gha.webclient.client.res.citizen.body;
 
-import com.smartgwt.client.widgets.layout.HLayout;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAHorizontalLayout;
+
 import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
  * @author alacret
  * 
  */
-public class CitizenRESBodyForm extends HLayout {
+public class CitizenRESBodyForm extends GHAHorizontalLayout {
 
 	/**
 	 * 
