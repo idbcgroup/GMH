@@ -170,8 +170,7 @@ public class EIAMaintenanceUpdateForm extends GHAUpdateForm<EiaMaintenance>
 		form.update(new GHAAsyncCallback<EiaMaintenance>() {
 			@Override
 			public void onSuccess(EiaMaintenance result) {
-				GHAAlertManager
-						.alert("eia-maintenance-details-register-success");
+				GHAAlertManager.alert("eia-maintenance-details-update-success");
 				hide();
 			}
 		});

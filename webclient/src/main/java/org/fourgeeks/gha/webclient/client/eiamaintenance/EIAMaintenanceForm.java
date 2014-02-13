@@ -527,10 +527,11 @@ public class EIAMaintenanceForm extends GHAForm<EiaMaintenance> implements
 		providerSelectItem.setValue(maintenanceProvider == null ? null
 				: maintenanceProvider.getId());
 
-		if (entity instanceof EiaPreventiveMaintenance)
+		if (entity instanceof EiaPreventiveMaintenance) {
 			setPreventiveMaintenance((EiaPreventiveMaintenance) entity);
-		else
+		} else {
 			setCorrectiveMaintenance((EiaCorrectiveMaintenance) entity);
+		}
 
 	}
 
@@ -541,8 +542,9 @@ public class EIAMaintenanceForm extends GHAForm<EiaMaintenance> implements
 	private void setCorrectiveMaintenance(EiaCorrectiveMaintenance entity) {
 		estimatedMaintenanceTimeTextItem.setValue(entity
 				.getEstimatedMaintenance());
-		estimatedMaintenancePoTSelectedItem.setValue(entity
-				.getEstimatedMaintenancePoT().name());
+		if (entity.getEstimatedMaintenancePoT() != null)
+			estimatedMaintenancePoTSelectedItem.setValue(entity
+					.getEstimatedMaintenancePoT());
 		failureDescriptionTextAreaItem.setValue(entity.getDescription());
 
 		EiaDamageReport damageReport = entity.getDamageReport();

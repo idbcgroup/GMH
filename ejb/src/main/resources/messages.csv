@@ -491,7 +491,7 @@ ES,damagePriority-not-null,Debe indicar la prioridad del daño o falla,6
 ES,userWhoReported-not-null,Debe indicar el usuario que reportó el daño o falla,6
 ES,userWhoRegistered-not-null,Debe indicar el usuario que registró el daño o falla,6
 ES,no-eiatype-maintenance-plans,No existen planes de mantenimiento para este tipo de equipo,7
-ES,eiaPreventiveMaintenancePlanification-save-success,La Planificación de Mantenimiento Preventivo ha sido guardada exitosamente,9
+ES,eiaMaintenancePlanification-save-success,La Planificación de Mantenimiento ha sido guardada exitosamente,9
 ES,eiatype-maintenance-plan-not-null,Debe indicar el plan de mantenimiento,6
 ES,password-missmatch,Las claves de acceso no coinciden,6
 ES,email-invalid-field,Debe ingresar un email válido,6
@@ -536,3 +536,4 @@ ES,eiatype-name-error-formatter,Error de formato: El nombre solo puede contener 
 ES,eiatype-model-error-formatter,Error de formato: El modelo solo puede contener letras numeros y guiones,6
 ES,users-delete-confirm,¿Desea eliminar a los usuarios?,2
 ES,user-delete-confirm,¿Desea eliminar al usuario?,2
+ES,eia-maintenance-details-update-success,Los detalles del mantenimiento al equipo se han actualizado exitosamente,9
