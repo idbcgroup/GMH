@@ -1,10 +1,11 @@
-package org.fourgeeks.gha.webclient.client.eiapreventivemaintenanceplanification;
+package org.fourgeeks.gha.webclient.client.eiamaintenanceplanification;
 
 import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
+import org.fourgeeks.gha.webclient.client.eiapreventivemaintenanceplanification.GWTMaintenancePlanificationServiceAsync;
 
 import com.google.gwt.core.shared.GWT;
 
