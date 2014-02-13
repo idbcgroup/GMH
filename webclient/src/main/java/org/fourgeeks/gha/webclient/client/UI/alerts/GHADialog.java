@@ -32,7 +32,7 @@ public abstract class GHADialog extends Dialog implements ResizeHandler {
 	 * 
 	 */
 
-	// Internal Measures
+	//Internal Measures
 	private static final int DEFAULT_NOTIFICATION_WIDTH = 280;
 	private static final int DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT = 140;
 	private static final int DEFAULT_NOTIFICATION_BUTTONS_HEIGHT = 145;
@@ -61,8 +61,7 @@ public abstract class GHADialog extends Dialog implements ResizeHandler {
 	/**
 	 * 
 	 */
-	public GHADialog() {
-	}
+	public GHADialog(){}
 
 	/**
 	 * Creates a GHADialog without buttons, with the specifying parameters.
@@ -71,7 +70,8 @@ public abstract class GHADialog extends Dialog implements ResizeHandler {
 	 * @param hasCloseButton
 	 * @param canMinimize
 	 */
-	public GHADialog(String type, boolean hasCloseButton, boolean canMinimize) {
+	public GHADialog(String type, boolean hasCloseButton,
+			boolean canMinimize) {
 		super();
 
 		GHAUiHelper.addGHAResizeHandler(this);
@@ -99,8 +99,8 @@ public abstract class GHADialog extends Dialog implements ResizeHandler {
 	 * @param canMinimize
 	 * @param buttons
 	 */
-	public GHADialog(String type, boolean hasCloseButton, boolean canMinimize,
-			Button... buttons) {
+	public GHADialog(String type, boolean hasCloseButton,
+			boolean canMinimize, Button... buttons) {
 		super();
 
 		GHAUiHelper.addGHAResizeHandler(this);
@@ -133,12 +133,12 @@ public abstract class GHADialog extends Dialog implements ResizeHandler {
 
 		animateRect(null, Window.getClientHeight(), null, null,
 				new AnimationCallback() {
-					@Override
-					public void execute(boolean earlyFinish) {
-						hide();
-						destroy();
-					}
-				}, DEFAULT_ANIMATION_TIME);
+			@Override
+			public void execute(boolean earlyFinish) {
+				hide();
+				destroy();
+			}
+		}, DEFAULT_ANIMATION_TIME);
 	}
 
 	/**
@@ -182,14 +182,13 @@ public abstract class GHADialog extends Dialog implements ResizeHandler {
 	private void initFooterControls() {
 		// ---Foooter controls
 		setShowFooter(true);
-		final Label function = new Label("Función");
+		Label function = new Label("Función");
 		function.setStyleName("windowFooterText");
-		final SimpleDateFormat sdf = new SimpleDateFormat(
-				"dd/MM/yyyy HH:mm:ss a");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss a");
 		// Label date = new
 		// Label(DateFormat.getDateInstance(DateFormat.TIMEZONE_FIELD).format(new
 		// Date()));
-		final Label date = new Label(sdf.format(new Date()));
+		Label date = new Label(sdf.format(new Date()));
 		date.setWidth(120);
 		date.setStyleName("windowFooterText");
 		setFooterControls(function, new LayoutSpacer(), date);
@@ -217,30 +216,28 @@ public abstract class GHADialog extends Dialog implements ResizeHandler {
 		setAutoSize(false);
 		setAutoCenter(false);
 		setWidth(DEFAULT_NOTIFICATION_WIDTH);
-		final Layout bodyAC = new Layout();
+		Layout bodyAC = new Layout();
 		if (hasButtons) {
 			setHeight(DEFAULT_NOTIFICATION_BUTTONS_HEIGHT);
 			setMaxHeight(DEFAULT_NOTIFICATION_BUTTONS_HEIGHT);
-			bodyAC.setHeight(DEFAULT_NOTIFICATION_BUTTONS_HEIGHT
-					- (HEADER_HEIGHT + FOOTER_HEIGHT));
+			bodyAC.setHeight(DEFAULT_NOTIFICATION_BUTTONS_HEIGHT - (HEADER_HEIGHT + FOOTER_HEIGHT));
 
-		} else {
+		}else{
 			setHeight(DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT);
 			setMaxHeight(DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT);
-			bodyAC.setHeight(DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT
-					- (HEADER_HEIGHT + FOOTER_HEIGHT));
+			bodyAC.setHeight(DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT - (HEADER_HEIGHT + FOOTER_HEIGHT));
 		}
-		// bodyAC.setAlign(VerticalAlignment.CENTER);
-		// bodyAC.setAlign(Alignment.CENTER);
+		//		bodyAC.setAlign(VerticalAlignment.CENTER);
+		//		bodyAC.setAlign(Alignment.CENTER);
 		changeAutoChildDefaults("body", bodyAC);
-		final Layout msgStack = new Layout();
+		Layout msgStack = new Layout();
 		msgStack.setStyleName("dialogMessageStack");
 		changeAutoChildDefaults("messageStack", msgStack);
 	}
 
 	protected abstract void initTypeParams();
 
-
+	
 	@Override
 	public void onResize(ResizeEvent event) {
 		if (isVisible()) {
@@ -250,24 +247,20 @@ public abstract class GHADialog extends Dialog implements ResizeHandler {
 			if (hasButtons) {
 				setLeft(windowWidth - (getWidth() + RIGHT_MARGIN));
 				setTop(windowHeight - (openedPosition+1)*(DEFAULT_NOTIFICATION_BUTTONS_HEIGHT + BORDER_SEPARATION));
-						- (openedPosition + 1)
-						* (DEFAULT_NOTIFICATION_BUTTONS_HEIGHT + BORDER_SEPARATION));
 			} else {
 				setLeft(windowWidth - (getWidth() + RIGHT_MARGIN));
 				setTop(windowHeight	- (openedPosition+1)*(DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT + BORDER_SEPARATION));
-						- (openedPosition + 1)
-						* (DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT + BORDER_SEPARATION));
 			}
 		}
 	}
 
 	/**
-	 * @param dialogType
-	 *            The type of dialog to set
+	 * @param dialogType The type of dialog to set
 	 */
 	public void setDialogType(String dialogType) {
 		this.dialogType = dialogType;
 	}
+
 
 	/**
 	 * 
@@ -288,7 +281,7 @@ public abstract class GHADialog extends Dialog implements ResizeHandler {
 		GHAAlertManager.addNewMessageToCounter();
 
 		getMessageStack().setHeight(40);
-		if (openedPosition >= 0) {
+		if(openedPosition >= 0){
 			int windowWidth = Window.getClientWidth() > GHAUiHelper.MIN_WIDTH ? Window.getClientWidth() : GHAUiHelper.MIN_WIDTH;
 			int windowHeight = Window.getClientHeight() > GHAUiHelper.MIN_HEIGHT ? Window.getClientHeight() : GHAUiHelper.MIN_HEIGHT;
 
@@ -297,19 +290,10 @@ public abstract class GHADialog extends Dialog implements ResizeHandler {
 
 			if (hasButtons) {
 				animateRect(null, windowHeight - (DEFAULT_NOTIFICATION_BUTTONS_HEIGHT + BORDER_SEPARATION),null, null);
-						null,
-						Window.getClientHeight()
-								- (DEFAULT_NOTIFICATION_BUTTONS_HEIGHT + BORDER_SEPARATION),
-						null, null);
 			} else {
 				animateRect(null, windowHeight - (openedPosition+1)*(DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT + BORDER_SEPARATION),null, null);
-						null,
-						Window.getClientHeight()
-								- (openedPosition + 1)
-								* (DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT + BORDER_SEPARATION),
-						null, null);
 			}
-		} else {
+		}else{
 			Window.alert("Error. no hay posiciones libres para mostrar alertas");
 		}
 	}
