@@ -42,7 +42,7 @@ public abstract class GHAUiHelper {
 
 			@Override
 			public void onResize(ResizeEvent event) {
-				for (final ResizeHandler handler : handlers) {
+				for (final ResizeHandler handler : resizeHandlers) {
 					if (handler != null)
 						handler.onResize(event);
 				}
@@ -185,11 +185,13 @@ public abstract class GHAUiHelper {
 	 */
 	public static final int DEFAULT_HEADER_OPTION_HEIGHT = 30;
 
-	private static List<ResizeHandler> handlers = new ArrayList<ResizeHandler>();
+	private static List<ResizeHandler> resizeHandlers = new ArrayList<ResizeHandler>();
 
 	private static List<EventListener> mouseOverHandlers = new ArrayList<EventListener>();
 
 	private static List<EventListener> clickHandlers = new ArrayList<EventListener>();
+
+	private static List<Window.ScrollHandler> scrollHandlers = new ArrayList<Window.ScrollHandler>();
 
 	public static int DEFAULT_TAB_HEADER_WIDTH = 250;
 
@@ -215,7 +217,7 @@ public abstract class GHAUiHelper {
 	 * @param handler
 	 */
 	public static void addGHAResizeHandler(ResizeHandler handler) {
-		handlers.add(handler);
+		resizeHandlers.add(handler);
 	}
 
 	/**
@@ -443,7 +445,21 @@ public abstract class GHAUiHelper {
 	 * @param handler
 	 */
 	public static void removeGHAResizeHandler(ResizeHandler handler) {
-		handlers.remove(handler);
+		resizeHandlers.remove(handler);
+	}
+
+	/**
+	 * @param scrollHandler
+	 */
+	public static void addWindowScrollHandler(Window.ScrollHandler scrollHandler) {
+		scrollHandlers.add(scrollHandler);
+	}
+
+	/**
+	 * @param scrollHandler
+	 */
+	public static void removeWindowScrollHandler(Window.ScrollHandler scrollHandler) {
+		scrollHandlers.remove(scrollHandler);
 	}
 
 	/**
@@ -515,21 +531,5 @@ public abstract class GHAUiHelper {
 		separator.setMinWidth(MIN_WIDTH);
 		separator.setHeight(height);
 		return separator;
-	}
-
-	private static List<Window.ScrollHandler> scrollHandlers = new ArrayList<Window.ScrollHandler>();
-
-	/**
-	 * @param scrollHandler
-	 */
-	public void addWindowScrollHandler(Window.ScrollHandler scrollHandler) {
-		scrollHandlers.add(scrollHandler);
-	}
-
-	/**
-	 * @param scrollHandler
-	 */
-	public void removeWindowScrollHandler(Window.ScrollHandler scrollHandler) {
-		scrollHandlers.remove(scrollHandler);
 	}
 }
