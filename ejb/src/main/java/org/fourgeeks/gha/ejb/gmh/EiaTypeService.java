@@ -105,12 +105,12 @@ public class EiaTypeService extends GHAEJBExceptionService implements
 					cb.equal(root.<EiaSubTypeEnum> get("subtype"), p));
 		}
 
-		// if (entity.getType() != null) {
-		// final ParameterExpression<EiaTypeEnum> p = cb.parameter(
-		// EiaTypeEnum.class, "etype");
-		// criteria = cb.and(criteria,
-		// cb.equal(root.<EiaTypeEnum> get("type"), p));
-		// }
+		if (entity.getEiaTypeCategory() != null) {
+			final ParameterExpression<String> p = cb.parameter(String.class,
+					"category");
+			criteria = cb.and(criteria, cb.equal(
+					root.<String> get("eiaTypeCategory").get("code"), p));
+		}
 
 		if (entity.getUseDescription() != null) {
 			final ParameterExpression<String> p = cb.parameter(String.class,
@@ -203,9 +203,10 @@ public class EiaTypeService extends GHAEJBExceptionService implements
 					q.setParameter("subtype", entity.getSubtype());
 				}
 
-				// if (entity.getType() != null) {
-				// q.setParameter("etype", entity.getType());
-				// }
+				if (entity.getEiaTypeCategory() != null) {
+					q.setParameter("category", entity.getEiaTypeCategory()
+							.getCode());
+				}
 
 				if (entity.getUseDescription() != null) {
 					q.setParameter("usedescription", "%"
