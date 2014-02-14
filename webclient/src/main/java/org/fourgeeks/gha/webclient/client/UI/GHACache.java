@@ -32,7 +32,6 @@ import org.fourgeeks.gha.webclient.client.rolebase.RoleModel;
 import org.fourgeeks.gha.webclient.client.workingarea.WorkingAreaModel;
 
 import com.google.gwt.user.client.Timer;
-import com.google.gwt.user.client.Window;
 
 /**
  * @author alacret
@@ -249,7 +248,6 @@ public enum GHACache {
 
 	private void getEiaTypeCategoriesFromServer(
 			final GHAAsyncCallback<List<EiaTypeCategory>> callback) {
-		Window.alert("1.4");
 		EiaTypeCategoryModel
 				.getAll(new GHAAsyncCallback<List<EiaTypeCategory>>() {
 

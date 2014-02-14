@@ -64,8 +64,8 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 		codeItem = new GHACodeTextItem(true, changedHandler);
 
 		nameItem = new GHATextItem(GHAStrings.get("name"), true, changedHandler);
-		categoryItem = new GHAEiaTypeCategorySelectItem(GHAStrings.get("category"),
-				true, changedHandler);
+		categoryItem = new GHAEiaTypeCategorySelectItem(
+				GHAStrings.get("category"), true, changedHandler);
 		subTypeItem = new GHAEiaTypeSubTypeSelectItem(changedHandler);
 		eiaUmdnsItem = new GHATextItem("EIAUMDNS", false, changedHandler);
 		eiaUmdnsItem.setLength(16);
@@ -390,7 +390,7 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 		useDescriptionItem.setValue(eiaType.getUseDescription());
 		eiaUmdnsItem.setValue(eiaType.getEiaUmdns());
 		mobilityItem.setValue(eiaType.getMobility().name());
-		categoryItem.setValue(eiaType.getType().name());
+		categoryItem.setValue(eiaType.getEiaTypeCategory().getName());
 		if (eiaType.getSubtype() != null)
 			subTypeItem.setValue(eiaType.getSubtype().name());
 		// showPhotographics(eiaType);
