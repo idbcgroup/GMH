@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.fourgeeks.gha.webclient.server.maintenance;
+package org.fourgeeks.gha.webclient.server.maintenanceactivity;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  * 
  */
 @WebServlet(urlPatterns = { "/webclient/subProtocolAndCheklist" })
-public class GWTSubprotocolAndChecklistImpl extends RemoteServiceServlet
+public class GWTSubprotocolAndChecklistServiceImpl extends RemoteServiceServlet
 		implements GWTSubProtocolAndChecklistService {
 
 	/**

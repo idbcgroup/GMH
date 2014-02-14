@@ -3,7 +3,6 @@ package org.fourgeeks.gha.webclient.client.res.citizen.top;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImg;
-import org.fourgeeks.gha.webclient.client.UI.panels.GHAHeaderOption;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAAlertLabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAHorizontalLayout;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATextLabel;
@@ -119,18 +118,18 @@ public class CitizenRESTopForm extends GHAHorizontalLayout {
 		leftSideLayout.addMember(secondHorizontalLayout);
 		leftSideLayout.addMember(thirdHorizontalLayout);
 	}
-	private final VLayout centerLayout = new VLayout();
-	private final GHAHeaderOption addOption = new GHAHeaderOption(
-			GHAStrings.get("encounter") + "...",
-			GHAUiHelper.DEFAULT_HEADER_OPTION_WIDTH, true,
-			"../resources/img/agregarButton.png",
-			"../resources/img/agregarButtonOver.png");
-	{
-
-		centerLayout.setPadding(5);
-		centerLayout.setWidth(100);
-		centerLayout.addMember(addOption);
-	}
+	// private final VLayout centerLayout = new VLayout();
+	// private final GHAHeaderOption addOption = new GHAHeaderOption(
+	// GHAStrings.get("encounter") + "...",
+	// GHAUiHelper.DEFAULT_HEADER_OPTION_WIDTH, true,
+	// "../resources/img/agregarButton.png",
+	// "../resources/img/agregarButtonOver.png");
+	// {
+	//
+	// centerLayout.setPadding(5);
+	// centerLayout.setWidth(100);
+	// centerLayout.addMember(addOption);
+	// }
 
 	// layout for the photo
 	private final HLayout rightSideLayout = new HLayout();
@@ -161,7 +160,6 @@ public class CitizenRESTopForm extends GHAHorizontalLayout {
 		setHeight(GHAUiHelper.DEFAULT_PATIENT_TOP_HEIGHT);
 		setBackgroundColor("#FFFF4D");// TODO
 		addMember(leftSideLayout);
-		addMember(centerLayout);
 		addMember(rightSideLayout);
 		addMember(new CitizenRESTopTools());
 	}
@@ -169,13 +167,6 @@ public class CitizenRESTopForm extends GHAHorizontalLayout {
 	private static class SmallBox extends HLayout {
 		public SmallBox(int width) {
 			setWidth(width);
-			// setMargin(2);
-			addStyleName("margin");
-		}
-
-		public SmallBox(String width) {
-			setWidth(width);
-			// setMargin(2);
 			addStyleName("margin");
 		}
 

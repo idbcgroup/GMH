@@ -14,7 +14,7 @@ import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
  * @author caparicio
  * 
  */
-public class MaintenanceSubprotocolRecord extends
+public class MaintenanceActivitySubprotocolRecord extends
 		GHAGridRecord<SubProtocolAndChecklist> {
 	private final SubProtocolAndChecklist entity;
 
@@ -22,7 +22,7 @@ public class MaintenanceSubprotocolRecord extends
 	 * 
 	 * @param entity
 	 */
-	public MaintenanceSubprotocolRecord(SubProtocolAndChecklist entity) {
+	public MaintenanceActivitySubprotocolRecord(SubProtocolAndChecklist entity) {
 		this.entity = entity;
 		setSubProtocolAndChecklistAttributes();
 	}

@@ -31,7 +31,7 @@ public final class GhaValidatorFactory extends AbstractGwtValidatorFactory {
 	 * Only the classes and groups listed in the GwtValidation annotation can be
 	 * validated.
 	 */
-	@GwtValidation({ EiaType.class, Eia.class, Material.class,
+	@GwtValidation({ EiaType.class, Citizen.class, Eia.class, Material.class,
 			MaterialCategory.class, SSOUser.class, SSOUser.class,
 			LegalEntity.class, Bpu.class, Bpi.class, MaintenancePlan.class,
 			Activity.class, EiaDamageReport.class,
