@@ -23,7 +23,7 @@ public class GWTCCDIServiceImpl extends RemoteServiceServlet implements
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@EJB(lookup = "java:global/ear-1/ejb-1/CCDIService")
+	@EJB(lookup = "java:global/ear-1/ejb-1/CCDIService!org.fourgeeks.gha.ejb.gom.CCDIServiceRemote")
 	CCDIServiceRemote ccdiServiceRemote;
 
 	@Override
@@ -68,7 +68,9 @@ public class GWTCCDIServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public String getNextCCDILevelValue(String code) throws GHAEJBException {
-		return ccdiServiceRemote.getNextCCDILevelValue(code);
+		// return ccdiServiceRemote.getNextCategoryValueCode(code);
+		// TODO
+		return null;
 	}
 
 }

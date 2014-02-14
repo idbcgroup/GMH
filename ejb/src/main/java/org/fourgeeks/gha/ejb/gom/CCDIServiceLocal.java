@@ -1,6 +1,9 @@
+/**
+ * 
+ */
 package org.fourgeeks.gha.ejb.gom;
 
-import javax.ejb.Remote;
+import javax.ejb.Local;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gom.CCDIDefinition;
@@ -11,10 +14,8 @@ import org.fourgeeks.gha.domain.gom.CCDILevelValue;
  * @author emiliot
  * 
  */
-
-@Remote
-public interface CCDIServiceRemote {
-
+@Local
+public interface CCDIServiceLocal {
 	/**
 	 * @param definition
 	 * @return a new CCDI definition

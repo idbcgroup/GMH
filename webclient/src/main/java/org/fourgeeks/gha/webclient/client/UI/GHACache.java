@@ -13,6 +13,7 @@ import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.domain.gmh.EiaTypeCategory;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.webclient.client.bpi.BpiModel;
@@ -21,6 +22,7 @@ import org.fourgeeks.gha.webclient.client.brand.BrandModel;
 import org.fourgeeks.gha.webclient.client.buildinglocation.BuildingLocationModel;
 import org.fourgeeks.gha.webclient.client.eia.EIAModel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeModel;
+import org.fourgeeks.gha.webclient.client.eiatype.EiaTypeCategoryModel;
 import org.fourgeeks.gha.webclient.client.externalprovider.ExternalProviderModel;
 import org.fourgeeks.gha.webclient.client.facility.FacilityModel;
 import org.fourgeeks.gha.webclient.client.manufacturer.ManufacturerModel;
@@ -57,6 +59,7 @@ public enum GHACache {
 	private List<Facility> facilities;
 	private List<Bpi> bpis;
 	private List<Bpu> bpus;
+	private List<EiaTypeCategory> eiaTypeCategories;
 	private List<Bsp> bsps;
 
 	{
@@ -70,57 +73,151 @@ public enum GHACache {
 		t.scheduleRepeating(CACHE_TIME);
 	}
 
-	private void invalidateCache() {
-		brands = null;
-		manufacturers = null;
-		buildingLocations = null;
-		obus = null;
-		roles = null;
-		externalProviders = null;
-		eiaTypes = null;
-		workingAreas = null;
-		facilities = null;
-		bpis = null;
-	}
-
-	public void getFacilities(GHAAsyncCallback<List<Facility>> callback) {
-		if (facilities == null)
-			getFacilitiesFromServer(callback);
+	/**
+	 * @param callback
+	 */
+	public void getBaseRoles(GHAAsyncCallback<List<Role>> callback) {
+		// Avoiding synchronization problems
+		if (roles == null)
+			getBaseRolesFromServer(callback);
 		else
-			callback.onSuccess(facilities);
+			callback.onSuccess(roles);
 
 	}
 
-	private void getFacilitiesFromServer(
-			final GHAAsyncCallback<List<Facility>> callback) {
-		FacilityModel.getAll(new GHAAsyncCallback<List<Facility>>() {
+	private void getBaseRolesFromServer(
+			final GHAAsyncCallback<List<Role>> callback) {
+		RoleModel.getAll(new GHAAsyncCallback<List<Role>>() { // AyncCallback
+					// subclass
+
+					@Override
+					public void onSuccess(List<Role> result) {
+						roles = result;
+						// Avoiding synchronization problems
+						callback.onSuccess(result);
+					}
+				});
+	}
+
+	/**
+	 * @param callback
+	 */
+	public void getBpis(GHAAsyncCallback<List<Bpi>> callback,
+			boolean forceFromServer) {
+		if (forceFromServer || bpis == null)
+			getBpisFromServer(callback);
+		else {
+			callback.onSuccess(bpis);
+		}
+	}
+
+	private void getBpisFromServer(final GHAAsyncCallback<List<Bpi>> callback) {
+		BpiModel.getAll(new GHAAsyncCallback<List<Bpi>>() { // AsyncCallback
+			// subclass
 
 			@Override
-			public void onSuccess(List<Facility> result) {
-				facilities = result;
+			public void onSuccess(List<Bpi> result) {
+				bpis = result;
+				// Avoiding synchronization problems
 				callback.onSuccess(result);
 			}
 		});
 	}
 
-	public void getWorkingAreas(GHAAsyncCallback<List<WorkingArea>> callback) {
-		if (workingAreas == null)
-			getWorkingAreasFromServer(callback);
-		else
-			callback.onSuccess(workingAreas);
-
+	/**
+	 * @param callback
+	 */
+	public void getBpus(GHAAsyncCallback<List<Bpu>> callback,
+			boolean forceFromServer) {
+		if (forceFromServer || bpus == null)
+			getBpusFromServer(callback);
+		else {
+			callback.onSuccess(bpus);
+		}
 	}
 
-	private void getWorkingAreasFromServer(
-			final GHAAsyncCallback<List<WorkingArea>> callback) {
-		WorkingAreaModel.getAll(new GHAAsyncCallback<List<WorkingArea>>() {
-
+	private void getBpusFromServer(final GHAAsyncCallback<List<Bpu>> callback) {
+		BpuModel.getAll(new GHAAsyncCallback<List<Bpu>>() {
 			@Override
-			public void onSuccess(List<WorkingArea> result) {
-				workingAreas = result;
+			public void onSuccess(List<Bpu> result) {
+				bpus = result;
+				// Avoiding synchronization problems
 				callback.onSuccess(result);
 			}
 		});
+	}
+
+	/**
+	 * @param callback
+	 * @param forceFromServer
+	 */
+	public void getBrands(GHAAsyncCallback<List<Brand>> callback,
+			boolean forceFromServer) {
+		if (forceFromServer || brands == null)
+			getBrandsFromServer(callback);
+		else
+			callback.onSuccess(brands);
+	}
+
+	private void getBrandsFromServer(
+			final GHAAsyncCallback<List<Brand>> callback) {
+		BrandModel.getAll(new GHAAsyncCallback<List<Brand>>() { // AyncCallback
+																// subclass
+
+					@Override
+					public void onSuccess(List<Brand> result) {
+						brands = result;
+						callback.onSuccess(result);
+					}
+				});
+	}
+
+	public void getBsps(GHAAsyncCallback<List<Bsp>> callback) {
+		// Avoiding synchronization problems
+		if (bsps == null)
+			getBspsServer(callback);
+		else
+			callback.onSuccess(bsps);
+
+	}
+
+	private void getBspsServer(final GHAAsyncCallback<List<Bsp>> callback) {
+		BspModel.getAll(new GHAAsyncCallback<List<Bsp>>() {
+
+			@Override
+			public void onSuccess(List<Bsp> result) {
+				bsps = result;
+				callback.onSuccess(result);
+			}
+		});
+	}
+
+	/**
+	 * @param callback
+	 */
+	public void getBuildingLocations(
+			GHAAsyncCallback<List<BuildingLocation>> callback) {
+		// Avoiding synchronization problems
+		if (buildingLocations == null)
+			getBuildingLocationsFromServer(callback);
+		else
+			callback.onSuccess(buildingLocations);
+
+	}
+
+	private void getBuildingLocationsFromServer(
+			final GHAAsyncCallback<List<BuildingLocation>> callback) {
+		BuildingLocationModel
+				.getAll(new GHAAsyncCallback<List<BuildingLocation>>() { // AyncCallback
+					// subclass
+
+					@Override
+					public void onSuccess(List<BuildingLocation> result) {
+						buildingLocations = result;
+						// Avoiding synchronization problems
+						callback.onSuccess(result);
+					}
+				});
 	}
 
 	public void getEias(GHAAsyncCallback<List<Eia>> callback) {
@@ -139,6 +236,27 @@ public enum GHACache {
 				callback.onSuccess(eias);
 			}
 		});
+	}
+
+	public void getEiaTypeCategories(
+			GHAAsyncCallback<List<EiaTypeCategory>> callback) {
+		if (eiaTypeCategories == null)
+			getEiaTypeCategoriesFromServer(callback);
+		else
+			callback.onSuccess(eiaTypeCategories);
+	}
+
+	private void getEiaTypeCategoriesFromServer(
+			final GHAAsyncCallback<List<EiaTypeCategory>> callback) {
+		EiaTypeCategoryModel
+				.getAll(new GHAAsyncCallback<List<EiaTypeCategory>>() {
+
+					@Override
+					public void onSuccess(List<EiaTypeCategory> result) {
+						eiaTypeCategories = result;
+						callback.onSuccess(result);
+					}
+				});
 	}
 
 	/**
@@ -193,26 +311,38 @@ public enum GHACache {
 				});
 	}
 
-	/**
-	 * @param callback
-	 */
-	public void getBaseRoles(GHAAsyncCallback<List<Role>> callback) {
-		// Avoiding synchronization problems
-		if (roles == null)
-			getBaseRolesFromServer(callback);
+	public void getFacilities(GHAAsyncCallback<List<Facility>> callback) {
+		if (facilities == null)
+			getFacilitiesFromServer(callback);
 		else
-			callback.onSuccess(roles);
+			callback.onSuccess(facilities);
 
 	}
 
-	private void getBaseRolesFromServer(
-			final GHAAsyncCallback<List<Role>> callback) {
-		RoleModel.getAll(new GHAAsyncCallback<List<Role>>() { // AyncCallback
+	/**
+	 * @param callback
+	 */
+
+	private void getFacilitiesFromServer(
+			final GHAAsyncCallback<List<Facility>> callback) {
+		FacilityModel.getAll(new GHAAsyncCallback<List<Facility>>() {
+
+			@Override
+			public void onSuccess(List<Facility> result) {
+				facilities = result;
+				callback.onSuccess(result);
+			}
+		});
+	}
+
+	private void getManufacturersFromServer(
+			final GHAAsyncCallback<List<Manufacturer>> callback) {
+		ManufacturerModel.getAll(new GHAAsyncCallback<List<Manufacturer>>() { // AyncCallback
 					// subclass
 
 					@Override
-					public void onSuccess(List<Role> result) {
-						roles = result;
+					public void onSuccess(List<Manufacturer> result) {
+						manufacturers = result;
 						// Avoiding synchronization problems
 						callback.onSuccess(result);
 					}
@@ -222,24 +352,14 @@ public enum GHACache {
 	/**
 	 * @param callback
 	 */
-	public void getBsps(GHAAsyncCallback<List<Bsp>> callback) {
-		// Avoiding synchronization problems
-		if (bsps == null)
-			getBspsServer(callback);
-		else
-			callback.onSuccess(bsps);
-
-	}
-
-	private void getBspsServer(final GHAAsyncCallback<List<Bsp>> callback) {
-		BspModel.getAll(new GHAAsyncCallback<List<Bsp>>() {
-
-			@Override
-			public void onSuccess(List<Bsp> result) {
-				bsps = result;
-				callback.onSuccess(result);
-			}
-		});
+	public void getManufacturesrs(
+			GHAAsyncCallback<List<Manufacturer>> callback,
+			boolean forceFromServer) {
+		if (forceFromServer || manufacturers == null)
+			getManufacturersFromServer(callback);
+		else {
+			callback.onSuccess(manufacturers);
+		}
 	}
 
 	/**
@@ -267,133 +387,37 @@ public enum GHACache {
 		});
 	}
 
-	/**
-	 * @param callback
-	 */
-	public void getBuildingLocations(
-			GHAAsyncCallback<List<BuildingLocation>> callback) {
-		// Avoiding synchronization problems
-		if (buildingLocations == null)
-			getBuildingLocationsFromServer(callback);
+	public void getWorkingAreas(GHAAsyncCallback<List<WorkingArea>> callback) {
+		if (workingAreas == null)
+			getWorkingAreasFromServer(callback);
 		else
-			callback.onSuccess(buildingLocations);
+			callback.onSuccess(workingAreas);
 
 	}
 
-	private void getBuildingLocationsFromServer(
-			final GHAAsyncCallback<List<BuildingLocation>> callback) {
-		BuildingLocationModel
-				.getAll(new GHAAsyncCallback<List<BuildingLocation>>() { // AyncCallback
-					// subclass
-
-					@Override
-					public void onSuccess(List<BuildingLocation> result) {
-						buildingLocations = result;
-						// Avoiding synchronization problems
-						callback.onSuccess(result);
-					}
-				});
-	}
-
-	/**
-	 * @param callback
-	 * @param forceFromServer
-	 */
-	public void getBrands(GHAAsyncCallback<List<Brand>> callback,
-			boolean forceFromServer) {
-		if (forceFromServer || brands == null)
-			getBrandsFromServer(callback);
-		else
-			callback.onSuccess(brands);
-	}
-
-	private void getBrandsFromServer(
-			final GHAAsyncCallback<List<Brand>> callback) {
-		BrandModel.getAll(new GHAAsyncCallback<List<Brand>>() { // AyncCallback
-																// subclass
-
-					@Override
-					public void onSuccess(List<Brand> result) {
-						brands = result;
-						callback.onSuccess(result);
-					}
-				});
-	}
-
-	/**
-	 * @param callback
-	 */
-	public void getManufacturesrs(
-			GHAAsyncCallback<List<Manufacturer>> callback,
-			boolean forceFromServer) {
-		if (forceFromServer || manufacturers == null)
-			getManufacturersFromServer(callback);
-		else {
-			callback.onSuccess(manufacturers);
-		}
-	}
-
-	private void getManufacturersFromServer(
-			final GHAAsyncCallback<List<Manufacturer>> callback) {
-		ManufacturerModel.getAll(new GHAAsyncCallback<List<Manufacturer>>() { // AyncCallback
-					// subclass
-
-					@Override
-					public void onSuccess(List<Manufacturer> result) {
-						manufacturers = result;
-						// Avoiding synchronization problems
-						callback.onSuccess(result);
-					}
-				});
-	}
-
-	/**
-	 * @param callback
-	 */
-	public void getBpis(GHAAsyncCallback<List<Bpi>> callback,
-			boolean forceFromServer) {
-		if (forceFromServer || bpis == null)
-			getBpisFromServer(callback);
-		else {
-			callback.onSuccess(bpis);
-		}
-	}
-
-	private void getBpisFromServer(final GHAAsyncCallback<List<Bpi>> callback) {
-		BpiModel.getAll(new GHAAsyncCallback<List<Bpi>>() { // AsyncCallback
-			// subclass
+	private void getWorkingAreasFromServer(
+			final GHAAsyncCallback<List<WorkingArea>> callback) {
+		WorkingAreaModel.getAll(new GHAAsyncCallback<List<WorkingArea>>() {
 
 			@Override
-			public void onSuccess(List<Bpi> result) {
-				bpis = result;
-				// Avoiding synchronization problems
+			public void onSuccess(List<WorkingArea> result) {
+				workingAreas = result;
 				callback.onSuccess(result);
 			}
 		});
 	}
 
-	/**
-	 * @param callback
-	 * @param forceFromServer
-	 */
-	public void getBpus(GHAAsyncCallback<List<Bpu>> callback,
-			boolean forceFromServer) {
-		if (forceFromServer || bpus == null)
-			getBpusFromServer(callback);
-		else {
-			callback.onSuccess(bpus);
-		}
-	}
-
-	private void getBpusFromServer(final GHAAsyncCallback<List<Bpu>> callback) {
-		BpuModel.getAll(new GHAAsyncCallback<List<Bpu>>() {
-			@Override
-			public void onSuccess(List<Bpu> result) {
-				bpus = result;
-				// Avoiding synchronization problems
-				callback.onSuccess(result);
-			}
-		});
+	private void invalidateCache() {
+		brands = null;
+		manufacturers = null;
+		buildingLocations = null;
+		obus = null;
+		roles = null;
+		externalProviders = null;
+		eiaTypes = null;
+		workingAreas = null;
+		facilities = null;
+		bpis = null;
 	}
 
 }

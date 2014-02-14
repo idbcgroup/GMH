@@ -1,0 +1,11 @@
+#CCDILevelDefinition(ccdiDefinition, level, name, length, valueType[fixed,text,variable], initialvalue, incvalue, separator, endValueAction[nextlevel,restart])
+MATERIAL,0,MATERIALES,1,0,0,0,,1
+MATERIAL,1,TIPO,1,0,0,0,,1
+MATERIAL,2,FAMILIA,2,2,1,1,,1
+MATERIAL,3,SUB FAMILIA,2,2,1,1,,1
+MATERIAL,4,ELEMENTOS,4,2,1,1,,1
+EQUIPOS,0,MIPE,1,0,1,1,,1
+EQUIPOS,1,CATEGORY,1,0,0,1,,1
+EQUIPOS,2,FAMILIA,2,0,0,2,,1
+EQUIPOS,3,SUB FAMILIA,2,2,0,2,,1
+EQUIPOS,4,ELEMENTO,4,2,0,2,,1

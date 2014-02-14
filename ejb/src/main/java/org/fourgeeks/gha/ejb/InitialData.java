@@ -36,7 +36,6 @@ import org.fourgeeks.gha.domain.enu.DocumentTypeEnum;
 import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
-import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.enu.GenderTypeEnum;
 import org.fourgeeks.gha.domain.enu.LanguageEnum;
 import org.fourgeeks.gha.domain.enu.LocationLevelEnum;
@@ -68,6 +67,7 @@ import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.domain.gmh.EiaTypeCategory;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
@@ -261,53 +261,68 @@ public class InitialData {
 	 * 
 	 */
 	private void ccdiLevelDefinitionTestData() {
-		String query;
-		query = "SELECT t from CCDILevelDefinition t WHERE t.id = 1";
+		InputStream in = null;
+		CSVReader reader = null;
+
+		String query = "SELECT t from CCDILevelDefinition t WHERE t.id = 1";
 		try {
 			em.createQuery(query).getSingleResult();
 		} catch (final NoResultException e) {
 			try {
-				logger.log(Level.INFO,
-						"CREATING CCDI LEVEL DEFINITION TEST DATA");
-				final CCDIDefinition definition = em
-						.createNamedQuery("CCDIDefinition.findByCode",
-								CCDIDefinition.class)
-						.setParameter("code", "MATERIAL").getSingleResult();
+				logger.info("creating test ccdiLevelDefinition");
+				in = InitialData.class
+						.getResourceAsStream("/ccdiLevelDefinition.csv");
+				reader = new CSVReader(new InputStreamReader(in, "UTF-8"), ',',
+						'\'', 0);
+				List<String[]> readAll = reader.readAll();
 
-				final CCDILevelDefinition materiales = new CCDILevelDefinition(
-						definition, 0, "MATERIALES", 1,
-						CCDIValueTypeEnum.FIXED, 0, 0, "",
-						CCDIEndValueActionEnum.RESTART);
-				em.persist(materiales);
+				for (String[] strings : readAll) {
+					if (strings[0].startsWith("#")
+							|| strings[0].startsWith("//"))
+						continue;
 
-				final CCDILevelDefinition type = new CCDILevelDefinition(
-						definition, 1, "TIPO", 1, CCDIValueTypeEnum.FIXED, 0,
-						0, "", CCDIEndValueActionEnum.RESTART);
-				em.persist(type);
+					CCDIDefinition definition = em
+							.createNamedQuery("CCDIDefinition.findByCode",
+									CCDIDefinition.class)
+							.setParameter("code", strings[0]).getSingleResult();
 
-				final CCDILevelDefinition family = new CCDILevelDefinition(
-						definition, 2, "FAMILIA", 2,
-						CCDIValueTypeEnum.VARIABLE, 1, 1, "",
-						CCDIEndValueActionEnum.RESTART);
-				em.persist(family);
+					CCDILevelDefinition levelDefinition = new CCDILevelDefinition();
+					levelDefinition.setDefinition(definition);
+					levelDefinition.setLevel(Integer.parseInt(strings[1]));
+					levelDefinition.setName(strings[2]);
+					levelDefinition.setLength(Integer.parseInt(strings[3]));
+					levelDefinition
+							.setValueType(CCDIValueTypeEnum.values()[Integer
+									.parseInt(strings[4])]);
+					levelDefinition.setInitialValue(Integer
+							.parseInt(strings[5]));
+					levelDefinition.setIncValue(Integer.parseInt(strings[6]));
+					levelDefinition.setSeparator(strings[7]);
+					levelDefinition.setValueAtEndAction(CCDIEndValueActionEnum
+							.values()[Integer.parseInt(strings[8])]);
 
-				final CCDILevelDefinition subFamily = new CCDILevelDefinition(
-						definition, 3, "SUB FAMILIA", 2,
-						CCDIValueTypeEnum.VARIABLE, 1, 1, "",
-						CCDIEndValueActionEnum.RESTART);
-				em.persist(subFamily);
-
-				final CCDILevelDefinition element = new CCDILevelDefinition(
-						definition, 4, "ELEMENTOS", 4,
-						CCDIValueTypeEnum.VARIABLE, 1, 1, "",
-						CCDIEndValueActionEnum.RESTART);
-				em.persist(element);
+					em.persist(levelDefinition);
+					em.flush();
+				}
 
 			} catch (final Exception e1) {
 				logger.log(Level.INFO,
 						"error creating test ccdi level definition", e);
 			}
+		} finally {
+			try {
+				if (reader != null)
+					reader.close();
+			} catch (IOException e) {
+				logger.log(Level.SEVERE, "ERROR IN CCDI LEVEL DEFINITION");
+			}
 
+			try {
+				if (in != null)
+					in.close();
+			} catch (IOException e) {
+				logger.log(Level.SEVERE, "ERROR IN CCDI LEVEL DEFINITION");
+			}
 		}
 	}
 
@@ -315,184 +330,136 @@ public class InitialData {
 	 * 
 	 */
 	private void ccdiLevelValuesTestData() {
-		String query;
-		query = "SELECT t from CCDILevelValue t WHERE t.id = 1";
+		InputStream in = null;
+		CSVReader reader = null;
+
+		String query = "SELECT t from CCDILevelValue t WHERE t.id = 1";
 		try {
 			em.createQuery(query).getSingleResult();
 		} catch (final NoResultException e) {
 			try {
-				logger.info("creating test CCDILevelValue");
-				final CCDIDefinition definition = em
-						.createNamedQuery("CCDIDefinition.findByCode",
-								CCDIDefinition.class)
-						.setParameter("code", "MATERIAL").getSingleResult();
+				logger.info("creating test ccdiLevelValue");
+				in = InitialData.class
+						.getResourceAsStream("/ccdiLevelValue.csv");
+				reader = new CSVReader(new InputStreamReader(in, "UTF-8"), ',',
+						'\'', 0);
+				List<String[]> readAll = reader.readAll();
 
-				final CCDILevelDefinition material = em
-						.createNamedQuery("CCDILevelDefinition.findByLevel",
-								CCDILevelDefinition.class)
-						.setParameter("level", 0)
-						.setParameter("definition", definition)
-						.getSingleResult();
-				final CCDILevelDefinition type = em
-						.createNamedQuery("CCDILevelDefinition.findByLevel",
-								CCDILevelDefinition.class)
-						.setParameter("level", 1)
-						.setParameter("definition", definition)
-						.getSingleResult();
-				final CCDILevelDefinition family = em
-						.createNamedQuery("CCDILevelDefinition.findByLevel",
-								CCDILevelDefinition.class)
-						.setParameter("level", 2)
-						.setParameter("definition", definition)
-						.getSingleResult();
-				final CCDILevelDefinition subFamily = em
-						.createNamedQuery("CCDILevelDefinition.findByLevel",
-								CCDILevelDefinition.class)
-						.setParameter("level", 3)
-						.setParameter("definition", definition)
-						.getSingleResult();
-				final CCDILevelDefinition element = em
-						.createNamedQuery("CCDILevelDefinition.findByLevel",
-								CCDILevelDefinition.class)
-						.setParameter("level", 4)
-						.setParameter("definition", definition)
-						.getSingleResult();
+				for (String[] strings : readAll) {
+					if (strings[0].startsWith("#")
+							|| strings[0].startsWith("//"))
+						continue;
 
-				CCDILevelValue materialValue = new CCDILevelValue(material,
-						null, "MATERIAL", "0", 0, "0",
-						CCDIValueStatusEnum.ACTIVE);
-				em.persist(materialValue);
-				em.flush();
-				materialValue = em
-						.createNamedQuery("CCDILevelValue.findByCode",
-								CCDILevelValue.class)
-						.setParameter("code", materialValue.getCode())
-						.getSingleResult();
+					CCDIDefinition definition = em
+							.createNamedQuery("CCDIDefinition.findByCode",
+									CCDIDefinition.class)
+							.setParameter("code", strings[0]).getSingleResult();
+					CCDILevelDefinition levelDefinition = em
+							.createNamedQuery(
+									"CCDILevelDefinition.findByLevel",
+									CCDILevelDefinition.class)
+							.setParameter("definition", definition)
+							.setParameter("level", Integer.parseInt(strings[1]))
+							.getSingleResult();
 
-				CCDILevelValue supplies = new CCDILevelValue(type,
-						materialValue, "SUMINISTROS", "01", 3, "1",
-						CCDIValueStatusEnum.ACTIVE);
-				em.persist(supplies);
-				em.flush();
-				supplies = em
-						.createNamedQuery("CCDILevelValue.findByCode",
-								CCDILevelValue.class)
-						.setParameter("code", supplies.getCode())
-						.getSingleResult();
+					CCDILevelValue levelValue = new CCDILevelValue();
+					levelValue.setLevelDefinition(levelDefinition);
 
-				CCDILevelValue pharmacs = new CCDILevelValue(type,
-						materialValue, "FARMACOS", "04", 1, "4",
-						CCDIValueStatusEnum.ACTIVE);
-				em.persist(pharmacs);
-				em.flush();
-				pharmacs = em
-						.createNamedQuery("CCDILevelValue.findByCode",
-								CCDILevelValue.class)
-						.setParameter("code", pharmacs.getCode())
-						.getSingleResult();
+					CCDILevelValue parentValue = strings[2].equals("") ? null
+							: em.createNamedQuery("CCDILevelValue.findByCode",
+									CCDILevelValue.class)
+									.setParameter("code", strings[2])
+									.getSingleResult();
+					levelValue.setParentValue(parentValue);
+					levelValue.setName(strings[3]);
+					levelValue.setCode(strings[4]);
+					levelValue.setNextValue(Integer.parseInt(strings[5]));
+					levelValue.setFixedValue(strings[6]);
+					levelValue.setStatus(CCDIValueStatusEnum.values()[Integer
+							.parseInt(strings[7])]);
+					levelValue.setNextElement(Integer.parseInt(strings[8]));
 
-				CCDILevelValue needle = new CCDILevelValue(family, supplies,
-						"AGUJAS", "0101", 3, "", CCDIValueStatusEnum.ACTIVE);
-				em.persist(needle);
-				em.flush();
-				needle = em
-						.createNamedQuery("CCDILevelValue.findByCode",
-								CCDILevelValue.class)
-						.setParameter("code", needle.getCode())
-						.getSingleResult();
+					em.persist(levelValue);
+					em.flush();
+				}
 
-				CCDILevelValue syringe = new CCDILevelValue(family, supplies,
-						"AGUJAS", "0102", 2, "", CCDIValueStatusEnum.ACTIVE);
-				em.persist(syringe);
-				em.flush();
-				syringe = em
-						.createNamedQuery("CCDILevelValue.findByCode",
-								CCDILevelValue.class)
-						.setParameter("code", syringe.getCode())
-						.getSingleResult();
-
-				CCDILevelValue antiBiotics = new CCDILevelValue(family,
-						pharmacs, "ANTIBIOTICOS", "0401", 2, "",
-						CCDIValueStatusEnum.ACTIVE);
-				em.persist(antiBiotics);
-				em.flush();
-				antiBiotics = em
-						.createNamedQuery("CCDILevelValue.findByCode",
-								CCDILevelValue.class)
-						.setParameter("code", antiBiotics.getCode())
-						.getSingleResult();
-
-				CCDILevelValue hypodermic = new CCDILevelValue(subFamily,
-						needle, "HIPODERMICAS", "010101", 1, "",
-						CCDIValueStatusEnum.ACTIVE);
-				em.persist(hypodermic);
-				em.flush();
-				hypodermic = em
-						.createNamedQuery("CCDILevelValue.findByCode",
-								CCDILevelValue.class)
-						.setParameter("code", hypodermic.getCode())
-						.getSingleResult();
-
-				CCDILevelValue puncture = new CCDILevelValue(subFamily, needle,
-						"PUNCION", "010102", 1, "", CCDIValueStatusEnum.ACTIVE);
-				em.persist(puncture);
-				em.flush();
-				puncture = em
-						.createNamedQuery("CCDILevelValue.findByCode",
-								CCDILevelValue.class)
-						.setParameter("code", puncture.getCode())
-						.getSingleResult();
-
-				CCDILevelValue insuline = new CCDILevelValue(subFamily,
-						syringe, "INSULINA", "010201", 1, "",
-						CCDIValueStatusEnum.ACTIVE);
-				em.persist(insuline);
-				em.flush();
-				insuline = em
-						.createNamedQuery("CCDILevelValue.findByCode",
-								CCDILevelValue.class)
-						.setParameter("code", insuline.getCode())
-						.getSingleResult();
-
-				CCDILevelValue penicillin = new CCDILevelValue(subFamily,
-						antiBiotics, "PENICILINA", "040101", 1, "",
-						CCDIValueStatusEnum.ACTIVE);
-				em.persist(penicillin);
-				em.flush();
-				penicillin = em
-						.createNamedQuery("CCDILevelValue.findByCode",
-								CCDILevelValue.class)
-						.setParameter("code", penicillin.getCode())
-						.getSingleResult();
-
-				em.flush();
 			} catch (final Exception e1) {
-				logger.log(Level.INFO, "error creating test ccdi level values",
+				logger.log(Level.INFO, "error creating test ccdi level value",
 						e);
 			}
+		} finally {
+			try {
+				if (reader != null)
+					reader.close();
+			} catch (IOException e) {
+				logger.log(Level.SEVERE, "ERROR IN CCDI LEVEL VALUE");
+			}
 
+			try {
+				if (in != null)
+					in.close();
+			} catch (IOException e) {
+				logger.log(Level.SEVERE, "ERROR IN CCDI LEVEL VALUE");
+			}
 		}
 	}
 
 	private void ccdiTestData() {
-		final String query = "SELECT t from CCDIDefinition t WHERE t.id = 1";
+		InputStream in = null;
+		CSVReader reader = null;
 
+		String query = "SELECT t from CCDIDefinition t WHERE t.id = 1";
 		try {
 			em.createQuery(query).getSingleResult();
 		} catch (final NoResultException e) {
 			try {
 				logger.info("creating test ccdiDefinition");
-				em.persist(new Concept());
-				em.flush();
+				in = InitialData.class
+						.getResourceAsStream("/ccdiDefinition.csv");
+				reader = new CSVReader(new InputStreamReader(in, "UTF-8"), ',',
+						'\'', 0);
+				List<String[]> readAll = reader.readAll();
 
-				final CCDIDefinition material = new CCDIDefinition("MATERIAL",
-						"MATERIAL", 10, 5, CCDIStatusEnum.ACTIVE, em.find(
-								Concept.class, 1L),
-						CCDICodeTypeEnum.ALPHANUMERIC, false, "");
-				em.persist(material);
+				for (String[] strings : readAll) {
+					if (strings[0].startsWith("#")
+							|| strings[0].startsWith("//"))
+						continue;
+
+					CCDIDefinition definition = new CCDIDefinition();
+					definition.setCode(strings[0]);
+					definition.setName(strings[1]);
+					definition.setLength(Integer.parseInt(strings[2]));
+					definition.setLevels(Integer.parseInt(strings[3]));
+					definition.setStatus(CCDIStatusEnum.values()[Integer
+							.parseInt(strings[4])]);
+					definition.setConcept(em.find(Concept.class,
+							Long.parseLong(strings[5])));
+					definition.setType(CCDICodeTypeEnum.values()[Integer
+							.parseInt(strings[6])]);
+					definition
+							.setVerification(Boolean.parseBoolean(strings[7]));
+					definition.setVerificationMethod(strings[8]);
+
+					em.persist(definition);
+					em.flush();
+				}
 
 			} catch (final Exception e1) {
 				logger.log(Level.INFO, "error creating test ccdi definition", e);
+			}
+		} finally {
+			try {
+				if (reader != null)
+					reader.close();
+			} catch (IOException e) {
+				logger.log(Level.SEVERE, "ERROR IN CCDI DEFINITION");
+			}
+
+			try {
+				if (in != null)
+					in.close();
+			} catch (IOException e) {
+				logger.log(Level.SEVERE, "ERROR IN CCDI DEFINITION");
 			}
 		}
 	}
@@ -556,7 +523,7 @@ public class InitialData {
 
 				for (int i = 1; i < 4; ++i) {
 					final Eia eia = new Eia(bRole, em.find(EiaType.class,
-							"9000" + Long.toString(i)), obu,
+							"300000000" + Long.toString(i)), obu,
 							EiaStateEnum.values()[i % 3], "GHAEQ-00" + i,
 							eProvider, "S9023423" + i);
 					eia.setCode("eia-00" + i);
@@ -572,6 +539,35 @@ public class InitialData {
 		}
 	}
 
+	private void eiaTypeCategoryTestData() {
+		String query = "SELECT t from EiaTypeCategory t WHERE t.id = 1";
+		try {
+			em.createQuery(query).getSingleResult();
+		} catch (NoResultException e) {
+			try {
+				logger.info("Creating test data: EiaTypeCategory");
+				List<CCDILevelValue> ccdiCategories = em
+						.createNamedQuery(
+								"CCDILevelValue.findAllByDefinitionCode",
+								CCDILevelValue.class)
+						.setParameter("code", "EQUIPOS").getResultList();
+
+				for (CCDILevelValue ccdi : ccdiCategories) {
+					EiaTypeCategory category = new EiaTypeCategory();
+					category.setName(ccdi.getName());
+					category.setCode(ccdi.getCode());
+					em.persist(category);
+					em.flush();
+				}
+
+				em.flush();
+			} catch (Exception e1) {
+				logger.log(Level.INFO,
+						"error Creating SubProtocolAndChecklist test data", e1);
+			}
+		}
+	}
+
 	/**
 	 * 
 	 */
@@ -583,9 +579,9 @@ public class InitialData {
 			try {
 				logger.info("Creating test data: EiaTypeMaintenancePlan");
 				em.persist(new EiaTypeMaintenancePlan(em.find(EiaType.class,
-						"90001"), em.find(MaintenancePlan.class, 1L)));
+						"3000000001"), em.find(MaintenancePlan.class, 1L)));
 				em.persist(new EiaTypeMaintenancePlan(em.find(EiaType.class,
-						"90002"), em.find(MaintenancePlan.class, 2L)));
+						"3000000002"), em.find(MaintenancePlan.class, 2L)));
 				em.flush();
 
 			} catch (final Exception e1) {
@@ -596,43 +592,58 @@ public class InitialData {
 	}
 
 	private void eiaTypeTestData() {
-		final String query = "SELECT t from EiaType t WHERE t.code = '90001'";
+		InputStream in = null;
+		CSVReader reader = null;
+
+		String query = "SELECT t from EiaType t WHERE t.code='3000000001'";
 		try {
 			em.createQuery(query).getSingleResult();
 		} catch (final NoResultException e) {
 			try {
-				logger.info("creating test eiaType");
-				EiaType eiaType = new EiaType("90001",
-						em.find(Brand.class, 1L), "Impresora Tinta",
-						EiaMobilityEnum.FIXED, EiaTypeEnum.EQUIPMENT,
-						EiaSubTypeEnum.IT_SYSTEM, "Stylus");
-				em.persist(eiaType);
+				logger.info("creating test eiatype");
+				in = InitialData.class.getResourceAsStream("/eiatype.csv");
+				reader = new CSVReader(new InputStreamReader(in, "UTF-8"), ',',
+						'\'', 0);
+				List<String[]> readAll = reader.readAll();
 
-				eiaType = new EiaType("90002", em.find(Brand.class, 2L),
-						"Impresora Laser", EiaMobilityEnum.FIXED,
-						EiaTypeEnum.EQUIPMENT, EiaSubTypeEnum.IT_SYSTEM,
-						"Deskjet");
-				em.persist(eiaType);
-
-				eiaType = new EiaType("90003", em.find(Brand.class, 3L),
-						"Cartucho Tricolor", EiaMobilityEnum.FIXED,
-						EiaTypeEnum.PART, EiaSubTypeEnum.IT_SYSTEM, "EP60");
-				em.persist(eiaType);
-
-				eiaType = new EiaType("90004", em.find(Brand.class, 4L),
-						"Toner Laser", EiaMobilityEnum.FIXED, EiaTypeEnum.PART,
-						EiaSubTypeEnum.IT_SYSTEM, "HP60");
-				em.persist(eiaType);
-
-				eiaType = new EiaType("90005", em.find(Brand.class, 5L),
-						"Cartucho Negro", EiaMobilityEnum.FIXED,
-						EiaTypeEnum.PART, EiaSubTypeEnum.IT_SYSTEM, "EPN60");
-				em.persist(eiaType);
-
-				em.flush();
+				for (String[] strings : readAll) {
+					if (strings[0].startsWith("#")
+							|| strings[0].startsWith("//"))
+						continue;
+					EiaType eiaType = new EiaType();
+					eiaType.setCode(strings[0]);
+					eiaType.setBrand(em.find(Brand.class,
+							Long.parseLong(strings[1])));
+					eiaType.setName(strings[2]);
+					eiaType.setMobility(EiaMobilityEnum.values()[Integer
+							.parseInt(strings[3])]);
+					eiaType.setEiaTypeCategory(em
+							.createNamedQuery("EiaTypeCategory.findByCode",
+									EiaTypeCategory.class)
+							.setParameter("code", strings[4]).getSingleResult());
+					eiaType.setSubtype(EiaSubTypeEnum.values()[Integer
+							.parseInt(strings[5])]);
+					eiaType.setModel(strings[6]);
+					em.persist(eiaType);
+					em.flush();
+				}
 
 			} catch (final Exception e1) {
-				logger.log(Level.INFO, "error creating test eiatype", e);
+				logger.log(Level.INFO, "error creating eiatype test data", e);
+			}
+		} finally {
+			try {
+				if (reader != null)
+					reader.close();
+			} catch (IOException e) {
+				logger.log(Level.SEVERE, "ERROR IN eiatype test data");
+			}
+
+			try {
+				if (in != null)
+					in.close();
+			} catch (IOException e) {
+				logger.log(Level.SEVERE, "ERROR IN eiatype test data");
 			}
 		}
 	}
@@ -1334,6 +1345,7 @@ public class InitialData {
 		materialTestData();
 		facilityTestData();
 		// // TODO
+		eiaTypeCategoryTestData();
 		eiaTypeTestData();
 		eiaTestData();
 		//
