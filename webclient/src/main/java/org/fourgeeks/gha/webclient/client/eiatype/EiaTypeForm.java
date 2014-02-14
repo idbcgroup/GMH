@@ -53,7 +53,7 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 	private GHATextAreaItem descriptionItem;
 	private GHATextAreaItem useDescriptionItem;
 	private GHASelectItem mobilityItem;
-	private GHAEiaTypeCategorySelectItem typeItem;
+	private GHAEiaTypeCategorySelectItem categoryItem;
 	private GHAEiaTypeSubTypeSelectItem subTypeItem;
 	private GHAComboboxItem<Brand> brandItem;
 	private GHAComboboxItem<Manufacturer> manItem;
@@ -64,7 +64,7 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 		codeItem = new GHACodeTextItem(true, changedHandler);
 
 		nameItem = new GHATextItem(GHAStrings.get("name"), true, changedHandler);
-		typeItem = new GHAEiaTypeCategorySelectItem(GHAStrings.get("category"),
+		categoryItem = new GHAEiaTypeCategorySelectItem(GHAStrings.get("category"),
 				true, changedHandler);
 		subTypeItem = new GHAEiaTypeSubTypeSelectItem(changedHandler);
 		eiaUmdnsItem = new GHATextItem("EIAUMDNS", false, changedHandler);
@@ -99,7 +99,7 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 		modelItem.validateWords();
 		modelItem.setTooltip(GHAStrings.get("eiatype-model-tooltip"));
 
-		typeItem.setTooltip(GHAStrings.get("eiatype-type-tooltip"));
+		categoryItem.setTooltip(GHAStrings.get("eiatype-type-tooltip"));
 
 		subTypeItem.setTooltip(GHAStrings.get("eiatype-subtype-tooltip"));
 		mobilityItem.setTooltip(GHAStrings.get("eiatype-mobility-tooltip"));
@@ -150,7 +150,7 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 			}
 		});
 
-		form.setItems(codeItem, nameItem, typeItem, new GHASpacerItem(),
+		form.setItems(codeItem, nameItem, categoryItem, new GHASpacerItem(),
 				subTypeItem, eiaUmdnsItem, modelItem, new GHASpacerItem(),
 				mobilityItem, manItem, brandItem, new GHASpacerItem(),
 				descriptionItem, new GHASpacerItem(), useDescriptionItem);
@@ -187,7 +187,7 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 		useDescriptionItem.clearValue();
 		eiaUmdnsItem.clearValue();
 		mobilityItem.clearValue();
-		typeItem.clearValue();
+		categoryItem.clearValue();
 		subTypeItem.clearValue();
 	}
 
@@ -231,8 +231,8 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 		if (mobilityItem.getValue() != null)
 			eiaType.setMobility(EiaMobilityEnum.valueOf(mobilityItem
 					.getValueAsString()));
-		if (typeItem.getValue() != null)
-			eiaType.setEiaTypeCategory(new EiaTypeCategory(typeItem
+		if (categoryItem.getValue() != null)
+			eiaType.setEiaTypeCategory(new EiaTypeCategory(categoryItem
 					.getValueAsString()));
 		if (subTypeItem.getValue() != null)
 			eiaType.setSubtype(EiaSubTypeEnum.valueOf(subTypeItem
@@ -290,7 +290,7 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 
 	private void fillExtras() {
 		// types
-		typeItem.setValueMap(EiaTypeEnum.toValueMap());
+		categoryItem.setValueMap(EiaTypeEnum.toValueMap());
 		// subtypes
 		subTypeItem.setValueMap(EiaSubTypeEnum.toValueMap());
 		// mobility
@@ -390,7 +390,7 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 		useDescriptionItem.setValue(eiaType.getUseDescription());
 		eiaUmdnsItem.setValue(eiaType.getEiaUmdns());
 		mobilityItem.setValue(eiaType.getMobility().name());
-		typeItem.setValue(eiaType.getType().name());
+		categoryItem.setValue(eiaType.getType().name());
 		if (eiaType.getSubtype() != null)
 			subTypeItem.setValue(eiaType.getSubtype().name());
 		// showPhotographics(eiaType);
@@ -423,7 +423,7 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 		useDescriptionItem.setDisabled(!activate);
 		eiaUmdnsItem.setDisabled(!activate);
 		mobilityItem.setDisabled(!activate);
-		typeItem.setDisabled(!activate);
+		categoryItem.setDisabled(!activate);
 		subTypeItem.setDisabled(!activate);
 	}
 

@@ -16,7 +16,9 @@ import org.fourgeeks.gha.domain.AbstractEntity;
  * 
  */
 @Entity
-@NamedQueries(value = { @NamedQuery(name = "EiaTypeCategory.getAll", query = "SELECT category from EiaTypeCategory category ORDER BY category.name") })
+@NamedQueries(value = {
+		@NamedQuery(name = "EiaTypeCategory.getAll", query = "SELECT category from EiaTypeCategory category ORDER BY category.name"),
+		@NamedQuery(name = "EiaTypeCategory.findByCode", query = "SELECT category from EiaTypeCategory category WHERE category.code=:code") })
 public class EiaTypeCategory extends AbstractEntity {
 
 	/**

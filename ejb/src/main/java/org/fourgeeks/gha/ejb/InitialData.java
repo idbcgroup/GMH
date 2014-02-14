@@ -1330,6 +1330,7 @@ public class InitialData {
 		materialTestData();
 		facilityTestData();
 		// // TODO
+		eiaTypeCategoryTestData();
 		eiaTypeTestData();
 		eiaTestData();
 		//
@@ -1342,8 +1343,6 @@ public class InitialData {
 		// MaintenancePlanMaintenanceProtocol();
 		// eiaTypeMaintenancePlanTestData();
 		// eiaMaintenancePlanificationTestData();
-
-		eiaTypeCategoryTestData();
 	}
 
 	private void uiStrings() {

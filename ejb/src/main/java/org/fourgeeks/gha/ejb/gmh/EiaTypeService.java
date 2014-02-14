@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -23,10 +24,12 @@ import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.EiaType;
+import org.fourgeeks.gha.domain.gmh.EiaTypeCategory;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
+import org.fourgeeks.gha.ejb.gom.CCDIServiceLocal;
 
 /**
  * @author emiliot, vivi.torresg
@@ -38,6 +41,9 @@ public class EiaTypeService extends GHAEJBExceptionService implements
 		EiaTypeServiceRemote {
 	@PersistenceContext
 	EntityManager em;
+
+	@EJB
+	CCDIServiceLocal ccdiService;
 
 	private final static Logger logger = Logger.getLogger(EiaTypeService.class
 			.getName());
@@ -321,6 +327,31 @@ public class EiaTypeService extends GHAEJBExceptionService implements
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see
+	 * org.fourgeeks.gha.ejb.gmh.EiaTypeServiceRemote#findByMaintenancePlan(
+	 * org.fourgeeks.gha.domain.gmh.MaintenancePlan)
+	 */
+	@Override
+	public List<EiaType> findByMaintenancePlan(MaintenancePlan maintenancePlan)
+			throws GHAEJBException {
+		try {
+			return em
+					.createNamedQuery("EiaType.findByMaintenancePlan",
+							EiaType.class)
+					.setParameter("maintenancePlan", maintenancePlan)
+					.getResultList();
+		} catch (final Exception ex) {
+			logger.log(Level.SEVERE,
+					"Error retriving all EitaTypes by maintenancePlan", ex);
+			throw super.generateGHAEJBException(
+					"eiatype-findByMaintenancePlan-fail",
+					RuntimeParameters.getLang(), em);
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fourgeeks.gha.ejb.gmh.EiaTypeService#getAllEiaType()
 	 */
 	@Override
@@ -371,6 +402,19 @@ public class EiaTypeService extends GHAEJBExceptionService implements
 				}
 				em.persist(brand);
 			}
+			// get the category
+			EiaTypeCategory category = em
+					.createNamedQuery("EiaTypeCategory.findByCode",
+							EiaTypeCategory.class)
+					.setParameter("code",
+							eiaType.getEiaTypeCategory().getCode())
+					.getSingleResult();
+			eiaType.setEiaTypeCategory(category);
+
+			// get the code from ccdi
+			String eiaTypeCode = ccdiService.getNextElementCode(eiaType
+					.getEiaTypeCategory().getCode());
+			eiaType.setCode(eiaTypeCode);
 
 			em.persist(eiaType);
 			em.flush();
@@ -405,31 +449,6 @@ public class EiaTypeService extends GHAEJBExceptionService implements
 		} catch (final Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to update eiatype", e);
 			throw super.generateGHAEJBException("eiatype-update-fail", em);
-		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.fourgeeks.gha.ejb.gmh.EiaTypeServiceRemote#findByMaintenancePlan(
-	 * org.fourgeeks.gha.domain.gmh.MaintenancePlan)
-	 */
-	@Override
-	public List<EiaType> findByMaintenancePlan(MaintenancePlan maintenancePlan)
-			throws GHAEJBException {
-		try {
-			return em
-					.createNamedQuery("EiaType.findByMaintenancePlan",
-							EiaType.class)
-					.setParameter("maintenancePlan", maintenancePlan)
-					.getResultList();
-		} catch (final Exception ex) {
-			logger.log(Level.SEVERE,
-					"Error retriving all EitaTypes by maintenancePlan", ex);
-			throw super.generateGHAEJBException(
-					"eiatype-findByMaintenancePlan-fail",
-					RuntimeParameters.getLang(), em);
 		}
 	}
 }

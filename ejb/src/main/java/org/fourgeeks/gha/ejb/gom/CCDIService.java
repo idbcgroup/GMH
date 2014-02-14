@@ -21,7 +21,7 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
  */
 @Stateless
 public class CCDIService extends GHAEJBExceptionService implements
-		CCDIServiceRemote {
+		CCDIServiceRemote, CCDIServiceLocal {
 	@PersistenceContext
 	EntityManager em;
 
@@ -210,7 +210,6 @@ public class CCDIService extends GHAEJBExceptionService implements
 					+ formatCode(levelValue.getLevelDefinition()
 							.getDefinition().getLength()
 							- levelValue.getCode().length(), nextElement);
-			System.out.println("DEBUG: " + nextCode);
 			return nextCode;
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: adding element to ccdilevelvalue", e);
