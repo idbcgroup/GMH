@@ -36,7 +36,6 @@ import org.fourgeeks.gha.domain.enu.DocumentTypeEnum;
 import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
-import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.enu.GenderTypeEnum;
 import org.fourgeeks.gha.domain.enu.LanguageEnum;
 import org.fourgeeks.gha.domain.enu.LocationLevelEnum;
@@ -378,6 +377,7 @@ public class InitialData {
 					levelValue.setFixedValue(strings[6]);
 					levelValue.setStatus(CCDIValueStatusEnum.values()[Integer
 							.parseInt(strings[7])]);
+					levelValue.setNextElement(Integer.parseInt(strings[8]));
 
 					em.persist(levelValue);
 					em.flush();
@@ -523,7 +523,7 @@ public class InitialData {
 
 				for (int i = 1; i < 4; ++i) {
 					final Eia eia = new Eia(bRole, em.find(EiaType.class,
-							"9000" + Long.toString(i)), obu,
+							"300000000" + Long.toString(i)), obu,
 							EiaStateEnum.values()[i % 3], "GHAEQ-00" + i,
 							eProvider, "S9023423" + i);
 					eia.setCode("eia-00" + i);
@@ -579,9 +579,9 @@ public class InitialData {
 			try {
 				logger.info("Creating test data: EiaTypeMaintenancePlan");
 				em.persist(new EiaTypeMaintenancePlan(em.find(EiaType.class,
-						"90001"), em.find(MaintenancePlan.class, 1L)));
+						"3000000001"), em.find(MaintenancePlan.class, 1L)));
 				em.persist(new EiaTypeMaintenancePlan(em.find(EiaType.class,
-						"90002"), em.find(MaintenancePlan.class, 2L)));
+						"3000000002"), em.find(MaintenancePlan.class, 2L)));
 				em.flush();
 
 			} catch (final Exception e1) {
@@ -592,43 +592,58 @@ public class InitialData {
 	}
 
 	private void eiaTypeTestData() {
-		final String query = "SELECT t from EiaType t WHERE t.code = '90001'";
+		InputStream in = null;
+		CSVReader reader = null;
+
+		String query = "SELECT t from EiaType t WHERE t.code='3000000001'";
 		try {
 			em.createQuery(query).getSingleResult();
 		} catch (final NoResultException e) {
 			try {
-				logger.info("creating test eiaType");
-				EiaType eiaType = new EiaType("90001",
-						em.find(Brand.class, 1L), "Impresora Tinta",
-						EiaMobilityEnum.FIXED, EiaTypeEnum.EQUIPMENT,
-						EiaSubTypeEnum.IT_SYSTEM, "Stylus");
-				em.persist(eiaType);
+				logger.info("creating test eiatype");
+				in = InitialData.class.getResourceAsStream("/eiatype.csv");
+				reader = new CSVReader(new InputStreamReader(in, "UTF-8"), ',',
+						'\'', 0);
+				List<String[]> readAll = reader.readAll();
 
-				eiaType = new EiaType("90002", em.find(Brand.class, 2L),
-						"Impresora Laser", EiaMobilityEnum.FIXED,
-						EiaTypeEnum.EQUIPMENT, EiaSubTypeEnum.IT_SYSTEM,
-						"Deskjet");
-				em.persist(eiaType);
-
-				eiaType = new EiaType("90003", em.find(Brand.class, 3L),
-						"Cartucho Tricolor", EiaMobilityEnum.FIXED,
-						EiaTypeEnum.PART, EiaSubTypeEnum.IT_SYSTEM, "EP60");
-				em.persist(eiaType);
-
-				eiaType = new EiaType("90004", em.find(Brand.class, 4L),
-						"Toner Laser", EiaMobilityEnum.FIXED, EiaTypeEnum.PART,
-						EiaSubTypeEnum.IT_SYSTEM, "HP60");
-				em.persist(eiaType);
-
-				eiaType = new EiaType("90005", em.find(Brand.class, 5L),
-						"Cartucho Negro", EiaMobilityEnum.FIXED,
-						EiaTypeEnum.PART, EiaSubTypeEnum.IT_SYSTEM, "EPN60");
-				em.persist(eiaType);
-
-				em.flush();
+				for (String[] strings : readAll) {
+					if (strings[0].startsWith("#")
+							|| strings[0].startsWith("//"))
+						continue;
+					EiaType eiaType = new EiaType();
+					eiaType.setCode(strings[0]);
+					eiaType.setBrand(em.find(Brand.class,
+							Long.parseLong(strings[1])));
+					eiaType.setName(strings[2]);
+					eiaType.setMobility(EiaMobilityEnum.values()[Integer
+							.parseInt(strings[3])]);
+					eiaType.setEiaTypeCategory(em
+							.createNamedQuery("EiaTypeCategory.findByCode",
+									EiaTypeCategory.class)
+							.setParameter("code", strings[4]).getSingleResult());
+					eiaType.setSubtype(EiaSubTypeEnum.values()[Integer
+							.parseInt(strings[5])]);
+					eiaType.setModel(strings[6]);
+					em.persist(eiaType);
+					em.flush();
+				}
 
 			} catch (final Exception e1) {
-				logger.log(Level.INFO, "error creating test eiatype", e);
+				logger.log(Level.INFO, "error creating eiatype test data", e);
+			}
+		} finally {
+			try {
+				if (reader != null)
+					reader.close();
+			} catch (IOException e) {
+				logger.log(Level.SEVERE, "ERROR IN eiatype test data");
+			}
+
+			try {
+				if (in != null)
+					in.close();
+			} catch (IOException e) {
+				logger.log(Level.SEVERE, "ERROR IN eiatype test data");
 			}
 		}
 	}

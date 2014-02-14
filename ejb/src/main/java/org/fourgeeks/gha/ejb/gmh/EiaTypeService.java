@@ -20,7 +20,6 @@ import javax.persistence.criteria.Root;
 
 import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
 import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
-import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.EiaType;
@@ -106,12 +105,12 @@ public class EiaTypeService extends GHAEJBExceptionService implements
 					cb.equal(root.<EiaSubTypeEnum> get("subtype"), p));
 		}
 
-		if (entity.getType() != null) {
-			final ParameterExpression<EiaTypeEnum> p = cb.parameter(
-					EiaTypeEnum.class, "etype");
-			criteria = cb.and(criteria,
-					cb.equal(root.<EiaTypeEnum> get("type"), p));
-		}
+		// if (entity.getType() != null) {
+		// final ParameterExpression<EiaTypeEnum> p = cb.parameter(
+		// EiaTypeEnum.class, "etype");
+		// criteria = cb.and(criteria,
+		// cb.equal(root.<EiaTypeEnum> get("type"), p));
+		// }
 
 		if (entity.getUseDescription() != null) {
 			final ParameterExpression<String> p = cb.parameter(String.class,
@@ -204,9 +203,9 @@ public class EiaTypeService extends GHAEJBExceptionService implements
 					q.setParameter("subtype", entity.getSubtype());
 				}
 
-				if (entity.getType() != null) {
-					q.setParameter("etype", entity.getType());
-				}
+				// if (entity.getType() != null) {
+				// q.setParameter("etype", entity.getType());
+				// }
 
 				if (entity.getUseDescription() != null) {
 					q.setParameter("usedescription", "%"
