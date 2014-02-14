@@ -32,6 +32,7 @@ public class MaintenancePlanInternalTabset extends GHAInternalTabSet implements
 	 */
 	public MaintenancePlanInternalTabset(MaintenancePlanPanel panel) {
 		super();
+		setVisible(false);
 		maintenancePlanInfoSubTab = new MaintenancePlanInformationSubTab(panel);
 		maintenancePlanEquipmentTypeSubTab = new AsociatedEiaTypeSubTab(panel);
 		maintenancePlanEquipmentSubTab = new EiaPlanificationSubTab(panel);

@@ -34,6 +34,7 @@ public class EIATypeInternalTabSet extends GHAInternalTabSet implements
 	 */
 	public EIATypeInternalTabSet(EIATypePanel tab) {
 		super();
+		setVisible(false);
 		infoSubTab = new EIATypeInformationSubTab(tab);
 		hideables.add(infoSubTab);
 		closables.add(infoSubTab);
