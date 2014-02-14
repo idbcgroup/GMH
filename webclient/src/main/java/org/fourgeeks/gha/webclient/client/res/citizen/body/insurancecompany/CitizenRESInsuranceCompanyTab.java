@@ -13,7 +13,7 @@ public class CitizenRESInsuranceCompanyTab extends GHASubTab {
 	 * @param title
 	 */
 	public CitizenRESInsuranceCompanyTab() {
-		super(GHAStrings.get("basic-information"));
+		super(GHAStrings.get("insurance"));
 	}
 
 }

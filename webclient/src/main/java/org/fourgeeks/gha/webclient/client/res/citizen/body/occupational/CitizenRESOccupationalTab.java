@@ -13,7 +13,8 @@ public class CitizenRESOccupationalTab extends GHASubTab {
 	 * @param title
 	 */
 	public CitizenRESOccupationalTab() {
-		super(GHAStrings.get("basic-information"));
+		super(GHAStrings.get("occupational-information"));
+
 	}
 
 }
