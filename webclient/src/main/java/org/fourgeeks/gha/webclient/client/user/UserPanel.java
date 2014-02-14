@@ -7,7 +7,6 @@ import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
-import org.fourgeeks.gha.webclient.client.UI.TabStatus;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToHideException;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
@@ -15,6 +14,7 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.SearchListener;
 import org.fourgeeks.gha.webclient.client.UI.panels.GHAHeaderOption;
 import org.fourgeeks.gha.webclient.client.UI.panels.GHAPanel;
 import org.fourgeeks.gha.webclient.client.UI.panels.GHAPanelHeader;
+import org.fourgeeks.gha.webclient.client.UI.tabs.TabStatus;
 
 import com.smartgwt.client.types.Visibility;
 import com.smartgwt.client.widgets.events.ClickEvent;

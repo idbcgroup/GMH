@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.webclient.client.res.citizen.body.personalinformation;
+package org.fourgeeks.gha.webclient.client.res.citizen.body.demographic;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;

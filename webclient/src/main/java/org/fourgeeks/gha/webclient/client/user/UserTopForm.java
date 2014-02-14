@@ -10,7 +10,6 @@ import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.mix.Citizen;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
-import org.fourgeeks.gha.webclient.client.UI.GHATopForm;
 import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
@@ -21,6 +20,7 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHAEmailTextIte
 import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHANameTextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHAUserNameTextItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATopForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;

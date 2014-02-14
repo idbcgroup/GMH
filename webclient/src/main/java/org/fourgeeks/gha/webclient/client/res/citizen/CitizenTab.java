@@ -23,6 +23,7 @@ public class CitizenTab extends GHATab {
 	 */
 	public CitizenTab(final String ctiizenId) {
 		this.patientId = ctiizenId;
+		setBackgroundColor("cyan");
 		header = new GHATabHeader(this);
 		header.addClickHandler(new ClickHandler() {
 

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.TabStatus;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToHideException;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
@@ -38,7 +37,6 @@ public abstract class GHATab extends GHAVerticalLayout implements
 		super();
 		setWidth100();
 		setMinWidth(GHAUiHelper.MIN_WIDTH);
-		// addStyleName("sides-padding");
 	}
 
 	@Override

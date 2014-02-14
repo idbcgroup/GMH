@@ -17,7 +17,7 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAFormLayout;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.material.MaterialAddFormSub;
 import org.fourgeeks.gha.webclient.client.material.MaterialSearchFormSub;
@@ -36,7 +36,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author emiliot
  * 
  */
-public class EIATypeMaterialGridPanel extends GHAVerticalLayout implements
+public class EIATypeMaterialGridPanel extends GHAFormLayout implements
 EIATypeSelectionListener, HideableListener, ClosableListener {
 
 	private EiaTypeMaterialGrid grid;

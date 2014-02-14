@@ -13,7 +13,7 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAFormLayout;
 import org.fourgeeks.gha.webclient.client.appformviewfunction.AppFormViewFunctionModel;
 import org.fourgeeks.gha.webclient.client.appformviewfunction.AppFormViewFunctionRecord;
 import org.fourgeeks.gha.webclient.client.appformviewfunction.AppFormViewFunctionUtil;
@@ -27,7 +27,7 @@ import com.smartgwt.client.widgets.layout.HLayout;
  * @author alacret
  * 
  */
-public class AppFormViewFunctionGridPanel extends GHAVerticalLayout implements
+public class AppFormViewFunctionGridPanel extends GHAFormLayout implements
 		ClosableListener, HideableListener {
 
 	private AppFormViewFunctionGrid grid;

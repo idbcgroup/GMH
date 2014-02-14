@@ -3,7 +3,7 @@ package org.fourgeeks.gha.webclient.client.eiatype.damageandplanification;
 import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASectionForm;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAFormLayout;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
 import org.fourgeeks.gha.webclient.client.eiadamagereport.EiaDamageReportSelectionListener;
 import org.fourgeeks.gha.webclient.client.eiadamagereport.EiaDamageReportSelectionProducer;
@@ -65,7 +65,7 @@ public class EIADamageAndPlanificationSubTab extends GHASubTab implements
 		sectionForm.addSection("Planificación Mantemiento",
 				preventivePlanifPanel);
 
-		final GHAVerticalLayout mainLayout = new GHAVerticalLayout() {
+		final GHAFormLayout mainLayout = new GHAFormLayout() {
 		};
 
 		mainLayout.addMember(sectionForm);

@@ -1,8 +1,9 @@
-package org.fourgeeks.gha.webclient.client.UI;
+package org.fourgeeks.gha.webclient.client.UI.superclasses;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACleanButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
@@ -14,7 +15,6 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.SearchListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.SearchsProducer;
 import org.fourgeeks.gha.webclient.client.UI.panels.GHAPanel;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAResultSet;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;

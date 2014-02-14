@@ -2,7 +2,7 @@ package org.fourgeeks.gha.webclient.client.maintenanceactivity.serviceandresourc
 
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASectionForm;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAFormLayout;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivityPanel;
 
@@ -51,7 +51,7 @@ public class MaintenanceActivityServiceAndResourceSubTab extends GHASubTab {
 		panel.addMaintenanceActivitySelectionListener(materialsPanel);
 		panel.addMaintenanceActivitySelectionListener(equipmentsPanel);
 
-		final GHAVerticalLayout mainLayout = new GHAVerticalLayout() {
+		final GHAFormLayout mainLayout = new GHAFormLayout() {
 		};
 
 		mainLayout.addMember(sectionForm);

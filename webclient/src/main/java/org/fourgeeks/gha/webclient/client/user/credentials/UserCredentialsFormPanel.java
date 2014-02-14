@@ -9,7 +9,7 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAFormLayout;
 import org.fourgeeks.gha.webclient.client.user.UserPanel;
 
 import com.smartgwt.client.types.TitleOrientation;
@@ -24,7 +24,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class UserCredentialsFormPanel extends GHAVerticalLayout implements
+public class UserCredentialsFormPanel extends GHAFormLayout implements
 		ClosableListener, HideableListener {
 
 	private GHACheckboxItem physicianItem, nurseItem, payerItem, patientItem,
