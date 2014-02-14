@@ -35,11 +35,12 @@ public class EIADamageAndPlanificationSubTab extends GHASubTab implements
 	}
 
 	/**
-	 * @param tab
+	 * @param panel
 	 */
-	public EIADamageAndPlanificationSubTab(EIATypePanel tab) {
-		super(GHAStrings.get("report-and-planification"), tab);
-
+	public EIADamageAndPlanificationSubTab(EIATypePanel panel) {
+		super(GHAStrings.get("report-and-planification"));
+		panel.addHideableListener(this);
+		panel.addClosableListener(this);
 		// listeners
 		addClosableListener(damageReportPanel);
 		addHideableListener(damageReportPanel);
@@ -48,9 +49,9 @@ public class EIADamageAndPlanificationSubTab extends GHASubTab implements
 		addClosableListener(preventivePlanifPanel);
 		addHideableListener(preventivePlanifPanel);
 
-		tab.addEiaTypeSelectionListener(damageReportPanel);
-		tab.addEiaTypeSelectionListener(maintenancePlanifPanel);
-		tab.addEiaTypeSelectionListener(preventivePlanifPanel);
+		panel.addEiaTypeSelectionListener(damageReportPanel);
+		panel.addEiaTypeSelectionListener(maintenancePlanifPanel);
+		panel.addEiaTypeSelectionListener(preventivePlanifPanel);
 
 		damageReportPanel
 				.addEiaDamageReportSelectionListener(maintenancePlanifPanel);
@@ -64,7 +65,7 @@ public class EIADamageAndPlanificationSubTab extends GHASubTab implements
 		sectionForm.addSection("Planificación Mantemiento",
 				preventivePlanifPanel);
 
-		GHAVerticalLayout mainLayout = new GHAVerticalLayout() {
+		final GHAVerticalLayout mainLayout = new GHAVerticalLayout() {
 		};
 
 		mainLayout.addMember(sectionForm);

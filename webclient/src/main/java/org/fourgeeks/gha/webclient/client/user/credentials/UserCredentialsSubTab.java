@@ -2,8 +2,8 @@ package org.fourgeeks.gha.webclient.client.user.credentials;
 
 import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
-import org.fourgeeks.gha.webclient.client.user.UserSelectionListener;
 import org.fourgeeks.gha.webclient.client.user.UserPanel;
+import org.fourgeeks.gha.webclient.client.user.UserSelectionListener;
 
 /**
  * @author alacret
@@ -15,13 +15,15 @@ public class UserCredentialsSubTab extends GHASubTab implements
 	private UserCredentialsFormPanel form;
 
 	/**
-	 * @param tab
+	 * @param panel
 	 */
-	public UserCredentialsSubTab(UserPanel tab) {
-		super("Credenciales", tab);
+	public UserCredentialsSubTab(UserPanel panel) {
+		super("Credenciales");// TODO Uistrings
+		panel.addHideableListener(this);
+		panel.addClosableListener(this);
 		setDisabled(true);
-		tab.addUserSelectionListener(this);
-		form = new UserCredentialsFormPanel(tab);
+		panel.addUserSelectionListener(this);
+		form = new UserCredentialsFormPanel(panel);
 		addClosableListener(form);
 		addHideableListener(form);
 

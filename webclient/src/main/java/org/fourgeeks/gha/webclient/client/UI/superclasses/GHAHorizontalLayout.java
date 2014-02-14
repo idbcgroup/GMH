@@ -16,9 +16,7 @@ public abstract class GHAHorizontalLayout extends HLayout {
 	 */
 	public GHAHorizontalLayout() {
 		super();
-		setMinWidth(GHAUiHelper.MIN_WIDTH);
 		setBackgroundColor(GHAUiHelper.DEFAULT_BACKGROUND_COLOR);
-		setStyleName("sides-padding padding-top");
 	}
 
 }

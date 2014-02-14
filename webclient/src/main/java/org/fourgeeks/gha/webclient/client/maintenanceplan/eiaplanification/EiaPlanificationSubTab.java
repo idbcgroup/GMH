@@ -18,17 +18,19 @@ public class EiaPlanificationSubTab extends GHASubTab implements
 
 	/**
 	 * 
-	 * @param tab
+	 * @param panel
 	 */
-	public EiaPlanificationSubTab(MaintenancePlanPanel tab) {
-		super(GHAStrings.get("eia-maintenance-plan"), tab);
+	public EiaPlanificationSubTab(MaintenancePlanPanel panel) {
+		super(GHAStrings.get("eia-maintenance-plan"));
+		panel.addHideableListener(this);
+		panel.addClosableListener(this);
 
 		eiaGridPanel = new EiaPlanificationGridPanel();
 		addClosableListener(eiaGridPanel);
 		addHideableListener(eiaGridPanel);
 
 		setPane(eiaGridPanel);
-		tab.addMaintenancePlanSelectionListener(this);
+		panel.addMaintenancePlanSelectionListener(this);
 	}
 
 	@Override

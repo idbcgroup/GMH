@@ -8,7 +8,6 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableProducer;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableProducer;
-import org.fourgeeks.gha.webclient.client.UI.panels.GHAPanel;
 
 import com.smartgwt.client.widgets.tab.Tab;
 import com.smartgwt.client.widgets.tab.events.TabDeselectedEvent;
@@ -27,9 +26,7 @@ public class GHASubTab extends Tab implements ClosableListener,
 	 * @param title
 	 * @param tab
 	 */
-	public GHASubTab(String title, GHAPanel tab) {
-		tab.addHideableListener(this);
-		tab.addClosableListener(this);
+	public GHASubTab(String title) {
 		setTitle(title);
 		setPaneMargin(0);
 		addTabDeselectedHandler(new TabDeselectedHandler() {
@@ -43,19 +40,20 @@ public class GHASubTab extends Tab implements ClosableListener,
 
 	@Override
 	public void close() {
-		for (ClosableListener closable : closables)
+		for (final ClosableListener closable : closables)
 			closable.close();
 	}
 
 	@Override
 	public void hide() {
-		for (HideableListener hideable : hideables)
+		for (final HideableListener hideable : hideables)
 			hideable.hide();
 	}
 
 	/**
 	 * @param closable
 	 */
+	@Override
 	public void addClosableListener(ClosableListener closable) {
 		closables.add(closable);
 	}
@@ -63,13 +61,14 @@ public class GHASubTab extends Tab implements ClosableListener,
 	/**
 	 * @param hideable
 	 */
+	@Override
 	public void addHideableListener(HideableListener hideable) {
 		hideables.add(hideable);
 	}
 
 	@Override
 	public boolean canBeHidden(HideCloseAction hideAction) {
-		for (HideableListener hideable : hideables)
+		for (final HideableListener hideable : hideables)
 			if (!hideable.canBeHidden(hideAction))
 				return false;
 		return true;
@@ -77,7 +76,7 @@ public class GHASubTab extends Tab implements ClosableListener,
 
 	@Override
 	public boolean canBeClosen(HideCloseAction closeAction) {
-		for (ClosableListener closable : closables)
+		for (final ClosableListener closable : closables)
 			if (!closable.canBeClosen(closeAction))
 				return false;
 		return true;

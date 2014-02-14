@@ -3,8 +3,8 @@ package org.fourgeeks.gha.webclient.client.eia.component;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
-import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 import org.fourgeeks.gha.webclient.client.eia.EIAPanel;
+import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 
 /**
  * @author alacret
@@ -16,10 +16,12 @@ public class EIAComponentSubTab extends GHASubTab implements
 	private EIAComponentGridPanel componentGridPanel;
 
 	/**
-	 * @param tab
+	 * @param panel
 	 */
-	public EIAComponentSubTab(EIAPanel tab) {
-		super(GHAStrings.get("components"), tab);
+	public EIAComponentSubTab(EIAPanel panel) {
+		super(GHAStrings.get("components"));
+		panel.addHideableListener(this);
+		panel.addClosableListener(this);
 
 		componentGridPanel = new EIAComponentGridPanel();
 		addClosableListener(componentGridPanel);
@@ -27,7 +29,7 @@ public class EIAComponentSubTab extends GHASubTab implements
 
 		setPane(componentGridPanel);
 
-		tab.addEiaSelectionListener(this);
+		panel.addEiaSelectionListener(this);
 	}
 
 	@Override

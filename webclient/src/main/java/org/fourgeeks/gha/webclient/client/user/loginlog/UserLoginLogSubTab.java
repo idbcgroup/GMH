@@ -13,15 +13,17 @@ public class UserLoginLogSubTab extends GHASubTab {
 	private UserLoginLogGridPanel userLoginLogGridPanel;
 
 	/**
-	 * @param tab
+	 * @param panel
 	 */
-	public UserLoginLogSubTab(UserPanel tab) {
-		super(GHAStrings.get("login-log"), tab);
+	public UserLoginLogSubTab(UserPanel panel) {
+		super(GHAStrings.get("login-log"));
+		panel.addHideableListener(this);
+		panel.addClosableListener(this);
 
 		userLoginLogGridPanel = new UserLoginLogGridPanel();
 		setPane(userLoginLogGridPanel);
 
-		tab.addUserSelectionListener(userLoginLogGridPanel);
+		panel.addUserSelectionListener(userLoginLogGridPanel);
 	}
 
 }

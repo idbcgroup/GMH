@@ -13,10 +13,12 @@ public class EIATypeComponentSubTab extends GHASubTab {
 	private EIATypeComponentGridPanel partesGridPanel;
 
 	/**
-	 * @param tab
+	 * @param panel
 	 */
-	public EIATypeComponentSubTab(EIATypePanel tab) {
-		super(GHAStrings.get("components"), tab);
+	public EIATypeComponentSubTab(EIATypePanel panel) {
+		super(GHAStrings.get("components"));
+		panel.addHideableListener(this);
+		panel.addClosableListener(this);
 
 		partesGridPanel = new EIATypeComponentGridPanel();
 		addClosableListener(partesGridPanel);
@@ -24,6 +26,6 @@ public class EIATypeComponentSubTab extends GHASubTab {
 
 		setPane(partesGridPanel);
 
-		tab.addEiaTypeSelectionListener(partesGridPanel);
+		panel.addEiaTypeSelectionListener(partesGridPanel);
 	}
 }
