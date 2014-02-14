@@ -13,17 +13,18 @@ public class EIATypeMaterialSubTab extends GHASubTab {
 	private EIATypeMaterialGridPanel gridPanel;
 
 	/**
-	 * @param tab
+	 * @param panel
 	 */
-	public EIATypeMaterialSubTab(EIATypePanel tab) {
-		super(GHAStrings.get("materials"), tab);
-
+	public EIATypeMaterialSubTab(EIATypePanel panel) {
+		super(GHAStrings.get("materials"));
+		panel.addHideableListener(this);
+		panel.addClosableListener(this);
 		gridPanel = new EIATypeMaterialGridPanel();
 		addClosableListener(gridPanel);
 		addHideableListener(gridPanel);
 
 		setPane(gridPanel);
 
-		tab.addEiaTypeSelectionListener(gridPanel);
+		panel.addEiaTypeSelectionListener(gridPanel);
 	}
 }

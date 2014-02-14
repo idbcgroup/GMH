@@ -27,6 +27,7 @@ public class MaintenanceActivityInternalTabset extends GHAInternalTabSet
 	 */
 	public MaintenanceActivityInternalTabset(MaintenanceActivityPanel panel) {
 		super();
+		setVisible(false);
 		maintenanceActivitySubTab = new MaintenanceActivitySubTab(panel);
 		subprotocolActivitiesSubTab = new MaintenanceSubprotocolActivitiesSubTab(
 				panel);

@@ -13,19 +13,20 @@ public class EIATypeInformationSubTab extends GHASubTab {
 	private final EIATypeInformationFormPanel form;
 
 	/**
-	 * @param tab
+	 * @param panel
 	 */
-	public EIATypeInformationSubTab(EIATypePanel tab) {
-		super(GHAStrings.get("information"), tab);
-
+	public EIATypeInformationSubTab(EIATypePanel panel) {
+		super(GHAStrings.get("information"));
+		panel.addHideableListener(this);
+		panel.addClosableListener(this);
 		form = new EIATypeInformationFormPanel();
 		addClosableListener(form);
 		addHideableListener(form);
 
 		setPane(form);
 
-		form.addEiaTypeSelectionListener(tab);
-		tab.addEiaTypeSelectionListener(form);
+		form.addEiaTypeSelectionListener(panel);
+		panel.addEiaTypeSelectionListener(form);
 	}
 
 	/**

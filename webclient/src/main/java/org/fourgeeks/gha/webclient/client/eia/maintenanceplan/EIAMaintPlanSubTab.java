@@ -2,8 +2,8 @@ package org.fourgeeks.gha.webclient.client.eia.maintenanceplan;
 
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
-import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 import org.fourgeeks.gha.webclient.client.eia.EIAPanel;
+import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 
 /**
  * @author alacret
@@ -19,12 +19,14 @@ public class EIAMaintPlanSubTab extends GHASubTab implements
 	}
 
 	/**
-	 * @param tab
+	 * @param panel
 	 */
-	public EIAMaintPlanSubTab(EIAPanel tab) {
-		super("Planes Mantenimiento", tab);
+	public EIAMaintPlanSubTab(EIAPanel panel) {
+		super("Planes Mantenimiento");// TODO Uistrings
+		panel.addHideableListener(this);
+		panel.addClosableListener(this);
 		setDisabled(true);
-		tab.addEiaSelectionListener(this);
+		panel.addEiaSelectionListener(this);
 		addClosableListener(eiaMaintPlanGridPanel);
 		addHideableListener(eiaMaintPlanGridPanel);
 		setPane(eiaMaintPlanGridPanel);

@@ -19,17 +19,19 @@ public class MaintenanceProtocolsSubTab extends GHASubTab implements
 	private final MaintenanceProtocolsGridPanel maintenanceProtocolsGridPanel;
 
 	/**
-	 * @param tab
+	 * @param panel
 	 */
-	public MaintenanceProtocolsSubTab(MaintenancePlanPanel tab) {
-		super(GHAStrings.get("protocol"), tab);
+	public MaintenanceProtocolsSubTab(MaintenancePlanPanel panel) {
+		super(GHAStrings.get("protocol"));
+		panel.addHideableListener(this);
+		panel.addClosableListener(this);
 
 		maintenanceProtocolsGridPanel = new MaintenanceProtocolsGridPanel();
 		addClosableListener(maintenanceProtocolsGridPanel);
 		addHideableListener(maintenanceProtocolsGridPanel);
 
 		setPane(maintenanceProtocolsGridPanel);
-		tab.addMaintenancePlanSelectionListener(this);
+		panel.addMaintenancePlanSelectionListener(this);
 	}
 
 	@Override

@@ -3,8 +3,8 @@ package org.fourgeeks.gha.webclient.client.eia.information;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
-import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 import org.fourgeeks.gha.webclient.client.eia.EIAPanel;
+import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 
 import com.smartgwt.client.widgets.tab.events.TabDeselectedEvent;
 import com.smartgwt.client.widgets.tab.events.TabDeselectedHandler;
@@ -20,20 +20,21 @@ public class EIAInformationSubTab extends GHASubTab implements
 	private final EIAInformationFormPanel form;
 
 	/**
-	 * @param tab
+	 * @param panel
 	 * 
 	 */
-	public EIAInformationSubTab(EIAPanel tab) {
-		super(GHAStrings.get("information"), tab);
-
+	public EIAInformationSubTab(EIAPanel panel) {
+		super(GHAStrings.get("information"));
+		panel.addHideableListener(this);
+		panel.addClosableListener(this);
 		form = new EIAInformationFormPanel();
 		addClosableListener(form);
 		addHideableListener(form);
 
 		setPane(form);
 
-		form.addEiaSelectionListener(tab);
-		tab.addEiaSelectionListener(this);
+		form.addEiaSelectionListener(panel);
+		panel.addEiaSelectionListener(this);
 
 		addTabSelectedHandler(new TabSelectedHandler() {
 			@Override

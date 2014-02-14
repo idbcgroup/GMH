@@ -17,11 +17,12 @@ public class MaintenancePlanInformationSubTab extends GHASubTab implements
 	private final MaintenancePlanInformationFormPanel form;
 
 	/**
-	 * @param tab
+	 * @param panel
 	 */
-	public MaintenancePlanInformationSubTab(MaintenancePlanPanel tab) {
-		super(GHAStrings.get("information"), tab);
-
+	public MaintenancePlanInformationSubTab(MaintenancePlanPanel panel) {
+		super(GHAStrings.get("information"));
+		panel.addHideableListener(this);
+		panel.addClosableListener(this);
 		form = new MaintenancePlanInformationFormPanel();
 		addClosableListener(form);
 		addHideableListener(form);
@@ -29,8 +30,8 @@ public class MaintenancePlanInformationSubTab extends GHASubTab implements
 		setPane(form);
 
 		// register to listen for selected maintenance plan
-		tab.addMaintenancePlanSelectionListener(this);
-		form.addMaintenancePlanSelectionListener(tab);
+		panel.addMaintenancePlanSelectionListener(this);
+		form.addMaintenancePlanSelectionListener(panel);
 	}
 
 	@Override

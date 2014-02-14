@@ -27,6 +27,7 @@ public class UserInternalTabset extends GHAInternalTabSet implements
 	 */
 	public UserInternalTabset(UserPanel tab) {
 		super();
+		setVisible(false);
 		infoSubTab = new UserInformationSubTab(tab);
 		hideables.add(infoSubTab);
 		closables.add(infoSubTab);
