@@ -8,7 +8,6 @@ import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseExcept
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
-import org.fourgeeks.gha.webclient.client.UI.panels.GHAPanel;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
@@ -19,7 +18,7 @@ import com.smartgwt.client.widgets.tab.TabSet;
  * 
  */
 public abstract class GHAInternalTabSet extends TabSet implements
-ResizeHandler, HideableListener, ClosableListener {
+		ResizeHandler, HideableListener, ClosableListener {
 
 	protected List<HideableListener> hideables = new ArrayList<HideableListener>();
 	protected List<ClosableListener> closables = new ArrayList<ClosableListener>();
@@ -27,17 +26,17 @@ ResizeHandler, HideableListener, ClosableListener {
 	/**
 	 * @param tab
 	 */
-	public GHAInternalTabSet(GHAPanel tab) {
+	public GHAInternalTabSet() {
 		GHAUiHelper.addGHAResizeHandler(this);
 		setWidth100();
 		setMinWidth(GHAUiHelper.MIN_WIDTH);
 		setHeight(GHAUiHelper.getBottomSectionHeight());
-		setVisible(false);
+		// setVisible(false);
 	}
 
 	@Override
 	public boolean canBeClosen(HideCloseAction hideAction) {
-		for (ClosableListener closable : closables)
+		for (final ClosableListener closable : closables)
 			if (!closable.canBeClosen(hideAction))
 				return false;
 		return true;
@@ -45,7 +44,7 @@ ResizeHandler, HideableListener, ClosableListener {
 
 	@Override
 	public boolean canBeHidden(HideCloseAction hideAction) {
-		for (HideableListener hideable : hideables)
+		for (final HideableListener hideable : hideables)
 			if (!hideable.canBeHidden(hideAction))
 				return false;
 		return true;
@@ -53,7 +52,7 @@ ResizeHandler, HideableListener, ClosableListener {
 
 	@Override
 	public void close() throws UnavailableToCloseException {
-		for (ClosableListener closable : closables)
+		for (final ClosableListener closable : closables)
 			closable.close();
 		GHAUiHelper.removeGHAResizeHandler(this);
 		destroy();
@@ -61,7 +60,7 @@ ResizeHandler, HideableListener, ClosableListener {
 
 	@Override
 	public void hide() {
-		for (HideableListener hideable : hideables)
+		for (final HideableListener hideable : hideables)
 			hideable.hide();
 		super.hide();
 	}

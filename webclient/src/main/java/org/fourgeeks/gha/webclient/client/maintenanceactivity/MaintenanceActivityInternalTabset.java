@@ -26,8 +26,8 @@ public class MaintenanceActivityInternalTabset extends GHAInternalTabSet
 	 * @param panel
 	 */
 	public MaintenanceActivityInternalTabset(MaintenanceActivityPanel panel) {
-		super(panel);
-
+		super();
+		setVisible(false);
 		maintenanceActivitySubTab = new MaintenanceActivitySubTab(panel);
 		subprotocolActivitiesSubTab = new MaintenanceSubprotocolActivitiesSubTab(
 				panel);
@@ -50,7 +50,7 @@ public class MaintenanceActivityInternalTabset extends GHAInternalTabSet
 
 	@Override
 	public void show() {
-		Tab selectedTab = getSelectedTab();
+		final Tab selectedTab = getSelectedTab();
 
 		if (selectedTab == maintenanceActivitySubTab)
 			maintenanceActivitySubTab.show();

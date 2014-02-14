@@ -16,8 +16,9 @@ public class MaintenanceActivitySubTab extends GHASubTab {
 	 * @param panel
 	 */
 	public MaintenanceActivitySubTab(MaintenanceActivityPanel panel) {
-		super(GHAStrings.get("activity-definition"), panel);
-
+		super(GHAStrings.get("activity-definition"));
+		panel.addHideableListener(this);
+		panel.addClosableListener(this);
 		formPanel = new MaintenanceActivityDefinitionFormPanel();
 		addClosableListener(formPanel);
 		addHideableListener(formPanel);

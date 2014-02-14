@@ -26,7 +26,8 @@ public class UserInternalTabset extends GHAInternalTabSet implements
 	 * @param tab
 	 */
 	public UserInternalTabset(UserPanel tab) {
-		super(tab);
+		super();
+		setVisible(false);
 		infoSubTab = new UserInformationSubTab(tab);
 		hideables.add(infoSubTab);
 		closables.add(infoSubTab);
@@ -55,7 +56,7 @@ public class UserInternalTabset extends GHAInternalTabSet implements
 
 	@Override
 	public void show() {
-		Tab selectedTab = getSelectedTab();
+		final Tab selectedTab = getSelectedTab();
 		if (selectedTab == infoSubTab)
 			infoSubTab.show();
 		animateShow(AnimationEffect.FADE);

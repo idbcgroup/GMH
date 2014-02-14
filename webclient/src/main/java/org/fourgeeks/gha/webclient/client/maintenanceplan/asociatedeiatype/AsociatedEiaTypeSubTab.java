@@ -15,15 +15,19 @@ public class AsociatedEiaTypeSubTab extends GHASubTab implements
 
 	private final AsociatedEiatypeGridPanel eiatypeGridPanel;
 
-	public AsociatedEiaTypeSubTab(MaintenancePlanPanel tab) {
-		super(GHAStrings.get("asociated-eiatype-maintenance-plan"), tab);
-
+	/**
+	 * @param panel
+	 */
+	public AsociatedEiaTypeSubTab(MaintenancePlanPanel panel) {
+		super(GHAStrings.get("asociated-eiatype-maintenance-plan"));
+		panel.addHideableListener(this);
+		panel.addClosableListener(this);
 		eiatypeGridPanel = new AsociatedEiatypeGridPanel();
 		addClosableListener(eiatypeGridPanel);
 		addHideableListener(eiatypeGridPanel);
 
 		setPane(eiatypeGridPanel);
-		tab.addMaintenancePlanSelectionListener(this);
+		panel.addMaintenancePlanSelectionListener(this);
 	}
 
 	@Override

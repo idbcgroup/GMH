@@ -231,7 +231,6 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 	 * @return the SSOUser to save/update
 	 */
 	private SSOUser extract(boolean update) {
-
 		final List<String> violationsList = new ArrayList<String>();
 		final SSOUser ssoUser = new SSOUser();
 		final Bpu bpu = new Bpu();
@@ -257,7 +256,6 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 		citizen.setFirstLastName(lastNameItem.getValueAsString());
 		citizen.setSecondLastName(secondLastNameItem.getValueAsString());
 		citizen.setNationality(nationalityItem.getValueAsString());
-
 		if (idItem.getValue() != null) {
 			citizen.setIdNumber(idItem.getValueAsString());
 		}
@@ -283,7 +281,6 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 			citizen.setIdType(DocumentTypeEnum.valueOf(typeidSelectItem
 					.getValueAsString()));
 		}
-
 		if (genderSelectItem.getValue() != null) {
 			citizen.setGender(GenderTypeEnum.valueOf(genderSelectItem
 					.getValueAsString()));
@@ -304,7 +301,6 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 		bpu.setCitizen(citizen);
 		bpu.setBpi(bpi);
 		ssoUser.setBpu(bpu);
-
 		final Set<ConstraintViolation<LegalEntity>> violationsLegalEntity = validator
 				.validate(legalEntity);
 		final Set<ConstraintViolation<Citizen>> violationsCitizen = validator
@@ -333,7 +329,6 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 					.iterator(); it.hasNext();)
 				violationsList.add(it.next().getMessage());
 		}
-
 		if (!violationsSSOUser.isEmpty()) {
 			for (final Iterator<ConstraintViolation<SSOUser>> it = violationsSSOUser
 					.iterator(); it.hasNext();)

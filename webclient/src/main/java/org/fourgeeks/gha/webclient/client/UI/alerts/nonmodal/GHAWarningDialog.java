@@ -20,7 +20,7 @@ public class GHAWarningDialog extends GHADialog {
 	}
 	/**
 	 * @param message
-	 * @param buttons 
+	 * @param buttons
 	 */
 	public GHAWarningDialog(String message, Button... buttons) {
 		super("WARNING",false,false,buttons);
@@ -29,7 +29,7 @@ public class GHAWarningDialog extends GHADialog {
 	}
 
 	/**
-	 * @param title 
+	 * @param title
 	 * @param message
 	 */
 	public GHAWarningDialog(String title, String message) {
@@ -38,9 +38,9 @@ public class GHAWarningDialog extends GHADialog {
 	}
 
 	/**
-	 * @param title 
+	 * @param title
 	 * @param message
-	 * @param buttons 
+	 * @param buttons
 	 */
 	public GHAWarningDialog(String title, String message, Button... buttons) {
 		this(message,buttons);

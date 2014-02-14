@@ -2,14 +2,14 @@ package org.fourgeeks.gha.webclient.client.eia.cost;
 
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
-import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 import org.fourgeeks.gha.webclient.client.eia.EIAPanel;
+import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 
 /**
  * @author alacret
  * 
  */
-public class EIACostSubTab extends GHASubTab implements EIASelectionListener{
+public class EIACostSubTab extends GHASubTab implements EIASelectionListener {
 
 	private EIACostGridPanel eiaCostGridPanel;
 
@@ -18,12 +18,14 @@ public class EIACostSubTab extends GHASubTab implements EIASelectionListener{
 	}
 
 	/**
-	 * @param tab
+	 * @param panel
 	 */
-	public EIACostSubTab(EIAPanel tab) {
-		super("Costos y Depreciación", tab);
+	public EIACostSubTab(EIAPanel panel) {
+		super("Costos y Depreciación");// TODO Uistrings
+		panel.addHideableListener(this);
+		panel.addClosableListener(this);
 		setDisabled(true);
-		tab.addEiaSelectionListener(this);
+		panel.addEiaSelectionListener(this);
 		addClosableListener(eiaCostGridPanel);
 		addHideableListener(eiaCostGridPanel);
 		setPane(eiaCostGridPanel);

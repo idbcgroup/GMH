@@ -16,18 +16,19 @@ public class EIATypeEquipmentSubTab extends GHASubTab implements
 	private final EIATypeEquipmentGridPanel equiposGridPanel;
 
 	/**
-	 * @param tab
+	 * @param panel
 	 */
-	public EIATypeEquipmentSubTab(EIATypePanel tab) {
-		super(GHAStrings.get("equipments"), tab);
-
+	public EIATypeEquipmentSubTab(EIATypePanel panel) {
+		super(GHAStrings.get("equipments"));
+		panel.addHideableListener(this);
+		panel.addClosableListener(this);
 		equiposGridPanel = new EIATypeEquipmentGridPanel();
 		addClosableListener(equiposGridPanel);
 		addHideableListener(equiposGridPanel);
 
 		setPane(equiposGridPanel);
 
-		tab.addEiaTypeSelectionListener(equiposGridPanel);
+		panel.addEiaTypeSelectionListener(equiposGridPanel);
 	}
 
 	@Override
