@@ -13,18 +13,19 @@ public class EIATypeUtilitySubTab extends GHASubTab {
 	private EIATypeUtilityGridPanel eiaTypeServicesGridPanel;
 
 	/**
-	 * @param tab
+	 * @param panel
 	 */
-	public EIATypeUtilitySubTab(EIATypePanel tab) {
-		super(GHAStrings.get("utility-services"), tab);
-
+	public EIATypeUtilitySubTab(EIATypePanel panel) {
+		super(GHAStrings.get("utility-services"));
+		panel.addHideableListener(this);
+		panel.addClosableListener(this);
 		eiaTypeServicesGridPanel = new EIATypeUtilityGridPanel();
 		addClosableListener(eiaTypeServicesGridPanel);
 		addHideableListener(eiaTypeServicesGridPanel);
 
 		setPane(eiaTypeServicesGridPanel);
 
-		tab.addEiaTypeSelectionListener(eiaTypeServicesGridPanel);
+		panel.addEiaTypeSelectionListener(eiaTypeServicesGridPanel);
 	}
 
 }

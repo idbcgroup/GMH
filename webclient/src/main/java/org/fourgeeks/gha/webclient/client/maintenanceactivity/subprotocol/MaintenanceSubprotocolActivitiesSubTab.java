@@ -19,7 +19,9 @@ public class MaintenanceSubprotocolActivitiesSubTab extends GHASubTab implements
 	 * @param panel
 	 */
 	public MaintenanceSubprotocolActivitiesSubTab(MaintenanceActivityPanel panel) {
-		super(GHAStrings.get("subprotocol-activities"), panel);
+		super(GHAStrings.get("subprotocol-activities"));
+		panel.addHideableListener(this);
+		panel.addClosableListener(this);
 		maintenanceSubprotocolGridPanel = new MaintenanceSubprotocolActivitiesGridPanel();
 		setPane(maintenanceSubprotocolGridPanel);
 

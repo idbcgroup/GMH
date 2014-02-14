@@ -19,10 +19,12 @@ public class EIAReportsSubTab extends GHASubTab implements EIASelectionListener 
 	private EIAReportsFormPanel form;
 
 	/**
-	 * @param eiaTab
+	 * @param panel
 	 */
-	public EIAReportsSubTab(EIAPanel eiaTab) {
-		super(GHAStrings.get("reports"), eiaTab);
+	public EIAReportsSubTab(EIAPanel panel) {
+		super(GHAStrings.get("reports"));
+		panel.addHideableListener(this);
+		panel.addClosableListener(this);
 
 		form = new EIAReportsFormPanel();
 		addClosableListener(form);
@@ -30,7 +32,7 @@ public class EIAReportsSubTab extends GHASubTab implements EIASelectionListener 
 
 		setPane(form);
 
-		eiaTab.addEiaSelectionListener(this);
+		panel.addEiaSelectionListener(this);
 
 		// handlers
 		addTabSelectedHandler(new TabSelectedHandler() {

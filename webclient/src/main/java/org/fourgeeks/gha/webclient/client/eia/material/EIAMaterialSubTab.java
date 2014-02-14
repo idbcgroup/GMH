@@ -2,19 +2,28 @@ package org.fourgeeks.gha.webclient.client.eia.material;
 
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
-import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 import org.fourgeeks.gha.webclient.client.eia.EIAPanel;
+import org.fourgeeks.gha.webclient.client.eia.EIASelectionListener;
 
+/**
+ * @author alacret
+ * 
+ */
 public class EIAMaterialSubTab extends GHASubTab implements
 		EIASelectionListener {
 
 	private EIAMaterialGridPanel eiaMaterialGridPanel;
 
-	public EIAMaterialSubTab(EIAPanel tab) {
-		super("Materiales", tab);
+	/**
+	 * @param panel
+	 */
+	public EIAMaterialSubTab(EIAPanel panel) {
+		super("Materiales");// TODO Uistrings
+		panel.addHideableListener(this);
+		panel.addClosableListener(this);
 		setDisabled(true);
-		tab.addEiaSelectionListener(this);
-		
+		panel.addEiaSelectionListener(this);
+
 		eiaMaterialGridPanel = new EIAMaterialGridPanel();
 		setPane(eiaMaterialGridPanel);
 	}

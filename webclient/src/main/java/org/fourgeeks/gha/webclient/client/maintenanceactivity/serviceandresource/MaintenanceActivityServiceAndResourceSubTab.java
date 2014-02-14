@@ -29,11 +29,13 @@ public class MaintenanceActivityServiceAndResourceSubTab extends GHASubTab {
 	}
 
 	/**
-	 * @param tab
+	 * @param panel
 	 */
 	public MaintenanceActivityServiceAndResourceSubTab(
-			MaintenanceActivityPanel tab) {
-		super(GHAStrings.get("required-resources"), tab);
+			MaintenanceActivityPanel panel) {
+		super(GHAStrings.get("required-resources"));
+		panel.addHideableListener(this);
+		panel.addClosableListener(this);
 
 		// listeners
 		addClosableListener(materialsPanel);
@@ -46,10 +48,10 @@ public class MaintenanceActivityServiceAndResourceSubTab extends GHASubTab {
 		sectionForm.addSection(GHAStrings.get("job-equipments"),
 				equipmentsPanel);
 
-		tab.addMaintenanceActivitySelectionListener(materialsPanel);
-		tab.addMaintenanceActivitySelectionListener(equipmentsPanel);
+		panel.addMaintenanceActivitySelectionListener(materialsPanel);
+		panel.addMaintenanceActivitySelectionListener(equipmentsPanel);
 
-		GHAVerticalLayout mainLayout = new GHAVerticalLayout() {
+		final GHAVerticalLayout mainLayout = new GHAVerticalLayout() {
 		};
 
 		mainLayout.addMember(sectionForm);
