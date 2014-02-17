@@ -1,6 +1,7 @@
 package org.fourgeeks.gha.ejb.gmh;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -326,8 +327,8 @@ public class SubProtocolAndChecklistServiceTest {
 		updateTest();
 		System.out.println(sep + "deleteTest" + sep);
 		deleteTest();
-		// System.out.println(sep + "deleteListTest" + sep);
-		// deleteListTest();
+		System.out.println(sep + "deleteListTest" + sep);
+		deleteListTest();
 	}
 
 	private void findByParentActivityTest() {
@@ -405,6 +406,26 @@ public class SubProtocolAndChecklistServiceTest {
 		try {
 			serviceRemote.delete(subProtocol.getId());
 
+			Assert.assertEquals(itemsExpected, serviceRemote.getAll().size());
+		} catch (GHAEJBException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void deleteListTest() {
+		final int itemsExpected = 3;
+
+		try {
+			subProtocol = new SubProtocolAndChecklist();
+			subProtocol.setActivity(activity);
+			subProtocol.setParentActivity(parentActivity);
+			subProtocol.setOrdinal(4);
+			subProtocol = serviceRemote.save(subProtocol);
+
+			List<SubProtocolAndChecklist> list = new ArrayList<SubProtocolAndChecklist>();
+			list.add(subProtocol);
+
+			serviceRemote.delete(list);
 			Assert.assertEquals(itemsExpected, serviceRemote.getAll().size());
 		} catch (GHAEJBException e) {
 			e.printStackTrace();
