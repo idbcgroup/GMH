@@ -1,6 +1,5 @@
 package org.fourgeeks.gha.ejb.gmh;
 
-
 /**
  * 
  * @author caparicio
@@ -143,13 +142,16 @@ package org.fourgeeks.gha.ejb.gmh;
 //	}
 //
 //	@EJB(lookup = "java:global/test/SubProtocolAndCheklistService!"
-//			+ "org.fourgeeks.gha.ejb.gmh.RequiredResourcesServiceRemote")
-//	private RequiredResourcesServiceRemote serviceRemote;
+//			+ "org.fourgeeks.gha.ejb.gmh.SubProtocolAndCheklistServiceRemote")
+//	private SubProtocolAndCheklistServiceRemote serviceRemote;
 //
-//	private RequiredResources requiredR;
-//	private Material material;
-//	private EiaType eiaType;
+//	@EJB(lookup = "java:global/test/SubProtocolAndCheklistService!"
+//			+ "org.fourgeeks.gha.ejb.gmh.SubProtocolAndCheklistServiceLocal")
+//	private SubProtocolAndCheklistServiceLocal serviceLocal;
+//
 //	private Activity activity;
+//	private Activity parentActivity;
+//	private SubProtocolAndChecklist subProtocol;
 //
 //	/** */
 //	@Before
@@ -157,8 +159,13 @@ package org.fourgeeks.gha.ejb.gmh;
 //		activity = new Activity();
 //		activity.setId(1);
 //
-//		eiaType = new EiaType();
-//		
+//		parentActivity = new Activity();
+//		parentActivity.setId(7);
+//
+//		subProtocol = new SubProtocolAndChecklist();
+//		subProtocol.setActivity(activity);
+//		subProtocol.setParentActivity(parentActivity);
+//		subProtocol.setOrdinal(4);
 //	}
 //
 //	/** */
@@ -182,6 +189,12 @@ package org.fourgeeks.gha.ejb.gmh;
 //		findByParentActivityTest();
 //		System.out.println(sep + "findByIdTest" + sep);
 //		findByIdTest();
+//		System.out.println(sep + "getSubProtocolActivitiesCountTest" + sep);
+//		getSubProtocolActivitiesCountTest();
+//		System.out.println(sep + "getSubProtocolCostTest" + sep);
+//		getSubProtocolCostTest();
+//		System.out.println(sep + "getSubProtocolDurationTest" + sep);
+//		getSubProtocolDurationTest();
 //		System.out.println(sep + "saveTest" + sep);
 //		saveTest();
 //		System.out.println(sep + "updateTest" + sep);
@@ -274,25 +287,55 @@ package org.fourgeeks.gha.ejb.gmh;
 //	}
 //
 //	private void deleteListTest() {
-//		final int itemsExpected = 2;
+//		final int itemsExpected = 3;
 //
-//		Activity activity2 = new Activity();
-//		activity2.setId(2);
-//
-//		Activity parentActivity2 = new Activity();
-//		parentActivity2.setId(6);
-//
-//		SubProtocolAndChecklist subProtocol2 = new SubProtocolAndChecklist();
-//		subProtocol2.setActivity(activity2);
-//		subProtocol2.setParentActivity(parentActivity2);
-//		subProtocol2.setOrdinal(5);
-//
-//		List<SubProtocolAndChecklist> list = new ArrayList<SubProtocolAndChecklist>();
-//		list.add(subProtocol);
-//		list.add(subProtocol2);
 //		try {
+//			subProtocol = new SubProtocolAndChecklist();
+//			subProtocol.setActivity(activity);
+//			subProtocol.setParentActivity(parentActivity);
+//			subProtocol.setOrdinal(4);
+//			subProtocol = serviceRemote.save(subProtocol);
+//
+//			List<SubProtocolAndChecklist> list = new ArrayList<SubProtocolAndChecklist>();
+//			list.add(subProtocol);
+//
 //			serviceRemote.delete(list);
 //			Assert.assertEquals(itemsExpected, serviceRemote.getAll().size());
+//		} catch (GHAEJBException e) {
+//			e.printStackTrace();
+//		}
+//	}
+//
+//	private void getSubProtocolActivitiesCountTest() {
+//		final int countExpected = 3;
+//		try {
+//			final long result = serviceLocal
+//					.getSubProtocolActivitiesCount(parentActivity);
+//
+//			Assert.assertEquals(countExpected, result);
+//		} catch (GHAEJBException e) {
+//			e.printStackTrace();
+//		}
+//	}
+//
+//	private void getSubProtocolCostTest() {
+//		final double costExpected = 1896.97;
+//		try {
+//			final BigDecimal result = serviceLocal
+//					.getSubProtocolCost(parentActivity);
+//
+//			Assert.assertEquals(costExpected, result.doubleValue());
+//		} catch (GHAEJBException e) {
+//			e.printStackTrace();
+//		}
+//	}
+//
+//	private void getSubProtocolDurationTest() {
+//		try {
+//			final int result = serviceLocal
+//					.getSubProtocolDuration(parentActivity);
+//
+//			Assert.assertEquals(1, result);
 //		} catch (GHAEJBException e) {
 //			e.printStackTrace();
 //		}
