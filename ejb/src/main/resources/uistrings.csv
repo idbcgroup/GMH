@@ -189,7 +189,7 @@ ES,responsible-role,Cargo Responsable
 ES,adquisition-provider,Proveedor de Equipo
 ES,maintenance-provider,Proveedor de Mantenimiento
 ES,eiatype-component,Componentes para un EiaType
-ES,new-eia-preventive-maintenance-planification,Nueva Planificación de Mantenimiento Preventivo
+ES,new-eia-maintenance-planification,Nueva Planificación de Mantenimiento
 ES,eia-preventive-maintenance-planification,Planificación de Mantenimiento Preventivo
 ES,providers,Proveedores
 ES,intermediate-warranty,Garantía intermedia
@@ -343,3 +343,9 @@ ES,job-equipments,Equipos de trabajo
 ES,tools,Herramientas
 ES,required-eiatype,Equipos de trabajo requeridos
 ES,required-materials,Materiales requeridos
+ES,personal-information,información personal
+ES,basic-information,información básica
+ES,demographic-information,información demográfica
+ES,social-ecnomics-information,información socio económica
+ES,insurance,seguros y pagadores
+ES,occupational-information,información ocupacional

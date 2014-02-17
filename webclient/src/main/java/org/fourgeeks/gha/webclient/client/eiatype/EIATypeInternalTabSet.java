@@ -33,7 +33,8 @@ public class EIATypeInternalTabSet extends GHAInternalTabSet implements
 	 * @param tab
 	 */
 	public EIATypeInternalTabSet(EIATypePanel tab) {
-		super(tab);
+		super();
+		setVisible(false);
 		infoSubTab = new EIATypeInformationSubTab(tab);
 		hideables.add(infoSubTab);
 		closables.add(infoSubTab);
@@ -88,7 +89,7 @@ public class EIATypeInternalTabSet extends GHAInternalTabSet implements
 
 	@Override
 	public void show() {
-		Tab selectedTab = getSelectedTab();
+		final Tab selectedTab = getSelectedTab();
 		if (selectedTab == infoSubTab)
 			infoSubTab.show();
 		else if (selectedTab == damageAndPlanificationSubTab) {

@@ -17,7 +17,7 @@ import com.smartgwt.client.types.AnimationEffect;
  * @param <T>
  * 
  */
-public abstract class GHAResultSet<T> extends GHAVerticalLayout implements
+public abstract class GHAResultSet<T> extends GHAFormLayout implements
 		ResizeHandler, HideableListener, ClosableListener {
 	protected GHALabel searchResultsLabel;
 
@@ -27,7 +27,7 @@ public abstract class GHAResultSet<T> extends GHAVerticalLayout implements
 	 */
 	public GHAResultSet(String label) {
 		super();
-//		setHeight(GHAUiHelper.getBottomSectionHeight());
+		setStyleName("sides-padding");
 		GHAUiHelper.addGHAResizeHandler(this);
 		searchResultsLabel = new GHALabel(label);
 		addMember(searchResultsLabel);
@@ -53,7 +53,7 @@ public abstract class GHAResultSet<T> extends GHAVerticalLayout implements
 	 * the resultset
 	 */
 	protected void refreshResultsSize(int elements) {
-		String title = GHAStrings.get("search-results")
+		final String title = GHAStrings.get("search-results")
 				+ ": "
 				+ elements
 				+ " "
@@ -67,7 +67,7 @@ public abstract class GHAResultSet<T> extends GHAVerticalLayout implements
 	protected void showResultsSize(List<?> results, boolean isCleaning) {
 		String title = GHAStrings.get("search-results");
 		if (!isCleaning) {
-			int res = results == null ? 0 : results.size();
+			final int res = results == null ? 0 : results.size();
 			title = title
 					+ ": "
 					+ res

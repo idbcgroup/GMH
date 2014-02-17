@@ -34,6 +34,12 @@ public interface CCDIServiceRemote {
 			throws GHAEJBException;
 
 	/**
+	 * This method should be used to create the categories inside the ccdi tree.
+	 * If an attempt to create a category is made in the deepest level the
+	 * method will throw an exception.
+	 * 
+	 * @see CCDIServiceRemote#getNextElementCode(String)
+	 * 
 	 * @param levelDefinition
 	 * @param parentValue
 	 * @param levelValue
@@ -72,9 +78,10 @@ public interface CCDIServiceRemote {
 
 	/**
 	 * @param code
-	 *            CCDILevelDefinitionCode
-	 * @return the next value available for a given level
+	 *            of the levelValue
+	 * @return the code to identify a new element associated with the category
+	 *         expressed by levelValue
 	 * @throws GHAEJBException
 	 */
-	public String getNextCCDILevelValue(String code) throws GHAEJBException;
+	public String getNextElementCode(String code) throws GHAEJBException;
 }

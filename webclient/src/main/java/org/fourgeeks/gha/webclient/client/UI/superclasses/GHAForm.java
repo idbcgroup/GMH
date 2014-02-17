@@ -15,7 +15,7 @@ import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
  * @param <T>
  * 
  */
-public abstract class GHAForm<T> extends GHAVerticalLayout implements
+public abstract class GHAForm<T> extends GHAFormLayout implements
 		ResizeHandler {
 
 	protected T originalEntity = null;

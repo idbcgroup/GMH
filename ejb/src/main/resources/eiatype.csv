@@ -1,0 +1,6 @@
+#EiaType(code, brand, name, mobility[fixed,movable,portable],category,subtype[life_support,diagnose,medication,it_system],model)
+3000000001,1,Impresora Tinta,0,3,3,Stylus
+3000000002,2,Impresora Laser,1,3,3,Deskjet
+3000000003,3,Cartucho Tricolor,2,3,3,EP60
+3000000004,4,Toner Laser,0,3,3,HP60
+3000000005,5,Cartucho Negro,0,3,3,EPN60

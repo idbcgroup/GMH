@@ -2,7 +2,7 @@ package org.fourgeeks.gha.webclient.client.maintenanceactivity.serviceandresourc
 
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASectionForm;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAFormLayout;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
 import org.fourgeeks.gha.webclient.client.maintenanceactivity.MaintenanceActivityPanel;
 
@@ -29,11 +29,13 @@ public class MaintenanceActivityServiceAndResourceSubTab extends GHASubTab {
 	}
 
 	/**
-	 * @param tab
+	 * @param panel
 	 */
 	public MaintenanceActivityServiceAndResourceSubTab(
-			MaintenanceActivityPanel tab) {
-		super(GHAStrings.get("required-resources"), tab);
+			MaintenanceActivityPanel panel) {
+		super(GHAStrings.get("required-resources"));
+		panel.addHideableListener(this);
+		panel.addClosableListener(this);
 
 		// listeners
 		addClosableListener(materialsPanel);
@@ -46,10 +48,10 @@ public class MaintenanceActivityServiceAndResourceSubTab extends GHASubTab {
 		sectionForm.addSection(GHAStrings.get("job-equipments"),
 				equipmentsPanel);
 
-		tab.addMaintenanceActivitySelectionListener(materialsPanel);
-		tab.addMaintenanceActivitySelectionListener(equipmentsPanel);
+		panel.addMaintenanceActivitySelectionListener(materialsPanel);
+		panel.addMaintenanceActivitySelectionListener(equipmentsPanel);
 
-		GHAVerticalLayout mainLayout = new GHAVerticalLayout() {
+		final GHAFormLayout mainLayout = new GHAFormLayout() {
 		};
 
 		mainLayout.addMember(sectionForm);

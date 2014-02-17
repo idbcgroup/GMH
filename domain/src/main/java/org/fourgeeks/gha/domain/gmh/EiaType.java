@@ -46,33 +46,33 @@ public class EiaType extends ServiceAndResource {
 	@Size(min = 1, max = 255, message = "El Nombre debe tener entre 1 y 255 caracteres")
 	@Column(nullable = false)
 	private String name;
-	/** Nombre del Equipo o Instalación length =255 */
+	/** Nombre del Equipo o InstalaciÃ³n length =255 */
 
 	// @Size(min = 1, max = 255, message =
-	// "La Descripción debe tener entre 1 y 255 caracteres")
+	// "La DescripciÃ³n debe tener entre 1 y 255 caracteres")
 	private String description;
-	/** Descripción detallada Equipo o Instalación length =255 */
+	/** DescripciÃ³n detallada Equipo o InstalaciÃ³n length =255 */
 
 	// @Size(min = 1, max = 255, message =
 	// "El Modelo debe tener entre 1 y 255 caracteres")
 	private String model;
-	/** Modelo del Equipo o Instalación length =255 */
+	/** Modelo del Equipo o InstalaciÃ³n length =255 */
 
-	// private String eiaUseInArea; /** Área de utilización del equipo length
+	// private String eiaUseInArea; /** Ã�rea de utilizaciÃ³n del equipo length
 	// =60 */
 
 	// @Size(min = 1, max = 255, message =
 	// "El Uso debe tener entre 1 y 255 caracteres")
 	private String useDescription;
-	/** Descripción del Uso en el área de utilización length =255 */
+	/** DescripciÃ³n del Uso en el Ã¡rea de utilizaciÃ³n length =255 */
 
 	// private String eiaSerialized; /** Equipo es serializado (Si/NO) length =6
 	// */
 
 	// @Size(min = 1, max = 16, message =
-	// "El Código UMDNS debe tener entre 1 y 255 caracteres")
+	// "El CÃ³digo UMDNS debe tener entre 1 y 255 caracteres")
 	private String eiaUmdns;
-	/** Código UMDNS length =16 */
+	/** CÃ³digo UMDNS length =16 */
 
 	// @NotNull(message = "mobility-not-null")
 	@NotNull(message = "mobility-not-null")
@@ -80,8 +80,6 @@ public class EiaType extends ServiceAndResource {
 	private EiaMobilityEnum mobility;
 	/** Equipo es movilizable length =60 */
 
-	@NotNull(message = "type-not-null")
-	@Column(nullable = false)
 	private EiaTypeEnum type;
 	/** Tipo de Equipo length =60 */
 
@@ -90,7 +88,8 @@ public class EiaType extends ServiceAndResource {
 	private EiaSubTypeEnum subtype;
 
 	@ManyToOne
-	@JoinColumn(name = "eiaTypeCategoryFk")
+	@NotNull(message = "eiaType-category-not-null")
+	@JoinColumn(name = "eiaTypeCategoryFk", nullable = false)
 	private EiaTypeCategory eiaTypeCategory;
 
 	/**
@@ -146,28 +145,14 @@ public class EiaType extends ServiceAndResource {
 	}
 
 	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
 	 * @return the description
 	 */
 	public String getDescription() {
 		return description;
 	}
 
-	/**
-	 * @return the model
-	 */
-	public String getModel() {
-		return model;
-	}
-
-	public String getUseDescription() {
-		return useDescription;
+	public EiaTypeCategory getEiaTypeCategory() {
+		return eiaTypeCategory;
 	}
 
 	public String getEiaUmdns() {
@@ -178,32 +163,42 @@ public class EiaType extends ServiceAndResource {
 		return mobility;
 	}
 
-	public EiaTypeEnum getType() {
-		return type;
+	/**
+	 * @return the model
+	 */
+	public String getModel() {
+		return model;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
 	}
 
 	public EiaSubTypeEnum getSubtype() {
 		return subtype;
 	}
 
-	public void setBrand(Brand brand) {
-		this.brand = brand;
+	public EiaTypeEnum getType() {
+		return type;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public String getUseDescription() {
+		return useDescription;
+	}
+
+	public void setBrand(Brand brand) {
+		this.brand = brand;
 	}
 
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
-	public void setModel(String model) {
-		this.model = model;
-	}
-
-	public void setUseDescription(String useDescription) {
-		this.useDescription = useDescription;
+	public void setEiaTypeCategory(EiaTypeCategory eiaTypeCategory) {
+		this.eiaTypeCategory = eiaTypeCategory;
 	}
 
 	public void setEiaUmdns(String eiaUmdns) {
@@ -214,19 +209,23 @@ public class EiaType extends ServiceAndResource {
 		this.mobility = mobility;
 	}
 
-	public void setType(EiaTypeEnum type) {
-		this.type = type;
+	public void setModel(String model) {
+		this.model = model;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public void setSubtype(EiaSubTypeEnum subtype) {
 		this.subtype = subtype;
 	}
 
-	public EiaTypeCategory getEiaTypeCategory() {
-		return eiaTypeCategory;
+	public void setType(EiaTypeEnum type) {
+		this.type = type;
 	}
 
-	public void setEiaTypeCategory(EiaTypeCategory eiaTypeCategory) {
-		this.eiaTypeCategory = eiaTypeCategory;
+	public void setUseDescription(String useDescription) {
+		this.useDescription = useDescription;
 	}
 }

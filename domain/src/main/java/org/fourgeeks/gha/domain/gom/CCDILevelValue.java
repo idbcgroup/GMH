@@ -18,7 +18,9 @@ import org.fourgeeks.gha.domain.enu.CCDIValueStatusEnum;
 
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "code" }))
-@NamedQueries(value = { @NamedQuery(name = "CCDILevelValue.findByCode", query = "SELECT e from CCDILevelValue e WHERE e.code=:code") })
+@NamedQueries(value = {
+		@NamedQuery(name = "CCDILevelValue.findByCode", query = "SELECT e from CCDILevelValue e WHERE e.code=:code"),
+		@NamedQuery(name = "CCDILevelValue.findAllByDefinitionCode", query = "SELECT e from CCDILevelValue e WHERE e.levelDefinition.definition.code = :code") })
 public class CCDILevelValue extends AbstractEntity {
 
 	/**
@@ -40,6 +42,8 @@ public class CCDILevelValue extends AbstractEntity {
 
 	private int nextValue;
 	private String fixedValue;
+
+	private int nextElement;
 
 	private CCDIValueStatusEnum status;
 
@@ -69,6 +73,7 @@ public class CCDILevelValue extends AbstractEntity {
 		this.nextValue = nextValue;
 		this.fixedValue = fixedValue;
 		this.status = status;
+		this.nextElement = 1;
 	}
 
 	/**
@@ -97,6 +102,10 @@ public class CCDILevelValue extends AbstractEntity {
 	 */
 	public String getName() {
 		return name;
+	}
+
+	public int getNextElement() {
+		return nextElement;
 	}
 
 	/**
@@ -150,6 +159,10 @@ public class CCDILevelValue extends AbstractEntity {
 	 */
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public void setNextElement(int nextElement) {
+		this.nextElement = nextElement;
 	}
 
 	/**

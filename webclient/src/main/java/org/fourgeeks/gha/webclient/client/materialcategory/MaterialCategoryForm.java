@@ -17,7 +17,7 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextAreaItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHACodeTextItem;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAFormLayout;
 
 import com.google.gwt.validation.client.impl.Validation;
 import com.smartgwt.client.types.TitleOrientation;
@@ -29,7 +29,7 @@ import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
  * @author alacret
  * 
  */
-public class MaterialCategoryForm extends GHAVerticalLayout implements
+public class MaterialCategoryForm extends GHAFormLayout implements
 		MaterialCategorySelectionProducer {
 
 	private List<MaterialCategorySelectionListener> listeners;

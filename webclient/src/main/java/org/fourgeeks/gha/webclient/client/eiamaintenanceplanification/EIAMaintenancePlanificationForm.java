@@ -31,7 +31,6 @@ import org.fourgeeks.gha.webclient.client.eia.EIAUtil;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
-import com.google.gwt.user.client.Window;
 import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -160,7 +159,6 @@ public class EIAMaintenancePlanificationForm extends
 		planification.setBeginningDate(EIAUtil
 				.getLogicalDate(beginningDateDateItem.getValueAsDate()));
 
-		Window.alert("5");
 		planification.setPlanificationState(MaintenancePlanificationState
 				.valueOf(planificationStateSelectItem.getValueAsString()));
 

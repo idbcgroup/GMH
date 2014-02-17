@@ -14,16 +14,17 @@ public class EIATypeMaintenanceSubTab extends GHASubTab {
 	private EIATypeMaintenanceGridPanel eiaTypeMaintenanceGridPanel;
 
 	/**
-	 * @param tab
+	 * @param panel
 	 */
-	public EIATypeMaintenanceSubTab(EIATypePanel tab) {
-		super(GHAStrings.get("maintenance"), tab);
-
+	public EIATypeMaintenanceSubTab(EIATypePanel panel) {
+		super(GHAStrings.get("maintenance"));
+		panel.addHideableListener(this);
+		panel.addClosableListener(this);
 		eiaTypeMaintenanceGridPanel = new EIATypeMaintenanceGridPanel();
 		addClosableListener(eiaTypeMaintenanceGridPanel);
 		addHideableListener(eiaTypeMaintenanceGridPanel);
 
 		setPane(eiaTypeMaintenanceGridPanel);
-		tab.addEiaTypeSelectionListener(eiaTypeMaintenanceGridPanel);
+		panel.addEiaTypeSelectionListener(eiaTypeMaintenanceGridPanel);
 	}
 }

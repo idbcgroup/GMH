@@ -19,7 +19,7 @@ import com.smartgwt.client.widgets.AnimationCallback;
 /**
  * @author alacret a window that slide in
  */
-public abstract class GHASlideInWindow extends GHAVerticalLayout implements
+public abstract class GHASlideInWindow extends GHAFormLayout implements
 ResizeHandler, ClosableListener, HideableListener, HideableProducer {
 	//	/**
 	//	 *

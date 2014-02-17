@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.TabStatus;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToCloseException;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToHideException;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
@@ -21,7 +20,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public abstract class GHATab extends GHAVerticalLayout implements
-ClosableListener, HideableListener, ClosableProducer, HideableProducer {
+		ClosableListener, HideableListener, ClosableProducer, HideableProducer {
 
 	protected GHATabHeader header;
 	protected VLayout verticalPanel = new VLayout();
@@ -38,7 +37,6 @@ ClosableListener, HideableListener, ClosableProducer, HideableProducer {
 		super();
 		setWidth100();
 		setMinWidth(GHAUiHelper.MIN_WIDTH);
-		addStyleName("sides-padding");
 	}
 
 	@Override
@@ -53,7 +51,7 @@ ClosableListener, HideableListener, ClosableProducer, HideableProducer {
 
 	@Override
 	public boolean canBeClosen(HideCloseAction closeAction) {
-		for (ClosableListener closable : closables)
+		for (final ClosableListener closable : closables)
 			if (!closable.canBeClosen(closeAction))
 				return false;
 		return true;
@@ -61,7 +59,7 @@ ClosableListener, HideableListener, ClosableProducer, HideableProducer {
 
 	@Override
 	public boolean canBeHidden(HideCloseAction hideAction) {
-		for (HideableListener hideable : hideables)
+		for (final HideableListener hideable : hideables)
 			if (!hideable.canBeHidden(hideAction))
 				return false;
 		return true;
@@ -69,10 +67,10 @@ ClosableListener, HideableListener, ClosableProducer, HideableProducer {
 
 	@Override
 	public void close() throws UnavailableToCloseException {
-		for (ClosableListener closable : closables)
+		for (final ClosableListener closable : closables)
 			try {
 				closable.close();
-			} catch (Exception e) {
+			} catch (final Exception e) {
 				throw new UnavailableToCloseException(e);
 			}
 		removeFromParent();
@@ -98,10 +96,10 @@ ClosableListener, HideableListener, ClosableProducer, HideableProducer {
 
 	@Override
 	public void hide() throws UnavailableToHideException {
-		for (HideableListener hideable : hideables)
+		for (final HideableListener hideable : hideables)
 			try {
 				hideable.hide();
-			} catch (UnavailableToHideException e) {
+			} catch (final UnavailableToHideException e) {
 				throw new UnavailableToHideException(e);
 			}
 		header.unMarkSelected();

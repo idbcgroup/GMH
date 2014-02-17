@@ -3,7 +3,7 @@ package org.fourgeeks.gha.webclient.client.eiatype.damageandplanification;
 import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASectionForm;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAVerticalLayout;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAFormLayout;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
 import org.fourgeeks.gha.webclient.client.eiadamagereport.EiaDamageReportSelectionListener;
 import org.fourgeeks.gha.webclient.client.eiadamagereport.EiaDamageReportSelectionProducer;
@@ -35,11 +35,12 @@ public class EIADamageAndPlanificationSubTab extends GHASubTab implements
 	}
 
 	/**
-	 * @param tab
+	 * @param panel
 	 */
-	public EIADamageAndPlanificationSubTab(EIATypePanel tab) {
-		super(GHAStrings.get("report-and-planification"), tab);
-
+	public EIADamageAndPlanificationSubTab(EIATypePanel panel) {
+		super(GHAStrings.get("report-and-planification"));
+		panel.addHideableListener(this);
+		panel.addClosableListener(this);
 		// listeners
 		addClosableListener(damageReportPanel);
 		addHideableListener(damageReportPanel);
@@ -48,9 +49,9 @@ public class EIADamageAndPlanificationSubTab extends GHASubTab implements
 		addClosableListener(preventivePlanifPanel);
 		addHideableListener(preventivePlanifPanel);
 
-		tab.addEiaTypeSelectionListener(damageReportPanel);
-		tab.addEiaTypeSelectionListener(maintenancePlanifPanel);
-		tab.addEiaTypeSelectionListener(preventivePlanifPanel);
+		panel.addEiaTypeSelectionListener(damageReportPanel);
+		panel.addEiaTypeSelectionListener(maintenancePlanifPanel);
+		panel.addEiaTypeSelectionListener(preventivePlanifPanel);
 
 		damageReportPanel
 				.addEiaDamageReportSelectionListener(maintenancePlanifPanel);
@@ -64,7 +65,7 @@ public class EIADamageAndPlanificationSubTab extends GHASubTab implements
 		sectionForm.addSection("Planificación Mantemiento",
 				preventivePlanifPanel);
 
-		GHAVerticalLayout mainLayout = new GHAVerticalLayout() {
+		final GHAFormLayout mainLayout = new GHAFormLayout() {
 		};
 
 		mainLayout.addMember(sectionForm);
