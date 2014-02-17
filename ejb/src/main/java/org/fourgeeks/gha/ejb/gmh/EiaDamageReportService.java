@@ -12,7 +12,6 @@ import javax.persistence.PersistenceContext;
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.Eia;
-import org.fourgeeks.gha.domain.gmh.EiaCorrectiveMaintenance;
 import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
@@ -82,17 +81,22 @@ public class EiaDamageReportService extends GHAEJBExceptionService implements
 	@Override
 	public EiaDamageReport save(EiaDamageReport eiaDamageReport)
 			throws GHAEJBException {
-		Eia eia = eiaDamageReport.getEia();
-		eia.setState(EiaStateEnum.DAMAGED);
-
-		EiaCorrectiveMaintenance cmp = new EiaCorrectiveMaintenance();
-		cmp.setDamageReport(eiaDamageReport);
-		cmp.setDescription(eiaDamageReport.getDamageMotive());
 
 		try {
-			em.merge(eia);
+			// TODO pasar esto al PDT
+			// Desabilitando el equipo. Cambiando su estado a DAÑADO:
+			// Eia eia = eiaDamageReport.getEia();
+			// eia.setState(EiaStateEnum.DAMAGED);
+
+			// Creando un nuevo mantenimiento correctivo:
+			// EiaCorrectiveMaintenance cmp = new EiaCorrectiveMaintenance();
+			// cmp.setDamageReport(eiaDamageReport);
+			// cmp.setDescription(eiaDamageReport.getDamageMotive());
+			//
+			// em.merge(eia);
+			// em.persist(cmp);
+
 			em.persist(eiaDamageReport);
-			em.persist(cmp);
 			em.flush();
 
 			return em.find(EiaDamageReport.class, eiaDamageReport.getId());
