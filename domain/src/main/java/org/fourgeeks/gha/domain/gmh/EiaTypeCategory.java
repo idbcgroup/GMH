@@ -20,7 +20,7 @@ import org.fourgeeks.gha.domain.AbstractEntity;
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "code" }))
 @NamedQueries(value = {
-		@NamedQuery(name = "EiaTypeCategory.getAll", query = "SELECT category from EiaTypeCategory category ORDER BY category.name"),
+		@NamedQuery(name = "EiaTypeCategory.getAll", query = "SELECT category from EiaTypeCategory category ORDER BY category.code"),
 		@NamedQuery(name = "EiaTypeCategory.findByCode", query = "SELECT category from EiaTypeCategory category WHERE category.code=:code") })
 public class EiaTypeCategory extends AbstractEntity {
 
