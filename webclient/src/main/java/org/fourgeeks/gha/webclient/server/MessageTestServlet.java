@@ -1,8 +1,6 @@
 package org.fourgeeks.gha.webclient.server;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -39,10 +37,7 @@ public class MessageTestServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		try {
-			Map<String, Object> messageMap = new HashMap<String, Object>();
-			messageMap.put("name", "Perro");
-
-			service.sendMessage(messageMap);
+			service.sendMessage("Perro");
 
 		} catch (Exception e) {
 			LOG.log(Level.ERROR, "Problema al enviar datos a cola de mensajes",

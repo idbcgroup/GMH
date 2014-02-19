@@ -5,11 +5,12 @@ import java.util.logging.Logger;
 
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
+import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
-import javax.jms.JMSContext;
-import javax.jms.JMSProducer;
 import javax.jms.MapMessage;
+import javax.jms.MessageProducer;
 import javax.jms.Queue;
+import javax.jms.Session;
 
 /**
  * Session Bean implementation class GHAMessageQueueProducer
@@ -20,7 +21,7 @@ public class GHAMessageQueueProducer implements GHAMessageQueueProducerRemote {
 	private final static Logger logger = Logger
 			.getLogger(GHAMessageQueueProducer.class.getName());
 
-	@Resource(lookup = "java:jboss/exported/jms/RemoteConnectionFactory")
+	@Resource(lookup = "java:/ConnectionFactory")
 	private ConnectionFactory connectionFactory;
 
 	@Resource(lookup = "java:jboss/exported/jms/queue/ghaMessageQueue")
@@ -29,12 +30,18 @@ public class GHAMessageQueueProducer implements GHAMessageQueueProducerRemote {
 	@Override
 	public void sendMessage(String nameValue) {
 		try {
-			JMSContext context = connectionFactory.createContext();
-			JMSProducer producer = context.createProducer();
+			Connection connection = connectionFactory.createConnection();
+			Session session = connection.createSession(false,
+					Session.AUTO_ACKNOWLEDGE);
 
-			MapMessage message = context.createMapMessage();
+			MessageProducer producer = session.createProducer(queue);
+
+			MapMessage message = session.createMapMessage();
 			message.setString("name", nameValue);
-			producer.send(queue, message);
+
+			producer.send(message);
+
+			connection.close();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: SendMessage", e);
 		}

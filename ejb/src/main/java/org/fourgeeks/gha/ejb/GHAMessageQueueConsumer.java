@@ -29,12 +29,14 @@ public class GHAMessageQueueConsumer implements MessageListener {
 	/**
 	 * @see MessageListener#onMessage(Message)
 	 */
-	@SuppressWarnings("unchecked")
 	public void onMessage(Message message) {
 		try {
-			MapMessage data = (MapMessage) message;
-			logger.info("GHAMessageQueueConsumer - mensaje: name = "
-					+ data.getStringProperty("name"));
+
+			MapMessage mapMessage = (MapMessage) message;
+			String name = mapMessage.getString("name");
+
+			logger.info("GHAMessageQueueConsumer - mensaje: name = " + name);
+
 		} catch (JMSException e) {
 			e.printStackTrace();
 		}
