@@ -189,6 +189,7 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 		mobilityItem.clearValue();
 		categoryItem.clearValue();
 		subTypeItem.clearValue();
+		this.form.clearErrors(true);
 	}
 
 	@Override
