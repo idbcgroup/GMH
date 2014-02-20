@@ -1,5 +1,6 @@
 package org.fourgeeks.gha.webclient.client.UI.alerts.nonmodal;
 
+import org.fourgeeks.gha.domain.msg.GHAMessageType;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.alerts.GHADialog;
 
@@ -11,47 +12,51 @@ import com.smartgwt.client.widgets.Button;
  */
 public class GHAFailureDialog extends GHADialog {
 	/**
+	 * @param type
 	 * @param message
 	 */
-	public GHAFailureDialog(String message) {
+	public GHAFailureDialog(GHAMessageType type, String message) {
 		super("FAILURE",false,false);
 		setMessage(message);
-		initByType();
+		initByType(type);
 	}
 	/**
+	 * @param type
 	 * @param message
 	 * @param buttons
 	 */
-	public GHAFailureDialog(String message, Button... buttons) {
+	public GHAFailureDialog(GHAMessageType type,String message, Button... buttons) {
 		super("FAILURE",false,false,buttons);
 		setMessage(message);
-		initByType();
+		initByType(type);
 	}
 
 	/**
+	 * @param type
 	 * @param title
 	 * @param message
 	 */
-	public GHAFailureDialog(String title, String message) {
-		this(message);
+	public GHAFailureDialog(GHAMessageType type,String title, String message) {
+		this(type,message);
 		setTitle(title);
 	}
 
 	/**
+	 * @param type
 	 * @param title
 	 * @param message
 	 * @param buttons
 	 */
-	public GHAFailureDialog(String title, String message, Button... buttons) {
-		this(message,buttons);
+	public GHAFailureDialog(GHAMessageType type, String title, String message, Button... buttons) {
+		this(type,message,buttons);
 		setTitle(title);
 	}
 
 	/**
 	 * 
 	 */
-	private void initByType() {
-		initTypeParams();
+	private void initByType(GHAMessageType type) {
+		initTypeParams(type);
 		confModalTimingSettings();
 	}
 
@@ -59,11 +64,12 @@ public class GHAFailureDialog extends GHADialog {
 	 * @see org.fourgeeks.gha.webclient.client.UI.alerts.GHADialog#initTypeParams()
 	 */
 	@Override
-	protected void initTypeParams() {
+	protected void initTypeParams(GHAMessageType type) {
 		// Yellow
-		dialogType = "FAILURE";
-		isTimed = false;
-		isModal = false;
+		dialogType = type.getCode();
+		isTimed = type.isTimed();
+		isModal = type.isModal();
+		waitingTime = type.getTime();
 		setTitle(GHAStrings.get("failure"));
 		setBorder("1px solid #FCD14A");
 		setBackgroundColor("#FCD14A");

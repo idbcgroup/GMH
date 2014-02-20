@@ -1,5 +1,6 @@
 package org.fourgeeks.gha.webclient.client.UI.alerts.nonmodal;
 
+import org.fourgeeks.gha.domain.msg.GHAMessageType;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.alerts.GHADialog;
 
@@ -11,47 +12,51 @@ import com.smartgwt.client.widgets.Button;
  */
 public class GHASayDialog extends GHADialog {
 	/**
+	 * @param type
 	 * @param message
 	 */
-	public GHASayDialog(String message) {
+	public GHASayDialog(GHAMessageType type, String message) {
 		super("SAY",false,false);
 		setMessage(message);
-		initByType();
+		initByType(type);
 	}
 	/**
+	 * @param type
 	 * @param message
-	 * @param buttons 
+	 * @param buttons
 	 */
-	public GHASayDialog(String message, Button... buttons) {
+	public GHASayDialog(GHAMessageType type, String message, Button... buttons) {
 		super("SAY",false,false,buttons);
 		setMessage(message);
-		initByType();
+		initByType(type);
 	}
 
 	/**
-	 * @param title 
+	 * @param type
+	 * @param title
 	 * @param message
 	 */
-	public GHASayDialog(String title, String message) {
-		this(message);
+	public GHASayDialog(GHAMessageType type, String title, String message) {
+		this(type, message);
 		setTitle(title);
 	}
 
 	/**
-	 * @param title 
+	 * @param type
+	 * @param title
 	 * @param message
-	 * @param buttons 
+	 * @param buttons
 	 */
-	public GHASayDialog(String title, String message, Button... buttons) {
-		this(message,buttons);
+	public GHASayDialog(GHAMessageType type, String title, String message, Button... buttons) {
+		this(type, message,buttons);
 		setTitle(title);
 	}
 
 	/**
 	 * 
 	 */
-	private void initByType() {
-		initTypeParams();
+	private void initByType(GHAMessageType type) {
+		initTypeParams(type);
 		confModalTimingSettings();
 	}
 
@@ -59,11 +64,12 @@ public class GHASayDialog extends GHADialog {
 	 * @see org.fourgeeks.gha.webclient.client.UI.alerts.GHADialog#initTypeParams()
 	 */
 	@Override
-	protected void initTypeParams() {
+	protected void initTypeParams(GHAMessageType type) {
 		// Gray
-		dialogType = "SAY";
-		isTimed = true;
-		isModal = false;
+		dialogType = type.getCode();
+		isTimed = type.isTimed();
+		isModal = type.isModal();
+		waitingTime = type.getTime();
 		setTitle(GHAStrings.get("message"));
 		setBorder("1px solid #BCBCBC");
 		setBackgroundColor("#BCBCBC");
