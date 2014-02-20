@@ -600,6 +600,10 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		acceptationDateItem.clearValue();
 		// sameLocationAttendedItem.setValue(false);
 		// isInMaintenanceItem.setValue(false);
+		infoBasicaForm.clearErrors(true);
+		adquisicionForm.clearErrors(true);
+		ubicacionForm.clearErrors(true);
+		costosForm.clearErrors(true);
 	}
 
 	@Override

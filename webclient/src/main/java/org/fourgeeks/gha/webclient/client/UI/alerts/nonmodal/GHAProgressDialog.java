@@ -1,5 +1,6 @@
 package org.fourgeeks.gha.webclient.client.UI.alerts.nonmodal;
 
+import org.fourgeeks.gha.domain.msg.GHAMessageType;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.alerts.GHADialog;
 
@@ -11,48 +12,52 @@ import com.smartgwt.client.widgets.Button;
  */
 public class GHAProgressDialog extends GHADialog {
 	/**
+	 * @param type
 	 * @param message
 	 */
-	public GHAProgressDialog(String message) {
+	public GHAProgressDialog(GHAMessageType type, String message) {
 		super("PROCESSING",false,true);
-		initByType();
+		initByType(type);
 		setMessage(message);
 	}
 
 	/**
+	 * @param type
 	 * @param message
-	 * @param buttons 
+	 * @param buttons
 	 */
-	public GHAProgressDialog(String message, Button... buttons) {
+	public GHAProgressDialog(GHAMessageType type, String message, Button... buttons) {
 		super("PROCESSING",false,true,buttons);
-		initByType();
+		initByType(type);
 		setMessage(message);
 	}
 
 	/**
-	 * @param title 
+	 * @param type
+	 * @param title
 	 * @param message
 	 */
-	public GHAProgressDialog(String title, String message) {
-		this(message);
+	public GHAProgressDialog(GHAMessageType type, String title, String message) {
+		this(type,message);
 		setTitle(title);
 	}
 
 	/**
-	 * @param title 
+	 * @param type
+	 * @param title
 	 * @param message
-	 * @param buttons 
+	 * @param buttons
 	 */
-	public GHAProgressDialog(String title, String message, Button... buttons) {
-		this(message,buttons);
+	public GHAProgressDialog(GHAMessageType type, String title, String message, Button... buttons) {
+		this(type,message,buttons);
 		setTitle(title);
 	}
 
 	/**
 	 * 
 	 */
-	private void initByType() {
-		initTypeParams();
+	private void initByType(GHAMessageType type) {
+		initTypeParams(type);
 		confModalTimingSettings();
 	}
 
@@ -60,11 +65,12 @@ public class GHAProgressDialog extends GHADialog {
 	 * @see org.fourgeeks.gha.webclient.client.UI.alerts.GHADialog#initTypeParams()
 	 */
 	@Override
-	protected void initTypeParams() {
+	protected void initTypeParams(GHAMessageType type) {
 		// Green
-		dialogType = "PROCESSING";
-		isTimed = false;
-		isModal = false;
+		dialogType = type.getCode();
+		isTimed = type.isTimed();
+		isModal = type.isModal();
+		waitingTime = type.getTime();
 		setTitle(GHAStrings.get("processsing"));
 		setBorder("1px solid #AAC475");
 		setBackgroundColor("#AAC475");

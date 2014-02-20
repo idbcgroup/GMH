@@ -49,7 +49,7 @@ public class RESPlace extends NeedPermissionPlace {
 
 					@Override
 					public void onClick(ClickEvent event) {
-						// citizenAddForm.open();
+						citizenAddForm.open();
 						History.newItem("res/" + Math.round(Math.random() * 10));
 					}
 				});
