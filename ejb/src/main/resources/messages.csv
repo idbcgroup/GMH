@@ -554,3 +554,4 @@ ES,maintenanceServiceOrder-findByJob-fail,Busqueda fallida de MaintenanceService
 ES,maintenanceServiceOrder-getAll-fail,Busqueda fallida de todos los MaintenanceServiceOrder,FAILURE
 ES,maintenanceServiceOrder-save-fail,Guardado fallido del MaintenanceServiceOrder,FAILURE
 ES,maintenanceServiceOrder-update-fail,Actualización fallida del MaintenanceServiceOrder,FAILURE
+ES,delete-resources-success,El borrado se realizó exitosamente,SUCCESS
