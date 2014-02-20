@@ -214,6 +214,7 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 		legalEntityIdentifierItem.clearValue();
 		primaryEmailItem.clearValue();
 		alternativeEmailItem.clearValue();
+		this.form.clearErrors(true);
 	}
 
 	@Override

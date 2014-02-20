@@ -17,8 +17,9 @@ public class GHAEmailTextItem extends GHATextItem {
 	public GHAEmailTextItem() {
 		super(GHAStrings.get("mail"));
 		initEmailValidator();
+		setShowErrorIcon(true);
 	}
-	
+
 	/**
 	 * Creates a email text item with a regExpValidator for email fields.
 	 * 
@@ -27,8 +28,9 @@ public class GHAEmailTextItem extends GHATextItem {
 	public GHAEmailTextItem(String title) {
 		super(title);
 		initEmailValidator();
+		setShowErrorIcon(true);
 	}
-	
+
 	/**
 	 * Creates a email text item with a regExpValidator for email fields.
 	 * 
@@ -60,7 +62,7 @@ public class GHAEmailTextItem extends GHATextItem {
 		this(title);
 		setWidth(width);
 	}
-	
+
 	/**
 	 * Creates a email text item with a regExpValidator for email fields.
 	 * 
@@ -83,13 +85,14 @@ public class GHAEmailTextItem extends GHATextItem {
 		addChangedHandler(chengedHandler);
 	}
 
-
 	private void initEmailValidator() {
 		setLength(256);
 		RegExpValidator emailValidator = new RegExpValidator();
 		emailValidator.setErrorMessage(GHAStrings.get("email-invalid-field"));
-		emailValidator.setExpression("^([a-zA-Z0-9_.\\-+])+@(([a-zA-Z0-9\\-])+\\.)+[a-zA-Z0-9]{2,4}$");
+		emailValidator
+				.setExpression("^([a-zA-Z0-9_.\\-+])+@(([a-zA-Z0-9\\-])+\\.)+[a-zA-Z0-9]{2,4}$");
 		this.setValidators(emailValidator);
+
 	}
 
 }

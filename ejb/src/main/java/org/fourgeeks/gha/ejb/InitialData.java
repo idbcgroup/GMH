@@ -264,7 +264,7 @@ public class InitialData {
 		InputStream in = null;
 		CSVReader reader = null;
 
-		String query = "SELECT t from CCDILevelDefinition t WHERE t.id = 1";
+		final String query = "SELECT t from CCDILevelDefinition t WHERE t.id = 1";
 		try {
 			em.createQuery(query).getSingleResult();
 		} catch (final NoResultException e) {
@@ -274,26 +274,26 @@ public class InitialData {
 						.getResourceAsStream("/ccdiLevelDefinition.csv");
 				reader = new CSVReader(new InputStreamReader(in, "UTF-8"), ',',
 						'\'', 0);
-				List<String[]> readAll = reader.readAll();
+				final List<String[]> readAll = reader.readAll();
 
-				for (String[] strings : readAll) {
+				for (final String[] strings : readAll) {
 					if (strings[0].startsWith("#")
 							|| strings[0].startsWith("//"))
 						continue;
 
-					CCDIDefinition definition = em
+					final CCDIDefinition definition = em
 							.createNamedQuery("CCDIDefinition.findByCode",
 									CCDIDefinition.class)
-							.setParameter("code", strings[0]).getSingleResult();
+									.setParameter("code", strings[0]).getSingleResult();
 
-					CCDILevelDefinition levelDefinition = new CCDILevelDefinition();
+					final CCDILevelDefinition levelDefinition = new CCDILevelDefinition();
 					levelDefinition.setDefinition(definition);
 					levelDefinition.setLevel(Integer.parseInt(strings[1]));
 					levelDefinition.setName(strings[2]);
 					levelDefinition.setLength(Integer.parseInt(strings[3]));
 					levelDefinition
-							.setValueType(CCDIValueTypeEnum.values()[Integer
-									.parseInt(strings[4])]);
+					.setValueType(CCDIValueTypeEnum.values()[Integer
+					                                         .parseInt(strings[4])]);
 					levelDefinition.setInitialValue(Integer
 							.parseInt(strings[5]));
 					levelDefinition.setIncValue(Integer.parseInt(strings[6]));
@@ -313,14 +313,14 @@ public class InitialData {
 			try {
 				if (reader != null)
 					reader.close();
-			} catch (IOException e) {
+			} catch (final IOException e) {
 				logger.log(Level.SEVERE, "ERROR IN CCDI LEVEL DEFINITION");
 			}
 
 			try {
 				if (in != null)
 					in.close();
-			} catch (IOException e) {
+			} catch (final IOException e) {
 				logger.log(Level.SEVERE, "ERROR IN CCDI LEVEL DEFINITION");
 			}
 		}
@@ -333,7 +333,7 @@ public class InitialData {
 		InputStream in = null;
 		CSVReader reader = null;
 
-		String query = "SELECT t from CCDILevelValue t WHERE t.id = 1";
+		final String query = "SELECT t from CCDILevelValue t WHERE t.id = 1";
 		try {
 			em.createQuery(query).getSingleResult();
 		} catch (final NoResultException e) {
@@ -343,29 +343,29 @@ public class InitialData {
 						.getResourceAsStream("/ccdiLevelValue.csv");
 				reader = new CSVReader(new InputStreamReader(in, "UTF-8"), ',',
 						'\'', 0);
-				List<String[]> readAll = reader.readAll();
+				final List<String[]> readAll = reader.readAll();
 
-				for (String[] strings : readAll) {
+				for (final String[] strings : readAll) {
 					if (strings[0].startsWith("#")
 							|| strings[0].startsWith("//"))
 						continue;
 
-					CCDIDefinition definition = em
+					final CCDIDefinition definition = em
 							.createNamedQuery("CCDIDefinition.findByCode",
 									CCDIDefinition.class)
-							.setParameter("code", strings[0]).getSingleResult();
-					CCDILevelDefinition levelDefinition = em
+									.setParameter("code", strings[0]).getSingleResult();
+					final CCDILevelDefinition levelDefinition = em
 							.createNamedQuery(
 									"CCDILevelDefinition.findByLevel",
 									CCDILevelDefinition.class)
-							.setParameter("definition", definition)
-							.setParameter("level", Integer.parseInt(strings[1]))
-							.getSingleResult();
+									.setParameter("definition", definition)
+									.setParameter("level", Integer.parseInt(strings[1]))
+									.getSingleResult();
 
-					CCDILevelValue levelValue = new CCDILevelValue();
+					final CCDILevelValue levelValue = new CCDILevelValue();
 					levelValue.setLevelDefinition(levelDefinition);
 
-					CCDILevelValue parentValue = strings[2].equals("") ? null
+					final CCDILevelValue parentValue = strings[2].equals("") ? null
 							: em.createNamedQuery("CCDILevelValue.findByCode",
 									CCDILevelValue.class)
 									.setParameter("code", strings[2])
@@ -376,7 +376,7 @@ public class InitialData {
 					levelValue.setNextValue(Integer.parseInt(strings[5]));
 					levelValue.setFixedValue(strings[6]);
 					levelValue.setStatus(CCDIValueStatusEnum.values()[Integer
-							.parseInt(strings[7])]);
+					                                                  .parseInt(strings[7])]);
 					levelValue.setNextElement(Integer.parseInt(strings[8]));
 
 					em.persist(levelValue);
@@ -391,14 +391,14 @@ public class InitialData {
 			try {
 				if (reader != null)
 					reader.close();
-			} catch (IOException e) {
+			} catch (final IOException e) {
 				logger.log(Level.SEVERE, "ERROR IN CCDI LEVEL VALUE");
 			}
 
 			try {
 				if (in != null)
 					in.close();
-			} catch (IOException e) {
+			} catch (final IOException e) {
 				logger.log(Level.SEVERE, "ERROR IN CCDI LEVEL VALUE");
 			}
 		}
@@ -408,7 +408,7 @@ public class InitialData {
 		InputStream in = null;
 		CSVReader reader = null;
 
-		String query = "SELECT t from CCDIDefinition t WHERE t.id = 1";
+		final String query = "SELECT t from CCDIDefinition t WHERE t.id = 1";
 		try {
 			em.createQuery(query).getSingleResult();
 		} catch (final NoResultException e) {
@@ -418,26 +418,26 @@ public class InitialData {
 						.getResourceAsStream("/ccdiDefinition.csv");
 				reader = new CSVReader(new InputStreamReader(in, "UTF-8"), ',',
 						'\'', 0);
-				List<String[]> readAll = reader.readAll();
+				final List<String[]> readAll = reader.readAll();
 
-				for (String[] strings : readAll) {
+				for (final String[] strings : readAll) {
 					if (strings[0].startsWith("#")
 							|| strings[0].startsWith("//"))
 						continue;
 
-					CCDIDefinition definition = new CCDIDefinition();
+					final CCDIDefinition definition = new CCDIDefinition();
 					definition.setCode(strings[0]);
 					definition.setName(strings[1]);
 					definition.setLength(Integer.parseInt(strings[2]));
 					definition.setLevels(Integer.parseInt(strings[3]));
 					definition.setStatus(CCDIStatusEnum.values()[Integer
-							.parseInt(strings[4])]);
+					                                             .parseInt(strings[4])]);
 					definition.setConcept(em.find(Concept.class,
 							Long.parseLong(strings[5])));
 					definition.setType(CCDICodeTypeEnum.values()[Integer
-							.parseInt(strings[6])]);
+					                                             .parseInt(strings[6])]);
 					definition
-							.setVerification(Boolean.parseBoolean(strings[7]));
+					.setVerification(Boolean.parseBoolean(strings[7]));
 					definition.setVerificationMethod(strings[8]);
 
 					em.persist(definition);
@@ -451,14 +451,14 @@ public class InitialData {
 			try {
 				if (reader != null)
 					reader.close();
-			} catch (IOException e) {
+			} catch (final IOException e) {
 				logger.log(Level.SEVERE, "ERROR IN CCDI DEFINITION");
 			}
 
 			try {
 				if (in != null)
 					in.close();
-			} catch (IOException e) {
+			} catch (final IOException e) {
 				logger.log(Level.SEVERE, "ERROR IN CCDI DEFINITION");
 			}
 		}
@@ -540,20 +540,20 @@ public class InitialData {
 	}
 
 	private void eiaTypeCategoryTestData() {
-		String query = "SELECT t from EiaTypeCategory t WHERE t.id = 1";
+		final String query = "SELECT t from EiaTypeCategory t WHERE t.id = 1";
 		try {
 			em.createQuery(query).getSingleResult();
-		} catch (NoResultException e) {
+		} catch (final NoResultException e) {
 			try {
 				logger.info("Creating test data: EiaTypeCategory");
-				List<CCDILevelValue> ccdiCategories = em
+				final List<CCDILevelValue> ccdiCategories = em
 						.createNamedQuery(
 								"CCDILevelValue.findAllByDefinitionCode",
 								CCDILevelValue.class)
-						.setParameter("code", "EQUIPOS").getResultList();
+								.setParameter("code", "EQUIPOS").getResultList();
 
-				for (CCDILevelValue ccdi : ccdiCategories) {
-					EiaTypeCategory category = new EiaTypeCategory();
+				for (final CCDILevelValue ccdi : ccdiCategories) {
+					final EiaTypeCategory category = new EiaTypeCategory();
 					category.setName(ccdi.getName());
 					category.setCode(ccdi.getCode());
 					em.persist(category);
@@ -561,7 +561,7 @@ public class InitialData {
 				}
 
 				em.flush();
-			} catch (Exception e1) {
+			} catch (final Exception e1) {
 				logger.log(Level.INFO,
 						"error Creating SubProtocolAndChecklist test data", e1);
 			}
@@ -595,7 +595,7 @@ public class InitialData {
 		InputStream in = null;
 		CSVReader reader = null;
 
-		String query = "SELECT t from EiaType t WHERE t.code='3000000001'";
+		final String query = "SELECT t from EiaType t WHERE t.code='3000000001'";
 		try {
 			em.createQuery(query).getSingleResult();
 		} catch (final NoResultException e) {
@@ -604,25 +604,25 @@ public class InitialData {
 				in = InitialData.class.getResourceAsStream("/eiatype.csv");
 				reader = new CSVReader(new InputStreamReader(in, "UTF-8"), ',',
 						'\'', 0);
-				List<String[]> readAll = reader.readAll();
+				final List<String[]> readAll = reader.readAll();
 
-				for (String[] strings : readAll) {
+				for (final String[] strings : readAll) {
 					if (strings[0].startsWith("#")
 							|| strings[0].startsWith("//"))
 						continue;
-					EiaType eiaType = new EiaType();
+					final EiaType eiaType = new EiaType();
 					eiaType.setCode(strings[0]);
 					eiaType.setBrand(em.find(Brand.class,
 							Long.parseLong(strings[1])));
 					eiaType.setName(strings[2]);
 					eiaType.setMobility(EiaMobilityEnum.values()[Integer
-							.parseInt(strings[3])]);
+					                                             .parseInt(strings[3])]);
 					eiaType.setEiaTypeCategory(em
 							.createNamedQuery("EiaTypeCategory.findByCode",
 									EiaTypeCategory.class)
-							.setParameter("code", strings[4]).getSingleResult());
+									.setParameter("code", strings[4]).getSingleResult());
 					eiaType.setSubtype(EiaSubTypeEnum.values()[Integer
-							.parseInt(strings[5])]);
+					                                           .parseInt(strings[5])]);
 					eiaType.setModel(strings[6]);
 					em.persist(eiaType);
 					em.flush();
@@ -635,14 +635,14 @@ public class InitialData {
 			try {
 				if (reader != null)
 					reader.close();
-			} catch (IOException e) {
+			} catch (final IOException e) {
 				logger.log(Level.SEVERE, "ERROR IN eiatype test data");
 			}
 
 			try {
 				if (in != null)
 					in.close();
-			} catch (IOException e) {
+			} catch (final IOException e) {
 				logger.log(Level.SEVERE, "ERROR IN eiatype test data");
 			}
 		}
@@ -681,7 +681,7 @@ public class InitialData {
 		} catch (final NoResultException e) {
 			logger.info("Creating test data : facility");
 			final String facilityNames[] = { "Sala 1 Rayos X",
-					"Sala 1 Tomografía" };
+			"Sala 1 Tomografía" };
 			for (int i = 3, j = 0; i < 5; ++i, ++j) {
 				final Facility facility = new Facility();
 				facility.setName(facilityNames[j]);
@@ -791,7 +791,7 @@ public class InitialData {
 				final String activityNames[] = { "Desconectar", "Abrir",
 						"Limpiar", "Cerrar", "Conectar", "Reemplazar",
 						"subprotocol_activity", "activity_1", "activity_2",
-						"activity_3" };
+				"activity_3" };
 
 				final String activityDesc[] = {
 						"Desconecte el equipo de la corriente eléctrica",
@@ -803,7 +803,7 @@ public class InitialData {
 						"actividad de subprotocolo para pruebas",
 						"actividad de prueba 1 para la actividad de subprotocolo",
 						"actividad de prueba 2 para la actividad de subprotocolo",
-						"actividad de prueba 2 para la actividad de subprotocolo" };
+				"actividad de prueba 2 para la actividad de subprotocolo" };
 
 				final int durations[] = { 1, 2, 2, 1, 4, 3, 5, 6, 8, 7 };
 
@@ -859,10 +859,10 @@ public class InitialData {
 				logger.info("Creating test data: maintenance plan");
 				final String planName[] = {
 						"Plan de Mantenimiento Impresoras Tinta",
-						"Plan de Mantenimiento Impresoras Laser" };
+				"Plan de Mantenimiento Impresoras Laser" };
 				final String planDesc[] = {
 						"plan de mantenimiento impresoras de tinta",
-						"plan de mantenimiento impresoras laser" };
+				"plan de mantenimiento impresoras laser" };
 				final int planFrequency[] = { 1, 3 };
 				final TimePeriodEnum planTimePeriod[] = {
 						TimePeriodEnum.MONTHS, TimePeriodEnum.SEMESTERS };
@@ -970,7 +970,7 @@ public class InitialData {
 				for (int j = 0; j < 3; j++) {
 					em.persist(new MaterialCategory("mat-cat-00" + j,
 							"material-category-00" + j, MaterialTypeEnum
-									.values()[j % 3]));
+							.values()[j % 3]));
 				}
 				em.flush();
 			} catch (final Exception e1) {
@@ -1012,7 +1012,6 @@ public class InitialData {
 		logger.info("Creating ghamessage data");
 		InputStream in = null;
 		CSVReader reader = null;
-		final GHAMessageType defaultType = em.find(GHAMessageType.class, 1l);
 		try {
 			in = InitialData.class.getResourceAsStream("/messages.csv");
 			reader = new CSVReader(new InputStreamReader(in, "UTF-8"), ',',
@@ -1033,19 +1032,14 @@ public class InitialData {
 				words.put(code + language, true);
 				lang = LanguageEnum.valueOf(strings[0]);
 				text = strings[2];
-				long type = 1l;
+				String type = "SAY";
 				try {
-					type = Long.valueOf(strings[3]);
+					type = String.valueOf(strings[3]);
 				} catch (final Exception e) {
-					logger.info("no type info available in this line... Setting '1' by default");
+					logger.info("no type info available in this line... Setting 'SAY' by default");
 				}
 				try {
-					if (type == 1)
-						em.merge(new GHAMessage(lang, code, text, defaultType));
-					else
-						em.merge(new GHAMessage(lang, code, text, em.find(
-								GHAMessageType.class, type)));
-
+					em.merge(new GHAMessage(lang, code, text, em.find(GHAMessageType.class, type)));
 				} catch (final Exception e) {
 					logger.log(Level.SEVERE,
 							"Error inserting/updating an ghamessage", e);
@@ -1084,54 +1078,24 @@ public class InitialData {
 	}
 
 	private void messageTypes() {
-		final String query = "SELECT t from GHAMessageType t WHERE t.id= 1";
+		final String query = "SELECT t from GHAMessageType t WHERE t.code= 'SAY'";
 		try {
 			em.createQuery(query).getSingleResult();
 		} catch (final NoResultException e) {
 			try {
+				final int secsToMills = 1000;
 				logger.info("creating test data : message types");
-				final String names[] = { "SAY", "CONFIRMATION", "ASKYESNO",
-						"ERROR_HARD", "ERROR_SOFT", "WARNING", "INFORMATION",
-						"FAILURE", "SUCCESS", "PROCESSING", "NEW_MESSAGE" };
-
-				for (final String name : names) {
-					GHAMessageType next = new GHAMessageType();
-					if (name.equals("SAY")) {
-						// Gray
-						next = new GHAMessageType(name, true, false);
-					} else if (name.equals("CONFIRMATION")) {
-						// Gray
-						next = new GHAMessageType(name, false, true);
-					} else if (name.equals("ASKYESNO")) {
-						// Gray
-						next = new GHAMessageType(name, false, true);
-					} else if (name.equals("ERROR_HARD")) {
-						// Red
-						next = new GHAMessageType(name, false, true);
-					} else if (name.equals("ERROR_SOFT")) {
-						// Yellow
-						next = new GHAMessageType(name, false, false);
-					} else if (name.equals("WARNING")) {
-						// Blue
-						next = new GHAMessageType(name, false, false);
-					} else if (name.equals("INFORMATION")) {
-						// Blue
-						next = new GHAMessageType(name, true, false);
-					} else if (name.equals("FAILURE")) {
-						// Yellow
-						next = new GHAMessageType(name, false, false);
-					} else if (name.equals("SUCCESS")) {
-						// Green
-						next = new GHAMessageType(name, true, false);
-					} else if (name.equals("PROCESSING")) {
-						// Green
-						next = new GHAMessageType(name, false, false);
-					} else if (name.equals("NEW_MESSAGE")) {
-						// Gray
-						next = new GHAMessageType(name, true, false);
-					}
-					em.persist(next);
-				}
+				em.persist(new GHAMessageType("SAY", 4*secsToMills, false));
+				em.persist(new GHAMessageType("CONFIRMATION", 0, true));
+				em.persist(new GHAMessageType("ASKYESNO", 0, true));
+				em.persist(new GHAMessageType("ERROR-HARD", 0, true));
+				em.persist(new GHAMessageType("ERROR-SOFT", 0, false));
+				em.persist(new GHAMessageType("WARNING", 4*secsToMills, false));
+				em.persist(new GHAMessageType("INFORMATION", 4, false));
+				em.persist(new GHAMessageType("FAILURE", 4*secsToMills, false));
+				em.persist(new GHAMessageType("SUCCESS", 4*secsToMills, false));
+				em.persist(new GHAMessageType("PROCESSING", 0, false));
+				em.persist(new GHAMessageType("NEW_MESSAGE", 0, false));
 			} catch (final Exception e1) {
 				logger.log(Level.INFO,
 						"error creating test data: Message Types", e);

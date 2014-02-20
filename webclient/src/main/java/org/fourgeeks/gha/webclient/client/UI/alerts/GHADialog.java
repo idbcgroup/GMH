@@ -3,6 +3,7 @@ package org.fourgeeks.gha.webclient.client.UI.alerts;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.fourgeeks.gha.domain.msg.GHAMessageType;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -40,17 +41,17 @@ public abstract class GHADialog extends Dialog implements ResizeHandler, Window.
 
 	private final int HEADER_HEIGHT = 20;
 	private final int FOOTER_HEIGHT = 15;
-	private final int RIGHT_MARGIN = 40;
+	private final int RIGHT_MARGIN = 30;
 	private final int BORDER_SEPARATION = 8;
 
 	protected boolean hasButtons;
 	protected String dialogType;
 	protected boolean isModal;
 	protected boolean isTimed;
+	protected int waitingTime = 4000;
 
 	protected int openedPosition = -1;
 
-	private final int DEFAULT_WAITING_TIME = 4000;
 	private final Timer waiter = new Timer() {
 		@Override
 		public void run() {
@@ -135,12 +136,12 @@ public abstract class GHADialog extends Dialog implements ResizeHandler, Window.
 
 		animateRect(null, Window.getScrollTop()+Window.getClientHeight(), null, null,
 				new AnimationCallback() {
-					@Override
-					public void execute(boolean earlyFinish) {
-						hide();
-						destroy();
-					}
-				}, DEFAULT_ANIMATION_TIME);
+			@Override
+			public void execute(boolean earlyFinish) {
+				hide();
+				destroy();
+			}
+		}, DEFAULT_ANIMATION_TIME);
 	}
 
 	/**
@@ -154,7 +155,7 @@ public abstract class GHADialog extends Dialog implements ResizeHandler, Window.
 			setModalMaskOpacity(40);
 		} else if (!hasButtons && !dialogType.equals("PROCESSING")) {
 			if (isTimed) {
-				waiter.schedule(DEFAULT_WAITING_TIME);
+				waiter.schedule(waitingTime);
 			}
 			addMouseOverHandler(new MouseOverHandler() {
 				@Override
@@ -165,7 +166,7 @@ public abstract class GHADialog extends Dialog implements ResizeHandler, Window.
 			addMouseOutHandler(new MouseOutHandler() {
 				@Override
 				public void onMouseOut(MouseOutEvent event) {
-					waiter.schedule(DEFAULT_WAITING_TIME - 1000);
+					waiter.schedule(waitingTime - 1000);
 				}
 			});
 		}
@@ -184,13 +185,13 @@ public abstract class GHADialog extends Dialog implements ResizeHandler, Window.
 	private void initFooterControls() {
 		// ---Foooter controls
 		setShowFooter(true);
-		Label function = new Label("Función");
+		final Label function = new Label("Función");
 		function.setStyleName("windowFooterText");
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss a");
+		final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss a");
 		// Label date = new
 		// Label(DateFormat.getDateInstance(DateFormat.TIMEZONE_FIELD).format(new
 		// Date()));
-		Label date = new Label(sdf.format(new Date()));
+		final Label date = new Label(sdf.format(new Date()));
 		date.setWidth(120);
 		date.setStyleName("windowFooterText");
 		setFooterControls(function, new LayoutSpacer(), date);
@@ -218,7 +219,7 @@ public abstract class GHADialog extends Dialog implements ResizeHandler, Window.
 		setAutoSize(false);
 		setAutoCenter(false);
 		setWidth(DEFAULT_NOTIFICATION_WIDTH);
-		Layout bodyAC = new Layout();
+		final Layout bodyAC = new Layout();
 		if (hasButtons) {
 			setHeight(DEFAULT_NOTIFICATION_BUTTONS_HEIGHT);
 			setMaxHeight(DEFAULT_NOTIFICATION_BUTTONS_HEIGHT);
@@ -234,12 +235,12 @@ public abstract class GHADialog extends Dialog implements ResizeHandler, Window.
 		// bodyAC.setAlign(VerticalAlignment.CENTER);
 		// bodyAC.setAlign(Alignment.CENTER);
 		changeAutoChildDefaults("body", bodyAC);
-		Layout msgStack = new Layout();
+		final Layout msgStack = new Layout();
 		msgStack.setStyleName("dialogMessageStack");
 		changeAutoChildDefaults("messageStack", msgStack);
 	}
 
-	protected abstract void initTypeParams();
+	protected abstract void initTypeParams(GHAMessageType type);
 
 	@Override
 	public void onResize(ResizeEvent event) {
