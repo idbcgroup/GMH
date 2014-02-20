@@ -536,3 +536,4 @@ ES,eiatype-model-error-formatter,Error de formato: El modelo solo puede contener
 ES,users-delete-confirm,¿Desea eliminar a los usuarios?,CONFIRMATION
 ES,user-delete-confirm,¿Desea eliminar al usuario?,CONFIRMATION
 ES,eia-maintenance-details-update-success,Los detalles del mantenimiento al equipo se han actualizado exitosamente,SUCCESS
+ES,delete-resources-success,El borrado se realizó exitosamente,SUCCESS
