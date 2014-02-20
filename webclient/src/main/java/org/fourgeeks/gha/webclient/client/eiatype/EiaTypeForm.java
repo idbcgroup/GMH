@@ -17,6 +17,7 @@ import org.fourgeeks.gha.domain.gmh.EiaTypeCategory;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
+import org.fourgeeks.gha.webclient.client.UI.GHAEiaTypeCategoryPickTreeItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAComboboxItem;
@@ -24,7 +25,6 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextAreaItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAEiaTypeCategorySelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAEiaTypeSubTypeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHACodeTextItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
@@ -53,7 +53,7 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 	private GHATextAreaItem descriptionItem;
 	private GHATextAreaItem useDescriptionItem;
 	private GHASelectItem mobilityItem;
-	private GHAEiaTypeCategorySelectItem categoryItem;
+	private GHAEiaTypeCategoryPickTreeItem categoryItem;
 	private GHAEiaTypeSubTypeSelectItem subTypeItem;
 	private GHAComboboxItem<Brand> brandItem;
 	private GHAComboboxItem<Manufacturer> manItem;
@@ -64,8 +64,8 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 		codeItem = new GHACodeTextItem(true, changedHandler);
 
 		nameItem = new GHATextItem(GHAStrings.get("name"), true, changedHandler);
-		categoryItem = new GHAEiaTypeCategorySelectItem(
-				GHAStrings.get("category"), true, changedHandler);
+		categoryItem = new GHAEiaTypeCategoryPickTreeItem(
+				GHAStrings.get("category"));
 		subTypeItem = new GHAEiaTypeSubTypeSelectItem(changedHandler);
 		eiaUmdnsItem = new GHATextItem("EIAUMDNS", false, changedHandler);
 		eiaUmdnsItem.setLength(16);
@@ -231,9 +231,10 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 		if (mobilityItem.getValue() != null)
 			eiaType.setMobility(EiaMobilityEnum.valueOf(mobilityItem
 					.getValueAsString()));
-		if (categoryItem.getValue() != null)
+		if (categoryItem.getValue() != null) {
 			eiaType.setEiaTypeCategory(new EiaTypeCategory(categoryItem
-					.getValueAsString()));
+					.getValue().toString()));
+		}
 		if (subTypeItem.getValue() != null)
 			eiaType.setSubtype(EiaSubTypeEnum.valueOf(subTypeItem
 					.getValueAsString()));
