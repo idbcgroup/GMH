@@ -5,6 +5,8 @@ import java.sql.Timestamp;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.ServiceOderState;
@@ -18,6 +20,7 @@ import org.fourgeeks.gha.domain.gmh.EiaMaintenance;
  * @author naramirez
  */
 @Entity
+@NamedQueries(value = { @NamedQuery(name = "MaintenanceServiceOrder.getAll", query = "SELECT e from MaintenanceServiceOrder e order by e.id") })
 public class MaintenanceServiceOrder extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 

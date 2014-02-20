@@ -536,3 +536,21 @@ ES,eiatype-model-error-formatter,Error de formato: El modelo solo puede contener
 ES,users-delete-confirm,¿Desea eliminar a los usuarios?,CONFIRMATION
 ES,user-delete-confirm,¿Desea eliminar al usuario?,CONFIRMATION
 ES,eia-maintenance-details-update-success,Los detalles del mantenimiento al equipo se han actualizado exitosamente,SUCCESS
+ES,bsp-delete-fail,Eliminación fallida del Bsp,FAILURE
+ES,bsp-find-fail,Busqueda fallida de Bsp,FAILURE
+ES,bsp-findByBsp-fail,Busqueda fallida de Bsp por Bsp,FAILURE
+ES,bsp-getAll-fail,Busqueda fallida de todos los Bsp,FAILURE
+ES,bsp-save-fail,Guardado fallido del Bsp,FAILURE
+ES,bsp-update-fail,Actualización fallida del Bsp,FAILURE
+ES,job-delete-fail,Eliminación fallida del Job,FAILURE
+ES,job-find-fail,Busqueda fallida de Job,FAILURE
+ES,job-findByJob-fail,Busqueda fallida de Job por Job,FAILURE
+ES,job-getAll-fail,Busqueda fallida de todos los Job,FAILURE
+ES,job-save-fail,Guardado fallido del Job,FAILURE
+ES,job-update-fail,Actualización fallida del Job,FAILURE
+ES,maintenanceServiceOrder-delete-fail,Eliminación fallida del MaintenanceServiceOrder,FAILURE
+ES,maintenanceServiceOrder-find-fail,Busqueda fallida de MaintenanceServiceOrder,FAILURE
+ES,maintenanceServiceOrder-findByJob-fail,Busqueda fallida de MaintenanceServiceOrder por MaintenanceServiceOrder,FAILURE
+ES,maintenanceServiceOrder-getAll-fail,Busqueda fallida de todos los MaintenanceServiceOrder,FAILURE
+ES,maintenanceServiceOrder-save-fail,Guardado fallido del MaintenanceServiceOrder,FAILURE
+ES,maintenanceServiceOrder-update-fail,Actualización fallida del MaintenanceServiceOrder,FAILURE

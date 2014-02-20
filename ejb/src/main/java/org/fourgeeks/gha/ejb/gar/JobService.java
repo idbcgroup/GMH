@@ -76,7 +76,7 @@ public class JobService extends GHAEJBExceptionService implements
 			em.remove(entity);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete Job", e);
-			throw super.generateGHAEJBException("obu-delete-fail", em);
+			throw super.generateGHAEJBException("job-delete-fail", em);
 		}
 	}
 
