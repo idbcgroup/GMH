@@ -1091,7 +1091,7 @@ public class InitialData {
 				em.persist(new GHAMessageType("ERROR-HARD", 0, true));
 				em.persist(new GHAMessageType("ERROR-SOFT", 0, false));
 				em.persist(new GHAMessageType("WARNING", 4*secsToMills, false));
-				em.persist(new GHAMessageType("INFORMATION", 4, false));
+				em.persist(new GHAMessageType("INFORMATION", 4*secsToMills, false));
 				em.persist(new GHAMessageType("FAILURE", 4*secsToMills, false));
 				em.persist(new GHAMessageType("SUCCESS", 4*secsToMills, false));
 				em.persist(new GHAMessageType("PROCESSING", 0, false));

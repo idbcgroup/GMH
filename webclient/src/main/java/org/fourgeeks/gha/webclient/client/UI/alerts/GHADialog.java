@@ -134,6 +134,7 @@ public abstract class GHADialog extends Dialog implements ResizeHandler, Window.
 		if(openedPosition>=0){
 			GHAAlertManager.removeOpenMessageFromCounter();
 			GHAAlertManager.toggleMessagePosition(openedPosition);
+			GHAAlertManager.messageClosedActions();
 		}
 
 		animateRect(null, Window.getScrollTop()+Window.getClientHeight(), null, null,
@@ -292,7 +293,45 @@ public abstract class GHADialog extends Dialog implements ResizeHandler, Window.
 	/**
 	 * 
 	 */
-	public void openWindow() {
+	//	public void openWindow() {
+	//
+	//		openedPosition = GHAAlertManager.getFreeMessagePosition();
+	//		if (openedPosition >= 0 || isModal) {
+	//			if(openedPosition >= 0){
+	//				GHAAlertManager.toggleMessagePosition(openedPosition);
+	//				GHAAlertManager.addNewMessageToCounter();
+	//			}
+	//
+	//			show();
+	//			// set the height to the available message text space
+	//			getMessageStack().setHeight(40);
+	//
+	//			final int windowWidth = Window.getClientWidth();
+	//			final int windowHeight = Window.getClientHeight();
+	//			int multp=0;
+	//			if(openedPosition<0){
+	//				setLeft(Window.getScrollLeft()+(windowWidth - (getWidth() + RIGHT_MARGIN)*2));
+	//
+	//				multp = DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT + BORDER_SEPARATION;
+	//				if (hasButtons)
+	//					multp = DEFAULT_NOTIFICATION_BUTTONS_HEIGHT + BORDER_SEPARATION;
+	//			}else{
+	//				setLeft(Window.getScrollLeft()+(windowWidth - (getWidth() + RIGHT_MARGIN)));
+	//
+	//				multp = (openedPosition + 1)*(DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT + BORDER_SEPARATION);
+	//				if (hasButtons)
+	//					multp = (openedPosition + 1)*(DEFAULT_NOTIFICATION_BUTTONS_HEIGHT + BORDER_SEPARATION);
+	//			}
+	//			setTop(Window.getScrollTop()+Window.getClientHeight());
+	//
+	//			animateRect(null,Window.getScrollTop()+(windowHeight- multp),null, null);
+	//		} else {
+	//			Window.alert("Error. no hay posiciones libres para mostrar alertas");
+	//		}
+	//	}
+
+	@Override
+	public void show() {
 		openedPosition = GHAAlertManager.getFreeMessagePosition();
 		if (openedPosition >= 0 || isModal) {
 			if(openedPosition >= 0){
@@ -300,12 +339,13 @@ public abstract class GHADialog extends Dialog implements ResizeHandler, Window.
 				GHAAlertManager.addNewMessageToCounter();
 			}
 
-			show();
+			super.show();
 			// set the height to the available message text space
 			getMessageStack().setHeight(40);
 
 			final int windowWidth = Window.getClientWidth();
 			final int windowHeight = Window.getClientHeight();
+
 			int multp=0;
 			if(openedPosition<0){
 				setLeft(Window.getScrollLeft()+(windowWidth - (getWidth() + RIGHT_MARGIN)*2));
@@ -324,7 +364,7 @@ public abstract class GHADialog extends Dialog implements ResizeHandler, Window.
 
 			animateRect(null,Window.getScrollTop()+(windowHeight- multp),null, null);
 		} else {
-			Window.alert("Error. no hay posiciones libres para mostrar alertas");
+			//			Window.alert("Error. no hay posiciones libres para mostrar alertas");
 		}
 	}
 }

@@ -115,7 +115,7 @@ public class GHAAlertManager {
 		else if(type.equals("WARNING"))
 			messageType = new GHAMessageType("WARNING", 4*secsToMills, false);
 		else if(type.equals("INFORMATION"))
-			messageType = new GHAMessageType("INFORMATION", 4, false);
+			messageType = new GHAMessageType("INFORMATION", 4*secsToMills, false);
 		else if(type.equals("FAILURE"))
 			messageType = new GHAMessageType("FAILURE", 4*secsToMills, false);
 		else if(type.equals("SUCCESS"))
@@ -136,8 +136,9 @@ public class GHAAlertManager {
 		if (canShowNewMessage()) {
 			GHADialog messageDialog = null;
 			messageDialog = getMessageByType(ghaMessage.getType(), "", ghaMessage.getText());
-			messageDialog.openWindow();
+			messageDialog.show();
 		}else{
+			//			Window.alert("Queuing a message: type:"+ghaMessage.getType().getCode()+" Text:"+ghaMessage.getText());
 			messageQueue.add(ghaMessage);
 		}
 	}
@@ -161,15 +162,16 @@ public class GHAAlertManager {
 			public void onSuccess(List<GHAMessage> result) {
 				GHADialog messageDialog = null;
 				final StringBuilder builder = new StringBuilder();
-				GHAMessageType type = new GHAMessageType();
+				GHAMessageType type = createMessageTypeByName("SAY");
 				for (final GHAMessage msg : result) {
 					builder.append(msg.getText()).append("<br>");
 					type = msg.getType();
 				}
 				if (canShowNewMessage()) {
 					messageDialog = getMessageByType(type, "", builder.toString());
-					messageDialog.openWindow();
+					messageDialog.show();
 				}else{
+					//					Window.alert("Queuing a message: type:"+type.getCode()+" Text:"+builder.toString());
 					messageQueue.add(new GHAMessage(result.get(0).getLang(),
 							"waited-multiple-message-"+messageQueue.size(),
 							builder.toString(),
@@ -192,8 +194,9 @@ public class GHAAlertManager {
 				if (canShowNewMessage()) {
 					GHADialog messageDialog = null;
 					messageDialog = getMessageByType(result.getType(),"",result.getText());
-					messageDialog.openWindow();
+					messageDialog.show();
 				}else{
+					//					Window.alert("Queuing a message: type:"+result.getType().getCode()+" Text:"+result.getText());
 					messageQueue.add(result);
 				}
 			}
@@ -215,8 +218,9 @@ public class GHAAlertManager {
 		messageType = createMessageTypeByName(type);
 		messageDialog = getMessageByType(messageType,title,message);
 		if (canShowNewMessage()) {
-			messageDialog.openWindow();
+			messageDialog.show();
 		}else{
+			//			Window.alert("Queuing a message: type:"+type+" Text:"+message);
 			messageQueue.add(new GHAMessage(LanguageEnum.ES,
 					"waited-message-"+messageQueue.size(),
 					message,
@@ -269,7 +273,7 @@ public class GHAAlertManager {
 			}
 		});
 
-		messageDialog.openWindow();
+		messageDialog.show();
 	}
 
 	/**
@@ -297,7 +301,7 @@ public class GHAAlertManager {
 				final Button buttonNo = new Button(GHAStrings.get("no"));
 				final Button buttonCancel = new Button(GHAStrings.get("cancel"));
 				final StringBuilder builder = new StringBuilder();
-				GHAMessageType type = new GHAMessageType();
+				GHAMessageType type = createMessageTypeByName("SAY");
 				for (final GHAMessage msg : result) {
 					builder.append(msg.getText()).append("<br>");
 					type = msg.getType();
@@ -330,7 +334,7 @@ public class GHAAlertManager {
 					}
 				});
 
-				messageDialog.openWindow();
+				messageDialog.show();
 			}
 		});
 	}
@@ -382,7 +386,7 @@ public class GHAAlertManager {
 					}
 				});
 
-				messageDialog.openWindow();
+				messageDialog.show();
 			}
 		});
 	}
@@ -430,7 +434,7 @@ public class GHAAlertManager {
 				messageDialog.close();
 			}
 		});
-		messageDialog.openWindow();
+		messageDialog.show();
 	}
 
 	/**
@@ -465,7 +469,7 @@ public class GHAAlertManager {
 				messageDialog.close();
 			}
 		});
-		messageDialog.openWindow();
+		messageDialog.show();
 	}
 
 	/**
@@ -485,7 +489,7 @@ public class GHAAlertManager {
 				final Button buttonYes = new Button(GHAStrings.get("yes"));
 				final Button buttonNo = new Button(GHAStrings.get("no"));
 				final StringBuilder builder = new StringBuilder();
-				GHAMessageType type = new GHAMessageType();
+				GHAMessageType type = createMessageTypeByName("SAY");
 				for (final GHAMessage msg : result) {
 					builder.append(msg.getText()).append("<br>");
 					type = msg.getType();
@@ -507,7 +511,7 @@ public class GHAAlertManager {
 						messageDialog.close();
 					}
 				});
-				messageDialog.openWindow();
+				messageDialog.show();
 			}
 		});
 	}
@@ -541,7 +545,7 @@ public class GHAAlertManager {
 						messageDialog.close();
 					}
 				});
-				messageDialog.openWindow();
+				messageDialog.show();
 			}
 		});
 	}
@@ -573,7 +577,7 @@ public class GHAAlertManager {
 				messageDialog.close();
 			}
 		});
-		messageDialog.openWindow();
+		messageDialog.show();
 	}
 
 	/**
@@ -611,13 +615,19 @@ public class GHAAlertManager {
 	public static void removeOpenMessageFromCounter() {
 		if (openMessagesCounter > 0)
 			GHAAlertManager.openMessagesCounter--;
-		if(messageQueue.size()>0){
+	}
+
+	/**
+	 * 
+	 */
+	public static void messageClosedActions() {
+		if(!messageQueue.isEmpty()){
 			final GHAMessage message = messageQueue.poll();
+			//			Window.alert("Dequeing a message: type:"+message.getType().getCode()+" Text:"+message.getText());
 			final GHAMessageType messageType = message.getType();
 			if(!messageType.equals("ASKYESNO") && !messageType.equals("CONFIRMATION"))
 				alert(message);
 		}
-
 	}
 
 	/**

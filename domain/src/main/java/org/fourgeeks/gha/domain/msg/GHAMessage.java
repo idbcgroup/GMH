@@ -36,7 +36,7 @@ public class GHAMessage implements Serializable {
 	private LanguageEnum language;
 
 	@ManyToOne
-	@JoinColumn(name = "typeFk", nullable = true)
+	@JoinColumn(name = "typeFk", nullable = true, columnDefinition = "character varying(255) DEFAULT 'SAY'::character varying")
 	private GHAMessageType type;
 
 	private String text;
