@@ -25,7 +25,8 @@ public class PDT implements MessageListener {
 
 	private final static Logger logger = Logger.getLogger(PDT.class.getName());
 
-	@EJB(lookup = "java:global/ear-1/ejb-1/TransactionParamsService!org.fourgeeks.gha.ejb.TransactionParamsServiceLocal")
+	@EJB(lookup = "java:global/ear-1/ejb-1/TransactionParamsService!"
+			+ "org.fourgeeks.gha.ejb.TransactionParamsServiceLocal")
 	private TransactionParamsServiceLocal transParamsService;
 
 	/**

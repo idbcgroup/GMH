@@ -2,13 +2,13 @@ package org.fourgeeks.gha.ejb;
 
 import java.util.HashMap;
 
-import javax.ejb.Remote;
+import javax.ejb.Local;
 
 /**
- * @author nelson
+ * @author naramirez
  */
-@Remote
-public interface PDTMessageProducerRemote {
+@Local
+public interface PDTMessageProducerLocal {
 
 	/**
 	 * Send a message to the PDT Message Queue to be processed by the PDT

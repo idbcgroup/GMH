@@ -113,7 +113,7 @@ import org.fourgeeks.gha.domain.msg.GHAMessageId;
 import org.fourgeeks.gha.domain.msg.GHAMessageType;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.PDTMessageProducer;
-import org.fourgeeks.gha.ejb.PDTMessageProducerRemote;
+import org.fourgeeks.gha.ejb.PDTMessageProducerLocal;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 import org.fourgeeks.gha.ejb.gar.BpuService;
 import org.fourgeeks.gha.ejb.gar.BpuServiceRemote;
@@ -335,7 +335,7 @@ public class MaintenanceServiceOrderServiceTest {
 				.addClass(CCDIServiceLocal.class)
 				.addClass(CCDIServiceRemote.class)
 				.addClass(PDTMessageProducer.class)
-				.addClass(PDTMessageProducerRemote.class)
+				.addClass(PDTMessageProducerLocal.class)
 				.addClass(Concept.class)
 				.addAsResource("test-persistence.xml",
 						"META-INF/persistence.xml")

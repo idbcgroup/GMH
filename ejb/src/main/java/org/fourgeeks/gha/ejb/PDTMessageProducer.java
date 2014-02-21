@@ -17,7 +17,7 @@ import javax.jms.Session;
  * Session Bean implementation class GHAMessageQueueProducer
  */
 @Stateless
-public class PDTMessageProducer implements PDTMessageProducerRemote {
+public class PDTMessageProducer implements PDTMessageProducerLocal {
 
 	private final static Logger logger = Logger
 			.getLogger(PDTMessageProducer.class.getName());

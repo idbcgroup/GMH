@@ -17,7 +17,7 @@ import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
-import org.fourgeeks.gha.ejb.PDTMessageProducerRemote;
+import org.fourgeeks.gha.ejb.PDTMessageProducerLocal;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
@@ -30,7 +30,7 @@ public class EiaDamageReportService extends GHAEJBExceptionService implements
 	private EntityManager em;
 
 	@EJB
-	private PDTMessageProducerRemote pdtProducerService;
+	private PDTMessageProducerLocal pdtProducerService;
 
 	private final static Logger logger = Logger
 			.getLogger(EiaDamageReportService.class.getName());
@@ -90,14 +90,16 @@ public class EiaDamageReportService extends GHAEJBExceptionService implements
 			throws GHAEJBException {
 
 		try {
+			// guardando el damageReport en BD
 			em.persist(eiaDamageReport);
 			em.flush();
 
-			// parametros para el PDT
+			// definiendo parametros para el PDT
 			HashMap<String, Object> params = new HashMap<String, Object>();
 			params.put("eiaDamageReport", eiaDamageReport);
 			params.put("eia", eiaDamageReport.getEia());
 
+			// enviando el mensaje a la cola de mensajes del PDT
 			pdtProducerService.sendMessage("corrective-maintenance", params);
 
 			return em.find(EiaDamageReport.class, eiaDamageReport.getId());
