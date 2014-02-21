@@ -2,6 +2,7 @@ package org.fourgeeks.gha.webclient.client.eiatype.component;
 
 import org.fourgeeks.gha.domain.gmh.EiaTypeComponent;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridField;
 import org.fourgeeks.gha.webclient.client.UI.grids.GhaGrid;
 
@@ -27,6 +28,10 @@ public class EIATypeComponentGrid extends GhaGrid<EiaTypeComponent> {
 		amountField = new GHAGridField("amount", GHAStrings.get("amount"));
 		amountField.setCanEdit(true);
 		amountField.setType(ListGridFieldType.INTEGER);
+		GHATextItem numerico = new GHATextItem();
+		numerico.setKeyPressFilter("[0-9]");
+		amountField.setEditorType(numerico);
+
 	}
 
 	/**
