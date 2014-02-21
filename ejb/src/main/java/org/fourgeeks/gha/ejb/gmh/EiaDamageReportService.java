@@ -58,7 +58,8 @@ public class EiaDamageReportService extends GHAEJBExceptionService implements
 			stateList.add(EiaStateEnum.DAMAGED);
 			stateList.add(EiaStateEnum.MAINTENANCE);
 
-			String stringQuery = "SELECT edr, eia FROM EiaDamageReport edr RIGHT JOIN edr.eia eia WHERE eia.eiaType = :eiaType AND eia.state IN :eiaStates order by edr.id";
+			String stringQuery = "SELECT edr, eia FROM EiaDamageReport edr RIGHT JOIN edr.eia eia "
+					+ "WHERE eia.eiaType = :eiaType AND eia.state IN :eiaStates order by edr.id";
 			List<?> resultList = em.createQuery(stringQuery)
 					.setParameter("eiaType", eiaType)
 					.setParameter("eiaStates", stateList).getResultList();

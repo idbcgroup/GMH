@@ -8,8 +8,6 @@ import java.util.logging.Logger;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.enu.ServiceOrderState;
@@ -30,19 +28,19 @@ import org.fourgeeks.gha.ejb.gmh.EiaServiceRemote;
 public class CorrectiveMaintenanceServiceOrderPDTProcessor implements
 		PDTProcessor {
 
-	@PersistenceContext
-	private EntityManager em;
-
 	private final static Logger logger = Logger
 			.getLogger(MaintenanceServiceOrderService.class.getName());
 
-	@EJB
+	@EJB(lookup = "java:global/ear-1/ejb-1/MaintenanceServiceOrderService!"
+			+ "org.fourgeeks.gha.ejb.ess.MaintenanceServiceOrderServiceLocal")
 	MaintenanceServiceOrderServiceLocal serviceOrderService;
 
-	@EJB
+	@EJB(lookup = "java:global/ear-1/ejb-1/EiaMaintenanceService!"
+			+ "org.fourgeeks.gha.ejb.gmh.EiaMaintenanceServiceRemote")
 	EiaMaintenanceServiceRemote maintenanceService;
 
-	@EJB
+	@EJB(lookup = "java:global/ear-1/ejb-1/EiaService!"
+			+ "org.fourgeeks.gha.ejb.gmh.EiaServiceRemote")
 	EiaServiceRemote eiaService;
 
 	@Override
@@ -51,36 +49,26 @@ public class CorrectiveMaintenanceServiceOrderPDTProcessor implements
 
 		try {
 			Eia eia = (Eia) data.get("eia");
-			EiaDamageReport damageReport = (EiaDamageReport) data
-					.get("eiaDamageReport");
+			EiaDamageReport rep = (EiaDamageReport) data.get("eiaDamageReport");
 
 			// se cambia el estado del equipo a dañado
 			eia.setState(EiaStateEnum.DAMAGED);
+			eia = eiaService.update(eia);
 
 			// se crea el mantenimiento correctivo
-			EiaCorrectiveMaintenance correctiveMaintenance = new EiaCorrectiveMaintenance();
-			correctiveMaintenance.setDamageReport(damageReport);
-			correctiveMaintenance
-					.setDescription(damageReport.getDamageMotive());
+			EiaCorrectiveMaintenance cm = new EiaCorrectiveMaintenance();
+			cm.setDamageReport(rep);
+			cm.setDescription(rep.getDamageMotive());
+			cm = maintenanceService.saveCorrectiveMaintenance(cm);
 
 			// se crea la orden de servicio de mantenimiento
 			MaintenanceServiceOrder serviceOrder = new MaintenanceServiceOrder();
-			serviceOrder.setMaintenance(correctiveMaintenance);
-			// maintenance.setMaintenanceProvider(eia.getMaintenanceProvider());
+			serviceOrder.setMaintenance(cm);
 			serviceOrder.setOpeningTimestamp(new Timestamp(time));
 			serviceOrder.setServiceOrderNumber("MSO0001");
 			serviceOrder.setState(ServiceOrderState.ACTIVE);
-
-			em.merge(eia);
-			em.persist(serviceOrder);
-			em.persist(correctiveMaintenance);
-
-			// se guarda el mantenimiento en BD
-			// serviceOrderService.save(serviceOrder);
-			// se guarda la orden de servicio en la BD
-			// maintenanceService.saveCorrectiveMaintenance(correctiveMaintenance);
-			// se actualiza el equipo en BD
-			// eiaService.update(eia);
+			// maintenance.setMaintenanceProvider(eia.getMaintenanceProvider());
+			serviceOrder = serviceOrderService.save(serviceOrder);
 
 		} catch (Exception e) {
 			String msg = "ERROR: procesando mensaje en CorrectiveMaintenanceServiceOrderPDTProcessor: ";
