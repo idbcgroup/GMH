@@ -25,7 +25,7 @@ ES,password-not-null,Debe indicar la clave,WARNING
 ES,code-not-null,Debe indicar el código,WARNING
 ES,serial-not-null,Debe indicar el serial,WARNING
 ES,maintenance-provider-not-null,Debe indicar el proveedor de mantenimiento,WARNING
-ES,record-not-selected,Debe seleccionar un registro,WARNING
+ES,record-not-selected,Debe seleccionar un registro,INFORMATION
 ES,frecuency-not-null,Debe indicar la frecuencia,WARNING
 ES,time-period-not-null,Debe indicar el periodo de tiempo,WARNING
 ES,eia-save-success,El equipo ha sido guardado exitosamente,SUCCESS

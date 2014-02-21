@@ -1,7 +1,10 @@
 package org.fourgeeks.gha.webclient.client.UI.alerts;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
+import org.fourgeeks.gha.domain.enu.LanguageEnum;
 import org.fourgeeks.gha.domain.msg.GHAMessage;
 import org.fourgeeks.gha.domain.msg.GHAMessageType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
@@ -39,6 +42,7 @@ public class GHAAlertManager {
 	private static final GWTMessageServiceAsync messageService = GWT
 			.create(GWTMessageService.class);
 	private static int openMessagesCounter = 0;
+	private static Queue<GHAMessage> messageQueue = new LinkedList<GHAMessage>();
 
 	/**
 	 * 
@@ -132,7 +136,9 @@ public class GHAAlertManager {
 		if (canShowNewMessage()) {
 			GHADialog messageDialog = null;
 			messageDialog = getMessageByType(ghaMessage.getType(), "", ghaMessage.getText());
-			messageDialog.show();
+			messageDialog.openWindow();
+		}else{
+			messageQueue.add(ghaMessage);
 		}
 	}
 
@@ -145,27 +151,32 @@ public class GHAAlertManager {
 	 * @param keys
 	 */
 	public static void alert(List<String> keys) {
-		if (canShowNewMessage()) {
-			if (keys.isEmpty()) {
-				alert("form-errors");
-				return;
-			}
-			messageService.find(keys, new GHAAsyncCallback<List<GHAMessage>>() {
-
-				@Override
-				public void onSuccess(List<GHAMessage> result) {
-					GHADialog messageDialog = null;
-					final StringBuilder builder = new StringBuilder();
-					GHAMessageType type = new GHAMessageType();
-					for (final GHAMessage msg : result) {
-						builder.append(msg.getText()).append("<br>");
-						type = msg.getType();
-					}
-					messageDialog = getMessageByType(type, "", builder.toString());
-					messageDialog.show();
-				}
-			});
+		if (keys.isEmpty()) {
+			alert("form-errors");
+			return;
 		}
+		messageService.find(keys, new GHAAsyncCallback<List<GHAMessage>>() {
+
+			@Override
+			public void onSuccess(List<GHAMessage> result) {
+				GHADialog messageDialog = null;
+				final StringBuilder builder = new StringBuilder();
+				GHAMessageType type = new GHAMessageType();
+				for (final GHAMessage msg : result) {
+					builder.append(msg.getText()).append("<br>");
+					type = msg.getType();
+				}
+				if (canShowNewMessage()) {
+					messageDialog = getMessageByType(type, "", builder.toString());
+					messageDialog.openWindow();
+				}else{
+					messageQueue.add(new GHAMessage(result.get(0).getLang(),
+							"waited-multiple-message-"+messageQueue.size(),
+							builder.toString(),
+							type));
+				}
+			}
+		});
 	}
 
 	/**
@@ -174,17 +185,19 @@ public class GHAAlertManager {
 	 * @param key
 	 */
 	public static void alert(String key) {
-		if (canShowNewMessage()) {
-			messageService.find(key, new GHAAsyncCallback<GHAMessage>() {
+		messageService.find(key, new GHAAsyncCallback<GHAMessage>() {
 
-				@Override
-				public void onSuccess(GHAMessage result) {
+			@Override
+			public void onSuccess(GHAMessage result) {
+				if (canShowNewMessage()) {
 					GHADialog messageDialog = null;
 					messageDialog = getMessageByType(result.getType(),"",result.getText());
-					messageDialog.show();
+					messageDialog.openWindow();
+				}else{
+					messageQueue.add(result);
 				}
-			});
-		}
+			}
+		});
 	}
 
 	/**
@@ -197,12 +210,17 @@ public class GHAAlertManager {
 	 * @param message
 	 */
 	public static void alert(String type, String title, String message) {
+		GHADialog messageDialog = null;
+		GHAMessageType messageType;
+		messageType = createMessageTypeByName(type);
+		messageDialog = getMessageByType(messageType,title,message);
 		if (canShowNewMessage()) {
-			GHADialog messageDialog = null;
-			GHAMessageType messageType;
-			messageType = createMessageTypeByName(type);
-			messageDialog = getMessageByType(messageType,title,message);
-			messageDialog.show();
+			messageDialog.openWindow();
+		}else{
+			messageQueue.add(new GHAMessage(LanguageEnum.ES,
+					"waited-message-"+messageQueue.size(),
+					message,
+					createMessageTypeByName(type)));
 		}
 	}
 
@@ -251,7 +269,7 @@ public class GHAAlertManager {
 			}
 		});
 
-		messageDialog.show();
+		messageDialog.openWindow();
 	}
 
 	/**
@@ -312,7 +330,7 @@ public class GHAAlertManager {
 					}
 				});
 
-				messageDialog.show();
+				messageDialog.openWindow();
 			}
 		});
 	}
@@ -364,7 +382,7 @@ public class GHAAlertManager {
 					}
 				});
 
-				messageDialog.show();
+				messageDialog.openWindow();
 			}
 		});
 	}
@@ -412,7 +430,7 @@ public class GHAAlertManager {
 				messageDialog.close();
 			}
 		});
-		messageDialog.show();
+		messageDialog.openWindow();
 	}
 
 	/**
@@ -447,7 +465,7 @@ public class GHAAlertManager {
 				messageDialog.close();
 			}
 		});
-		messageDialog.show();
+		messageDialog.openWindow();
 	}
 
 	/**
@@ -489,7 +507,7 @@ public class GHAAlertManager {
 						messageDialog.close();
 					}
 				});
-				messageDialog.show();
+				messageDialog.openWindow();
 			}
 		});
 	}
@@ -523,7 +541,7 @@ public class GHAAlertManager {
 						messageDialog.close();
 					}
 				});
-				messageDialog.show();
+				messageDialog.openWindow();
 			}
 		});
 	}
@@ -555,7 +573,7 @@ public class GHAAlertManager {
 				messageDialog.close();
 			}
 		});
-		messageDialog.show();
+		messageDialog.openWindow();
 	}
 
 	/**
@@ -593,6 +611,13 @@ public class GHAAlertManager {
 	public static void removeOpenMessageFromCounter() {
 		if (openMessagesCounter > 0)
 			GHAAlertManager.openMessagesCounter--;
+		if(messageQueue.size()>0){
+			final GHAMessage message = messageQueue.poll();
+			final GHAMessageType messageType = message.getType();
+			if(!messageType.equals("ASKYESNO") && !messageType.equals("CONFIRMATION"))
+				alert(message);
+		}
+
 	}
 
 	/**

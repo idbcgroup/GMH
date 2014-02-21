@@ -131,8 +131,10 @@ public abstract class GHADialog extends Dialog implements ResizeHandler, Window.
 	 * Closes and destroy the window
 	 */
 	public void close() {
-		GHAAlertManager.removeOpenMessageFromCounter();
-		GHAAlertManager.toggleMessagePosition(openedPosition);
+		if(openedPosition>=0){
+			GHAAlertManager.removeOpenMessageFromCounter();
+			GHAAlertManager.toggleMessagePosition(openedPosition);
+		}
 
 		animateRect(null, Window.getScrollTop()+Window.getClientHeight(), null, null,
 				new AnimationCallback() {
@@ -259,9 +261,6 @@ public abstract class GHADialog extends Dialog implements ResizeHandler, Window.
 		if (isVisible()) {
 			final int windowWidth = width;
 			final int windowHeight = height;
-			//			final int windowWidth = Window.getClientWidth() > GHAUiHelper.MIN_WIDTH ? Window.getClientWidth() : GHAUiHelper.MIN_WIDTH;
-			//			final int windowHeight = Window.getClientHeight() > GHAUiHelper.MIN_HEIGHT ? Window.getClientHeight() : GHAUiHelper.MIN_HEIGHT;
-
 
 			int multp = (openedPosition + 1) * (DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT + BORDER_SEPARATION);
 			if (hasButtons)
@@ -290,28 +289,38 @@ public abstract class GHADialog extends Dialog implements ResizeHandler, Window.
 		setMessageStyle("dialogMessageStyle");
 	}
 
-	@Override
-	public void show() {
-		super.show();
-
+	/**
+	 * 
+	 */
+	public void openWindow() {
 		openedPosition = GHAAlertManager.getFreeMessagePosition();
-		GHAAlertManager.toggleMessagePosition(openedPosition);
-		GHAAlertManager.addNewMessageToCounter();
-		// set the height to the available message text space
-		getMessageStack().setHeight(40);
+		if (openedPosition >= 0 || isModal) {
+			if(openedPosition >= 0){
+				GHAAlertManager.toggleMessagePosition(openedPosition);
+				GHAAlertManager.addNewMessageToCounter();
+			}
 
-		if (openedPosition >= 0) {
+			show();
+			// set the height to the available message text space
+			getMessageStack().setHeight(40);
+
 			final int windowWidth = Window.getClientWidth();
 			final int windowHeight = Window.getClientHeight();
-			//			final int windowWidth = Window.getClientWidth() > GHAUiHelper.MIN_WIDTH ? Window.getClientWidth() : GHAUiHelper.MIN_WIDTH;
-			//			final int windowHeight = Window.getClientHeight() > GHAUiHelper.MIN_HEIGHT ? Window.getClientHeight() : GHAUiHelper.MIN_HEIGHT;
+			int multp=0;
+			if(openedPosition<0){
+				setLeft(Window.getScrollLeft()+(windowWidth - (getWidth() + RIGHT_MARGIN)*2));
 
-			setLeft(Window.getScrollLeft()+(windowWidth - (getWidth() + RIGHT_MARGIN)));
+				multp = DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT + BORDER_SEPARATION;
+				if (hasButtons)
+					multp = DEFAULT_NOTIFICATION_BUTTONS_HEIGHT + BORDER_SEPARATION;
+			}else{
+				setLeft(Window.getScrollLeft()+(windowWidth - (getWidth() + RIGHT_MARGIN)));
+
+				multp = (openedPosition + 1)*(DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT + BORDER_SEPARATION);
+				if (hasButtons)
+					multp = (openedPosition + 1)*(DEFAULT_NOTIFICATION_BUTTONS_HEIGHT + BORDER_SEPARATION);
+			}
 			setTop(Window.getScrollTop()+Window.getClientHeight());
-
-			int multp = (openedPosition + 1)*(DEFAULT_NOTIFICATION_NOBUTTONS_HEIGHT + BORDER_SEPARATION);
-			if (hasButtons)
-				multp = (openedPosition + 1)*(DEFAULT_NOTIFICATION_BUTTONS_HEIGHT + BORDER_SEPARATION);
 
 			animateRect(null,Window.getScrollTop()+(windowHeight- multp),null, null);
 		} else {
