@@ -537,3 +537,4 @@ ES,users-delete-confirm,¿Desea eliminar a los usuarios?,CONFIRMATION
 ES,user-delete-confirm,¿Desea eliminar al usuario?,CONFIRMATION
 ES,eia-maintenance-details-update-success,Los detalles del mantenimiento al equipo se han actualizado exitosamente,SUCCESS
 ES,delete-resources-success,El borrado se realizó exitosamente,SUCCESS
+ES,maintenance-eiatype-associative-delete-confirm,Confirme si desea eliminar el tipo de equipo asociado seleccionado,CONFIRMATION

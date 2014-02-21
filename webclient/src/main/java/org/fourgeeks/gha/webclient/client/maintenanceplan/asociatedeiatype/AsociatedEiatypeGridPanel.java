@@ -21,6 +21,7 @@ import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSearchForm;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener;
 
+import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
@@ -145,21 +146,31 @@ public class AsociatedEiatypeGridPanel extends GHAFormLayout implements
 	}
 
 	private void deleteSelected() {
-		EiaTypeMaintenancePlan entity = grid.getSelectedEntity();
+		final EiaTypeMaintenancePlan entity = grid.getSelectedEntity();
 
 		if (entity == null) {
 			GHAAlertManager.alert("record-not-selected");
 			return;
 		}
 
-		EiaTypeMaintenancePlanModel.delete(entity.getId(),
-				new GHAAsyncCallback<Void>() {
+		GHAAlertManager.confirm(
+				"maintenance-eiatype-associative-delete-confirm",
+				new BooleanCallback() {
 
 					@Override
-					public void onSuccess(Void result) {
-						grid.removeSelectedData();
-					}
+					public void execute(Boolean value) {
+						if (value)
+							EiaTypeMaintenancePlanModel.delete(entity.getId(),
+									new GHAAsyncCallback<Void>() {
 
+										@Override
+										public void onSuccess(Void result) {
+											grid.removeSelectedData();
+										}
+
+									});
+					}
 				});
+
 	}
 }
