@@ -1,7 +1,7 @@
-package org.fourgeeks.gha.ejb.gmh;
+package org.fourgeeks.gha.ejb.ess;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -19,6 +19,11 @@ import org.fourgeeks.gha.domain.enu.BpiInstitutionRelationTypeEnum;
 import org.fourgeeks.gha.domain.enu.BpiOriginEnum;
 import org.fourgeeks.gha.domain.enu.BpiRiskEnum;
 import org.fourgeeks.gha.domain.enu.BpiTypeEnum;
+import org.fourgeeks.gha.domain.enu.CCDICodeTypeEnum;
+import org.fourgeeks.gha.domain.enu.CCDIEndValueActionEnum;
+import org.fourgeeks.gha.domain.enu.CCDIStatusEnum;
+import org.fourgeeks.gha.domain.enu.CCDIValueStatusEnum;
+import org.fourgeeks.gha.domain.enu.CCDIValueTypeEnum;
 import org.fourgeeks.gha.domain.enu.CurrencyTypeEnum;
 import org.fourgeeks.gha.domain.enu.DepreciationMethodEnum;
 import org.fourgeeks.gha.domain.enu.DocumentTypeEnum;
@@ -46,10 +51,12 @@ import org.fourgeeks.gha.domain.enu.ProviderResourceTypeEnum;
 import org.fourgeeks.gha.domain.enu.ProviderServicesEnum;
 import org.fourgeeks.gha.domain.enu.ProviderTypeEnum;
 import org.fourgeeks.gha.domain.enu.ServiceAndResourceType;
+import org.fourgeeks.gha.domain.enu.ServiceOrderState;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.enu.UserLogonStatusEnum;
 import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
 import org.fourgeeks.gha.domain.ess.LocationType;
+import org.fourgeeks.gha.domain.ess.MaintenanceServiceOrder;
 import org.fourgeeks.gha.domain.ess.Role;
 import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
@@ -83,12 +90,18 @@ import org.fourgeeks.gha.domain.gmh.EiaTypeComponent;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
+import org.fourgeeks.gha.domain.gmh.MaintenancePlanStadisticData;
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocolStadisticData;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.domain.gmh.RequiredResources;
 import org.fourgeeks.gha.domain.gmh.ServiceAndResource;
 import org.fourgeeks.gha.domain.gmh.ServiceResourceCategory;
 import org.fourgeeks.gha.domain.gmh.SubProtocolAndChecklist;
+import org.fourgeeks.gha.domain.gom.CCDIDefinition;
+import org.fourgeeks.gha.domain.gom.CCDILevelDefinition;
+import org.fourgeeks.gha.domain.gom.CCDILevelValue;
+import org.fourgeeks.gha.domain.gom.Concept;
 import org.fourgeeks.gha.domain.logs.GHALog;
 import org.fourgeeks.gha.domain.logs.UILog;
 import org.fourgeeks.gha.domain.mix.Bpi;
@@ -99,15 +112,44 @@ import org.fourgeeks.gha.domain.msg.GHAMessage;
 import org.fourgeeks.gha.domain.msg.GHAMessageId;
 import org.fourgeeks.gha.domain.msg.GHAMessageType;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
+import org.fourgeeks.gha.ejb.PDTMessageProducer;
+import org.fourgeeks.gha.ejb.PDTMessageProducerRemote;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
-import org.fourgeeks.gha.ejb.ess.RoleService;
-import org.fourgeeks.gha.ejb.ess.RoleServiceRemote;
-import org.fourgeeks.gha.ejb.ess.SSOUserService;
-import org.fourgeeks.gha.ejb.ess.SSOUserServiceRemote;
+import org.fourgeeks.gha.ejb.gar.BpuService;
+import org.fourgeeks.gha.ejb.gar.BpuServiceRemote;
 import org.fourgeeks.gha.ejb.gar.ObuService;
 import org.fourgeeks.gha.ejb.gar.ObuServiceRemote;
 import org.fourgeeks.gha.ejb.glm.ExternalProviderService;
 import org.fourgeeks.gha.ejb.glm.ExternalProviderServiceRemote;
+import org.fourgeeks.gha.ejb.gmh.EiaDamageReportService;
+import org.fourgeeks.gha.ejb.gmh.EiaDamageReportServiceRemote;
+import org.fourgeeks.gha.ejb.gmh.EiaMaintenancePlanificationService;
+import org.fourgeeks.gha.ejb.gmh.EiaMaintenancePlanificationServiceLocal;
+import org.fourgeeks.gha.ejb.gmh.EiaMaintenancePlanificationServiceRemote;
+import org.fourgeeks.gha.ejb.gmh.EiaMaintenanceService;
+import org.fourgeeks.gha.ejb.gmh.EiaMaintenanceServiceRemote;
+import org.fourgeeks.gha.ejb.gmh.EiaService;
+import org.fourgeeks.gha.ejb.gmh.EiaServiceRemote;
+import org.fourgeeks.gha.ejb.gmh.EiaServiceTest;
+import org.fourgeeks.gha.ejb.gmh.EiaTypeComponentService;
+import org.fourgeeks.gha.ejb.gmh.EiaTypeComponentServiceLocal;
+import org.fourgeeks.gha.ejb.gmh.EiaTypeComponentServiceRemote;
+import org.fourgeeks.gha.ejb.gmh.EiaTypeMaintenancePlanService;
+import org.fourgeeks.gha.ejb.gmh.EiaTypeMaintenancePlanServiceRemote;
+import org.fourgeeks.gha.ejb.gmh.EiaTypeService;
+import org.fourgeeks.gha.ejb.gmh.EiaTypeServiceRemote;
+import org.fourgeeks.gha.ejb.gmh.MaintenanceActivityService;
+import org.fourgeeks.gha.ejb.gmh.MaintenanceActivityServiceRemote;
+import org.fourgeeks.gha.ejb.gmh.MaintenancePlanService;
+import org.fourgeeks.gha.ejb.gmh.MaintenancePlanServiceRemote;
+import org.fourgeeks.gha.ejb.gmh.MaintenanceProtocolsService;
+import org.fourgeeks.gha.ejb.gmh.MaintenanceProtocolsServiceRemote;
+import org.fourgeeks.gha.ejb.gmh.SubProtocolAndCheklistService;
+import org.fourgeeks.gha.ejb.gmh.SubProtocolAndCheklistServiceLocal;
+import org.fourgeeks.gha.ejb.gmh.SubProtocolAndCheklistServiceRemote;
+import org.fourgeeks.gha.ejb.gom.CCDIService;
+import org.fourgeeks.gha.ejb.gom.CCDIServiceLocal;
+import org.fourgeeks.gha.ejb.gom.CCDIServiceRemote;
 import org.fourgeeks.gha.ejb.log.UILogService;
 import org.fourgeeks.gha.ejb.log.UILogServiceLocal;
 import org.fourgeeks.gha.ejb.log.UILogServiceRemote;
@@ -116,20 +158,21 @@ import org.fourgeeks.gha.ejb.mix.InstitutionServiceRemote;
 import org.fourgeeks.gha.ejb.mix.LegalEntityService;
 import org.fourgeeks.gha.ejb.mix.LegalEntityServiceRemote;
 import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
- * 
  * @author naramirez
- * 
  */
-// @RunWith(Arquillian.class)
-public class SubProtocolAndChecklistServiceTest {
+@RunWith(Arquillian.class)
+public class MaintenanceServiceOrderServiceTest {
 	/**
 	 * @return the deployment descriptor
 	 */
@@ -238,7 +281,6 @@ public class SubProtocolAndChecklistServiceTest {
 				.addClass(GHAMessageType.class)
 				.addClass(Activity.class)
 				.addClass(Bsp.class)
-				.addClass(ServiceAndResourceType.class)
 				.addClass(SubProtocolAndChecklist.class)
 				.addClass(MaintenanceActivity.class)
 				.addClass(MaintenanceActivityService.class)
@@ -246,6 +288,11 @@ public class SubProtocolAndChecklistServiceTest {
 				.addClass(SubProtocolAndCheklistService.class)
 				.addClass(SubProtocolAndCheklistServiceRemote.class)
 				.addClass(SubProtocolAndCheklistServiceLocal.class)
+				.addClass(EiaMaintenancePlanificationService.class)
+				.addClass(EiaMaintenancePlanificationServiceRemote.class)
+				.addClass(EiaMaintenancePlanificationServiceLocal.class)
+				.addClass(EiaMaintenanceService.class)
+				.addClass(EiaMaintenanceServiceRemote.class)
 				.addClass(UILog.class)
 				.addClass(UILogService.class)
 				.addClass(UILogServiceLocal.class)
@@ -253,214 +300,266 @@ public class SubProtocolAndChecklistServiceTest {
 				.addClass(SSOUser.class)
 				.addClass(SSOUserService.class)
 				.addClass(SSOUserServiceRemote.class)
+				.addClass(ServiceAndResourceType.class)
 				.addClass(GHALog.class)
 				.addClass(EiaCorrectiveMaintenance.class)
 				.addClass(EiaMaintenance.class)
 				.addClass(UserLogonStatusEnum.class)
 				.addClass(MaintenanceCancelationCause.class)
 				.addClass(MaintenancePlanificationState.class)
+				.addClass(EiaDamageReportService.class)
+				.addClass(EiaDamageReportServiceRemote.class)
+				.addClass(EiaTypeMaintenancePlanService.class)
+				.addClass(EiaTypeMaintenancePlanServiceRemote.class)
+				.addClass(MaintenancePlanService.class)
+				.addClass(MaintenancePlanServiceRemote.class)
+				.addClass(MaintenanceProtocolsService.class)
+				.addClass(MaintenanceProtocolsServiceRemote.class)
+				.addClass(MaintenancePlanStadisticData.class)
+				.addClass(MaintenanceProtocolStadisticData.class)
+				.addClass(BpuService.class)
+				.addClass(BpuServiceRemote.class)
+				.addClass(MaintenanceServiceOrder.class)
+				.addClass(ServiceOrderState.class)
+				.addClass(MaintenanceServiceOrderService.class)
+				.addClass(MaintenanceServiceOrderServiceLocal.class)
+				.addClass(CCDIDefinition.class)
+				.addClass(CCDILevelDefinition.class)
+				.addClass(CCDILevelValue.class)
+				.addClass(CCDIStatusEnum.class)
+				.addClass(CCDIValueStatusEnum.class)
+				.addClass(CCDIEndValueActionEnum.class)
+				.addClass(CCDIValueTypeEnum.class)
+				.addClass(CCDICodeTypeEnum.class)
+				.addClass(CCDIService.class)
+				.addClass(CCDIServiceLocal.class)
+				.addClass(CCDIServiceRemote.class)
+				.addClass(PDTMessageProducer.class)
+				.addClass(PDTMessageProducerRemote.class)
+				.addClass(Concept.class)
 				.addAsResource("test-persistence.xml",
 						"META-INF/persistence.xml")
 				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
-	@EJB(lookup = "java:global/test/SubProtocolAndCheklistService!"
-			+ "org.fourgeeks.gha.ejb.gmh.SubProtocolAndCheklistServiceRemote")
-	private SubProtocolAndCheklistServiceRemote serviceRemote;
+	@EJB(lookup = "java:global/test/EiaMaintenanceService")
+	private EiaMaintenanceServiceRemote maintenanceService;
 
-	@EJB(lookup = "java:global/test/SubProtocolAndCheklistService!"
-			+ "org.fourgeeks.gha.ejb.gmh.SubProtocolAndCheklistServiceLocal")
-	private SubProtocolAndCheklistServiceLocal serviceLocal;
+	@EJB(lookup = "java:global/test/EiaDamageReportService")
+	private EiaDamageReportServiceRemote damageReportService;
 
-	private Activity activity;
-	private Activity parentActivity;
-	private SubProtocolAndChecklist subProtocol;
+	@EJB(lookup = "java:global/test/EiaMaintenancePlanificationService!"
+			+ "org.fourgeeks.gha.ejb.gmh.EiaMaintenancePlanificationServiceLocal")
+	private EiaMaintenancePlanificationServiceLocal planifServiceLocal;
+
+	@EJB(lookup = "java:global/test/EiaMaintenancePlanificationService!"
+			+ "org.fourgeeks.gha.ejb.gmh.EiaMaintenancePlanificationServiceRemote")
+	private EiaMaintenancePlanificationServiceRemote planifServiceRemote;
+
+	@EJB(lookup = "java:global/test/EiaTypeMaintenancePlanService")
+	private EiaTypeMaintenancePlanServiceRemote eiaTypeMPlanService;
+
+	@EJB(lookup = "java:global/test/EiaService")
+	private EiaServiceRemote eiaService;
+
+	@EJB(lookup = "java:global/test/MaintenancePlanService")
+	private MaintenancePlanServiceRemote maintenancePlanService;
+
+	@EJB(lookup = "java:global/test/BpuService")
+	private BpuServiceRemote bpuService;
+
+	@EJB(lookup = "java:global/test/MaintenanceServiceOrderService")
+	private MaintenanceServiceOrderServiceLocal serviceOrderService;
+
+	private EiaDamageReport eiaDamageReport;
+	private EiaMaintenancePlanification planif;
+	private EiaTypeMaintenancePlan eiaTypeMPlan;
+	private MaintenancePlan maintenancePlan;
+	EiaCorrectiveMaintenance maintenance;
+	private EiaType eiaType;
+	private Eia eia;
 
 	/** */
 	@Before
 	public void set() {
-		activity = new Activity();
-		activity.setId(1);
+		System.out
+				.println("\n SET - MAINTENANCE SERVICE ORDER SERVICE TEST \n");
 
-		parentActivity = new Activity();
-		parentActivity.setId(7);
+		try {
+			maintenancePlan = new MaintenancePlan();
+			maintenancePlan.setName("mantenimiento prueba");
+			maintenancePlan.setFrequency(3);
+			maintenancePlan.setPot(TimePeriodEnum.DAYS);
+			maintenancePlan.setType(MaintenancePlanType.PREVENTIVE);
+			maintenancePlan.setState(MaintenancePlanState.ACTIVE);
+			maintenancePlan
+					.setCancelationOption(MaintenancePlanCancelationOption.DEFERRABLE);
+			maintenancePlan = maintenancePlanService.save(maintenancePlan);
 
-		subProtocol = new SubProtocolAndChecklist();
-		subProtocol.setActivity(activity);
-		subProtocol.setParentActivity(parentActivity);
-		subProtocol.setOrdinal(4);
+			eiaType = new EiaType("3000000001");
+
+			eia = eiaService.findByEiaType(eiaType).get(0);
+
+			eiaTypeMPlan = new EiaTypeMaintenancePlan();
+			eiaTypeMPlan.setEiaType(eiaType);
+			eiaTypeMPlan.setMaintenancePlan(maintenancePlan);
+			eiaTypeMPlan = eiaTypeMPlanService.save(eiaTypeMPlan);
+
+			planif = new EiaMaintenancePlanification();
+			planif.setEia(eia);
+			planif.setPlan(eiaTypeMPlan);
+			planif = planifServiceRemote.save(planif);
+
+			Bpu bpu = bpuService.find(1);
+			eiaDamageReport = new EiaDamageReport();
+			eiaDamageReport.setEia(eia);
+			eiaDamageReport.setDamageStatus(EiaDamageStatusEnum.DAMAGE);
+			eiaDamageReport.setPriority(EiaDamagePriorityEnum.NORMAL);
+			eiaDamageReport.setUserWhoRegistered(bpu);
+			eiaDamageReport.setUserWhoReported(bpu);
+			eiaDamageReport = damageReportService.save(eiaDamageReport);
+
+			maintenance = new EiaCorrectiveMaintenance();
+			maintenance.setDamageReport(eiaDamageReport);
+			maintenance.setDescription(eiaDamageReport.getDamageMotive());
+			maintenance = maintenanceService
+					.saveCorrectiveMaintenance(maintenance);
+
+		} catch (GHAEJBException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/** */
 	@After
 	public void unset() {
+		System.out
+				.println("\n UNSET - MAINTENANCE SERVICE ORDER SERVICE TEST \n");
 
+		try {
+			maintenanceService.deleteCorrectiveMaintenance(maintenance.getId());
+			planifServiceRemote.delete(planif.getId());
+			eiaTypeMPlanService.delete(eiaTypeMPlan.getId());
+			maintenancePlanService.delete(maintenancePlan.getId());
+			damageReportService.delete(eiaDamageReport.getId());
+
+		} catch (GHAEJBException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/** */
-	// @Test
+	@Test
 	public void test() {
 		final String sep = "\n---------------------------------------\n";
 
-		System.out.println("TESTING SUBPROTOCOL AND CHECKLIST SERVICE\n");
+		System.out.println("\n TESTING MAINTENANCE SERVICE ORDER SERVICE\n");
+
+		System.out.println(sep + "saveTest" + sep);
+		MaintenanceServiceOrder entity = saveTest();
+
+		System.out.println(sep + "updateTest" + sep);
+		entity = updateTest(entity);
 
 		System.out.println(sep + "getAllTest" + sep);
 		getAllTest();
-		System.out.println(sep + "getAllTest2" + sep);
-		getAllTest2();
-		System.out.println(sep + "findByParentActivityTest" + sep);
-		findByParentActivityTest();
+
 		System.out.println(sep + "findByIdTest" + sep);
-		findByIdTest();
-		System.out.println(sep + "getSubProtocolActivitiesCountTest" + sep);
-		getSubProtocolActivitiesCountTest();
-		System.out.println(sep + "getSubProtocolCostTest" + sep);
-		getSubProtocolCostTest();
-		System.out.println(sep + "getSubProtocolDurationTest" + sep);
-		getSubProtocolDurationTest();
-		System.out.println(sep + "saveTest" + sep);
-		saveTest();
-		System.out.println(sep + "updateTest" + sep);
-		updateTest();
+		findByIdTest(entity);
+
+		System.out.println(sep + "findByEntityTest" + sep);
+		findByEntityTest(entity);
+
 		System.out.println(sep + "deleteTest" + sep);
-		deleteTest();
-		System.out.println(sep + "deleteListTest" + sep);
-		deleteListTest();
+		deleteTest(entity);
 	}
 
-	private void findByParentActivityTest() {
+	private void deleteTest(MaintenanceServiceOrder entity) {
+		int resultExpected = 0;
+
 		try {
-			Activity activity = new Activity();
-			activity.setId(7);
+			serviceOrderService.delete(entity.getId());
+			List<MaintenanceServiceOrder> result = serviceOrderService.getAll();
 
-			final List<SubProtocolAndChecklist> result = serviceRemote
-					.findByParentActivity(activity);
-
-			Assert.assertEquals(3, result.size());
-
-		} catch (Exception e) {
+			Assert.assertEquals(resultExpected, result.size());
+		} catch (GHAEJBException e) {
 			e.printStackTrace();
 		}
-
 	}
 
-	private void findByIdTest() {
+	private void findByIdTest(MaintenanceServiceOrder entity) {
 		try {
-			final SubProtocolAndChecklist result = serviceRemote.find(1);
+			long id = entity.getId();
+			MaintenanceServiceOrder result = serviceOrderService.find(id);
+
 			Assert.assertNotNull(result);
 
-		} catch (Exception e) {
+		} catch (GHAEJBException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void findByEntityTest(MaintenanceServiceOrder entity) {
+		int expectedResult = 1;
+		try {
+			List<MaintenanceServiceOrder> result = serviceOrderService
+					.find(entity);
+
+			Assert.assertEquals(expectedResult, result.size());
+
+		} catch (GHAEJBException e) {
 			e.printStackTrace();
 		}
 	}
 
 	private void getAllTest() {
+		int expectedResult = 1;
 		try {
-			final List<SubProtocolAndChecklist> result = serviceRemote.getAll();
-			Assert.assertEquals(3, result.size());
+			List<MaintenanceServiceOrder> result = serviceOrderService.getAll();
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+			Assert.assertEquals(expectedResult, result.size());
 
-	private void getAllTest2() {
-		final int itemsExpected = 3;
-		try {
-			final List<SubProtocolAndChecklist> result = serviceRemote.getAll(
-					0, 3);
-			Assert.assertEquals(itemsExpected, result.size());
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	private void saveTest() {
-		try {
-			subProtocol = serviceRemote.save(subProtocol);
-			Assert.assertNotNull(subProtocol);
 		} catch (GHAEJBException e) {
 			e.printStackTrace();
 		}
 	}
 
-	private void updateTest() {
-		final int ordinalExpected = 5;
+	private MaintenanceServiceOrder saveTest() {
 		try {
-			subProtocol.setOrdinal(ordinalExpected);
-			SubProtocolAndChecklist result = serviceRemote.update(subProtocol);
-			final int ordinalResult = result.getOrdinal();
+			long time = (new Date()).getTime();
 
-			Assert.assertEquals(ordinalExpected, ordinalResult);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+			MaintenanceServiceOrder entity = new MaintenanceServiceOrder();
+			entity.setServiceOrderNumber("MSO1");
+			entity.setMaintenance(maintenance);
+			entity.setOpeningTimestamp(new Timestamp(time));
+			entity.setState(ServiceOrderState.ACTIVE);
 
-	private void deleteTest() {
-		final int itemsExpected = 3;
-		try {
-			serviceRemote.delete(subProtocol.getId());
+			MaintenanceServiceOrder result = serviceOrderService.save(entity);
 
-			Assert.assertEquals(itemsExpected, serviceRemote.getAll().size());
+			Assert.assertNotNull(result);
+			return result;
+
 		} catch (GHAEJBException e) {
 			e.printStackTrace();
 		}
+
+		return null;
 	}
 
-	private void deleteListTest() {
-		final int itemsExpected = 3;
-
+	private MaintenanceServiceOrder updateTest(MaintenanceServiceOrder entity) {
 		try {
-			subProtocol = new SubProtocolAndChecklist();
-			subProtocol.setActivity(activity);
-			subProtocol.setParentActivity(parentActivity);
-			subProtocol.setOrdinal(4);
-			subProtocol = serviceRemote.save(subProtocol);
+			String newValue = "XXX";
+			entity.setServiceOrderNumber(newValue);
 
-			List<SubProtocolAndChecklist> list = new ArrayList<SubProtocolAndChecklist>();
-			list.add(subProtocol);
+			MaintenanceServiceOrder result = serviceOrderService.update(entity);
 
-			serviceRemote.delete(list);
-			Assert.assertEquals(itemsExpected, serviceRemote.getAll().size());
+			Assert.assertEquals(newValue, result.getServiceOrderNumber());
+			return result;
+
 		} catch (GHAEJBException e) {
 			e.printStackTrace();
 		}
-	}
 
-	private void getSubProtocolActivitiesCountTest() {
-		final int countExpected = 3;
-		try {
-			final long result = serviceLocal
-					.getSubProtocolActivitiesCount(parentActivity);
-
-			Assert.assertEquals(countExpected, result);
-		} catch (GHAEJBException e) {
-			e.printStackTrace();
-		}
-	}
-
-	private void getSubProtocolCostTest() {
-		final double costExpected = 1896.97;
-		try {
-			final BigDecimal result = serviceLocal
-					.getSubProtocolCost(parentActivity);
-
-			Assert.assertEquals(costExpected, result.doubleValue());
-		} catch (GHAEJBException e) {
-			e.printStackTrace();
-		}
-	}
-
-	private void getSubProtocolDurationTest() {
-		try {
-			final int result = serviceLocal
-					.getSubProtocolDuration(parentActivity);
-
-			Assert.assertEquals(1, result);
-		} catch (GHAEJBException e) {
-			e.printStackTrace();
-		}
+		return null;
 	}
 }

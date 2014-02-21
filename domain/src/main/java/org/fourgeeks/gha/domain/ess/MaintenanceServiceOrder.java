@@ -7,9 +7,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.validation.constraints.NotNull;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
-import org.fourgeeks.gha.domain.enu.ServiceOderState;
+import org.fourgeeks.gha.domain.enu.ServiceOrderState;
 import org.fourgeeks.gha.domain.glm.Bsp;
 import org.fourgeeks.gha.domain.gmh.EiaMaintenance;
 
@@ -28,6 +29,7 @@ public class MaintenanceServiceOrder extends AbstractEntity {
 	 * Número ID que identifica inequívocamente la orden de servicio de
 	 * mantenimiento.
 	 */
+	@NotNull
 	private String serviceOrderNumber;
 
 	/** Fecha en la que se genera la orden de servicio de mantenimiento */
@@ -38,11 +40,11 @@ public class MaintenanceServiceOrder extends AbstractEntity {
 	@JoinColumn(name = "maintenanceProviderFk")
 	private Bsp maintenanceProvider;
 
-	private ServiceOderState state;
+	private ServiceOrderState state;
 
 	/** El mantenimiento asociado a la orden */
 	@ManyToOne
-	@JoinColumn(name = "maintenanceFk")
+	@JoinColumn(name = "maintenanceFk", nullable = false)
 	private EiaMaintenance maintenance;
 
 	/** */
@@ -98,7 +100,7 @@ public class MaintenanceServiceOrder extends AbstractEntity {
 	/**
 	 * @return the state
 	 */
-	public ServiceOderState getState() {
+	public ServiceOrderState getState() {
 		return state;
 	}
 
@@ -106,7 +108,7 @@ public class MaintenanceServiceOrder extends AbstractEntity {
 	 * @param state
 	 *            the state to set
 	 */
-	public void setState(ServiceOderState state) {
+	public void setState(ServiceOrderState state) {
 		this.state = state;
 	}
 

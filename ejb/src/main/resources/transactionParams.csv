@@ -1,2 +1,2 @@
 #TransactionParams (code, jndiName)
-corrective-maintenance,java:global/ear-1/ejb-1/MaintenanceServiceOrderPDTProcessor
+corrective-maintenance,java:global/ear-1/ejb-1/CorrectiveMaintenanceServiceOrderPDTProcessor

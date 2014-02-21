@@ -1,10 +1,12 @@
 package org.fourgeeks.gha.ejb.gmh;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,6 +17,7 @@ import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
+import org.fourgeeks.gha.ejb.PDTMessageProducerRemote;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
@@ -24,7 +27,10 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
 public class EiaDamageReportService extends GHAEJBExceptionService implements
 		EiaDamageReportServiceRemote {
 	@PersistenceContext
-	EntityManager em;
+	private EntityManager em;
+
+	@EJB
+	private PDTMessageProducerRemote pdtProducerService;
 
 	private final static Logger logger = Logger
 			.getLogger(EiaDamageReportService.class.getName());
@@ -83,21 +89,15 @@ public class EiaDamageReportService extends GHAEJBExceptionService implements
 			throws GHAEJBException {
 
 		try {
-			// TODO pasar esto al PDT
-			// Desabilitando el equipo. Cambiando su estado a DAÑADO:
-			// Eia eia = eiaDamageReport.getEia();
-			// eia.setState(EiaStateEnum.DAMAGED);
-
-			// Creando un nuevo mantenimiento correctivo:
-			// EiaCorrectiveMaintenance cmp = new EiaCorrectiveMaintenance();
-			// cmp.setDamageReport(eiaDamageReport);
-			// cmp.setDescription(eiaDamageReport.getDamageMotive());
-			//
-			// em.merge(eia);
-			// em.persist(cmp);
-
 			em.persist(eiaDamageReport);
 			em.flush();
+
+			// parametros para el PDT
+			HashMap<String, Object> params = new HashMap<String, Object>();
+			params.put("eiaDamageReport", eiaDamageReport);
+			params.put("eia", eiaDamageReport.getEia());
+
+			pdtProducerService.sendMessage("corrective-maintenance", params);
 
 			return em.find(EiaDamageReport.class, eiaDamageReport.getId());
 		} catch (Exception e) {

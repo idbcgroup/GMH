@@ -11,7 +11,7 @@ import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
  * @author naramirez
  */
 @Local
-public interface MaintenanceServiceOrderLocal {
+public interface MaintenanceServiceOrderServiceLocal {
 	/**
 	 * @param Id
 	 * @throws GHAEJBException

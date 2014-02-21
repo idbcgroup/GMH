@@ -15,7 +15,7 @@ import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.fourgeeks.gha.domain.enu.ServiceOderState;
+import org.fourgeeks.gha.domain.enu.ServiceOrderState;
 import org.fourgeeks.gha.domain.ess.MaintenanceServiceOrder;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.glm.Bsp;
@@ -27,7 +27,7 @@ import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
  */
 @Stateless
 public class MaintenanceServiceOrderService extends GHAEJBExceptionService
-		implements MaintenanceServiceOrderLocal {
+		implements MaintenanceServiceOrderServiceLocal {
 
 	@PersistenceContext
 	EntityManager em;
@@ -49,12 +49,6 @@ public class MaintenanceServiceOrderService extends GHAEJBExceptionService
 			ParameterExpression<Bsp> p = cb.parameter(Bsp.class, "bsp");
 			criteria = cb.and(criteria, cb.equal(root.<Bsp> get("bsp"), p));
 		}
-		if (entity.getOpeningTimestamp() != null) {
-			ParameterExpression<Timestamp> p = cb.parameter(Timestamp.class,
-					"openingTimesptamp");
-			criteria = cb.and(criteria,
-					cb.equal(root.<Timestamp> get("openingTimesptamp"), p));
-		}
 		if (entity.getServiceOrderNumber() != null) {
 			ParameterExpression<String> p = cb.parameter(String.class,
 					"serviceOrderNumber");
@@ -62,10 +56,16 @@ public class MaintenanceServiceOrderService extends GHAEJBExceptionService
 					cb.equal(root.<String> get("serviceOrderNumber"), p));
 		}
 		if (entity.getState() != null) {
-			ParameterExpression<ServiceOderState> p = cb.parameter(
-					ServiceOderState.class, "state");
+			ParameterExpression<ServiceOrderState> p = cb.parameter(
+					ServiceOrderState.class, "state");
 			criteria = cb.and(criteria,
-					cb.equal(root.<ServiceOderState> get("state"), p));
+					cb.equal(root.<ServiceOrderState> get("state"), p));
+		}
+		if (entity.getOpeningTimestamp() != null) {
+			ParameterExpression<Timestamp> p = cb.parameter(Timestamp.class,
+					"openingTimestamp");
+			criteria = cb.and(criteria,
+					cb.equal(root.<Timestamp> get("openingTimestamp"), p));
 		}
 
 		return criteria;
@@ -105,7 +105,6 @@ public class MaintenanceServiceOrderService extends GHAEJBExceptionService
 			Root<MaintenanceServiceOrder> root = cQuery
 					.from(MaintenanceServiceOrder.class);
 			cQuery.select(root);
-			cQuery.orderBy(cb.asc(root.get("id")));
 
 			Predicate criteria = buildFilters(entity, cb, root);
 			cQuery.where(criteria);
@@ -124,16 +123,16 @@ public class MaintenanceServiceOrderService extends GHAEJBExceptionService
 				if (entity.getMaintenanceProvider() != null) {
 					q.setParameter("bsp", entity.getMaintenanceProvider());
 				}
-				if (entity.getOpeningTimestamp() != null) {
-					q.setParameter("openingTimesptamp",
-							entity.getOpeningTimestamp());
-				}
 				if (entity.getServiceOrderNumber() != null) {
 					q.setParameter("serviceOrderNumber",
 							entity.getServiceOrderNumber());
 				}
 				if (entity.getState() != null) {
 					q.setParameter("state", entity.getState());
+				}
+				if (entity.getOpeningTimestamp() != null) {
+					q.setParameter("openingTimestamp",
+							entity.getOpeningTimestamp());
 				}
 			}
 
