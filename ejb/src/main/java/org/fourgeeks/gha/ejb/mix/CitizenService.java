@@ -112,6 +112,7 @@ public class CitizenService extends GHAEJBExceptionService implements
 	@Override
 	public Citizen save(Citizen citizen) throws GHAEJBException {
 		try {
+			em.persist(citizen.getLegalEntity());
 			em.persist(citizen);
 			em.flush();
 			return em.find(Citizen.class, citizen.getId());

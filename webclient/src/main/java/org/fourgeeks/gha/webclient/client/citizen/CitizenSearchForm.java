@@ -32,7 +32,7 @@ public class CitizenSearchForm extends GHASearchForm<Citizen> implements
 
 	private CitizenGrid grid;
 	private List<CitizenSelectionListener> listeners;
-	// private CitizenTopForm userTopForm;
+	private CitizenTopForm userTopForm;
 
 	{
 		grid = new CitizenGrid();
@@ -147,7 +147,7 @@ public class CitizenSearchForm extends GHASearchForm<Citizen> implements
 
 	@Override
 	public void search() {
-		// userTopForm.search();
+		userTopForm.search();
 	}
 
 	// /*

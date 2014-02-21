@@ -18,18 +18,18 @@ public class CitizenTab extends GHATab {
 	private final String patientId;
 
 	/**
-	 * @param ctiizenId
+	 * @param citizenId
 	 * 
 	 */
-	public CitizenTab(final String ctiizenId) {
-		this.patientId = ctiizenId;
+	public CitizenTab(final String citizenId) {
+		this.patientId = citizenId;
 		setBackgroundColor("cyan");
 		header = new GHATabHeader(this);
 		header.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				History.newItem("res/" + ctiizenId);
+				History.newItem("res/" + citizenId);
 			}
 		});
 		addMember(new CitizenRESTopForm());

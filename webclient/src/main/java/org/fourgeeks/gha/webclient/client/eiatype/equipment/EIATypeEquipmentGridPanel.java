@@ -15,8 +15,8 @@ import org.fourgeeks.gha.webclient.client.UI.icons.GHANewButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAFormLayout;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.eia.EIAAddForm;
 import org.fourgeeks.gha.webclient.client.eia.EIAGrid;
 import org.fourgeeks.gha.webclient.client.eia.EIAModel;
@@ -40,9 +40,9 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class EIATypeEquipmentGridPanel extends GHAFormLayout implements
-EIATypeSelectionListener,/* EiaSelectionProducer, */
-EIASelectionListener, EiaDamageReportSelectionListener,
-HideableListener, ClosableListener {
+		EIATypeSelectionListener,/* EiaSelectionProducer, */
+		EIASelectionListener, EiaDamageReportSelectionListener,
+		HideableListener, ClosableListener {
 
 	private EIAGrid grid;
 	private EiaCountLabel eiaLabel;
@@ -79,18 +79,18 @@ HideableListener, ClosableListener {
 					}
 				}), new GHADeleteButton(new ClickHandler() {
 
-					@Override
-					public void onClick(ClickEvent event) {
+			@Override
+			public void onClick(ClickEvent event) {
 
-						final Eia selectedRecord = grid.getSelectedEntity();
+				final Eia selectedRecord = grid.getSelectedEntity();
 
-						if (selectedRecord == null) {
-							GHAAlertManager.alert("record-not-selected");
-							return;
-						}
+				if (selectedRecord == null) {
+					GHAAlertManager.alert("record-not-selected");
+					return;
+				}
 
-						GHAAlertManager.confirm("eia-delete-confirm",
-								new BooleanCallback() {
+				GHAAlertManager.confirm("eia-delete-confirm",
+						new BooleanCallback() {
 
 							@Override
 							public void execute(Boolean resultAsc) {
@@ -98,34 +98,36 @@ HideableListener, ClosableListener {
 									EIAModel.delete(selectedRecord.getId(),
 											new GHAAsyncCallback<Boolean>() {
 
-										@Override
-										public void onSuccess(
-												Boolean result) {
-											loadData(eiaType);
+												@Override
+												public void onSuccess(
+														Boolean result) {
+													loadData(eiaType);
 
-										}
+												}
 
-									});
+											});
 							}
 						});
 
-					}
+			}
 
-				}), new GHAEditButton(new ClickHandler() {
+		}), new GHAEditButton(new ClickHandler() {
 
-					@Override
-					public void onClick(ClickEvent event) {
-						final Eia selectedRecord = grid.getSelectedEntity();
+			@Override
+			public void onClick(ClickEvent event) {
+				final Eia selectedRecord = grid.getSelectedEntity();
 
-						if (selectedRecord == null) {
-							GHAAlertManager.alert("INFORMATION", GHAStrings.get("information"),GHAStrings.get("record-not-selected"));
-							return;
-						}
+				if (selectedRecord == null) {
+					GHAAlertManager.alert("INFORMATION",
+							GHAStrings.get("information"),
+							GHAStrings.get("record-not-selected"));
+					return;
+				}
 
-						eiaUpdateForm.setEia(selectedRecord);
-						eiaUpdateForm.open();
-					}
-				}));
+				eiaUpdateForm.setEia(selectedRecord);
+				eiaUpdateForm.open();
+			}
+		}));
 
 		VLayout gridPanel = new VLayout();
 		gridPanel.setMembersMargin(10);
@@ -172,7 +174,7 @@ HideableListener, ClosableListener {
 						new EIARecord[] {});
 				grid.setData(array);
 				EIATypeEquipmentGridPanel.this.eiaLabel
-				.setEiaStateTotals(result);
+						.setEiaStateTotals(result);
 			}
 		});
 	}
@@ -200,6 +202,5 @@ HideableListener, ClosableListener {
 		eiaAddForm.select(eiaType);
 		eiaUpdateForm.select(eiaType);
 		loadData(eiaType);
-
 	}
 }

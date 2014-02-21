@@ -26,8 +26,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class EIATypeInformationFormPanel extends GHAFormLayout implements
-EIATypeSelectionListener, EiaTypeSelectionProducer, HideableListener,
-ClosableListener {
+		EIATypeSelectionListener, EiaTypeSelectionProducer, HideableListener,
+		ClosableListener {
 
 	private final EiaTypeForm form = new EiaTypeForm();
 
@@ -45,11 +45,11 @@ ClosableListener {
 					}
 				}), new GHAUndoButton(new ClickHandler() {
 
-					@Override
-					public void onClick(ClickEvent event) {
-						undo();
-					}
-				}));
+			@Override
+			public void onClick(ClickEvent event) {
+				undo();
+			}
+		}));
 
 		HLayout gridPanel = new HLayout();
 		gridPanel.addMembers(form, new LayoutSpacer(), sideButtons);
@@ -74,22 +74,23 @@ ClosableListener {
 				return true;
 			}
 
-			GHAAlertManager.askYesNoCancel("unsaved-changes", new ClickHandler() {
+			GHAAlertManager.askYesNoCancel("unsaved-changes",
+					new ClickHandler() {
 
-				@Override
-				public void onClick(ClickEvent event) {
-					GHAPlaceSet.closeCurrentPlace(HideCloseAction.SAVE);
+						@Override
+						public void onClick(ClickEvent event) {
+							GHAPlaceSet.closeCurrentPlace(HideCloseAction.SAVE);
 
-				}
-			}, new ClickHandler() {
+						}
+					}, new ClickHandler() {
 
-				@Override
-				public void onClick(ClickEvent event) {
-					GHAPlaceSet
-					.closeCurrentPlace(HideCloseAction.DISCARD);
+						@Override
+						public void onClick(ClickEvent event) {
+							GHAPlaceSet
+									.closeCurrentPlace(HideCloseAction.DISCARD);
 
-				}
-			}, null);
+						}
+					}, null);
 			return false;
 		}
 		return true;
@@ -106,22 +107,23 @@ ClosableListener {
 				return true;
 			}
 
-			GHAAlertManager.askYesNoCancel("unsaved-changes", new ClickHandler() {
+			GHAAlertManager.askYesNoCancel("unsaved-changes",
+					new ClickHandler() {
 
-				@Override
-				public void onClick(ClickEvent event) {
-					GHAPlaceSet.hideCurrentPlace(HideCloseAction.SAVE);
+						@Override
+						public void onClick(ClickEvent event) {
+							GHAPlaceSet.hideCurrentPlace(HideCloseAction.SAVE);
 
-				}
-			}, new ClickHandler() {
+						}
+					}, new ClickHandler() {
 
-				@Override
-				public void onClick(ClickEvent event) {
-					GHAPlaceSet
-					.hideCurrentPlace(HideCloseAction.DISCARD);
+						@Override
+						public void onClick(ClickEvent event) {
+							GHAPlaceSet
+									.hideCurrentPlace(HideCloseAction.DISCARD);
 
-				}
-			}, null);
+						}
+					}, null);
 			return false;
 		}
 		return true;

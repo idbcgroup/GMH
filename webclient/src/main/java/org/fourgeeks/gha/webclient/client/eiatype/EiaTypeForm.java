@@ -390,7 +390,8 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 		useDescriptionItem.setValue(eiaType.getUseDescription());
 		eiaUmdnsItem.setValue(eiaType.getEiaUmdns());
 		mobilityItem.setValue(eiaType.getMobility().name());
-		categoryItem.setValue(eiaType.getEiaTypeCategory().getName());
+		if (eiaType.getEiaTypeCategory() != null)
+			categoryItem.setValue(eiaType.getEiaTypeCategory().getName());
 		if (eiaType.getSubtype() != null)
 			subTypeItem.setValue(eiaType.getSubtype().name());
 		// showPhotographics(eiaType);

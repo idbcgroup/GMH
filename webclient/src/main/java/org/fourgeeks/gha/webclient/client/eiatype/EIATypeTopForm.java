@@ -15,8 +15,8 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHABrandSelec
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAEiaTypeCategorySelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAEiaTypeSubTypeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATopForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATopForm;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.util.BooleanCallback;
@@ -160,7 +160,7 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 			brandItem.setValue(eiaType.getBrand().getId());
 		}
 
-		if (eiaType.getType() != null)
+		if (eiaType.getEiaTypeCategory() != null)
 			categoryItem.setValue(eiaType.getEiaTypeCategory().getName());
 
 		if (eiaType.getSubtype() != null)

@@ -16,8 +16,8 @@ import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAFormLayout;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.material.MaterialSelectionListener;
 import org.fourgeeks.gha.webclient.client.utility.UtilityAddForm;
@@ -37,7 +37,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class EIATypeUtilityGridPanel extends GHAFormLayout implements
-EIATypeSelectionListener, HideableListener, ClosableListener {
+		EIATypeSelectionListener, HideableListener, ClosableListener {
 
 	private EiaTypeUtilityGrid grid;
 	private UtilitySearchForm searchForm;
@@ -55,11 +55,11 @@ EIATypeSelectionListener, HideableListener, ClosableListener {
 			EIATypeUtilityModel.save(eiaTypeUtility,
 					new GHAAsyncCallback<EiaTypeUtility>() {
 
-				@Override
-				public void onSuccess(EiaTypeUtility result) {
-					loadData();
-				}
-			});
+						@Override
+						public void onSuccess(EiaTypeUtility result) {
+							loadData();
+						}
+					});
 		}
 	};
 
@@ -75,10 +75,10 @@ EIATypeSelectionListener, HideableListener, ClosableListener {
 				EIATypeUtilityModel.update(entity,
 						new GHAAsyncCallback<EiaTypeUtility>() {
 
-					@Override
-					public void onSuccess(EiaTypeUtility result) {
-					}
-				});
+							@Override
+							public void onSuccess(EiaTypeUtility result) {
+							}
+						});
 			}
 		});
 		addForm = new UtilityAddForm(GHAStrings.get("new-utility-service"));
@@ -105,17 +105,17 @@ EIATypeSelectionListener, HideableListener, ClosableListener {
 					}
 				}), new GHANewButton(new ClickHandler() {
 
-					@Override
-					public void onClick(ClickEvent event) {
-						addForm.open();
-					}
-				}), new GHADeleteButton(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				addForm.open();
+			}
+		}), new GHADeleteButton(new ClickHandler() {
 
-					@Override
-					public void onClick(ClickEvent event) {
-						delete();
-					}
-				}));
+			@Override
+			public void onClick(ClickEvent event) {
+				delete();
+			}
+		}));
 
 		HLayout mainPanel = new HLayout();
 		mainPanel.addMembers(grid, sideButtons);
@@ -154,20 +154,20 @@ EIATypeSelectionListener, HideableListener, ClosableListener {
 		GHAAlertManager.confirm("eiatype-utility-service-delete-confirm",
 				new BooleanCallback() {
 
-			@Override
-			public void execute(Boolean value) {
-				if (value) {
-					EIATypeUtilityModel.delete(eiaTypeUtility.getId(),
-							new GHAAsyncCallback<Void>() {
+					@Override
+					public void execute(Boolean value) {
+						if (value) {
+							EIATypeUtilityModel.delete(eiaTypeUtility.getId(),
+									new GHAAsyncCallback<Void>() {
 
-						@Override
-						public void onSuccess(Void result) {
-							grid.removeSelectedData();
+										@Override
+										public void onSuccess(Void result) {
+											grid.removeSelectedData();
+										}
+									});
 						}
-					});
-				}
-			}
-		});
+					}
+				});
 	}
 
 	@Override
@@ -182,15 +182,15 @@ EIATypeSelectionListener, HideableListener, ClosableListener {
 		EIATypeUtilityModel.findByEiaType(eiaType,
 				new GHAAsyncCallback<List<EiaTypeUtility>>() {
 
-			@Override
-			public void onSuccess(List<EiaTypeUtility> result) {
-				ListGridRecord[] array = EIATypeUtilityUtil
-						.toGridRecords(result).toArray(
-								new EIATypeUtilityRecord[] {});
-				grid.setData(array);
+					@Override
+					public void onSuccess(List<EiaTypeUtility> result) {
+						ListGridRecord[] array = EIATypeUtilityUtil
+								.toGridRecords(result).toArray(
+										new EIATypeUtilityRecord[] {});
+						grid.setData(array);
 
-			}
-		});
+					}
+				});
 	}
 
 	/**
