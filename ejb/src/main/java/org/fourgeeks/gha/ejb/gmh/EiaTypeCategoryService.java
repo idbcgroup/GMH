@@ -1,5 +1,6 @@
 package org.fourgeeks.gha.ejb.gmh;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,8 +31,11 @@ public class EiaTypeCategoryService extends GHAEJBExceptionService implements
 	@Override
 	public List<EiaTypeCategory> getAll() throws GHAEJBException {
 		try {
-			return em.createNamedQuery("EiaTypeCategory.getAll",
-					EiaTypeCategory.class).getResultList();
+			List<EiaTypeCategory> res = em.createNamedQuery(
+					"EiaTypeCategory.getAll", EiaTypeCategory.class)
+					.getResultList();
+			Collections.sort(res);
+			return res;
 		} catch (final Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all eiatypes", ex);
 			throw super.generateGHAEJBException("eiatype-getAll-fail",
