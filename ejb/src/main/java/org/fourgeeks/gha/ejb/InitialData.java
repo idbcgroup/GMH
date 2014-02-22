@@ -1013,11 +1013,16 @@ public class InitialData {
 		InputStream in = null;
 		CSVReader reader = null;
 		try {
+			//Open csv reading buffers
 			in = InitialData.class.getResourceAsStream("/messages.csv");
 			reader = new CSVReader(new InputStreamReader(in, "UTF-8"), ',',
 					'\'', 0);
+
+			//Read CSV
 			final List<String[]> readAll = reader.readAll();
-			String code, text;
+			String code, text, indications;
+			int time;
+			String type;
 			LanguageEnum lang = null;
 			final Map<String, Boolean> words = new HashMap<String, Boolean>();
 			for (final String[] strings : readAll) {
@@ -1032,19 +1037,34 @@ public class InitialData {
 				words.put(code + language, true);
 				lang = LanguageEnum.valueOf(strings[0]);
 				text = strings[2];
-				String type = "SAY";
+				indications = strings[3];
+				type = "INTERNAL-MESSAGE";
 				try {
-					type = String.valueOf(strings[3]);
+					type = String.valueOf(strings[4]);
 				} catch (final Exception e) {
-					logger.info("no type info available in this line... Setting 'SAY' by default");
+					logger.info("no type info available in this line... Setting 'INTERNAL-MESSAGE' by default");
 				}
-				try {
-					em.merge(new GHAMessage(lang, code, text, em.find(GHAMessageType.class, type)));
-				} catch (final Exception e) {
-					logger.log(Level.SEVERE,
-							"Error inserting/updating an ghamessage", e);
+
+				if(type.equals("INTERNAL-MESSAGE")){
+					try {
+						em.merge(new GHAMessage(lang, code, text, indications, em.find(GHAMessageType.class, "SAY"),-1));
+					} catch (final Exception e) {
+						logger.log(Level.SEVERE,
+								"Error inserting/updating a ghamessage of type "+type, e);
+					}
+				}else{
+					time = -1;
+					time = Integer.valueOf(strings[5]);
+
+					try {
+						em.merge(new GHAMessage(lang, code, text, indications, em.find(GHAMessageType.class, type),time));
+					} catch (final Exception e) {
+						logger.log(Level.SEVERE, "Error inserting/updating a ghamessage of type "+type, e);
+					}
 				}
 			}
+
+			//Close csv reading buffers
 			em.flush();
 			reader.close();
 			in.close();

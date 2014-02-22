@@ -16,42 +16,32 @@ public class GHAConfirmDialog extends GHADialog {
 	/**
 	 * @param type
 	 * @param message
+	 * @param time
 	 * @param buttons
 	 */
-	public GHAConfirmDialog(GHAMessageType type, String message, Button... buttons) {
-		super("CONFIRMATION",false,false,buttons);
+	public GHAConfirmDialog(GHAMessageType type, String message, int time, Button... buttons) {
+		super(type,false,time, buttons);
 		setMessage(message);
-		initByType(type);
+		initTypeView();
 	}
 	/**
 	 * @param type
 	 * @param title
 	 * @param message
+	 * @param time
 	 * @param buttons
 	 */
-	public GHAConfirmDialog(GHAMessageType type, String title, String message, Button... buttons){
-		this(type, message, buttons);
+	public GHAConfirmDialog(GHAMessageType type, String title, String message, int time, Button... buttons){
+		this(type, message, time,buttons);
 		setTitle(title);
-	}
-
-	/**
-	 * 
-	 */
-	private void initByType(GHAMessageType type) {
-		initTypeParams(type);
-		confModalTimingSettings();
 	}
 
 	/* (non-Javadoc)
 	 * @see org.fourgeeks.gha.webclient.client.UI.alerts.GHADialog#initTypeParams()
 	 */
 	@Override
-	protected void initTypeParams(GHAMessageType type) {
+	protected void initTypeView() {
 		// Gray
-		dialogType = type.getCode();
-		isTimed = type.isTimed();
-		isModal = type.isModal();
-		waitingTime = type.getTime();
 		setTitle(GHAStrings.get("confirm"));
 		setBorder("1px solid #BCBCBC");
 		setBackgroundColor("#BCBCBC");

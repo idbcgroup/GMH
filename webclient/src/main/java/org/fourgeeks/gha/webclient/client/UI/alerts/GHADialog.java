@@ -48,7 +48,7 @@ public abstract class GHADialog extends Dialog implements ResizeHandler, Window.
 	protected String dialogType;
 	protected boolean isModal;
 	protected boolean isTimed;
-	protected int waitingTime = 4000;
+	protected int waitingTime = -1;
 
 	protected int openedPosition = -1;
 
@@ -66,10 +66,10 @@ public abstract class GHADialog extends Dialog implements ResizeHandler, Window.
 	 * Creates a GHADialog without buttons, with the specifying parameters.
 	 * 
 	 * @param type
-	 * @param hasCloseButton
 	 * @param canMinimize
+	 * @param time TODO
 	 */
-	public GHADialog(String type, boolean hasCloseButton, boolean canMinimize) {
+	public GHADialog(GHAMessageType type, boolean canMinimize, int time) {
 		super();
 
 		hasButtons = false;
@@ -77,8 +77,9 @@ public abstract class GHADialog extends Dialog implements ResizeHandler, Window.
 		initHandlers();
 		initialize();
 		setOriginalStyle();
-		initHeaderControls(hasCloseButton, canMinimize);
+		initHeaderControls(canMinimize);
 		initFooterControls();
+		initByType(type, time);
 
 		// ---Handlers
 		addCloseClickHandler(new CloseClickHandler() {
@@ -93,21 +94,20 @@ public abstract class GHADialog extends Dialog implements ResizeHandler, Window.
 	 * Creates a GHADialog with buttons, with the specifying parameters.
 	 * 
 	 * @param type
-	 * @param hasCloseButton
 	 * @param canMinimize
+	 * @param time TODO
 	 * @param buttons
 	 */
-	public GHADialog(String type, boolean hasCloseButton, boolean canMinimize,
-			Button... buttons) {
+	public GHADialog(GHAMessageType type, boolean canMinimize, int time, Button... buttons) {
 		super();
-
 
 		hasButtons = true;
 		initHandlers();
 		initialize();
 		setOriginalStyle();
-		initHeaderControls(hasCloseButton, canMinimize);
+		initHeaderControls(canMinimize);
 		initFooterControls();
+		initByType(type, time);
 
 		// ---Buttons
 		if (hasButtons) {
@@ -202,15 +202,14 @@ public abstract class GHADialog extends Dialog implements ResizeHandler, Window.
 	}
 
 	/**
-	 * @param hasCloseButton
 	 * @param canMinimize
 	 */
-	private void initHeaderControls(boolean hasCloseButton, boolean canMinimize) {
+	private void initHeaderControls(boolean canMinimize) {
 		// ---Header Controls
 		setShowHeaderIcon(true);
 		setHeaderIcon("../resources/icons/favicon.ico");
 		setShowMinimizeButton(canMinimize);
-		setShowCloseButton(hasCloseButton);
+		setShowCloseButton(false);
 		setShowMaximizeButton(false);
 	}
 
@@ -243,7 +242,7 @@ public abstract class GHADialog extends Dialog implements ResizeHandler, Window.
 		changeAutoChildDefaults("messageStack", msgStack);
 	}
 
-	protected abstract void initTypeParams(GHAMessageType type);
+	protected abstract void initTypeView();
 
 	@Override
 	public void onResize(ResizeEvent event) {
@@ -365,6 +364,22 @@ public abstract class GHADialog extends Dialog implements ResizeHandler, Window.
 			animateRect(null,Window.getScrollTop()+(windowHeight- multp),null, null);
 		} else {
 			//			Window.alert("Error. no hay posiciones libres para mostrar alertas");
+		}
+	}
+
+	private void initByType(GHAMessageType type, int time) {
+		initTypeParameters(type, time);
+		confModalTimingSettings();
+	}
+
+	private void initTypeParameters(GHAMessageType type, int time) {
+		dialogType = type.getCode();
+		isTimed = type.isTimed();
+		isModal = type.isModal();
+		if(time>=0){
+			waitingTime = time;
+		}else{
+			waitingTime = type.getTime();
 		}
 	}
 }

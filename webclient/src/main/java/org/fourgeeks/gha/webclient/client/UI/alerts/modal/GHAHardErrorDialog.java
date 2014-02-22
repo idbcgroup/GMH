@@ -27,43 +27,34 @@ public class GHAHardErrorDialog extends GHADialog {
 	/**
 	 * @param type
 	 * @param message
+	 * @param time
 	 */
 
-	public GHAHardErrorDialog(GHAMessageType type, String message) {
-		super("ERROR-HARD",false,false,buttonOK);
+	public GHAHardErrorDialog(GHAMessageType type, String message, int time) {
+		super(type,false,time, buttonOK);
 		setMessage(message);
-		initByType(type);
+		initTypeView();
 	}
 
 	/**
 	 * @param type
 	 * @param title
 	 * @param message
+	 * @param time
 	 */
-	public GHAHardErrorDialog(GHAMessageType type, String title, String message){
-		this(type, message);
+	public GHAHardErrorDialog(GHAMessageType type, String title, String message, int time){
+		this(type, message, time);
 		setTitle(title);
 	}
 
-	/**
-	 * 
-	 */
-	private void initByType(GHAMessageType type) {
-		initTypeParams(type);
-		confModalTimingSettings();
-	}
+
 
 	/* (non-Javadoc)
 	 * @see org.fourgeeks.gha.webclient.client.UI.alerts.GHADialog#initTypeParams()
 	 */
 
 	@Override
-	protected void initTypeParams(GHAMessageType type) {
-		// Red
-		dialogType = type.getCode();
-		isTimed = type.isTimed();
-		isModal = type.isModal();
-		waitingTime = type.getTime();
+	protected void initTypeView() {
 		setTitle(GHAStrings.get("hard-error"));
 		setBorder("1px solid #FC7A7E");
 		setBackgroundColor("#FC7A7E");
