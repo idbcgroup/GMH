@@ -1,11 +1,11 @@
 package org.fourgeeks.gha.webclient.client.maintenanceactivity.serviceandresource;
 
 import org.fourgeeks.gha.domain.gmh.RequiredResources;
+import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridField;
 import org.fourgeeks.gha.webclient.client.UI.grids.GhaGrid;
 
 import com.smartgwt.client.types.ListGridFieldType;
-import com.smartgwt.client.widgets.form.fields.SpinnerItem;
 
 /**
  * 
@@ -24,8 +24,9 @@ public class MaintenanceActivityServiceAndResourceGrid extends
 		final GHAGridField quantityGridField = new GHAGridField("quantity",
 				"Cantidad");
 		quantityGridField.setType(ListGridFieldType.INTEGER);
-		quantityGridField.setEditorType(new SpinnerItem());
-
+		GHATextItem numerico = new GHATextItem();
+		numerico.setKeyPressFilter("[0-9]");
+		quantityGridField.setEditorType(numerico);
 		/*
 		 * setCellFormatter(new CellFormatter() {
 		 * 
