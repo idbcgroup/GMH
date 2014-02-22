@@ -17,6 +17,7 @@ import com.smartgwt.client.widgets.tree.TreeNode;
  * 
  */
 public class GHAEiaTypeCategoryPickTreeItem extends GHAIPickTreeItem {
+	private final TreeNode root = new TreeNode("root");
 
 	/**
 	 * 
@@ -57,10 +58,42 @@ public class GHAEiaTypeCategoryPickTreeItem extends GHAIPickTreeItem {
 
 					@Override
 					public void onSuccess(List<EiaTypeCategory> result) {
-						TreeNode dummy = new TreeNode();
-						List<List<EiaTypeCategory>> list = new ArrayList<List<EiaTypeCategory>>();
+						String codes[] = new String[result.size()];
+						TreeNode nodes[] = new TreeNode[result.size()];
 
-						tree.setRoot(dummy);
+						for (int i = 0; i < result.size(); ++i) {
+							codes[i] = result.get(i).getCode();
+
+							nodes[i] = new TreeNode(result.get(i).getName());
+							nodes[i].setAttribute("categoryCode", result.get(i)
+									.getCode());
+							nodes[i].setAttribute("categoryName", result.get(i)
+									.getName());
+
+						}
+
+						int parent[] = GHAUtil.buildParentsByCode(codes, 0);
+
+						for (int i = 0; i < result.size(); ++i) {
+							List<Integer> children = new ArrayList<Integer>();
+
+							// get the children of i
+							for (int j = 0; j < result.size(); ++j) {
+								if (parent[j] == i)
+									children.add(j);
+							}
+
+							TreeNode theChildren[] = new TreeNode[children
+									.size()];
+							for (int j = 0; j < children.size(); ++j) {
+								theChildren[j] = nodes[children.get(j)];
+							}
+
+							if (children.size() > 0)
+								nodes[i].setChildren(theChildren);
+						}
+						root.setChildren(new TreeNode[] { nodes[0] });
+						tree.setRoot(root);
 						GHAEiaTypeCategoryPickTreeItem.this.setValueTree(tree);
 					}
 				});
