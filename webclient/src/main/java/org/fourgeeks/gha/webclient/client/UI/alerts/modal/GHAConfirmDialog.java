@@ -46,6 +46,6 @@ public class GHAConfirmDialog extends GHADialog {
 		setBorder("1px solid #BCBCBC");
 		setBackgroundColor("#BCBCBC");
 		setBodyColor("#FFFFFF");
-		setIcon("../resources/icons/msgIT/say.png");
+		setIcon("../resources/icons/msgIT/ask.png");
 	}
 }

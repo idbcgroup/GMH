@@ -54,44 +54,44 @@ public class GHAAlertManager {
 	private static GHADialog getMessageWindow(GHAMessage message, String title) {
 		GHADialog messageDialog;
 		if(title.equals("")){
-			if (message.getCode().equals("SAY"))
+			if (message.getType().getCode().equals("SAY"))
 				messageDialog = new GHASayDialog(message.getType(),message.getText()+". "+message.getIndications(),message.getTime());
-			else if (message.getCode().equals("ERROR-HARD"))
+			else if (message.getType().getCode().equals("ERROR-HARD"))
 				messageDialog = new GHAHardErrorDialog(message.getType(),message.getText()+". "+message.getIndications(),message.getTime());
-			else if (message.getCode().equals("ERROR-SOFT"))
+			else if (message.getType().getCode().equals("ERROR-SOFT"))
 				messageDialog = new GHASoftErrorDialog(message.getType(),message.getText()+". "+message.getIndications(),message.getTime());
-			else if (message.getCode().equals("WARNING"))
+			else if (message.getType().getCode().equals("WARNING"))
 				messageDialog = new GHAWarningDialog(message.getType(),message.getText()+". "+message.getIndications(),message.getTime());
-			else if (message.getCode().equals("INFORMATION"))
+			else if (message.getType().getCode().equals("INFORMATION"))
 				messageDialog = new GHAInformationDialog(message.getType(),message.getText()+". "+message.getIndications(),message.getTime());
-			else if (message.getCode().equals("FAILURE"))
+			else if (message.getType().getCode().equals("FAILURE"))
 				messageDialog = new GHAFailureDialog(message.getType(),message.getText()+". "+message.getIndications(),message.getTime());
-			else if (message.getCode().equals("SUCCESS"))
+			else if (message.getType().getCode().equals("SUCCESS"))
 				messageDialog = new GHASuccessDialog(message.getType(),message.getText()+". "+message.getIndications(),message.getTime());
-			else if (message.getCode().equals("PROCESSING"))
+			else if (message.getType().getCode().equals("PROCESSING"))
 				messageDialog = new GHAProgressDialog(message.getType(),message.getText()+". "+message.getIndications(),message.getTime());
-			else if (message.getCode().equals("NEW_MESSAGE"))
+			else if (message.getType().getCode().equals("NEW_MESSAGE"))
 				messageDialog = new GHANewMessageDialog(message.getType(),message.getText()+". "+message.getIndications(),message.getTime());
 			else
 				messageDialog = new GHASayDialog(message.getType(),message.getText()+". "+message.getIndications(),message.getTime());
 		}else{
-			if (message.getCode().equals("SAY"))
+			if (message.getType().getCode().equals("SAY"))
 				messageDialog = new GHASayDialog(message.getType(),title,message.getText()+". "+message.getIndications(),message.getTime());
-			else if (message.getCode().equals("ERROR-HARD"))
+			else if (message.getType().getCode().equals("ERROR-HARD"))
 				messageDialog = new GHAHardErrorDialog(message.getType(),title,message.getText()+". "+message.getIndications(),message.getTime());
-			else if (message.getCode().equals("ERROR-SOFT"))
+			else if (message.getType().getCode().equals("ERROR-SOFT"))
 				messageDialog = new GHASoftErrorDialog(message.getType(),title,message.getText()+". "+message.getIndications(),message.getTime());
-			else if (message.getCode().equals("WARNING"))
+			else if (message.getType().getCode().equals("WARNING"))
 				messageDialog = new GHAWarningDialog(message.getType(),title,message.getText()+". "+message.getIndications(),message.getTime());
-			else if (message.getCode().equals("INFORMATION"))
+			else if (message.getType().getCode().equals("INFORMATION"))
 				messageDialog = new GHAInformationDialog(message.getType(),title,message.getText()+". "+message.getIndications(),message.getTime());
-			else if (message.getCode().equals("FAILURE"))
+			else if (message.getType().getCode().equals("FAILURE"))
 				messageDialog = new GHAFailureDialog(message.getType(),title,message.getText()+". "+message.getIndications(),message.getTime());
-			else if (message.getCode().equals("SUCCESS"))
+			else if (message.getType().getCode().equals("SUCCESS"))
 				messageDialog = new GHASuccessDialog(message.getType(),title,message.getText()+". "+message.getIndications(),message.getTime());
-			else if (message.getCode().equals("PROCESSING"))
+			else if (message.getType().getCode().equals("PROCESSING"))
 				messageDialog = new GHAProgressDialog(message.getType(),title,message.getText()+". "+message.getIndications(),message.getTime());
-			else if (message.getCode().equals("NEW_MESSAGE"))
+			else if (message.getType().getCode().equals("NEW_MESSAGE"))
 				messageDialog = new GHANewMessageDialog(message.getType(),title,message.getText()+". "+message.getIndications(),message.getTime());
 			else
 				messageDialog = new GHASayDialog(message.getType(),title,message.getText()+". "+message.getIndications(),message.getTime());
