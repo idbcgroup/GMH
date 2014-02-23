@@ -95,6 +95,8 @@ public class GHAEiaTypeCategoryPickTreeItem extends GHAIPickTreeItem {
 						root.setChildren(new TreeNode[] { nodes[0] });
 						tree.setRoot(root);
 						GHAEiaTypeCategoryPickTreeItem.this.setValueTree(tree);
+						GHAEiaTypeCategoryPickTreeItem.this
+								.setDefaultValue(codes[0]);
 					}
 				});
 	}

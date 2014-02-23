@@ -38,7 +38,7 @@ public class EiaTypeCategoryService extends GHAEJBExceptionService implements
 			return res;
 		} catch (final Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all eiatypes", ex);
-			throw super.generateGHAEJBException("eiatype-getAll-fail",
+			throw super.generateGHAEJBException("eiatypecategory-getall-fail",
 					RuntimeParameters.getLang(), em);
 		}
 	}
