@@ -28,12 +28,7 @@ public class GHAMessageType extends AbstractCodeEntity {
 	/**
 	 * 
 	 */
-	public GHAMessageType() {
-		super();
-		this.code = "SAY";
-		this.isModal = false;
-		this.time = 4000;
-	}
+	public GHAMessageType() {}
 
 	/**
 	 * @param type

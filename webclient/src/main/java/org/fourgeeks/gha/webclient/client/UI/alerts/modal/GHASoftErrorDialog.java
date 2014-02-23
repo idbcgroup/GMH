@@ -27,41 +27,30 @@ public class GHASoftErrorDialog extends GHADialog {
 	/**
 	 * @param type
 	 * @param message
+	 * @param time
 	 */
-	public GHASoftErrorDialog(GHAMessageType type, String message) {
-		super("ERROR-SOFT",false,false,buttonOK);
+	public GHASoftErrorDialog(GHAMessageType type, String message, int time) {
+		super(type,false,time, buttonOK);
 		setMessage(message);
-		initByType(type);
+		initTypeView();
 	}
 
 	/**
 	 * @param type
 	 * @param title
 	 * @param message
+	 * @param time
 	 */
-	public GHASoftErrorDialog(GHAMessageType type,String title, String message){
-		this(type,message);
+	public GHASoftErrorDialog(GHAMessageType type,String title, String message, int time){
+		this(type,message,time);
 		setTitle(title);
-	}
-
-	/**
-	 * 
-	 */
-	private void initByType(GHAMessageType type) {
-		initTypeParams(type);
-		confModalTimingSettings();
 	}
 
 	/* (non-Javadoc)
 	 * @see org.fourgeeks.gha.webclient.client.UI.alerts.GHADialog#initTypeParams()
 	 */
 	@Override
-	protected void initTypeParams(GHAMessageType type) {
-		// Yellow
-		dialogType = type.getCode();
-		isTimed = type.isTimed();
-		isModal = type.isModal();
-		waitingTime = type.getTime();
+	protected void initTypeView() {
 		setTitle(GHAStrings.get("soft-error"));
 		setBorder("1px solid #FCD14A");
 		setBackgroundColor("#FCD14A");

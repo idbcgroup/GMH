@@ -14,31 +14,34 @@ public class GHAProgressDialog extends GHADialog {
 	/**
 	 * @param type
 	 * @param message
+	 * @param time
 	 */
-	public GHAProgressDialog(GHAMessageType type, String message) {
-		super("PROCESSING",false,true);
-		initByType(type);
+	public GHAProgressDialog(GHAMessageType type, String message , int time) {
+		super(type,true, time);
 		setMessage(message);
+		initTypeView();
 	}
 
 	/**
 	 * @param type
 	 * @param message
+	 * @param time
 	 * @param buttons
 	 */
-	public GHAProgressDialog(GHAMessageType type, String message, Button... buttons) {
-		super("PROCESSING",false,true,buttons);
-		initByType(type);
+	public GHAProgressDialog(GHAMessageType type, String message , int time, Button... buttons) {
+		super(type,true,time, buttons);
 		setMessage(message);
+		initTypeView();
 	}
 
 	/**
 	 * @param type
 	 * @param title
 	 * @param message
+	 * @param time
 	 */
-	public GHAProgressDialog(GHAMessageType type, String title, String message) {
-		this(type,message);
+	public GHAProgressDialog(GHAMessageType type, String title, String message , int time) {
+		this(type,message,time);
 		setTitle(title);
 	}
 
@@ -46,31 +49,19 @@ public class GHAProgressDialog extends GHADialog {
 	 * @param type
 	 * @param title
 	 * @param message
+	 * @param time
 	 * @param buttons
 	 */
-	public GHAProgressDialog(GHAMessageType type, String title, String message, Button... buttons) {
-		this(type,message,buttons);
+	public GHAProgressDialog(GHAMessageType type, String title, String message , int time, Button... buttons) {
+		this(type,message,time,buttons);
 		setTitle(title);
-	}
-
-	/**
-	 * 
-	 */
-	private void initByType(GHAMessageType type) {
-		initTypeParams(type);
-		confModalTimingSettings();
 	}
 
 	/* (non-Javadoc)
 	 * @see org.fourgeeks.gha.webclient.client.UI.alerts.GHADialog#initTypeParams()
 	 */
 	@Override
-	protected void initTypeParams(GHAMessageType type) {
-		// Green
-		dialogType = type.getCode();
-		isTimed = type.isTimed();
-		isModal = type.isModal();
-		waitingTime = type.getTime();
+	protected void initTypeView() {
 		setTitle(GHAStrings.get("processsing"));
 		setBorder("1px solid #AAC475");
 		setBackgroundColor("#AAC475");
