@@ -22,10 +22,10 @@ import org.fourgeeks.gha.ejb.gmh.EiaMaintenanceServiceRemote;
  * CorrectiveMaintenanceServiceOrderPDTProcessor
  */
 @Stateless
-public class PreventiveMaintenancePDTProcessor implements PDTProcessor {
+public class EiaPreventiveMaintenancePDTProcessor implements PDTProcessor {
 
 	private final static Logger logger = Logger
-			.getLogger(PreventiveMaintenancePDTProcessor.class.getName());
+			.getLogger(EiaPreventiveMaintenancePDTProcessor.class.getName());
 
 	@EJB(lookup = "java:global/ear-1/ejb-1/MaintenanceServiceOrderService!"
 			+ "org.fourgeeks.gha.ejb.ess.MaintenanceServiceOrderServiceLocal")
@@ -38,40 +38,28 @@ public class PreventiveMaintenancePDTProcessor implements PDTProcessor {
 	@Override
 	public void processMessage(HashMap<String, Object> data) {
 		long time = (new Date()).getTime();
+		EiaMaintenancePlanification planif = null;
+		EiaPreventiveMaintenance prevMaintenance = null;
 
 		try {
-			logger.log(Level.INFO, "BBB 1");
-			EiaMaintenancePlanification planification = (EiaMaintenancePlanification) data
-					.get("planification");
+			planif = (EiaMaintenancePlanification) data.get("planif");
+			Bsp bsp = planif.getMaintenanceProvider();
 
 			// se crea el mantenimiento preventivo
-			logger.log(Level.INFO, "BBB 2");
-			EiaPreventiveMaintenance epm = new EiaPreventiveMaintenance();
-			logger.log(Level.INFO, "BBB 3");
-			epm.setPlanification(planification);
-			logger.log(Level.INFO, "BBB 4");
-			Bsp bsp = planification.getMaintenanceProvider();
-			logger.log(Level.INFO, "BBB 5");
-			epm.setProvider(bsp);
-			logger.log(Level.INFO, "BBB 6");
-			epm = maintenanceService.savePreventiveMaintenance(epm);
-			logger.log(Level.INFO, "BBB 7");
+			prevMaintenance = new EiaPreventiveMaintenance();
+			prevMaintenance.setPlanification(planif);
+			prevMaintenance.setProvider(bsp);
+			prevMaintenance = maintenanceService
+					.savePreventiveMaintenance(prevMaintenance);
 
 			// se crea la orden de servicio de mantenimiento
 			MaintenanceServiceOrder serviceOrder = new MaintenanceServiceOrder();
-			logger.log(Level.INFO, "BBB 8");
-			serviceOrder.setMaintenance(epm);
-			logger.log(Level.INFO, "BBB 9");
+			serviceOrder.setMaintenance(prevMaintenance);
 			serviceOrder.setOpeningTimestamp(new Timestamp(time));
-			logger.log(Level.INFO, "BBB 10");
 			serviceOrder.setServiceOrderNumber("MSO0001");
-			logger.log(Level.INFO, "BBB 11");
 			serviceOrder.setState(ServiceOrderState.ACTIVE);
-			logger.log(Level.INFO, "BBB 12");
 			serviceOrder.setMaintenanceProvider(bsp);
-			logger.log(Level.INFO, "BBB 13");
 			serviceOrder = serviceOrderService.save(serviceOrder);
-			logger.log(Level.INFO, "BBB 14");
 
 		} catch (Exception e) {
 			String msg = "ERROR: procesando mensaje en PreventiveMaintenancePDTProcessor: ";

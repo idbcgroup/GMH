@@ -25,7 +25,7 @@ import org.fourgeeks.gha.ejb.gmh.EiaServiceRemote;
  * CorrectiveMaintenanceServiceOrderPDTProcessor
  */
 @Stateless
-public class CorrectiveMaintenancePDTProcessor implements PDTProcessor {
+public class EiaCorrectiveMaintenancePDTProcessor implements PDTProcessor {
 
 	private final static Logger logger = Logger
 			.getLogger(MaintenanceServiceOrderService.class.getName());
@@ -47,44 +47,28 @@ public class CorrectiveMaintenancePDTProcessor implements PDTProcessor {
 		long time = (new Date()).getTime();
 
 		try {
-			logger.log(Level.INFO, "AAA 1");
 			Eia eia = (Eia) data.get("eia");
-			logger.log(Level.INFO, "AAA 2");
 			EiaDamageReport report = (EiaDamageReport) data
 					.get("eiaDamageReport");
-			logger.log(Level.INFO, "AAA 3");
 
 			// se cambia el estado del equipo a dañado
 			eia.setState(EiaStateEnum.DAMAGED);
-			logger.log(Level.INFO, "AAA 4");
 			eia = eiaService.update(eia);
-			logger.log(Level.INFO, "AAA 5");
 
 			// se crea el mantenimiento correctivo
 			EiaCorrectiveMaintenance cm = new EiaCorrectiveMaintenance();
-			logger.log(Level.INFO, "AAA 6");
 			cm.setDamageReport(report);
-			logger.log(Level.INFO, "AAA 7");
 			cm.setDescription(report.getDamageMotive());
-			logger.log(Level.INFO, "AAA 8");
 			cm = maintenanceService.saveCorrectiveMaintenance(cm);
-			logger.log(Level.INFO, "AAA 9");
 
 			// se crea la orden de servicio de mantenimiento
 			MaintenanceServiceOrder serviceOrder = new MaintenanceServiceOrder();
-			logger.log(Level.INFO, "AAA 10");
 			serviceOrder.setMaintenance(cm);
-			logger.log(Level.INFO, "AAA 11");
 			serviceOrder.setOpeningTimestamp(new Timestamp(time));
-			logger.log(Level.INFO, "AAA 12");
 			serviceOrder.setServiceOrderNumber("MSO0001");
-			logger.log(Level.INFO, "AAA 13");
 			serviceOrder.setState(ServiceOrderState.ACTIVE);
-			logger.log(Level.INFO, "AAA 14");
-			// maintenance.setMaintenanceProvider(eia.getMaintenanceProvider());
-			logger.log(Level.INFO, "AAA 15");
+			serviceOrder.setMaintenanceProvider(eia.getMaintenanceProvider());
 			serviceOrder = serviceOrderService.save(serviceOrder);
-			logger.log(Level.INFO, "AAA 16");
 
 		} catch (Exception e) {
 			String msg = "ERROR: procesando mensaje en CorrectiveMaintenancePDTProcessor: ";
