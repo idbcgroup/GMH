@@ -14,30 +14,33 @@ public class GHAWarningDialog extends GHADialog {
 	/**
 	 * @param type
 	 * @param message
+	 * @param time
 	 */
-	public GHAWarningDialog(GHAMessageType type, String message) {
-		super("WARNING",false,false);
+	public GHAWarningDialog(GHAMessageType type, String message, int time) {
+		super(type,false, time);
 		setMessage(message);
-		initByType(type);
+		initTypeView();
 	}
 	/**
 	 * @param type
 	 * @param message
+	 * @param time
 	 * @param buttons
 	 */
-	public GHAWarningDialog(GHAMessageType type, String message, Button... buttons) {
-		super("WARNING",false,false,buttons);
+	public GHAWarningDialog(GHAMessageType type, String message, int time, Button... buttons) {
+		super(type,false,time, buttons);
 		setMessage(message);
-		initByType(type);
+		initTypeView();
 	}
 
 	/**
 	 * @param type
 	 * @param title
 	 * @param message
+	 * @param time
 	 */
-	public GHAWarningDialog(GHAMessageType type, String title, String message) {
-		this(type,message);
+	public GHAWarningDialog(GHAMessageType type, String title, String message, int time) {
+		this(type,message,time);
 		setTitle(title);
 	}
 
@@ -45,31 +48,19 @@ public class GHAWarningDialog extends GHADialog {
 	 * @param type
 	 * @param title
 	 * @param message
+	 * @param time
 	 * @param buttons
 	 */
-	public GHAWarningDialog(GHAMessageType type, String title, String message, Button... buttons) {
-		this(type,message,buttons);
+	public GHAWarningDialog(GHAMessageType type, String title, String message, int time, Button... buttons) {
+		this(type,message,time,buttons);
 		setTitle(title);
-	}
-
-	/**
-	 * 
-	 */
-	private void initByType(GHAMessageType type) {
-		initTypeParams(type);
-		confModalTimingSettings();
 	}
 
 	/* (non-Javadoc)
 	 * @see org.fourgeeks.gha.webclient.client.UI.alerts.GHADialog#initTypeParams()
 	 */
 	@Override
-	protected void initTypeParams(GHAMessageType type) {
-		// Blue
-		dialogType = type.getCode();
-		isTimed = type.isTimed();
-		waitingTime = type.getTime();
-		isModal = type.isModal();
+	protected void initTypeView() {
 		setTitle(GHAStrings.get("warning"));
 		setBorder("1px solid #8CB1E0");
 		setBackgroundColor("#8CB1E0");

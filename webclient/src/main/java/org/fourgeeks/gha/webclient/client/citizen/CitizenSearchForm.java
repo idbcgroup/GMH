@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.mix.Citizen;
-import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
@@ -28,7 +27,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class CitizenSearchForm extends GHASearchForm<Citizen> implements
-		CitizenSelectionProducer {
+CitizenSelectionProducer {
 
 	private CitizenGrid grid;
 	private List<CitizenSelectionListener> listeners;
@@ -58,20 +57,20 @@ public class CitizenSearchForm extends GHASearchForm<Citizen> implements
 
 		final VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
 				searchClickHandler), new GHAImgButton(
-				"../resources/icons/clean.png", new ClickHandler() {
+						"../resources/icons/clean.png", new ClickHandler() {
 
-					@Override
-					public void onClick(ClickEvent event) {
-						grid.setData(new ListGridRecord[0]);
-					}
-				}), new GHAImgButton("../resources/icons/cancel.png",
-				new ClickHandler() {
+							@Override
+							public void onClick(ClickEvent event) {
+								grid.setData(new ListGridRecord[0]);
+							}
+						}), new GHAImgButton("../resources/icons/cancel.png",
+								new ClickHandler() {
 
-					@Override
-					public void onClick(ClickEvent event) {
-						hide();
-					}
-				}));
+							@Override
+							public void onClick(ClickEvent event) {
+								hide();
+							}
+						}));
 
 		final HLayout formLayout = new HLayout();
 		formLayout.setPadding(10);
@@ -82,8 +81,8 @@ public class CitizenSearchForm extends GHASearchForm<Citizen> implements
 
 		addMembers(formLayout,
 				GHAUiHelper
-						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
-								+ "px"));
+				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
+						+ "px"));
 
 		final HLayout gridLayout = new HLayout();
 		gridLayout.setPadding(10);
@@ -171,8 +170,7 @@ public class CitizenSearchForm extends GHASearchForm<Citizen> implements
 	private void selectUser() {
 		final GHAGridRecord<Citizen> selectedRecord = grid.getSelectedRecord();
 		if (selectedRecord == null) {
-			GHAAlertManager.alert("INFORMATION", GHAStrings.get("information"),
-					GHAStrings.get("record-not-selected"));
+			GHAAlertManager.alert("record-not-selected");
 			return;
 		}
 		notifyCitizen(((CitizenRecord) selectedRecord).toEntity());
