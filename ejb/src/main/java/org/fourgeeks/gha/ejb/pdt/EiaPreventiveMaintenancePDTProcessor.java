@@ -18,8 +18,7 @@ import org.fourgeeks.gha.ejb.ess.MaintenanceServiceOrderServiceLocal;
 import org.fourgeeks.gha.ejb.gmh.EiaMaintenanceServiceRemote;
 
 /**
- * Session Bean implementation class
- * CorrectiveMaintenanceServiceOrderPDTProcessor
+ * Session Bean implementation class EiaPreventiveMaintenancePDTProcessor
  */
 @Stateless
 public class EiaPreventiveMaintenancePDTProcessor implements PDTProcessor {
