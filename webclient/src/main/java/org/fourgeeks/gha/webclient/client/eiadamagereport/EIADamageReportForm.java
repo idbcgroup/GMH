@@ -19,6 +19,7 @@ import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHADateItem;
@@ -29,6 +30,7 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATimeItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATitletextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHABpuSelectItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHABspSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAEiaStateSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAExternalProviderSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAFacilitySelectItem;
@@ -60,8 +62,8 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 	private GHAFacilitySelectItem facilitySelectItem;
 	private GHARoleSelectItem baseRoleSelectItem;
 	private GHAObuSelectItem obuSelectItem;
-	private GHAExternalProviderSelectItem adqisitionProviderSelectItem,
-			maintenanceProviderSelectItem;
+	private GHAExternalProviderSelectItem adqisitionProviderSelectItem;
+	private GHABspSelectItem maintenanceProviderSelectItem;
 	private GHASelectItem stateSelectItem, locationTypeSelectItem,
 			realWarrantySinceSelectItem, intWarrantySinceSelectItem,
 			eiaTypeSelectItem;
@@ -130,8 +132,9 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 		providers_TitleItem = new GHATitletextItem("Proveedores", 3);
 		adqisitionProviderSelectItem = new GHAExternalProviderSelectItem(
 				"Proveedor de Adq.", false);
-		maintenanceProviderSelectItem = new GHAExternalProviderSelectItem(
-				"Proveedor de Mant.", false);
+		maintenanceProviderSelectItem = new GHABspSelectItem(
+				GHAStrings.get("maintenance-provider"), false, changedHandler);
+		maintenanceProviderSelectItem.setDisabled(true);
 
 		// Garantias Form Items
 		realWarranty_TitleItem = new GHATitletextItem("Garantía Real:", 4);
@@ -353,7 +356,8 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 	 */
 	private GHADynamicForm getAdquisicionForm() {
 		// //////Adquisicion Form
-		GHADynamicForm adquisicionForm = new GHADynamicForm(4,FormType.SECTIONFORM_FORM);
+		GHADynamicForm adquisicionForm = new GHADynamicForm(4,
+				FormType.SECTIONFORM_FORM);
 
 		adquisicionForm.setItems(realWarranty_TitleItem,
 				realWarrantySinceSelectItem, realWarrantyBeginDate,
@@ -369,7 +373,8 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 	 * @return
 	 */
 	private GHADynamicForm getInfoBasicaForm() {
-		GHADynamicForm equipoForm = new GHADynamicForm(3,FormType.SECTIONFORM_FORM);
+		GHADynamicForm equipoForm = new GHADynamicForm(3,
+				FormType.SECTIONFORM_FORM);
 
 		equipoForm.setItems(information_TitleItem, eiaTypeSelectItem,
 				new GHASpacerItem(2), codeTextItem, serialTextItem,
@@ -384,7 +389,8 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 	 * @return
 	 */
 	private GHADynamicForm getReportForm() {
-		GHADynamicForm reportForm = new GHADynamicForm(3,FormType.SECTIONFORM_FORM);
+		GHADynamicForm reportForm = new GHADynamicForm(3,
+				FormType.SECTIONFORM_FORM);
 
 		reportForm.setItems(report_TitleItem, damageStatusSelectItem,
 				damagePrioritySelectItem, new GHASpacerItem(), damageDateItem,
@@ -399,7 +405,8 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 	 * @return
 	 */
 	private GHADynamicForm getUbicacionForm() {
-		GHADynamicForm areaForm = new GHADynamicForm(3,FormType.SECTIONFORM_FORM);
+		GHADynamicForm areaForm = new GHADynamicForm(3,
+				FormType.SECTIONFORM_FORM);
 
 		areaForm.setItems(location_TitleItem, locationTypeSelectItem,
 				new GHASpacerItem(2), workingArea_TitleItem,
@@ -532,7 +539,7 @@ public class EIADamageReportForm extends GHAForm<EiaDamageReport> implements
 			intWarrantyPotSelectItem.setValue(eia.getIntWarrantyPoT().name());
 
 		if (eia.getMaintenanceProvider() != null
-				&& eia.getMaintenanceProvider().getInstitution() != null)
+				&& eia.getMaintenanceProvider().getObu() != null)
 			maintenanceProviderSelectItem.setValue(eia.getMaintenanceProvider()
 					.getId());
 

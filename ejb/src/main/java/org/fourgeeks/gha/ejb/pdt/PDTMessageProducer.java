@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.ejb;
+package org.fourgeeks.gha.ejb.pdt;
 
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -43,10 +43,11 @@ public class PDTMessageProducer implements PDTMessageProducerLocal {
 
 			producer.send(message);
 
+			producer.close();
+			session.close();
 			connection.close();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: SendMessage", e);
 		}
 	}
-
 }

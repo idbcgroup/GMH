@@ -49,6 +49,19 @@ public class GHABspSelectItem extends GHASelectItem {
 	}
 
 	/**
+	 * @param title
+	 * @param required
+	 * @param changedHandler
+	 */
+	public GHABspSelectItem(String title, boolean required,
+			ChangedHandler changedHandler) {
+		this();
+		setTitle(title);
+		setRequired(required);
+		addChangedHandler(changedHandler);
+	}
+
+	/**
 	 * @param required
 	 * @param changedHandler
 	 */

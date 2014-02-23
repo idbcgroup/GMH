@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.ejb;
+package org.fourgeeks.gha.ejb.pdt;
 
 import javax.ejb.Local;
 

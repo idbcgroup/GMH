@@ -520,13 +520,14 @@ public class InitialData {
 				final Obu obu = em.find(Obu.class, 1L);
 				final ExternalProvider eProvider = em.find(
 						ExternalProvider.class, 1L);
+				final Bsp mProvider = em.find(Bsp.class, 1L);
 				final Role bRole = em.find(Role.class, 1L);
 
 				for (int i = 1; i < 4; ++i) {
 					final Eia eia = new Eia(bRole, em.find(EiaType.class,
 							"300000000" + Long.toString(i)), obu,
 							EiaStateEnum.values()[i % 3], "GHAEQ-00" + i,
-							eProvider, "S9023423" + i);
+							mProvider, "S9023423" + i);
 					eia.setCode("eia-00" + i);
 					eia.setFacility(facility);
 					eia.setProvider(eProvider);
@@ -1014,12 +1015,12 @@ public class InitialData {
 		InputStream in = null;
 		CSVReader reader = null;
 		try {
-			//Open csv reading buffers
+			// Open csv reading buffers
 			in = InitialData.class.getResourceAsStream("/messages.csv");
 			reader = new CSVReader(new InputStreamReader(in, "UTF-8"), ',',
 					'\'', 0);
 
-			//Read CSV
+			// Read CSV
 			final List<String[]> readAll = reader.readAll();
 			String code, text, indications;
 			int time;
@@ -1046,26 +1047,31 @@ public class InitialData {
 					logger.info("no type info available in this line... Setting 'INTERNAL-MESSAGE' by default");
 				}
 
-				if(type.equals("INTERNAL-MESSAGE")){
+				if (type.equals("INTERNAL-MESSAGE")) {
 					try {
-						em.merge(new GHAMessage(lang, code, text, indications, em.find(GHAMessageType.class, "SAY"),-1));
+						em.merge(new GHAMessage(lang, code, text, indications,
+								em.find(GHAMessageType.class, "SAY"), -1));
 					} catch (final Exception e) {
 						logger.log(Level.SEVERE,
-								"Error inserting/updating a ghamessage of type "+type, e);
+								"Error inserting/updating a ghamessage of type "
+										+ type, e);
 					}
-				}else{
+				} else {
 					time = -1;
 					time = Integer.valueOf(strings[5]);
 
 					try {
-						em.merge(new GHAMessage(lang, code, text, indications, em.find(GHAMessageType.class, type),time));
+						em.merge(new GHAMessage(lang, code, text, indications,
+								em.find(GHAMessageType.class, type), time));
 					} catch (final Exception e) {
-						logger.log(Level.SEVERE, "Error inserting/updating a ghamessage of type "+type, e);
+						logger.log(Level.SEVERE,
+								"Error inserting/updating a ghamessage of type "
+										+ type, e);
 					}
 				}
 			}
 
-			//Close csv reading buffers
+			// Close csv reading buffers
 			em.flush();
 			reader.close();
 			in.close();
@@ -1111,10 +1117,11 @@ public class InitialData {
 				em.persist(new GHAMessageType("ASKYESNO", 0, true));
 				em.persist(new GHAMessageType("ERROR-HARD", 0, true));
 				em.persist(new GHAMessageType("ERROR-SOFT", 0, false));
-				em.persist(new GHAMessageType("WARNING", 4*secsToMills, false));
-				em.persist(new GHAMessageType("INFORMATION", 4*secsToMills, false));
-				em.persist(new GHAMessageType("FAILURE", 4*secsToMills, false));
-				em.persist(new GHAMessageType("SUCCESS", 4*secsToMills, false));
+				em.persist(new GHAMessageType("WARNING", 4 * secsToMills, false));
+				em.persist(new GHAMessageType("INFORMATION", 4 * secsToMills,
+						false));
+				em.persist(new GHAMessageType("FAILURE", 4 * secsToMills, false));
+				em.persist(new GHAMessageType("SUCCESS", 4 * secsToMills, false));
 				em.persist(new GHAMessageType("PROCESSING", 0, false));
 				em.persist(new GHAMessageType("NEW_MESSAGE", 0, false));
 			} catch (final Exception e1) {

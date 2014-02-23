@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.ejb;
+package org.fourgeeks.gha.ejb.pdt;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -9,6 +9,7 @@ import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.TransactionParams;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
+import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 
 /**
  * Session Bean implementation class TransactionParamsService
