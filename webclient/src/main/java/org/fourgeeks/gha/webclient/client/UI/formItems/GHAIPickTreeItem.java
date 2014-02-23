@@ -16,6 +16,10 @@ public class GHAIPickTreeItem extends IPickTreeItem {
 	 */
 	public GHAIPickTreeItem() {
 		super();
+		// setHeight(20);
+		// setWidth("*");
+		// setPickerIconHeight(20);
+		// setOriginalStyle();
 	}
 
 	/**
@@ -34,6 +38,15 @@ public class GHAIPickTreeItem extends IPickTreeItem {
 		this();
 		this.setTitle(title);
 		this.setName(name);
+	}
+
+	/**
+	 * 
+	 */
+	private void setOriginalStyle() {
+		setTextBoxStyle("select");
+		setCellStyle("gha-form-cell");
+		setTitleStyle("input-title");
 	}
 
 }
