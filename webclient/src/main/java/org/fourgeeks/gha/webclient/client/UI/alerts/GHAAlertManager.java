@@ -1,7 +1,10 @@
 package org.fourgeeks.gha.webclient.client.UI.alerts;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
+import org.fourgeeks.gha.domain.enu.LanguageEnum;
 import org.fourgeeks.gha.domain.msg.GHAMessage;
 import org.fourgeeks.gha.domain.msg.GHAMessageType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
@@ -39,6 +42,7 @@ public class GHAAlertManager {
 	private static final GWTMessageServiceAsync messageService = GWT
 			.create(GWTMessageService.class);
 	private static int openMessagesCounter = 0;
+	private static Queue<GHAMessage> messageQueue = new LinkedList<GHAMessage>();
 
 	/**
 	 * 
@@ -47,50 +51,50 @@ public class GHAAlertManager {
 		GHAAlertManager.openMessagesCounter++;
 	}
 
-	private static GHADialog getMessageByType(GHAMessageType type, String title, String message) {
+	private static GHADialog getMessageWindow(GHAMessage message, String title) {
 		GHADialog messageDialog;
 		if(title.equals("")){
-			if (type.getCode().equals("SAY"))
-				messageDialog = new GHASayDialog(type,message);
-			else if (type.getCode().equals("ERROR-HARD"))
-				messageDialog = new GHAHardErrorDialog(type,message);
-			else if (type.getCode().equals("ERROR-SOFT"))
-				messageDialog = new GHASoftErrorDialog(type,message);
-			else if (type.getCode().equals("WARNING"))
-				messageDialog = new GHAWarningDialog(type,message);
-			else if (type.getCode().equals("INFORMATION"))
-				messageDialog = new GHAInformationDialog(type,message);
-			else if (type.getCode().equals("FAILURE"))
-				messageDialog = new GHAFailureDialog(type,message);
-			else if (type.getCode().equals("SUCCESS"))
-				messageDialog = new GHASuccessDialog(type,message);
-			else if (type.getCode().equals("PROCESSING"))
-				messageDialog = new GHAProgressDialog(type,message);
-			else if (type.getCode().equals("NEW_MESSAGE"))
-				messageDialog = new GHANewMessageDialog(type,message);
+			if (message.getType().getCode().equals("SAY"))
+				messageDialog = new GHASayDialog(message.getType(),message.getText()+". "+message.getIndications(),message.getTime());
+			else if (message.getType().getCode().equals("ERROR-HARD"))
+				messageDialog = new GHAHardErrorDialog(message.getType(),message.getText()+". "+message.getIndications(),message.getTime());
+			else if (message.getType().getCode().equals("ERROR-SOFT"))
+				messageDialog = new GHASoftErrorDialog(message.getType(),message.getText()+". "+message.getIndications(),message.getTime());
+			else if (message.getType().getCode().equals("WARNING"))
+				messageDialog = new GHAWarningDialog(message.getType(),message.getText()+". "+message.getIndications(),message.getTime());
+			else if (message.getType().getCode().equals("INFORMATION"))
+				messageDialog = new GHAInformationDialog(message.getType(),message.getText()+". "+message.getIndications(),message.getTime());
+			else if (message.getType().getCode().equals("FAILURE"))
+				messageDialog = new GHAFailureDialog(message.getType(),message.getText()+". "+message.getIndications(),message.getTime());
+			else if (message.getType().getCode().equals("SUCCESS"))
+				messageDialog = new GHASuccessDialog(message.getType(),message.getText()+". "+message.getIndications(),message.getTime());
+			else if (message.getType().getCode().equals("PROCESSING"))
+				messageDialog = new GHAProgressDialog(message.getType(),message.getText()+". "+message.getIndications(),message.getTime());
+			else if (message.getType().getCode().equals("NEW_MESSAGE"))
+				messageDialog = new GHANewMessageDialog(message.getType(),message.getText()+". "+message.getIndications(),message.getTime());
 			else
-				messageDialog = new GHASayDialog(type,message);
+				messageDialog = new GHASayDialog(message.getType(),message.getText()+". "+message.getIndications(),message.getTime());
 		}else{
-			if (type.getCode().equals("SAY"))
-				messageDialog = new GHASayDialog(type,title,message);
-			else if (type.getCode().equals("ERROR-HARD"))
-				messageDialog = new GHAHardErrorDialog(type,title,message);
-			else if (type.getCode().equals("ERROR-SOFT"))
-				messageDialog = new GHASoftErrorDialog(type,title,message);
-			else if (type.getCode().equals("WARNING"))
-				messageDialog = new GHAWarningDialog(type,title,message);
-			else if (type.getCode().equals("INFORMATION"))
-				messageDialog = new GHAInformationDialog(type,title,message);
-			else if (type.getCode().equals("FAILURE"))
-				messageDialog = new GHAFailureDialog(type,title,message);
-			else if (type.getCode().equals("SUCCESS"))
-				messageDialog = new GHASuccessDialog(type,title,message);
-			else if (type.getCode().equals("PROCESSING"))
-				messageDialog = new GHAProgressDialog(type,title,message);
-			else if (type.getCode().equals("NEW_MESSAGE"))
-				messageDialog = new GHANewMessageDialog(type,title,message);
+			if (message.getType().getCode().equals("SAY"))
+				messageDialog = new GHASayDialog(message.getType(),title,message.getText()+". "+message.getIndications(),message.getTime());
+			else if (message.getType().getCode().equals("ERROR-HARD"))
+				messageDialog = new GHAHardErrorDialog(message.getType(),title,message.getText()+". "+message.getIndications(),message.getTime());
+			else if (message.getType().getCode().equals("ERROR-SOFT"))
+				messageDialog = new GHASoftErrorDialog(message.getType(),title,message.getText()+". "+message.getIndications(),message.getTime());
+			else if (message.getType().getCode().equals("WARNING"))
+				messageDialog = new GHAWarningDialog(message.getType(),title,message.getText()+". "+message.getIndications(),message.getTime());
+			else if (message.getType().getCode().equals("INFORMATION"))
+				messageDialog = new GHAInformationDialog(message.getType(),title,message.getText()+". "+message.getIndications(),message.getTime());
+			else if (message.getType().getCode().equals("FAILURE"))
+				messageDialog = new GHAFailureDialog(message.getType(),title,message.getText()+". "+message.getIndications(),message.getTime());
+			else if (message.getType().getCode().equals("SUCCESS"))
+				messageDialog = new GHASuccessDialog(message.getType(),title,message.getText()+". "+message.getIndications(),message.getTime());
+			else if (message.getType().getCode().equals("PROCESSING"))
+				messageDialog = new GHAProgressDialog(message.getType(),title,message.getText()+". "+message.getIndications(),message.getTime());
+			else if (message.getType().getCode().equals("NEW_MESSAGE"))
+				messageDialog = new GHANewMessageDialog(message.getType(),title,message.getText()+". "+message.getIndications(),message.getTime());
 			else
-				messageDialog = new GHASayDialog(type,title,message);
+				messageDialog = new GHASayDialog(message.getType(),title,message.getText()+". "+message.getIndications(),message.getTime());
 		}
 		return messageDialog;
 	}
@@ -111,7 +115,7 @@ public class GHAAlertManager {
 		else if(type.equals("WARNING"))
 			messageType = new GHAMessageType("WARNING", 4*secsToMills, false);
 		else if(type.equals("INFORMATION"))
-			messageType = new GHAMessageType("INFORMATION", 4, false);
+			messageType = new GHAMessageType("INFORMATION", 4*secsToMills, false);
 		else if(type.equals("FAILURE"))
 			messageType = new GHAMessageType("FAILURE", 4*secsToMills, false);
 		else if(type.equals("SUCCESS"))
@@ -131,8 +135,11 @@ public class GHAAlertManager {
 	public static void alert(GHAMessage ghaMessage) {
 		if (canShowNewMessage()) {
 			GHADialog messageDialog = null;
-			messageDialog = getMessageByType(ghaMessage.getType(), "", ghaMessage.getText());
+			messageDialog = getMessageWindow(ghaMessage,"");
 			messageDialog.show();
+		}else{
+			//			Window.alert("Queuing a message: type:"+ghaMessage.getType().getCode()+" Text:"+ghaMessage.getText());
+			messageQueue.add(ghaMessage);
 		}
 	}
 
@@ -145,27 +152,38 @@ public class GHAAlertManager {
 	 * @param keys
 	 */
 	public static void alert(List<String> keys) {
-		if (canShowNewMessage()) {
-			if (keys.isEmpty()) {
-				alert("form-errors");
-				return;
-			}
-			messageService.find(keys, new GHAAsyncCallback<List<GHAMessage>>() {
-
-				@Override
-				public void onSuccess(List<GHAMessage> result) {
-					GHADialog messageDialog = null;
-					final StringBuilder builder = new StringBuilder();
-					GHAMessageType type = new GHAMessageType();
-					for (final GHAMessage msg : result) {
-						builder.append(msg.getText()).append("<br>");
-						type = msg.getType();
-					}
-					messageDialog = getMessageByType(type, "", builder.toString());
-					messageDialog.show();
-				}
-			});
+		if (keys.isEmpty()) {
+			alert("form-errors");
+			return;
 		}
+		messageService.find(keys, new GHAAsyncCallback<List<GHAMessage>>() {
+
+			@Override
+			public void onSuccess(List<GHAMessage> result) {
+				GHADialog messageDialog = null;
+				final StringBuilder builder = new StringBuilder();
+				GHAMessageType type = createMessageTypeByName("SAY");
+				for (final GHAMessage msg : result) {
+					builder.append(msg.getText()).append("<br>");
+					type = msg.getType();
+				}
+				if (canShowNewMessage()) {
+					messageDialog = getMessageWindow(new GHAMessage(
+							result.get(0).getLang(),
+							"multiple-message",
+							builder.toString(),"",
+							type,-1), "");
+					messageDialog.show();
+				}else{
+					//					Window.alert("Queuing a message: type:"+type.getCode()+" Text:"+builder.toString());
+					messageQueue.add(new GHAMessage(
+							result.get(0).getLang(),
+							"waited-multiple-message-"+messageQueue.size(),
+							builder.toString(),"",
+							type,-1));
+				}
+			}
+		});
 	}
 
 	/**
@@ -174,17 +192,20 @@ public class GHAAlertManager {
 	 * @param key
 	 */
 	public static void alert(String key) {
-		if (canShowNewMessage()) {
-			messageService.find(key, new GHAAsyncCallback<GHAMessage>() {
+		messageService.find(key, new GHAAsyncCallback<GHAMessage>() {
 
-				@Override
-				public void onSuccess(GHAMessage result) {
+			@Override
+			public void onSuccess(GHAMessage result) {
+				if (canShowNewMessage()) {
 					GHADialog messageDialog = null;
-					messageDialog = getMessageByType(result.getType(),"",result.getText());
+					messageDialog = getMessageWindow(result,"");
 					messageDialog.show();
+				}else{
+					//					Window.alert("Queuing a message: type:"+result.getType().getCode()+" Text:"+result.getText());
+					messageQueue.add(result);
 				}
-			});
-		}
+			}
+		});
 	}
 
 	/**
@@ -197,12 +218,16 @@ public class GHAAlertManager {
 	 * @param message
 	 */
 	public static void alert(String type, String title, String message) {
+		GHADialog messageDialog = null;
 		if (canShowNewMessage()) {
-			GHADialog messageDialog = null;
-			GHAMessageType messageType;
-			messageType = createMessageTypeByName(type);
-			messageDialog = getMessageByType(messageType,title,message);
+			messageDialog = getMessageWindow(new GHAMessage(LanguageEnum.ES, "not-added-message", message, "", createMessageTypeByName(type), -1),title);
 			messageDialog.show();
+		}else{
+			//			Window.alert("Queuing a message: type:"+type+" Text:"+message);
+			messageQueue.add(new GHAMessage(LanguageEnum.ES,
+					"waited-message-"+messageQueue.size(),
+					message,"",
+					createMessageTypeByName(type),-1));
 		}
 	}
 
@@ -223,7 +248,8 @@ public class GHAAlertManager {
 		final Button buttonNo = new Button(GHAStrings.get("no"));
 		final Button buttonCancel = new Button(GHAStrings.get("cancel"));
 
-		final GHADialog messageDialog = new GHAAskDialog(ghaMessage.getType(),ghaMessage.getText(),
+		final GHADialog messageDialog = new GHAAskDialog(ghaMessage.getType(),
+				ghaMessage.getText()+". "+ghaMessage.getIndications(),ghaMessage.getTime(),
 				buttonYes, buttonNo, buttonCancel);
 
 		buttonYes.addClickHandler(new ClickHandler() {
@@ -279,13 +305,13 @@ public class GHAAlertManager {
 				final Button buttonNo = new Button(GHAStrings.get("no"));
 				final Button buttonCancel = new Button(GHAStrings.get("cancel"));
 				final StringBuilder builder = new StringBuilder();
-				GHAMessageType type = new GHAMessageType();
+				GHAMessageType type = createMessageTypeByName("SAY");
 				for (final GHAMessage msg : result) {
 					builder.append(msg.getText()).append("<br>");
 					type = msg.getType();
 				}
 				final GHADialog messageDialog = new GHAAskDialog(type,builder
-						.toString(), buttonYes, buttonNo, buttonCancel);
+						.toString()+".",-1, buttonYes, buttonNo, buttonCancel);
 
 				buttonYes.addClickHandler(new ClickHandler() {
 					@Override
@@ -337,7 +363,7 @@ public class GHAAlertManager {
 				final Button buttonNo = new Button(GHAStrings.get("no"));
 				final Button buttonCancel = new Button(GHAStrings.get("cancel"));
 				final GHADialog messageDialog = new GHAAskDialog(result.getType(), result
-						.getText(), buttonYes, buttonNo, buttonCancel);
+						.getText()+". "+result.getIndications(),result.getTime(), buttonYes, buttonNo, buttonCancel);
 
 				buttonYes.addClickHandler(new ClickHandler() {
 					@Override
@@ -386,8 +412,10 @@ public class GHAAlertManager {
 		final Button buttonNo = new Button(GHAStrings.get("no"));
 		final Button buttonCancel = new Button(GHAStrings.get("cancel"));
 
-		final GHADialog messageDialog = new GHAAskDialog(createMessageTypeByName("ASKYESNO"),title, message,
-				buttonYes, buttonNo, buttonCancel);
+		final GHADialog messageDialog = new GHAAskDialog(
+				createMessageTypeByName("ASKYESNO"),
+				title, message+".",
+				-1,	buttonYes, buttonNo, buttonCancel);
 		buttonYes.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -431,7 +459,7 @@ public class GHAAlertManager {
 		final Button buttonYes = new Button(GHAStrings.get("yes"));
 		final Button buttonNo = new Button(GHAStrings.get("no"));
 		final GHADialog messageDialog = new GHAConfirmDialog(ghaMessage.getType(),
-				ghaMessage.getText(), buttonYes, buttonNo);
+				ghaMessage.getText()+". "+ghaMessage.getIndications(),ghaMessage.getTime(), buttonYes, buttonNo);
 
 		buttonYes.addClickHandler(new ClickHandler() {
 			@Override
@@ -467,13 +495,13 @@ public class GHAAlertManager {
 				final Button buttonYes = new Button(GHAStrings.get("yes"));
 				final Button buttonNo = new Button(GHAStrings.get("no"));
 				final StringBuilder builder = new StringBuilder();
-				GHAMessageType type = new GHAMessageType();
+				GHAMessageType type = createMessageTypeByName("SAY");
 				for (final GHAMessage msg : result) {
 					builder.append(msg.getText()).append("<br>");
 					type = msg.getType();
 				}
 				final GHADialog messageDialog = new GHAConfirmDialog(type,builder
-						.toString(), buttonYes, buttonNo);
+						.toString()+".",-1, buttonYes, buttonNo);
 
 				buttonYes.addClickHandler(new ClickHandler() {
 					@Override
@@ -507,7 +535,7 @@ public class GHAAlertManager {
 				final Button buttonYes = new Button(GHAStrings.get("yes"));
 				final Button buttonNo = new Button(GHAStrings.get("no"));
 				final GHADialog messageDialog = new GHAConfirmDialog(result.getType(),result
-						.getText(), buttonYes, buttonNo);
+						.getText()+". "+result.getIndications(),result.getTime(), buttonYes, buttonNo);
 
 				buttonYes.addClickHandler(new ClickHandler() {
 					@Override
@@ -538,7 +566,7 @@ public class GHAAlertManager {
 		final Button buttonYes = new Button(GHAStrings.get("yes"));
 		final Button buttonNo = new Button(GHAStrings.get("no"));
 
-		final GHADialog messageDialog = new GHAConfirmDialog(createMessageTypeByName("CONFIRM"),title, message,
+		final GHADialog messageDialog = new GHAConfirmDialog(createMessageTypeByName("CONFIRM"),title, message+".",-1,
 				buttonYes, buttonNo);
 
 		buttonYes.addClickHandler(new ClickHandler() {
@@ -593,6 +621,19 @@ public class GHAAlertManager {
 	public static void removeOpenMessageFromCounter() {
 		if (openMessagesCounter > 0)
 			GHAAlertManager.openMessagesCounter--;
+	}
+
+	/**
+	 * 
+	 */
+	public static void messageClosedActions() {
+		if(!messageQueue.isEmpty()){
+			final GHAMessage message = messageQueue.poll();
+			//			Window.alert("Dequeing a message: type:"+message.getType().getCode()+" Text:"+message.getText());
+			final GHAMessageType messageType = message.getType();
+			if(!messageType.equals("ASKYESNO") && !messageType.equals("CONFIRMATION"))
+				alert(message);
+		}
 	}
 
 	/**

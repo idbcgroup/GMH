@@ -15,30 +15,33 @@ public class GHASuccessDialog extends GHADialog {
 	/**
 	 * @param type
 	 * @param message
+	 * @param time
 	 */
-	public GHASuccessDialog(GHAMessageType type, String message) {
-		super("SUCCESS",false,false);
-		initByType(type);
+	public GHASuccessDialog(GHAMessageType type, String message , int time) {
+		super(type,false, time);
 		setMessage(message);
+		initTypeView();
 	}
 	/**
 	 * @param type
 	 * @param message
+	 * @param time
 	 * @param buttons
 	 */
-	public GHASuccessDialog(GHAMessageType type, String message, Button... buttons) {
-		super("SUCCESS",false,false,buttons);
-		initByType(type);
+	public GHASuccessDialog(GHAMessageType type, String message , int time, Button... buttons) {
+		super(type,false,time, buttons);
 		setMessage(message);
+		initTypeView();
 	}
 
 	/**
 	 * @param type
 	 * @param title
 	 * @param message
+	 * @param time
 	 */
-	public GHASuccessDialog(GHAMessageType type, String title, String message) {
-		this(type, message);
+	public GHASuccessDialog(GHAMessageType type, String title, String message , int time) {
+		this(type, message,time);
 		setTitle(title);
 	}
 
@@ -46,31 +49,19 @@ public class GHASuccessDialog extends GHADialog {
 	 * @param type
 	 * @param title
 	 * @param message
+	 * @param time
 	 * @param buttons
 	 */
-	public GHASuccessDialog(GHAMessageType type, String title, String message, Button... buttons) {
-		this(type, message,buttons);
+	public GHASuccessDialog(GHAMessageType type, String title, String message , int time, Button... buttons) {
+		this(type, message,time,buttons);
 		setTitle(title);
-	}
-
-	/**
-	 * 
-	 */
-	private void initByType(GHAMessageType type) {
-		initTypeParams(type);
-		confModalTimingSettings();
 	}
 
 	/* (non-Javadoc)
 	 * @see org.fourgeeks.gha.webclient.client.UI.alerts.GHADialog#initTypeParams()
 	 */
 	@Override
-	protected void initTypeParams(GHAMessageType type) {
-		// Green
-		dialogType = type.getCode();
-		isTimed = type.isTimed();
-		isModal = type.isModal();
-		waitingTime = type.getTime();
+	protected void initTypeView() {
 		setTitle(GHAStrings.get("success"));
 		setBorder("1px solid #AAC475");
 		setBackgroundColor("#AAC475");
