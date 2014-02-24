@@ -1,5 +1,7 @@
 package org.fourgeeks.gha.ejb.ess.auth;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 
 import junit.framework.Assert;
@@ -16,6 +18,7 @@ import org.fourgeeks.gha.domain.enu.CCDIEndValueActionEnum;
 import org.fourgeeks.gha.domain.enu.CCDIStatusEnum;
 import org.fourgeeks.gha.domain.enu.CCDIValueStatusEnum;
 import org.fourgeeks.gha.domain.enu.CCDIValueTypeEnum;
+import org.fourgeeks.gha.domain.enu.CredentialTypeEnum;
 import org.fourgeeks.gha.domain.enu.CurrencyTypeEnum;
 import org.fourgeeks.gha.domain.enu.DepreciationMethodEnum;
 import org.fourgeeks.gha.domain.enu.DocumentTypeEnum;
@@ -196,6 +199,7 @@ public class InstanceLogonServiceTest {
 				.addClass(RuntimeParameters.class)
 				.addClass(org.fourgeeks.gha.domain.gom.Concept.class)
 				.addClass(CCDIDefinition.class)
+				.addClass(CredentialTypeEnum.class)
 				.addClass(CCDILevelDefinition.class)
 				.addClass(Obu.class)
 				.addClass(CCDILevelValue.class)
@@ -263,10 +267,10 @@ public class InstanceLogonServiceTest {
 				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
-	@EJB(lookup = "java:global/ear-1/ejb-1/InstanceLogonService")
+	@EJB(lookup = "java:global/test/InstanceLogonService")
 	InstanceLogonServiceRemote service;
 
-	@EJB(lookup = "java:global/ear-1/ejb-1/BpaService")
+	@EJB(lookup = "java:global/test/BpaService")
 	BpaServiceRemote bpaService;
 
 	private Bpa bpa;
@@ -296,8 +300,9 @@ public class InstanceLogonServiceTest {
 		entity = service.save(entity);
 
 		Assert.assertNotNull(entity);
-		Assert.assertTrue(service.find(entity) != null
-				&& service.find(entity).size() >= 1);
+		List<InstanceLogon> entities = service.find(entity);
+		Assert.assertTrue(entities != null
+				&& entities.size() >= 1);
 		Assert.assertEquals(entity, service.find(entity.getId()));
 		Assert.assertTrue(service.getAll() != null
 				&& service.getAll().size() >= 1);
