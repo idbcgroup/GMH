@@ -101,9 +101,8 @@ public class GHAAlertManager {
 
 	private static GHAMessageType createMessageTypeByName(String type) {
 		GHAMessageType messageType;
-		final int secsToMills = 1000;
 		if(type.equals("SAY"))
-			messageType = new GHAMessageType("SAY", 4*secsToMills, false);
+			messageType = new GHAMessageType("SAY", 4, false);
 		else if(type.equals("CONFIRMATION"))
 			messageType = new GHAMessageType("CONFIRMATION", 0, true);
 		else if(type.equals("ASKYESNO"))
@@ -113,19 +112,19 @@ public class GHAAlertManager {
 		else if(type.equals("ERROR-SOFT"))
 			messageType = new GHAMessageType("ERROR-SOFT", 0, false);
 		else if(type.equals("WARNING"))
-			messageType = new GHAMessageType("WARNING", 4*secsToMills, false);
+			messageType = new GHAMessageType("WARNING", 4, false);
 		else if(type.equals("INFORMATION"))
-			messageType = new GHAMessageType("INFORMATION", 4*secsToMills, false);
+			messageType = new GHAMessageType("INFORMATION", 4, false);
 		else if(type.equals("FAILURE"))
-			messageType = new GHAMessageType("FAILURE", 4*secsToMills, false);
+			messageType = new GHAMessageType("FAILURE", 4, false);
 		else if(type.equals("SUCCESS"))
-			messageType = new GHAMessageType("SUCCESS", 4*secsToMills, false);
+			messageType = new GHAMessageType("SUCCESS", 4, false);
 		else if(type.equals("PROCESSING"))
 			messageType = new GHAMessageType("PROCESSING", 0, false);
 		else if(type.equals("NEW_MESSAGE"))
 			messageType = new GHAMessageType("NEW_MESSAGE", 0, false);
 		else
-			messageType = new GHAMessageType("SAY", 4*secsToMills, false);
+			messageType = new GHAMessageType("SAY", 4, false);
 		return messageType;
 	}
 

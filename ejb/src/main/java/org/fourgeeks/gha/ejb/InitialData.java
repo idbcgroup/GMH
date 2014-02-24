@@ -285,7 +285,7 @@ public class InitialData {
 					final CCDIDefinition definition = em
 							.createNamedQuery("CCDIDefinition.findByCode",
 									CCDIDefinition.class)
-							.setParameter("code", strings[0]).getSingleResult();
+									.setParameter("code", strings[0]).getSingleResult();
 
 					final CCDILevelDefinition levelDefinition = new CCDILevelDefinition();
 					levelDefinition.setDefinition(definition);
@@ -293,8 +293,8 @@ public class InitialData {
 					levelDefinition.setName(strings[2]);
 					levelDefinition.setLength(Integer.parseInt(strings[3]));
 					levelDefinition
-							.setValueType(CCDIValueTypeEnum.values()[Integer
-									.parseInt(strings[4])]);
+					.setValueType(CCDIValueTypeEnum.values()[Integer
+					                                         .parseInt(strings[4])]);
 					levelDefinition.setInitialValue(Integer
 							.parseInt(strings[5]));
 					levelDefinition.setIncValue(Integer.parseInt(strings[6]));
@@ -354,14 +354,14 @@ public class InitialData {
 					final CCDIDefinition definition = em
 							.createNamedQuery("CCDIDefinition.findByCode",
 									CCDIDefinition.class)
-							.setParameter("code", strings[0]).getSingleResult();
+									.setParameter("code", strings[0]).getSingleResult();
 					final CCDILevelDefinition levelDefinition = em
 							.createNamedQuery(
 									"CCDILevelDefinition.findByLevel",
 									CCDILevelDefinition.class)
-							.setParameter("definition", definition)
-							.setParameter("level", Integer.parseInt(strings[1]))
-							.getSingleResult();
+									.setParameter("definition", definition)
+									.setParameter("level", Integer.parseInt(strings[1]))
+									.getSingleResult();
 
 					final CCDILevelValue levelValue = new CCDILevelValue();
 					levelValue.setLevelDefinition(levelDefinition);
@@ -377,7 +377,7 @@ public class InitialData {
 					levelValue.setNextValue(Integer.parseInt(strings[5]));
 					levelValue.setFixedValue(strings[6]);
 					levelValue.setStatus(CCDIValueStatusEnum.values()[Integer
-							.parseInt(strings[7])]);
+					                                                  .parseInt(strings[7])]);
 					levelValue.setNextElement(Integer.parseInt(strings[8]));
 
 					em.persist(levelValue);
@@ -432,13 +432,13 @@ public class InitialData {
 					definition.setLength(Integer.parseInt(strings[2]));
 					definition.setLevels(Integer.parseInt(strings[3]));
 					definition.setStatus(CCDIStatusEnum.values()[Integer
-							.parseInt(strings[4])]);
+					                                             .parseInt(strings[4])]);
 					definition.setConcept(em.find(Concept.class,
 							Long.parseLong(strings[5])));
 					definition.setType(CCDICodeTypeEnum.values()[Integer
-							.parseInt(strings[6])]);
+					                                             .parseInt(strings[6])]);
 					definition
-							.setVerification(Boolean.parseBoolean(strings[7]));
+					.setVerification(Boolean.parseBoolean(strings[7]));
 					definition.setVerificationMethod(strings[8]);
 
 					em.persist(definition);
@@ -552,7 +552,7 @@ public class InitialData {
 						.createNamedQuery(
 								"CCDILevelValue.findAllByDefinitionCode",
 								CCDILevelValue.class)
-						.setParameter("code", "EQUIPOS").getResultList();
+								.setParameter("code", "EQUIPOS").getResultList();
 
 				for (final CCDILevelValue ccdi : ccdiCategories) {
 					final EiaTypeCategory category = new EiaTypeCategory();
@@ -618,13 +618,13 @@ public class InitialData {
 							Long.parseLong(strings[1])));
 					eiaType.setName(strings[2]);
 					eiaType.setMobility(EiaMobilityEnum.values()[Integer
-							.parseInt(strings[3])]);
+					                                             .parseInt(strings[3])]);
 					eiaType.setEiaTypeCategory(em
 							.createNamedQuery("EiaTypeCategory.findByCode",
 									EiaTypeCategory.class)
-							.setParameter("code", strings[4]).getSingleResult());
+									.setParameter("code", strings[4]).getSingleResult());
 					eiaType.setSubtype(EiaSubTypeEnum.values()[Integer
-							.parseInt(strings[5])]);
+					                                           .parseInt(strings[5])]);
 					eiaType.setModel(strings[6]);
 					em.persist(eiaType);
 					em.flush();
@@ -683,7 +683,7 @@ public class InitialData {
 		} catch (final NoResultException e) {
 			logger.info("Creating test data : facility");
 			final String facilityNames[] = { "Sala 1 Rayos X",
-					"Sala 1 Tomografía" };
+			"Sala 1 Tomografía" };
 			for (int i = 3, j = 0; i < 5; ++i, ++j) {
 				final Facility facility = new Facility();
 				facility.setName(facilityNames[j]);
@@ -793,7 +793,7 @@ public class InitialData {
 				final String activityNames[] = { "Desconectar", "Abrir",
 						"Limpiar", "Cerrar", "Conectar", "Reemplazar",
 						"subprotocol_activity", "activity_1", "activity_2",
-						"activity_3" };
+				"activity_3" };
 
 				final String activityDesc[] = {
 						"Desconecte el equipo de la corriente eléctrica",
@@ -805,7 +805,7 @@ public class InitialData {
 						"actividad de subprotocolo para pruebas",
 						"actividad de prueba 1 para la actividad de subprotocolo",
 						"actividad de prueba 2 para la actividad de subprotocolo",
-						"actividad de prueba 2 para la actividad de subprotocolo" };
+				"actividad de prueba 2 para la actividad de subprotocolo" };
 
 				final int durations[] = { 1, 2, 2, 1, 4, 3, 5, 6, 8, 7 };
 
@@ -861,10 +861,10 @@ public class InitialData {
 				logger.info("Creating test data: maintenance plan");
 				final String planName[] = {
 						"Plan de Mantenimiento Impresoras Tinta",
-						"Plan de Mantenimiento Impresoras Laser" };
+				"Plan de Mantenimiento Impresoras Laser" };
 				final String planDesc[] = {
 						"plan de mantenimiento impresoras de tinta",
-						"plan de mantenimiento impresoras laser" };
+				"plan de mantenimiento impresoras laser" };
 				final int planFrequency[] = { 1, 3 };
 				final TimePeriodEnum planTimePeriod[] = {
 						TimePeriodEnum.MONTHS, TimePeriodEnum.SEMESTERS };
@@ -972,7 +972,7 @@ public class InitialData {
 				for (int j = 0; j < 3; j++) {
 					em.persist(new MaterialCategory("mat-cat-00" + j,
 							"material-category-00" + j, MaterialTypeEnum
-									.values()[j % 3]));
+							.values()[j % 3]));
 				}
 				em.flush();
 			} catch (final Exception e1) {
@@ -1022,8 +1022,7 @@ public class InitialData {
 
 			// Read CSV
 			final List<String[]> readAll = reader.readAll();
-			String code, text, indications;
-			int time;
+			String code, text;
 			String type;
 			LanguageEnum lang = null;
 			final Map<String, Boolean> words = new HashMap<String, Boolean>();
@@ -1039,35 +1038,19 @@ public class InitialData {
 				words.put(code + language, true);
 				lang = LanguageEnum.valueOf(strings[0]);
 				text = strings[2];
-				indications = strings[3];
-				type = "INTERNAL-MESSAGE";
+				type = "SAY";
 				try {
-					type = String.valueOf(strings[4]);
+					type = String.valueOf(strings[3]);
 				} catch (final Exception e) {
-					logger.info("no type info available in this line... Setting 'INTERNAL-MESSAGE' by default");
+					logger.info("no type info available in this line... Setting 'SAY' by default");
 				}
 
-				if (type.equals("INTERNAL-MESSAGE")) {
-					try {
-						em.merge(new GHAMessage(lang, code, text, indications,
-								em.find(GHAMessageType.class, "SAY"), -1));
-					} catch (final Exception e) {
-						logger.log(Level.SEVERE,
-								"Error inserting/updating a ghamessage of type "
-										+ type, e);
-					}
-				} else {
-					time = -1;
-					time = Integer.valueOf(strings[5]);
-
-					try {
-						em.merge(new GHAMessage(lang, code, text, indications,
-								em.find(GHAMessageType.class, type), time));
-					} catch (final Exception e) {
-						logger.log(Level.SEVERE,
-								"Error inserting/updating a ghamessage of type "
-										+ type, e);
-					}
+				try {
+					em.merge(new GHAMessage(lang, code, text, "", em.find(GHAMessageType.class, type), -1));
+				} catch (final Exception e) {
+					logger.log(Level.SEVERE,
+							"Error inserting/updating a ghamessage of type "
+									+ type, e);
 				}
 			}
 
@@ -1110,18 +1093,16 @@ public class InitialData {
 			em.createQuery(query).getSingleResult();
 		} catch (final NoResultException e) {
 			try {
-				final int secsToMills = 1000;
 				logger.info("creating test data : message types");
-				em.persist(new GHAMessageType("SAY", 4 * secsToMills, false));
+				em.persist(new GHAMessageType("SAY", 4, false));
 				em.persist(new GHAMessageType("CONFIRMATION", 0, true));
 				em.persist(new GHAMessageType("ASKYESNO", 0, true));
 				em.persist(new GHAMessageType("ERROR-HARD", 0, true));
 				em.persist(new GHAMessageType("ERROR-SOFT", 0, false));
-				em.persist(new GHAMessageType("WARNING", 4 * secsToMills, false));
-				em.persist(new GHAMessageType("INFORMATION", 4 * secsToMills,
-						false));
-				em.persist(new GHAMessageType("FAILURE", 4 * secsToMills, false));
-				em.persist(new GHAMessageType("SUCCESS", 4 * secsToMills, false));
+				em.persist(new GHAMessageType("WARNING", 4, false));
+				em.persist(new GHAMessageType("INFORMATION", 4, false));
+				em.persist(new GHAMessageType("FAILURE", 4, false));
+				em.persist(new GHAMessageType("SUCCESS", 4, false));
 				em.persist(new GHAMessageType("PROCESSING", 0, false));
 				em.persist(new GHAMessageType("NEW_MESSAGE", 0, false));
 			} catch (final Exception e1) {
@@ -1368,7 +1349,7 @@ public class InitialData {
 			final Map<String, Boolean> words = new HashMap<String, Boolean>();
 
 			for (final String[] strings : readAll) {
-				String code = strings[0];
+				final String code = strings[0];
 				if (code.startsWith("#") || code.startsWith("//"))
 					continue;
 				if (words.containsKey(code)) {
