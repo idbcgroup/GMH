@@ -373,13 +373,14 @@ public abstract class GHADialog extends Dialog implements ResizeHandler, Window.
 	}
 
 	private void initTypeParameters(GHAMessageType type, int time) {
+		final int secsToMills = 1000;
 		dialogType = type.getCode();
 		isTimed = type.isTimed();
 		isModal = type.isModal();
 		if(time>=0){
-			waitingTime = time;
+			waitingTime = time * secsToMills;
 		}else{
-			waitingTime = type.getTime();
+			waitingTime = type.getTime() * secsToMills;
 		}
 	}
 }
