@@ -48,12 +48,12 @@ import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.enu.UserLogonStatusEnum;
 import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
 import org.fourgeeks.gha.domain.ess.LocationType;
-import org.fourgeeks.gha.domain.ess.Role;
-import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
-import org.fourgeeks.gha.domain.ess.ui.AppForm;
-import org.fourgeeks.gha.domain.ess.ui.AppFormViewFunctionBpu;
-import org.fourgeeks.gha.domain.ess.ui.Function;
+import org.fourgeeks.gha.domain.ess.auth.Role;
+import org.fourgeeks.gha.domain.ess.auth.SSOUser;
+import org.fourgeeks.gha.domain.ess.ui.App;
+import org.fourgeeks.gha.domain.ess.ui.PermissionBpu;
+import org.fourgeeks.gha.domain.ess.ui.Permission;
 import org.fourgeeks.gha.domain.ess.ui.Module;
 import org.fourgeeks.gha.domain.ess.ui.View;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
@@ -95,8 +95,8 @@ import org.fourgeeks.gha.domain.msg.GHAMessageId;
 import org.fourgeeks.gha.domain.msg.GHAMessageType;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
-import org.fourgeeks.gha.ejb.ess.SSOUserService;
-import org.fourgeeks.gha.ejb.ess.SSOUserServiceRemote;
+import org.fourgeeks.gha.ejb.ess.auth.SSOUserService;
+import org.fourgeeks.gha.ejb.ess.auth.SSOUserServiceRemote;
 import org.fourgeeks.gha.ejb.gar.BpuService;
 import org.fourgeeks.gha.ejb.gar.BpuServiceRemote;
 import org.fourgeeks.gha.ejb.mix.BpiService;
@@ -136,9 +136,9 @@ public class UILogServiceTest {
 				.addClass(Activity.class)
 				.addClass(ActivityCategoryEnum.class)
 				.addClass(ActivitySubCategoryEnum.class)
-				.addClass(AppFormViewFunctionBpu.class)
+				.addClass(PermissionBpu.class)
 				.addClass(ActivityState.class)
-				.addClass(AppForm.class)
+				.addClass(App.class)
 				.addClass(Bpu.class)
 				.addClass(BpuService.class)
 				.addClass(BpuServiceRemote.class)
@@ -174,7 +174,7 @@ public class UILogServiceTest {
 				.addClass(ExternalProvider.class)
 				.addClass(Facility.class)
 				.addClass(FacilityCategory.class)
-				.addClass(Function.class)
+				.addClass(Permission.class)
 				.addClass(GHALog.class)
 				.addClass(GHAEJBException.class)
 				.addClass(GHAMessage.class)

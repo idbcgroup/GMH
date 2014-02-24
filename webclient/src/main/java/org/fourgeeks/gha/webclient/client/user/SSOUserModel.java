@@ -2,7 +2,7 @@ package org.fourgeeks.gha.webclient.client.user;
 
 import java.util.List;
 
-import org.fourgeeks.gha.domain.ess.SSOUser;
+import org.fourgeeks.gha.domain.ess.auth.SSOUser;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.ssouser.GWTSSOUserService;
 import org.fourgeeks.gha.webclient.client.ssouser.GWTSSOUserServiceAsync;

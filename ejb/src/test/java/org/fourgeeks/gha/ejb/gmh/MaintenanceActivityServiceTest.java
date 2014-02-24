@@ -49,13 +49,13 @@ import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.enu.UserLogonStatusEnum;
 import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
 import org.fourgeeks.gha.domain.ess.LocationType;
-import org.fourgeeks.gha.domain.ess.Role;
-import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
-import org.fourgeeks.gha.domain.ess.ui.AppForm;
-import org.fourgeeks.gha.domain.ess.ui.AppFormViewFunction;
-import org.fourgeeks.gha.domain.ess.ui.AppFormViewFunctionBpu;
-import org.fourgeeks.gha.domain.ess.ui.Function;
+import org.fourgeeks.gha.domain.ess.auth.Role;
+import org.fourgeeks.gha.domain.ess.auth.SSOUser;
+import org.fourgeeks.gha.domain.ess.ui.App;
+import org.fourgeeks.gha.domain.ess.ui.ViewPermission;
+import org.fourgeeks.gha.domain.ess.ui.PermissionBpu;
+import org.fourgeeks.gha.domain.ess.ui.Permission;
 import org.fourgeeks.gha.domain.ess.ui.Module;
 import org.fourgeeks.gha.domain.ess.ui.View;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
@@ -98,10 +98,10 @@ import org.fourgeeks.gha.domain.msg.GHAMessageId;
 import org.fourgeeks.gha.domain.msg.GHAMessageType;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
-import org.fourgeeks.gha.ejb.ess.RoleService;
-import org.fourgeeks.gha.ejb.ess.RoleServiceRemote;
-import org.fourgeeks.gha.ejb.ess.SSOUserService;
-import org.fourgeeks.gha.ejb.ess.SSOUserServiceRemote;
+import org.fourgeeks.gha.ejb.ess.auth.RoleService;
+import org.fourgeeks.gha.ejb.ess.auth.RoleServiceRemote;
+import org.fourgeeks.gha.ejb.ess.auth.SSOUserService;
+import org.fourgeeks.gha.ejb.ess.auth.SSOUserServiceRemote;
 import org.fourgeeks.gha.ejb.gar.ObuService;
 import org.fourgeeks.gha.ejb.gar.ObuServiceRemote;
 import org.fourgeeks.gha.ejb.glm.ExternalProviderService;
@@ -135,9 +135,9 @@ public class MaintenanceActivityServiceTest {
 				.create(WebArchive.class, "test.war")
 				.addClass(AbstractEntity.class)
 				.addClass(AbstractCodeEntity.class)
-				.addClass(AppForm.class)
-				.addClass(AppFormViewFunction.class)
-				.addClass(AppFormViewFunctionBpu.class)
+				.addClass(App.class)
+				.addClass(ViewPermission.class)
+				.addClass(PermissionBpu.class)
 				.addClass(Bpi.class)
 				.addClass(BpiOriginEnum.class)
 				.addClass(BpiRiskEnum.class)
@@ -178,7 +178,7 @@ public class MaintenanceActivityServiceTest {
 				.addClass(ExternalProvider.class)
 				.addClass(Facility.class)
 				.addClass(FacilityCategory.class)
-				.addClass(Function.class)
+				.addClass(Permission.class)
 				.addClass(GenderTypeEnum.class)
 				.addClass(GHAEJBException.class)
 				.addClass(GHAMessage.class)

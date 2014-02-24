@@ -5,7 +5,7 @@ package org.fourgeeks.gha.webclient.client.instancelogon;
 
 import java.util.List;
 
-import org.fourgeeks.gha.domain.ess.InstanceLogon;
+import org.fourgeeks.gha.domain.ess.auth.InstanceLogon;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 
 import com.google.gwt.user.client.rpc.RemoteService;

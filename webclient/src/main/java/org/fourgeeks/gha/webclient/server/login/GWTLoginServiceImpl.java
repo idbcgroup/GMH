@@ -8,12 +8,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.fourgeeks.gha.domain.ess.SSOUser;
+import org.fourgeeks.gha.domain.ess.auth.SSOUser;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.logs.LogonLog;
-import org.fourgeeks.gha.ejb.ess.AppFormViewFunctionBpuServiceRemote;
-import org.fourgeeks.gha.ejb.ess.SSOUserServiceRemote;
+import org.fourgeeks.gha.ejb.ess.auth.SSOUserServiceRemote;
+import org.fourgeeks.gha.ejb.ess.ui.PermissionBpuServiceRemote;
 import org.fourgeeks.gha.ejb.log.LogonLogServiceRemote;
 import org.fourgeeks.gha.ejb.msg.MessageServiceRemote;
 import org.fourgeeks.gha.webclient.client.login.GWTLoginService;
@@ -40,7 +40,7 @@ public class GWTLoginServiceImpl extends RemoteServiceServlet implements
 	SSOUserServiceRemote ssoUserService;
 
 	@EJB(lookup = "java:global/ear-1/ejb-1/AppFormViewFunctionBpuService")
-	AppFormViewFunctionBpuServiceRemote bpuFunctionService;
+	PermissionBpuServiceRemote bpuFunctionService;
 
 	@EJB(lookup = "java:global/ear-1/ejb-1/MessageService!"
 			+ "org.fourgeeks.gha.ejb.msg.MessageServiceRemote")
@@ -86,7 +86,7 @@ public class GWTLoginServiceImpl extends RemoteServiceServlet implements
 		}
 		bpu = ssoUser.getBpu();
 		bpu.setSessionId(session.getId());
-		bpu.setPermissions(bpuFunctionService.getFunctionsByBpu(bpu));
+		bpu.setPermissions(bpuFunctionService.getPermissionByBpu(bpu));
 		return bpu;
 	}
 }

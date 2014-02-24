@@ -8,9 +8,9 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 
-import org.fourgeeks.gha.domain.ess.InstanceLogon;
+import org.fourgeeks.gha.domain.ess.auth.InstanceLogon;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
-import org.fourgeeks.gha.ejb.ess.InstanceLogonServiceRemote;
+import org.fourgeeks.gha.ejb.ess.auth.InstanceLogonServiceRemote;
 import org.fourgeeks.gha.webclient.client.instancelogon.GWTInstanceLogonService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;

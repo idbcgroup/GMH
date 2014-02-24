@@ -17,7 +17,7 @@ import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.fourgeeks.gha.domain.ess.Role;
+import org.fourgeeks.gha.domain.ess.auth.Role;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Job;
 import org.fourgeeks.gha.domain.gar.JobCategory;

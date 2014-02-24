@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
 
-import org.fourgeeks.gha.domain.ess.ui.AppFormViewFunctionBpu;
+import org.fourgeeks.gha.domain.ess.ui.PermissionBpu;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.webclient.client.UI.dropdownmenus.UserDropdownMenu;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.LoginNeededException;
@@ -55,8 +55,8 @@ public abstract class GHASessionData {
 		viewTreeSet = new TreeSet<String>();
 		functionTreeSet = new TreeSet<String>();
 		permissionMap = new HashMap<String, String>();
-		List<AppFormViewFunctionBpu> permissions = loggedUser.getPermissions();
-		for (AppFormViewFunctionBpu permission : permissions) {
+		List<PermissionBpu> permissions = loggedUser.getPermissions();
+		for (PermissionBpu permission : permissions) {
 			viewTreeSet.add(permission.getView().getCode());
 			functionTreeSet.add(permission.getFunction().getCode());
 			permissionMap.put(permission.getAppForm().getToken(), permission
@@ -91,18 +91,10 @@ public abstract class GHASessionData {
 				.addClickHandler(new com.smartgwt.client.widgets.events.ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						// int posx = event.getX() - 270;
-						// int posy = event.getY();
-						// if (event.getY() < 50)
-						// posy += 20;
-						// else
-						// posy += 10;
-
-						if (userMenu.isVisible()) {
+						if (userMenu.isVisible())
 							userMenu.hide();
-						} else {
+						else
 							userMenu.show();
-						}
 					}
 				});
 

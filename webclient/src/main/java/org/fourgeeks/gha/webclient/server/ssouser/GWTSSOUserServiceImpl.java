@@ -8,10 +8,10 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 
-import org.fourgeeks.gha.domain.ess.SSOUser;
+import org.fourgeeks.gha.domain.ess.auth.SSOUser;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
-import org.fourgeeks.gha.ejb.ess.AppFormViewFunctionBpuServiceRemote;
-import org.fourgeeks.gha.ejb.ess.SSOUserServiceRemote;
+import org.fourgeeks.gha.ejb.ess.auth.SSOUserServiceRemote;
+import org.fourgeeks.gha.ejb.ess.ui.PermissionBpuServiceRemote;
 import org.fourgeeks.gha.webclient.client.ssouser.GWTSSOUserService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -27,7 +27,7 @@ public class GWTSSOUserServiceImpl extends RemoteServiceServlet implements
 	SSOUserServiceRemote ssoUserService;
 
 	@EJB(lookup = "java:global/ear-1/ejb-1/AppFormViewFunctionBpuService")
-	AppFormViewFunctionBpuServiceRemote bpuFunctionService;
+	PermissionBpuServiceRemote bpuFunctionService;
 
 	/**
 	 * 

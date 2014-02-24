@@ -15,6 +15,8 @@ public class Module extends AbstractCodeEntity {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private String name;
+
 	/**
 	 * 
 	 */
@@ -36,13 +38,4 @@ public class Module extends AbstractCodeEntity {
 	public String getName() {
 		return name;
 	}
-
-	/**
-	 * @param name
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	private String name;
 }

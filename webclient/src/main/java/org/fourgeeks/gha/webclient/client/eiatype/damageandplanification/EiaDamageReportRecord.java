@@ -1,6 +1,6 @@
 package org.fourgeeks.gha.webclient.client.eiatype.damageandplanification;
 
-import org.fourgeeks.gha.domain.ess.Role;
+import org.fourgeeks.gha.domain.ess.auth.Role;
 import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Eia;

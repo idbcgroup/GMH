@@ -3,7 +3,7 @@ package org.fourgeeks.gha.webclient.client.UI;
 import javax.validation.Validator;
 
 import org.fourgeeks.gha.domain.Activity;
-import org.fourgeeks.gha.domain.ess.SSOUser;
+import org.fourgeeks.gha.domain.ess.auth.SSOUser;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.glm.Material;
 import org.fourgeeks.gha.domain.glm.MaterialCategory;
