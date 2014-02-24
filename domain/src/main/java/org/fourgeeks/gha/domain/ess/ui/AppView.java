@@ -27,7 +27,7 @@ public class AppView extends AbstractCodeEntity {
 
 	@NotNull(message = "view-not-null")
 	@ManyToOne
-	@JoinColumn(name = "view", nullable = false)
+	@JoinColumn(name = "viewFk", nullable = false)
 	private View view;
 
 	/**

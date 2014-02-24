@@ -16,7 +16,6 @@ public class View extends AbstractCodeEntity {
 	 */
 	private static final long serialVersionUID = 1L;
 	private String name, description;
-	private App app;
 
 	/**
 	 * 
@@ -30,18 +29,10 @@ public class View extends AbstractCodeEntity {
 	 * @param code
 	 * @param description
 	 */
-	public View(App app, String code, String name, String description) {
+	public View(String code, String name, String description) {
 		this.name = name;
 		setCode(code);
 		this.description = description;
-		this.app = app;
-	}
-
-	/**
-	 * @return the app
-	 */
-	public App getApp() {
-		return app;
 	}
 
 	/**

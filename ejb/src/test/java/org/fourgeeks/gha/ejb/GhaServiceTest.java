@@ -51,26 +51,6 @@ import au.com.bytecode.opencsv.CSVReader;
  */
 public class GhaServiceTest {
 
-	private Bpa bpa = null;
-	private Bpi bpi = null;
-	private Bpu bpu = null;
-	private BuildingLocation buildingLocation = null;
-	private Citizen citizen = null;
-	private Date date = null;
-	private Eia eia = null;
-	private EiaType eiaType = null;
-	private EiaTypeMaintenancePlan eiaTypeMaintenancePlan = null;
-	private ExternalProvider externalProvider = null;
-	private Institution institution = null;
-	private LegalEntity legalEntity = null;
-	private MaintenanceActivity maintenanceActivity = null;
-	private RequiredResources maintenanceActivityServiceResource = null;
-	private MaintenancePlan maintenancePlan = null;
-	private Manufacturer manufacturer;
-	private Obu obu = null;
-	private Role role = null;
-	private final ServiceAndResource serviceResource = null;
-
 	/**
 	 * @return the deployment descriptor
 	 */
@@ -117,6 +97,28 @@ public class GhaServiceTest {
 				.addAsWebInfResource("jbossas-ds.xml");
 	}
 
+	private Bpa bpa = null;
+	private Bpi bpi = null;
+	private Bpu bpu = null;
+	private BuildingLocation buildingLocation = null;
+	private Citizen citizen = null;
+	private Date date = null;
+	private Eia eia = null;
+	private EiaType eiaType = null;
+	private EiaTypeMaintenancePlan eiaTypeMaintenancePlan = null;
+	private ExternalProvider externalProvider = null;
+	private Institution institution = null;
+	private LegalEntity legalEntity = null;
+	private MaintenanceActivity maintenanceActivity = null;
+	private RequiredResources maintenanceActivityServiceResource = null;
+	private MaintenancePlan maintenancePlan = null;
+	private Manufacturer manufacturer;
+	private Obu obu = null;
+	private Role role = null;
+
+	private final ServiceAndResource serviceResource = null;
+
+	@Deprecated
 	public Bpa getBpa(EntityManager em) {
 		if (bpa == null) {
 			final Bpa bpa = new Bpa();
@@ -127,6 +129,7 @@ public class GhaServiceTest {
 		return bpa;
 	}
 
+	@Deprecated
 	public Bpi getBpi(EntityManager em) {
 		if (bpi == null) {
 			final Bpi bpi = new Bpi();
@@ -138,6 +141,7 @@ public class GhaServiceTest {
 		return bpi;
 	}
 
+	@Deprecated
 	public Bpu getBpu(EntityManager em) {
 		if (bpu == null) {
 			final Bpu bpu = new Bpu();
@@ -150,6 +154,7 @@ public class GhaServiceTest {
 		return bpu;
 	}
 
+	@Deprecated
 	public BuildingLocation getBuildingLocation(EntityManager em) {
 		if (buildingLocation == null) {
 			final BuildingLocation buildingLocation = new BuildingLocation();

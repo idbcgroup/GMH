@@ -1,6 +1,7 @@
 package org.fourgeeks.gha.domain.ess.ui;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import org.fourgeeks.gha.domain.AbstractCodeEntity;
@@ -21,6 +22,7 @@ public class App extends AbstractCodeEntity {
 	private String token;
 
 	@ManyToOne
+	@JoinColumn(name = "moduleFk", nullable = false)
 	private Module module;
 
 	/**

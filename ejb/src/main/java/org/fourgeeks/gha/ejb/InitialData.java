@@ -1082,7 +1082,7 @@ public class InitialData {
 				em.merge(app);
 				final String viewCode = strings[3];
 				final String viewDescription = strings[4];
-				view = new View(app, viewCode, null, viewDescription);
+				view = new View(viewCode, null, viewDescription);
 				em.merge(view);
 				appView = new AppView(app, view);
 				em.merge(appView);

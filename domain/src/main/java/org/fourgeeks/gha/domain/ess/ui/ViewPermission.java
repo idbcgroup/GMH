@@ -17,7 +17,7 @@ import org.fourgeeks.gha.domain.AbstractCodeEntity;
  */
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "viewFk",
-		"functionFk" }))
+		"permissionFk" }))
 @NamedQueries(value = { @NamedQuery(name = "ViewPermission.getAll", query = "SELECT e from ViewPermission e order by e.view") })
 public class ViewPermission extends AbstractCodeEntity {
 	/**

@@ -27,7 +27,7 @@ public class Module extends AbstractCodeEntity {
 	 * @param name
 	 * @param code
 	 */
-	public Module(String name, String code) {
+	public Module(String code, String name) {
 		this.name = name;
 		setCode(code);
 	}
