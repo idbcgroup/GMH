@@ -25,9 +25,9 @@ public class TransactionParamsService extends GHAEJBExceptionService implements
 			.getLogger(TransactionParamsService.class.getName());
 
 	@Override
-	public TransactionParams find(String code) throws GHAEJBException {
+	public TransactionParams find(String transactionCode) throws GHAEJBException {
 		try {
-			return em.find(TransactionParams.class, code);
+			return em.find(TransactionParams.class, transactionCode);
 
 		} catch (final Exception e) {
 			logger.log(Level.INFO, "Error buscando TransactionParams por code",

@@ -35,13 +35,13 @@ public class EiaPreventiveMaintenancePDTProcessor implements PDTProcessor {
 	EiaMaintenanceServiceRemote maintenanceService;
 
 	@Override
-	public void processMessage(HashMap<String, Object> data) {
+	public void processMessage(HashMap<String, Object> params) {
 		long time = (new Date()).getTime();
 		EiaMaintenancePlanification planif = null;
 		EiaPreventiveMaintenance prevMaintenance = null;
 
 		try {
-			planif = (EiaMaintenancePlanification) data.get("planif");
+			planif = (EiaMaintenancePlanification) params.get("planif");
 			Bsp bsp = planif.getMaintenanceProvider();
 
 			// se crea el mantenimiento preventivo

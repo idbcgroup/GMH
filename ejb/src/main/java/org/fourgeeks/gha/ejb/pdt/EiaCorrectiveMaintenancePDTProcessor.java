@@ -42,12 +42,12 @@ public class EiaCorrectiveMaintenancePDTProcessor implements PDTProcessor {
 	EiaServiceRemote eiaService;
 
 	@Override
-	public void processMessage(HashMap<String, Object> data) {
+	public void processMessage(HashMap<String, Object> params) {
 		long time = (new Date()).getTime();
 
 		try {
-			Eia eia = (Eia) data.get("eia");
-			EiaDamageReport report = (EiaDamageReport) data
+			Eia eia = (Eia) params.get("eia");
+			EiaDamageReport report = (EiaDamageReport) params
 					.get("eiaDamageReport");
 
 			// se cambia el estado del equipo a dañado

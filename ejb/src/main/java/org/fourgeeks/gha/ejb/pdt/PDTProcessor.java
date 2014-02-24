@@ -15,8 +15,9 @@ import javax.ejb.Local;
 public interface PDTProcessor {
 	/**
 	 * 
-	 * @param data
-	 *            los datos el mensaje a procesar
+	 * @param params
+	 *            los parametros requeridos pro el procesador del menaje para
+	 *            ejecutar la logica del negocio
 	 */
-	public void processMessage(HashMap<String, Object> data);
+	public void processMessage(HashMap<String, Object> params);
 }

@@ -12,9 +12,11 @@ import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 public interface TransactionParamsServiceLocal {
 
 	/**
-	 * @param code
+	 * @param transactionCode
+	 *            the identifier code of the transaction params requeired
 	 * @return a HashMap with the PDTProcessor jndiName and other parameters
 	 * @throws GHAEJBException
 	 */
-	public TransactionParams find(String code) throws GHAEJBException;
+	public TransactionParams find(String transactionCode)
+			throws GHAEJBException;
 }

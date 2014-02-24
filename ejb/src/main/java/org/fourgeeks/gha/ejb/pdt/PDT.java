@@ -36,17 +36,17 @@ public class PDT implements MessageListener {
 	public void onMessage(Message message) {
 		try {
 			ObjectMessage objectMessage = (ObjectMessage) message;
-			HashMap<String, Object> data = (HashMap<String, Object>) objectMessage
+			HashMap<String, Object> params = (HashMap<String, Object>) objectMessage
 					.getObject();
 
-			String code = (String) data.get("code");
+			String code = (String) params.get("code");
 			TransactionParams transactParams = transParamsService.find(code);
 
 			Context jndiContext = new InitialContext();
 			PDTProcessor processor = (PDTProcessor) jndiContext
 					.lookup(transactParams.getJndiProcessorName());
 
-			processor.processMessage(data);
+			processor.processMessage(params);
 
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error al consumir el mensaje en PDT: ", e);
