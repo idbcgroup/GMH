@@ -104,19 +104,22 @@ import org.fourgeeks.gha.ejb.log.UILogService;
 import org.fourgeeks.gha.ejb.log.UILogServiceLocal;
 import org.fourgeeks.gha.ejb.log.UILogServiceRemote;
 import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
  * @author emiliot
  * 
  */
 
-// @RunWith(Arquillian.class)
+@RunWith(Arquillian.class)
 public class CCDIServiceTest {
 	/**
 	 * @return the deployment descriptor
@@ -171,6 +174,7 @@ public class CCDIServiceTest {
 				.addClass(Obu.class)
 				.addClass(CCDILevelValue.class)
 				.addClass(CCDIServiceRemote.class)
+				.addClass(CCDIServiceLocal.class)
 				.addClass(CCDIService.class)
 				.addClass(CCDIEndValueActionEnum.class)
 				.addClass(CCDIValueStatusEnum.class)
@@ -233,7 +237,7 @@ public class CCDIServiceTest {
 				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
-	@EJB(lookup = "java:global/test/CCDIService")
+	@EJB(lookup = "java:global/ear-1/ejb-1/CCDIService!org.fourgeeks.gha.ejb.gom.CCDIServiceRemote")
 	CCDIServiceRemote ccdiService;
 
 	/**
@@ -244,7 +248,7 @@ public class CCDIServiceTest {
 
 	/**
 	 */
-	// @Test
+	@Test
 	public void test() {
 		System.out.println("TESTING CCDI SERVICE\n\n\n");
 
@@ -469,7 +473,7 @@ public class CCDIServiceTest {
 			String farm01 = ccdiService.getNextElementCode(pharmacsValue
 					.getCode());
 			Assert.assertNotNull(farm01);
-			Assert.assertEquals("T0400000001", farm01);
+			Assert.assertEquals("T04XXXX0001", farm01);
 
 		} catch (GHAEJBException e) {
 			System.out.println("error getting ccdilevelValue in test\n");
