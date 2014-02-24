@@ -17,6 +17,7 @@ import org.fourgeeks.gha.domain.gmh.EiaTypeCategory;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
+import org.fourgeeks.gha.webclient.client.UI.GHAEiaTypeCategoryPickTreeItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHAComboboxItem;
@@ -24,7 +25,6 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextAreaItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAEiaTypeCategorySelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAEiaTypeSubTypeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.textitems.GHACodeTextItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
@@ -53,19 +53,21 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 	private GHATextAreaItem descriptionItem;
 	private GHATextAreaItem useDescriptionItem;
 	private GHASelectItem mobilityItem;
-	private GHAEiaTypeCategorySelectItem categoryItem;
+	private GHAEiaTypeCategoryPickTreeItem categoryItem;
 	private GHAEiaTypeSubTypeSelectItem subTypeItem;
 	private GHAComboboxItem<Brand> brandItem;
 	private GHAComboboxItem<Manufacturer> manItem;
+	private boolean cleanCodeItem = true;
 
 	private List<EIATypeSelectionListener> listeners;
 
 	{
-		codeItem = new GHACodeTextItem(true, changedHandler);
+		codeItem = new GHACodeTextItem(false, changedHandler);
+		codeItem.disable();
 
 		nameItem = new GHATextItem(GHAStrings.get("name"), true, changedHandler);
-		categoryItem = new GHAEiaTypeCategorySelectItem(
-				GHAStrings.get("category"), true, changedHandler);
+		categoryItem = new GHAEiaTypeCategoryPickTreeItem(
+				GHAStrings.get("category"));
 		subTypeItem = new GHAEiaTypeSubTypeSelectItem(changedHandler);
 		eiaUmdnsItem = new GHATextItem("EIAUMDNS", false, changedHandler);
 		eiaUmdnsItem.setLength(16);
@@ -162,6 +164,17 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 
 	}
 
+	/**
+	 * This constructor force the value of the codeItem to be the parameter
+	 * 
+	 * @param value
+	 */
+	public EiaTypeForm(String value) {
+		this();
+		codeItem.setValue(value);
+		this.cleanCodeItem = false;
+	}
+
 	@Override
 	public void activate() {
 		toggleForm(true);
@@ -180,7 +193,10 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 		brandItem.clearValue();
 		brandItem.disable();
 		manItem.clearValue();
-		codeItem.clearValue();
+
+		if (this.cleanCodeItem)
+			codeItem.clearValue();
+
 		nameItem.clearValue();
 		descriptionItem.clearValue();
 		modelItem.clearValue();
@@ -200,8 +216,6 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 	private EiaType extract(boolean update) {
 		final List<String> violationsList = new ArrayList<String>();
 		final EiaType eiaType = new EiaType();
-		if (update)
-			eiaType.setCode(this.originalEntity.getCode());
 
 		if (brandItem.getValue() != null) {
 			if (brandItem.getValueAsString().matches("[1-9]+\\d*")) {
@@ -224,6 +238,9 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 
 		if (!update)
 			eiaType.setCode(codeItem.getValueAsString());
+		else
+			eiaType.setCode(this.originalEntity.getCode());
+
 		eiaType.setName(nameItem.getValueAsString());
 		eiaType.setDescription(descriptionItem.getValueAsString());
 		eiaType.setModel(modelItem.getValueAsString());
@@ -232,9 +249,10 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 		if (mobilityItem.getValue() != null)
 			eiaType.setMobility(EiaMobilityEnum.valueOf(mobilityItem
 					.getValueAsString()));
-		if (categoryItem.getValue() != null)
+		if (categoryItem.getValue() != null) {
 			eiaType.setEiaTypeCategory(new EiaTypeCategory(categoryItem
-					.getValueAsString()));
+					.getValue().toString()));
+		}
 		if (subTypeItem.getValue() != null)
 			eiaType.setSubtype(EiaSubTypeEnum.valueOf(subTypeItem
 					.getValueAsString()));
@@ -391,7 +409,7 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 		useDescriptionItem.setValue(eiaType.getUseDescription());
 		eiaUmdnsItem.setValue(eiaType.getEiaUmdns());
 		mobilityItem.setValue(eiaType.getMobility().name());
-		categoryItem.setValue(eiaType.getEiaTypeCategory().getName());
+		categoryItem.setValue(eiaType.getEiaTypeCategory().getCode());
 		if (eiaType.getSubtype() != null)
 			subTypeItem.setValue(eiaType.getSubtype().name());
 		// showPhotographics(eiaType);
@@ -413,10 +431,12 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 		manItem.setDisabled(!activate);
 
 		// this is to keep the code item disabled while update
-		if (originalEntity == null) // this is suposed to happen only on addform
-			codeItem.setDisabled(!activate);
-		else
-			codeItem.disable();
+		// if (originalEntity == null) // this is suposed to happen only on
+		// addform
+		// codeItem.setDisabled(!activate);
+		// else
+		// codeItem.disable();
+		codeItem.disable();
 
 		nameItem.setDisabled(!activate);
 		descriptionItem.setDisabled(!activate);

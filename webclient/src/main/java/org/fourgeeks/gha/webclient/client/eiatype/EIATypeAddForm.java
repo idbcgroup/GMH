@@ -2,6 +2,7 @@ package org.fourgeeks.gha.webclient.client.eiatype;
 
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHACloseButton;
@@ -22,7 +23,7 @@ public class EIATypeAddForm extends GHAAddForm<EiaType> implements
 		EiaTypeSelectionProducer {
 
 	{
-		form = new EiaTypeForm();
+		form = new EiaTypeForm(GHAStrings.get("autogen-field"));
 	}
 
 	/**
