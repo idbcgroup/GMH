@@ -19,6 +19,7 @@ import org.fourgeeks.gha.domain.ess.Role;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
 import org.fourgeeks.gha.domain.gar.Facility;
 import org.fourgeeks.gha.domain.gar.Obu;
+import org.fourgeeks.gha.domain.glm.Bsp;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
@@ -32,6 +33,7 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATitletextItem;
+import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHABspSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAPeriodOfTimeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
@@ -69,8 +71,7 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 			depreciationMethodSelectItem, actualCostCurrencySelectItem,
 			realWarrantySinceSelectItem, intWarrantySinceSelectItem,
 			// maintenanceLocationSelectItem,
-			maintenanceProviderSelectItem, eiaTypeSelectItem,
-			installationProviderSelectItem;
+			eiaTypeSelectItem, installationProviderSelectItem;
 	private GHATitletextItem information_TitleItem, adquisition_TitleItem,
 			location_TitleItem, workingArea_TitleItem, facility_TitleItem,
 			adqCost_TitleItem, actualCost_TitleItem, depTime_TitleItem,
@@ -84,6 +85,7 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 	private GHAPeriodOfTimeSelectItem depreciationTimePotSelectItem,
 			lifeTimePotSelectItem, intWarrantyPotSelectItem,
 			realWarrantyPotSelectItem;
+	private GHABspSelectItem maintenanceProviderSelectItem;
 	private GHASectionForm sectionForm;
 	private final GHADynamicForm infoBasicaForm;
 	private final GHADynamicForm adquisicionForm;
@@ -130,7 +132,7 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 				3);
 		adqisitionProviderSelectItem = new GHASelectItem(
 				GHAStrings.get("adquisition-provider"), true, changedHandler);
-		maintenanceProviderSelectItem = new GHASelectItem(
+		maintenanceProviderSelectItem = new GHABspSelectItem(
 				GHAStrings.get("maintenance-provider"), true, changedHandler);
 
 		// Adquisicion & Garantias Form Items
@@ -794,10 +796,12 @@ public class EIAForm extends GHAForm<Eia> implements EIATypeSelectionListener,
 		// if (isInMaintenanceItem.getValueAsBoolean()) {
 		// eia.setMaintenanceLocation(new BuildingLocation(
 		// maintenanceLocationSelectItem.getValueAsString()));
-		if (maintenanceProviderSelectItem.getValue() != null)
-			eia.setMaintenanceProvider(new ExternalProvider(Long
-					.valueOf(maintenanceProviderSelectItem.getValueAsString())));
-		// }
+		if (maintenanceProviderSelectItem.getValue() != null) {
+			Bsp bsp = new Bsp();
+			bsp.setId(Long.valueOf(maintenanceProviderSelectItem
+					.getValueAsString()));
+			eia.setMaintenanceProvider(bsp);
+		}
 
 		// itEquipments
 		// eia.setItType(ItSystemEnum.valueOf(itTypeSelectItem.getValueAsString()));

@@ -119,17 +119,20 @@ import org.fourgeeks.gha.ejb.mix.InstitutionServiceRemote;
 import org.fourgeeks.gha.ejb.mix.LegalEntityService;
 import org.fourgeeks.gha.ejb.mix.LegalEntityServiceRemote;
 import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
  * @author naramirez
  */
-// @RunWith(Arquillian.class)
+@RunWith(Arquillian.class)
 public class EiaMaintenanceServiceTest {
 	/**
 	 * @return the deployment descriptor
@@ -329,7 +332,7 @@ public class EiaMaintenanceServiceTest {
 					.setCancelationOption(MaintenancePlanCancelationOption.DEFERRABLE);
 			maintenancePlan = maintenancePlanService.save(maintenancePlan);
 
-			eiaType = new EiaType("90001");
+			eiaType = new EiaType("3000000001");
 
 			eia = eiaService.findByEiaType(eiaType).get(0);
 
@@ -372,7 +375,7 @@ public class EiaMaintenanceServiceTest {
 	}
 
 	/** */
-	// @Test
+	@Test
 	public void test() {
 		final String sep = "\n---------------------------------------\n";
 

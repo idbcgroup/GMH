@@ -25,6 +25,7 @@ import org.fourgeeks.gha.domain.ess.WorkingArea;
 import org.fourgeeks.gha.domain.gar.Facility;
 import org.fourgeeks.gha.domain.gar.Job;
 import org.fourgeeks.gha.domain.gar.Obu;
+import org.fourgeeks.gha.domain.glm.Bsp;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
 
 /**
@@ -124,7 +125,7 @@ public class Eia extends AbstractEntity {
 	@NotNull(message = "maintenance-provider-not-null")
 	@ManyToOne
 	@JoinColumn(name = "maintenanceProviderFk")
-	private ExternalProvider maintenanceProvider;
+	private Bsp maintenanceProvider;
 
 	/**
 	 * Responsible Obu for the EIA
@@ -182,7 +183,7 @@ public class Eia extends AbstractEntity {
 	 */
 	public Eia(Role responsibleRole, EiaType eiaType, Obu obu,
 			EiaStateEnum state, String fixedAssetIdentifier,
-			ExternalProvider maintenanceProvider, String serialNumber) {
+			Bsp maintenanceProvider, String serialNumber) {
 		this.responsibleRole = responsibleRole;
 		this.eiaType = eiaType;
 		this.obu = obu;
@@ -306,7 +307,7 @@ public class Eia extends AbstractEntity {
 	// return maintenanceLocation;
 	// }
 	//
-	public ExternalProvider getMaintenanceProvider() {
+	public Bsp getMaintenanceProvider() {
 		return maintenanceProvider;
 	}
 
@@ -477,7 +478,7 @@ public class Eia extends AbstractEntity {
 	// this.maintenanceLocation = maintenanceLocation;
 	// }
 
-	public void setMaintenanceProvider(ExternalProvider maintenanceProvider) {
+	public void setMaintenanceProvider(Bsp maintenanceProvider) {
 		this.maintenanceProvider = maintenanceProvider;
 	}
 
