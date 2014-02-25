@@ -1,2 +1,2 @@
 #TimerParams (code, jndiName, seconds, minutes, hours, days, years)
-preventive-maintenance,java:global/ear-1/ejb-1/EiaCorrectiveMaintenancePDTProcessor,0,2,0,0,0
+preventive-maintenance,java:global/ear-1/ejb-1/EiaPreventiveMaintenanceTimerServiceHandler,0,2,0,0,0
