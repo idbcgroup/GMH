@@ -25,7 +25,7 @@ public class GHATimerService {
 	EiaMaintenancePlanificationServiceLocal service;
 
 	/** */
-	@Schedule(minute = "*/1", hour = "*")
+	@Schedule(minute = "*/5", hour = "*")
 	public void checkTimers() {
 		logger.log(Level.INFO, "entrando en checkTimers");
 
@@ -36,6 +36,7 @@ public class GHATimerService {
 		calendar.add(Calendar.MINUTE, 4);
 		calendar.add(Calendar.HOUR_OF_DAY, 3);
 		calendar.add(Calendar.DAY_OF_MONTH, 2);
+		calendar.add(Calendar.YEAR, 1);
 
 		logger.log(Level.INFO, "calendar whit add = " + calendar.getTime());
 	}
