@@ -1,0 +1,3 @@
+Para usar el DataLoader crea un documento excel .xls con el nombre "workbook.xls" en el directorio en el que es corrido el ejecutable DataLoader.jar
+El documento debe seguir el formato del ejemplo en la carpeta
+Una vez ejecutado crea un archivo "generated.sql" con el codigo para cargar los datos en la base de datos.

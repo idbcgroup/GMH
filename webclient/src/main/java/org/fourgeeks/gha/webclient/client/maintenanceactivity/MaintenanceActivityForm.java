@@ -307,7 +307,6 @@ MaintenanceActivitySubProtocolProducer {
 	// Producer Stuff
 	@Override
 	public void notifyMaintenanceActivity(MaintenanceActivity activity) {
-		GHAAlertManager.alert("mact-save-success");
 		for (final MaintenanceActivitySelectionListener listener : listeners) {
 			listener.select(activity);
 		}
