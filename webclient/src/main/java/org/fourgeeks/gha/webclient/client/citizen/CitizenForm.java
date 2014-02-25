@@ -311,11 +311,6 @@ public class CitizenForm extends GHAForm<Citizen> implements
 		});
 	}
 
-	/**
-	 * This method fills the userForm with the SSOUser info
-	 * 
-	 * @param ssoUser
-	 */
 	@Override
 	public void set(Citizen citizen) {
 		this.originalEntity = citizen;
