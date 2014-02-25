@@ -49,12 +49,6 @@ public class TimerParamsService extends GHAEJBExceptionService implements
 	}
 
 	@Override
-	public TimerParams update(TimerParams entity) throws GHAEJBException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public TimerParams save(TimerParams entity) throws GHAEJBException {
 		try {
 			em.persist(entity);
@@ -64,6 +58,17 @@ public class TimerParamsService extends GHAEJBExceptionService implements
 		} catch (final Exception e) {
 			logger.log(Level.INFO, "ERROR: saving TimerParams ", e);
 			throw super.generateGHAEJBException("timerParams-save-fail", em);
+		}
+	}
+
+	@Override
+	public TimerParams update(TimerParams entity) throws GHAEJBException {
+		try {
+			final TimerParams res = em.merge(entity);
+			return res;
+		} catch (final Exception e) {
+			logger.log(Level.INFO, "ERROR: unable to update TimerParams ", e);
+			throw super.generateGHAEJBException("timerParams-update-fail", em);
 		}
 	}
 

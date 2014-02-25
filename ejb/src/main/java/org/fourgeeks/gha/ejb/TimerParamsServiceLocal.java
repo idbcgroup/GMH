@@ -13,11 +13,12 @@ import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 @Local
 public interface TimerParamsServiceLocal {
 	/**
-	 * @param entity
-	 * @return update the entity
+	 * Delete a entity
+	 * 
+	 * @param code
 	 * @throws GHAEJBException
 	 */
-	public TimerParams update(TimerParams entity) throws GHAEJBException;
+	void delete(String code) throws GHAEJBException;
 
 	/**
 	 * @return the list of timer params
@@ -35,10 +36,9 @@ public interface TimerParamsServiceLocal {
 	public TimerParams save(TimerParams entity) throws GHAEJBException;
 
 	/**
-	 * Delete a entity
-	 * 
-	 * @param code
+	 * @param entity
+	 * @return update the entity
 	 * @throws GHAEJBException
 	 */
-	void delete(String code) throws GHAEJBException;
+	public TimerParams update(TimerParams entity) throws GHAEJBException;
 }
