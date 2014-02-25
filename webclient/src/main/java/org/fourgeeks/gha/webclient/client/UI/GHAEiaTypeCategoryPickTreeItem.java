@@ -4,6 +4,7 @@
 package org.fourgeeks.gha.webclient.client.UI;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.EiaTypeCategory;
@@ -24,7 +25,6 @@ public class GHAEiaTypeCategoryPickTreeItem extends GHAIPickTreeItem {
 	 */
 	public GHAEiaTypeCategoryPickTreeItem() {
 		super();
-		setCanSelectParentItems(true);
 		setDisplayField("categoryName");
 		setValueField("categoryCode");
 		fill();
@@ -58,6 +58,8 @@ public class GHAEiaTypeCategoryPickTreeItem extends GHAIPickTreeItem {
 
 					@Override
 					public void onSuccess(List<EiaTypeCategory> result) {
+						Collections.sort(result);
+
 						String codes[] = new String[result.size()];
 						TreeNode nodes[] = new TreeNode[result.size()];
 
@@ -95,8 +97,6 @@ public class GHAEiaTypeCategoryPickTreeItem extends GHAIPickTreeItem {
 						root.setChildren(new TreeNode[] { nodes[0] });
 						tree.setRoot(root);
 						GHAEiaTypeCategoryPickTreeItem.this.setValueTree(tree);
-						GHAEiaTypeCategoryPickTreeItem.this
-								.setDefaultValue(codes[0]);
 					}
 				});
 	}
