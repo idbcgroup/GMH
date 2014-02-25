@@ -55,14 +55,14 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
  * 
  */
 public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
-		MaintenanceProtocolsSelectionListener, MaintenancePlanSelectionProducer {
+MaintenanceProtocolsSelectionListener, MaintenancePlanSelectionProducer {
 
 	private List<MaintenancePlanSelectionListener> listeners;
 
 	private GHATitletextItem planStadistics_TitleItem;
 	private GHATextItem nameItem, frequencyItem, estimatedTimeItem,
-			protocolActivitiesItem, estimatedCostItem, effectuatedTimesItem,
-			eiasWithThisPlanItem;
+	protocolActivitiesItem, estimatedCostItem, effectuatedTimesItem,
+	eiasWithThisPlanItem;
 	private GHATextAreaItem descriptionItem;
 	private GHAPeriodOfTimeSelectItem frecuencyPoTItem;
 	private GHAPeriodOfTimeSelectItem estimatedTimePoTSelectItem;
@@ -232,44 +232,45 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 					.getValueAsString()));
 
 		if (cancelationOptionItem.getValue() != null) {
-			MaintenancePlanCancelationOption option = MaintenancePlanCancelationOption
+			final MaintenancePlanCancelationOption option = MaintenancePlanCancelationOption
 					.valueOf(cancelationOptionItem.getValueAsString());
 			maintenancePlan.setCancelationOption(option);
 		}
 
 		if (roleSelectItem.getValue() != null) {
-			String id = roleSelectItem.getValueAsString();
-			Job job = new Job();
+			final String id = roleSelectItem.getValueAsString();
+			final Job job = new Job();
 			job.setId(Long.valueOf(id));
 
 			maintenancePlan.setJob(job);
 		}
 
 		if (providerSelectItem.getValue() != null) {
-			String id = providerSelectItem.getValueAsString();
-			Bsp provider = new Bsp();
+			final String id = providerSelectItem.getValueAsString();
+			final Bsp provider = new Bsp();
 			provider.setId(Long.valueOf(id));
 			maintenancePlan.setProvider(provider);
 		}
 
-		Set<ConstraintViolation<MaintenancePlan>> violations = validator
+		final Set<ConstraintViolation<MaintenancePlan>> violations = validator
 				.validate(maintenancePlan);
 		if (form.validate() && violations.isEmpty())
 			return maintenancePlan;
 		else {
-			List<String> violationsList = new ArrayList<String>();
-			for (Iterator<ConstraintViolation<MaintenancePlan>> it = violations
+			final List<String> violationsList = new ArrayList<String>();
+			for (final Iterator<ConstraintViolation<MaintenancePlan>> it = violations
 					.iterator(); it.hasNext();) {
 				violationsList.add(it.next().getMessage());
 			}
-			GHAAlertManager.alert(violationsList);
+			//			GHAAlertManager.alert(violationsList);
+			GHAAlertManager.alert(violationsList.get(0));
 		}
 		return null;
 	}
 
 	@Override
 	public void notifyMaintenancePlan(MaintenancePlan plan) {
-		for (MaintenancePlanSelectionListener listener : listeners)
+		for (final MaintenancePlanSelectionListener listener : listeners)
 			listener.select(plan);
 	}
 
@@ -286,54 +287,54 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 
 	@Override
 	public void save(final GHAAsyncCallback<MaintenancePlan> callback) {
-		MaintenancePlan maintenancePlan = extract(false);
+		final MaintenancePlan maintenancePlan = extract(false);
 		if (maintenancePlan == null)
 			return;
 
 		MaintenancePlanModel.save(maintenancePlan,
 				new GHAAsyncCallback<MaintenancePlan>() {
 
-					@Override
-					public void onSuccess(MaintenancePlan result) {
-						hasUnCommittedChanges = false;
-						notifyMaintenancePlan(result);
-						clear();
-						if (callback != null)
-							callback.onSuccess(result);
-					}
-				});
+			@Override
+			public void onSuccess(MaintenancePlan result) {
+				hasUnCommittedChanges = false;
+				notifyMaintenancePlan(result);
+				clear();
+				if (callback != null)
+					callback.onSuccess(result);
+			}
+		});
 	}
 
 	@Override
 	public void select(MaintenanceProtocols entity) {
 		MaintenancePlanModel.getStadisticInfo(originalEntity,
 				new GHAAsyncCallback<MaintenancePlanStadisticData>() {
-					@Override
-					public void onSuccess(MaintenancePlanStadisticData result) {
-						long numActivities = result.getNumberActivities();
-						protocolActivitiesItem.setValue(numActivities);
+			@Override
+			public void onSuccess(MaintenancePlanStadisticData result) {
+				final long numActivities = result.getNumberActivities();
+				protocolActivitiesItem.setValue(numActivities);
 
-						long estimatedDuration = result.getEstimatedDuration();
-						estimatedTimeItem.setValue(estimatedDuration);
+				final long estimatedDuration = result.getEstimatedDuration();
+				estimatedTimeItem.setValue(estimatedDuration);
 
-						String potName = result.getPot().name();
-						estimatedTimePoTSelectItem.setValue(potName);
+				final String potName = result.getPot().name();
+				estimatedTimePoTSelectItem.setValue(potName);
 
-						long numberOfEias = result.getNumberOfEias();
-						eiasWithThisPlanItem.setValue(numberOfEias);
+				final long numberOfEias = result.getNumberOfEias();
+				eiasWithThisPlanItem.setValue(numberOfEias);
 
-						long timesEffectuated = result.getTimesEffectuated();
-						effectuatedTimesItem.setValue(timesEffectuated);
+				final long timesEffectuated = result.getTimesEffectuated();
+				effectuatedTimesItem.setValue(timesEffectuated);
 
-						BigDecimal estimatedCost = result.getEstimatedCost();
-						estimatedCostItem.setValue(estimatedCost);
+				final BigDecimal estimatedCost = result.getEstimatedCost();
+				estimatedCostItem.setValue(estimatedCost);
 
-						estimatedCostCurrencyItem.setValue(CurrencyTypeEnum.BS);
+				estimatedCostCurrencyItem.setValue(CurrencyTypeEnum.BS);
 
-						Timestamp time = result.getLastTimeEffectuated();
-						lastEffectuatedDateItem.setValue(time);
-					}
-				});
+				final Timestamp time = result.getLastTimeEffectuated();
+				lastEffectuatedDateItem.setValue(time);
+			}
+		});
 
 	}
 
@@ -385,21 +386,21 @@ public class MaintenancePlanForm extends GHAForm<MaintenancePlan> implements
 
 	@Override
 	public void update(final GHAAsyncCallback<MaintenancePlan> callback) {
-		MaintenancePlan maintenancePlan = extract(true);
+		final MaintenancePlan maintenancePlan = extract(true);
 
 		if (maintenancePlan == null)
 			return;
 
 		MaintenancePlanModel.update(maintenancePlan,
 				new GHAAsyncCallback<MaintenancePlan>() {
-					@Override
-					public void onSuccess(MaintenancePlan result) {
-						hasUnCommittedChanges = false;
-						notifyMaintenancePlan(result);
-						if (callback != null)
-							callback.onSuccess(result);
-					}
-				});
+			@Override
+			public void onSuccess(MaintenancePlan result) {
+				hasUnCommittedChanges = false;
+				notifyMaintenancePlan(result);
+				if (callback != null)
+					callback.onSuccess(result);
+			}
+		});
 	}
 
 }

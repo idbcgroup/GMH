@@ -30,7 +30,7 @@ import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
  * 
  */
 public class MaterialCategoryForm extends GHAFormLayout implements
-		MaterialCategorySelectionProducer {
+MaterialCategorySelectionProducer {
 
 	private List<MaterialCategorySelectionListener> listeners;
 	private GHATextItem codeItem, externalCodeItem, nameItem, modelItem;
@@ -38,9 +38,9 @@ public class MaterialCategoryForm extends GHAFormLayout implements
 
 	private GHASelectItem typeItem;
 	private Validator validator;
-	private DynamicForm form;
+	private final DynamicForm form;
 	private boolean hasUnCommittedChanges = false;
-	private ChangedHandler changedHandler = new ChangedHandler() {
+	private final ChangedHandler changedHandler = new ChangedHandler() {
 
 		@Override
 		public void onChanged(ChangedEvent event) {
@@ -107,19 +107,20 @@ public class MaterialCategoryForm extends GHAFormLayout implements
 			materialCategory.setType(MaterialTypeEnum.valueOf(typeItem
 					.getValueAsString()));
 		materialCategory.setModel(modelItem.getValueAsString());
-		Set<ConstraintViolation<MaterialCategory>> violations = validator
+		final Set<ConstraintViolation<MaterialCategory>> violations = validator
 				.validate(materialCategory);
 		if (violations.isEmpty())
 			return materialCategory;
 		if (form.validate() && violations.isEmpty())
 			return materialCategory;
 		else {
-			List<String> violationsList = new ArrayList<String>();
-			for (Iterator<ConstraintViolation<MaterialCategory>> it = violations
+			final List<String> violationsList = new ArrayList<String>();
+			for (final Iterator<ConstraintViolation<MaterialCategory>> it = violations
 					.iterator(); it.hasNext();) {
 				violationsList.add(it.next().getMessage());
 			}
-			GHAAlertManager.alert(violationsList);
+			//			GHAAlertManager.alert(violationsList);
+			GHAAlertManager.alert(violationsList.get(0));
 		}
 		return null;
 	}
@@ -137,7 +138,7 @@ public class MaterialCategoryForm extends GHAFormLayout implements
 
 	@Override
 	public void notifyMaterialCategory(MaterialCategory material) {
-		for (MaterialCategorySelectionListener listener : listeners)
+		for (final MaterialCategorySelectionListener listener : listeners)
 			listener.select(material);
 	}
 
@@ -164,15 +165,15 @@ public class MaterialCategoryForm extends GHAFormLayout implements
 			MaterialCategoryModel.save(materialCategory,
 					new GHAAsyncCallback<MaterialCategory>() {
 
-						@Override
-						public void onSuccess(MaterialCategory result) {
-							hasUnCommittedChanges = false;
-							notifyMaterialCategory(result);
-							cancel();
-							if (ghaAsyncCallback != null)
-								ghaAsyncCallback.onSuccess(materialCategory);
-						}
-					});
+				@Override
+				public void onSuccess(MaterialCategory result) {
+					hasUnCommittedChanges = false;
+					notifyMaterialCategory(result);
+					cancel();
+					if (ghaAsyncCallback != null)
+						ghaAsyncCallback.onSuccess(materialCategory);
+				}
+			});
 	}
 
 	/**

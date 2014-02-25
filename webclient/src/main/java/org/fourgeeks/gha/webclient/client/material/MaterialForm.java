@@ -30,7 +30,7 @@ import com.google.gwt.event.logical.shared.ResizeEvent;
  * 
  */
 public class MaterialForm extends GHAForm<Material> implements
-		MaterialSelectionProducer {
+MaterialSelectionProducer {
 	private List<MaterialSelectionListener> listeners;
 	private GHATextItem codeItem, externalCodeItem, nameItem, modelItem;
 	private GHATextAreaItem descriptionItem;
@@ -109,19 +109,20 @@ public class MaterialForm extends GHAForm<Material> implements
 					.getValueAsString()));
 		material.setModel(modelItem.getValueAsString());
 
-		Set<ConstraintViolation<Material>> violations = validator
+		final Set<ConstraintViolation<Material>> violations = validator
 				.validate(material);
 
 		if (form.validate() && violations.isEmpty())
 			return material;
 		else {
-			List<String> violationsList = new ArrayList<String>();
-			for (Iterator<ConstraintViolation<Material>> it = violations
+			final List<String> violationsList = new ArrayList<String>();
+			for (final Iterator<ConstraintViolation<Material>> it = violations
 					.iterator(); it.hasNext();) {
 				violationsList.add(it.next().getMessage());
 			}
 
-			GHAAlertManager.alert(violationsList);
+			//			GHAAlertManager.alert(violationsList);
+			GHAAlertManager.alert(violationsList.get(0));
 		}
 		return null;
 	}
@@ -135,7 +136,7 @@ public class MaterialForm extends GHAForm<Material> implements
 
 	@Override
 	public void notifyMaterial(Material material) {
-		for (MaterialSelectionListener listener : listeners)
+		for (final MaterialSelectionListener listener : listeners)
 			listener.select(material);
 	}
 

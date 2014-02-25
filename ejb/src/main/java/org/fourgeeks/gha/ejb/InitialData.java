@@ -1037,7 +1037,6 @@ public class InitialData {
 				}
 				words.put(code + language, true);
 				lang = LanguageEnum.valueOf(language);
-				//		lang = LanguageEnum.valueOf("ES");
 
 				text = strings[2];
 				type = "SAY";

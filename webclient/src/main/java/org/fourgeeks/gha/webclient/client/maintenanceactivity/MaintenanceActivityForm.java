@@ -50,22 +50,22 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
  * 
  */
 public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
-		implements MaintenanceActivitySelectionProducer,
-		MaintenanceActivitySubProtocolProducer {
+implements MaintenanceActivitySelectionProducer,
+MaintenanceActivitySubProtocolProducer {
 	private List<MaintenanceActivitySelectionListener> listeners;
 	private List<MaintenanceActivitySubProtocolListener> subProtocolListeners;
 
 	private GHATextItem codeTextItem, nameTextItem, estimatedTimeTextItem,
-			estimatedCostTextItem, timesEffectuedTextItem,
-			eiasWhitThisActivityTextItem, lastEffectuedByTextItem;
+	estimatedCostTextItem, timesEffectuedTextItem,
+	eiasWhitThisActivityTextItem, lastEffectuedByTextItem;
 	private GHATextAreaItem instructionsAndObsTextAreaItem,
-			descriptionTextItem;
+	descriptionTextItem;
 	private GHAActivityStateSelectItem stateSelectItem;
 	private GHAActivityCategorySelectItem categorySelectItem;
 	private GHAActivitySubCategorySelectItem subCategorySelectItem;
 	private GHACheckboxItem isSubProtocolCheckboxItem,
-			materialsRequierdCheckboxItem, toolsRequierdCheckboxItem,
-			equipsRequiredCheckboxItem;
+	materialsRequierdCheckboxItem, toolsRequierdCheckboxItem,
+	equipsRequiredCheckboxItem;
 	private GHAPeriodOfTimeSelectItem estimatedTimePoTSelectItem;
 	private GHACurrencyTypeSelectItem estimatedCostCurrencySelectItem;
 	private GHADateItem lastEffectuatedDateItem;
@@ -267,12 +267,12 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 					.valueOf(estimatedCostTextItem.getValueAsString())));
 		}
 		if (estimatedCostCurrencySelectItem.getValue() != null) {
-			String value = estimatedCostCurrencySelectItem.getValueAsString();
+			final String value = estimatedCostCurrencySelectItem.getValueAsString();
 			activity.setEstimatedCostCurrency(CurrencyTypeEnum
 					.valueOf(value));
 		}
 		if (instructionsAndObsTextAreaItem.getValue() != null) {
-			String value = instructionsAndObsTextAreaItem.getValueAsString();
+			final String value = instructionsAndObsTextAreaItem.getValueAsString();
 			activity.setInstructionsAndObservations(value);
 		}
 
@@ -289,16 +289,17 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 
 		entity.setActivity(activity);
 
-		Set<ConstraintViolation<Activity>> violations = validator
+		final Set<ConstraintViolation<Activity>> violations = validator
 				.validate(activity);
 		if (form.validate() && violations.isEmpty())
 			return entity;
 		else {
-			List<String> violationsList = new ArrayList<String>();
-			for (Iterator<ConstraintViolation<Activity>> it = violations
+			final List<String> violationsList = new ArrayList<String>();
+			for (final Iterator<ConstraintViolation<Activity>> it = violations
 					.iterator(); it.hasNext();)
 				violationsList.add(it.next().getMessage());
-			GHAAlertManager.alert(violationsList);
+			//			GHAAlertManager.alert(violationsList);
+			GHAAlertManager.alert(violationsList.get(0));
 		}
 		return null;
 	}
@@ -307,7 +308,7 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 	@Override
 	public void notifyMaintenanceActivity(MaintenanceActivity activity) {
 		GHAAlertManager.alert("mact-save-success");
-		for (MaintenanceActivitySelectionListener listener : listeners) {
+		for (final MaintenanceActivitySelectionListener listener : listeners) {
 			listener.select(activity);
 		}
 	}
@@ -325,22 +326,22 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 
 	@Override
 	public void save(final GHAAsyncCallback<MaintenanceActivity> callback) {
-		MaintenanceActivity maintenanceActivity = extract(false);
+		final MaintenanceActivity maintenanceActivity = extract(false);
 
 		if (maintenanceActivity == null)
 			return;
 
 		MaintenanceActivityModel.save(maintenanceActivity,
 				new GHAAsyncCallback<MaintenanceActivity>() {
-					@Override
-					public void onSuccess(MaintenanceActivity result) {
-						hasUnCommittedChanges = false;
-						notifyMaintenanceActivity(result);
-						clear();
-						if (callback != null)
-							callback.onSuccess(result);
-					}
-				});
+			@Override
+			public void onSuccess(MaintenanceActivity result) {
+				hasUnCommittedChanges = false;
+				notifyMaintenanceActivity(result);
+				clear();
+				if (callback != null)
+					callback.onSuccess(result);
+			}
+		});
 
 	}
 
@@ -398,21 +399,21 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 
 	@Override
 	public void update(final GHAAsyncCallback<MaintenanceActivity> callback) {
-		MaintenanceActivity entity = extract(true);
+		final MaintenanceActivity entity = extract(true);
 
 		if (entity == null)
 			return;
 
 		MaintenanceActivityModel.update(entity,
 				new GHAAsyncCallback<MaintenanceActivity>() {
-					@Override
-					public void onSuccess(MaintenanceActivity result) {
-						hasUnCommittedChanges = false;
-						notifyMaintenanceActivity(result);
-						if (callback != null)
-							callback.onSuccess(result);
-					}
-				});
+			@Override
+			public void onSuccess(MaintenanceActivity result) {
+				hasUnCommittedChanges = false;
+				notifyMaintenanceActivity(result);
+				if (callback != null)
+					callback.onSuccess(result);
+			}
+		});
 	}
 
 	@Override
@@ -429,7 +430,7 @@ public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
 
 	@Override
 	public void notifyMaintenanceActivitySubProtocolSubTabs() {
-		for (MaintenanceActivitySubProtocolListener listener : subProtocolListeners) {
+		for (final MaintenanceActivitySubProtocolListener listener : subProtocolListeners) {
 			listener.changeSubTabState(isSubProtocol);
 		}
 	}

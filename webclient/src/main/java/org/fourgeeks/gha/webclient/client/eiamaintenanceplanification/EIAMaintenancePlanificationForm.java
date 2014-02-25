@@ -40,8 +40,8 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
  * @author naramirez
  */
 public class EIAMaintenancePlanificationForm extends
-		GHAForm<EiaMaintenancePlanification> implements EIASelectionListener,
-		EIATypeSelectionListener, MaintenancePlanificationSelectionProducer {
+GHAForm<EiaMaintenancePlanification> implements EIASelectionListener,
+EIATypeSelectionListener, MaintenancePlanificationSelectionProducer {
 
 	private List<MaintenancePlanificationSelectionListener> listeners;
 	private Eia selectedEia;
@@ -86,7 +86,7 @@ public class EIAMaintenancePlanificationForm extends
 			public void onChanged(ChangedEvent event) {
 				changedHandler.onChanged(event);
 
-				MaintenancePlan mPlan = planSelectItem
+				final MaintenancePlan mPlan = planSelectItem
 						.getValueAsMaintenancePlan();
 				planStateSelectItem.setValue(mPlan.getState());
 			}
@@ -135,23 +135,23 @@ public class EIAMaintenancePlanificationForm extends
 	}
 
 	private EiaMaintenancePlanification extract() {
-		EiaMaintenancePlanification planification = new EiaMaintenancePlanification();
+		final EiaMaintenancePlanification planification = new EiaMaintenancePlanification();
 		planification.setEia(selectedEia);
 
 		if (planSelectItem.getValue() != null) {
-			EiaTypeMaintenancePlan mplan = new EiaTypeMaintenancePlan();
+			final EiaTypeMaintenancePlan mplan = new EiaTypeMaintenancePlan();
 			mplan.setId(Long.valueOf(planSelectItem.getValueAsString()));
 			planification.setPlan(mplan);
 		}
 
 		if (providerSelectItem.getValue() != null) {
-			Bsp bsp = new Bsp();
+			final Bsp bsp = new Bsp();
 			bsp.setId(Long.valueOf(providerSelectItem.getValueAsString()));
 			planification.setMaintenanceProvider(bsp);
 		}
 
 		if (roleSelectItem.getValue() != null) {
-			Job job = new Job();
+			final Job job = new Job();
 			job.setId(Long.valueOf(roleSelectItem.getValueAsString()));
 			planification.setJobResponsable(job);
 		}
@@ -168,10 +168,11 @@ public class EIAMaintenancePlanificationForm extends
 		if (form.validate() && violations.isEmpty())
 			return planification;
 		else {
-			List<String> violationsList = new ArrayList<String>();
-			for (ConstraintViolation<EiaMaintenancePlanification> violation : violations)
+			final List<String> violationsList = new ArrayList<String>();
+			for (final ConstraintViolation<EiaMaintenancePlanification> violation : violations)
 				violationsList.add(violation.getMessage());
-			GHAAlertManager.alert(violationsList);
+			//			GHAAlertManager.alert(violationsList);
+			GHAAlertManager.alert(violationsList.get(0));
 		}
 		return null;
 	}
@@ -179,7 +180,7 @@ public class EIAMaintenancePlanificationForm extends
 	@Override
 	public void notifyMaintenancePlanification(
 			EiaMaintenancePlanification preventivePlanif) {
-		for (MaintenancePlanificationSelectionListener listener : listeners)
+		for (final MaintenancePlanificationSelectionListener listener : listeners)
 			listener.select(preventivePlanif);
 	}
 
@@ -197,21 +198,21 @@ public class EIAMaintenancePlanificationForm extends
 	@Override
 	public void save(
 			final GHAAsyncCallback<EiaMaintenancePlanification> callback) {
-		EiaMaintenancePlanification entity = extract();
+		final EiaMaintenancePlanification entity = extract();
 		if (entity == null)
 			return;
 
 		EiaMaintenancePlanificationModel.save(entity,
 				new GHAAsyncCallback<EiaMaintenancePlanification>() {
-					@Override
-					public void onSuccess(EiaMaintenancePlanification result) {
-						hasUnCommittedChanges = false;
-						notifyMaintenancePlanification(result);
-						clear();
-						if (callback != null)
-							callback.onSuccess(result);
-					}
-				});
+			@Override
+			public void onSuccess(EiaMaintenancePlanification result) {
+				hasUnCommittedChanges = false;
+				notifyMaintenancePlanification(result);
+				clear();
+				if (callback != null)
+					callback.onSuccess(result);
+			}
+		});
 	}
 
 	@Override

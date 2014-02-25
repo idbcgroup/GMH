@@ -45,7 +45,7 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
  * 
  */
 public class EiaTypeForm extends GHAForm<EiaType> implements
-		EiaTypeSelectionProducer {
+EiaTypeSelectionProducer {
 
 	protected GHADynamicForm form;
 	private GHACodeTextItem codeItem;
@@ -128,7 +128,7 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 
 			@Override
 			public void onFocus(FocusEvent event) {
-				String manItemValue = manItem.getValueAsString();
+				final String manItemValue = manItem.getValueAsString();
 				if (manItemValue.matches("[1-9]+\\d*")) {
 					fillBrands(new Manufacturer(Integer.valueOf(manItemValue),
 							null));
@@ -142,7 +142,7 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 
 			@Override
 			public void onChanged(ChangedEvent event) {
-				String manItemValue = manItem.getValueAsString();
+				final String manItemValue = manItem.getValueAsString();
 				if (manItemValue == null || manItemValue.isEmpty()) {
 					brandItem.disable();
 					brandItem.setValue("");
@@ -262,29 +262,30 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 		if (violations.isEmpty() && form.validate())
 			return eiaType;
 		else {
-			for (Iterator<ConstraintViolation<EiaType>> it = violations
+			for (final Iterator<ConstraintViolation<EiaType>> it = violations
 					.iterator(); it.hasNext();)
 				violationsList.add(it.next().getMessage());
-			GHAAlertManager.alert(violationsList);
+			//			GHAAlertManager.alert(violationsList);
+			GHAAlertManager.alert(violationsList.get(0));
 		}
 		return null;
 	}
 
 	private void fillBrands(final Brand brand) {
-		Manufacturer manufacturer = brand.getManufacturer();
+		final Manufacturer manufacturer = brand.getManufacturer();
 		BrandModel.findByManufacturer(manufacturer,
 				new GHAAsyncCallback<List<Brand>>() {
 
-					@Override
-					public void onSuccess(List<Brand> result) {
-						LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-						for (Brand brand : result)
-							valueMap.put(brand.getId() + "", brand.getName());
-						brandItem.setValueMap(valueMap);
-						brandItem.setValue(brand.getId());
-					}
+			@Override
+			public void onSuccess(List<Brand> result) {
+				final LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+				for (final Brand brand : result)
+					valueMap.put(brand.getId() + "", brand.getName());
+				brandItem.setValueMap(valueMap);
+				brandItem.setValue(brand.getId());
+			}
 
-				});
+		});
 
 	}
 
@@ -296,15 +297,15 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 		BrandModel.findByManufacturer(manufacturer,
 				new GHAAsyncCallback<List<Brand>>() {
 
-					@Override
-					public void onSuccess(List<Brand> result) {
-						for (Brand brand : result)
-							valueMap.put(brand.getId() + "", brand.getName());
-						brandItem.setValueMap(valueMap);
-						brandItem.redraw();
-					}
+			@Override
+			public void onSuccess(List<Brand> result) {
+				for (final Brand brand : result)
+					valueMap.put(brand.getId() + "", brand.getName());
+				brandItem.setValueMap(valueMap);
+				brandItem.redraw();
+			}
 
-				});
+		});
 	}
 
 	private void fillExtras() {
@@ -322,8 +323,8 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 
 					@Override
 					public void onSuccess(List<Manufacturer> result) {
-						LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-						for (Manufacturer manufacturer : result)
+						final LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+						for (final Manufacturer manufacturer : result)
 							valueMap.put(manufacturer.getId() + "",
 									manufacturer.getName());
 						manItem.setValueMap(valueMap);
@@ -338,8 +339,8 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 
 					@Override
 					public void onSuccess(List<Manufacturer> result) {
-						LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-						for (Manufacturer manufacturer : result)
+						final LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
+						for (final Manufacturer manufacturer : result)
 							valueMap.put(manufacturer.getId() + "",
 									manufacturer.getName());
 						manItem.setValueMap(valueMap);
@@ -350,7 +351,7 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 
 	@Override
 	public void notifyEiaType(EiaType eiaType) {
-		for (EIATypeSelectionListener listener : listeners)
+		for (final EIATypeSelectionListener listener : listeners)
 			listener.select(eiaType);
 	}
 
@@ -368,7 +369,7 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 
 	@Override
 	public void save(final GHAAsyncCallback<EiaType> callback) {
-		EiaType eiaType = extract(false);
+		final EiaType eiaType = extract(false);
 
 		if (eiaType == null)
 			return;
@@ -450,7 +451,7 @@ public class EiaTypeForm extends GHAForm<EiaType> implements
 
 	@Override
 	public void update(final GHAAsyncCallback<EiaType> callback) {
-		EiaType eiaType = extract(true);
+		final EiaType eiaType = extract(true);
 
 		if (eiaType == null)
 			return;
