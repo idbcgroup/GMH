@@ -29,28 +29,14 @@ public class Permission extends AbstractCodeEntity {
 	}
 
 	/**
-	 * @param name
 	 * @param code
+	 * @param name
 	 * @param description
 	 */
 	public Permission(String code, String name, String description) {
 		this.name = name;
 		this.code = code;
 		this.description = description;
-	}
-
-	/**
-	 * @return the name of the function
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * @param name
-	 */
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	/**
@@ -61,11 +47,25 @@ public class Permission extends AbstractCodeEntity {
 	}
 
 	/**
+	 * @return the name of the function
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
 	 * @param description
 	 *            the description to set
 	 */
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	/**
+	 * @param name
+	 */
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }

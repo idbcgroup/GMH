@@ -49,30 +49,6 @@ public class InstanceLogonService extends GHAEJBExceptionService implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.fourgeeks.gha.ejb.ess.InstanceLogonServiceRemote#find(org.fourgeeks
-	 * .gha.domain.ess.InstanceLogon)
-	 */
-	@Override
-	public List<InstanceLogon> find(InstanceLogon instanceLogon)
-			throws GHAEJBException {
-		try {
-			return em
-					.createNamedQuery("InstanceLogon.findByInstanceLogon",
-							InstanceLogon.class)
-					.setParameter("instanceLogon", instanceLogon)
-					.getResultList();
-		} catch (final Exception e) {
-			logger.log(Level.INFO,
-					"Error: finding InstanceLogon by InstanceLogon", e);
-			throw super.generateGHAEJBException(
-					"instanceLogon-findByInstanceLogon-fail", em);
-		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see org.fourgeeks.gha.ejb.ess.InstanceLogonServiceRemote#find(long)
 	 */
 	@Override

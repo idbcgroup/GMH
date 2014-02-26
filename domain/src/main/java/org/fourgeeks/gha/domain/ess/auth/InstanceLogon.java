@@ -19,9 +19,7 @@ import org.fourgeeks.gha.domain.mix.Bpa;
  */
 
 @Entity
-@NamedQueries(value = {
-		@NamedQuery(name = "InstanceLogon.getAll", query = "SELECT e from InstanceLogon e order by e.id"),
-		@NamedQuery(name = "InstanceLogon.findByInstanceLogon", query = "SELECT e from InstanceLogon e  where e like :instanceLogon order by e.id") })
+@NamedQueries(value = { @NamedQuery(name = "InstanceLogon.getAll", query = "SELECT e from InstanceLogon e order by e.id") })
 public class InstanceLogon extends AbstractEntity {
 
 	/**
@@ -52,36 +50,36 @@ public class InstanceLogon extends AbstractEntity {
 		// TODO Auto-generated constructor stub
 	}
 
-	public SSOUser getSso() {
-		return sso;
-	}
-
-	public void setSso(SSOUser sso) {
-		this.sso = sso;
-	}
-
 	public Bpa getBpa() {
 		return bpa;
-	}
-
-	public void setBpa(Bpa bpa) {
-		this.bpa = bpa;
-	}
-
-	public SystemInstance getSystemInstance() {
-		return systemInstance;
-	}
-
-	public void setSystemInstance(SystemInstance systemInstance) {
-		this.systemInstance = systemInstance;
 	}
 
 	public Bpu getBpu() {
 		return bpu;
 	}
 
+	public SSOUser getSso() {
+		return sso;
+	}
+
+	public SystemInstance getSystemInstance() {
+		return systemInstance;
+	}
+
+	public void setBpa(Bpa bpa) {
+		this.bpa = bpa;
+	}
+
 	public void setBpu(Bpu bpu) {
 		this.bpu = bpu;
+	}
+
+	public void setSso(SSOUser sso) {
+		this.sso = sso;
+	}
+
+	public void setSystemInstance(SystemInstance systemInstance) {
+		this.systemInstance = systemInstance;
 	}
 
 }

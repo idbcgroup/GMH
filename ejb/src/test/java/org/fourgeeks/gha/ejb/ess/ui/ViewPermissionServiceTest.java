@@ -1,6 +1,4 @@
-package org.fourgeeks.gha.ejb.ess.auth;
-
-import java.util.List;
+package org.fourgeeks.gha.ejb.ess.ui;
 
 import javax.ejb.EJB;
 
@@ -102,6 +100,10 @@ import org.fourgeeks.gha.domain.msg.GHAMessageId;
 import org.fourgeeks.gha.domain.msg.GHAMessageType;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
+import org.fourgeeks.gha.ejb.ess.auth.InstanceLogonService;
+import org.fourgeeks.gha.ejb.ess.auth.InstanceLogonServiceRemote;
+import org.fourgeeks.gha.ejb.ess.auth.SSOUserService;
+import org.fourgeeks.gha.ejb.ess.auth.SSOUserServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.BrandService;
 import org.fourgeeks.gha.ejb.gmh.BrandServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.EiaMaintenanceService;
@@ -120,8 +122,6 @@ import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -130,7 +130,7 @@ import org.junit.runner.RunWith;
  * 
  */
 @RunWith(Arquillian.class)
-public class InstanceLogonServiceTest {
+public class ViewPermissionServiceTest {
 	/**
 	 * @return the deployment descriptor
 	 */
@@ -262,69 +262,30 @@ public class InstanceLogonServiceTest {
 				.addClass(EiaPreventiveMaintenance.class)
 				.addClass(EiaCorrectiveMaintenance.class)
 				.addClass(SystemInstance.class)
+				.addClass(ViewPermission.class)
+				.addClass(ViewPermissionService.class)
+				.addClass(ViewPermissionServiceRemote.class)
 				.addAsResource("test-persistence.xml",
 						"META-INF/persistence.xml")
 				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
-	@EJB(lookup = "java:global/test/InstanceLogonService")
-	InstanceLogonServiceRemote service;
-
-	@EJB(lookup = "java:global/test/BpaService")
-	BpaServiceRemote bpaService;
-
-	private Bpa bpa;
+	@EJB(lookup = "java:global/test/ViewPermissionService")
+	ViewPermissionServiceRemote service;
 
 	/**
 	 * 
-	 */
-	@Before
-	public void set() {
-		final Bpa localBpa = new Bpa();
-		try {
-			bpa = bpaService.save(localBpa);
-		} catch (final GHAEJBException e) {
-			Assert.fail("error creating the bpa");
-		}
-
-	}
-
-	/**
-	 * @throws GHAEJBException
 	 */
 	@Test
-	public void test() throws GHAEJBException {
+	public void test() {
 		Assert.assertNotNull(service);
 
-		InstanceLogon entity = new InstanceLogon();
-		entity = service.save(entity);
-
-		Assert.assertNotNull(entity);
-		Assert.assertEquals(entity.getId(), service.find(entity.getId())
-				.getId());
-		final List<InstanceLogon> all = service.getAll();
-
-		Assert.assertTrue(all != null && all.size() >= 1);
-
-		entity.setBpa(bpa);
-		entity = service.update(entity);
-		Assert.assertEquals(entity.getBpa().getId(),
-				service.find(entity.getId()).getBpa().getId());
-		final long id = entity.getId();
-		service.delete(id);
-		Assert.assertNull(service.find(id));
-
-	}
-
-	/**
-	 * 
-	 */
-	@After
-	public void unset() {
 		try {
-			bpaService.delete(bpa.getId());
+			Assert.assertNotNull(service.getAll());
 		} catch (final GHAEJBException e) {
-			Assert.fail("error deleting the bpa");
+			e.printStackTrace();
 		}
+
 	}
+
 }

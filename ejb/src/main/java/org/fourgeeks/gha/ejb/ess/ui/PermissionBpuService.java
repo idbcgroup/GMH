@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.fourgeeks.gha.domain.ess.ui.PermissionBpu;
@@ -31,12 +30,9 @@ public class PermissionBpuService extends GHAEJBExceptionService implements
 	private EntityManager em;
 
 	@Override
-	public void delete(PermissionBpu bpuFunction) throws GHAEJBException {
+	public void delete(PermissionBpu permissionBpu) throws GHAEJBException {
 		try {
-			final Query query = em.createNamedQuery("BpuFunction.delete")
-					.setParameter("bpu", bpuFunction.getBpu())
-					.setParameter("function", bpuFunction.getFunction());
-			query.executeUpdate();
+			em.remove(em.find(PermissionBpu.class, permissionBpu.getCode()));
 		} catch (final Exception e) {
 			logger.log(Level.INFO, "ERROR: delete BpuFunction ", e);
 			throw super
@@ -61,11 +57,12 @@ public class PermissionBpuService extends GHAEJBExceptionService implements
 	}
 
 	@Override
-	public PermissionBpu save(PermissionBpu bpuFunction) throws GHAEJBException {
+	public PermissionBpu save(PermissionBpu permissionBpu)
+			throws GHAEJBException {
 		try {
-			em.persist(bpuFunction);
+			em.persist(permissionBpu);
 			em.flush();
-			return em.find(PermissionBpu.class, bpuFunction.getCode());
+			return em.find(PermissionBpu.class, permissionBpu.getCode());
 		} catch (final Exception e) {
 			logger.log(Level.INFO, "ERROR: saving BpuFunction ", e);
 			throw super.generateGHAEJBException("bpupermission-save-fail", em);

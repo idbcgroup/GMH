@@ -5,19 +5,13 @@ import java.sql.Date;
 import javax.persistence.EntityManager;
 
 import org.fourgeeks.gha.domain.Activity;
-import org.fourgeeks.gha.domain.conf.Parameter;
 import org.fourgeeks.gha.domain.enu.EiaMobilityEnum;
 import org.fourgeeks.gha.domain.enu.EiaSubTypeEnum;
 import org.fourgeeks.gha.domain.enu.EiaTypeEnum;
 import org.fourgeeks.gha.domain.enu.GenderTypeEnum;
 import org.fourgeeks.gha.domain.enu.LocationLevelEnum;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
-import org.fourgeeks.gha.domain.ess.LocationType;
-import org.fourgeeks.gha.domain.ess.WorkingArea;
-import org.fourgeeks.gha.domain.ess.auth.InstanceLogon;
-import org.fourgeeks.gha.domain.ess.auth.ItSystem;
 import org.fourgeeks.gha.domain.ess.auth.Role;
-import org.fourgeeks.gha.domain.ess.auth.SSOUser;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Obu;
@@ -35,80 +29,38 @@ import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.domain.mix.Citizen;
 import org.fourgeeks.gha.domain.mix.Institution;
 import org.fourgeeks.gha.domain.mix.LegalEntity;
-import org.fourgeeks.gha.domain.msg.GHAMessageType;
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.shrinkwrap.api.Archive;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-
-import au.com.bytecode.opencsv.CSVParser;
-import au.com.bytecode.opencsv.CSVReader;
 
 /**
  * @author alacret, vivi.torresg
  * 
  */
+@Deprecated
 public class GhaServiceTest {
 
-	/**
-	 * @return the deployment descriptor
-	 */
-	@Deployment
-	public static Archive<?> createDeployment() {
-		return ShrinkWrap
-				.create(WebArchive.class, "test.war")
-				// .addPackage(AbstractEntity.class.getPackage())
-				// .addPackage(Bpa.class.getPackage())
-				// .addPackage(BpaService.class.getPackage())
-				// .addPackage(Bpu.class.getPackage())
-				// .addPackage(AppFormViewFunctionBpu.class.getPackage())
-				// .addPackage(AppFormViewFunctionBpuService.class.getPackage())
-				// .addPackage(Brand.class.getPackage())
-				// .addPackage(BrandService.class.getPackage())
-				// .addPackage(DocumentTypeEnum.class.getPackage())
-				// .addPackage(EJBException.class.getPackage())
-				// .addPackage(ExternalProvider.class.getPackage())
-				// .addPackage(ExternalProviderService.class.getPackage())
-				// .addPackage(Function.class.getPackage())
-				// .addPackage(FunctionsCodes.class.getPackage())
-				// .addPackage(AppFormViewFunctionServiceRemote.class.getPackage())
-				// .addPackage(GHAEJBException.class.getPackage())
-				// .addPackage(GhaServiceTest.class.getPackage())
-				// .addPackage(GHAMessage.class.getPackage())
-				// .addPackage(InstanceLogonService.class.getPackage())
-				// .addPackage(LanguageService.class.getPackage())
-				// .addPackage(LogonLog.class.getPackage())
-				// .addPackage(LogonLogServiceRemote.class.getPackage())
-				// .addPackage(MessageService.class.getPackage())
-				.addClass(GHAMessageType.class)
-				.addClass(Role.class)
-				.addClass(WorkingArea.class)
-				.addClass(SSOUser.class)
-				.addClass(InstanceLogon.class)
-				.addClass(LocationType.class)
-				.addClass(ItSystem.class)
-				.addClass(CSVReader.class)
-				.addClass(CSVParser.class)
-				.addPackage(Parameter.class.getPackage())
-				.addAsResource("test-persistence.xml",
-						"META-INF/persistence.xml")
-				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
-				.addAsWebInfResource("jbossas-ds.xml");
+	// private static Citizen citizen;
+	// private static LegalEntity legalEntity, legalEntity2;
+	// private static Institution institution;
+	// private static Bpi bpi;
+
+	public static Bpu createBpu() {
+		return null;
 	}
 
-	private Bpa bpa = null;
-	private Bpi bpi = null;
-	private Bpu bpu = null;
+	public static void deleteBpu() {
+	}
+
+	private Bpa originalBpa = null;
+	private Bpi originalbpi = null;
+	private Bpu originalbpu = null;
 	private BuildingLocation buildingLocation = null;
-	private Citizen citizen = null;
+	private Citizen originalcitizen = null;
 	private Date date = null;
 	private Eia eia = null;
 	private EiaType eiaType = null;
 	private EiaTypeMaintenancePlan eiaTypeMaintenancePlan = null;
 	private ExternalProvider externalProvider = null;
-	private Institution institution = null;
-	private LegalEntity legalEntity = null;
+	private Institution originalinstitution = null;
+	private LegalEntity originallegalEntity = null;
 	private MaintenanceActivity maintenanceActivity = null;
 	private RequiredResources maintenanceActivityServiceResource = null;
 	private MaintenancePlan maintenancePlan = null;
@@ -120,38 +72,38 @@ public class GhaServiceTest {
 
 	@Deprecated
 	public Bpa getBpa(EntityManager em) {
-		if (bpa == null) {
+		if (originalBpa == null) {
 			final Bpa bpa = new Bpa();
 			em.persist(bpa);
 			em.flush();
-			this.bpa = em.find(Bpa.class, bpa.getId());
+			this.originalBpa = em.find(Bpa.class, bpa.getId());
 		}
-		return bpa;
+		return originalBpa;
 	}
 
 	@Deprecated
 	public Bpi getBpi(EntityManager em) {
-		if (bpi == null) {
+		if (originalbpi == null) {
 			final Bpi bpi = new Bpi();
 			bpi.setInstitution(getInstitution(em));
 			em.persist(bpi);
 			em.flush();
-			this.bpi = em.find(Bpi.class, bpi.getId());
+			this.originalbpi = em.find(Bpi.class, bpi.getId());
 		}
-		return bpi;
+		return originalbpi;
 	}
 
 	@Deprecated
 	public Bpu getBpu(EntityManager em) {
-		if (bpu == null) {
+		if (originalbpu == null) {
 			final Bpu bpu = new Bpu();
 			bpu.setBpi(getBpi(em));
 			bpu.setCitizen(getCitizen(em));
 			em.persist(bpu);
 			em.flush();
-			this.bpu = em.find(Bpu.class, bpu.getId());
+			this.originalbpu = em.find(Bpu.class, bpu.getId());
 		}
-		return bpu;
+		return originalbpu;
 	}
 
 	@Deprecated
@@ -170,15 +122,15 @@ public class GhaServiceTest {
 	}
 
 	public Citizen getCitizen(EntityManager em) {
-		if (citizen == null) {
+		if (originalcitizen == null) {
 			final Citizen citizen = new Citizen();
 			citizen.setLegalEntity(getLegalEntity(em));
 			citizen.setGender(GenderTypeEnum.FEMALE);
 			em.persist(citizen);
 			em.flush();
-			this.citizen = em.find(Citizen.class, citizen.getId());
+			this.originalcitizen = em.find(Citizen.class, citizen.getId());
 		}
-		return citizen;
+		return originalcitizen;
 	}
 
 	public Date getDate() {
@@ -247,25 +199,27 @@ public class GhaServiceTest {
 	}
 
 	public Institution getInstitution(EntityManager em) {
-		if (institution == null) {
+		if (originalinstitution == null) {
 			final Institution institution = new Institution();
 			institution.setName("Institution name test");
 			institution.setLegalEntity(getLegalEntity(em));
 			em.persist(institution);
 			em.flush();
-			this.institution = em.find(Institution.class, institution.getId());
+			this.originalinstitution = em.find(Institution.class,
+					institution.getId());
 		}
-		return institution;
+		return originalinstitution;
 	}
 
 	public LegalEntity getLegalEntity(EntityManager em) {
-		if (legalEntity == null) {
+		if (originallegalEntity == null) {
 			final LegalEntity legalEntity = new LegalEntity();
 			em.persist(legalEntity);
 			em.flush();
-			this.legalEntity = em.find(LegalEntity.class, legalEntity.getId());
+			this.originallegalEntity = em.find(LegalEntity.class,
+					legalEntity.getId());
 		}
-		return legalEntity;
+		return originallegalEntity;
 	}
 
 	public MaintenanceActivity getMaintenanceActivity(EntityManager em) {

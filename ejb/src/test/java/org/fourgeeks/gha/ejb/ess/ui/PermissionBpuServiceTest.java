@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.ejb.ess.auth;
+package org.fourgeeks.gha.ejb.ess.ui;
 
 import java.util.List;
 
@@ -102,6 +102,12 @@ import org.fourgeeks.gha.domain.msg.GHAMessageId;
 import org.fourgeeks.gha.domain.msg.GHAMessageType;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
+import org.fourgeeks.gha.ejb.ess.auth.InstanceLogonService;
+import org.fourgeeks.gha.ejb.ess.auth.InstanceLogonServiceRemote;
+import org.fourgeeks.gha.ejb.ess.auth.SSOUserService;
+import org.fourgeeks.gha.ejb.ess.auth.SSOUserServiceRemote;
+import org.fourgeeks.gha.ejb.gar.BpuService;
+import org.fourgeeks.gha.ejb.gar.BpuServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.BrandService;
 import org.fourgeeks.gha.ejb.gmh.BrandServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.EiaMaintenanceService;
@@ -109,11 +115,23 @@ import org.fourgeeks.gha.ejb.gmh.EiaMaintenanceServiceRemote;
 import org.fourgeeks.gha.ejb.gom.CCDIService;
 import org.fourgeeks.gha.ejb.gom.CCDIServiceLocal;
 import org.fourgeeks.gha.ejb.gom.CCDIServiceRemote;
+import org.fourgeeks.gha.ejb.helpers.BpuHelper;
 import org.fourgeeks.gha.ejb.log.UILogService;
 import org.fourgeeks.gha.ejb.log.UILogServiceLocal;
 import org.fourgeeks.gha.ejb.log.UILogServiceRemote;
 import org.fourgeeks.gha.ejb.mix.BpaService;
 import org.fourgeeks.gha.ejb.mix.BpaServiceRemote;
+import org.fourgeeks.gha.ejb.mix.BpiService;
+import org.fourgeeks.gha.ejb.mix.BpiServiceRemote;
+import org.fourgeeks.gha.ejb.mix.CitizenService;
+import org.fourgeeks.gha.ejb.mix.CitizenServiceRemote;
+import org.fourgeeks.gha.ejb.mix.InstitutionService;
+import org.fourgeeks.gha.ejb.mix.InstitutionServiceRemote;
+import org.fourgeeks.gha.ejb.mix.LegalEntityService;
+import org.fourgeeks.gha.ejb.mix.LegalEntityServiceRemote;
+import org.fourgeeks.gha.ejb.msg.MessageService;
+import org.fourgeeks.gha.ejb.msg.MessageServiceLocal;
+import org.fourgeeks.gha.ejb.msg.MessageServiceRemote;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
@@ -130,7 +148,9 @@ import org.junit.runner.RunWith;
  * 
  */
 @RunWith(Arquillian.class)
-public class InstanceLogonServiceTest {
+public class PermissionBpuServiceTest {
+	private static final String TESTCODE = "TESTCODE" + Math.random() / 10;
+
 	/**
 	 * @return the deployment descriptor
 	 */
@@ -141,12 +161,29 @@ public class InstanceLogonServiceTest {
 				.addClass(AbstractEntity.class)
 				.addClass(AbstractCodeEntity.class)
 				.addClass(View.class)
+
 				.addClass(Bpa.class)
 				.addClass(BpaServiceRemote.class)
 				.addClass(BpaService.class)
 				.addClass(Bpu.class)
+				.addClass(BpuHelper.class)
+				.addClass(BpuService.class)
+				.addClass(BpuServiceRemote.class)
 				.addClass(BuildingLocation.class)
+				.addClass(BpiServiceRemote.class)
+				.addClass(BpiService.class)
+				.addClass(BpiInstitutionRelationTypeEnum.class)
+				.addClass(BpiOriginEnum.class)
+				.addClass(Brand.class)
+				.addClass(BrandService.class)
+				.addClass(BrandServiceRemote.class)
+				.addClass(Bsp.class)
+				.addClass(Bpi.class)
+				.addClass(BpiTypeEnum.class)
+
 				.addClass(Citizen.class)
+				.addClass(CitizenService.class)
+				.addClass(CitizenServiceRemote.class)
 				.addClass(CCDICodeTypeEnum.class)
 				.addClass(CCDIDefinition.class)
 				.addClass(CCDIEndValueActionEnum.class)
@@ -161,9 +198,13 @@ public class InstanceLogonServiceTest {
 				.addClass(Job.class)
 				.addClass(JobPosition.class)
 				.addClass(Institution.class)
+				.addClass(InstitutionService.class)
+				.addClass(InstitutionServiceRemote.class)
 				.addClass(ItSystem.class)
 				.addClass(ItSystemEnum.class)
 				.addClass(LegalEntity.class)
+				.addClass(LegalEntityService.class)
+				.addClass(LegalEntityServiceRemote.class)
 				.addClass(InstanceLogon.class)
 				.addClass(InstanceLogonService.class)
 				.addClass(InstanceLogonServiceRemote.class)
@@ -171,8 +212,6 @@ public class InstanceLogonServiceTest {
 				.addClass(LocationLevelEnum.class)
 				.addClass(WorkingArea.class)
 				.addClass(Facility.class)
-				.addClass(Bpi.class)
-				.addClass(BpiTypeEnum.class)
 				.addClass(GHALog.class)
 				.addClass(UILog.class)
 				.addClass(FacilityCategory.class)
@@ -183,10 +222,10 @@ public class InstanceLogonServiceTest {
 				.addClass(ViewPermission.class)
 				.addClass(PermissionBpu.class)
 				.addClass(Permission.class)
+				.addClass(PermissionService.class)
+				.addClass(PermissionServiceRemote.class)
 				.addClass(App.class)
 				.addClass(Module.class)
-				.addClass(BpiInstitutionRelationTypeEnum.class)
-				.addClass(BpiOriginEnum.class)
 				.addClass(Role.class)
 				.addClass(JobCategory.class)
 				.addClass(BpiRiskEnum.class)
@@ -221,8 +260,10 @@ public class InstanceLogonServiceTest {
 				.addClass(EiaMaintenance.class)
 				.addClass(UserLogonStatusEnum.class)
 				.addClass(MaintenanceCancelationCause.class)
+				.addClass(MessageServiceLocal.class)
+				.addClass(MessageServiceRemote.class)
 				.addClass(MaintenancePlanificationState.class)
-				.addClass(Bsp.class)
+
 				.addClass(TimePeriodEnum.class)
 				.addClass(EiaStateEnum.class)
 				.addClass(MaintenancePlanificationType.class)
@@ -243,10 +284,9 @@ public class InstanceLogonServiceTest {
 				.addClass(EiaMaintenancePlanification.class)
 				.addClass(ProviderRepresentEnum.class)
 				.addClass(ProviderTypeEnum.class)
-				.addClass(Brand.class)
-				.addClass(BrandService.class)
-				.addClass(BrandServiceRemote.class)
+
 				.addClass(Manufacturer.class)
+				.addClass(MessageService.class)
 				.addClass(HasKey.class)
 				.addClass(EiaTypeMaintenancePlan.class)
 				.addClass(MaintenancePlan.class)
@@ -262,57 +302,89 @@ public class InstanceLogonServiceTest {
 				.addClass(EiaPreventiveMaintenance.class)
 				.addClass(EiaCorrectiveMaintenance.class)
 				.addClass(SystemInstance.class)
+				.addClass(ViewPermission.class)
+				.addClass(ViewPermissionService.class)
+				.addClass(ViewPermissionServiceRemote.class)
+				.addClass(PermissionBpu.class)
+				.addClass(PermissionBpuService.class)
+				.addClass(PermissionBpuServiceRemote.class)
 				.addAsResource("test-persistence.xml",
 						"META-INF/persistence.xml")
 				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
-	@EJB(lookup = "java:global/test/InstanceLogonService")
-	InstanceLogonServiceRemote service;
+	@EJB(lookup = "java:global/test/PermissionBpuService")
+	PermissionBpuServiceRemote service;
 
-	@EJB(lookup = "java:global/test/BpaService")
-	BpaServiceRemote bpaService;
+	@EJB(lookup = "java:global/test/LegalEntityService")
+	LegalEntityServiceRemote legalEntityServiceRemote;
 
-	private Bpa bpa;
+	@EJB(lookup = "java:global/test/CitizenService")
+	CitizenServiceRemote citizenServiceRemote;
+
+	@EJB(lookup = "java:global/test/InstitutionService")
+	InstitutionServiceRemote institutionServiceRemote;
+
+	@EJB(lookup = "java:global/test/BpuService")
+	BpuServiceRemote bpuServiceRemote;
+
+	@EJB(lookup = "java:global/test/BpiService")
+	BpiServiceRemote bpiServiceRemote;
+
+	@EJB(lookup = "java:global/test/PermissionService")
+	PermissionServiceRemote permissionService;
+
+	private Bpu bpu;
+	private BpuHelper bpuHelper;
+	private Permission permission;
 
 	/**
 	 * 
 	 */
 	@Before
 	public void set() {
-		final Bpa localBpa = new Bpa();
+		bpuHelper = new BpuHelper(legalEntityServiceRemote,
+				citizenServiceRemote, institutionServiceRemote,
+				bpuServiceRemote, bpiServiceRemote);
+		bpu = bpuHelper.createBpu();
+
+		permission = new Permission(TESTCODE, null, null);
+
 		try {
-			bpa = bpaService.save(localBpa);
+			permission = permissionService.save(permission);
 		} catch (final GHAEJBException e) {
-			Assert.fail("error creating the bpa");
+			Assert.fail("error saving permission");
 		}
 
 	}
 
 	/**
-	 * @throws GHAEJBException
+	 * 
 	 */
 	@Test
-	public void test() throws GHAEJBException {
+	public void test() {
 		Assert.assertNotNull(service);
+		PermissionBpu save = null;
+		try {
+			save = service.save(new PermissionBpu(bpu, permission));
+			Assert.assertEquals(TESTCODE + bpu.getId(), save.getCode());
+		} catch (final GHAEJBException e) {
+			Assert.fail("failing in creating permissionBpu");
+		}
 
-		InstanceLogon entity = new InstanceLogon();
-		entity = service.save(entity);
+		try {
+			final List<PermissionBpu> permissionByBpu = service
+					.getPermissionByBpu(bpu);
+			Assert.assertTrue(permissionByBpu.size() > 0);
+		} catch (final GHAEJBException e) {
+			Assert.fail("failing in listing permissionBpus");
+		}
 
-		Assert.assertNotNull(entity);
-		Assert.assertEquals(entity.getId(), service.find(entity.getId())
-				.getId());
-		final List<InstanceLogon> all = service.getAll();
-
-		Assert.assertTrue(all != null && all.size() >= 1);
-
-		entity.setBpa(bpa);
-		entity = service.update(entity);
-		Assert.assertEquals(entity.getBpa().getId(),
-				service.find(entity.getId()).getBpa().getId());
-		final long id = entity.getId();
-		service.delete(id);
-		Assert.assertNull(service.find(id));
+		try {
+			service.delete(save);
+		} catch (final GHAEJBException e) {
+			Assert.fail("failing in deleting permissionBpu");
+		}
 
 	}
 
@@ -321,10 +393,12 @@ public class InstanceLogonServiceTest {
 	 */
 	@After
 	public void unset() {
+		bpuHelper.removeBpu();
+
 		try {
-			bpaService.delete(bpa.getId());
+			permissionService.delete(permission);
 		} catch (final GHAEJBException e) {
-			Assert.fail("error deleting the bpa");
+			Assert.fail("error saving permission");
 		}
 	}
 }

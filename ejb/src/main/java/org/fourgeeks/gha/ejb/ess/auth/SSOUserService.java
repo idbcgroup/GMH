@@ -50,8 +50,8 @@ public class SSOUserService extends GHAEJBExceptionService implements
 	 * @param citiJoin
 	 * @return
 	 */
-	private static Predicate buildFilters(SSOUser ssoUser, CriteriaBuilder cb,
-			Root<SSOUser> root) {
+	private final static Predicate buildFilters(SSOUser ssoUser,
+			CriteriaBuilder cb, Root<SSOUser> root) {
 		Predicate predicate = cb.conjunction();
 		if (ssoUser.getUserName() != null) {
 			final ParameterExpression<String> p = cb.parameter(String.class,
@@ -152,7 +152,22 @@ public class SSOUserService extends GHAEJBExceptionService implements
 			em.remove(entity);
 		} catch (final Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete SSOUser", e);
-			throw super.generateGHAEJBException("ssoUser-delete-fail",
+			throw super.generateGHAEJBException("ssoUser-delete-fail", em);
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.fourgeeks.gha.ejb.ess.SSOUserServiceRemote#find(long)
+	 */
+	@Override
+	public SSOUser find(long Id) throws GHAEJBException {
+		try {
+			return em.find(SSOUser.class, Id);
+		} catch (final Exception e) {
+			logger.log(Level.INFO, "ERROR: finding SSOUser", e);
+			throw super.generateGHAEJBException("ssoUser-find-fail",
 					RuntimeParameters.getLang(), em);
 		}
 	}
@@ -239,16 +254,33 @@ public class SSOUserService extends GHAEJBExceptionService implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.fourgeeks.gha.ejb.ess.SSOUserServiceRemote#find(long)
+	 * @see
+	 * org.fourgeeks.gha.ejb.ess.SSOUserServiceRemote#findByUsername(java.lang
+	 * .String)
 	 */
 	@Override
-	public SSOUser find(long Id) throws GHAEJBException {
+	public SSOUser findByUsername(String userName) throws GHAEJBException {
 		try {
-			return em.find(SSOUser.class, Id);
-		} catch (final Exception e) {
-			logger.log(Level.INFO, "ERROR: finding SSOUser", e);
-			throw super.generateGHAEJBException("ssoUser-find-fail",
-					RuntimeParameters.getLang(), em);
+			final SSOUser user = em
+					.createNamedQuery("SSOUser.findByUserName", SSOUser.class)
+					.setParameter("userName", userName).getSingleResult();
+
+			if (user.getUserLogonStatus() == UserLogonStatusEnum.BLOCKED)
+				throw super.generateGHAEJBException("LOGIN004", em);
+
+			return user;
+		} catch (final NoResultException ex) {
+			logger.info("username: " + userName + " not found. Error:"
+					+ ex.getMessage());
+			throw super.generateGHAEJBException("LOGIN005", em);
+		} catch (final GHAEJBException ex) {
+			logger.info("username: " + userName + "blocked" + ex.getMessage());
+			throw super.generateGHAEJBException("LOGIN004", em);
+		} catch (final Exception ex) {
+			logger.info("Error finding SSOUser by username. Error: "
+					+ ex.getMessage());
+			throw super.generateGHAEJBException("ssoUser-findByUsername-fail",
+					em);
 		}
 	}
 
@@ -318,39 +350,6 @@ public class SSOUserService extends GHAEJBExceptionService implements
 			logger.log(Level.INFO, "ERROR: unable to update SSOUser ", e);
 			throw super.generateGHAEJBException("ssoUser-update-fail",
 					RuntimeParameters.getLang(), em);
-		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.fourgeeks.gha.ejb.ess.SSOUserServiceRemote#findByUsername(java.lang
-	 * .String)
-	 */
-	@Override
-	public SSOUser findByUsername(String userName) throws GHAEJBException {
-		try {
-			final SSOUser user = em
-					.createNamedQuery("SSOUser.findByUserName", SSOUser.class)
-					.setParameter("userName", userName).getSingleResult();
-
-			if (user.getUserLogonStatus() == UserLogonStatusEnum.BLOCKED)
-				throw super.generateGHAEJBException("LOGIN004", em);
-
-			return user;
-		} catch (final NoResultException ex) {
-			logger.info("username: " + userName + " not found. Error:"
-					+ ex.getMessage());
-			throw super.generateGHAEJBException("LOGIN005", em);
-		} catch (final GHAEJBException ex) {
-			logger.info("username: " + userName + "blocked" + ex.getMessage());
-			throw super.generateGHAEJBException("LOGIN004", em);
-		} catch (final Exception ex) {
-			logger.info("Error finding SSOUser by username. Error: "
-					+ ex.getMessage());
-			throw super.generateGHAEJBException("ssoUser-findByUsername-fail",
-					em);
 		}
 	}
 }

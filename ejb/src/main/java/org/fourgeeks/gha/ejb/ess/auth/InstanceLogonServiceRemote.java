@@ -23,14 +23,6 @@ public interface InstanceLogonServiceRemote {
 	public void delete(long Id) throws GHAEJBException;
 
 	/**
-	 * @param instanceLogon
-	 * @return the list of instanceLogons
-	 * @throws GHAEJBException
-	 */
-	public List<InstanceLogon> find(InstanceLogon instanceLogon)
-			throws GHAEJBException;
-
-	/**
 	 * @param Id
 	 * @return the instanceLogon
 	 * @throws GHAEJBException

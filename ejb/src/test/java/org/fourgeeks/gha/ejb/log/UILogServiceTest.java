@@ -1,6 +1,5 @@
 package org.fourgeeks.gha.ejb.log;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -52,9 +51,9 @@ import org.fourgeeks.gha.domain.ess.WorkingArea;
 import org.fourgeeks.gha.domain.ess.auth.Role;
 import org.fourgeeks.gha.domain.ess.auth.SSOUser;
 import org.fourgeeks.gha.domain.ess.ui.App;
-import org.fourgeeks.gha.domain.ess.ui.PermissionBpu;
-import org.fourgeeks.gha.domain.ess.ui.Permission;
 import org.fourgeeks.gha.domain.ess.ui.Module;
+import org.fourgeeks.gha.domain.ess.ui.Permission;
+import org.fourgeeks.gha.domain.ess.ui.PermissionBpu;
 import org.fourgeeks.gha.domain.ess.ui.View;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
@@ -99,6 +98,7 @@ import org.fourgeeks.gha.ejb.ess.auth.SSOUserService;
 import org.fourgeeks.gha.ejb.ess.auth.SSOUserServiceRemote;
 import org.fourgeeks.gha.ejb.gar.BpuService;
 import org.fourgeeks.gha.ejb.gar.BpuServiceRemote;
+import org.fourgeeks.gha.ejb.helpers.BpuHelper;
 import org.fourgeeks.gha.ejb.mix.BpiService;
 import org.fourgeeks.gha.ejb.mix.BpiServiceRemote;
 import org.fourgeeks.gha.ejb.mix.CitizenService;
@@ -111,18 +111,21 @@ import org.fourgeeks.gha.ejb.msg.MessageService;
 import org.fourgeeks.gha.ejb.msg.MessageServiceLocal;
 import org.fourgeeks.gha.ejb.msg.MessageServiceRemote;
 import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
  * @author alacret
  * 
  */
-// @RunWith(Arquillian.class)
+@RunWith(Arquillian.class)
 public class UILogServiceTest {
 	/**
 	 * @return the deployment descriptor
@@ -152,6 +155,7 @@ public class UILogServiceTest {
 				.addClass(BpiInstitutionRelationTypeEnum.class)
 				.addClass(BpiRiskEnum.class)
 				.addClass(BuildingLocation.class)
+				.addClass(BpuHelper.class)
 				.addClass(Citizen.class)
 				.addClass(CitizenServiceRemote.class)
 				.addClass(CitizenService.class)
@@ -252,98 +256,48 @@ public class UILogServiceTest {
 	@EJB(lookup = "java:global/test/MessageService!org.fourgeeks.gha.ejb.msg.MessageServiceLocal")
 	MessageServiceLocal messageServiceLocal;
 
-	@EJB(lookup = "java:global/test/BpuService")
-	BpuServiceRemote bpuServiceRemote;
+	@EJB(lookup = "java:global/test/LegalEntityService")
+	LegalEntityServiceRemote legalEntityServiceRemote;
 
 	@EJB(lookup = "java:global/test/CitizenService")
 	CitizenServiceRemote citizenServiceRemote;
 
-	@EJB(lookup = "java:global/test/LegalEntityService")
-	LegalEntityServiceRemote legalEntityServiceRemote;
-
 	@EJB(lookup = "java:global/test/InstitutionService")
 	InstitutionServiceRemote institutionServiceRemote;
+
+	@EJB(lookup = "java:global/test/BpuService")
+	BpuServiceRemote bpuServiceRemote;
 
 	@EJB(lookup = "java:global/test/BpiService")
 	BpiServiceRemote bpiServiceRemote;
 
 	private GHAMessage ghaMessage;
 	private Bpu bpu;
-
-	private Citizen citizen;
-
-	private LegalEntity legalEntity, legalEntity2;
-	private Institution institution;
-	private Bpi bpi;
+	private BpuHelper bpuHelper;
 
 	/**
 	 * 
 	 */
 	@Before
 	public void set() {
+		bpuHelper = new BpuHelper(legalEntityServiceRemote,
+				citizenServiceRemote, institutionServiceRemote,
+				bpuServiceRemote, bpiServiceRemote);
+		bpu = bpuHelper.createBpu();
+
 		try {
 			ghaMessage = messageServiceLocal.save(new GHAMessage(
 					LanguageEnum.ES, "msg-test" + Math.random(),
 					"Mensaje de prueba"));
 		} catch (final GHAEJBException e2) {
-			unset();
 			Assert.fail("failing creating the ghamessage");
 		}
-		try {
-			legalEntity = legalEntityServiceRemote.save(new LegalEntity());
-			legalEntity2 = legalEntityServiceRemote.save(new LegalEntity());
-		} catch (final GHAEJBException e) {
-			unset();
-			Assert.fail("failing creating the legalentity");
-		}
-
-		try {
-			final Citizen localCitizen = new Citizen();
-			localCitizen.setLegalEntity(legalEntity);
-			localCitizen.setIdNumber("id-number-legal-entity" + Math.random());
-			localCitizen.setIdType(DocumentTypeEnum.LOCAL);
-			localCitizen.setGender(GenderTypeEnum.FEMALE);
-			citizen = citizenServiceRemote.save(localCitizen);
-		} catch (final GHAEJBException e) {
-			unset();
-			Assert.fail("failing creating the bpu: " + e.getMessage());
-		}
-
-		final Institution localInstitution = new Institution();
-		localInstitution.setName("Institution name test");
-		localInstitution.setLegalEntity(legalEntity2);
-		try {
-			institution = institutionServiceRemote.save(localInstitution);
-		} catch (final GHAEJBException e) {
-			unset();
-			Assert.fail("failing creating the intitution");
-		}
-
-		try {
-			final Bpi localBpi = new Bpi();
-			localBpi.setInstitution(institution);
-			bpi = bpiServiceRemote.save(localBpi);
-		} catch (final GHAEJBException e1) {
-			unset();
-			Assert.fail("failing creating the bpi");
-		}
-
-		try {
-			final Bpu localBpu = new Bpu();
-			localBpu.setCitizen(citizen);
-			localBpu.setBpi(bpi);
-			bpu = bpuServiceRemote.save(localBpu);
-		} catch (final GHAEJBException e) {
-			unset();
-			Assert.fail("failing creating the bpu: " + e.getMessage());
-		}
-
 	}
 
 	/**
 	 * 
 	 */
-	// @Test
+	@Test
 	public void test() {
 		Assert.assertNotNull(uILogServiceRemote);
 		Assert.assertNotNull(uILogServiceLocal);
@@ -377,33 +331,6 @@ public class UILogServiceTest {
 			messageServiceLocal.delete(ghaMessage);
 		} catch (final GHAEJBException e) {
 		}
-		try {
-			bpuServiceRemote.delete(bpu.getId());
-		} catch (final GHAEJBException e) {
-		}
-
-		try {
-			final List<Citizen> citizens = new ArrayList<Citizen>();
-			citizens.add(citizen);
-			citizenServiceRemote.delete(citizens);
-		} catch (final GHAEJBException e) {
-		}
-
-		try {
-			bpiServiceRemote.delete(bpi.getId());
-		} catch (final GHAEJBException e) {
-		}
-
-		try {
-			institutionServiceRemote.delete(institution.getId());
-		} catch (final GHAEJBException e) {
-		}
-
-		try {
-			legalEntityServiceRemote.delete(legalEntity.getId());
-			legalEntityServiceRemote.delete(legalEntity2.getId());
-		} catch (final GHAEJBException e) {
-		}
-
+		bpuHelper.removeBpu();
 	}
 }

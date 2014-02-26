@@ -1,6 +1,4 @@
-package org.fourgeeks.gha.ejb.ess.auth;
-
-import java.util.List;
+package org.fourgeeks.gha.ejb.ess.ui;
 
 import javax.ejb.EJB;
 
@@ -102,6 +100,10 @@ import org.fourgeeks.gha.domain.msg.GHAMessageId;
 import org.fourgeeks.gha.domain.msg.GHAMessageType;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
+import org.fourgeeks.gha.ejb.ess.auth.InstanceLogonService;
+import org.fourgeeks.gha.ejb.ess.auth.InstanceLogonServiceRemote;
+import org.fourgeeks.gha.ejb.ess.auth.SSOUserService;
+import org.fourgeeks.gha.ejb.ess.auth.SSOUserServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.BrandService;
 import org.fourgeeks.gha.ejb.gmh.BrandServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.EiaMaintenanceService;
@@ -114,14 +116,15 @@ import org.fourgeeks.gha.ejb.log.UILogServiceLocal;
 import org.fourgeeks.gha.ejb.log.UILogServiceRemote;
 import org.fourgeeks.gha.ejb.mix.BpaService;
 import org.fourgeeks.gha.ejb.mix.BpaServiceRemote;
+import org.fourgeeks.gha.ejb.msg.MessageService;
+import org.fourgeeks.gha.ejb.msg.MessageServiceLocal;
+import org.fourgeeks.gha.ejb.msg.MessageServiceRemote;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -130,7 +133,7 @@ import org.junit.runner.RunWith;
  * 
  */
 @RunWith(Arquillian.class)
-public class InstanceLogonServiceTest {
+public class PermissionServiceTest {
 	/**
 	 * @return the deployment descriptor
 	 */
@@ -252,6 +255,9 @@ public class InstanceLogonServiceTest {
 				.addClass(MaintenancePlan.class)
 				.addClass(EiaMobilityEnum.class)
 				.addClass(MaintenancePlanType.class)
+				.addClass(MessageService.class)
+				.addClass(MessageServiceLocal.class)
+				.addClass(MessageServiceRemote.class)
 				.addClass(MaintenancePlanCancelationOption.class)
 				.addClass(EiaSubTypeEnum.class)
 				.addClass(EiaTypeCategory.class)
@@ -262,69 +268,47 @@ public class InstanceLogonServiceTest {
 				.addClass(EiaPreventiveMaintenance.class)
 				.addClass(EiaCorrectiveMaintenance.class)
 				.addClass(SystemInstance.class)
+				.addClass(ViewPermission.class)
+				.addClass(ViewPermissionService.class)
+				.addClass(ViewPermissionServiceRemote.class)
+				.addClass(PermissionBpu.class)
+				.addClass(PermissionBpuService.class)
+				.addClass(PermissionBpuServiceRemote.class)
+				.addClass(Permission.class)
+				.addClass(PermissionService.class)
+				.addClass(PermissionServiceRemote.class)
 				.addAsResource("test-persistence.xml",
 						"META-INF/persistence.xml")
 				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
-	@EJB(lookup = "java:global/test/InstanceLogonService")
-	InstanceLogonServiceRemote service;
-
-	@EJB(lookup = "java:global/test/BpaService")
-	BpaServiceRemote bpaService;
-
-	private Bpa bpa;
+	@EJB(lookup = "java:global/test/PermissionService")
+	PermissionServiceRemote permissionService;
 
 	/**
 	 * 
-	 */
-	@Before
-	public void set() {
-		final Bpa localBpa = new Bpa();
-		try {
-			bpa = bpaService.save(localBpa);
-		} catch (final GHAEJBException e) {
-			Assert.fail("error creating the bpa");
-		}
-
-	}
-
-	/**
-	 * @throws GHAEJBException
 	 */
 	@Test
-	public void test() throws GHAEJBException {
-		Assert.assertNotNull(service);
-
-		InstanceLogon entity = new InstanceLogon();
-		entity = service.save(entity);
-
-		Assert.assertNotNull(entity);
-		Assert.assertEquals(entity.getId(), service.find(entity.getId())
-				.getId());
-		final List<InstanceLogon> all = service.getAll();
-
-		Assert.assertTrue(all != null && all.size() >= 1);
-
-		entity.setBpa(bpa);
-		entity = service.update(entity);
-		Assert.assertEquals(entity.getBpa().getId(),
-				service.find(entity.getId()).getBpa().getId());
-		final long id = entity.getId();
-		service.delete(id);
-		Assert.assertNull(service.find(id));
-
-	}
-
-	/**
-	 * 
-	 */
-	@After
-	public void unset() {
+	public void test() {
+		Assert.assertNotNull(permissionService);
+		final Permission originalPermission = new Permission();
+		originalPermission.setCode("TESTCODE" + Math.random() / 10);
+		Permission newPermission = null;
 		try {
-			bpaService.delete(bpa.getId());
+			newPermission = permissionService.save(originalPermission);
 		} catch (final GHAEJBException e) {
-			Assert.fail("error deleting the bpa");
+			Assert.fail("error saving the permission");
 		}
+
+		Assert.assertEquals(originalPermission.getCode(),
+				newPermission.getCode());
+
+		try {
+			permissionService.delete(newPermission);
+		} catch (final GHAEJBException e) {
+			Assert.fail("error deleting the permission");
+		}
+
 	}
+
 }
