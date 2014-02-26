@@ -309,6 +309,15 @@ public class PermissionServiceTest {
 			Assert.fail("error deleting the permission");
 		}
 
+		final Bpu bpu = new Bpu();
+		bpu.setId(4);
+		try {
+			permissionService.getAppViewsByBpu(bpu);
+		} catch (final GHAEJBException e) {
+			Assert.fail("error gettting the appview for a user");
+			e.printStackTrace();
+		}
+
 	}
 
 }

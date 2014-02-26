@@ -15,16 +15,17 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("messageService")
 public interface GWTMessageService extends RemoteService {
 	/**
+	 * @param messages
+	 * @return a list with the gha messages according to the id's
+	 * @throws GHAEJBException
+	 */
+	@Deprecated
+	public List<GHAMessage> find(List<String> messages) throws GHAEJBException;
+
+	/**
 	 * @param Id
 	 * @return the message
 	 * @throws GHAEJBException
 	 */
 	public GHAMessage find(String Id) throws GHAEJBException;
-
-	/**
-	 * @param messages
-	 * @return a list with the gha messages according to the id's
-	 * @throws GHAEJBException
-	 */
-	public List<GHAMessage> find(List<String> messages) throws GHAEJBException;
 }

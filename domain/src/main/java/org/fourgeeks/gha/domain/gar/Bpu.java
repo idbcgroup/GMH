@@ -16,6 +16,7 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
+import org.fourgeeks.gha.domain.ess.ui.AppView;
 import org.fourgeeks.gha.domain.ess.ui.PermissionBpu;
 import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.domain.mix.Citizen;
@@ -37,7 +38,7 @@ public class Bpu extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * This is when the bpu belongs to the bpi
+	 * This is when the bpu belongs to a bpi
 	 */
 	@NotNull(message = "bpi-not-null")
 	@ManyToOne
@@ -60,6 +61,10 @@ public class Bpu extends AbstractEntity {
 	@Transient
 	private List<PermissionBpu> permissions;
 
+	@Transient
+	private List<AppView> appsViews;
+
+	// TODO: Esto para que es?
 	private String sessionId;
 
 	/**
@@ -77,14 +82,30 @@ public class Bpu extends AbstractEntity {
 		this.citizen = citizen;
 	}
 
+	/**
+	 * @return the App views who has access the user
+	 */
+	public List<AppView> getAppsViews() {
+		return appsViews;
+	}
+
+	/**
+	 * @return the bpi of this user
+	 */
 	public Bpi getBpi() {
 		return bpi;
 	}
 
+	/**
+	 * @return the citizen backed by this BPU
+	 */
 	public Citizen getCitizen() {
 		return citizen;
 	}
 
+	/**
+	 * @return the job position
+	 */
 	public JobPosition getJobPosition() {
 		return jobPosition;
 	}
@@ -104,14 +125,30 @@ public class Bpu extends AbstractEntity {
 		return sessionId;
 	}
 
+	/**
+	 * @param appsViews
+	 */
+	public void setAppsViews(List<AppView> appsViews) {
+		this.appsViews = appsViews;
+	}
+
+	/**
+	 * @param bpi
+	 */
 	public void setBpi(Bpi bpi) {
 		this.bpi = bpi;
 	}
 
+	/**
+	 * @param citizen
+	 */
 	public void setCitizen(Citizen citizen) {
 		this.citizen = citizen;
 	}
 
+	/**
+	 * @param jobPosition
+	 */
 	public void setJobPosition(JobPosition jobPosition) {
 		this.jobPosition = jobPosition;
 	}

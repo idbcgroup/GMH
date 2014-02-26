@@ -1,6 +1,7 @@
 package org.fourgeeks.gha.domain.ess.ui;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 import org.fourgeeks.gha.domain.AbstractCodeEntity;
 
@@ -9,6 +10,7 @@ import org.fourgeeks.gha.domain.AbstractCodeEntity;
  * 
  */
 @Entity
+@Table(schema = "auth")
 public class View extends AbstractCodeEntity {
 
 	/**

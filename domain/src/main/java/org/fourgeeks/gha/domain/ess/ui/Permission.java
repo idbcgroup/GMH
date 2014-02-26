@@ -3,6 +3,7 @@ package org.fourgeeks.gha.domain.ess.ui;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 import org.fourgeeks.gha.domain.AbstractCodeEntity;
 
@@ -11,6 +12,7 @@ import org.fourgeeks.gha.domain.AbstractCodeEntity;
  * 
  */
 @Entity
+@Table(schema = "auth")
 @NamedQueries(value = { @NamedQuery(name = "Permission.getAll", query = "SELECT e from Permission e order by e.name") })
 public class Permission extends AbstractCodeEntity {
 

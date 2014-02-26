@@ -14,11 +14,10 @@ import org.fourgeeks.gha.domain.AbstractCodeEntity;
  * 
  */
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "appFk", "viewFk" }))
+@Table(schema = "auth", uniqueConstraints = @UniqueConstraint(columnNames = {
+		"appFk", "viewFk" }))
 public class AppView extends AbstractCodeEntity {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	@NotNull(message = "app-not-null")
 	@ManyToOne

@@ -258,6 +258,9 @@ public class MessageServiceTest {
 
 	}
 
+	/**
+	 * 
+	 */
 	@Test
 	public void test() {
 		assertNotNull(messageServiceLocal);

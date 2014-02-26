@@ -17,8 +17,8 @@ import org.fourgeeks.gha.domain.gar.Bpu;
  * 
  */
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "permissionFk",
-		"bpuFk" }))
+@Table(schema = "auth", uniqueConstraints = @UniqueConstraint(columnNames = {
+		"permissionFk", "bpuFk" }))
 @NamedQueries(value = { @NamedQuery(name = "PermissionBpu.findByBpu", query = "SELECT e from PermissionBpu e WHERE e.bpu = :bpu order by e.permission") })
 public class PermissionBpu extends AbstractCodeEntity {
 
