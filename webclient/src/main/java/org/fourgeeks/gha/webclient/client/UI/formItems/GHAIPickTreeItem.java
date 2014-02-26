@@ -16,10 +16,10 @@ public class GHAIPickTreeItem extends IPickTreeItem {
 	 */
 	public GHAIPickTreeItem() {
 		super();
-		// setHeight(20);
-		// setWidth("*");
-		// setPickerIconHeight(20);
-		// setOriginalStyle();
+		setHeight(50);
+		setWidth("*");
+		setOriginalStyle();
+		//		final Canvas buttonDefaults = Canvas.createIfSupported();
 	}
 
 	/**
@@ -44,7 +44,7 @@ public class GHAIPickTreeItem extends IPickTreeItem {
 	 * 
 	 */
 	private void setOriginalStyle() {
-		setTextBoxStyle("select");
+		setTextBoxStyle("pickTreeItem");
 		setCellStyle("gha-form-cell");
 		setTitleStyle("input-title");
 	}
