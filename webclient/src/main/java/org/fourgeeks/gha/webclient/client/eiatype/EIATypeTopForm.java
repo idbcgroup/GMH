@@ -160,7 +160,7 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 			brandItem.setValue(eiaType.getBrand().getId());
 		}
 
-		if (eiaType.getType() != null)
+		if (eiaType.getEiaTypeCategory() != null)
 			categoryItem.setValue(eiaType.getEiaTypeCategory().getName());
 
 		if (eiaType.getSubtype() != null)
