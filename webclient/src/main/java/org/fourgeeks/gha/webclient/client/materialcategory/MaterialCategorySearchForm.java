@@ -1,15 +1,12 @@
 package org.fourgeeks.gha.webclient.client.materialcategory;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.fourgeeks.gha.domain.AbstractCodeEntity;
 import org.fourgeeks.gha.domain.glm.MaterialCategory;
 import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
-import org.fourgeeks.gha.webclient.client.UI.GHAUtil;
 import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
@@ -38,7 +35,8 @@ public class MaterialCategorySearchForm extends GHASearchForm<MaterialCategory>
 	private GHATextItem codeTextItem, nameTextItem, descriptionTextItem,
 			modelTextItem, extCodeTextItem;
 	protected GHASelectItem typeSelectItem;
-	private MaterialCategoryResultSet resultSet = new MaterialCategoryResultSet(ResultSetContainerType.SEARCH_FORM);
+	private final MaterialCategoryResultSet resultSet = new MaterialCategoryResultSet(
+			ResultSetContainerType.SEARCH_FORM);
 	private final DynamicForm form = new DynamicForm();
 
 	{
@@ -142,12 +140,12 @@ public class MaterialCategorySearchForm extends GHASearchForm<MaterialCategory>
 		MaterialCategory material = new MaterialCategory();
 		material.setCode(codeTextItem.getValueAsString());
 		material.setName(nameTextItem.getValueAsString());
-		material.setDescription(descriptionTextItem.getValueAsString());
-		material.setModel(modelTextItem.getValueAsString());
-		material.setExternalCode(extCodeTextItem.getValueAsString());
-		if (typeSelectItem.getValue() != null)
-			material.setType(MaterialTypeEnum.valueOf(typeSelectItem
-					.getValueAsString()));
+		// material.setDescription(descriptionTextItem.getValueAsString());
+		// material.setModel(modelTextItem.getValueAsString());
+		// material.setExternalCode(extCodeTextItem.getValueAsString());
+		// if (typeSelectItem.getValue() != null)
+		// material.setType(MaterialTypeEnum.valueOf(typeSelectItem
+		// .getValueAsString()));
 
 		search(material);
 	}
@@ -162,17 +160,18 @@ public class MaterialCategorySearchForm extends GHASearchForm<MaterialCategory>
 					@Override
 					public void onSuccess(List<MaterialCategory> results) {
 						List<MaterialCategory> newList = null;
-						if (blackList != null) {
-							List<AbstractCodeEntity> tmpList = GHAUtil
-									.binarySearchFilterCodeEntity(results,
-											blackList);
-							List<MaterialCategory> newTmpList = new ArrayList<MaterialCategory>();
-							for (AbstractCodeEntity abstractCodeEntity : tmpList)
-								newTmpList
-										.add((MaterialCategory) abstractCodeEntity);
-							newList = newTmpList;
-						} else
-							newList = results;
+						// if (blackList != null) {
+						// List<AbstractCodeEntity> tmpList = GHAUtil
+						// .binarySearchFilterCodeEntity(results,
+						// blackList);
+						// List<MaterialCategory> newTmpList = new
+						// ArrayList<MaterialCategory>();
+						// for (AbstractCodeEntity abstractCodeEntity : tmpList)
+						// newTmpList
+						// .add((MaterialCategory) abstractCodeEntity);
+						// newList = newTmpList;
+						// } else
+						newList = results;
 
 						resultSet.setRecords(newList, false);
 					}
