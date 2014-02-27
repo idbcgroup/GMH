@@ -61,7 +61,8 @@ public class EiaTypeCategory extends AbstractEntity implements
 			return true;
 		if (!(arg0 instanceof EiaTypeCategory))
 			return false;
-		return this.code.equals(arg0);
+		EiaTypeCategory other = (EiaTypeCategory) arg0;
+		return this.code.equals(other.getCode());
 	}
 
 	public String getCode() {
