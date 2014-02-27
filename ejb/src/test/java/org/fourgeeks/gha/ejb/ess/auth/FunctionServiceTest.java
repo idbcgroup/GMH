@@ -288,12 +288,15 @@ public class FunctionServiceTest {
 	 */
 	@Test
 	public void test() {
+		final String code = "TESTCODE" + Math.random() / 10;
+
 		Assert.assertNotNull(functionService);
 		final Function originalPermission = new Function();
-		originalPermission.setCode("TESTCODE" + Math.random() / 10);
+		originalPermission.setCode(code);
 		Function newPermission = null;
 		try {
 			newPermission = functionService.save(originalPermission);
+			Assert.assertEquals(newPermission.getCode(), code);
 		} catch (final GHAEJBException e) {
 			Assert.fail("error saving the function");
 		}
@@ -307,14 +310,11 @@ public class FunctionServiceTest {
 			Assert.fail("error deleting the function");
 		}
 
-		final Bpu bpu = new Bpu();
-		bpu.setId(4);
-		try {
-			functionService.getAppViewsByBpu(bpu);
-		} catch (final GHAEJBException e) {
-			Assert.fail("error gettting the appview for a user");
-			e.printStackTrace();
-		}
+		// try {
+		// functionService.getAppViewsByBpu(bpu);
+		// } catch (final GHAEJBException e) {
+		// Assert.fail("error gettting the appview for a user");
+		// }
 
 	}
 

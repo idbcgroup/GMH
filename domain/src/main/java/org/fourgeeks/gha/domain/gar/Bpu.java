@@ -59,7 +59,7 @@ public class Bpu extends AbstractEntity {
 	private JobPosition jobPosition;
 
 	@Transient
-	private List<FunctionBpu> permissions;
+	private List<FunctionBpu> functions;
 
 	@Transient
 	private List<AppView> appsViews;
@@ -104,17 +104,17 @@ public class Bpu extends AbstractEntity {
 	}
 
 	/**
+	 * @return the permissions
+	 */
+	public List<FunctionBpu> getFunctions() {
+		return functions;
+	}
+
+	/**
 	 * @return the job position
 	 */
 	public JobPosition getJobPosition() {
 		return jobPosition;
-	}
-
-	/**
-	 * @return the permissions
-	 */
-	public List<FunctionBpu> getPermissions() {
-		return permissions;
 	}
 
 	/**
@@ -147,18 +147,18 @@ public class Bpu extends AbstractEntity {
 	}
 
 	/**
+	 * @param functions
+	 *            the functions to set
+	 */
+	public void setFunctions(List<FunctionBpu> functions) {
+		this.functions = functions;
+	}
+
+	/**
 	 * @param jobPosition
 	 */
 	public void setJobPosition(JobPosition jobPosition) {
 		this.jobPosition = jobPosition;
-	}
-
-	/**
-	 * @param permissions
-	 *            the permissions to set
-	 */
-	public void setPermissions(List<FunctionBpu> permissions) {
-		this.permissions = permissions;
 	}
 
 	/**

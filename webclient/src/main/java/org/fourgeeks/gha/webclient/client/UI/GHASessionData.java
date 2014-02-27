@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.TreeSet;
 
 import org.fourgeeks.gha.domain.ess.auth.FunctionBpu;
+import org.fourgeeks.gha.domain.ess.ui.AppView;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.webclient.client.UI.dropdownmenus.UserDropdownMenu;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.LoginNeededException;
@@ -29,60 +30,27 @@ import com.smartgwt.client.widgets.layout.HLayout;
 public abstract class GHASessionData {
 
 	private static Bpu loggedUser;
-	private static TreeSet<String> viewTreeSet;
-	private static TreeSet<String> functionTreeSet;
-	private static Map<String, String> permissionMap;
-
-	/**
-	 * @return the logged User
-	 */
-	public static Bpu getLoggedUser() {
-		return loggedUser;
-	}
-
-	/**
-	 * @return if the user is logged
-	 */
-	public static boolean userisLogged() {
-		return !(loggedUser == null);
-	}
-
-	/**
-	 * @param loggedUser
-	 */
-	public static void setLoggedUser(Bpu loggedUser) {
-		GHASessionData.loggedUser = loggedUser;
-		viewTreeSet = new TreeSet<String>();
-		functionTreeSet = new TreeSet<String>();
-		permissionMap = new HashMap<String, String>();
-		List<FunctionBpu> permissions = loggedUser.getPermissions();
-		for (FunctionBpu permission : permissions) {
-			viewTreeSet.add(permission.getView().getCode());
-			functionTreeSet.add(permission.getFunction().getCode());
-			permissionMap.put(permission.getAppForm().getToken(), permission
-					.getAppForm().getName());
-		}
-		buildUserBox();
-		GHAPlaceSet.buildMenu();
-	}
+	private static TreeSet<String> viewTreeSet = new TreeSet<String>();
+	private static TreeSet<String> functionTreeSet = new TreeSet<String>();
+	private static Map<String, String> appMap = new HashMap<String, String>();
 
 	private static void buildUserBox() {
 		final UserDropdownMenu userMenu = new UserDropdownMenu(loggedUser);
 
-		HLayout userInfo = new HLayout();
+		final HLayout userInfo = new HLayout();
 		userInfo.setMembersMargin(10);
 		userInfo.setStyleName("user-info");
 		userInfo.setHeight("50px");
 		userInfo.setDefaultLayoutAlign(Alignment.CENTER);
 
-		GHALabel usernameLabel = new GHALabel(loggedUser.getCitizen()
+		final GHALabel usernameLabel = new GHALabel(loggedUser.getCitizen()
 				.getFirstName()
 				+ " "
 				+ loggedUser.getCitizen().getFirstLastName());
 		usernameLabel.setStyleName("username-text");
 		usernameLabel.setSize("400px", "25px");
 
-		Img userButton = new Img("../resources/icons/boton2.png");
+		final Img userButton = new Img("../resources/icons/boton2.png");
 		userButton.setStyleName("button-pointer");
 		userButton.setCursor(Cursor.POINTER);
 		userButton.setSize("21px", "25px");
@@ -130,23 +98,41 @@ public abstract class GHASessionData {
 	 * @return the permissionMap
 	 * @throws LoginNeededException
 	 */
-	public static Map<String, String> getPermissionMap()
-			throws LoginNeededException {
-		if (permissionMap == null)
+	public static Map<String, String> getAppsMapp() throws LoginNeededException {
+		if (appMap.isEmpty())
 			throw new LoginNeededException();
-		return permissionMap;
+		return appMap;
+	}
+
+	/**
+	 * @return the logged User
+	 */
+	public static Bpu getLoggedUser() {
+		return loggedUser;
 	}
 
 	/**
 	 * @param code
-	 * @return if it has permission for this AppForm
+	 * @return if it has permission for this App
 	 * @throws LoginNeededException
 	 */
-	public static boolean hasAppFormPermission(String code)
+	public static boolean hasAppPermission(String code)
 			throws LoginNeededException {
-		if (permissionMap == null)
+		if (appMap.isEmpty())
 			throw new LoginNeededException();
-		return permissionMap.containsKey(code);
+		return appMap.containsKey(code);
+	}
+
+	/**
+	 * @param code
+	 * @return wheter this code is present on the permissions
+	 * @throws LoginNeededException
+	 */
+	public static boolean hasFunctionPermission(String code)
+			throws LoginNeededException {
+		if (functionTreeSet == null)
+			throw new LoginNeededException();
+		return functionTreeSet.contains(code);
 	}
 
 	/**
@@ -162,15 +148,30 @@ public abstract class GHASessionData {
 	}
 
 	/**
-	 * @param code
-	 * @return wheter this code is present on the permissions
-	 * @throws LoginNeededException
+	 * @param loggedUser
 	 */
-	public static boolean hasFunctionPermission(String code)
-			throws LoginNeededException {
-		if (functionTreeSet == null)
-			throw new LoginNeededException();
-		return functionTreeSet.contains(code);
+	public static void setLoggedUser(Bpu loggedUser) {
+		GHASessionData.loggedUser = loggedUser;
+		final List<FunctionBpu> functions = loggedUser.getFunctions();
+		for (final FunctionBpu function : functions)
+			functionTreeSet.add(function.getFunction().getCode());
+
+		final List<AppView> appsViews = loggedUser.getAppsViews();
+
+		for (final AppView appView : appsViews) {
+			viewTreeSet.add(appView.getView().getCode());
+			appMap.put(appView.getApp().getToken(), appView.getApp().getName());
+		}
+
+		buildUserBox();
+		GHAPlaceSet.buildMenu();
+	}
+
+	/**
+	 * @return if the user is logged
+	 */
+	public static boolean userisLogged() {
+		return !(loggedUser == null);
 	}
 
 }

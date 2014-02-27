@@ -48,7 +48,7 @@ public class AppView extends AbstractCodeEntity {
 	/**
 	 * @return the appForm
 	 */
-	public App getForm() {
+	public App getApp() {
 		return app;
 	}
 

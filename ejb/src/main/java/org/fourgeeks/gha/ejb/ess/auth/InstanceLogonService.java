@@ -49,21 +49,6 @@ public class InstanceLogonService extends GHAEJBExceptionService implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.fourgeeks.gha.ejb.ess.InstanceLogonServiceRemote#find(long)
-	 */
-	@Override
-	public InstanceLogon find(long Id) throws GHAEJBException {
-		try {
-			return em.find(InstanceLogon.class, Id);
-		} catch (final Exception e) {
-			logger.log(Level.INFO, "ERROR: finding InstanceLogon", e);
-			throw super.generateGHAEJBException("instanceLogon-find-fail", em);
-		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see org.fourgeeks.gha.ejb.ess.InstanceLogonServiceRemote#getAll()
 	 */
 	@Override

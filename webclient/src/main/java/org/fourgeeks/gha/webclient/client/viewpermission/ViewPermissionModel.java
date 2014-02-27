@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.fourgeeks.gha.domain.ess.ui.ViewFunction;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
-import org.fourgeeks.gha.webclient.client.appformviewfunction.GWTAppFormViewFunctionServiceAsync;
 
 import com.google.gwt.core.client.GWT;
 
@@ -13,15 +12,14 @@ import com.google.gwt.core.client.GWT;
  * 
  */
 public class ViewPermissionModel {
-	private static final GWTAppFormViewFunctionServiceAsync service = GWT
-			.create(GWTViewPermissionService.class);
+	private static final GWTViewFunctionnServiceAsync service = GWT
+			.create(GWTViewFunctionnService.class);
 
 	/**
 	 * @param bpu
 	 * @param callback
 	 */
-	public static void getAll(
-			GHAAsyncCallback<List<ViewFunction>> callback) {
+	public static void getAll(GHAAsyncCallback<List<ViewFunction>> callback) {
 		service.getAll(callback);
 	}
 

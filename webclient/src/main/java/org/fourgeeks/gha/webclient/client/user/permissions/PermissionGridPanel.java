@@ -14,7 +14,7 @@ import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAFormLayout;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
-import org.fourgeeks.gha.webclient.client.permissionbpu.PermissionBpuModel;
+import org.fourgeeks.gha.webclient.client.permissionbpu.FunctionBpuModel;
 import org.fourgeeks.gha.webclient.client.viewpermission.ViewPermissionModel;
 import org.fourgeeks.gha.webclient.client.viewpermission.ViewPermissionRecord;
 import org.fourgeeks.gha.webclient.client.viewpermission.ViewPermissionUtil;
@@ -57,7 +57,7 @@ public class PermissionGridPanel extends GHAFormLayout implements
 				final boolean newValue = (Boolean) event.getNewValue();
 
 				if (newValue)
-					PermissionBpuModel.save(new FunctionBpu(ssoUser.getBpu(),
+					FunctionBpuModel.save(new FunctionBpu(ssoUser.getBpu(),
 							function.getFunction()),
 							new GHAAsyncCallback<FunctionBpu>() {
 
@@ -67,7 +67,7 @@ public class PermissionGridPanel extends GHAFormLayout implements
 								}
 							});
 				else
-					PermissionBpuModel.delete(
+					FunctionBpuModel.delete(
 							new FunctionBpu(ssoUser.getBpu(), function
 									.getFunction()),
 							new GHAAsyncCallback<Void>() {
@@ -108,7 +108,7 @@ public class PermissionGridPanel extends GHAFormLayout implements
 					@Override
 					public void onSuccess(
 							final List<ViewFunction> allPermissions) {
-						PermissionBpuModel.getPermissionsByBpu(
+						FunctionBpuModel.getPermissionsByBpu(
 								ssoUser.getBpu(),
 								new GHAAsyncCallback<List<FunctionBpu>>() {
 

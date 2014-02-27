@@ -9,7 +9,7 @@ import org.fourgeeks.gha.domain.ess.auth.FunctionBpu;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.ejb.ess.auth.FunctionBpuServiceRemote;
-import org.fourgeeks.gha.webclient.client.permissionbpu.GWTPermissionBpuService;
+import org.fourgeeks.gha.webclient.client.permissionbpu.GWTFunctionBpuService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -17,16 +17,16 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  * @author alacret
  * 
  */
-@WebServlet(urlPatterns = { "/webclient/permissionbpu" })
-public class GWTPermissionBpuServiceImpl extends RemoteServiceServlet
-		implements GWTPermissionBpuService {
+@WebServlet(urlPatterns = { "/webclient/functionbpu" })
+public class GWTFunctionBpuServiceImpl extends RemoteServiceServlet implements
+		GWTFunctionBpuService {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@EJB(lookup = "java:global/ear-1/ejb-1/AppFormViewFunctionBpuService")
+	@EJB(lookup = "java:global/ear-1/ejb-1/FunctionBpuService")
 	FunctionBpuServiceRemote service;
 
 	@Override

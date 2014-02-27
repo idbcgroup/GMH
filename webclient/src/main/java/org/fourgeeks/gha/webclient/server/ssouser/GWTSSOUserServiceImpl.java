@@ -26,13 +26,20 @@ public class GWTSSOUserServiceImpl extends RemoteServiceServlet implements
 	@EJB(lookup = "java:global/ear-1/ejb-1/SSOUserService")
 	SSOUserServiceRemote ssoUserService;
 
-	@EJB(lookup = "java:global/ear-1/ejb-1/AppFormViewFunctionBpuService")
+	@EJB(lookup = "java:global/ear-1/ejb-1/FunctionBpuService")
 	FunctionBpuServiceRemote bpuFunctionService;
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
+	@Override
+	public void delete(List<SSOUser> entities) throws GHAEJBException {
+		for (final SSOUser entity : entities)
+			delete(entity.getId());
+
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -49,23 +56,23 @@ public class GWTSSOUserServiceImpl extends RemoteServiceServlet implements
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * org.fourgeeks.gha.webclient.client.ssouser.GWTSSOUserService#find(org
-	 * .fourgeeks.gha.domain.ess.SSOUser)
+	 * org.fourgeeks.gha.webclient.client.ssouser.GWTSSOUserService#find(long)
 	 */
 	@Override
-	public List<SSOUser> find(SSOUser ssoUser) throws GHAEJBException {
-		return ssoUserService.find(ssoUser);
+	public SSOUser find(long Id) throws GHAEJBException {
+		return ssoUserService.find(Id);
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * org.fourgeeks.gha.webclient.client.ssouser.GWTSSOUserService#find(long)
+	 * org.fourgeeks.gha.webclient.client.ssouser.GWTSSOUserService#find(org
+	 * .fourgeeks.gha.domain.ess.SSOUser)
 	 */
 	@Override
-	public SSOUser find(long Id) throws GHAEJBException {
-		return ssoUserService.find(Id);
+	public List<SSOUser> find(SSOUser ssoUser) throws GHAEJBException {
+		return ssoUserService.find(ssoUser);
 	}
 
 	/*
@@ -101,13 +108,6 @@ public class GWTSSOUserServiceImpl extends RemoteServiceServlet implements
 	@Override
 	public SSOUser update(SSOUser ssoUser) throws GHAEJBException {
 		return ssoUserService.update(ssoUser);
-	}
-
-	@Override
-	public void delete(List<SSOUser> entities) throws GHAEJBException {
-		for (final SSOUser entity : entities)
-			delete(entity.getId());
-
 	}
 
 }

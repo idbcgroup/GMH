@@ -1088,7 +1088,8 @@ public class InitialData {
 				em.merge(module);
 				final String appCode = strings[1];
 				final String appToken = strings[2];
-				app = new App(module, appCode, appToken);
+				final String name = appCode;
+				app = new App(module, name, appCode, appToken);
 				em.merge(app);
 				final String viewCode = strings[3];
 				final String viewDescription = strings[4];

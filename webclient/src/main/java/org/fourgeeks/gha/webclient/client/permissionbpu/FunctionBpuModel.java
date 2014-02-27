@@ -5,7 +5,6 @@ import java.util.List;
 import org.fourgeeks.gha.domain.ess.auth.FunctionBpu;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
-import org.fourgeeks.gha.webclient.client.appformviewfunctionbpu.GWTPermissionBpuServiceAsync;
 
 import com.google.gwt.core.client.GWT;
 
@@ -13,9 +12,9 @@ import com.google.gwt.core.client.GWT;
  * @author alacret
  * 
  */
-public class PermissionBpuModel {
-	private static final GWTPermissionBpuServiceAsync service = GWT
-			.create(GWTPermissionBpuService.class);
+public class FunctionBpuModel {
+	private static final GWTFunctionBpuServiceAsync service = GWT
+			.create(GWTFunctionBpuService.class);
 
 	/**
 	 * @param bpuFunction

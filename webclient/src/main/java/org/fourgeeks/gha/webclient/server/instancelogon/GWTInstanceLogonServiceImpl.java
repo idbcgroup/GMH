@@ -46,31 +46,6 @@ public class GWTInstanceLogonServiceImpl extends RemoteServiceServlet implements
 	 * 
 	 * @see
 	 * org.fourgeeks.gha.webclient.client.instancelogon.GWTInstanceLogonService
-	 * #find(org.fourgeeks.gha.domain.ess.InstanceLogon)
-	 */
-	@Override
-	public List<InstanceLogon> find(InstanceLogon instanceLogon)
-			throws GHAEJBException {
-		return service.find(instanceLogon);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.fourgeeks.gha.webclient.client.instancelogon.GWTInstanceLogonService
-	 * #find(long)
-	 */
-	@Override
-	public InstanceLogon find(long Id) throws GHAEJBException {
-		return service.find(Id);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.fourgeeks.gha.webclient.client.instancelogon.GWTInstanceLogonService
 	 * #getAll()
 	 */
 	@Override

@@ -1,9 +1,11 @@
 package org.fourgeeks.gha.domain.ess.ui;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.fourgeeks.gha.domain.AbstractCodeEntity;
 
@@ -20,6 +22,8 @@ public class App extends AbstractCodeEntity {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@NotNull
+	@Column(nullable = false)
 	private String name;
 	private String token;
 
@@ -35,22 +39,11 @@ public class App extends AbstractCodeEntity {
 
 	/**
 	 * @param module
-	 * @param code
-	 * @param token
-	 */
-	public App(Module module, String code, String token) {
-		this.module = module;
-		this.token = token;
-		setCode(code);
-	}
-
-	/**
-	 * @param module
 	 * @param name
 	 * @param code
 	 * @param token
 	 */
-	public App(Module module, String name, String token, String code) {
+	public App(Module module, String name, String code, String token) {
 		this.module = module;
 		this.name = name;
 		this.token = token;

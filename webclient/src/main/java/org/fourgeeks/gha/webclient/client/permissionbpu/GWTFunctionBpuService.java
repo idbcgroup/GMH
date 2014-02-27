@@ -13,8 +13,8 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
  * @author alacret
  * 
  */
-@RemoteServiceRelativePath("permissionbpu")
-public interface GWTPermissionBpuService extends RemoteService {
+@RemoteServiceRelativePath("functionbpu")
+public interface GWTFunctionBpuService extends RemoteService {
 
 	/**
 	 * @param bpuFunction
