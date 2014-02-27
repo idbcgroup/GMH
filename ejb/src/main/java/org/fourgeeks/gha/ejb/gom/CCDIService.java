@@ -88,7 +88,6 @@ public class CCDIService extends GHAEJBExceptionService implements
 							getNextCode(parentValue)));
 
 			levelValue.setCode(valueCode);
-			// System.out.println("DEBUG: " + valueCode);
 
 			levelValue.setNextValue(levelDefinition.getInitialValue());
 			levelValue.setLevelDefinition(levelDefinition);
@@ -199,18 +198,33 @@ public class CCDIService extends GHAEJBExceptionService implements
 					.createNamedQuery("CCDILevelValue.findByCode",
 							CCDILevelValue.class).setParameter("code", code)
 					.getSingleResult();
-			int nextElement = levelValue.getNextElement();
 
 			// TODO SYNCRONIZATION
+			int nextElement = levelValue.getNextElement();
 			levelValue.setNextElement(nextElement + 1);
 			em.merge(levelValue);
 
-			// TODO USE THE LAST LEVEL DEFINITION TO GENERATE ELEMENTS
-			String nextCode = levelValue.getCode()
-					+ formatCode(levelValue.getLevelDefinition()
-							.getDefinition().getLength()
-							- levelValue.getCode().length(), nextElement);
-			return nextCode;
+			CCDIDefinition definition = levelValue.getLevelDefinition()
+					.getDefinition();
+
+			CCDILevelDefinition lastLevelDefinition = em
+					.createNamedQuery("CCDILevelDefinition.findByLevel",
+							CCDILevelDefinition.class)
+					.setParameter("level", definition.getLevels() - 1)
+					.setParameter("definition", definition).getSingleResult();
+
+			int padding = definition.getLength()
+					- levelValue.getCode().length()
+					- lastLevelDefinition.getLength();
+
+			StringBuilder builder = new StringBuilder(levelValue.getCode());
+			for (int i = 0; i < padding; ++i)
+				builder.append('X');
+
+			builder.append(formatCode(lastLevelDefinition.getLength(),
+					nextElement));
+			return builder.toString();
+
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: adding element to ccdilevelvalue", e);
 			throw super.generateGHAEJBException(
@@ -218,5 +232,4 @@ public class CCDIService extends GHAEJBExceptionService implements
 					RuntimeParameters.getLang(), em);
 		}
 	}
-
 }

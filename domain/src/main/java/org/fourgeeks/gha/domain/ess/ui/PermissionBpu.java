@@ -33,7 +33,7 @@ public class PermissionBpu extends AbstractCodeEntity {
 	private Bpu bpu;
 	@NotNull(message = "permission-not-null")
 	@ManyToOne
-	@JoinColumn(name = "permissionFk", nullable = false, columnDefinition = "varchar(255) REFERENCES permission(code) ON UPDATE CASCADE ON DELETE CASCADE")
+	@JoinColumn(name = "permissionFk", nullable = false, columnDefinition = "varchar(255) REFERENCES auth.permission(code) ON UPDATE CASCADE ON DELETE CASCADE")
 	private Permission permission;
 
 	/**

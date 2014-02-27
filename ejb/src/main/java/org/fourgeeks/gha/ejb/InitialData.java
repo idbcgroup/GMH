@@ -20,6 +20,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.Activity;
+import org.fourgeeks.gha.domain.TransactionParams;
 import org.fourgeeks.gha.domain.conf.Parameter;
 import org.fourgeeks.gha.domain.conf.ParameterGroup;
 import org.fourgeeks.gha.domain.conf.ParameterValue;
@@ -495,13 +496,14 @@ public class InitialData {
 				final Obu obu = em.find(Obu.class, 1L);
 				final ExternalProvider eProvider = em.find(
 						ExternalProvider.class, 1L);
+				final Bsp mProvider = em.find(Bsp.class, 1L);
 				final Role bRole = em.find(Role.class, 1L);
 
 				for (int i = 1; i < 4; ++i) {
 					final Eia eia = new Eia(bRole, em.find(EiaType.class,
 							"300000000" + Long.toString(i)), obu,
 							EiaStateEnum.values()[i % 3], "GHAEQ-00" + i,
-							eProvider, "S9023423" + i);
+							mProvider, "S9023423" + i);
 					eia.setCode("eia-00" + i);
 					eia.setFacility(facility);
 					eia.setProvider(eProvider);
@@ -966,11 +968,15 @@ public class InitialData {
 		InputStream in = null;
 		CSVReader reader = null;
 		try {
+			// Open csv reading buffers
 			in = InitialData.class.getResourceAsStream("/messages.csv");
 			reader = new CSVReader(new InputStreamReader(in, "UTF-8"), ',',
 					'\'', 0);
+
+			// Read CSV
 			final List<String[]> readAll = reader.readAll();
 			String code, text;
+			String type;
 			LanguageEnum lang = null;
 			final Map<String, Boolean> words = new HashMap<String, Boolean>();
 			for (final String[] strings : readAll) {
@@ -983,22 +989,27 @@ public class InitialData {
 					continue;
 				}
 				words.put(code + language, true);
-				lang = LanguageEnum.valueOf(strings[0]);
+				lang = LanguageEnum.valueOf(language);
+
 				text = strings[2];
-				String type = "SAY";
+				type = "SAY";
 				try {
 					type = String.valueOf(strings[3]);
 				} catch (final Exception e) {
 					logger.info("no type info available in this line... Setting 'SAY' by default");
 				}
+
 				try {
-					em.merge(new GHAMessage(lang, code, text, em.find(
-							GHAMessageType.class, type)));
+					em.merge(new GHAMessage(lang, code, text, "", em.find(
+							GHAMessageType.class, type), -1));
 				} catch (final Exception e) {
 					logger.log(Level.SEVERE,
-							"Error inserting/updating an ghamessage", e);
+							"Error inserting/updating a ghamessage of type "
+									+ type, e);
 				}
 			}
+
+			// Close csv reading buffers
 			em.flush();
 			reader.close();
 			in.close();
@@ -1037,17 +1048,16 @@ public class InitialData {
 			em.createQuery(query).getSingleResult();
 		} catch (final NoResultException e) {
 			try {
-				final int secsToMills = 1000;
 				logger.info("creating test data : message types");
-				em.persist(new GHAMessageType("SAY", 4 * secsToMills, false));
+				em.persist(new GHAMessageType("SAY", 4, false));
 				em.persist(new GHAMessageType("CONFIRMATION", 0, true));
 				em.persist(new GHAMessageType("ASKYESNO", 0, true));
 				em.persist(new GHAMessageType("ERROR-HARD", 0, true));
 				em.persist(new GHAMessageType("ERROR-SOFT", 0, false));
-				em.persist(new GHAMessageType("WARNING", 4 * secsToMills, false));
+				em.persist(new GHAMessageType("WARNING", 4, false));
 				em.persist(new GHAMessageType("INFORMATION", 4, false));
-				em.persist(new GHAMessageType("FAILURE", 4 * secsToMills, false));
-				em.persist(new GHAMessageType("SUCCESS", 4 * secsToMills, false));
+				em.persist(new GHAMessageType("FAILURE", 4, false));
+				em.persist(new GHAMessageType("SUCCESS", 4, false));
 				em.persist(new GHAMessageType("PROCESSING", 0, false));
 				em.persist(new GHAMessageType("NEW_MESSAGE", 0, false));
 			} catch (final Exception e1) {
@@ -1227,6 +1237,8 @@ public class InitialData {
 	}
 
 	private void testData() {
+		transactionParamsTestData();
+
 		ccdiTestData();
 		ccdiLevelDefinitionTestData();
 		ccdiLevelValuesTestData();
@@ -1270,6 +1282,66 @@ public class InitialData {
 		// MaintenancePlanMaintenanceProtocol();
 		// eiaTypeMaintenancePlanTestData();
 		// eiaMaintenancePlanificationTestData();
+	}
+
+	private void transactionParamsTestData() {
+		InputStream in = null;
+		CSVReader reader = null;
+
+		try {
+			logger.info("creating TransactionParams test data");
+			in = InitialData.class
+					.getResourceAsStream("/transactionParams.csv");
+			reader = new CSVReader(new InputStreamReader(in, "UTF-8"), ',',
+					'\'', 0);
+			final List<String[]> readAll = reader.readAll();
+			final Map<String, Boolean> words = new HashMap<String, Boolean>();
+
+			for (final String[] strings : readAll) {
+				final String code = strings[0];
+				if (code.startsWith("#") || code.startsWith("//"))
+					continue;
+				if (words.containsKey(code)) {
+					logger.info("Repeated key in transactionParams: " + code);
+					continue;
+				}
+				words.put(code, true);
+
+				final TransactionParams entity = new TransactionParams();
+				entity.setCode(code);
+				entity.setJndiProcessorName(strings[1]);
+
+				em.merge(entity);
+				em.flush();
+			}
+
+		} catch (final IOException e) {
+			try {
+				reader.close();
+			} catch (final IOException e1) {
+				logger.log(Level.SEVERE, "ERROR in UisTrings", e1);
+			}
+			try {
+				in.close();
+			} catch (final IOException e1) {
+				logger.log(Level.SEVERE, "ERROR in UisTrings", e1);
+			}
+			logger.log(Level.INFO, "error Reading file uistrings test data", e);
+
+		} finally {
+			try {
+				if (reader != null)
+					reader.close();
+			} catch (final IOException e) {
+				logger.log(Level.SEVERE, "ERROR in UisTrings", e);
+			}
+			try {
+				if (in != null)
+					in.close();
+			} catch (final IOException e) {
+				logger.log(Level.SEVERE, "ERROR in UisTrings", e);
+			}
+		}
 	}
 
 	private void uiStrings() {

@@ -36,10 +36,14 @@ public class GHAMessage implements Serializable {
 	private LanguageEnum language;
 
 	@ManyToOne
-	@JoinColumn(name = "typeFk", nullable = true)
+	@JoinColumn(name = "typeFk", nullable = true, columnDefinition = "character varying(255) DEFAULT 'SAY'::character varying")
 	private GHAMessageType type;
 
 	private String text;
+
+	private String indications;
+
+	private int time;
 
 	/**
 	 */
@@ -51,7 +55,6 @@ public class GHAMessage implements Serializable {
 	 * @param language
 	 * @param code
 	 * @param text
-	 * @param type
 	 */
 	public GHAMessage(LanguageEnum language, String code, String text) {
 		super();
@@ -64,15 +67,19 @@ public class GHAMessage implements Serializable {
 	 * @param language
 	 * @param code
 	 * @param text
+	 * @param indications
 	 * @param type
+	 * @param time
 	 */
-	public GHAMessage(LanguageEnum language, String code, String text,
-			GHAMessageType type) {
+	public GHAMessage(LanguageEnum language, String code, String text, String indications,
+			GHAMessageType type, int time) {
 		super();
-		this.language = language;
 		this.code = code;
-		this.text = text;
+		this.language = language;
 		this.type = type;
+		this.text = text;
+		this.indications = indications;
+		this.time = time;
 	}
 
 	/**
@@ -136,8 +143,36 @@ public class GHAMessage implements Serializable {
 		this.type = type;
 	}
 
+	/**
+	 * @return the indications
+	 */
+	public String getIndications() {
+		return indications;
+	}
+
+	/**
+	 * @param indications
+	 */
+	public void setIndications(String indications) {
+		this.indications = indications;
+	}
+
+	/**
+	 * @return the time that the message will remain open.
+	 */
+	public int getTime() {
+		return time;
+	}
+
+	/**
+	 * @param time
+	 */
+	public void setTime(int time) {
+		this.time = time;
+	}
+
 	@Override
 	public String toString() {
-		return this.getText();
+		return this.getText()+"."+this.getIndications();
 	}
 }

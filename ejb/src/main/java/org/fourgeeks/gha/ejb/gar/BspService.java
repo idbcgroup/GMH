@@ -21,10 +21,9 @@ import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.glm.Bsp;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
-import org.fourgeeks.gha.ejb.RuntimeParameters;
 
 /**
- * @author alacret, vivi.torresg
+ * @author alacret, vivi.torresg, naramirez
  * 
  */
 @Stateless
@@ -55,8 +54,7 @@ public class BspService extends GHAEJBExceptionService implements
 			em.remove(entity);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete Bsp", e);
-			throw super.generateGHAEJBException("bsp-delete-fail",
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException("bsp-delete-fail", em);
 		}
 	}
 
@@ -66,8 +64,7 @@ public class BspService extends GHAEJBExceptionService implements
 			return em.find(Bsp.class, Id);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: finding Bsp", e);
-			throw super.generateGHAEJBException("bsp-find-fail",
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException("bsp-find-fail", em);
 		}
 	}
 
@@ -100,8 +97,7 @@ public class BspService extends GHAEJBExceptionService implements
 
 		} catch (Exception e) {
 			logger.log(Level.INFO, "Error: finding Bsp by Bsp", e);
-			throw super.generateGHAEJBException("bsp-findByBsp-fail",
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException("bsp-findByBsp-fail", em);
 		}
 	}
 
@@ -111,8 +107,7 @@ public class BspService extends GHAEJBExceptionService implements
 			return em.createNamedQuery("Bsp.getAll", Bsp.class).getResultList();
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all Bsp", ex);
-			throw super.generateGHAEJBException("bsp-getAll-fail",
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException("bsp-getAll-fail", em);
 		}
 	}
 
@@ -124,8 +119,7 @@ public class BspService extends GHAEJBExceptionService implements
 			return em.find(Bsp.class, entity.getId());
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: saving Bsp ", e);
-			throw super.generateGHAEJBException("bsp-save-fail",
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException("bsp-save-fail", em);
 		}
 
 	}
@@ -138,8 +132,7 @@ public class BspService extends GHAEJBExceptionService implements
 			return res;
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to update Bsp ", e);
-			throw super.generateGHAEJBException("bsp-update-fail",
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException("bsp-update-fail", em);
 		}
 	}
 }

@@ -15,6 +15,7 @@ import org.fourgeeks.gha.domain.ess.auth.Role;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Obu;
+import org.fourgeeks.gha.domain.glm.Bsp;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
@@ -67,6 +68,7 @@ public class GhaServiceTest {
 	private Manufacturer manufacturer;
 	private Obu obu = null;
 	private Role role = null;
+	private Bsp bsp = null;;
 
 	private final ServiceAndResource serviceResource = null;
 
@@ -149,7 +151,7 @@ public class GhaServiceTest {
 			eia.setResponsibleRole(getRole(em));
 			eia.setSerialNumber("Eia test serialNumber");
 			eia.setFixedAssetIdentifier("Eia test asset");
-			eia.setMaintenanceProvider(getExternalProvider(em));
+			eia.setMaintenanceProvider(getBsp(em));
 			em.persist(eia);
 			em.flush();
 			this.eia = em.find(Eia.class, eia.getId());
@@ -196,6 +198,17 @@ public class GhaServiceTest {
 					externalProvider.getId());
 		}
 		return externalProvider;
+	}
+
+	public Bsp getBsp(EntityManager em) {
+		if (bsp == null) {
+			final Bsp externalProvider = new Bsp();
+			externalProvider.setObu(getObu(em));
+			em.persist(externalProvider);
+			em.flush();
+			this.bsp = em.find(Bsp.class, bsp.getId());
+		}
+		return bsp;
 	}
 
 	public Institution getInstitution(EntityManager em) {

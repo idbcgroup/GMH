@@ -442,6 +442,14 @@ public class EiaTypeService extends GHAEJBExceptionService implements
 				}
 				em.persist(brand);
 			}
+
+			EiaTypeCategory category = eiaType.getEiaTypeCategory();
+			category = em
+					.createNamedQuery("EiaTypeCategory.findByCode",
+							EiaTypeCategory.class)
+					.setParameter("code", category.getCode()).getSingleResult();
+			eiaType.setEiaTypeCategory(category);
+
 			final EiaType res = em.merge(eiaType);
 			em.flush();
 			return res;

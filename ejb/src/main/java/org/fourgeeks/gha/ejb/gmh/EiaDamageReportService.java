@@ -1,10 +1,12 @@
 package org.fourgeeks.gha.ejb.gmh;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -12,11 +14,11 @@ import javax.persistence.PersistenceContext;
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.Eia;
-import org.fourgeeks.gha.domain.gmh.EiaCorrectiveMaintenance;
 import org.fourgeeks.gha.domain.gmh.EiaDamageReport;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
+import org.fourgeeks.gha.ejb.pdt.PDTMessageProducerLocal;
 
 /**
  * Session Bean implementation class EiaDamageReportService
@@ -25,7 +27,10 @@ import org.fourgeeks.gha.ejb.RuntimeParameters;
 public class EiaDamageReportService extends GHAEJBExceptionService implements
 		EiaDamageReportServiceRemote {
 	@PersistenceContext
-	EntityManager em;
+	private EntityManager em;
+
+	@EJB
+	private PDTMessageProducerLocal pdtProducerService;
 
 	private final static Logger logger = Logger
 			.getLogger(EiaDamageReportService.class.getName());
@@ -53,7 +58,8 @@ public class EiaDamageReportService extends GHAEJBExceptionService implements
 			stateList.add(EiaStateEnum.DAMAGED);
 			stateList.add(EiaStateEnum.MAINTENANCE);
 
-			String stringQuery = "SELECT edr, eia FROM EiaDamageReport edr RIGHT JOIN edr.eia eia WHERE eia.eiaType = :eiaType AND eia.state IN :eiaStates order by edr.id";
+			String stringQuery = "SELECT edr, eia FROM EiaDamageReport edr RIGHT JOIN edr.eia eia "
+					+ "WHERE eia.eiaType = :eiaType AND eia.state IN :eiaStates order by edr.id";
 			List<?> resultList = em.createQuery(stringQuery)
 					.setParameter("eiaType", eiaType)
 					.setParameter("eiaStates", stateList).getResultList();
@@ -82,18 +88,19 @@ public class EiaDamageReportService extends GHAEJBExceptionService implements
 	@Override
 	public EiaDamageReport save(EiaDamageReport eiaDamageReport)
 			throws GHAEJBException {
-		Eia eia = eiaDamageReport.getEia();
-		eia.setState(EiaStateEnum.DAMAGED);
-
-		EiaCorrectiveMaintenance cmp = new EiaCorrectiveMaintenance();
-		cmp.setDamageReport(eiaDamageReport);
-		cmp.setDescription(eiaDamageReport.getDamageMotive());
 
 		try {
-			em.merge(eia);
+			// guardando el damageReport en BD
 			em.persist(eiaDamageReport);
-			em.persist(cmp);
 			em.flush();
+
+			// definiendo parametros para el PDT
+			HashMap<String, Object> params = new HashMap<String, Object>();
+			params.put("eiaDamageReport", eiaDamageReport);
+			params.put("eia", eiaDamageReport.getEia());
+
+			// enviando el mensaje a la cola de mensajes del PDT
+			pdtProducerService.sendMessage("corrective-maintenance", params);
 
 			return em.find(EiaDamageReport.class, eiaDamageReport.getId());
 		} catch (Exception e) {
