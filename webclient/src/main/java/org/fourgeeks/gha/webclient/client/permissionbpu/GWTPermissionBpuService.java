@@ -2,7 +2,7 @@ package org.fourgeeks.gha.webclient.client.permissionbpu;
 
 import java.util.List;
 
-import org.fourgeeks.gha.domain.ess.ui.PermissionBpu;
+import org.fourgeeks.gha.domain.ess.auth.FunctionBpu;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
 
@@ -20,14 +20,14 @@ public interface GWTPermissionBpuService extends RemoteService {
 	 * @param bpuFunction
 	 * @throws GHAEJBException
 	 */
-	public void delete(PermissionBpu bpuFunction) throws GHAEJBException;
+	public void delete(FunctionBpu bpuFunction) throws GHAEJBException;
 
 	/**
 	 * @param bpu
 	 * @return THE LISTS OF PERMISSIONS
 	 * @throws GHAEJBException
 	 */
-	public List<PermissionBpu> getPermissionsByBpu(Bpu bpu)
+	public List<FunctionBpu> getPermissionsByBpu(Bpu bpu)
 			throws GHAEJBException;
 
 	/**
@@ -35,5 +35,5 @@ public interface GWTPermissionBpuService extends RemoteService {
 	 * @return THE SAVED ENTITY
 	 * @throws GHAEJBException
 	 */
-	public PermissionBpu save(PermissionBpu bpuFunction) throws GHAEJBException;
+	public FunctionBpu save(FunctionBpu bpuFunction) throws GHAEJBException;
 }

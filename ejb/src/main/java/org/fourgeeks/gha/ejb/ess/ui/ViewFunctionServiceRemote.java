@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.ejb.Remote;
 
-import org.fourgeeks.gha.domain.ess.ui.ViewPermission;
+import org.fourgeeks.gha.domain.ess.ui.ViewFunction;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 
 /**
@@ -12,12 +12,12 @@ import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
  * 
  */
 @Remote
-public interface ViewPermissionServiceRemote {
+public interface ViewFunctionServiceRemote {
 
 	/**
 	 * @return get all the functions
 	 * @throws GHAEJBException
 	 */
-	public List<ViewPermission> getAll() throws GHAEJBException;
+	public List<ViewFunction> getAll() throws GHAEJBException;
 
 }

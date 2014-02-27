@@ -2,7 +2,7 @@ package org.fourgeeks.gha.webclient.client.viewpermission;
 
 import java.util.List;
 
-import org.fourgeeks.gha.domain.ess.ui.ViewPermission;
+import org.fourgeeks.gha.domain.ess.ui.ViewFunction;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 
 import com.google.gwt.user.client.rpc.RemoteService;
@@ -20,5 +20,5 @@ public interface GWTViewPermissionService extends RemoteService {
 	 * @return a list of logs by bpu
 	 * @throws GHAEJBException
 	 */
-	public List<ViewPermission> getAll() throws GHAEJBException;
+	public List<ViewFunction> getAll() throws GHAEJBException;
 }

@@ -6,7 +6,7 @@ package org.fourgeeks.gha.webclient.client.viewpermission;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.fourgeeks.gha.domain.ess.ui.ViewPermission;
+import org.fourgeeks.gha.domain.ess.ui.ViewFunction;
 
 /**
  * @author alacret
@@ -23,7 +23,7 @@ public class ViewPermissionUtil {
 	 * @return a functionrecord
 	 */
 	public static ViewPermissionRecord toGridRecord(
-			ViewPermission function) {
+			ViewFunction function) {
 		return new ViewPermissionRecord(function);
 	}
 
@@ -32,9 +32,9 @@ public class ViewPermissionUtil {
 	 * @return alist of functionrecord
 	 */
 	public static List<ViewPermissionRecord> toGridRecords(
-			List<ViewPermission> entities) {
+			List<ViewFunction> entities) {
 		List<ViewPermissionRecord> list = new ArrayList<ViewPermissionRecord>();
-		for (ViewPermission function : entities)
+		for (ViewFunction function : entities)
 			list.add(new ViewPermissionRecord(function));
 		return list;
 	}

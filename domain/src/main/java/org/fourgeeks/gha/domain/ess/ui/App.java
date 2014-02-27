@@ -12,7 +12,7 @@ import org.fourgeeks.gha.domain.AbstractCodeEntity;
  * 
  */
 @Entity
-@Table(schema = "auth")
+@Table(schema = "ui")
 public class App extends AbstractCodeEntity {
 
 	/**

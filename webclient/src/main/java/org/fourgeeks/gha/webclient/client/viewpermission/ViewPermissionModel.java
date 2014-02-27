@@ -2,7 +2,7 @@ package org.fourgeeks.gha.webclient.client.viewpermission;
 
 import java.util.List;
 
-import org.fourgeeks.gha.domain.ess.ui.ViewPermission;
+import org.fourgeeks.gha.domain.ess.ui.ViewFunction;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.appformviewfunction.GWTAppFormViewFunctionServiceAsync;
 
@@ -21,7 +21,7 @@ public class ViewPermissionModel {
 	 * @param callback
 	 */
 	public static void getAll(
-			GHAAsyncCallback<List<ViewPermission>> callback) {
+			GHAAsyncCallback<List<ViewFunction>> callback) {
 		service.getAll(callback);
 	}
 

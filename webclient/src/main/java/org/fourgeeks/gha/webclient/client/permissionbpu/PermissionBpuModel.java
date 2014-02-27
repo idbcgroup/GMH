@@ -2,7 +2,7 @@ package org.fourgeeks.gha.webclient.client.permissionbpu;
 
 import java.util.List;
 
-import org.fourgeeks.gha.domain.ess.ui.PermissionBpu;
+import org.fourgeeks.gha.domain.ess.auth.FunctionBpu;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.appformviewfunctionbpu.GWTPermissionBpuServiceAsync;
@@ -21,7 +21,7 @@ public class PermissionBpuModel {
 	 * @param bpuFunction
 	 * @param callback
 	 */
-	public static void delete(PermissionBpu bpuFunction,
+	public static void delete(FunctionBpu bpuFunction,
 			GHAAsyncCallback<Void> callback) {
 		service.delete(bpuFunction, callback);
 	}
@@ -31,7 +31,7 @@ public class PermissionBpuModel {
 	 * @param callback
 	 */
 	public static void getPermissionsByBpu(Bpu bpu,
-			GHAAsyncCallback<List<PermissionBpu>> callback) {
+			GHAAsyncCallback<List<FunctionBpu>> callback) {
 		service.getPermissionsByBpu(bpu, callback);
 	}
 
@@ -39,8 +39,8 @@ public class PermissionBpuModel {
 	 * @param bpuFunction
 	 * @param callback
 	 */
-	public static void save(PermissionBpu bpuFunction,
-			GHAAsyncCallback<PermissionBpu> callback) {
+	public static void save(FunctionBpu bpuFunction,
+			GHAAsyncCallback<FunctionBpu> callback) {
 		service.save(bpuFunction, callback);
 	}
 

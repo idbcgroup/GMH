@@ -14,7 +14,7 @@ import org.fourgeeks.gha.domain.AbstractCodeEntity;
  * 
  */
 @Entity
-@Table(schema = "auth", uniqueConstraints = @UniqueConstraint(columnNames = {
+@Table(schema = "ui", uniqueConstraints = @UniqueConstraint(columnNames = {
 		"appFk", "viewFk" }))
 public class AppView extends AbstractCodeEntity {
 

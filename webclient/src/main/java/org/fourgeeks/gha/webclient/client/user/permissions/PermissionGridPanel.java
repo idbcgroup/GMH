@@ -3,9 +3,9 @@ package org.fourgeeks.gha.webclient.client.user.permissions;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.fourgeeks.gha.domain.ess.auth.FunctionBpu;
 import org.fourgeeks.gha.domain.ess.auth.SSOUser;
-import org.fourgeeks.gha.domain.ess.ui.PermissionBpu;
-import org.fourgeeks.gha.domain.ess.ui.ViewPermission;
+import org.fourgeeks.gha.domain.ess.ui.ViewFunction;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridField;
@@ -52,24 +52,24 @@ public class PermissionGridPanel extends GHAFormLayout implements
 
 			@Override
 			public void onCellSaved(CellSavedEvent event) {
-				final ViewPermission function = ((ViewPermissionRecord) event
+				final ViewFunction function = ((ViewPermissionRecord) event
 						.getRecord()).toEntity();
 				final boolean newValue = (Boolean) event.getNewValue();
 
 				if (newValue)
-					PermissionBpuModel.save(new PermissionBpu(ssoUser.getBpu(),
-							function.getPermission()),
-							new GHAAsyncCallback<PermissionBpu>() {
+					PermissionBpuModel.save(new FunctionBpu(ssoUser.getBpu(),
+							function.getFunction()),
+							new GHAAsyncCallback<FunctionBpu>() {
 
 								@Override
-								public void onSuccess(PermissionBpu arg0) {
+								public void onSuccess(FunctionBpu arg0) {
 
 								}
 							});
 				else
 					PermissionBpuModel.delete(
-							new PermissionBpu(ssoUser.getBpu(), function
-									.getPermission()),
+							new FunctionBpu(ssoUser.getBpu(), function
+									.getFunction()),
 							new GHAAsyncCallback<Void>() {
 
 								@Override
@@ -103,18 +103,18 @@ public class PermissionGridPanel extends GHAFormLayout implements
 	public void loadData(final SSOUser ssoUser) {
 		this.ssoUser = ssoUser;
 		ViewPermissionModel
-				.getAll(new GHAAsyncCallback<List<ViewPermission>>() {
+				.getAll(new GHAAsyncCallback<List<ViewFunction>>() {
 
 					@Override
 					public void onSuccess(
-							final List<ViewPermission> allPermissions) {
+							final List<ViewFunction> allPermissions) {
 						PermissionBpuModel.getPermissionsByBpu(
 								ssoUser.getBpu(),
-								new GHAAsyncCallback<List<PermissionBpu>>() {
+								new GHAAsyncCallback<List<FunctionBpu>>() {
 
 									@Override
 									public void onSuccess(
-											List<PermissionBpu> userPermissions) {
+											List<FunctionBpu> userPermissions) {
 										// All
 										final List<ViewPermissionRecord> gridRecords = ViewPermissionUtil
 												.toGridRecords(allPermissions);
@@ -123,7 +123,7 @@ public class PermissionGridPanel extends GHAFormLayout implements
 										// User
 										final List<String> codes = new ArrayList<String>(
 												userPermissions.size());
-										for (final PermissionBpu bpuFunction : userPermissions)
+										for (final FunctionBpu bpuFunction : userPermissions)
 											codes.add(bpuFunction.getFunction()
 													.getCode());
 										if (!codes.isEmpty())
@@ -131,7 +131,7 @@ public class PermissionGridPanel extends GHAFormLayout implements
 												final ViewPermissionRecord functionRecord = array[i];
 												final String code = functionRecord
 														.toEntity()
-														.getPermission()
+														.getFunction()
 														.getCode();
 												functionRecord.setActive(codes
 														.contains(code));

@@ -15,7 +15,7 @@ import junit.framework.Assert;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.ejb.GhaServiceTest;
-import org.fourgeeks.gha.ejb.ess.ui.PermissionBpuServiceRemote;
+import org.fourgeeks.gha.ejb.ess.auth.FunctionBpuServiceRemote;
 
 /**
  * @author alacret, vivi.torresg
@@ -28,7 +28,7 @@ public class BpuFunctionServiceTest extends GhaServiceTest {
 	EntityManager em;
 
 	@EJB(name = "gar.BpuFunctionService")
-	PermissionBpuServiceRemote service;
+	FunctionBpuServiceRemote service;
 
 	@Inject
 	UserTransaction ux;
@@ -54,7 +54,7 @@ public class BpuFunctionServiceTest extends GhaServiceTest {
 		ux.begin();
 		em.joinTransaction();
 
-		Assert.assertNotNull(service.getPermissionByBpu(super.getBpu(em)));
+		Assert.assertNotNull(service.getFunctionByBpu(super.getBpu(em)));
 
 		ux.commit();
 	}

@@ -47,12 +47,12 @@ import org.fourgeeks.gha.domain.enu.UserLogonStatusEnum;
 import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
 import org.fourgeeks.gha.domain.ess.LocationType;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
+import org.fourgeeks.gha.domain.ess.auth.Function;
+import org.fourgeeks.gha.domain.ess.auth.FunctionBpu;
 import org.fourgeeks.gha.domain.ess.auth.Role;
 import org.fourgeeks.gha.domain.ess.auth.SSOUser;
 import org.fourgeeks.gha.domain.ess.ui.App;
 import org.fourgeeks.gha.domain.ess.ui.Module;
-import org.fourgeeks.gha.domain.ess.ui.Permission;
-import org.fourgeeks.gha.domain.ess.ui.PermissionBpu;
 import org.fourgeeks.gha.domain.ess.ui.View;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
@@ -137,7 +137,7 @@ public class MessageServiceTest {
 				.addClass(Activity.class)
 				.addClass(ActivityCategoryEnum.class)
 				.addClass(ActivitySubCategoryEnum.class)
-				.addClass(PermissionBpu.class)
+				.addClass(FunctionBpu.class)
 				.addClass(ActivityState.class)
 				.addClass(App.class)
 				.addClass(Bpu.class)
@@ -175,7 +175,7 @@ public class MessageServiceTest {
 				.addClass(ExternalProvider.class)
 				.addClass(Facility.class)
 				.addClass(FacilityCategory.class)
-				.addClass(Permission.class)
+				.addClass(Function.class)
 				.addClass(GHALog.class)
 				.addClass(GHAEJBException.class)
 				.addClass(GHAMessage.class)

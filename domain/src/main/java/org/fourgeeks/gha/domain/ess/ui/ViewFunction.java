@@ -10,16 +10,17 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 import org.fourgeeks.gha.domain.AbstractCodeEntity;
+import org.fourgeeks.gha.domain.ess.auth.Function;
 
 /**
  * @author alacret
  * 
  */
 @Entity
-@Table(schema = "auth", uniqueConstraints = @UniqueConstraint(columnNames = {
-		"viewFk", "permissionFk" }))
-@NamedQueries(value = { @NamedQuery(name = "ViewPermission.getAll", query = "SELECT e from ViewPermission e order by e.view") })
-public class ViewPermission extends AbstractCodeEntity {
+@Table(schema = "ui", uniqueConstraints = @UniqueConstraint(columnNames = {
+		"viewFk", "functionFk" }))
+@NamedQueries(value = { @NamedQuery(name = "ViewFunction.getAll", query = "SELECT e from ViewFunction e order by e.view") })
+public class ViewFunction extends AbstractCodeEntity {
 	/**
 	 * 
 	 */
@@ -28,33 +29,33 @@ public class ViewPermission extends AbstractCodeEntity {
 	@ManyToOne
 	@JoinColumn(name = "viewFk", nullable = false)
 	private View view;
-	@NotNull(message = "permission-not-null")
+	@NotNull(message = "function-not-null")
 	@ManyToOne
-	@JoinColumn(name = "permissionFk", nullable = false)
-	private Permission permission;
+	@JoinColumn(name = "functionFk", nullable = false)
+	private Function function;
 
 	/**
 	 * 
 	 */
-	public ViewPermission() {
+	public ViewFunction() {
 	}
 
 	/**
 	 * @param appForm
 	 * @param view
-	 * @param permission
+	 * @param function
 	 */
-	public ViewPermission(View view, Permission permission) {
-		setCode(view.getCode() + permission.getCode());
+	public ViewFunction(View view, Function function) {
+		setCode(view.getCode() + function.getCode());
 		this.view = view;
-		this.permission = permission;
+		this.function = function;
 	}
 
 	/**
 	 * @return the function
 	 */
-	public Permission getPermission() {
-		return permission;
+	public Function getFunction() {
+		return function;
 	}
 
 	/**

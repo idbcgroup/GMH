@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.domain.ess.ui;
+package org.fourgeeks.gha.domain.ess.auth;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -18,9 +18,9 @@ import org.fourgeeks.gha.domain.gar.Bpu;
  */
 @Entity
 @Table(schema = "auth", uniqueConstraints = @UniqueConstraint(columnNames = {
-		"permissionFk", "bpuFk" }))
-@NamedQueries(value = { @NamedQuery(name = "PermissionBpu.findByBpu", query = "SELECT e from PermissionBpu e WHERE e.bpu = :bpu order by e.permission") })
-public class PermissionBpu extends AbstractCodeEntity {
+		"functionFk", "bpuFk" }))
+@NamedQueries(value = { @NamedQuery(name = "FunctionBpu.findByBpu", query = "SELECT e from FunctionBpu e WHERE e.bpu = :bpu order by e.function") })
+public class FunctionBpu extends AbstractCodeEntity {
 
 	/**
 	 * 
@@ -31,28 +31,28 @@ public class PermissionBpu extends AbstractCodeEntity {
 	@ManyToOne
 	@JoinColumn(name = "bpuFk", nullable = false)
 	private Bpu bpu;
-	@NotNull(message = "permission-not-null")
+	@NotNull(message = "function-not-null")
 	@ManyToOne
-	@JoinColumn(name = "permissionFk", nullable = false, columnDefinition = "varchar(255) REFERENCES auth.permission(code) ON UPDATE CASCADE ON DELETE CASCADE")
-	private Permission permission;
+	@JoinColumn(name = "functionFk", nullable = false, columnDefinition = "varchar(255) REFERENCES auth.function(code) ON UPDATE CASCADE ON DELETE CASCADE")
+	private Function function;
 
 	/**
 	 * 
 	 */
-	public PermissionBpu() {
+	public FunctionBpu() {
 	}
 
 	/**
 	 * @param bpu
 	 * @param appForm
 	 * @param view
-	 * @param permission
+	 * @param function
 	 */
-	public PermissionBpu(Bpu bpu, Permission permission) {
+	public FunctionBpu(Bpu bpu, Function function) {
 		super();
-		setCode(permission.getCode() + bpu.getId());
+		setCode(function.getCode() + bpu.getId());
 		this.bpu = bpu;
-		this.permission = permission;
+		this.function = function;
 	}
 
 	/**
@@ -65,7 +65,7 @@ public class PermissionBpu extends AbstractCodeEntity {
 	/**
 	 * @return the function
 	 */
-	public Permission getFunction() {
-		return permission;
+	public Function getFunction() {
+		return function;
 	}
 }

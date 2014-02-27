@@ -46,15 +46,15 @@ import org.fourgeeks.gha.domain.enu.MaintenancePlanType;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.enu.UserLogonStatusEnum;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
+import org.fourgeeks.gha.domain.ess.auth.Function;
+import org.fourgeeks.gha.domain.ess.auth.FunctionBpu;
 import org.fourgeeks.gha.domain.ess.auth.Role;
 import org.fourgeeks.gha.domain.ess.auth.SSOUser;
 import org.fourgeeks.gha.domain.ess.ui.App;
 import org.fourgeeks.gha.domain.ess.ui.AppView;
 import org.fourgeeks.gha.domain.ess.ui.Module;
-import org.fourgeeks.gha.domain.ess.ui.Permission;
-import org.fourgeeks.gha.domain.ess.ui.PermissionBpu;
 import org.fourgeeks.gha.domain.ess.ui.View;
-import org.fourgeeks.gha.domain.ess.ui.ViewPermission;
+import org.fourgeeks.gha.domain.ess.ui.ViewFunction;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Facility;
@@ -85,7 +85,7 @@ import org.fourgeeks.gha.domain.mix.LegalEntity;
 import org.fourgeeks.gha.domain.msg.GHAMessage;
 import org.fourgeeks.gha.domain.msg.GHAMessageType;
 import org.fourgeeks.gha.domain.msg.UiString;
-import org.fourgeeks.gha.ejb.ess.ui.ViewPermissionServiceRemote;
+import org.fourgeeks.gha.ejb.ess.ui.ViewFunctionServiceRemote;
 
 import au.com.bytecode.opencsv.CSVReader;
 
@@ -104,7 +104,7 @@ public class InitialData {
 	EntityManager em;
 
 	@EJB(name = "ess.AppFormViewFunctionService")
-	ViewPermissionServiceRemote permissionService;
+	ViewFunctionServiceRemote permissionService;
 
 	private void bpiTestData() {
 		final String query = "SELECT t from Bpi t WHERE t.id = 1 ";
@@ -134,12 +134,12 @@ public class InitialData {
 	private void bpuFunctionTestData() {
 		try {
 			logger.info("Creating bpuPermission test data");
-			final List<ViewPermission> all = permissionService.getAll();
+			final List<ViewFunction> all = permissionService.getAll();
 			final Bpu admin = em.find(Bpu.class, 1L);
 			final Bpu gha = em.find(Bpu.class, 3L);
-			for (final ViewPermission permission : all) {
-				em.merge(new PermissionBpu(admin, permission.getPermission()));
-				em.merge(new PermissionBpu(gha, permission.getPermission()));
+			for (final ViewFunction permission : all) {
+				em.merge(new FunctionBpu(admin, permission.getFunction()));
+				em.merge(new FunctionBpu(gha, permission.getFunction()));
 			}
 		} catch (final Exception e1) {
 			logger.log(Level.INFO, "error Creating bpupermission test data", e1);
@@ -1079,8 +1079,8 @@ public class InitialData {
 			App app = null;
 			View view = null;
 			AppView appView = null;
-			Permission permission = null;
-			ViewPermission ViewPermission = null;
+			Function permission = null;
+			ViewFunction ViewPermission = null;
 
 			for (final String[] strings : readAll) {
 				final String moduleCode = strings[0];
@@ -1098,10 +1098,10 @@ public class InitialData {
 				em.merge(appView);
 				final String permissionCode = strings[5];
 				final String functionDescription = strings[6];
-				permission = new Permission(permissionCode, null,
+				permission = new Function(permissionCode, null,
 						functionDescription);
 				em.merge(permission);
-				ViewPermission = new ViewPermission(view, permission);
+				ViewPermission = new ViewFunction(view, permission);
 				em.merge(ViewPermission);
 			}
 			csvReader.close();

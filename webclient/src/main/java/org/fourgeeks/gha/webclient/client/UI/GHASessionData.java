@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
 
-import org.fourgeeks.gha.domain.ess.ui.PermissionBpu;
+import org.fourgeeks.gha.domain.ess.auth.FunctionBpu;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.webclient.client.UI.dropdownmenus.UserDropdownMenu;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.LoginNeededException;
@@ -55,8 +55,8 @@ public abstract class GHASessionData {
 		viewTreeSet = new TreeSet<String>();
 		functionTreeSet = new TreeSet<String>();
 		permissionMap = new HashMap<String, String>();
-		List<PermissionBpu> permissions = loggedUser.getPermissions();
-		for (PermissionBpu permission : permissions) {
+		List<FunctionBpu> permissions = loggedUser.getPermissions();
+		for (FunctionBpu permission : permissions) {
 			viewTreeSet.add(permission.getView().getCode());
 			functionTreeSet.add(permission.getFunction().getCode());
 			permissionMap.put(permission.getAppForm().getToken(), permission

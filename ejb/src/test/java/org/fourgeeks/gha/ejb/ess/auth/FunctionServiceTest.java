@@ -1,4 +1,4 @@
-package org.fourgeeks.gha.ejb.ess.ui;
+package org.fourgeeks.gha.ejb.ess.auth;
 
 import javax.ejb.EJB;
 
@@ -48,6 +48,8 @@ import org.fourgeeks.gha.domain.enu.UserLogonStatusEnum;
 import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
 import org.fourgeeks.gha.domain.ess.LocationType;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
+import org.fourgeeks.gha.domain.ess.auth.Function;
+import org.fourgeeks.gha.domain.ess.auth.FunctionBpu;
 import org.fourgeeks.gha.domain.ess.auth.InstanceLogon;
 import org.fourgeeks.gha.domain.ess.auth.ItSystem;
 import org.fourgeeks.gha.domain.ess.auth.Role;
@@ -56,10 +58,8 @@ import org.fourgeeks.gha.domain.ess.auth.SystemInstance;
 import org.fourgeeks.gha.domain.ess.ui.App;
 import org.fourgeeks.gha.domain.ess.ui.AppView;
 import org.fourgeeks.gha.domain.ess.ui.Module;
-import org.fourgeeks.gha.domain.ess.ui.Permission;
-import org.fourgeeks.gha.domain.ess.ui.PermissionBpu;
 import org.fourgeeks.gha.domain.ess.ui.View;
-import org.fourgeeks.gha.domain.ess.ui.ViewPermission;
+import org.fourgeeks.gha.domain.ess.ui.ViewFunction;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
@@ -100,10 +100,8 @@ import org.fourgeeks.gha.domain.msg.GHAMessageId;
 import org.fourgeeks.gha.domain.msg.GHAMessageType;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
-import org.fourgeeks.gha.ejb.ess.auth.InstanceLogonService;
-import org.fourgeeks.gha.ejb.ess.auth.InstanceLogonServiceRemote;
-import org.fourgeeks.gha.ejb.ess.auth.SSOUserService;
-import org.fourgeeks.gha.ejb.ess.auth.SSOUserServiceRemote;
+import org.fourgeeks.gha.ejb.ess.ui.ViewFunctionService;
+import org.fourgeeks.gha.ejb.ess.ui.ViewFunctionServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.BrandService;
 import org.fourgeeks.gha.ejb.gmh.BrandServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.EiaMaintenanceService;
@@ -116,6 +114,9 @@ import org.fourgeeks.gha.ejb.log.UILogServiceLocal;
 import org.fourgeeks.gha.ejb.log.UILogServiceRemote;
 import org.fourgeeks.gha.ejb.mix.BpaService;
 import org.fourgeeks.gha.ejb.mix.BpaServiceRemote;
+import org.fourgeeks.gha.ejb.msg.MessageService;
+import org.fourgeeks.gha.ejb.msg.MessageServiceLocal;
+import org.fourgeeks.gha.ejb.msg.MessageServiceRemote;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
@@ -130,7 +131,7 @@ import org.junit.runner.RunWith;
  * 
  */
 @RunWith(Arquillian.class)
-public class ViewPermissionServiceTest {
+public class FunctionServiceTest {
 	/**
 	 * @return the deployment descriptor
 	 */
@@ -180,9 +181,9 @@ public class ViewPermissionServiceTest {
 				.addClass(ServiceResourceCategory.class)
 				.addClass(ServiceAndResource.class)
 				.addClass(AppView.class)
-				.addClass(ViewPermission.class)
-				.addClass(PermissionBpu.class)
-				.addClass(Permission.class)
+				.addClass(ViewFunction.class)
+				.addClass(FunctionBpu.class)
+				.addClass(Function.class)
 				.addClass(App.class)
 				.addClass(Module.class)
 				.addClass(BpiInstitutionRelationTypeEnum.class)
@@ -252,6 +253,9 @@ public class ViewPermissionServiceTest {
 				.addClass(MaintenancePlan.class)
 				.addClass(EiaMobilityEnum.class)
 				.addClass(MaintenancePlanType.class)
+				.addClass(MessageService.class)
+				.addClass(MessageServiceLocal.class)
+				.addClass(MessageServiceRemote.class)
 				.addClass(MaintenancePlanCancelationOption.class)
 				.addClass(EiaSubTypeEnum.class)
 				.addClass(EiaTypeCategory.class)
@@ -262,27 +266,53 @@ public class ViewPermissionServiceTest {
 				.addClass(EiaPreventiveMaintenance.class)
 				.addClass(EiaCorrectiveMaintenance.class)
 				.addClass(SystemInstance.class)
-				.addClass(ViewPermission.class)
-				.addClass(ViewPermissionService.class)
-				.addClass(ViewPermissionServiceRemote.class)
+				.addClass(ViewFunction.class)
+				.addClass(ViewFunctionService.class)
+				.addClass(ViewFunctionServiceRemote.class)
+				.addClass(FunctionBpu.class)
+				.addClass(FunctionBpuService.class)
+				.addClass(FunctionBpuServiceRemote.class)
+				.addClass(Function.class)
+				.addClass(FunctionService.class)
+				.addClass(FunctionServiceRemote.class)
 				.addAsResource("test-persistence.xml",
 						"META-INF/persistence.xml")
 				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
-	@EJB(lookup = "java:global/test/ViewPermissionService")
-	ViewPermissionServiceRemote service;
+	@EJB(lookup = "java:global/test/FunctionService")
+	FunctionServiceRemote functionService;
 
 	/**
 	 * 
 	 */
 	@Test
 	public void test() {
-		Assert.assertNotNull(service);
+		Assert.assertNotNull(functionService);
+		final Function originalPermission = new Function();
+		originalPermission.setCode("TESTCODE" + Math.random() / 10);
+		Function newPermission = null;
+		try {
+			newPermission = functionService.save(originalPermission);
+		} catch (final GHAEJBException e) {
+			Assert.fail("error saving the function");
+		}
+
+		Assert.assertEquals(originalPermission.getCode(),
+				newPermission.getCode());
 
 		try {
-			Assert.assertNotNull(service.getAll());
+			functionService.delete(newPermission);
 		} catch (final GHAEJBException e) {
+			Assert.fail("error deleting the function");
+		}
+
+		final Bpu bpu = new Bpu();
+		bpu.setId(4);
+		try {
+			functionService.getAppViewsByBpu(bpu);
+		} catch (final GHAEJBException e) {
+			Assert.fail("error gettting the appview for a user");
 			e.printStackTrace();
 		}
 

@@ -5,10 +5,10 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 
-import org.fourgeeks.gha.domain.ess.ui.PermissionBpu;
+import org.fourgeeks.gha.domain.ess.auth.FunctionBpu;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
-import org.fourgeeks.gha.ejb.ess.ui.PermissionBpuServiceRemote;
+import org.fourgeeks.gha.ejb.ess.auth.FunctionBpuServiceRemote;
 import org.fourgeeks.gha.webclient.client.permissionbpu.GWTPermissionBpuService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -27,21 +27,21 @@ public class GWTPermissionBpuServiceImpl extends RemoteServiceServlet
 	private static final long serialVersionUID = 1L;
 
 	@EJB(lookup = "java:global/ear-1/ejb-1/AppFormViewFunctionBpuService")
-	PermissionBpuServiceRemote service;
+	FunctionBpuServiceRemote service;
 
 	@Override
-	public void delete(PermissionBpu bpuFunction) throws GHAEJBException {
+	public void delete(FunctionBpu bpuFunction) throws GHAEJBException {
 		service.delete(bpuFunction);
 	}
 
 	@Override
-	public List<PermissionBpu> getPermissionsByBpu(Bpu bpu)
+	public List<FunctionBpu> getPermissionsByBpu(Bpu bpu)
 			throws GHAEJBException {
-		return service.getPermissionByBpu(bpu);
+		return service.getFunctionByBpu(bpu);
 	}
 
 	@Override
-	public PermissionBpu save(PermissionBpu bpuFunction) throws GHAEJBException {
+	public FunctionBpu save(FunctionBpu bpuFunction) throws GHAEJBException {
 		return service.save(bpuFunction);
 	}
 

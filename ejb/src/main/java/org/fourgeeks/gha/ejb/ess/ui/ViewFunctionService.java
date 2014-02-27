@@ -9,7 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import org.fourgeeks.gha.domain.ess.ui.ViewPermission;
+import org.fourgeeks.gha.domain.ess.ui.ViewFunction;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 
@@ -18,25 +18,24 @@ import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
  * 
  */
 @Stateless
-public class ViewPermissionService extends GHAEJBExceptionService implements
-		ViewPermissionServiceRemote {
+public class ViewFunctionService extends GHAEJBExceptionService implements
+		ViewFunctionServiceRemote {
 
 	@PersistenceContext
 	private EntityManager em;
 
 	private final static Logger logger = Logger
-			.getLogger(ViewPermissionService.class.getName());
+			.getLogger(ViewFunctionService.class.getName());
 
 	@Override
-	public List<ViewPermission> getAll() throws GHAEJBException {
+	public List<ViewFunction> getAll() throws GHAEJBException {
 		try {
-			final TypedQuery<ViewPermission> query = em.createNamedQuery(
-					"ViewPermission.getAll", ViewPermission.class);
+			final TypedQuery<ViewFunction> query = em.createNamedQuery(
+					"ViewFunction.getAll", ViewFunction.class);
 			return query.getResultList();
 		} catch (final Exception e) {
-			logger.log(Level.SEVERE, "Error obteniendo todos los permissions",
-					e);
-			throw super.generateGHAEJBException("permission-getall-fail", em);
+			logger.log(Level.SEVERE, "Error obteniendo todos los functions", e);
+			throw super.generateGHAEJBException("function-getall-fail", em);
 		}
 	}
 

@@ -46,13 +46,13 @@ import org.fourgeeks.gha.domain.enu.UserLogonStatusEnum;
 import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
 import org.fourgeeks.gha.domain.ess.LocationType;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
+import org.fourgeeks.gha.domain.ess.auth.Function;
+import org.fourgeeks.gha.domain.ess.auth.FunctionBpu;
 import org.fourgeeks.gha.domain.ess.auth.Role;
 import org.fourgeeks.gha.domain.ess.auth.SSOUser;
 import org.fourgeeks.gha.domain.ess.ui.App;
 import org.fourgeeks.gha.domain.ess.ui.AppView;
-import org.fourgeeks.gha.domain.ess.ui.ViewPermission;
-import org.fourgeeks.gha.domain.ess.ui.PermissionBpu;
-import org.fourgeeks.gha.domain.ess.ui.Permission;
+import org.fourgeeks.gha.domain.ess.ui.ViewFunction;
 import org.fourgeeks.gha.domain.ess.ui.Module;
 import org.fourgeeks.gha.domain.ess.ui.View;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
@@ -151,9 +151,9 @@ public class CCDIServiceTest {
 				.addClass(ServiceResourceCategory.class)
 				.addClass(ServiceAndResource.class)
 				.addClass(AppView.class)
-				.addClass(ViewPermission.class)
-				.addClass(PermissionBpu.class)
-				.addClass(Permission.class)
+				.addClass(ViewFunction.class)
+				.addClass(FunctionBpu.class)
+				.addClass(Function.class)
 				.addClass(App.class)
 				.addClass(Module.class)
 				.addClass(BpiInstitutionRelationTypeEnum.class)

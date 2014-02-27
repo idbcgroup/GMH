@@ -5,9 +5,9 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 
-import org.fourgeeks.gha.domain.ess.ui.ViewPermission;
+import org.fourgeeks.gha.domain.ess.ui.ViewFunction;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
-import org.fourgeeks.gha.ejb.ess.ui.ViewPermissionServiceRemote;
+import org.fourgeeks.gha.ejb.ess.ui.ViewFunctionServiceRemote;
 import org.fourgeeks.gha.webclient.client.viewpermission.GWTViewPermissionService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -26,10 +26,10 @@ public class GWTViewPermissionServiceImpl extends RemoteServiceServlet
 	private static final long serialVersionUID = 1L;
 
 	@EJB(lookup = "java:global/ear-1/ejb-1/AppFormViewFunctionService")
-	ViewPermissionServiceRemote service;
+	ViewFunctionServiceRemote service;
 
 	@Override
-	public List<ViewPermission> getAll() throws GHAEJBException {
+	public List<ViewFunction> getAll() throws GHAEJBException {
 		return service.getAll();
 
 	}

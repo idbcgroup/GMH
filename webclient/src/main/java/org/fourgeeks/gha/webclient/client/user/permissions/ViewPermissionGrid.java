@@ -1,6 +1,6 @@
 package org.fourgeeks.gha.webclient.client.user.permissions;
 
-import org.fourgeeks.gha.domain.ess.ui.ViewPermission;
+import org.fourgeeks.gha.domain.ess.ui.ViewFunction;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridField;
 import org.fourgeeks.gha.webclient.client.UI.grids.GhaGrid;
 
@@ -10,7 +10,7 @@ import com.smartgwt.client.types.ListGridFieldType;
  * @author alacret
  * 
  */
-public class ViewPermissionGrid extends GhaGrid<ViewPermission> {
+public class ViewPermissionGrid extends GhaGrid<ViewFunction> {
 
 	private GHAGridField activeField;
 

@@ -1,10 +1,10 @@
-package org.fourgeeks.gha.ejb.ess.ui;
+package org.fourgeeks.gha.ejb.ess.auth;
 
 import java.util.List;
 
 import javax.ejb.Remote;
 
-import org.fourgeeks.gha.domain.ess.ui.PermissionBpu;
+import org.fourgeeks.gha.domain.ess.auth.FunctionBpu;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
 
@@ -13,13 +13,13 @@ import org.fourgeeks.gha.domain.gar.Bpu;
  * 
  */
 @Remote
-public interface PermissionBpuServiceRemote {
+public interface FunctionBpuServiceRemote {
 	/**
 	 * @param bpu
 	 * @return the permissions as a list
 	 * @throws GHAEJBException
 	 */
-	public List<PermissionBpu> getPermissionByBpu(Bpu bpu)
+	public List<FunctionBpu> getFunctionByBpu(Bpu bpu)
 			throws GHAEJBException;
 
 	/**
@@ -27,13 +27,13 @@ public interface PermissionBpuServiceRemote {
 	 * @return an instance
 	 * @throws GHAEJBException
 	 */
-	public PermissionBpu save(PermissionBpu bpuFunction)
+	public FunctionBpu save(FunctionBpu bpuFunction)
 			throws GHAEJBException;
 
 	/**
 	 * @param bpuFunction
 	 * @throws GHAEJBException
 	 */
-	public void delete(PermissionBpu bpuFunction)
+	public void delete(FunctionBpu bpuFunction)
 			throws GHAEJBException;
 }

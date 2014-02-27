@@ -3,24 +3,24 @@
  */
 package org.fourgeeks.gha.webclient.client.viewpermission;
 
-import org.fourgeeks.gha.domain.ess.ui.ViewPermission;
+import org.fourgeeks.gha.domain.ess.ui.ViewFunction;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 
 /**
  * @author alacret
  * 
  */
-public class ViewPermissionRecord extends GHAGridRecord<ViewPermission> {
-	private ViewPermission function;
+public class ViewPermissionRecord extends GHAGridRecord<ViewFunction> {
+	private ViewFunction function;
 
 	/**
 	 * @param function
 	 */
-	public ViewPermissionRecord(ViewPermission function) {
+	public ViewPermissionRecord(ViewFunction function) {
 		this.function = function;
 		// TODO
 		setAttribute("view", function.getView().getName());
-		setAttribute("permission", function.getPermission().getName());
+		setAttribute("permission", function.getFunction().getName());
 		setAttribute("active", false);
 	}
 
@@ -37,7 +37,7 @@ public class ViewPermissionRecord extends GHAGridRecord<ViewPermission> {
 	 * @see org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord#toEntity()
 	 */
 	@Override
-	public ViewPermission toEntity() {
+	public ViewFunction toEntity() {
 		return this.function;
 	}
 
