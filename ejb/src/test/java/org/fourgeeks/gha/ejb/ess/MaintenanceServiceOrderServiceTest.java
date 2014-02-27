@@ -57,13 +57,8 @@ import org.fourgeeks.gha.domain.enu.UserLogonStatusEnum;
 import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
 import org.fourgeeks.gha.domain.ess.LocationType;
 import org.fourgeeks.gha.domain.ess.MaintenanceServiceOrder;
-import org.fourgeeks.gha.domain.ess.Role;
-import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
-import org.fourgeeks.gha.domain.ess.ui.AppForm;
-import org.fourgeeks.gha.domain.ess.ui.AppFormViewFunction;
-import org.fourgeeks.gha.domain.ess.ui.AppFormViewFunctionBpu;
-import org.fourgeeks.gha.domain.ess.ui.Function;
+import org.fourgeeks.gha.domain.ess.auth.SSOUser;
 import org.fourgeeks.gha.domain.ess.ui.Module;
 import org.fourgeeks.gha.domain.ess.ui.View;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
@@ -113,6 +108,10 @@ import org.fourgeeks.gha.domain.msg.GHAMessageId;
 import org.fourgeeks.gha.domain.msg.GHAMessageType;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
+import org.fourgeeks.gha.ejb.ess.auth.RoleService;
+import org.fourgeeks.gha.ejb.ess.auth.RoleServiceRemote;
+import org.fourgeeks.gha.ejb.ess.auth.SSOUserService;
+import org.fourgeeks.gha.ejb.ess.auth.SSOUserServiceRemote;
 import org.fourgeeks.gha.ejb.gar.BpuService;
 import org.fourgeeks.gha.ejb.gar.BpuServiceRemote;
 import org.fourgeeks.gha.ejb.gar.ObuService;
@@ -128,7 +127,6 @@ import org.fourgeeks.gha.ejb.gmh.EiaMaintenanceService;
 import org.fourgeeks.gha.ejb.gmh.EiaMaintenanceServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.EiaService;
 import org.fourgeeks.gha.ejb.gmh.EiaServiceRemote;
-import org.fourgeeks.gha.ejb.gmh.EiaServiceTest;
 import org.fourgeeks.gha.ejb.gmh.EiaTypeComponentService;
 import org.fourgeeks.gha.ejb.gmh.EiaTypeComponentServiceLocal;
 import org.fourgeeks.gha.ejb.gmh.EiaTypeComponentServiceRemote;
@@ -182,9 +180,6 @@ public class MaintenanceServiceOrderServiceTest {
 				.create(WebArchive.class, "test.war")
 				.addClass(AbstractEntity.class)
 				.addClass(AbstractCodeEntity.class)
-				.addClass(AppForm.class)
-				.addClass(AppFormViewFunction.class)
-				.addClass(AppFormViewFunctionBpu.class)
 				.addClass(Bpi.class)
 				.addClass(BpiOriginEnum.class)
 				.addClass(BpiRiskEnum.class)
@@ -219,13 +214,11 @@ public class MaintenanceServiceOrderServiceTest {
 				.addClass(ExternalProvider.class)
 				.addClass(ExternalProviderService.class)
 				.addClass(ExternalProviderServiceRemote.class)
-				.addClass(EiaServiceTest.class)
 				.addClass(EiaServiceRemote.class)
 				.addClass(EiaPreventiveMaintenance.class)
 				.addClass(ExternalProvider.class)
 				.addClass(Facility.class)
 				.addClass(FacilityCategory.class)
-				.addClass(Function.class)
 				.addClass(GenderTypeEnum.class)
 				.addClass(GHAEJBException.class)
 				.addClass(GHAMessage.class)
@@ -268,7 +261,6 @@ public class MaintenanceServiceOrderServiceTest {
 				.addClass(ProviderQualEnum.class)
 				.addClass(ProviderTypeEnum.class)
 				.addClass(ProviderRepresentEnum.class)
-				.addClass(Role.class)
 				.addClass(RoleService.class)
 				.addClass(RoleServiceRemote.class)
 				.addClass(RuntimeParameters.class)
@@ -379,6 +371,81 @@ public class MaintenanceServiceOrderServiceTest {
 	private EiaType eiaType;
 	private Eia eia;
 
+	private void deleteTest(MaintenanceServiceOrder entity) {
+		final int resultExpected = 0;
+
+		try {
+			serviceOrderService.delete(entity.getId());
+			final List<MaintenanceServiceOrder> result = serviceOrderService
+					.getAll();
+
+			Assert.assertEquals(resultExpected, result.size());
+		} catch (final GHAEJBException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void findByEntityTest(MaintenanceServiceOrder entity) {
+		final int expectedResult = 1;
+		try {
+			final List<MaintenanceServiceOrder> result = serviceOrderService
+					.find(entity);
+
+			Assert.assertEquals(expectedResult, result.size());
+
+		} catch (final GHAEJBException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void findByIdTest(MaintenanceServiceOrder entity) {
+		try {
+			final long id = entity.getId();
+			final MaintenanceServiceOrder result = serviceOrderService.find(id);
+
+			Assert.assertNotNull(result);
+
+		} catch (final GHAEJBException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void getAllTest() {
+		final int expectedResult = 1;
+		try {
+			final List<MaintenanceServiceOrder> result = serviceOrderService
+					.getAll();
+
+			Assert.assertEquals(expectedResult, result.size());
+
+		} catch (final GHAEJBException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private MaintenanceServiceOrder saveTest() {
+		try {
+			final long time = (new Date()).getTime();
+
+			final MaintenanceServiceOrder entity = new MaintenanceServiceOrder();
+			entity.setServiceOrderNumber("MSO1");
+			entity.setMaintenance(maintenance);
+			entity.setOpeningTimestamp(new Timestamp(time));
+			entity.setState(ServiceOrderState.ACTIVE);
+
+			final MaintenanceServiceOrder result = serviceOrderService
+					.save(entity);
+
+			Assert.assertNotNull(result);
+			return result;
+
+		} catch (final GHAEJBException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
 	/** */
 	@Before
 	public void set() {
@@ -410,7 +477,7 @@ public class MaintenanceServiceOrderServiceTest {
 			planif.setPlan(eiaTypeMPlan);
 			planif = planifServiceRemote.save(planif);
 
-			Bpu bpu = bpuService.find(1);
+			final Bpu bpu = bpuService.find(1);
 			eiaDamageReport = new EiaDamageReport();
 			eiaDamageReport.setEia(eia);
 			eiaDamageReport.setDamageStatus(EiaDamageStatusEnum.DAMAGE);
@@ -425,25 +492,7 @@ public class MaintenanceServiceOrderServiceTest {
 			maintenance = maintenanceService
 					.saveCorrectiveMaintenance(maintenance);
 
-		} catch (GHAEJBException e) {
-			e.printStackTrace();
-		}
-	}
-
-	/** */
-	@After
-	public void unset() {
-		System.out
-				.println("\n UNSET - MAINTENANCE SERVICE ORDER SERVICE TEST \n");
-
-		try {
-			maintenanceService.deleteCorrectiveMaintenance(maintenance.getId());
-			planifServiceRemote.delete(planif.getId());
-			eiaTypeMPlanService.delete(eiaTypeMPlan.getId());
-			maintenancePlanService.delete(maintenancePlan.getId());
-			damageReportService.delete(eiaDamageReport.getId());
-
-		} catch (GHAEJBException e) {
+		} catch (final GHAEJBException e) {
 			e.printStackTrace();
 		}
 	}
@@ -474,89 +523,36 @@ public class MaintenanceServiceOrderServiceTest {
 		deleteTest(entity);
 	}
 
-	private void deleteTest(MaintenanceServiceOrder entity) {
-		int resultExpected = 0;
+	/** */
+	@After
+	public void unset() {
+		System.out
+				.println("\n UNSET - MAINTENANCE SERVICE ORDER SERVICE TEST \n");
 
 		try {
-			serviceOrderService.delete(entity.getId());
-			List<MaintenanceServiceOrder> result = serviceOrderService.getAll();
+			maintenanceService.deleteCorrectiveMaintenance(maintenance.getId());
+			planifServiceRemote.delete(planif.getId());
+			eiaTypeMPlanService.delete(eiaTypeMPlan.getId());
+			maintenancePlanService.delete(maintenancePlan.getId());
+			damageReportService.delete(eiaDamageReport.getId());
 
-			Assert.assertEquals(resultExpected, result.size());
-		} catch (GHAEJBException e) {
+		} catch (final GHAEJBException e) {
 			e.printStackTrace();
 		}
-	}
-
-	private void findByIdTest(MaintenanceServiceOrder entity) {
-		try {
-			long id = entity.getId();
-			MaintenanceServiceOrder result = serviceOrderService.find(id);
-
-			Assert.assertNotNull(result);
-
-		} catch (GHAEJBException e) {
-			e.printStackTrace();
-		}
-	}
-
-	private void findByEntityTest(MaintenanceServiceOrder entity) {
-		int expectedResult = 1;
-		try {
-			List<MaintenanceServiceOrder> result = serviceOrderService
-					.find(entity);
-
-			Assert.assertEquals(expectedResult, result.size());
-
-		} catch (GHAEJBException e) {
-			e.printStackTrace();
-		}
-	}
-
-	private void getAllTest() {
-		int expectedResult = 1;
-		try {
-			List<MaintenanceServiceOrder> result = serviceOrderService.getAll();
-
-			Assert.assertEquals(expectedResult, result.size());
-
-		} catch (GHAEJBException e) {
-			e.printStackTrace();
-		}
-	}
-
-	private MaintenanceServiceOrder saveTest() {
-		try {
-			long time = (new Date()).getTime();
-
-			MaintenanceServiceOrder entity = new MaintenanceServiceOrder();
-			entity.setServiceOrderNumber("MSO1");
-			entity.setMaintenance(maintenance);
-			entity.setOpeningTimestamp(new Timestamp(time));
-			entity.setState(ServiceOrderState.ACTIVE);
-
-			MaintenanceServiceOrder result = serviceOrderService.save(entity);
-
-			Assert.assertNotNull(result);
-			return result;
-
-		} catch (GHAEJBException e) {
-			e.printStackTrace();
-		}
-
-		return null;
 	}
 
 	private MaintenanceServiceOrder updateTest(MaintenanceServiceOrder entity) {
 		try {
-			String newValue = "XXX";
+			final String newValue = "XXX";
 			entity.setServiceOrderNumber(newValue);
 
-			MaintenanceServiceOrder result = serviceOrderService.update(entity);
+			final MaintenanceServiceOrder result = serviceOrderService
+					.update(entity);
 
 			Assert.assertEquals(newValue, result.getServiceOrderNumber());
 			return result;
 
-		} catch (GHAEJBException e) {
+		} catch (final GHAEJBException e) {
 			e.printStackTrace();
 		}
 

@@ -5,7 +5,7 @@ package org.fourgeeks.gha.webclient.client.rolebase;
 
 import java.util.List;
 
-import org.fourgeeks.gha.domain.ess.Role;
+import org.fourgeeks.gha.domain.ess.auth.Role;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 
 import com.google.gwt.user.client.rpc.RemoteService;

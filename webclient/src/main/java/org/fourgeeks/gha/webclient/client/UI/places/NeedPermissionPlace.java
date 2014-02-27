@@ -18,7 +18,7 @@ public abstract class NeedPermissionPlace extends NeedLoginPlace {
 	public NeedPermissionPlace(String token) throws LoginNeededException,
 			PermissionsNeededException {
 		super(token);
-		if (!GHASessionData.hasAppFormPermission(token))
+		if (!GHASessionData.hasAppPermission(token))
 			throw new PermissionsNeededException(token);
 	}
 }

@@ -3,7 +3,7 @@ package org.fourgeeks.gha.webclient.client.UI.formItems.selectitems;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-import org.fourgeeks.gha.domain.ess.Role;
+import org.fourgeeks.gha.domain.ess.auth.Role;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHACache;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;

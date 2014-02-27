@@ -45,16 +45,16 @@ import org.fourgeeks.gha.domain.enu.MaintenancePlanState;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanType;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.enu.UserLogonStatusEnum;
-import org.fourgeeks.gha.domain.ess.Role;
-import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
-import org.fourgeeks.gha.domain.ess.ui.AppForm;
-import org.fourgeeks.gha.domain.ess.ui.AppFormView;
-import org.fourgeeks.gha.domain.ess.ui.AppFormViewFunction;
-import org.fourgeeks.gha.domain.ess.ui.AppFormViewFunctionBpu;
-import org.fourgeeks.gha.domain.ess.ui.Function;
+import org.fourgeeks.gha.domain.ess.auth.Function;
+import org.fourgeeks.gha.domain.ess.auth.FunctionBpu;
+import org.fourgeeks.gha.domain.ess.auth.Role;
+import org.fourgeeks.gha.domain.ess.auth.SSOUser;
+import org.fourgeeks.gha.domain.ess.ui.App;
+import org.fourgeeks.gha.domain.ess.ui.AppView;
 import org.fourgeeks.gha.domain.ess.ui.Module;
 import org.fourgeeks.gha.domain.ess.ui.View;
+import org.fourgeeks.gha.domain.ess.ui.ViewFunction;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Facility;
@@ -68,7 +68,6 @@ import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeCategory;
-import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
@@ -85,7 +84,7 @@ import org.fourgeeks.gha.domain.mix.LegalEntity;
 import org.fourgeeks.gha.domain.msg.GHAMessage;
 import org.fourgeeks.gha.domain.msg.GHAMessageType;
 import org.fourgeeks.gha.domain.msg.UiString;
-import org.fourgeeks.gha.ejb.ess.AppFormViewFunctionServiceRemote;
+import org.fourgeeks.gha.ejb.ess.ui.ViewFunctionServiceRemote;
 
 import au.com.bytecode.opencsv.CSVReader;
 
@@ -104,7 +103,7 @@ public class InitialData {
 	EntityManager em;
 
 	@EJB(name = "ess.AppFormViewFunctionService")
-	AppFormViewFunctionServiceRemote functionService;
+	ViewFunctionServiceRemote permissionService;
 
 	private void bpiTestData() {
 		final String query = "SELECT t from Bpi t WHERE t.id = 1 ";
@@ -133,31 +132,16 @@ public class InitialData {
 	 */
 	private void bpuFunctionTestData() {
 		try {
-			logger.info("Creating bpufunction test data");
-			final List<AppFormViewFunction> all = functionService.getAll();
+			logger.info("Creating bpuPermission test data");
+			final List<ViewFunction> all = permissionService.getAll();
 			final Bpu admin = em.find(Bpu.class, 1L);
 			final Bpu gha = em.find(Bpu.class, 3L);
-			for (final AppFormViewFunction function : all) {
-				em.merge(new AppFormViewFunctionBpu(admin, function
-						.getAppForm(), function.getView(), function
-						.getFunction()));
-				em.merge(new AppFormViewFunctionBpu(gha, function.getAppForm(),
-						function.getView(), function.getFunction()));
+			for (final ViewFunction permission : all) {
+				em.merge(new FunctionBpu(admin, permission.getFunction()));
+				em.merge(new FunctionBpu(gha, permission.getFunction()));
 			}
-
-			// Bpu gha = em.find(Bpu.class, 3L);
-			//
-			// for (Function function : all) {
-			// em.persist(new AppFormViewFunctionBpu(admin, function));
-			// if (function.getCode().matches(
-			// "^EIATYPE-ADM-(EQUI|COMP)-(VIEW|EDIT)$")) {
-			// // usuario base solo eiatype
-			// em.persist(new AppFormViewFunctionBpu(gha, function));
-			// }
-			// }
-			// em.flush();
 		} catch (final Exception e1) {
-			logger.log(Level.INFO, "error Creating bpufunction test data", e1);
+			logger.log(Level.INFO, "error Creating bpupermission test data", e1);
 		}
 	}
 
@@ -499,14 +483,6 @@ public class InitialData {
 
 	}
 
-	/**
-	 * 
-	 */
-	private void eiaMaintenancePlanificationTestData() {
-		// TODO Auto-generated method stub
-
-	}
-
 	private void eiaTestData() {
 		final String query = "SELECT t from Eia t WHERE t.id = 1 ";
 		try {
@@ -565,29 +541,6 @@ public class InitialData {
 			} catch (final Exception e1) {
 				logger.log(Level.INFO,
 						"error Creating SubProtocolAndChecklist test data", e1);
-			}
-		}
-	}
-
-	/**
-	 * 
-	 */
-	private void eiaTypeMaintenancePlanTestData() {
-		final String query = "SELECT t from EiaTypeMaintenancePlan t WHERE t.id = 1";
-		try {
-			em.createQuery(query).getSingleResult();
-		} catch (final NoResultException e) {
-			try {
-				logger.info("Creating test data: EiaTypeMaintenancePlan");
-				em.persist(new EiaTypeMaintenancePlan(em.find(EiaType.class,
-						"3000000001"), em.find(MaintenancePlan.class, 1L)));
-				em.persist(new EiaTypeMaintenancePlan(em.find(EiaType.class,
-						"3000000002"), em.find(MaintenancePlan.class, 2L)));
-				em.flush();
-
-			} catch (final Exception e1) {
-				logger.log(Level.INFO,
-						"error Creating MaintenanceActivity test data", e1);
 			}
 		}
 	}
@@ -1122,39 +1075,34 @@ public class InitialData {
 					"UTF-8"), ',', '\'', 1);
 			final List<String[]> readAll = csvReader.readAll();
 			Module module = null;
-			AppForm appForm = null;
+			App app = null;
 			View view = null;
-			AppFormView appFormView = null;
-			Function function = null;
-			AppFormViewFunction appFormViewFunction = null;
+			AppView appView = null;
+			Function permission = null;
+			ViewFunction ViewPermission = null;
 
 			for (final String[] strings : readAll) {
-				final String moduleName = strings[0];
-				final String moduleCode = strings[1];
-				module = new Module(moduleName, moduleCode);
+				final String moduleCode = strings[0];
+				module = new Module(moduleCode, null);
 				em.merge(module);
-				final String appFormName = strings[2];
-				final String appFormToken = strings[3];
-				final String appFormCode = strings[4];
-				appForm = new AppForm(module, appFormName, appFormToken,
-						appFormCode);
-				em.merge(appForm);
-				final String viewName = strings[5];
-				final String viewCode = strings[6];
-				final String viewDescription = strings[7];
-				view = new View(viewCode, viewName, viewDescription);
+				final String appCode = strings[1];
+				final String appToken = strings[2];
+				final String name = appCode;
+				app = new App(module, name, appCode, appToken);
+				em.merge(app);
+				final String viewCode = strings[3];
+				final String viewDescription = strings[4];
+				view = new View(viewCode, null, viewDescription);
 				em.merge(view);
-				appFormView = new AppFormView(appForm, view);
-				em.merge(appFormView);
-				final String functionName = strings[8];
-				final String functionCode = strings[9];
-				final String functionDescription = strings[10];
-				function = new Function(functionCode, functionName,
+				appView = new AppView(app, view);
+				em.merge(appView);
+				final String permissionCode = strings[5];
+				final String functionDescription = strings[6];
+				permission = new Function(permissionCode, null,
 						functionDescription);
-				em.merge(function);
-				appFormViewFunction = new AppFormViewFunction(appForm, view,
-						function);
-				em.merge(appFormViewFunction);
+				em.merge(permission);
+				ViewPermission = new ViewFunction(view, permission);
+				em.merge(ViewPermission);
 			}
 			csvReader.close();
 		} catch (final UnsupportedEncodingException e3) {

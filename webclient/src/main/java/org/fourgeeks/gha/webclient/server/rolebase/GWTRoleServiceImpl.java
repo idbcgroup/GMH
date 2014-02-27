@@ -5,9 +5,9 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 
-import org.fourgeeks.gha.domain.ess.Role;
+import org.fourgeeks.gha.domain.ess.auth.Role;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
-import org.fourgeeks.gha.ejb.ess.RoleServiceRemote;
+import org.fourgeeks.gha.ejb.ess.auth.RoleServiceRemote;
 import org.fourgeeks.gha.webclient.client.rolebase.GWTRoleService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;

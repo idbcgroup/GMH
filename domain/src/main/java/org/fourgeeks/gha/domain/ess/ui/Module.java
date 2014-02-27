@@ -1,6 +1,7 @@
 package org.fourgeeks.gha.domain.ess.ui;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 import org.fourgeeks.gha.domain.AbstractCodeEntity;
 
@@ -9,11 +10,14 @@ import org.fourgeeks.gha.domain.AbstractCodeEntity;
  * 
  */
 @Entity
+@Table(schema = "ui")
 public class Module extends AbstractCodeEntity {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
+	private String name;
 
 	/**
 	 * 
@@ -25,7 +29,7 @@ public class Module extends AbstractCodeEntity {
 	 * @param name
 	 * @param code
 	 */
-	public Module(String name, String code) {
+	public Module(String code, String name) {
 		this.name = name;
 		setCode(code);
 	}
@@ -36,13 +40,4 @@ public class Module extends AbstractCodeEntity {
 	public String getName() {
 		return name;
 	}
-
-	/**
-	 * @param name
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	private String name;
 }
