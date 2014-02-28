@@ -8,8 +8,8 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 
+import org.fourgeeks.gha.domain.ess.auth.SystemInstance;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
-import org.fourgeeks.gha.domain.mix.SystemInstance;
 import org.fourgeeks.gha.ejb.mix.SystemInstanceServiceRemote;
 import org.fourgeeks.gha.webclient.client.systeminstance.GWTSystemInstanceService;
 

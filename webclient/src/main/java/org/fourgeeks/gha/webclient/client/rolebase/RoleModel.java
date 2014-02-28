@@ -2,7 +2,7 @@ package org.fourgeeks.gha.webclient.client.rolebase;
 
 import java.util.List;
 
-import org.fourgeeks.gha.domain.ess.Role;
+import org.fourgeeks.gha.domain.ess.auth.Role;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 
 import com.google.gwt.core.client.GWT;

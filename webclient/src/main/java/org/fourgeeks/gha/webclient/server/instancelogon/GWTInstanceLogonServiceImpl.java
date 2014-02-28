@@ -8,9 +8,9 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 
-import org.fourgeeks.gha.domain.ess.InstanceLogon;
+import org.fourgeeks.gha.domain.ess.auth.InstanceLogon;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
-import org.fourgeeks.gha.ejb.ess.InstanceLogonServiceRemote;
+import org.fourgeeks.gha.ejb.ess.auth.InstanceLogonServiceRemote;
 import org.fourgeeks.gha.webclient.client.instancelogon.GWTInstanceLogonService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -39,31 +39,6 @@ public class GWTInstanceLogonServiceImpl extends RemoteServiceServlet implements
 	@Override
 	public void delete(long Id) throws GHAEJBException {
 		service.delete(Id);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.fourgeeks.gha.webclient.client.instancelogon.GWTInstanceLogonService
-	 * #find(org.fourgeeks.gha.domain.ess.InstanceLogon)
-	 */
-	@Override
-	public List<InstanceLogon> find(InstanceLogon instanceLogon)
-			throws GHAEJBException {
-		return service.find(instanceLogon);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.fourgeeks.gha.webclient.client.instancelogon.GWTInstanceLogonService
-	 * #find(long)
-	 */
-	@Override
-	public InstanceLogon find(long Id) throws GHAEJBException {
-		return service.find(Id);
 	}
 
 	/*

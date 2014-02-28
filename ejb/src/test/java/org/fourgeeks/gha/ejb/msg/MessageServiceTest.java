@@ -46,12 +46,12 @@ import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.enu.UserLogonStatusEnum;
 import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
 import org.fourgeeks.gha.domain.ess.LocationType;
-import org.fourgeeks.gha.domain.ess.Role;
-import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
-import org.fourgeeks.gha.domain.ess.ui.AppForm;
-import org.fourgeeks.gha.domain.ess.ui.AppFormViewFunctionBpu;
-import org.fourgeeks.gha.domain.ess.ui.Function;
+import org.fourgeeks.gha.domain.ess.auth.Function;
+import org.fourgeeks.gha.domain.ess.auth.FunctionBpu;
+import org.fourgeeks.gha.domain.ess.auth.Role;
+import org.fourgeeks.gha.domain.ess.auth.SSOUser;
+import org.fourgeeks.gha.domain.ess.ui.App;
 import org.fourgeeks.gha.domain.ess.ui.Module;
 import org.fourgeeks.gha.domain.ess.ui.View;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
@@ -90,8 +90,8 @@ import org.fourgeeks.gha.domain.msg.GHAMessageId;
 import org.fourgeeks.gha.domain.msg.GHAMessageType;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
-import org.fourgeeks.gha.ejb.ess.SSOUserService;
-import org.fourgeeks.gha.ejb.ess.SSOUserServiceRemote;
+import org.fourgeeks.gha.ejb.ess.auth.SSOUserService;
+import org.fourgeeks.gha.ejb.ess.auth.SSOUserServiceRemote;
 import org.fourgeeks.gha.ejb.gar.BpuService;
 import org.fourgeeks.gha.ejb.gar.BpuServiceRemote;
 import org.fourgeeks.gha.ejb.log.UILogService;
@@ -106,6 +106,7 @@ import org.fourgeeks.gha.ejb.mix.InstitutionServiceRemote;
 import org.fourgeeks.gha.ejb.mix.LegalEntityService;
 import org.fourgeeks.gha.ejb.mix.LegalEntityServiceRemote;
 import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
@@ -113,15 +114,20 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
  * @author emiliot, jfuentes
  * 
  */
 
-// @RunWith(Arquillian.class)
+@RunWith(Arquillian.class)
 public class MessageServiceTest {
 
+	/**
+	 * @return the deplyment descriptor
+	 */
 	@Deployment
 	public static Archive<?> createDeployment() {
 		return ShrinkWrap
@@ -131,9 +137,9 @@ public class MessageServiceTest {
 				.addClass(Activity.class)
 				.addClass(ActivityCategoryEnum.class)
 				.addClass(ActivitySubCategoryEnum.class)
-				.addClass(AppFormViewFunctionBpu.class)
+				.addClass(FunctionBpu.class)
 				.addClass(ActivityState.class)
-				.addClass(AppForm.class)
+				.addClass(App.class)
 				.addClass(Bpu.class)
 				.addClass(BpuService.class)
 				.addClass(BpuServiceRemote.class)
@@ -252,15 +258,18 @@ public class MessageServiceTest {
 
 	}
 
-	// @Test
+	/**
+	 * 
+	 */
+	@Test
 	public void test() {
 		assertNotNull(messageServiceLocal);
 		assertNotNull(messageServiceRemote);
 
-		String code1 = "unit-test-message1";
-		String code2 = "unit-test-message2";
-		String code3 = "unit-test-message3";
-		String code4 = "unit-test-message4";
+		final String code1 = "unit-test-message1";
+		final String code2 = "unit-test-message2";
+		final String code3 = "unit-test-message3";
+		final String code4 = "unit-test-message4";
 		GHAMessage ghaMessage1 = new GHAMessage(code1, LanguageEnum.ES);
 		GHAMessage ghaMessage2 = new GHAMessage(code2, LanguageEnum.ES);
 		GHAMessage ghaMessage3 = new GHAMessage(code3, LanguageEnum.ES);
@@ -275,7 +284,7 @@ public class MessageServiceTest {
 			ghaMessage2 = messageServiceLocal.save(ghaMessage2);
 			ghaMessage3 = messageServiceLocal.save(ghaMessage3);
 			ghaMessage4 = messageServiceLocal.save(ghaMessage4);
-		} catch (GHAEJBException e1) {
+		} catch (final GHAEJBException e1) {
 			e1.printStackTrace();
 			System.out
 					.print("\n\n\n\nError de pruebas unitarias en metodo Save de Message Service.\n\n\n\n");
@@ -290,7 +299,7 @@ public class MessageServiceTest {
 		try {
 			result1 = messageServiceRemote.find(null, code1);
 			result2 = messageServiceRemote.find(null, code2);
-		} catch (GHAEJBException e) {
+		} catch (final GHAEJBException e) {
 			e.printStackTrace();
 			System.out
 					.print("\n\n\n\nError de pruebas unitarias en metodo Find by code de Message Service.\n\n\n\n");
@@ -298,7 +307,7 @@ public class MessageServiceTest {
 		Assert.assertNotNull(result1);
 		Assert.assertNotNull(result2);
 
-		List<String> codigos = new ArrayList<String>();
+		final List<String> codigos = new ArrayList<String>();
 		codigos.add(code1);
 		codigos.add(code2);
 		codigos.add(code3);
@@ -307,7 +316,7 @@ public class MessageServiceTest {
 		List<GHAMessage> messages = new ArrayList<GHAMessage>();
 		try {
 			messages = messageServiceRemote.find(null, codigos);
-		} catch (GHAEJBException e) {
+		} catch (final GHAEJBException e) {
 			e.printStackTrace();
 			System.out
 					.print("\n\n\n\nError de pruebas unitarias en metodo Find by code list de Message Service.\n\n\n\n");
@@ -317,10 +326,10 @@ public class MessageServiceTest {
 		List<UILog> uiLogList = null;
 		try {
 			uiLogList = uILogServiceRemote.getAll();
-			for (UILog u : uiLogList) {
+			for (final UILog u : uiLogList) {
 				uILogServiceLocal.delete(u);
 			}
-		} catch (GHAEJBException e) {
+		} catch (final GHAEJBException e) {
 			e.printStackTrace();
 			System.out
 					.print("\n\n\n\nError de pruebas unitarias en metodo Delete del UILog relacionado.\n\n\n\n");
@@ -331,7 +340,7 @@ public class MessageServiceTest {
 			messageServiceLocal.delete(ghaMessage2);
 			messageServiceLocal.delete(ghaMessage3);
 			messageServiceLocal.delete(ghaMessage4);
-		} catch (GHAEJBException e1) {
+		} catch (final GHAEJBException e1) {
 			e1.printStackTrace();
 			System.out
 					.print("\n\n\n\nError de pruebas unitarias en metodo Delete de Message Service.\n\n\n\n");

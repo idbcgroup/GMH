@@ -38,6 +38,25 @@ public class GWTMessageServiceImpl extends RemoteServiceServlet implements
 	 * 
 	 * @see
 	 * org.fourgeeks.gha.webclient.client.message.GWTMessageService#find(java
+	 * .util.List)
+	 */
+	@Override
+	public List<GHAMessage> find(List<String> messages) throws GHAEJBException {
+		try {
+			final String user = String.valueOf(getThreadLocalRequest()
+					.getSession().getAttribute("user"));
+			return ejbService.find(user, messages);
+		} catch (final NullPointerException e) {
+			logger.info("ERROR:user not found where it should be found");
+			return ejbService.find(null, messages);
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fourgeeks.gha.webclient.client.message.GWTMessageService#find(java
 	 * .lang.String)
 	 */
 	@Override
@@ -49,25 +68,6 @@ public class GWTMessageServiceImpl extends RemoteServiceServlet implements
 		} catch (final NullPointerException e) {
 			logger.info("ERROR:user not found where it should be found");
 			return ejbService.find(null, id);
-		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.fourgeeks.gha.webclient.client.message.GWTMessageService#find(java
-	 * .util.List)
-	 */
-	@Override
-	public List<GHAMessage> find(List<String> messages) throws GHAEJBException {
-		try {
-			final String user = String.valueOf(getThreadLocalRequest()
-					.getSession().getAttribute("user"));
-			return ejbService.find(user, messages);
-		} catch (final NullPointerException e) {
-			logger.info("ERROR:user not found where it should be found");
-			return ejbService.find(messages);
 		}
 	}
 

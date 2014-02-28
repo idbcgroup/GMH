@@ -8,6 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.validation.constraints.NotNull;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
 import org.fourgeeks.gha.domain.enu.CredentialTypeEnum;
@@ -28,8 +29,9 @@ public class Bpa extends AbstractEntity {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "legalEntityFk")
+	@JoinColumn(name = "legalEntityFk", nullable = false)
 	private LegalEntity legalEntity;
 
 	private CredentialTypeEnum credentialType;

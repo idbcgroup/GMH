@@ -23,14 +23,14 @@ public class EIATypeMaterialCategoryRecord extends
 				.getMaterialCategory();
 		if (materialCategory == null)
 			return;
-		setAttribute("code", materialCategory.getCode());
-		setAttribute("name", materialCategory.getName());
-		setAttribute("description", materialCategory.getDescription());
-		setAttribute("model", materialCategory.getModel());
-		setAttribute("extCode", materialCategory.getExternalCode());
-		if (materialCategory.getType() != null)
-			setAttribute("type", materialCategory.getType().toString());
-		setAttribute("amount", eiaTypeMaterialCategory.getAmount());
+		// setAttribute("code", materialCategory.getCode());
+		// setAttribute("name", materialCategory.getName());
+		// setAttribute("description", materialCategory.getDescription());
+		// setAttribute("model", materialCategory.getModel());
+		// setAttribute("extCode", materialCategory.getExternalCode());
+		// if (materialCategory.getType() != null)
+		// setAttribute("type", materialCategory.getType().toString());
+		// setAttribute("amount", eiaTypeMaterialCategory.getAmount());
 
 	}
 

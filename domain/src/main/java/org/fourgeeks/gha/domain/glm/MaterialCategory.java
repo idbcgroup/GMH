@@ -3,13 +3,16 @@
  */
 package org.fourgeeks.gha.domain.glm;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
-import org.fourgeeks.gha.domain.AbstractCodeEntity;
+import org.fourgeeks.gha.domain.AbstractEntity;
+import org.fourgeeks.gha.domain.gmh.ServiceResourceCategory;
 
 /**
  * @author emiliot, vivi.torresg
@@ -17,28 +20,24 @@ import org.fourgeeks.gha.domain.AbstractCodeEntity;
  */
 
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "code" }))
 @NamedQueries(value = {
-		@NamedQuery(name = "MaterialCategory.getByType", query = "SELECT m FROM MaterialCategory m WHERE m.type = :materialTypeId ORDER BY m.name"),
-		@NamedQuery(name = "MaterialCategory.getAll", query = "SELECT e from MaterialCategory e order by e.name") })
-public class MaterialCategory extends AbstractCodeEntity {
+		@NamedQuery(name = "MaterialCategory.getAll", query = "SELECT e from MaterialCategory e order by e.name"),
+		@NamedQuery(name = "MaterialCategory.findByCode", query = "SELECT category from MaterialCategory category WHERE category.code=:code") })
+public class MaterialCategory extends AbstractEntity implements
+		Comparable<MaterialCategory> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@NotNull(message = "material-type-not-null")
-	@Column(nullable = false)
-	private MaterialTypeEnum type;
+	@ManyToOne
+	@JoinColumn(name = "serviceResourceCategoryFk")
+	private ServiceResourceCategory sRCategory;
 
-	// @ManyToOne
-	// @JoinColumn(name = "serviceResourceCategoryFk")
-	// private ServiceResourceCategory sRCategory;
-
-	private String description;
 	private String name;
-	private String externalCode;
-	private String model;
+	private String code;
 
 	/**
 	 * 
@@ -46,84 +45,50 @@ public class MaterialCategory extends AbstractCodeEntity {
 	public MaterialCategory() {
 	}
 
-	/**
-	 * @param code
-	 * @param name
-	 * @param type
-	 */
-	public MaterialCategory(String code, String name, MaterialTypeEnum type) {
-		this.type = type;
-		this.name = name;
-		this.code = code;
+	@Override
+	public int compareTo(MaterialCategory arg0) {
+		return code.compareTo(arg0.getCode());
 	}
 
-	/**
-	 * @return the type
-	 */
-	public MaterialTypeEnum getType() {
-		return type;
+	@Override
+	public boolean equals(Object arg0) {
+		if (arg0 == null)
+			return false;
+		if (this == arg0)
+			return true;
+		if (!(arg0 instanceof MaterialCategory))
+			return false;
+		MaterialCategory other = (MaterialCategory) arg0;
+		return this.code.equals(other.getCode());
 	}
 
-	/**
-	 * @param type
-	 */
-	public void setType(MaterialTypeEnum type) {
-		this.type = type;
+	public String getCode() {
+		return code;
 	}
 
-	/**
-	 * @return the description
-	 */
-	public String getDescription() {
-		return description;
-	}
-
-	/**
-	 * @param description
-	 */
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	/**
-	 * @return the name
-	 */
 	public String getName() {
 		return name;
 	}
 
-	/**
-	 * @param name
-	 */
+	public ServiceResourceCategory getsRCategory() {
+		return sRCategory;
+	}
+
+	@Override
+	public int hashCode() {
+		return this.code.hashCode();
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	/**
-	 * @return the external code
-	 */
-	public String getExternalCode() {
-		return externalCode;
+	public void setsRCategory(ServiceResourceCategory sRCategory) {
+		this.sRCategory = sRCategory;
 	}
 
-	/**
-	 * @param extCode
-	 */
-	public void setExternalCode(String extCode) {
-		this.externalCode = extCode;
-	}
-
-	/**
-	 * @return the model
-	 */
-	public String getModel() {
-		return model;
-	}
-
-	/**
-	 * @param model
-	 */
-	public void setModel(String model) {
-		this.model = model;
-	}
 }
