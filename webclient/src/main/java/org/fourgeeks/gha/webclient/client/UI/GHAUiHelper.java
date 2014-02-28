@@ -7,10 +7,10 @@ import org.fourgeeks.gha.webclient.client.UI.icons.GHAImg;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.EventListener;
 import com.google.gwt.user.client.Window;
@@ -218,6 +218,13 @@ public abstract class GHAUiHelper {
 	 */
 	public static void addGHAResizeHandler(ResizeHandler handler) {
 		resizeHandlers.add(handler);
+	}
+
+	/**
+	 * @param scrollHandler
+	 */
+	public static void addWindowScrollHandler(Window.ScrollHandler scrollHandler) {
+		scrollHandlers.add(scrollHandler);
 	}
 
 	/**
@@ -451,14 +458,8 @@ public abstract class GHAUiHelper {
 	/**
 	 * @param scrollHandler
 	 */
-	public static void addWindowScrollHandler(Window.ScrollHandler scrollHandler) {
-		scrollHandlers.add(scrollHandler);
-	}
-
-	/**
-	 * @param scrollHandler
-	 */
-	public static void removeWindowScrollHandler(Window.ScrollHandler scrollHandler) {
+	public static void removeWindowScrollHandler(
+			Window.ScrollHandler scrollHandler) {
 		scrollHandlers.remove(scrollHandler);
 	}
 
