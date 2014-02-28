@@ -25,7 +25,7 @@ import com.smartgwt.client.widgets.events.ClickHandler;
  * 
  */
 public class EIATypePanel extends GHAPanel implements EIATypeSelectionListener,
-		EiaTypeSelectionProducer {
+EiaTypeSelectionProducer {
 
 	private static final String TITLE = GHAStrings.get("eiatypes");
 	private EIATypeAddForm addForm;
@@ -37,7 +37,6 @@ public class EIATypePanel extends GHAPanel implements EIATypeSelectionListener,
 	private GHAHeaderOption addOption;
 
 	/**
-	 * @param token
 	 */
 	public EIATypePanel() {
 		super();
@@ -143,7 +142,7 @@ public class EIATypePanel extends GHAPanel implements EIATypeSelectionListener,
 
 	@Override
 	public void notifyEiaType(EiaType eiaType) {
-		for (EIATypeSelectionListener listener : listeners)
+		for (final EIATypeSelectionListener listener : listeners)
 			listener.select(eiaType);
 	}
 

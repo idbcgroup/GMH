@@ -10,24 +10,24 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author alacret
  * 
  */
-public class GHATabPanel extends VLayout {
-	private final GHATabSet tabset;
-	private final Map<String, GHATab> tabs = new HashMap<String, GHATab>();
+public class GHATabbedPanel extends VLayout {
+	private final GHATabSet tabsetHeader;
+	private final Map<String, GHATab> tabMap = new HashMap<String, GHATab>();
 	private GHATab currentTab;
 
 	/**
 	 * @param title
 	 * 
 	 */
-	public GHATabPanel(String title) {
-		tabset = new GHATabSet(title, this);
-		addMember(tabset);
+	public GHATabbedPanel(String title) {
+		tabsetHeader = new GHATabSet(title, this);
+		addMember(tabsetHeader);
 	}
 
 	private void addTab(GHATab tab) {
-		tabset.add(tab.getHeader());
+		tabsetHeader.add(tab.getHeader());
 		addMember(tab);
-		tabs.put(tab.getId(), tab);
+		tabMap.put(tab.getId(), tab);
 	}
 
 	/**
@@ -38,7 +38,7 @@ public class GHATabPanel extends VLayout {
 	 */
 	public void addHeaderOption(String text, String imgSrc,
 			ClickHandler clickHandler) {
-		tabset.addOption(text, imgSrc, clickHandler);
+		tabsetHeader.addOption(text, imgSrc, clickHandler);
 	}
 
 	/**
@@ -46,7 +46,7 @@ public class GHATabPanel extends VLayout {
 	 * @return the tab with the id, or null if there is no tab with that id
 	 */
 	public GHATab getTabById(String id) {
-		return tabs.get(id);
+		return tabMap.get(id);
 	}
 
 	/**
