@@ -17,7 +17,7 @@ import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.fourgeeks.gha.domain.ess.Role;
+import org.fourgeeks.gha.domain.ess.auth.Role;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Job;
 import org.fourgeeks.gha.domain.gar.JobCategory;
@@ -76,7 +76,7 @@ public class JobService extends GHAEJBExceptionService implements
 			em.remove(entity);
 		} catch (Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete Job", e);
-			throw super.generateGHAEJBException("obu-delete-fail", em);
+			throw super.generateGHAEJBException("job-delete-fail", em);
 		}
 	}
 

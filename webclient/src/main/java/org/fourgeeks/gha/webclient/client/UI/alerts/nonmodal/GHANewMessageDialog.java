@@ -1,5 +1,6 @@
 package org.fourgeeks.gha.webclient.client.UI.alerts.nonmodal;
 
+import org.fourgeeks.gha.domain.msg.GHAMessageType;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.alerts.GHADialog;
 
@@ -11,59 +12,55 @@ import com.smartgwt.client.widgets.Button;
  */
 public class GHANewMessageDialog extends GHADialog {
 	/**
+	 * @param type
 	 * @param message
+	 * @param time
 	 */
-	public GHANewMessageDialog(String message) {
-		super("NEW_MESSAGE",false,false);
+	public GHANewMessageDialog(GHAMessageType type, String message , int time) {
+		super(type,false, time);
 		setMessage(message);
-		initByType();
+		initTypeView();
 	}
 	/**
+	 * @param type
 	 * @param message
-	 * @param buttons 
+	 * @param time
+	 * @param buttons
 	 */
-	public GHANewMessageDialog(String message, Button... buttons) {
-		super("NEW_MESSAGE",false,false,buttons);
+	public GHANewMessageDialog(GHAMessageType type, String message , int time, Button... buttons) {
+		super(type,false,time, buttons);
 		setMessage(message);
-		initByType();
+		initTypeView();
 	}
 
 	/**
-	 * @param title 
+	 * @param type
+	 * @param title
 	 * @param message
+	 * @param time
 	 */
-	public GHANewMessageDialog(String title, String message) {
-		this(message);
+	public GHANewMessageDialog(GHAMessageType type, String title, String message , int time) {
+		this(type,message,time);
 		setTitle(title);
 	}
 
 	/**
-	 * @param title 
+	 * @param type
+	 * @param title
 	 * @param message
-	 * @param buttons 
+	 * @param time
+	 * @param buttons
 	 */
-	public GHANewMessageDialog(String title, String message, Button... buttons) {
-		this(message,buttons);
+	public GHANewMessageDialog(GHAMessageType type, String title, String message , int time, Button... buttons) {
+		this(type,message,time,buttons);
 		setTitle(title);
-	}
-
-	/**
-	 * 
-	 */
-	private void initByType() {
-		initTypeParams();
-		confModalTimingSettings();
 	}
 
 	/* (non-Javadoc)
 	 * @see org.fourgeeks.gha.webclient.client.UI.alerts.GHADialog#initTypeParams()
 	 */
 	@Override
-	protected void initTypeParams() {
-		// Gray
-		dialogType = "NEW_MESSAGE";
-		isTimed = true;
-		isModal = false;
+	protected void initTypeView() {
 		setTitle(GHAStrings.get("new-message"));
 		setBorder("1px solid #BCBCBC");
 		setBackgroundColor("#BCBCBC");

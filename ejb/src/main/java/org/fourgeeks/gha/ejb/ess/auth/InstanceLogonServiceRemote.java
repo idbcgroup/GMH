@@ -1,0 +1,46 @@
+/**
+ * 
+ */
+package org.fourgeeks.gha.ejb.ess.auth;
+
+import java.util.List;
+
+import javax.ejb.Remote;
+
+import org.fourgeeks.gha.domain.ess.auth.InstanceLogon;
+import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
+
+/**
+ * @author emiliot
+ * 
+ */
+@Remote
+public interface InstanceLogonServiceRemote {
+	/**
+	 * @param Id
+	 * @throws GHAEJBException
+	 */
+	public void delete(long Id) throws GHAEJBException;
+
+	/**
+	 * @return the list of instanceLogons
+	 * @throws GHAEJBException
+	 */
+	public List<InstanceLogon> getAll() throws GHAEJBException;
+
+	/**
+	 * @param instanceLogon
+	 * @return the saved instanceLogon
+	 * @throws GHAEJBException
+	 */
+	public InstanceLogon save(InstanceLogon instanceLogon)
+			throws GHAEJBException;
+
+	/**
+	 * @param instanceLogon
+	 * @return the updated instanceLogon
+	 * @throws GHAEJBException
+	 */
+	public InstanceLogon update(InstanceLogon instanceLogon)
+			throws GHAEJBException;
+}

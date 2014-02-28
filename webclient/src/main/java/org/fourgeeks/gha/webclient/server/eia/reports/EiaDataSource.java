@@ -12,10 +12,11 @@ import org.fourgeeks.gha.domain.enu.DepreciationMethodEnum;
 import org.fourgeeks.gha.domain.enu.EiaStateEnum;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
-import org.fourgeeks.gha.domain.ess.Role;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
+import org.fourgeeks.gha.domain.ess.auth.Role;
 import org.fourgeeks.gha.domain.gar.Facility;
 import org.fourgeeks.gha.domain.gar.Obu;
+import org.fourgeeks.gha.domain.glm.Bsp;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaReportEntity;
@@ -59,7 +60,8 @@ public class EiaDataSource implements JRDataSource {
 	 * @throws ClassNotFoundException
 	 *             Debe ser el nombre de una clase existente
 	 */
-	public EiaDataSource(List<Eia> data, String groupTypeField) throws ClassNotFoundException {
+	public EiaDataSource(List<Eia> data, String groupTypeField)
+			throws ClassNotFoundException {
 		this(data);
 		this.groupType = Class.forName(groupTypeField);
 	}
@@ -85,11 +87,13 @@ public class EiaDataSource implements JRDataSource {
 				}
 				if (groupType == Facility.class) {
 					Facility facility = eia.getFacility();
-					return facility != null ? facility.getName() : "Sin servicio/instalación";
+					return facility != null ? facility.getName()
+							: "Sin servicio/instalación";
 				}
 				if (groupType == WorkingArea.class) {
 					WorkingArea workingArea = eia.getWorkingArea();
-					return workingArea != null ? workingArea.getName() : "Sin area de trabajo";
+					return workingArea != null ? workingArea.getName()
+							: "Sin area de trabajo";
 				}
 			}
 
@@ -189,8 +193,8 @@ public class EiaDataSource implements JRDataSource {
 				BigDecimal cost = eia.getAdquisitionCostLocal();
 				CurrencyTypeEnum curr = eia.getAdquisitionCostCurrencyLocal();
 
-				return cost != null && curr != null ? cost.toString() + " " + curr.toString()
-						: null;
+				return cost != null && curr != null ? cost.toString() + " "
+						+ curr.toString() : null;
 			}
 
 			if (field.getName().equals("metodoDepreciacion")) {
@@ -224,8 +228,8 @@ public class EiaDataSource implements JRDataSource {
 			}
 
 			if (field.getName().equals("proveedorMantenimiento")) {
-				ExternalProvider mProv = eia.getMaintenanceProvider();
-				return mProv != null ? mProv.getInstitution().getName() : null;
+				Bsp mProv = eia.getMaintenanceProvider();
+				return mProv != null ? mProv.getObu().getName() : null;
 
 			}
 

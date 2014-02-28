@@ -1,5 +1,6 @@
 package org.fourgeeks.gha.webclient.client.UI.alerts.nonmodal;
 
+import org.fourgeeks.gha.domain.msg.GHAMessageType;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.alerts.GHADialog;
 
@@ -12,59 +13,55 @@ import com.smartgwt.client.widgets.Button;
 public class GHASuccessDialog extends GHADialog {
 
 	/**
+	 * @param type
 	 * @param message
+	 * @param time
 	 */
-	public GHASuccessDialog(String message) {
-		super("SUCCESS",false,false);
-		initByType();
+	public GHASuccessDialog(GHAMessageType type, String message , int time) {
+		super(type,false, time);
 		setMessage(message);
+		initTypeView();
 	}
 	/**
+	 * @param type
 	 * @param message
-	 * @param buttons 
+	 * @param time
+	 * @param buttons
 	 */
-	public GHASuccessDialog(String message, Button... buttons) {
-		super("SUCCESS",false,false,buttons);
-		initByType();
+	public GHASuccessDialog(GHAMessageType type, String message , int time, Button... buttons) {
+		super(type,false,time, buttons);
 		setMessage(message);
+		initTypeView();
 	}
 
 	/**
-	 * @param title 
+	 * @param type
+	 * @param title
 	 * @param message
+	 * @param time
 	 */
-	public GHASuccessDialog(String title, String message) {
-		this(message);
+	public GHASuccessDialog(GHAMessageType type, String title, String message , int time) {
+		this(type, message,time);
 		setTitle(title);
 	}
 
 	/**
-	 * @param title 
+	 * @param type
+	 * @param title
 	 * @param message
-	 * @param buttons 
+	 * @param time
+	 * @param buttons
 	 */
-	public GHASuccessDialog(String title, String message, Button... buttons) {
-		this(message,buttons);
+	public GHASuccessDialog(GHAMessageType type, String title, String message , int time, Button... buttons) {
+		this(type, message,time,buttons);
 		setTitle(title);
-	}
-
-	/**
-	 * 
-	 */
-	private void initByType() {
-		initTypeParams();
-		confModalTimingSettings();
 	}
 
 	/* (non-Javadoc)
 	 * @see org.fourgeeks.gha.webclient.client.UI.alerts.GHADialog#initTypeParams()
 	 */
 	@Override
-	protected void initTypeParams() {
-		// Green
-		dialogType = "SUCCESS";
-		isTimed = true;
-		isModal = false;
+	protected void initTypeView() {
 		setTitle(GHAStrings.get("success"));
 		setBorder("1px solid #AAC475");
 		setBackgroundColor("#AAC475");

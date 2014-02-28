@@ -65,12 +65,12 @@ public class EIATypeEquipmentGridPanel extends GHAFormLayout implements
 		eiaAddForm.addEiaSelectionListener(this);
 		eiaUpdateForm.addEiaSelectionListener(this);
 
-		GHALabel title = new GHALabel(
+		final GHALabel title = new GHALabel(
 				"Equipos pertenecientes a este Tipo de Equipo");
 		addMember(title);
 
 		// //////Botones laterales
-		VLayout sideButtons = GHAUiHelper.createBar(new GHANewButton(
+		final VLayout sideButtons = GHAUiHelper.createBar(new GHANewButton(
 				new ClickHandler() {
 
 					@Override
@@ -111,7 +111,7 @@ public class EIATypeEquipmentGridPanel extends GHAFormLayout implements
 
 			}
 
-		}), new GHAEditButton(new ClickHandler() {
+				}), new GHAEditButton(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
@@ -129,11 +129,11 @@ public class EIATypeEquipmentGridPanel extends GHAFormLayout implements
 			}
 		}));
 
-		VLayout gridPanel = new VLayout();
+		final VLayout gridPanel = new VLayout();
 		gridPanel.setMembersMargin(10);
 		gridPanel.addMembers(grid, eiaLabel);
 
-		HLayout mainLayout = new HLayout();
+		final HLayout mainLayout = new HLayout();
 		mainLayout.addMembers(gridPanel, sideButtons);
 		addMembers(mainLayout);
 	}
@@ -170,7 +170,7 @@ public class EIATypeEquipmentGridPanel extends GHAFormLayout implements
 
 			@Override
 			public void onSuccess(List<Eia> result) {
-				ListGridRecord[] array = EIAUtil.toGridRecords(result).toArray(
+				final ListGridRecord[] array = EIAUtil.toGridRecords(result).toArray(
 						new EIARecord[] {});
 				grid.setData(array);
 				EIATypeEquipmentGridPanel.this.eiaLabel

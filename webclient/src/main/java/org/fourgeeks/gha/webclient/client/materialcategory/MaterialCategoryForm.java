@@ -38,9 +38,9 @@ public class MaterialCategoryForm extends GHAFormLayout implements
 
 	private GHASelectItem typeItem;
 	private Validator validator;
-	private DynamicForm form;
+	private final DynamicForm form;
 	private boolean hasUnCommittedChanges = false;
-	private ChangedHandler changedHandler = new ChangedHandler() {
+	private final ChangedHandler changedHandler = new ChangedHandler() {
 
 		@Override
 		public void onChanged(ChangedEvent event) {
@@ -83,45 +83,11 @@ public class MaterialCategoryForm extends GHAFormLayout implements
 
 	}
 
-	private void fill() {
-		typeItem.setValueMap(MaterialTypeEnum.toValueMap());
-	}
+	@Override
+	public void addMaterialSelectionListener(
+			MaterialCategorySelectionListener materialSelectionListener) {
+		listeners.add(materialSelectionListener);
 
-	/**
-	 * 
-	 */
-	public void save() {
-		save(null);
-	}
-
-	/**
-	 * @return
-	 */
-	private MaterialCategory extract() {
-		final MaterialCategory materialCategory = new MaterialCategory();
-		materialCategory.setCode(codeItem.getValueAsString());
-		materialCategory.setExternalCode(externalCodeItem.getValueAsString());
-		materialCategory.setName(nameItem.getValueAsString());
-		materialCategory.setDescription(descriptionItem.getValueAsString());
-		if (typeItem.getValue() != null)
-			materialCategory.setType(MaterialTypeEnum.valueOf(typeItem
-					.getValueAsString()));
-		materialCategory.setModel(modelItem.getValueAsString());
-		Set<ConstraintViolation<MaterialCategory>> violations = validator
-				.validate(materialCategory);
-		if (violations.isEmpty())
-			return materialCategory;
-		if (form.validate() && violations.isEmpty())
-			return materialCategory;
-		else {
-			List<String> violationsList = new ArrayList<String>();
-			for (Iterator<ConstraintViolation<MaterialCategory>> it = violations
-					.iterator(); it.hasNext();) {
-				violationsList.add(it.next().getMessage());
-			}
-			GHAAlertManager.alert(violationsList);
-		}
-		return null;
 	}
 
 	protected void cancel() {
@@ -135,17 +101,52 @@ public class MaterialCategoryForm extends GHAFormLayout implements
 		}
 	}
 
-	@Override
-	public void notifyMaterialCategory(MaterialCategory material) {
-		for (MaterialCategorySelectionListener listener : listeners)
-			listener.select(material);
+	/**
+	 * @return
+	 */
+	private MaterialCategory extract() {
+		final MaterialCategory materialCategory = new MaterialCategory();
+		materialCategory.setCode(codeItem.getValueAsString());
+		// materialCategory.setExternalCode(externalCodeItem.getValueAsString());
+		// materialCategory.setName(nameItem.getValueAsString());
+		// materialCategory.setDescription(descriptionItem.getValueAsString());
+		// if (typeItem.getValue() != null)
+		// materialCategory.setType(MaterialTypeEnum.valueOf(typeItem
+		// .getValueAsString()));
+		// materialCategory.setModel(modelItem.getValueAsString());
+		final Set<ConstraintViolation<MaterialCategory>> violations = validator
+				.validate(materialCategory);
+		if (violations.isEmpty())
+			return materialCategory;
+		if (form.validate() && violations.isEmpty())
+			return materialCategory;
+		else {
+			final List<String> violationsList = new ArrayList<String>();
+			for (final Iterator<ConstraintViolation<MaterialCategory>> it = violations
+					.iterator(); it.hasNext();) {
+				violationsList.add(it.next().getMessage());
+			}
+			// GHAAlertManager.alert(violationsList);
+			GHAAlertManager.alert(violationsList.get(0));
+		}
+		return null;
+	}
+
+	private void fill() {
+		typeItem.setValueMap(MaterialTypeEnum.toValueMap());
+	}
+
+	/**
+	 * @return the hasUnCommittedChanges
+	 */
+	public boolean hasUnCommittedChanges() {
+		return hasUnCommittedChanges;
 	}
 
 	@Override
-	public void addMaterialSelectionListener(
-			MaterialCategorySelectionListener materialSelectionListener) {
-		listeners.add(materialSelectionListener);
-
+	public void notifyMaterialCategory(MaterialCategory material) {
+		for (final MaterialCategorySelectionListener listener : listeners)
+			listener.select(material);
 	}
 
 	@Override
@@ -153,6 +154,13 @@ public class MaterialCategoryForm extends GHAFormLayout implements
 			MaterialCategorySelectionListener materialSelectionListener) {
 		listeners.remove(materialSelectionListener);
 
+	}
+
+	/**
+	 * 
+	 */
+	public void save() {
+		save(null);
 	}
 
 	/**
@@ -176,10 +184,31 @@ public class MaterialCategoryForm extends GHAFormLayout implements
 	}
 
 	/**
-	 * @return the hasUnCommittedChanges
+	 * @param materialCategory
 	 */
-	public boolean hasUnCommittedChanges() {
-		return hasUnCommittedChanges;
+	public void setMaterialCategory(MaterialCategory materialCategory) {
+		this.updateEntity = materialCategory;
+
+		codeItem.setValue(materialCategory.getCode());
+		// externalCodeItem.setValue(materialCategory.getExternalCode());
+		// nameItem.setValue(materialCategory.getName());
+		// descriptionItem.setValue(materialCategory.getDescription());
+		//
+		// if (materialCategory.getType() != null)
+		// typeItem.setValue(materialCategory.getType().name());
+		//
+		// if (typeItem.getValue() != null)
+		// materialCategory.setType(MaterialTypeEnum.valueOf(typeItem
+		// .getValueAsString()));
+		// materialCategory.setModel(modelItem.getValueAsString());
+	}
+
+	/**
+	 * @param type
+	 */
+	public void setType(MaterialTypeEnum type) {
+		typeItem.setValue(type.name());
+		typeItem.setDisabled(true);
 	}
 
 	/**
@@ -192,33 +221,5 @@ public class MaterialCategoryForm extends GHAFormLayout implements
 		else
 			this.setMaterialCategory(updateEntity);
 		hasUnCommittedChanges = false;
-	}
-
-	/**
-	 * @param materialCategory
-	 */
-	public void setMaterialCategory(MaterialCategory materialCategory) {
-		this.updateEntity = materialCategory;
-
-		codeItem.setValue(materialCategory.getCode());
-		externalCodeItem.setValue(materialCategory.getExternalCode());
-		nameItem.setValue(materialCategory.getName());
-		descriptionItem.setValue(materialCategory.getDescription());
-
-		if (materialCategory.getType() != null)
-			typeItem.setValue(materialCategory.getType().name());
-
-		if (typeItem.getValue() != null)
-			materialCategory.setType(MaterialTypeEnum.valueOf(typeItem
-					.getValueAsString()));
-		materialCategory.setModel(modelItem.getValueAsString());
-	}
-
-	/**
-	 * @param type
-	 */
-	public void setType(MaterialTypeEnum type) {
-		typeItem.setValue(type.name());
-		typeItem.setDisabled(true);
 	}
 }

@@ -6,7 +6,7 @@ package org.fourgeeks.gha.domain.msg;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import org.fourgeeks.gha.domain.AbstractEntity;
+import org.fourgeeks.gha.domain.AbstractCodeEntity;
 
 /**
  * @author jfuentes
@@ -14,43 +14,39 @@ import org.fourgeeks.gha.domain.AbstractEntity;
  */
 @Entity
 @Table(schema = "msg")
-public class GHAMessageType extends AbstractEntity {
+public class GHAMessageType extends AbstractCodeEntity {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private String typeName;
-
 	private boolean isModal;
 
-	private boolean isTimed;
+	private int time;
 
 	/**
 	 * 
 	 */
-	public GHAMessageType() {
-		super();
-	}
+	public GHAMessageType() {}
 
 	/**
 	 * @param type
-	 * @param timed
+	 * @param time
 	 * @param modal
 	 */
-	public GHAMessageType(String type, boolean timed, boolean modal) {
+	public GHAMessageType(String type, int time, boolean modal) {
 		super();
-		this.typeName = type;
+		this.code = type;
 		this.isModal = modal;
-		this.isTimed = timed;
+		this.time = time;
 	}
 
 	/**
-	 * @return the name of the message type
+	 * @return the time of the this time of message
 	 */
-	public String getTypeName() {
-		return typeName;
+	public int getTime() {
+		return time;
 	}
 
 	/**
@@ -64,7 +60,7 @@ public class GHAMessageType extends AbstractEntity {
 	 * @return true if the message is timed (closes automatically).
 	 */
 	public boolean isTimed() {
-		return isTimed;
+		return time>0;
 	}
 
 	/**
@@ -75,16 +71,9 @@ public class GHAMessageType extends AbstractEntity {
 	}
 
 	/**
-	 * @param isTimed
+	 * @param time
 	 */
-	public void setTimed(boolean isTimed) {
-		this.isTimed = isTimed;
-	}
-
-	/**
-	 * @param typeName
-	 */
-	public void setTypeName(String typeName) {
-		this.typeName = typeName;
+	public void setTime(int time) {
+		this.time = time;
 	}
 }

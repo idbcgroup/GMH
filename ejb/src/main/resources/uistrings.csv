@@ -1,4 +1,4 @@
-ES,type, Tipo
+ES,type,Tipo
 ES,user-error-date-invalido, Debe introducir una fecha valida
 ES,eia-tooltip-type, Debe seleccionar un tipo de equipo
 ES,eia-tooltip-code, El codigo es un identificador para el equipo
@@ -349,3 +349,6 @@ ES,demographic-information,información demográfica
 ES,social-ecnomics-information,información socio económica
 ES,insurance,seguros y pagadores
 ES,occupational-information,información ocupacional
+ES,resource-delete-confirm,¿Esta seguro que desea eliminar el recurso?
+ES,resources-delete-confirm,¿Esta seguro que desea eliminar los recursos?
+ES,autogen-field,Autogenerado

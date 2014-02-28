@@ -15,7 +15,7 @@ import javax.transaction.UserTransaction;
 
 import junit.framework.Assert;
 
-import org.fourgeeks.gha.domain.ess.ui.AppFormViewFunctionBpu;
+import org.fourgeeks.gha.domain.ess.auth.FunctionBpu;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.ejb.GhaServiceTest;
@@ -59,10 +59,10 @@ public class BpuServiceTest extends GhaServiceTest {
 		Assert.assertEquals(entity, service.find(entity.getId()));
 		Assert.assertTrue(service.getAll() != null
 				&& service.getAll().size() >= 1);
-		Assert.assertNull(service.find(entity.getId()).getPermissions());
-		entity.setPermissions(new ArrayList<AppFormViewFunctionBpu>());
+		Assert.assertNull(service.find(entity.getId()).getFunctions());
+		entity.setFunctions(new ArrayList<FunctionBpu>());
 		entity = service.update(entity);
-		Assert.assertNotNull(service.find(entity.getId()).getPermissions());
+		Assert.assertNotNull(service.find(entity.getId()).getFunctions());
 		long id = entity.getId();
 		service.delete(entity.getId());
 		Assert.assertNull(service.find(id));

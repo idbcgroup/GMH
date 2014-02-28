@@ -116,6 +116,13 @@ body {
 	background-color: #464646;
 }*/
 
+.menuButton, .menuButtonOver, .menuButtonDown, .menuButtonDisabled, .menuButtonFocused, .menuButtonFocusedDown, .menuButtonFocusedOver, .menuButtonSelected, .menuButtonSelectedDown, .menuButtonSelectedOver, .menuButtonSelectedDisabled{
+/* 	padding-left: 20px !important; */
+	padding: 2px 2px 2px 5px !important;
+/* 	border: 1px solid #BABABA !important; */
+	border-radius: 3px 0px 0px 3px !important;
+}
+
 #gha-main-menu.menuButton,#gha-main-menu.menuButtonOver,#gha-main-menu.menuButtonDown
 	{
 	background: none;

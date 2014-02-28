@@ -42,7 +42,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class CitizenSearchForm extends GHASearchForm<Citizen> implements
-		CitizenSelectionProducer {
+CitizenSelectionProducer {
 
 	private GHATextItem idItem, firstNameItem, secondNameItem, lastNameItem,
 			secondLastNameItem, nationalityItem, legalEntityIdentifierItem;
@@ -142,8 +142,8 @@ public class CitizenSearchForm extends GHASearchForm<Citizen> implements
 
 		addMembers(formLayout,
 				GHAUiHelper
-						.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
-								+ "px"));
+				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
+						+ "px"));
 
 		final HLayout gridLayout = new HLayout();
 		gridLayout.setPadding(10);
@@ -292,8 +292,7 @@ public class CitizenSearchForm extends GHASearchForm<Citizen> implements
 	private void selectCitizen() {
 		final GHAGridRecord<Citizen> selectedRecord = grid.getSelectedRecord();
 		if (selectedRecord == null) {
-			GHAAlertManager.alert("INFORMATION", GHAStrings.get("information"),
-					GHAStrings.get("record-not-selected"));
+			GHAAlertManager.alert("record-not-selected");
 			return;
 		}
 		notifyCitizen(((CitizenRecord) selectedRecord).toEntity());

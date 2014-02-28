@@ -15,7 +15,6 @@ import junit.framework.Assert;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.glm.MaterialCategory;
-import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.ejb.GhaServiceTest;
 
 /**
@@ -45,7 +44,7 @@ public class MaterialCategoryServiceTest extends GhaServiceTest {
 		em.joinTransaction();
 
 		MaterialCategory entity = new MaterialCategory();
-		entity.setType(MaterialTypeEnum.MATERIAL);
+		// entity.setType(MaterialTypeEnum.MATERIAL);
 		entity = service.save(entity);
 
 		Assert.assertNotNull(entity);

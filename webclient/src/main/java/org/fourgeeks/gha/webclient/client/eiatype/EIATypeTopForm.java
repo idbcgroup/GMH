@@ -7,12 +7,12 @@ import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeCategory;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
+import org.fourgeeks.gha.webclient.client.UI.GHAEiaTypeCategoryPickTreeItem;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHASpacerItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.GHATextItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHABrandSelectItem;
-import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAEiaTypeCategorySelectItem;
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAEiaTypeSubTypeSelectItem;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
@@ -33,11 +33,11 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 	private GHATextItem nameItem;
 	private GHATextItem modelItem;
 	private GHABrandSelectItem brandItem;
-	private GHAEiaTypeCategorySelectItem categoryItem;
+	private GHAEiaTypeCategoryPickTreeItem categoryItem;
 	private GHAEiaTypeSubTypeSelectItem subTypeItem;
 	private GHADynamicForm form;
 	{
-		categoryItem = new GHAEiaTypeCategorySelectItem(
+		categoryItem = new GHAEiaTypeCategoryPickTreeItem(
 				GHAStrings.get("category"));
 		subTypeItem = new GHAEiaTypeSubTypeSelectItem();
 		nameItem = new GHATextItem(GHAStrings.get("eiatype-name"));
@@ -129,7 +129,7 @@ public class EIATypeTopForm extends GHATopForm<EiaTypeResultSet, EiaType>
 		eiaType.setModel(modelItem.getValueAsString());
 		if (categoryItem.getValue() != null)
 			eiaType.setEiaTypeCategory(new EiaTypeCategory(categoryItem
-					.getValueAsString()));
+					.getValue().toString()));
 		if (subTypeItem.getValue() != null)
 			eiaType.setSubtype(EiaSubTypeEnum.valueOf(subTypeItem
 					.getValueAsString()));

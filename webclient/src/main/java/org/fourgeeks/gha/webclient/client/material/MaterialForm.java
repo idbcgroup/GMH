@@ -30,7 +30,7 @@ import com.google.gwt.event.logical.shared.ResizeEvent;
  * 
  */
 public class MaterialForm extends GHAForm<Material> implements
-		MaterialSelectionProducer {
+MaterialSelectionProducer {
 	private List<MaterialSelectionListener> listeners;
 	private GHATextItem codeItem, externalCodeItem, nameItem, modelItem;
 	private GHATextAreaItem descriptionItem;
@@ -38,30 +38,33 @@ public class MaterialForm extends GHAForm<Material> implements
 
 	private GHASelectItem typeItem;
 	private GHADynamicForm form;
-	
+
 	{
 		listeners = new ArrayList<MaterialSelectionListener>();
-		nameItem = new GHATextItem(GHAStrings.get("name"), false,	changedHandler);
+		nameItem = new GHATextItem(GHAStrings.get("name"), true, changedHandler);
 		nameItem.setColSpan(2);
 		codeItem = new GHACodeTextItem(true, changedHandler);
-		externalCodeItem = new GHATextItem(GHAStrings.get("external-code"), false, changedHandler);
-		typeItem = new GHASelectItem(GHAStrings.get("type"), true,	changedHandler);
+		externalCodeItem = new GHATextItem(GHAStrings.get("external-code"),
+				false, changedHandler);
+		typeItem = new GHASelectItem(GHAStrings.get("type"), true,
+				changedHandler);
 		brandItem = new GHABrandSelectItem();
 
-		modelItem = new GHATextItem(GHAStrings.get("model"), false,changedHandler);
-		descriptionItem = new GHATextAreaItem(GHAStrings.get("description"), changedHandler);
+		modelItem = new GHATextItem(GHAStrings.get("model"), false,
+				changedHandler);
+		descriptionItem = new GHATextAreaItem(GHAStrings.get("description"),
+				changedHandler);
 		descriptionItem.setColSpan(2);
-				
-		form = new GHADynamicForm(3,FormType.NORMAL_FORM);
+
+		form = new GHADynamicForm(3, FormType.NORMAL_FORM);
 
 	}
 
 	public MaterialForm() {
 		super();
-		form.setItems(nameItem, new GHASpacerItem(),
-				codeItem, externalCodeItem,new GHASpacerItem(1),
-				typeItem,brandItem,new GHASpacerItem(),
-				modelItem,new GHASpacerItem(2),
+		form.setItems(nameItem, new GHASpacerItem(), codeItem,
+				externalCodeItem, new GHASpacerItem(1), typeItem, brandItem,
+				new GHASpacerItem(), modelItem, new GHASpacerItem(2),
 				descriptionItem);
 		addMember(form);
 		fill();
@@ -106,19 +109,20 @@ public class MaterialForm extends GHAForm<Material> implements
 					.getValueAsString()));
 		material.setModel(modelItem.getValueAsString());
 
-		Set<ConstraintViolation<Material>> violations = validator
+		final Set<ConstraintViolation<Material>> violations = validator
 				.validate(material);
 
 		if (form.validate() && violations.isEmpty())
 			return material;
 		else {
-			List<String> violationsList = new ArrayList<String>();
-			for (Iterator<ConstraintViolation<Material>> it = violations
+			final List<String> violationsList = new ArrayList<String>();
+			for (final Iterator<ConstraintViolation<Material>> it = violations
 					.iterator(); it.hasNext();) {
 				violationsList.add(it.next().getMessage());
 			}
 
-			GHAAlertManager.alert(violationsList);
+			//			GHAAlertManager.alert(violationsList);
+			GHAAlertManager.alert(violationsList.get(0));
 		}
 		return null;
 	}
@@ -130,10 +134,9 @@ public class MaterialForm extends GHAForm<Material> implements
 		typeItem.setValueMap(MaterialTypeEnum.toValueMap());
 	}
 
-
 	@Override
 	public void notifyMaterial(Material material) {
-		for (MaterialSelectionListener listener : listeners)
+		for (final MaterialSelectionListener listener : listeners)
 			listener.select(material);
 	}
 
@@ -147,6 +150,7 @@ public class MaterialForm extends GHAForm<Material> implements
 	/**
 	 * @param ghaAsyncCallback
 	 */
+	@Override
 	public void save(final GHAAsyncCallback<Material> ghaAsyncCallback) {
 		final Material material = extract();
 		if (material != null)
@@ -166,6 +170,7 @@ public class MaterialForm extends GHAForm<Material> implements
 	/**
 	 * @param materialCategory
 	 */
+	@Override
 	public void set(Material material) {
 		this.originalEntity = material;
 
@@ -195,6 +200,7 @@ public class MaterialForm extends GHAForm<Material> implements
 	 * This method returns the form to the original entity or clean the form
 	 * if(originalEntity == null) cancel() else select(originalEntity)
 	 */
+	@Override
 	public void undo() {
 		if (originalEntity == null)
 			cancel();
@@ -212,20 +218,19 @@ public class MaterialForm extends GHAForm<Material> implements
 	@Override
 	public void activate() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void deactivate() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void update(GHAAsyncCallback<Material> callback) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
-	
 }

@@ -49,13 +49,13 @@ import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.enu.UserLogonStatusEnum;
 import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
 import org.fourgeeks.gha.domain.ess.LocationType;
-import org.fourgeeks.gha.domain.ess.Role;
-import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
-import org.fourgeeks.gha.domain.ess.ui.AppForm;
-import org.fourgeeks.gha.domain.ess.ui.AppFormViewFunction;
-import org.fourgeeks.gha.domain.ess.ui.AppFormViewFunctionBpu;
-import org.fourgeeks.gha.domain.ess.ui.Function;
+import org.fourgeeks.gha.domain.ess.auth.Function;
+import org.fourgeeks.gha.domain.ess.auth.FunctionBpu;
+import org.fourgeeks.gha.domain.ess.auth.Role;
+import org.fourgeeks.gha.domain.ess.auth.SSOUser;
+import org.fourgeeks.gha.domain.ess.ui.App;
+import org.fourgeeks.gha.domain.ess.ui.ViewFunction;
 import org.fourgeeks.gha.domain.ess.ui.Module;
 import org.fourgeeks.gha.domain.ess.ui.View;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
@@ -101,10 +101,10 @@ import org.fourgeeks.gha.domain.msg.GHAMessageId;
 import org.fourgeeks.gha.domain.msg.GHAMessageType;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
-import org.fourgeeks.gha.ejb.ess.RoleService;
-import org.fourgeeks.gha.ejb.ess.RoleServiceRemote;
-import org.fourgeeks.gha.ejb.ess.SSOUserService;
-import org.fourgeeks.gha.ejb.ess.SSOUserServiceRemote;
+import org.fourgeeks.gha.ejb.ess.auth.RoleService;
+import org.fourgeeks.gha.ejb.ess.auth.RoleServiceRemote;
+import org.fourgeeks.gha.ejb.ess.auth.SSOUserService;
+import org.fourgeeks.gha.ejb.ess.auth.SSOUserServiceRemote;
 import org.fourgeeks.gha.ejb.gar.BpuService;
 import org.fourgeeks.gha.ejb.gar.BpuServiceRemote;
 import org.fourgeeks.gha.ejb.gar.ObuService;
@@ -119,17 +119,20 @@ import org.fourgeeks.gha.ejb.mix.InstitutionServiceRemote;
 import org.fourgeeks.gha.ejb.mix.LegalEntityService;
 import org.fourgeeks.gha.ejb.mix.LegalEntityServiceRemote;
 import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
  * @author naramirez
  */
-// @RunWith(Arquillian.class)
+@RunWith(Arquillian.class)
 public class EiaMaintenanceServiceTest {
 	/**
 	 * @return the deployment descriptor
@@ -140,9 +143,9 @@ public class EiaMaintenanceServiceTest {
 				.create(WebArchive.class, "test.war")
 				.addClass(AbstractEntity.class)
 				.addClass(AbstractCodeEntity.class)
-				.addClass(AppForm.class)
-				.addClass(AppFormViewFunction.class)
-				.addClass(AppFormViewFunctionBpu.class)
+				.addClass(App.class)
+				.addClass(ViewFunction.class)
+				.addClass(FunctionBpu.class)
 				.addClass(Bpi.class)
 				.addClass(BpiOriginEnum.class)
 				.addClass(BpiRiskEnum.class)
@@ -329,7 +332,7 @@ public class EiaMaintenanceServiceTest {
 					.setCancelationOption(MaintenancePlanCancelationOption.DEFERRABLE);
 			maintenancePlan = maintenancePlanService.save(maintenancePlan);
 
-			eiaType = new EiaType("90001");
+			eiaType = new EiaType("3000000001");
 
 			eia = eiaService.findByEiaType(eiaType).get(0);
 
@@ -372,7 +375,7 @@ public class EiaMaintenanceServiceTest {
 	}
 
 	/** */
-	// @Test
+	@Test
 	public void test() {
 		final String sep = "\n---------------------------------------\n";
 

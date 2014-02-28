@@ -9,17 +9,19 @@ import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
+import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHADeleteButton;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAFormLayout;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSearchForm;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSelectionListener;
 
+import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
@@ -69,7 +71,8 @@ public class AsociatedEiatypeGridPanel extends GHAFormLayout implements
 	 */
 	public AsociatedEiatypeGridPanel() {
 		super();
-		GHALabel title = new GHALabel(GHAStrings.get("eia-type-on-maintenance-plan"));
+		GHALabel title = new GHALabel(
+				GHAStrings.get("eia-type-on-maintenance-plan"));
 		addMember(title);
 
 		VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
@@ -143,15 +146,31 @@ public class AsociatedEiatypeGridPanel extends GHAFormLayout implements
 	}
 
 	private void deleteSelected() {
-		EiaTypeMaintenancePlan entity = grid.getSelectedEntity();
-		EiaTypeMaintenancePlanModel.delete(entity.getId(),
-				new GHAAsyncCallback<Void>() {
+		final EiaTypeMaintenancePlan entity = grid.getSelectedEntity();
+
+		if (entity == null) {
+			GHAAlertManager.alert("record-not-selected");
+			return;
+		}
+
+		GHAAlertManager.confirm(
+				"maintenance-eiatype-associative-delete-confirm",
+				new BooleanCallback() {
 
 					@Override
-					public void onSuccess(Void result) {
-						grid.removeSelectedData();
-					}
+					public void execute(Boolean value) {
+						if (value)
+							EiaTypeMaintenancePlanModel.delete(entity.getId(),
+									new GHAAsyncCallback<Void>() {
 
+										@Override
+										public void onSuccess(Void result) {
+											grid.removeSelectedData();
+										}
+
+									});
+					}
 				});
+
 	}
 }

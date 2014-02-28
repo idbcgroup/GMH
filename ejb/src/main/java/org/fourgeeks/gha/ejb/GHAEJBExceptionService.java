@@ -1,5 +1,8 @@
 package org.fourgeeks.gha.ejb;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.ejb.EJB;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -20,6 +23,50 @@ public class GHAEJBExceptionService {
 	@EJB
 	UILogServiceLocal service;
 
+	private final static Logger logger = Logger
+			.getLogger(GHAEJBExceptionService.class.getName());
+
+	/**
+	 * @param messageCode
+	 * @param em
+	 * @return a ghaejbexception
+	 */
+	public GHAEJBException generateGHAEJBException(String messageCode,
+			EntityManager em) {
+		final GHAEJBException ghaejbException = new GHAEJBException();
+		final LanguageEnum lang = RuntimeParameters.getLang();
+		try {// the messague throw by the method
+			final GHAMessage message = em.find(GHAMessage.class,
+					new GHAMessageId(messageCode, lang));
+			service.log(new UILog(null, message));
+			ghaejbException.setGhaMessage(message);
+		} catch (final NoResultException e) {
+			try {// the messague throw if the key for the method message is not
+					// found
+				final GHAMessage message = em.find(GHAMessage.class,
+						new GHAMessageId("message-find-fail", lang));
+				service.log(new UILog(null, message));
+				ghaejbException.setGhaMessage(message);
+			} catch (final Exception e1) {// the message throw if the default
+											// key message is not found
+				final GHAMessage message = new GHAMessage(lang,
+						"generic-error-msg",
+						"Unknow system failure, please contact IT support");
+				try {
+					service.log(new UILog(null, message));
+				} catch (final GHAEJBException e2) {
+					logger.log(Level.SEVERE, "Error logueando el error", e2);
+				}
+
+			}
+		} catch (final Exception e1) {
+			ghaejbException.setGhaMessage(new GHAMessage(lang,
+					"generic-error-msg",
+					"Unknow system failure, please contact IT support"));
+		}
+		return ghaejbException;
+	}
+
 	/**
 	 * @param messageCode
 	 * @param lang
@@ -30,26 +77,27 @@ public class GHAEJBExceptionService {
 	public GHAEJBException generateGHAEJBException(String messageCode,
 			LanguageEnum lang, EntityManager em) {
 		final GHAEJBException ghaejbException = new GHAEJBException();
-		try {
+		try {// the messague throw by the method
 			final GHAMessage message = em.find(GHAMessage.class,
 					new GHAMessageId(messageCode, lang));
 			service.log(new UILog(null, message));
 			ghaejbException.setGhaMessage(message);
 		} catch (final NoResultException e) {
-			try {
+			try {// the messague throw if the key for the method message is not
+					// found
 				final GHAMessage message = em.find(GHAMessage.class,
 						new GHAMessageId("message-find-fail", lang));
 				service.log(new UILog(null, message));
 				ghaejbException.setGhaMessage(message);
-			} catch (final Exception e1) {
+			} catch (final Exception e1) {// the message throw if the default
+											// key message is not found
 				final GHAMessage message = new GHAMessage(lang,
 						"generic-error-msg",
 						"Unknow system failure, please contact IT support");
 				try {
 					service.log(new UILog(null, message));
 				} catch (final GHAEJBException e2) {
-					System.out
-							.println("\n\n\nERROR1 trying logging the message\n\n\n");
+					logger.log(Level.SEVERE, "Error logueando el error", e2);
 				}
 				ghaejbException.setGhaMessage(message);
 			}
@@ -66,35 +114,6 @@ public class GHAEJBExceptionService {
 			ghaejbException.setGhaMessage(message);
 		}
 
-		return ghaejbException;
-	}
-
-	/**
-	 * @param messageCode
-	 * @param em
-	 * @return a ghaejbexception
-	 */
-	public GHAEJBException generateGHAEJBException(String messageCode,
-			EntityManager em) {
-		final GHAEJBException ghaejbException = new GHAEJBException();
-		final LanguageEnum lang = RuntimeParameters.getLang();
-		try {
-			ghaejbException.setGhaMessage(em.find(GHAMessage.class,
-					new GHAMessageId(messageCode, lang)));
-		} catch (final NoResultException e) {
-			try {
-				ghaejbException.setGhaMessage(em.find(GHAMessage.class,
-						new GHAMessageId("message-find-fail", lang)));
-			} catch (final Exception e1) {
-				ghaejbException.setGhaMessage(new GHAMessage(lang,
-						"generic-error-msg",
-						"Unknow system failure, please contact IT support"));
-			}
-		} catch (final Exception e1) {
-			ghaejbException.setGhaMessage(new GHAMessage(lang,
-					"generic-error-msg",
-					"Unknow system failure, please contact IT support"));
-		}
 		return ghaejbException;
 	}
 }

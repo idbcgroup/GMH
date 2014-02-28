@@ -1,5 +1,6 @@
 package org.fourgeeks.gha.webclient.client.UI.alerts.modal;
 
+import org.fourgeeks.gha.domain.msg.GHAMessageType;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.alerts.GHADialog;
 
@@ -24,41 +25,36 @@ public class GHAHardErrorDialog extends GHADialog {
 		});
 	}
 	/**
-	 * @param message 
+	 * @param type
+	 * @param message
+	 * @param time
 	 */
 
-	public GHAHardErrorDialog(String message) {
-		super("ERROR_HARD",false,false,buttonOK);
+	public GHAHardErrorDialog(GHAMessageType type, String message, int time) {
+		super(type,false,time, buttonOK);
 		setMessage(message);
-		initByType();
+		initTypeView();
 	}
 
 	/**
+	 * @param type
 	 * @param title
 	 * @param message
+	 * @param time
 	 */
-	public GHAHardErrorDialog(String title, String message){
-		this(message);
+	public GHAHardErrorDialog(GHAMessageType type, String title, String message, int time){
+		this(type, message, time);
 		setTitle(title);
 	}
 
-	/**
-	 * 
-	 */
-	private void initByType() {
-		initTypeParams();
-		confModalTimingSettings();
-	}
+
 
 	/* (non-Javadoc)
 	 * @see org.fourgeeks.gha.webclient.client.UI.alerts.GHADialog#initTypeParams()
 	 */
+
 	@Override
-	protected void initTypeParams() {
-		// Red
-		dialogType = "ERROR_HARD";
-		isTimed = false;
-		isModal = false;
+	protected void initTypeView() {
 		setTitle(GHAStrings.get("hard-error"));
 		setBorder("1px solid #FC7A7E");
 		setBackgroundColor("#FC7A7E");

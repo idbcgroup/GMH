@@ -3,8 +3,7 @@ package org.fourgeeks.gha.webclient.client.user;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.fourgeeks.gha.domain.ess.SSOUser;
-import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
+import org.fourgeeks.gha.domain.ess.auth.SSOUser;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
@@ -45,7 +44,7 @@ UserSelectionProducer, UserSelectionListener {
 		// userTopForm = new UserTopForm(new UserResultSet());
 
 		// Event Handlers
-		ClickHandler searchClickHandler = new ClickHandler() {
+		final ClickHandler searchClickHandler = new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
@@ -53,7 +52,7 @@ UserSelectionProducer, UserSelectionListener {
 			}
 		};
 
-		VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
+		final VLayout sideButtons = GHAUiHelper.createBar(new GHASearchButton(
 				searchClickHandler), new GHAImgButton(
 						"../resources/icons/clean.png", new ClickHandler() {
 
@@ -70,7 +69,7 @@ UserSelectionProducer, UserSelectionListener {
 							}
 						}));
 
-		HLayout formLayout = new HLayout();
+		final HLayout formLayout = new HLayout();
 		formLayout.setPadding(10);
 		formLayout.setHeight(GHAUiHelper.DEFAULT_INNER_TOP_SECTION_HEIGHT
 				+ "px");
@@ -82,10 +81,10 @@ UserSelectionProducer, UserSelectionListener {
 				.verticalGraySeparator(GHAUiHelper.V_SEPARATOR_HEIGHT
 						+ "px"));
 
-		HLayout gridLayout = new HLayout();
+		final HLayout gridLayout = new HLayout();
 		gridLayout.setPadding(10);
 
-		VLayout sideGridButtons = GHAUiHelper.createBar(new GHAImgButton(
+		final VLayout sideGridButtons = GHAUiHelper.createBar(new GHAImgButton(
 				"../resources/icons/check.png", new ClickHandler() {
 
 					@Override
@@ -125,7 +124,7 @@ UserSelectionProducer, UserSelectionListener {
 
 	@Override
 	public void notifyUser(SSOUser ssoUser) {
-		for (UserSelectionListener listener : listeners)
+		for (final UserSelectionListener listener : listeners)
 			listener.select(ssoUser);
 	}
 
@@ -156,8 +155,8 @@ UserSelectionProducer, UserSelectionListener {
 	 */
 	@Override
 	public void select(SSOUser ssoUser) {
-		UserRecord gridRecord = UserUtil.toGridRecord(ssoUser);
-		ListGridRecord[] array = { gridRecord };
+		final UserRecord gridRecord = UserUtil.toGridRecord(ssoUser);
+		final ListGridRecord[] array = { gridRecord };
 		grid.setData(array);
 		grid.selectRecord(gridRecord);
 	}
@@ -166,9 +165,9 @@ UserSelectionProducer, UserSelectionListener {
 	 * 
 	 */
 	private void selectUser() {
-		GHAGridRecord<SSOUser> selectedRecord = grid.getSelectedRecord();
+		final GHAGridRecord<SSOUser> selectedRecord = grid.getSelectedRecord();
 		if (selectedRecord == null) {
-			GHAAlertManager.alert("INFORMATION",GHAStrings.get("information"),GHAStrings.get("record-not-selected"));
+			GHAAlertManager.alert("record-not-selected");
 			return;
 		}
 		notifyUser(((UserRecord) selectedRecord).toEntity());

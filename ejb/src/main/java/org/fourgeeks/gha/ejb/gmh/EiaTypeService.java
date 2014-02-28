@@ -136,8 +136,7 @@ public class EiaTypeService extends GHAEJBExceptionService implements
 			em.remove(entity);
 		} catch (final Exception e) {
 			logger.log(Level.INFO, "ERROR: unable to delete eiatype", e);
-			throw super.generateGHAEJBException("eiaType-delete-fail",
-					RuntimeParameters.getLang(), em);
+			throw super.generateGHAEJBException("eiaType-delete-fail", em);
 		}
 	}
 
@@ -403,7 +402,7 @@ public class EiaTypeService extends GHAEJBExceptionService implements
 				em.persist(brand);
 			}
 			// get the category
-			EiaTypeCategory category = em
+			final EiaTypeCategory category = em
 					.createNamedQuery("EiaTypeCategory.findByCode",
 							EiaTypeCategory.class)
 					.setParameter("code",
@@ -412,7 +411,7 @@ public class EiaTypeService extends GHAEJBExceptionService implements
 			eiaType.setEiaTypeCategory(category);
 
 			// get the code from ccdi
-			String eiaTypeCode = ccdiService.getNextElementCode(eiaType
+			final String eiaTypeCode = ccdiService.getNextElementCode(eiaType
 					.getEiaTypeCategory().getCode());
 			eiaType.setCode(eiaTypeCode);
 
@@ -443,6 +442,14 @@ public class EiaTypeService extends GHAEJBExceptionService implements
 				}
 				em.persist(brand);
 			}
+
+			EiaTypeCategory category = eiaType.getEiaTypeCategory();
+			category = em
+					.createNamedQuery("EiaTypeCategory.findByCode",
+							EiaTypeCategory.class)
+					.setParameter("code", category.getCode()).getSingleResult();
+			eiaType.setEiaTypeCategory(category);
+
 			final EiaType res = em.merge(eiaType);
 			em.flush();
 			return res;

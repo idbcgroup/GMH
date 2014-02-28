@@ -20,6 +20,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import org.fourgeeks.gha.domain.Activity;
+import org.fourgeeks.gha.domain.TransactionParams;
 import org.fourgeeks.gha.domain.conf.Parameter;
 import org.fourgeeks.gha.domain.conf.ParameterGroup;
 import org.fourgeeks.gha.domain.conf.ParameterValue;
@@ -44,16 +45,16 @@ import org.fourgeeks.gha.domain.enu.MaintenancePlanState;
 import org.fourgeeks.gha.domain.enu.MaintenancePlanType;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.enu.UserLogonStatusEnum;
-import org.fourgeeks.gha.domain.ess.Role;
-import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
-import org.fourgeeks.gha.domain.ess.ui.AppForm;
-import org.fourgeeks.gha.domain.ess.ui.AppFormView;
-import org.fourgeeks.gha.domain.ess.ui.AppFormViewFunction;
-import org.fourgeeks.gha.domain.ess.ui.AppFormViewFunctionBpu;
-import org.fourgeeks.gha.domain.ess.ui.Function;
+import org.fourgeeks.gha.domain.ess.auth.Function;
+import org.fourgeeks.gha.domain.ess.auth.FunctionBpu;
+import org.fourgeeks.gha.domain.ess.auth.Role;
+import org.fourgeeks.gha.domain.ess.auth.SSOUser;
+import org.fourgeeks.gha.domain.ess.ui.App;
+import org.fourgeeks.gha.domain.ess.ui.AppView;
 import org.fourgeeks.gha.domain.ess.ui.Module;
 import org.fourgeeks.gha.domain.ess.ui.View;
+import org.fourgeeks.gha.domain.ess.ui.ViewFunction;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
 import org.fourgeeks.gha.domain.gar.Facility;
@@ -62,13 +63,11 @@ import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.glm.Bsp;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.glm.Material;
-import org.fourgeeks.gha.domain.glm.MaterialCategory;
 import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Eia;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeCategory;
-import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
@@ -85,7 +84,7 @@ import org.fourgeeks.gha.domain.mix.LegalEntity;
 import org.fourgeeks.gha.domain.msg.GHAMessage;
 import org.fourgeeks.gha.domain.msg.GHAMessageType;
 import org.fourgeeks.gha.domain.msg.UiString;
-import org.fourgeeks.gha.ejb.ess.AppFormViewFunctionServiceRemote;
+import org.fourgeeks.gha.ejb.ess.ui.ViewFunctionServiceRemote;
 
 import au.com.bytecode.opencsv.CSVReader;
 
@@ -104,7 +103,7 @@ public class InitialData {
 	EntityManager em;
 
 	@EJB(name = "ess.AppFormViewFunctionService")
-	AppFormViewFunctionServiceRemote functionService;
+	ViewFunctionServiceRemote permissionService;
 
 	private void bpiTestData() {
 		final String query = "SELECT t from Bpi t WHERE t.id = 1 ";
@@ -133,31 +132,16 @@ public class InitialData {
 	 */
 	private void bpuFunctionTestData() {
 		try {
-			logger.info("Creating bpufunction test data");
-			final List<AppFormViewFunction> all = functionService.getAll();
+			logger.info("Creating bpuPermission test data");
+			final List<ViewFunction> all = permissionService.getAll();
 			final Bpu admin = em.find(Bpu.class, 1L);
 			final Bpu gha = em.find(Bpu.class, 3L);
-			for (final AppFormViewFunction function : all) {
-				em.merge(new AppFormViewFunctionBpu(admin, function
-						.getAppForm(), function.getView(), function
-						.getFunction()));
-				em.merge(new AppFormViewFunctionBpu(gha, function.getAppForm(),
-						function.getView(), function.getFunction()));
+			for (final ViewFunction permission : all) {
+				em.merge(new FunctionBpu(admin, permission.getFunction()));
+				em.merge(new FunctionBpu(gha, permission.getFunction()));
 			}
-
-			// Bpu gha = em.find(Bpu.class, 3L);
-			//
-			// for (Function function : all) {
-			// em.persist(new AppFormViewFunctionBpu(admin, function));
-			// if (function.getCode().matches(
-			// "^EIATYPE-ADM-(EQUI|COMP)-(VIEW|EDIT)$")) {
-			// // usuario base solo eiatype
-			// em.persist(new AppFormViewFunctionBpu(gha, function));
-			// }
-			// }
-			// em.flush();
 		} catch (final Exception e1) {
-			logger.log(Level.INFO, "error Creating bpufunction test data", e1);
+			logger.log(Level.INFO, "error Creating bpupermission test data", e1);
 		}
 	}
 
@@ -264,7 +248,7 @@ public class InitialData {
 		InputStream in = null;
 		CSVReader reader = null;
 
-		String query = "SELECT t from CCDILevelDefinition t WHERE t.id = 1";
+		final String query = "SELECT t from CCDILevelDefinition t WHERE t.id = 1";
 		try {
 			em.createQuery(query).getSingleResult();
 		} catch (final NoResultException e) {
@@ -274,19 +258,19 @@ public class InitialData {
 						.getResourceAsStream("/ccdiLevelDefinition.csv");
 				reader = new CSVReader(new InputStreamReader(in, "UTF-8"), ',',
 						'\'', 0);
-				List<String[]> readAll = reader.readAll();
+				final List<String[]> readAll = reader.readAll();
 
-				for (String[] strings : readAll) {
+				for (final String[] strings : readAll) {
 					if (strings[0].startsWith("#")
 							|| strings[0].startsWith("//"))
 						continue;
 
-					CCDIDefinition definition = em
+					final CCDIDefinition definition = em
 							.createNamedQuery("CCDIDefinition.findByCode",
 									CCDIDefinition.class)
 							.setParameter("code", strings[0]).getSingleResult();
 
-					CCDILevelDefinition levelDefinition = new CCDILevelDefinition();
+					final CCDILevelDefinition levelDefinition = new CCDILevelDefinition();
 					levelDefinition.setDefinition(definition);
 					levelDefinition.setLevel(Integer.parseInt(strings[1]));
 					levelDefinition.setName(strings[2]);
@@ -313,14 +297,14 @@ public class InitialData {
 			try {
 				if (reader != null)
 					reader.close();
-			} catch (IOException e) {
+			} catch (final IOException e) {
 				logger.log(Level.SEVERE, "ERROR IN CCDI LEVEL DEFINITION");
 			}
 
 			try {
 				if (in != null)
 					in.close();
-			} catch (IOException e) {
+			} catch (final IOException e) {
 				logger.log(Level.SEVERE, "ERROR IN CCDI LEVEL DEFINITION");
 			}
 		}
@@ -333,7 +317,7 @@ public class InitialData {
 		InputStream in = null;
 		CSVReader reader = null;
 
-		String query = "SELECT t from CCDILevelValue t WHERE t.id = 1";
+		final String query = "SELECT t from CCDILevelValue t WHERE t.id = 1";
 		try {
 			em.createQuery(query).getSingleResult();
 		} catch (final NoResultException e) {
@@ -343,18 +327,18 @@ public class InitialData {
 						.getResourceAsStream("/ccdiLevelValue.csv");
 				reader = new CSVReader(new InputStreamReader(in, "UTF-8"), ',',
 						'\'', 0);
-				List<String[]> readAll = reader.readAll();
+				final List<String[]> readAll = reader.readAll();
 
-				for (String[] strings : readAll) {
+				for (final String[] strings : readAll) {
 					if (strings[0].startsWith("#")
 							|| strings[0].startsWith("//"))
 						continue;
 
-					CCDIDefinition definition = em
+					final CCDIDefinition definition = em
 							.createNamedQuery("CCDIDefinition.findByCode",
 									CCDIDefinition.class)
 							.setParameter("code", strings[0]).getSingleResult();
-					CCDILevelDefinition levelDefinition = em
+					final CCDILevelDefinition levelDefinition = em
 							.createNamedQuery(
 									"CCDILevelDefinition.findByLevel",
 									CCDILevelDefinition.class)
@@ -362,10 +346,10 @@ public class InitialData {
 							.setParameter("level", Integer.parseInt(strings[1]))
 							.getSingleResult();
 
-					CCDILevelValue levelValue = new CCDILevelValue();
+					final CCDILevelValue levelValue = new CCDILevelValue();
 					levelValue.setLevelDefinition(levelDefinition);
 
-					CCDILevelValue parentValue = strings[2].equals("") ? null
+					final CCDILevelValue parentValue = strings[2].equals("") ? null
 							: em.createNamedQuery("CCDILevelValue.findByCode",
 									CCDILevelValue.class)
 									.setParameter("code", strings[2])
@@ -391,14 +375,14 @@ public class InitialData {
 			try {
 				if (reader != null)
 					reader.close();
-			} catch (IOException e) {
+			} catch (final IOException e) {
 				logger.log(Level.SEVERE, "ERROR IN CCDI LEVEL VALUE");
 			}
 
 			try {
 				if (in != null)
 					in.close();
-			} catch (IOException e) {
+			} catch (final IOException e) {
 				logger.log(Level.SEVERE, "ERROR IN CCDI LEVEL VALUE");
 			}
 		}
@@ -408,7 +392,7 @@ public class InitialData {
 		InputStream in = null;
 		CSVReader reader = null;
 
-		String query = "SELECT t from CCDIDefinition t WHERE t.id = 1";
+		final String query = "SELECT t from CCDIDefinition t WHERE t.id = 1";
 		try {
 			em.createQuery(query).getSingleResult();
 		} catch (final NoResultException e) {
@@ -418,14 +402,14 @@ public class InitialData {
 						.getResourceAsStream("/ccdiDefinition.csv");
 				reader = new CSVReader(new InputStreamReader(in, "UTF-8"), ',',
 						'\'', 0);
-				List<String[]> readAll = reader.readAll();
+				final List<String[]> readAll = reader.readAll();
 
-				for (String[] strings : readAll) {
+				for (final String[] strings : readAll) {
 					if (strings[0].startsWith("#")
 							|| strings[0].startsWith("//"))
 						continue;
 
-					CCDIDefinition definition = new CCDIDefinition();
+					final CCDIDefinition definition = new CCDIDefinition();
 					definition.setCode(strings[0]);
 					definition.setName(strings[1]);
 					definition.setLength(Integer.parseInt(strings[2]));
@@ -451,14 +435,14 @@ public class InitialData {
 			try {
 				if (reader != null)
 					reader.close();
-			} catch (IOException e) {
+			} catch (final IOException e) {
 				logger.log(Level.SEVERE, "ERROR IN CCDI DEFINITION");
 			}
 
 			try {
 				if (in != null)
 					in.close();
-			} catch (IOException e) {
+			} catch (final IOException e) {
 				logger.log(Level.SEVERE, "ERROR IN CCDI DEFINITION");
 			}
 		}
@@ -499,14 +483,6 @@ public class InitialData {
 
 	}
 
-	/**
-	 * 
-	 */
-	private void eiaMaintenancePlanificationTestData() {
-		// TODO Auto-generated method stub
-
-	}
-
 	private void eiaTestData() {
 		final String query = "SELECT t from Eia t WHERE t.id = 1 ";
 		try {
@@ -519,13 +495,14 @@ public class InitialData {
 				final Obu obu = em.find(Obu.class, 1L);
 				final ExternalProvider eProvider = em.find(
 						ExternalProvider.class, 1L);
+				final Bsp mProvider = em.find(Bsp.class, 1L);
 				final Role bRole = em.find(Role.class, 1L);
 
 				for (int i = 1; i < 4; ++i) {
 					final Eia eia = new Eia(bRole, em.find(EiaType.class,
 							"300000000" + Long.toString(i)), obu,
 							EiaStateEnum.values()[i % 3], "GHAEQ-00" + i,
-							eProvider, "S9023423" + i);
+							mProvider, "S9023423" + i);
 					eia.setCode("eia-00" + i);
 					eia.setFacility(facility);
 					eia.setProvider(eProvider);
@@ -540,20 +517,20 @@ public class InitialData {
 	}
 
 	private void eiaTypeCategoryTestData() {
-		String query = "SELECT t from EiaTypeCategory t WHERE t.id = 1";
+		final String query = "SELECT t from EiaTypeCategory t WHERE t.id = 1";
 		try {
 			em.createQuery(query).getSingleResult();
-		} catch (NoResultException e) {
+		} catch (final NoResultException e) {
 			try {
 				logger.info("Creating test data: EiaTypeCategory");
-				List<CCDILevelValue> ccdiCategories = em
+				final List<CCDILevelValue> ccdiCategories = em
 						.createNamedQuery(
 								"CCDILevelValue.findAllByDefinitionCode",
 								CCDILevelValue.class)
 						.setParameter("code", "EQUIPOS").getResultList();
 
-				for (CCDILevelValue ccdi : ccdiCategories) {
-					EiaTypeCategory category = new EiaTypeCategory();
+				for (final CCDILevelValue ccdi : ccdiCategories) {
+					final EiaTypeCategory category = new EiaTypeCategory();
 					category.setName(ccdi.getName());
 					category.setCode(ccdi.getCode());
 					em.persist(category);
@@ -561,32 +538,9 @@ public class InitialData {
 				}
 
 				em.flush();
-			} catch (Exception e1) {
-				logger.log(Level.INFO,
-						"error Creating SubProtocolAndChecklist test data", e1);
-			}
-		}
-	}
-
-	/**
-	 * 
-	 */
-	private void eiaTypeMaintenancePlanTestData() {
-		final String query = "SELECT t from EiaTypeMaintenancePlan t WHERE t.id = 1";
-		try {
-			em.createQuery(query).getSingleResult();
-		} catch (final NoResultException e) {
-			try {
-				logger.info("Creating test data: EiaTypeMaintenancePlan");
-				em.persist(new EiaTypeMaintenancePlan(em.find(EiaType.class,
-						"3000000001"), em.find(MaintenancePlan.class, 1L)));
-				em.persist(new EiaTypeMaintenancePlan(em.find(EiaType.class,
-						"3000000002"), em.find(MaintenancePlan.class, 2L)));
-				em.flush();
-
 			} catch (final Exception e1) {
 				logger.log(Level.INFO,
-						"error Creating MaintenanceActivity test data", e1);
+						"error Creating SubProtocolAndChecklist test data", e1);
 			}
 		}
 	}
@@ -595,7 +549,7 @@ public class InitialData {
 		InputStream in = null;
 		CSVReader reader = null;
 
-		String query = "SELECT t from EiaType t WHERE t.code='3000000001'";
+		final String query = "SELECT t from EiaType t WHERE t.code='3000000001'";
 		try {
 			em.createQuery(query).getSingleResult();
 		} catch (final NoResultException e) {
@@ -604,13 +558,13 @@ public class InitialData {
 				in = InitialData.class.getResourceAsStream("/eiatype.csv");
 				reader = new CSVReader(new InputStreamReader(in, "UTF-8"), ',',
 						'\'', 0);
-				List<String[]> readAll = reader.readAll();
+				final List<String[]> readAll = reader.readAll();
 
-				for (String[] strings : readAll) {
+				for (final String[] strings : readAll) {
 					if (strings[0].startsWith("#")
 							|| strings[0].startsWith("//"))
 						continue;
-					EiaType eiaType = new EiaType();
+					final EiaType eiaType = new EiaType();
 					eiaType.setCode(strings[0]);
 					eiaType.setBrand(em.find(Brand.class,
 							Long.parseLong(strings[1])));
@@ -635,14 +589,14 @@ public class InitialData {
 			try {
 				if (reader != null)
 					reader.close();
-			} catch (IOException e) {
+			} catch (final IOException e) {
 				logger.log(Level.SEVERE, "ERROR IN eiatype test data");
 			}
 
 			try {
 				if (in != null)
 					in.close();
-			} catch (IOException e) {
+			} catch (final IOException e) {
 				logger.log(Level.SEVERE, "ERROR IN eiatype test data");
 			}
 		}
@@ -967,11 +921,11 @@ public class InitialData {
 		} catch (final NoResultException e) {
 			try {
 				logger.info("creating test data : materialCategory");
-				for (int j = 0; j < 3; j++) {
-					em.persist(new MaterialCategory("mat-cat-00" + j,
-							"material-category-00" + j, MaterialTypeEnum
-									.values()[j % 3]));
-				}
+				// for (int j = 0; j < 3; j++) {
+				// em.persist(new MaterialCategory("mat-cat-00" + j,
+				// "material-category-00" + j, MaterialTypeEnum
+				// .values()[j % 3]));
+				// }
 				em.flush();
 			} catch (final Exception e1) {
 				logger.log(Level.INFO,
@@ -1012,13 +966,16 @@ public class InitialData {
 		logger.info("Creating ghamessage data");
 		InputStream in = null;
 		CSVReader reader = null;
-		final GHAMessageType defaultType = em.find(GHAMessageType.class, 1l);
 		try {
+			// Open csv reading buffers
 			in = InitialData.class.getResourceAsStream("/messages.csv");
 			reader = new CSVReader(new InputStreamReader(in, "UTF-8"), ',',
 					'\'', 0);
+
+			// Read CSV
 			final List<String[]> readAll = reader.readAll();
 			String code, text;
+			String type;
 			LanguageEnum lang = null;
 			final Map<String, Boolean> words = new HashMap<String, Boolean>();
 			for (final String[] strings : readAll) {
@@ -1031,26 +988,27 @@ public class InitialData {
 					continue;
 				}
 				words.put(code + language, true);
-				lang = LanguageEnum.valueOf(strings[0]);
-				text = strings[2];
-				long type = 1l;
-				try {
-					type = Long.valueOf(strings[3]);
-				} catch (final Exception e) {
-					logger.info("no type info available in this line... Setting '1' by default");
-				}
-				try {
-					if (type == 1)
-						em.merge(new GHAMessage(lang, code, text, defaultType));
-					else
-						em.merge(new GHAMessage(lang, code, text, em.find(
-								GHAMessageType.class, type)));
+				lang = LanguageEnum.valueOf(language);
 
+				text = strings[2];
+				type = "SAY";
+				try {
+					type = String.valueOf(strings[3]);
+				} catch (final Exception e) {
+					logger.info("no type info available in this line... Setting 'SAY' by default");
+				}
+
+				try {
+					em.merge(new GHAMessage(lang, code, text, "", em.find(
+							GHAMessageType.class, type), -1));
 				} catch (final Exception e) {
 					logger.log(Level.SEVERE,
-							"Error inserting/updating an ghamessage", e);
+							"Error inserting/updating a ghamessage of type "
+									+ type, e);
 				}
 			}
+
+			// Close csv reading buffers
 			em.flush();
 			reader.close();
 			in.close();
@@ -1084,54 +1042,23 @@ public class InitialData {
 	}
 
 	private void messageTypes() {
-		final String query = "SELECT t from GHAMessageType t WHERE t.id= 1";
+		final String query = "SELECT t from GHAMessageType t WHERE t.code= 'SAY'";
 		try {
 			em.createQuery(query).getSingleResult();
 		} catch (final NoResultException e) {
 			try {
 				logger.info("creating test data : message types");
-				final String names[] = { "SAY", "CONFIRMATION", "ASKYESNO",
-						"ERROR_HARD", "ERROR_SOFT", "WARNING", "INFORMATION",
-						"FAILURE", "SUCCESS", "PROCESSING", "NEW_MESSAGE" };
-
-				for (final String name : names) {
-					GHAMessageType next = new GHAMessageType();
-					if (name.equals("SAY")) {
-						// Gray
-						next = new GHAMessageType(name, true, false);
-					} else if (name.equals("CONFIRMATION")) {
-						// Gray
-						next = new GHAMessageType(name, false, true);
-					} else if (name.equals("ASKYESNO")) {
-						// Gray
-						next = new GHAMessageType(name, false, true);
-					} else if (name.equals("ERROR_HARD")) {
-						// Red
-						next = new GHAMessageType(name, false, true);
-					} else if (name.equals("ERROR_SOFT")) {
-						// Yellow
-						next = new GHAMessageType(name, false, false);
-					} else if (name.equals("WARNING")) {
-						// Blue
-						next = new GHAMessageType(name, false, false);
-					} else if (name.equals("INFORMATION")) {
-						// Blue
-						next = new GHAMessageType(name, true, false);
-					} else if (name.equals("FAILURE")) {
-						// Yellow
-						next = new GHAMessageType(name, false, false);
-					} else if (name.equals("SUCCESS")) {
-						// Green
-						next = new GHAMessageType(name, true, false);
-					} else if (name.equals("PROCESSING")) {
-						// Green
-						next = new GHAMessageType(name, false, false);
-					} else if (name.equals("NEW_MESSAGE")) {
-						// Gray
-						next = new GHAMessageType(name, true, false);
-					}
-					em.persist(next);
-				}
+				em.persist(new GHAMessageType("SAY", 4, false));
+				em.persist(new GHAMessageType("CONFIRMATION", 0, true));
+				em.persist(new GHAMessageType("ASKYESNO", 0, true));
+				em.persist(new GHAMessageType("ERROR-HARD", 0, true));
+				em.persist(new GHAMessageType("ERROR-SOFT", 0, false));
+				em.persist(new GHAMessageType("WARNING", 4, false));
+				em.persist(new GHAMessageType("INFORMATION", 4, false));
+				em.persist(new GHAMessageType("FAILURE", 4, false));
+				em.persist(new GHAMessageType("SUCCESS", 4, false));
+				em.persist(new GHAMessageType("PROCESSING", 0, false));
+				em.persist(new GHAMessageType("NEW_MESSAGE", 0, false));
 			} catch (final Exception e1) {
 				logger.log(Level.INFO,
 						"error creating test data: Message Types", e);
@@ -1148,39 +1075,34 @@ public class InitialData {
 					"UTF-8"), ',', '\'', 1);
 			final List<String[]> readAll = csvReader.readAll();
 			Module module = null;
-			AppForm appForm = null;
+			App app = null;
 			View view = null;
-			AppFormView appFormView = null;
-			Function function = null;
-			AppFormViewFunction appFormViewFunction = null;
+			AppView appView = null;
+			Function permission = null;
+			ViewFunction ViewPermission = null;
 
 			for (final String[] strings : readAll) {
-				final String moduleName = strings[0];
-				final String moduleCode = strings[1];
-				module = new Module(moduleName, moduleCode);
+				final String moduleCode = strings[0];
+				module = new Module(moduleCode, null);
 				em.merge(module);
-				final String appFormName = strings[2];
-				final String appFormToken = strings[3];
-				final String appFormCode = strings[4];
-				appForm = new AppForm(module, appFormName, appFormToken,
-						appFormCode);
-				em.merge(appForm);
-				final String viewName = strings[5];
-				final String viewCode = strings[6];
-				final String viewDescription = strings[7];
-				view = new View(viewCode, viewName, viewDescription);
+				final String appCode = strings[1];
+				final String appToken = strings[2];
+				final String name = appCode;
+				app = new App(module, name, appCode, appToken);
+				em.merge(app);
+				final String viewCode = strings[3];
+				final String viewDescription = strings[4];
+				view = new View(viewCode, null, viewDescription);
 				em.merge(view);
-				appFormView = new AppFormView(appForm, view);
-				em.merge(appFormView);
-				final String functionName = strings[8];
-				final String functionCode = strings[9];
-				final String functionDescription = strings[10];
-				function = new Function(functionCode, functionName,
+				appView = new AppView(app, view);
+				em.merge(appView);
+				final String permissionCode = strings[5];
+				final String functionDescription = strings[6];
+				permission = new Function(permissionCode, null,
 						functionDescription);
-				em.merge(function);
-				appFormViewFunction = new AppFormViewFunction(appForm, view,
-						function);
-				em.merge(appFormViewFunction);
+				em.merge(permission);
+				ViewPermission = new ViewFunction(view, permission);
+				em.merge(ViewPermission);
 			}
 			csvReader.close();
 		} catch (final UnsupportedEncodingException e3) {
@@ -1315,6 +1237,8 @@ public class InitialData {
 	}
 
 	private void testData() {
+		transactionParamsTestData();
+
 		ccdiTestData();
 		ccdiLevelDefinitionTestData();
 		ccdiLevelValuesTestData();
@@ -1358,6 +1282,66 @@ public class InitialData {
 		// MaintenancePlanMaintenanceProtocol();
 		// eiaTypeMaintenancePlanTestData();
 		// eiaMaintenancePlanificationTestData();
+	}
+
+	private void transactionParamsTestData() {
+		InputStream in = null;
+		CSVReader reader = null;
+
+		try {
+			logger.info("creating TransactionParams test data");
+			in = InitialData.class
+					.getResourceAsStream("/transactionParams.csv");
+			reader = new CSVReader(new InputStreamReader(in, "UTF-8"), ',',
+					'\'', 0);
+			final List<String[]> readAll = reader.readAll();
+			final Map<String, Boolean> words = new HashMap<String, Boolean>();
+
+			for (final String[] strings : readAll) {
+				final String code = strings[0];
+				if (code.startsWith("#") || code.startsWith("//"))
+					continue;
+				if (words.containsKey(code)) {
+					logger.info("Repeated key in transactionParams: " + code);
+					continue;
+				}
+				words.put(code, true);
+
+				final TransactionParams entity = new TransactionParams();
+				entity.setCode(code);
+				entity.setJndiProcessorName(strings[1]);
+
+				em.merge(entity);
+				em.flush();
+			}
+
+		} catch (final IOException e) {
+			try {
+				reader.close();
+			} catch (final IOException e1) {
+				logger.log(Level.SEVERE, "ERROR in UisTrings", e1);
+			}
+			try {
+				in.close();
+			} catch (final IOException e1) {
+				logger.log(Level.SEVERE, "ERROR in UisTrings", e1);
+			}
+			logger.log(Level.INFO, "error Reading file uistrings test data", e);
+
+		} finally {
+			try {
+				if (reader != null)
+					reader.close();
+			} catch (final IOException e) {
+				logger.log(Level.SEVERE, "ERROR in UisTrings", e);
+			}
+			try {
+				if (in != null)
+					in.close();
+			} catch (final IOException e) {
+				logger.log(Level.SEVERE, "ERROR in UisTrings", e);
+			}
+		}
 	}
 
 	private void uiStrings() {

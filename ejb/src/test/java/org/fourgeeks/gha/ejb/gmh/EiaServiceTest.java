@@ -46,13 +46,13 @@ import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.enu.UserLogonStatusEnum;
 import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
 import org.fourgeeks.gha.domain.ess.LocationType;
-import org.fourgeeks.gha.domain.ess.Role;
-import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
-import org.fourgeeks.gha.domain.ess.ui.AppForm;
-import org.fourgeeks.gha.domain.ess.ui.AppFormViewFunction;
-import org.fourgeeks.gha.domain.ess.ui.AppFormViewFunctionBpu;
-import org.fourgeeks.gha.domain.ess.ui.Function;
+import org.fourgeeks.gha.domain.ess.auth.Function;
+import org.fourgeeks.gha.domain.ess.auth.FunctionBpu;
+import org.fourgeeks.gha.domain.ess.auth.Role;
+import org.fourgeeks.gha.domain.ess.auth.SSOUser;
+import org.fourgeeks.gha.domain.ess.ui.App;
+import org.fourgeeks.gha.domain.ess.ui.ViewFunction;
 import org.fourgeeks.gha.domain.ess.ui.Module;
 import org.fourgeeks.gha.domain.ess.ui.View;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
@@ -95,10 +95,12 @@ import org.fourgeeks.gha.domain.msg.GHAMessageId;
 import org.fourgeeks.gha.domain.msg.GHAMessageType;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
-import org.fourgeeks.gha.ejb.ess.RoleService;
-import org.fourgeeks.gha.ejb.ess.RoleServiceRemote;
-import org.fourgeeks.gha.ejb.ess.SSOUserService;
-import org.fourgeeks.gha.ejb.ess.SSOUserServiceRemote;
+import org.fourgeeks.gha.ejb.ess.auth.RoleService;
+import org.fourgeeks.gha.ejb.ess.auth.RoleServiceRemote;
+import org.fourgeeks.gha.ejb.ess.auth.SSOUserService;
+import org.fourgeeks.gha.ejb.ess.auth.SSOUserServiceRemote;
+import org.fourgeeks.gha.ejb.gar.BspService;
+import org.fourgeeks.gha.ejb.gar.BspServiceRemote;
 import org.fourgeeks.gha.ejb.gar.ObuService;
 import org.fourgeeks.gha.ejb.gar.ObuServiceRemote;
 import org.fourgeeks.gha.ejb.glm.ExternalProviderService;
@@ -111,20 +113,17 @@ import org.fourgeeks.gha.ejb.mix.InstitutionServiceRemote;
 import org.fourgeeks.gha.ejb.mix.LegalEntityService;
 import org.fourgeeks.gha.ejb.mix.LegalEntityServiceRemote;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 
 /**
  * @author naramirez
  */
-//@RunWith(Arquillian.class)
+// @RunWith(Arquillian.class)
 public class EiaServiceTest {
 	/**
 	 * @return the deployment descriptor
@@ -135,11 +134,11 @@ public class EiaServiceTest {
 				.create(WebArchive.class, "test.war")
 				.addClass(AbstractEntity.class)
 				.addClass(AbstractCodeEntity.class)
-				.addClass(AppForm.class)
-				.addClass(AppFormViewFunction.class)
+				.addClass(App.class)
+				.addClass(ViewFunction.class)
 				// .addClass(AppFormViewFunctionService.class)
 				// .addClass(AppFormViewFunctionServiceRemote.class)
-				.addClass(AppFormViewFunctionBpu.class)
+				.addClass(FunctionBpu.class)
 				.addClass(Bpi.class)
 				.addClass(BpiOriginEnum.class)
 				.addClass(BpiRiskEnum.class)
@@ -254,17 +253,21 @@ public class EiaServiceTest {
 				.addClass(UserLogonStatusEnum.class)
 				.addClass(MaintenanceCancelationCause.class)
 				.addClass(MaintenancePlanificationState.class)
+				.addClass(BspService.class)
+				.addClass(BspServiceRemote.class)
 				.addAsResource("test-persistence.xml",
 						"META-INF/persistence.xml")
-						.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
 	private ExternalProvider externalProvider;
 	private long externalProviderId = 0l;
 	private long institutionId = 0l;
 	private long legalEntityId = 0l;
+	private long bspId = 0l;
 	private Role role;
 	private Obu obu;
+	private Bsp bsp;
 	private EiaType eiaType;
 
 	@EJB(lookup = "java:global/test/EiaService")
@@ -287,6 +290,9 @@ public class EiaServiceTest {
 
 	@EJB(lookup = "java:global/test/ExternalProviderService")
 	ExternalProviderServiceRemote externalProviderService;
+
+	@EJB(lookup = "java:global/test/BspService")
+	BspServiceRemote bspService;
 
 	/**
 	 */
@@ -370,16 +376,28 @@ public class EiaServiceTest {
 			unset();
 			Assert.fail("failing creating the intitution");
 		}
+
+		// CREATING THE BSP
+		final Bsp localBsp = new Bsp();
+		localBsp.setObu(localObu);
+		try {
+			bsp = bspService.save(localBsp);
+			bspId = externalProvider.getId();
+		} catch (final GHAEJBException e) {
+			e.printStackTrace();
+			unset();
+			Assert.fail("failing creating the intitution");
+		}
 	}
 
 	/**
 	 */
-	//	@Test
+	// @Test
 	public void test() {
 		Eia eia = new Eia();
 		eia.setEiaType(eiaType);
 		eia.setProvider(externalProvider);
-		eia.setMaintenanceProvider(externalProvider);
+		eia.setMaintenanceProvider(bsp);
 		eia.setResponsibleRole(role);
 		eia.setObu(obu);
 		eia.setSerialNumber("eia-serial");
@@ -429,6 +447,13 @@ public class EiaServiceTest {
 		// DELETING THE EXTERNAL PROVIDER
 		try {
 			externalProviderService.delete(externalProviderId);
+		} catch (final GHAEJBException e1) {
+			e1.printStackTrace();
+		}
+
+		// DELETING THE EXTERNAL PROVIDER
+		try {
+			bspService.delete(bspId);
 		} catch (final GHAEJBException e1) {
 			e1.printStackTrace();
 		}
