@@ -49,13 +49,9 @@ import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.enu.UserLogonStatusEnum;
 import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
 import org.fourgeeks.gha.domain.ess.LocationType;
-import org.fourgeeks.gha.domain.ess.Role;
-import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
-import org.fourgeeks.gha.domain.ess.ui.AppForm;
-import org.fourgeeks.gha.domain.ess.ui.AppFormViewFunction;
-import org.fourgeeks.gha.domain.ess.ui.AppFormViewFunctionBpu;
-import org.fourgeeks.gha.domain.ess.ui.Function;
+import org.fourgeeks.gha.domain.ess.auth.Function;
+import org.fourgeeks.gha.domain.ess.auth.SSOUser;
 import org.fourgeeks.gha.domain.ess.ui.Module;
 import org.fourgeeks.gha.domain.ess.ui.View;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
@@ -99,17 +95,16 @@ import org.fourgeeks.gha.domain.msg.GHAMessageId;
 import org.fourgeeks.gha.domain.msg.GHAMessageType;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
-import org.fourgeeks.gha.ejb.ess.RoleService;
-import org.fourgeeks.gha.ejb.ess.RoleServiceRemote;
-import org.fourgeeks.gha.ejb.ess.SSOUserService;
-import org.fourgeeks.gha.ejb.ess.SSOUserServiceRemote;
+import org.fourgeeks.gha.ejb.ess.auth.RoleService;
+import org.fourgeeks.gha.ejb.ess.auth.RoleServiceRemote;
+import org.fourgeeks.gha.ejb.ess.auth.SSOUserService;
+import org.fourgeeks.gha.ejb.ess.auth.SSOUserServiceRemote;
 import org.fourgeeks.gha.ejb.gar.ObuService;
 import org.fourgeeks.gha.ejb.gar.ObuServiceRemote;
 import org.fourgeeks.gha.ejb.glm.ExternalProviderService;
 import org.fourgeeks.gha.ejb.glm.ExternalProviderServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.EiaService;
 import org.fourgeeks.gha.ejb.gmh.EiaServiceRemote;
-import org.fourgeeks.gha.ejb.gmh.EiaServiceTest;
 import org.fourgeeks.gha.ejb.gmh.EiaTypeComponentService;
 import org.fourgeeks.gha.ejb.gmh.EiaTypeComponentServiceLocal;
 import org.fourgeeks.gha.ejb.gmh.EiaTypeComponentServiceRemote;
@@ -149,9 +144,6 @@ public class CitizenServiceTest {
 				.create(WebArchive.class, "test.war")
 				.addClass(AbstractEntity.class)
 				.addClass(AbstractCodeEntity.class)
-				.addClass(AppForm.class)
-				.addClass(AppFormViewFunction.class)
-				.addClass(AppFormViewFunctionBpu.class)
 				.addClass(Bpi.class)
 				.addClass(BpiOriginEnum.class)
 				.addClass(BpiRiskEnum.class)
@@ -186,7 +178,6 @@ public class CitizenServiceTest {
 				.addClass(ExternalProvider.class)
 				.addClass(ExternalProviderService.class)
 				.addClass(ExternalProviderServiceRemote.class)
-				.addClass(EiaServiceTest.class)
 				.addClass(EiaServiceRemote.class)
 				.addClass(EiaPreventiveMaintenance.class)
 				.addClass(ExternalProvider.class)
@@ -235,7 +226,6 @@ public class CitizenServiceTest {
 				.addClass(ProviderQualEnum.class)
 				.addClass(ProviderTypeEnum.class)
 				.addClass(ProviderRepresentEnum.class)
-				.addClass(Role.class)
 				.addClass(RoleService.class)
 				.addClass(RoleServiceRemote.class)
 				.addClass(RuntimeParameters.class)
@@ -286,6 +276,26 @@ public class CitizenServiceTest {
 	private Activity parentActivity;
 	private SubProtocolAndChecklist subProtocol;
 
+	private void deleteListTest() {
+		final int itemsExpected = 3;
+
+		try {
+			subProtocol = new SubProtocolAndChecklist();
+			subProtocol.setActivity(activity);
+			subProtocol.setParentActivity(parentActivity);
+			subProtocol.setOrdinal(4);
+			subProtocol = serviceRemote.save(subProtocol);
+
+			final List<SubProtocolAndChecklist> list = new ArrayList<SubProtocolAndChecklist>();
+			list.add(subProtocol);
+
+			serviceRemote.delete(list);
+			Assert.assertEquals(itemsExpected, serviceRemote.getAll().size());
+		} catch (final GHAEJBException e) {
+			e.printStackTrace();
+		}
+	}
+
 	/** */
 	@Before
 	public void set() {
@@ -302,12 +312,6 @@ public class CitizenServiceTest {
 	}
 
 	/** */
-	@After
-	public void unset() {
-
-	}
-
-	/** */
 	@Test
 	public void test() {
 		final String sep = "\n---------------------------------------\n";
@@ -318,23 +322,9 @@ public class CitizenServiceTest {
 		deleteListTest();
 	}
 
-	private void deleteListTest() {
-		final int itemsExpected = 3;
+	/** */
+	@After
+	public void unset() {
 
-		try {
-			subProtocol = new SubProtocolAndChecklist();
-			subProtocol.setActivity(activity);
-			subProtocol.setParentActivity(parentActivity);
-			subProtocol.setOrdinal(4);
-			subProtocol = serviceRemote.save(subProtocol);
-
-			List<SubProtocolAndChecklist> list = new ArrayList<SubProtocolAndChecklist>();
-			list.add(subProtocol);
-
-			serviceRemote.delete(list);
-			Assert.assertEquals(itemsExpected, serviceRemote.getAll().size());
-		} catch (GHAEJBException e) {
-			e.printStackTrace();
-		}
 	}
 }
