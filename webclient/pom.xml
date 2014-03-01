@@ -199,13 +199,13 @@
 				<artifactId>jboss-as-maven-plugin</artifactId>
 				<version>7.5.Final</version>
 				<executions>
-					<execution>
-						<phase>install</phase>
-						<goals>
+<!-- 					<execution> -->
+<!-- 						<phase>install</phase> -->
+<!-- 						<goals> -->
 <!-- 							<goal>undeploy</goal> -->
-							<goal>deploy</goal>
-						</goals>
-					</execution>
+<!-- 							<goal>deploy</goal> -->
+<!-- 						</goals> -->
+<!-- 					</execution> -->
 				</executions>
 			</plugin>
 		</plugins>
