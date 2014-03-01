@@ -33,15 +33,15 @@
 				<groupId>org.jboss.as.plugins</groupId>
 				<artifactId>jboss-as-maven-plugin</artifactId>
 				<version>7.4.Final</version>
-				<executions>
-					<execution>
-						<phase>install</phase>
-						<goals>
+<!-- 				<executions> -->
+<!-- 					<execution> -->
+<!-- 						<phase>install</phase> -->
+<!-- 						<goals> -->
 <!-- 							<goal>undeploy</goal> -->
-							<goal>deploy</goal>
-						</goals>
-					</execution>
-				</executions>
+<!-- 							<goal>deploy</goal> -->
+<!-- 						</goals> -->
+<!-- 					</execution> -->
+<!-- 				</executions> -->
 			</plugin>
 		</plugins>
 	</build>
