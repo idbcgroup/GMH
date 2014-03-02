@@ -64,25 +64,24 @@ public class GHAPlacesFactory {
 			});
 			break;
 		case "eia":
-			if (token.startsWith("eia"))
-				GWT.runAsync(new RunAsyncCallback() {
+			GWT.runAsync(new RunAsyncCallback() {
 
-					@Override
-					public void onFailure(Throwable reason) {
+				@Override
+				public void onFailure(Throwable reason) {
 
+				}
+
+				@Override
+				public void onSuccess() {
+					try {
+						GHAPlaceSet.showPlace(new EIAPlace(token));
+					} catch (final LoginNeededException e) {
+						// TODO
+					} catch (final PermissionsNeededException e) {
+						History.newItem("home");
 					}
-
-					@Override
-					public void onSuccess() {
-						try {
-							GHAPlaceSet.showPlace(new EIAPlace(token));
-						} catch (final LoginNeededException e) {
-							// TODO
-						} catch (final PermissionsNeededException e) {
-							History.newItem("home");
-						}
-					}
-				});
+				}
+			});
 			break;
 		case "edt":
 			GWT.runAsync(new RunAsyncCallback() {
