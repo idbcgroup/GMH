@@ -2,12 +2,6 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-<!-- 	<parent> -->
-<!-- 		<groupId>gha</groupId> -->
-<!-- 		<artifactId>gha</artifactId> -->
-<!-- 		<version>1</version> -->
-<!-- 		<relativePath>../pom.xml</relativePath> -->
-<!-- 	</parent> -->
 	<groupId>gha</groupId>
 	<version>1</version>
 	<artifactId>webclient</artifactId>
@@ -17,7 +11,6 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<gwtVersion>2.5.1</gwtVersion>
 	</properties>
-
 
 	<!-- reporitorio local dentro del proyecto para acceder a los fonts del 
 		los reportes y a librerias dentro de la carpeta lib-->
@@ -152,11 +145,10 @@
 
 	<build>
 		<plugins>
-			<!-- GWT Maven Plugin -->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>gwt-maven-plugin</artifactId>
-				<version>2.5.1</version>
+				<version>2.6.0</version>
 				<executions>
 					<execution>
 						<goals>
