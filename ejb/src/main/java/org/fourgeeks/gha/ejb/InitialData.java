@@ -63,7 +63,6 @@ import org.fourgeeks.gha.domain.gar.Obu;
 import org.fourgeeks.gha.domain.glm.Bsp;
 import org.fourgeeks.gha.domain.glm.ExternalProvider;
 import org.fourgeeks.gha.domain.glm.Material;
-import org.fourgeeks.gha.domain.glm.MaterialCategory;
 import org.fourgeeks.gha.domain.glm.MaterialTypeEnum;
 import org.fourgeeks.gha.domain.gmh.Brand;
 import org.fourgeeks.gha.domain.gmh.Eia;
@@ -922,11 +921,11 @@ public class InitialData {
 		} catch (final NoResultException e) {
 			try {
 				logger.info("creating test data : materialCategory");
-				for (int j = 0; j < 3; j++) {
-					em.persist(new MaterialCategory("mat-cat-00" + j,
-							"material-category-00" + j, MaterialTypeEnum
-									.values()[j % 3]));
-				}
+				// for (int j = 0; j < 3; j++) {
+				// em.persist(new MaterialCategory("mat-cat-00" + j,
+				// "material-category-00" + j, MaterialTypeEnum
+				// .values()[j % 3]));
+				// }
 				em.flush();
 			} catch (final Exception e1) {
 				logger.log(Level.INFO,

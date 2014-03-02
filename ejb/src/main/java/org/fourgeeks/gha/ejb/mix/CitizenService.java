@@ -10,7 +10,15 @@ import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.ParameterExpression;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
+import org.fourgeeks.gha.domain.enu.DocumentTypeEnum;
+import org.fourgeeks.gha.domain.enu.GenderTypeEnum;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.mix.Citizen;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
@@ -29,6 +37,84 @@ public class CitizenService extends GHAEJBExceptionService implements
 
 	private final static Logger logger = Logger.getLogger(CitizenService.class
 			.getName());
+
+	private static Predicate buildFilters(Citizen entity, CriteriaBuilder cb,
+			Root<Citizen> root) {
+		Predicate criteria = cb.conjunction();
+
+		if (entity.getFirstName() != null) {
+			final ParameterExpression<String> p = cb.parameter(String.class,
+					"firstName");
+			criteria = cb.and(criteria,
+					cb.like(cb.lower(root.<String> get("firstName")), p));
+		}
+
+		if (entity.getSecondName() != null) {
+			final ParameterExpression<String> p = cb.parameter(String.class,
+					"secondName");
+			criteria = cb.and(criteria,
+					cb.like(cb.lower(root.<String> get("secondName")), p));
+		}
+
+		if (entity.getFirstLastName() != null) {
+			final ParameterExpression<String> p = cb.parameter(String.class,
+					"firstLastName");
+			criteria = cb.and(criteria,
+					cb.like(cb.lower(root.<String> get("firstLastName")), p));
+		}
+
+		if (entity.getSecondLastName() != null) {
+			final ParameterExpression<String> p = cb.parameter(String.class,
+					"secondLastName");
+			criteria = cb.and(criteria,
+					cb.like(cb.lower(root.<String> get("secondLastName")), p));
+		}
+
+		if (entity.getPrimaryEmail() != null) {
+			final ParameterExpression<String> p = cb.parameter(String.class,
+					"primaryEmail");
+			criteria = cb.and(criteria,
+					cb.like(cb.lower(root.<String> get("primaryEmail")), p));
+		}
+
+		if (entity.getIdType() != null) {
+			final ParameterExpression<DocumentTypeEnum> p = cb.parameter(
+					DocumentTypeEnum.class, "idType");
+			criteria = cb.and(criteria,
+					cb.equal(root.<DocumentTypeEnum> get("idType"), p));
+		}
+
+		if (entity.getIdNumber() != null) {
+			final ParameterExpression<String> p = cb.parameter(String.class,
+					"idNumber");
+			criteria = cb.and(criteria,
+					cb.like(cb.lower(root.<String> get("idNumber")), p));
+		}
+
+		if (entity.getGender() != null) {
+			final ParameterExpression<GenderTypeEnum> p = cb.parameter(
+					GenderTypeEnum.class, "gender");
+			criteria = cb.and(criteria,
+					cb.equal(root.<GenderTypeEnum> get("gender"), p));
+		}
+
+		if (entity.getNationality() != null) {
+			final ParameterExpression<String> p = cb.parameter(String.class,
+					"nationality");
+			criteria = cb.and(criteria,
+					cb.like(cb.lower(root.<String> get("nationality")), p));
+		}
+
+		if (entity.getLegalEntity() != null) {
+			final ParameterExpression<GenderTypeEnum> p = cb.parameter(
+					GenderTypeEnum.class, "legalEntity");
+			criteria = cb.and(criteria,
+					cb.equal(root.<GenderTypeEnum> get("legalEntity"), p));
+		}
+
+		return criteria;
+
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -60,8 +146,69 @@ public class CitizenService extends GHAEJBExceptionService implements
 	@Override
 	public List<Citizen> find(Citizen citizen) throws GHAEJBException {
 		try {
-			return em.createNamedQuery("Citizen.findByCitizen", Citizen.class)
-					.setParameter("citizen", citizen).getResultList();
+			final CriteriaBuilder cb = em.getCriteriaBuilder();
+			final CriteriaQuery<Citizen> cQuery = cb.createQuery(Citizen.class);
+			final Root<Citizen> root = cQuery.from(Citizen.class);
+			cQuery.select(root);
+			cQuery.orderBy(cb.asc(root.<String> get("firstLastName")));
+
+			final Predicate criteria = buildFilters(citizen, cb, root);
+			TypedQuery<Citizen> q;
+
+			if (criteria.getExpressions().size() <= 0) {
+				q = em.createQuery(cQuery);
+			} else {
+				cQuery.where(criteria);
+				q = em.createQuery(cQuery);
+
+				if (citizen.getFirstName() != null) {
+					q.setParameter("firstName", "%"
+							+ citizen.getFirstName().toLowerCase() + "%");
+				}
+
+				if (citizen.getSecondName() != null) {
+					q.setParameter("secondName", "%"
+							+ citizen.getSecondName().toLowerCase() + "%");
+				}
+
+				if (citizen.getFirstLastName() != null) {
+					q.setParameter("firstLastName", "%"
+							+ citizen.getFirstLastName().toLowerCase() + "%");
+				}
+
+				if (citizen.getSecondLastName() != null) {
+					q.setParameter("secondLastName", "%"
+							+ citizen.getSecondLastName().toLowerCase() + "%");
+				}
+
+				if (citizen.getPrimaryEmail() != null) {
+					q.setParameter("primaryEmail", "%"
+							+ citizen.getPrimaryEmail().toLowerCase() + "%");
+				}
+
+				if (citizen.getIdType() != null) {
+					q.setParameter("idType", citizen.getIdType());
+				}
+
+				if (citizen.getIdNumber() != null) {
+					q.setParameter("idNumber", "%"
+							+ citizen.getIdNumber().toLowerCase() + "%");
+				}
+
+				if (citizen.getGender() != null) {
+					q.setParameter("gender", citizen.getGender());
+				}
+
+				if (citizen.getNationality() != null) {
+					q.setParameter("nacionality", "%"
+							+ citizen.getNationality().toLowerCase() + "%");
+				}
+
+				if (citizen.getLegalEntity() != null) {
+					q.setParameter("legalEntity", citizen.getLegalEntity());
+				}
+			}
+			return q.getResultList();
 		} catch (final Exception ex) {
 			logger.log(Level.SEVERE, "Error finding Citizen by citizen", ex);
 			throw super.generateGHAEJBException("citizen-findByCitizen-fail",
@@ -112,6 +259,7 @@ public class CitizenService extends GHAEJBExceptionService implements
 	@Override
 	public Citizen save(Citizen citizen) throws GHAEJBException {
 		try {
+			em.persist(citizen.getLegalEntity());
 			em.persist(citizen);
 			em.flush();
 			return em.find(Citizen.class, citizen.getId());

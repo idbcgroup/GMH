@@ -35,10 +35,10 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
  * 
  */
 public class CitizenForm extends GHAForm<Citizen> implements
-CitizenSelectionProducer {
+		CitizenSelectionProducer {
 
 	private GHATextItem idItem, firstNameItem, secondNameItem, lastNameItem,
-	secondLastNameItem, nationalityItem, legalEntityIdentifierItem;
+			secondLastNameItem, nationalityItem, legalEntityIdentifierItem;
 	private GHASelectItem typeidSelectItem, genderSelectItem;
 	private GHADateItem birthDateItem;
 	private GHAEmailTextItem primaryEmailItem, alternativeEmailItem;
@@ -119,7 +119,7 @@ CitizenSelectionProducer {
 				"^[VvMmPprREeJjIiGg0-9|-]+$");
 
 		legalEntityIdentifierItem
-		.setTooltip(GHAStrings.get("user-tooltip-rif"));
+				.setTooltip(GHAStrings.get("user-tooltip-rif"));
 
 		listeners = new ArrayList<CitizenSelectionListener>();
 
@@ -258,7 +258,6 @@ CitizenSelectionProducer {
 		if (form.validate() && violationsList.isEmpty())
 			return citizen;
 
-		//		GHAAlertManager.alert(violationsList);
 		GHAAlertManager.alert(violationsList.get(0));
 
 		return null;
@@ -312,11 +311,6 @@ CitizenSelectionProducer {
 		});
 	}
 
-	/**
-	 * This method fills the userForm with the SSOUser info
-	 * 
-	 * @param ssoUser
-	 */
 	@Override
 	public void set(Citizen citizen) {
 		this.originalEntity = citizen;

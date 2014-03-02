@@ -23,48 +23,33 @@ import com.google.gwt.user.client.Window;
  */
 public class GHAPlacesFactory {
 
-	private GHAPlacesFactory() throws UnsupportedOperationException {
-		throw new UnsupportedOperationException(
-				"This class does not supposed to be instantiated");
-	}
-
 	/**
 	 * @param token
 	 */
 	public static void showPlace(final String token) {
-		if (token.equals("lostpass"))
+		switch (token) {
+		case "lostpass":
 			GWT.runAsync(new RunAsyncCallback() {
-
-				@Override
-				public void onSuccess() {
-					GHAPlaceSet.showPlace(new ForgottenPasswordPlace(token));
-				}
 
 				@Override
 				public void onFailure(Throwable reason) {
 
 				}
-			});
 
-		// else if (token.equals("home"))
-		// GWT.runAsync(new RunAsyncCallback() {
-		//
-		// @Override
-		// public void onSuccess() {
-		// try {
-		// GHAPlaceSet.showPlace(new HomePlace(token));
-		// } catch (LoginNeededException e) {
-		// // TODO
-		// }
-		// }
-		//
-		// @Override
-		// public void onFailure(Throwable reason) {
-		//
-		// }
-		// });
-		else if (token.equals("eiatype"))
+				@Override
+				public void onSuccess() {
+					GHAPlaceSet.showPlace(new ForgottenPasswordPlace(token));
+				}
+			});
+			break;
+
+		case "eiatype":
 			GWT.runAsync(new RunAsyncCallback() {
+
+				@Override
+				public void onFailure(Throwable reason) {
+
+				}
 
 				@Override
 				public void onSuccess() {
@@ -76,14 +61,15 @@ public class GHAPlacesFactory {
 						History.newItem("home");
 					}
 				}
+			});
+			break;
+		case "eia":
+			GWT.runAsync(new RunAsyncCallback() {
 
 				@Override
 				public void onFailure(Throwable reason) {
 
 				}
-			});
-		else if (token.startsWith("eia"))
-			GWT.runAsync(new RunAsyncCallback() {
 
 				@Override
 				public void onSuccess() {
@@ -95,14 +81,15 @@ public class GHAPlacesFactory {
 						History.newItem("home");
 					}
 				}
+			});
+			break;
+		case "edt":
+			GWT.runAsync(new RunAsyncCallback() {
 
 				@Override
 				public void onFailure(Throwable reason) {
 
 				}
-			});
-		else if (token.startsWith("edt"))
-			GWT.runAsync(new RunAsyncCallback() {
 
 				@Override
 				public void onSuccess() {
@@ -114,14 +101,15 @@ public class GHAPlacesFactory {
 						History.newItem("home");
 					}
 				}
+			});
+			break;
+		case "mplan":
+			GWT.runAsync(new RunAsyncCallback() {
 
 				@Override
 				public void onFailure(Throwable reason) {
 
 				}
-			});
-		else if (token.startsWith("mplan"))
-			GWT.runAsync(new RunAsyncCallback() {
 
 				@Override
 				public void onSuccess() {
@@ -133,14 +121,15 @@ public class GHAPlacesFactory {
 						History.newItem("home");
 					}
 				}
+			});
+			break;
+		case "activity":
+			GWT.runAsync(new RunAsyncCallback() {
 
 				@Override
 				public void onFailure(Throwable reason) {
 
 				}
-			});
-		else if (token.startsWith("activity"))
-			GWT.runAsync(new RunAsyncCallback() {
 
 				@Override
 				public void onSuccess() {
@@ -157,14 +146,15 @@ public class GHAPlacesFactory {
 						Window.alert(e.toString());
 					}
 				}
+			});
+			break;
+		case "user":
+			GWT.runAsync(new RunAsyncCallback() {
 
 				@Override
 				public void onFailure(Throwable reason) {
 
 				}
-			});
-		else if (token.startsWith("user"))
-			GWT.runAsync(new RunAsyncCallback() {
 
 				@Override
 				public void onSuccess() {
@@ -176,14 +166,15 @@ public class GHAPlacesFactory {
 						History.newItem("home");
 					}
 				}
+			});
+			break;
+		case "emh":
+			GWT.runAsync(new RunAsyncCallback() {
 
 				@Override
 				public void onFailure(Throwable reason) {
 
 				}
-			});
-		else if (token.startsWith("emh"))
-			GWT.runAsync(new RunAsyncCallback() {
 
 				@Override
 				public void onSuccess() {
@@ -195,14 +186,15 @@ public class GHAPlacesFactory {
 						History.newItem("home");
 					}
 				}
+			});
+			break;
+		case "res":
+			GWT.runAsync(new RunAsyncCallback() {
 
 				@Override
 				public void onFailure(Throwable reason) {
 
 				}
-			});
-		else if (token.startsWith("res"))
-			GWT.runAsync(new RunAsyncCallback() {
 
 				@Override
 				public void onSuccess() {
@@ -214,13 +206,15 @@ public class GHAPlacesFactory {
 						History.newItem("home");
 					}
 				}
-
-				@Override
-				public void onFailure(Throwable reason) {
-
-				}
 			});
-		else
+			break;
+		default:
 			throw new IllegalArgumentException("Unsuported token");
+		}
+	}
+
+	private GHAPlacesFactory() throws UnsupportedOperationException {
+		throw new UnsupportedOperationException(
+				"This class does not supposed to be instantiated");
 	}
 }

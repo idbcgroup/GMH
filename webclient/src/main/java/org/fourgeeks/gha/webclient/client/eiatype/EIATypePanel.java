@@ -7,7 +7,6 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.ResultSetContainerType;
-import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.exceptions.UnavailableToHideException;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
@@ -38,7 +37,6 @@ EiaTypeSelectionProducer {
 	private GHAHeaderOption addOption;
 
 	/**
-	 * @param token
 	 */
 	public EIATypePanel() {
 		super();
@@ -57,12 +55,13 @@ EiaTypeSelectionProducer {
 				add();
 			}
 		});
-//		header.addDebugOption("MIT:"+GHAAlertManager.getOpenMessagesCounter(), new ClickHandler() {
-//			@Override
-//			public void onClick(ClickEvent event) {
-//				GHAAlertManager.alert("ERROR-HARD","Información","Long message test: test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test ");
-//			}
-//		});
+		// header.addDebugOption("MIT:"+GHAAlertManager.getOpenMessagesCounter(),
+		// new ClickHandler() {
+		// @Override
+		// public void onClick(ClickEvent event) {
+		// GHAAlertManager.alert("ERROR-HARD","Información","Long message test: test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test ");
+		// }
+		// });
 
 		resultSet = new EiaTypeResultSet(ResultSetContainerType.TAB);
 		resultSet.setVisible(false);
@@ -143,7 +142,7 @@ EiaTypeSelectionProducer {
 
 	@Override
 	public void notifyEiaType(EiaType eiaType) {
-		for (EIATypeSelectionListener listener : listeners)
+		for (final EIATypeSelectionListener listener : listeners)
 			listener.select(eiaType);
 	}
 
