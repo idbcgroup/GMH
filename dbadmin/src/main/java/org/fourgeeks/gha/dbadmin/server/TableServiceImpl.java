@@ -1,9 +1,9 @@
-package org.fourgeeks.dbadmin.server;
+package org.fourgeeks.gha.dbadmin.server;
 
 import java.util.ArrayList;
 
-import org.fourgeeks.dbadmin.client.TableService;
-import org.fourgeeks.dbadmin.shared.Record;
+import org.fourgeeks.gha.dbadmin.client.TableService;
+import org.fourgeeks.gha.dbadmin.shared.Record;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 

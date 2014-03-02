@@ -1,12 +1,12 @@
-package org.fourgeeks.dbadmin.client;
-
-import java.util.ArrayList;
-
-import org.fourgeeks.dbadmin.shared.Record;
+package org.fourgeeks.gha.dbadmin.client;
 
 import gwtupload.client.IUploader;
 import gwtupload.client.IUploader.OnFinishUploaderHandler;
 import gwtupload.client.SingleUploader;
+
+import java.util.ArrayList;
+
+import org.fourgeeks.gha.dbadmin.shared.Record;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
@@ -41,57 +41,66 @@ public class DBAdmin implements EntryPoint {
 
 	}
 
+	@Override
 	public void onModuleLoad() {
 		final SingleUploader upload = new SingleUploader();
-		
+
 		service = GWT.create(TableService.class);
 
 		upload.setTitle("uploadFormElement");
 
 		upload.addOnFinishUploadHandler(new OnFinishUploaderHandler() {
 
+			@Override
 			public void onFinish(IUploader uploader) {
 				recordTable.clear();
 				service.getColumns(new AsyncCallback<ArrayList<String>>() {
 
+					@Override
 					public void onFailure(Throwable caught) {
 						// TODO Auto-generated method stub
 						Window.alert("Error: no se pudo cargar los nombres de las columnas");
 					}
 
+					@Override
 					public void onSuccess(ArrayList<String> result) {
 						// TODO Auto-generated method stub
-						HorizontalPanel p = new HorizontalPanel();
-						for (String c : result) {
-							TextBox tb = new TextBox();
+						final HorizontalPanel p = new HorizontalPanel();
+						for (final String c : result) {
+							final TextBox tb = new TextBox();
 							tb.setText(c);
 							p.add(tb);
 						}
 						recordTable.add(p);
-					}});
-				
+					}
+				});
+
 				service.getTable(new AsyncCallback<ArrayList<Record>>() {
 
+					@Override
 					public void onFailure(Throwable caught) {
 						// TODO error
 					}
 
+					@Override
 					public void onSuccess(ArrayList<Record> result) {
-						//build(result);
+						// build(result);
 						for (final Record r : result) {
-							HorizontalPanel p = new HorizontalPanel();
-							for (String s : r.getList()) {
-								TextBox tb = new TextBox();
+							final HorizontalPanel p = new HorizontalPanel();
+							for (final String s : r.getList()) {
+								final TextBox tb = new TextBox();
 								tb.setText(s);
 								p.add(tb);
 							}
-							Button b = new Button();
+							final Button b = new Button();
 							b.setText("SQL");
 							b.addClickHandler(new ClickHandler() {
 
+								@Override
 								public void onClick(ClickEvent event) {
 									Window.alert(r.getQuery());
-								}});
+								}
+							});
 							p.add(b);
 							recordTable.add(p);
 						}

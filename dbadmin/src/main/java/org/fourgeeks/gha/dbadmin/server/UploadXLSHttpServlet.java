@@ -1,4 +1,4 @@
-package org.fourgeeks.dbadmin.server;
+package org.fourgeeks.gha.dbadmin.server;
 
 import gwtupload.server.UploadAction;
 import gwtupload.server.exceptions.UploadActionException;

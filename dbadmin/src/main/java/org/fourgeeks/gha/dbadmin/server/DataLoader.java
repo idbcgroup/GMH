@@ -1,9 +1,9 @@
-package org.fourgeeks.dbadmin.server;
+package org.fourgeeks.gha.dbadmin.server;
 
 import java.io.File;
 import java.util.ArrayList;
 
-import org.fourgeeks.dbadmin.shared.Record;
+import org.fourgeeks.gha.dbadmin.shared.Record;
 
 import jxl.Sheet;
 import jxl.Workbook;

@@ -1,4 +1,4 @@
-package org.fourgeeks.dbadmin.shared;
+package org.fourgeeks.gha.dbadmin.shared;
 
 import java.io.Serializable;
 import java.util.ArrayList;

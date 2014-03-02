@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	
+
 	<groupId>gha</groupId>
 	<version>1</version>
 	<artifactId>dbadmin</artifactId>
@@ -70,32 +70,31 @@
 	</dependencies>
 
 	<build>
-		<!-- <outputDirectory>${webappDirectory}/WEB-INF/classes</outputDirectory> -->
 		<plugins>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>gwt-maven-plugin</artifactId>
-				<version>2.6.0</version>
-				<!-- <executions> -->
-				<!-- <execution> -->
-				<!-- <goals> -->
-				<!-- <goal>compile</goal> -->
-				<!-- <goal>test</goal> -->
-				<!-- <goal>i18n</goal> -->
-				<!-- <goal>generateAsync</goal> -->
-				<!-- </goals> -->
-				<!-- </execution> -->
-				<!-- </executions> -->
-				<!-- Plugin configuration. There are many available options, see gwt-maven-plugin 
-					documentation at codehaus.org -->
-				<!-- <configuration> -->
-				<!-- <runTarget>dbadmin.html</runTarget> -->
-				<!-- <hostedWebapp>${webappDirectory}</hostedWebapp> -->
-				<!-- <i18nMessagesBundle>org.fourgeeks.client.Messages</i18nMessagesBundle> -->
-				<!-- </configuration> -->
+				<version>${gwtVersion}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>generateAsync</goal>
+							<goal>compile</goal>
+<!-- 							<goal>test</goal> -->
+							<!-- <goal>i18n</goal> -->
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
-
-			<!-- Copy static web files before executing gwt:run -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
@@ -109,18 +108,23 @@
 						</goals>
 					</execution>
 				</executions>
-<!-- 				<configuration> -->
-<!-- 					<webappDirectory>${webappDirectory}</webappDirectory> -->
-<!-- 				</configuration> -->
+				<!-- <configuration> -->
+				<!-- <webappDirectory>${webappDirectory}</webappDirectory> -->
+				<!-- </configuration> -->
 			</plugin>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
-				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
-				</configuration>
+				<groupId>org.jboss.as.plugins</groupId>
+				<artifactId>jboss-as-maven-plugin</artifactId>
+				<version>7.5.Final</version>
+				<executions>
+					<!-- <execution> -->
+					<!-- <phase>install</phase> -->
+					<!-- <goals> -->
+					<!-- <goal>undeploy</goal> -->
+					<!-- <goal>deploy</goal> -->
+					<!-- </goals> -->
+					<!-- </execution> -->
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
