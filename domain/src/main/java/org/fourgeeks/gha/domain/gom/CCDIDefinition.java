@@ -9,8 +9,8 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import org.fourgeeks.gha.domain.AbstractEntity;
-import org.fourgeeks.gha.domain.enu.CCDIStatusEnum;
 import org.fourgeeks.gha.domain.enu.CCDICodeTypeEnum;
+import org.fourgeeks.gha.domain.enu.CCDIStatusEnum;
 
 /**
  * @author emiliot
@@ -18,7 +18,7 @@ import org.fourgeeks.gha.domain.enu.CCDICodeTypeEnum;
  */
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "code" }))
-@NamedQueries(value = { @NamedQuery(name = "CCDIDefinition.findByCode", query = "SELECT e from CCDIDefinition e WHERE e.code=:code") })
+@NamedQueries(value = { @NamedQuery(name = "CCDIDefinition.findByCode", query = "SELECT e from CCDIDefinition e WHERE LOWER(e.code)=LOWER(:code)") })
 public class CCDIDefinition extends AbstractEntity {
 
 	/**
