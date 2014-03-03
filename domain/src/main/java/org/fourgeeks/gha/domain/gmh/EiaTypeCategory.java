@@ -21,7 +21,7 @@ import org.fourgeeks.gha.domain.AbstractEntity;
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "code" }))
 @NamedQueries(value = {
 		@NamedQuery(name = "EiaTypeCategory.getAll", query = "SELECT category from EiaTypeCategory category ORDER BY category.code"),
-		@NamedQuery(name = "EiaTypeCategory.findByCode", query = "SELECT category from EiaTypeCategory category WHERE category.code=:code") })
+		@NamedQuery(name = "EiaTypeCategory.findByCode", query = "SELECT category from EiaTypeCategory category WHERE LOWER(category.code)=LOWER(:code)") })
 public class EiaTypeCategory extends AbstractEntity implements
 		Comparable<EiaTypeCategory> {
 
@@ -61,7 +61,7 @@ public class EiaTypeCategory extends AbstractEntity implements
 			return true;
 		if (!(arg0 instanceof EiaTypeCategory))
 			return false;
-		EiaTypeCategory other = (EiaTypeCategory) arg0;
+		final EiaTypeCategory other = (EiaTypeCategory) arg0;
 		return this.code.equals(other.getCode());
 	}
 

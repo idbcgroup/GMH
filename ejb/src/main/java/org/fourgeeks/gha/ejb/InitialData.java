@@ -244,7 +244,9 @@ public class InitialData {
 
 	/**
 	 * 
+	 *
 	 */
+	// TODO emilio tirador
 	private void ccdiLevelDefinitionTestData() {
 		InputStream in = null;
 		CSVReader reader = null;
@@ -265,7 +267,6 @@ public class InitialData {
 					if (strings[0].startsWith("#")
 							|| strings[0].startsWith("//"))
 						continue;
-
 					final CCDIDefinition definition = em
 							.createNamedQuery("CCDIDefinition.findByCode",
 									CCDIDefinition.class)
@@ -292,7 +293,7 @@ public class InitialData {
 
 			} catch (final Exception e1) {
 				logger.log(Level.INFO,
-						"error creating test ccdi level definition", e);
+						"error creating test ccdi level definition", e1);
 			}
 		} finally {
 			try {
@@ -370,7 +371,7 @@ public class InitialData {
 
 			} catch (final Exception e1) {
 				logger.log(Level.INFO, "error creating test ccdi level value",
-						e);
+						e1);
 			}
 		} finally {
 			try {
@@ -525,12 +526,12 @@ public class InitialData {
 			try {
 				logger.info("Creating test data: EiaTypeCategory");
 				final List<CCDILevelValue> ccdiCategories = em
-						.createNamedQuery(
-								"CCDILevelValue.findAllByDefinitionCode",
-								CCDILevelValue.class)
-						.setParameter("code", "EQUIPOS").getResultList();
-
+						.createNamedQuery("CCDILevelValue.findAll",
+								CCDILevelValue.class).getResultList();
 				for (final CCDILevelValue ccdi : ccdiCategories) {
+					if (!ccdi.getLevelDefinition().getDefinition().getCode()
+							.equalsIgnoreCase("EQUIPOS"))
+						continue;
 					final EiaTypeCategory category = new EiaTypeCategory();
 					category.setName(ccdi.getName());
 					category.setCode(ccdi.getCode());
@@ -541,7 +542,7 @@ public class InitialData {
 				em.flush();
 			} catch (final Exception e1) {
 				logger.log(Level.INFO,
-						"error Creating SubProtocolAndChecklist test data", e1);
+						"error Creating EiaTypeCategory test data", e1);
 			}
 		}
 	}
@@ -584,7 +585,7 @@ public class InitialData {
 				}
 
 			} catch (final Exception e1) {
-				logger.log(Level.INFO, "error creating eiatype test data", e);
+				logger.log(Level.INFO, "error creating eiatype test data", e1);
 			}
 		} finally {
 			try {
@@ -1270,10 +1271,10 @@ public class InitialData {
 		materialCategoryTestData();
 		materialTestData();
 		facilityTestData();
-		// // TODO
+		// //
 		eiaTypeCategoryTestData();
-		eiaTypeTestData();
-		eiaTestData();
+		// eiaTypeTestData();
+		// eiaTestData();
 		//
 		maintenanceActivityTestData();
 		subProtocolAndChecklistTestData();
