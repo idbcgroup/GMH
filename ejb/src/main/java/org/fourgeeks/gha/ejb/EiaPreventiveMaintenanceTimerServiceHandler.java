@@ -23,7 +23,8 @@ public class EiaPreventiveMaintenanceTimerServiceHandler implements
 	@EJB
 	PDTMessageProducerLocal messageService;
 
-	@EJB
+	@EJB(lookup = "java:global/ear-1/ejb-1/EiaMaintenancePlanificationService!"
+			+ "org.fourgeeks.gha.ejb.gmh.EiaMaintenancePlanificationServiceRemote")
 	EiaMaintenancePlanificationServiceRemote planifService;
 
 	@Override

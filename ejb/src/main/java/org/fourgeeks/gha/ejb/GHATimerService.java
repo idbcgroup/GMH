@@ -32,7 +32,7 @@ public class GHATimerService {
 	TimerParamsServiceLocal service;
 
 	/** */
-	@Schedule(minute = "*/1", hour = "*")
+	@Schedule(minute = "*/2", hour = "*")
 	public void checkTimers() {
 		logger.log(Level.INFO, "entrando en checkTimers");
 
