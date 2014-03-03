@@ -21,7 +21,7 @@ public class GHASelectItem extends SelectItem {
 		setHeight(20);
 		setWidth("*");
 		setPickerIconHeight(20);
-		
+
 		setOriginalStyle();
 		setShowFocused(false);
 		setAllowEmptyValue(true);
@@ -72,7 +72,7 @@ public class GHASelectItem extends SelectItem {
 		this();
 		setTitle(title);
 	}
-	
+
 	/**
 	 * @param title
 	 * @param width
@@ -116,7 +116,7 @@ public class GHASelectItem extends SelectItem {
 		setDisabled(!active);
 	}
 
-		/**
+	/**
 	 * @param title
 	 * @param enabled
 	 */
@@ -141,7 +141,7 @@ public class GHASelectItem extends SelectItem {
 	}
 
 	private void initialValidation() {
-		Boolean required = getRequired();
+		final Boolean required = getRequired();
 		if (required != null && required) {
 			if (validate()) {
 				setTextBoxStyle("select requiredValidated");
@@ -191,7 +191,7 @@ public class GHASelectItem extends SelectItem {
 	@Override
 	public void clearValue() {
 		super.clearValue();
-		Boolean required = getRequired();
+		final Boolean required = getRequired();
 		setOriginalStyle();
 		if (required != null && required)
 			setTextBoxStyle("select required");

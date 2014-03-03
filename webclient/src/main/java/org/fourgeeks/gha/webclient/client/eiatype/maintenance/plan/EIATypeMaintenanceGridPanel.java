@@ -15,8 +15,8 @@ import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAFormLayout;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanAddForm;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanSearchForm;
@@ -38,7 +38,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class EIATypeMaintenanceGridPanel extends GHAFormLayout implements
-ClosableListener, HideableListener, EIATypeSelectionListener {
+		ClosableListener, HideableListener, EIATypeSelectionListener {
 
 	private EiaTypeMaintenancePlanGrid grid;
 	private EiaType eiaType;
@@ -58,11 +58,11 @@ ClosableListener, HideableListener, EIATypeSelectionListener {
 			EiaTypeMaintenancePlanModel.save(entity,
 					new GHAAsyncCallback<EiaTypeMaintenancePlan>() {
 
-				@Override
-				public void onSuccess(EiaTypeMaintenancePlan result) {
-					loadData();
-				}
-			});
+						@Override
+						public void onSuccess(EiaTypeMaintenancePlan result) {
+							loadData();
+						}
+					});
 		}
 	};
 
@@ -72,7 +72,7 @@ ClosableListener, HideableListener, EIATypeSelectionListener {
 		searchForm = new MaintenancePlanSearchForm(
 				GHAStrings.get("maintenance-plan"));
 		searchForm
-		.addMaintenancePlanSelectionListener(maintenancePlanSelectionListener);
+				.addMaintenancePlanSelectionListener(maintenancePlanSelectionListener);
 		addForm = new MaintenancePlanAddForm(
 				GHAStrings.get("new-maintenance-plan"));
 		addForm.addMaintenancePlanSelectionListener(maintenancePlanSelectionListener);
@@ -92,14 +92,14 @@ ClosableListener, HideableListener, EIATypeSelectionListener {
 						search();
 
 					}
-				}),/* new GHANewButton(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				addForm.open();
-
-			}
-		}),*/ new GHADeleteButton(new ClickHandler() {
+				}),/*
+					 * new GHANewButton(new ClickHandler() {
+					 * 
+					 * @Override public void onClick(ClickEvent event) {
+					 * addForm.open();
+					 * 
+					 * } }),
+					 */new GHADeleteButton(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
@@ -140,21 +140,21 @@ ClosableListener, HideableListener, EIATypeSelectionListener {
 		GHAAlertManager.confirm("eiatype-maintenance-plan-delete-confirm",
 				new BooleanCallback() {
 
-			@Override
-			public void execute(Boolean value) {
-				if (value) {
-					EiaTypeMaintenancePlanModel.delete(entity.getId(),
-							new GHAAsyncCallback<Void>() {
+					@Override
+					public void execute(Boolean value) {
+						if (value) {
+							EiaTypeMaintenancePlanModel.delete(entity.getId(),
+									new GHAAsyncCallback<Void>() {
 
-						@Override
-						public void onSuccess(Void result) {
-							grid.removeSelectedData();
+										@Override
+										public void onSuccess(Void result) {
+											grid.removeSelectedData();
+										}
+									});
 						}
-					});
-				}
 
-			}
-		});
+					}
+				});
 	}
 
 	@Override
@@ -169,14 +169,14 @@ ClosableListener, HideableListener, EIATypeSelectionListener {
 		EiaTypeMaintenancePlanModel.findByEiaType(this.eiaType,
 				new GHAAsyncCallback<List<EiaTypeMaintenancePlan>>() {
 
-			@Override
-			public void onSuccess(List<EiaTypeMaintenancePlan> result) {
-				ListGridRecord array[] = EiaTypeMaintenancePlanUtil
-						.toMaintenancePlanGridRecords(result).toArray(
-								new EiaTypeMaintenancePlanRecord[] {});
-				grid.setData(array);
-			}
-		});
+					@Override
+					public void onSuccess(List<EiaTypeMaintenancePlan> result) {
+						ListGridRecord array[] = EiaTypeMaintenancePlanUtil
+								.toMaintenancePlanGridRecords(result).toArray(
+										new EiaTypeMaintenancePlanRecord[] {});
+						grid.setData(array);
+					}
+				});
 	}
 
 	private void search() {
@@ -198,5 +198,4 @@ ClosableListener, HideableListener, EIATypeSelectionListener {
 		this.eiaType = eiaType;
 		loadData();
 	}
-
 }

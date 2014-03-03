@@ -101,8 +101,10 @@ public class GHAEiaTypeCategorySelectItem extends GHASelectItem {
 
 					@Override
 					public void onSuccess(List<EiaTypeCategory> result) {
-						for (EiaTypeCategory category : result)
+						String s = "";
+						for (EiaTypeCategory category : result) {
 							valueMap.put(category.getCode(), category.getName());
+						}
 						setValueMap(valueMap);
 					}
 				});

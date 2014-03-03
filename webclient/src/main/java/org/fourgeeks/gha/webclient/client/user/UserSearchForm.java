@@ -3,7 +3,7 @@ package org.fourgeeks.gha.webclient.client.user;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.fourgeeks.gha.domain.ess.SSOUser;
+import org.fourgeeks.gha.domain.ess.auth.SSOUser;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;

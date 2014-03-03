@@ -30,11 +30,13 @@ public class EiaTypeCategoryService extends GHAEJBExceptionService implements
 	@Override
 	public List<EiaTypeCategory> getAll() throws GHAEJBException {
 		try {
-			return em.createNamedQuery("EiaTypeCategory.getAll",
-					EiaTypeCategory.class).getResultList();
+			List<EiaTypeCategory> res = em.createNamedQuery(
+					"EiaTypeCategory.getAll", EiaTypeCategory.class)
+					.getResultList();
+			return res;
 		} catch (final Exception ex) {
 			logger.log(Level.SEVERE, "Error retrieving all eiatypes", ex);
-			throw super.generateGHAEJBException("eiatype-getAll-fail",
+			throw super.generateGHAEJBException("eiatypecategory-getall-fail",
 					RuntimeParameters.getLang(), em);
 		}
 	}

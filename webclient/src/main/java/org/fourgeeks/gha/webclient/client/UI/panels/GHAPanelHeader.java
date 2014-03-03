@@ -68,6 +68,41 @@ HideableListener, ClosableListener {
 	}
 
 	/**
+	 * @param clickHandler
+	 * @param imgSrc
+	 *            Known values: "limpiarButton", "agregarButton", "cerrarButton"
+	 * @return
+	 */
+	private GHAHeaderOption addSelectableOption(String text, String imgSrc,
+			ClickHandler clickHandler) {
+		final GHAHeaderOption selectableOption = new GHAHeaderOption(text + "...",
+				GHAUiHelper.DEFAULT_HEADER_OPTION_WIDTH, true,
+				"../resources/img/" + imgSrc + ".png", "../resources/img/"
+						+ imgSrc + "Over.png");
+		selectableOption.addClickHandler(clickHandler);
+		addMember(selectableOption, memberPos++);
+		selectables.add(selectableOption);
+		return selectableOption;
+	}
+
+	/**
+	 * @param clickHandler
+	 * @param imgSrc
+	 *            Known values: "limpiarButton", "agregarButton", "cerrarButton"
+	 * @return
+	 */
+	private GHAHeaderOption addNonselectableOption(String text, String imgSrc,
+			ClickHandler clickHandler) {
+		final GHAHeaderOption nonSelectableOption = new GHAHeaderOption(text + "...",
+				GHAUiHelper.DEFAULT_HEADER_OPTION_WIDTH, true,
+				"../resources/img/" + imgSrc + ".png", "../resources/img/"
+						+ imgSrc + "Over.png");
+		nonSelectableOption.addClickHandler(clickHandler);
+		addMember(nonSelectableOption, memberPos++);
+		return nonSelectableOption;
+	}
+
+	/**
 	 * Add the add option
 	 * 
 	 * @param clickHandler
@@ -75,15 +110,7 @@ HideableListener, ClosableListener {
 	 * @return the add option
 	 */
 	public GHAHeaderOption addAddOption(ClickHandler clickHandler) {
-		final GHAHeaderOption addOption = new GHAHeaderOption(
-				GHAStrings.get("add") + "...",
-				GHAUiHelper.DEFAULT_HEADER_OPTION_WIDTH, true,
-				"../resources/img/agregarButton.png",
-				"../resources/img/agregarButtonOver.png");
-		addOption.addClickHandler(clickHandler);
-		addMember(addOption, memberPos++);
-		selectables.add(addOption);
-		return addOption;
+		return addSelectableOption(GHAStrings.get("add"), "agregarButton", clickHandler);
 	}
 
 	/**
@@ -95,14 +122,18 @@ HideableListener, ClosableListener {
 	 */
 	@Deprecated
 	public GHAHeaderOption addCleanOption(ClickHandler clickHandler) {
-		final GHAHeaderOption cleanOption = new GHAHeaderOption(
-				GHAStrings.get("clean") + "...",
-				GHAUiHelper.DEFAULT_HEADER_OPTION_WIDTH, true,
-				"../resources/img/limpiarButton.png",
-				"../resources/img/limpiarButtonOver.png");
-		cleanOption.addClickHandler(clickHandler);
-		addMember(cleanOption, memberPos++);
-		return cleanOption;
+		return addNonselectableOption(GHAStrings.get("clean"), "limpiarButton", clickHandler);
+	}
+
+	/**
+	 * Add the search option
+	 * 
+	 * @param clickHandler
+	 *            the action to be taken when the user clicks
+	 * @return the search option
+	 */
+	public GHAHeaderOption addSearchOption(ClickHandler clickHandler) {
+		return addSelectableOption(GHAStrings.get("search"), "buscarButton", clickHandler);
 	}
 
 	/**
@@ -116,42 +147,7 @@ HideableListener, ClosableListener {
 	 */
 	public GHAHeaderOption addDebugOption(String title,
 			ClickHandler clickHandler) {
-		final GHAHeaderOption debugOption = new GHAHeaderOption(title + "...",
-				GHAUiHelper.DEFAULT_HEADER_OPTION_WIDTH, true,
-				"../resources/img/limpiarButton.png",
-				"../resources/img/limpiarButtonOver.png");
-		debugOption.addClickHandler(clickHandler);
-		addMember(debugOption, memberPos++);
-		return debugOption;
-	}
-
-	/**
-	 * @param clickHandler
-	 * @param imgSrc
-	 *            Known values: "limpiarButton", "agregarButton", "cerrarButton"
-	 * @return
-	 */
-	private GHAHeaderOption addOption(String text, String imgSrc,
-			ClickHandler clickHandler) {
-		final GHAHeaderOption searchOption = new GHAHeaderOption(text + "...",
-				GHAUiHelper.DEFAULT_HEADER_OPTION_WIDTH, true,
-				"../resources/img/" + imgSrc + ".png", "../resources/img/"
-						+ imgSrc + "Over.png");
-		searchOption.addClickHandler(clickHandler);
-		addMember(searchOption, memberPos++);
-		selectables.add(searchOption);
-		return searchOption;
-	}
-
-	/**
-	 * Add the search option
-	 * 
-	 * @param clickHandler
-	 *            the action to be taken when the user clicks
-	 * @return the search option
-	 */
-	public GHAHeaderOption addSearchOption(ClickHandler clickHandler) {
-		return addOption(GHAStrings.get("search"), "buscarButton", clickHandler);
+		return addNonselectableOption(title, "limpiarButton", clickHandler);
 	}
 
 	@Override

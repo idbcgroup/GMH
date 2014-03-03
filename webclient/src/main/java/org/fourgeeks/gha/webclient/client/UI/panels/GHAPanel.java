@@ -20,7 +20,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public abstract class GHAPanel extends VLayout implements ClosableListener,
-		HideableListener, ClosableProducer, HideableProducer {
+HideableListener, ClosableProducer, HideableProducer {
 
 	protected GHAPanelHeader header;
 	protected VLayout verticalPanel = new VLayout();
@@ -29,8 +29,6 @@ public abstract class GHAPanel extends VLayout implements ClosableListener,
 	protected TabStatus currentStatus = TabStatus.INIT;
 
 	/**
-	 * @param header
-	 * @param token
 	 * 
 	 */
 	public GHAPanel() {
@@ -47,10 +45,10 @@ public abstract class GHAPanel extends VLayout implements ClosableListener,
 
 	@Override
 	public void close() throws UnavailableToCloseException {
-		for (ClosableListener closable : closables)
+		for (final ClosableListener closable : closables)
 			try {
 				closable.close();
-			} catch (Exception e) {
+			} catch (final Exception e) {
 				throw new UnavailableToCloseException(e);
 			}
 		removeFromParent();
@@ -59,10 +57,10 @@ public abstract class GHAPanel extends VLayout implements ClosableListener,
 
 	@Override
 	public void hide() throws UnavailableToHideException {
-		for (HideableListener hideable : hideables)
+		for (final HideableListener hideable : hideables)
 			try {
 				hideable.hide();
-			} catch (UnavailableToHideException e) {
+			} catch (final UnavailableToHideException e) {
 				throw new UnavailableToHideException(e);
 			}
 
@@ -71,7 +69,7 @@ public abstract class GHAPanel extends VLayout implements ClosableListener,
 
 	@Override
 	public boolean canBeHidden(HideCloseAction hideAction) {
-		for (HideableListener hideable : hideables)
+		for (final HideableListener hideable : hideables)
 			if (!hideable.canBeHidden(hideAction))
 				return false;
 		return true;
@@ -79,7 +77,7 @@ public abstract class GHAPanel extends VLayout implements ClosableListener,
 
 	@Override
 	public boolean canBeClosen(HideCloseAction closeAction) {
-		for (ClosableListener closable : closables)
+		for (final ClosableListener closable : closables)
 			if (!closable.canBeClosen(closeAction))
 				return false;
 		return true;

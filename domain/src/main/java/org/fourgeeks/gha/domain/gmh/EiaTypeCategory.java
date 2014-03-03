@@ -20,9 +20,10 @@ import org.fourgeeks.gha.domain.AbstractEntity;
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "code" }))
 @NamedQueries(value = {
-		@NamedQuery(name = "EiaTypeCategory.getAll", query = "SELECT category from EiaTypeCategory category ORDER BY category.name"),
+		@NamedQuery(name = "EiaTypeCategory.getAll", query = "SELECT category from EiaTypeCategory category ORDER BY category.code"),
 		@NamedQuery(name = "EiaTypeCategory.findByCode", query = "SELECT category from EiaTypeCategory category WHERE category.code=:code") })
-public class EiaTypeCategory extends AbstractEntity {
+public class EiaTypeCategory extends AbstractEntity implements
+		Comparable<EiaTypeCategory> {
 
 	/**
 	 * 
@@ -47,6 +48,23 @@ public class EiaTypeCategory extends AbstractEntity {
 		this.code = code;
 	}
 
+	@Override
+	public int compareTo(EiaTypeCategory arg0) {
+		return code.compareTo(arg0.getCode());
+	}
+
+	@Override
+	public boolean equals(Object arg0) {
+		if (arg0 == null)
+			return false;
+		if (this == arg0)
+			return true;
+		if (!(arg0 instanceof EiaTypeCategory))
+			return false;
+		EiaTypeCategory other = (EiaTypeCategory) arg0;
+		return this.code.equals(other.getCode());
+	}
+
 	public String getCode() {
 		return code;
 	}
@@ -57,6 +75,11 @@ public class EiaTypeCategory extends AbstractEntity {
 
 	public ServiceResourceCategory getsRCategory() {
 		return sRCategory;
+	}
+
+	@Override
+	public int hashCode() {
+		return code.hashCode();
 	}
 
 	public void setCode(String code) {

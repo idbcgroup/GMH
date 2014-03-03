@@ -45,14 +45,14 @@ import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.enu.UserLogonStatusEnum;
 import org.fourgeeks.gha.domain.enu.WarrantySinceEnum;
 import org.fourgeeks.gha.domain.ess.LocationType;
-import org.fourgeeks.gha.domain.ess.Role;
-import org.fourgeeks.gha.domain.ess.SSOUser;
 import org.fourgeeks.gha.domain.ess.WorkingArea;
-import org.fourgeeks.gha.domain.ess.ui.AppForm;
-import org.fourgeeks.gha.domain.ess.ui.AppFormView;
-import org.fourgeeks.gha.domain.ess.ui.AppFormViewFunction;
-import org.fourgeeks.gha.domain.ess.ui.AppFormViewFunctionBpu;
-import org.fourgeeks.gha.domain.ess.ui.Function;
+import org.fourgeeks.gha.domain.ess.auth.Function;
+import org.fourgeeks.gha.domain.ess.auth.FunctionBpu;
+import org.fourgeeks.gha.domain.ess.auth.Role;
+import org.fourgeeks.gha.domain.ess.auth.SSOUser;
+import org.fourgeeks.gha.domain.ess.ui.App;
+import org.fourgeeks.gha.domain.ess.ui.AppView;
+import org.fourgeeks.gha.domain.ess.ui.ViewFunction;
 import org.fourgeeks.gha.domain.ess.ui.Module;
 import org.fourgeeks.gha.domain.ess.ui.View;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
@@ -94,8 +94,8 @@ import org.fourgeeks.gha.domain.msg.GHAMessageId;
 import org.fourgeeks.gha.domain.msg.GHAMessageType;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.RuntimeParameters;
-import org.fourgeeks.gha.ejb.ess.SSOUserService;
-import org.fourgeeks.gha.ejb.ess.SSOUserServiceRemote;
+import org.fourgeeks.gha.ejb.ess.auth.SSOUserService;
+import org.fourgeeks.gha.ejb.ess.auth.SSOUserServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.BrandService;
 import org.fourgeeks.gha.ejb.gmh.BrandServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.EiaMaintenanceService;
@@ -104,19 +104,22 @@ import org.fourgeeks.gha.ejb.log.UILogService;
 import org.fourgeeks.gha.ejb.log.UILogServiceLocal;
 import org.fourgeeks.gha.ejb.log.UILogServiceRemote;
 import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
  * @author emiliot
  * 
  */
 
-// @RunWith(Arquillian.class)
+@RunWith(Arquillian.class)
 public class CCDIServiceTest {
 	/**
 	 * @return the deployment descriptor
@@ -147,11 +150,11 @@ public class CCDIServiceTest {
 				.addClass(UILogServiceLocal.class)
 				.addClass(ServiceResourceCategory.class)
 				.addClass(ServiceAndResource.class)
-				.addClass(AppFormView.class)
-				.addClass(AppFormViewFunction.class)
-				.addClass(AppFormViewFunctionBpu.class)
+				.addClass(AppView.class)
+				.addClass(ViewFunction.class)
+				.addClass(FunctionBpu.class)
 				.addClass(Function.class)
-				.addClass(AppForm.class)
+				.addClass(App.class)
 				.addClass(Module.class)
 				.addClass(BpiInstitutionRelationTypeEnum.class)
 				.addClass(BpiOriginEnum.class)
@@ -171,6 +174,7 @@ public class CCDIServiceTest {
 				.addClass(Obu.class)
 				.addClass(CCDILevelValue.class)
 				.addClass(CCDIServiceRemote.class)
+				.addClass(CCDIServiceLocal.class)
 				.addClass(CCDIService.class)
 				.addClass(CCDIEndValueActionEnum.class)
 				.addClass(CCDIValueStatusEnum.class)
@@ -233,7 +237,7 @@ public class CCDIServiceTest {
 				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
-	@EJB(lookup = "java:global/test/CCDIService")
+	@EJB(lookup = "java:global/ear-1/ejb-1/CCDIService!org.fourgeeks.gha.ejb.gom.CCDIServiceRemote")
 	CCDIServiceRemote ccdiService;
 
 	/**
@@ -244,7 +248,7 @@ public class CCDIServiceTest {
 
 	/**
 	 */
-	// @Test
+	@Test
 	public void test() {
 		System.out.println("TESTING CCDI SERVICE\n\n\n");
 
@@ -469,7 +473,7 @@ public class CCDIServiceTest {
 			String farm01 = ccdiService.getNextElementCode(pharmacsValue
 					.getCode());
 			Assert.assertNotNull(farm01);
-			Assert.assertEquals("T0400000001", farm01);
+			Assert.assertEquals("T04XXXX0001", farm01);
 
 		} catch (GHAEJBException e) {
 			System.out.println("error getting ccdilevelValue in test\n");

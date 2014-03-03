@@ -1,6 +1,6 @@
 package org.fourgeeks.gha.webclient.client.user;
 
-import org.fourgeeks.gha.domain.ess.SSOUser;
+import org.fourgeeks.gha.domain.ess.auth.SSOUser;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.grids.GhaGrid;
 import org.fourgeeks.gha.webclient.client.UI.grids.tree.GHATreeGridField;

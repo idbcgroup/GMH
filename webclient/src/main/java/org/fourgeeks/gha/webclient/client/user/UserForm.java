@@ -12,7 +12,7 @@ import javax.validation.ConstraintViolation;
 import org.fourgeeks.gha.domain.enu.DocumentTypeEnum;
 import org.fourgeeks.gha.domain.enu.GenderTypeEnum;
 import org.fourgeeks.gha.domain.enu.UserLogonStatusEnum;
-import org.fourgeeks.gha.domain.ess.SSOUser;
+import org.fourgeeks.gha.domain.ess.auth.SSOUser;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.mix.Bpi;
 import org.fourgeeks.gha.domain.mix.Citizen;
@@ -44,8 +44,8 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
 public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer {
 
 	private GHATextItem usernameItem, passwordItem, confirmPasswordItem,
-			idItem, firstNameItem, secondNameItem, lastNameItem,
-			secondLastNameItem, nationalityItem, legalEntityIdentifierItem;
+	idItem, firstNameItem, secondNameItem, lastNameItem,
+	secondLastNameItem, nationalityItem, legalEntityIdentifierItem;
 	private GHASelectItem typeidSelectItem, genderSelectItem, bpiSelectItem;
 	private GHADateItem birthDateItem;
 	private GHAEmailTextItem primaryEmailItem, alternativeEmailItem;
@@ -148,7 +148,7 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 				"^[VvMmPprREeJjIiGg0-9|-]+$");
 
 		legalEntityIdentifierItem
-				.setTooltip(GHAStrings.get("user-tooltip-rif"));
+		.setTooltip(GHAStrings.get("user-tooltip-rif"));
 
 		listeners = new ArrayList<UserSelectionListener>();
 
@@ -338,7 +338,7 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 
 		if (!violationsBpi.isEmpty())
 			for (final Iterator<ConstraintViolation<Bpi>> it = violationsBpi
-					.iterator(); it.hasNext();)
+			.iterator(); it.hasNext();)
 				violationsList.add(it.next().getMessage());
 
 		if (passwordItem.getValue() == null)
@@ -352,7 +352,8 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 		if (form.validate() && violationsList.isEmpty()) {
 			return ssoUser;
 		} else {
-			GHAAlertManager.alert(violationsList);
+			//			GHAAlertManager.alert(violationsList);
+			GHAAlertManager.alert(violationsList.get(0));
 		}
 
 		return null;
@@ -481,7 +482,7 @@ public class UserForm extends GHAForm<SSOUser> implements UserSelectionProducer 
 				}
 				if (citizen.getAlternativeEmail() != null) {
 					alternativeEmailItem
-							.setValue(citizen.getAlternativeEmail());
+					.setValue(citizen.getAlternativeEmail());
 				}
 				if (citizen.getLegalEntity() != null
 						&& citizen.getLegalEntity().getIdentifier() != null) {

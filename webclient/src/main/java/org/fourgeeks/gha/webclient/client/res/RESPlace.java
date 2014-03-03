@@ -6,25 +6,14 @@ import org.fourgeeks.gha.webclient.client.UI.exceptions.PermissionsNeededExcepti
 import org.fourgeeks.gha.webclient.client.UI.places.GHAPlaceHeader;
 import org.fourgeeks.gha.webclient.client.UI.places.NeedPermissionPlace;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
-import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabPanel;
-import org.fourgeeks.gha.webclient.client.citizen.CitizenAddForm;
-import org.fourgeeks.gha.webclient.client.citizen.CitizenSearchForm;
 import org.fourgeeks.gha.webclient.client.res.citizen.CitizenTab;
-
-import com.google.gwt.user.client.History;
-import com.smartgwt.client.widgets.events.ClickEvent;
-import com.smartgwt.client.widgets.events.ClickHandler;
 
 /**
  * @author alacret
  * 
  */
 public class RESPlace extends NeedPermissionPlace {
-	private final GHATabPanel tabPanel = new GHATabPanel(GHAStrings.get("res"));
-	private final CitizenAddForm citizenAddForm = new CitizenAddForm(
-			GHAStrings.get("citizen-new"));
-	private final CitizenSearchForm citizenSearchForm = new CitizenSearchForm(
-			GHAStrings.get("citizen-search"));
+	private final RESTabbedPanel tabPanel;
 
 	/**
 	 * @param token
@@ -32,37 +21,11 @@ public class RESPlace extends NeedPermissionPlace {
 	 * @throws LoginNeededException
 	 */
 	public RESPlace(String token) throws LoginNeededException,
-			PermissionsNeededException {
+	PermissionsNeededException {
 		super(token);
+		tabPanel = new RESTabbedPanel(GHAStrings.get("res"), this);
 		header = new GHAPlaceHeader(this);
 		addMember(tabPanel);
-		tabPanel.addHeaderOption(GHAStrings.get("citizen-search"),
-				"buscarButton", new ClickHandler() {
-
-					@Override
-					public void onClick(ClickEvent event) {
-						citizenSearchForm.open();
-					}
-				});
-		tabPanel.addHeaderOption(GHAStrings.get("citizen-new"),
-				"agregarButton", new ClickHandler() {
-
-					@Override
-					public void onClick(ClickEvent event) {
-						citizenAddForm.open();
-						History.newItem("res/" + Math.round(Math.random() * 10));
-					}
-				});
-		tabPanel.addHeaderOption(GHAStrings.get("close"), "cerrarButton",
-				new ClickHandler() {
-
-					@Override
-					public void onClick(ClickEvent event) {
-						// History.newItem("res/" + Math.round(Math.random() *
-						// 10));
-					}
-				});
-
 	}
 
 	@Override

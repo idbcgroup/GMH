@@ -1,44 +1,185 @@
 #CCDILevelValue(ccdiDefinition,level,parent,name,code,nextValue,fixedvalue,status[active,inactive],nextElement)
-MATERIAL,0,,MATERIAL,0,0,0,0,1
-MATERIAL,1,0,SUMINISTROS,01,3,1,0,1
-MATERIAL,1,0,FARMACOS,04,2,4,0,1
-MATERIAL,2,01,AGUJAS,0101,3,,0,1
-MATERIAL,2,01,INYECTADORAS,0102,2,,0,1
-MATERIAL,2,04,ANTIBIOTICOS,0401,2,,0,1
-MATERIAL,3,0101,HIPODERMICAS,010101,1,,0,1
-MATERIAL,3,0101,PUNCION,010102,1,,0,1
-MATERIAL,3,0102,INSULINA,010201,1,,0,1
-MATERIAL,3,0401,PENICILINA,040101,1,,0,1
-EQUIPOS,0,,EQUIPOS,3,1,3,0,6
-EQUIPOS,1,3,EQUIPOS ADMINISTRACION,30,1,0,0,1
-EQUIPOS,1,3,EQUIPOS LOGISTICA,32,1,2,0,1
-EQUIPOS,1,3,EQUIPOS OPERACIONES,34,1,4,0,1
-EQUIPOS,1,3,EQUIPOS HOSPITALIDAD,37,1,7,0,1
-EQUIPOS,1,3,EQUIPOS ASISTENCIALES,38,1,8,0,1
-EQUIPOS,2,30,EQUIPOS MOBILIARIO Y OFICINA,3010,0,10,0,1
-EQUIPOS,2,32,EQUIPOS MEDICACION Y DIAGNOSTICO,3200,0,00,0,1
-EQUIPOS,2,32,MOBILIARIO CLINICO,3220,0,20,0,1
-EQUIPOS,2,34,EQUIPOS DE PRESION Y VOLUMEN,3400,4,00,0,1
-EQUIPOS,2,37,MOBILIARIO CLINICO,3700,0,00,0,1
-EQUIPOS,2,38,EQUIPOS QUIRURGICOS,3801,0,01,0,1
-EQUIPOS,2,38,INSTRUMENTAL QUIRURGICO,3820,4,20,0,1
-EQUIPOS,2,38,EQUIPOS DE TRATAMIENTOS,3830,4,30,0,1
-EQUIPOS,2,38,EQUIPOS MEDICOS DE MEDICION Y APRECIACION,3840,0,40,0,1
-EQUIPOS,2,38,EQUIPOS Y ACCESORIOS DE CONFORT,3860,2,60,0,1
-EQUIPOS,2,38,SENSORES,3870,18,70,0,1
-EQUIPOS,3,3400,MANOMETROS,340000,0,,0,1
-EQUIPOS,3,3400,FLUJOMETROS DE AIRE,340002,0,,0,1
-EQUIPOS,3,3820,PINZAS,382000,0,,0,1
-EQUIPOS,3,3820,TIJERAS/ENGRAPADORA Y RECARGA QUIRURGICA,382002,0,,0,1
-EQUIPOS,3,3830,DESFIBRILADORES,383000,0,,0,1
-EQUIPOS,3,3830,DESHUMIFICADORES,383002,0,,0,1
-EQUIPOS,3,3860,COLCHON ANTIESCARA,386000,0,,0,1
-EQUIPOS,3,3870,FLUIDO,387000,0,,0,1
-EQUIPOS,3,3870,INDICE,387002,0,,0,1
-EQUIPOS,3,3870,NELCOR,387004,0,,0,1
-EQUIPOS,3,3870,OXISENSOR,387006,0,,0,1
-EQUIPOS,3,3870,SATURACION,387008,0,,0,1
-EQUIPOS,3,3870,SPO2,387010,0,,0,1
-EQUIPOS,3,3870,TELA,387012,0,,0,1
-EQUIPOS,3,3870,TEMPERATURA,387014,0,,0,1
-EQUIPOS,3,3870,VENTILACION,387016,0,,0,1
+#Materiales Nivel 0
+Material,0,,Material,0,0,0,0,1
+#Materiales Nivel 1
+Material,1,0,Sets y Kits de Suministros y Fármacos,00,41,0,0,1
+Material,1,0,Suministros Médicos,01,168,1,0,1
+Material,1,0,Papelería y artículos de oficina,02,0,2,0,1
+Material,1,0,Materiales y reactivos Laboratorio,03,0,3,0,1
+Material,1,0,Fármacos,04,11,4,0,1
+Material,1,0,Consumibles y Repuestos de Equipos,05,0,5,0,1
+Material,1,0,Aseo y limpieza,06,0,6,0,1
+Material,1,0,Vestimenta y Material Hospitalidad,07,81,7,0,1
+Material,1,0,Nutrición y Víveres,08,2,8,0,1
+Material,1,0,Misceláneos,09,0,9,0,1
+#Materiales Nivel 2
+Material,2,00,Set Suministros Médicos,0010,86,,0,1
+Material,2,00,Set Fármacos,0020,6,,0,1
+Material,2,00,Kits Asistenciales,0030,59,,0,1
+Material,2,00,Kits Quirúrgicos,0040,89,,0,1
+#
+Material,2,01,Adhesivo y Pegamentos,0100,25,,0,1
+Material,2,01,Apositos,0165,0,,0,1
+Material,2,01,Agujas,0101,0,,0,1
+Material,2,01,Alimentación,0102,0,,0,1
+Material,2,01,Aplicadores y Baja Lenguas,0103,0,,0,1
+Material,2,01,Asepsia/Higiene,0104,0,,0,1
+Material,2,01,Aspiradores/Succionadores,0130,0,,0,1
+Material,2,01,Autosuturas,Tijeras,Cargas y Pistolas,0105,0,,0,1
+Material,2,01,Bandejas,0106,0,,0,1
+Material,2,01,Bolsas,0107,0,,0,1
+Material,2,01,Cánulas,0108,0,,0,1
+Material,2,01,Cartuchos,0109,0,,0,1
+Material,2,01,Cateter/Balones,0110,0,,0,1
+Material,2,01,Circuitos y Complementos,0111,0,,0,1
+Material,2,01,Compresas,0112,0,,0,1
+Material,2,01,Conectores,0113,0,,0,1
+Material,2,01,Desinfectantes,0114,0,,0,1
+Material,2,01,Dispositivos Médicos,0115,0,,0,1
+Material,2,01,Drenajes,0116,0,,0,1
+Material,2,01,Electrodos,0117,0,,0,1
+Material,2,01,Endoscopia,0118,0,,0,1
+Material,2,01,Espéculos,0120,0,,0,1
+Material,2,01,Extensiones,0121,0,,0,1
+Material,2,01,Filtros,0122,0,,0,1
+Material,2,01,Gasas,0119,0,,0,1
+Material,2,01,Guantes,0123,0,,0,1
+Material,2,01,Guías-Guiadores,0124,0,,0,1
+Material,2,01,Identificación Paciente,0125,0,,0,1
+Material,2,01,Infusión,0126,0,,0,1
+Material,2,01,Introductor,0128,0,,0,1
+Material,2,01,Inyectores,0129,0,,0,1
+Material,2,01,Jeringas,0131,0,,0,1
+Material,2,01,Lubricantes,0132,0,,0,1
+Material,2,01,Mallas,0166,0,,0,1
+Material,2,01,Máscaras,0167,0,,0,1
+Material,2,01,Mascarillas y Complementos,0133,0,,0,1
+Material,2,01,Material de Corte/Bisturí/Cuchillete,0134,0,,0,1
+Material,2,01,Material de Cura,0135,0,,0,1
+Material,2,01,Material de Especialización,0136,0,,0,1
+Material,2,01,Material de Esterilización,0137,0,,0,1
+Material,2,01,Material de Extracción,0138,0,,0,1
+Material,2,01,Material de Inmovilización,0139,0,,0,1
+Material,2,01,Material de Insuflación/Suflación,0140,0,,0,1
+Material,2,01,Material de Sintesis,0141,0,,0,1
+Material,2,01,Obturadores,0143,0,,0,1
+Material,2,01,Oftalmología,0144,0,,0,1
+Material,2,01,Otros,0145,0,,0,1
+Material,2,01,Papilotomo,0146,0,,0,1
+Material,2,01,Posicionamiento Partes Paciente,0147,0,,0,1
+Material,2,01,Preoperatorio,0148,0,,0,1
+Material,2,01,Protectores,0168,0,,0,1
+Material,2,01,Prótesis,0149,0,,0,1
+Material,2,01,Quirúrgico,0150,0,,0,1
+Material,2,01,Material de Radiología,0151,0,,0,1
+Material,2,01,Recolectores-Reservorios,0152,0,,0,1
+Material,2,01,Respiración/Resucitadores,0153,0,,0,1
+Material,2,01,Retractores,0154,0,,0,1
+Material,2,01,Sistemas,0155,0,,0,1
+Material,2,01,Sondas,0156,0,,0,1
+Material,2,01,Sujetadores,0157,0,,0,1
+Material,2,01,Suturas,0158,0,,0,1
+Material,2,01,Traumatología,0159,0,,0,1
+Material,2,01,Trocar,0160,0,,0,1
+Material,2,01,Tubos,0161,0,,0,1
+Material,2,01,Uso personal paciente,0162,0,,0,1
+Material,2,01,Válvulas,0163,0,,0,1
+Material,2,01,Vendas,0164,0,,0,1
+#
+Material,2,04,Medicinas,0400,0,,0,1
+Material,2,04,Soluciones,0410,0,,0,1
+#
+Material,2,07,Vestimenta Médica,0700,0,,0,1
+Material,2,07,Vestimenta de Paciente,0710,,0,1
+Material,2,07,Vestimenta de Trabajo,0720,,0,1
+Material,2,07,Campos,0730,0,,0,1
+Material,2,07,Fundas,0740,0,,0,1
+Material,2,07,Mantas y colchones especiales,0750,0,,0,1
+Material,2,07,Lencería,0760,0,,0,1
+Material,2,07,Toallas,0765,0,,0,1
+Material,2,07,Material de uso de Paciente,0770,0,,0,1
+Material,2,07,Limpieza personal e Higiene,0775,0,,0,1
+Material,2,07,Cortinas y Decoración,0780,0,,0,1
+#
+Material,2,08,Nutrición,0801,0,,0,1
+#Material nivel 3
+Material,3,0010,Set Suministros General,001000,0,,0,1
+Material,3,0010,Set Suministros Obstetricia,001058,0,,0,1
+Material,3,0010,Set Suministros Traumatología,001085,0,,0,1
+Material,3,0010,Set Suministros Anestesiología,001005,0,,0,1
+#
+Material,3,0020,Set Fármacos Anestesiología,002005,0,,0,1
+#
+Material,3,0030,Kits Asistencial General,003000,0,,0,1
+Material,3,0030,Kits Asistencial Obstetricia,003058,0,,0,1
+#
+Material,3,0040,Kits Quirúrgico General,004000,0,,0,1
+Material,3,0040,Kits Quirúrgico Obstetricia,004058,0,,0,1
+Material,3,0040,Kits Quirúrgico Angiología y Cirugía Vascular,004006,0,,0,1
+Material,3,0040,Kits Quirúrgico Cirugía Bariátrica,004008,0,,0,1
+Material,3,0040,Kits Quirúrgico Cirugía General,004013,0,,0,1
+Material,3,0040,Kits Quirúrgico Coloproctología,004016,0,,0,1
+Material,3,0040,Kits Quirúrgico Ginecología,004031,0,,0,1
+Material,3,0040,Kits Quirúrgico Nefrología,004052,0,,0,1
+Material,3,0040,Kits Quirúrgico Oncología,004061,0,,0,1
+Material,3,0040,Kits Quirúrgico Otorrinolaringología,004064,0,,0,1
+Material,3,0040,Kits Quirúrgico Cirugía Cardiovascular,004066,0,,0,1
+Material,3,0040,Kits Quirúrgico Traumatología,004085,0,,0,1
+Material,3,0040,Kits Quirúrgico Urología,004087,0,,0,1
+Material,3,0040,Kits Quirúrgico Neurocirugía,004088,0,,0,1
+#
+Material,3,0100,Adhesivos,010000,0,,0,1
+Material,3,0100,Cementos,010002,0,,0,1
+Material,3,0100,Epoxy,010004,0,,0,1
+Material,3,0100,Durapore,010006,0,,0,1
+Material,3,0100,Hypafix,010008,0,,0,1
+Material,3,0100,Leukoplast,010010,0,,0,1
+Material,3,0100,Micropore,010012,0,,0,1
+Material,3,0100,Rosado,010014,0,,0,1
+Material,3,0100,Sonda Temperatura,010016,0,,0,1
+Material,3,0100,Steri Gas,010018,0,,0,1
+Material,3,0100,Steri Strip,010020,0,,0,1
+Material,3,0100,Tisular,010022,0,,0,1
+Material,3,0100,Transpore,010024,0,,0,1
+
+Material,1,0,Farmacos,04,2,4,0,1
+Material,2,01,Agujas,0101,3,,0,1
+Material,2,01,Inyectadoras,0102,2,,0,1
+Material,2,04,Antibioticos,0401,2,,0,1
+Material,3,0101,Hipodermicas,010101,1,,0,1
+Material,3,0101,Puncion,010102,1,,0,1
+Material,3,0102,Insulina,010201,1,,0,1
+Material,3,0401,Penicilina,040101,1,,0,1
+Equipos,0,,Equipos,3,1,3,0,6
+Equipos,1,3,Equipos Administracion,30,1,0,0,1
+Equipos,1,3,Equipos Logistica,32,1,2,0,1
+Equipos,1,3,Equipos Operaciones,34,1,4,0,1
+Equipos,1,3,Equipos Hospitalidad,37,1,7,0,1
+Equipos,1,3,Equipos Asistenciales,38,1,8,0,1
+Equipos,2,30,Equipos Mobiliario Y Oficina,3010,0,10,0,1
+Equipos,2,32,Equipos Medicacion Y Diagnostico,3200,0,00,0,1
+Equipos,2,32,Mobiliario Clinico,3220,0,20,0,1
+Equipos,2,34,Equipos De Presion Y Volumen,3400,4,00,0,1
+Equipos,2,37,Mobiliario Clinico,3700,0,00,0,1
+Equipos,2,38,Equipos Quirurgicos,3801,0,01,0,1
+Equipos,2,38,Instrumental Quirurgico,3820,4,20,0,1
+Equipos,2,38,Equipos De Tratamientos,3830,4,30,0,1
+Equipos,2,38,Equipos Medicos De Medicion Y Apreciacion,3840,0,40,0,1
+Equipos,2,38,Equipos Y Accesorios De Confort,3860,2,60,0,1
+Equipos,2,38,Sensores,3870,18,70,0,1
+Equipos,3,3400,Manometros,340000,0,,0,1
+Equipos,3,3400,Flujometros De Aire,340002,0,,0,1
+Equipos,3,3820,Pinzas,382000,0,,0,1
+Equipos,3,3820,Tijeras/Engrapadora Y Recarga Quirurgica,382002,0,,0,1
+Equipos,3,3830,Desfibriladores,383000,0,,0,1
+Equipos,3,3830,Deshumificadores,383002,0,,0,1
+Equipos,3,3860,Colchon Antiescara,386000,0,,0,1
+Equipos,3,3870,Fluido,387000,0,,0,1
+Equipos,3,3870,Indice,387002,0,,0,1
+Equipos,3,3870,Nelcor,387004,0,,0,1
+Equipos,3,3870,Oxisensor,387006,0,,0,1
+Equipos,3,3870,Saturacion,387008,0,,0,1
+Equipos,3,3870,Spo2,387010,0,,0,1
+Equipos,3,3870,Tela,387012,0,,0,1
+Equipos,3,3870,Temperatura,387014,0,,0,1
+Equipos,3,3870,Ventilacion,387016,0,,0,1

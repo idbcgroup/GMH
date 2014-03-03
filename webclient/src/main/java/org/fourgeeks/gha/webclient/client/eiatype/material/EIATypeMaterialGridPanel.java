@@ -16,8 +16,8 @@ import org.fourgeeks.gha.webclient.client.UI.icons.GHASearchButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAFormLayout;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 import org.fourgeeks.gha.webclient.client.eiatype.EIATypeSelectionListener;
 import org.fourgeeks.gha.webclient.client.material.MaterialAddFormSub;
 import org.fourgeeks.gha.webclient.client.material.MaterialSearchFormSub;
@@ -37,7 +37,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class EIATypeMaterialGridPanel extends GHAFormLayout implements
-EIATypeSelectionListener, HideableListener, ClosableListener {
+		EIATypeSelectionListener, HideableListener, ClosableListener {
 
 	private EiaTypeMaterialGrid grid;
 	private MaterialSearchFormSub searchForm;
@@ -56,10 +56,10 @@ EIATypeSelectionListener, HideableListener, ClosableListener {
 				EIATypeMaterialModel.update(entity,
 						new GHAAsyncCallback<EiaTypeMaterial>() {
 
-					@Override
-					public void onSuccess(EiaTypeMaterial result) {
-					}
-				});
+							@Override
+							public void onSuccess(EiaTypeMaterial result) {
+							}
+						});
 			}
 		});
 
@@ -72,17 +72,17 @@ EIATypeSelectionListener, HideableListener, ClosableListener {
 
 				final EiaTypeMaterial eiaTypeMaterial = new EiaTypeMaterial();
 				eiaTypeMaterial
-				.setEiaType(EIATypeMaterialGridPanel.this.eiaType);
+						.setEiaType(EIATypeMaterialGridPanel.this.eiaType);
 				eiaTypeMaterial.setMaterial(material);
 				EIATypeMaterialModel.save(eiaTypeMaterial,
 						new GHAAsyncCallback<EiaTypeMaterial>() {
 
-					@Override
-					public void onSuccess(EiaTypeMaterial result) {
-						loadData();
-					}
+							@Override
+							public void onSuccess(EiaTypeMaterial result) {
+								loadData();
+							}
 
-				});
+						});
 			}
 		};
 		addForm = new MaterialAddFormSub(GHAStrings.get("new-material"));
@@ -103,17 +103,17 @@ EIATypeSelectionListener, HideableListener, ClosableListener {
 					}
 				}), new GHANewButton(new ClickHandler() {
 
-					@Override
-					public void onClick(ClickEvent event) {
-						addForm.open();
-					}
-				}), new GHADeleteButton(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				addForm.open();
+			}
+		}), new GHADeleteButton(new ClickHandler() {
 
-					@Override
-					public void onClick(ClickEvent event) {
-						delete();
-					}
-				}));
+			@Override
+			public void onClick(ClickEvent event) {
+				delete();
+			}
+		}));
 
 		HLayout mainPanel = new HLayout();
 		mainPanel.addMembers(grid, sideButtons);
@@ -152,21 +152,21 @@ EIATypeSelectionListener, HideableListener, ClosableListener {
 		GHAAlertManager.confirm("eiatype-material-delete-confirm",
 				new BooleanCallback() {
 
-			@Override
-			public void execute(Boolean value) {
-				if (value) {
-					EIATypeMaterialModel.delete(
-							eiaTypeMaterial.getId(),
-							new GHAAsyncCallback<Void>() {
+					@Override
+					public void execute(Boolean value) {
+						if (value) {
+							EIATypeMaterialModel.delete(
+									eiaTypeMaterial.getId(),
+									new GHAAsyncCallback<Void>() {
 
-								@Override
-								public void onSuccess(Void result) {
-									grid.removeSelectedData();
-								}
-							});
-				}
-			}
-		});
+										@Override
+										public void onSuccess(Void result) {
+											grid.removeSelectedData();
+										}
+									});
+						}
+					}
+				});
 	}
 
 	/*
@@ -186,15 +186,15 @@ EIATypeSelectionListener, HideableListener, ClosableListener {
 		EIATypeMaterialModel.find(eiaType,
 				new GHAAsyncCallback<List<EiaTypeMaterial>>() {
 
-			@Override
-			public void onSuccess(List<EiaTypeMaterial> list) {
-				List<EIATypeMaterialRecord> gridRecords = EIATypeMaterialUtil
-						.toGridRecords(list);
-				ListGridRecord[] array = gridRecords
-						.toArray(new EIATypeMaterialRecord[] {});
-				grid.setData(array);
-			}
-		});
+					@Override
+					public void onSuccess(List<EiaTypeMaterial> list) {
+						List<EIATypeMaterialRecord> gridRecords = EIATypeMaterialUtil
+								.toGridRecords(list);
+						ListGridRecord[] array = gridRecords
+								.toArray(new EIATypeMaterialRecord[] {});
+						grid.setData(array);
+					}
+				});
 	}
 
 	private void search() {

@@ -37,6 +37,11 @@ public class Material extends ServiceAndResource {
 	@Column(nullable = false)
 	private MaterialTypeEnum type;
 
+	// @ManyToOne
+	// @NotNull(message = "material-category-not-null")
+	// @JoinColumn(name = "materialCategoryFk"/* , nullable = false */)
+	// private MaterialCategory materialCategory;
+
 	private String description;
 	private String name;
 	private String externalCode;
@@ -45,7 +50,6 @@ public class Material extends ServiceAndResource {
 	@ManyToOne
 	@JoinColumn(name = "brandFk")
 	private Brand brand;
-
 	private int amount;
 	private String barCode;
 
@@ -57,78 +61,17 @@ public class Material extends ServiceAndResource {
 	}
 
 	/**
-	 * @return the type
+	 * @return the amount
 	 */
-	public MaterialTypeEnum getType() {
-		return type;
+	public int getAmount() {
+		return amount;
 	}
 
 	/**
-	 * @param type
-	 *            the type to set
+	 * @return the barCode
 	 */
-	public void setType(MaterialTypeEnum type) {
-		this.type = type;
-	}
-
-	/**
-	 * @return the description
-	 */
-	public String getDescription() {
-		return description;
-	}
-
-	/**
-	 * @param description
-	 *            the description to set
-	 */
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * @param name
-	 *            the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	/**
-	 * @return the externalCode
-	 */
-	public String getExternalCode() {
-		return externalCode;
-	}
-
-	/**
-	 * @param externalCode
-	 *            the externalCode to set
-	 */
-	public void setExternalCode(String externalCode) {
-		this.externalCode = externalCode;
-	}
-
-	/**
-	 * @return the model
-	 */
-	public String getModel() {
-		return model;
-	}
-
-	/**
-	 * @param model
-	 *            the model to set
-	 */
-	public void setModel(String model) {
-		this.model = model;
+	public String getBarCode() {
+		return barCode;
 	}
 
 	/**
@@ -139,18 +82,42 @@ public class Material extends ServiceAndResource {
 	}
 
 	/**
-	 * @param brand
-	 *            the brand to set
+	 * @return the description
 	 */
-	public void setBrand(Brand brand) {
-		this.brand = brand;
+	public String getDescription() {
+		return description;
 	}
 
 	/**
-	 * @return the amount
+	 * @return the externalCode
 	 */
-	public int getAmount() {
-		return amount;
+	public String getExternalCode() {
+		return externalCode;
+	}
+
+	// public MaterialCategory getMaterialCategory() {
+	// return materialCategory;
+	// }
+
+	/**
+	 * @return the model
+	 */
+	public String getModel() {
+		return model;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @return the type
+	 */
+	public MaterialTypeEnum getType() {
+		return type;
 	}
 
 	/**
@@ -162,18 +129,63 @@ public class Material extends ServiceAndResource {
 	}
 
 	/**
-	 * @return the barCode
-	 */
-	public String getBarCode() {
-		return barCode;
-	}
-
-	/**
 	 * @param barCode
 	 *            the barCode to set
 	 */
 	public void setBarCode(String barCode) {
 		this.barCode = barCode;
+	}
+
+	/**
+	 * @param brand
+	 *            the brand to set
+	 */
+	public void setBrand(Brand brand) {
+		this.brand = brand;
+	}
+
+	/**
+	 * @param description
+	 *            the description to set
+	 */
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	/**
+	 * @param externalCode
+	 *            the externalCode to set
+	 */
+	public void setExternalCode(String externalCode) {
+		this.externalCode = externalCode;
+	}
+
+	// public void setMaterialCategory(MaterialCategory materialCategory) {
+	// this.materialCategory = materialCategory;
+	// }
+
+	/**
+	 * @param model
+	 *            the model to set
+	 */
+	public void setModel(String model) {
+		this.model = model;
+	}
+
+	/**
+	 * @param name
+	 *            the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @param type
+	 *            the type to set
+	 */
+	public void setType(MaterialTypeEnum type) {
+		this.type = type;
 	}
 
 }

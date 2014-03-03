@@ -5,7 +5,7 @@ import java.util.List;
 import org.fourgeeks.gha.domain.enu.DocumentTypeEnum;
 import org.fourgeeks.gha.domain.enu.GenderTypeEnum;
 import org.fourgeeks.gha.domain.enu.UserLogonStatusEnum;
-import org.fourgeeks.gha.domain.ess.SSOUser;
+import org.fourgeeks.gha.domain.ess.auth.SSOUser;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.mix.Citizen;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;

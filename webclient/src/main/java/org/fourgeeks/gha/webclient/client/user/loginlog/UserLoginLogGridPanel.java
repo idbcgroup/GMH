@@ -2,7 +2,7 @@ package org.fourgeeks.gha.webclient.client.user.loginlog;
 
 import java.util.List;
 
-import org.fourgeeks.gha.domain.ess.SSOUser;
+import org.fourgeeks.gha.domain.ess.auth.SSOUser;
 import org.fourgeeks.gha.domain.logs.LogonLog;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
