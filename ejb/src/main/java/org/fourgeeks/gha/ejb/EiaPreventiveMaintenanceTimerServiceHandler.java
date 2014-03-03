@@ -1,5 +1,6 @@
 package org.fourgeeks.gha.ejb;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.ejb.EJB;
@@ -27,7 +28,7 @@ public class EiaPreventiveMaintenanceTimerServiceHandler implements
 
 	@Override
 	public void doWork() {
-		// TODO Auto-generated method stub
+		logger.log(Level.INFO, "entro en el handler");
 
 	}
 

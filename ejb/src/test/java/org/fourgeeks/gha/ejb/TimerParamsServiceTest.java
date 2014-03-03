@@ -1,6 +1,5 @@
 package org.fourgeeks.gha.ejb;
 
-import java.sql.Date;
 import java.util.Calendar;
 import java.util.List;
 
@@ -456,13 +455,13 @@ public class TimerParamsServiceTest {
 	private TimerParams updateTest(TimerParams entity) {
 		try {
 			Calendar calendar = Calendar.getInstance();
-			Date lastTimeEffectuated = new Date(calendar.getTimeInMillis());
+			long lastTimeEffectuated = calendar.getTimeInMillis();
 			entity.setLastTimeEffectuated(lastTimeEffectuated);
 
 			TimerParams result = service.update(entity);
 
-			long valueExpected = lastTimeEffectuated.getTime();
-			long actualValue = result.getLastTimeEffectuated().getTime();
+			long valueExpected = lastTimeEffectuated;
+			long actualValue = result.getLastTimeEffectuated();
 			Assert.assertEquals(valueExpected, actualValue);
 
 			return result;

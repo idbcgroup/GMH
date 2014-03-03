@@ -12,8 +12,6 @@ import javax.ejb.Local;
 @Local
 public interface TimerServiceHandler {
 
-	/**
-	 * punto de entrada para que  
-	 */
+	/** */
 	public void doWork();
 }

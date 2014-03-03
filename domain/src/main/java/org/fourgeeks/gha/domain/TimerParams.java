@@ -1,7 +1,6 @@
 package org.fourgeeks.gha.domain;
 
 import java.io.Serializable;
-import java.sql.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
@@ -18,11 +17,13 @@ import javax.validation.constraints.NotNull;
 @NamedQueries(value = { @NamedQuery(name = "TimerParams.getAll", query = "SELECT e from TimerParams e order by e.code") })
 public class TimerParams extends AbstractCodeEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
+	/** */
+	public static final long NO_TIME = -1;
 
 	@NotNull
 	private String jndiProcessorName;
 
-	private Date lastTimeEffectuated;
+	private long lastTimeEffectuated;
 	private int seconds;
 	private int minutes;
 	private int hours;
@@ -34,6 +35,7 @@ public class TimerParams extends AbstractCodeEntity implements Serializable {
 	 */
 	public TimerParams() {
 		super();
+		lastTimeEffectuated = NO_TIME;
 	}
 
 	/**
@@ -60,7 +62,7 @@ public class TimerParams extends AbstractCodeEntity implements Serializable {
 	/**
 	 * @return the lastTimeEffectued
 	 */
-	public Date getLastTimeEffectuated() {
+	public long getLastTimeEffectuated() {
 		return lastTimeEffectuated;
 	}
 
@@ -106,7 +108,7 @@ public class TimerParams extends AbstractCodeEntity implements Serializable {
 	 * @param lastTimeEffectuated
 	 *            the lastTimeEffectuated to set
 	 */
-	public void setLastTimeEffectuated(Date lastTimeEffectuated) {
+	public void setLastTimeEffectuated(long lastTimeEffectuated) {
 		this.lastTimeEffectuated = lastTimeEffectuated;
 	}
 

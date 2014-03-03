@@ -1,6 +1,5 @@
 package org.fourgeeks.gha.ejb;
 
-import java.sql.Date;
 import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
@@ -33,27 +32,43 @@ public class GHATimerService {
 	TimerParamsServiceLocal service;
 
 	/** */
-	@Schedule(minute = "*/5", hour = "*")
+	@Schedule(minute = "*/1", hour = "*")
 	public void checkTimers() {
 		logger.log(Level.INFO, "entrando en checkTimers");
 
 		try {
+			logger.log(Level.INFO, "ZZZ 1");
 			Context jndiContext = new InitialContext();
+			logger.log(Level.INFO, "ZZZ 2");
 			List<TimerParams> timerParams = service.getAll();
-			long currentTime = Calendar.getInstance().getTimeInMillis();
+			logger.log(Level.INFO, "ZZZ 3");
 
 			for (TimerParams entity : timerParams) {
-				Date lastTimeEffectuated = entity.getLastTimeEffectuated();
+				logger.log(Level.INFO, "ZZZ 4");
+				long currentTime = Calendar.getInstance().getTimeInMillis();
+				logger.log(Level.INFO, "ZZZ 5");
+				long lastTimeEffectuated = entity.getLastTimeEffectuated();
+				logger.log(Level.INFO, "ZZZ 6");
 
 				// si el handler no se ha ejecutado nunca
-				if (lastTimeEffectuated == null) {
-					invokeTimerHandler(jndiContext, entity, currentTime);
+				if (lastTimeEffectuated == TimerParams.NO_TIME) {
+					logger.log(Level.INFO, "ZZZ 7");
+					invokeTimerHandler(jndiContext, entity, currentTime, false);
+					logger.log(Level.INFO, "ZZZ 8");
 				} else {
+					logger.log(Level.INFO, "ZZZ 9 - lastTimeEffectuated = "
+							+ lastTimeEffectuated);
 					long nextTime = getNextExecutionTime(entity);
+					logger.log(Level.INFO, "ZZZ 9.1");
 					long diferenceTime = currentTime - nextTime;
 
-					if (diferenceTime >= 0)
-						invokeTimerHandler(jndiContext, entity, currentTime);
+					logger.log(Level.INFO, "ZZZ 10 - currentTime = "
+							+ currentTime + " nextTime = " + nextTime);
+					if (diferenceTime >= 0) {
+						logger.log(Level.INFO, "ZZZ 11");
+						invokeTimerHandler(jndiContext, entity, currentTime,
+								true);
+					}
 				}
 			}
 
@@ -71,7 +86,7 @@ public class GHATimerService {
 	 */
 	private long getNextExecutionTime(TimerParams entity) {
 		Calendar nextCalendar = Calendar.getInstance();
-		nextCalendar.setTime(entity.getLastTimeEffectuated());
+		nextCalendar.setTimeInMillis(entity.getLastTimeEffectuated());
 
 		nextCalendar.add(Calendar.SECOND, entity.getSeconds());
 		nextCalendar.add(Calendar.MINUTE, entity.getMinutes());
@@ -97,13 +112,13 @@ public class GHATimerService {
 	 * @throws NamingException
 	 */
 	private void invokeTimerHandler(Context jndiContext, TimerParams entity,
-			long time) throws GHAEJBException, NamingException {
+			long time, boolean update) throws GHAEJBException, NamingException {
 
 		// se la asigno al entity con los parametros del timer
-		entity.setLastTimeEffectuated(new Date(time));
+		entity.setLastTimeEffectuated(time);
 
 		// agrego a la BD ultima vez que se ejecuto el handler
-		entity = service.update(entity);
+		entity = (update) ? service.update(entity) : service.save(entity);
 
 		// hago JNDI lookup del handler
 		TimerServiceHandler handler = (TimerServiceHandler) jndiContext
