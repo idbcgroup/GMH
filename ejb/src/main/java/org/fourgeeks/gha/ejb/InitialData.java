@@ -70,7 +70,7 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeCategory;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
-import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.domain.gmh.SubProtocolAndChecklist;
 import org.fourgeeks.gha.domain.gom.CCDIDefinition;
@@ -836,7 +836,7 @@ public class InitialData {
 	}
 
 	private void maintenanceProtocolsTestData() {
-		final String query = "SELECT t from MaintenanceProtocols t WHERE t.id = 1";
+		final String query = "SELECT t from MaintenanceProtocol t WHERE t.id = 1";
 		try {
 			em.createQuery(query).getSingleResult();
 		} catch (final NoResultException e) {
@@ -850,19 +850,19 @@ public class InitialData {
 								MaintenanceActivity.class).getResultList();
 
 				for (int i = 0; i < 4; ++i) {
-					em.persist(new MaintenanceProtocols(plans.get(0), entities
+					em.persist(new MaintenanceProtocol(plans.get(0), entities
 							.get(i), i + 1));
-					em.persist(new MaintenanceProtocols(plans.get(1), entities
+					em.persist(new MaintenanceProtocol(plans.get(1), entities
 							.get(i), i + 1));
 				}
 
-				em.persist(new MaintenanceProtocols(plans.get(0), entities
+				em.persist(new MaintenanceProtocol(plans.get(0), entities
 						.get(4), 5));
-				em.persist(new MaintenanceProtocols(plans.get(1), entities
+				em.persist(new MaintenanceProtocol(plans.get(1), entities
 						.get(5), 5));
 
 				// subprotocol activity
-				em.persist(new MaintenanceProtocols(plans.get(0), entities
+				em.persist(new MaintenanceProtocol(plans.get(0), entities
 						.get(6), 6));
 
 				em.flush();

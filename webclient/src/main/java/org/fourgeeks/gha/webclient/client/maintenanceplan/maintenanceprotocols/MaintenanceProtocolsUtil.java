@@ -6,7 +6,7 @@ package org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocols;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 
 /**
  * @author emiliot
@@ -20,16 +20,16 @@ public class MaintenanceProtocolsUtil {
 	}
 
 	/**
-	 * Transform a list of {@link MaintenanceProtocols} to a list of
+	 * Transform a list of {@link MaintenanceProtocol} to a list of
 	 * {@link MaintenanceProtocolsRecord}
 	 * 
 	 * @param entities
 	 * @return a list of {@link MaintenanceProtocolsRecord}
 	 */
 	public static List<MaintenanceProtocolsRecord> toGridRecordsList(
-			List<MaintenanceProtocols> entities) {
+			List<MaintenanceProtocol> entities) {
 		List<MaintenanceProtocolsRecord> list = new ArrayList<MaintenanceProtocolsRecord>();
-		for (MaintenanceProtocols entity : entities) {
+		for (MaintenanceProtocol entity : entities) {
 			MaintenanceProtocolsRecord record = new MaintenanceProtocolsRecord(
 					entity);
 			list.add(record);
@@ -39,12 +39,12 @@ public class MaintenanceProtocolsUtil {
 
 	/**
 	 * @param entities
-	 *            Transform a list of {@link MaintenanceProtocols} to an array
+	 *            Transform a list of {@link MaintenanceProtocol} to an array
 	 *            of {@link MaintenanceProtocolsRecord}
 	 * @return an array of {@link MaintenanceProtocolsRecord}
 	 */
 	public static MaintenanceProtocolsRecord[] toGridRecordsArray(
-			List<MaintenanceProtocols> entities) {
+			List<MaintenanceProtocol> entities) {
 		List<MaintenanceProtocolsRecord> recordsList = toGridRecordsList(entities);
 
 		MaintenanceProtocolsRecord[] array = recordsList

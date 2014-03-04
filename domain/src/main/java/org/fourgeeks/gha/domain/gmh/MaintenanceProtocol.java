@@ -21,9 +21,9 @@ import org.fourgeeks.gha.domain.AbstractEntity;
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {
 		"maintenancePlanFk", "maintenanceActivityFk", "ordinal" }))
 @NamedQueries(value = {
-		@NamedQuery(name = "MaintenanceProtocols.findByMaintenancePlan", query = "SELECT e from MaintenanceProtocols e WHERE e.maintenancePlan = :plan ORDER BY e.ordinal"),
-		@NamedQuery(name = "MaintenanceProtocols.getLastOrdinal", query = "SELECT MAX(mp.ordinal) FROM MaintenanceProtocols mp WHERE mp.maintenancePlan = :plan") })
-public class MaintenanceProtocols extends AbstractEntity {
+		@NamedQuery(name = "MaintenanceProtocol.findByMaintenancePlan", query = "SELECT e from MaintenanceProtocol e WHERE e.maintenancePlan = :plan ORDER BY e.ordinal"),
+		@NamedQuery(name = "MaintenanceProtocol.getLastOrdinal", query = "SELECT MAX(mp.ordinal) FROM MaintenanceProtocol mp WHERE mp.maintenancePlan = :plan") })
+public class MaintenanceProtocol extends AbstractEntity {
 
 	/**
 	 * 
@@ -35,13 +35,13 @@ public class MaintenanceProtocols extends AbstractEntity {
 	private MaintenancePlan maintenancePlan;
 
 	@ManyToOne
-	@JoinColumn(name = "maintenanceActivityFk")
+	@JoinColumn(name = "maintenanceActivityFk", columnDefinition = "bigint REFERENCES maintenanceactivity(id) ON UPDATE CASCADE ON DELETE CASCADE")
 	private MaintenanceActivity maintenanceActivity;
 
 	private int ordinal;
 
 	/** */
-	public MaintenanceProtocols() {
+	public MaintenanceProtocol() {
 	}
 
 	/**
@@ -49,11 +49,18 @@ public class MaintenanceProtocols extends AbstractEntity {
 	 * @param maintenanceActivity
 	 * @param ordinal
 	 */
-	public MaintenanceProtocols(MaintenancePlan maintenancePlan,
+	public MaintenanceProtocol(MaintenancePlan maintenancePlan,
 			MaintenanceActivity maintenanceActivity, int ordinal) {
 		this.maintenancePlan = maintenancePlan;
 		this.maintenanceActivity = maintenanceActivity;
 		this.ordinal = ordinal;
+	}
+
+	/**
+	 * @return the maintenanceActivity
+	 */
+	public MaintenanceActivity getMaintenanceActivity() {
+		return maintenanceActivity;
 	}
 
 	/**
@@ -64,18 +71,10 @@ public class MaintenanceProtocols extends AbstractEntity {
 	}
 
 	/**
-	 * @param maintenancePlan
-	 *            the maintenancePlan to set
+	 * @return the ordinal
 	 */
-	public void setMaintenancePlan(MaintenancePlan maintenancePlan) {
-		this.maintenancePlan = maintenancePlan;
-	}
-
-	/**
-	 * @return the maintenanceActivity
-	 */
-	public MaintenanceActivity getMaintenanceActivity() {
-		return maintenanceActivity;
+	public int getOrdinal() {
+		return ordinal;
 	}
 
 	/**
@@ -87,10 +86,11 @@ public class MaintenanceProtocols extends AbstractEntity {
 	}
 
 	/**
-	 * @return the ordinal
+	 * @param maintenancePlan
+	 *            the maintenancePlan to set
 	 */
-	public int getOrdinal() {
-		return ordinal;
+	public void setMaintenancePlan(MaintenancePlan maintenancePlan) {
+		this.maintenancePlan = maintenancePlan;
 	}
 
 	/**

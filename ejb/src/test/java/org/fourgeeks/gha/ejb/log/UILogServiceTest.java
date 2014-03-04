@@ -78,7 +78,7 @@ import org.fourgeeks.gha.domain.gmh.EiaTypeCategory;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
-import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.domain.gmh.RequiredResources;
 import org.fourgeeks.gha.domain.gmh.ServiceAndResource;
@@ -200,7 +200,7 @@ public class UILogServiceTest {
 				.addClass(LegalEntityServiceRemote.class)
 				.addClass(LocationType.class)
 				.addClass(MaintenanceActivity.class)
-				.addClass(MaintenanceProtocols.class)
+				.addClass(MaintenanceProtocol.class)
 				.addClass(Manufacturer.class)
 				.addClass(RequiredResources.class)
 				.addClass(MaintenancePlan.class)

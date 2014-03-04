@@ -14,8 +14,8 @@ import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAActivityCa
 import org.fourgeeks.gha.webclient.client.UI.formItems.selectitems.GHAActivitySubCategorySelectItem;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATopForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHATopForm;
 
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.smartgwt.client.util.BooleanCallback;
@@ -27,8 +27,8 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
  * 
  */
 public class MaintenanceActivityTopForm extends
-GHATopForm<MaintenanceActivityResultSet, MaintenanceActivity> implements
-MaintenanceActivitySelectionListener {
+		GHATopForm<MaintenanceActivityResultSet, MaintenanceActivity> implements
+		MaintenanceActivitySelectionListener {
 
 	private GHATextItem nameItem, descriptionItem;
 	private GHAActivityCategorySelectItem categorySelectItem;
@@ -95,25 +95,25 @@ MaintenanceActivitySelectionListener {
 
 	@Override
 	protected void delete() {
-		GHAAlertManager.confirm("maintenance-plan-delete-confirm",
+		GHAAlertManager.confirm("maintenance-activity-delete-confirm",
 				new BooleanCallback() {
-			@Override
-			public void execute(Boolean value) {
-				if (value) {
-					MaintenanceActivityModel.delete(
-							selectedActivity.getId(),
-							new GHAAsyncCallback<Void>() {
-								@Override
-								public void onSuccess(Void result) {
-									containerTab.search();
-									clear();
-									GHAAlertManager
-									.alert("maintenance-delete-success");
-								}
-							});
-				}
-			}
-		});
+					@Override
+					public void execute(Boolean value) {
+						if (value) {
+							MaintenanceActivityModel.delete(
+									selectedActivity.getId(),
+									new GHAAsyncCallback<Void>() {
+										@Override
+										public void onSuccess(Void result) {
+											containerTab.search();
+											clear();
+											GHAAlertManager
+													.alert("maintenance-activity-delete-success");
+										}
+									});
+						}
+					}
+				});
 	}
 
 	@Override
@@ -124,8 +124,8 @@ MaintenanceActivitySelectionListener {
 
 	@Override
 	public void search() {
-		MaintenanceActivity maintenanceActivity = new MaintenanceActivity();
-		Activity activity = new Activity();
+		final MaintenanceActivity maintenanceActivity = new MaintenanceActivity();
+		final Activity activity = new Activity();
 
 		if (nameItem.getValue() != null)
 			activity.setName(nameItem.getValueAsString());
@@ -147,11 +147,11 @@ MaintenanceActivitySelectionListener {
 	public void search(MaintenanceActivity maintenanceActivity) {
 		MaintenanceActivityModel.find(maintenanceActivity,
 				new GHAAsyncCallback<List<MaintenanceActivity>>() {
-			@Override
-			public void onSuccess(List<MaintenanceActivity> result) {
-				resultSet.setRecords(result, true);
-			}
-		});
+					@Override
+					public void onSuccess(List<MaintenanceActivity> result) {
+						resultSet.setRecords(result, true);
+					}
+				});
 	}
 
 	/*
@@ -164,7 +164,7 @@ MaintenanceActivitySelectionListener {
 	@Override
 	public void select(MaintenanceActivity maintenanceActivity) {
 		selectedActivity = maintenanceActivity;
-		Activity activity = selectedActivity.getActivity();
+		final Activity activity = selectedActivity.getActivity();
 
 		nameItem.setValue(activity.getName());
 		descriptionItem.setValue(activity.getDescription());

@@ -22,7 +22,7 @@ import org.fourgeeks.gha.domain.gar.Job;
 import org.fourgeeks.gha.domain.glm.Bsp;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlanStadisticData;
-import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
@@ -306,7 +306,7 @@ MaintenanceProtocolsSelectionListener, MaintenancePlanSelectionProducer {
 	}
 
 	@Override
-	public void select(MaintenanceProtocols entity) {
+	public void select(MaintenanceProtocol entity) {
 		MaintenancePlanModel.getStadisticInfo(originalEntity,
 				new GHAAsyncCallback<MaintenancePlanStadisticData>() {
 			@Override

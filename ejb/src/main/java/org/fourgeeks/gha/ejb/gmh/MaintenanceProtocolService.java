@@ -20,7 +20,7 @@ import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlanStadisticData;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocolStadisticData;
-import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 import org.fourgeeks.gha.ejb.GHAUtil;
 
@@ -30,10 +30,10 @@ import org.fourgeeks.gha.ejb.GHAUtil;
  * @author naramirez
  */
 @Stateless
-public class MaintenanceProtocolsService extends GHAEJBExceptionService
-		implements MaintenanceProtocolsServiceRemote {
+public class MaintenanceProtocolService extends GHAEJBExceptionService
+		implements MaintenanceProtocolServiceRemote {
 	private final static Logger logger = Logger
-			.getLogger(MaintenanceProtocolsService.class.getName());
+			.getLogger(MaintenanceProtocolService.class.getName());
 
 	@PersistenceContext
 	EntityManager em;
@@ -85,7 +85,7 @@ public class MaintenanceProtocolsService extends GHAEJBExceptionService
 			for (AbstractEntity entity : entitiesToCopy) {
 				ordinal++;
 				MaintenanceActivity activity = (MaintenanceActivity) entity;
-				MaintenanceProtocols protocol = new MaintenanceProtocols(
+				MaintenanceProtocol protocol = new MaintenanceProtocol(
 						planTo, activity, ordinal);
 				em.persist(protocol);
 			}
@@ -109,7 +109,7 @@ public class MaintenanceProtocolsService extends GHAEJBExceptionService
 	 * .util.List)
 	 */
 	@Override
-	public void delete(List<MaintenanceProtocols> entities)
+	public void delete(List<MaintenanceProtocol> entities)
 			throws GHAEJBException {
 		try {
 			if (entities.isEmpty())
@@ -117,16 +117,16 @@ public class MaintenanceProtocolsService extends GHAEJBExceptionService
 
 			// elimino las activiades seleccionadas
 			MaintenancePlan plan = entities.get(0).getMaintenancePlan();
-			for (MaintenanceProtocols entity : entities) {
-				MaintenanceProtocols ent = em.find(MaintenanceProtocols.class,
+			for (MaintenanceProtocol entity : entities) {
+				MaintenanceProtocol ent = em.find(MaintenanceProtocol.class,
 						entity.getId());
 				em.remove(ent);
 			}
 
 			// actualizo el orden de las actividades restantes
-			final List<MaintenanceProtocols> remainEntities = findByMaintenancePlan(plan);
+			final List<MaintenanceProtocol> remainEntities = findByMaintenancePlan(plan);
 			for (int i = 0, ord = 1, size = remainEntities.size(); i < size; i++, ord++) {
-				MaintenanceProtocols entity = remainEntities.get(i);
+				MaintenanceProtocol entity = remainEntities.get(i);
 				entity.setOrdinal(ord);
 				em.merge(entity);
 			}
@@ -151,15 +151,15 @@ public class MaintenanceProtocolsService extends GHAEJBExceptionService
 	@Override
 	public void delete(long id) throws GHAEJBException {
 		try {
-			MaintenanceProtocols ent = em.find(MaintenanceProtocols.class, id);
+			MaintenanceProtocol ent = em.find(MaintenanceProtocol.class, id);
 			final MaintenancePlan plan = ent.getMaintenancePlan();
 
 			em.remove(ent);
 
 			// actualizo el orden de las actividades restantes
-			final List<MaintenanceProtocols> remainEntities = findByMaintenancePlan(plan);
+			final List<MaintenanceProtocol> remainEntities = findByMaintenancePlan(plan);
 			for (int i = 0, ord = 1, size = remainEntities.size(); i < size; i++, ord++) {
-				MaintenanceProtocols entity = remainEntities.get(i);
+				MaintenanceProtocol entity = remainEntities.get(i);
 				entity.setOrdinal(ord);
 				em.merge(entity);
 			}
@@ -205,12 +205,12 @@ public class MaintenanceProtocolsService extends GHAEJBExceptionService
 	 * findByMaintenancePlan(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
 	 */
 	@Override
-	public List<MaintenanceProtocols> findByMaintenancePlan(MaintenancePlan plan)
+	public List<MaintenanceProtocol> findByMaintenancePlan(MaintenancePlan plan)
 			throws GHAEJBException {
 		try {
-			final TypedQuery<MaintenanceProtocols> query = em.createNamedQuery(
+			final TypedQuery<MaintenanceProtocol> query = em.createNamedQuery(
 					"MaintenanceProtocols.findByMaintenancePlan",
-					MaintenanceProtocols.class);
+					MaintenanceProtocol.class);
 
 			return query.setParameter("plan", plan).getResultList();
 
@@ -242,8 +242,8 @@ public class MaintenanceProtocolsService extends GHAEJBExceptionService
 			totalDuration += planData.getEstimatedDuration();
 			totalCost = planData.getEstimatedCost();
 
-			List<MaintenanceProtocols> protocol = findByMaintenancePlan(mantenancePlan);
-			for (MaintenanceProtocols entity : protocol) {
+			List<MaintenanceProtocol> protocol = findByMaintenancePlan(mantenancePlan);
+			for (MaintenanceProtocol entity : protocol) {
 				MaintenanceActivity mActivity = entity.getMaintenanceActivity();
 				Activity activity = mActivity.getActivity();
 
@@ -283,7 +283,7 @@ public class MaintenanceProtocolsService extends GHAEJBExceptionService
 	 * .util.List)
 	 */
 	@Override
-	public void update(List<MaintenanceProtocols> entities)
+	public void update(List<MaintenanceProtocol> entities)
 			throws GHAEJBException {
 		try {
 			if (entities == null)
@@ -291,7 +291,7 @@ public class MaintenanceProtocolsService extends GHAEJBExceptionService
 			if (entities.isEmpty())
 				return;
 
-			for (MaintenanceProtocols entity : entities) {
+			for (MaintenanceProtocol entity : entities) {
 				em.merge(entity);
 			}
 			em.flush();
@@ -313,14 +313,14 @@ public class MaintenanceProtocolsService extends GHAEJBExceptionService
 	 * fourgeeks.gha.domain.gmh.MaintenanceProtocols)
 	 */
 	@Override
-	public MaintenanceProtocols save(MaintenanceProtocols entity)
+	public MaintenanceProtocol save(MaintenanceProtocol entity)
 			throws GHAEJBException {
 		try {
 
 			em.persist(entity);
 			em.flush();
 
-			return em.find(MaintenanceProtocols.class, entity.getId());
+			return em.find(MaintenanceProtocol.class, entity.getId());
 
 		} catch (Exception e) {
 			final String msgError = "ERROR: saving Maintenance Protocol ";
