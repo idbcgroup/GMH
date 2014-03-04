@@ -8,7 +8,7 @@ import org.fourgeeks.gha.domain.enu.ActivityState;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocolStadisticData;
-import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
@@ -204,7 +204,7 @@ public class MaintenanceProtocolsGridPanel extends GHAFormLayout implements
 	 * Delete a selected record(s) or all the activities of the protocol
 	 */
 	private void delete() {
-		final List<MaintenanceProtocols> selectedEntities = grid
+		final List<MaintenanceProtocol> selectedEntities = grid
 				.getSelectedEntities();
 
 		if (selectedEntities == null) {
@@ -265,7 +265,7 @@ public class MaintenanceProtocolsGridPanel extends GHAFormLayout implements
 	 *            the list of selected entities
 	 */
 	private void deleteSelectedEntities(
-			final List<MaintenanceProtocols> selectedEntities) {
+			final List<MaintenanceProtocol> selectedEntities) {
 		MaintenanceProtocolsModel.delete(selectedEntities,
 				new GHAAsyncCallback<Void>() {
 					@Override
@@ -282,9 +282,9 @@ public class MaintenanceProtocolsGridPanel extends GHAFormLayout implements
 	 */
 	private void loadData() {
 		MaintenanceProtocolsModel.findByMaintenancePlan(maintenancePlan,
-				new GHAAsyncCallback<List<MaintenanceProtocols>>() {
+				new GHAAsyncCallback<List<MaintenanceProtocol>>() {
 					@Override
-					public void onSuccess(List<MaintenanceProtocols> result) {
+					public void onSuccess(List<MaintenanceProtocol> result) {
 						MaintenanceProtocolsRecord array[] = MaintenanceProtocolsUtil
 								.toGridRecordsArray(result);
 						grid.setData(array);
@@ -310,7 +310,7 @@ public class MaintenanceProtocolsGridPanel extends GHAFormLayout implements
 	 * .gha.domain.gmh.MaintenanceProtocols)
 	 */
 	@Override
-	public void notifyMaintenanceProtocols(MaintenanceProtocols entity) {
+	public void notifyMaintenanceProtocols(MaintenanceProtocol entity) {
 		for (MaintenanceProtocolsSelectionListener listener : listeners)
 			listener.select(entity);
 	}
@@ -331,7 +331,7 @@ public class MaintenanceProtocolsGridPanel extends GHAFormLayout implements
 	}
 
 	/**
-	 * save {@link MaintenanceProtocols} entity in the DB (associate an activity
+	 * save {@link MaintenanceProtocol} entity in the DB (associate an activity
 	 * to the current maintenance plan)
 	 * 
 	 * @param maintenanceActivity
@@ -340,15 +340,15 @@ public class MaintenanceProtocolsGridPanel extends GHAFormLayout implements
 	private void save(final MaintenanceActivity maintenanceActivity) {
 		int ordinal = grid.getRecords().length + 1;
 
-		MaintenanceProtocols entity = new MaintenanceProtocols();
+		MaintenanceProtocol entity = new MaintenanceProtocol();
 		entity.setMaintenanceActivity(maintenanceActivity);
 		entity.setMaintenancePlan(maintenancePlan);
 		entity.setOrdinal(ordinal);
 
 		MaintenanceProtocolsModel.save(entity,
-				new GHAAsyncCallback<MaintenanceProtocols>() {
+				new GHAAsyncCallback<MaintenanceProtocol>() {
 					@Override
-					public void onSuccess(final MaintenanceProtocols result) {
+					public void onSuccess(final MaintenanceProtocol result) {
 						Activity activity = maintenanceActivity.getActivity();
 						if (activity.getState() == ActivityState.CREATED)
 							activity.setState(ActivityState.ACTIVE);

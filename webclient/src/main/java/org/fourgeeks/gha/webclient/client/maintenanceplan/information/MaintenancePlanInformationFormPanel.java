@@ -1,7 +1,7 @@
 package org.fourgeeks.gha.webclient.client.maintenanceplan.information;
 
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
-import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.alerts.GHAAlertManager;
@@ -151,7 +151,7 @@ MaintenancePlanSelectionProducer, ClosableListener, HideableListener {
 	}
 
 	@Override
-	public void select(MaintenanceProtocols entity) {
+	public void select(MaintenanceProtocol entity) {
 		form.select(entity);
 	}
 

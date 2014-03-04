@@ -33,7 +33,7 @@ import org.fourgeeks.gha.domain.gmh.EiaMaintenancePlanification;
 import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlanStadisticData;
-import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.ejb.GHAEJBExceptionService;
 
 /**
@@ -50,7 +50,7 @@ public class MaintenancePlanService extends GHAEJBExceptionService implements
 	@EJB
 	EiaMaintenancePlanificationServiceLocal preventivePlanifServiceLocal;
 	@EJB
-	MaintenanceProtocolsServiceRemote protocolsServiceRemote;
+	MaintenanceProtocolServiceRemote protocolsServiceRemote;
 
 	private final static Logger logger = Logger
 			.getLogger(MaintenancePlanService.class.getName());
@@ -356,9 +356,9 @@ public class MaintenancePlanService extends GHAEJBExceptionService implements
 	 *            protocol)
 	 * @return the value of the estimated cost of the plan
 	 */
-	private BigDecimal getPlanEstimatedCost(List<MaintenanceProtocols> protocol) {
+	private BigDecimal getPlanEstimatedCost(List<MaintenanceProtocol> protocol) {
 		double acum = 0;
-		for (MaintenanceProtocols entity : protocol) {
+		for (MaintenanceProtocol entity : protocol) {
 			Activity activity = entity.getMaintenanceActivity().getActivity();
 			BigDecimal estimatedCost = activity.getEstimatedCost();
 			acum += estimatedCost.doubleValue();
@@ -375,14 +375,14 @@ public class MaintenancePlanService extends GHAEJBExceptionService implements
 	 *            protocol)
 	 * @return the ceil value of the estimated duration
 	 */
-	private int getPlanEstimatedDurationDays(List<MaintenanceProtocols> protocol) {
+	private int getPlanEstimatedDurationDays(List<MaintenanceProtocol> protocol) {
 		final double DAY = 24.0, WEEK = 7.0, MONTH = 30.4368499, SEMESTER = 182.621099, YEAR = 365.242199;
 
 		double totalDays = 0;
 		int hours, days, weeks, months, semesters, years;
 		hours = days = weeks = months = semesters = years = 0;
 
-		for (MaintenanceProtocols entity : protocol) {
+		for (MaintenanceProtocol entity : protocol) {
 			Activity activity = entity.getMaintenanceActivity().getActivity();
 			TimePeriodEnum periodOfTime = activity.getEstimatedDurationPoT();
 			if (periodOfTime == TimePeriodEnum.HOURS)
@@ -429,7 +429,7 @@ public class MaintenancePlanService extends GHAEJBExceptionService implements
 			Timestamp lastTimeEffectuated = preventivePlanifServiceLocal
 					.getLastEffectuatedPlanificationDate(maintenancePlan);
 
-			List<MaintenanceProtocols> protocol = protocolsServiceRemote
+			List<MaintenanceProtocol> protocol = protocolsServiceRemote
 					.findByMaintenancePlan(maintenancePlan);
 
 			data.setNumberActivities(protocol.size());
