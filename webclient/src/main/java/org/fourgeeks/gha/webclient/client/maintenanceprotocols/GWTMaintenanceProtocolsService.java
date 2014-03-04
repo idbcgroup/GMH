@@ -5,7 +5,7 @@ import java.util.List;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocolStadisticData;
-import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -29,18 +29,18 @@ public interface GWTMaintenanceProtocolsService extends RemoteService {
 			throws GHAEJBException;
 
 	/**
-	 * Delete a group of {@link MaintenanceProtocols} entities (This mean unlink
+	 * Delete a group of {@link MaintenanceProtocol} entities (This mean unlink
 	 * the activities from the maintenance plan)
 	 * 
 	 * @param entities
 	 *            the entities to delete
 	 * @throws GHAEJBException
 	 */
-	public void delete(List<MaintenanceProtocols> entities)
+	public void delete(List<MaintenanceProtocol> entities)
 			throws GHAEJBException;
 
 	/**
-	 * Delete a activity from the {@link MaintenanceProtocols} table given the
+	 * Delete a activity from the {@link MaintenanceProtocol} table given the
 	 * ID. (This mean unlink the activity from a maintenance plan)
 	 * 
 	 * @param id
@@ -49,7 +49,7 @@ public interface GWTMaintenanceProtocolsService extends RemoteService {
 	public void delete(long id) throws GHAEJBException;
 
 	/**
-	 * Delete all the records in the {@link MaintenanceProtocols} table that are
+	 * Delete all the records in the {@link MaintenanceProtocol} table that are
 	 * associated with the {@link MaintenancePlan} entity. (This mean unlink all
 	 * the maintenance activities associated with the plan)
 	 * 
@@ -62,11 +62,11 @@ public interface GWTMaintenanceProtocolsService extends RemoteService {
 
 	/**
 	 * @param plan
-	 * @return a list of {@link MaintenanceProtocols} with the
+	 * @return a list of {@link MaintenanceProtocol} with the
 	 *         (MaintenanceActivity, MaintenancePlan) pair
 	 * @throws GHAEJBException
 	 */
-	public List<MaintenanceProtocols> findByMaintenancePlan(MaintenancePlan plan)
+	public List<MaintenanceProtocol> findByMaintenancePlan(MaintenancePlan plan)
 			throws GHAEJBException;
 
 	/**
@@ -89,20 +89,20 @@ public interface GWTMaintenanceProtocolsService extends RemoteService {
 	 * @param entity
 	 *            the entity whit the associated plan and activity
 	 * 
-	 * @return A {@link MaintenanceProtocols} entity with the associated
+	 * @return A {@link MaintenanceProtocol} entity with the associated
 	 *         activity and plan
 	 * @throws GHAEJBException
 	 */
-	public MaintenanceProtocols save(MaintenanceProtocols entity)
+	public MaintenanceProtocol save(MaintenanceProtocol entity)
 			throws GHAEJBException;
 
 	/**
-	 * Update the given {@link MaintenanceProtocols} entities
+	 * Update the given {@link MaintenanceProtocol} entities
 	 * 
 	 * @param entities
-	 *            list with the {@link MaintenanceProtocols} entities to update
+	 *            list with the {@link MaintenanceProtocol} entities to update
 	 * @throws GHAEJBException
 	 */
-	public void update(List<MaintenanceProtocols> entities)
+	public void update(List<MaintenanceProtocol> entities)
 			throws GHAEJBException;
 }

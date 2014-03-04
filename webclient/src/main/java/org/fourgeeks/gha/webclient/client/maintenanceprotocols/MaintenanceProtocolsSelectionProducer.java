@@ -3,7 +3,7 @@
  */
 package org.fourgeeks.gha.webclient.client.maintenanceprotocols;
 
-import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 
 /**
  * @author emiliot
@@ -26,5 +26,5 @@ public interface MaintenanceProtocolsSelectionProducer {
 	 * 
 	 * @param entity
 	 */
-	public void notifyMaintenanceProtocols(MaintenanceProtocols entity);
+	public void notifyMaintenanceProtocols(MaintenanceProtocol entity);
 }

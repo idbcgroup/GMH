@@ -16,7 +16,7 @@ import org.fourgeeks.gha.domain.Activity;
 @Entity
 @NamedQueries(value = {
 		@NamedQuery(name = "MaintenanceActivity.getAll", query = "SELECT e from MaintenanceActivity e order by e.id"),
-		@NamedQuery(name = "MaintenanceActivity.findByMaintenancePlan", query = "SELECT act FROM MaintenanceProtocols mp JOIN mp.maintenanceActivity act WHERE mp.maintenancePlan = :plan order by act.id") })
+		@NamedQuery(name = "MaintenanceActivity.findByMaintenancePlan", query = "SELECT act FROM MaintenanceProtocol mp JOIN mp.maintenanceActivity act WHERE mp.maintenancePlan = :plan order by act.id") })
 public class MaintenanceActivity extends AbstractEntity implements
 		Comparable<MaintenanceActivity> {
 	/** */

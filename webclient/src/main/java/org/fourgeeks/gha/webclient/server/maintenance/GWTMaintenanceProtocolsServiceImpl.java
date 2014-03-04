@@ -10,9 +10,9 @@ import javax.servlet.annotation.WebServlet;
 
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocolStadisticData;
-import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
-import org.fourgeeks.gha.ejb.gmh.MaintenanceProtocolsServiceRemote;
+import org.fourgeeks.gha.ejb.gmh.MaintenanceProtocolServiceRemote;
 import org.fourgeeks.gha.webclient.client.maintenanceprotocols.GWTMaintenanceProtocolsService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -27,8 +27,8 @@ public class GWTMaintenanceProtocolsServiceImpl extends RemoteServiceServlet
 
 	private static final long serialVersionUID = 1L;
 
-	@EJB(lookup = "java:global/ear-1/ejb-1/MaintenanceProtocolsService")
-	MaintenanceProtocolsServiceRemote service;
+	@EJB(lookup = "java:global/ear-1/ejb-1/MaintenanceProtocolService")
+	MaintenanceProtocolServiceRemote service;
 
 	/*
 	 * (non-Javadoc)
@@ -51,7 +51,7 @@ public class GWTMaintenanceProtocolsServiceImpl extends RemoteServiceServlet
 	 * GWTMaintenanceProtocolsService#delete(java.util.List)
 	 */
 	@Override
-	public void delete(List<MaintenanceProtocols> entities)
+	public void delete(List<MaintenanceProtocol> entities)
 			throws GHAEJBException {
 		service.delete(entities);
 	}
@@ -77,7 +77,7 @@ public class GWTMaintenanceProtocolsServiceImpl extends RemoteServiceServlet
 	@Override
 	public int deleteByMaintenancePlan(MaintenancePlan plan)
 			throws GHAEJBException {
-		int entitiesDeleted = service.deleteByMaintenancePlan(plan);
+		final int entitiesDeleted = service.deleteByMaintenancePlan(plan);
 		return entitiesDeleted;
 	}
 
@@ -89,9 +89,9 @@ public class GWTMaintenanceProtocolsServiceImpl extends RemoteServiceServlet
 	 * #findByMaintenancePlan(org.fourgeeks.gha.domain.gmh.MaintenancePlan)
 	 */
 	@Override
-	public List<MaintenanceProtocols> findByMaintenancePlan(MaintenancePlan plan)
+	public List<MaintenanceProtocol> findByMaintenancePlan(MaintenancePlan plan)
 			throws GHAEJBException {
-		List<MaintenanceProtocols> protocol = service
+		final List<MaintenanceProtocol> protocol = service
 				.findByMaintenancePlan(plan);
 		return protocol;
 	}
@@ -106,7 +106,7 @@ public class GWTMaintenanceProtocolsServiceImpl extends RemoteServiceServlet
 	@Override
 	public MaintenanceProtocolStadisticData getStadisticInfo(
 			MaintenancePlan mantenancePlan) throws GHAEJBException {
-		MaintenanceProtocolStadisticData stadisticInfo = service
+		final MaintenanceProtocolStadisticData stadisticInfo = service
 				.getStadisticInfo(mantenancePlan);
 		return stadisticInfo;
 	}
@@ -119,9 +119,9 @@ public class GWTMaintenanceProtocolsServiceImpl extends RemoteServiceServlet
 	 * #save(org.fourgeeks.gha.domain.gmh.MaintenanceProtocols)
 	 */
 	@Override
-	public MaintenanceProtocols save(MaintenanceProtocols entity)
+	public MaintenanceProtocol save(MaintenanceProtocol entity)
 			throws GHAEJBException {
-		MaintenanceProtocols entitiy = service.save(entity);
+		final MaintenanceProtocol entitiy = service.save(entity);
 		return entitiy;
 	}
 
@@ -132,7 +132,7 @@ public class GWTMaintenanceProtocolsServiceImpl extends RemoteServiceServlet
 	 * GWTMaintenanceProtocolsService#update(java.util.List)
 	 */
 	@Override
-	public void update(List<MaintenanceProtocols> entities)
+	public void update(List<MaintenanceProtocol> entities)
 			throws GHAEJBException {
 		service.update(entities);
 	}
