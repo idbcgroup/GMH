@@ -1,7 +1,9 @@
-package main;
+package org.fourgeeks.gha.dbadmin.server;
 
 import java.io.File;
-import java.io.PrintWriter;
+import java.util.ArrayList;
+
+import org.fourgeeks.gha.dbadmin.shared.Record;
 
 import jxl.Sheet;
 import jxl.Workbook;
@@ -12,14 +14,26 @@ public class DataLoader {
 		System.out.println(msg);
 	}
 	
-	public static void main(String[] args) {
+	private ArrayList<Record> list;
+	private ArrayList<String> columnList;
+	
+	public ArrayList<Record> getList() {
+		return list;
+	}
+	
+	public ArrayList<String> getColumns() {
+		return columnList;
+	}
+	
+	public DataLoader(File file) {
 		try {
-			PrintWriter fileOut = new PrintWriter("generated.sql", "UTF-8");
 			debug("Cargando archivo xls...");
-			Workbook wb = Workbook.getWorkbook(new File("workbook.xls"));
+			Workbook wb = Workbook.getWorkbook(file);
 			Sheet sheet = wb.getSheet(0);
 			Integer offset = 1;
 			String table_name = sheet.getCell(1, 1).getContents();
+			columnList = new ArrayList<String>();
+			columnList.add(sheet.getCell(0, offset + 1).getContents());
 			String columns = " (" + sheet.getCell(0, offset + 1).getContents();
 			debug("Obteniendo el nombre de las columnas...");
 			for (Integer i = 1; i < sheet.getColumns(); i++) {
@@ -27,22 +41,28 @@ public class DataLoader {
 				if (s.equals(""))
 					throw new Exception("Error: la celda (" + i.toString() + ", 2) esta en blanco");
 				columns += ", "+ s;
+				columnList.add(s);
 			}
 			columns += ") ";
 			debug("Obteniendo valores de la tabla...");
+			list = new ArrayList<Record>();
 			for (Integer i = offset + 2; i < sheet.getRows(); i++) {
-				String out = "INSERT INTO " + table_name + columns + "VALUES ('" + sheet.getCell(0, i).getContents() + "'";
+				Record r = new Record();
+				String tmp = sheet.getCell(0, i).getContents();
+				r.add(tmp);
+				String out = "INSERT INTO " + table_name + columns + "VALUES ('" + tmp + "'";
 				for (Integer j = 1; j < sheet.getColumns(); j++) {
-					String s = sheet.getCell(j, i).getContents();
-					if (s.equals(""))
+					tmp = sheet.getCell(j, i).getContents();
+					if (tmp.equals(""))
 						throw new Exception("Error: la celda (" + j.toString() + ", " + i.toString() + ") esta en blanco");
-					out += ",'" + s + "'";
+					out += ",'" + tmp + "'";
+					r.add(tmp);
 				}
 				out += ");";
-				fileOut.println(out);
+				r.setQuery(out);
+				list.add(r);
 			}
 			debug("Finalizado!");
-			fileOut.close();
 		} catch (Exception e) {
 			System.out.println("Error: " + e.getMessage());
 		}

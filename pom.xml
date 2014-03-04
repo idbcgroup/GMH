@@ -15,12 +15,6 @@
 		<skipTests>true</skipTests>
 	</properties>
 	<dependencies>
-		<!-- <dependency> -->
-		<!-- <groupId>org.hibernate</groupId> -->
-		<!-- <artifactId>hibernate-entitymanager</artifactId> -->
-		<!-- <version>4.2.1.Final</version> -->
-		<!-- </dependency> -->
-
 		<dependency>
 			<groupId>javax</groupId>
 			<artifactId>javaee-api</artifactId>
