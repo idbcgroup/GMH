@@ -141,15 +141,15 @@ Material,3,0100,Steri Gas,010018,0,,0,1
 Material,3,0100,Steri Strip,010020,0,,0,1
 Material,3,0100,Tisular,010022,0,,0,1
 Material,3,0100,Transpore,010024,0,,0,1
-
-Material,1,0,Farmacos,04,2,4,0,1
-Material,2,01,Agujas,0101,3,,0,1
-Material,2,01,Inyectadoras,0102,2,,0,1
-Material,2,04,Antibioticos,0401,2,,0,1
-Material,3,0101,Hipodermicas,010101,1,,0,1
-Material,3,0101,Puncion,010102,1,,0,1
-Material,3,0102,Insulina,010201,1,,0,1
-Material,3,0401,Penicilina,040101,1,,0,1
+#
+#Material,1,0,Farmacos,04,2,4,0,1
+#Material,2,01,Agujas,0101,3,,0,1
+#Material,2,01,Inyectadoras,0102,2,,0,1
+#Material,2,04,Antibioticos,0401,2,,0,1
+#Material,3,0101,Hipodermicas,010101,1,,0,1
+#Material,3,0101,Puncion,010102,1,,0,1
+#Material,3,0102,Insulina,010201,1,,0,1
+#Material,3,0401,Penicilina,040101,1,,0,1
 Equipos,0,,Equipos,3,1,3,0,6
 Equipos,1,3,Equipos Administracion,30,1,0,0,1
 Equipos,1,3,Equipos Logistica,32,1,2,0,1
