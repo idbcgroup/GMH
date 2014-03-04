@@ -54,9 +54,9 @@ import org.fourgeeks.gha.domain.ess.auth.FunctionBpu;
 import org.fourgeeks.gha.domain.ess.auth.Role;
 import org.fourgeeks.gha.domain.ess.auth.SSOUser;
 import org.fourgeeks.gha.domain.ess.ui.App;
-import org.fourgeeks.gha.domain.ess.ui.ViewFunction;
 import org.fourgeeks.gha.domain.ess.ui.Module;
 import org.fourgeeks.gha.domain.ess.ui.View;
+import org.fourgeeks.gha.domain.ess.ui.ViewFunction;
 import org.fourgeeks.gha.domain.exceptions.GHAEJBException;
 import org.fourgeeks.gha.domain.gar.Bpu;
 import org.fourgeeks.gha.domain.gar.BuildingLocation;
@@ -335,6 +335,9 @@ public class EiaMaintenancePlanificationServiceTest {
 		System.out.println(sep + "saveTest" + sep);
 		planif = saveTest();
 
+		System.out.println(sep + "getAllTest" + sep);
+		getAllTest();
+
 		System.out.println(sep + "findByEiaTypeTest" + sep);
 		findByEiaTypeTest();
 
@@ -350,6 +353,19 @@ public class EiaMaintenancePlanificationServiceTest {
 		try {
 			final List<EiaMaintenancePlanification> result = serviceRemote
 					.find(eiaType);
+
+			Assert.assertEquals(itemsExpected, result.size());
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void getAllTest() {
+		int itemsExpected = 1;
+		try {
+			final List<EiaMaintenancePlanification> result = serviceLocal
+					.getAll();
 
 			Assert.assertEquals(itemsExpected, result.size());
 

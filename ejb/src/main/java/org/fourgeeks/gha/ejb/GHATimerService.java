@@ -32,43 +32,26 @@ public class GHATimerService {
 	TimerParamsServiceLocal service;
 
 	/** */
-	@Schedule(minute = "*/2", hour = "*")
+	@Schedule(minute = "*/1", hour = "*")
 	public void checkTimers() {
-		logger.log(Level.INFO, "entrando en checkTimers");
-
 		try {
-			logger.log(Level.INFO, "ZZZ 1");
-			Context jndiContext = new InitialContext();
-			logger.log(Level.INFO, "ZZZ 2");
+			Context context = new InitialContext();
 			List<TimerParams> timerParams = service.getAll();
-			logger.log(Level.INFO, "ZZZ 3");
 
 			for (TimerParams entity : timerParams) {
-				logger.log(Level.INFO, "ZZZ 4");
 				long currentTime = Calendar.getInstance().getTimeInMillis();
-				logger.log(Level.INFO, "ZZZ 5");
 				long lastTimeEffectuated = entity.getLastTimeEffectuated();
-				logger.log(Level.INFO, "ZZZ 6");
 
 				// si el handler no se ha ejecutado nunca
 				if (lastTimeEffectuated == TimerParams.NO_TIME) {
-					logger.log(Level.INFO, "ZZZ 7");
-					invokeTimerHandler(jndiContext, entity, currentTime, false);
-					logger.log(Level.INFO, "ZZZ 8");
+					invokeTimerHandler(context, entity, currentTime, false);
 				} else {
-					logger.log(Level.INFO, "ZZZ 9 - lastTimeEffectuated = "
-							+ lastTimeEffectuated);
+
 					long nextTime = getNextExecutionTime(entity);
-					logger.log(Level.INFO, "ZZZ 9.1");
 					long diferenceTime = currentTime - nextTime;
 
-					logger.log(Level.INFO, "ZZZ 10 - currentTime = "
-							+ currentTime + " nextTime = " + nextTime);
-					if (diferenceTime >= 0) {
-						logger.log(Level.INFO, "ZZZ 11");
-						invokeTimerHandler(jndiContext, entity, currentTime,
-								true);
-					}
+					if (diferenceTime >= 0)
+						invokeTimerHandler(context, entity, currentTime, true);
 				}
 			}
 
@@ -125,6 +108,6 @@ public class GHATimerService {
 				.lookup(entity.getJndiProcessorName());
 
 		// ejecuto el handler
-		handler.doWork();
+		handler.doWork(entity);
 	}
 }

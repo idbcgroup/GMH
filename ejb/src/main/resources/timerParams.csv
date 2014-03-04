@@ -1,2 +1,3 @@
-#TimerParams (code, jndiName, seconds, minutes, hours, days, years)
-preventive-maintenance,java:global/ear-1/ejb-1/EiaPreventiveMaintenanceTimerServiceHandler,0,2,0,0,0
+#durationPot = [HOURS, DAYS, WEEKS, MONTHS, SEMESTERS, YEARS]
+#TimerParams (code, jndiName, secondsFreq, minutesFreq, hoursFreq, daysFreq, yearsFreq, duration, durationPot)
+preventive-maintenance,java:global/ear-1/ejb-1/EiaPreventiveMaintenanceTimerServiceHandler,0,3,0,0,0,4,DAYS

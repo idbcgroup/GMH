@@ -8,6 +8,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
+
 /**
  * Entity implementation class for Entity: TimerParams
  * 
@@ -29,6 +31,8 @@ public class TimerParams extends AbstractCodeEntity implements Serializable {
 	private int hours;
 	private int days;
 	private int years;
+	private int duration;
+	private TimePeriodEnum durationPot;
 
 	/**
 	 * 
@@ -128,12 +132,49 @@ public class TimerParams extends AbstractCodeEntity implements Serializable {
 		this.seconds = seconds;
 	}
 
+	/**
+	 * @return the years
+	 */
 	public int getYears() {
 		return years;
 	}
 
+	/**
+	 * @param years
+	 *            the years to set
+	 */
 	public void setYears(int years) {
 		this.years = years;
+	}
+
+	/**
+	 * @return the duration
+	 */
+	public int getDuration() {
+		return duration;
+	}
+
+	/**
+	 * @param duration
+	 *            the duration to set
+	 */
+	public void setDuration(int duration) {
+		this.duration = duration;
+	}
+
+	/**
+	 * @return the duration period of time
+	 */
+	public TimePeriodEnum getDurationPot() {
+		return durationPot;
+	}
+
+	/**
+	 * @param durationPot
+	 *            the duration period of time to set
+	 */
+	public void setDurationPot(TimePeriodEnum durationPot) {
+		this.durationPot = durationPot;
 	}
 
 }

@@ -1378,6 +1378,8 @@ public class InitialData {
 				entity.setHours(Integer.valueOf(strings[4]));
 				entity.setDays(Integer.valueOf(strings[5]));
 				entity.setYears(Integer.valueOf(strings[6]));
+				entity.setDuration(Integer.valueOf(strings[7]));
+				entity.setDurationPot(TimePeriodEnum.valueOf(strings[6]));
 
 				em.merge(entity);
 				em.flush();

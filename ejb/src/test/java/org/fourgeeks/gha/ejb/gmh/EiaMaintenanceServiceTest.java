@@ -1,6 +1,8 @@
 package org.fourgeeks.gha.ejb.gmh;
 
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -437,6 +439,9 @@ public class EiaMaintenanceServiceTest {
 				+ sep);
 		getLastEffectuatedPlanificationDateTest(maintenancePlan);
 
+		System.out.println(sep + "getScheduleDateOfLastMaintenance" + sep);
+		getScheduleDateOfLastMaintenance(planif);
+
 		System.out.println(sep + "deleteTest" + sep);
 		deleteTest(cEntity, pEntity);
 	}
@@ -474,12 +479,16 @@ public class EiaMaintenanceServiceTest {
 
 	/** */
 	private EiaPreventiveMaintenance savePreventiveMaintenance() {
+		long time = Calendar.getInstance().getTimeInMillis();
+		Timestamp finishTimestamp = new Timestamp(time);
+		Date scheduledDate = new Date(time);
+
 		try {
 			EiaPreventiveMaintenance prevEntity = new EiaPreventiveMaintenance();
 			prevEntity.setPlanification(planif);
 			prevEntity.setState(EiaMaintenanceState.ACCOMPLISHED);
-			Timestamp time = new Timestamp((new java.util.Date()).getTime());
-			prevEntity.setFinishTimestamp(time);
+			prevEntity.setFinishTimestamp(finishTimestamp);
+			prevEntity.setScheduledDate(scheduledDate);
 
 			EiaPreventiveMaintenance result = service
 					.savePreventiveMaintenance(prevEntity);
@@ -554,6 +563,18 @@ public class EiaMaintenanceServiceTest {
 		try {
 			final Timestamp result = planifServiceLocal
 					.getLastEffectuatedPlanificationDate(plan);
+
+			Assert.assertNotNull(result);
+		} catch (GHAEJBException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void getScheduleDateOfLastMaintenance(
+			EiaMaintenancePlanification planif) {
+		try {
+			final Date result = planifServiceLocal
+					.getScheduleDateOfLastMaintenance(planif);
 
 			Assert.assertNotNull(result);
 		} catch (GHAEJBException e) {

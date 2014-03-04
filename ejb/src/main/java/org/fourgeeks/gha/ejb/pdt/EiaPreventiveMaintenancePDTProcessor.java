@@ -1,7 +1,8 @@
 package org.fourgeeks.gha.ejb.pdt;
 
+import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,18 +37,19 @@ public class EiaPreventiveMaintenancePDTProcessor implements PDTProcessor {
 
 	@Override
 	public void processMessage(HashMap<String, Object> params) {
-		long time = (new Date()).getTime();
-		EiaMaintenancePlanification planif = null;
-		EiaPreventiveMaintenance prevMaintenance = null;
+		long time = Calendar.getInstance().getTimeInMillis();
 
 		try {
-			planif = (EiaMaintenancePlanification) params.get("planif");
+			long scheduledTime = (Long) params.get("scheduleDate");
+			EiaMaintenancePlanification planif = (EiaMaintenancePlanification) params
+					.get("planif");
 			Bsp bsp = planif.getMaintenanceProvider();
 
 			// se crea el mantenimiento preventivo
-			prevMaintenance = new EiaPreventiveMaintenance();
+			EiaPreventiveMaintenance prevMaintenance = new EiaPreventiveMaintenance();
 			prevMaintenance.setPlanification(planif);
 			prevMaintenance.setProvider(bsp);
+			prevMaintenance.setScheduledDate(new Date(scheduledTime));
 			prevMaintenance = maintenanceService
 					.savePreventiveMaintenance(prevMaintenance);
 
