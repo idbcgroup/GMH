@@ -27,7 +27,9 @@ import org.fourgeeks.gha.domain.glm.Bsp;
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "eiaFk",
 		"eiaTypeMaintenancePlanFk" }))
-@NamedQueries(value = { @NamedQuery(name = "EiaMaintenancePlanification.findByEiaType", query = "SELECT emp FROM EiaMaintenancePlanification emp JOIN emp.plan plan WHERE plan.eiaType = :eiaType ORDER BY emp.id") })
+@NamedQueries(value = {
+		@NamedQuery(name = "EiaMaintenancePlanification.findByEiaType", query = "SELECT emp FROM EiaMaintenancePlanification emp JOIN emp.plan plan WHERE plan.eiaType = :eiaType ORDER BY emp.id"),
+		@NamedQuery(name = "EiaMaintenancePlanification.getAll", query = "SELECT emp FROM EiaMaintenancePlanification emp ORDER BY emp.id") })
 public class EiaMaintenancePlanification extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 
