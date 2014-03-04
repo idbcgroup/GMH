@@ -17,6 +17,11 @@ import org.fourgeeks.gha.domain.enu.BpiInstitutionRelationTypeEnum;
 import org.fourgeeks.gha.domain.enu.BpiOriginEnum;
 import org.fourgeeks.gha.domain.enu.BpiRiskEnum;
 import org.fourgeeks.gha.domain.enu.BpiTypeEnum;
+import org.fourgeeks.gha.domain.enu.CCDICodeTypeEnum;
+import org.fourgeeks.gha.domain.enu.CCDIEndValueActionEnum;
+import org.fourgeeks.gha.domain.enu.CCDIStatusEnum;
+import org.fourgeeks.gha.domain.enu.CCDIValueStatusEnum;
+import org.fourgeeks.gha.domain.enu.CCDIValueTypeEnum;
 import org.fourgeeks.gha.domain.enu.CurrencyTypeEnum;
 import org.fourgeeks.gha.domain.enu.DepreciationMethodEnum;
 import org.fourgeeks.gha.domain.enu.DocumentTypeEnum;
@@ -54,6 +59,7 @@ import org.fourgeeks.gha.domain.ess.auth.FunctionBpu;
 import org.fourgeeks.gha.domain.ess.auth.Role;
 import org.fourgeeks.gha.domain.ess.auth.SSOUser;
 import org.fourgeeks.gha.domain.ess.ui.App;
+import org.fourgeeks.gha.domain.ess.ui.AppView;
 import org.fourgeeks.gha.domain.ess.ui.Module;
 import org.fourgeeks.gha.domain.ess.ui.View;
 import org.fourgeeks.gha.domain.ess.ui.ViewFunction;
@@ -87,6 +93,10 @@ import org.fourgeeks.gha.domain.gmh.RequiredResources;
 import org.fourgeeks.gha.domain.gmh.ServiceAndResource;
 import org.fourgeeks.gha.domain.gmh.ServiceResourceCategory;
 import org.fourgeeks.gha.domain.gmh.SubProtocolAndChecklist;
+import org.fourgeeks.gha.domain.gom.CCDIDefinition;
+import org.fourgeeks.gha.domain.gom.CCDILevelDefinition;
+import org.fourgeeks.gha.domain.gom.CCDILevelValue;
+import org.fourgeeks.gha.domain.gom.Concept;
 import org.fourgeeks.gha.domain.logs.GHALog;
 import org.fourgeeks.gha.domain.logs.UILog;
 import org.fourgeeks.gha.domain.mix.Bpi;
@@ -106,6 +116,9 @@ import org.fourgeeks.gha.ejb.gar.ObuService;
 import org.fourgeeks.gha.ejb.gar.ObuServiceRemote;
 import org.fourgeeks.gha.ejb.glm.ExternalProviderService;
 import org.fourgeeks.gha.ejb.glm.ExternalProviderServiceRemote;
+import org.fourgeeks.gha.ejb.gom.CCDIService;
+import org.fourgeeks.gha.ejb.gom.CCDIServiceLocal;
+import org.fourgeeks.gha.ejb.gom.CCDIServiceRemote;
 import org.fourgeeks.gha.ejb.log.UILogService;
 import org.fourgeeks.gha.ejb.log.UILogServiceLocal;
 import org.fourgeeks.gha.ejb.log.UILogServiceRemote;
@@ -137,6 +150,19 @@ public class EiaMaintenancePlanificationServiceTest {
 	public static Archive<?> createDeployment() {
 		return ShrinkWrap
 				.create(WebArchive.class, "test.war")
+				.addClass(AppView.class)
+				.addClass(CCDIValueTypeEnum.class)
+				.addClass(CCDICodeTypeEnum.class)
+				.addClass(CCDIValueStatusEnum.class)
+				.addClass(CCDIStatusEnum.class)
+				.addClass(CCDIEndValueActionEnum.class)
+				.addClass(Concept.class)
+				.addClass(CCDILevelValue.class)
+				.addClass(CCDILevelDefinition.class)
+				.addClass(CCDIDefinition.class)
+				.addClass(CCDIService.class)
+				.addClass(CCDIServiceRemote.class)
+				.addClass(CCDIServiceLocal.class)
 				.addClass(AbstractEntity.class)
 				.addClass(AbstractCodeEntity.class)
 				.addClass(App.class)
@@ -294,7 +320,7 @@ public class EiaMaintenancePlanificationServiceTest {
 	public void set() {
 		try {
 			// obteniendo tipo de equipo
-			eiaType = new EiaType("90001");
+			eiaType = new EiaType("3000000001");
 			List<EiaTypeMaintenancePlan> list = eiaTypeMPlanService
 					.findByEiaType(eiaType);
 

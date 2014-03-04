@@ -357,6 +357,8 @@ public class FunctionBpuServiceTest {
 	 */
 	@Test
 	public void test() {
+		System.out.println("\n TESTING FUNCTION BPU SERVICE\n\n");
+
 		Assert.assertNotNull(service);
 		FunctionBpu save = null;
 		try {

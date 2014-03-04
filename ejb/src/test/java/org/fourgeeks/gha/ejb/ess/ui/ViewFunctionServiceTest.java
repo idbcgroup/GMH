@@ -278,6 +278,8 @@ public class ViewFunctionServiceTest {
 	 */
 	@Test
 	public void test() {
+		System.out.println("\n TESTING VIEW FUNCTION SERVICE\n");
+
 		Assert.assertNotNull(service);
 
 		try {

@@ -159,9 +159,7 @@ public class EiaMaintenancePlanificationService extends GHAEJBExceptionService
 
 			List<EiaPreventiveMaintenance> resultList = em
 					.createQuery(stringQuery, EiaPreventiveMaintenance.class)
-					.setParameter("planif", planif)
-					.setParameter("status", EiaMaintenanceState.ACCOMPLISHED)
-					.getResultList();
+					.setParameter("planif", planif).getResultList();
 
 			if (resultList.isEmpty())
 				return null;

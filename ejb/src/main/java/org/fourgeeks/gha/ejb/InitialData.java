@@ -1273,8 +1273,8 @@ public class InitialData {
 		facilityTestData();
 		// //
 		eiaTypeCategoryTestData();
-		// eiaTypeTestData();
-		// eiaTestData();
+		eiaTypeTestData();
+		eiaTestData();
 		//
 		maintenanceActivityTestData();
 		subProtocolAndChecklistTestData();
@@ -1355,8 +1355,7 @@ public class InitialData {
 		try {
 			logger.info("creating TimerParams test data");
 			in = InitialData.class.getResourceAsStream("/timerParams.csv");
-			reader = new CSVReader(new InputStreamReader(in, "UTF-8"), ',',
-					'\'', 0);
+			reader = new CSVReader(new InputStreamReader(in, "UTF-8"), ',');
 			final List<String[]> readAll = reader.readAll();
 			final Map<String, Boolean> words = new HashMap<String, Boolean>();
 
@@ -1379,7 +1378,7 @@ public class InitialData {
 				entity.setDays(Integer.valueOf(strings[5]));
 				entity.setYears(Integer.valueOf(strings[6]));
 				entity.setDuration(Integer.valueOf(strings[7]));
-				entity.setDurationPot(TimePeriodEnum.valueOf(strings[6]));
+				entity.setDurationPot(TimePeriodEnum.valueOf(strings[8]));
 
 				em.merge(entity);
 				em.flush();

@@ -25,7 +25,7 @@ Material,2,01,Alimentación,0102,0,,0,1
 Material,2,01,Aplicadores y Baja Lenguas,0103,0,,0,1
 Material,2,01,Asepsia/Higiene,0104,0,,0,1
 Material,2,01,Aspiradores/Succionadores,0130,0,,0,1
-Material,2,01,Autosuturas,Tijeras,Cargas y Pistolas,0105,0,,0,1
+Material,2,01,'Autosuturas,Tijeras,Cargas y Pistolas',0105,0,,0,1
 Material,2,01,Bandejas,0106,0,,0,1
 Material,2,01,Bolsas,0107,0,,0,1
 Material,2,01,Cánulas,0108,0,,0,1
@@ -90,8 +90,8 @@ Material,2,04,Medicinas,0400,0,,0,1
 Material,2,04,Soluciones,0410,0,,0,1
 #
 Material,2,07,Vestimenta Médica,0700,0,,0,1
-Material,2,07,Vestimenta de Paciente,0710,,0,1
-Material,2,07,Vestimenta de Trabajo,0720,,0,1
+Material,2,07,Vestimenta de Paciente,0710,0,,0,1
+Material,2,07,Vestimenta de Trabajo,0720,0,,0,1
 Material,2,07,Campos,0730,0,,0,1
 Material,2,07,Fundas,0740,0,,0,1
 Material,2,07,Mantas y colchones especiales,0750,0,,0,1
@@ -141,10 +141,10 @@ Material,3,0100,Steri Gas,010018,0,,0,1
 Material,3,0100,Steri Strip,010020,0,,0,1
 Material,3,0100,Tisular,010022,0,,0,1
 Material,3,0100,Transpore,010024,0,,0,1
-
-Material,1,0,Farmacos,04,2,4,0,1
-Material,2,01,Agujas,0101,3,,0,1
-Material,2,01,Inyectadoras,0102,2,,0,1
+#
+#Material,1,0,Farmacos,04,2,4,0,1
+#Material,2,01,Agujas,0101,3,,0,1
+#Material,2,01,Inyectadoras,0102,2,,0,1
 Material,2,04,Antibioticos,0401,2,,0,1
 Material,3,0101,Hipodermicas,010101,1,,0,1
 Material,3,0101,Puncion,010102,1,,0,1
