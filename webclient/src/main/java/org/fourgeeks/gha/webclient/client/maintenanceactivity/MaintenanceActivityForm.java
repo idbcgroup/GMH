@@ -50,22 +50,22 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
  * 
  */
 public class MaintenanceActivityForm extends GHAForm<MaintenanceActivity>
-implements MaintenanceActivitySelectionProducer,
-MaintenanceActivitySubProtocolProducer {
+		implements MaintenanceActivitySelectionProducer,
+		MaintenanceActivitySubProtocolProducer {
 	private List<MaintenanceActivitySelectionListener> listeners;
 	private List<MaintenanceActivitySubProtocolListener> subProtocolListeners;
 
 	private GHATextItem codeTextItem, nameTextItem, estimatedTimeTextItem,
-	estimatedCostTextItem, timesEffectuedTextItem,
-	eiasWhitThisActivityTextItem, lastEffectuedByTextItem;
+			estimatedCostTextItem, timesEffectuedTextItem,
+			eiasWhitThisActivityTextItem, lastEffectuedByTextItem;
 	private GHATextAreaItem instructionsAndObsTextAreaItem,
-	descriptionTextItem;
+			descriptionTextItem;
 	private GHAActivityStateSelectItem stateSelectItem;
 	private GHAActivityCategorySelectItem categorySelectItem;
 	private GHAActivitySubCategorySelectItem subCategorySelectItem;
 	private GHACheckboxItem isSubProtocolCheckboxItem,
-	materialsRequierdCheckboxItem, toolsRequierdCheckboxItem,
-	equipsRequiredCheckboxItem;
+			materialsRequierdCheckboxItem, toolsRequierdCheckboxItem,
+			equipsRequiredCheckboxItem;
 	private GHAPeriodOfTimeSelectItem estimatedTimePoTSelectItem;
 	private GHACurrencyTypeSelectItem estimatedCostCurrencySelectItem;
 	private GHADateItem lastEffectuatedDateItem;
@@ -267,18 +267,19 @@ MaintenanceActivitySubProtocolProducer {
 					.valueOf(estimatedCostTextItem.getValueAsString())));
 		}
 		if (estimatedCostCurrencySelectItem.getValue() != null) {
-			final String value = estimatedCostCurrencySelectItem.getValueAsString();
-			activity.setEstimatedCostCurrency(CurrencyTypeEnum
-					.valueOf(value));
+			final String value = estimatedCostCurrencySelectItem
+					.getValueAsString();
+			activity.setEstimatedCostCurrency(CurrencyTypeEnum.valueOf(value));
+
 		}
 		if (instructionsAndObsTextAreaItem.getValue() != null) {
-			final String value = instructionsAndObsTextAreaItem.getValueAsString();
+			final String value = instructionsAndObsTextAreaItem
+					.getValueAsString();
 			activity.setInstructionsAndObservations(value);
 		}
 
 		// TODO Agregar atributos para proveedor responsable
 		// TODO Agregar atributos para cargo responsable
-
 		activity.setIsSubProtocol(isSubProtocolCheckboxItem.getValueAsBoolean());
 		activity.setMaterialsRequired(materialsRequierdCheckboxItem
 				.getValueAsBoolean());
@@ -286,19 +287,20 @@ MaintenanceActivitySubProtocolProducer {
 				.getValueAsBoolean());
 		activity.setIsToolsRequired(toolsRequierdCheckboxItem
 				.getValueAsBoolean());
-
 		entity.setActivity(activity);
 
 		final Set<ConstraintViolation<Activity>> violations = validator
 				.validate(activity);
-		if (form.validate() && violations.isEmpty())
+
+		if (form.validate() && violations.isEmpty()) {
 			return entity;
-		else {
+		} else {
 			final List<String> violationsList = new ArrayList<String>();
 			for (final Iterator<ConstraintViolation<Activity>> it = violations
-					.iterator(); it.hasNext();)
+					.iterator(); it.hasNext();) {
 				violationsList.add(it.next().getMessage());
-			//			GHAAlertManager.alert(violationsList);
+				// GHAAlertManager.alert(violationsList);
+			}
 			GHAAlertManager.alert(violationsList.get(0));
 		}
 		return null;
@@ -332,15 +334,15 @@ MaintenanceActivitySubProtocolProducer {
 
 		MaintenanceActivityModel.save(maintenanceActivity,
 				new GHAAsyncCallback<MaintenanceActivity>() {
-			@Override
-			public void onSuccess(MaintenanceActivity result) {
-				hasUnCommittedChanges = false;
-				notifyMaintenanceActivity(result);
-				clear();
-				if (callback != null)
-					callback.onSuccess(result);
-			}
-		});
+					@Override
+					public void onSuccess(MaintenanceActivity result) {
+						hasUnCommittedChanges = false;
+						notifyMaintenanceActivity(result);
+						clear();
+						if (callback != null)
+							callback.onSuccess(result);
+					}
+				});
 
 	}
 
@@ -365,7 +367,7 @@ MaintenanceActivitySubProtocolProducer {
 		estimatedTimePoTSelectItem.setValue(activity.getEstimatedDurationPoT());
 		estimatedCostTextItem.setValue(activity.getEstimatedCost());
 		estimatedCostCurrencySelectItem.setValue(activity
-				.getEstimatedCostCurrency());
+				.getEstimatedCostCurrency().name());
 
 		isSubProtocol = entity.getActivity().getIsSubProtocol();
 		notifyMaintenanceActivitySubProtocolSubTabs();
@@ -398,6 +400,7 @@ MaintenanceActivitySubProtocolProducer {
 
 	@Override
 	public void update(final GHAAsyncCallback<MaintenanceActivity> callback) {
+
 		final MaintenanceActivity entity = extract(true);
 
 		if (entity == null)
@@ -405,14 +408,14 @@ MaintenanceActivitySubProtocolProducer {
 
 		MaintenanceActivityModel.update(entity,
 				new GHAAsyncCallback<MaintenanceActivity>() {
-			@Override
-			public void onSuccess(MaintenanceActivity result) {
-				hasUnCommittedChanges = false;
-				notifyMaintenanceActivity(result);
-				if (callback != null)
-					callback.onSuccess(result);
-			}
-		});
+					@Override
+					public void onSuccess(MaintenanceActivity result) {
+						hasUnCommittedChanges = false;
+						notifyMaintenanceActivity(result);
+						if (callback != null)
+							callback.onSuccess(result);
+					}
+				});
 	}
 
 	@Override
