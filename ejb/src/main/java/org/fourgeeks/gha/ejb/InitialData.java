@@ -525,11 +525,13 @@ public class InitialData {
 			try {
 				logger.info("Creating test data: EiaTypeCategory");
 				final List<CCDILevelValue> ccdiCategories = em
-						.createNamedQuery("CCDILevelValue.findAll",
-								CCDILevelValue.class).getResultList();
+						.createNamedQuery(
+								"CCDILevelValue.findAllByDefinitionCode",
+								CCDILevelValue.class)
+						.setParameter("code", "Equipos").getResultList();
 				for (final CCDILevelValue ccdi : ccdiCategories) {
 					if (!ccdi.getLevelDefinition().getDefinition().getCode()
-							.equalsIgnoreCase("EQUIPOS"))
+							.equals("Equipos"))
 						continue;
 					final EiaTypeCategory category = new EiaTypeCategory();
 					category.setName(ccdi.getName());
