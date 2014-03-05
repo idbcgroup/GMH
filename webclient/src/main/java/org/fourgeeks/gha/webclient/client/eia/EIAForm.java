@@ -96,7 +96,7 @@ EiaSelectionProducer {
 	private List<EIASelectionListener> listeners;
 
 	{ // Global
-		sectionForm = new GHASectionForm();
+		sectionForm = new GHASectionForm(GHAStrings.get("eia"));
 		listeners = new ArrayList<EIASelectionListener>();
 
 		// Information Form Items

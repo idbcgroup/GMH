@@ -86,7 +86,7 @@ public class EIAMaintenanceForm extends GHAForm<EiaMaintenance> implements
 
 	{
 		formIsActive = true;
-		sectionForm = new GHASectionForm();
+		sectionForm = new GHASectionForm("Opciones");
 		listeners = new ArrayList<EiaMaintenanceSelectionListener>();
 		ChangedHandler mPlanChangedHandler = new ChangedHandler() {
 			@Override

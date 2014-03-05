@@ -28,7 +28,7 @@ public class EIADamageAndPlanificationSubTab extends GHASubTab implements
 	private GHASectionForm sectionForm;
 
 	{
-		sectionForm = new GHASectionForm();
+		sectionForm = new GHASectionForm("Opciones");
 		damageReportPanel = new EiaDamageReportGridPanel();
 		maintenancePlanifPanel = new EIAMaintenanceGridPanel();
 		preventivePlanifPanel = new EIAMaintenancePlanificationGridPanel();

@@ -23,7 +23,7 @@ public class MaintenanceActivityServiceAndResourceSubTab extends GHASubTab {
 	private GHASectionForm sectionForm;
 
 	{
-		sectionForm = new GHASectionForm();
+		sectionForm = new GHASectionForm("Opciones");
 		materialsPanel = new MaintenanceActivityMaterialGridPanel();
 		equipmentsPanel = new MaintenanceActivityEiaTypeGridPanel();
 	}

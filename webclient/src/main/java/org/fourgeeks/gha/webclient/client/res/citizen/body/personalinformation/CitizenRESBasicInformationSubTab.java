@@ -1,6 +1,7 @@
 package org.fourgeeks.gha.webclient.client.res.citizen.body.personalinformation;
 
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASectionForm;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
 
 import com.smartgwt.client.types.Overflow;
@@ -16,6 +17,10 @@ import com.smartgwt.client.widgets.layout.SectionStackSection;
  */
 public class CitizenRESBasicInformationSubTab extends GHASubTab {
 
+	private GHASectionForm sectionForm;
+	{
+		sectionForm = new GHASectionForm("Opciones");
+	}
 	/**
 	 * @param title
 	 */

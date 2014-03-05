@@ -92,7 +92,7 @@ EIASelectionListener, EiaDamageReportSelectionProducer {
 	private Eia eia;
 
 	{ // Global
-		sectionForm = new GHASectionForm();
+		sectionForm = new GHASectionForm("Opciones");
 		listeners = new ArrayList<EiaDamageReportSelectionListener>();
 
 		// report data Form Items

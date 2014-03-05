@@ -28,12 +28,13 @@ public class CitizenRESInternalTabSet extends GHAInternalTabSet implements Citiz
 	 */
 	public CitizenRESInternalTabSet() {
 		super();
-
+		//hideables
 		hideables.add(citizenRESBasicInformationTab);
 		hideables.add(citizenRESDemograficSubTab);
 		hideables.add(citizenRESSocialEconomicsSubTab);
 		hideables.add(citizenRESInsuranceCompanySubTab);
 		hideables.add(citizenRESOccupationalSubTab);
+		//closables
 		closables.add(citizenRESBasicInformationTab);
 		closables.add(citizenRESDemograficSubTab);
 		closables.add(citizenRESSocialEconomicsSubTab);

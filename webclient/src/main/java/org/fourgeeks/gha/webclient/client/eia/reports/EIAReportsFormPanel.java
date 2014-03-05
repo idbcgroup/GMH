@@ -50,7 +50,7 @@ ClosableListener, HideableListener {
 		listEiaTypeCompsReportForm = new EIAReportListEiaTypeCompsForm();
 
 		// CREO EL SECTION FORM DONDE VAN A IR LOS FORMULARIOS
-		sectionForm = new GHASectionForm();
+		sectionForm = new GHASectionForm("Opciones");
 		sectionForm.addSection("Edo. y Ubic.", edoUbicReportForm);
 		sectionForm.addSection("Detalles de Equipos", detalleEquiposReportForm);
 		sectionForm.addSection("Listado Tipos de Equipo",

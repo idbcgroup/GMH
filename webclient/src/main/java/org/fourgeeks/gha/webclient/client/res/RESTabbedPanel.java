@@ -11,6 +11,7 @@ import org.fourgeeks.gha.webclient.client.citizen.CitizenAddForm;
 import org.fourgeeks.gha.webclient.client.citizen.CitizenSearchForm;
 import org.fourgeeks.gha.webclient.client.citizen.CitizenSelectionListener;
 
+import com.google.gwt.user.client.History;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 
@@ -34,13 +35,13 @@ public class RESTabbedPanel extends GHATabbedPanel {
 		citizenSearchForm.addCitizenSelectionListener(new CitizenSelectionListener() {
 			@Override
 			public void onCitizenSelect(Citizen citizen) {
-				place.updateToken("res/" +/* citizen.getIdNumber()+"-"+*/citizen.getId());
+				History.newItem("res/" +citizen.getId());
 			}
 		});
 		citizenAddForm.addCitizenSelectionListener(new CitizenSelectionListener() {
 			@Override
 			public void onCitizenSelect(Citizen citizen) {
-				place.updateToken("res/" +/* citizen.getIdNumber()+"-"*/citizen.getId());
+				History.newItem("res/" +citizen.getId());
 			}
 		});
 
@@ -58,6 +59,7 @@ public class RESTabbedPanel extends GHATabbedPanel {
 			@Override
 			public void onClick(ClickEvent event) {
 				citizenAddForm.open();
+				//				History.newItem("res/" + Math.round(Math.random() *10));
 			}
 		});
 		addHeaderOption(GHAStrings.get("close"), "cerrarButton",
@@ -69,8 +71,6 @@ public class RESTabbedPanel extends GHATabbedPanel {
 				} catch (final UnavailableToCloseException e) {
 					return;
 				}
-				// History.newItem("res/" + Math.round(Math.random() *
-				// 10));
 			}
 		});
 	}
