@@ -78,7 +78,7 @@ import org.fourgeeks.gha.domain.gmh.EiaTypeComponent;
 import org.fourgeeks.gha.domain.gmh.EiaTypeMaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
-import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.domain.gmh.RequiredResources;
 import org.fourgeeks.gha.domain.gmh.ServiceAndResource;
@@ -105,7 +105,6 @@ import org.fourgeeks.gha.ejb.glm.ExternalProviderService;
 import org.fourgeeks.gha.ejb.glm.ExternalProviderServiceRemote;
 import org.fourgeeks.gha.ejb.gmh.EiaService;
 import org.fourgeeks.gha.ejb.gmh.EiaServiceRemote;
-import org.fourgeeks.gha.ejb.gmh.EiaServiceTest;
 import org.fourgeeks.gha.ejb.gmh.EiaTypeComponentService;
 import org.fourgeeks.gha.ejb.gmh.EiaTypeComponentServiceLocal;
 import org.fourgeeks.gha.ejb.gmh.EiaTypeComponentServiceRemote;
@@ -179,7 +178,6 @@ public class CitizenServiceTest {
 				.addClass(ExternalProvider.class)
 				.addClass(ExternalProviderService.class)
 				.addClass(ExternalProviderServiceRemote.class)
-				.addClass(EiaServiceTest.class)
 				.addClass(EiaServiceRemote.class)
 				.addClass(EiaPreventiveMaintenance.class)
 				.addClass(ExternalProvider.class)
@@ -211,7 +209,7 @@ public class CitizenServiceTest {
 				.addClass(MaintenancePlanType.class)
 				.addClass(EiaMaintenanceState.class)
 				.addClass(MaintenancePlanificationType.class)
-				.addClass(MaintenanceProtocols.class)
+				.addClass(MaintenanceProtocol.class)
 				.addClass(ActivityState.class)
 				.addClass(ActivityCategoryEnum.class)
 				.addClass(Manufacturer.class)
@@ -278,6 +276,26 @@ public class CitizenServiceTest {
 	private Activity parentActivity;
 	private SubProtocolAndChecklist subProtocol;
 
+	private void deleteListTest() {
+		final int itemsExpected = 3;
+
+		try {
+			subProtocol = new SubProtocolAndChecklist();
+			subProtocol.setActivity(activity);
+			subProtocol.setParentActivity(parentActivity);
+			subProtocol.setOrdinal(4);
+			subProtocol = serviceRemote.save(subProtocol);
+
+			final List<SubProtocolAndChecklist> list = new ArrayList<SubProtocolAndChecklist>();
+			list.add(subProtocol);
+
+			serviceRemote.delete(list);
+			Assert.assertEquals(itemsExpected, serviceRemote.getAll().size());
+		} catch (final GHAEJBException e) {
+			e.printStackTrace();
+		}
+	}
+
 	/** */
 	@Before
 	public void set() {
@@ -294,12 +312,6 @@ public class CitizenServiceTest {
 	}
 
 	/** */
-	@After
-	public void unset() {
-
-	}
-
-	/** */
 	@Test
 	public void test() {
 		final String sep = "\n---------------------------------------\n";
@@ -310,23 +322,9 @@ public class CitizenServiceTest {
 		deleteListTest();
 	}
 
-	private void deleteListTest() {
-		final int itemsExpected = 3;
+	/** */
+	@After
+	public void unset() {
 
-		try {
-			subProtocol = new SubProtocolAndChecklist();
-			subProtocol.setActivity(activity);
-			subProtocol.setParentActivity(parentActivity);
-			subProtocol.setOrdinal(4);
-			subProtocol = serviceRemote.save(subProtocol);
-
-			List<SubProtocolAndChecklist> list = new ArrayList<SubProtocolAndChecklist>();
-			list.add(subProtocol);
-
-			serviceRemote.delete(list);
-			Assert.assertEquals(itemsExpected, serviceRemote.getAll().size());
-		} catch (GHAEJBException e) {
-			e.printStackTrace();
-		}
 	}
 }

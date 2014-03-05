@@ -5,7 +5,7 @@ package org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocols;
 
 import java.util.List;
 
-import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridField;
 import org.fourgeeks.gha.webclient.client.UI.grids.GhaGrid;
@@ -25,7 +25,7 @@ import com.smartgwt.client.widgets.menu.events.MenuItemClickEvent;
  * @author emiliot
  * 
  */
-public class MaintenanceProtocolsGrid extends GhaGrid<MaintenanceProtocols> {
+public class MaintenanceProtocolsGrid extends GhaGrid<MaintenanceProtocol> {
 	private final MenuItem[] headerMenuItems;
 	private final GHAAsyncCallback<Void> callback = new GHAAsyncCallback<Void>() {
 		@Override
@@ -98,7 +98,7 @@ public class MaintenanceProtocolsGrid extends GhaGrid<MaintenanceProtocols> {
 		addDropCompleteHandler(new DropCompleteHandler() {
 			@Override
 			public void onDropComplete(DropCompleteEvent event) {
-				final List<MaintenanceProtocols> entities = getEntities();
+				final List<MaintenanceProtocol> entities = getEntities();
 
 				int size = getRecords().length;
 				for (int i = 0, ordinal = 1; i < size; i++, ordinal++) {

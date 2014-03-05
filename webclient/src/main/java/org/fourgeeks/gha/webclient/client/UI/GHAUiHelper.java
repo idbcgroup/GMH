@@ -7,10 +7,10 @@ import org.fourgeeks.gha.webclient.client.UI.icons.GHAImg;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHADynamicForm.FormType;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHALabel;
 
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.EventListener;
 import com.google.gwt.user.client.Window;
@@ -70,7 +70,13 @@ public abstract class GHAUiHelper {
 		// RootPanel.get().addDomHandler(null, null)
 	}
 
+	/**
+	 * 
+	 */
 	public static final int MIN_WIDTH = 1024;
+	/**
+	 * 
+	 */
 	public static final int MIN_HEIGHT = 768;
 
 	/**
@@ -138,8 +144,14 @@ public abstract class GHAUiHelper {
 	 */
 	@Deprecated
 	public static final int FOUR_COLUMN_FORMITEM_SIZE = 135;
+	/**
+	 * 
+	 */
 	@Deprecated
 	public static final int THREE_COLUMN_FORMITEM_SIZE = 150;
+	/**
+	 * 
+	 */
 	public static final int DEFAULT_ITEM_SIZE = 150;
 	/**
 	 * The default length for a code item
@@ -149,7 +161,13 @@ public abstract class GHAUiHelper {
 	 * 
 	 */
 	public static final String HIGHLIGHTED_BACKGROUND_COLOR = "#F4F4F4";
+	/**
+	 * 
+	 */
 	public static final int DEFAULT_TEXT_AREA_ITEM_HEIGHT = 70;
+	/**
+	 * 
+	 */
 	public static final int DEFAULT_ANIMATION_TIME = 400;
 	/**
 	 * width for the place eyelash
@@ -171,6 +189,9 @@ public abstract class GHAUiHelper {
 	 * Default widht for the header option
 	 */
 	public static final int DEFAULT_HEADER_OPTION_WIDTH = 90;
+	/**
+	 * 
+	 */
 	public static final int DEFAULT_TAB_SET_HEIGHT = 30;
 	/**
 	 * the default height for the pation top component
@@ -193,6 +214,9 @@ public abstract class GHAUiHelper {
 
 	private static List<Window.ScrollHandler> scrollHandlers = new ArrayList<Window.ScrollHandler>();
 
+	/**
+	 * 
+	 */
 	public static int DEFAULT_TAB_HEADER_WIDTH = 250;
 
 	/**
@@ -218,6 +242,13 @@ public abstract class GHAUiHelper {
 	 */
 	public static void addGHAResizeHandler(ResizeHandler handler) {
 		resizeHandlers.add(handler);
+	}
+
+	/**
+	 * @param scrollHandler
+	 */
+	public static void addWindowScrollHandler(Window.ScrollHandler scrollHandler) {
+		scrollHandlers.add(scrollHandler);
 	}
 
 	/**
@@ -322,7 +353,7 @@ public abstract class GHAUiHelper {
 	}
 
 	/**
-	 * @param extrasHeight
+	 * @param type
 	 * @return the grid size
 	 */
 	public static int getResultSetGridSize(ResultSetContainerType type) {
@@ -451,14 +482,8 @@ public abstract class GHAUiHelper {
 	/**
 	 * @param scrollHandler
 	 */
-	public static void addWindowScrollHandler(Window.ScrollHandler scrollHandler) {
-		scrollHandlers.add(scrollHandler);
-	}
-
-	/**
-	 * @param scrollHandler
-	 */
-	public static void removeWindowScrollHandler(Window.ScrollHandler scrollHandler) {
+	public static void removeWindowScrollHandler(
+			Window.ScrollHandler scrollHandler) {
 		scrollHandlers.remove(scrollHandler);
 	}
 
@@ -480,7 +505,7 @@ public abstract class GHAUiHelper {
 	 * @param imgW
 	 * @param imgH
 	 * @param height
-	 * @return
+	 * @return the vertical layout
 	 */
 	public static VLayout verticalGraySeparatorImgBar(String src, int imgW,
 			int imgH, int height) {

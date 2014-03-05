@@ -1,7 +1,7 @@
 package org.fourgeeks.gha.webclient.client.maintenanceplan.maintenanceprotocols;
 
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
-import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanPanel;
@@ -54,7 +54,7 @@ public class MaintenanceProtocolsSubTab extends GHASubTab implements
 	}
 
 	@Override
-	public void notifyMaintenanceProtocols(MaintenanceProtocols entity) {
+	public void notifyMaintenanceProtocols(MaintenanceProtocol entity) {
 		maintenanceProtocolsGridPanel.notifyMaintenanceProtocols(entity);
 	}
 

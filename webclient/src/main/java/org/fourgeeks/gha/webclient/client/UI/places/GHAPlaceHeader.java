@@ -21,8 +21,6 @@ public class GHAPlaceHeader extends Label {
 
 	/**
 	 * @param place
-	 * @param title
-	 * @param token
 	 */
 	public GHAPlaceHeader(final GHAPlace place) {
 		super();
@@ -57,8 +55,8 @@ public class GHAPlaceHeader extends Label {
 	}
 
 	/**
-		 * 
-		 */
+	 * 
+	 */
 	public void unMarkSelected() {
 		setBackgroundColor(GHAUiHelper.DEFAULT_PLACES_BAR_BACKGROUND_COLOR);
 		selected = false;

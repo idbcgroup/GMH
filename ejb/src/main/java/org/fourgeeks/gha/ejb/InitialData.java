@@ -70,7 +70,7 @@ import org.fourgeeks.gha.domain.gmh.EiaType;
 import org.fourgeeks.gha.domain.gmh.EiaTypeCategory;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
-import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.domain.gmh.Manufacturer;
 import org.fourgeeks.gha.domain.gmh.SubProtocolAndChecklist;
 import org.fourgeeks.gha.domain.gom.CCDIDefinition;
@@ -243,14 +243,18 @@ public class InitialData {
 
 	/**
 	 * 
+	 *
 	 */
 	private void ccdiLevelDefinitionTestData() {
 		InputStream in = null;
 		CSVReader reader = null;
 
-		final String query = "SELECT t from CCDILevelDefinition t WHERE t.id = 1";
+		final String query = "SELECT COUNT(t) from CCDILevelDefinition t";
 		try {
-			em.createQuery(query).getSingleResult();
+			int count = ((Number) em.createQuery(query).getSingleResult())
+					.intValue();
+			if (count <= 0)
+				throw new NoResultException();
 		} catch (final NoResultException e) {
 			try {
 				logger.info("creating test ccdiLevelDefinition");
@@ -264,7 +268,6 @@ public class InitialData {
 					if (strings[0].startsWith("#")
 							|| strings[0].startsWith("//"))
 						continue;
-
 					final CCDIDefinition definition = em
 							.createNamedQuery("CCDIDefinition.findByCode",
 									CCDIDefinition.class)
@@ -291,7 +294,7 @@ public class InitialData {
 
 			} catch (final Exception e1) {
 				logger.log(Level.INFO,
-						"error creating test ccdi level definition", e);
+						"error creating test ccdi level definition", e1);
 			}
 		} finally {
 			try {
@@ -317,9 +320,12 @@ public class InitialData {
 		InputStream in = null;
 		CSVReader reader = null;
 
-		final String query = "SELECT t from CCDILevelValue t WHERE t.id = 1";
+		final String query = "SELECT COUNT(t) from CCDILevelValue t";
 		try {
-			em.createQuery(query).getSingleResult();
+			int count = ((Number) em.createQuery(query).getSingleResult())
+					.intValue();
+			if (count <= 0)
+				throw new NoResultException();
 		} catch (final NoResultException e) {
 			try {
 				logger.info("creating test ccdiLevelValue");
@@ -334,10 +340,8 @@ public class InitialData {
 							|| strings[0].startsWith("//"))
 						continue;
 
-					final CCDIDefinition definition = em
-							.createNamedQuery("CCDIDefinition.findByCode",
-									CCDIDefinition.class)
-							.setParameter("code", strings[0]).getSingleResult();
+					final CCDIDefinition definition = em.find(
+							CCDIDefinition.class, strings[0]);
 					final CCDILevelDefinition levelDefinition = em
 							.createNamedQuery(
 									"CCDILevelDefinition.findByLevel",
@@ -350,10 +354,7 @@ public class InitialData {
 					levelValue.setLevelDefinition(levelDefinition);
 
 					final CCDILevelValue parentValue = strings[2].equals("") ? null
-							: em.createNamedQuery("CCDILevelValue.findByCode",
-									CCDILevelValue.class)
-									.setParameter("code", strings[2])
-									.getSingleResult();
+							: em.find(CCDILevelValue.class, strings[2]);
 					levelValue.setParentValue(parentValue);
 					levelValue.setName(strings[3]);
 					levelValue.setCode(strings[4]);
@@ -369,7 +370,7 @@ public class InitialData {
 
 			} catch (final Exception e1) {
 				logger.log(Level.INFO, "error creating test ccdi level value",
-						e);
+						e1);
 			}
 		} finally {
 			try {
@@ -392,9 +393,12 @@ public class InitialData {
 		InputStream in = null;
 		CSVReader reader = null;
 
-		final String query = "SELECT t from CCDIDefinition t WHERE t.id = 1";
+		final String query = "SELECT COUNT(t) from CCDIDefinition t";
 		try {
-			em.createQuery(query).getSingleResult();
+			int count = ((Number) em.createQuery(query).getSingleResult())
+					.intValue();
+			if (count <= 0)
+				throw new NoResultException();
 		} catch (final NoResultException e) {
 			try {
 				logger.info("creating test ccdiDefinition");
@@ -517,9 +521,12 @@ public class InitialData {
 	}
 
 	private void eiaTypeCategoryTestData() {
-		final String query = "SELECT t from EiaTypeCategory t WHERE t.id = 1";
+		final String query = "SELECT COUNT(t) from EiaTypeCategory t";
 		try {
-			em.createQuery(query).getSingleResult();
+			int count = ((Number) em.createQuery(query).getSingleResult())
+					.intValue();
+			if (count <= 0)
+				throw new NoResultException();
 		} catch (final NoResultException e) {
 			try {
 				logger.info("Creating test data: EiaTypeCategory");
@@ -527,9 +534,11 @@ public class InitialData {
 						.createNamedQuery(
 								"CCDILevelValue.findAllByDefinitionCode",
 								CCDILevelValue.class)
-						.setParameter("code", "EQUIPOS").getResultList();
-
+						.setParameter("code", "Equipos").getResultList();
 				for (final CCDILevelValue ccdi : ccdiCategories) {
+					if (!ccdi.getLevelDefinition().getDefinition().getCode()
+							.equals("Equipos"))
+						continue;
 					final EiaTypeCategory category = new EiaTypeCategory();
 					category.setName(ccdi.getName());
 					category.setCode(ccdi.getCode());
@@ -540,7 +549,7 @@ public class InitialData {
 				em.flush();
 			} catch (final Exception e1) {
 				logger.log(Level.INFO,
-						"error Creating SubProtocolAndChecklist test data", e1);
+						"error Creating EiaTypeCategory test data", e1);
 			}
 		}
 	}
@@ -571,10 +580,8 @@ public class InitialData {
 					eiaType.setName(strings[2]);
 					eiaType.setMobility(EiaMobilityEnum.values()[Integer
 							.parseInt(strings[3])]);
-					eiaType.setEiaTypeCategory(em
-							.createNamedQuery("EiaTypeCategory.findByCode",
-									EiaTypeCategory.class)
-							.setParameter("code", strings[4]).getSingleResult());
+					eiaType.setEiaTypeCategory(em.find(EiaTypeCategory.class,
+							strings[4]));
 					eiaType.setSubtype(EiaSubTypeEnum.values()[Integer
 							.parseInt(strings[5])]);
 					eiaType.setModel(strings[6]);
@@ -583,7 +590,7 @@ public class InitialData {
 				}
 
 			} catch (final Exception e1) {
-				logger.log(Level.INFO, "error creating eiatype test data", e);
+				logger.log(Level.INFO, "error creating eiatype test data", e1);
 			}
 		} finally {
 			try {
@@ -835,7 +842,7 @@ public class InitialData {
 	}
 
 	private void maintenanceProtocolsTestData() {
-		final String query = "SELECT t from MaintenanceProtocols t WHERE t.id = 1";
+		final String query = "SELECT t from MaintenanceProtocol t WHERE t.id = 1";
 		try {
 			em.createQuery(query).getSingleResult();
 		} catch (final NoResultException e) {
@@ -849,19 +856,19 @@ public class InitialData {
 								MaintenanceActivity.class).getResultList();
 
 				for (int i = 0; i < 4; ++i) {
-					em.persist(new MaintenanceProtocols(plans.get(0), entities
+					em.persist(new MaintenanceProtocol(plans.get(0), entities
 							.get(i), i + 1));
-					em.persist(new MaintenanceProtocols(plans.get(1), entities
+					em.persist(new MaintenanceProtocol(plans.get(1), entities
 							.get(i), i + 1));
 				}
 
-				em.persist(new MaintenanceProtocols(plans.get(0), entities
+				em.persist(new MaintenanceProtocol(plans.get(0), entities
 						.get(4), 5));
-				em.persist(new MaintenanceProtocols(plans.get(1), entities
+				em.persist(new MaintenanceProtocol(plans.get(1), entities
 						.get(5), 5));
 
 				// subprotocol activity
-				em.persist(new MaintenanceProtocols(plans.get(0), entities
+				em.persist(new MaintenanceProtocol(plans.get(0), entities
 						.get(6), 6));
 
 				em.flush();
@@ -1268,7 +1275,7 @@ public class InitialData {
 		materialCategoryTestData();
 		materialTestData();
 		facilityTestData();
-		// // TODO
+		// //
 		eiaTypeCategoryTestData();
 		eiaTypeTestData();
 		eiaTestData();

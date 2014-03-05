@@ -1,7 +1,7 @@
 package org.fourgeeks.gha.webclient.client.maintenanceplan.information;
 
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
-import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHASubTab;
 import org.fourgeeks.gha.webclient.client.maintenanceplan.MaintenancePlanPanel;
@@ -40,7 +40,7 @@ public class MaintenancePlanInformationSubTab extends GHASubTab implements
 	}
 
 	@Override
-	public void select(MaintenanceProtocols entity) {
+	public void select(MaintenanceProtocol entity) {
 		form.select(entity);
 	}
 

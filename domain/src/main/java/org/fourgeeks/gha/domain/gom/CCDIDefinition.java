@@ -5,28 +5,24 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
-import org.fourgeeks.gha.domain.AbstractEntity;
-import org.fourgeeks.gha.domain.enu.CCDIStatusEnum;
+import org.fourgeeks.gha.domain.AbstractCodeEntity;
 import org.fourgeeks.gha.domain.enu.CCDICodeTypeEnum;
+import org.fourgeeks.gha.domain.enu.CCDIStatusEnum;
 
 /**
  * @author emiliot
  * 
  */
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "code" }))
 @NamedQueries(value = { @NamedQuery(name = "CCDIDefinition.findByCode", query = "SELECT e from CCDIDefinition e WHERE e.code=:code") })
-public class CCDIDefinition extends AbstractEntity {
+public class CCDIDefinition extends AbstractCodeEntity {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private String code;
 	private String name;
 	private int length;
 	private int levels;
@@ -70,13 +66,6 @@ public class CCDIDefinition extends AbstractEntity {
 		this.type = type;
 		this.verification = verification;
 		this.verificationMethod = verificationMethod;
-	}
-
-	/**
-	 * @return the code
-	 */
-	public String getCode() {
-		return code;
 	}
 
 	/**
@@ -133,14 +122,6 @@ public class CCDIDefinition extends AbstractEntity {
 	 */
 	public boolean isVerification() {
 		return verification;
-	}
-
-	/**
-	 * @param code
-	 *            the code to set
-	 */
-	public void setCode(String code) {
-		this.code = code;
 	}
 
 	/**

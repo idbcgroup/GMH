@@ -7,7 +7,7 @@ import org.fourgeeks.gha.domain.Activity;
 import org.fourgeeks.gha.domain.enu.ActivityCategoryEnum;
 import org.fourgeeks.gha.domain.enu.TimePeriodEnum;
 import org.fourgeeks.gha.domain.gmh.MaintenanceActivity;
-import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
 
@@ -16,13 +16,13 @@ import org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord;
  * 
  */
 public class MaintenanceProtocolsRecord extends
-		GHAGridRecord<MaintenanceProtocols> {
-	private final MaintenanceProtocols entity;
+		GHAGridRecord<MaintenanceProtocol> {
+	private final MaintenanceProtocol entity;
 
 	/**
 	 * @param entity
 	 */
-	public MaintenanceProtocolsRecord(MaintenanceProtocols entity) {
+	public MaintenanceProtocolsRecord(MaintenanceProtocol entity) {
 		if (entity == null)
 			throw new IllegalArgumentException("The argument can't be null");
 
@@ -53,7 +53,7 @@ public class MaintenanceProtocolsRecord extends
 	 * @see org.fourgeeks.gha.webclient.client.UI.grids.GHAGridRecord#toEntity()
 	 */
 	@Override
-	public MaintenanceProtocols toEntity() {
+	public MaintenanceProtocol toEntity() {
 		return this.entity;
 	}
 

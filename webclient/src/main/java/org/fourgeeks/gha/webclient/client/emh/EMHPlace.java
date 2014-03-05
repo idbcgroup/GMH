@@ -6,7 +6,7 @@ import org.fourgeeks.gha.webclient.client.UI.exceptions.PermissionsNeededExcepti
 import org.fourgeeks.gha.webclient.client.UI.places.GHAPlaceHeader;
 import org.fourgeeks.gha.webclient.client.UI.places.NeedPermissionPlace;
 import org.fourgeeks.gha.webclient.client.UI.tabs.GHATab;
-import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabPanel;
+import org.fourgeeks.gha.webclient.client.UI.tabs.GHATabbedPanel;
 import org.fourgeeks.gha.webclient.client.emh.patient.PatientTab;
 
 import com.google.gwt.user.client.History;
@@ -18,7 +18,7 @@ import com.smartgwt.client.widgets.events.ClickHandler;
  * 
  */
 public class EMHPlace extends NeedPermissionPlace {
-	private final GHATabPanel tabPanel = new GHATabPanel(GHAStrings.get("emh"));
+	private final GHATabbedPanel tabPanel = new GHATabbedPanel(GHAStrings.get("emh"));
 
 	/**
 	 * @param token

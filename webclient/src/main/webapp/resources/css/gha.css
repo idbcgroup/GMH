@@ -195,7 +195,7 @@ body {
 
 .gha-tab-set{
 	height: 30px;
-	margin-bottom: 2px;
+/* 	margin-bottom: 2px; */
 }
 .gha-alert-label{
 font-weight: bold;
@@ -206,6 +206,7 @@ margin:2px;
 	padding-left: 6px;
 	color: #666666;
 	font-size: 12px;
+	text-transform:capitalize;
 	font-weight: bold;
 /* 	text-transform: capitalize; */
 /* 	line-height: 25px; */
@@ -337,6 +338,7 @@ input[type="text"]:disabled,.inputDisabled {
 	font-weight: bold;
 	color: black;
 	font-size: 14px;
+	text-transform: capitalize;
 }
 
 .gha-title-label {

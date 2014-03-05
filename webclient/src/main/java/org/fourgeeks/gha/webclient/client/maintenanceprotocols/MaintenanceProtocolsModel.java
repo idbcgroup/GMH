@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.fourgeeks.gha.domain.gmh.MaintenancePlan;
 import org.fourgeeks.gha.domain.gmh.MaintenanceProtocolStadisticData;
-import org.fourgeeks.gha.domain.gmh.MaintenanceProtocols;
+import org.fourgeeks.gha.domain.gmh.MaintenanceProtocol;
 import org.fourgeeks.gha.webclient.client.UI.GHAAsyncCallback;
 
 import com.google.gwt.core.shared.GWT;
@@ -32,7 +32,7 @@ public class MaintenanceProtocolsModel {
 	}
 
 	/**
-	 * Delete a group of {@link MaintenanceProtocols} entities (This mean unlink
+	 * Delete a group of {@link MaintenanceProtocol} entities (This mean unlink
 	 * the activities from the maintenance plan)
 	 * 
 	 * @param entities
@@ -40,13 +40,13 @@ public class MaintenanceProtocolsModel {
 	 * @param callback
 	 *            the response callback
 	 */
-	public static void delete(List<MaintenanceProtocols> entities,
+	public static void delete(List<MaintenanceProtocol> entities,
 			GHAAsyncCallback<Void> callback) {
 		service.delete(entities, callback);
 	}
 
 	/**
-	 * Delete a activity from the {@link MaintenanceProtocols} table given the
+	 * Delete a activity from the {@link MaintenanceProtocol} table given the
 	 * ID. (This mean unlink the activity from a maintenance plan)
 	 * 
 	 * @param id
@@ -59,7 +59,7 @@ public class MaintenanceProtocolsModel {
 	}
 
 	/**
-	 * Delete all the records in the {@link MaintenanceProtocols} table that are
+	 * Delete all the records in the {@link MaintenanceProtocol} table that are
 	 * associated with the {@link MaintenancePlan} entity. (This mean unlink all
 	 * the maintenance activities associated with the plan)
 	 * 
@@ -76,11 +76,11 @@ public class MaintenanceProtocolsModel {
 	 * @param plan
 	 * @param callback
 	 *            the response callback with a list of
-	 *            {@link MaintenanceProtocols} with the (MaintenanceActivity,
+	 *            {@link MaintenanceProtocol} with the (MaintenanceActivity,
 	 *            MaintenancePlan) pair
 	 */
 	public static void findByMaintenancePlan(MaintenancePlan plan,
-			GHAAsyncCallback<List<MaintenanceProtocols>> callback) {
+			GHAAsyncCallback<List<MaintenanceProtocol>> callback) {
 		service.findByMaintenancePlan(plan, callback);
 	}
 
@@ -107,23 +107,23 @@ public class MaintenanceProtocolsModel {
 	 *            the entity whit the associated plan and activity
 	 * 
 	 * @param callback
-	 *            the response callback with a {@link MaintenanceProtocols}
+	 *            the response callback with a {@link MaintenanceProtocol}
 	 *            entity that have the associated activity and plan
 	 */
-	public static void save(MaintenanceProtocols entity,
-			GHAAsyncCallback<MaintenanceProtocols> callback) {
+	public static void save(MaintenanceProtocol entity,
+			GHAAsyncCallback<MaintenanceProtocol> callback) {
 		service.save(entity, callback);
 	}
 
 	/**
-	 * Update the given {@link MaintenanceProtocols} entities
+	 * Update the given {@link MaintenanceProtocol} entities
 	 * 
 	 * @param entities
-	 *            list with the {@link MaintenanceProtocols} entities to update
+	 *            list with the {@link MaintenanceProtocol} entities to update
 	 * @param callback
 	 *            the response callback
 	 */
-	public static void update(List<MaintenanceProtocols> entities,
+	public static void update(List<MaintenanceProtocol> entities,
 			GHAAsyncCallback<Void> callback) {
 		service.update(entities, callback);
 	}
