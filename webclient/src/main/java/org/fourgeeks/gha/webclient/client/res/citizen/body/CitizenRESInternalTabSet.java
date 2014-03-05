@@ -28,7 +28,6 @@ public class CitizenRESInternalTabSet extends GHAInternalTabSet implements Citiz
 	 */
 	public CitizenRESInternalTabSet() {
 		super();
-		setHeight("*");
 
 		hideables.add(citizenRESBasicInformationTab);
 		hideables.add(citizenRESDemograficSubTab);
