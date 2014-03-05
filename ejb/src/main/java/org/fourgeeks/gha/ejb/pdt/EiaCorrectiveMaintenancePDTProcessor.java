@@ -1,7 +1,7 @@
 package org.fourgeeks.gha.ejb.pdt;
 
 import java.sql.Timestamp;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -44,7 +44,7 @@ public class EiaCorrectiveMaintenancePDTProcessor implements PDTProcessor {
 
 	@Override
 	public void processMessage(HashMap<String, Object> params) {
-		long time = (new Date()).getTime();
+		long time = Calendar.getInstance().getTimeInMillis();
 
 		try {
 			Eia eia = (Eia) params.get("eia");
@@ -61,6 +61,7 @@ public class EiaCorrectiveMaintenancePDTProcessor implements PDTProcessor {
 			cm.setDamageReport(report);
 			cm.setDescription(report.getDamageMotive());
 			cm.setProvider(bsp);
+			cm.setScheduledDate(new java.sql.Date(time));
 			cm = maintenanceService.saveCorrectiveMaintenance(cm);
 
 			// se crea la orden de servicio de mantenimiento
