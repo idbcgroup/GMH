@@ -1,12 +1,13 @@
 package org.fourgeeks.gha.webclient.client.eia.reports;
 
+import org.fourgeeks.gha.webclient.client.UI.GHAStrings;
 import org.fourgeeks.gha.webclient.client.UI.GHAUiHelper;
 import org.fourgeeks.gha.webclient.client.UI.icons.GHAImgButton;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.ClosableListener;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideCloseAction;
 import org.fourgeeks.gha.webclient.client.UI.interfaces.HideableListener;
-import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASectionForm;
 import org.fourgeeks.gha.webclient.client.UI.superclasses.GHAFormLayout;
+import org.fourgeeks.gha.webclient.client.UI.superclasses.GHASectionForm;
 
 import com.google.gwt.safehtml.shared.UriUtils;
 import com.google.gwt.user.client.Window;
@@ -50,7 +51,7 @@ ClosableListener, HideableListener {
 		listEiaTypeCompsReportForm = new EIAReportListEiaTypeCompsForm();
 
 		// CREO EL SECTION FORM DONDE VAN A IR LOS FORMULARIOS
-		sectionForm = new GHASectionForm("Opciones");
+		sectionForm = new GHASectionForm(GHAStrings.get("report-and-planification"));
 		sectionForm.addSection("Edo. y Ubic.", edoUbicReportForm);
 		sectionForm.addSection("Detalles de Equipos", detalleEquiposReportForm);
 		sectionForm.addSection("Listado Tipos de Equipo",
@@ -61,15 +62,15 @@ ClosableListener, HideableListener {
 		sectionForm.openFirst();
 
 		// CREO EL SIDEBAR
-		VLayout sideBarLayout = GHAUiHelper.createBar(
+		final VLayout sideBarLayout = GHAUiHelper.createBar(
 				// boton generar reporte
 				new GHAImgButton(PATH_IMG_PRINT_BUTTON, new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						Canvas form = sectionForm.getSelectedOptionForm();
-						GHAReportForm reportForm = (GHAReportForm) form;
+						final Canvas form = sectionForm.getSelectedOptionForm();
+						final GHAReportForm reportForm = (GHAReportForm) form;
 
-						String uri = reportForm.getReportURI();
+						final String uri = reportForm.getReportURI();
 						Window.open(UriUtils.sanitizeUri(uri), "_blank", "");
 					}
 				}),
@@ -77,14 +78,14 @@ ClosableListener, HideableListener {
 				new GHAImgButton(PATH_IMG_CLEAN_BUTTON, new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
-						Canvas form = sectionForm.getSelectedOptionForm();
-						GHAReportForm reportForm = (GHAReportForm) form;
+						final Canvas form = sectionForm.getSelectedOptionForm();
+						final GHAReportForm reportForm = (GHAReportForm) form;
 
 						reportForm.cleanItems();
 					}
 				}));
 
-		HLayout formPanel = new HLayout();
+		final HLayout formPanel = new HLayout();
 		formPanel.addMembers(sectionForm, sideBarLayout);
 
 		addMember(formPanel);

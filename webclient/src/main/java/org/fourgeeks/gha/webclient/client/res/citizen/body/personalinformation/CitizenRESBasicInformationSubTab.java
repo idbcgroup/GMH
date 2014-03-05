@@ -19,7 +19,7 @@ public class CitizenRESBasicInformationSubTab extends GHASubTab {
 
 	private GHASectionForm sectionForm;
 	{
-		sectionForm = new GHASectionForm("Opciones");
+		sectionForm = new GHASectionForm(GHAStrings.get("citizen"));
 	}
 	/**
 	 * @param title

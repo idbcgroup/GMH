@@ -446,7 +446,6 @@ EiaSelectionProducer {
 	}
 
 	/**
-	 * @param eiaType
 	 * 
 	 */
 	public EIAForm() {
@@ -466,7 +465,6 @@ EiaSelectionProducer {
 		// garantiasMantForm = getGarantiasMantForm();
 
 		sectionForm.addSection("Información Básica", infoBasicaForm);
-		sectionForm.addSectionSeparator();
 		sectionForm.addSection("Adq. y garantias", adquisicionForm);
 		sectionForm.addSection("Ubicación", ubicacionForm);
 		sectionForm.addSection("Costos", costosForm);

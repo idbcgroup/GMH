@@ -52,8 +52,9 @@ ClosableListener {
 		setMinWidth(GHAUiHelper.MIN_WIDTH);
 		setMembersMargin(10);
 
+
 		sideOptions.addMember(new SectionFormSideLabel(sideOptionsTitle));
-		addSectionSeparator();
+		sideOptions.addMember(GHAUiHelper.verticalGraySeparator("2px"));
 		addMember(sideOptions);
 		addMember(GHAUiHelper.horizontalGraySeparator("3px"));
 		addMember(mainSection);
@@ -124,7 +125,7 @@ ClosableListener {
 	 * 
 	 */
 	public void addSectionSeparator() {
-		sideOptions.addMember(GHAUiHelper.verticalGraySeparator("2px"));
+		sideOptions.addMember(GHAUiHelper.verticalGraySeparator("1px"));
 	}
 
 	@Override
@@ -199,7 +200,7 @@ ClosableListener {
 
 		public SectionFormSideLabel(String name){
 			super(name);
-			setStylePrimaryName("side-option");
+			setStylePrimaryName("side-option-main");
 			setHeight("30px");
 		}
 

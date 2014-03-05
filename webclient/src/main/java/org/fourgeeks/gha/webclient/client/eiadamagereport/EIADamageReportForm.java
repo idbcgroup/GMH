@@ -92,7 +92,7 @@ EIASelectionListener, EiaDamageReportSelectionProducer {
 	private Eia eia;
 
 	{ // Global
-		sectionForm = new GHASectionForm("Opciones");
+		sectionForm = new GHASectionForm(GHAStrings.get("reports"));
 		listeners = new ArrayList<EiaDamageReportSelectionListener>();
 
 		// report data Form Items
@@ -182,7 +182,6 @@ EIASelectionListener, EiaDamageReportSelectionProducer {
 		reportForm = getReportForm();
 
 		sectionForm.addSection("Información Básica", infoBasicaForm);
-		sectionForm.addSectionSeparator();
 		sectionForm.addSection("Garantias", garantiasForm);
 		sectionForm.addSection("Ubicación", ubicacionForm);
 		sectionForm.addSection("Datos Reporte", reportForm);

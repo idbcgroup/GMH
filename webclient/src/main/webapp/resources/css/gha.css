@@ -558,6 +558,13 @@ table.GHAupload-button tbody tr td form div.upld-form-elements div.DecoratedFile
 	font-weight: bold;
 }
 
+.side-option-main {
+	height: 10px;
+	text-align: left;
+	font-weight: bolder;
+	margin-right: 5px;
+}
+
 .side-option {
 	height: 10px;
 	text-align: left;
@@ -566,7 +573,7 @@ table.GHAupload-button tbody tr td form div.upld-form-elements div.DecoratedFile
 }
 
 .side-option-over {
-	font-weight: bolder;
+	font-weight: bold;
 	background-color: #CECECE;
 }
 
