@@ -16,7 +16,7 @@ import com.smartgwt.client.widgets.events.ClickHandler;
 
 /**
  * @author jfuentes
- *
+ * 
  */
 public class RESTabbedPanel extends GHATabbedPanel {
 
@@ -24,55 +24,58 @@ public class RESTabbedPanel extends GHATabbedPanel {
 			GHAStrings.get("citizen-new"));
 	private final CitizenSearchForm citizenSearchForm = new CitizenSearchForm(
 			GHAStrings.get("citizen-search"));
+
 	/**
 	 * @param title
-	 * @param place TODO
+	 * @param place
+	 *            TODO
 	 */
 	public RESTabbedPanel(String title, final GHAPlace place) {
 		super(title);
 
-		citizenSearchForm.addCitizenSelectionListener(new CitizenSelectionListener() {
-			@Override
-			public void onCitizenSelect(Citizen citizen) {
-				place.updateToken("res/" + citizen.getId());
-			}
-		});
-		citizenAddForm.addCitizenSelectionListener(new CitizenSelectionListener() {
-			@Override
-			public void onCitizenSelect(Citizen citizen) {
-				place.updateToken("res/" + citizen.getId());
-			}
-		});
+		citizenSearchForm
+				.addCitizenSelectionListener(new CitizenSelectionListener() {
+					@Override
+					public void onCitizenSelect(Citizen citizen) {
+						place.updateToken("res/" + citizen.getId());
+					}
+				});
+		citizenAddForm
+				.addCitizenSelectionListener(new CitizenSelectionListener() {
+					@Override
+					public void onCitizenSelect(Citizen citizen) {
+						place.updateToken("res/" + citizen.getId());
+					}
+				});
 
-		addHeaderOption(GHAStrings.get("citizen-search"),
-				"buscarButton", new ClickHandler() {
+		addHeaderOption(GHAStrings.get("citizen-search"), "buscarButton",
+				new ClickHandler() {
 
-			@Override
-			public void onClick(ClickEvent event) {
-				citizenSearchForm.open();
-			}
-		});
-		addHeaderOption(GHAStrings.get("citizen-new"),
-				"agregarButton", new ClickHandler() {
+					@Override
+					public void onClick(ClickEvent event) {
+						citizenSearchForm.open();
+					}
+				});
+		addHeaderOption(GHAStrings.get("citizen-new"), "agregarButton",
+				new ClickHandler() {
 
-			@Override
-			public void onClick(ClickEvent event) {
-				citizenAddForm.open();
-			}
-		});
+					@Override
+					public void onClick(ClickEvent event) {
+						// citizenAddForm.open();
+
+					}
+				});
 		addHeaderOption(GHAStrings.get("close"), "cerrarButton",
 				new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				try {
-					GHAPlaceSet.closeCurrentPlace(HideCloseAction.SAVE);
-				} catch (final UnavailableToCloseException e) {
-					return;
-				}
-				// History.newItem("res/" + Math.round(Math.random() *
-				// 10));
-			}
-		});
+					@Override
+					public void onClick(ClickEvent event) {
+						try {
+							GHAPlaceSet.closeCurrentPlace(HideCloseAction.SAVE);
+						} catch (final UnavailableToCloseException e) {
+							return;
+						}
+					}
+				});
 	}
 
 }

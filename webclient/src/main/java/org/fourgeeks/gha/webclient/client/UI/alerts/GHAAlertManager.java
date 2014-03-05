@@ -24,7 +24,6 @@ import org.fourgeeks.gha.webclient.client.message.GWTMessageService;
 import org.fourgeeks.gha.webclient.client.message.GWTMessageServiceAsync;
 
 import com.google.gwt.core.shared.GWT;
-import com.google.gwt.user.client.Window;
 import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.util.SC;
 import com.smartgwt.client.widgets.Button;
@@ -475,7 +474,6 @@ public class GHAAlertManager {
 						messageDialog.close();
 					}
 				});
-				Window.alert("came3");
 				messageDialog.show();
 			}
 		});

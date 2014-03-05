@@ -246,14 +246,16 @@ public class InitialData {
 	 * 
 	 *
 	 */
-	// TODO emilio tirador
 	private void ccdiLevelDefinitionTestData() {
 		InputStream in = null;
 		CSVReader reader = null;
 
-		final String query = "SELECT t from CCDILevelDefinition t WHERE t.id = 1";
+		final String query = "SELECT COUNT(t) from CCDILevelDefinition t";
 		try {
-			em.createQuery(query).getSingleResult();
+			int count = ((Number) em.createQuery(query).getSingleResult())
+					.intValue();
+			if (count <= 0)
+				throw new NoResultException();
 		} catch (final NoResultException e) {
 			try {
 				logger.info("creating test ccdiLevelDefinition");
@@ -319,9 +321,12 @@ public class InitialData {
 		InputStream in = null;
 		CSVReader reader = null;
 
-		final String query = "SELECT t from CCDILevelValue t WHERE t.id = 1";
+		final String query = "SELECT COUNT(t) from CCDILevelValue t";
 		try {
-			em.createQuery(query).getSingleResult();
+			int count = ((Number) em.createQuery(query).getSingleResult())
+					.intValue();
+			if (count <= 0)
+				throw new NoResultException();
 		} catch (final NoResultException e) {
 			try {
 				logger.info("creating test ccdiLevelValue");
@@ -336,10 +341,8 @@ public class InitialData {
 							|| strings[0].startsWith("//"))
 						continue;
 
-					final CCDIDefinition definition = em
-							.createNamedQuery("CCDIDefinition.findByCode",
-									CCDIDefinition.class)
-							.setParameter("code", strings[0]).getSingleResult();
+					final CCDIDefinition definition = em.find(
+							CCDIDefinition.class, strings[0]);
 					final CCDILevelDefinition levelDefinition = em
 							.createNamedQuery(
 									"CCDILevelDefinition.findByLevel",
@@ -352,10 +355,7 @@ public class InitialData {
 					levelValue.setLevelDefinition(levelDefinition);
 
 					final CCDILevelValue parentValue = strings[2].equals("") ? null
-							: em.createNamedQuery("CCDILevelValue.findByCode",
-									CCDILevelValue.class)
-									.setParameter("code", strings[2])
-									.getSingleResult();
+							: em.find(CCDILevelValue.class, strings[2]);
 					levelValue.setParentValue(parentValue);
 					levelValue.setName(strings[3]);
 					levelValue.setCode(strings[4]);
@@ -394,9 +394,12 @@ public class InitialData {
 		InputStream in = null;
 		CSVReader reader = null;
 
-		final String query = "SELECT t from CCDIDefinition t WHERE t.id = 1";
+		final String query = "SELECT COUNT(t) from CCDIDefinition t";
 		try {
-			em.createQuery(query).getSingleResult();
+			int count = ((Number) em.createQuery(query).getSingleResult())
+					.intValue();
+			if (count <= 0)
+				throw new NoResultException();
 		} catch (final NoResultException e) {
 			try {
 				logger.info("creating test ccdiDefinition");
@@ -519,18 +522,23 @@ public class InitialData {
 	}
 
 	private void eiaTypeCategoryTestData() {
-		final String query = "SELECT t from EiaTypeCategory t WHERE t.id = 1";
+		final String query = "SELECT COUNT(t) from EiaTypeCategory t";
 		try {
-			em.createQuery(query).getSingleResult();
+			int count = ((Number) em.createQuery(query).getSingleResult())
+					.intValue();
+			if (count <= 0)
+				throw new NoResultException();
 		} catch (final NoResultException e) {
 			try {
 				logger.info("Creating test data: EiaTypeCategory");
 				final List<CCDILevelValue> ccdiCategories = em
-						.createNamedQuery("CCDILevelValue.findAll",
-								CCDILevelValue.class).getResultList();
+						.createNamedQuery(
+								"CCDILevelValue.findAllByDefinitionCode",
+								CCDILevelValue.class)
+						.setParameter("code", "Equipos").getResultList();
 				for (final CCDILevelValue ccdi : ccdiCategories) {
 					if (!ccdi.getLevelDefinition().getDefinition().getCode()
-							.equalsIgnoreCase("EQUIPOS"))
+							.equals("Equipos"))
 						continue;
 					final EiaTypeCategory category = new EiaTypeCategory();
 					category.setName(ccdi.getName());
@@ -573,10 +581,8 @@ public class InitialData {
 					eiaType.setName(strings[2]);
 					eiaType.setMobility(EiaMobilityEnum.values()[Integer
 							.parseInt(strings[3])]);
-					eiaType.setEiaTypeCategory(em
-							.createNamedQuery("EiaTypeCategory.findByCode",
-									EiaTypeCategory.class)
-							.setParameter("code", strings[4]).getSingleResult());
+					eiaType.setEiaTypeCategory(em.find(EiaTypeCategory.class,
+							strings[4]));
 					eiaType.setSubtype(EiaSubTypeEnum.values()[Integer
 							.parseInt(strings[5])]);
 					eiaType.setModel(strings[6]);
